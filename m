@@ -1,77 +1,102 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <prvs=454139529f=cov@fb.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=454139529f=cov@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="j0o9JXZZ"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="OGf1Q30M"; dkim-atps=neutral
+X-Greylist: delayed 1947 seconds by postgrey-1.36 at bilbo;
+ Wed, 03 Jan 2018 13:55:14 AEDT
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zB1CJ2sFbzF0Wq
- for <openbmc@lists.ozlabs.org>; Wed,  3 Jan 2018 04:24:44 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- w02HOC3V019417
- for <openbmc@lists.ozlabs.org>; Tue, 2 Jan 2018 12:24:41 -0500
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2f88q0x67d-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 02 Jan 2018 12:24:41 -0500
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 2 Jan 2018 12:24:40 -0500
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 2 Jan 2018 12:24:38 -0500
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w02HOcmO47775980; Tue, 2 Jan 2018 17:24:38 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D76B912403D;
- Tue,  2 Jan 2018 12:21:32 -0500 (EST)
-Received: from [9.41.241.240] (unknown [9.41.241.240])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 59113124037;
- Tue,  2 Jan 2018 12:21:32 -0500 (EST)
-Subject: Re: [PATCH linux dev-4.10] drivers: fsi: SBEFIFO: switch to workqueue
- instead of timer
-To: Joel Stanley <joel@jms.id.au>, npiggin@gmail.com
-Cc: Andrew Jeffery <andrew@aj.id.au>, "Edward A. James" <eajames@us.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <1513628014-16656-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8XeFN63xR4BiGUM+xwVvMOf=sLUr81SJ-BQYVR_McPaASg@mail.gmail.com>
- <CACPK8XcFMMippVPMuNvv_JnJjX4BTreNy28Ue01JSaiQSUNoQQ@mail.gmail.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Tue, 2 Jan 2018 11:24:37 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.4.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XcFMMippVPMuNvv_JnJjX4BTreNy28Ue01JSaiQSUNoQQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zBFsZ4gqKzF0Pf
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Jan 2018 13:55:13 +1100 (AEDT)
+Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ w032JIGi018466; Tue, 2 Jan 2018 18:22:42 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : content-type : content-transfer-encoding :
+ mime-version; s=facebook; bh=bvFA1zyPPrB3EB/PTPmye0KN9GkL5FkwnZ4vr7LaFho=;
+ b=j0o9JXZZRZqBbYr366seGTf3d9K+qe5nyNL/+aY9mtz5YEe7JrZGv9STO7gDM7vF5a3G
+ 0z1VV4NwGOfvh9W2+1rTdF9MYKTSpf0lE7s4YcgBLwwXZAFKK2TwEEjjDdRC6ltzP/Sc
+ A9+u9TY1dw9z+nUgOeIj0eijwcApOnCw+e0= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2f8kqegb1t-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 02 Jan 2018 18:22:42 -0800
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.30) with Microsoft SMTP
+ Server (TLS) id 14.3.361.1; Tue, 2 Jan 2018 21:22:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=bvFA1zyPPrB3EB/PTPmye0KN9GkL5FkwnZ4vr7LaFho=;
+ b=OGf1Q30MvrCZ8KMtXOYHChRCsNCDE01TCQ8kWWmva7oeMHeZr6fwRdop+/v4QkphQMewU0PDl3pc6K30vigciQqCVlOcgwAr7MNtIXKzNYjL+YoDtpdFoZgjYDmHWc9p3Pbo7f+U02M9GqrVcXQBaaHfQkJtblm7/0h33/Iozc8=
+Received: from CY1PR15MB0077.namprd15.prod.outlook.com (10.162.45.27) by
+ CY1PR15MB0080.namprd15.prod.outlook.com (10.162.46.12) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.20.366.8; Wed, 3 Jan 2018 02:22:39 +0000
+Received: from CY1PR15MB0077.namprd15.prod.outlook.com ([10.162.45.27]) by
+ CY1PR15MB0077.namprd15.prod.outlook.com ([10.162.45.27]) with mapi id
+ 15.20.0366.007; Wed, 3 Jan 2018 02:22:39 +0000
+From: Christopher Covington <cov@fb.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "Michael_E_Brown@Dell.com" <Michael_E_Brown@Dell.com>, "venture@google.com"
+ <venture@google.com>
+Subject: Re: Metrics vs Logging, Continued
+Thread-Topic: Metrics vs Logging, Continued
+Thread-Index: AQHThC5V+HlUW7hNdEGfHqxadxe+JA==
+Date: Wed, 3 Jan 2018 02:22:39 +0000
+Message-ID: <CY1PR15MB0077EC76B1E96D62AF70ECCACB1E0@CY1PR15MB0077.namprd15.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18010217-2213-0000-0000-00000252B145
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008306; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000244; SDB=6.00969245; UDB=6.00490780; IPR=6.00749220; 
- BA=6.00005764; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018833; XFM=3.00000015;
- UTC=2018-01-02 17:24:40
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18010217-2214-0000-0000-0000589CB781
-Message-Id: <1a83aebf-5cde-9d4e-db6d-b48b80ea61be@linux.vnet.ibm.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [199.201.64.132]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY1PR15MB0080;
+ 7:fSYpv61iTsUbhJPPI7oiZdDFUJh29HBCdXxYPH70+BlGJayPIlynMM/gsCtiYxFjH9N9rSiMturRcLvJm+Ux/pnDrZR/MGSDvzLpOkc0qFOG9ZRX457XY6cliPkOraabgPw6z9fHX1k/vaHg4kMjDiOg0vwi/jxSG3cup3/Us9x3piCW8B5vhPW56jRZrW/QJQAfw//XSVz6Pzi49xdbigJkSb84ahY+QKCeHWibiNZBnukqE7xQiC29XvpW7UK4;
+ 20:DJLaJdgV/XIxlMCZ+42HGsER9yYR2MTChtwIIkvSP4oYeAUbqFP9s/e8BulsnWLViRRPV1hitLlEX5ogzBckFUrlqyJ6q7k4ihCMUcLFhUkgpYTWFvrmo/k0IZowjaRk6F94WX46Qx8MsqETx7FTJ2O3TjcufHF/nSABBg1PH4Q=
+x-ms-exchange-antispam-srfa-diagnostics: SSOS;
+x-ms-office365-filtering-correlation-id: 3b0d644d-e605-4ecf-fdb4-08d55250dc8d
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(4534020)(4602075)(4627115)(201703031133081)(201702281549075)(5600026)(4604075)(3008032)(2017052603307)(7153060);
+ SRVR:CY1PR15MB0080; 
+x-ms-traffictypediagnostic: CY1PR15MB0080:
+x-microsoft-antispam-prvs: <CY1PR15MB008011B1BD46B77A69C32B80CB1E0@CY1PR15MB0080.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(158342451672863)(278428928389397)(72170088055959)(166708455590820)(81227570615382);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(6040470)(2401047)(5005006)(8121501046)(3231023)(11241501184)(944501075)(93006095)(93001095)(3002001)(10201501046)(6041268)(20161123558120)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(20161123564045)(6072148)(201708071742011);
+ SRVR:CY1PR15MB0080; BCL:0; PCL:0; RULEID:(100000803101)(100110400095);
+ SRVR:CY1PR15MB0080; 
+x-forefront-prvs: 0541031FF6
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(346002)(396003)(39380400002)(366004)(376002)(39860400002)(189003)(199004)(51914003)(2501003)(2201001)(14454004)(74316002)(316002)(7696005)(305945005)(77096006)(33656002)(25786009)(6436002)(7736002)(2900100001)(478600001)(3846002)(6116002)(110136005)(966005)(53936002)(229853002)(86362001)(81156014)(6246003)(97736004)(106356001)(105586002)(9686003)(6306002)(8936002)(3660700001)(6506007)(8676002)(66066001)(55016002)(5660300001)(102836004)(8666007)(2906002)(68736007)(99286004)(3280700002)(81166006)(42262002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY1PR15MB0080;
+ H:CY1PR15MB0077.namprd15.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ MX:1; A:1; LANG:en; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: Klznij/AXV0ma2COJqd9cb7lF3IaecZDTVYY2RTa33P452C7JoPNvZRfsMFltzsKeufztptRiBMnfyamqQGHuw==
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b0d644d-e605-4ecf-fdb4-08d55250dc8d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2018 02:22:39.3010 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR15MB0080
+X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-01-02_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1801020251
+ definitions=2018-01-03_01:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -83,229 +108,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Jan 2018 17:24:44 -0000
+X-List-Received-Date: Wed, 03 Jan 2018 02:55:15 -0000
 
+Hi Michael, Patrick,
 
+I probably should have hopped on this list months ago. Thanks for your pati=
+ence as I come up to
+speed on your code, configure my mail client to suit this list, and so on.
 
-On 12/19/2017 09:06 PM, Joel Stanley wrote:
-> On Wed, Dec 20, 2017 at 1:27 PM, Joel Stanley <joel@jms.id.au> wrote:
->> On Tue, Dec 19, 2017 at 6:43 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->>> From: "Edward A. James" <eajames@us.ibm.com>
->>>
->>> Some systems are experiencing scheduling problems; mod_timer can take up
->>> to several seconds before the timer_function is executed, even if passed
->>> the current jiffies.
->> How did you work out that the timer wasn't firing?
->>
->> Can you describe the other tests you have done?
->>
->> It's not recommended to paper over something going wrong by changing
->> over to a workqueue.
-> Nick pointed me to this fix, which was merged in 4.13:
->
->   2fe59f507a6 ("timers: Fix excessive granularity of new timers after a
-> nohz idle")
->
-> Can you cherry pick that into your tree and report the numbers that
-> you see before and after the patch?
+> Prometheus metrics is fundamentally a pull model, not a push model. If yo=
+u have a pull model,
+> it greatly simplifies the dependencies:
 
-Just tried the fix out. I didn't see any difference unfortunately. I 
-still get at least 250ms between calling mod_timer and the timer 
-function starting. Just measuring with ftrace.
+>	- Pull metrics internally or externally (daemons listen on 127.0.0.1, opt=
+ionally reverse proxy
+>	  that through your web service).
 
-Thanks for the suggestion. It's possible the IPMI latency improved with 
-the patch, but I don't know how to test that part.
+An option for on-demand metrics (as opposed to periodic, always-on monitori=
+ng) is nice. I would
+use it to more highly scrutinize upgrades in progress for example.
+
+>	- Optionally run the metrics server or not depending on configuration.
+
+I agree it should fail gracefully when there is no server present, and thin=
+k this generalizes to
+other network services, even NTP and DHCP.
+
+>	- Pull model naturally self-limits in performance-limited cases... you do=
+n=92t have a thundering
+>	  herd of daemons trying to push metrics. In case metrics server gets loa=
+ded it will naturally
+>	  slow down polls to backend daemons.
+
+At large scale you'll either need multiple pollers or load-balancing for th=
+e receiving server. I'm
+not sure what the best solution is. Is load-balancing perhaps more commonpl=
+ace?
+
+> But what I think would be pretty nice is if you could point graphana/Prom=
+etheus towards every
+> BMC on your network to get nice graphs of temp, fan speeds, etc.
+
+For metrics/counters, I've been centrally pulling/polling from a fleet runn=
+ing the following RESTful
+API:
+
+https://github.com/facebook/openbmc/tree/helium/common/recipes-rest/rest-ap=
+i/files
+
+But polling the whole fleet doesn't seem ideal, so I'm wondering about a pu=
+sh model.
+
+Prometheus looks interesting, thanks for the pointer. It does seem to suppo=
+rt a push model
+https://prometheus.io/docs/instrumenting/pushing/
+
+Do Go language applications run reasonably well on ASpeed 2400 SoCs?
+
+I've heard that OpenWRT uses collectd: https://wiki.openwrt.org/doc/howto/s=
+tatistic.collectd
 
 Thanks,
-Eddie
-
->
->>> Work around this by using sbefifo's own workqueue.
->>>
->>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
->>> ---
->>>   drivers/fsi/fsi-sbefifo.c | 54 ++++++++++++++++++++++++++++-------------------
->>>   1 file changed, 32 insertions(+), 22 deletions(-)
->>>
->>> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
->>> index 0697a10..7b6842a 100644
->>> --- a/drivers/fsi/fsi-sbefifo.c
->>> +++ b/drivers/fsi/fsi-sbefifo.c
->>> @@ -29,9 +29,9 @@
->>>   #include <linux/sched.h>
->>>   #include <linux/slab.h>
->>>   #include <linux/spinlock.h>
->>> -#include <linux/timer.h>
->>>   #include <linux/uaccess.h>
->>>   #include <linux/wait.h>
->>> +#include <linux/workqueue.h>
->>>
->>>   /*
->>>    * The SBEFIFO is a pipe-like FSI device for communicating with
->>> @@ -57,7 +57,7 @@
->>>   #define SBEFIFO_MAX_RESCHDULE  msecs_to_jiffies(5000)
->>>
->>>   struct sbefifo {
->>> -       struct timer_list poll_timer;
->>> +       struct delayed_work work;
->>>          struct fsi_device *fsi_dev;
->>>          struct miscdevice mdev;
->>>          wait_queue_head_t wait;
->>> @@ -99,6 +99,8 @@ struct sbefifo_client {
->>>          unsigned long f_flags;
->>>   };
->>>
->>> +static struct workqueue_struct *sbefifo_wq;
->>> +
->>>   static DEFINE_IDA(sbefifo_ida);
->>>
->>>   static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
->>> @@ -337,7 +339,7 @@ static void sbefifo_client_release(struct kref *kref)
->>>                           */
->>>                          set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
->>>                          sbefifo_get(sbefifo);
->>> -                       if (mod_timer(&client->dev->poll_timer, jiffies))
->>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
->>>                                  sbefifo_put(sbefifo);
->>>                  }
->>>          }
->>> @@ -374,10 +376,11 @@ static struct sbefifo_xfr *sbefifo_next_xfr(struct sbefifo *sbefifo)
->>>          return NULL;
->>>   }
->>>
->>> -static void sbefifo_poll_timer(unsigned long data)
->>> +static void sbefifo_worker(struct work_struct *work)
->>>   {
->>>          static const unsigned long EOT_MASK = 0x000000ff;
->>> -       struct sbefifo *sbefifo = (void *)data;
->>> +       struct delayed_work *dwork = to_delayed_work(work);
->>> +       struct sbefifo *sbefifo = container_of(dwork, struct sbefifo, work);
->>>          struct sbefifo_buf *rbuf, *wbuf;
->>>          struct sbefifo_xfr *xfr, *tmp;
->>>          struct sbefifo_buf drain;
->>> @@ -393,6 +396,7 @@ static void sbefifo_poll_timer(unsigned long data)
->>>          if (!xfr)
->>>                  goto out_unlock;
->>>
->>> +again:
->>>          rbuf = xfr->rbuf;
->>>          wbuf = xfr->wbuf;
->>>
->>> @@ -414,9 +418,8 @@ static void sbefifo_poll_timer(unsigned long data)
->>>                  devn = sbefifo_dev_nwwriteable(sts);
->>>                  if (devn == 0) {
->>>                          /* No open slot for write.  Reschedule. */
->>> -                       sbefifo->poll_timer.expires = jiffies +
->>> -                               SBEFIFO_RESCHEDULE;
->>> -                       add_timer(&sbefifo->poll_timer);
->>> +                       queue_delayed_work(sbefifo_wq, &sbefifo->work,
->>> +                                          SBEFIFO_RESCHEDULE);
->>>                          goto out_unlock;
->>>                  }
->>>
->>> @@ -468,9 +471,8 @@ static void sbefifo_poll_timer(unsigned long data)
->>>                          }
->>>
->>>                          /* No data yet.  Reschedule. */
->>> -                       sbefifo->poll_timer.expires = jiffies +
->>> -                               SBEFIFO_RESCHEDULE;
->>> -                       add_timer(&sbefifo->poll_timer);
->>> +                       queue_delayed_work(sbefifo_wq, &sbefifo->work,
->>> +                                          SBEFIFO_RESCHEDULE);
->>>                          goto out_unlock;
->>>                  } else {
->>>                          xfr->wait_data_timeout = 0;
->>> @@ -516,10 +518,12 @@ static void sbefifo_poll_timer(unsigned long data)
->>>                  }
->>>                  INIT_LIST_HEAD(&sbefifo->xfrs);
->>>
->>> -       } else if (eot && sbefifo_next_xfr(sbefifo)) {
->>> -               sbefifo_get(sbefifo);
->>> -               sbefifo->poll_timer.expires = jiffies;
->>> -               add_timer(&sbefifo->poll_timer);
->>> +       } else if (eot) {
->>> +               xfr = sbefifo_next_xfr(sbefifo);
->>> +               if (xfr) {
->>> +                       wake_up_interruptible(&sbefifo->wait);
->>> +                       goto again;
->>> +               }
->>>          }
->>>
->>>          sbefifo_put(sbefifo);
->>> @@ -638,7 +642,7 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
->>>                           * Fill the read buffer back up.
->>>                           */
->>>                          sbefifo_get(sbefifo);
->>> -                       if (mod_timer(&client->dev->poll_timer, jiffies))
->>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
->>>                                  sbefifo_put(sbefifo);
->>>                  } else {
->>>                          list_del(&xfr->client);
->>> @@ -721,7 +725,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
->>>                                                                   &n))) {
->>>                          set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
->>>                          sbefifo_get(sbefifo);
->>> -                       if (mod_timer(&sbefifo->poll_timer, jiffies))
->>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
->>>                                  sbefifo_put(sbefifo);
->>>
->>>                          ret = -ERESTARTSYS;
->>> @@ -741,7 +745,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
->>>                              n)) {
->>>                                  set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
->>>                                  sbefifo_get(sbefifo);
->>> -                               if (mod_timer(&sbefifo->poll_timer, jiffies))
->>> +                               if (!queue_work(sbefifo_wq,
->>> +                                               &sbefifo->work.work))
->>>                                          sbefifo_put(sbefifo);
->>>                                  ret = -EFAULT;
->>>                                  goto out;
->>> @@ -768,7 +773,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
->>>                   * Drain the write buffer.
->>>                   */
->>>                  sbefifo_get(sbefifo);
->>> -               if (mod_timer(&client->dev->poll_timer, jiffies))
->>> +               if (!queue_work(sbefifo_wq, &sbefifo->work.work))
->>>                          sbefifo_put(sbefifo);
->>>          }
->>>
->>> @@ -928,8 +933,7 @@ static int sbefifo_probe(struct device *dev)
->>>                   sbefifo->idx);
->>>
->>>          /* This bit of silicon doesn't offer any interrupts... */
->>> -       setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
->>> -                   (unsigned long)sbefifo);
->>> +       INIT_DELAYED_WORK(&sbefifo->work, sbefifo_worker);
->>>
->>>          sbefifo->mdev.minor = MISC_DYNAMIC_MINOR;
->>>          sbefifo->mdev.fops = &sbefifo_fops;
->>> @@ -982,7 +986,7 @@ static int sbefifo_remove(struct device *dev)
->>>
->>>          ida_simple_remove(&sbefifo_ida, sbefifo->idx);
->>>
->>> -       if (del_timer_sync(&sbefifo->poll_timer))
->>> +       if (cancel_delayed_work_sync(&sbefifo->work))
->>>                  sbefifo_put(sbefifo);
->>>
->>>          sbefifo_put(sbefifo);
->>> @@ -1010,11 +1014,17 @@ static int sbefifo_remove(struct device *dev)
->>>
->>>   static int sbefifo_init(void)
->>>   {
->>> +       sbefifo_wq = create_singlethread_workqueue("sbefifo");
->>> +       if (!sbefifo_wq)
->>> +               return -ENOMEM;
->>> +
->>>          return fsi_driver_register(&sbefifo_drv);
->>>   }
->>>
->>>   static void sbefifo_exit(void)
->>>   {
->>> +       destroy_workqueue(sbefifo_wq);
->>> +
->>>          fsi_driver_unregister(&sbefifo_drv);
->>>
->>>          ida_destroy(&sbefifo_ida);
->>> --
->>> 1.8.3.1
->>>
+Christopher Covington=
