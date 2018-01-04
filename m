@@ -7,23 +7,20 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zC40q602zzDqvh
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zC40q5328zDqvZ
  for <openbmc@lists.ozlabs.org>; Thu,  4 Jan 2018 21:34:18 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w04AGLWW031383;
- Thu, 4 Jan 2018 12:16:21 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w04AGKpN031380;
+ Thu, 4 Jan 2018 12:16:20 +0200
 Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 66FB45A950; Thu,  4 Jan 2018 12:34:08 +0200 (IST)
+ id E23745A950; Thu,  4 Jan 2018 12:34:07 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v1 1/2] dt-binding: net: document NPCM7xx EMC
- DT bindings
-Date: Thu,  4 Jan 2018 12:34:05 +0200
-Message-Id: <1515062046-11944-2-git-send-email-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v1 0/2] net: npcm: add NPCM7xx EMC
+Date: Thu,  4 Jan 2018 12:34:04 +0200
+Message-Id: <1515062046-11944-1-git-send-email-tmaimon77@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1515062046-11944-1-git-send-email-tmaimon77@gmail.com>
-References: <1515062046-11944-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -37,44 +34,23 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 04 Jan 2018 10:34:20 -0000
 
-Added device tree binding documentation for
-Nuvoton NPCM7xx Ethernet MAC Controller (EMC).
+This patch set adds Ethernet MAC controller support for the 
+Nuvoton NPCM7xx Baseboard Management Controller (BMC).
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../bindings/net/nuvoton,npcm7xx-emc.txt           | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+The NPCM750x contain two Ethernet MAC Controllers (10/100)
+for WAN/LAN applications
+
+Tomer Maimon (2):
+  dt-binding: net: document NPCM7xx EMC DT bindings
+  net: npcm: add NPCM7xx Ethernet MAC controller
+
+ .../bindings/net/nuvoton,npcm7xx-emc.txt           |   24 +
+ drivers/net/ethernet/nuvoton/Kconfig               |   23 +-
+ drivers/net/ethernet/nuvoton/Makefile              |    2 +
+ drivers/net/ethernet/nuvoton/npcm7xx_emc.c         | 2248 ++++++++++++++++++++
+ 4 files changed, 2296 insertions(+), 1 deletion(-)
  create mode 100644 Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt
+ create mode 100644 drivers/net/ethernet/nuvoton/npcm7xx_emc.c
 
-diff --git a/Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt b/Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt
-new file mode 100644
-index 000000000000..812d8481a6fb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt
-@@ -0,0 +1,24 @@
-+Nuvoton NPCM7XX 10/100 Ethernet MAC Controller (EMC)
-+
-+The NPCM750x provides two identical Ethernet MAC Controllers
-+for WAN/LAN applications
-+
-+Required properties:
-+- compatible      : "nuvoton,npcm750-emc" for Poleg NPCM750.
-+- reg             : Offset and length of the register set for the device.
-+- interrupts      : Contain the emc interrupts with flags for falling edge.
-+					first interrupt dedicated to Txirq
-+					second interrupt dedicated to Rxirq
-+- clocks          : phandle of emc reference clock.
-+- device_type	  : Should be "network"
-+
-+Example:
-+
-+emc0: eth@f0825000 {
-+	device_type = "network";
-+	compatible = "nuvoton,npcm750-emc";
-+	reg = <0xf0825000 0x1000>;
-+	interrupts = <0 16 4>, <0 15 4>;
-+	clocks = <&clk NPCM7XX_CLK_EMC>;
-+};
-+
 -- 
 2.14.1
