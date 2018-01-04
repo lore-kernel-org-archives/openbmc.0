@@ -1,56 +1,29 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::242; helo=mail-pf0-x242.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="RilskW4C"; 
- dkim-atps=neutral
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <Tomer.Maimon@nuvoton.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zC2S83fZVzDqps
- for <openbmc@lists.ozlabs.org>; Thu,  4 Jan 2018 20:24:24 +1100 (AEDT)
-Received: by mail-pf0-x242.google.com with SMTP id m26so525780pfj.11
- for <openbmc@lists.ozlabs.org>; Thu, 04 Jan 2018 01:24:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=aRI31DjtD9fVGmC/SAfJVgTGqTpOywjP+ozeiH4DMQc=;
- b=RilskW4CnDa3zZ20STsT2llyf1dLosjtV+k1cvRq9Z/KhdeUOQHXIJgNUtlxC9eUWZ
- N4o7DnObAavvYnfJV9gNd6Y1M9QSkb5AjIfpljZ3H+O1tf9ei+BoovHdnCRA7h+m7YM8
- Uj3CGJi0sBx4nDM7ubTcJg730jUcrN4HBU1ZLQ6xzf8eJeGp4R1HXRR6U1Tma2GkCTxW
- rsx4J8VB/f7UsLf9lV9qx1FSmrUvkCSMhyeC6uB+gaDWW/YRjCGQcBCEs3kUHHk+3IoE
- bqGEc7vGMxVG+RzWDMRlDF4G1PepE3KGpc1MHvMc1Ns20GthH5AxC6KNMKvoJ3fiPjQK
- FDZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=aRI31DjtD9fVGmC/SAfJVgTGqTpOywjP+ozeiH4DMQc=;
- b=kW3mAqrHtBLUZGVBoTVpjdWsTG+it8LGyxFkfuZ7IwcwFb5hbgAD8rc20OBjy7SyB/
- woSgR0/UmURiJFXovY9Yq8TVJN5lEOncPvNpXgKwZgsK2eLXnAoqDO9sCIm2hsiNtSLh
- zya7CwOxUuucwWNkW1KiZstFO7U6ZaNNCkD6g1jaGn2+d5FKxgr/88VsSNv6GFeSO7ad
- eDv8h7Ed2mhigFpfrVkFe6QwuCIDhKa3y0Z0QYZ+dVNhdww8Y46tMRG++tO8J415x3yB
- ivNwyTLG8TA53zC6VVXbWgvkZzBGjGjfkDKoJpDx3/n/FrpGc6Ro84RXnU3pjk00Yc5y
- 4DZg==
-X-Gm-Message-State: AKGB3mJLjtn4uA4RXiColtIo+aVNEFBAT0kpQHZD/KCeXQw9m8qpPOYp
- FiJhX8Nq/gjaxOL5cMe4MXqVkdcR
-X-Google-Smtp-Source: ACJfBouOTayZ17bWeEITCtQtaTi0oDAcEEBMbGhFRYvsBn/mk0ew++5MXAbYOwQpnh+lyYbiF20G+Q==
-X-Received: by 10.99.109.75 with SMTP id i72mr3432435pgc.86.1515057861378;
- Thu, 04 Jan 2018 01:24:21 -0800 (PST)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id m11sm6101109pfh.35.2018.01.04.01.24.18
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Thu, 04 Jan 2018 01:24:20 -0800 (PST)
-From: Lei YU <mine260309@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zC3462qZQzDqqM
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Jan 2018 20:52:00 +1100 (AEDT)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w049Y2CW030697;
+ Thu, 4 Jan 2018 11:34:02 +0200
+Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
+ id 4D6935A950; Thu,  4 Jan 2018 11:51:48 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Cc: Lei YU <mine260309@gmail.com>,
-	joel@jms.id.au,
-	abarrera@us.ibm.com
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: zaius: Add pcie-e2b-present
- gpio key
-Date: Thu,  4 Jan 2018 17:24:07 +0800
-Message-Id: <1515057847-30492-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v1 1/2] dt-binding: rng: document NPCM7xx rng
+ DT bindings
+Date: Thu,  4 Jan 2018 11:51:45 +0200
+Message-Id: <1515059506-17818-2-git-send-email-tmaimon77@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1515059506-17818-1-git-send-email-tmaimon77@gmail.com>
+References: <1515059506-17818-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -62,31 +35,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Jan 2018 09:24:26 -0000
+X-List-Received-Date: Thu, 04 Jan 2018 09:52:07 -0000
 
-Add GPIO key to check presence of PCIE E2B
+Added device tree binding documentation for
+Nuvoton NPCM7xx random number generator.
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../devicetree/bindings/rng/nuvoton,npcm7xx-rng.txt      | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rng/nuvoton,npcm7xx-rng.txt
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 17f2000..f583dcc 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -55,6 +55,12 @@
- 			gpios = <&gpio ASPEED_GPIO(F, 7) GPIO_ACTIVE_LOW>;
- 			linux,code = <ASPEED_GPIO(F, 7)>;
- 		};
+diff --git a/Documentation/devicetree/bindings/rng/nuvoton,npcm7xx-rng.txt b/Documentation/devicetree/bindings/rng/nuvoton,npcm7xx-rng.txt
+new file mode 100644
+index 000000000000..3b4e81037263
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rng/nuvoton,npcm7xx-rng.txt
+@@ -0,0 +1,16 @@
++NPCM7XX SoC random number generator.
 +
-+		pcie-e2b-present{
-+			label = "pcie-e2b-present";
-+			gpios = <&gpio ASPEED_GPIO(E, 7) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(E, 7)>;
-+		};
- 	};
- 
- 	leds {
++Required properties:
++- compatible  : "nuvoton,npcm750-rng" for Poleg NPCM750
++- reg         : Offset and length of the registers set for the rng device.
++
++Optional:
++- clocks          : phandle of rng reference clock.
++
++Example:
++
++rng: rng@f000b000 {
++	compatible = "nuvoton,npcm750-rng";
++	reg = <0xf000b000 0x1000>;
++	clocks = <&clk NPCM7XX_CLK_APB1>;
++};
 -- 
-1.9.1
+2.14.1
