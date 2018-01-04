@@ -1,81 +1,87 @@
 Return-Path: <Michael.E.Brown@dell.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.90; helo=esa1.dell-outbound.iphmx.com;
+ (client-ip=68.232.153.95; helo=esa5.dell-outbound.iphmx.com;
  envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="iYtCTgbj"; 
+ unprotected) header.d=dell.com header.i=@dell.com header.b="Bg0TCTmm"; 
  dkim-atps=neutral
-Received: from esa1.dell-outbound.iphmx.com (esa1.dell-outbound.iphmx.com
- [68.232.153.90])
+Received: from esa5.dell-outbound.iphmx.com (esa5.dell-outbound.iphmx.com
+ [68.232.153.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zCBnh73cxzDqJM
- for <openbmc@lists.ozlabs.org>; Fri,  5 Jan 2018 02:40:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zCDWl3LkbzF0QC
+ for <openbmc@lists.ozlabs.org>; Fri,  5 Jan 2018 03:58:09 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1515079903; x=1546615903;
+ t=1515084764; x=1546620764;
  h=from:date:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=zraSJi9cpYsk+rqTZ8ghJQNlWnjxSSDt8kHOrskcJDU=;
- b=iYtCTgbjVefIu8U6fVsnDzCUxBouyQtcMqRTYutVvaXIoKjTFLjS5RNu
- FhtW8YbWha0MNFWVtfBvUh8tBaugImDPXqVJ3073ibc6SvY3BHwLqxTcZ
- epofPDmNB4E1N5jxncdoXF68Jr5XnJeWXRs4hHu+f6h6GQ1DyKQveSQV1 g=;
-IronPort-PHdr: =?us-ascii?q?9a23=3Agl5dBxOi5BuhZ89UU4Ql6mtUPXoX/o7sNwtQ0KIM?=
- =?us-ascii?q?zox0I/36rarrMEGX3/hxlliBBdydt6odzbKO+4nbGkU4qa6bt34DdJEeHzQksu?=
- =?us-ascii?q?4x2zIaPcieFEfgJ+TrZSFpVO5LVVti4m3peRMNQJW2aFLduGC94iAPERvjKwV1?=
- =?us-ascii?q?Ov71GonPhMiryuy+4ZLebxlViDanfb9+MAi9oBnMuMURnYZsMLs6xAHTontPde?=
- =?us-ascii?q?RWxGdoKkyWkh3h+Mq+/4Nt/jpJtf45+MFOTav1f6IjTbxFFzsmKHw65NfqtRbY?=
- =?us-ascii?q?UwSC4GYXX3gMnRpJBwjF6wz6Xov0vyDnuOdxxDWWMMvrRr0yRD+s7bpkSAXwhS?=
- =?us-ascii?q?kHOTA37nzZhM9+jK1UvB2uuhNxzIzab4yOKPpzfbnQcc8GSWdbXMtcUTFKDIOm?=
- =?us-ascii?q?b4sICuoMJeFWr4jhqFsOtxSxGw2sD/7gxDRVm3L2x6o60uonEQrb2wEuGNMOv2?=
- =?us-ascii?q?jUrNrvKqgSVfq5wqbSwTjedfNW3jn86I7Tfx88v/6MWbZwfdDNxkkoEgPIl1Od?=
- =?us-ascii?q?opHrMTOS0+QCqWmb7+x4WOKok24otQdxoza1xscwkIXJgZgVyl/c+SV2wYY1Od?=
- =?us-ascii?q?24SFNgbtK+DJRQsCSaO5NuQsM4RGFovTg1yqEGuZGlYSgK044rxx/Ya/GBboOG?=
- =?us-ascii?q?4QrjWf6QLDp7nn5pZryyiwio/US9yuDxWNO43EhWoiZbitXAq38A2hLJ5sSaS/?=
- =?us-ascii?q?Zw/12t1SuA2g3Q8O1IP1w4mKvdJpU82LA/jIATvl7GHiLunUX2i7KZeVs89+iz?=
- =?us-ascii?q?7uTnfq3mppiBN49okg3+Mrohmsi4AekgLAcORHKU9fqm2LL+40L5RLFKguQxkq?=
- =?us-ascii?q?nErJDVPsMbprO/AwBIzIov8Re/Dy+m0NQdkngLNk5KeBWCj4TxOlHOJu73Deun?=
- =?us-ascii?q?jlmtkzpn3e7KM7P/DpnXM3TOkLnscaxj50JA1gY/1dVf6IhVCrEFLvLzQEjxtN?=
- =?us-ascii?q?nAAxE+Mgy73+bnB89j2YMaQ26BDbWVPb7IsV+P6OMvJfKBa5ILtzb5L/gp/eLh?=
- =?us-ascii?q?jXg8mVMFZ6mmwYMXaGykHvRhO0iZZmLsjckHEWgRuwoxUPfniFmDUT5Ie3ayRL?=
- =?us-ascii?q?gw5jY6CYKiF4jMXZutjKaG3CehEZ0FLlxBX3uMC3bza4KcW/oWIAmVPM5nnSAD?=
- =?us-ascii?q?U/D1QIg//R+k8gT9zuw0APDT/3g9tJnj3dVxr8Cbvws16jo8W+Gc2GGEQmUysy?=
- =?us-ascii?q?UiXTgp2ohzrEh5jFyE1P4r0LRjCdVP6qYRAU8BPpnGwrkiBg=3D=3D?=
+ mime-version:in-reply-to;
+ bh=jRVyH8gN2+cXa+oe6+EuYskSLx/vTZITJ6bcv8AkEao=;
+ b=Bg0TCTmmJgmzqTaxTSt7fubkqmLUueMMwgCCT4A1QpkOvMIax8UFQi83
+ ffMNoPbJ8WbNh6VZVV9YR3Mq88plQQtorOIg4GfQrNzSsR2IiG1tGeTXm
+ tISuiY/HKIc7tqIiKq8euZ4pMQNaz3RFJ5QYnAwbLAp3qklkJlRy2u2Sh c=;
+IronPort-PHdr: =?us-ascii?q?9a23=3AvIyzTBdBK1093KBAJKy8PVhDlGMj4u6mDksu8pMi?=
+ =?us-ascii?q?zoh2WeGdxcS8bR7h7PlgxGXEQZ/co6odzbaO6ua4ASQp2tWoiDg6aptCVhsI24?=
+ =?us-ascii?q?09vjcLJ4q7M3D9N+PgdCcgHc5PBxdP9nC/NlVJSo6lPwWB6nK94iQPFRrhKAF7?=
+ =?us-ascii?q?Ovr6GpLIj8Swyuu+54Dfbx9HiTahfL9+Ngm6oRnMvcQKnIVuLbo8xAHUqXVSYe?=
+ =?us-ascii?q?RWwm1oJVOXnxni48q74YBu/SdNtf8/7sBMSar1cbg2QrxeFzQmLns65Nb3uhnZ?=
+ =?us-ascii?q?TAuA/WUTX2MLmRdVGQfF7RX6XpDssivms+d2xSeXMdHqQb0yRD+v9LlgRgP2hy?=
+ =?us-ascii?q?gbNj456GDXhdJ2jKJHuxKquhhzz5fJbI2JKPZye6XQds4YS2VcRMZcTyxPDI2i?=
+ =?us-ascii?q?YYUSDOQBM+lXoJXgqFQMoxSzHhWsCP/1xzNUmnP7x7M23uI8Gg/GxgwgGNcOvW?=
+ =?us-ascii?q?zTotX0KKgSUfq6w7fMzT7eYP1dxCrw6JLPchEvp/GHQLV9f83QyUYzFwPKlEuf?=
+ =?us-ascii?q?qYj/Mz2azOgArnKb7+1uVOKpkGMoth9+ojyrxss2lobJgYcVx0nC+C5kw4g1Pc?=
+ =?us-ascii?q?W1RU94bNK+DpdduT+WO5FrTs4iTWxkojg2xqEbtZKjYSQHx5oqywTCZ/GGcoWE?=
+ =?us-ascii?q?+BHuWeaLLTtmmH5oerSyjAuo/0e60O3zTMy03U5PripCj9bDqGgA1wfW6sibUv?=
+ =?us-ascii?q?t9+Vqh2SqX2wDT9O5EJUc0mLLFJJ462LE8i4AfvlndES/ynEX6laiWdlg4+uez?=
+ =?us-ascii?q?7OTnf7PmqYKCO4NuiwH+KqQumsmwAOgiLgcOWG2b9fy91L3l40L5XK1Hg/w1n6?=
+ =?us-ascii?q?XDrpzXK9oXqrSkDwJV3Isv8QizAyu73NgAmHkINlNFeBaJj4jzPFHOJej1A/C+?=
+ =?us-ascii?q?g1uwkDdk3e7JPrn7DpvCNHTOja3hfbFz6k5a0wc80M5Q55ZQCr0bPP3zXUrxuM?=
+ =?us-ascii?q?TCDhAlKwy03/rnCNJl24MZQWKAHKmZP7jXsVCU/e8vJ+iMZJQJuDbmMfQl4P/v?=
+ =?us-ascii?q?jXsjllAGZqmlx5wXaGq3HqcuH0LMX3f2hNAHWUIDowckXaS+llCYVzlVIXO7Qq?=
+ =?us-ascii?q?8m9xk/CYS7HcHCQJyghPqK2yLtTbNMYWUTL1GHEX7lc82pE90Wbz2UaptEkzcE?=
+ =?us-ascii?q?XLWlDaJn/wupqwnSx7djKqzf/ShO5sGr78R8++CGzUJ6zjdzFcnIljjVF2w=3D?=
 X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2G0AABJSk5ah8qZ6ERcGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQUEHQnhBGZLIIBj0GJO0MKJYRHTwKEMUMUAQEBAQEBAQEBAQI?=
- =?us-ascii?q?QAQEBCgsJCCgvgjgiDQRLKgMBAQEBAQEBAQEjAQEBAQEBAQEBAQEBAQEBGgINX?=
- =?us-ascii?q?QEBAQMBDhUPATIUBQsLDgoCAgUTDgICDwVJLooLCBCxdoInijsBAQEBAQUBAQE?=
- =?us-ascii?q?BAR4FgQ+DBIIShm2CYk0BAYFGEQmCZz0xgjQFiGOKVJAfCoZ+fo0olBKNMYlfg?=
- =?us-ascii?q?Tw2gXJMI1KCGgEQgmOCElqGSAIlgiMBAQE?=
-X-IPAS-Result: =?us-ascii?q?A2G0AABJSk5ah8qZ6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?UEHQnhBGZLIIBj0GJO0MKJYRHTwKEMUMUAQEBAQEBAQEBAQIQAQEBCgsJCCgvg?=
- =?us-ascii?q?jgiDQRLKgMBAQEBAQEBAQEjAQEBAQEBAQEBAQEBAQEBGgINXQEBAQMBDhUPATI?=
- =?us-ascii?q?UBQsLDgoCAgUTDgICDwVJLooLCBCxdoInijsBAQEBAQUBAQEBAR4FgQ+DBIISh?=
- =?us-ascii?q?m2CYk0BAYFGEQmCZz0xgjQFiGOKVJAfCoZ+fo0olBKNMYlfgTw2gXJMI1KCGgE?=
- =?us-ascii?q?QgmOCElqGSAIlgiMBAQE?=
-Received: from esa2.dell-outbound2.iphmx.com ([68.232.153.202])
- by esa1.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2018 09:31:34 -0600
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GKAABmXE5ah8mZ6ERcGQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQcBAQEBAYMPgQWBBCedPYIBfY5Eh2kUggEKhTsChDRBFgEBAQEBAQEBAQE?=
+ =?us-ascii?q?CEAEBAQgNCQgoL4I4JAGCRwEBAQMBJxM/BQsLGAkMAQEFEg8FSRMUB4oLCLNhO?=
+ =?us-ascii?q?oo9AQEBAQYCASWEDwSCEoM/giBYNoMwgSkfZQkBgn+CNAWSI4EUkB8Kj0iFXII?=
+ =?us-ascii?q?kiiuHQ5cQgTwmDYF1TCOCfIJkghJZAYZJAQ0YgiMBAQE?=
+X-IPAS-Result: =?us-ascii?q?A2GKAABmXE5ah8mZ6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYM?=
+ =?us-ascii?q?PgQWBBCedPYIBfY5Eh2kUggEKhTsChDRBFgEBAQEBAQEBAQECEAEBAQgNCQgoL?=
+ =?us-ascii?q?4I4JAGCRwEBAQMBJxM/BQsLGAkMAQEFEg8FSRMUB4oLCLNhOoo9AQEBAQYCASW?=
+ =?us-ascii?q?EDwSCEoM/giBYNoMwgSkfZQkBgn+CNAWSI4EUkB8Kj0iFXIIkiiuHQ5cQgTwmD?=
+ =?us-ascii?q?YF1TCOCfIJkghJZAYZJAQ0YgiMBAQE?=
+Received: from esa1.dell-outbound2.iphmx.com ([68.232.153.201])
+ by esa5.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2018 10:52:40 -0600
 From: Michael E Brown <Michael.E.Brown@dell.com>
-Received: from ausc60ps301.us.dell.com ([143.166.148.206])
- by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2018 21:35:01 +0600
+Received: from ausxippc101.us.dell.com ([143.166.85.207])
+ by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2018 22:48:33 +0600
 X-LoopCount0: from 10.9.160.254
-X-IronPort-AV: E=Sophos;i="5.45,507,1508821200"; d="scan'208";a="1078683644"
+X-IronPort-AV: E=Sophos;i="5.46,314,1511848800"; d="scan'208";a="1032261140"
 X-DLP: DLP_GlobalPCIDSS
-Date: Thu, 4 Jan 2018 09:39:55 -0600
-To: Christopher Covington <cov@fb.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "venture@google.com" <venture@google.com>
-Subject: Re: Metrics vs Logging, Continued
-Message-ID: <20180104153954.GA22361@wn7x64-4cggry1.aus.amer.dell.com>
-References: <CY1PR15MB0077EC76B1E96D62AF70ECCACB1E0@CY1PR15MB0077.namprd15.prod.outlook.com>
+Date: Thu, 4 Jan 2018 10:58:05 -0600
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+Cc: Michael.E.Brown@dell.com, stewart@linux.vnet.ibm.com,
+ bradleyb@fuzziesquirrel.com, openbmc@lists.ozlabs.org,
+ richard.marian.thomaiyar@linux.intel.com
+Subject: Re: OpenBMC community telecon - 11/27 Agenda
+Message-ID: <20180104165803.GB22361@wn7x64-4cggry1.aus.amer.dell.com>
+References: <20171205010205.GH113334@mauery>
+ <1513620424.5787.47.camel@fuzziesquirrel.com>
+ <20171218223918.GO113334@mauery>
+ <16113B02-7098-4523-A84A-E4CAFFB145A5@fuzziesquirrel.com>
+ <886a66c536b44ed0928e4348022b67ca@ausx13mps334.AMER.DELL.COM>
+ <D2105B22-1AB7-4943-A94E-2B5EDE275F7C@fuzziesquirrel.com>
+ <ec70fdbb12b944c7a53fe03e9470f2ef@ausx13mps334.AMER.DELL.COM>
+ <87k1xfvbhh.fsf@linux.vnet.ibm.com>
+ <c49e89931ed74295958f09fe6ad3db80@ausx13mps334.AMER.DELL.COM>
+ <20171228233714.GR113334@mauery>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CY1PR15MB0077EC76B1E96D62AF70ECCACB1E0@CY1PR15MB0077.namprd15.prod.outlook.com>
+In-Reply-To: <20171228233714.GR113334@mauery>
 User-Agent: Mutt/1.9.1 (2017-09-22)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -88,103 +94,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Jan 2018 15:40:10 -0000
+X-List-Received-Date: Thu, 04 Jan 2018 16:58:12 -0000
 
-On Wed, Jan 03, 2018 at 02:22:39AM +0000, Christopher Covington wrote:
-> Hi Michael, Patrick,
+On Thu, Dec 28, 2017 at 03:37:14PM -0800, Vernon Mauery wrote:
+> On 22-Dec-2017 05:21 PM, Michael.E.Brown@dell.com wrote:
+> > We have spent almost two years now writing a comprehensive SELinux policy for our product. Our current shipping product has SELinux enabled and in "permissive" mode for field testing. Our next major release will have SELinux in enforcing mode, barring major issues in testing. We just had outside security auditors take a look at the implementation and I must say that I'm very pleased with the outcome.
+> > 
+> > <soapbox mode="on">
+> > I strongly encourage every embedded project to have a comprehensive SELinux policy, to enable that policy at the earliest possible opportunity during development, and to have a robust solution and development methodology to run all daemons as NON-root. My personal experience is that it is extraordinarily difficult to retrofit SELinux policy onto a legacy codebase and that it is very difficult to convert an existing codebase running as root to full non-root. What tends to happen is that unrelated things get stuffed into the "wrong" places and things break in both spectacular and subtle ways, sometimes at the same time, when you try to do the conversion from root -> noroot and DAC -> MAC. The earlier you make this transition, the easier things are, long term.
+> > </soapbox>
+> > 
+> > My biggest problem right now with openbmc is that everything runs as root and there is no selinux. Huge step backwards for me. :)  This is one major thing that I would like to help drive in OpenBMC.
+> > 
+> > If you run all the daemons as different users, that tends to sort out design issues.
+> > 
+> > Now, on to the good stuff I can say: The openbmc design lends itself *really* well to both non-root and SELinux. Having DBUS as the common interface should let us do something like:
+> > 	- phosphor-hwmon runs as "hwmon" user and group. (systemd service file settings User=, Group=)
+> > 	- phosphor-hwmon installs systemd-tmpfiles to change file ownership of the sysfs files needed to run hwmon daemons as hwmon user
+> > 	- phosphor-hwmon installs DBUS policy files to allow itself to own the dbus endpoints
+> > 	- phosphor-hwmon dbus policy files specify a group that can be used to call the dbus endpoints (eg. "hwmon_read")
+> > 	- On the other side of this, the thermal daemons run with supplementary groups "hwmon_read" (systemd SupplementaryGroups=)
+> > 	- SELinux policy written for phosphor-hwmon that allows it to *only* read hwmon sysfs files, and talk to DBUS.
 > 
-> I probably should have hopped on this list months ago. Thanks for your patience as I come up to
-> speed on your code, configure my mail client to suit this list, and so on.
-> 
-> > Prometheus metrics is fundamentally a pull model, not a push model. If you have a pull model,
-> > it greatly simplifies the dependencies:
-> 
-> >	- Pull metrics internally or externally (daemons listen on 127.0.0.1, optionally reverse proxy
-> >	  that through your web service).
-> 
-> An option for on-demand metrics (as opposed to periodic, always-on monitoring) is nice. I would
-> use it to more highly scrutinize upgrades in progress for example.
+> I fully support your direction with the "run each daemon as its own user"
+> policy. Almost nothing should be running as root anymore. 
 
-This is a nice point. You can easily turn on/off pull of metrics from your
-systems by simply turning the server on/off.  But is harder for push metrics,
-as you have to *configure* each endpoint for where to push to (if that changes
-from time to time, which may or may not be the case), and you have to turn push
-on/off.
+Looks like I need to do some builds and look at this, as I'm operating off old
+information then.
 
-> 
-> >	- Optionally run the metrics server or not depending on configuration.
-> 
-> I agree it should fail gracefully when there is no server present, and think this generalizes to
-> other network services, even NTP and DHCP.
-> 
-> >	- Pull model naturally self-limits in performance-limited cases... you don’t have a thundering
-> >	  herd of daemons trying to push metrics. In case metrics server gets loaded it will naturally
-> >	  slow down polls to backend daemons.
-> 
-> At large scale you'll either need multiple pollers or load-balancing for the receiving server. I'm
-> not sure what the best solution is. Is load-balancing perhaps more commonplace?
+> I don't have any SELinux experience, so it is great to have someone in the
+> community that does and is willing to drive that.
 
-Load balancing is "more commonplace" for things like generic web servers.
-Setting up load balancing is distinctly non-trivial, as specifics of how you
-are using are very important.
+Thanks
 
-Overall this is a matter that reasonable people can disagree on. I favor the
-pull approach. It degrades much more predictably (server pulls more slowly but
-still hits all the systems). You can easily scale up. Load balancing for this
-type of thing seems way more difficult to set up and get working well. (How you
-persistently balance clients between servers, for instance.) However, I think
-that a push model is also pretty easy to argue successfully for (though I
-personally wont).
+> Have you considered using user namespaces to avoid username collisions with
+> system users and user-chosen names (like if an IPMI user wanted to pick
+> 'root' as the name)? I have seen people demonstrate how you can use
+> containers to do this, but I have not yet figured out how it all works.
 
-Also, I think the conversation here started more as a discussion on the best
-way to collect metrics for individual daemons, rather than specifically for how
-to get metrics for openbmc overall. I think that something like a protocol spec
-for how individual metrics collection would be done would be pretty useful,
-then it could be implemented differently across different daemons, but have the
-same protocol. And then we can talk about how to extend that off the box.
+I've given this a little bit of thought. Yes, you could use some user
+namespaces for this, though to be honest I don't really think it buys all that
+much. You can limit ptrace with yama and basically protect the users from each
+other pretty well that way, all using a single account. But we could add user
+namespaces here as well. The hard part would be in figuring out how to do dbus
+level security. I think we'll need to have a unified policy around security of
+dbus to tie everything together.
 
-Another part of the conversation we probably need to talk about is "api
-stability" and are we going to have a requirement for specific metrics to be
-stable over time? Or can we deal with ad-hoc metrics that may be added to over
-time or may drop.
+> The reason I don't like the NSS mechanism with a single unix user that you
+> proposed is that it allows users to attack each other, which can lead to
+> privilege escalations as well. If the non-system users are namespaced, they
+> can be called whatever they want and have whatever ID they want, but as far
+> as the kernel goes, they are separate users and all non-root.
 
-> 
-> > But what I think would be pretty nice is if you could point graphana/Prometheus towards every
-> > BMC on your network to get nice graphs of temp, fan speeds, etc.
-> 
-> For metrics/counters, I've been centrally pulling/polling from a fleet running the following RESTful
-> API:
-> 
-> https://github.com/facebook/openbmc/tree/helium/common/recipes-rest/rest-api/files
-> 
-> But polling the whole fleet doesn't seem ideal, so I'm wondering about a push model.
-> 
-> Prometheus looks interesting, thanks for the pointer. It does seem to support a push model
-> https://prometheus.io/docs/instrumenting/pushing/
+I think the overriding question here is what kind of shell access do we want to
+give to users of openbmc, and what permissions do we want to give them in the
+shell? If we want as a project to have the default openbmc "ssh" access be to a
+bash shell, then we need to do a lot more around security to get this all to
+work well. This is also going to be very difficult to make sure we get
+everything correct, however, it is do-able.
 
-Prometheus is just a specification for an http endpoint, so it would (in
-theory) be relatively easy to write a pull-to-push gateway using any language.
-The push model mentioned here is just a local agent that periodically polls the
-local pull endpoint and pushes it somewhere.
+On Dell's product, we have a custom shell, and users don't have any generic
+system access. Users have no write access to any filesystems, so there is no
+way for any logged in user to attack another user via a file.  This pretty
+effective in our product.
 
-> 
-> Do Go language applications run reasonably well on ASpeed 2400 SoCs?
+If we want to have openbmc give shell access to users, lets figure out what
+that looks like from a security perspective.
 
-I've done several prototypes of golang servers on the Nuvoton ARM chip
-(slightly faster than aspeed) and the results for me were more-than-acceptable.
-I was very pleased with the ease of development, memory usage, and most other
-metrics. It has the development speed of python combined with the runtime speed
-of Java (and sometimes approaching C).
+NSS/PAM and one "linux" account, lets call it 'bmcuser'. We'll call the
+accounts that users use "bmc accounts". (for example, user could create 'user1'
+and 'user2' and those would not show up as linux accounts) It would be
+relatively straightforward, I believe, to ensure that one bmc account cannot
+attack another bmc account even if both are running in the same linux account,
+either with or without namespaces.
 
-> I've heard that OpenWRT uses collectd: https://wiki.openwrt.org/doc/howto/statistic.collectd
+With or without namespaces:
+	- Need a way to unambiguously set security policy so that things like
+dbus calls can have appropriate security applied. Likely the best way to do
+this is via normal linux groups. Then we need a comprehensive policy for dbus
+to apply the group security policy. This way, we can apply policy for shell
+users when they do things like busctl, or use cli utilities that make dbus
+calls.
+	- Need to ensure that all writable filesystems are mounted noexec to
+prevent silly shell attacks.
 
-Quick look at this project, it does two things: a) it has a plugin format for
-how to collect various stats, and some pre-written plugins for "popular"
-things, and b) it formats output in rrd format for consumption by other tools.
-This is conceptually very similar to prometheus (same concepts: gauges,
-histograms, counts, etc). However, it does appear that collectd specifies a
-file format for output, but not an access format. The prometheus part that I'm
-focusing on is in how we can standardize access and file formats.
+Without namespaces: 
+	- use the yama security patches to disable ptrace for non-children. 
+	- possibly use seccomp to disable ptrace() 
+	- possibly use seccomp to disable kill()
+
+With namespaces:
+	- set bmcuser login shell to a special wrapper which spawns new
+namespace, sets groups appropriately, and exec's shell.
 
 --
-Michael Brown
+Michael
