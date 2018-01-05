@@ -1,78 +1,82 @@
-Return-Path: <Michael.E.Brown@dell.com>
+Return-Path: <Balaji.B.Rao@dell.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.229; helo=esa6.dell-outbound.iphmx.com;
- envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
+ (client-ip=68.232.149.218; helo=esa8.dell-outbound.iphmx.com;
+ envelope-from=balaji.b.rao@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="dEYJAUsa"; 
+ unprotected) header.d=dell.com header.i=@dell.com header.b="ILqfDB36"; 
  dkim-atps=neutral
-Received: from esa6.dell-outbound.iphmx.com (esa6.dell-outbound.iphmx.com
- [68.232.149.229])
+Received: from esa8.dell-outbound.iphmx.com (esa8.dell-outbound.iphmx.com
+ [68.232.149.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zFkV71g7PzDqHN
- for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 05:35:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zCskq1pCLzF0Qb
+ for <openbmc@lists.ozlabs.org>; Sat,  6 Jan 2018 04:54:26 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1515436527; x=1546972527;
+ t=1515174899; x=1546710899;
  h=from:to:subject:date:message-id:mime-version;
- bh=DTs7E6rkvk7xEB+Zn6DAlDjcXqpNWVMw7zv6pSpHY0Q=;
- b=dEYJAUsaKjQ9vUTLQu12dSef6U4cqCfxaVsW+9R1GAD3OOrj8tRvi/25
- Y/wOX+Cs92sT/9zo4YLmOPA5AUIJ9wK5MCYh48SxdbnnYkri2M6hx3Zc/
- swN7wW3GVrJ0LFH5guWejY8RL/YpG6SFv59EQ/z1JPugXUCMYHksqZUqt o=;
-IronPort-PHdr: =?us-ascii?q?9a23=3AKG0QOhCDiOinHVZV0jajUyQJP3N1i/DPJgcQr6Af?=
- =?us-ascii?q?oPdwSPvzpsbcNUDSrc9gkEXOFd2Cra4c0qyO6+jJYi8p2d65qncMcZhBBVcuqP?=
- =?us-ascii?q?49uEgeOvODElDxN/XwbiY3T4xoXV5h+GynYwAOQJ6tL1LdrWev4jEMBx7xKRR6?=
- =?us-ascii?q?JvjvGo7Vks+7y/2+94fcbglUmTaxe69+IAmrpgjNq8cahpdvJLwswRXTuHtIfO?=
- =?us-ascii?q?pWxWJsJV2Nmhv3+9m98p1+/SlOovwt78FPX7n0cKQ+VrxYES8pM3sp683xtBnM?=
- =?us-ascii?q?VhWA630BWWgLiBVIAgzF7BbnXpfttybxq+Rw1DWGMcDwULs5Xymp4aV2Rx/ykC?=
- =?us-ascii?q?oJNyA3/nzLisJ+j6xboQ6uqBNkzoHOfI2VNuBzcr/Bcd8EQ2dKQ8ZfVzZGAoO5?=
- =?us-ascii?q?d4YCCO0PPedEoIn9vVQBsx++CROjCu/11zJInHj23KM80+k6DA7JwgggH9YUvH?=
- =?us-ascii?q?vIq9X1Mb4fXOaox6fL1TXOd/Jb1DTn5ITWfB0tv+uAUa9wfMfe00UiEwDIgk2N?=
- =?us-ascii?q?pYD5JT+Zy+sAvmaB4+Z9Vu+jkW0qpgBprjSyycohhJPFip8Ux13F7yl13Yk4KN?=
- =?us-ascii?q?6iREJlf9KpHp1dvDyAOYRsWMMtWWRotT4/yr0BpJG0YjAHyI8ixx7Dc/yHdJWI?=
- =?us-ascii?q?4g77WOaRPzh4gHVldaqhiBap60etxffwWdSq31ZOqipJi97Mtm0R1xPI7ciHV/?=
- =?us-ascii?q?198Vq/1TqV1gDT8uFEIUU7lKbBN5EhxbswmoISsUTFACD2hF37ga6Ve0k+5OSl?=
- =?us-ascii?q?5frrbq/7qpKcOIJ4kAXzP6c2lsy6G+s4MwwOX2aB+eS70b3u5Ur3QLRWgf02iK?=
- =?us-ascii?q?bWrpTaKd4UqKKjHgJVyIEj6hi5Dzq9zdsXg30HLFZfdB2biIjpPknCIOrkAven?=
- =?us-ascii?q?n1SsjDBryujBPr35HJrNKGPMkLL9crtm705cyREzzcxE555ODbEAIfbzVVXqu9?=
- =?us-ascii?q?zDFBM5NBa0w+m0QOl6g9cZQW+JCKqSGKfTqkOToOU9J+CGf8kSojmreNY/4Pu7?=
- =?us-ascii?q?2Vo4kl8UcK3v8N09cnenGNxqLkGdJ3Hrh4FSQi8xogMiQbmy2xW5WjlJaiPqUg?=
- =?us-ascii?q?=3D=3D?=
+ bh=/xt9w6900sRZ0Tep++ggvE5p8rbUygN36FXwgAl8pz4=;
+ b=ILqfDB36xxtxguzYlqMul7eTk8y+yubn7SsRs7lX2SfpDdToWz6D+5RF
+ bRBYAdxV66GD2pbsS2fVBVzsfXzQrFh5rLuyhEWxkUUre/qeAxGTJW05x
+ WxXjuegfzT/U267d12bsFxiklfCTMccVWdpg6VxspHncAIQs17Iu2nq07 g=;
+IronPort-PHdr: =?us-ascii?q?9a23=3AGTJ6Xh+TqKntFf9uRHKM819IXTAuvvDOBiVQ1KB3?=
+ =?us-ascii?q?0+4cTK2v8tzYMVDF4r011RmVBdyds6oMotGVmpioYXYH75eFvSJKW713fDhBt/?=
+ =?us-ascii?q?8rmRc9CtWOE0zxIa2iRSU7GMNfSA0tpCnjYgBaF8nkelLdvGC54yIMFRXjLwp1?=
+ =?us-ascii?q?Ifn+FpLPg8it2O2+54Dfbx9UiDahfLh/MAi4oQLNu8cMnIBsMLwxyhzHontJf+?=
+ =?us-ascii?q?RZ22ZlLk+Nkhj/+8m94odt/zxftPw9+cFAV776f7kjQrxDEDsmKWE169b1uhTF?=
+ =?us-ascii?q?UACC+2ETUmQSkhpPHgjF8BT3VYr/vyfmquZw3jSRMMvrRr42RDui9b9mRh/2hi?=
+ =?us-ascii?q?kaKz43/mLZis1sg61Uux+uvQBzw4zObY2JKPZyYKXQds4aS2pbWcZRUjRMD4Sh?=
+ =?us-ascii?q?YoQVC+oOJ+RYr4jnq1YTtxewGROjBOT0xzBVmHD22ak63/49HgHB2QwtBtQDu2?=
+ =?us-ascii?q?naotXyMacdS+G1zK/QwDXMbvNWxTf96JXTfRw7vf6MWrdwfMzMwkcsDwPIllSd?=
+ =?us-ascii?q?pI//Mz+L2OkBrXKX4/dgWO+gkWIqqg98riCyysswkIXFm40Yx17e+Slnz4s5O8?=
+ =?us-ascii?q?e0RUx7bNK8DZdduC+XO5FrTs4jQmxkoiU3x70ctZKmfCUHyZIqzAPFZfOdaYiH?=
+ =?us-ascii?q?+BfjWf6UITd/mX1qZqqyhw238Ui80u38UdS00EpSoipFjNbMsncN2gTN5cicUP?=
+ =?us-ascii?q?Rw8F2t1iuR2ADX7uFIOEc0lbfHK5E6xb4wi5wTvlndEiPsmUX2lK+WdkAr++Sy?=
+ =?us-ascii?q?9+vnZbDmqoedN49ylA7+Lrwjl828DOgiLAQDUXaX9f6h2LDj8kD1WrRHg/Munq?=
+ =?us-ascii?q?ncqp/aJMAbpqCjAw9S14Yu8wuyAC2i0NsCn3kHLUhJdQ+dg4b1IV7OJ+v1Auqh?=
+ =?us-ascii?q?jFSolDdn3ezJPrrkApnVNHjMjK/hfaph605b0Aczyshf6IxSCr4aJfL8RlT8tN?=
+ =?us-ascii?q?jZDh8iLwy02PzrCNJ814MaQ22AGbSZPLnVsV+S6eJ8a9WLMdsSoDv7If0uz/rv?=
+ =?us-ascii?q?lmMi31gPeaCjxt0Qcn/uTdp8JEDMNVDlht4DECEg+DA3S8TmhVmGFzVUYiDhDO?=
+ =?us-ascii?q?oH+jgnBdf+Xs/4TYe3jenZ0Q=3D=3D?=
 X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EoAQBGuVNah2Ka6ERdGgEBAQEBAgEBA?=
- =?us-ascii?q?QEIAQEBAYJKgUsQdC6dB4QDjUCHfYIBColzQhUBAQEBAQEBAQEBAhABAQEKCwk?=
- =?us-ascii?q?IKC+COCKCbhBeATVxAQQbFIkxZLF5imWGNYM/iAeBBA2CDgyDFgWjXgqVK5QSl?=
- =?us-ascii?q?xeBPDWBdG+CfYIDAQsBU4FzilCBFwEBAQ?=
-X-IPAS-Result: =?us-ascii?q?A2EoAQBGuVNah2Ka6ERdGgEBAQEBAgEBAQEIAQEBAYJKgUs?=
- =?us-ascii?q?QdC6dB4QDjUCHfYIBColzQhUBAQEBAQEBAQEBAhABAQEKCwkIKC+COCKCbhBeA?=
- =?us-ascii?q?TVxAQQbFIkxZLF5imWGNYM/iAeBBA2CDgyDFgWjXgqVK5QSlxeBPDWBdG+CfYI?=
- =?us-ascii?q?DAQsBU4FzilCBFwEBAQ?=
-Received: from esa4.dell-outbound2.iphmx.com ([68.232.154.98])
- by esa6.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2018 12:35:24 -0600
-From: <Michael.E.Brown@dell.com>
-Received: from ausxipps301.us.dell.com ([143.166.148.223])
- by esa4.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2018 00:35:24 +0600
-X-LoopCount0: from 10.166.136.210
-X-IronPort-AV: E=Sophos;i="5.46,330,1511848800"; 
- d="scan'208,217";a="110626461"
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2H8AAB9u09ahz+a6ERdGwEBAQEDAQEBC?=
+ =?us-ascii?q?QEBAYJKgVp0Lp0YkUOJO0MKJYRHhQJDFAEBAQEBAQEBAQECEAEBAQgNCQgoL4I?=
+ =?us-ascii?q?4Ig0ESyovAQEBAQEBAQEBAQEBAQEBGgINgRFeAQyBEwcBBBuJQ2QQskiKPy0Fh?=
+ =?us-ascii?q?BSCFYocgjuCDgyDFgWjXAqHfI0tgiCRb4pfglOJYYE8NoFzb4J9gmOBc32IP4E?=
+ =?us-ascii?q?XAQEB?=
+X-IPAS-Result: =?us-ascii?q?A2H8AAB9u09ahz+a6ERdGwEBAQEDAQEBCQEBAYJKgVp0Lp0?=
+ =?us-ascii?q?YkUOJO0MKJYRHhQJDFAEBAQEBAQEBAQECEAEBAQgNCQgoL4I4Ig0ESyovAQEBA?=
+ =?us-ascii?q?QEBAQEBAQEBAQEBGgINgRFeAQyBEwcBBBuJQ2QQskiKPy0FhBSCFYocgjuCDgy?=
+ =?us-ascii?q?DFgWjXAqHfI0tgiCRb4pfglOJYYE8NoFzb4J9gmOBc32IP4EXAQEB?=
+Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
+ by esa8.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2018 11:53:51 -0600
+From: <Balaji.B.Rao@dell.com>
+Received: from ausxippc106.us.dell.com ([143.166.85.156])
+ by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2018 23:53:22 +0600
+X-LoopCount0: from 10.166.132.49
+X-IronPort-AV: E=Sophos;i="5.46,319,1511848800"; 
+ d="scan'208,217";a="196062007"
 X-DLP: DLP_GlobalPCIDSS
 To: <openbmc@lists.ozlabs.org>
-Subject: NonRoot discussion at Hackathon - call for input
-Thread-Topic: NonRoot discussion at Hackathon - call for input
-Thread-Index: AdOIrl+8QooGqY0qRvefNc8ZHLG1lQ==
-Date: Mon, 8 Jan 2018 18:35:23 +0000
-Message-ID: <4d8698c2591544cb98b06faa527935b2@ausx13mps334.AMER.DELL.COM>
+Subject: systemd update for openbmc
+Thread-Topic: systemd update for openbmc
+Thread-Index: AdOGTg/oY7rfIM2lThaTcoQWJKOnZg==
+Date: Fri, 5 Jan 2018 17:53:50 +0000
+Message-ID: <16379b3bfc8a4a1ca02a04aa49a60628@ausx13mpc109.AMER.DELL.COM>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+x-titusconfig: No Restrictions 04051212
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiIyNGUyOGMwZS05OTkyLTRjZjgtODA1NC05MWFkYTczMTE4NzAiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6ImFNWDNPdVwvNWw1RENpY0t4T05XZUhWUTI3VjI5aTVEdTF6aXlwTEJvVjNNPSJ9
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.18.86]
+x-originating-ip: [10.143.242.75]
 Content-Type: multipart/alternative;
- boundary="_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_"
+ boundary="_000_16379b3bfc8a4a1ca02a04aa49a60628ausx13mpc109AMERDELLCOM_"
 MIME-Version: 1.0
+X-Mailman-Approved-At: Tue, 09 Jan 2018 08:35:47 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -84,53 +88,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jan 2018 18:35:28 -0000
+X-List-Received-Date: Fri, 05 Jan 2018 17:55:21 -0000
 
---_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_
+--_000_16379b3bfc8a4a1ca02a04aa49a60628ausx13mpc109AMERDELLCOM_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Hello (again) to everybody going to the hackathon. I'm currently scheduled =
-for an hour talk on Thursday on root/nonroot security.
+systemd in openbmc repo seems a little outdated making it unable to build w=
+ith GNU c++ compilers. Is there a plan to update it? Particularly interesti=
+ng is the following fix,
 
-What would be the best way to make this hour the most productive hour we ca=
-n have on this topic?
+https://github.com/systemd/systemd/commit/aa3288505569433200bfa311ff12d2968=
+4a14374
 
-My background: I led the conversion effort for Dell IDRAC to move our entir=
-e infrastructure away from running daemons as root, and instead run each da=
-emon under a distinct user account. I provided technical backstop as indivi=
-dual teams took over the efforts for their daemons and provided training an=
-d design support to ensure that the effort went as smoothly as possible. Ou=
-r currently shipping Dell IDRAC has most of this work present in our shippi=
-ng product, with a few remaining daemons rolling into upcoming releases.
+Will systemd be updated anytime soon?
 
-What I might suggest would be helpful:
+Thanks
+Balaji
 
--          Slides on examples
-
-o   Running daemon
-
-o   Setting up user accounts for daemons
-
-o   Setting up tmpfiles rules
-
-o   Setting up DBUS security
-
-o   Udev rules to set up /dev/ permissions and ownership (if needed)
-
--          Hands-on: actually hacking live on some daemons to try to get so=
-me converted to non-root
-
-I'm open to using this hour however people feel it would be most helpful an=
-d will get some slides written to cover some of the above.
-
-Thoughts?
-
---
-Michael Brown
-Dell EMC
-
---_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_
+--_000_16379b3bfc8a4a1ca02a04aa49a60628ausx13mpc109AMERDELLCOM_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -144,9 +120,6 @@ xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
 <style><!--
 /* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
@@ -167,110 +140,17 @@ a:visited, span.MsoHyperlinkFollowed
 	{mso-style-priority:99;
 	color:#954F72;
 	text-decoration:underline;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
 span.EmailStyle17
 	{mso-style-type:personal-compose;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
 .MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
+	{mso-style-type:export-only;}
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:68117380;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1572790378 687348188 67698691 67698693 67698689 6769=
-8691 67698693 67698689 67698691 67698693;}
-@list l0:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:-;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.25in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.75in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.25in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.75in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
 --></style><!--[if gte mso 9]><xml>
 <o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
@@ -280,82 +160,20 @@ ul
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hello (again) to everybody going to the hackathon. I=
-&#8217;m currently scheduled for an hour talk on Thursday on root/nonroot s=
-ecurity.<o:p></o:p></p>
+<p class=3D"MsoNormal">systemd in openbmc repo seems a little outdated maki=
+ng it unable to build with GNU c&#43;&#43; compilers. Is there a plan to up=
+date it? Particularly interesting is the following fix,<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">What would be the best way to make this hour the mos=
-t productive hour we can have on this topic?<o:p></o:p></p>
+<p class=3D"MsoNormal"><a href=3D"https://github.com/systemd/systemd/commit=
+/aa3288505569433200bfa311ff12d29684a14374">https://github.com/systemd/syste=
+md/commit/aa3288505569433200bfa311ff12d29684a14374</a><o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">My background: I led the conversion effort for Dell =
-IDRAC to move our entire infrastructure away from running daemons as root, =
-and instead run each daemon under a distinct user account. I provided techn=
-ical backstop as individual teams
- took over the efforts for their daemons and provided training and design s=
-upport to ensure that the effort went as smoothly as possible. Our currentl=
-y shipping Dell IDRAC has most of this work present in our shipping product=
-, with a few remaining daemons rolling
- into upcoming releases.<o:p></o:p></p>
+<p class=3D"MsoNormal">Will systemd be updated anytime soon?<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">What I might suggest would be helpful:<o:p></o:p></p=
->
-<p class=3D"MsoListParagraph" style=3D"margin-left:.75in;text-indent:-.25in=
-;mso-list:l0 level1 lfo1">
-<![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
-.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;
-</span></span><![endif]>Slides on examples<o:p></o:p></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
-n;mso-list:l0 level2 lfo1">
-<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
-pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
-man&quot;">&nbsp;&nbsp;
-</span></span></span><![endif]>Running daemon<o:p></o:p></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
-n;mso-list:l0 level2 lfo1">
-<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
-pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
-man&quot;">&nbsp;&nbsp;
-</span></span></span><![endif]>Setting up user accounts for daemons<o:p></o=
-:p></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
-n;mso-list:l0 level2 lfo1">
-<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
-pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
-man&quot;">&nbsp;&nbsp;
-</span></span></span><![endif]>Setting up tmpfiles rules<o:p></o:p></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
-n;mso-list:l0 level2 lfo1">
-<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
-pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
-man&quot;">&nbsp;&nbsp;
-</span></span></span><![endif]>Setting up DBUS security<o:p></o:p></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
-n;mso-list:l0 level2 lfo1">
-<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
-pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
-man&quot;">&nbsp;&nbsp;
-</span></span></span><![endif]>Udev rules to set up /dev/ permissions and o=
-wnership (if needed)<o:p></o:p></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:.75in;text-indent:-.25in=
-;mso-list:l0 level1 lfo1">
-<![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
-.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;
-</span></span><![endif]>Hands-on: actually hacking live on some daemons to =
-try to get some converted to non-root<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I&#8217;m open to using this hour however people fee=
-l it would be most helpful and will get some slides written to cover some o=
-f the above.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thoughts?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">--<br>
-Michael Brown<o:p></o:p></p>
-<p class=3D"MsoNormal">Dell EMC<o:p></o:p></p>
+<p class=3D"MsoNormal">Thanks<o:p></o:p></p>
+<p class=3D"MsoNormal">Balaji<o:p></o:p></p>
 </div>
 </body>
 </html>
 
---_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_--
+--_000_16379b3bfc8a4a1ca02a04aa49a60628ausx13mpc109AMERDELLCOM_--
