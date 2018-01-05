@@ -1,60 +1,60 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <quochuybk2010@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4001:c06::235; helo=mail-io0-x235.google.com;
+ envelope-from=quochuybk2010@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rFF7u8nY"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="RHJNPk8U"; 
  dkim-atps=neutral
-Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
- [IPv6:2607:f8b0:400d:c0d::242])
+Received: from mail-io0-x235.google.com (mail-io0-x235.google.com
+ [IPv6:2607:f8b0:4001:c06::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zCSWK1h2nzDqvQ
- for <openbmc@lists.ozlabs.org>; Fri,  5 Jan 2018 12:58:37 +1100 (AEDT)
-Received: by mail-qt0-x242.google.com with SMTP id e2so4195379qti.0
- for <openbmc@lists.ozlabs.org>; Thu, 04 Jan 2018 17:58:36 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zCYnL5knNzDql5
+ for <openbmc@lists.ozlabs.org>; Fri,  5 Jan 2018 16:56:06 +1100 (AEDT)
+Received: by mail-io0-x235.google.com with SMTP id t63so4664561iod.0
+ for <openbmc@lists.ozlabs.org>; Thu, 04 Jan 2018 21:56:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=qe5NvaYQycGU6ENH2un/EpNs74t0o5NrhlrsVaPqN6Y=;
- b=rFF7u8nYjxrr+0ssJzVNjtn9KiIEu9LVtja9Rv9V5pKiEjzJqnqyULFazW6lI1tqtk
- R4MUHtM+pU9w4DHxKACJZFfpnngTC4zqfiqEyq7zSPXwtODk6yvrOrj9oxbD3AmUHnAU
- 7aKoLvtpHOVlHM2Drhj1vmBsBftmUYD7D7IlR7JG8LhahIHoL6KkPKGE+hii6bgUZOTa
- FnfhiYuqzSsB7mz0gCIhkgXENGQsLYsQD5Zt1qvGjXVlEcZOUV2bon2VcgZHBSVwe9l4
- mwBje2QUb3PgKbS/C52hs58zwlfEkgTciMXvExh417RUul7ydUGVkdVfbxzNo+SKd45J
- S5Hg==
+ h=to:from:subject:message-id:date:user-agent:mime-version
+ :content-language;
+ bh=tbDdYwCwR6qaxUWZ+/zOyj/Hkni+u68AAn4RjlHoyk0=;
+ b=RHJNPk8US9ikAbLsepG1zDpiyq3QI/gqCgvR21W1zWm/a3FG26Ptt9HIgJ76797y63
+ EehR99oG8rF3ToWEWqzOA+0KN9sY/Q6dcFuDnwInHqnUhLS+HcW4CxYpdI9zya0pmcvW
+ BotJvMEq5FFFQZ87seJNngp4tD4P3lw2gwQ5XnI0qQK25eu0FyTqg/ukIbdKLaU43XHE
+ 6l/mHHpcAAbRO+Qk/8ElcJhLS7HTfLwuGC9Bu9gZL0qZkskQ0n5q2ADJj9ppf/as2t2F
+ yDwvElOBB2OMU9Wcvb7M1e+2PrjZX+pmhknn/Wim5gg1VC27Rdrrcv6A8guJee27lXEv
+ e7Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=qe5NvaYQycGU6ENH2un/EpNs74t0o5NrhlrsVaPqN6Y=;
- b=QWJ9UJp35KIhCfgnW/43X5j9/4I0f4y3yhyx7QMRfEbWX1bYNGgfgZc+V1qiT3+KiX
- QHwdV2AxlnH089m7m2wMCMh5tk4iZzu2mXrijrs7aPmZef+9LdyF50oYm3+RAeD3DuFs
- opDoBdmMrkhuSUUHVP90z9p0dkf2fPqZW1KuAGLp/IWtqmi64mM2FykZndYOd/X6spSX
- hKWQ+gJuhYbeAkJOY5Ttp93sqLeT2O5MRfAPCLFd38dh+IQzq90mCQzXoiD3yB+vTJ9G
- KvwxNVyZi4Xx+oKLA64FsaNMtfkME6dP1CThXiiRhOSvjqZ7yrhMbD2R/Y0srKfBJrWX
- 7ulw==
-X-Gm-Message-State: AKwxytfIBgZcD24AyvYZURiyjkfsLHZqETOSuSWLWSQA11wp6Cs8a2CF
- 1kV8kxrrW7wB1Lf4mgnFgOE6nyY7TLcMLPRK/gI=
-X-Google-Smtp-Source: ACJfBosWs4YHGidpFQ7Q4KkZnkXyifo9nxB/7f+JODU8joAsi9y+AwO9ggNg3NnKu6Syg+73GQS+Wrt0lkVKya/jeUw=
-X-Received: by 10.200.0.149 with SMTP id c21mr2220205qtg.336.1515117514722;
- Thu, 04 Jan 2018 17:58:34 -0800 (PST)
+ h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+ :mime-version:content-language;
+ bh=tbDdYwCwR6qaxUWZ+/zOyj/Hkni+u68AAn4RjlHoyk0=;
+ b=cDZAwh8KT1F2CTDiXq6HXQT88ZhRxzNE7X4c2jQ4sjjDuKlQtEZxCznrlRPgTViQMh
+ wFPP3h480nJy74H7i2SV9VlLf441DS8yRgqJocoeTvk3chO6jx3lT1ySX6DIxFqhMl8/
+ /QFXyvY1ucibhRCcAO4qQBDU7IhPYP7W9AKVa/EOfVe2dxWFmkdOpsbPX7bFp4QktirK
+ Om2yGxrisw61BV6aZgc+d6qGNZabQmPEFydglmI3X2eJGYleFvu/eu+rB2hH92Y9oF/y
+ HLRSD4Az7JpLnRsKEemxbNhh0U5/90j78DF46yZPS9pTf5t/fNJ/eBllW7C2ihqK242k
+ Piqg==
+X-Gm-Message-State: AKGB3mIX2aEdIE3lND+yE7sgItnOtCUUhuM8rA2NvGOnUdwD0kQiEo0e
+ phV7r/bBlfnln7kbwT93Q1U0x1pc
+X-Google-Smtp-Source: ACJfBouV6i7ef4uR4rKxf/YW5n72nQVzcuwFWAtZb0DSoAWBLZZbC63uopk8SJPzJ5MWQD1gmL+R3w==
+X-Received: by 10.107.173.143 with SMTP id m15mr2116619ioo.220.1515131763866; 
+ Thu, 04 Jan 2018 21:56:03 -0800 (PST)
+Received: from [10.38.6.98] ([118.69.219.197])
+ by smtp.gmail.com with ESMTPSA id d14sm2947891itj.11.2018.01.04.21.56.01
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 04 Jan 2018 21:56:03 -0800 (PST)
+To: openbmc@lists.ozlabs.org
+From: Huy Duong <quochuybk2010@gmail.com>
+Subject: Enable Thumb for Aspeed 2400
+Message-ID: <17364132-2499-fe30-b7e3-935008e8e9be@gmail.com>
+Date: Fri, 5 Jan 2018 12:55:58 +0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.29.9 with HTTP; Thu, 4 Jan 2018 17:58:34 -0800 (PST)
-Received: by 10.200.29.9 with HTTP; Thu, 4 Jan 2018 17:58:34 -0800 (PST)
-In-Reply-To: <1515057847-30492-1-git-send-email-mine260309@gmail.com>
-References: <1515057847-30492-1-git-send-email-mine260309@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 5 Jan 2018 12:58:34 +1100
-X-Google-Sender-Auth: BGShvuKYVAK6NZwjeHQWTA2B4p0
-Message-ID: <CACPK8Xf64OdfqNZiyu_v=hxB4YrgxPN5SHzxUsbEGkMbGqVwKg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: zaius: Add
- pcie-e2b-present gpio key
-To: Lei YU <mine260309@gmail.com>, Xo Wang <xow@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Adrian Barrera <abarrera@us.ibm.com>
-Content-Type: multipart/alternative; boundary="f403045f36724212c20561fdc9a0"
+Content-Type: multipart/alternative;
+ boundary="------------08144EA98C2567522DD87D8A"
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,96 +66,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Jan 2018 01:58:37 -0000
+X-List-Received-Date: Fri, 05 Jan 2018 05:56:07 -0000
 
---f403045f36724212c20561fdc9a0
-Content-Type: text/plain; charset="UTF-8"
+This is a multi-part message in MIME format.
+--------------08144EA98C2567522DD87D8A
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On 4 Jan. 2018 20:24, "Lei YU" <mine260309@gmail.com> wrote:
+Hi all,
 
-Add GPIO key to check presence of PCIE E2B
+On Aspeed 2400, /proc/cpuinfo shows that Thumb is supported. But look
+like thumb is currently not enabled in Yocto.
+
+I tried to add "ARMPKGSFX_THUMB = "t"" to
+meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
+and see that everything still works well.
+
+Is there any reason why Thumb is not enabled by default? I think Thumb
+can help to improve performance a lot.
+
+-- 
+Thanks and best regards,
+Huy Duong
 
 
-Xo, can I get an ack please?
+--------------08144EA98C2567522DD87D8A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
+<html>
+  <head>
 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p><font face="Arial">Hi all,</font></p>
+    <p><font face="Arial">On Aspeed 2400, /proc/cpuinfo shows that Thumb
+        is supported. But look like thumb is currently not enabled in Yocto.</font></p>
+    <p><font face="Arial">I tried to add "ARMPKGSFX_THUMB = "t"" to
+meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
+        and see that everything still works well.</font></p>
+    <p><font face="Arial">Is there any reason why Thumb is not enabled
+        by default? I think Thumb can help to improve performance a lot.<br>
+      </font></p>
+    <pre class="moz-signature" cols="72">-- 
+Thanks and best regards,
+Huy Duong
+</pre>
+  </body>
+</html>
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 17f2000..f583dcc 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -55,6 +55,12 @@
-                        gpios = <&gpio ASPEED_GPIO(F, 7) GPIO_ACTIVE_LOW>;
-                        linux,code = <ASPEED_GPIO(F, 7)>;
-                };
-+
-+               pcie-e2b-present{
-+                       label = "pcie-e2b-present";
-+                       gpios = <&gpio ASPEED_GPIO(E, 7) GPIO_ACTIVE_LOW>;
-+                       linux,code = <ASPEED_GPIO(E, 7)>;
-+               };
-        };
-
-        leds {
---
-1.9.1
-
---f403045f36724212c20561fdc9a0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
-il_quote">On 4 Jan. 2018 20:24, &quot;Lei YU&quot; &lt;<a href=3D"mailto:mi=
-ne260309@gmail.com">mine260309@gmail.com</a>&gt; wrote:<br type=3D"attribut=
-ion"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex">Add GPIO key to check presence of PCIE E2B<br=
-></blockquote></div></div></div><div dir=3D"auto"><br></div><div dir=3D"aut=
-o">Xo, can I get an ack please?</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_extra"><div class=
-=3D"gmail_quote"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;bor=
-der-left:1px #ccc solid;padding-left:1ex">
-<br>
-Signed-off-by: Lei YU &lt;<a href=3D"mailto:mine260309@gmail.com">mine26030=
-9@gmail.com</a>&gt;<br>
----<br>
-=C2=A0arch/arm/boot/dts/aspeed-bmc-<wbr>opp-zaius.dts | 6 ++++++<br>
-=C2=A01 file changed, 6 insertions(+)<br>
-<br>
-diff --git a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts b/arch/arm/boo=
-t/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-index 17f2000..f583dcc 100644<br>
---- a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-+++ b/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-@@ -55,6 +55,12 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 gpios =3D &lt;&amp;gpio ASPEED_GPIO(F, 7) GPIO_ACTIVE_LOW&gt;;<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 linux,code =3D &lt;ASPEED_GPIO(F, 7)&gt;;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pcie-e2b-present{<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0label =3D &quot;pcie-e2b-present&quot;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0gpios =3D &lt;&amp;gpio ASPEED_GPIO(E, 7) GPIO_ACTIVE_LOW&gt;;<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0linux,code =3D &lt;ASPEED_GPIO(E, 7)&gt;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 leds {<br>
-<font color=3D"#888888">--<br>
-1.9.1<br>
-<br>
-</font></blockquote></div><br></div></div></div>
-
---f403045f36724212c20561fdc9a0--
+--------------08144EA98C2567522DD87D8A--
