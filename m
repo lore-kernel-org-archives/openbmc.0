@@ -1,56 +1,67 @@
-Return-Path: <xow@google.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400e:c05::22c; helo=mail-pg0-x22c.google.com;
- envelope-from=xow@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="n7IDXYo3"; 
- dkim-atps=neutral
-Received: from mail-pg0-x22c.google.com (mail-pg0-x22c.google.com
- [IPv6:2607:f8b0:400e:c05::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zD0DP5qPZzDqJx
- for <openbmc@lists.ozlabs.org>; Sat,  6 Jan 2018 09:47:32 +1100 (AEDT)
-Received: by mail-pg0-x22c.google.com with SMTP id j2so1305279pgv.3
- for <openbmc@lists.ozlabs.org>; Fri, 05 Jan 2018 14:47:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=wgBmUlZXq5G1N9PJVq7qOjpu8Wwgdu/VaAKreapy8gI=;
- b=n7IDXYo3lC5LlEs5kHuC7aeBS89GXIpYn/HYVPm0DhxCEifhDxv9znQicquJ1Bajqn
- r06nPW0dB7pxhu+jDqSH1cOBwDi/nNL6PNYI4pZR4zUa8DW46X1yh3r5mMDSnLgrR+bt
- QnIpR2rBObwSFfDHI0sFnQbC9mwYwHIejVyoQ5MELV+DiunglMQhqHZwD1dIU6FAqeiz
- UP4MNHWCUNsaaMKBgaApNAH/AMXqKUnYHTYPayjOQp6hiwXONJEPGGLKRseSnG57Ojs0
- s8H40ypZU1R8oKkjdBFtriuwWzSdSoEVRv5Fi72yTHyrK+7Cb2Scv8UwE4E1xs+4ADSI
- OriQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=wgBmUlZXq5G1N9PJVq7qOjpu8Wwgdu/VaAKreapy8gI=;
- b=S5AizicvGrBFmezeizAqgN6FWJM47FlWSpIamAaUBTKqoebiPa7DrFd3iyKPyJ06+/
- aZ/WCGncP1ofqlMUWv2DkYRfXCxzzOy4LPAA7vRrhuKq9SiNYjFQitgftJ9Pb/dCFrZa
- 9yeWcdQiPFqMn2WKrmL27YTuxjB0O0iGIisGubQ9Y/zfRSlThNjWvyEaTDOGWxhh1wyo
- UcbtDAMFFRaSO/lWRXrhtdVrEBO5ni9zXCpIfFzbGIFLtqIkTlG0JXBVaKrGeM2XMHPm
- mzTVOLP4jviw4ngvQKt9qVdZDbZBP7gAzKSosb8If9NXlLsy4Qw7vum4djRciQzIfO9C
- My4A==
-X-Gm-Message-State: AKGB3mK/4HgelhqSONfZhYDb01+YIyO5GURs+ZUWhl8sRzlqJhKvsJSH
- SCS3/3XAYLFYBOItKR52E8wuCADr0r/wHzDeE3oNTIE7ePU=
-X-Google-Smtp-Source: ACJfBotFkjggRfOQdx+wx32TveN6UI91x5iIMcXWQrZuk9cqh02Vea9eaH+7v+PVotcfQE9O2y61sFFY08NeswvHfs4=
-X-Received: by 10.99.51.77 with SMTP id z74mr3520775pgz.324.1515183953598;
- Fri, 05 Jan 2018 12:25:53 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.100.185.4 with HTTP; Fri, 5 Jan 2018 12:25:52 -0800 (PST)
-In-Reply-To: <17364132-2499-fe30-b7e3-935008e8e9be@gmail.com>
-References: <17364132-2499-fe30-b7e3-935008e8e9be@gmail.com>
-From: Xo Wang <xow@google.com>
-Date: Fri, 5 Jan 2018 12:25:52 -0800
-Message-ID: <CAPH-5w7=t0xZVbb4TfJ+_r57uqMLj8+XVJBQ6aGiPm9=PBqCwg@mail.gmail.com>
-Subject: Re: Enable Thumb for Aspeed 2400
-To: Huy Duong <quochuybk2010@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Patrick Venture <venture@google.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zD0Tn5VfjzF0R5
+ for <openbmc@lists.ozlabs.org>; Sat,  6 Jan 2018 09:59:09 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ w05KT75a096890
+ for <openbmc@lists.ozlabs.org>; Fri, 5 Jan 2018 15:31:14 -0500
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2fafgmtds1-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 05 Jan 2018 15:31:13 -0500
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 5 Jan 2018 15:31:12 -0500
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 5 Jan 2018 15:31:02 -0500
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w05KV16d48758900; Fri, 5 Jan 2018 20:31:01 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B0FE32803E;
+ Fri,  5 Jan 2018 15:30:27 -0500 (EST)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 68DB92803D;
+ Fri,  5 Jan 2018 15:30:27 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10] hwmon: (pmbus/core) Prevent unintentional
+ setting of page to 0xFF
+Date: Fri,  5 Jan 2018 14:30:59 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18010520-0008-0000-0000-000002BA28AE
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008325; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000244; SDB=6.00970747; UDB=6.00491679; IPR=6.00750717; 
+ BA=6.00005765; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018896; XFM=3.00000015;
+ UTC=2018-01-05 20:31:12
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18010520-0009-0000-0000-000037CD0A31
+Message-Id: <1515184259-4172-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-01-05_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1801050283
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -62,53 +73,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Jan 2018 22:47:36 -0000
+X-List-Received-Date: Fri, 05 Jan 2018 22:59:10 -0000
 
-@venture you might be interested in this.
+From: "Edward A. James" <eajames@us.ibm.com>
 
-On Thu, Jan 4, 2018 at 9:55 PM, Huy Duong <quochuybk2010@gmail.com> wrote:
-> Hi all,
->
-> On Aspeed 2400, /proc/cpuinfo shows that Thumb is supported. But look like
-> thumb is currently not enabled in Yocto.
+The pmbus core may call read/write word data functions with a page value
+of -1, intending to perform the operation without setting the page.
+However, the read/write word data functions accept only unsigned 8-bit
+page numbers, and therefore cannot check for negative page number to
+avoid setting the page. This results in setting the page number to 0xFF.
+This may result in errors or undefined behavior of some devices
+(specifically the ir35221, which allows the page to be set to 0xFF,
+but some subsequent operations to read registers may fail).
 
-The AST2400 build is already targeting the ARM926EJ-S and building for
-architecture armv5te (see tune-arm926ejs.inc).
+Switch the pmbus_set_page page parameter to an integer and perform the
+check for negative page there. Make read/write functions consistent in
+accepting an integer page number parameter.
 
->
-> I tried to add "ARMPKGSFX_THUMB = "t"" to
-> meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-> and see that everything still works well.
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+(cherry picked from commit 6dcf2fb and manually merged)
 
-Right, packages still default to generating ARM code (as opposed to
-Thumb code) because ARM_INSTRUCTION_SET isn't set. I think what you
-did will force all packages to build emitting Thumb, even those that
-prefer to be built emitting ARM.
+ drivers/hwmon/pmbus/pmbus.h      |  6 +++---
+ drivers/hwmon/pmbus/pmbus_core.c | 25 +++++++++++--------------
+ 2 files changed, 14 insertions(+), 17 deletions(-)
 
->
-> Is there any reason why Thumb is not enabled by default? I think Thumb can
-> help to improve performance a lot.
-
-You can experiment by weakly setting ARM_INSTRUCTION_SET ?= "thumb" in
-your local.conf or machine configuration, which will default packages
-to build emitting Thumb.
-
-As for performance, can you back that up? It's my understanding that
-Thumb (the first version) can be denser than ARM at the cost of
-execution speed because of how limited the ISA is.
-
-With that said, the AST2500 should have Thumb2 support, which ARM
-claims minimal impact to performance for even more compact code than
-Thumb. A quick glance through our build files shows that the AST2500
-build is targeting base ARMv6 and Yocto might not even have support
-for Thumb2 on ARMv6 (doesn't seem to pass the right gcc flags). It
-doesn't look like a huge amount of work to get those right.
-
-Either way, this could be low hanging fruit for reducing code size.
-
->
-> --
-> Thanks and best regards,
-> Huy Duong
-
-xo
+diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+index fd422cd..c028d31 100644
+--- a/drivers/hwmon/pmbus/pmbus.h
++++ b/drivers/hwmon/pmbus/pmbus.h
+@@ -433,9 +433,9 @@ struct pmbus_driver_info {
+ /* Function declarations */
+ 
+ void pmbus_clear_cache(struct i2c_client *client);
+-int pmbus_set_page(struct i2c_client *client, u8 page);
+-int pmbus_read_word_data(struct i2c_client *client, u8 page, u8 reg);
+-int pmbus_write_word_data(struct i2c_client *client, u8 page, u8 reg, u16 word);
++int pmbus_set_page(struct i2c_client *client, int page);
++int pmbus_read_word_data(struct i2c_client *client, int page, u8 reg);
++int pmbus_write_word_data(struct i2c_client *client, int page, u8 reg, u16 word);
+ int pmbus_read_byte_data(struct i2c_client *client, int page, u8 reg);
+ int pmbus_write_byte(struct i2c_client *client, int page, u8 value);
+ int pmbus_write_byte_data(struct i2c_client *client, int page, u8 reg,
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index c4b551b..37ab3666 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -158,13 +158,13 @@ void pmbus_clear_cache(struct i2c_client *client)
+ }
+ EXPORT_SYMBOL_GPL(pmbus_clear_cache);
+ 
+-int pmbus_set_page(struct i2c_client *client, u8 page)
++int pmbus_set_page(struct i2c_client *client, int page)
+ {
+ 	struct pmbus_data *data = i2c_get_clientdata(client);
+ 	int rv = 0;
+ 	int newpage;
+ 
+-	if (page == data->currpage)
++	if (page == data->currpage || page < 0)
+ 		return 0;
+ 
+ 	if (!(data->info->func[page] & PMBUS_PAGE_VIRTUAL)) {
+@@ -195,11 +195,9 @@ int pmbus_write_byte(struct i2c_client *client, int page, u8 value)
+ {
+ 	int rv;
+ 
+-	if (page >= 0) {
+-		rv = pmbus_set_page(client, page);
+-		if (rv < 0)
+-			return rv;
+-	}
++	rv = pmbus_set_page(client, page);
++	if (rv < 0)
++		return rv;
+ 
+ 	return i2c_smbus_write_byte(client, value);
+ }
+@@ -223,7 +221,8 @@ static int _pmbus_write_byte(struct i2c_client *client, int page, u8 value)
+ 	return pmbus_write_byte(client, page, value);
+ }
+ 
+-int pmbus_write_word_data(struct i2c_client *client, u8 page, u8 reg, u16 word)
++int pmbus_write_word_data(struct i2c_client *client, int page, u8 reg,
++			  u16 word)
+ {
+ 	int rv;
+ 
+@@ -311,7 +310,7 @@ static int _pmbus_write_word_data(struct i2c_client *client, int page, int reg,
+ 	return pmbus_write_word_data(client, page, reg, word);
+ }
+ 
+-int pmbus_read_word_data(struct i2c_client *client, u8 page, u8 reg)
++int pmbus_read_word_data(struct i2c_client *client, int page, u8 reg)
+ {
+ 	int rv;
+ 
+@@ -384,11 +383,9 @@ int pmbus_read_byte_data(struct i2c_client *client, int page, u8 reg)
+ {
+ 	int rv;
+ 
+-	if (page >= 0) {
+-		rv = pmbus_set_page(client, page);
+-		if (rv < 0)
+-			return rv;
+-	}
++	rv = pmbus_set_page(client, page);
++	if (rv < 0)
++		return rv;
+ 
+ 	return i2c_smbus_read_byte_data(client, reg);
+ }
+-- 
+1.8.3.1
