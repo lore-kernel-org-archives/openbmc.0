@@ -7,22 +7,22 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zDTCf092WzF0S6
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zDTCd6sdKzF0Rh
  for <openbmc@lists.ozlabs.org>; Sun,  7 Jan 2018 04:33:32 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 37EC312FA5A;
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 2922112FA4D;
  Sat,  6 Jan 2018 12:33:26 -0500 (EST)
 Content-Type: text/plain; charset=utf-8
 Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
 Subject: Re: OpenBMC community telecon - 11/27 Agenda
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 In-Reply-To: <20180106165753.GA14421@wn7x64-4cggry1.aus.amer.dell.com>
-Date: Sat, 6 Jan 2018 12:33:26 -0500
+Date: Sat, 6 Jan 2018 12:33:25 -0500
 Cc: Vernon Mauery <vernon.mauery@linux.intel.com>, stewart@linux.vnet.ibm.com, 
  openbmc@lists.ozlabs.org, richard.marian.thomaiyar@linux.intel.com
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <39FB7457-01DC-4F28-AD9E-45CF6281F354@fuzziesquirrel.com>
+Message-Id: <71F1C503-7D24-4122-BC5E-E7194F50BE72@fuzziesquirrel.com>
 References: <1513620424.5787.47.camel@fuzziesquirrel.com>
  <20171218223918.GO113334@mauery>
  <16113B02-7098-4523-A84A-E4CAFFB145A5@fuzziesquirrel.com>
