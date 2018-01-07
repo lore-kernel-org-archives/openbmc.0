@@ -7,20 +7,20 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zDv9N7118zF0RQ
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zDv9P163hzF0RZ
  for <openbmc@lists.ozlabs.org>; Sun,  7 Jan 2018 21:03:01 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w079j3jI014257;
- Sun, 7 Jan 2018 11:45:03 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w079j48n014258;
+ Sun, 7 Jan 2018 11:45:04 +0200
 Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 5E08A5A915; Sun,  7 Jan 2018 12:02:52 +0200 (IST)
+ id D632E5A94F; Sun,  7 Jan 2018 12:02:52 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v4 1/4] arm: npcm: add basic support for
- Nuvoton BMCs
-Date: Sun,  7 Jan 2018 12:02:47 +0200
-Message-Id: <1515319370-17631-2-git-send-email-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v4 2/4] arm: npcm: add configuration for EVB
+ based NPCM7xx BMC
+Date: Sun,  7 Jan 2018 12:02:48 +0200
+Message-Id: <1515319370-17631-3-git-send-email-tmaimon77@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
 In-Reply-To: <1515319370-17631-1-git-send-email-tmaimon77@gmail.com>
 References: <1515319370-17631-1-git-send-email-tmaimon77@gmail.com>
@@ -37,280 +37,125 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Sun, 07 Jan 2018 10:03:05 -0000
 
-Adds basic support for the Nuvoton NPCM750 BMC.
-
-Based on [v8,1/3] arm: npcm: add basic support for Nuvoton BMCs patch:
-Brendan Higgins : - https://patchwork.kernel.org/patch/10063409/
+add configuration definition for evaluation board based
+NPCM7xx (Poleg) BMC
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/Kconfig             |  2 ++
- arch/arm/Makefile            |  1 +
- arch/arm/mach-npcm/Kconfig   | 61 +++++++++++++++++++++++++++++++
- arch/arm/mach-npcm/Makefile  |  6 ++++
- arch/arm/mach-npcm/headsmp.S | 21 +++++++++++
- arch/arm/mach-npcm/npcm7xx.c | 26 ++++++++++++++
- arch/arm/mach-npcm/platsmp.c | 85 ++++++++++++++++++++++++++++++++++++++++++++
- 7 files changed, 202 insertions(+)
- create mode 100644 arch/arm/mach-npcm/Kconfig
- create mode 100644 arch/arm/mach-npcm/Makefile
- create mode 100644 arch/arm/mach-npcm/headsmp.S
- create mode 100644 arch/arm/mach-npcm/npcm7xx.c
- create mode 100644 arch/arm/mach-npcm/platsmp.c
+ arch/arm/configs/poleg_svb_defconfig | 105 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
+ create mode 100644 arch/arm/configs/poleg_svb_defconfig
 
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index 61a0cb15067e..05543f1cfbde 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
- 
- source "arch/arm/mach-nomadik/Kconfig"
- 
-+source "arch/arm/mach-npcm/Kconfig"
-+
- source "arch/arm/mach-nspire/Kconfig"
- 
- source "arch/arm/plat-omap/Kconfig"
-diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-index 47d3a1ab08d2..60ca50c7d762 100644
---- a/arch/arm/Makefile
-+++ b/arch/arm/Makefile
-@@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)		+= mediatek
- machine-$(CONFIG_ARCH_MXS)		+= mxs
- machine-$(CONFIG_ARCH_NETX)		+= netx
- machine-$(CONFIG_ARCH_NOMADIK)		+= nomadik
-+machine-$(CONFIG_ARCH_NPCM)		+= npcm
- machine-$(CONFIG_ARCH_NSPIRE)		+= nspire
- machine-$(CONFIG_ARCH_OXNAS)		+= oxnas
- machine-$(CONFIG_ARCH_OMAP1)		+= omap1
-diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+diff --git a/arch/arm/configs/poleg_svb_defconfig b/arch/arm/configs/poleg_svb_defconfig
 new file mode 100644
-index 000000000000..d7a8adb5d2f0
+index 000000000000..d6252bd58e54
 --- /dev/null
-+++ b/arch/arm/mach-npcm/Kconfig
-@@ -0,0 +1,61 @@
-+menuconfig ARCH_NPCM
-+	bool "Nuvoton NPCM Architecture"
-+	select ARCH_REQUIRE_GPIOLIB
-+	select USE_OF
-+	select PINCTRL
-+	select PINCTRL_NPCM7XX
-+
-+if ARCH_NPCM
-+
-+comment "NPCM Architecture type"
-+
-+config ARCH_NPCM7XX
-+	depends on ARCH_NPCM && ARCH_MULTI_V7
-+	bool "Support for NPCM7xx BMC (Poleg)"
-+	select CACHE_L2X0
-+	select CPU_V7
-+	select ARM_GIC
-+	select HAVE_ARM_SCU
-+	select ARM_ERRATA_720789
-+	select ARM_ERRATA_754322
-+	select ARM_ERRATA_764369
-+	select ARM_ERRATA_794072
-+	select PL310_ERRATA_588369
-+	select PL310_ERRATA_727915
-+	select FIQ
-+	select CPU_USE_DOMAINS
-+	select GENERIC_CLOCKEVENTS
-+	select CLKDEV_LOOKUP
-+	select COMMON_CLK if OF
-+	select NPCM7XX_TIMER
-+	select MFD_SYSCON
-+	help
-+	  General support for NPCM7xx BMC (Poleg).
-+
-+	  Nuvoton NPCM7xx BMC based on the Cortex A9.
-+
-+choice
-+prompt "NPCM7xx BMC type"
-+
-+config ARCH_NPCM750
-+	depends on ARCH_NPCM7XX
-+	default y if ARCH_NPCM7XX
-+	bool "Support for NPCM750 BMC"
-+	select SMP
-+	select SMP_ON_UP
-+	select HAVE_ARM_TWD if SMP
-+	select USB_EHCI_ROOT_HUB_TT
-+	select USB_ARCH_HAS_HCD
-+	select USB_ARCH_HAS_EHCI
-+	select USB_EHCI_HCD
-+	select USB_ARCH_HAS_OHCI
-+	select USB_OHCI_HCD
-+	select USB
-+	help
-+	  General support for NPCM750 BMC (Poleg).
-+
-+	  Nuvoton NPCM750 BMC based on the Cortex A9.
-+
-+endchoice
-+
-+endif
-diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
-new file mode 100644
-index 000000000000..37f05e4bd0b3
---- /dev/null
-+++ b/arch/arm/mach-npcm/Makefile
-@@ -0,0 +1,6 @@
-+AFLAGS_headsmp.o		+= -march=armv7-a
-+
-+obj-$(CONFIG_ARCH_NPCM7XX)	+= npcm7xx.o
-+obj-$(CONFIG_ARCH_NPCM750)	+= platsmp.o headsmp.o
-+
-+
-diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
-new file mode 100644
-index 000000000000..1746a780a69e
---- /dev/null
-+++ b/arch/arm/mach-npcm/headsmp.S
-@@ -0,0 +1,21 @@
-+/*
-+ * Copyright (c) 2014-2017 Nuvoton Technology corporation.
-+ * Copyright 2017 Google, Inc.
-+ *
-+ * Released under the GPLv2 only.
-+ * SPDX-License-Identifier: GPL-2.0
-+ */
-+
-+#include <linux/linkage.h>
-+#include <linux/init.h>
-+#include <asm/assembler.h>
-+
-+/*
-+ * The boot ROM does not start secondary CPUs in SVC mode, so we need to do that
-+ * here.
-+ */
-+ENTRY(npcm7xx_secondary_startup)
-+	safe_svcmode_maskall r0
-+
-+	b	secondary_startup
-+ENDPROC(npcm7xx_secondary_startup)
-diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
-new file mode 100644
-index 000000000000..ecef5c649a1a
---- /dev/null
-+++ b/arch/arm/mach-npcm/npcm7xx.c
-@@ -0,0 +1,26 @@
-+/*
-+ * Copyright (c) 2014-2017 Nuvoton Technology corporation.
-+ * Copyright 2017 Google, Inc.
-+ *
-+ * Released under the GPLv2 only.
-+ * SPDX-License-Identifier: GPL-2.0
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/types.h>
-+#include <asm/mach/arch.h>
-+#include <asm/mach-types.h>
-+#include <asm/mach/map.h>
-+#include <asm/hardware/cache-l2x0.h>
-+
-+static const char *const npcm7xx_dt_match[] = {
-+	"nuvoton,npcm750",
-+	NULL
-+};
-+
-+DT_MACHINE_START(NPCM7XX_DT, "NPCM7XX Chip family")
-+	.atag_offset	= 0x100,
-+	.dt_compat	= npcm7xx_dt_match,
-+	.l2c_aux_val	= 0x0,
-+	.l2c_aux_mask	= ~0x0,
-+MACHINE_END
-diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
-new file mode 100644
-index 000000000000..c7d143aaa660
---- /dev/null
-+++ b/arch/arm/mach-npcm/platsmp.c
-@@ -0,0 +1,85 @@
-+/*
-+ * Copyright (c) 2014-2017 Nuvoton Technology corporation.
-+ * Copyright 2017 Google, Inc.
-+ *
-+ * Released under the GPLv2 only.
-+ * SPDX-License-Identifier: GPL-2.0
-+ */
-+
-+#define pr_fmt(fmt) "nuvoton,npcm7xx-smp: " fmt
-+
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/smp.h>
-+#include <linux/io.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/of_platform.h>
-+#include <linux/of_address.h>
-+#include <asm/cacheflush.h>
-+#include <asm/smp.h>
-+#include <asm/smp_plat.h>
-+#include <asm/smp_scu.h>
-+
-+#define NPCM7XX_SCRPAD_REG 0x13c
-+
-+extern void npcm7xx_secondary_startup(void);
-+
-+static int npcm7xx_smp_boot_secondary(unsigned int cpu,
-+				      struct task_struct *idle)
-+{
-+	struct device_node *gcr_np;
-+	void __iomem *gcr_base;
-+	int ret = 0;
-+
-+	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
-+	if (!gcr_np) {
-+		pr_err("no gcr device node\n");
-+		ret = -ENODEV;
-+		goto out;
-+	}
-+	gcr_base = of_iomap(gcr_np, 0);
-+	if (!gcr_base) {
-+		pr_err("could not iomap gcr");
-+		ret = -ENOMEM;
-+		goto out;
-+	}
-+
-+	/* give boot ROM kernel start address. */
-+	iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
-+		  NPCM7XX_SCRPAD_REG);
-+	/* make sure the previous write is seen by all observers. */
-+	dsb_sev();
-+
-+	iounmap(gcr_base);
-+out:
-+	return ret;
-+}
-+
-+static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
-+{
-+	struct device_node *scu_np;
-+	void __iomem *scu_base;
-+
-+	scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
-+	if (!scu_np) {
-+		pr_err("no scu device node\n");
-+		return;
-+	}
-+	scu_base = of_iomap(scu_np, 0);
-+	if (!scu_base) {
-+		pr_err("could not iomap scu");
-+		return;
-+	}
-+
-+	scu_enable(scu_base);
-+
-+	iounmap(scu_base);
-+}
-+
-+static struct smp_operations npcm7xx_smp_ops __initdata = {
-+	.smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
-+	.smp_boot_secondary = npcm7xx_smp_boot_secondary,
-+};
-+
-+CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
++++ b/arch/arm/configs/poleg_svb_defconfig
+@@ -0,0 +1,105 @@
++CONFIG_SYSVIPC=y
++CONFIG_BSD_PROCESS_ACCT=y
++CONFIG_LOG_BUF_SHIFT=21
++CONFIG_CGROUPS=y
++CONFIG_SYSFS_DEPRECATED=y
++CONFIG_SYSFS_DEPRECATED_V2=y
++CONFIG_BLK_DEV_INITRD=y
++CONFIG_SYSCTL_SYSCALL=y
++CONFIG_EMBEDDED=y
++CONFIG_SLAB=y
++CONFIG_MODULES=y
++CONFIG_MODULE_UNLOAD=y
++CONFIG_MODVERSIONS=y
++CONFIG_PARTITION_ADVANCED=y
++CONFIG_DEFAULT_DEADLINE=y
++CONFIG_ARCH_NPCM=y
++CONFIG_ARCH_NPCM7XX=y
++CONFIG_AEABI=y
++CONFIG_ZBOOT_ROM_BSS=0x0
++CONFIG_CMDLINE="root=/dev/ram0 console=ttyS0,115200n8 initrd=0x1d00000,6000000 ramdisk_size=24000 mem=64M"
++CONFIG_BINFMT_MISC=y
++CONFIG_NET=y
++CONFIG_PACKET=y
++CONFIG_UNIX=y
++CONFIG_INET=y
++CONFIG_IP_PNP=y
++CONFIG_IP_PNP_DHCP=y
++CONFIG_IP_PNP_BOOTP=y
++CONFIG_UEVENT_HELPER_PATH="/sbin/hotplug"
++CONFIG_DEVTMPFS=y
++CONFIG_MTD=y
++CONFIG_MTD_BLOCK=y
++CONFIG_MTD_RAM=y
++CONFIG_MTD_COMPLEX_MAPPINGS=y
++CONFIG_MTD_SPI_NOR=y
++CONFIG_SPI_NPCM=y
++CONFIG_OF_OVERLAY=y
++CONFIG_BLK_DEV_LOOP=y
++CONFIG_BLK_DEV_NBD=y
++CONFIG_BLK_DEV_RAM=y
++CONFIG_BLK_DEV_RAM_COUNT=1
++CONFIG_BLK_DEV_RAM_SIZE=8192
++CONFIG_SCSI=y
++CONFIG_BLK_DEV_SD=y
++CONFIG_NETDEVICES=y
++CONFIG_NPCM7XX_EMC_ETH=y
++CONFIG_STMMAC_ETH=y
++CONFIG_BROADCOM_PHY=y
++CONFIG_SERIAL_NPCM=y
++CONFIG_SERIAL_NPCM_CONSOLE=y
++CONFIG_NPCM750_OTP=y
++CONFIG_NPCM750_OTP_WRITE_ENABLE=y
++CONFIG_HW_RANDOM=y
++CONFIG_I2C=y
++CONFIG_I2C_CHARDEV=y
++CONFIG_I2C_NPCM7XX=y
++CONFIG_GPIO_SYSFS=y
++CONFIG_GPIO_GENERIC_PLATFORM=y
++CONFIG_SENSORS_LM75=y
++CONFIG_SENSORS_TMP102=y
++CONFIG_SENSORS_NPCM7XX=y
++CONFIG_WATCHDOG=y
++CONFIG_USB_HIDDEV=y
++CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
++CONFIG_USB_STORAGE=y
++CONFIG_USB_CHIPIDEA=y
++CONFIG_USB_CHIPIDEA_UDC=y
++CONFIG_USB_GADGET=y
++CONFIG_USB_GADGET_NPCMX50_USB2=y
++CONFIG_USB_MASS_STORAGE=m
++CONFIG_USB_EDM_KBD_MOUSE=m
++CONFIG_MMC=y
++CONFIG_MMC_SDHCI=y
++CONFIG_MMC_SDHCI_NPCM750=y
++CONFIG_IIO=y
++CONFIG_NPCM7XX_ADC=y
++CONFIG_MSDOS_FS=y
++CONFIG_VFAT_FS=y
++CONFIG_TMPFS=y
++CONFIG_ROMFS_FS=y
++CONFIG_NFS_FS=y
++CONFIG_ROOT_NFS=y
++CONFIG_CIFS=y
++CONFIG_CIFS_XATTR=y
++CONFIG_NLS_CODEPAGE_437=y
++CONFIG_NLS_ASCII=y
++CONFIG_NLS_ISO8859_1=y
++CONFIG_DYNAMIC_DEBUG=y
++CONFIG_DEBUG_INFO=y
++CONFIG_DEBUG_INFO_REDUCED=y
++CONFIG_READABLE_ASM=y
++CONFIG_DEBUG_SECTION_MISMATCH=y
++CONFIG_MAGIC_SYSRQ=y
++CONFIG_FUNCTION_TRACER=y
++CONFIG_DEBUG_LL=y
++CONFIG_EARLY_PRINTK=y
++CONFIG_CRYPTO_CBC=y
++CONFIG_CRYPTO_CTR=y
++CONFIG_CRYPTO_CMAC=y
++CONFIG_CRYPTO_CRC32C=y
++CONFIG_CRYPTO_DEFLATE=y
++CONFIG_CRYPTO_LZO=y
++CONFIG_CRYPTO_USER_API_SKCIPHER=y
++CONFIG_CRYPTO_DEV_NPCMX50=y
++CONFIG_ARM_CRYPTO=y
 -- 
 2.14.1
