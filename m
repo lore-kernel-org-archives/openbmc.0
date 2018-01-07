@@ -7,23 +7,21 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zDv9P1N1zzF0Rd
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zDv9P0tskzF0RX
  for <openbmc@lists.ozlabs.org>; Sun,  7 Jan 2018 21:03:01 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w079j56K014268;
- Sun, 7 Jan 2018 11:45:05 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w079j3KO014256;
+ Sun, 7 Jan 2018 11:45:03 +0200
 Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id AA9D95A907; Sun,  7 Jan 2018 12:02:53 +0200 (IST)
+ id D48565A907; Sun,  7 Jan 2018 12:02:51 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v4 4/4] MAINTAINERS: Add entry for Nuvoton NPCM
- architecture
-Date: Sun,  7 Jan 2018 12:02:50 +0200
-Message-Id: <1515319370-17631-5-git-send-email-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v4 0/4] arm: npcm: add basic support for
+ Nuvoton BMCs
+Date: Sun,  7 Jan 2018 12:02:46 +0200
+Message-Id: <1515319370-17631-1-git-send-email-tmaimon77@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1515319370-17631-1-git-send-email-tmaimon77@gmail.com>
-References: <1515319370-17631-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -37,39 +35,65 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Sun, 07 Jan 2018 10:03:06 -0000
 
-Add maintainers and reviewers for Nuvoton NPCM architecture
+Changes since version 3:
+ - updating deconfig file to support ADC, SPI, FAN, EMC drivers
+ - updating device tree file to support FAN, GMAC drivers
 
-Based on [v8,3/3] MAINTAINERS: Add entry for Nuvoton NPCM architecture patch:
-Brendan Higgins : - https://patchwork.kernel.org/patch/10063413/
+Changes since version 2:
+ - Update GPL licence message
+ - Creating defconfig with make tool and patch it with is own patch
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- MAINTAINERS | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Changes since version 1:
+ - Add dt-binding documentation to NPCM
+ - Add dt-binding documentation to npcm7xx-smp
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1c3feffb1c1c..9b90748b729d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1598,6 +1598,19 @@ F:	drivers/pinctrl/nomadik/
- F:	drivers/i2c/busses/i2c-nomadik.c
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-nomadik.git
- 
-+ARM/NUVOTON NPCM ARCHITECTURE
-+M:	Avi Fishman <avifishman70@gmail.com>
-+M:	Tomer Maimon <tmaimon77@gmail.com>
-+R:	Brendan Higgins <brendanhiggins@google.com>
-+R:	Rick Altherr <raltherr@google.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Supported
-+F:	arch/arm/mach-npcm/
-+F:	arch/arm/boot/dts/nuvoton-npcm*
-+F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-+F:	drivers/*/*npcm*
-+F:	Documentation/*/*npcm*
-+
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+This patch set adds support for the Nuvoton NPCM Baseboard Management Controller
+(BMC) SoC architecture as well as the NPCM750 variant. NPCM is an ARM based SoC
+with external DDR RAM and supports a large set of peripherals.
+
+The NPCM750 is based on Cortex A9 and comes in single core and dual core
+flavors.
+
+The device tree added in this patchset has a number of bindings for which the
+corresponding drivers will be sent out later and thus do not yet have binding
+documentation. Apologies in advance if you would like the bindings to be added
+along with the corresponding drivers.
+
+this patch set based on Brendan Higgins patcehs.
+https://patchwork.kernel.org/project/linux-arm-kernel/list/?submitter=170155
+
+Tomer Maimon (4):
+  arm: npcm: add basic support for Nuvoton BMCs
+  arm: npcm: add configuration for EVB based NPCM7xx BMC
+  arm: dts: add Nuvoton NPCM750 device tree
+  MAINTAINERS: Add entry for Nuvoton NPCM architecture
+
+ .../arm/cpu-enable-method/nuvoton,npcm7xx-smp      |   42 +
+ .../devicetree/bindings/arm/npcm/npcm.txt          |    6 +
+ MAINTAINERS                                        |   13 +
+ arch/arm/Kconfig                                   |    2 +
+ arch/arm/Makefile                                  |    1 +
+ arch/arm/boot/dts/nuvoton-npcm750-evb.dts          |  467 ++++++++
+ arch/arm/boot/dts/nuvoton-npcm750-gpio.dtsi        |  876 ++++++++++++++
+ arch/arm/boot/dts/nuvoton-npcm750.dtsi             | 1189 ++++++++++++++++++++
+ arch/arm/configs/poleg_svb_defconfig               |  105 ++
+ arch/arm/mach-npcm/Kconfig                         |   61 +
+ arch/arm/mach-npcm/Makefile                        |    6 +
+ arch/arm/mach-npcm/headsmp.S                       |   21 +
+ arch/arm/mach-npcm/npcm7xx.c                       |   26 +
+ arch/arm/mach-npcm/platsmp.c                       |   85 ++
+ 14 files changed, 2900 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
+ create mode 100644 Documentation/devicetree/bindings/arm/npcm/npcm.txt
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm750-gpio.dtsi
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm750.dtsi
+ create mode 100644 arch/arm/configs/poleg_svb_defconfig
+ create mode 100644 arch/arm/mach-npcm/Kconfig
+ create mode 100644 arch/arm/mach-npcm/Makefile
+ create mode 100644 arch/arm/mach-npcm/headsmp.S
+ create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+ create mode 100644 arch/arm/mach-npcm/platsmp.c
+
 -- 
 2.14.1
