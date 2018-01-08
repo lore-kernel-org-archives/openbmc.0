@@ -1,57 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::22a; helo=mail-qk0-x22a.google.com;
+ (client-ip=2607:f8b0:400d:c09::232; helo=mail-qk0-x232.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="JJxuLTY2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="lJdeXfG4"; 
  dkim-atps=neutral
-Received: from mail-qk0-x22a.google.com (mail-qk0-x22a.google.com
- [IPv6:2607:f8b0:400d:c09::22a])
+Received: from mail-qk0-x232.google.com (mail-qk0-x232.google.com
+ [IPv6:2607:f8b0:400d:c09::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zFqyT4GVlzF0cc
- for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 09:41:52 +1100 (AEDT)
-Received: by mail-qk0-x22a.google.com with SMTP id j185so5440738qkc.5
- for <openbmc@lists.ozlabs.org>; Mon, 08 Jan 2018 14:41:52 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zFr1h5KbrzF0dL
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 09:44:40 +1100 (AEDT)
+Received: by mail-qk0-x232.google.com with SMTP id d202so16250493qkc.9
+ for <openbmc@lists.ozlabs.org>; Mon, 08 Jan 2018 14:44:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-transfer-encoding;
- bh=YZRx0Jb3lGrhJxN2A31y0CIhZYI9T5tEwSOcyHgREIQ=;
- b=JJxuLTY20bUz/mfv1UFbLeKBLeJESWnCBk/zEpw2zZerdvgJVSZWDiaKZI6+89Yrqa
- E8reWPN5O70mflJVSdreWfv1uIzkRyBshBk1GFyyiHHhuk/MFYgQwTFsEP3lnv8eAnBo
- 9AhJPbQRfyfvhNbSPXafiu6+gl3MgYQTLGv5InOWckP+l5JkkLXfF8tewlOJWW4J4VIl
- hvPY/v0lS3Gap3TnbqTXz4NhSzZBciIJ3IqL7SHbY/nmB9BnasqTtZ2yyQRW0KEoiYXx
- 6TS77uCzmNQhXSGurNxqTKHHwfyfFROLrPcvrQDDa7Jk6C7XEzq9bTfmWuiMTQ5DlPM2
- boHw==
+ bh=WDEEaKFTE590qC9vb00hBHszkqcouWs8MsH1IBtNO5w=;
+ b=lJdeXfG4x+GRduUZFPv32lXWO20YzDR9ISuSGOkkyRd4PZmOCrVkiCvaAv2mBdrpLR
+ 4FkvGHo1IBXAkl52Z2pmAWfeRrCag7Rgqd63T1vVFzI6+Q4PeKdbvKlCnv1hWSiNneGZ
+ 3oPKynQiC+RFv38J6LqoyYlOumfGMcGQB8U+fyHKr81B9sNVxu/JUbZvU1IX+lZivWdD
+ 4YXCMR7lBmOXU6ykDO6vNkOe98cIkPFHRMKXNBpnfxCQwd2uAtL2oNAv2viktoi2xc/7
+ RxQ2wugxYDjtNU3wJLWJMJmPo4AD90lIZS+9sgNYRFNzhKLmB2Na4b7nvrKRFLgmlY2I
+ Vr0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=YZRx0Jb3lGrhJxN2A31y0CIhZYI9T5tEwSOcyHgREIQ=;
- b=TSW22ALQvh8qva7ImDAUCvG1luImqjyCf3TnaYTgG0r6Pjp+CGiBF3xddTPlEgR+1G
- gIb+/Wz+ifxCplEmt/y1t957CacBENGLretwWWWXDrkcEUS7xrHeCj0+7aRmG8OxE3Yw
- H//NhDGiXNVNV07GqF1ggYfihkl4oAuUgyCrmWQdF0Xa/vcqee+eHzjyfN4AOPohuDou
- X6wkpDKcblEOpC60yCR7EWdqLQIUb40KMqQApLRwDGlIAxXYmIR3kSavCq2a+w3gV4V5
- GBhAeahHB1Xu9xmEMEwyV5yniuWuCr2EsmIHgeIle4WiyF4uwllaaHZZ7X3ujXCwNb2f
- uP3A==
-X-Gm-Message-State: AKwxytf32AstK2QE4jXSEfsiq0T8RIA66raX2F9W6wA9iSqu9k1KCVS3
- bpgx9zUByc4IhtdsZVej+FVvPOAq85P2tKL8ces=
-X-Google-Smtp-Source: ACJfBousc7JmOpfRPn7oHbp3/PqAnlbJSRfm4wy6see/T1KxaIiO4EIR54FsfRiHCMEK3zEWg/DKdCMFKNJlVuJC0lQ=
-X-Received: by 10.55.182.2 with SMTP id g2mr17393730qkf.273.1515451310105;
- Mon, 08 Jan 2018 14:41:50 -0800 (PST)
+ bh=WDEEaKFTE590qC9vb00hBHszkqcouWs8MsH1IBtNO5w=;
+ b=aBTEg6zGDSLCp7xta4Gqfq6b2rapuA74+VlKwOcYajkqRp0euNrrWRlWBK5NRhpSTx
+ eejmTwgIN7/fJkZatW9iH922FoZZgadDpSkK4YE2F7lc3JgxwD62X0MrH+Z6CWY7KKnn
+ LbIK2dEp+tiP4t1iWMHmpQgm64tDvEcKmDpVGvY42XEQ3EDmmc3lrjkvxWaiL9yhUcPw
+ D0AKiOdLWJdxjEul5Dn4NFs0FEVAh0bWqppB4iuhntDUuahnWB30lHIoqMuiRcbVxDVh
+ AqQxpcB/p7/W9nuBVWNRI+mtzZp2vrmVvP9wl2bmWerBbArfI5sMI6Uswqdn9+c/nk4o
+ K/CA==
+X-Gm-Message-State: AKwxytcEkgcZ5UPaBypr/Xng112xFzZSP4nyast7LeVMq90IXFr2HujE
+ A+LI4RwdcZBmfqkVMFI8LOfdgOM1Jk7I3DZA/lM=
+X-Google-Smtp-Source: ACJfBovQvn1MvI4p5lcq89SWS6ZQmOKMfXgQVTZrj+LO9fwCQ8oFUjew1yycWmRPe3VLD9tCOv8dazBoz1Vnqiirp/A=
+X-Received: by 10.55.217.20 with SMTP id u20mr17569540qki.52.1515451478229;
+ Mon, 08 Jan 2018 14:44:38 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.29.9 with HTTP; Mon, 8 Jan 2018 14:41:29 -0800 (PST)
-In-Reply-To: <016614e372d440c0b2f0970d048bd477@ausx13mps334.AMER.DELL.COM>
-References: <016614e372d440c0b2f0970d048bd477@ausx13mps334.AMER.DELL.COM>
+Received: by 10.200.29.9 with HTTP; Mon, 8 Jan 2018 14:44:17 -0800 (PST)
+In-Reply-To: <4d8698c2591544cb98b06faa527935b2@ausx13mps334.AMER.DELL.COM>
+References: <4d8698c2591544cb98b06faa527935b2@ausx13mps334.AMER.DELL.COM>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 9 Jan 2018 09:41:29 +1100
-X-Google-Sender-Auth: RqWNcHlVPBwjHQrO8Hnfi2GH3QQ
-Message-ID: <CACPK8XeJiBDLESERMfOuXyoMxX3QYpbPe4ZFv0vu6xGC1Y4RQg@mail.gmail.com>
-Subject: Re: SELinux discussion at Hackathon - call for input
+Date: Tue, 9 Jan 2018 09:44:17 +1100
+X-Google-Sender-Auth: BgpieXGmfbL5UdYkZ80BMOPkRss
+Message-ID: <CACPK8XdhQT0_HvAwsNsY=Pv7_BMMDyDKXf4CFbK4jHR9LpdUNw@mail.gmail.com>
+Subject: Re: NonRoot discussion at Hackathon - call for input
 To: Michael.E.Brown@dell.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Stewart Smith <stewart@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -65,49 +64,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jan 2018 22:41:54 -0000
+X-List-Received-Date: Mon, 08 Jan 2018 22:44:41 -0000
 
-On Tue, Jan 9, 2018 at 5:27 AM,  <Michael.E.Brown@dell.com> wrote:
-> Hello to everybody who is going to the hackathon. I currently am schedule=
-d
-> for an hour to talk about SELinux on Wed.
+On Tue, Jan 9, 2018 at 5:35 AM,  <Michael.E.Brown@dell.com> wrote:
+> Hello (again) to everybody going to the hackathon. I=E2=80=99m currently =
+scheduled
+> for an hour talk on Thursday on root/nonroot security.
 >
 >
 >
-> What would people like to know? What is the best possible use of this hou=
-r,
-> and what does everybody want to walk away with at the end?
+> What would be the best way to make this hour the most productive hour we =
+can
+> have on this topic?
 >
 >
 >
-> My background: I led the implementation of a full SELinux policy
-> implementation for Dell IDRAC which will be delivered in our product
-> starting later this year. I did the initial work of setting up the
-> implementation strategy, did much of the initial work to get everything
-> building, and then supervised the implementation. Where I=E2=80=99m less =
-strong
-> right now is actual details of writing policy, as I=E2=80=99ve largely le=
-t our lead
-> devs on the selinux team write the actual policy for the past 2 years of
-> implementation effort.
+> My background: I led the conversion effort for Dell IDRAC to move our ent=
+ire
+> infrastructure away from running daemons as root, and instead run each
+> daemon under a distinct user account.
 
-Cool!
+Great! I have had this as a goal in mind for OpenBMC since I started
+working on it.
 
+> I provided technical backstop as
+> individual teams took over the efforts for their daemons and provided
+> training and design support to ensure that the effort went as smoothly as
+> possible. Our currently shipping Dell IDRAC has most of this work present=
+ in
+> our shipping product, with a few remaining daemons rolling into upcoming
+> releases.
+>
+>
+>
 > What I might suggest would be helpful:
 >
-> -          Outline of build requirements for selinux
+> -          Slides on examples
+
+Some documentation for others to use when adding daemons to the system
+would be a great start.
+
 >
-> -          Example implementation strategy
+> o   Running daemon
 >
-> -          Example project development rules for dealing with selinux
+> o   Setting up user accounts for daemons
+>
+> o   Setting up tmpfiles rules
+>
+> o   Setting up DBUS security
+>
+> o   Udev rules to set up /dev/ permissions and ownership (if needed)
+>
+> -          Hands-on: actually hacking live on some daemons to try to get
+> some converted to non-root
 
-This list looks good.
-
-I would like to see a demo of OpenBMC booting with selinux in
-enforcing mode. How far are we away from being able to do that?
-
-Do you plan on submitting on SELinux policies for the default
-applications in the phosphor layer?
+This hands on stuff sounds great. I am more interested in hands on
+keyboards than viewing slides for our sessions this week.
 
 Cheers,
 
