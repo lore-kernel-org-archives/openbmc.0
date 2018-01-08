@@ -1,69 +1,69 @@
 Return-Path: <Michael.E.Brown@dell.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.218; helo=esa8.dell-outbound.iphmx.com;
+ (client-ip=68.232.149.229; helo=esa6.dell-outbound.iphmx.com;
  envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="WoaXn9z0"; 
+ unprotected) header.d=dell.com header.i=@dell.com header.b="dEYJAUsa"; 
  dkim-atps=neutral
-Received: from esa8.dell-outbound.iphmx.com (esa8.dell-outbound.iphmx.com
- [68.232.149.218])
+Received: from esa6.dell-outbound.iphmx.com (esa6.dell-outbound.iphmx.com
+ [68.232.149.229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zFkJY3JNYzF0Q3
- for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 05:27:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zFkV71g7PzDqHN
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 05:35:26 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1515436029; x=1546972029;
+ t=1515436527; x=1546972527;
  h=from:to:subject:date:message-id:mime-version;
- bh=l9+OJE/1Gah/PMUw4TtRsaemFr0bXKJeO4xUUvWG+8A=;
- b=WoaXn9z0TQgkh50X42e1Q4lWZXLVTRTZ+mLApGjAOg0O51xdMVNUnR2F
- owO3YZubKtNNFnZ9poOAG68j3TvGyR7UZrk2ijMuQAgdyxZcQwIDzMJJU
- Wt2ZnaRmwpY4+WhByxiB0otYV3/D+v2Wvu9BaZrcKIVTQc1v4pV5XwuFm Q=;
-IronPort-PHdr: =?us-ascii?q?9a23=3ArgvbixSupRocEF7QO7BDicJijtpsv+yvbD5Q0YIu?=
- =?us-ascii?q?jvd0So/mwa69bBWN2/xhgRfzUJnB7Loc0qyK6/mmATRIyK3CmUhKSIZLWR4BhJ?=
- =?us-ascii?q?detC0bK+nBN3fGKuX3ZTcxBsVIWQwt1Xi6NU9IBJS2PAWK8TW94jEIBxrwKxd+?=
- =?us-ascii?q?KPjrFY7OlcS30P2594HObwlSizexfa5+IA+qoQnNq8IbnZZsJqEtxxXTv3BGYf?=
- =?us-ascii?q?5WxWRmJVKSmxbz+MK994N9/ipTpvws6ddOXb31cKokQ7NYCi8mM30u683wqRbD?=
- =?us-ascii?q?VwqP6WACXWgQjxFFHhLK7BD+Xpf2ryv6qu9w0zSUMMHqUbw5Xymp4qF2QxHqlS?=
- =?us-ascii?q?gHLSY0/mHJhMJtkKJVrhGvpx1jzIHbe4yaLuZyfqHHcN8GWWZNQMBcXDFBDIOm?=
- =?us-ascii?q?aIsPCvIMMOFfoYn8u1QOrQGxCheoBO/1xTFEnGL73bc90+UvFwHLxxEvEMwKsH?=
- =?us-ascii?q?TQttn6KKASUeWswaTO0D7NbOtW1C/85YXLaBwtv/+BUaxqfcbMyUQiGBnJg1GT?=
- =?us-ascii?q?pID9Ij+Zyv4Bv3WU4uduT+6jlm0qpxtyrzWu3ssgl4bEi4wPxlzZ9Ch0wZw5Kc?=
- =?us-ascii?q?C3RUN4e9KoDZtduiCcOoBrWM0tWXtotzw/yrAevJ67ezUFx4o/yh7EbvyHb5CI?=
- =?us-ascii?q?4hX+VOaNOTt4hGxqeLa4hxuq70eg0ffzW8au3FlXsCVFlt3MumkK1xzO9siIUf?=
- =?us-ascii?q?x9/lqn2TmSyQzf8OBEIVg0lareJJ8t2KI/lp0WsUjbHy/2nlv5jLOOe0gl+eWk?=
- =?us-ascii?q?8frrb7v4qpOGKoN5ig7zPr4ql8G8Geg4NxIBX2mf+eSyzr3j+kj5Ta1NgP03jq?=
- =?us-ascii?q?bZsIrVKtofpqKjDAFZyJsu6wy4Dzao1tQVhmQII0xBeBKDlYTmJ1bOIPXgAfel?=
- =?us-ascii?q?n1usiCtrx+zBPrD5BZXNNmbMkLH6crZ490FR0w4zzdFE55JIEbENOvXzW071tN?=
- =?us-ascii?q?PCFRA5KBa4w+H9CNVyhcsiXjfbBbeUNqnXuneM5/kzOK+Ldoscsi27LOIqsa3A?=
- =?us-ascii?q?l3g8zAs4fKKp1JYTLl3+NO5hPEOxbXfohpEKFmJc7Vl2d/DjlFDXCW0bXH21Ra?=
- =?us-ascii?q?9pvjw=3D?=
+ bh=DTs7E6rkvk7xEB+Zn6DAlDjcXqpNWVMw7zv6pSpHY0Q=;
+ b=dEYJAUsaKjQ9vUTLQu12dSef6U4cqCfxaVsW+9R1GAD3OOrj8tRvi/25
+ Y/wOX+Cs92sT/9zo4YLmOPA5AUIJ9wK5MCYh48SxdbnnYkri2M6hx3Zc/
+ swN7wW3GVrJ0LFH5guWejY8RL/YpG6SFv59EQ/z1JPugXUCMYHksqZUqt o=;
+IronPort-PHdr: =?us-ascii?q?9a23=3AKG0QOhCDiOinHVZV0jajUyQJP3N1i/DPJgcQr6Af?=
+ =?us-ascii?q?oPdwSPvzpsbcNUDSrc9gkEXOFd2Cra4c0qyO6+jJYi8p2d65qncMcZhBBVcuqP?=
+ =?us-ascii?q?49uEgeOvODElDxN/XwbiY3T4xoXV5h+GynYwAOQJ6tL1LdrWev4jEMBx7xKRR6?=
+ =?us-ascii?q?JvjvGo7Vks+7y/2+94fcbglUmTaxe69+IAmrpgjNq8cahpdvJLwswRXTuHtIfO?=
+ =?us-ascii?q?pWxWJsJV2Nmhv3+9m98p1+/SlOovwt78FPX7n0cKQ+VrxYES8pM3sp683xtBnM?=
+ =?us-ascii?q?VhWA630BWWgLiBVIAgzF7BbnXpfttybxq+Rw1DWGMcDwULs5Xymp4aV2Rx/ykC?=
+ =?us-ascii?q?oJNyA3/nzLisJ+j6xboQ6uqBNkzoHOfI2VNuBzcr/Bcd8EQ2dKQ8ZfVzZGAoO5?=
+ =?us-ascii?q?d4YCCO0PPedEoIn9vVQBsx++CROjCu/11zJInHj23KM80+k6DA7JwgggH9YUvH?=
+ =?us-ascii?q?vIq9X1Mb4fXOaox6fL1TXOd/Jb1DTn5ITWfB0tv+uAUa9wfMfe00UiEwDIgk2N?=
+ =?us-ascii?q?pYD5JT+Zy+sAvmaB4+Z9Vu+jkW0qpgBprjSyycohhJPFip8Ux13F7yl13Yk4KN?=
+ =?us-ascii?q?6iREJlf9KpHp1dvDyAOYRsWMMtWWRotT4/yr0BpJG0YjAHyI8ixx7Dc/yHdJWI?=
+ =?us-ascii?q?4g77WOaRPzh4gHVldaqhiBap60etxffwWdSq31ZOqipJi97Mtm0R1xPI7ciHV/?=
+ =?us-ascii?q?198Vq/1TqV1gDT8uFEIUU7lKbBN5EhxbswmoISsUTFACD2hF37ga6Ve0k+5OSl?=
+ =?us-ascii?q?5frrbq/7qpKcOIJ4kAXzP6c2lsy6G+s4MwwOX2aB+eS70b3u5Ur3QLRWgf02iK?=
+ =?us-ascii?q?bWrpTaKd4UqKKjHgJVyIEj6hi5Dzq9zdsXg30HLFZfdB2biIjpPknCIOrkAven?=
+ =?us-ascii?q?n1SsjDBryujBPr35HJrNKGPMkLL9crtm705cyREzzcxE555ODbEAIfbzVVXqu9?=
+ =?us-ascii?q?zDFBM5NBa0w+m0QOl6g9cZQW+JCKqSGKfTqkOToOU9J+CGf8kSojmreNY/4Pu7?=
+ =?us-ascii?q?2Vo4kl8UcK3v8N09cnenGNxqLkGdJ3Hrh4FSQi8xogMiQbmy2xW5WjlJaiPqUg?=
+ =?us-ascii?q?=3D=3D?=
 X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EoAQCvtlNah2Ka6ERdGgEBAQEBAgEBA?=
- =?us-ascii?q?QEIAQEBAYJKgUsQdC6dB4QDjUCJfgqJc0MUAQEBAQEBAQEBAQIQAQEBCgsJCCg?=
- =?us-ascii?q?vgjgigm4QXgGBJgEEGwyJOWSyGIpkhjWMV4IODIMWBYpwmG4KlSuUEpcXgTw2g?=
- =?us-ascii?q?XNvgn2CAwEBCAIBQxAMgWeKUIEXAQEB?=
-X-IPAS-Result: =?us-ascii?q?A2EoAQCvtlNah2Ka6ERdGgEBAQEBAgEBAQEIAQEBAYJKgUs?=
- =?us-ascii?q?QdC6dB4QDjUCJfgqJc0MUAQEBAQEBAQEBAQIQAQEBCgsJCCgvgjgigm4QXgGBJ?=
- =?us-ascii?q?gEEGwyJOWSyGIpkhjWMV4IODIMWBYpwmG4KlSuUEpcXgTw2gXNvgn2CAwEBCAI?=
- =?us-ascii?q?BQxAMgWeKUIEXAQEB?=
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EoAQBGuVNah2Ka6ERdGgEBAQEBAgEBA?=
+ =?us-ascii?q?QEIAQEBAYJKgUsQdC6dB4QDjUCHfYIBColzQhUBAQEBAQEBAQEBAhABAQEKCwk?=
+ =?us-ascii?q?IKC+COCKCbhBeATVxAQQbFIkxZLF5imWGNYM/iAeBBA2CDgyDFgWjXgqVK5QSl?=
+ =?us-ascii?q?xeBPDWBdG+CfYIDAQsBU4FzilCBFwEBAQ?=
+X-IPAS-Result: =?us-ascii?q?A2EoAQBGuVNah2Ka6ERdGgEBAQEBAgEBAQEIAQEBAYJKgUs?=
+ =?us-ascii?q?QdC6dB4QDjUCHfYIBColzQhUBAQEBAQEBAQEBAhABAQEKCwkIKC+COCKCbhBeA?=
+ =?us-ascii?q?TVxAQQbFIkxZLF5imWGNYM/iAeBBA2CDgyDFgWjXgqVK5QSlxeBPDWBdG+CfYI?=
+ =?us-ascii?q?DAQsBU4FzilCBFwEBAQ?=
 Received: from esa4.dell-outbound2.iphmx.com ([68.232.154.98])
- by esa8.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2018 12:27:05 -0600
+ by esa6.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2018 12:35:24 -0600
 From: <Michael.E.Brown@dell.com>
-Received: from ausxipps306.us.dell.com ([143.166.148.156])
+Received: from ausxipps301.us.dell.com ([143.166.148.223])
  by esa4.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2018 00:27:04 +0600
+ 09 Jan 2018 00:35:24 +0600
 X-LoopCount0: from 10.166.136.210
 X-IronPort-AV: E=Sophos;i="5.46,330,1511848800"; 
- d="scan'208,217";a="196804814"
+ d="scan'208,217";a="110626461"
 X-DLP: DLP_GlobalPCIDSS
 To: <openbmc@lists.ozlabs.org>
-Subject: SELinux discussion at Hackathon - call for input
-Thread-Topic: SELinux discussion at Hackathon - call for input
-Thread-Index: AdOIrjAMnz3M73//SiKbQbJffTRl1Q==
-Date: Mon, 8 Jan 2018 18:27:03 +0000
-Message-ID: <016614e372d440c0b2f0970d048bd477@ausx13mps334.AMER.DELL.COM>
+Subject: NonRoot discussion at Hackathon - call for input
+Thread-Topic: NonRoot discussion at Hackathon - call for input
+Thread-Index: AdOIrl+8QooGqY0qRvefNc8ZHLG1lQ==
+Date: Mon, 8 Jan 2018 18:35:23 +0000
+Message-ID: <4d8698c2591544cb98b06faa527935b2@ausx13mps334.AMER.DELL.COM>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -71,7 +71,7 @@ X-MS-TNEF-Correlator:
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.143.18.86]
 Content-Type: multipart/alternative;
- boundary="_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_"
+ boundary="_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_"
 MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -84,45 +84,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jan 2018 18:27:10 -0000
+X-List-Received-Date: Mon, 08 Jan 2018 18:35:28 -0000
 
---_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_
+--_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Hello to everybody who is going to the hackathon. I currently am scheduled =
-for an hour to talk about SELinux on Wed.
+Hello (again) to everybody going to the hackathon. I'm currently scheduled =
+for an hour talk on Thursday on root/nonroot security.
 
-What would people like to know? What is the best possible use of this hour,=
- and what does everybody want to walk away with at the end?
+What would be the best way to make this hour the most productive hour we ca=
+n have on this topic?
 
-My background: I led the implementation of a full SELinux policy implementa=
-tion for Dell IDRAC which will be delivered in our product starting later t=
-his year. I did the initial work of setting up the implementation strategy,=
- did much of the initial work to get everything building, and then supervis=
-ed the implementation. Where I'm less strong right now is actual details of=
- writing policy, as I've largely let our lead devs on the selinux team writ=
-e the actual policy for the past 2 years of implementation effort.
+My background: I led the conversion effort for Dell IDRAC to move our entir=
+e infrastructure away from running daemons as root, and instead run each da=
+emon under a distinct user account. I provided technical backstop as indivi=
+dual teams took over the efforts for their daemons and provided training an=
+d design support to ensure that the effort went as smoothly as possible. Ou=
+r currently shipping Dell IDRAC has most of this work present in our shippi=
+ng product, with a few remaining daemons rolling into upcoming releases.
 
 What I might suggest would be helpful:
 
--          Outline of build requirements for selinux
+-          Slides on examples
 
--          Example implementation strategy
+o   Running daemon
 
--          Example project development rules for dealing with selinux
+o   Setting up user accounts for daemons
 
-However, I'm completely open on this to talk about whatever the community f=
-olks would find helpful. I can do a slideware presentation or a Q&A format,=
- or a mix of both.
+o   Setting up tmpfiles rules
 
-Thoughts? How can I make this something everybody takes away something posi=
-tive from?
+o   Setting up DBUS security
+
+o   Udev rules to set up /dev/ permissions and ownership (if needed)
+
+-          Hands-on: actually hacking live on some daemons to try to get so=
+me converted to non-root
+
+I'm open to using this hour however people feel it would be most helpful an=
+d will get some slides written to cover some of the above.
+
+Thoughts?
+
 --
 Michael Brown
 Dell EMC
 
---_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_
+--_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -182,9 +190,9 @@ div.WordSection1
 	{page:WordSection1;}
 /* List Definitions */
 @list l0
-	{mso-list-id:492262502;
+	{mso-list-id:68117380;
 	mso-list-type:hybrid;
-	mso-list-template-ids:-919855306 207390292 67698691 67698693 67698689 6769=
+	mso-list-template-ids:1572790378 687348188 67698691 67698693 67698689 6769=
 8691 67698693 67698689 67698691 67698693;}
 @list l0:level1
 	{mso-level-number-format:bullet;
@@ -272,23 +280,22 @@ ul
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hello to everybody who is going to the hackathon. I =
-currently am scheduled for an hour to talk about SELinux on Wed.<o:p></o:p>=
-</p>
+<p class=3D"MsoNormal">Hello (again) to everybody going to the hackathon. I=
+&#8217;m currently scheduled for an hour talk on Thursday on root/nonroot s=
+ecurity.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">What would people like to know? What is the best pos=
-sible use of this hour, and what does everybody want to walk away with at t=
-he end?<o:p></o:p></p>
+<p class=3D"MsoNormal">What would be the best way to make this hour the mos=
+t productive hour we can have on this topic?<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">My background: I led the implementation of a full SE=
-Linux policy implementation for Dell IDRAC which will be delivered in our p=
-roduct starting later this year. I did the initial work of setting up the i=
-mplementation strategy, did much of
- the initial work to get everything building, and then supervised the imple=
-mentation. Where I&#8217;m less strong right now is actual details of writi=
-ng policy, as I&#8217;ve largely let our lead devs on the selinux team writ=
-e the actual policy for the past 2 years of
- implementation effort.<o:p></o:p></p>
+<p class=3D"MsoNormal">My background: I led the conversion effort for Dell =
+IDRAC to move our entire infrastructure away from running daemons as root, =
+and instead run each daemon under a distinct user account. I provided techn=
+ical backstop as individual teams
+ took over the efforts for their daemons and provided training and design s=
+upport to ensure that the effort went as smoothly as possible. Our currentl=
+y shipping Dell IDRAC has most of this work present in our shipping product=
+, with a few remaining daemons rolling
+ into upcoming releases.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">What I might suggest would be helpful:<o:p></o:p></p=
 >
@@ -297,33 +304,58 @@ e the actual policy for the past 2 years of
 <![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
 .0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;
-</span></span><![endif]>Outline of build requirements for selinux<o:p></o:p=
-></p>
+</span></span><![endif]>Slides on examples<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
+n;mso-list:l0 level2 lfo1">
+<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
+pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
+man&quot;">&nbsp;&nbsp;
+</span></span></span><![endif]>Running daemon<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
+n;mso-list:l0 level2 lfo1">
+<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
+pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
+man&quot;">&nbsp;&nbsp;
+</span></span></span><![endif]>Setting up user accounts for daemons<o:p></o=
+:p></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
+n;mso-list:l0 level2 lfo1">
+<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
+pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
+man&quot;">&nbsp;&nbsp;
+</span></span></span><![endif]>Setting up tmpfiles rules<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
+n;mso-list:l0 level2 lfo1">
+<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
+pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
+man&quot;">&nbsp;&nbsp;
+</span></span></span><![endif]>Setting up DBUS security<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:1.25in;text-indent:-.25i=
+n;mso-list:l0 level2 lfo1">
+<![if !supportLists]><span style=3D"font-family:&quot;Courier New&quot;"><s=
+pan style=3D"mso-list:Ignore">o<span style=3D"font:7.0pt &quot;Times New Ro=
+man&quot;">&nbsp;&nbsp;
+</span></span></span><![endif]>Udev rules to set up /dev/ permissions and o=
+wnership (if needed)<o:p></o:p></p>
 <p class=3D"MsoListParagraph" style=3D"margin-left:.75in;text-indent:-.25in=
 ;mso-list:l0 level1 lfo1">
 <![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
 .0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;
-</span></span><![endif]>Example implementation strategy<o:p></o:p></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:.75in;text-indent:-.25in=
-;mso-list:l0 level1 lfo1">
-<![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
-.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;
-</span></span><![endif]>Example project development rules for dealing with =
-selinux<o:p></o:p></p>
+</span></span><![endif]>Hands-on: actually hacking live on some daemons to =
+try to get some converted to non-root<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">However, I&#8217;m completely open on this to talk a=
-bout whatever the community folks would find helpful. I can do a slideware =
-presentation or a Q&amp;A format, or a mix of both.<o:p></o:p></p>
+<p class=3D"MsoNormal">I&#8217;m open to using this hour however people fee=
+l it would be most helpful and will get some slides written to cover some o=
+f the above.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thoughts? How can I make this something everybody ta=
-kes away something positive from?<o:p></o:p></p>
-<p class=3D"MsoNormal">--<o:p></o:p></p>
-<p class=3D"MsoNormal">Michael Brown<o:p></o:p></p>
+<p class=3D"MsoNormal">Thoughts?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">--<br>
+Michael Brown<o:p></o:p></p>
 <p class=3D"MsoNormal">Dell EMC<o:p></o:p></p>
 </div>
 </body>
 </html>
 
---_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_--
+--_000_4d8698c2591544cb98b06faa527935b2ausx13mps334AMERDELLCOM_--
