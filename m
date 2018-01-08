@@ -1,90 +1,78 @@
 Return-Path: <Michael.E.Brown@dell.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.95; helo=esa5.dell-outbound.iphmx.com;
+ (client-ip=68.232.149.218; helo=esa8.dell-outbound.iphmx.com;
  envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="lfVGMVJU"; 
+ unprotected) header.d=dell.com header.i=@dell.com header.b="WoaXn9z0"; 
  dkim-atps=neutral
-Received: from esa5.dell-outbound.iphmx.com (esa5.dell-outbound.iphmx.com
- [68.232.153.95])
+Received: from esa8.dell-outbound.iphmx.com (esa8.dell-outbound.iphmx.com
+ [68.232.149.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zFgby0FWlzDqyL
- for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 03:25:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zFkJY3JNYzF0Q3
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 05:27:08 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1515428420; x=1546964420;
- h=from:date:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=iHsS+NzAYwylQ3OiQvasDMq52QMo47vroFxQXhS06OM=;
- b=lfVGMVJU+S4YR6XPFlOmt0NNE1GZoOnO0jHaiQDzgQp6F++KmD1ma/ST
- gQHviPrYvJVIqHny8SBHQxOMRZyiw4Hv7bV4cpdilctFhF2Vs3ywDymSt
- J6Z6IZLjOwCqP9/TRTkjRJAARLFwUTmc8MzBcNvH7A7WNo0kTyU6SVi4S 0=;
-IronPort-PHdr: =?us-ascii?q?9a23=3ApciZLB0+1CrvZCybsmDT+DRfVm0co7zxezQtwd8Z?=
- =?us-ascii?q?seIQI/ad9pjvdHbS+e9qxAeQG9mDsrQc06L/iOPJYSQ4+5GPsXQPItRndiQuro?=
- =?us-ascii?q?EopTEmG9OPEkbhLfTnPGQQFcVGU0J5rTngaRAGUMnxaEfPrXKs8DUcBgvwNRZv?=
- =?us-ascii?q?JuTyB4Xek9m72/q99pHPfglEniaxba9vJxiqsAvdsdUbj5F/Iagr0BvJpXVIe+?=
- =?us-ascii?q?VSxWx2IF+Yggjx6MSt8pN96ipco/0u+dJOXqX8ZKQ4UKdXDC86PGAv5c3krgfM?=
- =?us-ascii?q?QA2S7XYBSGoWkx5IAw/Y7BHmW5r6ryX3uvZh1CScIMb7Vq4/Vyi84Kh3SR/okC?=
- =?us-ascii?q?YHOCA/8GHLkcx7kaZXrAu8qxBj34LYZYeYP+d8cKzAZ9MXXWpPUMhPWSJcAY28?=
- =?us-ascii?q?YYQAAPYcMuhXrYbyqUADrQe9CAS2GO/j1iVFi33w0KYn0+ohCwbG3Ak4EtwJsX?=
- =?us-ascii?q?TbsNX1O70MXuCx0aLGwijIYu5M2Tf65onIdA0qrPaLU7JxbcXRyVMgGB3BjlmK?=
- =?us-ascii?q?poLpJS6Y1v4Ks2mV6eptTv+ghHAjqwF1uDSg2sAsiozQi48T11vK9j15zZ40KN?=
- =?us-ascii?q?C7UkJ3f9CpHIVKuy2HN4Z7TNkuT390tCon0rEKpJG2cSYQxJg6xhPSauaLf5WH?=
- =?us-ascii?q?7x/gTuqdPDd1iXNjdbminRi961Kgxff5VsSs1VZKqTdKncfUu3AW0hzT9tCHSv?=
- =?us-ascii?q?xg/ke9wTqP1x7c6uVDIU0si6XbMIQuzqMqmpUOr0vDGiv2lFzxjK+LakUr4e+o?=
- =?us-ascii?q?6/nhYrr7uJOQLY50ihn+MqQrlc2zG/g3Mg8LX2SD+OS80qPs/VHhTbhLjfA6iL?=
- =?us-ascii?q?fVvZ7EKcgBu6K0AwFY3pw95xqjEjuqyNEYkmMGLFJBdhKHlY/pO1TWLf7/DPew?=
- =?us-ascii?q?n1Ssny11yPDCJLHvDY/BI2XZkLfmc7d97VVRxxctwtBb45JYEK0OIPX2WkPprt?=
- =?us-ascii?q?zXEgc5MxCow+bgENh90ZseVnyJAqCCNaPdrUSF5uYuI+mXeI8VoyzxK/8k5v7q?=
- =?us-ascii?q?l3A2gkQdcbOu3ZsNZ3DrVshhdm+DaHakqNYaEWAS9l40VuXmjFCTWxZdemSgXq?=
- =?us-ascii?q?8n/yw6EpirCcHIQYX705Kb2yLuO5xdZmlLDhihWV3ycJqCE6MpaSmSK8Jl1BFC?=
- =?us-ascii?q?f6KmVIkJ2RyqsEnxzL8xfbmcwTERqZ+2jIs93ObUjxxnsGUsV8k=3D?=
+ t=1515436029; x=1546972029;
+ h=from:to:subject:date:message-id:mime-version;
+ bh=l9+OJE/1Gah/PMUw4TtRsaemFr0bXKJeO4xUUvWG+8A=;
+ b=WoaXn9z0TQgkh50X42e1Q4lWZXLVTRTZ+mLApGjAOg0O51xdMVNUnR2F
+ owO3YZubKtNNFnZ9poOAG68j3TvGyR7UZrk2ijMuQAgdyxZcQwIDzMJJU
+ Wt2ZnaRmwpY4+WhByxiB0otYV3/D+v2Wvu9BaZrcKIVTQc1v4pV5XwuFm Q=;
+IronPort-PHdr: =?us-ascii?q?9a23=3ArgvbixSupRocEF7QO7BDicJijtpsv+yvbD5Q0YIu?=
+ =?us-ascii?q?jvd0So/mwa69bBWN2/xhgRfzUJnB7Loc0qyK6/mmATRIyK3CmUhKSIZLWR4BhJ?=
+ =?us-ascii?q?detC0bK+nBN3fGKuX3ZTcxBsVIWQwt1Xi6NU9IBJS2PAWK8TW94jEIBxrwKxd+?=
+ =?us-ascii?q?KPjrFY7OlcS30P2594HObwlSizexfa5+IA+qoQnNq8IbnZZsJqEtxxXTv3BGYf?=
+ =?us-ascii?q?5WxWRmJVKSmxbz+MK994N9/ipTpvws6ddOXb31cKokQ7NYCi8mM30u683wqRbD?=
+ =?us-ascii?q?VwqP6WACXWgQjxFFHhLK7BD+Xpf2ryv6qu9w0zSUMMHqUbw5Xymp4qF2QxHqlS?=
+ =?us-ascii?q?gHLSY0/mHJhMJtkKJVrhGvpx1jzIHbe4yaLuZyfqHHcN8GWWZNQMBcXDFBDIOm?=
+ =?us-ascii?q?aIsPCvIMMOFfoYn8u1QOrQGxCheoBO/1xTFEnGL73bc90+UvFwHLxxEvEMwKsH?=
+ =?us-ascii?q?TQttn6KKASUeWswaTO0D7NbOtW1C/85YXLaBwtv/+BUaxqfcbMyUQiGBnJg1GT?=
+ =?us-ascii?q?pID9Ij+Zyv4Bv3WU4uduT+6jlm0qpxtyrzWu3ssgl4bEi4wPxlzZ9Ch0wZw5Kc?=
+ =?us-ascii?q?C3RUN4e9KoDZtduiCcOoBrWM0tWXtotzw/yrAevJ67ezUFx4o/yh7EbvyHb5CI?=
+ =?us-ascii?q?4hX+VOaNOTt4hGxqeLa4hxuq70eg0ffzW8au3FlXsCVFlt3MumkK1xzO9siIUf?=
+ =?us-ascii?q?x9/lqn2TmSyQzf8OBEIVg0lareJJ8t2KI/lp0WsUjbHy/2nlv5jLOOe0gl+eWk?=
+ =?us-ascii?q?8frrb7v4qpOGKoN5ig7zPr4ql8G8Geg4NxIBX2mf+eSyzr3j+kj5Ta1NgP03jq?=
+ =?us-ascii?q?bZsIrVKtofpqKjDAFZyJsu6wy4Dzao1tQVhmQII0xBeBKDlYTmJ1bOIPXgAfel?=
+ =?us-ascii?q?n1usiCtrx+zBPrD5BZXNNmbMkLH6crZ490FR0w4zzdFE55JIEbENOvXzW071tN?=
+ =?us-ascii?q?PCFRA5KBa4w+H9CNVyhcsiXjfbBbeUNqnXuneM5/kzOK+Ldoscsi27LOIqsa3A?=
+ =?us-ascii?q?l3g8zAs4fKKp1JYTLl3+NO5hPEOxbXfohpEKFmJc7Vl2d/DjlFDXCW0bXH21Ra?=
+ =?us-ascii?q?9pvjw=3D?=
 X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FyAAD2mlNamMmZ6ERdGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQVgQSEOJh9ggKPQYl+CoIBgzoChDZCFQEBAQEBAQEBAQECEAE?=
- =?us-ascii?q?BAQEBCAsLBigvgjgkAYJHAQEBAwEjDwFGBQsLGAICBRMOAgIPBUknihUIsF2CJ?=
- =?us-ascii?q?4oxAQEBAQYCASWBD4Umhm2INTGCNAWTOZAlCpUngiSKLodElxeBPDVjgRFMI4J?=
- =?us-ascii?q?9glMQDIIGi0gBAQE?=
-X-IPAS-Result: =?us-ascii?q?A2FyAAD2mlNamMmZ6ERdGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?VgQSEOJh9ggKPQYl+CoIBgzoChDZCFQEBAQEBAQEBAQECEAEBAQEBCAsLBigvg?=
- =?us-ascii?q?jgkAYJHAQEBAwEjDwFGBQsLGAICBRMOAgIPBUknihUIsF2CJ4oxAQEBAQYCASW?=
- =?us-ascii?q?BD4Umhm2INTGCNAWTOZAlCpUngiSKLodElxeBPDVjgRFMI4J9glMQDIIGi0gBA?=
- =?us-ascii?q?QE?=
-Received: from esa1.dell-outbound2.iphmx.com ([68.232.153.201])
- by esa5.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2018 10:20:08 -0600
-From: Michael E Brown <Michael.E.Brown@dell.com>
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EoAQCvtlNah2Ka6ERdGgEBAQEBAgEBA?=
+ =?us-ascii?q?QEIAQEBAYJKgUsQdC6dB4QDjUCJfgqJc0MUAQEBAQEBAQEBAQIQAQEBCgsJCCg?=
+ =?us-ascii?q?vgjgigm4QXgGBJgEEGwyJOWSyGIpkhjWMV4IODIMWBYpwmG4KlSuUEpcXgTw2g?=
+ =?us-ascii?q?XNvgn2CAwEBCAIBQxAMgWeKUIEXAQEB?=
+X-IPAS-Result: =?us-ascii?q?A2EoAQCvtlNah2Ka6ERdGgEBAQEBAgEBAQEIAQEBAYJKgUs?=
+ =?us-ascii?q?QdC6dB4QDjUCJfgqJc0MUAQEBAQEBAQEBAQIQAQEBCgsJCCgvgjgigm4QXgGBJ?=
+ =?us-ascii?q?gEEGwyJOWSyGIpkhjWMV4IODIMWBYpwmG4KlSuUEpcXgTw2gXNvgn2CAwEBCAI?=
+ =?us-ascii?q?BQxAMgWeKUIEXAQEB?=
+Received: from esa4.dell-outbound2.iphmx.com ([68.232.154.98])
+ by esa8.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2018 12:27:05 -0600
+From: <Michael.E.Brown@dell.com>
 Received: from ausxipps306.us.dell.com ([143.166.148.156])
- by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2018 22:16:01 +0600
-X-LoopCount0: from 10.9.160.254
-X-IronPort-AV: E=Sophos;i="5.46,330,1511848800"; d="scan'208";a="196754309"
+ by esa4.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2018 00:27:04 +0600
+X-LoopCount0: from 10.166.136.210
+X-IronPort-AV: E=Sophos;i="5.46,330,1511848800"; 
+ d="scan'208,217";a="196804814"
 X-DLP: DLP_GlobalPCIDSS
-Date: Mon, 8 Jan 2018 10:25:00 -0600
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Michael E Brown <Michael.E.Brown@dell.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- stewart@linux.vnet.ibm.com, openbmc@lists.ozlabs.org,
- richard.marian.thomaiyar@linux.intel.com
-Subject: Re: OpenBMC community telecon - 11/27 Agenda
-Message-ID: <20180108162500.GB14421@wn7x64-4cggry1.aus.amer.dell.com>
-References: <16113B02-7098-4523-A84A-E4CAFFB145A5@fuzziesquirrel.com>
- <886a66c536b44ed0928e4348022b67ca@ausx13mps334.AMER.DELL.COM>
- <D2105B22-1AB7-4943-A94E-2B5EDE275F7C@fuzziesquirrel.com>
- <ec70fdbb12b944c7a53fe03e9470f2ef@ausx13mps334.AMER.DELL.COM>
- <87k1xfvbhh.fsf@linux.vnet.ibm.com>
- <c49e89931ed74295958f09fe6ad3db80@ausx13mps334.AMER.DELL.COM>
- <20171228233714.GR113334@mauery>
- <20180104165803.GB22361@wn7x64-4cggry1.aus.amer.dell.com>
- <20180106165753.GA14421@wn7x64-4cggry1.aus.amer.dell.com>
- <39FB7457-01DC-4F28-AD9E-45CF6281F354@fuzziesquirrel.com>
+To: <openbmc@lists.ozlabs.org>
+Subject: SELinux discussion at Hackathon - call for input
+Thread-Topic: SELinux discussion at Hackathon - call for input
+Thread-Index: AdOIrjAMnz3M73//SiKbQbJffTRl1Q==
+Date: Mon, 8 Jan 2018 18:27:03 +0000
+Message-ID: <016614e372d440c0b2f0970d048bd477@ausx13mps334.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.18.86]
+Content-Type: multipart/alternative;
+ boundary="_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <39FB7457-01DC-4F28-AD9E-45CF6281F354@fuzziesquirrel.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -96,36 +84,246 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jan 2018 16:25:19 -0000
+X-List-Received-Date: Mon, 08 Jan 2018 18:27:10 -0000
 
-On Sat, Jan 06, 2018 at 12:33:26PM -0500, Brad Bishop wrote:
-> 
-> > What am I missing here? You said above, "nothing should be running as root anymore", but I very clearly see literally everything running as root. I have a feeling that I am missing something important.
-> 
-> You aren’t missing anything.  I think what Vernon meant was, in 2018, software
-> stacks should not be running everything as root.
+--_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Oh, ok, looks like I read that in a totally different way! I was starting to
-get concerned, thanks for clarifying.
+Hello to everybody who is going to the hackathon. I currently am scheduled =
+for an hour to talk about SELinux on Wed.
 
-> Everyone wants this, it just hasn’t been enough of a priority for anyone
-> such that it hasn’t been fixed yet.  It should have been done this way in
-> the first place.  But it wasn’t, so here we are.
+What would people like to know? What is the best possible use of this hour,=
+ and what does everybody want to walk away with at the end?
 
-So, what is the best way forward? We have a time set aside at the hackathon to
-talk about this? What is the most productive way to use that time? I would be
-happy to put together some (barebones) slides to go over what we did in our
-product to get to where we are at. We could even do live hackathon to try to
-convert some daemons. What do you think?
+My background: I led the implementation of a full SELinux policy implementa=
+tion for Dell IDRAC which will be delivered in our product starting later t=
+his year. I did the initial work of setting up the implementation strategy,=
+ did much of the initial work to get everything building, and then supervis=
+ed the implementation. Where I'm less strong right now is actual details of=
+ writing policy, as I've largely let our lead devs on the selinux team writ=
+e the actual policy for the past 2 years of implementation effort.
 
-> FWIW I did add some code to obmc-phosphor-systemd.bbclass quite some time ago
-> such that configuring a service to run as non-root is trivial, as far as systemd
-> unit and user/group database configuration goes.  It isn’t used anywhere because
-> the other side of it is writing the udev rules (or however you want to make sure
-> the devices have the correct permissions).  I also put code in
-> obmc-phosphor-dbus-service.bbclass for easy configuration of restrictive dbus
-> scope permissions that might help with that aspect as well.
+What I might suggest would be helpful:
 
-That sounds like a good start.
+-          Outline of build requirements for selinux
+
+-          Example implementation strategy
+
+-          Example project development rules for dealing with selinux
+
+However, I'm completely open on this to talk about whatever the community f=
+olks would find helpful. I can do a slideware presentation or a Q&A format,=
+ or a mix of both.
+
+Thoughts? How can I make this something everybody takes away something posi=
+tive from?
 --
-Michael
+Michael Brown
+Dell EMC
+
+--_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:492262502;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-919855306 207390292 67698691 67698693 67698689 6769=
+8691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:Calibri;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.75in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.25in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.75in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.25in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.75in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hello to everybody who is going to the hackathon. I =
+currently am scheduled for an hour to talk about SELinux on Wed.<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">What would people like to know? What is the best pos=
+sible use of this hour, and what does everybody want to walk away with at t=
+he end?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">My background: I led the implementation of a full SE=
+Linux policy implementation for Dell IDRAC which will be delivered in our p=
+roduct starting later this year. I did the initial work of setting up the i=
+mplementation strategy, did much of
+ the initial work to get everything building, and then supervised the imple=
+mentation. Where I&#8217;m less strong right now is actual details of writi=
+ng policy, as I&#8217;ve largely let our lead devs on the selinux team writ=
+e the actual policy for the past 2 years of
+ implementation effort.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">What I might suggest would be helpful:<o:p></o:p></p=
+>
+<p class=3D"MsoListParagraph" style=3D"margin-left:.75in;text-indent:-.25in=
+;mso-list:l0 level1 lfo1">
+<![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
+.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;
+</span></span><![endif]>Outline of build requirements for selinux<o:p></o:p=
+></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:.75in;text-indent:-.25in=
+;mso-list:l0 level1 lfo1">
+<![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
+.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;
+</span></span><![endif]>Example implementation strategy<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:.75in;text-indent:-.25in=
+;mso-list:l0 level1 lfo1">
+<![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=3D"font:7=
+.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;
+</span></span><![endif]>Example project development rules for dealing with =
+selinux<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">However, I&#8217;m completely open on this to talk a=
+bout whatever the community folks would find helpful. I can do a slideware =
+presentation or a Q&amp;A format, or a mix of both.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thoughts? How can I make this something everybody ta=
+kes away something positive from?<o:p></o:p></p>
+<p class=3D"MsoNormal">--<o:p></o:p></p>
+<p class=3D"MsoNormal">Michael Brown<o:p></o:p></p>
+<p class=3D"MsoNormal">Dell EMC<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_016614e372d440c0b2f0970d048bd477ausx13mps334AMERDELLCOM_--
