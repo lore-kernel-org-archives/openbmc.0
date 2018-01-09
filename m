@@ -6,15 +6,15 @@ Authentication-Results: ozlabs.org;
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zGRh61lQhzF0Sh
- for <openbmc@lists.ozlabs.org>; Wed, 10 Jan 2018 09:31:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zGRh75Tf8zF0bT
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Jan 2018 09:31:35 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
  09 Jan 2018 14:31:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,337,1511856000"; d="scan'208";a="18805654"
+X-IronPort-AV: E=Sophos;i="5.46,337,1511856000"; d="scan'208";a="18805656"
 Received: from maru.jf.intel.com ([10.54.51.80])
  by orsmga003.jf.intel.com with ESMTP; 09 Jan 2018 14:31:28 -0800
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
@@ -23,11 +23,14 @@ To: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, gregkh@linuxfoundation.org,
 Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- Jae Hyun Yoo <jae.hyun.yoo@intel.com>
-Subject: [PATCH linux dev-4.10 0/6] Add support PECI and PECI hwmon drivers
-Date: Tue,  9 Jan 2018 14:31:20 -0800
-Message-Id: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH linux dev-4.10 4/6] Documentation: dt-bindings: Add a generic
+ PECI hwmon
+Date: Tue,  9 Jan 2018 14:31:24 -0800
+Message-Id: <20180109223126.13093-5-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.15.1
+In-Reply-To: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
+References: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -39,63 +42,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Jan 2018 22:31:34 -0000
-X-List-Received-Date: Tue, 09 Jan 2018 22:31:34 -0000
+X-List-Received-Date: Tue, 09 Jan 2018 22:31:36 -0000
 
-From: Jae Hyun Yoo <jae.hyun.yoo@intel.com>
+This commit add a dt-bindings document for a generic PECI hwmon
+driver.
 
-Hello,
-
-This patch set provides support for PECI of AST2400/2500 which can give us PECI
-functionalities such as temperature monitoring, platform manageability,
-processor diagnostics and failure analysis. Also provides generic peci.h and
-peci_ioctl.h headers to provide compatibility to peci drivers that can be
-implemented later e.g. Nuvoton's BMC SoC family.
-
-The misc peci driver can be used as a multi-purpose PECI controller driver which
-serializes all PECI transactions that coming from user space and from other
-kernel modules. This misc peci driver could be replaced with other BMC chipsets'
-implementation if the implementation provide compatible 'peci_ioctl'
-inter-module call and ioctl scheme defined in peci.h and peci_ioctl.h files.
-
-The hwmon peci driver implements a generic PECI hwmon feature which is running
-with a PECI misc driver supports compatible native PECI command suite for
-retrieving temperatures of the CPU package, CPU cores and DIMM components.
-
-Please review.
-
--Jae
-
-Jae Hyun Yoo (6):
-  Documentation: dt-bindings: Add Aspeed PECI
-  ARM: dts: aspeed: peci: Add Aspeed PECI
-  drivers/misc: Add driver for Aspeed PECI and generic PECI headers
-  Documentation: dt-bindings: Add a generic PECI hwmon
-  Documentation: hwmon: Add a generic PECI hwmon
-  drivers/hwmon: Add a driver for a generic PECI hwmon
-
- .../devicetree/bindings/hwmon/peci-hwmon.txt       |   33 +
- .../devicetree/bindings/misc/aspeed-peci.txt       |   55 +
- Documentation/hwmon/peci-hwmon                     |   74 ++
- arch/arm/boot/dts/aspeed-g4.dtsi                   |   14 +
- arch/arm/boot/dts/aspeed-g5.dtsi                   |   14 +
- drivers/hwmon/Kconfig                              |    6 +
- drivers/hwmon/Makefile                             |    1 +
- drivers/hwmon/peci-hwmon.c                         |  953 +++++++++++++++++
- drivers/misc/Kconfig                               |    9 +
- drivers/misc/Makefile                              |    1 +
- drivers/misc/aspeed-peci.c                         | 1130 ++++++++++++++++++++
- include/misc/peci.h                                |   11 +
- include/uapi/linux/Kbuild                          |    1 +
- include/uapi/linux/peci_ioctl.h                    |  270 +++++
- 14 files changed, 2572 insertions(+)
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+---
+ .../devicetree/bindings/hwmon/peci-hwmon.txt       | 33 ++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/hwmon/peci-hwmon.txt
- create mode 100644 Documentation/devicetree/bindings/misc/aspeed-peci.txt
- create mode 100644 Documentation/hwmon/peci-hwmon
- create mode 100644 drivers/hwmon/peci-hwmon.c
- create mode 100644 drivers/misc/aspeed-peci.c
- create mode 100644 include/misc/peci.h
- create mode 100644 include/uapi/linux/peci_ioctl.h
 
+diff --git a/Documentation/devicetree/bindings/hwmon/peci-hwmon.txt b/Documentation/devicetree/bindings/hwmon/peci-hwmon.txt
+new file mode 100644
+index 0000000..20b86f5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/peci-hwmon.txt
+@@ -0,0 +1,33 @@
++* Generic PECI (Platform Environment Control Interface) hwmon driver.
++
++Dependency:
++- This driver uses a PECI misc driver as a controller interface so one of PECI
++  misc drivers which provides compatible ioctls has to be enabled.
++
++Required properties:
++- compatible: "peci-hwmon"
++- cpu-id: Should contain CPU socket ID
++	- 0 ~ 7
++
++Optional properties:
++- show-core: If this protperty is defined, core tmeperature attrubites will be
++	     enumerated.
++- dimm-nums: Should contain the number of DIMM slots that attached to each CPU
++	     which is indicated by cpu-id.
++	0 ~ 16 (default: 16)
++	     In case of 0, DIMM temperature attrubites will not be enumerated.
++
++Example:
++	peci-hwmon0 {
++		compatible = "peci-hwmon";
++		cpu-id = <0>;
++		show-core;
++		dimm-nums = <16>;
++	};
++
++	peci-hwmon1 {
++		compatible = "peci-hwmon";
++		cpu-id = <1>;
++		show-core;
++		dimm-nums = <16>;
++	};
 -- 
 2.7.4
