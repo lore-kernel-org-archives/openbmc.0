@@ -1,58 +1,55 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::232; helo=mail-qk0-x232.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <yuenn@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::22a; helo=mail-vk0-x22a.google.com;
+ envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lJdeXfG4"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="HRpRBmNs"; 
  dkim-atps=neutral
-Received: from mail-qk0-x232.google.com (mail-qk0-x232.google.com
- [IPv6:2607:f8b0:400d:c09::232])
+Received: from mail-vk0-x22a.google.com (mail-vk0-x22a.google.com
+ [IPv6:2607:f8b0:400c:c05::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zFr1h5KbrzF0dL
- for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 09:44:40 +1100 (AEDT)
-Received: by mail-qk0-x232.google.com with SMTP id d202so16250493qkc.9
- for <openbmc@lists.ozlabs.org>; Mon, 08 Jan 2018 14:44:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=WDEEaKFTE590qC9vb00hBHszkqcouWs8MsH1IBtNO5w=;
- b=lJdeXfG4x+GRduUZFPv32lXWO20YzDR9ISuSGOkkyRd4PZmOCrVkiCvaAv2mBdrpLR
- 4FkvGHo1IBXAkl52Z2pmAWfeRrCag7Rgqd63T1vVFzI6+Q4PeKdbvKlCnv1hWSiNneGZ
- 3oPKynQiC+RFv38J6LqoyYlOumfGMcGQB8U+fyHKr81B9sNVxu/JUbZvU1IX+lZivWdD
- 4YXCMR7lBmOXU6ykDO6vNkOe98cIkPFHRMKXNBpnfxCQwd2uAtL2oNAv2viktoi2xc/7
- RxQ2wugxYDjtNU3wJLWJMJmPo4AD90lIZS+9sgNYRFNzhKLmB2Na4b7nvrKRFLgmlY2I
- Vr0Q==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zFt8d2pYkzF0R2
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2018 11:20:48 +1100 (AEDT)
+Received: by mail-vk0-x22a.google.com with SMTP id o73so8420385vkd.2
+ for <openbmc@lists.ozlabs.org>; Mon, 08 Jan 2018 16:20:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=dyOSMReWA5+4C5fzip/OoXZE/auZ333rEfuyLClq5Tg=;
+ b=HRpRBmNs/Q9mLfH40EvrvEKVolgcfmwgnykYAz13+ZgIu4xjTSXKuYO29C664WpNrz
+ fy7S8inWUkXrHGeL0tb2XoeuRqPJIRjBzqgRmgDci1MuMWlzfHAStnusIjOn6tW65Hbb
+ KiSAb4N6oMdBl5z3Rs1xrtJbbd8bKY3GQtgw9tnA+RreP1jvnB/DtldmFyGMNLQvr9YU
+ An10AFl0GULUoIWekZVhTkZKrzaKHfamQEXkGWf6ONuT1ZR3iQNIzNBpl/EU91AYUchl
+ iZxuZ8EdIdVg+7DPPEZD3vmQgBFrOcaDQi+hh+dRe8XhiC9nO9mAMCwzQudeJ1S1CAin
+ QTeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=WDEEaKFTE590qC9vb00hBHszkqcouWs8MsH1IBtNO5w=;
- b=aBTEg6zGDSLCp7xta4Gqfq6b2rapuA74+VlKwOcYajkqRp0euNrrWRlWBK5NRhpSTx
- eejmTwgIN7/fJkZatW9iH922FoZZgadDpSkK4YE2F7lc3JgxwD62X0MrH+Z6CWY7KKnn
- LbIK2dEp+tiP4t1iWMHmpQgm64tDvEcKmDpVGvY42XEQ3EDmmc3lrjkvxWaiL9yhUcPw
- D0AKiOdLWJdxjEul5Dn4NFs0FEVAh0bWqppB4iuhntDUuahnWB30lHIoqMuiRcbVxDVh
- AqQxpcB/p7/W9nuBVWNRI+mtzZp2vrmVvP9wl2bmWerBbArfI5sMI6Uswqdn9+c/nk4o
- K/CA==
-X-Gm-Message-State: AKwxytcEkgcZ5UPaBypr/Xng112xFzZSP4nyast7LeVMq90IXFr2HujE
- A+LI4RwdcZBmfqkVMFI8LOfdgOM1Jk7I3DZA/lM=
-X-Google-Smtp-Source: ACJfBovQvn1MvI4p5lcq89SWS6ZQmOKMfXgQVTZrj+LO9fwCQ8oFUjew1yycWmRPe3VLD9tCOv8dazBoz1Vnqiirp/A=
-X-Received: by 10.55.217.20 with SMTP id u20mr17569540qki.52.1515451478229;
- Mon, 08 Jan 2018 14:44:38 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=dyOSMReWA5+4C5fzip/OoXZE/auZ333rEfuyLClq5Tg=;
+ b=WUHWfZz0bdxtQJ2ziuH5UOeGp5JV82ZIfm9ANP3RTCgiF2CwKlo8AV7yBNtGaVcQTM
+ 2uGy3zoWhhdd4fx+7n+p6pW4iiOVkkhQ5NtC06Qbu4Z+49Pkb80h5FtWfop5p+Dfqoup
+ lhVTSnDH/SKexF+NwkfjMVQPxxQ0fkfTGMQj2nV2TWTHfxEfmt/7UFq0jEQmCNOhD9X/
+ h1Hnt60QCdda2+M+dSRLJOMCSPVrDbJ3XjZ3eSXWsRKbCRvvZLA7yytaHTgLWR/M5w7P
+ qfUwDk9bQAx3kyyiYVNVdlHiijO16q7I+hRRXENpGeLRsdPguAAgaoENeZOJaKOJDcxg
+ i9XQ==
+X-Gm-Message-State: AKwxytd6x9I45bqkAL0scN+92Zod5PQF8Ru6XLhH1kUOoyjBhJPUledF
+ BzGE16vXFBMt+4UChpfcO1BIqpmkWwLEF9gHsvrs/w==
+X-Google-Smtp-Source: ACJfBosatRnll19OFm9DjLvh+lR8RLx9IkiJ4ZSr9MIz2+icGLcbT/K80D/QGOEG52V5xBjiqe6yrO57CZoUJGFpLNs=
+X-Received: by 10.31.9.21 with SMTP id 21mr11951683vkj.88.1515457245651; Mon,
+ 08 Jan 2018 16:20:45 -0800 (PST)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.29.9 with HTTP; Mon, 8 Jan 2018 14:44:17 -0800 (PST)
-In-Reply-To: <4d8698c2591544cb98b06faa527935b2@ausx13mps334.AMER.DELL.COM>
-References: <4d8698c2591544cb98b06faa527935b2@ausx13mps334.AMER.DELL.COM>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 9 Jan 2018 09:44:17 +1100
-X-Google-Sender-Auth: BgpieXGmfbL5UdYkZ80BMOPkRss
-Message-ID: <CACPK8XdhQT0_HvAwsNsY=Pv7_BMMDyDKXf4CFbK4jHR9LpdUNw@mail.gmail.com>
-Subject: Re: NonRoot discussion at Hackathon - call for input
-To: Michael.E.Brown@dell.com
+Received: by 10.31.147.212 with HTTP; Mon, 8 Jan 2018 16:20:05 -0800 (PST)
+In-Reply-To: <16379b3bfc8a4a1ca02a04aa49a60628@ausx13mpc109.AMER.DELL.COM>
+References: <16379b3bfc8a4a1ca02a04aa49a60628@ausx13mpc109.AMER.DELL.COM>
+From: Nancy Yuen <yuenn@google.com>
+Date: Mon, 8 Jan 2018 16:20:05 -0800
+Message-ID: <CADfYTpG-=xveo0Kuc+V0WfTD+aiEiy_iMTJCxxROy+yW01L3fw@mail.gmail.com>
+Subject: Re: systemd update for openbmc
+To: Balaji.B.Rao@dell.com
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/alternative; boundary="001a1144116ccd32ef05624ce232"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,63 +61,78 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jan 2018 22:44:41 -0000
+X-List-Received-Date: Tue, 09 Jan 2018 00:20:50 -0000
 
-On Tue, Jan 9, 2018 at 5:35 AM,  <Michael.E.Brown@dell.com> wrote:
-> Hello (again) to everybody going to the hackathon. I=E2=80=99m currently =
-scheduled
-> for an hour talk on Thursday on root/nonroot security.
->
->
->
-> What would be the best way to make this hour the most productive hour we =
-can
-> have on this topic?
->
->
->
-> My background: I led the conversion effort for Dell IDRAC to move our ent=
-ire
-> infrastructure away from running daemons as root, and instead run each
-> daemon under a distinct user account.
+--001a1144116ccd32ef05624ce232
+Content-Type: text/plain; charset="UTF-8"
 
-Great! I have had this as a goal in mind for OpenBMC since I started
-working on it.
+I think systemd is a component that OpenBMC picks up when it updates
+Yocto.  I think there was some rumblings about updating to Yocto 2.4.  I
+don't know what version of systemd is in it though.
 
-> I provided technical backstop as
-> individual teams took over the efforts for their daemons and provided
-> training and design support to ensure that the effort went as smoothly as
-> possible. Our currently shipping Dell IDRAC has most of this work present=
- in
-> our shipping product, with a few remaining daemons rolling into upcoming
-> releases.
->
->
->
-> What I might suggest would be helpful:
->
-> -          Slides on examples
+----------
+Nancy
 
-Some documentation for others to use when adding daemons to the system
-would be a great start.
+On Fri, Jan 5, 2018 at 9:53 AM, <Balaji.B.Rao@dell.com> wrote:
 
+> systemd in openbmc repo seems a little outdated making it unable to build
+> with GNU c++ compilers. Is there a plan to update it? Particularly
+> interesting is the following fix,
 >
-> o   Running daemon
 >
-> o   Setting up user accounts for daemons
 >
-> o   Setting up tmpfiles rules
+> https://github.com/systemd/systemd/commit/aa3288505569433200bfa311ff12d2
+> 9684a14374
 >
-> o   Setting up DBUS security
 >
-> o   Udev rules to set up /dev/ permissions and ownership (if needed)
 >
-> -          Hands-on: actually hacking live on some daemons to try to get
-> some converted to non-root
+> Will systemd be updated anytime soon?
+>
+>
+>
+> Thanks
+>
+> Balaji
+>
 
-This hands on stuff sounds great. I am more interested in hands on
-keyboards than viewing slides for our sessions this week.
+--001a1144116ccd32ef05624ce232
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+<div dir=3D"ltr">I think systemd is a component that OpenBMC picks up when =
+it updates Yocto.=C2=A0 I think there was some rumblings about updating to =
+Yocto 2.4.=C2=A0 I don&#39;t know what version of systemd is in it though.<=
+/div><div class=3D"gmail_extra"><br clear=3D"all"><div><div class=3D"gmail_=
+signature" data-smartmail=3D"gmail_signature">----------<br>Nancy</div></di=
+v>
+<br><div class=3D"gmail_quote">On Fri, Jan 5, 2018 at 9:53 AM,  <span dir=
+=3D"ltr">&lt;<a href=3D"mailto:Balaji.B.Rao@dell.com" target=3D"_blank">Bal=
+aji.B.Rao@dell.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
 
-Joel
+
+
+
+
+<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"m_-1858959768647120885WordSection1">
+<p class=3D"MsoNormal">systemd in openbmc repo seems a little outdated maki=
+ng it unable to build with GNU c++ compilers. Is there a plan to update it?=
+ Particularly interesting is the following fix,<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal"><a href=3D"https://github.com/systemd/systemd/commit=
+/aa3288505569433200bfa311ff12d29684a14374" target=3D"_blank">https://github=
+.com/systemd/<wbr>systemd/commit/<wbr>aa3288505569433200bfa311ff12d2<wbr>96=
+84a14374</a><u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Will systemd be updated anytime soon?<u></u><u></u><=
+/p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Thanks<u></u><u></u></p>
+<p class=3D"MsoNormal">Balaji<u></u><u></u></p>
+</div>
+</div>
+
+</blockquote></div><br></div>
+
+--001a1144116ccd32ef05624ce232--
