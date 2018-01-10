@@ -1,54 +1,47 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="tkXfoCRq"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="nSww+P6q"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <jae.hyun.yoo@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zH3xG34cBzF0gv
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 09:45:05 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3BDED20CCB;
- Wed, 10 Jan 2018 17:45:01 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 10 Jan 2018 17:45:01 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=nUW1AGUn9BNPjGiSkgP2zPYlN7IqswgzigP/2sUR/
- DY=; b=tkXfoCRqNyMmfuvAdarVBSKu80gG0GDt/gLpdtBHSK6k4VkCsTyNleCzC
- DSWkdlF0tBOGYwx7jmr8FmksB271CQjbsqp7jjqe498YkpxmK5m1EkkKcFXN7RpS
- 5BgQRC1SmWl9A1Zy6pXIUY/YrDlSuz4KLqwAEjA3hqdQ4/W4mkutm0Zuf32w6viF
- 77ej+CNsAxRmTmIIe942T0ENoJIPO0nsvdSJMkcMBN3y9iobEKbUzyVP1TzAHsdD
- D5A4u5Mx6LcWOdyVvKY/8Ht6lpy1qjfB4+FkaAXSC4Ni5o2AZZSDYfvn3u35y90M
- J7BrJx4+lTWzqU77AIipWklnZ+K2w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=nUW1AGUn9BNPjGiSk
- gP2zPYlN7IqswgzigP/2sUR/DY=; b=nSww+P6q3CBB9L8iwz2fYO7HPyXhUu0fQ
- 3fq2RSJkNP3THdVVjMmDTayp0VlXOmSXH06mMy4/vNkElLhJ54aVz8Nh270Mjn4K
- /Kaq1MClJ49XdTQRrxpPygm5/QX5OrM/ryUjSMoGtlzD8jh9OI5adFHcGRqljgx4
- zWh7dz94N98RUdQUU4cKAuZJRefhCuyISgkiLL4lTU2+V4xNvvJZ6a9rGD037ouF
- B4F9RVR3cg7ibMgRFX0rRPbLFDeoFMJDSARciOQqsebGDNhveGS0+qVqr75N0lz3
- 1f8QPk+B/qO/LFEVm29EQMCbh8W4y3Musc8Gvgk9Op6XEIg4HcRCQ==
-X-ME-Sender: <xms:bZdWWsvQJZNhFbZacwOH30upn00Fam9klS1jNe78MH0c9PNsTaqARQ>
-Received: from dave.google.com (unknown [104.133.8.110])
- by mail.messagingengine.com (Postfix) with ESMTPA id A1ADF24802;
- Wed, 10 Jan 2018 17:45:00 -0500 (EST)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: Andrew Jeffery <andrew@aj.id.au>,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 0/4] gpio: Implement per-pin reset tolerance on
- Aspeed
-Date: Wed, 10 Jan 2018 14:44:10 -0800
-Message-Id: <20180110224414.21516-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.14.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zH4Wm52x6zF0jF
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 10:11:31 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2018 15:11:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,342,1511856000"; d="scan'208";a="23043197"
+Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.7.153.149])
+ ([10.7.153.149])
+ by orsmga001.jf.intel.com with ESMTP; 10 Jan 2018 15:11:25 -0800
+Subject: Re: [PATCH linux dev-4.10 3/6] drivers/misc: Add driver for Aspeed
+ PECI and generic PECI headers
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ gregkh <gregkh@linuxfoundation.org>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, DTML <devicetree@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, Linux ARM
+ <linux-arm-kernel@lists.infradead.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
+ <20180109223126.13093-4-jae.hyun.yoo@linux.intel.com>
+ <CAK8P3a3MaSEYnwk2_OadBSyKnBiwXsHw_RocvPDqL6oea9MuJA@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <35b7ed78-ea47-4c6e-2d66-b72f53d5efb4@linux.intel.com>
+Date: Wed, 10 Jan 2018 15:11:25 -0800
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.2
+MIME-Version: 1.0
+In-Reply-To: <CAK8P3a3MaSEYnwk2_OadBSyKnBiwXsHw_RocvPDqL6oea9MuJA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -60,46 +53,353 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jan 2018 22:45:08 -0000
+X-List-Received-Date: Wed, 10 Jan 2018 23:11:33 -0000
 
-Hello,
+On 1/10/2018 3:55 AM, Arnd Bergmann wrote:
+> On Tue, Jan 9, 2018 at 11:31 PM, Jae Hyun Yoo
+> <jae.hyun.yoo@linux.intel.com> wrote:
+>> This commit adds driver implementation for Aspeed PECI. Also adds
+>> generic peci.h and peci_ioctl.h files to provide compatibility
+>> to peci drivers that can be implemented later e.g. Nuvoton's BMC
+>> SoC family.
+>>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> 
+>> +#include <linux/clk.h>
+>> +#include <linux/crc8.h>
+>> +#include <linux/delay.h>
+>> +#include <linux/interrupt.h>
+>> +#include <linux/io.h>
+>> +#include <linux/jiffies.h>
+>> +#include <linux/mfd/syscon.h>
+>> +#include <linux/miscdevice.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of.h>
+>> +#include <linux/peci_ioctl.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/regmap.h>
+>> +#include <linux/semaphore.h>
+>> +#include <linux/types.h>
+>> +#include <linux/uaccess.h>
+> 
+> semaphore.h is not used here and can be dropped.
+> 
 
-This series backports the upstream commits necessary to enable reset tolerance
-for GPIOs on the Aspeed platforms.
+You are right. Will drop it.
 
-Two of the patches come from others, these were useful in the backport to
-resolve some of the conflicts.
+>> +static struct aspeed_peci *aspeed_peci_priv;
+> 
+> Try to avoid instance variables like this one. You should always be able to find
+> that pointer from whatever structure you were called with.
+> 
+> 
 
-Cheers,
+Okay. I will use driver_data instead.
 
-Andrew
+>> +       timeout = wait_for_completion_interruptible_timeout(
+>> +                                       &priv->xfer_complete,
+>> +                                       msecs_to_jiffies(priv->cmd_timeout_ms));
+>> +
+>> +       dev_dbg(priv->dev, "INT_STS : 0x%08x\n", priv->sts);
+>> +       if (!regmap_read(priv->regmap, AST_PECI_CMD, &peci_state))
+>> +               dev_dbg(priv->dev, "PECI_STATE : 0x%lx\n",
+>> +                       PECI_CMD_STS_GET(peci_state));
+>> +       else
+>> +               dev_dbg(priv->dev, "PECI_STATE : read error\n");
+>> +
+>> +       if (timeout <= 0 || !(priv->sts & PECI_INT_CMD_DONE)) {
+>> +               if (timeout <= 0) {
+>> +                       dev_dbg(priv->dev, "Timeout waiting for a response!\n");
+>> +                       rc = -ETIME;
+>> +               } else {
+>> +                       dev_dbg(priv->dev, "No valid response!\n");
+>> +                       rc = -EFAULT;
+>> +               }
+>> +               return rc;
+>> +       }
+> 
+> You don't seem to handle -ERESTARTSYS correct here. Either do it
+> right, or drop the _interruptible part above.
+> 
 
-Andrew Jeffery (2):
-  gpio: gpiolib: Generalise state persistence beyond sleep
-  gpio: aspeed: Add support for reset tolerance
+Will add a handling logic for the -ERESTARTSYS.
 
-Andy Shevchenko (1):
-  gpiolib: Convert fwnode_get_named_gpiod() to configure GPIO
+>> +typedef int (*ioctl_fn)(struct aspeed_peci *, void *);
+>> +
+>> +static ioctl_fn peci_ioctl_fn[PECI_CMD_MAX] = {
+>> +       ioctl_xfer_msg,
+>> +       ioctl_ping,
+>> +       ioctl_get_dib,
+>> +       ioctl_get_temp,
+>> +       ioctl_rd_pkg_cfg,
+>> +       ioctl_wr_pkg_cfg,
+>> +       ioctl_rd_ia_msr,
+>> +       NULL, /* Reserved */
+>> +       ioctl_rd_pci_cfg,
+>> +       NULL, /* Reserved */
+>> +       ioctl_rd_pci_cfg_local,
+>> +       ioctl_wr_pci_cfg_local,
+>> +};
+>> +
+>> +
+>> +long peci_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+>> +{
+>> +       struct aspeed_peci *priv;
+>> +       long ret = 0;
+>> +       void __user *argp = (void __user *)arg;
+>> +       int timeout = PECI_IDLE_CHECK_TIMEOUT;
+>> +       u8 msg[sizeof(struct peci_xfer_msg)];
+>> +       unsigned int peci_cmd, msg_size;
+>> +       u32 cmd_sts;
+>> +
+>> +       /*
+>> +        * Treat it as an inter module call when filp is null but only in case
+>> +        * the private data is initialized.
+>> +        */
+>> +       if (filp)
+>> +               priv = container_of(filp->private_data,
+>> +                                   struct aspeed_peci, miscdev);
+>> +       else
+>> +               priv = aspeed_peci_priv;
+> 
+> Drop this.
+> 
 
-Laxman Dewangan (1):
-  gpio: core: Decouple open drain/source flag with active low/high
+peci_ioctl is being called from peci_hwmon as an inter-module call so it 
+is needed, but as you suggested in the other patch, I'll consider 
+redesign it with adding a peci device class.
 
- drivers/gpio/devres.c                     |  9 +++-
- drivers/gpio/gpio-aspeed.c                | 39 +++++++++++++-
- drivers/gpio/gpiolib-of.c                 |  7 ++-
- drivers/gpio/gpiolib-sysfs.c              | 14 +++--
- drivers/gpio/gpiolib.c                    | 89 +++++++++++++++++++++++++++++--
- drivers/gpio/gpiolib.h                    |  1 +
- drivers/input/keyboard/gpio_keys.c        |  9 +---
- drivers/input/keyboard/gpio_keys_polled.c | 11 +---
- drivers/leds/leds-gpio.c                  |  2 +-
- drivers/video/fbdev/amba-clcd-nomadik.c   | 15 ++----
- include/dt-bindings/gpio/gpio.h           | 16 ++++--
- include/linux/gpio/consumer.h             | 27 +++++++---
- include/linux/gpio/machine.h              |  2 +
- include/linux/of_gpio.h                   |  2 +
- include/linux/pinctrl/pinconf-generic.h   | 10 +++-
- 15 files changed, 199 insertions(+), 54 deletions(-)
+>> +       if (!priv)
+>> +               return -ENXIO;
+>> +
+>> +       switch (cmd) {
+>> +       case PECI_IOC_XFER:
+>> +       case PECI_IOC_PING:
+>> +       case PECI_IOC_GET_DIB:
+>> +       case PECI_IOC_GET_TEMP:
+>> +       case PECI_IOC_RD_PKG_CFG:
+>> +       case PECI_IOC_WR_PKG_CFG:
+>> +       case PECI_IOC_RD_IA_MSR:
+>> +       case PECI_IOC_RD_PCI_CFG:
+>> +       case PECI_IOC_RD_PCI_CFG_LOCAL:
+>> +       case PECI_IOC_WR_PCI_CFG_LOCAL:
+>> +               peci_cmd = _IOC_TYPE(cmd) - PECI_IOC_BASE;
+>> +               msg_size = _IOC_SIZE(cmd);
+>> +               break;
+> 
+> Having to keep the switch() statement and the array above seems a
+> little fragile. Can you just do one or the other?
+> 
+> Regarding the command set, you have both a low-level PECI_IOC_XFER
+> interface and a high-level interface. Can you explain why? I'd think that
+> generally speaking it's better to have only one of the two.
+> 
 
--- 
-2.14.1
+I was intended to provide generic peci command set, also the low level 
+PECI_IOC_XFER to provide flexibility for a case when compose a custom 
+peci command which cannot be covered by the high-level command set. As 
+you said, all other commands can be implemented in the upper layer but 
+the benefit of when this driver has the implementation is, it's easy to 
+manage retry logic since peci is retrial based protocol intends to do 
+not disturb a CPU if the CPU is doing more important task.
+
+However, your thought also makes sense. I'll check the spec again 
+whether the high-level command set can cover all cases. If so, I'll 
+remove the low-level command.
+
+>> +       /* Check command sts and bus idle state */
+>> +       while (!regmap_read(priv->regmap, AST_PECI_CMD, &cmd_sts)
+>> +              && (cmd_sts & (PECI_CMD_STS_MASK | PECI_CMD_PIN_MON))) {
+>> +               if (timeout-- < 0) {
+>> +                       dev_dbg(priv->dev, "Timeout waiting for idle state!\n");
+>> +                       ret = -ETIME;
+>> +                       goto out;
+>> +               }
+>> +               usleep_range(10000, 11000);
+>> +       };
+> 
+> To implement timeout, it's better to replace the counter with a
+> jiffies/time_before or ktime_get()/ktime_before() check, since usleep_range()
+> is might sleep considerably longer than expected.
+> 
+
+Thanks for the suggestion. Will rewrite it using ktime_get()/ktime_before().
+
+>> +EXPORT_SYMBOL_GPL(peci_ioctl);
+> 
+> No user of this, so drop it.
+> 
+
+peci_hwmon is using it.
+
+>> +static int aspeed_peci_open(struct inode *inode, struct file *filp)
+>> +{
+>> +       struct aspeed_peci *priv =
+>> +               container_of(filp->private_data, struct aspeed_peci, miscdev);
+>> +
+>> +       atomic_inc(&priv->ref_count);
+>> +
+>> +       dev_dbg(priv->dev, "ref_count : %d\n", atomic_read(&priv->ref_count));
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int aspeed_peci_release(struct inode *inode, struct file *filp)
+>> +{
+>> +       struct aspeed_peci *priv =
+>> +               container_of(filp->private_data, struct aspeed_peci, miscdev);
+>> +
+>> +       atomic_dec(&priv->ref_count);
+>> +
+>> +       dev_dbg(priv->dev, "ref_count : %d\n", atomic_read(&priv->ref_count));
+>> +
+>> +       return 0;
+>> +}
+> 
+> Nothing uses that reference count, drop it.
+> 
+
+You are right. Will drop it.
+
+>> new file mode 100644
+>> index 0000000..66322c6
+>> --- /dev/null
+>> +++ b/include/misc/peci.h
+>> @@ -0,0 +1,11 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +// Copyright (c) 2017 Intel Corporation
+>> +
+>> +#ifndef __PECI_H
+>> +#define __PECI_H
+>> +
+>> +#include <linux/peci_ioctl.h>
+>> +
+>> +long peci_ioctl(struct file *filp, unsigned int cmd, unsigned long arg);
+>> +
+>> +#endif /* __PECI_H */
+> 
+> Not used anywhere.
+> 
+
+peci_hwmon is using it.
+
+>> diff --git a/include/uapi/linux/peci_ioctl.h b/include/uapi/linux/peci_ioctl.h
+>> new file mode 100644
+>> index 0000000..8386848
+>> --- /dev/null
+>> +++ b/include/uapi/linux/peci_ioctl.h
+>> @@ -0,0 +1,270 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +// Copyright (c) 2017 Intel Corporation
+>> +
+>> +#ifndef __PECI_IOCTL_H
+>> +#define __PECI_IOCTL_H
+>> +
+>> +#include <linux/ioctl.h>
+>> +
+>> +/* Base Address of 48d */
+>> +#define PECI_BASE_ADDR  0x30  /* The PECI client's default address of 0x30 */
+>> +#define PECI_OFFSET_MAX 8     /* Max numver of CPU clients */
+>> +
+>> +/* PCI Access */
+>> +#define MAX_PCI_READ_LEN 24  /* Number of bytes of the PCI Space read */
+>> +
+>> +#define PCI_BUS0_CPU0      0x00
+>> +#define PCI_BUS0_CPU1      0x80
+>> +#define PCI_CPUBUSNO_BUS   0x00
+>> +#define PCI_CPUBUSNO_DEV   0x08
+>> +#define PCI_CPUBUSNO_FUNC  0x02
+>> +#define PCI_CPUBUSNO       0xcc
+>> +#define PCI_CPUBUSNO_1     0xd0
+>> +#define PCI_CPUBUSNO_VALID 0xd4
+> 
+> I can't tell for sure, but this file seems to be mixing the kernel API with
+> hardware specific macros that are not needed in user space. Can you move
+> some of this file into the driver itself?
+> 
+> This might go back to the previous question about the high-level and
+> low-level interfaces: if you can drop the low-level ioctl interface, more
+> of this header can become private to the driver.
+> 
+
+As I answered above, I'll check the spec again and remove the low-level 
+command if the high-level command set covers all cases.
+
+>> +/* Package Identifier Read Parameter Value */
+>> +#define PKG_ID_CPU_ID               0x0000  /* 0 - CPUID Info */
+>> +#define PKG_ID_PLATFORM_ID          0x0001  /* 1 - Platform ID */
+>> +#define PKG_ID_UNCORE_ID            0x0002  /* 2 - Uncore Device ID */
+>> +#define PKG_ID_MAX_THREAD_ID        0x0003  /* 3 - Max Thread ID */
+>> +#define PKG_ID_MICROCODE_REV        0x0004  /* 4 - CPU Microcode Update Revision */
+>> +#define PKG_ID_MACHINE_CHECK_STATUS 0x0005  /* 5 - Machine Check Status */
+>> +
+>> +/* RdPkgConfig Index */
+>> +#define MBX_INDEX_CPU_ID            0   /* Package Identifier Read */
+>> +#define MBX_INDEX_VR_DEBUG          1   /* VR Debug */
+>> +#define MBX_INDEX_PKG_TEMP_READ     2   /* Package Temperature Read */
+>> +#define MBX_INDEX_ENERGY_COUNTER    3   /* Energy counter */
+>> +#define MBX_INDEX_ENERGY_STATUS     4   /* DDR Energy Status */
+>> +#define MBX_INDEX_WAKE_MODE_BIT     5   /* "Wake on PECI" Mode bit */
+>> +#define MBX_INDEX_EPI               6   /* Efficient Performance Indication */
+> 
+> Who defines these constants? Are they specific to the aspeed BMC, to the HECI
+> protocol, or to a particular version of the remote endpoint?
+> 
+
+These are common peci definitions, not the aspeed BMC specific.
+
+>> +#pragma pack(push, 1)
+>> +struct peci_xfer_msg {
+>> +       unsigned char client_addr;
+>> +       unsigned char tx_len;
+>> +       unsigned char rx_len;
+>> +       unsigned char tx_buf[MAX_BUFFER_SIZE];
+>> +       unsigned char rx_buf[MAX_BUFFER_SIZE];
+>> +};
+>> +#pragma pack(pop)
+>> +
+>> +struct peci_ping_msg {
+>> +       unsigned char target;
+>> +};
+>> +
+>> +struct peci_get_dib_msg {
+>> +       unsigned char target;
+>> +       unsigned int  dib;
+>> +};
+>> +
+>> +struct peci_get_temp_msg {
+>> +       unsigned char target;
+>> +       signed short  temp_raw;
+>> +};
+> 
+> Aside from what Greg already said about the types, please be careful to
+> also avoid implicit padding in the API data structures, including the end of the
+> structure.
+> 
+
+Okay, I'll expand the pack() scope for all these definition.
+
+>> +#define PECI_IOC_RD_PCI_CFG \
+>> +       _IOWR(PECI_IOC_BASE + PECI_CMD_RD_PCI_CFG, 0, \
+>> +               struct peci_rd_pci_cfg_msg)
+>> +
+>> +#define PECI_IOC_RD_PCI_CFG_LOCAL \
+>> +       _IOWR(PECI_IOC_BASE + PECI_CMD_RD_PCI_CFG_LOCAL, 0, \
+>> +               struct peci_rd_pci_cfg_local_msg)
+>> +
+>> +#define PECI_IOC_WR_PCI_CFG_LOCAL \
+>> +       _IOWR(PECI_IOC_BASE + PECI_CMD_WR_PCI_CFG_LOCAL, 0, \
+>> +               struct peci_wr_pci_cfg_local_msg)
+> 
+> Can you give some background on what these do? In particular, who
+> is configuring whose PCI devices?
+> 
+>          Arnd
+> 
+
+These are commands to read/write a client CPU's PCI configuration which 
+could be an end-point of the physical PECI interface connection. BMC 
+controller will be a host and a CPU will be a client.
+
+Thanks,
+Jae
