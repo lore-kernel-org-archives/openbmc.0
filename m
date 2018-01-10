@@ -7,23 +7,20 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zH38n4HL0zF0kZ
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zH38n4M2szF0kj
  for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 09:09:58 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w0ALpwCf005585;
- Wed, 10 Jan 2018 23:51:58 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w0ALpvbb005579;
+ Wed, 10 Jan 2018 23:51:57 +0200
 Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id AB6155A958; Thu, 11 Jan 2018 00:09:48 +0200 (IST)
+ id A41D35A958; Thu, 11 Jan 2018 00:09:47 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v1 2/3] dt-binding: clock: add NPCM7XX clock
- include file
-Date: Thu, 11 Jan 2018 00:09:36 +0200
-Message-Id: <1515622177-5018-3-git-send-email-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v1 0/3] clk: npcm: add NPCM7xx clock driver
+Date: Thu, 11 Jan 2018 00:09:34 +0200
+Message-Id: <1515622177-5018-1-git-send-email-tmaimon77@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1515622177-5018-1-git-send-email-tmaimon77@gmail.com>
-References: <1515622177-5018-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -35,67 +32,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jan 2018 22:10:02 -0000
+X-List-Received-Date: Wed, 10 Jan 2018 22:10:03 -0000
 
-add NPCM7XX clock include file for DTS use.
+This patch set adds clock support for the Nuvoton NPCM7xx Baseboard
+Management Controller (BMC).
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- include/dt-bindings/clock/nuvoton,npcm7xx-clock.h | 46 +++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+Tomer Maimon (3):
+  dt-binding: clock: document NPCM7xx clock DT bindings
+  dt-binding: clock: add NPCM7XX clock include file
+  clk: npcm: add NPCM7xx clock driver
+
+ .../bindings/clock/nuvoton,npcm750-clk.txt         |  84 +++
+ drivers/clk/Makefile                               |   2 +
+ drivers/clk/clk-npcm7xx-pll.c                      | 102 +++
+ drivers/clk/clk-npcm7xx-pll.h                      |  27 +
+ drivers/clk/clk-npcm7xx.c                          | 704 +++++++++++++++++++++
+ include/dt-bindings/clock/nuvoton,npcm7xx-clock.h  |  46 ++
+ include/linux/clk/nuvoton.h                        |  13 +
+ 7 files changed, 978 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+ mode change 100644 => 100755 drivers/clk/Makefile
+ create mode 100644 drivers/clk/clk-npcm7xx-pll.c
+ create mode 100644 drivers/clk/clk-npcm7xx-pll.h
+ create mode 100644 drivers/clk/clk-npcm7xx.c
  create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+ create mode 100644 include/linux/clk/nuvoton.h
 
-diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
-new file mode 100644
-index 000000000000..38649ad341ba
---- /dev/null
-+++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
-@@ -0,0 +1,46 @@
-+/*
-+ * Nuvoton NPCM7xx Clock Generator
-+ * All the clocks are initialized by the bootloader, so this driver allow only
-+ * reading of current settings directly from the hardware.
-+ *
-+ * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
-+ *
-+ * Released under the GPLv2 only.
-+ * SPDX-License-Identifier: GPL-2.0
-+ * http://www.opensource.org/licenses/gpl-license.html
-+ * http://www.gnu.org/copyleft/gpl.html
-+ */
-+
-+#ifndef __DT_BINDINGS_CLOCK_NPCM7XX_H
-+#define __DT_BINDINGS_CLOCK_NPCM7XX_H
-+
-+
-+#define NPCM7XX_CLK_CPU 0
-+#define NPCM7XX_CLK_GFX_PIXEL 1
-+#define NPCM7XX_CLK_MC 2
-+#define NPCM7XX_CLK_ADC 3
-+#define NPCM7XX_CLK_AHB 4
-+#define NPCM7XX_CLK_TIMER 5
-+#define NPCM7XX_CLK_UART 6
-+#define NPCM7XX_CLK_MMC  7
-+#define NPCM7XX_CLK_SPI3 8
-+#define NPCM7XX_CLK_PCI  9
-+#define NPCM7XX_CLK_AXI 10
-+#define NPCM7XX_CLK_APB4 11
-+#define NPCM7XX_CLK_APB3 12
-+#define NPCM7XX_CLK_APB2 13
-+#define NPCM7XX_CLK_APB1 14
-+#define NPCM7XX_CLK_APB5 15
-+#define NPCM7XX_CLK_CLKOUT 16
-+#define NPCM7XX_CLK_GFX  17
-+#define NPCM7XX_CLK_SU   18
-+#define NPCM7XX_CLK_SU48 19
-+#define NPCM7XX_CLK_SDHC 20
-+#define NPCM7XX_CLK_SPI0 21
-+#define NPCM7XX_CLK_SPIX 22
-+
-+#define NPCM7XX_NUM_CLOCKS	 (NPCM7XX_CLK_SPIX+1)
-+
-+
-+
-+#endif
 -- 
 2.14.1
