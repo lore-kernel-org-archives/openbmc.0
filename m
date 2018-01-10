@@ -7,26 +7,28 @@ Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
  [140.211.169.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zGlMB6xTyzDqnQ
- for <openbmc@lists.ozlabs.org>; Wed, 10 Jan 2018 21:17:58 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zGlN25qmSzF0lV
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Jan 2018 21:18:42 +1100 (AEDT)
 Received: from localhost (unknown [37.170.134.120])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id C7DA0F9B;
- Wed, 10 Jan 2018 10:17:55 +0000 (UTC)
-Date: Wed, 10 Jan 2018 11:17:55 +0100
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 3AAEFFA8;
+ Wed, 10 Jan 2018 10:18:40 +0000 (UTC)
+Date: Wed, 10 Jan 2018 11:18:40 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, jdelvare@suse.com,
  linux@roeck-us.net, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@intel.com>
-Subject: Re: [PATCH linux dev-4.10 0/6] Add support PECI and PECI hwmon drivers
-Message-ID: <20180110101755.GA5822@kroah.com>
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH linux dev-4.10 3/6] drivers/misc: Add driver for Aspeed
+ PECI and generic PECI headers
+Message-ID: <20180110101840.GB5822@kroah.com>
 References: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
+ <20180109223126.13093-4-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20180109223126.13093-4-jae.hyun.yoo@linux.intel.com>
 User-Agent: Mutt/1.9.2 (2017-12-15)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -39,21 +41,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jan 2018 10:17:59 -0000
+X-List-Received-Date: Wed, 10 Jan 2018 10:18:43 -0000
 
-On Tue, Jan 09, 2018 at 02:31:20PM -0800, Jae Hyun Yoo wrote:
-> From: Jae Hyun Yoo <jae.hyun.yoo@intel.com>
-> 
-> Hello,
-> 
-> This patch set provides support for PECI of AST2400/2500 which can give us PECI
-> functionalities such as temperature monitoring, platform manageability,
-> processor diagnostics and failure analysis. Also provides generic peci.h and
-> peci_ioctl.h headers to provide compatibility to peci drivers that can be
-> implemented later e.g. Nuvoton's BMC SoC family.
+On Tue, Jan 09, 2018 at 02:31:23PM -0800, Jae Hyun Yoo wrote:
+> This commit adds driver implementation for Aspeed PECI. Also adds
+> generic peci.h and peci_ioctl.h files to provide compatibility
+> to peci drivers that can be implemented later e.g. Nuvoton's BMC
+> SoC family.
 
-What is the "dev-4.10" in the subject for?  4.10 is really old and
-obsolete :(
+We don't add code that could be used "sometime in the future".  Only
+include stuff that we use now.
+
+Please fix up this series based on that and resubmit.  There should not
+be any need for any uapi file then, right?
 
 thanks,
 
