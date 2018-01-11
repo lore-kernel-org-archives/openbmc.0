@@ -1,60 +1,67 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="s9eCtagH"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="e85A09gw"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHZ184GCszF0WY
- for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 05:20:12 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E0D5A20C4D;
- Thu, 11 Jan 2018 13:20:09 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 11 Jan 2018 13:20:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=UKa0s+km+nQNp4cV5swqY4eGvM4SQvDQq5Wd3S87gno=; b=s9eCtagH
- 187bgvV7fQ37FUVgLRTfsUFDLRRWBou3fcsn3SXllzSaKfECoaYb6gOkRW/WCWKA
- 64hdjNLXXa5HNgY4Yb60zM3WAUofVHV8Jw+ThKO5mT91te/qDXTbIzzzDvVvfiUS
- L1XYnCo0v8/iU+y689AKMLq0wMlh6SkheQcylti/W0ztQCqVdmGeForN624M0YOw
- qDdAWDINKu++9yPmiVkAOuCWYHwCMnQrREYAwHag7T745cvkEMq+npg2VhKYMhxD
- Ofdb6TjXwOH0zeTpq7yoxn21cXhk8qjueG0NjY7yiH5GjOu38bhg9z/xL3GeR0cZ
- mLMPen/Tbqud8w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=UKa0s+km+nQNp4cV5swqY4eGvM4SQ
- vDQq5Wd3S87gno=; b=e85A09gwe5KbAwMl7bAp3dRmEZA2dRADdftETQAzJZPg9
- y/cJx4qY4O+M6j6EbDXBGfVwLwQO7Iw4FgwXOgZF76MwWUkHugXeqO0O/WDjW1ok
- 5iJeJAilCJBEhwcZrFxU86eVOpz9173YbjOOQuyjpp4GYvrjwVr/q9WeqFRs+KLB
- 88GHejVceeAiikhBuVNADQQMn+y+zcUfNpciF7XqEuiUOrwRlbF72ikSlsHbamba
- bYe5AU2NC4q7rxbJ6U39U8JlSMl/JPueJD+6h1EefA6sumkV+TjhF5zxMLI89g/J
- Om/atSMDynUd4vH7BAqdsYbuN8wHc0Amq1qDwJlGg==
-X-ME-Sender: <xms:2apXWs6Y6it-bNgaoq7x1miNbYzzDY0BYyGXbT83pLiQUPRDmhP_DQ>
-Received: from dave (unknown [104.133.8.104])
- by mail.messagingengine.com (Postfix) with ESMTPA id 628AF246CC;
- Thu, 11 Jan 2018 13:20:09 -0500 (EST)
-Message-ID: <1515694805.28370.10.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.13 v1 1/2] dt-binding: hwmon: document
- NPCM7xx sensors DT bindings
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Tomer Maimon <tmaimon77@gmail.com>, openbmc@lists.ozlabs.org
-Date: Thu, 11 Jan 2018 10:20:05 -0800
-In-Reply-To: <1514382619-14336-2-git-send-email-tmaimon77@gmail.com>
-References: <1514382619-14336-1-git-send-email-tmaimon77@gmail.com>
- <1514382619-14336-2-git-send-email-tmaimon77@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-yDiD1tM5AlF6LP9MrGKu"
-X-Mailer: Evolution 3.26.1-1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHZcc1qDzzF0Zc
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 05:47:26 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w0BIk9bF035028
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 13:47:23 -0500
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2feaq37xdm-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 13:47:23 -0500
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Thu, 11 Jan 2018 13:47:22 -0500
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 11 Jan 2018 13:47:19 -0500
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w0BIlICT46530684; Thu, 11 Jan 2018 18:47:18 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3797C112040;
+ Thu, 11 Jan 2018 13:45:29 -0500 (EST)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id E4106112051;
+ Thu, 11 Jan 2018 13:45:28 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10 0/5] hwmon (pmbus): cffps: reset to linux-next
+ state
+Date: Thu, 11 Jan 2018 12:47:12 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18011118-0052-0000-0000-000002A05BA0
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008361; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000245; SDB=6.00973566; UDB=6.00493310; IPR=6.00753511; 
+ BA=6.00005773; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018983; XFM=3.00000015;
+ UTC=2018-01-11 18:47:20
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18011118-0053-0000-0000-000053322EDF
+Message-Id: <1515696437-10508-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-01-11_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1801110255
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,109 +73,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 18:20:16 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 18:47:28 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 18:47:28 -0000
 
+This series brings the IBM common form factor power supply driver to the
+commits accepted into linux-next. It also includes two changes to the pmbus
+core driver, also in linux-next. One is required for cffps, the other is a
+bug fix for pmbus page number.
 
---=-yDiD1tM5AlF6LP9MrGKu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Eddie James (5):
+  hwmon: (pmbus/core) Prevent unintentional setting of page to 0xFF
+  hwmon: (pmbus) cffps: Add PMBUS_SKIP_STATUS_CHECK
+  hwmon: (pmbus) Export pmbus device debugfs directory entry
+  hwmon: (pmbus) cffps: Add debugfs entries
+  hwmon (pmbus): cffps: Add led class device for power supply fault led
 
-On Wed, 2017-12-27 at 15:50 +0200, Tomer Maimon wrote:
-> Added device tree binding documentation for Nuvoton
-> NPCM7xx Pulse Width Modulation (PWM) and Fan
-> Tachometer devices.
->=20
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  .../devicetree/bindings/hwmon/npcm7xx-fan.txt          | 18 ++++++++++++=
-++++++
->  .../devicetree/bindings/hwmon/npcm7xx-pwm.txt          | 16 ++++++++++++=
-++++
+ drivers/hwmon/pmbus/ibm-cffps.c  | 288 ++++++++++++++++++++++++++++++++++++++-
+ drivers/hwmon/pmbus/pmbus.h      |   7 +-
+ drivers/hwmon/pmbus/pmbus_core.c |  33 +++--
+ 3 files changed, 310 insertions(+), 18 deletions(-)
 
-The bindings look okay to me, but I feel they probably should be split
-into individual patches. I suggest this based on wanting to split the
-drivers out, as they are more complicated and thus more susceptible to
-review comments. Decoupling them from eachother means they can be
-reviewed and submitted independently.
-
-Andrew
-
->  2 files changed, 34 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm7xx-fan.t=
-xt
->  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.t=
-xt
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/npcm7xx-fan.txt b/Do=
-cumentation/devicetree/bindings/hwmon/npcm7xx-fan.txt
-> new file mode 100644
-> index 000000000000..cb456632a99f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/npcm7xx-fan.txt
-> @@ -0,0 +1,18 @@
-> +Nuvoton NPCM7xx fan tachometer (Fan) controller device driver
-> +
-> +The NPCM7xx fan tachometer controller supports upto 16 Fan inputs.
-> +
-> +Required properties:
-> +- compatible      : "nuvoton,npcm750-fan" for Poleg NPCM750.
-> +- reg             : Offset and length of the register set for the device=
-.
-> +- clocks          : phandle of fan reference clock.
-> +- interrupts      : Contain the fan interrupts with flags for
-> +                    falling edge.
-> +
-> +fan: fan@0 {
-> +	compatible =3D "nuvoton,npcm750-fan";
-> +	reg =3D <0xf0180000 0x8000>;
-> +	interrupts =3D <0 96 4>, <0 97 4>, <0 98 4>, <0 99 4>,
-> +		<0 100 4>, <0 101 4>, <0 102 4>, <0 103 4>;
-> +	clocks =3D <&clk NPCM7XX_CLK_APB4>;
-> +};
-> diff --git a/Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt b/Do=
-cumentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt
-> new file mode 100644
-> index 000000000000..8b54a59c272a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt
-> @@ -0,0 +1,16 @@
-> +Nuvoton NPCM7xx Pulse-width modulation (PWM) controller device driver
-> +
-> +The NPCM7xx PWM controller supports upto 8 PWM outputs.
-> +Each PWM output module have watchdog.
-> +
-> +Required properties:
-> +- compatible      : "nuvoton,npcm750-pwm" for Poleg NPCM750.
-> +- reg             : Offset and length of the registers set for the devic=
-e.
-> +- clocks          : phandle of pwm reference clock.
-> +
-> +pwm:pwm@f0103000 {
-> +	compatible =3D "nuvoton,npcm750-pwm";
-> +	reg =3D <0xf0103000 0x1000
-> +				0xf0104000 0x1000>;
-> +	clocks =3D <&clk NPCM7XX_CLK_APB3>;
-> +};
---=-yDiD1tM5AlF6LP9MrGKu
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJaV6rVAAoJEJ0dnzgO5LT5YZIP/0JN+3qvUY5c87YOONT0CMDT
-UnOwMJAkrFH6gLSp55FgmfoUy25tjMTfGhTgY11G4SDuOCNP9pjGWWn023BA6M9J
-xxYBV+lZ1yGxB7hZ9+HweFdVarnIc22la1VQe3b6ascBs5P1kBnszpXV96wacaJu
-HZeKWklr6Dzw43L/kroyyLgwJVR7qqX0ALX8SDF2Lr27/wU74Nd6NER5rdohsujg
-t34RoK41pSChPQBCkr45s3zG60yJMnNeACLhra82NJ8UR3yNJFsQVHLLYMfEb5As
-AqGZPHF8fBwOr5jHQYLGTbJ2lFl2O5ayoqTahlIhsTZF8dTTPvzBB/kJgwE8iUi2
-W9M1Mb61/QBF+elpaKj3LjsEcLanRBRV/GTby8YxQRRpbqTJsPBYEwE3BeAarCen
-SsOn7td+3tHR3JYPlrv/f7tikA3yC+2nXbV7EUKEO9aS9QlDS2O8DjhoyY4AceuX
-GWH8Wg43JjjBnRMyYWvohSJUd5vusXddYnH875Hvo2LHOAh5Og+fFMwAOMTFIEO2
-vODQ27m94f8AW0FgjClPlvCEZV8+dh7jVfr2IIOsJPApUA8T0K3p+lriqKyPkd9D
-hwX0GsPTtONvs0cWoWLLruXU6IBncpK+C0gjcEzLfuz1bQQSorKBlCh274yhOmr+
-/2iGohbw3VHLzBUAodTo
-=NFj4
------END PGP SIGNATURE-----
-
---=-yDiD1tM5AlF6LP9MrGKu--
+-- 
+1.8.3.1
