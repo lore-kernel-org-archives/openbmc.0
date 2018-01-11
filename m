@@ -1,47 +1,80 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Return-Path: <Michael.E.Brown@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.90; helo=esa1.dell-outbound.iphmx.com;
+ envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="kgjS2xOa"; 
+ dkim-atps=neutral
+Received: from esa1.dell-outbound.iphmx.com (esa1.dell-outbound.iphmx.com
+ [68.232.153.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zH5Hc5hL2zF0RZ
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 10:46:04 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2018 15:45:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,342,1511856000"; d="scan'208";a="23051397"
-Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.7.153.149])
- ([10.7.153.149])
- by orsmga001.jf.intel.com with ESMTP; 10 Jan 2018 15:45:58 -0800
-Subject: Re: [PATCH linux dev-4.10 6/6] drivers/hwmon: Add a driver for a
- generic PECI hwmon
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- gregkh <gregkh@linuxfoundation.org>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-doc@vger.kernel.org, DTML <devicetree@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, Linux ARM
- <linux-arm-kernel@lists.infradead.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
- <20180109223126.13093-7-jae.hyun.yoo@linux.intel.com>
- <CAK8P3a31+9HGQ=fQby5Zi1RZ671hKraZP_2ggLTMX3qvOiTx0w@mail.gmail.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <bdc0375d-c379-6c2e-b350-76741afe151d@linux.intel.com>
-Date: Wed, 10 Jan 2018 15:45:58 -0800
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.2
-MIME-Version: 1.0
-In-Reply-To: <CAK8P3a31+9HGQ=fQby5Zi1RZ671hKraZP_2ggLTMX3qvOiTx0w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zH5pk2ffNzF0VN
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 11:09:33 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1515629301; x=1547165301;
+ h=from:to:subject:date:message-id:mime-version;
+ bh=o2EwZjdP47PH4qpL3L+FjFKace68C1zjfrWxn3+Gsww=;
+ b=kgjS2xOaGqkDI1Sgds5R9bBqeyGCjf9MH1MOhdGr0WJaU7W8ay6gOUWg
+ kJC7LlNd0bPfW+AX0UxUfwbtkdBrqlXHHDYKv56Z4rTeh5j5o5f/UqZM4
+ VvNFXJVLF3zQho35PW7yc3O6MREE8Et388/Ke38k4D9GYFAfZ6EskG84w g=;
+IronPort-PHdr: =?us-ascii?q?9a23=3AJQlRbRQe3urSYZ1K+MojWsTxl9psv+yvbD5Q0YIu?=
+ =?us-ascii?q?jvd0So/mwa6yZR2N2/xhgRfzUJnB7Loc0qyK6/mmATRIyK3CmUhKSIZLWR4BhJ?=
+ =?us-ascii?q?detC0bK+nBN3fGKuX3ZTcxBsVIWQwt1Xi6NU9IBJS2PAWK8TW94jEIBxrwKxd+?=
+ =?us-ascii?q?KPjrFY7OlcS30P2594HObwlSizexfa5+IA+qoQnNq8IbnZZsJqEtxxXTv3BGYf?=
+ =?us-ascii?q?5WxWRmJVKSmxbz+MK994N9/ipTpvws6ddOXb31cKokQ7NYCi8mM30u683wqRbD?=
+ =?us-ascii?q?VwqP6WACXWgQjxFFHhLK7BD+Xpf2ryv6qu9w0zSUMMHqUbw5Xymp4qF2QxHqlS?=
+ =?us-ascii?q?gHLSY0/mHJhMJtkKJVrhGvpx1jzIHbe4yaLuZyc7nHcN8GWWZNQ8BcXDFBDIOm?=
+ =?us-ascii?q?aIsPCvIMMOFfoYn8u1QOrQGxCheoBO/1xTFEnGL73bc90+UvFwHLxxEvEMwKsH?=
+ =?us-ascii?q?TQttn6KKASUeWswaTO0D7NYfRW2TLn54jJdBAsueyDUqx0ccrV00UgCwTFjlCW?=
+ =?us-ascii?q?pIf4PD2VzvwAvmmY4uZ6S+6ihXArpxtsrjWvyMogkJfFip4Ixlzc6Cl13Jw5Kc?=
+ =?us-ascii?q?C6RUN5e9KpFIdcuzuYOodqWs8uXm5ltSggxrEbuJO2fTIGxIkoyhPccfCLbZSE?=
+ =?us-ascii?q?7xPlWe2MOzl3nmhld6i6hxuq9EigzfDzWdes3VZRqypFjsHMtncQ1xzP8sSHSu?=
+ =?us-ascii?q?Vy/kOm2TuXyQ/T8ftLLV0umaXGNZEhxrowmoMUsUTeAi/5g0L2jLKQdko55OSk?=
+ =?us-ascii?q?8eXnYq3mpp+ZOI54kB3xMqMrmsCnAOQ4NBYBX3SD9Om917Dv51P1TbtUgvEsj6?=
+ =?us-ascii?q?XUsJ7XKd4FqqKlHgNZyoMj5Ay+Dzei3tQYh34HLFdddRyAjojmJ1HOL+rmAve7?=
+ =?us-ascii?q?mViiny1nyu3cPr3mDJTNKGPOn6r/crZ5705Q0hY8zdda555MELEOPOrzWlPttN?=
+ =?us-ascii?q?zfFhI5NBS0zPjhCNpm04MRRXmCAquYMKPJrV+I/fgjI+6NZY8RojnyMOMl6+Tp?=
+ =?us-ascii?q?jX8jll9ONZWuiM8QcH2+FPFtC0GYemb3xNATFW4ApUw5VuO823OYVjsGM1OzVK?=
+ =?us-ascii?q?I16zV9JcSMF4DcQKihjbiFmiy8G8sFNSh9FlmQHCKwJM2/UPAWZXfKLw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2H4AwCzqlZah8mZ6EReHAEBAQQBAQoBA?=
+ =?us-ascii?q?YJKgU0QdCcHhlmWEx+FFIE/AQKDDodkh04HgWhDCiOJYEIVAQEBAQEBAQEBAQI?=
+ =?us-ascii?q?QAQEBCA0JCCgvQg4BgWciDQRLJwMvAQEBAQEBAQEBAQEBAQEBAQEBAQEVAg1DA?=
+ =?us-ascii?q?YErAQwBHDRKBIliZBCuLxGDTYpwhCCBaiuLemKFMAWPYIMUkHAKiAGNOoJ/kQ+?=
+ =?us-ascii?q?NO4lmgTwPJoFCMm+CbAEQCIF7AQEBAQEFAQEBAQEBAQFOgXN5AQGEIIYmgRcBA?=
+ =?us-ascii?q?QE?=
+X-IPAS-Result: =?us-ascii?q?A2H4AwCzqlZah8mZ6EReHAEBAQQBAQoBAYJKgU0QdCcHhlm?=
+ =?us-ascii?q?WEx+FFIE/AQKDDodkh04HgWhDCiOJYEIVAQEBAQEBAQEBAQIQAQEBCA0JCCgvQ?=
+ =?us-ascii?q?g4BgWciDQRLJwMvAQEBAQEBAQEBAQEBAQEBAQEBAQEVAg1DAYErAQwBHDRKBIl?=
+ =?us-ascii?q?iZBCuLxGDTYpwhCCBaiuLemKFMAWPYIMUkHAKiAGNOoJ/kQ+NO4lmgTwPJoFCM?=
+ =?us-ascii?q?m+CbAEQCIF7AQEBAQEFAQEBAQEBAQFOgXN5AQGEIIYmgRcBAQE?=
+Received: from esa1.dell-outbound2.iphmx.com ([68.232.153.201])
+ by esa1.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2018 18:08:18 -0600
+From: <Michael.E.Brown@dell.com>
+Received: from ausc60ps301.us.dell.com ([143.166.148.206])
+ by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2018 06:08:15 +0600
+X-LoopCount0: from 10.166.136.215
+X-IronPort-AV: E=Sophos;i="5.46,342,1511848800"; 
+ d="scan'208,217";a="1081421246"
+X-DLP: DLP_GlobalPCIDSS
+To: <openbmc@lists.ozlabs.org>
+Subject: Dell VNC server
+Thread-Topic: Dell VNC server
+Thread-Index: AQHTinBeRBV4t/ct0kGhFKBj4lDomw==
+Date: Thu, 11 Jan 2018 00:09:26 +0000
+Message-ID: <1515629435132.86348@Dell.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.177.90.70]
+Content-Type: multipart/alternative; boundary="_000_151562943513286348Dellcom_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -53,49 +86,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jan 2018 23:46:08 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 00:09:35 -0000
 
-On 1/10/2018 4:29 AM, Arnd Bergmann wrote:
-> On Tue, Jan 9, 2018 at 11:31 PM, Jae Hyun Yoo
-> <jae.hyun.yoo@linux.intel.com> wrote:
->> This commit adds driver implementation for a generic PECI hwmon.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> 
->> +static int xfer_peci_msg(int cmd, void *pmsg)
->> +{
->> +       int rc;
->> +
->> +       mutex_lock(&peci_hwmon_lock);
->> +       rc = peci_ioctl(NULL, cmd, (unsigned long)pmsg);
->> +       mutex_unlock(&peci_hwmon_lock);
->> +
->> +       return rc;
->> +}
-> 
-> I said earlier that peci_ioctl() looked unused, that was obviously
-> wrong, but what you have here
-> is not a proper way to abstract a bus.
-> 
-> Maybe this can be done more like an i2c bus: make the peci controller
-> a bus device
-> and register all known target/index pairs as devices with the peci bus
-> type, and have
-> them probed from DT. The driver can then bind to each of those individually.
-> Not sure if that is getting to granular at that point, I'd have to
-> understand better
-> how it is expected to get used, and what the variances are between
-> implementations.
-> 
->         Arnd
-> 
+--_000_151562943513286348Dellcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for sharing your opinion. In fact, this was also suggested by 
-openbmc community so I should consider of redesigning it. I'm currently 
-thinking about adding a new PECI device class as an abstract layer and 
-any BMC chipset specific driver could be attached to the PECI class 
-driver. Then, each CPU client could be registered as an individual 
-device as you suggested. Will consider your suggestion.
+http://opensource.dell.com/releases/idrac9/3.11.11.11/
 
-Thanks a lot!
-Jae
+
+Download this (3.1GB) tarball. Our open source components for vnc are under
+
+iDRAC_3.11.11.11_OpenSource/externalsrc/fb-vserver.
+
+
+The prerequisites are libvncserver and ssl.
+
+--
+
+Michael
+
+
+--_000_151562943513286348Dellcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none"><!-- p { margin-top: 0px; m=
+argin-bottom: 0px; } p.p1 { margin: 0px; font-style: normal; font-variant: =
+normal; font-weight: normal; font-stretch: normal; font-size: 11px; line-he=
+ight: normal; font-family: Menlo; color: rgb(0, 0, 0); background-color: rg=
+b(255, 255, 255); } span.s1 { font-variant-ligatures: no-common-ligatures; =
+}--></style>
+</head>
+<body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
+FFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p><a href=3D"http://opensource.dell.com/releases/idrac9/3.11.11.11/">http:=
+//opensource.dell.com/releases/idrac9/3.11.11.11/</a><br>
+</p>
+<p><br>
+</p>
+<p>Download this (3.1GB) tarball. Our open source components for vnc are un=
+der&nbsp;</p>
+<style type=3D"text/css">=0A=
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Menlo; color: #000000; =
+background-color: #ffffff}=0A=
+span.s1 {font-variant-ligatures: no-common-ligatures}=0A=
+</style>
+<p class=3D"p1"><span class=3D"s1">iDRAC_3.11.11.11_OpenSource/externalsrc/=
+fb-vserver.</span></p>
+<p class=3D"p1"><span class=3D"s1"><br>
+</span></p>
+<p class=3D"p1"><span class=3D"s1">The prerequisites are libvncserver and s=
+sl.</span></p>
+<p class=3D"p1"><span class=3D"s1">--</span></p>
+<p class=3D"p1"><span style=3D"font-variant-ligatures: no-common-ligatures;=
+">Michael</span></p>
+<p><br>
+</p>
+</body>
+</html>
+
+--_000_151562943513286348Dellcom_--
