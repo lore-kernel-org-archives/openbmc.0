@@ -1,46 +1,45 @@
-Return-Path: <andrew@lunn.ch>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=lunn.ch
- (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=lunn.ch header.i=@lunn.ch header.b="pRSaI7iA"; 
- dkim-atps=neutral
-X-Greylist: delayed 1653 seconds by postgrey-1.36 at bilbo;
- Fri, 12 Jan 2018 09:46:47 AEDT
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <jae.hyun.yoo@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHgwl6WpqzF0cR
- for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 09:46:47 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; 
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
- bh=RIw0K9zMbNAKJJBHzCs57XEIQ3DSsM0yi4G22kIiBdI=; 
- b=pRSaI7iAi9Rm6CZKKo97XuJw9p8y8REEfG4ZpUeJZ9lcp5GkYckRPbIgvBFPIivb/w3Yludcbwu3qFvypikhR+kdfXRBF41o8mXet57vzT6ngk3Vv/CtusQJHc9DJSNwiQPkywio8NDHFLxDHz7YdBbyvd2UeMsXMCBrRKFbimQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.84_2)
- (envelope-from <andrew@lunn.ch>)
- id 1eZlBN-00034G-2J; Thu, 11 Jan 2018 23:18:45 +0100
-Date: Thu, 11 Jan 2018 23:18:45 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- jdelvare@suse.com, arnd@arndb.de, linux-doc@vger.kernel.org,
- andrew@aj.id.au, gregkh@linuxfoundation.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- joel@jms.id.au, linux-arm-kernel@lists.infradead.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHhJV5wyBzF0cC
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 10:03:53 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2018 15:03:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,346,1511856000"; d="scan'208";a="10580138"
+Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.7.153.149])
+ ([10.7.153.149])
+ by orsmga006.jf.intel.com with ESMTP; 11 Jan 2018 15:03:50 -0800
 Subject: Re: [linux, dev-4.10, 6/6] drivers/hwmon: Add a driver for a generic
  PECI hwmon
-Message-ID: <20180111221845.GA9278@lunn.ch>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
+ gregkh@linuxfoundation.org, jdelvare@suse.com, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
 References: <20180109223126.13093-7-jae.hyun.yoo@linux.intel.com>
  <20180110214747.GA25248@roeck-us.net>
  <261ac28e-813c-a058-c81f-ad4e718d0233@linux.intel.com>
  <20180111214035.GA14748@roeck-us.net>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <7c9ba56d-bd1a-c9cb-8986-4f749ae55edb@linux.intel.com>
+Date: Thu, 11 Jan 2018 15:03:50 -0800
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 In-Reply-To: <20180111214035.GA14748@roeck-us.net>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -52,22 +51,130 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 22:46:49 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 23:03:55 -0000
 
-> > >>+static const struct of_device_id peci_of_table[] = {
-> > >>+	{ .compatible = "peci-hwmon", },
-> > >
-> > >This does not look like a reference to some piece of hardware.
-> > >
-> > 
-> > This driver provides generic PECI hwmon function to which controller has
-> > PECI HW such as Aspeed or Nuvoton BMC chip so it's not dependant on a
-> > specific hardware. Should I remove this or any suggestion?
+On 1/11/2018 1:40 PM, Guenter Roeck wrote:
+> On Thu, Jan 11, 2018 at 11:47:01AM -0800, Jae Hyun Yoo wrote:
+>> On 1/10/2018 1:47 PM, Guenter Roeck wrote:
+>>> On Tue, Jan 09, 2018 at 02:31:26PM -0800, Jae Hyun Yoo wrote:
+>>>> This commit adds driver implementation for a generic PECI hwmon.
+>>>>
+>>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> 
+> [ ... ]
+> 
+>>>> +
+>>>> +	if (priv->temp.tcontrol.valid &&
+>>>> +	    time_before(jiffies, priv->temp.tcontrol.last_updated +
+>>>> +				 UPDATE_INTERVAL_MIN))
+>>>> +		return 0;
+>>>> +
+>>>
+>>> Is the delay necessary ? Otherwise I would suggest to drop it.
+>>> It adds a lot of complexity to the driver. Also, if the user polls
+>>> values more often, that is presumably on purpose.
+>>>
+>>
+>> I was intended to reduce traffic on PECI bus because it's low speed single
+>> wired bus, and temperature values don't change frequently because the value
+>> is sampled and averaged in CPU itself. I'll keep this.
+>>
+> Then please try to move the common code into a single function.
+> 
 
-PECI seems to be an Intel thing. So at least it should be
+That makes sense. I'll move the common code into a single function.
 
- { .compatible = "intel,peci-hwmon", }
+> [ ... ]
+> 
+>>>> +
+>>>> +	rc = of_property_read_u32(np, "cpu-id", &priv->cpu_id);
+>>>
+>>> What entity determines cpu-id ?
+>>>
+>>
+>> CPU ID numbering is determined by hardware SOCKET_ID strap pins. In this
+>> driver implementation, cpu-id is being used as CPU client indexing.
+>>
+> Seems to me the necessary information to identify a given CPU should
+> be provided by the PECI core. Also, there are already "cpu" nodes
+> in devicetree which, if I recall correctly, may include information
+> such as CPU Ids.
+> 
 
-assuming it is actually compatible with the Intel specification.
+This driver is implemented to support only BMC (Baseboard Management 
+Controllers) chipset which is running on a separated linux kernel from a 
+host server system. Through a PECI connection between them, this driver 
+collects the host server system's CPU and DIMM temperature information 
+which is running on a separated OS. That could be a linux, a Windows OS 
+or any other OSes. I mean, there is no shared devicetree data between 
+them so it is why the 'cpu_id' was added into dt configuration of this 
+driver.
 
-	 Andrew
+Using quite limited hardware connections such as PECI, KSC, eSPI and 
+SMBus, the BMC manages the host server and this hwmon is one of features 
+of BMC.
+
+>>>> +	if (rc || priv->cpu_id >= CPU_ID_MAX) {
+>>>> +		dev_err(dev, "Invalid cpu-id configuration\n");
+>>>> +		return rc;
+>>>> +	}
+>>>> +
+>>>> +	rc = of_property_read_u32(np, "dimm-nums", &priv->dimm_nums);
+>>>
+>>> This is an odd devicetree attribute. Normally the number of DIMMs
+>>> is dynamic. Isn't there a means to get all that information dynamically
+>>> instead of having to set it through devicetree ? What if someone adds
+>>> or removes a DIMM ? Who updates the devicetree ?
+>>>
+>>
+>> It means the number of DIMM slots each CPU has, doesn't mean the number of
+>> currently installed DIMM components. If a DIMM is inserted a slot, CPU
+>> reports its actual temperature but on empty slot, CPU reports 0 instead of
+>> reporting an error so it is the reason why this driver enumerates all DIMM
+>> slots' attribute.
+>>
+> And there is no other means to get the number of DIMM slots per CPU ?
+> It just seems to be that this is the wrong location to provide such
+> information.
+> 
+
+This devicetree attribute will be configured at runtime using dt overlay 
+based on the host server's hardware configuration which will be parsed 
+and managed by a userspace BMC service.
+
+> [ ... ]
+> 
+>>>> +
+>>>> +static const struct of_device_id peci_of_table[] = {
+>>>> +	{ .compatible = "peci-hwmon", },
+>>>
+>>> This does not look like a reference to some piece of hardware.
+>>>
+>>
+>> This driver provides generic PECI hwmon function to which controller has
+>> PECI HW such as Aspeed or Nuvoton BMC chip so it's not dependant on a
+>> specific hardware. Should I remove this or any suggestion?
+>>
+> 
+> I don't really know enough about the system to make a recommendation.
+> It seems to me that the PECI core should identify which functionality
+> it supports and instantiate the necessary driver(s). Maybe there should
+> be sub-nodes to the peci node with relevant information. Those sub-nodes
+> should specify the supported functionality in more detail, though -
+> such as indicating the supported CPU and/or DIMM sensors.
+> 
+> Guenter
+> 
+
+As I explained above, BMC and host server are running on separated OSes 
+so this driver cannot be (actually, doesn't need to be) directly 
+associated with other kernel modules in the BMC side OS for identifying 
+the host server system's functionality. My thought is, this driver will 
+use PECI only for identifying the host server's CPU and DIMM information 
+and the userspace BMC service could deliver any additional host server 
+information thru dt overlay if needed before the BMC service initiates 
+this driver at runtime.
+
+Thanks a lot,
+
+Jae
