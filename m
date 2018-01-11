@@ -1,47 +1,30 @@
-Return-Path: <arndbergmann@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::242; helo=mail-ot0-x242.google.com;
- envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cE9KI2Wi"; 
- dkim-atps=neutral
-Received: from mail-ot0-x242.google.com (mail-ot0-x242.google.com
- [IPv6:2607:f8b0:4003:c0f::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHKzY02SCzF0Wj
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 20:18:00 +1100 (AEDT)
-Received: by mail-ot0-x242.google.com with SMTP id d10so1555317oti.7
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 01:18:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=BhEJ7MExI32pABIpbURdf7GMyogg2NthJNQ9YpyRGNI=;
- b=cE9KI2Wi+WsOzRIMWbHAvorRfcbimFG7MHz6IWtSQSbJZujXxIu5YH6OraObo1K9tZ
- z5R/4G4ajdC0Tlovr/vagNW9pG4sCSyBHwGPPTs/ZOvIB/P+QRNkclKpO1AaIbN9EB87
- 3JUcY7tah7hYbXZzbyJq0sXeLK0PrlXSh3N/aee6xNpk8bNE6z1TkoFJHyVfqHWibozt
- i0YmBSHk444VbFRiq2A9jGajkUPL0+cbpw2SMm0J2r3YflUrd4NUXFcbv7Zom8WGw0uH
- 7eJ/25Tpq4NLQt2Po/L//uuS5M46tCVFvy6/iKIOo3C6hmc9HvoRT5Hn5QJyNLbOalr6
- j0yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=BhEJ7MExI32pABIpbURdf7GMyogg2NthJNQ9YpyRGNI=;
- b=Lrzsgrd8frBlg2iu1cmRr8a4+iMKLnTkPd9W1iCbhLQjsRM2ah/tAWCS8c3IOjXrme
- YW1B/tYOCbybxQkfjSzP9j/TEAcV0Ylai6ci1koKRDDYPXr4hpIY9HacqkHuBattlMzA
- VszIoVo/DjBWKrfzJn+pyZJU2nBD6M/+caYyzGmxZFw9ihtcqUjAmHO54UmFlQajuoiE
- ElHxTHOY20NQbw8jrC3KhnBlaPyLCx/MBLzFQdRW8qWQxps1cnoWqeGJtQ1W/5Hnv5VZ
- OOnuR47JmyqB+OGZ+W09i5PYHRj6CYjthsoqYCBM5RiwSXiDIyGurmzeJslf2kM4MzeI
- ioyw==
-X-Gm-Message-State: AKwxytffkHuKhxz7G4RT6IlrbC6MorsGrESYWOBu1dDCnB8R561bQMJX
- V9iIAEXOn+JqMVqaCcTbffsLKegmxb5UqSG16nA=
-X-Google-Smtp-Source: ACJfBot4Yev4TryI2q/ZHEBCDhetN5oy6Tj1QFjwHy4US4vJfhbde7tmS418sYSOep7q3kN6E3HTM/3y0rM7A5iTbxc=
-X-Received: by 10.157.9.202 with SMTP id 10mr10193861otz.363.1515662277356;
- Thu, 11 Jan 2018 01:17:57 -0800 (PST)
-MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-Received: by 10.157.2.226 with HTTP; Thu, 11 Jan 2018 01:17:56 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHL3q6TxhzDqJ5
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 20:21:43 +1100 (AEDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w0B9L6uP026064;
+ Thu, 11 Jan 2018 03:21:07 -0600
+Message-ID: <1515662466.31850.44.camel@kernel.crashing.org>
+Subject: Re: [PATCH linux dev-4.10 0/6] Add support PECI and PECI hwmon drivers
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Greg KH <gregkh@linuxfoundation.org>, Joel Stanley <joel@jms.id.au>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Andrew Jeffery
+ <andrew@aj.id.au>, Arnd Bergmann <arnd@arndb.de>, Jean Delvare
+ <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>, Linux Kernel
+ Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, devicetree <devicetree@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, Jae Hyun Yoo <jae.hyun.yoo@intel.com>, Jeremy
+ Kerr <jk@ozlabs.org>
+Date: Thu, 11 Jan 2018 20:21:06 +1100
 In-Reply-To: <20180111084128.GA16780@kroah.com>
 References: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
  <20180110101755.GA5822@kroah.com>
@@ -53,23 +36,10 @@ References: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
  <20180111073038.GA3600@kroah.com>
  <CACPK8Xe9Jti8S2px=QOcSMA2v+TZ4eGDGQND4qmBUBXeBpsBZQ@mail.gmail.com>
  <20180111084128.GA16780@kroah.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Thu, 11 Jan 2018 10:17:56 +0100
-X-Google-Sender-Auth: DmlxgnJQrbXJrvHjcI0_opwUwNg
-Message-ID: <CAK8P3a1xfo_p9Zi0BpP8cvXhkSrMynf=eQ=GkmJwDGf+Jb5O2g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 0/6] Add support PECI and PECI hwmon drivers
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Joel Stanley <joel@jms.id.au>, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Andrew Jeffery <andrew@aj.id.au>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-doc@vger.kernel.org, 
- devicetree <devicetree@vger.kernel.org>, linux-hwmon@vger.kernel.org, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Jae Hyun Yoo <jae.hyun.yoo@intel.com>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, Jeremy Kerr <jk@ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.26.3 (3.26.3-1.fc27) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -81,76 +51,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 09:18:01 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 09:21:44 -0000
 
-On Thu, Jan 11, 2018 at 9:41 AM, Greg KH <gregkh@linuxfoundation.org> wrote:
+On Thu, 2018-01-11 at 09:41 +0100, Greg KH wrote:
 > On Thu, Jan 11, 2018 at 12:28:48AM -0800, Joel Stanley wrote:
->> On Wed, Jan 10, 2018 at 11:30 PM, Greg KH <gregkh@linuxfoundation.org> wrote:
->> > On Wed, Jan 10, 2018 at 01:46:34PM -0800, Jae Hyun Yoo wrote:
->> >> Thanks for your pointing it out and I totally agree with you. Actually, we
->> >> are preparing 4.13 update for now and an another update will be followed up.
->> >> As I answered above, I'll rebase this patch set onto the latest kernel.org
->> >> mainline. Sorry for my misunderstanding of upstream process.
->> >
->> > 4.13?  Why that kernel?  It too is obsolete and insecure and
->> > unsupported.
->>
->> It contains support for our hardware that I have integrated from work
->> in progress patches and upstream commits.
->>
->> The OpenBMC project, with myself as the kernel maintainer, have
->> intentions to regularly move to upstream releases. This takes time and
->> effort. This time and effort is balanced with submitting our drivers
->> upstream.
->
+> > On Wed, Jan 10, 2018 at 11:30 PM, Greg KH <gregkh@linuxfoundation.org> wrote:
+> > > On Wed, Jan 10, 2018 at 01:46:34PM -0800, Jae Hyun Yoo wrote:
+> > > > Thanks for your pointing it out and I totally agree with you. Actually, we
+> > > > are preparing 4.13 update for now and an another update will be followed up.
+> > > > As I answered above, I'll rebase this patch set onto the latest kernel.org
+> > > > mainline. Sorry for my misunderstanding of upstream process.
+> > > 
+> > > 4.13?  Why that kernel?  It too is obsolete and insecure and
+> > > unsupported.
+> > 
+> > It contains support for our hardware that I have integrated from work
+> > in progress patches and upstream commits.
+> > 
+> > The OpenBMC project, with myself as the kernel maintainer, have
+> > intentions to regularly move to upstream releases. This takes time and
+> > effort. This time and effort is balanced with submitting our drivers
+> > upstream.
+> 
 > Of course, but please do not have your "users" use a kernel that is
 > known to have bugs and can not be supported.  That would not be good at
 > all, don't you think?
 
-I've been pretty happy with the progress in merging drivers upstream
-for OpenBMC. Of course things always take longer than planned,
-but they are getting there. Most servers today are probably running
-the aspeed vendor kernel based on linux-2.6.28.10, at least that's
-what my workstation runs (and no, I did not connect the BMC to my
-home network).
+There is little choice, we don't have the manpower to rewrite/upstream
+all the drivers in a day, and rebasing to newer kernel takes time due
+to various dependencies, testing requirements etc.
 
-The particular choices of mainline versions (4.10 and 4.13) may be
-unfortunate as they are both one off from a longterm release, but
-not being stuck on 2.6 is the important first step in order to upstream
-stuff.
+That being said, 4.13 is N-1, not too bad.
 
->> Another silicon vendor has recently joined the project and that brings
->> an entire SoC that is not upstream. We have patches on the ARM that
->> are under review for this SoC, with more drivers undergoing cleanup in
->> order to submit them to the relevant maintainers.
->
+> > > What keeps you all from just always tracking the latest tree from Linus?
+> > 
+> > Linus' tree does not contain all of the drivers required to boot
+> > systems. Many of them are still under review on lkml, and others still
+> > require rewrite from the vendor tree.
+> 
+> Merging vendor trees into your tree has got to be a complicated mess.
+> Why try to keep it all together in one place?
+
+There are no vendor trees to speak of that we could merge. At least not
+yet. We've been teaching vendors about doing proper drivers that can
+work with upstream, device-tree based platforms etc... but it takes
+time for them to get up to speed.
+
+So while we are rewriting the drivers (sometimes with the vendor's
+help), we keep a tree with the "sub-standard" ones hacked up to work on
+our DT based platform and with our other bits and pieces until we can
+ditch it.
+
+> And who is responsible for getting the vendor code upstream?  The
+> individual drivers?  Individual driver submissions should be quite easy,
+> what is preventing them from getting merged?
+
+It just takes time Greg. The original vendor drivers are in no shape to
+get anywhere near upstream. They have to be mostly rewritten one by
+one. Sometimes we can teach the vendor and help them along, some times
+we do it ourselves, but it's a time consuming process. It took 2 or 3
+kernel versions just to get the clk drivers that Joel had written
+upstream for example. It took me a long time as well to get ftgmac100
+sorted.
+
+> > > What is in your tree that is not upstream that requires you to have a
+> > > kernel tree at all?
+> > 
+> > We have PECI, video compression, crypto, USB CDC, DRM (graphics),
+> > serial GPIO, LPC mailbox for the ASPEED SoC.
+> 
+> What "USB CDC" do you have that is not upstream? 
+
+See my other email :) 
+
+>  I'll pick on this one
+> specifically as I don't think I've seen any patches recently submitted
+> for that driver at all.  Am I just missing them?
+> 
+> The other ones should also all be easy to get merged, with maybe the
+> exception of the drm stuff due to the speed that subsystem moves at.
+> But even there, the community is very helpful in getting stuff upstream,
+> have you asked for help?
+
+We can't expect the community to rewrite the drivers for us. Some of
+the clk and pinmux stuff is intrinsically very complex, and took time
+(and we did get valuable feedback).
+
+Now that these basic pieces of infrastructure are in, it's a matter of
+tackling the remaining drivers one at a time.
+
+> > Another silicon vendor has recently joined the project and that brings
+> > an entire SoC that is not upstream. We have patches on the ARM that
+> > are under review for this SoC, with more drivers undergoing cleanup in
+> > order to submit them to the relevant maintainers.
+> 
 > Why are you merging all SoC trees together into one place?  That seems
 > like a nightmare to manage, especially with git.
 
-Why would anyone want to have multiple kernel trees just to run
-things on different SoCs? ;-)
+There are no SoC trees per-se.
 
-It's just a collection of device drivers in different stages of getting
-upstreamed.
+There is the OpenBMC tree which has hand-hacked vendor drivers plugged
+into it, which are going away one at a time as we clean them up.
+There's really one SoC family only in use (aspeed) at the moment with
+one other coming around the corner (Nuvoton). For the latter, my
+understanding is that we are trying to get the vendor to get their
+stuff upstream directly.
 
->> > And if you do have out-of-tree code, why not use a process that makes it
->> > trivial to update the base kernel version so that you can keep up to
->> > date very easily?  (hint, just using 'git' is not a good way to do
->> > this...)
->>
->> We have a process that we've been developing under for the past few
->> years. I find git to be a great tool for managing Linux kernel trees.
->>
->> What would you recommend for managing kernel trees?
->
+> > > And if you do have out-of-tree code, why not use a process that makes it
+> > > trivial to update the base kernel version so that you can keep up to
+> > > date very easily?  (hint, just using 'git' is not a good way to do
+> > > this...)
+> > 
+> > We have a process that we've been developing under for the past few
+> > years. I find git to be a great tool for managing Linux kernel trees.
+> > 
+> > What would you recommend for managing kernel trees?
+> 
 > quilt is best for a tree that you can not rebase (i.e. a public git
 > tree).  Otherwise you end up getting patches all mushed together and
 > hard to extract in any simple way.
+>
+> Take a clue from the distros that have been managing kernels for decades
+> and deal with an updated kernel all the time easily.
+> 
+> Good luck, it sounds like you will need it :)
 
-I'm ususally happy with having git with topic branches to make the
-rebasing easier. In many cases, you can just leave a topic branch
-for a particular subsystem unchanged between versions and just
-merge the latest version of those branches until the branch goes
-away after upstreaming.
+Nah, not luck, we just need to get those drivers done one at a time,
+it's not a matter of luck.
 
-        Arnd
+And I find git to be just fine :)
+
+Cheers,
+Ben.
+
+> thanks,
+> 
+> greg k-h
