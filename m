@@ -1,62 +1,61 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHbNW0ZdxzF0hQ
- for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 06:22:02 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHbNW3BjZzF0hV
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 06:22:03 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w0BJL4gs019147
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 14:22:01 -0500
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2feb9k7tre-1
+ w0BJJOPn108244
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 14:22:00 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2febg4f41u-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
  for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 14:22:00 -0500
 Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
  Thu, 11 Jan 2018 12:21:59 -0700
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 11 Jan 2018 12:21:57 -0700
+ Thu, 11 Jan 2018 12:21:58 -0700
 Received: from b03ledav001.gho.boulder.ibm.com
  (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w0BJLuuW12517812; Thu, 11 Jan 2018 12:21:56 -0700
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w0BJLwq710748222; Thu, 11 Jan 2018 12:21:58 -0700
 Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A46496E040;
- Thu, 11 Jan 2018 12:21:56 -0700 (MST)
+ by IMSVA (Postfix) with ESMTP id 175FE6E040;
+ Thu, 11 Jan 2018 12:21:58 -0700 (MST)
 Received: from talon7.ibm.com (unknown [9.41.241.240])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 4AA3A6E035;
- Thu, 11 Jan 2018 12:21:56 -0700 (MST)
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id C31C16E03A;
+ Thu, 11 Jan 2018 12:21:57 -0700 (MST)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>,
- Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH linux dev-4.13 3/4] hwmon: (pmbus) cffps: Add
- PMBUS_SKIP_STATUS_CHECK
-Date: Thu, 11 Jan 2018 13:21:49 -0600
+Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.13 4/4] hwmon (pmbus): cffps: Add led class device
+ for power supply fault led
+Date: Thu, 11 Jan 2018 13:21:50 -0600
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1515698510-16619-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1515698510-16619-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 18011119-0012-0000-0000-00001596302A
+x-cbid: 18011119-0004-0000-0000-0000138139E0
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00008361; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000245; SDB=6.00973577; UDB=6.00493317; IPR=6.00753522; 
+ PH=3.00000004; SC=3.00000245; SDB=6.00973578; UDB=6.00493317; IPR=6.00753522; 
  BA=6.00005773; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018983; XFM=3.00000015;
- UTC=2018-01-11 19:21:58
+ UTC=2018-01-11 19:21:59
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18011119-0013-0000-0000-000051050AC0
-Message-Id: <1515698510-16619-4-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 18011119-0005-0000-0000-0000859EFBD3
+Message-Id: <1515698510-16619-5-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-01-11_06:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -78,48 +77,163 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 11 Jan 2018 19:22:03 -0000
 
-This power supply device regularly fails to read VOUT_MODE due to the
-CML bit going high. This results in an incorrect exponent used for the
-voltage data, and therefore the power supply reports incorrect voltage.
-Work around this by setting the pmbus flag to skip the CML check.
+This power supply device doesn't correctly manage it's own fault led.
+Add an led class device and register it so that userspace can manage
+power supply fault led as necessary.
 
 Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
-Fixes: f69316d62c70 ("hwmon: (pmbus) Add IBM Common Form Factor (CFF) ...")
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/pmbus/ibm-cffps.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/hwmon/pmbus/ibm-cffps.c | 96 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 88 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/hwmon/pmbus/ibm-cffps.c b/drivers/hwmon/pmbus/ibm-cffps.c
-index de254747..2d6f4f4 100644
+index 2d6f4f4..93d9a9e 100644
 --- a/drivers/hwmon/pmbus/ibm-cffps.c
 +++ b/drivers/hwmon/pmbus/ibm-cffps.c
-@@ -15,6 +15,7 @@
+@@ -13,6 +13,7 @@
+ #include <linux/fs.h>
+ #include <linux/i2c.h>
  #include <linux/jiffies.h>
++#include <linux/leds.h>
  #include <linux/module.h>
  #include <linux/mutex.h>
-+#include <linux/pmbus.h>
+ #include <linux/pmbus.h>
+@@ -25,6 +26,7 @@
+ #define CFFPS_CCIN_CMD				0xBD
+ #define CFFPS_FW_CMD_START			0xFA
+ #define CFFPS_FW_NUM_BYTES			4
++#define CFFPS_SYS_CONFIG_CMD			0xDA
  
- #include "pmbus.h"
+ #define CFFPS_INPUT_HISTORY_CMD			0xD6
+ #define CFFPS_INPUT_HISTORY_SIZE		100
+@@ -39,6 +41,11 @@
+ #define CFFPS_MFR_VAUX_FAULT			BIT(6)
+ #define CFFPS_MFR_CURRENT_SHARE_WARNING		BIT(7)
  
-@@ -268,6 +269,10 @@ static int ibm_cffps_read_word_data(struct i2c_client *client, int page,
- 	.read_word_data = ibm_cffps_read_word_data,
++#define CFFPS_LED_BLINK				BIT(0)
++#define CFFPS_LED_ON				BIT(1)
++#define CFFPS_LED_OFF				BIT(2)
++#define CFFPS_BLINK_RATE_MS			250
++
+ enum {
+ 	CFFPS_DEBUGFS_INPUT_HISTORY = 0,
+ 	CFFPS_DEBUGFS_FRU,
+@@ -63,6 +70,10 @@ struct ibm_cffps {
+ 	struct ibm_cffps_input_history input_history;
+ 
+ 	int debugfs_entries[CFFPS_DEBUGFS_NUM_ENTRIES];
++
++	char led_name[32];
++	u8 led_state;
++	struct led_classdev led;
  };
  
-+static struct pmbus_platform_data ibm_cffps_pdata = {
-+	.flags = PMBUS_SKIP_STATUS_CHECK,
-+};
-+
- static int ibm_cffps_probe(struct i2c_client *client,
- 			   const struct i2c_device_id *id)
- {
-@@ -276,6 +281,7 @@ static int ibm_cffps_probe(struct i2c_client *client,
- 	struct dentry *ibm_cffps_dir;
- 	struct ibm_cffps *psu;
+ #define to_psu(x, y) container_of((x), struct ibm_cffps, debugfs_entries[(y)])
+@@ -258,6 +269,69 @@ static int ibm_cffps_read_word_data(struct i2c_client *client, int page,
+ 	return rc;
+ }
  
-+	client->dev.platform_data = &ibm_cffps_pdata;
- 	rc = pmbus_do_probe(client, id, &ibm_cffps_info);
++static void ibm_cffps_led_brightness_set(struct led_classdev *led_cdev,
++					 enum led_brightness brightness)
++{
++	int rc;
++	struct ibm_cffps *psu = container_of(led_cdev, struct ibm_cffps, led);
++
++	if (brightness == LED_OFF) {
++		psu->led_state = CFFPS_LED_OFF;
++	} else {
++		brightness = LED_FULL;
++		if (psu->led_state != CFFPS_LED_BLINK)
++			psu->led_state = CFFPS_LED_ON;
++	}
++
++	rc = i2c_smbus_write_byte_data(psu->client, CFFPS_SYS_CONFIG_CMD,
++				       psu->led_state);
++	if (rc < 0)
++		return;
++
++	led_cdev->brightness = brightness;
++}
++
++static int ibm_cffps_led_blink_set(struct led_classdev *led_cdev,
++				   unsigned long *delay_on,
++				   unsigned long *delay_off)
++{
++	int rc;
++	struct ibm_cffps *psu = container_of(led_cdev, struct ibm_cffps, led);
++
++	psu->led_state = CFFPS_LED_BLINK;
++
++	if (led_cdev->brightness == LED_OFF)
++		return 0;
++
++	rc = i2c_smbus_write_byte_data(psu->client, CFFPS_SYS_CONFIG_CMD,
++				       CFFPS_LED_BLINK);
++	if (rc < 0)
++		return rc;
++
++	*delay_on = CFFPS_BLINK_RATE_MS;
++	*delay_off = CFFPS_BLINK_RATE_MS;
++
++	return 0;
++}
++
++static void ibm_cffps_create_led_class(struct ibm_cffps *psu)
++{
++	int rc;
++	struct i2c_client *client = psu->client;
++	struct device *dev = &client->dev;
++
++	snprintf(psu->led_name, sizeof(psu->led_name), "%s-%02x", client->name,
++		 client->addr);
++	psu->led.name = psu->led_name;
++	psu->led.max_brightness = LED_FULL;
++	psu->led.brightness_set = ibm_cffps_led_brightness_set;
++	psu->led.blink_set = ibm_cffps_led_blink_set;
++
++	rc = devm_led_classdev_register(dev, &psu->led);
++	if (rc)
++		dev_warn(dev, "failed to register led class: %d\n", rc);
++}
++
+ static struct pmbus_driver_info ibm_cffps_info = {
+ 	.pages = 1,
+ 	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_IOUT |
+@@ -286,6 +360,20 @@ static int ibm_cffps_probe(struct i2c_client *client,
  	if (rc)
  		return rc;
+ 
++	/*
++	 * Don't fail the probe if there isn't enough memory for leds and
++	 * debugfs.
++	 */
++	psu = devm_kzalloc(&client->dev, sizeof(*psu), GFP_KERNEL);
++	if (!psu)
++		return 0;
++
++	psu->client = client;
++	mutex_init(&psu->input_history.update_lock);
++	psu->input_history.last_update = jiffies - HZ;
++
++	ibm_cffps_create_led_class(psu);
++
+ 	/* Don't fail the probe if we can't create debugfs */
+ 	debugfs = pmbus_get_debugfs_dir(client);
+ 	if (!debugfs)
+@@ -295,14 +383,6 @@ static int ibm_cffps_probe(struct i2c_client *client,
+ 	if (!ibm_cffps_dir)
+ 		return 0;
+ 
+-	psu = devm_kzalloc(&client->dev, sizeof(*psu), GFP_KERNEL);
+-	if (!psu)
+-		return 0;
+-
+-	psu->client = client;
+-	mutex_init(&psu->input_history.update_lock);
+-	psu->input_history.last_update = jiffies - HZ;
+-
+ 	for (i = 0; i < CFFPS_DEBUGFS_NUM_ENTRIES; ++i)
+ 		psu->debugfs_entries[i] = i;
+ 
 -- 
 1.8.3.1
