@@ -7,55 +7,56 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHbNW139MzF0hR
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHbNW0ZdxzF0hQ
  for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 06:22:02 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w0BJLx6d058914
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 14:22:00 -0500
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2feaq41q3g-1
+ w0BJL4gs019147
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 14:22:01 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2feb9k7tre-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
  for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 14:22:00 -0500
 Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
  Thu, 11 Jan 2018 12:21:59 -0700
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 11 Jan 2018 12:21:55 -0700
+ Thu, 11 Jan 2018 12:21:57 -0700
 Received: from b03ledav001.gho.boulder.ibm.com
  (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w0BJLtve13697356; Thu, 11 Jan 2018 12:21:55 -0700
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w0BJLuuW12517812; Thu, 11 Jan 2018 12:21:56 -0700
 Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3A6CB6E03A;
- Thu, 11 Jan 2018 12:21:55 -0700 (MST)
+ by IMSVA (Postfix) with ESMTP id A46496E040;
+ Thu, 11 Jan 2018 12:21:56 -0700 (MST)
 Received: from talon7.ibm.com (unknown [9.41.241.240])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id B69E46E035;
- Thu, 11 Jan 2018 12:21:54 -0700 (MST)
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 4AA3A6E035;
+ Thu, 11 Jan 2018 12:21:56 -0700 (MST)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>, Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH linux dev-4.13 2/4] hwmon: (pmbus) cffps: Add debugfs entries
-Date: Thu, 11 Jan 2018 13:21:48 -0600
+ Guenter Roeck <linux@roeck-us.net>
+Subject: [PATCH linux dev-4.13 3/4] hwmon: (pmbus) cffps: Add
+ PMBUS_SKIP_STATUS_CHECK
+Date: Thu, 11 Jan 2018 13:21:49 -0600
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1515698510-16619-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1515698510-16619-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 18011119-0024-0000-0000-000017C73C3D
+x-cbid: 18011119-0012-0000-0000-00001596302A
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00008361; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000245; SDB=6.00973577; UDB=6.00493317; IPR=6.00753523; 
+ PH=3.00000004; SC=3.00000245; SDB=6.00973577; UDB=6.00493317; IPR=6.00753522; 
  BA=6.00005773; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018983; XFM=3.00000015;
- UTC=2018-01-11 19:21:57
+ UTC=2018-01-11 19:21:58
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18011119-0025-0000-0000-00004E4094B2
-Message-Id: <1515698510-16619-3-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 18011119-0013-0000-0000-000051050AC0
+Message-Id: <1515698510-16619-4-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-01-11_06:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -77,251 +78,48 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 11 Jan 2018 19:22:03 -0000
 
-Add debugfs entries for additional power supply data, including part
-number, serial number, FRU number, firmware revision, ccin, and the
-input history of the power supply. The input history is 10 minutes of
-input power data in the form of twenty 30-second packets. Each packet
-contains average and maximum power for that 30 second period.
+This power supply device regularly fails to read VOUT_MODE due to the
+CML bit going high. This results in an incorrect exponent used for the
+voltage data, and therefore the power supply reports incorrect voltage.
+Work around this by setting the pmbus flag to skip the CML check.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
-[groeck: Fixed endianness problem]
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+Fixes: f69316d62c70 ("hwmon: (pmbus) Add IBM Common Form Factor (CFF) ...")
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/pmbus/ibm-cffps.c | 202 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 201 insertions(+), 1 deletion(-)
+ drivers/hwmon/pmbus/ibm-cffps.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/hwmon/pmbus/ibm-cffps.c b/drivers/hwmon/pmbus/ibm-cffps.c
-index cb56da6..de254747 100644
+index de254747..2d6f4f4 100644
 --- a/drivers/hwmon/pmbus/ibm-cffps.c
 +++ b/drivers/hwmon/pmbus/ibm-cffps.c
-@@ -8,12 +8,26 @@
-  */
- 
- #include <linux/bitops.h>
-+#include <linux/debugfs.h>
- #include <linux/device.h>
-+#include <linux/fs.h>
- #include <linux/i2c.h>
-+#include <linux/jiffies.h>
+@@ -15,6 +15,7 @@
+ #include <linux/jiffies.h>
  #include <linux/module.h>
-+#include <linux/mutex.h>
+ #include <linux/mutex.h>
++#include <linux/pmbus.h>
  
  #include "pmbus.h"
  
-+#define CFFPS_FRU_CMD				0x9A
-+#define CFFPS_PN_CMD				0x9B
-+#define CFFPS_SN_CMD				0x9E
-+#define CFFPS_CCIN_CMD				0xBD
-+#define CFFPS_FW_CMD_START			0xFA
-+#define CFFPS_FW_NUM_BYTES			4
-+
-+#define CFFPS_INPUT_HISTORY_CMD			0xD6
-+#define CFFPS_INPUT_HISTORY_SIZE		100
-+
- /* STATUS_MFR_SPECIFIC bits */
- #define CFFPS_MFR_FAN_FAULT			BIT(0)
- #define CFFPS_MFR_THERMAL_FAULT			BIT(1)
-@@ -24,6 +38,144 @@
- #define CFFPS_MFR_VAUX_FAULT			BIT(6)
- #define CFFPS_MFR_CURRENT_SHARE_WARNING		BIT(7)
+@@ -268,6 +269,10 @@ static int ibm_cffps_read_word_data(struct i2c_client *client, int page,
+ 	.read_word_data = ibm_cffps_read_word_data,
+ };
  
-+enum {
-+	CFFPS_DEBUGFS_INPUT_HISTORY = 0,
-+	CFFPS_DEBUGFS_FRU,
-+	CFFPS_DEBUGFS_PN,
-+	CFFPS_DEBUGFS_SN,
-+	CFFPS_DEBUGFS_CCIN,
-+	CFFPS_DEBUGFS_FW,
-+	CFFPS_DEBUGFS_NUM_ENTRIES
++static struct pmbus_platform_data ibm_cffps_pdata = {
++	.flags = PMBUS_SKIP_STATUS_CHECK,
 +};
 +
-+struct ibm_cffps_input_history {
-+	struct mutex update_lock;
-+	unsigned long last_update;
-+
-+	u8 byte_count;
-+	u8 data[CFFPS_INPUT_HISTORY_SIZE];
-+};
-+
-+struct ibm_cffps {
-+	struct i2c_client *client;
-+
-+	struct ibm_cffps_input_history input_history;
-+
-+	int debugfs_entries[CFFPS_DEBUGFS_NUM_ENTRIES];
-+};
-+
-+#define to_psu(x, y) container_of((x), struct ibm_cffps, debugfs_entries[(y)])
-+
-+static ssize_t ibm_cffps_read_input_history(struct ibm_cffps *psu,
-+					    char __user *buf, size_t count,
-+					    loff_t *ppos)
-+{
-+	int rc;
-+	u8 msgbuf0[1] = { CFFPS_INPUT_HISTORY_CMD };
-+	u8 msgbuf1[CFFPS_INPUT_HISTORY_SIZE + 1] = { 0 };
-+	struct i2c_msg msg[2] = {
-+		{
-+			.addr = psu->client->addr,
-+			.flags = psu->client->flags,
-+			.len = 1,
-+			.buf = msgbuf0,
-+		}, {
-+			.addr = psu->client->addr,
-+			.flags = psu->client->flags | I2C_M_RD,
-+			.len = CFFPS_INPUT_HISTORY_SIZE + 1,
-+			.buf = msgbuf1,
-+		},
-+	};
-+
-+	if (!*ppos) {
-+		mutex_lock(&psu->input_history.update_lock);
-+		if (time_after(jiffies, psu->input_history.last_update + HZ)) {
-+			/*
-+			 * Use a raw i2c transfer, since we need more bytes
-+			 * than Linux I2C supports through smbus xfr (only 32).
-+			 */
-+			rc = i2c_transfer(psu->client->adapter, msg, 2);
-+			if (rc < 0) {
-+				mutex_unlock(&psu->input_history.update_lock);
-+				return rc;
-+			}
-+
-+			psu->input_history.byte_count = msgbuf1[0];
-+			memcpy(psu->input_history.data, &msgbuf1[1],
-+			       CFFPS_INPUT_HISTORY_SIZE);
-+			psu->input_history.last_update = jiffies;
-+		}
-+
-+		mutex_unlock(&psu->input_history.update_lock);
-+	}
-+
-+	return simple_read_from_buffer(buf, count, ppos,
-+				       psu->input_history.data,
-+				       psu->input_history.byte_count);
-+}
-+
-+static ssize_t ibm_cffps_debugfs_op(struct file *file, char __user *buf,
-+				    size_t count, loff_t *ppos)
-+{
-+	u8 cmd;
-+	int i, rc;
-+	int *idxp = file->private_data;
-+	int idx = *idxp;
-+	struct ibm_cffps *psu = to_psu(idxp, idx);
-+	char data[I2C_SMBUS_BLOCK_MAX] = { 0 };
-+
-+	switch (idx) {
-+	case CFFPS_DEBUGFS_INPUT_HISTORY:
-+		return ibm_cffps_read_input_history(psu, buf, count, ppos);
-+	case CFFPS_DEBUGFS_FRU:
-+		cmd = CFFPS_FRU_CMD;
-+		break;
-+	case CFFPS_DEBUGFS_PN:
-+		cmd = CFFPS_PN_CMD;
-+		break;
-+	case CFFPS_DEBUGFS_SN:
-+		cmd = CFFPS_SN_CMD;
-+		break;
-+	case CFFPS_DEBUGFS_CCIN:
-+		rc = i2c_smbus_read_word_swapped(psu->client, CFFPS_CCIN_CMD);
-+		if (rc < 0)
-+			return rc;
-+
-+		rc = snprintf(data, 5, "%04X", rc);
-+		goto done;
-+	case CFFPS_DEBUGFS_FW:
-+		for (i = 0; i < CFFPS_FW_NUM_BYTES; ++i) {
-+			rc = i2c_smbus_read_byte_data(psu->client,
-+						      CFFPS_FW_CMD_START + i);
-+			if (rc < 0)
-+				return rc;
-+
-+			snprintf(&data[i * 2], 3, "%02X", rc);
-+		}
-+
-+		rc = i * 2;
-+		goto done;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	rc = i2c_smbus_read_block_data(psu->client, cmd, data);
-+	if (rc < 0)
-+		return rc;
-+
-+done:
-+	data[rc] = '\n';
-+	rc += 2;
-+
-+	return simple_read_from_buffer(buf, count, ppos, data, rc);
-+}
-+
-+static const struct file_operations ibm_cffps_fops = {
-+	.llseek = noop_llseek,
-+	.read = ibm_cffps_debugfs_op,
-+	.open = simple_open,
-+};
-+
- static int ibm_cffps_read_byte_data(struct i2c_client *client, int page,
- 				    int reg)
- {
-@@ -119,7 +271,55 @@ static int ibm_cffps_read_word_data(struct i2c_client *client, int page,
  static int ibm_cffps_probe(struct i2c_client *client,
  			   const struct i2c_device_id *id)
  {
--	return pmbus_do_probe(client, id, &ibm_cffps_info);
-+	int i, rc;
-+	struct dentry *debugfs;
-+	struct dentry *ibm_cffps_dir;
-+	struct ibm_cffps *psu;
-+
-+	rc = pmbus_do_probe(client, id, &ibm_cffps_info);
-+	if (rc)
-+		return rc;
-+
-+	/* Don't fail the probe if we can't create debugfs */
-+	debugfs = pmbus_get_debugfs_dir(client);
-+	if (!debugfs)
-+		return 0;
-+
-+	ibm_cffps_dir = debugfs_create_dir(client->name, debugfs);
-+	if (!ibm_cffps_dir)
-+		return 0;
-+
-+	psu = devm_kzalloc(&client->dev, sizeof(*psu), GFP_KERNEL);
-+	if (!psu)
-+		return 0;
-+
-+	psu->client = client;
-+	mutex_init(&psu->input_history.update_lock);
-+	psu->input_history.last_update = jiffies - HZ;
-+
-+	for (i = 0; i < CFFPS_DEBUGFS_NUM_ENTRIES; ++i)
-+		psu->debugfs_entries[i] = i;
-+
-+	debugfs_create_file("input_history", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_INPUT_HISTORY],
-+			    &ibm_cffps_fops);
-+	debugfs_create_file("fru", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_FRU],
-+			    &ibm_cffps_fops);
-+	debugfs_create_file("part_number", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_PN],
-+			    &ibm_cffps_fops);
-+	debugfs_create_file("serial_number", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_SN],
-+			    &ibm_cffps_fops);
-+	debugfs_create_file("ccin", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_CCIN],
-+			    &ibm_cffps_fops);
-+	debugfs_create_file("fw_version", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_FW],
-+			    &ibm_cffps_fops);
-+
-+	return 0;
- }
+@@ -276,6 +281,7 @@ static int ibm_cffps_probe(struct i2c_client *client,
+ 	struct dentry *ibm_cffps_dir;
+ 	struct ibm_cffps *psu;
  
- static const struct i2c_device_id ibm_cffps_id[] = {
++	client->dev.platform_data = &ibm_cffps_pdata;
+ 	rc = pmbus_do_probe(client, id, &ibm_cffps_info);
+ 	if (rc)
+ 		return rc;
 -- 
 1.8.3.1
