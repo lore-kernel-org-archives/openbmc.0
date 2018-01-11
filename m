@@ -1,26 +1,70 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="LVfNCF2f"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
+ [IPv6:2607:f8b0:400d:c0d::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHjRQ31t4zF0bP
- for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 10:54:54 +1100 (AEDT)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w0BNap1F032154;
- Fri, 12 Jan 2018 01:36:51 +0200
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id D64215A95A; Fri, 12 Jan 2018 01:54:41 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v2] clk: npcm: add NPCM7xx clock driver
-Date: Fri, 12 Jan 2018 01:54:38 +0200
-Message-Id: <1515714878-24213-1-git-send-email-tmaimon77@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHjRS2XTzzF0bP
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 10:54:59 +1100 (AEDT)
+Received: by mail-qt0-x242.google.com with SMTP id k19so4075907qtj.6
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 15:54:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Chzl9jKrPKqOvgErhiuOaAlUghIKCbqkW5+dzahXKTA=;
+ b=LVfNCF2fvhQUKagLQ81NJwuXIp0U4gfZP/7jqipwN8HVU89ayd7dVcFFFUeyWnAgKk
+ a26NswLehX7+oz+NWCkxzg91Q8v0PyJYC2OvPNZOExG+2O2MoNG7FcbLEGJcy6F3ElzW
+ 2R/cEDFVrFQhhXQG8knHpMq3A7ZZleqVaF/1treXpyRY9z9ItV41aBjFEMj93+PwPr0W
+ 7XQWir1oxtsBReIAAX82+SD4NC0Ng0wiaAvsCWF1T5mCh/fItaZFiZLNjheeEW2s1wtZ
+ eIBXS2miEZXC7w/kp17X7roGREbDqtY+Nc5H6Oz5ly4vvWLnzTy4XyqlQt0i26hVXrKt
+ M1KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Chzl9jKrPKqOvgErhiuOaAlUghIKCbqkW5+dzahXKTA=;
+ b=LP+0cteZWbO9rmxUhCepCMU5v1SI5NiJh1UCWSVhSiLO/UvMEaS1qEkty4a4RaE2wn
+ carL+yzhYQhahW/E4j/GKzkEeBWC8G4lMmZtMZ4ldTks/iM1IXTbhOigAJ+7/BHaZ5hx
+ N65DMJJblCdXdxipYvlHE6UgnVbngpC2gcp5QLkWAuX8oaPmrvErloL1yCbDRWY7raOg
+ TfXAFx/N0hD3nBtpZHb366y/HnSOU5R+cEjfUt9t0MGwCW6SVlHyg75OkMhZ4nOEJSsI
+ QuFlA75twHrt66yD9Pkh0orHrzuTEwyUFvLkyn+ti0Upe7bd+cKaC8jlypw0GVgxHMc+
+ 4xAw==
+X-Gm-Message-State: AKwxytfMuZMI+sAdRW9mry9qSa1N85Yyv8ii+bN0VBC7Vp7o6KJYG+Cn
+ AXOqaVfIhHPjZW38xtIM2pUkB5KeTr3K8++7bcA=
+X-Google-Smtp-Source: ACJfBov0ejvxNcPSriHwz3HGvscrhThIsbuGZIH/56fwR6r2GD3ZW2D+B48zr4PVdUcx0HgbLStXZFMKvO1YfdKhHBM=
+X-Received: by 10.237.50.166 with SMTP id z35mr11598871qtd.249.1515714897414; 
+ Thu, 11 Jan 2018 15:54:57 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.29.9 with HTTP; Thu, 11 Jan 2018 15:54:36 -0800 (PST)
+In-Reply-To: <CACPK8XfH-4r0mBQYA+BwvUo2+RF8igai2jy+RqTDQcxx2-acsQ@mail.gmail.com>
+References: <1514202808-29747-1-git-send-email-oleksandrs@mellanox.com>
+ <1514202808-29747-4-git-send-email-oleksandrs@mellanox.com>
+ <CACPK8XfH-4r0mBQYA+BwvUo2+RF8igai2jy+RqTDQcxx2-acsQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 11 Jan 2018 15:54:36 -0800
+X-Google-Sender-Auth: 61Yq5AIjBVL7YkgizB2b5ZHYMCY
+Message-ID: <CACPK8Xeb3K9PqynV2xymJwvhkZ9fLKsbodEFYiZtQ+SXXgGA5g@mail.gmail.com>
+Subject: Re: [patch v15 3/4] Documentation: jtag: Add bindings for Aspeed SoC
+ 24xx and 25xx families JTAG master driver
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ devicetree <devicetree@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
+ Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org, 
+ Vadim Pasternak <vadimp@mellanox.com>, system-sw-low-level@mellanox.com, 
+ Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
+ linux-api@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+ mchehab@kernel.org, Jiri Pirko <jiri@mellanox.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -32,808 +76,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 23:55:00 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 23:55:01 -0000
 
-Add Nuvoton BMC NPCM7xx clock bus driver.
+On Thu, Jan 11, 2018 at 9:50 AM, Joel Stanley <joel@jms.id.au> wrote:
+> On Mon, Dec 25, 2017 at 3:53 AM, Oleksandr Shamray <oleksandrs@mellanox.com> wrote:
+>> +jtag: jtag@1e6e4000 {
+>> +       compatible = "aspeed,ast2500-jtag";
+>> +       reg = <0x1e6e4000 0x1c>;
+>> +       clocks = <&clk_apb>;
+>
+> We've now got a proper clock driver upstream. Can you update the
+> example to match the newly added bindings?
+>
+>  clocks = <&syscon ASPEED_CLK_APB>;
+>
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- v2: Make changes from Joel's review
----
- drivers/clk/Makefile        |   1 +
- drivers/clk/clk-npcm7xx.c   | 751 ++++++++++++++++++++++++++++++++++++++++++++
- include/linux/clk/nuvoton.h |  13 +
- 3 files changed, 765 insertions(+)
- create mode 100644 drivers/clk/clk-npcm7xx.c
- create mode 100644 include/linux/clk/nuvoton.h
+I think we need to ensure the reset is deasserted as well. You will need:
 
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index cd376b3fb47a..1144cf6f4050 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -20,6 +20,7 @@ endif
- obj-$(CONFIG_MACH_ASM9260)		+= clk-asm9260.o
- obj-$(CONFIG_COMMON_CLK_AXI_CLKGEN)	+= clk-axi-clkgen.o
- obj-$(CONFIG_ARCH_AXXIA)		+= clk-axm5516.o
-+obj-$(CONFIG_ARCH_NPCM750)	    	+= clk-npcm7xx.o
- obj-$(CONFIG_COMMON_CLK_CDCE706)	+= clk-cdce706.o
- obj-$(CONFIG_COMMON_CLK_CDCE925)	+= clk-cdce925.o
- obj-$(CONFIG_ARCH_CLPS711X)		+= clk-clps711x.o
-diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
-new file mode 100644
-index 000000000000..21aeca4b0cc3
---- /dev/null
-+++ b/drivers/clk/clk-npcm7xx.c
-@@ -0,0 +1,751 @@
-+/*
-+ * Nuvoton NPCM7xx Clock Generator
-+ * All the clocks are initialized by the bootloader, so this driver allow only
-+ * reading of current settings directly from the hardware.
-+ *
-+ * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
-+ *
-+ * SPDX-License-Identifier: GPL-2.0
-+ * Released under the GPLv2 only.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/device.h>
-+#include <linux/io.h>
-+#include <linux/kernel.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/of_platform.h>
-+#include <linux/of_address.h>
-+#include <linux/platform_device.h>
-+#include <linux/slab.h>
-+#include <linux/err.h>
-+#include <linux/rational.h>
-+#include <linux/bitfield.h>
-+#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-+
-+#include <asm/cp15.h>
-+
-+
-+struct npcm7xx_clk_pll {
-+	struct clk_hw	hw;
-+	void __iomem	*pllcon;
-+	u8		flags;
-+};
-+
-+#define to_npcm7xx_clk_pll(_hw) container_of(_hw, struct npcm7xx_clk_pll, hw)
-+
-+struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
-+	const char *parent_name, unsigned long flags);
-+
-+#define PLLCON_LOKI	BIT(31)
-+#define PLLCON_LOKS	BIT(30)
-+#define PLLCON_FBDV	GENMASK(27, 16)
-+#define PLLCON_OTDV2	GENMASK(15, 13)
-+#define PLLCON_PWDEN	BIT(12)
-+#define PLLCON_OTDV1	GENMASK(10, 8)
-+#define PLLCON_INDV	GENMASK(5, 0)
-+
-+static unsigned long npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
-+						 unsigned long parent_rate)
-+{
-+	struct npcm7xx_clk_pll *pll = to_npcm7xx_clk_pll(hw);
-+	unsigned long fbdv, indv, otdv1, otdv2;
-+	unsigned int val;
-+	u64 ret;
-+
-+	if (parent_rate == 0) {
-+		pr_err("%s: parent rate is zero. reg=%x\n", __func__,
-+			(u32)(pll->pllcon));
-+		return 0;
-+	}
-+
-+	val = readl_relaxed(pll->pllcon);
-+
-+	indv = FIELD_GET(PLLCON_INDV, val);
-+	fbdv = FIELD_GET(PLLCON_FBDV, val);
-+	otdv1 = FIELD_GET(PLLCON_OTDV1, val);
-+	otdv2 = FIELD_GET(PLLCON_OTDV2, val);
-+
-+	ret = (u64)parent_rate * fbdv;
-+	do_div(ret, indv * otdv1 * otdv2);
-+
-+	return ret;
-+}
-+
-+const struct clk_ops npcm7xx_clk_pll_ops = {
-+	.recalc_rate = npcm7xx_clk_pll_recalc_rate,
-+};
-+
-+
-+struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
-+	const char *parent_name, unsigned long flags)
-+{
-+	struct npcm7xx_clk_pll *pll;
-+	struct clk_init_data init;
-+	struct clk_hw *hw;
-+	int ret;
-+
-+	pll = kzalloc(sizeof(*pll), GFP_KERNEL);
-+	if (!pll)
-+		return ERR_PTR(-ENOMEM);
-+
-+	pr_debug("\tnpcm7xx_clk_register_pll reg, reg=0x%x, name=%s, p=%s\n",
-+		(unsigned int)pllcon, name, parent_name);
-+
-+	init.name = name;
-+	init.ops = &npcm7xx_clk_pll_ops;
-+	init.parent_names = &parent_name;
-+	init.num_parents = 1;
-+	init.flags = flags;
-+
-+	pll->pllcon = pllcon;
-+	pll->hw.init = &init;
-+
-+	hw = &pll->hw;
-+
-+	ret = clk_hw_register(NULL, hw);
-+	if (ret) {
-+		kfree(pll);
-+		hw = ERR_PTR(ret);
-+	}
-+
-+	return hw;
-+}
-+
-+
-+#define NPCM7XX_CLKEN1          (0x00)
-+#define NPCM7XX_CLKEN2          (0x28)
-+#define NPCM7XX_CLKEN3          (0x30)
-+#define NPCM7XX_CLKSEL          (0x04)
-+#define NPCM7XX_CLKDIV1         (0x08)
-+#define NPCM7XX_CLKDIV2         (0x2C)
-+#define NPCM7XX_CLKDIV3         (0x58)
-+#define NPCM7XX_PLLCON0         (0x0C)
-+#define NPCM7XX_PLLCON1         (0x10)
-+#define NPCM7XX_PLLCON2         (0x54)
-+#define NPCM7XX_SWRSTR          (0x14)
-+#define NPCM7XX_IRQWAKECON      (0x18)
-+#define NPCM7XX_IRQWAKEFLAG     (0x1C)
-+#define NPCM7XX_IPSRST1         (0x20)
-+#define NPCM7XX_IPSRST2         (0x24)
-+#define NPCM7XX_IPSRST3         (0x34)
-+#define NPCM7XX_WD0RCR          (0x38)
-+#define NPCM7XX_WD1RCR          (0x3C)
-+#define NPCM7XX_WD2RCR          (0x40)
-+#define NPCM7XX_SWRSTC1         (0x44)
-+#define NPCM7XX_SWRSTC2         (0x48)
-+#define NPCM7XX_SWRSTC3         (0x4C)
-+#define NPCM7XX_SWRSTC4         (0x50)
-+#define NPCM7XX_CORSTC          (0x5C)
-+#define NPCM7XX_PLLCONG         (0x60)
-+#define NPCM7XX_AHBCKFI         (0x64)
-+#define NPCM7XX_SECCNT          (0x68)
-+#define NPCM7XX_CNTR25M         (0x6C)
-+
-+
-+struct npcm7xx_clk_gate_data {
-+	u32 reg;
-+	u8 bit_idx;
-+	const char *name;
-+	const char *parent_name;
-+	unsigned long flags;
-+	/*
-+	 * If this clock is exported via DT, set onecell_idx to constant
-+	 * defined in include/dt-bindings/clock/nuvoton, NPCM7XX-clock.h for
-+	 * this specific clock.  Otherwise, set to -1.
-+	 */
-+	int onecell_idx;
-+};
-+
-+struct npcm7xx_clk_mux_data {
-+	u8 shift;
-+	u8 mask;
-+	u32 *table;
-+	const char *name;
-+	const char * const *parent_names;
-+	u8 num_parents;
-+	unsigned long flags;
-+	/*
-+	 * If this clock is exported via DT, set onecell_idx to constant
-+	 * defined in include/dt-bindings/clock/nuvoton, NPCM7XX-clock.h for
-+	 * this specific clock.  Otherwise, set to -1.
-+	 */
-+	int onecell_idx;
-+
-+};
-+
-+struct npcm7xx_clk_div_fixed_data {
-+	u8 mult;
-+	u8 div;
-+	const char *name;
-+	const char *parent_name;
-+	u8 clk_divider_flags;
-+	/*
-+	 * If this clock is exported via DT, set onecell_idx to constant
-+	 * defined in include/dt-bindings/clock/nuvoton, NPCM7XX-clock.h for
-+	 * this specific clock.  Otherwise, set to -1.
-+	 */
-+	int onecell_idx;
-+};
-+
-+
-+struct npcm7xx_clk_div_data {
-+	u32 reg;
-+	u8 shift;
-+	u8 width;
-+	const char *name;
-+	const char *parent_name;
-+	u8 clk_divider_flags;
-+	unsigned long flags;
-+	/*
-+	 * If this clock is exported via DT, set onecell_idx to constant
-+	 * defined in include/dt-bindings/clock/nuvoton, NPCM7XX-clock.h for
-+	 * this specific clock.  Otherwise, set to -1.
-+	 */
-+	int onecell_idx;
-+};
-+
-+struct npcm7xx_clk_pll_data {
-+	u32 reg;
-+	const char *name;
-+	const char *parent_name;
-+	unsigned long flags;
-+	/*
-+	 * If this clock is exported via DT, set onecell_idx to constant
-+	 * defined in include/dt-bindings/clock/nuvoton, NPCM7XX-clock.h for
-+	 * this specific clock.  Otherwise, set to -1.
-+	 */
-+	int onecell_idx;
-+};
-+
-+
-+/*
-+ * Single copy of strings used to refer to clocks within this driver indexed by
-+ * above enum.
-+ */
-+#define NPCM7XX_CLK_S_REFCLK      "refclk"
-+#define NPCM7XX_CLK_S_SYSBYPCK    "sysbypck"
-+#define NPCM7XX_CLK_S_MCBYPCK     "mcbypck"
-+#define NPCM7XX_CLK_S_GFXBYPCK    "gfxbypck"
-+#define NPCM7XX_CLK_S_PLL0        "pll0"
-+#define NPCM7XX_CLK_S_PLL1        "pll1"
-+#define NPCM7XX_CLK_S_PLL1_DIV2   "pll1_div2"
-+#define NPCM7XX_CLK_S_PLL2        "pll2"
-+#define NPCM7XX_CLK_S_PLL_GFX     "pll_gfx"
-+#define NPCM7XX_CLK_S_PLL2_DIV2   "pll2_div2"
-+#define NPCM7XX_CLK_S_PIX_MUX     "gfx_pixel"
-+#define NPCM7XX_CLK_S_GPRFSEL_MUX "gprfsel_mux"
-+#define NPCM7XX_CLK_S_MC_MUX      "mc_phy"
-+#define NPCM7XX_CLK_S_CPU_MUX     "cpu"  /*AKA system clock.*/
-+#define NPCM7XX_CLK_S_MC          "mc"
-+#define NPCM7XX_CLK_S_AXI         "axi"  /*AKA CLK2*/
-+#define NPCM7XX_CLK_S_AHB         "ahb"  /*AKA CLK4*/
-+#define NPCM7XX_CLK_S_CLKOUT_MUX  "clkout_mux"
-+#define NPCM7XX_CLK_S_UART_MUX    "uart_mux"
-+#define NPCM7XX_CLK_S_TIM_MUX     "timer_mux"
-+#define NPCM7XX_CLK_S_SD_MUX      "sd_mux"
-+#define NPCM7XX_CLK_S_GFXM_MUX    "gfxm_mux"
-+#define NPCM7XX_CLK_S_SU_MUX      "serial_usb_mux"
-+#define NPCM7XX_CLK_S_DVC_MUX     "dvc_mux"
-+#define NPCM7XX_CLK_S_GFX_MUX     "gfx_mux"
-+#define NPCM7XX_CLK_S_GFX_PIXEL   "gfx_pixel"
-+#define NPCM7XX_CLK_S_SPI0        "spi0"
-+#define NPCM7XX_CLK_S_SPI3        "spi3"
-+#define NPCM7XX_CLK_S_SPIX        "spix"
-+#define NPCM7XX_CLK_S_APB1        "apb1"
-+#define NPCM7XX_CLK_S_APB2        "apb2"
-+#define NPCM7XX_CLK_S_APB3        "apb3"
-+#define NPCM7XX_CLK_S_APB4        "apb4"
-+#define NPCM7XX_CLK_S_APB5        "apb5"
-+#define NPCM7XX_CLK_S_TOCK        "tock"
-+#define NPCM7XX_CLK_S_CLKOUT      "clkout"
-+#define NPCM7XX_CLK_S_UART        "uart"
-+#define NPCM7XX_CLK_S_TIMER       "timer"
-+#define NPCM7XX_CLK_S_MMC         "mmc"
-+#define NPCM7XX_CLK_S_SDHC        "sdhc"
-+#define NPCM7XX_CLK_S_ADC         "adc"
-+#define NPCM7XX_CLK_S_GFX         "gfx0_gfx1_mem"
-+#define NPCM7XX_CLK_S_USBIF       "serial_usbif"
-+#define NPCM7XX_CLK_S_USB_HOST    "usb_host"
-+#define NPCM7XX_CLK_S_USB_BRIDGE  "usb_bridge"
-+#define NPCM7XX_CLK_S_PCI         "pci"
-+
-+
-+static u32 pll_mux_table[] = {0, 1, 2, 3};
-+static const char * const pll_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_PLL0,
-+	NPCM7XX_CLK_S_PLL1_DIV2,
-+	NPCM7XX_CLK_S_REFCLK,
-+	NPCM7XX_CLK_S_PLL2_DIV2,
-+};
-+
-+static u32 cpuck_mux_table[] = {0, 1, 2, 3};
-+static const char * const cpuck_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_PLL0,
-+	NPCM7XX_CLK_S_PLL1_DIV2,
-+	NPCM7XX_CLK_S_REFCLK,
-+	NPCM7XX_CLK_S_SYSBYPCK,
-+};
-+
-+static u32 pixcksel_mux_table[] = {0, 2};
-+static const char * const pixcksel_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_PLL_GFX,
-+	NPCM7XX_CLK_S_REFCLK,
-+};
-+
-+static u32 sucksel_mux_table[] = {2, 3};
-+static const char * const sucksel_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_REFCLK,
-+	NPCM7XX_CLK_S_PLL2_DIV2,
-+};
-+
-+static u32 mccksel_mux_table[] = {0, 2, 3};
-+static const char * const mccksel_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_PLL1_DIV2,
-+	NPCM7XX_CLK_S_REFCLK,
-+	NPCM7XX_CLK_S_MCBYPCK,
-+};
-+
-+static u32 clkoutsel_mux_table[] = {0, 1, 2, 3, 4};
-+static const char * const clkoutsel_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_PLL0,
-+	NPCM7XX_CLK_S_PLL1_DIV2,
-+	NPCM7XX_CLK_S_REFCLK,
-+	NPCM7XX_CLK_S_PLL_GFX, // divided by 2
-+	NPCM7XX_CLK_S_PLL2_DIV2,
-+};
-+
-+static u32 gfxmsel_mux_table[] = {2, 3};
-+static const char * const gfxmsel_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_REFCLK,
-+	NPCM7XX_CLK_S_PLL2_DIV2,
-+};
-+
-+static u32 dvcssel_mux_table[] = {2, 3};
-+static const char * const dvcssel_mux_parents[] __initconst = {
-+	NPCM7XX_CLK_S_REFCLK,
-+	NPCM7XX_CLK_S_PLL2,
-+};
-+
-+
-+static const struct npcm7xx_clk_pll_data npcm7xx_plls[] __initconst = {
-+	{NPCM7XX_PLLCON0, NPCM7XX_CLK_S_PLL0, NPCM7XX_CLK_S_REFCLK, 0, -1},
-+
-+	{NPCM7XX_PLLCON1, NPCM7XX_CLK_S_PLL1,
-+	NPCM7XX_CLK_S_REFCLK, 0, -1},
-+
-+	{NPCM7XX_PLLCON2, NPCM7XX_CLK_S_PLL2,
-+	NPCM7XX_CLK_S_REFCLK, 0, -1},
-+
-+	{NPCM7XX_PLLCONG, NPCM7XX_CLK_S_PLL_GFX,
-+	NPCM7XX_CLK_S_REFCLK, 0, -1},
-+};
-+
-+
-+static const struct npcm7xx_clk_mux_data npcm7xx_muxes[] __initconst = {
-+	{0, GENMASK(1, 0), cpuck_mux_table, NPCM7XX_CLK_S_CPU_MUX,
-+	cpuck_mux_parents, ARRAY_SIZE(cpuck_mux_parents), CLK_IS_CRITICAL,
-+	NPCM7XX_CLK_CPU},
-+
-+	{4, GENMASK(1, 0), pixcksel_mux_table, NPCM7XX_CLK_S_PIX_MUX,
-+	pixcksel_mux_parents, ARRAY_SIZE(pixcksel_mux_parents), 0,
-+	NPCM7XX_CLK_GFX_PIXEL},
-+
-+	{6, GENMASK(1, 0), pll_mux_table, NPCM7XX_CLK_S_SD_MUX,
-+	pll_mux_parents, ARRAY_SIZE(pll_mux_parents), 0, -1},
-+
-+	{8, GENMASK(1, 0), pll_mux_table, NPCM7XX_CLK_S_UART_MUX,
-+	pll_mux_parents, ARRAY_SIZE(pll_mux_parents), 0, -1},
-+
-+	{10, GENMASK(1, 0), sucksel_mux_table, NPCM7XX_CLK_S_SU_MUX,
-+	sucksel_mux_parents, ARRAY_SIZE(sucksel_mux_parents), 0, -1},
-+
-+	{12, GENMASK(1, 0), mccksel_mux_table, NPCM7XX_CLK_S_MC_MUX,
-+	mccksel_mux_parents, ARRAY_SIZE(mccksel_mux_parents), 0, -1},
-+
-+	{14, GENMASK(1, 0), pll_mux_table, NPCM7XX_CLK_S_TIM_MUX,
-+	pll_mux_parents, ARRAY_SIZE(pll_mux_parents), 0, -1},
-+
-+	{16, GENMASK(1, 0), pll_mux_table, NPCM7XX_CLK_S_GFX_MUX,
-+	pll_mux_parents, ARRAY_SIZE(pll_mux_parents), 0, -1},
-+
-+	{18, GENMASK(2, 0), clkoutsel_mux_table, NPCM7XX_CLK_S_CLKOUT_MUX,
-+	clkoutsel_mux_parents, ARRAY_SIZE(clkoutsel_mux_parents), 0, -1},
-+
-+	{21, GENMASK(1, 0), gfxmsel_mux_table, NPCM7XX_CLK_S_GFXM_MUX,
-+	gfxmsel_mux_parents, ARRAY_SIZE(gfxmsel_mux_parents), 0, -1},
-+
-+	{23, GENMASK(1, 0), dvcssel_mux_table, NPCM7XX_CLK_S_DVC_MUX,
-+	dvcssel_mux_parents, ARRAY_SIZE(dvcssel_mux_parents), 0, -1},
-+};
-+
-+/* fixed ratio dividers (no register): */
-+static const struct npcm7xx_clk_div_fixed_data npcm7xx_divs_fx[] __initconst = {
-+	{ 1, 2, NPCM7XX_CLK_S_MC, NPCM7XX_CLK_S_MC_MUX, 0, NPCM7XX_CLK_MC},
-+	{ 1, 2, NPCM7XX_CLK_S_PLL1_DIV2, NPCM7XX_CLK_S_PLL1, 0, -1},
-+	{ 1, 2, NPCM7XX_CLK_S_PLL2_DIV2, NPCM7XX_CLK_S_PLL2, 0, -1},
-+};
-+
-+
-+/* configurable dividers: */
-+static const struct npcm7xx_clk_div_data npcm7xx_divs[] __initconst = {
-+	{NPCM7XX_CLKDIV1, 28, 3, NPCM7XX_CLK_S_ADC,
-+	NPCM7XX_CLK_S_TIMER, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_ADC},
-+	/*30-28 ADCCKDIV*/
-+	{NPCM7XX_CLKDIV1, 26, 2, NPCM7XX_CLK_S_AHB,
-+	NPCM7XX_CLK_S_AXI, 0, CLK_IS_CRITICAL, NPCM7XX_CLK_AHB},
-+	/*27-26 CLK4DIV*/
-+	{NPCM7XX_CLKDIV1, 21, 5, NPCM7XX_CLK_S_TIMER,
-+	NPCM7XX_CLK_S_TIM_MUX, 0, 0, NPCM7XX_CLK_TIMER},
-+	/*25-21 TIMCKDIV*/
-+	{NPCM7XX_CLKDIV1, 16, 5, NPCM7XX_CLK_S_UART,
-+	NPCM7XX_CLK_S_UART_MUX, 0, 0, NPCM7XX_CLK_UART},
-+	/*20-16 UARTDIV*/
-+	{NPCM7XX_CLKDIV1, 11, 5, NPCM7XX_CLK_S_MMC,
-+	NPCM7XX_CLK_S_SD_MUX, 0, 0, NPCM7XX_CLK_MMC},
-+	/*15-11 MMCCKDIV*/
-+	{NPCM7XX_CLKDIV1, 6, 5, NPCM7XX_CLK_S_SPI3,
-+	NPCM7XX_CLK_S_AHB, 0, 0, NPCM7XX_CLK_SPI3},
-+	/*10-6 AHB3CKDIV*/
-+	{NPCM7XX_CLKDIV1, 2, 4, NPCM7XX_CLK_S_PCI,
-+	NPCM7XX_CLK_S_GFX_MUX, 0, 0, NPCM7XX_CLK_PCI},
-+	/*5-2 PCICKDIV*/
-+	{NPCM7XX_CLKDIV1, 0, 1, NPCM7XX_CLK_S_AXI,
-+	NPCM7XX_CLK_S_CPU_MUX, CLK_DIVIDER_POWER_OF_TWO, CLK_IS_CRITICAL,
-+	NPCM7XX_CLK_AXI},/*0 CLK2DIV*/
-+
-+	{NPCM7XX_CLKDIV2, 30, 2, NPCM7XX_CLK_S_APB4,
-+	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB4},
-+	/*31-30 APB4CKDIV*/
-+	{NPCM7XX_CLKDIV2, 28, 2, NPCM7XX_CLK_S_APB3,
-+	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB3},
-+	/*29-28 APB3CKDIV*/
-+	{NPCM7XX_CLKDIV2, 26, 2, NPCM7XX_CLK_S_APB2,
-+	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB2},
-+	/*27-26 APB2CKDIV*/
-+	{NPCM7XX_CLKDIV2, 24, 2, NPCM7XX_CLK_S_APB1,
-+	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB1},
-+	/*25-24 APB1CKDIV*/
-+	{NPCM7XX_CLKDIV2, 22, 2, NPCM7XX_CLK_S_APB5,
-+	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB5},
-+	/*23-22 APB5CKDIV*/
-+	{NPCM7XX_CLKDIV2, 16, 5, NPCM7XX_CLK_S_CLKOUT,
-+	NPCM7XX_CLK_S_CLKOUT_MUX, 0, 0, NPCM7XX_CLK_CLKOUT},
-+	/*20-16 CLKOUTDIV*/
-+	{NPCM7XX_CLKDIV2, 13, 3, NPCM7XX_CLK_S_GFX,
-+	NPCM7XX_CLK_S_GFX_MUX, 0, 0, NPCM7XX_CLK_GFX},
-+	/*15-13 GFXCKDIV*/
-+	{NPCM7XX_CLKDIV2, 8, 5, NPCM7XX_CLK_S_USB_BRIDGE,
-+	NPCM7XX_CLK_S_SU_MUX, 0, 0, NPCM7XX_CLK_SU},
-+	/*12-8 SUCKDIV*/
-+	{NPCM7XX_CLKDIV2, 4, 4, NPCM7XX_CLK_S_USB_HOST,
-+	NPCM7XX_CLK_S_SU_MUX, 0, 0, NPCM7XX_CLK_SU48},
-+	/*7-4 SU48CKDIV*/
-+	{NPCM7XX_CLKDIV2, 0, 4, NPCM7XX_CLK_S_SDHC,
-+	NPCM7XX_CLK_S_SD_MUX, 0, 0, NPCM7XX_CLK_SDHC}
-+	,/*3-0 SD1CKDIV*/
-+
-+	{NPCM7XX_CLKDIV3, 6, 5, NPCM7XX_CLK_S_SPI0,
-+	NPCM7XX_CLK_S_AHB, 0, 0, NPCM7XX_CLK_SPI0},
-+	/*10-6 SPI0CKDV*/
-+	{NPCM7XX_CLKDIV3, 1, 5, NPCM7XX_CLK_S_SPIX,
-+	NPCM7XX_CLK_S_AHB, 0, 0, NPCM7XX_CLK_SPIX},
-+	/*5-1 SPIXCKDV*/
-+
-+};
-+
-+
-+static const struct npcm7xx_clk_gate_data npcm7xx_gates[] __initconst = {
-+	{NPCM7XX_CLKEN1, 31, "smb1-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 30, "smb0-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 29, "smb7-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 28, "smb6-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 27, "adc-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN1, 26, "wdt-gate", NPCM7XX_CLK_S_TIMER, 0},
-+	{NPCM7XX_CLKEN1, 25, "usbdev3-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 24, "usbdev6-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 23, "usbdev5-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 22, "usbdev4-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 21, "emc2-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 20, "timer5_9-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN1, 19, "timer0_4-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN1, 18, "pwmm0-gate", NPCM7XX_CLK_S_APB3, 0},
-+	{NPCM7XX_CLKEN1, 17, "huart-gate", NPCM7XX_CLK_S_UART, 0},
-+	{NPCM7XX_CLKEN1, 16, "smb5-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 15, "smb4-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 14, "smb3-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 13, "smb2-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN1, 12, "mc-gate", NPCM7XX_CLK_S_MC, 0},
-+	{NPCM7XX_CLKEN1, 11, "uart01-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN1, 10, "aes-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 9, "peci-gate", NPCM7XX_CLK_S_APB3, 0},
-+	{NPCM7XX_CLKEN1, 8, "usbdev2-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 7, "uart23-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN1, 6, "emc1-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 5, "usbdev1-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 4, "shm-gate", NPCM7XX_CLK_S_AHB, 0},
-+	/* bit 3 is reserved */
-+	{NPCM7XX_CLKEN1, 2, "kcs-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN1, 1, "spi3-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN1, 0, "spi0-gate", NPCM7XX_CLK_S_AHB, 0},
-+
-+	{NPCM7XX_CLKEN2, 31, "cp-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 30, "tock-gate", NPCM7XX_CLK_S_TOCK, 0},
-+	/* bit 29 is reserved */
-+	{NPCM7XX_CLKEN2, 28, "gmac1-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 27, "usbif-gate", NPCM7XX_CLK_S_USBIF, 0},
-+	{NPCM7XX_CLKEN2, 26, "usbhost-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 25, "gmac2-gate", NPCM7XX_CLK_S_AHB, 0},
-+	/* bit 24 is reserved */
-+	{NPCM7XX_CLKEN2, 23, "pspi2-gate", NPCM7XX_CLK_S_APB5, 0},
-+	{NPCM7XX_CLKEN2, 22, "pspi1-gate", NPCM7XX_CLK_S_APB5, 0},
-+	{NPCM7XX_CLKEN2, 21, "3des-gate", NPCM7XX_CLK_S_AHB, 0},
-+	/* bit 20 is reserved */
-+	{NPCM7XX_CLKEN2, 19, "siox2-gate", NPCM7XX_CLK_S_APB3, 0},
-+	{NPCM7XX_CLKEN2, 18, "siox1-gate", NPCM7XX_CLK_S_APB3, 0},
-+	/* bit 17 is reserved */
-+	{NPCM7XX_CLKEN2, 16, "fuse-gate", NPCM7XX_CLK_S_APB4, 0},
-+	/*  bit 15 is reserved */
-+	{NPCM7XX_CLKEN2, 14, "vcd-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 13, "ece-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 12, "vdma-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 11, "ahbpcibrg-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 10, "gfxsys-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN2, 9, "sdhc-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 8, "mmc-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN2, 7, "mft7-gate", NPCM7XX_CLK_S_APB4, 0},
-+	{NPCM7XX_CLKEN2, 6, "mft6-gate", NPCM7XX_CLK_S_APB4, 0},
-+	{NPCM7XX_CLKEN2, 5, "mft5-gate", NPCM7XX_CLK_S_APB4, 0},
-+	{NPCM7XX_CLKEN2, 4, "mft4-gate", NPCM7XX_CLK_S_APB4, 0},
-+	{NPCM7XX_CLKEN2, 3, "mft3-gate", NPCM7XX_CLK_S_APB4, 0},
-+	{NPCM7XX_CLKEN2, 2, "mft2-gate", NPCM7XX_CLK_S_APB4, 0},
-+	{NPCM7XX_CLKEN2, 1, "mft1-gate", NPCM7XX_CLK_S_APB4, 0},
-+	{NPCM7XX_CLKEN2, 0, "mft0-gate", NPCM7XX_CLK_S_APB4, 0},
-+
-+	{NPCM7XX_CLKEN3, 31, "gpiom7-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 30, "gpiom6-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 29, "gpiom5-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 28, "gpiom4-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 27, "gpiom3-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 26, "gpiom2-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 25, "gpiom1-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 24, "gpiom0-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 23, "espi-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 22, "smb11-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 21, "smb10-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 20, "smb9-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 19, "smb8-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 18, "smb15-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 17, "rng-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 16, "timer10_14-gate", NPCM7XX_CLK_S_APB1, 0},
-+	{NPCM7XX_CLKEN3, 15, "pcirc-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 14, "sececc-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 13, "sha-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 12, "smb14-gate", NPCM7XX_CLK_S_APB2, 0},
-+	/* bit 11 is reserved */
-+	/* bit 10 is reserved */
-+	{NPCM7XX_CLKEN3, 9, "pcimbx-gate", NPCM7XX_CLK_S_AHB, 0},
-+	/* bit 8 is reserved */
-+	{NPCM7XX_CLKEN3, 7, "usbdev9-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 6, "usbdev8-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 5, "usbdev7-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 4, "usbdev0-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 3, "smb13-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 2, "spix-gate", NPCM7XX_CLK_S_AHB, 0},
-+	{NPCM7XX_CLKEN3, 1, "smb12-gate", NPCM7XX_CLK_S_APB2, 0},
-+	{NPCM7XX_CLKEN3, 0, "pwmm1-gate", NPCM7XX_CLK_S_APB3, 0},
-+};
-+
-+
-+static struct clk_hw_onecell_data *npcm7xx_clk_data;
-+static void __iomem *clk_base;
-+static DEFINE_SPINLOCK(lock);
-+
-+
-+static const struct of_device_id npcm7xx_clk_match_table[] = {
-+				{ .compatible = "nuvoton,npcm750-clk"},
-+				{},
-+};
-+
-+MODULE_DEVICE_TABLE(of, npcm7xx_clk_match_table);
-+
-+
-+static void __init npcm750clk_init(struct device_node *clk_np)
-+{
-+
-+	struct resource res;
-+	struct clk_hw *hw;
-+	struct clk *clk;
-+	int ret;
-+	int i;
-+
-+	pr_debug("NPCM750: clock init: ");
-+
-+	clk_base = NULL;
-+
-+	ret = of_address_to_resource(clk_np, 0, &res);
-+	if (ret) {
-+		pr_err("\t%s: failed to get resource, ret %d\n", clk_np->name,
-+			ret);
-+		return;
-+	}
-+
-+
-+	clk_base = ioremap(res.start, resource_size(&res));
-+	if (IS_ERR(clk_base)) {
-+		pr_err("\tnpcm750clk_init: resource error\n");
-+		goto npcm7xx_init_error;
-+	}
-+
-+
-+	npcm7xx_clk_data = kzalloc(sizeof(*npcm7xx_clk_data->hws) *
-+		NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL);
-+
-+	npcm7xx_clk_data->num = 0;
-+
-+	if (!npcm7xx_clk_data->hws) {
-+		pr_err("Can't alloc npcm7xx_clk_data\n");
-+		goto npcm7xx_init_np_err;
-+	}
-+
-+	npcm7xx_clk_data->num = NPCM7XX_NUM_CLOCKS;
-+
-+
-+	/*
-+	 * This way all clock fetched before the platform device probes,
-+	 * except those we assign here for early use, will be deferred.
-+	 */
-+	pr_debug("\tclk init hws\n");
-+	for (i = 0; i < NPCM7XX_NUM_CLOCKS; i++)
-+		npcm7xx_clk_data->hws[i] = ERR_PTR(-EPROBE_DEFER);
-+
-+	/* Define fixed clocks.
-+	 * Notice: the following clocks are fixed value on NPCM7XX and should
-+	 * not be changed.
-+	 * therefor they are not exposed to the dev tree .
-+	 */
-+	pr_debug("\tclk register fixed clocks\n");
-+	hw = clk_hw_register_fixed_rate(NULL, NPCM7XX_CLK_S_REFCLK,
-+		NULL, 0, 25000000);
-+	hw = clk_hw_register_fixed_rate(NULL, NPCM7XX_CLK_S_SYSBYPCK,
-+		NULL, 0, 800000000); // rarely used. mostly testing. TBD: remove
-+	hw = clk_hw_register_fixed_rate(NULL, NPCM7XX_CLK_S_MCBYPCK,
-+		NULL, 0, 800000000); // rarely used.  mostly testing. TBD:remove
-+
-+
-+	/* Register plls */
-+	pr_debug("\tclk register pll\n");
-+	for (i = 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
-+		const struct npcm7xx_clk_pll_data *pll_data = &npcm7xx_plls[i];
-+
-+		pr_debug("\tclk reg pll%d, reg=0x%x, name=%s, p=%s\n", i,
-+		(unsigned int)pll_data->reg, pll_data->name,
-+		pll_data->parent_name);
-+
-+		hw = npcm7xx_clk_register_pll(clk_base + pll_data->reg,
-+			pll_data->name, pll_data->parent_name, pll_data->flags);
-+		if (IS_ERR(hw)) {
-+			pr_err("npcm7xx_clk: Can't register pll\n");
-+			goto npcm7xx_init_fail;
-+		}
-+
-+		if (pll_data->onecell_idx >= 0)
-+			npcm7xx_clk_data->hws[pll_data->onecell_idx] = hw;
-+	}
-+
-+	/* Register fixed dividers */
-+	pr_debug("\tclk register fixed divs\n");
-+	clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
-+			NPCM7XX_CLK_S_PLL1, 0, 1, 2);
-+	if (IS_ERR(clk)) {
-+		pr_err("npcm7xx_clk: Can't register fixed div\n");
-+		goto npcm7xx_init_fail;
-+	}
-+
-+
-+	clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
-+			NPCM7XX_CLK_S_PLL2, 0, 1, 2);
-+
-+	if (IS_ERR(clk)) {
-+		pr_err("npcm7xx_clk: Can't register div2\n");
-+		goto npcm7xx_init_fail;
-+	}
-+
-+	/* Register muxes */
-+	for (i = 0; i < ARRAY_SIZE(npcm7xx_muxes); i++) {
-+		const struct npcm7xx_clk_mux_data *mux_data = &npcm7xx_muxes[i];
-+
-+		pr_debug("\tadd mux%d reg=0x%x name=%s p=%s num_p=%d\n",
-+		    i, ((u32)clk_base + (u32)NPCM7XX_CLKSEL), mux_data->name,
-+			mux_data->parent_names[0], mux_data->num_parents);
-+
-+		hw = clk_hw_register_mux_table(NULL,
-+			mux_data->name,
-+			mux_data->parent_names, mux_data->num_parents,
-+			mux_data->flags, clk_base + NPCM7XX_CLKSEL,
-+			mux_data->shift, mux_data->mask, 0,
-+			mux_data->table, &lock);
-+
-+		if (IS_ERR(hw)) {
-+			pr_err("npcm7xx_clk: Can't register mux\n");
-+			goto npcm7xx_init_fail;
-+		}
-+
-+		if (mux_data->onecell_idx >= 0)
-+			npcm7xx_clk_data->hws[mux_data->onecell_idx] = hw;
-+	}
-+
-+	/* Register clock dividers specified in npcm7xx_divs. */
-+	pr_debug("\tclk register divs\n");
-+	for (i = 0; i < ARRAY_SIZE(npcm7xx_divs); i++) {
-+		const struct npcm7xx_clk_div_data *div_data = &npcm7xx_divs[i];
-+
-+		pr_debug("\tadd div%d reg=0x%x name=%s, parent=%s\n",
-+				i, (unsigned int)div_data->reg,
-+				div_data->name, div_data->parent_name);
-+
-+		hw = clk_hw_register_divider(NULL, div_data->name,
-+				div_data->parent_name,
-+				div_data->flags,
-+				clk_base + div_data->reg,
-+				div_data->shift, div_data->width,
-+				div_data->clk_divider_flags, &lock);
-+		if (IS_ERR(hw)) {
-+			pr_err("npcm7xx_clk: Can't register div table\n");
-+			goto npcm7xx_init_fail;
-+		}
-+
-+		if (div_data->onecell_idx >= 0)
-+			npcm7xx_clk_data->hws[div_data->onecell_idx] = hw;
-+	}
-+
-+	ret = of_clk_add_hw_provider(clk_np, of_clk_hw_onecell_get,
-+					npcm7xx_clk_data);
-+	if (ret)
-+		pr_err("failed to add DT provider: %d\n", ret);
-+
-+	pr_info("npcm7xx clk: %d dividers, %d muxes and %d plls registered.\n",
-+		ARRAY_SIZE(npcm7xx_divs), ARRAY_SIZE(npcm7xx_muxes),
-+		ARRAY_SIZE(npcm7xx_plls));
-+
-+	of_node_put(clk_np);
-+
-+	return;
-+
-+npcm7xx_init_fail:
-+	pr_debug("\tclk setup fail\n");
-+	if (npcm7xx_clk_data->num)
-+		kfree(npcm7xx_clk_data->hws);
-+npcm7xx_init_np_err:
-+	if (clk_base != NULL)
-+		iounmap(clk_base);
-+npcm7xx_init_error:
-+	of_node_put(clk_np);
-+}
-+
-+CLK_OF_DECLARE(npcm750clk_init, "nuvoton,npcm750-clk", npcm750clk_init);
-+
-+
-diff --git a/include/linux/clk/nuvoton.h b/include/linux/clk/nuvoton.h
-new file mode 100644
-index 000000000000..65eb26e1e5d1
---- /dev/null
-+++ b/include/linux/clk/nuvoton.h
-@@ -0,0 +1,13 @@
-+/*
-+ * Copyright (c) 2014-2018 Nuvoton Technology corporation.
-+ *
-+ * Released under the GPLv2 only.
-+ * SPDX-License-Identifier: GPL-2.0
-+ */
-+
-+#ifndef __LINUX_CLK_NUVOTON_H_
-+#define __LINUX_CLK_NUVOTON_H_
-+
-+void nuvoton_npcm750_clock_init(void);
-+
-+#endif
--- 
-2.14.1
+ resets = <&syscon ASPEED_RESET_JTAG_MASTER>;
+
+In addition, we need to make sure the reset line is deasserted in the
+driver. Take a look at how I did this in the i2c driver:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=edd20e95bca4a5434f264d8ab40d729761479825
+
++       bus->rst = devm_reset_control_get_shared(&pdev->dev, NULL);
++       if (IS_ERR(bus->rst)) {
++               dev_err(&pdev->dev,
++                       "missing or invalid reset controller device
+tree entry");
++               return PTR_ERR(bus->rst);
++       }
++       reset_control_deassert(bus->rst);
+
+Please give this a test with an upstream kernel from a fresh power on.
+
+Cheers,
+
+Joel
