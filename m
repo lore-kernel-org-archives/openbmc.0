@@ -1,69 +1,60 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ebb6jC/Y"; 
- dkim-atps=neutral
-Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
- [IPv6:2607:f8b0:400d:c0d::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="s9eCtagH"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="e85A09gw"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHYM61128zF0dN
- for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 04:50:41 +1100 (AEDT)
-Received: by mail-qt0-x241.google.com with SMTP id i40so2827093qti.8
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 09:50:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=49kCRaF6pLm+SxEin7RGgBWjQcvc/j/BcnNjBL9VoFs=;
- b=Ebb6jC/Y8Ehqebo9mSKixF1xWXfJkRx6Gzx1R6AV3aZ6sQ9RbWaSGgrarijhSA5+Q1
- aVoSvb1mwIFMp8vGm8TWuRVZUFJKhmUNhP8NB6BXZT1SveHl2PVOeJMtcxZqwMuQyjIc
- tTX9E9QFf0jO4f6moE4SnnAOIKZf6LmMDLmqvhkAwzERLg/N7Gz4WXDbHYXrXhdZLphw
- W7AzpVTWC9g5ElEVZE1gdeoU500V4aeTvQjE2j0KgsNRAPXYHLXGDB/EX0P017SUFaxs
- THs12MUwXtU7JVygR53kagdE+UxR2VNWRJjH6vpuc2dIZNFzSbDnUsW2hK5v24ePMrk2
- ICXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=49kCRaF6pLm+SxEin7RGgBWjQcvc/j/BcnNjBL9VoFs=;
- b=X1YYwLmwdPz5OyjJkvtkmYVmNdBflxxb3KN8UnxTA2kARJVEfAY+vrEdKU+y0wjuug
- Ffh6uu+0zvc2j6ROU/xI+9UKNEQpWimRutuehUZFmp4Y0Ag9iVoARDXumo72RtMnaslB
- Wijg5aiAfxWs4ssu+lSOrb64yjokKFgzsEBR1AQhoLkgErjialMJF6U7HVEc0JAQMYcC
- 3cvSDisYhWBh1rRUgZP2H50Qc9uKQeMkCbqxbHsXrBoy7jBLpbRECjratVA/XwJT6UKZ
- r7TvBmc914MGTiEmdGdDERAEDoZ74Hj5j+/7DVs2TRtZw0idBxHFvXedVdyS329W+IG1
- cyyw==
-X-Gm-Message-State: AKwxytep9RTSGh4V3SFWaYWSaxnHxVfUYlG1xfzBCfzG+BUbvTHgU0oi
- 5hi024u/mL142mDJghTWzaWZ69DQtZl09gjeGAo=
-X-Google-Smtp-Source: ACJfBovHpsB5eX8kuO0hHWYcOLp0D4mt1e6kdY3d2NOicc0mrQj/Aiy1fcIRDtfrxcFp1gp+cbGOTuGrTjscVGXwQhA=
-X-Received: by 10.237.43.229 with SMTP id e92mr35163007qtd.178.1515693039776; 
- Thu, 11 Jan 2018 09:50:39 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.29.9 with HTTP; Thu, 11 Jan 2018 09:50:19 -0800 (PST)
-In-Reply-To: <1514202808-29747-4-git-send-email-oleksandrs@mellanox.com>
-References: <1514202808-29747-1-git-send-email-oleksandrs@mellanox.com>
- <1514202808-29747-4-git-send-email-oleksandrs@mellanox.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 11 Jan 2018 09:50:19 -0800
-X-Google-Sender-Auth: i2FGUNjqrvAl5I1eMXxy7JhhOA0
-Message-ID: <CACPK8XfH-4r0mBQYA+BwvUo2+RF8igai2jy+RqTDQcxx2-acsQ@mail.gmail.com>
-Subject: Re: [patch v15 3/4] Documentation: jtag: Add bindings for Aspeed SoC
- 24xx and 25xx families JTAG master driver
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- devicetree <devicetree@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
- Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org, 
- Vadim Pasternak <vadimp@mellanox.com>, system-sw-low-level@mellanox.com, 
- Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
- linux-api@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
- mchehab@kernel.org, Jiri Pirko <jiri@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHZ184GCszF0WY
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 05:20:12 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id E0D5A20C4D;
+ Thu, 11 Jan 2018 13:20:09 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 11 Jan 2018 13:20:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=UKa0s+km+nQNp4cV5swqY4eGvM4SQvDQq5Wd3S87gno=; b=s9eCtagH
+ 187bgvV7fQ37FUVgLRTfsUFDLRRWBou3fcsn3SXllzSaKfECoaYb6gOkRW/WCWKA
+ 64hdjNLXXa5HNgY4Yb60zM3WAUofVHV8Jw+ThKO5mT91te/qDXTbIzzzDvVvfiUS
+ L1XYnCo0v8/iU+y689AKMLq0wMlh6SkheQcylti/W0ztQCqVdmGeForN624M0YOw
+ qDdAWDINKu++9yPmiVkAOuCWYHwCMnQrREYAwHag7T745cvkEMq+npg2VhKYMhxD
+ Ofdb6TjXwOH0zeTpq7yoxn21cXhk8qjueG0NjY7yiH5GjOu38bhg9z/xL3GeR0cZ
+ mLMPen/Tbqud8w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=UKa0s+km+nQNp4cV5swqY4eGvM4SQ
+ vDQq5Wd3S87gno=; b=e85A09gwe5KbAwMl7bAp3dRmEZA2dRADdftETQAzJZPg9
+ y/cJx4qY4O+M6j6EbDXBGfVwLwQO7Iw4FgwXOgZF76MwWUkHugXeqO0O/WDjW1ok
+ 5iJeJAilCJBEhwcZrFxU86eVOpz9173YbjOOQuyjpp4GYvrjwVr/q9WeqFRs+KLB
+ 88GHejVceeAiikhBuVNADQQMn+y+zcUfNpciF7XqEuiUOrwRlbF72ikSlsHbamba
+ bYe5AU2NC4q7rxbJ6U39U8JlSMl/JPueJD+6h1EefA6sumkV+TjhF5zxMLI89g/J
+ Om/atSMDynUd4vH7BAqdsYbuN8wHc0Amq1qDwJlGg==
+X-ME-Sender: <xms:2apXWs6Y6it-bNgaoq7x1miNbYzzDY0BYyGXbT83pLiQUPRDmhP_DQ>
+Received: from dave (unknown [104.133.8.104])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 628AF246CC;
+ Thu, 11 Jan 2018 13:20:09 -0500 (EST)
+Message-ID: <1515694805.28370.10.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.13 v1 1/2] dt-binding: hwmon: document
+ NPCM7xx sensors DT bindings
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Tomer Maimon <tmaimon77@gmail.com>, openbmc@lists.ozlabs.org
+Date: Thu, 11 Jan 2018 10:20:05 -0800
+In-Reply-To: <1514382619-14336-2-git-send-email-tmaimon77@gmail.com>
+References: <1514382619-14336-1-git-send-email-tmaimon77@gmail.com>
+ <1514382619-14336-2-git-send-email-tmaimon77@gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-yDiD1tM5AlF6LP9MrGKu"
+X-Mailer: Evolution 3.26.1-1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -75,81 +66,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 17:50:42 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 18:20:16 -0000
 
-On Mon, Dec 25, 2017 at 3:53 AM, Oleksandr Shamray
-<oleksandrs@mellanox.com> wrote:
-> It has been tested on Mellanox system with BMC equipped with
-> Aspeed 2520 SoC for programming CPLD devices.
->
-> Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-> Signed-off-by: Jiri Pirko <jiri@mellanox.com>
-> Acked-by: Rob Herring <robh@kernel.org>
+
+--=-yDiD1tM5AlF6LP9MrGKu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2017-12-27 at 15:50 +0200, Tomer Maimon wrote:
+> Added device tree binding documentation for Nuvoton
+> NPCM7xx Pulse Width Modulation (PWM) and Fan
+> Tachometer devices.
+>=20
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 > ---
-> v14->v15
-> v13->v14
-> v12->v13
-> v11->v12
-> v10->v11
-> v9->v10
-> v8->v9
-> v7->v8
-> Comments pointed by pointed by Joel Stanley <joel.stan@gmail.com>
-> - Change compatible string to ast2400 and ast2000
->
-> V6->v7
-> Comments pointed by Tobias Klauser <tklauser@distanz.ch>
->  - Fix spell "Doccumentation" -> "Documentation"
->
-> v5->v6
-> Comments pointed by Tobias Klauser <tklauser@distanz.ch>
-> - Small nit: s/documentation/Documentation/
->
-> v4->v5
->
-> V3->v4
-> Comments pointed by Rob Herring <robh@kernel.org>
-> - delete unnecessary "status" and "reg-shift" descriptions in
->   bndings file
->
-> v2->v3
-> Comments pointed by Rob Herring <robh@kernel.org>
-> - split Aspeed jtag driver and binding to sepatrate patches
-> - delete unnecessary "status" and "reg-shift" descriptions in
->   bndings file
-> ---
->  .../devicetree/bindings/jtag/aspeed-jtag.txt       |   18 ++++++++++++++++++
->  1 files changed, 18 insertions(+), 0 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
->
-> diff --git a/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+>  .../devicetree/bindings/hwmon/npcm7xx-fan.txt          | 18 ++++++++++++=
+++++++
+>  .../devicetree/bindings/hwmon/npcm7xx-pwm.txt          | 16 ++++++++++++=
+++++
+
+The bindings look okay to me, but I feel they probably should be split
+into individual patches. I suggest this based on wanting to split the
+drivers out, as they are more complicated and thus more susceptible to
+review comments. Decoupling them from eachother means they can be
+reviewed and submitted independently.
+
+Andrew
+
+>  2 files changed, 34 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm7xx-fan.t=
+xt
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.t=
+xt
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/npcm7xx-fan.txt b/Do=
+cumentation/devicetree/bindings/hwmon/npcm7xx-fan.txt
 > new file mode 100644
-> index 0000000..8cfc610
+> index 000000000000..cb456632a99f
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+> +++ b/Documentation/devicetree/bindings/hwmon/npcm7xx-fan.txt
 > @@ -0,0 +1,18 @@
-> +Aspeed JTAG driver for ast2400 and ast2500 SoC
+> +Nuvoton NPCM7xx fan tachometer (Fan) controller device driver
+> +
+> +The NPCM7xx fan tachometer controller supports upto 16 Fan inputs.
 > +
 > +Required properties:
-> +- compatible:          Should be one of
-> +      - "aspeed,ast2400-jtag"
-> +      - "aspeed,ast2500-jtag"
-> +- reg                  contains the offset and length of the JTAG memory
-> +                       region
-> +- clocks               root clock of bus, should reference the APB clock
-> +- interrupts           should contain JTAG controller interrupt
+> +- compatible      : "nuvoton,npcm750-fan" for Poleg NPCM750.
+> +- reg             : Offset and length of the register set for the device=
+.
+> +- clocks          : phandle of fan reference clock.
+> +- interrupts      : Contain the fan interrupts with flags for
+> +                    falling edge.
 > +
-> +Example:
-> +jtag: jtag@1e6e4000 {
-> +       compatible = "aspeed,ast2500-jtag";
-> +       reg = <0x1e6e4000 0x1c>;
-> +       clocks = <&clk_apb>;
+> +fan: fan@0 {
+> +	compatible =3D "nuvoton,npcm750-fan";
+> +	reg =3D <0xf0180000 0x8000>;
+> +	interrupts =3D <0 96 4>, <0 97 4>, <0 98 4>, <0 99 4>,
+> +		<0 100 4>, <0 101 4>, <0 102 4>, <0 103 4>;
+> +	clocks =3D <&clk NPCM7XX_CLK_APB4>;
+> +};
+> diff --git a/Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt b/Do=
+cumentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt
+> new file mode 100644
+> index 000000000000..8b54a59c272a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt
+> @@ -0,0 +1,16 @@
+> +Nuvoton NPCM7xx Pulse-width modulation (PWM) controller device driver
+> +
+> +The NPCM7xx PWM controller supports upto 8 PWM outputs.
+> +Each PWM output module have watchdog.
+> +
+> +Required properties:
+> +- compatible      : "nuvoton,npcm750-pwm" for Poleg NPCM750.
+> +- reg             : Offset and length of the registers set for the devic=
+e.
+> +- clocks          : phandle of pwm reference clock.
+> +
+> +pwm:pwm@f0103000 {
+> +	compatible =3D "nuvoton,npcm750-pwm";
+> +	reg =3D <0xf0103000 0x1000
+> +				0xf0104000 0x1000>;
+> +	clocks =3D <&clk NPCM7XX_CLK_APB3>;
+> +};
+--=-yDiD1tM5AlF6LP9MrGKu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-We've now got a proper clock driver upstream. Can you update the
-example to match the newly added bindings?
+-----BEGIN PGP SIGNATURE-----
 
- clocks = <&syscon ASPEED_CLK_APB>;
+iQIcBAABCgAGBQJaV6rVAAoJEJ0dnzgO5LT5YZIP/0JN+3qvUY5c87YOONT0CMDT
+UnOwMJAkrFH6gLSp55FgmfoUy25tjMTfGhTgY11G4SDuOCNP9pjGWWn023BA6M9J
+xxYBV+lZ1yGxB7hZ9+HweFdVarnIc22la1VQe3b6ascBs5P1kBnszpXV96wacaJu
+HZeKWklr6Dzw43L/kroyyLgwJVR7qqX0ALX8SDF2Lr27/wU74Nd6NER5rdohsujg
+t34RoK41pSChPQBCkr45s3zG60yJMnNeACLhra82NJ8UR3yNJFsQVHLLYMfEb5As
+AqGZPHF8fBwOr5jHQYLGTbJ2lFl2O5ayoqTahlIhsTZF8dTTPvzBB/kJgwE8iUi2
+W9M1Mb61/QBF+elpaKj3LjsEcLanRBRV/GTby8YxQRRpbqTJsPBYEwE3BeAarCen
+SsOn7td+3tHR3JYPlrv/f7tikA3yC+2nXbV7EUKEO9aS9QlDS2O8DjhoyY4AceuX
+GWH8Wg43JjjBnRMyYWvohSJUd5vusXddYnH875Hvo2LHOAh5Og+fFMwAOMTFIEO2
+vODQ27m94f8AW0FgjClPlvCEZV8+dh7jVfr2IIOsJPApUA8T0K3p+lriqKyPkd9D
+hwX0GsPTtONvs0cWoWLLruXU6IBncpK+C0gjcEzLfuz1bQQSorKBlCh274yhOmr+
+/2iGohbw3VHLzBUAodTo
+=NFj4
+-----END PGP SIGNATURE-----
 
-Cheers,
-
-Joel
+--=-yDiD1tM5AlF6LP9MrGKu--
