@@ -1,78 +1,74 @@
-Return-Path: <Michael.E.Brown@dell.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.94; helo=esa3.dell-outbound.iphmx.com;
- envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="PBDawBm3"; 
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kFVIbpOd"; 
  dkim-atps=neutral
-Received: from esa3.dell-outbound.iphmx.com (esa3.dell-outbound.iphmx.com
- [68.232.153.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHHxn68HczF0Tt
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 18:46:20 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1515656416; x=1547192416;
- h=from:to:subject:date:message-id:mime-version;
- bh=8DapNg6RtpUir7nD1gtpEF3rxiUCqTB2IkcN79jGkXQ=;
- b=PBDawBm39j9FvvkpesGWBs1vE9KtT9T6y632jjKWJEkWm4ebqYb6FFRC
- 4oHmLt/idPEcq48RcTAtc/laey2Yoia+4kb9CgNoidqjPV4KRC8jJDY3B
- 03QTYFCxreEBSzIaVBfeik+oLb0GMcLM+1FlJpfl8V9Sz3PUVrW6Lk+Xf Y=;
-IronPort-PHdr: =?us-ascii?q?9a23=3AqpA9PxaNHbsSbc6lDyCVMXD/LSx+4OfEezUN459i?=
- =?us-ascii?q?sYplN5qZr8i5bnLW6fgltlLVR4KTs6sC17KP9fi4EUU7or+5+EgYd5JNUxJXwe?=
- =?us-ascii?q?43pCcHRPC/NEvgMfTxZDY7FskRHHVs/nW8LFQHUJ2mPw6arXK99yMdFQviPgRp?=
- =?us-ascii?q?OOv1BpTSj8Oq3Oyu5pHfeQpFiCagbb9oMBm6sRjau9ULj4dlNqs/0AbCrGFSe+?=
- =?us-ascii?q?RRy2NoJFaTkAj568yt4pNt8Dletuw4+cJYXqr0Y6o3TbpDDDQ7KG81/9HktQPC?=
- =?us-ascii?q?TQSU+HQRVHgdnwdSDAjE6BH6WYrxsjf/u+Fg1iSWIdH6QLYpUjmk8qxlSgLniD?=
- =?us-ascii?q?0fOjA57m/Zl9BwgqxYrhKguxNwzJXZb5uJOPdkZK7RYc8WSXdHU81MVyJBGIS8?=
- =?us-ascii?q?b44XAucGOuhYrpXyp1sUohSgAQmgHuzhxiVVi3/s2q073eIhHBrb0wM+G9IOtG?=
- =?us-ascii?q?7Yo8nyNKcXSO24yrTDwzvEb/NTwzj96Y7Ifwghof6WW7JwatTeyU83FwzflFWQ?=
- =?us-ascii?q?tYrlMC2P1uQWs2ib7vJgWfizhG4grgF8pCWkyMQ0ioTRh48YyUrI+Tt3zYorP9?=
- =?us-ascii?q?G0VU52bNC+HJdOqy2WKpN6Tt4+T21ypSo3yL8LtYS/cSQW0pgqxh3SZ+Saf4WH?=
- =?us-ascii?q?7B/vTvudLDZ5iX5/e7+yhwy+/VWgx+D9UMS/zUxEoTBfktbWs3AAzxnT6s+aRf?=
- =?us-ascii?q?Rj5kqhwjOP1xzL6uFDPEA0ibLXK54/zb40kZoeqVrMHjTsl0nrlqOZa1sr+uys?=
- =?us-ascii?q?6+j+ZbXmu4OcOJRzigHjNKQhh9KzDf45MggWX2ib/Ou92Kf/8k3+RbVGlvw2kq?=
- =?us-ascii?q?/Hv5DGPckWp620DxVL3ost9RqzFSqq3dQWkHUdMl5JZA+Lg5DsO17UIfD4Cfm/?=
- =?us-ascii?q?g06rkDdu3/3IObzhDYnNLnfZjrjheaxx5UFGxAcu19Bf4JxVCrcaLf3uREDxsN?=
- =?us-ascii?q?jYAgUlPAyzxubrEM992Z8GWWKTHq+ZN7vfsViQ5u0xJemDf4oVtyrmJvgh5v7u?=
- =?us-ascii?q?lmM5mUQHcamu3JoXbGq3Ee99I0mDZnrsmNgBQi82uV9qS/TnjleHWhZXZm2uRO?=
- =?us-ascii?q?Q79DUyApngCp3MENODmruEiXOeH5ZWb21CTH3KO23vaIOsV/oIbGSZJco3wW9M?=
- =?us-ascii?q?bqSoV4J0jULmjwT90bcyduc=3D?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EyAgDSFVdah8mZ6EReHAEBAQQBAQoBA?=
- =?us-ascii?q?YJKgU0QdC6GWZYzhlIBAopzh2qCFgoliV9BFgEBAQEBAQEBAQECEAEBAQgNCQg?=
- =?us-ascii?q?oL4I4IoE0LAhIAYErAQwBHDRKBIliZBCyToprBYQrghWMXIIODIMWBY9ggxSQc?=
- =?us-ascii?q?AqIAY08lA6NPYVvg3iBPCYJgWYMCG+CfYIDAQEIAQEBAVKBc4tBgRcBAQE?=
-X-IPAS-Result: =?us-ascii?q?A2EyAgDSFVdah8mZ6EReHAEBAQQBAQoBAYJKgU0QdC6GWZY?=
- =?us-ascii?q?zhlIBAopzh2qCFgoliV9BFgEBAQEBAQEBAQECEAEBAQgNCQgoL4I4IoE0LAhIA?=
- =?us-ascii?q?YErAQwBHDRKBIliZBCyToprBYQrghWMXIIODIMWBY9ggxSQcAqIAY08lA6NPYV?=
- =?us-ascii?q?vg3iBPCYJgWYMCG+CfYIDAQEIAQEBAVKBc4tBgRcBAQE?=
-Received: from esa1.dell-outbound2.iphmx.com ([68.232.153.201])
- by esa3.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2018 01:40:11 -0600
-From: <Michael.E.Brown@dell.com>
-Received: from ausxippc106.us.dell.com ([143.166.85.156])
- by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2018 13:40:08 +0600
-X-LoopCount0: from 10.166.136.210
-X-IronPort-AV: E=Sophos;i="5.46,343,1511848800"; 
- d="scan'208,217";a="198440601"
-X-DLP: DLP_GlobalPCIDSS
-To: <openbmc@lists.ozlabs.org>
-Subject: CLA discussion - James Bottomley's blog post today
-Thread-Topic: CLA discussion - James Bottomley's blog post today
-Thread-Index: AQHTiq+lhqquR4jr/Uy5Qdn9iWMPNQ==
-Date: Thu, 11 Jan 2018 07:46:15 +0000
-Message-ID: <1515656775418.74165@Dell.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.177.90.68]
-Content-Type: multipart/alternative; boundary="_000_151565677541874165Dellcom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHJvD1BtWzF0Y7
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 19:29:12 +1100 (AEDT)
+Received: by mail-qt0-x243.google.com with SMTP id r39so855399qtr.13
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 00:29:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=gu1t0+acRS19wd5UYBsZCe1iCQeN18m1QSakVo6nCvg=;
+ b=kFVIbpOd4HfVAVft6ewjHChz1H2C6ge7kIkdv/BTT8CbIWLzj02U/NN9paxNWILtRF
+ wCd9clZ6ctViEhITMMV5Ezceqve+QRH8r7IDBtnjggLM3M5ui5HdI99ipUA3pHYprue2
+ 9FWDp0/iM3wlL00EqXfiiUM+4+RwGbIL1sWL3NT4DTLBh5HBjCwVEaFYxnkhE+Hxxfuv
+ FldvnCVxnEbctBgw4Tx1YGQV4HZTuSElA0Z4t6H6ct95MtMOXOm0w5u9ow0ofV4Yt8LL
+ Lei5nvzPe6F3ASXwzCqPGvQzkwTugj9jaK1RsI2UsJjeSwoED1uj9ybwn5cFjG2wQKSV
+ yvSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=gu1t0+acRS19wd5UYBsZCe1iCQeN18m1QSakVo6nCvg=;
+ b=of2zkSofnYLV01Uufc4INu4C8WVs6MxQlCPnoE1Srh7QZtSP7KcaG32ttKJx3VuKnw
+ Co2c8T7j7h+bCiipwcnZ7zjymlCrUe8wo8bWTI+RZq0fIqII0RrYP7HLSGZY8ICZfOow
+ g5IfLK2xdeLmvLZtniZ0A7vhH9/mBlxJbouljh2ldPbKwbXF38cnc2CGin3Dam+KaFz8
+ Mhf5p6K29VPNT3Y8gq7h6VidOrj7w6y+/Q9toHFSAYdgCWoa78Z/Sj6RrXBr9ly6fxhZ
+ V/9BmAxn1B2s5gWhaB0u7/x389BePThBHGDxOeLMD4Cp4TP+WBtRieJWaRb4d3iw+6V/
+ bS4w==
+X-Gm-Message-State: AKwxytehtCOeEEOkhBsXeEoCjC3GkPanVGtLPhTNSGU2ReNsctiu/krx
+ 6XzGAaXY4E6SqTnoV8/wfVJL7iHmYiOZVptdtqE=
+X-Google-Smtp-Source: ACJfBosFTdIDBOhXNfvstzm7gjUzpvoTNf9qto2iQoOlB7T3E4qkv0TZpwlEFWrmHXCIJbZgI0zyfbMhEkO0KSoDl3o=
+X-Received: by 10.237.43.229 with SMTP id e92mr32741520qtd.178.1515659349213; 
+ Thu, 11 Jan 2018 00:29:09 -0800 (PST)
 MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.29.9 with HTTP; Thu, 11 Jan 2018 00:28:48 -0800 (PST)
+In-Reply-To: <20180111073038.GA3600@kroah.com>
+References: <20180109223126.13093-1-jae.hyun.yoo@linux.intel.com>
+ <20180110101755.GA5822@kroah.com>
+ <006c4a95-9299-bd17-6dec-52578e8461ae@linux.intel.com>
+ <20180110191703.GA20248@kroah.com>
+ <8997e43c-683e-418d-4e2b-1fe3fefe254e@linux.intel.com>
+ <20180110202740.GA27703@kroah.com>
+ <e81095ff-d491-9977-25e6-7ba6d28d5e72@linux.intel.com>
+ <20180111073038.GA3600@kroah.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 11 Jan 2018 00:28:48 -0800
+X-Google-Sender-Auth: QacoDSvAINX7d9p270QmCHn03HQ
+Message-ID: <CACPK8Xe9Jti8S2px=QOcSMA2v+TZ4eGDGQND4qmBUBXeBpsBZQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 0/6] Add support PECI and PECI hwmon drivers
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ Andrew Jeffery <andrew@aj.id.au>, 
+ Arnd Bergmann <arnd@arndb.de>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, 
+ devicetree <devicetree@vger.kernel.org>, linux-hwmon@vger.kernel.org, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Jae Hyun Yoo <jae.hyun.yoo@intel.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, Jeremy Kerr <jk@ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -84,71 +80,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 07:46:23 -0000
+X-List-Received-Date: Thu, 11 Jan 2018 08:29:12 -0000
 
---_000_151565677541874165Dellcom_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On Wed, Jan 10, 2018 at 11:30 PM, Greg KH <gregkh@linuxfoundation.org> wrote:
+> On Wed, Jan 10, 2018 at 01:46:34PM -0800, Jae Hyun Yoo wrote:
+>> Thanks for your pointing it out and I totally agree with you. Actually, we
+>> are preparing 4.13 update for now and an another update will be followed up.
+>> As I answered above, I'll rebase this patch set onto the latest kernel.org
+>> mainline. Sorry for my misunderstanding of upstream process.
+>
+> 4.13?  Why that kernel?  It too is obsolete and insecure and
+> unsupported.
 
-https://blog.hansenpartnership.com/gpl-as-the-best-licence-governance-and-p=
-hilosophy/
+It contains support for our hardware that I have integrated from work
+in progress patches and upstream commits.
 
+The OpenBMC project, with myself as the kernel maintainer, have
+intentions to regularly move to upstream releases. This takes time and
+effort. This time and effort is balanced with submitting our drivers
+upstream.
 
-A very timely article from James Bottomley!? He addresses CLAs and provides=
- a very compelling argument against them, rooted in equity.
+> What keeps you all from just always tracking the latest tree from Linus?
 
-"Further, the IP rights tend to be a focus for corporations, so simply join=
-ing the controlling entity (or taking a licence from it) instead of actuall=
-y contributing to the project can become an end goal, thus weakening the te=
-chnical contributions to the project and breaking the link with end users."
+Linus' tree does not contain all of the drivers required to boot
+systems. Many of them are still under review on lkml, and others still
+require rewrite from the vendor tree.
 
+> What is in your tree that is not upstream that requires you to have a
+> kernel tree at all?
 
-Is there a danger of this happening on this project?
+We have PECI, video compression, crypto, USB CDC, DRM (graphics),
+serial GPIO, LPC mailbox for the ASPEED SoC.
 
---
+Another silicon vendor has recently joined the project and that brings
+an entire SoC that is not upstream. We have patches on the ARM that
+are under review for this SoC, with more drivers undergoing cleanup in
+order to submit them to the relevant maintainers.
 
-Michael
+>
+> And if you do have out-of-tree code, why not use a process that makes it
+> trivial to update the base kernel version so that you can keep up to
+> date very easily?  (hint, just using 'git' is not a good way to do
+> this...)
 
---_000_151565677541874165Dellcom_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+We have a process that we've been developing under for the past few
+years. I find git to be a great tool for managing Linux kernel trees.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none"><!-- p { margin-top: 0px; m=
-argin-bottom: 0px; }--></style>
-</head>
-<body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
-FFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p><a href=3D"https://blog.hansenpartnership.com/gpl-as-the-best-licence-go=
-vernance-and-philosophy/">https://blog.hansenpartnership.com/gpl-as-the-bes=
-t-licence-governance-and-philosophy/</a><br>
-</p>
-<p><br>
-</p>
-<p>A very timely article from James Bottomley!&#8203; He addresses CLAs and=
- provides a very compelling&nbsp;argument against them, rooted&nbsp;in equi=
-ty.<br>
-<br>
-&quot;<span style=3D"color: rgb(68, 68, 68); font-family: &quot;Open Sans&q=
-uot;, Helvetica, Arial, sans-serif; font-size: 14px; background-color: rgb(=
-255, 255, 255);">Further, the IP rights tend to be a focus for corporations=
-, so simply joining the controlling entity (or taking
- a licence from it) instead of actually contributing to the project can bec=
-ome an end goal, thus weakening the technical contributions to the project =
-and breaking the link with end users.</span>&quot;<br>
-</p>
-<p><br>
-</p>
-<p>Is there a danger of this happening on this project?<br>
-</p>
-<p>--<br>
-</p>
-<p>Michael<br>
-</p>
-</body>
-</html>
+What would you recommend for managing kernel trees?
 
---_000_151565677541874165Dellcom_--
+Cheers,
+
+Joel
