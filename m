@@ -1,51 +1,32 @@
-Return-Path: <geissonator@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::235; helo=mail-it0-x235.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lMheiNoa"; 
- dkim-atps=neutral
-Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
- [IPv6:2607:f8b0:4001:c0b::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zJ8Hp2N4BzF0Xx
- for <openbmc@lists.ozlabs.org>; Sat, 13 Jan 2018 04:04:53 +1100 (AEDT)
-Received: by mail-it0-x235.google.com with SMTP id c102so2286496itd.0
- for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 09:04:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=w7kgGakyfKAoqAhhOiDrhoqeZn9LllQJDOHCxfe3hrA=;
- b=lMheiNoaSyiv8/I4oiUL77jSImcZDLGXxjP1Dq/haAJiM34SkxF3NjKCc26oGyKEVj
- domOxnSz+xy2XD5SeU270e3AadyF+/BpDnXXKvzuKofraDg/FBlWIr9pZgTaz8UBjFbm
- SWt0F08Aa43SMhlaQvKanrxmYbJSgvzzudDSJLB4QNhehdW0KoErrTgrkKcQnnTkpzwp
- aVfSFuTm7UbN7Jh9KksEAuZyX2n3S+iLQgJSTUtLK5C4pzsf7V1oofrntnhiUa2xGVlq
- MdyhlzgSNXJaQNEzP3VLAbcsGwL8qlYokPZVi5p0ST67FNV0Yg04sNwrO+YzRBAhN4so
- Nccw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=w7kgGakyfKAoqAhhOiDrhoqeZn9LllQJDOHCxfe3hrA=;
- b=sJ21ic67gGIdlAMhJuwDS5Wuvjj9z7pyLrZzbFkrn3GWWXrEtS2AmOhja/3xkS127Q
- Xmx9G647GbiY8vaefGdwZzQ4ihhd7Ijss+9NMqptyHOLUf7ILGzwjzlzVa7gnqlhdHCV
- dspTl6YHm0tMXPBXPX4nniJAvFMxApqy+gUloWeVe3PBC+r64RxUzeGmOq43Kziiv2jX
- mZx9zeMEAXjPXVrkBn5fNTcM+Y2fRxIkxjV3dQSQFPkBAG2HtS+Bk78p1tphR8QSOYJP
- yrkax8mRfkLVVR7pFmhrhIqEJ4ZNoxbfL4atAo+xzQeqO8/c+qfFVB46ZDBN0m/ZIupa
- kGcQ==
-X-Gm-Message-State: AKwxytekDtQrVmA2WDXDgCnVgJiz7GBR9/6rqmL7qPNLvJi0AC6Tigyd
- c+rnagV0x9+int/KjIdeeHBBSGVyD3gDOmz8m3c=
-X-Google-Smtp-Source: ACJfBouhy8uUs/8b5WhSKN6YnCynBJAKfOYi/GkeWvHI32xARCEMCSf3jwERnGBMRvqdVHzUpY4FfG0uxbRYQqXlJVM=
-X-Received: by 10.36.124.18 with SMTP id a18mr5759991itd.47.1515776691710;
- Fri, 12 Jan 2018 09:04:51 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.160.145 with HTTP; Fri, 12 Jan 2018 09:04:49 -0800 (PST)
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Fri, 12 Jan 2018 09:04:49 -0800
-Message-ID: <CALLMt=oxScYiG4J-Ms367nqtv_cdZURoiCsa2jz9LH6=n2fRVA@mail.gmail.com>
-Subject: openbmc coding standards validation in CI
-To: ed.tanous@intel.com, Adriana Kobylak <anoo@linux.vnet.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Return-Path: <oleksandrs@mellanox.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3zJ8NB2lpFzF0Z9
+ for <openbmc@lists.ozlabs.org>; Sat, 13 Jan 2018 04:08:41 +1100 (AEDT)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 12 Jan 2018 19:08:33 +0200
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w0CH8WDx032197;
+ Fri, 12 Jan 2018 19:08:33 +0200
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v16 4/4] Documentation: jtag: Add ABI documentation
+Date: Fri, 12 Jan 2018 19:08:29 +0200
+Message-Id: <1515776909-29894-5-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
+In-Reply-To: <1515776909-29894-1-git-send-email-oleksandrs@mellanox.com>
+References: <1515776909-29894-1-git-send-email-oleksandrs@mellanox.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -57,39 +38,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Jan 2018 17:04:55 -0000
+X-List-Received-Date: Fri, 12 Jan 2018 17:08:43 -0000
 
-During the hackathon meetup, we decided to try and get something in
-our CI jobs that would validate the code formatting and automatically
--1 the gerrit commit if it's not up to par.  The reasoning behind this
-is we still have a lot of code review comments coming in this area,
-which is wasteful for the reviewers.
+Added document that describe the ABI for JTAG class drivrer
 
-Ed, Adriana, and I all worked different pieces of it.  We're using the
-clang-format tool to format (and then validate the format).  The idea
-is you do the initial run of the tool against your repo and check the
-.clang-format file in with your changes.  The presence of the file
-will cause the CI job to validate the code formatting.  After the
-.clang-format is merged, CI jobs will fail if the new code doesn't
-follow the standard.  The CI jenkins job will output the diff of the
-code that is not conforming to the console.
+Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+---
+v15->v16
+v14->v15
+v13->v14
+v12->v13
+v11->v12
+Tobias Klauser <tklauser@distanz.ch>
+- rename /Documentation/ABI/testing/jatg-dev -> jtag-dev
+- Typo: s/interfase/interface
+v10->v11
+v9->v10
+Fixes added by Oleksandr:
+- change jtag-cdev to jtag-dev in documentation
+- update Kernel Version and Date in jtag-dev documentation;
+v8->v9
+v7->v8
+v6->v7
+Comments pointed by Pavel Machek <pavel@ucw.cz>
+- Added jtag-cdev documentation to Documentation/ABI/testing folder
+---
+ Documentation/ABI/testing/jtag-dev |   27 +++++++++++++++++++++++++++
+ 1 files changed, 27 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jtag-dev
 
-We've tried our best to get the .clang-format file to match up with
-our requirements in
-https://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md.
-
-The .clang-format file and the changes it did to the sdbusplus repo
-can be found in https://gerrit.openbmc-project.xyz/#/c/8461/.  Review
-comments appreciated.
-
-We've also got a similar commit coming that will validate python code.
-That uses the new "pycodestyle --show-source ." tool and will be
-triggered off of the presence of a setup.cfg file in the repo
-(https://gerrit.openbmc-project.xyz/#/c/8462/).
-
-Coding guidelines are always ... heated discussions ... so I think
-there's some room for individual repo maintainers to tweak the
-.clang-format a bit if needed.  In general we should all be conforming
-to our cpp-style-and-conventions.md.
-
-Andrew
+diff --git a/Documentation/ABI/testing/jtag-dev b/Documentation/ABI/testing/jtag-dev
+new file mode 100644
+index 0000000..cea9552
+--- /dev/null
++++ b/Documentation/ABI/testing/jtag-dev
+@@ -0,0 +1,27 @@
++What:		/dev/jtag[0-9]+
++Date:		October 2017
++KernelVersion:	4.17
++Contact:	oleksandrs@mellanox.com
++Description:
++		The misc device files /dev/jtag* are the interface
++		between JTAG master interface and userspace.
++
++		The ioctl(2)-based ABI is defined and documented in
++		[include/uapi]<linux/jtag.h>.
++
++		The following file operations are supported:
++
++		open(2)
++		The argument flag currently support only one access
++		mode O_RDWR.
++
++		ioctl(2)
++		Initiate various actions.
++		See the inline documentation in [include/uapi]<linux/jtag.h>
++		for descriptions of all ioctls.
++
++		close(2)
++		Stops and free up the I/O contexts that was associated
++		with the file descriptor.
++
++Users:		TBD
+\ No newline at end of file
+-- 
+1.7.1
