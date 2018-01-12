@@ -1,70 +1,47 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="LVfNCF2f"; 
- dkim-atps=neutral
-Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
- [IPv6:2607:f8b0:400d:c0d::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <jae.hyun.yoo@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zHjRS2XTzzF0bP
- for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 10:54:59 +1100 (AEDT)
-Received: by mail-qt0-x242.google.com with SMTP id k19so4075907qtj.6
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jan 2018 15:54:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=Chzl9jKrPKqOvgErhiuOaAlUghIKCbqkW5+dzahXKTA=;
- b=LVfNCF2fvhQUKagLQ81NJwuXIp0U4gfZP/7jqipwN8HVU89ayd7dVcFFFUeyWnAgKk
- a26NswLehX7+oz+NWCkxzg91Q8v0PyJYC2OvPNZOExG+2O2MoNG7FcbLEGJcy6F3ElzW
- 2R/cEDFVrFQhhXQG8knHpMq3A7ZZleqVaF/1treXpyRY9z9ItV41aBjFEMj93+PwPr0W
- 7XQWir1oxtsBReIAAX82+SD4NC0Ng0wiaAvsCWF1T5mCh/fItaZFiZLNjheeEW2s1wtZ
- eIBXS2miEZXC7w/kp17X7roGREbDqtY+Nc5H6Oz5ly4vvWLnzTy4XyqlQt0i26hVXrKt
- M1KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=Chzl9jKrPKqOvgErhiuOaAlUghIKCbqkW5+dzahXKTA=;
- b=LP+0cteZWbO9rmxUhCepCMU5v1SI5NiJh1UCWSVhSiLO/UvMEaS1qEkty4a4RaE2wn
- carL+yzhYQhahW/E4j/GKzkEeBWC8G4lMmZtMZ4ldTks/iM1IXTbhOigAJ+7/BHaZ5hx
- N65DMJJblCdXdxipYvlHE6UgnVbngpC2gcp5QLkWAuX8oaPmrvErloL1yCbDRWY7raOg
- TfXAFx/N0hD3nBtpZHb366y/HnSOU5R+cEjfUt9t0MGwCW6SVlHyg75OkMhZ4nOEJSsI
- QuFlA75twHrt66yD9Pkh0orHrzuTEwyUFvLkyn+ti0Upe7bd+cKaC8jlypw0GVgxHMc+
- 4xAw==
-X-Gm-Message-State: AKwxytfMuZMI+sAdRW9mry9qSa1N85Yyv8ii+bN0VBC7Vp7o6KJYG+Cn
- AXOqaVfIhHPjZW38xtIM2pUkB5KeTr3K8++7bcA=
-X-Google-Smtp-Source: ACJfBov0ejvxNcPSriHwz3HGvscrhThIsbuGZIH/56fwR6r2GD3ZW2D+B48zr4PVdUcx0HgbLStXZFMKvO1YfdKhHBM=
-X-Received: by 10.237.50.166 with SMTP id z35mr11598871qtd.249.1515714897414; 
- Thu, 11 Jan 2018 15:54:57 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zHk7R0MkdzDqmt
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Jan 2018 11:26:09 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2018 16:26:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,346,1511856000"; d="scan'208";a="10594391"
+Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.7.153.149])
+ ([10.7.153.149])
+ by orsmga006.jf.intel.com with ESMTP; 11 Jan 2018 16:26:05 -0800
+Subject: Re: [linux, dev-4.10, 6/6] drivers/hwmon: Add a driver for a generic
+ PECI hwmon
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, jdelvare@suse.com, arnd@arndb.de,
+ linux-doc@vger.kernel.org, andrew@aj.id.au, gregkh@linuxfoundation.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joel@jms.id.au,
+ linux-arm-kernel@lists.infradead.org
+References: <20180109223126.13093-7-jae.hyun.yoo@linux.intel.com>
+ <20180110214747.GA25248@roeck-us.net>
+ <261ac28e-813c-a058-c81f-ad4e718d0233@linux.intel.com>
+ <20180111214035.GA14748@roeck-us.net> <20180111221845.GA9278@lunn.ch>
+ <463412a8-ad34-264d-0f44-bd383f100b44@linux.intel.com>
+ <20180111235346.GA13443@lunn.ch>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <4bf64613-890f-c800-a065-bb070bcc5a37@linux.intel.com>
+Date: Thu, 11 Jan 2018 16:26:05 -0800
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.2
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.29.9 with HTTP; Thu, 11 Jan 2018 15:54:36 -0800 (PST)
-In-Reply-To: <CACPK8XfH-4r0mBQYA+BwvUo2+RF8igai2jy+RqTDQcxx2-acsQ@mail.gmail.com>
-References: <1514202808-29747-1-git-send-email-oleksandrs@mellanox.com>
- <1514202808-29747-4-git-send-email-oleksandrs@mellanox.com>
- <CACPK8XfH-4r0mBQYA+BwvUo2+RF8igai2jy+RqTDQcxx2-acsQ@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 11 Jan 2018 15:54:36 -0800
-X-Google-Sender-Auth: 61Yq5AIjBVL7YkgizB2b5ZHYMCY
-Message-ID: <CACPK8Xeb3K9PqynV2xymJwvhkZ9fLKsbodEFYiZtQ+SXXgGA5g@mail.gmail.com>
-Subject: Re: [patch v15 3/4] Documentation: jtag: Add bindings for Aspeed SoC
- 24xx and 25xx families JTAG master driver
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- devicetree <devicetree@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
- Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org, 
- Vadim Pasternak <vadimp@mellanox.com>, system-sw-low-level@mellanox.com, 
- Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
- linux-api@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
- mchehab@kernel.org, Jiri Pirko <jiri@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20180111235346.GA13443@lunn.ch>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -76,41 +53,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 23:55:01 -0000
+X-List-Received-Date: Fri, 12 Jan 2018 00:26:11 -0000
 
-On Thu, Jan 11, 2018 at 9:50 AM, Joel Stanley <joel@jms.id.au> wrote:
-> On Mon, Dec 25, 2017 at 3:53 AM, Oleksandr Shamray <oleksandrs@mellanox.com> wrote:
->> +jtag: jtag@1e6e4000 {
->> +       compatible = "aspeed,ast2500-jtag";
->> +       reg = <0x1e6e4000 0x1c>;
->> +       clocks = <&clk_apb>;
->
-> We've now got a proper clock driver upstream. Can you update the
-> example to match the newly added bindings?
->
->  clocks = <&syscon ASPEED_CLK_APB>;
->
+On 1/11/2018 3:53 PM, Andrew Lunn wrote:
+> On Thu, Jan 11, 2018 at 03:14:37PM -0800, Jae Hyun Yoo wrote:
+>> On 1/11/2018 2:18 PM, Andrew Lunn wrote:
+>>>>>>> +static const struct of_device_id peci_of_table[] = {
+>>>>>>> +	{ .compatible = "peci-hwmon", },
+>>>>>>
+>>>>>> This does not look like a reference to some piece of hardware.
+>>>>>>
+>>>>>
+>>>>> This driver provides generic PECI hwmon function to which controller has
+>>>>> PECI HW such as Aspeed or Nuvoton BMC chip so it's not dependant on a
+>>>>> specific hardware. Should I remove this or any suggestion?
+>>>
+>>> PECI seems to be an Intel thing. So at least it should be
+>>>
+>>>   { .compatible = "intel,peci-hwmon", }
+>>>
+>>> assuming it is actually compatible with the Intel specification.
+>>>
+>>> 	 Andrew
+>>>
+>>
+>> Yes, PECI is an Intel thing but this driver is running on an ARM kernel on
+>> Aspeed or Nuvoton chipsets for now. This driver will be monitoring a host
+>> server's Intel CPU and DIMM which is running on a separated OS.
+> 
+> Hi Jae
+> 
+> You need to be careful with the name then. You should not claim the
+> name 'peci' in case somebody actually implements a PECI driver which
+> is compatible with Intel PECI.
+> 
+> However, looking at other comments, it seems like this part is going
+> away, if you turn your code into a bus driver.
+> 
+>        Andrew
+> 
 
-I think we need to ensure the reset is deasserted as well. You will need:
+Hi Andrew,
 
- resets = <&syscon ASPEED_RESET_JTAG_MASTER>;
+I see. I'll keep that in mind and will keep finding if there is any 
+better way. Thanks for sharing your thought.
 
-In addition, we need to make sure the reset line is deasserted in the
-driver. Take a look at how I did this in the i2c driver:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=edd20e95bca4a5434f264d8ab40d729761479825
-
-+       bus->rst = devm_reset_control_get_shared(&pdev->dev, NULL);
-+       if (IS_ERR(bus->rst)) {
-+               dev_err(&pdev->dev,
-+                       "missing or invalid reset controller device
-tree entry");
-+               return PTR_ERR(bus->rst);
-+       }
-+       reset_control_deassert(bus->rst);
-
-Please give this a test with an upstream kernel from a fresh power on.
-
-Cheers,
-
-Joel
+Jae
