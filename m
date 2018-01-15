@@ -1,63 +1,80 @@
-Return-Path: <groeck7@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c01::242; helo=mail-pl0-x242.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WDfqvohh"; 
+Return-Path: <Balaji.B.Rao@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
+ envelope-from=balaji.b.rao@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="ljyjt9Fl"; 
  dkim-atps=neutral
-Received: from mail-pl0-x242.google.com (mail-pl0-x242.google.com
- [IPv6:2607:f8b0:400e:c01::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
+ [68.232.149.214])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zKsx43CbdzF0R3
- for <openbmc@lists.ozlabs.org>; Mon, 15 Jan 2018 23:24:39 +1100 (AEDT)
-Received: by mail-pl0-x242.google.com with SMTP id bd8so3629799plb.9
- for <openbmc@lists.ozlabs.org>; Mon, 15 Jan 2018 04:24:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=KRXvTW/DxIWEtu43JMfVrOOe38sz5dpJxeSVbavLGbo=;
- b=WDfqvohhrxqTPBW5J2Nq+/kT+5HRQKjaTtCj2hN6Vxh5DWp++ltlmv1JiikCl0TGA9
- Fiemg4nU+MQgGbf2lQNqhXNd8YT7Wqz7lCIm+k+aYlsmZ0oUJuCkT4QLquMDCpc6l5HY
- kv2wkhou2gjUFFWwqlwUbxymSV3gxVqEQw2shmGn6txxWYCkGcLUxTPVbFKy9RkIp6xD
- H5Hux2X/eeWRTG2xIkaFMZlQurgTGmpb0niaWnox5DuS752AOcisu/g94SUjrqKa+UOI
- 9gA1xtQht8MaImPSb9nJ6PzCuQs1BAxjYzBXo8x1KnyrjYTs7G1kMDsDHo4JvQzDPXJx
- 5YYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=KRXvTW/DxIWEtu43JMfVrOOe38sz5dpJxeSVbavLGbo=;
- b=ruo4zAqYIM6Hg2uvFDNOHnLXUlfPEGhEFjo96uUwNE51Q3Csx2okvg7yyvaJsG7AEx
- tV187Mk7/v3Mn0LRe6WqRVoPyA7ttnoBOO9jT7c0jM15PwiuPA2pnmdMdpsRYu/txgdL
- +TZBHG7cxP8svuFwzSiciHevpBMA83MKO4wOHdjqKdcUOUWRFeOkqjSG80CPaLnBtkC6
- mGyqewvPZ2wCg6PF1leyPm5ILi6oHtNl6+kxHKtMN6G5u4bzppFY2edyzl4Mj5rNZpRT
- 3Ym3q8RG8FdqMCVk/9PiMKV61nU+eNVqQIz0po1ETgxao7rSXqXXt5JNe/LR6ShY9c1h
- RE2w==
-X-Gm-Message-State: AKwxytcQZ4SdiAVpAOumZe+6sEtYMbjuYDFO8nVStyuHElmR52DdIFII
- KfZBp9VunfxTU2NJ6U+vork=
-X-Google-Smtp-Source: ACJfBov0xWfkgRqxdwoCvIZbMUOrrnI6SOaesSrrqOPe3LhELRiPKgDOxB0Xh9veTkEP3tgSYdd8eQ==
-X-Received: by 10.84.245.149 with SMTP id j21mr5898172pll.371.1516019077521;
- Mon, 15 Jan 2018 04:24:37 -0800 (PST)
-Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
- [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id x17sm13148912pge.50.2018.01.15.04.24.36
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 15 Jan 2018 04:24:36 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 15 Jan 2018 04:24:35 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
- linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: hwmon: (pmbus/ir35221) Remove unnecessary scaling
-Message-ID: <20180115122435.GA24640@roeck-us.net>
-References: <20180115055858.1188-1-sam@mendozajonas.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zKzzW0W7BzF0W0
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 03:57:09 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1516035431; x=1547571431;
+ h=from:to:subject:date:message-id:mime-version;
+ bh=OMZUUX0vf8xh6gri1VkeFpahMbNznfPrmOpdB7a5Bds=;
+ b=ljyjt9FlHGjIcksTIwZqu8zjNn9kTWCCQ3tMSY4tNPuaw9/6jzOw7vYl
+ ouTaNUz9bn+eQpz1AkSjJSe3NfUCrX2Uu2/ivGm/l+HIAg3XYkHDxIvCS
+ Aqf+PersZ59Z7f491hsTFFJX00NISIL9Gc5xY9bLiEgZnekcOx5RsV41J 8=;
+IronPort-PHdr: =?us-ascii?q?9a23=3A9eLQSBexIXnGA/IyrdO91l2BlGMj4u6mDksu8pMi?=
+ =?us-ascii?q?zoh2WeGdxcu8Yh7h7PlgxGXEQZ/co6odzbaO6ua4ASQp2tWoiDg6aptCVhsI24?=
+ =?us-ascii?q?09vjcLJ4q7M3D9N+PgdCcgHc5PBxdP9nC/NlVJSo6lPwWB6nK94iQPFRrhKAF7?=
+ =?us-ascii?q?Ovr6GpLIj8Swyuu+54Dfbx9HiTahfL9+Ngm6oRnMvcQKnIVuLbo8xAHUqXVSYe?=
+ =?us-ascii?q?RWwm1oJVOXnxni48q74YBu/SdNtf8/7sBMSar1cbg2QrxeFzQmLns65Nb3uhnZ?=
+ =?us-ascii?q?TAuA/WUTX2MLmRdVGQfF7RX6XpDssivms+d2xSeXMdHqQb0yRD+v6bpgRh31hy?=
+ =?us-ascii?q?cdLzM38H/ZhNFsjKxVoxyhpgBwzIHPbY6PKPZ+fLnQcc8GSWZfWMtaSixPApm7?=
+ =?us-ascii?q?b4sKF+cMOvtVoJP5p1QUrxu+BBOgCf71xjFUnHD22rY33Pk/HgHC2AwsBc4BsH?=
+ =?us-ascii?q?PRrNjsMqoZTOO7zLHQwDjCbP5awynx5YbWfhw7vP2BXb19fdDQxEQhDw/Jk0mc?=
+ =?us-ascii?q?pZb4Mz6a2OkBqXaX4uV+We61iWMqqxl9riWgy8oikIXFm4MYx1He+Sh6wIs5P8?=
+ =?us-ascii?q?O0RFJnbdOiDZBerTuVN5FsTcMnW2xovSE6xaAYtpOjZygKzYgnxwbYa/yab4iE?=
+ =?us-ascii?q?+hLjW/iVITd/nH9qZqm/iAy8/ES61+LzSM200FJToipCj9nMqmsC1xvO6siBV/?=
+ =?us-ascii?q?Rx4F2t2TeX1wDT7+FFLlo4mrbcK54k2rIwl5wTvlrfHiLumUj7j7Waelsq9+S2?=
+ =?us-ascii?q?8ejrf7Xrq5CGO4J1hAzyKqEulda+AeQ8PAgORW+b+eGk2bD+50L5RK9Fjv83kq?=
+ =?us-ascii?q?XDrZ3WP9gVqbS+AwJOz4ks9RK/DzO83NsEmnkHKUpJeAibgIjxJ1HOPPf4AO+4?=
+ =?us-ascii?q?g1S0jjhrwevJPrj9DZjWKnjDkazhfapm60JGzwoyzNRf6IhPBbEaOv7zXVXxtN?=
+ =?us-ascii?q?OLRiM+Zliz2+vhAtB2/ocfQn6URKiLNKrYqhmP/O15cMeWY4pA7Bz0L/En5rjE?=
+ =?us-ascii?q?y0UwnncRcK2tm5AQbSbrTbxdP0yFbC+00Z86GmAQs19mQQ=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GfAgBd3Fxahz+a6ERdHAEBAQQBAQoBA?=
+ =?us-ascii?q?YJKgU0QdC6dD4QCjUKKAAqKDkMUAQEBAQEBAQEBAQIQAQEBCgsJCCgvgjgigng?=
+ =?us-ascii?q?GXgE4bgEEG4lHZKwxOol8hlGMXoUuBYpNiU2PSgqBdZNDgiKGHYQVh0WXJYE8N?=
+ =?us-ascii?q?oFzb4J9ggMMRBAMgWeLXoEPgRcBAQE?=
+X-IPAS-Result: =?us-ascii?q?A2GfAgBd3Fxahz+a6ERdHAEBAQQBAQoBAYJKgU0QdC6dD4Q?=
+ =?us-ascii?q?CjUKKAAqKDkMUAQEBAQEBAQEBAQIQAQEBCgsJCCgvgjgigngGXgE4bgEEG4lHZ?=
+ =?us-ascii?q?KwxOol8hlGMXoUuBYpNiU2PSgqBdZNDgiKGHYQVh0WXJYE8NoFzb4J9ggMMRBA?=
+ =?us-ascii?q?MgWeLXoEPgRcBAQE?=
+Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
+ by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2018 10:57:06 -0600
+From: <Balaji.B.Rao@dell.com>
+Received: from ausxippc110.us.dell.com ([143.166.85.200])
+ by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2018 22:48:40 +0600
+X-LoopCount0: from 10.166.132.49
+X-IronPort-AV: E=Sophos;i="5.46,364,1511848800"; 
+ d="scan'208,217";a="602907037"
+X-DLP: DLP_GlobalPCIDSS
+To: <openbmc@lists.ozlabs.org>
+Subject: Issue with flash space overflow? Maybe?
+Thread-Topic: Issue with flash space overflow? Maybe?
+Thread-Index: AdOOIcqPo13oWnLsTT+kI7Q9rwqDBQ==
+Date: Mon, 15 Jan 2018 16:57:05 +0000
+Message-ID: <703062ea845f4553be9065a2d5b6eb61@ausx13mpc109.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titusconfig: No Restrictions 04051212
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiJhZTFmOTM2ZC1lNWJlLTQyYWMtOGE4MC03MWQyZTY3MWY3NzkiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6Imp2aHVlYm1MM3BoMXZjdjQ0WGxpcVRvXC85bVhmb0EwQVlTWnRRenI0dDU4PSJ9
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: multipart/alternative;
+ boundary="_000_703062ea845f4553be9065a2d5b6eb61ausx13mpc109AMERDELLCOM_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180115055858.1188-1-sam@mendozajonas.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Mailman-Approved-At: Tue, 16 Jan 2018 06:16:44 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -69,265 +86,268 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Jan 2018 12:24:42 -0000
+X-List-Received-Date: Mon, 15 Jan 2018 16:57:12 -0000
 
-On Mon, Jan 15, 2018 at 04:58:58PM +1100, Samuel Mendoza-Jonas wrote:
-> The ir35221 datasheet describes specific scaling factors for a number of
-> commands which the current driver applies when reading.
-> However now that the ir35221 has been tested on machines with more
-> easily verifiable readings these descriptions have turned out to be
-> superfluous and reading each command according to the linear format is
-> sufficient.
-> 
-> Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+--_000_703062ea845f4553be9065a2d5b6eb61ausx13mpc109AMERDELLCOM_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Applied to hwmon-next.
+On Palmetto, when I flash a build, I get this error. Netboot from the same =
+image works, however when I flash by copying the static.mtd image, I see th=
+is issue. I'm trying to add a bunch of python packages to the build. Could =
+it be a flash space issue? Please advise if anybody has any thoughts on thi=
+s and how this can be overcome?
 
-Thanks,
-Guenter
+Thanks
+Balaji
 
-> ---
->  drivers/hwmon/pmbus/ir35221.c | 189 ------------------------------------------
->  1 file changed, 189 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/ir35221.c b/drivers/hwmon/pmbus/ir35221.c
-> index 8b906b44484b..977315b0fd90 100644
-> --- a/drivers/hwmon/pmbus/ir35221.c
-> +++ b/drivers/hwmon/pmbus/ir35221.c
-> @@ -25,168 +25,19 @@
->  #define IR35221_MFR_IOUT_VALLEY		0xcb
->  #define IR35221_MFR_TEMP_VALLEY		0xcc
->  
-> -static long ir35221_reg2data(int data, enum pmbus_sensor_classes class)
-> -{
-> -	s16 exponent;
-> -	s32 mantissa;
-> -	long val;
-> -
-> -	/* We only modify LINEAR11 formats */
-> -	exponent = ((s16)data) >> 11;
-> -	mantissa = ((s16)((data & 0x7ff) << 5)) >> 5;
-> -
-> -	val = mantissa * 1000L;
-> -
-> -	/* scale result to micro-units for power sensors */
-> -	if (class == PSC_POWER)
-> -		val = val * 1000L;
-> -
-> -	if (exponent >= 0)
-> -		val <<= exponent;
-> -	else
-> -		val >>= -exponent;
-> -
-> -	return val;
-> -}
-> -
-> -#define MAX_MANTISSA	(1023 * 1000)
-> -#define MIN_MANTISSA	(511 * 1000)
-> -
-> -static u16 ir35221_data2reg(long val, enum pmbus_sensor_classes class)
-> -{
-> -	s16 exponent = 0, mantissa;
-> -	bool negative = false;
-> -
-> -	if (val == 0)
-> -		return 0;
-> -
-> -	if (val < 0) {
-> -		negative = true;
-> -		val = -val;
-> -	}
-> -
-> -	/* Power is in uW. Convert to mW before converting. */
-> -	if (class == PSC_POWER)
-> -		val = DIV_ROUND_CLOSEST(val, 1000L);
-> -
-> -	/* Reduce large mantissa until it fits into 10 bit */
-> -	while (val >= MAX_MANTISSA && exponent < 15) {
-> -		exponent++;
-> -		val >>= 1;
-> -	}
-> -	/* Increase small mantissa to improve precision */
-> -	while (val < MIN_MANTISSA && exponent > -15) {
-> -		exponent--;
-> -		val <<= 1;
-> -	}
-> -
-> -	/* Convert mantissa from milli-units to units */
-> -	mantissa = DIV_ROUND_CLOSEST(val, 1000);
-> -
-> -	/* Ensure that resulting number is within range */
-> -	if (mantissa > 0x3ff)
-> -		mantissa = 0x3ff;
-> -
-> -	/* restore sign */
-> -	if (negative)
-> -		mantissa = -mantissa;
-> -
-> -	/* Convert to 5 bit exponent, 11 bit mantissa */
-> -	return (mantissa & 0x7ff) | ((exponent << 11) & 0xf800);
-> -}
-> -
-> -static u16 ir35221_scale_result(s16 data, int shift,
-> -				enum pmbus_sensor_classes class)
-> -{
-> -	long val;
-> -
-> -	val = ir35221_reg2data(data, class);
-> -
-> -	if (shift < 0)
-> -		val >>= -shift;
-> -	else
-> -		val <<= shift;
-> -
-> -	return ir35221_data2reg(val, class);
-> -}
-> -
->  static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
->  {
->  	int ret;
->  
->  	switch (reg) {
-> -	case PMBUS_IOUT_OC_FAULT_LIMIT:
-> -	case PMBUS_IOUT_OC_WARN_LIMIT:
-> -		ret = pmbus_read_word_data(client, page, reg);
-> -		if (ret < 0)
-> -			break;
-> -		ret = ir35221_scale_result(ret, 1, PSC_CURRENT_OUT);
-> -		break;
-> -	case PMBUS_VIN_OV_FAULT_LIMIT:
-> -	case PMBUS_VIN_OV_WARN_LIMIT:
-> -	case PMBUS_VIN_UV_WARN_LIMIT:
-> -		ret = pmbus_read_word_data(client, page, reg);
-> -		ret = ir35221_scale_result(ret, -4, PSC_VOLTAGE_IN);
-> -		break;
-> -	case PMBUS_IIN_OC_WARN_LIMIT:
-> -		ret = pmbus_read_word_data(client, page, reg);
-> -		if (ret < 0)
-> -			break;
-> -		ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
-> -		break;
-> -	case PMBUS_READ_VIN:
-> -		ret = pmbus_read_word_data(client, page, PMBUS_READ_VIN);
-> -		if (ret < 0)
-> -			break;
-> -		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
-> -		break;
-> -	case PMBUS_READ_IIN:
-> -		ret = pmbus_read_word_data(client, page, PMBUS_READ_IIN);
-> -		if (ret < 0)
-> -			break;
-> -		if (page == 0)
-> -			ret = ir35221_scale_result(ret, -4, PSC_CURRENT_IN);
-> -		else
-> -			ret = ir35221_scale_result(ret, -5, PSC_CURRENT_IN);
-> -		break;
-> -	case PMBUS_READ_POUT:
-> -		ret = pmbus_read_word_data(client, page, PMBUS_READ_POUT);
-> -		if (ret < 0)
-> -			break;
-> -		ret = ir35221_scale_result(ret, -1, PSC_POWER);
-> -		break;
-> -	case PMBUS_READ_PIN:
-> -		ret = pmbus_read_word_data(client, page, PMBUS_READ_PIN);
-> -		if (ret < 0)
-> -			break;
-> -		ret = ir35221_scale_result(ret, -1, PSC_POWER);
-> -		break;
-> -	case PMBUS_READ_IOUT:
-> -		ret = pmbus_read_word_data(client, page, PMBUS_READ_IOUT);
-> -		if (ret < 0)
-> -			break;
-> -		if (page == 0)
-> -			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_OUT);
-> -		else
-> -			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_OUT);
-> -		break;
->  	case PMBUS_VIRT_READ_VIN_MAX:
->  		ret = pmbus_read_word_data(client, page, IR35221_MFR_VIN_PEAK);
-> -		if (ret < 0)
-> -			break;
-> -		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
->  		break;
->  	case PMBUS_VIRT_READ_VOUT_MAX:
->  		ret = pmbus_read_word_data(client, page, IR35221_MFR_VOUT_PEAK);
->  		break;
->  	case PMBUS_VIRT_READ_IOUT_MAX:
->  		ret = pmbus_read_word_data(client, page, IR35221_MFR_IOUT_PEAK);
-> -		if (ret < 0)
-> -			break;
-> -		if (page == 0)
-> -			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
-> -		else
-> -			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
->  		break;
->  	case PMBUS_VIRT_READ_TEMP_MAX:
->  		ret = pmbus_read_word_data(client, page, IR35221_MFR_TEMP_PEAK);
-> @@ -194,9 +45,6 @@ static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
->  	case PMBUS_VIRT_READ_VIN_MIN:
->  		ret = pmbus_read_word_data(client, page,
->  					   IR35221_MFR_VIN_VALLEY);
-> -		if (ret < 0)
-> -			break;
-> -		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
->  		break;
->  	case PMBUS_VIRT_READ_VOUT_MIN:
->  		ret = pmbus_read_word_data(client, page,
-> @@ -205,12 +53,6 @@ static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
->  	case PMBUS_VIRT_READ_IOUT_MIN:
->  		ret = pmbus_read_word_data(client, page,
->  					   IR35221_MFR_IOUT_VALLEY);
-> -		if (ret < 0)
-> -			break;
-> -		if (page == 0)
-> -			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
-> -		else
-> -			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
->  		break;
->  	case PMBUS_VIRT_READ_TEMP_MIN:
->  		ret = pmbus_read_word_data(client, page,
-> @@ -224,36 +66,6 @@ static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
->  	return ret;
->  }
->  
-> -static int ir35221_write_word_data(struct i2c_client *client, int page, int reg,
-> -				   u16 word)
-> -{
-> -	int ret;
-> -	u16 val;
-> -
-> -	switch (reg) {
-> -	case PMBUS_IOUT_OC_FAULT_LIMIT:
-> -	case PMBUS_IOUT_OC_WARN_LIMIT:
-> -		val = ir35221_scale_result(word, -1, PSC_CURRENT_OUT);
-> -		ret = pmbus_write_word_data(client, page, reg, val);
-> -		break;
-> -	case PMBUS_VIN_OV_FAULT_LIMIT:
-> -	case PMBUS_VIN_OV_WARN_LIMIT:
-> -	case PMBUS_VIN_UV_WARN_LIMIT:
-> -		val = ir35221_scale_result(word, 4, PSC_VOLTAGE_IN);
-> -		ret = pmbus_write_word_data(client, page, reg, val);
-> -		break;
-> -	case PMBUS_IIN_OC_WARN_LIMIT:
-> -		val = ir35221_scale_result(word, 1, PSC_CURRENT_IN);
-> -		ret = pmbus_write_word_data(client, page, reg, val);
-> -		break;
-> -	default:
-> -		ret = -ENODATA;
-> -		break;
-> -	}
-> -
-> -	return ret;
-> -}
-> -
->  static int ir35221_probe(struct i2c_client *client,
->  			 const struct i2c_device_id *id)
->  {
-> @@ -292,7 +104,6 @@ static int ir35221_probe(struct i2c_client *client,
->  	if (!info)
->  		return -ENOMEM;
->  
-> -	info->write_word_data = ir35221_write_word_data;
->  	info->read_word_data = ir35221_read_word_data;
->  
->  	info->pages = 2;
+rofs =3D mtd4 squashfs rwfs =3D mtd5 jffs2
+mount: mounting /dev/mtdblock4 on run/initramfs/ro failed: Invalid argument
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000000: 0xc881 instead
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000004: 0x3296 instead
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000008: 0x390f instead
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x0000000c: 0x6a89 instead
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000010: 0xf6c6 instead
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000014: 0xd735 instead
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000018: 0xf917 instead
+[    8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x0000001c: 0x868d instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000020: 0x5106 instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000024: 0xde44 instead
+[    8.190000] jffs2: Further such events for this erase block will not be =
+printed
+[    8.190000] jffs2: Old JFFS2 bitmask found at 0x0000d0a0
+[    8.190000] jffs2: You cannot use older JFFS2 filesystems with newer ker=
+nels
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010000: 0x8566 instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010004: 0xc4fe instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010008: 0xc94e instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x0001000c: 0x92f0 instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010010: 0xb131 instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010014: 0x48d8 instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010018: 0xbf08 instead
+[    8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x0001001c: 0x0d4f instead
+[    8.330000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010020: 0x2f17 instead
+[    8.330000] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00010024: 0x055a instead
+[    8.330000] jffs2: Further such events for this erase block will not be =
+printed
+[    8.330000] jffs2: Old JFFS2 bitmask found at 0x000180bc
+[    8.330000] jffs2: You cannot use older JFFS2 filesystems with newer ker=
+nels
+[    8.330000] jffs2: Cowardly refusing to erase blocks on filesystem with =
+no valid JFFS2 nodes
+[    8.330000] jffs2: empty_blocks 62, bad_blocks 0, c->nr_blocks 64
+mount: mounting /dev/mtdblock5 on run/initramfs/rw failed: Input/output err=
+or
+
+Mounting read-write /dev/mtdblock5 filesystem failed.  Please fix and run
+mount /dev/mtdblock5 run/initramfs/rw -t jffs2 -o rw
+to to continue, or do change nothing to run from RAM for this boot.
+Enter password to try to manually fix.
+After fixing run exit to continue this script, or reboot -f to retry, or
+touch /takeover and exit to become PID 1 allowing editing of this script.
+Give root password for system maintenance
+(or type Control-D for normal startup):
+
+--_000_703062ea845f4553be9065a2d5b6eb61ausx13mpc109AMERDELLCOM_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">On Palmetto, when I flash a build, I get this error.=
+ Netboot from the same image works, however when I flash by copying the sta=
+tic.mtd image, I see this issue. I&#8217;m trying to add a bunch of python =
+packages to the build. Could it be a flash
+ space issue? Please advise if anybody has any thoughts on this and how thi=
+s can be overcome?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks<o:p></o:p></p>
+<p class=3D"MsoNormal">Balaji<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+rofs =3D mtd4 squashfs rwfs =3D mtd5 jffs2<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+mount: mounting /dev/mtdblock4 on run/initramfs/ro failed: Invalid argument=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000000: 0xc881 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000004: 0x3296 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000008: 0x390f instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x0000000c: 0x6a89 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp; &nbsp;8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000010: 0xf6c6 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000014: 0xd735 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000018: 0xf917 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.060000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x0000001c: 0x868d instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000020: 0x5106 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00000024: 0xde44 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: Further such events for this erase blo=
+ck will not be printed<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: Old JFFS2 bitmask found at 0x0000d0a0<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: You cannot use older JFFS2 filesystems=
+ with newer kernels<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010000: 0x8566 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010004: 0xc4fe instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010008: 0xc94e instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x0001000c: 0x92f0 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010010: 0xb131 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010014: 0x48d8 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010018: 0xbf08 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.190000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x0001001c: 0x0d4f instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.330000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010020: 0x2f17 instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.330000] jffs2: jffs2_scan_eraseblock(): Magic bitmask=
+ 0x1985 not found at 0x00010024: 0x055a instead<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.330000] jffs2: Further such events for this erase blo=
+ck will not be printed<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.330000] jffs2: Old JFFS2 bitmask found at 0x000180bc<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.330000] jffs2: You cannot use older JFFS2 filesystems=
+ with newer kernels<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.330000] jffs2: Cowardly refusing to erase blocks on f=
+ilesystem with no valid JFFS2 nodes<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+[&nbsp;&nbsp;&nbsp; 8.330000] jffs2: empty_blocks 62, bad_blocks 0, c-&gt;n=
+r_blocks 64<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+mount: mounting /dev/mtdblock5 on run/initramfs/rw failed: Input/output err=
+or<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+<o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+Mounting read-write /dev/mtdblock5 filesystem failed.&nbsp; Please fix and =
+run<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+mount /dev/mtdblock5 run/initramfs/rw -t jffs2 -o rw<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+to to continue, or do change nothing to run from RAM for this boot.<o:p></o=
+:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+Enter password to try to manually fix.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+After fixing run exit to continue this script, or reboot -f to retry, or<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+touch /takeover and exit to become PID 1 allowing editing of this script.<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+Give root password for system maintenance<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
+(or type Control-D for normal startup):<o:p></o:p></span></p>
+</div>
+</body>
+</html>
+
+--_000_703062ea845f4553be9065a2d5b6eb61ausx13mpc109AMERDELLCOM_--
