@@ -1,56 +1,58 @@
-Return-Path: <geissonator@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::233; helo=mail-it0-x233.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <sam@mendozajonas.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ETpnbQ6F"; 
- dkim-atps=neutral
-Received: from mail-it0-x233.google.com (mail-it0-x233.google.com
- [IPv6:2607:f8b0:4001:c0b::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="PtCegRWl"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ofOjZyLQ"; dkim-atps=neutral
+X-Greylist: delayed 517 seconds by postgrey-1.36 at bilbo;
+ Mon, 15 Jan 2018 17:07:56 AEDT
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zKcjm2nNdzF0Z6
- for <openbmc@lists.ozlabs.org>; Mon, 15 Jan 2018 13:28:59 +1100 (AEDT)
-Received: by mail-it0-x233.google.com with SMTP id b77so15088386itd.0
- for <openbmc@lists.ozlabs.org>; Sun, 14 Jan 2018 18:28:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=jO5drA+CQTIn8vf9k64urMGYWgVhKPZLI+munWeDfiQ=;
- b=ETpnbQ6FJg/pEYtsOOcXaF3BSAzDdvwRQkp0bwc1E5LO8ycM39rBDgxBn4M7TTvsOq
- 5Ho9MPZ7hJVls3bnnhtOtDv7t0TgdNyRPf1pE0ptQ79HS8feO6xxlwPY9IKLJ0uUGDvZ
- xIpHyLssYyGvX7jEXGcxsXlmGD5u+7iPmY0ya5CKfC+ImAgQhp+MW+R6biaL1uwbv2Ty
- abL17zkclnDY7VXau5NwaFqgJ7pYuh1yQ0uEbjYEi2MUxwdETSWbGFalzwQw1NDWeqYw
- nj0YzJAq2fB//+hfy7iB+1qiQg/3jeg/4lB3xKRW5Nk7jhu0vzbN5ZF8JGp1VCARISaF
- ECsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=jO5drA+CQTIn8vf9k64urMGYWgVhKPZLI+munWeDfiQ=;
- b=Pd8dkOAvyeF7OdWoD4OLtPn86yeQPnB37N0gpfEKrcBW8tyoNCITB9fuoC6i178bLE
- dh6sucshb7r9cEgw3h/bCSC1KTNExH+2uzAdlayLhBoCwXbo9exE59pgzqG5Tyqiuguk
- kVYWE88AnfOLXNXMFvkx5TBSiezZfSEK627D0GzWUJRnl+KVCnlSx7+JWykVBROD5LKd
- dxQqoiVq1aN+kfexBa1yEbX0SYTEEUrVxuxZ7nrxPC4lTjpEDW9AziXEVn//Qtpvcjuy
- vb0ek46vEKDJsa+Y+PW99HGOH4jxQ6w9FRzTjuZfYUDsLrAaQvVJXaYKJ3kzjLCK0ZJ6
- vKCA==
-X-Gm-Message-State: AKwxytefSN4281bXfZ7y6nGO2wKCfHmz8rxCV11xWZzqvubLURaV4mqS
- zNXEbPBmleypj9rKo2AFDHTKIMVx2nqHqwcTH0c=
-X-Google-Smtp-Source: ACJfBosG2BpKrjQJHvlEkZM1NSFYhUsbRCfh4lhww4YuNxlMlr1Ek2vuQX+Ki1/pB4B0j4aQK/PxZ+8gxarUpJ8K43M=
-X-Received: by 10.36.69.219 with SMTP id c88mr13444909itd.68.1515983335863;
- Sun, 14 Jan 2018 18:28:55 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.175.7 with HTTP; Sun, 14 Jan 2018 18:28:55 -0800 (PST)
-In-Reply-To: <87r2qs3p7u.fsf@linux.vnet.ibm.com>
-References: <CALLMt=oxScYiG4J-Ms367nqtv_cdZURoiCsa2jz9LH6=n2fRVA@mail.gmail.com>
- <87r2qs3p7u.fsf@linux.vnet.ibm.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Sun, 14 Jan 2018 18:28:55 -0800
-Message-ID: <CALLMt=rPacHObpRfFq08+SkJaKjnoo+Msz9jTqwayiourLUV6g@mail.gmail.com>
-Subject: Re: openbmc coding standards validation in CI
-To: Stewart Smith <stewart@linux.vnet.ibm.com>
-Cc: ed.tanous@intel.com, Adriana Kobylak <anoo@linux.vnet.ibm.com>, 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zKjZN4JxszF0dM
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Jan 2018 17:07:56 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 952AB20996;
+ Mon, 15 Jan 2018 00:59:15 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute2.internal (MEProxy); Mon, 15 Jan 2018 00:59:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=cs7C6Lt7bTGI/qHeX
+ awDQqEQ79z4Wbi+dVtflwgC7EU=; b=PtCegRWlC//EhNZkhUiWMFgFhSgJOpzBD
+ w4BI5xwQlZqVVIAxMQcvc5E4zp3c3N4qmK8zW1coPFzeB9B2r9f8XzL5p4cmPOau
+ /VFx05raEr7xY+zGznhB+Gzc58Jm3CzXH9Z2nsYbHJXqdA3nG3/mSWN4HVYnpvct
+ NG4vWl+ay/HxCgYFU/pkBqlRqAXRRSkZhhoisjj2RDAEirwpwndEcfs7TSiif6Uw
+ VIA1chVnJsu/ug+xiE8jxk+0eTi+U0JBnMx69ZS0NvNmtetbn4SzMviLa7K1ZTZU
+ 9vTw00XJT8l9m4TzdxFidIWYLCcR4en44xLRS990CrXJ+zTTt8j5w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=cs7C6Lt7bTGI/qHeX
+ awDQqEQ79z4Wbi+dVtflwgC7EU=; b=ofOjZyLQILc5lZDwQ+L2JAouC67FFTNdY
+ wqlaQ62oergpa28a2VoR2p+rXODZESIl0SZTM9mYXdUalDQAjjjH6afEeji+Tlg+
+ FXxkdCNKf7iot6E8t/vac33VV9iSeMfcrQjYSBefuR9UmweeCUMj5cfpie+k9y0F
+ pZ0YdReTsduSIcgrzqEPIsbT6b1scmP3YYfFaaf/mvgPZShv9YsDtgCWHQKUCuCl
+ WWh4jSd38d9NXuAiCRrCPwuNpMbjEnLIyNiYoIssTl2LEJy76vBW+zqYzbdX+Ill
+ FGv+Dbn79OUMBHKLrROLaF3oZMM2FTPVBHQ20WfB+Xjjg/f+HYf/w==
+X-ME-Sender: <xms:M0NcWj7EqRugtNo73x5CK04V4BIAZZy4X0N6HmHkwdx7VPnJTWJcng>
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7632E24741;
+ Mon, 15 Jan 2018 00:59:13 -0500 (EST)
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ Jean Delvare <jdelvare@suse.com>, linux-kernel@vger.kernel.org,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Subject: [PATCH] hwmon: (pmbus/ir35221) Remove unnecessary scaling
+Date: Mon, 15 Jan 2018 16:58:58 +1100
+Message-Id: <20180115055858.1188-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.15.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -62,55 +64,260 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Jan 2018 02:29:01 -0000
+X-List-Received-Date: Mon, 15 Jan 2018 06:07:58 -0000
 
-On Sun, Jan 14, 2018 at 5:06 PM, Stewart Smith
-<stewart@linux.vnet.ibm.com> wrote:
-> Andrew Geissler <geissonator@gmail.com> writes:
->> During the hackathon meetup, we decided to try and get something in
->> our CI jobs that would validate the code formatting and automatically
->> -1 the gerrit commit if it's not up to par.  The reasoning behind this
->> is we still have a lot of code review comments coming in this area,
->> which is wasteful for the reviewers.
->>
->> Ed, Adriana, and I all worked different pieces of it.  We're using the
->> clang-format tool to format (and then validate the format).  The idea
->> is you do the initial run of the tool against your repo and check the
->> .clang-format file in with your changes.  The presence of the file
->> will cause the CI job to validate the code formatting.  After the
->> .clang-format is merged, CI jobs will fail if the new code doesn't
->> follow the standard.  The CI jenkins job will output the diff of the
->> code that is not conforming to the console.
->>
->> We've tried our best to get the .clang-format file to match up with
->> our requirements in
->> https://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md.
->>
->> The .clang-format file and the changes it did to the sdbusplus repo
->> can be found in https://gerrit.openbmc-project.xyz/#/c/8461/.  Review
->> comments appreciated.
->
-> Oh neat!
->
-> I gather the CI job is something like "parallel clang-format -i {} :::
-> `find . -name '*.c' -name '*.cpp' -name '*.h'`" and then check for any
-> changes?
+The ir35221 datasheet describes specific scaling factors for a number of
+commands which the current driver applies when reading.
+However now that the ir35221 has been tested on machines with more
+easily verifiable readings these descriptions have turned out to be
+superfluous and reading each command according to the linear format is
+sufficient.
 
-Yep. you got it.
-https://gerrit.openbmc-project.xyz/#/c/8455/4/scripts/format-code.sh
-if interested in reviewing :)
-The CI job will just call this script if it sees the .clang-format
-file present in the repo.
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+ drivers/hwmon/pmbus/ir35221.c | 189 ------------------------------------------
+ 1 file changed, 189 deletions(-)
 
->
-> --
-> Stewart Smith
-> OPAL Architect, IBM.
->
-
-Got some good comments on the format review, keep them coming!
-(https://gerrit.openbmc-project.xyz/#/c/8461/)
-This will most likely what forms a base in all our other repos so lets
-get it right from the beginning.
-
-Andrew
+diff --git a/drivers/hwmon/pmbus/ir35221.c b/drivers/hwmon/pmbus/ir35221.c
+index 8b906b44484b..977315b0fd90 100644
+--- a/drivers/hwmon/pmbus/ir35221.c
++++ b/drivers/hwmon/pmbus/ir35221.c
+@@ -25,168 +25,19 @@
+ #define IR35221_MFR_IOUT_VALLEY		0xcb
+ #define IR35221_MFR_TEMP_VALLEY		0xcc
+ 
+-static long ir35221_reg2data(int data, enum pmbus_sensor_classes class)
+-{
+-	s16 exponent;
+-	s32 mantissa;
+-	long val;
+-
+-	/* We only modify LINEAR11 formats */
+-	exponent = ((s16)data) >> 11;
+-	mantissa = ((s16)((data & 0x7ff) << 5)) >> 5;
+-
+-	val = mantissa * 1000L;
+-
+-	/* scale result to micro-units for power sensors */
+-	if (class == PSC_POWER)
+-		val = val * 1000L;
+-
+-	if (exponent >= 0)
+-		val <<= exponent;
+-	else
+-		val >>= -exponent;
+-
+-	return val;
+-}
+-
+-#define MAX_MANTISSA	(1023 * 1000)
+-#define MIN_MANTISSA	(511 * 1000)
+-
+-static u16 ir35221_data2reg(long val, enum pmbus_sensor_classes class)
+-{
+-	s16 exponent = 0, mantissa;
+-	bool negative = false;
+-
+-	if (val == 0)
+-		return 0;
+-
+-	if (val < 0) {
+-		negative = true;
+-		val = -val;
+-	}
+-
+-	/* Power is in uW. Convert to mW before converting. */
+-	if (class == PSC_POWER)
+-		val = DIV_ROUND_CLOSEST(val, 1000L);
+-
+-	/* Reduce large mantissa until it fits into 10 bit */
+-	while (val >= MAX_MANTISSA && exponent < 15) {
+-		exponent++;
+-		val >>= 1;
+-	}
+-	/* Increase small mantissa to improve precision */
+-	while (val < MIN_MANTISSA && exponent > -15) {
+-		exponent--;
+-		val <<= 1;
+-	}
+-
+-	/* Convert mantissa from milli-units to units */
+-	mantissa = DIV_ROUND_CLOSEST(val, 1000);
+-
+-	/* Ensure that resulting number is within range */
+-	if (mantissa > 0x3ff)
+-		mantissa = 0x3ff;
+-
+-	/* restore sign */
+-	if (negative)
+-		mantissa = -mantissa;
+-
+-	/* Convert to 5 bit exponent, 11 bit mantissa */
+-	return (mantissa & 0x7ff) | ((exponent << 11) & 0xf800);
+-}
+-
+-static u16 ir35221_scale_result(s16 data, int shift,
+-				enum pmbus_sensor_classes class)
+-{
+-	long val;
+-
+-	val = ir35221_reg2data(data, class);
+-
+-	if (shift < 0)
+-		val >>= -shift;
+-	else
+-		val <<= shift;
+-
+-	return ir35221_data2reg(val, class);
+-}
+-
+ static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
+ {
+ 	int ret;
+ 
+ 	switch (reg) {
+-	case PMBUS_IOUT_OC_FAULT_LIMIT:
+-	case PMBUS_IOUT_OC_WARN_LIMIT:
+-		ret = pmbus_read_word_data(client, page, reg);
+-		if (ret < 0)
+-			break;
+-		ret = ir35221_scale_result(ret, 1, PSC_CURRENT_OUT);
+-		break;
+-	case PMBUS_VIN_OV_FAULT_LIMIT:
+-	case PMBUS_VIN_OV_WARN_LIMIT:
+-	case PMBUS_VIN_UV_WARN_LIMIT:
+-		ret = pmbus_read_word_data(client, page, reg);
+-		ret = ir35221_scale_result(ret, -4, PSC_VOLTAGE_IN);
+-		break;
+-	case PMBUS_IIN_OC_WARN_LIMIT:
+-		ret = pmbus_read_word_data(client, page, reg);
+-		if (ret < 0)
+-			break;
+-		ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
+-		break;
+-	case PMBUS_READ_VIN:
+-		ret = pmbus_read_word_data(client, page, PMBUS_READ_VIN);
+-		if (ret < 0)
+-			break;
+-		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
+-		break;
+-	case PMBUS_READ_IIN:
+-		ret = pmbus_read_word_data(client, page, PMBUS_READ_IIN);
+-		if (ret < 0)
+-			break;
+-		if (page == 0)
+-			ret = ir35221_scale_result(ret, -4, PSC_CURRENT_IN);
+-		else
+-			ret = ir35221_scale_result(ret, -5, PSC_CURRENT_IN);
+-		break;
+-	case PMBUS_READ_POUT:
+-		ret = pmbus_read_word_data(client, page, PMBUS_READ_POUT);
+-		if (ret < 0)
+-			break;
+-		ret = ir35221_scale_result(ret, -1, PSC_POWER);
+-		break;
+-	case PMBUS_READ_PIN:
+-		ret = pmbus_read_word_data(client, page, PMBUS_READ_PIN);
+-		if (ret < 0)
+-			break;
+-		ret = ir35221_scale_result(ret, -1, PSC_POWER);
+-		break;
+-	case PMBUS_READ_IOUT:
+-		ret = pmbus_read_word_data(client, page, PMBUS_READ_IOUT);
+-		if (ret < 0)
+-			break;
+-		if (page == 0)
+-			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_OUT);
+-		else
+-			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_OUT);
+-		break;
+ 	case PMBUS_VIRT_READ_VIN_MAX:
+ 		ret = pmbus_read_word_data(client, page, IR35221_MFR_VIN_PEAK);
+-		if (ret < 0)
+-			break;
+-		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
+ 		break;
+ 	case PMBUS_VIRT_READ_VOUT_MAX:
+ 		ret = pmbus_read_word_data(client, page, IR35221_MFR_VOUT_PEAK);
+ 		break;
+ 	case PMBUS_VIRT_READ_IOUT_MAX:
+ 		ret = pmbus_read_word_data(client, page, IR35221_MFR_IOUT_PEAK);
+-		if (ret < 0)
+-			break;
+-		if (page == 0)
+-			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
+-		else
+-			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
+ 		break;
+ 	case PMBUS_VIRT_READ_TEMP_MAX:
+ 		ret = pmbus_read_word_data(client, page, IR35221_MFR_TEMP_PEAK);
+@@ -194,9 +45,6 @@ static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
+ 	case PMBUS_VIRT_READ_VIN_MIN:
+ 		ret = pmbus_read_word_data(client, page,
+ 					   IR35221_MFR_VIN_VALLEY);
+-		if (ret < 0)
+-			break;
+-		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
+ 		break;
+ 	case PMBUS_VIRT_READ_VOUT_MIN:
+ 		ret = pmbus_read_word_data(client, page,
+@@ -205,12 +53,6 @@ static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
+ 	case PMBUS_VIRT_READ_IOUT_MIN:
+ 		ret = pmbus_read_word_data(client, page,
+ 					   IR35221_MFR_IOUT_VALLEY);
+-		if (ret < 0)
+-			break;
+-		if (page == 0)
+-			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
+-		else
+-			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
+ 		break;
+ 	case PMBUS_VIRT_READ_TEMP_MIN:
+ 		ret = pmbus_read_word_data(client, page,
+@@ -224,36 +66,6 @@ static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
+ 	return ret;
+ }
+ 
+-static int ir35221_write_word_data(struct i2c_client *client, int page, int reg,
+-				   u16 word)
+-{
+-	int ret;
+-	u16 val;
+-
+-	switch (reg) {
+-	case PMBUS_IOUT_OC_FAULT_LIMIT:
+-	case PMBUS_IOUT_OC_WARN_LIMIT:
+-		val = ir35221_scale_result(word, -1, PSC_CURRENT_OUT);
+-		ret = pmbus_write_word_data(client, page, reg, val);
+-		break;
+-	case PMBUS_VIN_OV_FAULT_LIMIT:
+-	case PMBUS_VIN_OV_WARN_LIMIT:
+-	case PMBUS_VIN_UV_WARN_LIMIT:
+-		val = ir35221_scale_result(word, 4, PSC_VOLTAGE_IN);
+-		ret = pmbus_write_word_data(client, page, reg, val);
+-		break;
+-	case PMBUS_IIN_OC_WARN_LIMIT:
+-		val = ir35221_scale_result(word, 1, PSC_CURRENT_IN);
+-		ret = pmbus_write_word_data(client, page, reg, val);
+-		break;
+-	default:
+-		ret = -ENODATA;
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+ static int ir35221_probe(struct i2c_client *client,
+ 			 const struct i2c_device_id *id)
+ {
+@@ -292,7 +104,6 @@ static int ir35221_probe(struct i2c_client *client,
+ 	if (!info)
+ 		return -ENOMEM;
+ 
+-	info->write_word_data = ir35221_write_word_data;
+ 	info->read_word_data = ir35221_read_word_data;
+ 
+ 	info->pages = 2;
+-- 
+2.15.1
