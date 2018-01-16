@@ -1,31 +1,35 @@
 Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
  envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zLSyY45lpzF0VC
- for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 22:43:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zLT8j5J63zF0Rb
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 22:51:49 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2018 03:42:58 -0800
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2018 03:51:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,368,1511856000"; d="scan'208";a="166473642"
+X-IronPort-AV: E=Sophos;i="5.46,368,1511856000"; d="scan'208";a="10935466"
 Received: from build0101.sh.intel.com ([10.239.164.138])
- by orsmga004.jf.intel.com with ESMTP; 16 Jan 2018 03:42:56 -0800
+ by orsmga006.jf.intel.com with ESMTP; 16 Jan 2018 03:51:45 -0800
 From: Haiyue Wang <haiyue.wang@linux.intel.com>
-To: minyard@acm.org, joel@jms.id.au, openbmc@lists.ozlabs.org,
- openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
+To: joel@jms.id.au, arnd@arndb.de, gregkh@linuxfoundation.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Cc: Haiyue Wang <haiyue.wang@linux.intel.com>,
 	andriy.shevchenko@intel.com
-Subject: [PATCH arm/aspeed/ast2500 v1] ipmi: add an Aspeed KCS IPMI BMC driver
-Date: Tue, 16 Jan 2018 19:43:43 +0800
-Message-Id: <1516103023-19244-1-git-send-email-haiyue.wang@linux.intel.com>
+Subject: [PATCH arm/aspeed/ast2500 v1] eSPI: add Aspeed AST2500 eSPI driver to
+ boot a host with PCH runs on eSPI
+Date: Tue, 16 Jan 2018 19:52:32 +0800
+Message-Id: <1516103552-19601-1-git-send-email-haiyue.wang@linux.intel.com>
 X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -37,103 +41,226 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Jan 2018 11:43:02 -0000
+X-List-Received-Date: Tue, 16 Jan 2018 11:51:50 -0000
 
-The KCS (Keyboard Controller Style) interface is used to perform in-band
-IPMI communication between a server host and its BMC (BaseBoard Management
-Controllers).
+When PCH works under eSPI mode, the PMC (Power Management Controller) in
+PCH is waiting for SUS_ACK from BMC after it alerts SUS_WARN. It is in
+dead loop if no SUS_ACK assert. This is the basic requirement for the BMC
+works as eSPI slave.
 
-This driver exposes the KCS interface on ASpeed SOCs (AST2400 and AST2500)
-as a character device. Such SOCs are commonly used as BMCs and this driver
-implements the BMC side of the KCS interface.
+Also for the host power on / off actions, from BMC side, the following VW
+(Virtual Wire) messages are done in firmware:
+1. SLAVE_BOOT_LOAD_DONE / SLAVE_BOOT_LOAD_STATUS
+2. SUS_ACK
+3. OOB_RESET_ACK
+4. HOST_RESET_ACK
 
 Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
 ---
- .../devicetree/bindings/ipmi/aspeed-kcs-bmc.txt    |  26 +
- drivers/char/ipmi/Kconfig                          |   9 +
- drivers/char/ipmi/Makefile                         |   1 +
- drivers/char/ipmi/kcs-bmc.c                        | 744 +++++++++++++++++++++
- include/uapi/linux/kcs-bmc.h                       |  14 +
- 5 files changed, 794 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
- create mode 100644 drivers/char/ipmi/kcs-bmc.c
- create mode 100644 include/uapi/linux/kcs-bmc.h
+ .../devicetree/bindings/misc/aspeed-espi-slave.txt |  20 ++
+ Documentation/misc-devices/espi-slave.rst          | 114 +++++++++
+ drivers/misc/Kconfig                               |  11 +
+ drivers/misc/Makefile                              |   1 +
+ drivers/misc/aspeed-espi-slave.c                   | 266 +++++++++++++++++++++
+ 5 files changed, 412 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
+ create mode 100644 Documentation/misc-devices/espi-slave.rst
+ create mode 100644 drivers/misc/aspeed-espi-slave.c
 
-diff --git a/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
+diff --git a/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt b/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
 new file mode 100644
-index 0000000..dd0c73d
+index 0000000..35da26f
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
-@@ -0,0 +1,26 @@
-+* Aspeed KCS (Keyboard Controller Style) IPMI interface
-+
-+The Aspeed SOCs (AST2400 and AST2500) are commonly used as BMCs
-+(BaseBoard Management Controllers) and the KCS interface can be
-+used to perform in-band IPMI communication with their host.
++++ b/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
+@@ -0,0 +1,20 @@
++Aspeed eSPI Slave Controller
 +
 +Required properties:
-+- compatible : should be one of
-+    "aspeed,ast2400-kcs-bmc"
-+    "aspeed,ast2500-kcs-bmc"
-+- interrupts : interrupt generated by the controller
-+- kcs_chan : The LPC channel number in the controller
-+- kcs_addr : The host CPU IO map address
++ - compatible: must be one of:
++	- "aspeed,ast2500-espi-slave"
 +
++ - reg: physical base address of the controller and length of memory mapped
++   region
++
++ - interrupts: interrupt generated by the controller
 +
 +Example:
 +
-+    kcs3: kcs3@0 {
-+        compatible = "aspeed,ast2500-kcs-bmc";
-+        reg = <0x0 0x80>;
-+        interrupts = <8>;
-+        kcs_chan = <3>;
-+        kcs_addr = <0xCA2>;
-+        status = "okay";
-+    };
++    espi: espi@1e6ee000 {
++        compatible = "aspeed,ast2500-espi-slave";
++        reg = <0x1e6ee000 0x100>;
++        interrupts = <23>;
++        status = "disabled";
++};
 +
-diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
-index 3544abc..36132f8 100644
---- a/drivers/char/ipmi/Kconfig
-+++ b/drivers/char/ipmi/Kconfig
-@@ -104,3 +104,12 @@ config ASPEED_BT_IPMI_BMC
- 	  Provides a driver for the BT (Block Transfer) IPMI interface
- 	  found on Aspeed SOCs (AST2400 and AST2500). The driver
- 	  implements the BMC side of the BT interface.
+diff --git a/Documentation/misc-devices/espi-slave.rst b/Documentation/misc-devices/espi-slave.rst
+new file mode 100644
+index 0000000..405b619
+--- /dev/null
++++ b/Documentation/misc-devices/espi-slave.rst
+@@ -0,0 +1,114 @@
++eSPI Slave
++==========
 +
-+config ASPEED_KCS_IPMI_BMC
++The PCH (**eSPI master**) provides the eSPI to support connection of a
++BMC (**eSPI slave**) to the platform.
++
++The LPC and eSPI interfaces are mutually exclusive. Both use the same
++pins, but on power-up, a HW strap determines if the eSPI or the LPC bus
++is operational. Once selected, it’s not possible to change to the other
++interface.
++
++``eSPI Channels and Supported Transactions``
++ +------+---------------------+----------------------+--------------------+
++ | CH # | Channel             | Posted Cycles        | Non-Posted Cycles  |
++ +======+=====================+======================+====================+
++ |  0   | Peripheral          | Memory Write,        | Memory Read,       |
++ |      |                     | Completions          | I/O Read/Write     |
++ +------+---------------------+----------------------+--------------------+
++ |  1   | Virtual Wire        | Virtual Wire GET/PUT | N/A                |
++ +------+---------------------+----------------------+--------------------+
++ |  2   | Out-of-Band Message | SMBus Packet GET/PUT | N/A                |
++ +------+---------------------+----------------------+--------------------+
++ |  3   | Flash Access        | N/A                  | Flash Read, Write, |
++ |      |                     |                      | Erase              |
++ +------+---------------------+----------------------+--------------------+
++ |  N/A | General             | Register Accesses    | N/A                |
++ +------+---------------------+----------------------+--------------------+
++
++Virtual Wire Channel (Channel 1) Overview
++-----------------------------------------
++
++The Virtual Wire channel uses a standard message format to communicate
++several types of signals between the components on the platform::
++
++ - Sideband and GPIO Pins: System events and other dedicated signals
++   between the PCH and eSPI slave. These signals are tunneled between the
++   two components over eSPI.
++
++ - Serial IRQ Interrupts: Interrupts are tunneled from the eSPI slave to
++   the PCH. Both edge and triggered interrupts are supported.
++
++When PCH runs on eSPI mode, from BMC side, the following VW messages are
++done in firmware::
++
++ 1. SLAVE_BOOT_LOAD_DONE / SLAVE_BOOT_LOAD_STATUS
++ 2. SUS_ACK
++ 3. OOB_RESET_ACK
++ 4. HOST_RESET_ACK
++
++``eSPI Virtual Wires (VW)``
++ +----------------------+---------+---------------------------------------+
++ |Virtual Wire          |PCH Pin  |Comments                               |
++ |                      |Direction|                                       |
++ +======================+=========+=======================================+
++ |SUS_WARN#             |Output   |PCH pin is a GPIO when eSPI is enabled.|
++ |                      |         |eSPI controller receives as VW message.|
++ +----------------------+---------+---------------------------------------+
++ |SUS_ACK#              |Input    |PCH pin is a GPIO when eSPI is enabled.|
++ |                      |         |eSPI controller receives as VW message.|
++ +----------------------+---------+---------------------------------------+
++ |SLAVE_BOOT_LOAD_DONE  |Input    |Sent when the BMC has completed its    |
++ |                      |         |boot process as an indication to       |
++ |                      |         |eSPI-MC to continue with the G3 to S0  |
++ |                      |         |exit.                                  |
++ |                      |         |The eSPI Master waits for the assertion|
++ |                      |         |of this virtual wire before proceeding |
++ |                      |         |with the SLP_S5# deassertion.          |
++ |                      |         |The intent is that it is never changed |
++ |                      |         |except on a G3 exit - it is reset on a |
++ |                      |         |G3 entry.                              |
++ +----------------------+---------+---------------------------------------+
++ |SLAVE_BOOT_LOAD_STATUS|Input    |Sent upon completion of the Slave Boot |
++ |                      |         |Load from the attached flash. A stat of|
++ |                      |         |1 indicates that the boot code load was|
++ |                      |         |successful and that the integrity of   |
++ |                      |         |the image is intact.                   |
++ +----------------------+---------+---------------------------------------+
++ |HOST_RESET_WARN       |Output   |Sent from the MC just before the Host  |
++ |                      |         |is about to enter reset. Upon receiving|
++ |                      |         |, the BMC must flush and quiesce its   |
++ |                      |         |upstream Peripheral Channel request    |
++ |                      |         |queues and assert HOST_RESET_ACK VWire.|
++ |                      |         |The MC subsequently completes any      |
++ |                      |         |outstanding posted transactions or     |
++ |                      |         |completions and then disables the      |
++ |                      |         |Peripheral Channel via a write to      |
++ |                      |         |the Slave's Configuration Register.    |
++ +----------------------+---------+---------------------------------------+
++ |HOST_RESET_ACK        |Input    |ACK for the HOST_RESET_WARN message    |
++ +----------------------+---------+---------------------------------------+
++ |OOB_RESET_WARN        |Output   |Sent from the MC just before the OOB   |
++ |                      |         |processor is about to enter reset. Upon|
++ |                      |         |receiving, the BMC must flush and      |
++ |                      |         |quiesce its OOB Channel upstream       |
++ |                      |         |request queues and assert OOB_RESET_ACK|
++ |                      |         |VWire. The-MC subsequently completes   |
++ |                      |         |any outstanding posted transactions or |
++ |                      |         |completions and then disables the OOB  |
++ |                      |         |Channel via a write to the Slave's     |
++ |                      |         |Configuration Register.                |
++ +----------------------+---------+---------------------------------------+
++ |OOB_RESET_ACK         |Input    |ACK for OOB_RESET_WARN message         |
++ +----------------------+---------+---------------------------------------+
++
++`Intel C620 Series Chipset Platform Controller Hub
++<https://www.intel.com/content/www/us/en/chipsets/c620-series-chipset-datasheet.html>`_
++
++   -- 17. Enhanced Serial Peripheral Interface
++
++
++`Enhanced Serial Peripheral Interface (eSPI)
++- Interface Base Specification (for Client and Server Platforms)
++<https://www.intel.com/content/dam/support/us/en/documents/software/chipset-software/327432-004_espi_base_specification_rev1.0.pdf>`_
++
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index f1a5c23..fec5783 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -471,6 +471,17 @@ config VEXPRESS_SYSCFG
+ 	  ARM Ltd. Versatile Express uses specialised platform configuration
+ 	  bus. System Configuration interface is one of the possible means
+ 	  of generating transactions on this bus.
++config ASPEED_ESPI_SLAVE
 +	depends on ARCH_ASPEED || COMPILE_TEST
 +	select REGMAP_MMIO
-+	tristate "KCS IPMI bmc driver"
-+	help
-+	  Provides a driver for the KCS (Keyboard Controller Style) IPMI
-+	  interface found on Aspeed SOCs (AST2400 and AST2500). The driver
-+	  implements the BMC side of the KCS interface.
-\ No newline at end of file
-diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
-index 33b899f..f217bae 100644
---- a/drivers/char/ipmi/Makefile
-+++ b/drivers/char/ipmi/Makefile
-@@ -22,3 +22,4 @@ obj-$(CONFIG_IPMI_POWERNV) += ipmi_powernv.o
- obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
- obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
- obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
-+obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs-bmc.o
-\ No newline at end of file
-diff --git a/drivers/char/ipmi/kcs-bmc.c b/drivers/char/ipmi/kcs-bmc.c
++	tristate "Aspeed ast2500 eSPI slave device"
++	---help---
++	  This allows host to access Baseboard Management Controller (BMC) over the
++	  Enhanced Serial Peripheral Interface (eSPI) bus, which replaces the Low Pin
++	  Count (LPC) bus.
++
++	  Its interface supports peripheral, virtual wire, out-of-band, and flash
++	  sharing channels.
+ 
+ config ASPEED_LPC_CTRL
+ 	depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index 5ca5f64..a1081f4 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -52,6 +52,7 @@ obj-$(CONFIG_GENWQE)		+= genwqe/
+ obj-$(CONFIG_ECHO)		+= echo/
+ obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
+ obj-$(CONFIG_CXL_BASE)		+= cxl/
++obj-$(CONFIG_ASPEED_ESPI_SLAVE) += aspeed-espi-slave.o
+ obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
+ obj-$(CONFIG_ASPEED_LPC_SNOOP)	+= aspeed-lpc-snoop.o
+ obj-$(CONFIG_PCI_ENDPOINT_TEST)	+= pci_endpoint_test.o
+diff --git a/drivers/misc/aspeed-espi-slave.c b/drivers/misc/aspeed-espi-slave.c
 new file mode 100644
-index 0000000..d6eab0b
+index 0000000..67c9fa0
 --- /dev/null
-+++ b/drivers/char/ipmi/kcs-bmc.c
-@@ -0,0 +1,744 @@
++++ b/drivers/misc/aspeed-espi-slave.c
+@@ -0,0 +1,266 @@
 +// SPDX-License-Identifier: GPL-2.0
++// Copyright (C) 2012-2020, ASPEED Technology Inc.
 +// Copyright (c) 2015-2018, Intel Corporation.
 +
 +#include <linux/atomic.h>
 +#include <linux/errno.h>
 +#include <linux/interrupt.h>
 +#include <linux/io.h>
-+#include <linux/kcs-bmc.h>
-+#include <linux/mfd/syscon.h>
 +#include <linux/miscdevice.h>
 +#include <linux/module.h>
 +#include <linux/of.h>
@@ -144,750 +271,253 @@ index 0000000..d6eab0b
 +#include <linux/slab.h>
 +#include <linux/timer.h>
 +
-+#define KCS_MSG_BUFSIZ      1024
-+#define KCS_CHANNEL_MAX     4
-+
-+/*
-+ * This is a BMC device used to communicate to the host
-+ */
-+#define DEVICE_NAME     "ipmi-kcs-host"
++#define DEVICE_NAME     "aspeed-espi-slave"
 +
 +
-+/* Different Phases of the KCS Module */
-+#define KCS_PHASE_IDLE          0x00
-+#define KCS_PHASE_WRITE         0x01
-+#define KCS_PHASE_WRITE_END     0x02
-+#define KCS_PHASE_READ          0x03
-+#define KCS_PHASE_ABORT         0x04
-+#define KCS_PHASE_ERROR         0x05
++#define ESPI_CTRL                 0x00
++#define      ESPI_CTRL_SW_RESET             GENMASK(31, 24)
++#define      ESPI_CTRL_OOB_CHRDY            BIT(4)
++#define ESPI_ISR                  0x08
++#define      ESPI_ISR_HW_RESET              BIT(31)
++#define      ESPI_ISR_VW_SYS_EVT1           BIT(22)
++#define      ESPI_ISR_VW_SYS_EVT            BIT(8)
++#define ESPI_IER                  0x0C
 +
-+/* Abort Phase */
-+#define ABORT_PHASE_ERROR1      0x01
-+#define ABORT_PHASE_ERROR2      0x02
++#define ESPI_SYS_IER              0x94
++#define ESPI_SYS_EVENT            0x98
++#define ESPI_SYS_INT_T0           0x110
++#define ESPI_SYS_INT_T1           0x114
++#define ESPI_SYS_INT_T2           0x118
++#define ESPI_SYS_ISR              0x11C
++#define      ESPI_SYSEVT_HOST_RST_ACK       BIT(27)
++#define      ESPI_SYSEVT_SLAVE_BOOT_STATUS  BIT(23)
++#define      ESPI_SYSEVT_SLAVE_BOOT_DONE    BIT(20)
++#define      ESPI_SYSEVT_OOB_RST_ACK        BIT(16)
++#define      ESPI_SYSEVT_HOST_RST_WARN      BIT(8)
++#define      ESPI_SYSEVT_OOB_RST_WARN       BIT(6)
++#define      ESPI_SYSEVT_PLT_RST_N          BIT(5)
 +
-+/* KCS Command Control codes. */
-+#define KCS_GET_STATUS          0x60
-+#define KCS_ABORT               0x60
-+#define KCS_WRITE_START         0x61
-+#define KCS_WRITE_END           0x62
-+#define KCS_READ_BYTE           0x68
-+
-+/* Status bits.:
-+ * - IDLE_STATE.  Interface is idle. System software should not be expecting
-+ *                nor sending any data.
-+ * - READ_STATE.  BMC is transferring a packet to system software. System
-+ *                software should be in the "Read Message" state.
-+ * - WRITE_STATE. BMC is receiving a packet from system software. System
-+ *                software should be writing a command to the BMC.
-+ * - ERROR_STATE. BMC has detected a protocol violation at the interface level,
-+ *                or the transfer has been aborted. System software can either
-+ *                use the "Get_Status" control code to request the nature of
-+ *                the error, or it can just retry the command.
-+ */
-+#define KCS_IDLE_STATE           0
-+#define KCS_READ_STATE           1
-+#define KCS_WRITE_STATE          2
-+#define KCS_ERROR_STATE          3
-+
-+/* KCS Error Codes */
-+#define KCS_NO_ERROR                0x00
-+#define KCS_ABORTED_BY_COMMAND      0x01
-+#define KCS_ILLEGAL_CONTROL_CODE    0x02
-+#define KCS_LENGTH_ERROR            0x06
-+#define KCS_UNSPECIFIED_ERROR       0xFF
++#define ESPI_SYS1_IER             0x100
++#define ESPI_SYS1_EVENT           0x104
++#define ESPI_SYS1_INT_T0          0x120
++#define ESPI_SYS1_INT_T1          0x124
++#define ESPI_SYS1_INT_T2          0x128
++#define ESPI_SYS1_ISR             0x12C
++#define      ESPI_SYSEVT1_SUS_ACK           BIT(20)
++#define      ESPI_SYSEVT1_SUS_WARN          BIT(0)
 +
 +
-+#define KCS_ZERO_DATA           0
-+
-+/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
-+#define KCS_STR_STATE(state)        (state << 6)
-+#define KCS_STR_STATE_MASK          KCS_STR_STATE(0x3)
-+#define KCS_STR_CMD_DAT             BIT(3)
-+#define KCS_STR_SMS_ATN             BIT(2)
-+#define KCS_STR_IBF                 BIT(1)
-+#define KCS_STR_OBF                 BIT(0)
-+
-+
-+/* mapped to lpc-bmc@0 IO space */
-+#define LPC_HICR0            0x000
-+#define     LPC_HICR0_LPC3E          BIT(7)
-+#define     LPC_HICR0_LPC2E          BIT(6)
-+#define     LPC_HICR0_LPC1E          BIT(5)
-+#define LPC_HICR2            0x008
-+#define     LPC_HICR2_IBFIF3         BIT(3)
-+#define     LPC_HICR2_IBFIF2         BIT(2)
-+#define     LPC_HICR2_IBFIF1         BIT(1)
-+#define LPC_HICR4            0x010
-+#define     LPC_HICR4_LADR12AS       BIT(7)
-+#define     LPC_HICR4_KCSENBL        BIT(2)
-+#define LPC_LADR3H           0x014
-+#define LPC_LADR3L           0x018
-+#define LPC_LADR12H          0x01C
-+#define LPC_LADR12L          0x020
-+#define LPC_IDR1             0x024
-+#define LPC_IDR2             0x028
-+#define LPC_IDR3             0x02C
-+#define LPC_ODR1             0x030
-+#define LPC_ODR2             0x034
-+#define LPC_ODR3             0x038
-+#define LPC_STR1             0x03C
-+#define LPC_STR2             0x040
-+#define LPC_STR3             0x044
-+
-+/* mapped to lpc-host@80 IO space */
-+#define LPC_HICRB            0x080
-+#define     LPC_HICRB_IBFIF4         BIT(1)
-+#define     LPC_HICRB_LPC4E          BIT(0)
-+#define LPC_LADR4            0x090
-+#define LPC_IDR4             0x094
-+#define LPC_ODR4             0x098
-+#define LPC_STR4             0x09C
-+
-+
-+/* IPMI 2.0 - 9.5, KCS Interface Registers */
-+struct kcs_ioreg {
-+	u32 idr; /* Input Data Register */
-+	u32 odr; /* Output Data Register */
-+	u32 str; /* Status Register */
-+};
-+
-+static const struct kcs_ioreg kcs_ioreg_map[KCS_CHANNEL_MAX] = {
-+	{ .idr = LPC_IDR1, .odr = LPC_ODR1, .str = LPC_STR1 },
-+	{ .idr = LPC_IDR2, .odr = LPC_ODR2, .str = LPC_STR2 },
-+	{ .idr = LPC_IDR3, .odr = LPC_ODR3, .str = LPC_STR3 },
-+	{ .idr = LPC_IDR4, .odr = LPC_ODR4, .str = LPC_STR4 },
-+};
-+
-+struct kcs_bmc {
++struct aspeed_espi_slave_data {
 +	struct regmap *map;
-+	spinlock_t     lock;
-+
-+	u32 chan;
-+	int running;
-+
-+	u32 idr;
-+	u32 odr;
-+	u32 str;
-+
-+	int kcs_phase;
-+	u8  abort_phase;
-+	u8  kcs_error;
-+
-+	wait_queue_head_t queue;
-+	int  data_in_avail;
-+	int  data_in_idx;
-+	u8  *data_in;
-+
-+	int  data_out_idx;
-+	int  data_out_len;
-+	u8  *data_out;
-+
-+	struct miscdevice miscdev;
 +};
 +
-+static u8 kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
++static void aspeed_espi_slave_sys_event(struct aspeed_espi_slave_data *priv)
 +{
-+	u32 val = 0;
-+	int rc;
++	u32 sts, evt;
 +
-+	rc = regmap_read(kcs_bmc->map, reg, &val);
-+	WARN(rc != 0, "regmap_read() failed: %d\n", rc);
++	if (regmap_read(priv->map, ESPI_SYS_ISR, &sts) != 0 ||
++	    regmap_read(priv->map, ESPI_SYS_EVENT, &evt) != 0)
++		return;
 +
-+	return rc == 0 ? (u8) val : 0;
++	if (sts & ESPI_SYSEVT_HOST_RST_WARN)
++		regmap_update_bits_base(priv->map, ESPI_SYS_EVENT,
++			ESPI_SYSEVT_HOST_RST_ACK,
++			evt & ESPI_SYSEVT_HOST_RST_WARN ?
++				ESPI_SYSEVT_HOST_RST_ACK : 0,
++			NULL, false, true);
++
++	if (sts & ESPI_SYSEVT_OOB_RST_WARN)
++		regmap_update_bits_base(priv->map, ESPI_SYS_EVENT,
++			ESPI_SYSEVT_OOB_RST_ACK,
++			evt & ESPI_SYSEVT_OOB_RST_WARN ?
++				ESPI_SYSEVT_OOB_RST_ACK : 0,
++			NULL, false, true);
++
++	regmap_write(priv->map, ESPI_SYS_ISR, sts);
 +}
 +
-+static void kcs_outb(struct kcs_bmc *kcs_bmc, u8 data, u32 reg)
++static void aspeed_espi_slave_sys1_event(struct aspeed_espi_slave_data *priv)
 +{
-+	int rc;
-+
-+	rc = regmap_write(kcs_bmc->map, reg, data);
-+	WARN(rc != 0, "regmap_write() failed: %d\n", rc);
-+}
-+
-+static inline void kcs_set_state(struct kcs_bmc *kcs_bmc, u8 state)
-+{
-+	regmap_update_bits(kcs_bmc->map, kcs_bmc->str, KCS_STR_STATE_MASK,
-+			KCS_STR_STATE(state));
-+}
-+
-+static inline void kcs_set_atn(struct kcs_bmc *kcs_bmc)
-+{
-+	regmap_update_bits(kcs_bmc->map, kcs_bmc->str, KCS_STR_SMS_ATN,
-+			KCS_STR_SMS_ATN);
-+}
-+
-+static inline void kcs_clear_atn(struct kcs_bmc *kcs_bmc)
-+{
-+	regmap_update_bits(kcs_bmc->map, kcs_bmc->str, KCS_STR_SMS_ATN,
-+			0);
-+}
-+
-+/*
-+ * AST_usrGuide_KCS.pdf
-+ * 2. Background:
-+ *   we note D for Data, and C for Cmd/Status, default rules are
-+ *     A. KCS1 / KCS2 ( D / C:X / X+4 )
-+ *        D / C : CA0h / CA4h
-+ *        D / C : CA8h / CACh
-+ *     B. KCS3 ( D / C:XX2h / XX3h )
-+ *        D / C : CA2h / CA3h
-+ *        D / C : CB2h / CB3h
-+ *     C. KCS4
-+ *        D / C : CA4h / CA5h
-+ */
-+static void kcs_set_addr(struct kcs_bmc *kcs_bmc, u16 addr)
-+{
-+	switch (kcs_bmc->chan) {
-+	case 1:
-+		regmap_update_bits(kcs_bmc->map, LPC_HICR4,
-+				LPC_HICR4_LADR12AS, 0);
-+		regmap_write(kcs_bmc->map, LPC_LADR12H, addr >> 8);
-+		regmap_write(kcs_bmc->map, LPC_LADR12L, addr & 0xFF);
-+		break;
-+
-+	case 2:
-+		regmap_update_bits(kcs_bmc->map, LPC_HICR4,
-+				LPC_HICR4_LADR12AS, LPC_HICR4_LADR12AS);
-+		regmap_write(kcs_bmc->map, LPC_LADR12H, addr >> 8);
-+		regmap_write(kcs_bmc->map, LPC_LADR12L, addr & 0xFF);
-+		break;
-+
-+	case 3:
-+		regmap_write(kcs_bmc->map, LPC_LADR3H, addr >> 8);
-+		regmap_write(kcs_bmc->map, LPC_LADR3L, addr & 0xFF);
-+		break;
-+
-+	case 4:
-+		regmap_write(kcs_bmc->map, LPC_LADR4, ((addr + 1) << 16) |
-+			addr);
-+		break;
-+
-+	default:
-+		break;
-+	}
-+}
-+
-+static void kcs_enable_channel(struct kcs_bmc *kcs_bmc, int enable)
-+{
-+	switch (kcs_bmc->chan) {
-+	case 1:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR2,
-+					LPC_HICR2_IBFIF1, LPC_HICR2_IBFIF1);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR0,
-+					LPC_HICR0_LPC1E, LPC_HICR0_LPC1E);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR0,
-+					LPC_HICR0_LPC1E, 0);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR2,
-+					LPC_HICR2_IBFIF1, 0);
-+		}
-+		break;
-+
-+	case 2:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR2,
-+					LPC_HICR2_IBFIF2, LPC_HICR2_IBFIF2);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR0,
-+					LPC_HICR0_LPC2E, LPC_HICR0_LPC2E);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR0,
-+					LPC_HICR0_LPC2E, 0);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR2,
-+					LPC_HICR2_IBFIF2, 0);
-+		}
-+		break;
-+
-+	case 3:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR2,
-+					LPC_HICR2_IBFIF3, LPC_HICR2_IBFIF3);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR0,
-+					LPC_HICR0_LPC3E, LPC_HICR0_LPC3E);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR4,
-+					LPC_HICR4_KCSENBL, LPC_HICR4_KCSENBL);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR0,
-+					LPC_HICR0_LPC3E, 0);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR4,
-+					LPC_HICR4_KCSENBL, 0);
-+			regmap_update_bits(kcs_bmc->map, LPC_HICR2,
-+					LPC_HICR2_IBFIF3, 0);
-+		}
-+		break;
-+
-+	case 4:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICRB,
-+					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
-+					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map, LPC_HICRB,
-+					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
-+					0);
-+		}
-+		break;
-+
-+	default:
-+		break;
-+	}
-+}
-+
-+static void kcs_rx_data(struct kcs_bmc *kcs_bmc)
-+{
-+	u8 data;
-+
-+	switch (kcs_bmc->kcs_phase) {
-+	case KCS_PHASE_WRITE:
-+		kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
-+
-+		/* set OBF before reading data */
-+		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+
-+		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
-+			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
-+					kcs_inb(kcs_bmc, kcs_bmc->idr);
-+		break;
-+
-+	case KCS_PHASE_WRITE_END:
-+		kcs_set_state(kcs_bmc, KCS_READ_STATE);
-+
-+		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
-+			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
-+					kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+		kcs_bmc->kcs_phase = KCS_PHASE_READ;
-+		if (kcs_bmc->running) {
-+			kcs_bmc->data_in_avail = 1;
-+			wake_up_interruptible(&kcs_bmc->queue);
-+		}
-+		break;
-+
-+	case KCS_PHASE_READ:
-+		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
-+			kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
-+
-+		data = kcs_inb(kcs_bmc, kcs_bmc->idr);
-+		if (data != KCS_READ_BYTE) {
-+			kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+			break;
-+		}
-+
-+		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
-+			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+			kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
-+			break;
-+		}
-+
-+		kcs_outb(kcs_bmc, kcs_bmc->data_out[kcs_bmc->data_out_idx++],
-+				 kcs_bmc->odr);
-+		break;
-+
-+	case KCS_PHASE_ABORT:
-+		switch (kcs_bmc->abort_phase) {
-+		case ABORT_PHASE_ERROR1:
-+			kcs_set_state(kcs_bmc, KCS_READ_STATE);
-+
-+			/* Read the Dummy byte */
-+			kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+			kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
-+			kcs_bmc->abort_phase = ABORT_PHASE_ERROR2;
-+			break;
-+
-+		case ABORT_PHASE_ERROR2:
-+			kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
-+
-+			/* Read the Dummy byte */
-+			kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+			kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
-+			kcs_bmc->abort_phase = 0;
-+			break;
-+
-+		default:
-+			break;
-+		}
-+
-+		break;
-+
-+	case KCS_PHASE_ERROR:
-+		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+
-+		/* Read the Dummy byte */
-+		kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+		break;
-+
-+	default:
-+		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+
-+		/* Read the Dummy byte */
-+		kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+		break;
-+	}
-+}
-+
-+static void kcs_rx_cmd(struct kcs_bmc *kcs_bmc)
-+{
-+	u8 cmd;
-+
-+	kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
-+
-+	/* Dummy data to generate OBF */
-+	kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+
-+	cmd = kcs_inb(kcs_bmc, kcs_bmc->idr);
-+	switch (cmd) {
-+	case KCS_WRITE_START:
-+		kcs_bmc->data_in_avail = 0;
-+		kcs_bmc->data_in_idx   = 0;
-+		kcs_bmc->kcs_phase     = KCS_PHASE_WRITE;
-+		kcs_bmc->kcs_error     = KCS_NO_ERROR;
-+		break;
-+
-+	case KCS_WRITE_END:
-+		kcs_bmc->kcs_phase = KCS_PHASE_WRITE_END;
-+		break;
-+
-+	case KCS_ABORT:
-+		if (kcs_bmc->kcs_error == KCS_NO_ERROR)
-+			kcs_bmc->kcs_error = KCS_ABORTED_BY_COMMAND;
-+
-+		kcs_bmc->kcs_phase   = KCS_PHASE_ABORT;
-+		kcs_bmc->abort_phase = ABORT_PHASE_ERROR1;
-+		break;
-+
-+	default:
-+		kcs_bmc->kcs_error = KCS_ILLEGAL_CONTROL_CODE;
-+		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+		kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
-+		kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
-+		break;
-+	}
-+}
-+
-+/*
-+ * Whenever the BMC is reset (from power-on or a hard reset), the State Bits
-+ * are initialized to "11 - Error State". Doing so allows SMS to detect that
-+ * the BMC has been reset and that any message in process has been terminated
-+ * by the BMC.
-+ */
-+static void kcs_force_abort(struct kcs_bmc *kcs_bmc)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+
-+	/* Read the Dummy byte */
-+	kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+	kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+	kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
-+}
-+
-+static irqreturn_t kcs_bmc_irq(int irq, void *arg)
-+{
-+	struct kcs_bmc *kcs_bmc = arg;
 +	u32 sts;
 +
-+	if (regmap_read(kcs_bmc->map, kcs_bmc->str, &sts) != 0)
++	if (regmap_read(priv->map, ESPI_SYS1_ISR, &sts) != 0)
++		return;
++
++	if (sts & ESPI_SYSEVT1_SUS_WARN)
++		regmap_update_bits_base(priv->map, ESPI_SYS1_EVENT,
++			ESPI_SYSEVT1_SUS_ACK, ESPI_SYSEVT1_SUS_ACK,
++			NULL, false, true);
++
++	regmap_write(priv->map, ESPI_SYS1_ISR, sts);
++}
++
++static irqreturn_t aspeed_espi_slave_irq(int irq, void *arg)
++{
++	struct aspeed_espi_slave_data *priv = arg;
++	u32 sts;
++
++	if (regmap_read(priv->map, ESPI_ISR, &sts) != 0)
 +		return IRQ_NONE;
 +
-+	sts &= (KCS_STR_IBF | KCS_STR_CMD_DAT);
++	if (sts & ESPI_ISR_HW_RESET) {
++		regmap_update_bits_base(priv->map, ESPI_CTRL,
++				ESPI_CTRL_SW_RESET, 0,
++				NULL, false, true);
++		regmap_update_bits_base(priv->map, ESPI_CTRL,
++				ESPI_CTRL_SW_RESET, ESPI_CTRL_SW_RESET,
++				NULL, false, true);
 +
-+	switch (sts) {
-+	case KCS_STR_IBF | KCS_STR_CMD_DAT:
-+		kcs_rx_cmd(kcs_bmc);
-+		break;
-+
-+	case KCS_STR_IBF:
-+		kcs_rx_data(kcs_bmc);
-+
-+	default:
-+		return IRQ_NONE;
++		regmap_update_bits_base(priv->map, ESPI_SYS_EVENT,
++				ESPI_SYSEVT_SLAVE_BOOT_STATUS |
++					ESPI_SYSEVT_SLAVE_BOOT_DONE,
++				ESPI_SYSEVT_SLAVE_BOOT_STATUS |
++					ESPI_SYSEVT_SLAVE_BOOT_DONE,
++				NULL, false, true);
 +	}
++
++	if (sts & ESPI_ISR_VW_SYS_EVT)
++		aspeed_espi_slave_sys_event(priv);
++
++	if (sts & ESPI_ISR_VW_SYS_EVT1)
++		aspeed_espi_slave_sys1_event(priv);
++
++	regmap_write(priv->map, ESPI_ISR, sts);
 +
 +	return IRQ_HANDLED;
 +}
 +
-+static int kcs_bmc_config_irq(struct kcs_bmc *kcs_bmc,
++
++/* Setup Interrupt Type/Enable of System Event from Master
++ *				   T2 T1 T0
++ *  1). HOST_RST_WARN : Dual Edge   1  0  0
++ *  2). OOB_RST_WARN  : Dual Edge   1  0  0
++ *  3). PLTRST_N      : Dual Edge   1  0  0
++ */
++#define ESPI_SYS_INT_T0_SET        0x00000000
++#define ESPI_SYS_INT_T1_SET        0x00000000
++#define ESPI_SYS_INT_T2_SET \
++(ESPI_SYSEVT_HOST_RST_WARN | ESPI_SYSEVT_OOB_RST_WARN | ESPI_SYSEVT_PLT_RST_N)
++#define ESPI_SYS_INT_SET \
++(ESPI_SYSEVT_HOST_RST_WARN | ESPI_SYSEVT_OOB_RST_WARN | ESPI_SYSEVT_PLT_RST_N)
++
++/* Setup Interrupt Type/Enable of System Event 1 from Master
++ *				   T2 T1 T0
++ *  1). SUS_WARN    : Rising Edge   0  0  1
++ */
++#define ESPI_SYS1_INT_T0_SET        ESPI_SYSEVT1_SUS_WARN
++#define ESPI_SYS1_INT_T1_SET        0x00000000
++#define ESPI_SYS1_INT_T2_SET        0x00000000
++#define ESPI_SYS1_INT_SET           ESPI_SYSEVT1_SUS_WARN
++
++static int aspeed_espi_slave_config_irq(struct aspeed_espi_slave_data *priv,
 +			struct platform_device *pdev)
 +{
 +	struct device *dev = &pdev->dev;
 +	int irq;
++	int rc;
 +
 +	irq = platform_get_irq(pdev, 0);
 +	if (irq < 0)
 +		return irq;
 +
-+	return devm_request_irq(dev, irq, kcs_bmc_irq, IRQF_SHARED,
-+			dev_name(dev), kcs_bmc);
-+}
++	rc = devm_request_irq(dev, irq, aspeed_espi_slave_irq, IRQF_SHARED,
++			dev_name(dev), priv);
++	if (rc < 0)
++		return rc;
 +
++	regmap_update_bits(priv->map, ESPI_CTRL, ESPI_CTRL_OOB_CHRDY,
++			ESPI_CTRL_OOB_CHRDY);
 +
-+static inline struct kcs_bmc *file_kcs_bmc(struct file *filp)
-+{
-+	return container_of(filp->private_data, struct kcs_bmc, miscdev);
-+}
++	regmap_write(priv->map, ESPI_SYS_INT_T0, ESPI_SYS_INT_T0_SET);
++	regmap_write(priv->map, ESPI_SYS_INT_T1, ESPI_SYS_INT_T1_SET);
++	regmap_write(priv->map, ESPI_SYS_INT_T2, ESPI_SYS_INT_T2_SET);
++	regmap_write(priv->map, ESPI_SYS_IER, ESPI_SYS_INT_SET);
 +
-+static int kcs_bmc_open(struct inode *inode, struct file *filp)
-+{
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+	unsigned long flags;
++	regmap_write(priv->map, ESPI_SYS1_INT_T0, ESPI_SYS1_INT_T0_SET);
++	regmap_write(priv->map, ESPI_SYS1_INT_T1, ESPI_SYS1_INT_T1_SET);
++	regmap_write(priv->map, ESPI_SYS1_INT_T2, ESPI_SYS1_INT_T2_SET);
++	regmap_write(priv->map, ESPI_SYS1_IER, ESPI_SYS1_INT_SET);
 +
-+	if (kcs_bmc->running)
-+		return -EBUSY;
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	kcs_bmc->kcs_phase     = KCS_PHASE_IDLE;
-+	kcs_bmc->running       = 1;
-+	kcs_bmc->data_in_avail = 0;
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
++	regmap_write(priv->map, ESPI_IER, 0xFFFFFFFF);
 +
 +	return 0;
 +}
 +
-+static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
++static void aspeed_espi_slave_boot_ack(struct aspeed_espi_slave_data *priv)
 +{
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+	unsigned int mask = 0;
++	u32 evt;
 +
-+	poll_wait(filp, &kcs_bmc->queue, wait);
++	if (regmap_read(priv->map, ESPI_SYS_EVENT, &evt) == 0 &&
++	    (evt & ESPI_SYSEVT_SLAVE_BOOT_STATUS) == 0)
++		regmap_write(priv->map, ESPI_SYS_EVENT, evt |
++			ESPI_SYSEVT_SLAVE_BOOT_STATUS |
++			ESPI_SYSEVT_SLAVE_BOOT_DONE);
 +
-+	if (kcs_bmc->data_in_avail)
-+		mask |= POLLIN;
-+
-+	if (kcs_bmc->kcs_phase == KCS_PHASE_READ)
-+		mask |= POLLOUT;
-+
-+	return mask;
++	if (regmap_read(priv->map, ESPI_SYS1_EVENT, &evt) == 0 &&
++	    (evt & ESPI_SYSEVT1_SUS_WARN) != 0)
++		regmap_write(priv->map, ESPI_SYS1_EVENT, evt |
++			ESPI_SYSEVT1_SUS_ACK);
 +}
 +
-+static ssize_t kcs_bmc_read(struct file *filp, char *buf,
-+			    size_t count, loff_t *offset)
-+{
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+	int rv;
-+
-+	rv = wait_event_interruptible(kcs_bmc->queue,
-+				kcs_bmc->data_in_avail != 0);
-+	if (rv < 0)
-+		return -ERESTARTSYS;
-+
-+	kcs_bmc->data_in_avail = 0;
-+
-+	if (count > kcs_bmc->data_in_idx)
-+		count = kcs_bmc->data_in_idx;
-+
-+	if (copy_to_user(buf, kcs_bmc->data_in, count))
-+		return -EFAULT;
-+
-+	return count;
-+}
-+
-+static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
-+			     size_t count, loff_t *offset)
-+{
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+	unsigned long flags;
-+
-+	if (count < 1 || count > KCS_MSG_BUFSIZ)
-+		return -EINVAL;
-+
-+	if (copy_from_user(kcs_bmc->data_out, buf, count))
-+		return -EFAULT;
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	if (kcs_bmc->kcs_phase == KCS_PHASE_READ) {
-+		kcs_bmc->data_out_idx = 1;
-+		kcs_bmc->data_out_len = count;
-+		kcs_outb(kcs_bmc, kcs_bmc->data_out[0], kcs_bmc->odr);
-+	}
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
-+
-+	return count;
-+}
-+
-+static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
-+			  unsigned long arg)
-+{
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+	long ret = 0;
-+
-+	switch (cmd) {
-+	case KCS_BMC_IOCTL_SET_ATN:
-+		kcs_set_atn(kcs_bmc);
-+		break;
-+
-+	case KCS_BMC_IOCTL_CLR_ATN:
-+		kcs_clear_atn(kcs_bmc);
-+		break;
-+
-+	case KCS_BMC_IOCTL_FORCE_ABORT:
-+		kcs_force_abort(kcs_bmc);
-+		break;
-+
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int kcs_bmc_release(struct inode *inode, struct file *filp)
-+{
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	kcs_bmc->running = 0;
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
-+
-+	return 0;
-+}
-+
-+static const struct file_operations kcs_bmc_fops = {
-+	.owner          = THIS_MODULE,
-+	.open           = kcs_bmc_open,
-+	.read           = kcs_bmc_read,
-+	.write          = kcs_bmc_write,
-+	.release        = kcs_bmc_release,
-+	.poll           = kcs_bmc_poll,
-+	.unlocked_ioctl = kcs_bmc_ioctl,
++static const struct regmap_config espi_slave_regmap_cfg = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = ESPI_SYS1_ISR,
 +};
 +
-+static int kcs_bmc_probe(struct platform_device *pdev)
++static int aspeed_espi_slave_probe(struct platform_device *pdev)
 +{
++	struct aspeed_espi_slave_data *priv;
 +	struct device *dev = &pdev->dev;
-+	const struct kcs_ioreg *ioreg;
-+	struct kcs_bmc *kcs_bmc;
-+	u32 chan, addr;
++	struct resource *res;
++	void __iomem *regs;
 +	int rc;
 +
-+	kcs_bmc = devm_kzalloc(dev, sizeof(*kcs_bmc), GFP_KERNEL);
-+	if (!kcs_bmc)
++	dev_set_name(dev, DEVICE_NAME);
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	regs = devm_ioremap_resource(dev, res);
++	if (IS_ERR(regs))
++		return PTR_ERR(regs);
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
 +		return -ENOMEM;
 +
-+	rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
-+	if ((rc != 0) || (chan == 0 || chan > KCS_CHANNEL_MAX)) {
-+		dev_err(dev, "no valid 'kcs_chan' configured\n");
-+		return -ENODEV;
-+	}
++	priv->map = devm_regmap_init_mmio(dev, regs, &espi_slave_regmap_cfg);
++	if (IS_ERR(priv->map))
++		return PTR_ERR(priv->map);
 +
-+	rc = of_property_read_u32(dev->of_node, "kcs_addr", &addr);
-+	if (rc) {
-+		dev_err(dev, "no valid 'kcs_addr' configured\n");
-+		return -ENODEV;
-+	}
-+
-+	kcs_bmc->map = syscon_node_to_regmap(dev->parent->of_node);
-+	if (IS_ERR(kcs_bmc->map)) {
-+		dev_err(dev, "Couldn't get regmap\n");
-+		return -ENODEV;
-+	}
-+
-+	dev_set_name(dev, "ipmi-kcs%u", chan);
-+
-+	spin_lock_init(&kcs_bmc->lock);
-+	kcs_bmc->chan = chan;
-+
-+	ioreg = &kcs_ioreg_map[chan - 1];
-+	kcs_bmc->idr  = ioreg->idr;
-+	kcs_bmc->odr  = ioreg->odr;
-+	kcs_bmc->str  = ioreg->str;
-+
-+	init_waitqueue_head(&kcs_bmc->queue);
-+	kcs_bmc->data_in  = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
-+	kcs_bmc->data_out = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
-+	if (kcs_bmc->data_in == NULL || kcs_bmc->data_out == NULL) {
-+		dev_err(dev, "Failed to allocate data buffers\n");
-+		return -ENOMEM;
-+	}
-+
-+	kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
-+	kcs_bmc->miscdev.name = dev_name(dev);
-+	kcs_bmc->miscdev.fops = &kcs_bmc_fops;
-+	rc = misc_register(&kcs_bmc->miscdev);
-+	if (rc) {
-+		dev_err(dev, "Unable to register device\n");
++	rc = aspeed_espi_slave_config_irq(priv, pdev);
++	if (rc)
 +		return rc;
-+	}
 +
-+	kcs_set_addr(kcs_bmc, addr);
-+	kcs_enable_channel(kcs_bmc, 1);
++	aspeed_espi_slave_boot_ack(priv);
 +
-+	rc = kcs_bmc_config_irq(kcs_bmc, pdev);
-+	if (rc) {
-+		misc_deregister(&kcs_bmc->miscdev);
-+		return rc;
-+	}
-+
-+	dev_set_drvdata(&pdev->dev, kcs_bmc);
-+
-+	dev_info(dev, "addr=0x%x, idr=0x%x, odr=0x%x, str=0x%x\n",
-+		addr, kcs_bmc->idr, kcs_bmc->odr, kcs_bmc->str);
++	platform_set_drvdata(pdev, priv);
 +
 +	return 0;
 +}
 +
-+static int kcs_bmc_remove(struct platform_device *pdev)
-+{
-+	struct kcs_bmc *kcs_bmc = dev_get_drvdata(&pdev->dev);
-+
-+	misc_deregister(&kcs_bmc->miscdev);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id kcs_bmc_match[] = {
-+	{ .compatible = "aspeed,ast2400-kcs-bmc" },
-+	{ .compatible = "aspeed,ast2500-kcs-bmc" },
++static const struct of_device_id of_espi_slave_match_table[] = {
++	{ .compatible = "aspeed,ast2500-espi-slave" },
 +	{ }
 +};
 +
-+static struct platform_driver kcs_bmc_driver = {
++static struct platform_driver aspeed_espi_slave_driver = {
 +	.driver = {
 +		.name           = DEVICE_NAME,
-+		.of_match_table = kcs_bmc_match,
++		.of_match_table = of_espi_slave_match_table,
 +	},
-+	.probe = kcs_bmc_probe,
-+	.remove = kcs_bmc_remove,
++	.probe = aspeed_espi_slave_probe,
 +};
 +
-+module_platform_driver(kcs_bmc_driver);
++module_platform_driver(aspeed_espi_slave_driver);
 +
-+MODULE_DEVICE_TABLE(of, kcs_bmc_match);
++MODULE_DEVICE_TABLE(of, of_espi_slave_match_table);
 +MODULE_LICENSE("GPL v2");
 +MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
-+MODULE_DESCRIPTION("Linux device interface to the IPMI KCS interface");
-diff --git a/include/uapi/linux/kcs-bmc.h b/include/uapi/linux/kcs-bmc.h
-new file mode 100644
-index 0000000..d1550d3
---- /dev/null
-+++ b/include/uapi/linux/kcs-bmc.h
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2015-2018, Intel Corporation.
-+
-+#ifndef _UAPI_LINUX_KCS_BMC_H
-+#define _UAPI_LINUX_KCS_BMC_H
-+
-+#include <linux/ioctl.h>
-+
-+#define __KCS_BMC_IOCTL_MAGIC        'K'
-+#define KCS_BMC_IOCTL_SET_ATN        _IO(__KCS_BMC_IOCTL_MAGIC, 1)
-+#define KCS_BMC_IOCTL_CLR_ATN        _IO(__KCS_BMC_IOCTL_MAGIC, 2)
-+#define KCS_BMC_IOCTL_FORCE_ABORT    _IO(__KCS_BMC_IOCTL_MAGIC, 3)
-+
-+#endif /* _UAPI_LINUX_KCS_BMC_H */
++MODULE_DESCRIPTION("Linux device interface to the eSPI slave");
 -- 
 2.7.4
