@@ -1,60 +1,61 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::233; helo=mail-qt0-x233.google.com;
+ (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="srGAUTSF"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrskbFvo"; 
  dkim-atps=neutral
-Received: from mail-qt0-x233.google.com (mail-qt0-x233.google.com
- [IPv6:2607:f8b0:400d:c0d::233])
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zLgQ02BRVzF0W0
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 06:33:59 +1100 (AEDT)
-Received: by mail-qt0-x233.google.com with SMTP id a16so19701102qtj.3
- for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 11:33:59 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zLgcg4rxkzF0Zp
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 06:43:15 +1100 (AEDT)
+Received: by mail-qk0-x244.google.com with SMTP id b76so22401748qkc.1
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 11:43:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=whSMFMS4EQwSULgri7SoJ8jTUSvtBkB0/pwQbgpGYD0=;
- b=srGAUTSFGiJgTmU4inXXb/MqXJZxQQ1Xj+ErjoJVxlqRttoRQT4aq9Ng/6Gc17mzF2
- 0Y+i+qfqpaDQv+YI1Z74QiO5EBCwYkcLKPHYiNIjqVYGyXoT0TBvaon9sTWpICE1V4zO
- mtiEpKjoUDGsaCWpXXKP3YLDjo4bW5liP3im1NvcRU+Po2LUKP3W1IpQghz8VrnyZwhB
- pe05SuxxJJtSWxoobHSDCnVkLUbQ2pPJ/Jn0uGhosYw62bcuaCDln+jrEywJarMCO3gg
- JXALySUMavvQZtIiNKDZmA26all2xjl4Qk50kyNHr0JGHdtWblU0f2d0c0UdAMC+IzQJ
- dukA==
+ :subject:to:cc;
+ bh=dp0pUl3sHBc53ou7OWEVG550zUZUp2YK68WKLozJac8=;
+ b=FrskbFvot19kGdB1W7sbkhfh88ThhVhATIWBYENAq9uePm12ILCQTYfFAg0tDPRv2S
+ N1Q/t3EM4d2alMsPklI41UdMX0OQ8bRJCIyvhNeRCdNn2x3ShHoUBlqENN1Sce4JSYRB
+ OPRVLZHgHqnMg4Au8PeMfqUf5O2gnIkw9Gxrevw4YkuGJE1Ug1hJfODXP/DIFU+gQM75
+ 0J5CNgbbh+1y8HpMcqn+Wj2OtdJZ4cggGa5QG32bGC/Mk7LHsbvE6rjbvO9QL2RvMYPw
+ QWlfgoD4d0Vi3OGAQ/SIfoaBcC8hZpNlaqxSJYS1q00S9pmVuV57hEIbnEvitc2i3Kya
+ gByg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=whSMFMS4EQwSULgri7SoJ8jTUSvtBkB0/pwQbgpGYD0=;
- b=pDTiGPXH6NOyYkElRh2RciL9eYY83Jv7VTvxG6a/d/I6CPqUmJtS80foSE8npSdl+F
- Q78WtOFELbcrDEiIUV4Rg0rUtzyoDgogoP3CFiTCqqn6/1OcjrUAAia0ZsH3i0zzNS4U
- 9MGjihqyvlM7aXL4Uobcfiv2c0V1lkySZOikXw6S2rTUdEmlhnVlYMhkV7FA0e+IpDw7
- dqUFW6OyZIbR8RSuVJ/4jiUWsQeq03R3TV6jnWOx0uYnQItJIrA7TSFUNrtlOXab+pq/
- dUPCEhnM32mAroRI/0RCQBalweYWTALAZixjnq4Fd8Flgk9rrAR4RVRsm7DB/K6EVxPQ
- TyVw==
-X-Gm-Message-State: AKwxytekI3qwaVoWJ+nn1E5pKo+LOWHGMto1J1WTC3yd/M9FdvYuFkfv
- xIRwUZlkTPR1PKTgVn1f2jkQnJHIdjExf8ahDKg=
-X-Google-Smtp-Source: ACJfBot75yWcN8lJijQ4VoGZtwlqybEUyjJyv/EZBnNBq5lh5cf3vxZrbMEfQsb3KpYQbklgTQhSKOZ8U0l9sCiSRNA=
-X-Received: by 10.200.23.219 with SMTP id r27mr12493144qtk.314.1516131237465; 
- Tue, 16 Jan 2018 11:33:57 -0800 (PST)
+ :date:message-id:subject:to:cc;
+ bh=dp0pUl3sHBc53ou7OWEVG550zUZUp2YK68WKLozJac8=;
+ b=j8pPPRm+hs71bAovfLxmMVGWvAfT+fS0JAXn0YbRlz2jm/dBKT7IwUJEDG9xHsHqo1
+ 6Psf/5XOyT/DjSEYS9xaYUNFaIhV6HdHb5WWuaN7BOuj2/SLjdr3D3TBdJRYBCcnxcH/
+ k5D/9rby3iVzKoe9XSOVq16BLZBewJiMKqpW+0xRjZG5bi64bHMn5Q4f11RkFqo094kJ
+ tCniNBJuPwA4sk4hZTS4Er76UxrmqPoyKxMjEHLtOjuKJTqW08UvRlePzz+D8zYwIV3N
+ XXnB3Gc5YDMPQx6wTRT0DQ0vO4r3fVAldoikDE+kSvh8hngXYRLBjhV+Al76XJ+wr6PG
+ AbUQ==
+X-Gm-Message-State: AKwxytfGxtNHtxDy/zJHj2pyn7zum1vyfX85lAr4I5yTRucWwj2LSVV/
+ /WqEDM/yrw8lAKw1yiSp8VeZ4/O8HFsHhIOyA4Q=
+X-Google-Smtp-Source: ACJfBovEiLjg4/UcR7zldq7Z4Lia2s/LhX2Gv6qvoYlnKckOd6itaMI3xfv/UQdPsNlqmAWVcJdPREL4MjQiim/uVcw=
+X-Received: by 10.55.178.66 with SMTP id b63mr56226970qkf.246.1516131793355;
+ Tue, 16 Jan 2018 11:43:13 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.29.9 with HTTP; Tue, 16 Jan 2018 11:33:37 -0800 (PST)
-In-Reply-To: <d1ba8d62a46a42899e9caba4c021f014@ausx13mpc109.AMER.DELL.COM>
-References: <703062ea845f4553be9065a2d5b6eb61@ausx13mpc109.AMER.DELL.COM>
- <CACPK8XeVo23u+o55tu0YW_eT8ncZjBmVhisFpCbBNCvoJ7h7Vg@mail.gmail.com>
- <d1ba8d62a46a42899e9caba4c021f014@ausx13mpc109.AMER.DELL.COM>
+Received: by 10.200.29.9 with HTTP; Tue, 16 Jan 2018 11:42:52 -0800 (PST)
+In-Reply-To: <CAPH-5w4VWj2J9wqHkMUWpZ4Xe9uMEMkt1LT4xDLL84HoOZHvsQ@mail.gmail.com>
+References: <1515057847-30492-1-git-send-email-mine260309@gmail.com>
+ <CACPK8Xf64OdfqNZiyu_v=hxB4YrgxPN5SHzxUsbEGkMbGqVwKg@mail.gmail.com>
+ <CAPH-5w4VWj2J9wqHkMUWpZ4Xe9uMEMkt1LT4xDLL84HoOZHvsQ@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 16 Jan 2018 13:33:37 -0600
-X-Google-Sender-Auth: Uzv5g1PRcMzN8eNLzz4bqzpLw04
-Message-ID: <CACPK8XeU9weGFES-SFDoFSe9DMOOsfaEPpZHqfmEd98MgYtBPQ@mail.gmail.com>
-Subject: Re: Issue with flash space overflow? Maybe?
-To: Balaji.B.Rao@dell.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 16 Jan 2018 13:42:52 -0600
+X-Google-Sender-Auth: jNrOsK_Otxe1ow5rOLhS8ln6Ioo
+Message-ID: <CACPK8Xfw3FF2nkdkrUC45tQrWV2mhbT-oZLkGfCr_r=T_Um=pg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: zaius: Add
+ pcie-e2b-present gpio key
+To: Xo Wang <xow@google.com>
+Cc: Lei YU <mine260309@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Adrian Barrera <abarrera@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,29 +67,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Jan 2018 19:34:01 -0000
+X-List-Received-Date: Tue, 16 Jan 2018 19:43:16 -0000
 
-On Tue, Jan 16, 2018 at 9:14 AM,  <Balaji.B.Rao@dell.com> wrote:
-> Joel,
+On Fri, Jan 5, 2018 at 12:48 PM, Xo Wang <xow@google.com> wrote:
+> Sorry, just got back online after travel nonsense.
 >
-> I didn=E2=80=99t change any build parameters, but the python packages. It=
- clearly builds well when the number of packages are lower. However as I ad=
-d more packages, I see this issue. While I'd like to investigate JFFS2 kern=
-el options as you suggested, I'm leaning toward flash space. Is there a way=
- to find if that is the case?
+> On Thu, Jan 4, 2018 at 5:58 PM, Joel Stanley <joel@jms.id.au> wrote:
+>>
+>>
+>> On 4 Jan. 2018 20:24, "Lei YU" <mine260309@gmail.com> wrote:
+>>
+>> Add GPIO key to check presence of PCIE E2B
+>>
+>>
+>> Xo, can I get an ack please?
+>>
+>>
+>>
+>> Signed-off-by: Lei YU <mine260309@gmail.com>
 
-These warnings are commonly due to a mismatch between the options
-enabled when creating the filesystem and the options that are enabled
-when mounting it.
+Applied to dev-4.10.
 
-If you are certain that you are booting with exactly the same kernel
-options as was used when first flashing the device, then you must have
-corrupted the JFFS2 partition. I suggest reflashing your JFFS2
-partition.
+Cheers,
 
-Here are some other suggestions:
-
- http://www.linux-mtd.infradead.org/faq/jffs2.html#L_magicnfound
-
-We haven't had any other failures reported with the mtd driver, so I
-do not think it's a problem with the mtd driver.
+Joel
