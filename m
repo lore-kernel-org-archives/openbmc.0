@@ -1,56 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::22c; helo=mail-qt0-x22c.google.com;
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dn7vEAOZ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gYAnGvKw"; 
  dkim-atps=neutral
-Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
- [IPv6:2607:f8b0:400d:c0d::22c])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zLcrG73FwzDqlG
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 04:38:06 +1100 (AEDT)
-Received: by mail-qt0-x22c.google.com with SMTP id d4so19217691qtj.5
- for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 09:38:06 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zLcvm72r7zDqJv
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 04:41:02 +1100 (AEDT)
+Received: by mail-qt0-x243.google.com with SMTP id e2so19224221qti.0
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 09:41:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=nc7xPFLrB3X3sEbp6HzLeNxomRLPxpuSi1YfqNbRivU=;
- b=Dn7vEAOZZioyFdIl+n31K1kvRXHAVfnf/SVj44vYAPq0joLlM4LF3qOa5QlBswjPcs
- HmsF0uLt4fP53Yzl8QKMwPi31Q3Jdt9wGlXhtLZb90wde/92dkRtnLV8Xs8sq8uVcTtu
- qYkW7l/nurgGwgy4jyRQEcVhv5xStBvwMJLflIa0ePWNUSfL2gOQQLZh5Wsn5dG6jnAD
- QB415pxXo5RuboQYzUin9RkNSugqdAi5AlpQ/S4yYorklK0/Nx28EFgCtqf9KWnE4zw6
- WK5eTPdKF8ALHo1fIWwmSFYXMA7J5IdsrcRsD224boOxZli/2t5PZgnoCrhmXy9XEczL
- lwfg==
+ bh=2a9pp4O6qfR3T3+R85zGnQPh2469JxjbNAvlo3AQba0=;
+ b=gYAnGvKwslEAZf60H7e2uo2oQS7bNn/zUljiq5pE79XQOnWskO0kl/fdWd3+6Rl1BS
+ kjKVV4YVyCjAvclCbNfkO41GaO2faOvgt9qqj4uN/QeDQHPDwYU1csClfoHo8tcnGdjg
+ beGSldoc0c+mVh0bXPyLUcFXCvevyT0cqfB3XdW1zXsDwuOoURYHgZojNg5UxLkbOC60
+ RbqHKKPOvWtBfxr5Wcm+QcBhkR1cQpxwRyu9+Yidy/ZvJSEHC+cSqesYNe1Zq1/57EDE
+ TF1scUIRBh49J6I3v991fmf0QJb0V/anMBzsRyKHYDNxNt1nFhX7gbZ1E2XSUBpvAA9M
+ wCFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=nc7xPFLrB3X3sEbp6HzLeNxomRLPxpuSi1YfqNbRivU=;
- b=lOjVw8xNFXQL2Q+iBTPzHxHEm0OYPUgDjXFTI+r5d6dMX36KkZowPysIBjxeQFuIqU
- IX4e6T6fR4283s2109pesEAMGOJHSvtpEUA1TmLQqBDelFHQ+VU4qcSP2sSMDsuigBE2
- 1sFFvnoJ5Cfr3g2KyPARDY6wzvANREzBLpPV+lUcvFm3Yr64a6NwNAInEjTPJg82G2/+
- +MXEzLpFhaewCVBl7zMuNKAG6tckq99xWCUlCuxjr2ZlhKAX8IiuqvQrCtB2JVZGs2Fd
- Kjgss99Nbm9O9vbPSRTukCeqgm2Vf4bNCzK8Fo5lF5RXwg8KD/EAmmsXO/1+84XONtaY
- cMVA==
-X-Gm-Message-State: AKwxytds8HFxJ2kfBQ1pz/VkPSeuF34yazob6niWir0SwGd0cWcTj8FC
- S7iAgiI+lJZzgxTEMtPsTlD0U5az4qPFNw2gqqQ=
-X-Google-Smtp-Source: ACJfBosepcZ9PoaPwH59LS05W6Ly6Jt2KEupsfMCYwPhiDQtAdRriySJpXQTpRF83mw4At0I+xntnqv6Jhw1+fJ5RJ8=
-X-Received: by 10.237.50.135 with SMTP id z7mr15080519qtd.249.1516124283921;
- Tue, 16 Jan 2018 09:38:03 -0800 (PST)
+ bh=2a9pp4O6qfR3T3+R85zGnQPh2469JxjbNAvlo3AQba0=;
+ b=dBfmx3HiMr1zqjzPx4/fQAcHkhlhugHBT6+xraaUiyiuXzSowpsF27KdvYQXRew/XW
+ otzvMAZmXUEKEUZY29W209DnR48YPy+OAvyJ1V7xxsv81c5/nvynEHnvMsoJNNZDC9FM
+ ATjeos1jEsqJi9sc0RBF+7a5IFk8h+HxnekQcWQK4u1zHyKWQ1mQVo0Le/KcPFE+hdp8
+ TCV1lHcOudcfGcGDF9/yNp7aZDvCRjKagPcgKO6c4VhqZmx6dkDx0bopgDOeKzKtg9zI
+ t2gIUgGn9qcICipIYxYjfS5KIRD8ploy9M4RK4+jqOTQWshAheoEwjEVGFu+K9oRv/GO
+ GTPA==
+X-Gm-Message-State: AKwxyteVXJ4FsjD8M3OMFikivOgONocLnPQKmIm0DU4/ZECjtV2xv5AZ
+ eOjo3MBtkIK5ga6+qtGEqoFGX2ZaeR1vGoBgf6gl+gMp
+X-Google-Smtp-Source: ACJfBosXqhp+yjQzVjZkPHBWgp8RtVHOOnNq43E8gPlWCCtgdPYbK3xXB22R4YO3//NtZRXABlv5hhtWTQiuVlT9LR8=
+X-Received: by 10.237.49.134 with SMTP id 6mr11935239qth.178.1516124460274;
+ Tue, 16 Jan 2018 09:41:00 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.29.9 with HTTP; Tue, 16 Jan 2018 09:37:43 -0800 (PST)
-In-Reply-To: <1515696437-10508-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1515696437-10508-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.200.29.9 with HTTP; Tue, 16 Jan 2018 09:40:39 -0800 (PST)
+In-Reply-To: <20180110224414.21516-1-andrew@aj.id.au>
+References: <20180110224414.21516-1-andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 16 Jan 2018 11:37:43 -0600
-X-Google-Sender-Auth: EQPFFCQuFgqf9_e4XwqPragx2fA
-Message-ID: <CACPK8XfktaijUe7i5kV27ce3ZpWvZiKtUPPTPuqLHhh-ErZN2g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 0/5] hwmon (pmbus): cffps: reset to
- linux-next state
-To: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Tue, 16 Jan 2018 11:40:39 -0600
+X-Google-Sender-Auth: iIzHhyLb2t3lqeRLaQIItuakmLQ
+Message-ID: <CACPK8XeuAvoxMEvM719R05ONWBEk1Dh5Tvnpb2nq2o6RszOqeA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 0/4] gpio: Implement per-pin reset
+ tolerance on Aspeed
+To: Andrew Jeffery <andrew@aj.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -64,25 +64,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Jan 2018 17:38:08 -0000
+X-List-Received-Date: Tue, 16 Jan 2018 17:41:12 -0000
+X-List-Received-Date: Tue, 16 Jan 2018 17:41:12 -0000
 
-On Thu, Jan 11, 2018 at 12:47 PM, Eddie James
-<eajames@linux.vnet.ibm.com> wrote:
-> This series brings the IBM common form factor power supply driver to the
-> commits accepted into linux-next. It also includes two changes to the pmbus
-> core driver, also in linux-next. One is required for cffps, the other is a
-> bug fix for pmbus page number.
+On Wed, Jan 10, 2018 at 4:44 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Hello,
 >
-> Eddie James (5):
->   hwmon: (pmbus/core) Prevent unintentional setting of page to 0xFF
->   hwmon: (pmbus) cffps: Add PMBUS_SKIP_STATUS_CHECK
->   hwmon: (pmbus) Export pmbus device debugfs directory entry
->   hwmon: (pmbus) cffps: Add debugfs entries
->   hwmon (pmbus): cffps: Add led class device for power supply fault led
+> This series backports the upstream commits necessary to enable reset tolerance
+> for GPIOs on the Aspeed platforms.
+>
+> Two of the patches come from others, these were useful in the backport to
+> resolve some of the conflicts.
+>
+> Cheers,
+>
+> Andrew
+>
+> Andrew Jeffery (2):
+>   gpio: gpiolib: Generalise state persistence beyond sleep
+>   gpio: aspeed: Add support for reset tolerance
+>
+> Andy Shevchenko (1):
+>   gpiolib: Convert fwnode_get_named_gpiod() to configure GPIO
+>
+> Laxman Dewangan (1):
+>   gpio: core: Decouple open drain/source flag with active low/high
 
-Merged to 4.10.
-
-Congrats on getting these upstream first!
+Merged into 4.10, some what reluctantly.
 
 Cheers,
 
