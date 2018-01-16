@@ -1,57 +1,87 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::244; helo=mail-pg0-x244.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="XoR2gjoT"; 
+Return-Path: <Balaji.B.Rao@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
+ envelope-from=balaji.b.rao@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="iyP7Jijq"; 
  dkim-atps=neutral
-Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
- [IPv6:2607:f8b0:400e:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
+ [68.232.149.214])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zLtlm2yMhzF0h6
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 15:05:08 +1100 (AEDT)
-Received: by mail-pg0-x244.google.com with SMTP id c194so10587084pga.12
- for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 20:05:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:in-reply-to:references;
- bh=U6yjqe8JB1/+Pa3aouckJO04G2bvqQxuz7RODA1uC9E=;
- b=XoR2gjoT5QblomLl0OPZVQzdYuO8ShiI82vpi0rt8+EVE33h2C3T3GHfugTQ4fPUo+
- AtpTH/nDFy4I8r+oUxiNtKuoGxhIprbu9nir08GyzAN4qpVK0pMKQxk55UtJ2t6kHMzt
- LVGjge7zndErN2lZdFMYWBPT977cSwLDxZcBr1M7wnT4/Qv4p+qsp8zxcV+/qlZMRvg3
- /3dBrYNYFA+C29QBetwC03EEaPWNgKrru8un+NglNNM6g03zz89bOVxXMdsjiigER3/q
- GOul/RWB54VTs0T38wvHXeeMpGQ50sYLHVfG1F5e4K0/W5qgdKeL9NY3Nsu1eLsAv8+2
- vFEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references;
- bh=U6yjqe8JB1/+Pa3aouckJO04G2bvqQxuz7RODA1uC9E=;
- b=tGv8cFjsgaizMFMkx7jrirpItgVlIEkMVn91ocYRffjweMfDEgA7N0ZZb16jyYdHlD
- kpSziyLvIVwnfpbM1wGcloq4ZpqLdOwbFJFrNKK5oawu6LF0gOJ6a1jpaFBmjvWllECJ
- FBqr67d38ll9yy4FvKYouKCdvGuERs1jFTftGUIQsiLdfPM32H5a5SGdyV0YyFPM4Lga
- DJIIG2ginoqkruPWpwb0uoQLaoY8ZF4W4SDhAXOaSAIgzt1ovtY2i8y6N8fHEvt43H0h
- Y1iaC7ab3BIUFjmFcVbrfIQWq5ODGVGrHw7uUkR56+qmEWdfMf2YS+yfIxuXEPQRX1Ka
- TiuQ==
-X-Gm-Message-State: AKwxytdwi0oo9Sp8ONRD8iQJ5BSWGpzCUSlI3f5mkhhvARS3uF5xJnqN
- xundhbKBx9cQb10CH/sLlTNRmdCl
-X-Google-Smtp-Source: ACJfBovlqkf9MMyzh9jxnDGnj6e/a+5FRTG74U/+X43Uyje3XsZ1Z/1EVjxO/SXIGmKw/sqbR9LzPQ==
-X-Received: by 10.98.31.131 with SMTP id l3mr13496041pfj.116.1516161904881;
- Tue, 16 Jan 2018 20:05:04 -0800 (PST)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id w27sm5246288pge.54.2018.01.16.20.05.03
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Tue, 16 Jan 2018 20:05:04 -0800 (PST)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 3/3] hwmon: (w83773g) Fix fault detection and
- reporting
-Date: Wed, 17 Jan 2018 12:04:02 +0800
-Message-Id: <1516161842-16203-3-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1516161842-16203-1-git-send-email-mine260309@gmail.com>
-References: <1516161842-16203-1-git-send-email-mine260309@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zLYgZ4VkgzDqZH
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 02:14:52 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1516115722; x=1547651722;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=35+5mNF+SIFl0CruhsE4EG7kW0ZcJRehX6hp1FXh1fA=;
+ b=iyP7Jijq2dN0h3DJdeP7ge7FV/eDNpFc+8Q/cqjDKOFJ3GcmUWYcPpPK
+ mcHiQe1zrydM64PNdAx+Zo6gg75H57fzdI1z7FsiK7LlRuMaksmE6JQjr
+ dKTtr6WUL9IlgxV7ZGHLBGAzLGVwcnxfeS/dxBnGy+EXKAzLqVGzAFcsQ s=;
+IronPort-PHdr: =?us-ascii?q?9a23=3ANbD2zxSvIY+uHxV4dFy5Qm239tpsv+yvbD5Q0YIu?=
+ =?us-ascii?q?jvd0So/mwa69YhaN2/xhgRfzUJnB7Loc0qyK6/mmATRIyK3CmUhKSIZLWR4BhJ?=
+ =?us-ascii?q?detC0bK+nBN3fGKuX3ZTcxBsVIWQwt1Xi6NU9IBJS2PAWK8TW94jEIBxrwKxd+?=
+ =?us-ascii?q?KPjrFY7OlcS30P2594HObwlSizexfa5+IA+qoQnNq8IbnZZsJqEtxxXTv3BGYf?=
+ =?us-ascii?q?5WxWRmJVKSmxbz+MK994N9/ipTpvws6ddOXb31cKokQ7NYCi8mM30u683wqRbD?=
+ =?us-ascii?q?VwqP6WACXWgQjxFFHhLK7BD+Xpf2ryv6qu9w0zSUMMHqUbw5Xymp4qF2QxHqlS?=
+ =?us-ascii?q?gHLSY0/mHJhMJtkKJVrhGvpxJ9zI7VfI6bO/Vxc7jBfdwBR2pNQtpdWzBDD466?=
+ =?us-ascii?q?coABD/ABPeFdr4TloFYDsAGxBQ22C+Ptyz9EnGL70bcm3es7FgHLxxEvEMwKsH?=
+ =?us-ascii?q?TQttn6KKASUeWswaTO0D7NbOtW1C/85YXLaBwtv/+BUaxqfcbMyUQiGBnJg1Se?=
+ =?us-ascii?q?pID9Ij+Zyv4Bv3WU4uduT+6jlWEqpx9rrjWtxsogkpTFi40bx1ze6Cl0wYc4Kc?=
+ =?us-ascii?q?e7RUN7e9KoDodcuiCcOoBrWM0tWXtotzw/yrAevJ67ezUFx4o/yh7EbvyHb5CI?=
+ =?us-ascii?q?4hX+VOaNOTt4hGxqeLa4hxuq70eg0ffzW8eu3FlXsCVFlt3MumkK1xzO9siIUf?=
+ =?us-ascii?q?x9/lqn2TmSyQzf8OBEIVg0lareJJ8t2KI/lp0WsUjbHy/2nlv5jLOOe0gl+eWk?=
+ =?us-ascii?q?8frrb7v4qpOGKoN5ig7zPr4vl8GxGeg4NxIBX2mf+eSyzr3j+kj5Ta1Xg/Islq?=
+ =?us-ascii?q?nWqpLaJcUBqqOkGQNbzpws6xGkAji7ztsYmX0HIEhZdxKAiojlI0vOL+zgDfej?=
+ =?us-ascii?q?n1Ssly9mx/fePrL/BJXCNX3Dn6v6cLZ56k5c0xYzzctF65JTC7ABJOj8VVTqtN?=
+ =?us-ascii?q?DCCR85KQO0kK7bD4Ap1IQTXUqNB7TfMa+UuELetcw1JOzZMKUcvD//Kr4PocTn?=
+ =?us-ascii?q?ilc1lFsZO6Ku2M1EOziDAv16LhDBMjLXidAbHDJSsw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2HkAQCQFV5ahz+a6ERcGQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQcBAQEBAYQXgQQnB4QMmQSCAokGhjyKAAoYhSMCGoRCQhUBAQEBAQEBAQE?=
+ =?us-ascii?q?BAhABAQEKCwkIKC+COCKCSgEBAQEDASIRRQwEAgEIEQQBAQECAiMDAgICHwceA?=
+ =?us-ascii?q?QgIAQEEDgUIihMDFaVZgieHOQ2CBAEBAQEGAQEBAQEBAQEBH4EPhUKGODaCa0Q?=
+ =?us-ascii?q?EgXYzEoJLgmUFoyc9Co8rgRSEeYIihh2LWo1+iSeBPDWBdG+CfIJkgXN4AYwng?=
+ =?us-ascii?q?RcBAQE?=
+X-IPAS-Result: =?us-ascii?q?A2HkAQCQFV5ahz+a6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
+ =?us-ascii?q?XgQQnB4QMmQSCAokGhjyKAAoYhSMCGoRCQhUBAQEBAQEBAQEBAhABAQEKCwkIK?=
+ =?us-ascii?q?C+COCKCSgEBAQEDASIRRQwEAgEIEQQBAQECAiMDAgICHwceAQgIAQEEDgUIihM?=
+ =?us-ascii?q?DFaVZgieHOQ2CBAEBAQEGAQEBAQEBAQEBH4EPhUKGODaCa0QEgXYzEoJLgmUFo?=
+ =?us-ascii?q?yc9Co8rgRSEeYIihh2LWo1+iSeBPDWBdG+CfIJkgXN4AYwngRcBAQE?=
+Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
+ by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2018 09:14:50 -0600
+From: <Balaji.B.Rao@dell.com>
+Received: from ausc60pc101.us.dell.com ([143.166.85.206])
+ by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2018 21:07:22 +0600
+X-LoopCount0: from 10.166.132.72
+X-IronPort-AV: E=Sophos;i="5.46,368,1511848800"; d="scan'208";a="1202368682"
+X-DLP: DLP_GlobalPCIDSS
+To: <joel@jms.id.au>
+CC: <openbmc@lists.ozlabs.org>
+Subject: RE: Issue with flash space overflow? Maybe?
+Thread-Topic: Issue with flash space overflow? Maybe?
+Thread-Index: AdOOIcqPo13oWnLsTT+kI7Q9rwqDBQARtd6AABzpHyA=
+Date: Tue, 16 Jan 2018 15:14:48 +0000
+Message-ID: <d1ba8d62a46a42899e9caba4c021f014@ausx13mpc109.AMER.DELL.COM>
+References: <703062ea845f4553be9065a2d5b6eb61@ausx13mpc109.AMER.DELL.COM>
+ <CACPK8XeVo23u+o55tu0YW_eT8ncZjBmVhisFpCbBNCvoJ7h7Vg@mail.gmail.com>
+In-Reply-To: <CACPK8XeVo23u+o55tu0YW_eT8ncZjBmVhisFpCbBNCvoJ7h7Vg@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titusconfig: No Restrictions 04051212
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiIxYjI5ZmUzZS03ODQzLTRjNGEtODhmOC0zNTVlZTkyNmZmMDkiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6IjhUSXVEZFhvaStIeDU3ZDM4bUduMWMyMEJhWEJxR2ExMTBqVzlmY0lZNG89In0=
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Mailman-Approved-At: Wed, 17 Jan 2018 15:06:53 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,38 +93,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Jan 2018 04:05:09 -0000
+X-List-Received-Date: Tue, 16 Jan 2018 15:15:24 -0000
 
-From: Guenter Roeck <linux@roeck-us.net>
-
-Smatch reports:
-
-drivers/hwmon/w83773g.c:105
-	get_fault() warn: shift has higher precedence than mask
-
-Code analysis shows that the code is indeed wrong.
-Fix it, and while we are at it, drop unnecessary typecast.
-
-Fixes: 86a10c802362 ("hwmon: Add W83773G driver")
-Cc: Lei YU <mine260309@gmail.com>
-Reviewed-by: Lei YU <mine260309@gmail.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- drivers/hwmon/w83773g.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/hwmon/w83773g.c b/drivers/hwmon/w83773g.c
-index 0b97c28..e858093 100644
---- a/drivers/hwmon/w83773g.c
-+++ b/drivers/hwmon/w83773g.c
-@@ -102,7 +102,7 @@ static int get_fault(struct regmap *regmap, int index, long *val)
- 	if (ret < 0)
- 		return ret;
- 
--	*val = (u8)regval & 0x04 >> 2;
-+	*val = (regval & 0x04) >> 2;
- 	return 0;
- }
- 
--- 
-1.9.1
+Sm9lbCwNCg0KSSBkaWRu4oCZdCBjaGFuZ2UgYW55IGJ1aWxkIHBhcmFtZXRlcnMsIGJ1dCB0aGUg
+cHl0aG9uIHBhY2thZ2VzLiBJdCBjbGVhcmx5IGJ1aWxkcyB3ZWxsIHdoZW4gdGhlIG51bWJlciBv
+ZiBwYWNrYWdlcyBhcmUgbG93ZXIuIEhvd2V2ZXIgYXMgSSBhZGQgbW9yZSBwYWNrYWdlcywgSSBz
+ZWUgdGhpcyBpc3N1ZS4gV2hpbGUgSSdkIGxpa2UgdG8gaW52ZXN0aWdhdGUgSkZGUzIga2VybmVs
+IG9wdGlvbnMgYXMgeW91IHN1Z2dlc3RlZCwgSSdtIGxlYW5pbmcgdG93YXJkIGZsYXNoIHNwYWNl
+LiBJcyB0aGVyZSBhIHdheSB0byBmaW5kIGlmIHRoYXQgaXMgdGhlIGNhc2U/DQoNClRoYW5rcw0K
+QmFsYWppDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBqb2VsLnN0YW5AZ21h
+aWwuY29tIFttYWlsdG86am9lbC5zdGFuQGdtYWlsLmNvbV0gT24gQmVoYWxmIE9mIEpvZWwgU3Rh
+bmxleQ0KU2VudDogTW9uZGF5LCBKYW51YXJ5IDE1LCAyMDE4IDE6MjQgUE0NClRvOiBSYW8sIEJh
+bGFqaSBCIDxCYWxhamlfQl9SYW9AZGVsbC5jb20+DQpDYzogT3BlbkJNQyBNYWlsbGlzdCA8b3Bl
+bmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IElzc3VlIHdpdGggZmxhc2ggc3Bh
+Y2Ugb3ZlcmZsb3c/IE1heWJlPw0KDQpPbiBNb24sIEphbiAxNSwgMjAxOCBhdCA4OjU3IEFNLCAg
+PEJhbGFqaS5CLlJhb0BkZWxsLmNvbT4gd3JvdGU6DQo+IE9uIFBhbG1ldHRvLCB3aGVuIEkgZmxh
+c2ggYSBidWlsZCwgSSBnZXQgdGhpcyBlcnJvci4gTmV0Ym9vdCBmcm9tIHRoZSANCj4gc2FtZSBp
+bWFnZSB3b3JrcywgaG93ZXZlciB3aGVuIEkgZmxhc2ggYnkgY29weWluZyB0aGUgc3RhdGljLm10
+ZCANCj4gaW1hZ2UsIEkgc2VlIHRoaXMgaXNzdWUuIEnigJltIHRyeWluZyB0byBhZGQgYSBidW5j
+aCBvZiBweXRob24gcGFja2FnZXMgDQo+IHRvIHRoZSBidWlsZC4gQ291bGQgaXQgYmUgYSBmbGFz
+aCBzcGFjZSBpc3N1ZT8gUGxlYXNlIGFkdmlzZSBpZiANCj4gYW55Ym9keSBoYXMgYW55IHRob3Vn
+aHRzIG9uIHRoaXMgYW5kIGhvdyB0aGlzIGNhbiBiZSBvdmVyY29tZT8NCg0KPiBbICAgIDguMDYw
+MDAwXSBqZmZzMjogamZmczJfc2Nhbl9lcmFzZWJsb2NrKCk6IE1hZ2ljIGJpdG1hc2sgMHgxOTg1
+IG5vdA0KPiBmb3VuZCBhdCAweDAwMDAwMDBjOiAweDZhODkgaW5zdGVhZA0KDQpZb3UgbmVlZCB0
+byBlbnN1cmUgdGhlIEpGRlMyIGtlcm5lbCBvcHRpb25zIGFyZSB0aGUgc2FtZSBmb3IgYm90aCB5
+b3VyIG5ldGJvb3QgYW5kIGZsYXNoZWQga2VybmVscy4gVGhlIHdhcm5pbmdzIHlvdSBzZWUgYmVs
+b3cgYWJvdXQgamZmczJfc2Nhbl9lcmFzZWJsb2NrIGFyZSBkdWUgdG8gYSBtaXNtYXRjaCBiZXR3
+ZWVuIHRoZSBzZXR0aW5ncy4NCg0KQ2hlZXJzLA0KDQpKb2VsDQo=
