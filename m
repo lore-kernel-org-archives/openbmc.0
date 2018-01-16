@@ -4,13 +4,13 @@ Authentication-Results: ozlabs.org;
  (client-ip=193.47.165.129; helo=mellanox.co.il;
  envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
 Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3zLMGj2jHFzF0Ym
- for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 18:26:36 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTP id 3zLMGk6xybzF0YC
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 18:26:38 +1100 (AEDT)
 Received: from Internal Mail-Server by MTLPINE1 (envelope-from
  oleksandrs@mellanox.com)
  with ESMTPS (AES256-SHA encrypted); 16 Jan 2018 09:19:07 +0200
 Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w0G7J6Hg018960;
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w0G7J6Hf018960;
  Tue, 16 Jan 2018 09:19:07 +0200
 From: Oleksandr Shamray <oleksandrs@mellanox.com>
 To: gregkh@linuxfoundation.org, arnd@arndb.de
@@ -20,10 +20,11 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  vadimp@mellanox.com, system-sw-low-level@mellanox.com,
  robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
  linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
- Oleksandr Shamray <oleksandrs@mellanox.com>
-Subject: [patch v17 4/4] Documentation: jtag: Add ABI documentation
-Date: Tue, 16 Jan 2018 09:18:59 +0200
-Message-Id: <1516087139-7510-5-git-send-email-oleksandrs@mellanox.com>
+ Oleksandr Shamray <oleksandrs@mellanox.com>, Jiri Pirko <jiri@mellanox.com>
+Subject: [patch v17 3/4] Documentation: jtag: Add bindings for Aspeed SoC 24xx
+ and 25xx families JTAG master driver
+Date: Tue, 16 Jan 2018 09:18:58 +0200
+Message-Id: <1516087139-7510-4-git-send-email-oleksandrs@mellanox.com>
 X-Mailer: git-send-email 1.7.1
 In-Reply-To: <1516087139-7510-1-git-send-email-oleksandrs@mellanox.com>
 References: <1516087139-7510-1-git-send-email-oleksandrs@mellanox.com>
@@ -38,70 +39,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Jan 2018 07:26:38 -0000
+X-List-Received-Date: Tue, 16 Jan 2018 07:26:40 -0000
 
-Added document that describe the ABI for JTAG class drivrer
+It has been tested on Mellanox system with BMC equipped with
+Aspeed 2520 SoC for programming CPLD devices.
 
 Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Jiri Pirko <jiri@mellanox.com>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
 v16->v17
 v15->v16
+Comments pointed by Joel Stanley <joel.stan@gmail.com>
+- change clocks = <&clk_apb> to proper clocks = <&syscon ASPEED_CLK_APB>
+- add reset descriptions in bndings file
+
 v14->v15
 v13->v14
 v12->v13
 v11->v12
-Tobias Klauser <tklauser@distanz.ch>
-- rename /Documentation/ABI/testing/jatg-dev -> jtag-dev
-- Typo: s/interfase/interface
 v10->v11
 v9->v10
-Fixes added by Oleksandr:
-- change jtag-cdev to jtag-dev in documentation
-- update Kernel Version and Date in jtag-dev documentation;
 v8->v9
 v7->v8
-v6->v7
-Comments pointed by Pavel Machek <pavel@ucw.cz>
-- Added jtag-cdev documentation to Documentation/ABI/testing folder
----
- Documentation/ABI/testing/jtag-dev |   27 +++++++++++++++++++++++++++
- 1 files changed, 27 insertions(+), 0 deletions(-)
- create mode 100644 Documentation/ABI/testing/jtag-dev
+Comments pointed by pointed by Joel Stanley <joel.stan@gmail.com>
+- Change compatible string to ast2400 and ast2000
 
-diff --git a/Documentation/ABI/testing/jtag-dev b/Documentation/ABI/testing/jtag-dev
+V6->v7
+Comments pointed by Tobias Klauser <tklauser@distanz.ch>
+ - Fix spell "Doccumentation" -> "Documentation"
+
+v5->v6
+Comments pointed by Tobias Klauser <tklauser@distanz.ch>
+- Small nit: s/documentation/Documentation/
+
+v4->v5
+
+V3->v4
+Comments pointed by Rob Herring <robh@kernel.org>
+- delete unnecessary "status" and "reg-shift" descriptions in
+  bndings file
+
+v2->v3
+Comments pointed by Rob Herring <robh@kernel.org>
+- split Aspeed jtag driver and binding to sepatrate patches
+- delete unnecessary "status" and "reg-shift" descriptions in
+  bndings file
+---
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   22 ++++++++++++++++++++
+ drivers/jtag/jtag-aspeed.c                         |    1 +
+ 2 files changed, 23 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+
+diff --git a/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
 new file mode 100644
-index 0000000..cea9552
+index 0000000..7c36eb6
 --- /dev/null
-+++ b/Documentation/ABI/testing/jtag-dev
-@@ -0,0 +1,27 @@
-+What:		/dev/jtag[0-9]+
-+Date:		October 2017
-+KernelVersion:	4.17
-+Contact:	oleksandrs@mellanox.com
-+Description:
-+		The misc device files /dev/jtag* are the interface
-+		between JTAG master interface and userspace.
++++ b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+@@ -0,0 +1,22 @@
++Aspeed JTAG driver for ast2400 and ast2500 SoC
 +
-+		The ioctl(2)-based ABI is defined and documented in
-+		[include/uapi]<linux/jtag.h>.
++Required properties:
++- compatible:		Should be one of
++      - "aspeed,ast2400-jtag"
++      - "aspeed,ast2500-jtag"
++- reg			contains the offset and length of the JTAG memory
++			region
++- clocks		root clock of bus, should reference the APB
++			clock in the second cell
++- resets		phandle to reset controller with the reset number in
++			the second cell
++- interrupts		should contain JTAG controller interrupt
 +
-+		The following file operations are supported:
-+
-+		open(2)
-+		The argument flag currently support only one access
-+		mode O_RDWR.
-+
-+		ioctl(2)
-+		Initiate various actions.
-+		See the inline documentation in [include/uapi]<linux/jtag.h>
-+		for descriptions of all ioctls.
-+
-+		close(2)
-+		Stops and free up the I/O contexts that was associated
-+		with the file descriptor.
-+
-+Users:		TBD
-\ No newline at end of file
++Example:
++jtag: jtag@1e6e4000 {
++	compatible = "aspeed,ast2500-jtag";
++	reg = <0x1e6e4000 0x1c>;
++	clocks = <&syscon ASPEED_CLK_APB>;
++	resets = <&syscon ASPEED_RESET_JTAG_MASTER>;
++	interrupts = <43>;
++};
+diff --git a/drivers/jtag/jtag-aspeed.c b/drivers/jtag/jtag-aspeed.c
+index 9cbd6da..f679041 100644
+--- a/drivers/jtag/jtag-aspeed.c
++++ b/drivers/jtag/jtag-aspeed.c
+@@ -12,6 +12,7 @@
+ #include <linux/module.h>
+ #include <linux/of_address.h>
+ #include <linux/platform_device.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <uapi/linux/jtag.h>
 -- 
 1.7.1
