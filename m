@@ -1,53 +1,44 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::244; helo=mail-pg0-x244.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fnOeBCsA"; 
- dkim-atps=neutral
-Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
- [IPv6:2607:f8b0:400e:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <haiyue.wang@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zLxFb3X86zF0gN
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 16:57:39 +1100 (AEDT)
-Received: by mail-pg0-x244.google.com with SMTP id q67so10728735pga.9
- for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 21:57:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=WbxPDIfAe7sb4xbvpbLqgno8nERI0fIIvIq/OETyG/k=;
- b=fnOeBCsAV2wfxmSLLIjAnMq+V6cxKFhGdr3tsrRSZAHhO3hFxKc26hHs18t6ND7qUj
- 2HI4hikPmmCLe7rPwLWzlx5HulRVcJmq8DmL4n1b2gUNuLSYxFxuMNI9+QtASH9JNhS6
- ferieKxvgZ0teSjJva+pdQZpFCPgjMEfa5AV5dUUrxvButrwB0utfgeYsPNJezAPd5aS
- R01EEaBmiX2HzECrEpth8NuKhK1XdpPa01lidPwdTG1WpMR5qFgj7zaX5R+3Egr7z0lW
- VKdxpmNTVLZ3f3ga5KK9d90ZXt3p5pWvlesLl/NE5aVsx698gKJiIh/tLDknTqIgfkPd
- bT1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=WbxPDIfAe7sb4xbvpbLqgno8nERI0fIIvIq/OETyG/k=;
- b=l0y+oBQlHPyLqLX2T+2x1nS7kltRzhIlhs/zHmtRh5CsvgarpiSkLGFQhvAIEpNQvR
- PHT5kyTj3pfIdhUYSXdFTCuTwlperXfmN9Xygx23XBkh/v68DeexNczRIx3Tpw/CsugQ
- NL/zlv64i9fiq3eA0U4aR5RcKcosKuNkt/EEa4pT775o3ascZiU5jSa6cRWhuLDEPbxp
- JsL+Gej3n3TMwOcoFUvvmOq91ouICFcBSLZDrN46sIgULM/Emj5b5qj+YMR+TwXbsf6B
- TfpyM67ZDZry5sRjVE0jU7E1Nk9SAJbDLQCfR4BhN7ig1w0ak9wEJiAT/57EIuhIaQIx
- +E7Q==
-X-Gm-Message-State: AKGB3mLWDYIglWB3WIpp/ReESXuapTLCHrn9vCbgcTBmCSakqOSMYZvI
- gfcEG8oD7s5kN9x7Gvy/Rr0AFZtc
-X-Google-Smtp-Source: ACJfBouaOO2Nh1eJZGdE8YSZgsAC64z/XBokfeyw+zvWh7yC2yPnl850rWev7tpHM4WD4Iye+gzxSg==
-X-Received: by 10.99.116.26 with SMTP id p26mr25446129pgc.320.1516168656736;
- Tue, 16 Jan 2018 21:57:36 -0800 (PST)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id 13sm6243745pfk.93.2018.01.16.21.57.35
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Tue, 16 Jan 2018 21:57:35 -0800 (PST)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: romulus: Add w83773g temp
- sensor
-Date: Wed, 17 Jan 2018 13:56:56 +0800
-Message-Id: <1516168616-3928-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zLy226PZgzF0fv
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 17:32:42 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2018 22:32:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,371,1511856000"; d="scan'208";a="11183812"
+Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.239.196.47])
+ ([10.239.196.47])
+ by orsmga006.jf.intel.com with ESMTP; 16 Jan 2018 22:32:37 -0800
+Subject: Re: [PATCH arm/aspeed/ast2500 v1] ipmi: add an Aspeed KCS IPMI BMC
+ driver
+To: Joel Stanley <joel@jms.id.au>, Corey Minyard <minyard@acm.org>,
+ Ed Tanous <ed.tanous@intel.com>, james.mihm@intel.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, tomer.maimon@nuvoton.com
+Cc: openipmi-developer@lists.sourceforge.net,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ andriy.shevchenko@intel.com
+References: <1516103023-19244-1-git-send-email-haiyue.wang@linux.intel.com>
+ <a716bfaf-d41e-7865-8b9d-61e6abed2035@acm.org>
+ <CACPK8XfmrtJkUcFXNRDh7t3EDaETU1R=RawkErgduPG--CEVEg@mail.gmail.com>
+From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
+Message-ID: <f802a1fd-7553-d8cd-937c-6066b1db150e@linux.intel.com>
+Date: Wed, 17 Jan 2018 14:32:36 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.2
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XfmrtJkUcFXNRDh7t3EDaETU1R=RawkErgduPG--CEVEg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -59,30 +50,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Jan 2018 05:57:40 -0000
+X-List-Received-Date: Wed, 17 Jan 2018 06:32:43 -0000
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index 3a53cdf..1ca2457 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -255,8 +255,11 @@
- 	/* CPLD */
- 	/* Power Supply */
- 	/* Temp Sensor */
--	/* Temp Sensor */
- 
-+	w83773g@4c {
-+		compatible = "nuvoton,w83773g";
-+		reg = <0x4c>;
-+	};
- };
- 
- &i2c13 {
--- 
-1.9.1
+
+On 2018-01-17 07:06, Joel Stanley wrote:
+> On Tue, Jan 16, 2018 at 2:59 PM, Corey Minyard <minyard@acm.org> wrote:
+>> On 01/16/2018 05:43 AM, Haiyue Wang wrote:
+>>> The KCS (Keyboard Controller Style) interface is used to perform in-band
+>>> IPMI communication between a server host and its BMC (BaseBoard Management
+>>> Controllers).
+>>>
+>>> This driver exposes the KCS interface on ASpeed SOCs (AST2400 and AST2500)
+>>> as a character device. Such SOCs are commonly used as BMCs and this driver
+>>> implements the BMC side of the KCS interface.
+>>
+>> I thought we were going to unify the BMC ioctl interface?  My preference
+>> would be to
+>> create a file named include/uapi/linux/ipmi-bmc.h and add the following:
+>>
+>> #define __IPMI_BMC_IOCTL_MAGIC    0xb1
+>> #define IPMI_BMC_IOCTL_SMS_SET_ATN    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
+>>
+>> to make it the same as BT.  Then in bt-bmc.h, set BT_BMC_IOCTL_SMS_ATN to
+>> IPMI_BMC_IOCTL_SMS_SET_ATN.  Then add the KCS ioctls in ipmi-bmc.h and
+>> use that.  That way we stay backward compatible but we are unified.
+>>
+>> Since more KCS interfaces may come around, can you make the name more
+>> specific?  (I made this same error on bt-bmc,c, it should probably be
+>> renamed.)
+> Yes, we had a group of openbmc people get together recently and spoke
+> about this. Unfortunately Haiyue wasn't there (but other Intel BMC
+> people were).
+>
+> We've got code coming from another BMC vendor who will use the same
+> userspace API. The intention is to unify ASPEED's KCS and BT, along
+> with Nuvoton's KCS and BT, as you outlined above.
+Great design for common BMC code, thanks Joel & Corey.
+
+Then we need to divide the kcs-bmc.c into two files, one (still 
+kcs-bmc.c) is for handling IPMI KCS state
+according to IPMI 2.0 specification, and also handing device misc 
+operations; another file is called such
+as aspeed-kcs-bmc.c which handles ast2500 kcs controller. So that 
+Nuvoton can define nvvoton-kcs-bmc.c
+low level API, and call the IPMI KCS function in kcs-bmc.c ?
+
+How about this idea ? If it makes sense, I will change the code for 
+review in patch v2.
+
+> Cheers,
+>
+> Joel
