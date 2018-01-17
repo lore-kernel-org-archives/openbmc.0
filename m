@@ -1,87 +1,53 @@
-Return-Path: <Balaji.B.Rao@dell.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
- envelope-from=balaji.b.rao@dell.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="iyP7Jijq"; 
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::244; helo=mail-pg0-x244.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fnOeBCsA"; 
  dkim-atps=neutral
-Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
- [68.232.149.214])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zLYgZ4VkgzDqZH
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 02:14:52 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1516115722; x=1547651722;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=35+5mNF+SIFl0CruhsE4EG7kW0ZcJRehX6hp1FXh1fA=;
- b=iyP7Jijq2dN0h3DJdeP7ge7FV/eDNpFc+8Q/cqjDKOFJ3GcmUWYcPpPK
- mcHiQe1zrydM64PNdAx+Zo6gg75H57fzdI1z7FsiK7LlRuMaksmE6JQjr
- dKTtr6WUL9IlgxV7ZGHLBGAzLGVwcnxfeS/dxBnGy+EXKAzLqVGzAFcsQ s=;
-IronPort-PHdr: =?us-ascii?q?9a23=3ANbD2zxSvIY+uHxV4dFy5Qm239tpsv+yvbD5Q0YIu?=
- =?us-ascii?q?jvd0So/mwa69YhaN2/xhgRfzUJnB7Loc0qyK6/mmATRIyK3CmUhKSIZLWR4BhJ?=
- =?us-ascii?q?detC0bK+nBN3fGKuX3ZTcxBsVIWQwt1Xi6NU9IBJS2PAWK8TW94jEIBxrwKxd+?=
- =?us-ascii?q?KPjrFY7OlcS30P2594HObwlSizexfa5+IA+qoQnNq8IbnZZsJqEtxxXTv3BGYf?=
- =?us-ascii?q?5WxWRmJVKSmxbz+MK994N9/ipTpvws6ddOXb31cKokQ7NYCi8mM30u683wqRbD?=
- =?us-ascii?q?VwqP6WACXWgQjxFFHhLK7BD+Xpf2ryv6qu9w0zSUMMHqUbw5Xymp4qF2QxHqlS?=
- =?us-ascii?q?gHLSY0/mHJhMJtkKJVrhGvpxJ9zI7VfI6bO/Vxc7jBfdwBR2pNQtpdWzBDD466?=
- =?us-ascii?q?coABD/ABPeFdr4TloFYDsAGxBQ22C+Ptyz9EnGL70bcm3es7FgHLxxEvEMwKsH?=
- =?us-ascii?q?TQttn6KKASUeWswaTO0D7NbOtW1C/85YXLaBwtv/+BUaxqfcbMyUQiGBnJg1Se?=
- =?us-ascii?q?pID9Ij+Zyv4Bv3WU4uduT+6jlWEqpx9rrjWtxsogkpTFi40bx1ze6Cl0wYc4Kc?=
- =?us-ascii?q?e7RUN7e9KoDodcuiCcOoBrWM0tWXtotzw/yrAevJ67ezUFx4o/yh7EbvyHb5CI?=
- =?us-ascii?q?4hX+VOaNOTt4hGxqeLa4hxuq70eg0ffzW8eu3FlXsCVFlt3MumkK1xzO9siIUf?=
- =?us-ascii?q?x9/lqn2TmSyQzf8OBEIVg0lareJJ8t2KI/lp0WsUjbHy/2nlv5jLOOe0gl+eWk?=
- =?us-ascii?q?8frrb7v4qpOGKoN5ig7zPr4vl8GxGeg4NxIBX2mf+eSyzr3j+kj5Ta1Xg/Islq?=
- =?us-ascii?q?nWqpLaJcUBqqOkGQNbzpws6xGkAji7ztsYmX0HIEhZdxKAiojlI0vOL+zgDfej?=
- =?us-ascii?q?n1Ssly9mx/fePrL/BJXCNX3Dn6v6cLZ56k5c0xYzzctF65JTC7ABJOj8VVTqtN?=
- =?us-ascii?q?DCCR85KQO0kK7bD4Ap1IQTXUqNB7TfMa+UuELetcw1JOzZMKUcvD//Kr4PocTn?=
- =?us-ascii?q?ilc1lFsZO6Ku2M1EOziDAv16LhDBMjLXidAbHDJSsw=3D=3D?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2HkAQCQFV5ahz+a6ERcGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQXgQQnB4QMmQSCAokGhjyKAAoYhSMCGoRCQhUBAQEBAQEBAQE?=
- =?us-ascii?q?BAhABAQEKCwkIKC+COCKCSgEBAQEDASIRRQwEAgEIEQQBAQECAiMDAgICHwceA?=
- =?us-ascii?q?QgIAQEEDgUIihMDFaVZgieHOQ2CBAEBAQEGAQEBAQEBAQEBH4EPhUKGODaCa0Q?=
- =?us-ascii?q?EgXYzEoJLgmUFoyc9Co8rgRSEeYIihh2LWo1+iSeBPDWBdG+CfIJkgXN4AYwng?=
- =?us-ascii?q?RcBAQE?=
-X-IPAS-Result: =?us-ascii?q?A2HkAQCQFV5ahz+a6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?XgQQnB4QMmQSCAokGhjyKAAoYhSMCGoRCQhUBAQEBAQEBAQEBAhABAQEKCwkIK?=
- =?us-ascii?q?C+COCKCSgEBAQEDASIRRQwEAgEIEQQBAQECAiMDAgICHwceAQgIAQEEDgUIihM?=
- =?us-ascii?q?DFaVZgieHOQ2CBAEBAQEGAQEBAQEBAQEBH4EPhUKGODaCa0QEgXYzEoJLgmUFo?=
- =?us-ascii?q?yc9Co8rgRSEeYIihh2LWo1+iSeBPDWBdG+CfIJkgXN4AYwngRcBAQE?=
-Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
- by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2018 09:14:50 -0600
-From: <Balaji.B.Rao@dell.com>
-Received: from ausc60pc101.us.dell.com ([143.166.85.206])
- by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2018 21:07:22 +0600
-X-LoopCount0: from 10.166.132.72
-X-IronPort-AV: E=Sophos;i="5.46,368,1511848800"; d="scan'208";a="1202368682"
-X-DLP: DLP_GlobalPCIDSS
-To: <joel@jms.id.au>
-CC: <openbmc@lists.ozlabs.org>
-Subject: RE: Issue with flash space overflow? Maybe?
-Thread-Topic: Issue with flash space overflow? Maybe?
-Thread-Index: AdOOIcqPo13oWnLsTT+kI7Q9rwqDBQARtd6AABzpHyA=
-Date: Tue, 16 Jan 2018 15:14:48 +0000
-Message-ID: <d1ba8d62a46a42899e9caba4c021f014@ausx13mpc109.AMER.DELL.COM>
-References: <703062ea845f4553be9065a2d5b6eb61@ausx13mpc109.AMER.DELL.COM>
- <CACPK8XeVo23u+o55tu0YW_eT8ncZjBmVhisFpCbBNCvoJ7h7Vg@mail.gmail.com>
-In-Reply-To: <CACPK8XeVo23u+o55tu0YW_eT8ncZjBmVhisFpCbBNCvoJ7h7Vg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titusconfig: No Restrictions 04051212
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiIxYjI5ZmUzZS03ODQzLTRjNGEtODhmOC0zNTVlZTkyNmZmMDkiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6IjhUSXVEZFhvaStIeDU3ZDM4bUduMWMyMEJhWEJxR2ExMTBqVzlmY0lZNG89In0=
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 17 Jan 2018 15:06:53 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zLxFb3X86zF0gN
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 16:57:39 +1100 (AEDT)
+Received: by mail-pg0-x244.google.com with SMTP id q67so10728735pga.9
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Jan 2018 21:57:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=WbxPDIfAe7sb4xbvpbLqgno8nERI0fIIvIq/OETyG/k=;
+ b=fnOeBCsAV2wfxmSLLIjAnMq+V6cxKFhGdr3tsrRSZAHhO3hFxKc26hHs18t6ND7qUj
+ 2HI4hikPmmCLe7rPwLWzlx5HulRVcJmq8DmL4n1b2gUNuLSYxFxuMNI9+QtASH9JNhS6
+ ferieKxvgZ0teSjJva+pdQZpFCPgjMEfa5AV5dUUrxvButrwB0utfgeYsPNJezAPd5aS
+ R01EEaBmiX2HzECrEpth8NuKhK1XdpPa01lidPwdTG1WpMR5qFgj7zaX5R+3Egr7z0lW
+ VKdxpmNTVLZ3f3ga5KK9d90ZXt3p5pWvlesLl/NE5aVsx698gKJiIh/tLDknTqIgfkPd
+ bT1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=WbxPDIfAe7sb4xbvpbLqgno8nERI0fIIvIq/OETyG/k=;
+ b=l0y+oBQlHPyLqLX2T+2x1nS7kltRzhIlhs/zHmtRh5CsvgarpiSkLGFQhvAIEpNQvR
+ PHT5kyTj3pfIdhUYSXdFTCuTwlperXfmN9Xygx23XBkh/v68DeexNczRIx3Tpw/CsugQ
+ NL/zlv64i9fiq3eA0U4aR5RcKcosKuNkt/EEa4pT775o3ascZiU5jSa6cRWhuLDEPbxp
+ JsL+Gej3n3TMwOcoFUvvmOq91ouICFcBSLZDrN46sIgULM/Emj5b5qj+YMR+TwXbsf6B
+ TfpyM67ZDZry5sRjVE0jU7E1Nk9SAJbDLQCfR4BhN7ig1w0ak9wEJiAT/57EIuhIaQIx
+ +E7Q==
+X-Gm-Message-State: AKGB3mLWDYIglWB3WIpp/ReESXuapTLCHrn9vCbgcTBmCSakqOSMYZvI
+ gfcEG8oD7s5kN9x7Gvy/Rr0AFZtc
+X-Google-Smtp-Source: ACJfBouaOO2Nh1eJZGdE8YSZgsAC64z/XBokfeyw+zvWh7yC2yPnl850rWev7tpHM4WD4Iye+gzxSg==
+X-Received: by 10.99.116.26 with SMTP id p26mr25446129pgc.320.1516168656736;
+ Tue, 16 Jan 2018 21:57:36 -0800 (PST)
+Received: from localhost ([159.203.222.251])
+ by smtp.gmail.com with ESMTPSA id 13sm6243745pfk.93.2018.01.16.21.57.35
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Tue, 16 Jan 2018 21:57:35 -0800 (PST)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: romulus: Add w83773g temp
+ sensor
+Date: Wed, 17 Jan 2018 13:56:56 +0800
+Message-Id: <1516168616-3928-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -93,30 +59,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Jan 2018 15:15:24 -0000
+X-List-Received-Date: Wed, 17 Jan 2018 05:57:40 -0000
 
-Sm9lbCwNCg0KSSBkaWRu4oCZdCBjaGFuZ2UgYW55IGJ1aWxkIHBhcmFtZXRlcnMsIGJ1dCB0aGUg
-cHl0aG9uIHBhY2thZ2VzLiBJdCBjbGVhcmx5IGJ1aWxkcyB3ZWxsIHdoZW4gdGhlIG51bWJlciBv
-ZiBwYWNrYWdlcyBhcmUgbG93ZXIuIEhvd2V2ZXIgYXMgSSBhZGQgbW9yZSBwYWNrYWdlcywgSSBz
-ZWUgdGhpcyBpc3N1ZS4gV2hpbGUgSSdkIGxpa2UgdG8gaW52ZXN0aWdhdGUgSkZGUzIga2VybmVs
-IG9wdGlvbnMgYXMgeW91IHN1Z2dlc3RlZCwgSSdtIGxlYW5pbmcgdG93YXJkIGZsYXNoIHNwYWNl
-LiBJcyB0aGVyZSBhIHdheSB0byBmaW5kIGlmIHRoYXQgaXMgdGhlIGNhc2U/DQoNClRoYW5rcw0K
-QmFsYWppDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBqb2VsLnN0YW5AZ21h
-aWwuY29tIFttYWlsdG86am9lbC5zdGFuQGdtYWlsLmNvbV0gT24gQmVoYWxmIE9mIEpvZWwgU3Rh
-bmxleQ0KU2VudDogTW9uZGF5LCBKYW51YXJ5IDE1LCAyMDE4IDE6MjQgUE0NClRvOiBSYW8sIEJh
-bGFqaSBCIDxCYWxhamlfQl9SYW9AZGVsbC5jb20+DQpDYzogT3BlbkJNQyBNYWlsbGlzdCA8b3Bl
-bmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IElzc3VlIHdpdGggZmxhc2ggc3Bh
-Y2Ugb3ZlcmZsb3c/IE1heWJlPw0KDQpPbiBNb24sIEphbiAxNSwgMjAxOCBhdCA4OjU3IEFNLCAg
-PEJhbGFqaS5CLlJhb0BkZWxsLmNvbT4gd3JvdGU6DQo+IE9uIFBhbG1ldHRvLCB3aGVuIEkgZmxh
-c2ggYSBidWlsZCwgSSBnZXQgdGhpcyBlcnJvci4gTmV0Ym9vdCBmcm9tIHRoZSANCj4gc2FtZSBp
-bWFnZSB3b3JrcywgaG93ZXZlciB3aGVuIEkgZmxhc2ggYnkgY29weWluZyB0aGUgc3RhdGljLm10
-ZCANCj4gaW1hZ2UsIEkgc2VlIHRoaXMgaXNzdWUuIEnigJltIHRyeWluZyB0byBhZGQgYSBidW5j
-aCBvZiBweXRob24gcGFja2FnZXMgDQo+IHRvIHRoZSBidWlsZC4gQ291bGQgaXQgYmUgYSBmbGFz
-aCBzcGFjZSBpc3N1ZT8gUGxlYXNlIGFkdmlzZSBpZiANCj4gYW55Ym9keSBoYXMgYW55IHRob3Vn
-aHRzIG9uIHRoaXMgYW5kIGhvdyB0aGlzIGNhbiBiZSBvdmVyY29tZT8NCg0KPiBbICAgIDguMDYw
-MDAwXSBqZmZzMjogamZmczJfc2Nhbl9lcmFzZWJsb2NrKCk6IE1hZ2ljIGJpdG1hc2sgMHgxOTg1
-IG5vdA0KPiBmb3VuZCBhdCAweDAwMDAwMDBjOiAweDZhODkgaW5zdGVhZA0KDQpZb3UgbmVlZCB0
-byBlbnN1cmUgdGhlIEpGRlMyIGtlcm5lbCBvcHRpb25zIGFyZSB0aGUgc2FtZSBmb3IgYm90aCB5
-b3VyIG5ldGJvb3QgYW5kIGZsYXNoZWQga2VybmVscy4gVGhlIHdhcm5pbmdzIHlvdSBzZWUgYmVs
-b3cgYWJvdXQgamZmczJfc2Nhbl9lcmFzZWJsb2NrIGFyZSBkdWUgdG8gYSBtaXNtYXRjaCBiZXR3
-ZWVuIHRoZSBzZXR0aW5ncy4NCg0KQ2hlZXJzLA0KDQpKb2VsDQo=
+Signed-off-by: Lei YU <mine260309@gmail.com>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 3a53cdf..1ca2457 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -255,8 +255,11 @@
+ 	/* CPLD */
+ 	/* Power Supply */
+ 	/* Temp Sensor */
+-	/* Temp Sensor */
+ 
++	w83773g@4c {
++		compatible = "nuvoton,w83773g";
++		reg = <0x4c>;
++	};
+ };
+ 
+ &i2c13 {
+-- 
+1.9.1
