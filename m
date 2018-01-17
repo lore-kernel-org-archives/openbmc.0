@@ -1,54 +1,54 @@
 Return-Path: <tcminyard@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::22a; helo=mail-pf0-x22a.google.com;
+ (client-ip=2607:f8b0:4003:c0f::236; helo=mail-ot0-x236.google.com;
  envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z+JKMLrG"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="sN4EpDkA"; 
  dkim-atps=neutral
-Received: from mail-pf0-x22a.google.com (mail-pf0-x22a.google.com
- [IPv6:2607:f8b0:400e:c00::22a])
+Received: from mail-ot0-x236.google.com (mail-ot0-x236.google.com
+ [IPv6:2607:f8b0:4003:c0f::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zMBcD18jQzF0ld
- for <openbmc@lists.ozlabs.org>; Thu, 18 Jan 2018 02:59:39 +1100 (AEDT)
-Received: by mail-pf0-x22a.google.com with SMTP id j3so11774886pfh.8
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 07:59:39 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zMCK0240PzF0TZ
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Jan 2018 03:31:31 +1100 (AEDT)
+Received: by mail-ot0-x236.google.com with SMTP id v5so6998266oth.5
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 08:31:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:reply-to:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=r1a/NXpGXgfyACxQYZDLq00FCcawre8Titc5jKY+klA=;
- b=Z+JKMLrGmjFIKiNoVO6+Lev61OplOlGDUko+QEsdIHnH6D6a5fnUNBiaFcF8Ce7bmy
- t47/1a8Chjgl2PtvPi0Ss4/xZF115TfXfZVr9IwAaYvVY9VwwjtJtNAD6OzeaG9JHBXy
- jZNu05uX9Mjorrtw0x8+QrwyvHwInS09t/6Wb+veLNLr0IP79jDwSYli7+9FBNFiljPr
- FLpUGaxfV+anS9kIyNB5TD11XZuQBCbEo0QDN8iPuAubfA6osLE0ks5wbYxSIrUQTO+z
- JIzRvFFa9MnOVTLD5QkkRrrLMJr1f0sjHBSFJ9nJ/Dc5kXiuwL9+qMRhgx/aD5EYTfy1
- 9y5g==
+ bh=bQ7VWhIQ5jJGf5w/c5O7F68q2gK/of+jntoAJRQt4Cs=;
+ b=sN4EpDkAbaNfRwHU7NimuiX9Pq1WrQiLpbD4PDoOclN28kjBNRF794THS7P8KuDzrq
+ RZaZUwB+9mPPUy1oqwmdEKQJSLs4/0Ptl52WMzAy/cDj11XpJUmnNKELlOkP73Z9AXaK
+ SSPESXJmrk0Nu71FwqV2bUjsbOav3Vg1eiGFjIFq/hjZ1abDlo46Ti6AVmAEO2ElzHa6
+ QPy9FVWvXO0gkmng+wWIpqxckIsFmdn4nAeBYKpdi36EzjFnzLc7q3Z10WZ638B9WVW+
+ LWU3PyL82jTkyr5eJS+wIlmc+vZjEjKOJ+mWAU9+tm+VLCN+JgIQ7CR1odDZ0plSZgUN
+ uL4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=r1a/NXpGXgfyACxQYZDLq00FCcawre8Titc5jKY+klA=;
- b=SDy/3/2FyAmc3ySqMTkTItcC7GyvAvog5mNIokjPMvt0KVQTrbCpXYa8gRVZnVwmp+
- tx/iJi6F+owU4Pmu/PEDP14plPF8Lv9beiivdKQecXZmOrYg49hImMMqyhoCy31J721Q
- wBscjA43zWT2dAB1nwRW0quaSAGRPa+yR84WouMBZCjEPZiqDKx7rYi2/dRVS/l9yOBB
- zkWGB0jT0mW0JZa8bFso8wg/XC3xwgT2j7vlPHZUSXvaUfc/gW8Oa0d8DpB1cogbjwtI
- 4AoMt1j73ZGEohde9slCPUM92WDPmJAVjkNRHwwglaJUuAKd5BWPNYK7M5OriHw4BoMW
- cSbA==
-X-Gm-Message-State: AKwxytdugmrfsPmNpC+tWcG1JnM/LmddqOWvD9ACcO5koE3UKAkUvXYc
- 1+nwdM+VovusbWQva7RStg==
-X-Google-Smtp-Source: ACJfBov3Jecj/5w7SiF5bPvH1hCNEIbQEmClx/O2/aeaJfWaR52UL+FeeZ4HEOA+z4PevYyyes/Tnw==
-X-Received: by 10.99.128.66 with SMTP id j63mr23756362pgd.254.1516204776826;
- Wed, 17 Jan 2018 07:59:36 -0800 (PST)
-Received: from serve.minyard.net ([47.184.168.85])
- by smtp.gmail.com with ESMTPSA id a9sm8677012pfi.55.2018.01.17.07.59.35
+ bh=bQ7VWhIQ5jJGf5w/c5O7F68q2gK/of+jntoAJRQt4Cs=;
+ b=JeIbigHbAGO7WIWDQ3PqZFLlbNRINiTjd+owWXbjWjphXUc5KN2En7ZS7RM25Ftha3
+ vh9aGhCci9OWDTAAYoVVpZBiMHFcNT9TzYTqLsWJcN4VsrYF71VXLmRxfkf7y9YO9QVh
+ kSg+kVlHyXvgMkULN7rDH+mYqesMjFgYIxFQoWr+zgklTAs4E1fJugBXZXz+ZsHTJHfb
+ gnlBAlG5kpY+u5lZJlgIs1qNTqENIyde8oNkS+7xPzlsSE9kHs09jCKceSC2NCxnwHDR
+ QiiOiroSkIie6hqf5LWjZmnI2pLL+BQmcjxp8fTAb/bWKguYXWs8S6By2diwYpECN+gP
+ h31g==
+X-Gm-Message-State: AKwxytfc2GPlvBlL2XHB0ObRp7zscP0Yg4ZFTC92TkWm7lQoNmvroP47
+ Ed5+M5LomIfZzlnKaEM3OA==
+X-Google-Smtp-Source: ACJfBosn+F66nHo1BgZU+S8kkcmX7JfIyVMAsHKOjnVuVT33t/INeUZyxYB9uCKUr0sm9m3brXrBsg==
+X-Received: by 10.157.44.154 with SMTP id p26mr1624605otb.8.1516206689135;
+ Wed, 17 Jan 2018 08:31:29 -0800 (PST)
+Received: from serve.minyard.net (serve.minyard.net. [2001:470:b8f6:1b::1])
+ by smtp.gmail.com with ESMTPSA id d134sm2073208oih.5.2018.01.17.08.31.27
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 17 Jan 2018 07:59:35 -0800 (PST)
+ Wed, 17 Jan 2018 08:31:28 -0800 (PST)
 Sender: Corey Minyard <tcminyard@gmail.com>
 Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
- by serve.minyard.net (Postfix) with ESMTPSA id 42B66319;
- Wed, 17 Jan 2018 09:59:34 -0600 (CST)
+ by serve.minyard.net (Postfix) with ESMTPSA id C7C712BE;
+ Wed, 17 Jan 2018 10:31:26 -0600 (CST)
 Reply-To: minyard@acm.org
 Subject: Re: [PATCH arm/aspeed/ast2500 v1] ipmi: add an Aspeed KCS IPMI BMC
  driver
@@ -61,8 +61,8 @@ References: <1516103023-19244-1-git-send-email-haiyue.wang@linux.intel.com>
  <54c6562b-f35a-c616-b6c2-a2eadf6937da@acm.org>
  <e462c75e-8d93-cddf-06f9-f40643e5b703@linux.intel.com>
 From: Corey Minyard <minyard@acm.org>
-Message-ID: <cc88c8bf-65ec-c38c-0fdc-32e0436ebc7e@acm.org>
-Date: Wed, 17 Jan 2018 09:59:33 -0600
+Message-ID: <b22f5462-6518-9558-0fcd-5bb9cbd395b9@acm.org>
+Date: Wed, 17 Jan 2018 10:31:26 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.5.0
 MIME-Version: 1.0
@@ -81,270 +81,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Jan 2018 15:59:41 -0000
+X-List-Received-Date: Wed, 17 Jan 2018 16:31:33 -0000
 
 On 01/17/2018 08:31 AM, Wang, Haiyue wrote:
 >
 >
-> On 2018-01-17 06:12, Corey Minyard wrote:
->> On 01/16/2018 02:59 PM, Corey Minyard wrote:
->>> On 01/16/2018 05:43 AM, Haiyue Wang wrote:
->>>> The KCS (Keyboard Controller Style) interface is used to perform 
->>>> in-band
->>>> IPMI communication between a server host and its BMC (BaseBoard 
->>>> Management
->>>> Controllers).
->>>>
->>>> This driver exposes the KCS interface on ASpeed SOCs (AST2400 and 
->>>> AST2500)
->>>> as a character device. Such SOCs are commonly used as BMCs and this 
->>>> driver
->>>> implements the BMC side of the KCS interface.
->>>
->>> I thought we were going to unify the BMC ioctl interface?  My 
->>> preference would be to
->>> create a file named include/uapi/linux/ipmi-bmc.h and add the 
->>> following:
->>>
->>> #define __IPMI_BMC_IOCTL_MAGIC    0xb1
->>> #define IPMI_BMC_IOCTL_SMS_SET_ATN _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
->>>
->>> to make it the same as BT.  Then in bt-bmc.h, set 
->>> BT_BMC_IOCTL_SMS_ATN to
->>> IPMI_BMC_IOCTL_SMS_SET_ATN.  Then add the KCS ioctls in ipmi-bmc.h and
->>> use that.  That way we stay backward compatible but we are unified.
->>>
->>> Since more KCS interfaces may come around, can you make the name more
->>> specific?  (I made this same error on bt-bmc,c, it should probably 
->>> be renamed.)
->>>
-> How about these IOCTL definitions ? Is it more specific ?
->
-> #define IPMI_BMC_IOCTL_SET_SMS_ATN    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
-> #define IPMI_BMC_IOCTL_CLEAR_SMS_ATN  _IO(__IPMI_BMC_IOCTL_MAGIC, 0x01)
-> #define IPMI_BMC_IOCTL_FORCE_ABORT    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x02)
->
 
-Those look good to me.  If you could do the switchover to ipmi-bmc.h in 
-a separate
-patch, that would be cleaner.  Then add the clear atn and force abort 
-ioctls in the
-patch to add the new driver.
+Snip...
 
-Sound good?
-
--corey
-
->>> More comments inline, as I'll go ahead and review this.
->>>
->>>> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
->>>> ---
->>>>   .../devicetree/bindings/ipmi/aspeed-kcs-bmc.txt    |  26 +
->>>>   drivers/char/ipmi/Kconfig                          |   9 +
->>>>   drivers/char/ipmi/Makefile                         |   1 +
->>>>   drivers/char/ipmi/kcs-bmc.c                        | 744 
->>>> +++++++++++++++++++++
->>>>   include/uapi/linux/kcs-bmc.h                       |  14 +
->>>>   5 files changed, 794 insertions(+)
->>>>   create mode 100644 
->>>> Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
->>>>   create mode 100644 drivers/char/ipmi/kcs-bmc.c
->>>>   create mode 100644 include/uapi/linux/kcs-bmc.h
->>>>
->>>> diff --git 
->>>> a/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt 
->>>> b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
->>>> new file mode 100644
->>>> index 0000000..dd0c73d
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
->>>> @@ -0,0 +1,26 @@
->>>> +* Aspeed KCS (Keyboard Controller Style) IPMI interface
->>>> +
->>>> +The Aspeed SOCs (AST2400 and AST2500) are commonly used as BMCs
->>>> +(BaseBoard Management Controllers) and the KCS interface can be
->>>> +used to perform in-band IPMI communication with their host.
->>>> +
->>>> +Required properties:
->>>> +- compatible : should be one of
->>>> +    "aspeed,ast2400-kcs-bmc"
->>>> +    "aspeed,ast2500-kcs-bmc"
->>>> +- interrupts : interrupt generated by the controller
->>>> +- kcs_chan : The LPC channel number in the controller
->>>> +- kcs_addr : The host CPU IO map address
->>>> +
->>>> +
->>>> +Example:
->>>> +
->>>> +    kcs3: kcs3@0 {
->>>> +        compatible = "aspeed,ast2500-kcs-bmc";
->>>> +        reg = <0x0 0x80>;
->>>> +        interrupts = <8>;
->>>> +        kcs_chan = <3>;
->>>> +        kcs_addr = <0xCA2>;
->>>> +        status = "okay";
->>>> +    };
->>>> +
->>>> diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
->>>> index 3544abc..36132f8 100644
->>>> --- a/drivers/char/ipmi/Kconfig
->>>> +++ b/drivers/char/ipmi/Kconfig
->>>> @@ -104,3 +104,12 @@ config ASPEED_BT_IPMI_BMC
->>>>         Provides a driver for the BT (Block Transfer) IPMI interface
->>>>         found on Aspeed SOCs (AST2400 and AST2500). The driver
->>>>         implements the BMC side of the BT interface.
->>>> +
->>>> +config ASPEED_KCS_IPMI_BMC
->>>> +    depends on ARCH_ASPEED || COMPILE_TEST
->>>> +    select REGMAP_MMIO
->>>> +    tristate "KCS IPMI bmc driver"
->>>> +    help
->>>> +      Provides a driver for the KCS (Keyboard Controller Style) IPMI
->>>> +      interface found on Aspeed SOCs (AST2400 and AST2500). The 
->>>> driver
->>>> +      implements the BMC side of the KCS interface.
->>>> \ No newline at end of file
->>>> diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
->>>> index 33b899f..f217bae 100644
->>>> --- a/drivers/char/ipmi/Makefile
->>>> +++ b/drivers/char/ipmi/Makefile
->>>> @@ -22,3 +22,4 @@ obj-$(CONFIG_IPMI_POWERNV) += ipmi_powernv.o
->>>>   obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
->>>>   obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
->>>>   obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
->>>> +obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs-bmc.o
->>>> \ No newline at end of file
->>>> diff --git a/drivers/char/ipmi/kcs-bmc.c b/drivers/char/ipmi/kcs-bmc.c
->>>> new file mode 100644
->>>> index 0000000..d6eab0b
->>>> --- /dev/null
->>>> +++ b/drivers/char/ipmi/kcs-bmc.c
->>>> @@ -0,0 +1,744 @@
->>>> +// SPDX-License-Identifier: GPL-2.0
->>>> +// Copyright (c) 2015-2018, Intel Corporation.
->>>> +
->>>> +#include <linux/atomic.h>
->>>> +#include <linux/errno.h>
->>>> +#include <linux/interrupt.h>
->>>> +#include <linux/io.h>
->>>> +#include <linux/kcs-bmc.h>
->>>> +#include <linux/mfd/syscon.h>
->>>> +#include <linux/miscdevice.h>
->>>> +#include <linux/module.h>
->>>> +#include <linux/of.h>
->>>> +#include <linux/platform_device.h>
->>>> +#include <linux/poll.h>
->>>> +#include <linux/regmap.h>
->>>> +#include <linux/sched.h>
->>>> +#include <linux/slab.h>
->>>> +#include <linux/timer.h>
->>>> +
->>>> +#define KCS_MSG_BUFSIZ      1024
->>>> +#define KCS_CHANNEL_MAX     4
->>>> +
->>>> +/*
->>>> + * This is a BMC device used to communicate to the host
->>>> + */
->>>> +#define DEVICE_NAME     "ipmi-kcs-host"
->>>> +
->>>> +
->>>> +/* Different Phases of the KCS Module */
->>>> +#define KCS_PHASE_IDLE          0x00
->>>> +#define KCS_PHASE_WRITE         0x01
->>>> +#define KCS_PHASE_WRITE_END     0x02
->>>> +#define KCS_PHASE_READ          0x03
->>>> +#define KCS_PHASE_ABORT         0x04
->>>> +#define KCS_PHASE_ERROR         0x05
->>>
->>> It would be nicer to make the above an enum.
->>>
-> Done!
->>>> +
->>>> +/* Abort Phase */
->>>> +#define ABORT_PHASE_ERROR1      0x01
->>>> +#define ABORT_PHASE_ERROR2      0x02
->>>
->>> Can the above just be folded into two separate phases in kcs_phase?
->>> That would be a little cleaner.
->>>
-> Done, the code is truly cleaner, thanks! ;-)
->>>
->>>> +
->>>> +/* KCS Command Control codes. */
->>>> +#define KCS_GET_STATUS          0x60
->>>> +#define KCS_ABORT               0x60
->>>> +#define KCS_WRITE_START         0x61
->>>> +#define KCS_WRITE_END           0x62
->>>> +#define KCS_READ_BYTE           0x68
->>>> +
->>>> +/* Status bits.:
->>>> + * - IDLE_STATE.  Interface is idle. System software should not be 
->>>> expecting
->>>> + *                nor sending any data.
->>>> + * - READ_STATE.  BMC is transferring a packet to system software. 
->>>> System
->>>> + *                software should be in the "Read Message" state.
->>>> + * - WRITE_STATE. BMC is receiving a packet from system software. 
->>>> System
->>>> + *                software should be writing a command to the BMC.
->>>> + * - ERROR_STATE. BMC has detected a protocol violation at the 
->>>> interface level,
->>>> + *                or the transfer has been aborted. System 
->>>> software can either
->>>> + *                use the "Get_Status" control code to request the 
->>>> nature of
->>>> + *                the error, or it can just retry the command.
->>>> + */
->>>> +#define KCS_IDLE_STATE           0
->>>> +#define KCS_READ_STATE           1
->>>> +#define KCS_WRITE_STATE          2
->>>> +#define KCS_ERROR_STATE          3
->>>> +
->>>> +/* KCS Error Codes */
->>>> +#define KCS_NO_ERROR                0x00
->>>> +#define KCS_ABORTED_BY_COMMAND      0x01
->>>> +#define KCS_ILLEGAL_CONTROL_CODE    0x02
->>>> +#define KCS_LENGTH_ERROR            0x06
->>>> +#define KCS_UNSPECIFIED_ERROR       0xFF
->>>> +
->>>> +
->>>> +#define KCS_ZERO_DATA           0
->>>> +
->>>> +/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
->>>> +#define KCS_STR_STATE(state)        (state << 6)
->>>> +#define KCS_STR_STATE_MASK          KCS_STR_STATE(0x3)
->>>> +#define KCS_STR_CMD_DAT             BIT(3)
->>>> +#define KCS_STR_SMS_ATN             BIT(2)
->>>> +#define KCS_STR_IBF                 BIT(1)
->>>> +#define KCS_STR_OBF                 BIT(0)
->>>> +
->>>> +
->>>> +/* mapped to lpc-bmc@0 IO space */
->>>> +#define LPC_HICR0            0x000
->>>> +#define     LPC_HICR0_LPC3E          BIT(7)
->>>> +#define     LPC_HICR0_LPC2E          BIT(6)
->>>> +#define     LPC_HICR0_LPC1E          BIT(5)
->>>> +#define LPC_HICR2            0x008
->>>> +#define     LPC_HICR2_IBFIF3         BIT(3)
->>>> +#define     LPC_HICR2_IBFIF2         BIT(2)
->>>> +#define     LPC_HICR2_IBFIF1         BIT(1)
->>>> +#define LPC_HICR4            0x010
->>>> +#define     LPC_HICR4_LADR12AS       BIT(7)
->>>> +#define     LPC_HICR4_KCSENBL        BIT(2)
->>>> +#define LPC_LADR3H           0x014
->>>> +#define LPC_LADR3L           0x018
->>>> +#define LPC_LADR12H          0x01C
->>>> +#define LPC_LADR12L          0x020
->>>> +#define LPC_IDR1             0x024
->>>> +#define LPC_IDR2             0x028
->>>> +#define LPC_IDR3             0x02C
->>>> +#define LPC_ODR1             0x030
->>>> +#define LPC_ODR2             0x034
->>>> +#define LPC_ODR3             0x038
->>>> +#define LPC_STR1             0x03C
->>>> +#define LPC_STR2             0x040
->>>> +#define LPC_STR3             0x044
->>>> +
 >>>> +/* mapped to lpc-host@80 IO space */
 >>>> +#define LPC_HICRB            0x080
 >>>> +#define     LPC_HICRB_IBFIF4         BIT(1)
@@ -384,6 +128,17 @@ Sound good?
 >
 > https://lists.ozlabs.org/pipermail/openbmc/2017-December/010095.html
 >
+
+Hmm, the code that you had there seemed ok to me (though you didn't 
+check that you got three
+registers).
+
+I'm ok either way.  The idea of the device tree is that if someone has 
+this same device,
+they just add a device tree and it works without modifying the driver.  
+If Joel doesn't
+think it's worth it, then I guess it's ok.
+
 >>>>
 >>>> +
 >>>> +struct kcs_bmc {
@@ -400,6 +155,15 @@ Sound good?
 > related API should be the right one ?
 > especially for SMP ?
 >
+
+Sort of.  In the case below, you need to use spin_lock_irqsave(), you 
+don't necessarily get
+here with interrupts disabled.
+
+In the ones called from user context, you should really use 
+spin_lock_irq().  Interrupts
+should always be on at that point, so it's better.
+
 > static irqreturn_t kcs_bmc_irq(int irq, void *arg)
 > {
 >     ....
@@ -566,6 +330,9 @@ Sound good?
 >         return -ENODEV;
 >     }
 >
+
+That's fine.
+
 >>>> +        break;
 >>>> +    }
 >>>> +}
@@ -642,6 +409,9 @@ Sound good?
 >>>
 > For I checked the channel number on kcs_bmc_probe, still need this 
 > kind of error handling ?
+
+Just checking one place is fine :).
+
 >>>> +        break;
 >>>> +    }
 >>>> +}
@@ -983,6 +753,11 @@ Sound good?
 >>>
 > The race condition means that the user MAY write the duplicated 
 > response ?
+
+Not exactly.  Two threads can call this, and if it hasn't transitions 
+from the read phase,
+the data out will be overwritten.
+
 > Will write some comments for these phase definition.
 >>>> +        kcs_bmc->data_out_idx = 1;
 >>>> +        kcs_bmc->data_out_len = count;
@@ -1070,6 +845,9 @@ Sound good?
 > framework. It also can auto-release
 > the irq, so that probe function can be designed clearly. This is the 
 > first time I know about this. ;-)
+
+Oh, you are right, yes.  Sorry about that.
+
 >>>> +
 >>>> +    rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
 >>>> +    if ((rc != 0) || (chan == 0 || chan > KCS_CHANNEL_MAX)) {
@@ -1098,6 +876,11 @@ Sound good?
 >>>
 > Has been checked above : if ((rc != 0) || (chan == 0 || chan > 
 > KCS_CHANNEL_MAX)) {
+
+Yeah, sorry I missed that.
+
+-corey
+
 >>>> +
 >>>> +    ioreg = &kcs_ioreg_map[chan - 1];
 >>>> +    kcs_bmc->idr  = ioreg->idr;
