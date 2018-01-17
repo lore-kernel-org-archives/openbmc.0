@@ -1,65 +1,75 @@
-Return-Path: <hramasub@in.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=hramasub@in.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <tcminyard@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c00::22a; helo=mail-pf0-x22a.google.com;
+ envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z+JKMLrG"; 
+ dkim-atps=neutral
+Received: from mail-pf0-x22a.google.com (mail-pf0-x22a.google.com
+ [IPv6:2607:f8b0:400e:c00::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zM9Q856ZgzDq8c
- for <openbmc@lists.ozlabs.org>; Thu, 18 Jan 2018 02:05:51 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w0HF4OQu111225
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 10:05:49 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.74])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2fj5xrh3gq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 10:05:49 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <hramasub@in.ibm.com>;
- Wed, 17 Jan 2018 15:05:46 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.92) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 17 Jan 2018 15:04:31 -0000
-Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2018011715043144-694850 ;
- Wed, 17 Jan 2018 15:04:31 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zMBcD18jQzF0ld
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Jan 2018 02:59:39 +1100 (AEDT)
+Received: by mail-pf0-x22a.google.com with SMTP id j3so11774886pfh.8
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 07:59:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:reply-to:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=r1a/NXpGXgfyACxQYZDLq00FCcawre8Titc5jKY+klA=;
+ b=Z+JKMLrGmjFIKiNoVO6+Lev61OplOlGDUko+QEsdIHnH6D6a5fnUNBiaFcF8Ce7bmy
+ t47/1a8Chjgl2PtvPi0Ss4/xZF115TfXfZVr9IwAaYvVY9VwwjtJtNAD6OzeaG9JHBXy
+ jZNu05uX9Mjorrtw0x8+QrwyvHwInS09t/6Wb+veLNLr0IP79jDwSYli7+9FBNFiljPr
+ FLpUGaxfV+anS9kIyNB5TD11XZuQBCbEo0QDN8iPuAubfA6osLE0ks5wbYxSIrUQTO+z
+ JIzRvFFa9MnOVTLD5QkkRrrLMJr1f0sjHBSFJ9nJ/Dc5kXiuwL9+qMRhgx/aD5EYTfy1
+ 9y5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=r1a/NXpGXgfyACxQYZDLq00FCcawre8Titc5jKY+klA=;
+ b=SDy/3/2FyAmc3ySqMTkTItcC7GyvAvog5mNIokjPMvt0KVQTrbCpXYa8gRVZnVwmp+
+ tx/iJi6F+owU4Pmu/PEDP14plPF8Lv9beiivdKQecXZmOrYg49hImMMqyhoCy31J721Q
+ wBscjA43zWT2dAB1nwRW0quaSAGRPa+yR84WouMBZCjEPZiqDKx7rYi2/dRVS/l9yOBB
+ zkWGB0jT0mW0JZa8bFso8wg/XC3xwgT2j7vlPHZUSXvaUfc/gW8Oa0d8DpB1cogbjwtI
+ 4AoMt1j73ZGEohde9slCPUM92WDPmJAVjkNRHwwglaJUuAKd5BWPNYK7M5OriHw4BoMW
+ cSbA==
+X-Gm-Message-State: AKwxytdugmrfsPmNpC+tWcG1JnM/LmddqOWvD9ACcO5koE3UKAkUvXYc
+ 1+nwdM+VovusbWQva7RStg==
+X-Google-Smtp-Source: ACJfBov3Jecj/5w7SiF5bPvH1hCNEIbQEmClx/O2/aeaJfWaR52UL+FeeZ4HEOA+z4PevYyyes/Tnw==
+X-Received: by 10.99.128.66 with SMTP id j63mr23756362pgd.254.1516204776826;
+ Wed, 17 Jan 2018 07:59:36 -0800 (PST)
+Received: from serve.minyard.net ([47.184.168.85])
+ by smtp.gmail.com with ESMTPSA id a9sm8677012pfi.55.2018.01.17.07.59.35
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 17 Jan 2018 07:59:35 -0800 (PST)
+Sender: Corey Minyard <tcminyard@gmail.com>
+Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
+ by serve.minyard.net (Postfix) with ESMTPSA id 42B66319;
+ Wed, 17 Jan 2018 09:59:34 -0600 (CST)
+Reply-To: minyard@acm.org
+Subject: Re: [PATCH arm/aspeed/ast2500 v1] ipmi: add an Aspeed KCS IPMI BMC
+ driver
+To: "Wang, Haiyue" <haiyue.wang@linux.intel.com>, joel@jms.id.au,
+ openbmc@lists.ozlabs.org, openipmi-developer@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+Cc: andriy.shevchenko@intel.com
+References: <1516103023-19244-1-git-send-email-haiyue.wang@linux.intel.com>
+ <a716bfaf-d41e-7865-8b9d-61e6abed2035@acm.org>
+ <54c6562b-f35a-c616-b6c2-a2eadf6937da@acm.org>
+ <e462c75e-8d93-cddf-06f9-f40643e5b703@linux.intel.com>
+From: Corey Minyard <minyard@acm.org>
+Message-ID: <cc88c8bf-65ec-c38c-0fdc-32e0436ebc7e@acm.org>
+Date: Wed, 17 Jan 2018 09:59:33 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-In-Reply-To: <1516133413.8689.5.camel@fuzziesquirrel.com>
-Subject: Re: async notifications (snmp, redfish)
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: openbmc@lists.ozlabs.org
-From: "Hariharasubramanian Ramasubramanian" <hramasub@in.ibm.com>
-Date: Wed, 17 Jan 2018 20:34:30 +0530
-References: <1516133413.8689.5.camel@fuzziesquirrel.com>
-X-KeepSent: A2F3676A:CBD54DF8-65258218:00516BE2;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP7 August 18, 2016
-X-LLNOutbound: False
-X-Disclaimed: 22267
-X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72"
-x-cbid: 18011715-7581-0000-0000-000005833A64
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.406879; ST=0; TS=0; UL=0; ISC=; MB=0.105974
-X-IBM-SpamModules-Versions: BY=3.00008395; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000247; SDB=6.00976364; UDB=6.00494941; IPR=6.00756291; 
- BA=6.00005782; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019093; XFM=3.00000015;
- UTC=2018-01-17 15:05:44
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-01-17 12:26:37 - 6.00007920
-x-cbparentid: 18011715-7582-0000-0000-0000E7115994
-Message-Id: <OFA2F3676A.CBD54DF8-ON65258218.00516BE2-65258218.0052CF59@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-01-17_05:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <e462c75e-8d93-cddf-06f9-f40643e5b703@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -71,104 +81,1134 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Jan 2018 15:06:18 -0000
+X-List-Received-Date: Wed, 17 Jan 2018 15:59:41 -0000
 
---0__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72
-Content-type: multipart/alternative; 
-	Boundary="1__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72"
+On 01/17/2018 08:31 AM, Wang, Haiyue wrote:
+>
+>
+> On 2018-01-17 06:12, Corey Minyard wrote:
+>> On 01/16/2018 02:59 PM, Corey Minyard wrote:
+>>> On 01/16/2018 05:43 AM, Haiyue Wang wrote:
+>>>> The KCS (Keyboard Controller Style) interface is used to perform 
+>>>> in-band
+>>>> IPMI communication between a server host and its BMC (BaseBoard 
+>>>> Management
+>>>> Controllers).
+>>>>
+>>>> This driver exposes the KCS interface on ASpeed SOCs (AST2400 and 
+>>>> AST2500)
+>>>> as a character device. Such SOCs are commonly used as BMCs and this 
+>>>> driver
+>>>> implements the BMC side of the KCS interface.
+>>>
+>>> I thought we were going to unify the BMC ioctl interface?  My 
+>>> preference would be to
+>>> create a file named include/uapi/linux/ipmi-bmc.h and add the 
+>>> following:
+>>>
+>>> #define __IPMI_BMC_IOCTL_MAGIC    0xb1
+>>> #define IPMI_BMC_IOCTL_SMS_SET_ATN _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
+>>>
+>>> to make it the same as BT.  Then in bt-bmc.h, set 
+>>> BT_BMC_IOCTL_SMS_ATN to
+>>> IPMI_BMC_IOCTL_SMS_SET_ATN.  Then add the KCS ioctls in ipmi-bmc.h and
+>>> use that.  That way we stay backward compatible but we are unified.
+>>>
+>>> Since more KCS interfaces may come around, can you make the name more
+>>> specific?  (I made this same error on bt-bmc,c, it should probably 
+>>> be renamed.)
+>>>
+> How about these IOCTL definitions ? Is it more specific ?
+>
+> #define IPMI_BMC_IOCTL_SET_SMS_ATN    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
+> #define IPMI_BMC_IOCTL_CLEAR_SMS_ATN  _IO(__IPMI_BMC_IOCTL_MAGIC, 0x01)
+> #define IPMI_BMC_IOCTL_FORCE_ABORT    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x02)
+>
 
+Those look good to me.  If you could do the switchover to ipmi-bmc.h in 
+a separate
+patch, that would be cleaner.  Then add the clear atn and force abort 
+ioctls in the
+patch to add the new driver.
 
---1__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
+Sound good?
 
+-corey
 
-Redifh defines a push model for async notification. However the events,
-semantics of the events and the corresponding description of those events
-are left open to be defined by the OEMs.
-
-i.e. a =5Fstandard=5F Event Registry is a work in progress in DMTF.
-Here is a post on the redfish forum for a query which we had posted
-earlier: https://redfishforum.com/post/268/quote/81
-
-This is the right time to start a discussion on the standard set of events.
-
-regards,
-Hari !
-
-
-
-
-From:	Brad Bishop <bradleyb@fuzziesquirrel.com>
-To:	openbmc@lists.ozlabs.org
-Date:	01/17/2018 01:41 AM
-Subject:	async notifications (snmp, redfish)
-Sent by:	"openbmc" <openbmc-bounces
-            +hramasub=3Din.ibm.com@lists.ozlabs.org>
-
-
-
-Does anyone out there care about async notifications (as in something
-like SNMP)?  Looking for any ideas and/or information around existing
-FOSS solutions in that problem space, and/or if there aren't any, other
-ideas on a solution for OpenBMC.  How do people feel about what Redfish
-has done for these?
-
-thx - brad
-
-
-
-
---1__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><font size=3D"2">Redifh defines a push model for async notif=
-ication. However the events, semantics of the events and the corresponding =
-description of those events are left open to be defined by the OEMs.</font>=
-<br><br><font size=3D"2">i.e. a =5Fstandard=5F Event Registry is a work in =
-progress in DMTF.</font><br><font size=3D"2">Here is a post on the redfish =
-forum for a query which we had posted earlier: </font><a href=3D"https://re=
-dfishforum.com/post/268/quote/81"><font size=3D"2">https://redfishforum.com=
-/post/268/quote/81</font></a><br><font size=3D"2"><br>This is the right tim=
-e to start a discussion on the standard set of events. </font><br><br><font=
- size=3D"2">regards,</font><br><font size=3D"2">Hari !</font><br><br><br><i=
-mg width=3D"16" height=3D"16" src=3D"cid:1=5F=5F=3DEABB088BDFC2ED728f9e8a93=
-df938690918cEAB@" border=3D"0" alt=3D"Inactive hide details for Brad Bishop=
- ---01/17/2018 01:41:08 AM---Does anyone out there care about async notific=
-ations (as in s"><font size=3D"2" color=3D"#424282">Brad Bishop ---01/17/20=
-18 01:41:08 AM---Does anyone out there care about async notifications (as i=
-n something like SNMP)?  Looking for any i</font><br><br><font size=3D"2" c=
-olor=3D"#5F5F5F">From:        </font><font size=3D"2">Brad Bishop &lt;bradl=
-eyb@fuzziesquirrel.com&gt;</font><br><font size=3D"2" color=3D"#5F5F5F">To:=
-        </font><font size=3D"2">openbmc@lists.ozlabs.org</font><br><font si=
-ze=3D"2" color=3D"#5F5F5F">Date:        </font><font size=3D"2">01/17/2018 =
-01:41 AM</font><br><font size=3D"2" color=3D"#5F5F5F">Subject:        </fon=
-t><font size=3D"2">async notifications (snmp, redfish)</font><br><font size=
-=3D"2" color=3D"#5F5F5F">Sent by:        </font><font size=3D"2">&quot;open=
-bmc&quot; &lt;openbmc-bounces+hramasub=3Din.ibm.com@lists.ozlabs.org&gt;</f=
-ont><br><hr width=3D"100%" size=3D"2" align=3D"left" noshade style=3D"color=
-:#8091A5; "><br><br><br><tt><font size=3D"2">Does anyone out there care abo=
-ut async notifications (as in something<br>like SNMP)? &nbsp;Looking for an=
-y ideas and/or information around existing<br>FOSS solutions in that proble=
-m space, and/or if there aren't any, other<br>ideas on a solution for OpenB=
-MC. &nbsp;How do people feel about what Redfish<br>has done for these?<br><=
-br>thx - brad<br><br></font></tt><br><br><BR>
-</body></html>
-
---1__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72--
-
-
---0__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=EABB088BDFC2ED728f9e8a93df938690918cEAB@>
-Content-Transfer-Encoding: base64
-
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
-
-
---0__=EABB088BDFC2ED728f9e8a93df938690918cEABB088BDFC2ED72--
+>>> More comments inline, as I'll go ahead and review this.
+>>>
+>>>> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+>>>> ---
+>>>>   .../devicetree/bindings/ipmi/aspeed-kcs-bmc.txt    |  26 +
+>>>>   drivers/char/ipmi/Kconfig                          |   9 +
+>>>>   drivers/char/ipmi/Makefile                         |   1 +
+>>>>   drivers/char/ipmi/kcs-bmc.c                        | 744 
+>>>> +++++++++++++++++++++
+>>>>   include/uapi/linux/kcs-bmc.h                       |  14 +
+>>>>   5 files changed, 794 insertions(+)
+>>>>   create mode 100644 
+>>>> Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
+>>>>   create mode 100644 drivers/char/ipmi/kcs-bmc.c
+>>>>   create mode 100644 include/uapi/linux/kcs-bmc.h
+>>>>
+>>>> diff --git 
+>>>> a/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt 
+>>>> b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
+>>>> new file mode 100644
+>>>> index 0000000..dd0c73d
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
+>>>> @@ -0,0 +1,26 @@
+>>>> +* Aspeed KCS (Keyboard Controller Style) IPMI interface
+>>>> +
+>>>> +The Aspeed SOCs (AST2400 and AST2500) are commonly used as BMCs
+>>>> +(BaseBoard Management Controllers) and the KCS interface can be
+>>>> +used to perform in-band IPMI communication with their host.
+>>>> +
+>>>> +Required properties:
+>>>> +- compatible : should be one of
+>>>> +    "aspeed,ast2400-kcs-bmc"
+>>>> +    "aspeed,ast2500-kcs-bmc"
+>>>> +- interrupts : interrupt generated by the controller
+>>>> +- kcs_chan : The LPC channel number in the controller
+>>>> +- kcs_addr : The host CPU IO map address
+>>>> +
+>>>> +
+>>>> +Example:
+>>>> +
+>>>> +    kcs3: kcs3@0 {
+>>>> +        compatible = "aspeed,ast2500-kcs-bmc";
+>>>> +        reg = <0x0 0x80>;
+>>>> +        interrupts = <8>;
+>>>> +        kcs_chan = <3>;
+>>>> +        kcs_addr = <0xCA2>;
+>>>> +        status = "okay";
+>>>> +    };
+>>>> +
+>>>> diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+>>>> index 3544abc..36132f8 100644
+>>>> --- a/drivers/char/ipmi/Kconfig
+>>>> +++ b/drivers/char/ipmi/Kconfig
+>>>> @@ -104,3 +104,12 @@ config ASPEED_BT_IPMI_BMC
+>>>>         Provides a driver for the BT (Block Transfer) IPMI interface
+>>>>         found on Aspeed SOCs (AST2400 and AST2500). The driver
+>>>>         implements the BMC side of the BT interface.
+>>>> +
+>>>> +config ASPEED_KCS_IPMI_BMC
+>>>> +    depends on ARCH_ASPEED || COMPILE_TEST
+>>>> +    select REGMAP_MMIO
+>>>> +    tristate "KCS IPMI bmc driver"
+>>>> +    help
+>>>> +      Provides a driver for the KCS (Keyboard Controller Style) IPMI
+>>>> +      interface found on Aspeed SOCs (AST2400 and AST2500). The 
+>>>> driver
+>>>> +      implements the BMC side of the KCS interface.
+>>>> \ No newline at end of file
+>>>> diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
+>>>> index 33b899f..f217bae 100644
+>>>> --- a/drivers/char/ipmi/Makefile
+>>>> +++ b/drivers/char/ipmi/Makefile
+>>>> @@ -22,3 +22,4 @@ obj-$(CONFIG_IPMI_POWERNV) += ipmi_powernv.o
+>>>>   obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
+>>>>   obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
+>>>>   obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
+>>>> +obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs-bmc.o
+>>>> \ No newline at end of file
+>>>> diff --git a/drivers/char/ipmi/kcs-bmc.c b/drivers/char/ipmi/kcs-bmc.c
+>>>> new file mode 100644
+>>>> index 0000000..d6eab0b
+>>>> --- /dev/null
+>>>> +++ b/drivers/char/ipmi/kcs-bmc.c
+>>>> @@ -0,0 +1,744 @@
+>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>> +// Copyright (c) 2015-2018, Intel Corporation.
+>>>> +
+>>>> +#include <linux/atomic.h>
+>>>> +#include <linux/errno.h>
+>>>> +#include <linux/interrupt.h>
+>>>> +#include <linux/io.h>
+>>>> +#include <linux/kcs-bmc.h>
+>>>> +#include <linux/mfd/syscon.h>
+>>>> +#include <linux/miscdevice.h>
+>>>> +#include <linux/module.h>
+>>>> +#include <linux/of.h>
+>>>> +#include <linux/platform_device.h>
+>>>> +#include <linux/poll.h>
+>>>> +#include <linux/regmap.h>
+>>>> +#include <linux/sched.h>
+>>>> +#include <linux/slab.h>
+>>>> +#include <linux/timer.h>
+>>>> +
+>>>> +#define KCS_MSG_BUFSIZ      1024
+>>>> +#define KCS_CHANNEL_MAX     4
+>>>> +
+>>>> +/*
+>>>> + * This is a BMC device used to communicate to the host
+>>>> + */
+>>>> +#define DEVICE_NAME     "ipmi-kcs-host"
+>>>> +
+>>>> +
+>>>> +/* Different Phases of the KCS Module */
+>>>> +#define KCS_PHASE_IDLE          0x00
+>>>> +#define KCS_PHASE_WRITE         0x01
+>>>> +#define KCS_PHASE_WRITE_END     0x02
+>>>> +#define KCS_PHASE_READ          0x03
+>>>> +#define KCS_PHASE_ABORT         0x04
+>>>> +#define KCS_PHASE_ERROR         0x05
+>>>
+>>> It would be nicer to make the above an enum.
+>>>
+> Done!
+>>>> +
+>>>> +/* Abort Phase */
+>>>> +#define ABORT_PHASE_ERROR1      0x01
+>>>> +#define ABORT_PHASE_ERROR2      0x02
+>>>
+>>> Can the above just be folded into two separate phases in kcs_phase?
+>>> That would be a little cleaner.
+>>>
+> Done, the code is truly cleaner, thanks! ;-)
+>>>
+>>>> +
+>>>> +/* KCS Command Control codes. */
+>>>> +#define KCS_GET_STATUS          0x60
+>>>> +#define KCS_ABORT               0x60
+>>>> +#define KCS_WRITE_START         0x61
+>>>> +#define KCS_WRITE_END           0x62
+>>>> +#define KCS_READ_BYTE           0x68
+>>>> +
+>>>> +/* Status bits.:
+>>>> + * - IDLE_STATE.  Interface is idle. System software should not be 
+>>>> expecting
+>>>> + *                nor sending any data.
+>>>> + * - READ_STATE.  BMC is transferring a packet to system software. 
+>>>> System
+>>>> + *                software should be in the "Read Message" state.
+>>>> + * - WRITE_STATE. BMC is receiving a packet from system software. 
+>>>> System
+>>>> + *                software should be writing a command to the BMC.
+>>>> + * - ERROR_STATE. BMC has detected a protocol violation at the 
+>>>> interface level,
+>>>> + *                or the transfer has been aborted. System 
+>>>> software can either
+>>>> + *                use the "Get_Status" control code to request the 
+>>>> nature of
+>>>> + *                the error, or it can just retry the command.
+>>>> + */
+>>>> +#define KCS_IDLE_STATE           0
+>>>> +#define KCS_READ_STATE           1
+>>>> +#define KCS_WRITE_STATE          2
+>>>> +#define KCS_ERROR_STATE          3
+>>>> +
+>>>> +/* KCS Error Codes */
+>>>> +#define KCS_NO_ERROR                0x00
+>>>> +#define KCS_ABORTED_BY_COMMAND      0x01
+>>>> +#define KCS_ILLEGAL_CONTROL_CODE    0x02
+>>>> +#define KCS_LENGTH_ERROR            0x06
+>>>> +#define KCS_UNSPECIFIED_ERROR       0xFF
+>>>> +
+>>>> +
+>>>> +#define KCS_ZERO_DATA           0
+>>>> +
+>>>> +/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
+>>>> +#define KCS_STR_STATE(state)        (state << 6)
+>>>> +#define KCS_STR_STATE_MASK          KCS_STR_STATE(0x3)
+>>>> +#define KCS_STR_CMD_DAT             BIT(3)
+>>>> +#define KCS_STR_SMS_ATN             BIT(2)
+>>>> +#define KCS_STR_IBF                 BIT(1)
+>>>> +#define KCS_STR_OBF                 BIT(0)
+>>>> +
+>>>> +
+>>>> +/* mapped to lpc-bmc@0 IO space */
+>>>> +#define LPC_HICR0            0x000
+>>>> +#define     LPC_HICR0_LPC3E          BIT(7)
+>>>> +#define     LPC_HICR0_LPC2E          BIT(6)
+>>>> +#define     LPC_HICR0_LPC1E          BIT(5)
+>>>> +#define LPC_HICR2            0x008
+>>>> +#define     LPC_HICR2_IBFIF3         BIT(3)
+>>>> +#define     LPC_HICR2_IBFIF2         BIT(2)
+>>>> +#define     LPC_HICR2_IBFIF1         BIT(1)
+>>>> +#define LPC_HICR4            0x010
+>>>> +#define     LPC_HICR4_LADR12AS       BIT(7)
+>>>> +#define     LPC_HICR4_KCSENBL        BIT(2)
+>>>> +#define LPC_LADR3H           0x014
+>>>> +#define LPC_LADR3L           0x018
+>>>> +#define LPC_LADR12H          0x01C
+>>>> +#define LPC_LADR12L          0x020
+>>>> +#define LPC_IDR1             0x024
+>>>> +#define LPC_IDR2             0x028
+>>>> +#define LPC_IDR3             0x02C
+>>>> +#define LPC_ODR1             0x030
+>>>> +#define LPC_ODR2             0x034
+>>>> +#define LPC_ODR3             0x038
+>>>> +#define LPC_STR1             0x03C
+>>>> +#define LPC_STR2             0x040
+>>>> +#define LPC_STR3             0x044
+>>>> +
+>>>> +/* mapped to lpc-host@80 IO space */
+>>>> +#define LPC_HICRB            0x080
+>>>> +#define     LPC_HICRB_IBFIF4         BIT(1)
+>>>> +#define     LPC_HICRB_LPC4E          BIT(0)
+>>>> +#define LPC_LADR4            0x090
+>>>> +#define LPC_IDR4             0x094
+>>>> +#define LPC_ODR4             0x098
+>>>> +#define LPC_STR4             0x09C
+>>>> +
+>>>> +
+>>>> +/* IPMI 2.0 - 9.5, KCS Interface Registers */
+>>>> +struct kcs_ioreg {
+>>>> +    u32 idr; /* Input Data Register */
+>>>> +    u32 odr; /* Output Data Register */
+>>>> +    u32 str; /* Status Register */
+>>>> +};
+>>>> +
+>>>> +static const struct kcs_ioreg kcs_ioreg_map[KCS_CHANNEL_MAX] = {
+>>>> +    { .idr = LPC_IDR1, .odr = LPC_ODR1, .str = LPC_STR1 },
+>>>> +    { .idr = LPC_IDR2, .odr = LPC_ODR2, .str = LPC_STR2 },
+>>>> +    { .idr = LPC_IDR3, .odr = LPC_ODR3, .str = LPC_STR3 },
+>>>> +    { .idr = LPC_IDR4, .odr = LPC_ODR4, .str = LPC_STR4 },
+>>>> +};
+>>
+>> One more thing...  Why aren't the above values being set in the 
+>> device tree?
+>> Passing in a channel (and address) seems inflexible.  Kind of goes 
+>> against the
+>> philosophy of device trees.
+>>
+>> -corey
+>>
+> Change it by referring to Joel's suggestion, and defining IDR/ODR/STR 
+> registers together with other
+> registers for LPC KCS, looks like this made code be more easily 
+> maintained.
+>
+> https://lists.ozlabs.org/pipermail/openbmc/2017-December/010095.html
+>
+>>>>
+>>>> +
+>>>> +struct kcs_bmc {
+>>>> +    struct regmap *map;
+>>>> +    spinlock_t     lock;
+>>>
+>>> This lock is only used in threads, as far as I can tell. Couldn't it 
+>>> just be a normal mutex?
+>>> But more on this later.
+>>>
+> I missed this lock using in KCS ISR function, for AST2500 is single 
+> core CPU. The critical data such as
+> data_in_avail is shared between ISR and user thread, spinlock_t 
+> related API should be the right one ?
+> especially for SMP ?
+>
+> static irqreturn_t kcs_bmc_irq(int irq, void *arg)
+> {
+>     ....
+>     spin_lock(&kcs_bmc->lock);  // <-- MISSED
+>
+>     switch (sts) {
+>     case KCS_STR_IBF | KCS_STR_CMD_DAT:
+>         kcs_rx_cmd(kcs_bmc);
+>         break;
+>
+>     case KCS_STR_IBF:
+>         kcs_rx_data(kcs_bmc);
+>         break;
+>
+>     default:
+>         ret = IRQ_NONE;
+>         break;
+>     }
+>
+>     spin_unlock(&kcs_bmc->lock); // <-- MISSED
+>
+>     return ret;
+> }
+>
+>
+>>>> +
+>>>> +    u32 chan;
+>>>> +    int running;
+>>>> +
+>>>> +    u32 idr;
+>>>> +    u32 odr;
+>>>> +    u32 str;
+>>>> +
+>>>> +    int kcs_phase;
+>>>> +    u8  abort_phase;
+>>>> +    u8  kcs_error;
+>>>> +
+>>>> +    wait_queue_head_t queue;
+>>>> +    int  data_in_avail;
+>>>
+>>> data_in_avail should be a bool.
+>>>
+>>> You set data_in_avail after the data is ready, but you don't have a 
+>>> barrier.  You
+>>> have similar problems with kcs_phase.
+>>>
+>>> In fact, the locking in the driver doesn't seem quite correct. If 
+>>> this ever ran on
+>>> an SMP system, it is likely to not work correctly.  You can assume 
+>>> that the interrupt
+>>> runs exclusively, but you cannot assume that the data operations are 
+>>> available in
+>>> order on another processor that handles a subsequent interrupt.
+>>>
+>>> The easiest way to fix this would be to add the spin lock around the 
+>>> case statement
+>>> in the irq handler and add them in the poll and read functions (you 
+>>> would need to
+>>> leave it as a spinlock in that case).  That would provide the proper 
+>>> barriers assuming
+>>> you put them in the right place (checking data_in_avail again inside 
+>>> the spinlock
+>>> in the read case, for instance).
+>>>
+> Got it!
+>>>> +    int  data_in_idx;
+>>>> +    u8  *data_in;
+>>>> +
+>>>> +    int  data_out_idx;
+>>>> +    int  data_out_len;
+>>>> +    u8  *data_out;
+>>>> +
+>>>> +    struct miscdevice miscdev;
+>>>> +};
+>>>> +
+>>>> +static u8 kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
+>>>> +{
+>>>> +    u32 val = 0;
+>>>> +    int rc;
+>>>> +
+>>>> +    rc = regmap_read(kcs_bmc->map, reg, &val);
+>>>> +    WARN(rc != 0, "regmap_read() failed: %d\n", rc);
+>>>> +
+>>>> +    return rc == 0 ? (u8) val : 0;
+>>>> +}
+>>>> +
+>>>> +static void kcs_outb(struct kcs_bmc *kcs_bmc, u8 data, u32 reg)
+>>>> +{
+>>>> +    int rc;
+>>>> +
+>>>> +    rc = regmap_write(kcs_bmc->map, reg, data);
+>>>> +    WARN(rc != 0, "regmap_write() failed: %d\n", rc);
+>>>> +}
+>>>> +
+>>>> +static inline void kcs_set_state(struct kcs_bmc *kcs_bmc, u8 state)
+>>>> +{
+>>>> +    regmap_update_bits(kcs_bmc->map, kcs_bmc->str, 
+>>>> KCS_STR_STATE_MASK,
+>>>> +            KCS_STR_STATE(state));
+>>>> +}
+>>>> +
+>>>> +static inline void kcs_set_atn(struct kcs_bmc *kcs_bmc)
+>>>> +{
+>>>> +    regmap_update_bits(kcs_bmc->map, kcs_bmc->str, KCS_STR_SMS_ATN,
+>>>> +            KCS_STR_SMS_ATN);
+>>>> +}
+>>>> +
+>>>> +static inline void kcs_clear_atn(struct kcs_bmc *kcs_bmc)
+>>>> +{
+>>>> +    regmap_update_bits(kcs_bmc->map, kcs_bmc->str, KCS_STR_SMS_ATN,
+>>>> +            0);
+>>>> +}
+>>>> +
+>>>> +/*
+>>>> + * AST_usrGuide_KCS.pdf
+>>>> + * 2. Background:
+>>>> + *   we note D for Data, and C for Cmd/Status, default rules are
+>>>> + *     A. KCS1 / KCS2 ( D / C:X / X+4 )
+>>>> + *        D / C : CA0h / CA4h
+>>>> + *        D / C : CA8h / CACh
+>>>> + *     B. KCS3 ( D / C:XX2h / XX3h )
+>>>> + *        D / C : CA2h / CA3h
+>>>> + *        D / C : CB2h / CB3h
+>>>> + *     C. KCS4
+>>>> + *        D / C : CA4h / CA5h
+>>>> + */
+>>>> +static void kcs_set_addr(struct kcs_bmc *kcs_bmc, u16 addr)
+>>>> +{
+>>>> +    switch (kcs_bmc->chan) {
+>>>> +    case 1:
+>>>> +        regmap_update_bits(kcs_bmc->map, LPC_HICR4,
+>>>> +                LPC_HICR4_LADR12AS, 0);
+>>>> +        regmap_write(kcs_bmc->map, LPC_LADR12H, addr >> 8);
+>>>> +        regmap_write(kcs_bmc->map, LPC_LADR12L, addr & 0xFF);
+>>>> +        break;
+>>>> +
+>>>> +    case 2:
+>>>> +        regmap_update_bits(kcs_bmc->map, LPC_HICR4,
+>>>> +                LPC_HICR4_LADR12AS, LPC_HICR4_LADR12AS);
+>>>> +        regmap_write(kcs_bmc->map, LPC_LADR12H, addr >> 8);
+>>>> +        regmap_write(kcs_bmc->map, LPC_LADR12L, addr & 0xFF);
+>>>> +        break;
+>>>> +
+>>>> +    case 3:
+>>>> +        regmap_write(kcs_bmc->map, LPC_LADR3H, addr >> 8);
+>>>> +        regmap_write(kcs_bmc->map, LPC_LADR3L, addr & 0xFF);
+>>>> +        break;
+>>>> +
+>>>> +    case 4:
+>>>> +        regmap_write(kcs_bmc->map, LPC_LADR4, ((addr + 1) << 16) |
+>>>> +            addr);
+>>>> +        break;
+>>>> +
+>>>> +    default:
+>>>
+>>> Shouldn't you return an error here?
+>>>
+> For I checked the channel number on kcs_bmc_probe, still need this 
+> kind of error handling ?
+>
+>     rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
+>     if ((rc != 0) || (chan == 0 || chan > KCS_CHANNEL_MAX)) {
+>         dev_err(dev, "no valid 'kcs_chan' configured\n");
+>         return -ENODEV;
+>     }
+>
+>>>> +        break;
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +static void kcs_enable_channel(struct kcs_bmc *kcs_bmc, int enable)
+>>>> +{
+>>>> +    switch (kcs_bmc->chan) {
+>>>> +    case 1:
+>>>> +        if (enable) {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR2,
+>>>> +                    LPC_HICR2_IBFIF1, LPC_HICR2_IBFIF1);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR0,
+>>>> +                    LPC_HICR0_LPC1E, LPC_HICR0_LPC1E);
+>>>> +        } else {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR0,
+>>>> +                    LPC_HICR0_LPC1E, 0);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR2,
+>>>> +                    LPC_HICR2_IBFIF1, 0);
+>>>> +        }
+>>>> +        break;
+>>>> +
+>>>> +    case 2:
+>>>> +        if (enable) {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR2,
+>>>> +                    LPC_HICR2_IBFIF2, LPC_HICR2_IBFIF2);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR0,
+>>>> +                    LPC_HICR0_LPC2E, LPC_HICR0_LPC2E);
+>>>> +        } else {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR0,
+>>>> +                    LPC_HICR0_LPC2E, 0);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR2,
+>>>> +                    LPC_HICR2_IBFIF2, 0);
+>>>> +        }
+>>>> +        break;
+>>>> +
+>>>> +    case 3:
+>>>> +        if (enable) {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR2,
+>>>> +                    LPC_HICR2_IBFIF3, LPC_HICR2_IBFIF3);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR0,
+>>>> +                    LPC_HICR0_LPC3E, LPC_HICR0_LPC3E);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR4,
+>>>> +                    LPC_HICR4_KCSENBL, LPC_HICR4_KCSENBL);
+>>>> +        } else {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR0,
+>>>> +                    LPC_HICR0_LPC3E, 0);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR4,
+>>>> +                    LPC_HICR4_KCSENBL, 0);
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICR2,
+>>>> +                    LPC_HICR2_IBFIF3, 0);
+>>>> +        }
+>>>> +        break;
+>>>> +
+>>>> +    case 4:
+>>>> +        if (enable) {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICRB,
+>>>> +                    LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
+>>>> +                    LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E);
+>>>> +        } else {
+>>>> +            regmap_update_bits(kcs_bmc->map, LPC_HICRB,
+>>>> +                    LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
+>>>> +                    0);
+>>>> +        }
+>>>
+>>> The above shouldn't have {}, did you run this through checkpatch?
+> Yes, I run the checkpatch, no this warning. ;-) But well, I will 
+> remove the '{}'.
+>>>
+>>>> +        break;
+>>>> +
+>>>> +    default:
+>>>
+>>> Error here, too?
+>>>
+> For I checked the channel number on kcs_bmc_probe, still need this 
+> kind of error handling ?
+>>>> +        break;
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +static void kcs_rx_data(struct kcs_bmc *kcs_bmc)
+>>>> +{
+>>>> +    u8 data;
+>>>> +
+>>>> +    switch (kcs_bmc->kcs_phase) {
+>>>> +    case KCS_PHASE_WRITE:
+>>>> +        kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
+>>>> +
+>>>> +        /* set OBF before reading data */
+>>>> +        kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +
+>>>> +        if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
+>>>> +            kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
+>>>> +                    kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_PHASE_WRITE_END:
+>>>> +        kcs_set_state(kcs_bmc, KCS_READ_STATE);
+>>>> +
+>>>> +        if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
+>>>> +            kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
+>>>> +                    kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +
+>>>> +        kcs_bmc->kcs_phase = KCS_PHASE_READ;
+>>>> +        if (kcs_bmc->running) {
+>>>> +            kcs_bmc->data_in_avail = 1;
+>>>> +            wake_up_interruptible(&kcs_bmc->queue);
+>>>> +        }
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_PHASE_READ:
+>>>> +        if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
+>>>> +            kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
+>>>> +
+>>>> +        data = kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +        if (data != KCS_READ_BYTE) {
+>>>> +            kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
+>>>> +            kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +            break;
+>>>> +        }
+>>>> +
+>>>> +        if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
+>>>> +            kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +            kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
+>>>> +            break;
+>>>> +        }
+>>>> +
+>>>> +        kcs_outb(kcs_bmc, kcs_bmc->data_out[kcs_bmc->data_out_idx++],
+>>>> +                 kcs_bmc->odr);
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_PHASE_ABORT:
+>>>> +        switch (kcs_bmc->abort_phase) {
+>>>> +        case ABORT_PHASE_ERROR1:
+>>>> +            kcs_set_state(kcs_bmc, KCS_READ_STATE);
+>>>> +
+>>>> +            /* Read the Dummy byte */
+>>>> +            kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +
+>>>> +            kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
+>>>> +            kcs_bmc->abort_phase = ABORT_PHASE_ERROR2;
+>>>> +            break;
+>>>> +
+>>>> +        case ABORT_PHASE_ERROR2:
+>>>> +            kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
+>>>> +
+>>>> +            /* Read the Dummy byte */
+>>>> +            kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +
+>>>> +            kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +            kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
+>>>> +            kcs_bmc->abort_phase = 0;
+>>>> +            break;
+>>>> +
+>>>> +        default:
+>>>> +            break;
+>>>> +        }
+>>>> +
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_PHASE_ERROR:
+>>>
+>>> This is identical to the default.  And the default should never 
+>>> happen, anyway.
+>>> If the default happens you have a software bug and need to report it.
+>>>
+> For making code clean, I removed the KCS_PHASE_ERROR, just keep the 
+> 'default' handling.
+>>>> +        kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
+>>>> +
+>>>> +        /* Read the Dummy byte */
+>>>> +        kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +
+>>>> +        kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +        break;
+>>>> +
+>>>> +    default:
+>>>> +        kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
+>>>> +
+>>>> +        /* Read the Dummy byte */
+>>>> +        kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +
+>>>> +        kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +        break;
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +static void kcs_rx_cmd(struct kcs_bmc *kcs_bmc)
+>>>> +{
+>>>> +    u8 cmd;
+>>>> +
+>>>> +    kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
+>>>> +
+>>>> +    /* Dummy data to generate OBF */
+>>>> +    kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +
+>>>> +    cmd = kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>
+>>> Wouldn't you want to read the command before you write the OBF?
+>>>
+> The host SMS KCS state is : 'wait for IBF=0' --> 'wait for OBF=1' /  
+> 'clear OBF', for racing
+> condition, BMC needs prepare OBF=1, then clear IBF. ;-)
+>>>> +    switch (cmd) {
+>>>> +    case KCS_WRITE_START:
+>>>> +        kcs_bmc->data_in_avail = 0;
+>>>> +        kcs_bmc->data_in_idx   = 0;
+>>>> +        kcs_bmc->kcs_phase     = KCS_PHASE_WRITE;
+>>>> +        kcs_bmc->kcs_error     = KCS_NO_ERROR;
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_WRITE_END:
+>>>> +        kcs_bmc->kcs_phase = KCS_PHASE_WRITE_END;
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_ABORT:
+>>>> +        if (kcs_bmc->kcs_error == KCS_NO_ERROR)
+>>>> +            kcs_bmc->kcs_error = KCS_ABORTED_BY_COMMAND;
+>>>> +
+>>>> +        kcs_bmc->kcs_phase   = KCS_PHASE_ABORT;
+>>>> +        kcs_bmc->abort_phase = ABORT_PHASE_ERROR1;
+>>>> +        break;
+>>>> +
+>>>> +    default:
+>>>> +        kcs_bmc->kcs_error = KCS_ILLEGAL_CONTROL_CODE;
+>>>> +        kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
+>>>> +        kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
+>>>> +        kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
+>>>> +        break;
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +/*
+>>>> + * Whenever the BMC is reset (from power-on or a hard reset), the 
+>>>> State Bits
+>>>> + * are initialized to "11 - Error State". Doing so allows SMS to 
+>>>> detect that
+>>>> + * the BMC has been reset and that any message in process has been 
+>>>> terminated
+>>>> + * by the BMC.
+>>>> + */
+>>>> +static void kcs_force_abort(struct kcs_bmc *kcs_bmc)
+>>>> +{
+>>>> +    unsigned long flags;
+>>>> +
+>>>> +    spin_lock_irqsave(&kcs_bmc->lock, flags);
+>>>> +    kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
+>>>> +
+>>>> +    /* Read the Dummy byte */
+>>>> +    kcs_inb(kcs_bmc, kcs_bmc->idr);
+>>>> +
+>>>> +    kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
+>>>> +    kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
+>>>> +    spin_unlock_irqrestore(&kcs_bmc->lock, flags);
+>>>
+>>> You don't set data_in_avail() to zero here?
+>>>
+> Done, added it.
+>>>> +}
+>>>> +
+>>>> +static irqreturn_t kcs_bmc_irq(int irq, void *arg)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = arg;
+>>>> +    u32 sts;
+>>>> +
+>>>> +    if (regmap_read(kcs_bmc->map, kcs_bmc->str, &sts) != 0)
+>>>> +        return IRQ_NONE;
+>>>> +
+>>>> +    sts &= (KCS_STR_IBF | KCS_STR_CMD_DAT);
+>>>> +
+>>>> +    switch (sts) {
+>>>> +    case KCS_STR_IBF | KCS_STR_CMD_DAT:
+>>>> +        kcs_rx_cmd(kcs_bmc);
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_STR_IBF:
+>>>> +        kcs_rx_data(kcs_bmc);
+>>>> +
+>>>> +    default:
+>>>> +        return IRQ_NONE;
+>>>> +    }
+>>>> +
+>>>> +    return IRQ_HANDLED;
+>>>> +}
+>>>> +
+>>>> +static int kcs_bmc_config_irq(struct kcs_bmc *kcs_bmc,
+>>>> +            struct platform_device *pdev)
+>>>> +{
+>>>> +    struct device *dev = &pdev->dev;
+>>>> +    int irq;
+>>>> +
+>>>> +    irq = platform_get_irq(pdev, 0);
+>>>> +    if (irq < 0)
+>>>> +        return irq;
+>>>> +
+>>>> +    return devm_request_irq(dev, irq, kcs_bmc_irq, IRQF_SHARED,
+>>>> +            dev_name(dev), kcs_bmc);
+>>>> +}
+>>>> +
+>>>> +
+>>>> +static inline struct kcs_bmc *file_kcs_bmc(struct file *filp)
+>>>> +{
+>>>> +    return container_of(filp->private_data, struct kcs_bmc, miscdev);
+>>>> +}
+>>>> +
+>>>> +static int kcs_bmc_open(struct inode *inode, struct file *filp)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
+>>>> +    unsigned long flags;
+>>>> +
+>>>> +    if (kcs_bmc->running)
+>>>> +        return -EBUSY;
+>>>> +
+>>>
+>>> The above is a race, it needs to be done inside the lock.
+>>>
+> Fixed!
+>>>> + spin_lock_irqsave(&kcs_bmc->lock, flags);
+>>>> +    kcs_bmc->kcs_phase     = KCS_PHASE_IDLE;
+>>>> +    kcs_bmc->running       = 1;
+>>>> +    kcs_bmc->data_in_avail = 0;
+>>>> +    spin_unlock_irqrestore(&kcs_bmc->lock, flags);
+>>>
+>>> What happens if the interface is not in a state where it can send a 
+>>> message?
+>>> The release code doesn't block until anything is done, so the 
+>>> interface might
+>>> not be in a place where you can use it.  I think the init code 
+>>> handles it from
+>>> that side, but the release side is not handled.
+>>>
+>>> Also, if release gets called, wouldn't you want to call 
+>>> kcs_force_abort() here
+>>> or in release()? That would be the equivalent of the BMC getting reset.
+>>>
+> Yes, you are right. We meet this kind of bug that host is waiting BMC 
+> after it resets. So normally,
+> after the user ipmi stack is ready, it will call 
+> KCS_BMC_IOCTL_FORCE_ABORT, then the SMS can
+> get a right response.
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
+>>>> +    unsigned int mask = 0;
+>>>> +
+>>>> +    poll_wait(filp, &kcs_bmc->queue, wait);
+>>>> +
+>>>> +    if (kcs_bmc->data_in_avail)
+>>>> +        mask |= POLLIN;
+>>>> +
+>>>> +    if (kcs_bmc->kcs_phase == KCS_PHASE_READ)
+>>>> +        mask |= POLLOUT;
+>>>> +
+>>>> +    return mask;
+>>>> +}
+>>>> +
+>>>> +static ssize_t kcs_bmc_read(struct file *filp, char *buf,
+>>>> +                size_t count, loff_t *offset)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
+>>>> +    int rv;
+>>>> +
+>>>
+>>> You probably ought to handle O_NONBLOCK here.  (Same problem on BT, 
+>>> too.)
+>>>
+> Got it, will add this.
+>>>> +    rv = wait_event_interruptible(kcs_bmc->queue,
+>>>> +                kcs_bmc->data_in_avail != 0);
+>>>> +    if (rv < 0)
+>>>> +        return -ERESTARTSYS;
+>>>> +
+>>>
+>>> This is a race condition for multiple users.
+>>>
+> Got it, will fix this.
+>>>> +    kcs_bmc->data_in_avail = 0;
+>>>> +
+>>>> +    if (count > kcs_bmc->data_in_idx)
+>>>> +        count = kcs_bmc->data_in_idx;
+>>>> +
+>>>> +    if (copy_to_user(buf, kcs_bmc->data_in, count))
+>>>> +        return -EFAULT;
+>>>> +
+>>>> +    return count;
+>>>> +}
+>>>> +
+>>>> +static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
+>>>> +                 size_t count, loff_t *offset)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
+>>>> +    unsigned long flags;
+>>>> +
+>>>> +    if (count < 1 || count > KCS_MSG_BUFSIZ)
+>>>> +        return -EINVAL;
+>>>> +
+>>>> +    if (copy_from_user(kcs_bmc->data_out, buf, count))
+>>>> +        return -EFAULT;
+>>>> +
+>>>> +    spin_lock_irqsave(&kcs_bmc->lock, flags);
+>>>> +    if (kcs_bmc->kcs_phase == KCS_PHASE_READ) {
+>>>
+>>> If you don't modify kcs_phase here, you have a race condition. You 
+>>> probably
+>>> need a KCS_WAIT_READ condition.  Also, the nomenclature of "read" 
+>>> and "write"
+>>> here is a little confusing, since your phases are from the host's 
+>>> point of view,
+>>> not this driver's point of view.  You might want to document that 
+>>> explicitly.
+>>>
+> The race condition means that the user MAY write the duplicated 
+> response ?
+> Will write some comments for these phase definition.
+>>>> +        kcs_bmc->data_out_idx = 1;
+>>>> +        kcs_bmc->data_out_len = count;
+>>>> +        kcs_outb(kcs_bmc, kcs_bmc->data_out[0], kcs_bmc->odr);
+>>>> +    }
+>>>
+>>> So if you write and the data isn't ready, you just drop the data on 
+>>> the floor silently?
+>>> Probably not the best design.  You should probably return an error, 
+>>> as write can
+>>> only be called after read.
+>>>
+> Yes, you are right, will return the right error code instead. ;-)
+>>>> + spin_unlock_irqrestore(&kcs_bmc->lock, flags);
+>>>> +
+>>>> +    return count;
+>>>> +}
+>>>> +
+>>>> +static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
+>>>> +              unsigned long arg)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
+>>>> +    long ret = 0;
+>>>> +
+>>>> +    switch (cmd) {
+>>>> +    case KCS_BMC_IOCTL_SET_ATN:
+>>>> +        kcs_set_atn(kcs_bmc);
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_BMC_IOCTL_CLR_ATN:
+>>>> +        kcs_clear_atn(kcs_bmc);
+>>>> +        break;
+>>>> +
+>>>> +    case KCS_BMC_IOCTL_FORCE_ABORT:
+>>>> +        kcs_force_abort(kcs_bmc);
+>>>> +        break;
+>>>> +
+>>>> +    default:
+>>>> +        ret = -EINVAL;
+>>>> +        break;
+>>>> +    }
+>>>> +
+>>>> +    return ret;
+>>>> +}
+>>>> +
+>>>> +static int kcs_bmc_release(struct inode *inode, struct file *filp)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
+>>>> +    unsigned long flags;
+>>>> +
+>>>> +    spin_lock_irqsave(&kcs_bmc->lock, flags);
+>>>> +    kcs_bmc->running = 0;
+>>>> +    spin_unlock_irqrestore(&kcs_bmc->lock, flags);
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +static const struct file_operations kcs_bmc_fops = {
+>>>> +    .owner          = THIS_MODULE,
+>>>> +    .open           = kcs_bmc_open,
+>>>> +    .read           = kcs_bmc_read,
+>>>> +    .write          = kcs_bmc_write,
+>>>> +    .release        = kcs_bmc_release,
+>>>> +    .poll           = kcs_bmc_poll,
+>>>> +    .unlocked_ioctl = kcs_bmc_ioctl,
+>>>> +};
+>>>> +
+>>>> +static int kcs_bmc_probe(struct platform_device *pdev)
+>>>> +{
+>>>> +    struct device *dev = &pdev->dev;
+>>>> +    const struct kcs_ioreg *ioreg;
+>>>> +    struct kcs_bmc *kcs_bmc;
+>>>> +    u32 chan, addr;
+>>>> +    int rc;
+>>>> +
+>>>> +    kcs_bmc = devm_kzalloc(dev, sizeof(*kcs_bmc), GFP_KERNEL);
+>>>> +    if (!kcs_bmc)
+>>>> +        return -ENOMEM;
+>>>
+>>> Every error after this point will leak kcs_bmc.  I'd recommend a 
+>>> "goto out_err"
+>>> to handle this.
+>>>
+> It is 'devm_xxx' API, it will be released automatically by the dev 
+> framework. It also can auto-release
+> the irq, so that probe function can be designed clearly. This is the 
+> first time I know about this. ;-)
+>>>> +
+>>>> +    rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
+>>>> +    if ((rc != 0) || (chan == 0 || chan > KCS_CHANNEL_MAX)) {
+>>>> +        dev_err(dev, "no valid 'kcs_chan' configured\n");
+>>>> +        return -ENODEV;
+>>>> +    }
+>>>> +
+>>>> +    rc = of_property_read_u32(dev->of_node, "kcs_addr", &addr);
+>>>> +    if (rc) {
+>>>> +        dev_err(dev, "no valid 'kcs_addr' configured\n");
+>>>> +        return -ENODEV;
+>>>> +    }
+>>>> +
+>>>> +    kcs_bmc->map = syscon_node_to_regmap(dev->parent->of_node);
+>>>> +    if (IS_ERR(kcs_bmc->map)) {
+>>>> +        dev_err(dev, "Couldn't get regmap\n");
+>>>> +        return -ENODEV;
+>>>> +    }
+>>>> +
+>>>> +    dev_set_name(dev, "ipmi-kcs%u", chan);
+>>>> +
+>>>> +    spin_lock_init(&kcs_bmc->lock);
+>>>> +    kcs_bmc->chan = chan;
+>>>
+>>> You need error checking on chan.
+>>>
+> Has been checked above : if ((rc != 0) || (chan == 0 || chan > 
+> KCS_CHANNEL_MAX)) {
+>>>> +
+>>>> +    ioreg = &kcs_ioreg_map[chan - 1];
+>>>> +    kcs_bmc->idr  = ioreg->idr;
+>>>> +    kcs_bmc->odr  = ioreg->odr;
+>>>> +    kcs_bmc->str  = ioreg->str;
+>>>> +
+>>>> +    init_waitqueue_head(&kcs_bmc->queue);
+>>>> +    kcs_bmc->data_in  = devm_kmalloc(dev, KCS_MSG_BUFSIZ, 
+>>>> GFP_KERNEL);
+>>>> +    kcs_bmc->data_out = devm_kmalloc(dev, KCS_MSG_BUFSIZ, 
+>>>> GFP_KERNEL);
+>>>> +    if (kcs_bmc->data_in == NULL || kcs_bmc->data_out == NULL) {
+>>>> +        dev_err(dev, "Failed to allocate data buffers\n");
+>>>
+>>> You will leak memory if you fail to allocate data_out but do 
+>>> allocate data_in.
+>>>
+> It is 'devm_xxx' API, it will be released automatically by the dev 
+> framework.;-)
+>>>> +        return -ENOMEM;
+>>>> +    }
+>>>> +
+>>>> +    kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
+>>>> +    kcs_bmc->miscdev.name = dev_name(dev);
+>>>> +    kcs_bmc->miscdev.fops = &kcs_bmc_fops;
+>>>> +    rc = misc_register(&kcs_bmc->miscdev);
+>>>> +    if (rc) {
+>>>> +        dev_err(dev, "Unable to register device\n");
+>>>> +        return rc;
+>>>> +    }
+>>>
+>>> After you call misc_register something can open the device and use it.
+>>> You need to do that after everything is enabled.
+>>>
+> Got it, will change the code order.
+>>>> +
+>>>> +    kcs_set_addr(kcs_bmc, addr);
+>>>> +    kcs_enable_channel(kcs_bmc, 1);
+>>>> +
+>>>> +    rc = kcs_bmc_config_irq(kcs_bmc, pdev);
+>>>> +    if (rc) {
+>>>> +        misc_deregister(&kcs_bmc->miscdev);
+>>>> +        return rc;
+>>>> +    }
+>>>> +
+>>>> +    dev_set_drvdata(&pdev->dev, kcs_bmc);
+>>>
+>>> This  should definitely be before you enable or register.  The drvdata
+>>> needs to be available in case an irq comes in, for instance.
+>>>
+> Got it, will change the code order.
+>>>> +
+>>>> +    dev_info(dev, "addr=0x%x, idr=0x%x, odr=0x%x, str=0x%x\n",
+>>>> +        addr, kcs_bmc->idr, kcs_bmc->odr, kcs_bmc->str);
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +static int kcs_bmc_remove(struct platform_device *pdev)
+>>>> +{
+>>>> +    struct kcs_bmc *kcs_bmc = dev_get_drvdata(&pdev->dev);
+>>>> +
+>>>> +    misc_deregister(&kcs_bmc->miscdev);
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +static const struct of_device_id kcs_bmc_match[] = {
+>>>> +    { .compatible = "aspeed,ast2400-kcs-bmc" },
+>>>> +    { .compatible = "aspeed,ast2500-kcs-bmc" },
+>>>> +    { }
+>>>> +};
+>>>> +
+>>>> +static struct platform_driver kcs_bmc_driver = {
+>>>> +    .driver = {
+>>>> +        .name           = DEVICE_NAME,
+>>>> +        .of_match_table = kcs_bmc_match,
+>>>> +    },
+>>>> +    .probe = kcs_bmc_probe,
+>>>> +    .remove = kcs_bmc_remove,
+>>>> +};
+>>>> +
+>>>> +module_platform_driver(kcs_bmc_driver);
+>>>> +
+>>>> +MODULE_DEVICE_TABLE(of, kcs_bmc_match);
+>>>> +MODULE_LICENSE("GPL v2");
+>>>> +MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
+>>>> +MODULE_DESCRIPTION("Linux device interface to the IPMI KCS 
+>>>> interface");
+>>>> diff --git a/include/uapi/linux/kcs-bmc.h 
+>>>> b/include/uapi/linux/kcs-bmc.h
+>>>> new file mode 100644
+>>>> index 0000000..d1550d3
+>>>> --- /dev/null
+>>>> +++ b/include/uapi/linux/kcs-bmc.h
+>>>> @@ -0,0 +1,14 @@
+>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>> +// Copyright (c) 2015-2018, Intel Corporation.
+>>>> +
+>>>> +#ifndef _UAPI_LINUX_KCS_BMC_H
+>>>> +#define _UAPI_LINUX_KCS_BMC_H
+>>>> +
+>>>> +#include <linux/ioctl.h>
+>>>> +
+>>>> +#define __KCS_BMC_IOCTL_MAGIC        'K'
+>>>> +#define KCS_BMC_IOCTL_SET_ATN _IO(__KCS_BMC_IOCTL_MAGIC, 1)
+>>>> +#define KCS_BMC_IOCTL_CLR_ATN _IO(__KCS_BMC_IOCTL_MAGIC, 2)
+>>>> +#define KCS_BMC_IOCTL_FORCE_ABORT _IO(__KCS_BMC_IOCTL_MAGIC, 3)
+>>>> +
+>>>> +#endif /* _UAPI_LINUX_KCS_BMC_H */
+>>>
+>>>
+>>
+>
