@@ -1,53 +1,53 @@
-Return-Path: <juliac@eso.teric.us>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=eso.teric.us
- (client-ip=69.164.192.171; helo=eso.teric.us;
- envelope-from=juliac@eso.teric.us; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:400c:c09::232; helo=mail-wm0-x232.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=eso.teric.us header.i=@eso.teric.us header.b="JvbA48nq";
+ unprotected) header.d=google.com header.i=@google.com header.b="cFphQmIg"; 
  dkim-atps=neutral
-X-Greylist: delayed 166979 seconds by postgrey-1.36 at bilbo;
- Thu, 18 Jan 2018 06:14:46 AEDT
-Received: from eso.teric.us (eso.teric.us [69.164.192.171])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm0-x232.google.com (mail-wm0-x232.google.com
+ [IPv6:2a00:1450:400c:c09::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zMGxL5sTpzF0Sj
- for <openbmc@lists.ozlabs.org>; Thu, 18 Jan 2018 06:14:44 +1100 (AEDT)
-Received: from neo.teric.us (neo.teric.us [198.58.100.135])
- by eso.teric.us (Postfix) with ESMTPS id C70CA1036F;
- Wed, 17 Jan 2018 13:14:41 -0600 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eso.teric.us;
- s=mail; t=1516216481;
- bh=kdKsnvOgsUQfS4iX2mzbXVFGJGbigQOq/fiBZYDtoMs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JvbA48nqoDpik6SDlfRUf/W/jpWUK9bEVJQPOhFM1S9IuueneBfwci21wmUIgl/BA
- n6fPv+kEehX95nuV1/AxB7mmLjkFfoRk69wmO4QrvSp0uNHq6huQGv99ag3l6zKDQO
- EcFMF/uZlk2JgQEpsGMHlmACs6fNltfZb+q3IBm34z6idArxFO8HbjVKaGghsAx2+G
- 4bo44WSGRvsG4s2KrOyaXLeEJH99/xL6iFS5j2UzCSQop0M5MSW4PveAm5gofbuUKP
- 8Bg2cOS/D5S+DGBmrcwf1qJxzc89owEWWRhfbkwCeFeyAin0Y/zwKWzWA8x6g2BV0g
- LjcplWYHzZMXw==
-Received: by neo.teric.us (Postfix, from userid 1002)
- id B5C78185FDB; Wed, 17 Jan 2018 13:14:41 -0600 (CST)
-Date: Wed, 17 Jan 2018 13:14:41 -0600
-From: Julia Cartwright <juliac@eso.teric.us>
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: gregkh@linuxfoundation.org, arnd@arndb.de, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, joel@jms.id.au, jiri@resnulli.us,
- tklauser@distanz.ch, linux-serial@vger.kernel.org,
- vadimp@mellanox.com, system-sw-low-level@mellanox.com,
- robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
- linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
- Jiri Pirko <jiri@mellanox.com>
-Subject: Re: [patch v17 1/4] drivers: jtag: Add JTAG core driver
-Message-ID: <20180117191441.GE2818@kryptos.localdomain>
-References: <1516087139-7510-1-git-send-email-oleksandrs@mellanox.com>
- <1516087139-7510-2-git-send-email-oleksandrs@mellanox.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zMNDN14JzzF0Yx
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Jan 2018 10:13:06 +1100 (AEDT)
+Received: by mail-wm0-x232.google.com with SMTP id r78so19132132wme.0
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 15:13:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=KlgXi5lJpoUeTBwiMOxJ/7VxU6udCDJBvOqdCuVA7Qs=;
+ b=cFphQmIgwc+Uh0eXpMPoDLPtWjXkbTwzCgZzfE88fbnnCb9CLXOD0lIB514aCGbNSq
+ iRDwv2VpklPXchnt3j91Ltf8ZW7JXzHq14ad/MjnZa7L92K1QvBGEIneFPe4FqMLfomp
+ 7dnjg+sE9kdozmj8EH0WOrm0y63COfagZMnHJNZt1GtzbNcVzWmvQcyJ1fzjbyGdlhiB
+ M2dvEl10HNm6JrFkRiX2abqxAI/jzMTdk8+nvxryOuyD99lAWpH2qqlcFjePEGRISkhD
+ Hy7RWWQMYsrBOhq4hiLFI/FuKOD9dOQvu0DysHUCOtrM1gmEGgRfjlDaqBvnBmexO9uB
+ h/ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=KlgXi5lJpoUeTBwiMOxJ/7VxU6udCDJBvOqdCuVA7Qs=;
+ b=mzo2IWnN4yO0Mr9E7mbiCULme8iD4uqtBHN+GhyzTiSykeYpq0Za2tt6Po3RD/yiua
+ 1vM/MBN8ghWLXCjqnpRMK5omPQujrY1Xgf9XsMwsI5EvLdBjT1X3LGg5qFs/ZeTcu1eE
+ UrruYnyhZqWXmStkIaOU+3FfsAbHqEUh1yehxtAISkotithMo/5GkHVaWZHLNj2k1dYt
+ oZOfI7SpKLAXsSqEFOos2WcOVEZRM0j/QmeuWdXKpeur+yAFsNyUpMf4J3Z1nwRFnN0v
+ uRjjG4pfxR5d9Tz7bJR1gge1pu2bpaUvSiYsjPhWMwySStF1C0X3HVMsMMCL7GDxYgDW
+ XPcQ==
+X-Gm-Message-State: AKwxytcr/ZVrLmGuv89SQqn6bCjaTzThoxbDDNBXBWSgQywQo1WJddG4
+ ja2YQ7rVQgKRvymcpDqQhR47hZNFAdEmiXPpUsoC5Fov+cg=
+X-Google-Smtp-Source: ACJfBouRgV+i1AyQiQqStv/2OkJEzegr3QURvxp/3j/D3ybbTXfpKyeAKT6kR9tunnL4hYIj4EX3KvZoiWaCpGOJY4M=
+X-Received: by 10.28.87.138 with SMTP id l132mr2668263wmb.27.1516230783159;
+ Wed, 17 Jan 2018 15:13:03 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1516087139-7510-2-git-send-email-oleksandrs@mellanox.com>
-User-Agent: Mutt/1.8.3 (2017-05-23)
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Wed, 17 Jan 2018 23:12:52 +0000
+Message-ID: <CAJoAoZmgK7Q8O6KwGvLpKFxT5TUAS34BK-vYsV=TvPEGtd+NGw@mail.gmail.com>
+Subject: Introducing IPMI Maintainer Staff
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Tom Joseph <tomjose@linux.vnet.ibm.com>, 
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Emily Shaffer <emilyshaffer@google.com>
+Content-Type: multipart/alternative; boundary="001a11444cb83ae232056300fd8d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -59,146 +59,141 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Jan 2018 19:14:48 -0000
+X-List-Received-Date: Wed, 17 Jan 2018 23:13:10 -0000
 
-Hello Oleksandr-
+--001a11444cb83ae232056300fd8d
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jan 16, 2018 at 09:18:56AM +0200, Oleksandr Shamray wrote:
-[..]
-> v16->v17
-> Comments pointed by Julia Cartwright <juliac@eso.teric.us>
+Hi all,
 
-More review feedback below:
+If you aren't interested in developing on IPMI, you can stop reading now.
 
-[..]
-> +++ b/drivers/jtag/jtag.c
-[..]
-> +static long jtag_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-> +{
-> +	struct jtag *jtag = file->private_data;
-> +	struct jtag_run_test_idle idle;
-> +	struct jtag_xfer xfer;
-> +	u8 *xfer_data;
-> +	u32 data_size;
-> +	u32 value;
-> +	int err;
-> +
-> +	if (!arg)
-> +		return -EINVAL;
-> +
-> +	switch (cmd) {
-> +	case JTAG_GIOCFREQ:
-> +		if (!jtag->ops->freq_get)
-> +			err = -EOPNOTSUPP;
+As some of you may be aware, at the beginning
+<https://github.com/openbmc/docs/commit/fa258d825e289c9d82d4d891562e355173a439a5>
+of January, myself, Tom Joseph, and Vernon Mauery volunteered to become
+maintainers on the IPMI stack.  We'd like to share with you some more
+details on how this maintainership is going to function moving forward;
+these same details will very soon be added into READMEs in the relevant
+IPMI repositories (ipmitool, ipmi-fru-parser, phosphor-host-ipmid,
+phosphor-net-ipmid, and openpower-host-ipmi-oem).
 
-Did you mean:
 
-			return -EOPNOTSUPP;
+For ipmitool, ipmi-fru-parser, phosphor-host-ipmid, and phosphor-net-ipmid,
+all three of us are maintainers:
 
-?
+- All code reviews for any of these repositories must be made available for
+review for a minimum of 48 hours to allow for visibility, and must be
+approved by at least two maintainers.  If any maintainer objects to the
+code with a -1, the concern must be addressed before the code review can be
+approved.  Please add all three of us as reviewers on any commits for any
+of these repos.  If you're a reviewer on a code review under any of these
+repos and notice the submitter didn't add any or all of the maintainers,
+feel free to add us yourself.  This means that Brad Bishop will no longer
+be the final gate for new code going into these IPMI repositories; if you
+think your review has adequate approval but you haven't been cleared
+with +2, it's appropriate to ping one or more of the three of us on IRC.
 
-> +
-> +		err = jtag->ops->freq_get(jtag, &value);
+- Include tests with your code reviews wherever possible.  We will be
+requiring tests for new IPMI commands to demonstrate that they work as
+expected.  In the coming weeks or so we will be working on bringing up a
+clear unit testing infrastructure within these repos; we will also accept a
+test added to the Robot testing suite here:
+https://github.com/openbmc/openbmc-test-automation linked within the
+changeset description.
 
-Otherwise you're check was worthless, you'll call NULL here.
+- Design discussions should be carried out initially via email with the
+three of us, and the OpenBMC list if desired.  For architectural or design
+decisions, the three of us will need to agree unanimously on the correct
+approach.  If we are unable to do so, we will escalate the decision to the
+Technical Steering Committee to determine the best path forward.
 
-Also, w.r.t. the set of ops which are required to be implemented: this
-isn't the right place to do the check.
 
-Instead, do it in jtag_alloc():
+For openpower-host-ipmi-oem, Tom Joseph will be the sole maintainer.  All
+changelists and design decisions will be at his discretion and he should be
+the final approver.
 
-	struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops)
-	{
-		struct jtag *jtag;
 
-		if (!ops->freq_get || !ops->xfer || ...) /* fixup condition */
-			return NULL;
+The maintainers are located in Pacific Time Zone and India Time Zone.  We
+have a conference every other week on Tuesday evening Pacific/Wednesday
+morning India; if you wish to discuss something with us, let someone know
+on IRC at least 12 hours ahead of time and you will be welcome to join the
+call.  We will be mailing out a brief summary of what's discussed at the
+meetings afterwards (I'll be sending the summary from yesterday's call
+shortly after this).
 
-		jtag = kzalloc(sizeof(*jtag) + priv_size, GFP_KERNEL);
-		if (!jtag)
-			return NULL;
 
-		jtag->ops = ops;
-		return jtag;
-	}
-	EXPORT_SYMBOL_GPL(jtag_alloc);
+All three of us are generally present during our appropriate working hours
+on IRC and email, and will be happy to address any questions or concerns.
+Feel free to contact us:
 
-[..]
-> +	case JTAG_IOCXFER:
-[..]
-> +		data_size = DIV_ROUND_UP(xfer.length, BITS_PER_BYTE);
-> +		xfer_data = memdup_user(u64_to_user_ptr(xfer.tdio), data_size);
-> +
-> +		if (!xfer_data)
+Tom Joseph: tomjose@linux.vnet.ibm.com or IRC handle tomjoseph
+Vernon Mauery: vernon.mauery@linux.intel.com or IRC handle vmauery
+Emily Shaffer: emilyshaffer@google.com or IRC handle emilyshaffer
 
-memdup_user() doesn't return NULL on error.  You need to check for
-IS_ERR(xfer_data).
 
-> +			return -EFAULT;
-> +
-> +		err = jtag->ops->xfer(jtag, &xfer, xfer_data);
-> +		if (err) {
-> +			kfree(xfer_data);
-> +			return -EFAULT;
-> +		}
-> +
-> +		err = copy_to_user(u64_to_user_ptr(xfer.tdio),
-> +				   (void *)(xfer_data), data_size);
-> +
-> +		if (err) {
-> +			kfree(xfer_data);
-> +			return -EFAULT;
-> +		}
-> +
-> +		kfree(xfer_data);
+We're looking forward to working with the community!
 
-Move the kfree() above the if (err).
+Emily, Tom, and Vernon
 
-> +		if (copy_to_user((void *)arg, &xfer, sizeof(struct jtag_xfer)))
-> +			return -EFAULT;
-> +		break;
-> +
-> +	case JTAG_GIOCSTATUS:
-> +		if (!jtag->ops->status_get)
-> +			return -EOPNOTSUPP;
-> +
-> +		err = jtag->ops->status_get(jtag, &value);
-> +		if (err)
-> +			break;
-> +
-> +		err = put_user(value, (__u32 *)arg);
-> +		if (err)
-> +			err = -EFAULT;
+--001a11444cb83ae232056300fd8d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-put_user() returns -EFAULT on failure, so this shouldn't be necessary.
+<div dir=3D"ltr">Hi all,<div><br></div><div>If you aren&#39;t interested in=
+ developing on IPMI, you can stop reading now.<br><div><br></div><div>As so=
+me of you may be aware, at the <a href=3D"https://github.com/openbmc/docs/c=
+ommit/fa258d825e289c9d82d4d891562e355173a439a5">beginning</a> of January, m=
+yself, Tom Joseph, and Vernon Mauery volunteered to become maintainers on t=
+he IPMI stack.=C2=A0 We&#39;d like to share with you some more details on h=
+ow this maintainership is going to function moving forward; these same deta=
+ils will very soon be added into READMEs in the relevant IPMI repositories =
+(ipmitool, ipmi-fru-parser, phosphor-host-ipmid, phosphor-net-ipmid, and op=
+enpower-host-ipmi-oem).</div></div><div><br></div><div><br></div><div>For i=
+pmitool, ipmi-fru-parser, phosphor-host-ipmid, and phosphor-net-ipmid, all =
+three of us are maintainers:</div><div><br></div><div>- All code reviews fo=
+r any of these repositories must be made available for review for a minimum=
+ of 48 hours to allow for visibility, and must be approved by at least two =
+maintainers.=C2=A0 If any maintainer objects to the code with a -1, the con=
+cern must be addressed before the code review can be approved.=C2=A0 Please=
+ add all three of us as reviewers on any commits for any of these repos.=C2=
+=A0 If you&#39;re a reviewer on a code review under any of these repos and =
+notice the submitter didn&#39;t add any or all of the maintainers, feel fre=
+e to add us yourself.=C2=A0 This means that Brad Bishop will no longer be t=
+he final gate for new code going into these IPMI repositories; if you think=
+ your review has adequate approval but you haven&#39;t been cleared with=C2=
+=A0+2, it&#39;s appropriate to ping one or more of the three of us on IRC.<=
+/div><div><br></div><div>- Include tests with your code reviews wherever po=
+ssible.=C2=A0 We will be requiring tests for new IPMI commands to demonstra=
+te that they work as expected.=C2=A0 In the coming weeks or so we will be w=
+orking on bringing up a clear unit testing infrastructure within these repo=
+s; we will also accept a test added to the Robot testing suite here:=C2=A0<=
+a href=3D"https://github.com/openbmc/openbmc-test-automation">https://githu=
+b.com/openbmc/openbmc-test-automation</a>=C2=A0linked within the changeset =
+description.</div><div><br></div><div>- Design discussions should be carrie=
+d out initially via email with the three of us, and the OpenBMC list if des=
+ired.=C2=A0 For architectural or design decisions, the three of us will nee=
+d to agree unanimously on the correct approach.=C2=A0 If we are unable to d=
+o so, we will escalate the decision to the Technical Steering Committee to =
+determine the best path forward.</div><div><br></div><div><br></div><div>Fo=
+r openpower-host-ipmi-oem, Tom Joseph will be the sole maintainer.=C2=A0 Al=
+l changelists and design decisions will be at his discretion and he should =
+be the final approver.</div><div><br></div><div><br></div><div>The maintain=
+ers are located in Pacific Time Zone and India Time Zone.=C2=A0 We have a c=
+onference every other week on Tuesday evening Pacific/Wednesday morning Ind=
+ia; if you wish to discuss something with us, let someone know on IRC at le=
+ast 12 hours ahead of time and you will be welcome to join the call.=C2=A0 =
+We will be mailing out a brief summary of what&#39;s discussed at the meeti=
+ngs afterwards (I&#39;ll be sending the summary from yesterday&#39;s call s=
+hortly after this).</div><div><br></div><div><br></div><div>All three of us=
+ are generally present during our appropriate working hours on IRC and emai=
+l, and will be happy to address any questions or concerns.=C2=A0 Feel free =
+to contact us:<br><br>Tom Joseph: <a href=3D"mailto:tomjose@linux.vnet.ibm.=
+com">tomjose@linux.vnet.ibm.com</a>=C2=A0or IRC handle tomjoseph</div><div>=
+Vernon Mauery: <a href=3D"mailto:vernon.mauery@linux.intel.com">vernon.maue=
+ry@linux.intel.com</a>=C2=A0or IRC handle vmauery</div><div>Emily Shaffer: =
+<a href=3D"mailto:emilyshaffer@google.com">emilyshaffer@google.com</a>=C2=
+=A0or IRC handle emilyshaffer</div><div><br></div><div><br></div><div>We&#3=
+9;re looking forward to working with the community!</div><div><br></div><di=
+v>Emily, Tom, and Vernon</div></div>
 
-[..]
-> --- /dev/null
-> +++ b/include/uapi/linux/jtag.h
-[..]
-> +/**
-> + * struct jtag_xfer - jtag xfer:
-> + *
-> + * @type: transfer type
-> + * @direction: xfer direction
-> + * @length: xfer bits len
-> + * @tdio : xfer data array
-> + * @endir: xfer end state
-> + *
-> + * Structure represents interface to JTAG device for jtag sdr xfer
-> + * execution.
-> + */
-> +struct jtag_xfer {
-> +	__u8	type;
-> +	__u8	direction;
-> +	__u8	endstate;
-
-Just to be as unambiguous as possible, considering this is ABI, I would
-suggest explicitly putting a padding byte here.
-
-> +	__u32	length;
-> +	__u64	tdio;
-> +};
-
-Thanks,
-   Julia
+--001a11444cb83ae232056300fd8d--
