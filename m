@@ -1,44 +1,63 @@
-Return-Path: <Chen.KenYY@inventec.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inventec.com
- (client-ip=61.220.76.161; helo=mail.inventec.com;
- envelope-from=chen.kenyy@inventec.com; receiver=<UNKNOWN>)
-Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <avifishman70@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c0f::22e; helo=mail-ot0-x22e.google.com;
+ envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kzqZ14CM"; 
+ dkim-atps=neutral
+Received: from mail-ot0-x22e.google.com (mail-ot0-x22e.google.com
+ [IPv6:2607:f8b0:4003:c0f::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zLyns2zvLzDqpP
- for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 18:07:10 +1100 (AEDT)
-Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
- IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
- 14.3.174.1; Wed, 17 Jan 2018 15:07:03 +0800
-Received: from IET-EX2010-02.iec.inventec (iet-ex2010-02.iec.inventec
- [10.15.2.45])	by IEC1-MSE-FE1.inventec.com with ESMTP id w0H76oAN004758; Wed,
- 17 Jan 2018 15:06:50 +0800 (GMT-8)	(envelope-from Chen.KenYY@inventec.com)
-Received: from IEC1-EX2010-MX3.iec.inventec (10.1.254.158) by
- IET-EX2010-02.iec.inventec (10.15.2.45) with Microsoft SMTP Server (TLS) id
- 14.3.174.1; Wed, 17 Jan 2018 15:06:58 +0800
-Received: from IET-EX2010-MX2.iec.inventec ([fe80::307e:d8dd:5a3d:9f94]) by
- IEC1-EX2010-MX3.iec.inventec ([::1]) with mapi id 14.03.0301.000; Wed, 17 Jan
- 2018 15:06:58 +0800
-From: =?big5?B?Q2hlbi5LZW5ZWSCzr6XDwOcgVEFP?= <Chen.KenYY@inventec.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-CC: "Tsung-Han Yang (Harold)" <haroldy@qti.qualcomm.com>, "Mohit Gupta (QDT)"
- <guptam@qti.qualcomm.com>, "bradleyb@fuzziesquirrel.com"
- <bradleyb@fuzziesquirrel.com>
-Subject: RE: Create a repository for Centriq2400-rep system
-Thread-Topic: Create a repository for Centriq2400-rep system
-Thread-Index: AdOPYUbHfwB2acbHTkynE0DdFghhDg==
-Date: Wed, 17 Jan 2018 07:06:57 +0000
-Message-ID: <39E6480C5A587146BAA4D885C7BCF7EEC6AD3FD9@IET-EX2010-MX2.iec.inventec>
-Accept-Language: en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.6.45.42]
-Content-Type: multipart/alternative;
- boundary="_000_39E6480C5A587146BAA4D885C7BCF7EEC6AD3FD9IETEX2010MX2iec_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zM6Vq4JMJzDqxC
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 23:54:43 +1100 (AEDT)
+Received: by mail-ot0-x22e.google.com with SMTP id x4so1062896otg.7
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jan 2018 04:54:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=lbLdeTw29i/KeRWCnqJVrlDydkMdXTOo73o0oE7bqNw=;
+ b=kzqZ14CMETmAAFjtMo/Is/xrJhHB8iiixRuoH6VJOISYOaRb019j1oyRpcNa0bJISp
+ wtEJu+f99b9Sax9Kr0DxB8tp/VF+TTYr3I96qhVLa/0PfKmgMBwBvxgeFgCwC5PJI0HL
+ GiHbwEwUVmYk0uXQpQkVKtiUzCxLaClYb9G+DjXGotgiERMnBjn1MmCjEVTzjL6iGHkJ
+ aH3OF3b1lXcI0JhA+FDt6clrpS2aQL82MtChIjf50u2EBSQnwa9WlQFNXscAZ0KTtNgH
+ 587E+fijidc0DmuLBSTmc7T+qSiwtPglVOUm5Pd/Qkcycdo7/ldumxI55GbxY5gYK/WG
+ RJIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=lbLdeTw29i/KeRWCnqJVrlDydkMdXTOo73o0oE7bqNw=;
+ b=QYDdoXHDfso9uVtvtCkP/8SWK7MMtM9W+w+xOSkp5RXYRcssDsEZkNmv74Oaq5hKeV
+ 6j+45EYgPXsTZHLQVlGsM0QTcxVm1wobYeAvbyralTjOAoL6Bi1jzO1ooKGcNABRlb3f
+ JrwgJucvWSKEgoz0NspU0URgmXAdYgDcO3/hpQefCyf3ytxyoldAvj/x75JPX8OyNoZY
+ +eSEQ/YwpP2muuy/MP4jbehwRh2Tm4Y08Wu0/gAiLWMB7jygbdPm0m3lYXxEu90GuzjN
+ uhtciD4JgwbUD/+ZpYJsiVUM7I7XS2p/tPw0NDztEG+dVMV3jEZ2Qk+tB4ikZP6Ea+t6
+ rkOg==
+X-Gm-Message-State: AKwxytcv8hTnbcf6ALzbpZ8xJ6gkMNpRsEvj8rnKSR/FsXf6fG8kcpoM
+ xN4zad2doI5xRGEsH0rrDX5Tn6FthO/A+dBmAQ==
+X-Google-Smtp-Source: ACJfBotzgOUsKC3/qgBmSKw3k88XKG7u+WfUgrgSwef5Pa+6PtFvNZIL1CeEUZrFFE4UcnwAe/Xy+JCs64/e1pDXgIY=
+X-Received: by 10.157.32.104 with SMTP id n95mr987879ota.261.1516193681017;
+ Wed, 17 Jan 2018 04:54:41 -0800 (PST)
 MIME-Version: 1.0
-X-MAIL: IEC1-MSE-FE1.inventec.com w0H76oAN004758
+Received: by 10.157.72.199 with HTTP; Wed, 17 Jan 2018 04:54:40 -0800 (PST)
+In-Reply-To: <f802a1fd-7553-d8cd-937c-6066b1db150e@linux.intel.com>
+References: <1516103023-19244-1-git-send-email-haiyue.wang@linux.intel.com>
+ <a716bfaf-d41e-7865-8b9d-61e6abed2035@acm.org>
+ <CACPK8XfmrtJkUcFXNRDh7t3EDaETU1R=RawkErgduPG--CEVEg@mail.gmail.com>
+ <f802a1fd-7553-d8cd-937c-6066b1db150e@linux.intel.com>
+From: Avi Fishman <avifishman70@gmail.com>
+Date: Wed, 17 Jan 2018 14:54:40 +0200
+Message-ID: <CAKKbWA7bHX61pvM+Q9Fr1NMgOZrRviZ8024tpMjHY+OQjxsuDA@mail.gmail.com>
+Subject: Re: [PATCH arm/aspeed/ast2500 v1] ipmi: add an Aspeed KCS IPMI BMC
+ driver
+To: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
+Cc: Joel Stanley <joel@jms.id.au>, Corey Minyard <minyard@acm.org>,
+ Ed Tanous <ed.tanous@intel.com>, 
+ james.mihm@intel.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ tomer.maimon@nuvoton.com, openipmi-developer@lists.sourceforge.net, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ andriy.shevchenko@intel.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -50,148 +69,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Jan 2018 07:07:14 -0000
+X-List-Received-Date: Wed, 17 Jan 2018 12:54:44 -0000
 
---_000_39E6480C5A587146BAA4D885C7BCF7EEC6AD3FD9IETEX2010MX2iec_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+Sounds great for us (Nuvoton).
 
-TW9kaWZpZWQgdGhlIHRpdHRsZQ0KDQpIaSwNCg0KV2UgaGF2ZSBzb21lIHBsYXRmb3JtIHJlcG8g
-bGlrZSBpbnRlbKGmcyBzMjYwMHdmKGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL3MyNjAwd2Yt
-bWlzYykuDQpXZSB3YW50IHRvIHB1c2ggc29tZSBwbGF0Zm9ybSBzcGVjaWZpYyBPRU0gSVBNSSBj
-b21tYW5kIGFuZCBzb21lIGFwcGxpY2F0aW9uLg0KDQpCZXN0IFJlZ2FyZHMsDQpLZW4NCg0KRnJv
-bTogb3BlbmJtYyBbbWFpbHRvOm9wZW5ibWMtYm91bmNlcytjaGVuLmtlbnl5PWludmVudGVjLmNv
-bUBsaXN0cy5vemxhYnMub3JnXSBPbiBCZWhhbGYgT2YgQ2hlbi5LZW5ZWSCzr6XDwOcgVEFPDQpT
-ZW50OiBUaHVyc2RheSwgSmFudWFyeSAxMSwgMjAxOCAxMDoyNiBBTQ0KVG86IG9wZW5ibWNAbGlz
-dHMub3psYWJzLm9yZw0KU3ViamVjdDogQ3JlYXRlIGEgcmVwb3NpdG9yeSBmb3IgQVJNIHN5c3Rl
-bQ0KDQpIaSwNCg0KV2Ugd2FudCB0byBjcmVhdGUgYSByZXBvc2l0b3J5IGFib3V0IHRoZSBBUk0g
-cGxhdGZvcm0gZmVhdHVyZSBtYW5hZ2UuDQpDb3VsZCB3ZSBkbyB0aGF0Pw0KSWYgeWVzLCBob3cg
-dG8gZG8gdGhpcz8NCg0KQmVzdCBSZWdhcmRzLA0KS2VuDQo=
+Avi.
 
---_000_39E6480C5A587146BAA4D885C7BCF7EEC6AD3FD9IETEX2010MX2iec_
-Content-Type: text/html; charset="big5"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-TW" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
-rim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Modifie=
-d the tittle<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Hi,<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">We have=
- some platform repo like intel=A1=A6s s2600wf(<a href=3D"https://github.com=
-/openbmc/s2600wf-misc">https://github.com/openbmc/s2600wf-misc</a>).<o:p></=
-o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">We want=
- to push some platform specific OEM IPMI command and some application.<o:p>=
-</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Best Re=
-gards,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Ken<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span =
-lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&qu=
-ot;sans-serif&quot;"> openbmc [mailto:openbmc-bounces&#43;chen.kenyy=3Dinve=
-ntec.com@lists.ozlabs.org]
-<b>On Behalf Of </b>Chen.KenYY </span><span style=3D"font-size:10.0pt;font-=
-family:&quot;=B7s=B2=D3=A9=FA=C5=E9&quot;,&quot;serif&quot;">=B3=AF=A5=C3=
-=C0=E7</span><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&qu=
-ot;Tahoma&quot;,&quot;sans-serif&quot;"> TAO<br>
-<b>Sent:</b> Thursday, January 11, 2018 10:26 AM<br>
-<b>To:</b> openbmc@lists.ozlabs.org<br>
-<b>Subject:</b> Create a repository for ARM system<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">We want to create a repository =
-about the ARM platform feature manage.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Could we do that? <o:p></o:p></=
-span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">If yes, how to do this?<o:p></o=
-:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Best Regards,<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Ken<o:p></o:p></span></p>
-</div>
-</body>
-</html>
-
---_000_39E6480C5A587146BAA4D885C7BCF7EEC6AD3FD9IETEX2010MX2iec_--
+On Wed, Jan 17, 2018 at 8:32 AM, Wang, Haiyue
+<haiyue.wang@linux.intel.com> wrote:
+>
+>
+> On 2018-01-17 07:06, Joel Stanley wrote:
+>>
+>> On Tue, Jan 16, 2018 at 2:59 PM, Corey Minyard <minyard@acm.org> wrote:
+>>>
+>>> On 01/16/2018 05:43 AM, Haiyue Wang wrote:
+>>>>
+>>>> The KCS (Keyboard Controller Style) interface is used to perform in-band
+>>>> IPMI communication between a server host and its BMC (BaseBoard
+>>>> Management
+>>>> Controllers).
+>>>>
+>>>> This driver exposes the KCS interface on ASpeed SOCs (AST2400 and
+>>>> AST2500)
+>>>> as a character device. Such SOCs are commonly used as BMCs and this
+>>>> driver
+>>>> implements the BMC side of the KCS interface.
+>>>
+>>>
+>>> I thought we were going to unify the BMC ioctl interface?  My preference
+>>> would be to
+>>> create a file named include/uapi/linux/ipmi-bmc.h and add the following:
+>>>
+>>> #define __IPMI_BMC_IOCTL_MAGIC    0xb1
+>>> #define IPMI_BMC_IOCTL_SMS_SET_ATN    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
+>>>
+>>> to make it the same as BT.  Then in bt-bmc.h, set BT_BMC_IOCTL_SMS_ATN to
+>>> IPMI_BMC_IOCTL_SMS_SET_ATN.  Then add the KCS ioctls in ipmi-bmc.h and
+>>> use that.  That way we stay backward compatible but we are unified.
+>>>
+>>> Since more KCS interfaces may come around, can you make the name more
+>>> specific?  (I made this same error on bt-bmc,c, it should probably be
+>>> renamed.)
+>>
+>> Yes, we had a group of openbmc people get together recently and spoke
+>> about this. Unfortunately Haiyue wasn't there (but other Intel BMC
+>> people were).
+>>
+>> We've got code coming from another BMC vendor who will use the same
+>> userspace API. The intention is to unify ASPEED's KCS and BT, along
+>> with Nuvoton's KCS and BT, as you outlined above.
+>
+> Great design for common BMC code, thanks Joel & Corey.
+>
+> Then we need to divide the kcs-bmc.c into two files, one (still kcs-bmc.c)
+> is for handling IPMI KCS state
+> according to IPMI 2.0 specification, and also handing device misc
+> operations; another file is called such
+> as aspeed-kcs-bmc.c which handles ast2500 kcs controller. So that Nuvoton
+> can define nvvoton-kcs-bmc.c
+> low level API, and call the IPMI KCS function in kcs-bmc.c ?
+>
+> How about this idea ? If it makes sense, I will change the code for review
+> in patch v2.
+>
+>> Cheers,
+>>
+>> Joel
+>
+>
