@@ -1,49 +1,37 @@
-Return-Path: <mouse@yandex-team.ru>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yandex-team.ru
- (client-ip=2a02:6b8:0:1465::fd; helo=forwardcorp1g.cmail.yandex.net;
- envelope-from=mouse@yandex-team.ru; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
- header.b="x9MYUcRC"; dkim-atps=neutral
-X-Greylist: delayed 569 seconds by postgrey-1.36 at bilbo;
- Sat, 20 Jan 2018 01:37:05 AEDT
-Received: from forwardcorp1g.cmail.yandex.net (forwardcorp1g.cmail.yandex.net
- [IPv6:2a02:6b8:0:1465::fd])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.120; helo=mga04.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zNNh15LZszF0yk
- for <openbmc@lists.ozlabs.org>; Sat, 20 Jan 2018 01:37:05 +1100 (AEDT)
-Received: from mxbackcorp1g.mail.yandex.net (mxbackcorp1g.mail.yandex.net
- [IPv6:2a02:6b8:0:1402::301])
- by forwardcorp1g.cmail.yandex.net (Yandex) with ESMTP id C546621742;
- Fri, 19 Jan 2018 17:27:20 +0300 (MSK)
-Received: from localhost (localhost [::1])
- by mxbackcorp1g.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
- FRLB9isx2O-RKkqwQeq; Fri, 19 Jan 2018 17:27:20 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1516372040; bh=EI0s5u+BpP1g5/CZCQWt6bGbJTXg4CluXUoCkAbOoyQ=;
- h=From:To:In-Reply-To:References:Subject:Message-Id:Date;
- b=x9MYUcRCzrtV/waykYlLRIpTD7jIe0V6fLmaVtS2jlNJYgmR5JtyFsdOFAHVWPcgq
- 4ZEqdNbnLwb9qGRlwFP8vYy+dkPytHyqnxHzqyJ4ypHjJP//H9FHH0BaaoLxygHXGg
- vdbb99EkiJO2VCj2a3PuCFt/qcgqImrFhioY5z9g=
-Authentication-Results: mxbackcorp1g.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000001030
-Received: by webcorp01f.yandex-team.ru with HTTP;
- Fri, 19 Jan 2018 17:27:20 +0300
-From: Anton D. Kachalov <mouse@yandex-team.ru>
-To: Nancy Yuen <yuenn@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-In-Reply-To: <CADfYTpFEwZ6bTwdZz5ea2YoS-Q8bW+ZyDXphi5cv=z-sp0PFzw@mail.gmail.com>
-References: <CADfYTpFEwZ6bTwdZz5ea2YoS-Q8bW+ZyDXphi5cv=z-sp0PFzw@mail.gmail.com>
-Subject: Re: Summary of OpenBMC Hackathon Event @ Google Jan 2018
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zNRFJ5vCgzF108
+ for <openbmc@lists.ozlabs.org>; Sat, 20 Jan 2018 03:32:35 +1100 (AEDT)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2018 08:32:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,381,1511856000"; d="scan'208";a="11545803"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
+ by fmsmga007.fm.intel.com with ESMTP; 19 Jan 2018 08:32:32 -0800
+Resent-From: Vernon Mauery <vernon.mauery@linux.intel.com>
+Resent-Date: Fri, 19 Jan 2018 08:32:32 -0800
+Resent-Message-ID: <20180119163232.GY113334@mauery>
+Resent-To: openbmc@lists.ozlabs.org
+Date: Fri, 19 Jan 2018 08:30:28 -0800
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: OpenBMC Development <openbmc@list.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: Technical Debt vs. Precedence vs. Velocity
+Message-ID: <20180119163028.GX113334@mauery>
 MIME-Version: 1.0
-Message-Id: <309441516372040@webcorp01f.yandex-team.ru>
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Fri, 19 Jan 2018 17:27:20 +0300
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -55,155 +43,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Jan 2018 14:37:07 -0000
+X-List-Received-Date: Fri, 19 Jan 2018 16:32:37 -0000
 
-PGRpdj5IZWxsbyw8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5qZnlpIGZvciBLVk0gc3R1ZmYuIFR3
-byB5ZWFycyBhZ28gSSB0cmllZCB0byBicmluZyBTcGljZSBkYWVtb24gd2l0aCBBc3BlZWQgc3Vw
-cG9ydCBpbmNsdWRlIFFWLWRlY29kaW5nIChSRFAgY291bGQgYmUgYmV0dGVyLCBidXQgcHJvcHJp
-ZXRhcnkgJmFtcDsgcmVxdWlyZXMgbGljZW5zZSBmZWVzKTo8L2Rpdj48ZGl2PsKgPC9kaXY+PGRp
-dj48YSBocmVmPSJodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9hcmNoaXZlcy9zcGljZS1k
-ZXZlbC8yMDE1LU9jdG9iZXIvMDIyNzk3Lmh0bWwiPmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL2FyY2hpdmVzL3NwaWNlLWRldmVsLzIwMTUtT2N0b2Jlci8wMjI3OTcuaHRtbDwvYT48L2Rp
-dj48ZGl2PjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL3Nw
-aWNlLWRldmVsLzIwMTUtTm92ZW1iZXIvdGhyZWFkLmh0bWwjMjMwNzciPmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL3NwaWNlLWRldmVsLzIwMTUtTm92ZW1iZXIvdGhyZWFk
-Lmh0bWwjMjMwNzc8L2E+PC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+QWxzbywgSSBoYWQgYSBzYW1w
-bGUgc291cmNlcyBmcm9tIEFzcGVlZCAodW5kZXIgTVNWQyBzYW1wbGVzKD8pIGxpY2Vuc2UpIHdp
-dGggY29tcGxldGUgZGVjb2Rpbmcgb2YgdmlkZW8tZnJhbWVzIChib3RoIEpQRUcvUVYpLjwvZGl2
-PjxkaXY+wqA8L2Rpdj48ZGl2PjE4LjAxLjIwMTgsIDA5OjUwLCAiTmFuY3kgWXVlbiIgJmx0O3l1
-ZW5uQGdvb2dsZS5jb20mZ3Q7OjwvZGl2PjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPjxkaXY+PGRp
-dj48ZGl2PjxkaXY+PGRpdj48ZGl2Pkxhc3Qgd2VlaywgdGhlIG15IHRlYW0gYXQgR29vZ2xlIGhv
-c3RlZCBvdmVyIDMwIHBlb3BsZSBmcm9tIDkgb3JnYW5pemF0aW9ucyBmb3IgYW4gT3BlbkJNQyBo
-YWNrYXRob24gYXQgR29vZ2xlJ3MgU3Vubnl2YWxlIG9mZmljZS7CoCBEb24ndCB3b3JyeSBpZiB5
-b3UgbWlzc2VkIHRoaXMgZXZlbnQuwqAgV2Ugd2lsbCBiZSBob2xkaW5nIGFub3RoZXIgY29tbXVu
-aXR5IGV2ZW50IGluIHRoZSBuZXh0IDMtNiBtb210aHMsIGVpdGhlciBhIGhhY2thdGhvbiBvciBh
-IGNvbmZlcmVuY2Ugb3Igc29tZXRoaW5nIGluIGJldHdlZW4uwqAgRGV0YWlscyB3aWxsIGJlIHBv
-c3RlZCB0byB0aGlzIG1haWxpbmcgbGlzdCB3aGVuIHRoZXkncmUgYXZhaWxhYmxlLjwvZGl2Pjxk
-aXY+wqA8L2Rpdj48ZGl2PjxkaXYgc3R5bGU9ImNvbG9yOnJnYigzNCwzNCwzNCk7Zm9udC1mYW1p
-bHk6YXJpYWwsc2Fucy1zZXJpZjtmb250LXNpemU6c21hbGw7Zm9udC1zdHlsZTpub3JtYWw7Zm9u
-dC12YXJpYW50LWxpZ2F0dXJlczpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQt
-d2VpZ2h0OjQwMDt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtdHJhbnNmb3JtOm5vbmU7d2hpdGUtc3Bh
-Y2U6bm9ybWFsO2JhY2tncm91bmQtY29sb3I6cmdiKDI1NSwyNTUsMjU1KTsiPlRoZXJlIHdlcmUg
-bWFueSBncmVhdCBhY2NvbXBsaXNobWVudHMgZHVyaW5nIHRoZSBoYWNrYXRob24uwqAgQSBmZXcg
-YWNoaWV2ZW1lbnRzIG9mZiB0aGUgdG9wIG9mIG15IGhlYWQ6PC9kaXY+PGRpdiBzdHlsZT0iY29s
-b3I6cmdiKDM0LDM0LDM0KTtmb250LWZhbWlseTphcmlhbCxzYW5zLXNlcmlmO2ZvbnQtc2l6ZTpz
-bWFsbDtmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQtbGlnYXR1cmVzOm5vcm1hbDtmb250
-LXZhcmlhbnQtY2Fwczpub3JtYWw7Zm9udC13ZWlnaHQ6NDAwO3RleHQtYWxpZ246c3RhcnQ7dGV4
-dC10cmFuc2Zvcm06bm9uZTt3aGl0ZS1zcGFjZTpub3JtYWw7YmFja2dyb3VuZC1jb2xvcjpyZ2Io
-MjU1LDI1NSwyNTUpOyI+PGRpdj48dWw+PGxpPkZvcm1lZCB0aGUgT3BlbkJNQzxzcGFuPsKgPC9z
-cGFuPjxhIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0iY29sb3I6cmdiKDE3LDg1LDIwNCk7IiBocmVm
-PSJodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9kb2NzL2Jsb2IvbWFzdGVyL1JFQURNRS5tZCI+
-VGVjaG5pY2FsIFN0ZWVyaW5nIENvbW1pdHRlZTwvYT7CoChzY3JvbGwgZG93biB0byB0aGUgYm90
-dG9tKTwvbGk+PGxpPkFzc2VtYmxlZCBhIHByZWxpbWluYXJ5PHNwYW4+wqA8L3NwYW4+PGEgdGFy
-Z2V0PSJfYmxhbmsiIHN0eWxlPSJjb2xvcjpyZ2IoMTcsODUsMjA0KTsiIGhyZWY9Imh0dHBzOi8v
-ZHJpdmUuZ29vZ2xlLmNvbS9vcGVuP2lkPTFyUGJaVW1QWWNxSlJIWXpsRW45b0p5Tl9aTTQwVVZw
-UjNfZlhTeGFJbmdnIj5yb2FkbWFwPC9hPjxzcGFuPsKgPC9zcGFuPmJhc2VkIG9uIHRoZSB0b3Ag
-cHJpb3JpdGllcyBvZiBwYXJ0aWNpcGF0aW5nIG9yZ2FuaXphdGlvbnM8L2xpPjxsaT5GYWNlYm9v
-ayBicm91Z2h0IHVwIE9wZW5CTUMgb24gMSBvZiB0aGVpciAzIHBsYXRmb3Jtc8KgIChhIHNlY29u
-ZCB3YXMgY2xvc2UgdG8gYm9vdGluZyk8L2xpPjxsaT5OdXZvdG9uIHdvcmtlZCB3aXRoIElCTSdz
-IExpbnV4IHRlYW0gdG8gZml4IHVwIGFuZCBzZW5kIHRoZSBQb2xlZyBjbGsgZHJpdmVyIGZvciBy
-ZXZpZXc8L2xpPjxsaT5JQk0gYW5kIEludGVsPHNwYW4+wqA8L3NwYW4+PGEgdGFyZ2V0PSJfYmxh
-bmsiIHN0eWxlPSJjb2xvcjpyZ2IoMTcsODUsMjA0KTsiIGhyZWY9Imh0dHBzOi8vbGlzdHMub3ps
-YWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy8yMDE4LUphbnVhcnkvMDEwNDMyLmh0bWwiPmNvbGxh
-Ym9yYXRlZDwvYT48c3Bhbj7CoDwvc3Bhbj50byBhZGQgQ2xhbmcgZm9ybWF0IGNvZGluZyBzdGFu
-ZGFyZCB2YWxpZGF0aW9uIHRvIHRoZSBDSSBqb2IgYW5kIGdlcnJpdCBpbiBPcGVuQk1DPC9saT48
-L3VsPjwvZGl2PjxkaXY+VGhlcmUgd2VyZSBvdGhlciBhY2NvbXBsaXNobWVudHMsIHBsZWFzZSBm
-ZWVsIGZyZWUgdG8gcmVwbHkgd2l0aCB0aGUgb25lcyB0aGF0IEkgbWlzc2VkITwvZGl2PjwvZGl2
-PjwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2PjxkaXYgc3R5bGU9ImNvbG9yOnJnYigzNCwzNCwzNCk7
-Zm9udC1mYW1pbHk6YXJpYWwsc2Fucy1zZXJpZjtmb250LXNpemU6c21hbGw7Zm9udC1zdHlsZTpu
-b3JtYWw7Zm9udC12YXJpYW50LWxpZ2F0dXJlczpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9y
-bWFsO2ZvbnQtd2VpZ2h0OjQwMDt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtdHJhbnNmb3JtOm5vbmU7
-d2hpdGUtc3BhY2U6bm9ybWFsO2JhY2tncm91bmQtY29sb3I6cmdiKDI1NSwyNTUsMjU1KTsiPjxk
-aXY+V2Ugd2FudGVkIGEgZmFjZSB0byBmYWNlIGV2ZW50IHRvIGhlbHAgYnVpbGQgcmVsYXRpb25z
-aGlwcyBhbmQgb3BlbiBjb21tdW5pY2F0aW9ucy7CoCBTbyBpbiBhZGRpdGlvbiB0byBoYWNraW5n
-IHByb2plY3RzLCB3ZSBoZWxkIGEgc2VyaWVzIG9mIHRlY2huaWNhbCBzZXNzaW9ucyB0byBoZWxw
-IGV2ZXJ5b25lIHN5bmMgb24gcmVxdWlyZW1lbnRzLCB1c2UgY2FzZXMsIGFuZCBpbXBsZW1lbnRh
-dGlvbnMgdGhhdCBhcmUgZG9uZSBvciBpbiBwcm9ncmVzcy7CoCBIZXJlIGFyZSBzb21lIHNlc3Np
-b25zIHdlIGhlbGQsIGluY2x1ZGluZyBub3Rlcy9zbGlkZXMgdGhhdCBoYXZlIGJlZW4gc2hhcmVk
-IHdpdGggbWUuPC9kaXY+PC9kaXY+PGRpdiBzdHlsZT0iY29sb3I6cmdiKDM0LDM0LDM0KTtmb250
-LWZhbWlseTphcmlhbCxzYW5zLXNlcmlmO2ZvbnQtc2l6ZTpzbWFsbDtmb250LXN0eWxlOm5vcm1h
-bDtmb250LXZhcmlhbnQtbGlnYXR1cmVzOm5vcm1hbDtmb250LXZhcmlhbnQtY2Fwczpub3JtYWw7
-Zm9udC13ZWlnaHQ6NDAwO3RleHQtYWxpZ246c3RhcnQ7dGV4dC10cmFuc2Zvcm06bm9uZTt3aGl0
-ZS1zcGFjZTpub3JtYWw7YmFja2dyb3VuZC1jb2xvcjpyZ2IoMjU1LDI1NSwyNTUpOyI+PHVsPjxs
-aT5Kb2VsIFN0YW5sZXkgQCBJQk06PHNwYW4+wqA8L3NwYW4+PGEgdGFyZ2V0PSJfYmxhbmsiIHN0
-eWxlPSJjb2xvcjpyZ2IoMTcsODUsMjA0KTsiIGhyZWY9Imh0dHBzOi8vZHJpdmUuZ29vZ2xlLmNv
-bS9vcGVuP2lkPTFzWTNGcHpxTnpmcnROWFk4TmZQZV9FT2RPbkx1VE0tZTNBRml1akYwcGlZIj5P
-cGVuQk1DIEtlcm5lbDwvYT4sPHNwYW4+wqA8L3NwYW4+PGEgdGFyZ2V0PSJfYmxhbmsiIHN0eWxl
-PSJjb2xvcjpyZ2IoMTcsODUsMjA0KTsiIGhyZWY9Imh0dHBzOi8vZHJpdmUuZ29vZ2xlLmNvbS9v
-cGVuP2lkPTFJV2s1MVBxME9wSFhvb3ZlT3pVMDBTUlVrWGRNRnd6WnpoZ1Q1MWNrTDE0Ij5LQ1Mg
-S2VybmVsIGRyaXZlcjwvYT4sPHNwYW4+wqA8L3NwYW4+PGEgdGFyZ2V0PSJfYmxhbmsiIHN0eWxl
-PSJjb2xvcjpyZ2IoMTcsODUsMjA0KTsiIGhyZWY9Imh0dHBzOi8vZHJpdmUuZ29vZ2xlLmNvbS9v
-cGVuP2lkPTF4TzNWbF9NNXNZM2xjQ0FBTTNub0J0bGVIMWQ5eGstYndxeHpWYlRYMzZvIj5maXJt
-d2FyZSB1cGRhdGVzPC9hPjwvbGk+PGxpPlZlcm5vbiBNYXVlcnkgQCBJbnRlbDo8c3Bhbj7CoDwv
-c3Bhbj48YSB0YXJnZXQ9Il9ibGFuayIgc3R5bGU9ImNvbG9yOnJnYigxNyw4NSwyMDQpOyIgaHJl
-Zj0iaHR0cHM6Ly9nb28uZ2wvaDRMQnRnIj5LVk0gYW5kIHZpcnR1YWwgbWVkaWE8L2E+PC9saT48
-bGk+SmFtZXMgRmllc3QgQCBJbnRlbDo8c3Bhbj7CoDwvc3Bhbj48YSB0YXJnZXQ9Il9ibGFuayIg
-c3R5bGU9ImNvbG9yOnJnYigxNyw4NSwyMDQpOyIgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL2Zl
-aXN0amovZG9jcy9ibG9iL21hc3Rlci9wbGF0Zm9ybV9jb25maWd1cmF0aW9uLm1kIj5SdW50aW1l
-IFBsYXRmb3JtIENvbmZpZ3VyYXRpb248L2E+PC9saT48bGk+QW5kcmV3IEplZmZyZXkgQCBJQk06
-PHNwYW4+wqA8L3NwYW4+PGEgdGFyZ2V0PSJfYmxhbmsiIHN0eWxlPSJjb2xvcjpyZ2IoMTcsODUs
-MjA0KTsiIGhyZWY9Imh0dHBzOi8vZHJpdmUuZ29vZ2xlLmNvbS9vcGVuP2lkPTFiVUdkMDYxREda
-RVVHR2ZjdW03aC1RbExvVUJicUNybVBvUGhtNVpLbUFjIj5LZXJuZWwgYW5kIFUtYm9vdCBEZXZl
-bG9wbWVudDwvYT4sPHNwYW4+wqA8L3NwYW4+PGEgdGFyZ2V0PSJfYmxhbmsiIHN0eWxlPSJjb2xv
-cjpyZ2IoMTcsODUsMjA0KTsiIGhyZWY9Imh0dHBzOi8vZHJpdmUuZ29vZ2xlLmNvbS9vcGVuP2lk
-PTE1OG4wWmNVR3hPdl9kSEZqaXg1NnhCZVp5UGVCSDhvZ0ZfenF4MGhhT2FVIj5PcGVuQk1DIFRl
-c3Rpbmc8L2E+LDxzcGFuPsKgPC9zcGFuPjxzcGFuIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiNm
-ZmZmZmY7Y29sb3I6IzIyMjIyMjtkaXNwbGF5OmlubGluZTtmbG9hdDpub25lO2ZvbnQtZmFtaWx5
-OmFyaWFsLHNhbnMtc2VyaWY7Zm9udC1zaXplOnNtYWxsO2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQt
-dmFyaWFudC1jYXBzOm5vcm1hbDtmb250LXZhcmlhbnQtbGlnYXR1cmVzOm5vcm1hbDtmb250LXdl
-aWdodDo0MDA7dGV4dC1hbGlnbjpsZWZ0O3RleHQtdHJhbnNmb3JtOm5vbmU7d2hpdGUtc3BhY2U6
-bm9ybWFsOyI+PGEgdGFyZ2V0PSJfYmxhbmsiIHN0eWxlPSJjb2xvcjpyZ2IoMTcsODUsMjA0KTsi
-IGhyZWY9Imh0dHBzOi8vZHJpdmUuZ29vZ2xlLmNvbS9vcGVuP2lkPTFWSW9hZVNqYU95ZXQxWlRC
-dlkzSl9XZ3gxNjY4T2FoNnk2UlpRc0F6dXAwIj5MaW51eCBrZXJuZWwgc3VwcG9ydCBmb3IgQk1D
-czwvYT48L3NwYW4+PC9saT48bGk+RG9uZyBXZWkgQCBBcm06PHNwYW4+wqA8L3NwYW4+PGEgdGFy
-Z2V0PSJfYmxhbmsiIHN0eWxlPSJjb2xvcjpyZ2IoMTcsODUsMjA0KTsiIGhyZWY9Imh0dHBzOi8v
-ZHJpdmUuZ29vZ2xlLmNvbS9vcGVuP2lkPTFzQzN4WUZnbkJ3dTFYZmhVSU5jam1UanpaWk02aHpM
-ayI+UExETSBNQ1RQPC9hPjwvbGk+PGxpPk1pY2hhZWwgQnJvd24gQCBEZWxsOjxzcGFuPsKgPC9z
-cGFuPjxhIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0iY29sb3I6cmdiKDE3LDg1LDIwNCk7IiBocmVm
-PSJodHRwczovL2xpc3RzLm96bGFicy5vcmcvcGlwZXJtYWlsL29wZW5ibWMvMjAxOC1KYW51YXJ5
-LzAxMDQ0Ni5odG1sIj5Ob24tcm9vdCBkYWVtb25zICZhbXA7IGxlYXN0IHByaXZpbGVkZ2U8L2E+
-PC9saT48bGk+TWljaGFlbCBCcm93biBAIERlbGw6IFNFTGludXg8L2xpPjxsaT5CcmVuZGFuIEhp
-Z2dpbnMgQCBHb29nbGU6IGdNb2NrcyBhbmQgdW5pdCB0ZXN0aW5nPC9saT48L3VsPjwvZGl2Pjxk
-aXYgc3R5bGU9ImNvbG9yOnJnYigzNCwzNCwzNCk7Zm9udC1mYW1pbHk6YXJpYWwsc2Fucy1zZXJp
-Zjtmb250LXNpemU6c21hbGw7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50LWxpZ2F0dXJl
-czpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQtd2VpZ2h0OjQwMDt0ZXh0LWFs
-aWduOnN0YXJ0O3RleHQtdHJhbnNmb3JtOm5vbmU7d2hpdGUtc3BhY2U6bm9ybWFsO2JhY2tncm91
-bmQtY29sb3I6cmdiKDI1NSwyNTUsMjU1KTsiPjxkaXYgc3R5bGU9ImNvbG9yOnJnYigzNCwzNCwz
-NCk7Zm9udC1mYW1pbHk6YXJpYWwsc2Fucy1zZXJpZjtmb250LXNpemU6c21hbGw7Zm9udC1zdHls
-ZTpub3JtYWw7Zm9udC12YXJpYW50LWxpZ2F0dXJlczpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6
-bm9ybWFsO2ZvbnQtd2VpZ2h0OjQwMDt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtdHJhbnNmb3JtOm5v
-bmU7d2hpdGUtc3BhY2U6bm9ybWFsOyI+VGhlIGZ1bGwgc2NoZWR1bGUgY2FuIGJlIHZpZXdlZDxz
-cGFuPsKgPC9zcGFuPjxhIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0iY29sb3I6cmdiKDE3LDg1LDIw
-NCk7IiBocmVmPSJodHRwczovL2dvby5nbC94WUNMUzMiPmhlcmU8L2E+LjwvZGl2PjwvZGl2Pjwv
-ZGl2PjxkaXY+PGRpdj7CoDwvZGl2PjxkaXYgc3R5bGU9ImNvbG9yOnJnYigzNCwzNCwzNCk7Zm9u
-dC1mYW1pbHk6YXJpYWwsc2Fucy1zZXJpZjtmb250LXNpemU6c21hbGw7Zm9udC1zdHlsZTpub3Jt
-YWw7Zm9udC12YXJpYW50LWxpZ2F0dXJlczpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFs
-O2ZvbnQtd2VpZ2h0OjQwMDt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtdHJhbnNmb3JtOm5vbmU7d2hp
-dGUtc3BhY2U6bm9ybWFsOyI+PHNwYW4gc3R5bGU9ImJhY2tncm91bmQtY29sb3I6I2ZmZmZmZjtj
-b2xvcjojMjIyMjIyO2Rpc3BsYXk6aW5saW5lO2Zsb2F0Om5vbmU7Zm9udC1mYW1pbHk6YXJpYWws
-c2Fucy1zZXJpZjtmb250LXNpemU6c21hbGw7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50
-LWNhcHM6bm9ybWFsO2ZvbnQtdmFyaWFudC1saWdhdHVyZXM6bm9ybWFsO2ZvbnQtd2VpZ2h0OjQw
-MDt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtdHJhbnNmb3JtOm5vbmU7d2hpdGUtc3BhY2U6bm9ybWFs
-OyI+T3JnYW5pemF0aW9ucyB0aGF0IHNlbnQgcmVwcmVzZW50YXRpdmVzOjwvc3Bhbj48ZGl2IHN0
-eWxlPSJjb2xvcjpyZ2IoMzQsMzQsMzQpO2ZvbnQtZmFtaWx5OmFyaWFsLHNhbnMtc2VyaWY7Zm9u
-dC1zaXplOnNtYWxsO2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudC1saWdhdHVyZXM6bm9y
-bWFsO2ZvbnQtdmFyaWFudC1jYXBzOm5vcm1hbDtmb250LXdlaWdodDo0MDA7dGV4dC1hbGlnbjpz
-dGFydDt0ZXh0LXRyYW5zZm9ybTpub25lO3doaXRlLXNwYWNlOm5vcm1hbDtiYWNrZ3JvdW5kLWNv
-bG9yOnJnYigyNTUsMjU1LDI1NSk7Ij48dWw+PGxpPkFybTwvbGk+PGxpPkFzcGVlZDwvbGk+PGxp
-PkRlbGw8L2xpPjxsaT5GYWNlYm9vazwvbGk+PGxpPklCTTwvbGk+PGxpPkludGVsPC9saT48bGk+
-TWljcm9zb2Z0PC9saT48bGk+TnV2b3RvbjwvbGk+PGxpPlF1YWxjb21tPC9saT48L3VsPjwvZGl2
-PjwvZGl2PjxkaXYgc3R5bGU9ImNvbG9yOnJnYigzNCwzNCwzNCk7Zm9udC1mYW1pbHk6YXJpYWws
-c2Fucy1zZXJpZjtmb250LXNpemU6c21hbGw7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50
-LWxpZ2F0dXJlczpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQtd2VpZ2h0OjQw
-MDt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtdHJhbnNmb3JtOm5vbmU7d2hpdGUtc3BhY2U6bm9ybWFs
-OyI+PGRpdiBzdHlsZT0iY29sb3I6cmdiKDM0LDM0LDM0KTtmb250LWZhbWlseTphcmlhbCxzYW5z
-LXNlcmlmO2ZvbnQtc2l6ZTpzbWFsbDtmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQtbGln
-YXR1cmVzOm5vcm1hbDtmb250LXZhcmlhbnQtY2Fwczpub3JtYWw7Zm9udC13ZWlnaHQ6NDAwO3Rl
-eHQtYWxpZ246c3RhcnQ7dGV4dC10cmFuc2Zvcm06bm9uZTt3aGl0ZS1zcGFjZTpub3JtYWw7YmFj
-a2dyb3VuZC1jb2xvcjpyZ2IoMjU1LDI1NSwyNTUpOyI+UGVvcGxlIHRyYXZlbGVkIGZyb20gYWNy
-b3NzIHRoZSBVUywgYW5kIGFzIGZhciBhd2F5IGFzIFRhaXdhbiwgQXVzdHJhbGlhLCBhbmQgSW5k
-aWEgdG8gYXR0ZW5kLsKgIFRoYW5rIHlvdSBldmVyeW9uZSBmb3IgbWFraW5nIHRoZSB0cmlwIHRv
-IEdvb2dsZSBmb3IgdGhlIGhhY2thdGhvbiE8L2Rpdj48L2Rpdj48ZGl2PjxkaXY+PGRpdj4tLS0t
-LS0tLS0tPGJyIC8+TmFuY3k8L2Rpdj48L2Rpdj48L2Rpdj48L2Rpdj48L2Rpdj48L2Rpdj48L2Rp
-dj48L2Rpdj48L2Rpdj48L2Jsb2NrcXVvdGU+PGRpdj7CoDwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2
-Pi0twqA8YnIgLz5BbnRvbiBELiBLYWNoYWxvdjwvZGl2PjxkaXY+wqA8L2Rpdj4=
+Overall, the openbmc project has done a great job of keeping common 
+things in common repositories and machine or OEM specific things in 
+separate repositories. But there are a few (because it happens) places 
+where technical debt has accrued. I want to support getting this sort of 
+stuff fixed so we can have a shiny project, but at what expense? 
+Velocity. Reality calls and I was not scoped to fix old code, only to 
+write a new feature. I am not the only one running into this issue, so I 
+thought it best to start a discussion.
+
+Things like:
+1) Incorrect coding style (whitespace, braces, upper/lower/snake/camel)
+2) Use of sdbus instead of sdbusplus
+3) OEM code in common libraries
+4) Lack of proper error handling
+5) Use of insecure functions without proper range checking (memcpy, 
+strcpy, etc.)
+6) Use of printf/fprintf instead of log<>
+
+I am sure there are many other classes of technical debt that I did not 
+list here. But the point is that the code base does have places where 
+this sort of stuff exists and has not yet been fixed. What should the 
+official stance be? To me, mixing coding styles in a single file is 
+worse than having the same wrong coding style in a file. But the best is 
+if the whole project matches.
+
+If someone contributes and claims that their newly added technical debt 
+is okay because of precedence, we don't really have a way to hold them 
+to coming back and fixing the problem.
+
+One way to fix this is to have contributors that want to claim 
+precedence go and clean up the file FIRST and then come back with a new 
+clean commit. But that does make for a higher bar for entry in some 
+cases and possibly slows down velocity.
+
+What say the community members on this?
+
+--Vernon
