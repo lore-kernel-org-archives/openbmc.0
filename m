@@ -1,26 +1,28 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zQsN770g6zDrDV
- for <openbmc@lists.ozlabs.org>; Wed, 24 Jan 2018 02:16:52 +1100 (AEDT)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w0NEwhT0011919;
- Tue, 23 Jan 2018 16:58:43 +0200
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 435C65A93C; Tue, 23 Jan 2018 17:16:42 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v2 0/2]  serial: add NPCM UART driver
-Date: Tue, 23 Jan 2018 17:16:38 +0200
-Message-Id: <1516720600-2040-1-git-send-email-tmaimon77@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zQvHW1G9fzDrG1
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Jan 2018 03:43:02 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from brads-mbp.dyn.fuzziesquirrel.com
+ (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.31])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 0EB2FEA09A
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Jan 2018 11:42:57 -0500 (EST)
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_55125ECA-9AB0-4646-B2EF-6B6636DF9FF2"
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: OpenBMC 1/30 community telecon - Call for Topics  
+Message-Id: <9330D13C-79E8-4C49-BBEA-EAB55E9C5974@fuzziesquirrel.com>
+Date: Tue, 23 Jan 2018 11:42:56 -0500
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -32,33 +34,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Jan 2018 15:16:56 -0000
+X-List-Received-Date: Tue, 23 Jan 2018 16:43:03 -0000
 
-Changes since version 1:
- - rewritten the driver, the new driver based on 8250 UART driver with
-   modifications to support NPCM UART functionality
- 
-This patch set adds UART support for the Nuvoton NPCM Baseboard
-Management Controller (BMC).
 
-The NPCM UART based on 8250 UART driver
+--Apple-Mail=_55125ECA-9AB0-4646-B2EF-6B6636DF9FF2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
 
-The NPCM7xx BMC contains four UART blocks and accessory logic.
+Please reply with any topics for the 1/30 call.
 
-To enable the driver please add CONFIG_SERIAL_8250_NPCM configuration
-(except to 8250 serial configuration).
+thx - brad
+--------
+=
+https://www.teleconference.att.com/servlet/glbAccess?process=3D1&accessCod=
+e=3D85891389&accessNumber=3D2158616239 =
+<https://www.teleconference.att.com/servlet/glbAccess?process=3D1&accessCo=
+de=3D85891389&accessNumber=3D2158616239>
 
-Tomer Maimon (2):
-  dt-binding: serial: document NPCM UART DT bindings
-  serial: npcm: add NPCM UART driver
+Monday, 10:00pm EDT
+888-426-6840
+password: 85891389=
 
- .../bindings/serial/nuvoton,npcm-uart.txt          |  34 +++
- drivers/tty/serial/8250/8250_npcm.c                | 280 +++++++++++++++++++++
- drivers/tty/serial/8250/Kconfig                    |  10 +
- drivers/tty/serial/8250/Makefile                   |   1 +
- 4 files changed, 325 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/serial/nuvoton,npcm-uart.txt
- create mode 100644 drivers/tty/serial/8250/8250_npcm.c
+--Apple-Mail=_55125ECA-9AB0-4646-B2EF-6B6636DF9FF2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
 
--- 
-2.14.1
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D""><span style=3D"font-family: Menlo-Regular; font-size: 11px;" =
+class=3D"">Please reply with any topics for the 1/30 call.</span><br =
+style=3D"font-family: Menlo-Regular; font-size: 11px;" class=3D""><br =
+style=3D"font-family: Menlo-Regular; font-size: 11px;" class=3D""><span =
+style=3D"font-family: Menlo-Regular; font-size: 11px;" class=3D"">thx - =
+brad</span><br style=3D"font-family: Menlo-Regular; font-size: 11px;" =
+class=3D""><span style=3D"font-family: Menlo-Regular; font-size: 11px;" =
+class=3D"">--------</span><br style=3D"font-family: Menlo-Regular; =
+font-size: 11px;" class=3D""><a =
+href=3D"https://www.teleconference.att.com/servlet/glbAccess?process=3D1&a=
+mp;accessCode=3D85891389&amp;accessNumber=3D2158616239" =
+style=3D"font-family: Menlo-Regular; font-size: 11px;" =
+class=3D"">https://www.teleconference.att.com/servlet/glbAccess?process=3D=
+1&amp;accessCode=3D85891389&amp;accessNumber=3D2158616239</a><br =
+style=3D"font-family: Menlo-Regular; font-size: 11px;" class=3D""><br =
+style=3D"font-family: Menlo-Regular; font-size: 11px;" class=3D""><span =
+style=3D"font-family: Menlo-Regular; font-size: 11px;" class=3D"">Monday, =
+10:00pm EDT</span><br style=3D"font-family: Menlo-Regular; font-size: =
+11px;" class=3D""><span style=3D"font-family: Menlo-Regular; font-size: =
+11px;" class=3D"">888-426-6840</span><br style=3D"font-family: =
+Menlo-Regular; font-size: 11px;" class=3D""><span style=3D"font-family: =
+Menlo-Regular; font-size: 11px;" class=3D"">password: =
+85891389</span></body></html>=
+
+--Apple-Mail=_55125ECA-9AB0-4646-B2EF-6B6636DF9FF2--
