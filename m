@@ -1,65 +1,59 @@
-Return-Path: <sachnaik@cisco.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=cisco.com
- (client-ip=173.37.142.92; helo=alln-iport-5.cisco.com;
- envelope-from=sachnaik@cisco.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=cisco.com header.i=@cisco.com header.b="a+hhyizW"; 
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::243; helo=mail-io0-x243.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EnKD2zgF"; 
  dkim-atps=neutral
-X-Greylist: delayed 612 seconds by postgrey-1.36 at bilbo;
- Tue, 23 Jan 2018 18:43:31 AEDT
-Received: from alln-iport-5.cisco.com (alln-iport-5.cisco.com [173.37.142.92])
- (using TLSv1.2 with cipher DHE-RSA-SEED-SHA (128/128 bits))
+Received: from mail-io0-x243.google.com (mail-io0-x243.google.com
+ [IPv6:2607:f8b0:4001:c06::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zQgJz2VLszDr20
- for <openbmc@lists.ozlabs.org>; Tue, 23 Jan 2018 18:43:30 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=cisco.com; i=@cisco.com; l=1048; q=dns/txt; s=iport;
- t=1516693411; x=1517903011;
- h=from:to:subject:date:message-id:content-id:
- content-transfer-encoding:mime-version;
- bh=3JlVESBghEAuBqv28GitXCpK9C8cTTL5x6Xy6HGFJdk=;
- b=a+hhyizWb/km3UkzrH7qy3lvn29hV8eMGAZvih/E/qESKE4m3qaHgqHc
- GWYtPJlM2U/r2jVv9C4vLMuwK6VvxDzJwQIm+wcj4zP4T5esE6XX9zKeG
- 3ZF5Pqb8YVQujtOQTn21BVh34e4A3ay0dBwqFx4BT0/Q97DlJy7U2Idot M=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A0B2AwCN5GZa/49dJa1eGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYNCgVoug1aZCplAghcKhVeEVlYWAQEBAQEBAQEBax0LhU0RVwE?=
- =?us-ascii?q?iAiYCBDAVEgSKSLJngieKPQEBAQEBBQEBAQEBAQEBIIEPgzqCFYFXghGLPjGCN?=
- =?us-ascii?q?AWjfQKCApNZlB+XIQIRGQGBOwEmAy+BUHAVZwGCAIRWik+BFwEBAQ?=
-X-IronPort-AV: E=Sophos;i="5.46,400,1511827200"; d="scan'208";a="59741643"
-Received: from rcdn-core-7.cisco.com ([173.37.93.143])
- by alln-iport-5.cisco.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2018 07:33:16 +0000
-Received: from XCH-RTP-020.cisco.com (xch-rtp-020.cisco.com [64.101.220.160])
- by rcdn-core-7.cisco.com (8.14.5/8.14.5) with ESMTP id w0N7XF3Q007619
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Tue, 23 Jan 2018 07:33:16 GMT
-Received: from xch-rtp-019.cisco.com (64.101.220.159) by XCH-RTP-020.cisco.com
- (64.101.220.160) with Microsoft SMTP Server (TLS) id 15.0.1320.4;
- Tue, 23 Jan 2018 02:33:15 -0500
-Received: from xch-rtp-019.cisco.com ([64.101.220.159]) by
- XCH-RTP-019.cisco.com ([64.101.220.159]) with mapi id 15.00.1320.000; Tue, 23
- Jan 2018 02:33:15 -0500
-From: "Sachin Naik (sachnaik)" <sachnaik@cisco.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Porting hwmon sensors to openBMC
-Thread-Topic: Porting hwmon sensors to openBMC
-Thread-Index: AQHTlBxuKmJ99FNq7kGo+Rq4yMaexg==
-Date: Tue, 23 Jan 2018 07:33:15 +0000
-Message-ID: <32335E8B-FAAF-4B96-9B2E-57FF1FAFDD1A@cisco.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/f.1f.0.170216
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.82.183.182]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BB6B8BDDE531874888B7C8DB35E5B1A4@emea.cisco.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zRG5903F8zDr33
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Jan 2018 17:50:20 +1100 (AEDT)
+Received: by mail-io0-x243.google.com with SMTP id n7so3722141iob.0
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Jan 2018 22:50:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=sjGk+X1EAzRpm7m/slFigta7+WfziepolOFuW9YpWTw=;
+ b=EnKD2zgFDVn1vM86Z1FZRVlYAGozjlOWNouqp8BcFEaIlK/Mzeyy7DPLElzYAgJseZ
+ Qywnxln4FjTLcmBTMnO6/IEyBLo4N7Zx/XFaNlovcVwidhhl7LP0+9agnNj2CiBS/gFF
+ cETU3RigtLeIP43/A5C1n2BtX2ejkmuSCmGpZs9gl50+w1E2LXcfy7RLuBo5mVk3Id5a
+ wxlSo08oJey9hwR1jN7q0e7qFyAdA0HrrfOx/2LL0xAmAT/R55MUfheKeLfBzSbKJJ0m
+ bOC+aAMTZ1jcm0lYaHD4QC1MGpMUoMeg/Cc+kdSZZQSJ4ZOgVOqML4tRGXRUyu/FCEhq
+ KgeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=sjGk+X1EAzRpm7m/slFigta7+WfziepolOFuW9YpWTw=;
+ b=QDFoaZ2jy3nH2ymd0y/7IMdO1gXR50DjcixFMF0l6TWIMgMwz6dVmg1XX/NFhys/O4
+ /7Nd1QIw+ckeJC7s4f2Ol5ASW+OY05eFZPvADjFq0lMfAOIjTL8uo3zxf4r7G6uDGO69
+ eVMi7Y5bZCmDG0VL1WQLv6xcgvVipZhvjRukUTwhPQBWxv14PnPdc+4ti4PqwY/Ckkhm
+ dM4T83KwNTNx8Tck96YMy5p6YKdnMFiqwjms9owi71uwl/6jzPKyqGcDnMn0jIiZxM80
+ XhFaCalHRpm9v3sz/vtPCLglO1WEBwdc5DCvoLnWaA9bL0lCWX0Vv9N74ziUOkgdAQ/g
+ Rm1g==
+X-Gm-Message-State: AKwxytc25vhfTbgP7LoScLiTyggFQ4mO2nWkVGDM7Gl0t3EqA49LrCG7
+ aYJI5xhFJVk4b1ZXjGtX2NbHq+JRWaRpv/HPhmQ=
+X-Google-Smtp-Source: AH8x225L4BV6K+HcKbNDDhPa7q0cblwD7DKrYHuGx5BcnNAOxlcK5qLm5P9caqn4FL9c4uW+kBpyt51J1KDXdv2A4bg=
+X-Received: by 10.107.148.82 with SMTP id w79mr7067240iod.207.1516776618437;
+ Tue, 23 Jan 2018 22:50:18 -0800 (PST)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 24 Jan 2018 15:12:58 +1100
+Received: by 10.79.159.68 with HTTP; Tue, 23 Jan 2018 22:50:17 -0800 (PST)
+In-Reply-To: <CAPH-5w4A6LENO1jCcvm1-HAHTbaoJRj7oYPN78Z4h1qUZHSOOA@mail.gmail.com>
+References: <CAARXrtm-yxJ4cVi_RjMUZVbNT9aSKqp5dPzeanW+kMb=JugW+w@mail.gmail.com>
+ <1953058b-4268-602d-cc68-00eae50b1f4f@yadro.com>
+ <CAO=notwjPRBjP0A=YOX1Ht06-rdUp7RhcBphuQ1Hg47vRQkG0w@mail.gmail.com>
+ <CAPH-5w4A6LENO1jCcvm1-HAHTbaoJRj7oYPN78Z4h1qUZHSOOA@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Wed, 24 Jan 2018 14:50:17 +0800
+Message-ID: <CAARXrtkAKR=15-B_O09J-KBw-M8v4d_ct-2B5YmmDTaugHBmqg@mail.gmail.com>
+Subject: Re: RFC: calculating RPM from PWM for fan monitor
+To: Xo Wang <xow@google.com>
+Cc: Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Alexander Amelkin <a.amelkin@yadro.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -71,19 +65,131 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Jan 2018 07:43:32 -0000
+X-List-Received-Date: Wed, 24 Jan 2018 06:50:21 -0000
 
-SGkgQWxsDQoNCkkgYW0gcG9ydGluZyBhIG5ldyBib2FyZCB0byBvcGVuYm1jLiANCkkgaGF2ZSBx
-dWVzdGlvbiBvbiBtYXBwaW5nIGh3bW9uIHR5cGUgc2Vuc29ycyB0byBEYnVzIA0KDQpTbyBmYXIg
-SSBoYXZlIGNyZWF0ZWQgbWFjaGluZSBsYXllciBhbmQgYWRkZWQgVS1ib290IGNvbmZpZywgS2Vy
-bmVsIGNvbmZpZyBhbmQgZGV2aWNlIHRyZWUuIEluIGtlcm5lbCBjb25maWcgSSBoYXZlIGVuYWJs
-ZWQgbG03NSBod21vbiBkcml2ZXIgZm9yIExNNzUgdGVtcGVyYXR1cmUgZGV2aWNlLiBDb3JyZXNw
-b25kaW5nIGVudHJ5IGFkZGVkIGluIGRldmljZSB0cmVlLg0KDQpSaWdodCBub3cgSSBoYXZlIGNy
-ZWF0ZWQgaHdtb24gdGVtcGVyYXR1cmUgc2Vuc29ycyBlbnRyeSBpbiBvdXIgbWFjaGluZSBsYXll
-ciBieSBleHRlbmRpbmcgcmVjaXBlcy1waG9zcGhvci9zZW5zb3JzL3Bob3NwaG9yLWh3bW9uJS5i
-YmFwcGVuZCANCmFuZCBjcmVhdGVkIGNvbmYgZmlsZSB3aXRoIHRlbXBlcmF0dXJlIHNlbnNvcnMg
-bGFiZWwuDQoNCk5vdyBteSBxdWVzdGlvbiBpcyBob3cgZG8gaW1wbGVtZW50L21hcCBkYnVzIHRl
-bXBlcmF0dXJlIHNlbnNvciB2YWx1ZSBpbnRlcmZhY2UgdG8gb3VyIGh3bW9uIHRlbXBlcmF0dXJl
-IHNlbnNvcnM/IElzIGFib3ZlIGltcGxlbWVudGF0aW9uIGlzIGVub3VnaCBvciBpdCByZXF1aXJl
-cw0KU29tZSBtYXBwaW5nIGZvciBkYnVzIHRvIGh3bW9uIGluc3RhbmNlPw0KDQpUaGFua3MgYW5k
-IHJlZ2FyZHMNClNhY2hpbg0KDQoNCg==
+On Wed, Jan 24, 2018 at 9:22 AM, Xo Wang <xow@google.com> wrote:
+> I think the parameters that Lei proposed are equivalent to the two
+> feedforward coefficients we have (a slope for an assumed linear
+> relationship between a fan's PWM command and its RPM output; and an
+> offset to account for fan start).
+
+Thanks Xo for the info!
+
+>
+> However adding feedforward coefficients isn't the same as detecting
+> fan malfunction as Lei wants. I think to do that, we have to look at
+> the feedback part of it and have a parameter that decides "too much
+> feedback has been required" to hit the target RPM and declare an error
+> condition.
+
+The idea of detecting fan error is simple in the code, which uses a deviation to
+check if the fan speed in in the expected range.
+So if we have defined the slope and the offset for a fan, the monitor is able to
+calculate the expected RPM and check if the fan speed. is out of range,
+
+And this proposal will not impact the current phosphor-fan-monitor too
+much, only
+two new parameters are added.
+
+>
+> On Tue, Jan 23, 2018 at 11:02 AM, Patrick Venture <venture@google.com> wrote:
+>> To reach a desired RPM, via PWM, we use a PID+FF algorithm that tries
+>> to reduce the error between the current fan RPM and the set-point RPM
+>> for the fan.  This is in our presently internal implementation of the
+>> fan control for openbmc.  We're still working out how to open
+>> source/upstream it, when there'll now be multiple implementations of
+>> fan controls, etc.
+>>
+
+Thanks Patrick for this info. I guess the community would like to have
+alternatives for
+fan controls. Maybe a new repo like "google-fan-control" for this?
+Anyway it's up to you and the community to decide what is the best :D
+
+>> Patrick
+>>
+>> On Tue, Jan 23, 2018 at 6:42 AM, Alexander Amelkin <a.amelkin@yadro.com> wrote:
+>>> Lei,
+>>>
+>>> I'm quite new to openbmc and do not yet fully understand its internal
+>>> mechanics, but from my previous experience with other BMC software and
+>>> hardware, I can say that every fan has it's own characteristics that include
+>>> the minimum and maximum RPM it is able to react to and some not necessarily
+>>> linear function between those points.
+>>>
+>>> As far as I remember, AST2500 is able to detect quite any RPM, no matter how
+>>> low it is.
+>>> However, some fans just stop if PWM falls below some threshold and rotate at
+>>> max RPM beyond some max PWM which may be quite less than from 100% (255).
+>>> I've seen Delta's fans that take about 70% PWM as a maximum and fully stop
+>>> below like 20%.
+>>>
+>>> Hence, assuming a single linear slope from 0% to 100% pwm is a bad idea.
+>>>
+>>> Thus, IMO, the yaml file should define a piecewise linear function, and
+>>> maybe jitter level to allow for RPM deviations.
+>>> I would also add a delay after detection of a changed pwm before rpm is
+>>> checked to allow for acceleration/deceleration. From my experience large
+>>> fans (like 100mm) may take up to 4 seconds to reach max rpm from full stop
+>>> condition. This should be taken in account to avoid false alarms.
+>>>
+>>> Alexander Amelkin,
+>>> Leading BMC Firmware Engineer
+>>> YADRO
+>>>
+>>>
+>>> 23.01.2018 12:37, Lei YU wrote:
+>>>>
+>>>> phospohr-fan-monitor compares fan speed with target and determine if the
+>>>> fan
+>>>> is functional:
+>>>>
+>>>> https://github.com/openbmc/phosphor-fan-presence/blob/master/monitor/fan.cpp#L182-L185
+>>>>
+>>>> However, for systems using pwm as target, the logic does not work, because
+>>>> the
+>>>> fan speed is RPM but the target the PWM.
+>>>>
+>>>> So we probably need to have a conversion from PWM target to fan speed RPM.
+>>>>
+>>>> On Romulus, the observation is:
+>>>>
+>>>> | PWM | RPM  |
+>>>> | --- | ---- |
+>>>> | 64  | 3000 |
+>>>> | 96  | 3700 |
+>>>> | 128 | 4300 |
+>>>> | 160 | 4900 |
+>>>> | 192 | 5600 |
+>>>> | 224 | 6300 |
+>>>> | 255 | 7000 |
+>>>>
+>>>> And the linear fit becomes [RPM = 20.7147 * PWM + 1660.04][1]
+>>>>
+>>>> So how do we make fan-monitor to support this?
+>>>>
+>>>> My proposal is to define the parameters, e.g. slope, intercept in the
+>>>> config
+>>>> yaml, and add this support in phosphor-fan-monitor.
+>>>> E.g.
+>>>>      sensors:
+>>>>        - name: fan0
+>>>>          has_target: true
+>>>>          slope: 21
+>>>> intercept: 1600
+>>>>
+>>>> If the yaml config does not define slope/intercept, then the default value
+>>>> is set to 1 and 0 which matches the fan speed target.
+>>>>
+>>>> My question (and concern) is, the fan RPM can not be queried correctly
+>>>> when
+>>>> PWM is set to a low value, e.g. 32, and it means the fit function may not
+>>>> be
+>>>> linear fit.
+>>>>
+>>>> What do you think?
+>>>>
+>>>> [1]:
+>>>> http://m.wolframalpha.com/input/?i=linear+fit+%7B64%2C+3000%7D%2C%7B96%2C+3700%7D%2C%7B128%2C+4300%7D%2C%7B160%2C+4900%7D%2C%7B192%2C+5600%7D%2C%7B224%2C6300%7D%2C%7B255%2C7000%7D
+>>>
+>>>
