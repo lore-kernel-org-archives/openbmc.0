@@ -1,60 +1,58 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="C+pJSkbo"; 
+Return-Path: <a.amelkin@yadro.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="GVBvrMd4"; 
  dkim-atps=neutral
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zSYXV0DkJzF0QD
- for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 20:30:01 +1100 (AEDT)
-Received: by mail-it0-x242.google.com with SMTP id q8so1127872itb.2
- for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 01:30:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=/R4eQPWxv6jWB6UJkfTZO39wPqvUFCVxy+ErUwceYOk=;
- b=C+pJSkboP9ftwlTmRhK2agxZapvoQoLONaVu0Wpepo/L3Fxj8rGPugM2gXa/E16zJo
- tn/bIjeh3fB7RcCpxe9VfrOiOZvCia/zJ2m11mUXzVKW9t3G8dDWNPWvRIHl1VGLca6P
- sYcjYBbzgiChDw72lP/Xcly6pFN2leM+/c7vzmNOw/8roO3uJUV9aXVz2npE1caVx+4c
- e29W/Xbdbo4sk/3W4E2BwvYs0vnW4dKg8q4hbXdXSaC2eIY3H5ghaH8Yt0yNVQuAV857
- YZkvFD/AweGKDsVp8zzJuulh6qp5jNaDxZ5dA70PANZNnLBc8ZNmFEOiSjBdSB0iVUp7
- kr4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=/R4eQPWxv6jWB6UJkfTZO39wPqvUFCVxy+ErUwceYOk=;
- b=I3dV9L8xl424/QEKQVozZLvtiv2aEU3UmZUQA1pm23lIs5aFMQXvXuB/QVYA4shCKT
- 7tOXAlgQWjtMkpjlgZCXAxnM+ketwgY/SKdPM6p/RhjqtZslEugSFnwbMfWFdNOp5U+5
- D8/O3R73BjrOTGFipoPC0IhlJONnmAdLQRGGJjLeQOPZebHRxS/JYLuo23yzU5mFqXif
- Nr3OfjH1EX3FrrCGHNu69JTnST/T3CIAagwWejK3YLuL6sgDgi9NC2amEq6bJhOgfVt7
- OJUWUvj8BWK68/yWWRUArGp8IluqBrytiTH1FwMdMl3IS2tjSY+YvfTgVN58E3IlCZho
- K8yA==
-X-Gm-Message-State: AKwxytdbr9yydSmshAro6O/jgyWCHy4N9oRubxcBT7W1pyt+tYT6Pyj0
- TMcenSPN5thpv4wXMc3DVjMneaQo9eSAniYNY9Y=
-X-Google-Smtp-Source: AH8x227PSWmHwe+m6vazM3kt0cay1W+ueX0tMYWGQEhqw6nGmzOSCoMKxvpOxgMP7p/BjuDZOm/z0ZaFIc8PdMmeIbQ=
-X-Received: by 10.36.101.2 with SMTP id u2mr7439868itb.55.1516958999483; Fri,
- 26 Jan 2018 01:29:59 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zSbhz0lQGzF0Pr
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 22:07:30 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 5170851A65
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 11:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-language:content-transfer-encoding:content-type
+ :content-type:in-reply-to:mime-version:user-agent:date:date
+ :message-id:from:from:references:subject:subject:received
+ :received:received; s=mta-01; t=1516964846; x=1518779247; bh=N3c
+ 4BQkxqKN+4EPLfOtaM5tM+UCXxXHn2UGbwdx2284=; b=GVBvrMd4KoLvkXNQXW9
+ 8nbMKBi80ubwagNAEKu18HCZcIo6VUUh4F/oZJp1Ir7gVzA6/3o0rkzCVVNhsVY1
+ A//6i9sSN2duYuC5w6FgKIuTCR83wJiVJvbcdhiOWxOf4gPcUODEufu9TXW3HH1B
+ Zu6SZ33qCpbxkoE9ucRUvnGI=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 6jRuzQUTlFWb for <openbmc@lists.ozlabs.org>;
+ Fri, 26 Jan 2018 14:07:26 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 6509451A5E
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 14:07:26 +0300 (MSK)
+Received: from [172.17.14.148] (172.17.14.148) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 26
+ Jan 2018 14:07:25 +0300
+Subject: Re: BMC Image Signing Proposal
+To: <openbmc@lists.ozlabs.org>
+References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Message-ID: <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
+Date: Fri, 26 Jan 2018 14:07:25 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Received: by 10.79.159.68 with HTTP; Fri, 26 Jan 2018 01:29:58 -0800 (PST)
-In-Reply-To: <CAARXrtkAKR=15-B_O09J-KBw-M8v4d_ct-2B5YmmDTaugHBmqg@mail.gmail.com>
-References: <CAARXrtm-yxJ4cVi_RjMUZVbNT9aSKqp5dPzeanW+kMb=JugW+w@mail.gmail.com>
- <1953058b-4268-602d-cc68-00eae50b1f4f@yadro.com>
- <CAO=notwjPRBjP0A=YOX1Ht06-rdUp7RhcBphuQ1Hg47vRQkG0w@mail.gmail.com>
- <CAPH-5w4A6LENO1jCcvm1-HAHTbaoJRj7oYPN78Z4h1qUZHSOOA@mail.gmail.com>
- <CAARXrtkAKR=15-B_O09J-KBw-M8v4d_ct-2B5YmmDTaugHBmqg@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 26 Jan 2018 17:29:58 +0800
-Message-ID: <CAARXrt=rsjRsPOWtsPE=K9oFKswBmZG1NAxiOGH=h3NS9T04LA@mail.gmail.com>
-Subject: Re: RFC: calculating RPM from PWM for fan monitor
-To: Xo Wang <xow@google.com>
-Cc: Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Alexander Amelkin <a.amelkin@yadro.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [172.17.14.148]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -66,134 +64,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Jan 2018 09:30:02 -0000
+X-List-Received-Date: Fri, 26 Jan 2018 11:07:32 -0000
 
-I have submitted this proposal to https://gerrit.openbmc-project.xyz/#/c/8661/
+Hi, Anoo!
 
-On Wed, Jan 24, 2018 at 2:50 PM, Lei YU <mine260309@gmail.com> wrote:
-> On Wed, Jan 24, 2018 at 9:22 AM, Xo Wang <xow@google.com> wrote:
->> I think the parameters that Lei proposed are equivalent to the two
->> feedforward coefficients we have (a slope for an assumed linear
->> relationship between a fan's PWM command and its RPM output; and an
->> offset to account for fan start).
+The thoughts are as follows:
+
+1. BMC usually runs in a secured environment where probability of 
+tampering with flash IC contents by means other than BMC's firmware 
+itself is negligible.
+
+2. U-Boot already performs image checksum validation before booting a 
+FIT image
+
+3. User input really needs validation, at least to make the system 
+fool-proof
+
+Having said that, I suggest that the only thing that really needs doing 
+is signing (and checking) of the overall firmware image file that is 
+supplied by the user (admin) during the firmware upgrade procedure. 
+Applying asymmetric cryptography to a digest hash looks to me like a 
+good idea as it indeed allows for verifying the supplier of the firmware 
+image.
+
+Regards,
+Alexander Amelkin
+YADRO
+
+26.01.2018 00:15, anoo wrote:
+> Hi all,
 >
-> Thanks Xo for the info!
+> During the hackaton meetup, we touched on BMC image verification and 
+> signing and concluded that the community would like to see two 
+> verification steps, one prior to writing the image to flash (via 
+> digital signature verification), and another one by checking FIT in 
+> U-Boot prior to booting from the new image.
 >
->>
->> However adding feedforward coefficients isn't the same as detecting
->> fan malfunction as Lei wants. I think to do that, we have to look at
->> the feedback part of it and have a parameter that decides "too much
->> feedback has been required" to hit the target RPM and declare an error
->> condition.
+> The proposal would be to implement the digital signature verification 
+> first.
 >
-> The idea of detecting fan error is simple in the code, which uses a deviation to
-> check if the fan speed in in the expected range.
-> So if we have defined the slope and the offset for a fan, the monitor is able to
-> calculate the expected RPM and check if the fan speed. is out of range,
+> At a high level, during the build:
+> * A SHA-256 hash would be calculated over tbd files that make up the 
+> firmware image.
+> * The hash would be signed by a private key that's part of the 
+> repository (community key). Companies could overwrite it with their 
+> own private key when building production images.
+> * The encrypted hash (digital signature) and corresponding public key 
+> would be added to the firmware image.
+> * Yocto may already provide a way to sign images and generate keys.
 >
-> And this proposal will not impact the current phosphor-fan-monitor too
-> much, only
-> two new parameters are added.
+> On the BMC:
+> * The hash would be calculated on the image files that were uploaded 
+> to the BMC.
+> * The signature would be decrypted using an existing public key on the 
+> BMC (this validates the new public key delivered with the image is 
+> also valid).
+> * Accept image if both values are the same.
 >
->>
->> On Tue, Jan 23, 2018 at 11:02 AM, Patrick Venture <venture@google.com> wrote:
->>> To reach a desired RPM, via PWM, we use a PID+FF algorithm that tries
->>> to reduce the error between the current fan RPM and the set-point RPM
->>> for the fan.  This is in our presently internal implementation of the
->>> fan control for openbmc.  We're still working out how to open
->>> source/upstream it, when there'll now be multiple implementations of
->>> fan controls, etc.
->>>
+> Any thoughts or comments?
 >
-> Thanks Patrick for this info. I guess the community would like to have
-> alternatives for
-> fan controls. Maybe a new repo like "google-fan-control" for this?
-> Anyway it's up to you and the community to decide what is the best :D
->
->>> Patrick
->>>
->>> On Tue, Jan 23, 2018 at 6:42 AM, Alexander Amelkin <a.amelkin@yadro.com> wrote:
->>>> Lei,
->>>>
->>>> I'm quite new to openbmc and do not yet fully understand its internal
->>>> mechanics, but from my previous experience with other BMC software and
->>>> hardware, I can say that every fan has it's own characteristics that include
->>>> the minimum and maximum RPM it is able to react to and some not necessarily
->>>> linear function between those points.
->>>>
->>>> As far as I remember, AST2500 is able to detect quite any RPM, no matter how
->>>> low it is.
->>>> However, some fans just stop if PWM falls below some threshold and rotate at
->>>> max RPM beyond some max PWM which may be quite less than from 100% (255).
->>>> I've seen Delta's fans that take about 70% PWM as a maximum and fully stop
->>>> below like 20%.
->>>>
->>>> Hence, assuming a single linear slope from 0% to 100% pwm is a bad idea.
->>>>
->>>> Thus, IMO, the yaml file should define a piecewise linear function, and
->>>> maybe jitter level to allow for RPM deviations.
->>>> I would also add a delay after detection of a changed pwm before rpm is
->>>> checked to allow for acceleration/deceleration. From my experience large
->>>> fans (like 100mm) may take up to 4 seconds to reach max rpm from full stop
->>>> condition. This should be taken in account to avoid false alarms.
->>>>
->>>> Alexander Amelkin,
->>>> Leading BMC Firmware Engineer
->>>> YADRO
->>>>
->>>>
->>>> 23.01.2018 12:37, Lei YU wrote:
->>>>>
->>>>> phospohr-fan-monitor compares fan speed with target and determine if the
->>>>> fan
->>>>> is functional:
->>>>>
->>>>> https://github.com/openbmc/phosphor-fan-presence/blob/master/monitor/fan.cpp#L182-L185
->>>>>
->>>>> However, for systems using pwm as target, the logic does not work, because
->>>>> the
->>>>> fan speed is RPM but the target the PWM.
->>>>>
->>>>> So we probably need to have a conversion from PWM target to fan speed RPM.
->>>>>
->>>>> On Romulus, the observation is:
->>>>>
->>>>> | PWM | RPM  |
->>>>> | --- | ---- |
->>>>> | 64  | 3000 |
->>>>> | 96  | 3700 |
->>>>> | 128 | 4300 |
->>>>> | 160 | 4900 |
->>>>> | 192 | 5600 |
->>>>> | 224 | 6300 |
->>>>> | 255 | 7000 |
->>>>>
->>>>> And the linear fit becomes [RPM = 20.7147 * PWM + 1660.04][1]
->>>>>
->>>>> So how do we make fan-monitor to support this?
->>>>>
->>>>> My proposal is to define the parameters, e.g. slope, intercept in the
->>>>> config
->>>>> yaml, and add this support in phosphor-fan-monitor.
->>>>> E.g.
->>>>>      sensors:
->>>>>        - name: fan0
->>>>>          has_target: true
->>>>>          slope: 21
->>>>> intercept: 1600
->>>>>
->>>>> If the yaml config does not define slope/intercept, then the default value
->>>>> is set to 1 and 0 which matches the fan speed target.
->>>>>
->>>>> My question (and concern) is, the fan RPM can not be queried correctly
->>>>> when
->>>>> PWM is set to a low value, e.g. 32, and it means the fit function may not
->>>>> be
->>>>> linear fit.
->>>>>
->>>>> What do you think?
->>>>>
->>>>> [1]:
->>>>> http://m.wolframalpha.com/input/?i=linear+fit+%7B64%2C+3000%7D%2C%7B96%2C+3700%7D%2C%7B128%2C+4300%7D%2C%7B160%2C+4900%7D%2C%7B192%2C+5600%7D%2C%7B224%2C6300%7D%2C%7B255%2C7000%7D
->>>>
->>>>
