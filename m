@@ -1,23 +1,23 @@
 Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
  envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zST4T3KGhzDqmV
- for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 17:08:53 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zSTSN42cXzDqvM
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 17:26:11 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2018 22:08:49 -0800
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2018 22:26:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,415,1511856000"; d="scan'208";a="12735263"
-Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.254.215.59])
- ([10.254.215.59])
- by orsmga007.jf.intel.com with ESMTP; 25 Jan 2018 22:08:47 -0800
+X-IronPort-AV: E=Sophos;i="5.46,415,1511856000"; d="scan'208";a="22681746"
+Received: from fengzhou-mobl.ccr.corp.intel.com (HELO [10.255.27.109])
+ ([10.255.27.109])
+ by FMSMGA003.fm.intel.com with ESMTP; 25 Jan 2018 22:26:05 -0800
 Subject: Re: [PATCH arm/aspeed/ast2500 v2] ipmi: add an Aspeed KCS IPMI BMC
  driver
 To: minyard@acm.org, joel@jms.id.au, avifishman70@gmail.com,
@@ -27,8 +27,8 @@ Cc: andriy.shevchenko@intel.com
 References: <1516810009-16353-1-git-send-email-haiyue.wang@linux.intel.com>
  <f20da565-6644-3ea4-823b-a808cf613958@gmail.com>
 From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
-Message-ID: <76454c8b-b8ab-06a5-297c-83bab32c86a7@linux.intel.com>
-Date: Fri, 26 Jan 2018 14:08:46 +0800
+Message-ID: <9b194ad6-d277-44e5-54b0-c7e453a6fb0c@linux.intel.com>
+Date: Fri, 26 Jan 2018 14:26:04 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.5.2
 MIME-Version: 1.0
@@ -47,7 +47,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Jan 2018 06:08:58 -0000
+X-List-Received-Date: Fri, 26 Jan 2018 06:26:13 -0000
 
 
 
@@ -67,248 +67,7 @@ On 2018-01-25 01:48, Corey Minyard wrote:
 >> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
 >>
 >> ---
->> v1->v2
->>
->> - Divide the driver into two parts, one handles the BMC KCS IPMI 2.0 
->> state;
->>    the other handles the BMC KCS controller such as AST2500 IO 
->> accessing.
->> - Use the spin lock APIs to handle the device file operations and BMC 
->> chip
->>    IRQ inferface for accessing the same KCS BMC data structure.
->> - Enhanced the phases handling of the KCS BMC.
->> - Unified the IOCTL definition for IPMI BMC, it will be used by KCS 
->> and BT.
->>
->> ---
->>
->> +
->> +static void kcs_bmc_handle_data(struct kcs_bmc *kcs_bmc)
->> +{
->> +    u8 data;
->> +
->> +    switch (kcs_bmc->phase) {
->> +    case KCS_PHASE_WRITE:
->> +        set_state(kcs_bmc, WRITE_STATE);
->> +
->> +        /* set OBF before reading data */
->> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->> +
->> +        if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
->> +            kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
->> +                        read_data(kcs_bmc);
->> +        break;
->> +
->> +    case KCS_PHASE_WRITE_END:
->> +        set_state(kcs_bmc, READ_STATE);
->> +
->> +        if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
->> +            kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
->> +                        read_data(kcs_bmc);
->> +
->> +        kcs_bmc->phase = KCS_PHASE_WAIT_READ;
->> +        if (kcs_bmc->running) {
 >
-> Why do you only do this when running is set?  It won't hurt anything 
-> if it's not
-> set.  As it is, you have a race if something opens the device while 
-> this code
-> runs.
->
-> Also, don't set the state to wait read until the "write" has finished 
-> (userland has
-> read the data out of the buffer.  More on that later.
->
-Understood.
->> +            kcs_bmc->data_in_avail = true;
->> +            wake_up_interruptible(&kcs_bmc->queue);
->> +        }
->> +        break;
->> +
->> +    case KCS_PHASE_READ:
->> +        if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
->> +            set_state(kcs_bmc, IDLE_STATE);
->> +
->> +        data = read_data(kcs_bmc);
->> +        if (data != KCS_CMD_READ_BYTE) {
->> +            set_state(kcs_bmc, ERROR_STATE);
->> +            write_data(kcs_bmc, KCS_ZERO_DATA);
->> +            break;
->> +        }
->> +
->> +        if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
->> +            write_data(kcs_bmc, KCS_ZERO_DATA);
->> +            kcs_bmc->phase = KCS_PHASE_IDLE;
->> +            break;
->> +        }
->> +
->> +        write_data(kcs_bmc,
->> +            kcs_bmc->data_out[kcs_bmc->data_out_idx++]);
->> +        break;
->> +
->> +    case KCS_PHASE_ABORT_ERROR1:
->> +        set_state(kcs_bmc, READ_STATE);
->> +
->> +        /* Read the Dummy byte */
->> +        read_data(kcs_bmc);
->> +
->> +        write_data(kcs_bmc, kcs_bmc->error);
->> +        kcs_bmc->phase = KCS_PHASE_ABORT_ERROR2;
->> +        break;
->> +
->> +    case KCS_PHASE_ABORT_ERROR2:
->> +        set_state(kcs_bmc, IDLE_STATE);
->> +
->> +        /* Read the Dummy byte */
->> +        read_data(kcs_bmc);
->> +
->> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->> +        kcs_bmc->phase = KCS_PHASE_IDLE;
->> +
->> +        break;
->> +
->> +    default:
->> +        set_state(kcs_bmc, ERROR_STATE);
->> +
->> +        /* Read the Dummy byte */
->> +        read_data(kcs_bmc);
->> +
->> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->> +        break;
->> +    }
->> +}
->> +
->> +static void kcs_bmc_handle_command(struct kcs_bmc *kcs_bmc)
->> +{
->> +    u8 cmd;
->> +
->> +    set_state(kcs_bmc, WRITE_STATE);
->> +
->> +    /* Dummy data to generate OBF */
->> +    write_data(kcs_bmc, KCS_ZERO_DATA);
->> +
->> +    cmd = read_data(kcs_bmc);
->
-> Shouldn't you check the phase in all the cases below and do error
-> handling if the phase isn't correct?
->
-> Similar thing if the device here isn't open.  You need to handle
-> that gracefully.
->
-> Also, you should remove data_in_avail and data_in_idx setting from
-> here, for reasons I will explain later.
->
-If host software sends the data twice such as a retry before the BMC's 
-IPMI service starts,
-then the two IPMI requests will be merged into one, if not clear 
-data_in_idx after receving
-KCS_CMD_WRITE_START. Most of the states are driven by host software 
-(SMS). :(
->> +    switch (cmd) {
->> +    case KCS_CMD_WRITE_START:
->> +        kcs_bmc->data_in_avail = false;
->> +        kcs_bmc->data_in_idx   = 0;
->> +        kcs_bmc->phase         = KCS_PHASE_WRITE;
->> +        kcs_bmc->error         = KCS_NO_ERROR;
->> +        break;
->> +
->> +    case KCS_CMD_WRITE_END:
->> +        kcs_bmc->phase = KCS_PHASE_WRITE_END;
->> +        break;
->> +
->> +    case KCS_CMD_ABORT:
->> +        if (kcs_bmc->error == KCS_NO_ERROR)
->> +            kcs_bmc->error = KCS_ABORTED_BY_COMMAND;
->> +
->> +        kcs_bmc->phase = KCS_PHASE_ABORT_ERROR1;
->> +        break;
->> +
->> +    default:
->> +        kcs_bmc->error = KCS_ILLEGAL_CONTROL_CODE;
->> +        set_state(kcs_bmc, ERROR_STATE);
->> +        write_data(kcs_bmc, kcs_bmc->error);
->> +        kcs_bmc->phase = KCS_PHASE_ERROR;
->> +        break;
->> +    }
->> +}
->> +
->> +int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc)
->> +{
->> +    unsigned long flags;
->> +    int ret = 0;
->> +    u8 status;
->> +
->> +    spin_lock_irqsave(&kcs_bmc->lock, flags);
->> +
->> +    status = read_status(kcs_bmc) & (KCS_STATUS_IBF | 
->> KCS_STATUS_CMD_DAT);
->> +
->> +    switch (status) {
->> +    case KCS_STATUS_IBF | KCS_STATUS_CMD_DAT:
->> +        kcs_bmc_handle_command(kcs_bmc);
->> +        break;
->> +
->> +    case KCS_STATUS_IBF:
->> +        kcs_bmc_handle_data(kcs_bmc);
->> +        break;
->> +
->> +    default:
->> +        ret = -1;
->> +        break;
->> +    }
->> +
->> +    spin_unlock_irqrestore(&kcs_bmc->lock, flags);
->> +
->> +    return ret;
->> +}
->> +EXPORT_SYMBOL(kcs_bmc_handle_event);
->> +
->> +static inline struct kcs_bmc *file_kcs_bmc(struct file *filp)
->> +{
->> +    return container_of(filp->private_data, struct kcs_bmc, miscdev);
->> +}
->> +
->> +static int kcs_bmc_open(struct inode *inode, struct file *filp)
->> +{
->> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->> +    int ret = 0;
->> +
->> +    spin_lock_irq(&kcs_bmc->lock);
->> +
->> +    if (!kcs_bmc->running) {
->> +        kcs_bmc->running       = 1;
->> +        kcs_bmc->phase         = KCS_PHASE_IDLE;
->> +        kcs_bmc->data_in_avail = false;
->
-> If you do everything right, setting the phase and data_in_avail should 
-> not
-> be necessary here.
->
->> +    } else {
->> +        ret = -EBUSY;
->> +    }
->> +
->> +    spin_unlock_irq(&kcs_bmc->lock);
->> +
->> +    return ret;
->> +}
->> +
->> +static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
->> +{
->> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->> +    unsigned int mask = 0;
->> +
->> +    poll_wait(filp, &kcs_bmc->queue, wait);
->> +
->> +    spin_lock_irq(&kcs_bmc->lock);
->> +
->> +    if (kcs_bmc->data_in_avail)
->> +        mask |= POLLIN;
->> +
->> +    spin_unlock_irq(&kcs_bmc->lock);
->> +
->> +    return mask;
->> +}
 >> +
 >> +static ssize_t kcs_bmc_read(struct file *filp, char *buf,
 >> +                size_t count, loff_t *offset)
@@ -345,6 +104,15 @@ KCS_CMD_WRITE_START. Most of the states are driven by host software
 > adventurous you can do this without grabbing the lock using
 > barriers, but it's probably not necessary here.
 >
+The main race is data_in and data_out memory copy from & to between one 
+user-land (ipmid) and
+the irq handler. If separates the copy_to_user into two parts: check the 
+'access_ok(VERIFY_WRITE, to, n)',
+if no errors, then grap the spinlock and irq disabled, then 
+'memcpy((void __force *)to, from, n);' It it right
+calling ?
+
+I will add a mutex to avoid spinlcok using as possible.
 >> +    if (!(filp->f_flags & O_NONBLOCK))
 >> +        wait_event_interruptible(kcs_bmc->queue,
 >> +                     kcs_bmc->data_in_avail);
@@ -368,34 +136,6 @@ KCS_CMD_WRITE_START. Most of the states are driven by host software
 >> +    return ret;
 >> +}
 >> +
->> +static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
->> +                 size_t count, loff_t *offset)
->> +{
->> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->> +    ssize_t ret = count;
->> +
->> +    if (count < 1 || count > KCS_MSG_BUFSIZ)
->> +        return -EINVAL;
->> +
->> +    spin_lock_irq(&kcs_bmc->lock);
->> +
->> +    if (kcs_bmc->phase == KCS_PHASE_WAIT_READ) {
->> +        if (copy_from_user(kcs_bmc->data_out, buf, count)) {
->> +            spin_unlock_irq(&kcs_bmc->lock);
->> +            return -EFAULT;
->> +        }
->> +
->> +        kcs_bmc->phase = KCS_PHASE_READ;
->> +        kcs_bmc->data_out_idx = 1;
->> +        kcs_bmc->data_out_len = count;
->> +        write_data(kcs_bmc, kcs_bmc->data_out[0]);
->> +    } else if (kcs_bmc->phase == KCS_PHASE_READ) {
->> +        ret = -EBUSY;
->> +    } else {
->> +        ret = -EINVAL;
->
-> Is there a reason you return -EINVAL here?  Why not just -EBUSY in all
-> cases?  Is there something that userland will need to do differently?
 >
 >> +    }
 >> +
@@ -403,64 +143,4 @@ KCS_CMD_WRITE_START. Most of the states are driven by host software
 >> +
 >> +    return ret;
 >> +}
->> +
->> +static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
->> +              unsigned long arg)
->> +{
->> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->> +    long ret = 0;
->> +
->> +    spin_lock_irq(&kcs_bmc->lock);
->> +
->> +    switch (cmd) {
->> +    case IPMI_BMC_IOCTL_SET_SMS_ATN:
->> +        update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
->> +                        KCS_STATUS_SMS_ATN);
->> +        break;
->> +
->> +    case IPMI_BMC_IOCTL_CLEAR_SMS_ATN:
->> +        update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
->> +                        0);
->> +        break;
->> +
->> +    case IPMI_BMC_IOCTL_FORCE_ABORT:
->> +        set_state(kcs_bmc, ERROR_STATE);
->> +        read_data(kcs_bmc);
->> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->> +
->> +        kcs_bmc->phase = KCS_PHASE_ERROR;
->> +        kcs_bmc->data_in_avail = false;
->> +        break;
->> +
->> +    default:
->> +        ret = -EINVAL;
->> +        break;
->> +    }
->> +
->> +    spin_unlock_irq(&kcs_bmc->lock);
->> +
->> +    return ret;
->> +}
->> +
->> +static int kcs_bmc_release(struct inode *inode, struct file *filp)
->> +{
->> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->> +
 >
-> What happens if the device gets closed in the middle of a 
-> transaction?  That's
-> an important case to handle.  If something is in process, you need to 
-> abort it.
->
-The device just provides the read & write data, the transaction is 
-handled in the KCS
-controller's IRQ handler.
->> +    spin_lock_irq(&kcs_bmc->lock);
->> +
->> +    kcs_bmc->running = 0;
->> +
->> +    spin_unlock_irq(&kcs_bmc->lock);
->> +
->> +    return 0;
->> +}
->> +
