@@ -1,27 +1,40 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zSKYP4pp2zF0QK
- for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 11:30:01 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 53089E55B9
- for <openbmc@lists.ozlabs.org>; Thu, 25 Jan 2018 19:29:56 -0500 (EST)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: OpenBMC v2.1
-Message-Id: <85D445A6-8BEF-40A0-BD8A-5102D74129C9@fuzziesquirrel.com>
-Date: Thu, 25 Jan 2018 19:29:56 -0500
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zSSHd2Pg6zF0RK
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 16:33:30 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2018 21:33:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,415,1511856000"; d="scan'208";a="12730595"
+Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.254.215.59])
+ ([10.254.215.59])
+ by orsmga007.jf.intel.com with ESMTP; 25 Jan 2018 21:33:23 -0800
+Subject: Re: [PATCH arm/aspeed/ast2500 v2] ipmi: add an Aspeed KCS IPMI BMC
+ driver
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, minyard@acm.org,
+ joel@jms.id.au, avifishman70@gmail.com, openbmc@lists.ozlabs.org,
+ openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
+References: <1516810009-16353-1-git-send-email-haiyue.wang@linux.intel.com>
+ <1516813514.7000.1235.camel@linux.intel.com>
+From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
+Message-ID: <793dbcc0-4d28-cddb-c5eb-bf491dff4d92@linux.intel.com>
+Date: Fri, 26 Jan 2018 13:33:22 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.2
+MIME-Version: 1.0
+In-Reply-To: <1516813514.7000.1235.camel@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -33,299 +46,131 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Jan 2018 00:30:02 -0000
+X-List-Received-Date: Fri, 26 Jan 2018 05:33:34 -0000
 
-We have several big things on the horizon such as Yocto and Linux =
-updates
-so it seemed like a good time to tag v2.1.
 
-There have been rumblings of switching the project over to a stable =
-branch
-strategy more closely aligned with Yocto upstream.  As such, this may =
-wind
-up being the last OpenBMC tag.  Watch the list for updates on this =
-front.
 
-Enjoy!
+On 2018-01-25 01:05, Andy Shevchenko wrote:
+> On Thu, 2018-01-25 at 00:06 +0800, Haiyue Wang wrote:
+>> The KCS (Keyboard Controller Style) interface is used to perform in-
+>> band
+>> IPMI communication between a server host and its BMC (BaseBoard
+>> Management
+>> Controllers).
+>>
+>>
+>> +config ASPEED_KCS_IPMI_BMC
+>> +	depends on ARCH_ASPEED || COMPILE_TEST
+>> +	depends on IPMI_KCS_BMC
+>> +	select REGMAP_MMIO
+>> +	tristate "Aspeed KCS IPMI BMC driver"
+>> +	help
+>> +	  Provides a driver for the KCS (Keyboard Controller Style)
+>> IPMI
+>> +	  interface found on Aspeed SOCs (AST2400 and AST2500).
+>> +
+>> +	  The driver implements the BMC side of the KCS contorller,
+>> it
+>> +	  provides the access of KCS IO space for BMC side.
+>> +static inline u8 read_data(struct kcs_bmc *kcs_bmc)
+>> +{
+>> +	return kcs_bmc->io_inputb(kcs_bmc, kcs_bmc->ioreg.idr);
+>> +}
+>> +
+>> +static inline void write_data(struct kcs_bmc *kcs_bmc, u8 data)
+>> +{
+>> +	kcs_bmc->io_outputb(kcs_bmc, kcs_bmc->ioreg.odr, data);
+>> +}
+>> +
+>> +static inline u8 read_status(struct kcs_bmc *kcs_bmc)
+>> +{
+>> +	return kcs_bmc->io_inputb(kcs_bmc, kcs_bmc->ioreg.str);
+>> +}
+>> +
+>> +static inline void write_status(struct kcs_bmc *kcs_bmc, u8 data)
+>> +{
+>> +	kcs_bmc->io_outputb(kcs_bmc, kcs_bmc->ioreg.str, data);
+>> +}
+>> +
+>> +static void update_status_bits(struct kcs_bmc *kcs_bmc, u8 mask, u8
+>> val)
+>> +{
+>> +	u8 tmp;
+>> +
+>> +	tmp = read_status(kcs_bmc);
+>> +
+>> +	tmp &= ~mask;
+>> +	tmp |= val & mask;
+>> +
+>> +	write_status(kcs_bmc, tmp);
+>> +}
+> Shouldn't be above some kind of regmap API?
+It is KCS spec defined IO access for hidden the low level, if the low 
+level supports regmap, such as in kcs_bmc_aspeed.c,
+aspeed_kcs_inb & aspeed_kcs_outb.
+>
+>> +/* Different phases of the KCS BMC module */
+>> +enum kcs_phases {
+>> +	/* BMC should not be expecting nor sending any data. */
+>> +	KCS_PHASE_IDLE,
+> Perhaps kernel-doc?
+Code + inline comments should be better than kernel-doc ? Or move it out 
+like :
 
--brad
-
----
-
-Adriana Kobylak (6):
-      updatesymlinks: Only run on host power on
-      Move obmc-pydevtools to tools package
-      Barreleye: Update packagegroup-obmc-apps-extrasdev name
-      updatesymlinks: Add instantiated mbox service
-      Witherspoon MRW XML revision bump
-      Software.BMC.Updater: Add dependency to op-vpd-parser
-
-Alexander Soldatov (1):
-      Fix host reset on double poweron command
-
-Andre Rosa (1):
-      bitbake: Replace deprecated git branch parameter "--set-upstream"
-
-Andrew Geissler (114):
-      openpower-dbus-interfaces.bb: bump version
-      phosphor-logging.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-ipmi-net.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      openpower-dbus-interfaces.bb: bump version
-      openpower-occ-control.inc: bump version
-      ffdc.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      pyphosphor.bb: bump version
-      phosphor-rest.inc: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-debug-collector.inc: bump version
-      ffdc.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-fan.inc: bump version
-      phosphor-ipmi-host.inc: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-dbus-monitor.bb: bump version
-      Reduce journal storage size from 3MB to 2.5MB
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-hwmon.bb: bump version
-      sdbusplus.bb: bump version
-      phosphor-rest.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-mapper.bb: bump version
-      mboxd.bb: bump version
-      phosphor-ipmi-net.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-logging.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-rest.inc: bump version
-      mboxd.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      openpower-software-manager.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      pyphosphor.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-time-manager.bb: bump version
-      skeleton-rev.bbclass: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-ipmi-net.bb: bump version
-      phosphor-led-manager.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-rest.inc: bump version
-      phosphor-rest.inc: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-ipmi-host.inc: bump version
-      skeleton-rev.bbclass: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-hwmon.bb: bump version
-      mboxd.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-logging.bb: bump version
-      pyphosphor.bb: bump version
-      openpower-occ-control.inc: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      openpower-occ-control.inc: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      pyphosphor.bb: bump version
-      phosphor-rest.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-mapper.bb: bump version
-      skeleton-rev.bbclass: bump version
-      openpower-occ-control.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-rest.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-logging.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-fan.inc: bump version
-      Fix compile issue for X86 SDK
-      phosphor-software-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-hwmon.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-logging.bb: bump version
-      Reduce service restart limit from 3 to 2 on fails
-      phosphor-dbus-interfaces.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-rest.inc: bump version
-      phosphor-ipmi-host.inc: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-fan.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-rest.inc: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-fan.inc: bump version
-
-Brad Bishop (5):
-      Squashed 'import-layers/yocto-poky/' changes from =
-dc8508f6099..67491b0c104
-      Squashed 'import-layers/meta-openembedded/' changes from =
-df3537259..b40116cf4
-      Squashed 'import-layers/meta-raspberrypi/' changes from =
-cce6292e414..2a192261a91
-      Squashed 'import-layers/meta-virtualization/' changes from =
-898481a9d02..eb6b5129561
-      Revert "phosphor-mapper.bb: bump version"
-
-Brandon Wyman (2):
-      Change inventory string for power supplies
-      Fix power supply presence information
-
-David Cobbley (4):
-      Add Nlohmann JSON library
-      Updating Nlohmann branch issue and updating to 3.0.1
-      Get Device ID - JSON
-      Get Device ID - JSON for Witherspoon
-
-Deepak Kodihalli (2):
-      Add missing 'Offsets' key to the occ sensors yaml
-      Fix broken SDK build
-
-Edward A. James (3):
-      init: Add init script to setup /etc mount before starting systemd
-      Add occ-disable dependency to host-crash and host-timeout
-      Extend sleep time for debug collector checkstop service
-
-Gerson Fernando Budke (1):
-      image.bbclass: Sorted ctypes to avoid basehash error
-
-Gunnar Mills (15):
-      Create Witherspoon fan errors
-      Spelling fixes
-      pflash: bump version to v5.9.4
-      Revert "pflash: bump version to v5.9.4"
-      Add Witherspoon Layer README
-      Add AST2500 Layer README
-      Add OpenBMC BSP Layer README
-      Spelling fix in obmc-targets.bb
-      Exclude /tmp/images from cleanup
-      Add OpenBMC EVB Layer README
-      Add OpenPOWER Layer README
-      Add OpenBMC Layer README
-      Add AST2500 BSP Layer README
-      Add AST2400 BSP Layer README
-      OpenBMC README.md fixes
-
-James Feist (2):
-      Add S2600wf Platform
-      Add support for c++ futures for armv5te
-
-Joel Stanley (11):
-      kernel: NCSI debugging and Romulus LED dts fix
-      pflash: bump version to v5.9
-      kernel: NCSI logging and error handling improvements
-      obmc-phosphor-image: Add lrzsz
-      meta-openpower: pdbg bump
-      pdbg: bump version
-      kernel: Add Intel S2600WF, gpio and pinctrl fixes, machine updates
-      kernel: gpio tolerance, cffps, ir35221, romulus cpld fix
-      yocto: perf: Sync with upstream
-      Enable perf in obmc-phosphor-debugtools
-      kernel: w83773g driver, Zaius pcie-e2b-present
-
-Ken Chen (2):
-      Create meta-arm layer
-      Add meta-qualcomm and meta-centriq2400-rep
-
-Lei YU (7):
-      meta-romulus: Add power LED rules
-      meta-p8 systems: Fix phosphor-gpio-monitor crash
-      meta-romulus: phosphor-hwmon workaround for fan speed
-      meta-romulus: Add fan tacho hwmon sensor config
-      meta-romulus: Remove vcs workaround
-      meta-zaius: Add PCIE E2B present sensor
-      meta-romulus: Do not run vrm control when chassis on
-
-Marri Devender Rao (1):
-      Package installed error yaml files
-
-Matt Spinler (11):
-      Resolve fan errors when they become functional
-      Resolve power supply errors when they're replaced
-      wspoon: add more OCC hwmon temps of mode 'label'
-      witherspoon power script updates
-      Remove wspoon P9 VCS Workaround from boot path
-      Delete unused Witherspoon VCS workaround files
-      Change wspoon power sequencer units to ms
-      Change wspoon GPU overtemp polling to 500ms
-      Witherspoon MRW XML revision bump
-      Change wspoon PGOOD polling interval to 500ms
-      Witherspoon: Destroy invalid inventory on startup
-
-Matthew Barth (12):
-      wspoon: Apply offset to ambient temp sensor
-      wspoon: Enable full water cooled fan control
-      wspoon: Orderly shutdown on fans missing/failed
-      wspoon: Correct removal of air cooled events
-      Update fan init services
-      wspoon: Add pcie hwmon conf
-      wspoon: Update fan watchdog triggers
-      wspoon: Allow fans 30sec before nonfunctional
-      wspoon: Hard poweroff on fan fails/missing
-      wspoon: Remove max tach feedback for base speed
-      wspoon: Enable air cooled fan control
-      wspoon: Update fan control to latest level
-
-Michael Tritz (2):
-      Block attempts to create a pnor-patch volume in field mode
-      obmc-flash-bmc: write variables twice to ensure both banks are =
-correct
-
-Mykola Kostenok (1):
-      meta-mellanox: meta-msn: add scripts to initramfs.
-
-Patrick Venture (4):
-      quanta-q71l: update ipmi sensor map
-      meta-quanta: powerctrl: use dts for gpiochip
-      Reorder dependencies alphabetically
-      Add python-shell to RDEPENDS for network.bb
-
-Ratan Gupta (1):
-      phosphor-discovery: Fixes some conditional check
-
-Robert Lippert (1):
-      obmc-phosphor-systemd: fix string trim of instance name
-
-Saqib Khan (4):
-      Add LICENSE to uboot bitbake file
-      Calculate the version ID of BMC UBI volumes during build time.
-      Add missing dependency on sdbus++.
-      Add required package "pkgconfig"
-
-Xo Wang (7):
-      meta-zaius: Build openpower-occ-control iff MACHINE=3Dzaius
-      meta-zaius: Synchronize time from host
-      Organize OpenPOWER BMC support as features
-      meta-openpower: Predicate packages on MACHINE_FEATURES
-      meta-aspeed: Set SOC_FAMILY in SoC include files
-      meta-ast2500: Add tune file for ARM1176JZ-S
-      meta-ast2500: Tune for ARM1176JZ-S
-
-Yong Li (1):
-      Add tools-profile feature support
+/* The interface for checksum offload between the stack and networking 
+drivers
+  * is as follows...
+  *
+  * A. IP checksum related features
+  *
+  * Drivers advertise checksum offload capabilities in the features of a 
+device.
+  * From the stack's point of view these are capabilities offered by the 
+driver,
+  * a driver typically only advertises features that it is capable of 
+offloading
+  * to its device.
+  *
+  * The checksum related features are:
+  *
+  *    NETIF_F_HW_CSUM    - The driver (or its device) is able to 
+compute one
+  *              IP (one's complement) checksum for any combination
+  *              of protocols or protocol layering. The checksum is
+  *              computed and set in a packet per the CHECKSUM_PARTIAL
+  *              interface (see below).
+  *
+  *    NETIF_F_IP_CSUM - Driver (device) is only able to checksum plain
+  *              TCP or UDP packets over IPv4. These are specifically
+  *              unencapsulated packets of the form IPv4|TCP or
+  *              IPv4|UDP where the Protocol field in the IPv4 header
+  *              is TCP or UDP. The IPv4 header may contain IP options
+  *              This feature cannot be set in features for a device
+  *              with NETIF_F_HW_CSUM also set. This feature is being
+  *              DEPRECATED (see below).
+>> +};
+>
+>> +/* IPMI 2.0 - 9.5, KCS Interface Registers */
+>> +struct kcs_ioreg {
+>> +	u32 idr; /* Input Data Register */
+>> +	u32 odr; /* Output Data Register */
+>> +	u32 str; /* Status Register */
+> kernel-doc
+>> +};
+>> +
+>> +static inline void *kcs_bmc_priv(const struct kcs_bmc *kcs_bmc)
+>> +{
+>> +	return kcs_bmc->priv;
+>> +}
+>> +
+>> +extern int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc);
+>> +extern struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int
+>> sizeof_priv,
+>> +					u32 channel);
+> Drop extern.
+After dropping extern, it truly passed compilation, have any special 
+reason to drop 'extern' ?
+I saw in kernel still use extern like : extern void printk_nmi_init(void);
+>> +#endif
+> Next one could be reviewed when you split this patch to two.
+Got it!
