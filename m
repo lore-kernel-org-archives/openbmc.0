@@ -1,75 +1,66 @@
-Return-Path: <tcminyard@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::242; helo=mail-pg0-x242.google.com;
- envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oew0lhHq"; 
+Return-Path: <Prashanth.Giri@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.229; helo=esa6.dell-outbound.iphmx.com;
+ envelope-from=prashanth.giri@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="CKSuV2nq"; 
  dkim-atps=neutral
-Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
- [IPv6:2607:f8b0:400e:c05::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Greylist: delayed 617 seconds by postgrey-1.36 at bilbo;
+ Sat, 27 Jan 2018 03:21:07 AEDT
+Received: from esa6.dell-outbound.iphmx.com (esa6.dell-outbound.iphmx.com
+ [68.232.149.229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zShcM31klzDrYZ
- for <openbmc@lists.ozlabs.org>; Sat, 27 Jan 2018 01:48:49 +1100 (AEDT)
-Received: by mail-pg0-x242.google.com with SMTP id m20so389262pgc.11
- for <openbmc@lists.ozlabs.org>; Fri, 26 Jan 2018 06:48:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:reply-to:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=6QDTck9T7ZPMCuNCEdi7Sz2+dNr0O6sEpcfmtf8x+3w=;
- b=Oew0lhHq5LOzRDiKAe/UOlx7HWUjk+ifBEiLBBPwtLYCet151evYUQPnM7GkvgZi1a
- AWH91lM01D6r/VYF0j09SZzLIGSvxI/Jmryjh6gQ5MzwMRq7rKThsT9HviShK4M8rUb5
- ZFVN2fvyAZWRXmliV02yLMgHrpl3cU0WL4Yn52LhHGmh8QP/R6Ek0LARQBnFojbMyjXu
- Chu/RQ21C69/hisSdwGp0Fo0xTJatRyXNz72DjYfbcQMKqwG21J3gTg/rdZe3sO87x2i
- rw3nhdtYdbgWNMtuc/zw2QuP3wJ7h2YGY6G3ISIcDRPsa805gvKa8lqTJK4f3dvvB2q3
- yKlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=6QDTck9T7ZPMCuNCEdi7Sz2+dNr0O6sEpcfmtf8x+3w=;
- b=oIjWyvPXTzXGgo+kuRIjAUrGujbaByV2AHAhcApqwgMViGtpgkZSkjTO+QbBTFSSS4
- 6SlxIr1dZBWZXUob+oPg6CdxG3e2aptHYNccGGHXnC2qaM9vPV1Na8OhzReiEAYtODYC
- jKe24ufUglsKJC0In5BofPrCcP8kFUbit9mY3cR5dbbNUaud+yAEbpXD6qJB9quq+jHS
- /0gmPSGWnwh7ow48yyYbvNC/oJ3LfOCviOXgOZcjxOT/8tHqoQnstCTW3oqZ+6ocHU34
- NKQg6UHok7nA9PP2wHdS9BwGoU9mh0umOt/DJB+WDo1iUHpiDamKh2GfXwgj4kFw/F7j
- CFAw==
-X-Gm-Message-State: AKwxytceHBiFU3cGopK7V8JJH4tJKGZ3AhV/NvKgyg7rYw6nNIPKuI9b
- 1NhHoeWqV798q5gLpZQN2A==
-X-Google-Smtp-Source: AH8x226DoQQN6N/PepH1bRRgjWLXt69rhChy+w9IH/NvDuk6PSDIpz6nClj+e42MOGFsIej7DMP20w==
-X-Received: by 2002:a17:902:59d9:: with SMTP id
- d25-v6mr14987380plj.312.1516978125188; 
- Fri, 26 Jan 2018 06:48:45 -0800 (PST)
-Received: from serve.minyard.net ([47.184.168.85])
- by smtp.gmail.com with ESMTPSA id v4sm8264834pgq.23.2018.01.26.06.48.43
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 26 Jan 2018 06:48:44 -0800 (PST)
-Sender: Corey Minyard <tcminyard@gmail.com>
-Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
- by serve.minyard.net (Postfix) with ESMTPSA id 5A5983AF;
- Fri, 26 Jan 2018 08:48:42 -0600 (CST)
-Reply-To: minyard@acm.org
-Subject: Re: [PATCH arm/aspeed/ast2500 v2] ipmi: add an Aspeed KCS IPMI BMC
- driver
-To: "Wang, Haiyue" <haiyue.wang@linux.intel.com>, joel@jms.id.au,
- avifishman70@gmail.com, openbmc@lists.ozlabs.org,
- openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Cc: andriy.shevchenko@intel.com
-References: <1516810009-16353-1-git-send-email-haiyue.wang@linux.intel.com>
- <f20da565-6644-3ea4-823b-a808cf613958@gmail.com>
- <76454c8b-b8ab-06a5-297c-83bab32c86a7@linux.intel.com>
-From: Corey Minyard <minyard@acm.org>
-Message-ID: <f6a94b94-da37-7dee-afab-85ec83afb92c@acm.org>
-Date: Fri, 26 Jan 2018 08:48:41 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zSkfq1gxMzDr21
+ for <openbmc@lists.ozlabs.org>; Sat, 27 Jan 2018 03:21:06 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1516983667; x=1548519667;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=MmOrb1/CKHz+NitoI5A0q4Muada8rCVscslHsdSzD8M=;
+ b=CKSuV2nq1+yWDpyS+qgPtFj0GThIPsMuPDQlsnzozhLHSQKTr2MrkEoF
+ skCdwvK0nGC0nl9kcD7BGkbYOkzAkY+/GUXcszbliH3KoRM61pG9e4Ydt
+ uKEBckwTXwWYLra/8S90IniwGYiI22RWisIOGs8UI7d4bibCNrdZv+f77 o=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EPAQBGUmtahz+a6ERcGQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQcBAQEBAYMRgQcQdCcHnGQxgVGXWYICChgDgRNTgzoCgh5YFAEBAQEBAQE?=
+ =?us-ascii?q?BAgECEAEBAQgNCQgoL4I4IoE0LA0iOwEBAQQBOUsEAgEIEQQBAR8JBygeCQgCB?=
+ =?us-ascii?q?AESCIotskCKVwEKAQEBAQEihFKCFYM/gy6DLwSBSQoFA4YQBYpch2CBdYVhigG?=
+ =?us-ascii?q?IF4czhhOCJGeRJod8gwOIYwGDfIE8NoFzcFKCKgmCTBAMgWd4AQGLYIEzgRcBA?=
+ =?us-ascii?q?QE?=
+X-IPAS-Result: =?us-ascii?q?A2EPAQBGUmtahz+a6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYM?=
+ =?us-ascii?q?RgQcQdCcHnGQxgVGXWYICChgDgRNTgzoCgh5YFAEBAQEBAQEBAgECEAEBAQgNC?=
+ =?us-ascii?q?QgoL4I4IoE0LA0iOwEBAQQBOUsEAgEIEQQBAR8JBygeCQgCBAESCIotskCKVwE?=
+ =?us-ascii?q?KAQEBAQEihFKCFYM/gy6DLwSBSQoFA4YQBYpch2CBdYVhigGIF4czhhOCJGeRJ?=
+ =?us-ascii?q?od8gwOIYwGDfIE8NoFzcFKCKgmCTBAMgWd4AQGLYIEzgRcBAQE?=
+Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
+ by esa6.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2018 10:10:45 -0600
+From: <Prashanth.Giri@dell.com>
+Received: from ausxippc110.us.dell.com ([143.166.85.200])
+ by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2018 22:10:27 +0600
+X-LoopCount0: from 10.166.132.133
+X-IronPort-AV: E=Sophos;i="5.46,417,1511848800"; d="scan'208";a="608296458"
+X-DLP: DLP_GlobalPCIDSS
+To: <bradleyb@fuzziesquirrel.com>, <openbmc@lists.ozlabs.org>
+Subject: RE: OpenBMC v2.1
+Thread-Topic: OpenBMC v2.1
+Thread-Index: AQHTljzhm6mWoWdfI0KtlZKBYJE+p6OGUyYA
+Date: Fri, 26 Jan 2018 16:10:43 +0000
+Message-ID: <d8f209c0e9e749fdbc241afb81cb6228@AUSX13MPC101.AMER.DELL.COM>
+References: <85D445A6-8BEF-40A0-BD8A-5102D74129C9@fuzziesquirrel.com>
+In-Reply-To: <85D445A6-8BEF-40A0-BD8A-5102D74129C9@fuzziesquirrel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.18.86]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <76454c8b-b8ab-06a5-297c-83bab32c86a7@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -81,556 +72,308 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Jan 2018 14:48:52 -0000
+X-List-Received-Date: Fri, 26 Jan 2018 16:21:08 -0000
 
-On 01/26/2018 12:08 AM, Wang, Haiyue wrote:
->
->
-> On 2018-01-25 01:48, Corey Minyard wrote:
->> On 01/24/2018 10:06 AM, Haiyue Wang wrote:
->>> The KCS (Keyboard Controller Style) interface is used to perform 
->>> in-band
->>> IPMI communication between a server host and its BMC (BaseBoard 
->>> Management
->>> Controllers).
->>>
->>> This driver exposes the KCS interface on ASpeed SOCs (AST2400 and 
->>> AST2500)
->>> as a character device. Such SOCs are commonly used as BMCs and this 
->>> driver
->>> implements the BMC side of the KCS interface.
->>>
->>> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
->>>
->>> ---
->>> v1->v2
->>>
->>> - Divide the driver into two parts, one handles the BMC KCS IPMI 2.0 
->>> state;
->>>    the other handles the BMC KCS controller such as AST2500 IO 
->>> accessing.
->>> - Use the spin lock APIs to handle the device file operations and 
->>> BMC chip
->>>    IRQ inferface for accessing the same KCS BMC data structure.
->>> - Enhanced the phases handling of the KCS BMC.
->>> - Unified the IOCTL definition for IPMI BMC, it will be used by KCS 
->>> and BT.
->>>
->>> ---
->>>
->>> +
->>> +static void kcs_bmc_handle_data(struct kcs_bmc *kcs_bmc)
->>> +{
->>> +    u8 data;
->>> +
->>> +    switch (kcs_bmc->phase) {
->>> +    case KCS_PHASE_WRITE:
->>> +        set_state(kcs_bmc, WRITE_STATE);
->>> +
->>> +        /* set OBF before reading data */
->>> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->>> +
->>> +        if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
->>> +            kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
->>> +                        read_data(kcs_bmc);
+Concur with the idea of moving to more yocto aligned branch strategy. Would=
+ like to be part of the discussions around how/when etc. aspects of the mov=
+e. Did we start any already ?
 
-I missed this earlier, you need to issue a length error if the data is 
-too large.
+-prashanth
 
->>> +        break;
->>> +
->>> +    case KCS_PHASE_WRITE_END:
->>> +        set_state(kcs_bmc, READ_STATE);
->>> +
->>> +        if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
->>> +            kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
->>> +                        read_data(kcs_bmc);
->>> +
->>> +        kcs_bmc->phase = KCS_PHASE_WAIT_READ;
->>> +        if (kcs_bmc->running) {
->>
->> Why do you only do this when running is set?  It won't hurt anything 
->> if it's not
->> set.  As it is, you have a race if something opens the device while 
->> this code
->> runs.
->>
->> Also, don't set the state to wait read until the "write" has finished 
->> (userland has
->> read the data out of the buffer.  More on that later.
->>
-> Understood.
->>> +            kcs_bmc->data_in_avail = true;
->>> +            wake_up_interruptible(&kcs_bmc->queue);
->>> +        }
->>> +        break;
->>> +
->>> +    case KCS_PHASE_READ:
->>> +        if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
->>> +            set_state(kcs_bmc, IDLE_STATE);
->>> +
->>> +        data = read_data(kcs_bmc);
->>> +        if (data != KCS_CMD_READ_BYTE) {
->>> +            set_state(kcs_bmc, ERROR_STATE);
->>> +            write_data(kcs_bmc, KCS_ZERO_DATA);
->>> +            break;
->>> +        }
->>> +
->>> +        if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
->>> +            write_data(kcs_bmc, KCS_ZERO_DATA);
->>> +            kcs_bmc->phase = KCS_PHASE_IDLE;
->>> +            break;
->>> +        }
->>> +
->>> +        write_data(kcs_bmc,
->>> + kcs_bmc->data_out[kcs_bmc->data_out_idx++]);
->>> +        break;
->>> +
->>> +    case KCS_PHASE_ABORT_ERROR1:
->>> +        set_state(kcs_bmc, READ_STATE);
->>> +
->>> +        /* Read the Dummy byte */
->>> +        read_data(kcs_bmc);
->>> +
->>> +        write_data(kcs_bmc, kcs_bmc->error);
->>> +        kcs_bmc->phase = KCS_PHASE_ABORT_ERROR2;
->>> +        break;
->>> +
->>> +    case KCS_PHASE_ABORT_ERROR2:
->>> +        set_state(kcs_bmc, IDLE_STATE);
->>> +
->>> +        /* Read the Dummy byte */
->>> +        read_data(kcs_bmc);
->>> +
->>> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->>> +        kcs_bmc->phase = KCS_PHASE_IDLE;
->>> +
->>> +        break;
->>> +
->>> +    default:
->>> +        set_state(kcs_bmc, ERROR_STATE);
->>> +
->>> +        /* Read the Dummy byte */
->>> +        read_data(kcs_bmc);
->>> +
->>> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->>> +        break;
->>> +    }
->>> +}
->>> +
->>> +static void kcs_bmc_handle_command(struct kcs_bmc *kcs_bmc)
->>> +{
->>> +    u8 cmd;
->>> +
->>> +    set_state(kcs_bmc, WRITE_STATE);
->>> +
->>> +    /* Dummy data to generate OBF */
->>> +    write_data(kcs_bmc, KCS_ZERO_DATA);
->>> +
->>> +    cmd = read_data(kcs_bmc);
->>
->> Shouldn't you check the phase in all the cases below and do error
->> handling if the phase isn't correct?
->>
->> Similar thing if the device here isn't open.  You need to handle
->> that gracefully.
->>
->> Also, you should remove data_in_avail and data_in_idx setting from
->> here, for reasons I will explain later.
->>
-> If host software sends the data twice such as a retry before the BMC's 
-> IPMI service starts,
-> then the two IPMI requests will be merged into one, if not clear 
-> data_in_idx after receving
-> KCS_CMD_WRITE_START. Most of the states are driven by host software 
-> (SMS). :(
+-----Original Message-----
+From: openbmc [mailto:openbmc-bounces+prashanth.giri=3Ddell.com@lists.ozlab=
+s.org] On Behalf Of Brad Bishop
+Sent: Thursday, January 25, 2018 6:30 PM
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: OpenBMC v2.1
 
-True, but what if the host issues WRITE_START or a WRITE_END while this 
-driver is in read
-state?  The spec is unclear on this, but it really only makes sense for 
-the host to issue
-WRITE_START in idle stat and WRITE_END in write state.  IMHO it should 
-go to error
-state.  You might make the case that a WRITE_START anywhere restarts the 
-transaction,
-but the feel of the error state machine kind of goes against that. 
-WRITE_END is definitely
-wrong anywhere but write state.
+We have several big things on the horizon such as Yocto and Linux updates s=
+o it seemed like a good time to tag v2.1.
 
-I just found the following in the spec (section 9.12):
+There have been rumblings of switching the project over to a stable branch =
+strategy more closely aligned with Yocto upstream.  As such, this may wind =
+up being the last OpenBMC tag.  Watch the list for updates on this front.
 
-    Thus, since the interface will allow a command transfer to be
-    started or restarted
-    at any time when the input buffer is empty, software could elect to
-    simply retry
-    the command upon detecting an error condition, or issue a ‘known good’
-    command in order to clear ERROR_STATE
+Enjoy!
 
-So a WRITE_START anywhere is ok.  A WRITE_END in the wrong state should 
-probably
-still go to error state.  This means the user needs to be able to handle 
-a write error at
-any time.  It also means it's very important to make sure the user does 
-a read before
-doing a write.  If the host re-issues a WRITE_START and writes a new command
-between the time the use reads the data and writes the response, the 
-response would
-be for the wrong command.
+-brad
 
->>> +    switch (cmd) {
->>> +    case KCS_CMD_WRITE_START:
->>> +        kcs_bmc->data_in_avail = false;
->>> +        kcs_bmc->data_in_idx   = 0;
->>> +        kcs_bmc->phase         = KCS_PHASE_WRITE;
->>> +        kcs_bmc->error         = KCS_NO_ERROR;
->>> +        break;
->>> +
->>> +    case KCS_CMD_WRITE_END:
->>> +        kcs_bmc->phase = KCS_PHASE_WRITE_END;
->>> +        break;
->>> +
->>> +    case KCS_CMD_ABORT:
->>> +        if (kcs_bmc->error == KCS_NO_ERROR)
->>> +            kcs_bmc->error = KCS_ABORTED_BY_COMMAND;
->>> +
->>> +        kcs_bmc->phase = KCS_PHASE_ABORT_ERROR1;
->>> +        break;
->>> +
->>> +    default:
->>> +        kcs_bmc->error = KCS_ILLEGAL_CONTROL_CODE;
->>> +        set_state(kcs_bmc, ERROR_STATE);
->>> +        write_data(kcs_bmc, kcs_bmc->error);
->>> +        kcs_bmc->phase = KCS_PHASE_ERROR;
->>> +        break;
->>> +    }
->>> +}
->>> +
->>> +int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc)
->>> +{
->>> +    unsigned long flags;
->>> +    int ret = 0;
->>> +    u8 status;
->>> +
->>> +    spin_lock_irqsave(&kcs_bmc->lock, flags);
->>> +
->>> +    status = read_status(kcs_bmc) & (KCS_STATUS_IBF | 
->>> KCS_STATUS_CMD_DAT);
->>> +
->>> +    switch (status) {
->>> +    case KCS_STATUS_IBF | KCS_STATUS_CMD_DAT:
->>> +        kcs_bmc_handle_command(kcs_bmc);
->>> +        break;
->>> +
->>> +    case KCS_STATUS_IBF:
->>> +        kcs_bmc_handle_data(kcs_bmc);
->>> +        break;
->>> +
->>> +    default:
->>> +        ret = -1;
->>> +        break;
->>> +    }
->>> +
->>> +    spin_unlock_irqrestore(&kcs_bmc->lock, flags);
->>> +
->>> +    return ret;
->>> +}
->>> +EXPORT_SYMBOL(kcs_bmc_handle_event);
->>> +
->>> +static inline struct kcs_bmc *file_kcs_bmc(struct file *filp)
->>> +{
->>> +    return container_of(filp->private_data, struct kcs_bmc, miscdev);
->>> +}
->>> +
->>> +static int kcs_bmc_open(struct inode *inode, struct file *filp)
->>> +{
->>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->>> +    int ret = 0;
->>> +
->>> +    spin_lock_irq(&kcs_bmc->lock);
->>> +
->>> +    if (!kcs_bmc->running) {
->>> +        kcs_bmc->running       = 1;
->>> +        kcs_bmc->phase         = KCS_PHASE_IDLE;
->>> +        kcs_bmc->data_in_avail = false;
->>
->> If you do everything right, setting the phase and data_in_avail 
->> should not
->> be necessary here.
->>
->>> +    } else {
->>> +        ret = -EBUSY;
->>> +    }
->>> +
->>> +    spin_unlock_irq(&kcs_bmc->lock);
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> +static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
->>> +{
->>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->>> +    unsigned int mask = 0;
->>> +
->>> +    poll_wait(filp, &kcs_bmc->queue, wait);
->>> +
->>> +    spin_lock_irq(&kcs_bmc->lock);
->>> +
->>> +    if (kcs_bmc->data_in_avail)
->>> +        mask |= POLLIN;
->>> +
->>> +    spin_unlock_irq(&kcs_bmc->lock);
->>> +
->>> +    return mask;
->>> +}
->>> +
->>> +static ssize_t kcs_bmc_read(struct file *filp, char *buf,
->>> +                size_t count, loff_t *offset)
->>> +{
->>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->>> +    ssize_t ret = -EAGAIN;
->>> +
->>
->> This function still has some issues.
->>
->> You can't call copy_to_user() with a spinlock held or interrupts 
->> disabled.
->> To handle readers, you probably need a separate mutex.
->>
->> Also, this function can return -EAGAIN even if O_NONBLOCK is not set if
->> kcs_bmc->data_in_avail changes between when you wait on the event
->> and when you check it under the lock.
->>
->> You also clear data_in_avail even if the copy_to_user() fails, which is
->> wrong.
->>
->> I believe the best way to handle this would be to have the spinlock
->> protect the inner workings of the state machine and a mutex handle
->> copying data out, setting/clearing the running flag (thus a mutex
->> instead of spinlock in open and release) and the ioctl settings (except
->> for abort where you will need to grab the spinlock).
->>
->> After the wait event below, grab the mutex.  If data is not available
->> and O_NONBLOCK is not set, drop the mutex and retry.  Otherwise
->> this is the only place (besides release) that sets data_in_avail to 
->> false.
->> Do the copy_to_user(), grab the spinlock, clear data_in_avail and
->> data_in_idx, then release the lock and mutex.  If you are really
->> adventurous you can do this without grabbing the lock using
->> barriers, but it's probably not necessary here.
->>
+---
 
-With the state machine being able to be restarted at any time, you need
-something a little different here.  You still need the mutex to handle
-multiple readers and the copy.  I think the function should be something
-like:
+Adriana Kobylak (6):
+      updatesymlinks: Only run on host power on
+      Move obmc-pydevtools to tools package
+      Barreleye: Update packagegroup-obmc-apps-extrasdev name
+      updatesymlinks: Add instantiated mbox service
+      Witherspoon MRW XML revision bump
+      Software.BMC.Updater: Add dependency to op-vpd-parser
 
-    static ssize_t kcs_bmc_read(struct file *filp, char *buf,
-                     size_t count, loff_t *offset)
-    {
-         struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-         ssize_t ret;
-         bool avail;
-         size_t data_size;
-         u8 *data;
+Alexander Soldatov (1):
+      Fix host reset on double poweron command
 
-         data = kmalloc(KCS_MSG_BUFSIZ, GFP_KERNEL);
-         if (!data)
-             return -ENOMEM;
+Andre Rosa (1):
+      bitbake: Replace deprecated git branch parameter "--set-upstream"
 
-    retry:
-         ret = -EAGAIN;
-         if (!(filp->f_flags & O_NONBLOCK))
-             wait_event_interruptible(kcs_bmc->queue,
-                          kcs_bmc->data_in_avail);
+Andrew Geissler (114):
+      openpower-dbus-interfaces.bb: bump version
+      phosphor-logging.bb: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-ipmi-net.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-mapper.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      openpower-dbus-interfaces.bb: bump version
+      openpower-occ-control.inc: bump version
+      ffdc.bb: bump version
+      phosphor-debug-collector.inc: bump version
+      pyphosphor.bb: bump version
+      phosphor-rest.inc: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-debug-collector.inc: bump version
+      ffdc.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-fan.inc: bump version
+      phosphor-ipmi-host.inc: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-dbus-monitor.bb: bump version
+      Reduce journal storage size from 3MB to 2.5MB
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-hwmon.bb: bump version
+      sdbusplus.bb: bump version
+      phosphor-rest.inc: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-mapper.bb: bump version
+      mboxd.bb: bump version
+      phosphor-ipmi-net.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-logging.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-rest.inc: bump version
+      mboxd.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-mapper.bb: bump version
+      phosphor-mapper.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      openpower-software-manager.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      pyphosphor.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-time-manager.bb: bump version
+      skeleton-rev.bbclass: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-ipmi-net.bb: bump version
+      phosphor-led-manager.inc: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-rest.inc: bump version
+      phosphor-rest.inc: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-ipmi-host.inc: bump version
+      skeleton-rev.bbclass: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-hwmon.bb: bump version
+      mboxd.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-logging.bb: bump version
+      pyphosphor.bb: bump version
+      openpower-occ-control.inc: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      openpower-occ-control.inc: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-mapper.bb: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      pyphosphor.bb: bump version
+      phosphor-rest.inc: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-mapper.bb: bump version
+      skeleton-rev.bbclass: bump version
+      openpower-occ-control.inc: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-rest.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-logging.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-fan.inc: bump version
+      Fix compile issue for X86 SDK
+      phosphor-software-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-hwmon.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-mapper.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-logging.bb: bump version
+      Reduce service restart limit from 3 to 2 on fails
+      phosphor-dbus-interfaces.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-rest.inc: bump version
+      phosphor-ipmi-host.inc: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-fan.inc: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-rest.inc: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-fan.inc: bump version
 
-         mutex_lock(&kcs_bmc->read_mutex);
+Brad Bishop (5):
+      Squashed 'import-layers/yocto-poky/' changes from dc8508f6099..67491b=
+0c104
+      Squashed 'import-layers/meta-openembedded/' changes from df3537259..b=
+40116cf4
+      Squashed 'import-layers/meta-raspberrypi/' changes from cce6292e414..=
+2a192261a91
+      Squashed 'import-layers/meta-virtualization/' changes from 898481a9d0=
+2..eb6b5129561
+      Revert "phosphor-mapper.bb: bump version"
 
-         spin_lock_irq(&kcs_bmc->lock);
-         avail = kcs_bmc->data_in_avail;
-         if (avail) {
-             memcpy(data, kcs_bmc->data_in, kcs_bmc->data_in_idx);
-             data_size = kcs_bmc->data_in_idx;
-         }
-         spin_unlock_irq(&kcs_bmc->lock);
+Brandon Wyman (2):
+      Change inventory string for power supplies
+      Fix power supply presence information
 
-         if (!avail) {
-             if (filp->f_flags & O_NONBLOCK)
-                 goto out_mutex_unlock;
-             mutex_unlock(&kcs_bmc->read_mutex);
-             goto retry;
-         }
+David Cobbley (4):
+      Add Nlohmann JSON library
+      Updating Nlohmann branch issue and updating to 3.0.1
+      Get Device ID - JSON
+      Get Device ID - JSON for Witherspoon
 
-         if (count < data_size) {
-             ret = -EOVERFLOW;
-              ? I'm not sure about the error, but userspace needs to know.
-             goto out_mutex_unlock;
-         }
+Deepak Kodihalli (2):
+      Add missing 'Offsets' key to the occ sensors yaml
+      Fix broken SDK build
 
-         if (!copy_to_user(buf, data, data_size)) {
-             ret = -EFAULT;
-             goto out_mutex_unlock;
-         }
+Edward A. James (3):
+      init: Add init script to setup /etc mount before starting systemd
+      Add occ-disable dependency to host-crash and host-timeout
+      Extend sleep time for debug collector checkstop service
 
-         ret = data_size;
+Gerson Fernando Budke (1):
+      image.bbclass: Sorted ctypes to avoid basehash error
 
-         spin_lock_irq(&kcs_bmc->lock);
+Gunnar Mills (15):
+      Create Witherspoon fan errors
+      Spelling fixes
+      pflash: bump version to v5.9.4
+      Revert "pflash: bump version to v5.9.4"
+      Add Witherspoon Layer README
+      Add AST2500 Layer README
+      Add OpenBMC BSP Layer README
+      Spelling fix in obmc-targets.bb
+      Exclude /tmp/images from cleanup
+      Add OpenBMC EVB Layer README
+      Add OpenPOWER Layer README
+      Add OpenBMC Layer README
+      Add AST2500 BSP Layer README
+      Add AST2400 BSP Layer README
+      OpenBMC README.md fixes
 
-         if (kcs_bmc->phase != KCS_PHASE_WRITE_END_DONE)
-             /* Something aborted or restarted the state machine. */
-             ? Maybe restart if O_NONBLOCK is not set and -EAGAIN if it is?
-             ret = -EIO;
-         } else {
-             kcs_bmc->phase = KCS_PHASE_WAIT_READ;
-             kcs_bmc->data_in_avail = false;
-             kcs_bmc->data_in_idx = 0;
-         }
+James Feist (2):
+      Add S2600wf Platform
+      Add support for c++ futures for armv5te
 
-         spin_unlock_irq(&kcs_bmc->lock);
+Joel Stanley (11):
+      kernel: NCSI debugging and Romulus LED dts fix
+      pflash: bump version to v5.9
+      kernel: NCSI logging and error handling improvements
+      obmc-phosphor-image: Add lrzsz
+      meta-openpower: pdbg bump
+      pdbg: bump version
+      kernel: Add Intel S2600WF, gpio and pinctrl fixes, machine updates
+      kernel: gpio tolerance, cffps, ir35221, romulus cpld fix
+      yocto: perf: Sync with upstream
+      Enable perf in obmc-phosphor-debugtools
+      kernel: w83773g driver, Zaius pcie-e2b-present
 
-    out_mutex_unlock:
-         mutex_unlock(&kcs_bmc->read_mutex);
+Ken Chen (2):
+      Create meta-arm layer
+      Add meta-qualcomm and meta-centriq2400-rep
 
-         kfree(data);
+Lei YU (7):
+      meta-romulus: Add power LED rules
+      meta-p8 systems: Fix phosphor-gpio-monitor crash
+      meta-romulus: phosphor-hwmon workaround for fan speed
+      meta-romulus: Add fan tacho hwmon sensor config
+      meta-romulus: Remove vcs workaround
+      meta-zaius: Add PCIE E2B present sensor
+      meta-romulus: Do not run vrm control when chassis on
 
-         return ret;
-    } 
+Marri Devender Rao (1):
+      Package installed error yaml files
 
-Note that I added a state, KCS_PHASE_WRITE_END_DONE, which would be
-set after the final byte from the host is received.  You want the read here
-done before you can do the write below to avoid the race I talked about.
+Matt Spinler (11):
+      Resolve fan errors when they become functional
+      Resolve power supply errors when they're replaced
+      wspoon: add more OCC hwmon temps of mode 'label'
+      witherspoon power script updates
+      Remove wspoon P9 VCS Workaround from boot path
+      Delete unused Witherspoon VCS workaround files
+      Change wspoon power sequencer units to ms
+      Change wspoon GPU overtemp polling to 500ms
+      Witherspoon MRW XML revision bump
+      Change wspoon PGOOD polling interval to 500ms
+      Witherspoon: Destroy invalid inventory on startup
 
-There is a local copy made of the data.  What you *never* want to happen
-here is for the state machine to start processing a new write command
-while the data is being copied.  It could result in corrupt data being read
-and some random operation being done by the BMC.
+Matthew Barth (12):
+      wspoon: Apply offset to ambient temp sensor
+      wspoon: Enable full water cooled fan control
+      wspoon: Orderly shutdown on fans missing/failed
+      wspoon: Correct removal of air cooled events
+      Update fan init services
+      wspoon: Add pcie hwmon conf
+      wspoon: Update fan watchdog triggers
+      wspoon: Allow fans 30sec before nonfunctional
+      wspoon: Hard poweroff on fan fails/missing
+      wspoon: Remove max tach feedback for base speed
+      wspoon: Enable air cooled fan control
+      wspoon: Update fan control to latest level
 
-If you want to avoid the local copy, it could be done, but it's more 
-complex.
+Michael Tritz (2):
+      Block attempts to create a pnor-patch volume in field mode
+      obmc-flash-bmc: write variables twice to ensure both banks are correc=
+t
 
->>> +    if (!(filp->f_flags & O_NONBLOCK))
->>> +        wait_event_interruptible(kcs_bmc->queue,
->>> +                     kcs_bmc->data_in_avail);
->>> +
->>> +    spin_lock_irq(&kcs_bmc->lock);
->>> +
->>> +    if (kcs_bmc->data_in_avail) {
->>> +        kcs_bmc->data_in_avail = false;
->>> +
->>> +        if (count > kcs_bmc->data_in_idx)
->>> +            count = kcs_bmc->data_in_idx;
->>> +
->>> +        if (!copy_to_user(buf, kcs_bmc->data_in, count))
->>> +            ret = count;
->>> +        else
->>> +            ret = -EFAULT;
->>> +    }
->>> +
->>> +    spin_unlock_irq(&kcs_bmc->lock);
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> +static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
->>> +                 size_t count, loff_t *offset)
->>> +{
->>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->>> +    ssize_t ret = count;
->>> +
->>> +    if (count < 1 || count > KCS_MSG_BUFSIZ)
->>> +        return -EINVAL;
->>> +
->>> +    spin_lock_irq(&kcs_bmc->lock);
->>> +
->>> +    if (kcs_bmc->phase == KCS_PHASE_WAIT_READ) {
->>> +        if (copy_from_user(kcs_bmc->data_out, buf, count)) {
->>> +            spin_unlock_irq(&kcs_bmc->lock);
->>> +            return -EFAULT;
->>> +        }
->>> +
->>> +        kcs_bmc->phase = KCS_PHASE_READ;
->>> +        kcs_bmc->data_out_idx = 1;
->>> +        kcs_bmc->data_out_len = count;
->>> +        write_data(kcs_bmc, kcs_bmc->data_out[0]);
->>> +    } else if (kcs_bmc->phase == KCS_PHASE_READ) {
->>> +        ret = -EBUSY;
->>> +    } else {
->>> +        ret = -EINVAL;
->>
->> Is there a reason you return -EINVAL here?  Why not just -EBUSY in all
->> cases?  Is there something that userland will need to do differently?
->>
->>> +    }
->>> +
->>> +    spin_unlock_irq(&kcs_bmc->lock);
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> +static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
->>> +              unsigned long arg)
->>> +{
->>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->>> +    long ret = 0;
->>> +
->>> +    spin_lock_irq(&kcs_bmc->lock);
->>> +
->>> +    switch (cmd) {
->>> +    case IPMI_BMC_IOCTL_SET_SMS_ATN:
->>> +        update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
->>> +                        KCS_STATUS_SMS_ATN);
->>> +        break;
->>> +
->>> +    case IPMI_BMC_IOCTL_CLEAR_SMS_ATN:
->>> +        update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
->>> +                        0);
->>> +        break;
->>> +
->>> +    case IPMI_BMC_IOCTL_FORCE_ABORT:
->>> +        set_state(kcs_bmc, ERROR_STATE);
->>> +        read_data(kcs_bmc);
->>> +        write_data(kcs_bmc, KCS_ZERO_DATA);
->>> +
->>> +        kcs_bmc->phase = KCS_PHASE_ERROR;
->>> +        kcs_bmc->data_in_avail = false;
->>> +        break;
->>> +
->>> +    default:
->>> +        ret = -EINVAL;
->>> +        break;
->>> +    }
->>> +
->>> +    spin_unlock_irq(&kcs_bmc->lock);
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> +static int kcs_bmc_release(struct inode *inode, struct file *filp)
->>> +{
->>> +    struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
->>> +
->>
->> What happens if the device gets closed in the middle of a 
->> transaction?  That's
->> an important case to handle.  If something is in process, you need to 
->> abort it.
->>
-> The device just provides the read & write data, the transaction is 
-> handled in the KCS
-> controller's IRQ handler.
+Mykola Kostenok (1):
+      meta-mellanox: meta-msn: add scripts to initramfs.
 
- From the spec, section 9.14:
+Patrick Venture (4):
+      quanta-q71l: update ipmi sensor map
+      meta-quanta: powerctrl: use dts for gpiochip
+      Reorder dependencies alphabetically
+      Add python-shell to RDEPENDS for network.bb
 
-    The BMC must change the status to ERROR_STATE on any condition where it
-    aborts a command transfer in progress.
+Ratan Gupta (1):
+      phosphor-discovery: Fixes some conditional check
 
-So you need to do something here.
+Robert Lippert (1):
+      obmc-phosphor-systemd: fix string trim of instance name
 
->>> + spin_lock_irq(&kcs_bmc->lock);
->>> +
->>> +    kcs_bmc->running = 0;
->>> +
->>> +    spin_unlock_irq(&kcs_bmc->lock);
->>> +
->>> +    return 0;
->>> +}
->>> +
+Saqib Khan (4):
+      Add LICENSE to uboot bitbake file
+      Calculate the version ID of BMC UBI volumes during build time.
+      Add missing dependency on sdbus++.
+      Add required package "pkgconfig"
+
+Xo Wang (7):
+      meta-zaius: Build openpower-occ-control iff MACHINE=3Dzaius
+      meta-zaius: Synchronize time from host
+      Organize OpenPOWER BMC support as features
+      meta-openpower: Predicate packages on MACHINE_FEATURES
+      meta-aspeed: Set SOC_FAMILY in SoC include files
+      meta-ast2500: Add tune file for ARM1176JZ-S
+      meta-ast2500: Tune for ARM1176JZ-S
+
+Yong Li (1):
+      Add tools-profile feature support
