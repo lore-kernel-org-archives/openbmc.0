@@ -1,37 +1,31 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-X-Greylist: delayed 693 seconds by postgrey-1.36 at bilbo;
- Tue, 30 Jan 2018 08:19:19 AEDT
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zVj7W58SFzDqmy
- for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 08:19:19 +1100 (AEDT)
-X-Amp-Result: UNSCANNABLE
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2018 13:07:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,432,1511856000"; d="scan'208";a="199600127"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
- by fmsmga005.fm.intel.com with ESMTP; 29 Jan 2018 13:07:33 -0800
-Date: Mon, 29 Jan 2018 13:07:33 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: anoo <anoo@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: Re: BMC Image Signing Proposal
-Message-ID: <20180129210733.GB113334@mauery>
-References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
- <1517205405.21006.5.camel@aj.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <1517205405.21006.5.camel@aj.id.au>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zVjZ3047RzDr0j
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 08:38:50 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id A9C566DC95;
+ Mon, 29 Jan 2018 16:38:46 -0500 (EST)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: BMC redundancy
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20180129204314.GZ113334@mauery>
+Date: Mon, 29 Jan 2018 16:38:46 -0500
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <C23CA6D0-0BC3-484E-9EB9-82128C863F06@fuzziesquirrel.com>
+References: <AFD7FFE5-8EA8-41FF-85C9-71AF312D4775@fuzziesquirrel.com>
+ <20180129204314.GZ113334@mauery>
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -43,78 +37,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Jan 2018 21:19:20 -0000
-
-On 29-Jan-2018 04:26 PM, Andrew Jeffery wrote:
->On Thu, 2018-01-25 at 15:15 -0600, anoo wrote:
->> Hi all,
->>
->> During the hackaton meetup, we touched on BMC image verification and
->> signing and concluded that the community would like to see two
->> verification steps, one prior to writing the image to flash (via digital
->> signature verification), and another one by checking FIT in U-Boot prior
->> to booting from the new image.
->>
->> The proposal would be to implement the digital signature verification
->> first.
->>
->> At a high level, during the build:
->> * A SHA-256 hash would be calculated over tbd files that make up the
->> firmware image.
->> * The hash would be signed by a private key that's part of the
->> repository (community key). Companies could overwrite it with their own
->> private key when building production images.
-
-Can we not store any key in the tree at all, please. If we do, somebody 
-will inevitably use that key for production images and be totally 
-insecure. Generate a key by default and print a big warning that it is 
-being signed by a local (insecure) key and that they should set up keys 
-according to some documentation.
-
-Provide a script that can be used to (somewhat) securely store openssl 
-keys (with a passphrase) and then request the passphrase for each build. 
-This could also be used to securely store keys on an HSM that openssl 
-has ENGINE support for.
-
->> * The encrypted hash (digital signature) and corresponding public key
->> would be added to the firmware image.
->> * Yocto may already provide a way to sign images and generate keys.
->
->I'm starting to look into signing of artefacts as part of the build
->process. Some quick searching suggests Yocto doesn't have support for
->it out of the box, but there is the swupdate project[1] and the
->corresponding meta-swupdate[2] Yocto layer that sound interesting.
->However, it may require a rework of how we manage image updates if we
->were to make use of it. I'll keep poking around, but if anyone has any
->other pointers please let me know.
->
->[1] https://github.com/sbabic/swupdate
->[2] https://github.com/sbabic/meta-swupdate
-
-Whatever mechanism is used to generate the signature should be able to 
-be overridden by an environment variable or something. We already do 
-something like this for our pre-openbmc generations where a common 
-developer key is stored outside the tree, then the image gets re-signed 
-with the new key to turn it into a production-signed image. This way, we 
-can use different mechanisms for generating the development and 
-production signatures (openssl and a remote signing service).
-
---Vernon
+X-List-Received-Date: Mon, 29 Jan 2018 21:38:51 -0000
 
 
->>
->> On the BMC:
->> * The hash would be calculated on the image files that were uploaded to
->> the BMC.
->> * The signature would be decrypted using an existing public key on the
->> BMC (this validates the new public key delivered with the image is also
->> valid).
->> * Accept image if both values are the same.
->>
->> Any thoughts or comments?
->
->Can you take a look at swupdate and reply with your thoughts?
->
->Cheers,
->
->Andrew
+> On Jan 29, 2018, at 3:43 PM, Vernon Mauery =
+<vernon.mauery@linux.intel.com> wrote:
+>=20
+> On 29-Jan-2018 10:52 AM, Brad Bishop wrote:
+>> I know we have a lot of work to do with the basics before tackling =
+something
+>> like supporting multiple BMCs in a single system, but its never too =
+early to
+>> brainstorm.
+>>=20
+>> Quick community poll:  Please share any thoughts you may have around =
+supporting
+>> systems with multiple BMCs.  Does your organization care?  Thoughts =
+on how it
+>> could/should be done?  System designs that are a non-starter for =
+OpenBMC?
+>=20
+> Intel has supported systems like this in the past, and it is likely =
+that we will have need of multi-node/multi-bmc systems in the future.
+
+Thanks Vernon - its good to hear there might be room to collaborate on =
+this.
+
+>=20
+> Our systems in the past have been sled-based with four sleds =
+(BMC+host) per chassis and the BMCs connected via I2C over the =
+backplane.  One of the BMCs was elected (based on availability and ID) =
+to be the master for the system to control the shared resources (power =
+supplies and other common stuff).=20
+> Each BMC was individually accessible in the normal ways (KCS from host =
+or RMCP/web over the network).
+>=20
+> Is this the sort of stuff that you are looking for or were you =
+thinking of BMC redundancy for a single system?
+
+I think so yes.  Very similar to what you describe but with a single
+SMP fabric across all the sleds.  I think in practice it doesn=E2=80=99t
+make much difference - the SMP fabric would just another shared
+resource amongst the sleds.
+
+>=20
+> --Vernon
