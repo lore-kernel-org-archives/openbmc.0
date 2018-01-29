@@ -3,54 +3,57 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
  (client-ip=2607:f8b0:400e:c05::242; helo=mail-pg0-x242.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="BC8MsoEL"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="LwqmAacr"; 
  dkim-atps=neutral
 Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
  [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zVV3Y4lg2zDr5M
- for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 00:00:09 +1100 (AEDT)
-Received: by mail-pg0-x242.google.com with SMTP id g16so4396555pgn.7
- for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 05:00:09 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zVV3g42HyzDr5M
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 00:00:15 +1100 (AEDT)
+Received: by mail-pg0-x242.google.com with SMTP id s9so4389045pgq.13
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 05:00:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=T5rSs+fsv4Ecyo+vcR5yaSNy7JJHSEgNQcD76IZKaBU=;
- b=BC8MsoELsYxkkAeTycPNfWlEw3IdqIG2GO1YsvbROujvRDbZfcxP06uF9rqDWofx/7
- /jEID3KVrFruIAJZoDUtv798fs2M+0tnOMGP8ytAWWG3vH6LIdiZ1n0CYSmc4NscZLya
- lVZKwWPSeg9UVm/bTQtEZnSjovSx7SM7pTb+4sDIGWz4a1pYvREDze8ZdqFcx2lIRiMk
- 3s51AJ/8XE1/jRPq0/hcUV739oN3EBEnmyzLexDT5kWLHgR1/SswKlCHoLaxSogsFPIe
- 89EV9WXuI3qWhNCVk7Ql5NDzJb3cJPwQuqLN+kU7eJ5ez59gosO6aEQnZUF4MrZDIR3i
- I0xQ==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=oUbdHobGQ+lUUH2vgawsx75Zv7l7k2rQzAWDS2n9diI=;
+ b=LwqmAacrw7Gdk9VSDzXd0fYOhuiYgqeydP93BkdtP7aiJx55v+GDh0S/WNH2gxHR+G
+ 9Siw+24moHE5mtcF2ARIdIeGZxp+4N3U5ExpAcdIZt7cx1x9Kyyg/K5TnMp1bENlt/u8
+ 13VrnaPD80UfBLDknOkAs1xvYBwPLf/+8n2fJTKTR5tYCCiAYvkWTOtS16xdLmwk/oT8
+ M4Y02MGctR/t7AGkBpymuBFcQ+v6r9iy7wA8+l3llgzivLSf4e9onipEEFMEFpVfFTlt
+ cSP5XEdgVwKdWgjpHXjvXPsaA0j+yqT70E/YEfmzXr9mVY4LV4ynqJiZWL0wvfocj4Dm
+ 14UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=T5rSs+fsv4Ecyo+vcR5yaSNy7JJHSEgNQcD76IZKaBU=;
- b=Q0kNIY/ca3VG3ivV4V63ATK5hjSAKC9/NVCtjmvuug09LGtU1HW3OmENjBP0xFsK/4
- XvXavoAzJgcTMqt7aLZ05LQp2Us8Bx0vWSbgic8BtpMqvB9srvmt3bz/oUFuXuK7hDi1
- v6ez7IriodKz8Ed0vkX0eIWluuk5n3RK2NlbIDhrpo5mKa0ZnZyjZqgSad++BOkv82x9
- b4kdUnq9FKixvH/OdZ+MAjRQdnALN7uf7EwB3/rFaWPBUJ9kihYOJ4uDMb1qxnwQPNE1
- rW+gJAhl47UesxmpYwNk/HW5tGItNmMgJZqUxVQfQnFJNmeH52PEOEuAMgJmRsNcXnJU
- nfYA==
-X-Gm-Message-State: AKwxytd96VtfETujmADgxW1cQIXjVBX9jRLIi/hLBvjA2YnRgPDHNwke
- L21WCIS/s5tmINxilGAYalEgP0c+
-X-Google-Smtp-Source: AH8x224SUZOuK66cQdPtlxI0L4Xf64F+oums5M7nHvBFf3oiRenbAV/xXmSnulv1iOcOYUwcmd9MUA==
-X-Received: by 10.99.95.4 with SMTP id t4mr20652318pgb.291.1517230807059;
- Mon, 29 Jan 2018 05:00:07 -0800 (PST)
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :in-reply-to:references;
+ bh=oUbdHobGQ+lUUH2vgawsx75Zv7l7k2rQzAWDS2n9diI=;
+ b=eBnjmln4Yzh62015lfhrDhMwXcmkn84oiVG7nZxLmp1IIjGRGcBnvFxVn83OgyQfLh
+ 3Uo/sAplP6Fj7cT9LlDM0vGgWOOYAMLKJ3l5UGFALJ38z3Nc1hVvnulxcDcuQsk9/f+Z
+ p8r2B/OsB8D/oQV38U6qw0jDcKE4/vkxAHxZXiIfB9xwcoYWPLCocvgI8g1/aO8/+2lb
+ D2dGLzrb+w6zRsMUsQZgeCJLxV4xoFlYdW01JVsqociduM0veKlDmBcUKqXQHsofAyNU
+ JjL/6eOC1j3QlUlwKK+ePT3IGOjloFw7bIhphbIlAxsOOZvXzfW5JeC/0QLlKn9l6Gr4
+ bDsQ==
+X-Gm-Message-State: AKwxytfpJDTvxLoosYIkcQ+08c0SQ08Ed4hSyz5rcwfGMRZiniFmjZST
+ vWiz7TH4CND5Gi/FG8T+ISvohZzg
+X-Google-Smtp-Source: AH8x22727cgh1BJVnawj9BrbghtOAErHo6Chml21ZmW14oAzVdh0X1fPMfyy9FpOJROy6/QB6GT0eA==
+X-Received: by 10.98.161.16 with SMTP id b16mr27100146pff.34.1517230813352;
+ Mon, 29 Jan 2018 05:00:13 -0800 (PST)
 Received: from aurora.jms.id.au ([45.124.203.15])
- by smtp.gmail.com with ESMTPSA id t8sm15087834pgn.93.2018.01.29.05.00.04
+ by smtp.gmail.com with ESMTPSA id h69sm31500393pfe.20.2018.01.29.05.00.10
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 29 Jan 2018 05:00:06 -0800 (PST)
+ Mon, 29 Jan 2018 05:00:12 -0800 (PST)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Mon, 29 Jan 2018 23:30:00 +1030
+ Mon, 29 Jan 2018 23:30:07 +1030
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: andrew@aj.id.au
-Subject: [PATCH linux dev-4.13 0/2] Add missing bt nodes
-Date: Mon, 29 Jan 2018 23:29:57 +1030
-Message-Id: <20180129125959.10499-1-joel@jms.id.au>
+Subject: [PATCH linux dev-4.13 1/2] ARM: dts: aspeed: Add IPMI BT node
+Date: Mon, 29 Jan 2018 23:29:58 +1030
+Message-Id: <20180129125959.10499-2-joel@jms.id.au>
 X-Mailer: git-send-email 2.15.1
+In-Reply-To: <20180129125959.10499-1-joel@jms.id.au>
+References: <20180129125959.10499-1-joel@jms.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -62,19 +65,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Jan 2018 13:00:10 -0000
+X-List-Received-Date: Mon, 29 Jan 2018 13:00:17 -0000
 
-Joel Stanley (2):
-  ARM: dts: aspeed: Add IPMI BT node
-  ARM: dts: aspeed: Enable IPMI BT node on OpenPower machines
+The IPMI BT device part of the LPC interface and is used for
+communication with the host processor.
 
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 4 ++++
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ++++
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ++++
- arch/arm/boot/dts/aspeed-g4.dtsi                 | 7 +++++++
- arch/arm/boot/dts/aspeed-g5.dtsi                 | 7 +++++++
- 6 files changed, 30 insertions(+)
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-g4.dtsi | 7 +++++++
+ arch/arm/boot/dts/aspeed-g5.dtsi | 7 +++++++
+ 2 files changed, 14 insertions(+)
 
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 9f2fe74a8e02..09a40bbab72c 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -246,6 +246,13 @@
+ 						reg = <0x20 0x24 0x48 0x8>;
+ 					};
+ 
++					ibt: ibt@140 {
++						compatible = "aspeed,ast2500-ibt-bmc";
++						reg = <0x140 0x18>;
++						interrupts = <8>;
++						status = "disabled";
++					};
++
+ 					mbox: mbox@180 {
+ 						compatible = "aspeed,ast2400-mbox";
+ 						reg = <0x180 0x5c>;
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 3dc37ec8801e..9101e8252a02 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -299,6 +299,13 @@
+ 						reg = <0x20 0x24 0x48 0x8>;
+ 					};
+ 
++					ibt: ibt@140 {
++						compatible = "aspeed,ast2400-ibt-bmc";
++						reg = <0x140 0x18>;
++						interrupts = <8>;
++						status = "disabled";
++					};
++
+ 					mbox: mbox@180 {
+ 						compatible = "aspeed,ast2500-mbox";
+ 						reg = <0x180 0x5c>;
 -- 
 2.15.1
