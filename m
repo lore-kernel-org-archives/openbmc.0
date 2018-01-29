@@ -1,55 +1,56 @@
-Return-Path: <avifishman70@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::236; helo=mail-ot0-x236.google.com;
- envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400e:c05::242; helo=mail-pg0-x242.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="p8ccF/u5"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="BC8MsoEL"; 
  dkim-atps=neutral
-Received: from mail-ot0-x236.google.com (mail-ot0-x236.google.com
- [IPv6:2607:f8b0:4003:c0f::236])
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zVR36452XzDqsn
- for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 21:44:34 +1100 (AEDT)
-Received: by mail-ot0-x236.google.com with SMTP id p36so6080960otd.10
- for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 02:44:34 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zVV3Y4lg2zDr5M
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 00:00:09 +1100 (AEDT)
+Received: by mail-pg0-x242.google.com with SMTP id g16so4396555pgn.7
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 05:00:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=V3nSi8tDHA+nvvvjJxDTdogFTlsi+b8svPVIgvjSw9Q=;
- b=p8ccF/u5NTXTbH0U3lijTCtGR671BEinzLeh+K9lH4Xz25NrD63gVOtJnhDytOvn1y
- NeIJ1MwabR/k4j4ggtQ5lgGTPsCH3TcnuwdKchthqOIvzegr3P9CGDZMaiKLTM9Q84rc
- wrp4q+di7J6Yy0Ie6082ed/ROEmo9cDVRq43LMQDIOdID8Y0Wre+vHITKCModvIgqgIv
- 2u1xevPyGAY0Iq+eqOYRvBnc6lzTPAbttOJv2Kca9EDWg/GE/TcIcGMMZ0lEBcwDamPa
- 33ZRJ4FWqFQPaOmVGMeTAQoZZkFAgNfFfNhrA6oBJqRvZC3uOxbGWFZd66l1JNIcrTaW
- 7Zqw==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=T5rSs+fsv4Ecyo+vcR5yaSNy7JJHSEgNQcD76IZKaBU=;
+ b=BC8MsoELsYxkkAeTycPNfWlEw3IdqIG2GO1YsvbROujvRDbZfcxP06uF9rqDWofx/7
+ /jEID3KVrFruIAJZoDUtv798fs2M+0tnOMGP8ytAWWG3vH6LIdiZ1n0CYSmc4NscZLya
+ lVZKwWPSeg9UVm/bTQtEZnSjovSx7SM7pTb+4sDIGWz4a1pYvREDze8ZdqFcx2lIRiMk
+ 3s51AJ/8XE1/jRPq0/hcUV739oN3EBEnmyzLexDT5kWLHgR1/SswKlCHoLaxSogsFPIe
+ 89EV9WXuI3qWhNCVk7Ql5NDzJb3cJPwQuqLN+kU7eJ5ez59gosO6aEQnZUF4MrZDIR3i
+ I0xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=V3nSi8tDHA+nvvvjJxDTdogFTlsi+b8svPVIgvjSw9Q=;
- b=pkf9ziRPjsS9JkA3EALnbIW5HhbrigJhoQcynHi/JYFbADUveQWD22GpsQMvLRrogv
- HX/3hdfJa6iJX+776Pbflsd+Qwn6rV9Le05wei5YpWP+7kF6EfXtuenJH5Tyn35Bh2A1
- 6JupKHnxwUQ+wahEThP1W1P49QEwmL7wgpHEaOVb1RUjKsC6A1t+f0LfFEa9fN15MiYs
- dnGZy2mFT1cLWC869QXFddvROSOXIp17ZLLq5OUSqbveuTVvUWYGMdpG+maEoJW/5XqN
- gbqaubvvOJ/sLIUClL14Q1Hzp3Vvlzf9e3hs6ye3YiUIBYRCe4i1TYvthVShn7YzWx69
- hP+g==
-X-Gm-Message-State: AKwxytc7zG0bwi7VZeuezmzMAGAxpA1//+fq5/bNSeWo1aWFJpifc8tk
- KbQHH4PW9eovIa1NsxfT+2VbYs0k/tfRStopNQ==
-X-Google-Smtp-Source: AH8x2276rCXDx/90F6fQ5AqmOAQFng38/hNLX/j3MeaZ/smwG1Gwzl+1bAfudnAO9DkMaIx6iOuHTlv9QP9OCzFVt+A=
-X-Received: by 10.157.63.225 with SMTP id i30mr4879306ote.51.1517222672397;
- Mon, 29 Jan 2018 02:44:32 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.157.38.10 with HTTP; Mon, 29 Jan 2018 02:44:31 -0800 (PST)
-In-Reply-To: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
-References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
-From: Avi Fishman <avifishman70@gmail.com>
-Date: Mon, 29 Jan 2018 12:44:31 +0200
-Message-ID: <CAKKbWA4E+bX6WiEDGUYED=nUegJ9N7cTcxZHMpfiO43Tt0dNyw@mail.gmail.com>
-Subject: Re: BMC Image Signing Proposal
-To: anoo <anoo@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, uri.trichter@nuvoton.com, 
- yoel.hayon@nuvoton.com, eyal.cohen@nuvoton.com
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=T5rSs+fsv4Ecyo+vcR5yaSNy7JJHSEgNQcD76IZKaBU=;
+ b=Q0kNIY/ca3VG3ivV4V63ATK5hjSAKC9/NVCtjmvuug09LGtU1HW3OmENjBP0xFsK/4
+ XvXavoAzJgcTMqt7aLZ05LQp2Us8Bx0vWSbgic8BtpMqvB9srvmt3bz/oUFuXuK7hDi1
+ v6ez7IriodKz8Ed0vkX0eIWluuk5n3RK2NlbIDhrpo5mKa0ZnZyjZqgSad++BOkv82x9
+ b4kdUnq9FKixvH/OdZ+MAjRQdnALN7uf7EwB3/rFaWPBUJ9kihYOJ4uDMb1qxnwQPNE1
+ rW+gJAhl47UesxmpYwNk/HW5tGItNmMgJZqUxVQfQnFJNmeH52PEOEuAMgJmRsNcXnJU
+ nfYA==
+X-Gm-Message-State: AKwxytd96VtfETujmADgxW1cQIXjVBX9jRLIi/hLBvjA2YnRgPDHNwke
+ L21WCIS/s5tmINxilGAYalEgP0c+
+X-Google-Smtp-Source: AH8x224SUZOuK66cQdPtlxI0L4Xf64F+oums5M7nHvBFf3oiRenbAV/xXmSnulv1iOcOYUwcmd9MUA==
+X-Received: by 10.99.95.4 with SMTP id t4mr20652318pgb.291.1517230807059;
+ Mon, 29 Jan 2018 05:00:07 -0800 (PST)
+Received: from aurora.jms.id.au ([45.124.203.15])
+ by smtp.gmail.com with ESMTPSA id t8sm15087834pgn.93.2018.01.29.05.00.04
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 29 Jan 2018 05:00:06 -0800 (PST)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Mon, 29 Jan 2018 23:30:00 +1030
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: andrew@aj.id.au
+Subject: [PATCH linux dev-4.13 0/2] Add missing bt nodes
+Date: Mon, 29 Jan 2018 23:29:57 +1030
+Message-Id: <20180129125959.10499-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.15.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -61,53 +62,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Jan 2018 10:44:35 -0000
+X-List-Received-Date: Mon, 29 Jan 2018 13:00:10 -0000
 
-Hi Anoo and all,
+Joel Stanley (2):
+  ARM: dts: aspeed: Add IPMI BT node
+  ARM: dts: aspeed: Enable IPMI BT node on OpenPower machines
 
-Regarding "The encrypted hash (digital signature) and corresponding
-public key would be added to the firmware image":
-If both the decrypted signature and the public key are in flash, if
-flash was replaced (by hacking or physicaly) a malicious public key
-can be used with a  signature that was decrypted by the paired
-malicious private key of the stored public key.
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 4 ++++
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ++++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ++++
+ arch/arm/boot/dts/aspeed-g4.dtsi                 | 7 +++++++
+ arch/arm/boot/dts/aspeed-g5.dtsi                 | 7 +++++++
+ 6 files changed, 30 insertions(+)
 
-To overcome that the public key should be stored in OTP.
-We use this method on our Nuvoton Poleg BMC.
-
-Does this sound reasonable?
-
-Regards,
-Avi
-
-
-On Thu, Jan 25, 2018 at 11:15 PM, anoo <anoo@linux.vnet.ibm.com> wrote:
-> Hi all,
->
-> During the hackaton meetup, we touched on BMC image verification and signing
-> and concluded that the community would like to see two verification steps,
-> one prior to writing the image to flash (via digital signature
-> verification), and another one by checking FIT in U-Boot prior to booting
-> from the new image.
->
-> The proposal would be to implement the digital signature verification first.
->
-> At a high level, during the build:
-> * A SHA-256 hash would be calculated over tbd files that make up the
-> firmware image.
-> * The hash would be signed by a private key that's part of the repository
-> (community key). Companies could overwrite it with their own private key
-> when building production images.
-> * The encrypted hash (digital signature) and corresponding public key would
-> be added to the firmware image.
-> * Yocto may already provide a way to sign images and generate keys.
->
-> On the BMC:
-> * The hash would be calculated on the image files that were uploaded to the
-> BMC.
-> * The signature would be decrypted using an existing public key on the BMC
-> (this validates the new public key delivered with the image is also valid).
-> * Accept image if both values are the same.
->
-> Any thoughts or comments?
->
+-- 
+2.15.1
