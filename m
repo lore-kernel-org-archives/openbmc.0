@@ -1,52 +1,58 @@
-Return-Path: <juliac@eso.teric.us>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=eso.teric.us
- (client-ip=2600:3c00::f03c:91ff:fedf:a84c; helo=eso.teric.us;
- envelope-from=juliac@eso.teric.us; receiver=<UNKNOWN>)
+Return-Path: <geissonator@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::234; helo=mail-io0-x234.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=eso.teric.us header.i=@eso.teric.us header.b="RjY5Brn7";
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="u5oYjRmQ"; 
  dkim-atps=neutral
-Received: from eso.teric.us (eso.teric.us
- [IPv6:2600:3c00::f03c:91ff:fedf:a84c])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
+ [IPv6:2607:f8b0:4001:c06::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zVYyY2kqJzDqLm
- for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 02:56:04 +1100 (AEDT)
-Received: from neo.teric.us (neo.teric.us [198.58.100.135])
- by eso.teric.us (Postfix) with ESMTPS id 2A8CB1036F;
- Mon, 29 Jan 2018 09:56:01 -0600 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eso.teric.us;
- s=mail; t=1517241361;
- bh=WNXYLzK9r4vNiJJbrX7r3NAhUhPMTiY1JuVIR4NczmE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RjY5Brn70iZsiIpImOMbctPfn4GkGbsZUAeyOpd5MgjYsXa5XIgYDPMeNEa3sssH6
- hbZPWwOJQAzGyKNNWf2kzch4JQ5ISNe7u9zjb6TYvcSgDa6Wk6O/mOmlVrS8wTQ6OL
- yH8h7rJ8birTnG3BOSwdgBpUabKPAEbMeHcBDQ0w3OUk06TbO7d4sCv8pfjeSABcly
- LLOUxocDIVg1/XdZyXIIGTMbKraS8DWBtOCN6KF5gOhQT9+aoVYQnoavLa99ZwolEq
- D32sS1lfXgvs3bNW9xmUoNMgBBU+29EBZmZi0W2F7S1K45ds3ZFvTNjU1o+MC4rI+s
- eSoGFUzrs3FIA==
-Received: by neo.teric.us (Postfix, from userid 1002)
- id EFB18185FDB; Mon, 29 Jan 2018 09:56:00 -0600 (CST)
-Date: Mon, 29 Jan 2018 09:56:00 -0600
-From: Julia Cartwright <juliac@eso.teric.us>
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: gregkh@linuxfoundation.org, arnd@arndb.de, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, joel@jms.id.au, jiri@resnulli.us,
- tklauser@distanz.ch, linux-serial@vger.kernel.org,
- vadimp@mellanox.com, system-sw-low-level@mellanox.com,
- robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
- linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
- Jiri Pirko <jiri@mellanox.com>
-Subject: Re: [patch v18 1/4] drivers: jtag: Add JTAG core driver
-Message-ID: <20180129155600.GA1924@kryptos.localdomain>
-References: <1517236305-4880-1-git-send-email-oleksandrs@mellanox.com>
- <1517236305-4880-2-git-send-email-oleksandrs@mellanox.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zVZFj59qzzDqp1
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 03:09:13 +1100 (AEDT)
+Received: by mail-io0-x234.google.com with SMTP id d13so8155710iog.5
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 08:09:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=sputIZQvdNfJaOy0lix9hUzwRrO57p/pig/dbHprLqc=;
+ b=u5oYjRmQ+spqaL1g4534+nBvHO68uqCQyWGz22pk2LoGz2t/gUn2nCRUvTBFyw7hyI
+ CVTNY1c2eb826N1Xwt0zIGk5eaDquWbScaU7rXD4FcWeNOe+8nWfXtFwA3FCtPKoIIcC
+ RnQbPFcTFKjywlIxGoKkk95lZddPNnfuRPkmQj69YZvUS7CI7sA8sSD4+99mJVE0n+Np
+ PqiQvPXpT2zNuv//1s8XHdADlW+uCqHPB9B6CjSMYJrnWghytp4KO1Y3k/vyglQYGa/1
+ X1RnZadxvFnyZUrOluTPs2lxkOizEsIsXmKjXC15bGiu0JJOYlvjynbQJ8CuMTRdwUMB
+ z7RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=sputIZQvdNfJaOy0lix9hUzwRrO57p/pig/dbHprLqc=;
+ b=F17fZU5eOMKg4AY6L25CewZ4bFGuZ3KRlzfmnydePvmWNcTdR49EhZoEztbOt7nn+R
+ CgOv+9Hb8tCKOAqfhNgRj6GJnheUJk7d125ZYcDbcJfeJ0XR/b2pADJJvNDu4BDRuCit
+ DCQlsm6o7DG2iOaGkGzcaLE3g77yu32mWYMuIkt1ICTb3R+ItTJR3ooPmPBlXksNfTyl
+ XeIzCUfr/DnFRtTd6WHX63+2es61wjInWFaxW1ic1D2u/XQO05EluIOrVXJa56m5i8Rg
+ 62jdr+7ieeOZ8lxhhgqlvnM+lxSrA26l58S+1RUcmritULT3VJCOuKFiGiEomOnKBYJ7
+ UvDg==
+X-Gm-Message-State: AKwxytc6VyY6Gg1iXiz4vxTmrWrwsRs8WgvF+P7EzcZaDbMEhm+OSSrP
+ +tw1NuX1BMbjaF2zFy0sJc6X9zijRcbLvlTx7P8=
+X-Google-Smtp-Source: AH8x227SYqH5WvPPYM80FwgmCSkeui60HwLw2pWl6tCxGA2qvW4JXzVd1P7CyZtkMQiHTSmlvO8DGdMg2ovYH0F86dg=
+X-Received: by 10.107.199.7 with SMTP id x7mr27768563iof.64.1517242150755;
+ Mon, 29 Jan 2018 08:09:10 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1517236305-4880-2-git-send-email-oleksandrs@mellanox.com>
-User-Agent: Mutt/1.8.3 (2017-05-23)
+Received: by 10.107.38.145 with HTTP; Mon, 29 Jan 2018 08:09:10 -0800 (PST)
+In-Reply-To: <6DB8F483-15F5-407D-8150-DC66F5E00C53@fuzziesquirrel.com>
+References: <9330D13C-79E8-4C49-BBEA-EAB55E9C5974@fuzziesquirrel.com>
+ <7F891E7C-D7BE-46B8-AE07-3A900334A6F2@fuzziesquirrel.com>
+ <6DB8F483-15F5-407D-8150-DC66F5E00C53@fuzziesquirrel.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 29 Jan 2018 10:09:10 -0600
+Message-ID: <CALLMt=paCLuWGz7uia=5-1NfEZ_5qPzRxnPiOPohkooPJYz0TQ@mail.gmail.com>
+Subject: Re: OpenBMC 1/29 community telecon - Call for Topics
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -58,58 +64,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Jan 2018 15:56:06 -0000
+X-List-Received-Date: Mon, 29 Jan 2018 16:09:14 -0000
 
-On Mon, Jan 29, 2018 at 04:31:42PM +0200, Oleksandr Shamray wrote:
-> Initial patch for JTAG driver
-> JTAG class driver provide infrastructure to support hardware/software
-> JTAG platform drivers. It provide user layer API interface for flashing
-> and debugging external devices which equipped with JTAG interface
-> using standard transactions.
-> 
-> Driver exposes set of IOCTL to user space for:
-> - XFER:
-> - SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
-> - SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
-> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
->   number of clocks).
-> - SIOCFREQ/GIOCFREQ for setting and reading JTAG frequency.
-> 
-> Driver core provides set of internal APIs for allocation and
-> registration:
-> - jtag_register;
-> - jtag_unregister;
-> - jtag_alloc;
-> - jtag_free;
-> 
-> Platform driver on registration with jtag-core creates the next
-> entry in dev folder:
-> /dev/jtagX
-> 
-> Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-> Signed-off-by: Jiri Pirko <jiri@mellanox.com>
-> Acked-by: Philippe Ombredanne <pombredanne@nexb.com>
-[..]
-> diff --git a/drivers/jtag/jtag.c b/drivers/jtag/jtag.c
-[..]
-> +struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops)
-> +{
-> +	struct jtag *jtag;
-> +
-> +	jtag = kzalloc(sizeof(*jtag) + priv_size, GFP_KERNEL);
-> +	if (!jtag)
-> +		return NULL;
-> +
-> +	if (!ops)
-> +		return NULL;
-> +
-> +	if (!ops->idle || !ops->mode_set || !ops->status_get || !ops->xfer)
-> +		return NULL;
+I've got a couple misc one's, time permitting:
 
-Did you think through this?
+- How's the yocto 2.4 update going, any discussion needed on the
+separate layer discussion?
+- How's SELinux looking?
+- Redfish workgroup going somewhere? Seems like we have a few
+implementations out there already and people working on more, how do
+we converge?
+- Other workgroups?  IP KVM (2799), Remote Media (261), SNMP (2800),
+User ID Mgmt (273).
+- Did we ever get a doc that mapped people's names to IIRC handles?
 
-You leak 'jtag' here and above.
+Thanks,
+Andrew
 
-Perform all the ops checks prior to the allocation.
-
-   Julia
+On Mon, Jan 29, 2018 at 9:47 AM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
+> I=E2=80=99d like to talk about how OpenBMC might support systems with BMC=
+ redundancy.
+> Please join to discuss if that is interesting to you.
+>
+> thx - brad
+>
+>
+>> On Jan 23, 2018, at 1:12 PM, Brad Bishop <bradleyb@fuzziesquirrel.com> w=
+rote:
+>>
+>>
+>>
+>>> On Jan 23, 2018, at 11:42 AM, Brad Bishop <bradleyb@fuzziesquirrel.com>=
+ wrote:
+>>>
+>>> Please reply with any topics for the 1/30 call.
+>>
+>> Oops - as usual the call will be Monday which is 1/29.
+>>
+>>>
+>>> thx - brad
+>>> --------
+>>> https://www.teleconference.att.com/servlet/glbAccess?process=3D1&access=
+Code=3D85891389&accessNumber=3D2158616239
+>>>
+>>> Monday, 10:00pm EDT
+>>> 888-426-6840
+>>> password: 85891389
+>>
