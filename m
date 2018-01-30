@@ -1,31 +1,70 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <stewart@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zVjZ3047RzDr0j
- for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 08:38:50 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id A9C566DC95;
- Mon, 29 Jan 2018 16:38:46 -0500 (EST)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: BMC redundancy
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <20180129204314.GZ113334@mauery>
-Date: Mon, 29 Jan 2018 16:38:46 -0500
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C23CA6D0-0BC3-484E-9EB9-82128C863F06@fuzziesquirrel.com>
-References: <AFD7FFE5-8EA8-41FF-85C9-71AF312D4775@fuzziesquirrel.com>
- <20180129204314.GZ113334@mauery>
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zVrCg0yWhzDqnh
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 13:38:22 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w0U2cKxl056107
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 21:38:20 -0500
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ftdjfmwhf-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 21:38:19 -0500
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Mon, 29 Jan 2018 21:38:18 -0500
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 29 Jan 2018 21:38:16 -0500
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w0U2cGT941812056; Tue, 30 Jan 2018 02:38:16 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BDE54124035;
+ Mon, 29 Jan 2018 21:35:04 -0500 (EST)
+Received: from birb.localdomain (unknown [9.81.201.128])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with SMTP id 03353124037;
+ Mon, 29 Jan 2018 21:35:03 -0500 (EST)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 34FA74F0DAB; Tue, 30 Jan 2018 13:38:12 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Removing Barreleye, Firestone, Garrison
+In-Reply-To: <CACPK8XfKMTv+=LJbdoMDOOkQ4izwqq81=vHmM-Z8x6GZ6FyqGA@mail.gmail.com>
+References: <CACPK8XfKMTv+=LJbdoMDOOkQ4izwqq81=vHmM-Z8x6GZ6FyqGA@mail.gmail.com>
+Date: Tue, 30 Jan 2018 13:38:12 +1100
+MIME-Version: 1.0
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 18013002-0008-0000-0000-000002C8F6AB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008451; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000248; SDB=6.00982315; UDB=6.00498088; IPR=6.00761597; 
+ BA=6.00005799; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019278; XFM=3.00000015;
+ UTC=2018-01-30 02:38:17
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18013002-0009-0000-0000-000038160243
+Message-Id: <87a7ww136z.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-01-30_02:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1801300030
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -37,48 +76,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Jan 2018 21:38:51 -0000
+X-List-Received-Date: Tue, 30 Jan 2018 02:38:23 -0000
 
+Joel Stanley <joel@jms.id.au> writes:
+> I am working on ensuring the boards that we build for are working with
+> the dev-4.13 kernel branch. Currently Barreleye, Firestone and
+> Garrison systems fail as there has not been a device tree forward
+> ported.
+>
+> Is there an interest in maintaining these platforms?
+>
+> If not, I will remove them from CI on Friday to unblock the kernel work.
+>
+> This does not stop someone re-enabling them in the near future should
+> interest arise. However, I suggest we create a policy on removing
+> abandoned machines when there is no one actively maintaining them, and
+> we use this to delete machines once they reach the agreed criteria.
 
-> On Jan 29, 2018, at 3:43 PM, Vernon Mauery =
-<vernon.mauery@linux.intel.com> wrote:
->=20
-> On 29-Jan-2018 10:52 AM, Brad Bishop wrote:
->> I know we have a lot of work to do with the basics before tackling =
-something
->> like supporting multiple BMCs in a single system, but its never too =
-early to
->> brainstorm.
->>=20
->> Quick community poll:  Please share any thoughts you may have around =
-supporting
->> systems with multiple BMCs.  Does your organization care?  Thoughts =
-on how it
->> could/should be done?  System designs that are a non-starter for =
-OpenBMC?
->=20
-> Intel has supported systems like this in the past, and it is likely =
-that we will have need of multi-node/multi-bmc systems in the future.
+From a primarily consumer of OpenBMC perspective, I think it's okay to
+remove them. Booting the host on Firestone/Garrison with OpenBMC has
+always been somewhat sketchy.
 
-Thanks Vernon - its good to hear there might be room to collaborate on =
-this.
-
->=20
-> Our systems in the past have been sled-based with four sleds =
-(BMC+host) per chassis and the BMCs connected via I2C over the =
-backplane.  One of the BMCs was elected (based on availability and ID) =
-to be the master for the system to control the shared resources (power =
-supplies and other common stuff).=20
-> Each BMC was individually accessible in the normal ways (KCS from host =
-or RMCP/web over the network).
->=20
-> Is this the sort of stuff that you are looking for or were you =
-thinking of BMC redundancy for a single system?
-
-I think so yes.  Very similar to what you describe but with a single
-SMP fabric across all the sleds.  I think in practice it doesn=E2=80=99t
-make much difference - the SMP fabric would just another shared
-resource amongst the sleds.
-
->=20
-> --Vernon
+-- 
+Stewart Smith
+OPAL Architect, IBM.
