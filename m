@@ -3,53 +3,58 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
  (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VEpMb+Ft"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="oKsrj/YX"; 
  dkim-atps=neutral
 Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
  [IPv6:2607:f8b0:400d:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zVwpK23spzF0T8
- for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 17:05:13 +1100 (AEDT)
-Received: by mail-qk0-x243.google.com with SMTP id l64so8742403qke.13
- for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 22:05:12 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zVx6c0PqkzDqyL
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 17:19:19 +1100 (AEDT)
+Received: by mail-qk0-x243.google.com with SMTP id l29so8768626qkj.8
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Jan 2018 22:19:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:from:date:message-id:subject:to:cc;
- bh=MlDbBhUCQAKp/Lx7Gj4JrL+DqyX5bqMXi+V/FYotGC8=;
- b=VEpMb+FtCDXLnEnR8znWaAu5UsDr45bghPgymDqQGfD7vVNwCwXKwnyb+lH17frZZN
- 88MG81QSWUvLDBdjFVoHzzOakfnq7ee9d63sa3lilqVEuCDzBECM0iFyduerDf8WDb4v
- M6xx5r/OB2p7x1atQgsaHyb7HBTkUsZv3EwqW+moKVehBfKrDvq2Ip9q73vEIKEYx9Kk
- 4fRtTXMdIZqYm1X8a3U0LV9G2Eg8ti/94eYKBsY69UdJojk/xqHbI03w9PKLW0ei6Dfs
- DfRqeE26Or/qKBN5Kvh+SaAkdOv4yXVgSFLlC8oLTez3v1rOX9ARMVSeMUiLTWUnSzjr
- YMXw==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=m3LukbpUR9avbQEJfSfH+nmiAXBTplJ2h9gXgLZq1nc=;
+ b=oKsrj/YXPKxA4I29BK3lmRtIAFVm2DJVgKlH+bVHDxHihLKkuPzFctcALWo8CbNtNf
+ zupLi9S73SbUDm5WpEvdtW8aTTBBHKcdlv5wsxfnng9DaqPjf9lGn5bVlVtQimwCFql7
+ +lWvT0Xn6r/Q6GYnwXO0OCai4gE5FILuIUUg26ofUydC84EGutd1NozbmXngiPp2OHmg
+ SDVUDmP4gVvX9ja0kfICJGZU5T+4DGE/fUFM8LmKIYd01cWmW6xdc8+IFGEPTTqwktEc
+ wVNE8W9prsDN3zUaCmqIZNhgoT82mKuF22s43kP+YIbVNWxLafKaaVxCHIzhk90t3R5X
+ iB5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to:cc;
- bh=MlDbBhUCQAKp/Lx7Gj4JrL+DqyX5bqMXi+V/FYotGC8=;
- b=Jrmm2vsQjDbUKLLUzy16nBeLNWkl/j59CWj6eI8u4UHGBZ1X4VvLR09fD2Fd3sqC98
- pVyjY0UlZN9l5hT/cHnaAPKd1r6UPfC9qDCbfbwejV3ReATdPHWEdW9zt8OnUw7tMm+C
- 6Imr2vRgsf1U3g25FmyZQTTf0INOXVvtmqwRbyHZ8jrEBtY3SMtp/pMXZ3Ph2XMMpaDN
- U7T6KBiyxpAYtWTQcRcwXVQwdJ2rcX7RsH7WLBkhvziYbmUm5kBMYBV+unS0psMv2td8
- uV0NedkUzX/p+oBZXAGf9WRtWLimLYaN9LFqybRBNwkrptDX1h6PBfhl66YDtQnul7Iq
- PozQ==
-X-Gm-Message-State: AKwxytfzsg5ifZVoX+xHmnRuAY6S6shPuB24hpwCzPw9QXUcaZpYx/lA
- N6/byETX8BEjKIB/ijfOfCOoVAnEa+eIuY+brsk=
-X-Google-Smtp-Source: AH8x227teC+TI7cUuxm625rcl2nDe7oy7cySWuBu0RCwSYzRRPYSNmEgQH/PcBxjJ3lBwvc1j/0/PswUjEZiqJpLPLc=
-X-Received: by 10.55.217.20 with SMTP id u20mr38103860qki.52.1517292310626;
- Mon, 29 Jan 2018 22:05:10 -0800 (PST)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=m3LukbpUR9avbQEJfSfH+nmiAXBTplJ2h9gXgLZq1nc=;
+ b=kb7JU3oJ7Pcb7VluCk+mA/E8dF81Xhl8Yi+9B4uoAqNSvoMr/i/HVWwSj1YMLFox04
+ eMrMvuY7Y7/vq0+qGgJ+Tdwn0z95PxfRzV4xB1pxmEYjyNg4He+6OgtOwvAy6+yDIvQB
+ kMoslbtkszznv9Mpguvi6T7XJkTwcepq2Vcw1bVodi8DssC/EMwY58ZsW5QpROfkhXoV
+ pWndzRY2aVh6BaxGffBUvQ48RCPOwjo86JlY26z7YC6BZM8ULhoplWjYWaZ4NOIJZK2D
+ pu7SO9RFrjdW4MCj4e0oJOV5R79rG0uSNDrtdOci24sAiB9X1Y2ymz5XBU79chjPXQ+T
+ E2Xw==
+X-Gm-Message-State: AKwxyteWzNFRQvUloIkTxsO9BB6pQFotAKXxorG4ol2yw39s+kEyEZAQ
+ PrUqqd4YaeVH69fu5NY+7uV+oCCeRgyBsegz6BI=
+X-Google-Smtp-Source: AH8x227uQgbG9qML2Df/4dmcOdEBoYGzyXflY393gHWZ7xPi+zjhf6iVIyOd/6YBbyLt+A0UCxUZXPrx5R1MHRK5GYY=
+X-Received: by 10.55.95.198 with SMTP id t189mr38016279qkb.273.1517293157819; 
+ Mon, 29 Jan 2018 22:19:17 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.49.93 with HTTP; Mon, 29 Jan 2018 22:04:50 -0800 (PST)
+Received: by 10.200.49.93 with HTTP; Mon, 29 Jan 2018 22:18:57 -0800 (PST)
+In-Reply-To: <87shaoymux.fsf@linux.vnet.ibm.com>
+References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
+ <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
+ <1517207425.21006.27.camel@aj.id.au>
+ <87shaoymux.fsf@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 30 Jan 2018 16:34:50 +1030
-X-Google-Sender-Auth: bdY-12DwioopW37y64adv-A6N-M
-Message-ID: <CACPK8XeH9uS7G6_k1JLxfx3678U=Dkk_2SYyQSQuQk8GSJ9-Sw@mail.gmail.com>
-Subject: Outstanding FSI core patches
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- Jeremy Kerr <jk@ozlabs.org>, eajames <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
+Date: Tue, 30 Jan 2018 16:48:57 +1030
+X-Google-Sender-Auth: wXv8xh9rFkCiWa1sAdCkNdbB2rQ
+Message-ID: <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
+Subject: Re: BMC Image Signing Proposal
+To: Stewart Smith <stewart@linux.vnet.ibm.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Alexander Amelkin <a.amelkin@yadro.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
@@ -62,41 +67,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Jan 2018 06:05:13 -0000
+X-List-Received-Date: Tue, 30 Jan 2018 06:19:20 -0000
 
-Hello FSI team,
+On Tue, Jan 30, 2018 at 3:17 PM, Stewart Smith
+<stewart@linux.vnet.ibm.com> wrote:
+> Andrew Jeffery <andrew@aj.id.au> writes:
+>> On Fri, 2018-01-26 at 14:07 +0300, Alexander Amelkin wrote:
 
-I've got a queue of patches that I've recovered from the openbmc
-mailing list and lkml that we should really have had upstream by now.
+>>> 2. U-Boot already performs image checksum validation before booting a
+>>> FIT image
+>>
+>> Typically the rootfs is not part of the FIT, so it will not be checked.
+>>     Some systems supported by OpenBMC directly mount the rootfs rather
+>> than booting through an initrd, which makes rootfs authentication
+>> somewhat tricky. Regardless, with signed images we should expand the
+>> FIT hash check to be a full signature check.
+>
+> dm-verity would solve that (for a ro rootfs).
 
-You can view the list here:
+dm-verity is a worthwhile technology, but being based on device mapper
+and therefore block devices, we can't use it for MTD devices, which is
+all of the upstream OpenBMC machines at this moment.
 
- https://github.com/shenki/linux/commits/fsi-next
+I would suggest using some kind of pre-mount verification of the raw
+MTD device against a stored checksum would be the way to go. This
+would imply the use of an initrd (as we would need somewhere to store
+the tools that do the verification). The initrd itself would be
+verified by u-boot checking the FIT.
 
-I sent out the no-scan-on-init patch today for review by the device tree people.
-
-The rest have all been reviewed in the past. I intend to send them out
-for Greg KH to pick up on your behalf. If you have any objections, or
-would prefer to send them yourself, please let me know.
+Future contributors to OpenBMC that have eMMC hardware do have the
+option of using dm-verity.
 
 Cheers,
 
 Joel
-
----
-
-Christopher Bostic (3):
-      fsi: core: Reduce console output during normal scan
-      dt-bindings: fsi: Add optional property no-scan-on-init
-      fsi: core: Add check for master property no-scan-on-init
-
-Eddie James (1):
-      fsi: Fix one and two byte bus reads/writes
-
-Jeremy Kerr (6):
-      fsi: Add fsi_master_rescan()
-      fsi: master-gpio: Add locking during break and link enable
-      fsi: master-gpio: Add external mode
-      dt-bindings: fsi: Add specification for FSI busses
-      fsi: Match fsi slaves and engines to available dt nodes
-      fsi: master: Clarify master lifetimes & fix use-after-free in hub master
