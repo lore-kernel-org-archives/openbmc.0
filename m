@@ -1,57 +1,70 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <f.fainelli@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::242; helo=mail-qk0-x242.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=f.fainelli@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rd2tg8me"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="HYGDrOA0"; 
  dkim-atps=neutral
-Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
- [IPv6:2607:f8b0:400d:c09::242])
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zWSXd42HgzDqjm
- for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 13:55:13 +1100 (AEDT)
-Received: by mail-qk0-x242.google.com with SMTP id y80so12951380qkb.4
- for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 18:55:12 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zWSkJ2r17zDqkr
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 14:03:35 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id i1so20055067qtj.8
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 19:03:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to; bh=elam+iRlA9Ou4uRTzrAGGkl/T/LUJobfavZ9LH2M5YY=;
- b=Rd2tg8metq41HHQpxscd8YVt2b+1VDYsMREoTL/7hKII43kIieYU323c7Fq/qPesfW
- qt9E5f1FIZFQOW6+sqVZx6GwWTAopUaYN+ItOhnyzACDGUGAf/SoQoo7dMz2rGuV4Oov
- XZRRRmLIuUbBC/ILThq7oAYAzD8gilDdcr/zfHzGw1ikty2ZvTNw+wURvRffrWGgq/ZY
- xAiSKXN0l49JBwgrK40MxYVNEgcRlOxVOtkzuP1LvNWPXXHxI85JIdHCXq/Fr72wWHjM
- B1vLa1+clX+4lJp22sQceuNp8+UfLtQwdJtpk/Mf6cE2IyBDs25mn8EF2h9yPkNT9U/T
- A8zg==
+ h=from:subject:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=0nbenLWKAKZe4OXNNgpOxyoDYsxfdDCIKGIERFtBFQI=;
+ b=HYGDrOA0N3qiSpm0OXK19wAib0M9r/YUpXgwdsGFw1cwBEKjuBCj1PB0cn9hSuar/3
+ pIa3vMXchftvHBnk+gIjBcNOmeUHV8JKkbcrNY4N31rrC9DYDFW3Lj/7m1vLhOucGvpH
+ owtJtVz5q5IlcnEwDSRcOWcqqyv2LMY6o1DKi2zNicg8hIoh+B69aaJpO9fdM3CVORlh
+ Nlbfeb7swtX++5KAyY0V6lZFDJ2fbXlXc1Yt0PMml5K6cA9JjFcPOVOc+hD1QNUbuWOm
+ i2JznUGPbykxWYN10E7XqeHATcrkAqyY/vbMaEQbf3ZUFWvmgwqzJGbNjVoJmGdNd8iB
+ G7kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to;
- bh=elam+iRlA9Ou4uRTzrAGGkl/T/LUJobfavZ9LH2M5YY=;
- b=hbbudew2paTLbITM80sC3Kt8hP34Fz6PQwKFcUWi4WAs1EqF3OeeJRVaYK4lEf2UW/
- T2uPgFAiBPIwQf0VXRm+m9TPAgoBXgDxBZcWAj1dvphzufL2JdipyL9DOsnauMLQ+3t5
- ZW4Vekyvo/OTjT+/FajYYUETKqLkRiGHEyBcSIT/rsT0dV3DKmUFr5o3MuTF6awaAr6c
- ZnNfQsBLGh+MhlNvGJEFw0b9AX4zJd8zCTH45lPl6gmPUWHbLLws6kF3WOFpW3QdtV6c
- V8/6MViYnKJmBaIN5skrpPxvOx2M4V5tqfPb++BTYVOGUBJXvX/0Mxjm8qvnjpU08kDt
- TR+w==
-X-Gm-Message-State: AKwxyteeU9Q8xDCFzj7BByyOCnCNoxB1Hj9wNb5jsU6C5cl8+3igg37p
- VXUR9+WyCZn07BBg4SGgH3Crvx8AuuMZCzYjQaKAjA==
-X-Google-Smtp-Source: AH8x224O3DBY1aVuFMZpJLx9/dKmL82JlH46l3QL4TC7SPxhvf/kHnvGzHEQ/u8A0DBdTbAWZ+MI+LBjH+qlSCI0cXY=
-X-Received: by 10.55.198.155 with SMTP id s27mr756682qkl.284.1517367310678;
- Tue, 30 Jan 2018 18:55:10 -0800 (PST)
+ h=x-gm-message-state:from:subject:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=0nbenLWKAKZe4OXNNgpOxyoDYsxfdDCIKGIERFtBFQI=;
+ b=iDojnMjZt0oyD26hKpzxyC75ReDunAoB0jt2viz8024BTHQ7Ni8Sbom1pQawNbh57K
+ AMsoHAwssWOrrpG5EkZjeH7BI/1xoUgG1iArjyu85Afcy0AjqbM93sd9nZtQ2ny06EkF
+ yjsG3E9aF1X/75Kbtrpr+RtY/CLljBZ1NLTVj3LxfGSoNPjczteZXTH7N1GY7rc9awl9
+ bpPL4XR/fRNqHoB590JVfEq6YWXaxtu3Omye261+S5ye8rwF7FJxkOQO/SEVT8cEuBsb
+ xjG6oI9wNMu8vEULoH47iW7uA0lx64oZncmDY+e541LVJivGcfI2Lwwy0m/QOIVkpL/m
+ I+dw==
+X-Gm-Message-State: AKwxytd1B01/4cFX8GZxdpam2p55dOvCumEuQclCjJY/eIuNI/um27XP
+ hNqY/3T6pmtaUBQTsJNKpvU=
+X-Google-Smtp-Source: AH8x224OJa5J3ZsT8vXS5T1d562nboUzwuIV8UXDuvU+UTuNFqIv5+++p4xRfLEyphH3KQ1umx3FEA==
+X-Received: by 10.237.32.225 with SMTP id 88mr1231620qtb.99.1517367813567;
+ Tue, 30 Jan 2018 19:03:33 -0800 (PST)
+Received: from ?IPv6:2001:470:d:73f:60d3:5d7f:dbfa:245f?
+ ([2001:470:d:73f:60d3:5d7f:dbfa:245f])
+ by smtp.gmail.com with ESMTPSA id y29sm12774910qtk.47.2018.01.30.19.03.30
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 30 Jan 2018 19:03:32 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+Subject: Re: [patch v18 0/4] JTAG driver introduction
+To: Oleksandr Shamray <oleksandrs@mellanox.com>, gregkh@linuxfoundation.org,
+ arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com, robh+dt@kernel.org,
+ openocd-devel-owner@lists.sourceforge.net, linux-api@vger.kernel.org,
+ davem@davemloft.net, mchehab@kernel.org
+References: <1517236305-4880-1-git-send-email-oleksandrs@mellanox.com>
+Message-ID: <ff739c26-d3b2-3df7-e751-fbf037ae96d1@gmail.com>
+Date: Tue, 30 Jan 2018 19:03:29 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.49.93 with HTTP; Tue, 30 Jan 2018 18:54:50 -0800 (PST)
-In-Reply-To: <20180131023947.24832-2-joel@jms.id.au>
-References: <20180131023947.24832-1-joel@jms.id.au>
- <20180131023947.24832-2-joel@jms.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 31 Jan 2018 13:24:50 +1030
-X-Google-Sender-Auth: GTMGNOo3vf1vY_6S0CGgB2lVzEY
-Message-ID: <CACPK8XfOsJMfF0_PXMRgxsb_BSz8pK91k661iyTiA2f=jd6=hw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ARM: dts: aspeed: Add IPMI BT node
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <1517236305-4880-1-git-send-email-oleksandrs@mellanox.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -63,61 +76,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Jan 2018 02:55:14 -0000
+X-List-Received-Date: Wed, 31 Jan 2018 03:03:37 -0000
 
-On Wed, Jan 31, 2018 at 1:09 PM, Joel Stanley <joel@jms.id.au> wrote:
-> The IPMI BT device part of the LPC interface and is used for
-> communication with the host processor.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> v2:
->  Fix bt reg node. It should be an offset from the lpc_host address,
->  not the actual address of the iBT
->
->  arch/arm/boot/dts/aspeed-g4.dtsi | 7 +++++++
->  arch/arm/boot/dts/aspeed-g5.dtsi | 7 +++++++
->  2 files changed, 14 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index e6f4047142a8..7e0da0b8cd12 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -246,6 +246,13 @@
->                                                 reg = <0x20 0x24 0x48 0x8>;
->                                         };
->
-> +                                       ibt: ibt@140 {
-> +                                               compatible = "aspeed,ast2400-ibt-bmc";
-> +                                               reg = <0xc0 0x18>;
-> +                                               interrupts = <8>;
-> +                                               status = "disabled";
-> +                                       };
-> +
->                                         mbox: mbox@180 {
->                                                 compatible = "aspeed,ast2400-mbox";
->                                                 reg = <0x180 0x5c>;
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> index b7b42c7c89e1..f1b2fa204873 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -299,6 +299,13 @@
->                                                 reg = <0x20 0x24 0x48 0x8>;
->                                         };
->
-> +                                       ibt: ibt@140 {
+On 01/29/2018 06:31 AM, Oleksandr Shamray wrote:
+> When a need raise up to use JTAG interface for system's devices
+> programming or CPU debugging, usually the user layer
+> application implements jtag protocol by bit-bang or using a 
+> proprietary connection to vendor hardware.
+> This method can be slow and not generic.
+>  
+> We propose to implement general JTAG interface and infrastructure
+> to communicate with user layer application. In such way, we can
+> have the standard JTAG interface core part and separation from
+> specific HW implementation.
+> This allow new capability to debug the CPU or program system's 
+> device via BMC without additional devices nor cost. 
 
-I forgot to update the node name.
+Oleksandr, you have completed dodged my questions here:
 
-> +                                               compatible = "aspeed,ast2500-ibt-bmc";
-> +                                               reg = <0xc0 0x18>;
-> +                                               interrupts = <8>;
-> +                                               status = "disabled";
-> +                                       };
-> +
->                                         mbox: mbox@180 {
->                                                 compatible = "aspeed,ast2500-mbox";
->                                                 reg = <0x180 0x5c>;
-> --
-> 2.15.1
->
+https://lkml.org/lkml/2017/12/25/163
+
+can you try to respond to some of these questions please?
+-- 
+Florian
