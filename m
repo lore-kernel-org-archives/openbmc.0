@@ -1,70 +1,70 @@
-Return-Path: <f.fainelli@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
- envelope-from=f.fainelli@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="HYGDrOA0"; 
- dkim-atps=neutral
-Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
- [IPv6:2607:f8b0:400d:c0d::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <dkodihal@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zWSkJ2r17zDqkr
- for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 14:03:35 +1100 (AEDT)
-Received: by mail-qt0-x241.google.com with SMTP id i1so20055067qtj.8
- for <openbmc@lists.ozlabs.org>; Tue, 30 Jan 2018 19:03:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:subject:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=0nbenLWKAKZe4OXNNgpOxyoDYsxfdDCIKGIERFtBFQI=;
- b=HYGDrOA0N3qiSpm0OXK19wAib0M9r/YUpXgwdsGFw1cwBEKjuBCj1PB0cn9hSuar/3
- pIa3vMXchftvHBnk+gIjBcNOmeUHV8JKkbcrNY4N31rrC9DYDFW3Lj/7m1vLhOucGvpH
- owtJtVz5q5IlcnEwDSRcOWcqqyv2LMY6o1DKi2zNicg8hIoh+B69aaJpO9fdM3CVORlh
- Nlbfeb7swtX++5KAyY0V6lZFDJ2fbXlXc1Yt0PMml5K6cA9JjFcPOVOc+hD1QNUbuWOm
- i2JznUGPbykxWYN10E7XqeHATcrkAqyY/vbMaEQbf3ZUFWvmgwqzJGbNjVoJmGdNd8iB
- G7kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=0nbenLWKAKZe4OXNNgpOxyoDYsxfdDCIKGIERFtBFQI=;
- b=iDojnMjZt0oyD26hKpzxyC75ReDunAoB0jt2viz8024BTHQ7Ni8Sbom1pQawNbh57K
- AMsoHAwssWOrrpG5EkZjeH7BI/1xoUgG1iArjyu85Afcy0AjqbM93sd9nZtQ2ny06EkF
- yjsG3E9aF1X/75Kbtrpr+RtY/CLljBZ1NLTVj3LxfGSoNPjczteZXTH7N1GY7rc9awl9
- bpPL4XR/fRNqHoB590JVfEq6YWXaxtu3Omye261+S5ye8rwF7FJxkOQO/SEVT8cEuBsb
- xjG6oI9wNMu8vEULoH47iW7uA0lx64oZncmDY+e541LVJivGcfI2Lwwy0m/QOIVkpL/m
- I+dw==
-X-Gm-Message-State: AKwxytd1B01/4cFX8GZxdpam2p55dOvCumEuQclCjJY/eIuNI/um27XP
- hNqY/3T6pmtaUBQTsJNKpvU=
-X-Google-Smtp-Source: AH8x224OJa5J3ZsT8vXS5T1d562nboUzwuIV8UXDuvU+UTuNFqIv5+++p4xRfLEyphH3KQ1umx3FEA==
-X-Received: by 10.237.32.225 with SMTP id 88mr1231620qtb.99.1517367813567;
- Tue, 30 Jan 2018 19:03:33 -0800 (PST)
-Received: from ?IPv6:2001:470:d:73f:60d3:5d7f:dbfa:245f?
- ([2001:470:d:73f:60d3:5d7f:dbfa:245f])
- by smtp.gmail.com with ESMTPSA id y29sm12774910qtk.47.2018.01.30.19.03.30
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 30 Jan 2018 19:03:32 -0800 (PST)
-From: Florian Fainelli <f.fainelli@gmail.com>
-Subject: Re: [patch v18 0/4] JTAG driver introduction
-To: Oleksandr Shamray <oleksandrs@mellanox.com>, gregkh@linuxfoundation.org,
- arnd@arndb.de
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
- jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
- vadimp@mellanox.com, system-sw-low-level@mellanox.com, robh+dt@kernel.org,
- openocd-devel-owner@lists.sourceforge.net, linux-api@vger.kernel.org,
- davem@davemloft.net, mchehab@kernel.org
-References: <1517236305-4880-1-git-send-email-oleksandrs@mellanox.com>
-Message-ID: <ff739c26-d3b2-3df7-e751-fbf037ae96d1@gmail.com>
-Date: Tue, 30 Jan 2018 19:03:29 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zWYFH3zsdzDqms
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 17:27:14 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w0V6Qf8R077289
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 01:27:12 -0500
+Received: from e06smtp15.uk.ibm.com (e06smtp15.uk.ibm.com [195.75.94.111])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2fu8heg10t-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 01:27:12 -0500
+Received: from localhost
+ by e06smtp15.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Wed, 31 Jan 2018 06:27:10 -0000
+Received: from b06cxnps3074.portsmouth.uk.ibm.com (9.149.109.194)
+ by e06smtp15.uk.ibm.com (192.168.101.145) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 31 Jan 2018 06:27:08 -0000
+Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
+ [9.149.105.60])
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w0V6R8nP1180014
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 06:27:08 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 39EF542049
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 06:20:15 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DE81F42045
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 06:20:14 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.203.113])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 06:20:14 +0000 (GMT)
+Subject: Re: BMC redundancy
+To: openbmc@lists.ozlabs.org
+References: <AFD7FFE5-8EA8-41FF-85C9-71AF312D4775@fuzziesquirrel.com>
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Wed, 31 Jan 2018 11:57:07 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
+ Gecko/20100101 Thunderbird/52.5.2
 MIME-Version: 1.0
-In-Reply-To: <1517236305-4880-1-git-send-email-oleksandrs@mellanox.com>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <AFD7FFE5-8EA8-41FF-85C9-71AF312D4775@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18013106-0020-0000-0000-000003F0A21D
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18013106-0021-0000-0000-00004283051C
+Message-Id: <c4150294-f1db-8e43-42cd-c0c7d90d8c47@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-01-31_01:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1801310085
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -76,26 +76,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Jan 2018 03:03:37 -0000
+X-List-Received-Date: Wed, 31 Jan 2018 06:27:16 -0000
 
-On 01/29/2018 06:31 AM, Oleksandr Shamray wrote:
-> When a need raise up to use JTAG interface for system's devices
-> programming or CPU debugging, usually the user layer
-> application implements jtag protocol by bit-bang or using a 
-> proprietary connection to vendor hardware.
-> This method can be slow and not generic.
->  
-> We propose to implement general JTAG interface and infrastructure
-> to communicate with user layer application. In such way, we can
-> have the standard JTAG interface core part and separation from
-> specific HW implementation.
-> This allow new capability to debug the CPU or program system's 
-> device via BMC without additional devices nor cost. 
+On 29/01/18 9:22 pm, Brad Bishop wrote:
+> I know we have a lot of work to do with the basics before tackling something
+> like supporting multiple BMCs in a single system, but its never too early to
+> brainstorm.
+> 
+> Quick community poll:  Please share any thoughts you may have around supporting
+> systems with multiple BMCs.  Does your organization care?  Thoughts on how it
+> could/should be done?  System designs that are a non-starter for OpenBMC?
+> 
+> Would love to see some brain-dumps here.
+> 
+> thx - brad
+> 
 
-Oleksandr, you have completed dodged my questions here:
+I had some thoughts/questions on messaging protocols that multiple BMCs 
+within the same system (potentially managing their own sleds) may employ 
+to talk to each other. I'm not getting into how the BMCs discover and 
+address each other. I see two broad use-cases for a peer BMC 
+communication in such a system :
 
-https://lkml.org/lkml/2017/12/25/163
+- A group operation : where an external agent talks to a single BMC (for 
+the want of not having to query each BMC), but wants an aggregate of 
+information. For eg the agent wants to collect error logs, it talks to a 
+single BMC but expects that BMC would give back an aggregation of errors 
+across all peer BMCs.
 
-can you try to respond to some of these questions please?
--- 
-Florian
+- There may be reasons for a BMC to itself initiate communication with 
+one or more peers.
+
+
+I was interested in brainstorming what protocol should the BMCs use for 
+peer communication. What I had in mind though was, can this be done by 
+leveraging the existing D-Bus/REST API, as opposed to employing a new 
+protocol (I've looked at some such as Protobufs/gRPC, MQTT, etc).
+
+
+So several of the existing OpenBMC apps implement specific D-Bus 
+services. What does it take to make remote D-Bus calls to such apps?
+- It doesn't look like the D-Bus spec or libdbus officially has anything 
+for D-Bus across computers. There are some good notes at 
+https://www.freedesktop.org/wiki/Software/DBusRemote/.
+- There are ways to achieve this via Qt D-Bus, but it would involve some 
+amount tweaking with the D-Bus configs.
+- I'm not aware of any open/active project implementing remote D-Bus.
+- Thoughts on doing remote D-Bus over WebSockets? For instance one could 
+write a serialized D-Bus message over a WebSocket that has been 
+established between two BMCs. Since WebSockets are full-duplex, they 
+could also be used to receive events/D-Bus signals from peer BMCs 
+asynchronously.
+
+
+How about using REST for the peer to peer communication? Although this 
+would mean each of the peer BMCs in the system would need a REST server 
+and client implementation. The 'group operation' I've mentioned above 
+seems a logical fit to do this, presuming an external agent would be 
+using a REST API to talk to one of the BMCs, and the REST server 
+implementation on that BMC has to propagate/multicast that API to all 
+its peers, and then aggregate the responses.
+If it's a D-Bus app wanting to talk to a counterpart app on a peer BMC, 
+then it would have to use the REST client to send an https request.
+
+
+Thanks,
+Deepak
