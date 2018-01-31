@@ -1,66 +1,77 @@
-Return-Path: <Michael.E.Brown@dell.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.220; helo=esa2.dell-outbound.iphmx.com;
- envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="brsiXU+r"; 
- dkim-atps=neutral
-Received: from esa2.dell-outbound.iphmx.com (esa2.dell-outbound.iphmx.com
- [68.232.149.220])
+Return-Path: <anoo@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zWpzf3phrzDqps
- for <openbmc@lists.ozlabs.org>; Thu,  1 Feb 2018 03:46:21 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1517417182; x=1548953182;
- h=from:cc:to:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=OzTjCFwxTG1DpMBnTgeuFW115m7MrTltuLIy1pNsZMA=;
- b=brsiXU+rIEWUNysEj1/tiJ0oYCLwDrBngccA7siS7JPOORAp3P/qJZ+U
- p/AJCTg6ApxZ0BOfU8tTMxs4yB7WzZAV2SlLcdnemrOttS0rWQoLpY/v1
- 8D+CsnRvMPXTTg6hKmdcwcdFrL1dcpSWvSpYUYhAmR15uuzqzEiK0h8JQ s=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2HtAABs8nFahz+a6ERcGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQYgQUoCoNWmE+CAoIBjVaHb4IXChiFIwIagjVWFgEBAQEBAQE?=
- =?us-ascii?q?BAgECEAEBAQoLCQgoL4I4IoJKAQEBBAEXCxFFDAQCAQgRBAEBAwIjAwICAiYeA?=
- =?us-ascii?q?QgIAgQTCAyKIacfgieKYgEBCAEBAQEBI4EPg0yCFYM/gy6DLwSBWR0zgl2CZQW?=
- =?us-ascii?q?kHgqPRYYUgiaGIotul2mBPCYOgXVwUoIqgmWCEniJXSyBBoEXAQEB?=
-X-IPAS-Result: =?us-ascii?q?A2HtAABs8nFahz+a6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?YgQUoCoNWmE+CAoIBjVaHb4IXChiFIwIagjVWFgEBAQEBAQEBAgECEAEBAQoLC?=
- =?us-ascii?q?QgoL4I4IoJKAQEBBAEXCxFFDAQCAQgRBAEBAwIjAwICAiYeAQgIAgQTCAyKIac?=
- =?us-ascii?q?fgieKYgEBCAEBAQEBI4EPg0yCFYM/gy6DLwSBWR0zgl2CZQWkHgqPRYYUgiaGI?=
- =?us-ascii?q?otul2mBPCYOgXVwUoIqgmWCEniJXSyBBoEXAQEB?=
-Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
- by esa2.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2018 10:46:18 -0600
-From: <Michael.E.Brown@dell.com>
-Cc: <alirhas@microsoft.com>, <Balaji.B.Rao@dell.com>, <Paul.Vancil@dell.com>, 
- <ed.tanous@intel.com>, <rolfb@us.ibm.com>, <jwcarman@us.ibm.com>,
- <hramasub@in.ibm.com>, <pradeep.kumar36@tcs.com>, <openbmc@lists.ozlabs.org>
-Received: from ausxipps301.us.dell.com ([143.166.148.223])
- by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2018 22:43:03 +0600
-X-LoopCount0: from 10.166.132.71
-X-IronPort-AV: E=Sophos;i="5.46,440,1511848800"; d="scan'208";a="122626561"
-X-DLP: DLP_GlobalPCIDSS
-To: <bradleyb@fuzziesquirrel.com>
-Subject: RE: Redfish on OpenBMC
-Thread-Topic: Redfish on OpenBMC
-Thread-Index: AQHTmjMGgVazjCpVJkm7ZKYhcdFs4KOOLT/w
-Date: Wed, 31 Jan 2018 16:46:16 +0000
-Message-ID: <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
-References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
-In-Reply-To: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zWwtF4btyzDrHc
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Feb 2018 08:12:05 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w0VL9wtu125431
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 16:12:02 -0500
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2fun1th1f7-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 16:12:01 -0500
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
+ Wed, 31 Jan 2018 14:12:01 -0700
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 31 Jan 2018 14:11:59 -0700
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w0VLBxBJ9568512
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 14:11:59 -0700
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5E29BBE040
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 14:11:59 -0700 (MST)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 38FC4BE039
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2018 14:11:59 -0700 (MST)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 31 Jan 2018 15:13:05 -0600
+From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: Re: BMC Image Signing Proposal
+In-Reply-To: <87lggezywe.fsf@linux.vnet.ibm.com>
+References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
+ <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
+ <1517207425.21006.27.camel@aj.id.au> <87shaoymux.fsf@linux.vnet.ibm.com>
+ <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
+ <87lggezywe.fsf@linux.vnet.ibm.com>
+X-Sender: anoo@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18013121-0020-0000-0000-00000D624E27
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008457; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000248; SDB=6.00983165; UDB=6.00498598; IPR=6.00762448; 
+ BA=6.00005806; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019308; XFM=3.00000015;
+ UTC=2018-01-31 21:12:01
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18013121-0021-0000-0000-00005FED3FB1
+Message-Id: <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-01-31_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1801310263
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -72,61 +83,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Jan 2018 16:46:24 -0000
+X-List-Received-Date: Wed, 31 Jan 2018 21:12:06 -0000
 
-U28sIEkgdGhpbmsgdGhhdCB0aGUgZmlyc3QgdGhpbmcgd2Ugb3VnaHQgdG8gZG8gaXMgZ2V0IGEg
-c3VydmV5IG9mIHRoZSBkaWZmZXJlbnQgaW1wbGVtZW50YXRpb25zIHRoYXQgYXJlIG91dCB0aGVy
-ZSwgYW5kIGVzdGFibGlzaCBjcml0ZXJpYSBmb3IganVkZ2luZyBkaWZmZXJlbnQgaW1wbGVtZW50
-YXRpb25zLg0KDQpIZXJlIHdvdWxkIGJlIGEgbGlzdCBvZiBxdWVzdGlvbnMgSSB3b3VsZCBoYXZl
-IGZvciBldmVyeWJvZHkgb24gdGhlIGxpc3QuIEkgdGhpbmsgaXQgd291bGQgcHJvYmFibHkgYmUg
-YmVzdCB0byBjb21waWxlIGFsbCBvZiB0aGVzZSBpbnRvIGEgd2lraSBwYWdlIHNvbWV3aGVyZS4N
-Cg0KICAgLSBEbyB5b3UgaGF2ZSBhIHJlZGZpc2ggc2VydmVyIGltcGxlbWVudGF0aW9uPw0KICAg
-LSBJcyBpdCBPcGVuIFNvdXJjZT8NCgktIElmIG5vdCwgYXJlIHlvdSBwbGFubmluZyBvbiBvcGVu
-IHNvdXJjaW5nIGl0Pw0KCS0gV2hhdCBpcyB0aGUgbGljZW5zZT8NCgktIElzIGl0IHBvc3RlZCB0
-byBnaXRodWIgb3Igb3RoZXIgcHVibGljIHNvdXJjZSBjb250cm9sPw0KICAgLSBEb2VzIGl0IHBh
-c3MgdGhlIERNVEYgcmVkZmlzaCBzZXJ2aWNlIHZhbGlkYXRvcj8NCiAgIC0gV2hhdCBsYW5ndWFn
-ZSBpcyBpdCB3cml0dGVuIGluPw0KICAgLSBIb3cgYmlnIGlzIGl0Pw0KICAgLSBDYW4gaXQgYmUg
-ZWFzaWx5IGV4dGVuZGVkL3JlLXVzZWQgYnkgYW55Ym9keSBlbHNlIHNoaXBwaW5nIGNvbXBsaWFu
-dCBvcGVuYm1jIGltcGxlbWVudGF0aW9ucz8NCgktIENhbiB5b3UgYWRkIE9FTSBleHRlbnNpb25z
-IHRvIGV4aXN0aW5nIFJlZGZpc2ggUmVzb3VyY2VzIHdpdGhvdXQgImZvcmtpbmciIHRoZSBjb2Rl
-YmFzZT8NCgktIENhbiB5b3UgY2hhbmdlIHRoZSBpbXBsZW1lbnRhdGlvbiBmb3IgYSBzaW5nbGUg
-UmVkZmlzaCBSZXNvdXJjZSBQcm9wZXJ0eSB3aXRob3V0IGZvcmtpbmc/DQoJLSBDYW4geW91IGFk
-ZCBuZXcgUmVkZmlzaCBSZXNvdXJjZXMgd2l0aG91dCBmb3JraW5nPw0KICAgLSBQZXJmb3JtYW5j
-ZQ0KCS0gSG93IGZhc3QgaXMgaXQ/DQoJLSBEb2VzIGl0IGltcGxlbWVudCBTU0w/DQogICAtIFNl
-Y3VyaXR5DQoJLSBXaGF0IGlzIHRoZSBzZWN1cml0eSBtb2RlbD8NCgktIE5vbi1yb290IHN1cHBv
-cnQ/IENhbiBpdCBydW4gYXMgYSBub24tcHJpdmlsZWdlZCB1c2VyPw0KCS0gRG9lcyBpdCBpbXBs
-ZW1lbnQgYmFzaWMgYXV0aGVudGljYXRpb24gYW5kIHRoZSByZWRmaXNoIHNwZWMgeC1hdXRoLXRv
-a2VuIGF1dGhlbnRpY2F0aW9uPw0KCS0gRG9lcyBpdCBpbXBsZW1lbnQgdGhlIHJlZGZpc2ggc3Rh
-bmRhcmQgcHJpdmlsZWdlIG1hcCBtb2RlbD8NCiAgIC0gRXZlbnRpbmc6DQoJLSBGb3Igd3JpdGlu
-ZyBhIFVJIG9uIHRvcCBvZiByZWRmaXNoLCBzb21ldGhpbmcgbGlrZSBTU0UgaXMgYSBuaWNlLXRv
-LWhhdmUgdG8gYXZvaWQgcG9sbGluZyBpbiB0aGUgYnJvd3Nlci4gVGhlcmUgYXJlIGEgY291cGxl
-IG9mIHByb3Bvc2VkIFNTRSBleHRlbnNpb25zIHRoYXQgaGF2ZSBub3QgeWV0IGJlZW4gYXBwcm92
-ZWQuDQoJCS0gSG93IG11Y2ggd29yayB0byBpbXBsZW1lbnQgU1NFIHN1cHBvcnQgdG8gZG8gdGhp
-bmdzIGxpa2Ugd2F0Y2ggUHJvcGVydHkgY2hhbmdlcz8NCgktIElzIHRoZSBzdGFuZGFyZCByZWRm
-aXNoIGV2ZW50aW5nIG1vZGVsIHN1cHBvcnRlZD8NCgktIFNlY3VyaXR5IG1vZGVsIGludGVncmF0
-ZWQgd2l0aCBldmVudGluZz8gRG8gZXZlbnRpbmcgcmVjb3JkcyBnZXQgdGhlIHNhbWUgc2VjdXJp
-dHkgdHJlYXRtZW50IGFzIEdFVCByZXF1ZXN0cz8NCiAgIC0gRGV2ZWxvcG1lbnQ6IGNhbiBpdCBy
-dW4gb3V0c2lkZSBvZiBvcGVuYm1jPw0KICAgLSBTcGVjaWFsIHNhdWNlOiBpcyB0aGVyZSBhbnl0
-aGluZyBub3QgY2FwdHVyZWQgYWJvdmUgdGhhdCBtYWtlcyB0aGUgaW1wbGVtZW50YXRpb24gc3Bl
-Y2lhbCBpbiBhbnkgd2F5Pw0KDQotLQ0KTWljaGFlbA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQ0KRnJvbTogQnJhZCBCaXNob3AgW21haWx0bzpicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5j
-b21dIA0KU2VudDogVHVlc2RheSwgSmFudWFyeSAzMCwgMjAxOCA3OjMwIFBNDQpUbzogQnJvd24s
-IE1pY2hhZWwgRSA8TWljaGFlbF9FX0Jyb3duQERlbGwuY29tPg0KQ2M6IGFsaXJoYXNAbWljcm9z
-b2Z0LmNvbTsgUmFvLCBCYWxhamkgQiA8QmFsYWppX0JfUmFvQGRlbGwuY29tPjsgVmFuY2lsLCBQ
-YXVsIDxQYXVsX1ZhbmNpbEBEZWxsLmNvbT47IFRhbm91cywgRWQgPGVkLnRhbm91c0BpbnRlbC5j
-b20+OyByb2xmYkB1cy5pYm0uY29tOyBqd2Nhcm1hbkB1cy5pYm0uY29tOyBIYXJpaGFyYXN1YnJh
-bWFuaWFuIFJhbWFzdWJyYW1hbmlhbiA8aHJhbWFzdWJAaW4uaWJtLmNvbT47IHByYWRlZXAua3Vt
-YXIzNkB0Y3MuY29tOyBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+
-DQpTdWJqZWN0OiBSZWRmaXNoIG9uIE9wZW5CTUMNCg0KSGkgTWljaGFlbA0KDQpUaGUgcHJvamVj
-dCBjb3VsZCByZWFsbHkgdXNlIHNvbWVvbmUgdG8gZ2V0IGV2ZXJ5b25lIHRoYXQgaGFzIGV4cHJl
-c3NlZCBpbnRlcmVzdCBpbiB0aGUgZnV0dXJlIG9mIFJlZGZpc2ggc3VwcG9ydCBpbiBPcGVuQk1D
-IHJvd2luZyBpbiB0aGUgc2FtZSBkaXJlY3Rpb24uICBTbyB0aGFuayB5b3UgZm9yIHZvbHVudGVl
-cmluZyB0byBsZWFkIHRoYXQgY29udmVyc2F0aW9uIGF0IHRoZSBjb21tdW5pdHkgY2FsbCB5ZXN0
-ZXJkYXkuDQoNCknigJl2ZSBDQ+KAmWVkIGV2ZXJ5b25lIHRoYXQgSSBrbm93IG9mIHRoYXQgaGFz
-IGV4cHJlc3NlZCBhbiBpbnRlcmVzdC4NCk9wZW5CTUMgY29tbXVuaXR5OiBmZWVsIGZyZWUgdG8g
-c3BlYWsgdXAgaWYgeW914oCZZCBsaWtlIHRvIGJlIGludm9sdmVkIGFuZCBJIGZvcmdvdCB5b3Uu
-DQoNClRoZSBvbmx5IHRoaW5nIEnigJlkIGFzayBpcyB0byBwbGVhc2UgcG9zdCBsaW5rcyB0byBh
-bnkgbWVldGluZ3MsIG1pbnV0ZXMsIG9yIGNvcnJlc3BvbmRlbmNlIGhlcmUgb24gdGhlIGxpc3Qs
-IHNvIGV2ZXJ5b25lIGNhbiBlYXNpbHkga2VlcCB1cCB3aXRoIGhvdyB0aGluZ3MgYXJlIGdvaW5n
-IG9yIGp1bXAgaW4gdG8gcHJvdmlkZSBmZWVkYmFjay4NCg0KdGhhbmtzIGFnYWluDQoNCi1icmFk
-DQo=
+Thanks everybody for your thoughts so far. I'll try to comment on the 
+remaining open questions.
+
+Summarizing, there are 2 different verifications that are desired, one 
+prior to writing the image to flash (using signature check), and one 
+prior to booting the image (FIT verification).
+
+1. Signature check
+
+> Can you take a look at swupdate and reply with your thoughts?
+Yes, thanks Andrew for looking and suggesting this.
+
+> To overcome that the public key should be stored in OTP.
+> We use this method on our Nuvoton Poleg BMC.
+One concern would be if the key is deemed compromised. Avi, does the 
+Nuvoton system have a mechanism for invalidating a key stored in OTP?
+>> The "firmware update" public key in flash (and firmware update code 
+>> itself) would be authenticated by BMC secure boot.
+Per Eugene's comment, maybe we're ok with the key in flash?
+
+> Whatever mechanism is used to generate the signature should be able to 
+> be overridden by an environment variable or something.
+Yes, good point Vernon.
+
+
+2. FIT verification
+
+> Regardless, with signed images we should expand the
+> FIT hash check to be a full signature check.
+Yes, I think there was some agreement on this statement during the 
+hackaton.
+
+> Also - has anybody mentioned using the FIT as a firmware update install 
+> image, in addition to using to boot the kernel?(i.e. FIT within a FIT). 
+> Think the native DFU command in u-boot supports this method. Just a 
+> thought
+Yes, ideally we'd implement FIT verification of the rootfs in addition 
+to the kernel to verify an image before booting.
