@@ -1,72 +1,55 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <ed.tanous@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zXH5p0Wx1zDqkl
- for <openbmc@lists.ozlabs.org>; Thu,  1 Feb 2018 21:53:17 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w11Ancbv089206
- for <openbmc@lists.ozlabs.org>; Thu, 1 Feb 2018 05:53:14 -0500
-Received: from e06smtp15.uk.ibm.com (e06smtp15.uk.ibm.com [195.75.94.111])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2fuxyvq2gk-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 01 Feb 2018 05:53:13 -0500
-Received: from localhost
- by e06smtp15.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Thu, 1 Feb 2018 10:53:12 -0000
-Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
- by e06smtp15.uk.ibm.com (192.168.101.145) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 1 Feb 2018 10:53:10 -0000
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w11Ar42N50135146; Thu, 1 Feb 2018 10:53:04 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B45A4AE16A;
- Thu,  1 Feb 2018 10:44:27 +0000 (GMT)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2B7BAAE177;
- Thu,  1 Feb 2018 10:44:26 +0000 (GMT)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.199.203.113])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Thu,  1 Feb 2018 10:44:25 +0000 (GMT)
-Subject: Re: Redfish on OpenBMC
-To: Michael.E.Brown@dell.com, hramasub@in.ibm.com
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zXRmP1CcGzF0Wx
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Feb 2018 04:23:45 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2018 09:23:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,444,1511856000"; d="scan'208";a="14313643"
+Received: from orsmsx105.amr.corp.intel.com ([10.22.225.132])
+ by orsmga007.jf.intel.com with ESMTP; 01 Feb 2018 09:23:41 -0800
+Received: from orsmsx162.amr.corp.intel.com (10.22.240.85) by
+ ORSMSX105.amr.corp.intel.com (10.22.225.132) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Thu, 1 Feb 2018 09:23:41 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.245]) by
+ ORSMSX162.amr.corp.intel.com ([169.254.3.76]) with mapi id 14.03.0319.002;
+ Thu, 1 Feb 2018 09:23:41 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: "'Michael.E.Brown@dell.com'" <Michael.E.Brown@dell.com>,
+ "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
+CC: "alirhas@microsoft.com" <alirhas@microsoft.com>, "Balaji.B.Rao@dell.com"
+ <Balaji.B.Rao@dell.com>, "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>,
+ "rolfb@us.ibm.com" <rolfb@us.ibm.com>, "jwcarman@us.ibm.com"
+ <jwcarman@us.ibm.com>, "hramasub@in.ibm.com" <hramasub@in.ibm.com>,
+ "pradeep.kumar36@tcs.com" <pradeep.kumar36@tcs.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Redfish on OpenBMC
+Thread-Topic: Redfish on OpenBMC
+Thread-Index: AQHTmjMIXx4JxIn4mE+JYQ1EktHYUaOOt7sA//+D5pA=
+Date: Thu, 1 Feb 2018 17:23:40 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932F662BE8@ORSMSX114.amr.corp.intel.com>
 References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
  <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
- <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
-Cc: openbmc@lists.ozlabs.org
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Thu, 1 Feb 2018 16:23:01 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
- Gecko/20100101 Thunderbird/52.5.2
-MIME-Version: 1.0
-In-Reply-To: <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 18020110-0020-0000-0000-000003F136EC
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18020110-0021-0000-0000-000042839FC4
-Message-Id: <cc30ee65-2fb7-ddd2-b6af-11d665919be6@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-01_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1802010142
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: request-justification,no-action
+x-originating-ip: [10.22.254.138]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -78,159 +61,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Feb 2018 10:53:18 -0000
+X-List-Received-Date: Thu, 01 Feb 2018 17:23:49 -0000
 
-On 01/02/18 2:38 pm, Hariharasubramanian Ramasubramanian wrote:
-> Hi Michael,
-> 
-> Thanks for enumerating the attributes for comparison.
-> 
-> I want to list down a few additional criteria that may be evaluated:
-> 
-> 1) Data-Driven Resource Discovery:
-> - The Redfish server should ideally build it's resource model from a 
-> "config file". This config file could potentially be hand-coded or built 
-> out of a "system definition file". The following are examples of system 
-> definition files for 2 of the systems currently running OpenBMC firmware.
-> https://raw.githubusercontent.com/open-power/zaius-xml/master/zaius.xml
-> https://raw.githubusercontent.com/open-power/witherspoon-xml/master/witherspoon.xml
-> The system architecture (sled vs blade etc.), number of processors, 
-> number of fans etc. can be determined from the system definition file to 
-> generate the config file.
-
-OpenBMC systems already have a "resource model" in the form of the D-Bus 
-object hierarchy. Do you envision having a separate model to depict the 
-Redfish hypermedia resources, or coming up with a way to map Redfish 
-resources to D-Bus objects? This probably ties into the point about how 
-easy it is to take the implementation and run it outside OpenBMC.
-
-> The intent is to make the redfish implementation as system agnostic as 
-> possible.
-> 
-> 2) Separation of the Redfish front-end (view) and back-end 
-> (infrastructure) layers. The infrastructure API exposed as dbus services 
-> would be one of the means to make this separation of concerns.
-> 
-> 3) Performance :
-> - Runtime memory foot print.This could potentially have a negative 
-> impact on "how fast" the server is. Hence the trade-off should consider 
-> what can be cached vs what needs to be queried from the infrastructure.
-> - Michael, why did you consider SSL being separately implemented by the 
-> Redfish server? Would this be in the scope of the webserver ?
-> 
-> 4) Eventing: Current version of the Redfish spec has left it open for 
-> the OEMs to define the specific Event Messages. i.e. there is no 
-> standard / common Event Registry. Redfish server implementation on the 
-> OpenBMC should define this common Event Registry and perhaps accepted by 
-> DMTF. Does the Eventing support filtering of events based on the event 
-> type, source resource and the message Id ?
-> 
-> 5) Leverage existing open source projects:
-> - Does the implementation compose existing services and frameworks ? 
-> Such as a webserver(say, nginx) and a rest framework (flask).
-> 
-> regards,
-> Hari !
-> 
-> 
-> Inactive hide details for ---01/31/2018 10:17:36 PM---So, I think that 
-> the first thing we ought to do is get a survey of the di---01/31/2018 
-> 10:17:36 PM---So, I think that the first thing we ought to do is get a 
-> survey of the different implementations tha
-> 
-> From: <Michael.E.Brown@dell.com>
-> To: <bradleyb@fuzziesquirrel.com>
-> Cc: <alirhas@microsoft.com>, <Balaji.B.Rao@dell.com>, 
-> <Paul.Vancil@dell.com>, <ed.tanous@intel.com>, <rolfb@us.ibm.com>, 
-> <jwcarman@us.ibm.com>, <hramasub@in.ibm.com>, <pradeep.kumar36@tcs.com>, 
-> <openbmc@lists.ozlabs.org>
-> Date: 01/31/2018 10:17 PM
-> Subject: RE: Redfish on OpenBMC
-> 
-> ------------------------------------------------------------------------
-> 
-> 
-> 
-> So, I think that the first thing we ought to do is get a survey of the 
-> different implementations that are out there, and establish criteria for 
-> judging different implementations.
-> 
-> Here would be a list of questions I would have for everybody on the 
-> list. I think it would probably be best to compile all of these into a 
-> wiki page somewhere.
-> 
->    - Do you have a redfish server implementation?
->    - Is it Open Source?
-> - If not, are you planning on open sourcing it?
-> - What is the license?
-> - Is it posted to github or other public source control?
->    - Does it pass the DMTF redfish service validator?
->    - What language is it written in?
->    - How big is it?
->    - Can it be easily extended/re-used by anybody else shipping 
-> compliant openbmc implementations?
-> - Can you add OEM extensions to existing Redfish Resources without 
-> "forking" the codebase?
-> - Can you change the implementation for a single Redfish Resource 
-> Property without forking?
-> - Can you add new Redfish Resources without forking?
->    - Performance
-> - How fast is it?
-> - Does it implement SSL?
->    - Security
-> - What is the security model?
-> - Non-root support? Can it run as a non-privileged user?
-> - Does it implement basic authentication and the redfish spec 
-> x-auth-token authentication?
-> - Does it implement the redfish standard privilege map model?
->    - Eventing:
-> - For writing a UI on top of redfish, something like SSE is a 
-> nice-to-have to avoid polling in the browser. There are a couple of 
-> proposed SSE extensions that have not yet been approved.
-> - How much work to implement SSE support to do things like watch 
-> Property changes?
-> - Is the standard redfish eventing model supported?
-> - Security model integrated with eventing? Do eventing records get the 
-> same security treatment as GET requests?
->    - Development: can it run outside of openbmc?
->    - Special sauce: is there anything not captured above that makes the 
-> implementation special in any way?
-> 
-> --
-> Michael
-> 
-> -----Original Message-----
-> From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
-> Sent: Tuesday, January 30, 2018 7:30 PM
-> To: Brown, Michael E <Michael_E_Brown@Dell.com>
-> Cc: alirhas@microsoft.com; Rao, Balaji B <Balaji_B_Rao@dell.com>; 
-> Vancil, Paul <Paul_Vancil@Dell.com>; Tanous, Ed <ed.tanous@intel.com>; 
-> rolfb@us.ibm.com; jwcarman@us.ibm.com; Hariharasubramanian 
-> Ramasubramanian <hramasub@in.ibm.com>; pradeep.kumar36@tcs.com; OpenBMC 
-> Maillist <openbmc@lists.ozlabs.org>
-> Subject: Redfish on OpenBMC
-> 
-> Hi Michael
-> 
-> The project could really use someone to get everyone that has expressed 
-> interest in the future of Redfish support in OpenBMC rowing in the same 
-> direction.  So thank you for volunteering to lead that conversation at 
-> the community call yesterday.
-> 
-> I’ve CC’ed everyone that I know of that has expressed an interest.
-> OpenBMC community: feel free to speak up if you’d like to be involved 
-> and I forgot you.
-> 
-> The only thing I’d ask is to please post links to any meetings, minutes, 
-> or correspondence here on the list, so everyone can easily keep up with 
-> how things are going or jump in to provide feedback.
-> 
-> thanks again
-> 
-> -brad
-> 
-> 
-> 
-
-Regards,
-Deepak
+QW5zd2VycyBmb3IgdGhlIGJtY3dlYiBpbXBsZW1lbnRhdGlvbiBpbmxpbmUgYmVsb3cuDQoNCi1F
+ZA0KDQo+ICAgIC0gRG8geW91IGhhdmUgYSByZWRmaXNoIHNlcnZlciBpbXBsZW1lbnRhdGlvbj8N
+Clllcy4NCj4gICAgLSBJcyBpdCBPcGVuIFNvdXJjZT8NClllcy4NCg0KaHR0cHM6Ly9naXRodWIu
+Y29tL29wZW5ibWMvYm1jd2ViDQoNClRoZSBmb2xkZXIgbGFiZWxlZCByZWRmaXNoLWNvcmUgaXMg
+c3BlY2lmaWMgdG8gdGhlIHJlZGZpc2ggcG9ydGlvbi4NCg0KPiAJLSBXaGF0IGlzIHRoZSBsaWNl
+bnNlPw0KQXBhY2hlIDIuMA0KDQo+IAktIElzIGl0IHBvc3RlZCB0byBnaXRodWIgb3Igb3RoZXIg
+cHVibGljIHNvdXJjZSBjb250cm9sPw0KWWVzDQoNCj4gICAgLSBEb2VzIGl0IHBhc3MgdGhlIERN
+VEYgcmVkZmlzaCBzZXJ2aWNlIHZhbGlkYXRvcj8NCkl0IGRpZCAzIHdlZWtzIGFnbzsgIEEgbWlu
+b3IgYXV0aGVudGljYXRpb24gYnVnIHNudWNrIGluIHRoYXQgY2F1c2VzIGl0IHRvIGZhaWwgb24g
+c2VydmljZSByb290LCBidXQgdGhhdCBidWcgc2hvdWxkIGJlIHJlc29sdmVkIGluIHRoZSBuZXh0
+IHdlZWsuDQoNCj4gICAgLSBXaGF0IGxhbmd1YWdlIGlzIGl0IHdyaXR0ZW4gaW4/DQpDKysxNA0K
+DQo+ICAgIC0gSG93IGJpZyBpcyBpdD8NCkNvbXBpbGVkIGFuZCBzdHJpcHBlZCBzaXplIHdhcyBv
+biB0aGUgb3JkZXIgb2YgNzAwS0Igd2hlbiBMVE8gaXMgZW5hYmxlZCwgYmVmb3JlIGZpbGVzeXN0
+ZW0gY29tcHJlc3Npb24uICBUaGlzIGluY2x1ZGVzIG1vcmUgdGhhbiBqdXN0IHRoZSByZWRmaXNo
+IGltcGxlbWVudGF0aW9uLCBzbyBJIHdvdWxkIGhhdmUgdG8gZ2V0IHNvbWUgc3BlY2lmaWNzIG9u
+IGEgc3RyaXBwZWQgZG93biByZWRmaXNoLW9ubHkgYmluYXJ5IHNpemUuDQoNCj4gICAgLSBDYW4g
+aXQgYmUgZWFzaWx5IGV4dGVuZGVkL3JlLXVzZWQgYnkgYW55Ym9keSBlbHNlIHNoaXBwaW5nIGNv
+bXBsaWFudA0KPiBvcGVuYm1jIGltcGxlbWVudGF0aW9ucz8NCkl0IHdhcyBpbnRlbmRlZCBmb3Ig
+dXNlIGluIE9wZW5CbWMuICBUaGVyZSBhcmUgZGVzaWducyB0byBhdHRlbXB0IHRvIG1ha2UgaXQg
+bW9yZSBnZW5lcmljLCBidXQgdGhvc2UgYXJlIG5vdCB5ZXQgdXBzdHJlYW0uICBNeSAjMSBwcmlv
+cml0eSBpcyBlbmFibGluZyBPcGVuQm1jLCAjMiBpcyBidWlsZGluZyBhIGdlbmVyaWMgbGlicmFy
+eSB0aGF0IGNhbiBiZSB1c2VkIG91dHNpZGUgb2Ygb3BlbmJtYy4NCg0KPiAJLSBDYW4geW91IGFk
+ZCBPRU0gZXh0ZW5zaW9ucyB0byBleGlzdGluZyBSZWRmaXNoIFJlc291cmNlcyB3aXRob3V0DQo+
+ICJmb3JraW5nIiB0aGUgY29kZWJhc2U/DQpZZXMsIGJ1dCB0aGVzZSBleHRlbnNpb24gZXhhbXBs
+ZXMgYXJlIG5vdCBvcGVuIHNvdXJjZSB5ZXQuDQoNCj4gCS0gQ2FuIHlvdSBjaGFuZ2UgdGhlIGlt
+cGxlbWVudGF0aW9uIGZvciBhIHNpbmdsZSBSZWRmaXNoIFJlc291cmNlDQo+IFByb3BlcnR5IHdp
+dGhvdXQgZm9ya2luZz8NCk5vdGhpbmcgaW4gdGhlIGRlc2lnbiBwcmVjbHVkZXMgaXQsIGJ1dCBp
+dCBpcyBub3QgeWV0IGltcGxlbWVudGVkLiAgVGhlIGFzc3VtcHRpb24gd2FzIHRoYXQgZGF0YSB3
+b3VsZCBiZSBiYWNrZWQgYnkgZGJ1cyB0byBiZSBjb25zaXN0ZW50IHdpdGggdGhlIG90aGVyIG9w
+ZW5ibWMgaW50ZXJmYWNlcywgYW5kIGFueSBtb2RpZmljYXRpb25zIHNob3VsZCBiZSBkb25lIGlu
+IGRidXMgZGFlbW9ucyBvdXRzaWRlIHRoZSB3ZWJzZXJ2ZXIuDQoNCj4gCS0gQ2FuIHlvdSBhZGQg
+bmV3IFJlZGZpc2ggUmVzb3VyY2VzIHdpdGhvdXQgZm9ya2luZz8NCk5vdCByZWFsbHkgc3VyZSB3
+aGF0IHRoaXMgcXVlc3Rpb24gaXMgc3BlY2lmeWluZy4gIFJlZGZpc2ggcmVzb3VyY2VzIGFyZSBi
+YWNrZWQgYnkgREJ1cywgc28geWVzLiAgV2l0aCB0aGF0IHNhaWQsIHNjaGVtYXMgYXJlIHJlcXVp
+cmVkIHRvIGJlIGFkZGVkIGluIGNvZGUuDQoNCj4gICAgLSBQZXJmb3JtYW5jZQ0KPiAJLSBIb3cg
+ZmFzdCBpcyBpdD8NClRpbWUgdG8gZmlyc3QgYnl0ZSB0aW1lcyBhcmUgY29uc3RyYWluZWQgYnkg
+dGhlIHJlc3BvbnNlIHRpbWVzIG9mIGRidXMgYW5kIG9wZW5zc2wgYXMgdGhlIHdlYnNlcnZlciBo
+YXMgeWV0IHRvIGltcGxlbWVudCBjYWNoaW5nLiAgSXQgc2VlbXMgdG8gYmUgcmVsYXRpdmVseSBw
+ZXJmb3JtYW50LCBidXQgSSBoYXZlbid0IG1lYXN1cmVkIHRoZXNlIHJlY2VudGx5IG9uIGFuIEFT
+VDI1MDAgc3lzdGVtLiAgV2UgbGlrZWx5IHNob3VsZCBub3JtYWxpemUgdGhlc2UgdG8gYSBzaW5n
+bGUgcHJvY2Vzc29yIHRvIGF2b2lkIHByb2Nlc3NvciBzcGVjaWZpYyB0aW1pbmcgaW5mby4gIE15
+IHZvdGUgd291bGQgYmUgdG8gbWVhc3VyZSBhbGwgYWdhaW5zdCBhbiBBU1QyNTAwLCBhcyBpdCBz
+ZWVtcyB0byBiZSBhIGRlY2VudCBtaWRkbGUgb2YgdGhlIHJvYWQgZXhhbXBsZSBvZiBhIHN5c3Rl
+bS4NCg0KPiAJLSBEb2VzIGl0IGltcGxlbWVudCBTU0w/DQpZZXMsIGFuZCBnZW5lcmF0ZXMgaXRz
+IG93biBzZWxmIHNpZ25lZCBjZXJ0aWZpY2F0ZSBhbmQgcHJpdmF0ZSBrZXkgb24gZmlyc3QgYm9v
+dC4NCg0KPiAgICAtIFNlY3VyaXR5DQo+IAktIFdoYXQgaXMgdGhlIHNlY3VyaXR5IG1vZGVsPw0K
+QXV0aGVudGljYXRpb24gaXMgaGFuZGxlZCBieSBhIHNpbmdsZSBtaWRkbGVsYXllciB0aGF0IGZp
+bHRlcnMgYWxsIHJlcXVlc3RzIGJlZm9yZSBleGVjdXRpbmcgZW5kcG9pbnQgc3BlY2lmaWMgY29k
+ZS4gIEF1dGhlbnRpY2F0aW9uIGlzIGJhY2tlZCBieSBwYW0uICBBdXRob3JpemF0aW9uIGFuZCB1
+c2VyIHJvbGVzIGFyZSB5ZXQgdG8gYmUgaW1wbGVtZW50ZWQsIGJ1dCBJIGhhdmUgcGF0Y2hlcyB0
+aGF0IGNhbiBiZSBtYWRlIHB1YmxpYyBpZiBwZW9wbGUgYXJlIGludGVyZXN0ZWQuICBJIHN1c3Bl
+Y3Qgd2UgbmVlZCB0byBoYXZlIGEgZ3JlYXRlciBkaXNjdXNzaW9uIGFyb3VuZCBhdXRob3JpemF0
+aW9uIGZvciBPUGVuQm1jIGFzIGEgd2hvbGUsIGFuZCBob3cgSVBNSSBhbmQgUmVkZmlzaCBjYW4g
+c2hhcmUgYSBjb21tb24gbW9kZWwuDQoNCj4gCS0gTm9uLXJvb3Qgc3VwcG9ydD8gQ2FuIGl0IHJ1
+biBhcyBhIG5vbi1wcml2aWxlZ2VkIHVzZXI/DQpZZXMsIGFsdGhvdWdoIHRoZSBwYXRjaGVzIHRv
+IGRvIHRoaXMgYXJlIHN0aWxsIGluIHJldmlldy4NCg0KPiAJLSBEb2VzIGl0IGltcGxlbWVudCBi
+YXNpYyBhdXRoZW50aWNhdGlvbiBhbmQgdGhlIHJlZGZpc2ggc3BlYyB4LWF1dGgtDQo+IHRva2Vu
+IGF1dGhlbnRpY2F0aW9uPw0KWWVzLiAgQXMgd2VsbCBpdCBhbHNvIHN1cHBvcnRzIGNvb2tpZSBh
+dXRoZW50aWNhdGlvbiAodG8gaG9zdCB0aGUgd2Vic2VydmVyKSB3aXRoIENTUkYgcHJldmVudGlv
+bi4gIEN1cnJlbnRseSwgYm90aCBvZiB0aG9zZSBhcmUgcmVxdWlyZWQgdG8gYmUgYWJsZSB0byBo
+b3N0IHBob3NwaG9yLXdlYnVpIGZyb20gdGhlIHNhbWUgc2VydmVyLg0KDQo+IAktIERvZXMgaXQg
+aW1wbGVtZW50IHRoZSByZWRmaXNoIHN0YW5kYXJkIHByaXZpbGVnZSBtYXAgbW9kZWw/DQpQYXRj
+aGVzIHRvIGRvIHRoaXMgYXJlIGluIChub3Qgb3BlbiBzb3VyY2UpIHJldmlldy4gIFdlIHNob3Vs
+ZCBoYXZlIGEgZGlzY3Vzc2lvbiBhYm91dCBob3cgcHJpdmlsZWdlIG1hcHMgc2hvdWxkIGJlIGJh
+Y2tlZC4NCg0KPiAgICAtIEV2ZW50aW5nOg0KPiAJLSBGb3Igd3JpdGluZyBhIFVJIG9uIHRvcCBv
+ZiByZWRmaXNoLCBzb21ldGhpbmcgbGlrZSBTU0UgaXMgYSBuaWNlLXRvLQ0KPiBoYXZlIHRvIGF2
+b2lkIHBvbGxpbmcgaW4gdGhlIGJyb3dzZXIuIFRoZXJlIGFyZSBhIGNvdXBsZSBvZiBwcm9wb3Nl
+ZCBTU0UNCj4gZXh0ZW5zaW9ucyB0aGF0IGhhdmUgbm90IHlldCBiZWVuIGFwcHJvdmVkLg0KPiAJ
+CS0gSG93IG11Y2ggd29yayB0byBpbXBsZW1lbnQgU1NFIHN1cHBvcnQgdG8gZG8gdGhpbmdzIGxp
+a2UNCj4gd2F0Y2ggUHJvcGVydHkgY2hhbmdlcz8NCkl0IGN1cnJlbnRseSBzdXBwb3J0cyBhIHdl
+YnNvY2tldCBiYXNlZCBldmVudGVkIGVuZHBvaW50IHRoYXQgY2FuIHBhc3MgcHJvcGVydHljaGFu
+Z2VkIGV2ZW50cyB0byBhIGJyb3dzZXIuICBBZGRpbmcgU1NFIHRvIHRoaXMgaW1wbGVtZW50YXRp
+b24gc2hvdWxkIGJlIHJlbGF0aXZlbHkgZWFzeSwgYnV0IEkgcXVlc3Rpb24gdGhlIHZhbHVlIGFk
+ZCBvdmVyIGhhdmluZyBhIHdlYnNvY2tldCBldmVudGluZyBwcm90b2NvbC4NCg0KPiAJLSBJcyB0
+aGUgc3RhbmRhcmQgcmVkZmlzaCBldmVudGluZyBtb2RlbCBzdXBwb3J0ZWQ/DQpOb3QgeWV0LCBi
+dXQgbm90aGluZyBpbiB0aGUgZGVzaWduIHByZWNsdWRlcyBpdCwgYW5kIG90aGVyIGV2ZW50aW5n
+IG1vZGVscyBhcmUgc3VwcG9ydGVkLg0KDQo+IAktIFNlY3VyaXR5IG1vZGVsIGludGVncmF0ZWQg
+d2l0aCBldmVudGluZz8gRG8gZXZlbnRpbmcgcmVjb3JkcyBnZXQNCj4gdGhlIHNhbWUgc2VjdXJp
+dHkgdHJlYXRtZW50IGFzIEdFVCByZXF1ZXN0cz8NCkNhbiB5b3UgY2xhcmlmeSB0aGUgcXVlc3Rp
+b24gYSBiaXQsIEknbSBub3Qgc3VyZSBJIHF1aXRlIHVuZGVyc3RhbmQ/ICBBc3N1bWluZyB5b3Ug
+bWVhbiB0aGF0IHNlcnZlciBzaWRlIGV2ZW50aW5nIGlzIGludGVncmF0ZWQgd2l0aCB0aGUgcmVz
+dCBvZiB0aGUgYXV0aCBtb2RlbCwgeWVzLCBmb3Igd2Vic29ja2V0cyBjbGllbnRzIGFyZSB2ZXJp
+ZmllZCBvbiBjb25uZWN0aW9uIHVzaW5nIGNvb2tpZSBhdXRoZW50aWNhdGlvbi4NCg0KPiAgICAt
+IERldmVsb3BtZW50OiBjYW4gaXQgcnVuIG91dHNpZGUgb2Ygb3BlbmJtYz8NClllcywgYWx0aG91
+Z2ggd2UncmUgY29uc2lkZXJpbmcgZHJvcHBpbmcgdGhpcywgYXMgaXQgaXMgY2F1c2luZyBzb21l
+IGhlYWRhY2hlcyB3aXRoIGRlcGVuZGVuY3kgbWFuYWdlbWVudCBhbmQgdmVyc2lvbmluZy4NCg0K
+PiAgICAtIFNwZWNpYWwgc2F1Y2U6IGlzIHRoZXJlIGFueXRoaW5nIG5vdCBjYXB0dXJlZCBhYm92
+ZSB0aGF0IG1ha2VzIHRoZQ0KPiBpbXBsZW1lbnRhdGlvbiBzcGVjaWFsIGluIGFueSB3YXk/DQpT
+b21lIHF1ZXN0aW9ucyB3ZSBzaG91bGQgYWxzbyBhZGQ6DQoNCkNhbiBpdCBob3N0IHBob3NwaG9y
+LXdlYnVpPw0KWWVzLCBhbHRob3VnaCBhIGZldyBlbmRwb2ludHMgYXJlIG1pc3Npbmcgb24gbXkg
+c3lzdGVtcywgYnV0IHRoZSBhdXRoZW50aWNhdGlvbiBhbmQgbG9naW4gZmxvd3MgZnVuY3Rpb24s
+IGl0IHNob3VsZCBqdXN0IGJlIGEgbWF0dGVyIG9mIGFkZGluZyB0aGUgMiBtaXNzaW5nIGVuZHBv
+aW50cy4NCg0KRG9lcyBpdCBnZW5lcmF0ZSBhIHNlbGYgc2lnbmVkIFNTTCBjZXJ0aWZpY2F0ZSBv
+biBmaXJzdCBib290Pw0KWWVzDQoNCkRvZXMgaXQgc3VwcG9ydCB3ZWJzb2NrZXRzPyAgKHdpbGwg
+bWF0dGVyIHdoZW4gS1ZNIGFuZCBTT0wgYXJlIGltcGxlbWVudGVkKQ0KWWVzDQoNCklzIGl0IGJ1
+aWx0IGFzeW5jaHJvbm91c2x5IGluIHN1Y2ggYSB3YXkgdGhhdCBsb25nIHJ1bm5pbmcgcmVxdWVz
+dHMgZG8gbm90IGJsb2NrIHF1aWNrIHJlcXVlc3RzPyAgKHByb2R1Y3Rpb24gcmVxdWlyZW1lbnQg
+SSd2ZSBoZWFyZCBzb21lIHBlb3BsZSB2b2ljZSBiZWZvcmUpDQpZZXMNCg0KLUVkDQoNCg0KPiAN
+Cj4gLS0NCj4gTWljaGFlbA0KPiANCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJv
+bTogQnJhZCBCaXNob3AgW21haWx0bzpicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb21dDQo+IFNl
+bnQ6IFR1ZXNkYXksIEphbnVhcnkgMzAsIDIwMTggNzozMCBQTQ0KPiBUbzogQnJvd24sIE1pY2hh
+ZWwgRSA8TWljaGFlbF9FX0Jyb3duQERlbGwuY29tPg0KPiBDYzogYWxpcmhhc0BtaWNyb3NvZnQu
+Y29tOyBSYW8sIEJhbGFqaSBCIDxCYWxhamlfQl9SYW9AZGVsbC5jb20+OyBWYW5jaWwsDQo+IFBh
+dWwgPFBhdWxfVmFuY2lsQERlbGwuY29tPjsgVGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVsLmNv
+bT47DQo+IHJvbGZiQHVzLmlibS5jb207IGp3Y2FybWFuQHVzLmlibS5jb207IEhhcmloYXJhc3Vi
+cmFtYW5pYW4NCj4gUmFtYXN1YnJhbWFuaWFuIDxocmFtYXN1YkBpbi5pYm0uY29tPjsgcHJhZGVl
+cC5rdW1hcjM2QHRjcy5jb207DQo+IE9wZW5CTUMgTWFpbGxpc3QgPG9wZW5ibWNAbGlzdHMub3ps
+YWJzLm9yZz4NCj4gU3ViamVjdDogUmVkZmlzaCBvbiBPcGVuQk1DDQo+IA0KPiBIaSBNaWNoYWVs
+DQo+IA0KPiBUaGUgcHJvamVjdCBjb3VsZCByZWFsbHkgdXNlIHNvbWVvbmUgdG8gZ2V0IGV2ZXJ5
+b25lIHRoYXQgaGFzIGV4cHJlc3NlZA0KPiBpbnRlcmVzdCBpbiB0aGUgZnV0dXJlIG9mIFJlZGZp
+c2ggc3VwcG9ydCBpbiBPcGVuQk1DIHJvd2luZyBpbiB0aGUgc2FtZQ0KPiBkaXJlY3Rpb24uICBT
+byB0aGFuayB5b3UgZm9yIHZvbHVudGVlcmluZyB0byBsZWFkIHRoYXQgY29udmVyc2F0aW9uIGF0
+IHRoZQ0KPiBjb21tdW5pdHkgY2FsbCB5ZXN0ZXJkYXkuDQo+IA0KPiBJ4oCZdmUgQ0PigJllZCBl
+dmVyeW9uZSB0aGF0IEkga25vdyBvZiB0aGF0IGhhcyBleHByZXNzZWQgYW4gaW50ZXJlc3QuDQo+
+IE9wZW5CTUMgY29tbXVuaXR5OiBmZWVsIGZyZWUgdG8gc3BlYWsgdXAgaWYgeW914oCZZCBsaWtl
+IHRvIGJlIGludm9sdmVkIGFuZCBJDQo+IGZvcmdvdCB5b3UuDQo+IA0KPiBUaGUgb25seSB0aGlu
+ZyBJ4oCZZCBhc2sgaXMgdG8gcGxlYXNlIHBvc3QgbGlua3MgdG8gYW55IG1lZXRpbmdzLCBtaW51
+dGVzLCBvcg0KPiBjb3JyZXNwb25kZW5jZSBoZXJlIG9uIHRoZSBsaXN0LCBzbyBldmVyeW9uZSBj
+YW4gZWFzaWx5IGtlZXAgdXAgd2l0aCBob3cNCj4gdGhpbmdzIGFyZSBnb2luZyBvciBqdW1wIGlu
+IHRvIHByb3ZpZGUgZmVlZGJhY2suDQo+IA0KPiB0aGFua3MgYWdhaW4NCj4gDQo+IC1icmFkDQo=
