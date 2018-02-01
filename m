@@ -1,76 +1,72 @@
-Return-Path: <Paul.Vancil@dell.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.229; helo=esa6.dell-outbound.iphmx.com;
- envelope-from=paul.vancil@dell.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="IGvp8fbk"; 
+Return-Path: <tcminyard@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c01::242; helo=mail-pl0-x242.google.com;
+ envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QOrzZtQ0"; 
  dkim-atps=neutral
-X-Greylist: delayed 627 seconds by postgrey-1.36 at bilbo;
- Fri, 02 Feb 2018 05:19:33 AEDT
-Received: from esa6.dell-outbound.iphmx.com (esa6.dell-outbound.iphmx.com
- [68.232.149.229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl0-x242.google.com (mail-pl0-x242.google.com
+ [IPv6:2607:f8b0:400e:c01::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zXT0j1zByzF0Z7
- for <openbmc@lists.ozlabs.org>; Fri,  2 Feb 2018 05:19:32 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1517509173; x=1549045173;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:mime-version;
- bh=UB8itPg4+OrQ5HgRbJWC/8LiyX25gUvird2Kjv5zWXI=;
- b=IGvp8fbkALnZpSw1L5pb3jC8Hi4HwBNBUb1Q6uO2buGtdRDDUz+VIV+4
- k0buItdV8FHhoA2B3OcD5vAUPHGWeb/6ZADDleCr9kztfCUa+zwddqkCq
- IZ+iGpC4SmF2GRGGXICkUwD4NXTHE5icIerfo/KH1ZjcFi33Vfnl+e8zG c=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FXAQCIVnNah2Oa6ERcGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYJKgU4QdSgKg1aYUYICfJhjBwECGAEMhRYCGoIXWBQBAQEBAQE?=
- =?us-ascii?q?BAQIBAhABAQEIDQkIKC+COCIRS1kBAQEBAQEjAghiAQEBBAEEEwsCCAE2FQwEA?=
- =?us-ascii?q?gEIEQECAQEBBgECHwMCAgIFEAEFCQIeAwYIAgQBEQEGAgYGiiEQq0aCJ4pnAQE?=
- =?us-ascii?q?BAQEBAQEBAQEBAQEBAQEBAQEBDgoFhGmCFYM/gng2gy8EgVMGHQcJCRaCYYJlB?=
- =?us-ascii?q?Ytuhy6McgGCZoEuhxQBgQSHOIYUgieGI4twjWmKAoE8NoFzcFKCKgmCTBAMggZ?=
- =?us-ascii?q?4AYl/LIEGgRcBAQE?=
-X-IPAS-Result: =?us-ascii?q?A2FXAQCIVnNah2Oa6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYJ?=
- =?us-ascii?q?KgU4QdSgKg1aYUYICfJhjBwECGAEMhRYCGoIXWBQBAQEBAQEBAQIBAhABAQEID?=
- =?us-ascii?q?QkIKC+COCIRS1kBAQEBAQEjAghiAQEBBAEEEwsCCAE2FQwEAgEIEQECAQEBBgE?=
- =?us-ascii?q?CHwMCAgIFEAEFCQIeAwYIAgQBEQEGAgYGiiEQq0aCJ4pnAQEBAQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQEBAQEBDgoFhGmCFYM/gng2gy8EgVMGHQcJCRaCYYJlBYtuhy6McgGCZoE?=
- =?us-ascii?q?uhxQBgQSHOIYUgieGI4twjWmKAoE8NoFzcFKCKgmCTBAMggZ4AYl/LIEGgRcBA?=
- =?us-ascii?q?QE?=
-Received: from esa6.dell-outbound2.iphmx.com ([68.232.154.99])
- by esa6.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2018 12:09:02 -0600
-From: <Paul.Vancil@dell.com>
-To: <hramasub@in.ibm.com>, <Michael.E.Brown@dell.com>
-Cc: <alirhas@microsoft.com>, <Balaji.B.Rao@dell.com>,
- <bradleyb@fuzziesquirrel.com>, <ed.tanous@intel.com>, <jwcarman@us.ibm.com>,
- <openbmc@lists.ozlabs.org>, <pradeep.kumar36@tcs.com>, <rolfb@us.ibm.com>
-Received: from ausc60ps301.us.dell.com ([143.166.148.206])
- by esa6.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2018 00:09:01 +0600
-X-LoopCount0: from 10.166.132.40
-X-IronPort-AV: E=Sophos;i="5.46,444,1511848800"; 
- d="gif'147?scan'147,208,217,147";a="1092627707"
-X-DLP: DLP_GlobalPCIDSS
-Subject: RE: Redfish on OpenBMC
-Thread-Topic: Redfish on OpenBMC
-Thread-Index: AQHTmjMGkfB2Frz0xkGTC2ZAisJB4aOOljQAgAESj4CAADEY8A==
-Date: Thu, 1 Feb 2018 18:08:59 +0000
-Message-ID: <c73bb370335c45dab208cb0e708a08f4@AUSX13MPS306.AMER.DELL.COM>
-References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
- <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
- <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
-In-Reply-To: <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.18.86]
-Content-Type: multipart/related;
- boundary="_004_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_";
- type="multipart/alternative"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zXWyD5N1vzDqRQ
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Feb 2018 07:32:35 +1100 (AEDT)
+Received: by mail-pl0-x242.google.com with SMTP id 13so4413705plb.5
+ for <openbmc@lists.ozlabs.org>; Thu, 01 Feb 2018 12:32:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:reply-to:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=aPVFhHIEY9Yg2kWvQa0FqBhQywrxv1XMcN7x095jxPg=;
+ b=QOrzZtQ0z/SJVhoGwNgA+5cmxdEvAwyZnGjFvr6g+PqFoLf94seM1kMyp4ALYwpmgB
+ aXXV1o2dM94ODVEb1vDaxLT8cGbmVsSAf2S7J6SB7kuqBZvRuyilUP3nbSLFqHQqYxAy
+ KXQHJ0QNla8V0ycAiaR844drTa8uUyVXfl4DELY9c5hwrgfgAAyJh43mRshKIg5sj40r
+ uyyo4MGDXw6MRPdvIB1osbqfyCfm4cbM1K1dZmA7jJIndURDtlgfKlToHARoPrX9IGkX
+ /3i0BuX4dtI/FQm9vMQQ75/bu0ABGn/m2YVGxNBGVD3Re54AlK/OqFl3RhTrBnWcfcXF
+ tnYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=aPVFhHIEY9Yg2kWvQa0FqBhQywrxv1XMcN7x095jxPg=;
+ b=QV8KYNTMVE27bf87wGjbTotKlgs20DeVGSAE2M8EdkO2NZHGRK0GLkE0TFn38Hrxk3
+ NC3W/kvTV4DPCLrbtsq4YNTYj+/duFExkuI/vhOsBiZ6Xfu/AarDDJQL211JVc7o9FLg
+ lnh8EshqK/cgat2gEtpWDM+fmrnIlCVgwBySgixezp97OOaeRHDr4f9Jke/gg7tx48Fy
+ JUrUFfir2U1YM3OHbI66p4ORwC4vj2kEbn+4HNwnU8f9TCYna0JCEgLjVsU9kyWG6B1g
+ aD58lzeU9HLKPe4LQ51l2U4CF909zt1TTrqrnvp2H4464R5L77ffagax+Y3Qg7XhUU2M
+ UxPw==
+X-Gm-Message-State: AKwxytc+K4E2msaVLnJd5Zc39WICnn5DTCUGuZLbjcSO4b8VjADF1ZWv
+ S8izwonXyb9aPfnHjzMqCA==
+X-Google-Smtp-Source: AH8x225b6Xt2QMbYdZsO4x9v0icdMwt5Dw85L16Hmeq5Ty9vufgXzBgkYyqSNXN0yZF18N1MQduW/A==
+X-Received: by 2002:a17:902:b43:: with SMTP id
+ 61-v6mr33304203plq.127.1517517153385; 
+ Thu, 01 Feb 2018 12:32:33 -0800 (PST)
+Received: from serve.minyard.net ([47.184.168.85])
+ by smtp.gmail.com with ESMTPSA id a24sm257668pgn.94.2018.02.01.12.32.31
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 01 Feb 2018 12:32:32 -0800 (PST)
+Sender: Corey Minyard <tcminyard@gmail.com>
+Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
+ by serve.minyard.net (Postfix) with ESMTPSA id 2F5A3159;
+ Thu,  1 Feb 2018 14:32:30 -0600 (CST)
+Reply-To: minyard@acm.org
+Subject: Re: [PATCH arm/aspeed/ast2500 v3 1/2] ipmi: add a KCS IPMI BMC driver
+To: Haiyue Wang <haiyue.wang@linux.intel.com>, joel@jms.id.au,
+ openbmc@lists.ozlabs.org, openipmi-developer@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+Cc: andriy.shevchenko@intel.com
+References: <1517474936-15308-1-git-send-email-haiyue.wang@linux.intel.com>
+From: Corey Minyard <minyard@acm.org>
+Message-ID: <66b3a8f8-b477-6ada-5ced-944a5b67edd3@acm.org>
+Date: Thu, 1 Feb 2018 14:32:29 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
+In-Reply-To: <1517474936-15308-1-git-send-email-haiyue.wang@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -82,415 +78,682 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Feb 2018 18:19:35 -0000
+X-List-Received-Date: Thu, 01 Feb 2018 20:32:37 -0000
 
---_004_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_
-Content-Type: multipart/alternative;
-	boundary="_000_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_"
+On 02/01/2018 02:48 AM, Haiyue Wang wrote:
+> ---
+> v2->v3
+>
+> - Update the KCS phase state machine.
+> - Fix the race condition of read/write.
+>
+> v1->v2
+>
+> - Divide the driver into two parts, one handles the BMC KCS IPMI 2.0 state;
+>    the other handles the BMC KCS controller such as AST2500 IO accessing.
+> - Use the spin lock APIs to handle the device file operations and BMC chip
+>    IRQ inferface for accessing the same KCS BMC data structure.
+> - Enhanced the phases handling of the KCS BMC.
+> - Unified the IOCTL definition for IPMI BMC, it will be used by KCS and BT.
+>
+> Provides a device driver for the KCS (Keyboard Controller Style)
+> IPMI interface which meets the requirement of the BMC (Baseboard
+> Management Controllers) side for handling the IPMI request from
+> host system software.
 
---_000_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This looks good, just one comments inline.  This is very close.
 
-TWljaGFlbCwgQnJhZCwgYWxsLA0KSGVsbG8uICBUaGlzIGlzIGEgZ29vZCBsaXN0IG9mIGF0dHJp
-YnV0ZXMgYW5kIGFncmVlIHdpdGggSGFyaeKAmXMgYWRkaXRpb25z4oCmDQpCYWxhamkgYW5kIEkg
-YXJlIGluIGZpbmFsIHBoYXNlIG9mIHB1c2hpbmcgb3VyIOKAmFJlZERydW3igJkgcHl0aG9uIFJl
-ZGZpc2ggc2VydmljZSBpbnRvIG9wZW4gc291cmNlIHdpdGggdGhlIG9wZW5CTUMgcmVjaXBlcy4N
-CkltIGV4cGVjdGluZyB0byBoYXZlIHRoZSBweXRob24gY29kZSBvcGVuIGJ5IE1vbiBhbmQgdGhl
-biBuZXh0IHdlZWsgd2lsbCBnZXQgdGhlIG9wZW5CTUMgcmVjaXBlIGluLiAgV2UgYXJlIG1hbnVh
-bGx5IGNvcHlpbmcgb3ZlciB0aGUgZmlsZXMgbm93Lg0KTmV4dCB3ZWVrIHdlIHNob3VsZCBiZSBh
-YmxlIHRvIGFuc3dlciB0aGUgaW5pdGlhbCBsaXN0IG9mIHF1ZXN0aW9ucyBmb3IgUmVkRHJ1bS4N
-Cg0KTmljZSB0byBzZWUgdGhlcmUgaXMgYSBsb3Qgb2YgaW50ZXJlc3QgYW5kIG11bHRpcGxlIGlt
-cGxlbWVudGF0aW9ucyBjb21pbmchDQpUaGFua3MNCnBhdWx2DQoNCkZyb206IEhhcmloYXJhc3Vi
-cmFtYW5pYW4gUmFtYXN1YnJhbWFuaWFuIFttYWlsdG86aHJhbWFzdWJAaW4uaWJtLmNvbV0NClNl
-bnQ6IFRodXJzZGF5LCBGZWJydWFyeSAxLCAyMDE4IDM6MDkgQU0NClRvOiBCcm93biwgTWljaGFl
-bCBFIDxNaWNoYWVsX0VfQnJvd25ARGVsbC5jb20+DQpDYzogYWxpcmhhc0BtaWNyb3NvZnQuY29t
-OyBSYW8sIEJhbGFqaSBCIDxCYWxhamlfQl9SYW9AZGVsbC5jb20+OyBicmFkbGV5YkBmdXp6aWVz
-cXVpcnJlbC5jb207IGVkLnRhbm91c0BpbnRlbC5jb207IGp3Y2FybWFuQHVzLmlibS5jb207IG9w
-ZW5ibWNAbGlzdHMub3psYWJzLm9yZzsgVmFuY2lsLCBQYXVsIDxQYXVsX1ZhbmNpbEBEZWxsLmNv
-bT47IHByYWRlZXAua3VtYXIzNkB0Y3MuY29tOyByb2xmYkB1cy5pYm0uY29tDQpTdWJqZWN0OiBS
-RTogUmVkZmlzaCBvbiBPcGVuQk1DDQoNCg0KSGkgTWljaGFlbCwNCg0KVGhhbmtzIGZvciBlbnVt
-ZXJhdGluZyB0aGUgYXR0cmlidXRlcyBmb3IgY29tcGFyaXNvbi4NCg0KSSB3YW50IHRvIGxpc3Qg
-ZG93biBhIGZldyBhZGRpdGlvbmFsIGNyaXRlcmlhIHRoYXQgbWF5IGJlIGV2YWx1YXRlZDoNCg0K
-MSkgRGF0YS1Ecml2ZW4gUmVzb3VyY2UgRGlzY292ZXJ5Og0KLSBUaGUgUmVkZmlzaCBzZXJ2ZXIg
-c2hvdWxkIGlkZWFsbHkgYnVpbGQgaXQncyByZXNvdXJjZSBtb2RlbCBmcm9tIGEgImNvbmZpZyBm
-aWxlIi4gVGhpcyBjb25maWcgZmlsZSBjb3VsZCBwb3RlbnRpYWxseSBiZSBoYW5kLWNvZGVkIG9y
-IGJ1aWx0IG91dCBvZiBhICJzeXN0ZW0gZGVmaW5pdGlvbiBmaWxlIi4gVGhlIGZvbGxvd2luZyBh
-cmUgZXhhbXBsZXMgb2Ygc3lzdGVtIGRlZmluaXRpb24gZmlsZXMgZm9yIDIgb2YgdGhlIHN5c3Rl
-bXMgY3VycmVudGx5IHJ1bm5pbmcgT3BlbkJNQyBmaXJtd2FyZS4NCmh0dHBzOi8vcmF3LmdpdGh1
-YnVzZXJjb250ZW50LmNvbS9vcGVuLXBvd2VyL3phaXVzLXhtbC9tYXN0ZXIvemFpdXMueG1sDQpo
-dHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vb3Blbi1wb3dlci93aXRoZXJzcG9vbi14
-bWwvbWFzdGVyL3dpdGhlcnNwb29uLnhtbA0KVGhlIHN5c3RlbSBhcmNoaXRlY3R1cmUgKHNsZWQg
-dnMgYmxhZGUgZXRjLiksIG51bWJlciBvZiBwcm9jZXNzb3JzLCBudW1iZXIgb2YgZmFucyBldGMu
-IGNhbiBiZSBkZXRlcm1pbmVkIGZyb20gdGhlIHN5c3RlbSBkZWZpbml0aW9uIGZpbGUgdG8gZ2Vu
-ZXJhdGUgdGhlIGNvbmZpZyBmaWxlLg0KDQpUaGUgaW50ZW50IGlzIHRvIG1ha2UgdGhlIHJlZGZp
-c2ggaW1wbGVtZW50YXRpb24gYXMgc3lzdGVtIGFnbm9zdGljIGFzIHBvc3NpYmxlLg0KDQoyKSBT
-ZXBhcmF0aW9uIG9mIHRoZSBSZWRmaXNoIGZyb250LWVuZCAodmlldykgYW5kIGJhY2stZW5kIChp
-bmZyYXN0cnVjdHVyZSkgbGF5ZXJzLiBUaGUgaW5mcmFzdHJ1Y3R1cmUgQVBJIGV4cG9zZWQgYXMg
-ZGJ1cyBzZXJ2aWNlcyB3b3VsZCBiZSBvbmUgb2YgdGhlIG1lYW5zIHRvIG1ha2UgdGhpcyBzZXBh
-cmF0aW9uIG9mIGNvbmNlcm5zLg0KDQozKSBQZXJmb3JtYW5jZSA6DQotIFJ1bnRpbWUgbWVtb3J5
-IGZvb3QgcHJpbnQuVGhpcyBjb3VsZCBwb3RlbnRpYWxseSBoYXZlIGEgbmVnYXRpdmUgaW1wYWN0
-IG9uICJob3cgZmFzdCIgdGhlIHNlcnZlciBpcy4gSGVuY2UgdGhlIHRyYWRlLW9mZiBzaG91bGQg
-Y29uc2lkZXIgd2hhdCBjYW4gYmUgY2FjaGVkIHZzIHdoYXQgbmVlZHMgdG8gYmUgcXVlcmllZCBm
-cm9tIHRoZSBpbmZyYXN0cnVjdHVyZS4NCi0gTWljaGFlbCwgd2h5IGRpZCB5b3UgY29uc2lkZXIg
-U1NMIGJlaW5nIHNlcGFyYXRlbHkgaW1wbGVtZW50ZWQgYnkgdGhlIFJlZGZpc2ggc2VydmVyPyBX
-b3VsZCB0aGlzIGJlIGluIHRoZSBzY29wZSBvZiB0aGUgd2Vic2VydmVyID8NCg0KNCkgRXZlbnRp
-bmc6IEN1cnJlbnQgdmVyc2lvbiBvZiB0aGUgUmVkZmlzaCBzcGVjIGhhcyBsZWZ0IGl0IG9wZW4g
-Zm9yIHRoZSBPRU1zIHRvIGRlZmluZSB0aGUgc3BlY2lmaWMgRXZlbnQgTWVzc2FnZXMuIGkuZS4g
-dGhlcmUgaXMgbm8gc3RhbmRhcmQgLyBjb21tb24gRXZlbnQgUmVnaXN0cnkuIFJlZGZpc2ggc2Vy
-dmVyIGltcGxlbWVudGF0aW9uIG9uIHRoZSBPcGVuQk1DIHNob3VsZCBkZWZpbmUgdGhpcyBjb21t
-b24gRXZlbnQgUmVnaXN0cnkgYW5kIHBlcmhhcHMgYWNjZXB0ZWQgYnkgRE1URi4gRG9lcyB0aGUg
-RXZlbnRpbmcgc3VwcG9ydCBmaWx0ZXJpbmcgb2YgZXZlbnRzIGJhc2VkIG9uIHRoZSBldmVudCB0
-eXBlLCBzb3VyY2UgcmVzb3VyY2UgYW5kIHRoZSBtZXNzYWdlIElkID8NCg0KNSkgTGV2ZXJhZ2Ug
-ZXhpc3Rpbmcgb3BlbiBzb3VyY2UgcHJvamVjdHM6DQotIERvZXMgdGhlIGltcGxlbWVudGF0aW9u
-IGNvbXBvc2UgZXhpc3Rpbmcgc2VydmljZXMgYW5kIGZyYW1ld29ya3MgPyBTdWNoIGFzIGEgd2Vi
-c2VydmVyKHNheSwgbmdpbngpIGFuZCBhIHJlc3QgZnJhbWV3b3JrIChmbGFzaykuDQoNCnJlZ2Fy
-ZHMsDQpIYXJpICENCg0KDQpbSW5hY3RpdmUgaGlkZSBkZXRhaWxzIGZvciAtLS0wMS8zMS8yMDE4
-IDEwOjE3OjM2IFBNLS0tU28sIEkgdGhpbmsgdGhhdCB0aGUgZmlyc3QgdGhpbmcgd2Ugb3VnaHQg
-dG8gZG8gaXMgZ2V0IGEgc3VydmV5IG9mIHRoZSBkaV0tLS0wMS8zMS8yMDE4IDEwOjE3OjM2IFBN
-LS0tU28sIEkgdGhpbmsgdGhhdCB0aGUgZmlyc3QgdGhpbmcgd2Ugb3VnaHQgdG8gZG8gaXMgZ2V0
-IGEgc3VydmV5IG9mIHRoZSBkaWZmZXJlbnQgaW1wbGVtZW50YXRpb25zIHRoYQ0KDQpGcm9tOiA8
-TWljaGFlbC5FLkJyb3duQGRlbGwuY29tPG1haWx0bzpNaWNoYWVsLkUuQnJvd25AZGVsbC5jb20+
-Pg0KVG86IDxicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb208bWFpbHRvOmJyYWRsZXliQGZ1enpp
-ZXNxdWlycmVsLmNvbT4+DQpDYzogPGFsaXJoYXNAbWljcm9zb2Z0LmNvbTxtYWlsdG86YWxpcmhh
-c0BtaWNyb3NvZnQuY29tPj4sIDxCYWxhamkuQi5SYW9AZGVsbC5jb208bWFpbHRvOkJhbGFqaS5C
-LlJhb0BkZWxsLmNvbT4+LCA8UGF1bC5WYW5jaWxAZGVsbC5jb208bWFpbHRvOlBhdWwuVmFuY2ls
-QGRlbGwuY29tPj4sIDxlZC50YW5vdXNAaW50ZWwuY29tPG1haWx0bzplZC50YW5vdXNAaW50ZWwu
-Y29tPj4sIDxyb2xmYkB1cy5pYm0uY29tPG1haWx0bzpyb2xmYkB1cy5pYm0uY29tPj4sIDxqd2Nh
-cm1hbkB1cy5pYm0uY29tPG1haWx0bzpqd2Nhcm1hbkB1cy5pYm0uY29tPj4sIDxocmFtYXN1YkBp
-bi5pYm0uY29tPG1haWx0bzpocmFtYXN1YkBpbi5pYm0uY29tPj4sIDxwcmFkZWVwLmt1bWFyMzZA
-dGNzLmNvbTxtYWlsdG86cHJhZGVlcC5rdW1hcjM2QHRjcy5jb20+PiwgPG9wZW5ibWNAbGlzdHMu
-b3psYWJzLm9yZzxtYWlsdG86b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPj4NCkRhdGU6IDAxLzMx
-LzIwMTggMTA6MTcgUE0NClN1YmplY3Q6IFJFOiBSZWRmaXNoIG9uIE9wZW5CTUMNCg0KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18NCg0KDQoNClNvLCBJIHRoaW5rIHRoYXQgdGhlIGZp
-cnN0IHRoaW5nIHdlIG91Z2h0IHRvIGRvIGlzIGdldCBhIHN1cnZleSBvZiB0aGUgZGlmZmVyZW50
-IGltcGxlbWVudGF0aW9ucyB0aGF0IGFyZSBvdXQgdGhlcmUsIGFuZCBlc3RhYmxpc2ggY3JpdGVy
-aWEgZm9yIGp1ZGdpbmcgZGlmZmVyZW50IGltcGxlbWVudGF0aW9ucy4NCg0KSGVyZSB3b3VsZCBi
-ZSBhIGxpc3Qgb2YgcXVlc3Rpb25zIEkgd291bGQgaGF2ZSBmb3IgZXZlcnlib2R5IG9uIHRoZSBs
-aXN0LiBJIHRoaW5rIGl0IHdvdWxkIHByb2JhYmx5IGJlIGJlc3QgdG8gY29tcGlsZSBhbGwgb2Yg
-dGhlc2UgaW50byBhIHdpa2kgcGFnZSBzb21ld2hlcmUuDQoNCiAgLSBEbyB5b3UgaGF2ZSBhIHJl
-ZGZpc2ggc2VydmVyIGltcGxlbWVudGF0aW9uPw0KICAtIElzIGl0IE9wZW4gU291cmNlPw0KLSBJ
-ZiBub3QsIGFyZSB5b3UgcGxhbm5pbmcgb24gb3BlbiBzb3VyY2luZyBpdD8NCi0gV2hhdCBpcyB0
-aGUgbGljZW5zZT8NCi0gSXMgaXQgcG9zdGVkIHRvIGdpdGh1YiBvciBvdGhlciBwdWJsaWMgc291
-cmNlIGNvbnRyb2w/DQogIC0gRG9lcyBpdCBwYXNzIHRoZSBETVRGIHJlZGZpc2ggc2VydmljZSB2
-YWxpZGF0b3I/DQogIC0gV2hhdCBsYW5ndWFnZSBpcyBpdCB3cml0dGVuIGluPw0KICAtIEhvdyBi
-aWcgaXMgaXQ/DQogIC0gQ2FuIGl0IGJlIGVhc2lseSBleHRlbmRlZC9yZS11c2VkIGJ5IGFueWJv
-ZHkgZWxzZSBzaGlwcGluZyBjb21wbGlhbnQgb3BlbmJtYyBpbXBsZW1lbnRhdGlvbnM/DQotIENh
-biB5b3UgYWRkIE9FTSBleHRlbnNpb25zIHRvIGV4aXN0aW5nIFJlZGZpc2ggUmVzb3VyY2VzIHdp
-dGhvdXQgImZvcmtpbmciIHRoZSBjb2RlYmFzZT8NCi0gQ2FuIHlvdSBjaGFuZ2UgdGhlIGltcGxl
-bWVudGF0aW9uIGZvciBhIHNpbmdsZSBSZWRmaXNoIFJlc291cmNlIFByb3BlcnR5IHdpdGhvdXQg
-Zm9ya2luZz8NCi0gQ2FuIHlvdSBhZGQgbmV3IFJlZGZpc2ggUmVzb3VyY2VzIHdpdGhvdXQgZm9y
-a2luZz8NCiAgLSBQZXJmb3JtYW5jZQ0KLSBIb3cgZmFzdCBpcyBpdD8NCi0gRG9lcyBpdCBpbXBs
-ZW1lbnQgU1NMPw0KICAtIFNlY3VyaXR5DQotIFdoYXQgaXMgdGhlIHNlY3VyaXR5IG1vZGVsPw0K
-LSBOb24tcm9vdCBzdXBwb3J0PyBDYW4gaXQgcnVuIGFzIGEgbm9uLXByaXZpbGVnZWQgdXNlcj8N
-Ci0gRG9lcyBpdCBpbXBsZW1lbnQgYmFzaWMgYXV0aGVudGljYXRpb24gYW5kIHRoZSByZWRmaXNo
-IHNwZWMgeC1hdXRoLXRva2VuIGF1dGhlbnRpY2F0aW9uPw0KLSBEb2VzIGl0IGltcGxlbWVudCB0
-aGUgcmVkZmlzaCBzdGFuZGFyZCBwcml2aWxlZ2UgbWFwIG1vZGVsPw0KICAtIEV2ZW50aW5nOg0K
-LSBGb3Igd3JpdGluZyBhIFVJIG9uIHRvcCBvZiByZWRmaXNoLCBzb21ldGhpbmcgbGlrZSBTU0Ug
-aXMgYSBuaWNlLXRvLWhhdmUgdG8gYXZvaWQgcG9sbGluZyBpbiB0aGUgYnJvd3Nlci4gVGhlcmUg
-YXJlIGEgY291cGxlIG9mIHByb3Bvc2VkIFNTRSBleHRlbnNpb25zIHRoYXQgaGF2ZSBub3QgeWV0
-IGJlZW4gYXBwcm92ZWQuDQotIEhvdyBtdWNoIHdvcmsgdG8gaW1wbGVtZW50IFNTRSBzdXBwb3J0
-IHRvIGRvIHRoaW5ncyBsaWtlIHdhdGNoIFByb3BlcnR5IGNoYW5nZXM/DQotIElzIHRoZSBzdGFu
-ZGFyZCByZWRmaXNoIGV2ZW50aW5nIG1vZGVsIHN1cHBvcnRlZD8NCi0gU2VjdXJpdHkgbW9kZWwg
-aW50ZWdyYXRlZCB3aXRoIGV2ZW50aW5nPyBEbyBldmVudGluZyByZWNvcmRzIGdldCB0aGUgc2Ft
-ZSBzZWN1cml0eSB0cmVhdG1lbnQgYXMgR0VUIHJlcXVlc3RzPw0KICAtIERldmVsb3BtZW50OiBj
-YW4gaXQgcnVuIG91dHNpZGUgb2Ygb3BlbmJtYz8NCiAgLSBTcGVjaWFsIHNhdWNlOiBpcyB0aGVy
-ZSBhbnl0aGluZyBub3QgY2FwdHVyZWQgYWJvdmUgdGhhdCBtYWtlcyB0aGUgaW1wbGVtZW50YXRp
-b24gc3BlY2lhbCBpbiBhbnkgd2F5Pw0KDQotLQ0KTWljaGFlbA0KDQotLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQ0KRnJvbTogQnJhZCBCaXNob3AgW21haWx0bzpicmFkbGV5YkBmdXp6aWVzcXVp
-cnJlbC5jb21dDQpTZW50OiBUdWVzZGF5LCBKYW51YXJ5IDMwLCAyMDE4IDc6MzAgUE0NClRvOiBC
-cm93biwgTWljaGFlbCBFIDxNaWNoYWVsX0VfQnJvd25ARGVsbC5jb208bWFpbHRvOk1pY2hhZWxf
-RV9Ccm93bkBEZWxsLmNvbT4+DQpDYzogYWxpcmhhc0BtaWNyb3NvZnQuY29tPG1haWx0bzphbGly
-aGFzQG1pY3Jvc29mdC5jb20+OyBSYW8sIEJhbGFqaSBCIDxCYWxhamlfQl9SYW9AZGVsbC5jb208
-bWFpbHRvOkJhbGFqaV9CX1Jhb0BkZWxsLmNvbT4+OyBWYW5jaWwsIFBhdWwgPFBhdWxfVmFuY2ls
-QERlbGwuY29tPG1haWx0bzpQYXVsX1ZhbmNpbEBEZWxsLmNvbT4+OyBUYW5vdXMsIEVkIDxlZC50
-YW5vdXNAaW50ZWwuY29tPG1haWx0bzplZC50YW5vdXNAaW50ZWwuY29tPj47IHJvbGZiQHVzLmli
-bS5jb208bWFpbHRvOnJvbGZiQHVzLmlibS5jb20+OyBqd2Nhcm1hbkB1cy5pYm0uY29tPG1haWx0
-bzpqd2Nhcm1hbkB1cy5pYm0uY29tPjsgSGFyaWhhcmFzdWJyYW1hbmlhbiBSYW1hc3VicmFtYW5p
-YW4gPGhyYW1hc3ViQGluLmlibS5jb208bWFpbHRvOmhyYW1hc3ViQGluLmlibS5jb20+PjsgcHJh
-ZGVlcC5rdW1hcjM2QHRjcy5jb208bWFpbHRvOnByYWRlZXAua3VtYXIzNkB0Y3MuY29tPjsgT3Bl
-bkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPG1haWx0bzpvcGVuYm1jQGxp
-c3RzLm96bGFicy5vcmc+Pg0KU3ViamVjdDogUmVkZmlzaCBvbiBPcGVuQk1DDQoNCkhpIE1pY2hh
-ZWwNCg0KVGhlIHByb2plY3QgY291bGQgcmVhbGx5IHVzZSBzb21lb25lIHRvIGdldCBldmVyeW9u
-ZSB0aGF0IGhhcyBleHByZXNzZWQgaW50ZXJlc3QgaW4gdGhlIGZ1dHVyZSBvZiBSZWRmaXNoIHN1
-cHBvcnQgaW4gT3BlbkJNQyByb3dpbmcgaW4gdGhlIHNhbWUgZGlyZWN0aW9uLiAgU28gdGhhbmsg
-eW91IGZvciB2b2x1bnRlZXJpbmcgdG8gbGVhZCB0aGF0IGNvbnZlcnNhdGlvbiBhdCB0aGUgY29t
-bXVuaXR5IGNhbGwgeWVzdGVyZGF5Lg0KDQpJ4oCZdmUgQ0PigJllZCBldmVyeW9uZSB0aGF0IEkg
-a25vdyBvZiB0aGF0IGhhcyBleHByZXNzZWQgYW4gaW50ZXJlc3QuDQpPcGVuQk1DIGNvbW11bml0
-eTogZmVlbCBmcmVlIHRvIHNwZWFrIHVwIGlmIHlvdeKAmWQgbGlrZSB0byBiZSBpbnZvbHZlZCBh
-bmQgSSBmb3Jnb3QgeW91Lg0KDQpUaGUgb25seSB0aGluZyBJ4oCZZCBhc2sgaXMgdG8gcGxlYXNl
-IHBvc3QgbGlua3MgdG8gYW55IG1lZXRpbmdzLCBtaW51dGVzLCBvciBjb3JyZXNwb25kZW5jZSBo
-ZXJlIG9uIHRoZSBsaXN0LCBzbyBldmVyeW9uZSBjYW4gZWFzaWx5IGtlZXAgdXAgd2l0aCBob3cg
-dGhpbmdzIGFyZSBnb2luZyBvciBqdW1wIGluIHRvIHByb3ZpZGUgZmVlZGJhY2suDQoNCnRoYW5r
-cyBhZ2Fpbg0KDQotYnJhZA0KDQoNCg==
+> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+> ---
+>   drivers/char/ipmi/Kconfig     |   8 +
+>   drivers/char/ipmi/Makefile    |   1 +
+>   drivers/char/ipmi/kcs_bmc.c   | 468 ++++++++++++++++++++++++++++++++++++++++++
+>   drivers/char/ipmi/kcs_bmc.h   | 106 ++++++++++
+>   include/uapi/linux/ipmi_bmc.h |  14 ++
+>   5 files changed, 597 insertions(+)
+>   create mode 100644 drivers/char/ipmi/kcs_bmc.c
+>   create mode 100644 drivers/char/ipmi/kcs_bmc.h
+>   create mode 100644 include/uapi/linux/ipmi_bmc.h
+>
+> diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+> index 3544abc..aa9bcb1 100644
+> --- a/drivers/char/ipmi/Kconfig
+> +++ b/drivers/char/ipmi/Kconfig
+> @@ -96,6 +96,14 @@ config IPMI_POWEROFF
+>   
+>   endif # IPMI_HANDLER
+>   
+> +config IPMI_KCS_BMC
+> +	tristate 'IPMI KCS BMC Interface'
+> +	help
+> +	  Provides a device driver for the KCS (Keyboard Controller Style)
+> +	  IPMI interface which meets the requirement of the BMC (Baseboard
+> +	  Management Controllers) side for handling the IPMI request from
+> +	  host system software.
+> +
+>   config ASPEED_BT_IPMI_BMC
+>   	depends on ARCH_ASPEED || COMPILE_TEST
+>          depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
+> diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
+> index 33b899f..2abccb3 100644
+> --- a/drivers/char/ipmi/Makefile
+> +++ b/drivers/char/ipmi/Makefile
+> @@ -21,4 +21,5 @@ obj-$(CONFIG_IPMI_SSIF) += ipmi_ssif.o
+>   obj-$(CONFIG_IPMI_POWERNV) += ipmi_powernv.o
+>   obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
+>   obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
+> +obj-$(CONFIG_IPMI_KCS_BMC) += kcs_bmc.o
+>   obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
+> diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
+> new file mode 100644
+> index 0000000..c4676e9
+> --- /dev/null
+> +++ b/drivers/char/ipmi/kcs_bmc.c
+> @@ -0,0 +1,468 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2015-2018, Intel Corporation.
+> +
+> +#define pr_fmt(fmt) "kcs-bmc: " fmt
+> +
+> +#include <linux/errno.h>
+> +#include <linux/io.h>
+> +#include <linux/ipmi_bmc.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/poll.h>
+> +#include <linux/sched.h>
+> +#include <linux/slab.h>
+> +
+> +#include "kcs_bmc.h"
+> +
+> +#define KCS_MSG_BUFSIZ    1000
+> +
+> +#define KCS_ZERO_DATA     0
+> +
+> +
+> +/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
+> +#define KCS_STATUS_STATE(state) (state << 6)
+> +#define KCS_STATUS_STATE_MASK   GENMASK(7, 6)
+> +#define KCS_STATUS_CMD_DAT      BIT(3)
+> +#define KCS_STATUS_SMS_ATN      BIT(2)
+> +#define KCS_STATUS_IBF          BIT(1)
+> +#define KCS_STATUS_OBF          BIT(0)
+> +
+> +/* IPMI 2.0 - Table 9-2, KCS Interface State Bits */
+> +enum kcs_states {
+> +	IDLE_STATE  = 0,
+> +	READ_STATE  = 1,
+> +	WRITE_STATE = 2,
+> +	ERROR_STATE = 3,
+> +};
+> +
+> +/* IPMI 2.0 - Table 9-3, KCS Interface Control Codes */
+> +#define KCS_CMD_GET_STATUS_ABORT  0x60
+> +#define KCS_CMD_WRITE_START       0x61
+> +#define KCS_CMD_WRITE_END         0x62
+> +#define KCS_CMD_READ_BYTE         0x68
+> +
+> +static inline u8 read_data(struct kcs_bmc *kcs_bmc)
+> +{
+> +	return kcs_bmc->io_inputb(kcs_bmc, kcs_bmc->ioreg.idr);
+> +}
+> +
+> +static inline void write_data(struct kcs_bmc *kcs_bmc, u8 data)
+> +{
+> +	kcs_bmc->io_outputb(kcs_bmc, kcs_bmc->ioreg.odr, data);
+> +}
+> +
+> +static inline u8 read_status(struct kcs_bmc *kcs_bmc)
+> +{
+> +	return kcs_bmc->io_inputb(kcs_bmc, kcs_bmc->ioreg.str);
+> +}
+> +
+> +static inline void write_status(struct kcs_bmc *kcs_bmc, u8 data)
+> +{
+> +	kcs_bmc->io_outputb(kcs_bmc, kcs_bmc->ioreg.str, data);
+> +}
+> +
+> +static void update_status_bits(struct kcs_bmc *kcs_bmc, u8 mask, u8 val)
+> +{
+> +	u8 tmp = read_status(kcs_bmc);
+> +
+> +	tmp &= ~mask;
+> +	tmp |= val & mask;
+> +
+> +	write_status(kcs_bmc, tmp);
+> +}
+> +
+> +static inline void set_state(struct kcs_bmc *kcs_bmc, u8 state)
+> +{
+> +	update_status_bits(kcs_bmc, KCS_STATUS_STATE_MASK,
+> +					KCS_STATUS_STATE(state));
+> +}
+> +
+> +static void kcs_force_abort(struct kcs_bmc *kcs_bmc)
+> +{
+> +	set_state(kcs_bmc, ERROR_STATE);
+> +	read_data(kcs_bmc);
+> +	write_data(kcs_bmc, KCS_ZERO_DATA);
+> +
+> +	kcs_bmc->phase = KCS_PHASE_ERROR;
+> +	kcs_bmc->data_in_avail = false;
+> +	kcs_bmc->data_in_idx = 0;
+> +}
+> +
+> +static void kcs_bmc_handle_data(struct kcs_bmc *kcs_bmc)
+> +{
+> +	u8 data;
+> +
+> +	switch (kcs_bmc->phase) {
+> +	case KCS_PHASE_WRITE_START:
+> +		kcs_bmc->phase = KCS_PHASE_WRITE_DATA;
+> +
+> +	case KCS_PHASE_WRITE_DATA:
+> +		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ) {
+> +			set_state(kcs_bmc, WRITE_STATE);
+> +			write_data(kcs_bmc, KCS_ZERO_DATA);
+> +			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
+> +						read_data(kcs_bmc);
+> +		} else {
+> +			kcs_force_abort(kcs_bmc);
+> +			kcs_bmc->error = KCS_LENGTH_ERROR;
+> +		}
+> +		break;
+> +
+> +	case KCS_PHASE_WRITE_END_CMD:
+> +		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ) {
+> +			set_state(kcs_bmc, READ_STATE);
+> +			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
+> +						read_data(kcs_bmc);
+> +			kcs_bmc->phase = KCS_PHASE_WRITE_DONE;
+> +			kcs_bmc->data_in_avail = true;
+> +			wake_up_interruptible(&kcs_bmc->queue);
+> +		} else {
+> +			kcs_force_abort(kcs_bmc);
+> +			kcs_bmc->error = KCS_LENGTH_ERROR;
+> +		}
+> +		break;
+> +
+> +	case KCS_PHASE_READ:
+> +		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
+> +			set_state(kcs_bmc, IDLE_STATE);
+> +
+> +		data = read_data(kcs_bmc);
+> +		if (data != KCS_CMD_READ_BYTE) {
+> +			set_state(kcs_bmc, ERROR_STATE);
+> +			write_data(kcs_bmc, KCS_ZERO_DATA);
+> +			break;
+> +		}
+> +
+> +		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
+> +			write_data(kcs_bmc, KCS_ZERO_DATA);
+> +			kcs_bmc->phase = KCS_PHASE_IDLE;
+> +			break;
+> +		}
+> +
+> +		write_data(kcs_bmc,
+> +			kcs_bmc->data_out[kcs_bmc->data_out_idx++]);
+> +		break;
+> +
+> +	case KCS_PHASE_ABORT_ERROR1:
+> +		set_state(kcs_bmc, READ_STATE);
+> +		read_data(kcs_bmc);
+> +		write_data(kcs_bmc, kcs_bmc->error);
+> +		kcs_bmc->phase = KCS_PHASE_ABORT_ERROR2;
+> +		break;
+> +
+> +	case KCS_PHASE_ABORT_ERROR2:
+> +		set_state(kcs_bmc, IDLE_STATE);
+> +		read_data(kcs_bmc);
+> +		write_data(kcs_bmc, KCS_ZERO_DATA);
+> +		kcs_bmc->phase = KCS_PHASE_IDLE;
+> +		break;
+> +
+> +	default:
+> +		kcs_force_abort(kcs_bmc);
+> +		break;
+> +	}
+> +}
+> +
+> +static void kcs_bmc_handle_cmd(struct kcs_bmc *kcs_bmc)
+> +{
+> +	u8 cmd;
+> +
+> +	set_state(kcs_bmc, WRITE_STATE);
+> +	write_data(kcs_bmc, KCS_ZERO_DATA);
+> +
+> +	cmd = read_data(kcs_bmc);
+> +	switch (cmd) {
+> +	case KCS_CMD_WRITE_START:
+> +		if (kcs_bmc->phase != KCS_PHASE_IDLE &&
+> +		    kcs_bmc->phase != KCS_PHASE_ERROR) {
+> +			kcs_force_abort(kcs_bmc);
+> +			break;
+> +		}
+> +
 
---_000_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+The spec says you can do a write start basically any time and the state 
+machine starts over. I know I kind of went back and forth on this in my 
+previous email, but what you had before is correct, I think.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPCEtLVtp
-ZiAhbXNvXT48c3R5bGU+dlw6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kb1w6KiB7
-YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kd1w6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0
-I1ZNTCk7fQ0KLnNoYXBlIHtiZWhhdmlvcjp1cmwoI2RlZmF1bHQjVk1MKTt9DQo8L3N0eWxlPjwh
-W2VuZGlmXS0tPjxzdHlsZT48IS0tDQovKiBGb250IERlZmluaXRpb25zICovDQpAZm9udC1mYWNl
-DQoJe2ZvbnQtZmFtaWx5OiJDYW1icmlhIE1hdGgiOw0KCXBhbm9zZS0xOjIgNCA1IDMgNSA0IDYg
-MyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIg
-MTUgNSAyIDIgMiA0IDMgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1zb05vcm1h
-bCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJbWFyZ2luLWJv
-dHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1mYW1pbHk6IlRpbWVzIE5l
-dyBSb21hbiIsc2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUt
-cHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30N
-CmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3Jp
-dHk6OTk7DQoJY29sb3I6cHVycGxlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcA0K
-CXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFy
-Z2luLXJpZ2h0OjBpbjsNCgltc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVm
-dDowaW47DQoJZm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFu
-IixzZXJpZjt9DQp0dA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJZm9udC1mYW1pbHk6IkNv
-dXJpZXIgTmV3Ijt9DQpzcGFuLkVtYWlsU3R5bGUxOQ0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25h
-bC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjojMUY0
-OTdEO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZv
-bnQtc2l6ZToxMC4wcHQ7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGlu
-Ow0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJ
-e3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+
-DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+
-PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4
-dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxh
-eW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5r
-PSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWls
-eTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+TWljaGFlbCwg
-QnJhZCwgYWxsLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
-dDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj5IZWxsby4mbmJzcDsgVGhpcyBpcyBhIGdvb2Qg
-bGlzdCBvZiBhdHRyaWJ1dGVzIGFuZCBhZ3JlZSB3aXRoIEhhcmnigJlzIGFkZGl0aW9uc+KApjxv
-OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJm
-b250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJp
-Zjtjb2xvcjojMUY0OTdEIj5CYWxhamkgYW5kIEkgYXJlIGluIGZpbmFsIHBoYXNlIG9mIHB1c2hp
-bmcgb3VyIOKAmFJlZERydW3igJkgcHl0aG9uIFJlZGZpc2ggc2VydmljZSBpbnRvIG9wZW4gc291
-cmNlIHdpdGggdGhlIG9wZW5CTUMgcmVjaXBlcy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWls
-eTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+SW0gZXhwZWN0
-aW5nIHRvIGhhdmUgdGhlIHB5dGhvbiBjb2RlIG9wZW4gYnkgTW9uIGFuZCB0aGVuIG5leHQgd2Vl
-ayB3aWxsIGdldCB0aGUgb3BlbkJNQyByZWNpcGUgaW4uJm5ic3A7IFdlIGFyZSBtYW51YWxseSBj
-b3B5aW5nIG92ZXIgdGhlIGZpbGVzIG5vdy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTom
-cXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+TmV4dCB3ZWVrIHdl
-IHNob3VsZCBiZSBhYmxlIHRvIGFuc3dlciB0aGUgaW5pdGlhbCBsaXN0IG9mIHF1ZXN0aW9ucyBm
-b3IgUmVkRHJ1bS48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
-b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9u
-dC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPk5p
-Y2UgdG8gc2VlIHRoZXJlIGlzIGEgbG90IG9mIGludGVyZXN0IGFuZCBtdWx0aXBsZSBpbXBsZW1l
-bnRhdGlvbnMgY29taW5nITxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGli
-cmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj5UaGFua3M8bzpwPjwvbzpwPjwvc3Bh
-bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
-dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3
-RCI+cGF1bHY8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48YSBu
-YW1lPSJfTWFpbEVuZENvbXBvc2UiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQt
-ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpw
-PiZuYnNwOzwvbzpwPjwvc3Bhbj48L2E+PC9wPg0KPGRpdj4NCjxkaXYgc3R5bGU9ImJvcmRlcjpu
-b25lO2JvcmRlci10b3A6c29saWQgI0UxRTFFMSAxLjBwdDtwYWRkaW5nOjMuMHB0IDBpbiAwaW4g
-MGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
-MHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+RnJvbTo8L3Nw
-YW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0Nh
-bGlicmkmcXVvdDssc2Fucy1zZXJpZiI+IEhhcmloYXJhc3VicmFtYW5pYW4gUmFtYXN1YnJhbWFu
-aWFuIFttYWlsdG86aHJhbWFzdWJAaW4uaWJtLmNvbV0NCjxicj4NCjxiPlNlbnQ6PC9iPiBUaHVy
-c2RheSwgRmVicnVhcnkgMSwgMjAxOCAzOjA5IEFNPGJyPg0KPGI+VG86PC9iPiBCcm93biwgTWlj
-aGFlbCBFICZsdDtNaWNoYWVsX0VfQnJvd25ARGVsbC5jb20mZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBh
-bGlyaGFzQG1pY3Jvc29mdC5jb207IFJhbywgQmFsYWppIEIgJmx0O0JhbGFqaV9CX1Jhb0BkZWxs
-LmNvbSZndDs7IGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbTsgZWQudGFub3VzQGludGVsLmNv
-bTsgandjYXJtYW5AdXMuaWJtLmNvbTsgb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnOyBWYW5jaWws
-IFBhdWwgJmx0O1BhdWxfVmFuY2lsQERlbGwuY29tJmd0OzsgcHJhZGVlcC5rdW1hcjM2QHRjcy5j
-b207IHJvbGZiQHVzLmlibS5jb208YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUkU6IFJlZGZpc2ggb24g
-T3BlbkJNQzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTAuMHB0Ij5IaSBNaWNoYWVsLDwvc3Bhbj48YnI+DQo8YnI+DQo8c3BhbiBzdHlsZT0iZm9u
-dC1zaXplOjEwLjBwdCI+VGhhbmtzIGZvciBlbnVtZXJhdGluZyB0aGUgYXR0cmlidXRlcyBmb3Ig
-Y29tcGFyaXNvbi48L3NwYW4+PGJyPg0KPGJyPg0KPHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4w
-cHQiPkkgd2FudCB0byBsaXN0IGRvd24gYSBmZXcgYWRkaXRpb25hbCBjcml0ZXJpYSB0aGF0IG1h
-eSBiZSBldmFsdWF0ZWQ6PGJyPg0KPGJyPg0KMSkgRGF0YS1Ecml2ZW4gUmVzb3VyY2UgRGlzY292
-ZXJ5Ojwvc3Bhbj48YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+LSBUaGUgUmVk
-ZmlzaCBzZXJ2ZXIgc2hvdWxkIGlkZWFsbHkgYnVpbGQgaXQncyByZXNvdXJjZSBtb2RlbCBmcm9t
-IGEgJnF1b3Q7Y29uZmlnIGZpbGUmcXVvdDsuIFRoaXMgY29uZmlnIGZpbGUgY291bGQgcG90ZW50
-aWFsbHkgYmUgaGFuZC1jb2RlZCBvciBidWlsdCBvdXQgb2YgYSAmcXVvdDtzeXN0ZW0gZGVmaW5p
-dGlvbiBmaWxlJnF1b3Q7LiBUaGUgZm9sbG93aW5nIGFyZSBleGFtcGxlcyBvZiBzeXN0ZW0gZGVm
-aW5pdGlvbiBmaWxlcw0KIGZvciAyIG9mIHRoZSBzeXN0ZW1zIGN1cnJlbnRseSBydW5uaW5nIE9w
-ZW5CTUMgZmlybXdhcmUuPGJyPg0KPC9zcGFuPjxhIGhyZWY9Imh0dHBzOi8vcmF3LmdpdGh1YnVz
-ZXJjb250ZW50LmNvbS9vcGVuLXBvd2VyL3phaXVzLXhtbC9tYXN0ZXIvemFpdXMueG1sIj48c3Bh
-biBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQu
-Y29tL29wZW4tcG93ZXIvemFpdXMteG1sL21hc3Rlci96YWl1cy54bWw8L3NwYW4+PC9hPjxicj4N
-CjxhIGhyZWY9Imh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9vcGVuLXBvd2VyL3dp
-dGhlcnNwb29uLXhtbC9tYXN0ZXIvd2l0aGVyc3Bvb24ueG1sIj48c3BhbiBzdHlsZT0iZm9udC1z
-aXplOjEwLjBwdCI+aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL29wZW4tcG93ZXIv
-d2l0aGVyc3Bvb24teG1sL21hc3Rlci93aXRoZXJzcG9vbi54bWw8L3NwYW4+PC9hPjxicj4NCjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0Ij5UaGUgc3lzdGVtIGFyY2hpdGVjdHVyZSAoc2xl
-ZCB2cyBibGFkZSBldGMuKSwgbnVtYmVyIG9mIHByb2Nlc3NvcnMsIG51bWJlciBvZiBmYW5zIGV0
-Yy4gY2FuIGJlIGRldGVybWluZWQgZnJvbSB0aGUgc3lzdGVtIGRlZmluaXRpb24gZmlsZSB0byBn
-ZW5lcmF0ZSB0aGUgY29uZmlnIGZpbGUuDQo8L3NwYW4+PGJyPg0KPGJyPg0KPHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZToxMC4wcHQiPlRoZSBpbnRlbnQgaXMgdG8gbWFrZSB0aGUgcmVkZmlzaCBpbXBs
-ZW1lbnRhdGlvbiBhcyBzeXN0ZW0gYWdub3N0aWMgYXMgcG9zc2libGUuPC9zcGFuPjxicj4NCjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0Ij48YnI+DQoyKSBTZXBhcmF0aW9uIG9mIHRoZSBS
-ZWRmaXNoIGZyb250LWVuZCAodmlldykgYW5kIGJhY2stZW5kIChpbmZyYXN0cnVjdHVyZSkgbGF5
-ZXJzLiBUaGUgaW5mcmFzdHJ1Y3R1cmUgQVBJIGV4cG9zZWQgYXMgZGJ1cyBzZXJ2aWNlcyB3b3Vs
-ZCBiZSBvbmUgb2YgdGhlIG1lYW5zIHRvIG1ha2UgdGhpcyBzZXBhcmF0aW9uIG9mIGNvbmNlcm5z
-Ljwvc3Bhbj48YnI+DQo8YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+MykgUGVy
-Zm9ybWFuY2UgOjwvc3Bhbj48YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+LSBS
-dW50aW1lIG1lbW9yeSBmb290IHByaW50LlRoaXMgY291bGQgcG90ZW50aWFsbHkgaGF2ZSBhIG5l
-Z2F0aXZlIGltcGFjdCBvbiAmcXVvdDtob3cgZmFzdCZxdW90OyB0aGUgc2VydmVyIGlzLiBIZW5j
-ZSB0aGUgdHJhZGUtb2ZmIHNob3VsZCBjb25zaWRlciB3aGF0IGNhbiBiZSBjYWNoZWQgdnMgd2hh
-dCBuZWVkcyB0byBiZSBxdWVyaWVkIGZyb20gdGhlIGluZnJhc3RydWN0dXJlLjwvc3Bhbj48YnI+
-DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+LSBNaWNoYWVsLCB3aHkgZGlkIHlvdSBj
-b25zaWRlciBTU0wgYmVpbmcgc2VwYXJhdGVseSBpbXBsZW1lbnRlZCBieSB0aGUgUmVkZmlzaCBz
-ZXJ2ZXI/IFdvdWxkIHRoaXMgYmUgaW4gdGhlIHNjb3BlIG9mIHRoZSB3ZWJzZXJ2ZXIgPzwvc3Bh
-bj48YnI+DQo8YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+NCkgRXZlbnRpbmc6
-IEN1cnJlbnQgdmVyc2lvbiBvZiB0aGUgUmVkZmlzaCBzcGVjIGhhcyBsZWZ0IGl0IG9wZW4gZm9y
-IHRoZSBPRU1zIHRvIGRlZmluZSB0aGUgc3BlY2lmaWMgRXZlbnQgTWVzc2FnZXMuIGkuZS4gdGhl
-cmUgaXMgbm8gc3RhbmRhcmQgLyBjb21tb24gRXZlbnQgUmVnaXN0cnkuIFJlZGZpc2ggc2VydmVy
-IGltcGxlbWVudGF0aW9uIG9uIHRoZSBPcGVuQk1DIHNob3VsZCBkZWZpbmUNCiB0aGlzIGNvbW1v
-biBFdmVudCBSZWdpc3RyeSBhbmQgcGVyaGFwcyBhY2NlcHRlZCBieSBETVRGLiBEb2VzIHRoZSBF
-dmVudGluZyBzdXBwb3J0IGZpbHRlcmluZyBvZiBldmVudHMgYmFzZWQgb24gdGhlIGV2ZW50IHR5
-cGUsIHNvdXJjZSByZXNvdXJjZSBhbmQgdGhlIG1lc3NhZ2UgSWQgPzwvc3Bhbj48YnI+DQo8YnI+
-DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+NSkgTGV2ZXJhZ2UgZXhpc3Rpbmcgb3Bl
-biBzb3VyY2UgcHJvamVjdHM6PGJyPg0KLSBEb2VzIHRoZSBpbXBsZW1lbnRhdGlvbiBjb21wb3Nl
-IGV4aXN0aW5nIHNlcnZpY2VzIGFuZCBmcmFtZXdvcmtzID8gU3VjaCBhcyBhIHdlYnNlcnZlcihz
-YXksIG5naW54KSBhbmQgYSByZXN0IGZyYW1ld29yayAoZmxhc2spLjwvc3Bhbj48YnI+DQo8YnI+
-DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+cmVnYXJkcyw8L3NwYW4+PGJyPg0KPHNw
-YW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQiPkhhcmkgITwvc3Bhbj48YnI+DQo8YnI+DQo8YnI+
-DQo8aW1nIGJvcmRlcj0iMCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBpZD0iX3gwMDAwX2kxMDI1
-IiBzcmM9ImNpZDppbWFnZTAwMS5naWZAMDFEMzlCNTUuNzA4NkUzNTAiIGFsdD0iSW5hY3RpdmUg
-aGlkZSBkZXRhaWxzIGZvciAtLS0wMS8zMS8yMDE4IDEwOjE3OjM2IFBNLS0tU28sIEkgdGhpbmsg
-dGhhdCB0aGUgZmlyc3QgdGhpbmcgd2Ugb3VnaHQgdG8gZG8gaXMgZ2V0IGEgc3VydmV5IG9mIHRo
-ZSBkaSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQ7Y29sb3I6IzQyNDI4MiI+LS0tMDEv
-MzEvMjAxOA0KIDEwOjE3OjM2IFBNLS0tU28sIEkgdGhpbmsgdGhhdCB0aGUgZmlyc3QgdGhpbmcg
-d2Ugb3VnaHQgdG8gZG8gaXMgZ2V0IGEgc3VydmV5IG9mIHRoZSBkaWZmZXJlbnQgaW1wbGVtZW50
-YXRpb25zIHRoYTwvc3Bhbj48YnI+DQo8YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBw
-dDtjb2xvcjojNUY1RjVGIj5Gcm9tOiA8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4w
-cHQiPiZsdDs8YSBocmVmPSJtYWlsdG86TWljaGFlbC5FLkJyb3duQGRlbGwuY29tIj5NaWNoYWVs
-LkUuQnJvd25AZGVsbC5jb208L2E+Jmd0Ozwvc3Bhbj48YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1z
-aXplOjEwLjBwdDtjb2xvcjojNUY1RjVGIj5UbzogPC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTAuMHB0Ij4mbHQ7PGEgaHJlZj0ibWFpbHRvOmJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNv
-bSI+YnJhZGxleWJAZnV6emllc3F1aXJyZWwuY29tPC9hPiZndDs8L3NwYW4+PGJyPg0KPHNwYW4g
-c3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQ7Y29sb3I6IzVGNUY1RiI+Q2M6IDwvc3Bhbj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjEwLjBwdCI+Jmx0OzxhIGhyZWY9Im1haWx0bzphbGlyaGFzQG1pY3Jv
-c29mdC5jb20iPmFsaXJoYXNAbWljcm9zb2Z0LmNvbTwvYT4mZ3Q7LCAmbHQ7PGEgaHJlZj0ibWFp
-bHRvOkJhbGFqaS5CLlJhb0BkZWxsLmNvbSI+QmFsYWppLkIuUmFvQGRlbGwuY29tPC9hPiZndDss
-ICZsdDs8YSBocmVmPSJtYWlsdG86UGF1bC5WYW5jaWxAZGVsbC5jb20iPlBhdWwuVmFuY2lsQGRl
-bGwuY29tPC9hPiZndDssDQogJmx0OzxhIGhyZWY9Im1haWx0bzplZC50YW5vdXNAaW50ZWwuY29t
-Ij5lZC50YW5vdXNAaW50ZWwuY29tPC9hPiZndDssICZsdDs8YSBocmVmPSJtYWlsdG86cm9sZmJA
-dXMuaWJtLmNvbSI+cm9sZmJAdXMuaWJtLmNvbTwvYT4mZ3Q7LCAmbHQ7PGEgaHJlZj0ibWFpbHRv
-Omp3Y2FybWFuQHVzLmlibS5jb20iPmp3Y2FybWFuQHVzLmlibS5jb208L2E+Jmd0OywgJmx0Ozxh
-IGhyZWY9Im1haWx0bzpocmFtYXN1YkBpbi5pYm0uY29tIj5ocmFtYXN1YkBpbi5pYm0uY29tPC9h
-PiZndDssICZsdDs8YSBocmVmPSJtYWlsdG86cHJhZGVlcC5rdW1hcjM2QHRjcy5jb20iPnByYWRl
-ZXAua3VtYXIzNkB0Y3MuY29tPC9hPiZndDssDQogJmx0OzxhIGhyZWY9Im1haWx0bzpvcGVuYm1j
-QGxpc3RzLm96bGFicy5vcmciPm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzwvYT4mZ3Q7PC9zcGFu
-Pjxicj4NCjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2NvbG9yOiM1RjVGNUYiPkRhdGU6
-IDwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdCI+MDEvMzEvMjAxOCAxMDoxNyBQ
-TTwvc3Bhbj48YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdDtjb2xvcjojNUY1RjVG
-Ij5TdWJqZWN0OiA8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQiPlJFOiBSZWRm
-aXNoIG9uIE9wZW5CTUM8L3NwYW4+PG86cD48L286cD48L3A+DQo8ZGl2IGNsYXNzPSJNc29Ob3Jt
-YWwiPg0KPGhyIHNpemU9IjIiIHdpZHRoPSIxMDAlIiBub3NoYWRlPSIiIHN0eWxlPSJjb2xvcjoj
-ODA5MUE1IiBhbGlnbj0ibGVmdCI+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxl
-PSJtYXJnaW4tYm90dG9tOjEyLjBwdCI+PGJyPg0KPGJyPg0KPGJyPg0KPHR0PjxzcGFuIHN0eWxl
-PSJmb250LXNpemU6MTAuMHB0Ij5TbywgSSB0aGluayB0aGF0IHRoZSBmaXJzdCB0aGluZyB3ZSBv
-dWdodCB0byBkbyBpcyBnZXQgYSBzdXJ2ZXkgb2YgdGhlIGRpZmZlcmVudCBpbXBsZW1lbnRhdGlv
-bnMgdGhhdCBhcmUgb3V0IHRoZXJlLCBhbmQgZXN0YWJsaXNoIGNyaXRlcmlhIGZvciBqdWRnaW5n
-IGRpZmZlcmVudCBpbXBsZW1lbnRhdGlvbnMuPC9zcGFuPjwvdHQ+PHNwYW4gc3R5bGU9ImZvbnQt
-c2l6ZToxMC4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDsiPjxicj4NCjxi
-cj4NCjx0dD5IZXJlIHdvdWxkIGJlIGEgbGlzdCBvZiBxdWVzdGlvbnMgSSB3b3VsZCBoYXZlIGZv
-ciBldmVyeWJvZHkgb24gdGhlIGxpc3QuIEkgdGhpbmsgaXQgd291bGQgcHJvYmFibHkgYmUgYmVz
-dCB0byBjb21waWxlIGFsbCBvZiB0aGVzZSBpbnRvIGEgd2lraSBwYWdlIHNvbWV3aGVyZS48L3R0
-Pjxicj4NCjxicj4NCjx0dD4mbmJzcDsgLSBEbyB5b3UgaGF2ZSBhIHJlZGZpc2ggc2VydmVyIGlt
-cGxlbWVudGF0aW9uPzwvdHQ+PGJyPg0KPHR0PiZuYnNwOyAtIElzIGl0IE9wZW4gU291cmNlPzwv
-dHQ+PGJyPg0KPHR0Pi0gSWYgbm90LCBhcmUgeW91IHBsYW5uaW5nIG9uIG9wZW4gc291cmNpbmcg
-aXQ/PC90dD48YnI+DQo8dHQ+LSBXaGF0IGlzIHRoZSBsaWNlbnNlPzwvdHQ+PGJyPg0KPHR0Pi0g
-SXMgaXQgcG9zdGVkIHRvIGdpdGh1YiBvciBvdGhlciBwdWJsaWMgc291cmNlIGNvbnRyb2w/PC90
-dD48YnI+DQo8dHQ+Jm5ic3A7IC0gRG9lcyBpdCBwYXNzIHRoZSBETVRGIHJlZGZpc2ggc2Vydmlj
-ZSB2YWxpZGF0b3I/PC90dD48YnI+DQo8dHQ+Jm5ic3A7IC0gV2hhdCBsYW5ndWFnZSBpcyBpdCB3
-cml0dGVuIGluPzwvdHQ+PGJyPg0KPHR0PiZuYnNwOyAtIEhvdyBiaWcgaXMgaXQ/PC90dD48YnI+
-DQo8dHQ+Jm5ic3A7IC0gQ2FuIGl0IGJlIGVhc2lseSBleHRlbmRlZC9yZS11c2VkIGJ5IGFueWJv
-ZHkgZWxzZSBzaGlwcGluZyBjb21wbGlhbnQgb3BlbmJtYyBpbXBsZW1lbnRhdGlvbnM/PC90dD48
-YnI+DQo8dHQ+LSBDYW4geW91IGFkZCBPRU0gZXh0ZW5zaW9ucyB0byBleGlzdGluZyBSZWRmaXNo
-IFJlc291cmNlcyB3aXRob3V0ICZxdW90O2ZvcmtpbmcmcXVvdDsgdGhlIGNvZGViYXNlPzwvdHQ+
-PGJyPg0KPHR0Pi0gQ2FuIHlvdSBjaGFuZ2UgdGhlIGltcGxlbWVudGF0aW9uIGZvciBhIHNpbmds
-ZSBSZWRmaXNoIFJlc291cmNlIFByb3BlcnR5IHdpdGhvdXQgZm9ya2luZz88L3R0Pjxicj4NCjx0
-dD4tIENhbiB5b3UgYWRkIG5ldyBSZWRmaXNoIFJlc291cmNlcyB3aXRob3V0IGZvcmtpbmc/PC90
-dD48YnI+DQo8dHQ+Jm5ic3A7IC0gUGVyZm9ybWFuY2U8L3R0Pjxicj4NCjx0dD4tIEhvdyBmYXN0
-IGlzIGl0PzwvdHQ+PGJyPg0KPHR0Pi0gRG9lcyBpdCBpbXBsZW1lbnQgU1NMPzwvdHQ+PGJyPg0K
-PHR0PiZuYnNwOyAtIFNlY3VyaXR5PC90dD48YnI+DQo8dHQ+LSBXaGF0IGlzIHRoZSBzZWN1cml0
-eSBtb2RlbD88L3R0Pjxicj4NCjx0dD4tIE5vbi1yb290IHN1cHBvcnQ/IENhbiBpdCBydW4gYXMg
-YSBub24tcHJpdmlsZWdlZCB1c2VyPzwvdHQ+PGJyPg0KPHR0Pi0gRG9lcyBpdCBpbXBsZW1lbnQg
-YmFzaWMgYXV0aGVudGljYXRpb24gYW5kIHRoZSByZWRmaXNoIHNwZWMgeC1hdXRoLXRva2VuIGF1
-dGhlbnRpY2F0aW9uPzwvdHQ+PGJyPg0KPHR0Pi0gRG9lcyBpdCBpbXBsZW1lbnQgdGhlIHJlZGZp
-c2ggc3RhbmRhcmQgcHJpdmlsZWdlIG1hcCBtb2RlbD88L3R0Pjxicj4NCjx0dD4mbmJzcDsgLSBF
-dmVudGluZzo8L3R0Pjxicj4NCjx0dD4tIEZvciB3cml0aW5nIGEgVUkgb24gdG9wIG9mIHJlZGZp
-c2gsIHNvbWV0aGluZyBsaWtlIFNTRSBpcyBhIG5pY2UtdG8taGF2ZSB0byBhdm9pZCBwb2xsaW5n
-IGluIHRoZSBicm93c2VyLiBUaGVyZSBhcmUgYSBjb3VwbGUgb2YgcHJvcG9zZWQgU1NFIGV4dGVu
-c2lvbnMgdGhhdCBoYXZlIG5vdCB5ZXQgYmVlbiBhcHByb3ZlZC48L3R0Pjxicj4NCjx0dD4tIEhv
-dyBtdWNoIHdvcmsgdG8gaW1wbGVtZW50IFNTRSBzdXBwb3J0IHRvIGRvIHRoaW5ncyBsaWtlIHdh
-dGNoIFByb3BlcnR5IGNoYW5nZXM/PC90dD48YnI+DQo8dHQ+LSBJcyB0aGUgc3RhbmRhcmQgcmVk
-ZmlzaCBldmVudGluZyBtb2RlbCBzdXBwb3J0ZWQ/PC90dD48YnI+DQo8dHQ+LSBTZWN1cml0eSBt
-b2RlbCBpbnRlZ3JhdGVkIHdpdGggZXZlbnRpbmc/IERvIGV2ZW50aW5nIHJlY29yZHMgZ2V0IHRo
-ZSBzYW1lIHNlY3VyaXR5IHRyZWF0bWVudCBhcyBHRVQgcmVxdWVzdHM/PC90dD48YnI+DQo8dHQ+
-Jm5ic3A7IC0gRGV2ZWxvcG1lbnQ6IGNhbiBpdCBydW4gb3V0c2lkZSBvZiBvcGVuYm1jPzwvdHQ+
-PGJyPg0KPHR0PiZuYnNwOyAtIFNwZWNpYWwgc2F1Y2U6IGlzIHRoZXJlIGFueXRoaW5nIG5vdCBj
-YXB0dXJlZCBhYm92ZSB0aGF0IG1ha2VzIHRoZSBpbXBsZW1lbnRhdGlvbiBzcGVjaWFsIGluIGFu
-eSB3YXk/PC90dD48YnI+DQo8YnI+DQo8dHQ+LS08L3R0Pjxicj4NCjx0dD5NaWNoYWVsPC90dD48
-YnI+DQo8YnI+DQo8dHQ+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS08L3R0Pjxicj4NCjx0dD5G
-cm9tOiBCcmFkIEJpc2hvcCBbPGEgaHJlZj0ibWFpbHRvOmJyYWRsZXliQGZ1enppZXNxdWlycmVs
-LmNvbSI+bWFpbHRvOmJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbTwvYT5dDQo8L3R0Pjxicj4N
-Cjx0dD5TZW50OiBUdWVzZGF5LCBKYW51YXJ5IDMwLCAyMDE4IDc6MzAgUE08L3R0Pjxicj4NCjx0
-dD5UbzogQnJvd24sIE1pY2hhZWwgRSAmbHQ7PGEgaHJlZj0ibWFpbHRvOk1pY2hhZWxfRV9Ccm93
-bkBEZWxsLmNvbSI+TWljaGFlbF9FX0Jyb3duQERlbGwuY29tPC9hPiZndDs8L3R0Pjxicj4NCjx0
-dD5DYzogPGEgaHJlZj0ibWFpbHRvOmFsaXJoYXNAbWljcm9zb2Z0LmNvbSI+YWxpcmhhc0BtaWNy
-b3NvZnQuY29tPC9hPjsgUmFvLCBCYWxhamkgQiAmbHQ7PGEgaHJlZj0ibWFpbHRvOkJhbGFqaV9C
-X1Jhb0BkZWxsLmNvbSI+QmFsYWppX0JfUmFvQGRlbGwuY29tPC9hPiZndDs7IFZhbmNpbCwgUGF1
-bCAmbHQ7PGEgaHJlZj0ibWFpbHRvOlBhdWxfVmFuY2lsQERlbGwuY29tIj5QYXVsX1ZhbmNpbEBE
-ZWxsLmNvbTwvYT4mZ3Q7OyBUYW5vdXMsIEVkICZsdDs8YSBocmVmPSJtYWlsdG86ZWQudGFub3Vz
-QGludGVsLmNvbSI+ZWQudGFub3VzQGludGVsLmNvbTwvYT4mZ3Q7Ow0KPGEgaHJlZj0ibWFpbHRv
-OnJvbGZiQHVzLmlibS5jb20iPnJvbGZiQHVzLmlibS5jb208L2E+OyA8YSBocmVmPSJtYWlsdG86
-andjYXJtYW5AdXMuaWJtLmNvbSI+DQpqd2Nhcm1hbkB1cy5pYm0uY29tPC9hPjsgSGFyaWhhcmFz
-dWJyYW1hbmlhbiBSYW1hc3VicmFtYW5pYW4gJmx0OzxhIGhyZWY9Im1haWx0bzpocmFtYXN1YkBp
-bi5pYm0uY29tIj5ocmFtYXN1YkBpbi5pYm0uY29tPC9hPiZndDs7DQo8YSBocmVmPSJtYWlsdG86
-cHJhZGVlcC5rdW1hcjM2QHRjcy5jb20iPnByYWRlZXAua3VtYXIzNkB0Y3MuY29tPC9hPjsgT3Bl
-bkJNQyBNYWlsbGlzdCAmbHQ7PGEgaHJlZj0ibWFpbHRvOm9wZW5ibWNAbGlzdHMub3psYWJzLm9y
-ZyI+b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPC9hPiZndDs8L3R0Pjxicj4NCjx0dD5TdWJqZWN0
-OiBSZWRmaXNoIG9uIE9wZW5CTUM8L3R0Pjxicj4NCjxicj4NCjx0dD5IaSBNaWNoYWVsPC90dD48
-YnI+DQo8YnI+DQo8dHQ+VGhlIHByb2plY3QgY291bGQgcmVhbGx5IHVzZSBzb21lb25lIHRvIGdl
-dCBldmVyeW9uZSB0aGF0IGhhcyBleHByZXNzZWQgaW50ZXJlc3QgaW4gdGhlIGZ1dHVyZSBvZiBS
-ZWRmaXNoIHN1cHBvcnQgaW4gT3BlbkJNQyByb3dpbmcgaW4gdGhlIHNhbWUgZGlyZWN0aW9uLiAm
-bmJzcDtTbyB0aGFuayB5b3UgZm9yIHZvbHVudGVlcmluZyB0byBsZWFkIHRoYXQgY29udmVyc2F0
-aW9uIGF0IHRoZSBjb21tdW5pdHkgY2FsbCB5ZXN0ZXJkYXkuPC90dD48YnI+DQo8YnI+DQo8dHQ+
-SeKAmXZlIEND4oCZZWQgZXZlcnlvbmUgdGhhdCBJIGtub3cgb2YgdGhhdCBoYXMgZXhwcmVzc2Vk
-IGFuIGludGVyZXN0LjwvdHQ+PGJyPg0KPHR0Pk9wZW5CTUMgY29tbXVuaXR5OiBmZWVsIGZyZWUg
-dG8gc3BlYWsgdXAgaWYgeW914oCZZCBsaWtlIHRvIGJlIGludm9sdmVkIGFuZCBJIGZvcmdvdCB5
-b3UuPC90dD48YnI+DQo8YnI+DQo8dHQ+VGhlIG9ubHkgdGhpbmcgSeKAmWQgYXNrIGlzIHRvIHBs
-ZWFzZSBwb3N0IGxpbmtzIHRvIGFueSBtZWV0aW5ncywgbWludXRlcywgb3IgY29ycmVzcG9uZGVu
-Y2UgaGVyZSBvbiB0aGUgbGlzdCwgc28gZXZlcnlvbmUgY2FuIGVhc2lseSBrZWVwIHVwIHdpdGgg
-aG93IHRoaW5ncyBhcmUgZ29pbmcgb3IganVtcCBpbiB0byBwcm92aWRlIGZlZWRiYWNrLjwvdHQ+
-PGJyPg0KPGJyPg0KPHR0PnRoYW5rcyBhZ2FpbjwvdHQ+PGJyPg0KPGJyPg0KPHR0Pi1icmFkPC90
-dD48YnI+DQo8L3NwYW4+PGJyPg0KPGJyPg0KPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvYm9k
-eT4NCjwvaHRtbD4NCg==
+-corey
 
---_000_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_--
-
---_004_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_
-Content-Type: image/gif; name="image001.gif"
-Content-Description: image001.gif
-Content-Disposition: inline; filename="image001.gif"; size=105;
-	creation-date="Thu, 01 Feb 2018 18:08:59 GMT";
-	modification-date="Thu, 01 Feb 2018 18:08:59 GMT"
-Content-ID: <image001.gif@01D39B55.7086E350>
-Content-Transfer-Encoding: base64
-
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
-
---_004_c73bb370335c45dab208cb0e708a08f4AUSX13MPS306AMERDELLCOM_--
+> +		kcs_bmc->phase = KCS_PHASE_WRITE_START;
+> +		kcs_bmc->error = KCS_NO_ERROR;
+> +		break;
+> +
+> +	case KCS_CMD_WRITE_END:
+> +		if (kcs_bmc->phase != KCS_PHASE_WRITE_DATA) {
+> +			kcs_force_abort(kcs_bmc);
+> +			break;
+> +		}
+> +
+> +		kcs_bmc->phase = KCS_PHASE_WRITE_END_CMD;
+> +		break;
+> +
+> +	case KCS_CMD_GET_STATUS_ABORT:
+> +		if (kcs_bmc->error == KCS_NO_ERROR)
+> +			kcs_bmc->error = KCS_ABORTED_BY_COMMAND;
+> +
+> +		kcs_bmc->phase = KCS_PHASE_ABORT_ERROR1;
+> +		kcs_bmc->data_in_avail = false;
+> +		kcs_bmc->data_in_idx = 0;
+> +		break;
+> +
+> +	default:
+> +		kcs_force_abort(kcs_bmc);
+> +		kcs_bmc->error = KCS_ILLEGAL_CONTROL_CODE;
+> +		break;
+> +	}
+> +}
+> +
+> +int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc)
+> +{
+> +	unsigned long flags;
+> +	int ret = 0;
+> +	u8 status;
+> +
+> +	spin_lock_irqsave(&kcs_bmc->lock, flags);
+> +
+> +	if (!kcs_bmc->running) {
+> +		kcs_force_abort(kcs_bmc);
+> +		ret = -ENODEV;
+> +		goto out_unlock;
+> +	}
+> +
+> +	status = read_status(kcs_bmc) & (KCS_STATUS_IBF | KCS_STATUS_CMD_DAT);
+> +
+> +	switch (status) {
+> +	case KCS_STATUS_IBF | KCS_STATUS_CMD_DAT:
+> +		kcs_bmc_handle_cmd(kcs_bmc);
+> +		break;
+> +
+> +	case KCS_STATUS_IBF:
+> +		kcs_bmc_handle_data(kcs_bmc);
+> +		break;
+> +
+> +	default:
+> +		ret = -ENODATA;
+> +		break;
+> +	}
+> +
+> +out_unlock:
+> +	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(kcs_bmc_handle_event);
+> +
+> +static inline struct kcs_bmc *file_to_kcs_bmc(struct file *filp)
+> +{
+> +	return container_of(filp->private_data, struct kcs_bmc, miscdev);
+> +}
+> +
+> +static int kcs_bmc_open(struct inode *inode, struct file *filp)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	int ret = 0;
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (!kcs_bmc->running)
+> +		kcs_bmc->running = 1;
+> +	else
+> +		ret = -EBUSY;
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	unsigned int mask = 0;
+> +
+> +	poll_wait(filp, &kcs_bmc->queue, wait);
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (kcs_bmc->data_in_avail)
+> +		mask |= POLLIN;
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return mask;
+> +}
+> +
+> +static ssize_t kcs_bmc_read(struct file *filp, char *buf,
+> +			    size_t count, loff_t *offset)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	bool data_avail;
+> +	size_t data_len;
+> +	ssize_t ret;
+> +
+> +	if (!(filp->f_flags & O_NONBLOCK))
+> +		wait_event_interruptible(kcs_bmc->queue,
+> +					 kcs_bmc->data_in_avail);
+> +
+> +	mutex_lock(&kcs_bmc->mutex);
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	data_avail = kcs_bmc->data_in_avail;
+> +	if (data_avail) {
+> +		data_len = kcs_bmc->data_in_idx;
+> +		memcpy(kcs_bmc->kbuffer, kcs_bmc->data_in, data_len);
+> +	}
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	if (!data_avail) {
+> +		ret = -EAGAIN;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (count < data_len) {
+> +		pr_err("channel=%u with too large data : %u\n",
+> +			kcs_bmc->channel, data_len);
+> +
+> +		spin_lock_irq(&kcs_bmc->lock);
+> +		kcs_force_abort(kcs_bmc);
+> +		spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +		ret = -EOVERFLOW;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (copy_to_user(buf, kcs_bmc->kbuffer, data_len)) {
+> +		ret = -EFAULT;
+> +		goto out_unlock;
+> +	}
+> +
+> +	ret = data_len;
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (kcs_bmc->phase == KCS_PHASE_WRITE_DONE) {
+> +		kcs_bmc->phase = KCS_PHASE_WAIT_READ;
+> +		kcs_bmc->data_in_avail = false;
+> +		kcs_bmc->data_in_idx = 0;
+> +	} else {
+> +		ret = -EAGAIN;
+> +	}
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +out_unlock:
+> +	mutex_unlock(&kcs_bmc->mutex);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
+> +			     size_t count, loff_t *offset)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	ssize_t ret;
+> +
+> +	/* a minimum response size '3' : netfn + cmd + ccode */
+> +	if (count < 3 || count > KCS_MSG_BUFSIZ)
+> +		return -EINVAL;
+> +
+> +	mutex_lock(&kcs_bmc->mutex);
+> +
+> +	if (copy_from_user(kcs_bmc->kbuffer, buf, count)) {
+> +		ret = -EFAULT;
+> +		goto out_unlock;
+> +	}
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (kcs_bmc->phase == KCS_PHASE_WAIT_READ) {
+> +		kcs_bmc->phase = KCS_PHASE_READ;
+> +		kcs_bmc->data_out_idx = 1;
+> +		kcs_bmc->data_out_len = count;
+> +		memcpy(kcs_bmc->data_out, kcs_bmc->kbuffer, count);
+> +		write_data(kcs_bmc, kcs_bmc->data_out[0]);
+> +		ret = count;
+> +	} else {
+> +		ret = -EINVAL;
+> +	}
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +out_unlock:
+> +	mutex_unlock(&kcs_bmc->mutex);
+> +
+> +	return ret;
+> +}
+> +
+> +static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
+> +			  unsigned long arg)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	long ret = 0;
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +
+> +	switch (cmd) {
+> +	case IPMI_BMC_IOCTL_SET_SMS_ATN:
+> +		update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
+> +				   KCS_STATUS_SMS_ATN);
+> +		break;
+> +
+> +	case IPMI_BMC_IOCTL_CLEAR_SMS_ATN:
+> +		update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
+> +				   0);
+> +		break;
+> +
+> +	case IPMI_BMC_IOCTL_FORCE_ABORT:
+> +		kcs_force_abort(kcs_bmc);
+> +		break;
+> +
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int kcs_bmc_release(struct inode *inode, struct file *filp)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	kcs_bmc->running = 0;
+> +	kcs_force_abort(kcs_bmc);
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct file_operations kcs_bmc_fops = {
+> +	.owner          = THIS_MODULE,
+> +	.open           = kcs_bmc_open,
+> +	.read           = kcs_bmc_read,
+> +	.write          = kcs_bmc_write,
+> +	.release        = kcs_bmc_release,
+> +	.poll           = kcs_bmc_poll,
+> +	.unlocked_ioctl = kcs_bmc_ioctl,
+> +};
+> +
+> +struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv, u32 channel)
+> +{
+> +	struct kcs_bmc *kcs_bmc;
+> +
+> +	kcs_bmc = devm_kzalloc(dev, sizeof(*kcs_bmc) + sizeof_priv, GFP_KERNEL);
+> +	if (!kcs_bmc)
+> +		return NULL;
+> +
+> +	dev_set_name(dev, "ipmi-kcs%u", channel);
+> +
+> +	spin_lock_init(&kcs_bmc->lock);
+> +	kcs_bmc->channel = channel;
+> +
+> +	mutex_init(&kcs_bmc->mutex);
+> +	init_waitqueue_head(&kcs_bmc->queue);
+> +
+> +	kcs_bmc->data_in = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
+> +	kcs_bmc->data_out = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
+> +	kcs_bmc->kbuffer = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
+> +	if (!kcs_bmc->data_in || !kcs_bmc->data_out || !kcs_bmc->kbuffer)
+> +		return NULL;
+> +
+> +	kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
+> +	kcs_bmc->miscdev.name = dev_name(dev);
+> +	kcs_bmc->miscdev.fops = &kcs_bmc_fops;
+> +
+> +	return kcs_bmc;
+> +}
+> +EXPORT_SYMBOL(kcs_bmc_alloc);
+> +
+> +MODULE_LICENSE("GPL v2");
+> +MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
+> +MODULE_DESCRIPTION("KCS BMC to handle the IPMI request from system software");
+> diff --git a/drivers/char/ipmi/kcs_bmc.h b/drivers/char/ipmi/kcs_bmc.h
+> new file mode 100644
+> index 0000000..f2ecbe6
+> --- /dev/null
+> +++ b/drivers/char/ipmi/kcs_bmc.h
+> @@ -0,0 +1,106 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2015-2018, Intel Corporation.
+> +
+> +#ifndef __KCS_BMC_H__
+> +#define __KCS_BMC_H__
+> +
+> +#include <linux/miscdevice.h>
+> +
+> +/* Different phases of the KCS BMC module :
+> + *  KCS_PHASE_IDLE :
+> + *            BMC should not be expecting nor sending any data.
+> + *  KCS_PHASE_WRITE_START :
+> + *            BMC is receiving a WRITE_START command from system software.
+> + *  KCS_PHASE_WRITE_DATA :
+> + *            BMC is receiving a data byte from system software.
+> + *  KCS_PHASE_WRITE_END_CMD :
+> + *            BMC is waiting a last data byte from system software.
+> + *  KCS_PHASE_WRITE_DONE :
+> + *            BMC has received the whole request from system software.
+> + *  KCS_PHASE_WAIT_READ :
+> + *            BMC is waiting the response from the upper IPMI service.
+> + *  KCS_PHASE_READ :
+> + *            BMC is transferring the response to system software.
+> + *  KCS_PHASE_ABORT_ERROR1 :
+> + *            BMC is waiting error status request from system software.
+> + *  KCS_PHASE_ABORT_ERROR2 :
+> + *            BMC is waiting for idle status afer error from system software.
+> + *  KCS_PHASE_ERROR :
+> + *            BMC has detected a protocol violation at the interface level.
+> + */
+> +enum kcs_phases {
+> +	KCS_PHASE_IDLE,
+> +
+> +	KCS_PHASE_WRITE_START,
+> +	KCS_PHASE_WRITE_DATA,
+> +	KCS_PHASE_WRITE_END_CMD,
+> +	KCS_PHASE_WRITE_DONE,
+> +
+> +	KCS_PHASE_WAIT_READ,
+> +	KCS_PHASE_READ,
+> +
+> +	KCS_PHASE_ABORT_ERROR1,
+> +	KCS_PHASE_ABORT_ERROR2,
+> +	KCS_PHASE_ERROR
+> +};
+> +
+> +/* IPMI 2.0 - Table 9-4, KCS Interface Status Codes */
+> +enum kcs_errors {
+> +	KCS_NO_ERROR                = 0x00,
+> +	KCS_ABORTED_BY_COMMAND      = 0x01,
+> +	KCS_ILLEGAL_CONTROL_CODE    = 0x02,
+> +	KCS_LENGTH_ERROR            = 0x06,
+> +	KCS_UNSPECIFIED_ERROR       = 0xFF
+> +};
+> +
+> +/* IPMI 2.0 - 9.5, KCS Interface Registers
+> + * @idr : Input Data Register
+> + * @odr : Output Data Register
+> + * @str : Status Register
+> + */
+> +struct kcs_ioreg {
+> +	u32 idr;
+> +	u32 odr;
+> +	u32 str;
+> +};
+> +
+> +struct kcs_bmc {
+> +	spinlock_t lock;
+> +
+> +	u32 channel;
+> +	int running;
+> +
+> +	/* Setup by BMC KCS controller driver */
+> +	struct kcs_ioreg ioreg;
+> +	u8 (*io_inputb)(struct kcs_bmc *kcs_bmc, u32 reg);
+> +	void (*io_outputb)(struct kcs_bmc *kcs_bmc, u32 reg, u8 b);
+> +
+> +	enum kcs_phases phase;
+> +	enum kcs_errors error;
+> +
+> +	wait_queue_head_t queue;
+> +	bool data_in_avail;
+> +	int  data_in_idx;
+> +	u8  *data_in;
+> +
+> +	int  data_out_idx;
+> +	int  data_out_len;
+> +	u8  *data_out;
+> +
+> +	struct mutex mutex;
+> +	u8 *kbuffer;
+> +
+> +	struct miscdevice miscdev;
+> +
+> +	unsigned long priv[];
+> +};
+> +
+> +static inline void *kcs_bmc_priv(const struct kcs_bmc *kcs_bmc)
+> +{
+> +	return kcs_bmc->priv;
+> +}
+> +
+> +int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc);
+> +struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv,
+> +					u32 channel);
+> +#endif
+> diff --git a/include/uapi/linux/ipmi_bmc.h b/include/uapi/linux/ipmi_bmc.h
+> new file mode 100644
+> index 0000000..2f9f97e
+> --- /dev/null
+> +++ b/include/uapi/linux/ipmi_bmc.h
+> @@ -0,0 +1,14 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2015-2018, Intel Corporation.
+> +
+> +#ifndef _UAPI_LINUX_IPMI_BMC_H
+> +#define _UAPI_LINUX_IPMI_BMC_H
+> +
+> +#include <linux/ioctl.h>
+> +
+> +#define __IPMI_BMC_IOCTL_MAGIC        0xB1
+> +#define IPMI_BMC_IOCTL_SET_SMS_ATN    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
+> +#define IPMI_BMC_IOCTL_CLEAR_SMS_ATN  _IO(__IPMI_BMC_IOCTL_MAGIC, 0x01)
+> +#define IPMI_BMC_IOCTL_FORCE_ABORT    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x02)
+> +
+> +#endif /* _UAPI_LINUX_KCS_BMC_H */
