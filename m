@@ -1,68 +1,72 @@
-Return-Path: <hramasub@in.ibm.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=hramasub@in.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zXDnd1xVxzF0Sd
- for <openbmc@lists.ozlabs.org>; Thu,  1 Feb 2018 20:09:08 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w11984gN136282
- for <openbmc@lists.ozlabs.org>; Thu, 1 Feb 2018 04:09:07 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.82])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2fuwqwdus8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 01 Feb 2018 04:09:06 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zXH5p0Wx1zDqkl
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Feb 2018 21:53:17 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w11Ancbv089206
+ for <openbmc@lists.ozlabs.org>; Thu, 1 Feb 2018 05:53:14 -0500
+Received: from e06smtp15.uk.ibm.com (e06smtp15.uk.ibm.com [195.75.94.111])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2fuxyvq2gk-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 01 Feb 2018 05:53:13 -0500
 Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <hramasub@in.ibm.com>;
- Thu, 1 Feb 2018 09:09:05 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Thu, 1 Feb 2018 09:08:59 -0000
-Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2018020109085891-292876 ;
- Thu, 1 Feb 2018 09:08:58 +0000 
-MIME-Version: 1.0
-In-Reply-To: <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
-Subject: RE: Redfish on OpenBMC
-To: <Michael.E.Brown@dell.com>
-Cc: alirhas@microsoft.com, Balaji.B.Rao@dell.com, bradleyb@fuzziesquirrel.com, 
- ed.tanous@intel.com, jwcarman@us.ibm.com, openbmc@lists.ozlabs.org,
- Paul.Vancil@dell.com, pradeep.kumar36@tcs.com, rolfb@us.ibm.com
-From: "Hariharasubramanian Ramasubramanian" <hramasub@in.ibm.com>
-Date: Thu, 1 Feb 2018 14:38:57 +0530
+ by e06smtp15.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Thu, 1 Feb 2018 10:53:12 -0000
+Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
+ by e06smtp15.uk.ibm.com (192.168.101.145) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 1 Feb 2018 10:53:10 -0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w11Ar42N50135146; Thu, 1 Feb 2018 10:53:04 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B45A4AE16A;
+ Thu,  1 Feb 2018 10:44:27 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2B7BAAE177;
+ Thu,  1 Feb 2018 10:44:26 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.203.113])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Thu,  1 Feb 2018 10:44:25 +0000 (GMT)
+Subject: Re: Redfish on OpenBMC
+To: Michael.E.Brown@dell.com, hramasub@in.ibm.com
 References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
  <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
-X-KeepSent: F0C73A52:E22304BC-65258227:0026CCEB;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP7 August 18, 2016
-X-LLNOutbound: False
-X-Disclaimed: 18071
-X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B"
-x-cbid: 18020109-5101-0000-0000-000008254866
-X-IBM-SpamModules-Scores: BY=0.163184; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.408524; ST=0; TS=0; UL=0; ISC=; MB=0.360381
-X-IBM-SpamModules-Versions: BY=3.00008458; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000248; SDB=6.00983404; UDB=6.00498741; IPR=6.00762682; 
- BA=6.00005806; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019316; XFM=3.00000015;
- UTC=2018-02-01 09:09:03
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-02-01 03:42:48 - 6.00007991
-x-cbparentid: 18020109-5102-0000-0000-000028D85D9A
-Message-Id: <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
+ <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
+Cc: openbmc@lists.ozlabs.org
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Thu, 1 Feb 2018 16:23:01 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
+ Gecko/20100101 Thunderbird/52.5.2
+MIME-Version: 1.0
+In-Reply-To: <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+x-cbid: 18020110-0020-0000-0000-000003F136EC
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18020110-0021-0000-0000-000042839FC4
+Message-Id: <cc30ee65-2fb7-ddd2-b6af-11d665919be6@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-01_03:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ definitions=2018-02-01_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1802010142
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -74,272 +78,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Feb 2018 09:09:09 -0000
+X-List-Received-Date: Thu, 01 Feb 2018 10:53:18 -0000
 
---0__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B
-Content-type: multipart/alternative; 
-	Boundary="1__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B"
+On 01/02/18 2:38 pm, Hariharasubramanian Ramasubramanian wrote:
+> Hi Michael,
+> 
+> Thanks for enumerating the attributes for comparison.
+> 
+> I want to list down a few additional criteria that may be evaluated:
+> 
+> 1) Data-Driven Resource Discovery:
+> - The Redfish server should ideally build it's resource model from a 
+> "config file". This config file could potentially be hand-coded or built 
+> out of a "system definition file". The following are examples of system 
+> definition files for 2 of the systems currently running OpenBMC firmware.
+> https://raw.githubusercontent.com/open-power/zaius-xml/master/zaius.xml
+> https://raw.githubusercontent.com/open-power/witherspoon-xml/master/witherspoon.xml
+> The system architecture (sled vs blade etc.), number of processors, 
+> number of fans etc. can be determined from the system definition file to 
+> generate the config file.
 
+OpenBMC systems already have a "resource model" in the form of the D-Bus 
+object hierarchy. Do you envision having a separate model to depict the 
+Redfish hypermedia resources, or coming up with a way to map Redfish 
+resources to D-Bus objects? This probably ties into the point about how 
+easy it is to take the implementation and run it outside OpenBMC.
 
---1__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B
-Content-Transfer-Encoding: base64
-Content-type: text/plain; charset=UTF-8
+> The intent is to make the redfish implementation as system agnostic as 
+> possible.
+> 
+> 2) Separation of the Redfish front-end (view) and back-end 
+> (infrastructure) layers. The infrastructure API exposed as dbus services 
+> would be one of the means to make this separation of concerns.
+> 
+> 3) Performance :
+> - Runtime memory foot print.This could potentially have a negative 
+> impact on "how fast" the server is. Hence the trade-off should consider 
+> what can be cached vs what needs to be queried from the infrastructure.
+> - Michael, why did you consider SSL being separately implemented by the 
+> Redfish server? Would this be in the scope of the webserver ?
+> 
+> 4) Eventing: Current version of the Redfish spec has left it open for 
+> the OEMs to define the specific Event Messages. i.e. there is no 
+> standard / common Event Registry. Redfish server implementation on the 
+> OpenBMC should define this common Event Registry and perhaps accepted by 
+> DMTF. Does the Eventing support filtering of events based on the event 
+> type, source resource and the message Id ?
+> 
+> 5) Leverage existing open source projects:
+> - Does the implementation compose existing services and frameworks ? 
+> Such as a webserver(say, nginx) and a rest framework (flask).
+> 
+> regards,
+> Hari !
+> 
+> 
+> Inactive hide details for ---01/31/2018 10:17:36 PM---So, I think that 
+> the first thing we ought to do is get a survey of the di---01/31/2018 
+> 10:17:36 PM---So, I think that the first thing we ought to do is get a 
+> survey of the different implementations tha
+> 
+> From: <Michael.E.Brown@dell.com>
+> To: <bradleyb@fuzziesquirrel.com>
+> Cc: <alirhas@microsoft.com>, <Balaji.B.Rao@dell.com>, 
+> <Paul.Vancil@dell.com>, <ed.tanous@intel.com>, <rolfb@us.ibm.com>, 
+> <jwcarman@us.ibm.com>, <hramasub@in.ibm.com>, <pradeep.kumar36@tcs.com>, 
+> <openbmc@lists.ozlabs.org>
+> Date: 01/31/2018 10:17 PM
+> Subject: RE: Redfish on OpenBMC
+> 
+> ------------------------------------------------------------------------
+> 
+> 
+> 
+> So, I think that the first thing we ought to do is get a survey of the 
+> different implementations that are out there, and establish criteria for 
+> judging different implementations.
+> 
+> Here would be a list of questions I would have for everybody on the 
+> list. I think it would probably be best to compile all of these into a 
+> wiki page somewhere.
+> 
+>    - Do you have a redfish server implementation?
+>    - Is it Open Source?
+> - If not, are you planning on open sourcing it?
+> - What is the license?
+> - Is it posted to github or other public source control?
+>    - Does it pass the DMTF redfish service validator?
+>    - What language is it written in?
+>    - How big is it?
+>    - Can it be easily extended/re-used by anybody else shipping 
+> compliant openbmc implementations?
+> - Can you add OEM extensions to existing Redfish Resources without 
+> "forking" the codebase?
+> - Can you change the implementation for a single Redfish Resource 
+> Property without forking?
+> - Can you add new Redfish Resources without forking?
+>    - Performance
+> - How fast is it?
+> - Does it implement SSL?
+>    - Security
+> - What is the security model?
+> - Non-root support? Can it run as a non-privileged user?
+> - Does it implement basic authentication and the redfish spec 
+> x-auth-token authentication?
+> - Does it implement the redfish standard privilege map model?
+>    - Eventing:
+> - For writing a UI on top of redfish, something like SSE is a 
+> nice-to-have to avoid polling in the browser. There are a couple of 
+> proposed SSE extensions that have not yet been approved.
+> - How much work to implement SSE support to do things like watch 
+> Property changes?
+> - Is the standard redfish eventing model supported?
+> - Security model integrated with eventing? Do eventing records get the 
+> same security treatment as GET requests?
+>    - Development: can it run outside of openbmc?
+>    - Special sauce: is there anything not captured above that makes the 
+> implementation special in any way?
+> 
+> --
+> Michael
+> 
+> -----Original Message-----
+> From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
+> Sent: Tuesday, January 30, 2018 7:30 PM
+> To: Brown, Michael E <Michael_E_Brown@Dell.com>
+> Cc: alirhas@microsoft.com; Rao, Balaji B <Balaji_B_Rao@dell.com>; 
+> Vancil, Paul <Paul_Vancil@Dell.com>; Tanous, Ed <ed.tanous@intel.com>; 
+> rolfb@us.ibm.com; jwcarman@us.ibm.com; Hariharasubramanian 
+> Ramasubramanian <hramasub@in.ibm.com>; pradeep.kumar36@tcs.com; OpenBMC 
+> Maillist <openbmc@lists.ozlabs.org>
+> Subject: Redfish on OpenBMC
+> 
+> Hi Michael
+> 
+> The project could really use someone to get everyone that has expressed 
+> interest in the future of Redfish support in OpenBMC rowing in the same 
+> direction.  So thank you for volunteering to lead that conversation at 
+> the community call yesterday.
+> 
+> I’ve CC’ed everyone that I know of that has expressed an interest.
+> OpenBMC community: feel free to speak up if you’d like to be involved 
+> and I forgot you.
+> 
+> The only thing I’d ask is to please post links to any meetings, minutes, 
+> or correspondence here on the list, so everyone can easily keep up with 
+> how things are going or jump in to provide feedback.
+> 
+> thanks again
+> 
+> -brad
+> 
+> 
+> 
 
-SGkgTWljaGFlbCwNCg0KVGhhbmtzIGZvciAgZW51bWVyYXRpbmcgdGhlIGF0dHJpYnV0ZXMgZm9y
-IGNvbXBhcmlzb24uDQoNCkkgd2FudCB0byBsaXN0IGRvd24gYSBmZXcgYWRkaXRpb25hbCBjcml0
-ZXJpYSB0aGF0IG1heSBiZSBldmFsdWF0ZWQ6DQoNCjEpIERhdGEtRHJpdmVuIFJlc291cmNlIERp
-c2NvdmVyeToNCiAgICAgLSBUaGUgUmVkZmlzaCBzZXJ2ZXIgc2hvdWxkIGlkZWFsbHkgYnVpbGQg
-aXQncyByZXNvdXJjZSBtb2RlbCBmcm9tIGENCiJjb25maWcgZmlsZSIuIFRoaXMgY29uZmlnIGZp
-bGUgY291bGQgcG90ZW50aWFsbHkgYmUgaGFuZC1jb2RlZCBvciBidWlsdA0Kb3V0IG9mIGEgInN5
-c3RlbSBkZWZpbml0aW9uIGZpbGUiLiBUaGUgZm9sbG93aW5nIGFyZSBleGFtcGxlcyBvZiBzeXN0
-ZW0NCmRlZmluaXRpb24gZmlsZXMgZm9yIDIgb2YgdGhlIHN5c3RlbXMgY3VycmVudGx5IHJ1bm5p
-bmcgT3BlbkJNQyBmaXJtd2FyZS4NCmh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9v
-cGVuLXBvd2VyL3phaXVzLXhtbC9tYXN0ZXIvemFpdXMueG1sDQpodHRwczovL3Jhdy5naXRodWJ1
-c2VyY29udGVudC5jb20vb3Blbi1wb3dlci93aXRoZXJzcG9vbi14bWwvbWFzdGVyL3dpdGhlcnNw
-b29uLnhtbA0KVGhlIHN5c3RlbSBhcmNoaXRlY3R1cmUgKHNsZWQgdnMgYmxhZGUgZXRjLiksIG51
-bWJlciBvZiBwcm9jZXNzb3JzLCBudW1iZXINCm9mIGZhbnMgZXRjLiBjYW4gYmUgZGV0ZXJtaW5l
-ZCBmcm9tIHRoZSBzeXN0ZW0gZGVmaW5pdGlvbiBmaWxlIHRvIGdlbmVyYXRlDQp0aGUgY29uZmln
-IGZpbGUuDQoNClRoZSBpbnRlbnQgaXMgdG8gbWFrZSB0aGUgcmVkZmlzaCBpbXBsZW1lbnRhdGlv
-biBhcyBzeXN0ZW0gYWdub3N0aWMgYXMNCnBvc3NpYmxlLg0KDQoyKSBTZXBhcmF0aW9uIG9mIHRo
-ZSBSZWRmaXNoIGZyb250LWVuZCAodmlldykgYW5kIGJhY2stZW5kIChpbmZyYXN0cnVjdHVyZSkN
-CmxheWVycy4gVGhlIGluZnJhc3RydWN0dXJlIEFQSSBleHBvc2VkIGFzIGRidXMgc2VydmljZXMg
-d291bGQgYmUgb25lIG9mIHRoZQ0KbWVhbnMgdG8gbWFrZSB0aGlzIHNlcGFyYXRpb24gb2YgY29u
-Y2VybnMuDQoNCjMpIFBlcmZvcm1hbmNlIDoNCiAgICAgLSBSdW50aW1lIG1lbW9yeSBmb290IHBy
-aW50LlRoaXMgY291bGQgcG90ZW50aWFsbHkgIGhhdmUgYSBuZWdhdGl2ZQ0KaW1wYWN0IG9uICJo
-b3cgZmFzdCIgdGhlIHNlcnZlciBpcy4gSGVuY2UgdGhlIHRyYWRlLW9mZiBzaG91bGQgY29uc2lk
-ZXINCndoYXQgY2FuIGJlIGNhY2hlZCB2cyB3aGF0IG5lZWRzIHRvIGJlIHF1ZXJpZWQgZnJvbSB0
-aGUgaW5mcmFzdHJ1Y3R1cmUuDQogICAgIC0gTWljaGFlbCwgd2h5IGRpZCB5b3UgY29uc2lkZXIg
-U1NMIGJlaW5nIHNlcGFyYXRlbHkgaW1wbGVtZW50ZWQgYnkNCnRoZSBSZWRmaXNoIHNlcnZlcj8g
-V291bGQgdGhpcyBiZSBpbiB0aGUgc2NvcGUgb2YgdGhlIHdlYnNlcnZlciA/DQoNCjQpIEV2ZW50
-aW5nOiBDdXJyZW50IHZlcnNpb24gb2YgdGhlIFJlZGZpc2ggc3BlYyBoYXMgbGVmdCBpdCBvcGVu
-IGZvciB0aGUNCk9FTXMgdG8gZGVmaW5lIHRoZSBzcGVjaWZpYyBFdmVudCBNZXNzYWdlcy4gaS5l
-LiB0aGVyZSBpcyBubyBzdGFuZGFyZCAvDQpjb21tb24gRXZlbnQgUmVnaXN0cnkuIFJlZGZpc2gg
-c2VydmVyIGltcGxlbWVudGF0aW9uIG9uIHRoZSBPcGVuQk1DIHNob3VsZA0KZGVmaW5lIHRoaXMg
-Y29tbW9uIEV2ZW50IFJlZ2lzdHJ5IGFuZCBwZXJoYXBzIGFjY2VwdGVkIGJ5IERNVEYuIERvZXMg
-dGhlDQpFdmVudGluZyBzdXBwb3J0IGZpbHRlcmluZyBvZiBldmVudHMgYmFzZWQgb24gdGhlIGV2
-ZW50IHR5cGUsIHNvdXJjZQ0KcmVzb3VyY2UgYW5kIHRoZSBtZXNzYWdlIElkID8NCg0KNSkgTGV2
-ZXJhZ2UgZXhpc3Rpbmcgb3BlbiBzb3VyY2UgcHJvamVjdHM6DQogICAtIERvZXMgdGhlIGltcGxl
-bWVudGF0aW9uIGNvbXBvc2UgZXhpc3Rpbmcgc2VydmljZXMgYW5kIGZyYW1ld29ya3MgPw0KU3Vj
-aCBhcyBhIHdlYnNlcnZlcihzYXksIG5naW54KSBhbmQgYSByZXN0IGZyYW1ld29yayAoZmxhc2sp
-Lg0KDQpyZWdhcmRzLA0KSGFyaSAhDQoNCg0KDQoNCkZyb206CTxNaWNoYWVsLkUuQnJvd25AZGVs
-bC5jb20+DQpUbzoJPGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbT4NCkNjOgk8YWxpcmhhc0Bt
-aWNyb3NvZnQuY29tPiwgPEJhbGFqaS5CLlJhb0BkZWxsLmNvbT4sDQogICAgICAgICAgICA8UGF1
-bC5WYW5jaWxAZGVsbC5jb20+LCA8ZWQudGFub3VzQGludGVsLmNvbT4sDQogICAgICAgICAgICA8
-cm9sZmJAdXMuaWJtLmNvbT4sIDxqd2Nhcm1hbkB1cy5pYm0uY29tPiwNCiAgICAgICAgICAgIDxo
-cmFtYXN1YkBpbi5pYm0uY29tPiwgPHByYWRlZXAua3VtYXIzNkB0Y3MuY29tPiwNCiAgICAgICAg
-ICAgIDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQpEYXRlOgkwMS8zMS8yMDE4IDEwOjE3IFBN
-DQpTdWJqZWN0OglSRTogUmVkZmlzaCBvbiBPcGVuQk1DDQoNCg0KDQpTbywgSSB0aGluayB0aGF0
-IHRoZSBmaXJzdCB0aGluZyB3ZSBvdWdodCB0byBkbyBpcyBnZXQgYSBzdXJ2ZXkgb2YgdGhlDQpk
-aWZmZXJlbnQgaW1wbGVtZW50YXRpb25zIHRoYXQgYXJlIG91dCB0aGVyZSwgYW5kIGVzdGFibGlz
-aCBjcml0ZXJpYSBmb3INCmp1ZGdpbmcgZGlmZmVyZW50IGltcGxlbWVudGF0aW9ucy4NCg0KSGVy
-ZSB3b3VsZCBiZSBhIGxpc3Qgb2YgcXVlc3Rpb25zIEkgd291bGQgaGF2ZSBmb3IgZXZlcnlib2R5
-IG9uIHRoZSBsaXN0LiBJDQp0aGluayBpdCB3b3VsZCBwcm9iYWJseSBiZSBiZXN0IHRvIGNvbXBp
-bGUgYWxsIG9mIHRoZXNlIGludG8gYSB3aWtpIHBhZ2UNCnNvbWV3aGVyZS4NCg0KICAgLSBEbyB5
-b3UgaGF2ZSBhIHJlZGZpc2ggc2VydmVyIGltcGxlbWVudGF0aW9uPw0KICAgLSBJcyBpdCBPcGVu
-IFNvdXJjZT8NCgkJIC0gSWYgbm90LCBhcmUgeW91IHBsYW5uaW5nIG9uIG9wZW4gc291cmNpbmcg
-aXQ/DQoJCSAtIFdoYXQgaXMgdGhlIGxpY2Vuc2U/DQoJCSAtIElzIGl0IHBvc3RlZCB0byBnaXRo
-dWIgb3Igb3RoZXIgcHVibGljIHNvdXJjZSBjb250cm9sPw0KICAgLSBEb2VzIGl0IHBhc3MgdGhl
-IERNVEYgcmVkZmlzaCBzZXJ2aWNlIHZhbGlkYXRvcj8NCiAgIC0gV2hhdCBsYW5ndWFnZSBpcyBp
-dCB3cml0dGVuIGluPw0KICAgLSBIb3cgYmlnIGlzIGl0Pw0KICAgLSBDYW4gaXQgYmUgZWFzaWx5
-IGV4dGVuZGVkL3JlLXVzZWQgYnkgYW55Ym9keSBlbHNlIHNoaXBwaW5nIGNvbXBsaWFudA0Kb3Bl
-bmJtYyBpbXBsZW1lbnRhdGlvbnM/DQoJCSAtIENhbiB5b3UgYWRkIE9FTSBleHRlbnNpb25zIHRv
-IGV4aXN0aW5nIFJlZGZpc2ggUmVzb3VyY2VzDQp3aXRob3V0ICJmb3JraW5nIiB0aGUgY29kZWJh
-c2U/DQoJCSAtIENhbiB5b3UgY2hhbmdlIHRoZSBpbXBsZW1lbnRhdGlvbiBmb3IgYSBzaW5nbGUg
-UmVkZmlzaA0KUmVzb3VyY2UgUHJvcGVydHkgd2l0aG91dCBmb3JraW5nPw0KCQkgLSBDYW4geW91
-IGFkZCBuZXcgUmVkZmlzaCBSZXNvdXJjZXMgd2l0aG91dCBmb3JraW5nPw0KICAgLSBQZXJmb3Jt
-YW5jZQ0KCQkgLSBIb3cgZmFzdCBpcyBpdD8NCgkJIC0gRG9lcyBpdCBpbXBsZW1lbnQgU1NMPw0K
-ICAgLSBTZWN1cml0eQ0KCQkgLSBXaGF0IGlzIHRoZSBzZWN1cml0eSBtb2RlbD8NCgkJIC0gTm9u
-LXJvb3Qgc3VwcG9ydD8gQ2FuIGl0IHJ1biBhcyBhIG5vbi1wcml2aWxlZ2VkIHVzZXI/DQoJCSAt
-IERvZXMgaXQgaW1wbGVtZW50IGJhc2ljIGF1dGhlbnRpY2F0aW9uIGFuZCB0aGUgcmVkZmlzaCBz
-cGVjDQp4LWF1dGgtdG9rZW4gYXV0aGVudGljYXRpb24/DQoJCSAtIERvZXMgaXQgaW1wbGVtZW50
-IHRoZSByZWRmaXNoIHN0YW5kYXJkIHByaXZpbGVnZSBtYXAgbW9kZWw/DQogICAtIEV2ZW50aW5n
-Og0KCQkgLSBGb3Igd3JpdGluZyBhIFVJIG9uIHRvcCBvZiByZWRmaXNoLCBzb21ldGhpbmcgbGlr
-ZSBTU0UgaXMgYQ0KbmljZS10by1oYXZlIHRvIGF2b2lkIHBvbGxpbmcgaW4gdGhlIGJyb3dzZXIu
-IFRoZXJlIGFyZSBhIGNvdXBsZSBvZg0KcHJvcG9zZWQgU1NFIGV4dGVuc2lvbnMgdGhhdCBoYXZl
-IG5vdCB5ZXQgYmVlbiBhcHByb3ZlZC4NCgkJIAkJIC0gSG93IG11Y2ggd29yayB0byBpbXBsZW1l
-bnQgU1NFIHN1cHBvcnQgdG8gZG8NCnRoaW5ncyBsaWtlIHdhdGNoIFByb3BlcnR5IGNoYW5nZXM/
-DQoJCSAtIElzIHRoZSBzdGFuZGFyZCByZWRmaXNoIGV2ZW50aW5nIG1vZGVsIHN1cHBvcnRlZD8N
-CgkJIC0gU2VjdXJpdHkgbW9kZWwgaW50ZWdyYXRlZCB3aXRoIGV2ZW50aW5nPyBEbyBldmVudGlu
-ZyByZWNvcmRzDQpnZXQgdGhlIHNhbWUgc2VjdXJpdHkgdHJlYXRtZW50IGFzIEdFVCByZXF1ZXN0
-cz8NCiAgIC0gRGV2ZWxvcG1lbnQ6IGNhbiBpdCBydW4gb3V0c2lkZSBvZiBvcGVuYm1jPw0KICAg
-LSBTcGVjaWFsIHNhdWNlOiBpcyB0aGVyZSBhbnl0aGluZyBub3QgY2FwdHVyZWQgYWJvdmUgdGhh
-dCBtYWtlcyB0aGUNCmltcGxlbWVudGF0aW9uIHNwZWNpYWwgaW4gYW55IHdheT8NCg0KLS0NCk1p
-Y2hhZWwNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEJyYWQgQmlzaG9wIFtt
-YWlsdG86YnJhZGxleWJAZnV6emllc3F1aXJyZWwuY29tXQ0KU2VudDogVHVlc2RheSwgSmFudWFy
-eSAzMCwgMjAxOCA3OjMwIFBNDQpUbzogQnJvd24sIE1pY2hhZWwgRSA8TWljaGFlbF9FX0Jyb3du
-QERlbGwuY29tPg0KQ2M6IGFsaXJoYXNAbWljcm9zb2Z0LmNvbTsgUmFvLCBCYWxhamkgQiA8QmFs
-YWppX0JfUmFvQGRlbGwuY29tPjsgVmFuY2lsLA0KUGF1bCA8UGF1bF9WYW5jaWxARGVsbC5jb20+
-OyBUYW5vdXMsIEVkIDxlZC50YW5vdXNAaW50ZWwuY29tPjsNCnJvbGZiQHVzLmlibS5jb207IGp3
-Y2FybWFuQHVzLmlibS5jb207IEhhcmloYXJhc3VicmFtYW5pYW4gUmFtYXN1YnJhbWFuaWFuDQo8
-aHJhbWFzdWJAaW4uaWJtLmNvbT47IHByYWRlZXAua3VtYXIzNkB0Y3MuY29tOyBPcGVuQk1DIE1h
-aWxsaXN0DQo8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmVkZmlzaCBvbiBP
-cGVuQk1DDQoNCkhpIE1pY2hhZWwNCg0KVGhlIHByb2plY3QgY291bGQgcmVhbGx5IHVzZSBzb21l
-b25lIHRvIGdldCBldmVyeW9uZSB0aGF0IGhhcyBleHByZXNzZWQNCmludGVyZXN0IGluIHRoZSBm
-dXR1cmUgb2YgUmVkZmlzaCBzdXBwb3J0IGluIE9wZW5CTUMgcm93aW5nIGluIHRoZSBzYW1lDQpk
-aXJlY3Rpb24uICBTbyB0aGFuayB5b3UgZm9yIHZvbHVudGVlcmluZyB0byBsZWFkIHRoYXQgY29u
-dmVyc2F0aW9uIGF0IHRoZQ0KY29tbXVuaXR5IGNhbGwgeWVzdGVyZGF5Lg0KDQpJ4oCZdmUgQ0Pi
-gJllZCBldmVyeW9uZSB0aGF0IEkga25vdyBvZiB0aGF0IGhhcyBleHByZXNzZWQgYW4gaW50ZXJl
-c3QuDQpPcGVuQk1DIGNvbW11bml0eTogZmVlbCBmcmVlIHRvIHNwZWFrIHVwIGlmIHlvdeKAmWQg
-bGlrZSB0byBiZSBpbnZvbHZlZCBhbmQgSQ0KZm9yZ290IHlvdS4NCg0KVGhlIG9ubHkgdGhpbmcg
-SeKAmWQgYXNrIGlzIHRvIHBsZWFzZSBwb3N0IGxpbmtzIHRvIGFueSBtZWV0aW5ncywgbWludXRl
-cywgb3INCmNvcnJlc3BvbmRlbmNlIGhlcmUgb24gdGhlIGxpc3QsIHNvIGV2ZXJ5b25lIGNhbiBl
-YXNpbHkga2VlcCB1cCB3aXRoIGhvdw0KdGhpbmdzIGFyZSBnb2luZyBvciBqdW1wIGluIHRvIHBy
-b3ZpZGUgZmVlZGJhY2suDQoNCnRoYW5rcyBhZ2Fpbg0KDQotYnJhZA0KDQoNCg==
-
---1__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B
-Content-Transfer-Encoding: base64
-Content-type: text/html; charset=UTF-8
-Content-Disposition: inline
-
-PGh0bWw+PGJvZHk+PHA+PGZvbnQgc2l6ZT0iMiI+SGkgTWljaGFlbCw8L2ZvbnQ+PGJyPjxicj48
-Zm9udCBzaXplPSIyIj5UaGFua3MgZm9yICBlbnVtZXJhdGluZyB0aGUgYXR0cmlidXRlcyBmb3Ig
-Y29tcGFyaXNvbi48L2ZvbnQ+PGJyPjxicj48Zm9udCBzaXplPSIyIj5JIHdhbnQgdG8gbGlzdCBk
-b3duIGEgZmV3IGFkZGl0aW9uYWwgY3JpdGVyaWEgdGhhdCBtYXkgYmUgZXZhbHVhdGVkOjxicj48
-YnI+MSkgRGF0YS1Ecml2ZW4gUmVzb3VyY2UgRGlzY292ZXJ5OjwvZm9udD48YnI+PGZvbnQgc2l6
-ZT0iMiI+ICAgICAtIFRoZSBSZWRmaXNoIHNlcnZlciBzaG91bGQgaWRlYWxseSBidWlsZCBpdCdz
-IHJlc291cmNlIG1vZGVsIGZyb20gYSAmcXVvdDtjb25maWcgZmlsZSZxdW90Oy4gVGhpcyBjb25m
-aWcgZmlsZSBjb3VsZCBwb3RlbnRpYWxseSBiZSBoYW5kLWNvZGVkIG9yIGJ1aWx0IG91dCBvZiBh
-ICZxdW90O3N5c3RlbSBkZWZpbml0aW9uIGZpbGUmcXVvdDsuIFRoZSBmb2xsb3dpbmcgYXJlIGV4
-YW1wbGVzIG9mIHN5c3RlbSBkZWZpbml0aW9uIGZpbGVzIGZvciAyIG9mIHRoZSBzeXN0ZW1zIGN1
-cnJlbnRseSBydW5uaW5nIE9wZW5CTUMgZmlybXdhcmUuPGJyPjwvZm9udD48YSBocmVmPSJodHRw
-czovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vb3Blbi1wb3dlci96YWl1cy14bWwvbWFzdGVy
-L3phaXVzLnhtbCI+PGZvbnQgc2l6ZT0iMiI+aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQu
-Y29tL29wZW4tcG93ZXIvemFpdXMteG1sL21hc3Rlci96YWl1cy54bWw8L2ZvbnQ+PC9hPjxicj48
-YSBocmVmPSJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vb3Blbi1wb3dlci93aXRo
-ZXJzcG9vbi14bWwvbWFzdGVyL3dpdGhlcnNwb29uLnhtbCI+PGZvbnQgc2l6ZT0iMiI+aHR0cHM6
-Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL29wZW4tcG93ZXIvd2l0aGVyc3Bvb24teG1sL21h
-c3Rlci93aXRoZXJzcG9vbi54bWw8L2ZvbnQ+PC9hPjxicj48Zm9udCBzaXplPSIyIj5UaGUgc3lz
-dGVtIGFyY2hpdGVjdHVyZSAoc2xlZCB2cyBibGFkZSBldGMuKSwgbnVtYmVyIG9mIHByb2Nlc3Nv
-cnMsIG51bWJlciBvZiBmYW5zIGV0Yy4gY2FuIGJlIGRldGVybWluZWQgZnJvbSB0aGUgc3lzdGVt
-IGRlZmluaXRpb24gZmlsZSB0byBnZW5lcmF0ZSB0aGUgY29uZmlnIGZpbGUuIDwvZm9udD48YnI+
-PGJyPjxmb250IHNpemU9IjIiPlRoZSBpbnRlbnQgaXMgdG8gbWFrZSB0aGUgcmVkZmlzaCBpbXBs
-ZW1lbnRhdGlvbiBhcyBzeXN0ZW0gYWdub3N0aWMgYXMgcG9zc2libGUuPC9mb250Pjxicj48Zm9u
-dCBzaXplPSIyIj48YnI+MikgU2VwYXJhdGlvbiBvZiB0aGUgUmVkZmlzaCBmcm9udC1lbmQgKHZp
-ZXcpIGFuZCBiYWNrLWVuZCAoaW5mcmFzdHJ1Y3R1cmUpIGxheWVycy4gVGhlIGluZnJhc3RydWN0
-dXJlIEFQSSBleHBvc2VkIGFzIGRidXMgc2VydmljZXMgd291bGQgYmUgb25lIG9mIHRoZSBtZWFu
-cyB0byBtYWtlIHRoaXMgc2VwYXJhdGlvbiBvZiBjb25jZXJucy48L2ZvbnQ+PGJyPjxicj48Zm9u
-dCBzaXplPSIyIj4zKSBQZXJmb3JtYW5jZSA6PC9mb250Pjxicj48Zm9udCBzaXplPSIyIj4gICAg
-IC0gUnVudGltZSBtZW1vcnkgZm9vdCBwcmludC5UaGlzIGNvdWxkIHBvdGVudGlhbGx5ICBoYXZl
-IGEgbmVnYXRpdmUgaW1wYWN0IG9uICZxdW90O2hvdyBmYXN0JnF1b3Q7IHRoZSBzZXJ2ZXIgaXMu
-IEhlbmNlIHRoZSB0cmFkZS1vZmYgc2hvdWxkIGNvbnNpZGVyIHdoYXQgY2FuIGJlIGNhY2hlZCB2
-cyB3aGF0IG5lZWRzIHRvIGJlIHF1ZXJpZWQgZnJvbSB0aGUgaW5mcmFzdHJ1Y3R1cmUuPC9mb250
-Pjxicj48Zm9udCBzaXplPSIyIj4gICAgIC0gTWljaGFlbCwgd2h5IGRpZCB5b3UgY29uc2lkZXIg
-U1NMIGJlaW5nIHNlcGFyYXRlbHkgaW1wbGVtZW50ZWQgYnkgdGhlIFJlZGZpc2ggc2VydmVyPyBX
-b3VsZCB0aGlzIGJlIGluIHRoZSBzY29wZSBvZiB0aGUgd2Vic2VydmVyID88L2ZvbnQ+PGJyPjxi
-cj48Zm9udCBzaXplPSIyIj40KSBFdmVudGluZzogQ3VycmVudCB2ZXJzaW9uIG9mIHRoZSBSZWRm
-aXNoIHNwZWMgaGFzIGxlZnQgaXQgb3BlbiBmb3IgdGhlIE9FTXMgdG8gZGVmaW5lIHRoZSBzcGVj
-aWZpYyBFdmVudCBNZXNzYWdlcy4gaS5lLiB0aGVyZSBpcyBubyBzdGFuZGFyZCAvIGNvbW1vbiBF
-dmVudCBSZWdpc3RyeS4gUmVkZmlzaCBzZXJ2ZXIgaW1wbGVtZW50YXRpb24gb24gdGhlIE9wZW5C
-TUMgc2hvdWxkIGRlZmluZSB0aGlzIGNvbW1vbiBFdmVudCBSZWdpc3RyeSBhbmQgcGVyaGFwcyBh
-Y2NlcHRlZCBieSBETVRGLiBEb2VzIHRoZSBFdmVudGluZyBzdXBwb3J0IGZpbHRlcmluZyBvZiBl
-dmVudHMgYmFzZWQgb24gdGhlIGV2ZW50IHR5cGUsIHNvdXJjZSByZXNvdXJjZSBhbmQgdGhlIG1l
-c3NhZ2UgSWQgPzwvZm9udD48YnI+PGJyPjxmb250IHNpemU9IjIiPjUpIExldmVyYWdlIGV4aXN0
-aW5nIG9wZW4gc291cmNlIHByb2plY3RzOjxicj4gICAtIERvZXMgdGhlIGltcGxlbWVudGF0aW9u
-IGNvbXBvc2UgZXhpc3Rpbmcgc2VydmljZXMgYW5kIGZyYW1ld29ya3MgPyBTdWNoIGFzIGEgd2Vi
-c2VydmVyKHNheSwgbmdpbngpIGFuZCBhIHJlc3QgZnJhbWV3b3JrIChmbGFzaykuPC9mb250Pjxi
-cj48YnI+PGZvbnQgc2l6ZT0iMiI+cmVnYXJkcyw8L2ZvbnQ+PGJyPjxmb250IHNpemU9IjIiPkhh
-cmkgITwvZm9udD48YnI+PGJyPjxicj48aW1nIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgc3JjPSJj
-aWQ6MV9fPUVBQkIwOEI0REZCNTRBN0I4ZjllOGE5M2RmOTM4NjkwOTE4Y0VBQkAiIGJvcmRlcj0i
-MCIgYWx0PSJJbmFjdGl2ZSBoaWRlIGRldGFpbHMgZm9yIC0tLTAxLzMxLzIwMTggMTA6MTc6MzYg
-UE0tLS1TbywgSSB0aGluayB0aGF0IHRoZSBmaXJzdCB0aGluZyB3ZSBvdWdodCB0byBkbyBpcyBn
-ZXQgYSBzdXJ2ZXkgb2YgdGhlIGRpIj48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzQyNDI4MiI+LS0t
-MDEvMzEvMjAxOCAxMDoxNzozNiBQTS0tLVNvLCBJIHRoaW5rIHRoYXQgdGhlIGZpcnN0IHRoaW5n
-IHdlIG91Z2h0IHRvIGRvIGlzIGdldCBhIHN1cnZleSBvZiB0aGUgZGlmZmVyZW50IGltcGxlbWVu
-dGF0aW9ucyB0aGE8L2ZvbnQ+PGJyPjxicj48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiI+
-RnJvbTogICAgICAgIDwvZm9udD48Zm9udCBzaXplPSIyIj4mbHQ7TWljaGFlbC5FLkJyb3duQGRl
-bGwuY29tJmd0OzwvZm9udD48YnI+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiM1RjVGNUYiPlRvOiAg
-ICAgICAgPC9mb250Pjxmb250IHNpemU9IjIiPiZsdDticmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5j
-b20mZ3Q7PC9mb250Pjxicj48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiI+Q2M6ICAgICAg
-ICA8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiI+Jmx0O2FsaXJoYXNAbWljcm9zb2Z0LmNvbSZndDssICZs
-dDtCYWxhamkuQi5SYW9AZGVsbC5jb20mZ3Q7LCAmbHQ7UGF1bC5WYW5jaWxAZGVsbC5jb20mZ3Q7
-LCAmbHQ7ZWQudGFub3VzQGludGVsLmNvbSZndDssICZsdDtyb2xmYkB1cy5pYm0uY29tJmd0Oywg
-Jmx0O2p3Y2FybWFuQHVzLmlibS5jb20mZ3Q7LCAmbHQ7aHJhbWFzdWJAaW4uaWJtLmNvbSZndDss
-ICZsdDtwcmFkZWVwLmt1bWFyMzZAdGNzLmNvbSZndDssICZsdDtvcGVuYm1jQGxpc3RzLm96bGFi
-cy5vcmcmZ3Q7PC9mb250Pjxicj48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiI+RGF0ZTog
-ICAgICAgIDwvZm9udD48Zm9udCBzaXplPSIyIj4wMS8zMS8yMDE4IDEwOjE3IFBNPC9mb250Pjxi
-cj48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiI+U3ViamVjdDogICAgICAgIDwvZm9udD48
-Zm9udCBzaXplPSIyIj5SRTogUmVkZmlzaCBvbiBPcGVuQk1DPC9mb250Pjxicj48aHIgd2lkdGg9
-IjEwMCUiIHNpemU9IjIiIGFsaWduPSJsZWZ0IiBub3NoYWRlIHN0eWxlPSJjb2xvcjojODA5MUE1
-OyAiPjxicj48YnI+PGJyPjx0dD48Zm9udCBzaXplPSIyIj5TbywgSSB0aGluayB0aGF0IHRoZSBm
-aXJzdCB0aGluZyB3ZSBvdWdodCB0byBkbyBpcyBnZXQgYSBzdXJ2ZXkgb2YgdGhlIGRpZmZlcmVu
-dCBpbXBsZW1lbnRhdGlvbnMgdGhhdCBhcmUgb3V0IHRoZXJlLCBhbmQgZXN0YWJsaXNoIGNyaXRl
-cmlhIGZvciBqdWRnaW5nIGRpZmZlcmVudCBpbXBsZW1lbnRhdGlvbnMuPGJyPjxicj5IZXJlIHdv
-dWxkIGJlIGEgbGlzdCBvZiBxdWVzdGlvbnMgSSB3b3VsZCBoYXZlIGZvciBldmVyeWJvZHkgb24g
-dGhlIGxpc3QuIEkgdGhpbmsgaXQgd291bGQgcHJvYmFibHkgYmUgYmVzdCB0byBjb21waWxlIGFs
-bCBvZiB0aGVzZSBpbnRvIGEgd2lraSBwYWdlIHNvbWV3aGVyZS48YnI+PGJyPiAmbmJzcDsgLSBE
-byB5b3UgaGF2ZSBhIHJlZGZpc2ggc2VydmVyIGltcGxlbWVudGF0aW9uPzxicj4gJm5ic3A7IC0g
-SXMgaXQgT3BlbiBTb3VyY2U/PGJyPiAgICAgICAgICAgICAgICAgLSBJZiBub3QsIGFyZSB5b3Ug
-cGxhbm5pbmcgb24gb3BlbiBzb3VyY2luZyBpdD88YnI+ICAgICAgICAgICAgICAgICAtIFdoYXQg
-aXMgdGhlIGxpY2Vuc2U/PGJyPiAgICAgICAgICAgICAgICAgLSBJcyBpdCBwb3N0ZWQgdG8gZ2l0
-aHViIG9yIG90aGVyIHB1YmxpYyBzb3VyY2UgY29udHJvbD88YnI+ICZuYnNwOyAtIERvZXMgaXQg
-cGFzcyB0aGUgRE1URiByZWRmaXNoIHNlcnZpY2UgdmFsaWRhdG9yPzxicj4gJm5ic3A7IC0gV2hh
-dCBsYW5ndWFnZSBpcyBpdCB3cml0dGVuIGluPzxicj4gJm5ic3A7IC0gSG93IGJpZyBpcyBpdD88
-YnI+ICZuYnNwOyAtIENhbiBpdCBiZSBlYXNpbHkgZXh0ZW5kZWQvcmUtdXNlZCBieSBhbnlib2R5
-IGVsc2Ugc2hpcHBpbmcgY29tcGxpYW50IG9wZW5ibWMgaW1wbGVtZW50YXRpb25zPzxicj4gICAg
-ICAgICAgICAgICAgIC0gQ2FuIHlvdSBhZGQgT0VNIGV4dGVuc2lvbnMgdG8gZXhpc3RpbmcgUmVk
-ZmlzaCBSZXNvdXJjZXMgd2l0aG91dCAmcXVvdDtmb3JraW5nJnF1b3Q7IHRoZSBjb2RlYmFzZT88
-YnI+ICAgICAgICAgICAgICAgICAtIENhbiB5b3UgY2hhbmdlIHRoZSBpbXBsZW1lbnRhdGlvbiBm
-b3IgYSBzaW5nbGUgUmVkZmlzaCBSZXNvdXJjZSBQcm9wZXJ0eSB3aXRob3V0IGZvcmtpbmc/PGJy
-PiAgICAgICAgICAgICAgICAgLSBDYW4geW91IGFkZCBuZXcgUmVkZmlzaCBSZXNvdXJjZXMgd2l0
-aG91dCBmb3JraW5nPzxicj4gJm5ic3A7IC0gUGVyZm9ybWFuY2U8YnI+ICAgICAgICAgICAgICAg
-ICAtIEhvdyBmYXN0IGlzIGl0Pzxicj4gICAgICAgICAgICAgICAgIC0gRG9lcyBpdCBpbXBsZW1l
-bnQgU1NMPzxicj4gJm5ic3A7IC0gU2VjdXJpdHk8YnI+ICAgICAgICAgICAgICAgICAtIFdoYXQg
-aXMgdGhlIHNlY3VyaXR5IG1vZGVsPzxicj4gICAgICAgICAgICAgICAgIC0gTm9uLXJvb3Qgc3Vw
-cG9ydD8gQ2FuIGl0IHJ1biBhcyBhIG5vbi1wcml2aWxlZ2VkIHVzZXI/PGJyPiAgICAgICAgICAg
-ICAgICAgLSBEb2VzIGl0IGltcGxlbWVudCBiYXNpYyBhdXRoZW50aWNhdGlvbiBhbmQgdGhlIHJl
-ZGZpc2ggc3BlYyB4LWF1dGgtdG9rZW4gYXV0aGVudGljYXRpb24/PGJyPiAgICAgICAgICAgICAg
-ICAgLSBEb2VzIGl0IGltcGxlbWVudCB0aGUgcmVkZmlzaCBzdGFuZGFyZCBwcml2aWxlZ2UgbWFw
-IG1vZGVsPzxicj4gJm5ic3A7IC0gRXZlbnRpbmc6PGJyPiAgICAgICAgICAgICAgICAgLSBGb3Ig
-d3JpdGluZyBhIFVJIG9uIHRvcCBvZiByZWRmaXNoLCBzb21ldGhpbmcgbGlrZSBTU0UgaXMgYSBu
-aWNlLXRvLWhhdmUgdG8gYXZvaWQgcG9sbGluZyBpbiB0aGUgYnJvd3Nlci4gVGhlcmUgYXJlIGEg
-Y291cGxlIG9mIHByb3Bvc2VkIFNTRSBleHRlbnNpb25zIHRoYXQgaGF2ZSBub3QgeWV0IGJlZW4g
-YXBwcm92ZWQuPGJyPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtIEhvdyBtdWNo
-IHdvcmsgdG8gaW1wbGVtZW50IFNTRSBzdXBwb3J0IHRvIGRvIHRoaW5ncyBsaWtlIHdhdGNoIFBy
-b3BlcnR5IGNoYW5nZXM/PGJyPiAgICAgICAgICAgICAgICAgLSBJcyB0aGUgc3RhbmRhcmQgcmVk
-ZmlzaCBldmVudGluZyBtb2RlbCBzdXBwb3J0ZWQ/PGJyPiAgICAgICAgICAgICAgICAgLSBTZWN1
-cml0eSBtb2RlbCBpbnRlZ3JhdGVkIHdpdGggZXZlbnRpbmc/IERvIGV2ZW50aW5nIHJlY29yZHMg
-Z2V0IHRoZSBzYW1lIHNlY3VyaXR5IHRyZWF0bWVudCBhcyBHRVQgcmVxdWVzdHM/PGJyPiAmbmJz
-cDsgLSBEZXZlbG9wbWVudDogY2FuIGl0IHJ1biBvdXRzaWRlIG9mIG9wZW5ibWM/PGJyPiAmbmJz
-cDsgLSBTcGVjaWFsIHNhdWNlOiBpcyB0aGVyZSBhbnl0aGluZyBub3QgY2FwdHVyZWQgYWJvdmUg
-dGhhdCBtYWtlcyB0aGUgaW1wbGVtZW50YXRpb24gc3BlY2lhbCBpbiBhbnkgd2F5Pzxicj48YnI+
-LS08YnI+TWljaGFlbDxicj48YnI+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS08YnI+RnJvbTog
-QnJhZCBCaXNob3AgWzwvZm9udD48L3R0Pjx0dD48Zm9udCBzaXplPSIyIj48YSBocmVmPSJtYWls
-dG86YnJhZGxleWJAZnV6emllc3F1aXJyZWwuY29tIj5tYWlsdG86YnJhZGxleWJAZnV6emllc3F1
-aXJyZWwuY29tPC9hPjwvZm9udD48L3R0Pjx0dD48Zm9udCBzaXplPSIyIj5dIDxicj5TZW50OiBU
-dWVzZGF5LCBKYW51YXJ5IDMwLCAyMDE4IDc6MzAgUE08YnI+VG86IEJyb3duLCBNaWNoYWVsIEUg
-Jmx0O01pY2hhZWxfRV9Ccm93bkBEZWxsLmNvbSZndDs8YnI+Q2M6IGFsaXJoYXNAbWljcm9zb2Z0
-LmNvbTsgUmFvLCBCYWxhamkgQiAmbHQ7QmFsYWppX0JfUmFvQGRlbGwuY29tJmd0OzsgVmFuY2ls
-LCBQYXVsICZsdDtQYXVsX1ZhbmNpbEBEZWxsLmNvbSZndDs7IFRhbm91cywgRWQgJmx0O2VkLnRh
-bm91c0BpbnRlbC5jb20mZ3Q7OyByb2xmYkB1cy5pYm0uY29tOyBqd2Nhcm1hbkB1cy5pYm0uY29t
-OyBIYXJpaGFyYXN1YnJhbWFuaWFuIFJhbWFzdWJyYW1hbmlhbiAmbHQ7aHJhbWFzdWJAaW4uaWJt
-LmNvbSZndDs7IHByYWRlZXAua3VtYXIzNkB0Y3MuY29tOyBPcGVuQk1DIE1haWxsaXN0ICZsdDtv
-cGVuYm1jQGxpc3RzLm96bGFicy5vcmcmZ3Q7PGJyPlN1YmplY3Q6IFJlZGZpc2ggb24gT3BlbkJN
-Qzxicj48YnI+SGkgTWljaGFlbDxicj48YnI+VGhlIHByb2plY3QgY291bGQgcmVhbGx5IHVzZSBz
-b21lb25lIHRvIGdldCBldmVyeW9uZSB0aGF0IGhhcyBleHByZXNzZWQgaW50ZXJlc3QgaW4gdGhl
-IGZ1dHVyZSBvZiBSZWRmaXNoIHN1cHBvcnQgaW4gT3BlbkJNQyByb3dpbmcgaW4gdGhlIHNhbWUg
-ZGlyZWN0aW9uLiAmbmJzcDtTbyB0aGFuayB5b3UgZm9yIHZvbHVudGVlcmluZyB0byBsZWFkIHRo
-YXQgY29udmVyc2F0aW9uIGF0IHRoZSBjb21tdW5pdHkgY2FsbCB5ZXN0ZXJkYXkuPGJyPjxicj5J
-4oCZdmUgQ0PigJllZCBldmVyeW9uZSB0aGF0IEkga25vdyBvZiB0aGF0IGhhcyBleHByZXNzZWQg
-YW4gaW50ZXJlc3QuPGJyPk9wZW5CTUMgY29tbXVuaXR5OiBmZWVsIGZyZWUgdG8gc3BlYWsgdXAg
-aWYgeW914oCZZCBsaWtlIHRvIGJlIGludm9sdmVkIGFuZCBJIGZvcmdvdCB5b3UuPGJyPjxicj5U
-aGUgb25seSB0aGluZyBJ4oCZZCBhc2sgaXMgdG8gcGxlYXNlIHBvc3QgbGlua3MgdG8gYW55IG1l
-ZXRpbmdzLCBtaW51dGVzLCBvciBjb3JyZXNwb25kZW5jZSBoZXJlIG9uIHRoZSBsaXN0LCBzbyBl
-dmVyeW9uZSBjYW4gZWFzaWx5IGtlZXAgdXAgd2l0aCBob3cgdGhpbmdzIGFyZSBnb2luZyBvciBq
-dW1wIGluIHRvIHByb3ZpZGUgZmVlZGJhY2suPGJyPjxicj50aGFua3MgYWdhaW48YnI+PGJyPi1i
-cmFkPGJyPjwvZm9udD48L3R0Pjxicj48YnI+PEJSPg0KPC9ib2R5PjwvaHRtbD4NCg==
-
---1__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B--
-
-
---0__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=EABB08B4DFB54A7B8f9e8a93df938690918cEAB@>
-Content-Transfer-Encoding: base64
-
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
-
-
---0__=EABB08B4DFB54A7B8f9e8a93df938690918cEABB08B4DFB54A7B--
+Regards,
+Deepak
