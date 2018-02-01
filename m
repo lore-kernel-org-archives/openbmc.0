@@ -3,60 +3,64 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jIPubaWb"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="CTBZoo4S"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="DbI1vzKH"; dkim-atps=neutral
+ header.b="LcSl0GYN"; dkim-atps=neutral
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zXc7d6jBPzDqD6
- for <openbmc@lists.ozlabs.org>; Fri,  2 Feb 2018 10:41:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zXcG13xJvzDqZv
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Feb 2018 10:46:33 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 8A759208D8;
- Thu,  1 Feb 2018 18:40:56 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 8F36B20B77;
+ Thu,  1 Feb 2018 18:46:31 -0500 (EST)
 Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Thu, 01 Feb 2018 18:40:56 -0500
+ by compute4.internal (MEProxy); Thu, 01 Feb 2018 18:46:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=SmbX0zZOAHAtI+LD4X+Se4setUhdu
- GKjqLiqem5O4Ao=; b=jIPubaWbZJnFxmDhrhtpdb+4MlWBFwxFq3CJXxpBEo4rc
- Bxo6fwHi5p9rqsrcMnCXARti7mQOFDVEa1Byh4jsAQp/ZiKpCr0qdrV3LzB6tG3c
- clPIL9/Rcnu+uhU/D8y/MfDy3dH+FvZBdCxdk8Hrtv1ke3d0HTekY3hAXP1xnDUh
- hrqJ/MWKOfkefr+ryLZyPszFJPnuKBMCMNYlI91bMth4knHcc6sWKAF0oNtKao7D
- U9zKT+a9E1BQ0dF/9Cjgg94E4xUH33kz0OAtYA06ZJhnktffiss6XUIMyHIUO33M
- 6KXgco+8TuHWL29A4gOI3KiDW4qTfYkZn6E4mNvag==
+ :x-me-sender:x-sasl-enc; s=fm1; bh=Bbjczf85/A9Rhhgh+u00qWGZfgUJ1
+ JzEsszVwkDX/pM=; b=CTBZoo4S9gEerKlRxr6hXRjjnX8fNvjAUChRM1vOkv9GD
+ 5PDS7Ycg9KHccnT9i/sOCVy593AVobZBuotfbGg+Cx/rbmY09Y2WPwRX3olhvcCa
+ 6xn+D71Ajrsb5BIHIYL/AUDhvnQl70i75ORTw8isTDjYDwbrhuoQHDpPnWuSShIg
+ jQemiZ1VHRHyCRixCSLeXtIsnq2tzjuDI31MiVJfKfi07A8YzJYSCH7/Fs2EUiZC
+ 2INMhrBu1wQhyesX3QHgsUlzgVh4+CqoN9JVNLV2fhhJltzjp+hJ99iqkd9Wbbo6
+ dG/QM1sGe8Bu/e5CdzHpE6dr6zHvxbMX0yCfWJrFw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=SmbX0z
- ZOAHAtI+LD4X+Se4setUhduGKjqLiqem5O4Ao=; b=DbI1vzKHtp6+XVgoftAS0+
- /I3F9tzA9l2JKm8YbpGIF4ZDM8Expq3GWgEerQ1VcNuNK99vdWNkUqye5Zyk15T0
- Dkxm55WPh0G9uM1nWXm4L+Xy2hMs3t2kTmiQZIyY0l4YStI9BAb21Rp6nnmzRyq1
- YBD+kUDxkiMazA/qWnZE6sFmzRyeKAWat6HZRQdty/003ebqxXxrO8U3A1CAddhD
- 472H9XWvwzO30zmOiq3FGC5siYHTylhu8PFiVgY60HdwRArE1Q9lD5XmCxIWfTxr
- atrfadPvESoOmhYxl0ZO1LOOrhenAyzRTvbY44992FUAqHPEhxF662NSsITEVBvQ
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Bbjczf
+ 85/A9Rhhgh+u00qWGZfgUJ1JzEsszVwkDX/pM=; b=LcSl0GYN+oxK5K2YbUPOs4
+ Y12933BcdNGUtTc9rfGbOaiQ3zTSLzqK9L3my8Ju/DK7aFDrNI812CzIXTdfBfud
+ Svu9jZSGDKgnKNCaFpBpMwPyWvCWn+bJ1jHBiQjf9rmV7Yk6iYs5tSR65+uDzj6k
+ 2wK4Dob8TW28YWZHxPArJbQma+2YLcaBjqSkPnBURckTG0BIVE8cgyA69awiNRpu
+ CFyf//ZunFO8rPBAL8EGZd2rlKeQih7puBVJ4Ji4dSsKgKVEB962PHj7v87/L2Ej
+ TCL227sM47MAaxXVrtYtewwT2DxH2DrvagrZ23m//pfXCn6U280H/17OZow8XwQw
  ==
-X-ME-Sender: <xms:iKVzWhVa90GBGt4lJE0wg5I1LuR2HOWDrKD5f3eykAktYYSLtVbUSA>
+X-ME-Sender: <xms:16ZzWi3fVVDUylIv-79pqfwCs5DA97X424jvRvu6Mup_gB-AWFotLg>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 638589E47F; Thu,  1 Feb 2018 18:40:56 -0500 (EST)
-Message-Id: <1517528456.2204329.1256582544.54596B19@webmail.messagingengine.com>
+ id 5E30E9E47D; Thu,  1 Feb 2018 18:46:31 -0500 (EST)
+Message-Id: <1517528791.2207823.1256604608.59B3C439@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Ken Chen <chen.kenyy@inventec.com>,
+To: =?utf-8?Q?Chen=2EKenYY=20=E9=99=B3=E6=B0=B8=E7=87=9F=20TAO?=
+ <Chen.KenYY@inventec.com>, Joel Stanley <joel@jms.id.au>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>,
+ "Tsung-Han Yang (Harold)" <haroldy@qti.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-fde26eb3
 Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add ARM system BMC device
  tree
-In-Reply-To: <CACPK8XeHFZrCJuFb33i3+xvCvfTLNEXbKcW11eFLjRtm8V5LXQ@mail.gmail.com>
-Date: Fri, 02 Feb 2018 10:10:56 +1030
+Date: Fri, 02 Feb 2018 10:16:31 +1030
+In-Reply-To: <39E6480C5A587146BAA4D885C7BCF7EEC6AD4D07@IET-EX2010-MX2.iec.inventec>
 References: <20180108030013.20873-1-chen.kenyy@inventec.com>
  <CACPK8XeHFZrCJuFb33i3+xvCvfTLNEXbKcW11eFLjRtm8V5LXQ@mail.gmail.com>
+ <39E6480C5A587146BAA4D885C7BCF7EEC6AD4D07@IET-EX2010-MX2.iec.inventec>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -68,67 +72,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Feb 2018 23:41:04 -0000
+X-List-Received-Date: Thu, 01 Feb 2018 23:46:34 -0000
 
-On Wed, 17 Jan 2018, at 10:47, Joel Stanley wrote:
-> > +                        max31790@20 {
-> > +                                compatible = "max31790";
-> > +                                reg = <0x20>;
-> > +                                #address-cells = <1>;
-> > +                                #size-cells = <0>;
-> > +                               fan-mode = "pwm";
-> > +                                fanconfig1 = <0x08>;
-> > +                                fanconfig2 = <0x09>;
-> > +                                fanconfig3 = <0x08>;
-> > +                                fanconfig4 = <0x08>;
-> > +                                fanconfig5 = <0x09>;
-> > +                                fanconfig6 = <0x08>;
-> > +                        };
-> 
-> Andrew, can you please review the max parts?
+On Mon, 22 Jan 2018, at 16:32, Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO w=
+rote:
+> Hi Joel,
+>=20
+> Thanks you.=20
+> Before I update new patch, I have some question.
+> Should I remove the definition which the driver didn't update now?
+> The related driver added or modified will be update in future.
+>=20
+> The watchdog is check for BMC and avoid BMC boot error, if we didn't=20
+> stop this, BMC chip will boot second BMC SPI ROM.
+> Does the driver support this? Could you give me an example or advice?
+>=20
+> The multi-function is enable SPI. It might modify driver.
 
-This is for the max31790, which is a different part to the max31785 that I have worked on. However, there's no bindings document upstream for the max31790, let alone one that describes the fanconfigX properties.
+There's no need to modify the driver. See my previous reply about how to do=
+ this via the devicetree and existing pinmux support. Hopefully that clears=
+ it up for you.
 
-Looks like we'll need to see some bindings and driver patches before we accept this node as is.
+>=20
+> What is the mean of "Can you use a GPIO hog instead?" ?
 
-> > +
-> > +static void __init do_centriq2400rep_setup(void)
-> > +{
-> > +       u32 reg;
-> > +
-> > +       do_common_setup();
-> > +       writel(0x00000010, AST_IO(AST_BASE_WDT | 0x2c));
-> 
-> We have a watchdog driver for modifying the watchdog. Please use that
-> instead of this line.
-> 
-> > +
-> > +       writel(0xff000000, AST_IO(AST_BASE_SCU | 0x88));
-> 
-> This appears to be modifying the multi function pin control. What are
-> you trying to do?
-> 
-> We should be able to use the pinctrl driver to modify these settings.
+GPIO hogs are a concept in the GPIO subsystem where you can allocate and co=
+nfigure lines during boot and then have them left alone, exactly like you'r=
+e doing here. You can specify hogs in the devicetree. See [1] for an explan=
+ation and example.
 
-Right - this is muxing MDIO pins for MAC#1, SPI pins for SPI2, and the FWSPICS#x functions. This can all be done in the respective devicetree nodes via the existing pinmux support as Joel suggests. See [1] and then [2] for the relevant pinctrl configuration nodes. You'll need something like:
-
-&fmc {
-    pinctrl-names = "default";
-    pinctrl-names = <pinctrl_&pinctrl_fwspics1_default &pinctrl_fwspics2_default>;
-};
-
-&spi2 {
-    pinctrl-names = "default";
-    pinctrl-0 = <&pinctrl_spi2ck_default &pinctrl_spi2miso_default &pinctrl_spi2mosi_default &pinctrl_spi2cs0_default>;
-};
-
-&mac0 {
-    pinctrl-names = "default";
-    pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
-};
-
-[1] Documentation/devicetree/bindings/pinctrl/pinctrl-aspeed.txt
-[2] arch/arm/boot/dts/aspeed-g5.dtsi
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/gpio/gpio.txt?h=3Dv4.15#n187
 
 Cheers,
 
