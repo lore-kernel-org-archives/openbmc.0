@@ -1,36 +1,66 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zY8lr0DDfzF0Xr
- for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 08:10:46 +1100 (AEDT)
-X-Amp-Result: UNSCANNABLE
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2018 13:10:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,450,1511856000"; d="scan'208";a="15060787"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
- by orsmga008.jf.intel.com with ESMTP; 02 Feb 2018 13:10:43 -0800
-Date: Fri, 2 Feb 2018 13:10:43 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: BMC redundancy
-Message-ID: <20180202211043.GD113334@mauery>
-References: <AFD7FFE5-8EA8-41FF-85C9-71AF312D4775@fuzziesquirrel.com>
- <c4150294-f1db-8e43-42cd-c0c7d90d8c47@linux.vnet.ibm.com>
- <1517532486.2240683.1256645768.23C8305B@webmail.messagingengine.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <1517532486.2240683.1256645768.23C8305B@webmail.messagingengine.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zYB6N0zkPzF0St
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 09:11:55 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w12MBl8m012408
+ for <openbmc@lists.ozlabs.org>; Fri, 2 Feb 2018 17:11:53 -0500
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2fvvt4r781-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Feb 2018 17:11:53 -0500
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 2 Feb 2018 17:11:52 -0500
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 2 Feb 2018 17:11:49 -0500
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w12MBncd50004052; Fri, 2 Feb 2018 22:11:49 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 40778112034;
+ Fri,  2 Feb 2018 17:09:53 -0500 (EST)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id DD266112040;
+ Fri,  2 Feb 2018 17:09:52 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, andrew@aj.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10 0/3] drivers: fsi: Fixup SBEFIFO and OCC locking
+Date: Fri,  2 Feb 2018 16:11:44 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18020222-0036-0000-0000-000002B85FF3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008463; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000248; SDB=6.00984145; UDB=6.00499184; IPR=6.00763423; 
+ BA=6.00005809; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019341; XFM=3.00000015;
+ UTC=2018-02-02 22:11:50
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18020222-0037-0000-0000-0000433547DE
+Message-Id: <1517609507-20687-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-02_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=2
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=2
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1802020267
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -42,44 +72,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Feb 2018 21:10:48 -0000
+X-List-Received-Date: Fri, 02 Feb 2018 22:11:56 -0000
 
-On 02-Feb-2018 11:18 AM, Andrew Jeffery wrote:
->Hi Deepak,
->
->> So several of the existing OpenBMC apps implement specific D-Bus
->> services. What does it take to make remote D-Bus calls to such apps?
->> - It doesn't look like the D-Bus spec or libdbus officially has anything
->> for D-Bus across computers. There are some good notes at
->> https://www.freedesktop.org/wiki/Software/DBusRemote/.
->
->Applications can cannect to remote dbus servers; the --address option to dbus-daemon allows it to listen on a TCP socket and setting DBUS_SESSION_BUS_ADDRESS will point applications in the right direction. So there are probably two ways we could do this:
+This series provides a couple of fixes designed to make the FSI client drivers
+play nicely with Jeremy's incoming FSI spinlock changes. Firstly, the SBEFIFO
+driver must switch to use a workqueue instead of a poll timer so that we can
+avoid spinlocking the entire function. Therefore, the second patch switches to
+a mutex instead of a spinlock there. Lastly, switch to irqsave and irqrestore
+functions in the OCC driver to cleanup the locking there.
 
-Putting DBus on an externally-available TCP socket is a security 
-architect's nightmare. All command and control of the entire BMC is done 
-over DBus; we cannot put that on an externally-available address. I 
-suppose if you have an internal connection and switching fabric between 
-the nodes, this would be possible.
+Eddie James (3):
+  drivers: fsi: SBEFIFO: switch to workqueue instead of timer
+  drivers: fsi: sbefifo: switch to mutex in work function
+  drivers: fsi: occ: switch to irqsave and irqrestore
 
---Vernon
+ drivers/fsi/fsi-sbefifo.c | 94 ++++++++++++++++++++++++++++++-----------------
+ drivers/fsi/occ.c         | 44 ++++++++++++----------
+ 2 files changed, 86 insertions(+), 52 deletions(-)
 
->1. Slave BMCs connect to the master's DBus daemon, and applications namespace their objects appropriately. Multi-BMC aware applications on the master access the namespaced objects as required
->2. Slave BMCs are willfully ignorant of their role, with the master connecting to the slaves' DBus daemons to form a coherent global view of the bus for its multi-BMC aware applications, which access the remote objects as required.
->
->Given the support DBus has today it might be easier to go for 1 than for 2, if we go down this path at all.
->
->[1] https://dbus.freedesktop.org/doc/dbus-daemon.1.html
->
->> - There are ways to achieve this via Qt D-Bus, but it would involve some
->> amount tweaking with the D-Bus configs.
->> - I'm not aware of any open/active project implementing remote D-Bus.
->
->Here is someone's attempt at making it easier: http://gabriel.sourceforge.net/howto.html though you would struggle to say it's active given the last contribution was 2013-05-14.
->
->> - Thoughts on doing remote D-Bus over WebSockets?
->
->How do websockets come into the picture? Why do we need the extra complication vs normal sockets?
->
->Cheers,
->
->Andrew
+-- 
+1.8.3.1
