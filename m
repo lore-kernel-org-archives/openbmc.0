@@ -1,34 +1,39 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zY08G4JGszF0X2
- for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 01:42:53 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id AF3C4127516;
- Fri,  2 Feb 2018 09:42:49 -0500 (EST)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: BMC redundancy
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <8a7a2bfd-b30c-9409-14e1-cd058f4b6dd0@linux.vnet.ibm.com>
-Date: Fri, 2 Feb 2018 09:42:49 -0500
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0BE9234B-0A1F-4E24-9E61-A1B94011D2F2@fuzziesquirrel.com>
-References: <AFD7FFE5-8EA8-41FF-85C9-71AF312D4775@fuzziesquirrel.com>
- <c4150294-f1db-8e43-42cd-c0c7d90d8c47@linux.vnet.ibm.com>
- <1517532486.2240683.1256645768.23C8305B@webmail.messagingengine.com>
- <8a7a2bfd-b30c-9409-14e1-cd058f4b6dd0@linux.vnet.ibm.com>
-To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zY27V25WyzF0XQ
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 03:12:21 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2018 08:12:17 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,448,1511856000"; d="scan'208";a="200871898"
+Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.254.212.150])
+ ([10.254.212.150])
+ by fmsmga006.fm.intel.com with ESMTP; 02 Feb 2018 08:12:14 -0800
+Subject: Re: [PATCH arm/aspeed/ast2500 v5 1/2] ipmi: add a KCS IPMI BMC driver
+To: minyard@acm.org, joel@jms.id.au, openbmc@lists.ozlabs.org,
+ openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Cc: andriy.shevchenko@intel.com
+References: <1517537771-21285-1-git-send-email-haiyue.wang@linux.intel.com>
+ <ff4fde2b-6fca-8e60-9c25-7e91500597ff@acm.org>
+From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
+Message-ID: <f2f5e416-e5be-4de5-a144-8976f017cea5@linux.intel.com>
+Date: Sat, 3 Feb 2018 00:12:13 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
+MIME-Version: 1.0
+In-Reply-To: <ff4fde2b-6fca-8e60-9c25-7e91500597ff@acm.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -40,71 +45,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Feb 2018 14:42:55 -0000
+X-List-Received-Date: Fri, 02 Feb 2018 16:12:23 -0000
 
+On 2018-02-02 21:52, Corey Minyard wrote:
+> On 02/01/2018 08:16 PM, Haiyue Wang wrote:
+>> ---
+>> v4->v5
+>> - Fix -Wdiscarded-qualifiers 'const' compile warning.
+>> - Fix size_t printk compile error.
+>>
+>> v3->v4
+>> - Change to accept WRITE_START any time.
+>>
+>> v2->v3
+>>
+>> - Update the KCS phase state machine.
+>> - Fix the race condition of read/write.
+>>
+>> v1->v2
+>>
+>> - Divide the driver into two parts, one handles the BMC KCS IPMI 2.0 
+>> state;
+>>    the other handles the BMC KCS controller such as AST2500 IO 
+>> accessing.
+>> - Use the spin lock APIs to handle the device file operations and BMC 
+>> chip
+>>    IRQ inferface for accessing the same KCS BMC data structure.
+>> - Enhanced the phases handling of the KCS BMC.
+>> - Unified the IOCTL definition for IPMI BMC, it will be used by KCS 
+>> and BT.
+>>
+>>
+>> Provides a device driver for the KCS (Keyboard Controller Style)
+>> IPMI interface which meets the requirement of the BMC (Baseboard
+>> Management Controllers) side for handling the IPMI request from
+>> host system software.
+>
+> Ok, this is in my queue, it will go into next once 4.16-rc1 comes out, 
+> then into
+> 4.16 if all goes well.
+>
+> Thanks, for your patience and work on this.
+>
+*Really appreciate your time on the code review, I really learned more, 
+thank you.  :-)
 
-> On Feb 2, 2018, at 4:48 AM, Ratan Gupta <ratagupt@linux.vnet.ibm.com> =
-wrote:
->=20
-> Hi Andrew,
->=20
->=20
-> On Friday 02 February 2018 06:18 AM, Andrew Jeffery wrote:
->> Hi Deepak,
->>=20
->>> So several of the existing OpenBMC apps implement specific D-Bus
->>> services. What does it take to make remote D-Bus calls to such apps?
->>> - It doesn't look like the D-Bus spec or libdbus officially has =
-anything
->>> for D-Bus across computers. There are some good notes at
->>> https://www.freedesktop.org/wiki/Software/DBusRemote/.
->> Applications can cannect to remote dbus servers; the --address option =
-to dbus-daemon allows it to listen on a TCP socket and setting =
-DBUS_SESSION_BUS_ADDRESS will point applications in the right direction. =
-So there are probably two ways we could do this:
->>=20
->> 1. Slave BMCs connect to the master's DBus daemon, and applications =
-namespace their objects appropriately. Multi-BMC aware applications on =
-the master access the namespaced objects as required
->> 2. Slave BMCs are willfully ignorant of their role, with the master =
-connecting to the slaves' DBus daemons to form a coherent global view of =
-the bus for its multi-BMC aware applications, which access the remote =
-objects as required.
->>=20
->> Given the support DBus has today it might be easier to go for 1 than =
-for 2, if we go down this path at all.
->>=20
->> [1] https://dbus.freedesktop.org/doc/dbus-daemon.1.html
->>=20
->>> - There are ways to achieve this via Qt D-Bus, but it would involve =
-some
->>> amount tweaking with the D-Bus configs.
->>> - I'm not aware of any open/active project implementing remote =
-D-Bus.
->> Here is someone's attempt at making it easier: =
-http://gabriel.sourceforge.net/howto.html though you would struggle to =
-say it's active given the last contribution was 2013-05-14.
-> How it would be beneficial sending dbus packets over ssh v/s current =
-REST architecture,where url is mapped with the Dbus objects?
-
-1 - Less code maintained by us in the path.
-2 - Would like to see the current REST API evolve into a =
-development/testing/debug tool
-      and not used in any other capacity (like production) - We don=E2=80=99=
-t want to have to
-      maintain an API contract at the DBus level.
-3 - The current REST API hides DBus interface information, which will =
-likely be needed
-      in this environment.
-
->>=20
->>> - Thoughts on doing remote D-Bus over WebSockets?
->> How do websockets come into the picture? Why do we need the extra =
-complication vs normal sockets?
->>=20
->> Cheers,
->>=20
->> Andrew
->>=20
-> Regards
-> Ratan
+-- Haiyue
+*
+> -corey 
