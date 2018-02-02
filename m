@@ -1,41 +1,34 @@
 Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.136; helo=mga12.intel.com;
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
  envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-X-Greylist: delayed 635 seconds by postgrey-1.36 at bilbo;
- Fri, 02 Feb 2018 12:44:29 AEDT
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zXft53nDGzF0YX
- for <openbmc@lists.ozlabs.org>; Fri,  2 Feb 2018 12:44:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zXgZ46gVWzF0Zg
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Feb 2018 13:15:40 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2018 17:33:50 -0800
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2018 18:15:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,445,1511856000"; d="scan'208";a="200709738"
-Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.239.196.23])
- ([10.239.196.23])
- by fmsmga006.fm.intel.com with ESMTP; 01 Feb 2018 17:33:49 -0800
-Subject: Re: [PATCH arm/aspeed/ast2500 v4 1/2] ipmi: add a KCS IPMI BMC driver
+X-IronPort-AV: E=Sophos;i="5.46,445,1511856000"; d="scan'208";a="14423147"
+Received: from build0101.sh.intel.com ([10.239.164.138])
+ by orsmga007.jf.intel.com with ESMTP; 01 Feb 2018 18:15:37 -0800
+From: Haiyue Wang <haiyue.wang@linux.intel.com>
 To: minyard@acm.org, joel@jms.id.au, openbmc@lists.ozlabs.org,
  openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Cc: andriy.shevchenko@intel.com
-References: <1517531323-19427-1-git-send-email-haiyue.wang@linux.intel.com>
- <1ec1648a-020c-a6b5-3519-48eece098716@acm.org>
-From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
-Message-ID: <a84e8e19-dbd3-786e-b334-28b6202c0f1c@linux.intel.com>
-Date: Fri, 2 Feb 2018 09:33:49 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-In-Reply-To: <1ec1648a-020c-a6b5-3519-48eece098716@acm.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Cc: Haiyue Wang <haiyue.wang@linux.intel.com>,
+	andriy.shevchenko@intel.com
+Subject: [PATCH arm/aspeed/ast2500 v5 2/2] ipmi: add an Aspeed KCS IPMI BMC
+ driver
+Date: Fri,  2 Feb 2018 10:16:11 +0800
+Message-Id: <1517537771-21285-2-git-send-email-haiyue.wang@linux.intel.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1517537771-21285-1-git-send-email-haiyue.wang@linux.intel.com>
+References: <1517537771-21285-1-git-send-email-haiyue.wang@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -47,98 +40,415 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Feb 2018 01:44:30 -0000
+X-List-Received-Date: Fri, 02 Feb 2018 02:15:41 -0000
+X-List-Received-Date: Fri, 02 Feb 2018 02:15:41 -0000
 
+The KCS (Keyboard Controller Style) interface is used to perform in-band
+IPMI communication between a server host and its BMC (BaseBoard Management
+Controllers).
 
+This driver exposes the KCS interface on ASpeed SOCs (AST2400 and AST2500)
+as a character device. Such SOCs are commonly used as BMCs and this driver
+implements the BMC side of the KCS interface.
 
-On 2018-02-02 09:10, Corey Minyard wrote:
->
-> I loaded this in, tried a compile on x86_64, and got the following:
->
-> In file included from ../drivers/char/ipmi/kcs_bmc.c:15:0:
-> ../drivers/char/ipmi/kcs_bmc.h: In function ‘kcs_bmc_priv’:
-> ../drivers/char/ipmi/kcs_bmc.h:100:9: warning: return discards ‘const’ 
-> qualifier from pointer target type [-Wdiscarded-qualifiers]
->   return kcs_bmc->priv;
->          ^
--static inline void *kcs_bmc_priv(const struct kcs_bmc *kcs_bmc)
-+static inline void *kcs_bmc_priv(struct kcs_bmc *kcs_bmc)  <-- Can this 
-fix error on x86_64 ?
-{
-     return kcs_bmc->priv;
-}
-> In file included from ../include/linux/printk.h:7:0,
->                  from ../include/linux/kernel.h:14,
->                  from ../include/asm-generic/bug.h:18,
->                  from ../arch/x86/include/asm/bug.h:82,
->                  from ../include/linux/bug.h:5,
->                  from ../include/linux/io.h:23,
->                  from ../drivers/char/ipmi/kcs_bmc.c:7:
-> ../drivers/char/ipmi/kcs_bmc.c: In function ‘kcs_bmc_read’:
-> ../include/linux/kern_levels.h:5:18: warning: format ‘%u’ expects 
-> argument of type ‘unsigned int’, but argument 3 has type ‘size_t {aka 
-> long unsigned int}’ [-Wformat=]
->  #define KERN_SOH "\001"  /* ASCII Start Of Header */
->                   ^
-> ../include/linux/kern_levels.h:11:18: note: in expansion of macro 
-> ‘KERN_SOH’
->  #define KERN_ERR KERN_SOH "3" /* error conditions */
->                   ^
-> ../include/linux/printk.h:301:9: note: in expansion of macro ‘KERN_ERR’
->   printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
->          ^
-> ../drivers/char/ipmi/kcs_bmc.c:307:3: note: in expansion of macro 
-> ‘pr_err’
->    pr_err("channel=%u with too large data : %u\n",
->    ^
-https://elinux.org/Debugging_by_printing
-However please*note*: always use/%zu/,/%zd/or/%zx/for 
-printing/size_t/and/ssize_t/values. ssize_t and size_t are quite common 
-values in the kernel, so please use the/%z/to avoid annoying compile 
-warnings.
-So I change it from "%u" to "%zu", it is passed on my arm-32 compile, is 
-it OK on your X64 ?
-pr_err("channel=%u with too large data : %zu\n",
-> In file included from ../drivers/char/ipmi/kcs_bmc_aspeed.c:20:0:
-> ../drivers/char/ipmi/kcs_bmc.h: In function ‘kcs_bmc_priv’:
-> ../drivers/char/ipmi/kcs_bmc.h:100:9: warning: return discards ‘const’ 
-> qualifier from pointer target type [-Wdiscarded-qualifiers]
->   return kcs_bmc->priv;
->          ^
->
-> So that needs to be fixed before it goes in.
->
-> Also, since you are respinning, can you make ASPEED_KCS_IPMI_BMC 
-> select IPMI_KCS_BMC, like:
->
-> diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
-> index bc2568a..d34f40e 100644
-> --- a/drivers/char/ipmi/Kconfig
-> +++ b/drivers/char/ipmi/Kconfig
-> @@ -99,16 +99,11 @@ config IPMI_POWEROFF
->  endif # IPMI_HANDLER
->
->  config IPMI_KCS_BMC
-> -       tristate 'IPMI KCS BMC Interface'
-> -       help
-> -         Provides a device driver for the KCS (Keyboard Controller 
-> Style)
-> -         IPMI interface which meets the requirement of the BMC 
-> (Baseboard
-> -         Management Controllers) side for handling the IPMI request from
-> -         host system software.
-> +       tristate
->
->  config ASPEED_KCS_IPMI_BMC
->         depends on ARCH_ASPEED || COMPILE_TEST
-> -       depends on IPMI_KCS_BMC
-> +       select IPMI_KCS_BMC
->         select REGMAP_MMIO
->         tristate "Aspeed KCS IPMI BMC driver"
->         help
->
-> It doesn't make much sense to have IPMI_KCS_BMC on its own.  I was 
-> going to do this till I saw the compiler error.
->
-Got it, will change it to 'select'
-> -corey 
+Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+---
+ .../devicetree/bindings/ipmi/aspeed-kcs-bmc.txt    |  26 ++
+ drivers/char/ipmi/Kconfig                          |  12 +
+ drivers/char/ipmi/Makefile                         |   1 +
+ drivers/char/ipmi/kcs_bmc_aspeed.c                 | 319 +++++++++++++++++++++
+ 4 files changed, 358 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
+ create mode 100644 drivers/char/ipmi/kcs_bmc_aspeed.c
+
+diff --git a/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
+new file mode 100644
+index 0000000..613c34c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
+@@ -0,0 +1,26 @@
++* Aspeed KCS (Keyboard Controller Style) IPMI interface
++
++The Aspeed SOCs (AST2400 and AST2500) are commonly used as BMCs
++(Baseboard Management Controllers) and the KCS interface can be
++used to perform in-band IPMI communication with their host.
++
++Required properties:
++- compatible : should be one of
++    "aspeed,ast2400-kcs-bmc"
++    "aspeed,ast2500-kcs-bmc"
++- interrupts : interrupt generated by the controller
++- kcs_chan : The LPC channel number in the controller
++- kcs_addr : The host CPU IO map address
++
++
++Example:
++
++    kcs3: kcs3@0 {
++        compatible = "aspeed,ast2500-kcs-bmc";
++        reg = <0x0 0x80>;
++        interrupts = <8>;
++        kcs_chan = <3>;
++        kcs_addr = <0xCA2>;
++        status = "okay";
++    };
++
+diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+index aa9bcb1..f72fe56 100644
+--- a/drivers/char/ipmi/Kconfig
++++ b/drivers/char/ipmi/Kconfig
+@@ -104,6 +104,18 @@ config IPMI_KCS_BMC
+ 	  Management Controllers) side for handling the IPMI request from
+ 	  host system software.
+ 
++config ASPEED_KCS_IPMI_BMC
++	depends on ARCH_ASPEED || COMPILE_TEST
++	select IPMI_KCS_BMC
++	select REGMAP_MMIO
++	tristate "Aspeed KCS IPMI BMC driver"
++	help
++	  Provides a driver for the KCS (Keyboard Controller Style) IPMI
++	  interface found on Aspeed SOCs (AST2400 and AST2500).
++
++	  The driver implements the BMC side of the KCS contorller, it
++	  provides the access of KCS IO space for BMC side.
++
+ config ASPEED_BT_IPMI_BMC
+ 	depends on ARCH_ASPEED || COMPILE_TEST
+        depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
+diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
+index 2abccb3..21e9e87 100644
+--- a/drivers/char/ipmi/Makefile
++++ b/drivers/char/ipmi/Makefile
+@@ -23,3 +23,4 @@ obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
+ obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
+ obj-$(CONFIG_IPMI_KCS_BMC) += kcs_bmc.o
+ obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
++obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs_bmc_aspeed.o
+diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_bmc_aspeed.c
+new file mode 100644
+index 0000000..0c4d1a3
+--- /dev/null
++++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
+@@ -0,0 +1,319 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2015-2018, Intel Corporation.
++
++#define pr_fmt(fmt) "aspeed-kcs-bmc: " fmt
++
++#include <linux/atomic.h>
++#include <linux/errno.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/poll.h>
++#include <linux/regmap.h>
++#include <linux/sched.h>
++#include <linux/slab.h>
++#include <linux/timer.h>
++
++#include "kcs_bmc.h"
++
++
++#define DEVICE_NAME     "ast-kcs-bmc"
++
++#define KCS_CHANNEL_MAX     4
++
++/* mapped to lpc-bmc@0 IO space */
++#define LPC_HICR0            0x000
++#define     LPC_HICR0_LPC3E          BIT(7)
++#define     LPC_HICR0_LPC2E          BIT(6)
++#define     LPC_HICR0_LPC1E          BIT(5)
++#define LPC_HICR2            0x008
++#define     LPC_HICR2_IBFIF3         BIT(3)
++#define     LPC_HICR2_IBFIF2         BIT(2)
++#define     LPC_HICR2_IBFIF1         BIT(1)
++#define LPC_HICR4            0x010
++#define     LPC_HICR4_LADR12AS       BIT(7)
++#define     LPC_HICR4_KCSENBL        BIT(2)
++#define LPC_LADR3H           0x014
++#define LPC_LADR3L           0x018
++#define LPC_LADR12H          0x01C
++#define LPC_LADR12L          0x020
++#define LPC_IDR1             0x024
++#define LPC_IDR2             0x028
++#define LPC_IDR3             0x02C
++#define LPC_ODR1             0x030
++#define LPC_ODR2             0x034
++#define LPC_ODR3             0x038
++#define LPC_STR1             0x03C
++#define LPC_STR2             0x040
++#define LPC_STR3             0x044
++
++/* mapped to lpc-host@80 IO space */
++#define LPC_HICRB            0x080
++#define     LPC_HICRB_IBFIF4         BIT(1)
++#define     LPC_HICRB_LPC4E          BIT(0)
++#define LPC_LADR4            0x090
++#define LPC_IDR4             0x094
++#define LPC_ODR4             0x098
++#define LPC_STR4             0x09C
++
++struct aspeed_kcs_bmc {
++	struct regmap *map;
++};
++
++
++static u8 aspeed_kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
++{
++	struct aspeed_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++	u32 val = 0;
++	int rc;
++
++	rc = regmap_read(priv->map, reg, &val);
++	WARN(rc != 0, "regmap_read() failed: %d\n", rc);
++
++	return rc == 0 ? (u8) val : 0;
++}
++
++static void aspeed_kcs_outb(struct kcs_bmc *kcs_bmc, u32 reg, u8 data)
++{
++	struct aspeed_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++	int rc;
++
++	rc = regmap_write(priv->map, reg, data);
++	WARN(rc != 0, "regmap_write() failed: %d\n", rc);
++}
++
++
++/*
++ * AST_usrGuide_KCS.pdf
++ * 2. Background:
++ *   we note D for Data, and C for Cmd/Status, default rules are
++ *     A. KCS1 / KCS2 ( D / C:X / X+4 )
++ *        D / C : CA0h / CA4h
++ *        D / C : CA8h / CACh
++ *     B. KCS3 ( D / C:XX2h / XX3h )
++ *        D / C : CA2h / CA3h
++ *        D / C : CB2h / CB3h
++ *     C. KCS4
++ *        D / C : CA4h / CA5h
++ */
++static void aspeed_kcs_set_address(struct kcs_bmc *kcs_bmc, u16 addr)
++{
++	struct aspeed_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++
++	switch (kcs_bmc->channel) {
++	case 1:
++		regmap_update_bits(priv->map, LPC_HICR4,
++				LPC_HICR4_LADR12AS, 0);
++		regmap_write(priv->map, LPC_LADR12H, addr >> 8);
++		regmap_write(priv->map, LPC_LADR12L, addr & 0xFF);
++		break;
++
++	case 2:
++		regmap_update_bits(priv->map, LPC_HICR4,
++				LPC_HICR4_LADR12AS, LPC_HICR4_LADR12AS);
++		regmap_write(priv->map, LPC_LADR12H, addr >> 8);
++		regmap_write(priv->map, LPC_LADR12L, addr & 0xFF);
++		break;
++
++	case 3:
++		regmap_write(priv->map, LPC_LADR3H, addr >> 8);
++		regmap_write(priv->map, LPC_LADR3L, addr & 0xFF);
++		break;
++
++	case 4:
++		regmap_write(priv->map, LPC_LADR4, ((addr + 1) << 16) |
++			addr);
++		break;
++
++	default:
++		break;
++	}
++}
++
++static void aspeed_kcs_enable_channel(struct kcs_bmc *kcs_bmc, bool enable)
++{
++	struct aspeed_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++
++	switch (kcs_bmc->channel) {
++	case 1:
++		if (enable) {
++			regmap_update_bits(priv->map, LPC_HICR2,
++					LPC_HICR2_IBFIF1, LPC_HICR2_IBFIF1);
++			regmap_update_bits(priv->map, LPC_HICR0,
++					LPC_HICR0_LPC1E, LPC_HICR0_LPC1E);
++		} else {
++			regmap_update_bits(priv->map, LPC_HICR0,
++					LPC_HICR0_LPC1E, 0);
++			regmap_update_bits(priv->map, LPC_HICR2,
++					LPC_HICR2_IBFIF1, 0);
++		}
++		break;
++
++	case 2:
++		if (enable) {
++			regmap_update_bits(priv->map, LPC_HICR2,
++					LPC_HICR2_IBFIF2, LPC_HICR2_IBFIF2);
++			regmap_update_bits(priv->map, LPC_HICR0,
++					LPC_HICR0_LPC2E, LPC_HICR0_LPC2E);
++		} else {
++			regmap_update_bits(priv->map, LPC_HICR0,
++					LPC_HICR0_LPC2E, 0);
++			regmap_update_bits(priv->map, LPC_HICR2,
++					LPC_HICR2_IBFIF2, 0);
++		}
++		break;
++
++	case 3:
++		if (enable) {
++			regmap_update_bits(priv->map, LPC_HICR2,
++					LPC_HICR2_IBFIF3, LPC_HICR2_IBFIF3);
++			regmap_update_bits(priv->map, LPC_HICR0,
++					LPC_HICR0_LPC3E, LPC_HICR0_LPC3E);
++			regmap_update_bits(priv->map, LPC_HICR4,
++					LPC_HICR4_KCSENBL, LPC_HICR4_KCSENBL);
++		} else {
++			regmap_update_bits(priv->map, LPC_HICR0,
++					LPC_HICR0_LPC3E, 0);
++			regmap_update_bits(priv->map, LPC_HICR4,
++					LPC_HICR4_KCSENBL, 0);
++			regmap_update_bits(priv->map, LPC_HICR2,
++					LPC_HICR2_IBFIF3, 0);
++		}
++		break;
++
++	case 4:
++		if (enable)
++			regmap_update_bits(priv->map, LPC_HICRB,
++					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
++					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E);
++		else
++			regmap_update_bits(priv->map, LPC_HICRB,
++					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
++					0);
++		break;
++
++	default:
++		break;
++	}
++}
++
++static irqreturn_t aspeed_kcs_irq(int irq, void *arg)
++{
++	struct kcs_bmc *kcs_bmc = arg;
++
++	if (!kcs_bmc_handle_event(kcs_bmc))
++		return IRQ_HANDLED;
++
++	return IRQ_NONE;
++}
++
++static int aspeed_kcs_config_irq(struct kcs_bmc *kcs_bmc,
++			struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	int irq;
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	return devm_request_irq(dev, irq, aspeed_kcs_irq, IRQF_SHARED,
++				dev_name(dev), kcs_bmc);
++}
++
++static const struct kcs_ioreg ast_kcs_bmc_ioregs[KCS_CHANNEL_MAX] = {
++	{ .idr = LPC_IDR1, .odr = LPC_ODR1, .str = LPC_STR1 },
++	{ .idr = LPC_IDR2, .odr = LPC_ODR2, .str = LPC_STR2 },
++	{ .idr = LPC_IDR3, .odr = LPC_ODR3, .str = LPC_STR3 },
++	{ .idr = LPC_IDR4, .odr = LPC_ODR4, .str = LPC_STR4 },
++};
++
++static int aspeed_kcs_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct aspeed_kcs_bmc *priv;
++	struct kcs_bmc *kcs_bmc;
++	u32 chan, addr;
++	int rc;
++
++	rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
++	if ((rc != 0) || (chan == 0 || chan > KCS_CHANNEL_MAX)) {
++		dev_err(dev, "no valid 'kcs_chan' configured\n");
++		return -ENODEV;
++	}
++
++	rc = of_property_read_u32(dev->of_node, "kcs_addr", &addr);
++	if (rc) {
++		dev_err(dev, "no valid 'kcs_addr' configured\n");
++		return -ENODEV;
++	}
++
++	kcs_bmc = kcs_bmc_alloc(dev, sizeof(*priv), chan);
++	if (!kcs_bmc)
++		return -ENOMEM;
++
++	priv = kcs_bmc_priv(kcs_bmc);
++	priv->map = syscon_node_to_regmap(dev->parent->of_node);
++	if (IS_ERR(priv->map)) {
++		dev_err(dev, "Couldn't get regmap\n");
++		return -ENODEV;
++	}
++
++	kcs_bmc->ioreg = ast_kcs_bmc_ioregs[chan - 1];
++	kcs_bmc->io_inputb = aspeed_kcs_inb;
++	kcs_bmc->io_outputb = aspeed_kcs_outb;
++
++	dev_set_drvdata(dev, kcs_bmc);
++
++	aspeed_kcs_set_address(kcs_bmc, addr);
++	aspeed_kcs_enable_channel(kcs_bmc, true);
++	rc = aspeed_kcs_config_irq(kcs_bmc, pdev);
++	if (rc)
++		return rc;
++
++	rc = misc_register(&kcs_bmc->miscdev);
++	if (rc) {
++		dev_err(dev, "Unable to register device\n");
++		return rc;
++	}
++
++	pr_info("channel=%u addr=0x%x idr=0x%x odr=0x%x str=0x%x\n",
++		chan, addr,
++		kcs_bmc->ioreg.idr, kcs_bmc->ioreg.odr, kcs_bmc->ioreg.str);
++
++	return 0;
++}
++
++static int aspeed_kcs_remove(struct platform_device *pdev)
++{
++	struct kcs_bmc *kcs_bmc = dev_get_drvdata(&pdev->dev);
++
++	misc_deregister(&kcs_bmc->miscdev);
++
++	return 0;
++}
++
++static const struct of_device_id ast_kcs_bmc_match[] = {
++	{ .compatible = "aspeed,ast2400-kcs-bmc" },
++	{ .compatible = "aspeed,ast2500-kcs-bmc" },
++	{ }
++};
++
++static struct platform_driver ast_kcs_bmc_driver = {
++	.driver = {
++		.name           = DEVICE_NAME,
++		.of_match_table = ast_kcs_bmc_match,
++	},
++	.probe = aspeed_kcs_probe,
++	.remove = aspeed_kcs_remove,
++};
++
++module_platform_driver(ast_kcs_bmc_driver);
++
++MODULE_DEVICE_TABLE(of, ast_kcs_bmc_match);
++MODULE_LICENSE("GPL v2");
++MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
++MODULE_DESCRIPTION("Aspeed device interface to the KCS BMC device");
+-- 
+2.7.4
