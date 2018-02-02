@@ -1,68 +1,67 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zYB6R0JMnzF0St
- for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 09:11:58 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w12M9dCt105227
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zYB6R1nYszF0Tq
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 09:11:59 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w12M9vYT068403
  for <openbmc@lists.ozlabs.org>; Fri, 2 Feb 2018 17:11:56 -0500
-Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2fvw067naw-1
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2fvv4d9w44-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
  for <openbmc@lists.ozlabs.org>; Fri, 02 Feb 2018 17:11:56 -0500
 Received: from localhost
- by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 2 Feb 2018 17:11:54 -0500
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
+ Fri, 2 Feb 2018 17:11:55 -0500
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 2 Feb 2018 17:11:51 -0500
+ Fri, 2 Feb 2018 17:11:53 -0500
 Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
  [9.57.199.109])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w12MBp6a43647148; Fri, 2 Feb 2018 22:11:51 GMT
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w12MBr7X37421224; Fri, 2 Feb 2018 22:11:53 GMT
 Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 52E6911204B;
- Fri,  2 Feb 2018 17:09:55 -0500 (EST)
+ by IMSVA (Postfix) with ESMTP id 5A335112034;
+ Fri,  2 Feb 2018 17:09:57 -0500 (EST)
 Received: from talon7.ibm.com (unknown [9.41.241.240])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id D3CBE112054;
- Fri,  2 Feb 2018 17:09:54 -0500 (EST)
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id E9D64112040;
+ Fri,  2 Feb 2018 17:09:56 -0500 (EST)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, Eddie James <eajames@linux.vnet.ibm.com>, 
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 1/3] drivers: fsi: SBEFIFO: switch to workqueue
- instead of timer
-Date: Fri,  2 Feb 2018 16:11:45 -0600
+Cc: joel@jms.id.au, andrew@aj.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10 2/3] drivers: fsi: sbefifo: switch to mutex in
+ work function
+Date: Fri,  2 Feb 2018 16:11:46 -0600
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1517609507-20687-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1517609507-20687-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 18020222-0056-0000-0000-00000414D013
+x-cbid: 18020222-0024-0000-0000-0000031DDFAE
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00008463; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000248; SDB=6.00984145; UDB=6.00499184; IPR=6.00763423; 
  BA=6.00005809; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019341; XFM=3.00000015;
- UTC=2018-02-02 22:11:53
+ UTC=2018-02-02 22:11:54
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18020222-0057-0000-0000-0000084C3C25
-Message-Id: <1517609507-20687-2-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 18020222-0025-0000-0000-000046DA85F3
+Message-Id: <1517609507-20687-3-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-02-02_04:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
  malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
  definitions=main-1802020267
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -78,193 +77,163 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 02 Feb 2018 22:11:59 -0000
 
-Switch to a workqueue instead of a poll timer so that we can use a mutex
-in the work function instead of a spinlock. This allows the use of
-Jeremy's FSI scheduling fix.
+Use a mutex instead of a spinlock to prevent locking up the bmc while
+waiting on FSI operations. This can then be used in conjunction with
+Jeremy's FSI spinlock fix.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 ---
- drivers/fsi/fsi-sbefifo.c | 54 ++++++++++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 22 deletions(-)
+ drivers/fsi/fsi-sbefifo.c | 42 ++++++++++++++++++++++++++++++------------
+ 1 file changed, 30 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index 0697a10..7b6842a 100644
+index 7b6842a..4d024ed 100644
 --- a/drivers/fsi/fsi-sbefifo.c
 +++ b/drivers/fsi/fsi-sbefifo.c
-@@ -29,9 +29,9 @@
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
--#include <linux/timer.h>
- #include <linux/uaccess.h>
- #include <linux/wait.h>
-+#include <linux/workqueue.h>
- 
- /*
-  * The SBEFIFO is a pipe-like FSI device for communicating with
-@@ -57,7 +57,7 @@
- #define SBEFIFO_MAX_RESCHDULE	msecs_to_jiffies(5000)
- 
- struct sbefifo {
--	struct timer_list poll_timer;
-+	struct delayed_work work;
- 	struct fsi_device *fsi_dev;
- 	struct miscdevice mdev;
+@@ -22,6 +22,7 @@
+ #include <linux/list.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/of_platform.h>
+@@ -63,7 +64,8 @@ struct sbefifo {
  	wait_queue_head_t wait;
-@@ -99,6 +99,8 @@ struct sbefifo_client {
- 	unsigned long f_flags;
- };
+ 	struct list_head xfrs;
+ 	struct kref kref;
+-	spinlock_t lock;
++	spinlock_t list_lock;		/* lock access to the xfrs list */
++	struct mutex sbefifo_lock;	/* lock access to the hardware */
+ 	char name[32];
+ 	int idx;
+ 	int rc;
+@@ -389,12 +391,16 @@ static void sbefifo_worker(struct work_struct *work)
+ 	int ret = 0;
+ 	u32 sts;
+ 	int i;
++	unsigned long flags;
  
-+static struct workqueue_struct *sbefifo_wq;
-+
- static DEFINE_IDA(sbefifo_ida);
- 
- static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
-@@ -337,7 +339,7 @@ static void sbefifo_client_release(struct kref *kref)
- 			 */
- 			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
- 			sbefifo_get(sbefifo);
--			if (mod_timer(&client->dev->poll_timer, jiffies))
-+			if (!queue_work(sbefifo_wq, &sbefifo->work.work))
- 				sbefifo_put(sbefifo);
- 		}
- 	}
-@@ -374,10 +376,11 @@ static struct sbefifo_xfr *sbefifo_next_xfr(struct sbefifo *sbefifo)
- 	return NULL;
- }
- 
--static void sbefifo_poll_timer(unsigned long data)
-+static void sbefifo_worker(struct work_struct *work)
- {
- 	static const unsigned long EOT_MASK = 0x000000ff;
--	struct sbefifo *sbefifo = (void *)data;
-+	struct delayed_work *dwork = to_delayed_work(work);
-+	struct sbefifo *sbefifo = container_of(dwork, struct sbefifo, work);
- 	struct sbefifo_buf *rbuf, *wbuf;
- 	struct sbefifo_xfr *xfr, *tmp;
- 	struct sbefifo_buf drain;
-@@ -393,6 +396,7 @@ static void sbefifo_poll_timer(unsigned long data)
+-	spin_lock(&sbefifo->lock);
++	spin_lock_irqsave(&sbefifo->list_lock, flags);
+ 	xfr = list_first_entry_or_null(&sbefifo->xfrs, struct sbefifo_xfr,
+ 				       xfrs);
++	spin_unlock_irqrestore(&sbefifo->list_lock, flags);
  	if (!xfr)
- 		goto out_unlock;
+-		goto out_unlock;
++		return;
++
++	mutex_lock(&sbefifo->sbefifo_lock);
  
-+again:
+ again:
  	rbuf = xfr->rbuf;
- 	wbuf = xfr->wbuf;
+@@ -499,7 +505,11 @@ static void sbefifo_worker(struct work_struct *work)
+ 				goto out;
  
-@@ -414,9 +418,8 @@ static void sbefifo_poll_timer(unsigned long data)
- 		devn = sbefifo_dev_nwwriteable(sts);
- 		if (devn == 0) {
- 			/* No open slot for write.  Reschedule. */
--			sbefifo->poll_timer.expires = jiffies +
--				SBEFIFO_RESCHEDULE;
--			add_timer(&sbefifo->poll_timer);
-+			queue_delayed_work(sbefifo_wq, &sbefifo->work,
-+					   SBEFIFO_RESCHEDULE);
- 			goto out_unlock;
- 		}
- 
-@@ -468,9 +471,8 @@ static void sbefifo_poll_timer(unsigned long data)
- 			}
- 
- 			/* No data yet.  Reschedule. */
--			sbefifo->poll_timer.expires = jiffies +
--				SBEFIFO_RESCHEDULE;
--			add_timer(&sbefifo->poll_timer);
-+			queue_delayed_work(sbefifo_wq, &sbefifo->work,
-+					   SBEFIFO_RESCHEDULE);
- 			goto out_unlock;
- 		} else {
- 			xfr->wait_data_timeout = 0;
-@@ -516,10 +518,12 @@ static void sbefifo_poll_timer(unsigned long data)
+ 			set_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags);
++
++			spin_lock_irqsave(&sbefifo->list_lock, flags);
+ 			list_del(&xfr->xfrs);
++			spin_unlock_irqrestore(&sbefifo->list_lock, flags);
++
+ 			if (unlikely(test_bit(SBEFIFO_XFR_CANCEL,
+ 					      &xfr->flags)))
+ 				kfree(xfr);
+@@ -512,14 +522,19 @@ static void sbefifo_worker(struct work_struct *work)
+ 		sbefifo->rc = ret;
+ 		dev_err(&sbefifo->fsi_dev->dev,
+ 			"Fatal bus access failure: %d\n", ret);
++
++		spin_lock_irqsave(&sbefifo->list_lock, flags);
+ 		list_for_each_entry_safe(xfr, tmp, &sbefifo->xfrs, xfrs) {
+ 			list_del(&xfr->xfrs);
+ 			kfree(xfr);
  		}
  		INIT_LIST_HEAD(&sbefifo->xfrs);
- 
--	} else if (eot && sbefifo_next_xfr(sbefifo)) {
--		sbefifo_get(sbefifo);
--		sbefifo->poll_timer.expires = jiffies;
--		add_timer(&sbefifo->poll_timer);
-+	} else if (eot) {
-+		xfr = sbefifo_next_xfr(sbefifo);
-+		if (xfr) {
-+			wake_up_interruptible(&sbefifo->wait);
-+			goto again;
-+		}
- 	}
- 
- 	sbefifo_put(sbefifo);
-@@ -638,7 +642,7 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
- 			 * Fill the read buffer back up.
- 			 */
- 			sbefifo_get(sbefifo);
--			if (mod_timer(&client->dev->poll_timer, jiffies))
-+			if (!queue_work(sbefifo_wq, &sbefifo->work.work))
- 				sbefifo_put(sbefifo);
- 		} else {
- 			list_del(&xfr->client);
-@@ -721,7 +725,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
- 								 &n))) {
- 			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
- 			sbefifo_get(sbefifo);
--			if (mod_timer(&sbefifo->poll_timer, jiffies))
-+			if (!queue_work(sbefifo_wq, &sbefifo->work.work))
- 				sbefifo_put(sbefifo);
- 
- 			ret = -ERESTARTSYS;
-@@ -741,7 +745,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
- 			    n)) {
- 				set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
- 				sbefifo_get(sbefifo);
--				if (mod_timer(&sbefifo->poll_timer, jiffies))
-+				if (!queue_work(sbefifo_wq,
-+						&sbefifo->work.work))
- 					sbefifo_put(sbefifo);
- 				ret = -EFAULT;
- 				goto out;
-@@ -768,7 +773,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
- 		 * Drain the write buffer.
- 		 */
- 		sbefifo_get(sbefifo);
--		if (mod_timer(&client->dev->poll_timer, jiffies))
-+		if (!queue_work(sbefifo_wq, &sbefifo->work.work))
- 			sbefifo_put(sbefifo);
- 	}
- 
-@@ -928,8 +933,7 @@ static int sbefifo_probe(struct device *dev)
- 		 sbefifo->idx);
- 
- 	/* This bit of silicon doesn't offer any interrupts... */
--	setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
--		    (unsigned long)sbefifo);
-+	INIT_DELAYED_WORK(&sbefifo->work, sbefifo_worker);
- 
- 	sbefifo->mdev.minor = MISC_DYNAMIC_MINOR;
- 	sbefifo->mdev.fops = &sbefifo_fops;
-@@ -982,7 +986,7 @@ static int sbefifo_remove(struct device *dev)
- 
- 	ida_simple_remove(&sbefifo_ida, sbefifo->idx);
- 
--	if (del_timer_sync(&sbefifo->poll_timer))
-+	if (cancel_delayed_work_sync(&sbefifo->work))
- 		sbefifo_put(sbefifo);
- 
- 	sbefifo_put(sbefifo);
-@@ -1010,11 +1014,17 @@ static int sbefifo_remove(struct device *dev)
- 
- static int sbefifo_init(void)
- {
-+	sbefifo_wq = create_singlethread_workqueue("sbefifo");
-+	if (!sbefifo_wq)
-+		return -ENOMEM;
+-
++		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
+ 	} else if (eot) {
++		spin_lock_irqsave(&sbefifo->list_lock, flags);
+ 		xfr = sbefifo_next_xfr(sbefifo);
++		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
 +
- 	return fsi_driver_register(&sbefifo_drv);
+ 		if (xfr) {
+ 			wake_up_interruptible(&sbefifo->wait);
+ 			goto again;
+@@ -530,7 +545,7 @@ static void sbefifo_worker(struct work_struct *work)
+ 	wake_up_interruptible(&sbefifo->wait);
+ 
+ out_unlock:
+-	spin_unlock(&sbefifo->lock);
++	mutex_unlock(&sbefifo->sbefifo_lock);
  }
  
- static void sbefifo_exit(void)
- {
-+	destroy_workqueue(sbefifo_wq);
-+
- 	fsi_driver_unregister(&sbefifo_drv);
+ static int sbefifo_open(struct inode *inode, struct file *file)
+@@ -686,6 +701,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 	struct sbefifo_xfr *xfr;
+ 	ssize_t ret = 0;
+ 	size_t n;
++	unsigned long flags;
  
- 	ida_destroy(&sbefifo_ida);
+ 	if ((len >> 2) << 2 != len)
+ 		return -EINVAL;
+@@ -696,23 +712,23 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 	sbefifo_get_client(client);
+ 	n = sbefifo_buf_nbwriteable(&client->wbuf);
+ 
+-	spin_lock_irq(&sbefifo->lock);
++	spin_lock_irqsave(&sbefifo->list_lock, flags);
+ 	xfr = sbefifo_next_xfr(sbefifo);	/* next xfr to be executed */
+ 
+ 	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
+-		spin_unlock_irq(&sbefifo->lock);
++		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
+ 		ret = -EAGAIN;
+ 		goto out;
+ 	}
+ 
+ 	xfr = sbefifo_enq_xfr(client);		/* this xfr queued up */
+ 	if (IS_ERR(xfr)) {
+-		spin_unlock_irq(&sbefifo->lock);
++		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
+ 		ret = PTR_ERR(xfr);
+ 		goto out;
+ 	}
+ 
+-	spin_unlock_irq(&sbefifo->lock);
++	spin_unlock_irqrestore(&sbefifo->list_lock, flags);
+ 
+ 	/*
+ 	 * Partial writes are not really allowed in that EOT is sent exactly
+@@ -923,7 +939,8 @@ static int sbefifo_probe(struct device *dev)
+ 		}
+ 	}
+ 
+-	spin_lock_init(&sbefifo->lock);
++	spin_lock_init(&sbefifo->list_lock);
++	mutex_init(&sbefifo->sbefifo_lock);
+ 	kref_init(&sbefifo->kref);
+ 	init_waitqueue_head(&sbefifo->wait);
+ 	INIT_LIST_HEAD(&sbefifo->xfrs);
+@@ -966,8 +983,9 @@ static int sbefifo_remove(struct device *dev)
+ {
+ 	struct sbefifo *sbefifo = dev_get_drvdata(dev);
+ 	struct sbefifo_xfr *xfr, *tmp;
++	unsigned long flags;
+ 
+-	spin_lock(&sbefifo->lock);
++	spin_lock_irqsave(&sbefifo->list_lock, flags);
+ 
+ 	WRITE_ONCE(sbefifo->rc, -ENODEV);
+ 	list_for_each_entry_safe(xfr, tmp, &sbefifo->xfrs, xfrs) {
+@@ -977,7 +995,7 @@ static int sbefifo_remove(struct device *dev)
+ 
+ 	INIT_LIST_HEAD(&sbefifo->xfrs);
+ 
+-	spin_unlock(&sbefifo->lock);
++	spin_unlock_irqrestore(&sbefifo->list_lock, flags);
+ 
+ 	wake_up_all(&sbefifo->wait);
+ 
 -- 
 1.8.3.1
