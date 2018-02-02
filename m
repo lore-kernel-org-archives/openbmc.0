@@ -3,66 +3,69 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
  (client-ip=2607:f8b0:400e:c01::243; helo=mail-pl0-x243.google.com;
  envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="qQ5OZhe6"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qf4qT8dp"; 
  dkim-atps=neutral
 Received: from mail-pl0-x243.google.com (mail-pl0-x243.google.com
  [IPv6:2607:f8b0:400e:c01::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zXyq42jG7zF0Z0
- for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 00:42:55 +1100 (AEDT)
-Received: by mail-pl0-x243.google.com with SMTP id v3so6205588plg.3
- for <openbmc@lists.ozlabs.org>; Fri, 02 Feb 2018 05:42:55 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zXz2R6mBwzDr0J
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Feb 2018 00:52:47 +1100 (AEDT)
+Received: by mail-pl0-x243.google.com with SMTP id 36so6231181ple.13
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Feb 2018 05:52:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=wCfmpP8XGe/osj7c6dNea90moeIEN9E0coWCLnUHXak=;
- b=qQ5OZhe6r/NORRiE757lr4pn87vRqYV5mNAcnYV0XBWdMvjlWb94zzLf8hYhMml+l5
- CS4it3uszHjHCyY2XXtr9TBdYlFve3cRIV838q4yXMG+3tu+xpXwzLVhWctH05uXfUD7
- ZwMJVsH/iN9EKvwn4P8DqMrpIB6mZaYCWkcT3v9WB0Ecz97CEvdUECZtczBZXm8QrK8B
- zSxHrVUeWGB3tRZ/950vE9//nPInRI6LVdgIuUg005honTB+KaYSAfYCwogH8L6h64oF
- mxv/dY5XEhmpm9a1YWqk+nbfsEPYLR1e83iJVVSVGKzNanCZSRCmUBB5AnhbThNmwhMH
- tPiA==
+ h=sender:reply-to:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=mq2Q5metdWspiOrTulgUSthY6b05A+J43iafPIu/TKk=;
+ b=Qf4qT8dp878W6QAwVMZFjiONJRnj7QnS0/2l1mxn1Nkhi45cAcIxIJfxuDs1DMm7A6
+ TQG6WsSjEOTJZlsujjSlkgIoH30cTKMWODDmFFPTVtK1lkxB/2HQfcxFTds40oGzlEPL
+ kjeR3RAGNcQQKPI5gBRGeR7Ke7aG4T0odCVXGZI+csqioOA5NuAE94V0wEfLhcgJlMoZ
+ Q7yCxOJppUzdcpGj/kH8zuk4mWsqHY3WSLu+AdxVjyBGTHNpikjxliTJqxohuPyMEp2x
+ 9PtfC+sKuAVLeXwq4ZxAiF4FHUbsT4MdkCkoShP/vqAuFPj2+CAyzCXWkFN0BIoUcTo3
+ 9piw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=wCfmpP8XGe/osj7c6dNea90moeIEN9E0coWCLnUHXak=;
- b=YGsc1rak4Vxr9VsiayhKyMiZTpaPp5yETZhMB2sEpZwFCZU5OABdmG1lw+mXwSn1wB
- KkYmLOKyCxItDWjPbd7uLop5hzJkdJIxqy+E0KbErNEvwT3CKcNiQood04LCaMsKZR9Q
- 2Xd0PZRYq5SWD9+7V0YNBFrBMDqyQCJQL4YMuTGgy5+uBr/4Q8PzCLK7ypywMr3dMY1h
- zqBTzYUQkmISyYaIS1bpPbhwWbG00qz5tvFceFtz80C2ZXPhLEiTylcTRFCJ/Uv/Ref2
- uq08Bs+wNW7p+MTB7vfc28G2y+AuWgpTLy0U9oPkZKMPxGSWcwSXAU7a5JOH/TdguLJl
- u8vQ==
-X-Gm-Message-State: AKwxytd5+RIZP2LMW4g0AxstnWKrJNHyLBl4SJSapHiy/JqsulVQcFsE
- cNsGkfzVbCBBwCYm0GPcCg==
-X-Google-Smtp-Source: AH8x227qPxvhkcRaeehJnS22n5/rOiof50hKsFNikyNshum2Cn9BM/whNlK/6ItPyRzAxbsn23uZBQ==
-X-Received: by 2002:a17:902:7082:: with SMTP id
- z2-v6mr5061974plk.244.1517578973786; 
- Fri, 02 Feb 2018 05:42:53 -0800 (PST)
-Received: from [192.168.27.3] ([47.184.168.85])
- by smtp.gmail.com with ESMTPSA id j3sm4008091pfh.39.2018.02.02.05.42.51
+ bh=mq2Q5metdWspiOrTulgUSthY6b05A+J43iafPIu/TKk=;
+ b=YvL3yaHko+hJEA/xzrMHsyovVQ1cfBIJ/lLP70D/97lVdDUTyW1vUftcbk2BowUgcQ
+ t34u4GZ5EfAxL1+Kblo7oQImoFZmjHBp47YXikXeBTS6IZR4iRkWGczfyot1IZpLkSZV
+ pru8D5KGtBgJc1esA74Bck8dLGENNqI5dgWtbKa6WhKq7ijFrApyBviKJs7tKU9+z8O3
+ T1TFJj64HEsDdGxSLX+0tBj8P/+hC/1kMnbaEKIgxNCMn+WgJvaKlzvjOSLcEGe7osna
+ 3+vVd/bNc78wvsiXknb4bO0DkVS33wqE5RDKDAw71hVn+J9I3ah78UOqRdRMmX3awqNd
+ zNOw==
+X-Gm-Message-State: AKwxytdIPG/46QfKVD3FN/5AzEFxgmw4X5JCKEDA+kjGg8a/N1DJDIVt
+ U+moJHQ2sinpBFTp1AAw6Q==
+X-Google-Smtp-Source: AH8x227CMHUEu6/BhEJ2GpNvEf/qU3LeeNKeuDD8Ge5T4pd4JcXEnpRoyZt3ghj7ccNQzzR5IF5EoQ==
+X-Received: by 2002:a17:902:2823:: with SMTP id
+ e32-v6mr33300978plb.44.1517579565575; 
+ Fri, 02 Feb 2018 05:52:45 -0800 (PST)
+Received: from serve.minyard.net ([47.184.168.85])
+ by smtp.gmail.com with ESMTPSA id o25sm3060517pgc.75.2018.02.02.05.52.44
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 02 Feb 2018 05:42:52 -0800 (PST)
+ Fri, 02 Feb 2018 05:52:44 -0800 (PST)
+Sender: Corey Minyard <tcminyard@gmail.com>
+Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
+ by serve.minyard.net (Postfix) with ESMTPSA id E36A3377;
+ Fri,  2 Feb 2018 07:52:42 -0600 (CST)
 Reply-To: minyard@acm.org
-Subject: Re: [PATCH arm/aspeed/ast2500 v4 1/2] ipmi: add a KCS IPMI BMC driver
-To: "Wang, Haiyue" <haiyue.wang@linux.intel.com>, minyard@acm.org,
- joel@jms.id.au, openbmc@lists.ozlabs.org,
- openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH arm/aspeed/ast2500 v5 1/2] ipmi: add a KCS IPMI BMC driver
+To: Haiyue Wang <haiyue.wang@linux.intel.com>, joel@jms.id.au,
+ openbmc@lists.ozlabs.org, openipmi-developer@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
 Cc: andriy.shevchenko@intel.com
-References: <1517531323-19427-1-git-send-email-haiyue.wang@linux.intel.com>
- <1ec1648a-020c-a6b5-3519-48eece098716@acm.org>
- <a84e8e19-dbd3-786e-b334-28b6202c0f1c@linux.intel.com>
-From: Corey Minyard <tcminyard@gmail.com>
-Message-ID: <ce0598e6-fcd6-1f53-3412-9cf23c267a58@gmail.com>
-Date: Fri, 2 Feb 2018 07:42:50 -0600
+References: <1517537771-21285-1-git-send-email-haiyue.wang@linux.intel.com>
+From: Corey Minyard <minyard@acm.org>
+Message-ID: <ff4fde2b-6fca-8e60-9c25-7e91500597ff@acm.org>
+Date: Fri, 2 Feb 2018 07:52:42 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <a84e8e19-dbd3-786e-b334-28b6202c0f1c@linux.intel.com>
+In-Reply-To: <1517537771-21285-1-git-send-email-haiyue.wang@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
@@ -75,114 +78,685 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Feb 2018 13:43:01 -0000
+X-List-Received-Date: Fri, 02 Feb 2018 13:52:49 -0000
 
-On 02/01/2018 07:33 PM, Wang, Haiyue wrote:
+On 02/01/2018 08:16 PM, Haiyue Wang wrote:
+> ---
+> v4->v5
+> - Fix -Wdiscarded-qualifiers 'const' compile warning.
+> - Fix size_t printk compile error.
+>
+> v3->v4
+> - Change to accept WRITE_START any time.
+>
+> v2->v3
+>
+> - Update the KCS phase state machine.
+> - Fix the race condition of read/write.
+>
+> v1->v2
+>
+> - Divide the driver into two parts, one handles the BMC KCS IPMI 2.0 state;
+>    the other handles the BMC KCS controller such as AST2500 IO accessing.
+> - Use the spin lock APIs to handle the device file operations and BMC chip
+>    IRQ inferface for accessing the same KCS BMC data structure.
+> - Enhanced the phases handling of the KCS BMC.
+> - Unified the IOCTL definition for IPMI BMC, it will be used by KCS and BT.
 >
 >
-> On 2018-02-02 09:10, Corey Minyard wrote:
->>
->> I loaded this in, tried a compile on x86_64, and got the following:
->>
->> In file included from ../drivers/char/ipmi/kcs_bmc.c:15:0:
->> ../drivers/char/ipmi/kcs_bmc.h: In function ‘kcs_bmc_priv’:
->> ../drivers/char/ipmi/kcs_bmc.h:100:9: warning: return discards 
->> ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
->>   return kcs_bmc->priv;
->>          ^
-> -static inline void *kcs_bmc_priv(const struct kcs_bmc *kcs_bmc)
-> +static inline void *kcs_bmc_priv(struct kcs_bmc *kcs_bmc)  <-- Can 
-> this fix error on x86_64 ?
-> {
->     return kcs_bmc->priv;
-> }
+> Provides a device driver for the KCS (Keyboard Controller Style)
+> IPMI interface which meets the requirement of the BMC (Baseboard
+> Management Controllers) side for handling the IPMI request from
+> host system software.
 
-That, or you can separately alloc the priv data and just make it a 
-pointer.  That's more standard, but either way will work.
+Ok, this is in my queue, it will go into next once 4.16-rc1 comes out, 
+then into
+4.16 if all goes well.
 
-Where you not getting this warning on your compile?
-
->> In file included from ../include/linux/printk.h:7:0,
->>                  from ../include/linux/kernel.h:14,
->>                  from ../include/asm-generic/bug.h:18,
->>                  from ../arch/x86/include/asm/bug.h:82,
->>                  from ../include/linux/bug.h:5,
->>                  from ../include/linux/io.h:23,
->>                  from ../drivers/char/ipmi/kcs_bmc.c:7:
->> ../drivers/char/ipmi/kcs_bmc.c: In function ‘kcs_bmc_read’:
->> ../include/linux/kern_levels.h:5:18: warning: format ‘%u’ expects 
->> argument of type ‘unsigned int’, but argument 3 has type ‘size_t {aka 
->> long unsigned int}’ [-Wformat=]
->>  #define KERN_SOH "\001"  /* ASCII Start Of Header */
->>                   ^
->> ../include/linux/kern_levels.h:11:18: note: in expansion of macro 
->> ‘KERN_SOH’
->>  #define KERN_ERR KERN_SOH "3" /* error conditions */
->>                   ^
->> ../include/linux/printk.h:301:9: note: in expansion of macro ‘KERN_ERR’
->>   printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
->>          ^
->> ../drivers/char/ipmi/kcs_bmc.c:307:3: note: in expansion of macro 
->> ‘pr_err’
->>    pr_err("channel=%u with too large data : %u\n",
->>    ^
-> https://elinux.org/Debugging_by_printing
-> However please*note*: always use/%zu/,/%zd/or/%zx/for 
-> printing/size_t/and/ssize_t/values. ssize_t and size_t are quite 
-> common values in the kernel, so please use the/%z/to avoid annoying 
-> compile warnings.
-> So I change it from "%u" to "%zu", it is passed on my arm-32 compile, 
-> is it OK on your X64 ?
-
-Should be good.
-
-Thanks,
+Thanks, for your patience and work on this.
 
 -corey
 
-> pr_err("channel=%u with too large data : %zu\n",
->> In file included from ../drivers/char/ipmi/kcs_bmc_aspeed.c:20:0:
->> ../drivers/char/ipmi/kcs_bmc.h: In function ‘kcs_bmc_priv’:
->> ../drivers/char/ipmi/kcs_bmc.h:100:9: warning: return discards 
->> ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
->>   return kcs_bmc->priv;
->>          ^
->>
->> So that needs to be fixed before it goes in.
->>
->> Also, since you are respinning, can you make ASPEED_KCS_IPMI_BMC 
->> select IPMI_KCS_BMC, like:
->>
->> diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
->> index bc2568a..d34f40e 100644
->> --- a/drivers/char/ipmi/Kconfig
->> +++ b/drivers/char/ipmi/Kconfig
->> @@ -99,16 +99,11 @@ config IPMI_POWEROFF
->>  endif # IPMI_HANDLER
->>
->>  config IPMI_KCS_BMC
->> -       tristate 'IPMI KCS BMC Interface'
->> -       help
->> -         Provides a device driver for the KCS (Keyboard Controller 
->> Style)
->> -         IPMI interface which meets the requirement of the BMC 
->> (Baseboard
->> -         Management Controllers) side for handling the IPMI request 
->> from
->> -         host system software.
->> +       tristate
->>
->>  config ASPEED_KCS_IPMI_BMC
->>         depends on ARCH_ASPEED || COMPILE_TEST
->> -       depends on IPMI_KCS_BMC
->> +       select IPMI_KCS_BMC
->>         select REGMAP_MMIO
->>         tristate "Aspeed KCS IPMI BMC driver"
->>         help
->>
->> It doesn't make much sense to have IPMI_KCS_BMC on its own.  I was 
->> going to do this till I saw the compiler error.
->>
-> Got it, will change it to 'select'
->> -corey 
+> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+> ---
+>   drivers/char/ipmi/Kconfig     |   8 +
+>   drivers/char/ipmi/Makefile    |   1 +
+>   drivers/char/ipmi/kcs_bmc.c   | 464 ++++++++++++++++++++++++++++++++++++++++++
+>   drivers/char/ipmi/kcs_bmc.h   | 106 ++++++++++
+>   include/uapi/linux/ipmi_bmc.h |  14 ++
+>   5 files changed, 593 insertions(+)
+>   create mode 100644 drivers/char/ipmi/kcs_bmc.c
+>   create mode 100644 drivers/char/ipmi/kcs_bmc.h
+>   create mode 100644 include/uapi/linux/ipmi_bmc.h
 >
+> diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+> index 3544abc..aa9bcb1 100644
+> --- a/drivers/char/ipmi/Kconfig
+> +++ b/drivers/char/ipmi/Kconfig
+> @@ -96,6 +96,14 @@ config IPMI_POWEROFF
+>   
+>   endif # IPMI_HANDLER
+>   
+> +config IPMI_KCS_BMC
+> +	tristate 'IPMI KCS BMC Interface'
+> +	help
+> +	  Provides a device driver for the KCS (Keyboard Controller Style)
+> +	  IPMI interface which meets the requirement of the BMC (Baseboard
+> +	  Management Controllers) side for handling the IPMI request from
+> +	  host system software.
+> +
+>   config ASPEED_BT_IPMI_BMC
+>   	depends on ARCH_ASPEED || COMPILE_TEST
+>          depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
+> diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
+> index 33b899f..2abccb3 100644
+> --- a/drivers/char/ipmi/Makefile
+> +++ b/drivers/char/ipmi/Makefile
+> @@ -21,4 +21,5 @@ obj-$(CONFIG_IPMI_SSIF) += ipmi_ssif.o
+>   obj-$(CONFIG_IPMI_POWERNV) += ipmi_powernv.o
+>   obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
+>   obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
+> +obj-$(CONFIG_IPMI_KCS_BMC) += kcs_bmc.o
+>   obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
+> diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
+> new file mode 100644
+> index 0000000..3a3498a
+> --- /dev/null
+> +++ b/drivers/char/ipmi/kcs_bmc.c
+> @@ -0,0 +1,464 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2015-2018, Intel Corporation.
+> +
+> +#define pr_fmt(fmt) "kcs-bmc: " fmt
+> +
+> +#include <linux/errno.h>
+> +#include <linux/io.h>
+> +#include <linux/ipmi_bmc.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/poll.h>
+> +#include <linux/sched.h>
+> +#include <linux/slab.h>
+> +
+> +#include "kcs_bmc.h"
+> +
+> +#define KCS_MSG_BUFSIZ    1000
+> +
+> +#define KCS_ZERO_DATA     0
+> +
+> +
+> +/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
+> +#define KCS_STATUS_STATE(state) (state << 6)
+> +#define KCS_STATUS_STATE_MASK   GENMASK(7, 6)
+> +#define KCS_STATUS_CMD_DAT      BIT(3)
+> +#define KCS_STATUS_SMS_ATN      BIT(2)
+> +#define KCS_STATUS_IBF          BIT(1)
+> +#define KCS_STATUS_OBF          BIT(0)
+> +
+> +/* IPMI 2.0 - Table 9-2, KCS Interface State Bits */
+> +enum kcs_states {
+> +	IDLE_STATE  = 0,
+> +	READ_STATE  = 1,
+> +	WRITE_STATE = 2,
+> +	ERROR_STATE = 3,
+> +};
+> +
+> +/* IPMI 2.0 - Table 9-3, KCS Interface Control Codes */
+> +#define KCS_CMD_GET_STATUS_ABORT  0x60
+> +#define KCS_CMD_WRITE_START       0x61
+> +#define KCS_CMD_WRITE_END         0x62
+> +#define KCS_CMD_READ_BYTE         0x68
+> +
+> +static inline u8 read_data(struct kcs_bmc *kcs_bmc)
+> +{
+> +	return kcs_bmc->io_inputb(kcs_bmc, kcs_bmc->ioreg.idr);
+> +}
+> +
+> +static inline void write_data(struct kcs_bmc *kcs_bmc, u8 data)
+> +{
+> +	kcs_bmc->io_outputb(kcs_bmc, kcs_bmc->ioreg.odr, data);
+> +}
+> +
+> +static inline u8 read_status(struct kcs_bmc *kcs_bmc)
+> +{
+> +	return kcs_bmc->io_inputb(kcs_bmc, kcs_bmc->ioreg.str);
+> +}
+> +
+> +static inline void write_status(struct kcs_bmc *kcs_bmc, u8 data)
+> +{
+> +	kcs_bmc->io_outputb(kcs_bmc, kcs_bmc->ioreg.str, data);
+> +}
+> +
+> +static void update_status_bits(struct kcs_bmc *kcs_bmc, u8 mask, u8 val)
+> +{
+> +	u8 tmp = read_status(kcs_bmc);
+> +
+> +	tmp &= ~mask;
+> +	tmp |= val & mask;
+> +
+> +	write_status(kcs_bmc, tmp);
+> +}
+> +
+> +static inline void set_state(struct kcs_bmc *kcs_bmc, u8 state)
+> +{
+> +	update_status_bits(kcs_bmc, KCS_STATUS_STATE_MASK,
+> +					KCS_STATUS_STATE(state));
+> +}
+> +
+> +static void kcs_force_abort(struct kcs_bmc *kcs_bmc)
+> +{
+> +	set_state(kcs_bmc, ERROR_STATE);
+> +	read_data(kcs_bmc);
+> +	write_data(kcs_bmc, KCS_ZERO_DATA);
+> +
+> +	kcs_bmc->phase = KCS_PHASE_ERROR;
+> +	kcs_bmc->data_in_avail = false;
+> +	kcs_bmc->data_in_idx = 0;
+> +}
+> +
+> +static void kcs_bmc_handle_data(struct kcs_bmc *kcs_bmc)
+> +{
+> +	u8 data;
+> +
+> +	switch (kcs_bmc->phase) {
+> +	case KCS_PHASE_WRITE_START:
+> +		kcs_bmc->phase = KCS_PHASE_WRITE_DATA;
+> +
+> +	case KCS_PHASE_WRITE_DATA:
+> +		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ) {
+> +			set_state(kcs_bmc, WRITE_STATE);
+> +			write_data(kcs_bmc, KCS_ZERO_DATA);
+> +			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
+> +						read_data(kcs_bmc);
+> +		} else {
+> +			kcs_force_abort(kcs_bmc);
+> +			kcs_bmc->error = KCS_LENGTH_ERROR;
+> +		}
+> +		break;
+> +
+> +	case KCS_PHASE_WRITE_END_CMD:
+> +		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ) {
+> +			set_state(kcs_bmc, READ_STATE);
+> +			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
+> +						read_data(kcs_bmc);
+> +			kcs_bmc->phase = KCS_PHASE_WRITE_DONE;
+> +			kcs_bmc->data_in_avail = true;
+> +			wake_up_interruptible(&kcs_bmc->queue);
+> +		} else {
+> +			kcs_force_abort(kcs_bmc);
+> +			kcs_bmc->error = KCS_LENGTH_ERROR;
+> +		}
+> +		break;
+> +
+> +	case KCS_PHASE_READ:
+> +		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
+> +			set_state(kcs_bmc, IDLE_STATE);
+> +
+> +		data = read_data(kcs_bmc);
+> +		if (data != KCS_CMD_READ_BYTE) {
+> +			set_state(kcs_bmc, ERROR_STATE);
+> +			write_data(kcs_bmc, KCS_ZERO_DATA);
+> +			break;
+> +		}
+> +
+> +		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
+> +			write_data(kcs_bmc, KCS_ZERO_DATA);
+> +			kcs_bmc->phase = KCS_PHASE_IDLE;
+> +			break;
+> +		}
+> +
+> +		write_data(kcs_bmc,
+> +			kcs_bmc->data_out[kcs_bmc->data_out_idx++]);
+> +		break;
+> +
+> +	case KCS_PHASE_ABORT_ERROR1:
+> +		set_state(kcs_bmc, READ_STATE);
+> +		read_data(kcs_bmc);
+> +		write_data(kcs_bmc, kcs_bmc->error);
+> +		kcs_bmc->phase = KCS_PHASE_ABORT_ERROR2;
+> +		break;
+> +
+> +	case KCS_PHASE_ABORT_ERROR2:
+> +		set_state(kcs_bmc, IDLE_STATE);
+> +		read_data(kcs_bmc);
+> +		write_data(kcs_bmc, KCS_ZERO_DATA);
+> +		kcs_bmc->phase = KCS_PHASE_IDLE;
+> +		break;
+> +
+> +	default:
+> +		kcs_force_abort(kcs_bmc);
+> +		break;
+> +	}
+> +}
+> +
+> +static void kcs_bmc_handle_cmd(struct kcs_bmc *kcs_bmc)
+> +{
+> +	u8 cmd;
+> +
+> +	set_state(kcs_bmc, WRITE_STATE);
+> +	write_data(kcs_bmc, KCS_ZERO_DATA);
+> +
+> +	cmd = read_data(kcs_bmc);
+> +	switch (cmd) {
+> +	case KCS_CMD_WRITE_START:
+> +		kcs_bmc->phase = KCS_PHASE_WRITE_START;
+> +		kcs_bmc->error = KCS_NO_ERROR;
+> +		kcs_bmc->data_in_avail = false;
+> +		kcs_bmc->data_in_idx = 0;
+> +		break;
+> +
+> +	case KCS_CMD_WRITE_END:
+> +		if (kcs_bmc->phase != KCS_PHASE_WRITE_DATA) {
+> +			kcs_force_abort(kcs_bmc);
+> +			break;
+> +		}
+> +
+> +		kcs_bmc->phase = KCS_PHASE_WRITE_END_CMD;
+> +		break;
+> +
+> +	case KCS_CMD_GET_STATUS_ABORT:
+> +		if (kcs_bmc->error == KCS_NO_ERROR)
+> +			kcs_bmc->error = KCS_ABORTED_BY_COMMAND;
+> +
+> +		kcs_bmc->phase = KCS_PHASE_ABORT_ERROR1;
+> +		kcs_bmc->data_in_avail = false;
+> +		kcs_bmc->data_in_idx = 0;
+> +		break;
+> +
+> +	default:
+> +		kcs_force_abort(kcs_bmc);
+> +		kcs_bmc->error = KCS_ILLEGAL_CONTROL_CODE;
+> +		break;
+> +	}
+> +}
+> +
+> +int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc)
+> +{
+> +	unsigned long flags;
+> +	int ret = 0;
+> +	u8 status;
+> +
+> +	spin_lock_irqsave(&kcs_bmc->lock, flags);
+> +
+> +	if (!kcs_bmc->running) {
+> +		kcs_force_abort(kcs_bmc);
+> +		ret = -ENODEV;
+> +		goto out_unlock;
+> +	}
+> +
+> +	status = read_status(kcs_bmc) & (KCS_STATUS_IBF | KCS_STATUS_CMD_DAT);
+> +
+> +	switch (status) {
+> +	case KCS_STATUS_IBF | KCS_STATUS_CMD_DAT:
+> +		kcs_bmc_handle_cmd(kcs_bmc);
+> +		break;
+> +
+> +	case KCS_STATUS_IBF:
+> +		kcs_bmc_handle_data(kcs_bmc);
+> +		break;
+> +
+> +	default:
+> +		ret = -ENODATA;
+> +		break;
+> +	}
+> +
+> +out_unlock:
+> +	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(kcs_bmc_handle_event);
+> +
+> +static inline struct kcs_bmc *file_to_kcs_bmc(struct file *filp)
+> +{
+> +	return container_of(filp->private_data, struct kcs_bmc, miscdev);
+> +}
+> +
+> +static int kcs_bmc_open(struct inode *inode, struct file *filp)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	int ret = 0;
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (!kcs_bmc->running)
+> +		kcs_bmc->running = 1;
+> +	else
+> +		ret = -EBUSY;
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	unsigned int mask = 0;
+> +
+> +	poll_wait(filp, &kcs_bmc->queue, wait);
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (kcs_bmc->data_in_avail)
+> +		mask |= POLLIN;
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return mask;
+> +}
+> +
+> +static ssize_t kcs_bmc_read(struct file *filp, char *buf,
+> +			    size_t count, loff_t *offset)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	bool data_avail;
+> +	size_t data_len;
+> +	ssize_t ret;
+> +
+> +	if (!(filp->f_flags & O_NONBLOCK))
+> +		wait_event_interruptible(kcs_bmc->queue,
+> +					 kcs_bmc->data_in_avail);
+> +
+> +	mutex_lock(&kcs_bmc->mutex);
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	data_avail = kcs_bmc->data_in_avail;
+> +	if (data_avail) {
+> +		data_len = kcs_bmc->data_in_idx;
+> +		memcpy(kcs_bmc->kbuffer, kcs_bmc->data_in, data_len);
+> +	}
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	if (!data_avail) {
+> +		ret = -EAGAIN;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (count < data_len) {
+> +		pr_err("channel=%u with too large data : %zu\n",
+> +			kcs_bmc->channel, data_len);
+> +
+> +		spin_lock_irq(&kcs_bmc->lock);
+> +		kcs_force_abort(kcs_bmc);
+> +		spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +		ret = -EOVERFLOW;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (copy_to_user(buf, kcs_bmc->kbuffer, data_len)) {
+> +		ret = -EFAULT;
+> +		goto out_unlock;
+> +	}
+> +
+> +	ret = data_len;
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (kcs_bmc->phase == KCS_PHASE_WRITE_DONE) {
+> +		kcs_bmc->phase = KCS_PHASE_WAIT_READ;
+> +		kcs_bmc->data_in_avail = false;
+> +		kcs_bmc->data_in_idx = 0;
+> +	} else {
+> +		ret = -EAGAIN;
+> +	}
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +out_unlock:
+> +	mutex_unlock(&kcs_bmc->mutex);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
+> +			     size_t count, loff_t *offset)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	ssize_t ret;
+> +
+> +	/* a minimum response size '3' : netfn + cmd + ccode */
+> +	if (count < 3 || count > KCS_MSG_BUFSIZ)
+> +		return -EINVAL;
+> +
+> +	mutex_lock(&kcs_bmc->mutex);
+> +
+> +	if (copy_from_user(kcs_bmc->kbuffer, buf, count)) {
+> +		ret = -EFAULT;
+> +		goto out_unlock;
+> +	}
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	if (kcs_bmc->phase == KCS_PHASE_WAIT_READ) {
+> +		kcs_bmc->phase = KCS_PHASE_READ;
+> +		kcs_bmc->data_out_idx = 1;
+> +		kcs_bmc->data_out_len = count;
+> +		memcpy(kcs_bmc->data_out, kcs_bmc->kbuffer, count);
+> +		write_data(kcs_bmc, kcs_bmc->data_out[0]);
+> +		ret = count;
+> +	} else {
+> +		ret = -EINVAL;
+> +	}
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +out_unlock:
+> +	mutex_unlock(&kcs_bmc->mutex);
+> +
+> +	return ret;
+> +}
+> +
+> +static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
+> +			  unsigned long arg)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +	long ret = 0;
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +
+> +	switch (cmd) {
+> +	case IPMI_BMC_IOCTL_SET_SMS_ATN:
+> +		update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
+> +				   KCS_STATUS_SMS_ATN);
+> +		break;
+> +
+> +	case IPMI_BMC_IOCTL_CLEAR_SMS_ATN:
+> +		update_status_bits(kcs_bmc, KCS_STATUS_SMS_ATN,
+> +				   0);
+> +		break;
+> +
+> +	case IPMI_BMC_IOCTL_FORCE_ABORT:
+> +		kcs_force_abort(kcs_bmc);
+> +		break;
+> +
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int kcs_bmc_release(struct inode *inode, struct file *filp)
+> +{
+> +	struct kcs_bmc *kcs_bmc = file_to_kcs_bmc(filp);
+> +
+> +	spin_lock_irq(&kcs_bmc->lock);
+> +	kcs_bmc->running = 0;
+> +	kcs_force_abort(kcs_bmc);
+> +	spin_unlock_irq(&kcs_bmc->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct file_operations kcs_bmc_fops = {
+> +	.owner          = THIS_MODULE,
+> +	.open           = kcs_bmc_open,
+> +	.read           = kcs_bmc_read,
+> +	.write          = kcs_bmc_write,
+> +	.release        = kcs_bmc_release,
+> +	.poll           = kcs_bmc_poll,
+> +	.unlocked_ioctl = kcs_bmc_ioctl,
+> +};
+> +
+> +struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv, u32 channel)
+> +{
+> +	struct kcs_bmc *kcs_bmc;
+> +
+> +	kcs_bmc = devm_kzalloc(dev, sizeof(*kcs_bmc) + sizeof_priv, GFP_KERNEL);
+> +	if (!kcs_bmc)
+> +		return NULL;
+> +
+> +	dev_set_name(dev, "ipmi-kcs%u", channel);
+> +
+> +	spin_lock_init(&kcs_bmc->lock);
+> +	kcs_bmc->channel = channel;
+> +
+> +	mutex_init(&kcs_bmc->mutex);
+> +	init_waitqueue_head(&kcs_bmc->queue);
+> +
+> +	kcs_bmc->data_in = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
+> +	kcs_bmc->data_out = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
+> +	kcs_bmc->kbuffer = devm_kmalloc(dev, KCS_MSG_BUFSIZ, GFP_KERNEL);
+> +	if (!kcs_bmc->data_in || !kcs_bmc->data_out || !kcs_bmc->kbuffer)
+> +		return NULL;
+> +
+> +	kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
+> +	kcs_bmc->miscdev.name = dev_name(dev);
+> +	kcs_bmc->miscdev.fops = &kcs_bmc_fops;
+> +
+> +	return kcs_bmc;
+> +}
+> +EXPORT_SYMBOL(kcs_bmc_alloc);
+> +
+> +MODULE_LICENSE("GPL v2");
+> +MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
+> +MODULE_DESCRIPTION("KCS BMC to handle the IPMI request from system software");
+> diff --git a/drivers/char/ipmi/kcs_bmc.h b/drivers/char/ipmi/kcs_bmc.h
+> new file mode 100644
+> index 0000000..c19501d
+> --- /dev/null
+> +++ b/drivers/char/ipmi/kcs_bmc.h
+> @@ -0,0 +1,106 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2015-2018, Intel Corporation.
+> +
+> +#ifndef __KCS_BMC_H__
+> +#define __KCS_BMC_H__
+> +
+> +#include <linux/miscdevice.h>
+> +
+> +/* Different phases of the KCS BMC module :
+> + *  KCS_PHASE_IDLE :
+> + *            BMC should not be expecting nor sending any data.
+> + *  KCS_PHASE_WRITE_START :
+> + *            BMC is receiving a WRITE_START command from system software.
+> + *  KCS_PHASE_WRITE_DATA :
+> + *            BMC is receiving a data byte from system software.
+> + *  KCS_PHASE_WRITE_END_CMD :
+> + *            BMC is waiting a last data byte from system software.
+> + *  KCS_PHASE_WRITE_DONE :
+> + *            BMC has received the whole request from system software.
+> + *  KCS_PHASE_WAIT_READ :
+> + *            BMC is waiting the response from the upper IPMI service.
+> + *  KCS_PHASE_READ :
+> + *            BMC is transferring the response to system software.
+> + *  KCS_PHASE_ABORT_ERROR1 :
+> + *            BMC is waiting error status request from system software.
+> + *  KCS_PHASE_ABORT_ERROR2 :
+> + *            BMC is waiting for idle status afer error from system software.
+> + *  KCS_PHASE_ERROR :
+> + *            BMC has detected a protocol violation at the interface level.
+> + */
+> +enum kcs_phases {
+> +	KCS_PHASE_IDLE,
+> +
+> +	KCS_PHASE_WRITE_START,
+> +	KCS_PHASE_WRITE_DATA,
+> +	KCS_PHASE_WRITE_END_CMD,
+> +	KCS_PHASE_WRITE_DONE,
+> +
+> +	KCS_PHASE_WAIT_READ,
+> +	KCS_PHASE_READ,
+> +
+> +	KCS_PHASE_ABORT_ERROR1,
+> +	KCS_PHASE_ABORT_ERROR2,
+> +	KCS_PHASE_ERROR
+> +};
+> +
+> +/* IPMI 2.0 - Table 9-4, KCS Interface Status Codes */
+> +enum kcs_errors {
+> +	KCS_NO_ERROR                = 0x00,
+> +	KCS_ABORTED_BY_COMMAND      = 0x01,
+> +	KCS_ILLEGAL_CONTROL_CODE    = 0x02,
+> +	KCS_LENGTH_ERROR            = 0x06,
+> +	KCS_UNSPECIFIED_ERROR       = 0xFF
+> +};
+> +
+> +/* IPMI 2.0 - 9.5, KCS Interface Registers
+> + * @idr : Input Data Register
+> + * @odr : Output Data Register
+> + * @str : Status Register
+> + */
+> +struct kcs_ioreg {
+> +	u32 idr;
+> +	u32 odr;
+> +	u32 str;
+> +};
+> +
+> +struct kcs_bmc {
+> +	spinlock_t lock;
+> +
+> +	u32 channel;
+> +	int running;
+> +
+> +	/* Setup by BMC KCS controller driver */
+> +	struct kcs_ioreg ioreg;
+> +	u8 (*io_inputb)(struct kcs_bmc *kcs_bmc, u32 reg);
+> +	void (*io_outputb)(struct kcs_bmc *kcs_bmc, u32 reg, u8 b);
+> +
+> +	enum kcs_phases phase;
+> +	enum kcs_errors error;
+> +
+> +	wait_queue_head_t queue;
+> +	bool data_in_avail;
+> +	int  data_in_idx;
+> +	u8  *data_in;
+> +
+> +	int  data_out_idx;
+> +	int  data_out_len;
+> +	u8  *data_out;
+> +
+> +	struct mutex mutex;
+> +	u8 *kbuffer;
+> +
+> +	struct miscdevice miscdev;
+> +
+> +	unsigned long priv[];
+> +};
+> +
+> +static inline void *kcs_bmc_priv(struct kcs_bmc *kcs_bmc)
+> +{
+> +	return kcs_bmc->priv;
+> +}
+> +
+> +int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc);
+> +struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv,
+> +					u32 channel);
+> +#endif
+> diff --git a/include/uapi/linux/ipmi_bmc.h b/include/uapi/linux/ipmi_bmc.h
+> new file mode 100644
+> index 0000000..2f9f97e
+> --- /dev/null
+> +++ b/include/uapi/linux/ipmi_bmc.h
+> @@ -0,0 +1,14 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2015-2018, Intel Corporation.
+> +
+> +#ifndef _UAPI_LINUX_IPMI_BMC_H
+> +#define _UAPI_LINUX_IPMI_BMC_H
+> +
+> +#include <linux/ioctl.h>
+> +
+> +#define __IPMI_BMC_IOCTL_MAGIC        0xB1
+> +#define IPMI_BMC_IOCTL_SET_SMS_ATN    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x00)
+> +#define IPMI_BMC_IOCTL_CLEAR_SMS_ATN  _IO(__IPMI_BMC_IOCTL_MAGIC, 0x01)
+> +#define IPMI_BMC_IOCTL_FORCE_ABORT    _IO(__IPMI_BMC_IOCTL_MAGIC, 0x02)
+> +
+> +#endif /* _UAPI_LINUX_KCS_BMC_H */
