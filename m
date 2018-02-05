@@ -1,55 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
+ (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="TZr4cV2W"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="KSHYlLro"; 
  dkim-atps=neutral
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zZZxJ2YnjzF0rC
- for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 15:53:55 +1100 (AEDT)
-Received: by mail-qk0-x244.google.com with SMTP id 69so17947450qkz.2
- for <openbmc@lists.ozlabs.org>; Sun, 04 Feb 2018 20:53:55 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zZZxx39n1zF0sN
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 15:54:29 +1100 (AEDT)
+Received: by mail-qk0-x241.google.com with SMTP id d18so31085877qke.7
+ for <openbmc@lists.ozlabs.org>; Sun, 04 Feb 2018 20:54:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to; bh=6hXpOKfkPnYKH/F3OHftzC+VD3dl26/TVmsSw9bGZr8=;
- b=TZr4cV2WP7gk5SLldoHxYihRCm3/AgG1AtoNtfWVHeCi8TwbZNQP79+CtLMSyEMlGs
- onVDHipuKyYNVGd/0BfFcS4wa3WghQEBU9OI1BiNxlBctARAZQBb1T87sL4qApM3P8/R
- G/2QsOVJrLJ+KBY5XMaMrjdrLUilYKOftcmoSHMEDqAGTYDOmWLDiGzb8twHeIz8NDB2
- CKfC1k7dYBz6Nq0mJC7LcLuk12AAlJy/H7u79aFpvv/9rP19jsIv+cS3Lg+rxcwdHet+
- 5oCoy55rnlWNszGvoh25Fcd2dZ3cLQlil3NbRmxtv6vdjC+C0l4AefQAj26qWsO7HLdb
- UsjA==
+ :subject:to; bh=LuGu0B46CYS9Ij8pOsBHCirZkqnr4VPDSL2XnRGHy1Y=;
+ b=KSHYlLro9R0w3K2hfPEbKnDfuVOF1uK0QRWHXXGHOk0pD0+aPa5tkJefHvZ/jf9yDw
+ iry7JEBY3zFp0nfG+3ETx2Lc4bfBhK0rfsl1fKKadFLy7hudebeUasvuoiIlFqPgcoue
+ Q3tilElAjFkfVCf6fahdsc0n0a1YDdqghBaAhNZg+PtdFYfZff/C9FMA/tJ0qXHwprM1
+ LC7jgq/2viciq1rB7PzPxApRhQNHwIFv7IT28tZrX8jgYjk+NuoaCCBZC1+q71kEW3ip
+ HCm66r/ieYeh5kCsfurkMp0F3EX2ZWEK7LRgn4rrOT8Mcc5r8DoO6mIL71Cr4FBylqCw
+ tA2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to;
- bh=6hXpOKfkPnYKH/F3OHftzC+VD3dl26/TVmsSw9bGZr8=;
- b=pMpHJeD1kf3sEveEMIGrxbIP54/Xb1X3FHch+7MNr9avVrdzw33UUPROZ15evCgZka
- avvKw1jUBvv+1NfPgQ2gczSAg74Xy7ijiQrG3Wn2bqTioEnrPj8AK2tMaqYqQ3fhW7VG
- nvJMFgTbdocJsygA/ljrUpuohn5v6L7tvaXWkyM9pxq9103mYh3/ixkxW2irONrh5hQh
- MdgXXOfKJEOgdLtCN09J3JT0DuEINMbSXComGxlC7pitLDVfO15xcqeQUgtwypdXVKRE
- ZK/UWvJLnI2rTjG9rROcUe4WlAUQUwdqXHBjoCss9khSGyaIwfQivUUmfhjFnfcvPZKX
- L8Sw==
-X-Gm-Message-State: AKwxyteIG3RCNisDhqi6cXfsBXaPyjqL/w/NunMiaAtD5HXric7iscSZ
- PNxnXYjFiY2QU7MlBglOkLRuT406e3hWb/j7Mva/PQ==
-X-Google-Smtp-Source: AH8x227XhoTGupihtUMuK2zHUq09jpGWIbJfh7s8pPjDGjY1fQAiKL2tauZTRL2opYe8JzNMOIVHNni/M+9OGyrQA+Q=
-X-Received: by 10.55.198.155 with SMTP id s27mr27082558qkl.284.1517806432632; 
- Sun, 04 Feb 2018 20:53:52 -0800 (PST)
+ bh=LuGu0B46CYS9Ij8pOsBHCirZkqnr4VPDSL2XnRGHy1Y=;
+ b=mCKKQf8499j0LnTCl+TtDudry06hsyCVn+8t6GtnMUj2OOUoawrdqs2XAUGBcoZ8Pn
+ jTeqhMJrCQiprBVjvLXNY7QHg8zIOvaibGSSI70TGnd7AAngwCdsbpSGrQEbZy4Uty/n
+ 3wR8ib+30pMODvqFl4aQBaLEGs6XdcbojZXZT9yCDW0UlP2FJCAx460kZnLdQB4Iy81u
+ TLGAB7n/zP2DE2qhceTHwjUgJt3u2OYcavCNjjrkO58AUFJonBtGhqKkE8su2S9BlkBS
+ ZgI1QaN5RWaGIIUsf3G27DTtEoQP4U064mvy3vmynwUxFM+1f9ukbzKnaMDuHgqmlAy8
+ 2XPg==
+X-Gm-Message-State: AKwxytePmK/RP3UVoLFCsSeT2sXhX2MFGALjWhLiE6ipf7iI/Dsste1j
+ u4qpqgAxMaThKH98dPfeTZoUwoW1OSG/26lhY/+CMjwH
+X-Google-Smtp-Source: AH8x226iLwqEC3+IO8ssnndT0mqP8j+954rx2NoVIFjyP0wSoo5C85E3HT31W35UUnkGxPbzWOn8z14o1ytXH/ShcOQ=
+X-Received: by 10.55.95.198 with SMTP id t189mr68690091qkb.273.1517806466690; 
+ Sun, 04 Feb 2018 20:54:26 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.49.157 with HTTP; Sun, 4 Feb 2018 20:53:32 -0800 (PST)
-In-Reply-To: <20180131023947.24832-3-joel@jms.id.au>
+Received: by 10.200.49.157 with HTTP; Sun, 4 Feb 2018 20:54:06 -0800 (PST)
+In-Reply-To: <CACPK8XfOsJMfF0_PXMRgxsb_BSz8pK91k661iyTiA2f=jd6=hw@mail.gmail.com>
 References: <20180131023947.24832-1-joel@jms.id.au>
- <20180131023947.24832-3-joel@jms.id.au>
+ <20180131023947.24832-2-joel@jms.id.au>
+ <CACPK8XfOsJMfF0_PXMRgxsb_BSz8pK91k661iyTiA2f=jd6=hw@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 5 Feb 2018 15:23:32 +1030
-X-Google-Sender-Auth: xBb_KOYR_weqCZjPYoSRwttqSxw
-Message-ID: <CACPK8XeK2LzSn-wjHZijC=bbt3yHO5vDpLFdJB-jXOnC60k77Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Enable IPMI BT node on OpenPower
- machines
+Date: Mon, 5 Feb 2018 15:24:06 +1030
+X-Google-Sender-Auth: wNbm00r6xHbAVkjxeQUfWIjqoPQ
+Message-ID: <CACPK8XfUex6YjXm-Evhi16k03Q7jka2RDMZsD_pzQVeoEXpkLw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] ARM: dts: aspeed: Add IPMI BT node
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Andrew Jeffery <andrew@aj.id.au>
 Content-Type: text/plain; charset="UTF-8"
@@ -64,73 +64,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Feb 2018 04:53:58 -0000
+X-List-Received-Date: Mon, 05 Feb 2018 04:54:30 -0000
 
-On Wed, Jan 31, 2018 at 1:09 PM, Joel Stanley <joel@jms.id.au> wrote:
-> These BMC systems require this device to communicate with the host.
+On Wed, Jan 31, 2018 at 1:24 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Wed, Jan 31, 2018 at 1:09 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> The IPMI BT device part of the LPC interface and is used for
+>> communication with the host processor.
+>>
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+>> ---
+>> v2:
+>>  Fix bt reg node. It should be an offset from the lpc_host address,
+>>  not the actual address of the iBT
+>>
+>>  arch/arm/boot/dts/aspeed-g4.dtsi | 7 +++++++
+>>  arch/arm/boot/dts/aspeed-g5.dtsi | 7 +++++++
+>>  2 files changed, 14 insertions(+)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> index e6f4047142a8..7e0da0b8cd12 100644
+>> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+>> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> @@ -246,6 +246,13 @@
+>>                                                 reg = <0x20 0x24 0x48 0x8>;
+>>                                         };
+>>
+>> +                                       ibt: ibt@140 {
+>> +                                               compatible = "aspeed,ast2400-ibt-bmc";
+>> +                                               reg = <0xc0 0x18>;
+>> +                                               interrupts = <8>;
+>> +                                               status = "disabled";
+>> +                                       };
+>> +
+>>                                         mbox: mbox@180 {
+>>                                                 compatible = "aspeed,ast2400-mbox";
+>>                                                 reg = <0x180 0x5c>;
+>> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+>> index b7b42c7c89e1..f1b2fa204873 100644
+>> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+>> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+>> @@ -299,6 +299,13 @@
+>>                                                 reg = <0x20 0x24 0x48 0x8>;
+>>                                         };
+>>
+>> +                                       ibt: ibt@140 {
 >
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> I forgot to update the node name.
 
-Andrew did an over the shoulder review of this patch:
+Andrew did an over the shoulder review of this patch. He said that
+with the node name fixed:
+
 
 Acked-by: Andrew Jeffery <andrew@aj.id.au>
-
-
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ++++
->  4 files changed, 16 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> index c03c4274f910..e64df1c3b01a 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> @@ -114,3 +114,7 @@
->  &vuart {
->         status = "okay";
->  };
-> +
-> +&ibt {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index 09dab179e154..4039381f9361 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -270,3 +270,7 @@
->                 aspeed,fan-tach-ch = /bits/ 8 <0x0e>;
->         };
->  };
-> +
-> +&ibt {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index b24ea9967fc8..5f8dbffa6b22 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -632,3 +632,7 @@
->         pinctrl-names = "default";
->         pinctrl-0 = <&pinctrl_wdtrst1_default>;
->  };
-> +
-> +&ibt {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index e7669d126df1..7f5a29566801 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -435,3 +435,7 @@
->                 aspeed,fan-tach-ch = /bits/ 8 <0x03>;
->         };
->  };
-> +
-> +&ibt {
-> +       status = "okay";
-> +};
-> --
-> 2.15.1
->
