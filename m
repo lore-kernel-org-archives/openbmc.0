@@ -1,57 +1,30 @@
-Return-Path: <tpearson@raptorengineering.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom)
- smtp.mailfrom=raptorengineering.com (client-ip=192.119.205.245;
- helo=mail.rptsys.com; envelope-from=tpearson@raptorengineering.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=raptorengineering.com header.i=@raptorengineering.com
- header.b="YCbIdKzp"; dkim-atps=neutral
-X-Greylist: delayed 543 seconds by postgrey-1.36 at bilbo;
- Mon, 05 Feb 2018 18:03:41 AEDT
-Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <Tomer.Maimon@nuvoton.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zZdq16ln9zDr6h
- for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 18:03:41 +1100 (AEDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id AA52064120A
- for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 00:54:34 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id U_DqtwdwbCeB for <openbmc@lists.ozlabs.org>;
- Mon,  5 Feb 2018 00:54:34 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 2426664128C
- for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 00:54:34 -0600 (CST)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 2426664128C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
- t=1517813674; bh=sDFLt7kpccnY/ezhGLE+XsGNL6AR8vyiiaDZQBpS/IM=;
- h=Message-ID:Date:From:MIME-Version:To:Subject:Content-Type:
- Content-Transfer-Encoding;
- b=YCbIdKzpRY+5HYsIg9/wYV8KjVOQI59fFXZAyI/vxact4jZ8Lp3lqSm3tDZ6CXRrs
- J4m28AaLsmj5VegFL8TB0nKk00XLAGbcM/feNf3MkiRrw8JE+yzodoxRIHRGaL0Ax3
- DoH9qFwupl1oKyYi+KN3ZtmJU+Ec0VuXzNkelHAI=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id oJsIii1x4vZx for <openbmc@lists.ozlabs.org>;
- Mon,  5 Feb 2018 00:54:33 -0600 (CST)
-Received: from [192.168.3.54] (apollo.starlink.edu [192.168.3.54])
- by mail.rptsys.com (Postfix) with ESMTP id 939E764120A
- for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 00:54:33 -0600 (CST)
-Message-ID: <5A77FFA9.3060507@raptorengineering.com>
-Date: Mon, 05 Feb 2018 00:54:33 -0600
-From: Timothy Pearson <tpearson@raptorengineering.com>
-Organization: Raptor Engineering, LLC
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
- rv:1.9.2.9) Gecko/20100922 Thunderbird/3.1.4
-MIME-Version: 1.0
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Host IPL observer service
-X-Enigmail-Version: 1.1.2
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zZgb30PCQzDqsk
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 19:23:24 +1100 (AEDT)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w1584tdS030760;
+ Mon, 5 Feb 2018 10:04:55 +0200
+Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
+ id 001125A908; Mon,  5 Feb 2018 10:22:58 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: mturquette@baylibre.com, sboyd@codeaurora.org, robh+dt@kernel.org,
+ mark.rutland@arm.com, tali.perry1@gmail.com, avifishman70@gmail.com,
+ brendanhiggins@google.com, joel@jms.id.au
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v1 0/2] clk: npcm: add NPCM7xx clock driver
+Date: Mon,  5 Feb 2018 10:22:53 +0200
+Message-Id: <1517818975-11427-1-git-send-email-tmaimon77@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -63,26 +36,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Feb 2018 07:03:43 -0000
+X-List-Received-Date: Mon, 05 Feb 2018 08:23:27 -0000
 
-We've created a service to watch the status of the host IPL and to
-provide the status and host state information on demand and via events
-over DBUS.  This is important for several reasons, one of which is to
-make sure that we don't try to bind to OCC before OCC is up and running.
+This patch set adds clock support for the Nuvoton NPCM7xx Baseboard
+Management Controller (BMC).
 
-We're shipping this service with our Talos II systems, and already use
-it to provide status feedback to the end user during the lengthy IPL
-process, as well as to bind OCC at the correct time.
+The clock controller generates the clocks for the Graphics Core,
+Memory interface, CPU, AMBA buses and all the engine modules. 
+The NPCM7xx includes four PLL modules. 
+The clock source is selectable from either PLL or the external clock input. 
+Several clock signals have a configurable divide from the clock source
 
-Source code is here:
+Tomer Maimon (2):
+  dt-binding: clock: document NPCM7xx clock DT bindings
+  clk: npcm: add NPCM7xx clock driver
 
-https://git.raptorcs.com/git/talos-skeleton/tree/pyiplobserver
-
-Let me know what you think!  We'd love to see this upstreamed.
+ .../bindings/clock/nuvoton,npcm7xx-clk.txt         |  84 +++
+ drivers/clk/Makefile                               |   1 +
+ drivers/clk/clk-npcm7xx.c                          | 751 +++++++++++++++++++++
+ 3 files changed, 836 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,npcm7xx-clk.txt
+ create mode 100644 drivers/clk/clk-npcm7xx.c
 
 -- 
-Timothy Pearson
-Raptor Engineering
-+1 (415) 727-8645 (direct line)
-+1 (512) 690-0200 (switchboard)
-https://www.raptorengineering.com
+2.14.1
