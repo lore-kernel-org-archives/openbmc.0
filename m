@@ -1,54 +1,72 @@
-Return-Path: <tmaimon77@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::243; helo=mail-io0-x243.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZBosKGh1"; 
- dkim-atps=neutral
-Received: from mail-io0-x243.google.com (mail-io0-x243.google.com
- [IPv6:2607:f8b0:4001:c06::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zZhcm67L6zDrLP
- for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 20:10:00 +1100 (AEDT)
-Received: by mail-io0-x243.google.com with SMTP id d13so29511252iog.5
- for <openbmc@lists.ozlabs.org>; Mon, 05 Feb 2018 01:10:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=G+GsYHDZ25v89ZBeXkUZu6TRJ6jzveF3YvXBt9RQRtU=;
- b=ZBosKGh1AnXMM66s8LCU+zfeswQcrFAbmmJdSh3fShczT934VTIDRgjyo0/eQa/9RO
- iEnCEiuhmY8PcHC56/Cx8nGen7Z68/kkgpZTmhic/O3USWMk28UGeKRshoSXD4/YVjqV
- YDo/NDTkyATLCbpnm1+fFRmQju9lTCXDagceAZMoNiOxJELNg0QPcDV7VYG5cRKG7ZU5
- q7a2w7Pfl8VNWYEBjt8yyN4sYVA7+4iz1CYQ85Xs1doGePDGwSTQhFVCP0egbFBzDnK5
- pweTxhVUEtRzxTqiTO7MDjhDa1b30gwKNfxRu4HlNJkA1L4pyfSiYj6lIgera6/7t8n7
- HlQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=G+GsYHDZ25v89ZBeXkUZu6TRJ6jzveF3YvXBt9RQRtU=;
- b=KL0sSR9apL+N3mAe2Zr17GjGZb9n49rD/LEkkcUxGdgenBhjZlKhnTrVImWD0Wse5n
- +UU30C9BBGMsVSgRySuoIVHyIp106L+wx3PKNIfxR4Hjs2PWBTccYu3/dgpJFZHEaGwb
- /Jd2LYge5qnmwtASobTrYXZOOoHb2qCjlLIq/pWP67B+mReSET9asY2kIo4TKe2eh4IL
- /kEKbIvwel/Lhy5OGGdnV7/RJcWmleTchCeDEsvZytJb721+o607xuaD9UmNGmZQE84j
- g7vZDbpWsslJr3ZklUFD95nYzJU41ipNZeDPUw5dsz7QtF4mLP/AiV//rLbifT7PDmkP
- Rf4w==
-X-Gm-Message-State: AKwxytdsoZaF969vZIpfdIbxpcIv4DcKW0KyB7igJ+Y3mPe5YOJdqdkK
- +50ItrV8Bz+33s5xLYaVc7NlNKt1RHiNLdw0hyI=
-X-Google-Smtp-Source: AH8x225Q0D0U3ekgQy9n2uEH+UKsVumFTy4YBQfL8RcwTse2H4bwsmtdxmC4ODni+OxcHQq/vHVMZL5VfP2TmS3HOj8=
-X-Received: by 10.107.23.7 with SMTP id 7mr54511563iox.62.1517821798638; Mon,
- 05 Feb 2018 01:09:58 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zZshR6TZGzF0s0
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 02:58:47 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w15Fvjjx115190
+ for <openbmc@lists.ozlabs.org>; Mon, 5 Feb 2018 10:58:45 -0500
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2fxrppw9kf-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Feb 2018 10:58:44 -0500
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Mon, 5 Feb 2018 10:58:43 -0500
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 5 Feb 2018 10:58:42 -0500
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w15FwfB057212946; Mon, 5 Feb 2018 15:58:41 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3F2AEAE04B;
+ Mon,  5 Feb 2018 11:00:00 -0500 (EST)
+Received: from Christophers-MacBook-Pro.local (unknown [9.81.199.187])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id EFA16AE034;
+ Mon,  5 Feb 2018 10:59:58 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.10] drivers: fsi: sbefifo: don't delete
+ canceled xfrs in write
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+References: <1517613287-23508-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Mon, 5 Feb 2018 09:58:38 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-Received: by 10.2.7.10 with HTTP; Mon, 5 Feb 2018 01:09:58 -0800 (PST)
-In-Reply-To: <20180202042709.21627-1-joel@jms.id.au>
-References: <20180202042709.21627-1-joel@jms.id.au>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Mon, 5 Feb 2018 11:09:58 +0200
-Message-ID: <CAP6Zq1iQhRu7OkVbuQJJjk55zYSrvX2j-wmnSc296e7z_VFejw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13] serial: 8250: Add Nuvoton NPCM UART
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <1517613287-23508-1-git-send-email-eajames@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18020515-0052-0000-0000-000002B05902
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008477; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000248; SDB=6.00985339; UDB=6.00499954; IPR=6.00764711; 
+ BA=6.00005811; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019379; XFM=3.00000015;
+ UTC=2018-02-05 15:58:42
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18020515-0053-0000-0000-0000537BA546
+Message-Id: <5b46b073-8a63-0232-0c1a-7149bc03ce0a@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-05_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1802050201
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -60,146 +78,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Feb 2018 09:10:01 -0000
+X-List-Received-Date: Mon, 05 Feb 2018 15:58:48 -0000
 
-Thanks Joel!
+Reviewed-by: Christopher Bostic <clbostic@linux.vnet.ibm.com>
 
-On 2 February 2018 at 06:27, Joel Stanley <joel@jms.id.au> wrote:
-> From: Tomer Maimon <tmaimon77@gmail.com>
+
+On 2/2/18 5:14 PM, Eddie James wrote:
+> The write function was deleting canceled transfers before they had a
+> change to run and complete. This results in not acking the EOT and not
+Eddie,
+
+Small nitpick 'change' should be 'chance'.   Not sure its worth a 
+re-spin unless there are other changes required.
+
+Thanks
+-Chris
+> reading the rest of the data left in the FIFO for the canceled transfer.
+> This is the cause of the EBADMSG errors found in the OCC driver, as the
+> next op reads the data left over.
 >
-> The Nuvoton UART is almost compatible with the 8250 driver when probed
-> via the 8250_of driver, however it requires some extra configuration
-> at startup.
+> Fix it by just checking the first entry of the list instead of
+> iterating and canceling.
 >
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 > ---
->  Documentation/devicetree/bindings/serial/8250.txt |  1 +
->  drivers/tty/serial/8250/8250_of.c                 |  1 +
->  drivers/tty/serial/8250/8250_port.c               | 30 +++++++++++++++++++++++
->  include/uapi/linux/serial_core.h                  |  3 +++
->  include/uapi/linux/serial_reg.h                   |  5 ++++
->  5 files changed, 40 insertions(+)
 >
-> diff --git a/Documentation/devicetree/bindings/serial/8250.txt b/Documentation/devicetree/bindings/serial/8250.txt
-> index 419ff6c0a47f..e8d921bae665 100644
-> --- a/Documentation/devicetree/bindings/serial/8250.txt
-> +++ b/Documentation/devicetree/bindings/serial/8250.txt
-> @@ -22,6 +22,7 @@ Required properties:
->         - "ti,da830-uart"
->         - "aspeed,ast2400-vuart"
->         - "aspeed,ast2500-vuart"
-> +       - "nuvoton,npcm750-uart"
->         - "serial" if the port type is unknown.
->  - reg : offset and length of the register set for the device.
->  - interrupts : should contain uart interrupt.
-> diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/8250/8250_of.c
-> index 0cf95fddccfc..a947e1e36930 100644
-> --- a/drivers/tty/serial/8250/8250_of.c
-> +++ b/drivers/tty/serial/8250/8250_of.c
-> @@ -298,6 +298,7 @@ static const struct of_device_id of_platform_serial_table[] = {
->         { .compatible = "mrvl,mmp-uart",
->                 .data = (void *)PORT_XSCALE, },
->         { .compatible = "ti,da830-uart", .data = (void *)PORT_DA830, },
-> +       { .compatible = "nuvoton,npcm750-uart", .data = (void *)PORT_NPCM, },
->         { /* end of list */ },
->  };
->  MODULE_DEVICE_TABLE(of, of_platform_serial_table);
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-> index a5fe0e66c607..df52f9ddbb99 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -289,6 +289,16 @@ static const struct serial8250_config uart_config[] = {
->                 .rxtrig_bytes   = {1, 4, 8, 14},
->                 .flags          = UART_CAP_FIFO | UART_CAP_AFE,
->         },
-> +       [PORT_NPCM] = {
-> +               .name           = "Nuvoton 16550",
-> +               .fifo_size      = 16,
-> +               .tx_loadsz      = 16,
-> +               .fcr            = UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_10 |
-> +                                 UART_FCR_CLEAR_RCVR | UART_FCR_CLEAR_XMIT,
-> +               .rxtrig_bytes   = {1, 4, 8, 14},
-> +               .flags          = UART_CAP_FIFO,
-> +
-> +       },
->  };
+> Joel, I based this on top of the "Fixup SBEFIFO and OCC locking" series. Let me
+> know if I need to put this first and rebase that series... thanks.
 >
->  /* Uart divisor latch read */
-> @@ -2143,6 +2153,15 @@ int serial8250_do_startup(struct uart_port *port)
->                                 UART_DA830_PWREMU_MGMT_FREE);
->         }
+>   drivers/fsi/fsi-sbefifo.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> +       if (port->type == PORT_NPCM) {
-> +               /*
-> +                * Nuvoton calls the scratch register 'UART_TOR' (timeout
-> +                * register). Enable it, and set TIOC (timeout interrupt
-> +                * comparator) to be 0x20 for correct operation.
-> +                */
-> +               serial_port_out(port, UART_NPCM_TOR, UART_NPCM_TOIE | 0x20);
-> +       }
-
-Can we set the TOR register dynamically (adding special IOCTL)?
-
-> +
->  #ifdef CONFIG_SERIAL_8250_RSA
->         /*
->          * If this is an RSA port, see if we can kick it up to the
-> @@ -2465,6 +2484,15 @@ static unsigned int xr17v35x_get_divisor(struct uart_8250_port *up,
->         return quot_16 >> 4;
->  }
+> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+> index 4d024ed..7a6c4e1 100644
+> --- a/drivers/fsi/fsi-sbefifo.c
+> +++ b/drivers/fsi/fsi-sbefifo.c
+> @@ -713,8 +713,10 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+>   	n = sbefifo_buf_nbwriteable(&client->wbuf);
 >
-> +/* Nuvoton NPCM UARTs have a custom divisor calculation */
-> +static unsigned int npcm_get_divisor(struct uart_8250_port *up,
-> +               unsigned int baud)
-> +{
-> +       struct uart_port *port = &up->port;
-> +
-> +       return DIV_ROUND_CLOSEST(port->uartclk, 16 * baud + 2) - 2;
-> +}
-> +
->  static unsigned int serial8250_get_divisor(struct uart_8250_port *up,
->                                            unsigned int baud,
->                                            unsigned int *frac)
-> @@ -2485,6 +2513,8 @@ static unsigned int serial8250_get_divisor(struct uart_8250_port *up,
->                 quot = 0x8002;
->         else if (up->port.type == PORT_XR17V35X)
->                 quot = xr17v35x_get_divisor(up, baud, frac);
-> +       else if (up->port.type == PORT_NPCM)
-> +               quot = npcm_get_divisor(up, baud);
->         else
->                 quot = uart_get_divisor(port, baud);
+>   	spin_lock_irqsave(&sbefifo->list_lock, flags);
+> -	xfr = sbefifo_next_xfr(sbefifo);	/* next xfr to be executed */
 >
-> diff --git a/include/uapi/linux/serial_core.h b/include/uapi/linux/serial_core.h
-> index c34a2a3eeff5..4807dca14ea2 100644
-> --- a/include/uapi/linux/serial_core.h
-> +++ b/include/uapi/linux/serial_core.h
-> @@ -271,4 +271,7 @@
->  /* MPS2 UART */
->  #define PORT_MPS2UART  116
->
-> +/* Nuvton UART */
-> +#define PORT_NPCM      117
-> +
->  #endif /* _UAPILINUX_SERIAL_CORE_H */
-> diff --git a/include/uapi/linux/serial_reg.h b/include/uapi/linux/serial_reg.h
-> index 5db76880b4ad..50fc96431eb5 100644
-> --- a/include/uapi/linux/serial_reg.h
-> +++ b/include/uapi/linux/serial_reg.h
-> @@ -374,5 +374,10 @@
->  #define UART_ALTR_EN_TXFIFO_LW 0x01    /* Enable the TX FIFO Low Watermark */
->  #define UART_ALTR_TX_LOW       0x41    /* Tx FIFO Low Watermark */
->
-> +
-> +/* Nuvoton NPCM timeout register */
-> +#define UART_NPCM_TOR          7
-> +#define UART_NPCM_TOIE         BIT(7)  /* Timeout Interrupt Enable */
-> +
->  #endif /* _LINUX_SERIAL_REG_H */
->
-> --
-> 2.15.1
->
-
-cheers,
-
-Tomer
+> +	/* next xfr to be executed */
+> +	xfr = list_first_entry_or_null(&sbefifo->xfrs, struct sbefifo_xfr,
+> +				       xfrs);
+>   	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
+>   		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
+>   		ret = -EAGAIN;
