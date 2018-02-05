@@ -1,57 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KSHYlLro"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="pkSYyrLy"; 
  dkim-atps=neutral
-Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
- [IPv6:2607:f8b0:400d:c09::241])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zZZxx39n1zF0sN
- for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 15:54:29 +1100 (AEDT)
-Received: by mail-qk0-x241.google.com with SMTP id d18so31085877qke.7
- for <openbmc@lists.ozlabs.org>; Sun, 04 Feb 2018 20:54:29 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zZcrH6TgFzDr3J
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Feb 2018 17:19:43 +1100 (AEDT)
+Received: by mail-qt0-x243.google.com with SMTP id t25so4685760qtg.3
+ for <openbmc@lists.ozlabs.org>; Sun, 04 Feb 2018 22:19:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to; bh=LuGu0B46CYS9Ij8pOsBHCirZkqnr4VPDSL2XnRGHy1Y=;
- b=KSHYlLro9R0w3K2hfPEbKnDfuVOF1uK0QRWHXXGHOk0pD0+aPa5tkJefHvZ/jf9yDw
- iry7JEBY3zFp0nfG+3ETx2Lc4bfBhK0rfsl1fKKadFLy7hudebeUasvuoiIlFqPgcoue
- Q3tilElAjFkfVCf6fahdsc0n0a1YDdqghBaAhNZg+PtdFYfZff/C9FMA/tJ0qXHwprM1
- LC7jgq/2viciq1rB7PzPxApRhQNHwIFv7IT28tZrX8jgYjk+NuoaCCBZC1+q71kEW3ip
- HCm66r/ieYeh5kCsfurkMp0F3EX2ZWEK7LRgn4rrOT8Mcc5r8DoO6mIL71Cr4FBylqCw
- tA2w==
+ :subject:to:cc;
+ bh=fvkuT5jXasB2DDNIixBV8r5K5nP0O6SI2I64gDeStig=;
+ b=pkSYyrLyphjnQy6Jchd85ZLbcKUGeSundpAiLRZ8eM3b36/HTJbPe9qyafK4CTwz4Z
+ 06jr/7zisk4jjdOlKa+viW7qy4bD4i7C9JQvG4vkh0jigzP93m4M8fYUxfopkMfVknEH
+ A6DtDfG0zqjioKKMY+Me0TEhYnMPq1N2oxdSu3PlcxR18ZSVMltGGyqZFhN+U7bJ8c8C
+ BqJhprW+55HcFeUJiOlz3MHybimTPxbuyxC3jo454a5CgrexH3Vf0csgg+TcAQX1Ve/C
+ PLaF8iaoVHDZWtGpflriGuwWvO0KWzVoyfEvca5EH0ZNZqaAKnM/u0zLrZk5qpSoH/di
+ 41hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to;
- bh=LuGu0B46CYS9Ij8pOsBHCirZkqnr4VPDSL2XnRGHy1Y=;
- b=mCKKQf8499j0LnTCl+TtDudry06hsyCVn+8t6GtnMUj2OOUoawrdqs2XAUGBcoZ8Pn
- jTeqhMJrCQiprBVjvLXNY7QHg8zIOvaibGSSI70TGnd7AAngwCdsbpSGrQEbZy4Uty/n
- 3wR8ib+30pMODvqFl4aQBaLEGs6XdcbojZXZT9yCDW0UlP2FJCAx460kZnLdQB4Iy81u
- TLGAB7n/zP2DE2qhceTHwjUgJt3u2OYcavCNjjrkO58AUFJonBtGhqKkE8su2S9BlkBS
- ZgI1QaN5RWaGIIUsf3G27DTtEoQP4U064mvy3vmynwUxFM+1f9ukbzKnaMDuHgqmlAy8
- 2XPg==
-X-Gm-Message-State: AKwxytePmK/RP3UVoLFCsSeT2sXhX2MFGALjWhLiE6ipf7iI/Dsste1j
- u4qpqgAxMaThKH98dPfeTZoUwoW1OSG/26lhY/+CMjwH
-X-Google-Smtp-Source: AH8x226iLwqEC3+IO8ssnndT0mqP8j+954rx2NoVIFjyP0wSoo5C85E3HT31W35UUnkGxPbzWOn8z14o1ytXH/ShcOQ=
-X-Received: by 10.55.95.198 with SMTP id t189mr68690091qkb.273.1517806466690; 
- Sun, 04 Feb 2018 20:54:26 -0800 (PST)
+ :date:message-id:subject:to:cc;
+ bh=fvkuT5jXasB2DDNIixBV8r5K5nP0O6SI2I64gDeStig=;
+ b=qEc7X7glvtuV+AeiCvmgFs+dwCpWeQfx+TwcnSpa8UIeltOFaWulshl1uoYGCt3IdS
+ 4nZNbRQwlx3LOcVQ+C/KA1aUxWWQorHk4EQR5WmH2sZY5IIWTugvldHJPZ6Ugr7ybA3v
+ uaMj+WEdqg9YLMDnLazVpMgMDuAeVRhJh2buQwNSsUYhQJJMb5/P0hISxXoRvfjuZtN6
+ 3P86RTlEimytxoPejTCfOtx5g9Z/+7sEFgR0xjGiMszQxWVR+wRb0lQdSKFgXOee95kV
+ COUhSgE4Q1o8nAMcQBvz+tfugqifUuhMuGPuhdSMBLY+xYf9zPzNVz413j/+Yg/z1Jgu
+ 4DqQ==
+X-Gm-Message-State: APf1xPDyDS8uO2BJPPmZAiyR5sVNDS3kfERMc69e4PTOwbBZLfomJUia
+ uAo4oc2ib5+6twxAOf91iKCZifbNlNOeamuxBng=
+X-Google-Smtp-Source: AH8x224c6AbypcbLkbAKnFYWnYXUNoqC6F2iwm5wJrStXjhHEreOnXrOflbCsHtwBOGW5CYGdZ65Iducg1UIUPUkNro=
+X-Received: by 10.237.38.37 with SMTP id z34mr2085918qtc.178.1517811580236;
+ Sun, 04 Feb 2018 22:19:40 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.49.157 with HTTP; Sun, 4 Feb 2018 20:54:06 -0800 (PST)
-In-Reply-To: <CACPK8XfOsJMfF0_PXMRgxsb_BSz8pK91k661iyTiA2f=jd6=hw@mail.gmail.com>
-References: <20180131023947.24832-1-joel@jms.id.au>
- <20180131023947.24832-2-joel@jms.id.au>
- <CACPK8XfOsJMfF0_PXMRgxsb_BSz8pK91k661iyTiA2f=jd6=hw@mail.gmail.com>
+Received: by 10.200.49.157 with HTTP; Sun, 4 Feb 2018 22:19:19 -0800 (PST)
+In-Reply-To: <CAP6Zq1goE=rvxq+OG0ZbWwpFRDhfkscCDZkU7AUecTM5LJrvKA@mail.gmail.com>
+References: <1516720600-2040-1-git-send-email-tmaimon77@gmail.com>
+ <1516720600-2040-3-git-send-email-tmaimon77@gmail.com>
+ <CACPK8XcznGkfjhhi3TB+pYYH_EsT0ehJdF944=iVfG-ROQnWcw@mail.gmail.com>
+ <CAP6Zq1goE=rvxq+OG0ZbWwpFRDhfkscCDZkU7AUecTM5LJrvKA@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 5 Feb 2018 15:24:06 +1030
-X-Google-Sender-Auth: wNbm00r6xHbAVkjxeQUfWIjqoPQ
-Message-ID: <CACPK8XfUex6YjXm-Evhi16k03Q7jka2RDMZsD_pzQVeoEXpkLw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ARM: dts: aspeed: Add IPMI BT node
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
+Date: Mon, 5 Feb 2018 16:49:19 +1030
+X-Google-Sender-Auth: P9DgHz-EGFOEBxYm4rg9-ZPG9hc
+Message-ID: <CACPK8XeSFHhMsjkdXc_AuRL_Q4yVSfpn8+WBe405yBu39nMcfQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 v2 2/2] serial: npcm: add NPCM UART driver
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
@@ -64,55 +66,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Feb 2018 04:54:30 -0000
+X-List-Received-Date: Mon, 05 Feb 2018 06:19:44 -0000
 
-On Wed, Jan 31, 2018 at 1:24 PM, Joel Stanley <joel@jms.id.au> wrote:
-> On Wed, Jan 31, 2018 at 1:09 PM, Joel Stanley <joel@jms.id.au> wrote:
->> The IPMI BT device part of the LPC interface and is used for
->> communication with the host processor.
+On Mon, Feb 5, 2018 at 6:24 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+> On 2 February 2018 at 04:51, Joel Stanley <joel@jms.id.au> wrote:
+>> On Wed, Jan 24, 2018 at 1:46 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+>>> Add Nuvoton BMC NPCM UART driver.
+>>>
+>>> The NPCM7xx BMC contains four UART blocks and accessory logic.
+>>>
+>>> NPCM UART based on 8250 driver.
 >>
->> Signed-off-by: Joel Stanley <joel@jms.id.au>
->> ---
->> v2:
->>  Fix bt reg node. It should be an offset from the lpc_host address,
->>  not the actual address of the iBT
+>> Nice! Much less code to review and maintain than before :)
 >>
->>  arch/arm/boot/dts/aspeed-g4.dtsi | 7 +++++++
->>  arch/arm/boot/dts/aspeed-g5.dtsi | 7 +++++++
->>  2 files changed, 14 insertions(+)
+>> I did some more digging, to see if we could add even less code. I'll
+>> sent a patch to the list, but I need to clarify the divisor
+>> calculation first.
 >>
->> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
->> index e6f4047142a8..7e0da0b8cd12 100644
->> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
->> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
->> @@ -246,6 +246,13 @@
->>                                                 reg = <0x20 0x24 0x48 0x8>;
->>                                         };
+> Thanks!
+>>> +static int npcm_uart_set_baud_rate(struct uart_port *port,
+>>> +                                     NPCM_UART_BAUDRATE_T baudrate)
+>>> +{
+>>> +       struct uart_8250_port *up = up_to_u8250p(port);
+>>> +       int divisor     = 0;
+>>> +       int ret         = 0;
+>>> +       unsigned long flags;
+>>> +
+>>> +       divisor = ((int)port->uartclk / ((int)baudrate * 16)) - 2;
 >>
->> +                                       ibt: ibt@140 {
->> +                                               compatible = "aspeed,ast2400-ibt-bmc";
->> +                                               reg = <0xc0 0x18>;
->> +                                               interrupts = <8>;
->> +                                               status = "disabled";
->> +                                       };
->> +
->>                                         mbox: mbox@180 {
->>                                                 compatible = "aspeed,ast2400-mbox";
->>                                                 reg = <0x180 0x5c>;
->> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
->> index b7b42c7c89e1..f1b2fa204873 100644
->> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
->> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
->> @@ -299,6 +299,13 @@
->>                                                 reg = <0x20 0x24 0x48 0x8>;
->>                                         };
+>> The 8250 core uses this calculation:
 >>
->> +                                       ibt: ibt@140 {
+>>  divisor = port->uartclk / (baudrate * 16).
+>>
+>> Checking the datasheet, this is the calculation that is documented for Poleg:
+>>
+>>  divisor = port->uartclk / (baudrate * 16 + 2).
+>>
+>> If I change the calculation to this, the UART doesn't work (due to the
+>> precision of the integer division, there's no change from the 8250
+>> core code). If I subtract 2 from the number, as you do in your patch,
+>> it works!
+>>
+>> Can you explain what is happening here?
+
+Hi Tomer, you missed this question. Can you explain to me what is
+happening here?
+
+>>
+>>> +
+>>> +       /* since divisor is rounded down check
+>>> +        * if it is better when rounded up
+>>> +        */
+>>> +       if (((int)port->uartclk / (16 * (divisor + 2)) - (int)baudrate) >
+>>> +               ((int)baudrate -
+>>> +                (int)port->uartclk / (16 * ((divisor + 1) + 2))))
+>>> +               divisor++;
+>>
+>> This bit confused me when I tried to understand what it was checking.
+>> I couldn't find a mention of it in the datasheet either.
+>>
+>> Can you explain to me what it is trying to do? Do we need it?
+> hope i will explain it right...
 >
-> I forgot to update the node name.
+> we are calculating the nearest round up of the divisor according to
+> the distance from the real divisor (with point) to the value we get
+> from the round up and round down. (and it different from using
+> DIV_ROUND_CLOSEST)
+> for example:
+>
+> If the baud rate is 230,400
+>
+> the divisor is 4.510 (it means round up)
+>
+> if we doing the calculation above:
+>
+> (24Mhz/(16*(4+2))) - 230,400 = 19,600
+> 230,400 - (24Mhz/(16*(4+3))) = 16,114
+>
+> also in here we see round - up, but the distance from the second
+> (16,114) it better and the 4.510 not represent it correctly because 2
+> result we get are not that the same.
+>
+> so maybe in clock rate of 24Mhz it will be fine but if we will modify
+> the clock rate the calculation could be wrong with a use of
+> DIV_ROUND_CLOSEST.
+>
+> so we think it is better to use the calculation above and not round up.
+>
+> Is it problematic to use it in the modify driver you sent?
 
-Andrew did an over the shoulder review of this patch. He said that
-with the node name fixed:
+Thanks for the explanation. As I mention above, I need to understand
+the first calculation in order to understand this part.
 
+It would be easy enough to add this calculation if it was strictly
+necessary. However, to know if it is required, I first need to
+understand what is happening.
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+Cheers,
+
+Joel
