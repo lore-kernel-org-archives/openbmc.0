@@ -1,74 +1,61 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400e:c05::244; helo=mail-pg0-x244.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="cVKv8kk2"; 
+ dkim-atps=neutral
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zZzM80n08zF0XY
- for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 07:14:11 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w15KAd5P047321
- for <openbmc@lists.ozlabs.org>; Mon, 5 Feb 2018 15:14:09 -0500
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2fxud2xma1-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 05 Feb 2018 15:14:09 -0500
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 5 Feb 2018 13:14:08 -0700
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 5 Feb 2018 13:14:05 -0700
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w15KE3qG13435238; Mon, 5 Feb 2018 13:14:05 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E2A4E6E040;
- Mon,  5 Feb 2018 13:14:04 -0700 (MST)
-Received: from Christophers-MacBook-Pro.local (unknown [9.81.199.187])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 331796E045;
- Mon,  5 Feb 2018 13:14:02 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.10 3/3] drivers: fsi: occ: switch to irqsave
- and irqrestore
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1517609507-20687-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1517609507-20687-4-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: andrew@aj.id.au
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Mon, 5 Feb 2018 14:14:01 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <1517609507-20687-4-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18020520-0016-0000-0000-0000083694E0
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008478; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000248; SDB=6.00985425; UDB=6.00500005; IPR=6.00764795; 
- BA=6.00005812; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019384; XFM=3.00000015;
- UTC=2018-02-05 20:14:06
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18020520-0017-0000-0000-00003D58768A
-Message-Id: <8c681856-8318-492d-5b59-99c6f1988be4@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-05_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1802050248
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zb4KZ1fTXzF0vM
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 10:58:09 +1100 (AEDT)
+Received: by mail-pg0-x244.google.com with SMTP id g2so114240pgn.7
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Feb 2018 15:58:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=jd0HypqfkQCmn4eqCyb5hLFmbuRSczLWFEuLzaAYzaY=;
+ b=cVKv8kk2vF8YJkzM8chxT+ucgDsl1R2jimlxriClIfGQfzpYia1DPCotRcxlTpfMob
+ vvLFrA4yhlMXg2qSuzrgn9GnOGoPsXB8bg56bzVOA2QZ3QINIOKYm9ERkOjIeTAGT4mn
+ uY0I/LQ1XRkvm7YD0EuuwdOgn47ohHDlIY6T3i9bkPuGzkiDDIGGE9nskioi2cA94ypc
+ ziCZ+vDalHwDkIq4KpcAwsrd+xhDCxe0QlxIRT474lqBouIpGB9DK2J01gfmHmRiGnP1
+ 8G7b+vNn23bjotQ/d3/ydS5UrtkaNciHuRphEqWlyC3kp1qHnIKktdDgG1K7er/OsDhS
+ EAcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=jd0HypqfkQCmn4eqCyb5hLFmbuRSczLWFEuLzaAYzaY=;
+ b=SBs8iEOOqufTbsW4XDpCLTkp42B05X31KqeIWic5moR3uTKONOnIpLSo8Pcj9g2w4q
+ n/Ml5ENgNOLBOf1Y4Y0JrdIS0y58UohwErpI4720BuPTASblZvreAJAtW3DQdJbJi6Tl
+ JUaz7ZQJJJIpmp2BIQl6u1Y84YPr2+MDOkaUeY2+FkljUFq/2Nh+8Wt03HYY9Pqa++DC
+ GHrWsfTfk8PdehBSglYakbIx5jgGFFDLLRoMomyP3Pi13pLaxOqXN8sd9nR3ZOrrqUKh
+ A/cyB/QqTH5Duvr7ugruinvdCDFhgXITIjHRVDWorMHpnOSngHuErBkGg9hXaMJlCoRK
+ Bgcg==
+X-Gm-Message-State: APf1xPBvRAtOxRlYCn53i6nYVBNOlzpdsQiH8P8dhbmEbngZRbPvK3ke
+ 6+xuS1qYyFX8CQz7pojmrUgMWA==
+X-Google-Smtp-Source: AH8x224lXZTueAVeraSxnUrLb3r7BrXjkE+LOmPyiPwlx79g14DFymObzJ/H3HNugI7hS/OY1seR3Q==
+X-Received: by 10.99.141.202 with SMTP id z193mr385716pgd.418.1517875087015;
+ Mon, 05 Feb 2018 15:58:07 -0800 (PST)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id c1sm17803694pfa.119.2018.02.05.15.58.06
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 05 Feb 2018 15:58:06 -0800 (PST)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: robh+dt@kernel.org, linux@armlinux.org.uk, mark.rutland@arm.com,
+ tmaimon77@gmail.com, avifishman70@gmail.com, f.fainelli@gmail.com,
+ julien.thierry@arm.com, pombredanne@nexb.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ Brendan Higgins <brendanhiggins@google.com>
+Subject: [PATCH v9 1/3] arm: npcm: add basic support for Nuvoton BMCs
+Date: Mon,  5 Feb 2018 15:57:55 -0800
+Message-Id: <20180205235757.246758-2-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.16.0.rc1.238.g530d649a79-goog
+In-Reply-To: <20180205235757.246758-1-brendanhiggins@google.com>
+References: <20180205235757.246758-1-brendanhiggins@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -80,215 +67,253 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Feb 2018 20:14:12 -0000
+X-List-Received-Date: Mon, 05 Feb 2018 23:58:10 -0000
 
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Adds basic support for the Nuvoton NPCM750 BMC.
 
+Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+Tested-by: Avi Fishman <avifishman70@gmail.com>
+---
+ arch/arm/Kconfig             |  2 ++
+ arch/arm/Makefile            |  1 +
+ arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++++
+ arch/arm/mach-npcm/Makefile  |  3 ++
+ arch/arm/mach-npcm/headsmp.S | 17 ++++++++++
+ arch/arm/mach-npcm/npcm7xx.c | 20 +++++++++++
+ arch/arm/mach-npcm/platsmp.c | 81 ++++++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 172 insertions(+)
+ create mode 100644 arch/arm/mach-npcm/Kconfig
+ create mode 100644 arch/arm/mach-npcm/Makefile
+ create mode 100644 arch/arm/mach-npcm/headsmp.S
+ create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+ create mode 100644 arch/arm/mach-npcm/platsmp.c
 
-On 2/2/18 4:11 PM, Eddie James wrote:
-> Fix spinlocking by storing the interrupt state and restoring that state
-> when unlocking, instead of blindly disabling and re-enabling all irqs.
->
-> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
-> ---
->   drivers/fsi/occ.c | 44 +++++++++++++++++++++++++-------------------
->   1 file changed, 25 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-> index adc64f3..edb5e977 100644
-> --- a/drivers/fsi/occ.c
-> +++ b/drivers/fsi/occ.c
-> @@ -118,18 +118,19 @@ struct occ_client {
->   static int occ_enqueue_xfr(struct occ_xfr *xfr)
->   {
->   	int empty;
-> +	unsigned long flags;
->   	struct occ_client *client = to_client(xfr);
->   	struct occ *occ = client->occ;
->
->   	if (occ->cancel)
->   		return -ENODEV;
->
-> -	spin_lock_irq(&occ->list_lock);
-> +	spin_lock_irqsave(&occ->list_lock, flags);
->
->   	empty = list_empty(&occ->xfrs);
->   	list_add_tail(&xfr->link, &occ->xfrs);
->
-> -	spin_unlock_irq(&occ->list_lock);
-> +	spin_unlock_irqrestore(&occ->list_lock, flags);
->
->   	if (empty)
->   		queue_work(occ_wq, &occ->work);
-> @@ -201,6 +202,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
->   	size_t bytes;
->   	struct occ_xfr *xfr;
->   	struct occ *occ;
-> +	unsigned long flags;
->
->   	if (!client)
->   		return -ENODEV;
-> @@ -212,7 +214,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
->   	xfr = &client->xfr;
->   	occ = client->occ;
->
-> -	spin_lock_irq(&client->lock);
-> +	spin_lock_irqsave(&client->lock, flags);
->
->   	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
->   		/* we just finished reading all data, return 0 */
-> @@ -232,12 +234,12 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
->   			goto done;
->   		}
->
-> -		spin_unlock_irq(&client->lock);
-> +		spin_unlock_irqrestore(&client->lock, flags);
->
->   		rc = wait_event_interruptible(client->wait,
->   					      occ_read_ready(xfr, occ));
->
-> -		spin_lock_irq(&client->lock);
-> +		spin_lock_irqsave(&client->lock, flags);
->
->   		if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
->   			if (occ->cancel || test_bit(XFR_CANCELED, &xfr->flags))
-> @@ -274,7 +276,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
->   	rc = bytes;
->
->   done:
-> -	spin_unlock_irq(&client->lock);
-> +	spin_unlock_irqrestore(&client->lock, flags);
->   	occ_put_client(client);
->   	return rc;
->   }
-> @@ -293,6 +295,7 @@ static ssize_t occ_write_common(struct occ_client *client,
->   {
->   	int rc;
->   	unsigned int i;
-> +	unsigned long flags;
->   	u16 data_length, checksum = 0;
->   	struct occ_xfr *xfr;
->
-> @@ -305,7 +308,7 @@ static ssize_t occ_write_common(struct occ_client *client,
->   	occ_get_client(client);
->   	xfr = &client->xfr;
->
-> -	spin_lock_irq(&client->lock);
-> +	spin_lock_irqsave(&client->lock, flags);
->
->   	if (test_bit(CLIENT_XFR_PENDING, &client->flags)) {
->   		rc = -EBUSY;
-> @@ -353,7 +356,7 @@ static ssize_t occ_write_common(struct occ_client *client,
->   	rc = len;
->
->   done:
-> -	spin_unlock_irq(&client->lock);
-> +	spin_unlock_irqrestore(&client->lock, flags);
->   	occ_put_client(client);
->   	return rc;
->   }
-> @@ -370,6 +373,7 @@ static int occ_release_common(struct occ_client *client)
->   {
->   	struct occ *occ;
->   	struct occ_xfr *xfr;
-> +	unsigned long flags;
->
->   	if (!client)
->   		return -ENODEV;
-> @@ -377,13 +381,13 @@ static int occ_release_common(struct occ_client *client)
->   	xfr = &client->xfr;
->   	occ = client->occ;
->
-> -	spin_lock_irq(&client->lock);
-> +	spin_lock_irqsave(&client->lock, flags);
->
->   	set_bit(XFR_CANCELED, &xfr->flags);
->   	if (!test_bit(CLIENT_XFR_PENDING, &client->flags))
->   		goto done;
->
-> -	spin_lock_irq(&occ->list_lock);
-> +	spin_lock(&occ->list_lock);
->
->   	if (!test_bit(XFR_IN_PROGRESS, &xfr->flags)) {
->   		/* already deleted from list if complete */
-> @@ -391,12 +395,12 @@ static int occ_release_common(struct occ_client *client)
->   			list_del(&xfr->link);
->   	}
->
-> -	spin_unlock_irq(&occ->list_lock);
-> +	spin_unlock(&occ->list_lock);
->
->   	wake_up_all(&client->wait);
->
->   done:
-> -	spin_unlock_irq(&client->lock);
-> +	spin_unlock_irqrestore(&client->lock, flags);
->
->   	occ_put_client(client);
->   	return 0;
-> @@ -606,6 +610,7 @@ static void occ_worker(struct work_struct *work)
->   {
->   	int rc = 0, empty;
->   	u16 resp_data_length;
-> +	unsigned long flags;
->   	unsigned long start;
->   	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
->   	const long int wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
-> @@ -619,11 +624,11 @@ static void occ_worker(struct work_struct *work)
->   	if (occ->cancel)
->   		return;
->
-> -	spin_lock_irq(&occ->list_lock);
-> +	spin_lock_irqsave(&occ->list_lock, flags);
->
->   	xfr = list_first_entry_or_null(&occ->xfrs, struct occ_xfr, link);
->   	if (!xfr) {
-> -		spin_unlock_irq(&occ->list_lock);
-> +		spin_unlock_irqrestore(&occ->list_lock, flags);
->   		return;
->   	}
->
-> @@ -632,7 +637,7 @@ static void occ_worker(struct work_struct *work)
->   	resp = (struct occ_response *)xfr->buf;
->   	set_bit(XFR_IN_PROGRESS, &xfr->flags);
->
-> -	spin_unlock_irq(&occ->list_lock);
-> +	spin_unlock_irqrestore(&occ->list_lock, flags);
->   	mutex_lock(&occ->occ_lock);
->
->   	start = jiffies;
-> @@ -686,13 +691,13 @@ static void occ_worker(struct work_struct *work)
->   	xfr->rc = rc;
->   	set_bit(XFR_COMPLETE, &xfr->flags);
->
-> -	spin_lock_irq(&occ->list_lock);
-> +	spin_lock_irqsave(&occ->list_lock, flags);
->
->   	clear_bit(XFR_IN_PROGRESS, &xfr->flags);
->   	list_del(&xfr->link);
->   	empty = list_empty(&occ->xfrs);
->
-> -	spin_unlock_irq(&occ->list_lock);
-> +	spin_unlock_irqrestore(&occ->list_lock, flags);
->
->   	wake_up_interruptible(&client->wait);
->   	occ_put_client(client);
-> @@ -810,15 +815,16 @@ static int occ_remove(struct platform_device *pdev)
->   	struct occ *occ = platform_get_drvdata(pdev);
->   	struct occ_xfr *xfr;
->   	struct occ_client *client;
-> +	unsigned long flags;
->
->   	occ->cancel = true;
->
-> -	spin_lock_irq(&occ->list_lock);
-> +	spin_lock_irqsave(&occ->list_lock, flags);
->   	list_for_each_entry(xfr, &occ->xfrs, link) {
->   		client = to_client(xfr);
->   		wake_up_all(&client->wait);
->   	}
-> -	spin_unlock_irq(&occ->list_lock);
-> +	spin_unlock_irqrestore(&occ->list_lock, flags);
->
->   	misc_deregister(&occ->mdev);
->   	device_for_each_child(&pdev->dev, NULL, occ_unregister_child);
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 61a0cb15067e..05543f1cfbde 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
+ 
+ source "arch/arm/mach-nomadik/Kconfig"
+ 
++source "arch/arm/mach-npcm/Kconfig"
++
+ source "arch/arm/mach-nspire/Kconfig"
+ 
+ source "arch/arm/plat-omap/Kconfig"
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+index 47d3a1ab08d2..60ca50c7d762 100644
+--- a/arch/arm/Makefile
++++ b/arch/arm/Makefile
+@@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)		+= mediatek
+ machine-$(CONFIG_ARCH_MXS)		+= mxs
+ machine-$(CONFIG_ARCH_NETX)		+= netx
+ machine-$(CONFIG_ARCH_NOMADIK)		+= nomadik
++machine-$(CONFIG_ARCH_NPCM)		+= npcm
+ machine-$(CONFIG_ARCH_NSPIRE)		+= nspire
+ machine-$(CONFIG_ARCH_OXNAS)		+= oxnas
+ machine-$(CONFIG_ARCH_OMAP1)		+= omap1
+diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+new file mode 100644
+index 000000000000..6ff9df2636be
+--- /dev/null
++++ b/arch/arm/mach-npcm/Kconfig
+@@ -0,0 +1,48 @@
++menuconfig ARCH_NPCM
++	bool "Nuvoton NPCM Architecture"
++	select ARCH_REQUIRE_GPIOLIB
++	select USE_OF
++	select PINCTRL
++	select PINCTRL_NPCM7XX
++
++if ARCH_NPCM
++
++comment "NPCM7XX CPU type"
++
++config ARCH_NPCM750
++	depends on ARCH_NPCM && ARCH_MULTI_V7
++	bool "Support for NPCM750 BMC CPU (Poleg)"
++	select CACHE_L2X0
++	select CPU_V7
++	select ARM_GIC
++	select HAVE_SMP
++	select SMP
++	select SMP_ON_UP
++	select HAVE_ARM_SCU
++	select HAVE_ARM_TWD if SMP
++	select ARM_ERRATA_720789
++	select ARM_ERRATA_754322
++	select ARM_ERRATA_764369
++	select ARM_ERRATA_794072
++	select PL310_ERRATA_588369
++	select PL310_ERRATA_727915
++	select USB_EHCI_ROOT_HUB_TT
++	select USB_ARCH_HAS_HCD
++	select USB_ARCH_HAS_EHCI
++	select USB_EHCI_HCD
++	select USB_ARCH_HAS_OHCI
++	select USB_OHCI_HCD
++	select USB
++	select FIQ
++	select CPU_USE_DOMAINS
++	select GENERIC_CLOCKEVENTS
++	select CLKDEV_LOOKUP
++	select COMMON_CLK if OF
++	select NPCM750_TIMER
++	select MFD_SYSCON
++	help
++	  Support for NPCM750 BMC CPU (Poleg).
++
++	  Nuvoton NPCM750 BMC based on the Cortex A9.
++
++endif
+diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+new file mode 100644
+index 000000000000..c7a1316d27c1
+--- /dev/null
++++ b/arch/arm/mach-npcm/Makefile
+@@ -0,0 +1,3 @@
++AFLAGS_headsmp.o		+= -march=armv7-a
++
++obj-$(CONFIG_ARCH_NPCM750)	+= npcm7xx.o platsmp.o headsmp.o
+diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+new file mode 100644
+index 000000000000..c083fe09a07b
+--- /dev/null
++++ b/arch/arm/mach-npcm/headsmp.S
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright 2018 Google, Inc.
++
++#include <linux/linkage.h>
++#include <linux/init.h>
++#include <asm/assembler.h>
++
++/*
++ * The boot ROM does not start secondary CPUs in SVC mode, so we need to do that
++ * here.
++ */
++ENTRY(npcm7xx_secondary_startup)
++	safe_svcmode_maskall r0
++
++	b	secondary_startup
++ENDPROC(npcm7xx_secondary_startup)
+diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
+new file mode 100644
+index 000000000000..5f7cd88103ef
+--- /dev/null
++++ b/arch/arm/mach-npcm/npcm7xx.c
+@@ -0,0 +1,20 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright 2018 Google, Inc.
++
++#include <linux/kernel.h>
++#include <linux/types.h>
++#include <asm/mach/arch.h>
++#include <asm/mach-types.h>
++#include <asm/mach/map.h>
++#include <asm/hardware/cache-l2x0.h>
++
++static const char *const npcm7xx_dt_match[] = {
++	"nuvoton,npcm750",
++	NULL
++};
++
++DT_MACHINE_START(NPCM7XX_DT, "NPCM7XX Chip family")
++	.atag_offset	= 0x100,
++	.dt_compat	= npcm7xx_dt_match,
++MACHINE_END
+diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+new file mode 100644
+index 000000000000..49079cd5c63c
+--- /dev/null
++++ b/arch/arm/mach-npcm/platsmp.c
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright 2018 Google, Inc.
++
++#define pr_fmt(fmt) "nuvoton,npcm7xx-smp: " fmt
++
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/smp.h>
++#include <linux/io.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/of_platform.h>
++#include <linux/of_address.h>
++#include <asm/cacheflush.h>
++#include <asm/smp.h>
++#include <asm/smp_plat.h>
++#include <asm/smp_scu.h>
++
++#define NPCM7XX_SCRPAD_REG 0x13c
++
++extern void npcm7xx_secondary_startup(void);
++
++static int npcm7xx_smp_boot_secondary(unsigned int cpu,
++				      struct task_struct *idle)
++{
++	struct device_node *gcr_np;
++	void __iomem *gcr_base;
++	int ret = 0;
++
++	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
++	if (!gcr_np) {
++		pr_err("no gcr device node\n");
++		ret = -ENODEV;
++		goto out;
++	}
++	gcr_base = of_iomap(gcr_np, 0);
++	if (!gcr_base) {
++		pr_err("could not iomap gcr");
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	/* give boot ROM kernel start address. */
++	iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
++		  NPCM7XX_SCRPAD_REG);
++	/* make sure the previous write is seen by all observers. */
++	dsb_sev();
++
++	iounmap(gcr_base);
++out:
++	return ret;
++}
++
++static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
++{
++	struct device_node *scu_np;
++	void __iomem *scu_base;
++
++	scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
++	if (!scu_np) {
++		pr_err("no scu device node\n");
++		return;
++	}
++	scu_base = of_iomap(scu_np, 0);
++	if (!scu_base) {
++		pr_err("could not iomap scu");
++		return;
++	}
++
++	scu_enable(scu_base);
++
++	iounmap(scu_base);
++}
++
++static struct smp_operations npcm7xx_smp_ops __initdata = {
++	.smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
++	.smp_boot_secondary = npcm7xx_smp_boot_secondary,
++};
++
++CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
+-- 
+2.16.0.rc1.238.g530d649a79-goog
