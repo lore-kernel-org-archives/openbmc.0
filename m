@@ -1,47 +1,62 @@
-Return-Path: <Chen.KenYY@inventec.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inventec.com
- (client-ip=61.220.76.161; helo=mail.inventec.com;
- envelope-from=chen.kenyy@inventec.com; receiver=<UNKNOWN>)
-Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::242; helo=mail-qk0-x242.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="iey8T1mT"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
+ [IPv6:2607:f8b0:400d:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zbCMj1JKhzF0WJ
- for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 16:15:28 +1100 (AEDT)
-Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
- IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
- 14.3.174.1; Tue, 6 Feb 2018 13:15:20 +0800
-Received: from IET-EX2010-01.iec.inventec (iet-ex2010-01.iec.inventec
- [10.15.2.44])	by IEC1-MSE-FE1.inventec.com with ESMTP id w165FCGi092136; Tue,
- 6 Feb 2018 13:15:12 +0800 (GMT-8)	(envelope-from Chen.KenYY@inventec.com)
-Received: from IEC1-EX2010-MX3.iec.inventec (10.1.254.158) by
- IET-EX2010-01.iec.inventec (10.15.2.44) with Microsoft SMTP Server (TLS) id
- 14.3.174.1; Tue, 6 Feb 2018 13:15:13 +0800
-Received: from IET-EX2010-MX2.iec.inventec ([fe80::307e:d8dd:5a3d:9f94]) by
- IEC1-EX2010-MX3.iec.inventec ([fe80::b570:25a7:5c9a:8dfb%15]) with mapi id
- 14.03.0301.000; Tue, 6 Feb 2018 13:15:12 +0800
-From: =?big5?B?Q2hlbi5LZW5ZWSCzr6XDwOcgVEFP?= <Chen.KenYY@inventec.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-CC: "joel@jms.id.au" <joel@jms.id.au>, "Tsung-Han Yang (Harold)"
- <haroldy@qti.qualcomm.com>, "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>
-Subject: RE: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add ARM system BMC
- device tree
-Thread-Topic: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add ARM system BMC
- device tree
-Thread-Index: AQHTni2qbmZ+ayKSI0+gVkM5aa+8raOW1hxA
-Date: Tue, 6 Feb 2018 05:15:12 +0000
-Message-ID: <39E6480C5A587146BAA4D885C7BCF7EEC6AD8200@IET-EX2010-MX2.iec.inventec>
-References: <20180205030343.25114-1-chen.kenyy@inventec.com>
-In-Reply-To: <20180205030343.25114-1-chen.kenyy@inventec.com>
-Accept-Language: en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.6.45.42]
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zbD3S6RWmzF0X6
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 16:46:28 +1100 (AEDT)
+Received: by mail-qk0-x242.google.com with SMTP id l29so893069qkj.8
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Feb 2018 21:46:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=EPdCXB9aXyQxaj9bNLKCsn0d8wfMssa/ScNg33/0Gs8=;
+ b=iey8T1mTLs1Jyb1gKiXodd9Jcn6n8JfVRWGZ3qUl8VcxNI3xTFdZCjJXs1rceTO691
+ vXzcALzelgXSbPjv/3voiHbHy2jepchISuog6vw0Co99qvlZ/oh2PUSHhjDf7zok9L8P
+ gACMxI3QtpRTYAsn4tpSSZtJBIZXG9ZvAkSVFwLa7KWYf5jiESkiLIBzNQK0X6PEBki5
+ dq1aboeF7E64tPobm0LZBRnwNY1Dc2vGPQOeVhhbouMsYR07v8jybX+WHXXdA0wpq/it
+ WAHfe2ouP1YOrtlRFGLRA4pvX8K3lROZgl4GqzqUOfGczhibKcewxmh8PSp11eVyVEgQ
+ 0izA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=EPdCXB9aXyQxaj9bNLKCsn0d8wfMssa/ScNg33/0Gs8=;
+ b=I5OazUNxbayj0lS8IpywvvyvL2wr7zYTOsbpcRjXvOKHncaf9uEMpoESurkHeNvRI9
+ 78pm/8yGY9BZ67MdLq7Z+j+1U3dckBNbFB2IyD/zR0l2iI7nipF0uxA5Z64lCIQif7hr
+ k8wGjX+lziH9i1cLqKOMNp4oQpi5UYGqvVA1Pi1y/a4/Ck9hp86HEJtDdGlbytcHRiLi
+ N3EqZT+NwPI2J9MozjxdTP6qaL4Oa0+iAnfi+smRoVorKtKTzMmMHXBvv0bq1tSbFoBV
+ E1EFbeam6tJr4L2USfQ/fwy28dkPNhZoQUoq0NiSqU5VFvwu7zgcPFh2BE6L1kRSIYcu
+ mzHw==
+X-Gm-Message-State: APf1xPBSIVV5sLd4ycMjnUCc2D3VmBNdz6QsTTatpPzoS0/QM/vMkz4P
+ nfsClCZ6ztVcwONoTmgZS49KC97cpplxfE5WQdY=
+X-Google-Smtp-Source: AH8x224Hrz0C39afoYvf7XOUIHkzQjlOclwdzgD+eV6ZJPrzZzHM4E6KQBfDAcL/24BPsjlu1xrQU3b0Y1CmmcQIQp0=
+X-Received: by 10.55.20.228 with SMTP id 97mr1874186qku.158.1517895985529;
+ Mon, 05 Feb 2018 21:46:25 -0800 (PST)
 MIME-Version: 1.0
-X-MAIL: IEC1-MSE-FE1.inventec.com w165FCGi092136
+Sender: joel.stan@gmail.com
+Received: by 10.200.49.157 with HTTP; Mon, 5 Feb 2018 21:46:05 -0800 (PST)
+In-Reply-To: <39E6480C5A587146BAA4D885C7BCF7EEC6AD8200@IET-EX2010-MX2.iec.inventec>
+References: <20180205030343.25114-1-chen.kenyy@inventec.com>
+ <39E6480C5A587146BAA4D885C7BCF7EEC6AD8200@IET-EX2010-MX2.iec.inventec>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 6 Feb 2018 16:16:05 +1030
+X-Google-Sender-Auth: chg4b0QyudGUGUYT5k2C1CWXgXY
+Message-ID: <CACPK8XcjviDZfr5aMUj55OZ0g1RgDsJ9qA3WwRiafo2FZuu2jg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add ARM system BMC
+ device tree
+To: =?UTF-8?B?Q2hlbi5LZW5ZWSDpmbPmsLjnh58gVEFP?= <Chen.KenYY@inventec.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "Tsung-Han Yang (Harold)" <haroldy@qti.qualcomm.com>,
+ "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -53,194 +68,485 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Feb 2018 05:15:30 -0000
+X-List-Received-Date: Tue, 06 Feb 2018 05:46:29 -0000
 
-U2hvdWxkIEkgcmVtb3ZlIHRoZSBkZXZpY2UgaGFzbid0IHRoZSBkcml2ZXIgeWV0Pw0KDQoNCi0t
-LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBDaGVuLktlbllZILOvpcPA5yBUQU8gDQpT
-ZW50OiBNb25kYXksIEZlYnJ1YXJ5IDA1LCAyMDE4IDExOjA0IEFNDQpUbzogb3BlbmJtY0BsaXN0
-cy5vemxhYnMub3JnDQpDYzogQ2hlbi5LZW5ZWSCzr6XDwOcgVEFPOyBqb2VsQGptcy5pZC5hdQ0K
-U3ViamVjdDogW1BBVENIIGxpbnV4IGRldi00LjEwIHYyXSBBUk06IGR0czogYXNwZWVkOiBBZGQg
-QVJNIHN5c3RlbSBCTUMgZGV2aWNlIHRyZWUNCg0KQWRkIGNlbnRyaXEyNDAwLXJlcCBkdHMgYW5k
-IG1vZGlmeSBwbGF0Zm9ybSBpbml0aWFsDQoNClNpZ25lZC1vZmYtYnk6IEtlbiBDaGVuIDxjaGVu
-Lmtlbnl5QGludmVudGVjLmNvbT4NCi0tLQ0KIC4uLi9ib290L2R0cy9hc3BlZWQtYm1jLWFybS1j
-ZW50cmlxMjQwMC1yZXAuZHRzICAgIHwgMzUwICsrKysrKysrKysrKysrKysrKysrKw0KIGFyY2gv
-YXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jICAgICAgICAgICAgICAgICAgICAgIHwgIDIyICsrDQog
-MiBmaWxlcyBjaGFuZ2VkLCAzNzIgaW5zZXJ0aW9ucygrKQ0KIGNyZWF0ZSBtb2RlIDEwMDY0NCBh
-cmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLWFybS1jZW50cmlxMjQwMC1yZXAuZHRzDQoNCmRp
-ZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLWFybS1jZW50cmlxMjQwMC1y
-ZXAuZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1hcm0tY2VudHJpcTI0MDAtcmVw
-LmR0cw0KbmV3IGZpbGUgbW9kZSAxMDA2NDQNCmluZGV4IDAwMDAwMDAuLjQwOTQ3MzINCi0tLSAv
-ZGV2L251bGwNCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtYXJtLWNlbnRyaXEy
-NDAwLXJlcC5kdHMNCkBAIC0wLDAgKzEsMzUwIEBADQorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZp
-ZXI6IEdQTC0yLjArDQorL2R0cy12MS87DQorDQorI2luY2x1ZGUgImFzcGVlZC1nNS5kdHNpIg0K
-KyNpbmNsdWRlIDxkdC1iaW5kaW5ncy9ncGlvL2FzcGVlZC1ncGlvLmg+DQorDQorLyB7DQorCW1v
-ZGVsID0gIlF1YWxjb21tIENlbnRyaXEgMjQwMCAgUkVQIEFTVDI1MjAiOw0KKwljb21wYXRpYmxl
-ID0gInF1YWxjb21tLGNlbnRyaXEyNDAwLXJlcC1ibWMiLCAiYXNwZWVkLGFzdDI1MDAiOw0KKw0K
-KwljaG9zZW4gew0KKwkJc3Rkb3V0LXBhdGggPSAmdWFydDU7DQorCQlib290YXJncyA9ICJjb25z
-b2xlPXR0eVM0LDExNTIwMCBlYXJseXByaW50ayI7DQorCX07DQorDQorCW1lbW9yeSB7DQorCQly
-ZWcgPSA8MHg4MDAwMDAwMCAweDQwMDAwMDAwPjsNCisJfTsNCisNCisJaWlvLWh3bW9uIHsNCisJ
-CWNvbXBhdGlibGUgPSAiaWlvLWh3bW9uIjsNCisJCWlvLWNoYW5uZWxzID0gPCZhZGMgMD4sIDwm
-YWRjIDE+LCA8JmFkYyAyPiwgPCZhZGMgMz4sDQorICAgICAgICAgICAgICAgICAgICAgICAgPCZh
-ZGMgND4sIDwmYWRjIDU+LCA8JmFkYyA2PiwgPCZhZGMgOD47DQorCX07DQorDQorCWlpby1od21v
-bi1iYXR0ZXJ5IHsNCisJCWNvbXBhdGlibGUgPSAiaWlvLWh3bW9uIjsNCisJCWlvLWNoYW5uZWxz
-ID0gPCZhZGMgNz47DQorCX07DQorDQorCWxlZHMgew0KKwkJY29tcGF0aWJsZSA9ICJncGlvLWxl
-ZHMiOw0KKw0KKwkJdWlkX2xlZCB7DQorCQkJbGFiZWwgPSAiVUlEX0xFRCI7DQorCQkJZ3Bpb3Mg
-PSA8JmdwaW8gQVNQRUVEX0dQSU8oUSwgNSkgR1BJT19BQ1RJVkVfTE9XPjsNCisJCX07DQorDQor
-CQlyYXNfZXJyb3JfbGVkIHsNCisJCQlsYWJlbCA9ICJSQVNfRVJST1JfTEVEIjsNCisJCQlncGlv
-cyA9IDwmZ3BpbyBBU1BFRURfR1BJTyhGLCA2KSBHUElPX0FDVElWRV9MT1c+Ow0KKwkJfTsNCisN
-CisJCXN5c3RlbV9mYXVsdCB7DQorCQkJbGFiZWwgPSAiU3lzdGVtX2ZhdWx0IjsNCisJCQlncGlv
-cyA9IDwmZ3BpbyBBU1BFRURfR1BJTyhBLCAxKSBHUElPX0FDVElWRV9MT1c+Ow0KKwkJfTsNCisJ
-fTsNCit9Ow0KKw0KKyZmbWMgew0KKwlzdGF0dXMgPSAib2theSI7DQorCWZsYXNoQDAgew0KKwkJ
-c3RhdHVzID0gIm9rYXkiOw0KKwkJbTI1cCxmYXN0LXJlYWQ7DQorICAgICAgICAgICAgICAgIGxh
-YmxlID0gImJtYyI7DQorI2luY2x1ZGUgIm9wZW5ibWMtZmxhc2gtbGF5b3V0LmR0c2kiDQorCX07
-DQorfTsNCisNCismc3BpMSB7DQorICAgICAgICBzdGF0dXMgPSAib2theSI7DQorICAgICAgICBw
-aW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0KKyAgICAgICAgcGluY3RybC0wID0gPCZwaW5jdHJs
-X3NwaTFfZGVmYXVsdD47DQorICAgICAgICBmbGFzaEAwIHsNCisgICAgICAgICAgICAgICAgcmVn
-ID0gPCAwID47IC8qIGNoaXAgc2VsZWN0IG51bWJlciAqLw0KKyAgICAgICAgICAgICAgICBjb21w
-YXRpYmxlID0gImplZGVjLHNwaS1ub3IiOw0KKyAgICAgICAgICAgICAgICBzdGF0dXMgPSAib2th
-eSI7DQorICAgICAgICB9Ow0KK307DQorDQorJnNwaTIgew0KKyAgICAgICAgY29tcGF0aWJsZSA9
-ICJhc3BlZWQsYXN0MjUwMC1zcGktZ2VuZXJpYyI7DQorICAgICAgICByZWcgPSA8MHgxZTYzMTAw
-MCAweGM0IDB4MzgwMDAwMDAgMHgwMjAwMDAwMD47DQorICAgICAgICBpbnRlcnJ1cHRzID0gPDU5
-PjsNCisgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KKyAgICAgICAgI3NpemUtY2VsbHMg
-PSA8MD47DQorICAgICAgICBzdGF0dXMgPSAib2theSI7DQorICAgICAgICBzcGkyQDAgew0KKyAg
-ICAgICAgICAgICAgICByZWcgPSA8IDAgPjsNCisgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9
-ICJjZW50cmlxLGNlbnRyaXEyNDAwLXNwaS1od21vbiI7DQorICAgICAgICAgICAgICAgIHNwaS1t
-YXgtZnJlcXVlbmN5ID0gPDE2MDAwMDAwPjsNCisgICAgICAgICAgICAgICAgc3RhdHVzID0gIm9r
-YXkiOw0KKyAgICAgICAgfTsNCit9Ow0KKw0KKyZ1YXJ0MyB7DQorICAgICAgICBzdGF0dXMgPSAi
-b2theSI7DQorDQorICAgICAgICBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0KKyAgICAgICAg
-cGluY3RybC0wID0gPCZwaW5jdHJsX3R4ZDNfZGVmYXVsdA0KKyAgICAgICAgICAgICAgICAgICAg
-ICZwaW5jdHJsX3J4ZDNfZGVmYXVsdD47DQorICAgICAgICBjdXJyZW50LXNwZWVkID0gPDExNTIw
-MD47DQorfTsNCisNCismbHBjX2N0cmwgew0KKwlzdGF0dXMgPSAib2theSI7DQorCW1lbW9yeS1y
-ZWdpb24gPSA8JmZsYXNoX21lbW9yeT47DQorCWZsYXNoID0gPCZzcGkxPjsNCit9Ow0KKw0KKyZ1
-YXJ0NSB7DQorCXN0YXR1cyA9ICJva2F5IjsNCit9Ow0KKw0KKyZtYWMwIHsNCisJc3RhdHVzID0g
-Im9rYXkiOw0KKw0KKwlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0KKwlwaW5jdHJsLTAgPSA8
-JnBpbmN0cmxfcmdtaWkxX2RlZmF1bHQgJnBpbmN0cmxfbWRpbzFfZGVmYXVsdD47IH07DQorDQor
-JmkyYzAgew0KKwlzdGF0dXMgPSAib2theSI7DQorDQorCXBjYTk1NDJANzAgew0KKyAgICAgICAg
-ICAgICAgICBjb21wYXRpYmxlID0gInBjYTk1NDIiOw0KKyAgICAgICAgICAgICAgICByZWcgPSA8
-MHg3MD47DQorCQlpMmNAMCB7DQorCQkJI2FkZHJlc3MtY2VsbHMgPSA8MT47DQorCQkJI3NpemUt
-Y2VsbHMgPSA8MD47DQorCQkJcmVnID0gPDA+Ow0KKwkJCXBjYTk1NDZANzcgew0KKwkJCQljb21w
-YXRpYmxlID0gInBjYTk1NDYiOw0KKwkJCQlyZWcgPSA8MHg3Nz47DQorCQkJCWkyY0AwIHsNCisJ
-CQkJCSNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KKwkJCQkJI3NpemUtY2VsbHMgPSA8MD47DQorCQkJ
-CQlyZWcgPSA8MD47DQorCQkJCQllZXByb21ANTIgew0KKwkJCQkJCWNvbXBhdGlibGUgPSAiYXRt
-ZWwsMjRjMDIiOw0KKwkJCQkJCXJlZyA9IDwweDUyPjsNCisJCQkJCX07DQorCQkJCX07DQorCQkJ
-CWkyY0AyIHsNCisJCQkJCSNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KKwkJCQkJI3NpemUtY2VsbHMg
-PSA8MD47DQorCQkJCQlyZWcgPSA8Mj47DQorCQkJCQllZXByb21ANTcgew0KKwkJCQkJCWNvbXBh
-dGlibGUgPSAiYXRtZWwsMjRjMDIiOw0KKwkJCQkJCXJlZyA9IDwweDU3PjsNCisJCQkJCX07DQor
-CQkJCX07DQorCQkJfTsNCisJCX07DQorCQlpMmNAMSB7DQorCQkJI2FkZHJlc3MtY2VsbHMgPSA8
-MT47DQorCQkJI3NpemUtY2VsbHMgPSA8MD47DQorCQkJcmVnID0gPDE+Ow0KKwkJCXBjYTk1NDZA
-Nzcgew0KKwkJCQljb21wYXRpYmxlID0gInBjYTk1NDYiOw0KKwkJCQlyZWcgPSA8MHg3Nz47DQor
-CQkJCWkyY0AyIHsNCisJCQkJCSNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KKwkJCQkJI3NpemUtY2Vs
-bHMgPSA8MD47DQorCQkJCQlyZWcgPSA8Mj47DQorCQkJCQllZXByb21ANTcgew0KKwkJCQkJCWNv
-bXBhdGlibGUgPSAiYXRtZWwsMjRjMDIiOw0KKwkJCQkJCXJlZyA9IDwweDU3PjsNCisJCQkJCX07
-DQorCQkJCX07DQorCQkJfTsNCisJCX07DQorDQorICAgICAgICB9Ow0KK307DQorDQorJmkyYzEg
-ew0KKwlzdGF0dXMgPSAib2theSI7DQorDQorICAgICAgICB0bXA0MjFAMWUgew0KKyAgICAgICAg
-ICAgICAgICBjb21wYXRpYmxlID0gInRpLHRtcDQyMSI7DQorICAgICAgICAgICAgICAgIHJlZyA9
-IDwweDFlPjsNCisgICAgICAgIH07DQorICAgICAgICB0bXA0MjFAMmEgew0KKyAgICAgICAgICAg
-ICAgICBjb21wYXRpYmxlID0gInRpLHRtcDQyMSI7DQorICAgICAgICAgICAgICAgIHJlZyA9IDww
-eDJhPjsNCisgICAgICAgIH07DQorICAgICAgICB0bXA0MjFANGUgew0KKyAgICAgICAgICAgICAg
-ICBjb21wYXRpYmxlID0gInRpLHRtcDQyMSI7DQorICAgICAgICAgICAgICAgIHJlZyA9IDwweDRl
-PjsNCisgICAgICAgIH07DQorICAgICAgICB0bXA0MjFAMWMgew0KKyAgICAgICAgICAgICAgICBj
-b21wYXRpYmxlID0gInRpLHRtcDQyMSI7DQorICAgICAgICAgICAgICAgIHJlZyA9IDwweDFjPjsN
-CisgICAgICAgIH07DQorfTsNCisNCismaTJjMiB7DQorCXN0YXR1cyA9ICJva2F5IjsNCisJc3Np
-ZiB7DQorICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAic3NpZi1zbWJ1cy1zbGF2ZSI7DQor
-ICAgICAgICAgICAgICAgIHJlZyA9IDwweDQyPjsNCisgICAgICAgIH07DQorDQorfTsNCisNCism
-aTJjMyB7DQorCXN0YXR1cyA9ICJva2F5IjsNCit9Ow0KKw0KKyZpMmM0IHsNCisJc3RhdHVzID0g
-Im9rYXkiOw0KK307DQorDQorJmkyYzUgew0KKwlzdGF0dXMgPSAib2theSI7DQorDQorICAgICAg
-ICBpcjM4MTYzQDQyIHsNCisgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJpcjM4MTYzIjsN
-CisgICAgICAgICAgICAgICAgcmVnID0gPDB4NDI+Ow0KKyAgICAgICAgfTsNCisJaXIzODE2M0A0
-NCB7DQorICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiaXIzODE2MyI7DQorICAgICAgICAg
-ICAgICAgIHJlZyA9IDwweDQ0PjsNCisgICAgICAgIH07DQorCWlyMzgxNjNANDYgew0KKyAgICAg
-ICAgICAgICAgICBjb21wYXRpYmxlID0gImlyMzgxNjMiOw0KKyAgICAgICAgICAgICAgICByZWcg
-PSA8MHg0Nj47DQorICAgICAgICB9Ow0KKwlpcjM4MTYzQDQ4IHsNCisgICAgICAgICAgICAgICAg
-Y29tcGF0aWJsZSA9ICJpcjM4MTYzIjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4NDg+Ow0K
-KyAgICAgICAgfTsNCisJcHhtMTMxMEAwMiB7DQorICAgICAgICAgICAgICAgIGNvbXBhdGlibGUg
-PSAicHhtMTMxMCI7DQorICAgICAgICAgICAgICAgIHJlZyA9IDwweDAyPjsNCisgICAgICAgIH07
-DQorCXB4bTEzMTBAMDQgew0KKyAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gInB4bTEzMTAi
-Ow0KKyAgICAgICAgICAgICAgICByZWcgPSA8MHgwND47DQorICAgICAgICB9Ow0KK307DQorDQor
-JmkyYzYgew0KKwlzdGF0dXMgPSAib2theSI7DQorDQorCXRtcDQyMUAxZCB7DQorICAgICAgICAg
-ICAgICAgIGNvbXBhdGlibGUgPSAidGksdG1wNDIxIjsNCisgICAgICAgICAgICAgICAgcmVnID0g
-PDB4MWQ+Ow0KKyAgICAgICAgfTsNCisgICAgICAgIHRtcDQyMUAxZiB7DQorICAgICAgICAgICAg
-ICAgIGNvbXBhdGlibGUgPSAidGksdG1wNDIxIjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4
-MWY+Ow0KKyAgICAgICAgfTsNCisgICAgICAgIHRtcDQyMUA0ZCB7DQorICAgICAgICAgICAgICAg
-IGNvbXBhdGlibGUgPSAidGksdG1wNDIxIjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4NGQ+
-Ow0KKyAgICAgICAgfTsNCisgICAgICAgIHRtcDQyMUA0ZiB7DQorICAgICAgICAgICAgICAgIGNv
-bXBhdGlibGUgPSAidGksdG1wNDIxIjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4NGY+Ow0K
-KyAgICAgICAgfTsNCisgICAgICAgIG52dDIxMEA0YyB7DQorICAgICAgICAgICAgICAgIGNvbXBh
-dGlibGUgPSAibnZ0MjEwIjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4NGM+Ow0KKyAgICAg
-ICAgfTsNCisgICAgICAgIGVlcHJvbUA1MCB7DQorICAgICAgICAgICAgICAgIGNvbXBhdGlibGUg
-PSAiYXRtZWwsMjRjMTI4IjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4NTA+Ow0KKyAgICAg
-ICAgICAgICAgICBwYWdlc2l6ZSA9IDwxMjg+Ow0KKyAgICAgICAgfTsNCit9Ow0KKw0KKyZpMmM3
-IHsNCisJc3RhdHVzID0gIm9rYXkiOw0KKw0KKyAgICAgICAgYWRtMTI3OEAxMCB7DQorICAgICAg
-ICAgICAgICAgIGNvbXBhdGlibGUgPSAiYWRpLGFkbTEyNzgiOw0KKyAgICAgICAgICAgICAgICBy
-ZWcgPSA8MHgxMD47DQorCQlSc2Vuc2UgPSA8MjUwPjsNCisgICAgICAgIH07DQorICAgICAgICBh
-ZG0xMjc4QDExIHsNCisgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJhZGksYWRtMTI3OCI7
-DQorICAgICAgICAgICAgICAgIHJlZyA9IDwweDExPjsNCisJCVJzZW5zZSA9IDwyNTA+Ow0KKyAg
-ICAgICAgfTsNCit9Ow0KKw0KKyZpMmM4IHsNCisgICAgICAgIHN0YXR1cyA9ICJva2F5IjsNCisJ
-DQorICAgICAgICBwY2E5NjQxQDcwIHsNCisgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJu
-eHAscGNhOTY0MSI7DQorICAgICAgICAgICAgICAgIHJlZyA9IDwweDcwPjsNCisgICAgICAgICAg
-ICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47DQorICAgICAgICAgICAgICAgICNzaXplLWNlbGxz
-ID0gPDA+Ow0KKyAgICAgICAgICAgICAgICBpMmMtYXJiew0KKyAgICAgICAgICAgICAgICAgICAg
-ICAgIHRtcDQyMUAxZCB7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb21wYXRp
-YmxlID0gInRtcDQyMSI7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8
-MHgxZD47DQorICAgICAgICAgICAgICAgICAgICAgICAgfTsNCisgICAgICAgICAgICAgICAgICAg
-ICAgICBhZG0xMjc4QDEyIHsNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBh
-dGlibGUgPSAiYWRpLGFkbTEyNzgiOw0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cmVnID0gPDB4MTI+Ow0KKwkJCQlSc2Vuc2UgPSA8NTAwPjsNCisgICAgICAgICAgICAgICAgICAg
-ICAgICB9Ow0KKyAgICAgICAgICAgICAgICAgICAgICAgIG1heDMxNzkwQDIwIHsNCisgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAibWF4MzE3OTAiOw0KKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MjA+Ow0KKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47DQorICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwwPjsNCisJCQkJZmFuLW1vZGUgPSAicHdt
-IjsNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhbmNvbmZpZzEgPSA8MHgwOD47
-DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYW5jb25maWcyID0gPDB4MDk+Ow0K
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFuY29uZmlnMyA9IDwweDA4PjsNCisg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhbmNvbmZpZzQgPSA8MHgwOD47DQorICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYW5jb25maWc1ID0gPDB4MDk+Ow0KKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFuY29uZmlnNiA9IDwweDA4PjsNCisgICAgICAg
-ICAgICAgICAgICAgICAgICB9Ow0KKwkgICAgICAgICAgICAgICAgbWF4MzE3OTBAMjMgew0KKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJtYXgzMTc5MCI7DQor
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHgyMz47DQorICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwyPjsNCisJCQkJI3NpemUt
-Y2VsbHMgPSA8MD47DQorCQkJCWZhbi1tb2RlID0gInB3bSI7DQorICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBmYW5jb25maWcxID0gPDB4MDg+Ow0KKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgZmFuY29uZmlnMiA9IDwweDA5PjsNCisgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGZhbmNvbmZpZzMgPSA8MHgwOD47DQorICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBmYW5jb25maWc0ID0gPDB4MDg+Ow0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFuY29uZmlnNSA9IDwweDA5PjsNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGZhbmNvbmZpZzYgPSA8MHgwOD47DQorICAgICAgICAgICAgICAgICAgICAgICAgfTsNCisJ
-CQllZXByb21ANTAgew0KKwkJCQljb21wYXRpYmxlID0gImF0bWVsLDI0YzAyIjsNCisJCQkJcmVn
-ID0gPDB4NTA+Ow0KKwkJCX07DQorICAgICAgICAgICAgICAgICAgICAgICAgZHMxMTAwQDU4IHsN
-CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiZHMxMTAwIjsN
-CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDU4PjsNCisgICAgICAg
-ICAgICAgICAgICAgICAgICB9Ow0KKyAgICAgICAgICAgICAgIH07DQorCX07DQorfTsNCisNCism
-aTJjOSB7DQorCXN0YXR1cyA9ICJva2F5IjsNCit9Ow0KKw0KKyZ2dWFydCB7DQorCXN0YXR1cyA9
-ICJva2F5IjsNCit9Ow0KKw0KKyZnZnggew0KKyAgICAgICAgc3RhdHVzID0gIm9rYXkiOw0KK307
-DQorDQorJnBpbmN0cmwgew0KKwlhc3BlZWQsZXh0ZXJuYWwtbm9kZXMgPSA8JmdmeCAmbGhjPjsN
-Cit9Ow0KZGlmZiAtLWdpdCBhL2FyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jIGIvYXJjaC9h
-cm0vbWFjaC1hc3BlZWQvYXNwZWVkLmMgaW5kZXggNTk2NWJiZi4uNGY2YTVlOSAxMDA2NDQNCi0t
-LSBhL2FyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jDQorKysgYi9hcmNoL2FybS9tYWNoLWFz
-cGVlZC9hc3BlZWQuYw0KQEAgLTI5LDYgKzI5LDcgQEANCiAjZGVmaW5lIEFTVF9CQVNFX01BQzAJ
-CTBYMUU2NjAwMDAgLyogTUFDIDEgKi8NCiAjZGVmaW5lIEFTVF9CQVNFX1NDVQkJMHgxRTZFMjAw
-MCAvKiBTeXN0ZW0gQ29udHJvbCBVbml0IChTQ1UpICovDQogI2RlZmluZSBBU1RfQkFTRV9HUElP
-CQkweDFFNzgwMDAwIC8qIEdQSU8gQ29udHJvbGxlciAqLw0KKyNkZWZpbmUgQVNUX0JBU0VfV0RU
-CQkweDFFNzg1MDAwIC8qIFdhdGNoZG9nIFRpbWVyICovDQogDQogc3RhdGljIHN0cnVjdCBtYXBf
-ZGVzYyBhc3BlZWRfaW9fZGVzY1tdIF9faW5pdGRhdGEgX19tYXliZV91bnVzZWQgPSB7DQogCXsN
-CkBAIC0yMzIsNiArMjMzLDI1IEBAIHN0YXRpYyB2b2lkIF9faW5pdCBkb19tZWxsYW5veF9zZXR1
-cCh2b2lkKQ0KIAl3cml0ZWwocmVnLCBBU1RfSU8oQVNUX0JBU0VfU0NVIHwgMHg0OCkpOyAgfQ0K
-IA0KKw0KK3N0YXRpYyB2b2lkIF9faW5pdCBkb19jZW50cmlxMjQwMHJlcF9zZXR1cCh2b2lkKSB7
-DQorICAgICAgIHUzMiByZWc7DQorDQorICAgICAgIGRvX2NvbW1vbl9zZXR1cCgpOw0KKyAgICAg
-ICB3cml0ZWwoMHgwMDAwMDAxMCwgQVNUX0lPKEFTVF9CQVNFX1dEVCB8IDB4MmMpKTsNCisNCisg
-ICAgICAgd3JpdGVsKDB4ZmYwMDAwMDAsIEFTVF9JTyhBU1RfQkFTRV9TQ1UgfCAweDg4KSk7DQor
-DQorICAgICAgIC8qIFNldCBHUElPQzcgdG8gb3V0cHV0IGhpZ2ggdG8gaW5pdCBob3N0IHNwaSBk
-cml2ZXIgKi8NCisgICAgICAgcmVnID0gcmVhZGwoQVNUX0lPKEFTVF9CQVNFX0dQSU8gfCAweDA0
-KSkgfCBCSVQoMjMpOw0KKyAgICAgICB3cml0ZWwocmVnLCBBU1RfSU8oQVNUX0JBU0VfR1BJTyB8
-IDB4MDQpKTsNCisNCisgICAgICAgcmVnID0gcmVhZGwoQVNUX0lPKEFTVF9CQVNFX0dQSU8pKSB8
-IEJJVCgyMyk7DQorICAgICAgIHdyaXRlbChyZWcsIEFTVF9JTyhBU1RfQkFTRV9HUElPKSk7IH0N
-CisNCisNCiAjZGVmaW5lIFNDVV9QQVNTV09SRAkweDE2ODhBOEE4DQogDQogc3RhdGljIHZvaWQg
-X19pbml0IGFzcGVlZF9pbml0X2Vhcmx5KHZvaWQpIEBAIC0yODQsNiArMzA0LDggQEAgc3RhdGlj
-IHZvaWQgX19pbml0IGFzcGVlZF9pbml0X2Vhcmx5KHZvaWQpDQogCQlkb19sYW55YW5nX3NldHVw
-KCk7DQogCWlmIChvZl9tYWNoaW5lX2lzX2NvbXBhdGlibGUoIm1lbGxhbm94LG1zbi1ibWMiKSkN
-CiAJCWRvX21lbGxhbm94X3NldHVwKCk7DQorICAgICAgICBpZiAob2ZfbWFjaGluZV9pc19jb21w
-YXRpYmxlKCJxdWFsY29tbSxjZW50cmlxMjQwMC1yZXAtYm1jIikpDQorICAgICAgICAgICAgICAg
-IGRvX2NlbnRyaXEyNDAwcmVwX3NldHVwKCk7DQogfQ0KIA0KIHN0YXRpYyB2b2lkIF9faW5pdCBh
-c3BlZWRfbWFwX2lvKHZvaWQpDQotLQ0KMi45LjMNCg0K
+On Tue, Feb 6, 2018 at 3:45 PM, Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO
+<Chen.KenYY@inventec.com> wrote:
+> Should I remove the device hasn't the driver yet?
+
+Yes please. If we don't have bindings to review against (documents
+inside Documentation/devicetree/bindings) then it's hard to know if
+the device tree is correct. Please remove any of the nodes that don't
+have bindings in the openbmc tree.
+
+
+>
+>
+> -----Original Message-----
+> From: Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO
+> Sent: Monday, February 05, 2018 11:04 AM
+> To: openbmc@lists.ozlabs.org
+> Cc: Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO; joel@jms.id.au
+> Subject: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add ARM system BMC d=
+evice tree
+
+Can you please target your patch at the dev-4.13 branch?
+
+>
+> Add centriq2400-rep dts and modify platform initial
+>
+> Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
+> ---
+>  .../boot/dts/aspeed-bmc-arm-centriq2400-rep.dts    | 350 +++++++++++++++=
+++++++
+
+You have forgotten to add your device tree to the makefile at
+arch/arm/boot/dts/Makefile
+
+Please look for the other aspeed .dtb rules down the bottom of the file.
+
+>  arch/arm/mach-aspeed/aspeed.c                      |  22 ++
+
+Please include modifications to aspeed.c in a different patch.
+
+>  2 files changed, 372 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts b/arch/=
+arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+> new file mode 100644
+> index 0000000..4094732
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+> @@ -0,0 +1,350 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +       model =3D "Qualcomm Centriq 2400  REP AST2520";
+> +       compatible =3D "qualcomm,centriq2400-rep-bmc", "aspeed,ast2500";
+> +
+> +       chosen {
+> +               stdout-path =3D &uart5;
+> +               bootargs =3D "console=3DttyS4,115200 earlyprintk";
+> +       };
+> +
+> +       memory {
+> +               reg =3D <0x80000000 0x40000000>;
+> +       };
+> +
+> +       iio-hwmon {
+> +               compatible =3D "iio-hwmon";
+> +               io-channels =3D <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+> +                        <&adc 4>, <&adc 5>, <&adc 6>, <&adc 8>;
+> +       };
+> +
+> +       iio-hwmon-battery {
+> +               compatible =3D "iio-hwmon";
+> +               io-channels =3D <&adc 7>;
+> +       };
+> +
+> +       leds {
+> +               compatible =3D "gpio-leds";
+> +
+> +               uid_led {
+> +                       label =3D "UID_LED";
+> +                       gpios =3D <&gpio ASPEED_GPIO(Q, 5) GPIO_ACTIVE_LO=
+W>;
+> +               };
+> +
+> +               ras_error_led {
+> +                       label =3D "RAS_ERROR_LED";
+> +                       gpios =3D <&gpio ASPEED_GPIO(F, 6) GPIO_ACTIVE_LO=
+W>;
+> +               };
+> +
+> +               system_fault {
+> +                       label =3D "System_fault";
+> +                       gpios =3D <&gpio ASPEED_GPIO(A, 1) GPIO_ACTIVE_LO=
+W>;
+> +               };
+> +       };
+> +};
+> +
+> +&fmc {
+> +       status =3D "okay";
+> +       flash@0 {
+> +               status =3D "okay";
+> +               m25p,fast-read;
+> +                lable =3D "bmc";
+
+typo: label.
+
+> +#include "openbmc-flash-layout.dtsi"
+> +       };
+> +};
+> +
+> +&spi1 {
+> +        status =3D "okay";
+> +        pinctrl-names =3D "default";
+> +        pinctrl-0 =3D <&pinctrl_spi1_default>;
+> +        flash@0 {
+> +                reg =3D < 0 >; /* chip select number */
+> +                compatible =3D "jedec,spi-nor";
+
+You do not need these two properties, as they are inherited from those
+in aspeed-g5.dtsi. Remove these two lines please.
+
+> +                status =3D "okay";
+> +        };
+> +};
+> +
+> +&spi2 {
+> +        compatible =3D "aspeed,ast2500-spi-generic";
+> +        reg =3D <0x1e631000 0xc4 0x38000000 0x02000000>;
+> +        interrupts =3D <59>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+
+This looks to be a custom driver, As discussed above, please do not
+include this until we have merged the device tree bindings and driver.
+
+> +        status =3D "okay";
+> +        spi2@0 {
+> +                reg =3D < 0 >;
+> +                compatible =3D "centriq,centriq2400-spi-hwmon";
+> +                spi-max-frequency =3D <16000000>;
+> +                status =3D "okay";
+> +        };
+> +};
+> +
+> +&uart3 {
+> +        status =3D "okay";
+> +
+> +        pinctrl-names =3D "default";
+> +        pinctrl-0 =3D <&pinctrl_txd3_default
+> +                     &pinctrl_rxd3_default>;
+> +        current-speed =3D <115200>;
+> +};
+> +
+> +&lpc_ctrl {
+
+Do you use /dev/aspeed-lpc-ctrl from userspace in your system? If not,
+you do not want to enable the lpc_ctrl node.
+
+> +       status =3D "okay";
+> +       memory-region =3D <&flash_memory>;
+> +       flash =3D <&spi1>;
+> +};
+> +
+> +&uart5 {
+> +       status =3D "okay";
+> +};
+> +
+> +&mac0 {
+> +       status =3D "okay";
+> +
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&pinctrl_rgmii1_default &pinctrl_mdio1_default>; }=
+;
+
+The closing } should be on the next line.
+
+> +
+> +&i2c0 {
+> +       status =3D "okay";
+> +
+> +       pca9542@70 {
+> +                compatible =3D "pca9542";
+> +                reg =3D <0x70>;
+> +               i2c@0 {
+
+Your whitespace is messed up here. Please use tabs to align the nodes.
+
+> +                       #address-cells =3D <1>;
+> +                       #size-cells =3D <0>;
+> +                       reg =3D <0>;
+> +                       pca9546@77 {
+> +                               compatible =3D "pca9546";
+> +                               reg =3D <0x77>;
+> +                               i2c@0 {
+> +                                       #address-cells =3D <1>;
+> +                                       #size-cells =3D <0>;
+> +                                       reg =3D <0>;
+> +                                       eeprom@52 {
+> +                                               compatible =3D "atmel,24c=
+02";
+> +                                               reg =3D <0x52>;
+> +                                       };
+> +                               };
+> +                               i2c@2 {
+> +                                       #address-cells =3D <1>;
+> +                                       #size-cells =3D <0>;
+> +                                       reg =3D <2>;
+> +                                       eeprom@57 {
+> +                                               compatible =3D "atmel,24c=
+02";
+> +                                               reg =3D <0x57>;
+> +                                       };
+> +                               };
+> +                       };
+> +               };
+> +               i2c@1 {
+> +                       #address-cells =3D <1>;
+> +                       #size-cells =3D <0>;
+> +                       reg =3D <1>;
+> +                       pca9546@77 {
+> +                               compatible =3D "pca9546";
+> +                               reg =3D <0x77>;
+> +                               i2c@2 {
+> +                                       #address-cells =3D <1>;
+> +                                       #size-cells =3D <0>;
+> +                                       reg =3D <2>;
+> +                                       eeprom@57 {
+> +                                               compatible =3D "atmel,24c=
+02";
+> +                                               reg =3D <0x57>;
+> +                                       };
+> +                               };
+> +                       };
+> +               };
+> +
+> +        };
+> +};
+> +
+> +&i2c1 {
+> +       status =3D "okay";
+> +
+> +        tmp421@1e {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x1e>;
+> +        };
+> +        tmp421@2a {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x2a>;
+> +        };
+> +        tmp421@4e {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x4e>;
+> +        };
+> +        tmp421@1c {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x1c>;
+> +        };
+> +};
+> +
+> +&i2c2 {
+> +       status =3D "okay";
+> +       ssif {
+> +                compatible =3D "ssif-smbus-slave";
+
+Remove this node until we have reviewed the bindings.
+
+> +                reg =3D <0x42>;
+> +        };
+> +
+> +};
+> +
+> +&i2c3 {
+> +       status =3D "okay";
+> +};
+> +
+> +&i2c4 {
+> +       status =3D "okay";
+> +};
+> +
+> +&i2c5 {
+> +       status =3D "okay";
+> +
+> +        ir38163@42 {
+> +                compatible =3D "ir38163";
+> +                reg =3D <0x42>;
+> +        };
+> +       ir38163@44 {
+> +                compatible =3D "ir38163";
+> +                reg =3D <0x44>;
+> +        };
+> +       ir38163@46 {
+> +                compatible =3D "ir38163";
+> +                reg =3D <0x46>;
+> +        };
+> +       ir38163@48 {
+> +                compatible =3D "ir38163";
+> +                reg =3D <0x48>;
+> +        };
+> +       pxm1310@02 {
+> +                compatible =3D "pxm1310";
+> +                reg =3D <0x02>;
+> +        };
+> +       pxm1310@04 {
+> +                compatible =3D "pxm1310";
+> +                reg =3D <0x04>;
+> +        };
+> +};
+> +
+> +&i2c6 {
+> +       status =3D "okay";
+> +
+> +       tmp421@1d {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x1d>;
+> +        };
+> +        tmp421@1f {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x1f>;
+> +        };
+> +        tmp421@4d {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x4d>;
+> +        };
+> +        tmp421@4f {
+> +                compatible =3D "ti,tmp421";
+> +                reg =3D <0x4f>;
+> +        };
+> +        nvt210@4c {
+> +                compatible =3D "nvt210";
+> +                reg =3D <0x4c>;
+> +        };
+> +        eeprom@50 {
+> +                compatible =3D "atmel,24c128";
+> +                reg =3D <0x50>;
+> +                pagesize =3D <128>;
+> +        };
+> +};
+> +
+> +&i2c7 {
+> +       status =3D "okay";
+> +
+> +        adm1278@10 {
+> +                compatible =3D "adi,adm1278";
+> +                reg =3D <0x10>;
+> +               Rsense =3D <250>;
+> +        };
+> +        adm1278@11 {
+> +                compatible =3D "adi,adm1278";
+> +                reg =3D <0x11>;
+> +               Rsense =3D <250>;
+> +        };
+> +};
+> +
+> +&i2c8 {
+> +        status =3D "okay";
+> +
+> +        pca9641@70 {
+> +                compatible =3D "nxp,pca9641";
+> +                reg =3D <0x70>;
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +                i2c-arb{
+> +                        tmp421@1d {
+> +                                compatible =3D "tmp421";
+> +                                reg =3D <0x1d>;
+> +                        };
+> +                        adm1278@12 {
+> +                                compatible =3D "adi,adm1278";
+> +                                reg =3D <0x12>;
+> +                               Rsense =3D <500>;
+> +                        };
+> +                        max31790@20 {
+> +                                compatible =3D "max31790";
+> +                                reg =3D <0x20>;
+> +                                #address-cells =3D <1>;
+> +                                #size-cells =3D <0>;
+> +                               fan-mode =3D "pwm";
+
+Whitespace problems here too.
+
+> +                                fanconfig1 =3D <0x08>;
+> +                                fanconfig2 =3D <0x09>;
+> +                                fanconfig3 =3D <0x08>;
+> +                                fanconfig4 =3D <0x08>;
+> +                                fanconfig5 =3D <0x09>;
+> +                                fanconfig6 =3D <0x08>;
+> +                        };
+> +                       max31790@23 {
+> +                                compatible =3D "max31790";
+> +                                reg =3D <0x23>;
+> +                                #address-cells =3D <2>;
+> +                               #size-cells =3D <0>;
+> +                               fan-mode =3D "pwm";
+> +                                fanconfig1 =3D <0x08>;
+> +                                fanconfig2 =3D <0x09>;
+> +                                fanconfig3 =3D <0x08>;
+> +                                fanconfig4 =3D <0x08>;
+> +                                fanconfig5 =3D <0x09>;
+> +                                fanconfig6 =3D <0x08>;
+> +                        };
+> +                       eeprom@50 {
+> +                               compatible =3D "atmel,24c02";
+> +                               reg =3D <0x50>;
+> +                       };
+> +                        ds1100@58 {
+> +                                compatible =3D "ds1100";
+> +                                reg =3D <0x58>;
+> +                        };
+> +               };
+> +       };
+> +};
+> +
+> +&i2c9 {
+> +       status =3D "okay";
+> +};
+> +
+> +&vuart {
+> +       status =3D "okay";
+> +};
+> +
+> +&gfx {
+> +        status =3D "okay";
+> +};
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes =3D <&gfx &lhc>;
+> +};
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.=
+c index 5965bbf..4f6a5e9 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -29,6 +29,7 @@
+>  #define AST_BASE_MAC0          0X1E660000 /* MAC 1 */
+>  #define AST_BASE_SCU           0x1E6E2000 /* System Control Unit (SCU) *=
+/
+>  #define AST_BASE_GPIO          0x1E780000 /* GPIO Controller */
+> +#define AST_BASE_WDT           0x1E785000 /* Watchdog Timer */
+>
+>  static struct map_desc aspeed_io_desc[] __initdata __maybe_unused =3D {
+>         {
+> @@ -232,6 +233,25 @@ static void __init do_mellanox_setup(void)
+>         writel(reg, AST_IO(AST_BASE_SCU | 0x48));  }
+>
+> +
+> +static void __init do_centriq2400rep_setup(void) {
+> +       u32 reg;
+> +
+> +       do_common_setup();
+> +       writel(0x00000010, AST_IO(AST_BASE_WDT | 0x2c));
+> +
+> +       writel(0xff000000, AST_IO(AST_BASE_SCU | 0x88));
+> +
+> +       /* Set GPIOC7 to output high to init host spi driver */
+> +       reg =3D readl(AST_IO(AST_BASE_GPIO | 0x04)) | BIT(23);
+> +       writel(reg, AST_IO(AST_BASE_GPIO | 0x04));
+> +
+> +       reg =3D readl(AST_IO(AST_BASE_GPIO)) | BIT(23);
+> +       writel(reg, AST_IO(AST_BASE_GPIO)); }
+> +
+> +
+>  #define SCU_PASSWORD   0x1688A8A8
+>
+>  static void __init aspeed_init_early(void) @@ -284,6 +304,8 @@ static vo=
+id __init aspeed_init_early(void)
+>                 do_lanyang_setup();
+>         if (of_machine_is_compatible("mellanox,msn-bmc"))
+>                 do_mellanox_setup();
+> +        if (of_machine_is_compatible("qualcomm,centriq2400-rep-bmc"))
+> +                do_centriq2400rep_setup();
+>  }
+>
+>  static void __init aspeed_map_io(void)
+> --
+> 2.9.3
+>
