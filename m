@@ -1,74 +1,71 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <Michael.E.Brown@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.220; helo=esa2.dell-outbound.iphmx.com;
+ envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="NPzegnBO"; 
+ dkim-atps=neutral
+Received: from esa2.dell-outbound.iphmx.com (esa2.dell-outbound.iphmx.com
+ [68.232.149.220])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zbFM21lVczDqs4
- for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 17:45:02 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w166iORV021340
- for <openbmc@lists.ozlabs.org>; Tue, 6 Feb 2018 01:45:00 -0500
-Received: from e06smtp12.uk.ibm.com (e06smtp12.uk.ibm.com [195.75.94.108])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2fy2ag1frb-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 06 Feb 2018 01:44:59 -0500
-Received: from localhost
- by e06smtp12.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Tue, 6 Feb 2018 06:44:57 -0000
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
- by e06smtp12.uk.ibm.com (192.168.101.142) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 6 Feb 2018 06:44:56 -0000
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w166itNW65208402
- for <openbmc@lists.ozlabs.org>; Tue, 6 Feb 2018 06:44:55 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 637874C15F
- for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 06:38:47 +0000 (GMT)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D4C114C16C
- for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 06:38:46 +0000 (GMT)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.79.251.60])
- by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 06:38:46 +0000 (GMT)
-Subject: Re: BMC redundancy
-To: openbmc@lists.ozlabs.org
-References: <AFD7FFE5-8EA8-41FF-85C9-71AF312D4775@fuzziesquirrel.com>
- <c4150294-f1db-8e43-42cd-c0c7d90d8c47@linux.vnet.ibm.com>
- <1517532486.2240683.1256645768.23C8305B@webmail.messagingengine.com>
- <20180202211043.GD113334@mauery>
- <20180206060932.GB18567@wn7x64-4cggry1.aus.amer.dell.com>
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Tue, 6 Feb 2018 12:14:55 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
- Gecko/20100101 Thunderbird/52.5.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zbFcw5bj2zF0sH
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Feb 2018 17:57:03 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1517900224; x=1549436224;
+ h=from:date:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=jMfKzn9/twfT+c8ZTfXYYLMAuzqWLZJtwEIaDP4nXJQ=;
+ b=NPzegnBOl80FFKzPFTCW3nLUo1uEISI7NhxmFGlXHnF3MA9IeBzc7Q69
+ agmAE3IdvZzEmVd80D/wb6dSZQIDdpDeGXqk4xg9E6ZnLzKpLYgX8uvI3
+ DuFs8JEeLVtucOwLcbW0Qr7+24c6EjVegx1aFTph3f2bwbtbEb3COufq6 c=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2E8AQAGUXlahz+a6ERdGQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQcBAQEBAYMkgQMQcCiDZZhUggKPWIdwgVVDChgHhRwCgk9VFwEBAQEBAQE?=
+ =?us-ascii?q?BAgECEAEBAQoLCQgoL4I4JAEKBEsqLwEBAQEBAQEBAQEBAQEBARoCDV0BAQEDA?=
+ =?us-ascii?q?QEiDwFGBQcECxEEAQEBAgIFDQEFCwMCAg8FFB4JDhMUihkIuVSCJ4h+gXgBAQE?=
+ =?us-ascii?q?BAQEEAQEBAQEBAQEBGgWBD4NbghWDP4IggQ6DLwICgVleAYJOMYI0BZNchkOKC?=
+ =?us-ascii?q?QqID4QCgzkrhWaCK4Ymi3aNbQOKC4E8IAGCCE0jUoJGglUQDIEKAQmBEVmMXQ0?=
+ =?us-ascii?q?YB4IdAQEB?=
+X-IPAS-Result: =?us-ascii?q?A2E8AQAGUXlahz+a6ERdGQEBAQEBAQEBAQEBAQcBAQEBAYM?=
+ =?us-ascii?q?kgQMQcCiDZZhUggKPWIdwgVVDChgHhRwCgk9VFwEBAQEBAQEBAgECEAEBAQoLC?=
+ =?us-ascii?q?QgoL4I4JAEKBEsqLwEBAQEBAQEBAQEBAQEBARoCDV0BAQEDAQEiDwFGBQcECxE?=
+ =?us-ascii?q?EAQEBAgIFDQEFCwMCAg8FFB4JDhMUihkIuVSCJ4h+gXgBAQEBAQEEAQEBAQEBA?=
+ =?us-ascii?q?QEBGgWBD4NbghWDP4IggQ6DLwICgVleAYJOMYI0BZNchkOKCQqID4QCgzkrhWa?=
+ =?us-ascii?q?CK4Ymi3aNbQOKC4E8IAGCCE0jUoJGglUQDIEKAQmBEVmMXQ0YB4IdAQEB?=
+Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
+ by esa2.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2018 00:57:00 -0600
+From: Michael E Brown <Michael.E.Brown@dell.com>
+Received: from ausxipps301.us.dell.com ([143.166.148.223])
+ by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2018 12:55:56 +0600
+X-LoopCount0: from 10.9.160.254
+X-IronPort-AV: E=Sophos;i="5.46,467,1511848800"; d="scan'208";a="126108321"
+X-DLP: DLP_GlobalPCIDSS
+Date: Tue, 6 Feb 2018 00:56:59 -0600
+To: "Tanous, Ed" <ed.tanous@intel.com>
+Cc: "'Michael.E.Brown@dell.com'" <Michael.E.Brown@dell.com>,
+ "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
+ "rolfb@us.ibm.com" <rolfb@us.ibm.com>,
+ "pradeep.kumar36@tcs.com" <pradeep.kumar36@tcs.com>,
+ "jwcarman@us.ibm.com" <jwcarman@us.ibm.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>,
+ "alirhas@microsoft.com" <alirhas@microsoft.com>,
+ "Balaji.B.Rao@dell.com" <Balaji.B.Rao@dell.com>
+Subject: Re: Redfish on OpenBMC
+Message-ID: <20180206065015.GA22866@wn7x64-4cggry1.aus.amer.dell.com>
+References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
+ <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
+ <7E9441B1E5EFFD4681F54958E82169932F662BE8@ORSMSX114.amr.corp.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20180206060932.GB18567@wn7x64-4cggry1.aus.amer.dell.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18020606-0008-0000-0000-000004C9CE93
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18020606-0009-0000-0000-00001E5D799A
-Message-Id: <938ac3f2-af34-86d7-4f30-91426b9b4628@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-06_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1802060082
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F662BE8@ORSMSX114.amr.corp.intel.com>
+User-Agent: Mutt/1.9.1 (2017-09-22)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -80,124 +77,186 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Feb 2018 06:45:02 -0000
+X-List-Received-Date: Tue, 06 Feb 2018 06:57:06 -0000
 
-On 06/02/18 11:40 am, Michael E Brown wrote:
-> On Fri, Feb 02, 2018 at 01:10:43PM -0800, Vernon Mauery wrote:
->> On 02-Feb-2018 11:18 AM, Andrew Jeffery wrote:
->>> Hi Deepak,
->>>
->>>> So several of the existing OpenBMC apps implement specific D-Bus
->>>> services. What does it take to make remote D-Bus calls to such apps?
->>>> - It doesn't look like the D-Bus spec or libdbus officially has anything
->>>> for D-Bus across computers. There are some good notes at
->>>> https://www.freedesktop.org/wiki/Software/DBusRemote/.
->>>
->>> Applications can cannect to remote dbus servers; the --address option to dbus-daemon allows it to listen on a TCP socket and setting DBUS_SESSION_BUS_ADDRESS will point applications in the right direction. So there are probably two ways we could do this:
->>
->> Putting DBus on an externally-available TCP socket is a security architect's
->> nightmare. All command and control of the entire BMC is done over DBus; we
->> cannot put that on an externally-available address. I suppose if you have an
->> internal connection and switching fabric between the nodes, this would be
->> possible.
+On Thu, Feb 01, 2018 at 05:23:40PM +0000, Tanous, Ed wrote:
+> Answers for the bmcweb implementation inline below.
+
+All the answers for this implementation sound great. I'll have to take a closer look at the implementation.
+
 > 
-> Vernon, I completely and wholeheartedly agree with this assessment. Most of the
-> things I've heard so far start way too high up in the stack and try to solve
-> the issue there. I believe that we ought to start at the networking layer and
-> build up from there.
+> -Ed
 > 
-> Here is a dump of my thoughts related to what we talked about on the conference
-> call.
+> >    - Do you have a redfish server implementation?
+> Yes.
+> >    - Is it Open Source?
+> Yes.
 > 
-> Step 0: Internal network
-> 	Definition: This is a private network that is internal to a chassis and
-> cannot be attached via the external world. This does not make this network
-> implicitly secure, however. I would strongly suggest that we create standards
-> for addressing this network and how components communicate at the IP level
-> between BMCs.
-> 	Proposal: all nodes on this network use IPv6 SLAAC, with a designation
-> for one or a redundant pair of nodes running "radvd" to provide stable
-> site-local address space assignments.
+> https://github.com/openbmc/bmcweb
 > 
-> Step 1: Discovery
-> 	Definition: This is how you figure out that there are other BMCs on the
-> internal network. Zeroconf/Avahi/MDNS are three names for one method. This also
-> includes figuring out which role any specific node may fill (chassis-level BMC
-> vs node-level BMC, for example).
-> 	Proposal: MDNS DNS-SD with TXT records indicating BMC Role
+> The folder labeled redfish-core is specific to the redfish portion.
 > 
-> Step 2: Exchanging certificates
-> 	Definition: To start a crypto system, one needs to exchange public
-> keys, at a minimum. Other information about a machine can also be useful. Note
-> that exchanging certificates does not imply "trust" of those certificates, but
-> only provides the basis upon which you later decide if you trust or not.
-> 	Proposal: Oauth 2.0 Dynamic Client Registration
+> > 	- What is the license?
+> Apache 2.0
 > 
-> Step 3: Trust
-> 	Definition: based on many factors, a machine decides if it trusts
-> another machine. There is the implication that end-users may wish to disable
-> new trust relationships from forming, but that's not a requirement. Factors
-> that determine trust: 1) which network initiated connection, 2) machine
-> identity certs, 3) any signatures on the machine identity certs (for example, a
-> vendor signature probably implies higher trust), 4) user wishes/configuration,
-> and 5) any possible remote attestation (TPM) or similar. These factors could
-> certainly be extended to include many other things, but these are a baseline
-> for starting to talk about this. Depending on user settings, devices might
-> require OAuth 2.0 device flow or be implicitly trusted based on vendor-signed
-> device certificates.
-> 	Proposal: The OAuth 2.0 Client Credentials grant or the OAuth 2.0
-> device flow. (Depending on policy)
+> > 	- Is it posted to github or other public source control?
+> Yes
 > 
-> Step 4: RPC
-> 	After establishing trust, you need a mechanism to do remote calls
-> between machines. This could be as simple as REST (using oauth tokens granted
-> in #3), or as complex as a full DBUS interface.
-> 	Proposal: None at this time
+> >    - Does it pass the DMTF redfish service validator?
+> It did 3 weeks ago;  A minor authentication bug snuck in that causes it to fail on service root, but that bug should be resolved in the next week.
 > 
-> Step 5: Clustering
-> 	Definition: Clustering is generally divided into a cluster
-> communication protocol and a cluster resource manager. The resource manager has
-> the job of taking developer constraints about which daemons have to run where
-> and what resources they need, and running the jobs on the machines available.
-> For example, you might specify that only one machine should run sensors
-> connected to physical hardware i2c lines, and specify the list of daemons that
-> depend on these hardware resources. The resource manager would be responsible
-> for running the daemons in the correct order on the correct number of machines.
-> 	Proposal: Corosync/Pacemaker have fairly reliable and flexible
-> clustering, and can describe complex requirements.
+> >    - What language is it written in?
+> C++14
 > 
-> The one thing to keep in mind is that everything up to step 4/5 is part of your
-> forwards/backwards compatibility guarantee for all time for everything in the
-> chassis. To make sure it is supportable for a very long time, try to keep it as
-> simple as possible, but no simpler.
+> >    - How big is it?
+> Compiled and stripped size was on the order of 700KB when LTO is enabled, before filesystem compression.  This includes more than just the redfish implementation, so I would have to get some specifics on a stripped down redfish-only binary size.
 > 
-> Another part of the design is figuring out if you need Active/Active
-> clustering, or Active/Standby. If you can get away with Active/Standby, you can
-> greatly minimize your RPC requirements between the machines, to the point you
-> don't really need much other than REST.
+> >    - Can it be easily extended/re-used by anybody else shipping compliant
+> > openbmc implementations?
+> It was intended for use in OpenBmc.  There are designs to attempt to make it more generic, but those are not yet upstream.  My #1 priority is enabling OpenBmc, #2 is building a generic library that can be used outside of openbmc.
 > 
-> --
-> Michael
+> > 	- Can you add OEM extensions to existing Redfish Resources without
+> > "forking" the codebase?
+> Yes, but these extension examples are not open source yet.
+
+I'm curious: "not open source yet"? So, you have two forks of this codebase? It sounds like you have an internal Intel one and this one that you are migrating code between. How does that process work?
+
+> 
+> > 	- Can you change the implementation for a single Redfish Resource
+> > Property without forking?
+> Nothing in the design precludes it, but it is not yet implemented.  The assumption was that data would be backed by dbus to be consistent with the other openbmc interfaces, and any modifications should be done in dbus daemons outside the webserver.
+
+I'll have to take a look at the source, because I think you interpreted the question differently than I intended.
+
+> 
+> > 	- Can you add new Redfish Resources without forking?
+> Not really sure what this question is specifying.  Redfish resources are backed by DBus, so yes.  With that said, schemas are required to be added in code.
+> 
+> >    - Performance
+> > 	- How fast is it?
+> Time to first byte times are constrained by the response times of dbus and openssl as the webserver has yet to implement caching.  It seems to be relatively performant, but I haven't measured these recently on an AST2500 system.  We likely should normalize these to a single processor to avoid processor specific timing info.  My vote would be to measure all against an AST2500, as it seems to be a decent middle of the road example of a system.
+
+I can agree on baselining the benchmarking so we compare apples to apples. I have access to only Nuvoton system, though, so I'd have to work on getting my stuff tested on AST.
+
+> 
+> > 	- Does it implement SSL?
+> Yes, and generates its own self signed certificate and private key on first boot.
+
+Nice.
+
+> 
+> >    - Security
+> > 	- What is the security model?
+> Authentication is handled by a single middlelayer that filters all requests before executing endpoint specific code.  Authentication is backed by pam.  Authorization and user roles are yet to be implemented, but I have patches that can be made public if people are interested.  I suspect we need to have a greater discussion around authorization for OPenBmc as a whole, and how IPMI and Redfish can share a common model.
+
+Yes, we absolutely need to have a better discussion about how we implement a more cohesive security model.
+
+> 
+> > 	- Non-root support? Can it run as a non-privileged user?
+> Yes, although the patches to do this are still in review.
+> 
+> > 	- Does it implement basic authentication and the redfish spec x-auth-
+> > token authentication?
+> Yes.  As well it also supports cookie authentication (to host the webserver) with CSRF prevention.  Currently, both of those are required to be able to host phosphor-webui from the same server.
+
+Sounds good. I should have added in there OAuth 2.0 support, if we do OpenID Connect support at some point, it would be nice to have OAuth support to build on.
+
+> 
+> > 	- Does it implement the redfish standard privilege map model?
+> Patches to do this are in (not open source) review.  We should have a discussion about how privilege maps should be backed.
+
+Same with all of the privilege model questions.
+
+> 
+> >    - Eventing:
+> > 	- For writing a UI on top of redfish, something like SSE is a nice-to-
+> > have to avoid polling in the browser. There are a couple of proposed SSE
+> > extensions that have not yet been approved.
+> > 		- How much work to implement SSE support to do things like
+> > watch Property changes?
+> It currently supports a websocket based evented endpoint that can pass propertychanged events to a browser.  Adding SSE to this implementation should be relatively easy, but I question the value add over having a websocket eventing protocol.
+
+Dell is currently working on submitting SSE support to SPMF for standardization. The people I talked with were concerned that websockets were *too* general and would quickly become swamped with feature requests for everything under the sun. SSE seemed way more constrained.
+
+> > 	- Is the standard redfish eventing model supported?
+> Not yet, but nothing in the design precludes it, and other eventing models are supported.
+
+Fair enough.
+
+> 
+> > 	- Security model integrated with eventing? Do eventing records get
+> > the same security treatment as GET requests?
+> Can you clarify the question a bit, I'm not sure I quite understand?  Assuming you mean that server side eventing is integrated with the rest of the auth model, yes, for websockets clients are verified on connection using cookie authentication.
+
+Meaning, for example, a user with ReadOnly starts an SSE session, that user should only get propertychanged for redfish elements that are accessible for ReadOnly.
+
+> >    - Development: can it run outside of openbmc?
+> Yes, although we're considering dropping this, as it is causing some headaches with dependency management and versioning.
+
+What kind of headaches?
 
 
-Thanks for this break-up and summary, Michael. I'm trying to collect the 
-factors that can help us weighing up the pros and cons of the RPC 
-mechanism (REST vs D-Bus vs something else). This is what I've gathered 
-so far :
+> >    - Special sauce: is there anything not captured above that makes the
+> > implementation special in any way?
+> Some questions we should also add:
+> 
+> Can it host phosphor-webui?
+> Yes, although a few endpoints are missing on my systems, but the authentication and login flows function, it should just be a matter of adding the 2 missing endpoints.
 
-- Some of the other layers in the picture can influence the RPC 
-mechanism - you've brought out the active/active vs active/standby 
-design, but I'm not sure if it's possible to identify an RPC mechanism 
-that fits all such designs, because such configurations could depend on 
-the system design, which can vary. So REST for example may not fit the 
-bill for a multi-master.
-- One thing about D-Bus that people have brought up is that our 
-REST/Redfish API might be based around the existing D-Bus interface, so 
-it kind of seems natural that the same interface serves as the RPC 
-interface as well.
-- Security aspects of D-Bus vs REST : depends on the design/mechanisms 
-chosen for the steps prior to RPC.
-- Any other factors?
+Nice.
 
-Regards,
-Deepak
+> Does it generate a self signed SSL certificate on first boot?
+> Yes
+
+Does it do only a self-signed server cert? Or does it create a CA and then sign a server cert with the CA?
+
+Does it pass certificate checks on curl/Linux, curl/macos, and chrome? I had to do a bit of work to ensure that everything was compatible across all of the combinations of clients. Does it populate commonName and SAN for all local IPs?
+
+
+> Does it support websockets?  (will matter when KVM and SOL are implemented)
+> Yes
+> 
+> Is it built asynchronously in such a way that long running requests do not block quick requests?  (production requirement I've heard some people voice before)
+> Yes
+
+Super important. Does it also parallelize all of the backend calls?
+--
+Michael
+
+> 
+> -Ed
+> 
+> 
+> > 
+> > --
+> > Michael
+> > 
+> > -----Original Message-----
+> > From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
+> > Sent: Tuesday, January 30, 2018 7:30 PM
+> > To: Brown, Michael E <Michael_E_Brown@Dell.com>
+> > Cc: alirhas@microsoft.com; Rao, Balaji B <Balaji_B_Rao@dell.com>; Vancil,
+> > Paul <Paul_Vancil@Dell.com>; Tanous, Ed <ed.tanous@intel.com>;
+> > rolfb@us.ibm.com; jwcarman@us.ibm.com; Hariharasubramanian
+> > Ramasubramanian <hramasub@in.ibm.com>; pradeep.kumar36@tcs.com;
+> > OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> > Subject: Redfish on OpenBMC
+> > 
+> > Hi Michael
+> > 
+> > The project could really use someone to get everyone that has expressed
+> > interest in the future of Redfish support in OpenBMC rowing in the same
+> > direction.  So thank you for volunteering to lead that conversation at the
+> > community call yesterday.
+> > 
+> > I’ve CC’ed everyone that I know of that has expressed an interest.
+> > OpenBMC community: feel free to speak up if you’d like to be involved and I
+> > forgot you.
+> > 
+> > The only thing I’d ask is to please post links to any meetings, minutes, or
+> > correspondence here on the list, so everyone can easily keep up with how
+> > things are going or jump in to provide feedback.
+> > 
+> > thanks again
+> > 
+> > -brad
