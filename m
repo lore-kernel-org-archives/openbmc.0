@@ -1,104 +1,31 @@
-Return-Path: <alirhas@microsoft.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=microsoft.com
- (client-ip=104.47.38.138; helo=nam02-bl2-obe.outbound.protection.outlook.com;
- envelope-from=alirhas@microsoft.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=microsoft.com header.i=@microsoft.com
- header.b="ONsk6shq"; dkim-atps=neutral
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-bl2nam02on0138.outbound.protection.outlook.com [104.47.38.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zbXJv5639zF153
- for <openbmc@lists.ozlabs.org>; Wed,  7 Feb 2018 04:59:09 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=rriYAPYETa9pz+MhV2MnxPDUk7vCCtrCN9UJZ6fo0wo=;
- b=ONsk6shqCKtFsdtZGWyc8bfLQ61RSWYOe9qjVYGwzUHy+FhTREnHeBhe/jlAkTIjwe53+gV6OQXoNPJ4zWFbOvJGWqfCBxnoNZPCfkmuDaInosGfhsxUTW5gQU139/uyIPnmn1U1tBYeiZMeOyedqOyQXCgscgdKGW7xKrEuvQ4=
-Received: from BL0PR2101MB0915.namprd21.prod.outlook.com (52.132.23.152) by
- BL0PR2101MB1107.namprd21.prod.outlook.com (52.132.24.30) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.506.5; Tue, 6 Feb 2018 17:59:02 +0000
-Received: from BL0PR2101MB0915.namprd21.prod.outlook.com
- ([fe80::708e:f31b:3ccc:2dbc]) by BL0PR2101MB0915.namprd21.prod.outlook.com
- ([fe80::708e:f31b:3ccc:2dbc%2]) with mapi id 15.20.0506.007; Tue, 6 Feb 2018
- 17:58:59 +0000
-From: Ali Larijani <alirhas@microsoft.com>
-To: "Tanous, Ed" <ed.tanous@intel.com>, Michael E Brown
- <Michael.E.Brown@dell.com>
-CC: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
- "rolfb@us.ibm.com" <rolfb@us.ibm.com>, "pradeep.kumar36@tcs.com"
- <pradeep.kumar36@tcs.com>, "jwcarman@us.ibm.com" <jwcarman@us.ibm.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Paul.Vancil@dell.com"
- <Paul.Vancil@dell.com>, "Balaji.B.Rao@dell.com" <Balaji.B.Rao@dell.com>,
- Chris Ong <Chris.Ong@microsoft.com>, Yugi Mani <yupalani@microsoft.com>
-Subject: RE: Redfish on OpenBMC
-Thread-Topic: Redfish on OpenBMC
-Thread-Index: AQHTmjMB38s9HgMHYkiJ89jwQXHXiaOOMZ8AgAGcyACAByyQgIAAsD0AgAAIhSA=
-Date: Tue, 6 Feb 2018 17:58:59 +0000
-Message-ID: <BL0PR2101MB09155F805F1CFC5442B81ED7ADFD0@BL0PR2101MB0915.namprd21.prod.outlook.com>
-References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
- <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
- <7E9441B1E5EFFD4681F54958E82169932F662BE8@ORSMSX114.amr.corp.intel.com>
- <20180206065015.GA22866@wn7x64-4cggry1.aus.amer.dell.com>
- <7E9441B1E5EFFD4681F54958E82169932F663B27@ORSMSX114.amr.corp.intel.com>
-In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F663B27@ORSMSX114.amr.corp.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=True;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Owner=alirhas@microsoft.com;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2018-02-06T17:58:57.2846865Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=General;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Application=Microsoft Azure
- Information Protection;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Extended_MSFT_Method=Automatic;
- Sensitivity=General
-x-originating-ip: [131.107.174.245]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; BL0PR2101MB1107;
- 7:0eRFFKUE9WJiVsOyZJDMiTnrdUq/K3LqMs5CDaXEpd6gxK8mzV18y2ndLFmpmGnP0wrp5LkS3CjlHmsp7NvSZzmbqLyvOTGjKbNk6VJs/NTkER1EpMKXa8hXoY7DvHyKcW5qdHZKREQNjgj5R3ZTFB4iKMsFIyWryXFixR1VHuAHsFFs3Xn7Qc/INK0MPAB38TicTsQc478A0suuL57Sf6h832OCKdsp4s/OZWzN8VIFZlbJN7BH9cvEmoJpiPjE
-x-ms-exchange-antispam-srfa-diagnostics: SSOS;SSOR;
-x-o365eop-header: O365_EOP: Allow for Unauthenticated Relay
-x-o365ent-eop-header: Message processed by -  O365_ENT: Allow from ranges
- (Engineering ONLY)
-x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
- SFS:(10019020)(396003)(376002)(366004)(346002)(39860400002)(39380400002)(189003)(199004)(13464003)(97736004)(106356001)(110136005)(86362001)(5250100002)(66066001)(3280700002)(229853002)(3660700001)(186003)(102836004)(107886003)(8656006)(26005)(10290500003)(59450400001)(6346003)(10090500001)(2900100001)(4326008)(6506007)(53546011)(54906003)(966005)(76176011)(2906002)(575784001)(305945005)(9686003)(53936002)(93886005)(33656002)(8676002)(81166006)(6436002)(316002)(3846002)(99286004)(68736007)(25786009)(55016002)(478600001)(6306002)(561944003)(74316002)(6246003)(81156014)(7736002)(22452003)(8666007)(86612001)(7696005)(7116003)(14454004)(2950100002)(105586002)(8990500004)(3480700004)(5660300001)(551934003)(8936002)(6116002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BL0PR2101MB1107;
- H:BL0PR2101MB0915.namprd21.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- MX:1; A:1; LANG:en; 
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: cf98ca1d-bad7-476f-5ab9-08d56d8b4c94
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(7020095)(4652020)(48565401081)(5600026)(4604075)(3008032)(4534165)(4627221)(201703031133081)(201702281549075)(2017052603307)(7193020);
- SRVR:BL0PR2101MB1107; 
-x-ms-traffictypediagnostic: BL0PR2101MB1107:
-x-microsoft-antispam-prvs: <BL0PR2101MB11070A1715799AEA695C86C3ADFD0@BL0PR2101MB1107.namprd21.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(28532068793085)(158342451672863)(89211679590171)(189930954265078)(131327999870524)(65623756079841)(150554046322364)(114017886912203)(274839183919467)(219752817060721);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(61425038)(6040501)(2401047)(8121501046)(5005006)(93006095)(93001095)(3231101)(2400082)(944501161)(3002001)(10201501046)(6055026)(61426038)(61427038)(6041288)(20161123560045)(20161123564045)(20161123558120)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(6072148)(201708071742011);
- SRVR:BL0PR2101MB1107; BCL:0; PCL:0; RULEID:; SRVR:BL0PR2101MB1107; 
-x-forefront-prvs: 0575F81B58
-received-spf: None (protection.outlook.com: microsoft.com does not designate
- permitted sender hosts)
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=alirhas@microsoft.com; 
-x-microsoft-antispam-message-info: UgtEP91NIyGE8eVYJOGmd0o+yH/OnO5CyaqdKLn3V1bzCRL+Cna5G0WK0CUjCp7CKF92kwPJDJm/io14EAQclw==
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf98ca1d-bad7-476f-5ab9-08d56d8b4c94
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2018 17:58:59.3954 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR2101MB1107
-X-Mailman-Approved-At: Wed, 07 Feb 2018 13:04:33 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zblCN308dzF10V
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Feb 2018 13:10:07 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id BA2CEE26AF;
+ Tue,  6 Feb 2018 21:10:03 -0500 (EST)
+Content-Type: text/plain; charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: OpenBMC 2/5 community telecon - Call for Topics
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAG5OiwiOCps=fY1FcSmLq1nmBybmorw7aN4OzFotz2GE7Ju-oA@mail.gmail.com>
+Date: Tue, 6 Feb 2018 21:10:03 -0500
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <89B55499-C5DC-4D8E-8B02-31EB5934F21F@fuzziesquirrel.com>
+References: <85041309-7126-4E08-9767-868CCEFEE5DF@fuzziesquirrel.com>
+ <CAG5OiwiOCps=fY1FcSmLq1nmBybmorw7aN4OzFotz2GE7Ju-oA@mail.gmail.com>
+To: Kurt Taylor <kurt.r.taylor@gmail.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -110,123 +37,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Feb 2018 17:59:12 -0000
+X-List-Received-Date: Wed, 07 Feb 2018 02:10:08 -0000
 
-K01pY3Jvc29mdCB0ZWFtDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBUYW5v
-dXMsIEVkIDxlZC50YW5vdXNAaW50ZWwuY29tPiANClNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDYs
-IDIwMTggOToyOCBBTQ0KVG86IE1pY2hhZWwgRSBCcm93biA8TWljaGFlbC5FLkJyb3duQGRlbGwu
-Y29tPg0KQ2M6IGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbTsgcm9sZmJAdXMuaWJtLmNvbTsg
-cHJhZGVlcC5rdW1hcjM2QHRjcy5jb207IGp3Y2FybWFuQHVzLmlibS5jb207IG9wZW5ibWNAbGlz
-dHMub3psYWJzLm9yZzsgUGF1bC5WYW5jaWxAZGVsbC5jb207IEFsaSBMYXJpamFuaSA8YWxpcmhh
-c0BtaWNyb3NvZnQuY29tPjsgQmFsYWppLkIuUmFvQGRlbGwuY29tDQpTdWJqZWN0OiBSRTogUmVk
-ZmlzaCBvbiBPcGVuQk1DDQoNCj4gDQo+IEknbSBjdXJpb3VzOiAibm90IG9wZW4gc291cmNlIHll
-dCI/IFNvLCB5b3UgaGF2ZSB0d28gZm9ya3Mgb2YgdGhpcyBjb2RlYmFzZT8NCj4gSXQgc291bmRz
-IGxpa2UgeW91IGhhdmUgYW4gaW50ZXJuYWwgSW50ZWwgb25lIGFuZCB0aGlzIG9uZSB0aGF0IHlv
-dSANCj4gYXJlIG1pZ3JhdGluZyBjb2RlIGJldHdlZW4uIEhvdyBkb2VzIHRoYXQgcHJvY2VzcyB3
-b3JrPw0KPiANClRoZXJlIGFyZSB0d28gYW5zd2VycyB0byB0aGF0LiAgSSBoYXZlIGEgc2hvcnQt
-bGl2ZWQgZm9yayB0aGF0IGlzbid0IHB1YmxpYy4gIEVzc2VudGlhbGx5IGFsbCBJbnRlbCBwYXRj
-aGVzIHRoYXQgeW91IHNlZSB3ZXJlIHJldmlld2VkIG9uIG91ciBpbnRlcm5hbCBmb3JrIGJlZm9y
-ZSB0aGV5IHdlcmUgcHVzaGVkIGV4dGVybmFsLiAgV2UgdHJ5IHRvIGtlZXAgdGhlIGxhZyB0aW1l
-IGFzIHNob3J0IGFzIHdlIGNhbiAodGhlIGdvYWwgaXMgPCAxIHdlZWsgb2YgbGFnKSBiZXR3ZWVu
-IG91ciBtYXN0ZXIgYW5kIHB1YmxpYyBtYXN0ZXIgZm9yIHRoaW5ncyB0aGF0IGFyZSBjb25zaWRl
-cmVkICJkb25lIi4gIEl0IG1pZ2h0IGJlIGxvbmdlciBmb3Igc2hvcnQgdGVybSBoYWNrcyBzcGVj
-aWZpYyB0byBvdXIgcGxhdGZvcm1zLg0KU3BlY2lmaWNhbGx5IGZvciB0aGUgbW9yZSBnZW5lcmlj
-IHJlZGZpc2gsIHdlIHN0YXJ0ZWQgd2l0aCBhbiBhdHRlbXB0IHRvIG1ha2UgaXQgYSBnZW5lcmFs
-IHB1cnBvc2UgcmVkZmlzaCBzZXJ2ZXIsIGJ1dCBoaXQgc29tZSBzbmFncyBiZXR3ZWVuIHRoZSBp
-ZGVhbCBnZW5lcmljIHNvbHV0aW9uLCBhbmQgZ2V0dGluZyBzb21ldGhpbmcgdGhhdCB3b3JrZWQg
-Zm9yIG9wZW5ibWMuICBPdXIgcHJpb3JpdHkgc2hpZnRlZCBhIGJpdCB0byBhIG1vcmUgcmVxdWly
-ZW1lbnRzIGRyaXZlbiBhcHByb2FjaCwgc28gdGhlICJtYWtlIGl0IGEgZ2VuZXJhbCBzb2x1dGlv
-biIgd29yayB3YXMgcHVzaGVkIG91dCwgYW5kIHRoZSBwYXRjaHNldHMgYWJhbmRvbmVkIChmb3Ig
-bm93KS4gIFdlIGxlYXJuZWQgYSBsb3QgZnJvbSB0aGUgc2NoZW1hcyB3ZSd2ZSBpbXBsZW1lbnRl
-ZCBzbyBmYXIsIGFuZCBJIHN1c3BlY3Qgb3VyIG5leHQgcnVuIGF0IGEgcGx1Z2luIHN5c3RlbSB3
-aWxsIGdvIG11Y2ggYmV0dGVyIHRoYW4gdGhlIGZpcnN0IGRpZC4NCg0KPiANCj4gSSdsbCBoYXZl
-IHRvIHRha2UgYSBsb29rIGF0IHRoZSBzb3VyY2UsIGJlY2F1c2UgSSB0aGluayB5b3UgDQo+IGlu
-dGVycHJldGVkIHRoZSBxdWVzdGlvbiBkaWZmZXJlbnRseSB0aGFuIEkgaW50ZW5kZWQuDQo+IA0K
-SSBzdXNwZWN0IHRoZSByZWFsIGFuc3dlciBkZXBlbmRzIG9uIHdoYXQgeW91IHdhbnQgdG8gY2hh
-bmdlLiAgV2Ugc2hvdWxkIHByb2JhYmx5IGNvbWUgdXAgd2l0aCBhIHNldCBvZiB1c2UgY2FzZXMg
-Zm9yIE9FTSBleHRlbnNpb25zLCBhbmQgc2VlIHdoYXQgd2UgY2FuIGltcGxlbWVudC4NCg0KPiAN
-Cj4gSSBjYW4gYWdyZWUgb24gYmFzZWxpbmluZyB0aGUgYmVuY2htYXJraW5nIHNvIHdlIGNvbXBh
-cmUgYXBwbGVzIHRvIGFwcGxlcy4NCj4gSSBoYXZlIGFjY2VzcyB0byBvbmx5IE51dm90b24gc3lz
-dGVtLCB0aG91Z2gsIHNvIEknZCBoYXZlIHRvIHdvcmsgb24gDQo+IGdldHRpbmcgbXkgc3R1ZmYg
-dGVzdGVkIG9uIEFTVC4NCj4gDQpIYXBweSB0byBwcm92aWRlIGRhdGEgd2hlcmUgSSBjYW4uICBJ
-IGRpZCBnZXQgeW91ciBnb2xhbmcgaW1wbGVtZW50YXRpb24gcnVubmluZyBvbiBteSBBU1QgcGxh
-dGZvcm0sIGFuZCBpdCB3YXMgcXVpdGUgcGVyZm9ybWFudCwganVzdCB0b28gYmlnIHRvIGJlIGlu
-Y2x1ZGVkIGluIHRoZSBtYWluIGltYWdlLg0KDQo+IA0KPiBTb3VuZHMgZ29vZC4gSSBzaG91bGQg
-aGF2ZSBhZGRlZCBpbiB0aGVyZSBPQXV0aCAyLjAgc3VwcG9ydCwgaWYgd2UgZG8gDQo+IE9wZW5J
-RCBDb25uZWN0IHN1cHBvcnQgYXQgc29tZSBwb2ludCwgaXQgd291bGQgYmUgbmljZSB0byBoYXZl
-IE9BdXRoIA0KPiBzdXBwb3J0IHRvIGJ1aWxkIG9uLg0KPiANCk15IGtub3dsZWRnZSBvZiBPQXV0
-aCBzdXBwb3J0IGlzIGF0IDEwLDAwMGZ0IHZpZXcsIHNvIEkgY2FuJ3QgcmVhbGx5IGV2YWx1YXRl
-IGlmIGl0IGZpdHMgaW50byB0aGUgYXV0aCBtb2RlbCBvciBub3QuICBJIHN1c3BlY3QgaXQgY2Fu
-IGJlIG1hZGUgdG8gd29yay4NCg0KPiA+DQo+ID4gPiAJLSBEb2VzIGl0IGltcGxlbWVudCB0aGUg
-cmVkZmlzaCBzdGFuZGFyZCBwcml2aWxlZ2UgbWFwIG1vZGVsPw0KPiA+IFBhdGNoZXMgdG8gZG8g
-dGhpcyBhcmUgaW4gKG5vdCBvcGVuIHNvdXJjZSkgcmV2aWV3LiAgV2Ugc2hvdWxkIGhhdmUgDQo+
-ID4gYQ0KPiBkaXNjdXNzaW9uIGFib3V0IGhvdyBwcml2aWxlZ2UgbWFwcyBzaG91bGQgYmUgYmFj
-a2VkLg0KPiANCj4gU2FtZSB3aXRoIGFsbCBvZiB0aGUgcHJpdmlsZWdlIG1vZGVsIHF1ZXN0aW9u
-cy4NCj4gDQpUaGUgZmlyc3Qgcm91bmQgb2YgcGF0Y2hzZXRzIGludGVybmFsbHkgZGlkbid0IHBh
-c3MgY29kZSByZXZpZXcsIHdpdGggdGhhdCBzYWlkLCBJIHdpbGwgZ2V0IHRoZSBwYXRjaHNldCBy
-ZWJhc2VkIGFuZCBwdXNoZWQgZXh0ZXJuYWxseSBzbyBvdGhlcnMgY2FuIGxvb2sgYW5kIHByb3Zp
-ZGUgaW5wdXQuDQoNCj4gDQo+IE1lYW5pbmcsIGZvciBleGFtcGxlLCBhIHVzZXIgd2l0aCBSZWFk
-T25seSBzdGFydHMgYW4gU1NFIHNlc3Npb24sIHRoYXQgDQo+IHVzZXIgc2hvdWxkIG9ubHkgZ2V0
-IHByb3BlcnR5Y2hhbmdlZCBmb3IgcmVkZmlzaCBlbGVtZW50cyB0aGF0IGFyZSANCj4gYWNjZXNz
-aWJsZSBmb3IgUmVhZE9ubHkuDQo+IA0KVGhpcyBzaG91bGQgYmUgcHJldHR5IGVhc3kgdG8gYWRh
-cHQgaW50byBqdXN0IGFib3V0IGFueSBwcml2aWxlZ2UgbW9kZWwsIGFzc3VtaW5nIHRoZSBwcm9w
-b3NhbCBlaXRoZXIgcmV1c2VzIG9uZSBvZiB0aGUgSFRUUCB2ZXJicyAocHJvYmFibHkgR0VUKSBm
-b3IgZGV0ZXJtaW5pbmcgdGhlIGF1dGhvcml6YXRpb24gbGV2ZWwgcmVxdWlyZWQgZm9yIFNTRSwg
-b3IgZGVmaW5lcyBhIG5ldyBvbmUgaW4gdGhlIHByaXZpbGVnZXMganNvbi4NCg0KPiA+ID4gICAg
-LSBEZXZlbG9wbWVudDogY2FuIGl0IHJ1biBvdXRzaWRlIG9mIG9wZW5ibWM/DQo+ID4gWWVzLCBh
-bHRob3VnaCB3ZSdyZSBjb25zaWRlcmluZyBkcm9wcGluZyB0aGlzLCBhcyBpdCBpcyBjYXVzaW5n
-IHNvbWUNCj4gaGVhZGFjaGVzIHdpdGggZGVwZW5kZW5jeSBtYW5hZ2VtZW50IGFuZCB2ZXJzaW9u
-aW5nLg0KPiANCj4gV2hhdCBraW5kIG9mIGhlYWRhY2hlcz8NCg0KRGVwZW5kZW5jeSBtYW5hZ2Vt
-ZW50LiAgUmlnaHQgbm93IHdlIGJ1aWxkIGluIDIgbW9kZXMsIG9uZSB3aGVyZSBkZXBlbmRlbmNp
-ZXMgYXJlIHB1bGxlZCBpbiB0aHJvdWdoIHN1Ym1vZHVsZXMsIGFuZCBvbmUgd2hlcmUgZGVwZW5k
-ZW5jaWVzIGFyZSBwdWxsZWQgaW4gdXNpbmcgeW9jdG8uICBXZSd2ZSBoYWQgYnVpbGQgYnJlYWth
-Z2VzIGJlY2F1c2Ugb25lIGdvdCBvdXQgb2Ygc3luYyBpbiB2ZXJzaW9uaW5nLiAgV2UndmUgYWxz
-byBoYWQgbWlub3IgZGlmZmVyZW5jZXMgaW4gZ2NjIHZlcnNpb25zIGNhdXNlIHByb2JsZW1zLiAg
-VW5pdCB0ZXN0cyB0aHJvdyBhbiBhZGRpdGlvbmFsbHkgd3JlbmNoIGluIHRoaW5ncywgYW5kIHJp
-Z2h0IG5vdyBhcmUgbm90IGludGVncmF0ZWQgd2l0aCB5b2N0byBidWlsZHMuICBUaGVyZSBpcyBh
-bHNvIGEgZGVzaXJlIHRvIHVzZSBjKysxNyBmZWF0dXJlcyBhdCBzb21lIHBvaW50LCB3aGljaCB3
-b3VsZCBtYWtlIGl0IGltcG9zc2libGUgdG8gYnVpbGQgb24gbW9zdCBwZW9wbGUncyBkaXN0cmli
-dXRpb25zIHdpdGhvdXQgc29tZSB0b29sY2hhaW4gZ3ltbmFzdGljcy4NCg0KPiANCj4gRG9lcyBp
-dCBkbyBvbmx5IGEgc2VsZi1zaWduZWQgc2VydmVyIGNlcnQ/IE9yIGRvZXMgaXQgY3JlYXRlIGEg
-Q0EgYW5kIA0KPiB0aGVuIHNpZ24gYSBzZXJ2ZXIgY2VydCB3aXRoIHRoZSBDQT8NCj4gDQpSaWdo
-dCBub3cgaXQgZ2VuZXJhdGVzIGEgcHJpdmF0ZSBrZXkgYW5kIGEgY2VydCwgYW5kIHNpZ25zIHdp
-dGggdGhlIHByaXZhdGUga2V5LiAgSXQgd291bGQgb25seSBiZSBhIGNvdXBsZSBleHRyYSBzdGVw
-cyB0byBidWlsZCBhIENBIGZpcnN0LCBidXQgb3VyIGN1cnJlbnQgcHJvZHVjdHMgZG9uJ3QgbWFr
-ZSB1c2Ugb2YgdGhlIENBIHRvZGF5LiAgRG8geW91IGhhdmUgYSB1c2UgY2FzZSB0aGF0IG5lZWRz
-IGl0Pw0KDQo+IERvZXMgaXQgcGFzcyBjZXJ0aWZpY2F0ZSBjaGVja3Mgb24gY3VybC9MaW51eCwg
-Y3VybC9tYWNvcywgYW5kIGNocm9tZT8gDQo+IEkgaGFkIHRvIGRvIGEgYml0IG9mIHdvcmsgdG8g
-ZW5zdXJlIHRoYXQgZXZlcnl0aGluZyB3YXMgY29tcGF0aWJsZSANCj4gYWNyb3NzIGFsbCBvZiB0
-aGUgY29tYmluYXRpb25zIG9mIGNsaWVudHMuIERvZXMgaXQgcG9wdWxhdGUgY29tbW9uTmFtZSAN
-Cj4gYW5kIFNBTiBmb3IgYWxsIGxvY2FsIElQcz8NCg0KUmlnaHQgbm93IGl0J3Mgc2VsZi1zaWdu
-ZWQsIHNvIGl0IGRvZXNuJ3QgcGFzcyBhbnkgY2VydCBjaGVja3MgKGlmIEkgdW5kZXJzdGFuZCB3
-aGF0IHlvdSdyZSBhc2tpbmcpLiAgSSd2ZSB1c2VkIGN1cmwvTGludXggYW5kIGNocm9tZSwgYW5k
-IHRoZXkgYm90aCBmdW5jdGlvbiB3aXRoIGNlcnRpZmljYXRlcyB2ZXJpZmljYXRpb24gZGlzYWJs
-ZWQsIG9yIGlmIHRoZSBwdWJsaWMga2V5IGlzIGluc3RhbGxlZC4gIFJpZ2h0IG5vdyBjb21tb25O
-YW1lIGlzIHB1bGxlZCBmcm9tIGhvc3RuYW1lLCB3aGljaCBpcyBub3QgaWRlYWwgYW5kIHByb2Jh
-Ymx5IHNob3VsZCBiZSByZXZpc2l0ZWQuDQpJIG5ldmVyIHRob3VnaHQgYWJvdXQgcG9wdWxhdGlu
-ZyBjb21tb24gbmFtZSB3aXRoIElQIGFkZHJlc3MsIGJlY2F1c2UgaW4gZ2VuZXJhbCB0aGUgY2Vy
-dGlmaWNhdGUgaXMgYnVpbHQgb24gZmlyc3QgYm9vdCBiZWZvcmUgSVAgYWRkcmVzc2VzIGFyZSBz
-ZXQgb3IgaW50ZXJmYWNlcyBhcmUgZW5hYmxlZCwgYW5kIHdlIGRpZG4ndCB3YW50IGV2ZXJ5IGlw
-IGNoYW5nZSB0byB0cmlnZ2VyIGEgY2VydGlmaWNhdGUgcmVnZW5lcmF0aW9uLiBXaXRoIHRoYXQg
-c2FpZC4uLi4gaWYgaXQgaGFkIGEgQ0EsIG1heWJlIGl0IGNvdWxkIHJlZ2VuZXJhdGUgd2l0aG91
-dCB0b28gbXVjaCB0cm91YmxlPyAgSSBzaG91bGQgaW52ZXN0aWdhdGUgbW9yZSwgYnV0IGluIGdl
-bmVyYWwsIHRoZSBzZWxmLXNpZ25lZCBjZXJ0IGlzIG5vdCByZWNvbW1lbmRlZCwgYW5kIGlzIHJl
-YWxseSBvbmx5IHRoZXJlIGZvciBtYWtpbmcgdGhlIHdlYiBhY2Nlc3NpYmxlIGluIGRldmVsb3Bt
-ZW50IGFuZCB0byB1cGxvYWQgYSBmdWxseSBxdWFsaWZpZWQgU1NMIGNlcnQgZHVyaW5nIHByb3Zp
-c2lvbmluZy4NCg0KPiBTdXBlciBpbXBvcnRhbnQuIERvZXMgaXQgYWxzbyBwYXJhbGxlbGl6ZSBh
-bGwgb2YgdGhlIGJhY2tlbmQgY2FsbHM/DQpEZXBlbmRzIG9uIHdoYXQgeW91IG1lYW4gYnkgcGFy
-YWxsZWw7ICBJbiB0aGUgY3VycmVudCBkZXNpZ24sIHRoZXJlIGlzIGEgc2luZ2xlIHRocmVhZCBh
-bmQgYW4gYXN5bmMgZGlzcGF0Y2hlciAoYmFzZWQgb24gYm9vc3QgaW9fc2VydmljZSkuICBNdWx0
-aXBsZSBhc3luYyBvcGVyYXRpb25zIGNhbiBiZSBzdGFydGVkIGF0IGEgdGltZSBhbmQgZmluaXNo
-IGFzIHRoZSByZXN1bHRzIGFyZSBhdmFpbGFibGUsIGJ1dCB0aGUgY29kZSBnZXRzIHJlYWxseSBt
-ZXNzeSB0byB3cml0ZS4gIFRoZSBiZXN0IGV4YW1wbGUgdG8gbG9vayBhdCBpcyB0aGUgZGJ1cyBy
-ZXN0IGltcGxlbWVudGF0aW9uIGJlbG93LiAgRXNzZW50aWFsbHkgYW4gYXN5bmMgdHJhbnNhY3Rp
-b24gbmVlZHMgdG8gdHJhY2sgYXN5bmMgdHJhbnNhY3Rpb24gY291bnRzLCBhbmQgd2hlbiB0aGUg
-ZmluYWwgdHJhbnNhY3Rpb24gaXMgY29tcGxldGVkIChpZSB0aGUgY291bnQgaXMgemVybyksIGZp
-bmlzaCB0aGUgSFRUUCByZXF1ZXN0Lg0KDQpodHRwczovL25hMDEuc2FmZWxpbmtzLnByb3RlY3Rp
-b24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmdpdGh1Yi5jb20lMkZvcGVuYm1jJTJG
-Ym1jd2ViJTJGYmxvYiUyRm1hc3RlciUyRmluY2x1ZGUlMkZvcGVuYm1jX2RidXNfcmVzdC5ocHAm
-ZGF0YT0wMiU3QzAxJTdDYWxpcmhhcyU0MG1pY3Jvc29mdC5jb20lN0NlNWE2YzVmYTY3YWE0ZDc0
-ZjgzOTA4ZDU2ZDg2ZjJmOCU3Q2VlMzMwM2Q3ZmI3MzRiMGM4NTg5YmNkODQ3ZjFjMjc3JTdDMSU3
-QzAlN0M2MzY1MzUzNDg3NDI2NTYwNDMmc2RhdGE9YWRUak11JTJGNzUlMkJNY2dZR2hWakpiVnpN
-aDFyOFY3MklNVEp1YjQ2NFFBVnMlM0QmcmVzZXJ2ZWQ9MA0K
+
+> On Feb 6, 2018, at 11:51 AM, Kurt Taylor <kurt.r.taylor@gmail.com> =
+wrote:
+>=20
+> At the end of the call yesterday, someone mentioned creating a wiki. =
+Where will that live? I've been looking at the same.
+
+https://github.com/openbmc/openbmc/wiki
