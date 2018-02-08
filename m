@@ -1,58 +1,58 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c01::243; helo=mail-pl0-x243.google.com;
+ (client-ip=2607:f8b0:400e:c01::242; helo=mail-pl0-x242.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WH1GQCPJ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="uz1Kdp0Z"; 
  dkim-atps=neutral
-Received: from mail-pl0-x243.google.com (mail-pl0-x243.google.com
- [IPv6:2607:f8b0:400e:c01::243])
+Received: from mail-pl0-x242.google.com (mail-pl0-x242.google.com
+ [IPv6:2607:f8b0:400e:c01::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcRmp6NSzzF17c
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 16:38:02 +1100 (AEDT)
-Received: by mail-pl0-x243.google.com with SMTP id 13-v6so1537487plb.5
- for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2018 21:38:02 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcRmx2XQ1zF17Y
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 16:38:09 +1100 (AEDT)
+Received: by mail-pl0-x242.google.com with SMTP id f8-v6so1530934plk.11
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2018 21:38:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Mg631pgN8w6ZU1/VUhMJsXM7cmzP86Ihc69UpeAeoTg=;
- b=WH1GQCPJ9iWMeWpdZjc1Wf7hkhCe5mQsCU/qJ3sdbZnvFS9YwEhr15alD6oAWTBTx0
- TGgSJxhjWrhfoAlO5luVcUnD/NVzgXuY/VNXZAKYkAB58/c97SFX5zc384sVWLBRWUC3
- T8/d705ipPWN8e8gxT5S6YWZOEDNVvUvuqWubX0E0PwQ8BOZ83Fztxaj5wUXLfpO2iE+
- oQL6ISrJJd07jPkuaZ2y/fKOhE80npte5k0wLCyennHMOvWvbaf3HBDl4i2SDAVhDnMd
- 2YvP+MYBSVLqB9jgFos+Wnhz1lC3vDhTvPvgaBaOfhTlHE1OuJwQQHzT/3LAX+EIRlaq
- rzrA==
+ bh=wbzyafGsH0Zt2dadXuSoP1bis2zIdmUwqKrzF296bG4=;
+ b=uz1Kdp0ZiA4ZAOAtNFLQfPlXejLPHLekOj7pbE9O7jCiIgQRIOKwXnzDQMPMXRiEBW
+ iEPWPygMgHjf6Z2NwiNvy6Mwb/uA6YMZ9CINu7m+crPKbjxGv5x20kx/Jpd5/S5rR1Dm
+ 4uu09+n8gebORIdFZGlIID7JQv8VPD6qZVMg/mx5RUy8goQveX1eTS/gpbC7ew0BKYgI
+ ZKExBH81pCg4AALPEv3mw0fmuvZE9U4Jl6wyU+nEQx7KGbbfzPW3aifYZybfcVQswE5J
+ asJ0hD90PEDsLP7gVSDKCARBsH+eZfRzeGrWoumHYLZSqGl1vW1wYMzl43NsH6FbjDaj
+ ZK5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references;
- bh=Mg631pgN8w6ZU1/VUhMJsXM7cmzP86Ihc69UpeAeoTg=;
- b=ACd5mQr0zBj4mYzNIvrds0v3+6JFJ4zMupE55R37tKLxm74YJOZHtGcKm+bhcO0bLO
- QMEQ5qDulol7I2PX39uxZy/SsWpHrEb3o1Ve02ySx6qbaiFgFY88LISMyiZue5X4+xk+
- hz0hKmKyRAntq6vMFlb1TIQDErCtC8tmWpBGBe5bgWeqHDMXXGle+JOreoQxwxKEq022
- Uo8ccO3zNOF18Z0JSuzjkPY64VgO1kFXpMM+jFXvbGJdALwdAMzXeJ5QouHeXF5178Jb
- ZrL9LIEjOEBs3jUjadN678nw81z8vjZYjYaAxdKUZ8PPcCtVBp+s7MvtBVXnbQhr2IPr
- y3xQ==
-X-Gm-Message-State: APf1xPCmldgoO8EYJwnEUyTrju+Ty+a5MQ5eY61h96EMn87j9aiJv9jm
- /DcKt8b57ZDkqqpNGxAmFmrwrIfN
-X-Google-Smtp-Source: AH8x224gIrBNLX192KpIANc3HvLwmIX/11T/PQHD6UdVQ5J581C52Pe4D3u3t2RuuNH5yIb5tX0q6Q==
-X-Received: by 2002:a17:902:b60b:: with SMTP id
- b11-v6mr8413805pls.210.1518068280121; 
- Wed, 07 Feb 2018 21:38:00 -0800 (PST)
+ bh=wbzyafGsH0Zt2dadXuSoP1bis2zIdmUwqKrzF296bG4=;
+ b=eHjFsZcaUq9+zMRlbHDAD/C2SaIg6ix9ihTTHwAoRcsI7qWx7/+z8QmXahOlyGnSji
+ eucz8qK8R/3YnKsVIQt9rs1vUSSzGntwM8Ct4B48cpei+IcJfCpijNKsKe0ETIerdBxn
+ vihmrZeuAZG0WboOZoZE3kIhiQSdpUGgmqo+gmjeLrBoqpWWX/QmyCy2s4DB7rWXCW29
+ 4HJZNxkkkDWvwPDIzvChqun8K6NCNpKZ59qzFbbw+1A2x7EUQ/GYbkTCgENVaJpp04XB
+ B7iYsOiplPEEYw/8O9H+tf1JM+HuHiRnnViPONiDJPkoK55imkbrctemJ68qdRYW6SyH
+ TKVA==
+X-Gm-Message-State: APf1xPBe+bQLAMYlE7ldMkQ0ZhyKPj67qGMKW3e2HHnTZcPs567JaNNP
+ 32nnI1jPVeCfoSSAZyMrepxRRc0u
+X-Google-Smtp-Source: AH8x227ZceSx62eiO72n1f8VjvsJkqsOZ7Geh5/w7FxcjWL6DbZV/0NIOXqSh35QTQhEVbM+VmYq1g==
+X-Received: by 2002:a17:902:64d6:: with SMTP id
+ y22-v6mr8483804pli.444.1518068286883; 
+ Wed, 07 Feb 2018 21:38:06 -0800 (PST)
 Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id c185sm7573964pfb.146.2018.02.07.21.37.56
+ by smtp.gmail.com with ESMTPSA id c8sm7125764pfm.130.2018.02.07.21.38.03
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 07 Feb 2018 21:37:59 -0800 (PST)
+ Wed, 07 Feb 2018 21:38:06 -0800 (PST)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 08 Feb 2018 16:07:53 +1030
+ Thu, 08 Feb 2018 16:08:00 +1030
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Lei YU <mine260309@gmail.com>, Andrew Jeffery <andrew@aj.id.au>,
  Cyril Bur <cyrilbur@gmail.com>
-Subject: [PATCH linux dev-4.13 1/3] ARM: dts: aspeed: Add LPC clock phandles
-Date: Thu,  8 Feb 2018 16:07:43 +1030
-Message-Id: <20180208053745.31254-2-joel@jms.id.au>
+Subject: [PATCH linux dev-4.13 2/3] misc: aspeed-lpc: Enable clock
+Date: Thu,  8 Feb 2018 16:07:44 +1030
+Message-Id: <20180208053745.31254-3-joel@jms.id.au>
 X-Mailer: git-send-email 2.15.1
 In-Reply-To: <20180208053745.31254-1-joel@jms.id.au>
 References: <20180208053745.31254-1-joel@jms.id.au>
@@ -67,39 +67,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Feb 2018 05:38:03 -0000
+X-List-Received-Date: Thu, 08 Feb 2018 05:38:09 -0000
 
-The LPC device uses LCLK.
+The LPC device needs to ensure it's clock is enabled before it can do
+anything.
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- arch/arm/boot/dts/aspeed-g4.dtsi | 1 +
- arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/misc/aspeed-lpc-ctrl.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 1fb5b410917a..d697380f2f39 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -233,6 +233,7 @@
- 					lpc_ctrl: lpc-ctrl@0 {
- 						compatible = "aspeed,ast2400-lpc-ctrl";
- 						reg = <0x0 0x80>;
-+						clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
- 						status = "disabled";
- 					};
+diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
+index b5439643f54b..4a818ad3827e 100644
+--- a/drivers/misc/aspeed-lpc-ctrl.c
++++ b/drivers/misc/aspeed-lpc-ctrl.c
+@@ -7,6 +7,7 @@
+  * 2 of the License, or (at your option) any later version.
+  */
  
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 77d6d98d24a0..89ef960c4ef3 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -283,6 +283,7 @@
- 					lpc_ctrl: lpc-ctrl@0 {
- 						compatible = "aspeed,ast2500-lpc-ctrl";
- 						reg = <0x0 0x80>;
-+						clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
- 						status = "disabled";
- 					};
++#include <linux/clk.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/miscdevice.h>
+ #include <linux/mm.h>
+@@ -26,6 +27,7 @@
+ struct aspeed_lpc_ctrl {
+ 	struct miscdevice	miscdev;
+ 	struct regmap		*regmap;
++	struct clk		*clk;
+ 	phys_addr_t		mem_base;
+ 	resource_size_t		mem_size;
+ 	u32		pnor_size;
+@@ -180,6 +182,17 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
+ 	if (!lpc_ctrl)
+ 		return -ENOMEM;
  
++	lpc_ctrl->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(lpc_ctrl->clk)) {
++		dev_err(dev, "couldn't get clock\n");
++		return PTR_ERR(lpc_ctrl->clk);
++	}
++	rc = clk_prepare_enable(lpc_ctrl->clk);
++	if (rc) {
++		dev_err(dev, "couldn't enable clock\n");
++		return rc;
++	}
++
+ 	node = of_parse_phandle(dev->of_node, "flash", 0);
+ 	if (!node) {
+ 		dev_err(dev, "Didn't find host pnor flash node\n");
+@@ -239,6 +252,7 @@ static int aspeed_lpc_ctrl_remove(struct platform_device *pdev)
+ 	struct aspeed_lpc_ctrl *lpc_ctrl = dev_get_drvdata(&pdev->dev);
+ 
+ 	misc_deregister(&lpc_ctrl->miscdev);
++	clk_disable_unprepare(lpc_ctrl->clk);
+ 
+ 	return 0;
+ }
 -- 
 2.15.1
