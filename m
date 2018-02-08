@@ -1,61 +1,66 @@
-Return-Path: <pawel.rapkiewicz@intel.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=pawel.rapkiewicz@intel.com; receiver=<UNKNOWN>)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::234; helo=mail-ua0-x234.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="uzgpkjPn"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
+ [IPv6:2607:f8b0:400c:c08::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcgJT2tbfzF133
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 01:17:36 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2018 06:17:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,479,1511856000"; d="scan'208";a="172727862"
-Received: from irsmsx154.ger.corp.intel.com ([163.33.192.96])
- by orsmga004.jf.intel.com with ESMTP; 08 Feb 2018 06:17:25 -0800
-Received: from irsmsx102.ger.corp.intel.com ([169.254.2.95]) by
- IRSMSX154.ger.corp.intel.com ([169.254.12.108]) with mapi id 14.03.0319.002;
- Thu, 8 Feb 2018 14:17:02 +0000
-From: "Rapkiewicz, Pawel" <pawel.rapkiewicz@intel.com>
-To: Chris Ong <Chris.Ong@microsoft.com>, "Tanous, Ed" <ed.tanous@intel.com>,
- Yugi Mani <yupalani@microsoft.com>, Ali Larijani <alirhas@microsoft.com>,
- "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>, "hramasub@in.ibm.com"
- <hramasub@in.ibm.com>, "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>
-CC: "rolfb@us.ibm.com" <rolfb@us.ibm.com>, "jwcarman@us.ibm.com"
- <jwcarman@us.ibm.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
- "pradeep.kumar36@tcs.com" <pradeep.kumar36@tcs.com>,
- "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
- "Balaji.B.Rao@dell.com" <Balaji.B.Rao@dell.com>
-Subject: RE: Redfish on OpenBMC
-Thread-Topic: Redfish on OpenBMC
-Thread-Index: AQHTmjMa62CFOM3r5UK5pwQ7Re4q/6OOMZ8AgAESj4CAAJbigIAABbkAgAh2bQCAANA+AIAAAbsAgAFqI3A=
-Date: Thu, 8 Feb 2018 14:17:02 +0000
-Message-ID: <53D123781965AE42A2ABEE982B242E417C8E5B6E@IRSMSX102.ger.corp.intel.com>
-References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
- <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
- <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
- <c73bb370335c45dab208cb0e708a08f4@AUSX13MPS306.AMER.DELL.COM>
- <BL0PR2101MB09150499921D8E104CEB9618ADFA0@BL0PR2101MB0915.namprd21.prod.outlook.com>
- <MWHPR21MB0864D2D2F00B56C21A5917F4D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
- <7E9441B1E5EFFD4681F54958E82169932F663F86@ORSMSX114.amr.corp.intel.com>
- <BL0PR2101MB0897B2A1BB35747988A92BCDEAFC0@BL0PR2101MB0897.namprd21.prod.outlook.com>
-In-Reply-To: <BL0PR2101MB0897B2A1BB35747988A92BCDEAFC0@BL0PR2101MB0897.namprd21.prod.outlook.com>
-Accept-Language: pl-PL, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMjFjNzQzODMtZTNmZC00ODQ2LTg4NWUtMzljOGM2Y2MzYTllIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjIuNS4xOCIsIlRydXN0ZWRMYWJlbEhhc2giOiJKbFFuanRwNE5jWHh3MVJ1Z3BFUFJydDJFQ0dXQTlyRk5FeGtDMlwvQWVJeFNDa2xBK2xOenhkdlVGbnVmTndqSyJ9
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: request-justification,no-action
-x-originating-ip: [163.33.239.181]
-Content-Type: text/plain; charset="utf-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcmbv3RfXzF19r
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 05:16:26 +1100 (AEDT)
+Received: by mail-ua0-x234.google.com with SMTP id e25so3491643uan.5
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 10:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=YwyoHnSk0jkx7RqDdSwdrXWSVbAR4LxQUlJ3gv19kZA=;
+ b=uzgpkjPnVzflrO/q2UoY3GsjWFsQO2DAKjNp/NkDEZ/8JXtqx+Z8f7vVMTyUFhXl79
+ oRgYAf5TyAQxG+x2NL5IZL1sDSI5f3UbAnjssHv7iWegiN6I/iC+VoEKnSRx+nvUEZuc
+ ZXf9nN52zGU3LLM3BPV7YopplVvNy1Kd9xIanZc7LpIp0OmjFPXGPZSdIHLNjB1f1RAf
+ HJVtuf3/VyH0i2zdxKpg9v2nUmVloE7zrNp4CWefzLa+XtQohlXeba68ru/im3cTqS4c
+ Ud+MW7bU58ei8H6DibPOYFVDWx2WCUAMUyjIm3ztrRUP96vIQtY3nyLtO74PoD+W2u0s
+ /E3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=YwyoHnSk0jkx7RqDdSwdrXWSVbAR4LxQUlJ3gv19kZA=;
+ b=IBhxtMxte1hEjQ0Nop7XorFZE0w4DpfqqlQrKJ4h1aNAbRJ2LgR4a7N5cXBgpdTrpj
+ /2AlgcB4v/CdayNJDAftrpVm8okTd37mOzWDlOSZ1yH9M20iOq98cLt6fNiaPIGBy5gL
+ lBU2M1boIqnKCShX9FYgs87Pup6b+S24snVS2Gu9so6HcFerTUI6jhQ4T0Qko5vnrz3Q
+ 6TaxWuyqcoB6AHFAcwc1Wg2o0S1BhtlTdGUTl2lb+7LzVHoc5tiXd57gShwMJP+m/9ty
+ iB4txwT6bWrmXIG/YAllxvXJ8QH0jmq9S5L9nSIMVrlwhYow5S1HqLWYvd/DgyIivhyr
+ OQAQ==
+X-Gm-Message-State: APf1xPCjirKN7YBhuoYKk7X2MB4aCa5WgfcqWevFUMeWZy6hxSNQHMw4
+ QtPNRoUH8tC3i82hrmPY67egB6J6X7k9NXk+buxeIA==
+X-Google-Smtp-Source: AH8x2261E5f1gbHOw+NmHCFLhc/WIiUxcYOUpYbAUWlCm3mbb8EOanE93QFOxzd3Pt4uvPcXwwGXJrXMPHvdMZh+dHg=
+X-Received: by 10.159.60.8 with SMTP id u8mr85334uah.156.1518113783951; Thu,
+ 08 Feb 2018 10:16:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Received: by 10.31.167.207 with HTTP; Thu, 8 Feb 2018 10:16:03 -0800 (PST)
+In-Reply-To: <CACPK8XeSdhqMYhEug7FCYKwgn5wDe0spvDeyR==tCEGjAoaSsg@mail.gmail.com>
+References: <8E21FD04-4E06-4757-818F-E6CF7771265B@fuzziesquirrel.com>
+ <CACPK8XeSdhqMYhEug7FCYKwgn5wDe0spvDeyR==tCEGjAoaSsg@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Thu, 8 Feb 2018 10:16:03 -0800
+Message-ID: <CAO=notwHgKGhnJgCo39i5JBszcXkHrozxEZut41ATsk7iSN4jg@mail.gmail.com>
+Subject: Re: Mailing list posting guidelines
+To: Joel Stanley <joel@jms.id.au>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ "rolfb@us.ibm.com" <rolfb@us.ibm.com>, 
+ "Tanous, Ed" <ed.tanous@intel.com>, "jwcarman@us.ibm.com" <jwcarman@us.ibm.com>,
+ Yugi Mani <yupalani@microsoft.com>,
+ "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>, 
+ "pradeep.kumar36@tcs.com" <pradeep.kumar36@tcs.com>,
+ "alirhas@microsoft.com" <alirhas@microsoft.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Balaji.B.Rao@dell.com" <Balaji.B.Rao@dell.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -67,77 +72,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Feb 2018 14:17:46 -0000
+X-List-Received-Date: Thu, 08 Feb 2018 18:16:28 -0000
 
-SGkgQ2hyaXMsIFl1Z2ksDQoNClRoYW5rcyBmb3IgeW91ciBiZW5jaG1hcmtpbmcgeW91J3ZlIGF0
-dGFjaGVkLCBJJ2QgbGlrZSB0byBiZXR0ZXIgdW5kZXJzdGFuZCB0aGUgZGF0YS4gSSdtIGN1cmlv
-dXMgYWJvdXQgMTAgY29uY3VycmVudCByZXF1ZXN0cyBmb3IgcmVkZmlzaCByb290IHNlcnZpY2Uu
-IFRoZSBhdmVyYWdlIGlzIH41IHNlY29uZHMgZm9yIHV3c2dpLCBhbmQgbW9zdGx5IG5vIHJlc3Bv
-bnNlIGZvciBnZXZlbnQuDQpGZXcgcXVlc3Rpb25zOg0KLSBnZXZlbnQgYW5kIHV3c2dpLCB0aG9z
-ZSBhcmUgdHdvIGluZGVwZW5kZW50IHJlZGZpc2ggc2VydmVyIGltcGxlbWVudGF0aW9ucz8NCi0g
-ZG8geW91IGhhdmUgYW55IHRyYWZmaWMgZHVyaW5nIHJldHJpZXZpbmcgcm9vdCBzZXJ2aWNlPw0K
-LSBXYXMgaXQgd2l0aCBCYXNpYyBIVFRQIEF1dGgsIG9yIHdpdGhvdXQgYW55Pw0KDQpJJ20gYWxz
-byBsaXR0bGUgY29uZnVzZWQgb24gaG93IGRvIHdlIG1lYXN1cmUgYW5kIHByZXNlbnQgY29kZSBz
-aXplIGFuZCBwZXJmb3JtYW5jZSwgc2luY2UgaXQncyBub3Qgbm9ybWFsaXplZCBhbnlob3csIGl0
-J3MgYmlhc2VkIGJ5IHRoZSBtZWFzdXJlbWVudCBtZXRob2QuIElmIHRoZSBpbnRlbnQgb2YgZ2F0
-aGVyaW5nIHRob3NlIGRhdGEgaXMgdG8NCmNvbXBhcmUgZGlmZmVyZW50IFJlZGZpc2ggYXBwcm9h
-Y2hlcywgd2Ugc2hhbGwgY29uc2lkZXIgc2V0dGluZyB0aGUgbWVhc3VyZSBjcml0ZXJpYS4gU29t
-ZSBzdWdnZXN0aW9uczoNCg0KQ29kZSBzaXplOg0KLSByZWFsIGNvZGUgc2l6ZSwgbm90IG9uIGNv
-bXByZXNzZWQgZmlsZSBzeXN0ZW0NCi0gaXMgaXQgYmluYXJ5IG9yIHNjcmlwdD8NCi0gd2hhdCdz
-IHRoZSBzaXplIG9mIGRlcGVuZGVudCBsaWJyYXJpZXMgKGFscmVhZHkgZXhpc3RpbmcgaW4gT3Bl
-bkJNQyBlbnZpcm9ubWVudCB2cy4gdGhlIG5ldyBvbmUgcmVxdWlyZWQgb25seSBieSBnaXZlbiBS
-ZWRmaXNoIGltcGxlbWVudGF0aW9uKT8NCg0KUGVyZm9ybWFuY2U6DQotIFdlIG5lZWQgY29tbW9u
-IHNjcmlwdCBmb3IgbWVhc3VyZW1lbnQNCi0gQW5kIGNvbW1vbiBtZXRob2QsIEknZCBwcmVmZXIg
-cnVubmluZyBvbiBtYWNoaW5lIGRpcmVjdGx5IGNvbm5lY3RlZCB0byB0aGUgT3BlbkJNQyBwbGF0
-Zm9ybSB0byBtaW5pbWl6ZSBuZXR3b3JrIGxhdGVuY3ksIG9yIHRvIHJ1biBpdCBvdmVyIGxvb3Bi
-YWNrIGludGVyZmFjZSBvbiB0aGUgcGxhdGZvcm0sIGJ1dCB0aGlzIG1heSBhZmZlY3QgY29udGV4
-dCBzd2l0Y2hpbmcNCi0gVGhlIHBlcmZvcm1hbmNlIHdpbGwgc3RpbGwgYmUgYmlhc2VkIGJ5IHRo
-ZSBDUFUgdGhlIFJlZGZpc2ggaXMgcnVubmluZywgYnV0IGl0IHdpbGwgYmUgY2xvc2VyIHRvIG1h
-a2UgaXQgY29tcGFyYWJsZS4NCg0KUmVnYXJkcywNClBhd2VsDQoNCg0KLS0tLS1PcmlnaW5hbCBN
-ZXNzYWdlLS0tLS0NCkZyb206IG9wZW5ibWMgW21haWx0bzpvcGVuYm1jLWJvdW5jZXMrcGF3ZWwu
-cmFwa2lld2ljej1pbnRlbC5jb21AbGlzdHMub3psYWJzLm9yZ10gT24gQmVoYWxmIE9mIENocmlz
-IE9uZw0KU2VudDogV2VkbmVzZGF5LCBGZWJydWFyeSA3LCAyMDE4IDU6MTUgUE0NClRvOiBUYW5v
-dXMsIEVkIDxlZC50YW5vdXNAaW50ZWwuY29tPjsgWXVnaSBNYW5pIDx5dXBhbGFuaUBtaWNyb3Nv
-ZnQuY29tPjsgQWxpIExhcmlqYW5pIDxhbGlyaGFzQG1pY3Jvc29mdC5jb20+OyBQYXVsLlZhbmNp
-bEBkZWxsLmNvbTsgaHJhbWFzdWJAaW4uaWJtLmNvbTsgTWljaGFlbC5FLkJyb3duQGRlbGwuY29t
-DQpDYzogcm9sZmJAdXMuaWJtLmNvbTsgandjYXJtYW5AdXMuaWJtLmNvbTsgb3BlbmJtY0BsaXN0
-cy5vemxhYnMub3JnOyBwcmFkZWVwLmt1bWFyMzZAdGNzLmNvbTsgYnJhZGxleWJAZnV6emllc3F1
-aXJyZWwuY29tOyBCYWxhamkuQi5SYW9AZGVsbC5jb20NClN1YmplY3Q6IFJFOiBSZWRmaXNoIG9u
-IE9wZW5CTUMNCg0KSGkgRWQsDQoNCk9uIG91ciBBU1QyNTIwIHBsYXRmb3JtOg0KUmVhZGluZyBz
-ZW5zb3JzIHVzaW5nIFJlZGZpc2ggdGFrZXMgYWJvdXQgMTItMTMgc2Vjb25kcyBmb3IgYWJvdXQg
-MjAwIHNlbnNvcnMuIElmIDEwIHRocmVhZHMgYXJlIHJlcXVlc3RpbmcgdGhlIHJlYWQgYXQgdGhl
-IHNhbWUgdGltZSwgdGhlIGF2ZXJhZ2UgdGltZSB0byByZXR1cm4gaXMgYWJvdXQgNzAgc2Vjb25k
-cy4NCg0KRm9yIHJlYWRpbmcgbG9ncywgaXQgdGFrZXMgYWJvdXQgMTAwIHNlY29uZHMgZm9yIDQw
-MDAgbG9nIGVudHJpZXMuIFRoZSB0aW1lIHNjYWxlcyBsaW5lYXJseSB3aXRoIHRoZSBudW1iZXIg
-b2YgbG9ncywgZS5nLiBmb3IgMjAwMCBsb2dzLCBpdCB3b3VsZCB0YWtlIGFyb3VuZCA1MHMuDQoN
-CkNocmlzDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBUYW5vdXMsIEVkIDxl
-ZC50YW5vdXNAaW50ZWwuY29tPg0KU2VudDogV2VkbmVzZGF5LCBGZWJydWFyeSA3LCAyMDE4IDg6
-MDkgQU0NClRvOiBZdWdpIE1hbmkgPHl1cGFsYW5pQG1pY3Jvc29mdC5jb20+OyBBbGkgTGFyaWph
-bmkgPGFsaXJoYXNAbWljcm9zb2Z0LmNvbT47IFBhdWwuVmFuY2lsQGRlbGwuY29tOyBocmFtYXN1
-YkBpbi5pYm0uY29tOyBNaWNoYWVsLkUuQnJvd25AZGVsbC5jb20NCkNjOiBCYWxhamkuQi5SYW9A
-ZGVsbC5jb207IGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbTsgandjYXJtYW5AdXMuaWJtLmNv
-bTsgb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnOyBwcmFkZWVwLmt1bWFyMzZAdGNzLmNvbTsgcm9s
-ZmJAdXMuaWJtLmNvbTsgQ2hyaXMgT25nIDxDaHJpcy5PbmdAbWljcm9zb2Z0LmNvbT4NClN1Ympl
-Y3Q6IFJFOiBSZWRmaXNoIG9uIE9wZW5CTUMNCg0KPiA+IFBlcmZvcm1hbmNlDQo+ID4gSG93IGZh
-c3QgaXMgaXQ/DQo+IFN5bmNocm9ub3VzIEFQSSBmb3IgU2Vuc29ycyBhbmQgU0VMIHRha2VzIGxv
-bmdlciB0byByZXNwb25kLg0KPiBJdCB0YWtlcyBhYm91dCAxOSBzZWNvbmRzIGZvciAxMDAgc2Vu
-c29ycyBhbmQgbW9yZSB0aGFuIDYgbWludXRlcyBmb3INCj4gNDAwMCBldmVudHMuDQo+IDEwIGNv
-bmN1cnJlbnQgcmVxdWVzdHMgY2FuIG1ha2UgdGhlbSA0LTUgdGltZXMgc2xvd2VyIHRoYW4gdXN1
-YWwuDQo+IEFzeW5jaHJvbm91cyBBUEkgZm9yIEJNQyBhbmQgY29tcG9uZW50IGZpcm13YXJlIHVw
-ZGF0ZSB0YWtlcyA1LTEwIA0KPiBtaW51dGVzIGFzIGV4cGVjdGVkLg0KPiBUaGVzZSByZXN1bHRz
-IGFyZSBvbiBBU1QyNDAwLg0KDQpEbyB5b3UgaGF2ZSB0aGUgc2FtZSBkYXRhIGZvciB5b3VyIDI1
-MDAgcGxhdGZvcm1zPw0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKSW50ZWwgVGVjaG5vbG9neSBQb2xhbmQgc3Au
-IHogby5vLgp1bC4gU2xvd2Fja2llZ28gMTczIHwgODAtMjk4IEdkYW5zayB8IFNhZCBSZWpvbm93
-eSBHZGFuc2sgUG9sbm9jIHwgVklJIFd5ZHppYWwgR29zcG9kYXJjenkgS3Jham93ZWdvIFJlamVz
-dHJ1IFNhZG93ZWdvIC0gS1JTIDEwMTg4MiB8IE5JUCA5NTctMDctNTItMzE2IHwgS2FwaXRhbCB6
-YWtsYWRvd3kgMjAwLjAwMCBQTE4uCgpUYSB3aWFkb21vc2Mgd3JheiB6IHphbGFjem5pa2FtaSBq
-ZXN0IHByemV6bmFjem9uYSBkbGEgb2tyZXNsb25lZ28gYWRyZXNhdGEgaSBtb3plIHphd2llcmFj
-IGluZm9ybWFjamUgcG91Zm5lLiBXIHJhemllIHByenlwYWRrb3dlZ28gb3RyenltYW5pYSB0ZWog
-d2lhZG9tb3NjaSwgcHJvc2lteSBvIHBvd2lhZG9taWVuaWUgbmFkYXdjeSBvcmF6IHRyd2FsZSBq
-ZWogdXN1bmllY2llOyBqYWtpZWtvbHdpZWsKcHJ6ZWdsYWRhbmllIGx1YiByb3pwb3dzemVjaG5p
-YW5pZSBqZXN0IHphYnJvbmlvbmUuClRoaXMgZS1tYWlsIGFuZCBhbnkgYXR0YWNobWVudHMgbWF5
-IGNvbnRhaW4gY29uZmlkZW50aWFsIG1hdGVyaWFsIGZvciB0aGUgc29sZSB1c2Ugb2YgdGhlIGlu
-dGVuZGVkIHJlY2lwaWVudChzKS4gSWYgeW91IGFyZSBub3QgdGhlIGludGVuZGVkIHJlY2lwaWVu
-dCwgcGxlYXNlIGNvbnRhY3QgdGhlIHNlbmRlciBhbmQgZGVsZXRlIGFsbCBjb3BpZXM7IGFueSBy
-ZXZpZXcgb3IgZGlzdHJpYnV0aW9uIGJ5Cm90aGVycyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLgo=
+On Tue, Feb 6, 2018 at 6:02 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Wed, Feb 7, 2018 at 1:14 AM, Brad Bishop <bradleyb@fuzziesquirrel.com>=
+ wrote:
+>> It was pointed out to me that the Redfish thread was hard to follow alon=
+g
+>> (as in, hard to read).
+>>
+>> I just wanted to highlight that there are mailing list posting guideline=
+s
+>> designed to combat this.  Here=E2=80=99s a good overview - pay particula=
+r attention
+>> to the sections on plain text, top posting, and quoting:
+>>
+>> https://fedoraproject.org/wiki/Mailing_list_guidelines#Proper_posting_st=
+yle
+>
+> Thanks Brad. In addition, OpenStack has some good quality detailed
+> documentation that I would recommend:
+>
+>  https://wiki.openstack.org/wiki/MailingListEtiquette
+
+Hilarious examples.  Blue sucks! :D But helpful.
+
+>
+> Cheers,
+>
+> Joel
+
+Thanks
