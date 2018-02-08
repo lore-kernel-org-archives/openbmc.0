@@ -1,54 +1,58 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="d1MBiPce"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="pspeltA2"; 
  dkim-atps=neutral
-Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
- [IPv6:2607:f8b0:4001:c06::241])
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcTRQ3L5gzF158
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 17:53:05 +1100 (AEDT)
-Received: by mail-io0-x241.google.com with SMTP id c17so4764330iod.1
- for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2018 22:53:05 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcV1K6ndPzF0r5
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 18:19:01 +1100 (AEDT)
+Received: by mail-qk0-x244.google.com with SMTP id p23so4453337qke.8
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2018 23:19:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=nz3xlCoPi8MUzJh4BuDYM2xHSQMxuoArpC5Ohwppirk=;
- b=d1MBiPceCDIuNb99WR/eWrtRF2s75UDPBCYileF7yWEhL2w1KloZQkuurr4JYbrJ2/
- MppyYdwsf0RF+U20lZ8RNA9oZV9wJ39Cu+XpnJDXgOOTR9/AxrzKUVKXwIylOJbVc70A
- jmW/odZmvM3vMa77VuuiXUf4/hV5XrfDzC7HSITnSKm+U3TKiT3BlbRGXAvAzSkusg0f
- jFl9hzZoWrrYECraZy9kRGwbQ6IRjRa2axYkm9+IDOtIUdVufUbGa964t3OiHOStuA2P
- PQAs1kFRQr36UxfrlPbOjq7zpgVVEWg89xdonmVJfrQW00z2QFeUltnDosSyh8p0JJ7j
- EwRw==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=lFSSoUgTkxiUXgOkEqbo2rYB0xsJBZrgOoyATC+6BIc=;
+ b=pspeltA22RbrSO7z0sFS030oo11VIghKdqDJPz0xjuE97daZI+toZcV0FkqI9tdkuB
+ vNe5aRQdpSErAzDJT607xkZ7vfr8En6Mq0sFqjCoVald6zsJPEQ5pBhOBQarjkozMJ4b
+ 0EBcELxZcxNL0OpQ6RrD5Q38wNek3cfJ+zZLbu3oPU96nCWPVGOJHVglj1MU+lFjsrmq
+ XjBpqLsT9OCX9r83BhZUsHUAxx8DEwr5Vl/6H4qe8IgVzAiXWNJYIopOdjIP+Boljk0p
+ etL/HXWCTtRm3bw+SZ+QR3ngNkMR3sNF4Z1LBqoRPw86qlTQyN7T/O6GP8RBL2J6//rb
+ Xs1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=nz3xlCoPi8MUzJh4BuDYM2xHSQMxuoArpC5Ohwppirk=;
- b=XXkIn/c++XV1RV5/ZBwBeOx/9kXxppJ6czsLiV/i4S06H8zAu+jRqNkVtOEF/5U5+k
- MQPZXRnH992v/qVDtrxD3yNlvuF9Q18x1NXwRvR5819UU6mMx19KCy6ka9ZBWwdcH3Iz
- M5ENaBW8COuZbk8y/3VliFmDPnDM+aT5EBXIXbFHuK6KZ/RoihcF1h1CynGu+kPv+WJL
- ttV2xapG4EMW1BSBmVlJK/RgrKgVsuAG2BGqdYJ2TLGv2ZXsWkCadmI/8pVHJssGuZpK
- fLlCNbHTHlFd4sM9aSJ1/jbkUn6ArciJvz0qzSsYn8LYMLYz5+dSbnm2XzyPrc1Hqz43
- Szqg==
-X-Gm-Message-State: APf1xPDA973bMeEE9r4Se1czrGDgyA8LuUWmUpKaQM971KMP3N/lmTYx
- zg+vLAHsLz60CfChU3GSZiQqHgey+a6X+iNinTg=
-X-Google-Smtp-Source: AH8x226SGNKSsOAcMsb2IVqVaRTGJAwC75uIVDvDVWAQGFHuYkWRJMj3KJuoxjnHde5ZYANpKZ4rrxrVEedcTJE77nU=
-X-Received: by 10.107.148.82 with SMTP id w79mr10601173iod.207.1518072783479; 
- Wed, 07 Feb 2018 22:53:03 -0800 (PST)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=lFSSoUgTkxiUXgOkEqbo2rYB0xsJBZrgOoyATC+6BIc=;
+ b=G6bFrbr8EReH4mNiDTnfhrqNibVUxRnbNvYazyiyYVDd09FRm7r6ooKsqPbblq1eZe
+ Di1lHHF5IRiaKQ5w34+f77vb6Ru9vFvv41pLWWvWCwkxpZznPUuAeEIWz+OUG4DjRRFe
+ Bn8Pec8xyHhW7zZancS/xi5vuXhjdedZNQHAExfcs1mGxridHhTYtoDuQRBK1Wpi7ezU
+ aZM4RsXwIKhEWEjUMtQwS3UwtGW8RCgsOfyNyYFdmj7fYljxRfnFrFvPCgbY4P5m847U
+ a4hTFkn/+WPyvXgBtIf+NyRnFN4xylMHj++yefl9wANF/zvr63+OwhFFCkvBVHsfPkV9
+ bjUg==
+X-Gm-Message-State: APf1xPDX+VT9e3oAm67ihN8HTaNE5H3MZ0yAwMciiZlwWflwfRqNgZND
+ ZFJhVlRLNsKJpsE29pVH3M0gWpz19xCSoTJv56w=
+X-Google-Smtp-Source: AH8x226jjJsRXklo+JoS6N60e53UA05BK5iGtSoAtb1mk2iITCdZywHefQuygywxDrG7GzuMjlIGxR9Ijm17q2YlM28=
+X-Received: by 10.55.133.197 with SMTP id h188mr12339430qkd.317.1518074338612; 
+ Wed, 07 Feb 2018 23:18:58 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.79.159.68 with HTTP; Wed, 7 Feb 2018 22:53:02 -0800 (PST)
-In-Reply-To: <20180208053745.31254-1-joel@jms.id.au>
-References: <20180208053745.31254-1-joel@jms.id.au>
-From: Lei YU <mine260309@gmail.com>
-Date: Thu, 8 Feb 2018 14:53:02 +0800
-Message-ID: <CAARXrtm8DisHh6+87QZJbKC8d38Tr82ohJZWywoDYCp1ErvWJg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 0/3] LPC fixes
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>, Cyril Bur <cyrilbur@gmail.com>
+Sender: joel.stan@gmail.com
+Received: by 10.200.49.179 with HTTP; Wed, 7 Feb 2018 23:18:38 -0800 (PST)
+In-Reply-To: <53d8a2a9-5dbe-6684-044b-8272064a68ae@linux.vnet.ibm.com>
+References: <CACPK8XeH9uS7G6_k1JLxfx3678U=Dkk_2SYyQSQuQk8GSJ9-Sw@mail.gmail.com>
+ <53d8a2a9-5dbe-6684-044b-8272064a68ae@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 8 Feb 2018 17:48:38 +1030
+X-Google-Sender-Auth: z5tJS3hn-Hvpa-ltz5B_nau6q4I
+Message-ID: <CACPK8XeBU3L_Z9PiHrKdeOd414OUGtS7q9tDZ9a4-k+HcGNK-A@mail.gmail.com>
+Subject: Re: Outstanding FSI core patches
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: Jeremy Kerr <jk@ozlabs.org>, eajames <eajames@linux.vnet.ibm.com>, 
+ Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
@@ -61,29 +65,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Feb 2018 06:53:07 -0000
+X-List-Received-Date: Thu, 08 Feb 2018 07:19:02 -0000
 
-Without the patches, LPC is not working and SBE fails to fetch PNOR.
-With the patches, LPC is working and SBE starts host OK.
+On Wed, Jan 31, 2018 at 7:48 AM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> On 1/30/18 12:04 AM, Joel Stanley wrote:
+>>
+>>   https://github.com/shenki/linux/commits/fsi-next
+>>
+>> I sent out the no-scan-on-init patch today for review by the device tree
+>> people.
+>>
+>> The rest have all been reviewed in the past. I intend to send them out
+>> for Greg KH to pick up on your behalf. If you have any objections, or
+>> would prefer to send them yourself, please let me know.
+>
+> No objections from me.  Thanks for taking care of this.
 
-Tested-by: Lei YU <mine260309@gmail.com>
+Thanks Chris.
 
-On Thu, Feb 8, 2018 at 1:37 PM, Joel Stanley <joel@jms.id.au> wrote:
-> These patches were developed when bringing up dev-4.13 on Romulus. We
-> need to ensure the LPC clock is enabled, now that the clock driver turns
-> off any unused clocks. We also need to enable the LPC firmware cycles
-> bit as we no longer have the aspeed.c hack.
->
-> Joel Stanley (3):
->   ARM: dts: aspeed: Add LPC clock phandles
->   misc: aspeed-lpc: Enable clock
->   soc: aspeed-lpc-ctrl: Enable FWH cycles
->
->  arch/arm/boot/dts/aspeed-g4.dtsi |  1 +
->  arch/arm/boot/dts/aspeed-g5.dtsi |  1 +
->  drivers/misc/aspeed-lpc-ctrl.c   | 31 +++++++++++++++++++++++++++++--
->  3 files changed, 31 insertions(+), 2 deletions(-)
->
-> --
-> 2.15.1
->
+>>
+>> Christopher Bostic (3):
+>>        fsi: core: Reduce console output during normal scan
+>>        dt-bindings: fsi: Add optional property no-scan-on-init
+>>        fsi: core: Add check for master property no-scan-on-init
+>>
+>> Eddie James (1):
+>>        fsi: Fix one and two byte bus reads/writes
+>>
+>> Jeremy Kerr (6):
+>>        fsi: Add fsi_master_rescan()
+>>        fsi: master-gpio: Add locking during break and link enable
+>>        fsi: master-gpio: Add external mode
+>>        dt-bindings: fsi: Add specification for FSI busses
+>>        fsi: Match fsi slaves and engines to available dt nodes
+
+We need a fix for this one as it breaks the build when OF is not
+enabled. I will coordinate with Jeremy and send out the series on
+Monday, after -rc1 is tagged.
+
+>>        fsi: master: Clarify master lifetimes & fix use-after-free in hub
+>> master
+
+Cheers,
+
+Joel
