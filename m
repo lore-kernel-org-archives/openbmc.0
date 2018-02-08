@@ -1,65 +1,65 @@
-Return-Path: <code@brudeseth.name>
+Return-Path: <Chen.KenYY@inventec.com>
 Authentication-Results: ozlabs.org;
- spf=pass (helo) smtp.helo=mailrelay4.webfaction.com
- (client-ip=185.20.51.6; helo=mailrelay4.webfaction.com;
- envelope-from=code@brudeseth.name; receiver=<UNKNOWN>)
-X-Greylist: delayed 433 seconds by postgrey-1.36 at bilbo;
- Thu, 08 Feb 2018 15:53:05 AEDT
-Received: from mailrelay4.webfaction.com (mailrelay4.webfaction.com
- [185.20.51.6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=inventec.com
+ (client-ip=61.220.76.161; helo=mail.inventec.com;
+ envelope-from=chen.kenyy@inventec.com; receiver=<UNKNOWN>)
+Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcQmx406FzF16v
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 15:53:04 +1100 (AEDT)
-Received: from mailrelay4.webfaction.com (localhost.localdomain [127.0.0.1])
- by mailrelay4.webfaction.com (Postfix) with ESMTPS id 18D117FA45
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:45:48 +0000 (UTC)
-Received: from mailrelay3.webfaction.com (mailrelay3.webfaction.com
- [207.38.93.110])
- by mailrelay4.webfaction.com (Postfix) with ESMTPS id DB78B7FDB2
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:40:47 +0000 (UTC)
-Received: from mailrelay3.webfaction.com (localhost.localdomain [127.0.0.1])
- by mailrelay3.webfaction.com (Postfix) with ESMTPS id 79898280EB6
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:40:42 +0000 (UTC)
-Received: from mailrelay2.webfaction.com (mailrelay2.webfaction.com
- [185.20.50.247])
- by mailrelay3.webfaction.com (Postfix) with ESMTPS id 4379C28070D
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:35:42 +0000 (UTC)
-Received: from mailrelay2.webfaction.com (localhost.localdomain [127.0.0.1])
- by mailrelay2.webfaction.com (Postfix) with ESMTPS id ACA484012F
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:35:36 +0000 (UTC)
-Received: from mailrelay1.webfaction.com (mailrelay1.webfaction.com
- [207.38.86.46])
- by mailrelay2.webfaction.com (Postfix) with ESMTPS id 7A7EF4001D
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:30:36 +0000 (UTC)
-Received: from mailrelay1.webfaction.com (localhost.localdomain [127.0.0.1])
- by mailrelay1.webfaction.com (Postfix) with ESMTPS id 5C32B1A1206
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:30:30 +0000 (UTC)
-Received: from smtp.webfaction.com (mail6.webfaction.com [31.170.123.134])
- by mailrelay1.webfaction.com (Postfix) with ESMTPS id 25BAE1A109C
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:25:30 +0000 (UTC)
-Received: from oc3838762152.ibm.com (ti0071a400-5282.bb.online.no
- [85.165.239.178])
- by smtp.webfaction.com (Postfix) with ESMTPSA id 539B260959783
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 04:25:19 +0000 (UTC)
-Subject: Re: Redfish on OpenBMC
-To: openbmc@lists.ozlabs.org
-References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
- <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
- <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
- <7E9441B1E5EFFD4681F54958E82169932F662C08@ORSMSX114.amr.corp.intel.com>
- <OF31121584.33F1DD5E-ON6525822B.0055E9F8-6525822B.005D34B2@notes.na.collabserv.com>
- <7E9441B1E5EFFD4681F54958E82169932F66373A@ORSMSX114.amr.corp.intel.com>
-From: Rolf Brudeseth <code@brudeseth.name>
-Message-ID: <3df976c0-67f9-3444-4191-6e56598e4713@brudeseth.name>
-Date: Wed, 7 Feb 2018 22:25:18 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcRY76dQ4zF0ym
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 16:27:54 +1100 (AEDT)
+Received: from IEC1-MSE-FE2.inventec.com (10.1.254.204) by
+ IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
+ 14.3.174.1; Thu, 8 Feb 2018 13:27:47 +0800
+Received: from IEC1-SPAM-2.inventec.com (smg2.inventec.com [10.1.254.202])	by
+ IEC1-MSE-FE2.inventec.com with ESMTP id w185ReAf082994	for
+ <openbmc@lists.ozlabs.org>; Thu, 8 Feb 2018 13:27:40 +0800 (GMT-8)
+ (envelope-from chen.kenyy@inventec.com)
+Received: from mail-lf0-f69.google.com (mail-lf0-f69.google.com
+ [209.85.215.69])	by IEC1-SPAM-2.inventec.com with ESMTP id w185RbU9062466
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
+ <openbmc@lists.ozlabs.org>; Thu, 8 Feb 2018 13:27:40 +0800 (GMT-8)
+ (envelope-from chen.kenyy@inventec.com)
+Received: by mail-lf0-f69.google.com with SMTP id q21so1009965lfa.14
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2018 21:27:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=cM1hw2tbPWiM4ey5H7Xp5a2fW68JiakeLqwnxTGg2lE=;
+ b=EM9zrI+1rR6wIsklSSdeAAK1BuWrTtiiv3JAJV94j1KsSUcqSFKdtyfizfrWWCm+3j
+ 3se4TiEutWuoAGB0V419+yNadh+oth+BxF5XSwiQxJwzkREfzOM3PPIB9S6KYR3z9V/Q
+ uqCm5S8wukxvR2ofcEX/S7drW8uIO2DweUPLzDzxFqHoXLALgd2rMBQvyrsXXOyvVJ/+
+ FJ5WeHd1LBByaNgPXz2mJa0+ViQWfA99v3hsqHOvzq1G7HhbDbV/jOEALHfh6okBnO1e
+ sZIqPl1f02pnwZfdfoTDaoP8nCryNfmHpVW5d9mmLCDGqW2mNnnGDHPR+sQQcgOZ6DYx
+ 5AyA==
+X-Gm-Message-State: APf1xPAUgmpO56w0kjxoeDsZO9xSyeE/bgn/IFvHMNPDziZ5rNaVTIKL
+ 1ihjVCVYyTATvjzchnctMDiY+gtOB9MJzSXhw/D3XZHniJu2megKMiOo+KvuLFYRgSp5Z0v+g5z
+ dSkAGmA49M+Xym+N9hkmmmoRknZ/avem+Lchm7w==
+X-Received: by 10.25.209.205 with SMTP id i196mr5821651lfg.43.1518067654243;
+ Wed, 07 Feb 2018 21:27:34 -0800 (PST)
+X-Google-Smtp-Source: AH8x226gy2Tr6jperF5gsDqXh0ydHQRXBotpV9H2ZBtiYXHMKKluPQ19vMxh5jvsJmo0Gz8Dv5EGvADxcjojiPNXbkw=
+X-Received: by 10.25.209.205 with SMTP id i196mr5821636lfg.43.1518067653908;
+ Wed, 07 Feb 2018 21:27:33 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F66373A@ORSMSX114.amr.corp.intel.com>
-Content-Type: multipart/alternative;
- boundary="------------1C6647B9CA5B78589438D4BF"
-Content-Language: en-US
+Received: by 10.25.167.145 with HTTP; Wed, 7 Feb 2018 21:27:33 -0800 (PST)
+In-Reply-To: <CACPK8XcjviDZfr5aMUj55OZ0g1RgDsJ9qA3WwRiafo2FZuu2jg@mail.gmail.com>
+References: <20180205030343.25114-1-chen.kenyy@inventec.com>
+ <39E6480C5A587146BAA4D885C7BCF7EEC6AD8200@IET-EX2010-MX2.iec.inventec>
+ <CACPK8XcjviDZfr5aMUj55OZ0g1RgDsJ9qA3WwRiafo2FZuu2jg@mail.gmail.com>
+From: =?UTF-8?B?Q2hlbktlbllZIOmZs+awuOeHnyBUQU8=?= <chen.kenyy@inventec.com>
+Date: Thu, 8 Feb 2018 13:27:33 +0800
+Message-ID: <CADo_Z41PdVZCHN6vDpMJpQQmS-9fXuGaijwotynm7PV2-OMfWA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add ARM system BMC
+ device tree
+To: Joel Stanley <joel@jms.id.au>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Tsung-Han Yang
+ (Harold)" <haroldy@qti.qualcomm.com>, "Mohit Gupta (QDT)"
+ <guptam@qti.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-DNSRBL: 
+X-MAIL: IEC1-MSE-FE2.inventec.com w185ReAf082994
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -71,89 +71,500 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Feb 2018 04:53:06 -0000
+X-List-Received-Date: Thu, 08 Feb 2018 05:27:57 -0000
 
-This is a multi-part message in MIME format.
---------------1C6647B9CA5B78589438D4BF
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-> 5) Leverage existing open source projects:
-> - Does the implementation compose existing services and frameworks ? 
-> Such as a webserver(say, nginx) and a rest framework (flask).
+2018-02-06 13:46 GMT+08:00 Joel Stanley <joel@jms.id.au>:
+> On Tue, Feb 6, 2018 at 3:45 PM, Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TA=
+O
+> <Chen.KenYY@inventec.com> wrote:
+>> Should I remove the device hasn't the driver yet?
 >
-> In my testing, flask was a non-starter for performance on low end 
-> systems, and while reasonably performant when measured externally with 
-> response times, it consumed quite a
+> Yes please. If we don't have bindings to review against (documents
+> inside Documentation/devicetree/bindings) then it's hard to know if
+> the device tree is correct. Please remove any of the nodes that don't
+> have bindings in the openbmc tree.
 >
-> bit of system CPU cycles for most tasks. Also, the startup time for 
-> python was suspect, and difficult to improve on without lots of 
-> gymnastics.
+OK, it will be changed.
 >
-> Hari>> I haven't evaluated flask and it's good to know the performance 
-> limitations with flask and python.
+>>
+>>
+>> -----Original Message-----
+>> From: Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO
+>> Sent: Monday, February 05, 2018 11:04 AM
+>> To: openbmc@lists.ozlabs.org
+>> Cc: Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO; joel@jms.id.au
+>> Subject: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add ARM system BMC =
+device tree
 >
-> regards,
-> Hari !
+> Can you please target your patch at the dev-4.13 branch?
+OK
 >
-Are other language options besides Python an alternative, such as Golang? It has webserver and template functionality built-in so an additional framework may not be required.
-
-It is compiled so it should have better performance than Python. Cross-compiling to ARM is trivial.
-
-Rolf
-
-
---------------1C6647B9CA5B78589438D4BF
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <span
-      style="font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"></span><span
-      style="font-size:10.0pt"></span>
-    <blockquote type="cite"
-cite="mid:7E9441B1E5EFFD4681F54958E82169932F66373A@ORSMSX114.amr.corp.intel.com">
-      <div class="WordSection1">
-        <div style="border:none;border-left:solid blue 1.5pt;padding:0in
-          0in 0in 4.0pt">
-          <p><span style="font-size:10.0pt">5) Leverage existing open
-              source projects:<br>
-              - Does the implementation compose existing services and
-              frameworks ? Such as a webserver(say, nginx) and a rest
-              framework (flask).</span><o:p></o:p></p>
-          <p><span
-              style="font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">In
-              my testing, flask was a non-starter for performance on low
-              end systems, and while reasonably performant when measured
-              externally with response times, it consumed quite a<o:p></o:p></span></p>
-          <p><span
-              style="font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">bit
-              of system CPU cycles for most tasks. Also, the startup
-              time for python was suspect, and difficult to improve on
-              without lots of gymnastics.</span><o:p></o:p></p>
-          <p><span style="color:maroon">Hari&gt;&gt; I haven't evaluated
-              flask and it's good to know the performance limitations
-              with flask and python.
-              <br>
-            </span><span style="font-size:10.0pt"><br>
-              regards,<br>
-              Hari !</span><br>
-            <br>
-          </p>
-        </div>
-      </div>
-    </blockquote>
-    <pre>Are other language options besides Python an alternative, such as Golang? It has webserver and template functionality built-in so an additional framework may not be required.
-
-It is compiled so it should have better performance than Python. Cross-compiling to ARM is trivial.
-
-Rolf
-</pre>
-  </body>
-</html>
-
---------------1C6647B9CA5B78589438D4BF--
+>>
+>> Add centriq2400-rep dts and modify platform initial
+>>
+>> Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
+>> ---
+>>  .../boot/dts/aspeed-bmc-arm-centriq2400-rep.dts    | 350 ++++++++++++++=
++++++++
+>
+> You have forgotten to add your device tree to the makefile at
+> arch/arm/boot/dts/Makefile
+>
+> Please look for the other aspeed .dtb rules down the bottom of the file.
+OK
+>
+>>  arch/arm/mach-aspeed/aspeed.c                      |  22 ++
+>
+> Please include modifications to aspeed.c in a different patch.
+Do you mean the next version patch or I need to separate this code and
+Makefile with another patch?
+>
+>>  2 files changed, 372 insertions(+)
+>>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts b/arch=
+/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+>> new file mode 100644
+>> index 0000000..4094732
+>> --- /dev/null
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+>> @@ -0,0 +1,350 @@
+>> +// SPDX-License-Identifier: GPL-2.0+
+>> +/dts-v1/;
+>> +
+>> +#include "aspeed-g5.dtsi"
+>> +#include <dt-bindings/gpio/aspeed-gpio.h>
+>> +
+>> +/ {
+>> +       model =3D "Qualcomm Centriq 2400  REP AST2520";
+>> +       compatible =3D "qualcomm,centriq2400-rep-bmc", "aspeed,ast2500";
+>> +
+>> +       chosen {
+>> +               stdout-path =3D &uart5;
+>> +               bootargs =3D "console=3DttyS4,115200 earlyprintk";
+>> +       };
+>> +
+>> +       memory {
+>> +               reg =3D <0x80000000 0x40000000>;
+>> +       };
+>> +
+>> +       iio-hwmon {
+>> +               compatible =3D "iio-hwmon";
+>> +               io-channels =3D <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+>> +                        <&adc 4>, <&adc 5>, <&adc 6>, <&adc 8>;
+>> +       };
+>> +
+>> +       iio-hwmon-battery {
+>> +               compatible =3D "iio-hwmon";
+>> +               io-channels =3D <&adc 7>;
+>> +       };
+>> +
+>> +       leds {
+>> +               compatible =3D "gpio-leds";
+>> +
+>> +               uid_led {
+>> +                       label =3D "UID_LED";
+>> +                       gpios =3D <&gpio ASPEED_GPIO(Q, 5) GPIO_ACTIVE_L=
+OW>;
+>> +               };
+>> +
+>> +               ras_error_led {
+>> +                       label =3D "RAS_ERROR_LED";
+>> +                       gpios =3D <&gpio ASPEED_GPIO(F, 6) GPIO_ACTIVE_L=
+OW>;
+>> +               };
+>> +
+>> +               system_fault {
+>> +                       label =3D "System_fault";
+>> +                       gpios =3D <&gpio ASPEED_GPIO(A, 1) GPIO_ACTIVE_L=
+OW>;
+>> +               };
+>> +       };
+>> +};
+>> +
+>> +&fmc {
+>> +       status =3D "okay";
+>> +       flash@0 {
+>> +               status =3D "okay";
+>> +               m25p,fast-read;
+>> +                lable =3D "bmc";
+>
+> typo: label.
+OK
+>
+>> +#include "openbmc-flash-layout.dtsi"
+>> +       };
+>> +};
+>> +
+>> +&spi1 {
+>> +        status =3D "okay";
+>> +        pinctrl-names =3D "default";
+>> +        pinctrl-0 =3D <&pinctrl_spi1_default>;
+>> +        flash@0 {
+>> +                reg =3D < 0 >; /* chip select number */
+>> +                compatible =3D "jedec,spi-nor";
+>
+> You do not need these two properties, as they are inherited from those
+> in aspeed-g5.dtsi. Remove these two lines please.
+OK
+>
+>> +                status =3D "okay";
+>> +        };
+>> +};
+>> +
+>> +&spi2 {
+>> +        compatible =3D "aspeed,ast2500-spi-generic";
+>> +        reg =3D <0x1e631000 0xc4 0x38000000 0x02000000>;
+>> +        interrupts =3D <59>;
+>> +        #address-cells =3D <1>;
+>> +        #size-cells =3D <0>;
+>
+> This looks to be a custom driver, As discussed above, please do not
+> include this until we have merged the device tree bindings and driver.
+OK
+>
+>> +        status =3D "okay";
+>> +        spi2@0 {
+>> +                reg =3D < 0 >;
+>> +                compatible =3D "centriq,centriq2400-spi-hwmon";
+>> +                spi-max-frequency =3D <16000000>;
+>> +                status =3D "okay";
+>> +        };
+>> +};
+>> +
+>> +&uart3 {
+>> +        status =3D "okay";
+>> +
+>> +        pinctrl-names =3D "default";
+>> +        pinctrl-0 =3D <&pinctrl_txd3_default
+>> +                     &pinctrl_rxd3_default>;
+>> +        current-speed =3D <115200>;
+>> +};
+>> +
+>> +&lpc_ctrl {
+>
+> Do you use /dev/aspeed-lpc-ctrl from userspace in your system? If not,
+> you do not want to enable the lpc_ctrl node.
+OK
+>
+>> +       status =3D "okay";
+>> +       memory-region =3D <&flash_memory>;
+>> +       flash =3D <&spi1>;
+>> +};
+>> +
+>> +&uart5 {
+>> +       status =3D "okay";
+>> +};
+>> +
+>> +&mac0 {
+>> +       status =3D "okay";
+>> +
+>> +       pinctrl-names =3D "default";
+>> +       pinctrl-0 =3D <&pinctrl_rgmii1_default &pinctrl_mdio1_default>; =
+};
+>
+> The closing } should be on the next line.
+OK
+>
+>> +
+>> +&i2c0 {
+>> +       status =3D "okay";
+>> +
+>> +       pca9542@70 {
+>> +                compatible =3D "pca9542";
+>> +                reg =3D <0x70>;
+>> +               i2c@0 {
+>
+> Your whitespace is messed up here. Please use tabs to align the nodes.
+OK
+>
+>> +                       #address-cells =3D <1>;
+>> +                       #size-cells =3D <0>;
+>> +                       reg =3D <0>;
+>> +                       pca9546@77 {
+>> +                               compatible =3D "pca9546";
+>> +                               reg =3D <0x77>;
+>> +                               i2c@0 {
+>> +                                       #address-cells =3D <1>;
+>> +                                       #size-cells =3D <0>;
+>> +                                       reg =3D <0>;
+>> +                                       eeprom@52 {
+>> +                                               compatible =3D "atmel,24=
+c02";
+>> +                                               reg =3D <0x52>;
+>> +                                       };
+>> +                               };
+>> +                               i2c@2 {
+>> +                                       #address-cells =3D <1>;
+>> +                                       #size-cells =3D <0>;
+>> +                                       reg =3D <2>;
+>> +                                       eeprom@57 {
+>> +                                               compatible =3D "atmel,24=
+c02";
+>> +                                               reg =3D <0x57>;
+>> +                                       };
+>> +                               };
+>> +                       };
+>> +               };
+>> +               i2c@1 {
+>> +                       #address-cells =3D <1>;
+>> +                       #size-cells =3D <0>;
+>> +                       reg =3D <1>;
+>> +                       pca9546@77 {
+>> +                               compatible =3D "pca9546";
+>> +                               reg =3D <0x77>;
+>> +                               i2c@2 {
+>> +                                       #address-cells =3D <1>;
+>> +                                       #size-cells =3D <0>;
+>> +                                       reg =3D <2>;
+>> +                                       eeprom@57 {
+>> +                                               compatible =3D "atmel,24=
+c02";
+>> +                                               reg =3D <0x57>;
+>> +                                       };
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>> +        };
+>> +};
+>> +
+>> +&i2c1 {
+>> +       status =3D "okay";
+>> +
+>> +        tmp421@1e {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x1e>;
+>> +        };
+>> +        tmp421@2a {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x2a>;
+>> +        };
+>> +        tmp421@4e {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x4e>;
+>> +        };
+>> +        tmp421@1c {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x1c>;
+>> +        };
+>> +};
+>> +
+>> +&i2c2 {
+>> +       status =3D "okay";
+>> +       ssif {
+>> +                compatible =3D "ssif-smbus-slave";
+>
+> Remove this node until we have reviewed the bindings.
+OK
+>
+>> +                reg =3D <0x42>;
+>> +        };
+>> +
+>> +};
+>> +
+>> +&i2c3 {
+>> +       status =3D "okay";
+>> +};
+>> +
+>> +&i2c4 {
+>> +       status =3D "okay";
+>> +};
+>> +
+>> +&i2c5 {
+>> +       status =3D "okay";
+>> +
+>> +        ir38163@42 {
+>> +                compatible =3D "ir38163";
+>> +                reg =3D <0x42>;
+>> +        };
+>> +       ir38163@44 {
+>> +                compatible =3D "ir38163";
+>> +                reg =3D <0x44>;
+>> +        };
+>> +       ir38163@46 {
+>> +                compatible =3D "ir38163";
+>> +                reg =3D <0x46>;
+>> +        };
+>> +       ir38163@48 {
+>> +                compatible =3D "ir38163";
+>> +                reg =3D <0x48>;
+>> +        };
+>> +       pxm1310@02 {
+>> +                compatible =3D "pxm1310";
+>> +                reg =3D <0x02>;
+>> +        };
+>> +       pxm1310@04 {
+>> +                compatible =3D "pxm1310";
+>> +                reg =3D <0x04>;
+>> +        };
+>> +};
+>> +
+>> +&i2c6 {
+>> +       status =3D "okay";
+>> +
+>> +       tmp421@1d {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x1d>;
+>> +        };
+>> +        tmp421@1f {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x1f>;
+>> +        };
+>> +        tmp421@4d {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x4d>;
+>> +        };
+>> +        tmp421@4f {
+>> +                compatible =3D "ti,tmp421";
+>> +                reg =3D <0x4f>;
+>> +        };
+>> +        nvt210@4c {
+>> +                compatible =3D "nvt210";
+>> +                reg =3D <0x4c>;
+>> +        };
+>> +        eeprom@50 {
+>> +                compatible =3D "atmel,24c128";
+>> +                reg =3D <0x50>;
+>> +                pagesize =3D <128>;
+>> +        };
+>> +};
+>> +
+>> +&i2c7 {
+>> +       status =3D "okay";
+>> +
+>> +        adm1278@10 {
+>> +                compatible =3D "adi,adm1278";
+>> +                reg =3D <0x10>;
+>> +               Rsense =3D <250>;
+>> +        };
+>> +        adm1278@11 {
+>> +                compatible =3D "adi,adm1278";
+>> +                reg =3D <0x11>;
+>> +               Rsense =3D <250>;
+>> +        };
+>> +};
+>> +
+>> +&i2c8 {
+>> +        status =3D "okay";
+>> +
+>> +        pca9641@70 {
+>> +                compatible =3D "nxp,pca9641";
+>> +                reg =3D <0x70>;
+>> +                #address-cells =3D <1>;
+>> +                #size-cells =3D <0>;
+>> +                i2c-arb{
+>> +                        tmp421@1d {
+>> +                                compatible =3D "tmp421";
+>> +                                reg =3D <0x1d>;
+>> +                        };
+>> +                        adm1278@12 {
+>> +                                compatible =3D "adi,adm1278";
+>> +                                reg =3D <0x12>;
+>> +                               Rsense =3D <500>;
+>> +                        };
+>> +                        max31790@20 {
+>> +                                compatible =3D "max31790";
+>> +                                reg =3D <0x20>;
+>> +                                #address-cells =3D <1>;
+>> +                                #size-cells =3D <0>;
+>> +                               fan-mode =3D "pwm";
+>
+> Whitespace problems here too.
+OK
+>
+>> +                                fanconfig1 =3D <0x08>;
+>> +                                fanconfig2 =3D <0x09>;
+>> +                                fanconfig3 =3D <0x08>;
+>> +                                fanconfig4 =3D <0x08>;
+>> +                                fanconfig5 =3D <0x09>;
+>> +                                fanconfig6 =3D <0x08>;
+>> +                        };
+>> +                       max31790@23 {
+>> +                                compatible =3D "max31790";
+>> +                                reg =3D <0x23>;
+>> +                                #address-cells =3D <2>;
+>> +                               #size-cells =3D <0>;
+>> +                               fan-mode =3D "pwm";
+>> +                                fanconfig1 =3D <0x08>;
+>> +                                fanconfig2 =3D <0x09>;
+>> +                                fanconfig3 =3D <0x08>;
+>> +                                fanconfig4 =3D <0x08>;
+>> +                                fanconfig5 =3D <0x09>;
+>> +                                fanconfig6 =3D <0x08>;
+>> +                        };
+>> +                       eeprom@50 {
+>> +                               compatible =3D "atmel,24c02";
+>> +                               reg =3D <0x50>;
+>> +                       };
+>> +                        ds1100@58 {
+>> +                                compatible =3D "ds1100";
+>> +                                reg =3D <0x58>;
+>> +                        };
+>> +               };
+>> +       };
+>> +};
+>> +
+>> +&i2c9 {
+>> +       status =3D "okay";
+>> +};
+>> +
+>> +&vuart {
+>> +       status =3D "okay";
+>> +};
+>> +
+>> +&gfx {
+>> +        status =3D "okay";
+>> +};
+>> +
+>> +&pinctrl {
+>> +       aspeed,external-nodes =3D <&gfx &lhc>;
+>> +};
+>> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed=
+.c index 5965bbf..4f6a5e9 100644
+>> --- a/arch/arm/mach-aspeed/aspeed.c
+>> +++ b/arch/arm/mach-aspeed/aspeed.c
+>> @@ -29,6 +29,7 @@
+>>  #define AST_BASE_MAC0          0X1E660000 /* MAC 1 */
+>>  #define AST_BASE_SCU           0x1E6E2000 /* System Control Unit (SCU) =
+*/
+>>  #define AST_BASE_GPIO          0x1E780000 /* GPIO Controller */
+>> +#define AST_BASE_WDT           0x1E785000 /* Watchdog Timer */
+>>
+>>  static struct map_desc aspeed_io_desc[] __initdata __maybe_unused =3D {
+>>         {
+>> @@ -232,6 +233,25 @@ static void __init do_mellanox_setup(void)
+>>         writel(reg, AST_IO(AST_BASE_SCU | 0x48));  }
+>>
+>> +
+>> +static void __init do_centriq2400rep_setup(void) {
+>> +       u32 reg;
+>> +
+>> +       do_common_setup();
+>> +       writel(0x00000010, AST_IO(AST_BASE_WDT | 0x2c));
+>> +
+>> +       writel(0xff000000, AST_IO(AST_BASE_SCU | 0x88));
+>> +
+>> +       /* Set GPIOC7 to output high to init host spi driver */
+>> +       reg =3D readl(AST_IO(AST_BASE_GPIO | 0x04)) | BIT(23);
+>> +       writel(reg, AST_IO(AST_BASE_GPIO | 0x04));
+>> +
+>> +       reg =3D readl(AST_IO(AST_BASE_GPIO)) | BIT(23);
+>> +       writel(reg, AST_IO(AST_BASE_GPIO)); }
+>> +
+>> +
+>>  #define SCU_PASSWORD   0x1688A8A8
+>>
+>>  static void __init aspeed_init_early(void) @@ -284,6 +304,8 @@ static v=
+oid __init aspeed_init_early(void)
+>>                 do_lanyang_setup();
+>>         if (of_machine_is_compatible("mellanox,msn-bmc"))
+>>                 do_mellanox_setup();
+>> +        if (of_machine_is_compatible("qualcomm,centriq2400-rep-bmc"))
+>> +                do_centriq2400rep_setup();
+>>  }
+>>
+>>  static void __init aspeed_map_io(void)
+>> --
+>> 2.9.3
+>>
