@@ -1,78 +1,65 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <Eugene.Cho@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.220; helo=esa2.dell-outbound.iphmx.com;
+ envelope-from=eugene.cho@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="KU4gPgMP"; 
+ dkim-atps=neutral
+X-Greylist: delayed 628 seconds by postgrey-1.36 at bilbo;
+ Fri, 09 Feb 2018 08:12:59 AEDT
+Received: from esa2.dell-outbound.iphmx.com (esa2.dell-outbound.iphmx.com
+ [68.232.149.220])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcqT36rJSzF15y
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 07:25:43 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w18KOQ37091830
- for <openbmc@lists.ozlabs.org>; Thu, 8 Feb 2018 15:25:41 -0500
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2g0w4a18s1-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 15:25:40 -0500
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Thu, 8 Feb 2018 13:25:40 -0700
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 8 Feb 2018 13:25:37 -0700
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w18KPbFR11600264
- for <openbmc@lists.ozlabs.org>; Thu, 8 Feb 2018 13:25:37 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3B583136043
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 13:25:37 -0700 (MST)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 168FF13603A
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 13:25:37 -0700 (MST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcrWb0G10zF1Bd
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 08:12:58 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1518124379; x=1549660379;
+ h=from:cc:to:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=j0oX7d6Ih1RLgyLlsL85DrVAqNAot+iZb6C38Y9mmqU=;
+ b=KU4gPgMPuUSf2xUUaNJ82Rgnjig1IvEICB9Ux+B2wzuPJshlcrhSP8Gc
+ ai+XBaSss4KZ7h1VLM9XXQ1rYSut8FtpEKhXl1PLUX0twHmsCvD2BxTvc
+ A1h2YJf3ka/bOUd7NrFCJMRx8xj44fFVfqzsJJyuvYdrrW9vRKtq/xurk o=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2HyAADduXxah2Ka6ERdGQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQcBAQEBAYQngQAynCSbbwqFO4IxWBQBAgEBAQEBAQIBAhABAQEKCwkIKC+?=
+ =?us-ascii?q?COCKDCz8SAT5oAQQBGoocEbIJiBtggjyEfIIVgz+OTAWkKwmVc4IOAZI4mAyBP?=
+ =?us-ascii?q?DaBc3CDGYJkghKNTYEXAQEB?=
+X-IPAS-Result: =?us-ascii?q?A2HyAADduXxah2Ka6ERdGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
+ =?us-ascii?q?ngQAynCSbbwqFO4IxWBQBAgEBAQEBAQIBAhABAQEKCwkIKC+COCKDCz8SAT5oA?=
+ =?us-ascii?q?QQBGoocEbIJiBtggjyEfIIVgz+OTAWkKwmVc4IOAZI4mAyBPDaBc3CDGYJkghK?=
+ =?us-ascii?q?NTYEXAQEB?=
+Received: from esa4.dell-outbound2.iphmx.com ([68.232.154.98])
+ by esa2.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2018 15:02:24 -0600
+From: <Eugene.Cho@dell.com>
+Cc: <openbmc@lists.ozlabs.org>, <Brian.Berry@Dell.com>
+Received: from ausxippc106.us.dell.com ([143.166.85.156])
+ by esa4.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2018 03:02:24 +0600
+X-LoopCount0: from 10.166.132.130
+X-IronPort-AV: E=Sophos;i="5.46,480,1511848800"; d="scan'208";a="211636825"
+X-DLP: DLP_GlobalPCIDSS
+To: <avifishman70@gmail.com>, <tmaimon77@gmail.com>, <joel@jms.id.au>,
+ <jk@ozlabs.org>
+Subject: Serial Mux Mode in NPCM
+Thread-Topic: Serial Mux Mode in NPCM
+Thread-Index: AdOhHqOsX5uTqyQpRLO9iN0a5o3zIw==
+Date: Thu, 8 Feb 2018 21:02:22 +0000
+Message-ID: <599c29f92c5e4849a7c30820442d8f7e@AUSX13MPC105.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titusconfig: No Restrictions 04051212
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiI5Y2UzNGEwNy1mNzA1LTQxZDItODEzYi05ZGVhZDNiZGY5ZjEiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6IlZsU2ZURTlcL1c3YWJIVEJiWHBSM0QrQUgyVU16WXlHUW85eHVUQzc2cE1ZPSJ9
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.18.86]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Thu, 08 Feb 2018 14:27:03 -0600
-From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: Re: BMC Image Signing Proposal
-In-Reply-To: <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
-References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
- <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
- <1517207425.21006.27.camel@aj.id.au> <87shaoymux.fsf@linux.vnet.ibm.com>
- <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
- <87lggezywe.fsf@linux.vnet.ibm.com>
- <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
-X-Sender: anoo@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 18020820-8235-0000-0000-00000CFCD9AF
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008498; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000250; SDB=6.00986869; UDB=6.00500869; IPR=6.00766228; 
- BA=6.00005820; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019446; XFM=3.00000015;
- UTC=2018-02-08 20:25:38
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18020820-8236-0000-0000-00003F986383
-Message-Id: <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-08_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=1 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1802080235
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -84,8 +71,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Feb 2018 20:25:44 -0000
+X-List-Received-Date: Thu, 08 Feb 2018 21:13:00 -0000
 
-Here are some charts with the image signing flow for comment:
+Any thoughts how we should handle the serial mux mode (SPMOD in SPSWC) in t=
+he NPCM? It seems we need to able to switch between modes runtime (as these=
+ are customer configurable options that can change at anytime).=20
 
-https://drive.google.com/file/d/1IxfMYRttN8RbhRY7PwBmXsqCBvtv_yLJ/view?usp=sharing
+We use almost all the modes in some fashion... =20
+
+Could this be a handled like the 8250_aspeed_vuart.c? Maybe another simple =
+sysfs driver? Thoughts?
