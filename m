@@ -1,60 +1,72 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::243; helo=mail-pf0-x243.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="C2/p6Psb"; 
- dkim-atps=neutral
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <hramasub@in.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=hramasub@in.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcRn34X6vzF17f
- for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 16:38:15 +1100 (AEDT)
-Received: by mail-pf0-x243.google.com with SMTP id w83so1343908pfi.12
- for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2018 21:38:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Y/EGYfzR0yUElDYex4MZhp0kO66LybID4+bmxILOiiI=;
- b=C2/p6PsbEIqH59XMvF46PZkPguidPcmTeLvP/Doik9d/u+u6xqd0nwX3+zTo0iPT3Q
- tmtLLOn0thhiO+uA/m0PL5q5p/mjCQdO++UaAYz5CzybBTxz2FHNiOOnPtRmqKVH9V87
- 3pJiTjTZfeTPa7kyDvW/tdMMZrmp1utmTQ17ySOTMrisvA2F0a5Ay+oosKhzfvmplBpe
- N223NJOoQsMpm+OwQGkyyoadukSPT+OoshmpK/3Kc6iA0xbPch32g6yQG1WD7yPJqrkC
- nAPDeYUFnFJ2z84gpt1PhhSzp+kwk+0MQRLdLI9gJtqPiDB4uQc5MIvAegmWscyHrQKU
- q29g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references;
- bh=Y/EGYfzR0yUElDYex4MZhp0kO66LybID4+bmxILOiiI=;
- b=OeaEDdRrzItSL/VAcPIPmtFj2958vyaxrSFUmqp0J6YcwokBKMQ58IG1873aBZ/EvT
- U9VU1mv6OrZ09meHaVRflPKguBui9WC9w/Zv1Uls0IflAs8QnnzkXcKshIqo4B0UDZ5Y
- UvS1851mJtTH8Jd+81QJlvQBhKN9/LLUqx6phESdO9DkgBm85TSnZ28TWE8p/zYLuRHs
- vivv+XEJZ6ge4iAH84t9uMHtySZxLeOBnLUZUUyVLo0OCsGJmVNWiiH+KQ6+TwFCGvBy
- lZZ9SJIau434ezFBP4sByzkixJRvUwfS+lLavWhA0SewbpV80qwDsldDZFoKpCmyz3Fq
- 77TQ==
-X-Gm-Message-State: APf1xPBkfBih9B/aeYVkGQ54U6rBn6+U1jMmXcAIH+TFN/m+OfBJi3Ng
- xbs64IZ90CzzmnTyXJQ3rlAyQxeL
-X-Google-Smtp-Source: AH8x227cLN9vh+8isxFQNE6m1VYxcLOhmn978unre+70AIRjryGcA+n5yXA6pQyrc16SEBv2Va27Jw==
-X-Received: by 10.99.110.10 with SMTP id j10mr6811069pgc.72.1518068293497;
- Wed, 07 Feb 2018 21:38:13 -0800 (PST)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id x185sm6968501pfd.186.2018.02.07.21.38.10
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 07 Feb 2018 21:38:12 -0800 (PST)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 08 Feb 2018 16:08:07 +1030
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Lei YU <mine260309@gmail.com>, Andrew Jeffery <andrew@aj.id.au>,
- Cyril Bur <cyrilbur@gmail.com>
-Subject: [PATCH linux dev-4.13 3/3] soc: aspeed-lpc-ctrl: Enable FWH cycles
-Date: Thu,  8 Feb 2018 16:07:45 +1030
-Message-Id: <20180208053745.31254-4-joel@jms.id.au>
-X-Mailer: git-send-email 2.15.1
-In-Reply-To: <20180208053745.31254-1-joel@jms.id.au>
-References: <20180208053745.31254-1-joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcS4s2NwgzF142
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2018 16:51:56 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w185n5A5144374
+ for <openbmc@lists.ozlabs.org>; Thu, 8 Feb 2018 00:51:54 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.74])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2g0fpy1xgk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 00:51:53 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <hramasub@in.ibm.com>;
+ Thu, 8 Feb 2018 05:51:52 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.92) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 8 Feb 2018 05:51:49 -0000
+Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2018020805514886-75737 ;
+ Thu, 8 Feb 2018 05:51:48 +0000 
+MIME-Version: 1.0
+In-Reply-To: <3df976c0-67f9-3444-4191-6e56598e4713@brudeseth.name>
+Subject: Re: Redfish on OpenBMC
+To: Rolf Brudeseth <code@brudeseth.name>
+Cc: openbmc@lists.ozlabs.org
+From: "Hariharasubramanian Ramasubramanian" <hramasub@in.ibm.com>
+Date: Thu, 8 Feb 2018 11:21:50 +0530
+References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
+ <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
+ <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
+ <7E9441B1E5EFFD4681F54958E82169932F662C08@ORSMSX114.amr.corp.intel.com>
+ <OF31121584.33F1DD5E-ON6525822B.0055E9F8-6525822B.005D34B2@notes.na.collabserv.com>
+ <7E9441B1E5EFFD4681F54958E82169932F66373A@ORSMSX114.amr.corp.intel.com>
+ <3df976c0-67f9-3444-4191-6e56598e4713@brudeseth.name>
+X-KeepSent: FEC95981:9C8EC008-6525822E:001E809D;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP7 August 18, 2016
+X-LLNOutbound: False
+X-Disclaimed: 54807
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=EABB08BDDF8D060D8f9e8a93df938690918cEABB08BDDF8D060D"
+Content-Disposition: inline
+x-cbid: 18020805-7581-0000-0000-000005E30836
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.433748; ST=0; TS=0; UL=0; ISC=; MB=0.100992
+X-IBM-SpamModules-Versions: BY=3.00008495; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000249; SDB=6.00986578; UDB=6.00500696; IPR=6.00765937; 
+ BA=6.00005819; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019436; XFM=3.00000015;
+ UTC=2018-02-08 05:51:51
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-02-08 05:28:48 - 6.00008025
+x-cbparentid: 18020805-7582-0000-0000-0000EDE31DEC
+Message-Id: <OFFEC95981.9C8EC008-ON6525822E.001E809D-6525822E.00203659@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-08_02:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -66,55 +78,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Feb 2018 05:38:15 -0000
+X-List-Received-Date: Thu, 08 Feb 2018 05:51:58 -0000
 
-To date this driver has relied on prevous BMC state in order
-to have the host be able to access data over the LPC bus.
 
-Now we explicitly enable the FWH cycles from when the user first
-configures the address to map. We chose to do this then as before that
-time there is no way for the kernel to know where it is safe to point
-the LPC window.
+--0__=EABB08BDDF8D060D8f9e8a93df938690918cEABB08BDDF8D060D
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- drivers/misc/aspeed-lpc-ctrl.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
-index 4a818ad3827e..21b4ee9d0a38 100644
---- a/drivers/misc/aspeed-lpc-ctrl.c
-+++ b/drivers/misc/aspeed-lpc-ctrl.c
-@@ -21,6 +21,10 @@
- 
- #define DEVICE_NAME	"aspeed-lpc-ctrl"
- 
-+#define HICR5 0x0
-+#define HICR5_ENL2H	BIT(8)
-+#define HICR5_ENFWH	BIT(10)
-+
- #define HICR7 0x8
- #define HICR8 0xc
- 
-@@ -155,8 +159,17 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
- 		if (rc)
- 			return rc;
- 
--		return regmap_write(lpc_ctrl->regmap, HICR8,
--			(~(map.size - 1)) | ((map.size >> 16) - 1));
-+		rc = regmap_write(lpc_ctrl->regmap, HICR8,
-+				(~(map.size - 1)) | ((map.size >> 16) - 1));
-+		if (rc)
-+			return rc;
-+
-+		/*
-+		 * Enable LPC FHW cycles. This is required for the host to
-+		 * access the regions specified.
-+		 */
-+		return regmap_update_bits(lpc_ctrl->regmap, HICR5,
-+				HICR5_ENFWH, HICR5_ENFWH);
- 	}
- 
- 	return -EINVAL;
--- 
-2.15.1
+
+"openbmc" <openbmc-bounces+hramasub=3Din.ibm.com@lists.ozlabs.org> wrote on
+02/08/2018 09:55:18 AM:
+
+> From: Rolf Brudeseth <code@brudeseth.name>
+> To: openbmc@lists.ozlabs.org
+> Date: 02/08/2018 10:23 AM
+> Subject: Re: Redfish on OpenBMC
+> Sent by: "openbmc" <openbmc-bounces+hramasub=3Din.ibm.com@lists.ozlabs.or=
+g>
+>
+> 5) Leverage existing open source projects:
+> - Does the implementation compose existing services and frameworks ?
+> Such as a webserver(say, nginx) and a rest framework (flask).
+> In my testing, flask was a non-starter for performance on low end
+> systems, and while reasonably performant when measured externally
+> with response times, it consumed quite a
+> bit of system CPU cycles for most tasks. Also, the startup time for
+> python was suspect, and difficult to improve on without lots of
+gymnastics.
+> Hari>> I haven't evaluated flask and it's good to know the
+> performance limitations with flask and python.
+>
+> regards,
+> Hari !
+
+> Are other language options besides Python an alternative, such as
+> Golang? It has webserver and template functionality built-in so an
+> additional framework may not be required.
+>
+> It is compiled so it should have better performance than Python.
+> Cross-compiling to ARM is trivial.
+>
+> Rolf
+There certainly is no precedence for golang based code in OpenBMC yet.
+But that shouldn't stop us from exploring that. I believe Michael's
+implementation is golang based as well.
+Hari !
+
+--0__=EABB08BDDF8D060D8f9e8a93df938690918cEABB08BDDF8D060D
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><tt><font size=3D"2">&quot;openbmc&quot; &lt;openbmc-bounces=
++hramasub=3Din.ibm.com@lists.ozlabs.org&gt; wrote on 02/08/2018 09:55:18 AM=
+:<br><br>&gt; From: Rolf Brudeseth &lt;code@brudeseth.name&gt;</font></tt><=
+br><tt><font size=3D"2">&gt; To: openbmc@lists.ozlabs.org</font></tt><br><t=
+t><font size=3D"2">&gt; Date: 02/08/2018 10:23 AM</font></tt><br><tt><font =
+size=3D"2">&gt; Subject: Re: Redfish on OpenBMC</font></tt><br><tt><font si=
+ze=3D"2">&gt; Sent by: &quot;openbmc&quot; &lt;openbmc-bounces+hramasub=3Di=
+n.ibm.com@lists.ozlabs.org&gt;</font></tt><br><tt><font size=3D"2">&gt; <br=
+>&gt; 5) Leverage existing open source projects:<br>&gt; - Does the impleme=
+ntation compose existing services and frameworks ?<br>&gt; Such as a webser=
+ver(say, nginx) and a rest framework (flask).</font></tt><br><tt><font size=
+=3D"2">&gt; In my testing, flask was a non-starter for performance on low e=
+nd <br>&gt; systems, and while reasonably performant when measured external=
+ly <br>&gt; with response times, it consumed quite a</font></tt><br><tt><fo=
+nt size=3D"2">&gt; bit of system CPU cycles for most tasks. Also, the start=
+up time for <br>&gt; python was suspect, and difficult to improve on withou=
+t lots of gymnastics.</font></tt><br><tt><font size=3D"2">&gt; Hari&gt;&gt;=
+ I haven't evaluated flask and it's good to know the <br>&gt; performance l=
+imitations with flask and python. <br>&gt; <br>&gt; regards,<br>&gt; Hari !=
+<br></font></tt><br><tt><font size=3D"2">&gt; Are other language options be=
+sides Python an alternative, such as <br>&gt; Golang? It has webserver and =
+template functionality built-in so an <br>&gt; additional framework may not=
+ be required.<br>&gt; <br>&gt; It is compiled so it should have better perf=
+ormance than Python. <br>&gt; Cross-compiling to ARM is trivial.<br>&gt; <b=
+r>&gt; Rolf<br>There certainly is no precedence for golang based code in Op=
+enBMC yet.<br>But that shouldn't stop us from exploring that. I believe Mic=
+hael's <br>implementation is golang based as well.</font></tt><br><tt><font=
+ size=3D"2">Hari !</font></tt><BR>
+</body></html>
+
+--0__=EABB08BDDF8D060D8f9e8a93df938690918cEABB08BDDF8D060D--
