@@ -1,65 +1,36 @@
-Return-Path: <brendanhiggins@google.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400d:c0d::230; helo=mail-qt0-x230.google.com;
- envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="fVtQXN6n"; 
- dkim-atps=neutral
-Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
- [IPv6:2607:f8b0:400d:c0d::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcwPK5yBwzF1BW
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 11:07:48 +1100 (AEDT)
-Received: by mail-qt0-x230.google.com with SMTP id z10so8526219qti.5
- for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 16:07:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=egDqlIroT+3NYRrBSZb4DXUc9bDiJBFeg0FA5BECwrc=;
- b=fVtQXN6nqICdoCQqxwBUr86h91yjbq8PG9vF7oVtpsxtulxVyn5NnGJR+3apM+eUdn
- 32TNKxq7wtTBohg6Xf4WW9Fkx0jsQ0/ajy+UF7tMfMrRMWYJWJ826VlbRhbZ+ZuqKuM/
- fD2jKif/3iGtHzDsUOzp7RwSQO33pBAxON0Ms3xMcE8ObwzFKfKY7QLku48sw4Lo6rIS
- 4wyd7h1FXX6xQYDwZhHSxQRZhF52aIr4ro3fxtKo9SZuDdsUkFKP95PwBsl0qon2AYiB
- GpHYAZQVyE3UPjRROLVkHppO3k7Wd3pMH7nq8ywtC6aUeTSXNXCf0BvSMRdog/PU8QV+
- 1a/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=egDqlIroT+3NYRrBSZb4DXUc9bDiJBFeg0FA5BECwrc=;
- b=JWV4AskSQXvohISowlXwnYlOHQYPR1UXKP6QuBcdJFAMiremGgoqLo/XXlSeFxnyXB
- dV0/opH9zZeEkEZZ/5h+p30K59QzHEjykKKKhCbAkBvpPCsLWkvKBfwLBOLHDznCDgBh
- xnG26DfvU4J/T0DWgcCqJSmbKyq2nuVsZslM4FMkIA0hed1UuAK6XiENlsXxihGveOLs
- lT4Bnp7hy1uZn3gJL5MDmVELo6UJWQ+9ZZ5UtyCkT0q1gsffTP5NqlTPQ0kS/ta1+T5D
- JJAlWArDSjO+f1GGjBvZFGX0hRjdheihIbSdxj5+k4V0I5OF+SHL9siTTg+MKlcnhhko
- ItEw==
-X-Gm-Message-State: APf1xPBNdySp+fYokVd5I0HSiM0ehpVjGfbxAxC1bJ7Qx/T5HIdkLdU7
- UeQ4bSD5esTOGvAG65EJIG/xmtdy0yHdLzv1okUTxA==
-X-Google-Smtp-Source: AH8x22669fsB8ne0N/J7W2KglbTW1+Nlbse009uwXeYlPXSvd2Scq8oe9Lwwlo7nir/qHrOIRHJgciQFdl4s4Yat4NY=
-X-Received: by 10.200.47.184 with SMTP id l53mr1544853qta.261.1518134865093;
- Thu, 08 Feb 2018 16:07:45 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.140.106.183 with HTTP; Thu, 8 Feb 2018 16:07:44 -0800 (PST)
-In-Reply-To: <CAHb3i=uvj_KS4tZ_qZjQdMZ2CCg9_+11FbmvmF4D5DFGtaAW=g@mail.gmail.com>
-References: <1517818975-11427-1-git-send-email-tmaimon77@gmail.com>
- <1517818975-11427-3-git-send-email-tmaimon77@gmail.com>
- <CAFd5g445Ae-uBO52sn1WH67tMgc0n_sbi6cS-SuKLhR__D98kg@mail.gmail.com>
- <CAHb3i=un-LjnV+DWBMkEcDKNFyEi63wh0RR0dHWsHpv2K9erTw@mail.gmail.com>
- <CAHb3i=uvj_KS4tZ_qZjQdMZ2CCg9_+11FbmvmF4D5DFGtaAW=g@mail.gmail.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Thu, 8 Feb 2018 16:07:44 -0800
-Message-ID: <CAFd5g44vTyOciaT5+YcVOdxd0=7sxWb3r+gO6_DFv3bmS=EL-w@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] clk: npcm: add NPCM7xx clock driver
-To: Tali Perry <tali.perry1@gmail.com>
-Cc: =?UTF-8?Q?=E2=80=8B_Tomer_Maimon?= <tmaimon77@gmail.com>, 
- Michael Turquette <mturquette@baylibre.com>, sboyd@codeaurora.org, 
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Avi Fishman <avifishman70@gmail.com>, Joel Stanley <joel@jms.id.au>,
- linux-clk@vger.kernel.org, devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcwpP0rdtzF190
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 11:26:04 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id C785E6E0EF;
+ Thu,  8 Feb 2018 19:26:00 -0500 (EST)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: Mailing list posting guidelines
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <1c422ecd21c149e9b08cf9230e8c08b3@ausx13mps334.AMER.DELL.COM>
+Date: Thu, 8 Feb 2018 19:26:00 -0500
+Cc: Patrick Venture <venture@google.com>, joel@jms.id.au, rolfb@us.ibm.com,
+ ed.tanous@intel.com, jwcarman@us.ibm.com, yupalani@microsoft.com,
+ Paul.Vancil@dell.com, pradeep.kumar36@tcs.com, alirhas@microsoft.com,
+ openbmc@lists.ozlabs.org, Balaji.B.Rao@dell.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <24C1007E-BB69-4F2E-93CC-6C41DAA8C723@fuzziesquirrel.com>
+References: <8E21FD04-4E06-4757-818F-E6CF7771265B@fuzziesquirrel.com>
+ <CACPK8XeSdhqMYhEug7FCYKwgn5wDe0spvDeyR==tCEGjAoaSsg@mail.gmail.com>
+ <CAO=notwHgKGhnJgCo39i5JBszcXkHrozxEZut41ATsk7iSN4jg@mail.gmail.com>
+ <1c422ecd21c149e9b08cf9230e8c08b3@ausx13mps334.AMER.DELL.COM>
+To: Michael E Brown <Michael.E.Brown@dell.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -71,54 +42,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Feb 2018 00:07:50 -0000
+X-List-Received-Date: Fri, 09 Feb 2018 00:26:05 -0000
 
-<snip>
->> +
->> +       /* Define fixed clocks.
->> +        * Notice: the following clocks are fixed value on NPCM7XX and should
->> +        * not be changed.
->> +        * therefor they are not exposed to the dev tree .
->
-> I am not convinced. The top level .dtsi is usually SoC specific.
->
-> - CLKREF should be fixed on 25MHz. I didn't want to put it in DT since
-> it might appear as something that is changeable.
->  on npcm750 all clocks are set in ROM +BB (several possible settings)
-> , so this entire driver is only used for reading the current clock
-> settings. All clocks are read only and derived from CLKREF. CLKREF is
-> fixed so no point in putting it in DT and exposing it outside of this
-> driver.
 
-I understand your rationale, but the *.dtsi is typically used to describe the
-SoC, things that cannot change. For example, consider
-arch/arm/boot/dts/nuvoton-npcm750.dtsi, it describes the CPU cores, cache
-hierarchy, peripherals and what busses they reside on, memory layout, etc. None
-of these things are configurable; the *.dtsi just describes the SoC. Typically,
-a *.dts is made for a particular board and imports a *.dtsi and does some
-configuration, but it is not supposed to override things like what I listed
-above (amoung other things).
+> On Feb 8, 2018, at 5:12 PM, <Michael.E.Brown@dell.com> =
+<Michael.E.Brown@dell.com> wrote:
+>=20
+> The posting guidelines are a very large barrier to entry
 
-There are several reasons that you put this information that cannot change in a
-*.dtsi. For one it is a convenient, all in one place description of the SoC that
-serves as a form of documentation. But more importantly, if you were to create a
-variation of the 750 with a different number of cores, a different memory
-layout, a different reference clock, etc, you could potentiallly use the same
-drivers for both SoCs, and you would only have to write a new *.dtsi. I know you
-may have no intention to do this, but many other CPU vendors do. And for this
-reason, this is how drivers are expected to be written.
+Ok.  Respectfully disagree.  Even with Outlook, it shouldn=E2=80=99t be
+too hard for folks to reply without history, copy/paste a line
+of context they want to reply to and drop a greater than in front
+of it.
 
-I hope this makes sense.
+In fact I=E2=80=99ve already seen a couple emails from people where they
+were not aware of typical email list guidelines in their first posts
+and are now composing mails in the usual way quite nicely.
 
->
->> +        */
->> +       pr_debug("\tclk register fixed clocks\n");
->> +       hw = clk_hw_register_fixed_rate(NULL, NPCM7XX_CLK_S_REFCLK,
->> +               NULL, 0, 25000000);
->> +       hw = clk_hw_register_fixed_rate(NULL, NPCM7XX_CLK_S_SYSBYPCK,
->> +               NULL, 0, 800000000); // rarely used. mostly testing. TBD: remove
->> +       hw = clk_hw_register_fixed_rate(NULL, NPCM7XX_CLK_S_MCBYPCK,
->> +               NULL, 0, 800000000); // rarely used.  mostly testing. TBD:remove
->> +
->> +
-<snip>
+> and huge source of stress to people wanting to participate
+
+I can understand this.  I went through it myself about 18 months
+ago.  But after working in various open communities I now understand
+the value of it, and would like to help others see that value too.
+
+> Is there a productive solution to this insoluble problem?
+
+The reality is, if these guidelines aren=E2=80=99t followed people will
+simply ignore the email.  I brought up typical email list guidelines
+because I didn=E2=80=99t want to see that happening.
+
+-brad=
