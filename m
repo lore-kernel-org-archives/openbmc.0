@@ -1,55 +1,60 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::241; helo=mail-pg0-x241.google.com;
+ (client-ip=2607:f8b0:400d:c09::233; helo=mail-qk0-x233.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="N4a4wiAx"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="aiGF58iL"; 
  dkim-atps=neutral
-Received: from mail-pg0-x241.google.com (mail-pg0-x241.google.com
- [IPv6:2607:f8b0:400e:c05::241])
+Received: from mail-qk0-x233.google.com (mail-qk0-x233.google.com
+ [IPv6:2607:f8b0:400d:c09::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zd0hB2sH9zF17b
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 14:20:58 +1100 (AEDT)
-Received: by mail-pg0-x241.google.com with SMTP id f6so2750968pgs.10
- for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 19:20:58 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zd2Q81Q6fzF17f
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 15:38:56 +1100 (AEDT)
+Received: by mail-qk0-x233.google.com with SMTP id c4so6256204qkm.2
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 20:38:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=eZhFO2OZOvAx1W7IDgs/TawUqfOrTEqNGjFLXmlAL58=;
- b=N4a4wiAxEZnGovA0u46AUnxMWpNj2RfFqMytvDu9T9ZJS2qdDNCL5DxtgyVITFhWB8
- YywWwmNnUmsH+zKXhvmoUy4i38VTxzuqU61m6Ezs6iF6y7FHTNJvpY4cERuLIq4OjHcg
- WYcUOs7bWuCys6+s4uWAXUUcF7DlAeSclIF9CjLln5p6pfgEmamucq/G7y9WJ3TSiC0H
- ZDqI2TISTjiMtoxMXzrBKoOOxnrae53lASmDAEanxm/o3D+e2IWJOVDKbsutRZqyYbr0
- pWM540SXfI7G7C14n24peg6SvdLrs+mQucO2zL7PZA59ifSsSp1TT+Lrmj8xAHVPLTCf
- KcnA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=+IWchd/FH6wDX27ZSblfst0p9gXhT484Uij3ikMu97E=;
+ b=aiGF58iLp07d0FrDIlkYdRr958AQM0MLJhd6v94MFqdAtIAB0vaQM+rEcwE+XSrEv7
+ fLtwWTs7QfHKkb2LUn/cz+wusocnQu64OOi1WbukKjPjvU74VAXbucyBJ9LiYmoM6F2t
+ YIwWbV72HvjGVmsNBM/7y7rJZTVqqDqZPS8rrsh1SwrnSTV48v+CnGRWtpDDGI/8L7aX
+ abFVNT35cV0yGpqM+TtiQltjbpu1uB3SERyDYphPCxuVyOLVbQYPCWhJZZ45RN8mDdNB
+ M80x8T+4SjOHLih7v4oSzy2hPphzNSaWa9JHt+znPiAj0+3p1JSKZryfYIxHTX7e9x/D
+ mLNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=eZhFO2OZOvAx1W7IDgs/TawUqfOrTEqNGjFLXmlAL58=;
- b=CRevMIQrPyn+GLzV/XDNr69p8BfaNHluIRIy2DoOovJb8CDcvnU9XyyRWWmIKy3Suj
- VbjVemrlJZb3K1KfoIfNxHBANURU2d03RnSUYQm7jBsCUz6swQMKqO/VC/GUQNVR6/V4
- ImpXWX8zicPNg8qK8+siyLzsg/Ftdl5VFgBApmHvg9LwRCeuY7f1e1SjA2/K1gBKxZjy
- ObPStEbdiuWz3qd6oB5txyhIlSHGm1yaZ5MozYPoaeZqKWlOXsxXzSGzTCSuLHpkzlEl
- qTGEMqznqg2Io8sQnLuwp7b7SIo+Q+7HeFlouc6vI8F0zlkZ32m4yKhPULAIuSGpY7pB
- 5Zdw==
-X-Gm-Message-State: APf1xPD7ZxgDbn6zniihpHLPjo+0t1j4nhbyfENXRlC5zG3FMMnhRrqp
- zCi+JPqhE43NUkpeLVqwRAv6gKGO
-X-Google-Smtp-Source: AH8x2264PADPFwAV3+ULMntKHxsF4Om2DMLjUCQz1kOpDJjT+ES/ERneI/TSYXtRrPAOJfY1RJitXw==
-X-Received: by 10.98.68.91 with SMTP id r88mr1327205pfa.52.1518146455225;
- Thu, 08 Feb 2018 19:20:55 -0800 (PST)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id h80sm2836804pfj.12.2018.02.08.19.20.52
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 08 Feb 2018 19:20:54 -0800 (PST)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 09 Feb 2018 13:50:49 +1030
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=+IWchd/FH6wDX27ZSblfst0p9gXhT484Uij3ikMu97E=;
+ b=P/X3gtpTylH1XUCGAsxNwZD5wcj6ws9COIgoH84XZN7eo2f7xDI+arlqoo5FB+Uif6
+ tvp8FObarb/3CDDYwEkSVqDBqJIV2VLmq/iBPg0UWJgqWILi16OCv3SHIsjxp4r8gg0g
+ 5GA/TIb8oNhrKdpYXLPTI66eZBq8+AzN8lrRGt+/SagZZLziDKyDhVcO8kLMhdjJntwW
+ NVmYPD4lqIPOoLYX9c05jRrEr2a4umPjvSdPN12gdCenJxv/xJysM7nlgxsb3uQKSl1o
+ gFmYsCsXyOM49iHy8kCyAB0b2BsY2O7GvSEtyvE2SCgM/D4oIKYMkrzTSwG76r2jke4E
+ /z0Q==
+X-Gm-Message-State: APf1xPB1fcdR1Gvqh7mdjMwTgFymldH4J7rjEZFTPYJKppAqVEjd9nZh
+ wRMSxLs+YRCtOPR+YQypeFXF+R1IOQWUH8OqCsI=
+X-Google-Smtp-Source: AH8x225sVKRP64TGGvg6QviBcmkXOpTuYyVE5e7xoynpRuge2EOasWsjY2jXlLlrLgWwlGVicVZ9yD27i+17V0K090c=
+X-Received: by 10.55.33.129 with SMTP id f1mr1717576qki.158.1518151133417;
+ Thu, 08 Feb 2018 20:38:53 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.50.81 with HTTP; Thu, 8 Feb 2018 20:38:32 -0800 (PST)
+In-Reply-To: <CACPK8Xdn-8OTMhucBFXz0CRWi+72-2ZjOnjRWDuHYEWxD-qk5g@mail.gmail.com>
+References: <20180208053745.31254-1-joel@jms.id.au>
+ <20180208053745.31254-4-joel@jms.id.au>
+ <1518076351.14456.8.camel@aj.id.au>
+ <CACPK8Xdn-8OTMhucBFXz0CRWi+72-2ZjOnjRWDuHYEWxD-qk5g@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13] fsi: core: Depend on OF
-Date: Fri,  9 Feb 2018 13:50:48 +1030
-Message-Id: <20180209032048.27450-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.15.1
+Date: Fri, 9 Feb 2018 15:08:32 +1030
+X-Google-Sender-Auth: e2WCFv6vn2nVuAce7NKL2GAw5Ns
+Message-ID: <CACPK8Xdjj1-RfwjfSd5bTGNepzm0A7bVXJhLOgOUpFfw+TiWdQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 3/3] soc: aspeed-lpc-ctrl: Enable FWH cycles
+To: Andrew Jeffery <andrew@aj.id.au>, Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -61,29 +66,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Feb 2018 03:20:59 -0000
+X-List-Received-Date: Fri, 09 Feb 2018 04:38:56 -0000
 
-The recent changes to match FSI slaves and engines to device tree nodes
-introduced a dependency on 'of_' functions. As all in-tree users of FSI
-are ARM OF platforms, make the FSI core depend on OF.
+On Fri, Feb 9, 2018 at 12:18 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Thu, Feb 8, 2018 at 6:22 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>> On Thu, 2018-02-08 at 16:07 +1030, Joel Stanley wrote:
+>>>
+>>> +#define HICR5 0x0
+>>> +#define HICR5_ENL2H  BIT(8)
+>>
+>> Shouldn't we be setting this at the same time as HICR5_ENFWH below?
+>
+> In our testing we didn't require it.
+>
+> Lei, can you double check that the patch works from a power cycle
+> without setting bit 8 in 0x1e789080?
 
-Fixes: 46d6856a33e67 ("fsi: Match fsi slaves and engines to available dt nodes")
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- drivers/fsi/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Our testing was off. We discovered that bit 10 is always set (in this
+case by u-boot, in platform.S), but we need to set bit 8.
 
-diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-index 8ed4602d9acf..2c9b32d3127e 100644
---- a/drivers/fsi/Kconfig
-+++ b/drivers/fsi/Kconfig
-@@ -6,6 +6,7 @@ menu "FSI support"
- 
- config FSI
- 	tristate "FSI support"
-+	depends on OF
- 	select CRC4
- 	---help---
- 	  FSI - the FRU Support Interface - is a simple bus for low-level
--- 
-2.15.1
+I will send a v2.
+
+Cheers,
+
+Joel
