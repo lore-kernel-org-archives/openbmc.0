@@ -1,58 +1,58 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::241; helo=mail-ot0-x241.google.com;
+ (client-ip=2607:f8b0:4003:c0f::243; helo=mail-ot0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="J+SmJqqG"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="sHopNkTy"; 
  dkim-atps=neutral
-Received: from mail-ot0-x241.google.com (mail-ot0-x241.google.com
- [IPv6:2607:f8b0:4003:c0f::241])
+Received: from mail-ot0-x243.google.com (mail-ot0-x243.google.com
+ [IPv6:2607:f8b0:4003:c0f::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zd38g1jK5zF1Cy
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 16:12:19 +1100 (AEDT)
-Received: by mail-ot0-x241.google.com with SMTP id m20so6555442otf.3
- for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 21:12:18 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zd38n0MzWzF1D5
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 16:12:25 +1100 (AEDT)
+Received: by mail-ot0-x243.google.com with SMTP id l10so6566232oth.1
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 21:12:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=vsRF6ToKLajtByQLZg88LEzpzDrXDre/r6+CNU/rrSs=;
- b=J+SmJqqGkh8HBqqCrcRnlwUqorz9dLbqlFu+7SzS9kDAhz9SuVd2tj+4ZyB0WfsZu/
- HCR74LnpRUe+16r8Qarl7ZJnRrEWTCs06IEzxaOU++l5Z0Ga0E8rpKSdDWKYt8NbyhD9
- uBHWO7SFzeHwfwoCReVKxIGtt40uqc5+bb2/65fzPK8ISaSqhSZl3k/Yo+cp5GUBR4DS
- uhHSnt3rSuZMdPmcZSZximnVfMD2UeVbruVYd3cv0/g1uWmI49zywjTGD/G1lTgHXx4G
- kwA4QpiQ11TdEmWfyDDkT7a5QHye1aSiGUnxqdD42ERNReO0Es9PtG6RX+sAT/DARNdJ
- 17ZQ==
+ bh=9WOG873e4Oox5WjdBP1hjG2Ukr0rhf/HiFKQBxM5YYA=;
+ b=sHopNkTyxj4K3fmBzZ2+z7U1CV0z7I88PIG6jbUFGVF/xyj8MWer8cLpVc3sc/2vD7
+ 9ec/58Vs9iD/Vft67T0cKWd90IDWJc3a7hiTmuRvZddp0ZEfiZN/RsG8itS8wIAmgLZM
+ HK0EontNuO3VBzvFgxqcdqfNdPfg5jRS18RKy+4mLexXEgbE5Z9MB+peG9I7llQjYBc/
+ w2++O2qNQq6w+HAtTtNZnKgrxahlRhvpaoj2YWKNqVEwu8G24KsIxP9Z0JhvuA2uZ4oF
+ +DL9exdq5xPNpnSfINK9XswcfApHA+XcBvvSWq5WT6BRYNrHgVOc6NnW8GcDdGbmm2V/
+ 1w2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references;
- bh=vsRF6ToKLajtByQLZg88LEzpzDrXDre/r6+CNU/rrSs=;
- b=CKfPpUdeqr7ND1D+O6uyweW7Dc3yUp2+GL2JDIov0EkNXq7ujvILqSWiZHqROV6Xin
- 5WXtgzdYOuyXkislqONPhtCBz7m9ra7BOmdbUOlCTzVZbNrXrpdrob08TnRfahsaCHRG
- craQhDb0JsbOp7+ps8iTrs1YbsTmeCsKvSjfxHVzH8qGBsATD1YE8bzY5zD2ndd/rL+T
- 1vwZrh6vMP0fNgCh5mHfWsTEoM2nOSNKx6FJ/2fsYhQu4flAgXQNcKcVSoYmlZIXdCjE
- G046Bvw+MPexFrFaEALgCB/DARrl+FDiA+r7yBNShqGMski7TfAoVYxUwqdU01/w+wiv
- CUog==
-X-Gm-Message-State: APf1xPDArQOUI5MDUUSD1dpJn301PEXeUyBaiaZBq+o17c9L2GmGHK5H
- /etRbiszXkrdTJ02gSHFCMq82gTd
-X-Google-Smtp-Source: AH8x224lt93mxEYkrSOG2eN3OBoC5IU4Em2zoM6JNip87ioYXpi1lxWUYnWAg4dXg9dQclM8lZ4tBQ==
-X-Received: by 10.157.42.73 with SMTP id t67mr1197555ota.39.1518153136708;
- Thu, 08 Feb 2018 21:12:16 -0800 (PST)
+ bh=9WOG873e4Oox5WjdBP1hjG2Ukr0rhf/HiFKQBxM5YYA=;
+ b=BP1Up+9rbfEZGy/RmJybL+2DDp4LxgvwJaIFWpbm5HwKJilLv8jLZ1tLOzqkQPXmDF
+ tkZjRXWea0z4TVT6L5saxX/I1P/Rqtv7/AcIdWER/cwgbkYvU18It8ntWNs+NxEj9MUE
+ frdi83kfp1JJyTbq2kFgO6O37fhecFFWMHrYq8vyLqyHxlpzhb1X2ZmLgIwl3q8w1L/m
+ kKliGiW6kygeNJIJgTtYTy761ZGrwRBuf0IX18NRTeHKFFqMkrvqPLkHH/pbaT0EoDtO
+ mP8pKkH66fRtaWyilNuGOAOXbOK0fTacAke4oB7/N5wHTAu/krj1HrIr1CASo1ut+q+c
+ awbw==
+X-Gm-Message-State: APf1xPBuw/Ht9qyDIFIz5TQyPtgiBwd9/tHVVAldpCuxecx5tG1RPiIS
+ uWys7mB5fuwSzTD92fXVfnkrumso
+X-Google-Smtp-Source: AH8x227xl3E4s/7jpTb/kBt7LM1QLQNV5O3rVX6ymcN7FG7yUdeZg/rRhAlIL5bxKW4scLSl4nbG8Q==
+X-Received: by 10.157.29.228 with SMTP id w33mr1160829otw.97.1518153142662;
+ Thu, 08 Feb 2018 21:12:22 -0800 (PST)
 Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id e7sm758840oic.50.2018.02.08.21.12.13
+ by smtp.gmail.com with ESMTPSA id e2sm731080oii.46.2018.02.08.21.12.19
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 08 Feb 2018 21:12:16 -0800 (PST)
+ Thu, 08 Feb 2018 21:12:22 -0800 (PST)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 09 Feb 2018 15:42:10 +1030
+ Fri, 09 Feb 2018 15:42:17 +1030
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Lei YU <mine260309@gmail.com>, Andrew Jeffery <andrew@aj.id.au>,
  Cyril Bur <cyrilbur@gmail.com>
-Subject: [PATCH linux dev-4.13 v2 2/4] misc: aspeed-lpc: Request and enable
- LPC clock
-Date: Fri,  9 Feb 2018 15:41:56 +1030
-Message-Id: <20180209051158.32354-3-joel@jms.id.au>
+Subject: [PATCH linux dev-4.13 v2 3/4] dt-bindings: aspeed-lpc: Document LPC
+ Host Interface Controller
+Date: Fri,  9 Feb 2018 15:41:57 +1030
+Message-Id: <20180209051158.32354-4-joel@jms.id.au>
 X-Mailer: git-send-email 2.15.1
 In-Reply-To: <20180209051158.32354-1-joel@jms.id.au>
 References: <20180209051158.32354-1-joel@jms.id.au>
@@ -67,63 +67,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Feb 2018 05:12:19 -0000
+X-List-Received-Date: Fri, 09 Feb 2018 05:12:25 -0000
 
-The LPC device needs to ensure it's clock is enabled before it can do
-anything.
+The LPC Host Interface Controller is part of a BMC SoC that is used for
+communication with the host.
 
-Tested-by: Lei YU <mine260309@gmail.com>
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/misc/aspeed-lpc-ctrl.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ .../devicetree/bindings/mfd/aspeed-lpc.txt         | 39 ++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
-index b5439643f54b..4a818ad3827e 100644
---- a/drivers/misc/aspeed-lpc-ctrl.c
-+++ b/drivers/misc/aspeed-lpc-ctrl.c
-@@ -7,6 +7,7 @@
-  * 2 of the License, or (at your option) any later version.
-  */
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+index 514d82ced95b..c40b707df907 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+@@ -109,6 +109,45 @@ lpc: lpc@1e789000 {
+ 	};
+ };
  
-+#include <linux/clk.h>
- #include <linux/mfd/syscon.h>
- #include <linux/miscdevice.h>
- #include <linux/mm.h>
-@@ -26,6 +27,7 @@
- struct aspeed_lpc_ctrl {
- 	struct miscdevice	miscdev;
- 	struct regmap		*regmap;
-+	struct clk		*clk;
- 	phys_addr_t		mem_base;
- 	resource_size_t		mem_size;
- 	u32		pnor_size;
-@@ -180,6 +182,17 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
- 	if (!lpc_ctrl)
- 		return -ENOMEM;
- 
-+	lpc_ctrl->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(lpc_ctrl->clk)) {
-+		dev_err(dev, "couldn't get clock\n");
-+		return PTR_ERR(lpc_ctrl->clk);
-+	}
-+	rc = clk_prepare_enable(lpc_ctrl->clk);
-+	if (rc) {
-+		dev_err(dev, "couldn't enable clock\n");
-+		return rc;
-+	}
++BMC Node Children
++==================
 +
- 	node = of_parse_phandle(dev->of_node, "flash", 0);
- 	if (!node) {
- 		dev_err(dev, "Didn't find host pnor flash node\n");
-@@ -239,6 +252,7 @@ static int aspeed_lpc_ctrl_remove(struct platform_device *pdev)
- 	struct aspeed_lpc_ctrl *lpc_ctrl = dev_get_drvdata(&pdev->dev);
++LPC Host Interface Controller
++-------------------
++
++The LPC Host Interface Controller manages functions exposed to the host such as
++LPC firmware hub cycles, configuration of the LPC-to-AHB mapping, UART
++management and bus snoop configuration.
++
++Required properties:
++
++- compatible:	One of:
++		"aspeed,ast2400-lpc-ctrl";
++		"aspeed,ast2500-lpc-ctrl";
++
++- reg:		contains offset/length values of the LHC memory regions
++
++- clocks:	contains a phandle to the syscon node describing the clocks.
++		There should then be one cell representing the clock to use
++
++- memory-region: A phandle to a reserved_memory region to be used for the LPC
++		to AHB mapping
++
++- flash:	A phandle to the SPI flash controller containing the flash to
++		be exposed over the LPC to AHB mapping
++
++Example:
++
++lpc-host@80 {
++	lpc_ctrl: lpc-ctrl@0 {
++		compatible = "aspeed,ast2500-lpc-ctrl";
++		reg = <0x0 0x80>;
++		clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
++		memory-region = <&flash_memory>;
++		flash = <&spi>;
++	};
++};
++
+ Host Node Children
+ ==================
  
- 	misc_deregister(&lpc_ctrl->miscdev);
-+	clk_disable_unprepare(lpc_ctrl->clk);
- 
- 	return 0;
- }
 -- 
 2.15.1
