@@ -1,60 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::233; helo=mail-qk0-x233.google.com;
+ (client-ip=2607:f8b0:4003:c0f::243; helo=mail-ot0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="aiGF58iL"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="KR2rPyLv"; 
  dkim-atps=neutral
-Received: from mail-qk0-x233.google.com (mail-qk0-x233.google.com
- [IPv6:2607:f8b0:400d:c09::233])
+Received: from mail-ot0-x243.google.com (mail-ot0-x243.google.com
+ [IPv6:2607:f8b0:4003:c0f::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zd2Q81Q6fzF17f
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 15:38:56 +1100 (AEDT)
-Received: by mail-qk0-x233.google.com with SMTP id c4so6256204qkm.2
- for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 20:38:55 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zd38S2HTTzF19W
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 16:12:07 +1100 (AEDT)
+Received: by mail-ot0-x243.google.com with SMTP id q12so6550258otg.10
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 21:12:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=+IWchd/FH6wDX27ZSblfst0p9gXhT484Uij3ikMu97E=;
- b=aiGF58iLp07d0FrDIlkYdRr958AQM0MLJhd6v94MFqdAtIAB0vaQM+rEcwE+XSrEv7
- fLtwWTs7QfHKkb2LUn/cz+wusocnQu64OOi1WbukKjPjvU74VAXbucyBJ9LiYmoM6F2t
- YIwWbV72HvjGVmsNBM/7y7rJZTVqqDqZPS8rrsh1SwrnSTV48v+CnGRWtpDDGI/8L7aX
- abFVNT35cV0yGpqM+TtiQltjbpu1uB3SERyDYphPCxuVyOLVbQYPCWhJZZ45RN8mDdNB
- M80x8T+4SjOHLih7v4oSzy2hPphzNSaWa9JHt+znPiAj0+3p1JSKZryfYIxHTX7e9x/D
- mLNg==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=hJLOisWwteL9AJk8mZsoVqgAamFrDP1RPd6ZkfhE0rw=;
+ b=KR2rPyLvQBVQvVXdgCJSmAWDbqvSu0WPiu0gz4WaWQHxQkuzfj43FcNVYJHKWPMGZU
+ qHsS9YxTIyTm+AxDvrfZ8TzgzL8/Y4isDxIly6uy+vF34Hp90s2sFyU+T/Ap3AAIpAvH
+ AZn1Ea5+EDWNKe0uYxfiSVdWN91wZ2ivmZ0nqcKJbOqdjO1SJbIfAfqC0hvXKGgUQIXO
+ 4la6R3eAwnxIbtcp8TRJrBa2BnFFASg+sT8gBvcKHG13z+37cZdEnrhfxaxUz5awCVjF
+ dTG+os+dDiCCHPuI6uUVKqQtcoj4g6j1rJglttoibyFVx+V/LB0y7mun8BoYaSmPbdBj
+ q+2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=+IWchd/FH6wDX27ZSblfst0p9gXhT484Uij3ikMu97E=;
- b=P/X3gtpTylH1XUCGAsxNwZD5wcj6ws9COIgoH84XZN7eo2f7xDI+arlqoo5FB+Uif6
- tvp8FObarb/3CDDYwEkSVqDBqJIV2VLmq/iBPg0UWJgqWILi16OCv3SHIsjxp4r8gg0g
- 5GA/TIb8oNhrKdpYXLPTI66eZBq8+AzN8lrRGt+/SagZZLziDKyDhVcO8kLMhdjJntwW
- NVmYPD4lqIPOoLYX9c05jRrEr2a4umPjvSdPN12gdCenJxv/xJysM7nlgxsb3uQKSl1o
- gFmYsCsXyOM49iHy8kCyAB0b2BsY2O7GvSEtyvE2SCgM/D4oIKYMkrzTSwG76r2jke4E
- /z0Q==
-X-Gm-Message-State: APf1xPB1fcdR1Gvqh7mdjMwTgFymldH4J7rjEZFTPYJKppAqVEjd9nZh
- wRMSxLs+YRCtOPR+YQypeFXF+R1IOQWUH8OqCsI=
-X-Google-Smtp-Source: AH8x225sVKRP64TGGvg6QviBcmkXOpTuYyVE5e7xoynpRuge2EOasWsjY2jXlLlrLgWwlGVicVZ9yD27i+17V0K090c=
-X-Received: by 10.55.33.129 with SMTP id f1mr1717576qki.158.1518151133417;
- Thu, 08 Feb 2018 20:38:53 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.81 with HTTP; Thu, 8 Feb 2018 20:38:32 -0800 (PST)
-In-Reply-To: <CACPK8Xdn-8OTMhucBFXz0CRWi+72-2ZjOnjRWDuHYEWxD-qk5g@mail.gmail.com>
-References: <20180208053745.31254-1-joel@jms.id.au>
- <20180208053745.31254-4-joel@jms.id.au>
- <1518076351.14456.8.camel@aj.id.au>
- <CACPK8Xdn-8OTMhucBFXz0CRWi+72-2ZjOnjRWDuHYEWxD-qk5g@mail.gmail.com>
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=hJLOisWwteL9AJk8mZsoVqgAamFrDP1RPd6ZkfhE0rw=;
+ b=EM7o/Nd6Iy2YbrL6r+QEEhBNt6XA7/jmr4tuGtCWcfrGiiTgwRYTuXjPQSdXuJYkxe
+ YxFnet2BnpeyLP7CV8krLHi9wNtiv8fpH3GeFRnDrRj4t9sR1Rloh1DE32s6DejOBn3O
+ uVKACxxfe7wUaa9Lp4cEGEWEuYGh/vPBeluU9Sbpaym3GYQhCXiVm4lLLvXGZpyIl4lF
+ iH6zjQ8XBUw/OyYF+YksCLzSS9Pxa9nKChgdUUQXqohZTOLW00Kj5BsOBFu58nC7AnX0
+ qMK3bpH/7BqAWZHXfUobRqRHPffwWIhxwfVXsLdb+E0rXOnN3iPkNPmg7ycW4kiVSpC4
+ TP5g==
+X-Gm-Message-State: APf1xPCsXJwpfC90xvYvCbsRyLIDBrPMJ3uqFevCL+OkrWVk+ut8s5GP
+ zVej9LuLNBlKYI+IPzU9eAq7bR7g
+X-Google-Smtp-Source: AH8x225QPdWsnRntoeqDCjwx/hrj7DjqssigeTOV4WiE1XgSoppD/+HLCoPCPjapkcjqv0ZASE21uA==
+X-Received: by 10.157.4.108 with SMTP id 99mr1422188otc.185.1518153124604;
+ Thu, 08 Feb 2018 21:12:04 -0800 (PST)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id l15sm628437otl.54.2018.02.08.21.12.01
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 08 Feb 2018 21:12:03 -0800 (PST)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Fri, 09 Feb 2018 15:41:58 +1030
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 9 Feb 2018 15:08:32 +1030
-X-Google-Sender-Auth: e2WCFv6vn2nVuAce7NKL2GAw5Ns
-Message-ID: <CACPK8Xdjj1-RfwjfSd5bTGNepzm0A7bVXJhLOgOUpFfw+TiWdQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 3/3] soc: aspeed-lpc-ctrl: Enable FWH cycles
-To: Andrew Jeffery <andrew@aj.id.au>, Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+To: openbmc@lists.ozlabs.org
+Cc: Lei YU <mine260309@gmail.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Cyril Bur <cyrilbur@gmail.com>
+Subject: [PATCH linux dev-4.13 v2 0/4] LPC fixes
+Date: Fri,  9 Feb 2018 15:41:54 +1030
+Message-Id: <20180209051158.32354-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.15.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -66,27 +63,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Feb 2018 04:38:56 -0000
+X-List-Received-Date: Fri, 09 Feb 2018 05:12:09 -0000
 
-On Fri, Feb 9, 2018 at 12:18 PM, Joel Stanley <joel@jms.id.au> wrote:
-> On Thu, Feb 8, 2018 at 6:22 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> On Thu, 2018-02-08 at 16:07 +1030, Joel Stanley wrote:
->>>
->>> +#define HICR5 0x0
->>> +#define HICR5_ENL2H  BIT(8)
->>
->> Shouldn't we be setting this at the same time as HICR5_ENFWH below?
->
-> In our testing we didn't require it.
->
-> Lei, can you double check that the patch works from a power cycle
-> without setting bit 8 in 0x1e789080?
+These patches were developed when bringing up dev-4.13 on Romulus. We
+need to ensure the LPC clock is enabled, now that the clock driver turns
+off any unused clocks. We also need to enable the LPC firmware cycles
+bit as we no longer have the aspeed.c hack.
 
-Our testing was off. We discovered that bit 10 is always set (in this
-case by u-boot, in platform.S), but we need to set bit 8.
+v2:
+ - Set bit 10 and bit 8 to get the LPC mapping working
+ - Add bindings documents
 
-I will send a v2.
+Joel Stanley (4):
+  ARM: dts: aspeed: Add LPC clock phandles
+  misc: aspeed-lpc: Request and enable LPC clock
+  dt-bindings: aspeed-lpc: Document LPC Host Interface Controller
+  misc: aspeed-lpc-ctrl: Enable FWH and A2H bridge cycles
 
-Cheers,
+ .../devicetree/bindings/mfd/aspeed-lpc.txt         | 39 ++++++++++++++++++++++
+ arch/arm/boot/dts/aspeed-g4.dtsi                   |  1 +
+ arch/arm/boot/dts/aspeed-g5.dtsi                   |  1 +
+ drivers/misc/aspeed-lpc-ctrl.c                     | 32 ++++++++++++++++--
+ 4 files changed, 71 insertions(+), 2 deletions(-)
 
-Joel
+-- 
+2.15.1
