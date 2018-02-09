@@ -1,82 +1,61 @@
-Return-Path: <hramasub@in.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=hramasub@in.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::231; helo=mail-ua0-x231.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="C76a+JE0"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x231.google.com (mail-ua0-x231.google.com
+ [IPv6:2607:f8b0:400c:c08::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zdJtZ5rCczF0m9
- for <openbmc@lists.ozlabs.org>; Sat, 10 Feb 2018 02:31:02 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w19FTgJ3135223
- for <openbmc@lists.ozlabs.org>; Fri, 9 Feb 2018 10:31:00 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.81])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2g1actve0r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 09 Feb 2018 10:30:52 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <hramasub@in.ibm.com>;
- Fri, 9 Feb 2018 15:30:51 -0000
-Received: from us1a3-smtp06.a3.dal06.isc4sb.com (10.146.103.243)
- by smtp.notes.na.collabserv.com (10.106.227.88) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 9 Feb 2018 15:30:40 -0000
-Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
- by us1a3-smtp06.a3.dal06.isc4sb.com
- with ESMTP id 2018020915303964-701405 ;
- Fri, 9 Feb 2018 15:30:39 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zdTT23tblzF0h6
+ for <openbmc@lists.ozlabs.org>; Sat, 10 Feb 2018 08:57:56 +1100 (AEDT)
+Received: by mail-ua0-x231.google.com with SMTP id y17so4335771uaa.13
+ for <openbmc@lists.ozlabs.org>; Fri, 09 Feb 2018 13:57:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=Rzt7YK6xBmto6nhfig/HNv6Ik1O5mihbl2z9btCY6C8=;
+ b=C76a+JE02PCQrvPoCWL7FqV97SnZbTikVEGCqxUT54oPdwnlCDbDjogO7OTVzTmNPf
+ Dmsj44edbeAfANzq1jjm/06r1FaKJAzKDQI9Jvy4EuASlwuiaEZ5d/IE5Jj6Lsa9hwys
+ PxoBAPjeBip6tM8cj8r3sI2PldoS0HIwUneFq8+y7hRj0m13uuOQh3cQLszLnAy0qP5g
+ U2VSyQB04A9dd8vP+O07HjQfXEcfXTij+HE+TIehwovhVvn3r0rQAw7eRWLNidcdCxvz
+ RBtlV51QZjBUsLQ6nvO6MXRwQ3vT6IVkK8zWgI4+sYcPdaqYORnUXi1ULoH2kbO4SX2q
+ 5xKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=Rzt7YK6xBmto6nhfig/HNv6Ik1O5mihbl2z9btCY6C8=;
+ b=qhUUeLztGIToTL6t4yISASYVK6PA/YLlvUjJfpZnCIKwRc2NmG21ib1Ia8CBLXMBw2
+ F527xCKvm/D0tJz7Rnr1D+iY8SFTcXFzuY0idOjW1UUcCxQbKLLd26Vw2XfTxMoZgFCG
+ yjVqNMr+oGuXOsjIOfYXayVtPDiUNa78ET4yT/5F4KazkVYLPqRjQP90PuhzqXiUV3Fo
+ CCfDLFtKZkJUjtaizEjBH9R8V3KA0ntxEY9om4kLgFw+Om+vhaKKvCsZULV2EV8ng/xZ
+ 1ipU+kDT6nVR/x1cTt+6KU5DyoiNqv0CLw/E1UZ2QryNUsVxUptDxnkYguYarT20dtlY
+ j1Jw==
+X-Gm-Message-State: APf1xPCAcF6ZxJujoFrptgCzusJCr2izYB4WwZHE9+CnBxFP/ocfL2VI
+ 0gDIBOWPGI1dgkFxWw2yb6FaM7z3Xmw7rBHupKFpaQ==
+X-Google-Smtp-Source: AH8x224RngVReJ/+Gkql+skgsJi0tgHEcEoloVduKHmW+dcbwQuFNpD97Hpg18MqZudLYw6kkxjjb5pcXil4ienn6I0=
+X-Received: by 10.176.0.229 with SMTP id 92mr4491451uaj.33.1518213473481; Fri,
+ 09 Feb 2018 13:57:53 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <53D123781965AE42A2ABEE982B242E417C8E5B6E@IRSMSX102.ger.corp.intel.com>
-Subject: RE: Redfish on OpenBMC
-To: "Rapkiewicz, Pawel" <pawel.rapkiewicz@intel.com>
-Cc: Ali Larijani <alirhas@microsoft.com>, "Balaji.B.Rao@dell.com"
- <Balaji.B.Rao@dell.com>, "bradleyb@fuzziesquirrel.com"
- <bradleyb@fuzziesquirrel.com>, Chris Ong <Chris.Ong@microsoft.com>,
- "Tanous, Ed" <ed.tanous@intel.com>, "jwcarman@us.ibm.com"
- <jwcarman@us.ibm.com>, "Michael.E.Brown@dell.com"
- <Michael.E.Brown@dell.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>, "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>,
- "pradeep.kumar36@tcs.com" <pradeep.kumar36@tcs.com>,
- "rolfb@us.ibm.com" <rolfb@us.ibm.com>, Yugi Mani <yupalani@microsoft.com>
-From: "Hariharasubramanian Ramasubramanian" <hramasub@in.ibm.com>
-Date: Fri, 9 Feb 2018 21:00:41 +0530
-References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
- <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
- <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
- <c73bb370335c45dab208cb0e708a08f4@AUSX13MPS306.AMER.DELL.COM>
- <BL0PR2101MB09150499921D8E104CEB9618ADFA0@BL0PR2101MB0915.namprd21.prod.outlook.com>
- <MWHPR21MB0864D2D2F00B56C21A5917F4D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
- <7E9441B1E5EFFD4681F54958E82169932F663F86@ORSMSX114.amr.corp.intel.com>
- <BL0PR2101MB0897B2A1BB35747988A92BCDEAFC0@BL0PR2101MB0897.namprd21.prod.outlook.com>
- <53D123781965AE42A2ABEE982B242E417C8E5B6E@IRSMSX102.ger.corp.intel.com>
-X-KeepSent: 7D363723:19DBE6CA-6525822F:00549289;
- type=4; flags=0; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP7 August 18, 2016
-X-LLNOutbound: False
-X-Disclaimed: 62567
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=EABB08BCDFC714198f9e8a93df938690918cEABB08BCDFC71419"
-Content-Disposition: inline
-x-cbid: 18020915-7093-0000-0000-0000053FE4EC
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.417846; ST=0; TS=0; UL=0; ISC=; MB=0.019478
-X-IBM-SpamModules-Versions: BY=3.00008504; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000251; SDB=6.00987251; UDB=6.00501096; IPR=6.00766609; 
- BA=6.00005821; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019459; XFM=3.00000015;
- UTC=2018-02-09 15:30:48
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-02-09 11:37:05 - 6.00008031
-x-cbparentid: 18020915-7094-0000-0000-00003AEC031C
-Message-Id: <OF7D363723.19DBE6CA-ON6525822F.00549289-6525822F.00553540@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-09_08:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Received: by 10.31.167.207 with HTTP; Fri, 9 Feb 2018 13:57:33 -0800 (PST)
+In-Reply-To: <CAARXrt=rsjRsPOWtsPE=K9oFKswBmZG1NAxiOGH=h3NS9T04LA@mail.gmail.com>
+References: <CAARXrtm-yxJ4cVi_RjMUZVbNT9aSKqp5dPzeanW+kMb=JugW+w@mail.gmail.com>
+ <1953058b-4268-602d-cc68-00eae50b1f4f@yadro.com>
+ <CAO=notwjPRBjP0A=YOX1Ht06-rdUp7RhcBphuQ1Hg47vRQkG0w@mail.gmail.com>
+ <CAPH-5w4A6LENO1jCcvm1-HAHTbaoJRj7oYPN78Z4h1qUZHSOOA@mail.gmail.com>
+ <CAARXrtkAKR=15-B_O09J-KBw-M8v4d_ct-2B5YmmDTaugHBmqg@mail.gmail.com>
+ <CAARXrt=rsjRsPOWtsPE=K9oFKswBmZG1NAxiOGH=h3NS9T04LA@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 9 Feb 2018 13:57:33 -0800
+Message-ID: <CAO=noty0VReLL_f9rzQdNyp-Gtibb-wzcCxvbAfxFTUHgbfXLQ@mail.gmail.com>
+Subject: Re: RFC: calculating RPM from PWM for fan monitor
+To: Lei YU <mine260309@gmail.com>
+Cc: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Alexander Amelkin <a.amelkin@yadro.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -88,55 +67,143 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Feb 2018 15:31:03 -0000
+X-List-Received-Date: Fri, 09 Feb 2018 21:57:59 -0000
 
+Lei;
 
---0__=EABB08BCDFC714198f9e8a93df938690918cEABB08BCDFC71419
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
+The google originated fan control daemon will be posted for review
+either once I get it approved as an independent open source
+contribution, or preferably once openbmc is given over to the LF.
 
+Patrick
 
-
-
-"Rapkiewicz, Pawel" <pawel.rapkiewicz@intel.com> wrote on 02/08/2018
-07:47:02 PM:
-
-
-> Thanks for your benchmarking you've attached, I'd like to better
-> understand the data. I'm curious about 10 concurrent requests for
-> redfish root service. The average is ~5 seconds for uwsgi, and
-> mostly no response for gevent.
-> Few questions:
-> - gevent and uwsgi, those are two independent redfish server
-implementations?
-> - do you have any traffic during retrieving root service?
-> - Was it with Basic HTTP Auth, or without any?
+On Fri, Jan 26, 2018 at 1:29 AM, Lei YU <mine260309@gmail.com> wrote:
+> I have submitted this proposal to https://gerrit.openbmc-project.xyz/#/c/8661/
 >
-I gather Microsoft implementation supports only Basic Auth. Redfish
-requires all requests (apart from requests for service root, metadata and
-session establishment) to be authenticated. Hence I surmise that the
-performance results are "with Basic HTTP Auth".
-
-Hari !
-
---0__=EABB08BCDFC714198f9e8a93df938690918cEABB08BCDFC71419
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><tt><font size=3D"2">&quot;Rapkiewicz, Pawel&quot; &lt;pawel=
-.rapkiewicz@intel.com&gt; wrote on 02/08/2018 07:47:02 PM:<br><br><br>&gt; =
-Thanks for your benchmarking you've attached, I'd like to better <br>&gt; u=
-nderstand the data. I'm curious about 10 concurrent requests for <br>&gt; r=
-edfish root service. The average is ~5 seconds for uwsgi, and <br>&gt; most=
-ly no response for gevent.<br>&gt; Few questions:<br>&gt; - gevent and uwsg=
-i, those are two independent redfish server implementations?<br>&gt; - do y=
-ou have any traffic during retrieving root service?<br>&gt; - Was it with B=
-asic HTTP Auth, or without any?<br>&gt; <br>I gather Microsoft implementati=
-on supports only Basic Auth. Redfish requires all requests (apart from requ=
-ests for service root, metadata and session establishment) to be authentica=
-ted. Hence I surmise that the performance results are &quot;with Basic HTTP=
- Auth&quot;.</font></tt><br><br><tt><font size=3D"2">Hari !</font></tt><BR>
-</body></html>
-
---0__=EABB08BCDFC714198f9e8a93df938690918cEABB08BCDFC71419--
+> On Wed, Jan 24, 2018 at 2:50 PM, Lei YU <mine260309@gmail.com> wrote:
+>> On Wed, Jan 24, 2018 at 9:22 AM, Xo Wang <xow@google.com> wrote:
+>>> I think the parameters that Lei proposed are equivalent to the two
+>>> feedforward coefficients we have (a slope for an assumed linear
+>>> relationship between a fan's PWM command and its RPM output; and an
+>>> offset to account for fan start).
+>>
+>> Thanks Xo for the info!
+>>
+>>>
+>>> However adding feedforward coefficients isn't the same as detecting
+>>> fan malfunction as Lei wants. I think to do that, we have to look at
+>>> the feedback part of it and have a parameter that decides "too much
+>>> feedback has been required" to hit the target RPM and declare an error
+>>> condition.
+>>
+>> The idea of detecting fan error is simple in the code, which uses a deviation to
+>> check if the fan speed in in the expected range.
+>> So if we have defined the slope and the offset for a fan, the monitor is able to
+>> calculate the expected RPM and check if the fan speed. is out of range,
+>>
+>> And this proposal will not impact the current phosphor-fan-monitor too
+>> much, only
+>> two new parameters are added.
+>>
+>>>
+>>> On Tue, Jan 23, 2018 at 11:02 AM, Patrick Venture <venture@google.com> wrote:
+>>>> To reach a desired RPM, via PWM, we use a PID+FF algorithm that tries
+>>>> to reduce the error between the current fan RPM and the set-point RPM
+>>>> for the fan.  This is in our presently internal implementation of the
+>>>> fan control for openbmc.  We're still working out how to open
+>>>> source/upstream it, when there'll now be multiple implementations of
+>>>> fan controls, etc.
+>>>>
+>>
+>> Thanks Patrick for this info. I guess the community would like to have
+>> alternatives for
+>> fan controls. Maybe a new repo like "google-fan-control" for this?
+>> Anyway it's up to you and the community to decide what is the best :D
+>>
+>>>> Patrick
+>>>>
+>>>> On Tue, Jan 23, 2018 at 6:42 AM, Alexander Amelkin <a.amelkin@yadro.com> wrote:
+>>>>> Lei,
+>>>>>
+>>>>> I'm quite new to openbmc and do not yet fully understand its internal
+>>>>> mechanics, but from my previous experience with other BMC software and
+>>>>> hardware, I can say that every fan has it's own characteristics that include
+>>>>> the minimum and maximum RPM it is able to react to and some not necessarily
+>>>>> linear function between those points.
+>>>>>
+>>>>> As far as I remember, AST2500 is able to detect quite any RPM, no matter how
+>>>>> low it is.
+>>>>> However, some fans just stop if PWM falls below some threshold and rotate at
+>>>>> max RPM beyond some max PWM which may be quite less than from 100% (255).
+>>>>> I've seen Delta's fans that take about 70% PWM as a maximum and fully stop
+>>>>> below like 20%.
+>>>>>
+>>>>> Hence, assuming a single linear slope from 0% to 100% pwm is a bad idea.
+>>>>>
+>>>>> Thus, IMO, the yaml file should define a piecewise linear function, and
+>>>>> maybe jitter level to allow for RPM deviations.
+>>>>> I would also add a delay after detection of a changed pwm before rpm is
+>>>>> checked to allow for acceleration/deceleration. From my experience large
+>>>>> fans (like 100mm) may take up to 4 seconds to reach max rpm from full stop
+>>>>> condition. This should be taken in account to avoid false alarms.
+>>>>>
+>>>>> Alexander Amelkin,
+>>>>> Leading BMC Firmware Engineer
+>>>>> YADRO
+>>>>>
+>>>>>
+>>>>> 23.01.2018 12:37, Lei YU wrote:
+>>>>>>
+>>>>>> phospohr-fan-monitor compares fan speed with target and determine if the
+>>>>>> fan
+>>>>>> is functional:
+>>>>>>
+>>>>>> https://github.com/openbmc/phosphor-fan-presence/blob/master/monitor/fan.cpp#L182-L185
+>>>>>>
+>>>>>> However, for systems using pwm as target, the logic does not work, because
+>>>>>> the
+>>>>>> fan speed is RPM but the target the PWM.
+>>>>>>
+>>>>>> So we probably need to have a conversion from PWM target to fan speed RPM.
+>>>>>>
+>>>>>> On Romulus, the observation is:
+>>>>>>
+>>>>>> | PWM | RPM  |
+>>>>>> | --- | ---- |
+>>>>>> | 64  | 3000 |
+>>>>>> | 96  | 3700 |
+>>>>>> | 128 | 4300 |
+>>>>>> | 160 | 4900 |
+>>>>>> | 192 | 5600 |
+>>>>>> | 224 | 6300 |
+>>>>>> | 255 | 7000 |
+>>>>>>
+>>>>>> And the linear fit becomes [RPM = 20.7147 * PWM + 1660.04][1]
+>>>>>>
+>>>>>> So how do we make fan-monitor to support this?
+>>>>>>
+>>>>>> My proposal is to define the parameters, e.g. slope, intercept in the
+>>>>>> config
+>>>>>> yaml, and add this support in phosphor-fan-monitor.
+>>>>>> E.g.
+>>>>>>      sensors:
+>>>>>>        - name: fan0
+>>>>>>          has_target: true
+>>>>>>          slope: 21
+>>>>>> intercept: 1600
+>>>>>>
+>>>>>> If the yaml config does not define slope/intercept, then the default value
+>>>>>> is set to 1 and 0 which matches the fan speed target.
+>>>>>>
+>>>>>> My question (and concern) is, the fan RPM can not be queried correctly
+>>>>>> when
+>>>>>> PWM is set to a low value, e.g. 32, and it means the fit function may not
+>>>>>> be
+>>>>>> linear fit.
+>>>>>>
+>>>>>> What do you think?
+>>>>>>
+>>>>>> [1]:
+>>>>>> http://m.wolframalpha.com/input/?i=linear+fit+%7B64%2C+3000%7D%2C%7B96%2C+3700%7D%2C%7B128%2C+4300%7D%2C%7B160%2C+4900%7D%2C%7B192%2C+5600%7D%2C%7B224%2C6300%7D%2C%7B255%2C7000%7D
+>>>>>
+>>>>>
