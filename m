@@ -1,59 +1,54 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::22b; helo=mail-qt0-x22b.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="RGRqpG0j"; 
- dkim-atps=neutral
-Received: from mail-qt0-x22b.google.com (mail-qt0-x22b.google.com
- [IPv6:2607:f8b0:400d:c0d::22b])
+ (client-ip=209.85.160.67; helo=mail-pl0-f67.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Received: from mail-pl0-f67.google.com (mail-pl0-f67.google.com
+ [209.85.160.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcydz2TyPzDqYV
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 12:48:54 +1100 (AEDT)
-Received: by mail-qt0-x22b.google.com with SMTP id s27so8760963qts.4
- for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 17:48:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=uCeBfnvB/JqdpvbJNt616JP1TYa/BGzyiS1qk7nquG8=;
- b=RGRqpG0jUsALwR69vq1hVmwm4xrwsnrLG9F8AiO8nBILQ458uvj/KsM5M5mfB7U1gl
- LNq54dHxrwn0NRpRLvEVT0QpPo/LNlyxps31nXXnsMckQT547/W4zPcNz3uX7wWTSrCJ
- dOvH0EZKOk1jLJ+JxduCdebIURSNaAtofpXl9FntrCwKNKv071W8xDtBmEHRrY5VTjPK
- W4F3P43GK55/b6A81pfL/5nsvvtgBwPkTcPlat3SMOOV2zluRiWMrfRa6ZX+hQp5CN2M
- JQ2jV4DFfUy3DVAzYbitScXNtPBzv9u0KYwOfLkRZtiq2m9iOor9FX2XNGzdKMLY0HPt
- eXag==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zczNy370lzF18x
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 13:22:42 +1100 (AEDT)
+Received: by mail-pl0-f67.google.com with SMTP id 36so803540ple.13
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 18:22:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=uCeBfnvB/JqdpvbJNt616JP1TYa/BGzyiS1qk7nquG8=;
- b=D3fauuHc7/JN9Q4PzRqC+ToYWVK8sh6m/o74vdG+6/CZLQU5ZACLqtgd3sGLgldPSQ
- IO2A1iGbL3V+nUdrWQ+hPqk5lzItB7I9ezdrb+llfGGXv/tTSrgIfB6x1HHRTsW1MN3g
- yTcS4GIjWqI0N6BaW1+86nsyJW5Coelm/eV3D61JCIwCgiC6z2IlvXJgpufNgW4B25nP
- q03asriw3v58/wz3188kcH8TgQ6YaAhgJPcGUiRlT92irVllWMhr+olNOPDdKThb2ULO
- KwKhcFd7luqNZrPlY/5CzqOMoGm36SmRtIvibbIgYOjNzyKIwl6h/G/fCVW27Av/OD9L
- xgQA==
-X-Gm-Message-State: APf1xPAM+S13/wCp11nJjdzg//tbdq47xU7RNe0yS0JgRRHCJ33wOqyh
- 9curYTLcP/0uOLBLOBjqy+tgHrz5cKpXmNzuzAY=
-X-Google-Smtp-Source: AH8x227O+4MQJZfzpB+HxGOC/gZH6AisST1lzjNH1mhj9kzf9wbYTrfOZWCDeBJajaD/WaMo3B3yPRdcsvBpFalL+vY=
-X-Received: by 10.237.38.37 with SMTP id z34mr2139546qtc.178.1518140932595;
- Thu, 08 Feb 2018 17:48:52 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=zSKuMDPFAJY+LAyjkCLzKBhAv89fhLtSLzq0LEg2s4Y=;
+ b=dUxZ3VLQVv9lToJ8agaCZXhLBjc8FA0ILS9SolC0CZlyaOkDdEpd2OQ3TXqabXQ9gk
+ xtYrX92CM8+FZ5zIbvrOcPkCh4/19/7QptlkZcZd+AZv7btW9xYLmKW19i8whg01N1fm
+ 1Ou8+dr4inl1MEhpAdoybma+94bYfM1AsiTgWm7nUw3zW2VAdrUi8zXex1Q8xaBcBwUQ
+ du+Bu8IgH1avmjYBYT+9/ZlAdiiKl9XwpGPqybqfgIbb39LNosWQxQBBGBJsEr8eFCSn
+ 8FQYWa9fPllTuEo1dDSFIPhXrtKTy74A2uT6mLOY1J9Ad57YnvQKtDmtuX2OlQIP+jbl
+ UOxA==
+X-Gm-Message-State: APf1xPBLjXvTMWAlk/XoT45sOt4Bk1Iyvv5NcspQOcgJsTShXPM0+sAz
+ mZW9JaWd9KoEVnu0bapIeA==
+X-Google-Smtp-Source: AH8x226CuGSDpGWaCK9vLVJrw9OgR0hpqXGxk+S4l7UmcviSoZy+/EEybehhqorDfY7zrLojzxOVmQ==
+X-Received: by 2002:a17:902:6a89:: with SMTP id
+ n9-v6mr1008297plk.212.1518142959821; 
+ Thu, 08 Feb 2018 18:22:39 -0800 (PST)
+Received: from localhost ([199.36.244.13])
+ by smtp.gmail.com with ESMTPSA id c8sm1848071pfl.160.2018.02.08.18.22.38
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 08 Feb 2018 18:22:39 -0800 (PST)
+Date: Thu, 8 Feb 2018 20:22:38 -0600
+From: Rob Herring <robh@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: mturquette@baylibre.com, sboyd@codeaurora.org, mark.rutland@arm.com,
+ tali.perry1@gmail.com, avifishman70@gmail.com,
+ brendanhiggins@google.com, joel@jms.id.au,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v1 1/2] dt-binding: clock: document NPCM7xx clock DT
+ bindings
+Message-ID: <20180209022238.v52rw5filxcig6mg@rob-hp-laptop>
+References: <1517818975-11427-1-git-send-email-tmaimon77@gmail.com>
+ <1517818975-11427-2-git-send-email-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.81 with HTTP; Thu, 8 Feb 2018 17:48:32 -0800 (PST)
-In-Reply-To: <1518076351.14456.8.camel@aj.id.au>
-References: <20180208053745.31254-1-joel@jms.id.au>
- <20180208053745.31254-4-joel@jms.id.au>
- <1518076351.14456.8.camel@aj.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 9 Feb 2018 12:18:32 +1030
-X-Google-Sender-Auth: r3ivtsT4SdmsJUALiti9yedNiDo
-Message-ID: <CACPK8Xdn-8OTMhucBFXz0CRWi+72-2ZjOnjRWDuHYEWxD-qk5g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 3/3] soc: aspeed-lpc-ctrl: Enable FWH cycles
-To: Andrew Jeffery <andrew@aj.id.au>, Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1517818975-11427-2-git-send-email-tmaimon77@gmail.com>
+User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -65,21 +60,137 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Feb 2018 01:48:56 -0000
+X-List-Received-Date: Fri, 09 Feb 2018 02:22:42 -0000
 
-On Thu, Feb 8, 2018 at 6:22 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Thu, 2018-02-08 at 16:07 +1030, Joel Stanley wrote:
->>
->> +#define HICR5 0x0
->> +#define HICR5_ENL2H  BIT(8)
->
-> Shouldn't we be setting this at the same time as HICR5_ENFWH below?
+On Mon, Feb 05, 2018 at 10:22:54AM +0200, Tomer Maimon wrote:
+> Added device tree binding documentation for Nuvoton NPCM7xx clocks.
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  .../bindings/clock/nuvoton,npcm7xx-clk.txt         | 84 ++++++++++++++++++++++
+>  1 file changed, 84 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,npcm7xx-clk.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm7xx-clk.txt b/Documentation/devicetree/bindings/clock/nuvoton,npcm7xx-clk.txt
+> new file mode 100644
+> index 000000000000..1ba1945d3616
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm7xx-clk.txt
+> @@ -0,0 +1,84 @@
+> +* Nuvoton NPCM7XX Clock Controller
+> +
+> +Nuvoton Poleg BMC NPCM7XX contain integrated clock
 
-In our testing we didn't require it.
+s/contain/contains/
 
-Lei, can you double check that the patch works from a power cycle
-without setting bit 8 in 0x1e789080?
+And your line break is strange.
 
-Cheers,
+> +controller, which generates and supplies clock to all modules within the BMC.
 
-Joel
+s/clock/clocks/
+
+> +
+> +Required Properties:
+> +
+> +- compatible: should be one of following:
+> +	- "nuvoton,npcm750-clk" : for clock controller of Nuvoton
+> +	  Poleg BMC NPCM750
+> +
+> +- reg: physical base address of the controller and length of memory mapped
+> +  region.
+> +
+> +
+> +- #clock-cells: should be 1.
+> +
+> +All available clocks are defined as preprocessor macros in
+> +dt-bindings/clock/nuvoton,npcm7xx-clock.h header and can beused in device tree
+
+This file should be part of this patch.
+
+> +sources.
+> +
+> +External clocks:
+> +
+> +There are several clocks that are generated outside the BMC. All clocks are of
+> +a known fixed value that cannot be chagned. Therefor these values are hard coded
+
+s/chagned/changed/
+
+s/Therefor/Therefore/
+
+> +inside the driver and registered on init.
+> +
+> +The clock modules contains 4 PLL, 20 dividers and 11 muxes. All these settings
+> +are set before Linux boot and are not to be altered by the Linux. This driver is
+> +used only to read the values clocks, not to set them.
+> +
+> +In addition to the clock driver, there are 3 external clocks suppling the
+
+The binding describes h/w, not a driver.
+
+> +network, which are of fixed values, set on on the device tree, but not used by
+> + the clock module. Example can be found below.
+   ^
+extra space
+
+All this description belongs at the top of this doc.
+
+> +
+> +Example: Clock controller node:
+> +
+> +	clk: clock-controller@f0801000 {
+> +		compatible = "nuvoton,npcm750-clk";
+> +		#clock-cells = <1>;
+> +		clock-controller;
+> +		reg = <0xf0801000 0x1000>;
+> +		status = "okay";
+> +	};
+> +
+> +Example: Required external clocks for network:
+> +
+> +		/* external clock signal rg1refck, supplied by the phy */
+> +		clk_rg1refck: clk_rg1refck {
+
+Use '-' rather than '_' in node names.
+
+> +			compatible = "fixed-clock";
+> +			#clock-cells = <0>;
+> +			clock-frequency = <125000000>;
+> +			clock-output-names = "clk_rg1refck";
+> +		};
+> +
+> +		/* external clock signal rg2refck, supplied by the phy */
+> +		clk_rg2refck: clk_rg2refck {
+> +			compatible = "fixed-clock";
+> +			#clock-cells = <0>;
+> +			clock-frequency = <125000000>;
+> +			clock-output-names = "clk_rg2refck";
+> +		};
+> +
+> +		clk_xin: clk_xin {
+> +			compatible = "fixed-clock";
+> +			#clock-cells = <0>;
+> +			clock-frequency = <50000000>;
+> +			clock-output-names = "clk_xin";
+> +		};
+> +
+> +Example: UART controller node that consumes the clock generated by the clock
+> +  controller (refer to the standard clock bindings for information about
+> +  "clocks" and "clock-names" properties):
+> +
+> +	uart0: serial@e2900000 {
+> +		compatible = "Nuvoton,s5pv210-uart";
+
+s/Nuvoton/nuvoton/
+
+> +		reg = <0xe2900000 0x400>;
+> +		interrupt-parent = <&vic1>;
+> +		interrupts = <10>;
+> +		clock-names = "uart", "clk_uart_baud0",
+> +				"clk_uart_baud1";
+> +		clocks = <&clocks UART0>, <&clocks UART0>,
+> +				<&clocks SCLK_UART0>;
+> +	};
+> -- 
+> 2.14.1
+> 
