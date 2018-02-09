@@ -1,36 +1,59 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::230; helo=mail-qt0-x230.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="n2hxmLVF"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
+ [IPv6:2607:f8b0:400d:c0d::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zcwpP0rdtzF190
- for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 11:26:04 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id C785E6E0EF;
- Thu,  8 Feb 2018 19:26:00 -0500 (EST)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: Mailing list posting guidelines
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1c422ecd21c149e9b08cf9230e8c08b3@ausx13mps334.AMER.DELL.COM>
-Date: Thu, 8 Feb 2018 19:26:00 -0500
-Cc: Patrick Venture <venture@google.com>, joel@jms.id.au, rolfb@us.ibm.com,
- ed.tanous@intel.com, jwcarman@us.ibm.com, yupalani@microsoft.com,
- Paul.Vancil@dell.com, pradeep.kumar36@tcs.com, alirhas@microsoft.com,
- openbmc@lists.ozlabs.org, Balaji.B.Rao@dell.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <24C1007E-BB69-4F2E-93CC-6C41DAA8C723@fuzziesquirrel.com>
-References: <8E21FD04-4E06-4757-818F-E6CF7771265B@fuzziesquirrel.com>
- <CACPK8XeSdhqMYhEug7FCYKwgn5wDe0spvDeyR==tCEGjAoaSsg@mail.gmail.com>
- <CAO=notwHgKGhnJgCo39i5JBszcXkHrozxEZut41ATsk7iSN4jg@mail.gmail.com>
- <1c422ecd21c149e9b08cf9230e8c08b3@ausx13mps334.AMER.DELL.COM>
-To: Michael E Brown <Michael.E.Brown@dell.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zcyWg1pwkzDr8c
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Feb 2018 12:43:26 +1100 (AEDT)
+Received: by mail-qt0-x230.google.com with SMTP id a9so2155096qtj.8
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Feb 2018 17:43:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=AfOHNyGYcBTBFR3GY4iqtNSfPB3lV2BowHOZ54Nq+1Q=;
+ b=n2hxmLVF27+p/vyhweSzh381qPQ72dAQ7hUgrkTivjt3X0uSPxk7hT60PdLoK+iadp
+ X3TVqkv9fyUnGMynRJ0X38zfzTmfELW0W56FlZAcKUfqfX9kAGWCSpGOp7p50iqe4BW+
+ 4wTz2FFGAtN7ThQPMZwkfNnOc8TFejVfCEKy/Dc+B/6RcoDIZr6oFrKzJAXFXUxpKI48
+ DJu9jWv9jlBTASEdZcm/O8d0XeWCyTz6cYCaXQA+ic3Xqp+h34yAU11B+Q/5Uxfx/T9w
+ XT1i40kr87YyeOztE1SX5TMpyw99atOHvTzZV9hwwefouafj7Q5/v2a9KZpCv9PoRPJO
+ zOgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=AfOHNyGYcBTBFR3GY4iqtNSfPB3lV2BowHOZ54Nq+1Q=;
+ b=DqTcPV7/ts9YEekiihnOWM0ZwWyjsMECnhsDi/CsG/ZmBftL60HnCgCQ+yQP6OFnDM
+ KDvdna11AINupIctaDUmerJBSytpeBpLIzrXX0smwW8pBpiRGFHW+T1y/0Wo2SBrMpuR
+ BNITXE8OcF5wFtAUzHcS8yJVpWlwFkxO6SYf3HuitA7BRiWrOgoCLojP4/sUxXMQGFUe
+ +AjeoApLMhlTToJnHMIMV6yg5B2Qq398ajTXikwgkTkjleDjzDCqrqAmalafGGZvgvDS
+ qESp1wJ1IrbMdJdABYL+HUFk1k4pNwZGaz3FtmaklLBtJmgMh7fDAPlzRDOu1M44Ptmo
+ 6beA==
+X-Gm-Message-State: APf1xPCsXxNPiH7e1JaLzCSa0FJbF/rZC48XUf58WLsoHsw8UBt5xfgw
+ kuM6N89kFMmhwudrR4wfipG/RIerGOFtSjc3AB8=
+X-Google-Smtp-Source: AH8x224LgRo3xQqeGnD+29GT4oeXujaf6kxgt29qSwBa5pyrYkJQzJpxJa6Xt5sCNdxzH0HF2PU2V3R6lp05neOflzI=
+X-Received: by 10.200.50.46 with SMTP id x43mr1919108qta.130.1518140604348;
+ Thu, 08 Feb 2018 17:43:24 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.50.81 with HTTP; Thu, 8 Feb 2018 17:43:03 -0800 (PST)
+In-Reply-To: <599c29f92c5e4849a7c30820442d8f7e@AUSX13MPC105.AMER.DELL.COM>
+References: <599c29f92c5e4849a7c30820442d8f7e@AUSX13MPC105.AMER.DELL.COM>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 9 Feb 2018 12:13:03 +1030
+X-Google-Sender-Auth: Z3ztVIMlNNZ6ADQsbGdPWdgNvzw
+Message-ID: <CACPK8Xc1g0nWhyYhH1wD7p50wt=Nashh9-swRfSiGXTj-L_TGw@mail.gmail.com>
+Subject: Re: Serial Mux Mode in NPCM
+To: Eugene.Cho@dell.com
+Cc: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brian.Berry@dell.com, Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.25
 Precedence: list
@@ -42,33 +65,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Feb 2018 00:26:05 -0000
+X-List-Received-Date: Fri, 09 Feb 2018 01:43:28 -0000
 
+Hey Eugene,
 
-> On Feb 8, 2018, at 5:12 PM, <Michael.E.Brown@dell.com> =
-<Michael.E.Brown@dell.com> wrote:
->=20
-> The posting guidelines are a very large barrier to entry
+On Fri, Feb 9, 2018 at 7:32 AM,  <Eugene.Cho@dell.com> wrote:
+> Any thoughts how we should handle the serial mux mode (SPMOD in SPSWC) in the NPCM? It seems we need to able to switch between modes runtime (as these are customer configurable options that can change at anytime).
 
-Ok.  Respectfully disagree.  Even with Outlook, it shouldn=E2=80=99t be
-too hard for folks to reply without history, copy/paste a line
-of context they want to reply to and drop a greater than in front
-of it.
+Are we talking about the ability to have characters appear on
+different ports on the back of a chassis if a user selects an option?
+Or is this more about the system integrator deciding that UART2 goes
+to connector X, and UART4 goes to connector Y?
 
-In fact I=E2=80=99ve already seen a couple emails from people where they
-were not aware of typical email list guidelines in their first posts
-and are now composing mails in the usual way quite nicely.
+Instead of me guessing, perhaps you describe what this looks like to the user?
 
-> and huge source of stress to people wanting to participate
+>
+> We use almost all the modes in some fashion...
+>
+> Could this be a handled like the 8250_aspeed_vuart.c? Maybe another simple sysfs driver? Thoughts?
 
-I can understand this.  I went through it myself about 18 months
-ago.  But after working in various open communities I now understand
-the value of it, and would like to help others see that value too.
+The vuart driver is about exposing a normal Linux tty serial device
+for the UART registers that are part of the LPC bus. This is mostly a
+normal 8250 driver, with a pair of sysfs files that configure where
+the device appears to the host.
 
-> Is there a productive solution to this insoluble problem?
+It is then up to userspace (obmc-console) to shuffle characters
+to/from that tty device to/from a software console (IPMI SoL", or a
+ssh based "SoL"), a physical RS-232 port (exposed to Linux as another
+tty device), or log it to a file.
 
-The reality is, if these guidelines aren=E2=80=99t followed people will
-simply ignore the email.  I brought up typical email list guidelines
-because I didn=E2=80=99t want to see that happening.
+Cheers,
 
--brad=
+Joel
+
+Cheers,
+
+Joel
