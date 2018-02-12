@@ -1,35 +1,55 @@
-Return-Path: <pavel@ucw.cz>
-Authentication-Results: ozlabs.org; spf=none (mailfrom) smtp.mailfrom=ucw.cz
- (client-ip=195.113.26.193; helo=atrey.karlin.mff.cuni.cz;
- envelope-from=pavel@ucw.cz; receiver=<UNKNOWN>)
-Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
- [195.113.26.193])
+Return-Path: <a.amelkin@yadro.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="fUPwxiB7"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zg8cl1T36zF0lV
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 02:25:18 +1100 (AEDT)
-Received: by atrey.karlin.mff.cuni.cz (Postfix, from userid 512)
- id 92BBD8015E; Mon, 12 Feb 2018 16:25:12 +0100 (CET)
-Date: Mon, 12 Feb 2018 00:43:44 +0100
-From: Pavel Machek <pavel@ucw.cz>
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: gregkh@linuxfoundation.org, arnd@arndb.de, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, joel@jms.id.au, jiri@resnulli.us,
- tklauser@distanz.ch, linux-serial@vger.kernel.org,
- vadimp@mellanox.com, system-sw-low-level@mellanox.com,
- robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
- linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org
-Subject: Re: [patch v14 4/4] Documentation: jtag: Add ABI documentation
-Message-ID: <20180211234344.GA3864@localhost>
-References: <1513268971-13518-1-git-send-email-oleksandrs@mellanox.com>
- <1513268971-13518-5-git-send-email-oleksandrs@mellanox.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgCSW00bPzF0QY
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 04:33:27 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 20A145396C
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 17:33:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-language:content-transfer-encoding:content-type
+ :content-type:mime-version:user-agent:date:date:message-id
+ :subject:subject:from:from:received:received:received; s=mta-01;
+ t=1518456801; x=1520271202; bh=iDU2SfOUB75idit1jv9sxhFgmuv82tLu
+ jp0o6EW0bFM=; b=fUPwxiB7Qi+FMDeFDSx+Yl17UXKodyVaX3prQEoJ5znwIEao
+ pv+Gh1DWw43h2n3GCztAh6tQKZI5c1h+IajgonxJbc6VaLPObPZUVVUrBy+hUbJ3
+ Yq3jLS1aTNTw1WnRSCCYwpLDm3sebI57uF1Z8i75wdxHdJnDd9P0Eoo06tQ=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id lci-1BN0LlQQ for <openbmc@lists.ozlabs.org>;
+ Mon, 12 Feb 2018 20:33:21 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 8FCEE53644
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 20:33:21 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 12
+ Feb 2018 20:33:21 +0300
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Subject: System health monitoring
+Message-ID: <3ab513f4-ab10-dabd-430b-8a73c27aa7b2@yadro.com>
+Date: Mon, 12 Feb 2018 20:33:21 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <1513268971-13518-5-git-send-email-oleksandrs@mellanox.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -41,40 +61,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Feb 2018 15:25:27 -0000
+X-List-Received-Date: Mon, 12 Feb 2018 17:33:31 -0000
 
-Hi!
+Hi everyone!
 
-> @@ -0,0 +1,27 @@
-> +What:		/dev/jtag[0-9]+
-> +Date:		October 2017
-> +KernelVersion:	4.15
-> +Contact:	oleksandrs@mellanox.com
-> +Description:
-> +		The misc device files /dev/jtag* are the interface
-> +		between JTAG master interface and userspace.
-> +
-> +		The ioctl(2)-based ABI is defined and documented in
-> +		[include/uapi]<linux/jtag.h>.
-> +
-> +		The following file operations are supported:
-> +
-> +		open(2)
-> +		The argument flag currently support only one access
-> +		mode O_RDWR.
-> +
-> +		ioctl(2)
-> +		Initiate various actions.
-> +		See the inline documentation in [include/uapi]<linux/jtag.h>
-> +		for descriptions of all ioctls.
+Could you please tell me if there is a commonly used mechanism in 
+OpenBMC for system health monitoring and indication?
 
-I tried reading the jtag.h, and am still not sure how it works. Real docs
-would be nice...
+I know there is a LED Manager and that there are LED groups, but it is 
+unclear if there is any entity that somewhat universally can control 
+those LED groups. I would expect it to be somewhere near PEF processing 
+if we at all have PEFs. Do we?
 
-In particular, it seems to always specify read or write actiom. Sounds
-like a job for read/write syscalls?
-								Pavel
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
+Who is expected to send events to trigger those LED groups? Does each 
+vendor create their proprietary solution or is there anything public?
+
+Thank you.
+
+With best regards, Alexander.
