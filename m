@@ -1,51 +1,31 @@
-Return-Path: <eakammer@google.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:400c:c0c::236; helo=mail-wr0-x236.google.com;
- envelope-from=eakammer@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="X3qnJVI/"; 
- dkim-atps=neutral
-Received: from mail-wr0-x236.google.com (mail-wr0-x236.google.com
- [IPv6:2a00:1450:400c:c0c::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgLl50yKdzF0v5
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 10:01:33 +1100 (AEDT)
-Received: by mail-wr0-x236.google.com with SMTP id 34so6583378wre.13
- for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 15:01:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=GD070YmayKajgFA1LHtYkYtq0ywNUfF2PnyMhQ8GRjE=;
- b=X3qnJVI/KJTF+GuEshEARH5PR3dZzIjjO2kpaPSGdCKjdh/eIJw/RosDb9wlMwNEbj
- KCVuWpoVMkoTqApCiRdH7MnqiHzuNKDavmAp578dfcYH6JD6t+ZKQe2cbr4rJ3giLtVR
- VxHlAAE28plIZ9FpTq/ifkzfSQoIez9AK5UwfTr6EeL8eYSEsZayNhEMaCqY1yU1aMoQ
- m2kGpoQOJ42MFAie5A/EgiqOPkiMdLFgoDg7vW8xWDaqZp02lo81vINVlJhoDIOyIuoO
- TaYPj9tXRWv4JNZweGDX3R7KObMd7eMdM947tXZif1RAaJaK6MhNSOdhdN6fD/fEzU0+
- dX9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=GD070YmayKajgFA1LHtYkYtq0ywNUfF2PnyMhQ8GRjE=;
- b=KJ7byb7+/wB+OvkvTh6I38YEUH8xo2Rp6B1mFTepvILRFKqFQQfus+bw77ceKvYxOW
- M8EhV6nIsaCdRiLKGqPXY/S94h5MvphsMi6n65GeQzms/pDQLPoEzpUF4q7jtnVpgdDo
- rFcqRbuikUBp14vHeVKhC1FvDyxUBkAgRKVw250/cwwM6+JLH/wAnlUoVWDg5crNICfQ
- 5kDRAAX+DHyuK1zsC1fA/PIVnX7yRdpXc/BMvlsRvEgeZvuqGhEoy0LeK3xCEta6qQVK
- Oi1DlfmE3JgjvvHcTRa/pkTIk/HHIAMNWW5IJyYavD1yqdtOM9zjBbMQG4jmszpYssQq
- NmSg==
-X-Gm-Message-State: APf1xPDgRU4Ddpavhf9RzcCiPXCwcV4sLgRPCO8BcoHN3wZCARXDBrXX
- faA9B+Ht0BmJcmDHudxoBjp4zGm4T4Za/oen26dLEC3SH84=
-X-Google-Smtp-Source: AH8x225j1ebnqkWYS5Y5BI5uw6GZJghFPF41WxzWQcM9C6RPm5N4MEKwI6QNF68JBMOWgsXVKnG3Xz1BuMOdaYpgfjI=
-X-Received: by 10.223.130.206 with SMTP id 72mr6335238wrc.45.1518476489220;
- Mon, 12 Feb 2018 15:01:29 -0800 (PST)
-MIME-Version: 1.0
-From: Liz Kammer <eakammer@google.com>
-Date: Mon, 12 Feb 2018 23:01:18 +0000
-Message-ID: <CAEOv9APgYZ=Yzs4tjYad+tg0CupqyTx5M1cpzN3LcnBPBwj_LA@mail.gmail.com>
-Subject: sdbusplus port for host-ipmid
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="001a114b41cac7019e05650bdb7e"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgNMZ1qpyzF0th
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 11:14:49 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from brads-mbp.dyn.fuzziesquirrel.com
+ (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 3E159E55B6;
+ Mon, 12 Feb 2018 14:26:45 -0500 (EST)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: udev faulting with openbmc filesystem builds.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <0bd9476d-f2d5-45c2-bda6-987835581a48@cavium.com>
+Date: Mon, 12 Feb 2018 14:26:45 -0500
+Cc: openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1BCA93AD-4C31-41D1-A158-D460D6E05F31@fuzziesquirrel.com>
+References: <0bd9476d-f2d5-45c2-bda6-987835581a48@cavium.com>
+To: "Steven J. Hill" <Steven.Hill@cavium.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -57,111 +37,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Feb 2018 23:01:38 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 00:14:50 -0000
 
---001a114b41cac7019e05650bdb7e
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Everyone,
+> On Feb 9, 2018, at 2:08 AM, Steven J. Hill <Steven.Hill@cavium.com> =
+wrote:
+>=20
+> Please reply to me directly as multiple
+> attempts to subscribe to this list have failed.
 
-Is anyone working on the sd_bus.h -> sdbusplus port for host-ipmid? I am
-hoping to work on this issue
-https://github.com/openbmc/phosphor-host-ipmid/issues/109, but I don't want
-to step on toes.
-
-Thanks,
-Liz
-
---001a114b41cac7019e05650bdb7e
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-MIIS6wYJKoZIhvcNAQcCoIIS3DCCEtgCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
-ghBRMIIEXDCCA0SgAwIBAgIOSBtqDm4P/739RPqw/wcwDQYJKoZIhvcNAQELBQAwZDELMAkGA1UE
-BhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExOjA4BgNVBAMTMUdsb2JhbFNpZ24gUGVy
-c29uYWxTaWduIFBhcnRuZXJzIENBIC0gU0hBMjU2IC0gRzIwHhcNMTYwNjE1MDAwMDAwWhcNMjEw
-NjE1MDAwMDAwWjBMMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEiMCAG
-A1UEAxMZR2xvYmFsU2lnbiBIViBTL01JTUUgQ0EgMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
-AQoCggEBALR23lKtjlZW/17kthzYcMHHKFgywfc4vLIjfq42NmMWbXkNUabIgS8KX4PnIFsTlD6F
-GO2fqnsTygvYPFBSMX4OCFtJXoikP2CQlEvO7WooyE94tqmqD+w0YtyP2IB5j4KvOIeNv1Gbnnes
-BIUWLFxs1ERvYDhmk+OrvW7Vd8ZfpRJj71Rb+QQsUpkyTySaqALXnyztTDp1L5d1bABJN/bJbEU3
-Hf5FLrANmognIu+Npty6GrA6p3yKELzTsilOFmYNWg7L838NS2JbFOndl+ce89gM36CW7vyhszi6
-6LqqzJL8MsmkP53GGhf11YMP9EkmawYouMDP/PwQYhIiUO0CAwEAAaOCASIwggEeMA4GA1UdDwEB
-/wQEAwIBBjAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwEgYDVR0TAQH/BAgwBgEB/wIB
-ADAdBgNVHQ4EFgQUyzgSsMeZwHiSjLMhleb0JmLA4D8wHwYDVR0jBBgwFoAUJiSSix/TRK+xsBtt
-r+500ox4AAMwSwYDVR0fBEQwQjBAoD6gPIY6aHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9ncy9n
-c3BlcnNvbmFsc2lnbnB0bnJzc2hhMmcyLmNybDBMBgNVHSAERTBDMEEGCSsGAQQBoDIBKDA0MDIG
-CCsGAQUFBwIBFiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzANBgkqhkiG
-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
-CCsGAQUFBzAChjRodHRwOi8vc2VjdXJlLmdsb2JhbHNpZ24uY29tL2NhY2VydC9nc2h2c21pbWVj
-YTEuY3J0MB0GA1UdDgQWBBTxC5u9hiSxgrtgTpTpVHZkEVio7jAfBgNVHSMEGDAWgBTLOBKwx5nA
-eJKMsyGV5vQmYsDgPzBMBgNVHSAERTBDMEEGCSsGAQQBoDIBKDA0MDIGCCsGAQUFBwIBFiZodHRw
-czovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzA7BgNVHR8ENDAyMDCgLqAshipodHRw
-Oi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzaHZzbWltZWNhMS5jcmwwDgYDVR0PAQH/BAQDAgWgMB0G
-A1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDANBgkqhkiG9w0BAQsFAAOCAQEAk4fmGclDfhAH
-4MirvX11xWADc0o9OmA+vzRYqwEmMPdA2XPMAEdu4V8hEuDQSvFxVyjlFIxnUBXMXo10X5U1HJYt
-L3JT4BfzTl5/qpAjo2y+tN+rD1bZAyBp4/1XEcFCCN24h08NSL3gFQrUzb3u95H3ev6RSUnLf8mj
-Ejswpds5hoh1tWVVkZniVoXmyTQYJqiDXzzfLqcRGB+pkVSMEmvDSRUVVLlK/KgWxm8Cx+Nw1Zrf
-uFpoWeE0FgYBfR5aEjV3bPruQadzKyO82PzkP52Ll6noLeXTJFA/bZfAc5GuE2vwFH0ALWj2j4NT
-1sSXCOIN0wP6O2zy37T1IiicljGCAl4wggJaAgEBMFwwTDELMAkGA1UEBhMCQkUxGTAXBgNVBAoT
-EEdsb2JhbFNpZ24gbnYtc2ExIjAgBgNVBAMTGUdsb2JhbFNpZ24gSFYgUy9NSU1FIENBIDECDG6E
-Ke/CyG7YKtvBHjANBglghkgBZQMEAgEFAKCB1DAvBgkqhkiG9w0BCQQxIgQgp3FnzKMcZyFnI0L9
-5/CQUFuScC1LZzWdxWg/61jM+80wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMTgwMjEyMjMwMTI5WjBpBgkqhkiG9w0BCQ8xXDBaMAsGCWCGSAFlAwQBKjALBglghkgB
-ZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBCjALBgkqhkiG9w0BAQcw
-CwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAEK5hr91QRclQpD3/sR5I6wF2NtiuJ2FpmhJ
-ySnyVP1LymQ0YjMvrT2H09ASRpRTkr2mB2LC5uJl8yD8joUgpw6uVFd8Mhh2NmPRaG6aGdvDON9+
-ccsohhUNMKFtRL+mmq1l/TJrlNASShQvS7glJnLOPJOODpK7o25vphhX7UVuM+XgQemutDNTQdP7
-lo+TUpQODYl87aEY+izV/JdAAMRyQ2ibJXcOVI55SH3iuhqdV7WzPkOYANz+96Ej8U812yjULdgX
-JuA4noa5qGYb5UNv5tzZBpvTMEs6Rr6eqK/r8F95oHtKdzD0aqztAcGn15ZKpi7ug+IdCuT3dIMk
-+qg=
---001a114b41cac7019e05650bdb7e--
+Can you elaborate on the trouble you had?  This isn=E2=80=99t the first =
+time I=E2=80=99ve heard
+of people having trouble subscribing to the list.  I would like to get =
+this fixed
+up.=
