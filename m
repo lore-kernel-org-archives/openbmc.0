@@ -1,55 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::242; helo=mail-qk0-x242.google.com;
+ (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ucyAW/mw"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="V+RtFr5v"; 
  dkim-atps=neutral
-Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
- [IPv6:2607:f8b0:400d:c09::242])
+Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
+ [IPv6:2607:f8b0:400d:c0d::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zfx3y2fqWzF0cl
- for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 17:44:43 +1100 (AEDT)
-Received: by mail-qk0-x242.google.com with SMTP id h186so5092541qke.8
- for <openbmc@lists.ozlabs.org>; Sun, 11 Feb 2018 22:44:42 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zfybC625dzF0Zj
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 18:53:27 +1100 (AEDT)
+Received: by mail-qt0-x244.google.com with SMTP id f4so17956857qtj.6
+ for <openbmc@lists.ozlabs.org>; Sun, 11 Feb 2018 23:53:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=rL1DwDLRGHpPZUL4zdWuXzfovRrI8UPnldMwextLgLA=;
- b=ucyAW/mw7nXO2BofkmcRO3ubiZ2SI30C7WB2ElurGKB3daUC1pEq559wvcbLzlzXTy
- sEwJgA/A8VI2vaxybXbDtp5q0R1W+TkoTArZj0Z0XiHCjXJGdBf4ycHKNC6WbbqjXhIa
- Tn2M5M9MKy+reF2Vfk2bNtv1l3s6UvNpX2M9z1uCvDOjUQxI0loP9fbnsfWhN6Tw3IbT
- 1umsjgbo8SQN5mJuutgeuMc3+vArWh7YDTGVN3X585Ejsc0E7lnLVmoq0IHk1ya04F8f
- +HImLzKI90tQMjEZOLWPSX37quJH8lMxuTa6cnO56cVdU+LS2COs5azGRAxfph4S1BkA
- 2Kxg==
+ bh=dLNGgY47uUDM4JrPsUDX1xVI8iBXt6QP5fjtPJNe3Zo=;
+ b=V+RtFr5vx4CtkIm45tWC3qv9GHtOPuCNDmGMdEhhJkzTjfxxLFKuIuUh3jATvW+BOt
+ SWWzcwGpCgWfq/wBTmX/iGj51kknKUyCBQnz80kCKCAWDtTb0jML1992GVCxVr3Q2J7A
+ u5qbNdW7tsGSFv98kBCFL6nFu1oY0Dpj+J1z62xQw+/kh1X3KOhJacdY6v3e9s2P+yXx
+ llWCeYmBHS6IlTtutMT20+XCn9SfIVtr79uUOCcge2Fq7YJ1tUjZ0qghEK3qDeYMmGct
+ f0oAEnHyJ7+HK/9qQJyd31Tb2dUio6HdiISRJcyZaHMjMpp6eSq8qVo0hj3cMby6o/PJ
+ 1zRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=rL1DwDLRGHpPZUL4zdWuXzfovRrI8UPnldMwextLgLA=;
- b=kepWhB1E9K4wqfPOs2xxI6ORizh+aLY5VbIx73daL/JeprW2njPE2dtReEmhvwH9uD
- Z3Y+UjV8DTqcq+RQI+7N/xCtAJiK6oI82ALI0ykC3U2mLI4hTkHbu0XFetfvva1VwOcB
- C6Zz/7Qs7n0JMF36dknIZ25m1/bGat6noZ48W3gETNfmFYQPgEIAX9o00KHCadlwgGGW
- NEZMl/qMIigZy+jtapQ8Gqv41n1XpPZdkDPxgIBGweFJfNJWeTyxlUeDhxxzf+dgFcwZ
- 9rZxxOPmEUYakZ0l6tp4oj6/2ympHFMvLzBXWeeDatUTlr/j5GoyH54ihzlgMBzecNTU
- JRMA==
-X-Gm-Message-State: APf1xPA+HwIYCTrSU3aRg6GucgJhJpKCoSP1vv4UI4iDZFehEQtjYz09
- bYJleLGjN4iwopEwEaC9C0VHtiM9eiDLEsu8BjJvIq1v
-X-Google-Smtp-Source: AH8x226gdmHcL2nx8WsWE/07wg1PMJIsPwpYWHLHzRW/Aw7eD/hh/L7HI87r+3qV/pODUSpVO628788dxs81eoqZu8Y=
-X-Received: by 10.55.33.129 with SMTP id f1mr16370179qki.158.1518417880004;
- Sun, 11 Feb 2018 22:44:40 -0800 (PST)
+ bh=dLNGgY47uUDM4JrPsUDX1xVI8iBXt6QP5fjtPJNe3Zo=;
+ b=K2yTpxs0gSTyZ0E+a7YKRa79ClyYeRjB2LJVdqazAipPFBtTl9vJ+5USqSuEJAeb9t
+ GDYNZG8PCD0M6bhNAkWeDwLNYUOP2vydhkj67AVUr1pul8EkhwVIg3jJnEvfITGVe4Aw
+ 3x3AMrG9jnXmstuE5ayFUL5z3JX13riEYIJA6fYU5q2Kb0IRi+XlGG2uv0Bi5mvDhSz8
+ 3HyKmqPoGhCGVoymogDSKp5244sUzWW+Tlu7nkdE+OC4+NUlhCtj7xQORvlDGIpXowwm
+ fDKzBalAwVh0PJmMF+ul88LWcgMNZJAazI63buumkI1OCIrKmV+ZQE478w7eAGP4vBAD
+ JU2g==
+X-Gm-Message-State: APf1xPAGyxanVpSKkM7MPwKdP+OTPgxlQmXmDLZZhtogsuFIvzv59/xR
+ 5yo0i3D1OPXgoqOqySU8Vdk1BKBalmmGu9bz+5Y=
+X-Google-Smtp-Source: AH8x2267YAyp8tFDSJL3ljHOLT1VuEMS2wIEj+5kngcgHiyQAuB99mCQ8wCWFtYJElrnTQ3TsNo2ScQdYvFF019cbOo=
+X-Received: by 10.237.38.37 with SMTP id z34mr18687922qtc.178.1518422004836;
+ Sun, 11 Feb 2018 23:53:24 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Sun, 11 Feb 2018 22:44:19 -0800 (PST)
-In-Reply-To: <0bd9476d-f2d5-45c2-bda6-987835581a48@cavium.com>
-References: <0bd9476d-f2d5-45c2-bda6-987835581a48@cavium.com>
+Received: by 10.200.50.69 with HTTP; Sun, 11 Feb 2018 23:53:04 -0800 (PST)
+In-Reply-To: <20180212025523.5566-1-chen.kenyy@inventec.com>
+References: <20180212025523.5566-1-chen.kenyy@inventec.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 12 Feb 2018 17:14:19 +1030
-X-Google-Sender-Auth: uKD5UERMwof9mEIYg56CCgJmX1c
-Message-ID: <CACPK8XdWGur=QB5QK+mja33M0bRkXGg9gCoVn_DdJF4vKD+p9g@mail.gmail.com>
-Subject: Re: udev faulting with openbmc filesystem builds.
-To: "Steven J. Hill" <Steven.Hill@cavium.com>
+Date: Mon, 12 Feb 2018 18:23:04 +1030
+X-Google-Sender-Auth: ChtqWwI3qcmTwFLfXRUoyFRS5dE
+Message-ID: <CACPK8XeyaPq69hY7LFFr+jPXzm5==LpJWDtro9bz6c-F4B-aAA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 v4] ARM: dts: aspeed: Add ARM system BMC
+ device tree
+To: Ken Chen <chen.kenyy@inventec.com>, Andrew Jeffery <andrew@aj.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -63,102 +64,239 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Feb 2018 06:44:48 -0000
+X-List-Received-Date: Mon, 12 Feb 2018 07:53:28 -0000
 
-Hi Steve,
+Hi Ken,
 
-On Fri, Feb 9, 2018 at 5:38 PM, Steven J. Hill <Steven.Hill@cavium.com> wrote:
-> I'm working with an AST2500 development board. I have built the
-> Palmetto and Witherspoon platforms. I am taking the filesystem
-> 'obmc-phosphor-image-PLATFORM-20180208xxxxxx.rootfs.squashfs-xz'
-> and placing the files on a USB flash drive. Coldplugging devices
-> with 'udev' always faults as shown below. I have a custom 4.10
-> kernel that works with non-OBMC root filesystems just fine.
+This is looking much better. Just a few small things to tweak before I
+can merge this.
 
-Do your other filesystems have similar userspace components, such as systemd?
+On Mon, Feb 12, 2018 at 1:25 PM, Ken Chen <chen.kenyy@inventec.com> wrote:
+> Add centriq2400-rep dts and modify platform initial
 
-Have you tried to reproduce using the OpenBMC kernel?
+This commit message needs some work.
+
+Take a look at the commit messages from the introduction of other machines:
+
+> commit 8f9bafbb92c0308cf8d33536803c822e14bed4d7
+> Author: Joel Stanley <joel@jms.id.au>
+> Date:   Wed Jan 4 16:31:28 2017
+>
+>    ARM: dts: aspeed: Add Romulus BMC platform
+>
+>    Romulus is an OpenPower machine with an ast2500 BMC. It has NCSI
+>    networking and 512MB of RAM.
+
+or
+
+> commit f88bc8e15f1c1154495107ed378cce271309349d
+> Author: Rick Altherr <raltherr@google.com>
+> Date:   Tue Nov 28 23:11:05 2017
+>
+>    ARM: dts: aspeed: Add Qanta Q71L BMC machine
+>
+>    The Qanta Q71L BMC is an ASPEED ast2400 based BMC that is part of a
+>    Qanta x86 server.
+
+
+>
+> Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
+>
+> ---
+> v3->v4
+> - Modify Makefile for centriq2400-rep dts
+> - Fix typo label
+> - Removed unnecessary define of spi2 and centriq2400-spi-hwmon device
+> - Removed lpc device
+> - Fix coding style
+> - Removed ssif device
+> - Removed max31790 device
+> - Removed register control of GPIO and Watchdog
+
+Great changelog. This is very useful to me as a reviewer.
+
+> ---
+>  arch/arm/boot/dts/Makefile                         |   1 +
+>  .../boot/dts/aspeed-bmc-arm-centriq2400-rep.dts    | 276 +++++++++++++++++++++
+>  arch/arm/mach-aspeed/aspeed.c                      |  11 +
+>  3 files changed, 288 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+>
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 7c54fc8..77aef19 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -993,6 +993,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+>         aspeed-bmc-mellanox-msn.dtb \
+>         aspeed-bmc-quanta-q71l.dtb \
+>         aspeed-bmc-intel-s2600wf.dtb \
+> +        aspeed-bmc-arm-centriq2400-rep.dtb \
+>         aspeed-ast2500-evb.dtb
+>  endif
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts b/arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+> new file mode 100644
+> index 0000000..6c7784f
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
+> @@ -0,0 +1,276 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +       model = "Qualcomm Centriq 2400  REP AST2520";
+
+May I ask, what does REP mean?
+
+> +       compatible = "qualcomm,centriq2400-rep-bmc", "aspeed,ast2500";
+> +
+> +       chosen {
+> +               stdout-path = &uart5;
+> +               bootargs = "console=ttyS4,115200 earlyprintk";
+> +       };
+> +
+> +       memory {
+> +               reg = <0x80000000 0x40000000>;
+> +       };
+> +
+> +       iio-hwmon {
+> +               compatible = "iio-hwmon";
+> +               io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+> +                        <&adc 4>, <&adc 5>, <&adc 6>, <&adc 8>;
+> +       };
+> +
+> +       iio-hwmon-battery {
+> +               compatible = "iio-hwmon";
+> +               io-channels = <&adc 7>;
+> +       };
+> +
+> +       leds {
+> +               compatible = "gpio-leds";
+> +
+> +               uid_led {
+> +                       label = "UID_LED";
+> +                       gpios = <&gpio ASPEED_GPIO(Q, 5) GPIO_ACTIVE_LOW>;
+> +               };
+> +
+> +               ras_error_led {
+> +                       label = "RAS_ERROR_LED";
+> +                       gpios = <&gpio ASPEED_GPIO(F, 6) GPIO_ACTIVE_LOW>;
+> +               };
+> +
+> +               system_fault {
+> +                       label = "System_fault";
+> +                       gpios = <&gpio ASPEED_GPIO(A, 1) GPIO_ACTIVE_LOW>;
+> +               };
+> +       };
+> +};
+> +
+> +&fmc {
+> +       status = "okay";
+> +       flash@0 {
+> +               status = "okay";
+> +               m25p,fast-read;
+> +                label = "bmc";
+
+Still some strange whitespace here. Make sure your editor is using tabs.
+
+> +#include "openbmc-flash-layout.dtsi"
+> +       };
+> +};
+> +
+> +&spi1 {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_spi1_default>;
+> +       flash@0 {
+> +               status = "okay";
+> +       };
+> +};
+> +
+> +&spi2 {
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_spi2ck_default &pinctrl_spi2miso_default &pinctrl_spi2mosi_default &pinctrl_spi2cs0_default>;
+
+Andrew, can you please review the pinctrl bits?
+
+> +};
+> +
+> +&uart3 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_txd3_default &pinctrl_rxd3_default>;
+> +       current-speed = <115200>;
+> +};
+> +
+
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 5965bbf..8fce9bc 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+
+We do not have an aspeed.c in the dev-4.13 branch.
+
+I do not plan on merging one, as at this stage all of the
+functionality that was present in aspeed.c can be performed in other
+drivers. I suggest submitting the device tree without any change to
+aspeed.c.
+
+To review what the changes are:
+
+> static void __init do_common_setup(void)
+> {
+>        /* Enable LPC FWH cycles, Enable LPC to AHB bridge */
+>        writel(0x00000500, AST_IO(AST_BASE_LPC | 0x80));
+
+This is now done in drivers/misc/aspeed-lpc-ctrl.c
+
+>        /* Set UART routing */
+>        writel(0x00000000, AST_IO(AST_BASE_LPC | 0x9c));
+
+This is the default, so we do not need have this line.
+
+>
+>        /* Setup scratch registers */
+>        writel(0x00000042, AST_IO(AST_BASE_LPC | 0x170));
+>        writel(0x00008000, AST_IO(AST_BASE_LPC | 0x174));
+
+These are specific to the operation of Hostboot on OpenPower
+platforms. I suspect you do not require these lines.
 
 Cheers,
 
 Joel
 
 
-> [  OK  ] Started Apply Kernel Variables.
->          Starting Create System Users...
-> Unable to handle kernel paging request at virtual address 9bda7000
-> pgd = db1ac000
-> [9bda7000] *pgd=00000000
-> Internal error: Oops: 5 [#1] ARM
-> Modules linked in:
-> CPU: 0 PID: 146 Comm: udevadm Not tainted 4.10.0+ #3
-> Hardware name: ASpeed BMC SoC
-> task: db025ac0 task.stack: db170000
-> PC is at strlen+0xc/0x38
-> LR is at kstrdup+0x20/0x58
-> pc : [<c01f2bb4>]    lr : [<c00965ec>]    psr: a0000013
-> sp : db171d30  ip : db171d40  fp : db171d3c
-> r10: dbff85c0  r9 : dbd9c208  r8 : 00000fff
-> r7 : db171d9a  r6 : 9bda7000  r5 : c0266bc4  r4 : 014000c0
-> r3 : dbd95890  r2 : 0000f000  r1 : 014000c0  r0 : 9bda7000
-> Flags: NzCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment user
-> Control: 00c5387d  Table: 9b1ac008  DAC: 00000055
-> Process udevadm (pid: 146, stack limit = 0xdb170188)
-> Stack: (0xdb171d30 to 0xdb172000)
-> 1d20:                                     db171d5c db171d40 c00965ec c01f2bb4
-> 1d40: dbd9c208 db171d9c dbd9c200 db171d9a db171d6c db171d60 c0266bc4 c00965d8
-> 1d60: db171d8c db171d70 c026b5d8 c0266b98 dbd9c208 db058000 dbd9c200 db171da4
-> 1d80: db171dc4 db171d90 c026b778 c026b56c db171d9c db171da0 f000432c 00000000
-> 1da0: 00000000 00000000 dbc26d00 db058000 dbd9c208 db057000 db171dec db171dc8
-> 1dc0: c0268f20 c026b648 dbff3f20 c059b8c8 c04324ac db057000 00000fff dbd9c208
-> 1de0: db171e04 db171df0 c0268d40 c0268e78 dbff3f20 00001000 db171e34 db171e08
-> 1e00: c011c7bc c0268d28 c011c72c dbff3f20 00001000 db171e60 00000000 dbd3f680
-> 1e20: db171f78 00000001 db171e44 db171e38 c011b2c4 c011c738 db171e9c db171e48
-> 1e40: c00e0a08 c011b2a4 db171ebc 7f6ad9a0 00001000 dbff3f50 db00f5d0 dbfe7580
-> 1e60: 00000000 00000000 00000055 014000c0 0007f6af dbff85c0 00001000 db171f78
-> 1e80: db171f78 00000000 00001000 00000000 db171edc db171ea0 c011bfa8 c00e0958
-> 1ea0: 00000817 7f6af9ac 00000055 7f6ad9a0 db171efc c011be6c dbd3f680 db171f78
-> 1ec0: db171f78 00000000 00001000 00000000 db171f44 db171ee0 c00bdb0c c011be78
-> 1ee0: 7f6af9ac db171fb0 b6e69b94 00000001 db171fac db171f00 c0009244 c0015560
-> 1f00: dbfe7590 00000000 7f6d0000 db055ba0 db171f7c db171f20 c00a85f8 c00a6b04
-> 1f20: 00001000 dbd3f680 00001000 dbd3f680 7f6ad9a0 db171f78 db171f74 db171f48
-> 1f40: c00bf12c c00bdae8 7f6d0000 7f6af000 db171f74 dbd3f680 dbd3f680 00000000
-> 1f60: 00000000 7f6ad9a0 db171fa4 db171f78 c00bffec c00bf0ac 00000000 00000000
-> 1f80: 7f6ad838 b6d95c84 00001000 00000003 c000f784 db170000 00000000 db171fa8
-> 1fa0: c000f5e0 c00bffb4 7f6ad838 b6d95c84 00000005 7f6ad9a0 00001000 00000040
-> 1fc0: 7f6ad838 b6d95c84 00001000 00000003 ffffffff ffffffff 7f6ad9a0 b6e67ba8
-> 1fe0: 00000000 beb0251c b6d95924 b6dee64c 60000010 00000005 00000000 00000000
-> Backtrace:
-> [<c01f2ba8>] (strlen) from [<c00965ec>] (kstrdup+0x20/0x58)
-> [<c00965cc>] (kstrdup) from [<c0266bc4>] (misc_devnode+0x38/0x40)
->  r7:db171d9a r6:dbd9c200 r5:db171d9c r4:dbd9c208
-> [<c0266b8c>] (misc_devnode) from [<c026b5d8>] (device_get_devnode+0x78/0xdc)
-> [<c026b560>] (device_get_devnode) from [<c026b778>] (dev_uevent+0x13c/0x1e0)
->  r7:db171da4 r6:dbd9c200 r5:db058000 r4:dbd9c208
-> [<c026b63c>] (dev_uevent) from [<c0268f20>] (uevent_show+0xb4/0x118)
->  r7:db057000 r6:dbd9c208 r5:db058000 r4:dbc26d00
-> [<c0268e6c>] (uevent_show) from [<c0268d40>] (dev_attr_show+0x24/0x50)
->  r9:dbd9c208 r8:00000fff r7:db057000 r6:c04324ac r5:c059b8c8 r4:dbff3f20
-> [<c0268d1c>] (dev_attr_show) from [<c011c7bc>] (sysfs_kf_seq_show+0x90/0xfc)
->  r5:00001000 r4:dbff3f20
-> [<c011c72c>] (sysfs_kf_seq_show) from [<c011b2c4>] (kernfs_seq_show+0x2c/0x30)
->  r10:00000001 r9:db171f78 r8:dbd3f680 r7:00000000 r6:db171e60 r5:00001000
->  r4:dbff3f20 r3:c011c72c
-> [<c011b298>] (kernfs_seq_show) from [<c00e0a08>] (seq_read+0xbc/0x4c0)
-> [<c00e094c>] (seq_read) from [<c011bfa8>] (kernfs_fop_read+0x13c/0x1b8)
->  r10:00000000 r9:00001000 r8:00000000 r7:db171f78 r6:db171f78 r5:00001000
->  r4:dbff85c0
-> [<c011be6c>] (kernfs_fop_read) from [<c00bdb0c>] (__vfs_read+0x30/0x114)
->  r10:00000000 r9:00001000 r8:00000000 r7:db171f78 r6:db171f78 r5:dbd3f680
->  r4:c011be6c
-> [<c00bdadc>] (__vfs_read) from [<c00bf12c>] (vfs_read+0x8c/0x114)
->  r7:db171f78 r6:7f6ad9a0 r5:dbd3f680 r4:00001000
-> [<c00bf0a0>] (vfs_read) from [<c00bffec>] (SyS_read+0x44/0x98)
->  r8:7f6ad9a0 r7:00000000 r6:00000000 r5:dbd3f680 r4:dbd3f680
-> [<c00bffa8>] (SyS_read) from [<c000f5e0>] (ret_fast_syscall+0x0/0x34)
->  r9:db170000 r8:c000f784 r7:00000003 r6:00001000 r5:b6d95c84 r4:7f6ad838
-> Code: c0412150 e1a0c00d e92dd800 e24cb004 (e5d03000)
-> ---[ end trace 79534d21c87b0cbe ]---
-> [FAILED] Failed to start udev Coldplug all Devices.
-> See 'systemctl status systemd-udev-trigger.service' for details.
-> [  OK  ] Started Create System Users.
+
+> @@ -232,6 +232,15 @@ static void __init do_mellanox_setup(void)
+>         writel(reg, AST_IO(AST_BASE_SCU | 0x48));
+>  }
+>
+> +
+> +static void __init do_centriq2400rep_setup(void)
+> +{
+> +       u32 reg;
+> +
+> +       do_common_setup();
+> +}
+> +
+> +
+>  #define SCU_PASSWORD   0x1688A8A8
+>
+>  static void __init aspeed_init_early(void)
+> @@ -284,6 +293,8 @@ static void __init aspeed_init_early(void)
+>                 do_lanyang_setup();
+>         if (of_machine_is_compatible("mellanox,msn-bmc"))
+>                 do_mellanox_setup();
+> +        if (of_machine_is_compatible("qualcomm,centriq2400-rep-bmc"))
+> +                do_centriq2400rep_setup();
+>  }
+>
+>  static void __init aspeed_map_io(void)
+> --
+> 2.9.3
+>
