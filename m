@@ -1,55 +1,57 @@
-Return-Path: <a.amelkin@yadro.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="fUPwxiB7"; 
+Return-Path: <brendanhiggins@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400e:c01::22f; helo=mail-pl0-x22f.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="uG/BVEL/"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-pl0-x22f.google.com (mail-pl0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c01::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgCSW00bPzF0QY
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 04:33:27 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 20A145396C
- for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 17:33:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-language:content-transfer-encoding:content-type
- :content-type:mime-version:user-agent:date:date:message-id
- :subject:subject:from:from:received:received:received; s=mta-01;
- t=1518456801; x=1520271202; bh=iDU2SfOUB75idit1jv9sxhFgmuv82tLu
- jp0o6EW0bFM=; b=fUPwxiB7Qi+FMDeFDSx+Yl17UXKodyVaX3prQEoJ5znwIEao
- pv+Gh1DWw43h2n3GCztAh6tQKZI5c1h+IajgonxJbc6VaLPObPZUVVUrBy+hUbJ3
- Yq3jLS1aTNTw1WnRSCCYwpLDm3sebI57uF1Z8i75wdxHdJnDd9P0Eoo06tQ=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id lci-1BN0LlQQ for <openbmc@lists.ozlabs.org>;
- Mon, 12 Feb 2018 20:33:21 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 8FCEE53644
- for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 20:33:21 +0300 (MSK)
-Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 12
- Feb 2018 20:33:21 +0300
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: System health monitoring
-Message-ID: <3ab513f4-ab10-dabd-430b-8a73c27aa7b2@yadro.com>
-Date: Mon, 12 Feb 2018 20:33:21 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [172.17.14.168]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgJ1M6f1GzF0q8
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 07:58:43 +1100 (AEDT)
+Received: by mail-pl0-x22f.google.com with SMTP id f4so5548671plr.10
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 12:58:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=wHlVTPflxT5RNPU81sJWjFvCxIBGrKRJP5AW13+Uo3o=;
+ b=uG/BVEL/Cm0nJ5GOt6856+cLeoNv2i4wqYR3sw9yjXnrtapXCJOLJOwt6NW3lmvkSO
+ U62O9PGAoU2L7pAlbiTZmZ0gSEX8ukUz2XgI+th7vr2Y94xnzHixkzt5B+i/emNgUQlt
+ rQ/Sb6roGzouLYQZr21jtPUqESc6q5ke0gztd8aEM5TqcBE/dfZ1E3s4hjQVQMrQo5tc
+ SDPK7UzcK/IlnzRdmTU/nhRXuiIb8rJpAl6gsgi0pQ1XgWH01wz2dRPOP0ZSeo1HO/Xf
+ Gz3IJO4vcoCqNmOytJKAJucT5RBeEMTcSuAmW5ZVmgC8AgVxrYBZNG/lgQVdbDkh7wlt
+ Dtlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=wHlVTPflxT5RNPU81sJWjFvCxIBGrKRJP5AW13+Uo3o=;
+ b=J3aCwzPrJRBqHyqWnIBcueUjwhoWt5ZYgDfe8vDl3WzZV9x7pZ8pjtCoEEqwkSzJa+
+ MlONS0LFk41Um7Tj+PWnBCBHWVJu/Gw/2u9vVMAFwrvUzIXuEEXxeWdTILwwXS540u4u
+ NnRqZd9fbsg8HnyCluti/8iL59QmUgS5ivQ5mSIxcOgbb6h1SXtEwLu+jqTtppXou0/q
+ nISK9VOv0Ihm9uMJNjCbenKy/Y7fT+GzA5IRx1RjKN/X3yR08Mqf9fMOmg/mr7eKKPOg
+ h4qtHoKjBEZvOpHhkglLcIVcOv5rZF1XitE4VlWTQGsqZJqTORoF7hHQ0bTnrQpvTUFY
+ effw==
+X-Gm-Message-State: APf1xPABsAs7jAMYYPnJ4XJmiDIbzElgAJqQsOI5JU2NSE3jWBdWiQrv
+ MQexpesc4kNsNhqafJJ4DEFRTg==
+X-Google-Smtp-Source: AH8x227mw+4t6ujuIx3oe8i5itH9r3ZEpQusWQIGAaId9QWnrcOqeSfL3nGnGvuX/SXdCqQZ7ekHgw==
+X-Received: by 2002:a17:902:6c0e:: with SMTP id
+ q14-v6mr11928675plk.445.1518469120953; 
+ Mon, 12 Feb 2018 12:58:40 -0800 (PST)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id q13sm24629005pgp.76.2018.02.12.12.58.39
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 12 Feb 2018 12:58:40 -0800 (PST)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: linux@armlinux.org.uk, avifishman70@gmail.com, tmaimon77@gmail.com,
+ venture@google.com, yuenn@google.com
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH v1 0/2] arm: npcm: add low-level debug support for NPCM7XX
+Date: Mon, 12 Feb 2018 12:58:31 -0800
+Message-Id: <20180212205833.151019-1-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.16.0.rc1.238.g530d649a79-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -61,21 +63,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Feb 2018 17:33:31 -0000
+X-List-Received-Date: Mon, 12 Feb 2018 20:58:49 -0000
+X-List-Received-Date: Mon, 12 Feb 2018 20:58:49 -0000
+X-List-Received-Date: Mon, 12 Feb 2018 20:58:49 -0000
 
-Hi everyone!
 
-Could you please tell me if there is a commonly used mechanism in 
-OpenBMC for system health monitoring and indication?
+Adds low-level debug support for Nuvoton's NPCM7XX architecture.
 
-I know there is a LED Manager and that there are LED groups, but it is 
-unclear if there is any entity that somewhat universally can control 
-those LED groups. I would expect it to be somewhere near PEF processing 
-if we at all have PEFs. Do we?
-
-Who is expected to send events to trigger those LED groups? Does each 
-vendor create their proprietary solution or is there anything public?
-
-Thank you.
-
-With best regards, Alexander.
+Change has been tested on Nuvoton's NPCM750 EVB.
