@@ -1,58 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
+ (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SDmD/GT+"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bD83VQTn"; 
  dkim-atps=neutral
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgTN35dVVzF0Sy
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 15:00:35 +1100 (AEDT)
-Received: by mail-qt0-x244.google.com with SMTP id u6so2190868qtg.13
- for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 20:00:35 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgTNn0gzzzF102
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 15:01:12 +1100 (AEDT)
+Received: by mail-qk0-x241.google.com with SMTP id g129so6508923qkb.13
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 20:01:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=buA4It+CegLvyanXlLt7t9bzwB2KLo7b0o0yqaRcV3w=;
- b=SDmD/GT+a69gHK/HAGXLzkIOglNuqsNrWljZgcZwmS6mKcUY/mLMdIr25Uj1jo8cKV
- vviERVp+jEoBIKNb2jbajfA6WjW46QRhD8EgcwIFgrfQy/SN2q8r7z4BzofklIst3AJW
- yN0fZzoKqpaq1wL1nkfg19vqlT6Q/14ZV4gl7rcunkTw7ZKv8eBL6vuZurBWK5niC9qz
- NWtoIMFyhuATQf6BXE1ow01foCZuxx3C0EK7K7HtU5Vu0LQCVlkAJLs7JhFk750WbrJ3
- T1deXiL6ZQBky3QP7l34Vmy+pI0ATALDMepJqS77o+5i0UUXMeigXg7iNbNSiMaxiQL8
- yDiQ==
+ bh=A/Chq1PB5xFSZBoieppMNlQTmj20ufYqpTYCCmlk9do=;
+ b=bD83VQTnLgU3NkCFVwmRxT0mHlLVLxo0hw++pV3ZptKxFhMgiwQLppu2Zsw5HLwxTR
+ h8cHzyMrgEFJ7EAf/woccCLC28SK+w2fhHV69Bbrx4X36RQ3FEa5qT0mrj0biWvsLm/2
+ gZpMEJ7Tu5LY29OjbCFp2Z2HuDrLAFs0JgulNsF8QWhvnCMJJD/OBeKyCsqUiHX413xI
+ +JRHWWYxvcOYdZL6TITJr5GzbEs1kx+RcVYLLSi5ff0Fo7U/nFdLR71AhkLn7Enmxxuv
+ 5lem+CbDGfbpjSxRqeuBkCunihNlG6jt9ghQQI/eTOSDvH9oDmXl62d97N+nX/LBIAH4
+ rFfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=buA4It+CegLvyanXlLt7t9bzwB2KLo7b0o0yqaRcV3w=;
- b=cXVKZI+nJrS0J8iBaGLDdCzpWnZs7zqxsLtqlTUHvKPliQdfd81AN+V0XnJxGzNXRx
- +09+kMp8rPfbgEoIu2NZlHqW02YeUFwMBNbHlP8oUCWnhtmNnErHLxVoP+Hkl9zwU/yb
- bcvoiOyPu0YRBqWpsLKGJo3gldAegY7I1X/pyBR6x7lnkpWLqAmj3kGBa3gLpckYvftj
- mV56LIyQOYn1nvb3l2sJ3vUWkmlDumnoTzH4Q/1e6N4kQx02/+0+ap4YB6ShHutZwysu
- /FxVrnU4AQxuHRDnmAI1aOecmqiHLsINDHQt5GfxZHYRpYna/2yYI9THXrq6Lu9DxFPI
- +I3Q==
-X-Gm-Message-State: APf1xPBmLCAHBVJHOXQetEJnL39XTKKNH5JiljX6RHUBHEnscEGimrpg
- PuEjPyM9ftpd2qLZ2K3iTyH7T7sbRA3o0c5n4oekgXi+LQE=
-X-Google-Smtp-Source: AH8x225xeoOF3J2wEP2YIPwqBJ6XqeJs4bTprlt8aJEO18YW/fErxbo44EqdtqW8lUglhM1Qao1vqzEvzUkcW7YUaqM=
-X-Received: by 10.237.50.163 with SMTP id z32mr22248662qtd.249.1518494433594; 
- Mon, 12 Feb 2018 20:00:33 -0800 (PST)
+ bh=A/Chq1PB5xFSZBoieppMNlQTmj20ufYqpTYCCmlk9do=;
+ b=QveBWY/Uj6MjN+aqinpA4bwQmsXMFmsk9/ed0HBCeKqT5yQ8gWLUGPPO42ozR5BIh7
+ 4VLTDTHDNeGRundKHrMaF+FGlka6xvy6GQChTnyW7s2acip4/0csbw5iRVFtu7rku59a
+ sX+I0auxNe5MwrTYQuipz/7CMeiNXDV+fnN8LQZeNlCs/LDYYVbGTovUt4iQLh6wWZ3V
+ MBd1swWiD7e9Unk08UgZe3fOpjXhw08KEJQoJGrWsU9k04kdAlgewH6hFk3chitI6z00
+ LZJXQMm1t+EPS4C3evi3ii8dFOmijTr7eIZPFeXgn4L+3EvY2jVNKjB8tsl8PfT4apt9
+ 1NIQ==
+X-Gm-Message-State: APf1xPDQoIU8Yx2cEGpqIMPHUJg8zPE4TvZseGYOc9MPxFn2Uz+dBwyb
+ xyDXVib4uh4JPJEBiuWpmadPFovvO+rVq6durfM=
+X-Google-Smtp-Source: AH8x226vVa6cbbiYbELVfsSRyiJ3MTMOXZHM9NcNYgiOxFgXW1XmbaL1OsU8H07QjyPEKouUegc12U+epiM8K08VIqM=
+X-Received: by 10.55.33.129 with SMTP id f1mr21463954qki.158.1518494469815;
+ Mon, 12 Feb 2018 20:01:09 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Mon, 12 Feb 2018 20:00:13 -0800 (PST)
-In-Reply-To: <20171127230108.11935-1-rlippert@google.com>
-References: <20171127230108.11935-1-rlippert@google.com>
+Received: by 10.200.50.69 with HTTP; Mon, 12 Feb 2018 20:00:49 -0800 (PST)
+In-Reply-To: <1511238735-29162-1-git-send-email-qhuyduong@hotmail.com>
+References: <1511238735-29162-1-git-send-email-qhuyduong@hotmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 13 Feb 2018 14:30:13 +1030
-X-Google-Sender-Auth: dqtbRvzgxPJCBPzqzlAm-Dvl1kI
-Message-ID: <CACPK8XdQS1N5PTRWMdYpHwDXViu2Qk8UNu98MDj8T_d4OUyY0Q@mail.gmail.com>
-Subject: Re: [PATCH u-boot] aspeed/flash: fix buffersize of MX6651235F flash
- chip
-To: Robert Lippert <roblip@gmail.com>
+Date: Tue, 13 Feb 2018 14:30:49 +1030
+X-Google-Sender-Auth: 0hoZChJr2Rr07-sL7W_ud-6TLJ4
+Message-ID: <CACPK8Xf_sj7JQai4Uq-7hQWG_9FPEqt9VmGWS-nJ15PpeyeCAQ@mail.gmail.com>
+Subject: Re: [u-boot] net: ftgmac100: Reset FTGMAC100 before setting MAC
+To: Huy Duong <quochuybk2010@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Maxim Sloyko <maxims@google.com>, Robert Lippert <rlippert@google.com>
+ Huy Duong <qhuyduong@hotmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -65,40 +64,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Feb 2018 04:00:36 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 04:01:13 -0000
 
-On Tue, Nov 28, 2017 at 9:31 AM, Robert Lippert <roblip@gmail.com> wrote:
-> The MX66L51235F had a wrong write buffersize of 512 bytes set which
-> causes issues when trying to write an environment block >256 bytes
-> as the SPI chip only "listens" to the last 256 bytes.
+On Tue, Nov 21, 2017 at 3:02 PM, Huy Duong <quochuybk2010@gmail.com> wrote:
+> In ftgmac100_initialize(), FTGMAC100 is reset after MACs are set, hence
+> all MACs set before will be erased. This patch moves ftgmac100_reset() to
+> before ftgmac100_set_mac_from_env().
 >
-> Signed-off-by: Robert Lippert <rlippert@google.com>
+> Signed-off-by: Huy Duong <qhuyduong@hotmail.com>
 
-Thanks Rob. Sorry for letting this one hang around for so long.
+Sorry for neglecting you patch.
 
-Merged into v2016.07-aspeed-openbmc.
+This makes sense to me. Merged into v2016.07-aspeed-openbmc.
 
 Cheers,
 
 Joel
 
 > ---
->  arch/arm/mach-aspeed/flash.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/net/ftgmac100.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/arch/arm/mach-aspeed/flash.c b/arch/arm/mach-aspeed/flash.c
-> index e1e3cf8d7f..907e785d8c 100644
-> --- a/arch/arm/mach-aspeed/flash.c
-> +++ b/arch/arm/mach-aspeed/flash.c
-> @@ -1009,7 +1009,7 @@ static ulong flash_get_size (ulong base, flash_info_t *info)
->                         info->readcmd = 0x0b;
->                         info->dualport = 0;
->                         info->dummybyte = 1;
-> -                       info->buffersize = 512;
-> +                       info->buffersize = 256;
->                         WriteClk = 50;
->                         EraseClk = 20;
->                         ReadClk  = 50;
+> diff --git a/drivers/net/ftgmac100.c b/drivers/net/ftgmac100.c
+> index 9d5ba98..5779057 100644
+> --- a/drivers/net/ftgmac100.c
+> +++ b/drivers/net/ftgmac100.c
+> @@ -791,11 +791,11 @@ int ftgmac100_initialize(bd_t *bd)
+>                 miiphy_register(dev->name, ftgmac100_reg_read, ftgmac100_reg_write);
+>  #endif
+>
+> +               ftgmac100_reset(dev);
+> +
+>                 /* set the ethernet address */
+>                 ftgmac100_set_mac_from_env(dev);
+>
+> -               ftgmac100_reset(dev);
+> -
+>                 card_number++;
+>         }
+>         return card_number;
 > --
-> 2.15.0.417.g466bffb3ac-goog
+> 2.7.4
 >
