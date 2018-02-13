@@ -1,70 +1,58 @@
-Return-Path: <arndbergmann@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::244; helo=mail-ot0-x244.google.com;
- envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <brendanhiggins@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400e:c01::229; helo=mail-pl0-x229.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="A7V5ExBy"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="gKBQHtNA"; 
  dkim-atps=neutral
-Received: from mail-ot0-x244.google.com (mail-ot0-x244.google.com
- [IPv6:2607:f8b0:4003:c0f::244])
+Received: from mail-pl0-x229.google.com (mail-pl0-x229.google.com
+ [IPv6:2607:f8b0:400e:c01::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgtW83GvWzF1RM
- for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 06:53:08 +1100 (AEDT)
-Received: by mail-ot0-x244.google.com with SMTP id q12so18338281otg.10
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 11:53:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=niagko5JAYteaoAt+aC3B8/NfR1Syt9bCfX9MJeToCs=;
- b=A7V5ExByQleFknXmDoiSpfPD1rKSagqZ0uyUX+7KzYQRfDij0da5somZ8f0KJIdSbG
- xn8nTtA2aeLXe9mEWB7L5LVzHkp8sMOP9WIvCUei+mgfDZXHs1JIfdahfUJdH/aikmRd
- dxNimOSjLQZXVWkYECzeCq/9fkfQxF3/Gih1uKKdVosxNN79PwlgsGCM5fKP/8aOn1bs
- FVW3R/S/wxpQXyfLrgVBFzYAzGuekXAroBD0eH2zGR9BJn2bWtAMapq1yqWFDfkbwXyR
- ARd++HUp/Dfbm4ozlHIXTQMsp0jz+BhkFfqA9e9A7yZnsyidPMuiBqOlr3HFpVZHkd+X
- R6lA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgttr0RlZzDq8f
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 07:10:11 +1100 (AEDT)
+Received: by mail-pl0-x229.google.com with SMTP id k8so7161120pli.8
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 12:10:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=bdVqPyW6snlBkpBxAOfE3Rrag6BbZ7E3y/1cUXWobG8=;
+ b=gKBQHtNAza8lNo87R6RuX/fOIvk4PhzGOUCDfFbi/Fxiahks5IImpKq1K7L80w8/AL
+ +ZwwQD7KjhFbuZ3tevIr2GYezUgxfAOdHRS0HuiFuGVh0Sn5BW9fLT4Hu3pEMg/mMabZ
+ o5DCjExqvsjkQ03A+6j6U9HQtsYGCNi4Pq6pnaEZBL+HSSydAXl1XK47ZTp5HjK5e6lc
+ EiXw6xsaeCk9gt3QaTUY7QkIB2fBPfnpsiHzHmC7HRqYHDVrnr/IDqmmC4oHhf19MKUI
+ GfJeEK8bDiSy45ANsw6E6nFTy6nGKWmvKYCyuJi0F1vqtOE38J++jslOXqz72uKrCp2n
+ nCBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=niagko5JAYteaoAt+aC3B8/NfR1Syt9bCfX9MJeToCs=;
- b=EtIsSTcdbP3G2L2JKLK67HI4GV/RBYQAFyjTfjz8vMpydAUOKYmAk/l3gHnM1tpTlZ
- aTCou9FRc9Puf+2zPwLdgDq9sk9ukt9uH4SS2NLzrMXaWmHPbnf1lAyVnKKDwfZFE5KM
- lCpALaeBDiC5TiN6hh3ziVrPP5a2vzIVQ3pI7RNTOJ6hNCAIQAsf1mCKqedqhspDVy9c
- +qeW/Acnd89vSEjmo+fVGhkxBl1dGLZH3SoiA3fRCdlxvRf89AbLo6HOZq4kis1N1W6r
- VXfpaEQMVTHq7Fc+VuWWI57FBI2FNzjhyGyv7O/olPg4ciSOuMT+5F5YVpZf87pXMG+9
- /LDg==
-X-Gm-Message-State: APf1xPCwBhDaNrDVvl1gbxUwyqRlNj/sB/8VzdbbKUdoXM2ECOI9iZZe
- KNeZaZ0exbtYqSjJY0lgTP7wbeGA+mrjZeXucr4=
-X-Google-Smtp-Source: AH8x227G0yQlz5hMe9gQmxOiu9ezDo0YY4Q98SEwrHmJcl+Yt/5pngdXkeSh52Qkf2Uq6KPZcDUWfRC+AcMqil1Svn4=
-X-Received: by 10.157.26.44 with SMTP id a41mr1681302ote.108.1518551586237;
- Tue, 13 Feb 2018 11:53:06 -0800 (PST)
-MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-Received: by 10.168.66.10 with HTTP; Tue, 13 Feb 2018 11:53:05 -0800 (PST)
-In-Reply-To: <CAFd5g44iHgSoPfko6hgMjz=QMm6ZUScUWbnho1w0bL_brTCjrA@mail.gmail.com>
-References: <20180205235757.246758-1-brendanhiggins@google.com>
- <20180205235757.246758-3-brendanhiggins@google.com>
- <CAK8P3a0SJTAkv7_QtDW1sDWFDYHw8tFWZqO6EMwpZ_5KPbhq3Q@mail.gmail.com>
- <CAKKbWA6Otc1ZO_yHpfhxPjbgvvn-QXcXG9sy5=3FZDY8d_20rw@mail.gmail.com>
- <CAFd5g44iHgSoPfko6hgMjz=QMm6ZUScUWbnho1w0bL_brTCjrA@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 13 Feb 2018 20:53:05 +0100
-X-Google-Sender-Auth: NqQNWPp37fbuCqXL8licFxQ8f1o
-Message-ID: <CAK8P3a0CESqe9gEPhBXO0-J9SB=wyM6p3Fg-abr3BDtExYgfYw@mail.gmail.com>
-Subject: Re: [PATCH v9 2/3] arm: dts: add Nuvoton NPCM750 device tree
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Avi Fishman <avifishman70@gmail.com>, Rob Herring <robh+dt@kernel.org>, 
- Russell King - ARM Linux <linux@armlinux.org.uk>,
- Mark Rutland <mark.rutland@arm.com>, 
- Tomer Maimon <tmaimon77@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
- Julien Thierry <julien.thierry@arm.com>,
- Philippe Ombredanne <pombredanne@nexb.com>, 
- DTML <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=bdVqPyW6snlBkpBxAOfE3Rrag6BbZ7E3y/1cUXWobG8=;
+ b=cDedlqVc/qbAvs33sedghkTJkvquL5YB52myuoxfmLVJWcLUIY3B3h5JWwyHhIwFky
+ d2P2QDlkoYDYgitb1Xes3lUIw01HR0gY4Aa0DFh0gCVBQbIcjHm7esOZVcEWv6y7TIzA
+ SF9iVjFD65IAUpyjyjr4kgpb2chFwjNpgedBIooYR+nGVBMc+hi2AYIEyVskdm5sZ77p
+ PAMbJe6mv6QqCEU9eEMVRkm9wfXkPFbwJMK18vRVjRKiAa+aYBpv++U7U+67Y8FVTWUS
+ i/2xIhmRa7BXbm13fzA9OxHpkdPheaXckBmlNfXZH+ahDliz7kYSx0a2j9WmKiwbHiTV
+ F/6A==
+X-Gm-Message-State: APf1xPC2TNmJ1DyA2MPvxf7DIaHbqA5zWVsdxCwzwMzW85xEPCgPuUAP
+ 8CHXJK1lPbXM/4iCmQSubaaBlg==
+X-Google-Smtp-Source: AH8x2266k2+2LRwpepMU2RctnRsZDZhSJrXQ750mT2j1HrXZwp6mktNSUlO5Uz4ffiD9JghOA8z4Bg==
+X-Received: by 2002:a17:902:28c3:: with SMTP id
+ f61-v6mr2213404plb.264.1518552608725; 
+ Tue, 13 Feb 2018 12:10:08 -0800 (PST)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id y17sm35166894pfk.67.2018.02.13.12.10.07
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Tue, 13 Feb 2018 12:10:07 -0800 (PST)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: robh+dt@kernel.org, linux@armlinux.org.uk, mark.rutland@arm.com,
+ tmaimon77@gmail.com, avifishman70@gmail.com, f.fainelli@gmail.com,
+ julien.thierry@arm.com, pombredanne@nexb.com, arnd@arndb.de
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+Subject: [PATCH v10 0/3] arm: npcm: add basic support for Nuvoton BMCs
+Date: Tue, 13 Feb 2018 12:09:56 -0800
+Message-Id: <20180213200959.160157-1-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.16.0.rc1.238.g530d649a79-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,45 +64,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Feb 2018 19:53:09 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 20:10:12 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 20:10:12 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 20:10:12 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 20:10:12 -0000
 
-On Tue, Feb 13, 2018 at 8:12 PM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> On Tue, Feb 13, 2018 at 1:29 AM, Avi Fishman <avifishman70@gmail.com> wrote:
->> On Tue, Feb 13, 2018 at 10:30 AM, Arnd Bergmann <arnd@arndb.de> wrote:
->>> On Tue, Feb 6, 2018 at 12:57 AM, Brendan Higgins
->>> <brendanhiggins@google.com> wrote:
->>>> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
->>>> specific device tree for the NPCM750 (Poleg) evaluation board.
->>>>
->>>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
->>>> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
->>>> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
->>>> Reviewed-by: Joel Stanley <joel@jms.id.au>
->>>> Reviewed-by: Rob Herring <robh@kernel.org>
->>>> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
->>>> Tested-by: Avi Fishman <avifishman70@gmail.com>
->>> ...
->>>> +               enable-method = "nuvoton,npcm7xx-smp";
->>>
->>> I see this has already been reviewed quite a bit, but I'm curious
->>> about the 'npcm7xx'
->>> part here. Shouldn't that be a real chip name rather than a wildcard?
->>
->> There is a family of npcm7xx, some with SMP and some without.
->> For those who has it, it is common for all to use the same
->> "nuvoton,npcm7xx-smp".
->
-> I think Arnd is right. In this case it should be "nuvoton,npcm750-smp". We can
-> use CPU_METHOD_OF_DECLARE to alias to as many compatible properties as needed.
->
-> Although everything in the 7xx family currently is either single core or has the
-> same SMP behavior, you could paint yourself into a corner if you were to make
-> one SMP device in the 7xx family which behaves differently from all other
-> devices and then need to come up with new compatible string names just for that.
+Addressed comments from:
+ - Joel: https://www.spinics.net/lists/arm-kernel/msg634074.html
+ - Arnd: https://www.spinics.net/lists/arm-kernel/msg634091.html
 
-Right, this is the reason for the very simple 'no wildcards in DT
-identifiers' rule.
-There simply isn't a reason to make an exception here.
+Summary of changes since previous update:
+ - Replaced "nuvoton,npcm7xx-smp" compatibility string with
+   "nuvoton,npcm750-smp".
+ - Fixed some whitespace issues.
+ - Added EVB DTS to Makefile.
 
-       Arnd
+All changes tested on Nuvoton NPCM750 EVB.
