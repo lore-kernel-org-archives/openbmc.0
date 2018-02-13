@@ -1,66 +1,55 @@
-Return-Path: <avifishman70@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::243; helo=mail-oi0-x243.google.com;
- envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="NdHZZ/t9"; 
+Return-Path: <a.amelkin@yadro.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="ZwVxDLRm"; 
  dkim-atps=neutral
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgcgk2r2JzDqNM
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 20:29:35 +1100 (AEDT)
-Received: by mail-oi0-x243.google.com with SMTP id 8so13382837oix.7
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 01:29:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=GtLw2BkNY3nYOtjvgASdClqKzSZz2L6MEif1+MmKxiU=;
- b=NdHZZ/t9yHV07th6sXP4TfPdVAilp0lZCu8Xe8Ayz42J3jNTJoui8oEFUl0jHkJc1U
- iPisLob3bISPbnqxhIE1V/9mD1u3y3gV2nwtbMWjKdN7wonYVHh6QyKoHhjgjzWlnEJY
- RNAHj96VKJi0nu19ZgZU2JOAbVAT1HY8PGR2mAQysl7qDGhtgV5y/c42egChgpOfLqRO
- EI3UDVKV9r3/FNu52eOdewAlTy4KveQQONlrlc8WcoFwMgO+cOfF0t4W6BqeVlobF7DD
- TIayQBuarfDwE+a6g+vQOfKmwV7PoeuSUpWuXfVy7gb0xiUShobyXAZbjdvCCQ4GV2w2
- jXtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=GtLw2BkNY3nYOtjvgASdClqKzSZz2L6MEif1+MmKxiU=;
- b=fbHEjRapHaKlEBmsXqmH12UAIi6GW0W+zwUu8+pk0+8mqyJjEEiX/sLNIx6Mq48Tbw
- g9kHOR5G8cTtHs7UGqXuCE1D2RqxUh2GKgH6FksipbPyh21aALkPaSnn5IkZQCpPLm6N
- enkFR0/lh2twZBngGVYqpqxH9GOUFub1BH9bfXTMUnnFv2h8KcuYnZZohbcPcPJLwwJD
- 81FE67+Fq8jxJ5AXFwD0VHDg6DsLLGFiSS4SL0s/rzaPmuRDP4+rNPsZUMtkXdT3w9RH
- 0QvXjj8Q/KPNONSJ0kTwvbuCjwMV0FtZfNyErpQMFVBDGB6oiaP71u9/MsJjDGu6CY99
- /Qbg==
-X-Gm-Message-State: APf1xPAqC6fWutA12mV0z1Zk+7Hdx5jCEIqJd4NcWZHqy8DOh0WpQ3iX
- xCSEtmIE3164c4bUzigQU32ecCK0q2v+hDXrnQ==
-X-Google-Smtp-Source: AH8x226dug8rBHqLsu9W9/Kqegy6eeLDjm+D+BAiQ4b4NlCFV8nSjEeL8BqAIkz8thZzqkep2bSurvW/4XKuwXnDxpg=
-X-Received: by 10.202.197.140 with SMTP id v134mr354004oif.96.1518514172847;
- Tue, 13 Feb 2018 01:29:32 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgjdv3g3NzF0yf
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 00:13:23 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 0307F53AEF
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 13:13:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-language:content-transfer-encoding:content-type
+ :content-type:mime-version:user-agent:date:date:message-id
+ :subject:subject:from:from:received:received:received; s=mta-01;
+ t=1518527598; x=1520341999; bh=vmbOcOxz06Edu/EUscuHWLRffF7SxP27
+ NPuL+VE+VMI=; b=ZwVxDLRmx0ztZMVsCA6N19qPO8uA7DRygjZfy1QHClLeQx+o
+ vK2CeFQKp2MVr1ttnRQwNGwPvh7lfWcH51HvaqavoaqeAmLEYtINLgtlp3kdTQUS
+ zXBRCK+0dcNl7IlLsec6cXZeOTRAcQu2GO8oJ8OS3cBu/M37djh+ffK+x+Y=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Rs43esSR4ccQ for <openbmc@lists.ozlabs.org>;
+ Tue, 13 Feb 2018 16:13:18 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 2A3675396D
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 16:13:17 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 13
+ Feb 2018 16:13:17 +0300
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Subject: Proprietary task references in commit logs
+Message-ID: <560ecebf-d449-b7e7-675b-03ec3c6f4212@yadro.com>
+Date: Tue, 13 Feb 2018 16:13:17 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Received: by 10.157.39.138 with HTTP; Tue, 13 Feb 2018 01:29:32 -0800 (PST)
-In-Reply-To: <CAK8P3a0SJTAkv7_QtDW1sDWFDYHw8tFWZqO6EMwpZ_5KPbhq3Q@mail.gmail.com>
-References: <20180205235757.246758-1-brendanhiggins@google.com>
- <20180205235757.246758-3-brendanhiggins@google.com>
- <CAK8P3a0SJTAkv7_QtDW1sDWFDYHw8tFWZqO6EMwpZ_5KPbhq3Q@mail.gmail.com>
-From: Avi Fishman <avifishman70@gmail.com>
-Date: Tue, 13 Feb 2018 11:29:32 +0200
-Message-ID: <CAKKbWA6Otc1ZO_yHpfhxPjbgvvn-QXcXG9sy5=3FZDY8d_20rw@mail.gmail.com>
-Subject: Re: [PATCH v9 2/3] arm: dts: add Nuvoton NPCM750 device tree
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Rob Herring <robh+dt@kernel.org>, 
- Russell King - ARM Linux <linux@armlinux.org.uk>,
- Mark Rutland <mark.rutland@arm.com>, 
- Tomer Maimon <tmaimon77@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
- Julien Thierry <julien.thierry@arm.com>,
- Philippe Ombredanne <pombredanne@nexb.com>, 
- DTML <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,32 +61,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Feb 2018 09:29:39 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 13:13:24 -0000
 
-On Tue, Feb 13, 2018 at 10:30 AM, Arnd Bergmann <arnd@arndb.de> wrote:
-> On Tue, Feb 6, 2018 at 12:57 AM, Brendan Higgins
-> <brendanhiggins@google.com> wrote:
->> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
->> specific device tree for the NPCM750 (Poleg) evaluation board.
->>
->> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
->> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
->> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
->> Reviewed-by: Joel Stanley <joel@jms.id.au>
->> Reviewed-by: Rob Herring <robh@kernel.org>
->> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
->> Tested-by: Avi Fishman <avifishman70@gmail.com>
-> ...
->> +               enable-method = "nuvoton,npcm7xx-smp";
->
-> I see this has already been reviewed quite a bit, but I'm curious
-> about the 'npcm7xx'
-> part here. Shouldn't that be a real chip name rather than a wildcard?
->
->        Arnd
+Hi all.
 
-There is a family of npcm7xx, some with SMP and some without.
-For those who has it, it is common for all to use the same
-"nuvoton,npcm7xx-smp".
+Do you think it is acceptable to have a reference to a proprietary task 
+ID in a commit log?
 
-Avi
+We're using JIRA and would like to see related commits displayed in the 
+corresponding issue. That requires putting the issue ID into the commit 
+log, so the log would look something like this:
+
+===========
+
+Fix some bug (less than 50 chars as usual)
+
+Long description goes here.
+Multiple lines, each less than 72 characters, as usual.
+
+Company Ref: KEY-1234
+
+Change-Id: I5e0f94d168a61b6d82214779aa6ebd9796dc37b2
+Signed-off-by: The Author <t.author@company.tld>
+
+===========
+
+Any comments are welcome.
