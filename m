@@ -7,28 +7,22 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgTR32kyCzF100
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 15:03:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgWSr4vN1zF0rP
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 16:34:51 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from brads-mbp.dyn.fuzziesquirrel.com
  (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 35CCB6E229;
- Mon, 12 Feb 2018 23:03:07 -0500 (EST)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] aspeed: un-hardcode FIT
- configuration selection
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 9F81E6E229;
+ Tue, 13 Feb 2018 00:28:00 -0500 (EST)
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CACPK8Xdj3zeH1PM=4DtS68jHDBKd_+eCJmRiBmw6cYeJRNUUVA@mail.gmail.com>
-Date: Mon, 12 Feb 2018 23:03:07 -0500
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Rick Altherr <raltherr@google.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <277A734F-3F5B-4580-A94C-6DFDC8CFED4C@fuzziesquirrel.com>
-References: <20180202030725.11771-1-bradleyb@fuzziesquirrel.com>
- <CACPK8Xdj3zeH1PM=4DtS68jHDBKd_+eCJmRiBmw6cYeJRNUUVA@mail.gmail.com>
-To: Joel Stanley <joel@jms.id.au>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: New user validation
+Message-Id: <6C861EF8-E980-4874-9C84-9B9EEE6B475E@fuzziesquirrel.com>
+Date: Tue, 13 Feb 2018 00:28:00 -0500
+Cc: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -41,27 +35,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Feb 2018 04:03:11 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 05:34:53 -0000
 
+Consider a DBus service for a moment that provides a user and group
+management database (in the form of DBus objects).  Things like
+usernames, group membership, etc.
 
-> On Feb 12, 2018, at 10:58 PM, Joel Stanley <joel@jms.id.au> wrote:
->=20
-> On Fri, Feb 2, 2018 at 1:37 PM, Brad Bishop =
-<bradleyb@fuzziesquirrel.com> wrote:
->> Rely on the FDT parser to select a FIT config when looking for a
->> ramdisk_conf.  This allows image builders to use arbitrary =
-configuration
->> names like /configurations/conf@foo.
->=20
-> Can you elaborate?
->=20
-> Do we even need this script? IIRC it was in place to support pre-FIT
-> configurations where the initrd and the kernel were stored in seperate
-> locations in flash. Now that all systems use FIT, we can simply say
-> "bootm 2008000".
->=20
-> I suggest we don't need it, so we should change the environment to be
->=20
-> #define CONFIG_BOOTCOMMAND "bootm 20080000=E2=80=9D
+Now consider an application using that service to create a new user.
 
-Sounds good to me.=
+Finally, consider a number of _other_ user facing applications
+that need to abort the user creation process if some local validation
+criteria fails.
+
+Does anyone have any ideas on how a framework for doing such
+validation might look?
+
+For context: https://gerrit.openbmc-project.xyz/#/c/8440/
+
+(Thank you Richard for pulling this together!)
+
+thx - brad
