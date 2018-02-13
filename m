@@ -1,58 +1,62 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::22b; helo=mail-qk0-x22b.google.com;
+ (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="C/bIaiKg"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TvpShSQD"; 
  dkim-atps=neutral
-Received: from mail-qk0-x22b.google.com (mail-qk0-x22b.google.com
- [IPv6:2607:f8b0:400d:c09::22b])
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgQX65QbMzF0vn
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 12:52:22 +1100 (AEDT)
-Received: by mail-qk0-x22b.google.com with SMTP id x127so20775115qkb.12
- for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 17:52:21 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zgQhq4Ql2zDq8c
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 12:59:55 +1100 (AEDT)
+Received: by mail-qk0-x244.google.com with SMTP id o7so6399135qkc.1
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Feb 2018 17:59:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=AztINkKQNH2KSo034j3i2gwkp4qsI7VhE/3gjpErKPA=;
- b=C/bIaiKgIn3gdHic2RSsLRx321VBpqtDsBhEVxaQajUnY1RTtwQ8TNbRWqa+6kbhCM
- 96kI6lVOMMCEkwO9Atz2K1oc6IjNZ3k2JWmFv5thRAt+3XIj98BhD0G4VE+NkXObb6LE
- h1O0ITbUQBw5t211B2i5cQ6q6pveUBlpAQDtGKeea1g+TUpJI+khV+FywO+d5Xw6Y3+c
- gZoktthFEwpexjQJYDh1mnAFX+sg4zUe8fOk9S4YRKxD9lQaZYaglIYwkNABVHF0ECUL
- EGqrP+OwxKIIwjOOBo+BR7MkWWJileNa3Dj0yeFEtm3DVjCuX6fWfsHPC/16s52fhGhf
- /QTA==
+ bh=kp6xOU6xHNG5Pw4hpVqYL3gqfTxlj4qUWwK8O1KjTCY=;
+ b=TvpShSQDr2Zyw0wFeZAmRsyAj2JqHll+bvHyxk6gwwPUnlIAbeuDnbXllZRWnw2h9M
+ g42vLo3qH8pGxD8v0evMDJrYyEHH6ZZL/j4B7Gr01lEby61vKI1He5zaIPXobKCryzEu
+ eyKDFvYkwt3ypDYubPpD7GtOWdZ34/l+flHRHV8hWh2SJ2BwYzvz3gcyyC8Asacg8RZJ
+ et9irEj0NayPCoshDK4FrMA4sbhQUBH+HaS8Ldk00WVeLVvKxh9711neFDhlHQMH/GAM
+ QClax056sDUYvZBfJqbL1FkA53nsor1H6Eln459SnUPSKRA0WXqrkJWDBZ1q//VsKOOe
+ JYPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=AztINkKQNH2KSo034j3i2gwkp4qsI7VhE/3gjpErKPA=;
- b=SBH+yRBfzhN2urEgzHkA4kgFAJml/IDAK62er9DjnM8F1DczIu0UCBPP5SoKLJh6vA
- Y9uw814mkTfKcaLwxZF7tv3ctQZl4BO8UTBR4Ca4Oj9mI1i1ITbqDJsybm1FTa6TQD/y
- HJQl1clPPaELP4B2hYzJCzifxdcisoEIxUNvFArv/moh2MUhEwQtvWY3bGTOdWIws4CS
- f/elKedq1i5REeJhLD/Y2jHd7O6ktmGMZVNNG8XBIBO33OEmbqS2UdyYQ4EZFtPW3tMQ
- NLCT2zmCh4AhmYUIAZlYczgN8JNqq7tVWaTEmIz633QnJ5FI5OFvs3A3yFe8+MeatNWt
- Wtkw==
-X-Gm-Message-State: APf1xPB2v1lsj5O0vL/8O6Wqc8ZuICDGrXNmcjtzHm2liYbI/EVDIWaj
- ynStsSnlwCLftU0EnPDdaZ1YfkkjLSH6pyJBiF4=
-X-Google-Smtp-Source: AH8x226ZOyej/bGLqUZ75KD/p0rc7QpJzHAKTrFhzgmDQj5k6SccOtvznwZBB58LZdBH+Rt6Tn24IXjKHVQqorOam4E=
-X-Received: by 10.55.33.129 with SMTP id f1mr21044915qki.158.1518486739444;
- Mon, 12 Feb 2018 17:52:19 -0800 (PST)
+ bh=kp6xOU6xHNG5Pw4hpVqYL3gqfTxlj4qUWwK8O1KjTCY=;
+ b=BNM8KZ8/wNA92Sg38ePQT8Kfv8JsdVXBJe2rhWe1NlA864XlbV150PhpGM3C9xO2TE
+ rLzMH+lS7RXoXZNdA7Su+XeDT3IbxtnuNc8PqT7GpUEupSpWxLavp/v3zcRz0DTpey85
+ P5Y3VSJXxSxdCUjjdadp8SDVIvt722cj+Az65vIg5FO12cBDY1H0+CO6+Q5Npt5Vvdfm
+ GzZdXLiyCYD4vF6sNoi/Y4IB/7xH+vUyMBQ5bMiM0I/y3AT3ZV1aqB5X6C/H762dVDYC
+ UnWF2NEQ08fe5iip9d3x4rjc5yrZHOlafrCC2iNY4paVj68WMl94gfWHcg88+MCRCAWc
+ v6zA==
+X-Gm-Message-State: APf1xPAN5xcLpECQpHUqmSsbD9BTAk0qY9ioBdAouDTynnclVzPEQKdb
+ Om2NhpNhyOlZ0VNxLI5N5adhwz1xgb5ZSTnQSvg=
+X-Google-Smtp-Source: AH8x226DFzhsO+xNs+MY8NlMjmTDU6tN2QK1SN412j6VEbbTVGDiVSJc1SVj4oMcgjyWIM/T7Sf0/ZquZA1JhCyf+eM=
+X-Received: by 10.55.41.151 with SMTP id p23mr19928487qkp.52.1518487192917;
+ Mon, 12 Feb 2018 17:59:52 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Mon, 12 Feb 2018 17:51:59 -0800 (PST)
-In-Reply-To: <95cd4831-f9fb-0e72-9305-a249fc99c956@cavium.com>
-References: <0bd9476d-f2d5-45c2-bda6-987835581a48@cavium.com>
- <CACPK8XdWGur=QB5QK+mja33M0bRkXGg9gCoVn_DdJF4vKD+p9g@mail.gmail.com>
- <95cd4831-f9fb-0e72-9305-a249fc99c956@cavium.com>
+Received: by 10.200.50.69 with HTTP; Mon, 12 Feb 2018 17:59:32 -0800 (PST)
+In-Reply-To: <20180212205833.151019-2-brendanhiggins@google.com>
+References: <20180212205833.151019-1-brendanhiggins@google.com>
+ <20180212205833.151019-2-brendanhiggins@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 13 Feb 2018 12:21:59 +1030
-X-Google-Sender-Auth: Hw8nbOo6zVaVg-6SfklM-etDQm4
-Message-ID: <CACPK8XdWo_G31R3QgLBmG+hWT77604vJrMgd4+ZHcK_N4Wi2Og@mail.gmail.com>
-Subject: Re: udev faulting with openbmc filesystem builds.
-To: "Steven J. Hill" <Steven.Hill@cavium.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 13 Feb 2018 12:29:32 +1030
+X-Google-Sender-Auth: G4ne0I8r1gIRZQetIGO_tzRv0p4
+Message-ID: <CACPK8XcGhxTq7QGeub2rAEtGSyrOmnobspVJfhE5YmB6MQRM9w@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] arm: npcm: add low-level debug support for NPCM7XX
+To: Brendan Higgins <brendanhiggins@google.com>, Jeremy Kerr <jk@ozlabs.org>
+Cc: Russell King <linux@armlinux.org.uk>, Avi Fishman <avifishman70@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -65,161 +69,137 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Feb 2018 01:52:23 -0000
+X-List-Received-Date: Tue, 13 Feb 2018 01:59:56 -0000
 
-On Tue, Feb 13, 2018 at 4:44 AM, Steven J. Hill <Steven.Hill@cavium.com> wrote:
-> On 02/12/2018 12:44 AM, Joel Stanley wrote:
->>
->> Do your other filesystems have similar userspace components, such as systemd?
->>
->> Have you tried to reproduce using the OpenBMC kernel?
->>
-> Joel,
->
-> Yes, I have tried the OpenBMC kernel and get the same results. Let me outline
-> my platform, kernel versions tried, etc. for completeness.
->
-> Developing on Aspeed AST2500 evaluation board. The core is an AST2500-A1.
-> The detailed core information from the kernel is:
->
->    CPU: ARMv6-compatible processor [410fb767] revision 7 (ARMv7), cr=00c5307d
->    CPU: PIPT / VIPT nonaliasing data cache, VIPT nonaliasing instruction cache
->    OF: fdt: Machine model: AST2500 EVB
->
-> Kernels that I have tested:
->
->    Palmetto (built by the OBMC build system)
->    Witherspoon (built by the OBMC build system)
->    Generic OpenBMC kernel from 'dev-4.10' branch
+Hi Brendan,
 
-When you say "generic", which device tree are you using?
+On Tue, Feb 13, 2018 at 7:28 AM, Brendan Higgins
+<brendanhiggins@google.com> wrote:
+> Enable low-level debug support for Nuvoton NPCM7XX family by adding the
+> debug port definitions for the SoC.
 
-I don't know what has gone wrong from your backtrace. Which device
-driver was being loaded when you hit this issue? Booting with
-initcall_debug might help here.
+When playing with the Poleg boards at the recent OpenBMC hackathon
+Jeremy discovered that the UART is a normal-ish 8250, with a custom
+divisor and a few extra bits to be set.
 
-I suggest you use the device tree for the ast2500-evb. Here's how I
-would build a kernel for testing:
+I found that we can us the generic 8250 low level debugging support
+just fine. This is because u-boot sets up the divisor settings for us
+(as you've assumed with your version here), and from there it's just
+reading/writing characters.
 
-git checkout dev-4.13
-make CROSS_COMPILE=arm-linux-gnueabi- ARCH=arm aspeed_g5_defconfig
-make CROSS_COMPILE=arm-linux-gnueabi- ARCH=arm
-
-cat << EOF > evb.its
-/dts-v1/;
-
-/ {
-        description = "test kernel";
-        #address-cells = <1>;
-
-        images {
-                kernel@1 {
-                        description = "Linux kernel";
-                        data = /incbin/("arch/arm/boot/zImage");
-                        type = "kernel";
-                        arch = "arm";
-                        os = "linux";
-                        compression = "none";
-                        load = <0x80001000>;
-                        entry = <0x80001000>;
-                };
-                fdt@1 {
-                        description = "device tree";
-                        data =
-/incbin/("arch/arm/boot/dts/aspeed-ast2500-evb.dtb");
-                        type = "flat_dt";
-                        arch = "arm";
-                        compression = "none";
-                };
-                ramdisk@1 {
-                        description = "initramfs";
-                        data = /incbin/("rootfs.cpio.xz");
-                        type = "ramdisk";
-                        arch = "arm";
-                        os = "linux";
-                };
-        };
-
-        configurations {
-                default = "conf@1";
-                conf@1 {
-                        description = "Boot Linux kernel with FDT
-blob, ramdisk";
-                        kernel = "kernel@1";
-                        fdt = "fdt@1";
-                        ramdisk = "ramdisk@1";
-                };
-        };
-};
-EOF
-
-mkimage -f evb.its evb
-cp evb /srv/tftp/
-
-From u-boot:
-
-setenv serverip <tftp server ip>
-dhcp evb
-bootm
-
-If that shows the bug, send me the fill dmesg log with initcall_debug
-enabled and we can go from there.
+Assuming you can reproduce our results, I suggest we drop these
+patches in favour of adding the correct configuration the Poleg.
 
 Cheers,
 
 Joel
 
->    Aspeed SDK kernel based on 4.9 (supplied from Aspeed)
->    Aspeed SDK kernel based on 4.10 (ported by me)
->    Aspeed SDK kernel based on 4.11 (ported by me)
->    Aspeed SDK kernel based on 4.12 (ported by me)
->    Aspeed SDK kernel based on 4.13 (ported by me)
->    Aspeed SDK kernel based on 4.14 (ported by me)
->    Aspeed SDK kernel based on 4.15 (ported by me)
 >
-> Root filesystems tested, all using systemd:
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+>  arch/arm/Kconfig.debug           | 11 +++++++++++
+>  arch/arm/include/debug/npcm7xx.S | 30 ++++++++++++++++++++++++++++++
+>  2 files changed, 41 insertions(+)
+>  create mode 100644 arch/arm/include/debug/npcm7xx.S
 >
->    Palmetto
->    Witherspoon
->    buildroot (HEAD)
+> diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
+> index 447629d89884..d8f925cb8872 100644
+> --- a/arch/arm/Kconfig.debug
+> +++ b/arch/arm/Kconfig.debug
+> @@ -595,6 +595,12 @@ choice
+>                   Say Y here if you want kernel low-level debugging support
+>                   on Hilscher NetX based platforms.
 >
-> All kernel/RFS combinations fault at exactly the same function inside
-> of 'udevadm' shown below. It is always the 'strlen' function. For all
-> test runs the virtual address is always aligned on a 4KB page boundary.
-> I have tried variations of SLUB, SLAB, enabling errata workarounds,
-> passing different 'mem=xxx' to the kernel, kernel hacking options,
-> "kernel mem{cpy,set}() for {copy_to,clear}_user()" option and others.
-> This is where I am currently. Any insight would be great. Cheers.
+> +       config DEBUG_NPCM7XX_UART
+> +               bool "Kernel low-level debugging messages via Nuvoton NPCMx50 UART"
+> +               help
+> +                 Say Y here if you want kernel low-level debugging support
+> +                 on Nuvoton based platforms.
+> +
+>         config DEBUG_NOMADIK_UART
+>                 bool "Kernel low-level debugging messages via NOMADIK UART"
+>                 depends on ARCH_NOMADIK
+> @@ -1444,6 +1450,7 @@ config DEBUG_LL_INCLUDE
+>         default "debug/ks8695.S" if DEBUG_KS8695_UART
+>         default "debug/msm.S" if DEBUG_QCOM_UARTDM
+>         default "debug/netx.S" if DEBUG_NETX_UART
+> +       default "debug/npcm7xx.S" if DEBUG_NPCM7XX_UART
+>         default "debug/omap2plus.S" if DEBUG_OMAP2PLUS_UART
+>         default "debug/renesas-scif.S" if DEBUG_R7S72100_SCIF2
+>         default "debug/renesas-scif.S" if DEBUG_RCAR_GEN1_SCIF0
+> @@ -1481,6 +1488,7 @@ config DEBUG_UART_8250
+>  config DEBUG_UART_PHYS
+>         hex "Physical base address of debug UART"
+>         default 0x00100a00 if DEBUG_NETX_UART
+> +       default 0xf0004000 if DEBUG_NPCM7XX_UART
+>         default 0x01c20000 if DEBUG_DAVINCI_DMx_UART0
+>         default 0x01c28000 if DEBUG_SUNXI_UART0
+>         default 0x01c28400 if DEBUG_SUNXI_UART1
+> @@ -1589,6 +1597,7 @@ config DEBUG_UART_PHYS
+>                 DEBUG_LL_UART_EFM32 || \
+>                 DEBUG_UART_8250 || DEBUG_UART_PL01X || DEBUG_MESON_UARTAO || \
+>                 DEBUG_NETX_UART || \
+> +               DEBUG_NPCM7XX_UART || \
+>                 DEBUG_QCOM_UARTDM || DEBUG_R7S72100_SCIF2 || \
+>                 DEBUG_RCAR_GEN1_SCIF0 || DEBUG_RCAR_GEN1_SCIF2 || \
+>                 DEBUG_RCAR_GEN2_SCIF0 || DEBUG_RCAR_GEN2_SCIF2 || \
+> @@ -1605,6 +1614,7 @@ config DEBUG_UART_VIRT
+>         default 0xc8821000 if DEBUG_RV1108_UART1
+>         default 0xc8912000 if DEBUG_RV1108_UART0
+>         default 0xe0000a00 if DEBUG_NETX_UART
+> +       default 0xf0001000 if DEBUG_NPCM7XX_UART
+>         default 0xe0010fe0 if ARCH_RPC
+>         default 0xf0000be0 if ARCH_EBSA110
+>         default 0xf0010000 if DEBUG_ASM9260_UART
+> @@ -1695,6 +1705,7 @@ config DEBUG_UART_VIRT
+>         depends on DEBUG_LL_UART_8250 || DEBUG_LL_UART_PL01X || \
+>                 DEBUG_UART_8250 || DEBUG_UART_PL01X || DEBUG_MESON_UARTAO || \
+>                 DEBUG_NETX_UART || \
+> +               DEBUG_NPCM7XX_UART || \
+>                 DEBUG_QCOM_UARTDM || DEBUG_S3C24XX_UART || \
+>                 DEBUG_S3C64XX_UART || \
+>                 DEBUG_BCM63XX_UART || DEBUG_ASM9260_UART || \
+> diff --git a/arch/arm/include/debug/npcm7xx.S b/arch/arm/include/debug/npcm7xx.S
+> new file mode 100644
+> index 000000000000..d08e14e73d79
+> --- /dev/null
+> +++ b/arch/arm/include/debug/npcm7xx.S
+> @@ -0,0 +1,30 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright 2018 Google, Inc.
+> +// This is heavily based on arch/arm/include/debug/at91.S
+> +
+> +#define NPCM7XX_SR     (0x14)  /* Status Register */
+> +#define NPCM7XX_THR    (0x00)  /* Transmitter Holding Register */
+> +#define NPCM7XX_TXRDY  (1 << 6)        /* Transmitter Ready */
+> +#define NPCM7XX_TXEMPTY        (1 << 6)        /* Transmitter Empty */
+> +
+> +       .macro  addruart, rp, rv, tmp
+> +       ldr     \rp, =CONFIG_DEBUG_UART_PHYS    @ System peripherals (phys)
+> +       ldr     \rv, =CONFIG_DEBUG_UART_VIRT    @ System peripherals (virt)
+> +       .endm
+> +
+> +       .macro  senduart,rd,rx
+> +       strb    \rd, [\rx, #(NPCM7XX_THR)]      @ Write to Transmit Holding Reg
+> +       .endm
+> +
+> +       .macro  waituart,rd,rx
+> +1001:  ldr     \rd, [\rx, #(NPCM7XX_SR)]       @ Read Status Register
+> +       tst     \rd, #NPCM7XX_TXRDY             @ TXRDY = 1 when ready to tx
+> +       beq     1001b
+> +       .endm
+> +
+> +       .macro  busyuart,rd,rx
+> +1001:  ldr     \rd, [\rx, #(NPCM7XX_SR)]       @ Read Status Register
+> +       tst     \rd, #NPCM7XX_TXEMPTY           @ TXEMPTY = 1 when tx complete
+> +       beq     1001b
+> +       .endm
+> +
+> --
+> 2.16.0.rc1.238.g530d649a79-goog
 >
-> Steve
 >
->
->
-> Unable to handle kernel paging request at virtual address 9bc8c000
-> pgd = db438000
-> [9bc8c000] *pgd=00000000
-> Internal error: Oops: 5 [#1] ARM
-> Modules linked in:
-> CPU: 0 PID: 900 Comm: udevadm Not tainted 4.10.0+ #3
-> Hardware name: ASpeed BMC SoC
-> task: dbed7880 task.stack: db4ae000
-> PC is at strlen+0xc/0x38
-> LR is at kstrdup+0x20/0x58
-> pc : [<c01f610c>]    lr : [<c00965ec>]    psr: a0000013
-> sp : db4afd30  ip : db4afd40  fp : db4afd3c
-> r10: db5a88c0  r9 : dbda1f08  r8 : 00000fff
-> r7 : db4afd9a  r6 : 9bc8c000  r5 : c0269d9c  r4 : 014000c0
-> r3 : dbdbf990  r2 : 0000f000  r1 : 014000c0  r0 : 9bc8c000
-> Flags: NzCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment user
-> Control: 00c5387d  Table: 9b438008  DAC: 00000055
-> Process udevadm (pid: 900, stack limit = 0xdb4ae188)
-> Stack: (0xdb4afd30 to 0xdb4b0000)
-> ...
-> ...
-> ...
-> Backtrace:
-> [<c01f6100>] (strlen) from [<c00965ec>] (kstrdup+0x20/0x58)
-> [<c00965cc>] (kstrdup) from [<c0269d9c>] (misc_devnode+0x38/0x40)
->  r7:db4afd9a r6:dbda1f00 r5:db4afd9c r4:dbda1f08
-> [<c0269d64>] (misc_devnode) from [<c026e7b0>] (device_get_devnode+0x78/0xdc)
-> [<c026e738>] (device_get_devnode) from [<c026e950>] (dev_uevent+0x13c/0x1e0)
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
