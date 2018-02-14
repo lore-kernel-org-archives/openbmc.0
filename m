@@ -1,24 +1,54 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:400c:c09::231; helo=mail-wm0-x231.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="wGxxKDlo"; 
+ dkim-atps=neutral
+Received: from mail-wm0-x231.google.com (mail-wm0-x231.google.com
+ [IPv6:2a00:1450:400c:c09::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zh59G2YVlzF1Fn
- for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 14:53:21 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Message-ID: <1518580396.11149.41.camel@fuzziesquirrel.com>
-Subject: Upcoming project ownership changes
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 13 Feb 2018 22:53:16 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zh8ND6hRwzF1C0
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 17:18:01 +1100 (AEDT)
+Received: by mail-wm0-x231.google.com with SMTP id j21so16267952wmh.1
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 22:18:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=tGP4bbz9Je05ycSIngSVrqfnlX8lBNASS0QYoqvtgYM=;
+ b=wGxxKDlocXaW9YYKbCKe/0brVptB0q6SM1ruiQELoU/JVo92WrRoOCGQPSYFTyoYSm
+ crv6LEvsEEuh7pPtsRVHCtYOQx281ULWSVotkgoJ1XyJD2XYJjdP4xFt4f3dD23ByYtB
+ jkb4F4D7y5tKJ61ZftgF+LHSEeMeZzW0jHlE+k1yyk3ybnvzkoej2qcGDf8x7J3OgPU0
+ KM2d55dJoG4oQ4XGghbwsjcn8TJ670Sj3cWu0qk+qXnqkpKtd2wNi6XGbimhAT4X6dGG
+ +IXCYlx1vBS1zVr2DgWJ7i6hUi3GLv7AJBzOBaHiqAHBl9pFoh7EehLjK+JR28IxvM6R
+ pOaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=tGP4bbz9Je05ycSIngSVrqfnlX8lBNASS0QYoqvtgYM=;
+ b=m2Kccm0yHNHRfJFiWQSkwpoKdZtsXR0/ksrnG7Gpm+OjejPKwBB/2V7xP9GIpQi3+9
+ kzzJTOZTj8WtilUMXGz1pHTzas+voB/nwVasmhuuNl75hBz2bjRIjfES6LKb2qxn+3A8
+ cOVkO7VFZGNxrpsgJ85eSg6N3UaY57OqDAOf9CUmkfkbNmi46NQM/EHZK4+61pU60wZt
+ ksW78eDUU5PDDIHGQT0kC1pZP8M0CJTS+MnY5oGquZhsSte2x6yb2fHAgnClu3FBz65Y
+ I2jHbDDVOcb0mrJkr/qwIrQ4+7fwvwbJEQqIYDa9Tr864xd8qy8lGldkJ53Uzp4miwhn
+ KpbA==
+X-Gm-Message-State: APf1xPBwFTUZoYr3Z2q98u4szUP6AFeCSunBzMFTLBP2TtSfY8aE3xpY
+ plKvhJ2Vhd29LKIjXW/US804QXGl+K5Ym41Wn6lf7PEA7iI=
+X-Google-Smtp-Source: AH8x224c21oUI4+BMzqzS+lXOPk+VnRN8NUEhIWrx9pYGxAbEguFvaJNPU68pOKuPd4H/AQgMjakaew97qUjLKq59qY=
+X-Received: by 10.28.208.142 with SMTP id h136mr3386882wmg.133.1518589077705; 
+ Tue, 13 Feb 2018 22:17:57 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.28.247.11 with HTTP; Tue, 13 Feb 2018 22:17:57 -0800 (PST)
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Tue, 13 Feb 2018 22:17:57 -0800
+Message-ID: <CAJoAoZmj6krJ3Y7kEg58qpMTM5e0_3AE-X_--axMsL6hKHZmqA@mail.gmail.com>
+Subject: IPMI Maintainer Call Notes - 2/13/2018
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -30,44 +60,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Feb 2018 03:53:22 -0000
+X-List-Received-Date: Wed, 14 Feb 2018 06:18:05 -0000
 
-OpenBMC community
+Meeting 2/13/2018
 
-During your travels you may have noticed that the OpenBMC brand is
-somewhat fragmented.  There are several BMC firmware ecosystems out
-there today, of which this project is just one.
+Agenda:
 
-For the past year, the leaders of these ecosystems have been hard at
-work to bring all the projects together and move forward with a single
-industry-wide OpenBMC.
+Discuss about dynamic addition of SDR=E2=80=99s based on James Feist=E2=80=
+=99s patch.
+https://gerrit.openbmc-project.xyz/#/c/8521/
+    Basic linear fit to the min/max
+    Tom: Not entirely clear on how to fit into current sensors
+    Doesn=E2=80=99t use yaml-generated sensor map - polls along DBus instea=
+d
+    Intel uses JSON/probing to generate DBus interfaces
+    Min/max code review in bikeshedding - do we want to back it as maintain=
+ers?
+    Pros: don=E2=80=99t need to duplicate configs between hwmon/ipmid, don=
+=E2=80=99t
+need to calculate m/b/b_exp manually
+    Current pros of yaml: DIMMs, CPU info, etc - passed in-band to BMC
+from host - host firmware relies on sensor number (at IBM)
+        At Intel - baseboard sensors can be probed, add-on cards can
+be probed to determine whether to probe for other sensors; json
+indicates which FRUs found during probe mean presence of which sensors
+- IBM d
+oesn=E2=80=99t do FRU probing. JSON has fru-to-sensor mapping
+        At Google - not sure, Emily needs to ask
+    IBM - MRW defines sensor numbers etc - it=E2=80=99s shared by host & bm=
+c
+firmwares - MRW is generated by YAML - elsewhere YAML is handcoded
+(like on Zaius)
+    Should SDR list represent the state of the system, or the map of
+the system - i.e., should an SDR be sent for a sensor which is absent?
+Ex: 4-socket CPU with one missing - should 4 SDR entries be sent (with
+one not responding to readings?) Yes.  What about for memory?
+    Does the probe in the Intel patch generate JSON? No.  JSON
+functions similarly to YAML today (but at runtime)
+    How to reconcile the Intel patch with existing code? Basically,
+define those sensors in YAML but make sure their DBus interfaces
+provide min/max - this patch should just work
+    Maintainers: please review that patch as though it should be
+checked in - wait for James to push it vs. ipmid instead of on its own
+in experimental branch
+Discuss the future of ipmi callback functions (possibly using fancy
+c++ variadic templates to automagically extract request parameters and
+pack responses)
+    Driven by Vernon, Ed, William - passing buffers & using callbacks
+is C, not C++, and very unsafe
+    Boost DBus library has a nice DBus registration function using C++
+functor/return type, which takes care of everything. Lots of magic at
+compile time.  Writing the library kind of sucks but once it=E2=80=99s writ=
+ten
+it=E2=80=99s nice to use.  Do we want to invest in something like that for
+IPMI?
+    Seems like resources would have to be volunteer only.
+    Variadic template which can be called in order to register the
+callback; can take as many arguments as you want of various types;
+compiler decides what to do with each argument.  Lots of generated
+code but compiler optimization helps
+Background on host-ipmid current state
+    Very early module - somewhat prototype code - originally C
+    Net-ipmid was written once we had more modern functions
+Shared library for host and net IPMI handlers? Some incoming message
+handling could be shared if we split into a library - half as much
+code to maintain.  How much of it can we separate and still have
+host/net make sense on their own?  (Sidebar - should we handle both
+channels in the same process?)
+Google has allocated someone to sdbusplus refactor (host-ipmid ->
+sdbusplus, no more sd-bus.h)
+Emily - make another document with priority list that we can track as
+maintainers
+Vernon expressed an interest in asyncio functionality similar to
+boost-dbus appearing in sdbusplus (but it was outside of the scope of
+Liz=E2=80=99s refactor work)
 
-I'm happy to report that these industry leaders have rallied around
-your community as the meeting point.  Very soon it will get a lot more
-busy around here.  
 
-To this end, IBM will be ceding stewardship of this project to the
-Linux Foundation in the very near future.  You can find the project
-charter here:
-
-https://docs.google.com/document/d/1uBbi5rDhWqj8Al-eoNLxERZ9OK8KVMZThOu
-S08-cYto
-
-In the longer term I'm optimistic all this means change, growth and
-success for all of us.  In the shorter term, I don't anticipate any
-major changes in the day to day of what we all do, with one exception. 
-Under the new charter, contributors will be required to sign a
-contributor license agreement.  There will be corporate (your company
-signs once for all future contributions originating from your company)
-and individual agreements available:
-
-https://docs.google.com/document/d/1veiAjszrhgabA8XrJWjYCs7lyXIhs5rcXWg
-aeuW-bT8
-https://docs.google.com/document/d/1m61YH8GSzQpYVt5YG95fb2QNy1Gs--1-oLD
-3znqPNQw
-
-Please work with your legal team (if using the corporate CLA) or sign
-the individual CLA now and send them to me to avoid any delays in your
-development work flow when the transfer occurs.
-
--brad
+--=20
+Emily Shaffer
