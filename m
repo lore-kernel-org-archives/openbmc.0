@@ -1,39 +1,67 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhWpP6v38zF1JG
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 07:53:32 +1100 (AEDT)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2018 12:53:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,514,1511856000"; d="scan'208";a="175167731"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
- by orsmga004.jf.intel.com with ESMTP; 14 Feb 2018 12:53:27 -0800
-Date: Wed, 14 Feb 2018 12:53:27 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Patrick Venture <venture@google.com>
-Cc: Dave Cobbley <david.j.cobbley@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: IPMI Set LAN Configuration Parameters
-Message-ID: <20180214205327.GG113334@mauery>
-References: <6de6bf00-ea77-a061-cd92-df255b2c0a7f@linux.intel.com>
- <CAO=notyuHzYmwxDre9-kTgPeYNSSrut32wJeRo46VWzrW6Q=xQ@mail.gmail.com>
- <7d9366d2-7816-227c-ac36-409faaa13d8b@linux.intel.com>
- <CAO=notzcgZxFthUY90V+2BgW=YnykrVsiVG4OdV0zR7kSTFoUA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAO=notzcgZxFthUY90V+2BgW=YnykrVsiVG4OdV0zR7kSTFoUA@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhXfp0lFTzDqYl
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 08:31:58 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w1ELTdJl143671
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 16:31:55 -0500
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2g4ss8qtx8-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 16:31:54 -0500
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 14 Feb 2018 16:31:53 -0500
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 14 Feb 2018 16:31:50 -0500
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w1ELVoVd38207570; Wed, 14 Feb 2018 21:31:50 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8D2B6B204E;
+ Wed, 14 Feb 2018 16:28:12 -0500 (EST)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 31237B205D;
+ Wed, 14 Feb 2018 16:28:12 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, andrew@aj.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10 v2 0/3] drivers: fsi: Fixup SBEFIFO and OCC
+ locking
+Date: Wed, 14 Feb 2018 15:31:45 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18021421-0024-0000-0000-000003238468
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008535; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000253; SDB=6.00989770; UDB=6.00502607; IPR=6.00769124; 
+ BA=6.00005830; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019556; XFM=3.00000015;
+ UTC=2018-02-14 21:31:51
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18021421-0025-0000-0000-000046FADA15
+Message-Id: <1518643908-13449-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-14_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=3 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1802140252
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -45,107 +73,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Feb 2018 20:53:34 -0000
+X-List-Received-Date: Wed, 14 Feb 2018 21:32:02 -0000
 
-On 14-Feb-2018 12:32 PM, Patrick Venture wrote:
->I thought you had to explicitly set in_progress with the ipmitool?  My
->own ipmitool utility is implemented as you described where it doesn't
->assume anything about your intent, just follows the actions.
+This series provides a couple of fixes designed to make the FSI client drivers
+play nicely with Jeremy's incoming FSI spinlock changes. Firstly, the SBEFIFO
+driver must switch to use a workqueue instead of a poll timer so that we can
+avoid spinlocking the entire function. Therefore, the second patch switches to
+a mutex instead of a spinlock there. Lastly, switch to irqsave and irqrestore
+functions in the OCC driver to cleanup the locking there.
 
-Currently, ipmitool (incorrectly) sets the "set in progress" bit for 
-every lan configuration parameter it sets. Given how the CLI interface 
-only allows the user to specify a single parameter at a time, it might 
-be smart to have ipmitool also expose controls for the "set in progress" 
-bit. Alternately, providing a way to to specify multiple parameters in a 
-single call would be good. Something like:
+Changes since v1:
+ * lock the mutex around the transfer deletions in sbefifo_remove. Otherwise,
+   it may free memory that sbefifo_worker is accessing.
 
-ipmitool lan set 1 ipaddr 1.2.3.4 netmask 255.255.0.0 gateway 1.2.0.1 dns 1.2.1.1 
-ipmitool lan set 1 ipsrc dhcp
+Eddie James (3):
+  drivers: fsi: SBEFIFO: switch to workqueue instead of timer
+  drivers: fsi: sbefifo: switch to mutex in work function
+  drivers: fsi: occ: switch to irqsave and irqrestore
 
-and it would automatically set and use the set in progress bit 
-correctly.
+ drivers/fsi/fsi-sbefifo.c | 97 +++++++++++++++++++++++++++++++----------------
+ drivers/fsi/occ.c         | 44 +++++++++++----------
+ 2 files changed, 89 insertions(+), 52 deletions(-)
 
-And ipmid could then take two actions, depending on how this bit is 
-(ab)used:
-1) if only a single command is wrapped up in the 
-set-in-progress/set-complete, then employ a timeout so that after some 
-amount of time, all the queued commands get applied.
-2) if multiple commands get wrapped up in the 
-set-in-progress/set-complete, then apply the command set when the 
-set-complete is received.
-
-Getting ipmitool changed to have correct behavior will take some doing, 
-so we will need to be able to deal with its incorrect behavior for now. 
-But also responding to correct behavior can make tools that employ that 
-behavior work even better (with no timeout delays).
-
-Just my $0.02.
-
---Vernon
-
->There's definitely the possibility of thrashing.
->
->On Wed, Feb 14, 2018 at 11:16 AM, Dave Cobbley
-><david.j.cobbley@linux.intel.com> wrote:
->> Do you have any concerns about ipmitool constantly flushing the network as
->> it sets & unsets the complete bit inbetween parameters,
->> i.e. if you are setting 4 different parameters from a script?
->>
->> I'm not sure if this brings a lot of thrashing to the to the ipmi network
->> stack or network manager.
->>
->> Seems like it would be prudent to fix ipmitool upstream to allow you to set
->> multiple parameters, in addition to the ipmi stack.
->>
->>
->>> I personally have found this non-standard implementation a bit
->>> unpleasant, as it requires using a different command to basically
->>> flush it.  I am planning to implement it such that setting in progress
->>> before and complete after is how it all gets flushed instead of a
->>> timeout, since that approach reads more correct given the
->>> specification.  And really it's just about literally calling a
->>> subroutine to flush everything when the in_progress bit is set to
->>> completed, and removing the code from "access on"
->>>
->>> If you're interested to do what I've just described, I don't think
->>> you'll get any push-back.
->>>
->>> Patrick
->>>
->>> On Wed, Feb 14, 2018 at 9:14 AM, Dave Cobbley
->>> <david.j.cobbley@linux.intel.com> wrote:
->>>>
->>>> I noticed that when using ipmitool lan set <channel> <parameter>, the
->>>> openbmc stack does not apply the settings. This seems like a non-standard
->>>> implementation. While using ipmitool as the standard is not quite
->>>> correct,
->>>> customers do expect it to work.
->>>>
->>>> After sending any sort of lan set command with ipmitool, the changes
->>>> don't
->>>> appear to stick and this message shows up in the journal:
->>>>      "Use Set Channel Access command to apply"
->>>>
->>>> I know IPMI 2.0 is a little ambiguous about implementation specifics, but
->>>> I
->>>> believe the intention was to utilize the "Set In Progress" bit (Parameter
->>>> 0)
->>>> while doing work, and use "Set Complete" when you are finished to flush
->>>> the
->>>> changes.
->>>>
->>>> To work around ipmitool constantly setting and unsetting the "Set In
->>>> Progress" bit in between every parameter applied, some BMC stacks
->>>> accumulate
->>>> network changes over a period of time and apply after a timeout - this is
->>>> also compatible with ipmitool's non-standard use of the "Set In Progress"
->>>> bit.
->>>>
->>>>
->>>> Is there a plan to circle back and change this functionality to work with
->>>> ipmitool in the future?
->>>>
->>>> Thanks,
->>>> -Dave Cobbley
->>>>
->>
+-- 
+1.8.3.1
