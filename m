@@ -1,61 +1,67 @@
-Return-Path: <a.amelkin@yadro.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="tocsa+4T"; 
+Return-Path: <arndbergmann@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tKQ4CcKp"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhBpw3rDzzF1Gx
- for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 19:07:52 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id EE63E53AFD;
- Wed, 14 Feb 2018 08:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-language:content-transfer-encoding:content-type
- :content-type:in-reply-to:mime-version:user-agent:date:date
- :message-id:from:from:references:subject:subject:received
- :received:received; s=mta-01; t=1518595666; x=1520410067; bh=EaD
- OXAsJ8IyAqNApgXzdZgl1BVi8XYAIr5oV9mVBUIA=; b=tocsa+4TEKit6TOJuDB
- iZfvBWE1HxK9143Eea3BFOAcIYRhml+meOla79Jnb/cTTcyrApOZbVhtGnEO6p2E
- KWwVCfdY6ZarEkpu9z/ZxU+ikscW2hG+n8tFFTd3mBLNUyEzJVXEyWwbY7q+l6NS
- r5BkIU5dcbmGvTsb70xdn7bQ=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id dxJlOr09HgM1; Wed, 14 Feb 2018 11:07:46 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 170CD5396C;
- Wed, 14 Feb 2018 11:07:45 +0300 (MSK)
-Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 14
- Feb 2018 11:07:45 +0300
-Subject: Re: Proprietary task references in commit logs
-To: Stewart Smith <stewart@linux.vnet.ibm.com>, Patrick Venture
- <venture@google.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <560ecebf-d449-b7e7-675b-03ec3c6f4212@yadro.com>
- <CAO=notw8DrRUP7MiFmDcQ9jqypeFqs6xmwXxPYt_jPf+dtP0DQ@mail.gmail.com>
- <87o9ksfdso.fsf@linux.vnet.ibm.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Message-ID: <06aeaea6-cee0-8f57-654c-5d34f5319905@yadro.com>
-Date: Wed, 14 Feb 2018 11:07:45 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhMHW2qbHzF1Dp
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 01:29:42 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id q18so7906820qtl.3
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 06:29:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=NX3wN2X99W/7EfdgwTA34uVKNdC2g9k2pH60OMLpGR0=;
+ b=tKQ4CcKpFyY5o7sAOLFWKst+clPVlrneiFraWknXl8QfRu7FkyoNe5Rio2/91iEvOV
+ SrIO2nImWjxV87eiVJzInpJnVsp83rZOthWpQS3pInHEkFa3s+e2jB6IDORoIOhpYU3Q
+ NljjXDMnSgGx6e8ljepMdb22W6Y4Nv4yDqf+ToPyyVOpyOw4OQbijBilM+2SDW28ZnMb
+ LVoTxR2HZtrENadoGaFIzv5X8UbWckj68FeVvCdLIqfzMlWoIaDi1JD/yIS7CPRgpiTx
+ cZHon7bp3Skp4cqumpr9oUQkWNmqke0Fv5MzbgV8xIdj8QXISwZUJ3Yp/hOgd7e+Yfis
+ kL9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=NX3wN2X99W/7EfdgwTA34uVKNdC2g9k2pH60OMLpGR0=;
+ b=SOeQaNgOwGeQeMm/rUq5XJoFd5FjzDt57oSs1Sb2mtne2rj+83xhX+IZvGfmyfTWFR
+ QPvQp9xflcggUzHTLee1qNnod+RClFIDndjunQRsXX7pfo0rcgeNqTbNKDLB5B3Tsmh7
+ bE3GJ1pIGYhHx4GgqC1rp3rrQc13SI65h63HcxX1COyWnRSLPyf4R73xr2IVMQ4SSZ7w
+ ti/5PKtI65W46tTk4AIX7mZtEvhDFzd7GX98i8AJQeoQ2AcXW5g+8R/CccfkoaKuxwaD
+ Tm9AxUKeyAWkAK2jVbzoPJWI3CkKWLXr8S0VjZbHntQL9vPaxf0wdPSlj2BEhKJc26id
+ XRjA==
+X-Gm-Message-State: APf1xPAb1ZtZitT8rr1N1eF/aF3Ap+pqz3cwiygdm0eVrYPM2kjOZE0l
+ dMrwvDquHveHUns2PT98rsHzMOZ4XlJ3W3P7LqU=
+X-Google-Smtp-Source: AH8x2255QR6s+SHGL3mbLUVIgBK9sglgf7c5Wgs76Q3ZvSFGCIEiLGzEvzTQpBT0W9aWRd3HqZ9IuxQm1xuumqqT9yU=
+X-Received: by 10.200.12.203 with SMTP id o11mr8065639qti.95.1518618580408;
+ Wed, 14 Feb 2018 06:29:40 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <87o9ksfdso.fsf@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [172.17.14.168]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+Sender: arndbergmann@gmail.com
+Received: by 10.140.23.8 with HTTP; Wed, 14 Feb 2018 06:29:39 -0800 (PST)
+In-Reply-To: <20180213200959.160157-3-brendanhiggins@google.com>
+References: <20180213200959.160157-1-brendanhiggins@google.com>
+ <20180213200959.160157-3-brendanhiggins@google.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 14 Feb 2018 15:29:39 +0100
+X-Google-Sender-Auth: B4jXltvk-L_DChQfgyAXuKqS4R0
+Message-ID: <CAK8P3a2_2sQYCaUK-thBxTJ+VhQiw4AcDgwJoyEG=Ssnr=PtQg@mail.gmail.com>
+Subject: Re: [PATCH v10 2/3] arm: dts: add Nuvoton NPCM750 device tree
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Rob Herring <robh+dt@kernel.org>,
+ Russell King - ARM Linux <linux@armlinux.org.uk>, 
+ Mark Rutland <mark.rutland@arm.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Avi Fishman <avifishman70@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+ Julien Thierry <julien.thierry@arm.com>,
+ Philippe Ombredanne <pombredanne@nexb.com>, 
+ DTML <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,29 +73,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Feb 2018 08:07:53 -0000
+X-List-Received-Date: Wed, 14 Feb 2018 14:29:44 -0000
 
-14.02.2018 06:30, Stewart Smith wrote:
-> I've been poked at this for other firmware too, and I tend to dislike
-> non-public bug tracker IDs in public repositories.
->
-> I have an idea of using git-notes to have a local tree of `fixes` (even
-> added retroactively) that could then be queried/modified that would suit
-> this kind of use case.
->
-> Of course, finding enough time to write the couple of hundred lines of
-> python to do that has been elusive :)
-Exactly! This is all about extra work to do, no time to do it, and 
-elusive profit of that effort.
-Adding a non-public ID takes almost no effort, as well as ignoring it in 
-the logs just like most people ignore those strange lawyer-induced 
-"Signed-off-by" lines or purely technical "Change-Id" lines.
+On Tue, Feb 13, 2018 at 9:09 PM, Brendan Higgins
+<brendanhiggins@google.com> wrote:
 
-Creating a separate 'bug' in OpenBMC bugtracker (unless we start to 
-require a formal 'bug' for each commit) and adding its ID to the local 
-bug-tracker is a useless waste of time, IMO.
+> +
+> +Enable method name:    "nuvoton,npcm7xx-smp"
+> +Compatible machines:   "nuvoton,npcm750"
+> +Compatible CPUs:       "arm,cortex-a9"
+> +Related properties:    (none)
+> +
+> +Note:
+> +This enable method needs valid nodes compatible with "arm,cortex-a9-scu" and
+> +"nuvoton,npcm750-gcr".
+> +
+> +Example:
+> +
+> +       cpus {
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
+> +               enable-method = "nuvoton,npcm7xx-smp";
 
-Each commit would at max have just one extra company tracker reference 
-line. Is that really a problem?
+It seems you changed the DT files, but forgot to update the binding to match.
 
-Alexander.
+Otherwise it looks al good to me.
+
+       Arnd
