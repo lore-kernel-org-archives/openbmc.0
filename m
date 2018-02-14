@@ -1,68 +1,55 @@
-Return-Path: <Eugene.Cho@dell.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.94; helo=esa3.dell-outbound.iphmx.com;
- envelope-from=eugene.cho@dell.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="GUVG39mN"; 
+Return-Path: <venture@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::22f; helo=mail-vk0-x22f.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="ZCBphlbx"; 
  dkim-atps=neutral
-Received: from esa3.dell-outbound.iphmx.com (esa3.dell-outbound.iphmx.com
- [68.232.153.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk0-x22f.google.com (mail-vk0-x22f.google.com
+ [IPv6:2607:f8b0:400c:c05::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhRH615qmzDqr8
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 04:29:34 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1518628827; x=1550164827;
- h=from:cc:to:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=IK8tsf+zyjACxwxkYx+nqN9mrlQPjZbmO5NJTcURU+8=;
- b=GUVG39mNCYmGyMo7N+giKXE31TEll+NkHtA6iNcOoRKW5D02QBm+adex
- DBeNJUezzoEiab4mJIWHi0saNf75JJ8X77O1WgJbWR6xn6Ef90b0PphJt
- SzPcsQlD+dlfEF5JzfFZ5R42KVpIY2YE7ZXIr2ueiyflwC69bSA8c8pDE c=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GtAAAwcYRah8mZ6ERdGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQogQAyg1uKJI4DggKBF2qVWIIYCoU7AhqCY1QYAQIBAQEBAQE?=
- =?us-ascii?q?CAQIQAQEBCgsJCCgvgjgigkoBAQEBAgEjBA1FBQsCAQgaAiYCAgJFEAEBBAEai?=
- =?us-ascii?q?hwJCK9FgW06iCBhghMBAQEHAQEBAQEjgQ+Dc4IVgz+DLoRuHjOCeoJlBYpsmUM?=
- =?us-ascii?q?JlXyUTpgZgTwfggpwgxmCVBAMggaNRYEZAQEB?=
-X-IPAS-Result: =?us-ascii?q?A2GtAAAwcYRah8mZ6ERdGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?ogQAyg1uKJI4DggKBF2qVWIIYCoU7AhqCY1QYAQIBAQEBAQECAQIQAQEBCgsJC?=
- =?us-ascii?q?CgvgjgigkoBAQEBAgEjBA1FBQsCAQgaAiYCAgJFEAEBBAEaihwJCK9FgW06iCB?=
- =?us-ascii?q?hghMBAQEHAQEBAQEjgQ+Dc4IVgz+DLoRuHjOCeoJlBYpsmUMJlXyUTpgZgTwfg?=
- =?us-ascii?q?gpwgxmCVBAMggaNRYEZAQEB?=
-Received: from esa1.dell-outbound2.iphmx.com ([68.232.153.201])
- by esa3.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2018 11:20:22 -0600
-From: <Eugene.Cho@dell.com>
-Cc: <openbmc@lists.ozlabs.org>, <Brian.Berry@Dell.com>
-Received: from ausxipps310.us.dell.com ([143.166.148.211])
- by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2018 23:20:06 +0600
-X-LoopCount0: from 10.166.132.134
-X-IronPort-AV: E=Sophos;i="5.46,513,1511848800"; d="scan'208";a="132808446"
-X-DLP: DLP_GlobalPCIDSS
-To: <jk@ozlabs.org>, <avifishman70@gmail.com>, <tmaimon77@gmail.com>,
- <joel@jms.id.au>
-Subject: RE: Serial Mux Mode in NPCM
-Thread-Topic: Serial Mux Mode in NPCM
-Thread-Index: AdOhHqOsX5uTqyQpRLO9iN0a5o3zIwEWpQmAAAw/Z5A=
-Date: Wed, 14 Feb 2018 17:29:21 +0000
-Message-ID: <d010be8f8444441f9a4399012588f79c@AUSX13MPC105.AMER.DELL.COM>
-References: <599c29f92c5e4849a7c30820442d8f7e@AUSX13MPC105.AMER.DELL.COM>
- <ad550452-8cfd-a9aa-464d-4c6efb1b8681@ozlabs.org>
-In-Reply-To: <ad550452-8cfd-a9aa-464d-4c6efb1b8681@ozlabs.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titusconfig: No Restrictions 04051212
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiI2YzYxNDc3ZC1jMTM0LTQ1MzgtODBmNy1lMTcyZGVhMTM3MzgiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6IlNVK1lMWWJkUjdKaUdDQ3VTV1dDUHZqZGc0M0J2UFhvTkd1TVlZMnJEZk09In0=
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhShT5gcdzF1F6
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 05:33:12 +1100 (AEDT)
+Received: by mail-vk0-x22f.google.com with SMTP id g186so13458205vkd.8
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 10:33:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=AfCNg4hMYjghXKRcBZzBBeYYBjV5cH2EufrQbkzgtXc=;
+ b=ZCBphlbxr1dhlXMoOigDQmaqDOcwo9IZ7ONsJkpg4AezvvHaV0WAFskLSprAo6H/94
+ p4z6LGivylqOs2s4aTEuMpqXTH2q40MoCLxVHu95OrLcEIGr90Qq5447lZ/k8yi/xWOT
+ jZs7qy54STj2VmLJTPp3KkVCGKNvVNab5HgBDDG/HkV0q+8EFoAv40rvHn9gJbYU2D3E
+ s0ChHA5sXOhYhxzKGaSuF/QXQe0qaUXKuHaSL7g6u1xw9k8914YG/RS2ez0ICtnW+Z2F
+ T1usX3W1UKrW3cvBIKzEps9N/GcBBBGl6khPD55WTt4D34VB2Iz+1S+hu2oYkEd6uXyc
+ 3pCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=AfCNg4hMYjghXKRcBZzBBeYYBjV5cH2EufrQbkzgtXc=;
+ b=db63NSCQpQZ3/MkB6/cIoi29Nq2mjwuSXgbRjWdVf4VZUVlhrJl3HhH37EfsNlAfcL
+ 5piTeVEc+3tnTNBwbBJ4cS1MvVGpjif/hoeBD1f2nVA5TcXN9asoxkcbICqDK+as8S0s
+ UTqcOt065pfd9re2uaKfntB389wlkMh770+zBa9eeUhp2x5eI1fmfutf55Sb4YIXalxi
+ b0LIBiRkxt7rXAHNfmWMP9kz30eWjmfH/i7hC8W3B9UNAAA4bK8YuQrcJ4YvRfx+4YdT
+ ZHN6wr2TpRP2iWY3k1WXyhXA7h5yLhUw+bp61CrABNle3hM+NbLEpA/Fv8tq+V4LmUQZ
+ nuPA==
+X-Gm-Message-State: APf1xPDzOCTunzzx8pFQZ24mGXKqRLGkJJEgI5aX/zzlQzGjl/FCFqcg
+ 38fO1giiefVeCsceJTRtBIvtDRgXBXRt+MomgGlza7zO
+X-Google-Smtp-Source: AH8x224ttq+EV1/EUsxe0Fy54ZTp8Vh2ZCQJvdk6ZOw/yunOT1m++vSuMXQCIvLWOeL4tXOIxi0jMk4Wj8/h01jjRE0=
+X-Received: by 10.31.108.147 with SMTP id j19mr158171vki.146.1518633189812;
+ Wed, 14 Feb 2018 10:33:09 -0800 (PST)
 MIME-Version: 1.0
+Received: by 10.31.167.207 with HTTP; Wed, 14 Feb 2018 10:32:49 -0800 (PST)
+In-Reply-To: <6de6bf00-ea77-a061-cd92-df255b2c0a7f@linux.intel.com>
+References: <6de6bf00-ea77-a061-cd92-df255b2c0a7f@linux.intel.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 14 Feb 2018 10:32:49 -0800
+Message-ID: <CAO=notyuHzYmwxDre9-kTgPeYNSSrut32wJeRo46VWzrW6Q=xQ@mail.gmail.com>
+Subject: Re: IPMI Set LAN Configuration Parameters
+To: Dave Cobbley <david.j.cobbley@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,45 +61,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Feb 2018 17:29:39 -0000
+X-List-Received-Date: Wed, 14 Feb 2018 18:33:14 -0000
 
-SGV5IEplcmVteSBhbmQgSm9lbCwgDQoNCj5Db2RlIHRvIGhhbmRsZSB0aGlzIHdvdWxkIG5vdCBi
-ZSBzdWl0YWJsZSBhcyBhIFVBUlQgZHJpdmVyOyBpdCBoYW5kbGVzIG1vcmUgdGhhbiBhIHNpbXBs
-ZSBVQVJUICJlbmRwb2ludCIsIHNvIHdlJ2QgbmVlZCBzb21ldGhpbmcgZGlzdGluY3QgZnJvbSA+
-dGhlIGV4aXN0aW5nIHR0eSBkZXZpY2UgaGVyZS4gUGVyaGFwcyBhIHNlcGFyYXRlIFNvQyBkcml2
-ZXI/DQoNCiAgT2theSBnb29kIHRvIGtub3cuIFllYSB1bnN1cmUgd2hhdCB0byBkbyBoZXJlLiBJ
-IGtub3cgeWFsbCB3YW50ZWQgdG8gZ2V0IHJpZCBvZiB0aGUgYXNwZWVkLmMgYm9hcmQgZmlsZSwg
-YnV0IGlzIHRoZSBnb2FsIHRoZSBnZXQgcmlkIG9mIHRoYXQgZmlsZSBjb21wbGV0ZWx5IG9yIGp1
-c3QgdGhlIHBsYXRmb3JtIHNwZWNpZmljIChiYXJyZWxleWUsIHdpdGhlcnNwb29uLGV0Yy4uKSBz
-ZXR1cCB0aGF0IGlzIGJlaW5nIGRvbmUgaW4gaXQuIFdvdWxkIGEgbnBjbSBib2FyZCBmaWxlIGJl
-IGFwcHJvcHJpYXRlIGZvciBzb21ldGhpbmcgbGlrZSB0aGlzIHdoaWNoIGlzIFNvQyBzcGVjaWZp
-YyBhbmQgZ2VuZXJhbCB1bmludGVyZXN0aW5nIGZvciB0aGUgZ2VuZXJhbCBsaW51eCBwb3B1bGF0
-aW9uPw0KDQo+IEhvd2V2ZXIsIHlvdSBtYXkgbm90IG5lZWQgZHluYW1pYyByZWNvbmZpZ3VyYXRp
-b24gb2YgdGhlIFVBUlQgcm91dGluZywgZGVwZW5kaW5nIG9uIHdoYXQgY29uZmlndXJhdGlvbnMg
-YXJlIGF2YWlsYWJsZSBhbmQgeW91ciByZXF1aXJlbWVudHMuIC0+IElmIHRoZXJlJ3MgYSByb3V0
-aW5nIGNvbmZpZ3VyYXRpb24gdGhhdCBmZWVkcyB0aGUgbmVjZXNzYXJ5IFVBUlRzIChob3N0LXNp
-ZGUgYW5kIGV4dGVybmFsIHBvcnRzKSB0byB0aGUgQk1DIENQVSwgdGhlbiBvYm1jLWNvbnNvbGUt
-c2VydmVyIGNhbiBoYW5kbGUgYWxsIHRoZSByb3V0aW5nIGluIHVzZXJzcGFjZSwgYW5kIHlvdSBz
-ZXQgdGhhdCBIVyByb3V0aW5nIGNvbmZpZ3VyYXRpb24gb25jZSBvbiBib290LiBUaGlzIGlzIHdo
-YXQgd2UgY3VycmVudGx5IGRvIGZvciBwaG9zcGhvciBwbGF0Zm9ybXMuDQoNCkhlcmXigJlzIG15
-IGF0dGVtcHQgYXQgZHJhd2luZyB0aGlzIG91dC4gSG9wZWZ1bGx5IHRoZSBmb3JtYXR0aW5nIGRv
-ZXNu4oCZdCBnZXQgYnV0Y2hlcmVkLi4uDQoNCldlIHN1cHBvcnQgIkhvc3QgU1AxIiBhbmQgIkhv
-c3QgU1AyIiBib3RoIGJlaW5nIHVzZWQgYXQgdGhlIHNhbWUgdGltZSwgZGVwZW5kaW5nIG9uIHdo
-YXQgdGhlIGN1c3RvbWVyIHNldHRpbmcgYXJlIChpLmUuIFNPTCBvbiBIb3N0IFNlcmlhbCBQb3J0
-IDIgd2hpbGUgYWxzbyBkb2luZyAgSG9zdCBTZXJpYWwgUG9ydCAxIC0+IHBoeXNpY2FsIHBvcnQs
-IGV0Yy4uICkuIFVzdWFsbHkgdGhlIEJNQyBpcyBvbmx5IHJlYWxseSBpbnRlcmVzdGVkIGluIDEg
-b2YgdGhlICJIb3N0IFNQIiwgd2hpbGUgdGhlIG90aGVyIGlzIHVzZWQgYXMgcmVndWxhciBIb3N0
-IFNlcmlhbCAtPnBoeXNpY2FsIHBvcnQuICBCdXQgdGhlcmUgYXJlIGNhc2VzIHdoZXJlIEJNQyBj
-YW4gYWxzbyB0YWtlIG92ZXIgdGhlIHBoeXNpY2FsIHBvcnQuLi4NCg0KU28gZm9yIHVzIHRvIGRv
-IDEgY29uZmlndXJhdGlvbiBvbiBib290dXAgaXQgd291bGQgbWVhbiB0aGUgbXV4IHdvdWxkIGhh
-dmUgdG8gbG9vayBzb21ldGhpbmcgbGlrZSB0aGlzOiANCg0KCVtIb3N0IFNQMV0JW0hvc3QgU1Ay
-XQ0KCQlcCQlcX19fX19fX1tCTUMgVUFSVCAyXQ0KCQkgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS1bQk1DIFVBUlQgMV0NCgkJCV9fX19fX19fX19fX19fX1tCTUMgVUFSVCAzXQ0K
-CQkJLw0KCTw8IFBoeXNpY2FsIHBvcnQvIFNlcmlhbCBJbnRlcmZhY2UgMiAgPj4NCg0KU28gd2hp
-bGUgSSBhZ3JlZSBpdCBjYW4gYmUgZG9uZS4gSXQgc2VlbXMgYSBiaXQgb3ZlcmtpbGwgZm9yIEhv
-c3QgU2VyaWFsIC0+IHBoeXNpY2FsIHBvcnQgKHNpbmNlIHRoZSBCTUMgaGFzIG5vIHZlc3RlZCBp
-bnRlcmVzdCBpbiBpdCkuIEknbSBub3Qgc3VyZSB3aGF0IHRoZSBpbXBsaWNhdGlvbnMgYXJlIGZv
-cjogaG9zdCBzZXJpYWwgdGhyb3VnaHB1dCwgYWRkZWQgQk1DIG92ZXJoZWFkLCAgbG9zcyBvZiBo
-b3N0IHNlcmlhbCBIVyBmbG93IGNvbnRyb2wsIHJlbGlhbmNlIG9uIG9wZXJhdGlvbmFsIEJNQyBm
-b3IgSG9zdCBDT00xLzItPiBwaHlzaWNhbCBwb3J0LCBldGMuIEdpdmVuIHRoYXQgdGhlIE5QQ00g
-c3VwcG9ydHMgbXV4aW5nL3JvdXRpbmcgLSBzaG91bGRu4oCZdCB3ZSB1c2UgaXQ/DQo=
+I personally have found this non-standard implementation a bit
+unpleasant, as it requires using a different command to basically
+flush it.  I am planning to implement it such that setting in progress
+before and complete after is how it all gets flushed instead of a
+timeout, since that approach reads more correct given the
+specification.  And really it's just about literally calling a
+subroutine to flush everything when the in_progress bit is set to
+completed, and removing the code from "access on"
+
+If you're interested to do what I've just described, I don't think
+you'll get any push-back.
+
+Patrick
+
+On Wed, Feb 14, 2018 at 9:14 AM, Dave Cobbley
+<david.j.cobbley@linux.intel.com> wrote:
+> I noticed that when using ipmitool lan set <channel> <parameter>, the
+> openbmc stack does not apply the settings. This seems like a non-standard
+> implementation. While using ipmitool as the standard is not quite correct,
+> customers do expect it to work.
+>
+> After sending any sort of lan set command with ipmitool, the changes don't
+> appear to stick and this message shows up in the journal:
+>     "Use Set Channel Access command to apply"
+>
+> I know IPMI 2.0 is a little ambiguous about implementation specifics, but I
+> believe the intention was to utilize the "Set In Progress" bit (Parameter 0)
+> while doing work, and use "Set Complete" when you are finished to flush the
+> changes.
+>
+> To work around ipmitool constantly setting and unsetting the "Set In
+> Progress" bit in between every parameter applied, some BMC stacks accumulate
+> network changes over a period of time and apply after a timeout - this is
+> also compatible with ipmitool's non-standard use of the "Set In Progress"
+> bit.
+>
+>
+> Is there a plan to circle back and change this functionality to work with
+> ipmitool in the future?
+>
+> Thanks,
+> -Dave Cobbley
+>
