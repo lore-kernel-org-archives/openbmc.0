@@ -1,33 +1,34 @@
-Return-Path: <david.j.cobbley@linux.intel.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=david.j.cobbley@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhQyM6TtnzF1JB
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 04:15:03 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhR0p1mhtzF0ny
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 04:17:10 +1100 (AEDT)
+X-Amp-Result: UNSCANNABLE
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2018 09:14:58 -0800
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2018 09:17:08 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,513,1511856000"; d="scan'208";a="18107936"
-Received: from parzival.jf.intel.com (HELO [10.54.51.76]) ([10.54.51.76])
- by orsmga008.jf.intel.com with ESMTP; 14 Feb 2018 09:14:58 -0800
-From: Dave Cobbley <david.j.cobbley@linux.intel.com>
-Subject: IPMI Set LAN Configuration Parameters
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Message-ID: <6de6bf00-ea77-a061-cd92-df255b2c0a7f@linux.intel.com>
-Date: Wed, 14 Feb 2018 09:14:58 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+X-IronPort-AV: E=Sophos;i="5.46,513,1511856000"; d="scan'208";a="20021950"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
+ by fmsmga002.fm.intel.com with ESMTP; 14 Feb 2018 09:17:07 -0800
+Date: Wed, 14 Feb 2018 09:17:07 -0800
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Liz Kammer <eakammer@google.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: sdbusplus port for host-ipmid
+Message-ID: <20180214171707.GF113334@mauery>
+References: <CAEOv9APgYZ=Yzs4tjYad+tg0CupqyTx5M1cpzN3LcnBPBwj_LA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CAEOv9APgYZ=Yzs4tjYad+tg0CupqyTx5M1cpzN3LcnBPBwj_LA@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -39,31 +40,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Feb 2018 17:15:08 -0000
+X-List-Received-Date: Wed, 14 Feb 2018 17:17:14 -0000
 
-I noticed that when using ipmitool lan set <channel> <parameter>, the 
-openbmc stack does not apply the settings. This seems like a 
-non-standard implementation. While using ipmitool as the standard is not 
-quite correct, customers do expect it to work.
+On 12-Feb-2018 11:01 PM, Liz Kammer wrote:
+>Hi Everyone,
+>
+>Is anyone working on the sd_bus.h -> sdbusplus port for host-ipmid? I am
+>hoping to work on this issue
+>https://github.com/openbmc/phosphor-host-ipmid/issues/109, but I don't want
+>to step on toes.
 
-After sending any sort of lan set command with ipmitool, the changes 
-don't appear to stick and this message shows up in the journal:
-     "Use Set Channel Access command to apply"
+I am happy to hear you are working on this. I don't know if anyone else 
+is working on it or not, but I do know that host-ipmid is under very 
+active development. You will have fewer collisions with others if you 
+make and push incremental changes (like for one file at a time). If you 
+push one big patchset, it will likely conflict with every other commit 
+in review.
 
-I know IPMI 2.0 is a little ambiguous about implementation specifics, 
-but I believe the intention was to utilize the "Set In Progress" bit 
-(Parameter 0) while doing work, and use "Set Complete" when you are 
-finished to flush the changes.
-
-To work around ipmitool constantly setting and unsetting the "Set In 
-Progress" bit in between every parameter applied, some BMC stacks 
-accumulate network changes over a period of time and apply after a 
-timeout - this is also compatible with ipmitool's non-standard use of 
-the "Set In Progress" bit.
-
-
-Is there a plan to circle back and change this functionality to work 
-with ipmitool in the future?
-
-Thanks,
--Dave Cobbley
+--Vernon
