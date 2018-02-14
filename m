@@ -1,59 +1,70 @@
-Return-Path: <raltherr@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::231; helo=mail-ua0-x231.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="bY58AFmv"; 
+Return-Path: <sachnaik@cisco.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=cisco.com
+ (client-ip=173.37.86.80; helo=rcdn-iport-9.cisco.com;
+ envelope-from=sachnaik@cisco.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=cisco.com header.i=@cisco.com header.b="kMYsDzwz"; 
  dkim-atps=neutral
-Received: from mail-ua0-x231.google.com (mail-ua0-x231.google.com
- [IPv6:2607:f8b0:400c:c08::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Greylist: delayed 648 seconds by postgrey-1.36 at bilbo;
+ Thu, 15 Feb 2018 05:54:23 AEDT
+Received: from rcdn-iport-9.cisco.com (rcdn-iport-9.cisco.com [173.37.86.80])
+ (using TLSv1.2 with cipher DHE-RSA-SEED-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zgqzC2ccSzDqps
- for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 04:58:43 +1100 (AEDT)
-Received: by mail-ua0-x231.google.com with SMTP id n1so12082265uaa.2
- for <openbmc@lists.ozlabs.org>; Tue, 13 Feb 2018 09:58:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=kaoL5FY80vrOcIDQhU1geoINNMMfHgxMjMQEb60A4vI=;
- b=bY58AFmvRiilgFBjRlXbSrpUH6vHd8Ngvh4p/YZgT2U0jTzp3DPaNRKCHn2uTErJmp
- bbIDux5Tmwdb6sTFH6xTKG7+t1rRExn/KcVsz4yOKHDHVeHi2UBIX4vi0MSZQEjBoEDm
- jPL6pyl6sxVpLmwAA+ChxANNPbh3PKeWTlLqDRhpp2VcnFXMm63WlAh3Pjz1RfX/+MXr
- Ppti40vauI7I0uDGz0Edfw6vpibmgE0WBcvjJkFvU3hv5ZSjjya17tEp37/B6TcFAHnV
- /8Dz4rOMpr62CtlvT/77uqYOpKR0yWesqeVYHbQdJTBXImx2UhxdB+GEpWEil5jFrriZ
- o+bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=kaoL5FY80vrOcIDQhU1geoINNMMfHgxMjMQEb60A4vI=;
- b=VHQJ01BCXzs8H3BR9nihnGHhKwEYbqMlygCAOyUkElA0f49eT88qJzL7c97D3ukrRA
- HE3gIzfnx7ibP/wLFWj5h4J9wfYZWDLiH/bjwrziCyB5cCkbDsvgaY29G8LuRJscTBBq
- 50aTEo5XfnosYP3nW94joKcKvtcuegWzBbiYGw5mfkEDfCMkIbC04Nf5TiSkNkwI8Zt+
- 33/Ef907AVEGJK+Ngmn3GMLkluKdFTI+27pXKuiriWsu6dHrkFK4U0REx2T3dVCIJId0
- EZhfQAperLlSyffje9niIxRtuDlq4JGPn5Q3N5G/DSNu4kSKG6dzYnNZtKVJ/9k5Wz/L
- u4hQ==
-X-Gm-Message-State: APf1xPBWpb7aA/Hffwov1YE6ljtn+QOEQez3Jm/hKs46rjSzfK+8C94V
- 6rFSEh+20ZZUK/0U2/lbpXgqXXewscexWcqV23LMYA==
-X-Google-Smtp-Source: AH8x226dK5eNYHwcdKIPD4iRZMVlrO90hdiWlpfSxllhSX7vjedp13qJsiz0eYfxeSNASSF953/QOvoxXIe50OFxBX8=
-X-Received: by 10.176.71.209 with SMTP id w17mr1953022uac.132.1518544720265;
- Tue, 13 Feb 2018 09:58:40 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhT8v5zT3zF1JT
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 05:54:23 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=cisco.com; i=@cisco.com; l=280; q=dns/txt; s=iport;
+ t=1518634464; x=1519844064;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=XxCr8V8G35c25dHi6K8UEhfjaNu9jMWWJhlZyMDJooE=;
+ b=kMYsDzwzIm/2LQXXjizteMCjHFcUU3E5NehMw8JHtLFIZ4CnaEKmgiIn
+ A3gJ0GuMbWcxge+oZC4YX2IBCol/qZA1eNxbsQo1mosJWl0+P1E2zZZUj
+ WyPyASxIzGVSMcRL9iq9JdUi2f6CRV53QVAxKzZ2muc5FNVyNXRzLA7nx g=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A0A9AwAUgoRa/5pdJa1dGQEBAQEBAQE?=
+ =?us-ascii?q?BAQEBAQcBAQEBAYNSgVYoCoNbmCiBW4E+lkKBOQNcCoU7AhqCY1YWAQIBAQE?=
+ =?us-ascii?q?BAQECayiFJAYjEUUQAgEIGgImAgICMBUQAgQBDQWKNa9kgieFAYQAghMBAQE?=
+ =?us-ascii?q?BAQEBAQEBAQEBAQEBAQEBAQEdgQ+Dc4IVgVeCEQyCeYUigxcxgjQFmieKCAk?=
+ =?us-ascii?q?ClgOCBgGSPpdsAhEZAYE7ASYKKDKBHnAVZwGCG4R3eIxNgRkBAQE?=
+X-IronPort-AV: E=Sophos;i="5.46,513,1511827200"; d="scan'208";a="349090659"
+Received: from rcdn-core-3.cisco.com ([173.37.93.154])
+ by rcdn-iport-9.cisco.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2018 18:43:29 +0000
+Received: from XCH-RTP-016.cisco.com (xch-rtp-016.cisco.com [64.101.220.156])
+ by rcdn-core-3.cisco.com (8.14.5/8.14.5) with ESMTP id w1EIhST2021242
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
+ Wed, 14 Feb 2018 18:43:28 GMT
+Received: from xch-rtp-019.cisco.com (64.101.220.159) by XCH-RTP-016.cisco.com
+ (64.101.220.156) with Microsoft SMTP Server (TLS) id 15.0.1320.4;
+ Wed, 14 Feb 2018 13:43:27 -0500
+Received: from xch-rtp-019.cisco.com ([64.101.220.159]) by
+ XCH-RTP-019.cisco.com ([64.101.220.159]) with mapi id 15.00.1320.000; Wed, 14
+ Feb 2018 13:43:27 -0500
+From: "Sachin Naik (sachnaik)" <sachnaik@cisco.com>
+To: Patrick Venture <venture@google.com>, Lei YU <mine260309@gmail.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: Porting hwmon sensors to openBMC
+Thread-Topic: Porting hwmon sensors to openBMC
+Thread-Index: AQHTlBxuKmJ99FNq7kGo+Rq4yMaexqOkXVHT///PkoA=
+Date: Wed, 14 Feb 2018 18:43:27 +0000
+Message-ID: <B969E7AE-CB86-4567-A022-AEA3A7265CA0@cisco.com>
+References: <32335E8B-FAAF-4B96-9B2E-57FF1FAFDD1A@cisco.com>
+ <CAARXrt=r8C5WvWKb33C4LDuJi9KW61aHp0G3+a3RzF7ArKe+Tg@mail.gmail.com>
+ <CAO=notwMecK=GhvVUtgeVUZFV38K71Q5SSF0TeCS0CxY2W+axw@mail.gmail.com>
+In-Reply-To: <CAO=notwMecK=GhvVUtgeVUZFV38K71Q5SSF0TeCS0CxY2W+axw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/f.1f.0.170216
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.154.162.14]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <06AAC741A4CBDF4CB64D744CED0578A4@emea.cisco.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Received: by 10.31.161.142 with HTTP; Tue, 13 Feb 2018 09:58:39 -0800 (PST)
-In-Reply-To: <277A734F-3F5B-4580-A94C-6DFDC8CFED4C@fuzziesquirrel.com>
-References: <20180202030725.11771-1-bradleyb@fuzziesquirrel.com>
- <CACPK8Xdj3zeH1PM=4DtS68jHDBKd_+eCJmRiBmw6cYeJRNUUVA@mail.gmail.com>
- <277A734F-3F5B-4580-A94C-6DFDC8CFED4C@fuzziesquirrel.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Tue, 13 Feb 2018 09:58:39 -0800
-Message-ID: <CAPLgG=mgKwQuwGU2FdAnKENDGmuGHLnsDjyreJpEFSwZ0ZTHoA@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] aspeed: un-hardcode FIT
- configuration selection
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="f40304378f38a1055105651bbe6a"
 X-Mailman-Approved-At: Fri, 16 Feb 2018 12:14:16 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -66,77 +77,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Feb 2018 17:58:48 -0000
+X-List-Received-Date: Wed, 14 Feb 2018 18:54:25 -0000
 
---f40304378f38a1055105651bbe6a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-SGTM
-
-On Mon, Feb 12, 2018 at 8:03 PM, Brad Bishop <bradleyb@fuzziesquirrel.com>
-wrote:
-
->
-> > On Feb 12, 2018, at 10:58 PM, Joel Stanley <joel@jms.id.au> wrote:
-> >
-> > On Fri, Feb 2, 2018 at 1:37 PM, Brad Bishop <bradleyb@fuzziesquirrel.co=
-m>
-> wrote:
-> >> Rely on the FDT parser to select a FIT config when looking for a
-> >> ramdisk_conf.  This allows image builders to use arbitrary configurati=
-on
-> >> names like /configurations/conf@foo.
-> >
-> > Can you elaborate?
-> >
-> > Do we even need this script? IIRC it was in place to support pre-FIT
-> > configurations where the initrd and the kernel were stored in seperate
-> > locations in flash. Now that all systems use FIT, we can simply say
-> > "bootm 2008000".
-> >
-> > I suggest we don't need it, so we should change the environment to be
-> >
-> > #define CONFIG_BOOTCOMMAND "bootm 20080000=E2=80=9D
->
-> Sounds good to me.
-
---f40304378f38a1055105651bbe6a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">SGTM</div><div class=3D"gmail_extra"><br><div class=3D"gma=
-il_quote">On Mon, Feb 12, 2018 at 8:03 PM, Brad Bishop <span dir=3D"ltr">&l=
-t;<a href=3D"mailto:bradleyb@fuzziesquirrel.com" target=3D"_blank">bradleyb=
-@fuzziesquirrel.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
-><span class=3D""><br>
-&gt; On Feb 12, 2018, at 10:58 PM, Joel Stanley &lt;<a href=3D"mailto:joel@=
-jms.id.au">joel@jms.id.au</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Fri, Feb 2, 2018 at 1:37 PM, Brad Bishop &lt;<a href=3D"mailto:brad=
-leyb@fuzziesquirrel.com">bradleyb@fuzziesquirrel.com</a>&gt; wrote:<br>
-&gt;&gt; Rely on the FDT parser to select a FIT config when looking for a<b=
-r>
-&gt;&gt; ramdisk_conf.=C2=A0 This allows image builders to use arbitrary co=
-nfiguration<br>
-&gt;&gt; names like /configurations/conf@foo.<br>
-&gt;<br>
-&gt; Can you elaborate?<br>
-&gt;<br>
-&gt; Do we even need this script? IIRC it was in place to support pre-FIT<b=
-r>
-&gt; configurations where the initrd and the kernel were stored in seperate=
-<br>
-&gt; locations in flash. Now that all systems use FIT, we can simply say<br=
->
-&gt; &quot;bootm 2008000&quot;.<br>
-&gt;<br>
-&gt; I suggest we don&#39;t need it, so we should change the environment to=
- be<br>
-&gt;<br>
-</span>&gt; #define CONFIG_BOOTCOMMAND &quot;bootm 20080000=E2=80=9D<br>
-<br>
-Sounds good to me.</blockquote></div><br></div>
-
---f40304378f38a1055105651bbe6a--
+VGhhbmtzIGZvciB0aGUgaW5mb3JtYXRpb24uDQoNCg0KT24gMi8xNC8xOCwgMTA6MzYgQU0sICJQ
+YXRyaWNrIFZlbnR1cmUiIDx2ZW50dXJlQGdvb2dsZS5jb20+IHdyb3RlOg0KDQogICAgQWZ0ZXIg
+eW91IGFkZGVkIGNvbmZpZyBmaWxlcyBmb3IgdGhlIHRlbXBlcmF0dXJlIHNlbnNvcnMgd2l0aA0K
+ICAgIHBob3NwaG9yLWh3bW9uJS5iYmFwcGVuZA0KDQo=
