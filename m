@@ -1,58 +1,66 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::235; helo=mail-qt0-x235.google.com;
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="PSCjtCJh"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XdGo8Xm5"; 
  dkim-atps=neutral
-Received: from mail-qt0-x235.google.com (mail-qt0-x235.google.com
- [IPv6:2607:f8b0:400d:c0d::235])
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhdnH4p8bzF1Km
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 12:22:59 +1100 (AEDT)
-Received: by mail-qt0-x235.google.com with SMTP id k13so10116959qtg.5
- for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 17:22:58 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhgFl0F86zF1KL
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 13:29:14 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id u6so10241801qtg.13
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Feb 2018 18:29:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=4hArDZ/sx+B1yScbgiSUA9/f4bkVjPuVJkMbEBacaeE=;
- b=PSCjtCJhMeKflTuBp6swobTam3S7GKlpY0/0vREIvA/ibYGPW8O5/+CLQ9lpewyEva
- bhy6jmh5zBj/LynPwcf4lmyIyLywrcaAsMMIxr8zGNCZUNjTYuhTJDkjFLGMCqcPnyAz
- L3CE+8ydqkrfZ+i7jGe5C8Qw1iTmgwYwGXSlDsWZHuQDchJZDkSV0f0K8cOwF90QC0OB
- loTsm+sKd92GBASKNJuMXUWcNScbFxE9iURB0YVaRodtXpHBfIyMdv1c4zNi7Vl1fasl
- wVq9E9TUntD0MKh39lBKwSv/6SyKk1A3EVKFiKlCpH6pRks4FSM+3BL669ZpuXFg8b9U
- YGlQ==
+ bh=7z//wWfQFSXzTvUhuLCy0rA9Mfn27VDaymnrlgeqkmk=;
+ b=XdGo8Xm5VqAuBbQ3dBg2x7YzBzeJFHiJw/75BDwT4deEJj+PtWtIWY8f2yhVym/oAM
+ DL95MGqFnejOGWjhADhX12wGNTrNIjwHl963wm9FsA4vzPs9vWhtTXm4sqPiKHwxX245
+ 8VxcXox5zStyz42wRhWMjyeOI3Tohp+S3aPkIs/N8evF5w0BoEvfxDoC1HM4koKXhmPN
+ KDzF6e4ZJkRaVdTpfD+sHdaA3rYZE+854I4K+CeAYfpr2kwf5WfzJrJt8a55ZVcMR980
+ BR1BfRlKExwzhxm1oVyv9Qa/buvCEkYxrogKS+NT7Ge/FSRlZxYYF715q1Zhwfe5Wzgm
+ +8Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=4hArDZ/sx+B1yScbgiSUA9/f4bkVjPuVJkMbEBacaeE=;
- b=YErcbESqN8jLRB30kL/i7Q4RttOX/ZoQjnETF9z/DvmUF7GBmWrltyLmgJTJ0A3/cA
- uqtMYmdZ0ECMLd/AjO9VShT7SpOTl5SyPHoI6o4UasWxT20P/dra0U7Oezr+rHytCmaz
- sd5CDw1Jm+TfSEO7BHErapf9HABKf57ULAQU4CgzeAYDKwTwUExZWP0gYgz4hsJjnXtD
- ajxp1reVfz56QkMCvovl5yw0a16DFR4Lm+LQgeI1OZyTmr39iZ/AJh9LV+4iH+qskY+u
- 5G0cfgCXTNavTBQZXEZYeEXM7n2a+S0ZjPCRVSVB/6Z01hUv/l3gAooNfDSbbHHAEAfX
- YkGA==
-X-Gm-Message-State: APf1xPBDwkS6IFsmHCegMjhvA/I2j0vz36ctqlXRLEbGZzJXJA1XMxgi
- SyZgjUIdPVwBfO2hdp16loxCI4T+RUMp/+/CvL8=
-X-Google-Smtp-Source: AH8x225HXpFJYirPwQQRTWkQ9xElRV5Hriy9kaIfanJbmhIZuWt4uDG22fNnFYjL5Ux9//1i/Z4LxTH7MAgoShUEAaM=
-X-Received: by 10.200.36.199 with SMTP id t7mr1691037qtt.141.1518657776198;
- Wed, 14 Feb 2018 17:22:56 -0800 (PST)
+ bh=7z//wWfQFSXzTvUhuLCy0rA9Mfn27VDaymnrlgeqkmk=;
+ b=IRZCW92/3ecTvNVuMoE/LCPr4HJsmgbzymSY90ug52wIV9E+XmQ48+6ZDKxHLryX8m
+ WPc/+ZqrG1lEF7S80+E7afJlo2zYHrEYmFfBKBiCbKiL7ItdHzpMr9tHZQfcjDsgnhDR
+ t6R/x1Qy6UQ4slNDHHImNgZbZxLHXglgaR5XH/XIjB7D0dB+xw1HTsJsrxGqrblDtMlw
+ H6wN+Gl3tBZhlRz1IcK/2/U2oNg233eW+BIRpIjetrUzmooL4cdL74Wh/CF3EaSmAaP/
+ 4kLkdkZdhOcgww5956MVqLZtEC9+og+p514jlQNm6VodPkuFZ47I5vEsgumqd/9+iDQX
+ bo9Q==
+X-Gm-Message-State: APf1xPBKJ0qGDIIwGeqsmse+B2mq9PlJPm9CyIVKH9pWprm1E2U8O94W
+ gKUXBNipZORsFrMk+A8MUBEQO3e8aSGHFFYqemQ=
+X-Google-Smtp-Source: AH8x226Pb35zWZPjZBMXH8/n7hAsNpubKzLDLaMBhLDuhCECyNP1pCVROOl3XzE9znBAJGzFx4EaqXsAbu4TZZUsVOs=
+X-Received: by 10.200.12.68 with SMTP id l4mr1598623qti.121.1518661751969;
+ Wed, 14 Feb 2018 18:29:11 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Wed, 14 Feb 2018 17:22:35 -0800 (PST)
-In-Reply-To: <20180214171707.GF113334@mauery>
-References: <CAEOv9APgYZ=Yzs4tjYad+tg0CupqyTx5M1cpzN3LcnBPBwj_LA@mail.gmail.com>
- <20180214171707.GF113334@mauery>
+Received: by 10.200.50.69 with HTTP; Wed, 14 Feb 2018 18:28:51 -0800 (PST)
+In-Reply-To: <CACPK8XdXOaPZ5i=qKns3=V87nhfY62PNr4kwH9xwVYxY0djo0g@mail.gmail.com>
+References: <20180205235757.246758-1-brendanhiggins@google.com>
+ <20180205235757.246758-3-brendanhiggins@google.com>
+ <CACPK8XdXOaPZ5i=qKns3=V87nhfY62PNr4kwH9xwVYxY0djo0g@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 15 Feb 2018 11:52:35 +1030
-X-Google-Sender-Auth: zpYgkrL1cbkQ9mL6Iy0bHjYd5Es
-Message-ID: <CACPK8Xc1TeFAPSBuZqdy5ECdfGEpk6Yp59o06O+dt=Dzw2+X-w@mail.gmail.com>
-Subject: Re: sdbusplus port for host-ipmid
-To: Liz Kammer <eakammer@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, wak@google.com
+Date: Thu, 15 Feb 2018 12:58:51 +1030
+X-Google-Sender-Auth: UyzrrAqUK85-YDE5GHJHKbRT1W4
+Message-ID: <CACPK8XeOUrrGinU_fmnmn4atYm3Bs-xSoB2MqT0Yr-LytHt78Q@mail.gmail.com>
+Subject: Re: [PATCH v9 2/3] arm: dts: add Nuvoton NPCM750 device tree
+To: Brendan Higgins <brendanhiggins@google.com>, Arnd Bergmann <arnd@arndb.de>,
+ Olof Johansson <olof@lixom.net>
+Cc: Rob Herring <robh+dt@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Mark Rutland <mark.rutland@arm.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Avi Fishman <avifishman70@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>,
+ julien.thierry@arm.com, Philippe Ombredanne <pombredanne@nexb.com>,
+ devicetree <devicetree@vger.kernel.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -65,39 +73,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Feb 2018 01:23:00 -0000
+X-List-Received-Date: Thu, 15 Feb 2018 02:29:16 -0000
 
-Hi Liz,
-
-On Thu, Feb 15, 2018 at 3:47 AM, Vernon Mauery
-<vernon.mauery@linux.intel.com> wrote:
-> On 12-Feb-2018 11:01 PM, Liz Kammer wrote:
+On Tue, Feb 13, 2018 at 4:52 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hi Brendan,
+>
+> On Tue, Feb 6, 2018 at 10:27 AM, Brendan Higgins
+> <brendanhiggins@google.com> wrote:
+>> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
+>> specific device tree for the NPCM750 (Poleg) evaluation board.
 >>
->> Hi Everyone,
->>
->> Is anyone working on the sd_bus.h -> sdbusplus port for host-ipmid? I am
->> hoping to work on this issue
->> https://github.com/openbmc/phosphor-host-ipmid/issues/109, but I don't
->> want
->> to step on toes.
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+>> Reviewed-by: Joel Stanley <joel@jms.id.au>
+>> Reviewed-by: Rob Herring <robh@kernel.org>
+>> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Tested-by: Avi Fishman <avifishman70@gmail.com>
+>
+> This looks well acked, reviewed and tested. How do you plan to have
+> the ARM SoC maintainers merge your patches?
 
-I was searching through gerrit for something else and came across this
-patch from William:
+Following up on an IRC conversation with Brendan:
 
- https://gerrit.openbmc-project.xyz/#/c/8938/
+The process is normally to create a git branch based on on -rc1, apply
+your patches, and send them to the ARM maintainers. You then push a
+signed tag to a repository somewhere, send a pull request (a git
+request-pull email, not a Github PR) and Arnd, Olof or one of the
+other maintainers will pull your tree some time before the next merge
+window opens.
 
-I won't assume that because you have the same domain name in your
-email address that you're aware of each other's work. But perhaps you
-are! Either way perhaps you and William can let us know which parts
-you're working on and keep everyone on the list updated.
-
-> I am happy to hear you are working on this. I don't know if anyone else is
-> working on it or not, but I do know that host-ipmid is under very active
-> development. You will have fewer collisions with others if you make and push
-> incremental changes (like for one file at a time). If you push one big
-> patchset, it will likely conflict with every other commit in review.
-
-That's good advice.
+Arnd, do we have this documented somewhere for new maintainers to follow?
 
 Cheers,
 
