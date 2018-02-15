@@ -3,53 +3,54 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fewb+Pt9"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="IEWo5nf8"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="iflN7715"; dkim-atps=neutral
+ header.b="RKLb31cw"; dkim-atps=neutral
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhwlC6vnCzF124
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 23:37:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhwlG27Z1zF124
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 23:37:14 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D060020E1C;
- Thu, 15 Feb 2018 07:37:08 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id D484120DEB;
+ Thu, 15 Feb 2018 07:37:11 -0500 (EST)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 15 Feb 2018 07:37:08 -0500
+ by compute4.internal (MEProxy); Thu, 15 Feb 2018 07:37:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=UF/zwpWN4C4QbZR6e
- 56SyVIzWue/W5ZO0LGjp39+umo=; b=fewb+Pt9tqNX78+nRaABwBgPg3NKMurmD
- fT1zV1jda41/VWmglSJ45VJLK5fX1FbyHXA0R++J3lD+T6Q3T3WDJArdFTtgHUYF
- MNa4Edt3EE7E4I6ahnkcIkdOZYWa/4/kHfktYOUvedH9f5luyxnHObuzHkIH9Qyo
- aBz4nhQYT2g4SZ6lYx5ps/uOkOyV5kuMIyDPYIim3OHm4zoP9pWbdxmlpmDrhLcF
- IVPwZyRDlUrnamzE/WHzErNKlc1SdIjIawALivIRAQbGNKAlJ5OIamX/Xr/WxveW
- KkevB2ZRGu37rDNj/5T/aoydAmTdc+n4XLZRUgcNcT7JLIWMl0FfQ==
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=iiFnLb7vrX3JXIETd
+ 6DZzkORG+fs3eRgdOLmMKNWMxA=; b=IEWo5nf8NMPASFPZ//J12eRmkhCT6HTjX
+ KQ4lbAumr+7MtENVhBtnR7OIlCSpqysf23FujCpM6Bg89jj48kfgqIL9JkdmdDmO
+ 6HZHInM3z4nC7xw5061d/QFJ+YwfDvlIhVBGCvfoy4a/KbCQjLwcGLwl6MRwbeDP
+ cyJBdT3kpDcssxN8k9z7bU6lCuyosSZibl71ymLzJ34YEUfDeUta5DbgQava5FSn
+ GXkfJOiiJYwC5rfA/ulwwrPhMSXbr10v+4JnEAMmi/q0Q/gcvBIw7ODrh1yrZHyz
+ 629yzfUnVt1MKEjzvYIdBSvo7QfKI1yd69ueDOH80LZorjOu/SFHA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=UF/zwpWN4C4QbZR6e56SyVIzWue/W5ZO0LGjp39+umo=; b=iflN7715
- +510vHwyue0Qk7cAzFP9TtToemmY0AaeGw4eK1acFzxitExliVYQOh3ah1Hh95V+
- B/jX9ff1fmkl5pr+Y3AMTUEX/pcm5voQlTlChJYv63Ru0WbXU4AsMoF+eYV80fH8
- /EQmmOlXh0NM8b/oyKdZShvptBKWb+pwrtmZd4zZQNpv+1PoMqZdDqlgxcJiTAmP
- pl1l/+Ph1fmQ+70pHARZ/MQMEeHbEKwyiOT/XYwtTAqGK8Sxjgphbdhnrx98kaGK
- KhzYNmAA71qabtEQ6sEFSHUaM+BPooDgNe/CNa6yB+ePs/wYm9RYb3eKHI17BXBI
- IBD/idGblhbbgg==
-X-ME-Sender: <xms:9H6FWu8rtUc23B_0NmmmlB8PbXpM1MCVqyPDbvdDXhhS9gepotYOnQ>
+ fm2; bh=iiFnLb7vrX3JXIETd6DZzkORG+fs3eRgdOLmMKNWMxA=; b=RKLb31cw
+ gyh6+9beJzE0weYyl2DEBYjRFcoVVRGKh8uR2VWnlnbt6NwGGv+ZmjY9fS2WkYG/
+ oU0ioF20qiRsAti7mtDZqCJh8DMUid2CVV0NWl6fEuULn5Zn9ZvsLoGB+J9tMP+7
+ 6dnuQBcoF2kPMDG75dlxxSlLT/toMXEAPhrOwZLR8b9U5riQhjE/YkqMz7Nk8jGt
+ xAtyYAAEs0K3DwMmrWrNXCiT9d1YLTBqf/a/kwJy8nauYlNKbH0CXDsPjzPCkd6e
+ /bhyF9CZ5qJMuWPZCH35Poz6uAuaLPqlGepaf5JWaKdM6O0ZepF7H+PQO+HvWGiK
+ 0VbCS6i+ffdaZQ==
+X-ME-Sender: <xms:936FWg2472kii8awaRL8DtCQLjHjTQsDOw1oKgIav2JaoVvSbKiYbw>
 Received: from dave.aj.id.au (ppp118-210-154-2.bras1.adl6.internode.on.net
  [118.210.154.2])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6666A7E1DE;
- Thu, 15 Feb 2018 07:37:06 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2C77B7E1DE;
+ Thu, 15 Feb 2018 07:37:08 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au, jk@ozlabs.org, eajames@linux.vnet.ibm.com,
  bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com
-Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 12/16] drivers: fsi: occ: switch to irqsave and
- irqrestore
-Date: Thu, 15 Feb 2018 23:06:02 +1030
-Message-Id: <20180215123606.25777-13-andrew@aj.id.au>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 13/16] Revert "drivers/fsi: GPIO stability
+ changes for Cronus/Hostboot"
+Date: Thu, 15 Feb 2018 23:06:03 +1030
+Message-Id: <20180215123606.25777-14-andrew@aj.id.au>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20180215123606.25777-1-andrew@aj.id.au>
 References: <20180215123606.25777-1-andrew@aj.id.au>
@@ -64,215 +65,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Feb 2018 12:37:12 -0000
+X-List-Received-Date: Thu, 15 Feb 2018 12:37:15 -0000
 
-From: Eddie James <eajames@linux.vnet.ibm.com>
+This reverts commit cecf390c294cd6cf1080ed45cf0966691879750d.
 
-Fix spinlocking by storing the interrupt state and restoring that state
-when unlocking, instead of blindly disabling and re-enabling all irqs.
+The cost of reading OCC hwmon attributes is reduced by roughly 50%[0] when we
+do not incur large delays between cycles in the FSI GPIO master. No impact was
+observed on the stability of Hostboot by reverting the delays, though
+admittedly it was not tested with Cronus.
 
-Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+[0] Down from ~0.5 to ~0.25 seconds
+
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/fsi/occ.c | 44 +++++++++++++++++++++++++-------------------
- 1 file changed, 25 insertions(+), 19 deletions(-)
+ drivers/fsi/fsi-master-gpio.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-index 2313b6235ba3..3dacc1277680 100644
---- a/drivers/fsi/occ.c
-+++ b/drivers/fsi/occ.c
-@@ -121,18 +121,19 @@ static DEFINE_IDA(occ_ida);
- static int occ_enqueue_xfr(struct occ_xfr *xfr)
- {
- 	int empty;
-+	unsigned long flags;
- 	struct occ_client *client = to_client(xfr);
- 	struct occ *occ = client->occ;
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index 3d31e50269fe..485ecb88b115 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -15,7 +15,7 @@
  
- 	if (occ->cancel)
- 		return -ENODEV;
+ #include "fsi-master.h"
  
--	spin_lock_irq(&occ->list_lock);
-+	spin_lock_irqsave(&occ->list_lock, flags);
+-#define	FSI_GPIO_STD_DLY	3	/* Standard pin delay in uS */
++#define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in nS */
+ #define	FSI_ECHO_DELAY_CLOCKS	16	/* Number clocks for echo delay */
+ #define	FSI_PRE_BREAK_CLOCKS	50	/* Number clocks to prep for break */
+ #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
+@@ -78,10 +78,10 @@ static void clock_toggle(struct fsi_master_gpio *master, int count)
+ 	int i;
  
- 	empty = list_empty(&occ->xfrs);
- 	list_add_tail(&xfr->link, &occ->xfrs);
- 
--	spin_unlock_irq(&occ->list_lock);
-+	spin_unlock_irqrestore(&occ->list_lock, flags);
- 
- 	trace_occ_enq_xfer(client, xfr);
- 
-@@ -206,6 +207,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 	size_t bytes;
- 	struct occ_xfr *xfr;
- 	struct occ *occ;
-+	unsigned long flags;
- 
- 	if (!client)
- 		return -ENODEV;
-@@ -217,7 +219,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 	xfr = &client->xfr;
- 	occ = client->occ;
- 
--	spin_lock_irq(&client->lock);
-+	spin_lock_irqsave(&client->lock, flags);
- 
- 	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
- 		/* we just finished reading all data, return 0 */
-@@ -237,12 +239,12 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 			goto done;
- 		}
- 
--		spin_unlock_irq(&client->lock);
-+		spin_unlock_irqrestore(&client->lock, flags);
- 
- 		rc = wait_event_interruptible(client->wait,
- 					      occ_read_ready(xfr, occ));
- 
--		spin_lock_irq(&client->lock);
-+		spin_lock_irqsave(&client->lock, flags);
- 
- 		if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
- 			if (occ->cancel || test_bit(XFR_CANCELED, &xfr->flags))
-@@ -279,7 +281,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 	rc = bytes;
- 
- done:
--	spin_unlock_irq(&client->lock);
-+	spin_unlock_irqrestore(&client->lock, flags);
- 	trace_occ_read_complete(client, xfr);
- 	occ_put_client(client);
- 	return rc;
-@@ -299,6 +301,7 @@ static ssize_t occ_write_common(struct occ_client *client,
- {
- 	int rc;
- 	unsigned int i;
-+	unsigned long flags;
- 	u16 data_length, checksum = 0;
- 	struct occ_xfr *xfr;
- 
-@@ -312,7 +315,7 @@ static ssize_t occ_write_common(struct occ_client *client,
- 	xfr = &client->xfr;
- 
- 	trace_occ_write_begin(client, xfr);
--	spin_lock_irq(&client->lock);
-+	spin_lock_irqsave(&client->lock, flags);
- 
- 	if (test_bit(CLIENT_XFR_PENDING, &client->flags)) {
- 		rc = -EBUSY;
-@@ -360,7 +363,7 @@ static ssize_t occ_write_common(struct occ_client *client,
- 	rc = len;
- 
- done:
--	spin_unlock_irq(&client->lock);
-+	spin_unlock_irqrestore(&client->lock, flags);
- 	occ_put_client(client);
- 	return rc;
+ 	for (i = 0; i < count; i++) {
++		ndelay(FSI_GPIO_STD_DLY);
+ 		gpiod_set_value(master->gpio_clk, 0);
+-		udelay(FSI_GPIO_STD_DLY);
++		ndelay(FSI_GPIO_STD_DLY);
+ 		gpiod_set_value(master->gpio_clk, 1);
+-		udelay(FSI_GPIO_STD_DLY);
+ 	}
  }
-@@ -377,6 +380,7 @@ static int occ_release_common(struct occ_client *client)
+ 
+@@ -89,6 +89,7 @@ static int sda_in(struct fsi_master_gpio *master)
  {
- 	struct occ *occ;
- 	struct occ_xfr *xfr;
-+	unsigned long flags;
+ 	int in;
  
- 	if (!client)
- 		return -ENODEV;
-@@ -384,13 +388,13 @@ static int occ_release_common(struct occ_client *client)
- 	xfr = &client->xfr;
- 	occ = client->occ;
- 
--	spin_lock_irq(&client->lock);
-+	spin_lock_irqsave(&client->lock, flags);
- 
- 	set_bit(XFR_CANCELED, &xfr->flags);
- 	if (!test_bit(CLIENT_XFR_PENDING, &client->flags))
- 		goto done;
- 
--	spin_lock_irq(&occ->list_lock);
-+	spin_lock(&occ->list_lock);
- 
- 	if (!test_bit(XFR_IN_PROGRESS, &xfr->flags)) {
- 		/* already deleted from list if complete */
-@@ -398,12 +402,12 @@ static int occ_release_common(struct occ_client *client)
- 			list_del(&xfr->link);
- 	}
- 
--	spin_unlock_irq(&occ->list_lock);
-+	spin_unlock(&occ->list_lock);
- 
- 	wake_up_all(&client->wait);
- 
- done:
--	spin_unlock_irq(&client->lock);
-+	spin_unlock_irqrestore(&client->lock, flags);
- 
- 	occ_put_client(client);
- 	return 0;
-@@ -613,6 +617,7 @@ static void occ_worker(struct work_struct *work)
- {
- 	int rc = 0, empty;
- 	u16 resp_data_length;
-+	unsigned long flags;
- 	unsigned long start;
- 	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
- 	const long int wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
-@@ -626,11 +631,11 @@ static void occ_worker(struct work_struct *work)
- 	if (occ->cancel)
- 		return;
- 
--	spin_lock_irq(&occ->list_lock);
-+	spin_lock_irqsave(&occ->list_lock, flags);
- 
- 	xfr = list_first_entry_or_null(&occ->xfrs, struct occ_xfr, link);
- 	if (!xfr) {
--		spin_unlock_irq(&occ->list_lock);
-+		spin_unlock_irqrestore(&occ->list_lock, flags);
- 		return;
- 	}
- 
-@@ -639,7 +644,7 @@ static void occ_worker(struct work_struct *work)
- 	resp = (struct occ_response *)xfr->buf;
- 	set_bit(XFR_IN_PROGRESS, &xfr->flags);
- 
--	spin_unlock_irq(&occ->list_lock);
-+	spin_unlock_irqrestore(&occ->list_lock, flags);
- 	trace_occ_worker_xfer_begin(client, xfr);
- 	mutex_lock(&occ->occ_lock);
- 
-@@ -694,13 +699,13 @@ static void occ_worker(struct work_struct *work)
- 	xfr->rc = rc;
- 	set_bit(XFR_COMPLETE, &xfr->flags);
- 
--	spin_lock_irq(&occ->list_lock);
-+	spin_lock_irqsave(&occ->list_lock, flags);
- 
- 	clear_bit(XFR_IN_PROGRESS, &xfr->flags);
- 	list_del(&xfr->link);
- 	empty = list_empty(&occ->xfrs);
- 
--	spin_unlock_irq(&occ->list_lock);
-+	spin_unlock_irqrestore(&occ->list_lock, flags);
- 
- 	wake_up_interruptible(&client->wait);
- 	trace_occ_worker_xfer_complete(client, xfr);
-@@ -819,15 +824,16 @@ static int occ_remove(struct platform_device *pdev)
- 	struct occ *occ = platform_get_drvdata(pdev);
- 	struct occ_xfr *xfr;
- 	struct occ_client *client;
-+	unsigned long flags;
- 
- 	occ->cancel = true;
- 
--	spin_lock_irq(&occ->list_lock);
-+	spin_lock_irqsave(&occ->list_lock, flags);
- 	list_for_each_entry(xfr, &occ->xfrs, link) {
- 		client = to_client(xfr);
- 		wake_up_all(&client->wait);
- 	}
--	spin_unlock_irq(&occ->list_lock);
-+	spin_unlock_irqrestore(&occ->list_lock, flags);
- 
- 	misc_deregister(&occ->mdev);
- 	device_for_each_child(&pdev->dev, NULL, occ_unregister_child);
++	ndelay(FSI_GPIO_STD_DLY);
+ 	in = gpiod_get_value(master->gpio_data);
+ 	return in ? 1 : 0;
+ }
 -- 
 2.14.1
