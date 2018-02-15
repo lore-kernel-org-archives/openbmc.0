@@ -3,54 +3,54 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ENQUrjf7"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Yn/J+cWb"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="MFAP5uFR"; dkim-atps=neutral
+ header.b="PSKuJOxG"; dkim-atps=neutral
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhwkv3nJpzF1GC
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 23:36:55 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhwky0JvNzF1Fl
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 23:36:57 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id ED33D20E0E;
- Thu, 15 Feb 2018 07:36:52 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 071F020DE0;
+ Thu, 15 Feb 2018 07:36:56 -0500 (EST)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 15 Feb 2018 07:36:52 -0500
+ by compute4.internal (MEProxy); Thu, 15 Feb 2018 07:36:56 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=+1ayakOhNfFnKomEg
- JgmyyOxI+k6ijWd2w2U1baKQ8c=; b=ENQUrjf7yvMqNiycCvHSox9mTtJhLa5BN
- gqWFf9x5D+h07JDTAAhg5OL2pnclzDeqmolMkZp0Gw7ykSj+ZUz5NS8dnoWMnpty
- uhAMRuNaRIRkEPz8rfXCQUfUtFpm+v8ZPzrV3djoiLHUPj5ywUnALWFPXmcmEB84
- hsELi+TkB/UhhIUJFzuAht0ecbKi3uDa+Ej5R8VKDbtVVR4fWTHFgIwsJqfm8SEW
- mFbPxdEt9H6AFMwvl8Tl5fCimsCzVgewvB47gYLL83f1q92X8hX3Rc3+wyBKKihb
- 1TVs7+pdMdTn8UNJ0KmzoMPNrJUM1MOEfLBfsW6yKaBS6RHWvkyfA==
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=HMlShLHXSDUmvi6t6
+ TVKkKIGm+n2pzF/SMk8uQejwpQ=; b=Yn/J+cWbsRq7YNDJAD9RA7Jup9CCH2VWH
+ E0KXmzdAsDWYYEVpgphhCFXY0hTgkco2iq8XVvkW4pKb+V+XPbCEJUIi+DqiuWx+
+ JHgNZd2YMXxGSFL/I7yBmDnP4aYElElmyv/FOjJRMDojddbxEtkwVtfIuPTQaSNo
+ 3g9PPgBNxl5oauf8IcNTxkmSMyDXxo2IFUHhzbBL/YdxwSAKM7NOJBk6qmzpvfSe
+ TdmfIWG24Ds9j4GONy4+ur1E2vchAHfuWLqO2wdCOXI0CSk6E7yjXUzLz9Mlr2Tz
+ 10Zq3Afss9benPx5kDSd49g/p4U0XkzQgt+0War7LVJCcFVbehhXA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=+1ayakOhNfFnKomEgJgmyyOxI+k6ijWd2w2U1baKQ8c=; b=MFAP5uFR
- v325iFBhDd9XZ9zOEmVWbbXYRB65jLStKO4xuLTFZqaAtSOIInA4mJ0bAJ04cKOJ
- GFpBO/89tzEXFdeGN4WWXdwdrz5V3r7aEMIHuGwOWkRf04tchPdB6kyn/tVTjXzP
- gplQZ1aWiwLfQFtH6DV1qIIznU0jonoIA7KH+iNm+NS1h6Jr7DU27wQ03Qp187KA
- YYDEQHkB7jDN2J6heapdB2wLUCNQnLtrRpjnu2aym94M4aIrCxLyGlHWu8EM+0fW
- gT50jTLireiD8Xp63UNG1HQw2VPhOPqeGflM9r7TKuNFt4ciOwaD7l3nF8eqI4Gz
- htyPtDM0aUN71w==
-X-ME-Sender: <xms:5H6FWl5O0jXsAnI_q0b3vHmEPC8Gg9KIoght_qsudhJ-TK61n4IfPg>
+ fm2; bh=HMlShLHXSDUmvi6t6TVKkKIGm+n2pzF/SMk8uQejwpQ=; b=PSKuJOxG
+ oIszNtbakFy3Wcz1PhaZ8ECSI7FGwYeyuFdE9s0D/pt+rLVgW2HDvB3++3uE1Re9
+ giMbMP2t4qHi4UWKOy3yxY/0ZhGBh4kvfnfBL5/m+CWpXwDWEUxrIzrmpFPL7yNw
+ 6gARxjF8a5n78iiS9ggdC55Dv6u5TJ3688Lu4ACSkATt6r/ygt2VK8/fqrP0ePH9
+ UsHQ+q78Gu1Zi3Ntjzh8XuRjo7v6E/5XR3R5qX/Hkh7Qcr4AVwqmv1jo3qn3t9uO
+ QQIIvQLSBJqqwvmCOEG1zYrAmv1VsECBOdz/XKtyfk6MoaFxZ0Cqio9nlLjU0r7M
+ AWPyZkseRMPGpQ==
+X-ME-Sender: <xms:536FWkMFXBuBGKUo9zlDGpAMF-0Qn5EsJHIsoSLPXqSwBoiYKLvGYw>
 Received: from dave.aj.id.au (ppp118-210-154-2.bras1.adl6.internode.on.net
  [118.210.154.2])
- by mail.messagingengine.com (Postfix) with ESMTPA id E36967E542;
- Thu, 15 Feb 2018 07:36:49 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 334677E659;
+ Thu, 15 Feb 2018 07:36:52 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au, jk@ozlabs.org, eajames@linux.vnet.ibm.com,
  bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com
 Cc: Andrew Jeffery <andrew@aj.id.au>,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 07/16] hwmon (p9_sbe): Rename lock member of
- struct p9_sbe_occ
-Date: Thu, 15 Feb 2018 23:05:57 +1030
-Message-Id: <20180215123606.25777-8-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 08/16] hwmon (p9_sbe): Convert client_lock from
+ a spinlock to a mutex
+Date: Thu, 15 Feb 2018 23:05:58 +1030
+Message-Id: <20180215123606.25777-9-andrew@aj.id.au>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20180215123606.25777-1-andrew@aj.id.au>
 References: <20180215123606.25777-1-andrew@aj.id.au>
@@ -65,10 +65,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Feb 2018 12:36:56 -0000
+X-List-Received-Date: Thu, 15 Feb 2018 12:36:58 -0000
 
-Improve code clarity (and searchability) by renaming the lock to client_lock.
-The end result is it is easier to search for uses in the source file.
+The hwmon occ implementation allocates GFP_KERNEL memory in occ_open_common(),
+therefore we cannot call it under a spinlock as it may sleep. Compiling with
+lock debugging enabled gives us the following warning:
+
+[    4.420000] WARNING: CPU: 0 PID: 1 at kernel/locking/lockdep.c:2879 lockdep_trace_alloc+0xf0/0x124
+[    4.420000] DEBUG_LOCKS_WARN_ON(irqs_disabled_flags(flags))
+[    4.420000] CPU: 0 PID: 1 Comm: swapper Not tainted 4.10.17-00526-g1cbacc6bd3a1 #2334
+[    4.420000] Hardware name: ASpeed SoC
+[    4.420000] [<80010eec>] (unwind_backtrace) from [<8000e664>] (show_stack+0x20/0x24)
+[    4.420000] [<8000e664>] (show_stack) from [<80249160>] (dump_stack+0x20/0x28)
+[    4.420000] [<80249160>] (dump_stack) from [<8001d3a0>] (__warn+0xe0/0x108)
+[    4.420000] [<8001d3a0>] (__warn) from [<8001d40c>] (warn_slowpath_fmt+0x44/0x4c)
+[    4.420000] [<8001d40c>] (warn_slowpath_fmt) from [<8005d2cc>] (lockdep_trace_alloc+0xf0/0x124)
+[    4.420000] [<8005d2cc>] (lockdep_trace_alloc) from [<8012bb1c>] (kmem_cache_alloc_trace+0x3c/0x284)
+[    4.420000] [<8012bb1c>] (kmem_cache_alloc_trace) from [<8034fa2c>] (occ_open_common+0x30/0xac)
+[    4.420000] [<8034fa2c>] (occ_open_common) from [<80350bac>] (occ_drv_open+0x24/0x28)
+[    4.420000] [<80350bac>] (occ_drv_open) from [<803638fc>] (p9_sbe_occ_send_cmd+0x44/0x13c)
+[    4.420000] [<803638fc>] (p9_sbe_occ_send_cmd) from [<803615b8>] (occ_poll+0x6c/0x1c0)
+[    4.420000] [<803615b8>] (occ_poll) from [<80363a84>] (p9_sbe_occ_probe+0x90/0x178)
+[    4.420000] [<80363a84>] (p9_sbe_occ_probe) from [<802b9850>] (platform_drv_probe+0x60/0xbc)
+[    4.420000] [<802b9850>] (platform_drv_probe) from [<802b76b0>] (driver_probe_device+0x114/0x430)
+[    4.420000] [<802b76b0>] (driver_probe_device) from [<802b7a98>] (__driver_attach+0xcc/0x10c)
+[    4.420000] [<802b7a98>] (__driver_attach) from [<802b5770>] (bus_for_each_dev+0x5c/0xac)
+[    4.420000] [<802b5770>] (bus_for_each_dev) from [<802b7c74>] (driver_attach+0x28/0x30)
+[    4.420000] [<802b7c74>] (driver_attach) from [<802b6268>] (bus_add_driver+0x19c/0x25c)
+[    4.420000] [<802b6268>] (bus_add_driver) from [<802b8abc>] (driver_register+0x88/0x104)
+[    4.420000] [<802b8abc>] (driver_register) from [<802ba468>] (__platform_driver_register+0x3c/0x50)
+[    4.420000] [<802ba468>] (__platform_driver_register) from [<8066d804>] (p9_sbe_occ_driver_init+0x18/0x20)
+[    4.420000] [<8066d804>] (p9_sbe_occ_driver_init) from [<8064ae7c>] (do_one_initcall+0xa8/0x168)
+[    4.420000] [<8064ae7c>] (do_one_initcall) from [<8064b04c>] (kernel_init_freeable+0x110/0x1c8)
+[    4.420000] [<8064b04c>] (kernel_init_freeable) from [<804a9034>] (kernel_init+0x18/0x104)
+[    4.420000] [<804a9034>] (kernel_init) from [<8000a888>] (ret_from_fork+0x14/0x2c)
+
+Avoid the warning (or the need for GFP_ATOMIC) and allow for reduced system
+latency by using a mutex instead. Mutual exclusion is the only requirement, we
+do not need to block pre-emption.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
@@ -76,15 +110,15 @@ Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index 52473d020b24..7b1da81515e2 100644
+index 7b1da81515e2..bcd156e9b186 100644
 --- a/drivers/hwmon/occ/p9_sbe.c
 +++ b/drivers/hwmon/occ/p9_sbe.c
 @@ -35,7 +35,7 @@ struct p9_sbe_occ {
  	 * open, close and NULL assignment. This prevents simultaneous opening
  	 * and closing of the client, or closing multiple times.
  	 */
--	spinlock_t lock;
-+	spinlock_t client_lock;
+-	spinlock_t client_lock;
++	struct mutex client_lock;
  };
  
  #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
@@ -92,13 +126,13 @@ index 52473d020b24..7b1da81515e2 100644
  {
  	struct occ_client *tmp_client;
  
--	spin_lock_irq(&ctx->lock);
-+	spin_lock_irq(&ctx->client_lock);
+-	spin_lock_irq(&ctx->client_lock);
++	mutex_lock(&ctx->client_lock);
  	tmp_client = ctx->client;
  	ctx->client = NULL;
  	occ_drv_release(tmp_client);
--	spin_unlock_irq(&ctx->lock);
-+	spin_unlock_irq(&ctx->client_lock);
+-	spin_unlock_irq(&ctx->client_lock);
++	mutex_unlock(&ctx->client_lock);
  }
  
  static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
@@ -106,12 +140,12 @@ index 52473d020b24..7b1da81515e2 100644
  	struct occ_response *resp = &occ->resp;
  	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
  
--	spin_lock_irq(&ctx->lock);
-+	spin_lock_irq(&ctx->client_lock);
+-	spin_lock_irq(&ctx->client_lock);
++	mutex_lock(&ctx->client_lock);
  	if (ctx->sbe)
  		ctx->client = occ_drv_open(ctx->sbe, 0);
--	spin_unlock_irq(&ctx->lock);
-+	spin_unlock_irq(&ctx->client_lock);
+-	spin_unlock_irq(&ctx->client_lock);
++	mutex_unlock(&ctx->client_lock);
  
  	if (!ctx->client) {
  		rc = -ENODEV;
@@ -119,8 +153,8 @@ index 52473d020b24..7b1da81515e2 100644
  	ctx->sbe = pdev->dev.parent;
  
  	occ = &ctx->occ;
--	spin_lock_init(&ctx->lock);
-+	spin_lock_init(&ctx->client_lock);
+-	spin_lock_init(&ctx->client_lock);
++	mutex_init(&ctx->client_lock);
  	occ->bus_dev = &pdev->dev;
  	occ->groups[0] = &occ->group;
  	occ->poll_cmd_data = 0x20;
