@@ -3,54 +3,54 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Yn/J+cWb"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="q8Blzxs0"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="PSKuJOxG"; dkim-atps=neutral
+ header.b="ZmbaeIRK"; dkim-atps=neutral
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zhwky0JvNzF1Fl
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 23:36:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zhwl33fHWzF1GC
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 23:37:03 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 071F020DE0;
- Thu, 15 Feb 2018 07:36:56 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id A6AB020E15;
+ Thu, 15 Feb 2018 07:36:59 -0500 (EST)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 15 Feb 2018 07:36:56 -0500
+ by compute4.internal (MEProxy); Thu, 15 Feb 2018 07:36:59 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=HMlShLHXSDUmvi6t6
- TVKkKIGm+n2pzF/SMk8uQejwpQ=; b=Yn/J+cWbsRq7YNDJAD9RA7Jup9CCH2VWH
- E0KXmzdAsDWYYEVpgphhCFXY0hTgkco2iq8XVvkW4pKb+V+XPbCEJUIi+DqiuWx+
- JHgNZd2YMXxGSFL/I7yBmDnP4aYElElmyv/FOjJRMDojddbxEtkwVtfIuPTQaSNo
- 3g9PPgBNxl5oauf8IcNTxkmSMyDXxo2IFUHhzbBL/YdxwSAKM7NOJBk6qmzpvfSe
- TdmfIWG24Ds9j4GONy4+ur1E2vchAHfuWLqO2wdCOXI0CSk6E7yjXUzLz9Mlr2Tz
- 10Zq3Afss9benPx5kDSd49g/p4U0XkzQgt+0War7LVJCcFVbehhXA==
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=3rtqLX9JzbVvBRLGd
+ tg38NduOW33FvtGSWxMfbytcS4=; b=q8Blzxs0+Wl7yedmM4l64LxwouIYGCCg8
+ 7RBz1kQdAGAx2WgLfyn2fEOf0hs/Np7kxX/KT/OGUf8lot3u+esH3t8ntQufW9MN
+ YAmTPrLayFsgnUDTZNePRIlVVJio5PI+QuEPpEvVBROD658g5Okr3Zebsw1dzGWH
+ Gz4e9AM24La0f56rRxIyJuYknvATZ3JDXLhHWEkFcNsAIbJvs+DK1ArDQYW1R6ak
+ A7o0XIAPPbtBqHIwpVmH0ihRPNphntRaaJP8Gz14M+GpBn/gjXD7regEpqnp2iMd
+ j7KyVyXpHH3R0jxmKeVVK8BuKMNdpLs3ut5X20o8DbXrp6zHWWXMw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=HMlShLHXSDUmvi6t6TVKkKIGm+n2pzF/SMk8uQejwpQ=; b=PSKuJOxG
- oIszNtbakFy3Wcz1PhaZ8ECSI7FGwYeyuFdE9s0D/pt+rLVgW2HDvB3++3uE1Re9
- giMbMP2t4qHi4UWKOy3yxY/0ZhGBh4kvfnfBL5/m+CWpXwDWEUxrIzrmpFPL7yNw
- 6gARxjF8a5n78iiS9ggdC55Dv6u5TJ3688Lu4ACSkATt6r/ygt2VK8/fqrP0ePH9
- UsHQ+q78Gu1Zi3Ntjzh8XuRjo7v6E/5XR3R5qX/Hkh7Qcr4AVwqmv1jo3qn3t9uO
- QQIIvQLSBJqqwvmCOEG1zYrAmv1VsECBOdz/XKtyfk6MoaFxZ0Cqio9nlLjU0r7M
- AWPyZkseRMPGpQ==
-X-ME-Sender: <xms:536FWkMFXBuBGKUo9zlDGpAMF-0Qn5EsJHIsoSLPXqSwBoiYKLvGYw>
+ fm2; bh=3rtqLX9JzbVvBRLGdtg38NduOW33FvtGSWxMfbytcS4=; b=ZmbaeIRK
+ 2rM8PsoXiUnEMoW3gIHEk4b6QV4ZY/miKkoGGi3ObI0J2Deklu/JAV59fGpgZd62
+ n97GBMyICIVM1n3KmHE2eYIaFaj44XQbGA0loUxP9sNgysS/ybiblJLncSAYyctA
+ 3e3xxSgi+ndQlKckYf5BFalfXB6GiP7guJMTSX0kLSlbc8ApIEBVfDxK73KnKUCu
+ TwB6fCchiiogyL7lC84wNQehiCGM2TbFhIAlHVAD7Bn2HeZi3tW4K0mLg9O7ZYkQ
+ dqaTiUlqq8g3Fu9urAV/XCNvwjFOK8ePxVSDLCXu004Hlcv7MpCy2mixbYYG88l4
+ 76fRBewQoh78SA==
+X-ME-Sender: <xms:636FWuiCHfjhVcQ6BlLJPTZXqWYRPSbfwClJ0ktEHz0Yk-JDubUA1w>
 Received: from dave.aj.id.au (ppp118-210-154-2.bras1.adl6.internode.on.net
  [118.210.154.2])
- by mail.messagingengine.com (Postfix) with ESMTPA id 334677E659;
- Thu, 15 Feb 2018 07:36:52 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 553327E1DE;
+ Thu, 15 Feb 2018 07:36:56 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au, jk@ozlabs.org, eajames@linux.vnet.ibm.com,
  bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com
-Cc: Andrew Jeffery <andrew@aj.id.au>,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 08/16] hwmon (p9_sbe): Convert client_lock from
- a spinlock to a mutex
-Date: Thu, 15 Feb 2018 23:05:58 +1030
-Message-Id: <20180215123606.25777-9-andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org, "Edward A . James" <eajames@us.ibm.com>,
+ Andrew Jeffery <andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 09/16] fsi: sbefifo: Avoid using a timer to
+ drive FIFO transfers
+Date: Thu, 15 Feb 2018 23:05:59 +1030
+Message-Id: <20180215123606.25777-10-andrew@aj.id.au>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20180215123606.25777-1-andrew@aj.id.au>
 References: <20180215123606.25777-1-andrew@aj.id.au>
@@ -65,98 +65,234 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Feb 2018 12:36:58 -0000
+X-List-Received-Date: Thu, 15 Feb 2018 12:37:04 -0000
 
-The hwmon occ implementation allocates GFP_KERNEL memory in occ_open_common(),
-therefore we cannot call it under a spinlock as it may sleep. Compiling with
-lock debugging enabled gives us the following warning:
+From: Eddie James <eajames@linux.vnet.ibm.com>
 
-[    4.420000] WARNING: CPU: 0 PID: 1 at kernel/locking/lockdep.c:2879 lockdep_trace_alloc+0xf0/0x124
-[    4.420000] DEBUG_LOCKS_WARN_ON(irqs_disabled_flags(flags))
-[    4.420000] CPU: 0 PID: 1 Comm: swapper Not tainted 4.10.17-00526-g1cbacc6bd3a1 #2334
-[    4.420000] Hardware name: ASpeed SoC
-[    4.420000] [<80010eec>] (unwind_backtrace) from [<8000e664>] (show_stack+0x20/0x24)
-[    4.420000] [<8000e664>] (show_stack) from [<80249160>] (dump_stack+0x20/0x28)
-[    4.420000] [<80249160>] (dump_stack) from [<8001d3a0>] (__warn+0xe0/0x108)
-[    4.420000] [<8001d3a0>] (__warn) from [<8001d40c>] (warn_slowpath_fmt+0x44/0x4c)
-[    4.420000] [<8001d40c>] (warn_slowpath_fmt) from [<8005d2cc>] (lockdep_trace_alloc+0xf0/0x124)
-[    4.420000] [<8005d2cc>] (lockdep_trace_alloc) from [<8012bb1c>] (kmem_cache_alloc_trace+0x3c/0x284)
-[    4.420000] [<8012bb1c>] (kmem_cache_alloc_trace) from [<8034fa2c>] (occ_open_common+0x30/0xac)
-[    4.420000] [<8034fa2c>] (occ_open_common) from [<80350bac>] (occ_drv_open+0x24/0x28)
-[    4.420000] [<80350bac>] (occ_drv_open) from [<803638fc>] (p9_sbe_occ_send_cmd+0x44/0x13c)
-[    4.420000] [<803638fc>] (p9_sbe_occ_send_cmd) from [<803615b8>] (occ_poll+0x6c/0x1c0)
-[    4.420000] [<803615b8>] (occ_poll) from [<80363a84>] (p9_sbe_occ_probe+0x90/0x178)
-[    4.420000] [<80363a84>] (p9_sbe_occ_probe) from [<802b9850>] (platform_drv_probe+0x60/0xbc)
-[    4.420000] [<802b9850>] (platform_drv_probe) from [<802b76b0>] (driver_probe_device+0x114/0x430)
-[    4.420000] [<802b76b0>] (driver_probe_device) from [<802b7a98>] (__driver_attach+0xcc/0x10c)
-[    4.420000] [<802b7a98>] (__driver_attach) from [<802b5770>] (bus_for_each_dev+0x5c/0xac)
-[    4.420000] [<802b5770>] (bus_for_each_dev) from [<802b7c74>] (driver_attach+0x28/0x30)
-[    4.420000] [<802b7c74>] (driver_attach) from [<802b6268>] (bus_add_driver+0x19c/0x25c)
-[    4.420000] [<802b6268>] (bus_add_driver) from [<802b8abc>] (driver_register+0x88/0x104)
-[    4.420000] [<802b8abc>] (driver_register) from [<802ba468>] (__platform_driver_register+0x3c/0x50)
-[    4.420000] [<802ba468>] (__platform_driver_register) from [<8066d804>] (p9_sbe_occ_driver_init+0x18/0x20)
-[    4.420000] [<8066d804>] (p9_sbe_occ_driver_init) from [<8064ae7c>] (do_one_initcall+0xa8/0x168)
-[    4.420000] [<8064ae7c>] (do_one_initcall) from [<8064b04c>] (kernel_init_freeable+0x110/0x1c8)
-[    4.420000] [<8064b04c>] (kernel_init_freeable) from [<804a9034>] (kernel_init+0x18/0x104)
-[    4.420000] [<804a9034>] (kernel_init) from [<8000a888>] (ret_from_fork+0x14/0x2c)
+The timer subsystem appears to misbehave when requesting an immediate expiry
+via `mod_timer(..., jiffies)`. The SBEFIFO driver uses this pattern for
+scheduling work when it either adds a new transfer to an empty queue or the
+timer callback finds the transfer queue is not empty. In both cases work should
+be scheduled immediately, however the current approach is not optimal:
 
-Avoid the warning (or the need for GFP_ATOMIC) and allow for reduced system
-latency by using a mutex instead. Mutual exclusion is the only requirement, we
-do not need to block pre-emption.
+The comment [0] outlines an issue where OCC sensor polling on the BMC can come
+at remarkable cost. Delays of up to and above 10 seconds can be experienced
+when reading an OCC attribute.
 
+Tracing of the subsystems involved (FSI, the SBEFIFO, the OCC, the scheduler
+and the timer subsystems) showed that the SBEFIFO timer callbacks had a
+saw-tooth pattern of execution latency in jiffies relative to their scheduled
+expiry time. In the measurements the typical latency of an immediate reschedule
+was 15 jiffies, though this could be as few as 1 or greater than 100 in the
+pathological case. Surprisingly, these delays coincided in length with system
+idle time between the SBEFIFO transfers - it appears timer subsystem is not
+properly accounting for the immediacy of the request[1].
+
+Querying sensors on the OCC incurs multiple SBEFIFO transfers, each with its
+own (increasing) expiry latency, which leads to the poor responsiveness
+observed above.
+
+Stop misusing the timer infrastructure for work queue management and incurring
+associated penalties (even if they appear to be a bug in the timer core).
+Instead, use a workqueue and use queue_work() and queue_delayed_work() as
+required. With this change, reading an OCC sensor typically takes ~0.5 seconds
+wall-clock in the un-cached case and rarely exceeds 1 second. In the cached
+case the read completes in around 0.01 seconds.
+
+Finally, using a workqueue enables the use of mutexes in place of spinlocks,
+making way for future changes down the stack in the FSI core.
+
+[0] https://github.com/openbmc/openbmc/issues/2696#issuecomment-351207046
+[1] It seems scheduling a timer with `mod_timer(..., jiffies)` is a
+    pathological case: Changing all such call-sites in the SBEFIFO driver to
+    use `mod_timer(..., jiffies + 1)` yielded a similar improvement in
+    performance to the workqueue strategy.
+
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+[arj: Rework the commit message]
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/hwmon/occ/p9_sbe.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/fsi/fsi-sbefifo.c | 54 ++++++++++++++++++++++++++++-------------------
+ 1 file changed, 32 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index 7b1da81515e2..bcd156e9b186 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -35,7 +35,7 @@ struct p9_sbe_occ {
- 	 * open, close and NULL assignment. This prevents simultaneous opening
- 	 * and closing of the client, or closing multiple times.
- 	 */
--	spinlock_t client_lock;
-+	struct mutex client_lock;
+diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+index 5829e6aba9d3..e4b35b7ec83b 100644
+--- a/drivers/fsi/fsi-sbefifo.c
++++ b/drivers/fsi/fsi-sbefifo.c
+@@ -29,9 +29,9 @@
+ #include <linux/sched.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+-#include <linux/timer.h>
+ #include <linux/uaccess.h>
+ #include <linux/wait.h>
++#include <linux/workqueue.h>
+ 
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/sbefifo.h>
+@@ -60,7 +60,7 @@
+ #define SBEFIFO_MAX_RESCHDULE	msecs_to_jiffies(5000)
+ 
+ struct sbefifo {
+-	struct timer_list poll_timer;
++	struct delayed_work work;
+ 	struct fsi_device *fsi_dev;
+ 	struct miscdevice mdev;
+ 	wait_queue_head_t wait;
+@@ -102,6 +102,8 @@ struct sbefifo_client {
+ 	unsigned long f_flags;
  };
  
- #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
-@@ -44,11 +44,11 @@ static void p9_sbe_occ_close_client(struct p9_sbe_occ *ctx)
- {
- 	struct occ_client *tmp_client;
++static struct workqueue_struct *sbefifo_wq;
++
+ static DEFINE_IDA(sbefifo_ida);
  
--	spin_lock_irq(&ctx->client_lock);
-+	mutex_lock(&ctx->client_lock);
- 	tmp_client = ctx->client;
- 	ctx->client = NULL;
- 	occ_drv_release(tmp_client);
--	spin_unlock_irq(&ctx->client_lock);
-+	mutex_unlock(&ctx->client_lock);
+ static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
+@@ -344,7 +346,7 @@ static void sbefifo_release_client(struct kref *kref)
+ 			 */
+ 			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+ 			sbefifo_get(sbefifo);
+-			if (mod_timer(&client->dev->poll_timer, jiffies))
++			if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+ 				sbefifo_put(sbefifo);
+ 		}
+ 	}
+@@ -382,10 +384,11 @@ static struct sbefifo_xfr *sbefifo_next_xfr(struct sbefifo *sbefifo)
+ 	return NULL;
  }
  
- static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
-@@ -57,10 +57,10 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- 	struct occ_response *resp = &occ->resp;
- 	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
+-static void sbefifo_poll_timer(unsigned long data)
++static void sbefifo_worker(struct work_struct *work)
+ {
+ 	static const unsigned long EOT_MASK = 0x000000ff;
+-	struct sbefifo *sbefifo = (void *)data;
++	struct delayed_work *dwork = to_delayed_work(work);
++	struct sbefifo *sbefifo = container_of(dwork, struct sbefifo, work);
+ 	struct sbefifo_buf *rbuf, *wbuf;
+ 	struct sbefifo_xfr *xfr, *tmp;
+ 	struct sbefifo_buf drain;
+@@ -403,6 +406,7 @@ static void sbefifo_poll_timer(unsigned long data)
  
--	spin_lock_irq(&ctx->client_lock);
-+	mutex_lock(&ctx->client_lock);
- 	if (ctx->sbe)
- 		ctx->client = occ_drv_open(ctx->sbe, 0);
--	spin_unlock_irq(&ctx->client_lock);
-+	mutex_unlock(&ctx->client_lock);
+ 	trace_sbefifo_begin_xfer(xfr);
  
- 	if (!ctx->client) {
- 		rc = -ENODEV;
-@@ -163,7 +163,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
- 	ctx->sbe = pdev->dev.parent;
++again:
+ 	rbuf = xfr->rbuf;
+ 	wbuf = xfr->wbuf;
  
- 	occ = &ctx->occ;
--	spin_lock_init(&ctx->client_lock);
-+	mutex_init(&ctx->client_lock);
- 	occ->bus_dev = &pdev->dev;
- 	occ->groups[0] = &occ->group;
- 	occ->poll_cmd_data = 0x20;
+@@ -424,9 +428,8 @@ static void sbefifo_poll_timer(unsigned long data)
+ 		devn = sbefifo_dev_nwwriteable(sts);
+ 		if (devn == 0) {
+ 			/* No open slot for write.  Reschedule. */
+-			sbefifo->poll_timer.expires = jiffies +
+-				SBEFIFO_RESCHEDULE;
+-			add_timer(&sbefifo->poll_timer);
++			queue_delayed_work(sbefifo_wq, &sbefifo->work,
++					   SBEFIFO_RESCHEDULE);
+ 			goto out_unlock;
+ 		}
+ 
+@@ -478,9 +481,8 @@ static void sbefifo_poll_timer(unsigned long data)
+ 			}
+ 
+ 			/* No data yet.  Reschedule. */
+-			sbefifo->poll_timer.expires = jiffies +
+-				SBEFIFO_RESCHEDULE;
+-			add_timer(&sbefifo->poll_timer);
++			queue_delayed_work(sbefifo_wq, &sbefifo->work,
++					   SBEFIFO_RESCHEDULE);
+ 			goto out_unlock;
+ 		} else {
+ 			xfr->wait_data_timeout = 0;
+@@ -528,10 +530,12 @@ static void sbefifo_poll_timer(unsigned long data)
+ 		}
+ 		INIT_LIST_HEAD(&sbefifo->xfrs);
+ 
+-	} else if (eot && sbefifo_next_xfr(sbefifo)) {
+-		sbefifo_get(sbefifo);
+-		sbefifo->poll_timer.expires = jiffies;
+-		add_timer(&sbefifo->poll_timer);
++	} else if (eot) {
++		xfr = sbefifo_next_xfr(sbefifo);
++		if (xfr) {
++			wake_up_interruptible(&sbefifo->wait);
++			goto again;
++		}
+ 	}
+ 
+ 	sbefifo_put(sbefifo);
+@@ -654,7 +658,7 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
+ 			 * Fill the read buffer back up.
+ 			 */
+ 			sbefifo_get(sbefifo);
+-			if (mod_timer(&client->dev->poll_timer, jiffies))
++			if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+ 				sbefifo_put(sbefifo);
+ 		} else {
+ 			list_del(&xfr->client);
+@@ -740,7 +744,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 								 &n))) {
+ 			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+ 			sbefifo_get(sbefifo);
+-			if (mod_timer(&sbefifo->poll_timer, jiffies))
++			if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+ 				sbefifo_put(sbefifo);
+ 
+ 			ret = -ERESTARTSYS;
+@@ -760,7 +764,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 			    n)) {
+ 				set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+ 				sbefifo_get(sbefifo);
+-				if (mod_timer(&sbefifo->poll_timer, jiffies))
++				if (!queue_work(sbefifo_wq,
++						&sbefifo->work.work))
+ 					sbefifo_put(sbefifo);
+ 				ret = -EFAULT;
+ 				goto out;
+@@ -787,7 +792,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 		 * Drain the write buffer.
+ 		 */
+ 		sbefifo_get(sbefifo);
+-		if (mod_timer(&client->dev->poll_timer, jiffies))
++		if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+ 			sbefifo_put(sbefifo);
+ 	}
+ 
+@@ -947,8 +952,7 @@ static int sbefifo_probe(struct device *dev)
+ 		 sbefifo->idx);
+ 
+ 	/* This bit of silicon doesn't offer any interrupts... */
+-	setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
+-		    (unsigned long)sbefifo);
++	INIT_DELAYED_WORK(&sbefifo->work, sbefifo_worker);
+ 
+ 	sbefifo->mdev.minor = MISC_DYNAMIC_MINOR;
+ 	sbefifo->mdev.fops = &sbefifo_fops;
+@@ -1001,7 +1005,7 @@ static int sbefifo_remove(struct device *dev)
+ 
+ 	ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+ 
+-	if (del_timer_sync(&sbefifo->poll_timer))
++	if (cancel_delayed_work_sync(&sbefifo->work))
+ 		sbefifo_put(sbefifo);
+ 
+ 	sbefifo_put(sbefifo);
+@@ -1029,11 +1033,17 @@ static struct fsi_driver sbefifo_drv = {
+ 
+ static int sbefifo_init(void)
+ {
++	sbefifo_wq = create_singlethread_workqueue("sbefifo");
++	if (!sbefifo_wq)
++		return -ENOMEM;
++
+ 	return fsi_driver_register(&sbefifo_drv);
+ }
+ 
+ static void sbefifo_exit(void)
+ {
++	destroy_workqueue(sbefifo_wq);
++
+ 	fsi_driver_unregister(&sbefifo_drv);
+ 
+ 	ida_destroy(&sbefifo_ida);
 -- 
 2.14.1
