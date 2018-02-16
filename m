@@ -1,58 +1,62 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <brendanhiggins@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400e:c01::241; helo=mail-pl0-x241.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="oESkMf/0"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="X2nNC/d8"; 
  dkim-atps=neutral
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
+Received: from mail-pl0-x241.google.com (mail-pl0-x241.google.com
+ [IPv6:2607:f8b0:400e:c01::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zjGwh2M0nzDqBf
- for <openbmc@lists.ozlabs.org>; Fri, 16 Feb 2018 13:16:35 +1100 (AEDT)
-Received: by mail-qt0-x244.google.com with SMTP id u6so2158572qtg.13
- for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 18:16:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=H4HolCElW3FhgZleVntuhiDxG0tnpIvA54ADU8XDzXo=;
- b=oESkMf/0mOFt2Yrqay7ss7nwB3W/MQAiLiM7+ivZwvLgXTlxhFpCYIQAGqeljBf/Yk
- 499rOw6A2UH4S0rT9MQ5XQvZh6FXNopfd9wPPia9T/WoQ/0+G9VkAfWfjIrSbKcRF1Tm
- LzziswK9qq58o9nmOCVDRf2bvgbEMLVuZJ9AT6zwVqESVX0/tsNqDv4boqaAjendN/+L
- LSbHIVDwXuctSuyws4jmbhG12iGYhxDXl1Ab9XzU4jW3GDcPBYzfjBmeWbSk6ND2qyX5
- MFNQoK6gYLGoF9n+VAwZpAFy8VdXtiVV8H3/PaQZPkNCETroL3KgaBSHZt2l+yAK6xY8
- 5zRQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zjHS56bWXzF1Jv
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Feb 2018 13:40:21 +1100 (AEDT)
+Received: by mail-pl0-x241.google.com with SMTP id k8so941817pli.8
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Feb 2018 18:40:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=vOtvhqV3AeAVtbLMF2Da+wV0R0y0urgXeYhBbrVlsjM=;
+ b=X2nNC/d8e6N3iCYCtDnNvLEcWG952FAwJdSw8MWzydwY8oMWeWwuQBvYjLbSFxLx6V
+ nY/u43gUmdS7Cer/wpajDkXYmR+ChJaPuCGI5L0JVAN552dwADWtfa7sVIRihvjqJTK1
+ NBZpFMjsrsavpoG070oHvOP0cA1edcTUmyNtLO+OzzNRYagjyWWvvxw2pfcCwt6ZHQZI
+ 1h7ou/8uHHniWeBbHEOKhOamnzSWTgNhKqD4saPRb/mXcOMirc2ppytnlSr8AFD/fGwr
+ FeeG/VDG1kQ1pzaLfnPwT0Y5E1R1K721ngCvLPr+IXh4KFgOTOMNvEBs2a/e654uT5B6
+ CJWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=H4HolCElW3FhgZleVntuhiDxG0tnpIvA54ADU8XDzXo=;
- b=oFt5uOE3PiOnE8qcg8PRfOAS34A8WoamaSXViqYX7fNvQwKDZ5hyxh4vIGHmzdkH7W
- 7xH1UP4eu06mSBT/A6sAgEhJs0YymnJVOaNppo7HkAWr6cgnnyFMvivGSe94OdWoFaRq
- jr8d6jm4alUlUcwEwfbQGPmaILiXgXSzw6IcKMn18zHaybomGQ6nrQwh589pGhkjwG3j
- GPLCGa5XRJ5yVj7f8o5Sv3B2nguJ5eAB7r0LjPn3yfuulZLXfRzQbzaETLxTMQhqkA+7
- b5rGVPsnpmPOt5lri1+pzxfJP9eWCJhzP4O2BSzYBvCePktnvG1/fEHgvsS453KRXUwB
- jOtA==
-X-Gm-Message-State: APf1xPDZpMSSF8ba+xAWlXlVt+gbFVDUVs9s9EyF/U6eeU88N22l1z+V
- mptUqFKCXVVI6uedCHzmH6C69A9Tsn+joQJvdlU=
-X-Google-Smtp-Source: AH8x225nRlwmktNpyJ6DHG+Fs6uNUqfWXSi6VwD89H1zNT/vw4HOBD0mAXfQMOKR4PlxhHTjqQJyiAbWVBob52+qSWY=
-X-Received: by 10.237.40.34 with SMTP id r31mr7886310qtd.330.1518747393576;
- Thu, 15 Feb 2018 18:16:33 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Thu, 15 Feb 2018 18:16:13 -0800 (PST)
-In-Reply-To: <CACPK8XfqpOFnMekHjOAvw_ge_T_ouaGQdEF9gTmEZYEKLOFbqw@mail.gmail.com>
-References: <20180212121047.24831-1-chen.kenyy@inventec.com>
- <CACPK8XfqpOFnMekHjOAvw_ge_T_ouaGQdEF9gTmEZYEKLOFbqw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Feb 2018 12:46:13 +1030
-X-Google-Sender-Auth: 1XvfeyVGbdsAV3Tf73GoyvSl7yU
-Message-ID: <CACPK8XdTTqmVo0B+yvqAuH0TS1ir+8PZPb-yYnyWh59f1d-u=w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 v5] Add ARM system BMC device tree
-To: Ken Chen <chen.kenyy@inventec.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=vOtvhqV3AeAVtbLMF2Da+wV0R0y0urgXeYhBbrVlsjM=;
+ b=HSiLrNim+fBLC6mRTBGph3jVvTWclhfGQeGS0J8NnRd8u9d9FEp+o+LvQT88FMKMU0
+ FjOhcqAuosYe5AREFlND4LP8VIeJX2pyDlBhUKzIStSVtU6bQuAB2G0mhh+/MQWkmeg3
+ 1U47uPeANezDm8pS/PLT67shcYFUNBsY2vM2S6b7gNX9MS5CB/1W+J+Hh9YXrD0O50QF
+ TUuIcVZJUdf8bA6NIvKFmiVX3CfUKAfKi8vdpVsbBgAqmzPUjbFC3YDV4ICeQ4qfB2SZ
+ O8MpYpt3BdlYNG2v8QGbcYbZeYHXrX3cLJJCUzUtIqaSU45KKxpEM4tXFpnPfbhOQqfC
+ cyQg==
+X-Gm-Message-State: APf1xPDK95IuiVo7lM+F1rSKft3PbaNDMzILpiESwDdvZ/PAw0RMiWBx
+ QsU9kcPoPK0yDIdWsNBAo8SqeA==
+X-Google-Smtp-Source: AH8x227y3ksPFqHhlJkKBADYmN0thO4tTcuERIHcOkhLuqwkssL8sfB0vGgFAJjXTk9cf4kYImbwMw==
+X-Received: by 2002:a17:902:5501:: with SMTP id
+ f1-v6mr4373811pli.50.1518748819649; 
+ Thu, 15 Feb 2018 18:40:19 -0800 (PST)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id g16sm9094041pfd.23.2018.02.15.18.40.18
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Thu, 15 Feb 2018 18:40:19 -0800 (PST)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: robh+dt@kernel.org, linux@armlinux.org.uk, mark.rutland@arm.com,
+ tmaimon77@gmail.com, avifishman70@gmail.com, julien.thierry@arm.com,
+ pombredanne@nexb.com, arnd@arndb.de, olof@lixom.net, khilman@kernel.org
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Brendan Higgins <brendanhiggins@google.com>
+Subject: [PATCH v11 1/3] arm: npcm: add basic support for Nuvoton BMCs
+Date: Thu, 15 Feb 2018 18:40:09 -0800
+Message-Id: <20180216024011.189157-2-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.16.1.291.g4437f3f132-goog
+In-Reply-To: <20180216024011.189157-1-brendanhiggins@google.com>
+References: <20180216024011.189157-1-brendanhiggins@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -64,182 +68,254 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Feb 2018 02:16:37 -0000
+X-List-Received-Date: Fri, 16 Feb 2018 02:40:23 -0000
+X-List-Received-Date: Fri, 16 Feb 2018 02:40:23 -0000
 
-On Fri, Feb 16, 2018 at 12:40 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Hi Ken,
->
-> On Mon, Feb 12, 2018 at 10:40 PM, Ken Chen <chen.kenyy@inventec.com> wrote:
->> Centriq2400-rep is ARM system reference evalutiion platform
->> with ast2520 BMC.
->
-> How about:
->
-> The Qualcomm Centriq 2400 REP (Reference Evaluation Platform) is
-> aarch64 Armv8 server platform with an ast2520 BMC.
->
->
->>
->> Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
->>
->> ---
->> v4->v5
->> - Removed strange whitespace
->> - Removed aspeed.c commit
->> - Modify commit content
->>
->> v3->v4
->> - Modify Makefile for centriq2400-rep dts
->> - Fix typo label
->> - Removed unnecessary define of spi2 and centriq2400-spi-hwmon device
->> - Removed lpc device
->> - Fix coding style
->> - Removed ssif device
->> - Removed max31790 device
->> - Removed register control of GPIO and Watchdog
->> ---
->>  arch/arm/boot/dts/Makefile                         |   1 +
->>  .../boot/dts/aspeed-bmc-arm-centriq2400-rep.dts    | 276 +++++++++++++++++++++
->>  2 files changed, 277 insertions(+)
->>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts
->>
->> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
->> index 7c54fc8..77aef19 100644
->> --- a/arch/arm/boot/dts/Makefile
->> +++ b/arch/arm/boot/dts/Makefile
->> @@ -993,6 +993,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
->>         aspeed-bmc-mellanox-msn.dtb \
->>         aspeed-bmc-quanta-q71l.dtb \
->>         aspeed-bmc-intel-s2600wf.dtb \
->> +        aspeed-bmc-arm-centriq2400-rep.dtb \
->
-> Nit: we keep these in alphabetical order.
->
-> I notice that this patch is against the 4.10 branch. Please rebase
-> your patch on dev-4.13.
->
->>         aspeed-ast2500-evb.dtb
->>  endif
->>
->
->> +&gpio {
->> +       pin_gpio_c7 {
->> +               gpio-hog;
->> +               gpios = <ASPEED_GPIO(C, 7) GPIO_ACTIVE_HIGH>;
->> +               output;
->> +               line-name = "BIOS_SPI_MUX_S";
->> +       };
->> +}
->
-> Have you built and booted a kernel using this device tree?
->
-> I get an error when building:
->
-> Error: arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dts:276.2-277.1
-> syntax error
-> FATAL ERROR: Unable to parse input tree
->
-> Please fix up the missing semicolon, do a build, and ensure this boots
-> on your system.
+Adds basic support for the Nuvoton NPCM750 BMC.
 
-Please take a look at these warnings too:
+Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+Tested-by: Avi Fishman <avifishman70@gmail.com>
+---
+ arch/arm/Kconfig             |  2 +
+ arch/arm/Makefile            |  1 +
+ arch/arm/mach-npcm/Kconfig   | 48 +++++++++++++++++++++
+ arch/arm/mach-npcm/Makefile  |  3 ++
+ arch/arm/mach-npcm/headsmp.S | 17 ++++++++
+ arch/arm/mach-npcm/npcm7xx.c | 20 +++++++++
+ arch/arm/mach-npcm/platsmp.c | 81 ++++++++++++++++++++++++++++++++++++
+ 7 files changed, 172 insertions(+)
+ create mode 100644 arch/arm/mach-npcm/Kconfig
+ create mode 100644 arch/arm/mach-npcm/Makefile
+ create mode 100644 arch/arm/mach-npcm/headsmp.S
+ create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+ create mode 100644 arch/arm/mach-npcm/platsmp.c
 
-  DTC     arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0 has invalid length
-(4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0/pca9546@77/i2c@0 has
-invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0/pca9546@77/i2c@2 has
-invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@1 has invalid length
-(4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@1/pca9546@77/i2c@2 has
-invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/tmp421@1d has
-invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/adm1278@12 has
-invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/eeprom@50 has
-invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(reg_format): "reg" property in
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/ds1100@58 has
-invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0/pca9546@77/i2c@0
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0/pca9546@77/i2c@0
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0/pca9546@77/i2c@2
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@0/pca9546@77/i2c@2
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@1
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@1
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@1/pca9546@77/i2c@2
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@40/pca9542@70/i2c@1/pca9546@77/i2c@2
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/tmp421@1d
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/tmp421@1d
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/adm1278@12
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/adm1278@12
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/eeprom@50
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/eeprom@50
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #address-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/ds1100@58
-arch/arm/boot/dts/aspeed-bmc-arm-centriq2400-rep.dtb: Warning
-(avoid_default_addr_size): Relying on default #size-cells value for
-/ahb/apb/i2c@1e78a000/i2c-bus@340/pca9641@70/i2c-arb/ds1100@58
-
->
-> When you send v5 you can add the Acked-by line from Andrew to your
-> commit message.
->
-> Cheers,
->
-> Joel
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 7e3d53575486..6a8404cd5150 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -779,6 +779,8 @@ source "arch/arm/mach-netx/Kconfig"
+ 
+ source "arch/arm/mach-nomadik/Kconfig"
+ 
++source "arch/arm/mach-npcm/Kconfig"
++
+ source "arch/arm/mach-nspire/Kconfig"
+ 
+ source "arch/arm/plat-omap/Kconfig"
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+index e83f5161fdd8..e4e537f27339 100644
+--- a/arch/arm/Makefile
++++ b/arch/arm/Makefile
+@@ -196,6 +196,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)		+= mediatek
+ machine-$(CONFIG_ARCH_MXS)		+= mxs
+ machine-$(CONFIG_ARCH_NETX)		+= netx
+ machine-$(CONFIG_ARCH_NOMADIK)		+= nomadik
++machine-$(CONFIG_ARCH_NPCM)		+= npcm
+ machine-$(CONFIG_ARCH_NSPIRE)		+= nspire
+ machine-$(CONFIG_ARCH_OXNAS)		+= oxnas
+ machine-$(CONFIG_ARCH_OMAP1)		+= omap1
+diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+new file mode 100644
+index 000000000000..6ff9df2636be
+--- /dev/null
++++ b/arch/arm/mach-npcm/Kconfig
+@@ -0,0 +1,48 @@
++menuconfig ARCH_NPCM
++	bool "Nuvoton NPCM Architecture"
++	select ARCH_REQUIRE_GPIOLIB
++	select USE_OF
++	select PINCTRL
++	select PINCTRL_NPCM7XX
++
++if ARCH_NPCM
++
++comment "NPCM7XX CPU type"
++
++config ARCH_NPCM750
++	depends on ARCH_NPCM && ARCH_MULTI_V7
++	bool "Support for NPCM750 BMC CPU (Poleg)"
++	select CACHE_L2X0
++	select CPU_V7
++	select ARM_GIC
++	select HAVE_SMP
++	select SMP
++	select SMP_ON_UP
++	select HAVE_ARM_SCU
++	select HAVE_ARM_TWD if SMP
++	select ARM_ERRATA_720789
++	select ARM_ERRATA_754322
++	select ARM_ERRATA_764369
++	select ARM_ERRATA_794072
++	select PL310_ERRATA_588369
++	select PL310_ERRATA_727915
++	select USB_EHCI_ROOT_HUB_TT
++	select USB_ARCH_HAS_HCD
++	select USB_ARCH_HAS_EHCI
++	select USB_EHCI_HCD
++	select USB_ARCH_HAS_OHCI
++	select USB_OHCI_HCD
++	select USB
++	select FIQ
++	select CPU_USE_DOMAINS
++	select GENERIC_CLOCKEVENTS
++	select CLKDEV_LOOKUP
++	select COMMON_CLK if OF
++	select NPCM750_TIMER
++	select MFD_SYSCON
++	help
++	  Support for NPCM750 BMC CPU (Poleg).
++
++	  Nuvoton NPCM750 BMC based on the Cortex A9.
++
++endif
+diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+new file mode 100644
+index 000000000000..c7a1316d27c1
+--- /dev/null
++++ b/arch/arm/mach-npcm/Makefile
+@@ -0,0 +1,3 @@
++AFLAGS_headsmp.o		+= -march=armv7-a
++
++obj-$(CONFIG_ARCH_NPCM750)	+= npcm7xx.o platsmp.o headsmp.o
+diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+new file mode 100644
+index 000000000000..c083fe09a07b
+--- /dev/null
++++ b/arch/arm/mach-npcm/headsmp.S
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright 2018 Google, Inc.
++
++#include <linux/linkage.h>
++#include <linux/init.h>
++#include <asm/assembler.h>
++
++/*
++ * The boot ROM does not start secondary CPUs in SVC mode, so we need to do that
++ * here.
++ */
++ENTRY(npcm7xx_secondary_startup)
++	safe_svcmode_maskall r0
++
++	b	secondary_startup
++ENDPROC(npcm7xx_secondary_startup)
+diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
+new file mode 100644
+index 000000000000..5f7cd88103ef
+--- /dev/null
++++ b/arch/arm/mach-npcm/npcm7xx.c
+@@ -0,0 +1,20 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright 2018 Google, Inc.
++
++#include <linux/kernel.h>
++#include <linux/types.h>
++#include <asm/mach/arch.h>
++#include <asm/mach-types.h>
++#include <asm/mach/map.h>
++#include <asm/hardware/cache-l2x0.h>
++
++static const char *const npcm7xx_dt_match[] = {
++	"nuvoton,npcm750",
++	NULL
++};
++
++DT_MACHINE_START(NPCM7XX_DT, "NPCM7XX Chip family")
++	.atag_offset	= 0x100,
++	.dt_compat	= npcm7xx_dt_match,
++MACHINE_END
+diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+new file mode 100644
+index 000000000000..21633c70fe7f
+--- /dev/null
++++ b/arch/arm/mach-npcm/platsmp.c
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright 2018 Google, Inc.
++
++#define pr_fmt(fmt) "nuvoton,npcm7xx-smp: " fmt
++
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/smp.h>
++#include <linux/io.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/of_platform.h>
++#include <linux/of_address.h>
++#include <asm/cacheflush.h>
++#include <asm/smp.h>
++#include <asm/smp_plat.h>
++#include <asm/smp_scu.h>
++
++#define NPCM7XX_SCRPAD_REG 0x13c
++
++extern void npcm7xx_secondary_startup(void);
++
++static int npcm7xx_smp_boot_secondary(unsigned int cpu,
++				      struct task_struct *idle)
++{
++	struct device_node *gcr_np;
++	void __iomem *gcr_base;
++	int ret = 0;
++
++	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
++	if (!gcr_np) {
++		pr_err("no gcr device node\n");
++		ret = -ENODEV;
++		goto out;
++	}
++	gcr_base = of_iomap(gcr_np, 0);
++	if (!gcr_base) {
++		pr_err("could not iomap gcr");
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	/* give boot ROM kernel start address. */
++	iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
++		  NPCM7XX_SCRPAD_REG);
++	/* make sure the previous write is seen by all observers. */
++	dsb_sev();
++
++	iounmap(gcr_base);
++out:
++	return ret;
++}
++
++static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
++{
++	struct device_node *scu_np;
++	void __iomem *scu_base;
++
++	scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
++	if (!scu_np) {
++		pr_err("no scu device node\n");
++		return;
++	}
++	scu_base = of_iomap(scu_np, 0);
++	if (!scu_base) {
++		pr_err("could not iomap scu");
++		return;
++	}
++
++	scu_enable(scu_base);
++
++	iounmap(scu_base);
++}
++
++static struct smp_operations npcm7xx_smp_ops __initdata = {
++	.smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
++	.smp_boot_secondary = npcm7xx_smp_boot_secondary,
++};
++
++CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm750-smp", &npcm7xx_smp_ops);
+-- 
+2.16.1.291.g4437f3f132-goog
