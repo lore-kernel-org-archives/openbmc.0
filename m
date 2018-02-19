@@ -1,65 +1,57 @@
-Return-Path: <Luis.A.Silva@dell.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.229; helo=esa6.dell-outbound.iphmx.com;
- envelope-from=luis.a.silva@dell.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="jxwNR1Q2"; 
- dkim-atps=neutral
-X-Greylist: delayed 642 seconds by postgrey-1.36 at bilbo;
- Sat, 17 Feb 2018 12:23:09 AEDT
-Received: from esa6.dell-outbound.iphmx.com (esa6.dell-outbound.iphmx.com
- [68.232.149.229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <robherring2@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.218.66; helo=mail-oi0-f66.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Received: from mail-oi0-f66.google.com (mail-oi0-f66.google.com
+ [209.85.218.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zjshY1C6KzF1XL
- for <openbmc@lists.ozlabs.org>; Sat, 17 Feb 2018 12:23:07 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1518830589; x=1550366589;
- h=subject:to:references:from:message-id:date:mime-version:
- in-reply-to:content-transfer-encoding;
- bh=NE/+R+sOk3xSQzYA7qrRm/1uPXn7NH2lSQmUoTYKL6I=;
- b=jxwNR1Q2bNXBOOpaDmCipX8EBjwLD1/Y5uSbrEFh84E0b6Kra6zuvbUP
- TIKcf9VOTBBVGLdWiccaH3hkRT0+Zoy2coRkSvpq5tmizBB7uiP+7LqRH
- 6nhSimOPkU0s6ueQLPgfmMSURXEnOhZSO3sUerN54pb3yCeCaLX3wuKIR s=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GFAgAlgYdah2Ka6ERbGgEBAQEBAgEBA?=
- =?us-ascii?q?QEIAQEBAYVNCoNKmCuCAoEXmF8KhTsCgkZYFAECAQEBAQEBAgECEAEBAQoLCQg?=
- =?us-ascii?q?oL4I4IoJLAQUjDwFWCxgCAiYCAkcQBg0GAgEBFooHrU2CJ4UBg32CEwwmCQGBB?=
- =?us-ascii?q?YN4giiBWIIQgwWFb4JLgmUFk2iQTQMGApYIggcZhiqLfZAFiBqBPDaBdHBPgkO?=
- =?us-ascii?q?CVBAMgidXjSGBGQEBAQ?=
-X-IPAS-Result: =?us-ascii?q?A2GFAgAlgYdah2Ka6ERbGgEBAQEBAgEBAQEIAQEBAYVNCoN?=
- =?us-ascii?q?KmCuCAoEXmF8KhTsCgkZYFAECAQEBAQEBAgECEAEBAQoLCQgoL4I4IoJLAQUjD?=
- =?us-ascii?q?wFWCxgCAiYCAkcQBg0GAgEBFooHrU2CJ4UBg32CEwwmCQGBBYN4giiBWIIQgwW?=
- =?us-ascii?q?Fb4JLgmUFk2iQTQMGApYIggcZhiqLfZAFiBqBPDaBdHBPgkOCVBAMgidXjSGBG?=
- =?us-ascii?q?QEBAQ?=
-Received: from esa4.dell-outbound2.iphmx.com ([68.232.154.98])
- by esa6.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2018 19:12:21 -0600
-Received: from ausxippc110.us.dell.com ([143.166.85.200])
- by esa4.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2018 07:12:20 +0600
-X-LoopCount0: from 10.166.136.212
-X-IronPort-AV: E=Sophos;i="5.46,522,1511848800"; d="scan'208";a="618943934"
-X-DLP: DLP_GlobalPCIDSS
-Subject: Re: OpenBMC v2.1
-To: <openbmc@lists.ozlabs.org>
-References: <85D445A6-8BEF-40A0-BD8A-5102D74129C9@fuzziesquirrel.com>
- <d8f209c0e9e749fdbc241afb81cb6228@AUSX13MPC101.AMER.DELL.COM>
- <7854C6B6-55EE-4499-BE8A-756E57B16E8C@fuzziesquirrel.com>
-From: "Silva, Luis" <luis.a.silva@dell.com>
-Message-ID: <10354d99-b25a-ca1c-555d-9a36d4953bc4@dell.com>
-Date: Fri, 16 Feb 2018 17:12:14 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zlRTj0df3zDr3W
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 01:49:09 +1100 (AEDT)
+Received: by mail-oi0-f66.google.com with SMTP id c12so420495oic.7
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Feb 2018 06:49:09 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MMuC4Nns+PAV1kptk8GYLGqT5seNkbQOT/SiKV1Dua8=;
+ b=QTJjDBCLBOoWFgJ/6qF3FA1YGw6LbKFc4ahpiOVkYC31S4ks7NEzNaUf3QBFnYKHRy
+ jynDsRFTfBmDhim6qyxIuOM2cWR56srcU7OwdDl1UeLiyIZfwEcymUPmuLB3jS2L4S+3
+ Nv+kbfIPbWONYo3eMSx8rzTEyG9RYScl25uvpZR2jmqO6zv1dE+AfKaWYw+NQAU65ZE/
+ pnOV1Jk1/NxjOwFmgBmgBzoonJoivw6mxOq+dqPFEhsfXcosrX4xVvxo56cgg/wQfwWl
+ NjtPLJFJjVvRkKeKiw5aoJQPM3zTLGKtER67XDRWCezn58AdoeLKc9Rwp6GiogbtQcjy
+ DvdA==
+X-Gm-Message-State: APf1xPCLksKiHOtPLt1IikGEMD9gduVMrFS5YgyWIJCvR4CEEYA/3vTY
+ TyF6svoZEfSiy3CbgAQJiw==
+X-Google-Smtp-Source: AH8x227tILHqsR0882CgUexROVoPzpvvMW0w3TfXk795FKTBSJWeVyOX0Bg/Cx9yEOh7ie/M2fMi+g==
+X-Received: by 10.202.227.7 with SMTP id a7mr9961610oih.193.1519051747104;
+ Mon, 19 Feb 2018 06:49:07 -0800 (PST)
+Received: from localhost (216-188-254-6.dyn.grandenetworks.net.
+ [216.188.254.6])
+ by smtp.gmail.com with ESMTPSA id 92sm422079oth.9.2018.02.19.06.49.06
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 19 Feb 2018 06:49:06 -0800 (PST)
+Date: Mon, 19 Feb 2018 08:49:05 -0600
+From: Rob Herring <robh@kernel.org>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Tali Perry <tali.perry1@gmail.com>, Mark Rutland <mark.rutland@arm.com>,
+ Russell King <linux@armlinux.org.uk>, Avi Fishman <avifishman70@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Rick Altherr <raltherr@google.com>,
+ devicetree <devicetree@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>
+Subject: Re: [PATCH v2 1/1] clk: npcm750: update text with fixed clocks
+Message-ID: <20180219144905.bfrycjnas7dcuo34@rob-hp-laptop>
+References: <1518701959-22899-1-git-send-email-tali.perry1@gmail.com>
+ <1518701959-22899-2-git-send-email-tali.perry1@gmail.com>
+ <CAFd5g44gBJp0-mYEWGdyiA67BCi2pZWAG2bYPS-WdJEwH1oA5A@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <7854C6B6-55EE-4499-BE8A-756E57B16E8C@fuzziesquirrel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.133.232.111]
-X-ClientProxiedBy: ausx13mps340.AMER.DELL.COM (10.166.136.217) To
- ausx13mps335.AMER.DELL.COM (10.166.136.212)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFd5g44gBJp0-mYEWGdyiA67BCi2pZWAG2bYPS-WdJEwH1oA5A@mail.gmail.com>
+User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,30 +63,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 17 Feb 2018 01:23:10 -0000
+X-List-Received-Date: Mon, 19 Feb 2018 14:49:13 -0000
 
+On Thu, Feb 15, 2018 at 02:38:12PM -0800, Brendan Higgins wrote:
+> On Thu, Feb 15, 2018 at 5:39 AM, Tali Perry <tali.perry1@gmail.com> wrote:
+> >
+> > Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> >
+>  <snip>
+> 
+> I think this should probably be rolled into [PATCH v2 1/1] npcm750: add fixed
+> clocks (moved from drivers/clk/clk-npcm7xx.c):
+> https://www.spinics.net/lists/arm-kernel/msg634678.html
 
-On 1/29/2018 8:50 AM, Brad Bishop wrote:
-> 
->> On Jan 26, 2018, at 11:10 AM, <Prashanth.Giri@dell.com> <Prashanth.Giri@dell.com> wrote:
->>
->> Concur with the idea of moving to more yocto aligned branch strategy. Would like to be part of the discussions around how/when etc.
-> 
-> Great!
-> 
->> aspects of the move. Did we start any already ?
-> 
-> No.  Please watch the list for discussion.  If you have any ideas I’d love
-> to hear about them.
-> 
-> -brad
-> 
+No, binding docs, dts files and driver code should all be separate 
+patches.
 
-Hello Brad et all,
-
-Any news on OpenBMC v2.1? I am wondering if switching to Linux dev-4.13
-is in its scope ...
-
-Thanks,
-
-Silva.
+Rob
