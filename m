@@ -1,59 +1,58 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="GNtSbVec"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="jwlCRkKS"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZzliEP6D"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zlnTQ2V8bzF0gQ
- for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 15:20:10 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6130E20D7B;
- Mon, 19 Feb 2018 23:20:08 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 19 Feb 2018 23:20:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Z6dimodUVhGLB9cUE
- yBVMC0w8KKlUjDfHByziPwxnfs=; b=GNtSbVecKTbkwwUxTV0tBUPfZSJPTngjK
- wtNP/OdwcQ1U0AOEXsayLOoaozycXobhGD7XUy0SdFfqq8m3yZaVm6D4V+CBTwjY
- xlVIHoYpt3zU/Elo0ErBHdBQP5ojaCMm0nzZHKDh7ZRkw//v4qYqav18sHo8VOWr
- s0rjiCmQhBqlKyjzhUj7AaC7QBC9jHc69tRkobHcNujfdYlqrut+EWZnp3TGzniE
- osLLnZX6/mSdE1LWdW8mYDX3ezdgD7A0MgBlSAeoIAI0AkC1WtP59MzaoS+O9mfi
- JLVVUjbndhKDEQOg/xwNMFsNETXFvkw1rDs2dr4lsJCUFlaLY0F5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=Z6dimodUVhGLB9cUEyBVMC0w8KKlUjDfHByziPwxnfs=; b=jwlCRkKS
- 3ZcoSh/ZOBNQJbiMJt7rSC2fAunJrpQTFVqnqPqVY7HKamjyKy5GWDu56f1GPH5B
- 33WEV9BbUgy851jmsQGt/3N5n3tyd/jZPNwMJXSGwX8adyzmQXYk5Zt0hKqUB9Xv
- 0hiMxpN+QshV4rKJHKtXjzJsZjgr6Cmswunj5dwevlFaddDUclLyVxaX/Pgzw0Sj
- vYQO4WZ0t5jFnBZkE5/GmXj2gCSEsu7qY+601aYushnjhY6MFhD5GMQ54m9p4WZT
- pdGFjwOQ+7MZpR016/YSedeD8XLU2dMqMeirEXn5ulTWv7+MXlpXimfjhPEaNSjv
- NK0XRMqHV+TqLw==
-X-ME-Sender: <xms:-KGLWgSjzmdZsVMbCxKdWj2cTeLq7qOZZ7cVVf-pM-kspPQND4NFhA>
-Received: from dave.aj.id.au (ppp118-210-154-2.bras1.adl6.internode.on.net
- [118.210.154.2])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3FDC87E3CB;
- Mon, 19 Feb 2018 23:20:04 -0500 (EST)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au, jk@ozlabs.org, eajames@linux.vnet.ibm.com,
- bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com
-Cc: openbmc@lists.ozlabs.org,
-	Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-4.13 16/16] fsi: gpio: Use a mutex to protect
- transfers
-Date: Tue, 20 Feb 2018 14:48:44 +1030
-Message-Id: <20180220041844.13228-17-andrew@aj.id.au>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180220041844.13228-1-andrew@aj.id.au>
-References: <20180220041844.13228-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zlq775bBczF0TH
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 16:34:27 +1100 (AEDT)
+Received: by mail-qk0-x243.google.com with SMTP id n198so15057775qke.7
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Feb 2018 21:34:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Mf0OSUsK7HQtfW9lZUyVo6tzcbQJ3JTdAoy90/vDqxs=;
+ b=ZzliEP6DskCKNQ6LcLZCRQVlEbvsrgEyFB7LwjeUau6Dd1M7rSYkN8/RC1G62ok/bQ
+ JnWLqvLQ+hORa1qYuw/UJVFWCfqWBIPRsruEvnwYsVAOzBmHhi1MgwTbz9WBOgiA4Fue
+ dFgC2IvbmmCrVXr355ldfeKYgFX4/SGpruPuR65MOFrNEnCqXtizturJqKQ+tNy/KD7Q
+ ZEQ0FJdgFvV4IkYgq0I8AmqB4xNMx5PYnyVhqQX7Y/KRovTnFsMUqM+fROQdsBWBkMpc
+ l1uW6V9Wq/Ngo0WoJWIPHd3TKRLsHgvXzVedz8wRmQpzfDAuJ5OzUauTQrNQlWyoLc6b
+ i+hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Mf0OSUsK7HQtfW9lZUyVo6tzcbQJ3JTdAoy90/vDqxs=;
+ b=R15OK0hHHsxYUKNEUcz3+0zaQUQ8bW58aMEZVpp3NSZs9JYQVU00QHgnTeNzMou7ob
+ lA3RODKSVGT/TJWyqEpL6eZzuyFXO/ga+LZ8zYvIwUOLU1Xiw51ta+INDulqCp0jHNCw
+ XnO/u9DGfizDbdUBGeyFPfhKo2fg4M579ZdsBtIm6Zsd5V82VfiI57Z3Z0l5L1cH/JOC
+ zpxO9UTE/PNP4Chc6bO3jzNk+7fA50QXfMgOageHM7gH9l2tPTOTzQbbPLQseBY2rfGL
+ ebK8XHh2rKdVpa9KDsDWJM5klCyXlCCRi08ZiQfO7M3CJgt4Q5FiDZVWGalee47eWPRo
+ oGNQ==
+X-Gm-Message-State: APf1xPD9kx7tPNLvvsYuODgwfniWzKH2frDRaw0yZpI+5nuOgujCigYf
+ X11maU2fzsqW6ZzmCQLs1H6rN8kgNj6wC9vJgtVO3Q==
+X-Google-Smtp-Source: AH8x227XMesmaS8WM62pbAX0wGTJtCkCZkbTrrkVzd758uSk4KRFaorRe8aw6sNOrkTmPLP998bhFgFJ55fcdIuG/0M=
+X-Received: by 10.55.56.84 with SMTP id f81mr15697031qka.25.1519104864601;
+ Mon, 19 Feb 2018 21:34:24 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.50.69 with HTTP; Mon, 19 Feb 2018 21:34:04 -0800 (PST)
+In-Reply-To: <20180220040339.11632-1-andrew@aj.id.au>
+References: <20180220040339.11632-1-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 20 Feb 2018 16:04:04 +1030
+X-Google-Sender-Auth: Xz9S_CmzarPMF4tiEOnc-zkgwdc
+Message-ID: <CACPK8Xc5JEJMGg+4HJn9HLgsZo7N0sBygU3feSYxwJZnZAhvrQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13] clk: aspeed: Update to upstream to avoid
+ schedule()ing from atomic context
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,275 +64,153 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Feb 2018 04:20:11 -0000
+X-List-Received-Date: Tue, 20 Feb 2018 05:34:28 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+On Tue, Feb 20, 2018 at 2:33 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> The patch is generated against v4.16-rc2. Critically, it fixes a bug where
+> we schedule() from an atomic context:
 
-Reduce time spent with interrupts disabled by limiting the critical sections to
-bitbanging FSI symbols. We only need to ensure exclusive use of the bus for an
-entire transfer, not that the transfer be performed in atomic context.
+Thanks for pointing this out. I chose to backport the fixes that were
+upstream and make the s/msleep/mdelay/ fix in it's own patch.
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/fsi/fsi-master-gpio.c | 90 +++++++++++++++++++++++++++++++------------
- 1 file changed, 66 insertions(+), 24 deletions(-)
+Cheers,
 
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-index 20b334f1827d..4295a46780cb 100644
---- a/drivers/fsi/fsi-master-gpio.c
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -54,7 +54,8 @@
- struct fsi_master_gpio {
- 	struct fsi_master	master;
- 	struct device		*dev;
--	spinlock_t		cmd_lock;	/* Lock for commands */
-+	struct mutex		cmd_lock;	/* mutex for command ordering */
-+	spinlock_t		bit_lock;	/* lock for clocking bits out */
- 	struct gpio_desc	*gpio_clk;
- 	struct gpio_desc	*gpio_data;
- 	struct gpio_desc	*gpio_trans;	/* Voltage translator */
-@@ -270,10 +271,13 @@ static int read_one_response(struct fsi_master_gpio *master,
- 		uint8_t data_size, struct fsi_gpio_msg *msgp, uint8_t *tagp)
- {
- 	struct fsi_gpio_msg msg;
--	uint8_t tag;
-+	unsigned long flags;
- 	uint32_t crc;
-+	uint8_t tag;
- 	int i;
- 
-+	spin_lock_irqsave(&master->bit_lock, flags);
-+
- 	/* wait for the start bit */
- 	for (i = 0; i < FSI_GPIO_MTOE_COUNT; i++) {
- 		msg.bits = 0;
-@@ -286,6 +290,7 @@ static int read_one_response(struct fsi_master_gpio *master,
- 		dev_dbg(master->dev,
- 			"Master time out waiting for response\n");
- 		fsi_master_gpio_error(master, FSI_GPIO_MTOE);
-+		spin_unlock_irqrestore(&master->bit_lock, flags);
- 		return -EIO;
- 	}
- 
-@@ -304,6 +309,8 @@ static int read_one_response(struct fsi_master_gpio *master,
- 	/* read CRC */
- 	serial_in(master, &msg, FSI_GPIO_CRC_SIZE);
- 
-+	spin_unlock_irqrestore(&master->bit_lock, flags);
-+
- 	/* we have a whole message now; check CRC */
- 	crc = crc4(0, 1, 1);
- 	crc = crc4(crc, msg.msg, msg.bits);
-@@ -324,12 +331,16 @@ static int read_one_response(struct fsi_master_gpio *master,
- static int issue_term(struct fsi_master_gpio *master, uint8_t slave)
- {
- 	struct fsi_gpio_msg cmd;
-+	unsigned long flags;
- 	uint8_t tag;
- 	int rc;
- 
- 	build_term_command(&cmd, slave);
-+
-+	spin_lock_irqsave(&master->bit_lock, flags);
- 	serial_out(master, &cmd);
- 	echo_delay(master);
-+	spin_unlock_irqrestore(&master->bit_lock, flags);
- 
- 	rc = read_one_response(master, 0, NULL, &tag);
- 	if (rc < 0) {
-@@ -349,6 +360,7 @@ static int poll_for_response(struct fsi_master_gpio *master,
- {
- 	struct fsi_gpio_msg response, cmd;
- 	int busy_count = 0, rc, i;
-+	unsigned long flags;
- 	uint8_t tag;
- 	uint8_t *data_byte = data;
- 
-@@ -377,15 +389,20 @@ static int poll_for_response(struct fsi_master_gpio *master,
- 		 * d-poll, not indicated in the hardware protocol
- 		 * spec. < 20 clocks causes slave to hang, 21 ok.
- 		 */
--		clock_zeros(master, FSI_GPIO_DPOLL_CLOCKS);
- 		if (busy_count++ < FSI_GPIO_MAX_BUSY) {
- 			build_dpoll_command(&cmd, slave);
-+			spin_lock_irqsave(&master->bit_lock, flags);
-+			clock_zeros(master, FSI_GPIO_DPOLL_CLOCKS);
- 			serial_out(master, &cmd);
- 			echo_delay(master);
-+			spin_unlock_irqrestore(&master->bit_lock, flags);
- 			goto retry;
- 		}
- 		dev_warn(master->dev,
- 			"ERR slave is stuck in busy state, issuing TERM\n");
-+		spin_lock_irqsave(&master->bit_lock, flags);
-+		clock_zeros(master, FSI_GPIO_DPOLL_CLOCKS);
-+		spin_unlock_irqrestore(&master->bit_lock, flags);
- 		issue_term(master, slave);
- 		rc = -EIO;
- 		break;
-@@ -404,27 +421,42 @@ static int poll_for_response(struct fsi_master_gpio *master,
- 		trace_fsi_master_gpio_poll_response_busy(master, busy_count);
- 
- 	/* Clock the slave enough to be ready for next operation */
-+	spin_lock_irqsave(&master->bit_lock, flags);
- 	clock_zeros(master, FSI_GPIO_PRIME_SLAVE_CLOCKS);
-+	spin_unlock_irqrestore(&master->bit_lock, flags);
- 	return rc;
- }
- 
-+static int send_request(struct fsi_master_gpio *master,
-+		struct fsi_gpio_msg *cmd)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&master->bit_lock, flags);
-+	if (master->external_mode) {
-+		spin_unlock_irqrestore(&master->bit_lock, flags);
-+		return -EBUSY;
-+	}
-+
-+	serial_out(master, cmd);
-+	echo_delay(master);
-+	spin_unlock_irqrestore(&master->bit_lock, flags);
-+
-+	return 0;
-+}
-+
- static int fsi_master_gpio_xfer(struct fsi_master_gpio *master, uint8_t slave,
- 		struct fsi_gpio_msg *cmd, size_t resp_len, void *resp)
- {
--	unsigned long flags;
- 	int rc;
- 
--	spin_lock_irqsave(&master->cmd_lock, flags);
-+	mutex_lock(&master->cmd_lock);
- 
--	if (master->external_mode) {
--		spin_unlock_irqrestore(&master->cmd_lock, flags);
--		return -EBUSY;
--	}
-+	rc = send_request(master, cmd);
-+	if (!rc)
-+		rc = poll_for_response(master, slave, resp_len, resp);
- 
--	serial_out(master, cmd);
--	echo_delay(master);
--	rc = poll_for_response(master, slave, resp_len, resp);
--	spin_unlock_irqrestore(&master->cmd_lock, flags);
-+	mutex_unlock(&master->cmd_lock);
- 
- 	return rc;
- }
-@@ -478,11 +510,14 @@ static int fsi_master_gpio_break(struct fsi_master *_master, int link)
- 
- 	trace_fsi_master_gpio_break(master);
- 
--	spin_lock_irqsave(&master->cmd_lock, flags);
-+	mutex_lock(&master->cmd_lock);
- 	if (master->external_mode) {
--		spin_unlock_irqrestore(&master->cmd_lock, flags);
-+		mutex_unlock(&master->cmd_lock);
- 		return -EBUSY;
- 	}
-+
-+	spin_lock_irqsave(&master->bit_lock, flags);
-+
- 	set_sda_output(master, 1);
- 	sda_out(master, 1);
- 	clock_toggle(master, FSI_PRE_BREAK_CLOCKS);
-@@ -491,7 +526,9 @@ static int fsi_master_gpio_break(struct fsi_master *_master, int link)
- 	echo_delay(master);
- 	sda_out(master, 1);
- 	clock_toggle(master, FSI_POST_BREAK_CLOCKS);
--	spin_unlock_irqrestore(&master->cmd_lock, flags);
-+
-+	spin_unlock_irqrestore(&master->bit_lock, flags);
-+	mutex_unlock(&master->cmd_lock);
- 
- 	/* Wait for logic reset to take effect */
- 	udelay(200);
-@@ -501,6 +538,8 @@ static int fsi_master_gpio_break(struct fsi_master *_master, int link)
- 
- static void fsi_master_gpio_init(struct fsi_master_gpio *master)
- {
-+	unsigned long flags;
-+
- 	gpiod_direction_output(master->gpio_mux, 1);
- 	gpiod_direction_output(master->gpio_trans, 1);
- 	gpiod_direction_output(master->gpio_enable, 1);
-@@ -508,7 +547,9 @@ static void fsi_master_gpio_init(struct fsi_master_gpio *master)
- 	gpiod_direction_output(master->gpio_data, 1);
- 
- 	/* todo: evaluate if clocks can be reduced */
-+	spin_lock_irqsave(&master->bit_lock, flags);
- 	clock_zeros(master, FSI_INIT_CLOCKS);
-+	spin_unlock_irqrestore(&master->bit_lock, flags);
- }
- 
- static void fsi_master_gpio_init_external(struct fsi_master_gpio *master)
-@@ -523,18 +564,17 @@ static void fsi_master_gpio_init_external(struct fsi_master_gpio *master)
- static int fsi_master_gpio_link_enable(struct fsi_master *_master, int link)
- {
- 	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
--	unsigned long flags;
- 	int rc = -EBUSY;
- 
- 	if (link != 0)
- 		return -ENODEV;
- 
--	spin_lock_irqsave(&master->cmd_lock, flags);
-+	mutex_lock(&master->cmd_lock);
- 	if (!master->external_mode) {
- 		gpiod_set_value(master->gpio_enable, 1);
- 		rc = 0;
- 	}
--	spin_unlock_irqrestore(&master->cmd_lock, flags);
-+	mutex_unlock(&master->cmd_lock);
- 
- 	return rc;
- }
-@@ -552,7 +592,7 @@ static ssize_t external_mode_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t count)
- {
- 	struct fsi_master_gpio *master = dev_get_drvdata(dev);
--	unsigned long flags, val;
-+	unsigned long val;
- 	bool external_mode;
- 	int err;
- 
-@@ -562,10 +602,10 @@ static ssize_t external_mode_store(struct device *dev,
- 
- 	external_mode = !!val;
- 
--	spin_lock_irqsave(&master->cmd_lock, flags);
-+	mutex_lock(&master->cmd_lock);
- 
- 	if (external_mode == master->external_mode) {
--		spin_unlock_irqrestore(&master->cmd_lock, flags);
-+		mutex_unlock(&master->cmd_lock);
- 		return count;
- 	}
- 
-@@ -574,7 +614,8 @@ static ssize_t external_mode_store(struct device *dev,
- 		fsi_master_gpio_init_external(master);
- 	else
- 		fsi_master_gpio_init(master);
--	spin_unlock_irqrestore(&master->cmd_lock, flags);
-+
-+	mutex_unlock(&master->cmd_lock);
- 
- 	fsi_master_rescan(&master->master);
- 
-@@ -642,7 +683,8 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
- 	master->master.send_break = fsi_master_gpio_break;
- 	master->master.link_enable = fsi_master_gpio_link_enable;
- 	platform_set_drvdata(pdev, master);
--	spin_lock_init(&master->cmd_lock);
-+	spin_lock_init(&master->bit_lock);
-+	mutex_init(&master->cmd_lock);
- 
- 	fsi_master_gpio_init(master);
- 
--- 
-2.14.1
+Joel
+
+>
+> [    1.570455] BUG: scheduling while atomic: swapper/1/0x00000003
+> [    1.576541] 4 locks held by swapper/1:
+> [    1.580326]  #0:  (&dev->mutex){......}, at: [<802b7ac0>] __driver_attach+0x64/0x10c
+> [    1.588177]  #1:  (&dev->mutex){......}, at: [<802b7ad0>] __driver_attach+0x74/0x10c
+> [    1.596002]  #2:  (enable_lock){......}, at: [<80286f68>] clk_enable_lock+0x28/0x130
+> [    1.603839]  #3:  (aspeed_clk_lock){......}, at: [<8028ff30>] aspeed_clk_enable+0x38/0xf4
+> [    1.612096] irq event stamp: 157268
+> [    1.615630] hardirqs last  enabled at (157267): [<804c10a0>] _raw_spin_unlock_irqrestore+0x40/0x6c
+> [    1.624621] hardirqs last disabled at (157268): [<80286f60>] clk_enable_lock+0x20/0x130
+> [    1.632670] softirqs last  enabled at (156064): [<80116160>] bdi_register_va+0xf4/0x240
+> [    1.640713] softirqs last disabled at (156062): [<80116144>] bdi_register_va+0xd8/0x240
+> [    1.648744] CPU: 0 PID: 1 Comm: swapper Not tainted 4.13.16-00190-g78a200cb21ab #2393
+> [    1.656583] Hardware name: Generic DT based system
+> [    1.661438] [<8001141c>] (unwind_backtrace) from [<8000e87c>] (show_stack+0x20/0x24)
+> [    1.669235] [<8000e87c>] (show_stack) from [<804a65ec>] (dump_stack+0x20/0x28)
+> [    1.676527] [<804a65ec>] (dump_stack) from [<80047680>] (__schedule_bug+0x70/0xa4)
+> [    1.684150] [<80047680>] (__schedule_bug) from [<804bb8e0>] (__schedule+0x648/0x8a4)
+> [    1.691933] [<804bb8e0>] (__schedule) from [<804bbbec>] (schedule+0x5c/0xcc)
+> [    1.699025] [<804bbbec>] (schedule) from [<804bffec>] (schedule_timeout+0x220/0x498)
+> [    1.706819] [<804bffec>] (schedule_timeout) from [<80073af0>] (msleep+0x48/0x58)
+> [    1.714264] [<80073af0>] (msleep) from [<8028ffac>] (aspeed_clk_enable+0xb4/0xf4)
+> [    1.721796] [<8028ffac>] (aspeed_clk_enable) from [<80288654>] (clk_core_enable+0xac/0x248)
+> [    1.730189] [<80288654>] (clk_core_enable) from [<80288818>] (clk_core_enable_lock+0x28/0x3c)
+> [    1.738760] [<80288818>] (clk_core_enable_lock) from [<8028aab4>] (clk_enable+0x24/0x28)
+> [    1.746907] [<8028aab4>] (clk_enable) from [<802df144>] (aspeed_lpc_ctrl_probe+0x148/0x25c)
+> [    1.755315] [<802df144>] (aspeed_lpc_ctrl_probe) from [<802b97c8>] (platform_drv_probe+0x60/0xbc)
+> [    1.764230] [<802b97c8>] (platform_drv_probe) from [<802b78f0>] (driver_probe_device+0x2e4/0x450)
+> [    1.773135] [<802b78f0>] (driver_probe_device) from [<802b7b28>] (__driver_attach+0xcc/0x10c)
+> [    1.781699] [<802b7b28>] (__driver_attach) from [<802b58a4>] (bus_for_each_dev+0x5c/0xac)
+> [    1.789915] [<802b58a4>] (bus_for_each_dev) from [<802b7d04>] (driver_attach+0x28/0x30)
+> [    1.797958] [<802b7d04>] (driver_attach) from [<802b62dc>] (bus_add_driver+0x194/0x254)
+> [    1.806001] [<802b62dc>] (bus_add_driver) from [<802b8b54>] (driver_register+0x88/0x104)
+> [    1.814133] [<802b8b54>] (driver_register) from [<802ba42c>] (__platform_driver_register+0x3c/0x50)
+> [    1.823234] [<802ba42c>] (__platform_driver_register) from [<8068a814>] (aspeed_lpc_ctrl_driver_init+0x20/0x28)
+> [    1.833381] [<8068a814>] (aspeed_lpc_ctrl_driver_init) from [<80669f1c>] (do_one_initcall+0xb0/0x170)
+> [    1.842651] [<80669f1c>] (do_one_initcall) from [<8066a0f4>] (kernel_init_freeable+0x118/0x1d0)
+> [    1.851406] [<8066a0f4>] (kernel_init_freeable) from [<804b9b94>] (kernel_init+0x18/0x104)
+> [    1.859717] [<804b9b94>] (kernel_init) from [<8000a868>] (ret_from_fork+0x14/0x2c)
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  drivers/clk/clk-aspeed.c | 33 ++++++++++++++++-----------------
+>  1 file changed, 16 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+> index 4a0d2649d907..9f7f931d6b2f 100644
+> --- a/drivers/clk/clk-aspeed.c
+> +++ b/drivers/clk/clk-aspeed.c
+> @@ -1,13 +1,4 @@
+> -/*
+> - * Copyright 2017 IBM Corporation
+> - *
+> - * Joel Stanley <joel@jms.id.au>
+> - *
+> - * This program is free software; you can redistribute it and/or
+> - * modify it under the terms of the GNU General Public License
+> - * as published by the Free Software Foundation; either version
+> - * 2 of the License, or (at your option) any later version.
+> - */
+> +// SPDX-License-Identifier: GPL-2.0+
+>
+>  #define pr_fmt(fmt) "clk-aspeed: " fmt
+>
+> @@ -220,6 +211,7 @@ static int aspeed_clk_enable(struct clk_hw *hw)
+>         unsigned long flags;
+>         u32 clk = BIT(gate->clock_idx);
+>         u32 rst = BIT(gate->reset_idx);
+> +       u32 enval;
+>
+>         spin_lock_irqsave(gate->lock, flags);
+>
+> @@ -232,12 +224,12 @@ static int aspeed_clk_enable(struct clk_hw *hw)
+>         }
+>
+>         /* Enable clock */
+> -       regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, 0);
+> +       enval = (gate->flags & CLK_GATE_SET_TO_DISABLE) ? 0 : clk;
+> +       regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, enval);
+>
+>         if (gate->reset_idx >= 0) {
+> -               /* Delay 10ms */
+> -               /* TODO: can we sleep here? */
+> -               msleep(10);
+> +               /* A delay of 10ms is specified by the ASPEED docs */
+> +               mdelay(10);
+>
+>                 /* Take IP out of reset */
+>                 regmap_update_bits(gate->map, ASPEED_RESET_CTRL, rst, 0);
+> @@ -253,10 +245,12 @@ static void aspeed_clk_disable(struct clk_hw *hw)
+>         struct aspeed_clk_gate *gate = to_aspeed_clk_gate(hw);
+>         unsigned long flags;
+>         u32 clk = BIT(gate->clock_idx);
+> +       u32 enval;
+>
+>         spin_lock_irqsave(gate->lock, flags);
+>
+> -       regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, clk);
+> +       enval = (gate->flags & CLK_GATE_SET_TO_DISABLE) ? clk : 0;
+> +       regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, enval);
+>
+>         spin_unlock_irqrestore(gate->lock, flags);
+>  }
+> @@ -488,7 +482,12 @@ static int aspeed_clk_probe(struct platform_device *pdev)
+>
+>         for (i = 0; i < ARRAY_SIZE(aspeed_gates); i++) {
+>                 const struct aspeed_gate_data *gd = &aspeed_gates[i];
+> +               u32 gate_flags;
+>
+> +               /* Special case: the USB port 1 clock (bit 14) is always
+> +                * working the opposite way from the other ones.
+> +                */
+> +               gate_flags = (gd->clock_idx == 14) ? 0 : CLK_GATE_SET_TO_DISABLE;
+>                 hw = aspeed_clk_hw_register_gate(dev,
+>                                 gd->name,
+>                                 gd->parent_name,
+> @@ -496,7 +495,7 @@ static int aspeed_clk_probe(struct platform_device *pdev)
+>                                 map,
+>                                 gd->clock_idx,
+>                                 gd->reset_idx,
+> -                               CLK_GATE_SET_TO_DISABLE,
+> +                               gate_flags,
+>                                 &aspeed_clk_lock);
+>                 if (IS_ERR(hw))
+>                         return PTR_ERR(hw);
+> @@ -619,7 +618,7 @@ static void __init aspeed_cc_init(struct device_node *np)
+>         int i;
+>
+>         scu_base = of_iomap(np, 0);
+> -       if (IS_ERR(scu_base))
+> +       if (!scu_base)
+>                 return;
+>
+>         aspeed_clk_data = kzalloc(sizeof(*aspeed_clk_data) +
+> --
+> 2.14.1
+>
