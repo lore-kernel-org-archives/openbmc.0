@@ -3,54 +3,54 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KKGG27Ir"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="B+ls1lyG"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="D9EbhHqh"; dkim-atps=neutral
+ header.b="TordsxMB"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zlnSV4LVNzF0cS
- for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 15:19:22 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zlnSY6nXlzDrdq
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 15:19:25 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9541F20DCD;
- Mon, 19 Feb 2018 23:19:20 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id EB05220D52;
+ Mon, 19 Feb 2018 23:19:23 -0500 (EST)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 19 Feb 2018 23:19:20 -0500
+ by compute4.internal (MEProxy); Mon, 19 Feb 2018 23:19:23 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=ISnRrMpQsK9kz+Eoj
- nh7NUf0hd0DsvoXzh27wdCOCjg=; b=KKGG27IrXFezNYa6uBjIT4w/XSe/u1aRF
- tWRPjuVTlCu20o3UVjIx0aKapYPdah3K9W3R1AOf9WtVqy45D2x2xKRfHpn9MZZU
- sSDwR91Ov6YZME4matgyTkColV7t9W+oN+3AZx/WI9SZ+U9ohrcYcoYP+oNtJh+J
- tHygtbl2dP9/WEAWo52RPjWpGLGxPX39W8UAfU8jFvtVawyKp0jWZ0ZJ9z9iNZkP
- psv4kLQuLIoFmbxAo+RvD5lGGlK9VtCmtD5yhrby0Yah+UT6VB0iRF+8EEgsnrkN
- hF706tiQCX/mwa9IqgwNJ6iodFDJGOfk3ArooNz22ACIFabFN/39g==
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=HSHEhwX557uXkp6ot
+ nqz/LTl6f0kAFst78NSfz26piY=; b=B+ls1lyG5yWf6/3QWf9VlRIRnFDyJok3q
+ MnZSXByZ+bSeLDe/Qk72sLkbTLUTuFnU2p/k/3wbCTeJqbJf7CwRKTdmcnvtF2J7
+ D70cKs+agAzhCvLK8YUBKqxngeXP8DUdPa53u8ztijtJB4+MEaem0ynjcqdHOkTC
+ f/4ArXx1TjhmsbuRnt/e3oDiwIEq0lrXeNCOGv9bwEBFr+2GPm7NC3PSj5snG8lq
+ l1hoppp7lLlRPlhDqK1r6ektU1BfoAPveVQJi+jmUw6lg3IrgLWkujTzJGH8NrSg
+ gDwZKNh7TA5vqLuRjmrMSOrkfNdOmIimyUjWfO1BRGH9PmzQJ1Y2g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=ISnRrMpQsK9kz+Eojnh7NUf0hd0DsvoXzh27wdCOCjg=; b=D9EbhHqh
- kQDutT/w/MjR9ZXHzC+ID5G+12LwUhJ+JbjnKY1UldifwNCFmuXUxrX6opUIHKi7
- yThsOjCrkiZTdjhPNRzQXqFtrn+gaWInSILVUgcVuiml8rsf3w3+mgcWjb1iiqGo
- 3Yn/hx3OR0LNvxo1hU0H7cQi2ItEY5FrIP+K5Jm3V8Y1hGBDI2oSiafwbgCIyQcn
- cAVJJpZBgHwnUF+illi0AISmP9t+NH0Vfqb/FopQUSaWvWkwneNwcNDigukpPLYH
- dCoO37CPXAiCzaZxMz2QpsY+ibMYq1sCcEUtML4BDkM2ozqbKxi6krYu50iyt1SH
- 6eXojvLW4Vv/Jg==
-X-ME-Sender: <xms:yKGLWprIpStYwRrS7z10Ys2_5H9IhB7Uh_VW7lxZsibb7Ilx1d7vXg>
+ fm2; bh=HSHEhwX557uXkp6otnqz/LTl6f0kAFst78NSfz26piY=; b=TordsxMB
+ 6qWVvo/z1YMyTiUXjfP5RD0KPY08m/rFU/sLYcP5LKnFiiPvTMteqlED/EfXL+kg
+ DO+NIaQf6XIpwOVgPHnebubhy1shEZ+0R+1JTY7nk0Zt913m1G5g7s59xDZRHYEx
+ YtsG25ElNdPZc+Jrro3DeabYUWYrCE85DvFMUAAdfyuqtM2osSi53JhV4pmfMRxj
+ jFQCij6IQGKAe1o389kRExo8aYUDxd7sqSyIjDEYkqSE2q15XeKMmOJWTiPEX7pC
+ f8cEYHyVxjcZKDM0jZibVIEbp8zR6RKXL9vo5CvrXKDP0WhC30+ZG07KDU0VAVTg
+ nPte4g1l5e5whw==
+X-ME-Sender: <xms:y6GLWvWGG4L0YMeLZh6GbkOPKgB0S4rO8fdxWg0k4szve1izl1muAA>
 Received: from dave.aj.id.au (ppp118-210-154-2.bras1.adl6.internode.on.net
  [118.210.154.2])
- by mail.messagingengine.com (Postfix) with ESMTPA id B65D97E0DF;
- Mon, 19 Feb 2018 23:19:17 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0845F7E0DF;
+ Mon, 19 Feb 2018 23:19:20 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au, jk@ozlabs.org, eajames@linux.vnet.ibm.com,
  bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com
 Cc: Andrew Jeffery <andrew@aj.id.au>,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13 01/16] dts: fsi: Make OCC description match
- expected hierarchy
-Date: Tue, 20 Feb 2018 14:48:29 +1030
-Message-Id: <20180220041844.13228-2-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.13 02/16] hwmon (p9_sbe): Initialise device spin
+ lock
+Date: Tue, 20 Feb 2018 14:48:30 +1030
+Message-Id: <20180220041844.13228-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20180220041844.13228-1-andrew@aj.id.au>
 References: <20180220041844.13228-1-andrew@aj.id.au>
@@ -65,50 +65,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Feb 2018 04:19:22 -0000
-
-ibm,p9-occ-hwmon describes a driver, not hardware, but this compatible is
-what's required to get the driver to probe.
-
-While we discuss how to resolve that problem, lets at least make the current
-configuration work.
+X-List-Received-Date: Tue, 20 Feb 2018 04:19:26 -0000
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- arch/arm/boot/dts/ibm-power9-cfam.dtsi | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/hwmon/occ/p9_sbe.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-index e0e738f9e539..215cc8182ca5 100644
---- a/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-+++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-@@ -113,8 +113,12 @@
- 			#size-cells = <0>;
+diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+index 7dbe4d5bcd61..cda29f47f8ff 100644
+--- a/drivers/hwmon/occ/p9_sbe.c
++++ b/drivers/hwmon/occ/p9_sbe.c
+@@ -116,6 +116,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
+ 	if (!p9_sbe_occ)
+ 		return -ENOMEM;
  
- 			occ@1 {
--				compatible = "ibm,p9-occ-hwmon";
-+				compatible = "ibm,p9-occ";
- 				reg = <1>;
-+
-+				occ-hwmon@1 {
-+					compatible = "ibm,p9-occ-hwmon";
-+				};
- 			};
- 		};
- 
-@@ -205,8 +209,12 @@
- 					#size-cells = <0>;
- 
- 					occ@2 {
--						compatible = "ibm,p9-occ-hwmon";
-+						compatible = "ibm,p9-occ";
- 						reg = <2>;
-+
-+						occ-hwmon@2 {
-+							compatible = "ibm,p9-occ-hwmon";
-+						};
- 					};
- 				};
- 			};
++	spin_lock_init(&p9_sbe_occ->lock);
+ 	p9_sbe_occ->sbe = pdev->dev.parent;
+ 	occ = &p9_sbe_occ->occ;
+ 	occ->bus_dev = &pdev->dev;
 -- 
 2.14.1
