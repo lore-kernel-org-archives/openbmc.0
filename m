@@ -1,59 +1,63 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hiWmiJ4E"; 
- dkim-atps=neutral
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zlqPC0C6pzF0gl
- for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 16:46:38 +1100 (AEDT)
-Received: by mail-qt0-x244.google.com with SMTP id g14so15059482qti.2
- for <openbmc@lists.ozlabs.org>; Mon, 19 Feb 2018 21:46:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=beWMj5fVqLNAwE/raDXXy8BWiTcQHnICJjF7FhH9YxE=;
- b=hiWmiJ4E7emVUq3JsVaaqJZmK9fqomvFWeMlnMQbbfL+2duUoVKmfjNBr+u0thj4mq
- RL+3psHulho4P1S0Tiwkofk6C5Tnun8R1v4eSwY7DalN9i0x2/yD/83ujdYb80wEjaz6
- HqKk1TqnDzOc2/rDJN50aPP/ajKyzbJ20dWz4blb/a599m4cEu1VAC3JsVJNX7KhhqRm
- S8hZSkWMmLxcw4zzhpNNzdqGNgfDB8T0sO40NJiOd4qdNISrWClISuUpju467wBs3Oe/
- k9q5lVPp2e1HOXAEtY9CFP71aDo0WUdKzMVemjrKO8AinjfBqeXOe8bhi3kNH3XVpFG0
- tg0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=beWMj5fVqLNAwE/raDXXy8BWiTcQHnICJjF7FhH9YxE=;
- b=WawAiBXY5mIHg4r9qDVowiWGprtJ2ayrxU1x471KLKRFg4WBGzR9sFebF3oeFOsfH2
- Yyayz6qJnYP3GBpDEMGDiaDH77YfQEgf9qSef4D/k4SXT/iJUq94J6HAeh3lIRtcgjav
- BAR7c3GeFChYC7IeHqOAKrq8ysU72yV/A536QQQV7MplRqUrF/ygKWSn82aBlaSYGY6u
- IPYG6GxlQv1iWzGU65EqLi/++3AFYUT7wABsVZqou5rdLz9f1fW1XlZuImxl5wuKmNK0
- rJeMV12lKQk8u/YJStsplfxql+EHrKPPlP+lICaN7erbGgOqeI7gfAVOgb+9TtmPjZT7
- vx0g==
-X-Gm-Message-State: APf1xPCxKhW1hXhbDu2n+s4hYmOAdB84brS33J0yoMqvVYDSLuFDhnIr
- 8CLf6xVNik4myiFptxZnw8fWOOdy+UwYOfC4e7k=
-X-Google-Smtp-Source: AH8x227s6auVWDplnwZ07i6ahJahthVgKLtu52ZQcGDE6hPQ5ULxWwUDobfS4M+5mDJg8XVZG6DgurlV+KqLljSWqgs=
-X-Received: by 10.200.53.137 with SMTP id k9mr28619950qtb.37.1519105595798;
- Mon, 19 Feb 2018 21:46:35 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Mon, 19 Feb 2018 21:46:15 -0800 (PST)
-In-Reply-To: <20180216201401.2703-1-bradleyb@fuzziesquirrel.com>
-References: <20180216201401.2703-1-bradleyb@fuzziesquirrel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 20 Feb 2018 16:16:15 +1030
-X-Google-Sender-Auth: njDz1h7IBa8isp6wFO4hwqBGvBk
-Message-ID: <CACPK8Xd=mQUB6yDn_wWJBbYx7x3VG50UBwoepgC2jCFM037Z+Q@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc v2] aspeed: Drop bootcmd
- support for legacy images
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, ralther@google.com, 
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zmDH65wzYzF16S
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Feb 2018 08:27:46 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w1KLROvc115685
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 16:27:44 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2g8qvvs213-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2018 16:27:44 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 20 Feb 2018 14:27:43 -0700
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 20 Feb 2018 14:27:41 -0700
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w1KLRfMN11927886; Tue, 20 Feb 2018 14:27:41 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2FC7E6E03A;
+ Tue, 20 Feb 2018 14:27:41 -0700 (MST)
+Received: from talon7.ibm.com (unknown [9.41.179.222])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id E886F6E035;
+ Tue, 20 Feb 2018 14:27:40 -0700 (MST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.13 0/2] OCC: Fixup occ, occ-hwmon, and dts
+Date: Tue, 20 Feb 2018 15:27:37 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18022021-0004-0000-0000-000013B1A62F
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008565; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.00992645; UDB=6.00504319; IPR=6.00771991; 
+ MB=3.00019660; MTD=3.00000008; XFM=3.00000015; UTC=2018-02-20 21:27:42
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18022021-0005-0000-0000-0000862B2D6C
+Message-Id: <1519162059-7210-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-20_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1802200256
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,46 +69,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Feb 2018 05:46:39 -0000
+X-List-Received-Date: Tue, 20 Feb 2018 21:27:48 -0000
 
-On Sat, Feb 17, 2018 at 6:44 AM, Brad Bishop
-<bradleyb@fuzziesquirrel.com> wrote:
-> Assume booting from a FIT image by default.  This allows image builders
-> to use arbitrary configuration names like
-> /configurations/conf@foo.
->
-> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+This series includes a couple of minor fixes to the get OCC driver stack
+working correctly in the 4.13 tree.
 
-Applied. Thanks!
+Eddie James (2):
+  Revert "ARM: dts: power9-cfam: Update OCC hwmon compatible"
+  drivers: occ: Create hwmon platform device directly
 
-Cheers,
+ arch/arm/boot/dts/ibm-power9-cfam.dtsi |  5 +++--
+ drivers/fsi/fsi-occ.c                  | 29 ++++++++++++-----------------
+ drivers/hwmon/occ/p9_sbe.c             |  6 ------
+ 3 files changed, 15 insertions(+), 25 deletions(-)
 
-Joel
-
-> ---
-> v2:
->  - Reworked to drop legacy image support entirely.
->  - Updated commit message accordingly.
->
->  include/configs/ast-common.h | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->
-> diff --git a/include/configs/ast-common.h b/include/configs/ast-common.h
-> index 89b0cd8533..eff6d2b529 100644
-> --- a/include/configs/ast-common.h
-> +++ b/include/configs/ast-common.h
-> @@ -108,11 +108,7 @@
->  #define CONFIG_ENV_OFFSET              0x60000 /* environment starts here  */
->  #define CONFIG_ENV_SIZE                        0x20000 /* Total Size of Environment Sector */
->
-> -#define CONFIG_BOOTCOMMAND     \
-> -       "fdt addr 20080000; " \
-> -       "if fdt get value ramdisk_conf /configurations/conf@1 ramdisk; then " \
-> -       "    bootm 20080000; else bootm 20080000 20300000; " \
-> -       "fi"
-> +#define CONFIG_BOOTCOMMAND             "bootm 20080000"
->  #define CONFIG_ENV_OVERWRITE
->
->  #define ASPEED_ENV_SETTINGS \
-> --
-> 2.14.3
+-- 
+1.8.3.1
