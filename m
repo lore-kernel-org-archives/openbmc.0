@@ -1,34 +1,45 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@lunn.ch>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=lunn.ch
+ (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=lunn.ch header.i=@lunn.ch header.b="WCZqK+Ll"; 
+ dkim-atps=neutral
+X-Greylist: delayed 535 seconds by postgrey-1.36 at bilbo;
+ Thu, 22 Feb 2018 04:14:28 AEDT
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zmjM82fJrzDqH7
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 03:17:56 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2018 08:16:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,543,1511856000"; d="scan'208";a="29617833"
-Received: from maru.jf.intel.com ([10.54.51.80])
- by orsmga003.jf.intel.com with ESMTP; 21 Feb 2018 08:16:13 -0800
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, gregkh@linuxfoundation.org,
- jdelvare@suse.com, linux@roeck-us.net, benh@kernel.crashing.org,
- andrew@lunn.ch
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH v2 0/8] PECI device driver introduction
-Date: Wed, 21 Feb 2018 08:15:58 -0800
-Message-Id: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.16.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zmkcN2gZhzDqYx
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 04:14:28 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; 
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
+ bh=XtK30u2t1UmilLqoCP6Vmh3SVEA4LyKIqp0uF4mLNt8=; 
+ b=WCZqK+Llj02RKjvYCL7fp3AfMfOcgflQ7bn4fHzcwdiQoq1qdEBwNehxmx6eN9FqiUwc5irdeBL+1EVapSJspmmfEypEK19zzSnqPd6R3sNoDfwJ89rNwxBum/k/U4mmYfvO1MTeKwkaP1OzuBTHoAtfi/YCXevUaH6q2FfRPZ8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.84_2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1eoXxl-0000aY-W7; Wed, 21 Feb 2018 18:13:50 +0100
+Date: Wed, 21 Feb 2018 18:13:49 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
+ gregkh@linuxfoundation.org, jdelvare@suse.com, linux@roeck-us.net,
+ benh@kernel.crashing.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2 2/8] [PATCH 2/8] Documentations: dt-bindings: Add a
+ document of PECI adapter driver for Aspeed AST24xx/25xx SoCs
+Message-ID: <20180221171349.GG29204@lunn.ch>
+References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
+ <20180221161606.32247-3-jae.hyun.yoo@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180221161606.32247-3-jae.hyun.yoo@linux.intel.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -40,150 +51,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Feb 2018 16:17:57 -0000
+X-List-Received-Date: Wed, 21 Feb 2018 17:14:30 -0000
 
-Introduction of the Platform Environment Control Interface (PECI) bus
-device driver. PECI is a one-wire bus interface that provides a
-communication channel between Intel processor and chipset components to
-external monitoring or control devices. PECI is designed to support the
-following sideband functions:
+On Wed, Feb 21, 2018 at 08:16:00AM -0800, Jae Hyun Yoo wrote:
+> This commit adds a dt-bindings document of PECI adapter driver for Aspeed
+> AST24xx/25xx SoCs.
 
-* Processor and DRAM thermal management
-  - Processor fan speed control is managed by comparing Digital Thermal
-    Sensor (DTS) thermal readings acquired via PECI against the
-    processor-specific fan speed control reference point, or TCONTROL.
-    Both TCONTROL and DTS thermal readings are accessible via the processor
-    PECI client. These variables are referenced to a common temperature,
-    the TCC activation point, and are both defined as negative offsets from
-    that reference.
-  - PECI based access to the processor package configuration space provides
-    a means for Baseboard Management Controllers (BMC) or other platform
-    management devices to actively manage the processor and memory power
-    and thermal features.
+Hi Jae
 
-* Platform Manageability
-  - Platform manageability functions including thermal, power, and error
-    monitoring. Note that platform 'power' management includes monitoring
-    and control for both the processor and DRAM subsystem to assist with
-    data center power limiting.
-  - PECI allows read access to certain error registers in the processor MSR
-    space and status monitoring registers in the PCI configuration space
-    within the processor and downstream devices.
-  - PECI permits writes to certain registers in the processor PCI
-    configuration space.
+It would be good to separate this into two. One binding document for a
+generic adaptor, with a generic PECI bus, and generic client
+devices. List all the properties you expect at the generic level.
 
-* Processor Interface Tuning and Diagnostics
-  - Processor interface tuning and diagnostics capabilities
-    (Intel(c) Interconnect BIST). The processors Intel(c) Interconnect
-    Built In Self Test (Intel(c) IBIST) allows for infield diagnostic
-    capabilities in the Intel UPI and memory controller interfaces. PECI
-    provides a port to execute these diagnostics via its PCI Configuration
-    read and write capabilities.
+Then have an aspeed specific binding for those properties which are
+specific to the Aspeed adaptor.
 
-* Failure Analysis
-  - Output the state of the processor after a failure for analysis via
-    Crashdump.
-
-PECI uses a single wire for self-clocking and data transfer. The bus
-requires no additional control lines. The physical layer is a self-clocked
-one-wire bus that begins each bit with a driven, rising edge from an idle
-level near zero volts. The duration of the signal driven high depends on
-whether the bit value is a logic '0' or logic '1'. PECI also includes
-variable data transfer rate established with every message. In this way,
-it is highly flexible even though underlying logic is simple.
-
-The interface design was optimized for interfacing to Intel processor and
-chipset components in both single processor and multiple processor
-environments. The single wire interface provides low board routing
-overhead for the multiple load connections in the congested routing area
-near the processor and chipset components. Bus speed, error checking, and
-low protocol overhead provides adequate link bandwidth and reliability to
-transfer critical device operating conditions and configuration
-information.
-
-This implementation provides the basic framework to add PECI extensions
-to the Linux bus and device models. A hardware specific 'Adapter' driver
-can be attached to the PECI bus to provide sideband functions described
-above. It is also possible to access all devices on an adapter from
-userspace through the /dev interface. A device specific 'Client' driver
-also can be attached to the PECI bus so each processor client's features
-can be supported by the 'Client' driver through an adapter connection in
-the bus. This patch set includes Aspeed 24xx/25xx PECI driver and a generic
-PECI hwmon driver as the first implementation for both adapter and client
-drivers on the PECI bus framework.
-
-v1 -> v2
-- Additionally implemented a core driver to support PECI linux bus driver
-  model.
-- Modified Aspeed PECI driver to make that to be an adapter driver in PECI
-  bus.
-- Modified PECI hwmon driver to make that to be a client driver in PECI
-  bus.
-- Simplified hwmon driver attribute labels and removed redundant strings.
-- Removed core_nums from device tree setting of hwmon driver and modified
-  core number detection logic to check the resolved_core register in
-  client CPU's local PCI configuration area.
-- Removed dimm_nums from device tree setting of hwmon driver and added
-  populated DIMM detection logic to support dynamic creation.
-- Removed indexing gap on core temperature and DIMM temperature attributes.
-- Improved hwmon registration and dynamic attribute creation logic.
-- Fixed structure definitions in PECI uapi header to make that use __u8,
-  __u16 and etc.
-- Modified wait_for_completion_interruptible_timeout error handling logic
-  in Aspeed PECI driver to deliver errors correctly.
-- Removed low-level xfer command from ioctl and kept only high-level PECI
-  command suite as ioctls.
-- Fixed I/O timeout logic in Aspeed PECI driver using ktime.
-- Added a function into hwmon driver to simplify update delay checking.
-- Added a function into hwmon driver to convert 10.6 to millidegree.
-- Dropped non-standard attributes in hwmon driver.
-- Fixed OF table for hwmon to make it indicate as a PECI client of Intel
-  CPU target.
-- Added a maintainer of PECI subsystem into MAINTAINERS document.
-
-Thanks,
-
--Jae
-
-Jae Hyun Yoo (8):
-  drivers/peci: Add support for PECI bus driver core
-  Documentations: dt-bindings: Add a document of PECI adapter driver for
-    Aspeed AST24xx/25xx SoCs
-  ARM: dts: aspeed: peci: Add PECI node
-  drivers/peci: Add a PECI adapter driver for Aspeed AST24xx/AST25xx
-  Documentation: dt-bindings: Add a document for PECI hwmon client driver
-  Documentation: hwmon: Add a document for a PECI hwmon client driver
-  drivers/hwmon: Add a generic PECI hwmon client driver
-  Add a maintainer for the PECI subsystem
-
- .../devicetree/bindings/hwmon/peci-hwmon.txt       |   27 +
- .../devicetree/bindings/peci/peci-aspeed.txt       |   73 ++
- Documentation/hwmon/peci-hwmon                     |   73 ++
- MAINTAINERS                                        |    9 +
- arch/arm/boot/dts/aspeed-g4.dtsi                   |   25 +
- arch/arm/boot/dts/aspeed-g5.dtsi                   |   25 +
- drivers/Kconfig                                    |    2 +
- drivers/Makefile                                   |    1 +
- drivers/hwmon/Kconfig                              |   10 +
- drivers/hwmon/Makefile                             |    1 +
- drivers/hwmon/peci-hwmon.c                         |  928 ++++++++++++++
- drivers/peci/Kconfig                               |   39 +
- drivers/peci/Makefile                              |    9 +
- drivers/peci/peci-aspeed.c                         |  510 ++++++++
- drivers/peci/peci-core.c                           | 1337 ++++++++++++++++
- include/linux/peci.h                               |   97 ++
- include/uapi/linux/peci-ioctl.h                    |  207 +++
- 17 files changed, 3373 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/hwmon/peci-hwmon.txt
- create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.txt
- create mode 100644 Documentation/hwmon/peci-hwmon
- create mode 100644 drivers/hwmon/peci-hwmon.c
- create mode 100644 drivers/peci/Kconfig
- create mode 100644 drivers/peci/Makefile
- create mode 100644 drivers/peci/peci-aspeed.c
- create mode 100644 drivers/peci/peci-core.c
- create mode 100644 include/linux/peci.h
- create mode 100644 include/uapi/linux/peci-ioctl.h
-
--- 
-2.16.1
+	 Andrew
+ 
