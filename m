@@ -1,42 +1,35 @@
-Return-Path: <andrew@lunn.ch>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=lunn.ch
- (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=lunn.ch header.i=@lunn.ch header.b="iehK6BXQ"; 
- dkim-atps=neutral
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <gregkh@linuxfoundation.org>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
+ (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
+ envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zml4G6MwvzF0yS
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 04:35:10 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; 
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
- bh=hqQ5PQnhxvfCctWMhVtfVudqlwUjMQuaCo2Y4WT3I2M=; 
- b=iehK6BXQTVSkKw/zuV7reNyZl9X6GMLhUo2VK5JYC5Ayi6QN1+oX06mnhPLhwJEcRyufsH4CKKlznpsk1+QN1EadrWOpp2oUmJwbPGAJeQ4Hly/bDLfds4BaIZ0yizwyuPgng+auxM7E/WBdK66s5BC0IF/ZjoiG9RIj2JL9Rtk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.84_2)
- (envelope-from <andrew@lunn.ch>)
- id 1eoXoo-0000Ul-41; Wed, 21 Feb 2018 18:04:34 +0100
-Date: Wed, 21 Feb 2018 18:04:34 +0100
-From: Andrew Lunn <andrew@lunn.ch>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zmlbq26chzDqn8
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 04:58:58 +1100 (AEDT)
+Received: from localhost (LFbn-1-12258-90.w90-92.abo.wanadoo.fr [90.92.71.90])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 362E21303;
+ Wed, 21 Feb 2018 17:58:56 +0000 (UTC)
+Date: Wed, 21 Feb 2018 18:58:53 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
- gregkh@linuxfoundation.org, jdelvare@suse.com, linux@roeck-us.net,
- benh@kernel.crashing.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, jdelvare@suse.com,
+ linux@roeck-us.net, benh@kernel.crashing.org, andrew@lunn.ch,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
 Subject: Re: [PATCH v2 1/8] [PATCH 1/8] drivers/peci: Add support for PECI
  bus driver core
-Message-ID: <20180221170434.GF29204@lunn.ch>
+Message-ID: <20180221175853.GA22320@kroah.com>
 References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
  <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+User-Agent: Mutt/1.9.3 (2018-01-21)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -48,205 +41,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Feb 2018 17:35:11 -0000
+X-List-Received-Date: Wed, 21 Feb 2018 17:59:03 -0000
 
-> +static int peci_locked_xfer(struct peci_adapter *adapter,
-> +			    struct peci_xfer_msg *msg,
-> +			    bool do_retry,
-> +			    bool has_aw_fcs)
-> +{
-> +	ktime_t start, end;
-> +	s64 elapsed_ms;
-> +	int rc = 0;
-> +
-> +	if (!adapter->xfer) {
-> +		dev_dbg(&adapter->dev, "PECI level transfers not supported\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	if (in_atomic() || irqs_disabled()) {
+On Wed, Feb 21, 2018 at 08:15:59AM -0800, Jae Hyun Yoo wrote:
+> This commit adds driver implementation for PECI bus into linux
+> driver framework.
+> 
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> ---
 
-Hi Jae
+Why is there no other Intel developers willing to review and sign off on
+this patch?  Please get their review first before asking us to do their
+work for them :)
 
-Is there a real need to do transfers in atomic context, or with
-interrupts disabled? 
+thanks,
 
-> +		rt_mutex_trylock(&adapter->bus_lock);
-> +		if (!rc)
-> +			return -EAGAIN; /* PECI activity is ongoing */
-> +	} else {
-> +		rt_mutex_lock(&adapter->bus_lock);
-> +	}
-> +
-> +	if (do_retry)
-> +		start = ktime_get();
-> +
-> +	do {
-> +		rc = adapter->xfer(adapter, msg);
-> +
-> +		if (!do_retry)
-> +			break;
-> +
-> +		/* Per the PECI spec, need to retry commands that return 0x8x */
-> +		if (!(!rc && ((msg->rx_buf[0] & DEV_PECI_CC_RETRY_ERR_MASK) ==
-> +			      DEV_PECI_CC_TIMEOUT)))
-> +			break;
-> +
-> +		/* Set the retry bit to indicate a retry attempt */
-> +		msg->tx_buf[1] |= DEV_PECI_RETRY_BIT;
-> +
-> +		/* Recalculate the AW FCS if it has one */
-> +		if (has_aw_fcs)
-> +			msg->tx_buf[msg->tx_len - 1] = 0x80 ^
-> +						peci_aw_fcs((u8 *)msg,
-> +							    2 + msg->tx_len);
-> +
-> +		/* Retry for at least 250ms before returning an error */
-> +		end = ktime_get();
-> +		elapsed_ms = ktime_to_ms(ktime_sub(end, start));
-> +		if (elapsed_ms >= DEV_PECI_RETRY_TIME_MS) {
-> +			dev_dbg(&adapter->dev, "Timeout retrying xfer!\n");
-> +			break;
-> +		}
-> +	} while (true);
-
-So you busy loop to 1/4 second? How about putting a sleep in here so
-other things can be done between each retry.
-
-And should it not return -ETIMEDOUT after that 1/4 second?
-
-> +static int peci_scan_cmd_mask(struct peci_adapter *adapter)
-> +{
-> +	struct peci_xfer_msg msg;
-> +	u32 dib;
-> +	int rc = 0;
-> +
-> +	/* Update command mask just once */
-> +	if (adapter->cmd_mask & BIT(PECI_CMD_PING))
-> +		return 0;
-> +
-> +	msg.addr      = PECI_BASE_ADDR;
-> +	msg.tx_len    = GET_DIB_WR_LEN;
-> +	msg.rx_len    = GET_DIB_RD_LEN;
-> +	msg.tx_buf[0] = GET_DIB_PECI_CMD;
-> +
-> +	rc = peci_xfer(adapter, &msg);
-> +	if (rc < 0) {
-> +		dev_dbg(&adapter->dev, "PECI xfer error, rc : %d\n", rc);
-> +		return rc;
-> +	}
-> +
-> +	dib = msg.rx_buf[0] | (msg.rx_buf[1] << 8) |
-> +	      (msg.rx_buf[2] << 16) | (msg.rx_buf[3] << 24);
-> +
-> +	/* Check special case for Get DIB command */
-> +	if (dib == 0x00) {
-> +		dev_dbg(&adapter->dev, "DIB read as 0x00\n");
-> +		return -1;
-> +	}
-> +
-> +	if (!rc) {
-> +		/**
-> +		 * setting up the supporting commands based on minor rev#
-> +		 * see PECI Spec Table 3-1
-> +		 */
-> +		dib = (dib >> 8) & 0xF;
-> +
-> +		if (dib >= 0x1) {
-> +			adapter->cmd_mask |= BIT(PECI_CMD_RD_PKG_CFG);
-> +			adapter->cmd_mask |= BIT(PECI_CMD_WR_PKG_CFG);
-> +		}
-> +
-> +		if (dib >= 0x2)
-> +			adapter->cmd_mask |= BIT(PECI_CMD_RD_IA_MSR);
-> +
-> +		if (dib >= 0x3) {
-> +			adapter->cmd_mask |= BIT(PECI_CMD_RD_PCI_CFG_LOCAL);
-> +			adapter->cmd_mask |= BIT(PECI_CMD_WR_PCI_CFG_LOCAL);
-> +		}
-> +
-> +		if (dib >= 0x4)
-> +			adapter->cmd_mask |= BIT(PECI_CMD_RD_PCI_CFG);
-> +
-> +		if (dib >= 0x5)
-> +			adapter->cmd_mask |= BIT(PECI_CMD_WR_PCI_CFG);
-> +
-> +		if (dib >= 0x6)
-> +			adapter->cmd_mask |= BIT(PECI_CMD_WR_IA_MSR);
-
-Lots of magic numbers here. Can they be replaced with #defines.  Also,
-it looks like a switch statement could be used, with fall through.
-
-> +
-> +		adapter->cmd_mask |= BIT(PECI_CMD_GET_TEMP);
-> +		adapter->cmd_mask |= BIT(PECI_CMD_GET_DIB);
-> +		adapter->cmd_mask |= BIT(PECI_CMD_PING);
-> +	} else {
-> +		dev_dbg(&adapter->dev, "Error reading DIB, rc : %d\n", rc);
-> +	}
-> +
-> +	return rc;
-> +}
-> +
-
-> +static int peci_ioctl_get_temp(struct peci_adapter *adapter, void *vmsg)
-> +{
-> +	struct peci_get_temp_msg *umsg = vmsg;
-> +	struct peci_xfer_msg msg;
-> +	int rc;
-> +
-
-Is this getting the temperature?
-
-> +	rc = peci_cmd_support(adapter, PECI_CMD_GET_TEMP);
-> +	if (rc < 0)
-> +		return rc;
-> +
-> +	msg.addr      = umsg->addr;
-> +	msg.tx_len    = GET_TEMP_WR_LEN;
-> +	msg.rx_len    = GET_TEMP_RD_LEN;
-> +	msg.tx_buf[0] = GET_TEMP_PECI_CMD;
-> +
-> +	rc = peci_xfer(adapter, &msg);
-> +	if (rc < 0)
-> +		return rc;
-> +
-> +	umsg->temp_raw = msg.rx_buf[0] | (msg.rx_buf[1] << 8);
-> +
-> +	return 0;
-> +}
-
-
-
-> +static long peci_ioctl(struct file *file, unsigned int iocmd, unsigned long arg)
-> +{
-> +	struct peci_adapter *adapter = file->private_data;
-> +	void __user *argp = (void __user *)arg;
-> +	unsigned int msg_len;
-> +	enum peci_cmd cmd;
-> +	u8 *msg;
-> +	int rc = 0;
-> +
-> +	dev_dbg(&adapter->dev, "ioctl, cmd=0x%x, arg=0x%lx\n", iocmd, arg);
-> +
-> +	switch (iocmd) {
-> +	case PECI_IOC_PING:
-> +	case PECI_IOC_GET_DIB:
-> +	case PECI_IOC_GET_TEMP:
-> +	case PECI_IOC_RD_PKG_CFG:
-> +	case PECI_IOC_WR_PKG_CFG:
-> +	case PECI_IOC_RD_IA_MSR:
-> +	case PECI_IOC_RD_PCI_CFG:
-> +	case PECI_IOC_RD_PCI_CFG_LOCAL:
-> +	case PECI_IOC_WR_PCI_CFG_LOCAL:
-> +		cmd = _IOC_TYPE(iocmd) - PECI_IOC_BASE;
-> +		msg_len = _IOC_SIZE(iocmd);
-> +		break;
-
-Adding new ioctl calls is pretty frowned up. Can you export this info
-via /sysfs?
-
-Also, should there be some permission checks here? Or is any user
-allowed to call these ioctls?
-
-	Andrew
+greg k-h
