@@ -1,74 +1,80 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <Michael.E.Brown@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.95; helo=esa5.dell-outbound.iphmx.com;
+ envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="Qj7oVWoI"; 
+ dkim-atps=neutral
+Received: from esa5.dell-outbound.iphmx.com (esa5.dell-outbound.iphmx.com
+ [68.232.153.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3znR2C5RHlzF1bC
- for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 07:35:47 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w1MKZYOi057293
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 15:35:45 -0500
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ga3u82nw2-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 15:35:44 -0500
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 22 Feb 2018 13:35:44 -0700
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 22 Feb 2018 13:35:41 -0700
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w1MKZfc912386698; Thu, 22 Feb 2018 13:35:41 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 78704C6037;
- Thu, 22 Feb 2018 13:35:41 -0700 (MST)
-Received: from [9.80.205.44] (unknown [9.80.205.44])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 6F784C6047;
- Thu, 22 Feb 2018 13:35:40 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.13 14/16] fsi: sbefifo: Switch list_lock from
- spinlock to mutex
-To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au, jk@ozlabs.org,
- bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com
-Cc: openbmc@lists.ozlabs.org
-References: <20180220041844.13228-1-andrew@aj.id.au>
- <20180220041844.13228-15-andrew@aj.id.au>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 22 Feb 2018 14:35:39 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-In-Reply-To: <20180220041844.13228-15-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3znSzG4gslzF1dB
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 09:03:21 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1519336884; x=1550872884;
+ h=from:cc:to:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Yl+wTt68zghSK6/VKNDlOpkzWpqhHs/wtC3oyvpNSgk=;
+ b=Qj7oVWoIxMLdaqqyKT5dGD3gAwFgFq7d87xSW8gAWLxQGwr2HDUXIIrc
+ IAOlAVhuT3cfW3cz2VuJKsirVUYV3oqHLdH7CQPnDEmy+d3EbadssXwaB
+ 1tsUIUz6rtMsYqS+pgtAje823bZOt2JxI/F3q2ox9tLa9c2UcXsaINPYx w=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GzAACYPI9ah8uZ6ERaAxkBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQEHAQEBAQGEJRBwKAqDXooljXwxgVGBFmuNZ4UkA4JVgVNDChgNgQmDImQ?=
+ =?us-ascii?q?CGoIUVBgBAgEBAQEBAQIBAhABAQEKCwkIKC+COCINBBwvKgMBAQEBAQEBAQECA?=
+ =?us-ascii?q?R8BAQEBAQEBAQEBAQEBAQEBGgINIiECGAEBAQQBIhEYLQwEAgEGAhEBAwEBAQI?=
+ =?us-ascii?q?CFA8DAgICJh4BAgYIAgQBEgiKFgUQjWmddIInhBGEZoIZAQEBAQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQEBAQEBHYEPhAqCJ4M+gy6DMAKBSgEQHRAKFwINB4JJgmUFklaRaQkKhxq?=
+ =?us-ascii?q?BBIdDhhqCKWeJWIdlixyCcIYeAQGDfoE8H4ILcIMSCYJGBQQMDIIGeAEFihUBJ?=
+ =?us-ascii?q?AKBDYEZAQEB?=
+X-IPAS-Result: =?us-ascii?q?A2GzAACYPI9ah8uZ6ERaAxkBAQEBAQEBAQEBAQEHAQEBAQG?=
+ =?us-ascii?q?EJRBwKAqDXooljXwxgVGBFmuNZ4UkA4JVgVNDChgNgQmDImQCGoIUVBgBAgEBA?=
+ =?us-ascii?q?QEBAQIBAhABAQEKCwkIKC+COCINBBwvKgMBAQEBAQEBAQECAR8BAQEBAQEBAQE?=
+ =?us-ascii?q?BAQEBAQEBGgINIiECGAEBAQQBIhEYLQwEAgEGAhEBAwEBAQICFA8DAgICJh4BA?=
+ =?us-ascii?q?gYIAgQBEgiKFgUQjWmddIInhBGEZoIZAQEBAQEBAQEBAQEBAQEBAQEBAQEBHYE?=
+ =?us-ascii?q?PhAqCJ4M+gy6DMAKBSgEQHRAKFwINB4JJgmUFklaRaQkKhxqBBIdDhhqCKWeJW?=
+ =?us-ascii?q?IdlixyCcIYeAQGDfoE8H4ILcIMSCYJGBQQMDIIGeAEFihUBJAKBDYEZAQEB?=
+Received: from esa5.dell-outbound2.iphmx.com ([68.232.153.203])
+ by esa5.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2018 16:01:21 -0600
+From: <Michael.E.Brown@dell.com>
+Cc: <Paul.Vancil@dell.com>, <hramasub@in.ibm.com>, <Balaji.B.Rao@dell.com>,
+ <bradleyb@fuzziesquirrel.com>, <ed.tanous@intel.com>, <jwcarman@us.ibm.com>,
+ <openbmc@lists.ozlabs.org>, <pradeep.kumar36@tcs.com>, <rolfb@us.ibm.com>,
+ <Chris.Ong@microsoft.com>
+Received: from ausxippc101.us.dell.com ([143.166.85.207])
+ by esa5.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2018 04:01:08 +0600
+X-LoopCount0: from 10.166.135.93
+X-IronPort-AV: E=Sophos;i="5.47,380,1515477600"; d="scan'208";a="1055249676"
+X-DLP: DLP_GlobalPCIDSS
+To: <alirhas@microsoft.com>, <yupalani@microsoft.com>
+Subject: RE: Redfish on OpenBMC
+Thread-Topic: Redfish on OpenBMC
+Thread-Index: AQHTmjMGgVazjCpVJkm7ZKYhcdFs4KOOLT/wgAF7hICAAJbigIAABbkAgAh2bQCAAAF6gIALpM2AgA0dfwD//5yiEA==
+Date: Thu, 22 Feb 2018 22:03:16 +0000
+Message-ID: <33fdbe7bbf0e40e88b0dcc6e5425fe2e@ausx13mps334.AMER.DELL.COM>
+References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
+ <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
+ <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
+ <c73bb370335c45dab208cb0e708a08f4@AUSX13MPS306.AMER.DELL.COM>
+ <BL0PR2101MB09150499921D8E104CEB9618ADFA0@BL0PR2101MB0915.namprd21.prod.outlook.com>
+ <MWHPR21MB0864D2D2F00B56C21A5917F4D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
+ <MWHPR21MB0864F176FAC58CACB07E5342D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
+ <20180214193720.GA10667@wn7x64-4cggry1.aus.amer.dell.com>
+ <BL0PR2101MB0915C9A667FD5A0C35C7A124ADCD0@BL0PR2101MB0915.namprd21.prod.outlook.com>
+In-Reply-To: <BL0PR2101MB0915C9A667FD5A0C35C7A124ADCD0@BL0PR2101MB0915.namprd21.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18022220-0012-0000-0000-000015CA8202
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008578; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.00993588; UDB=6.00504883; IPR=6.00772928; 
- MB=3.00019693; MTD=3.00000008; XFM=3.00000015; UTC=2018-02-22 20:35:43
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18022220-0013-0000-0000-0000519957E7
-Message-Id: <9da077f2-0f3f-2e8d-578b-92b59497ba13@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-22_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1802220258
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -80,183 +86,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Feb 2018 20:35:48 -0000
+X-List-Received-Date: Thu, 22 Feb 2018 22:03:24 -0000
 
-
-
-On 02/19/2018 10:18 PM, Andrew Jeffery wrote:
-> We allocate GFP_KERNEL memory for a list element in sbefifo_enq_xfr() (elided
-> from the stack trace presumably by inlining) but do so under list_lock, which
-> was previously a spin lock. Enabling lock debugging gives the following
-> warning:
-
-Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
-
->
-> [  188.830000] BUG: sleeping function called from invalid context at mm/slab.h:408
-> [  188.830000] in_atomic(): 1, irqs_disabled(): 128, pid: 110, name: kworker/u2:9
-> [  188.830000] INFO: lockdep is turned off.
-> [  188.830000] irq event stamp: 9002
-> [  188.830000] hardirqs last  enabled at (9001): [<801105bc>] kmem_cache_alloc_trace+0x8c/0x284
-> [  188.830000] hardirqs last disabled at (9002): [<8049458c>] _raw_spin_lock_irqsave+0x2c/0xa0
-> [  188.830000] softirqs last  enabled at (5370): [<8000987c>] __do_softirq+0x38c/0x510
-> [  188.830000] softirqs last disabled at (5363): [<8001f154>] irq_exit+0x120/0x16c
-> [  188.830000] CPU: 0 PID: 110 Comm: kworker/u2:9 Tainted: G        W       4.10.17-00534-gb846201e7a2d #2277
-> [  188.830000] Hardware name: ASpeed SoC
-> [  188.830000] Workqueue: occ occ_worker
-> [  188.830000] [<800108f8>] (unwind_backtrace) from [<8000e02c>] (show_stack+0x20/0x24)
-> [  188.830000] [<8000e02c>] (show_stack) from [<8022d1c0>] (dump_stack+0x20/0x28)
-> [  188.830000] [<8022d1c0>] (dump_stack) from [<80048bf8>] (___might_sleep+0x174/0x2ac)
-> [  188.830000] [<80048bf8>] (___might_sleep) from [<80048da0>] (__might_sleep+0x70/0xb0)
-> [  188.830000] [<80048da0>] (__might_sleep) from [<801106f8>] (kmem_cache_alloc_trace+0x1c8/0x284)
-> [  188.830000] [<801106f8>] (kmem_cache_alloc_trace) from [<803330e8>] (sbefifo_write_common+0x228/0x4b4)
-> [  188.830000] [<803330e8>] (sbefifo_write_common) from [<80333740>] (sbefifo_drv_write+0x24/0x28)
-> [  188.830000] [<80333740>] (sbefifo_drv_write) from [<80333b58>] (occ_write_sbefifo+0x44/0x60)
-> [  188.830000] [<80333b58>] (occ_write_sbefifo) from [<80334530>] (occ_worker+0x38/0x4a0)
-> [  188.830000] [<80334530>] (occ_worker) from [<80034a2c>] (process_one_work+0x23c/0x6d4)
-> [  188.830000] [<80034a2c>] (process_one_work) from [<80034f08>] (worker_thread+0x44/0x528)
-> [  188.830000] [<80034f08>] (worker_thread) from [<8003c8c0>] (kthread+0x160/0x17c)
-> [  188.830000] [<8003c8c0>] (kthread) from [<8000a888>] (ret_from_fork+0x14/0x2c)
->
-> Avoid the warning (or using GFP_ATOMIC memory) by switching to a mutex, as we
-> only require mutual exclusion, not pre-emption be disabled (occ_worker() is
-> executed on a workqueue). This should also reduce the latency impact of calling
-> into the OCC.
->
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->   drivers/fsi/fsi-sbefifo.c | 35 ++++++++++++++++-------------------
->   1 file changed, 16 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> index 5b12eec2602b..cc9b9e36ac72 100644
-> --- a/drivers/fsi/fsi-sbefifo.c
-> +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -67,7 +67,7 @@ struct sbefifo {
->   	wait_queue_head_t wait;
->   	struct list_head xfrs;
->   	struct kref kref;
-> -	spinlock_t list_lock;		/* lock access to the xfrs list */
-> +	struct mutex list_lock;		/* lock access to the xfrs list */
->   	struct mutex sbefifo_lock;	/* lock access to the hardware */
->   	char name[32];
->   	int idx;
-> @@ -399,12 +399,11 @@ static void sbefifo_worker(struct work_struct *work)
->   	int ret = 0;
->   	u32 sts;
->   	int i;
-> -	unsigned long flags;
->
-> -	spin_lock_irqsave(&sbefifo->list_lock, flags);
-> +	mutex_lock(&sbefifo->list_lock);
->   	xfr = list_first_entry_or_null(&sbefifo->xfrs, struct sbefifo_xfr,
->   				       xfrs);
-> -	spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +	mutex_unlock(&sbefifo->list_lock);
->   	if (!xfr)
->   		return;
->
-> @@ -516,9 +515,9 @@ static void sbefifo_worker(struct work_struct *work)
->
->   			set_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags);
->
-> -			spin_lock_irqsave(&sbefifo->list_lock, flags);
-> +			mutex_lock(&sbefifo->list_lock);
->   			list_del(&xfr->xfrs);
-> -			spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +			mutex_unlock(&sbefifo->list_lock);
->
->   			if (unlikely(test_bit(SBEFIFO_XFR_CANCEL,
->   					      &xfr->flags)))
-> @@ -535,17 +534,17 @@ static void sbefifo_worker(struct work_struct *work)
->   		dev_err(&sbefifo->fsi_dev->dev,
->   			"Fatal bus access failure: %d\n", ret);
->
-> -		spin_lock_irqsave(&sbefifo->list_lock, flags);
-> +		mutex_lock(&sbefifo->list_lock);
->   		list_for_each_entry_safe(xfr, tmp, &sbefifo->xfrs, xfrs) {
->   			list_del(&xfr->xfrs);
->   			kfree(xfr);
->   		}
->   		INIT_LIST_HEAD(&sbefifo->xfrs);
-> -		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +		mutex_unlock(&sbefifo->list_lock);
->   	} else if (eot) {
-> -		spin_lock_irqsave(&sbefifo->list_lock, flags);
-> +		mutex_lock(&sbefifo->list_lock);
->   		xfr = sbefifo_next_xfr(sbefifo);
-> -		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +		mutex_unlock(&sbefifo->list_lock);
->
->   		if (xfr) {
->   			wake_up_interruptible(&sbefifo->wait);
-> @@ -715,7 +714,6 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
->   	struct sbefifo_xfr *xfr;
->   	ssize_t ret = 0;
->   	size_t n;
-> -	unsigned long flags;
->
->   	if ((len >> 2) << 2 != len)
->   		return -EINVAL;
-> @@ -726,26 +724,26 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
->   	sbefifo_get_client(client);
->   	n = sbefifo_buf_nbwriteable(&client->wbuf);
->
-> -	spin_lock_irqsave(&sbefifo->list_lock, flags);
-> +	mutex_lock(&sbefifo->list_lock);
->    
->   	/* next xfr to be executed */
->   	xfr = list_first_entry_or_null(&sbefifo->xfrs, struct sbefifo_xfr,
->   				       xfrs);
->
->   	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
-> -		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +		mutex_unlock(&sbefifo->list_lock);
->   		ret = -EAGAIN;
->   		goto out;
->   	}
->
->   	xfr = sbefifo_enq_xfr(client);		/* this xfr queued up */
->   	if (IS_ERR(xfr)) {
-> -		spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +		mutex_unlock(&sbefifo->list_lock);
->   		ret = PTR_ERR(xfr);
->   		goto out;
->   	}
->
-> -	spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +	mutex_unlock(&sbefifo->list_lock);
->
->   	/*
->   	 * Partial writes are not really allowed in that EOT is sent exactly
-> @@ -954,7 +952,7 @@ static int sbefifo_probe(struct device *dev)
->   		}
->   	}
->
-> -	spin_lock_init(&sbefifo->list_lock);
-> +	mutex_init(&sbefifo->list_lock);
->   	mutex_init(&sbefifo->sbefifo_lock);
->   	kref_init(&sbefifo->kref);
->   	init_waitqueue_head(&sbefifo->wait);
-> @@ -998,11 +996,10 @@ static int sbefifo_remove(struct device *dev)
->   {
->   	struct sbefifo *sbefifo = dev_get_drvdata(dev);
->   	struct sbefifo_xfr *xfr, *tmp;
-> -	unsigned long flags;
->
->   	/* lock the sbefifo so to prevent deleting an ongoing xfr */
->   	mutex_lock(&sbefifo->sbefifo_lock);
-> -	spin_lock_irqsave(&sbefifo->list_lock, flags);
-> +	mutex_lock(&sbefifo->list_lock);
->
->   	WRITE_ONCE(sbefifo->rc, -ENODEV);
->   	list_for_each_entry_safe(xfr, tmp, &sbefifo->xfrs, xfrs) {
-> @@ -1012,7 +1009,7 @@ static int sbefifo_remove(struct device *dev)
->
->   	INIT_LIST_HEAD(&sbefifo->xfrs);
->
-> -	spin_unlock_irqrestore(&sbefifo->list_lock, flags);
-> +	mutex_unlock(&sbefifo->list_lock);
->   	mutex_unlock(&sbefifo->sbefifo_lock);
->
->   	wake_up_all(&sbefifo->wait);
+WWVzLCBJIHRoaW5rIGl0IHdvdWxkIGJlIHZhbHVhYmxlIHRvIGhhdmUgYSBjYWxsLiBEbyB5b3Ug
+aGF2ZSBhIHRpbWUgcHJvcG9zYWw/IEkgY2FuIGhvc3QgZnJvbSBEZWxsIHNreXBlLg0KDQpQcm9w
+b3NlZCB0aW1lIHNsb3RzLiBIZXJlIGFyZSBhIHZhcmlldHkgdGhhdCBwZXJzb25hbGx5IHdvcmsg
+b2sgZm9yIG1lLiBWb3Rlcz8NCglNb25kYXkgNHBtIENTVA0KCVdlZCBldmVuaW5nIDlwbSBDU1QN
+CglUaHVyc2RheSBtb3JuaW5nIDlhbSBDU1QNCglUaHVyc2RheSAxMnBtIENTVA0KCUZyaWRheSA4
+YW0gQ1NUDQotLQ0KTWljaGFlbA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTog
+QWxpIExhcmlqYW5pIFttYWlsdG86YWxpcmhhc0BtaWNyb3NvZnQuY29tXSANClNlbnQ6IFRodXJz
+ZGF5LCBGZWJydWFyeSAyMiwgMjAxOCAzOjU0IFBNDQpUbzogQnJvd24sIE1pY2hhZWwgRSA8TWlj
+aGFlbF9FX0Jyb3duQERlbGwuY29tPjsgWXVnaSBNYW5pIDx5dXBhbGFuaUBtaWNyb3NvZnQuY29t
+Pg0KQ2M6IFZhbmNpbCwgUGF1bCA8UGF1bF9WYW5jaWxARGVsbC5jb20+OyBocmFtYXN1YkBpbi5p
+Ym0uY29tOyBSYW8sIEJhbGFqaSBCIDxCYWxhamlfQl9SYW9AZGVsbC5jb20+OyBicmFkbGV5YkBm
+dXp6aWVzcXVpcnJlbC5jb207IGVkLnRhbm91c0BpbnRlbC5jb207IGp3Y2FybWFuQHVzLmlibS5j
+b207IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzsgcHJhZGVlcC5rdW1hcjM2QHRjcy5jb207IHJv
+bGZiQHVzLmlibS5jb207IENocmlzIE9uZyA8Q2hyaXMuT25nQG1pY3Jvc29mdC5jb20+DQpTdWJq
+ZWN0OiBSRTogUmVkZmlzaCBvbiBPcGVuQk1DDQoNCkhpIGV2ZXJ5Ym9keSwNCkNhbiBJIHByb3Bv
+c2Ugd2UgZ2V0IHRvZ2V0aGVyIG9uIGEgY2FsbCB0byBkaXNjdXNzIGEgIHBsYW4gbW92aW5nIGZv
+cndhcmQgd2l0aCBSZWRmaXNoIGltcGxlbWVudGF0aW9uPyANCkRvIHlvdSBzZWUgYW55IHZhbHVl
+IG9mIGhhdmluZyBhIHdlZWtseSBzeW5jIHVwIGNhbGw/DQoNClRoYW5rcw0KQWxpDQotLS0tLU9y
+aWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTWljaGFlbCBFIEJyb3duIDxNaWNoYWVsLkUuQnJv
+d25AZGVsbC5jb20+DQpTZW50OiBXZWRuZXNkYXksIEZlYnJ1YXJ5IDE0LCAyMDE4IDExOjM3IEFN
+DQpUbzogWXVnaSBNYW5pIDx5dXBhbGFuaUBtaWNyb3NvZnQuY29tPg0KQ2M6IEFsaSBMYXJpamFu
+aSA8YWxpcmhhc0BtaWNyb3NvZnQuY29tPjsgUGF1bC5WYW5jaWxAZGVsbC5jb207IGhyYW1hc3Vi
+QGluLmlibS5jb207IE1pY2hhZWwuRS5Ccm93bkBkZWxsLmNvbTsgQmFsYWppLkIuUmFvQGRlbGwu
+Y29tOyBicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb207IGVkLnRhbm91c0BpbnRlbC5jb207IGp3
+Y2FybWFuQHVzLmlibS5jb207IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzsgcHJhZGVlcC5rdW1h
+cjM2QHRjcy5jb207IHJvbGZiQHVzLmlibS5jb207IENocmlzIE9uZyA8Q2hyaXMuT25nQG1pY3Jv
+c29mdC5jb20+DQpTdWJqZWN0OiBSZTogUmVkZmlzaCBvbiBPcGVuQk1DDQoNClN0YXRzIGZvciBn
+by1yZWRmaXNoIHJ1bm5pbmcgb24gTnV2b3RvbiBQb2xlZy4gRmlyc3QsIHByb2Nlc3NvciBzdGF0
+cy4gU2luY2Ugd2UgYWdyZWVkIG9uIEFTVDI1MDAgYXMgdGhlIGJhc2VsaW5lLCBJIGRvbid0IGhh
+dmUgb25lIG9mIHRob3NlIHRvIGRvIGJlbmNobWFya3MuIElmIHNvbWVib2R5IGNvdWxkIHJ1biB0
+aGUgYmVuY2htYXJrcyBvbiBhbiBBU1QyNTAwIHRoYXQgd291bGQgYmUgdmVyeSBoZWxwZnVsLg0K
+DQokIGNhdCAvcHJvYy9jcHVpbmZvIA0KcHJvY2Vzc29yICAgICAgIDogMA0KbW9kZWwgbmFtZSAg
+ICAgIDogQVJNdjcgUHJvY2Vzc29yIHJldiAxICh2N2wpDQpCb2dvTUlQUyAgICAgICAgOiAxNTk0
+LjE2DQpGZWF0dXJlcyAgICAgICAgOiBoYWxmIHRodW1iIGZhc3RtdWx0IGVkc3AgdGxzIA0KQ1BV
+IGltcGxlbWVudGVyIDogMHg0MQ0KQ1BVIGFyY2hpdGVjdHVyZTogNw0KQ1BVIHZhcmlhbnQgICAg
+IDogMHg0DQpDUFUgcGFydCAgICAgICAgOiAweGMwOQ0KQ1BVIHJldmlzaW9uICAgIDogMQ0KDQpw
+cm9jZXNzb3IgICAgICAgOiAxDQptb2RlbCBuYW1lICAgICAgOiBBUk12NyBQcm9jZXNzb3IgcmV2
+IDEgKHY3bCkNCkJvZ29NSVBTICAgICAgICA6IDE1OTQuMTYNCkZlYXR1cmVzICAgICAgICA6IGhh
+bGYgdGh1bWIgZmFzdG11bHQgZWRzcCB0bHMgDQpDUFUgaW1wbGVtZW50ZXIgOiAweDQxDQpDUFUg
+YXJjaGl0ZWN0dXJlOiA3DQpDUFUgdmFyaWFudCAgICAgOiAweDQNCkNQVSBwYXJ0ICAgICAgICA6
+IDB4YzA5DQpDUFUgcmV2aXNpb24gICAgOiAxDQoNCkhhcmR3YXJlICAgICAgICA6IE5QQ01YNTAg
+Q2hpcCBmYW1pbHkNClJldmlzaW9uICAgICAgICA6IDAwMDANClNlcmlhbCAgICAgICAgICA6IDAw
+MDAwMDAwMDAwMDAwMDANCg0KR28tcmVkZmlzaCB3YXMgY2hlY2tlZCBvdXQgcGVyIHRoZSByZWFk
+bWUgb24gaHR0cHM6Ly9naXRodWIuY29tL3N1cGVyY2hhbHVwYS9nby1yZWRmaXNoIGFuZCBidWls
+dCBsaWtlIHRoaXM6DQoNCiQgQlVJTERfVEFHUz0ic3BhY2Vtb25rZXkiIC4vc2NyaXB0cy9idWls
+ZC1hcm0tb2JtYy5zaA0KDQpVc2luZyB0aGUgJ29wZW5zc2wnIGJhc2VkIEhUVFBTIHN1cHBvcnQg
+YmVjYXVzZSBpdCdzIGZhc3RlciBvbiAzMi1iaXQgQVJNLiBGb3IgeDg2IGFuZCA2NC1iaXQgQVJN
+LCBnbyBuYXRpdmUgU1NMIGlzIGFsbW9zdCBlcXVhbCBpbiBwZXJmb3JtYW5jZS4gUmVhZCB0aGUg
+cmVhZG1lIGZvciBkZXRhaWxzLg0KDQpJIHVzZSBhIGJlbmNobWFyayB0b29sIGNhbGxlZCAnaGV5
+JzogaHR0cHM6Ly9naXRodWIuY29tL3Jha3lsbC9oZXksIGl0IGlzIGEgbG9hZCBnZW5lcmF0b3Iu
+IFlvdSBjYW4gaW5zdGFsbCBpdCBsaWtlIHRoaXM6ICJnbyBnZXQgZ2l0aHViLmNvbS9yYWt5bGwv
+aGV5Ii4gSXQgd2lsbCBwdXQgJ2hleScgaW4gJEdPUEFUSC9iaW4vLiBUaGUgZ28tcmVkZmlzaCBz
+ZXJ2ZXIgc3VwcG9ydHMgdGhlIHJlZGZpc2ggc3RhbmRhcmQgWC1BdXRoLVRva2VuIGFzIHdlbGwg
+YXMgQmFzaWMgYXV0aC4gVGhlIGJlbmNobWFya3MgYmVsb3cgYXJlIHVzaW5nIGJhc2ljIGF1dGgg
+aW4gdGhlIGludGVyZXN0IG9mIGJyZXZpdHksIGJ1dCBpdCdzIGFsc28gc2ltcGxlIHRvIGJlbmNo
+bWFyayB0b2tlbnMuIFRoZSBudW1iZXJzIGRvbid0IGFwcGVhciBtdWNoIGRpZmZlcmVudC4NCg0K
+SGVyZSBpcyBhIHJ1biBhZ2FpbnN0IHRoZSBtb3N0IGNvbXBsaWNhdGVkIG91dHB1dCBjdXJyZW50
+bHkgaW1wbGVtZW50ZWQuIFRoaXMgcnVuIGlzIGZvciAxMCBzZWNvbmRzLCB3aXRoIHRoZSBkZWZh
+dWx0IGNvbmN1cnJlbmN5IG9mIDUwIHBhcmFsbGVsIHJlcXVlc3RzLiBUaGUgcmVzdWx0IGlzIHRo
+YXQgdGhlIGF2ZXJhZ2UgcmVxdWVzdCBpcyAwLjE1ODhzIGFuZCB0aGUgc2VydmVyIGhhbmRsZXMg
+YW4gYXZlcmFnZSBvZiAzMTIgcmVxdWVzdHMgcGVyIHNlY29uZC4NCg0KJCBoZXkgLXogMTBzICBo
+dHRwczovL0FkbWluaXN0cmF0b3I6cGFzc3dvcmRAMTAuMzUuMTc0LjEyNjo4NDQzL3JlZGZpc2gv
+djEvQ2hhc3Npcy9BMzMvVGhlcm1hbCAgICAgICAgICAgICAgICAgICAgICAgICAgICANClN1bW1h
+cnk6DQogIFRvdGFsOiAgICAgICAgMTAuMTIzMCBzZWNzDQogIFNsb3dlc3Q6ICAgICAgMS45NTI0
+IHNlY3MNCiAgRmFzdGVzdDogICAgICAwLjAwNTEgc2Vjcw0KICBBdmVyYWdlOiAgICAgIDAuMTU4
+OCBzZWNzDQogIFJlcXVlc3RzL3NlYzogMzEyLjg1MjENCg0KUmVzcG9uc2UgdGltZSBoaXN0b2dy
+YW06DQogIDAuMDA1IFsxXSAgICAgfA0KICAwLjIwMCBbMzA2Ml0gIHziiI7iiI7iiI7iiI7iiI7i
+iI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7i
+iI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI4NCiAgMC4zOTUg
+WzMxXSAgICB8DQogIDAuNTg5IFs1XSAgICAgfA0KICAwLjc4NCBbOV0gICAgIHwNCiAgMC45Nzkg
+WzEwXSAgICB8DQogIDEuMTczIFs5XSAgICAgfA0KICAxLjM2OCBbOF0gICAgIHwNCiAgMS41NjMg
+WzVdICAgICB8DQogIDEuNzU4IFsyXSAgICAgfA0KICAxLjk1MiBbMjVdICAgIHwNCg0KTGF0ZW5j
+eSBkaXN0cmlidXRpb246DQogIDEwJSBpbiAwLjA4NDAgc2Vjcw0KICAyNSUgaW4gMC4xMTU5IHNl
+Y3MNCiAgNTAlIGluIDAuMTM3NCBzZWNzDQogIDc1JSBpbiAwLjE1NzYgc2Vjcw0KICA5MCUgaW4g
+MC4xNzQ4IHNlY3MNCiAgOTUlIGluIDAuMTg3NCBzZWNzDQogIDk5JSBpbiAxLjM5NjIgc2Vjcw0K
+DQpEZXRhaWxzIChhdmVyYWdlLCBmYXN0ZXN0LCBzbG93ZXN0KToNCiAgRE5TK2RpYWx1cDogICAg
+MC4wMDM2IHNlY3MsIDAuMDAwMCBzZWNzLCAxLjIxNjggc2Vjcw0KICBETlMtbG9va3VwOiAgICAw
+LjAwMDAgc2VjcywgMC4wMDAwIHNlY3MsIDAuMDAwMCBzZWNzDQogIHJlcSB3cml0ZTogICAgIDAu
+MDAwMCBzZWNzLCAwLjAwMDAgc2VjcywgMC4wMDA3IHNlY3MNCiAgcmVzcCB3YWl0OiAgICAgMC4x
+NDExIHNlY3MsIDAuMDA0OSBzZWNzLCAxLjE1MTAgc2Vjcw0KICByZXNwIHJlYWQ6ICAgICAwLjAw
+MDEgc2VjcywgMC4wMDAwIHNlY3MsIDAuMDAwMiBzZWNzDQoNClN0YXR1cyBjb2RlIGRpc3RyaWJ1
+dGlvbjoNCiAgWzIwMF0gMzE2NyByZXNwb25zZXMNCg0KDQpUaGUgbWVtb3J5IHVzYWdlIG9mIHRo
+ZSBwcm9ncmFtIHVuZGVyIGxvYWQgKFJlc2lkZW50IHNpemUsIElPVywgUkFNIHVzYWdlIGR1cmlu
+ZyBsb2FkIGlzIHJvdWdobHkgMTZNQik6DQoNCiMgY2F0IC9wcm9jLyQocGlkb2Ygb2NwLXNlcnZl
+ci5hcm0pL3N0YXR1cw0KTmFtZTogICBvY3Atc2VydmVyLmFybQ0KVW1hc2s6ICAwMDIyDQpTdGF0
+ZTogIFMgKHNsZWVwaW5nKQ0KVGdpZDogICAyNzM3DQpOZ2lkOiAgIDANClBpZDogICAgMjczNw0K
+UFBpZDogICAyNzEwDQpUcmFjZXJQaWQ6ICAgICAgMA0KVWlkOiAgICAwICAgICAgIDAgICAgICAg
+MCAgICAgICAwDQpHaWQ6ICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDANCkZEU2l6ZTogMjU2
+DQpHcm91cHM6IDANClZtUGVhazogIDExNjcyMTIga0INClZtU2l6ZTogIDExNjcyMTIga0INClZt
+TGNrOiAgICAgICAgIDAga0INClZtUGluOiAgICAgICAgIDAga0INClZtSFdNOiAgICAgMTY5MjQg
+a0INClZtUlNTOiAgICAgMTY4NDQga0INClJzc0Fub246ICAgICAgICAgICAgOTIwMCBrQg0KUnNz
+RmlsZTogICAgICAgICAgICAxNzg4IGtCDQpSc3NTaG1lbTogICAgICAgICAgIDU4NTYga0INClZt
+RGF0YTogICAzOTUxMDgga0INClZtU3RrOiAgICAgICAxMzYga0INClZtRXhlOiAgICAgIDYzMDQg
+a0INClZtTGliOiAgICAgIDI3OTIga0INClZtUFRFOiAgICAgICAxMzAga0INClZtUE1EOiAgICAg
+ICAgIDAga0INClZtU3dhcDogICAgICAgIDAga0INClRocmVhZHM6ICAgICAgICA0NQ0KU2lnUTog
+ICAwLzM1NzcNClNpZ1BuZDogMDAwMDAwMDAwMDAwMDAwMA0KU2hkUG5kOiAwMDAwMDAwMDAwMDAw
+MDAwDQpTaWdCbGs6IGZmZmZmZmZlN2JmYTdhMjUNClNpZ0lnbjogMDAwMDAwMDAwMDAwMDAwMA0K
+U2lnQ2d0OiBmZmZmZmZmZmZmYzFmZWZmDQpDYXBJbmg6IDAwMDAwMDAwMDAwMDAwMDANCkNhcFBy
+bTogMDAwMDAwM2ZmZmZmZmZmZg0KQ2FwRWZmOiAwMDAwMDAzZmZmZmZmZmZmDQpDYXBCbmQ6IDAw
+MDAwMDNmZmZmZmZmZmYNCkNhcEFtYjogMDAwMDAwMDAwMDAwMDAwMA0KTm9OZXdQcml2czogICAg
+IDANCkNwdXNfYWxsb3dlZDogICAzDQpDcHVzX2FsbG93ZWRfbGlzdDogICAgICAwLTENCnZvbHVu
+dGFyeV9jdHh0X3N3aXRjaGVzOiAgICAgICAgOTINCm5vbnZvbHVudGFyeV9jdHh0X3N3aXRjaGVz
+OiAgICAgMjENCg0KVGhlIGJpbmFyeSBzaXplIGlzIDEwTUIgdW5jb21wcmVzc2VkIGFuZCAyTUIg
+Y29tcHJlc3NlZCAoeHogbGV2ZWwgOSkNCg0KJCBjYXQgb2NwLXNlcnZlci5hcm0gIHwgeHogLTkg
+LWMgPiBvY3Atc2VydmVyLmFybS54eiAkIGxzIC1sIG9jcC1zZXJ2ZXIuYXJtKiAtcnd4cnd4ci14
+IDEgbWljaGFlbF9lX2Jyb3duIG1pY2hhZWxfZV9icm93biAxMTE2OTA1MiBGZWIgMTQgMTM6MTQg
+b2NwLXNlcnZlci5hcm0NCi1ydy1ydy1yLS0gMSBtaWNoYWVsX2VfYnJvd24gbWljaGFlbF9lX2Jy
+b3duICAyNzEyMjA4IEZlYiAxNCAxMzoyNiBvY3Atc2VydmVyLmFybS54eg0KDQpUaGUgc291cmNl
+IGlzIGN1cnJlbnRseSBzaXR0aW5nIGF0IHVuZGVyIDVrIExvQyBpbXBsZW1lbnRpbmcgYSBmZXcg
+cHJvb2Ygb2YgY29uY2VwdCBvcGVuYm1jIGltcGxlbWVudGF0aW9ucyBjYWxsaW5nIERCVVMsIGFz
+IHdlbGwgYXMgYSBzaW11bGF0aW9uLg0KDQpDb25jdXJyZW5jeToNCi0gSGlnaGx5IGNvbmN1cnJl
+bnQuIE9uIEFSTSBzZXJ2ZXMgPjMwMCByZXF1ZXN0cyBwZXIgc2Vjb25kLiBPbiBYODYsIGdvZXMg
+dXAgdG8gYWJvdXQgM2sgcmVxdWVzdHMgcGVyIHNlY29uZA0KLSBGb3IgaW5kaXZpZHVhbCByZXF1
+ZXN0czogY2FuIGNvbmN1cnJlbnRseSBnZXQgZGF0YSBmcm9tIG11bHRpcGxlIGRhdGEgc291cmNl
+cyBhbmQgcnVucyBhbGwgdGhlIHBsdWdpbnMgZm9yIGEgcmVkZmlzaCByZXNvdXJjZSBpbiBwYXJh
+bGxlbA0KDQpEZXRlcm1pbmlzdGljOg0KLSBUaGUgZGVzaWduIHNob3VsZCBiZSBmYWlybHkgZGV0
+ZXJtaW5pc3RpYy4NCg0KQ2FjaGVkOg0KLSBDb21wbGV0ZWx5IGZsZXhpYmxlIGhlcmUuIFRoZSBk
+ZWZhdWx0IG1vZGVsIGlzIGNhY2hpbmcgdGhlIGRhdGEsIGJ1dCBpdCdzIGFsc28gc3VwcG9ydGVk
+IHRvIG1ha2UgZGJ1cyBjYWxscyBwZXIgcmVxdWVzdCAodGhvdWdoIHRoYXQncyBub3QgcmVhbGx5
+IHJlY29tbWVuZGVkKS4gQ3VycmVudGx5IGl0IGNhY2hlcyBzZW5zb3IgcmVzdWx0cyBhbmQgcmVm
+cmVzaGVzIHRob3NlIGF0IGEgZml4ZWQgaW50ZXJ2YWwsIHRob3VnaCB0aGF0IGNvdWxkIGVhc2ls
+eSBiZSBjaGFuZ2VkLg0KDQpQbGF0Zm9ybSBkZXBlbmRlbnQvaW5kZXBlbmRlbnQ6DQotIENvcmUg
+aXMgY29tcGxldGVseSBwbGF0Zm9ybSBpbmRlcGVuZGVudC4NCi0gV29ya2luZyBvbiBhbiBPQ1Ag
+cHJvZmlsZSBpbXBsZW1lbnRhdGlvbiB0aGF0IGFsc28gaGFzIHBsYXRmb3JtIGluZGVwZW5kZW50
+ICsgcGxhdGZvcm0gc3BlY2lmaWMgaG9va3MuIEN1cnJlbnRseSBpbiBwbGFjZSBhcmUgc2ltdWxh
+dGlvbiBpbXBsZW1lbnRhdGlvbiBwbHVzIG9wZW5ibWMgZGJ1cyBpbXBsZW1lbnRhdGlvbiBmb3Ig
+c2Vuc29ycyAodGVtcGVyYXR1cmUgbm93LCB3b3JraW5nIGZhbnMgbmV4dCkuDQoNCkRNVEYgc3Vw
+cG9ydDoNCi0gSW4gcHJvZ3Jlc3MuIEhlbHAgbmVlZGVkLg0KDQotLQ0KTWljaGFlbA0KDQpPbiBX
+ZWQsIEZlYiAwNywgMjAxOCBhdCAwMzo0ODo0MUFNICswMDAwLCBZdWdpIE1hbmkgd3JvdGU6DQo+
+IEhlcmUgYXJlIHNvbWUgbW9yZSByZXF1aXJlbWVudHMgYmFzZWQgb24gb3VyIGV4cGVyaWVuY2Ug
+d2l0aCBSZWRmaXNoOg0KPiAxLiBDb25jdXJyZW5jeQ0KPiBXZWIgU2VydmVyIGFuZCBGcmFtZXdv
+cmsgc2hvdWxkIGJlIGFibGUgdG8gc2VydmUgbXVsdGlwbGUgR0VUIHJlcXVlc3RzIGF0IGEgdGlt
+ZS4gDQo+IFBPU1QvUEFUQ0gvUFVUL0RFTEVURSByZXF1ZXN0cyBjYW4gYmUgc2VxdWVudGlhbC4g
+DQo+IA0KPiAyLiBEZXRlcm1pbmlzdGljDQo+IFNlcnZpY2Ugc2hvdWxkIGJlIHRpbWUgZGV0ZXJt
+aW5pc3RpYywgYm90aCBib290IHRpbWUgYW5kIHJ1biB0aW1lLiANCj4gQ29uY3VycmVuY3kgc2hh
+bGwgbm90IGltcGFjdCBkZXRlcm1pbmlzdGljIHByb3BlcnR5IG9mIHRoZSBzZXJ2aWNlLiANCj4g
+QWxsIHJlcXVlc3RzIHNoYWxsIGJlIHJlc3BvbmRlZCAoc3VjY2Vzcy9mYWlsdXJlKSB3aXRoaW4g
+YWNjZXB0YWJsZSB0aW1lIGxpbWl0cy4gDQo+IFdoZXJlIHNvbWUgcmVxdWVzdHMgY2Fubm90IGJl
+IGNvbXBsZXRlZCB3aXRoaW4gdGltZSBsaW1pdHMsIHNlcnZpY2UgDQo+IHNoYWxsIHJlc3BvbmQg
+d2l0aCBzdGF0dXMgYW5kIGV4cGVjdGVkIHRpbWUgdG8gY29tcGxldGUuDQo+IA0KPiAzLiBDYWNo
+ZWQgRGF0YQ0KPiBEYXRhIHNoYWxsIGJlIGNhY2hlZCBieSBSZWRmaXNoIHNlcnZpY2UgYW5kIHVw
+ZGF0ZWQgb24gZGJ1cyBzaWduYWxzLiANCj4gQ29sbGVjdGluZyByZXF1aXJlZCBpbmZvcm1hdGlv
+biBvbiBkZW1hbmQgYWR2ZXJzZWx5IGltcGFjdHMgcGVyZm9ybWFuY2UuIA0KPiBSZWRmaXNoIHNo
+b3VsZCByYXRoZXIgY2FjaGUgdGhlIGluZm9ybWF0aW9uIGFuZCBrZWVwIHVwZGF0aW5nIGl0cyAN
+Cj4gY2FjaGUgb24gbm90aWZpY2F0aW9uIGZyb20gZGJ1cyB0aGF0IHRoZSBwcm9wZXJ0eShpZXMp
+IG9mIGludGVyZXN0IGhhcyBiZWVuIG1vZGlmaWVkLg0KPiANCj4gNC4gUGxhdGZvcm0gZGVwZW5k
+ZW50L2luZGVwZW5kZW50IGxheWVyIFNoYWxsIHByb3ZpZGUgYSBjbGVhciANCj4gaXNvbGF0aW9u
+IGJldHdlZW4gY29yZSB2cyBwbGF0Zm9ybSBwcm9wZXJ0aWVzLg0KPiBDYW4gY29uc2lkZXIgb2Jq
+ZWN0IG9yaWVudGVkIGFwcHJvYWNoIGZvciBwbGF0Zm9ybSAmIG9lbSBsYXllciB0byANCj4gb3Zl
+cnJpZGUgY29yZSBtZXRob2RzIGFuZCBvYmplY3RzLiBDdXN0b21pemVkIGhvb2tzIGFuZCBoYW5k
+bGVycyBjYW4gDQo+IGJlIHByb3ZpZGVkIGJ5IHBsYXRmb3JtIGxheWVyIHdoaWxlIHRoZSBkYXRh
+IG1vZGVsIGJldHdlZW4gbGF5ZXJzIGlzIA0KPiBtYWludGFpbmVkIGNvbnNpc3RlbnQgYWNyb3Nz
+IHBsYXRmb3Jtcy4NCj4gDQo+IDUuIERNVEYgU3VwcG9ydA0KPiBSZWRmaXNoIGhhdmUgcXVpdGUg
+YSBsb3Qgb2YgZ2FwcyBpbiBzb21lIG9mIHRoZSBiYXNpYyByZXF1aXJlbWVudHMgb2YgYSBCTUMu
+IA0KPiBhKSBGUlUgJiBGUlUgQ29sbGVjdGlvbiBTY2hlbWENCj4gYikgU2Vuc29yICYgU2Vuc29y
+IENvbGxlY3Rpb24gU2NoZW1hDQo+IGMpIENvbXBvbmVudCBGaXJtd2FyZSBVcGRhdGUgKFBTVSwg
+QklPUywgQ1BMRCwgZXRjKQ0KPiBkKSBNYXN0ZXIgV3JpdGUtUmVhZA0KPiBlKSBDbGVhciBQU1Ug
+RmF1bHRzDQo+IFdlIG5lZWQgRE1URiB0byBhY3RpdmVseSBhZGQvdXBkYXRlIFJlZGZpc2ggc2No
+ZW1hcyB0aGF0IGFyZSBmdW5kYW1lbnRhbCB0byBhbnkgQk1DLg0KPiANCj4gNy4gRXJyb3IgQ29k
+ZXMNCj4gUmVkZmlzaCBMb2dFbnRyeSBzY2hlbWEgZG9lc27igJl0IG9mZmVyIGEgcGxhY2Vob2xk
+ZXIgZm9yIGVycm9yIGNvZGVzIA0KPiB0aGF0IGF1dG9tYXRpb24gdG9vbHMgY2FuIHJlYWQgdG8g
+Y2F0ZWdvcml6ZSB0aGUgZXZlbnRzIGFuZCB0cmlnZ2VyIGFjdHVhdG9ycy4NCj4gT25lIG9wdGlv
+biBpcyB0byByZXB1cnBvc2UgT0VNIGZpZWxkLiANCj4gDQo+IDguIFBhZ2luYXRpb24NCj4gRXZl
+bnQgbG9ncyBjYW4gZ2V0IHRvbyBiaWcgYW5kIHBhZ2luYXRlZCB2aWV3IGlzIGhlbHBmdWwNCj4g
+DQo+IDkuIEZpbHRlcmluZw0KPiBRdWVyeSBwYXJhbWV0ZXIgdG8gZmlsdGVyIHRoZSByZXNwb25z
+ZSBsaW1pdGVkIHRvIGNlcnRhaW4gY3JpdGVyaWENCj4gDQo+IDEwLiBBbmNob3JzDQo+IFNjaGVt
+YXMgbGlrZSBDaGFzc2lzIGFuZCBNYW5hZ2VyIGhhdmUgYSBidW5jaCBvZiBwcm9wZXJ0aWVzIHRo
+YXQgbm90IA0KPiBhbGwgcmVxdWVzdHMgbWlnaHQgYmUgaW50ZXJlc3RlZCBpbi4NCj4gSXQgaXMg
+YmV0dGVyIHRvIGJlIGFibGUgdG8gcmVxdWVzdCBqdXN0IGEgZnJhZ21lbnQgb2YgYSByZXNvdXJj
+ZSB1c2luZyDigJgj4oCZLiANCj4gDQo+IDExLiBSYXRlIExpbWl0aW5nDQo+IFNlcnZlciBzaGFs
+bCByZXR1cm4gSFRUUCA0Mjkgd2hlbiBudW1iZXIgb2YgcmVxdWVzdHMgY3Jvc3MgbWF4IGxpbWl0
+IHBlcm1pc3NpYmxlIGZyb20gYSBjbGllbnQuIA0KPiBXZSBuZWVkIHNvbWUgcHJvdGVjdGlvbiBh
+Z2FpbnN0IERlbmlhbCBvZiBTZXJ2aWNlLg0KPiANCj4gLVl1Z2kNCg==
