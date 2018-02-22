@@ -1,43 +1,40 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3znLjP2ZpGzF1cV
- for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 04:20:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3znLp963LTzF1cN
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 04:25:05 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2018 09:20:48 -0800
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2018 09:25:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,378,1515484800"; d="scan'208";a="32799172"
+X-IronPort-AV: E=Sophos;i="5.47,378,1515484800"; d="scan'208";a="32800035"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
  ([10.7.153.147])
- by fmsmga001.fm.intel.com with ESMTP; 22 Feb 2018 09:20:47 -0800
-Subject: Re: [PATCH v2 1/8] [PATCH 1/8] drivers/peci: Add support for PECI bus
- driver core
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, jdelvare@suse.com,
- linux@roeck-us.net, benh@kernel.crashing.org, andrew@lunn.ch,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
- <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
- <20180221175853.GA22320@kroah.com>
- <7f152459-a232-e62a-3c34-e995f8c85d63@linux.intel.com>
- <20180222065455.GA2428@kroah.com>
+ by fmsmga001.fm.intel.com with ESMTP; 22 Feb 2018 09:25:02 -0800
+Subject: Re: [RFC PATCH] drivers/peci: peci_match_id() can be static
+To: fengguang.wu@intel.com
+Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
+ gregkh@linuxfoundation.org, jdelvare@suse.com, linux@roeck-us.net,
+ benh@kernel.crashing.org, andrew@lunn.ch, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
+References: <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
+ <20180222070111.GA22310@lkp-ne02>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <9bd825f4-8497-4e2a-b8ea-56888df754e7@linux.intel.com>
-Date: Thu, 22 Feb 2018 09:20:47 -0800
+Message-ID: <f5f9afd0-a5ce-346f-772a-e8dec78bd872@linux.intel.com>
+Date: Thu, 22 Feb 2018 09:25:02 -0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.5.2
 MIME-Version: 1.0
-In-Reply-To: <20180222065455.GA2428@kroah.com>
+In-Reply-To: <20180222070111.GA22310@lkp-ne02>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -52,45 +49,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Feb 2018 17:20:58 -0000
+X-List-Received-Date: Thu, 22 Feb 2018 17:25:06 -0000
 
-On 2/21/2018 10:54 PM, Greg KH wrote:
-> On Wed, Feb 21, 2018 at 12:42:30PM -0800, Jae Hyun Yoo wrote:
->> On 2/21/2018 9:58 AM, Greg KH wrote:
->>> On Wed, Feb 21, 2018 at 08:15:59AM -0800, Jae Hyun Yoo wrote:
->>>> This commit adds driver implementation for PECI bus into linux
->>>> driver framework.
->>>>
->>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->>>> ---
->>>
->>> Why is there no other Intel developers willing to review and sign off on
->>> this patch?  Please get their review first before asking us to do their
->>> work for them :)
->>>
->>> thanks,
->>>
->>> greg k-h
->>>
->>
->> Hi Greg,
->>
->> This patch set got our internal review process. Sorry if it's code quality
->> is under your expectation but it's the reason why I'm asking you to review
->> the code. Could you please share your time to review it?
+On 2/21/2018 11:01 PM, kbuild test robot wrote:
 > 
-> Nope.  If no other Intel developer thinks it is good enough to put their
-> name on it as part of their review process, why should I?
+> Fixes: 99f5d2b99ecd ("drivers/peci: Add support for PECI bus driver core")
+> Signed-off-by: Fengguang Wu <fengguang.wu@intel.com>
+> ---
+>   peci-core.c |    4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> Again, please use the resources you have, to fix the obvious problems in
-> your code, BEFORE asking the community to do that work for you.
-> 
-> greg k-h
+> diff --git a/drivers/peci/peci-core.c b/drivers/peci/peci-core.c
+> index d976c73..4709b8c 100644
+> --- a/drivers/peci/peci-core.c
+> +++ b/drivers/peci/peci-core.c
+> @@ -770,8 +770,8 @@ peci_of_match_device(const struct of_device_id *matches,
+>   }
+>   #endif
+>   
+> -const struct peci_device_id *peci_match_id(const struct peci_device_id *id,
+> -					   struct peci_client *client)
+> +static const struct peci_device_id *peci_match_id(const struct peci_device_id *id,
+> +						  struct peci_client *client)
+>   {
+>   	if (!(id && client))
+>   		return NULL;
 > 
 
-Okay. I'll take our internal review process again on this patch set and 
-collect more credit tags before submitting v3.
+Hi Fengguang,
 
-Thanks for your advice!
+Thanks a lot for the fix. I'll merge your patch in v3 submission.
 
+BR,
 Jae
