@@ -1,26 +1,25 @@
 Return-Path: <fengguang.wu@intel.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
  envelope-from=fengguang.wu@intel.com; receiver=<UNKNOWN>)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zn4zS3byRzF0pN
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 18:02:10 +1100 (AEDT)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zn4zS4nwWzF0ph
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 18:02:11 +1100 (AEDT)
+X-Amp-Result: UNSCANNABLE
 X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2018 23:02:08 -0800
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2018 23:02:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,377,1515484800"; d="scan'208";a="28939083"
+X-IronPort-AV: E=Sophos;i="5.47,377,1515484800"; d="scan'208";a="206045988"
 Received: from bee.sh.intel.com (HELO bee) ([10.239.97.14])
- by FMSMGA003.fm.intel.com with ESMTP; 21 Feb 2018 23:02:05 -0800
+ by fmsmga005.fm.intel.com with ESMTP; 21 Feb 2018 23:02:05 -0800
 Received: from kbuild by bee with local (Exim 4.84_2)
  (envelope-from <fengguang.wu@intel.com>)
- id 1eoktS-0009Sy-Ti; Thu, 22 Feb 2018 15:02:14 +0800
-Date: Thu, 22 Feb 2018 15:01:11 +0800
+ id 1eoktT-0009ZE-4C; Thu, 22 Feb 2018 15:02:15 +0800
+Date: Thu, 22 Feb 2018 15:01:10 +0800
 From: kbuild test robot <lkp@intel.com>
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Cc: kbuild-all@01.org, joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
@@ -30,8 +29,9 @@ Cc: kbuild-all@01.org, joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
  devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
  Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [RFC PATCH] drivers/peci: peci_match_id() can be static
-Message-ID: <20180222070111.GA22310@lkp-ne02>
+Subject: Re: [PATCH v2 1/8] [PATCH 1/8] drivers/peci: Add support for PECI
+ bus driver core
+Message-ID: <201802221429.9znwFmb7%fengguang.wu@intel.com>
 References: <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -54,25 +54,27 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 22 Feb 2018 07:02:13 -0000
 
+Hi Jae,
 
-Fixes: 99f5d2b99ecd ("drivers/peci: Add support for PECI bus driver core")
-Signed-off-by: Fengguang Wu <fengguang.wu@intel.com>
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on linus/master]
+[also build test WARNING on v4.16-rc2 next-20180221]
+[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
+
+url:    https://github.com/0day-ci/linux/commits/Jae-Hyun-Yoo/PECI-device-driver-introduction/20180222-054545
+reproduce:
+        # apt-get install sparse
+        make ARCH=x86_64 allmodconfig
+        make C=1 CF=-D__CHECK_ENDIAN__
+
+
+sparse warnings: (new ones prefixed by >>)
+
+>> drivers/peci/peci-core.c:773:29: sparse: symbol 'peci_match_id' was not declared. Should it be
+
+Please review and possibly fold the followup patch.
+
 ---
- peci-core.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/peci/peci-core.c b/drivers/peci/peci-core.c
-index d976c73..4709b8c 100644
---- a/drivers/peci/peci-core.c
-+++ b/drivers/peci/peci-core.c
-@@ -770,8 +770,8 @@ peci_of_match_device(const struct of_device_id *matches,
- }
- #endif
- 
--const struct peci_device_id *peci_match_id(const struct peci_device_id *id,
--					   struct peci_client *client)
-+static const struct peci_device_id *peci_match_id(const struct peci_device_id *id,
-+						  struct peci_client *client)
- {
- 	if (!(id && client))
- 		return NULL;
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
