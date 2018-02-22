@@ -1,62 +1,63 @@
-Return-Path: <ed.tanous@intel.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <sam@mendozajonas.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="TsPnkqK9"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="fdtq89bK"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3znTb147JJzF14W
- for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 09:30:49 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2018 14:30:46 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,380,1515484800"; d="scan'208";a="19565054"
-Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
- by fmsmga007.fm.intel.com with ESMTP; 22 Feb 2018 14:30:46 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.126]) by
- ORSMSX106.amr.corp.intel.com ([169.254.1.97]) with mapi id 14.03.0319.002;
- Thu, 22 Feb 2018 14:30:45 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
- "alirhas@microsoft.com" <alirhas@microsoft.com>, "yupalani@microsoft.com"
- <yupalani@microsoft.com>
-CC: "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>, "hramasub@in.ibm.com"
- <hramasub@in.ibm.com>, "Balaji.B.Rao@dell.com" <Balaji.B.Rao@dell.com>,
- "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
- "jwcarman@us.ibm.com" <jwcarman@us.ibm.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>, "pradeep.kumar36@tcs.com"
- <pradeep.kumar36@tcs.com>, "rolfb@us.ibm.com" <rolfb@us.ibm.com>,
- "Chris.Ong@microsoft.com" <Chris.Ong@microsoft.com>
-Subject: RE: Redfish on OpenBMC
-Thread-Topic: Redfish on OpenBMC
-Thread-Index: AQHTmjMIXx4JxIn4mE+JYQ1EktHYUaOOt7sAgAESj4CAAJbigIAABbkAgAh2bQCAAAF6gIAMCWKAgAy46gCAAAJ/AP//gFag
-Date: Thu, 22 Feb 2018 22:30:45 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F6673B8@ORSMSX114.amr.corp.intel.com>
-References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
- <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
- <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
- <c73bb370335c45dab208cb0e708a08f4@AUSX13MPS306.AMER.DELL.COM>
- <BL0PR2101MB09150499921D8E104CEB9618ADFA0@BL0PR2101MB0915.namprd21.prod.outlook.com>
- <MWHPR21MB0864D2D2F00B56C21A5917F4D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
- <MWHPR21MB0864F176FAC58CACB07E5342D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
- <20180214193720.GA10667@wn7x64-4cggry1.aus.amer.dell.com>
- <BL0PR2101MB0915C9A667FD5A0C35C7A124ADCD0@BL0PR2101MB0915.namprd21.prod.outlook.com>
- <33fdbe7bbf0e40e88b0dcc6e5425fe2e@ausx13mps334.AMER.DELL.COM>
-In-Reply-To: <33fdbe7bbf0e40e88b0dcc6e5425fe2e@ausx13mps334.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3znVyn1rCNzDr8b
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 10:33:04 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id BC21E20FC8;
+ Thu, 22 Feb 2018 18:33:01 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute2.internal (MEProxy); Thu, 22 Feb 2018 18:33:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=K5O8Le
+ pzXtQJorx9xZz2CqIu/cn6wpPIQGrGLlCrxks=; b=TsPnkqK9AqzLLnCSNC2/11
+ GJ4XyOIWOiX7sWdeLIRxUFP98/8k9ePZYYC1d7DnEv/WyiA8OVDnsoNE01pmHwOP
+ +GwfVLly6vhe3s7SxKJUpPV8AxuNV16W7BucHJQmksFQ/VoA45zkJzoK1aZU9eOP
+ zF+w34KYimPSyFRLcUfytVtKe5+eCZ30crPnMblUzYu2p8Zw0/oxD5TKydQa9Z7Q
+ Vd3C2HowFCmKFUpihtlmFOg8pvqf+Wd+106j8suLRMMcjqFbkGZns/assA3j0P2W
+ 03cz31ICNfukg+1GjTuk8NZ8VlYrmUtER8IJi524oZRU7rTvrsyubga2+6YuYiDg
+ ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=K5O8Le
+ pzXtQJorx9xZz2CqIu/cn6wpPIQGrGLlCrxks=; b=fdtq89bKT9GmSBuCYNunON
+ uY8Jrw0t60T3Z/XqydxPmQ0j49pU31OQMtBLVkf5wu3uZGBq8Z+npirY3lEnSrGb
+ 5v43ovDxQttzrsRT4UH9PgHq1jn6hL+QlISV9E89i+zfJHAF/5wyw1yQ8BF4VCnS
+ 0EEYgC3yUPjW4qMpI2nsOrNNZP39pHof5E5h9Q1QCrWlznsrC35Frly2LqB2uR1n
+ wun42ho+2InfMC3S0Ky0vKjIbERFw36TxRDiUXzdXlCaYkfNZvMAXXkEeTuj3GOA
+ nAqfVJKEFXstA/87gEnwHvRbnpncX4guhkb3JXA+ZunlTpgeMQ6gzjXgHTTeRNiQ
+ ==
+X-ME-Sender: <xms:LVOPWqbwKpaUO3jqd2MiPxCynH3qpofuxDrZvQB2u0Kov35Txjqm2g>
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 37E1A7E0ED;
+ Thu, 22 Feb 2018 18:32:59 -0500 (EST)
+Message-ID: <1519342377.1294.1.camel@mendozajonas.com>
+Subject: Re: [RFC PATCH] net/ncsi: Add generic netlink family
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 23 Feb 2018 10:32:57 +1100
+In-Reply-To: <CACPK8XfHDjYhJ5e1xGaR_TPZd1nbQsdKObL0wsx=1gnfvs3UXA@mail.gmail.com>
+References: <20180215033057.1766-1-sam@mendozajonas.com>
+ <CACPK8XfHDjYhJ5e1xGaR_TPZd1nbQsdKObL0wsx=1gnfvs3UXA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.26.5 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,222 +69,720 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Feb 2018 22:30:54 -0000
+X-List-Received-Date: Thu, 22 Feb 2018 23:33:06 -0000
 
-SGFoLCB5b3UgZ3V5cyBiZWF0IG1lIHRvIGl0Lg0KDQpNeSBwcmVmZXJlbmNlIHdvdWxkIGJlIE1v
-bmRheSBhdCA0cG0gQ1NULCAyUE0gUFNULCBidXQgSSB0aGluayBJIGNhbiBtYWtlIGFueSBvZiB0
-aGVtIHRoYXQgYXJlbid0IFdlZG5lc2RheS4NCg0KQWxzbywgSWYgSSdtIHJlYWRpbmcgdGhpcyBj
-b3JyZWN0LCB0aGlzIGVtYWlsIG9ubHkgd2VudCBvdXQgdG8gYSBmZXcgb2YgdXMuICBPbmNlIHdl
-IGhhdmUgYSB0aW1lLCB3ZSBzaG91bGQgcG9zdCBpdCB0byB0aGUgbWFpbiBlbWFpbCBsaXN0IGFz
-IHdlbGwuDQpJJ20gYWxzbyBoYXBweSB0byBob3N0IGlmIE1pY2hhZWwgY2FuJ3QuICBCbHVlSmVh
-bnMgc2VlbWVkIHRvIHdvcmsgcXVpdGUgd2VsbCBmb3IgdGhlIFRTQyBtZWV0aW5ncywgc28gSSB3
-YXMgdGhpbmtpbmcgb2YgZG9pbmcgdGhhdCBmb3Igc2hhcmluZy4NCg0KDQogSGVyZSB3YXMgdGhl
-IGVtYWlsIEkgd2FzIHR5cGluZyB1cCB5ZXN0ZXJkYXk6DQoNCknigJlkIGxpa2UgdG8gc3RhcnQg
-YSBSZWRmaXNoIHdvcmtpbmcgZ3JvdXAgZm9yIE9wZW5CTUMuDQoNClByaW1hcnkgZ29hbHMgb2Yg
-dGhpcyB3b3JraW5nIGdyb3VwIHdpbGwgYmU6DQoxLglEaXNzZW1pbmF0ZSBpbmZvcm1hdGlvbiBv
-biB2YXJpb3VzIHJlZGZpc2ggaW1wbGVtZW50YXRpb25zIGZvciBPcGVuQk1DDQoyLglEaXNjdXNz
-IHRlY2huaWNhbCByZXF1aXJlbWVudHMgYW5kIGltcGxlbWVudGF0aW9uIHNwZWNpZmljcw0KMy4J
-TWFrZSBhbiBlZmZvcnQgdG8gY29uc29saWRhdGUgd29yayBvbiBhIOKAnHBob3NwaG9y4oCdIE9w
-ZW5CTUMgcmVkZmlzaCBpbXBsZW1lbnRhdGlvbg0KDQpJbml0aWFsIEFnZW5kYSBmb3IgdGhlIGZp
-cnN0IG1lZXRpbmcgd2lsbCBiZQ0KDQpJbml0aWFsIGludHJvZHVjdGlvbnMNCk92ZXJ2aWV3IG9m
-IGV4aXN0aW5nIGltcGxlbWVudGF0aW9ucyBhbmQgd29yaw0KCUJtY3dlYiBpbXBsZW1lbnRhdGlv
-biBieSBJbnRlbCDigJMgRWQgVGFub3VzDQoJR28tcmVkZmlzaCBpbXBsZW1lbnRhdGlvbiBieSBE
-ZWxsIOKAkyBNaWNoYWVsIEJyb3duDQoJUmVkZmlzaCBpbXBsZW1lbnRhdGlvbiBieSBNaWNyb3Nv
-ZnQg4oCTIEFsaSBMYXJpamFuaS9ZdWdpIE1hbmkvQnJ5YW4gS2VsbHkNCglPdGhlcnM/DQoNCk1l
-ZXRpbmcgdGltZSBhbmQgZnJlcXVlbmN5Lg0KCURhaWx5L1dlZWtseS9tb250aGx5L3F1YXJ0ZXJs
-eT8NCglXaGF0IHRpbWVzIHdvcmsgZm9yIHRoZSBtb3N0IHBlb3BsZT8NCg0KQ29uc29saWRhdGVk
-IHJlcXVpcmVtZW50cw0KCURvIHdlIHdhbnQvbmVlZCB0aGVtPw0KCUhvdyB3aWxsIHdlIGhhbmRs
-ZSB0aGVtPw0KCUhvdyB3aWxsIHdlIGRpc2N1c3MgYXJjaGl0ZWN0dXJhbCBjaGFuZ2VzPw0KDQpM
-YW5ndWFnZSBjaG9pY2UNCglQeXRob24vQysrL0dvbGFuZyBwcmVmZXJlbmNlcz8NCg0KT3RoZXIg
-VG9waWNzPw0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IE1pY2hhZWwu
-RS5Ccm93bkBkZWxsLmNvbSBbbWFpbHRvOk1pY2hhZWwuRS5Ccm93bkBkZWxsLmNvbV0NCj4gU2Vu
-dDogVGh1cnNkYXksIEZlYnJ1YXJ5IDIyLCAyMDE4IDI6MDMgUE0NCj4gVG86IGFsaXJoYXNAbWlj
-cm9zb2Z0LmNvbTsgeXVwYWxhbmlAbWljcm9zb2Z0LmNvbQ0KPiBDYzogUGF1bC5WYW5jaWxAZGVs
-bC5jb207IGhyYW1hc3ViQGluLmlibS5jb207IEJhbGFqaS5CLlJhb0BkZWxsLmNvbTsNCj4gYnJh
-ZGxleWJAZnV6emllc3F1aXJyZWwuY29tOyBUYW5vdXMsIEVkIDxlZC50YW5vdXNAaW50ZWwuY29t
-PjsNCj4gandjYXJtYW5AdXMuaWJtLmNvbTsgb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnOw0KPiBw
-cmFkZWVwLmt1bWFyMzZAdGNzLmNvbTsgcm9sZmJAdXMuaWJtLmNvbTsgQ2hyaXMuT25nQG1pY3Jv
-c29mdC5jb20NCj4gU3ViamVjdDogUkU6IFJlZGZpc2ggb24gT3BlbkJNQw0KPiANCj4gWWVzLCBJ
-IHRoaW5rIGl0IHdvdWxkIGJlIHZhbHVhYmxlIHRvIGhhdmUgYSBjYWxsLiBEbyB5b3UgaGF2ZSBh
-IHRpbWUgcHJvcG9zYWw/IEkNCj4gY2FuIGhvc3QgZnJvbSBEZWxsIHNreXBlLg0KPiANCj4gUHJv
-cG9zZWQgdGltZSBzbG90cy4gSGVyZSBhcmUgYSB2YXJpZXR5IHRoYXQgcGVyc29uYWxseSB3b3Jr
-IG9rIGZvciBtZS4NCj4gVm90ZXM/DQo+IAlNb25kYXkgNHBtIENTVA0KPiAJV2VkIGV2ZW5pbmcg
-OXBtIENTVA0KPiAJVGh1cnNkYXkgbW9ybmluZyA5YW0gQ1NUDQo+IAlUaHVyc2RheSAxMnBtIENT
-VA0KPiAJRnJpZGF5IDhhbSBDU1QNCj4gLS0NCj4gTWljaGFlbA0KPiANCj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQWxpIExhcmlqYW5pIFttYWlsdG86YWxpcmhhc0BtaWNy
-b3NvZnQuY29tXQ0KPiBTZW50OiBUaHVyc2RheSwgRmVicnVhcnkgMjIsIDIwMTggMzo1NCBQTQ0K
-PiBUbzogQnJvd24sIE1pY2hhZWwgRSA8TWljaGFlbF9FX0Jyb3duQERlbGwuY29tPjsgWXVnaSBN
-YW5pDQo+IDx5dXBhbGFuaUBtaWNyb3NvZnQuY29tPg0KPiBDYzogVmFuY2lsLCBQYXVsIDxQYXVs
-X1ZhbmNpbEBEZWxsLmNvbT47IGhyYW1hc3ViQGluLmlibS5jb207IFJhbywgQmFsYWppDQo+IEIg
-PEJhbGFqaV9CX1Jhb0BkZWxsLmNvbT47IGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbTsNCj4g
-ZWQudGFub3VzQGludGVsLmNvbTsgandjYXJtYW5AdXMuaWJtLmNvbTsgb3BlbmJtY0BsaXN0cy5v
-emxhYnMub3JnOw0KPiBwcmFkZWVwLmt1bWFyMzZAdGNzLmNvbTsgcm9sZmJAdXMuaWJtLmNvbTsg
-Q2hyaXMgT25nDQo+IDxDaHJpcy5PbmdAbWljcm9zb2Z0LmNvbT4NCj4gU3ViamVjdDogUkU6IFJl
-ZGZpc2ggb24gT3BlbkJNQw0KPiANCj4gSGkgZXZlcnlib2R5LA0KPiBDYW4gSSBwcm9wb3NlIHdl
-IGdldCB0b2dldGhlciBvbiBhIGNhbGwgdG8gZGlzY3VzcyBhICBwbGFuIG1vdmluZyBmb3J3YXJk
-DQo+IHdpdGggUmVkZmlzaCBpbXBsZW1lbnRhdGlvbj8NCj4gRG8geW91IHNlZSBhbnkgdmFsdWUg
-b2YgaGF2aW5nIGEgd2Vla2x5IHN5bmMgdXAgY2FsbD8NCj4gDQo+IFRoYW5rcw0KPiBBbGkNCj4g
-LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWljaGFlbCBFIEJyb3duIDxNaWNo
-YWVsLkUuQnJvd25AZGVsbC5jb20+DQo+IFNlbnQ6IFdlZG5lc2RheSwgRmVicnVhcnkgMTQsIDIw
-MTggMTE6MzcgQU0NCj4gVG86IFl1Z2kgTWFuaSA8eXVwYWxhbmlAbWljcm9zb2Z0LmNvbT4NCj4g
-Q2M6IEFsaSBMYXJpamFuaSA8YWxpcmhhc0BtaWNyb3NvZnQuY29tPjsgUGF1bC5WYW5jaWxAZGVs
-bC5jb207DQo+IGhyYW1hc3ViQGluLmlibS5jb207IE1pY2hhZWwuRS5Ccm93bkBkZWxsLmNvbTsg
-QmFsYWppLkIuUmFvQGRlbGwuY29tOw0KPiBicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb207IGVk
-LnRhbm91c0BpbnRlbC5jb207DQo+IGp3Y2FybWFuQHVzLmlibS5jb207IG9wZW5ibWNAbGlzdHMu
-b3psYWJzLm9yZzsNCj4gcHJhZGVlcC5rdW1hcjM2QHRjcy5jb207IHJvbGZiQHVzLmlibS5jb207
-IENocmlzIE9uZw0KPiA8Q2hyaXMuT25nQG1pY3Jvc29mdC5jb20+DQo+IFN1YmplY3Q6IFJlOiBS
-ZWRmaXNoIG9uIE9wZW5CTUMNCj4gDQo+IFN0YXRzIGZvciBnby1yZWRmaXNoIHJ1bm5pbmcgb24g
-TnV2b3RvbiBQb2xlZy4gRmlyc3QsIHByb2Nlc3NvciBzdGF0cy4gU2luY2UNCj4gd2UgYWdyZWVk
-IG9uIEFTVDI1MDAgYXMgdGhlIGJhc2VsaW5lLCBJIGRvbid0IGhhdmUgb25lIG9mIHRob3NlIHRv
-IGRvDQo+IGJlbmNobWFya3MuIElmIHNvbWVib2R5IGNvdWxkIHJ1biB0aGUgYmVuY2htYXJrcyBv
-biBhbiBBU1QyNTAwIHRoYXQNCj4gd291bGQgYmUgdmVyeSBoZWxwZnVsLg0KPiANCj4gJCBjYXQg
-L3Byb2MvY3B1aW5mbw0KPiBwcm9jZXNzb3IgICAgICAgOiAwDQo+IG1vZGVsIG5hbWUgICAgICA6
-IEFSTXY3IFByb2Nlc3NvciByZXYgMSAodjdsKQ0KPiBCb2dvTUlQUyAgICAgICAgOiAxNTk0LjE2
-DQo+IEZlYXR1cmVzICAgICAgICA6IGhhbGYgdGh1bWIgZmFzdG11bHQgZWRzcCB0bHMNCj4gQ1BV
-IGltcGxlbWVudGVyIDogMHg0MQ0KPiBDUFUgYXJjaGl0ZWN0dXJlOiA3DQo+IENQVSB2YXJpYW50
-ICAgICA6IDB4NA0KPiBDUFUgcGFydCAgICAgICAgOiAweGMwOQ0KPiBDUFUgcmV2aXNpb24gICAg
-OiAxDQo+IA0KPiBwcm9jZXNzb3IgICAgICAgOiAxDQo+IG1vZGVsIG5hbWUgICAgICA6IEFSTXY3
-IFByb2Nlc3NvciByZXYgMSAodjdsKQ0KPiBCb2dvTUlQUyAgICAgICAgOiAxNTk0LjE2DQo+IEZl
-YXR1cmVzICAgICAgICA6IGhhbGYgdGh1bWIgZmFzdG11bHQgZWRzcCB0bHMNCj4gQ1BVIGltcGxl
-bWVudGVyIDogMHg0MQ0KPiBDUFUgYXJjaGl0ZWN0dXJlOiA3DQo+IENQVSB2YXJpYW50ICAgICA6
-IDB4NA0KPiBDUFUgcGFydCAgICAgICAgOiAweGMwOQ0KPiBDUFUgcmV2aXNpb24gICAgOiAxDQo+
-IA0KPiBIYXJkd2FyZSAgICAgICAgOiBOUENNWDUwIENoaXAgZmFtaWx5DQo+IFJldmlzaW9uICAg
-ICAgICA6IDAwMDANCj4gU2VyaWFsICAgICAgICAgIDogMDAwMDAwMDAwMDAwMDAwMA0KPiANCj4g
-R28tcmVkZmlzaCB3YXMgY2hlY2tlZCBvdXQgcGVyIHRoZSByZWFkbWUgb24NCj4gaHR0cHM6Ly9n
-aXRodWIuY29tL3N1cGVyY2hhbHVwYS9nby1yZWRmaXNoIGFuZCBidWlsdCBsaWtlIHRoaXM6DQo+
-IA0KPiAkIEJVSUxEX1RBR1M9InNwYWNlbW9ua2V5IiAuL3NjcmlwdHMvYnVpbGQtYXJtLW9ibWMu
-c2gNCj4gDQo+IFVzaW5nIHRoZSAnb3BlbnNzbCcgYmFzZWQgSFRUUFMgc3VwcG9ydCBiZWNhdXNl
-IGl0J3MgZmFzdGVyIG9uIDMyLWJpdCBBUk0uDQo+IEZvciB4ODYgYW5kIDY0LWJpdCBBUk0sIGdv
-IG5hdGl2ZSBTU0wgaXMgYWxtb3N0IGVxdWFsIGluIHBlcmZvcm1hbmNlLiBSZWFkDQo+IHRoZSBy
-ZWFkbWUgZm9yIGRldGFpbHMuDQo+IA0KPiBJIHVzZSBhIGJlbmNobWFyayB0b29sIGNhbGxlZCAn
-aGV5JzogaHR0cHM6Ly9naXRodWIuY29tL3Jha3lsbC9oZXksIGl0IGlzIGEgbG9hZA0KPiBnZW5l
-cmF0b3IuIFlvdSBjYW4gaW5zdGFsbCBpdCBsaWtlIHRoaXM6ICJnbyBnZXQgZ2l0aHViLmNvbS9y
-YWt5bGwvaGV5Ii4gSXQgd2lsbA0KPiBwdXQgJ2hleScgaW4gJEdPUEFUSC9iaW4vLiBUaGUgZ28t
-cmVkZmlzaCBzZXJ2ZXIgc3VwcG9ydHMgdGhlIHJlZGZpc2gNCj4gc3RhbmRhcmQgWC1BdXRoLVRv
-a2VuIGFzIHdlbGwgYXMgQmFzaWMgYXV0aC4gVGhlIGJlbmNobWFya3MgYmVsb3cgYXJlDQo+IHVz
-aW5nIGJhc2ljIGF1dGggaW4gdGhlIGludGVyZXN0IG9mIGJyZXZpdHksIGJ1dCBpdCdzIGFsc28g
-c2ltcGxlIHRvIGJlbmNobWFyaw0KPiB0b2tlbnMuIFRoZSBudW1iZXJzIGRvbid0IGFwcGVhciBt
-dWNoIGRpZmZlcmVudC4NCj4gDQo+IEhlcmUgaXMgYSBydW4gYWdhaW5zdCB0aGUgbW9zdCBjb21w
-bGljYXRlZCBvdXRwdXQgY3VycmVudGx5IGltcGxlbWVudGVkLg0KPiBUaGlzIHJ1biBpcyBmb3Ig
-MTAgc2Vjb25kcywgd2l0aCB0aGUgZGVmYXVsdCBjb25jdXJyZW5jeSBvZiA1MCBwYXJhbGxlbA0K
-PiByZXF1ZXN0cy4gVGhlIHJlc3VsdCBpcyB0aGF0IHRoZSBhdmVyYWdlIHJlcXVlc3QgaXMgMC4x
-NTg4cyBhbmQgdGhlIHNlcnZlcg0KPiBoYW5kbGVzIGFuIGF2ZXJhZ2Ugb2YgMzEyIHJlcXVlc3Rz
-IHBlciBzZWNvbmQuDQo+IA0KPiAkIGhleSAteiAxMHMNCj4gaHR0cHM6Ly9BZG1pbmlzdHJhdG9y
-OnBhc3N3b3JkQDEwLjM1LjE3NC4xMjY6ODQ0My9yZWRmaXNoL3YxL0NoYXNzaXMvQTMzDQo+IC9U
-aGVybWFsDQo+IFN1bW1hcnk6DQo+ICAgVG90YWw6ICAgICAgICAxMC4xMjMwIHNlY3MNCj4gICBT
-bG93ZXN0OiAgICAgIDEuOTUyNCBzZWNzDQo+ICAgRmFzdGVzdDogICAgICAwLjAwNTEgc2Vjcw0K
-PiAgIEF2ZXJhZ2U6ICAgICAgMC4xNTg4IHNlY3MNCj4gICBSZXF1ZXN0cy9zZWM6IDMxMi44NTIx
-DQo+IA0KPiBSZXNwb25zZSB0aW1lIGhpc3RvZ3JhbToNCj4gICAwLjAwNSBbMV0gICAgIHwNCj4g
-ICAwLjIwMCBbMzA2Ml0gIHziiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7i
-iI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7i
-iI7iiI7iiI7iiI7iiI7iiI7iiI7iiI4NCj4gICAwLjM5NSBbMzFdICAgIHwNCj4gICAwLjU4OSBb
-NV0gICAgIHwNCj4gICAwLjc4NCBbOV0gICAgIHwNCj4gICAwLjk3OSBbMTBdICAgIHwNCj4gICAx
-LjE3MyBbOV0gICAgIHwNCj4gICAxLjM2OCBbOF0gICAgIHwNCj4gICAxLjU2MyBbNV0gICAgIHwN
-Cj4gICAxLjc1OCBbMl0gICAgIHwNCj4gICAxLjk1MiBbMjVdICAgIHwNCj4gDQo+IExhdGVuY3kg
-ZGlzdHJpYnV0aW9uOg0KPiAgIDEwJSBpbiAwLjA4NDAgc2Vjcw0KPiAgIDI1JSBpbiAwLjExNTkg
-c2Vjcw0KPiAgIDUwJSBpbiAwLjEzNzQgc2Vjcw0KPiAgIDc1JSBpbiAwLjE1NzYgc2Vjcw0KPiAg
-IDkwJSBpbiAwLjE3NDggc2Vjcw0KPiAgIDk1JSBpbiAwLjE4NzQgc2Vjcw0KPiAgIDk5JSBpbiAx
-LjM5NjIgc2Vjcw0KPiANCj4gRGV0YWlscyAoYXZlcmFnZSwgZmFzdGVzdCwgc2xvd2VzdCk6DQo+
-ICAgRE5TK2RpYWx1cDogICAgMC4wMDM2IHNlY3MsIDAuMDAwMCBzZWNzLCAxLjIxNjggc2Vjcw0K
-PiAgIEROUy1sb29rdXA6ICAgIDAuMDAwMCBzZWNzLCAwLjAwMDAgc2VjcywgMC4wMDAwIHNlY3MN
-Cj4gICByZXEgd3JpdGU6ICAgICAwLjAwMDAgc2VjcywgMC4wMDAwIHNlY3MsIDAuMDAwNyBzZWNz
-DQo+ICAgcmVzcCB3YWl0OiAgICAgMC4xNDExIHNlY3MsIDAuMDA0OSBzZWNzLCAxLjE1MTAgc2Vj
-cw0KPiAgIHJlc3AgcmVhZDogICAgIDAuMDAwMSBzZWNzLCAwLjAwMDAgc2VjcywgMC4wMDAyIHNl
-Y3MNCj4gDQo+IFN0YXR1cyBjb2RlIGRpc3RyaWJ1dGlvbjoNCj4gICBbMjAwXSAzMTY3IHJlc3Bv
-bnNlcw0KPiANCj4gDQo+IFRoZSBtZW1vcnkgdXNhZ2Ugb2YgdGhlIHByb2dyYW0gdW5kZXIgbG9h
-ZCAoUmVzaWRlbnQgc2l6ZSwgSU9XLCBSQU0NCj4gdXNhZ2UgZHVyaW5nIGxvYWQgaXMgcm91Z2hs
-eSAxNk1CKToNCj4gDQo+ICMgY2F0IC9wcm9jLyQocGlkb2Ygb2NwLXNlcnZlci5hcm0pL3N0YXR1
-cw0KPiBOYW1lOiAgIG9jcC1zZXJ2ZXIuYXJtDQo+IFVtYXNrOiAgMDAyMg0KPiBTdGF0ZTogIFMg
-KHNsZWVwaW5nKQ0KPiBUZ2lkOiAgIDI3MzcNCj4gTmdpZDogICAwDQo+IFBpZDogICAgMjczNw0K
-PiBQUGlkOiAgIDI3MTANCj4gVHJhY2VyUGlkOiAgICAgIDANCj4gVWlkOiAgICAwICAgICAgIDAg
-ICAgICAgMCAgICAgICAwDQo+IEdpZDogICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMA0KPiBG
-RFNpemU6IDI1Ng0KPiBHcm91cHM6IDANCj4gVm1QZWFrOiAgMTE2NzIxMiBrQg0KPiBWbVNpemU6
-ICAxMTY3MjEyIGtCDQo+IFZtTGNrOiAgICAgICAgIDAga0INCj4gVm1QaW46ICAgICAgICAgMCBr
-Qg0KPiBWbUhXTTogICAgIDE2OTI0IGtCDQo+IFZtUlNTOiAgICAgMTY4NDQga0INCj4gUnNzQW5v
-bjogICAgICAgICAgICA5MjAwIGtCDQo+IFJzc0ZpbGU6ICAgICAgICAgICAgMTc4OCBrQg0KPiBS
-c3NTaG1lbTogICAgICAgICAgIDU4NTYga0INCj4gVm1EYXRhOiAgIDM5NTEwOCBrQg0KPiBWbVN0
-azogICAgICAgMTM2IGtCDQo+IFZtRXhlOiAgICAgIDYzMDQga0INCj4gVm1MaWI6ICAgICAgMjc5
-MiBrQg0KPiBWbVBURTogICAgICAgMTMwIGtCDQo+IFZtUE1EOiAgICAgICAgIDAga0INCj4gVm1T
-d2FwOiAgICAgICAgMCBrQg0KPiBUaHJlYWRzOiAgICAgICAgNDUNCj4gU2lnUTogICAwLzM1NzcN
-Cj4gU2lnUG5kOiAwMDAwMDAwMDAwMDAwMDAwDQo+IFNoZFBuZDogMDAwMDAwMDAwMDAwMDAwMA0K
-PiBTaWdCbGs6IGZmZmZmZmZlN2JmYTdhMjUNCj4gU2lnSWduOiAwMDAwMDAwMDAwMDAwMDAwDQo+
-IFNpZ0NndDogZmZmZmZmZmZmZmMxZmVmZg0KPiBDYXBJbmg6IDAwMDAwMDAwMDAwMDAwMDANCj4g
-Q2FwUHJtOiAwMDAwMDAzZmZmZmZmZmZmDQo+IENhcEVmZjogMDAwMDAwM2ZmZmZmZmZmZg0KPiBD
-YXBCbmQ6IDAwMDAwMDNmZmZmZmZmZmYNCj4gQ2FwQW1iOiAwMDAwMDAwMDAwMDAwMDAwDQo+IE5v
-TmV3UHJpdnM6ICAgICAwDQo+IENwdXNfYWxsb3dlZDogICAzDQo+IENwdXNfYWxsb3dlZF9saXN0
-OiAgICAgIDAtMQ0KPiB2b2x1bnRhcnlfY3R4dF9zd2l0Y2hlczogICAgICAgIDkyDQo+IG5vbnZv
-bHVudGFyeV9jdHh0X3N3aXRjaGVzOiAgICAgMjENCj4gDQo+IFRoZSBiaW5hcnkgc2l6ZSBpcyAx
-ME1CIHVuY29tcHJlc3NlZCBhbmQgMk1CIGNvbXByZXNzZWQgKHh6IGxldmVsIDkpDQo+IA0KPiAk
-IGNhdCBvY3Atc2VydmVyLmFybSAgfCB4eiAtOSAtYyA+IG9jcC1zZXJ2ZXIuYXJtLnh6ICQgbHMg
-LWwgb2NwLXNlcnZlci5hcm0qIC0NCj4gcnd4cnd4ci14IDEgbWljaGFlbF9lX2Jyb3duIG1pY2hh
-ZWxfZV9icm93biAxMTE2OTA1MiBGZWIgMTQgMTM6MTQgb2NwLQ0KPiBzZXJ2ZXIuYXJtDQo+IC1y
-dy1ydy1yLS0gMSBtaWNoYWVsX2VfYnJvd24gbWljaGFlbF9lX2Jyb3duICAyNzEyMjA4IEZlYiAx
-NCAxMzoyNiBvY3AtDQo+IHNlcnZlci5hcm0ueHoNCj4gDQo+IFRoZSBzb3VyY2UgaXMgY3VycmVu
-dGx5IHNpdHRpbmcgYXQgdW5kZXIgNWsgTG9DIGltcGxlbWVudGluZyBhIGZldyBwcm9vZiBvZg0K
-PiBjb25jZXB0IG9wZW5ibWMgaW1wbGVtZW50YXRpb25zIGNhbGxpbmcgREJVUywgYXMgd2VsbCBh
-cyBhIHNpbXVsYXRpb24uDQo+IA0KPiBDb25jdXJyZW5jeToNCj4gLSBIaWdobHkgY29uY3VycmVu
-dC4gT24gQVJNIHNlcnZlcyA+MzAwIHJlcXVlc3RzIHBlciBzZWNvbmQuIE9uIFg4NiwgZ29lcw0K
-PiB1cCB0byBhYm91dCAzayByZXF1ZXN0cyBwZXIgc2Vjb25kDQo+IC0gRm9yIGluZGl2aWR1YWwg
-cmVxdWVzdHM6IGNhbiBjb25jdXJyZW50bHkgZ2V0IGRhdGEgZnJvbSBtdWx0aXBsZSBkYXRhDQo+
-IHNvdXJjZXMgYW5kIHJ1bnMgYWxsIHRoZSBwbHVnaW5zIGZvciBhIHJlZGZpc2ggcmVzb3VyY2Ug
-aW4gcGFyYWxsZWwNCj4gDQo+IERldGVybWluaXN0aWM6DQo+IC0gVGhlIGRlc2lnbiBzaG91bGQg
-YmUgZmFpcmx5IGRldGVybWluaXN0aWMuDQo+IA0KPiBDYWNoZWQ6DQo+IC0gQ29tcGxldGVseSBm
-bGV4aWJsZSBoZXJlLiBUaGUgZGVmYXVsdCBtb2RlbCBpcyBjYWNoaW5nIHRoZSBkYXRhLCBidXQg
-aXQncyBhbHNvDQo+IHN1cHBvcnRlZCB0byBtYWtlIGRidXMgY2FsbHMgcGVyIHJlcXVlc3QgKHRo
-b3VnaCB0aGF0J3Mgbm90IHJlYWxseQ0KPiByZWNvbW1lbmRlZCkuIEN1cnJlbnRseSBpdCBjYWNo
-ZXMgc2Vuc29yIHJlc3VsdHMgYW5kIHJlZnJlc2hlcyB0aG9zZSBhdCBhDQo+IGZpeGVkIGludGVy
-dmFsLCB0aG91Z2ggdGhhdCBjb3VsZCBlYXNpbHkgYmUgY2hhbmdlZC4NCj4gDQo+IFBsYXRmb3Jt
-IGRlcGVuZGVudC9pbmRlcGVuZGVudDoNCj4gLSBDb3JlIGlzIGNvbXBsZXRlbHkgcGxhdGZvcm0g
-aW5kZXBlbmRlbnQuDQo+IC0gV29ya2luZyBvbiBhbiBPQ1AgcHJvZmlsZSBpbXBsZW1lbnRhdGlv
-biB0aGF0IGFsc28gaGFzIHBsYXRmb3JtDQo+IGluZGVwZW5kZW50ICsgcGxhdGZvcm0gc3BlY2lm
-aWMgaG9va3MuIEN1cnJlbnRseSBpbiBwbGFjZSBhcmUgc2ltdWxhdGlvbg0KPiBpbXBsZW1lbnRh
-dGlvbiBwbHVzIG9wZW5ibWMgZGJ1cyBpbXBsZW1lbnRhdGlvbiBmb3Igc2Vuc29ycw0KPiAodGVt
-cGVyYXR1cmUgbm93LCB3b3JraW5nIGZhbnMgbmV4dCkuDQo+IA0KPiBETVRGIHN1cHBvcnQ6DQo+
-IC0gSW4gcHJvZ3Jlc3MuIEhlbHAgbmVlZGVkLg0KPiANCj4gLS0NCj4gTWljaGFlbA0KPiANCj4g
-T24gV2VkLCBGZWIgMDcsIDIwMTggYXQgMDM6NDg6NDFBTSArMDAwMCwgWXVnaSBNYW5pIHdyb3Rl
-Og0KPiA+IEhlcmUgYXJlIHNvbWUgbW9yZSByZXF1aXJlbWVudHMgYmFzZWQgb24gb3VyIGV4cGVy
-aWVuY2Ugd2l0aCBSZWRmaXNoOg0KPiA+IDEuIENvbmN1cnJlbmN5DQo+ID4gV2ViIFNlcnZlciBh
-bmQgRnJhbWV3b3JrIHNob3VsZCBiZSBhYmxlIHRvIHNlcnZlIG11bHRpcGxlIEdFVCByZXF1ZXN0
-cw0KPiBhdCBhIHRpbWUuDQo+ID4gUE9TVC9QQVRDSC9QVVQvREVMRVRFIHJlcXVlc3RzIGNhbiBi
-ZSBzZXF1ZW50aWFsLg0KPiA+DQo+ID4gMi4gRGV0ZXJtaW5pc3RpYw0KPiA+IFNlcnZpY2Ugc2hv
-dWxkIGJlIHRpbWUgZGV0ZXJtaW5pc3RpYywgYm90aCBib290IHRpbWUgYW5kIHJ1biB0aW1lLg0K
-PiA+IENvbmN1cnJlbmN5IHNoYWxsIG5vdCBpbXBhY3QgZGV0ZXJtaW5pc3RpYyBwcm9wZXJ0eSBv
-ZiB0aGUgc2VydmljZS4NCj4gPiBBbGwgcmVxdWVzdHMgc2hhbGwgYmUgcmVzcG9uZGVkIChzdWNj
-ZXNzL2ZhaWx1cmUpIHdpdGhpbiBhY2NlcHRhYmxlIHRpbWUNCj4gbGltaXRzLg0KPiA+IFdoZXJl
-IHNvbWUgcmVxdWVzdHMgY2Fubm90IGJlIGNvbXBsZXRlZCB3aXRoaW4gdGltZSBsaW1pdHMsIHNl
-cnZpY2UNCj4gPiBzaGFsbCByZXNwb25kIHdpdGggc3RhdHVzIGFuZCBleHBlY3RlZCB0aW1lIHRv
-IGNvbXBsZXRlLg0KPiA+DQo+ID4gMy4gQ2FjaGVkIERhdGENCj4gPiBEYXRhIHNoYWxsIGJlIGNh
-Y2hlZCBieSBSZWRmaXNoIHNlcnZpY2UgYW5kIHVwZGF0ZWQgb24gZGJ1cyBzaWduYWxzLg0KPiA+
-IENvbGxlY3RpbmcgcmVxdWlyZWQgaW5mb3JtYXRpb24gb24gZGVtYW5kIGFkdmVyc2VseSBpbXBh
-Y3RzDQo+IHBlcmZvcm1hbmNlLg0KPiA+IFJlZGZpc2ggc2hvdWxkIHJhdGhlciBjYWNoZSB0aGUg
-aW5mb3JtYXRpb24gYW5kIGtlZXAgdXBkYXRpbmcgaXRzDQo+ID4gY2FjaGUgb24gbm90aWZpY2F0
-aW9uIGZyb20gZGJ1cyB0aGF0IHRoZSBwcm9wZXJ0eShpZXMpIG9mIGludGVyZXN0IGhhcyBiZWVu
-DQo+IG1vZGlmaWVkLg0KPiA+DQo+ID4gNC4gUGxhdGZvcm0gZGVwZW5kZW50L2luZGVwZW5kZW50
-IGxheWVyIFNoYWxsIHByb3ZpZGUgYSBjbGVhcg0KPiA+IGlzb2xhdGlvbiBiZXR3ZWVuIGNvcmUg
-dnMgcGxhdGZvcm0gcHJvcGVydGllcy4NCj4gPiBDYW4gY29uc2lkZXIgb2JqZWN0IG9yaWVudGVk
-IGFwcHJvYWNoIGZvciBwbGF0Zm9ybSAmIG9lbSBsYXllciB0bw0KPiA+IG92ZXJyaWRlIGNvcmUg
-bWV0aG9kcyBhbmQgb2JqZWN0cy4gQ3VzdG9taXplZCBob29rcyBhbmQgaGFuZGxlcnMgY2FuDQo+
-ID4gYmUgcHJvdmlkZWQgYnkgcGxhdGZvcm0gbGF5ZXIgd2hpbGUgdGhlIGRhdGEgbW9kZWwgYmV0
-d2VlbiBsYXllcnMgaXMNCj4gPiBtYWludGFpbmVkIGNvbnNpc3RlbnQgYWNyb3NzIHBsYXRmb3Jt
-cy4NCj4gPg0KPiA+IDUuIERNVEYgU3VwcG9ydA0KPiA+IFJlZGZpc2ggaGF2ZSBxdWl0ZSBhIGxv
-dCBvZiBnYXBzIGluIHNvbWUgb2YgdGhlIGJhc2ljIHJlcXVpcmVtZW50cyBvZiBhDQo+IEJNQy4N
-Cj4gPiBhKSBGUlUgJiBGUlUgQ29sbGVjdGlvbiBTY2hlbWENCj4gPiBiKSBTZW5zb3IgJiBTZW5z
-b3IgQ29sbGVjdGlvbiBTY2hlbWENCj4gPiBjKSBDb21wb25lbnQgRmlybXdhcmUgVXBkYXRlIChQ
-U1UsIEJJT1MsIENQTEQsIGV0YykNCj4gPiBkKSBNYXN0ZXIgV3JpdGUtUmVhZA0KPiA+IGUpIENs
-ZWFyIFBTVSBGYXVsdHMNCj4gPiBXZSBuZWVkIERNVEYgdG8gYWN0aXZlbHkgYWRkL3VwZGF0ZSBS
-ZWRmaXNoIHNjaGVtYXMgdGhhdCBhcmUNCj4gZnVuZGFtZW50YWwgdG8gYW55IEJNQy4NCj4gPg0K
-PiA+IDcuIEVycm9yIENvZGVzDQo+ID4gUmVkZmlzaCBMb2dFbnRyeSBzY2hlbWEgZG9lc27igJl0
-IG9mZmVyIGEgcGxhY2Vob2xkZXIgZm9yIGVycm9yIGNvZGVzDQo+ID4gdGhhdCBhdXRvbWF0aW9u
-IHRvb2xzIGNhbiByZWFkIHRvIGNhdGVnb3JpemUgdGhlIGV2ZW50cyBhbmQgdHJpZ2dlcg0KPiBh
-Y3R1YXRvcnMuDQo+ID4gT25lIG9wdGlvbiBpcyB0byByZXB1cnBvc2UgT0VNIGZpZWxkLg0KPiA+
-DQo+ID4gOC4gUGFnaW5hdGlvbg0KPiA+IEV2ZW50IGxvZ3MgY2FuIGdldCB0b28gYmlnIGFuZCBw
-YWdpbmF0ZWQgdmlldyBpcyBoZWxwZnVsDQo+ID4NCj4gPiA5LiBGaWx0ZXJpbmcNCj4gPiBRdWVy
-eSBwYXJhbWV0ZXIgdG8gZmlsdGVyIHRoZSByZXNwb25zZSBsaW1pdGVkIHRvIGNlcnRhaW4gY3Jp
-dGVyaWENCj4gPg0KPiA+IDEwLiBBbmNob3JzDQo+ID4gU2NoZW1hcyBsaWtlIENoYXNzaXMgYW5k
-IE1hbmFnZXIgaGF2ZSBhIGJ1bmNoIG9mIHByb3BlcnRpZXMgdGhhdCBub3QNCj4gPiBhbGwgcmVx
-dWVzdHMgbWlnaHQgYmUgaW50ZXJlc3RlZCBpbi4NCj4gPiBJdCBpcyBiZXR0ZXIgdG8gYmUgYWJs
-ZSB0byByZXF1ZXN0IGp1c3QgYSBmcmFnbWVudCBvZiBhIHJlc291cmNlIHVzaW5nIOKAmCPigJku
-DQo+ID4NCj4gPiAxMS4gUmF0ZSBMaW1pdGluZw0KPiA+IFNlcnZlciBzaGFsbCByZXR1cm4gSFRU
-UCA0Mjkgd2hlbiBudW1iZXIgb2YgcmVxdWVzdHMgY3Jvc3MgbWF4IGxpbWl0DQo+IHBlcm1pc3Np
-YmxlIGZyb20gYSBjbGllbnQuDQo+ID4gV2UgbmVlZCBzb21lIHByb3RlY3Rpb24gYWdhaW5zdCBE
-ZW5pYWwgb2YgU2VydmljZS4NCj4gPg0KPiA+IC1ZdWdpDQo=
+On Thu, 2018-02-22 at 16:22 +1030, Joel Stanley wrote:
+> On Thu, Feb 15, 2018 at 2:00 PM, Samuel Mendoza-Jonas
+> <sam@mendozajonas.com> wrote:
+> > Add a generic netlink family for NCSI. This supports two commands;
+> > NCSI_CMD_PKG_INFO which returns information on packages and their
+> > associated channels, and NCSI_CMD_SET_INTERFACE which allows a specific
+> > package or package/channel combination to be set as the preferred
+> > choice.
+> > 
+> > Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> > ---
+> > Fielding an RFC first to gauge what sort of information people may want
+> > out of an NCSI user API before it gets carved in stone. This RFC exposes
+> > a few main things such as link state, active link, channel versions, and
+> > active vlan ids, is there more that could be helpful in version 1 of the
+> > UAPI?
+> > The big drawcard here is of course the ability to set preferred packages
+> > and channels so that the NCSI link can be bound to *only* port 0 for
+> > example. If you have opinions about how this should function now is the
+> > time to speak up :)
+> > 
+> >  include/uapi/linux/ncsi.h |  65 ++++++++
+> >  net/ncsi/Makefile         |   2 +-
+> >  net/ncsi/internal.h       |   3 +
+> >  net/ncsi/ncsi-manage.c    |  28 +++-
+> >  net/ncsi/ncsi-netlink.c   | 394 ++++++++++++++++++++++++++++++++++++++++++++++
+> >  net/ncsi/ncsi-netlink.h   |  20 +++
+> >  6 files changed, 508 insertions(+), 4 deletions(-)
+> >  create mode 100644 include/uapi/linux/ncsi.h
+> >  create mode 100644 net/ncsi/ncsi-netlink.c
+> >  create mode 100644 net/ncsi/ncsi-netlink.h
+> > 
+> > diff --git a/include/uapi/linux/ncsi.h b/include/uapi/linux/ncsi.h
+> > new file mode 100644
+> > index 000000000000..45de201569e3
+> > --- /dev/null
+> > +++ b/include/uapi/linux/ncsi.h
+> > @@ -0,0 +1,65 @@
+> > +/*
+> > + * Copyright Samuel Mendoza-Jonas, IBM Corporation 2018.
+> > + *
+> > + * This program is free software; you can redistribute it and/or modify
+> > + * it under the terms of the GNU General Public License as published by
+> > + * the Free Software Foundation; either version 2 of the License, or
+> > + * (at your option) any later version.
+> > + */
+> > +
+> > +#ifndef __UAPI_NCSI_NETLINK_H__
+> > +#define __UAPI_NCSI_NETLINK_H__
+> > +
+> > +enum ncsi_nl_commands {
+> 
+> I suggest more documentation above each of these enums
+
+Yep, that will be in V1.
+
+> 
+> > +       NCSI_CMD_UNSPEC,
+> > +       NCSI_CMD_SET_INTERFACE,
+> > +       NCSI_CMD_PKG_INFO,
+> > +       NCSI_CMD_MAX,
+> > +};
+> > +
+> > +#define NCSI_CMD_MAX (NCSI_CMD_MAX - 1)
+> 
+> That is kind of strange.
+> 
+> Will we ever have other commands? If so, are we allowed to bump this
+> number given it's exported to userspace?
+> 
+> To answer my own question: Looking at the 82011 netlink header
+> suggests that's okay. While we're looking for patterns, they do this
+> to define the _MAX:
+> 
+>         /* keep last */
+>         __NL80211_STA_FLAG_AFTER_LAST,
+>         NL80211_STA_FLAG_MAX = __NL80211_STA_FLAG_AFTER_LAST - 1
+
+Yeah the current method came from some other gnetlink users, and I just
+recently saw this nicer version - will switch over so it's a bit more
+obvious.
+
+> 
+> They also reserve the 0th command in each enum.
+
+Yep, that's NCSI_CMD_UNSPEC, same with the attributes.
+
+> 
+> > +
+> > +enum ncsi_nl_attrs {
+> > +       NCSI_ATTR_UNSPEC,
+> > +       NCSI_ATTR_IFINDEX,
+> > +       NCSI_ATTR_PACKAGE_LIST,
+> > +       NCSI_ATTR_PACKAGE_ID,
+> > +       NCSI_ATTR_CHANNEL_ID,
+> > +       NCSI_ATTR_MAX,
+> 
+> Similarly with all of these _MAX variables.
+> 
+> > +};
+> > +
+> > +enum ncsi_nl_pkg_attrs {
+> > +       NCSI_PKG_ATTR_UNSPEC,
+> > +       NCSI_PKG_ATTR,
+> > +       NCSI_PKG_ATTR_ID,
+> > +       NCSI_PKG_ATTR_CHANNEL_LIST,
+> > +       NCSI_PKG_ATTR_MAX,
+> > +};
+> > +
+> > +enum ncsi_nl_channel_attrs {
+> > +       NCSI_CHANNEL_ATTR_UNSPEC,
+> > +       NCSI_CHANNEL_ATTR,
+> > +       NCSI_CHANNEL_ATTR_ID,
+> > +       NCSI_CHANNEL_ATTR_VERSION_MAJOR,
+> > +       NCSI_CHANNEL_ATTR_VERSION_MINOR,
+> > +       NCSI_CHANNEL_ATTR_VERSION_STR,
+> > +       NCSI_CHANNEL_ATTR_LINK_STATE,
+> > +       NCSI_CHANNEL_ATTR_ACTIVE,
+> > +       NCSI_CHANNEL_ATTR_VLAN_LIST,
+> > +       NCSI_CHANNEL_ATTR_MAX,
+> > +};
+> > +
+> > +enum ncsi_nl_vlan_attrs {
+> > +       NCSI_VLAN_UNSPEC,
+> > +       NCSI_VLAN_ATTR,
+> > +       NCSI_VLAN_ATTR_ID,
+> > +       NCSI_VLAN_ATTR_PROTO,
+> > +       NCSI_VLAN_ATTR_MAX,
+> > +};
+> > +
+> > +#define NCSI_ATTR_MAX (NCSI_ATTR_MAX - 1)
+> > +#define NCSI_PKG_ATTR_MAX (NCSI_PKG_ATTR_MAX - 1)
+> > +#define NCSI_CHANNEL_ATTR_MAX (NCSI_CHANNEL_ATTR_MAX - 1)
+> > +#define NCSI_VLAN_ATTR_MAX (NCSI_VLAN_ATTR_MAX - 1)
+> > +
+> > +#endif /* __UAPI_NCSI_NETLINK_H__ */
+> > diff --git a/net/ncsi/Makefile b/net/ncsi/Makefile
+> > index dd12b564f2e7..436ef68331f2 100644
+> > --- a/net/ncsi/Makefile
+> > +++ b/net/ncsi/Makefile
+> > @@ -1,4 +1,4 @@
+> >  #
+> >  # Makefile for NCSI API
+> >  #
+> > -obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-aen.o ncsi-manage.o
+> > +obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-aen.o ncsi-manage.o ncsi-netlink.o
+> > diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+> > index d30f7bd741d0..8da84312cd3b 100644
+> > --- a/net/ncsi/internal.h
+> > +++ b/net/ncsi/internal.h
+> > @@ -276,6 +276,8 @@ struct ncsi_dev_priv {
+> >         unsigned int        package_num;     /* Number of packages         */
+> >         struct list_head    packages;        /* List of packages           */
+> >         struct ncsi_channel *hot_channel;    /* Channel was ever active    */
+> > +       struct ncsi_package *force_package;  /* Force a specific package   */
+> > +       struct ncsi_channel *force_channel;  /* Force a specific channel   */
+> >         struct ncsi_request requests[256];   /* Request table              */
+> >         unsigned int        request_id;      /* Last used request ID       */
+> >  #define NCSI_REQ_START_IDX     1
+> > @@ -318,6 +320,7 @@ extern spinlock_t ncsi_dev_lock;
+> >         list_for_each_entry_rcu(nc, &np->channels, node)
+> > 
+> >  /* Resources */
+> > +u32 *ncsi_get_filter(struct ncsi_channel *nc, int table, int index);
+> 
+> The existing APIs take in a void *. Should we try to keep the APIs consistent?
+
+The difference here is that ncsi_{find,add}_filter search for a filter matching
+'data', but in ncsi_{get,remove}_filter we access a filter by index. Possibly
+the function should be renamed to be a bit more obvious.
+
+(On the other hand I see a day in the near future where I remove all of these.)
+
+> 
+> >  int ncsi_find_filter(struct ncsi_channel *nc, int table, void *data);
+> 
+> Do we need both a get_filter and find_filter? I realise one passes an
+> index and the other doesn't.
+> 
+> (The answer to both these questions can be no, followed by yes).
+
+get_filter already exists, we're just making it available outside of
+ncsi-manage.c here.. otherwise see my comment above in brackets :)
+
+> 
+> >  int ncsi_add_filter(struct ncsi_channel *nc, int table, void *data);
+> >  int ncsi_remove_filter(struct ncsi_channel *nc, int table, int index);
+> > diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+> > index b799d7962544..f324f3fec11b 100644
+> > --- a/net/ncsi/ncsi-manage.c
+> > +++ b/net/ncsi/ncsi-manage.c
+> > @@ -12,7 +12,6 @@
+> >  #include <linux/init.h>
+> >  #include <linux/netdevice.h>
+> >  #include <linux/skbuff.h>
+> > -#include <linux/netlink.h>
+> > 
+> >  #include <net/ncsi.h>
+> >  #include <net/net_namespace.h>
+> > @@ -23,6 +22,7 @@
+> > 
+> >  #include "internal.h"
+> >  #include "ncsi-pkt.h"
+> > +#include "ncsi-netlink.h"
+> > 
+> >  LIST_HEAD(ncsi_dev_list);
+> >  DEFINE_SPINLOCK(ncsi_dev_lock);
+> > @@ -964,20 +964,37 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+> > 
+> >  static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
+> >  {
+> > -       struct ncsi_package *np;
+> > -       struct ncsi_channel *nc, *found, *hot_nc;
+> > +       struct ncsi_package *np, *force_package;
+> > +       struct ncsi_channel *nc, *found, *hot_nc, *force_channel;
+> >         struct ncsi_channel_mode *ncm;
+> >         unsigned long flags;
+> > 
+> >         spin_lock_irqsave(&ndp->lock, flags);
+> >         hot_nc = ndp->hot_channel;
+> > +       force_channel = ndp->force_channel;
+> > +       force_package = ndp->force_package;
+> >         spin_unlock_irqrestore(&ndp->lock, flags);
+> > 
+> > +       /* Force a specific channel whether or not it has link if we have been
+> > +        * configured to do so
+> > +        */
+> > +       if (force_package && force_channel) {
+> > +               found = force_channel;
+> > +               ncm = &found->modes[NCSI_MODE_LINK];
+> > +               if (!(ncm->data[2] & 0x1))
+> > +                       netdev_info(ndp->ndev.dev,
+> > +                                   "NCSI: Channel %u forced, but it is link down\n",
+> > +                                   found->id);
+> > +               goto out;
+> > +       }
+> > +
+> >         /* The search is done once an inactive channel with up
+> >          * link is found.
+> >          */
+> >         found = NULL;
+> >         NCSI_FOR_EACH_PACKAGE(ndp, np) {
+> > +               if (ndp->force_package && np != ndp->force_package)
+> > +                       continue;
+> >                 NCSI_FOR_EACH_CHANNEL(np, nc) {
+> >                         spin_lock_irqsave(&nc->lock, flags);
+> > 
+> > @@ -1594,6 +1611,9 @@ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+> >         ndp->ptype.dev = dev;
+> >         dev_add_pack(&ndp->ptype);
+> > 
+> > +       /* Set up generic netlink interface */
+> > +       ncsi_init_netlink(dev);
+> > +
+> >         return nd;
+> >  }
+> >  EXPORT_SYMBOL_GPL(ncsi_register_dev);
+> > @@ -1673,6 +1693,8 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+> >  #endif
+> >         spin_unlock_irqrestore(&ncsi_dev_lock, flags);
+> > 
+> > +       ncsi_unregister_netlink(nd->dev);
+> > +
+> >         kfree(ndp);
+> >  }
+> >  EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
+> > diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
+> > new file mode 100644
+> > index 000000000000..02f4f89805d6
+> > --- /dev/null
+> > +++ b/net/ncsi/ncsi-netlink.c
+> > @@ -0,0 +1,394 @@
+> > +/*
+> > + * Copyright Samuel Mendoza-Jonas, IBM Corporation 2018.
+> > + *
+> > + * This program is free software; you can redistribute it and/or modify
+> > + * it under the terms of the GNU General Public License as published by
+> > + * the Free Software Foundation; either version 2 of the License, or
+> > + * (at your option) any later version.
+> > + */
+> > +
+> > +#include <linux/module.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/if_arp.h>
+> > +#include <linux/rtnetlink.h>
+> > +#include <linux/etherdevice.h>
+> > +#include <linux/module.h>
+> > +#include <net/genetlink.h>
+> > +#include <net/ncsi.h>
+> > +#include <linux/skbuff.h>
+> > +#include <net/sock.h>
+> > +#include <uapi/linux/ncsi.h>
+> > +
+> > +#include "internal.h"
+> > +#include "ncsi-netlink.h"
+> > +
+> > +static struct genl_family ncsi_genl_family;
+> > +
+> > +static const struct nla_policy ncsi_genl_policy[NCSI_ATTR_MAX + 1] = {
+> > +       [NCSI_ATTR_IFINDEX] =           { .type = NLA_U32 },
+> > +       [NCSI_ATTR_PACKAGE_LIST] =      { .type = NLA_NESTED },
+> > +       [NCSI_ATTR_PACKAGE_ID] =        { .type = NLA_U32 },
+> > +       [NCSI_ATTR_CHANNEL_ID] =        { .type = NLA_U32 },
+> > +};
+> > +
+> > +static struct ncsi_dev_priv *ndp_from_ifindex(struct net *net, u32 ifindex)
+> > +{
+> > +       struct ncsi_dev_priv *ndp;
+> > +       struct net_device *dev;
+> > +       struct ncsi_dev *nd;
+> > +       struct ncsi_dev;
+> > +
+> > +       if (!net)
+> > +               return NULL;
+> > +
+> > +       dev = dev_get_by_index(net, ifindex);
+> > +       if (!dev) {
+> > +               printk(KERN_ERR "NCSI netlink: No device for ifindex %u\n",
+> 
+> netdev_err?
+> 
+
+Only printk because we don't have a net_device pointer yet.
+
+> > +                      ifindex);
+> > +               return NULL;
+> > +       }
+> > +
+> > +       nd = ncsi_find_dev(dev);
+> > +       ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+> > +
+> > +       dev_put(dev);
+> > +       return ndp;
+> > +}
+> > +
+> > +static int ncsi_write_channel_info(struct sk_buff *skb,
+> > +                                  struct ncsi_dev_priv *ndp,
+> > +                                  struct ncsi_channel *nc)
+> > +{
+> > +       struct nlattr *vlist_nest, *vlan_nest;
+> > +       struct ncsi_channel_filter *ncf;
+> > +       struct ncsi_channel_mode *m;
+> > +       u32 *data;
+> > +       int i;
+> > +
+> > +       nla_put_u32(skb, NCSI_CHANNEL_ATTR_ID, nc->id);
+> > +       m = &nc->modes[NCSI_MODE_LINK];
+> > +       nla_put_u32(skb, NCSI_CHANNEL_ATTR_LINK_STATE, m->data[2]);
+> > +       if (nc->state == NCSI_CHANNEL_ACTIVE)
+> > +               nla_put_flag(skb, NCSI_CHANNEL_ATTR_ACTIVE);
+> > +
+> > +       nla_put_u32(skb, NCSI_CHANNEL_ATTR_VERSION_MAJOR, nc->version.version);
+> > +       nla_put_u32(skb, NCSI_CHANNEL_ATTR_VERSION_MINOR, nc->version.alpha2);
+> > +       nla_put_string(skb, NCSI_CHANNEL_ATTR_VERSION_STR, nc->version.fw_name);
+> > +
+> > +       vlist_nest = nla_nest_start(skb, NCSI_CHANNEL_ATTR_VLAN_LIST);
+> > +       if (!vlist_nest)
+> > +               return -ENOMEM;
+> > +       ncf = nc->filters[NCSI_FILTER_VLAN];
+> > +       i = -1;
+> > +       if (ncf) {
+> 
+> Is it an error if no filter was found?
+
+Hmm, for what we're doing here probably not, but for NCSI it means something
+very wierd has happened. We should probably just skip the VLAN section in this
+case though.
+
+> 
+> > +               while ((i = find_next_bit((void *)&ncf->bitmap, ncf->total,
+> > +                                         i + 1)) < ncf->total) {
+> 
+> My eyes.
+
+Your eyes? MY eyes.
+
+> 
+> > +                       data = ncsi_get_filter(nc, NCSI_FILTER_VLAN, i);
+> > +                       /* Uninitialised channels will have 'zero' vlan ids */
+> > +                       if (!data || !*data)
+> > +                               continue;
+> > +                       vlan_nest = nla_nest_start(skb, NCSI_VLAN_ATTR);
+> > +                       if (!vlan_nest)
+> > +                               continue;
+> > +                       nla_put_u16(skb, NCSI_VLAN_ATTR_ID, *(u16 *)data);
+> > +                       nla_nest_end(skb, vlan_nest);
+> > +               }
+> > +       }
+> > +       nla_nest_end(skb, vlist_nest);
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static int ncsi_write_package_info(struct sk_buff *skb,
+> > +                                  struct ncsi_dev_priv *ndp, unsigned int id)
+> > +{
+> > +       struct nlattr *pnest, *cnest, *nest;
+> > +       struct ncsi_package *np;
+> > +       struct ncsi_channel *nc;
+> > +       bool found;
+> > +       int rc;
+> > +
+> > +       if (id > ndp->package_num) {
+> > +               netdev_info(ndp->ndev.dev, "NCSI: No package with id %u\n", id);
+> > +               return -ENODEV;
+> > +       }
+> > +
+> > +       found = false;
+> > +       NCSI_FOR_EACH_PACKAGE(ndp, np) {
+> > +               if (np->id != id)
+> > +                       continue;
+> > +               pnest = nla_nest_start(skb, NCSI_PKG_ATTR);
+> > +               if (!pnest)
+> > +                       return -ENOMEM;
+> > +               nla_put_u32(skb, NCSI_PKG_ATTR_ID, np->id);
+> > +               cnest = nla_nest_start(skb, NCSI_PKG_ATTR_CHANNEL_LIST);
+> > +               if (!cnest) {
+> > +                       nla_nest_cancel(skb, pnest);
+> > +                       return -ENOMEM;
+> > +               }
+> > +               NCSI_FOR_EACH_CHANNEL(np, nc) {
+> > +                       nest = nla_nest_start(skb, NCSI_CHANNEL_ATTR);
+> > +                       if (!nest) {
+> > +                               nla_nest_cancel(skb, cnest);
+> > +                               nla_nest_cancel(skb, pnest);
+> > +                               return -ENOMEM;
+> > +                       }
+> > +                       rc = ncsi_write_channel_info(skb, ndp, nc);
+> > +                       if (rc) {
+> > +                               nla_nest_cancel(skb, nest);
+> > +                               nla_nest_cancel(skb, cnest);
+> > +                               nla_nest_cancel(skb, pnest);
+> > +                               return rc;
+> > +                       }
+> > +                       nla_nest_end(skb, nest);
+> > +               }
+> > +               nla_nest_end(skb, cnest);
+> > +               nla_nest_end(skb, pnest);
+> > +               found = true;
+> > +       }
+> > +
+> > +       if (!found)
+> > +               return -ENODEV;
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
+> > +{
+> > +       struct ncsi_dev_priv *ndp;
+> > +       unsigned int package_id;
+> > +       struct sk_buff *skb;
+> > +       struct nlattr *attr;
+> > +       void *hdr;
+> > +       int rc;
+> > +
+> > +       if (!info || !info->attrs)
+> > +               return -EINVAL;
+> > +
+> > +       if (!info->attrs[NCSI_ATTR_IFINDEX])
+> > +               return -EINVAL;
+> > +
+> > +       if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
+> > +               return -EINVAL;
+> > +
+> > +       ndp = ndp_from_ifindex(genl_info_net(info),
+> > +                              nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
+> > +       if (!ndp)
+> > +               return -ENODEV;
+> > +
+> > +       skb = genlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
+> > +       if (!skb)
+> > +               return -ENOMEM;
+> > +
+> > +       hdr = genlmsg_put(skb, info->snd_portid, info->snd_seq,
+> > +                         &ncsi_genl_family, 0, NCSI_CMD_PKG_INFO);
+> > +       if (!hdr) {
+> > +               kfree(skb);
+> > +               return -EMSGSIZE;
+> > +       }
+> > +
+> > +       package_id = nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
+> > +
+> > +       attr = nla_nest_start(skb, NCSI_ATTR_PACKAGE_LIST);
+> > +       rc = ncsi_write_package_info(skb, ndp, package_id);
+> > +
+> > +       if (rc) {
+> > +               nla_nest_cancel(skb, attr);
+> > +               goto err;
+> > +       }
+> > +
+> > +       nla_nest_end(skb, attr);
+> > +
+> > +       genlmsg_end(skb, hdr);
+> > +       return genlmsg_reply(skb, info);
+> > +
+> > +err:
+> > +       genlmsg_cancel(skb, hdr);
+> > +       kfree(skb);
+> > +       return rc;
+> > +}
+> > +
+> > +static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
+> > +                               struct netlink_callback *cb)
+> > +{
+> > +       struct nlattr *attrs[NCSI_ATTR_MAX];
+> > +       struct ncsi_package *np, *package;
+> > +       struct ncsi_dev_priv *ndp;
+> > +       unsigned int package_id;
+> > +       struct nlattr *attr;
+> > +       void *hdr;
+> > +       int rc;
+> > +
+> > +       rc = genlmsg_parse(cb->nlh, &ncsi_genl_family, attrs, NCSI_ATTR_MAX,
+> > +                          ncsi_genl_policy);
+> > +       if (rc)
+> > +               return rc;
+> > +
+> > +       if (!attrs[NCSI_ATTR_IFINDEX])
+> > +               return -EINVAL;
+> > +
+> > +       ndp = ndp_from_ifindex(get_net(sock_net(skb->sk)),
+> > +                              nla_get_u32(attrs[NCSI_ATTR_IFINDEX]));
+> > +
+> > +       if (!ndp)
+> > +               return -ENODEV;
+> > +
+> > +       package_id = cb->args[0];
+> > +       package = NULL;
+> > +       NCSI_FOR_EACH_PACKAGE(ndp, np)
+> > +               if (np->id == package_id)
+> > +                       package = np;
+> > +
+> > +       if (!package)
+> > +               return 0; /* done */
+> > +
+> > +       hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
+> > +                         &ncsi_genl_family, 0,  NCSI_CMD_PKG_INFO);
+> > +       if (!hdr) {
+> > +               rc = -EMSGSIZE;
+> > +               goto err;
+> > +       }
+> > +
+> > +       attr = nla_nest_start(skb, NCSI_ATTR_PACKAGE_LIST);
+> > +       rc = ncsi_write_package_info(skb, ndp, package->id);
+> > +       if (rc) {
+> > +               nla_nest_cancel(skb, attr);
+> > +               goto err;
+> > +       }
+> > +
+> > +       nla_nest_end(skb, attr);
+> > +       genlmsg_end(skb, hdr);
+> > +
+> > +       cb->args[0] = package_id + 1;
+> > +
+> > +       return skb->len;
+> > +err:
+> > +       genlmsg_cancel(skb, hdr);
+> > +       return rc;
+> > +}
+> > +
+> > +static int ncsi_set_interface_nl(struct sk_buff *msg, struct genl_info *info)
+> > +{
+> > +       struct ncsi_package *np, *package;
+> > +       struct ncsi_channel *nc, *channel;
+> > +       u32 package_id, channel_id;
+> > +       struct ncsi_dev_priv *ndp;
+> > +       unsigned long flags;
+> > +
+> > +       if (!info || !info->attrs)
+> > +               return -EINVAL;
+> > +
+> > +       if (!info->attrs[NCSI_ATTR_IFINDEX])
+> > +               return -EINVAL;
+> > +
+> > +       ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
+> > +                              nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
+> > +       if (!ndp)
+> > +               return -ENODEV;
+> > +
+> > +       if (!info->attrs[NCSI_ATTR_PACKAGE_ID]) {
+> > +               /* Clear any override */
+> > +               spin_lock_irqsave(&ndp->lock, flags);
+> > +               ndp->force_package = NULL;
+> > +               ndp->force_channel = NULL;
+> > +               spin_unlock_irqrestore(&ndp->lock, flags);
+> > +               netdev_info(ndp->ndev.dev,
+> > +                           "NCSI: Cleared preferred package/channel\n");
+> > +               goto done;
+> > +       }
+> > +
+> > +       package_id = nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
+> > +       package = NULL;
+> > +
+> > +       spin_lock_irqsave(&ndp->lock, flags);
+> > +
+> > +       NCSI_FOR_EACH_PACKAGE(ndp, np)
+> > +               if (np->id == package_id)
+> > +                       package = np;
+> > +       if (!package) {
+> > +               /* The user has set a package that does not exist */
+> > +               return -ERANGE;
+> > +       }
+> > +
+> > +       channel = NULL;
+> > +       if (!info->attrs[NCSI_ATTR_CHANNEL_ID]) {
+> > +               /* Allow any channel */
+> > +               channel_id = NCSI_RESERVED_CHANNEL;
+> > +       } else {
+> > +               channel_id = nla_get_u32(info->attrs[NCSI_ATTR_CHANNEL_ID]);
+> > +               NCSI_FOR_EACH_CHANNEL(package, nc)
+> > +                       if (nc->id == channel_id)
+> > +                               channel = nc;
+> > +       }
+> > +
+> > +       if (channel_id != NCSI_RESERVED_CHANNEL && !channel) {
+> > +               /* The user has set a channel that does not exist on this
+> > +                * package
+> > +                */
+> > +               netdev_info(ndp->ndev.dev, "NCSI: Channel %u does not exist!\n",
+> > +                           channel_id);
+> > +               return -ERANGE;
+> > +       }
+> > +
+> > +       ndp->force_package = package;
+> > +       ndp->force_channel = channel;
+> > +       spin_unlock_irqrestore(&ndp->lock, flags);
+> > +
+> > +       netdev_info(ndp->ndev.dev, "Set package 0x%x, channel 0x%x%s as preferred\n",
+> > +                   package_id, channel_id,
+> > +                   channel_id == NCSI_RESERVED_CHANNEL ? " (any)" : "");
+> > +
+> > +done:
+> > +       /* Bounce the NCSI channel to set changes */
+> > +       ncsi_stop_dev(&ndp->ndev);
+> > +       ncsi_start_dev(&ndp->ndev);
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static const struct genl_ops ncsi_ops[] = {
+> > +       {
+> > +               .cmd = NCSI_CMD_SET_INTERFACE,
+> > +               .policy = ncsi_genl_policy,
+> > +               .doit = ncsi_set_interface_nl,
+> > +               .flags = GENL_ADMIN_PERM,
+> > +       },
+> > +       {
+> > +               .cmd = NCSI_CMD_PKG_INFO,
+> > +               .policy = ncsi_genl_policy,
+> > +               .doit = ncsi_pkg_info_nl,
+> > +               .dumpit = ncsi_pkg_info_all_nl,
+> > +               .flags = 0,
+> > +       },
+> > +};
+> > +
+> > +static struct genl_family ncsi_genl_family __ro_after_init = {
+> > +       .name = "NCSI",
+> > +       .version = 0,
+> > +       .maxattr = NCSI_ATTR_MAX,
+> > +       .module = THIS_MODULE,
+> > +       .ops = ncsi_ops,
+> > +       .n_ops = ARRAY_SIZE(ncsi_ops),
+> > +};
+> > +
+> > +int ncsi_init_netlink(struct net_device *dev)
+> > +{
+> > +       int rc;
+> > +
+> > +       rc = genl_register_family(&ncsi_genl_family);
+> > +       if (rc)
+> > +               netdev_err(dev, "ncsi: failed to register netlink family\n");
+> > +
+> > +       return rc;
+> > +}
+> > +
+> > +int ncsi_unregister_netlink(struct net_device *dev)
+> > +{
+> > +       int rc;
+> > +
+> > +       rc = genl_unregister_family(&ncsi_genl_family);
+> > +       if (rc)
+> > +               netdev_err(dev, "ncsi: failed to unregister netlink family\n");
+> > +
+> > +       return rc;
+> > +}
+> > diff --git a/net/ncsi/ncsi-netlink.h b/net/ncsi/ncsi-netlink.h
+> > new file mode 100644
+> > index 000000000000..91a5c256f8c4
+> > --- /dev/null
+> > +++ b/net/ncsi/ncsi-netlink.h
+> > @@ -0,0 +1,20 @@
+> > +/*
+> > + * Copyright Samuel Mendoza-Jonas, IBM Corporation 2018.
+> > + *
+> > + * This program is free software; you can redistribute it and/or modify
+> > + * it under the terms of the GNU General Public License as published by
+> > + * the Free Software Foundation; either version 2 of the License, or
+> > + * (at your option) any later version.
+> > + */
+> > +
+> > +#ifndef __NCSI_NETLINK_H__
+> > +#define __NCSI_NETLINK_H__
+> > +
+> > +#include <linux/netdevice.h>
+> > +
+> > +#include "internal.h"
+> > +
+> > +int ncsi_init_netlink(struct net_device *dev);
+> > +int ncsi_unregister_netlink(struct net_device *dev);
+> > +
+> > +#endif /* __NCSI_NETLINK_H__ */
+> > --
+> > 2.16.1
+> > 
