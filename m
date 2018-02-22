@@ -1,34 +1,105 @@
-Return-Path: <Tali.Perry@nuvoton.com>
-Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tali.perry@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <alirhas@microsoft.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=microsoft.com
+ (client-ip=104.47.41.91; helo=nam03-dm3-obe.outbound.protection.outlook.com;
+ envelope-from=alirhas@microsoft.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=microsoft.com header.i=@microsoft.com
+ header.b="gel22FYn"; dkim-atps=neutral
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam03on0091.outbound.protection.outlook.com [104.47.41.91])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zq17634ZrzF1ND
- for <openbmc@lists.ozlabs.org>; Sun, 25 Feb 2018 21:15:29 +1100 (AEDT)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w1P9uFgi005349;
- Sun, 25 Feb 2018 11:56:15 +0200
-Received: by talu34.nuvoton.co.il (Postfix, from userid 20088)
- id 360E65A96C; Sun, 25 Feb 2018 12:14:29 +0200 (IST)
-From: Tali Perry <tali.perry1@gmail.com>
-To: brendanhiggins@google.com, robh+dt@kernel.org, mark.rutland@arm.com,
- linux@armlinux.org.uk, avifishman70@gmail.com, tmaimon77@gmail.com,
- raltherr@google.com, mturquette@baylibre.com, sboyd@codeaurora.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-clk@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>
-Subject: [PATCH v10 1/3] NPCM750: add clock controller to DT
-Date: Sun, 25 Feb 2018 12:12:17 +0200
-Message-Id: <1519553539-15899-2-git-send-email-tali.perry1@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1519553539-15899-1-git-send-email-tali.perry1@gmail.com>
-References: <1519553539-15899-1-git-send-email-tali.perry1@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3znSn61j37zF1dH
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 08:54:26 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=nXtWXMITY1msP4Tjami8b6yMHTQHdb2c2PIFipOiTpQ=;
+ b=gel22FYnaTfdqma2v2yzbSObXr54y+5Ij7Ck2vsohf8vwVHZMCKxKhIy38lkQGAI95EJxD4Ynvyzyv6gezHj2hZx2SubT2ilBBbb/hIKL97EzCugFxrefYKsVISyBxi2lojqeLtnqg5NvRETszVc55A/iJbaVXPPuNg+XJYzVLk=
+Received: from BL0PR2101MB0915.namprd21.prod.outlook.com (52.132.23.152) by
+ BL0PR2101MB0977.namprd21.prod.outlook.com (52.132.20.158) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.548.8; Thu, 22 Feb 2018 21:54:20 +0000
+Received: from BL0PR2101MB0915.namprd21.prod.outlook.com
+ ([fe80::c9f2:2449:9089:6e0e]) by BL0PR2101MB0915.namprd21.prod.outlook.com
+ ([fe80::c9f2:2449:9089:6e0e%5]) with mapi id 15.20.0548.008; Thu, 22 Feb 2018
+ 21:54:20 +0000
+From: Ali Larijani <alirhas@microsoft.com>
+To: Michael E Brown <Michael.E.Brown@dell.com>, Yugi Mani
+ <yupalani@microsoft.com>
+CC: "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>, "hramasub@in.ibm.com"
+ <hramasub@in.ibm.com>, "Balaji.B.Rao@dell.com" <Balaji.B.Rao@dell.com>,
+ "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
+ "ed.tanous@intel.com" <ed.tanous@intel.com>, "jwcarman@us.ibm.com"
+ <jwcarman@us.ibm.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "pradeep.kumar36@tcs.com" <pradeep.kumar36@tcs.com>, "rolfb@us.ibm.com"
+ <rolfb@us.ibm.com>, Chris Ong <Chris.Ong@microsoft.com>
+Subject: RE: Redfish on OpenBMC
+Thread-Topic: Redfish on OpenBMC
+Thread-Index: AQHTmjMB38s9HgMHYkiJ89jwQXHXiaOOMZ8AgAESj4CAAJbigIAABWvQgAf7RPCAAHuUsIAMCr+AgAy3aKA=
+Date: Thu, 22 Feb 2018 21:54:20 +0000
+Message-ID: <BL0PR2101MB0915C9A667FD5A0C35C7A124ADCD0@BL0PR2101MB0915.namprd21.prod.outlook.com>
+References: <9FBE92B9-4D49-41CD-9AF7-A5A9E48B25F3@fuzziesquirrel.com>
+ <c62f69455ae74650a086a167c7434d37@ausx13mps334.AMER.DELL.COM>
+ <OFF0C73A52.E22304BC-ON65258227.0026CCEB-65258227.0032425A@notes.na.collabserv.com>
+ <c73bb370335c45dab208cb0e708a08f4@AUSX13MPS306.AMER.DELL.COM>
+ <BL0PR2101MB09150499921D8E104CEB9618ADFA0@BL0PR2101MB0915.namprd21.prod.outlook.com>
+ <MWHPR21MB0864D2D2F00B56C21A5917F4D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
+ <MWHPR21MB0864F176FAC58CACB07E5342D6FC0@MWHPR21MB0864.namprd21.prod.outlook.com>
+ <20180214193720.GA10667@wn7x64-4cggry1.aus.amer.dell.com>
+In-Reply-To: <20180214193720.GA10667@wn7x64-4cggry1.aus.amer.dell.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=True;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Owner=alirhas@microsoft.com;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2018-02-22T21:54:18.6669182Z;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=General;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Application=Microsoft Azure
+ Information Protection;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Extended_MSFT_Method=Automatic;
+ Sensitivity=General
+x-originating-ip: [2001:4898:80e8:4::16e]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; BL0PR2101MB0977;
+ 7:kiLkPyplN+L2m8lkRcy6Ju3QBppJNeW9we19JFx+m+MyN8huaLXh++ZUYW6hLrsi6Dw5iVPjx3TzR23ngNrsypHtEEYk0wV7Kg20sEyzRS5Cvj2cW7AWWPCfUIEvSUk4Rx5Q3soODSYUHEVQAXVaGsM9XzvGCeUVDS1o76lObPSlJTuR+Z2sVNPC1mz4fn8NiwU9PuGnA6w0yIB2kqFlsLxKcfxE32npyegPSzxwpAW/GXmIdn68FTcMiTt54C/D
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b20c8f57-1fd0-4cf7-09fd-08d57a3ed3d6
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(7020095)(4652020)(4534165)(4627221)(201703031133081)(201702281549075)(48565401081)(5600026)(4604075)(3008032)(2017052603307)(7193020);
+ SRVR:BL0PR2101MB0977; 
+x-ms-traffictypediagnostic: BL0PR2101MB0977:
+x-microsoft-antispam-prvs: <BL0PR2101MB09773D9428F30B88B109E66CADCD0@BL0PR2101MB0977.namprd21.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(28532068793085)(158342451672863)(89211679590171)(166708455590820)(65623756079841)(114017886912203)(274839183919467)(280536654915231)(104084551191319)(56004941905204);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001082)(61425038)(6040501)(2401047)(8121501046)(5005006)(93006095)(93001095)(3002001)(3231166)(944501161)(52105095)(10201501046)(6055026)(61426038)(61427038)(6041288)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(20161123562045)(20161123558120)(20161123560045)(6072148)(201708071742011);
+ SRVR:BL0PR2101MB0977; BCL:0; PCL:0; RULEID:; SRVR:BL0PR2101MB0977; 
+x-forefront-prvs: 059185FE08
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(396003)(376002)(366004)(39860400002)(39380400002)(346002)(53754006)(13464003)(199004)(189003)(53824002)(68736007)(33656002)(8666007)(22452003)(97736004)(316002)(4326008)(25786009)(86612001)(9686003)(102836004)(6306002)(2900100001)(93886005)(8990500004)(106356001)(14454004)(551544002)(10290500003)(55016002)(105586002)(6346003)(2906002)(6436002)(478600001)(966005)(53936002)(10090500001)(3660700001)(6636002)(7696005)(6246003)(8676002)(59450400001)(54906003)(2950100002)(305945005)(5250100002)(3280700002)(86362001)(81166006)(8936002)(7416002)(110136005)(81156014)(7736002)(76176011)(3480700004)(8656006)(229853002)(107886003)(6116002)(53546011)(99286004)(186003)(1511001)(74316002)(7116003)(5660300001)(6506007)(47845001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BL0PR2101MB0977;
+ H:BL0PR2101MB0915.namprd21.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ A:1; MX:1; LANG:en; 
+received-spf: None (protection.outlook.com: microsoft.com does not designate
+ permitted sender hosts)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=alirhas@microsoft.com; 
+x-microsoft-antispam-message-info: TaUWPvcRPwxLpK6mS1SWjQgTZxk1HTWtX2DQOpwGk9rHCJKS8oBG75hQt9N6mm8mFpjOFVE92gSa8Zps1UJXP6S7ZPMSVrwE1UPM/Zh0ALP4+b5eEZgJpahGKVFbb+9CRjMu702jaTgjypgcs9dEiJhqOcBIJQXabMudcQbqfC0=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b20c8f57-1fd0-4cf7-09fd-08d57a3ed3d6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Feb 2018 21:54:20.2553 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR2101MB0977
+X-Mailman-Approved-At: Mon, 26 Feb 2018 09:20:52 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -40,1242 +111,164 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 25 Feb 2018 10:15:32 -0000
+X-List-Received-Date: Thu, 22 Feb 2018 21:54:36 -0000
 
-
-Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-
----
- arch/arm/boot/dts/nuvoton-npcm750.dtsi | 1221 ++++++++++++++++++++++++++++++++
- 1 file changed, 1221 insertions(+)
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm750.dtsi
-
-diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-new file mode 100644
-index 000000000000..a44a37c01972
---- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-@@ -0,0 +1,1221 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DTSi file for the NPCM750 SoC
-+ *
-+ * Copyright (c) 2014-2018 Nuvoton Technology corporation.
-+ *
-+ */
-+
-+#include "skeleton.dtsi"
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		enable-method = "nuvoton,npcm7xx-smp";
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <0>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <1>;
-+			next-level-cache = <&l2>;
-+		};
-+	};
-+
-+	gcr: gcr@f0800000 {
-+		compatible = "nuvoton,npcm750-gcr", "syscon", "simple-mfd";
-+		reg = <0xf0800000 0x1000>;
-+	};
-+
-+	rst: rst@f0801000 {
-+		compatible = "nuvoton,npcm750-rst", "syscon", "simple-mfd";
-+		reg = <0xf0801000 0x1000>;
-+	};
-+
-+	scu: scu@f03fe000 {
-+		compatible = "arm,cortex-a9-scu";
-+		reg = <0xf03fe000 0x1000>;
-+	};
-+
-+	l2: cache-controller@f03fc000 {
-+		compatible = "arm,pl310-cache";
-+		reg = <0xf03fc000 0x1000>;
-+		interrupts = <0 21 4>;
-+		cache-unified;
-+		arm,shared-override;
-+		cache-level = <2>;
-+		clocks = <&clk NPCM7XX_CLK_AXI>;
-+	};
-+
-+	gic: interrupt-controller@f03ff000 {
-+		compatible = "arm,cortex-a9-gic";
-+		interrupt-controller;
-+		#interrupt-cells = <3>;
-+		reg = <0xf03ff000 0x1000>,
-+		    <0xf03fe100 0x100>;
-+	};
-+
-+	timer@f03fe600 {
-+		compatible = "arm,cortex-a9-twd-timer";
-+		reg = <0xf03fe600 0x20>;
-+		interrupts = <1 13 0x304>;
-+		clocks = <&clk NPCM7XX_CLK_AHB>;
-+		clock-names = "clk_ahb";
-+	};
-+
-+
-+	clk: clock-controller@f0801000 {
-+		compatible = "nuvoton,npcm750-clk", "syscon";
-+		#clock-cells = <1>;
-+		clock-controller;
-+		reg = <0xf0801000 0x1000>;
-+		clock-names = "refclk", "sysbypck", "mcbypck";
-+		clocks = <&clk_refclk>, <&clk_sysbypck>, <&clk_mcbypck>;
-+	};
-+
-+	/* external reference clock */
-+	clk_refclk: clk-refclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <25000000>;
-+		clock-output-names = "refclk";
-+	};
-+
-+	/* external reference clock for cpu. float in normal operation */
-+	clk_sysbypck: clk-sysbypck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <800000000>;
-+		clock-output-names = "sysbypck";
-+	};
-+
-+	/* external reference clock for MC. float in normal operation */
-+	clk_mcbypck: clk-mcbypck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <800000000>;
-+		clock-output-names = "mcbypck";
-+	};
-+
-+	 /* external clock signal rg1refck, supplied by the phy */
-+	clk_rg1refck: clk-rg1refck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <125000000>;
-+		clock-output-names = "clk_rg1refck";
-+	};
-+
-+	 /* external clock signal rg2refck, supplied by the phy */
-+	clk_rg2refck: clk-rg2refck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <125000000>;
-+		clock-output-names = "clk_rg2refck";
-+	};
-+
-+	clk_xin: clk-xin {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <50000000>;
-+		clock-output-names = "clk_xin";
-+	};
-+
-+
-+	ahb {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "simple-bus";
-+		interrupt-parent = <&gic>;
-+		ranges = <0x80000000 0x80000000 0x40000000
-+			  0xc0000000 0xc0000000 0x00002000
-+			  0xc0008000 0xc0008000 0x00001000
-+			  0xe0800000 0xe0800000 0x00001000
-+			  0xe1000000 0xe1000000 0x00001000
-+			  0xe8000000 0xe8000000 0x08000000
-+			  /* APB start */
-+			  0xf0000000 0xf0000000 0x00005000
-+			  0xf0007000 0xf0007000 0x00005000
-+			  0xf0010000 0xf0010000 0x00008000
-+			  0xf0080000 0xf0080000 0x00010000
-+			  0xf009f000 0xf009f000 0x00001000
-+			  0xf0100000 0xf0100000 0x00005000
-+			  0xf0180000 0xf0180000 0x0000b000
-+			  0xf0200000 0xf0200000 0x00002000
-+			  /* APB end */
-+			  0xf0800000 0xf0800000 0x000fc000
-+			  0xf8000000 0xf8000000 0x02000000
-+			  0xfb000000 0xfb000000 0x00002000
-+			  0xfffd0000 0xfffd0000 0x00005000>;
-+
-+		gmac0: eth@f0802000 {
-+			device_type = "network";
-+			compatible = "snps,dwmac";
-+			reg = <0xf0802000 0x2000>;
-+			interrupts = <0 14 4>;
-+			interrupt-names = "macirq";
-+			ethernet = <0>;
-+			clocks	= <&clk_rg1refck>, <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "stmmaceth", "clk_gmac";
-+			status = "disabled";
-+		};
-+
-+		gmac1: eth@f0804000 {
-+			device_type = "network";
-+			compatible = "snps,dwmac";
-+			reg = <0xf0804000 0x2000>;
-+			interrupts = <0 17 4>;
-+			interrupt-names = "macirq";
-+			ethernet = <1>;
-+			clocks	= <&clk_rg2refck>, <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "stmmaceth", "clk_gmac";
-+			status = "disabled";
-+		};
-+
-+		emc0: eth@f0825000 {
-+			device_type = "network";
-+			compatible = "nuvoton,npcm750-emc";
-+			reg = <0xf0825000 0x1000>;
-+			interrupts = <0 16 4>, <0 15 4>;
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "clk_emc";
-+		};
-+
-+		emc1: eth@f0826000 {
-+			device_type = "network";
-+			compatible = "nuvoton,npcm750-emc";
-+			reg = <0xf0826000 0x1000>;
-+			interrupts = <0 115 4>, <0 114 4>;
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "clk_emc";
-+		};
-+
-+		sdhci0: sdhci@f0840000 {
-+			compatible = "nuvoton,npcm750-sdhci";
-+			status = "disabled";
-+			reg = <0xf0840000 0x200>;
-+			interrupts = <0 27 4>;
-+			clocks =  <&clk NPCM7XX_CLK_AHB>;       /*, <&clk_xin>;*/
-+			clock-names = "clk_sdhc";                  /* ,"clk_xin"; */
-+		};
-+
-+		sdhci1: sdhci@f0842000 {
-+			compatible = "nuvoton,npcm750-sdhci";
-+			status = "disabled";
-+			reg = <0xf0842000 0x200>;
-+			interrupts = <0 26 4>;
-+			clocks =  <&clk NPCM7XX_CLK_AHB>;       /*, <&clk_xin>;*/
-+			clock-names = "clk_mmc";                  /* ,"clk_xin"; */
-+		};
-+
-+		ehci1:ehci@f0806000 {
-+			compatible = "nuvoton,npcm750-ehci";
-+			reg = <0xf0806000 0x1000>;
-+			interrupts = <0 61 4>;
-+			status = "disabled";
-+		};
-+
-+		ohci1: ohci@f0807000 {
-+			compatible = "nuvoton,npcm750-ohci";
-+			reg = <0xf0807000 0x1000>;
-+			interrupts = <0 62 4>;
-+			status = "disabled";
-+		};
-+
-+		udc0:udc@f0830000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0830000 0x1000
-+			       0xfffd0000 0x800>;
-+			interrupts = <0 51 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc1:udc@f0831000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0831000 0x1000
-+			       0xfffd0800 0x800>;
-+			interrupts = <0 52 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc2:udc@f0832000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0832000 0x1000
-+			       0xfffd1000 0x800>;
-+			interrupts = <0 53 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc3:udc@f0833000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0833000 0x1000
-+			       0xfffd1800 0x800>;
-+			interrupts = <0 54 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc4:udc@f0834000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0834000 0x1000
-+			       0xfffd2000 0x800>;
-+			interrupts = <0 55 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc5:udc@f0835000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0835000 0x1000
-+			       0xfffd2800 0x800>;
-+			interrupts = <0 56 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc6:udc@f0836000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0836000 0x1000
-+			       0xfffd3000 0x800>;
-+			interrupts = <0 57 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc7:udc@f0837000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0837000 0x1000
-+			       0xfffd3800 0x800>;
-+			interrupts = <0 58 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc8:udc@f0838000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0838000 0x1000
-+			       0xfffd4000 0x800>;
-+			interrupts = <0 59 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		udc9:udc@f0839000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0839000 0x1000
-+			       0xfffd4800 0x800>;
-+			interrupts = <0 60 4>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+		};
-+
-+		aes:aes@f0858000 {
-+			compatible = "nuvoton,npcm750-aes";
-+			reg = <0xf0858000 0x1000>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "clk_ahb";
-+		};
-+
-+		sha:sha@f085a000 {
-+			compatible = "nuvoton,npcm750-sha";
-+			reg = <0xf085a000 0x1000>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "clk_ahb";
-+		};
-+
-+		copr: copr@0 {
-+			compatible = "nuvoton,npcm750-copr";
-+			interrupts = <0 1 4>;
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "clk_ahb";
-+		};
-+
-+		vdma: vdma@e0800000 {
-+			compatible = "nuvoton,npcm750-vdm";
-+			reg = <0xe0800000 0x1000
-+				   0xf0822000 0x1000>;
-+			interrupts = <0 29 4>;
-+		};
-+
-+		spi0: spi@fb000000 {
-+			compatible = "nuvoton,npcm750-spi";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
-+			reg-names = "control", "memory";
-+			chip-max-address-map = <0x8000000>;
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "clk_ahb";
-+			spi-nor@0 {
-+					compatible = "jedec,spi-nor";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					reg = <0>;
-+			};
-+		};
-+		spi3: spi@c0000000 {
-+			compatible = "nuvoton,npcm750-spi";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0xc0000000 0x1000>, <0xA0000000 0x20000000>;
-+			reg-names = "control", "memory";
-+			chip-max-address-map = <0x8000000>;
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+			clock-names = "clk_ahb";
-+			spi-nor@0 {
-+					compatible = "jedec,spi-nor";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					reg = <0>;
-+			};
-+		};
-+
-+		pci_rc: axi-pcie@E1000000 {
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			#interrupt-cells = <1>;
-+			compatible = "nuvoton,npcm750-pcirc";
-+			reg = < 0xE1000000 0x1000 >;
-+			device_type = "pci";
-+			interrupts = < 0 127 4 >;
-+			bus-range = <0x00 0xff>;
-+			ranges = <0x02000000 0 0xEA000000
-+				0xEA000000 0 0x02000000>;
-+			status = "disabled";
-+		};
-+
-+		dvc: dvc@f0808000 {
-+			compatible = "nuvoton,npcm750-dvc";
-+			reg = <0xf0808000 0x1000>;
-+			interrupts = <0 23 4>;
-+		};
-+
-+		vcd: vcd@0 {
-+			compatible = "nuvoton,npcm750-vcd";
-+			reg = <0xf0810000 0x10000
-+			       0xf0820000 0x2000>;
-+			interrupts = <0 22 4>, <0 24 4>;
-+		};
-+
-+		pcimbx: pcimbx@f0848000 {
-+			compatible = "nuvoton,npcm750-pcimbx";
-+			reg = <0xf0848000 0x10000>;
-+			interrupts = <0 8 4>;
-+		};
-+	};
-+
-+	apb {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "simple-bus";
-+		interrupt-parent = <&gic>;
-+			ranges = <0xf0000000 0xf0000000 0x00005000
-+				  0xf0007000 0xf0007000 0x00009000
-+				  0xf0010000 0xf0010000 0x00008000
-+				  0xf0080000 0xf0080000 0x00010000
-+				  0xf009f000 0xf009f000 0x00001000
-+				  0xf0100000 0xf0100000 0x00005000
-+				  0xf0180000 0xf0180000 0x0000b000
-+				  0xf0200000 0xf0200000 0x00002000>;
-+
-+		kcs: kcs@f0007000 {
-+			compatible = "nuvoton,npcm750-kcs";
-+			reg = <0xf0007000 0x1000>;
-+			interrupts = <0 9 4>;
-+		};
-+
-+		pspi: pspi@0 {
-+			compatible = "nuvoton,npcm750-pspi";
-+			reg = <0xf0200000 0x2000>;
-+			interrupts = <0 31 4>, <0 28 4>;
-+			clocks = <&clk NPCM7XX_CLK_APB5>;
-+			clock-names = "clk_apb5";
-+		};
-+
-+		fan: fan@0 {
-+			compatible = "nuvoton,npcm750-fan";
-+			reg = <0xf0180000 0x8000>;
-+			interrupts = <0 96 4>, <0 97 4>, <0 98 4>, <0 99 4>,
-+				<0 100 4>, <0 101 4>, <0 102 4>, <0 103 4>;
-+			clocks = <&clk NPCM7XX_CLK_APB4>;
-+			clock-names = "clk_apb4";
-+		};
-+
-+		gpio: gpio@f0010000 {
-+			compatible = "nuvoton,npcm750-gpio";
-+			reg = <0xf0010000 0x8000>;
-+			interrupts = <0 116 4>, <0 117 4>, <0 118 4>, <0 119 4>,
-+				<0 120 4>, <0 121 4>, <0 122 4>, <0 123 4>;
-+			clocks = <&clk NPCM7XX_CLK_APB1>;
-+			clock-names = "clk_apb1";
-+		};
-+
-+		timer0: timer@f0008000 {
-+			compatible = "nuvoton,npcm750-timer";
-+			interrupts = <0 32 4>;
-+			reg = <0xf0008000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_TIMER>;
-+		};
-+
-+		watchdog0: watchdog@f0008000 {
-+			compatible = "nuvoton,npcm750-wdt";
-+			interrupts = <0 47 4>;
-+			reg = <0xf0008000 0x1000>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_TIMER>;
-+		};
-+
-+		watchdog1: watchdog@f0009000 {
-+			compatible = "nuvoton,npcm750-wdt";
-+			interrupts = <0 48 4>;
-+			reg = <0xf0009000 0x1000>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_TIMER>;
-+		};
-+
-+		watchdog2: watchdog@f000a000 {
-+			compatible = "nuvoton,npcm750-wdt";
-+			interrupts = <0 49 4>;
-+			reg = <0xf000a000 0x1000>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_TIMER>;
-+		};
-+
-+		serial0: serial0@f0001000 {
-+			compatible = "nuvoton,npcm750-uart";
-+			reg = <0xf0001000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_UART>;
-+			reg-shift = <2>;
-+			fifo-size = <14>;
-+			interrupts = <0 2 4>;
-+			status = "disabled";
-+		};
-+
-+		serial1: serial1@f0002000 {
-+			compatible = "nuvoton,npcm750-uart";
-+			reg = <0xf0002000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_UART>;
-+			reg-shift = <2>;
-+			fifo-size = <14>;
-+			interrupts = <0 3 4>;
-+			status = "disabled";
-+		};
-+
-+		serial2: serial2@f0003000 {
-+			compatible = "nuvoton,npcm750-uart";
-+			reg = <0xf0003000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_UART>;
-+			reg-shift = <2>;
-+			fifo-size = <16>;
-+			interrupts = <0 4 4>;
-+			status = "disabled";
-+		};
-+
-+		serial3: serial3@f0004000 {
-+			compatible = "nuvoton,npcm750-uart";
-+			reg = <0xf0004000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_UART>;
-+			reg-shift = <2>;
-+			fifo-size = <16>;
-+			interrupts = <0 5 4>;
-+			status = "disabled";
-+		};
-+
-+		rng: rng@f000b000 {
-+			compatible = "nuvoton,npcm750-rng";
-+			reg = <0xf000b000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_APB1>;
-+			clock-names = "clk_apb1";
-+			status = "disabled";
-+		};
-+
-+		adc: adc@f000c000 {
-+			compatible = "nuvoton,npcm750-adc";
-+			reg = <0xf000c000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_ADC>;
-+			clock-names = "clk_adc";
-+			vref = <2048>;
-+		};
-+
-+		otp:otp@f0189000 {
-+			compatible = "nuvoton,npcm750-otp";
-+			reg = <0xf0189000 0x1000
-+				   0xf018a000 0x1000>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_APB4>;
-+			clock-names = "clk_apb4";
-+		};
-+
-+		pwm:pwm@f0103000 {
-+			compatible = "nuvoton,npcm750-pwm";
-+			reg = <0xf0103000 0x1000
-+				   0xf0104000 0x1000>;
-+			clocks = <&clk NPCM7XX_CLK_APB3>;
-+			clock-names = "clk_apb3";
-+		};
-+
-+		i2c0: i2c-bus@f0080000 {
-+			reg = <0xf0080000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 64 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb0_pins>;
-+			status = "disabled";
-+		};
-+		i2c1: i2c-bus@f0081000 {
-+			reg = <0xf0081000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 65 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb1_pins>;
-+			status = "disabled";
-+		};
-+		i2c2: i2c-bus@f0082000 {
-+			reg = <0xf0082000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 66 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb2_pins>;
-+			status = "disabled";
-+		};
-+		i2c3: i2c-bus@f0083000 {
-+			reg = <0xf0083000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 67 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb3_pins>;
-+			status = "disabled";
-+		};
-+		i2c4: i2c-bus@f0084000 {
-+			reg = <0xf0084000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 68 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb4_pins>;
-+			status = "disabled";
-+		};
-+		i2c5: i2c-bus@f0085000 {
-+			reg = <0xf0085000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 69 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb5_pins>;
-+			status = "disabled";
-+		};
-+		i2c6: i2c-bus@f0086000 {
-+			reg = <0xf0086000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 70 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb6_pins>;
-+			status = "disabled";
-+		};
-+		i2c7: i2c-bus@f0087000 {
-+			reg = <0xf0087000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 71 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb7_pins>;
-+			status = "disabled";
-+		};
-+		i2c8: i2c-bus@f0088000 {
-+			reg = <0xf0088000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 72 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb8_pins>;
-+			status = "disabled";
-+		};
-+		i2c9: i2c-bus@f0089000 {
-+			reg = <0xf0089000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 73 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb9_pins>;
-+			status = "disabled";
-+		};
-+		i2c10: i2c-bus@f008a000 {
-+			reg = <0xf008a000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 74 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb10_pins>;
-+			status = "disabled";
-+		};
-+		i2c11: i2c-bus@f008b000 {
-+			reg = <0xf008b000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 75 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb11_pins>;
-+			status = "disabled";
-+		};
-+		i2c12: i2c-bus@f008c000 {
-+			reg = <0xf008c000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 76 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb12_pins>;
-+			status = "disabled";
-+		};
-+		i2c13: i2c-bus@f008d000 {
-+			reg = <0xf008d000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 77 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb13_pins>;
-+			status = "disabled";
-+		};
-+		i2c14: i2c-bus@f008e000 {
-+			reg = <0xf008e000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 78 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb14_pins>;
-+			status = "disabled";
-+		};
-+		i2c15: i2c-bus@f008f000 {
-+			reg = <0xf008f000 0x1000>;
-+			compatible = "nuvoton,npcm750-i2c-bus";
-+			clocks = <&clk NPCM7XX_CLK_APB2>;
-+			bus-frequency = <100000>;
-+			interrupts = <0 79 4>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&smb15_pins>;
-+			status = "disabled";
-+		};
-+	};
-+	pinctrl: pinctrl@0 {
-+		compatible = "nuvoton,npcmx50-pinctrl";
-+		status = "okay";
-+		iox1_pins: iox1_pins {
-+			groups = "iox1";
-+			function = "iox1";
-+		};
-+		iox2_pins: iox2_pins {
-+			groups = "iox2";
-+			function = "iox2";
-+		};
-+		smb1d_pins: smb1d_pins {
-+			groups = "smb1d";
-+			function = "smb1d";
-+		};
-+		smb2d_pins: smb2d_pins {
-+			groups = "smb2d";
-+			function = "smb2d";
-+		};
-+		lkgpo1_pins: lkgpo1_pins {
-+			groups = "lkgpo1";
-+			function = "lkgpo1";
-+		};
-+		lkgpo2_pins: lkgpo2_pins {
-+			groups = "lkgpo2";
-+			function = "lkgpo2";
-+		};
-+		ioxh_pins: ioxh_pins {
-+			groups = "ioxh";
-+			function = "ioxh";
-+		};
-+		gspi_pins: gspi_pins {
-+			groups = "gspi";
-+			function = "gspi";
-+		};
-+		smb5b_pins: smb5b_pins {
-+			groups = "smb5b";
-+			function = "smb5b";
-+		};
-+		smb5c_pins: smb5c_pins {
-+			groups = "smb5c";
-+			function = "smb5c";
-+		};
-+		lkgpo0_pins: lkgpo0_pins {
-+			groups = "lkgpo0";
-+			function = "lkgpo0";
-+		};
-+		pspi2_pins: pspi2_pins {
-+			groups = "pspi2";
-+			function = "pspi2";
-+		};
-+		smb4den_pins: smb4den_pins {
-+			groups = "smb4den";
-+			function = "smb4den";
-+		};
-+		smb4b_pins: smb4b_pins {
-+			groups = "smb4b";
-+			function = "smb4b";
-+		};
-+		smb4c_pins: smb4c_pins {
-+			groups = "smb4c";
-+			function = "smb4c";
-+		};
-+		smb15_pins: smb15_pins {
-+			groups = "smb15";
-+			function = "smb15";
-+		};
-+		smb4d_pins: smb4d_pins {
-+			groups = "smb4d";
-+			function = "smb4d";
-+		};
-+		smb14_pins: smb14_pins {
-+			groups = "smb14";
-+			function = "smb14";
-+		};
-+		smb5_pins: smb5_pins {
-+			groups = "smb5";
-+			function = "smb5";
-+		};
-+		smb4_pins: smb4_pins {
-+			groups = "smb4";
-+			function = "smb4";
-+		};
-+		smb3_pins: smb3_pins {
-+			groups = "smb3";
-+			function = "smb3";
-+		};
-+		spi0cs1_pins: spi0cs1_pins {
-+			groups = "spi0cs1";
-+			function = "spi0cs1";
-+		};
-+		spi0quad_pins: spi0quad_pins {
-+			groups = "spi0quad";
-+			function = "spi0quad";
-+		};
-+		spi0cs2_pins: spi0cs2_pins {
-+			groups = "spi0cs2";
-+			function = "spi0cs2";
-+		};
-+		spi0cs3_pins: spi0cs3_pins {
-+			groups = "spi0cs3";
-+			function = "spi0cs3";
-+		};
-+		smb3c_pins: smb3c_pins {
-+			groups = "smb3c";
-+			function = "smb3c";
-+		};
-+		smb3b_pins: smb3b_pins {
-+			groups = "smb3b";
-+			function = "smb3b";
-+		};
-+		bmcuart0a_pins: bmcuart0a_pins {
-+			groups = "bmcuart0a";
-+			function = "bmcuart0a";
-+		};
-+		uart1_pins: uart1_pins {
-+			groups = "uart1";
-+			function = "uart1";
-+		};
-+		jtag2_pins: jtag2_pins {
-+			groups = "jtag2";
-+			function = "jtag2";
-+		};
-+		bmcuart1_pins: bmcuart1_pins {
-+			groups = "bmcuart1";
-+			function = "bmcuart1";
-+		};
-+		uart2_pins: uart2_pins {
-+			groups = "uart2";
-+			function = "uart2";
-+		};
-+		bmcuart0b_pins: bmcuart0b_pins {
-+			groups = "bmcuart0b";
-+			function = "bmcuart0b";
-+		};
-+		r1err_pins: r1err_pins {
-+			groups = "r1err";
-+			function = "r1err";
-+		};
-+		r1md_pins: r1md_pins {
-+			groups = "r1md";
-+			function = "r1md";
-+		};
-+		smb3d_pins: smb3d_pins {
-+			groups = "smb3d";
-+			function = "smb3d";
-+		};
-+		fanin0_pins: fanin0_pins {
-+			groups = "fanin0";
-+			function = "fanin0";
-+		};
-+		fanin1_pins: fanin1_pins {
-+			groups = "fanin1";
-+			function = "fanin1";
-+		};
-+		fanin2_pins: fanin2_pins {
-+			groups = "fanin2";
-+			function = "fanin2";
-+		};
-+		fanin3_pins: fanin3_pins {
-+			groups = "fanin3";
-+			function = "fanin3";
-+		};
-+		fanin4_pins: fanin4_pins {
-+			groups = "fanin4";
-+			function = "fanin4";
-+		};
-+		fanin5_pins: fanin5_pins {
-+			groups = "fanin5";
-+			function = "fanin5";
-+		};
-+		fanin6_pins: fanin6_pins {
-+			groups = "fanin6";
-+			function = "fanin6";
-+		};
-+		fanin7_pins: fanin7_pins {
-+			groups = "fanin7";
-+			function = "fanin7";
-+		};
-+		fanin8_pins: fanin8_pins {
-+			groups = "fanin8";
-+			function = "fanin8";
-+		};
-+		fanin9_pins: fanin9_pins {
-+			groups = "fanin9";
-+			function = "fanin9";
-+		};
-+		fanin10_pins: fanin10_pins {
-+			groups = "fanin10";
-+			function = "fanin10";
-+		};
-+		fanin11_pins: fanin11_pins {
-+			groups = "fanin11";
-+			function = "fanin11";
-+		};
-+		fanin12_pins: fanin12_pins {
-+			groups = "fanin12";
-+			function = "fanin12";
-+		};
-+		fanin13_pins: fanin13_pins {
-+			groups = "fanin13";
-+			function = "fanin13";
-+		};
-+		fanin14_pins: fanin14_pins {
-+			groups = "fanin14";
-+			function = "fanin14";
-+		};
-+		fanin15_pins: fanin15_pins {
-+			groups = "fanin15";
-+			function = "fanin15";
-+		};
-+		pwm0_pins: pwm0_pins {
-+			groups = "pwm0";
-+			function = "pwm0";
-+		};
-+		pwm1_pins: pwm1_pins {
-+			groups = "pwm1";
-+			function = "pwm1";
-+		};
-+		pwm2_pins: pwm2_pins {
-+			groups = "pwm2";
-+			function = "pwm2";
-+		};
-+		pwm3_pins: pwm3_pins {
-+			groups = "pwm3";
-+			function = "pwm3";
-+		};
-+		r2_pins: r2_pins {
-+			groups = "r2";
-+			function = "r2";
-+		};
-+		r2err_pins: r2err_pins {
-+			groups = "r2err";
-+			function = "r2err";
-+		};
-+		r2md_pins: r2md_pins {
-+			groups = "r2md";
-+			function = "r2md";
-+		};
-+		ga20kbc_pins: ga20kbc_pins {
-+			groups = "ga20kbc";
-+			function = "ga20kbc";
-+		};
-+		smb5d_pins: smb5d_pins {
-+			groups = "smb5d";
-+			function = "smb5d";
-+		};
-+		lpc_pins: lpc_pins {
-+			groups = "lpc";
-+			function = "lpc";
-+		};
-+		espi_pins: espi_pins {
-+			groups = "espi";
-+			function = "espi";
-+		};
-+		rg1_pins: rg1_pins {
-+			groups = "rg1";
-+			function = "rg1";
-+		};
-+		rg1mdio_pins: rg1mdio_pins {
-+			groups = "rg1mdio";
-+			function = "rg1mdio";
-+		};
-+		rg2_pins: rg2_pins {
-+			groups = "rg2";
-+			function = "rg2";
-+		};
-+		ddr_pins: ddr_pins {
-+			groups = "ddr";
-+			function = "ddr";
-+		};
-+		smb0_pins: smb0_pins {
-+			groups = "smb0";
-+			function = "smb0";
-+		};
-+		smb1_pins: smb1_pins {
-+			groups = "smb1";
-+			function = "smb1";
-+		};
-+		smb2_pins: smb2_pins {
-+			groups = "smb2";
-+			function = "smb2";
-+		};
-+		smb2c_pins: smb2c_pins {
-+			groups = "smb2c";
-+			function = "smb2c";
-+		};
-+		smb2b_pins: smb2b_pins {
-+			groups = "smb2b";
-+			function = "smb2b";
-+		};
-+		smb1c_pins: smb1c_pins {
-+			groups = "smb1c";
-+			function = "smb1c";
-+		};
-+		smb1b_pins: smb1b_pins {
-+			groups = "smb1b";
-+			function = "smb1b";
-+		};
-+		smb8_pins: smb8_pins {
-+			groups = "smb8";
-+			function = "smb8";
-+		};
-+		smb9_pins: smb9_pins {
-+			groups = "smb9";
-+			function = "smb9";
-+		};
-+		smb10_pins: smb10_pins {
-+			groups = "smb10";
-+			function = "smb10";
-+		};
-+		smb11_pins: smb11_pins {
-+			groups = "smb11";
-+			function = "smb11";
-+		};
-+		sd1_pins: sd1_pins {
-+			groups = "sd1";
-+			function = "sd1";
-+		};
-+		sd1pwr_pins: sd1pwr_pins {
-+			groups = "sd1pwr";
-+			function = "sd1pwr";
-+		};
-+		pwm4_pins: pwm4_pins {
-+			groups = "pwm4";
-+			function = "pwm4";
-+		};
-+		pwm5_pins: pwm5_pins {
-+			groups = "pwm5";
-+			function = "pwm5";
-+		};
-+		pwm6_pins: pwm6_pins {
-+			groups = "pwm6";
-+			function = "pwm6";
-+		};
-+		pwm7_pins: pwm7_pins {
-+			groups = "pwm7";
-+			function = "pwm7";
-+		};
-+		mmc8_pins: mmc8_pins {
-+			groups = "mmc8";
-+			function = "mmc8";
-+		};
-+		mmc_pins: mmc_pins {
-+			groups = "mmc";
-+			function = "mmc";
-+		};
-+		mmcwp_pins: mmcwp_pins {
-+			groups = "mmcwp";
-+			function = "mmcwp";
-+		};
-+		mmccd_pins: mmccd_pins {
-+			groups = "mmccd";
-+			function = "mmccd";
-+		};
-+		mmcrst_pins: mmcrst_pins {
-+			groups = "mmcrst";
-+			function = "mmcrst";
-+		};
-+		clkout_pins: clkout_pins {
-+			groups = "clkout";
-+			function = "clkout";
-+		};
-+		serirq_pins: serirq_pins {
-+			groups = "serirq";
-+			function = "serirq";
-+		};
-+		scipme_pins: scipme_pins {
-+			groups = "scipme";
-+			function = "scipme";
-+		};
-+		sci_pins: sci_pins {
-+			groups = "sci";
-+			function = "sci";
-+		};
-+		smb6_pins: smb6_pins {
-+			groups = "smb6";
-+			function = "smb6";
-+		};
-+		smb7_pins: smb7_pins {
-+			groups = "smb7";
-+			function = "smb7";
-+		};
-+		pspi1_pins: pspi1_pins {
-+			groups = "pspi1";
-+			function = "pspi1";
-+		};
-+		faninx_pins: faninx_pins {
-+			groups = "faninx";
-+			function = "faninx";
-+		};
-+		r1_pins: r1_pins {
-+			groups = "r1";
-+			function = "r1";
-+		};
-+		spi3_pins: spi3_pins {
-+			groups = "spi3";
-+			function = "spi3";
-+		};
-+		spi3cs1_pins: spi3cs1_pins {
-+			groups = "spi3cs1";
-+			function = "spi3cs1";
-+		};
-+		spi3quad_pins: spi3quad_pins {
-+			groups = "spi3quad";
-+			function = "spi3quad";
-+		};
-+		spi3cs2_pins: spi3cs2_pins {
-+			groups = "spi3cs2";
-+			function = "spi3cs2";
-+		};
-+		spi3cs3_pins: spi3cs3_pins {
-+			groups = "spi3cs3";
-+			function = "spi3cs3";
-+		};
-+		nprd_smi_pins: nprd_smi_pins {
-+			groups = "nprd_smi";
-+			function = "nprd_smi";
-+		};
-+		smb0b_pins: smb0b_pins {
-+			groups = "smb0b";
-+			function = "smb0b";
-+		};
-+		smb0c_pins: smb0c_pins {
-+			groups = "smb0c";
-+			function = "smb0c";
-+		};
-+		smb0den_pins: smb0den_pins {
-+			groups = "smb0den";
-+			function = "smb0den";
-+		};
-+		smb0d_pins: smb0d_pins {
-+			groups = "smb0d";
-+			function = "smb0d";
-+		};
-+		ddc_pins: ddc_pins {
-+			groups = "ddc";
-+			function = "ddc";
-+		};
-+		rg2mdio_pins: rg2mdio_pins {
-+			groups = "rg2mdio";
-+			function = "rg2mdio";
-+		};
-+		wdog1_pins: wdog1_pins {
-+			groups = "wdog1";
-+			function = "wdog1";
-+		};
-+		wdog2_pins: wdog2_pins {
-+			groups = "wdog2";
-+			function = "wdog2";
-+		};
-+		smb12_pins: smb12_pins {
-+			groups = "smb12";
-+			function = "smb12";
-+		};
-+		smb13_pins: smb13_pins {
-+			groups = "smb13";
-+			function = "smb13";
-+		};
-+		spix_pins: spix_pins {
-+			groups = "spix";
-+			function = "spix";
-+		};
-+		spixcs1_pins: spixcs1_pins {
-+			groups = "spixcs1";
-+			function = "spixcs1";
-+		};
-+		clkreq_pins: clkreq_pins {
-+			groups = "clkreq";
-+			function = "clkreq";
-+		};
-+	};
-+};
--- 
-2.14.1
+SGkgZXZlcnlib2R5LA0KQ2FuIEkgcHJvcG9zZSB3ZSBnZXQgdG9nZXRoZXIgb24gYSBjYWxsIHRv
+IGRpc2N1c3MgYSAgcGxhbiBtb3ZpbmcgZm9yd2FyZCB3aXRoIFJlZGZpc2ggaW1wbGVtZW50YXRp
+b24/IA0KRG8geW91IHNlZSBhbnkgdmFsdWUgb2YgaGF2aW5nIGEgd2Vla2x5IHN5bmMgdXAgY2Fs
+bD8NCg0KVGhhbmtzDQpBbGkNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBNaWNo
+YWVsIEUgQnJvd24gPE1pY2hhZWwuRS5Ccm93bkBkZWxsLmNvbT4gDQpTZW50OiBXZWRuZXNkYXks
+IEZlYnJ1YXJ5IDE0LCAyMDE4IDExOjM3IEFNDQpUbzogWXVnaSBNYW5pIDx5dXBhbGFuaUBtaWNy
+b3NvZnQuY29tPg0KQ2M6IEFsaSBMYXJpamFuaSA8YWxpcmhhc0BtaWNyb3NvZnQuY29tPjsgUGF1
+bC5WYW5jaWxAZGVsbC5jb207IGhyYW1hc3ViQGluLmlibS5jb207IE1pY2hhZWwuRS5Ccm93bkBk
+ZWxsLmNvbTsgQmFsYWppLkIuUmFvQGRlbGwuY29tOyBicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5j
+b207IGVkLnRhbm91c0BpbnRlbC5jb207IGp3Y2FybWFuQHVzLmlibS5jb207IG9wZW5ibWNAbGlz
+dHMub3psYWJzLm9yZzsgcHJhZGVlcC5rdW1hcjM2QHRjcy5jb207IHJvbGZiQHVzLmlibS5jb207
+IENocmlzIE9uZyA8Q2hyaXMuT25nQG1pY3Jvc29mdC5jb20+DQpTdWJqZWN0OiBSZTogUmVkZmlz
+aCBvbiBPcGVuQk1DDQoNClN0YXRzIGZvciBnby1yZWRmaXNoIHJ1bm5pbmcgb24gTnV2b3RvbiBQ
+b2xlZy4gRmlyc3QsIHByb2Nlc3NvciBzdGF0cy4gU2luY2Ugd2UgYWdyZWVkIG9uIEFTVDI1MDAg
+YXMgdGhlIGJhc2VsaW5lLCBJIGRvbid0IGhhdmUgb25lIG9mIHRob3NlIHRvIGRvIGJlbmNobWFy
+a3MuIElmIHNvbWVib2R5IGNvdWxkIHJ1biB0aGUgYmVuY2htYXJrcyBvbiBhbiBBU1QyNTAwIHRo
+YXQgd291bGQgYmUgdmVyeSBoZWxwZnVsLg0KDQokIGNhdCAvcHJvYy9jcHVpbmZvIA0KcHJvY2Vz
+c29yICAgICAgIDogMA0KbW9kZWwgbmFtZSAgICAgIDogQVJNdjcgUHJvY2Vzc29yIHJldiAxICh2
+N2wpDQpCb2dvTUlQUyAgICAgICAgOiAxNTk0LjE2DQpGZWF0dXJlcyAgICAgICAgOiBoYWxmIHRo
+dW1iIGZhc3RtdWx0IGVkc3AgdGxzIA0KQ1BVIGltcGxlbWVudGVyIDogMHg0MQ0KQ1BVIGFyY2hp
+dGVjdHVyZTogNw0KQ1BVIHZhcmlhbnQgICAgIDogMHg0DQpDUFUgcGFydCAgICAgICAgOiAweGMw
+OQ0KQ1BVIHJldmlzaW9uICAgIDogMQ0KDQpwcm9jZXNzb3IgICAgICAgOiAxDQptb2RlbCBuYW1l
+ICAgICAgOiBBUk12NyBQcm9jZXNzb3IgcmV2IDEgKHY3bCkNCkJvZ29NSVBTICAgICAgICA6IDE1
+OTQuMTYNCkZlYXR1cmVzICAgICAgICA6IGhhbGYgdGh1bWIgZmFzdG11bHQgZWRzcCB0bHMgDQpD
+UFUgaW1wbGVtZW50ZXIgOiAweDQxDQpDUFUgYXJjaGl0ZWN0dXJlOiA3DQpDUFUgdmFyaWFudCAg
+ICAgOiAweDQNCkNQVSBwYXJ0ICAgICAgICA6IDB4YzA5DQpDUFUgcmV2aXNpb24gICAgOiAxDQoN
+CkhhcmR3YXJlICAgICAgICA6IE5QQ01YNTAgQ2hpcCBmYW1pbHkNClJldmlzaW9uICAgICAgICA6
+IDAwMDANClNlcmlhbCAgICAgICAgICA6IDAwMDAwMDAwMDAwMDAwMDANCg0KR28tcmVkZmlzaCB3
+YXMgY2hlY2tlZCBvdXQgcGVyIHRoZSByZWFkbWUgb24gaHR0cHM6Ly9naXRodWIuY29tL3N1cGVy
+Y2hhbHVwYS9nby1yZWRmaXNoIGFuZCBidWlsdCBsaWtlIHRoaXM6DQoNCiQgQlVJTERfVEFHUz0i
+c3BhY2Vtb25rZXkiIC4vc2NyaXB0cy9idWlsZC1hcm0tb2JtYy5zaA0KDQpVc2luZyB0aGUgJ29w
+ZW5zc2wnIGJhc2VkIEhUVFBTIHN1cHBvcnQgYmVjYXVzZSBpdCdzIGZhc3RlciBvbiAzMi1iaXQg
+QVJNLiBGb3IgeDg2IGFuZCA2NC1iaXQgQVJNLCBnbyBuYXRpdmUgU1NMIGlzIGFsbW9zdCBlcXVh
+bCBpbiBwZXJmb3JtYW5jZS4gUmVhZCB0aGUgcmVhZG1lIGZvciBkZXRhaWxzLg0KDQpJIHVzZSBh
+IGJlbmNobWFyayB0b29sIGNhbGxlZCAnaGV5JzogaHR0cHM6Ly9naXRodWIuY29tL3Jha3lsbC9o
+ZXksIGl0IGlzIGEgbG9hZCBnZW5lcmF0b3IuIFlvdSBjYW4gaW5zdGFsbCBpdCBsaWtlIHRoaXM6
+ICJnbyBnZXQgZ2l0aHViLmNvbS9yYWt5bGwvaGV5Ii4gSXQgd2lsbCBwdXQgJ2hleScgaW4gJEdP
+UEFUSC9iaW4vLiBUaGUgZ28tcmVkZmlzaCBzZXJ2ZXIgc3VwcG9ydHMgdGhlIHJlZGZpc2ggc3Rh
+bmRhcmQgWC1BdXRoLVRva2VuIGFzIHdlbGwgYXMgQmFzaWMgYXV0aC4gVGhlIGJlbmNobWFya3Mg
+YmVsb3cgYXJlIHVzaW5nIGJhc2ljIGF1dGggaW4gdGhlIGludGVyZXN0IG9mIGJyZXZpdHksIGJ1
+dCBpdCdzIGFsc28gc2ltcGxlIHRvIGJlbmNobWFyayB0b2tlbnMuIFRoZSBudW1iZXJzIGRvbid0
+IGFwcGVhciBtdWNoIGRpZmZlcmVudC4NCg0KSGVyZSBpcyBhIHJ1biBhZ2FpbnN0IHRoZSBtb3N0
+IGNvbXBsaWNhdGVkIG91dHB1dCBjdXJyZW50bHkgaW1wbGVtZW50ZWQuIFRoaXMgcnVuIGlzIGZv
+ciAxMCBzZWNvbmRzLCB3aXRoIHRoZSBkZWZhdWx0IGNvbmN1cnJlbmN5IG9mIDUwIHBhcmFsbGVs
+IHJlcXVlc3RzLiBUaGUgcmVzdWx0IGlzIHRoYXQgdGhlIGF2ZXJhZ2UgcmVxdWVzdCBpcyAwLjE1
+ODhzIGFuZCB0aGUgc2VydmVyIGhhbmRsZXMgYW4gYXZlcmFnZSBvZiAzMTIgcmVxdWVzdHMgcGVy
+IHNlY29uZC4NCg0KJCBoZXkgLXogMTBzICBodHRwczovL0FkbWluaXN0cmF0b3I6cGFzc3dvcmRA
+MTAuMzUuMTc0LjEyNjo4NDQzL3JlZGZpc2gvdjEvQ2hhc3Npcy9BMzMvVGhlcm1hbCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICANClN1bW1hcnk6DQogIFRvdGFsOiAgICAgICAgMTAuMTIzMCBz
+ZWNzDQogIFNsb3dlc3Q6ICAgICAgMS45NTI0IHNlY3MNCiAgRmFzdGVzdDogICAgICAwLjAwNTEg
+c2Vjcw0KICBBdmVyYWdlOiAgICAgIDAuMTU4OCBzZWNzDQogIFJlcXVlc3RzL3NlYzogMzEyLjg1
+MjENCg0KUmVzcG9uc2UgdGltZSBoaXN0b2dyYW06DQogIDAuMDA1IFsxXSAgICAgfA0KICAwLjIw
+MCBbMzA2Ml0gIHziiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7i
+iI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7iiI7i
+iI7iiI7iiI7iiI7iiI7iiI4NCiAgMC4zOTUgWzMxXSAgICB8DQogIDAuNTg5IFs1XSAgICAgfA0K
+ICAwLjc4NCBbOV0gICAgIHwNCiAgMC45NzkgWzEwXSAgICB8DQogIDEuMTczIFs5XSAgICAgfA0K
+ICAxLjM2OCBbOF0gICAgIHwNCiAgMS41NjMgWzVdICAgICB8DQogIDEuNzU4IFsyXSAgICAgfA0K
+ICAxLjk1MiBbMjVdICAgIHwNCg0KTGF0ZW5jeSBkaXN0cmlidXRpb246DQogIDEwJSBpbiAwLjA4
+NDAgc2Vjcw0KICAyNSUgaW4gMC4xMTU5IHNlY3MNCiAgNTAlIGluIDAuMTM3NCBzZWNzDQogIDc1
+JSBpbiAwLjE1NzYgc2Vjcw0KICA5MCUgaW4gMC4xNzQ4IHNlY3MNCiAgOTUlIGluIDAuMTg3NCBz
+ZWNzDQogIDk5JSBpbiAxLjM5NjIgc2Vjcw0KDQpEZXRhaWxzIChhdmVyYWdlLCBmYXN0ZXN0LCBz
+bG93ZXN0KToNCiAgRE5TK2RpYWx1cDogICAgMC4wMDM2IHNlY3MsIDAuMDAwMCBzZWNzLCAxLjIx
+Njggc2Vjcw0KICBETlMtbG9va3VwOiAgICAwLjAwMDAgc2VjcywgMC4wMDAwIHNlY3MsIDAuMDAw
+MCBzZWNzDQogIHJlcSB3cml0ZTogICAgIDAuMDAwMCBzZWNzLCAwLjAwMDAgc2VjcywgMC4wMDA3
+IHNlY3MNCiAgcmVzcCB3YWl0OiAgICAgMC4xNDExIHNlY3MsIDAuMDA0OSBzZWNzLCAxLjE1MTAg
+c2Vjcw0KICByZXNwIHJlYWQ6ICAgICAwLjAwMDEgc2VjcywgMC4wMDAwIHNlY3MsIDAuMDAwMiBz
+ZWNzDQoNClN0YXR1cyBjb2RlIGRpc3RyaWJ1dGlvbjoNCiAgWzIwMF0gMzE2NyByZXNwb25zZXMN
+Cg0KDQpUaGUgbWVtb3J5IHVzYWdlIG9mIHRoZSBwcm9ncmFtIHVuZGVyIGxvYWQgKFJlc2lkZW50
+IHNpemUsIElPVywgUkFNIHVzYWdlIGR1cmluZyBsb2FkIGlzIHJvdWdobHkgMTZNQik6DQoNCiMg
+Y2F0IC9wcm9jLyQocGlkb2Ygb2NwLXNlcnZlci5hcm0pL3N0YXR1cw0KTmFtZTogICBvY3Atc2Vy
+dmVyLmFybQ0KVW1hc2s6ICAwMDIyDQpTdGF0ZTogIFMgKHNsZWVwaW5nKQ0KVGdpZDogICAyNzM3
+DQpOZ2lkOiAgIDANClBpZDogICAgMjczNw0KUFBpZDogICAyNzEwDQpUcmFjZXJQaWQ6ICAgICAg
+MA0KVWlkOiAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwDQpHaWQ6ICAgIDAgICAgICAgMCAg
+ICAgICAwICAgICAgIDANCkZEU2l6ZTogMjU2DQpHcm91cHM6IDANClZtUGVhazogIDExNjcyMTIg
+a0INClZtU2l6ZTogIDExNjcyMTIga0INClZtTGNrOiAgICAgICAgIDAga0INClZtUGluOiAgICAg
+ICAgIDAga0INClZtSFdNOiAgICAgMTY5MjQga0INClZtUlNTOiAgICAgMTY4NDQga0INClJzc0Fu
+b246ICAgICAgICAgICAgOTIwMCBrQg0KUnNzRmlsZTogICAgICAgICAgICAxNzg4IGtCDQpSc3NT
+aG1lbTogICAgICAgICAgIDU4NTYga0INClZtRGF0YTogICAzOTUxMDgga0INClZtU3RrOiAgICAg
+ICAxMzYga0INClZtRXhlOiAgICAgIDYzMDQga0INClZtTGliOiAgICAgIDI3OTIga0INClZtUFRF
+OiAgICAgICAxMzAga0INClZtUE1EOiAgICAgICAgIDAga0INClZtU3dhcDogICAgICAgIDAga0IN
+ClRocmVhZHM6ICAgICAgICA0NQ0KU2lnUTogICAwLzM1NzcNClNpZ1BuZDogMDAwMDAwMDAwMDAw
+MDAwMA0KU2hkUG5kOiAwMDAwMDAwMDAwMDAwMDAwDQpTaWdCbGs6IGZmZmZmZmZlN2JmYTdhMjUN
+ClNpZ0lnbjogMDAwMDAwMDAwMDAwMDAwMA0KU2lnQ2d0OiBmZmZmZmZmZmZmYzFmZWZmDQpDYXBJ
+bmg6IDAwMDAwMDAwMDAwMDAwMDANCkNhcFBybTogMDAwMDAwM2ZmZmZmZmZmZg0KQ2FwRWZmOiAw
+MDAwMDAzZmZmZmZmZmZmDQpDYXBCbmQ6IDAwMDAwMDNmZmZmZmZmZmYNCkNhcEFtYjogMDAwMDAw
+MDAwMDAwMDAwMA0KTm9OZXdQcml2czogICAgIDANCkNwdXNfYWxsb3dlZDogICAzDQpDcHVzX2Fs
+bG93ZWRfbGlzdDogICAgICAwLTENCnZvbHVudGFyeV9jdHh0X3N3aXRjaGVzOiAgICAgICAgOTIN
+Cm5vbnZvbHVudGFyeV9jdHh0X3N3aXRjaGVzOiAgICAgMjENCg0KVGhlIGJpbmFyeSBzaXplIGlz
+IDEwTUIgdW5jb21wcmVzc2VkIGFuZCAyTUIgY29tcHJlc3NlZCAoeHogbGV2ZWwgOSkNCg0KJCBj
+YXQgb2NwLXNlcnZlci5hcm0gIHwgeHogLTkgLWMgPiBvY3Atc2VydmVyLmFybS54eiAkIGxzIC1s
+IG9jcC1zZXJ2ZXIuYXJtKiAtcnd4cnd4ci14IDEgbWljaGFlbF9lX2Jyb3duIG1pY2hhZWxfZV9i
+cm93biAxMTE2OTA1MiBGZWIgMTQgMTM6MTQgb2NwLXNlcnZlci5hcm0NCi1ydy1ydy1yLS0gMSBt
+aWNoYWVsX2VfYnJvd24gbWljaGFlbF9lX2Jyb3duICAyNzEyMjA4IEZlYiAxNCAxMzoyNiBvY3At
+c2VydmVyLmFybS54eg0KDQpUaGUgc291cmNlIGlzIGN1cnJlbnRseSBzaXR0aW5nIGF0IHVuZGVy
+IDVrIExvQyBpbXBsZW1lbnRpbmcgYSBmZXcgcHJvb2Ygb2YgY29uY2VwdCBvcGVuYm1jIGltcGxl
+bWVudGF0aW9ucyBjYWxsaW5nIERCVVMsIGFzIHdlbGwgYXMgYSBzaW11bGF0aW9uLg0KDQpDb25j
+dXJyZW5jeToNCi0gSGlnaGx5IGNvbmN1cnJlbnQuIE9uIEFSTSBzZXJ2ZXMgPjMwMCByZXF1ZXN0
+cyBwZXIgc2Vjb25kLiBPbiBYODYsIGdvZXMgdXAgdG8gYWJvdXQgM2sgcmVxdWVzdHMgcGVyIHNl
+Y29uZA0KLSBGb3IgaW5kaXZpZHVhbCByZXF1ZXN0czogY2FuIGNvbmN1cnJlbnRseSBnZXQgZGF0
+YSBmcm9tIG11bHRpcGxlIGRhdGEgc291cmNlcyBhbmQgcnVucyBhbGwgdGhlIHBsdWdpbnMgZm9y
+IGEgcmVkZmlzaCByZXNvdXJjZSBpbiBwYXJhbGxlbA0KDQpEZXRlcm1pbmlzdGljOg0KLSBUaGUg
+ZGVzaWduIHNob3VsZCBiZSBmYWlybHkgZGV0ZXJtaW5pc3RpYy4NCg0KQ2FjaGVkOg0KLSBDb21w
+bGV0ZWx5IGZsZXhpYmxlIGhlcmUuIFRoZSBkZWZhdWx0IG1vZGVsIGlzIGNhY2hpbmcgdGhlIGRh
+dGEsIGJ1dCBpdCdzIGFsc28gc3VwcG9ydGVkIHRvIG1ha2UgZGJ1cyBjYWxscyBwZXIgcmVxdWVz
+dCAodGhvdWdoIHRoYXQncyBub3QgcmVhbGx5IHJlY29tbWVuZGVkKS4gQ3VycmVudGx5IGl0IGNh
+Y2hlcyBzZW5zb3IgcmVzdWx0cyBhbmQgcmVmcmVzaGVzIHRob3NlIGF0IGEgZml4ZWQgaW50ZXJ2
+YWwsIHRob3VnaCB0aGF0IGNvdWxkIGVhc2lseSBiZSBjaGFuZ2VkLg0KDQpQbGF0Zm9ybSBkZXBl
+bmRlbnQvaW5kZXBlbmRlbnQ6DQotIENvcmUgaXMgY29tcGxldGVseSBwbGF0Zm9ybSBpbmRlcGVu
+ZGVudC4NCi0gV29ya2luZyBvbiBhbiBPQ1AgcHJvZmlsZSBpbXBsZW1lbnRhdGlvbiB0aGF0IGFs
+c28gaGFzIHBsYXRmb3JtIGluZGVwZW5kZW50ICsgcGxhdGZvcm0gc3BlY2lmaWMgaG9va3MuIEN1
+cnJlbnRseSBpbiBwbGFjZSBhcmUgc2ltdWxhdGlvbiBpbXBsZW1lbnRhdGlvbiBwbHVzIG9wZW5i
+bWMgZGJ1cyBpbXBsZW1lbnRhdGlvbiBmb3Igc2Vuc29ycyAodGVtcGVyYXR1cmUgbm93LCB3b3Jr
+aW5nIGZhbnMgbmV4dCkuDQoNCkRNVEYgc3VwcG9ydDoNCi0gSW4gcHJvZ3Jlc3MuIEhlbHAgbmVl
+ZGVkLg0KDQotLQ0KTWljaGFlbA0KDQpPbiBXZWQsIEZlYiAwNywgMjAxOCBhdCAwMzo0ODo0MUFN
+ICswMDAwLCBZdWdpIE1hbmkgd3JvdGU6DQo+IEhlcmUgYXJlIHNvbWUgbW9yZSByZXF1aXJlbWVu
+dHMgYmFzZWQgb24gb3VyIGV4cGVyaWVuY2Ugd2l0aCBSZWRmaXNoOg0KPiAxLiBDb25jdXJyZW5j
+eQ0KPiBXZWIgU2VydmVyIGFuZCBGcmFtZXdvcmsgc2hvdWxkIGJlIGFibGUgdG8gc2VydmUgbXVs
+dGlwbGUgR0VUIHJlcXVlc3RzIGF0IGEgdGltZS4gDQo+IFBPU1QvUEFUQ0gvUFVUL0RFTEVURSBy
+ZXF1ZXN0cyBjYW4gYmUgc2VxdWVudGlhbC4gDQo+IA0KPiAyLiBEZXRlcm1pbmlzdGljDQo+IFNl
+cnZpY2Ugc2hvdWxkIGJlIHRpbWUgZGV0ZXJtaW5pc3RpYywgYm90aCBib290IHRpbWUgYW5kIHJ1
+biB0aW1lLiANCj4gQ29uY3VycmVuY3kgc2hhbGwgbm90IGltcGFjdCBkZXRlcm1pbmlzdGljIHBy
+b3BlcnR5IG9mIHRoZSBzZXJ2aWNlLiANCj4gQWxsIHJlcXVlc3RzIHNoYWxsIGJlIHJlc3BvbmRl
+ZCAoc3VjY2Vzcy9mYWlsdXJlKSB3aXRoaW4gYWNjZXB0YWJsZSB0aW1lIGxpbWl0cy4gDQo+IFdo
+ZXJlIHNvbWUgcmVxdWVzdHMgY2Fubm90IGJlIGNvbXBsZXRlZCB3aXRoaW4gdGltZSBsaW1pdHMs
+IHNlcnZpY2UgDQo+IHNoYWxsIHJlc3BvbmQgd2l0aCBzdGF0dXMgYW5kIGV4cGVjdGVkIHRpbWUg
+dG8gY29tcGxldGUuDQo+IA0KPiAzLiBDYWNoZWQgRGF0YQ0KPiBEYXRhIHNoYWxsIGJlIGNhY2hl
+ZCBieSBSZWRmaXNoIHNlcnZpY2UgYW5kIHVwZGF0ZWQgb24gZGJ1cyBzaWduYWxzLiANCj4gQ29s
+bGVjdGluZyByZXF1aXJlZCBpbmZvcm1hdGlvbiBvbiBkZW1hbmQgYWR2ZXJzZWx5IGltcGFjdHMg
+cGVyZm9ybWFuY2UuIA0KPiBSZWRmaXNoIHNob3VsZCByYXRoZXIgY2FjaGUgdGhlIGluZm9ybWF0
+aW9uIGFuZCBrZWVwIHVwZGF0aW5nIGl0cyANCj4gY2FjaGUgb24gbm90aWZpY2F0aW9uIGZyb20g
+ZGJ1cyB0aGF0IHRoZSBwcm9wZXJ0eShpZXMpIG9mIGludGVyZXN0IGhhcyBiZWVuIG1vZGlmaWVk
+Lg0KPiANCj4gNC4gUGxhdGZvcm0gZGVwZW5kZW50L2luZGVwZW5kZW50IGxheWVyIFNoYWxsIHBy
+b3ZpZGUgYSBjbGVhciANCj4gaXNvbGF0aW9uIGJldHdlZW4gY29yZSB2cyBwbGF0Zm9ybSBwcm9w
+ZXJ0aWVzLg0KPiBDYW4gY29uc2lkZXIgb2JqZWN0IG9yaWVudGVkIGFwcHJvYWNoIGZvciBwbGF0
+Zm9ybSAmIG9lbSBsYXllciB0byANCj4gb3ZlcnJpZGUgY29yZSBtZXRob2RzIGFuZCBvYmplY3Rz
+LiBDdXN0b21pemVkIGhvb2tzIGFuZCBoYW5kbGVycyBjYW4gDQo+IGJlIHByb3ZpZGVkIGJ5IHBs
+YXRmb3JtIGxheWVyIHdoaWxlIHRoZSBkYXRhIG1vZGVsIGJldHdlZW4gbGF5ZXJzIGlzIA0KPiBt
+YWludGFpbmVkIGNvbnNpc3RlbnQgYWNyb3NzIHBsYXRmb3Jtcy4NCj4gDQo+IDUuIERNVEYgU3Vw
+cG9ydA0KPiBSZWRmaXNoIGhhdmUgcXVpdGUgYSBsb3Qgb2YgZ2FwcyBpbiBzb21lIG9mIHRoZSBi
+YXNpYyByZXF1aXJlbWVudHMgb2YgYSBCTUMuIA0KPiBhKSBGUlUgJiBGUlUgQ29sbGVjdGlvbiBT
+Y2hlbWENCj4gYikgU2Vuc29yICYgU2Vuc29yIENvbGxlY3Rpb24gU2NoZW1hDQo+IGMpIENvbXBv
+bmVudCBGaXJtd2FyZSBVcGRhdGUgKFBTVSwgQklPUywgQ1BMRCwgZXRjKQ0KPiBkKSBNYXN0ZXIg
+V3JpdGUtUmVhZA0KPiBlKSBDbGVhciBQU1UgRmF1bHRzDQo+IFdlIG5lZWQgRE1URiB0byBhY3Rp
+dmVseSBhZGQvdXBkYXRlIFJlZGZpc2ggc2NoZW1hcyB0aGF0IGFyZSBmdW5kYW1lbnRhbCB0byBh
+bnkgQk1DLg0KPiANCj4gNy4gRXJyb3IgQ29kZXMNCj4gUmVkZmlzaCBMb2dFbnRyeSBzY2hlbWEg
+ZG9lc27igJl0IG9mZmVyIGEgcGxhY2Vob2xkZXIgZm9yIGVycm9yIGNvZGVzIA0KPiB0aGF0IGF1
+dG9tYXRpb24gdG9vbHMgY2FuIHJlYWQgdG8gY2F0ZWdvcml6ZSB0aGUgZXZlbnRzIGFuZCB0cmln
+Z2VyIGFjdHVhdG9ycy4NCj4gT25lIG9wdGlvbiBpcyB0byByZXB1cnBvc2UgT0VNIGZpZWxkLiAN
+Cj4gDQo+IDguIFBhZ2luYXRpb24NCj4gRXZlbnQgbG9ncyBjYW4gZ2V0IHRvbyBiaWcgYW5kIHBh
+Z2luYXRlZCB2aWV3IGlzIGhlbHBmdWwNCj4gDQo+IDkuIEZpbHRlcmluZw0KPiBRdWVyeSBwYXJh
+bWV0ZXIgdG8gZmlsdGVyIHRoZSByZXNwb25zZSBsaW1pdGVkIHRvIGNlcnRhaW4gY3JpdGVyaWEN
+Cj4gDQo+IDEwLiBBbmNob3JzDQo+IFNjaGVtYXMgbGlrZSBDaGFzc2lzIGFuZCBNYW5hZ2VyIGhh
+dmUgYSBidW5jaCBvZiBwcm9wZXJ0aWVzIHRoYXQgbm90IA0KPiBhbGwgcmVxdWVzdHMgbWlnaHQg
+YmUgaW50ZXJlc3RlZCBpbi4NCj4gSXQgaXMgYmV0dGVyIHRvIGJlIGFibGUgdG8gcmVxdWVzdCBq
+dXN0IGEgZnJhZ21lbnQgb2YgYSByZXNvdXJjZSB1c2luZyDigJgj4oCZLiANCj4gDQo+IDExLiBS
+YXRlIExpbWl0aW5nDQo+IFNlcnZlciBzaGFsbCByZXR1cm4gSFRUUCA0Mjkgd2hlbiBudW1iZXIg
+b2YgcmVxdWVzdHMgY3Jvc3MgbWF4IGxpbWl0IHBlcm1pc3NpYmxlIGZyb20gYSBjbGllbnQuIA0K
+PiBXZSBuZWVkIHNvbWUgcHJvdGVjdGlvbiBhZ2FpbnN0IERlbmlhbCBvZiBTZXJ2aWNlLg0KPiAN
+Cj4gLVl1Z2kNCg==
