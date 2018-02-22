@@ -1,57 +1,37 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::231; helo=mail-qk0-x231.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cTThgrGb"; 
- dkim-atps=neutral
-Received: from mail-qk0-x231.google.com (mail-qk0-x231.google.com
- [IPv6:2607:f8b0:400d:c09::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <gregkh@linuxfoundation.org>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
+ (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
+ envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zn4WK1K5QzF17n
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 17:41:17 +1100 (AEDT)
-Received: by mail-qk0-x231.google.com with SMTP id s198so5222781qke.5
- for <openbmc@lists.ozlabs.org>; Wed, 21 Feb 2018 22:41:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=lN6Pw/xkbuleBNE/WbtRRQ/IVivFyLLsowXQuW7g2jA=;
- b=cTThgrGbBPJuCM3DlNL8M+z305BtDQo5M6DCVNsWoRBNSiB9KsSD/Qj+b1AMdGXMZH
- E5j5nBHrRJMwpPK13H5y9LKQ0SSFSNYjK6wOT65heR7vNDvfNNcrA6HjjmsOl2g6vuK0
- dZBVqUrtEuqRqvODAVuFIfUYrDAfJEO02MAUONEGm19f7QqSio+/7di5wfqwQ8AxSAZH
- miLzCgY649bhWyCrQbQKrqaukeJPpBbREMetb4Rl1ZDJqDmY2NUUDY3Qsxfy112nd1dH
- pD7hkchAsaSlhlApPDYl4RHSTbpizaiuLbYjsmFqr8JWlC34p7C5zIPHIgsKDtIdB99E
- bqaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=lN6Pw/xkbuleBNE/WbtRRQ/IVivFyLLsowXQuW7g2jA=;
- b=WLX+9M1XXNIAc1KpnfCTLLTZDtaK6cbJbhuklQ1TPikM4N6+jEOx5AHd7pRMD0TnWz
- MolVPJlKvghKoF197bKkNBXUYpY2WE7k00w8id9DOfz/YvtM9p4WyYgK8N/RSon1HVGu
- CimdLr59c16znzTc2ywScnQjw78ag9MZjVWC+jIep6mFXmNAbIzwhZolshrPkwYVzVHG
- fjuvWk4ZYQp4axAT2nQTy+owID+85DeRaXMFHxXdbid01XOtlVu7b0JDcMQi24RPYRvh
- /rFSki8geQnqoXqrke4Y3/Ve0yoNeb1snmhDc7xSpLKoyy0zujbiWyxmu8we5E7KIBKP
- ExTw==
-X-Gm-Message-State: APf1xPCg7jDHk+l+aKnPxAJM+oJA0KM4Aps2KzVAoxfrNKEvNxQvN77u
- VSDVcrnqrXZkEFrlzw4d4zfE7LLbrybZZRoQxpI=
-X-Google-Smtp-Source: AG47ELv86R7bnl7bJ64JVd1dieAbMn1p5dsBcVZo7aDL4myvhmjDAdFgeuU0w57KOjDTNchb52MSwnCEgFDXOr2raxU=
-X-Received: by 10.55.44.65 with SMTP id s62mr9076319qkh.203.1519281674464;
- Wed, 21 Feb 2018 22:41:14 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zn4q55rVtzF1Bs
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 17:54:57 +1100 (AEDT)
+Received: from localhost (LFbn-1-12258-90.w90-92.abo.wanadoo.fr [90.92.71.90])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 6D20E14E6;
+ Thu, 22 Feb 2018 06:54:54 +0000 (UTC)
+Date: Thu, 22 Feb 2018 07:54:55 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, jdelvare@suse.com,
+ linux@roeck-us.net, benh@kernel.crashing.org, andrew@lunn.ch,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2 1/8] [PATCH 1/8] drivers/peci: Add support for PECI
+ bus driver core
+Message-ID: <20180222065455.GA2428@kroah.com>
+References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
+ <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
+ <20180221175853.GA22320@kroah.com>
+ <7f152459-a232-e62a-3c34-e995f8c85d63@linux.intel.com>
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Wed, 21 Feb 2018 22:40:54 -0800 (PST)
-In-Reply-To: <20180221071726.43440-1-chen.kenyy@inventec.com>
-References: <20180221071726.43440-1-chen.kenyy@inventec.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 22 Feb 2018 17:10:54 +1030
-X-Google-Sender-Auth: y_SCrHmNek61siOCnw6vJqvtRmU
-Message-ID: <CACPK8XdL9AbAWd9CuMW8OrEJ4_LbwSj4xA4peh9sUd7b_FmEEw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 v6] Add ARM system BMC device tree
-To: Ken Chen <chen.kenyy@inventec.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7f152459-a232-e62a-3c34-e995f8c85d63@linux.intel.com>
+User-Agent: Mutt/1.9.3 (2018-01-21)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,60 +43,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Feb 2018 06:41:17 -0000
+X-List-Received-Date: Thu, 22 Feb 2018 06:54:58 -0000
 
-Hi Ken,
+On Wed, Feb 21, 2018 at 12:42:30PM -0800, Jae Hyun Yoo wrote:
+> On 2/21/2018 9:58 AM, Greg KH wrote:
+> > On Wed, Feb 21, 2018 at 08:15:59AM -0800, Jae Hyun Yoo wrote:
+> > > This commit adds driver implementation for PECI bus into linux
+> > > driver framework.
+> > > 
+> > > Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> > > ---
+> > 
+> > Why is there no other Intel developers willing to review and sign off on
+> > this patch?  Please get their review first before asking us to do their
+> > work for them :)
+> > 
+> > thanks,
+> > 
+> > greg k-h
+> > 
+> 
+> Hi Greg,
+> 
+> This patch set got our internal review process. Sorry if it's code quality
+> is under your expectation but it's the reason why I'm asking you to review
+> the code. Could you please share your time to review it?
 
-On Wed, Feb 21, 2018 at 5:47 PM, Ken Chen <chen.kenyy@inventec.com> wrote:
-> +&i2c8 {
-> +       status = "okay";
-> +
-> +       pca9641@70 {
-> +               compatible = "nxp,pca9641";
-> +               reg = <0x70>;
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
+Nope.  If no other Intel developer thinks it is good enough to put their
+name on it as part of their review process, why should I?
 
-In order to build cleanly, I had to move the above two lines into the
-i2c-arb node.
+Again, please use the resources you have, to fix the obvious problems in
+your code, BEFORE asking the community to do that work for you.
 
-It is important that you compile your patches before submitting them,
-and that they do not introduce any new warnings to the build.
-
-I have fixed this for you in this case.
-
-> +               i2c-arb {
-> +                       tmp421@1d {
-> +                               compatible = "tmp421";
-> +                               reg = <0x1d>;
-> +                       };
-> +                       adm1278@12 {
-> +                               compatible = "adi,adm1278";
-> +                               reg = <0x12>;
-> +                               Rsense = <500>;
-> +                       };
-> +                       eeprom@50 {
-> +                               compatible = "atmel,24c02";
-> +                               reg = <0x50>;
-> +                       };
-> +                       ds1100@58 {
-> +                               compatible = "ds1100";
-> +                               reg = <0x58>;
-> +                       };
-> +               };
-> +       };
-> +};
-> +
-
-> +&wdt2 {
-> +       status = "okay";
-> +};
-
-This is redundant in dev-4.13.
-
-I've fixed up these minor errors and applied it to dev-4.13.
-Congratulations for your persistence :)
-
-Cheers,
-
-Joel
+greg k-h
