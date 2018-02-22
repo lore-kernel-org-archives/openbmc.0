@@ -1,66 +1,66 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3znQpr0vyRzF1d7
- for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 07:25:54 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w1MKPaaL137301
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 15:25:52 -0500
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2ga2pjn0hy-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3znQqc6pVDzF0lQ
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 07:26:36 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w1MKNt5O080540
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 15:26:34 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2ga13w10c2-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 15:25:51 -0500
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 15:26:33 -0500
 Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 22 Feb 2018 13:25:51 -0700
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 22 Feb 2018 13:26:33 -0700
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 22 Feb 2018 13:25:48 -0700
+ Thu, 22 Feb 2018 13:26:30 -0700
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w1MKPmHq12648860; Thu, 22 Feb 2018 13:25:48 -0700
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w1MKQUHx12911084; Thu, 22 Feb 2018 13:26:30 -0700
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3ED94C6037;
- Thu, 22 Feb 2018 13:25:48 -0700 (MST)
+ by IMSVA (Postfix) with ESMTP id 29F23C603E;
+ Thu, 22 Feb 2018 13:26:30 -0700 (MST)
 Received: from [9.80.205.44] (unknown [9.80.205.44])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 3B417C6042;
- Thu, 22 Feb 2018 13:25:47 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.13 01/16] dts: fsi: Make OCC description match
- expected hierarchy
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id EF74DC603C;
+ Thu, 22 Feb 2018 13:26:28 -0700 (MST)
+Subject: Re: [PATCH linux dev-4.13 02/16] hwmon (p9_sbe): Initialise device
+ spin lock
 To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au, jk@ozlabs.org,
  bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com
 Cc: openbmc@lists.ozlabs.org
 References: <20180220041844.13228-1-andrew@aj.id.au>
- <20180220041844.13228-2-andrew@aj.id.au>
+ <20180220041844.13228-3-andrew@aj.id.au>
 From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 22 Feb 2018 14:25:46 -0600
+Date: Thu, 22 Feb 2018 14:26:28 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <20180220041844.13228-2-andrew@aj.id.au>
+In-Reply-To: <20180220041844.13228-3-andrew@aj.id.au>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 X-TM-AS-GCONF: 00
-x-cbid: 18022220-0016-0000-0000-0000084C7FE9
+x-cbid: 18022220-0012-0000-0000-000015CA7FEA
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00008578; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000254; SDB=6.00993585; UDB=6.00504882; IPR=6.00772925; 
- MB=3.00019692; MTD=3.00000008; XFM=3.00000015; UTC=2018-02-22 20:25:51
+ MB=3.00019692; MTD=3.00000008; XFM=3.00000015; UTC=2018-02-22 20:26:32
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18022220-0017-0000-0000-00003D94501B
-Message-Id: <84dc8db8-ba52-28a4-260e-0c47cf579f80@linux.vnet.ibm.com>
+x-cbparentid: 18022220-0013-0000-0000-000051995227
+Message-Id: <74aee8f5-265e-bf2a-e47e-f8870e0969a5@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-02-22_07:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -80,60 +80,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Feb 2018 20:25:56 -0000
+X-List-Received-Date: Thu, 22 Feb 2018 20:26:37 -0000
 
 
 
 On 02/19/2018 10:18 PM, Andrew Jeffery wrote:
-> ibm,p9-occ-hwmon describes a driver, not hardware, but this compatible is
-> what's required to get the driver to probe.
->
-> While we discuss how to resolve that problem, lets at least make the current
-> configuration work.
-
-I already have a possible solution in my patch "drivers: occ: Create 
-hwmon platform device directly"
-that does away with dts entries for the hwmon driver. Open to feedback, 
-but it will obviously conflict with this patch.
-
-Thanks,
-Eddie
-
->
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+
+Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
+
 > ---
->   arch/arm/boot/dts/ibm-power9-cfam.dtsi | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
+>   drivers/hwmon/occ/p9_sbe.c | 1 +
+>   1 file changed, 1 insertion(+)
 >
-> diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-> index e0e738f9e539..215cc8182ca5 100644
-> --- a/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-> +++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-> @@ -113,8 +113,12 @@
->   			#size-cells = <0>;
+> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+> index 7dbe4d5bcd61..cda29f47f8ff 100644
+> --- a/drivers/hwmon/occ/p9_sbe.c
+> +++ b/drivers/hwmon/occ/p9_sbe.c
+> @@ -116,6 +116,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
+>   	if (!p9_sbe_occ)
+>   		return -ENOMEM;
 >
->   			occ@1 {
-> -				compatible = "ibm,p9-occ-hwmon";
-> +				compatible = "ibm,p9-occ";
->   				reg = <1>;
-> +
-> +				occ-hwmon@1 {
-> +					compatible = "ibm,p9-occ-hwmon";
-> +				};
->   			};
->   		};
->
-> @@ -205,8 +209,12 @@
->   					#size-cells = <0>;
->
->   					occ@2 {
-> -						compatible = "ibm,p9-occ-hwmon";
-> +						compatible = "ibm,p9-occ";
->   						reg = <2>;
-> +
-> +						occ-hwmon@2 {
-> +							compatible = "ibm,p9-occ-hwmon";
-> +						};
->   					};
->   				};
->   			};
+> +	spin_lock_init(&p9_sbe_occ->lock);
+>   	p9_sbe_occ->sbe = pdev->dev.parent;
+>   	occ = &p9_sbe_occ->occ;
+>   	occ->bus_dev = &pdev->dev;
