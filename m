@@ -1,37 +1,46 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
- (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
- envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
+Return-Path: <fengguang.wu@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=fengguang.wu@intel.com; receiver=<UNKNOWN>)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zn4q55rVtzF1Bs
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 17:54:57 +1100 (AEDT)
-Received: from localhost (LFbn-1-12258-90.w90-92.abo.wanadoo.fr [90.92.71.90])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id 6D20E14E6;
- Thu, 22 Feb 2018 06:54:54 +0000 (UTC)
-Date: Thu, 22 Feb 2018 07:54:55 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zn4zS3byRzF0pN
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 18:02:10 +1100 (AEDT)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2018 23:02:08 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.47,377,1515484800"; d="scan'208";a="28939083"
+Received: from bee.sh.intel.com (HELO bee) ([10.239.97.14])
+ by FMSMGA003.fm.intel.com with ESMTP; 21 Feb 2018 23:02:05 -0800
+Received: from kbuild by bee with local (Exim 4.84_2)
+ (envelope-from <fengguang.wu@intel.com>)
+ id 1eoktS-0009Sy-Ti; Thu, 22 Feb 2018 15:02:14 +0800
+Date: Thu, 22 Feb 2018 15:01:11 +0800
+From: kbuild test robot <lkp@intel.com>
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, jdelvare@suse.com,
- linux@roeck-us.net, benh@kernel.crashing.org, andrew@lunn.ch,
+Cc: kbuild-all@01.org, joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
+ gregkh@linuxfoundation.org, jdelvare@suse.com, linux@roeck-us.net,
+ benh@kernel.crashing.org, andrew@lunn.ch,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2 1/8] [PATCH 1/8] drivers/peci: Add support for PECI
- bus driver core
-Message-ID: <20180222065455.GA2428@kroah.com>
-References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
- <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
- <20180221175853.GA22320@kroah.com>
- <7f152459-a232-e62a-3c34-e995f8c85d63@linux.intel.com>
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [RFC PATCH] drivers/peci: peci_match_id() can be static
+Message-ID: <20180222070111.GA22310@lkp-ne02>
+References: <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7f152459-a232-e62a-3c34-e995f8c85d63@linux.intel.com>
-User-Agent: Mutt/1.9.3 (2018-01-21)
+In-Reply-To: <20180221161606.32247-2-jae.hyun.yoo@linux.intel.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: fengguang.wu@intel.com
+X-SA-Exim-Scanned: No (on bee); SAEximRunCond expanded to false
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -43,36 +52,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Feb 2018 06:54:58 -0000
+X-List-Received-Date: Thu, 22 Feb 2018 07:02:13 -0000
 
-On Wed, Feb 21, 2018 at 12:42:30PM -0800, Jae Hyun Yoo wrote:
-> On 2/21/2018 9:58 AM, Greg KH wrote:
-> > On Wed, Feb 21, 2018 at 08:15:59AM -0800, Jae Hyun Yoo wrote:
-> > > This commit adds driver implementation for PECI bus into linux
-> > > driver framework.
-> > > 
-> > > Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> > > ---
-> > 
-> > Why is there no other Intel developers willing to review and sign off on
-> > this patch?  Please get their review first before asking us to do their
-> > work for them :)
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> > 
-> 
-> Hi Greg,
-> 
-> This patch set got our internal review process. Sorry if it's code quality
-> is under your expectation but it's the reason why I'm asking you to review
-> the code. Could you please share your time to review it?
 
-Nope.  If no other Intel developer thinks it is good enough to put their
-name on it as part of their review process, why should I?
+Fixes: 99f5d2b99ecd ("drivers/peci: Add support for PECI bus driver core")
+Signed-off-by: Fengguang Wu <fengguang.wu@intel.com>
+---
+ peci-core.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Again, please use the resources you have, to fix the obvious problems in
-your code, BEFORE asking the community to do that work for you.
-
-greg k-h
+diff --git a/drivers/peci/peci-core.c b/drivers/peci/peci-core.c
+index d976c73..4709b8c 100644
+--- a/drivers/peci/peci-core.c
++++ b/drivers/peci/peci-core.c
+@@ -770,8 +770,8 @@ peci_of_match_device(const struct of_device_id *matches,
+ }
+ #endif
+ 
+-const struct peci_device_id *peci_match_id(const struct peci_device_id *id,
+-					   struct peci_client *client)
++static const struct peci_device_id *peci_match_id(const struct peci_device_id *id,
++						  struct peci_client *client)
+ {
+ 	if (!(id && client))
+ 		return NULL;
