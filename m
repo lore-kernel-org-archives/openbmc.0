@@ -1,60 +1,36 @@
-Return-Path: <Chen.KenYY@inventec.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inventec.com
- (client-ip=218.32.67.167; helo=mail.inventec.com;
- envelope-from=chen.kenyy@inventec.com; receiver=<UNKNOWN>)
-Received: from mail.inventec.com (hub02.inventec.com [218.32.67.167])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3znfgn1MvlzF1h4
- for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 16:20:36 +1100 (AEDT)
-Received: from IEC1-MSE-FE2.inventec.com (10.1.254.204) by
- IEC1-EX2010-04.iec.inventec (10.1.254.157) with Microsoft SMTP Server id
- 14.3.361.1; Fri, 23 Feb 2018 13:20:31 +0800
-Received: from IEC1-SPAM-2.inventec.com (smg2.inventec.com [10.1.254.202])	by
- IEC1-MSE-FE2.inventec.com with ESMTP id w1N5KL3V048681	for
- <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 13:20:21 +0800 (GMT-8)
- (envelope-from chen.kenyy@inventec.com)
-Received: from mail-pf0-f198.google.com (mail-pf0-f198.google.com
- [209.85.192.198])	by IEC1-SPAM-2.inventec.com with ESMTP id w1N5KERo037171
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
- <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 13:20:15 +0800 (GMT-8)
- (envelope-from chen.kenyy@inventec.com)
-Received: by mail-pf0-f198.google.com with SMTP id e1so3647718pfi.10
- for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 21:20:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=p3HkRskBT/MTOMSjGVKG0gT7pgrNmo0k6/Pna8M5F7o=;
- b=pvmWqT315Ume5rT4GDQ0J2Mh6qihxPwUzHcDeaOEwiNb2Y2MVv+NF8+Bv6xKjZPw5G
- KcI66oHlDzGkDYuXE6AHrWf9wdEqfBsjIXthXxsnGhazMYLFWqFL8jSg3ib4hirzR/GT
- mJhuHUN23clHfi5DobH3sT5tlkC9PibjgSWtiEKXNnZNsHJbF3zsqnB3sM+gjUFvh7GI
- QQq2PzLbGjSfcI6FyoGJ3tnvge16Z1fFRmEh/R7qoKJbxRRkOqi9bd0rYizw09O2iU7f
- vGD7gSj+hcB0boVRYu2q7HFvPB/YdxUvJ4XdmSzixYgW2tUHonAwhAvlnwv9Gerb90NH
- 89eA==
-X-Gm-Message-State: APf1xPB72bFUA/hsfP4BijGKsZQGwLn6iZer+GtwDfwnmyQoNRud1FAR
- X7kwNq79Cwzk/RXBlBhNRbjhxFIFRdSgnii7q85r/sY1qHOlkEGQXcrwj0yrTQ7B4BM1rwbIf1R
- QknipDR1tilLrUrUvqLpJ+w==
-X-Received: by 10.98.147.27 with SMTP id b27mr514568pfe.145.1519363213596;
- Thu, 22 Feb 2018 21:20:13 -0800 (PST)
-X-Google-Smtp-Source: AH8x227AB/hL9T3EyIfiVxsWZspMF4QuaeyvesLmSXi+JXtHfMjx4czm3ATxnI2iawu1m7HudbuduQ==
-X-Received: by 10.98.147.27 with SMTP id b27mr514547pfe.145.1519363213157;
- Thu, 22 Feb 2018 21:20:13 -0800 (PST)
-Received: from localhost ([122.146.87.216])        by smtp.gmail.com with
- ESMTPSA id z24sm1660322pfm.86.2018.02.22.21.20.11        (version=TLS1_2
- cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);        Thu, 22 Feb 2018
- 21:20:11 -0800 (PST)
-From: Ken Chen <chen.kenyy@inventec.com>
-To: <openbmc@lists.ozlabs.org>
-CC: Ken Chen <chen.kenyy@inventec.com>, <joel@jms.id.au>
-Subject: [PATCH linux dev-4.13] drivers: i2c: master arbiter: create driver
-Date: Fri, 23 Feb 2018 13:22:50 +0800
-Message-ID: <20180223052250.10024-1-chen.kenyy@inventec.com>
-X-Mailer: git-send-email 2.9.3
-X-DNSRBL: 
-X-MAIL: IEC1-MSE-FE2.inventec.com w1N5KL3V048681
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3znhyS1t5TzF1hJ;
+ Fri, 23 Feb 2018 18:03:26 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2018 23:03:19 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.47,382,1515484800"; d="scan'208";a="30065345"
+Received: from build0101.sh.intel.com ([10.239.164.138])
+ by orsmga003.jf.intel.com with ESMTP; 22 Feb 2018 23:03:17 -0800
+From: Haiyue Wang <haiyue.wang@linux.intel.com>
+To: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de, gregkh@linuxfoundation.org,
+ openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Cc: Haiyue Wang <haiyue.wang@linux.intel.com>,
+	andriy.shevchenko@intel.com
+Subject: [PATCH arm/aspeed/ast2500 v2] eSPI: add ASPEED AST2500 eSPI driver to
+ boot a host with PCH runs on eSPI
+Date: Fri, 23 Feb 2018 15:04:19 +0800
+Message-Id: <1519369459-12468-1-git-send-email-haiyue.wang@linux.intel.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,427 +42,487 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Feb 2018 05:20:37 -0000
+X-List-Received-Date: Fri, 23 Feb 2018 07:03:29 -0000
 
-Initial PCA9641 2 chennel I2C bus master arbiter
+When PCH works under eSPI mode, the PMC (Power Management Controller) in
+PCH is waiting for SUS_ACK from BMC after it alerts SUS_WARN. It is in
+dead loop if no SUS_ACK assert. This is the basic requirement for the BMC
+works as eSPI slave.
 
-Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
+Also for the host power on / off actions, from BMC side, the following VW
+(Virtual Wire) messages are done in firmware:
+1. SLAVE_BOOT_LOAD_DONE / SLAVE_BOOT_LOAD_STATUS
+2. SUS_ACK
+3. OOB_RESET_ACK
+4. HOST_RESET_ACK
+
+Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
 ---
- drivers/i2c/muxes/Kconfig           |   9 +
- drivers/i2c/muxes/Makefile          |   1 +
- drivers/i2c/muxes/i2c-mux-pca9641.c | 372 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 382 insertions(+)
- create mode 100644 drivers/i2c/muxes/i2c-mux-pca9641.c
+v1 -> v2:
+ - Fix the checkpatch.pl warning in file espi-slave.rst
+   Missing or malformed SPDX-License-Identifier tag in line 1
+   #71: FILE: Documentation/misc-devices/espi-slave.rst:1:
+ - Make the Kconfig desciption to be more accurate.
+---
+ .../devicetree/bindings/misc/aspeed,espi-slave.txt |  20 ++
+ Documentation/misc-devices/espi-slave.rst          | 119 ++++++++++
+ drivers/misc/Kconfig                               |   7 +
+ drivers/misc/Makefile                              |   1 +
+ drivers/misc/aspeed-espi-slave.c                   | 263 +++++++++++++++++++++
+ 5 files changed, 410 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/aspeed,espi-slave.txt
+ create mode 100644 Documentation/misc-devices/espi-slave.rst
+ create mode 100644 drivers/misc/aspeed-espi-slave.c
 
-diff --git a/drivers/i2c/muxes/Kconfig b/drivers/i2c/muxes/Kconfig
-index 1712132..1cd1ad3 100644
---- a/drivers/i2c/muxes/Kconfig
-+++ b/drivers/i2c/muxes/Kconfig
-@@ -73,6 +73,15 @@ config I2C_MUX_PCA954x
- 	  This driver can also be built as a module.  If so, the module
- 	  will be called i2c-mux-pca954x.
- 
-+config I2C_MUX_PCA9641
-+	tristate "NXP PCA9641 I2C Master demultiplexer"
-+	help
-+	  If you say yes here you get support for the NXP PCA9641
-+	  I2C Master demultiplexer with an arbiter function.
-+
-+	  This driver can also be built as a module.  If so, the module
-+	  will be called i2c-mux-pca9641.
-+
- config I2C_MUX_PINCTRL
- 	tristate "pinctrl-based I2C multiplexer"
- 	depends on PINCTRL
-diff --git a/drivers/i2c/muxes/Makefile b/drivers/i2c/muxes/Makefile
-index 4a67d31..f95d5f5 100644
---- a/drivers/i2c/muxes/Makefile
-+++ b/drivers/i2c/muxes/Makefile
-@@ -11,6 +11,7 @@ obj-$(CONFIG_I2C_MUX_LTC4306)	+= i2c-mux-ltc4306.o
- obj-$(CONFIG_I2C_MUX_MLXCPLD)	+= i2c-mux-mlxcpld.o
- obj-$(CONFIG_I2C_MUX_PCA9541)	+= i2c-mux-pca9541.o
- obj-$(CONFIG_I2C_MUX_PCA954x)	+= i2c-mux-pca954x.o
-+obj-$(CONFIG_I2C_MUX_PCA9641)	+= i2c-mux-pca9641.o
- obj-$(CONFIG_I2C_MUX_PINCTRL)	+= i2c-mux-pinctrl.o
- obj-$(CONFIG_I2C_MUX_REG)	+= i2c-mux-reg.o
- 
-diff --git a/drivers/i2c/muxes/i2c-mux-pca9641.c b/drivers/i2c/muxes/i2c-mux-pca9641.c
+diff --git a/Documentation/devicetree/bindings/misc/aspeed,espi-slave.txt b/Documentation/devicetree/bindings/misc/aspeed,espi-slave.txt
 new file mode 100644
-index 0000000..ca7b816
+index 0000000..35da26f
 --- /dev/null
-+++ b/drivers/i2c/muxes/i2c-mux-pca9641.c
-@@ -0,0 +1,372 @@
++++ b/Documentation/devicetree/bindings/misc/aspeed,espi-slave.txt
+@@ -0,0 +1,20 @@
++Aspeed eSPI Slave Controller
++
++Required properties:
++ - compatible: must be one of:
++	- "aspeed,ast2500-espi-slave"
++
++ - reg: physical base address of the controller and length of memory mapped
++   region
++
++ - interrupts: interrupt generated by the controller
++
++Example:
++
++    espi: espi@1e6ee000 {
++        compatible = "aspeed,ast2500-espi-slave";
++        reg = <0x1e6ee000 0x100>;
++        interrupts = <23>;
++        status = "disabled";
++};
++
+diff --git a/Documentation/misc-devices/espi-slave.rst b/Documentation/misc-devices/espi-slave.rst
+new file mode 100644
+index 0000000..185acd7
+--- /dev/null
++++ b/Documentation/misc-devices/espi-slave.rst
+@@ -0,0 +1,119 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++==========
++eSPI Slave
++==========
++
++:Author: Haiyue Wang <haiyue.wang@linux.intel.com>
++
++The PCH (**eSPI master**) provides the eSPI to support connection of a
++BMC (**eSPI slave**) to the platform.
++
++The LPC and eSPI interfaces are mutually exclusive. Both use the same
++pins, but on power-up, a HW strap determines if the eSPI or the LPC bus
++is operational. Once selected, it’s not possible to change to the other
++interface.
++
++``eSPI Channels and Supported Transactions``
++ +------+---------------------+----------------------+--------------------+
++ | CH # | Channel             | Posted Cycles        | Non-Posted Cycles  |
++ +======+=====================+======================+====================+
++ |  0   | Peripheral          | Memory Write,        | Memory Read,       |
++ |      |                     | Completions          | I/O Read/Write     |
++ +------+---------------------+----------------------+--------------------+
++ |  1   | Virtual Wire        | Virtual Wire GET/PUT | N/A                |
++ +------+---------------------+----------------------+--------------------+
++ |  2   | Out-of-Band Message | SMBus Packet GET/PUT | N/A                |
++ +------+---------------------+----------------------+--------------------+
++ |  3   | Flash Access        | N/A                  | Flash Read, Write, |
++ |      |                     |                      | Erase              |
++ +------+---------------------+----------------------+--------------------+
++ |  N/A | General             | Register Accesses    | N/A                |
++ +------+---------------------+----------------------+--------------------+
++
++Virtual Wire Channel (Channel 1) Overview
++-----------------------------------------
++
++The Virtual Wire channel uses a standard message format to communicate
++several types of signals between the components on the platform::
++
++ - Sideband and GPIO Pins: System events and other dedicated signals
++   between the PCH and eSPI slave. These signals are tunneled between the
++   two components over eSPI.
++
++ - Serial IRQ Interrupts: Interrupts are tunneled from the eSPI slave to
++   the PCH. Both edge and triggered interrupts are supported.
++
++When PCH runs on eSPI mode, from BMC side, the following VW messages are
++done in firmware::
++
++ 1. SLAVE_BOOT_LOAD_DONE / SLAVE_BOOT_LOAD_STATUS
++ 2. SUS_ACK
++ 3. OOB_RESET_ACK
++ 4. HOST_RESET_ACK
++
++``eSPI Virtual Wires (VW)``
++ +----------------------+---------+---------------------------------------+
++ |Virtual Wire          |PCH Pin  |Comments                               |
++ |                      |Direction|                                       |
++ +======================+=========+=======================================+
++ |SUS_WARN#             |Output   |PCH pin is a GPIO when eSPI is enabled.|
++ |                      |         |eSPI controller receives as VW message.|
++ +----------------------+---------+---------------------------------------+
++ |SUS_ACK#              |Input    |PCH pin is a GPIO when eSPI is enabled.|
++ |                      |         |eSPI controller receives as VW message.|
++ +----------------------+---------+---------------------------------------+
++ |SLAVE_BOOT_LOAD_DONE  |Input    |Sent when the BMC has completed its    |
++ |                      |         |boot process as an indication to       |
++ |                      |         |eSPI-MC to continue with the G3 to S0  |
++ |                      |         |exit.                                  |
++ |                      |         |The eSPI Master waits for the assertion|
++ |                      |         |of this virtual wire before proceeding |
++ |                      |         |with the SLP_S5# deassertion.          |
++ |                      |         |The intent is that it is never changed |
++ |                      |         |except on a G3 exit - it is reset on a |
++ |                      |         |G3 entry.                              |
++ +----------------------+---------+---------------------------------------+
++ |SLAVE_BOOT_LOAD_STATUS|Input    |Sent upon completion of the Slave Boot |
++ |                      |         |Load from the attached flash. A stat of|
++ |                      |         |1 indicates that the boot code load was|
++ |                      |         |successful and that the integrity of   |
++ |                      |         |the image is intact.                   |
++ +----------------------+---------+---------------------------------------+
++ |HOST_RESET_WARN       |Output   |Sent from the MC just before the Host  |
++ |                      |         |is about to enter reset. Upon receiving|
++ |                      |         |, the BMC must flush and quiesce its   |
++ |                      |         |upstream Peripheral Channel request    |
++ |                      |         |queues and assert HOST_RESET_ACK VWire.|
++ |                      |         |The MC subsequently completes any      |
++ |                      |         |outstanding posted transactions or     |
++ |                      |         |completions and then disables the      |
++ |                      |         |Peripheral Channel via a write to      |
++ |                      |         |the Slave's Configuration Register.    |
++ +----------------------+---------+---------------------------------------+
++ |HOST_RESET_ACK        |Input    |ACK for the HOST_RESET_WARN message    |
++ +----------------------+---------+---------------------------------------+
++ |OOB_RESET_WARN        |Output   |Sent from the MC just before the OOB   |
++ |                      |         |processor is about to enter reset. Upon|
++ |                      |         |receiving, the BMC must flush and      |
++ |                      |         |quiesce its OOB Channel upstream       |
++ |                      |         |request queues and assert OOB_RESET_ACK|
++ |                      |         |VWire. The-MC subsequently completes   |
++ |                      |         |any outstanding posted transactions or |
++ |                      |         |completions and then disables the OOB  |
++ |                      |         |Channel via a write to the Slave's     |
++ |                      |         |Configuration Register.                |
++ +----------------------+---------+---------------------------------------+
++ |OOB_RESET_ACK         |Input    |ACK for OOB_RESET_WARN message         |
++ +----------------------+---------+---------------------------------------+
++
++`Intel C620 Series Chipset Platform Controller Hub
++<https://www.intel.com/content/www/us/en/chipsets/c620-series-chipset-datasheet.html>`_
++
++   -- 17. Enhanced Serial Peripheral Interface
++
++
++`Enhanced Serial Peripheral Interface (eSPI)
++- Interface Base Specification (for Client and Server Platforms)
++<https://www.intel.com/content/dam/support/us/en/documents/software/chipset-software/327432-004_espi_base_specification_rev1.0.pdf>`_
++
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 03605f8..16428e3e 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -472,6 +472,13 @@ config VEXPRESS_SYSCFG
+ 	  bus. System Configuration interface is one of the possible means
+ 	  of generating transactions on this bus.
+ 
++config ASPEED_ESPI_SLAVE
++	depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP_MMIO
++	tristate "Aspeed ast2500 eSPI slave device driver"
++	---help---
++	  Control Aspeed ast2500 eSPI slave controller to handle event
++	  which needs the firmware's processing.
++
+ config ASPEED_LPC_CTRL
+ 	depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
+ 	tristate "Aspeed ast2400/2500 HOST LPC to BMC bridge control"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index c3c8624..94717e7 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -52,6 +52,7 @@ obj-$(CONFIG_GENWQE)		+= genwqe/
+ obj-$(CONFIG_ECHO)		+= echo/
+ obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
+ obj-$(CONFIG_CXL_BASE)		+= cxl/
++obj-$(CONFIG_ASPEED_ESPI_SLAVE)	+= aspeed-espi-slave.o
+ obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
+ obj-$(CONFIG_ASPEED_LPC_SNOOP)	+= aspeed-lpc-snoop.o
+ obj-$(CONFIG_PCI_ENDPOINT_TEST)	+= pci_endpoint_test.o
+diff --git a/drivers/misc/aspeed-espi-slave.c b/drivers/misc/aspeed-espi-slave.c
+new file mode 100644
+index 0000000..17605a1
+--- /dev/null
++++ b/drivers/misc/aspeed-espi-slave.c
+@@ -0,0 +1,263 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * I2C demultiplexer driver for PCA9641 bus master demultiplexer
-+ *
-+ * Copyright (c) 2010 Ericsson AB.
-+ *
-+ * Author: Ken Chen <chen.kenyy@inventec.com>
-+ *
-+ * Derived from:
-+ *
-+ * This file is licensed under the terms of the GNU General Public
-+ * License version 2. This program is licensed "as is" without any
-+ * warranty of any kind, whether express or implied.
++ * Copyright (C) 2012-2015, ASPEED Technology Inc.
++ * Copyright (c) 2015-2018, Intel Corporation.
 + */
 +
++#include <linux/atomic.h>
++#include <linux/errno.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/miscdevice.h>
 +#include <linux/module.h>
-+#include <linux/jiffies.h>
-+#include <linux/delay.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/poll.h>
++#include <linux/regmap.h>
++#include <linux/sched.h>
 +#include <linux/slab.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/i2c-mux.h>
++#include <linux/timer.h>
 +
-+#include <linux/i2c/pca954x.h>
++#define DEVICE_NAME     "aspeed-espi-slave"
 +
-+/*
-+ * The PCA9641 is two I2C bus masters demultiplexer. It supports two I2C masters 
-+ * connected to a single slave bus.
-+ *
-+ * It is designed for high reliability dual master I2C bus applications where
-+ * correct system operation is required, even when two I2C master issue their
-+ * commands at the same time. The arbiter will select a winner and let it work
-+ * uninterrupted, and the losing master will take control of the I2C bus after
-+ * the winnter has finished. The arbiter also allows for queued requests where
-+ * a master requests the downstream bus while the other master has control.
-+ *
-+ */
++#define ESPI_CTRL                 0x00
++#define      ESPI_CTRL_SW_RESET             GENMASK(31, 24)
++#define      ESPI_CTRL_OOB_CHRDY            BIT(4)
++#define ESPI_ISR                  0x08
++#define      ESPI_ISR_HW_RESET              BIT(31)
++#define      ESPI_ISR_VW_SYS_EVT1           BIT(22)
++#define      ESPI_ISR_VW_SYS_EVT            BIT(8)
++#define ESPI_IER                  0x0C
++#define ESPI_SYS_IER              0x94
++#define ESPI_SYS_EVENT            0x98
++#define ESPI_SYS_INT_T0           0x110
++#define ESPI_SYS_INT_T1           0x114
++#define ESPI_SYS_INT_T2           0x118
++#define ESPI_SYS_ISR              0x11C
++#define      ESPI_SYSEVT_HOST_RST_ACK       BIT(27)
++#define      ESPI_SYSEVT_SLAVE_BOOT_STATUS  BIT(23)
++#define      ESPI_SYSEVT_SLAVE_BOOT_DONE    BIT(20)
++#define      ESPI_SYSEVT_OOB_RST_ACK        BIT(16)
++#define      ESPI_SYSEVT_HOST_RST_WARN      BIT(8)
++#define      ESPI_SYSEVT_OOB_RST_WARN       BIT(6)
++#define      ESPI_SYSEVT_PLT_RST_N          BIT(5)
++#define ESPI_SYS1_IER             0x100
++#define ESPI_SYS1_EVENT           0x104
++#define ESPI_SYS1_INT_T0          0x120
++#define ESPI_SYS1_INT_T1          0x124
++#define ESPI_SYS1_INT_T2          0x128
++#define ESPI_SYS1_ISR             0x12C
++#define      ESPI_SYSEVT1_SUS_ACK           BIT(20)
++#define      ESPI_SYSEVT1_SUS_WARN          BIT(0)
 +
-+#define PCA9641_ID		0x01
-+#define PCA9641_ID_MAGIC	0x38
-+
-+#define PCA9641_CONTROL		0x01
-+#define PCA9641_STATUS		0x02
-+#define PCA9641_TIME		0x03
-+
-+#define PCA9641_CTL_LOCK_REQ            (1 << 0)
-+#define PCA9641_CTL_LOCK_GRANT          (1 << 1)
-+#define PCA9641_CTL_BUS_CONNECT         (1 << 2)
-+#define PCA9641_CTL_BUS_INIT            (1 << 3)
-+#define PCA9641_CTL_SMBUS_SWRST         (1 << 4)
-+#define PCA9641_CTL_IDLE_TIMER_DIS      (1 << 5)
-+#define PCA9641_CTL_SMBUS_DIS           (1 << 6)
-+#define PCA9641_CTL_PRIORITY            (1 << 7)
-+
-+#define PCA9641_STS_OTHER_LOCK          (1 << 0)
-+#define PCA9641_STS_BUS_INIT_FAIL       (1 << 1)
-+#define PCA9641_STS_BUS_HUNG            (1 << 2)
-+#define PCA9641_STS_MBOX_EMPTY          (1 << 3)
-+#define PCA9641_STS_MBOX_FULL           (1 << 4)
-+#define PCA9641_STS_TEST_INT            (1 << 5)
-+#define PCA9641_STS_SCL_IO              (1 << 6)
-+#define PCA9641_STS_SDA_IO              (1 << 7)
-+
-+#define PCA9641_RES_TIME	0x03
-+
-+#define other_lock(x)  ((x) & PCA9641_STS_OTHER_LOCK)
-+#define lock_grant(x)  ((x) & PCA9641_CTL_LOCK_GRANT)
-+
-+/* arbitration timeouts, in jiffies */
-+#define ARB_TIMEOUT	(HZ / 8)	/* 125 ms until forcing bus ownership */
-+#define ARB2_TIMEOUT	(HZ / 4)	/* 250 ms until acquisition failure */
-+
-+/* arbitration retry delays, in us */
-+#define SELECT_DELAY_SHORT	50
-+#define SELECT_DELAY_LONG	1000
-+
-+struct pca9641 {
-+	struct i2c_client *client;
-+	unsigned long select_timeout;
-+	unsigned long arb_timeout;
++struct aspeed_espi_slave_data {
++	struct regmap *map;
 +};
 +
-+static const struct i2c_device_id pca9641_id[] = {
-+	{"pca9641", 0},
-+	{}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, pca9641_id);
-+
-+#ifdef CONFIG_OF
-+static const struct of_device_id pca9641_of_match[] = {
-+	{ .compatible = "nxp,pca9641" },
-+	{}
-+};
-+#endif
-+
-+/*
-+ * Write to chip register. Don't use i2c_transfer()/i2c_smbus_xfer()
-+ * as they will try to lock the adapter a second time.
-+ */
-+static int pca9641_reg_write(struct i2c_client *client, u8 command, u8 val)
++static void aspeed_espi_slave_sys_event(struct aspeed_espi_slave_data *priv)
 +{
-+	struct i2c_adapter *adap = client->adapter;
-+	int ret;
++	u32 sts, evt;
 +
-+	if (adap->algo->master_xfer) {
-+		struct i2c_msg msg;
-+		char buf[2];
++	if (regmap_read(priv->map, ESPI_SYS_ISR, &sts) != 0 ||
++	    regmap_read(priv->map, ESPI_SYS_EVENT, &evt) != 0)
++		return;
 +
-+		msg.addr = client->addr;
-+		msg.flags = 0;
-+		msg.len = 2;
-+		buf[0] = command;
-+		buf[1] = val;
-+		msg.buf = buf;
-+		ret = __i2c_transfer(adap, &msg, 1);
-+	} else {
-+		union i2c_smbus_data data;
++	if (sts & ESPI_SYSEVT_HOST_RST_WARN)
++		regmap_update_bits_base(priv->map, ESPI_SYS_EVENT,
++			ESPI_SYSEVT_HOST_RST_ACK,
++			evt & ESPI_SYSEVT_HOST_RST_WARN ?
++				ESPI_SYSEVT_HOST_RST_ACK : 0,
++			NULL, false, true);
 +
-+		data.byte = val;
-+		ret = adap->algo->smbus_xfer(adap, client->addr,
-+					     client->flags,
-+					     I2C_SMBUS_WRITE,
-+					     command,
-+					     I2C_SMBUS_BYTE_DATA, &data);
++	if (sts & ESPI_SYSEVT_OOB_RST_WARN)
++		regmap_update_bits_base(priv->map, ESPI_SYS_EVENT,
++			ESPI_SYSEVT_OOB_RST_ACK,
++			evt & ESPI_SYSEVT_OOB_RST_WARN ?
++				ESPI_SYSEVT_OOB_RST_ACK : 0,
++			NULL, false, true);
++
++	regmap_write(priv->map, ESPI_SYS_ISR, sts);
++}
++
++static void aspeed_espi_slave_sys1_event(struct aspeed_espi_slave_data *priv)
++{
++	u32 sts;
++
++	if (regmap_read(priv->map, ESPI_SYS1_ISR, &sts) != 0)
++		return;
++
++	if (sts & ESPI_SYSEVT1_SUS_WARN)
++		regmap_update_bits_base(priv->map, ESPI_SYS1_EVENT,
++			ESPI_SYSEVT1_SUS_ACK, ESPI_SYSEVT1_SUS_ACK,
++			NULL, false, true);
++
++	regmap_write(priv->map, ESPI_SYS1_ISR, sts);
++}
++
++static irqreturn_t aspeed_espi_slave_irq(int irq, void *arg)
++{
++	struct aspeed_espi_slave_data *priv = arg;
++	u32 sts;
++
++	if (regmap_read(priv->map, ESPI_ISR, &sts) != 0)
++		return IRQ_NONE;
++
++	if (sts & ESPI_ISR_HW_RESET) {
++		regmap_update_bits_base(priv->map, ESPI_CTRL,
++				ESPI_CTRL_SW_RESET, 0,
++				NULL, false, true);
++		regmap_update_bits_base(priv->map, ESPI_CTRL,
++				ESPI_CTRL_SW_RESET, ESPI_CTRL_SW_RESET,
++				NULL, false, true);
++
++		regmap_update_bits_base(priv->map, ESPI_SYS_EVENT,
++				ESPI_SYSEVT_SLAVE_BOOT_STATUS |
++					ESPI_SYSEVT_SLAVE_BOOT_DONE,
++				ESPI_SYSEVT_SLAVE_BOOT_STATUS |
++					ESPI_SYSEVT_SLAVE_BOOT_DONE,
++				NULL, false, true);
 +	}
 +
-+	return ret;
++	if (sts & ESPI_ISR_VW_SYS_EVT)
++		aspeed_espi_slave_sys_event(priv);
++
++	if (sts & ESPI_ISR_VW_SYS_EVT1)
++		aspeed_espi_slave_sys1_event(priv);
++
++	regmap_write(priv->map, ESPI_ISR, sts);
++
++	return IRQ_HANDLED;
 +}
 +
-+/*
-+ * Read from chip register. Don't use i2c_transfer()/i2c_smbus_xfer()
-+ * as they will try to lock adapter a second time.
++/* Setup Interrupt Type/Enable of System Event from Master
++ *				   T2 T1 T0
++ *  1). HOST_RST_WARN : Dual Edge   1  0  0
++ *  2). OOB_RST_WARN  : Dual Edge   1  0  0
++ *  3). PLTRST_N      : Dual Edge   1  0  0
 + */
-+static int pca9641_reg_read(struct i2c_client *client, u8 command)
-+{
-+	struct i2c_adapter *adap = client->adapter;
-+	int ret;
-+	u8 val;
++#define ESPI_SYS_INT_T0_SET        0x00000000
++#define ESPI_SYS_INT_T1_SET        0x00000000
++#define ESPI_SYS_INT_T2_SET \
++(ESPI_SYSEVT_HOST_RST_WARN | ESPI_SYSEVT_OOB_RST_WARN | ESPI_SYSEVT_PLT_RST_N)
++#define ESPI_SYS_INT_SET \
++(ESPI_SYSEVT_HOST_RST_WARN | ESPI_SYSEVT_OOB_RST_WARN | ESPI_SYSEVT_PLT_RST_N)
 +
-+	if (adap->algo->master_xfer) {
-+		struct i2c_msg msg[2] = {
-+			{
-+				.addr = client->addr,
-+				.flags = 0,
-+				.len = 1,
-+				.buf = &command
-+			},
-+			{
-+				.addr = client->addr,
-+				.flags = I2C_M_RD,
-+				.len = 1,
-+				.buf = &val
-+			}
-+		};
-+		ret = __i2c_transfer(adap, msg, 2);
-+		if (ret == 2)
-+			ret = val;
-+		else if (ret >= 0)
-+			ret = -EIO;
-+	} else {
-+		union i2c_smbus_data data;
-+
-+		ret = adap->algo->smbus_xfer(adap, client->addr,
-+					     client->flags,
-+					     I2C_SMBUS_READ,
-+					     command,
-+					     I2C_SMBUS_BYTE_DATA, &data);
-+		if (!ret)
-+			ret = data.byte;
-+	}
-+	return ret;
-+}
-+
-+/*
-+ * Arbitration management functions
++/* Setup Interrupt Type/Enable of System Event 1 from Master
++ *				   T2 T1 T0
++ *  1). SUS_WARN    : Rising Edge   0  0  1
 + */
-+static void pca9641_release_bus(struct i2c_client *client)
++#define ESPI_SYS1_INT_T0_SET        ESPI_SYSEVT1_SUS_WARN
++#define ESPI_SYS1_INT_T1_SET        0x00000000
++#define ESPI_SYS1_INT_T2_SET        0x00000000
++#define ESPI_SYS1_INT_SET           ESPI_SYSEVT1_SUS_WARN
++
++static int aspeed_espi_slave_config_irq(struct aspeed_espi_slave_data *priv,
++			struct platform_device *pdev)
 +{
-+	int reg;
++	struct device *dev = &pdev->dev;
++	int irq;
++	int rc;
 +
-+	pca9641_reg_write(client, PCA9641_CONTROL, 0);
-+}
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
 +
-+/*
-+ * Channel arbitration
-+ *
-+ * Return values:
-+ *  <0: error
-+ *  0 : bus not acquired
-+ *  1 : bus acquired
-+ */
-+static int pca9641_arbitrate(struct i2c_client *client)
-+{
-+	struct i2c_mux_core *muxc = i2c_get_clientdata(client);
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+	int reg_ctl, reg_sts;
++	rc = devm_request_irq(dev, irq, aspeed_espi_slave_irq, IRQF_SHARED,
++			dev_name(dev), priv);
++	if (rc < 0)
++		return rc;
 +
-+	reg_ctl = pca9641_reg_read(client, PCA9641_CONTROL);
-+	if (reg_ctl < 0)
-+		return reg_ctl;
-+	reg_sts = pca9641_reg_read(client, PCA9641_STATUS);
++	regmap_update_bits(priv->map, ESPI_CTRL, ESPI_CTRL_OOB_CHRDY,
++			ESPI_CTRL_OOB_CHRDY);
 +
-+	if (!other_lock(reg_sts) && !lock_grant(reg_ctl)) {
-+		/*
-+		 * Bus is off. Request ownership or turn it on unless
-+		 * other master requested ownership.
-+		 */
-+                reg_ctl |= PCA9641_CTL_LOCK_REQ;
-+                pca9641_reg_write(client, PCA9641_CONTROL, reg_ctl);
++	regmap_write(priv->map, ESPI_SYS_INT_T0, ESPI_SYS_INT_T0_SET);
++	regmap_write(priv->map, ESPI_SYS_INT_T1, ESPI_SYS_INT_T1_SET);
++	regmap_write(priv->map, ESPI_SYS_INT_T2, ESPI_SYS_INT_T2_SET);
++	regmap_write(priv->map, ESPI_SYS_IER, ESPI_SYS_INT_SET);
 +
-+                udelay(100);
++	regmap_write(priv->map, ESPI_SYS1_INT_T0, ESPI_SYS1_INT_T0_SET);
++	regmap_write(priv->map, ESPI_SYS1_INT_T1, ESPI_SYS1_INT_T1_SET);
++	regmap_write(priv->map, ESPI_SYS1_INT_T2, ESPI_SYS1_INT_T2_SET);
++	regmap_write(priv->map, ESPI_SYS1_IER, ESPI_SYS1_INT_SET);
 +
-+		reg_ctl = pca9641_reg_read(client, PCA9641_CONTROL);
++	regmap_write(priv->map, ESPI_IER, 0xFFFFFFFF);
 +
-+                if (lock_grant(reg_ctl)) {
-+                        /*
-+                         * Other master did not request ownership,
-+                         * or arbitration timeout expired. Take the bus.
-+                         */
-+                        reg_ctl |= PCA9641_CTL_BUS_CONNECT | PCA9641_CTL_LOCK_REQ;
-+                        pca9641_reg_write(client, PCA9641_CONTROL, reg_ctl);
-+                        data->select_timeout = SELECT_DELAY_SHORT;
-+
-+                        return 1;
-+                } else {
-+                        /*
-+                         * Other master requested ownership.
-+                         * Set extra long timeout to give it time to acquire it.
-+                         */
-+                        data->select_timeout = SELECT_DELAY_LONG * 2;
-+                }
-+	} else if (lock_grant(reg_ctl)) {
-+                /*
-+                 * Bus is on, and we own it. We are done with acquisition.
-+                 */
-+                reg_ctl |= PCA9641_CTL_BUS_CONNECT | PCA9641_CTL_LOCK_REQ;
-+                pca9641_reg_write(client, PCA9641_CONTROL, reg_ctl);
-+
-+                return 1;
-+	} else if (other_lock(reg_sts)) {
-+                /*
-+                 * Other master owns the bus.
-+                 * If arbitration timeout has expired, force ownership.
-+                 * Otherwise request it.
-+                 */
-+                data->select_timeout = SELECT_DELAY_LONG;
-+                reg_ctl |= PCA9641_CTL_LOCK_REQ;
-+                pca9641_reg_write(client, PCA9641_CONTROL, reg_ctl);
-+
-+                /*
-+                 * if (time_is_before_eq_jiffies(data->arb_timeout)) {
-+                 * TODO:Time is up, take the bus and reset it.
-+                 *
-+                 *} else {
-+                 * TODO: Request bus ownership if needed
-+                 *
-+                 *}
-+                 */
-+        }
 +	return 0;
 +}
 +
-+static int pca9641_select_chan(struct i2c_mux_core *muxc, u32 chan)
++static void aspeed_espi_slave_boot_ack(struct aspeed_espi_slave_data *priv)
 +{
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+	struct i2c_client *client = data->client;
-+	int ret;
-+	unsigned long timeout = jiffies + ARB2_TIMEOUT;
-+		/* give up after this time */
++	u32 evt;
 +
-+	data->arb_timeout = jiffies + ARB_TIMEOUT;
-+		/* force bus ownership after this time */
++	if (regmap_read(priv->map, ESPI_SYS_EVENT, &evt) == 0 &&
++	    (evt & ESPI_SYSEVT_SLAVE_BOOT_STATUS) == 0)
++		regmap_write(priv->map, ESPI_SYS_EVENT, evt |
++			ESPI_SYSEVT_SLAVE_BOOT_STATUS |
++			ESPI_SYSEVT_SLAVE_BOOT_DONE);
 +
-+	do {
-+		ret = pca9641_arbitrate(client);
-+		if (ret)
-+			return ret < 0 ? ret : 0;
-+
-+		if (data->select_timeout == SELECT_DELAY_SHORT)
-+			udelay(data->select_timeout);
-+		else
-+			msleep(data->select_timeout / 1000);
-+	} while (time_is_after_eq_jiffies(timeout));
-+
-+	return -ETIMEDOUT;
++	if (regmap_read(priv->map, ESPI_SYS1_EVENT, &evt) == 0 &&
++	    (evt & ESPI_SYSEVT1_SUS_WARN) != 0)
++		regmap_write(priv->map, ESPI_SYS1_EVENT, evt |
++			ESPI_SYSEVT1_SUS_ACK);
 +}
 +
-+static int pca9641_release_chan(struct i2c_mux_core *muxc, u32 chan)
++static const struct regmap_config espi_slave_regmap_cfg = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = ESPI_SYS1_ISR,
++};
++
++static int aspeed_espi_slave_probe(struct platform_device *pdev)
 +{
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+	struct i2c_client *client = data->client;
++	struct aspeed_espi_slave_data *priv;
++	struct device *dev = &pdev->dev;
++	struct resource *res;
++	void __iomem *regs;
++	int rc;
 +
-+	pca9641_release_bus(client);
-+	return 0;
-+}
++	dev_set_name(dev, DEVICE_NAME);
 +
-+/*
-+ * I2C init/probing/exit functions
-+ */
-+static int pca9641_probe(struct i2c_client *client,
-+			 const struct i2c_device_id *id)
-+{
-+	struct i2c_adapter *adap = client->adapter;
-+	struct pca954x_platform_data *pdata = dev_get_platdata(&client->dev);
-+	struct i2c_mux_core *muxc;
-+	struct pca9641 *data;
-+	int force;
-+	int ret;
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	regs = devm_ioremap_resource(dev, res);
++	if (IS_ERR(regs))
++		return PTR_ERR(regs);
 +
-+	if (!i2c_check_functionality(adap, I2C_FUNC_SMBUS_BYTE_DATA))
-+		return -ENODEV;
-+
-+	/*
-+	 * I2C accesses are unprotected here.
-+	 * We have to lock the adapter before releasing the bus.
-+	 */
-+	i2c_lock_adapter(adap);
-+	pca9641_release_bus(client);
-+	i2c_unlock_adapter(adap);
-+
-+	/* Create mux adapter */
-+
-+	force = 0;
-+	if (pdata)
-+		force = pdata->modes[0].adap_id;
-+	muxc = i2c_mux_alloc(adap, &client->dev, 8, sizeof(*data),
-+			     I2C_MUX_ARBITRATOR,
-+			     pca9641_select_chan, pca9641_release_chan);
-+	if (!muxc)
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
 +		return -ENOMEM;
 +
-+	data = i2c_mux_priv(muxc);
-+	data->client = client;
++	priv->map = devm_regmap_init_mmio(dev, regs, &espi_slave_regmap_cfg);
++	if (IS_ERR(priv->map))
++		return PTR_ERR(priv->map);
 +
-+	i2c_set_clientdata(client, muxc);
++	rc = aspeed_espi_slave_config_irq(priv, pdev);
++	if (rc)
++		return rc;
 +
++	aspeed_espi_slave_boot_ack(priv);
 +
-+	ret = i2c_mux_add_adapter(muxc, force, 0, 0);
-+	if (ret) {
-+		dev_err(&client->dev, "failed to register master demultiplexer\n");
-+		return ret;
-+	}
-+
-+	dev_info(&client->dev, "registered master demultiplexer for I2C %s\n",
-+		 client->name);
++	platform_set_drvdata(pdev, priv);
 +
 +	return 0;
 +}
 +
-+static int pca9641_remove(struct i2c_client *client)
-+{
-+	struct i2c_mux_core *muxc = i2c_get_clientdata(client);
-+
-+	i2c_mux_del_adapters(muxc);
-+	return 0;
-+}
-+
-+static struct i2c_driver pca9641_driver = {
-+	.driver = {
-+		   .name = "pca9641",
-+		   .of_match_table = of_match_ptr(pca9641_of_match),
-+		   },
-+	.probe = pca9641_probe,
-+	.remove = pca9641_remove,
-+	.id_table = pca9641_id,
++static const struct of_device_id of_espi_slave_match_table[] = {
++	{ .compatible = "aspeed,ast2500-espi-slave" },
++	{ }
 +};
 +
-+module_i2c_driver(pca9641_driver);
++static struct platform_driver aspeed_espi_slave_driver = {
++	.driver = {
++		.name           = DEVICE_NAME,
++		.of_match_table = of_espi_slave_match_table,
++	},
++	.probe = aspeed_espi_slave_probe,
++};
 +
-+MODULE_AUTHOR("Ken Chen <chen.kenyy@inventec.com>");
-+MODULE_DESCRIPTION("PCA9641 I2C master demultiplexer driver");
++module_platform_driver(aspeed_espi_slave_driver);
++
++MODULE_DEVICE_TABLE(of, of_espi_slave_match_table);
 +MODULE_LICENSE("GPL v2");
++MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
++MODULE_DESCRIPTION("Linux device interface to the eSPI slave");
 -- 
-2.9.3
+2.7.4
