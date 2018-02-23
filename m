@@ -1,60 +1,78 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="P1+jzD01"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="QdgXFcl9"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3znXtQ3FlrzF1m7
- for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 11:59:25 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E4BF221623;
- Thu, 22 Feb 2018 19:59:22 -0500 (EST)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Thu, 22 Feb 2018 19:59:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=JqlJ0zA5P240+nS8yNlp9HITeIG6h
- 52hsiOz3SynKps=; b=P1+jzD01MVNHLADdAPsIxnEsL0N1zQHSlLQ0GrgTNh0K+
- f94sEyDtizR2El/lQglUIaiRVuEPpElaJFFA4mGInUox5O6iOlg1z7LNp512R6rm
- JX5/WTEJiWPhaBH6oK+niGD0Cppm/8DNiCXYxUWnUij52SqFy6vYaI2uIj73B7mr
- yTGZJOGfRA2GP14r5br2TvcYex5o50GsUXY/IKypmaoxZfsyxoKrB+lh3raYrhrS
- biH45BsvMhWSEWyZzlztG88BqfrkT+gtxTrOWRJMhWwDVx7dp5jKxLU1fMV2PpwO
- eF+gT07xQNgu+MX3mGl3Zs7ktB/wQ4bJiSlrYoNSg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=JqlJ0z
- A5P240+nS8yNlp9HITeIG6h52hsiOz3SynKps=; b=QdgXFcl9KVZBomQ5pbTswS
- B/cH7e7Pv7JSFBp4cZfBgIU/04SJvnS5aZtjcPon/xhuvV5gSYbrqGwqVxQrdi+E
- yV/q037+E6338PKbbv3YQ4IJgBVuETLXqAoYlhpFn/+y9OzLU6riwoIsaedYUu0l
- UeiIPDPliTCs5+64mKtC2Tqj40QBi/mf1UGREN4ZWYRL77jRR8eQ7x1oPCiiB1ai
- 3mEwYyX2B3pWjlOEJusFwqx7TlfbfyBDI+17ZYodhlxk8HFx0xcHkr8W5akIBn2o
- WiX/UpoCzxzmTEB6jEm/RuVIyV4+tE/nTZwkeyhL08KoMCVKAcLP67HJylmKhT+A
- ==
-X-ME-Sender: <xms:amePWvUfCXpaIGw39bwdUe88MGDnL8QUoBVMYgb1hn4ge-CccHVtxg>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id B5F97BA43B; Thu, 22 Feb 2018 19:59:22 -0500 (EST)
-Message-Id: <1519347562.1046507.1280382832.30C6065A@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3znYv70Q7jzF1lh
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Feb 2018 12:45:06 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w1N1j3PU104397
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 20:45:04 -0500
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2ga63u6h1p-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Feb 2018 20:45:03 -0500
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Thu, 22 Feb 2018 20:44:25 -0500
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 22 Feb 2018 20:44:22 -0500
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w1N1iLqO45744328; Fri, 23 Feb 2018 01:44:21 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A1FA6B2046;
+ Thu, 22 Feb 2018 21:46:39 -0500 (EST)
+Received: from birb.localdomain (unknown [9.185.142.38])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 233DDB204D;
+ Thu, 22 Feb 2018 21:46:39 -0500 (EST)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 1909C4E09A8; Fri, 23 Feb 2018 12:44:16 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Yugi Mani <yupalani@microsoft.com>,
+ Adriana Kobylak <anoo@linux.vnet.ibm.com>,
+ "openbmc\@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: BMC Image Signing Proposal
+In-Reply-To: <MWHPR21MB086454F2C875043A3B7FCBF9D6F10@MWHPR21MB0864.namprd21.prod.outlook.com>
+References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
+ <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
+ <1517207425.21006.27.camel@aj.id.au> <87shaoymux.fsf@linux.vnet.ibm.com>
+ <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
+ <87lggezywe.fsf@linux.vnet.ibm.com>
+ <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
+ <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
+ <MWHPR21MB086454F2C875043A3B7FCBF9D6F10@MWHPR21MB0864.namprd21.prod.outlook.com>
+Date: Fri, 23 Feb 2018 12:44:16 +1100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-efbb3405
-In-Reply-To: <1519162059-7210-2-git-send-email-eajames@linux.vnet.ibm.com>
-Subject: Re: [PATCH linux dev-4.13 1/2] Revert "ARM: dts: power9-cfam: Update
- OCC hwmon compatible"
-References: <1519162059-7210-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1519162059-7210-2-git-send-email-eajames@linux.vnet.ibm.com>
-Date: Fri, 23 Feb 2018 11:29:22 +1030
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+x-cbid: 18022301-0044-0000-0000-000003E8D228
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008579; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.00993691; UDB=6.00504943; IPR=6.00773031; 
+ MB=3.00019698; MTD=3.00000008; XFM=3.00000015; UTC=2018-02-23 01:44:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18022301-0045-0000-0000-00000818D925
+Message-Id: <877er4pjin.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-22_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1802230017
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,50 +84,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Feb 2018 00:59:27 -0000
+X-List-Received-Date: Fri, 23 Feb 2018 01:45:07 -0000
 
-On Wed, 21 Feb 2018, at 07:57, Eddie James wrote:
-> This reverts commit f370fa626a127aec50801dafcd595a2b5a47e482. The
-> dts properties were correct for the OCC driver.
-> ---
->  arch/arm/boot/dts/ibm-power9-cfam.dtsi | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/
-> ibm-power9-cfam.dtsi
-> index e0e738f..c110417 100644
-> --- a/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-> +++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-> @@ -113,7 +113,7 @@
->  			#size-cells = <0>;
->  
->  			occ@1 {
-> -				compatible = "ibm,p9-occ-hwmon";
-> +				compatible = "ibm,p9-occ";
->  				reg = <1>;
->  			};
->  		};
-> @@ -205,7 +205,8 @@
->  					#size-cells = <0>;
->  
->  					occ@2 {
-> -						compatible = "ibm,p9-occ-hwmon";
-> +						compatible =
-> +							"ibm,p9-occ";
+Yugi Mani <yupalani@microsoft.com> writes:
+> We should consider both of these requirements for image signing:
+> 1. Update verification
+> 2. Boot Verification
+>
+> Appending signature to image meets verification during firmware update. T=
+o do verification on every boot, we need something like FIT.=20=20
+> https://chromium.googlesource.com/chromiumos/third_party/u-boot-next/+/ch=
+romeos-v2013.06/doc/uImage.FIT
+>
+> As far as actual signing is concerned, we don't have access to private ke=
+y for security reasons. We should support two models:
+> Model 1:
+> Source code has private key and signing is part of build process ("bitbak=
+e obmc-phosphor-image")
+>
+> Model 2:
+> Source code does not have private key, Signing is done externally and
+> some post-processing is done to add hash to image.  (maybe a new task,
+> "bitbake obmc-phosphor-image -c add_hash")
 
-A bit petty, but can we fix the whitespace here? Maybe Joel can fix it when it's applied.
+For reference, for OpenPOWER host firmware, we support three models:
 
-Otherwise,
+Local mode (a.k.a. development mode) =E2=80=94 Build the container and sign
+using locally available private keys. Signatures are generated using
+simple openssl operations. Because the private keys are exposed on the
+local system (the build machine), this mode should be used only for
+development signing, or when the user is confident that the build
+machine is secure against unauthorized access.
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+Independent mode =E2=80=94 Generate the signing requests locally and export=
+ the
+requests for signing externally. External signing is by user's method of
+choice: any method capable of generating a ECDSA p521 signature (the
+built-in support uses openssl). Resulting signatures are re-imported to
+the container build process, to create the completed container. No
+private or privileged information is exposed at the build machine.
 
-Cheers,
+Production mode =E2=80=94 Build the container locally and interface with the
+remote signframework to retrieve signatures and (public) keys as
+needed. Signing is done remotely on a secure signing server using a
+hardware security module (HSM). Private keys are stored securely in the
+HSM and never exposed. Completed signatures are returned by the
+signframework and integrated into the container.
 
-Andrew
+(gratuitously copy&pasted from Nick's great docs up at
+https://github.com/open-power/sb-signing-utils/wiki )
 
->  						reg = <2>;
->  					};
->  				};
-> -- 
-> 1.8.3.1
-> 
+--=20
+Stewart Smith
+OPAL Architect, IBM.
