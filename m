@@ -1,46 +1,54 @@
-Return-Path: <vernon.mauery@linux.intel.com>
-Authentication-Results: ozlabs.org;
+Return-Path: <jae.hyun.yoo@linux.intel.com>
+Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
  (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zp2sJ1yftzF1kB
- for <openbmc@lists.ozlabs.org>; Sat, 24 Feb 2018 07:30:09 +1100 (AEDT)
-X-Amp-Result: UNSCANNABLE
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zpNDf2xWyzF1gt
+ for <openbmc@lists.ozlabs.org>; Sat, 24 Feb 2018 20:33:04 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2018 12:30:05 -0800
+ 24 Feb 2018 01:32:54 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,383,1515484800"; d="scan'208";a="20351210"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
- by orsmga008.jf.intel.com with ESMTP; 23 Feb 2018 12:30:05 -0800
-Date: Fri, 23 Feb 2018 12:30:05 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Stewart Smith <stewart@linux.vnet.ibm.com>
-Cc: Yugi Mani <yupalani@microsoft.com>,
- Adriana Kobylak <anoo@linux.vnet.ibm.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: BMC Image Signing Proposal
-Message-ID: <20180223203005.GH113334@mauery>
-References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
- <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
- <1517207425.21006.27.camel@aj.id.au>
- <87shaoymux.fsf@linux.vnet.ibm.com>
- <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
- <87lggezywe.fsf@linux.vnet.ibm.com>
- <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
- <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
- <MWHPR21MB086454F2C875043A3B7FCBF9D6F10@MWHPR21MB0864.namprd21.prod.outlook.com>
- <877er4pjin.fsf@linux.vnet.ibm.com>
+X-IronPort-AV: E=Sophos;i="5.47,386,1515484800"; d="scan'208";a="22764187"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.252.132.62])
+ ([10.252.132.62])
+ by fmsmga002.fm.intel.com with ESMTP; 24 Feb 2018 01:32:53 -0800
+Subject: Re: [PATCH v2 7/8] [PATCH 7/8] drivers/hwmon: Add a generic PECI
+ hwmon client driver
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Guenter Roeck <linux@roeck-us.net>,
+ joel@jms.id.au, andrew@aj.id.au, Arnd Bergmann <arnd@arndb.de>,
+ Greg KH <gregkh@linuxfoundation.org>, jdelvare@suse.com,
+ benh@kernel.crashing.org, linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
+References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
+ <20180221161606.32247-8-jae.hyun.yoo@linux.intel.com>
+ <20180221182608.GA11635@roeck-us.net>
+ <618f34cd-ee43-d8e4-4fb0-3c23bf03835f@linux.intel.com>
+ <20180221214859.GA30263@roeck-us.net>
+ <576a50c6-c302-654c-ceb3-aaf820b7738a@linux.intel.com>
+ <20180222003720.GA25250@lunn.ch>
+ <b506b4b1-7e7d-abd6-bac2-c45e7c1e0aae@linux.intel.com>
+ <CANiq72mjsfJRzfFmhbL7dnih_0=2pFoJDTrmi35x0yLmKrSBFA@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <85f66284-2e18-2a74-1e7b-9378353ab43e@linux.intel.com>
+Date: Sat, 24 Feb 2018 01:32:53 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.2
 MIME-Version: 1.0
+In-Reply-To: <CANiq72mjsfJRzfFmhbL7dnih_0=2pFoJDTrmi35x0yLmKrSBFA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <877er4pjin.fsf@linux.vnet.ibm.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -52,72 +60,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Feb 2018 20:30:13 -0000
+X-List-Received-Date: Sat, 24 Feb 2018 09:33:07 -0000
 
-On 23-Feb-2018 12:44 PM, Stewart Smith wrote:
->Yugi Mani <yupalani@microsoft.com> writes:
->> We should consider both of these requirements for image signing:
->> 1. Update verification
->> 2. Boot Verification
+On 2/23/2018 4:00 PM, Miguel Ojeda wrote:
+> On Thu, Feb 22, 2018 at 2:29 AM, Jae Hyun Yoo
+> <jae.hyun.yoo@linux.intel.com> wrote:
+>> On 2/21/2018 4:37 PM, Andrew Lunn wrote:
+>>>>
+>>>> But even with this change, it still needs to use delayed creation
+>>>> because BMC side kernel doesn't know how many DIMMs are populated on
+>>>> a remote server before the remote server completes its memory
+>>>> training and testing in BIOS, but it needs to check the remote
+>>>> server's CPU temperature as immediate as possible to make
+>>>> appropriate thermal control based on the remote CPU's temperature to
+>>>> avoid any critical thermal issue. What would be a better solution in
+>>>> this case?
+>>>
+>>>
+>>> You could change this driver so that it supports one DIMM.  Move the
+>>> 'hotplug' part into another driver which creates and destroys
+>>> instances of the hwmon DIMM device as the DIMMS come and go.
+>>>
+>>> Also, do you need to handle CPU hotplug? You could split the CPU
+>>> temperature part into a separate hwmon driver? And again create and
+>>> destroy devices as CPUs come and go?
+>>>
+>>>          Andrew
+>>>
 >>
->> Appending signature to image meets verification during firmware update. =
-To do verification on every boot, we need something like FIT.
->> https://chromium.googlesource.com/chromiumos/third_party/u-boot-next/+/c=
-hromeos-v2013.06/doc/uImage.FIT
+>> That seems like a possible option. I'll rewrite the hwmon driver again like
+>> that.
 >>
->> As far as actual signing is concerned, we don't have access to private k=
-ey for security reasons. We should support two models:
->> Model 1:
->> Source code has private key and signing is part of build process ("bitba=
-ke obmc-phosphor-image")
+>> Thanks for the good idea. :)
+> 
+> By the way, in the rewrite, please try to avoid the create*workqueue()
+> functions (they are deprecated :).
+> 
+> Cheers,
+> Miguel
+> 
+
+Hi Miguel,
+
+Thanks for letting me know that. I'll replace that with 
+alloc_workqueue(). :)
+
+Regards,
+Jae
+
 >>
->> Model 2:
->> Source code does not have private key, Signing is done externally and
->> some post-processing is done to add hash to image.  (maybe a new task,
->> "bitbake obmc-phosphor-image -c add_hash")
->
->For reference, for OpenPOWER host firmware, we support three models:
->
->Local mode (a.k.a. development mode) =E2=80=94 Build the container and sign
->using locally available private keys. Signatures are generated using
->simple openssl operations. Because the private keys are exposed on the
->local system (the build machine), this mode should be used only for
->development signing, or when the user is confident that the build
->machine is secure against unauthorized access.
->
->Independent mode =E2=80=94 Generate the signing requests locally and expor=
-t the
->requests for signing externally. External signing is by user's method of
->choice: any method capable of generating a ECDSA p521 signature (the
->built-in support uses openssl). Resulting signatures are re-imported to
->the container build process, to create the completed container. No
->private or privileged information is exposed at the build machine.
->
->Production mode =E2=80=94 Build the container locally and interface with t=
-he
->remote signframework to retrieve signatures and (public) keys as
->needed. Signing is done remotely on a secure signing server using a
->hardware security module (HSM). Private keys are stored securely in the
->HSM and never exposed. Completed signatures are returned by the
->signframework and integrated into the container.
->
->(gratuitously copy&pasted from Nick's great docs up at
->https://github.com/open-power/sb-signing-utils/wiki )
-
-Historically, we have supported two signing modes, similar to one and=20
-three:
-
-Local mode (a.k.a. development mode) - similar to what you describe=20
-where the keys are insecure and should not be used to generate=20
-production images.
-
-Re-Sign mode (for Production images) - takes a binary image, parses and=20
-deconstructs it, verifies the signature, and puts it back together with=20
-a new signature and public key certificate. This makes it so we only=20
-ever sign 'blessed' images with the production key, where this blessing=20
-comes from the validation team. The production build server initially=20
-signs the release image with a non-production key and that image gets=20
-tested. Then it gets re-signed with the production key only if it passes=20
-validation.
-
---Vernon
+>> Jae
