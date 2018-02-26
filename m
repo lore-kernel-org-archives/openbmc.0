@@ -1,31 +1,38 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <davem@davemloft.net>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=davemloft.net
+ (client-ip=184.105.139.130; helo=shards.monkeyblade.net;
+ envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=davemloft.net
+Received: from shards.monkeyblade.net (shards.monkeyblade.net
+ [184.105.139.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zqktP4J78zF1Dg
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 01:36:54 +1100 (AEDT)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w1QEI4wH002070;
- Mon, 26 Feb 2018 16:18:04 +0200
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 20AA45AA60; Mon, 26 Feb 2018 16:36:18 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: robh+dt@kernel.org, mark.rutland@arm.com, daniel.lezcano@linaro.org,
- tglx@linutronix.de, avifishman70@gmail.com, brendanhiggins@google.com,
- joel@jms.id.au
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v4 0/2] clocksource: npcm: add NPCM7xx timer driver
-Date: Mon, 26 Feb 2018 16:36:07 +0200
-Message-Id: <1519655769-25836-1-git-send-email-tmaimon77@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zqnQq5tMFzF1TJ
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 03:31:41 +1100 (AEDT)
+Received: from localhost (67.110.78.66.ptr.us.xo.net [67.110.78.66])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 67845141ECABD;
+ Mon, 26 Feb 2018 08:31:37 -0800 (PST)
+Date: Mon, 26 Feb 2018 11:31:36 -0500 (EST)
+Message-Id: <20180226.113136.1568195044048732904.davem@davemloft.net>
+To: sam@mendozajonas.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH net-next] net/ncsi: Add generic netlink family
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20180223041518.20195-1-sam@mendozajonas.com>
+References: <20180223041518.20195-1-sam@mendozajonas.com>
+X-Mailer: Mew version 6.7 on Emacs 25.3 / Mule 6.0 (HANACHIRUSATO)
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Mon, 26 Feb 2018 08:31:37 -0800 (PST)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -37,41 +44,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Feb 2018 14:37:02 -0000
+X-List-Received-Date: Mon, 26 Feb 2018 16:31:48 -0000
 
-Addressed comments from:.
- - Brendan Higgins: https://www.spinics.net/lists/devicetree/msg202331.html
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+Date: Fri, 23 Feb 2018 15:15:18 +1100
 
-Changes since version 3:
- - Modify prefix to npcm7xx_
- - Modify licensing to SPDX license format
+> + * @NCSI_CMD_SET_INTERFACE: set preferred package and channel combination.
+> + *	Requires NCSI_ATTR_IFINDEX and the preferred NCSI_ATTR_PACKAGE_ID and
+> + *	optionally the preferred NCSI_ATTR_CHANNEL_ID. If neither IDs are
+> + *	specified the setting is cleared.
 
-Changes since version 2:
- - The shutdown function called oneshot function that can cause a crash in the system,
-   Modify shutdown call to unique shutdown function.
- - Adding support to resume function
- - Using timer-of.c API
- - Modify NPCM750 compatible name.
+I think clearing the setting when the required attributes are missing
+is dangerous behavior.
 
-Changes since version 1:
- - Rename driver name
- - Removing unnecessary dependencies in configuration
- - Adding prefix to the macros
- - No changes to dt-binding documentation since v1
- 
-Modified driver have been tested on the NPCM750 evaluation board.
- 
-Tomer Maimon (2):
-  dt-binding: timer: document NPCM7xx timer DT bindings
-  clocksource: npcm: add NPCM7xx timer driver
-
- .../bindings/timer/nuvoton,npcm7xx-timer.txt       |  25 +++
- drivers/clocksource/Kconfig                        |   8 +
- drivers/clocksource/Makefile                       |   1 +
- drivers/clocksource/npcm7xx-timer.c                | 237 +++++++++++++++++++++
- 4 files changed, 271 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
- create mode 100644 drivers/clocksource/npcm7xx-timer.c
-
--- 
-2.14.1
+It is ambiguous whether the user intended the setting to be cleared,
+or was in error and forgot to supply the attribute due to a bug.
