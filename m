@@ -1,58 +1,72 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <Michael.E.Brown@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.96; helo=esa7.dell-outbound.iphmx.com;
+ envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ dmarc=pass (p=none dis=none) header.from=dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="UIFZ4GBZ"; 
+ dkim-atps=neutral
+Received: from esa7.dell-outbound.iphmx.com (esa7.dell-outbound.iphmx.com
+ [68.232.153.96])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zqyBT57f5zDq82
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 10:06:39 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2018 15:06:37 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,398,1515484800"; d="scan'208";a="21253005"
-Received: from orsmsx109.amr.corp.intel.com ([10.22.240.7])
- by orsmga006.jf.intel.com with ESMTP; 26 Feb 2018 15:06:37 -0800
-Received: from orsmsx157.amr.corp.intel.com (10.22.240.23) by
- ORSMSX109.amr.corp.intel.com (10.22.240.7) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Mon, 26 Feb 2018 15:06:36 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.126]) by
- ORSMSX157.amr.corp.intel.com ([169.254.9.126]) with mapi id 14.03.0319.002;
- Mon, 26 Feb 2018 15:06:36 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Paul.Vancil@dell.com"
- <Paul.Vancil@dell.com>, "hramasub@in.ibm.com" <hramasub@in.ibm.com>,
- "Balaji.B.Rao@dell.com" <Balaji.B.Rao@dell.com>,
- "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
- "jwcarman@us.ibm.com" <jwcarman@us.ibm.com>, "pradeep.kumar36@tcs.com"
- <pradeep.kumar36@tcs.com>, "rolfb@us.ibm.com" <rolfb@us.ibm.com>,
- "Chris.Ong@microsoft.com" <Chris.Ong@microsoft.com>, "alirhas@microsoft.com"
- <alirhas@microsoft.com>, "yupalani@microsoft.com" <yupalani@microsoft.com>
-CC: "Krishna.Kolakaluri@deltaww.com" <Krishna.Kolakaluri@deltaww.com>
-Subject: RE: Meeting Minutes 2/26/2018 - RE: Redfish call
-Thread-Topic: Meeting Minutes 2/26/2018 - RE: Redfish call
-Thread-Index: AdOvTaY9B7GkJWtTS7iZ0xkjLUUa8QACNh3Q
-Date: Mon, 26 Feb 2018 23:06:36 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F667F9D@ORSMSX114.amr.corp.intel.com>
-References: <3123a69b616140b489ee76efa89a7e93@ausx13mps334.AMER.DELL.COM>
-In-Reply-To: <3123a69b616140b489ee76efa89a7e93@ausx13mps334.AMER.DELL.COM>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zqyL61mT9zF0v5
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 10:13:17 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1519686471; x=1551222471;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=Svglc39pQae2MggMt1UPyK85yLhI0Ob75XlJZqwxtGo=;
+ b=UIFZ4GBZJdDZBhqEDK/2xMt0/VkXelGHBGEhewk1vYMNk2k7OUwpSov0
+ 3WpiW5HeuVIhiPelxjMdQbysII++sKW/hlpux/tYPA4GPKvlts701EhLI
+ fV9M2z8a/ePYQZ2wckDFUAg868DhAWm9dSpkH2rpMoY2k0/dYrI/PdhgC A=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GBAADJk5Rah8qZ6ERbAxkBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQEHAQEBAQGCWgGBShBwKAqDSmuXNYMYjh+HZoFTQwcDGAEKhRAcgitVFwE?=
+ =?us-ascii?q?CAQEBAQEBAgECEAEBAQoLCQgoL4I4Ig0ESycDAwEBAQEBAQEBASMBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQEBAQEBAQEBARUCDUMCGwQBIgQGOQIGCxIBNBYCBCYuAgEBAwENDYQkZBC?=
+ =?us-ascii?q?sMoFtOoQNAQGEY4IUAQEBAQEBAQMBAQEBAQEBEgoFh0KDPYZPDAIBAQEYgQw7V?=
+ =?us-ascii?q?oJGgmUFihOBF4ZOj2kJCocvhnyFYpJpjFGJJIEvIAOCBXBPDQiCLgmCSoE8FAE?=
+ =?us-ascii?q?2dwGLPoEXAQEB?=
+X-IPAS-Result: =?us-ascii?q?A2GBAADJk5Rah8qZ6ERbAxkBAQEBAQEBAQEBAQEHAQEBAQG?=
+ =?us-ascii?q?CWgGBShBwKAqDSmuXNYMYjh+HZoFTQwcDGAEKhRAcgitVFwECAQEBAQEBAgECE?=
+ =?us-ascii?q?AEBAQoLCQgoL4I4Ig0ESycDAwEBAQEBAQEBASMBAQEBAQEBAQEBAQEBAQEBAQE?=
+ =?us-ascii?q?BARUCDUMCGwQBIgQGOQIGCxIBNBYCBCYuAgEBAwENDYQkZBCsMoFtOoQNAQGEY?=
+ =?us-ascii?q?4IUAQEBAQEBAQMBAQEBAQEBEgoFh0KDPYZPDAIBAQEYgQw7VoJGgmUFihOBF4Z?=
+ =?us-ascii?q?Oj2kJCocvhnyFYpJpjFGJJIEvIAOCBXBPDQiCLgmCSoE8FAE2dwGLPoEXAQEB?=
+Received: from esa2.dell-outbound2.iphmx.com ([68.232.153.202])
+ by esa7.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2018 17:07:48 -0600
+From: <Michael.E.Brown@dell.com>
+To: <openbmc@lists.ozlabs.org>, <Paul.Vancil@dell.com>, <hramasub@in.ibm.com>, 
+ <Balaji.B.Rao@dell.com>, <bradleyb@fuzziesquirrel.com>,
+ <jwcarman@us.ibm.com>, <pradeep.kumar36@tcs.com>, <rolfb@us.ibm.com>,
+ <Chris.Ong@microsoft.com>, <alirhas@microsoft.com>, <ed.tanous@intel.com>,
+ <yupalani@microsoft.com>
+Received: from ausxipps310.us.dell.com ([143.166.148.211])
+ by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2018 05:06:14 +0600
+X-LoopCount0: from 10.166.132.56
+X-IronPort-AV: E=Sophos;i="5.47,398,1515477600"; 
+ d="scan'208,217";a="140167633"
+X-DLP: DLP_GlobalPCIDSS
+CC: <Krishna.Kolakaluri@deltaww.com>
+Subject: OpenBMC Redfish working group working call
+Thread-Topic: OpenBMC Redfish working group working call
+Thread-Index: AdOvVmar7fl1B0WTTsGf2vp1X5Ow6wAAPchQ
+Date: Mon, 26 Feb 2018 23:13:12 +0000
+Message-ID: <9001b890eda64299819af218aada2b2d@ausx13mps334.AMER.DELL.COM>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: multipart/alternative;
+ boundary="_000_9001b890eda64299819af218aada2b2dausx13mps334AMERDELLCOM_"
 MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -65,115 +79,342 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Feb 2018 23:06:42 -0000
+X-List-Received-Date: Mon, 26 Feb 2018 23:13:19 -0000
 
-RllJLCB0aGUgZG9jdW1lbnQgd2UganVzdCBsb29rZWQgb3ZlciBpcyBwb3N0ZWQgdG8gZ2Vycml0
-IHJldmlldyBoZXJlOg0KDQpodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy85
-MjIzLw0KDQotRWQNCg0KRnJvbTogTWljaGFlbC5FLkJyb3duQGRlbGwuY29tIFttYWlsdG86TWlj
-aGFlbC5FLkJyb3duQGRlbGwuY29tXSANClNlbnQ6IE1vbmRheSwgRmVicnVhcnkgMjYsIDIwMTgg
-MzowNSBQTQ0KVG86IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzsgUGF1bC5WYW5jaWxAZGVsbC5j
-b207IGhyYW1hc3ViQGluLmlibS5jb207IEJhbGFqaS5CLlJhb0BkZWxsLmNvbTsgYnJhZGxleWJA
-ZnV6emllc3F1aXJyZWwuY29tOyBqd2Nhcm1hbkB1cy5pYm0uY29tOyBwcmFkZWVwLmt1bWFyMzZA
-dGNzLmNvbTsgcm9sZmJAdXMuaWJtLmNvbTsgQ2hyaXMuT25nQG1pY3Jvc29mdC5jb207IGFsaXJo
-YXNAbWljcm9zb2Z0LmNvbTsgVGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVsLmNvbT47IHl1cGFs
-YW5pQG1pY3Jvc29mdC5jb20NCkNjOiBLcmlzaG5hLktvbGFrYWx1cmlAZGVsdGF3dy5jb20NClN1
-YmplY3Q6IE1lZXRpbmcgTWludXRlcyAyLzI2LzIwMTggLSBSRTogUmVkZmlzaCBjYWxsDQoNCldl
-IGhhZCB0aGUgaW5hdWd1cmFsIG1lZXRpbmcgb2YgdGhlIG5ld2x5IG1pbnRlZCDigJxPcGVuQk1D
-IFJlZGZpc2ggV29ya2luZyBHcm91cOKAnSB0b2RheSwgRmViIDI2LCAyMDE4LiBXZWxjb21lIHRv
-IGV2ZXJ5Ym9keSB3aG8gYXR0ZW5kZWQsIGFuZCB0aGFuayB5b3UgZm9yIHlvdXIgcGFydGljaXBh
-dGlvbi4NCsKgDQpNZWV0aW5nIE1pbnV0ZXM6DQrigKIgTWVldGluZyBGcmVxdWVuY3k6IFdlZWts
-eSBtZWV0aW5ncy4gQWdlbmRhOiB0b3VycyBvZiB0aGUgZXhpc3RpbmcgcmVkZmlzaCBzdGFja3Mu
-DQrigKIgTWVldGluZ3MgYXJlIG9uIE1vbmRheXMgYXQgNHBtIENTVCAoMlBNIFBTVCkNCuKAoiBB
-Y3Rpb24gSXRlbTogTWljaGFlbCB3aWxsIHNlbmQgb3V0IHVwZGF0ZWQgbWVldGluZyBpbnZpdGUu
-DQrigKIgRWQ6IFN0cm9uZyBvcGluaW9uIHRvIGtlZXAgdGhlIGludml0ZSBvbiB0aGUgbWFpbGlu
-ZyBsaXN0Lg0K4oCiIEFsaTogd2FudHMgdG8gcnVuIGluc2lkZSBhKG4gb3Blbikg4oCcd29ya2dy
-b3Vw4oCdIGZvciBhIHdoaWxlIGJlZm9yZSBleHBvc2luZyB0byB0aGUgcmVzdCBvZiB0aGUgY29t
-bXVuaXR5LiANCuKAoiBNaWNoYWVsOiBzdHJvbmcgb3BpbmlvbiB0byBrZWVwIGludml0ZSBvbiBt
-YWlsaW5nIGxpc3QgYW5kIGtlZXAgbWVldGluZyBvcGVuIHRvIHdob2V2ZXIgd2FudHMgdG8gYXR0
-ZW5kIGFuZCBjb250cmlidXRlDQrigKIgQWN0aW9uIGl0ZW06IGNyZWF0aW9uIG9mIHdvcmtncm91
-cCBmb3IgUmVkZmlzaA0K4oCiIERPTkU6IE1pY2hhZWwgd2F2ZWQgaGlzIHdhbmQgYW5kIHdlIG5v
-dyBoYXZlIGEg4oCcd29ya2dyb3Vw4oCdDQrigKIgUGFydGljaXBhdGlvbiBpbiB0aGUgd29ya2dy
-b3VwIGlzIHNlbGYtc2VsZWN0ZWQNCuKAoiBNZWV0aW5ncyBhcmUgb3BlbiB0byBhbGwgd2hvIGFy
-ZSBpbnRlcmVzdGVkDQrCoA0K4oCiIEFsaSAoTWljcm9zb2Z0KSByYWlzZWQgdGhlIGZvbGxvd2lu
-ZyBxdWVzdGlvbnMgdG8gYmUgZGlzY3Vzc2VkIGJ5IHRoZSB3b3JrZ3JvdXA6DQrigKIgRnJlcXVl
-bmN5OiB3ZWVrbHkuIE1vbmRheSBANHBtIChDU1QpLiBBbGkgbWVudGlvbmVkIHRoYXQgaGUgc2F3
-IHNvbWUgSUJNIGZvbGtzIHRoYXQgaGFkIGNvbmZsaWN0IGZvciBNb25kYXkuIEFjdGlvbjogTWlj
-aGFlbCB3aWxsIHNlbmQgcXVlcnkgdG8gdGhlIG1haWxpbmcgbGlzdCByZWdhcmRpbmcgdGltZXMg
-YW5kIHNlZSBpZiB0aGVyZSBpcyBhbm90aGVyIHRpbWUgdGhhdCBjYW4gYmUgbWFkZSB0byB3b3Jr
-Lg0K4oCiIFJlcXVpcmVtZW50czoNCuKAoiBTY2hlbWEuIE1pY3Jvc29mdCBoYXMgYSDigJxzdG9y
-YWdl4oCdIHNjaGVtYSBpbXBsZW1lbnRhdGlvbiBpbiB0aGVpciBjb2RlDQrigKIgV2hhdCBmaWVs
-ZHMgZG8gd2Ugd2FudCB0byBzdXBwb3J0Pw0K4oCiIERNVEYgaGFzIHN0YW5kYXJkaXplZCDigJxG
-ZWF0dXJlIFByb2ZpbGVz4oCdIHdoaWNoIGxpc3Qgd2hpY2ggc2NoZW1hIGl0ZW1zIG11c3QgYmUg
-c3VwcG9ydGVkDQrigKIgT0NQIFByb2ZpbGUNCuKAoiBPQ1AgQmFzZSBTZXJ2ZXIgcHJvZmlsZSDi
-gJMgY3VycmVudGx5IG9wZW4gZm9yIHJldmlldyBhdCBETVRGDQrigKIgTWljcm9zb2Z0IGhhcyBz
-ZWVuIHNvbWUgZ2FwcyBpbiBETVRGIHNjaGVtYToNCuKAoiBTZW5zb3JzOiAod2hhdCBraW5kIG9m
-IGdhcHM/KQ0K4oCiIFNlbnNvciBjb25uZWN0aW9uIOKAkyBwY2llLCB0aGVybWFsLCBmYW5zLCBl
-dmVyeXRoaW5nIGN1cnJlbnRseSBkaXNhZ2dyZWdhdGVkLiBNUyB3YW50cyBldmVyeXRoaW5nIGlu
-IG9uZSBjb2xsZWN0aW9uLg0K4oCiIEZSVSBzY2hlbWE6DQrigKIgRlJVIGNvbGxlY3Rpb24gKEVk
-IFRhbm91cyBzYXlzIHRoYXQgRlJVIGNvbGxlY3Rpb24gaXMgdW5kZXIgcmV2aWV3IGF0IFNQTUYp
-DQrigKIgRXZlbnQgTG9nczoNCuKAoiBObyB3YXkgdG8gdW5pcXVlbHkgaWRlbnRpZnkgd2hpY2gg
-ZXZlbnQgaXQgaXMuIEV2ZXJ5dGhpbmcgaXMgYSBzdHJpbmcuIChNZXNzYWdlIFJlZ2lzdHJpZXMg
-bWlnaHQgYmUgYSBoZWxwIGhlcmUpDQrigKIgUGxhbi9Sb2FkbWFwOg0K4oCiIE1pY3Jvc29mdCBj
-b21tdW5pY2F0ZWQgdGhhdCB0aGVpciBleHBlY3RlZCBkYXRlIHRvIHRyYW5zZmVyIHRvIExGIG9m
-IHRoZWlyIG9wZW5ibWMgY29kZSBpcyBmaXJzdCB3ZWVrIG9mIE1hcmNoLiAoTWFyY2ggNXRoIHdh
-cyBjb21tdW5pY2F0ZWQgYXMgZGF0ZSkNCsKgDQrigKIgRWQgVGFub3VzIChJbnRlbCkgc3RhcnRl
-ZCB3YWxraW5nIHRocm91Z2ggdGhlIHJlcXVpcmVtZW50cyBkb2N1bWVudCB0aGF0IGhlIGhhcyBz
-dGFydGVkIHB1dHRpbmcgdG9nZXRoZXIuDQrCoA0KQXR0ZW5kZWVzOg0KwqDCoMKgwqDCoMKgwqAg
-TWFyaW8gDQrCoMKgwqDCoMKgwqDCoCBSb2xmIEJydXR1cyAtIElCTQ0KwqDCoMKgwqDCoMKgwqAg
-RWQgVGFub3VzIOKAkyBUZWFtIGxlYWQgZm9yIEludGVsDQrCoMKgwqDCoMKgwqDCoCBDaHJpcyBP
-bmcg4oCTIDIgYm94ZXMgc2hpcHBpbmcgd2l0aCBPcGVuQk1DLiBPbmUgaW4gcHJvZHVjdGlvbiBp
-bnNpZGUgb2YgTWljcm9zb2Z0LCBvbmUgYWxtb3N0IGluIHByb2R1Y3Rpb24NCsKgwqDCoMKgwqDC
-oMKgIERvbmcgV2VpIOKAkyBBUk0g4oCTIHdhbnRzIHRvIG1vdmUgZnJvbSBJUE1JIHRvIFJlZGZp
-c2gNCsKgwqDCoMKgwqDCoMKgIE1hY2llaiDigJMgSW50ZWwgRENHIHNvZnR3YXJlIHRlYW0NCsKg
-wqDCoMKgwqDCoMKgIFl1Z2kg4oCTIE1pY3Jvc29mdCDigJMgd29ya3Mgd2l0aCBDaHJpcy4gQ29u
-Y2VybmVkIHdpdGggbWFraW5nIERNVEYgc3RhbmRhcmRzIG91dCBvZiBhbnkgY2hhbmdlcyB3ZSBn
-ZXQuDQrCoMKgwqDCoMKgwqDCoCBQYXVsIFZhbmNpbCDigJMgb3JpZ2luYWwgY28tY2hhaXIgRE1U
-Ri9yZWRmaXNoLg0KwqDCoMKgwqDCoMKgwqAgU2FjaGl0IEJha3NoaSDigJMgTGlrZXMgdG8gdGFs
-ayBvbiBtdXRlLiBXb3JrcyBvbiBEZWxsIHN0b3JhZ2UgZW5jbG9zdXJlIHN0YWNrDQrCoA0KwqAN
-CsKgDQrCoA0KLS0tLS1PcmlnaW5hbCBBcHBvaW50bWVudC0tLS0tDQpGcm9tOiBCcm93biwgTWlj
-aGFlbCBFIA0KU2VudDogTW9uZGF5LCBGZWJydWFyeSAyNiwgMjAxOCAzOjMxIFBNDQpUbzogQnJv
-d24sIE1pY2hhZWwgRTsgb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnOyBWYW5jaWwsIFBhdWw7IGhy
-YW1hc3ViQGluLmlibS5jb207IFJhbywgQmFsYWppIEI7IGJyYWRsZXliQGZ1enppZXNxdWlycmVs
-LmNvbTsgandjYXJtYW5AdXMuaWJtLmNvbTsgcHJhZGVlcC5rdW1hcjM2QHRjcy5jb207IHJvbGZi
-QHVzLmlibS5jb207IENocmlzIE9uZzsgQWxpIExhcmlqYW5pOyBUYW5vdXMsIEVkOyBZdWdpIE1h
-bmkNCkNjOiBLcmlzaG5hIEtvbGFrYWx1cmkNClN1YmplY3Q6IFJlZGZpc2ggY2FsbA0KV2hlbjog
-TW9uZGF5LCBGZWJydWFyeSAyNiwgMjAxOCA0OjAwIFBNLTU6MDAgUE0gKFVUQy0wNjowMCkgQ2Vu
-dHJhbCBUaW1lIChVUyAmIENhbmFkYSkuDQpXaGVyZTogU2t5cGUgTWVldGluZw0KwqANCsKgDQpD
-ZXJ0YWlubHkgYSBsaXR0bGUgYml0IGxhdGVyIHNlbmRpbmcgb3V0IHRoaXMgY2FsbCB0aGFuIEkg
-YW50aWNpcGF0ZWQsIGJ1dCBpdCBzb3VuZHMgbGlrZSBldmVyeWJvZHkgdGhvdWdodCB0b2RheSB3
-YXMgYSBnb29kIHRpbWUgdG8ga2ljayBldmVyeXRoaW5nIG9mZi4NCsKgDQpTdGVhbGluZyBFZOKA
-mXMgSW5pdGlhbCBhZ2VuZGEgcHJvcG9zYWw6DQrCoA0KSW5pdGlhbCBpbnRyb2R1Y3Rpb25zDQpP
-dmVydmlldyBvZiBleGlzdGluZyBpbXBsZW1lbnRhdGlvbnMgYW5kIHdvcmsNCsKgwqDCoMKgwqDC
-oMKgIEJtY3dlYiBpbXBsZW1lbnRhdGlvbiBieSBJbnRlbCDigJMgRWQgVGFub3VzDQrCoMKgwqDC
-oMKgwqDCoCBHby1yZWRmaXNoIGltcGxlbWVudGF0aW9uIGJ5IERlbGwg4oCTIE1pY2hhZWwgQnJv
-d24NCsKgwqDCoMKgwqDCoMKgIFJlZGZpc2ggaW1wbGVtZW50YXRpb24gYnkgTWljcm9zb2Z0IOKA
-kyBBbGkgTGFyaWphbmkvWXVnaSBNYW5pL0JyeWFuIEtlbGx5DQrCoMKgwqDCoMKgwqDCoCBQYXVs
-IFZhbmNpbOKAmXMgb3BlbiBweXRob24gcmVkZmlzaA0KwqDCoMKgwqDCoMKgwqAgT3RoZXJzPw0K
-wqANCi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uDQrihpIgSm9pbiBTa3lwZSBNZWV0aW5nwqAgwqDC
-oCANClRyb3VibGUgSm9pbmluZz8gVHJ5IFNreXBlIFdlYiBBcHAgDQpKb2luIGJ5IHBob25lDQpJ
-bnRlcm5hbDo3MjQtMjY2MyAoR2xvYmFsKcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgRW5n
-bGlzaCAoVW5pdGVkIFN0YXRlcykgDQpVbml0ZWQgU3RhdGVzLCBBdXN0aW46ICsxLTUxMi03MjQt
-MjY2MyAoR2xvYmFsKcKgwqDCoMKgwqDCoMKgwqDCoCBFbmdsaXNoIChVbml0ZWQgU3RhdGVzKSAN
-ClVuaXRlZCBTdGF0ZXMsIFRvbGwgRnJlZTogKzEtODc3LTQ5MS05NzM4IChHbG9iYWwpwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBFbmdsaXNoIChVbml0ZWQgU3RhdGVzKSANCkluZGlhLCBS
-ZWxpYW5jZToxODAwLTMwLTEwOTA0NSAoR2xvYmFsKcKgwqDCoMKgwqDCoMKgwqDCoCBFbmdsaXNo
-IChVbml0ZWQgU3RhdGVzKSANCkluZGlhLCBCU05MOjE4MDAtNDI1LTUxMDEgKEdsb2JhbCnCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEVuZ2xpc2ggKFVuaXRlZCBTdGF0ZXMpIA0KSXJlbGFu
-ZCwgRHVibGluOiArMzUzLTEtMjc5NDA2MiAoR2xvYmFsKcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIEVuZ2xpc2ggKFVuaXRlZCBLaW5nZG9tKSANCkVuZ2xhbmQsIEJyYWNrbmVsbDog
-KzQ0LTEzNDQtMzcyMDQwIChHbG9iYWwpwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEVuZ2xpc2gg
-KFVuaXRlZCBLaW5nZG9tKSANCk1hbGF5c2lhLCBQZW5hbmc6ICs2MC00LTYzMzY2NjYgKEdsb2Jh
-bCnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBFbmdsaXNoIChVbml0ZWQgU3RhdGVz
-KSANCkJyYXppbDozMDAzLTMzNTUgKEdsb2JhbCnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgUG9ydHVndWVzZSAoQnJhemlsKSANCkNoaW5hLCBUb2xsIEZyZWU6ODAwLTg1OC0wNzU2IChH
-bG9iYWwpwqDCoMKgwqDCoMKgwqDCoMKgwqAgRW5nbGlzaCAoVW5pdGVkIFN0YXRlcykgDQpKYXBh
-biwgS2F3YXNha2k6ICs4MS00NC01MjA2ODc3IChHbG9iYWwpwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgSmFwYW5lc2UgKEphcGFuKSANCkNhbmFkYSwgVG9yb250bzogKzEtNDE2LTc1
-ODIzMjkgKEdsb2JhbCnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBFbmdsaXNoIChV
-bml0ZWQgU3RhdGVzKSANCkZpbmQgYSBsb2NhbCBudW1iZXIgDQrCoA0KQ29uZmVyZW5jZSBJRDog
-MjI2MDc5MDcNCkZvcmdvdCB5b3VyIGRpYWwtaW4gUElOPyB8SGVscMKgwqDCoMKgIA0KwqANClsh
-T0MoWzEwMzNdKSFdDQouLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLg0KwqANCsKgDQo=
+--_000_9001b890eda64299819af218aada2b2dausx13mps334AMERDELLCOM_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Per meeting decision, this meeting invite is for the "OpenBMC Redfish worki=
+ng group". This working group will meet every Monday at 4pm CST and publish=
+ meeting minutes to the mailing list. The working group is open to anybody =
+who would like to participate in development of Redfish on OpenBMC.
+
+Upcoming Meeting Agenda
+        2018-03-05: Ed Tanous (Intel) to go over 'bmcweb' requirements and =
+implementation. Depending on time, Michael Brown (Dell) to start going over=
+ go-redfish requirements and implementation.
+        2018-03-12: Michael Brown (Dell) on vacation. (May need some altern=
+ative host for this meeting depending on if I can dial in from Iceland).
+        2018-03-19: Paul Vancil to discuss python implementation
+        2018-03-26: open
+
+Past meetings:
+        Meeting Minutes 2018-02-26: https://lists.ozlabs.org/pipermail/open=
+bmc/2018-February/010955.html
+
+...........................................................................=
+..............................................................
+--> Join Skype Meeting<https://meet.dell.com/michael_e_brown/JFFHZN1F>
+  Trouble Joining? Try Skype Web App<https://meet.dell.com/michael_e_brown/=
+JFFHZN1F?sl=3D1>
+Join by phone
+Internal:724-2663<tel:Internal:724-2663> (Global)               English (Un=
+ited States)
+United States, Austin: +1-512-724-2663<tel:United%20States,%20Austin:%20+1-=
+512-724-2663> (Global)               English (United States)
+United States, Toll Free: +1-877-491-9738<tel:United%20States,%20Toll%20Fre=
+e:%20+1-877-491-9738> (Global)               English (United States)
+India, Reliance:1800-30-109045<tel:India,%20Reliance:1800-30-109045> (Globa=
+l)           English (United States)
+India, BSNL:1800-425-5101<tel:India,%20BSNL:1800-425-5101> (Global)        =
+     English (United States)
+Ireland, Dublin: +353-1-2794062<tel:Ireland,%20Dublin:%20+353-1-2794062> (G=
+lobal)               English (United Kingdom)
+England, Bracknell: +44-1344-372040<tel:England,%20Bracknell:%20+44-1344-37=
+2040> (Global)               English (United Kingdom)
+Malaysia, Penang: +60-4-6336666<tel:Malaysia,%20Penang:%20+60-4-6336666> (G=
+lobal)               English (United States)
+Brazil:3003-3355<tel:Brazil:3003-3355> (Global)                 Portuguese =
+(Brazil)
+China, Toll Free:800-858-0756<tel:China,%20Toll%20Free:800-858-0756> (Globa=
+l)           English (United States)
+Japan, Kawasaki: +81-44-5206877<tel:Japan,%20Kawasaki:%20+81-44-5206877> (G=
+lobal)               Japanese (Japan)
+Canada, Toronto: +1-416-7582329<tel:Canada,%20Toronto:%20+1-416-7582329> (G=
+lobal)               English (United States)
+Find a local number<https://dialin.dell.com>
+
+Conference ID: 22607907
+ Forgot your dial-in PIN?<https://dialin.dell.com> |Help<https://dialin.del=
+l.com/DellHelp/>
+
+[!OC([1033])!]
+...........................................................................=
+..............................................................
+
+
+
+--_000_9001b890eda64299819af218aada2b2dausx13mps334AMERDELLCOM_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from rtf -->
+<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
+ #800000 2px solid; } --></style>
+</head>
+<body>
+<font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">
+<div>Per meeting decision, this meeting invite is for the &#8220;OpenBMC Re=
+dfish working group&#8221;. This working group will meet every Monday at 4p=
+m CST and publish meeting minutes to the mailing list. The working group is=
+ open to anybody who would like to participate
+in development of Redfish on OpenBMC.</div>
+<div>&nbsp;</div>
+<div>Upcoming Meeting Agenda</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018-03-05: Ed Tanous (Inte=
+l) to go over &#8216;bmcweb&#8217; requirements and implementation. Dependi=
+ng on time, Michael Brown (Dell) to start going over go-redfish requirement=
+s and implementation.</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018-03-12: Michael Brown (=
+Dell) on vacation. (May need some alternative host for this meeting dependi=
+ng on if I can dial in from Iceland).</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018-03-19: Paul Vancil to =
+discuss python implementation</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018-03-26: open</div>
+<div>&nbsp;</div>
+<div>Past meetings:</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Meeting Minutes 2018-02-26:=
+ <a href=3D"https://lists.ozlabs.org/pipermail/openbmc/2018-February/010955=
+.html"><font color=3D"#0563C1"><u>https://lists.ozlabs.org/pipermail/openbm=
+c/2018-February/010955.html</u></font></a></div>
+<div>&nbsp;</div>
+<div><font size=3D"1" color=3D"#404040"><span style=3D"font-size:8pt;">....=
+...........................................................................=
+..........................................................</span></font></d=
+iv>
+<a name=3D"OutJoinLink"></a>
+<div><font size=3D"4" color=3D"#0066CC"><span style=3D"font-size:14pt;"><fo=
+nt face=3D"Wingdings">=E0</font> <a href=3D"https://meet.dell.com/michael_e=
+_brown/JFFHZN1F"><font size=3D"4"><span style=3D"font-size:16pt;"><u>Join S=
+kype Meeting</u></span></font></a><font color=3D"black">&nbsp;
+</font><a name=3D"OutSharedNoteBorder"></a>&nbsp;&nbsp; <a name=3D"OutShare=
+dNoteLink"></a> </span></font></div>
+<div style=3D"margin-top:3pt;margin-bottom:12pt;padding-left:16pt;"><font s=
+ize=3D"2"><span style=3D"font-size:10pt;">Trouble Joining? <a href=3D"https=
+://meet.dell.com/michael_e_brown/JFFHZN1F?sl=3D1"><font color=3D"#0066CC"><=
+u>Try Skype Web App</u></font></a><u> </u></span></font></div>
+<div><font size=3D"3"><span style=3D"font-size:13pt;">Join by phone</span><=
+/font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:Internal:724-2663"><font s=
+ize=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt;"><u>Internal:724=
+-2663</u></span></font></a><font size=3D"2"><span style=3D"font-size:10pt;"=
+> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; English (United States)
+</span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:United States, Austin: &#4=
+3;1-512-724-2663"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-si=
+ze:10pt;"><u>United States, Austin: &#43;1-512-724-2663</u></span></font></=
+a><font size=3D"2"><span style=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+English (United States) </span></font><font size=3D"1"><span style=3D"font-=
+size:3pt;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:United States, Toll Free: =
+&#43;1-877-491-9738"><font size=3D"2" color=3D"#0066CC"><span style=3D"font=
+-size:10pt;"><u>United States, Toll Free: &#43;1-877-491-9738</u></span></f=
+ont></a><font size=3D"2"><span style=3D"font-size:10pt;">
+(Global)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; English (United States) </span></font><font size=3D"1"><s=
+pan style=3D"font-size:3pt;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:India, Reliance:1800-30-10=
+9045"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt;"><u=
+>India, Reliance:1800-30-109045</u></span></font></a><font size=3D"2"><span=
+ style=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;
+English (United States) </span></font><font size=3D"1"><span style=3D"font-=
+size:3pt;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:India, BSNL:1800-425-5101"=
+><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt;"><u>Indi=
+a, BSNL:1800-425-5101</u></span></font></a><font size=3D"2"><span style=3D"=
+font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; English
+(United States) </span></font><font size=3D"1"><span style=3D"font-size:3pt=
+;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:Ireland, Dublin: &#43;353-=
+1-2794062"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt=
+;"><u>Ireland, Dublin: &#43;353-1-2794062</u></span></font></a><font size=
+=3D"2"><span style=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+English (United Kingdom) </span></font><font size=3D"1"><span style=3D"font=
+-size:3pt;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:England, Bracknell: &#43;4=
+4-1344-372040"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:=
+10pt;"><u>England, Bracknell: &#43;44-1344-372040</u></span></font></a><fon=
+t size=3D"2"><span style=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+English (United Kingdom) </span></font><font size=3D"1"><span style=3D"font=
+-size:3pt;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:Malaysia, Penang: &#43;60-=
+4-6336666"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt=
+;"><u>Malaysia, Penang: &#43;60-4-6336666</u></span></font></a><font size=
+=3D"2"><span style=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+English (United States) </span></font><font size=3D"1"><span style=3D"font-=
+size:3pt;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:Brazil:3003-3355"><font si=
+ze=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt;"><u>Brazil:3003-3=
+355</u></span></font></a><font size=3D"2"><span style=3D"font-size:10pt;"> =
+(Global)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; Portuguese (Brazil) </span></font><font size=3D"1">=
+<span style=3D"font-size:3pt;">
+</span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:China, Toll Free:800-858-0=
+756"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt;"><u>=
+China, Toll Free:800-858-0756</u></span></font></a><font size=3D"2"><span s=
+tyle=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; English
+(United States) </span></font><font size=3D"1"><span style=3D"font-size:3pt=
+;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:Japan, Kawasaki: &#43;81-4=
+4-5206877"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt=
+;"><u>Japan, Kawasaki: &#43;81-44-5206877</u></span></font></a><font size=
+=3D"2"><span style=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Japanese (Japan) </span></font><font size=3D"1"><span style=3D"font-size:3p=
+t;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"tel:Canada, Toronto: &#43;1-41=
+6-7582329"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt=
+;"><u>Canada, Toronto: &#43;1-416-7582329</u></span></font></a><font size=
+=3D"2"><span style=3D"font-size:10pt;"> (Global)&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+English (United States) </span></font><font size=3D"1"><span style=3D"font-=
+size:3pt;"> </span></font></div>
+<div style=3D"margin-bottom:2pt;"><a href=3D"https://dialin.dell.com"><font=
+ size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt;"><u>Find a loc=
+al number</u></span></font></a> </div>
+<div style=3D"margin-bottom:2pt;">&nbsp;</div>
+<div style=3D"margin-bottom:2pt;"><font size=3D"2"><span style=3D"font-size=
+:10pt;">Conference ID: 22607907</span></font></div>
+<div><font size=3D"1"><span style=3D"font-size:3pt;"> <a href=3D"https://di=
+alin.dell.com"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-size:=
+10pt;"><u>Forgot your dial-in PIN?</u></span></font></a> <font size=3D"2"><=
+span style=3D"font-size:11pt;">|</span></font><a href=3D"https://dialin.del=
+l.com/DellHelp/"><font size=3D"2" color=3D"#0066CC"><span style=3D"font-siz=
+e:10pt;"><u>Help</u></span></font></a>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></font></div>
+<div>&nbsp;</div>
+<div><font size=3D"1" color=3D"#CFCFCF"><span style=3D"font-size:1pt;"><fon=
+t size=3D"1"><span style=3D"font-size:0.65pt;"><sub>[!OC([1033])!]</sub></s=
+pan></font></span></font></div>
+<div style=3D"margin-bottom:10pt;"><font size=3D"1" color=3D"#404040"><span=
+ style=3D"font-size:8pt;">.................................................=
+...........................................................................=
+.............</span></font></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+</span></font>
+</body>
+</html>
+
+--_000_9001b890eda64299819af218aada2b2dausx13mps334AMERDELLCOM_
+Content-Type: text/calendar; charset="utf-8"; method=REQUEST
+Content-Transfer-Encoding: base64
+
+QkVHSU46VkNBTEVOREFSDQpNRVRIT0Q6UkVRVUVTVA0KUFJPRElEOk1pY3Jvc29mdCBFeGNoYW5n
+ZSBTZXJ2ZXIgMjAxMA0KVkVSU0lPTjoyLjANCkJFR0lOOlZUSU1FWk9ORQ0KVFpJRDpDZW50cmFs
+IFN0YW5kYXJkIFRpbWUNCkJFR0lOOlNUQU5EQVJEDQpEVFNUQVJUOjE2MDEwMTAxVDAyMDAwMA0K
+VFpPRkZTRVRGUk9NOi0wNTAwDQpUWk9GRlNFVFRPOi0wNjAwDQpSUlVMRTpGUkVRPVlFQVJMWTtJ
+TlRFUlZBTD0xO0JZREFZPTFTVTtCWU1PTlRIPTExDQpFTkQ6U1RBTkRBUkQNCkJFR0lOOkRBWUxJ
+R0hUDQpEVFNUQVJUOjE2MDEwMTAxVDAyMDAwMA0KVFpPRkZTRVRGUk9NOi0wNjAwDQpUWk9GRlNF
+VFRPOi0wNTAwDQpSUlVMRTpGUkVRPVlFQVJMWTtJTlRFUlZBTD0xO0JZREFZPTJTVTtCWU1PTlRI
+PTMNCkVORDpEQVlMSUdIVA0KRU5EOlZUSU1FWk9ORQ0KQkVHSU46VkVWRU5UDQpPUkdBTklaRVI6
+TUFJTFRPOk1pY2hhZWxfRV9Ccm93bkBEZWxsLmNvbQ0KQVRURU5ERUU7Uk9MRT1SRVEtUEFSVElD
+SVBBTlQ7UEFSVFNUQVQ9TkVFRFMtQUNUSU9OO1JTVlA9RkFMU0U6TUFJTFRPOm9wZW5iDQogbWNA
+bGlzdHMub3psYWJzLm9yZw0KQVRURU5ERUU7Uk9MRT1SRVEtUEFSVElDSVBBTlQ7UEFSVFNUQVQ9
+TkVFRFMtQUNUSU9OO1JTVlA9RkFMU0U6TUFJTFRPOlBhdWxfDQogVmFuY2lsQERlbGwuY29tDQpB
+VFRFTkRFRTtST0xFPVJFUS1QQVJUSUNJUEFOVDtQQVJUU1RBVD1ORUVEUy1BQ1RJT047UlNWUD1G
+QUxTRTpNQUlMVE86aHJhbWENCiBzdWJAaW4uaWJtLmNvbQ0KQVRURU5ERUU7Uk9MRT1SRVEtUEFS
+VElDSVBBTlQ7UEFSVFNUQVQ9TkVFRFMtQUNUSU9OO1JTVlA9RkFMU0U6TUFJTFRPOkJhbGFqDQog
+aV9CX1Jhb0BkZWxsLmNvbQ0KQVRURU5ERUU7Uk9MRT1SRVEtUEFSVElDSVBBTlQ7UEFSVFNUQVQ9
+TkVFRFMtQUNUSU9OO1JTVlA9RkFMU0U6TUFJTFRPOmJyYWRsDQogZXliQGZ1enppZXNxdWlycmVs
+LmNvbQ0KQVRURU5ERUU7Uk9MRT1SRVEtUEFSVElDSVBBTlQ7UEFSVFNUQVQ9TkVFRFMtQUNUSU9O
+O1JTVlA9RkFMU0U6TUFJTFRPOmp3Y2FyDQogbWFuQHVzLmlibS5jb20NCkFUVEVOREVFO1JPTEU9
+UkVRLVBBUlRJQ0lQQU5UO1BBUlRTVEFUPU5FRURTLUFDVElPTjtSU1ZQPUZBTFNFOk1BSUxUTzpw
+cmFkZQ0KIGVwLmt1bWFyMzZAdGNzLmNvbQ0KQVRURU5ERUU7Uk9MRT1SRVEtUEFSVElDSVBBTlQ7
+UEFSVFNUQVQ9TkVFRFMtQUNUSU9OO1JTVlA9RkFMU0U6TUFJTFRPOnJvbGZiDQogQHVzLmlibS5j
+b20NCkFUVEVOREVFO1JPTEU9UkVRLVBBUlRJQ0lQQU5UO1BBUlRTVEFUPU5FRURTLUFDVElPTjtS
+U1ZQPUZBTFNFOk1BSUxUTzpDaHJpcw0KIC5PbmdAbWljcm9zb2Z0LmNvbQ0KQVRURU5ERUU7Uk9M
+RT1SRVEtUEFSVElDSVBBTlQ7UEFSVFNUQVQ9TkVFRFMtQUNUSU9OO1JTVlA9RkFMU0U6TUFJTFRP
+OmFsaXJoDQogYXNAbWljcm9zb2Z0LmNvbQ0KQVRURU5ERUU7Uk9MRT1SRVEtUEFSVElDSVBBTlQ7
+UEFSVFNUQVQ9TkVFRFMtQUNUSU9OO1JTVlA9RkFMU0U6TUFJTFRPOmVkLnRhDQogbm91c0BpbnRl
+bC5jb20NCkFUVEVOREVFO1JPTEU9UkVRLVBBUlRJQ0lQQU5UO1BBUlRTVEFUPU5FRURTLUFDVElP
+TjtSU1ZQPUZBTFNFOk1BSUxUTzp5dXBhbA0KIGFuaUBtaWNyb3NvZnQuY29tDQpBVFRFTkRFRTtS
+T0xFPU9QVC1QQVJUSUNJUEFOVDtQQVJUU1RBVD1ORUVEUy1BQ1RJT047UlNWUD1GQUxTRTpNQUlM
+VE86S3Jpc2gNCiBuYS5Lb2xha2FsdXJpQGRlbHRhd3cuY29tDQpERVNDUklQVElPTjtMQU5HVUFH
+RT1lbi1VUzpQZXIgbWVldGluZyBkZWNpc2lvblwsIHRoaXMgbWVldGluZyBpbnZpdGUgaXMgZm8N
+CiByIHRoZSDigJxPcGVuQk1DIFJlZGZpc2ggd29ya2luZyBncm91cOKAnS4gVGhpcyB3b3JraW5n
+IGdyb3VwIHdpbGwgbWVldCBldg0KIGVyeSBNb25kYXkgYXQgNHBtIENTVCBhbmQgcHVibGlzaCBt
+ZWV0aW5nIG1pbnV0ZXMgdG8gdGhlIG1haWxpbmcgbGlzdC4gVGhlDQogIHdvcmtpbmcgZ3JvdXAg
+aXMgb3BlbiB0byBhbnlib2R5IHdobyB3b3VsZCBsaWtlIHRvIHBhcnRpY2lwYXRlIGluIGRldmVs
+b3ANCiBtZW50IG9mIFJlZGZpc2ggb24gT3BlbkJNQy5cblxuVXBjb21pbmcgTWVldGluZyBBZ2Vu
+ZGFcbiAgICAgICAgMjAxOC0wMy0wNQ0KIDogRWQgVGFub3VzIChJbnRlbCkgdG8gZ28gb3ZlciDi
+gJhibWN3ZWLigJkgcmVxdWlyZW1lbnRzIGFuZCBpbXBsZW1lbnRhdGlvDQogbi4gRGVwZW5kaW5n
+IG9uIHRpbWVcLCBNaWNoYWVsIEJyb3duIChEZWxsKSB0byBzdGFydCBnb2luZyBvdmVyIGdvLXJl
+ZGZpc2gNCiAgcmVxdWlyZW1lbnRzIGFuZCBpbXBsZW1lbnRhdGlvbi5cbiAgICAgICAgMjAxOC0w
+My0xMjogTWljaGFlbCBCcm93biAoRGVsbA0KICkgb24gdmFjYXRpb24uIChNYXkgbmVlZCBzb21l
+IGFsdGVybmF0aXZlIGhvc3QgZm9yIHRoaXMgbWVldGluZyBkZXBlbmRpbmcgDQogb24gaWYgSSBj
+YW4gZGlhbCBpbiBmcm9tIEljZWxhbmQpLlxuICAgICAgICAyMDE4LTAzLTE5OiBQYXVsIFZhbmNp
+bCB0byBkaXMNCiBjdXNzIHB5dGhvbiBpbXBsZW1lbnRhdGlvblxuICAgICAgICAyMDE4LTAzLTI2
+OiBvcGVuXG5cblBhc3QgbWVldGluZ3M6XG4gIA0KICAgICAgIE1lZXRpbmcgTWludXRlcyAyMDE4
+LTAyLTI2OiBodHRwczovL2xpc3RzLm96bGFicy5vcmcvcGlwZXJtYWlsL29wZW5iDQogbWMvMjAx
+OC1GZWJydWFyeS8wMTA5NTUuaHRtbFxuXG4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4NCiAuLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLg0KIC4uLi4uLi4uLi4uLi4uLi4uLi4uLlxu
+LS0+IEpvaW4gU2t5cGUgTWVldGluZzxodHRwczovL21lZXQuZGVsbC5jb20vbWljaGFlDQogbF9l
+X2Jyb3duL0pGRkhaTjFGPlxuICBUcm91YmxlIEpvaW5pbmc/IFRyeSBTa3lwZSBXZWIgQXBwPGh0
+dHBzOi8vbWVldC5kZWwNCiBsLmNvbS9taWNoYWVsX2VfYnJvd24vSkZGSFpOMUY/c2w9MT5cbkpv
+aW4gYnkgcGhvbmVcbkludGVybmFsOjcyNC0yNjYzPHRlbA0KIDpJbnRlcm5hbDo3MjQtMjY2Mz4g
+KEdsb2JhbCkgICAgICAgICAgICAgICBFbmdsaXNoIChVbml0ZWQgU3RhdGVzKVxuVW5pdGVkDQog
+IFN0YXRlc1wsIEF1c3RpbjogKzEtNTEyLTcyNC0yNjYzPHRlbDpVbml0ZWQlMjBTdGF0ZXNcLCUy
+MEF1c3RpbjolMjArMS01MTINCiAtNzI0LTI2NjM+IChHbG9iYWwpICAgICAgICAgICAgICAgRW5n
+bGlzaCAoVW5pdGVkIFN0YXRlcylcblVuaXRlZCBTdGF0ZXNcLA0KICBUb2xsIEZyZWU6ICsxLTg3
+Ny00OTEtOTczODx0ZWw6VW5pdGVkJTIwU3RhdGVzXCwlMjBUb2xsJTIwRnJlZTolMjArMS04Nzct
+DQogNDkxLTk3Mzg+IChHbG9iYWwpICAgICAgICAgICAgICAgRW5nbGlzaCAoVW5pdGVkIFN0YXRl
+cylcbkluZGlhXCwgUmVsaWFuY2UNCiA6MTgwMC0zMC0xMDkwNDU8dGVsOkluZGlhXCwlMjBSZWxp
+YW5jZToxODAwLTMwLTEwOTA0NT4gKEdsb2JhbCkgICAgICAgICAgIA0KIEVuZ2xpc2ggKFVuaXRl
+ZCBTdGF0ZXMpXG5JbmRpYVwsIEJTTkw6MTgwMC00MjUtNTEwMTx0ZWw6SW5kaWFcLCUyMEJTTkw6
+MTgwDQogMC00MjUtNTEwMT4gKEdsb2JhbCkgICAgICAgICAgICAgRW5nbGlzaCAoVW5pdGVkIFN0
+YXRlcylcbklyZWxhbmRcLCBEdWJsaW4NCiA6ICszNTMtMS0yNzk0MDYyPHRlbDpJcmVsYW5kXCwl
+MjBEdWJsaW46JTIwKzM1My0xLTI3OTQwNjI+IChHbG9iYWwpICAgICAgIA0KICAgICAgICAgRW5n
+bGlzaCAoVW5pdGVkIEtpbmdkb20pXG5FbmdsYW5kXCwgQnJhY2tuZWxsOiArNDQtMTM0NC0zNzIw
+NDA8dGVsDQogOkVuZ2xhbmRcLCUyMEJyYWNrbmVsbDolMjArNDQtMTM0NC0zNzIwNDA+IChHbG9i
+YWwpICAgICAgICAgICAgICAgRW5nbGlzaCANCiAoVW5pdGVkIEtpbmdkb20pXG5NYWxheXNpYVws
+IFBlbmFuZzogKzYwLTQtNjMzNjY2Njx0ZWw6TWFsYXlzaWFcLCUyMFBlbmFuZw0KIDolMjArNjAt
+NC02MzM2NjY2PiAoR2xvYmFsKSAgICAgICAgICAgICAgIEVuZ2xpc2ggKFVuaXRlZCBTdGF0ZXMp
+XG5CcmF6aWw6DQogMzAwMy0zMzU1PHRlbDpCcmF6aWw6MzAwMy0zMzU1PiAoR2xvYmFsKSAgICAg
+ICAgICAgICAgICAgUG9ydHVndWVzZSAoQnJhemkNCiBsKVxuQ2hpbmFcLCBUb2xsIEZyZWU6ODAw
+LTg1OC0wNzU2PHRlbDpDaGluYVwsJTIwVG9sbCUyMEZyZWU6ODAwLTg1OC0wNzU2Pg0KICAoR2xv
+YmFsKSAgICAgICAgICAgRW5nbGlzaCAoVW5pdGVkIFN0YXRlcylcbkphcGFuXCwgS2F3YXNha2k6
+ICs4MS00NC01MjA2DQogODc3PHRlbDpKYXBhblwsJTIwS2F3YXNha2k6JTIwKzgxLTQ0LTUyMDY4
+Nzc+IChHbG9iYWwpICAgICAgICAgICAgICAgSmFwYW4NCiBlc2UgKEphcGFuKVxuQ2FuYWRhXCwg
+VG9yb250bzogKzEtNDE2LTc1ODIzMjk8dGVsOkNhbmFkYVwsJTIwVG9yb250bzolMjArMQ0KIC00
+MTYtNzU4MjMyOT4gKEdsb2JhbCkgICAgICAgICAgICAgICBFbmdsaXNoIChVbml0ZWQgU3RhdGVz
+KVxuRmluZCBhIGxvY2FsDQogIG51bWJlcjxodHRwczovL2RpYWxpbi5kZWxsLmNvbT5cblxuQ29u
+ZmVyZW5jZSBJRDogMjI2MDc5MDdcbiBGb3Jnb3QgeW91ciANCiBkaWFsLWluIFBJTj88aHR0cHM6
+Ly9kaWFsaW4uZGVsbC5jb20+IHxIZWxwPGh0dHBzOi8vZGlhbGluLmRlbGwuY29tL0RlbGxIZQ0K
+IGxwLz5cblxuWyFPQyhbMTAzM10pIV1cbi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uDQogLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4NCiAuLi4uLi4uLi4uLi4uXG5c
+blxuDQpSUlVMRTpGUkVRPVdFRUtMWTtVTlRJTD0yMDE4MDgzMFQyMTAwMDBaO0lOVEVSVkFMPTE7
+QllEQVk9TU87V0tTVD1TVQ0KU1VNTUFSWTtMQU5HVUFHRT1lbi1VUzpPcGVuQk1DIFJlZGZpc2gg
+d29ya2luZyBncm91cCB3b3JraW5nIGNhbGwNCkRUU1RBUlQ7VFpJRD1DZW50cmFsIFN0YW5kYXJk
+IFRpbWU6MjAxODAyMjZUMTYwMDAwDQpEVEVORDtUWklEPUNlbnRyYWwgU3RhbmRhcmQgVGltZToy
+MDE4MDIyNlQxNzAwMDANClVJRDowNDAwMDAwMDgyMDBFMDAwNzRDNUI3MTAxQTgyRTAwODAwMDAw
+MDAwRDBFNjMwREMxNkFGRDMwMTAwMDAwMDAwMDAwMDAwMA0KIDAxMDAwMDAwMDhDOEE4QkI2RTgy
+MDc0NEE5MTFFQTEwQkU0ODg5RDk4DQpDTEFTUzpQVUJMSUMNClBSSU9SSVRZOjUNCkRUU1RBTVA6
+MjAxODAyMjZUMjMxMzA5Wg0KVFJBTlNQOk9QQVFVRQ0KU1RBVFVTOkNPTkZJUk1FRA0KU0VRVUVO
+Q0U6Mg0KTE9DQVRJT047TEFOR1VBR0U9ZW4tVVM6U2t5cGUgTWVldGluZw0KWC1NSUNST1NPRlQt
+Q0RPLUFQUFQtU0VRVUVOQ0U6Mg0KWC1NSUNST1NPRlQtQ0RPLU9XTkVSQVBQVElEOi01OTEwMzI2
+Mg0KWC1NSUNST1NPRlQtQ0RPLUJVU1lTVEFUVVM6VEVOVEFUSVZFDQpYLU1JQ1JPU09GVC1DRE8t
+SU5URU5ERURTVEFUVVM6QlVTWQ0KWC1NSUNST1NPRlQtQ0RPLUFMTERBWUVWRU5UOkZBTFNFDQpY
+LU1JQ1JPU09GVC1DRE8tSU1QT1JUQU5DRToxDQpYLU1JQ1JPU09GVC1DRE8tSU5TVFRZUEU6MQ0K
+WC1NSUNST1NPRlQtRElTQUxMT1ctQ09VTlRFUjpUUlVFDQpCRUdJTjpWQUxBUk0NCkRFU0NSSVBU
+SU9OOlJFTUlOREVSDQpUUklHR0VSO1JFTEFURUQ9U1RBUlQ6LVBUMTVNDQpBQ1RJT046RElTUExB
+WQ0KRU5EOlZBTEFSTQ0KRU5EOlZFVkVOVA0KRU5EOlZDQUxFTkRBUg0K
+
+--_000_9001b890eda64299819af218aada2b2dausx13mps334AMERDELLCOM_--
