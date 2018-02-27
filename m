@@ -1,62 +1,66 @@
-Return-Path: <Michael.E.Brown@dell.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.95; helo=esa5.dell-outbound.iphmx.com;
- envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=dell.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="UEL6hCOk"; 
- dkim-atps=neutral
-Received: from esa5.dell-outbound.iphmx.com (esa5.dell-outbound.iphmx.com
- [68.232.153.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="RqD//kJh"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="dzzzuvS2"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zqyQM0mr3zF0p6
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 10:16:58 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1519686607; x=1551222607; h=from:to:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=i0SHZTBpKy2blanIPOw9DE+fJC+UWOzvdzucxi6za94=;
- b=UEL6hCOkU414uXBHIlg/qDsLoZh0EfQD8kfJZOKhRP+Vb6YjOWyMUuIA
- GOtpqU796GBkTd6Wg+wFG5tkrBq4c/+m1Fap672IWDYsz/7j08Vx4n1+I
- 7FKJ/Jbp8T0JnNCb5XdH9r5lxEg9Fi7jGBEU+FFATB/cNvgJTRnrF+faa Q=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FlAQAHlJRah8qZ6EReGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQlgQAym2qDGGqNNYl8Cod6WBQBAgEBAQEBAQIBAhABAQEKCwk?=
- =?us-ascii?q?IKC+COCKDC1EBPmgBBBuFCK5piHKCRodCjFeFJgWhYQkKlA2Be5BulXWBLzWBc?=
- =?us-ascii?q?3CDE4F9AQEBUoIHjDaBFwEBAQ?=
-X-IPAS-Result: =?us-ascii?q?A2FlAQAHlJRah8qZ6EReGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?lgQAym2qDGGqNNYl8Cod6WBQBAgEBAQEBAQIBAhABAQEKCwkIKC+COCKDC1EBP?=
- =?us-ascii?q?mgBBBuFCK5piHKCRodCjFeFJgWhYQkKlA2Be5BulXWBLzWBc3CDE4F9AQEBUoI?=
- =?us-ascii?q?HjDaBFwEBAQ?=
-Received: from esa2.dell-outbound2.iphmx.com ([68.232.153.202])
- by esa5.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2018 17:10:04 -0600
-From: <Michael.E.Brown@dell.com>
-Received: from ausxippc101.us.dell.com ([143.166.85.207])
- by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2018 05:09:22 +0600
-X-LoopCount0: from 10.166.136.212
-X-IronPort-AV: E=Sophos;i="5.47,398,1515477600"; 
- d="scan'208,223";a="1057016014"
-X-DLP: DLP_GlobalPCIDSS
-To: <openbmc@lists.ozlabs.org>
-Subject: OpenBMC Redfish Working Group - meeting times open discussion
-Thread-Topic: OpenBMC Redfish Working Group - meeting times open discussion
-Thread-Index: AdOvV+OBJ9z2ISIITSyVrtwYEMVvIg==
-Date: Mon, 26 Feb 2018 23:16:55 +0000
-Message-ID: <5213c491520645a3931dda63b4cac71c@ausx13mps334.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zr2hx3tjTzF1Jy
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 13:29:52 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 81B7320F06;
+ Mon, 26 Feb 2018 21:29:46 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute2.internal (MEProxy); Mon, 26 Feb 2018 21:29:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=xM643W
+ NKWSaIbUnmm0GQUv+/mPdLFBystOV8V6dxBKA=; b=RqD//kJhPniNGWHTZx2LPZ
+ Wq84w6mPEB2DXQAS1sQN1BXtFektL3yetx76lfdPoknF0/oIlD2hG8lmgJUMeA60
+ WDQNPJCtF6No/XuF5/Gcrj+e8mL5CtmQ8wxZxltHBVzZ4FUKLrqw0iT+uCS3I4PW
+ X9QlikB9IKZNaqvvQoVDdopZGdVzrNjAMOqbucEzRJEjRVSr2TaR/VmljpekinST
+ Exq3M47HBU5u4qr3G2A0dyZH3POpIL1S6m791y7k9cqEzb5On2sUjygMhJGvO0NV
+ KLPoTa2vVaCT+n/OWhCQ1IeALC2xVM2v9B+DVedUP47mblaNAuPufFxso5JV4tcQ
+ ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=xM643W
+ NKWSaIbUnmm0GQUv+/mPdLFBystOV8V6dxBKA=; b=dzzzuvS2gq/ef9XEEsQFkt
+ vAYr3R9RKx/AQvgEPrGbV9T8hVYvZSqmAevHqQSDHvG8lfyUp6B0Qst10k2qkTi/
+ 7NHaCyN0kjkg7s2b9FdVeYWeLygTioPhZ7WdTmGxOsQuXQxoN5O2bQEW5e8YQ5U+
+ ZrT6d3/zJ7mw94Vgbro8XF8EayFZNeMG5AuaSKG/QiFulFvyXcUnwsrlqzlmMMWt
+ ZVAGRemylx8BuNM8EHfXVoka7pER2AQMtIgHBBDSGKNzICxB8eLFnNKGGNaLwc5E
+ 7AvjvgmZyyysDdAATF5x4IxJEUSXKFoAU/3lPgc+3skxeQccvvJe57NcWR9p97fQ
+ ==
+X-ME-Sender: <xms:msKUWsH9YCsgpDfkW4myhC2jfVUdnPsXw9DW4jlZDammt4xOlHWZGw>
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id EEC61244F9;
+ Mon, 26 Feb 2018 21:29:44 -0500 (EST)
+Message-ID: <1519698581.7888.2.camel@mendozajonas.com>
+Subject: Re: [PATCH net-next] net/ncsi: Add generic netlink family
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: David Miller <davem@davemloft.net>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org
+Date: Tue, 27 Feb 2018 13:29:41 +1100
+In-Reply-To: <20180226.113136.1568195044048732904.davem@davemloft.net>
+References: <20180223041518.20195-1-sam@mendozajonas.com>
+ <20180226.113136.1568195044048732904.davem@davemloft.net>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.26.5 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,17 +72,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Feb 2018 23:17:00 -0000
+X-List-Received-Date: Tue, 27 Feb 2018 02:29:55 -0000
 
-From the first working group meeting, one discussion item was the meeting t=
-ime. We had decided last week to host the inaugural meeting at 4pm CST on F=
-eb 26. We are intending to continue holding meetings on Monday at 4pm CST g=
-oing forward.
+On Mon, 2018-02-26 at 11:31 -0500, David Miller wrote:
+> From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> Date: Fri, 23 Feb 2018 15:15:18 +1100
+> 
+> > + * @NCSI_CMD_SET_INTERFACE: set preferred package and channel combination.
+> > + *   Requires NCSI_ATTR_IFINDEX and the preferred NCSI_ATTR_PACKAGE_ID and
+> > + *   optionally the preferred NCSI_ATTR_CHANNEL_ID. If neither IDs are
+> > + *   specified the setting is cleared.
+> 
+> I think clearing the setting when the required attributes are missing
+> is dangerous behavior.
+> 
+> It is ambiguous whether the user intended the setting to be cleared,
+> or was in error and forgot to supply the attribute due to a bug.
 
-We had representation from Microsoft, Intel, Dell, and some IBM folks on th=
-e call today. It seems to work reasonably well at this time. Is there anybo=
-dy that really must be part of this working group who cannot make this time=
- work and needs us to change the meeting time? This is the chance for open =
-discussion on this topic.
---
-Michael
+Fair point - I'll change this to be an error and add a separate command
+to clear the setting explicitly.
+In that vein is having NCSI_ATTR_CHANNEL_ID as an optional parameter
+ambiguous enough to justify a separate command as well?
+
+Regards,
+Sam
