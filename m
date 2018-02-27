@@ -1,73 +1,59 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:400c:c0c::22b; helo=mail-wr0-x22b.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="OE3xQ9QE"; 
+ dkim-atps=neutral
+Received: from mail-wr0-x22b.google.com (mail-wr0-x22b.google.com
+ [IPv6:2a00:1450:400c:c0c::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zrSQM48klzF0S5
- for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 05:48:43 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w1RIkvO9002171
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 13:48:41 -0500
-Received: from e06smtp15.uk.ibm.com (e06smtp15.uk.ibm.com [195.75.94.111])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gdck78ru0-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 13:48:40 -0500
-Received: from localhost
- by e06smtp15.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
- Tue, 27 Feb 2018 18:48:38 -0000
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp15.uk.ibm.com (192.168.101.145) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 27 Feb 2018 18:48:36 -0000
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w1RIma3G53084320; Tue, 27 Feb 2018 18:48:36 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 245D34C046;
- Tue, 27 Feb 2018 18:42:06 +0000 (GMT)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3CDE54C044;
- Tue, 27 Feb 2018 18:42:05 +0000 (GMT)
-Received: from [9.77.211.243] (unknown [9.77.211.243])
- by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Tue, 27 Feb 2018 18:42:05 +0000 (GMT)
-Subject: Re: IPMI Sensor Read-only role updates.
-To: Emily Shaffer <emilyshaffer@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zrSY91Q8dzF0W4
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 05:54:36 +1100 (AEDT)
+Received: by mail-wr0-x22b.google.com with SMTP id v111so13744710wrb.3
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 10:54:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=z1nUP+0CkaTZbxUdSb+Qoik6aR4hsJVfp2WTNTlxEZg=;
+ b=OE3xQ9QEf6duD+tozHSv1kQmLUU+ak/GFbaau2tGmgcI/FjVSLJCLu6mZtgSEF2xML
+ BO4lnWtUPMLcnl1ubj3Br6p7+bi+X7tedXmXVcqd1h42GUIyjz2T8vRRztJ5dkKbsUgH
+ wO3JCOuBgT1R1eK6/rvmOybsZNzyynMflmX24zaU7AX17g85suZ96cpFGkNBhSsfEqif
+ VrIqaZog8wumkeAcqkWNZpbspa2pcpZOvlAyq/lgMauUVe70sTpG+Ep1r1596K8ldrch
+ qX92d/agZAw5rELsqTgM4ywwnIOoE/hdwmweLtTCbntkffl2qCFYFRIX68XNg6ms+X6e
+ aMnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=z1nUP+0CkaTZbxUdSb+Qoik6aR4hsJVfp2WTNTlxEZg=;
+ b=VLiOOcL5k4kBgmhxZLufZbirVGHXkjS5X73i0EKlFXtHC79sMCN3ni+GWymONFjtT1
+ roUENQDkzJ+RMPVQXzcUZkYE9CEOZ8IvEVuXXZ0LKzEJbDxoujMsgSdSVKpzLNQqsMPA
+ HMWmUuJSc3OwfzroileadYrwIO9clzamZUc4SpOu6ewdx3/gE8QbUMVZU48NubjlE89O
+ AY8oZ55Vv+5/T9bIqke0vDYc/Hb+LkkwqTSWNx/1I9UhMkTt965S9cU9m9CmMwGbEPLD
+ oo+jhhMikT/d6wDewxEwT5zmxl5ZnhyI1EI6OQ4RYm36GNiohFt4XaigcU6Mu7ohwrTt
+ XwGg==
+X-Gm-Message-State: APf1xPAycG5oQLU9L0ECG81bWAlW2l+CUIgobVYGAN56y586kin/7rMo
+ Y/jhvQ1z5r0sXpJOxdIYwHIQd5B74H1qG6Nh5PdUQA==
+X-Google-Smtp-Source: AH8x226xDFr2g2RgZULGZKjBDys8xUJXCaQpeteBIV4m3CQFCPDnNk+gzQR/WelCpFgwKGMKYdxym0byVWOfQXh0NPY=
+X-Received: by 10.223.139.16 with SMTP id n16mr13137885wra.171.1519757673207; 
+ Tue, 27 Feb 2018 10:54:33 -0800 (PST)
+MIME-Version: 1.0
 References: <CACkAXSpRB4Lqhd62u+OUALeqCZpSjGD8xSPwx4yJ+WqFH7jNjA@mail.gmail.com>
  <c2cfb310-7dae-3f99-a1a3-ceac0ab9c1c8@linux.vnet.ibm.com>
  <CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com>
+ <bc816428-ebaa-9c3d-b1e4-ee52c9fbbc6c@linux.vnet.ibm.com>
+In-Reply-To: <bc816428-ebaa-9c3d-b1e4-ee52c9fbbc6c@linux.vnet.ibm.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Tue, 27 Feb 2018 18:54:22 +0000
+Message-ID: <CAJoAoZkaRkpoa0hxxOwj+CKeu-=uHPtJ1L0PpwEgOZfnopbnng@mail.gmail.com>
+Subject: Re: IPMI Sensor Read-only role updates.
+To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
 Cc: openbmc@lists.ozlabs.org
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Date: Wed, 28 Feb 2018 00:18:33 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.5.1
-MIME-Version: 1.0
-In-Reply-To: <CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------31AE414EBCECD19811DBF6D8"
-X-TM-AS-GCONF: 00
-x-cbid: 18022718-0020-0000-0000-000003FC845E
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18022718-0021-0000-0000-00004290AB82
-Message-Id: <bc816428-ebaa-9c3d-b1e4-ee52c9fbbc6c@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-27_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1802270232
+Content-Type: multipart/alternative; boundary="f403045ea6b2421e490566362814"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,152 +65,170 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Feb 2018 18:48:44 -0000
+X-List-Received-Date: Tue, 27 Feb 2018 18:54:38 -0000
 
-This is a multi-part message in MIME format.
---------------31AE414EBCECD19811DBF6D8
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--f403045ea6b2421e490566362814
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Emily,
+Okay, I guess I didn't understand that the proposal was for the MRW config
+yaml, which is different from the config yaml which is sent to the mako
+template :) Carry on.
 
-Minor correction inline.
+On Tue, Feb 27, 2018 at 10:48 AM Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+wrote:
 
-Regards
-
-Ratan
-
-On Tuesday 27 February 2018 09:06 PM, Emily Shaffer wrote:
+> Hi Emily,
+>
+> Minor correction inline.
+>
+> Regards
+>
+> Ratan
+> On Tuesday 27 February 2018 09:06 PM, Emily Shaffer wrote:
+>
 > Hi Jayanath,
 >
 > Find my comments inline.
 >
-> It seems you may be thinking of only changes for a system specific 
-> yaml, in which case I don't think you need to ask for permission :) 
-> But the architecture you're discussing is already there today.
+> It seems you may be thinking of only changes for a system specific yaml,
+> in which case I don't think you need to ask for permission :) But the
+> architecture you're discussing is already there today.
 >
 > Emily
 >
-> On Tue, Feb 27, 2018, 6:22 AM Ratan Gupta <ratagupt@linux.vnet.ibm.com 
-> <mailto:ratagupt@linux.vnet.ibm.com>> wrote:
+> On Tue, Feb 27, 2018, 6:22 AM Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+> wrote:
 >
->     Hi,
+>> Hi,
+>>
+>> Please find my comments inline
+>>
+>> Regards
+>>
+>> Ratan Gupta
+>>
+>>
+>>
+>> On Tuesday 27 February 2018 04:51 PM, Jayanth Othayoth wrote:
+>> > I am working on an issue openbmc/openbmc#2500 (Add support for Turbo
+>> > allowed sensor). As part of this issue implementation , there is a
+>> > requirement  to change this IPMI sensor to read only for host.
+>> > Currently all sensors are read/write by design and doesn=E2=80=99t hav=
+e way to
+>> > change this behavior. Planing to change this behavior by adding
+>> > =E2=80=9CMutability=E2=80=9D field in the config.yaml.
+>>
+> ES: The Mutability field already exists in sensor config yaml.
+> https://github.com/openbmc/phosphor-host-ipmid/blob/2e12a31f39d95c381a466=
+e277e510faa02c351fb/scripts/writesensor.mako.cpp#L68
 >
->     Please find my comments inline
+>     RG>> Here in mako we always set the mutability property to READ as
+> config YAML doesn't have the Mutability property.
 >
->     Regards
+> https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recip=
+es-phosphor/ipmi/phosphor-ipmi-sensor-inventory-mrw-config/config.yaml
 >
->     Ratan Gupta
+>     RG>>We have the Mutability check in the getSensorReading but we don't
+> have that check in the setSensorReading so we can introduce that check
+> there with the required changes in the config.YAML.
 >
 >
+> >
+>> > As part of this issue am planing to  Initialize  mutability with
+>> > Mutability::Write|Mutability::Read for all sensors and set the
+>> > required sensor mutability Mutability::Read.
+>>
+> ES: You're saying you'd like to ensure all sensors are readable? This
+> doesn't make sense in some cases, notably fan PWM in some cases where the
+> only read response would be DBus parroting back what we wrote (not an
+> actual value reflecting reality).
 >
->     On Tuesday 27 February 2018 04:51 PM, Jayanth Othayoth wrote:
->     > I am working on an issue openbmc/openbmc#2500 (Add support for Turbo
->     > allowed sensor). As part of this issue implementation , there is a
->     > requirement  to change this IPMI sensor to read only for host.
->     > Currently all sensors are read/write by design and doesn’t have
->     way to
->     > change this behavior. Planing to change this behavior by adding
->     > “Mutability” field in the config.yaml.
+>> >       - Minimal impact on testing and not breaking the existing
+>> > functionality.
+>> RG>>How we would be doing it? If we are planning to do introduce a check
+>> for a specific sensor then we should not do like this.
+>> In the current design we have not introduced any such checks and we
+>> should avoid that.
+>> Please correct me if I misunderstood it.
+>>
+>   RG>>if we add the Mutability property in the config.yaml with configure=
+d
+> values as READ and WRITE for all other sensor
+>             Except this one(turboAllowedSensor) which is required to be
+> READ
+>             In this sense we are not breaking the current code as the
+> interpretation in the code for all the sensor is READ and WRITE
 >
-> ES: The Mutability field already exists in sensor config yaml. 
-> https://github.com/openbmc/phosphor-host-ipmid/blob/2e12a31f39d95c381a466e277e510faa02c351fb/scripts/writesensor.mako.cpp#L68
-     RG>> Here in mako we always set the mutability property to READ as 
-config YAML doesn't have the Mutability property.
-https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/ipmi/phosphor-ipmi-sensor-inventory-mrw-config/config.yaml
-
-     RG>>We have the Mutability check in the getSensorReading but we 
-don't have that check in the setSensorReading so we can introduce that 
-check there with the required changes in the config.YAML.
-
->     >
->     > As part of this issue am planing to  Initialize mutability with
->     > Mutability::Write|Mutability::Read for all sensors and set the
->     > required sensor mutability Mutability::Read.
->
-> ES: You're saying you'd like to ensure all sensors are readable? This 
-> doesn't make sense in some cases, notably fan PWM in some cases where 
-> the only read response would be DBus parroting back what we wrote (not 
-> an actual value reflecting reality).
->
->     >       - Minimal impact on testing and not breaking the existing
->     > functionality.
->     RG>>How we would be doing it? If we are planning to do introduce a
->     check
->     for a specific sensor then we should not do like this.
->     In the current design we have not introduced any such checks and we
->     should avoid that.
->     Please correct me if I misunderstood it.
->
-   RG>>if we add the Mutability property in the config.yaml with 
-configured values as READ and WRITE for all other sensor
-             Except this one(turboAllowedSensor) which is required to be 
-READ
-             In this sense we are not breaking the current code as the 
-interpretation in the code for all the sensor is READ and WRITE
->
->     >
->     > Follow-on story is needed to fix this in generic way like
->     >   -Add “mutable” field in the config.yaml and initialize the the
->     field
->
+> >
+>> > Follow-on story is needed to fix this in generic way like
+>> >   -Add =E2=80=9Cmutable=E2=80=9D field in the config.yaml and initiali=
+ze the the field
+>>
 > ES: Today it's defaulted to read-only for all uninitialized sensors.
 >
->     > based on System types also update
->     > sensorhandler.cpp->ipmi_sen_set_sensor() to do set only for write
->     > enabled sensor.
->     >     - This required system specific IPMI sensor behavior review and
->     > updates in corresponding config.yaml.
->     RG>> I agree with this approach.What do you mean by "System types"
->     here,We have already system specfic YAML in the system specfic
->     meta layers.
+>> > based on System types also update
+>> > sensorhandler.cpp->ipmi_sen_set_sensor() to do set only for write
+>> > enabled sensor.
+>> >     - This required system specific IPMI sensor behavior review and
+>> > updates in corresponding config.yaml.
+>> RG>> I agree with this approach.What do you mean by "System types"
+>> here,We have already system specfic YAML in the system specfic meta
+>> layers.
+>>
+>> >
+>> > Please add your view on this.
+>>
+>>
 >
->     >
->     > Please add your view on this.
->
 
+--f403045ea6b2421e490566362814
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---------------31AE414EBCECD19811DBF6D8
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
+<div dir=3D"ltr">Okay, I guess I didn&#39;t understand that the proposal wa=
+s for the MRW config yaml, which is different from the config yaml which is=
+ sent to the mako template :) Carry on.</div><br><div class=3D"gmail_quote"=
+><div dir=3D"ltr">On Tue, Feb 27, 2018 at 10:48 AM Ratan Gupta &lt;<a href=
+=3D"mailto:ratagupt@linux.vnet.ibm.com">ratagupt@linux.vnet.ibm.com</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
+ex;border-left:1px #ccc solid;padding-left:1ex">
+ =20
+   =20
+ =20
+  <div bgcolor=3D"#FFFFFF" text=3D"#000000">
     <p>Hi Emily,</p>
     <p>Minor correction inline.</p>
     <p>Regards</p>
     <p>Ratan <br>
-    </p>
-    <div class="moz-cite-prefix">On Tuesday 27 February 2018 09:06 PM,
+    </p></div><div bgcolor=3D"#FFFFFF" text=3D"#000000">
+    <div class=3D"m_4260300121557723900moz-cite-prefix">On Tuesday 27 Febru=
+ary 2018 09:06 PM,
       Emily Shaffer wrote:<br>
     </div>
-    <blockquote
-cite="mid:CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com"
-      type="cite">Hi Jayanath,
+    <blockquote type=3D"cite">Hi Jayanath,
       <div><br>
       </div>
       <div>Find my comments inline.</div>
       <div><br>
       </div>
       <div>It seems you may be thinking of only changes for a system
-        specific yaml, in which case I don't think you need to ask for
-        permission :) But the architecture you're discussing is already
+        specific yaml, in which case I don&#39;t think you need to ask for
+        permission :) But the architecture you&#39;re discussing is already
         there today.</div>
       <div><br>
       </div>
       <div>Emily</div>
       <div><br>
-        <div class="gmail_quote">
-          <div dir="ltr">On Tue, Feb 27, 2018, 6:22 AM Ratan Gupta &lt;<a
-              moz-do-not-send="true"
-              href="mailto:ratagupt@linux.vnet.ibm.com"><a class="moz-txt-link-abbreviated" href="mailto:ratagupt@linux.vnet.ibm.com">ratagupt@linux.vnet.ibm.com</a></a>&gt;
+        <div class=3D"gmail_quote">
+          <div dir=3D"ltr">On Tue, Feb 27, 2018, 6:22 AM Ratan Gupta &lt;<a=
+ href=3D"mailto:ratagupt@linux.vnet.ibm.com" target=3D"_blank"><a class=3D"=
+m_4260300121557723900moz-txt-link-abbreviated" href=3D"mailto:ratagupt@linu=
+x.vnet.ibm.com" target=3D"_blank">ratagupt@linux.vnet.ibm.com</a></a>&gt;
             wrote:<br>
           </div>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi,<br>
+          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex">Hi,<br>
             <br>
             Please find my comments inline<br>
             <br>
@@ -240,54 +244,65 @@ cite="mid:CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com"
             support for Turbo<br>
             &gt; allowed sensor). As part of this issue implementation ,
             there is a<br>
-            &gt; requirement  to change this IPMI sensor to read only
+            &gt; requirement=C2=A0 to change this IPMI sensor to read only
             for host.<br>
             &gt; Currently all sensors are read/write by design and
-            doesn’t have way to<br>
+            doesn=E2=80=99t have way to<br>
             &gt; change this behavior. Planing to change this behavior
             by adding<br>
-            &gt; “Mutability” field in the config.yaml.<br>
+            &gt; =E2=80=9CMutability=E2=80=9D field in the config.yaml.<br>
           </blockquote>
         </div>
         <div>ES: The Mutability field already exists in sensor config
-          yaml. <a moz-do-not-send="true"
-href="https://github.com/openbmc/phosphor-host-ipmid/blob/2e12a31f39d95c381a466e277e510faa02c351fb/scripts/writesensor.mako.cpp#L68">https://github.com/openbmc/phosphor-host-ipmid/blob/2e12a31f39d95c381a466e277e510faa02c351fb/scripts/writesensor.mako.cpp#L68</a></div>
+          yaml.=C2=A0<a href=3D"https://github.com/openbmc/phosphor-host-ip=
+mid/blob/2e12a31f39d95c381a466e277e510faa02c351fb/scripts/writesensor.mako.=
+cpp#L68" target=3D"_blank">https://github.com/openbmc/phosphor-host-ipmid/b=
+lob/2e12a31f39d95c381a466e277e510faa02c351fb/scripts/writesensor.mako.cpp#L=
+68</a></div>
       </div>
-    </blockquote>
-        RG&gt;&gt; Here in mako we always set the mutability property to
-    READ as config YAML doesn't have the Mutability property.<br>
-       
-<a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/ipmi/phosphor-ipmi-sensor-inventory-mrw-config/config.yaml">https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/ipmi/phosphor-ipmi-sensor-inventory-mrw-config/config.yaml</a><br>
+    </blockquote></div><div bgcolor=3D"#FFFFFF" text=3D"#000000">
+    =C2=A0=C2=A0=C2=A0 RG&gt;&gt; Here in mako we always set the mutability=
+ property to
+    READ as config YAML doesn&#39;t have the Mutability property.<br>
+    =C2=A0=C2=A0=C2=A0
+<a class=3D"m_4260300121557723900moz-txt-link-freetext" href=3D"https://git=
+hub.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/i=
+pmi/phosphor-ipmi-sensor-inventory-mrw-config/config.yaml" target=3D"_blank=
+">https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recip=
+es-phosphor/ipmi/phosphor-ipmi-sensor-inventory-mrw-config/config.yaml</a><=
+br>
     <br>
-        RG&gt;&gt;We have the Mutability check in the getSensorReading
-    but we don't have that check in the setSensorReading so we can
+    =C2=A0=C2=A0=C2=A0 RG&gt;&gt;We have the Mutability check in the getSen=
+sorReading
+    but we don&#39;t have that check in the setSensorReading so we can
     introduce that check there with the required changes in the
-    config.YAML.    <br>
-       <br>
-    <blockquote
-cite="mid:CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com"
-      type="cite">
+    config.YAML.=C2=A0=C2=A0=C2=A0 <br></div><div bgcolor=3D"#FFFFFF" text=
+=3D"#000000">
+    =C2=A0=C2=A0 <br>
+    <blockquote type=3D"cite">
       <div>
-        <div class="gmail_quote">
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
+        <div class=3D"gmail_quote">
+          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex">
             &gt;<br>
-            &gt; As part of this issue am planing to  Initialize 
+            &gt; As part of this issue am planing to=C2=A0 Initialize=C2=A0
             mutability with<br>
             &gt; Mutability::Write|Mutability::Read for all sensors and
             set the<br>
             &gt; required sensor mutability Mutability::Read.<br>
           </blockquote>
         </div>
-        <div dir="auto">ES: You're saying you'd like to ensure all
-          sensors are readable? This doesn't make sense in some cases,
+        <div dir=3D"auto">ES: You&#39;re saying you&#39;d like to ensure al=
+l
+          sensors are readable? This doesn&#39;t make sense in some cases,
           notably fan PWM in some cases where the only read response
           would be DBus parroting back what we wrote (not an actual
           value reflecting reality).</div>
-        <div class="gmail_quote" dir="auto">
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
-            &gt;       - Minimal impact on testing and not breaking the
+        <div class=3D"gmail_quote" dir=3D"auto">
+          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex">
+            &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- Minimal impact on testing and =
+not breaking the
             existing<br>
             &gt; functionality.<br>
             RG&gt;&gt;How we would be doing it? If we are planning to do
@@ -300,41 +315,44 @@ cite="mid:CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com"
           </blockquote>
         </div>
       </div>
-    </blockquote>
-      RG&gt;&gt;if we add the Mutability property in the config.yaml
+    </blockquote></div><div bgcolor=3D"#FFFFFF" text=3D"#000000">
+    =C2=A0 RG&gt;&gt;if we add the Mutability property in the config.yaml
     with configured values as READ and WRITE for all other sensor<br>
-                Except this one(turboAllowedSensor) which is required to
+    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Exce=
+pt this one(turboAllowedSensor) which is required to
     be READ<br>
-                In this sense we are not breaking the current code as
-    the interpretation in the code for all the sensor is READ and WRITE<br>
-    <blockquote
-cite="mid:CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com"
-      type="cite">
+    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 In t=
+his sense we are not breaking the current code as
+    the interpretation in the code for all the sensor is READ and WRITE</di=
+v><div bgcolor=3D"#FFFFFF" text=3D"#000000"><br>
+    <blockquote type=3D"cite">
       <div>
-        <div class="gmail_quote" dir="auto">
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
+        <div class=3D"gmail_quote" dir=3D"auto">
+          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex">
             &gt;<br>
             &gt; Follow-on story is needed to fix this in generic way
             like<br>
-            &gt;   -Add “mutable” field in the config.yaml and
+            &gt;=C2=A0 =C2=A0-Add =E2=80=9Cmutable=E2=80=9D field in the co=
+nfig.yaml and
             initialize the the field<br>
           </blockquote>
         </div>
-        <div dir="auto">ES: Today it's defaulted to read-only for all
+        <div dir=3D"auto">ES: Today it&#39;s defaulted to read-only for all
           uninitialized sensors.</div>
-        <div class="gmail_quote" dir="auto">
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
+        <div class=3D"gmail_quote" dir=3D"auto">
+          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex">
             &gt; based on System types also update<br>
             &gt; sensorhandler.cpp-&gt;ipmi_sen_set_sensor() to do set
             only for write<br>
             &gt; enabled sensor.<br>
-            &gt;     - This required system specific IPMI sensor
+            &gt;=C2=A0 =C2=A0 =C2=A0- This required system specific IPMI se=
+nsor
             behavior review and<br>
             &gt; updates in corresponding config.yaml.<br>
             RG&gt;&gt; I agree with this approach.What do you mean by
-            "System types"<br>
+            &quot;System types&quot;<br>
             here,We have already system specfic YAML in the system
             specfic meta layers.<br>
             <br>
@@ -346,7 +364,6 @@ cite="mid:CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com"
       </div>
     </blockquote>
     <br>
-  </body>
-</html>
+  </div></blockquote></div>
 
---------------31AE414EBCECD19811DBF6D8--
+--f403045ea6b2421e490566362814--
