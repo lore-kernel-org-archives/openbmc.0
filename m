@@ -1,61 +1,54 @@
-Return-Path: <Michael.E.Brown@dell.com>
+Return-Path: <ojayanth@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.229; helo=esa6.dell-outbound.iphmx.com;
- envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400c:c08::236; helo=mail-ua0-x236.google.com;
+ envelope-from=ojayanth@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=dell.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="P+6DEWh+"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="SQgbeWAh"; 
  dkim-atps=neutral
-Received: from esa6.dell-outbound.iphmx.com (esa6.dell-outbound.iphmx.com
- [68.232.149.229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua0-x236.google.com (mail-ua0-x236.google.com
+ [IPv6:2607:f8b0:400c:c08::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zr4KF2Z22zF1LL
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 14:42:56 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1519702977; x=1551238977;
- h=from:date:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=OM1bHoKi/ovT6mA38Sk2yFBExxLTjoeilzZ7W2TVTKY=;
- b=P+6DEWh+CriFUrcbSP2AZncNGQCCs3f2ryW9UtEGK13C6KFlrAiLFkVp
- FzO9+ftoh/mumhGFEN9+tE8gJjal6ag69KMOATNYCnE5lX8D7a83ZDl2z
- 0eU0gSErv4WeiLEaAF34vFYzjrt8gyjKCN09Jzp8wgBNb09EFi2YAs8Zd Q=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FjAABe05Rah2Oa6EReGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQlgQAojXaNf4ICgRaOH4dmghYKGIUbAoJFVBgBAgEBAQEBAQI?=
- =?us-ascii?q?BAhABAQEKCwkIKC+COCQBgkcBAQEDAQE5PxALEQMBAgEJExIPBRQnDhOFCAiuR?=
- =?us-ascii?q?oh1ghQBAQEBAQEBAQEBAQEBAQEBASGHQoZqgy4EhS2CNAWSOY8oCQqOK4VeghO?=
- =?us-ascii?q?FZop0lXWBLx6CCk0jgxKCU4ImWAEBjSgBAQE?=
-X-IPAS-Result: =?us-ascii?q?A2FjAABe05Rah2Oa6EReGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?lgQAojXaNf4ICgRaOH4dmghYKGIUbAoJFVBgBAgEBAQEBAQIBAhABAQEKCwkIK?=
- =?us-ascii?q?C+COCQBgkcBAQEDAQE5PxALEQMBAgEJExIPBRQnDhOFCAiuRoh1ghQBAQEBAQE?=
- =?us-ascii?q?BAQEBAQEBAQEBASGHQoZqgy4EhS2CNAWSOY8oCQqOK4VeghOFZop0lXWBLx6CC?=
- =?us-ascii?q?k0jgxKCU4ImWAEBjSgBAQE?=
-Received: from esa6.dell-outbound2.iphmx.com ([68.232.154.99])
- by esa6.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2018 21:42:53 -0600
-From: Michael E Brown <Michael.E.Brown@dell.com>
-Received: from ausxippc110.us.dell.com ([143.166.85.200])
- by esa6.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2018 09:42:53 +0600
-X-LoopCount0: from 10.9.160.254
-X-IronPort-AV: E=Sophos;i="5.47,398,1515477600"; d="scan'208";a="623337831"
-X-DLP: DLP_GlobalPCIDSS
-Date: Mon, 26 Feb 2018 21:42:52 -0600
-To: Hariharasubramanian Ramasubramanian <hramasub@in.ibm.com>
-Cc: Michael.E.Brown@dell.com, openbmc@lists.ozlabs.org
-Subject: Re: OpenBMC Redfish Working Group - meeting times open discussion
-Message-ID: <20180227034229.GA8216@wn7x64-4cggry1.aus.amer.dell.com>
-References: <5213c491520645a3931dda63b4cac71c@ausx13mps334.AMER.DELL.COM>
- <OF08854A1A.1EE22BA0-ON65258241.000EAA0D-65258241.000F7172@notes.na.collabserv.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zrGVZ077RzF1XR
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 22:21:38 +1100 (AEDT)
+Received: by mail-ua0-x236.google.com with SMTP id n48so12730049uae.13
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 03:21:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=6Iowjvd89q2RZXkP8rPs46pPb7YGC4XfPtfEFm+EKnY=;
+ b=SQgbeWAh7YNZJKq9SDsYzSusFfsIMKraCYTxLpp5GEW/9lpRxiWCdCQWu2oHmIc8PI
+ qd6o2cMpBND3N1hL9SKqFC9DzMoc7ZKjCMxCn/Z9BgdWlzihDD1eKG7SnRLfKFU4dHOy
+ rRV816RX9ZnJ5zdCmPotRSxmCnjc+7M8xp2wN76zhkLq5rhGzAZ2GSR0wK20YA1e6jRk
+ ZhL/NLhV2SDYgKrdbGK//2w2ztp7Li90sMfKUd9CdUX9Hw8RRmZzBL6Z0/KDXYnBnT9n
+ La641BNmGdzVZ5eVEJZVZIQDmCZjLi7rIe3Fa/9fraVhj2PKQs5Bcx0O8eNAOwMZdXho
+ 9C3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=6Iowjvd89q2RZXkP8rPs46pPb7YGC4XfPtfEFm+EKnY=;
+ b=kjfhMaxdru4+nVOwAIstGADGii8HwOywzQXN0+4nkPKOoBkPoZSvwON+XCNJu97E7u
+ iqsFjyhc3qnoBx2xggaQvEHI/CSqRltGxg5lE1RA9WvDwIoIkxnsIsAVRs3Y/h3mUoRT
+ phiKYMLmnfxhqAUF7PwKsXZR//8mMBK43VRLvlCjHf5netswRbRxDY5m5kfnFKsEE6YU
+ UOr1svB/WS70Vf4BxtIcCwjAABNvtDUKEgaiXkeA7B6dZBYI6bEIFQp9660SLtXt/xi2
+ of/aho9+dk3Np0SPOl90Ilml6z++5XRQMoC/VoWmcRpNzBfzQfFDlydVB277w1HfhJhs
+ Phlw==
+X-Gm-Message-State: APf1xPCGvlfUctCzvlwEySJns9OxbynGgtJ9H633VXRCvwiViMfjM/fO
+ YNnYKJYFVuLoU4ijobN0m8am0RLxSyBzkXLu5lc=
+X-Google-Smtp-Source: AG47ELvwu5/jM2Fx1eXiu1tuZ3mWRwNdEc53KlTYLANDPpGAXCVh7HmJMdzvI5si2uahduJHuAIlah1v3x51iu80Lrs=
+X-Received: by 10.159.61.88 with SMTP id m24mr10570333uai.139.1519730496001;
+ Tue, 27 Feb 2018 03:21:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <OF08854A1A.1EE22BA0-ON65258241.000EAA0D-65258241.000F7172@notes.na.collabserv.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
+Received: by 10.176.48.16 with HTTP; Tue, 27 Feb 2018 03:21:35 -0800 (PST)
+From: Jayanth Othayoth <ojayanth@gmail.com>
+Date: Tue, 27 Feb 2018 16:51:35 +0530
+Message-ID: <CACkAXSpRB4Lqhd62u+OUALeqCZpSjGD8xSPwx4yJ+WqFH7jNjA@mail.gmail.com>
+Subject: IPMI Sensor Read-only role updates.
+To: emilyshaffer@google.com, tomjose@linux.vnet.ibm.com, 
+ vernon.mauery@linux.intel.com, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="f403043664f85e5d7205662fd4ba"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,44 +60,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Feb 2018 03:42:59 -0000
+X-List-Received-Date: Tue, 27 Feb 2018 11:21:42 -0000
 
-On Tue, Feb 27, 2018 at 08:18:40AM +0530, Hariharasubramanian Ramasubramanian wrote:
->    "openbmc" <openbmc-bounces+hramasub=in.ibm.com@lists.ozlabs.org> wrote
->    on 02/27/2018 04:46:55 AM:
->    > From: <Michael.E.Brown@dell.com>
->    > To: <openbmc@lists.ozlabs.org>
->    > Date: 02/27/2018 06:32 AM
->    > Subject: OpenBMC Redfish Working Group - meeting times open
->    discussion
->    > Sent by: "openbmc"
->    <openbmc-bounces+hramasub=in.ibm.com@lists.ozlabs.org>
->    >
->    > From the first working group meeting, one discussion item was the
->    > meeting time. We had decided last week to host the inaugural meeting
->    > at 4pm CST on Feb 26.
->    I didn't realize we _decided_ on this time.
+--f403043664f85e5d7205662fd4ba
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This was the consensus in the meeting today. But I promised I would ask because I know there were voices I didn't hear.
+I am working on an issue openbmc/openbmc#2500 (Add support for Turbo
+allowed sensor). As part of this issue implementation , there is a
+requirement  to change this IPMI sensor to read only for host. Currently
+all sensors are read/write by design and doesn=E2=80=99t have way to change=
+ this
+behavior. Planing to change this behavior by adding =E2=80=9CMutability=E2=
+=80=9D field in
+the config.yaml.
 
-Ed or I will send out a poll (I need to figure out how, I think Ed knows how already).
+As part of this issue am planing to  Initialize  mutability with
+Mutability::Write|Mutability::Read for all sensors and set the required
+sensor mutability Mutability::Read.
+      - Minimal impact on testing and not breaking the existing
+functionality.
 
+Follow-on story is needed to fix this in generic way like
+  -Add =E2=80=9Cmutable=E2=80=9D field in the config.yaml and initialize th=
+e the field
+based on System types also update  sensorhandler.cpp->ipmi_sen_set_sensor()
+to do set only for write enabled sensor.
+    - This required system specific IPMI sensor behavior review and updates
+in corresponding config.yaml.
 
->    > We are intending to continue holding meetings
->    > on Monday at 4pm CST going forward.
->    Please don't. This time (3:30am IST) is _not_ convenient to me.
+Please add your view on this.
 
-Secret message received! :)
+--f403043664f85e5d7205662fd4ba
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->    >
->    > We had representation from Microsoft, Intel, Dell, and some IBM
->    > folks on the call today. It seems to work reasonably well at this
->    > time. Is there anybody that really must be part of this working
->    > group who cannot make this time work and needs us to change the
->    > meeting time?
->    Yes. I recall voting for 8am/9am CST.
+<div dir=3D"ltr">I am working on an issue openbmc/openbmc#2500 (Add support=
+ for Turbo allowed sensor). As part of this issue implementation , there is=
+ a requirement=C2=A0 to change this IPMI sensor to read only for host. Curr=
+ently all sensors are read/write by design and doesn=E2=80=99t have way to =
+change this behavior. Planing to change this behavior by adding =E2=80=9CMu=
+tability=E2=80=9D field in the config.yaml. <br><br>As part of this issue a=
+m planing to=C2=A0 Initialize=C2=A0 mutability with Mutability::Write|Mutab=
+ility::Read for all sensors and set the required sensor mutability Mutabili=
+ty::Read. <br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Minimal impact on testing an=
+d not breaking the existing functionality.<br><br>Follow-on story is needed=
+ to fix this in generic way like<br>=C2=A0 -Add =E2=80=9Cmutable=E2=80=9D f=
+ield in the config.yaml and initialize the the field based on System types =
+also update=C2=A0 sensorhandler.cpp-&gt;ipmi_sen_set_sensor() to do set onl=
+y for write enabled sensor.<br>=C2=A0=C2=A0=C2=A0 - This required system sp=
+ecific IPMI sensor behavior review and updates in corresponding config.yaml=
+.<br><br>Please add your view on this.<br></div>
 
-We will make that one of the options.
-
---
-Michael
+--f403043664f85e5d7205662fd4ba--
