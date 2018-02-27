@@ -1,57 +1,66 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:400c:c09::22a; helo=mail-wm0-x22a.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="B20fq02/"; 
- dkim-atps=neutral
-Received: from mail-wm0-x22a.google.com (mail-wm0-x22a.google.com
- [IPv6:2a00:1450:400c:c09::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zrN8M0HfLzF1Fd
- for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 02:36:18 +1100 (AEDT)
-Received: by mail-wm0-x22a.google.com with SMTP id 139so11460924wmn.2
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 07:36:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FTI3LnOF3yjRj0ltyupsvvProebpXxQXMo6fdjy7Xeo=;
- b=B20fq02/TTTAOlelDcxOGsd5V6KYRcOmhbq3xfIFhYUG6ruFJ/6QFft1KND3e1Cmat
- IgFbfyHM2M5MhFgVWvRpPpZuflVEWH1cnr14Y+KTrBoNo9UTbk9AFYxW4NzzFJ+iO17x
- 5nviEQhwuKLlqAoq07mwBgz8VfyuCudbt0TiXhyFFdt1sIny9/N2D1XYVVdD00If3wmq
- XAsXMTFsqZuyo/nr8ynedKfpVxwIG1t2EAgPkMgzhI1NlhE02txUkiIBqQSKRGIQR7CJ
- aGcg7xPnrtDkCnT0JCRHVu56QmSqaaCcdwojCGNJCpn7RHC2kWRBJj6NefozWbAzDcIT
- xgXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FTI3LnOF3yjRj0ltyupsvvProebpXxQXMo6fdjy7Xeo=;
- b=BSjq+cgNFywZ5kiNelwRL163KV1EBe9F1NLHBsHhQGkVznJnBfkhePYntCSiDZPo+M
- pEYlhTBIyiQdCcY99PuUZVKgPKg5AFKzC5ieeEQSYSWKQ8iCakXfW9NOV6GbH9s/QBTt
- MMYi+CYgNSqCcDw93f4KBCrJFaf8Di4/GducqsvNQV+Mhr+NRsxKFi0d2b9JCLrTTPXe
- sWEXLBOHaJu8LfYaLH7Dr8I04P2r60vbIzsSh+jNSUsH1ihkaXER1cwpMmr4A6N1MdZk
- MxWWzu6UpGw3cUcWXnlS4XCADH/KVmeB/ZjUY7LlH/Cy12B1dzRqXNUK2HvK9/Rod3JN
- rARA==
-X-Gm-Message-State: APf1xPBn+FU+GkIEkokSLJf9L5R/xph2xDhhbztvdaD3JVN7GQZYLc/p
- +lryaXJcTNoAKeG4gQhRRPZERl1BZzkS723VM/63PNgc
-X-Google-Smtp-Source: AG47ELvSwrXlF2lat6qgE5Rg36Qe/asFx5U1099Dcr49peVxLM0XhnbXAXyATFydV6K17hDNH1QvsbYm7IGpJ4LdL+o=
-X-Received: by 10.28.51.199 with SMTP id z190mr2220747wmz.68.1519745774811;
- Tue, 27 Feb 2018 07:36:14 -0800 (PST)
-MIME-Version: 1.0
-References: <CACkAXSpRB4Lqhd62u+OUALeqCZpSjGD8xSPwx4yJ+WqFH7jNjA@mail.gmail.com>
- <c2cfb310-7dae-3f99-a1a3-ceac0ab9c1c8@linux.vnet.ibm.com>
-In-Reply-To: <c2cfb310-7dae-3f99-a1a3-ceac0ab9c1c8@linux.vnet.ibm.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Tue, 27 Feb 2018 15:36:00 +0000
-Message-ID: <CAJoAoZn91rnQaB0p_hsJm6Vg4KPSxYxBQH0JAgKV_-Fo-yvqXw@mail.gmail.com>
-Subject: Re: IPMI Sensor Read-only role updates.
-To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="001a114351aa0f2fd005663363f8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zrPJz19hrzDqZs
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 03:28:50 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w1RGQMdt106905
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 11:28:48 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gd9wbu355-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 11:28:47 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 27 Feb 2018 09:28:46 -0700
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 27 Feb 2018 09:28:44 -0700
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w1RGSh4Y7471596; Tue, 27 Feb 2018 09:28:43 -0700
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B32337805E;
+ Tue, 27 Feb 2018 09:28:43 -0700 (MST)
+Received: from talon7.ibm.com (unknown [9.85.156.126])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 23F5978041;
+ Tue, 27 Feb 2018 09:28:43 -0700 (MST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.13 0/2] Add user space accessibility for ucd9000
+Date: Tue, 27 Feb 2018 10:28:39 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18022716-0004-0000-0000-000013B9F79C
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008601; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.00995902; UDB=6.00506254; IPR=6.00775226; 
+ MB=3.00019762; MTD=3.00000008; XFM=3.00000015; UTC=2018-02-27 16:28:45
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18022716-0005-0000-0000-00008642CFDA
+Message-Id: <1519748921-22052-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-27_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1802270205
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,167 +72,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Feb 2018 15:36:20 -0000
+X-List-Received-Date: Tue, 27 Feb 2018 16:28:51 -0000
 
---001a114351aa0f2fd005663363f8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This set provides means to allow user space to access various properties of the
+ucd9000 type chips.
 
-Hi Jayanath,
+This is a port of the patches merged in 4.10.
 
-Find my comments inline.
+Christopher Bostic (2):
+  hwmon: (ucd9000) Add gpio chip interface
+  hwmon: (ucd9000) Add debugfs to list mfr_status info
 
-It seems you may be thinking of only changes for a system specific yaml, in
-which case I don't think you need to ask for permission :) But the
-architecture you're discussing is already there today.
+ drivers/hwmon/pmbus/ucd9000.c | 369 +++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 368 insertions(+), 1 deletion(-)
 
-Emily
-
-On Tue, Feb 27, 2018, 6:22 AM Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-wrote:
-
-> Hi,
->
-> Please find my comments inline
->
-> Regards
->
-> Ratan Gupta
->
->
->
-> On Tuesday 27 February 2018 04:51 PM, Jayanth Othayoth wrote:
-> > I am working on an issue openbmc/openbmc#2500 (Add support for Turbo
-> > allowed sensor). As part of this issue implementation , there is a
-> > requirement  to change this IPMI sensor to read only for host.
-> > Currently all sensors are read/write by design and doesn=E2=80=99t have=
- way to
-> > change this behavior. Planing to change this behavior by adding
-> > =E2=80=9CMutability=E2=80=9D field in the config.yaml.
->
-ES: The Mutability field already exists in sensor config yaml.
-https://github.com/openbmc/phosphor-host-ipmid/blob/2e12a31f39d95c381a466e2=
-77e510faa02c351fb/scripts/writesensor.mako.cpp#L68
-
-> >
-> > As part of this issue am planing to  Initialize  mutability with
-> > Mutability::Write|Mutability::Read for all sensors and set the
-> > required sensor mutability Mutability::Read.
->
-ES: You're saying you'd like to ensure all sensors are readable? This
-doesn't make sense in some cases, notably fan PWM in some cases where the
-only read response would be DBus parroting back what we wrote (not an
-actual value reflecting reality).
-
-> >       - Minimal impact on testing and not breaking the existing
-> > functionality.
-> RG>>How we would be doing it? If we are planning to do introduce a check
-> for a specific sensor then we should not do like this.
-> In the current design we have not introduced any such checks and we
-> should avoid that.
-> Please correct me if I misunderstood it.
-> >
-> > Follow-on story is needed to fix this in generic way like
-> >   -Add =E2=80=9Cmutable=E2=80=9D field in the config.yaml and initializ=
-e the the field
->
-ES: Today it's defaulted to read-only for all uninitialized sensors.
-
-> > based on System types also update
-> > sensorhandler.cpp->ipmi_sen_set_sensor() to do set only for write
-> > enabled sensor.
-> >     - This required system specific IPMI sensor behavior review and
-> > updates in corresponding config.yaml.
-> RG>> I agree with this approach.What do you mean by "System types"
-> here,We have already system specfic YAML in the system specfic meta layer=
-s.
->
-> >
-> > Please add your view on this.
->
->
-
---001a114351aa0f2fd005663363f8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Jayanath,<div><br></div><div>Find my comments inline.</div><div><br></di=
-v><div>It seems you may be thinking of only changes for a system specific y=
-aml, in which case I don&#39;t think you need to ask for permission :) But =
-the architecture you&#39;re discussing is already there today.</div><div><b=
-r></div><div>Emily</div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
-">On Tue, Feb 27, 2018, 6:22 AM Ratan Gupta &lt;<a href=3D"mailto:ratagupt@=
-linux.vnet.ibm.com">ratagupt@linux.vnet.ibm.com</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
-ccc solid;padding-left:1ex">Hi,<br>
-<br>
-Please find my comments inline<br>
-<br>
-Regards<br>
-<br>
-Ratan Gupta<br>
-<br>
-<br>
-<br>
-On Tuesday 27 February 2018 04:51 PM, Jayanth Othayoth wrote:<br>
-&gt; I am working on an issue openbmc/openbmc#2500 (Add support for Turbo<b=
-r>
-&gt; allowed sensor). As part of this issue implementation , there is a<br>
-&gt; requirement=C2=A0 to change this IPMI sensor to read only for host.<br=
->
-&gt; Currently all sensors are read/write by design and doesn=E2=80=99t hav=
-e way to<br>
-&gt; change this behavior. Planing to change this behavior by adding<br>
-&gt; =E2=80=9CMutability=E2=80=9D field in the config.yaml.<br></blockquote=
-></div><div>ES: The Mutability field already exists in sensor config yaml.=
-=C2=A0<a href=3D"https://github.com/openbmc/phosphor-host-ipmid/blob/2e12a3=
-1f39d95c381a466e277e510faa02c351fb/scripts/writesensor.mako.cpp#L68">https:=
-//github.com/openbmc/phosphor-host-ipmid/blob/2e12a31f39d95c381a466e277e510=
-faa02c351fb/scripts/writesensor.mako.cpp#L68</a></div><div class=3D"gmail_q=
-uote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-l=
-eft:1px #ccc solid;padding-left:1ex">
-&gt;<br>
-&gt; As part of this issue am planing to=C2=A0 Initialize=C2=A0 mutability =
-with<br>
-&gt; Mutability::Write|Mutability::Read for all sensors and set the<br>
-&gt; required sensor mutability Mutability::Read.<br></blockquote></div><di=
-v dir=3D"auto">ES: You&#39;re saying you&#39;d like to ensure all sensors a=
-re readable? This doesn&#39;t make sense in some cases, notably fan PWM in =
-some cases where the only read response would be DBus parroting back what w=
-e wrote (not an actual value reflecting reality).</div><div class=3D"gmail_=
-quote" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
- .8ex;border-left:1px #ccc solid;padding-left:1ex">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- Minimal impact on testing and not breaking=
- the existing<br>
-&gt; functionality.<br>
-RG&gt;&gt;How we would be doing it? If we are planning to do introduce a ch=
-eck<br>
-for a specific sensor then we should not do like this.<br>
-In the current design we have not introduced any such checks and we<br>
-should avoid that.<br>
-Please correct me if I misunderstood it.<br>
-&gt;<br>
-&gt; Follow-on story is needed to fix this in generic way like<br>
-&gt;=C2=A0 =C2=A0-Add =E2=80=9Cmutable=E2=80=9D field in the config.yaml an=
-d initialize the the field<br></blockquote></div><div dir=3D"auto">ES: Toda=
-y it&#39;s defaulted to read-only for all uninitialized sensors.</div><div =
-class=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-&gt; based on System types also update<br>
-&gt; sensorhandler.cpp-&gt;ipmi_sen_set_sensor() to do set only for write<b=
-r>
-&gt; enabled sensor.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0- This required system specific IPMI sensor behavio=
-r review and<br>
-&gt; updates in corresponding config.yaml.<br>
-RG&gt;&gt; I agree with this approach.What do you mean by &quot;System type=
-s&quot;<br>
-here,We have already system specfic YAML in the system specfic meta layers.=
-<br>
-<br>
-&gt;<br>
-&gt; Please add your view on this.<br>
-<br>
-</blockquote></div></div>
-
---001a114351aa0f2fd005663363f8--
+-- 
+1.8.3.1
