@@ -1,80 +1,51 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zrXyf0CmKzF1b6
- for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 09:13:29 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w1RMBaAE067212
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 17:13:25 -0500
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gdc01sxf0-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2018 17:13:24 -0500
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Tue, 27 Feb 2018 15:13:24 -0700
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 27 Feb 2018 15:13:22 -0700
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w1RMDMMq12386666; Tue, 27 Feb 2018 15:13:22 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 62E50C603E;
- Tue, 27 Feb 2018 15:13:22 -0700 (MST)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 421ECC603C;
- Tue, 27 Feb 2018 15:13:22 -0700 (MST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zrZRT4m1fzF1VD
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 10:20:00 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2018 15:19:56 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.47,403,1515484800"; d="scan'208";a="30216590"
+Received: from orsmsx101.amr.corp.intel.com ([10.22.225.128])
+ by FMSMGA003.fm.intel.com with ESMTP; 27 Feb 2018 15:19:56 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.126]) by
+ ORSMSX101.amr.corp.intel.com ([169.254.8.72]) with mapi id 14.03.0319.002;
+ Tue, 27 Feb 2018 15:19:55 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Michael E Brown <Michael.E.Brown@dell.com>, "Hariharasubramanian
+ Ramasubramanian" <hramasub@in.ibm.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: OpenBMC Redfish Working Group - meeting times open discussion
+Thread-Topic: OpenBMC Redfish Working Group - meeting times open discussion
+Thread-Index: AdOvV+OBJ9z2ISIITSyVrtwYEMVvIgAYKOgAAAHklgAAGB1twA==
+Date: Tue, 27 Feb 2018 23:19:55 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932F6684EC@ORSMSX114.amr.corp.intel.com>
+References: <5213c491520645a3931dda63b4cac71c@ausx13mps334.AMER.DELL.COM>
+ <OF08854A1A.1EE22BA0-ON65258241.000EAA0D-65258241.000F7172@notes.na.collabserv.com>
+ <20180227034229.GA8216@wn7x64-4cggry1.aus.amer.dell.com>
+In-Reply-To: <20180227034229.GA8216@wn7x64-4cggry1.aus.amer.dell.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.140]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 27 Feb 2018 16:13:26 -0600
-From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-To: Stewart Smith <stewart@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: BMC Image Signing Proposal
-In-Reply-To: <874lm8pjd7.fsf@linux.vnet.ibm.com>
-References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
- <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
- <1517207425.21006.27.camel@aj.id.au> <87shaoymux.fsf@linux.vnet.ibm.com>
- <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
- <87lggezywe.fsf@linux.vnet.ibm.com>
- <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
- <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
- <874lm8pjd7.fsf@linux.vnet.ibm.com>
-X-Sender: anoo@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 18022722-0012-0000-0000-000015D06E45
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008601; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.00996017; UDB=6.00506322; IPR=6.00775339; 
- MB=3.00019766; MTD=3.00000008; XFM=3.00000015; UTC=2018-02-27 22:13:24
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18022722-0013-0000-0000-000051AA594F
-Message-Id: <e1431b039c817b23b49b6f5833760152@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-02-27_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1802270272
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -86,21 +57,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Feb 2018 22:13:30 -0000
+X-List-Received-Date: Tue, 27 Feb 2018 23:20:07 -0000
 
+>=20
+> Ed or I will send out a poll (I need to figure out how, I think Ed knows =
+how
+> already).
+>=20
 
-> 
-> Why are there changes to host pnor signing?
-> 
-> We already have secure boot and signatures on the host side, I'm not
-> keen on adding in another set of signatures into yet-another already
-> non-standard
-> and undocumented file format.
+Poll for meeting times is up here:  https://goo.gl/forms/WlZ4ajhQqgDzkFvC2
 
-Secure boot validates individual pnor packages, so it could be possible 
-to build an image with an older individual package (like an opal n-1) 
-and still be able to boot the host. Signing the whole image would catch 
-this scenario.
-This image signing feature in general is an extension of the current 
-implementation of the software dbus interfaces, which provides options 
-for a user/company to use.
+I started with the times list that Michael originally proposed;  If there a=
+re any popular times, I can also add them to the list.  Please try to reply=
+ before Thursday at 5PM PST.  I will aggregate the responses then.
+
+I will do my best to find a time that works for everyone.
+
+-Ed=20
