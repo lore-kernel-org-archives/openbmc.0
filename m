@@ -1,74 +1,74 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <ivan@de.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=de.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ivan@de.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cuOJwbOC"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="R8UcB7us"; 
- dkim-atps=neutral
-Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
- [IPv6:2607:f8b0:400d:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=de.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zsr776wRPzF1n1
- for <openbmc@lists.ozlabs.org>; Fri,  2 Mar 2018 11:40:19 +1100 (AEDT)
-Received: by mail-qk0-x243.google.com with SMTP id l206so10062167qke.1
- for <openbmc@lists.ozlabs.org>; Thu, 01 Mar 2018 16:40:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=A1IlZHMXGh7LvvTep9A1eap/U7qDVjernYkG8Dw7HRM=;
- b=cuOJwbOC8X9Da2z34nTJMsqoGGlvNoHBTB3nnNc+NNCIPiDWC8TNmSJx6ikg18ZKjg
- uOAFJYGfu0y8DnlhpKK4QCL5q8Y5U6tABNzrS+WL7quFVmUpeWp6oU1Lu3+B4KM5sPUu
- Sr1ep++aAMp2VvLtM0SeD0PZnXj7aFVnppJVzagW24Fuc7TGjXQ0zqWjTMYqRY0w7R3m
- Nek5zNxz8tx5QBrv4Y4z07p07vT/B5PNYbyWoRD9FJ6d8UM/glm0p4jVH1DeD5poewKv
- UHlhTAcckLKxEI52Uo99+PNVJ2lOfQc1L8DHyt+hAfrOAuwv6S61kA7wcn5Ho7ATLCXx
- 4qNw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=A1IlZHMXGh7LvvTep9A1eap/U7qDVjernYkG8Dw7HRM=;
- b=R8UcB7usmXh/BObMUoJvcaZab/5OHJ5ykqyPeYX5eVdXP1kX5UuwPnWz37taKEOSF0
- 57pJX/hCAXUrFv5/ITPyDfLS7crfysDCuaTunauwsUQp7fcw5BrW4Rf9LXO9Vq5vdz7Q
- PX/bnCW80XMiAsnAQ1eRvywAZUAc5+HHniRbI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=A1IlZHMXGh7LvvTep9A1eap/U7qDVjernYkG8Dw7HRM=;
- b=jeWPuuu7MY4/C7w9ARRKcsd5ZeVbiKgxXL5EK3gmdJHuq4YIbg0wORx7JHK5p4Uo1n
- HZBFY67K9YzqGU3ILutmLoKDWceyYT/2LwwuAGoXsx1WZpJKmLXyLtH0hu0L/Rql7Hda
- fSD8OOnmSR51mDAlxB7o6IXneTpBN7OJkn9QiFTu5cIltCM3BxOO3r7GYvpE1ZtFnHjW
- jkSUPrS/jhk6ItEXyJ3wrS2MnwUo4PSupI2cwhqi7F1CfBxVlop+vgz7aKA2R/Eo9r6u
- 7XUPsnYc4R2SyDXh+61GfyQYHfxrQ3PmbVf2uVrlJTv7aPyaA62pkhoMq40Rk26DIxuI
- D8Qw==
-X-Gm-Message-State: AElRT7F3JQJjReqAvn42OVhyqWiL0uukuEd4VAqt3tiJGp1sebBAPGM/
- tR9zFUr3SUULrp9lSy4VwAP7imDwkA0ySSdGg1Y=
-X-Google-Smtp-Source: AG47ELuTteZF9GpXgd7O8WDw/p/lDhvi8gGWu5MMFe16hHhxgwzY8M9sYIesBdvfwLd6XQSjUGmWYJdnnGXC9SFkSA0=
-X-Received: by 10.55.22.144 with SMTP id 16mr5510996qkw.11.1519951217226; Thu,
- 01 Mar 2018 16:40:17 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zs0yn66K0zF1c1
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Mar 2018 03:15:07 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w1SGED9r040279
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 11:15:05 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.111])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gdx7ed4cc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 11:15:04 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <ivan@de.ibm.com>;
+ Wed, 28 Feb 2018 16:15:03 -0000
+Received: from us1b3-smtp05.a3dr.sjc01.isc4sb.com (10.122.203.183)
+ by smtp.notes.na.collabserv.com (10.122.47.52) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 28 Feb 2018 16:15:02 -0000
+Received: from us1b3-mail161.a3dr.sjc03.isc4sb.com ([10.160.174.246])
+ by us1b3-smtp05.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2018022816150119-654275 ;
+ Wed, 28 Feb 2018 16:15:01 +0000 
+In-Reply-To: 
+Subject: patches from upstream for fsp2 board
+From: "Ivan Mikhaylov1" <ivan@de.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: "Karlo Petri" <XXPETRI@de.ibm.com>,
+ "Bradley W Bishop" <bradleyb@us.ibm.com>
+Date: Wed, 28 Feb 2018 16:15:01 +0000
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Thu, 1 Mar 2018 16:39:56 -0800 (PST)
-In-Reply-To: <1519944259-27898-2-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1519944259-27898-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1519944259-27898-2-git-send-email-eajames@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 2 Mar 2018 11:09:56 +1030
-X-Google-Sender-Auth: -tzLBUSLx3sq-muBJ5toiXQKP4Y
-Message-ID: <CACPK8XcKZvvU27n575J+GQ=kAm3PONYqWCZwESEaxq5Ne0KP0Q@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 1/2] hwmon (occ): Remove temperature fault
- attribute and VRM temp alarm
-To: Eddie James <eajames@linux.vnet.ibm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, spinler@linux.vnet.ibm.com, 
- "Edward A. James" <eajames@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: 
+X-Mailer: IBM iNotes ($HaikuForm 1010) | IBM Domino Build
+ SCN1803700_20180206T0029_FP1 February 08, 2018 at 11:43
+X-KeepSent: 5EA5B9BB:74B1EB55-00258242:0058C04B;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 22795
+X-TNEFEvaluated: 1
+X-LLNXfer: False
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 18022816-8243-0000-0000-00000276A8C0
+X-IBM-SpamModules-Scores: BY=0.000007; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.405233; ST=0; TS=0; UL=0; ISC=; MB=0.119942
+X-IBM-SpamModules-Versions: BY=3.00008602; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.00996376; UDB=6.00506537; IPR=6.00775700; 
+ BA=6.00005852; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019779; XFM=3.00000015;
+ UTC=2018-02-28 16:15:03
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-02-28 15:27:11 - 6.00008126
+x-cbparentid: 18022816-8244-0000-0000-00006C02AB1C
+Message-Id: <OF5EA5B9BB.74B1EB55-ON00258242.0058C04B-00258242.0059444A@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-02-28_09:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-Mailman-Approved-At: Fri, 02 Mar 2018 11:40:50 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -80,166 +80,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Mar 2018 00:40:21 -0000
+X-List-Received-Date: Wed, 28 Feb 2018 16:15:14 -0000
 
-On Fri, Mar 2, 2018 at 9:14 AM, Eddie James <eajames@linux.vnet.ibm.com> wr=
-ote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> This removes the EAGAIN return for "sensor not ready" and the temperature
-> fault and vrm temp alarms attributes.
->
-> Apologies for pushing this up so early... Userspace applications aren't
-> ready for this change. The hwmon polling application cannot accept EGAIN
-> yet, and we can't be returning apparent errors if the sensor is
-> temporarily unavailable.
+we have list of patches which need to be ported if possible into 4.13 openb=
+mc/linux branch :
 
-Okay. Brad's email is from October 5th, 2017. That's 148 days ago.
+first 4 is for low level setup of board
+494d82ceae7f3b9fdb5154b4469e5bb22f56040b
+9c4c374676a12db4a452534f3347323d35c32d1a
+50f01c57d700cce04a9dc87bc55db2e283f57212
+7813043e1bbcea764c86ef2fcf43aeae2b0e240d
 
-Any ETA on when the userspace plans to get some love?
-
-Cheers,
-
-Joel
+it is related to network driver
+45d6e545505fd32edb812f085be7de45b6a5c0af
+624ca9c33c8a853a4a589836e310d776620f4ab9
 
 
->
-> Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
->> userspace retries for a configurable period on eio, etimedout,
->> ebadmsg, eagain, and exnio.  It also exits cleanly on enoent.
->>
->> If any of these errnos don=E2=80=99t go away after the configured number=
- of retry
->> attempts, an error is logged.  Any other errnos and an error is logged
->> immediately. If this list needs improvement I=E2=80=99d love to hear abo=
-ut it.
->>
->> ebadmsg and enxio are observed when i2c devices are unplugged with trans=
-fers
->> in various stages of flight.  They occur just before the driver is unbou=
-nd
->> after the presence gpio toggle on these devices is noticed and processed
->> (killing the hwmon userspace daemon cleanly).
->>
->> eio, etimedout seem to be bus type errors that appear somewhat infrequen=
-tly,
->> but occur nevertheless.
->>
->> we all know what eagain means...
->>
->> It isn=E2=80=99t so much that the hwmon userspace doesn=E2=80=99t suppor=
-t this change,
->> its just the resulting behavior difference at the other end of the
->> hwmon abi <-> dbus api translation is not optimal, right now.
->>
->> 1 - Without this change, the hwmon userspace reads a value of 0 out of
->> the sysfs attribute and happily reports that as the temp at the DBus lev=
-el.
->>
->> With this change, the hwmon userspace would read the attribute, get an
->> error and retry for a bit.  After a number of retries, the error is
->> logged and the sensor is marked faulted at a dbus level.
->>
->> The issue is the consumer of the sensor at the dbus level.  Today, the
->> dbus consumer happens to translate the sensor value of zero into the
->> desired behavior.  If we submit this change the sensor will be put
->> into faulted state and the consuming application doesn=E2=80=99t have su=
-pport
->> for that yet.
->>
->> We have open issues to enhance the application to support faulted sensor=
-s,
->> its just not implemented yet.
->
-> OpenBMC-Staging-Count: 1
-> Signed-off-by: Eddie James <eajames@us.ibm.com>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  drivers/hwmon/occ/common.c | 33 +++------------------------------
->  1 file changed, 3 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index 7c97a4c..a5c4df0 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -304,24 +304,11 @@ static ssize_t occ_show_temp_2(struct device *dev,
->                 val =3D get_unaligned_be32(&temp->sensor_id);
->                 break;
->         case 1:
-> -               val =3D temp->value;
-> -               if (val =3D=3D OCC_TEMP_SENSOR_FAULT)
-> -                       return -EREMOTEIO;
-> -
-> -               if (temp->fru_type !=3D OCC_FRU_TYPE_VRM) {
-> -                       /* sensor not ready */
-> -                       if (val =3D=3D 0)
-> -                               return -EAGAIN;
-> -
-> -                       val *=3D 1000;    /* millidegrees */
-> -               }
-> +               val =3D temp->value * 1000;
->                 break;
->         case 2:
->                 val =3D temp->fru_type;
->                 break;
-> -       case 3:
-> -               val =3D temp->value =3D=3D OCC_TEMP_SENSOR_FAULT;
-> -               break;
->         default:
->                 return -EINVAL;
->         }
-> @@ -790,7 +777,7 @@ static int occ_setup_sensor_attrs(struct occ *occ)
->                 num_attrs +=3D (sensors->temp.num_sensors * 2);
->                 break;
->         case 2:
-> -               num_attrs +=3D (sensors->temp.num_sensors * 4);
-> +               num_attrs +=3D (sensors->temp.num_sensors * 3);
->                 show_temp =3D occ_show_temp_2;
->                 break;
->         default:
-> @@ -863,22 +850,13 @@ static int occ_setup_sensor_attrs(struct occ *occ)
->
->         for (i =3D 0; i < sensors->temp.num_sensors; ++i) {
->                 s =3D i + 1;
-> -               temp =3D ((struct temp_sensor_2 *)sensors->temp.data) + i=
-;
->
->                 snprintf(attr->name, sizeof(attr->name), "temp%d_label", =
-s);
->                 attr->sensor =3D OCC_INIT_ATTR(attr->name, 0444, show_tem=
-p, NULL,
->                                              0, i);
->                 attr++;
->
-> -               if (sensors->temp.version > 1 &&
-> -                   temp->fru_type =3D=3D OCC_FRU_TYPE_VRM) {
-> -                       snprintf(attr->name, sizeof(attr->name),
-> -                                "temp%d_alarm", s);
-> -               } else {
-> -                       snprintf(attr->name, sizeof(attr->name),
-> -                                "temp%d_input", s);
-> -               }
-> -
-> +               snprintf(attr->name, sizeof(attr->name), "temp%d_input", =
-s);
->                 attr->sensor =3D OCC_INIT_ATTR(attr->name, 0444, show_tem=
-p, NULL,
->                                              1, i);
->                 attr++;
-> @@ -890,11 +868,6 @@ static int occ_setup_sensor_attrs(struct occ *occ)
->                                                      show_temp, NULL, 2, =
-i);
->                         attr++;
->
-> -                       snprintf(attr->name, sizeof(attr->name),
-> -                                "temp%d_fault", s);
-> -                       attr->sensor =3D OCC_INIT_ATTR(attr->name, 0444,
-> -                                                    show_temp, NULL, 3, =
-i);
-> -                       attr++;
->                 }
->         }
->
-> --
-> 1.8.3.1
->
+if you have any questions or anything to add - ask me.
+thanks in advance!
