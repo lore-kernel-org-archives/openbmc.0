@@ -1,56 +1,52 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::230; helo=mail-vk0-x230.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="dF1A8H5z"; 
+ dkim-atps=neutral
+Received: from mail-vk0-x230.google.com (mail-vk0-x230.google.com
+ [IPv6:2607:f8b0:400c:c05::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zrZbF2l8NzF1Yb
- for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 10:26:48 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2018 15:26:46 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,403,1515484800"; d="scan'208";a="207566441"
-Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
- by fmsmga006.fm.intel.com with ESMTP; 27 Feb 2018 15:26:46 -0800
-Received: from orsmsx158.amr.corp.intel.com (10.22.240.20) by
- ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Tue, 27 Feb 2018 15:26:45 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.126]) by
- ORSMSX158.amr.corp.intel.com ([169.254.10.162]) with mapi id 14.03.0319.002;
- Tue, 27 Feb 2018 15:26:45 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
- "hramasub@in.ibm.com" <hramasub@in.ibm.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: OpenBMC Redfish Working Group - meeting times open discussion
-Thread-Topic: OpenBMC Redfish Working Group - meeting times open discussion
-Thread-Index: AdOvV+OBJ9z2ISIITSyVrtwYEMVvIgAYKOgAAAHklgAAGB1twAARFeoAABCdLkA=
-Date: Tue, 27 Feb 2018 23:26:45 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F668514@ORSMSX114.amr.corp.intel.com>
-References: <5213c491520645a3931dda63b4cac71c@ausx13mps334.AMER.DELL.COM>
- <OF08854A1A.1EE22BA0-ON65258241.000EAA0D-65258241.000F7172@notes.na.collabserv.com>
- <20180227034229.GA8216@wn7x64-4cggry1.aus.amer.dell.com>
- <7E9441B1E5EFFD4681F54958E82169932F6684EC@ORSMSX114.amr.corp.intel.com>
- <95223c15b186450ba0cc600b73976ab0@ausx13mps334.AMER.DELL.COM>
-In-Reply-To: <95223c15b186450ba0cc600b73976ab0@ausx13mps334.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.140]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zs4YV6jQszF1hM
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Mar 2018 05:57:01 +1100 (AEDT)
+Received: by mail-vk0-x230.google.com with SMTP id p189so2128979vkd.10
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 10:57:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=LuhnonoZ1N67lpI9LhEvmRDWKzSXTpmncEqTKNU979M=;
+ b=dF1A8H5zbay+bpgy6kZCoRXO6RyjQ5pfqsOLDKDHB4aLqR87yNCh8Kom/oDU7i6xrG
+ KaZCd8Dg4GBgVMd0r4jtHSI1UOGx4p+19PzJqttY34oDKRqgGRBCo3rpbVFwYuZ1TRHQ
+ Skh/hDTuZdW967EOrsZWTx0H2bA/jzgd78MjoXcTK2AoNHXsCx1uQ61AlX8uQcMWu4LL
+ 1I179oKWwWaIwzio8IcV3OyjsPfWRIRhIAXW2r3Duy7KDYA4Wdq46SlK+JjLEKXLrrjT
+ 47cWGOkaWTtIi4CPgigGSXTWXJkVjpBXG9TvaRgmj/Rd+dEfx8p/qmmg4pwZm/+Ow/uK
+ VjjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=LuhnonoZ1N67lpI9LhEvmRDWKzSXTpmncEqTKNU979M=;
+ b=dscxdhTED6sm2x8F347Vw50P4Syiiur8qsas3UaVCQq7hulpg/iaOr8qH2yTAoIV54
+ gPD63rjexzgFmTbesXCNKRVVIiw96fNTYlnVxNPgv68VHafDQPq0cGxAYVuUb/mst01l
+ A/dgrwc0cRY9bwvBfCEDhGpFeeewRZuNFxxZmeY7MlaH0Dz11yrFieoam+yKl8wqOtyC
+ 7Yy2Cu2LI95CasI3k6035iLlbDSKWb/NXs2nx4LCal2MM2MO1ulZfxoiziEd0L3Vbvqi
+ FYPcy1eJcp4Bhj9xsStPxztvxXAfH6rZHKkc762naxosdd6mof4ZNN5/g8tdmWS6dLSA
+ lHxw==
+X-Gm-Message-State: APf1xPCQk8sE+rsEMsPldy1EjSACmx2rkCCVdjelK9rtB7ox0mG6aWWh
+ RUMlXGYm/FHxcPKRnNXsQ6O38kYCBAUKFTRTODN3NtIC1+o=
+X-Google-Smtp-Source: AG47ELvrGVFdqHjsTUaMOC4+C2eM3A/2x01iLWiCtPQzv2wGrdEnXdPGGhmvPv7EFRqqJ5UWWIL1D/nHB0ohAjts5C8=
+X-Received: by 10.31.56.208 with SMTP id f199mr13767605vka.45.1519844218736;
+ Wed, 28 Feb 2018 10:56:58 -0800 (PST)
 MIME-Version: 1.0
+From: Patrick Venture <venture@google.com>
+Date: Wed, 28 Feb 2018 18:56:48 +0000
+Message-ID: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+Subject: Exposing POST codes
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -62,12 +58,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Feb 2018 23:26:50 -0000
+X-List-Received-Date: Wed, 28 Feb 2018 18:57:04 -0000
 
->=20
-> Add a Monday 9am CST (7am PST) option so that I can vote for that. :)
-> --
-> Michael
->=20
+I talked to Nancy and I think it's time to revisit previous conversations
+about POST codes.  We have a simple daemon that exposes the information
+over Dbus associated with https://gerrit.openbmc-project.xyz/#/c/5006
 
-Added.
+If there's interest, I can stage it against skeleton for review and comment.
+
+We have a patch to the kernel character device for the aspeed-lpc-snoop
+that is required and enables reading the post codes.
+
+Patrick
