@@ -1,50 +1,50 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zsnYV06qlzF1mj
- for <openbmc@lists.ozlabs.org>; Fri,  2 Mar 2018 09:44:29 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w21MiRYS035048
- for <openbmc@lists.ozlabs.org>; Thu, 1 Mar 2018 17:44:27 -0500
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gerh4cpju-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zsnYX1NWJzF1mj
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Mar 2018 09:44:31 +1100 (AEDT)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w21MhmD2059571
+ for <openbmc@lists.ozlabs.org>; Thu, 1 Mar 2018 17:44:29 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2gepmb17fd-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 01 Mar 2018 17:44:27 -0500
+ for <openbmc@lists.ozlabs.org>; Thu, 01 Mar 2018 17:44:28 -0500
 Received: from localhost
- by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 1 Mar 2018 17:44:26 -0500
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 1 Mar 2018 17:44:28 -0500
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 1 Mar 2018 17:44:24 -0500
+ Thu, 1 Mar 2018 17:44:26 -0500
 Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
  [9.57.199.109])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w21MiN1Q33292498; Thu, 1 Mar 2018 22:44:23 GMT
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w21MiPPk45678608; Thu, 1 Mar 2018 22:44:25 GMT
 Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D1532112047;
- Thu,  1 Mar 2018 17:42:42 -0500 (EST)
+ by IMSVA (Postfix) with ESMTP id 005C8112047;
+ Thu,  1 Mar 2018 17:42:45 -0500 (EST)
 Received: from talon7.ibm.com (unknown [9.85.161.189])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 617DA112034;
- Thu,  1 Mar 2018 17:42:42 -0500 (EST)
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 8477D112034;
+ Thu,  1 Mar 2018 17:42:44 -0500 (EST)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, spinler@linux.vnet.ibm.com,
  "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.13 1/2] hwmon (occ): Remove temperature fault
- attribute and VRM temp alarm
-Date: Thu,  1 Mar 2018 16:44:17 -0600
+Subject: [PATCH linux dev-4.13 1/2] Revert "drivers/hwmon/occ: Add temperature
+ fault attribute and VRM temp alarm"
+Date: Thu,  1 Mar 2018 16:44:18 -0600
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1519944259-27898-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1519944259-27898-1-git-send-email-eajames@linux.vnet.ibm.com>
@@ -52,20 +52,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-x-cbid: 18030122-0008-0000-0000-000002DDE994
+x-cbid: 18030122-0040-0000-0000-00000400BFA3
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00008609; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000254; SDB=6.00996985; UDB=6.00506901; IPR=6.00776303; 
- MB=3.00019807; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-01 22:44:25
+ MB=3.00019807; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-01 22:44:27
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18030122-0009-0000-0000-0000386E0051
-Message-Id: <1519944259-27898-2-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 18030122-0041-0000-0000-00000801C056
+Message-Id: <1519944259-27898-3-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-03-01_12:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
  malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
  definitions=main-1803010276
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -79,12 +79,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Mar 2018 22:44:30 -0000
+X-List-Received-Date: Thu, 01 Mar 2018 22:44:32 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-This removes the EAGAIN return for "sensor not ready" and the temperature
-fault and vrm temp alarms attributes.
+This reverts commit e55423ee10a5057338d24383c00e813436a126ea.
 
 Apologies for pushing this up so early... Userspace applications aren't
 ready for this change. The hwmon polling application cannot accept EGAIN
