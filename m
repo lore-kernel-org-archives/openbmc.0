@@ -1,61 +1,70 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c01::242; helo=mail-pl0-x242.google.com;
+ (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="m5z0Ko+X"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="PpxdwE5x"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="G+ntjWB2"; 
  dkim-atps=neutral
-Received: from mail-pl0-x242.google.com (mail-pl0-x242.google.com
- [IPv6:2607:f8b0:400e:c01::242])
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zsFrs5h4bzF1ZJ
- for <openbmc@lists.ozlabs.org>; Thu,  1 Mar 2018 12:55:57 +1100 (AEDT)
-Received: by mail-pl0-x242.google.com with SMTP id d4-v6so2727845pll.5
- for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 17:55:57 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zsKvc02gnzF1lB
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Mar 2018 15:58:35 +1100 (AEDT)
+Received: by mail-qk0-x241.google.com with SMTP id o25so6038277qkl.7
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2018 20:58:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=3PORx1pGfObLFg0coqhqHVeWgtDkaKIMCiEojiuMTuY=;
- b=m5z0Ko+X8MDu8CF5xXdvCt8nAX+2oQm0bs7/RtC9K9stVqPzOXqIDbw3iunN4dcGlp
- Or/DBQfET+VZruLqLk0q/5Z4tqd6qKYhsuaCvT2qeMKYBkGE0nfXaiShTaZlISCa/oIZ
- W5TxYWSPL1/7j/cY3nIQ460oU4Q8ZCbXmqR77XCwd9Eq2RWykmcpwhSYP6O0gfuQM6Q0
- XcGpmLe+5hY34owoez1ObxYlZQ2HqjgmW6V0r2jia9tKWIQXxTVpC7zpbAVW5FE6x0i9
- yUanovyyucYznkUjxchQsCn+V8ngBAqAVSpygjeFfa1U6uepNE7cPNyGcglaBYI24MMe
- MryQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=EKtymf/k6QKCVzTMMRwtT2IAPSHAz1f6kg2mJadDSU4=;
+ b=PpxdwE5x9hqWS9egRYExyNgCsAv/Xk0VUX14NLcIfMwOhpT7JDy6qgi6CWWbJc42vf
+ D4yyHVDIhrRB5xx2GZvyI0nReCs52CKm5vrQU2B1ods4x5beIoXcIQyJ/dU4nfAkwT9B
+ NfqyF89WdO3c5t5fMVTAkFxCXELweODIr7nFjnG4iFRV0U5ueRq9U1bWDHxDCP9ueNaq
+ 5jvJ8z/Q7ljgUHOZHZoidsZhjFsYRXy2CmQycgr4ieuEjPOXjBbIaNxF4quJSiIU3gnA
+ dMNtr5g4vIBzm6lISvV4DtN/aou30H2Yg63L+rOSrEzGmbLFK6mB/JJhD+JN7zfQ+T3c
+ c6Qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=EKtymf/k6QKCVzTMMRwtT2IAPSHAz1f6kg2mJadDSU4=;
+ b=G+ntjWB2pF3re7QiXab4/bYpCNhAlRfERnf+FU0Nk1WBD45Ig5mwt3dvKDwQdg6Fs3
+ x/i4ZcTMS5cxvAEB4uh/dXw8oNbJsbgOdocVRt9qneMoatWkYUIHjWYxYQQqx/SNQSNT
+ 2i/uL+cd2SwLNm2Fv1FmmA9Z6AQddP6SL5BC4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=3PORx1pGfObLFg0coqhqHVeWgtDkaKIMCiEojiuMTuY=;
- b=Y97UOcjM51OGXcA1wOVZzuOTlpg4VCBRn1c5M6kvRFL23nbkRnUtPTiZ349ld1qcMj
- 2Bm42SJTlcTggwyFzUHvQdKWx37DyjIt1jk3YyqRGx48b8z/pZURD9enHBuBhiAXDFOu
- KEr79BHt8orGwidbrCxoSbYxvtzH71xCFB4wEdCtEcbhMKnD0gGJ0bFDGC4e422tU18d
- NhlxCQCr2LRl/++9AAZWFHM/KkJrnxtQY+5OxdEyNjEhF0uigeLY5k85EfiLn80Ead8L
- iwmnVp7jGzvQk7ycRZFjXqtvYnauH0yenUCk06oUKfVMvJ7DgTkUQinMZlVEYXrdd+F4
- 93Uw==
-X-Gm-Message-State: APf1xPDR6kz6yT1GSlVqFZe6vQXVHsseIOf2SnsOvgBjuqi58bA8LZlb
- Z69lpueL0ADtSg44UgsAnpix2YPx
-X-Google-Smtp-Source: AG47ELsMl3SkhP9L8g6YBWOQRnKizGSV1kIO0pN6mlFLSthpRIhiXWTF0lwBBDl0iR2VOGPb4+wCJg==
-X-Received: by 2002:a17:902:2cc1:: with SMTP id
- n59-v6mr189647plb.215.1519869354741; 
- Wed, 28 Feb 2018 17:55:54 -0800 (PST)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id n7sm5174348pgd.87.2018.02.28.17.55.51
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 28 Feb 2018 17:55:54 -0800 (PST)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 01 Mar 2018 12:25:48 +1030
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=EKtymf/k6QKCVzTMMRwtT2IAPSHAz1f6kg2mJadDSU4=;
+ b=gEAesi3l6TuQCrr4OF8FY4t1/3z9dzHz7MEfXjpirk4/fiCQecBdm5qCEETUjH5MWN
+ 01TMN7NCDF+shN4pDgIZfKF03S4JJjWm20E585moJVzCUXZv00vR4Zr+bh4ZlZRsKLcv
+ kK9Bs3hByCwm9GKKaGMSus/RONs/mnhDWPVnmzP7A1wYBTvK5f1WJMf866auEwc5RyEk
+ x/1Ws4H/cUKjquEzX9P6TxV5+Z5yPgyrstOeuOPOgTRXq1Av4cu4JtsSDAi5LMITGXNH
+ RRFqARlIjtUGBiiFwRDKrIpMqNPRkTUMTly6YDKXwvv275GVFxrz/6HGoSFG3Jpcs11/
+ Fkdw==
+X-Gm-Message-State: AElRT7Eey2dCqmVkiBF7TQCGlTX31pA7rqmKRkBkmu0NSMBmlUp0oEaQ
+ yYtyY+Y/v0mQRL/1IupaUCU0MKAgHjEqHTxIAIo=
+X-Google-Smtp-Source: AG47ELtKs5mlDyqlJL7HlJVxrDBotQ0W3rLsNFXXzKIvg3kU+gXSHj//v0MaYcnG8iGYHdvUMYKuYu0eKM7aWdZ8b5U=
+X-Received: by 10.55.139.133 with SMTP id n127mr853367qkd.231.1519880313189;
+ Wed, 28 Feb 2018 20:58:33 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.50.69 with HTTP; Wed, 28 Feb 2018 20:58:12 -0800 (PST)
+In-Reply-To: <1519748921-22052-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1519748921-22052-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed-palmetto: Correct flash
- window location
-Date: Thu,  1 Mar 2018 12:25:47 +1030
-Message-Id: <20180301015547.772-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.15.1
+Date: Thu, 1 Mar 2018 15:28:12 +1030
+X-Google-Sender-Auth: XTBvuZWrt2trq0TFDnZz067iwYA
+Message-ID: <CACPK8Xckzp08FifzHG8sOS+zqERi_NPZizPEHo=T66HHMjJGPw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 0/2] Add user space accessibility for
+ ucd9000
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,31 +76,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Mar 2018 01:55:58 -0000
+X-List-Received-Date: Thu, 01 Mar 2018 04:58:37 -0000
 
-The flash window location was pointing off into the distance, far past
-any RAM. Rein it back in to a useful location.
+On Wed, Feb 28, 2018 at 2:58 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> This set provides means to allow user space to access various properties of the
+> ucd9000 type chips.
+>
+> This is a port of the patches merged in 4.10.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Have these been submitted upstream?
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index 18df9c75c740..377539181142 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -26,9 +26,9 @@
- 			reg = <0x5f000000 0x01000000>; /* 16MB */
- 		};
- 
--		flash_memory: region@98000000 {
-+		flash_memory: region@5e000000 {
- 			no-map;
--			reg = <0x98000000 0x01000000>; /* 16MB */
-+			reg = <0x5e000000 0x1000000>; /* 16MB */
- 		};
- 	};
- 
--- 
-2.15.1
+Our development process docs say that you can submit it for
+re-inclusion in a later tree, as long as you show progress of
+upstreaming:
+
+ https://github.com/openbmc/linux/wiki/DevelopmentProcess#patch-submitters-wishing-to-have-a-change-included-through-this-process
+
+Cheers,
+
+Joel
+
+>
+> Christopher Bostic (2):
+>   hwmon: (ucd9000) Add gpio chip interface
+>   hwmon: (ucd9000) Add debugfs to list mfr_status info
+>
+>  drivers/hwmon/pmbus/ucd9000.c | 369 +++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 368 insertions(+), 1 deletion(-)
+>
+> --
+> 1.8.3.1
+>
