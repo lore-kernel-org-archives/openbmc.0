@@ -1,31 +1,31 @@
 Return-Path: <james.feist@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
  envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ztHRG6m15zDqk1
- for <openbmc@lists.ozlabs.org>; Sat,  3 Mar 2018 05:10:46 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ztHbG6mHMzF1pp
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Mar 2018 05:17:46 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2018 10:10:44 -0800
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2018 10:17:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,413,1515484800"; d="scan'208";a="179422529"
+X-IronPort-AV: E=Sophos;i="5.47,413,1515484800"; d="scan'208";a="179423891"
 Received: from skyhawk.jf.intel.com (HELO [10.7.150.62]) ([10.7.150.62])
- by orsmga004.jf.intel.com with ESMTP; 02 Mar 2018 10:10:44 -0800
+ by orsmga004.jf.intel.com with ESMTP; 02 Mar 2018 10:17:43 -0800
 Subject: Re: openbmc Digest, Vol 30, Issue 51
-To: openbmc@lists.ozlabs.org
+To: guhan balasubramanian <guhan.sac@gmail.com>, openbmc@lists.ozlabs.org
 References: <mailman.137.1518635814.10144.openbmc@lists.ozlabs.org>
  <CAMNAJg3uRy8V9NQJagXkdh=krK4Q5EqW+A4rwYDxZf92XOooTA@mail.gmail.com>
 From: James Feist <james.feist@linux.intel.com>
-Message-ID: <f168b4a9-4ed1-12d1-a3a5-2ea42e8c3f40@linux.intel.com>
-Date: Fri, 2 Mar 2018 10:10:44 -0800
+Message-ID: <e19241a8-e80a-e22d-c47b-638bbf0365a1@linux.intel.com>
+Date: Fri, 2 Mar 2018 10:17:43 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
@@ -44,7 +44,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Mar 2018 18:10:51 -0000
+X-List-Received-Date: Fri, 02 Mar 2018 18:17:47 -0000
+
+- Accidentally dropped Guhan's email, resending.
 
 Hi Guhan,
 
