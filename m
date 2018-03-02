@@ -1,74 +1,38 @@
-Return-Path: <hramasub@in.ibm.com>
+Return-Path: <james.feist@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=hramasub@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zt1PN31HyzF1q2
- for <openbmc@lists.ozlabs.org>; Fri,  2 Mar 2018 18:38:15 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w227YJtM019595
- for <openbmc@lists.ozlabs.org>; Fri, 2 Mar 2018 02:38:13 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.82])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gewcs9jjw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 02 Mar 2018 02:38:13 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <hramasub@in.ibm.com>;
- Fri, 2 Mar 2018 07:38:12 -0000
-Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 2 Mar 2018 07:38:09 -0000
-Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
- by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2018030207380878-1515788 ;
- Fri, 2 Mar 2018 07:38:08 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ztHRG6m15zDqk1
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Mar 2018 05:10:46 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2018 10:10:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.47,413,1515484800"; d="scan'208";a="179422529"
+Received: from skyhawk.jf.intel.com (HELO [10.7.150.62]) ([10.7.150.62])
+ by orsmga004.jf.intel.com with ESMTP; 02 Mar 2018 10:10:44 -0800
+Subject: Re: openbmc Digest, Vol 30, Issue 51
+To: openbmc@lists.ozlabs.org
+References: <mailman.137.1518635814.10144.openbmc@lists.ozlabs.org>
+ <CAMNAJg3uRy8V9NQJagXkdh=krK4Q5EqW+A4rwYDxZf92XOooTA@mail.gmail.com>
+From: James Feist <james.feist@linux.intel.com>
+Message-ID: <f168b4a9-4ed1-12d1-a3a5-2ea42e8c3f40@linux.intel.com>
+Date: Fri, 2 Mar 2018 10:10:44 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F668514@ORSMSX114.amr.corp.intel.com>
-Subject: RE: OpenBMC Redfish Working Group - meeting times open discussion
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-From: "Hariharasubramanian Ramasubramanian" <hramasub@in.ibm.com>
-Date: Fri, 2 Mar 2018 13:08:11 +0530
-References: <5213c491520645a3931dda63b4cac71c@ausx13mps334.AMER.DELL.COM>
- <OF08854A1A.1EE22BA0-ON65258241.000EAA0D-65258241.000F7172@notes.na.collabserv.com>
- <20180227034229.GA8216@wn7x64-4cggry1.aus.amer.dell.com>
- <7E9441B1E5EFFD4681F54958E82169932F6684EC@ORSMSX114.amr.corp.intel.com>
- <95223c15b186450ba0cc600b73976ab0@ausx13mps334.AMER.DELL.COM>
- <7E9441B1E5EFFD4681F54958E82169932F668514@ORSMSX114.amr.corp.intel.com>
-X-KeepSent: 8893380A:52668211-65258244:0029E8CA;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP7 August 18, 2016
-X-LLNOutbound: False
-X-Disclaimed: 13519
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A"
-Content-Disposition: inline
-x-cbid: 18030207-5101-0000-0000-00000898D388
-X-IBM-SpamModules-Scores: BY=0.023129; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.429909; ST=0; TS=0; UL=0; ISC=; MB=0.000000
-X-IBM-SpamModules-Versions: BY=3.00008609; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.00997163; UDB=6.00507007; IPR=6.00776481; 
- BA=6.00005853; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019813; XFM=3.00000015;
- UTC=2018-03-02 07:38:11
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-03-02 06:03:53 - 6.00008130
-x-cbparentid: 18030207-5102-0000-0000-0000297304A5
-Message-Id: <OF8893380A.52668211-ON65258244.0029E8CA-65258244.0029F2DA@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-02_04:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <CAMNAJg3uRy8V9NQJagXkdh=krK4Q5EqW+A4rwYDxZf92XOooTA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -80,55 +44,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Mar 2018 07:38:17 -0000
+X-List-Received-Date: Fri, 02 Mar 2018 18:10:51 -0000
+
+Hi Guhan,
+
+I don't believe there is a way to do this today, but I have posted an 
+RFC to dynamically collect the SDR info from dbus that you might be 
+interested here: https://gerrit.openbmc-project.xyz/#/c/8521/
+
+The ipmi maintainers I believe like this approach and plan on moving 
+towards this once this code is integrated into the current ipmi libraries.
+
+Thanks,
+
+James
 
 
---0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
-
-
-
-"Tanous, Ed" <ed.tanous@intel.com> wrote on 02/28/2018 04:56:45 AM:
-
-> From: "Tanous, Ed" <ed.tanous@intel.com>
-> To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
-> "hramasub@in.ibm.com" <hramasub@in.ibm.com>
-> Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-> Date: 02/28/2018 04:56 AM
-> Subject: RE: OpenBMC Redfish Working Group - meeting times open
-discussion
->
-> >
-> > Add a Monday 9am CST (7am PST) option so that I can vote for that. :)
-> > --
-> > Michael
-> >
->
-> Added.
->
-
-Do we have enough votes / consensus on the time ?
-
---0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><tt><font size=3D"2">&quot;Tanous, Ed&quot; &lt;ed.tanous@in=
-tel.com&gt; wrote on 02/28/2018 04:56:45 AM:<br><br>&gt; From: &quot;Tanous=
-, Ed&quot; &lt;ed.tanous@intel.com&gt;</font></tt><br><tt><font size=3D"2">=
-&gt; To: &quot;Michael.E.Brown@dell.com&quot; &lt;Michael.E.Brown@dell.com&=
-gt;, <br>&gt; &quot;hramasub@in.ibm.com&quot; &lt;hramasub@in.ibm.com&gt;</=
-font></tt><br><tt><font size=3D"2">&gt; Cc: &quot;openbmc@lists.ozlabs.org&=
-quot; &lt;openbmc@lists.ozlabs.org&gt;</font></tt><br><tt><font size=3D"2">=
-&gt; Date: 02/28/2018 04:56 AM</font></tt><br><tt><font size=3D"2">&gt; Sub=
-ject: RE: OpenBMC Redfish Working Group - meeting times open discussion</fo=
-nt></tt><br><tt><font size=3D"2">&gt; <br>&gt; &gt; <br>&gt; &gt; Add a Mon=
-day 9am CST (7am PST) option so that I can vote for that. :)<br>&gt; &gt; -=
--<br>&gt; &gt; Michael<br>&gt; &gt; <br>&gt; <br>&gt; Added.<br>&gt; <br></=
-font></tt><br><tt><font size=3D"2">Do we have enough votes / consensus on t=
-he time ?</font></tt><BR>
-</body></html>
-
---0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A--
+On 03/01/2018 05:49 PM, guhan balasubramanian wrote:
+> Hi,
+> 
+> Currently in the IPMID (net and host) shared libraries, SDR and sensor 
+> ipmi commands are addressed by querying the "IdInfoMap" data structure 
+> (sensorhandler.cpp). This data structure is being filled up using 
+> phosphor-sensor-inventory/config.yaml, during build time (as mentioned 
+> by Patrick and Lei).
+> 
+> Assuming that we are not able to pre-fill the config yaml, is there a 
+> way in the current implementation, where we can add sensors to this 
+> sensors "IdInfoMap" data structure dynamically during run time?
+> 
+> Thanks,
+> Guhan
+> 
+>     Date: Wed, 14 Feb 2018 10:36:23 -0800
+>     From: Patrick Venture <venture@google.com <mailto:venture@google.com>>
+>     To: Lei YU <mine260309@gmail.com <mailto:mine260309@gmail.com>>
+>     Cc: "Sachin Naik (sachnaik)" <sachnaik@cisco.com
+>     <mailto:sachnaik@cisco.com>>,
+>              "openbmc@lists.ozlabs.org
+>     <mailto:openbmc@lists.ozlabs.org>" <openbmc@lists.ozlabs.org
+>     <mailto:openbmc@lists.ozlabs.org>>
+>     Subject: Re: Porting hwmon sensors to openBMC
+>     Message-ID:
+>             
+>     <CAO=notwMecK=GhvVUtgeVUZFV38K71Q5SSF0TeCS0CxY2W+axw@mail.gmail.com
+>     <mailto:GhvVUtgeVUZFV38K71Q5SSF0TeCS0CxY2W%2Baxw@mail.gmail.com>>
+>     Content-Type: text/plain; charset="UTF-8"
+> 
+>     Lei is correct. If you want, however, to read the sensors over IPMI
+>     you'll need to add a yaml configuration for the sensors as well for
+>     phosphor-host-ipmid.
+>     See
+>     https://github.com/openbmc/openbmc/blob/master/meta-openbmc-machines/meta-x86/meta-quanta/meta-q71l/recipes-phosphor/ipmi/q71l-ipmi-sensor-map/config.yaml
+>     <https://github.com/openbmc/openbmc/blob/master/meta-openbmc-machines/meta-x86/meta-quanta/meta-q71l/recipes-phosphor/ipmi/q71l-ipmi-sensor-map/config.yaml>
+>     for an example.
+> 
+>     On Tue, Jan 23, 2018 at 11:04 PM, Lei YU <mine260309@gmail.com
+>     <mailto:mine260309@gmail.com>> wrote:
+>      > On Tue, Jan 23, 2018 at 3:33 PM, Sachin Naik (sachnaik)
+>      > <sachnaik@cisco.com <mailto:sachnaik@cisco.com>> wrote:
+>      >> Hi All
+>      >>
+>      >> I am porting a new board to openbmc.
+>      >> I have question on mapping hwmon type sensors to Dbus
+>      >>
+>      >> So far I have created machine layer and added U-boot config,
+>     Kernel config and device tree. In kernel config I have enabled lm75
+>     hwmon driver for LM75 temperature device. Corresponding entry added
+>     in device tree.
+>      >>
+>      >> Right now I have created hwmon temperature sensors entry in our
+>     machine layer by extending
+>     recipes-phosphor/sensors/phosphor-hwmon%.bbappend
+>      >> and created conf file with temperature sensors label.
+>      >>
+>      >> Now my question is how do implement/map dbus temperature sensor
+>     value interface to our hwmon temperature sensors? Is above
+>     implementation is enough or it requires
+>      >> Some mapping for dbus to hwmon instance?
+>      >
+>      > After you added config files for the temperature sensors with
+>      > phosphor-hwmon%.bbappend, phosphor-hwmon will read from
+>      > hwmon instance and create dbus objects at
+>      > /xyz/openbmc_project/sensors/, which will at least have "Value",
+>      > “Scale" and "Unit" properties.
+>      >
+>      > I do not think it requires other configs, unless I misunderstand
+>      > your case?
+>      >
+>      >>
+>      >> Thanks and regards
+>      >> Sachin
+>      >>
+>      >>
+> 
