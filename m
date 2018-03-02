@@ -1,78 +1,74 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <hramasub@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=hramasub@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="e7GD99db"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="kwFwz6n1"; 
- dkim-atps=neutral
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zsskD0HKMzDqZs
- for <openbmc@lists.ozlabs.org>; Fri,  2 Mar 2018 12:52:19 +1100 (AEDT)
-Received: by mail-qt0-x244.google.com with SMTP id v90so10142549qte.12
- for <openbmc@lists.ozlabs.org>; Thu, 01 Mar 2018 17:52:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=hJU/ndnISZyG0jE2xOEMGsaLhSa/1hFJHUPDV8Nuw0k=;
- b=e7GD99dbAibF2uPnJFZYIp5r/fqijmY5fhTyFTlfBNlaZUHovWOIPmXJSuqIlvmY2f
- jXIZyDUsuyLHtlr1Lk6WNys2sq69xheLhaRCVbq1nBwve5SHBx49YITMqM1dalF7v5a2
- C8U56CZTtmRis7QNratQ92gu0XbY2/chc0n0jKQ5CiHGP4adgrX2gUIcA1kO3PM8H3rY
- TNGmNeVZoalXOcv6NN7LFTUVT7GefJ+sEYJkSN//DheJKnu8YlT0/qCuRn2pLOHf4hfE
- dW6DTmvwd/C524VJiV0Wa2e/JDahWv5XAeasYBETVvKUw/mDXKZ/qM6TD+6hkSza5gUa
- UG+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=hJU/ndnISZyG0jE2xOEMGsaLhSa/1hFJHUPDV8Nuw0k=;
- b=kwFwz6n1qcdtwVjGyI7WvB3c67OqhtUaSbf8vbIPfhmVr14D5N3YhlkN+aP7Yzp9Yn
- bXJsuFL6JO5ivMaQVusaqPEkc0JgqrGGpm0G1fYSKrfyf0K8A4NTAlsxaVCVTDw3jGWk
- d7cZqoNH8T5ZugTrECSNtQUXbwhEoQZ8b1xBo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=hJU/ndnISZyG0jE2xOEMGsaLhSa/1hFJHUPDV8Nuw0k=;
- b=fD4kHessSTJ5uqCcyLIKOyDzEywpUisndqj/c5UrvCRbQ/E3jBMH0n24U4Q7q8oCO/
- usJZ7kJz5PW7WNqtxY+1p+lcgmUWFJ2ubErVUb3SahwgWuUuYSlW5TDqGhDm5BdRnOjb
- etvoZ1FL1ePizLLZmiZmzJ19asaQeJEJCnFm/UOyHojsAoK8Z25qDMpJ5sNkoyRhIHtB
- i1mzDN3pzSyG8bBqAncdQFl+Wc1X6Ema5sVW1izm5WrRDKqrBBOleNpy4YdjaGDccmrq
- ++QvaCcjBc1lBHNGXTXFOV78jlIGdLD+l3L6Vmkb9iI3ftyz4EluAalIf4NuXgBDq6RO
- ZmsQ==
-X-Gm-Message-State: AElRT7Gtf0BCoPg4d8hWMv9FAKyMjFtrW5rcRVT9WwS0hFYc3Sd1rdtN
- GcbRGRWtYp1e8sQOqg26+gLwS4vx2YhKhaurwWM=
-X-Google-Smtp-Source: AG47ELvrzyLxkjCp9xhHOCgM0J0jpFX0vr42yB4Le/m8QpZLTdbRsqh5KlwzeIe8XtVADciDjHlqdDVkPBN4laUgfaI=
-X-Received: by 10.237.36.110 with SMTP id s43mr6278590qtc.23.1519955537360;
- Thu, 01 Mar 2018 17:52:17 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zt1PN31HyzF1q2
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Mar 2018 18:38:15 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w227YJtM019595
+ for <openbmc@lists.ozlabs.org>; Fri, 2 Mar 2018 02:38:13 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.82])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gewcs9jjw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Mar 2018 02:38:13 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <hramasub@in.ibm.com>;
+ Fri, 2 Mar 2018 07:38:12 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 2 Mar 2018 07:38:09 -0000
+Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2018030207380878-1515788 ;
+ Fri, 2 Mar 2018 07:38:08 +0000 
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Thu, 1 Mar 2018 17:51:57 -0800 (PST)
-In-Reply-To: <1519655769-25836-2-git-send-email-tmaimon77@gmail.com>
-References: <1519655769-25836-1-git-send-email-tmaimon77@gmail.com>
- <1519655769-25836-2-git-send-email-tmaimon77@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 2 Mar 2018 12:21:57 +1030
-X-Google-Sender-Auth: pNjvUWkc9RTOb91wocDVyV7bXEE
-Message-ID: <CACPK8Xeb3ryfi+FXr+mdpk2fPtSTwJXkuBjRhW76vx1SxGQfYQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-binding: timer: document NPCM7xx timer DT
- bindings
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, 
- Avi Fishman <avifishman70@gmail.com>,
- Brendan Higgins <brendanhiggins@google.com>, 
- devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F668514@ORSMSX114.amr.corp.intel.com>
+Subject: RE: OpenBMC Redfish Working Group - meeting times open discussion
+To: "Tanous, Ed" <ed.tanous@intel.com>
+Cc: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+From: "Hariharasubramanian Ramasubramanian" <hramasub@in.ibm.com>
+Date: Fri, 2 Mar 2018 13:08:11 +0530
+References: <5213c491520645a3931dda63b4cac71c@ausx13mps334.AMER.DELL.COM>
+ <OF08854A1A.1EE22BA0-ON65258241.000EAA0D-65258241.000F7172@notes.na.collabserv.com>
+ <20180227034229.GA8216@wn7x64-4cggry1.aus.amer.dell.com>
+ <7E9441B1E5EFFD4681F54958E82169932F6684EC@ORSMSX114.amr.corp.intel.com>
+ <95223c15b186450ba0cc600b73976ab0@ausx13mps334.AMER.DELL.COM>
+ <7E9441B1E5EFFD4681F54958E82169932F668514@ORSMSX114.amr.corp.intel.com>
+X-KeepSent: 8893380A:52668211-65258244:0029E8CA;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP7 August 18, 2016
+X-LLNOutbound: False
+X-Disclaimed: 13519
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A"
+Content-Disposition: inline
+x-cbid: 18030207-5101-0000-0000-00000898D388
+X-IBM-SpamModules-Scores: BY=0.023129; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.429909; ST=0; TS=0; UL=0; ISC=; MB=0.000000
+X-IBM-SpamModules-Versions: BY=3.00008609; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.00997163; UDB=6.00507007; IPR=6.00776481; 
+ BA=6.00005853; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019813; XFM=3.00000015;
+ UTC=2018-03-02 07:38:11
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-03-02 06:03:53 - 6.00008130
+x-cbparentid: 18030207-5102-0000-0000-0000297304A5
+Message-Id: <OF8893380A.52668211-ON65258244.0029E8CA-65258244.0029F2DA@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-02_04:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -84,68 +80,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Mar 2018 01:52:21 -0000
+X-List-Received-Date: Fri, 02 Mar 2018 07:38:17 -0000
 
-Hi Tomer,
 
-On Tue, Feb 27, 2018 at 1:06 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
-> Added device tree binding documentation for Nuvoton NPCM7xx timer.
+--0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
+
+
+
+"Tanous, Ed" <ed.tanous@intel.com> wrote on 02/28/2018 04:56:45 AM:
+
+> From: "Tanous, Ed" <ed.tanous@intel.com>
+> To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
+> "hramasub@in.ibm.com" <hramasub@in.ibm.com>
+> Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+> Date: 02/28/2018 04:56 AM
+> Subject: RE: OpenBMC Redfish Working Group - meeting times open
+discussion
 >
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> Acked-by: Rob Herring <robh@kernel.org>
-> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
-> ---
->  .../bindings/timer/nuvoton,npcm7xx-timer.txt       | 25 ++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+> >
+> > Add a Monday 9am CST (7am PST) option so that I can vote for that. :)
+> > --
+> > Michael
+> >
 >
-> diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
-> new file mode 100644
-> index 000000000000..c5150522e618
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
-> @@ -0,0 +1,25 @@
-> +Nuvoton NPCM7xx timer
-
-Would it make more sense to all this Nuvoton NPCM Timer? This way the
-name stays generic for when you add other systems.
-
-> +
-> +Nuvoton NPCM7xx have three timer modules, each timer module provides five 24-bit
-> +timer counters.
-
-
-I notice the timer has a register in the middle of it that is used for
-the watchdog. Should we describe this in the same binding? Even if we
-just add some text that adds
-
- ... and one watchdog register.
-
-> +
-> +Required properties:
-> +- compatible      : "nuvoton,npcm750-timer" for Poleg NPCM750.
-> +- reg             : Offset and length of the register set for the device.
-> +- interrupts      : Contain the timer interrupt with flags for
-> +                    falling edge.
-> +
-> +Required clocking property, have to be one of:
-> +- clocks          : phandle of timer reference clock.
-> +- clock-frequency : The frequency in Hz of the clock that drives the NPCM7xx
-> +                    timer (usually 25000000).
-> +
-> +Example:
-> +
-> +timer@f0008000 {
-> +    compatible = "nuvoton,npcm750-timer";
-> +    interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-> +    reg = <0xf0008000 0x1000>;
-
-This can probably be <0xf0008000 0x50>, as tthe timer hardware only
-has registers up to base + 0x50.
-
-> +    clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +};
-> +
-> --
-> 2.14.1
+> Added.
 >
+
+Do we have enough votes / consensus on the time ?
+
+--0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><tt><font size=3D"2">&quot;Tanous, Ed&quot; &lt;ed.tanous@in=
+tel.com&gt; wrote on 02/28/2018 04:56:45 AM:<br><br>&gt; From: &quot;Tanous=
+, Ed&quot; &lt;ed.tanous@intel.com&gt;</font></tt><br><tt><font size=3D"2">=
+&gt; To: &quot;Michael.E.Brown@dell.com&quot; &lt;Michael.E.Brown@dell.com&=
+gt;, <br>&gt; &quot;hramasub@in.ibm.com&quot; &lt;hramasub@in.ibm.com&gt;</=
+font></tt><br><tt><font size=3D"2">&gt; Cc: &quot;openbmc@lists.ozlabs.org&=
+quot; &lt;openbmc@lists.ozlabs.org&gt;</font></tt><br><tt><font size=3D"2">=
+&gt; Date: 02/28/2018 04:56 AM</font></tt><br><tt><font size=3D"2">&gt; Sub=
+ject: RE: OpenBMC Redfish Working Group - meeting times open discussion</fo=
+nt></tt><br><tt><font size=3D"2">&gt; <br>&gt; &gt; <br>&gt; &gt; Add a Mon=
+day 9am CST (7am PST) option so that I can vote for that. :)<br>&gt; &gt; -=
+-<br>&gt; &gt; Michael<br>&gt; &gt; <br>&gt; <br>&gt; Added.<br>&gt; <br></=
+font></tt><br><tt><font size=3D"2">Do we have enough votes / consensus on t=
+he time ?</font></tt><BR>
+</body></html>
+
+--0__=EABB08D7DFBA6E5A8f9e8a93df938690918cEABB08D7DFBA6E5A--
