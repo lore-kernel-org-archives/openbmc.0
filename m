@@ -1,58 +1,57 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=74.125.82.195; helo=mail-ot0-f195.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Received: from mail-ot0-f195.google.com (mail-ot0-f195.google.com
+ [74.125.82.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ztNjW0yJCzF1tj
- for <openbmc@lists.ozlabs.org>; Sat,  3 Mar 2018 09:08:29 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2018 14:08:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,414,1515484800"; d="scan'208";a="208472157"
-Received: from orsmsx104.amr.corp.intel.com ([10.22.225.131])
- by fmsmga006.fm.intel.com with ESMTP; 02 Mar 2018 14:08:26 -0800
-Received: from orsmsx112.amr.corp.intel.com (10.22.240.13) by
- ORSMSX104.amr.corp.intel.com (10.22.225.131) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Fri, 2 Mar 2018 14:08:26 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.126]) by
- ORSMSX112.amr.corp.intel.com ([169.254.3.31]) with mapi id 14.03.0319.002;
- Fri, 2 Mar 2018 14:08:26 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Hariharasubramanian Ramasubramanian <hramasub@in.ibm.com>
-CC: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: OpenBMC Redfish Working Group - meeting times open discussion
-Thread-Topic: OpenBMC Redfish Working Group - meeting times open discussion
-Thread-Index: AdOvV+OBJ9z2ISIITSyVrtwYEMVvIgAYKOgAAAHklgAAGB1twAARFeoAABCdLkAAZUcwgAANGZkg
-Date: Fri, 2 Mar 2018 22:08:25 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F6691A6@ORSMSX114.amr.corp.intel.com>
-References: <5213c491520645a3931dda63b4cac71c@ausx13mps334.AMER.DELL.COM>
- <OF08854A1A.1EE22BA0-ON65258241.000EAA0D-65258241.000F7172@notes.na.collabserv.com>
- <20180227034229.GA8216@wn7x64-4cggry1.aus.amer.dell.com>
- <7E9441B1E5EFFD4681F54958E82169932F6684EC@ORSMSX114.amr.corp.intel.com>
- <95223c15b186450ba0cc600b73976ab0@ausx13mps334.AMER.DELL.COM>
- <7E9441B1E5EFFD4681F54958E82169932F668514@ORSMSX114.amr.corp.intel.com>
- <OF8893380A.52668211-ON65258244.0029E8CA-65258244.0029F2DA@notes.na.collabserv.com>
-In-Reply-To: <OF8893380A.52668211-ON65258244.0029E8CA-65258244.0029F2DA@notes.na.collabserv.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.138]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ztNpK4vm9zF1t1
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Mar 2018 09:12:40 +1100 (AEDT)
+Received: by mail-ot0-f195.google.com with SMTP id m22so10069500otf.10
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Mar 2018 14:12:40 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=xDFhA1RlenlwGfkhZ0VfatCcwvivE5dEYuNxyKpDicM=;
+ b=uc9BHQCUqGUo4pPBzY8b1WJKrC369CpXlzoOrHVLmPAoI509TxmLWvNDYvjT1t0OBh
+ q15aqvOAVlP+xNGBW2phmP/9cS4fWRFZZ7NFsN/MDwUe9qClD6H24JnsZVwV6Os824eN
+ wDQetkiDF4Bnvu11+93UQsKSYjOhgsY7uvQZMoD//2eyXMvGRXqY7jpOMKjj2aXSP3F/
+ 3wQxk/BwlkWkAw0U2Z8mSglKN6vN+cJ2eDL394kDbNGg2bGy32F/Mm71+usunigg1kLf
+ +uTNxQv7QKsz4koUsGShQ1MrevCKdkOlpTqox7+rOTQWc1ODqQeLLk3Br8ovIf5KSj//
+ IZFA==
+X-Gm-Message-State: AElRT7HYgRsRGHQq5uiyrbgHuebUkyAQge8T/VYi18T3GJxtv1xOaGSZ
+ VvorkHlkwRdRXIetr8iwHA==
+X-Google-Smtp-Source: AG47ELtAjRVR0lutjNFhsVZsPjeVd88Mj6tavGybEzFiAQi/HoWyAq3OwYrMIrUXpVSa5SjkoXpMrw==
+X-Received: by 10.157.10.227 with SMTP id 90mr5474430otq.17.1520028758512;
+ Fri, 02 Mar 2018 14:12:38 -0800 (PST)
+Received: from localhost (216-188-254-6.dyn.grandenetworks.net.
+ [216.188.254.6])
+ by smtp.gmail.com with ESMTPSA id w31sm3949561otd.51.2018.03.02.14.12.37
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 02 Mar 2018 14:12:37 -0800 (PST)
+Date: Fri, 2 Mar 2018 16:12:36 -0600
+From: Rob Herring <robh@kernel.org>
+To: Tali Perry <tali.perry1@gmail.com>
+Cc: brendanhiggins@google.com, mark.rutland@arm.com, linux@armlinux.org.uk,
+ avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com,
+ mturquette@baylibre.com, sboyd@codeaurora.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ linux-clk@vger.kernel.org
+Subject: Re: [PATCH v10 2/3] NPCM750: add clock tree doc and binding
+Message-ID: <20180302221236.qsxooi5l53wx6lby@rob-hp-laptop>
+References: <1519553539-15899-1-git-send-email-tali.perry1@gmail.com>
+ <1519553539-15899-3-git-send-email-tali.perry1@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1519553539-15899-3-git-send-email-tali.perry1@gmail.com>
+User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -64,61 +63,182 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Mar 2018 22:08:32 -0000
+X-List-Received-Date: Fri, 02 Mar 2018 22:12:42 -0000
 
-Yes, the final meeting time will remain Mondays at 4PM.
+On Sun, Feb 25, 2018 at 12:12:18PM +0200, Tali Perry wrote:
+> 
+Need a commit msg.
 
-The data came back as follows:
-Mondays 4PM CST: 8 votes
-Thursdays 9AM CST: 5 votes
-Thursdays 12PM CST: 5 votes
-Friday 8am CST: 4 votes
-Mondays 9am CST: 6 votes
+The subject should be "dt-bindings: clock: ..."
 
-Monday at 4PM CST is also the time that the highest number of people that r=
-eported they have contributed open source redfish code were available.
+> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> 
+> ---
+>  .../bindings/clock/nuvoton,npcm750-clk.txt         | 100 +++++++++++++++++++++
+>  include/dt-bindings/clock/nuvoton,npcm7xx-clock.h  |  44 +++++++++
+>  2 files changed, 144 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+>  create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+> new file mode 100644
+> index 000000000000..dd17b86bd577
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+> @@ -0,0 +1,100 @@
+> +* Nuvoton NPCM7XX Clock Controller
+> +
+> +Nuvoton Poleg BMC NPCM7XX contains an integrated clock controller, which
+> +generates and supplies clocks to all modules within the BMC.
+> +
+> +External clocks:
+> +
+> +There are six fixed clocks that are generated outside the BMC. All clocks are of
+> +a known fixed value that cannot be changed. clk_refclk, clk_mcbypck and
+> +clk_sysbypck are inputs to the clock controller.
+> +clk_rg1refck, clk_rg2refck and clk_xin are external clocks suppling the
+> +network. They are set on the device tree, but not used by the clock module. The
+> +network devices use them directly.
+> +Example can be found below.
+> +
+> +All available clocks are defined as preprocessor macros in:
+> +dt-bindings/clock/nuvoton,npcm7xx-clock.h
+> +and can be reused as DT sources.
+> +
+> +Required Properties of clock controller:
+> +
+> +	- compatible: "nuvoton,npcm750-clk" : for clock controller of Nuvoton
+> +		  Poleg BMC NPCM750
+> +
+> +	- reg: physical base address of the clock controller and length of
+> +		memory mapped region.
+> +
+> +	- #clock-cells: should be 1.
+> +
+> +Example: Clock controller node:
+> +
+> +	clk: clock-controller@f0801000 {
+> +		compatible = "nuvoton,npcm750-clk";
+> +		#clock-cells = <1>;
+> +		reg = <0xf0801000 0x1000>;
+> +		clock-names = "refclk", "sysbypck", "mcbypck";
+> +		clocks = <&clk_refclk>, <&clk_sysbypck>, <&clk_mcbypck>;
+> +	};
+> +
+> +Example: Required external clocks for network:
+> +
+> +	/* external reference clock */
+> +	clk_refclk: clk-refclk {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <25000000>;
+> +		clock-output-names = "refclk";
+> +	};
+> +
+> +	/* external reference clock for cpu. float in normal operation */
+> +	clk_sysbypck: clk-sysbypck {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <800000000>;
+> +		clock-output-names = "sysbypck";
+> +	};
+> +
+> +	/* external reference clock for MC. float in normal operation */
+> +	clk_mcbypck: clk-mcbypck {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <800000000>;
+> +		clock-output-names = "mcbypck";
+> +	};
+> +
+> +	 /* external clock signal rg1refck, supplied by the phy */
+> +	clk_rg1refck: clk-rg1refck {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <125000000>;
+> +		clock-output-names = "clk_rg1refck";
+> +	};
+> +
+> +	 /* external clock signal rg2refck, supplied by the phy */
+> +	clk_rg2refck: clk-rg2refck {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <125000000>;
+> +		clock-output-names = "clk_rg2refck";
+> +	};
+> +
+> +	clk_xin: clk-xin {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <50000000>;
+> +		clock-output-names = "clk_xin";
+> +	};
+> +
+> +
+> +Example: GMAC controller node that consumes two clocks: a generated clk by the
+> +clock controller and a fixed clock from DT (clk_rg1refck).
+> +
+> +	ethernet0: eth@f0802000 {
 
-Pradeep and Hariharasubramanian were the only ones not available during tha=
-t time period.  I don't want you to feel like you are being excluded, but t=
-here were no times that worked for everyone.  I will do my best to take jud=
-icious notes, and will post them publically.  IF you have agenda items that=
- you guys would like me to bring up on your behalf, I'm happy to have a pho=
-ne call with you guys at a time that's convenient to make sure your viewpoi=
-nts are heard in the meeting.
+ethernet@...
 
-We can re-evaluate the meeting time in the March 26th meeting, and see if t=
-he results have changed.
-
-Based on this, the next meeting will be 3/5/18 at 4PM CST.
-
-Suggested meeting agenda and call for topics to be sent out in another emai=
-l shortly
-
--Ed
-
-From: Hariharasubramanian Ramasubramanian [mailto:hramasub@in.ibm.com]=20
-Sent: Thursday, March 1, 2018 11:38 PM
-To: Tanous, Ed <ed.tanous@intel.com>
-Cc: Michael.E.Brown@dell.com; openbmc@lists.ozlabs.org
-Subject: RE: OpenBMC Redfish Working Group - meeting times open discussion
-
-"Tanous, Ed" <ed.tanous@intel.com> wrote on 02/28/2018 04:56:45 AM:
-
-> From: "Tanous, Ed" <ed.tanous@intel.com>
-> To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,=20
-> "hramasub@in.ibm.com" <hramasub@in.ibm.com>
-> Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-> Date: 02/28/2018 04:56 AM
-> Subject: RE: OpenBMC Redfish Working Group - meeting times open discussio=
-n
->=20
-> >=20
-> > Add a Monday 9am CST (7am PST) option so that I can vote for that. :)
-> > --
-> > Michael
-> >=20
->=20
-> Added.
->=20
-
-Do we have enough votes / consensus on the time ?
+> +		compatible = "snps,dwmac";
+> +		reg = <0xf0802000 0x2000>;
+> +		interrupts = <0 14 4>;
+> +		interrupt-names = "macirq";
+> +		clocks	= <&clk_rg1refck>, <&clk NPCM7XX_CLK_AHB>;
+> +		clock-names = "stmmaceth", "clk_gmac";
+> +	};
+> diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+> new file mode 100644
+> index 000000000000..f21522605b94
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+> @@ -0,0 +1,44 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Nuvoton NPCM7xx Clock Generator binding
+> + * clock binding number for all clocks supportted by nuvoton,npcm7xx-clk
+> + *
+> + * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
+> + *
+> + */
+> +
+> +#ifndef __DT_BINDINGS_CLOCK_NPCM7XX_H
+> +#define __DT_BINDINGS_CLOCK_NPCM7XX_H
+> +
+> +
+> +#define NPCM7XX_CLK_CPU 0
+> +#define NPCM7XX_CLK_GFX_PIXEL 1
+> +#define NPCM7XX_CLK_MC 2
+> +#define NPCM7XX_CLK_ADC 3
+> +#define NPCM7XX_CLK_AHB 4
+> +#define NPCM7XX_CLK_TIMER 5
+> +#define NPCM7XX_CLK_UART 6
+> +#define NPCM7XX_CLK_MMC  7
+> +#define NPCM7XX_CLK_SPI3 8
+> +#define NPCM7XX_CLK_PCI  9
+> +#define NPCM7XX_CLK_AXI 10
+> +#define NPCM7XX_CLK_APB4 11
+> +#define NPCM7XX_CLK_APB3 12
+> +#define NPCM7XX_CLK_APB2 13
+> +#define NPCM7XX_CLK_APB1 14
+> +#define NPCM7XX_CLK_APB5 15
+> +#define NPCM7XX_CLK_CLKOUT 16
+> +#define NPCM7XX_CLK_GFX  17
+> +#define NPCM7XX_CLK_SU   18
+> +#define NPCM7XX_CLK_SU48 19
+> +#define NPCM7XX_CLK_SDHC 20
+> +#define NPCM7XX_CLK_SPI0 21
+> +#define NPCM7XX_CLK_SPIX 22
+> +
+> +#define NPCM7XX_CLK_REFCLK 23
+> +#define NPCM7XX_CLK_SYSBYPCK 24
+> +#define NPCM7XX_CLK_MCBYPCK 25
+> +
+> +#define NPCM7XX_NUM_CLOCKS	 (NPCM7XX_CLK_MCBYPCK+1)
+> +
+> +#endif
+> -- 
+> 2.14.1
+> 
