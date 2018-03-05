@@ -1,50 +1,61 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::232; helo=mail-ua0-x232.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="hkXW/Aga"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x232.google.com (mail-ua0-x232.google.com
+ [IPv6:2607:f8b0:400c:c08::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zwCqQ6XtFzF1BD
- for <openbmc@lists.ozlabs.org>; Tue,  6 Mar 2018 08:34:54 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2018 13:34:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,428,1515484800"; d="scan'208";a="22252168"
-Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
- by orsmga007.jf.intel.com with ESMTP; 05 Mar 2018 13:34:49 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.126]) by
- ORSMSX106.amr.corp.intel.com ([169.254.1.97]) with mapi id 14.03.0319.002;
- Mon, 5 Mar 2018 13:34:49 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: 'Brad Bishop' <bradleyb@fuzziesquirrel.com>, Patrick Venture
- <venture@google.com>, "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
-Subject: RE: Exposing POST codes
-Thread-Topic: Exposing POST codes
-Thread-Index: AQHTsMYd8e9M53X5j0GKGCrt14Hsi6PBp40AgAAmpxA=
-Date: Mon, 5 Mar 2018 21:34:48 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F669996@ORSMSX114.amr.corp.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zwCrc26zXzDrbM
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Mar 2018 08:36:00 +1100 (AEDT)
+Received: by mail-ua0-x232.google.com with SMTP id n24so4321831ual.12
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Mar 2018 13:35:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=kujMRm9yDCXfNjELVoiMcwYtxFMtxW26BA5CuyurnRk=;
+ b=hkXW/AgaouQL8o6pgic68z0aUIRduFSD+4Qs+gfPNFLeU746sKUUVhTKvlb/ncIgok
+ cE4zJp1LvcC9Vw1CZHJEnpGUNr2e8pN8gp/dfN/ucxHCe2z3lu6eHwRT0JDRNBMEs+9E
+ 0xAMCknazGBvZAu/wkaZ7VFpvylDco19X2DYxAsPxXGWG2EUhKuARSBlIe3fQN8WR6UR
+ ohtwNepqvwB0o4eLSo7dXDTCbdZ3cFbKhUOx7urFWcLRUSVPTk2ZZc9L65awd/okPPHf
+ TeCKh8fbI/BeB8QGYn+I5zLorW1KBZ511a5ogj5Qj4PWV/wyoiF0BHVhxB8Om5p4VzXv
+ Hf4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=kujMRm9yDCXfNjELVoiMcwYtxFMtxW26BA5CuyurnRk=;
+ b=cXKuUo3Yi3zSxbLpxvIyfwDandBH+Ri2npBRzJZsLcTj37LGCZ7ek8eL/F7o49/Uaf
+ A2XSMUu+2pa2UrygBCMdEAGtMZamyrwCriOHsx6PjeZpYEex/4KulkW4lwpp4Zv/Xn6F
+ jwe1mAJVh0OgpzCNwCamlctyDkRRAQUItGvAu9nBPxjr5n656wu1R98qX5CzJbT9xlpP
+ McRQMdxJP6fYw5+afMA2l4wcwKA5vRcNQoKyRao/lJAoOUDCq+P/oja6r80xE01KFXt/
+ y5KTuuc6q1ILMVoQOyKOEii538cZuZhnKLGKdm310XMGfHTFaGTQwUdkLkcn3UqK9/tK
+ CubQ==
+X-Gm-Message-State: APf1xPA14T0SD6Qeo4icRqaOt/dunepBAX3ZWTF+kt3uAxxdGnIJX1gD
+ lcJLd/XbukyZ1TKxvvIQKHrmoKRRx4LCa0FVttQJWw==
+X-Google-Smtp-Source: AG47ELtZXOicbLmnhfRXi47a2gOxNmUOxWqdjhYONpGGdfuWweku2hD3O0afItG7Da1+PX9g1KP9cUy/w+vGFelRpMU=
+X-Received: by 10.176.79.229 with SMTP id t37mr11573296uah.70.1520285756822;
+ Mon, 05 Mar 2018 13:35:56 -0800 (PST)
+MIME-Version: 1.0
 References: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
  <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
-In-Reply-To: <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.138]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
+ <7E9441B1E5EFFD4681F54958E82169932F669996@ORSMSX114.amr.corp.intel.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F669996@ORSMSX114.amr.corp.intel.com>
+From: Patrick Venture <venture@google.com>
+Date: Mon, 05 Mar 2018 21:35:46 +0000
+Message-ID: <CAO=notwO81MS0o6hF-i1sDXWt5pbutmrouF5ozdKp1yDvL5duA@mail.gmail.com>
+Subject: Re: Exposing POST codes
+To: "Tanous, Ed" <ed.tanous@intel.com>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, guptam@qti.qualcomm.com, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -56,75 +67,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Mar 2018 21:34:59 -0000
+X-List-Received-Date: Mon, 05 Mar 2018 21:36:01 -0000
 
-SSdtIG5vdCBQYXRyaWNrLCBidXQgdGhlIGlucHV0IG9uIG15IHVzZSBjYXNlcyBmb3IgdGhpcyBp
-cyBiZWxvdy4NCg0KDQo+IFNvIHdlIGFscmVhZHkgaGF2ZSB0aGlzIHh5ei5vcGVuYm1jX3Byb2pl
-Y3QuU3RhdGUuQm9vdC5Qcm9ncmVzcyBEQnVzDQo+IGludGVyZmFjZSAoYW5kIG90aGVycykuICBU
-aGlzIGlzIHdoYXQgd2UgaW1wbGVtZW50ZWQgb24gUE9XRVIuICBDYW4gd2UgdGFsaw0KPiBhYm91
-dCBob3cgdGhhdCBBUEkgZmFsbHMgc2hvcnQgZm9yIHlvdXIgdXNlIGNhc2Uocyk/ICBDYW4gSSBm
-aXggaXQgdG8gZW5hYmxlIHlvdXINCj4gdXNlIGNhc2Uocyk/DQo+IA0KVGhlIGVudW0gZGVmaW5p
-dGlvbiBpcyB2ZXJ5IGxpbWl0aW5nLCBhbmQgc2VlbXMgdG8gYXNzdW1lIHRoYXQgUE9TVCBjb2Rl
-IGRlZmluaXRpb25zIGFyZSB0aGUgc2FtZSBhY3Jvc3MgYWxsIHBsYXRmb3Jtcy4gIE5ldyBQT1NU
-IGNvZGVzIGFyZSBhZGRlZCBhbGwgdGhlIHRpbWUsIHRvIHRoZSBwb2ludCB3aGVyZSBldmVuIGlu
-dGVybmFsIHRlYW1zIHN0cnVnZ2xlIHRvIGtlZXAgdXAgd2l0aCB0aGVpciBkZWZpbml0aW9ucy4g
-IEhhdmluZyBhbiBBUEkgdGhhdCB3b3VsZCBuZWVkIHRvIGJlIGNoYW5nZWQgZm9yIGV2ZXJ5IFBP
-U1QgY29kZSB0eXBlIHNlZW1zIGVycm9yIHByb25lIGFuZCB2ZXJ5IGxpa2VseSB0byBiZSBvdXQg
-b2YgZGF0ZS4NCklmIHdlIGFkanVzdGVkIHRoZSBib290IHByb2dyZXNzIGludGVyZmFjZSB0byBi
-ZSBhIHN0cmluZyByYXRoZXIgdGhhbiBhbiBlbnVtLCB0aGF0IF9jb3VsZF8gbWVldCB0aGUgdXNl
-IGNhc2UsIGJ1dCB0aGF0IGRvZXNuJ3Qgc2VlbSB0byBiZSB0aGUgcHVycG9zZSBvZiB0aGF0IEFQ
-SS4NCg0KPiBNeSBjb25jZXJuIGlzIEkgaGF2ZSB0byBhdCBzb21lIHBvaW50IGltcGxlbWVudCB0
-aGlzIEFQSSBvbiBQT1dFUiBzbyB0aGF0DQo+IFBPV0VSIGNhbiB0YWtlIGFkdmFudGFnZSBvZiBh
-cHBsaWNhdGlvbnMgdGFyZ2V0aW5nIHlvdXIgbmV3IEFQSS4NCj4gSWYgZG9pbmcgdGhhdCB3b3Vs
-ZCBiZSBub24tc2Vuc2ljYWwgdGhlbiB0aGlzIHByb2JhYmx5IHNob3VsZG7igJl0IGJlIGFuIEFQ
-SSwgb3INCj4gYXQgbGVhc3Qgbm90IGluIHRoZSBjb21tb24geHl6IG5hbWVzcGFjZS4NCklzbid0
-IHRoaXMgdGhlIHJlYXNvbiBmb3IgaXQgYmVpbmcgaW4gYW4gQVBJIGFsbCBpdHMgb3duLCBzbyBp
-dCBjYW4gYmUgb3B0aW9uYWxseSBpbmNsdWRlZD8gIEkgc3VzcGVjdCBhbnkgYXBwbGljYXRpb25z
-IGNvbnN1bWluZyBpdCB3b3VsZCBsaWtlbHkgYmUgbG9nZ2luZyB0eXBlIGFwcGxpY2F0aW9ucywg
-YW5kIGFueSBhcHBsaWNhdGlvbiB1c2luZyBpdCB0byB0YWtlIGFjdGlvbiB3b3VsZCBiZSBwbGF0
-Zm9ybSBzcGVjaWZpYywgZXZlbiBpZiBpdCB3ZXJlIGEgc3RyaW5nLg0KRG9lcyBQT1dFUiBoYXZl
-IGFueSB3YXkgb2YgcmVwb3J0aW5nIGRldGFpbGVkIGJvb3QgcHJvZ3Jlc3M/ICBJZiwgZm9yIGV4
-YW1wbGUsIHRoZSBVU0IgbGluayB0cmFpbmluZyBzdGFydHMgcHJvY2Vzc29yIGluaXQgZmxvd3Ms
-IGlzIHRoYXQgbG9nZ2VkIGluIGEgUE9XRVIgc3lzdGVtPyAgT24geDg2LCBpdCB3b3VsZCBiZSBs
-b2dnZWQgYXMgYSBQT1NUIGNvZGUuDQoNCj4gDQo+IE9uIFBPV0VSLCB0aGlzIGtpbmQgb2YgaW5m
-b3JtYXRpb24gY29tZXMgZG93biB0aHJvdWdoIHRoZSBJUE1JIGJvb3QNCj4gcHJvZ3Jlc3MgaW5k
-aWNhdG9yLiAgQ291bGQgc29tZW9uZSBicmllZmx5IGVkdWNhdGUgbWUgb24gd2hhdCB0aGUNCj4g
-ZGlmZmVyZW5jZSBiZXR3ZWVuIHRoZSBJUE1JIGJvb3QgcHJvZ3Jlc3MgaW5kaWNhdG9yIGFuZCBQ
-T1NUIGNvZGVzIGFyZSBvbg0KPiB4ODY/ICBJcyB0aGVyZSBvdmVybGFwIG9yIGFyZSB0aGV5IHVz
-ZWQgZm9yIGRpZmZlcmVudCB0aGluZ3M/DQpUaGUgUE9TVCBjb2RlIGluZGljYXRvciBpcyB1c2Vk
-IGZvciB2ZXJ5IGZpbmUgZ3JhaW5lZCBmZWVkYmFjayBvZiBib290IHByb2dyZXNzLCBhbmQgaXMg
-Z2VuZXJhbGx5IG5vdCBsb29rZWQgYXQgYnkgYSB1c2VyIHVubGVzcyB0aGVyZSBpcyBhIHByb2Js
-ZW0gd2l0aCBib290LiAgQXQgdGhhdCBwb2ludCwgaXQgaXMgZ2VuZXJhbGx5IChvbiBteSBzeXN0
-ZW1zKSB1c2VkIGZvciBkZWJ1ZyBvZiB0aGUgc3lzdGVtLCBhcyBpdCBnaXZlcyBzb21lIGluZm9y
-bWF0aW9uIGFib3V0IHdoYXQgc3RlcHMgdGhlIGhvc3Qgc3lzdGVtIHRvb2sgYmVmb3JlIGl0IGZh
-aWxlZC4gDQoNCj4gDQo+IEl0IGp1c3Qgc2VlbXMgbGlrZSB0aGUgZmlyc3QgdGhpbmcgYW55b25l
-IGlzIGdvaW5nIHRvIGRvIHdpdGggdGhlc2UgbnVtYmVycyBpcw0KPiBsb29rIHRoZW0gdXAgYW5k
-IG1hcCB0aGVtIHRvIHNvbWV0aGluZy4gIFdvdWxkbuKAmXQgaXQgbWFrZSBzZW5zZSB0byBoYXZl
-DQo+IGRvbmUgdGhhdCBtYXBwaW5nIGFscmVhZHkgYXQgdGhlIEFQSSBsZXZlbCBzbyB0aGF0IGV2
-ZXJ5IHVzZXIgYW5kIHBpZWNlIG9mDQo+IGNvZGUgdXNpbmcgdGhpcyBBUEkgZG9lc27igJl0IGhh
-dmUgdG8gZG8gaXQgdGhlbXNlbHZlcz8NClRoYXQgc2VlbXMgbGlrZSBhIHJlYXNvbmFibGUgYXNz
-dW1wdGlvbiwgYnV0IHByYWN0aWNhbGx5IGlzbid0IGFsd2F5cyBhbiBvcHRpb247ICBJbiBnZW5l
-cmFsIHRoZSBQT1NUIGNvZGUgbWFwcGluZ3MgYXJlIGRpZmZpY3VsdCB0byBjb21lIGJ5LCBlc3Bl
-Y2lhbGx5IGluIGluaXRpYWwgc3lzdGVtIGJyaW5ndXAsIGFuZCB0aGF0IGlzIHdoZW4gdGhleSBh
-cmUgbW9zdCB2YWx1YWJsZS4gIElmIGF0dGVtcHRlZCwgdGhlIGFiaWxpdHkgdG8gcHJvdmlkZSBh
-IG1hcHBpbmcgc2hvdWxkIGJlIG1hZGUgb3B0aW9uYWwsIHdoaWNoIG1lYW5zIHRoZSBwcm9wb3Nl
-ZCBpbnRlcmZhY2Ugc3RpbGwgbmVlZHMgdG8gZXhpc3QuDQoNCj4gSSB0aGluayB3aGF0IEnigJlt
-IGhpbnRpbmcgYXQgaGVyZSBpcyB0aGF0IHlvdSBjb3VsZCBhZGQgYSBwZXItcGxhdGZvcm0gY29u
-ZmlnIGZpbGUNCj4gdG8geW91ciBhcHAgdGhhdCBtYXBzIHRoZSBjb2RlcyB0byBzb21lIGVudW1l
-cmF0aW9ucyBpbiB0aGUgREJ1cw0KPiBpbnRlcmZhY2UsIGFuZCBhcHBseSB0aGF0IG1hcHBpbmcg
-YmVmb3JlIHlvdSBlbWl0IHRoZSBzaWduYWwuIElmIHlvdSB3YW50ZWQNCj4gdG8gZ28gYmFjayB0
-byBudW1iZXJzIGxhdGVyIHlvdSBjb3VsZCBqdXN0IHJldmVyc2UgdGhlIG1hcHBpbmcgdXNpbmcg
-dGhlDQo+IHNhbWUgY29uZmlnIGZpbGUuICBQbGVhc2UgcG9rZSBob2xlcy4NCg0KSSB3b3VsZCBh
-cmd1ZSB0aGF0IHRoaXMgZnVuY3Rpb25hbGl0eSBpcyBvdXRzaWRlIHRoZSBzY29wZSBvZiBQYXRy
-aWNrcyBwYXRjaC4gIFdlIGNvdWxkIHZlcnkgY2xlYXJseSBkbyBhcyB5b3UncmUgc3VnZ2VzdGlu
-ZywgYnV0IGl0IHdvdWxkIGJlIGVycm9yIHByb25lLCBhbmQgbWFrZSBwZXItcGxhdGZvcm0gY29u
-ZmlndXJhdGlvbiBtb3JlIGRpZmZpY3VsdCB0byBwb3J0LCBhbmQgd291bGQgbGlrZWx5IHRha2Ug
-YSBudW1iZXIgb2YgbW9udGhzIHRvIGdldCBjb3JyZWN0IGZvciBhbGwgcGxhdGZvcm1zLiAgQXMg
-aXMsIFBhdHJpY2tzIHBhdGNoIGFkZHMgdmFsdWUgb3V0c2lkZSBvZiBoaXMgZGlyZWN0IHBsYXRm
-b3JtLCBhcyBvdGhlciB0ZWFtcyB3b3VsZCBoYXZlIGFuIGltbWVkaWF0ZSB1c2Ugb2YgaXQsIGFu
-ZCBpcyB2ZXJ5IGNsZWFyIGFuZCBjbGVhbiB0byBpbXBsZW1lbnQuICBCdWlsZGluZyB0aGUgcGxh
-dGZvcm0gY29uZmlndXJhYmxlIEFQSSB5b3Ugc3VnZ2VzdCB3b3VsZCB0YWtlIGEgbG90IG1vcmUg
-dGltZSBhbmQgZWZmb3J0LCBmb3Igb25seSBhIGxpdHRsZSBpbmNyZW1lbnRhbCB2YWx1ZS4gIFRo
-aXMgc2VlbXMgbGlrZSBhIGNhc2Ugb2YgIlBlcmZlY3QgaXMgdGhlIGVuZW15IG9mIGdvb2QiLiAg
-QXMgaXMsIGJvdGggdGhlIEFQSSBhbmQgdGhlIGRhZW1vbiBhcmUgdGhpbmdzIHRoYXQgSSB3b3Vs
-ZCB1c2UgdG9kYXkgb24gbXkgcGxhdGZvcm1zLg0K
+On Mon, Mar 5, 2018 at 1:34 PM Tanous, Ed <ed.tanous@intel.com> wrote:
+
+> I'm not Patrick, but the input on my use cases for this is below.
+
+
+> > So we already have this xyz.openbmc_project.State.Boot.Progress DBus
+> > interface (and others).  This is what we implemented on POWER.  Can we
+talk
+> > about how that API falls short for your use case(s)?  Can I fix it to
+enable your
+> > use case(s)?
+> >
+> The enum definition is very limiting, and seems to assume that POST code
+definitions are the same across all platforms.  New POST codes are added
+all the time, to the point where even internal teams struggle to keep up
+with their definitions.  Having an API that would need to be changed for
+every POST code type seems error prone and very likely to be out of date.
+> If we adjusted the boot progress interface to be a string rather than an
+enum, that _could_ meet the use case, but that doesn't seem to be the
+purpose of that API.
+
+> > My concern is I have to at some point implement this API on POWER so
+that
+> > POWER can take advantage of applications targeting your new API.
+> > If doing that would be non-sensical then this probably shouldn=E2=80=99=
+t be an
+API, or
+> > at least not in the common xyz namespace.
+> Isn't this the reason for it being in an API all its own, so it can be
+optionally included?  I suspect any applications consuming it would likely
+be logging type applications, and any application using it to take action
+would be platform specific, even if it were a string.
+> Does POWER have any way of reporting detailed boot progress?  If, for
+example, the USB link training starts processor init flows, is that logged
+in a POWER system?  On x86, it would be logged as a POST code.
+
+> >
+> > On POWER, this kind of information comes down through the IPMI boot
+> > progress indicator.  Could someone briefly educate me on what the
+> > difference between the IPMI boot progress indicator and POST codes are
+on
+> > x86?  Is there overlap or are they used for different things?
+> The POST code indicator is used for very fine grained feedback of boot
+progress, and is generally not looked at by a user unless there is a
+problem with boot.  At that point, it is generally (on my systems) used for
+debug of the system, as it gives some information about what steps the host
+system took before it failed.
+
+> >
+> > It just seems like the first thing anyone is going to do with these
+numbers is
+> > look them up and map them to something.  Wouldn=E2=80=99t it make sense=
+ to have
+> > done that mapping already at the API level so that every user and piece
+of
+> > code using this API doesn=E2=80=99t have to do it themselves?
+> That seems like a reasonable assumption, but practically isn't always an
+option;  In general the POST code mappings are difficult to come by,
+especially in initial system bringup, and that is when they are most
+valuable.  If attempted, the ability to provide a mapping should be made
+optional, which means the proposed interface still needs to exist.
+
+> > I think what I=E2=80=99m hinting at here is that you could add a per-pl=
+atform
+config file
+> > to your app that maps the codes to some enumerations in the DBus
+> > interface, and apply that mapping before you emit the signal. If you
+wanted
+> > to go back to numbers later you could just reverse the mapping using th=
+e
+> > same config file.  Please poke holes.
+
+> I would argue that this functionality is outside the scope of Patricks
+patch.  We could very clearly do as you're suggesting, but it would be
+error prone, and make per-platform configuration more difficult to port,
+and would likely take a number of months to get correct for all platforms.
+As is, Patricks patch adds value outside of his direct platform, as other
+teams would have an immediate use of it, and is very clear and clean to
+implement.  Building the platform configurable API you suggest would take a
+lot more time and effort, for only a little incremental value.  This seems
+like a case of "Perfect is the enemy of good".  As is, both the API and the
+daemon are things that I would use today on my platforms.
+
+Thanks Ed for your thorough response.
