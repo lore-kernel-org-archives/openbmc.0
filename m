@@ -1,38 +1,50 @@
-Return-Path: <davem@davemloft.net>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=davemloft.net
- (client-ip=184.105.139.130; helo=shards.monkeyblade.net;
- envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=davemloft.net
-Received: from shards.monkeyblade.net (shards.monkeyblade.net
- [184.105.139.130])
+ dmarc=none (p=none dis=none) header.from=intel.com
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zw42d0vwTzF0nc
- for <openbmc@lists.ozlabs.org>; Tue,  6 Mar 2018 02:44:06 +1100 (AEDT)
-Received: from localhost (67.110.78.66.ptr.us.xo.net [67.110.78.66])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 2111A122CFB95;
- Mon,  5 Mar 2018 07:44:02 -0800 (PST)
-Date: Mon, 05 Mar 2018 10:44:01 -0500 (EST)
-Message-Id: <20180305.104401.786259807319660242.davem@davemloft.net>
-To: sam@mendozajonas.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH net-next v2] net/ncsi: Add generic netlink family
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20180305003905.27227-1-sam@mendozajonas.com>
-References: <20180305003905.27227-1-sam@mendozajonas.com>
-X-Mailer: Mew version 6.7 on Emacs 25.3 / Mule 6.0 (HANACHIRUSATO)
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Mon, 05 Mar 2018 07:44:02 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zwCqQ6XtFzF1BD
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Mar 2018 08:34:54 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2018 13:34:49 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.47,428,1515484800"; d="scan'208";a="22252168"
+Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
+ by orsmga007.jf.intel.com with ESMTP; 05 Mar 2018 13:34:49 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.126]) by
+ ORSMSX106.amr.corp.intel.com ([169.254.1.97]) with mapi id 14.03.0319.002;
+ Mon, 5 Mar 2018 13:34:49 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: 'Brad Bishop' <bradleyb@fuzziesquirrel.com>, Patrick Venture
+ <venture@google.com>, "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
+Subject: RE: Exposing POST codes
+Thread-Topic: Exposing POST codes
+Thread-Index: AQHTsMYd8e9M53X5j0GKGCrt14Hsi6PBp40AgAAmpxA=
+Date: Mon, 5 Mar 2018 21:34:48 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932F669996@ORSMSX114.amr.corp.intel.com>
+References: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+ <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
+In-Reply-To: <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.138]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -44,20 +56,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Mar 2018 15:44:09 -0000
+X-List-Received-Date: Mon, 05 Mar 2018 21:34:59 -0000
 
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Date: Mon,  5 Mar 2018 11:39:05 +1100
-
-> Add a generic netlink family for NCSI. This supports three commands;
-> NCSI_CMD_PKG_INFO which returns information on packages and their
-> associated channels, NCSI_CMD_SET_INTERFACE which allows a specific
-> package or package/channel combination to be set as the preferred
-> choice, and NCSI_CMD_CLEAR_INTERFACE which clears any preferred setting.
-> 
-> Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-> ---
-> v2: Add a separate NCSI_CMD_CLEAR_INTERFACE command instead of allowing
-> missing attributes in NCSI_CMD_SET_INTERFACE.
-
-Applied, thank you.
+SSdtIG5vdCBQYXRyaWNrLCBidXQgdGhlIGlucHV0IG9uIG15IHVzZSBjYXNlcyBmb3IgdGhpcyBp
+cyBiZWxvdy4NCg0KDQo+IFNvIHdlIGFscmVhZHkgaGF2ZSB0aGlzIHh5ei5vcGVuYm1jX3Byb2pl
+Y3QuU3RhdGUuQm9vdC5Qcm9ncmVzcyBEQnVzDQo+IGludGVyZmFjZSAoYW5kIG90aGVycykuICBU
+aGlzIGlzIHdoYXQgd2UgaW1wbGVtZW50ZWQgb24gUE9XRVIuICBDYW4gd2UgdGFsaw0KPiBhYm91
+dCBob3cgdGhhdCBBUEkgZmFsbHMgc2hvcnQgZm9yIHlvdXIgdXNlIGNhc2Uocyk/ICBDYW4gSSBm
+aXggaXQgdG8gZW5hYmxlIHlvdXINCj4gdXNlIGNhc2Uocyk/DQo+IA0KVGhlIGVudW0gZGVmaW5p
+dGlvbiBpcyB2ZXJ5IGxpbWl0aW5nLCBhbmQgc2VlbXMgdG8gYXNzdW1lIHRoYXQgUE9TVCBjb2Rl
+IGRlZmluaXRpb25zIGFyZSB0aGUgc2FtZSBhY3Jvc3MgYWxsIHBsYXRmb3Jtcy4gIE5ldyBQT1NU
+IGNvZGVzIGFyZSBhZGRlZCBhbGwgdGhlIHRpbWUsIHRvIHRoZSBwb2ludCB3aGVyZSBldmVuIGlu
+dGVybmFsIHRlYW1zIHN0cnVnZ2xlIHRvIGtlZXAgdXAgd2l0aCB0aGVpciBkZWZpbml0aW9ucy4g
+IEhhdmluZyBhbiBBUEkgdGhhdCB3b3VsZCBuZWVkIHRvIGJlIGNoYW5nZWQgZm9yIGV2ZXJ5IFBP
+U1QgY29kZSB0eXBlIHNlZW1zIGVycm9yIHByb25lIGFuZCB2ZXJ5IGxpa2VseSB0byBiZSBvdXQg
+b2YgZGF0ZS4NCklmIHdlIGFkanVzdGVkIHRoZSBib290IHByb2dyZXNzIGludGVyZmFjZSB0byBi
+ZSBhIHN0cmluZyByYXRoZXIgdGhhbiBhbiBlbnVtLCB0aGF0IF9jb3VsZF8gbWVldCB0aGUgdXNl
+IGNhc2UsIGJ1dCB0aGF0IGRvZXNuJ3Qgc2VlbSB0byBiZSB0aGUgcHVycG9zZSBvZiB0aGF0IEFQ
+SS4NCg0KPiBNeSBjb25jZXJuIGlzIEkgaGF2ZSB0byBhdCBzb21lIHBvaW50IGltcGxlbWVudCB0
+aGlzIEFQSSBvbiBQT1dFUiBzbyB0aGF0DQo+IFBPV0VSIGNhbiB0YWtlIGFkdmFudGFnZSBvZiBh
+cHBsaWNhdGlvbnMgdGFyZ2V0aW5nIHlvdXIgbmV3IEFQSS4NCj4gSWYgZG9pbmcgdGhhdCB3b3Vs
+ZCBiZSBub24tc2Vuc2ljYWwgdGhlbiB0aGlzIHByb2JhYmx5IHNob3VsZG7igJl0IGJlIGFuIEFQ
+SSwgb3INCj4gYXQgbGVhc3Qgbm90IGluIHRoZSBjb21tb24geHl6IG5hbWVzcGFjZS4NCklzbid0
+IHRoaXMgdGhlIHJlYXNvbiBmb3IgaXQgYmVpbmcgaW4gYW4gQVBJIGFsbCBpdHMgb3duLCBzbyBp
+dCBjYW4gYmUgb3B0aW9uYWxseSBpbmNsdWRlZD8gIEkgc3VzcGVjdCBhbnkgYXBwbGljYXRpb25z
+IGNvbnN1bWluZyBpdCB3b3VsZCBsaWtlbHkgYmUgbG9nZ2luZyB0eXBlIGFwcGxpY2F0aW9ucywg
+YW5kIGFueSBhcHBsaWNhdGlvbiB1c2luZyBpdCB0byB0YWtlIGFjdGlvbiB3b3VsZCBiZSBwbGF0
+Zm9ybSBzcGVjaWZpYywgZXZlbiBpZiBpdCB3ZXJlIGEgc3RyaW5nLg0KRG9lcyBQT1dFUiBoYXZl
+IGFueSB3YXkgb2YgcmVwb3J0aW5nIGRldGFpbGVkIGJvb3QgcHJvZ3Jlc3M/ICBJZiwgZm9yIGV4
+YW1wbGUsIHRoZSBVU0IgbGluayB0cmFpbmluZyBzdGFydHMgcHJvY2Vzc29yIGluaXQgZmxvd3Ms
+IGlzIHRoYXQgbG9nZ2VkIGluIGEgUE9XRVIgc3lzdGVtPyAgT24geDg2LCBpdCB3b3VsZCBiZSBs
+b2dnZWQgYXMgYSBQT1NUIGNvZGUuDQoNCj4gDQo+IE9uIFBPV0VSLCB0aGlzIGtpbmQgb2YgaW5m
+b3JtYXRpb24gY29tZXMgZG93biB0aHJvdWdoIHRoZSBJUE1JIGJvb3QNCj4gcHJvZ3Jlc3MgaW5k
+aWNhdG9yLiAgQ291bGQgc29tZW9uZSBicmllZmx5IGVkdWNhdGUgbWUgb24gd2hhdCB0aGUNCj4g
+ZGlmZmVyZW5jZSBiZXR3ZWVuIHRoZSBJUE1JIGJvb3QgcHJvZ3Jlc3MgaW5kaWNhdG9yIGFuZCBQ
+T1NUIGNvZGVzIGFyZSBvbg0KPiB4ODY/ICBJcyB0aGVyZSBvdmVybGFwIG9yIGFyZSB0aGV5IHVz
+ZWQgZm9yIGRpZmZlcmVudCB0aGluZ3M/DQpUaGUgUE9TVCBjb2RlIGluZGljYXRvciBpcyB1c2Vk
+IGZvciB2ZXJ5IGZpbmUgZ3JhaW5lZCBmZWVkYmFjayBvZiBib290IHByb2dyZXNzLCBhbmQgaXMg
+Z2VuZXJhbGx5IG5vdCBsb29rZWQgYXQgYnkgYSB1c2VyIHVubGVzcyB0aGVyZSBpcyBhIHByb2Js
+ZW0gd2l0aCBib290LiAgQXQgdGhhdCBwb2ludCwgaXQgaXMgZ2VuZXJhbGx5IChvbiBteSBzeXN0
+ZW1zKSB1c2VkIGZvciBkZWJ1ZyBvZiB0aGUgc3lzdGVtLCBhcyBpdCBnaXZlcyBzb21lIGluZm9y
+bWF0aW9uIGFib3V0IHdoYXQgc3RlcHMgdGhlIGhvc3Qgc3lzdGVtIHRvb2sgYmVmb3JlIGl0IGZh
+aWxlZC4gDQoNCj4gDQo+IEl0IGp1c3Qgc2VlbXMgbGlrZSB0aGUgZmlyc3QgdGhpbmcgYW55b25l
+IGlzIGdvaW5nIHRvIGRvIHdpdGggdGhlc2UgbnVtYmVycyBpcw0KPiBsb29rIHRoZW0gdXAgYW5k
+IG1hcCB0aGVtIHRvIHNvbWV0aGluZy4gIFdvdWxkbuKAmXQgaXQgbWFrZSBzZW5zZSB0byBoYXZl
+DQo+IGRvbmUgdGhhdCBtYXBwaW5nIGFscmVhZHkgYXQgdGhlIEFQSSBsZXZlbCBzbyB0aGF0IGV2
+ZXJ5IHVzZXIgYW5kIHBpZWNlIG9mDQo+IGNvZGUgdXNpbmcgdGhpcyBBUEkgZG9lc27igJl0IGhh
+dmUgdG8gZG8gaXQgdGhlbXNlbHZlcz8NClRoYXQgc2VlbXMgbGlrZSBhIHJlYXNvbmFibGUgYXNz
+dW1wdGlvbiwgYnV0IHByYWN0aWNhbGx5IGlzbid0IGFsd2F5cyBhbiBvcHRpb247ICBJbiBnZW5l
+cmFsIHRoZSBQT1NUIGNvZGUgbWFwcGluZ3MgYXJlIGRpZmZpY3VsdCB0byBjb21lIGJ5LCBlc3Bl
+Y2lhbGx5IGluIGluaXRpYWwgc3lzdGVtIGJyaW5ndXAsIGFuZCB0aGF0IGlzIHdoZW4gdGhleSBh
+cmUgbW9zdCB2YWx1YWJsZS4gIElmIGF0dGVtcHRlZCwgdGhlIGFiaWxpdHkgdG8gcHJvdmlkZSBh
+IG1hcHBpbmcgc2hvdWxkIGJlIG1hZGUgb3B0aW9uYWwsIHdoaWNoIG1lYW5zIHRoZSBwcm9wb3Nl
+ZCBpbnRlcmZhY2Ugc3RpbGwgbmVlZHMgdG8gZXhpc3QuDQoNCj4gSSB0aGluayB3aGF0IEnigJlt
+IGhpbnRpbmcgYXQgaGVyZSBpcyB0aGF0IHlvdSBjb3VsZCBhZGQgYSBwZXItcGxhdGZvcm0gY29u
+ZmlnIGZpbGUNCj4gdG8geW91ciBhcHAgdGhhdCBtYXBzIHRoZSBjb2RlcyB0byBzb21lIGVudW1l
+cmF0aW9ucyBpbiB0aGUgREJ1cw0KPiBpbnRlcmZhY2UsIGFuZCBhcHBseSB0aGF0IG1hcHBpbmcg
+YmVmb3JlIHlvdSBlbWl0IHRoZSBzaWduYWwuIElmIHlvdSB3YW50ZWQNCj4gdG8gZ28gYmFjayB0
+byBudW1iZXJzIGxhdGVyIHlvdSBjb3VsZCBqdXN0IHJldmVyc2UgdGhlIG1hcHBpbmcgdXNpbmcg
+dGhlDQo+IHNhbWUgY29uZmlnIGZpbGUuICBQbGVhc2UgcG9rZSBob2xlcy4NCg0KSSB3b3VsZCBh
+cmd1ZSB0aGF0IHRoaXMgZnVuY3Rpb25hbGl0eSBpcyBvdXRzaWRlIHRoZSBzY29wZSBvZiBQYXRy
+aWNrcyBwYXRjaC4gIFdlIGNvdWxkIHZlcnkgY2xlYXJseSBkbyBhcyB5b3UncmUgc3VnZ2VzdGlu
+ZywgYnV0IGl0IHdvdWxkIGJlIGVycm9yIHByb25lLCBhbmQgbWFrZSBwZXItcGxhdGZvcm0gY29u
+ZmlndXJhdGlvbiBtb3JlIGRpZmZpY3VsdCB0byBwb3J0LCBhbmQgd291bGQgbGlrZWx5IHRha2Ug
+YSBudW1iZXIgb2YgbW9udGhzIHRvIGdldCBjb3JyZWN0IGZvciBhbGwgcGxhdGZvcm1zLiAgQXMg
+aXMsIFBhdHJpY2tzIHBhdGNoIGFkZHMgdmFsdWUgb3V0c2lkZSBvZiBoaXMgZGlyZWN0IHBsYXRm
+b3JtLCBhcyBvdGhlciB0ZWFtcyB3b3VsZCBoYXZlIGFuIGltbWVkaWF0ZSB1c2Ugb2YgaXQsIGFu
+ZCBpcyB2ZXJ5IGNsZWFyIGFuZCBjbGVhbiB0byBpbXBsZW1lbnQuICBCdWlsZGluZyB0aGUgcGxh
+dGZvcm0gY29uZmlndXJhYmxlIEFQSSB5b3Ugc3VnZ2VzdCB3b3VsZCB0YWtlIGEgbG90IG1vcmUg
+dGltZSBhbmQgZWZmb3J0LCBmb3Igb25seSBhIGxpdHRsZSBpbmNyZW1lbnRhbCB2YWx1ZS4gIFRo
+aXMgc2VlbXMgbGlrZSBhIGNhc2Ugb2YgIlBlcmZlY3QgaXMgdGhlIGVuZW15IG9mIGdvb2QiLiAg
+QXMgaXMsIGJvdGggdGhlIEFQSSBhbmQgdGhlIGRhZW1vbiBhcmUgdGhpbmdzIHRoYXQgSSB3b3Vs
+ZCB1c2UgdG9kYXkgb24gbXkgcGxhdGZvcm1zLg0K
