@@ -1,57 +1,34 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="gKrGEYGt"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="NFgRudyN"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zvgyn4hwDzDsG1
- for <openbmc@lists.ozlabs.org>; Mon,  5 Mar 2018 11:39:28 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 666A8209E9;
- Sun,  4 Mar 2018 19:39:22 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute2.internal (MEProxy); Sun, 04 Mar 2018 19:39:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=vQwWsPcImLdhbWWp0
- EejYwHcbqDGl7YTliko8/JiiL4=; b=gKrGEYGtr8vytCSyV5ROiBU59/V+xuHvX
- khv69l9FilcF70TdcKJGeAY6n5uFMjGMnU+AfAvug1w6azn/iLHF9oDo3pcBOddQ
- 733HM5jMp70NWyOkeZJzxYKUvBHp+2Rp4HTEy5MD28jeVv+s7pjL1kH4iqSJ79Pn
- wiq0GPUGGovRa6P9U3JvJTYaNZu5X0OMwVJc10ajyAsIQQx8BubTVEeKdnt8fcCL
- Ufea5A3zBbLwvtR94xPIfkkjDTlhEiC9w2zMaKGmn4O5Ud2mSBEPcvwqQ3nl6USG
- I2nPvwG0fd9TZHQmTszwlppnmC3HH+/q19bYlTBHeTLBsCZ+pVYPw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=vQwWsPcImLdhbWWp0
- EejYwHcbqDGl7YTliko8/JiiL4=; b=NFgRudyN7hwCzkYQkH2oBMj/wlrshKORk
- KBpX+mmTr9AvLGNMRkPVQpqamfBR3aFuDTv5sSd57OiBfSmBU8NWlP00uMNtmR2N
- Ko+XY8qvaC3Zp9HCiyOpAQcUj8qDr1FZwLp2VwdbNmjAhS1x+czlRYGA37BEKUnb
- RUeFbBEkz5ak8yiyVJaht+yr3s3Pw0letL3DT+a0EA+TyCHeHowm+tTCdnZmriiB
- ixgxA6aBIWHoicQdDRuz1Kp+J8Q21ii2zovoQeX8cYj0/bvy/IctYnTQRRNS+8A/
- j53UQoO5ZqgTARUoyEwKBstVk983gjZUrPa8wFhhg8SWUeKuyjooQ==
-X-ME-Sender: <xms:upGcWviJMRnOjBXvZMMtwahfg4SQzL5VP8yjOehU51zGa0GZ8SLNsg>
-Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 057132463E;
- Sun,  4 Mar 2018 19:39:19 -0500 (EST)
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: netdev@vger.kernel.org
-Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
- "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: [PATCH net-next v2] net/ncsi: Add generic netlink family
-Date: Mon,  5 Mar 2018 11:39:05 +1100
-Message-Id: <20180305003905.27227-1-sam@mendozajonas.com>
-X-Mailer: git-send-email 2.16.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zvp9g2863zF0bd
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Mar 2018 16:19:17 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from brads-mbp.dyn.fuzziesquirrel.com
+ (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 142256E463;
+ Mon,  5 Mar 2018 00:19:13 -0500 (EST)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: Exposing POST codes
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+Date: Mon, 5 Mar 2018 00:19:12 -0500
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
+References: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+To: Patrick Venture <venture@google.com>, "Tanous, Ed" <ed.tanous@intel.com>, 
+ "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,722 +40,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Mar 2018 00:39:31 -0000
+X-List-Received-Date: Mon, 05 Mar 2018 05:19:20 -0000
 
-Add a generic netlink family for NCSI. This supports three commands;
-NCSI_CMD_PKG_INFO which returns information on packages and their
-associated channels, NCSI_CMD_SET_INTERFACE which allows a specific
-package or package/channel combination to be set as the preferred
-choice, and NCSI_CMD_CLEAR_INTERFACE which clears any preferred setting.
+Hi Patrick
 
-Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
----
-v2: Add a separate NCSI_CMD_CLEAR_INTERFACE command instead of allowing
-missing attributes in NCSI_CMD_SET_INTERFACE.
+Thanks for bringing this up again.
 
- include/uapi/linux/ncsi.h | 115 +++++++++++++
- net/ncsi/Makefile         |   2 +-
- net/ncsi/internal.h       |   3 +
- net/ncsi/ncsi-manage.c    |  30 +++-
- net/ncsi/ncsi-netlink.c   | 421 ++++++++++++++++++++++++++++++++++++++++++++++
- net/ncsi/ncsi-netlink.h   |  20 +++
- 6 files changed, 586 insertions(+), 5 deletions(-)
- create mode 100644 include/uapi/linux/ncsi.h
- create mode 100644 net/ncsi/ncsi-netlink.c
- create mode 100644 net/ncsi/ncsi-netlink.h
+> On Feb 28, 2018, at 1:56 PM, Patrick Venture <venture@google.com> =
+wrote:
+>=20
+> I talked to Nancy and I think it's time to revisit previous =
+conversations
+> about POST codes.  We have a simple daemon that exposes the =
+information
+> over Dbus associated with https://gerrit.openbmc-project.xyz/#/c/5006
 
-diff --git a/include/uapi/linux/ncsi.h b/include/uapi/linux/ncsi.h
-new file mode 100644
-index 000000000000..4c292ecbb748
---- /dev/null
-+++ b/include/uapi/linux/ncsi.h
-@@ -0,0 +1,115 @@
-+/*
-+ * Copyright Samuel Mendoza-Jonas, IBM Corporation 2018.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#ifndef __UAPI_NCSI_NETLINK_H__
-+#define __UAPI_NCSI_NETLINK_H__
-+
-+/**
-+ * enum ncsi_nl_commands - supported NCSI commands
-+ *
-+ * @NCSI_CMD_UNSPEC: unspecified command to catch errors
-+ * @NCSI_CMD_PKG_INFO: list package and channel attributes. Requires
-+ *	NCSI_ATTR_IFINDEX. If NCSI_ATTR_PACKAGE_ID is specified returns the
-+ *	specific package and its channels - otherwise a dump request returns
-+ *	all packages and their associated channels.
-+ * @NCSI_CMD_SET_INTERFACE: set preferred package and channel combination.
-+ *	Requires NCSI_ATTR_IFINDEX and the preferred NCSI_ATTR_PACKAGE_ID and
-+ *	optionally the preferred NCSI_ATTR_CHANNEL_ID.
-+ * @NCSI_CMD_CLEAR_INTERFACE: clear any preferred package/channel combination.
-+ *	Requires NCSI_ATTR_IFINDEX.
-+ * @NCSI_CMD_MAX: highest command number
-+ */
-+enum ncsi_nl_commands {
-+	NCSI_CMD_UNSPEC,
-+	NCSI_CMD_PKG_INFO,
-+	NCSI_CMD_SET_INTERFACE,
-+	NCSI_CMD_CLEAR_INTERFACE,
-+
-+	__NCSI_CMD_AFTER_LAST,
-+	NCSI_CMD_MAX = __NCSI_CMD_AFTER_LAST - 1
-+};
-+
-+/**
-+ * enum ncsi_nl_attrs - General NCSI netlink attributes
-+ *
-+ * @NCSI_ATTR_UNSPEC: unspecified attributes to catch errors
-+ * @NCSI_ATTR_IFINDEX: ifindex of network device using NCSI
-+ * @NCSI_ATTR_PACKAGE_LIST: nested array of NCSI_PKG_ATTR attributes
-+ * @NCSI_ATTR_PACKAGE_ID: package ID
-+ * @NCSI_ATTR_CHANNEL_ID: channel ID
-+ * @NCSI_ATTR_MAX: highest attribute number
-+ */
-+enum ncsi_nl_attrs {
-+	NCSI_ATTR_UNSPEC,
-+	NCSI_ATTR_IFINDEX,
-+	NCSI_ATTR_PACKAGE_LIST,
-+	NCSI_ATTR_PACKAGE_ID,
-+	NCSI_ATTR_CHANNEL_ID,
-+
-+	__NCSI_ATTR_AFTER_LAST,
-+	NCSI_ATTR_MAX = __NCSI_ATTR_AFTER_LAST - 1
-+};
-+
-+/**
-+ * enum ncsi_nl_pkg_attrs - NCSI netlink package-specific attributes
-+ *
-+ * @NCSI_PKG_ATTR_UNSPEC: unspecified attributes to catch errors
-+ * @NCSI_PKG_ATTR: nested array of package attributes
-+ * @NCSI_PKG_ATTR_ID: package ID
-+ * @NCSI_PKG_ATTR_FORCED: flag signifying a package has been set as preferred
-+ * @NCSI_PKG_ATTR_CHANNEL_LIST: nested array of NCSI_CHANNEL_ATTR attributes
-+ * @NCSI_PKG_ATTR_MAX: highest attribute number
-+ */
-+enum ncsi_nl_pkg_attrs {
-+	NCSI_PKG_ATTR_UNSPEC,
-+	NCSI_PKG_ATTR,
-+	NCSI_PKG_ATTR_ID,
-+	NCSI_PKG_ATTR_FORCED,
-+	NCSI_PKG_ATTR_CHANNEL_LIST,
-+
-+	__NCSI_PKG_ATTR_AFTER_LAST,
-+	NCSI_PKG_ATTR_MAX = __NCSI_PKG_ATTR_AFTER_LAST - 1
-+};
-+
-+/**
-+ * enum ncsi_nl_channel_attrs - NCSI netlink channel-specific attributes
-+ *
-+ * @NCSI_CHANNEL_ATTR_UNSPEC: unspecified attributes to catch errors
-+ * @NCSI_CHANNEL_ATTR: nested array of channel attributes
-+ * @NCSI_CHANNEL_ATTR_ID: channel ID
-+ * @NCSI_CHANNEL_ATTR_VERSION_MAJOR: channel major version number
-+ * @NCSI_CHANNEL_ATTR_VERSION_MINOR: channel minor version number
-+ * @NCSI_CHANNEL_ATTR_VERSION_STR: channel version string
-+ * @NCSI_CHANNEL_ATTR_LINK_STATE: channel link state flags
-+ * @NCSI_CHANNEL_ATTR_ACTIVE: channels with this flag are in
-+ *	NCSI_CHANNEL_ACTIVE state
-+ * @NCSI_CHANNEL_ATTR_FORCED: flag signifying a channel has been set as
-+ *	preferred
-+ * @NCSI_CHANNEL_ATTR_VLAN_LIST: nested array of NCSI_CHANNEL_ATTR_VLAN_IDs
-+ * @NCSI_CHANNEL_ATTR_VLAN_ID: VLAN ID being filtered on this channel
-+ * @NCSI_CHANNEL_ATTR_MAX: highest attribute number
-+ */
-+enum ncsi_nl_channel_attrs {
-+	NCSI_CHANNEL_ATTR_UNSPEC,
-+	NCSI_CHANNEL_ATTR,
-+	NCSI_CHANNEL_ATTR_ID,
-+	NCSI_CHANNEL_ATTR_VERSION_MAJOR,
-+	NCSI_CHANNEL_ATTR_VERSION_MINOR,
-+	NCSI_CHANNEL_ATTR_VERSION_STR,
-+	NCSI_CHANNEL_ATTR_LINK_STATE,
-+	NCSI_CHANNEL_ATTR_ACTIVE,
-+	NCSI_CHANNEL_ATTR_FORCED,
-+	NCSI_CHANNEL_ATTR_VLAN_LIST,
-+	NCSI_CHANNEL_ATTR_VLAN_ID,
-+
-+	__NCSI_CHANNEL_ATTR_AFTER_LAST,
-+	NCSI_CHANNEL_ATTR_MAX = __NCSI_CHANNEL_ATTR_AFTER_LAST - 1
-+};
-+
-+#endif /* __UAPI_NCSI_NETLINK_H__ */
-diff --git a/net/ncsi/Makefile b/net/ncsi/Makefile
-index dd12b564f2e7..436ef68331f2 100644
---- a/net/ncsi/Makefile
-+++ b/net/ncsi/Makefile
-@@ -1,4 +1,4 @@
- #
- # Makefile for NCSI API
- #
--obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-aen.o ncsi-manage.o
-+obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-aen.o ncsi-manage.o ncsi-netlink.o
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index d30f7bd741d0..8da84312cd3b 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -276,6 +276,8 @@ struct ncsi_dev_priv {
- 	unsigned int        package_num;     /* Number of packages         */
- 	struct list_head    packages;        /* List of packages           */
- 	struct ncsi_channel *hot_channel;    /* Channel was ever active    */
-+	struct ncsi_package *force_package;  /* Force a specific package   */
-+	struct ncsi_channel *force_channel;  /* Force a specific channel   */
- 	struct ncsi_request requests[256];   /* Request table              */
- 	unsigned int        request_id;      /* Last used request ID       */
- #define NCSI_REQ_START_IDX	1
-@@ -318,6 +320,7 @@ extern spinlock_t ncsi_dev_lock;
- 	list_for_each_entry_rcu(nc, &np->channels, node)
- 
- /* Resources */
-+u32 *ncsi_get_filter(struct ncsi_channel *nc, int table, int index);
- int ncsi_find_filter(struct ncsi_channel *nc, int table, void *data);
- int ncsi_add_filter(struct ncsi_channel *nc, int table, void *data);
- int ncsi_remove_filter(struct ncsi_channel *nc, int table, int index);
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index c989211bbabc..c3695ba0cf94 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -12,7 +12,6 @@
- #include <linux/init.h>
- #include <linux/netdevice.h>
- #include <linux/skbuff.h>
--#include <linux/netlink.h>
- 
- #include <net/ncsi.h>
- #include <net/net_namespace.h>
-@@ -23,6 +22,7 @@
- 
- #include "internal.h"
- #include "ncsi-pkt.h"
-+#include "ncsi-netlink.h"
- 
- LIST_HEAD(ncsi_dev_list);
- DEFINE_SPINLOCK(ncsi_dev_lock);
-@@ -38,7 +38,7 @@ static inline int ncsi_filter_size(int table)
- 	return sizes[table];
- }
- 
--static u32 *ncsi_get_filter(struct ncsi_channel *nc, int table, int index)
-+u32 *ncsi_get_filter(struct ncsi_channel *nc, int table, int index)
- {
- 	struct ncsi_channel_filter *ncf;
- 	int size;
-@@ -965,20 +965,37 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
- 
- static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
- {
--	struct ncsi_package *np;
--	struct ncsi_channel *nc, *found, *hot_nc;
-+	struct ncsi_package *np, *force_package;
-+	struct ncsi_channel *nc, *found, *hot_nc, *force_channel;
- 	struct ncsi_channel_mode *ncm;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&ndp->lock, flags);
- 	hot_nc = ndp->hot_channel;
-+	force_channel = ndp->force_channel;
-+	force_package = ndp->force_package;
- 	spin_unlock_irqrestore(&ndp->lock, flags);
- 
-+	/* Force a specific channel whether or not it has link if we have been
-+	 * configured to do so
-+	 */
-+	if (force_package && force_channel) {
-+		found = force_channel;
-+		ncm = &found->modes[NCSI_MODE_LINK];
-+		if (!(ncm->data[2] & 0x1))
-+			netdev_info(ndp->ndev.dev,
-+				    "NCSI: Channel %u forced, but it is link down\n",
-+				    found->id);
-+		goto out;
-+	}
-+
- 	/* The search is done once an inactive channel with up
- 	 * link is found.
- 	 */
- 	found = NULL;
- 	NCSI_FOR_EACH_PACKAGE(ndp, np) {
-+		if (ndp->force_package && np != ndp->force_package)
-+			continue;
- 		NCSI_FOR_EACH_CHANNEL(np, nc) {
- 			spin_lock_irqsave(&nc->lock, flags);
- 
-@@ -1594,6 +1611,9 @@ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
- 	ndp->ptype.dev = dev;
- 	dev_add_pack(&ndp->ptype);
- 
-+	/* Set up generic netlink interface */
-+	ncsi_init_netlink(dev);
-+
- 	return nd;
- }
- EXPORT_SYMBOL_GPL(ncsi_register_dev);
-@@ -1673,6 +1693,8 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- #endif
- 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
- 
-+	ncsi_unregister_netlink(nd->dev);
-+
- 	kfree(ndp);
- }
- EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
-diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
-new file mode 100644
-index 000000000000..d4201665a580
---- /dev/null
-+++ b/net/ncsi/ncsi-netlink.c
-@@ -0,0 +1,421 @@
-+/*
-+ * Copyright Samuel Mendoza-Jonas, IBM Corporation 2018.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/if_arp.h>
-+#include <linux/rtnetlink.h>
-+#include <linux/etherdevice.h>
-+#include <linux/module.h>
-+#include <net/genetlink.h>
-+#include <net/ncsi.h>
-+#include <linux/skbuff.h>
-+#include <net/sock.h>
-+#include <uapi/linux/ncsi.h>
-+
-+#include "internal.h"
-+#include "ncsi-netlink.h"
-+
-+static struct genl_family ncsi_genl_family;
-+
-+static const struct nla_policy ncsi_genl_policy[NCSI_ATTR_MAX + 1] = {
-+	[NCSI_ATTR_IFINDEX] =		{ .type = NLA_U32 },
-+	[NCSI_ATTR_PACKAGE_LIST] =	{ .type = NLA_NESTED },
-+	[NCSI_ATTR_PACKAGE_ID] =	{ .type = NLA_U32 },
-+	[NCSI_ATTR_CHANNEL_ID] =	{ .type = NLA_U32 },
-+};
-+
-+static struct ncsi_dev_priv *ndp_from_ifindex(struct net *net, u32 ifindex)
-+{
-+	struct ncsi_dev_priv *ndp;
-+	struct net_device *dev;
-+	struct ncsi_dev *nd;
-+	struct ncsi_dev;
-+
-+	if (!net)
-+		return NULL;
-+
-+	dev = dev_get_by_index(net, ifindex);
-+	if (!dev) {
-+		pr_err("NCSI netlink: No device for ifindex %u\n", ifindex);
-+		return NULL;
-+	}
-+
-+	nd = ncsi_find_dev(dev);
-+	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
-+
-+	dev_put(dev);
-+	return ndp;
-+}
-+
-+static int ncsi_write_channel_info(struct sk_buff *skb,
-+				   struct ncsi_dev_priv *ndp,
-+				   struct ncsi_channel *nc)
-+{
-+	struct nlattr *vid_nest;
-+	struct ncsi_channel_filter *ncf;
-+	struct ncsi_channel_mode *m;
-+	u32 *data;
-+	int i;
-+
-+	nla_put_u32(skb, NCSI_CHANNEL_ATTR_ID, nc->id);
-+	m = &nc->modes[NCSI_MODE_LINK];
-+	nla_put_u32(skb, NCSI_CHANNEL_ATTR_LINK_STATE, m->data[2]);
-+	if (nc->state == NCSI_CHANNEL_ACTIVE)
-+		nla_put_flag(skb, NCSI_CHANNEL_ATTR_ACTIVE);
-+	if (ndp->force_channel == nc)
-+		nla_put_flag(skb, NCSI_CHANNEL_ATTR_FORCED);
-+
-+	nla_put_u32(skb, NCSI_CHANNEL_ATTR_VERSION_MAJOR, nc->version.version);
-+	nla_put_u32(skb, NCSI_CHANNEL_ATTR_VERSION_MINOR, nc->version.alpha2);
-+	nla_put_string(skb, NCSI_CHANNEL_ATTR_VERSION_STR, nc->version.fw_name);
-+
-+	vid_nest = nla_nest_start(skb, NCSI_CHANNEL_ATTR_VLAN_LIST);
-+	if (!vid_nest)
-+		return -ENOMEM;
-+	ncf = nc->filters[NCSI_FILTER_VLAN];
-+	i = -1;
-+	if (ncf) {
-+		while ((i = find_next_bit((void *)&ncf->bitmap, ncf->total,
-+					  i + 1)) < ncf->total) {
-+			data = ncsi_get_filter(nc, NCSI_FILTER_VLAN, i);
-+			/* Uninitialised channels will have 'zero' vlan ids */
-+			if (!data || !*data)
-+				continue;
-+			nla_put_u16(skb, NCSI_CHANNEL_ATTR_VLAN_ID,
-+				    *(u16 *)data);
-+		}
-+	}
-+	nla_nest_end(skb, vid_nest);
-+
-+	return 0;
-+}
-+
-+static int ncsi_write_package_info(struct sk_buff *skb,
-+				   struct ncsi_dev_priv *ndp, unsigned int id)
-+{
-+	struct nlattr *pnest, *cnest, *nest;
-+	struct ncsi_package *np;
-+	struct ncsi_channel *nc;
-+	bool found;
-+	int rc;
-+
-+	if (id > ndp->package_num) {
-+		netdev_info(ndp->ndev.dev, "NCSI: No package with id %u\n", id);
-+		return -ENODEV;
-+	}
-+
-+	found = false;
-+	NCSI_FOR_EACH_PACKAGE(ndp, np) {
-+		if (np->id != id)
-+			continue;
-+		pnest = nla_nest_start(skb, NCSI_PKG_ATTR);
-+		if (!pnest)
-+			return -ENOMEM;
-+		nla_put_u32(skb, NCSI_PKG_ATTR_ID, np->id);
-+		if (ndp->force_package == np)
-+			nla_put_flag(skb, NCSI_PKG_ATTR_FORCED);
-+		cnest = nla_nest_start(skb, NCSI_PKG_ATTR_CHANNEL_LIST);
-+		if (!cnest) {
-+			nla_nest_cancel(skb, pnest);
-+			return -ENOMEM;
-+		}
-+		NCSI_FOR_EACH_CHANNEL(np, nc) {
-+			nest = nla_nest_start(skb, NCSI_CHANNEL_ATTR);
-+			if (!nest) {
-+				nla_nest_cancel(skb, cnest);
-+				nla_nest_cancel(skb, pnest);
-+				return -ENOMEM;
-+			}
-+			rc = ncsi_write_channel_info(skb, ndp, nc);
-+			if (rc) {
-+				nla_nest_cancel(skb, nest);
-+				nla_nest_cancel(skb, cnest);
-+				nla_nest_cancel(skb, pnest);
-+				return rc;
-+			}
-+			nla_nest_end(skb, nest);
-+		}
-+		nla_nest_end(skb, cnest);
-+		nla_nest_end(skb, pnest);
-+		found = true;
-+	}
-+
-+	if (!found)
-+		return -ENODEV;
-+
-+	return 0;
-+}
-+
-+static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
-+{
-+	struct ncsi_dev_priv *ndp;
-+	unsigned int package_id;
-+	struct sk_buff *skb;
-+	struct nlattr *attr;
-+	void *hdr;
-+	int rc;
-+
-+	if (!info || !info->attrs)
-+		return -EINVAL;
-+
-+	if (!info->attrs[NCSI_ATTR_IFINDEX])
-+		return -EINVAL;
-+
-+	if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
-+		return -EINVAL;
-+
-+	ndp = ndp_from_ifindex(genl_info_net(info),
-+			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
-+	if (!ndp)
-+		return -ENODEV;
-+
-+	skb = genlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!skb)
-+		return -ENOMEM;
-+
-+	hdr = genlmsg_put(skb, info->snd_portid, info->snd_seq,
-+			  &ncsi_genl_family, 0, NCSI_CMD_PKG_INFO);
-+	if (!hdr) {
-+		kfree(skb);
-+		return -EMSGSIZE;
-+	}
-+
-+	package_id = nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
-+
-+	attr = nla_nest_start(skb, NCSI_ATTR_PACKAGE_LIST);
-+	rc = ncsi_write_package_info(skb, ndp, package_id);
-+
-+	if (rc) {
-+		nla_nest_cancel(skb, attr);
-+		goto err;
-+	}
-+
-+	nla_nest_end(skb, attr);
-+
-+	genlmsg_end(skb, hdr);
-+	return genlmsg_reply(skb, info);
-+
-+err:
-+	genlmsg_cancel(skb, hdr);
-+	kfree(skb);
-+	return rc;
-+}
-+
-+static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
-+				struct netlink_callback *cb)
-+{
-+	struct nlattr *attrs[NCSI_ATTR_MAX];
-+	struct ncsi_package *np, *package;
-+	struct ncsi_dev_priv *ndp;
-+	unsigned int package_id;
-+	struct nlattr *attr;
-+	void *hdr;
-+	int rc;
-+
-+	rc = genlmsg_parse(cb->nlh, &ncsi_genl_family, attrs, NCSI_ATTR_MAX,
-+			   ncsi_genl_policy, NULL);
-+	if (rc)
-+		return rc;
-+
-+	if (!attrs[NCSI_ATTR_IFINDEX])
-+		return -EINVAL;
-+
-+	ndp = ndp_from_ifindex(get_net(sock_net(skb->sk)),
-+			       nla_get_u32(attrs[NCSI_ATTR_IFINDEX]));
-+
-+	if (!ndp)
-+		return -ENODEV;
-+
-+	package_id = cb->args[0];
-+	package = NULL;
-+	NCSI_FOR_EACH_PACKAGE(ndp, np)
-+		if (np->id == package_id)
-+			package = np;
-+
-+	if (!package)
-+		return 0; /* done */
-+
-+	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
-+			  &ncsi_genl_family, 0,  NCSI_CMD_PKG_INFO);
-+	if (!hdr) {
-+		rc = -EMSGSIZE;
-+		goto err;
-+	}
-+
-+	attr = nla_nest_start(skb, NCSI_ATTR_PACKAGE_LIST);
-+	rc = ncsi_write_package_info(skb, ndp, package->id);
-+	if (rc) {
-+		nla_nest_cancel(skb, attr);
-+		goto err;
-+	}
-+
-+	nla_nest_end(skb, attr);
-+	genlmsg_end(skb, hdr);
-+
-+	cb->args[0] = package_id + 1;
-+
-+	return skb->len;
-+err:
-+	genlmsg_cancel(skb, hdr);
-+	return rc;
-+}
-+
-+static int ncsi_set_interface_nl(struct sk_buff *msg, struct genl_info *info)
-+{
-+	struct ncsi_package *np, *package;
-+	struct ncsi_channel *nc, *channel;
-+	u32 package_id, channel_id;
-+	struct ncsi_dev_priv *ndp;
-+	unsigned long flags;
-+
-+	if (!info || !info->attrs)
-+		return -EINVAL;
-+
-+	if (!info->attrs[NCSI_ATTR_IFINDEX])
-+		return -EINVAL;
-+
-+	if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
-+		return -EINVAL;
-+
-+	ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
-+			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
-+	if (!ndp)
-+		return -ENODEV;
-+
-+	package_id = nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
-+	package = NULL;
-+
-+	spin_lock_irqsave(&ndp->lock, flags);
-+
-+	NCSI_FOR_EACH_PACKAGE(ndp, np)
-+		if (np->id == package_id)
-+			package = np;
-+	if (!package) {
-+		/* The user has set a package that does not exist */
-+		return -ERANGE;
-+	}
-+
-+	channel = NULL;
-+	if (!info->attrs[NCSI_ATTR_CHANNEL_ID]) {
-+		/* Allow any channel */
-+		channel_id = NCSI_RESERVED_CHANNEL;
-+	} else {
-+		channel_id = nla_get_u32(info->attrs[NCSI_ATTR_CHANNEL_ID]);
-+		NCSI_FOR_EACH_CHANNEL(package, nc)
-+			if (nc->id == channel_id)
-+				channel = nc;
-+	}
-+
-+	if (channel_id != NCSI_RESERVED_CHANNEL && !channel) {
-+		/* The user has set a channel that does not exist on this
-+		 * package
-+		 */
-+		netdev_info(ndp->ndev.dev, "NCSI: Channel %u does not exist!\n",
-+			    channel_id);
-+		return -ERANGE;
-+	}
-+
-+	ndp->force_package = package;
-+	ndp->force_channel = channel;
-+	spin_unlock_irqrestore(&ndp->lock, flags);
-+
-+	netdev_info(ndp->ndev.dev, "Set package 0x%x, channel 0x%x%s as preferred\n",
-+		    package_id, channel_id,
-+		    channel_id == NCSI_RESERVED_CHANNEL ? " (any)" : "");
-+
-+	/* Bounce the NCSI channel to set changes */
-+	ncsi_stop_dev(&ndp->ndev);
-+	ncsi_start_dev(&ndp->ndev);
-+
-+	return 0;
-+}
-+
-+static int ncsi_clear_interface_nl(struct sk_buff *msg, struct genl_info *info)
-+{
-+	struct ncsi_dev_priv *ndp;
-+	unsigned long flags;
-+
-+	if (!info || !info->attrs)
-+		return -EINVAL;
-+
-+	if (!info->attrs[NCSI_ATTR_IFINDEX])
-+		return -EINVAL;
-+
-+	ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
-+			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
-+	if (!ndp)
-+		return -ENODEV;
-+
-+	/* Clear any override */
-+	spin_lock_irqsave(&ndp->lock, flags);
-+	ndp->force_package = NULL;
-+	ndp->force_channel = NULL;
-+	spin_unlock_irqrestore(&ndp->lock, flags);
-+	netdev_info(ndp->ndev.dev, "NCSI: Cleared preferred package/channel\n");
-+
-+	/* Bounce the NCSI channel to set changes */
-+	ncsi_stop_dev(&ndp->ndev);
-+	ncsi_start_dev(&ndp->ndev);
-+
-+	return 0;
-+}
-+
-+static const struct genl_ops ncsi_ops[] = {
-+	{
-+		.cmd = NCSI_CMD_PKG_INFO,
-+		.policy = ncsi_genl_policy,
-+		.doit = ncsi_pkg_info_nl,
-+		.dumpit = ncsi_pkg_info_all_nl,
-+		.flags = 0,
-+	},
-+	{
-+		.cmd = NCSI_CMD_SET_INTERFACE,
-+		.policy = ncsi_genl_policy,
-+		.doit = ncsi_set_interface_nl,
-+		.flags = GENL_ADMIN_PERM,
-+	},
-+	{
-+		.cmd = NCSI_CMD_CLEAR_INTERFACE,
-+		.policy = ncsi_genl_policy,
-+		.doit = ncsi_clear_interface_nl,
-+		.flags = GENL_ADMIN_PERM,
-+	},
-+};
-+
-+static struct genl_family ncsi_genl_family __ro_after_init = {
-+	.name = "NCSI",
-+	.version = 0,
-+	.maxattr = NCSI_ATTR_MAX,
-+	.module = THIS_MODULE,
-+	.ops = ncsi_ops,
-+	.n_ops = ARRAY_SIZE(ncsi_ops),
-+};
-+
-+int ncsi_init_netlink(struct net_device *dev)
-+{
-+	int rc;
-+
-+	rc = genl_register_family(&ncsi_genl_family);
-+	if (rc)
-+		netdev_err(dev, "ncsi: failed to register netlink family\n");
-+
-+	return rc;
-+}
-+
-+int ncsi_unregister_netlink(struct net_device *dev)
-+{
-+	int rc;
-+
-+	rc = genl_unregister_family(&ncsi_genl_family);
-+	if (rc)
-+		netdev_err(dev, "ncsi: failed to unregister netlink family\n");
-+
-+	return rc;
-+}
-diff --git a/net/ncsi/ncsi-netlink.h b/net/ncsi/ncsi-netlink.h
-new file mode 100644
-index 000000000000..91a5c256f8c4
---- /dev/null
-+++ b/net/ncsi/ncsi-netlink.h
-@@ -0,0 +1,20 @@
-+/*
-+ * Copyright Samuel Mendoza-Jonas, IBM Corporation 2018.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#ifndef __NCSI_NETLINK_H__
-+#define __NCSI_NETLINK_H__
-+
-+#include <linux/netdevice.h>
-+
-+#include "internal.h"
-+
-+int ncsi_init_netlink(struct net_device *dev);
-+int ncsi_unregister_netlink(struct net_device *dev);
-+
-+#endif /* __NCSI_NETLINK_H__ */
--- 
-2.16.2
+So we already have this xyz.openbmc_project.State.Boot.Progress DBus
+interface (and others).  This is what we implemented on POWER.  Can
+we talk about how that API falls short for your use case(s)?  Can I fix
+it to enable your use case(s)?
+
+My concern is I have to at some point implement this API on POWER
+so that POWER can take advantage of applications targeting your new API.
+If doing that would be non-sensical then this probably shouldn=E2=80=99t =
+be an
+API, or at least not in the common xyz namespace.
+
+On POWER, this kind of information comes down through the IPMI boot
+progress indicator.  Could someone briefly educate me on what the
+difference between the IPMI boot progress indicator and POST codes
+are on x86?  Is there overlap or are they used for different things?
+
+If we went this route I=E2=80=99d be inclined to scrap the existing
+xyz.openbmc_project.State.Boot.Progress API and implement
+your proposed API on POWER, again, so that POWER can make use of the
+applications targeting this API, if the community is unable to write
+applications targeting the existing one.  That would mean changing
+code that today takes actions on meaningful enumerations to instead
+take actions on platform specific numbers.  Does that seem like
+the right thing for me to do?  Or does it make sense for the project to
+have both of these APIs?  If that is the case can you speculate on what
+situations an application would target one API over the other?
+
+It just seems like the first thing anyone is going to do with these
+numbers is look them up and map them to something.  Wouldn=E2=80=99t it =
+make
+sense to have done that mapping already at the API level so that
+every user and piece of code using this API doesn=E2=80=99t have to do =
+it
+themselves?
+
+Mohit - do ARM chips have POST code-like functionality?  Can you
+conceive of a way to write an application that could implement
+the proposed API on an ARM server?
+
+>=20
+> If there's interest, I can stage it against skeleton for review and =
+comment.
+
+I think what I=E2=80=99m hinting at here is that you could add a =
+per-platform config
+file to your app that maps the codes to some enumerations in the DBus
+interface, and apply that mapping before you emit the signal. If you
+wanted to go back to numbers later you could just reverse the mapping
+using the same config file.  Please poke holes.
+
+-brad
+
+>=20
+> We have a patch to the kernel character device for the =
+aspeed-lpc-snoop
+> that is required and enables reading the post codes.
+>=20
+> Patrick
