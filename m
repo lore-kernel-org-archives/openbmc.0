@@ -1,34 +1,38 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <davem@davemloft.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=davemloft.net
+ (client-ip=184.105.139.130; helo=shards.monkeyblade.net;
+ envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=davemloft.net
+Received: from shards.monkeyblade.net (shards.monkeyblade.net
+ [184.105.139.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zvp9g2863zF0bd
- for <openbmc@lists.ozlabs.org>; Mon,  5 Mar 2018 16:19:17 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from brads-mbp.dyn.fuzziesquirrel.com
- (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 142256E463;
- Mon,  5 Mar 2018 00:19:13 -0500 (EST)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: Exposing POST codes
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
-Date: Mon, 5 Mar 2018 00:19:12 -0500
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
-References: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
-To: Patrick Venture <venture@google.com>, "Tanous, Ed" <ed.tanous@intel.com>, 
- "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zw42d0vwTzF0nc
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Mar 2018 02:44:06 +1100 (AEDT)
+Received: from localhost (67.110.78.66.ptr.us.xo.net [67.110.78.66])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 2111A122CFB95;
+ Mon,  5 Mar 2018 07:44:02 -0800 (PST)
+Date: Mon, 05 Mar 2018 10:44:01 -0500 (EST)
+Message-Id: <20180305.104401.786259807319660242.davem@davemloft.net>
+To: sam@mendozajonas.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH net-next v2] net/ncsi: Add generic netlink family
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20180305003905.27227-1-sam@mendozajonas.com>
+References: <20180305003905.27227-1-sam@mendozajonas.com>
+X-Mailer: Mew version 6.7 on Emacs 25.3 / Mule 6.0 (HANACHIRUSATO)
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Mon, 05 Mar 2018 07:44:02 -0800 (PST)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -40,76 +44,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Mar 2018 05:19:20 -0000
+X-List-Received-Date: Mon, 05 Mar 2018 15:44:09 -0000
 
-Hi Patrick
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+Date: Mon,  5 Mar 2018 11:39:05 +1100
 
-Thanks for bringing this up again.
+> Add a generic netlink family for NCSI. This supports three commands;
+> NCSI_CMD_PKG_INFO which returns information on packages and their
+> associated channels, NCSI_CMD_SET_INTERFACE which allows a specific
+> package or package/channel combination to be set as the preferred
+> choice, and NCSI_CMD_CLEAR_INTERFACE which clears any preferred setting.
+> 
+> Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> ---
+> v2: Add a separate NCSI_CMD_CLEAR_INTERFACE command instead of allowing
+> missing attributes in NCSI_CMD_SET_INTERFACE.
 
-> On Feb 28, 2018, at 1:56 PM, Patrick Venture <venture@google.com> =
-wrote:
->=20
-> I talked to Nancy and I think it's time to revisit previous =
-conversations
-> about POST codes.  We have a simple daemon that exposes the =
-information
-> over Dbus associated with https://gerrit.openbmc-project.xyz/#/c/5006
-
-So we already have this xyz.openbmc_project.State.Boot.Progress DBus
-interface (and others).  This is what we implemented on POWER.  Can
-we talk about how that API falls short for your use case(s)?  Can I fix
-it to enable your use case(s)?
-
-My concern is I have to at some point implement this API on POWER
-so that POWER can take advantage of applications targeting your new API.
-If doing that would be non-sensical then this probably shouldn=E2=80=99t =
-be an
-API, or at least not in the common xyz namespace.
-
-On POWER, this kind of information comes down through the IPMI boot
-progress indicator.  Could someone briefly educate me on what the
-difference between the IPMI boot progress indicator and POST codes
-are on x86?  Is there overlap or are they used for different things?
-
-If we went this route I=E2=80=99d be inclined to scrap the existing
-xyz.openbmc_project.State.Boot.Progress API and implement
-your proposed API on POWER, again, so that POWER can make use of the
-applications targeting this API, if the community is unable to write
-applications targeting the existing one.  That would mean changing
-code that today takes actions on meaningful enumerations to instead
-take actions on platform specific numbers.  Does that seem like
-the right thing for me to do?  Or does it make sense for the project to
-have both of these APIs?  If that is the case can you speculate on what
-situations an application would target one API over the other?
-
-It just seems like the first thing anyone is going to do with these
-numbers is look them up and map them to something.  Wouldn=E2=80=99t it =
-make
-sense to have done that mapping already at the API level so that
-every user and piece of code using this API doesn=E2=80=99t have to do =
-it
-themselves?
-
-Mohit - do ARM chips have POST code-like functionality?  Can you
-conceive of a way to write an application that could implement
-the proposed API on an ARM server?
-
->=20
-> If there's interest, I can stage it against skeleton for review and =
-comment.
-
-I think what I=E2=80=99m hinting at here is that you could add a =
-per-platform config
-file to your app that maps the codes to some enumerations in the DBus
-interface, and apply that mapping before you emit the signal. If you
-wanted to go back to numbers later you could just reverse the mapping
-using the same config file.  Please poke holes.
-
--brad
-
->=20
-> We have a patch to the kernel character device for the =
-aspeed-lpc-snoop
-> that is required and enables reading the post codes.
->=20
-> Patrick
+Applied, thank you.
