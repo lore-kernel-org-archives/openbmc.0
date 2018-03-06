@@ -1,39 +1,44 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.136; helo=mga12.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=intel.com
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zwjZf4M2PzF07w
- for <openbmc@lists.ozlabs.org>; Wed,  7 Mar 2018 03:55:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zwmSh15RZzF1b1
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Mar 2018 06:05:38 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2018 08:55:35 -0800
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2018 11:05:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,432,1515484800"; d="scan'208";a="180384547"
-Received: from hades.jf.intel.com (HELO [10.54.51.77]) ([10.54.51.77])
- by orsmga004.jf.intel.com with ESMTP; 06 Mar 2018 08:55:35 -0800
-Subject: Re: Meeting Minutes 2018-03-05: OpenBMC Redfish working group working
- call
-To: Michael.E.Brown@dell.com, openbmc@lists.ozlabs.org, Paul.Vancil@dell.com, 
- hramasub@in.ibm.com, Balaji.B.Rao@dell.com, bradleyb@fuzziesquirrel.com,
- jwcarman@us.ibm.com, pradeep.kumar36@tcs.com, rolfb@us.ibm.com,
- Chris.Ong@microsoft.com, alirhas@microsoft.com, yupalani@microsoft.com
-Cc: Krishna.Kolakaluri@deltaww.com
-References: <066c20c5825e4a75b4255500da392d14@ausx13mps338.AMER.DELL.COM>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <a6c93af9-9202-ada7-5d6a-2eb8f64a946e@intel.com>
-Date: Tue, 6 Mar 2018 08:56:42 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+X-IronPort-AV: E=Sophos;i="5.47,432,1515484800"; d="scan'208";a="205989469"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga005.jf.intel.com with ESMTP; 06 Mar 2018 11:05:36 -0800
+Subject: Re: [PATCH v2 2/8] [PATCH 2/8] Documentations: dt-bindings: Add a
+ document of PECI adapter driver for Aspeed AST24xx/25xx SoCs
+To: Pavel Machek <pavel@ucw.cz>
+Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
+ gregkh@linuxfoundation.org, jdelvare@suse.com, linux@roeck-us.net,
+ benh@kernel.crashing.org, andrew@lunn.ch, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
+References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
+ <20180221161606.32247-3-jae.hyun.yoo@linux.intel.com>
+ <20180306124002.GA13950@amd>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <33bf6563-b220-7ff9-8b04-84e9bd781b3f@linux.intel.com>
+Date: Tue, 6 Mar 2018 11:05:36 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <066c20c5825e4a75b4255500da392d14@ausx13mps338.AMER.DELL.COM>
+In-Reply-To: <20180306124002.GA13950@amd>
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -48,17 +53,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Mar 2018 16:55:40 -0000
+X-List-Received-Date: Tue, 06 Mar 2018 19:05:41 -0000
 
-On 03/06/2018 08:50 AM, Michael.E.Brown@dell.com wrote:
+Hi Pavel,
+
+Thanks for sharing your time on reviewing it. Please see my answers inline.
+
+-Jae
+
+On 3/6/2018 4:40 AM, Pavel Machek wrote:
+> Hi!
 > 
->   * AMI has a LUA (luajit) implementation for redfish
->   * AMI would like to present their solution
->   *
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> ---
+>>   .../devicetree/bindings/peci/peci-aspeed.txt       | 73 ++++++++++++++++++++++
+>>   1 file changed, 73 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.txt
+>>
+>> diff --git a/Documentation/devicetree/bindings/peci/peci-aspeed.txt b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+>> new file mode 100644
+>> index 000000000000..8a86f346d550
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+>> @@ -0,0 +1,73 @@
+>> +Device tree configuration for PECI buses on the AST24XX and AST25XX SoCs.
 > 
-Chandrasekhar,
+> Are these SoCs x86-based?
+> 
 
-Is your implementation available with an open license somewhere I can 
-pull it down?
+Yes, these are ARM SoCs. Please see Andrew's answer as well.
 
--Ed
+>> +Required properties:
+>> +- compatible
+>> +	"aspeed,ast2400-peci" or "aspeed,ast2500-peci"
+>> +	- aspeed,ast2400-peci: Aspeed AST2400 family PECI controller
+>> +	- aspeed,ast2500-peci: Aspeed AST2500 family PECI controller
+>> +
+>> +- reg
+>> +	Should contain PECI registers location and length.
+> 
+> Other dts documents put it on one line, reg: Should contain ...
+> 
+>> +- clock_frequency
+>> +	Should contain the operation frequency of PECI hardware module.
+>> +	187500 ~ 24000000
+> 
+> specify this is Hz?
+> 
+
+I'll add a description. Thanks!
+
+>> +- rd-sampling-point
+>> +	Read sampling point selection. The whole period of a bit time will be
+>> +	divided into 16 time frames. This value will determine which time frame
+>> +	this controller will sample PECI signal for data read back. Usually in
+>> +	the middle of a bit time is the best.
+> 
+> English? "This value will determine when this controller"?
+> 
+
+Could I change it like below?:
+
+"This value will determine in which time frame this controller samples 
+PECI signal for data read back"
+
+>> +	0 ~ 15 (default: 8)
+>> +
+>> +- cmd_timeout_ms
+>> +	Command timeout in units of ms.
+>> +	1 ~ 60000 (default: 1000)
+>> +
+>> +Example:
+>> +	peci: peci@1e78b000 {
+>> +		compatible = "simple-bus";
+>> +		#address-cells = <1>;
+>> +		#size-cells = <1>;
+>> +		ranges = <0x0 0x1e78b000 0x60>;
+>> +
+>> +		peci0: peci-bus@0 {
+>> +			compatible = "aspeed,ast2500-peci";
+>> +			reg = <0x0 0x60>;
+>> +			#address-cells = <1>;
+>> +			#size-cells = <0>;
+>> +			interrupts = <15>;
+>> +			clocks = <&clk_clkin>;
+>> +			clock-frequency = <24000000>;
+>> +			msg-timing-nego = <1>;
+>> +			addr-timing-nego = <1>;
+>> +			rd-sampling-point = <8>;
+>> +			cmd-timeout-ms = <1000>;
+>> +		};
+>> +	};
+>> \ No newline at end of file
+> 
