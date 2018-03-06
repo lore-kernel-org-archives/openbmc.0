@@ -9,27 +9,30 @@ Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
  [195.113.26.193])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zwbw12VtSzF1GG
- for <openbmc@lists.ozlabs.org>; Tue,  6 Mar 2018 23:40:17 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zwcTZ4Gx5zDrKG
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Mar 2018 00:05:53 +1100 (AEDT)
 Received: by atrey.karlin.mff.cuni.cz (Postfix, from userid 512)
- id 2F6508025A; Tue,  6 Mar 2018 13:40:14 +0100 (CET)
-Date: Tue, 6 Mar 2018 13:40:14 +0100
+ id E47A080254; Tue,  6 Mar 2018 14:05:50 +0100 (CET)
+Date: Tue, 6 Mar 2018 14:05:51 +0100
 From: Pavel Machek <pavel@ucw.cz>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
- gregkh@linuxfoundation.org, jdelvare@suse.com, linux@roeck-us.net,
- benh@kernel.crashing.org, andrew@lunn.ch,
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, joel@jms.id.au,
+ andrew@aj.id.au, arnd@arndb.de, gregkh@linuxfoundation.org,
+ jdelvare@suse.com, linux@roeck-us.net, benh@kernel.crashing.org,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2 0/8] PECI device driver introduction
-Message-ID: <20180306124014.GB13950@amd>
+Subject: Re: [PATCH v2 2/8] [PATCH 2/8] Documentations: dt-bindings: Add a
+ document of PECI adapter driver for Aspeed AST24xx/25xx SoCs
+Message-ID: <20180306130551.GA16061@amd>
 References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
+ <20180221161606.32247-3-jae.hyun.yoo@linux.intel.com>
+ <20180306124002.GA13950@amd> <20180306125416.GD26143@lunn.ch>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="dTy3Mrz/UPE2dbVg"
+ protocol="application/pgp-signature"; boundary="fdj2RfSjLxBAspz7"
 Content-Disposition: inline
-In-Reply-To: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20180306125416.GD26143@lunn.ch>
 User-Agent: Mutt/1.5.23 (2014-03-12)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -42,112 +45,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Mar 2018 12:40:25 -0000
+X-List-Received-Date: Tue, 06 Mar 2018 13:05:55 -0000
 
 
---dTy3Mrz/UPE2dbVg
+--fdj2RfSjLxBAspz7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Tue 2018-03-06 13:54:16, Andrew Lunn wrote:
+> On Tue, Mar 06, 2018 at 01:40:02PM +0100, Pavel Machek wrote:
+> > Hi!
+> >=20
+> > > Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> > > ---
+> > >  .../devicetree/bindings/peci/peci-aspeed.txt       | 73 ++++++++++++=
+++++++++++
+> > >  1 file changed, 73 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/peci/peci-aspee=
+d.txt
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/peci/peci-aspeed.txt b=
+/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+> > > new file mode 100644
+> > > index 000000000000..8a86f346d550
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+> > > @@ -0,0 +1,73 @@
+> > > +Device tree configuration for PECI buses on the AST24XX and AST25XX =
+SoCs.
+> >=20
+> > Are these SoCs x86-based?
+>=20
+> ARM, as far as i can tell. If i get the architecture correct, these
+> are BMC, Board Management Controllers, looking after the main x86 CPU,
+> stopping it overheating, controlling the power supplies, remote
+> management, etc.
 
-> Introduction of the Platform Environment Control Interface (PECI) bus
-> device driver. PECI is a one-wire bus interface that provides a
-> communication channel between Intel processor and chipset components to
-> external monitoring or control devices. PECI is designed to support the
-> following sideband functions:
->=20
-> * Processor and DRAM thermal management
->   - Processor fan speed control is managed by comparing Digital Thermal
->     Sensor (DTS) thermal readings acquired via PECI against the
->     processor-specific fan speed control reference point, or TCONTROL.
->     Both TCONTROL and DTS thermal readings are accessible via the process=
-or
->     PECI client. These variables are referenced to a common temperature,
->     the TCC activation point, and are both defined as negative offsets fr=
-om
->     that reference.
->   - PECI based access to the processor package configuration space provid=
-es
->     a means for Baseboard Management Controllers (BMC) or other platform
->     management devices to actively manage the processor and memory power
->     and thermal features.
->=20
-> * Platform Manageability
->   - Platform manageability functions including thermal, power, and error
->     monitoring. Note that platform 'power' management includes monitoring
->     and control for both the processor and DRAM subsystem to assist with
->     data center power limiting.
->   - PECI allows read access to certain error registers in the processor M=
-SR
->     space and status monitoring registers in the PCI configuration space
->     within the processor and downstream devices.
->   - PECI permits writes to certain registers in the processor PCI
->     configuration space.
->=20
-> * Processor Interface Tuning and Diagnostics
->   - Processor interface tuning and diagnostics capabilities
->     (Intel(c) Interconnect BIST). The processors Intel(c) Interconnect
->     Built In Self Test (Intel(c) IBIST) allows for infield diagnostic
->     capabilities in the Intel UPI and memory controller interfaces. PECI
->     provides a port to execute these diagnostics via its PCI Configuration
->     read and write capabilities.
->=20
-> * Failure Analysis
->   - Output the state of the processor after a failure for analysis via
->     Crashdump.
->=20
-> PECI uses a single wire for self-clocking and data transfer. The bus
-> requires no additional control lines. The physical layer is a self-clocked
-> one-wire bus that begins each bit with a driven, rising edge from an idle
-> level near zero volts. The duration of the signal driven high depends on
-> whether the bit value is a logic '0' or logic '1'. PECI also includes
-> variable data transfer rate established with every message. In this way,
-> it is highly flexible even though underlying logic is simple.
->=20
-> The interface design was optimized for interfacing to Intel processor and
-> chipset components in both single processor and multiple processor
-> environments. The single wire interface provides low board routing
-> overhead for the multiple load connections in the congested routing area
-> near the processor and chipset components. Bus speed, error checking, and
-> low protocol overhead provides adequate link bandwidth and reliability to
-> transfer critical device operating conditions and configuration
-> information.
->=20
-> This implementation provides the basic framework to add PECI extensions
-> to the Linux bus and device models. A hardware specific 'Adapter' driver
-> can be attached to the PECI bus to provide sideband functions described
-> above. It is also possible to access all devices on an adapter from
-> userspace through the /dev interface. A device specific 'Client' driver
-> also can be attached to the PECI bus so each processor client's features
-> can be supported by the 'Client' driver through an adapter connection in
-> the bus. This patch set includes Aspeed 24xx/25xx PECI driver and a gener=
-ic
-> PECI hwmon driver as the first implementation for both adapter and client
-> drivers on the PECI bus framework.
+Ok, so with x86 machine, I get arm-based one for free. I get it. Is
+user able to run his own kernel on the arm system, or is it locked
+down, TiVo style?
 
-Ok, how does this interact with ACPI/SMM BIOS/Secure mode code? Does
-Linux _need_ to control the fan? Or is SMM BIOS capable of doing all
-the work itself and Linux has just read-only access for monitoring
-purposes?
+									Pavel
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
 
-Pavel
-
--- (english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures)
-http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
-
---dTy3Mrz/UPE2dbVg
+--fdj2RfSjLxBAspz7
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iEYEARECAAYFAlqejC4ACgkQMOfwapXb+vL7QwCbBLqyD0r8Cf3YWmTe5LwbrEhg
-QccAoJBgfUrVQ0t2o/5ZoHIVamsWUL6r
-=rQIF
+iEYEARECAAYFAlqeki8ACgkQMOfwapXb+vLqygCglPEZOOQBA5q0Fn16vyQbhxrU
+F6IAoI4+SNEpv1QvK+tYZlnVkaev34y6
+=AFs6
 -----END PGP SIGNATURE-----
 
---dTy3Mrz/UPE2dbVg--
+--fdj2RfSjLxBAspz7--
