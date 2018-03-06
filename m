@@ -1,45 +1,67 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zwmqX31FhzF1X7
- for <openbmc@lists.ozlabs.org>; Wed,  7 Mar 2018 06:21:59 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2018 11:21:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,432,1515484800"; d="scan'208";a="205993741"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga005.jf.intel.com with ESMTP; 06 Mar 2018 11:21:57 -0800
-Subject: Re: [PATCH v2 0/8] PECI device driver introduction
-To: Pavel Machek <pavel@ucw.cz>
-Cc: joel@jms.id.au, andrew@aj.id.au, arnd@arndb.de,
- gregkh@linuxfoundation.org, jdelvare@suse.com, linux@roeck-us.net,
- benh@kernel.crashing.org, andrew@lunn.ch, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- openbmc@lists.ozlabs.org
-References: <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
- <20180306124014.GB13950@amd>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <94a31519-8009-b131-4d9e-95631b789931@linux.intel.com>
-Date: Tue, 6 Mar 2018 11:21:57 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-In-Reply-To: <20180306124014.GB13950@amd>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zwpCw0mDLzF1dZ
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Mar 2018 07:24:43 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w26KORWB101075
+ for <openbmc@lists.ozlabs.org>; Tue, 6 Mar 2018 15:24:41 -0500
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gj0tstyr8-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 06 Mar 2018 15:24:41 -0500
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 6 Mar 2018 15:24:39 -0500
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 6 Mar 2018 15:24:36 -0500
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w26KOZA956754212; Tue, 6 Mar 2018 20:24:35 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DA983B2046;
+ Tue,  6 Mar 2018 16:26:50 -0500 (EST)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 9ABD2B204D;
+ Tue,  6 Mar 2018 16:26:50 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.13] clk: aspeed: Prevent reset and enable if clock
+ is already enabled
+Date: Tue,  6 Mar 2018 14:24:32 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18030620-0048-0000-0000-0000024532B5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008628; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.00999336; UDB=6.00508293; IPR=6.00778655; 
+ MB=3.00019880; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-06 20:24:37
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18030620-0049-0000-0000-000044598B29
+Message-Id: <1520367872-32101-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-06_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803060220
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -51,106 +73,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Mar 2018 19:22:01 -0000
+X-List-Received-Date: Tue, 06 Mar 2018 20:24:44 -0000
 
-Hi Pavel,
+Systems are seeing some issues where the LPC clock gets into a bad state
+when the ASPEED clock driver resets and enables the clock during
+startup. The LPC clock (according to AST2500 spec) is enabled by default,
+so resetting and re-enabling is not desired. Add a simple check before the
+enable procedure to see if the clock is already enabled.
 
-Please see my answer inline.
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+---
+ drivers/clk/clk-aspeed.c | 42 ++++++++++++++++++++++++------------------
+ 1 file changed, 24 insertions(+), 18 deletions(-)
 
-On 3/6/2018 4:40 AM, Pavel Machek wrote:
-> Hi!
-> 
->> Introduction of the Platform Environment Control Interface (PECI) bus
->> device driver. PECI is a one-wire bus interface that provides a
->> communication channel between Intel processor and chipset components to
->> external monitoring or control devices. PECI is designed to support the
->> following sideband functions:
->>
->> * Processor and DRAM thermal management
->>    - Processor fan speed control is managed by comparing Digital Thermal
->>      Sensor (DTS) thermal readings acquired via PECI against the
->>      processor-specific fan speed control reference point, or TCONTROL.
->>      Both TCONTROL and DTS thermal readings are accessible via the processor
->>      PECI client. These variables are referenced to a common temperature,
->>      the TCC activation point, and are both defined as negative offsets from
->>      that reference.
->>    - PECI based access to the processor package configuration space provides
->>      a means for Baseboard Management Controllers (BMC) or other platform
->>      management devices to actively manage the processor and memory power
->>      and thermal features.
->>
->> * Platform Manageability
->>    - Platform manageability functions including thermal, power, and error
->>      monitoring. Note that platform 'power' management includes monitoring
->>      and control for both the processor and DRAM subsystem to assist with
->>      data center power limiting.
->>    - PECI allows read access to certain error registers in the processor MSR
->>      space and status monitoring registers in the PCI configuration space
->>      within the processor and downstream devices.
->>    - PECI permits writes to certain registers in the processor PCI
->>      configuration space.
->>
->> * Processor Interface Tuning and Diagnostics
->>    - Processor interface tuning and diagnostics capabilities
->>      (Intel(c) Interconnect BIST). The processors Intel(c) Interconnect
->>      Built In Self Test (Intel(c) IBIST) allows for infield diagnostic
->>      capabilities in the Intel UPI and memory controller interfaces. PECI
->>      provides a port to execute these diagnostics via its PCI Configuration
->>      read and write capabilities.
->>
->> * Failure Analysis
->>    - Output the state of the processor after a failure for analysis via
->>      Crashdump.
->>
->> PECI uses a single wire for self-clocking and data transfer. The bus
->> requires no additional control lines. The physical layer is a self-clocked
->> one-wire bus that begins each bit with a driven, rising edge from an idle
->> level near zero volts. The duration of the signal driven high depends on
->> whether the bit value is a logic '0' or logic '1'. PECI also includes
->> variable data transfer rate established with every message. In this way,
->> it is highly flexible even though underlying logic is simple.
->>
->> The interface design was optimized for interfacing to Intel processor and
->> chipset components in both single processor and multiple processor
->> environments. The single wire interface provides low board routing
->> overhead for the multiple load connections in the congested routing area
->> near the processor and chipset components. Bus speed, error checking, and
->> low protocol overhead provides adequate link bandwidth and reliability to
->> transfer critical device operating conditions and configuration
->> information.
->>
->> This implementation provides the basic framework to add PECI extensions
->> to the Linux bus and device models. A hardware specific 'Adapter' driver
->> can be attached to the PECI bus to provide sideband functions described
->> above. It is also possible to access all devices on an adapter from
->> userspace through the /dev interface. A device specific 'Client' driver
->> also can be attached to the PECI bus so each processor client's features
->> can be supported by the 'Client' driver through an adapter connection in
->> the bus. This patch set includes Aspeed 24xx/25xx PECI driver and a generic
->> PECI hwmon driver as the first implementation for both adapter and client
->> drivers on the PECI bus framework.
-> 
-> Ok, how does this interact with ACPI/SMM BIOS/Secure mode code? Does
-> Linux _need_ to control the fan? Or is SMM BIOS capable of doing all
-> the work itself and Linux has just read-only access for monitoring
-> purposes?
-> 
-
-This driver is not for local CPUs which this driver is running on. 
-Instead, this driver will be running on BMC (Baseboard Management 
-Controller) kernel which is separated from the server machine. In this 
-implementation, it provides just read-only access for monitoring the 
-server's CPU and DIMM temperatures remotely through a PECI connection. 
-The BMC can control fans according to the monitoring data if the BMC has 
-a fan control interface and feature, but it depends on baseboard 
-hardware and software designs.
-
-Thanks,
-Jae
-
-> Pavel
-> 
-> -- (english) http://www.livejournal.com/~pavelmachek
-> (cesky, pictures)
-> http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
-> 
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index b67ba14..3d12f7a 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -221,27 +221,33 @@ static int aspeed_clk_enable(struct clk_hw *hw)
+ 	u32 clk = BIT(gate->clock_idx);
+ 	u32 rst = BIT(gate->reset_idx);
+ 	u32 enval;
++	u32 reg;
+ 
+ 	spin_lock_irqsave(gate->lock, flags);
+ 
+-	if (gate->reset_idx >= 0) {
+-		/* Put IP in reset */
+-		regmap_update_bits(gate->map, ASPEED_RESET_CTRL, rst, rst);
+-
+-		/* Delay 100us */
+-		udelay(100);
+-	}
+-
+-	/* Enable clock */
+-	enval = (gate->flags & CLK_GATE_SET_TO_DISABLE) ? 0 : clk;
+-	regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, enval);
+-
+-	if (gate->reset_idx >= 0) {
+-		/* A delay of 10ms is specified by the ASPEED docs */
+-		mdelay(10);
+-
+-		/* Take IP out of reset */
+-		regmap_update_bits(gate->map, ASPEED_RESET_CTRL, rst, 0);
++	/* Only reset/enable/unreset if clock isn't already enabled */
++	regmap_read(gate->map, ASPEED_CLK_STOP_CTRL, &reg);
++	if (reg & clk) {
++		if (gate->reset_idx >= 0) {
++			/* Put IP in reset */
++			regmap_update_bits(gate->map, ASPEED_RESET_CTRL, rst,
++					   rst);
++
++			/* Delay 100us */
++			udelay(100);
++		}
++
++		/* Enable clock */
++		enval = (gate->flags & CLK_GATE_SET_TO_DISABLE) ? 0 : clk;
++		regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, enval);
++
++		if (gate->reset_idx >= 0) {
++			/* A delay of 10ms is specified by the ASPEED docs */
++			mdelay(10);
++
++			/* Take IP out of reset */
++			regmap_update_bits(gate->map, ASPEED_RESET_CTRL, rst,						   0);
++		}
+ 	}
+ 
+ 	spin_unlock_irqrestore(gate->lock, flags);
+-- 
+1.8.3.1
