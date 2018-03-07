@@ -1,68 +1,69 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <daniel.lezcano@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:400c:c0c::242; helo=mail-wr0-x242.google.com;
+ envelope-from=daniel.lezcano@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="HCI9QPu6"; 
+ dkim-atps=neutral
+Received: from mail-wr0-x242.google.com (mail-wr0-x242.google.com
+ [IPv6:2a00:1450:400c:c0c::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zxK7J091lzF1nr
- for <openbmc@lists.ozlabs.org>; Thu,  8 Mar 2018 03:37:31 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w27GalsZ070817
- for <openbmc@lists.ozlabs.org>; Wed, 7 Mar 2018 11:37:29 -0500
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gjet7e3jm-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 07 Mar 2018 11:37:29 -0500
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 7 Mar 2018 11:37:27 -0500
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 7 Mar 2018 11:37:24 -0500
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w27GbOoN61800636; Wed, 7 Mar 2018 16:37:24 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C9054112047;
- Wed,  7 Mar 2018 11:35:51 -0500 (EST)
-Received: from talon7.ibm.com (unknown [9.41.241.240])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 714BC112051;
- Wed,  7 Mar 2018 11:35:51 -0500 (EST)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, mine260309@gmail.com,
- Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.13 v2] clk: aspeed: Prevent reset if clock is
- enabled
-Date: Wed,  7 Mar 2018 10:37:22 -0600
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 18030716-0048-0000-0000-000002462BD5
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008629; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.00999644; UDB=6.00508487; IPR=6.00779050; 
- MB=3.00019895; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-07 16:37:25
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18030716-0049-0000-0000-0000445D0DAD
-Message-Id: <1520440642-25531-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-07_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803070190
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zxLCB48ZzzDrLS
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Mar 2018 04:25:53 +1100 (AEDT)
+Received: by mail-wr0-x242.google.com with SMTP id m12so2959454wrm.13
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Mar 2018 09:25:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=pcHnDWjG00DZE4UyGjxaj965MC9ytugaaCAIVUiR64E=;
+ b=HCI9QPu6c42X1+PnYAAgGjClMEO874Qlm47hgXOJ9Ygma23SIPwHnS2L84Wljzl1c1
+ leGTCxK9V+tMmbp/fbrvdCCfplZsNfkSUBoDQ2mgWHiCH8pWRqh35PGdlF/zCycTBW22
+ euu/nQdBDXmkqAuY2wKoUWFDQ4dtvIlGOWVaw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=pcHnDWjG00DZE4UyGjxaj965MC9ytugaaCAIVUiR64E=;
+ b=ch72VfQlbekCkX7LImxPz64e8x5pa3V61JlpWFuEE+nmNEd7tfmARUG1bf2vq/NTO1
+ 7m8uaFSKv7whRJcvO+fVm3nBoy549XAtpch21d51beCPImE5vPDLsi43yoYHHNd3wrbY
+ vY8Xn5c1IdkTEAUhIEiAW229DCg3CRqTetfdQbQUXmipV57L5Lf1jD6Q7YE/pif00Tio
+ qLVL+GHQCYX3duqmC0H2bdhTxNh3WeI9ief8nlEvkPFXtO8sdMNmcqoNR9gG0vyMDGMg
+ HQDJhGk1u5MjrsxnpzGo1DPdtqpewMEqH/bhrPDX16+jg5boiQYjLJfmG+vzhHeFLi2m
+ Ct/Q==
+X-Gm-Message-State: APf1xPAMFPdf5KH14Erz6bAH6pFjlKFQk4vLRrjtFdfgWe7mncD65sWV
+ E7K4y5QQOkkAFs1TJWck9bp1A5TMfow=
+X-Google-Smtp-Source: AG47ELvxe0vWoCYLafvSeDqYRTiLMp3FB2mU5v4AIrqMw75Rqwd+o6mwka+gR4fnxlEHQghghkuJOA==
+X-Received: by 10.223.187.199 with SMTP id z7mr20702950wrg.58.1520443550828;
+ Wed, 07 Mar 2018 09:25:50 -0800 (PST)
+Received: from [192.168.1.75] (lft31-1-88-121-166-205.fbx.proxad.net.
+ [88.121.166.205])
+ by smtp.googlemail.com with ESMTPSA id d23sm15538184wma.20.2018.03.07.09.25.48
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 07 Mar 2018 09:25:49 -0800 (PST)
+Subject: Re: [PATCH v4 1/2] dt-binding: timer: document NPCM7xx timer DT
+ bindings
+To: Tomer Maimon <tmaimon77@gmail.com>, robh+dt@kernel.org,
+ mark.rutland@arm.com, tglx@linutronix.de, avifishman70@gmail.com,
+ brendanhiggins@google.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <1519655769-25836-1-git-send-email-tmaimon77@gmail.com>
+ <1519655769-25836-2-git-send-email-tmaimon77@gmail.com>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+Message-ID: <ff6b0bbb-31b1-b683-3061-4ad55a57eaa9@linaro.org>
+Date: Wed, 7 Mar 2018 18:25:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
+MIME-Version: 1.0
+In-Reply-To: <1519655769-25836-2-git-send-email-tmaimon77@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,44 +75,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Mar 2018 16:37:32 -0000
+X-List-Received-Date: Wed, 07 Mar 2018 17:26:00 -0000
 
-According to the Aspeed specification, the reset and enable sequence
-should be done when the clock is stopped. The specification doesn't
-define behavior if the reset is done while the clock is enabled.
+On 26/02/2018 15:36, Tomer Maimon wrote:
+> Added device tree binding documentation for Nuvoton NPCM7xx timer.
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> Acked-by: Rob Herring <robh@kernel.org>
+> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+>  .../bindings/timer/nuvoton,npcm7xx-timer.txt       | 25 ++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+> new file mode 100644
+> index 000000000000..c5150522e618
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+> @@ -0,0 +1,25 @@
+> +Nuvoton NPCM7xx timer
+> +
+> +Nuvoton NPCM7xx have three timer modules, each timer module provides five 24-bit
+> +timer counters.
+> +
+> +Required properties:
+> +- compatible      : "nuvoton,npcm750-timer" for Poleg NPCM750.
+> +- reg             : Offset and length of the register set for the device.
+> +- interrupts      : Contain the timer interrupt with flags for
+> +                    falling edge.
+> +
+> +Required clocking property, have to be one of:
+> +- clocks          : phandle of timer reference clock.
+> +- clock-frequency : The frequency in Hz of the clock that drives the NPCM7xx
+> +                    timer (usually 25000000).
 
-From testing on the AST2500, the LPC Controller has problems if the
-clock is reset while enabled.
+Why one of these and not the phandle only ? That will make the driver
+cleaner.
 
-Therefore, check whether the clock is enabled or not before performing
-the reset and enable sequence in the Aspeed clock driver.
+> +
+> +Example:
+> +
+> +timer@f0008000 {
+> +    compatible = "nuvoton,npcm750-timer";
+> +    interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+> +    reg = <0xf0008000 0x1000>;
+> +    clocks = <&clk NPCM7XX_CLK_TIMER>;
+> +};
+> +
+> 
 
-Fixes: 9871469d2c6f ("clk: aspeed: Register gated clocks")
-Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
----
 
-Changes since v1:
- - Check and return before the spinlock
-
- drivers/clk/clk-aspeed.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-index b67ba14..a26a94f 100644
---- a/drivers/clk/clk-aspeed.c
-+++ b/drivers/clk/clk-aspeed.c
-@@ -221,6 +221,12 @@ static int aspeed_clk_enable(struct clk_hw *hw)
- 	u32 clk = BIT(gate->clock_idx);
- 	u32 rst = BIT(gate->reset_idx);
- 	u32 enval;
-+	u32 reg;
-+
-+	/* Only reset/enable/unreset if clock is stopped */
-+	regmap_read(gate->map, ASPEED_CLK_STOP_CTRL, &reg);
-+	if (!(reg & clk))
-+		return 0;
- 
- 	spin_lock_irqsave(gate->lock, flags);
- 
 -- 
-1.8.3.1
+ <http://www.linaro.org/> Linaro.org │ Open source software for ARM SoCs
+
+Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
+<http://twitter.com/#!/linaroorg> Twitter |
+<http://www.linaro.org/linaro-blog/> Blog
