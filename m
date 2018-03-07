@@ -1,47 +1,68 @@
-Return-Path: <arnd@arndb.de>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=arndb.de
- (client-ip=212.227.17.10; helo=mout.kundenserver.de;
- envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=arndb.de
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zxJzH3BGgzF1m9
- for <openbmc@lists.ozlabs.org>; Thu,  8 Mar 2018 03:30:35 +1100 (AEDT)
-Received: from wuerfel.lan ([95.208.111.237]) by mrelayeu.kundenserver.de
- (mreue102 [212.227.15.145]) with ESMTPA (Nemesis) id
- 0MFLHA-1eqKcs45kS-00EP5u; Wed, 07 Mar 2018 17:24:47 +0100
-From: Arnd Bergmann <arnd@arndb.de>
-To: Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Brendan Higgins <brendanhiggins@google.com>,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ARM: npcm: drop extraneous 'select' statements
-Date: Wed,  7 Mar 2018 17:24:13 +0100
-Message-Id: <20180307162430.2664523-2-arnd@arndb.de>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20180307162430.2664523-1-arnd@arndb.de>
-References: <20180307162430.2664523-1-arnd@arndb.de>
-X-Provags-ID: V03:K0:nU2rZ+Wml/8E+9GxQtEn7StbOIsGHQSOb1gZPPg5n8LkDIxZMUH
- tA0mPmE/YAjJ2v2rsmIE9KeNtSghCfoEw7dmoNhdsHpubT0ZHxisOfpRv7sFCiMoQ6EejU+
- ARNbxhBIOjTUPHqfkf7y+RddFLYW3WVMkSL4boOsu8e+LOqEx625mUPOQ3wJ2j31zVridYk
- seetRZWfncMKJpTL2lU3A==
-X-UI-Out-Filterresults: notjunk:1;V01:K0:lXcWeyzmYTM=:Tc0Sb83ChFhgr/2QJYl2xY
- mBrPFlnUjlEYjTs5cjXLUn/1bxCXZKUHWx+LikPiJ0blqJKmyZ7rb5t/2YqRoMPCugg7ErZen
- T2QxAFZyDmj3jAQnn8EUs8DQg97VNh7+RSUN15H/z76Ob0EBE1wGXanHuJPMR77t7Y+7QKG5l
- 2H6d3sJyqiRZ1x4bM7NVp7rd0MMC2hdGSzDQe5kueWGc8Wgh8XWQFUU7rFzOrY3Q+9RoTTJHr
- 8tpmGYZw+ZPwXKJ4KA74VG+eI+xU/FENC2GXjc0N20pqeuzFWXXlVxOuBufZQUhOJtFBFi/wo
- cR9/Xoj5eAjhhKfmQuIsd83PXDxYVkOOivoinRZsls218RVplVNOgRljhX82x/KnvpnzYZPhb
- hqRwjEJmZfOzJxT306f322HvaPmJheW3/sAMzTCJ96F/exRFOQnWSr4zzRylz9NRjTU/yCZzI
- qhKA85DIDr2QaEu4J1/JNMw8KqpYH2zLNy9CBRnctOIG7qJ6t3mteJa3B2tA7qBQ/eVai9Rgb
- BISlzxkvC5suVd4OwyE6qMv/h2EK+0Ah3iKVX6K5Ehywr8rTIczmA6tKjtZijBPKEwrSTTFL9
- mF/NpThoV+qZ/KiUvDNdyy+mLojwwZwGQYThNsxv5PtjxraAOE7K8Mncj7042pCrVD+RgwR1G
- 6V/Fgl27My2nH0tqUa11mlISzNe7gZO/AiMGJCVCgmQNrjN12+L9S+QuDevHYiP4DcaRF/FTX
- rNCf91k/726UtchOYFjF0TBdlYHDphuRtTf8AA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zxK7J091lzF1nr
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Mar 2018 03:37:31 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w27GalsZ070817
+ for <openbmc@lists.ozlabs.org>; Wed, 7 Mar 2018 11:37:29 -0500
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gjet7e3jm-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Mar 2018 11:37:29 -0500
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 7 Mar 2018 11:37:27 -0500
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 7 Mar 2018 11:37:24 -0500
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w27GbOoN61800636; Wed, 7 Mar 2018 16:37:24 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C9054112047;
+ Wed,  7 Mar 2018 11:35:51 -0500 (EST)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 714BC112051;
+ Wed,  7 Mar 2018 11:35:51 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, mine260309@gmail.com,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.13 v2] clk: aspeed: Prevent reset if clock is
+ enabled
+Date: Wed,  7 Mar 2018 10:37:22 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18030716-0048-0000-0000-000002462BD5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008629; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.00999644; UDB=6.00508487; IPR=6.00779050; 
+ MB=3.00019895; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-07 16:37:25
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18030716-0049-0000-0000-0000445D0DAD
+Message-Id: <1520440642-25531-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-07_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803070190
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -53,62 +74,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Mar 2018 16:30:36 -0000
+X-List-Received-Date: Wed, 07 Mar 2018 16:37:32 -0000
 
-While looking at the build regression, I noticed that the
-platform selects a lot of other Kconfig symbols that it really
-should not:
+According to the Aspeed specification, the reset and enable sequence
+should be done when the clock is stopped. The specification doesn't
+define behavior if the reset is done while the clock is enabled.
 
-CPU_V7, ARM_GIC, HAVE_SMP, COMMON_CLK, GENERIC_CLOCKEVENTS,
-and CLKDEV_LOOKUP are all implied by ARCH_MULTI_V7, so they
-can be dropped.
+From testing on the AST2500, the LPC Controller has problems if the
+clock is reset while enabled.
 
-CACHE_L2X0, SMP and USB are meant to be user-selectable, we
-want to be able to turn those off for testing purposes.
+Therefore, check whether the clock is enabled or not before performing
+the reset and enable sequence in the Aspeed clock driver.
 
-CPU_USE_DOMAINS looks completely misplaced here, we should not
-select that for an ARMv7 platform.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Fixes: 9871469d2c6f ("clk: aspeed: Register gated clocks")
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 ---
- arch/arm/mach-npcm/Kconfig | 18 ------------------
- 1 file changed, 18 deletions(-)
 
-diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
-index 2bc6697c8d97..c6a16230e8ef 100644
---- a/arch/arm/mach-npcm/Kconfig
-+++ b/arch/arm/mach-npcm/Kconfig
-@@ -12,12 +12,6 @@ comment "NPCM7XX CPU type"
- config ARCH_NPCM750
- 	depends on ARCH_NPCM
- 	bool "Support for NPCM750 BMC CPU (Poleg)"
--	select CACHE_L2X0
--	select CPU_V7
--	select ARM_GIC
--	select HAVE_SMP
--	select SMP
--	select SMP_ON_UP
- 	select HAVE_ARM_SCU
- 	select HAVE_ARM_TWD if SMP
- 	select ARM_ERRATA_720789
-@@ -26,18 +20,6 @@ config ARCH_NPCM750
- 	select ARM_ERRATA_794072
- 	select PL310_ERRATA_588369
- 	select PL310_ERRATA_727915
--	select USB_EHCI_ROOT_HUB_TT
--	select USB_ARCH_HAS_HCD
--	select USB_ARCH_HAS_EHCI
--	select USB_EHCI_HCD
--	select USB_ARCH_HAS_OHCI
--	select USB_OHCI_HCD
--	select USB
--	select FIQ
--	select CPU_USE_DOMAINS
--	select GENERIC_CLOCKEVENTS
--	select CLKDEV_LOOKUP
--	select COMMON_CLK if OF
- 	select NPCM750_TIMER
- 	select MFD_SYSCON
- 	help
+Changes since v1:
+ - Check and return before the spinlock
+
+ drivers/clk/clk-aspeed.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index b67ba14..a26a94f 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -221,6 +221,12 @@ static int aspeed_clk_enable(struct clk_hw *hw)
+ 	u32 clk = BIT(gate->clock_idx);
+ 	u32 rst = BIT(gate->reset_idx);
+ 	u32 enval;
++	u32 reg;
++
++	/* Only reset/enable/unreset if clock is stopped */
++	regmap_read(gate->map, ASPEED_CLK_STOP_CTRL, &reg);
++	if (!(reg & clk))
++		return 0;
+ 
+ 	spin_lock_irqsave(gate->lock, flags);
+ 
 -- 
-2.9.0
+1.8.3.1
