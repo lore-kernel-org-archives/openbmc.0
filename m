@@ -1,68 +1,57 @@
-Return-Path: <daniel.lezcano@linaro.org>
+Return-Path: <chandrasekarr@ami.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:400c:c09::241; helo=mail-wm0-x241.google.com;
- envelope-from=daniel.lezcano@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=ami.com
+ (client-ip=63.147.10.40; helo=atlmailgw1.ami.com;
+ envelope-from=chandrasekarr@ami.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="Kzi4cUGo"; 
- dkim-atps=neutral
-Received: from mail-wm0-x241.google.com (mail-wm0-x241.google.com
- [IPv6:2a00:1450:400c:c09::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=ami.com
+Received: from atlmailgw1.ami.com (atlmailgw1.ami.com [63.147.10.40])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zxvfm3tS9zF1s0
- for <openbmc@lists.ozlabs.org>; Fri,  9 Mar 2018 02:33:18 +1100 (AEDT)
-Received: by mail-wm0-x241.google.com with SMTP id q83so23589wme.5
- for <openbmc@lists.ozlabs.org>; Thu, 08 Mar 2018 07:33:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=dHZu2s2oH57IbXOA70PqclI6OeRCIlueq8vPpd4bu+Q=;
- b=Kzi4cUGohxgQ8TyHeHoH6LA+tL15TQsL8mnvT8VqvfZzv0OMngYY6jNL3RrqTJSc/8
- L9Nbi3T81h5biCjlW6FztLScOW+AtPdiLIAZRyxhsxVSMOmTjLZEWFW4Z6lMGjwkJ2kO
- ebPZiILw4tzdjDcoYk+Bz8IoK2kSx2F+JV1qk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=dHZu2s2oH57IbXOA70PqclI6OeRCIlueq8vPpd4bu+Q=;
- b=semMR9jmZZKTsXXP7xRzo+0QlqkYODU+zZPPDQxkTv1lsH1wRmu6TFAlirfALv7ped
- WTNYKBwjvjIMydFEZqYtXOMiuqFsR+qfbiqEtbWtRWtaJzYWwiwbswZtM75MQr9oHP+G
- vHq61apyzaMtSdgCcDKw6s6GoKs6M3aUU4mrrrwXxHQA2qVdLk7KBolr+kn9zD6tEz8f
- caLpqC4Rwb2gxKmpI5cS0fhj31Ex9gtRw9AxgrR8EHNocPDqdDOZS45qItniS08YGbr7
- 0PThIs3wmCAN1D08X53VdbqIj3inM/MsYufWalDGyBD8c7jNVlvmQ93x2rNTg5Jit8OL
- t4tQ==
-X-Gm-Message-State: AElRT7GpVv/AD+TPgKyWGiPhGkdMBzEo615f/u8VwRq84NYM9zBdFEoi
- g1VliywzG+qtxkptOg7Jos99O7pzvPk=
-X-Google-Smtp-Source: AG47ELuNfOHzXHNYVhe02WW4xk433kK2nXggO3lxdWHm9JNJUPb6FAArmdKY9mNZo6Cm/gMEmlnkbQ==
-X-Received: by 10.28.247.26 with SMTP id v26mr17110020wmh.115.1520523195561;
- Thu, 08 Mar 2018 07:33:15 -0800 (PST)
-Received: from ?IPv6:2a01:e35:879a:6cd0:3e97:eff:fe5b:1402?
- ([2a01:e35:879a:6cd0:3e97:eff:fe5b:1402])
- by smtp.googlemail.com with ESMTPSA id 67sm14035398wmw.17.2018.03.08.07.33.14
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 08 Mar 2018 07:33:14 -0800 (PST)
-Subject: Re: [PATCH v5 2/2] clocksource/drivers/npcm: Add NPCM7xx timer driver
-To: Tomer Maimon <tmaimon77@gmail.com>, robh+dt@kernel.org,
- mark.rutland@arm.com, tglx@linutronix.de, avifishman70@gmail.com,
- brendanhiggins@google.com, venture@google.com, joel@jms.id.au
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-References: <1520522698-16153-1-git-send-email-tmaimon77@gmail.com>
- <1520522698-16153-3-git-send-email-tmaimon77@gmail.com>
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-Message-ID: <2a83eb83-10a9-54f3-e0da-bd6cf32b5ac1@linaro.org>
-Date: Thu, 8 Mar 2018 16:33:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-In-Reply-To: <1520522698-16153-3-git-send-email-tmaimon77@gmail.com>
-Content-Type: text/plain; charset=utf-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zxwS869YBzF1tv
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Mar 2018 03:09:11 +1100 (AEDT)
+X-AuditID: ac1060b2-f05ff70000007fe2-c7-5aa160227048
+Received: from atlms2.us.megatrends.com (atlms2.us.megatrends.com
+ [172.16.96.152])
+ (using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by atlmailgw1.ami.com (Symantec Messaging Gateway) with SMTP id
+ 8D.5E.32738.22061AA5; Thu,  8 Mar 2018 11:09:07 -0500 (EST)
+Received: from ATLMS1.us.megatrends.com ([fe80::8c55:daf0:ef05:5605]) by
+ atlms2.us.megatrends.com ([fe80::29dc:a91e:ea0c:cdeb%12]) with mapi id
+ 14.03.0361.001; Thu, 8 Mar 2018 11:09:06 -0500
+From: "Chandrasekar  R" <chandrasekarr@ami.com>
+To: "ed.tanous@intel.com" <ed.tanous@intel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: openbmc Digest, Vol 31, Issue 12
+Thread-Topic: openbmc Digest, Vol 31, Issue 12
+Thread-Index: AQHTtaBlf9TMe1EZ9EWrKU44iIpsoqPGgwro
+Date: Thu, 8 Mar 2018 16:09:05 +0000
+Message-ID: <CB73477A6118784D86CBFCBB9D8B62750260962A5C@atlms1.us.megatrends.com>
+References: <mailman.1499.1520377783.10144.openbmc@lists.ozlabs.org>
+In-Reply-To: <mailman.1499.1520377783.10144.openbmc@lists.ozlabs.org>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.16.98.195]
+Content-Type: text/plain; charset="us-ascii"
+content-transfer-encoding: quoted-printable
+MIME-Version: 1.0
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprGKsWRmVeSWpSXmKPExsWyRiBhhq5ywsIogyWbJC0O7/C0ONXygsWB
+ yWPxnpdMHudnLGQMYIpqYLRJzMvLL0ksSVVISS1OtlUKKMosS0yuVFLITLFVMlRSKMhJTE7N
+ Tc0rsVVKLChIzUtRsuNSwAA2QGWZeQqpecn5KZl56bZKnsH+uhYWppa6hkp2IRmpCpl5aflF
+ uYklmfl5Csn5eSVA1akpQFGFhC7OjBmPYgq+c1Y8P32NsYFxPkcXIyeHhICJxN72n4xdjFwc
+ QgK7mCQ67t5igXAOMUq09B9nAqliE9CXaLg7la2LkYNDBMhed44HJMwsYCmx+eMldhBbWEBX
+ 4sX+32C2iICexIJv01ghbCOJT1O+M4PYLAIqElvW3WUDsXkFAiWuT1gENl5IwEXi4J8JjCA2
+ p4CrxOSeL2D1jAJiEt9PrWGC2CUucevJfCaIowUkluw5zwxhi0q8fPyPFcJWlPh1fTozRL2O
+ xILdn9ggbG2JZQtfM0PsFZQ4OfMJywRG0VlIxs5C0jILScssJC0LGFlWMQolluTkJmbmpJcb
+ 6iXmZuol5+duYoQkg007GFsumh9iFOBgVOLhXRW9MEqINbGsuDIXGJIczEoivAH6QCHelMTK
+ qtSi/Pii0pzU4kOMTsBgmcgsxQ2KLWD0xxsbGEiJwjiGJmYm5kbmhpYm5sbGSuK8CZcORQoJ
+ pAOTUXZqakFqEcwQJg5OqQbGgp7zLBMEjj+I38+Rx7yEy8pu1rqtfyXPi6Ymiq3exWros4lF
+ +0fbP51umyy1ba+fO6yU1H596iKnjF74rZ9yAtvW+y5X36HCPmPj6h8O/F8SpM6ds3+cFX0u
+ RsHu7YGT9mISFdYLGF/rTkm8eNx32YZ7++Wex5hU3NnyJ/T7/DpWie22F/rfK7EUZyQaajEX
+ FScCABNwz7EpAwAA
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,34 +63,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Mar 2018 15:33:21 -0000
+X-List-Received-Date: Thu, 08 Mar 2018 16:09:14 -0000
 
-On 08/03/2018 16:24, Tomer Maimon wrote:
-> Add Nuvoton BMC NPCM7xx timer driver.
-> 
-> The clocksource Enable 24-bit TIMER0 and TIMER1 counters,
-> while TIMER0 serve as clockevent and TIMER1 serve as clocksource.
-> 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> Reviewed-by: Brendan Higgins <brendanhiggins@xxxxxxxxxx>
-> ---
+Ed,=0A=
+=0A=
+It is not yet there. We are in the process of making it is available open. W=
+e will announce it as soon as it is available.=0A=
+=0A=
+Thanks=0A=
+Chandrasekar=0A=
+=0A=
+-----=0A=
+=0A=
+Date: Tue, 6 Mar 2018 08:56:42 -0800=0A=
+From: Ed Tanous <ed.tanous@intel.com>=0A=
+To: Michael.E.Brown@dell.com, openbmc@lists.ozlabs.org,=0A=
+        Paul.Vancil@dell.com,  hramasub@in.ibm.com, Balaji.B.Rao@dell.com,=
+=0A=
+        bradleyb@fuzziesquirrel.com, jwcarman@us.ibm.com,=0A=
+        pradeep.kumar36@tcs.com, rolfb@us.ibm.com, Chris.Ong@microsoft.com,=
+=0A=
+        alirhas@microsoft.com, yupalani@microsoft.com=0A=
+Cc: Krishna.Kolakaluri@deltaww.com=0A=
+Subject: Re: Meeting Minutes 2018-03-05: OpenBMC Redfish working group=0A=
+        working call=0A=
+Message-ID: <a6c93af9-9202-ada7-5d6a-2eb8f64a946e@intel.com>=0A=
+Content-Type: text/plain; charset=3Dwindows-1252; format=3Dflowed=0A=
+=0A=
+On 03/06/2018 08:50 AM, Michael.E.Brown@dell.com wrote:=0A=
+>=0A=
+>   * AMI has a LUA (luajit) implementation for redfish=0A=
+>   * AMI would like to present their solution=0A=
+>   *=0A=
+>=0A=
+Chandrasekhar,=0A=
+=0A=
+Is your implementation available with an open license somewhere I can=0A=
+pull it down?=0A=
+=0A=
+-Ed=0A=
+=0A=
+=0A=
 
-[ ... ]
+Please consider the environment before printing this email.
 
-> +
-> +	pr_info("Enabling NPCM7xx clocksource timer base: 0x%x, IRQ: %d ",
-> +		(int)timer_of_base(&npcm7xx_to), timer_of_irq(&npcm7xx_to));
-
-You can use '%p' instead of '0x%x' and remove the (int) cast.
-
-I'm fine with the driver. If there is no comment, I will take it and do
-the change (if you are ok), no need on this case to resend a v6.
-
-
-
--- 
- <http://www.linaro.org/> Linaro.org │ Open source software for ARM SoCs
-
-Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
-<http://twitter.com/#!/linaroorg> Twitter |
-<http://www.linaro.org/linaro-blog/> Blog
+The information contained in this message may be confidential and proprietar=
+y to American Megatrends, Inc.  This communication is intended to be read on=
+ly by the individual or entity to whom it is addressed or by their designee.=
+ If the reader of this message is not the intended recipient, you are on not=
+ice that any distribution of this message, in any form, is strictly prohibit=
+ed.  Please promptly notify the sender by reply e-mail or by telephone at 77=
+0-246-8600, and then delete or destroy all copies of the transmission.
