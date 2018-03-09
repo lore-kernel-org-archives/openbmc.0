@@ -1,69 +1,80 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <miltonm@us.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
  (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
+ envelope-from=miltonm@us.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=us.ibm.com
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zyhG92dqtzF1X9
- for <openbmc@lists.ozlabs.org>; Sat, 10 Mar 2018 09:03:13 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zykRM2dKJzF1vn
+ for <openbmc@lists.ozlabs.org>; Sat, 10 Mar 2018 10:41:15 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w29M2l1w042740
- for <openbmc@lists.ozlabs.org>; Fri, 9 Mar 2018 17:03:11 -0500
-Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gkw89mn4f-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 09 Mar 2018 17:03:10 -0500
+ w29NcqQW115219
+ for <openbmc@lists.ozlabs.org>; Fri, 9 Mar 2018 18:41:13 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.109])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gkyv8gn0k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 09 Mar 2018 18:41:12 -0500
 Received: from localhost
- by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 9 Mar 2018 17:03:09 -0500
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 9 Mar 2018 17:03:06 -0500
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w29M36s654263874; Fri, 9 Mar 2018 22:03:06 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D258128041;
- Fri,  9 Mar 2018 17:02:29 -0500 (EST)
-Received: from talon7.ibm.com (unknown [9.41.241.240])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 8A1EF2803A;
- Fri,  9 Mar 2018 17:02:29 -0500 (EST)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.13 3/3] ARM: dts: aspeed: witherspoon: set
- alternate boot
-Date: Fri,  9 Mar 2018 16:03:00 -0600
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1520632980-26812-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1520632980-26812-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 18030922-0056-0000-0000-0000042B3B99
-X-IBM-SpamModules-Scores: 
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Fri, 9 Mar 2018 23:41:12 -0000
+Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
+ by smtp.notes.na.collabserv.com (10.122.47.48) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 9 Mar 2018 23:41:00 -0000
+Received: from us1b3-mail79.a3dr.sjc01.isc4sb.com ([10.122.105.126])
+ by us1b3-smtp01.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2018030923405969-917346 ;
+ Fri, 9 Mar 2018 23:40:59 +0000 
+In-Reply-To: <20180307221124.GD10438@amd>
+Subject: Re: [PATCH v2 2/8] [PATCH 2/8] Documentations: dt-bindings: Add a
+ document of PECI adapter driver for Aspeed AST24xx/25xx SoCs
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: Pavel Machek <pavel@ucw.cz>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, linux-hwmon@vger.kernel.org,
+ andrew@lunn.ch, jdelvare@suse.com, arnd@arndb.de,
+ linux-doc@vger.kernel.org, andrew@aj.id.au, gregkh@linuxfoundation.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux@roeck-us.net,
+ linux-arm-kernel@lists.infradead.org
+Date: Fri, 9 Mar 2018 23:41:00 +0000
+MIME-Version: 1.0
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <20180307221124.GD10438@amd>,
+ <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
+ <20180221161606.32247-3-jae.hyun.yoo@linux.intel.com>
+ <20180306124002.GA13950@amd>
+ <33bf6563-b220-7ff9-8b04-84e9bd781b3f@linux.intel.com>
+X-Mailer: IBM iNotes ($HaikuForm 1010) | IBM Domino Build
+ SCN1805107_20180220T0755_FP2 March 05, 2018 at 08:20
+X-LLNOutbound: False
+X-Disclaimed: 47211
+X-TNEFEvaluated: 1
+X-LLNXfer: False
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 18030923-3721-0000-0000-000002A5D22F
+X-IBM-SpamModules-Scores: BY=0.037583; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.391525; ST=0; TS=0; UL=0; ISC=; MB=0.198820
 X-IBM-SpamModules-Versions: BY=3.00008643; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.01000702; UDB=6.00509033; IPR=6.00780032; 
- MB=3.00019945; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-09 22:03:07
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18030922-0057-0000-0000-0000086D432E
-Message-Id: <1520632980-26812-4-git-send-email-eajames@linux.vnet.ibm.com>
+ PH=3.00000004; SC=3.00000254; SDB=6.01000735; UDB=6.00509053; IPR=6.00780065; 
+ BA=6.00005858; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00019947; XFM=3.00000015;
+ UTC=2018-03-09 23:41:09
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-03-09 19:50:14 - 6.00008166
+x-cbparentid: 18030923-3722-0000-0000-0000B0C9D624
+Message-Id: <OF08D8261E.8F72E5DC-ON0025824B.008218BB-0025824B.008218C6@notes.na.collabserv.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-03-09_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803090260
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,30 +86,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Mar 2018 22:03:13 -0000
+X-List-Received-Date: Fri, 09 Mar 2018 23:41:19 -0000
 
-Set watchdog 2 to boot from the alternate flash chip when the watchdog
-timer expires and the system is reset. This enables "brick protection."
+About  03/07/2018 04:12PM in some time zone, Pavel Machek wrote:
+>Subject: Re: [PATCH v2 2/8] [PATCH 2/8] Documentations: dt-bindings:
+>Add a document of PECI adapter driver for Aspeed AST24xx/25xx SoCs
+>
+>Hi!
+>
+>> >Are these SoCs x86-based?
+>>=20
+>> Yes, these are ARM SoCs. Please see Andrew's answer as well.
+>
+>Understood, thanks.
+>
+>> >>+	Read sampling point selection. The whole period of a bit time
+>will be
+>> >>+	divided into 16 time frames. This value will determine which
+>time frame
+>> >>+	this controller will sample PECI signal for data read back.
+>Usually in
+>> >>+	the middle of a bit time is the best.
+>> >
+>> >English? "This value will determine when this controller"?
+>> >
+>>=20
+>> Could I change it like below?:
+>>=20
+>> "This value will determine in which time frame this controller
+>samples PECI
+>> signal for data read back"
+>
+>I guess... I'm not native speaker, I guess this could be improved
+>some
+>more.
+>
 
-Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+I agree this wording is still confusing.=20
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 5f8dbffa..e8e4d30 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -633,6 +633,10 @@
- 	pinctrl-0 = <&pinctrl_wdtrst1_default>;
- };
- 
-+&wdt2 {
-+	aspeed,alt-boot;
-+};
-+
- &ibt {
- 	status = "okay";
- };
--- 
-1.8.3.1
+The problem is that the key subject, the time of the sampling, is in the de=
+scriptive clause "in which time frame".
+
+"This value will determine the time frame in which the controller will samp=
+le"
+
+or perhaps phrase it as saving a specific sample from the over-clock, or a =
+phase of the clock.
+
+>Best regards,
+>									Pavel
+>
+>--=20
+>(english) http://www.livejournal.com/~pavelmachek
+>(cesky, pictures)
+>http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
+>
+
+milton
+--
+Speaking for myself not IBM.
