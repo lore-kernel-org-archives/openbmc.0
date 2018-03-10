@@ -1,49 +1,53 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::234; helo=mail-ua0-x234.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="XAaFqh64"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
+ [IPv6:2607:f8b0:400c:c08::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3zykZ11bL9zF1WW
- for <openbmc@lists.ozlabs.org>; Sat, 10 Mar 2018 10:47:04 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2018 15:47:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.47,448,1515484800"; d="scan'208";a="32702695"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by FMSMGA003.fm.intel.com with ESMTP; 09 Mar 2018 15:47:01 -0800
-Subject: Re: [PATCH v2 2/8] [PATCH 2/8] Documentations: dt-bindings: Add a
- document of PECI adapter driver for Aspeed AST24xx/25xx SoCs
-To: Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>
-Cc: linux-hwmon@vger.kernel.org, andrew@lunn.ch, jdelvare@suse.com,
- arnd@arndb.de, linux-doc@vger.kernel.org, andrew@aj.id.au,
- gregkh@linuxfoundation.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux@roeck-us.net, linux-arm-kernel@lists.infradead.org
-References: <20180307221124.GD10438@amd>
- <20180221161606.32247-1-jae.hyun.yoo@linux.intel.com>
- <20180221161606.32247-3-jae.hyun.yoo@linux.intel.com>
- <20180306124002.GA13950@amd>
- <33bf6563-b220-7ff9-8b04-84e9bd781b3f@linux.intel.com>
- <OF08D8261E.8F72E5DC-ON0025824B.008218BB-0025824B.008218C6@notes.na.collabserv.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <ed44999b-c877-463e-3a20-415faaab31b2@linux.intel.com>
-Date: Fri, 9 Mar 2018 15:47:01 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zykv00T6tzF1vn
+ for <openbmc@lists.ozlabs.org>; Sat, 10 Mar 2018 11:01:47 +1100 (AEDT)
+Received: by mail-ua0-x234.google.com with SMTP id c14so3375766uak.7
+ for <openbmc@lists.ozlabs.org>; Fri, 09 Mar 2018 16:01:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=LEFbqUKKOuYclazfAqR2EBqi1eVKpnufUT4MeBsvD0o=;
+ b=XAaFqh64f7lEvLAzGYHmT01sPhKhbPlNm3WSZVxT8dy6nqKW8cs1en0Yu/Q5vc/6tY
+ Q8lhAX/pBvMVooLqmKZEIm4GlT70+S90tUE8Sc8FWEJyLacHrShb8ZlDCWm0zbFNnFrm
+ /4IX9J+CXU4Dgf353EAJaMyRROVSVfym5vOmRwzgFm117mYdVfLUfjcZ41F1crgE2z/G
+ xoQAS+b80kKpTukjdNnURAIEV7CfBsvci5umJeDjo7mKq8djdNef5ww7WkBUf3/TOqQj
+ wVZ65tnHhmMB1AJiyvoEfY7Fz7HQHcDJhQ0wih8Kqi9Pcc6uZKuvkmLOuu4jxItrRjsg
+ F74Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=LEFbqUKKOuYclazfAqR2EBqi1eVKpnufUT4MeBsvD0o=;
+ b=BepHAA9bBs9ykectD9jMjN3boNHEZAUyXFBLkaZIe0yIbGTFm/afyVcJ+qQvYE+Tl9
+ rt/tbfTrpS05SZRljwIrE9KKOZjfknbVxF3QD2+ZBCMfXP7+Zoprujq9GPyfGKedqiMo
+ XV8f4ljAA9i+T7NKvn5nhI0OK1mqFLA+BhGwJNRneKTpotNvtQwteNraAIZsP+0nFNC4
+ Y4LbEky4LhP+qy/UvNZr3PNjmr47tvzN0WcImO0eigX2p+jMneWE1sGHk9tEcoIR6UFn
+ tSBTKiql1BStOi3mVh5cQbE87XBrqbp7TpNWnfgxnq7eE5UesK8dtGvNWln4MsU9FNny
+ O+TA==
+X-Gm-Message-State: AElRT7HjlUsXT5debX7vt0A5d7huY0MLW6FQ6vsyYJeMtIinvXpgXAm/
+ 3/xpBIqYvtdMnx+83VM0yfkFXwpLpdpf0rO0c+O+ZPWa3Oc=
+X-Google-Smtp-Source: AG47ELstGxqUw7bEODjTY1WZQVHd/rO7C8ULwuAqlqJ4PjiGaWr57N7xBLKqeobo4cXnvnzT0CrtrSgZTwrsQWU6wC4=
+X-Received: by 10.176.24.161 with SMTP id t33mr205200uag.198.1520640103547;
+ Fri, 09 Mar 2018 16:01:43 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <OF08D8261E.8F72E5DC-ON0025824B.008218BB-0025824B.008218C6@notes.na.collabserv.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Received: by 10.31.58.79 with HTTP; Fri, 9 Mar 2018 16:01:23 -0800 (PST)
+From: Patrick Venture <venture@google.com>
+Date: Fri, 9 Mar 2018 16:01:23 -0800
+Message-ID: <CAO=notykSOGC0DbHeY_4bZZ2oCw=rcpfT=kK3=0f-WSOOjFx+Q@mail.gmail.com>
+Subject: Uploading firmware in-band
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -55,74 +59,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Mar 2018 23:47:06 -0000
+X-List-Received-Date: Sat, 10 Mar 2018 00:01:48 -0000
 
-Hi Milton,
+I've pushed this for comments,
+https://gerrit.openbmc-project.xyz/#/c/9497/1 - it's the BMC-side of
+our implementation for receiving the BMC image.  It supports LPC, PCI,
+and in-band IPMI as a transport mechanism.  it doesn't dig into the
+signature stuff or the flashing portions, however it does assume there
+is a signature verification service, and can receive the signature
+itself.
 
-Thanks for sharing your time to review this patch. Please see my answer 
-inline.
-
-Jae
-
-On 3/9/2018 3:41 PM, Milton Miller II wrote:
-> About  03/07/2018 04:12PM in some time zone, Pavel Machek wrote:
->> Subject: Re: [PATCH v2 2/8] [PATCH 2/8] Documentations: dt-bindings:
->> Add a document of PECI adapter driver for Aspeed AST24xx/25xx SoCs
->>
->> Hi!
->>
->>>> Are these SoCs x86-based?
->>>
->>> Yes, these are ARM SoCs. Please see Andrew's answer as well.
->>
->> Understood, thanks.
->>
->>>>> +	Read sampling point selection. The whole period of a bit time
->> will be
->>>>> +	divided into 16 time frames. This value will determine which
->> time frame
->>>>> +	this controller will sample PECI signal for data read back.
->> Usually in
->>>>> +	the middle of a bit time is the best.
->>>>
->>>> English? "This value will determine when this controller"?
->>>>
->>>
->>> Could I change it like below?:
->>>
->>> "This value will determine in which time frame this controller
->> samples PECI
->>> signal for data read back"
->>
->> I guess... I'm not native speaker, I guess this could be improved
->> some
->> more.
->>
-> 
-> I agree this wording is still confusing.
-> 
-> The problem is that the key subject, the time of the sampling, is in the descriptive clause "in which time frame".
-> 
-> "This value will determine the time frame in which the controller will sample"
-> 
-> or perhaps phrase it as saving a specific sample from the over-clock, or a phase of the clock.
-> 
-
-Yes, that looks more better. I'll change the wording as you suggested. 
-Thanks a lot!
-
-Jae
-
->> Best regards,
->> 									Pavel
->>
->> -- 
->> (english) http://www.livejournal.com/~pavelmachek
->> (cesky, pictures)
->> http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
->>
-> 
-> milton
-> --
-> Speaking for myself not IBM.
-> 
+Regards,
+Patrick
