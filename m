@@ -1,57 +1,62 @@
-Return-Path: <tmaimon77@gmail.com>
+Return-Path: <arndbergmann@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::22c; helo=mail-qt0-x22c.google.com;
+ envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="UtC5W+QO"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QAs82iPN"; 
  dkim-atps=neutral
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
+Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
+ [IPv6:2607:f8b0:400d:c0d::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 400Jhp6DV8zDrKr
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 00:28:26 +1100 (AEDT)
-Received: by mail-it0-x242.google.com with SMTP id u66so11153172ith.1
- for <openbmc@lists.ozlabs.org>; Mon, 12 Mar 2018 06:28:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 400JvM5RbjzDr8K
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 00:37:35 +1100 (AEDT)
+Received: by mail-qt0-x22c.google.com with SMTP id j4so18762510qth.8
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Mar 2018 06:37:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=nFJ7JlGnQYL9vMQ600mLfT5Q5qPtLSo9+dgql4EsyjQ=;
- b=UtC5W+QOgtGZ3WA8MFhq1hGowFFdTqQbWqSNtJdlkbUPnJXIXLF9ByxZY1GmNuOZgJ
- 3pAPE4zr4Y3rJLJWaZGoUkT3jwB5ZliAPn1uPC5ttqWKKc93vtzuJ2geveVmR+bA6iry
- wcBHNJX+b/bywJiMdNY/pbdqxF/VlPfj+2PesPnPDyzzCcJyh65cox62HKf/hCMfyViN
- FTqMDYwNkEebEHO9QzrtloZTRgnmSVBsfJcS9tgPQlfC4X9CZKYuOQRuzRU+5loGQ7eG
- +uS0TElQoJ9/6z17HFdkDF0z9zXP9DGNIGkw0iwGSviWngt1tgirzyDaKbPcvjxU57ij
- xbgA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=S5kaapUiuOcld+FW6FmEOo15M3N5apvAabeewBHwG7s=;
+ b=QAs82iPNp+5yEvSSDf1WP9gR+fUNO4ZqFx1cNmZMfq741JkgO2D3HINwS5j6/9y0BK
+ iKDYjkolcrrQdG926o/9C3lCIiDilX0An9Q5XP8jVtjLK4FOf7b02AAcGx000XfpVFEU
+ 2p5IYLHIj44InitjvXmjBYz4HG4Z2GflzeGJvysPV3SnnbFnpksWT+2iHBlZvwBLUKfI
+ BQFdhV8Qx8VzaJ4EujoqH1zzf1FDn7bIRC6oIrWFkXc2UC8Jj1zk4FIzxD8gwzmOTrOs
+ FsM2OzUnPKwMK+T6wgyTYF6D1RJ1ShZBkik269pNCyhvCHMp3nvJJ+VkgrRPWOHG4ERK
+ 2pSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=nFJ7JlGnQYL9vMQ600mLfT5Q5qPtLSo9+dgql4EsyjQ=;
- b=kt1YmOS2MGtnNEPgAIMux3xzT6GTcnDwRPew1PEpSrnQbauRDXGC5S9nt3I+M8mvI+
- APt6ym+z4L24LA9p4r6vTfXl+hcuEDdDJ+CrM7wFu57k1nKrL/Juh1RTO9uk7L8sWOfD
- 6ldErrz/wvDgpgkLBj0QUiKxGQ3+urSOyR6/vwwxxEFtviH5aK9Xr+ZqxLlDDK9ud4A6
- F85LfGtBUrmfIwfPdXkx/H0mYp/1KqANClDfaKtlfnLxcxqy2oCU6C6OO+HG/+0z1Yu5
- 6klR3et6Ln1evlyZn8e81QnVqp57tDz/OrWRC9IWhdsnbmNTzRBg5QxZ04VH2f/PMIHZ
- cLqA==
-X-Gm-Message-State: AElRT7Hl+mDqNpwIC6dzhbsYk7P2tyJkNDE6wVaFDLFQamEhVkS7grPR
- fHDOB/oMiLVuypegMmriWwk0pxpLnG8VW0dEnGI=
-X-Google-Smtp-Source: AG47ELvWlR3hGcwCM3ez/Gx9swFA7F7niYhDfxAFWypE06MPzLuhC1/mEP4AfVyyUj20gNUcUzePGGwFCm8R6Ktz7FY=
-X-Received: by 10.36.34.194 with SMTP id o185mr8014580ito.60.1520861303747;
- Mon, 12 Mar 2018 06:28:23 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=S5kaapUiuOcld+FW6FmEOo15M3N5apvAabeewBHwG7s=;
+ b=Y800rUEF6t/qnMul5uG5P6QGBP9fHnBXsXvaggmCgNOr0+u3E4/I8ytMQRmfbmA3cq
+ wAJoK0yZCsO6wysly0BmFiJIkTUw4S2V55w5eU1wrBCuEPD0UcGK6EURY6m4j0UHmgbr
+ NvcBeLfCadqlRR7lcPS1DTQXlxE2cj13Z9gXBXzcxS1tCrT+blGaoT6uIzGN6kcXDgbB
+ V/MfMNQNPGwzFTIvfVMiguC2VVx1w0Qf0SuCRvJPbStgYYrdpKJh/y5QgAzBoM67dqF7
+ TPlYUAJaLyO6T393XanXa7RYKbKaEmB58MSkDbSLWtmjlY8dRtzJxf9aW4qhMg7mqrkO
+ MVbg==
+X-Gm-Message-State: AElRT7HMYE0YuWbTWJcm3gY0b4BuIzOqHfexCfecbkGedrZCyvF5SbGu
+ Y0PMtnlwRITZ4snorsdoUwvKtpXd6qQkQktuIq4=
+X-Google-Smtp-Source: AG47ELt/ReKh0kZXZIB6mQlnXmHp3mQeHUVkvUqdtEFWshyc4CbfATjaP9Jx76R7P3MF0x2tjwJPPJBNOvBn1O6upXc=
+X-Received: by 10.200.56.182 with SMTP id f51mr12527725qtc.9.1520861852681;
+ Mon, 12 Mar 2018 06:37:32 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.2.183.17 with HTTP; Mon, 12 Mar 2018 06:28:23 -0700 (PDT)
-In-Reply-To: <CAFd5g45h3wAZtx-4oJb_uLbtDTzSsD6eLM5G0VF=3BBHNmW8YQ@mail.gmail.com>
+Sender: arndbergmann@gmail.com
+Received: by 10.12.185.46 with HTTP; Mon, 12 Mar 2018 06:37:32 -0700 (PDT)
+In-Reply-To: <CAP6Zq1jEAg2OrmnHzJdk9UBjPkDctu5oGHYyJ+QLBzN+E31sPw@mail.gmail.com>
 References: <20180307162430.2664523-1-arnd@arndb.de>
  <CAFd5g45h3wAZtx-4oJb_uLbtDTzSsD6eLM5G0VF=3BBHNmW8YQ@mail.gmail.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Mon, 12 Mar 2018 15:28:23 +0200
-Message-ID: <CAP6Zq1jEAg2OrmnHzJdk9UBjPkDctu5oGHYyJ+QLBzN+E31sPw@mail.gmail.com>
+ <CAP6Zq1jEAg2OrmnHzJdk9UBjPkDctu5oGHYyJ+QLBzN+E31sPw@mail.gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 12 Mar 2018 14:37:32 +0100
+X-Google-Sender-Auth: 6exdRStu4kyAXOEBZS-wRlbkHjw
+Message-ID: <CAK8P3a2=0ZUqyhmKVa4u_VvOg4rtd6vUWdpRojfsoP3OSvGyeQ@mail.gmail.com>
 Subject: Re: [PATCH 1/2] ARM: npcm: add CONFIG_ARCH_MULTI_V7 dependency
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Avi Fishman <avifishman70@gmail.com>, 
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Avi Fishman <avifishman70@gmail.com>, 
  Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
  Linux ARM <linux-arm-kernel@lists.infradead.org>, 
  OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
@@ -68,90 +73,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Mar 2018 13:28:27 -0000
+X-List-Received-Date: Mon, 12 Mar 2018 13:37:36 -0000
 
-Hi Brendan,
+On Mon, Mar 12, 2018 at 2:28 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+> Hi Brendan,
+>
+> According to the last mail I have with Arnd can you modify the Kconfig
+> as follow:
+>
+> +menuconfig ARCH_NPCM
+> +       bool "Nuvoton NPCM Architecture"
+> +       depends on ARCH_MULTI_V7
+> +       select PINCTRL
+> +
+> +if ARCH_NPCM
+> +
+> +config ARCH_NPCM7XX
+> +       bool "Support for NPCM7xx BMC (Poleg)"
+> +       depends on ARCH_MULTI_V7
+> +       select PINCTRL_NPCM7XX
+> +       select NPCM7XX_TIMER
+> +       select ARCH_REQUIRE_GPIOLIB
+> +       select CACHE_L2X0
+> +       select ARM_GIC
+> +       select HAVE_ARM_TWD if SMP
+> +       select HAVE_ARM_SCU if SMP
+> +       select ARM_ERRATA_764369 if SMP
+> +       select ARM_ERRATA_720789
+> +       select ARM_ERRATA_754322
+> +       select ARM_ERRATA_794072
+> +       select PL310_ERRATA_588369
+> +       select PL310_ERRATA_727915
+> +       select MFD_SYSCON
+> +       help
+> +         General support for NPCM7xx BMC (Poleg).
+> +
+> +         Nuvoton NPCM7xx BMC based on the Cortex A9.
+> +
+> +endif
 
-According to the last mail I have with Arnd can you modify the Kconfig
-as follow:
+One more change is needed to avoid a link error without CONFIG_SMP:
 
-+menuconfig ARCH_NPCM
-+       bool "Nuvoton NPCM Architecture"
-+       depends on ARCH_MULTI_V7
-+       select PINCTRL
-+
-+if ARCH_NPCM
-+
-+config ARCH_NPCM7XX
-+       bool "Support for NPCM7xx BMC (Poleg)"
-+       depends on ARCH_MULTI_V7
-+       select PINCTRL_NPCM7XX
-+       select NPCM7XX_TIMER
-+       select ARCH_REQUIRE_GPIOLIB
-+       select CACHE_L2X0
-+       select ARM_GIC
-+       select HAVE_ARM_TWD if SMP
-+       select HAVE_ARM_SCU if SMP
-+       select ARM_ERRATA_764369 if SMP
-+       select ARM_ERRATA_720789
-+       select ARM_ERRATA_754322
-+       select ARM_ERRATA_794072
-+       select PL310_ERRATA_588369
-+       select PL310_ERRATA_727915
-+       select MFD_SYSCON
-+       help
-+         General support for NPCM7xx BMC (Poleg).
-+
-+         Nuvoton NPCM7xx BMC based on the Cortex A9.
-+
-+endif
+diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+index c7a1316d27c1..34d51f9f207c 100644
+--- a/arch/arm/mach-npcm/Makefile
++++ b/arch/arm/mach-npcm/Makefile
+@@ -1,3 +1,4 @@
+ AFLAGS_headsmp.o               += -march=armv7-a
 
-Thanks!
+-obj-$(CONFIG_ARCH_NPCM750)     += npcm7xx.o platsmp.o headsmp.o
++obj-$(CONFIG_ARCH_NPCM750)     += npcm7xx.o
++obj-$(CONFIG_SMP)              += platsmp.o headsmp.o
 
-Tomer
+Can one of you send me a pull request or the full patch series on top
+of the version I have in arm-soc?
 
-On 9 March 2018 at 04:08, Brendan Higgins <brendanhiggins@google.com> wrote:
-> On Wed, Mar 7, 2018 at 8:24 AM Arnd Bergmann <arnd@arndb.de> wrote:
->
->> The top-level CONFIG_ARCH_NPCM symbol is not guarded with a
->> dependency, and can be selected for builds of traditional
->> (non-multiplatform) builds as well, where it causes a build
->> failure:
->
->> arch/arm/boot/Makefile:17: arch/arm/mach-npcm//Makefile.boot: No such
-> file or directory
->
->> This moves the dependency to avoid that particular condition.
->
->> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->> ---
->>   arch/arm/mach-npcm/Kconfig | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->
->> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
->> index 6ff9df2636be..2bc6697c8d97 100644
->> --- a/arch/arm/mach-npcm/Kconfig
->> +++ b/arch/arm/mach-npcm/Kconfig
->> @@ -1,5 +1,5 @@
->>   menuconfig ARCH_NPCM
->> -       bool "Nuvoton NPCM Architecture"
->> +       bool "Nuvoton NPCM Architecture" if ARCH_MULTI_V7
->>          select ARCH_REQUIRE_GPIOLIB
->>          select USE_OF
->>          select PINCTRL
->> @@ -10,7 +10,7 @@ if ARCH_NPCM
->>   comment "NPCM7XX CPU type"
->
->>   config ARCH_NPCM750
->> -       depends on ARCH_NPCM && ARCH_MULTI_V7
->> +       depends on ARCH_NPCM
->>          bool "Support for NPCM750 BMC CPU (Poleg)"
->>          select CACHE_L2X0
->>          select CPU_V7
->> --
->> 2.9.0
->
->
-> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
->
-> Thanks!
+      Arnd
