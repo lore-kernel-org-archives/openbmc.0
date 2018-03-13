@@ -1,73 +1,76 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::242; helo=mail-qk0-x242.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bfmMdyvV"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="TAFs5tRs"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
+ [IPv6:2607:f8b0:400d:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 400Qh727bMzF08c
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 04:58:15 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2CHu2F4127828
- for <openbmc@lists.ozlabs.org>; Mon, 12 Mar 2018 13:58:13 -0400
-Received: from e06smtp14.uk.ibm.com (e06smtp14.uk.ibm.com [195.75.94.110])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gnvrkvj37-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 12 Mar 2018 13:58:12 -0400
-Received: from localhost
- by e06smtp14.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Mon, 12 Mar 2018 17:58:09 -0000
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
- by e06smtp14.uk.ibm.com (192.168.101.144) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Mon, 12 Mar 2018 17:58:06 -0000
-Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w2CHw60E56164398; Mon, 12 Mar 2018 17:58:06 GMT
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2ACCF42041;
- Mon, 12 Mar 2018 17:50:23 +0000 (GMT)
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3410E42042;
- Mon, 12 Mar 2018 17:50:12 +0000 (GMT)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.77.207.200])
- by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Mon, 12 Mar 2018 17:50:10 +0000 (GMT)
-Subject: Re: RFC for Telemetry data collection
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-To: jk@ozlabs.org, joel@jms.id.au, bradleyb@fuzziesquirrel.com,
- venture@google.com, tomjose@linux.vnet.ibm.com, rosedahl@us.ibm.com,
- vernon.mauery@linux.intel.com, openbmc@lists.ozlabs.org
-References: <59B163B0.6060804@linux.vnet.ibm.com>
- <a8cae0b0-9652-adfe-e262-c07d86198e94@linux.vnet.ibm.com>
-Date: Mon, 12 Mar 2018 23:27:51 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
- Gecko/20100101 Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 400gHm5NnyzDr59
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 14:26:28 +1100 (AEDT)
+Received: by mail-qk0-x242.google.com with SMTP id 132so4004208qkd.5
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Mar 2018 20:26:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=gDP+ctPfEwURrq6eCplyN4KaPSDJc5xir43yugN5tdY=;
+ b=bfmMdyvVWO+bJVY+tkz0EanPReikGPjqt50sew3YiA+j7TigoDcVsiVo2o3bPi0XJh
+ XyPP28X3Emr2Afyt3eJ1HpTOiEpkjfya/4WJ7tebOeibcWFvJdQzqLM0mj8kDTKNTMep
+ bji/fSE9rUoFQhDo8WvZwBFkbWB4FWnhiN3asUlhrqKidkLWitayem1HtqQIuEMfg7Rc
+ hwjHbIQlTdmYp7APRtnZzfH95obFQXh7vyKgFjrt1vCtd59h5GC7ysBAVa3xnSdZEXW6
+ DVeZrb+p4vjAJAZTbgeC6f/kV5iHN5Ahhh7a1SRR3gXQ2u+YqgpW1e2WHfZVqAOVbXyq
+ gpzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=gDP+ctPfEwURrq6eCplyN4KaPSDJc5xir43yugN5tdY=;
+ b=TAFs5tRsvc3xW2Zxc0eAhp0+xr9fb9mmFvbPUAAno9Mp49shj+T7vdmra/Zlo9O7sV
+ 7t1tvwkNpIwMjnnwxDjkfeQONaICuSXP92CYplay20CTvMvurD9umAZLBTw40KRpkJNV
+ JGgNGXqtIHYufdxMEGfXd41TjAn+JfMVPsjLU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=gDP+ctPfEwURrq6eCplyN4KaPSDJc5xir43yugN5tdY=;
+ b=AV7UWvgqy6SSoekxbTiKHz7He36ahHaW/EPdymdzAAsLcJLf6tZWKkVes/w+EHv1ok
+ JEpe9vzj40RoAotPgP0mT03ymkskztqPnwV8BdbrgSy+C6Ai4vUbK7S4ZEnTBeBX8l85
+ /cO0J7K20sBFnQZgQiWoFQP87F9PTrUuMucAF1Axn4TaHLdd9VYniUquwa58a7q+4Qzt
+ JeiF3C9IOZC3NCjrM71BvO5GU+MU+bAN5fUPHjWnsQfwhBQVTnk76ZXbIUts1fXj/Da/
+ mjtMrceqsT5yjTjvRl70I4S8RUZUI1JW/bK9tizazyzXqngQAJTx/F3M8rO5+UwssOLz
+ in6A==
+X-Gm-Message-State: AElRT7E7c/8lINE+oNC90j5/XvwRKiY1v7K02Z/2KdRARsKPFv1Ahqzm
+ P3TB7udeq5Dgn1EOI/uZCgcRZCD+rcYEHelQB6s=
+X-Google-Smtp-Source: AG47ELtKGPQCzJtxovuRPypBrE8jedBhXl+0c1jep9EZVXNhdXtJ1OTDrO5nUUzRVKr5GjUMYoCAd3QQ6wWOoV1EqpM=
+X-Received: by 10.55.20.194 with SMTP id 63mr14131311qku.203.1520911585611;
+ Mon, 12 Mar 2018 20:26:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a8cae0b0-9652-adfe-e262-c07d86198e94@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 18031217-0016-0000-0000-000005308F00
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18031217-0017-0000-0000-0000286DBD8D
-Message-Id: <4a53a46c-8e3b-841b-f0be-6034cd54c654@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-12_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803120203
+Sender: joel.stan@gmail.com
+Received: by 10.200.50.69 with HTTP; Mon, 12 Mar 2018 20:26:05 -0700 (PDT)
+In-Reply-To: <71fbea13-49db-3a3e-40de-ab30b34c38ab@linux.vnet.ibm.com>
+References: <1519944259-27898-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1519944259-27898-2-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XcKZvvU27n575J+GQ=kAm3PONYqWCZwESEaxq5Ne0KP0Q@mail.gmail.com>
+ <71fbea13-49db-3a3e-40de-ab30b34c38ab@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 13 Mar 2018 13:56:05 +1030
+X-Google-Sender-Auth: 4K6otTb8mhkUM1Y1CAz8xyfrSu8
+Message-ID: <CACPK8XeuAjZa_A7FubAOpTRr1MQeBWKFQoqakGi-3QnGZASgvA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 1/2] hwmon (occ): Remove temperature fault
+ attribute and VRM temp alarm
+To: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ "Edward A. James" <eajames@us.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, spinler@linux.vnet.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,196 +82,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Mar 2018 17:58:15 -0000
+X-List-Received-Date: Tue, 13 Mar 2018 03:26:29 -0000
 
-On 09/03/18 7:13 pm, Deepak Kodihalli wrote:
-> On 07/09/17 8:50 pm, tomjose wrote:
->> Hello,
+On Fri, Mar 9, 2018 at 5:45 AM, Matt Spinler
+<mspinler@linux.vnet.ibm.com> wrote:
+>
+>
+> On 3/1/2018 6:39 PM, Joel Stanley wrote:
 >>
->> I am working on the issue 
->> (https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_openbmc_openbmc_issues_1957&d=DwICaQ&c=jf_iaSHvJObTbx-siA1ZOg&r=LzkOghL3x_3V_EkHiUQJUJ0xrq_s3_wwfssFT35AQXw&m=Gk0KnGVKy2iC82jVgpSqjzR2K_EYRlsFBqs34EjyKys&s=nQguk1LTD_q7dPNEn6dV2p4vsKaMu1vYZs5_Vh0BiNc&e= 
->> ) to design a telemetry application for the OpenBMC. I would be 
->> explaining a rough idea of how we plan to go about. Please share your 
->> thoughts and feedback on this proposal. This issue would depend on the 
->> design evolving out of following issues, since this app would utilize 
->> the capabilities provided. 
->> (https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_openbmc_openbmc_issues_1856&d=DwICaQ&c=jf_iaSHvJObTbx-siA1ZOg&r=LzkOghL3x_3V_EkHiUQJUJ0xrq_s3_wwfssFT35AQXw&m=Gk0KnGVKy2iC82jVgpSqjzR2K_EYRlsFBqs34EjyKys&s=2B_nLYU03S0QgMnCrMr8YawangOxRXmXGBqPF9593DY&e= 
->> , 
->> https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_openbmc_openbmc_issues_2102&d=DwICaQ&c=jf_iaSHvJObTbx-siA1ZOg&r=LzkOghL3x_3V_EkHiUQJUJ0xrq_s3_wwfssFT35AQXw&m=Gk0KnGVKy2iC82jVgpSqjzR2K_EYRlsFBqs34EjyKys&s=U6M9vpoDDmNbTJJH5I6M6lPBGFzS1nuqYEEGwXjAviY&e= 
->> ).
->>
->> Summary of the requirements that we came across relevant to this 
->> discussion.
->>
->>
->> 1) BMC telemetry data (example VRM rail voltages) where the data is 
->> collected at different rates depending on the data and aggregated by 
->> the BMC app  (minimum, maximum
->>      and average). Based on the collection timing request(frequency) 
->> the metrics are logged, so that the user can fetch it for analytics.
->>
->> 2)  Users should be able to set thresholds for the temperature limits, 
->> and receive alerts. This would allow user to plan the cooling needs.
->>
->> 3)  BMC would act as route for the OCC metrics to be send to the user. 
->> The OCC would send down telemetric data to the BMC and BMC should 
->> figure out a way to
->>       alert the user to consume this data.
+>> On Fri, Mar 2, 2018 at 9:14 AM, Eddie James <eajames@linux.vnet.ibm.com>
+>> wrote:
+>>>
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>
+>>> This removes the EAGAIN return for "sensor not ready" and the temperature
+>>> fault and vrm temp alarms attributes.
+>>>
+>>> Apologies for pushing this up so early... Userspace applications aren't
+>>> ready for this change. The hwmon polling application cannot accept EGAIN
+>>> yet, and we can't be returning apparent errors if the sensor is
+>>> temporarily unavailable.
 >>
 >>
->> We would keep the focus of the discussion on the requirement no 1.
->> This proposal presupposes that all the resources( example VRM rail 
->> voltages, ambient temperature) that the telemetry app is interested 
->> in, should be populated as dbus objects, which can
->> be queried to read the instantaneous values. phosphor-hwmon 
->> application exposes many of the interested resources.
+>> Okay. Brad's email is from October 5th, 2017. That's 148 days ago.
 >>
->> The idea is to have a yaml based approach, where the policy of the 
->> telemetry app will be expressed. The application would be able to 
->> consume the yaml and initiate the telemetry
->> data collection. The yaml would express the following:
+>> Any ETA on when the userspace plans to get some love?
 >>
->> a) Dbus Info (object, interface, property) associated with the resource.
->> b) Units associated with the value (celsius) and the associated 
->> scaling factor).
->> c) Granularity - the time between two measures.
->> d) Aggregation methods - min,max,avg..etc.
->> e) Logging policy - frequency for creating an event and alerting the 
->> user.
->>
->> The application would operate based on the policy and log the 
->> telemetry data. The details of logging would evolve as we progress on 
->> the related issue.
->>
->> Regards,
->> Tom
-> 
-> Hi,
-> 
-> I'd like to bump this topic and add some more details. I'd like to 
-> discuss design proposals/directions for a couple things :
-> 
-> 1) A short/mid term proposal for telemetry requirements specific to IBM 
-> labs (which need to be implemented in a relatively short span of time, 
-> so there may not be the bandwidth to write an entirely new application 
-> not based on D-Bus or the OpenBMC REST API).
-> 2) Industry standard methods for storing and retrieving telemetry data - 
-> thoughts on how to get here.
-> 
-> 
-> 
-> 1) Telemetry requirements specific to IBM labs
-> Here are the requirements and a design proposal.
-> 
-> a) Instantaneous readings, such as temperatures, currents, errors, 
-> events etc. Let's call this Layer 0.
-> 
-> Proposal:
-> - The D-Bus model is the source for instantaneous readings. This means 
-> there would be D-Bus objects representing this data, and hence an 
-> OpenBMC REST API around it.
-> - These D-Bus objects would not necessarily implement the same D-Bus 
-> interfaces.
-> - Interested clients can read these D-Bus objects via the OpenBMC REST API.
-> - If clients are interested in being notified about "changes" to the 
-> readings, that's possible via the existing event notification over 
-> WebSockets mechanism.
-> 
-> 
-> b) Instantaneous aggregations - this would mostly apply to, but may not 
-> be limited to, readings such as temperatures and currents. Let's call 
-> this Layer 1. This basically is to solve, for eg, "what is the 
-> min/max/average over the last X seconds?". We have a requirement to do 
-> such aggregations on the BMC.
-> 
-> Proposal:
-> - Aggregations are represented as D-Bus objects, created by a telemetry 
-> app. For eg if we need to know the min/max/avg ambient temp for the last 
-> 5 minutes, and say the the ambient temp is usually at temps/ambient, the 
-> aggregation could be at temps/aggregations/ambient.
-> - Implement D-Bus interfaces to denote aggregations, for eg the 
-> temps/aggregation/ambient object could implement a D-Bus interface 
-> describing min/max/avg properties.
-> - Aggregation objects will have the values as described in the D-Bus 
-> interface (such as min/max/avg), and a timestamp, as properties.
-> - Enable a config (eg JSON) to let the telemetry app know things like : 
-> What (supported) aggregations should be performed (min/max/avg)? What 
-> D-Bus objects should be aggregated? How frequently should they be 
-> aggregated? What should be the paths of the aggregations? Potentially 
-> add a REST API to allow changing the (JSON) config at run-time.
-> - It will be possible to read all aggregation objects, or aggregation 
-> objects of a specific type via one REST call.
-> 
-> 
-> c) Historical aggregations or snapshot. Let's call this Layer 2. This is 
-> to solve, for eg, "Need a reading corresponding to every X minutes in a 
-> period of Y hours". This can be a snapshot of Layer 1 or Layer 0 D-Bus 
-> objects. We have a requirement to store this snapshot on the BMC.
-> 
-> Proposal:
-> - The snapshot will be represented as a set of D-Bus objects. For eg if 
-> one needs an hourly reading for a period of 24 hours, the objects could 
-> be at temps/aggregations/ambient/per-hour/{1..24}.
-> - Enable a config to let a telemetry app to know things like : What 
-> D-Bus objects should I keep a history of? What is the duration of the 
-> snapshot? At what frequency should entries be added into the snapshot? 
-> Once the snapshot is full, should the entries roll, or should we 
-> restart? Potentially add a REST API to allow changing the (JSON) config 
-> at run-time.
-> - The historical aggregations can be read via one REST call. It should 
-> be one D-Bus call as well most likely for the REST server, if there's an 
-> object manager at temps/aggregations/ambient/per-hour for eg.
-> - These objects in the snapshot will implement the same interfaces as 
-> Layer 1 objects, so they will have the same properties (eg min/max/avg, 
-> timestamp).
-> 
-> 
-> d) Some notes
-> - With the proposal above, the API to retrieve the telemetry data is via 
-> the current OpenBMC REST API, so it may not readily work with telemetry 
-> tools relying on industry-standard API (see point 2 below), but it seems 
-> to be the feasible option to rely on to implement IBM's requirements in 
-> the expected timelines.
-> - Layer 1 and Layer 2 telemetry apps would be different processes, and 
-> can function independent of each other.
-> 
-> 
-> 
-> 2) Industry standard methods for storing and retrieving telemetry data
-> 
-> - With the proposal above, the instantaneous readings are D-Bus objects, 
-> the instantaneous and historical aggregations are D-Bus objects as well. 
-> The API is the OpenBMC REST API.
-> - Typically, aggregations may not have to happen on the BMC, in which 
-> case one can turn off layers 1 and 2.
-> - This is regarding how the telemetry data is presented, and how we'd 
-> eventually not use the current OpenBMC REST API in production. I've 
-> heard (mostly from people on the To: list) of the following 
-> industry-standard ways to represent/retrieve telemetry data. This would 
-> mean transforming layer 0 D-Bus objects into these :
->      - Via Redfish (events) API
->      - Via IPMI events/PEF
->      - Via SNMP traps
->      - Via an sqlite db, and have something like Logstash parse it
->      - Others?
-> Discussions are already happening regarding Redfish, so telemetry could 
-> be one aspect to consider as well.
-> - Aggregations could be done on the BMC with collectd. I need to look at 
-> this in detail. Aggregations could be stored in an RRD format. Need to 
-> look at this in detail as well. These are as opposed to a D-Bus model of 
-> aggregations. Thoughts on this? For eg, would this be much less work 
-> both for the BMC and the telemetry data users than the proposed D-Bus 
-> model, but at the same time can address the requirements I've mentioned? 
-> Do we know what are the commonly used client tools for processing 
-> telemetry data, and how they expect the data to be presented?
-> 
-> 
-> 
-> Thanks,
-> Deepak
+>
+> We have 4 issues in the backlog to address the OCC GPU sensors returning
+> either a 0 or 0xFF:
+> https://github.com/openbmc/openbmc/issues/2327
+> https://github.com/openbmc/openbmc/issues/2329
+> https://github.com/openbmc/openbmc/issues/2222
+> https://github.com/openbmc/openbmc/issues/2223
+>
+> As fan control is already doing the right thing when it reads the values
+> as they are now, we deprioritized the work quite a bit so it still
+> isn't scheduled and may not be until later systems.
 
-Added this topic to the agenda in the wiki. Would appreciate feedback so 
-as to talk about the same in the telecon.
+Okay. Lets get that work scheduled ASAP, as it's already been quite
+some time since we needed that fixed. I think it's now holding up the
+Witherspoon team from moving to the new kernel.
 
-Thanks,
-Deepak
+Do you have an ETA?
+
+Cheers,
+
+Joel
