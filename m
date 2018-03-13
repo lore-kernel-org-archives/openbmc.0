@@ -1,70 +1,79 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <stewart@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="YHx1SuE8"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="BfPD1ZLU"; 
- dkim-atps=neutral
-Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
- [IPv6:2607:f8b0:400d:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 400lDb3FHnzDrLQ
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 17:23:58 +1100 (AEDT)
-Received: by mail-qk0-x243.google.com with SMTP id s9so1555067qke.12
- for <openbmc@lists.ozlabs.org>; Mon, 12 Mar 2018 23:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=Fzv2mxfkn/7WFMvBAP53n6Z2oSXstdgxePyJOBgjt+A=;
- b=YHx1SuE8XIJplnldoNU6EM/2sUInxuzwhkbTjbv82F9MJgJ78Xv0MbGizlXUJK16CO
- a0wdJErd0h/PNr9YYl7C3GjtHDOh66ouZPRfmBOhVx71Q0k8zVGDl/UGStP+EX4R/TEc
- X+lMzXQPdSpEr6Rx5xKxbwEQHRZZGUPI+KPrloJ/qaPsfmmL7JK4dJ8qF0SNEent/u9e
- NsMgoV1HuXo+ju4kGiSCATD6G7xTIGkx2wCZCDWqnMl5/uxFjDxoVcvMc4248m7KLetF
- XcH3ZE9NTwmgDgIS1ETZSb9yALT8AoIL6I3lfCeQ9sMVTCh2O3EU95WlT92BDd0yLd0V
- 3OiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=Fzv2mxfkn/7WFMvBAP53n6Z2oSXstdgxePyJOBgjt+A=;
- b=BfPD1ZLUqIUpcCwhBR1nm4MOs7IdTZObMIx3nkgmxqjST7JxC2VoOMwBtNSozyD1ir
- U1BOEEb9qvOfxDl+MmDvYt/J6ITaSEifQ1VaHtFSBXKIfwYhC+3g2KF7tyS6mmStWdqE
- LoVp0AuIdeivlzU+08sb8+Nb7MHaBZKjvFnzg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=Fzv2mxfkn/7WFMvBAP53n6Z2oSXstdgxePyJOBgjt+A=;
- b=MAbfCnfc8gVGePAauiNqLap49ygKh035m0wga5hvb3TvZrDxaf8pW1W+z/A5VCR6YF
- CnH4PsoHzvLu1dKUUMiPjt1EQj19KwO0r/YAS613/q+Q4l3xex7q0vlve4B4TYlZi6y/
- MZGYs7XGvCzb/+N1HM14vXPnobCNL0FA8nK3CZNFsGHvjICm4mi8XG2eV2cggnYYU2tZ
- QptLZflOTMbkkwGTK/VMxGsia0jEbq0WWh5t+xJr6vqo6MRmGFjY83Oyd4Aj29QyXlPj
- YAPQTZwJIKPG7kF3VKQC/foZ7IW9O8hN6+x+XdSyJXykJxIDIYW3FlYvVdXVRdw5pdhm
- qPWQ==
-X-Gm-Message-State: AElRT7GqcxPsK8fDsq7dRM2Ab9TwiGjnXie7wFupC25peMsmQaAA2tY4
- cmlrJFq69J6lipf9VzGc6xQNL9jF9Uc1YPtaqEE=
-X-Google-Smtp-Source: AG47ELvgwsgCedUkz9DLE5U/Q3L27Vczbkb/SidklijqFKk4FGEZUAg6H4sdHLqS4in72TzmyRa7W7LTjHWxaYhGOg4=
-X-Received: by 10.55.246.26 with SMTP id y26mr4313219qkj.127.1520922236272;
- Mon, 12 Mar 2018 23:23:56 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 400lmr2FqZzDr8B
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 17:48:27 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2D6hsP6087743
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 02:48:25 -0400
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gp2xdbxbp-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 02:48:24 -0400
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Tue, 13 Mar 2018 00:48:23 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 13 Mar 2018 00:48:21 -0600
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w2D6mLnO11534686; Mon, 12 Mar 2018 23:48:21 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 40CEE6A03B;
+ Tue, 13 Mar 2018 00:48:21 -0600 (MDT)
+Received: from birb.localdomain (unknown [9.185.142.116])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id C79E36A03D;
+ Tue, 13 Mar 2018 00:48:20 -0600 (MDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 4B0504EC62A; Tue, 13 Mar 2018 17:48:19 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Rob Lippert <rlippert@google.com>
+Cc: "Tanous\, Ed" <ed.tanous@intel.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Patrick Venture <venture@google.com>,
+ "Mohit Gupta \(QDT\)" <guptam@qti.qualcomm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Exposing POST codes
+In-Reply-To: <CAFRv3ww59TrnRBWAKZu4LEc5V2iaSW03MEZQgQw6Yrymqt9Meg@mail.gmail.com>
+References: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+ <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
+ <7E9441B1E5EFFD4681F54958E82169932F669996@ORSMSX114.amr.corp.intel.com>
+ <87efkyf1xw.fsf@linux.vnet.ibm.com>
+ <CAFRv3ww59TrnRBWAKZu4LEc5V2iaSW03MEZQgQw6Yrymqt9Meg@mail.gmail.com>
+Date: Tue, 13 Mar 2018 17:48:19 +1100
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.50.69 with HTTP; Mon, 12 Mar 2018 23:23:35 -0700 (PDT)
-In-Reply-To: <1520632980-26812-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1520632980-26812-1-git-send-email-eajames@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 13 Mar 2018 16:53:35 +1030
-X-Google-Sender-Auth: JUnXpiWx8vSdF-MCr37x6lk-80c
-Message-ID: <CACPK8Xep=uvO=7og_mkEc3s71Aznd-D+4KgyQ+KROfNTOax21Q@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 0/3] aspeed: watchdog: fix reset, read
- alt-boot, and set alt-boot for witherspoon
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 18031306-0024-0000-0000-000018123D94
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008664; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.01002317; UDB=6.00510000; IPR=6.00781648; 
+ MB=3.00020003; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-13 06:48:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18031306-0025-0000-0000-00004F14757B
+Message-Id: <87y3iwo4i4.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-13_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803130084
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,38 +85,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Mar 2018 06:24:00 -0000
+X-List-Received-Date: Tue, 13 Mar 2018 06:48:28 -0000
 
-On Sat, Mar 10, 2018 at 8:32 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> This series provides a fix to correctly set the reset mode of the control
-> register. Previously, configuring anything other than a full chip reset would
-> not reset anything when the watchdog timer expires. The series also provides a
-> patch to read in the existing aspeed,alt-boot boolean option from the
-> device-tree and set the appropriate bit in the control register.
+Rob Lippert <rlippert@google.com> writes:
+> I implemented port 80h POST codes for POWER9 hostboot a while back:
+> https://github.com/open-power/hostboot/blob/c93bef31ae6ce781f9e0a11bb9224b6728ff120f/src/usr/initservice/istepdispatcher/istepdispatcher.C#L2312
 >
-> Finally, set the alt-boot option for witherspoon to enable "brick protection".
->
-> Eddie James (1):
->   ARM: dts: aspeed: witherspoon: set alternate boot
->
-> Milton Miller (2):
->   watchdog: aspeed: Fix translation of reset mode to ctrl register
->   watchdog: aspeed: Allow configuring for alternate boot
+> On Zaius machines we are using that support with Patrick's snoop daemon and
+> a separate daemon that receives the code via dbus and outputs it over the
+> front 7seg debug display.
+> It has proven useful for getting early error/debug reports from technicians
+> at scale e.g. "5 machines stopped at code 35h, 2 at 72h" provides a quick
+> overview of what the problems are for me to debug further (since I have the
+> decoder ring, and the istep names would be useless to them anyways).
 
-I've merged these three into the openbmc tree. If we decide to change
-the way it works upstream with respect to restarting the system we can
-backport that change.
+Neat!
 
-Cheers,
+Anything we should add to skiboot or petitboot environment for this? Or
+do we not fail in IPL enough to warrant it?
 
-Joel
-
-
->
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  4 ++++
->  drivers/watchdog/aspeed_wdt.c                    | 12 +++++++++---
->  2 files changed, 13 insertions(+), 3 deletions(-)
->
-> --
-> 1.8.3.1
->
+-- 
+Stewart Smith
+OPAL Architect, IBM.
