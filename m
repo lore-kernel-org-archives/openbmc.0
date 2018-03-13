@@ -1,66 +1,71 @@
-Return-Path: <tmaimon77@gmail.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::244; helo=mail-io0-x244.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nr4EzhaZ"; 
- dkim-atps=neutral
-Received: from mail-io0-x244.google.com (mail-io0-x244.google.com
- [IPv6:2607:f8b0:4001:c06::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 400wpQ5SqqzDqYR
- for <openbmc@lists.ozlabs.org>; Wed, 14 Mar 2018 00:35:25 +1100 (AEDT)
-Received: by mail-io0-x244.google.com with SMTP id v10so120231iob.6
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 06:35:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=R8czH3Wk4Iq9YRh1jRkglnF66zYi/pkhV/yJR8qBM+g=;
- b=Nr4EzhaZdbSN707NeCyPnnAA2S0JcExC+s5/GfxHSMDOZpjPBNsJV66TLbjOR7PtEe
- lbwuL09c757uD0SIqorP76iIYg9w60/lYiBSlOHkK0ZgGustf1h1dP5rDsGsWgmtDPES
- X+3aUKjmH8frbU3yEA0twTmSyixwtOkgaX92qfW8grRi+eyYSwlvUReFNuCgoK3UOhwt
- jUSxECpQhJveSD9x8bV6zZFKN+7vQBT/lSxqiqwyqyeIeyJVVXJ8YmTFZM07F8pmuo2i
- Y1iTF04xZ8ZH+bJJCrRsVgS46h/i2l8tcXsr/AtGdPqZStoKFVCHEB3bZACgyYSZ8wnM
- PUKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=R8czH3Wk4Iq9YRh1jRkglnF66zYi/pkhV/yJR8qBM+g=;
- b=iLaDw/rxJLXRgVbly2AxsXN/K89+hV39C/cH3QciVjdkzulGLsiY/ISDzBKHuRqqW9
- mkFAjmgQUueaSkFyGgzoDE6MJj2CxJDJqUQwW3HfeLtZ+jznbS5sSGoxgcooaR6w+hJu
- XEgp4QaBcccHW2lA1ye5YZtroFksioDOhy2+L+rzRbVS+mpq62zG8CUtxPUZz364UG0C
- 3c32mn1oS+Qhz+35Swq2qQssNjIKOk53laFsvSoQmz33/cBp5B6hrAfUc3Z2b95fTT3e
- ueA1gE3JK43SmDXTuqGYEDb/c1GsyXqArhcOPtCg/p0JCnGB4fhilzQ/0CSC852+FcXM
- HgCA==
-X-Gm-Message-State: AElRT7HjSBMPwtCxzsksYy3CqIW11V8D/0q8ywVigQeDXP7KlhtEVy7a
- dS3AitIVOhuqTgyuE7wAzhoUjAlAy+zPLwd/Hsk=
-X-Google-Smtp-Source: AG47ELvlViG/NpMdmRH/5F8eJU7IPLQ5D+GInstKjE2oi8eJDYKDkhs26OGokR0pa7PxH5tJF4FclNlo7jl6ub1w69w=
-X-Received: by 10.107.165.146 with SMTP id o140mr709806ioe.52.1520948120536;
- Tue, 13 Mar 2018 06:35:20 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 400wvf2NhLzDr8B
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Mar 2018 00:39:57 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2DDdqEB146377
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 09:39:54 -0400
+Received: from e06smtp14.uk.ibm.com (e06smtp14.uk.ibm.com [195.75.94.110])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gpc6q1pjj-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 09:39:54 -0400
+Received: from localhost
+ by e06smtp14.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Tue, 13 Mar 2018 13:39:49 -0000
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp14.uk.ibm.com (192.168.101.144) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 13 Mar 2018 13:39:46 -0000
+Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
+ [9.149.105.58])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w2DDdkvT57213156; Tue, 13 Mar 2018 13:39:46 GMT
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E30934C046;
+ Tue, 13 Mar 2018 13:33:02 +0000 (GMT)
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id F1B8B4C044;
+ Tue, 13 Mar 2018 13:33:01 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.203.113])
+ by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Tue, 13 Mar 2018 13:33:01 +0000 (GMT)
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: Parse PELs sent by OpenPOWER host firmware
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, geissonator@gmail.com,
+ anoo@linux.vnet.ibm.com, stewart@linux.vnet.ibm.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 13 Mar 2018 19:09:44 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
+ Gecko/20100101 Thunderbird/52.6.0
 MIME-Version: 1.0
-Received: by 10.2.183.17 with HTTP; Tue, 13 Mar 2018 06:35:20 -0700 (PDT)
-In-Reply-To: <CAP6Zq1iOxFTuUvp02qOtgpmfH7HA-1eZ9KG6AtU0zn6CpPCrzw@mail.gmail.com>
-References: <20180307162430.2664523-1-arnd@arndb.de>
- <CAFd5g45h3wAZtx-4oJb_uLbtDTzSsD6eLM5G0VF=3BBHNmW8YQ@mail.gmail.com>
- <CAP6Zq1jEAg2OrmnHzJdk9UBjPkDctu5oGHYyJ+QLBzN+E31sPw@mail.gmail.com>
- <CAK8P3a2=0ZUqyhmKVa4u_VvOg4rtd6vUWdpRojfsoP3OSvGyeQ@mail.gmail.com>
- <CAP6Zq1iOxFTuUvp02qOtgpmfH7HA-1eZ9KG6AtU0zn6CpPCrzw@mail.gmail.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Tue, 13 Mar 2018 15:35:20 +0200
-Message-ID: <CAP6Zq1h+6GGrnUEcjZWtBPBKDGxL+6+OG0itJD_FHD1MAcYmsQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ARM: npcm: add CONFIG_ARCH_MULTI_V7 dependency
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Avi Fishman <avifishman70@gmail.com>, 
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18031313-0016-0000-0000-000005310097
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18031313-0017-0000-0000-0000286E32D2
+Message-Id: <2815fac8-3a1f-d2ed-3c3d-ca7072de9db2@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-13_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803130163
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,84 +77,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Mar 2018 13:35:27 -0000
+X-List-Received-Date: Tue, 13 Mar 2018 13:39:59 -0000
 
-Hi Arnd,
+Hi,
 
-I sent now Full patch for the NPCM BMC's V12,
+The SELs/eSELs (System Event Log) that OpenBMC receives from 
+hostboot/skiboot today are not interpreted, and are dumped as-is in a 
+property of the error log D-Bus object. This means that if there's a PEL 
+(Platform Event Log) hidden in the eSEL, admins/users of the error log 
+need to depend on external tools to parse the PEL to human readable text.
 
-Is it O.K.? or do you want me to send the same patch to ARM: npcm:
-drop extraneous 'select' statements as well?
+Here's a proposal to have the BMC itself parse such eSELs (the 
+motivation is to make the OpenBMC error logs more useful in this 
+context, without needing the extra steps to parse such errors) :
 
-Thanks
+- Separate this from phosphor-logging. This code can't go to a phosphor 
+app, because it's OpenPOWER specific. Have, for example, an 
+openpower-logging app implement a D-Bus interface to parse out a PEL 
+from an eSEL. This app will host it's own D-Bus service.
 
-Tomer
+- Such an app can watch for error D-Bus objects being created in the 
+phosphor namespace. If it finds an eSEL in an error log, it can attempt 
+to parse a PEL (if there's one), and store the PELs parsed text 
+representation in a D-Bus property.
 
+- The app can create a D-Bus object with the same path as the original 
+object and have a D-Bus object-manager at the error log root path, so 
+that when someone uses the OpenBMC REST API to read an error log, 
+properties across all D-Bus services will be returned 
+(phosphor-rest-server does this today already). This means with the 
+existing REST API to enumerate error logs, a parsed PEL would be 
+returned, if present.
 
-On 12 March 2018 at 17:15, Tomer Maimon <tmaimon77@gmail.com> wrote:
-> Hi Arnd,
->
-> I will send tomorrow new version with some modification we need to do
-> once we use NPCM7XX and not NPCM750.
->
-> Brendan,
->
-> Is it O.K.?
->
->
->
-> On 12 March 2018 at 15:37, Arnd Bergmann <arnd@arndb.de> wrote:
->> On Mon, Mar 12, 2018 at 2:28 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
->>> Hi Brendan,
->>>
->>> According to the last mail I have with Arnd can you modify the Kconfig
->>> as follow:
->>>
->>> +menuconfig ARCH_NPCM
->>> +       bool "Nuvoton NPCM Architecture"
->>> +       depends on ARCH_MULTI_V7
->>> +       select PINCTRL
->>> +
->>> +if ARCH_NPCM
->>> +
->>> +config ARCH_NPCM7XX
->>> +       bool "Support for NPCM7xx BMC (Poleg)"
->>> +       depends on ARCH_MULTI_V7
->>> +       select PINCTRL_NPCM7XX
->>> +       select NPCM7XX_TIMER
->>> +       select ARCH_REQUIRE_GPIOLIB
->>> +       select CACHE_L2X0
->>> +       select ARM_GIC
->>> +       select HAVE_ARM_TWD if SMP
->>> +       select HAVE_ARM_SCU if SMP
->>> +       select ARM_ERRATA_764369 if SMP
->>> +       select ARM_ERRATA_720789
->>> +       select ARM_ERRATA_754322
->>> +       select ARM_ERRATA_794072
->>> +       select PL310_ERRATA_588369
->>> +       select PL310_ERRATA_727915
->>> +       select MFD_SYSCON
->>> +       help
->>> +         General support for NPCM7xx BMC (Poleg).
->>> +
->>> +         Nuvoton NPCM7xx BMC based on the Cortex A9.
->>> +
->>> +endif
->>
->> One more change is needed to avoid a link error without CONFIG_SMP:
->>
->> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
->> index c7a1316d27c1..34d51f9f207c 100644
->> --- a/arch/arm/mach-npcm/Makefile
->> +++ b/arch/arm/mach-npcm/Makefile
->> @@ -1,3 +1,4 @@
->>  AFLAGS_headsmp.o               += -march=armv7-a
->>
->> -obj-$(CONFIG_ARCH_NPCM750)     += npcm7xx.o platsmp.o headsmp.o
->> +obj-$(CONFIG_ARCH_NPCM750)     += npcm7xx.o
->> +obj-$(CONFIG_SMP)              += platsmp.o headsmp.o
->>
->> Can one of you send me a pull request or the full patch series on top
->> of the version I have in arm-soc?
->>
->>       Arnd
+- To parse the PEL, use opal-elog-parse.
+
+I have some quickly hacked-up code based on the proposal above, and I 
+can submit that for review. In general, this is appearing to me to be 
+one of the ways to add host-specific information to phosphor D-Bus 
+objects, without breaking the phosphor D-Bus API or changing the REST URIs.
+
+Thanks,
+Deepak
