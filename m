@@ -1,81 +1,58 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
+Return-Path: <prvs=6610abad47=amithash@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=6610abad47=amithash@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="JteWBJ5d"; 
+ dkim-atps=neutral
+X-Greylist: delayed 550 seconds by postgrey-1.36 at bilbo;
+ Wed, 14 Mar 2018 10:13:37 AEDT
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40175l3xB3zF11w
- for <openbmc@lists.ozlabs.org>; Wed, 14 Mar 2018 08:19:23 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2DLIhTc075097
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 17:19:21 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gpkeryas6-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 17:19:21 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Tue, 13 Mar 2018 17:19:19 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 13 Mar 2018 17:19:16 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w2DLJFc739321776; Tue, 13 Mar 2018 21:19:15 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 111EEB204E;
- Tue, 13 Mar 2018 18:21:29 -0400 (EDT)
-Received: from [9.10.99.29] (unknown [9.10.99.29])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id BD749B2050;
- Tue, 13 Mar 2018 18:21:28 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.13 1/2] hwmon (occ): Remove temperature fault
- attribute and VRM temp alarm
-To: Joel Stanley <joel@jms.id.au>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>,
- "Edward A. James" <eajames@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, spinler@linux.vnet.ibm.com
-References: <1519944259-27898-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1519944259-27898-2-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8XcKZvvU27n575J+GQ=kAm3PONYqWCZwESEaxq5Ne0KP0Q@mail.gmail.com>
- <71fbea13-49db-3a3e-40de-ab30b34c38ab@linux.vnet.ibm.com>
- <CACPK8XeuAjZa_A7FubAOpTRr1MQeBWKFQoqakGi-3QnGZASgvA@mail.gmail.com>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Tue, 13 Mar 2018 16:19:15 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4019dY5WXJzF170
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Mar 2018 10:13:36 +1100 (AEDT)
+Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2DN0LDK001207
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 16:04:20 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=qQeUMSqRQrsqP+7rx9ihFOu/z8ZbeHAspSFOZbtpWAI=;
+ b=JteWBJ5d/qypDatftVSLOkfiGKgsM0Ga+BWmPJcL9Q7wAV0cdgw/DBd9/kB2RBArtKxm
+ LhHHy1Y7bLC8jfs1oDTgC3ZENnsHBUkEbH1XEwh6HU6yErGiIZoDrN+yy7CqHs+Xo52S
+ xmcR6A9W7askYK7SSAXZVftbUeJL5PIfnIY= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2gpqq9r21g-2
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 16:04:20 -0700
+Received: from mx-out.facebook.com (192.168.52.123) by
+ PRN-CHUB13.TheFacebook.com (192.168.16.23) with Microsoft SMTP Server id
+ 14.3.361.1; Tue, 13 Mar 2018 16:04:19 -0700
+Received: by devvm25134.prn1.facebook.com (Postfix, from userid 122613)	id
+ D861F1580221; Tue, 13 Mar 2018 16:04:18 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Amithash Prasad <amithash@fb.com>
+Smtp-Origin-Hostname: devvm25134.prn1.facebook.com
+To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>
+CC: Amithash Prasad <amithash@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: Add Portwell Neptune machine
+Date: Tue, 13 Mar 2018 16:04:15 -0700
+Message-ID: <20180313230415.1902364-1-amithash@fb.com>
+X-Mailer: git-send-email 2.9.5
+X-FB-Internal: Safe
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XeuAjZa_A7FubAOpTRr1MQeBWKFQoqakGi-3QnGZASgvA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18031321-2213-0000-0000-0000027F1228
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008667; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.01002607; UDB=6.00510174; IPR=6.00781938; 
- MB=3.00020014; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-13 21:19:17
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18031321-2214-0000-0000-000059675ECA
-Message-Id: <1218088b-56d9-4b9f-d1e2-5a5790d6b892@linux.vnet.ibm.com>
+Content-Type: text/plain
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-03-13_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803130236
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -87,58 +64,194 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Mar 2018 21:19:23 -0000
+X-List-Received-Date: Tue, 13 Mar 2018 23:13:38 -0000
 
+Initial introduction of Portwell Neptune family equipped with
+Aspeed 2500 BMC SoC. This adds the neptune platform device tree
+file including the flash layout used by the neptune machines.
 
+Signed-off-by: Amithash Prasad <amithash@fb.com>
+---
+ .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 145 +++++++++++++++++++++
+ 3 files changed, 147 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
 
-On 3/12/2018 10:26 PM, Joel Stanley wrote:
-> On Fri, Mar 9, 2018 at 5:45 AM, Matt Spinler
-> <mspinler@linux.vnet.ibm.com> wrote:
->>
->>
->> On 3/1/2018 6:39 PM, Joel Stanley wrote:
->>>
->>> On Fri, Mar 2, 2018 at 9:14 AM, Eddie James <eajames@linux.vnet.ibm.com>
->>> wrote:
->>>>
->>>> From: "Edward A. James" <eajames@us.ibm.com>
->>>>
->>>> This removes the EAGAIN return for "sensor not ready" and the temperature
->>>> fault and vrm temp alarms attributes.
->>>>
->>>> Apologies for pushing this up so early... Userspace applications aren't
->>>> ready for this change. The hwmon polling application cannot accept EGAIN
->>>> yet, and we can't be returning apparent errors if the sensor is
->>>> temporarily unavailable.
->>>
->>>
->>> Okay. Brad's email is from October 5th, 2017. That's 148 days ago.
->>>
->>> Any ETA on when the userspace plans to get some love?
->>>
->>
->> We have 4 issues in the backlog to address the OCC GPU sensors returning
->> either a 0 or 0xFF:
->> https://github.com/openbmc/openbmc/issues/2327
->> https://github.com/openbmc/openbmc/issues/2329
->> https://github.com/openbmc/openbmc/issues/2222
->> https://github.com/openbmc/openbmc/issues/2223
->>
->> As fan control is already doing the right thing when it reads the values
->> as they are now, we deprioritized the work quite a bit so it still
->> isn't scheduled and may not be until later systems.
-> 
-> Okay. Lets get that work scheduled ASAP, as it's already been quite
-> some time since we needed that fixed. I think it's now holding up the
-> Witherspoon team from moving to the new kernel.
-> 
-> Do you have an ETA?
-
-We're going to try to start work on it next sprint, so done in about a 
-month give or take.
-
-> 
-> Cheers,
-> 
-> Joel
-> 
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+index 84601d8..9dbbe7d 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.txt
++++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+@@ -228,6 +228,7 @@ pine64	Pine64
+ pixcir  PIXCIR MICROELECTRONICS Co., Ltd
+ plathome	Plat'Home Co., Ltd.
+ plda	PLDA
++portwell	Portwell Inc.
+ powervr	PowerVR (deprecated, use img)
+ pulsedlight	PulsedLight, Inc
+ qca	Qualcomm Atheros, Inc.
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 7c54fc8..044b960 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -993,6 +993,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-mellanox-msn.dtb \
+ 	aspeed-bmc-quanta-q71l.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
++	aspeed-bmc-portwell-neptune.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+new file mode 100644
+index 0000000..542a4cad
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+@@ -0,0 +1,145 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2017 Facebook Inc.
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "Portwell Neptune BMC";
++	compatible = "portwell,neptune-bmc", "aspeed,ast2500";
++	aliases {
++		serial0 = &uart1;
++		serial4 = &uart5;
++	};
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		postcode0 {
++			label="BMC_UP";
++			gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++		postcode1 {
++			label="BMC_HB";
++			gpios = <&gpio ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
++		};
++		postcode2 {
++			label="FAULT";
++			gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
++		};
++		// postcode3-7 are GPIOH3-H7
++	};
++};
++
++&wdt2 {
++	status = "okay";
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++	};
++};
++
++&uart1 {
++	// Host Console
++	status = "okay";
++};
++
++&uart5 {
++	// BMC Console
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&i2c3 {
++	status = "okay";
++	// SMBus to COMe AB
++};
++
++&i2c4 {
++	status = "okay";
++	// I2C to COMe AB
++};
++
++&i2c5 {
++	status = "okay";
++	pca9555@4e {
++		compatible = "nxp,pca9555";
++		pinctrl-names = "default";
++		gpio-controller;
++		#gpio-cells = <2>;
++		reg = <0x27>;
++	};
++};
++
++&i2c6 {
++	status = "okay";
++	tpm@20 {
++		compatible = "infineon,slb9645tt";
++		reg = <0x20>;
++	};
++	tmp421@9c {
++		compatible = "ti,tmp421";
++		reg = <0x4e>;
++	};
++	tmp421@9e {
++		compatible = "ti,tmp421";
++		reg = <0x4f>;
++	};
++};
++
++&i2c8 {
++	status = "okay";
++	eeprom@a2 {
++		compatible = "atmel,24c128";
++		reg = <0x51>;
++		pagesize = <0x32>;
++	};
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++	};
++};
+-- 
+2.9.5
