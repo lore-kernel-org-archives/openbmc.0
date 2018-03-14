@@ -1,73 +1,34 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 401CV15B6hzF12P
- for <openbmc@lists.ozlabs.org>; Wed, 14 Mar 2018 11:37:13 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2E0YaKX090354
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 20:37:10 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2gprea9jpn-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 13 Mar 2018 20:37:10 -0400
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Tue, 13 Mar 2018 18:37:09 -0600
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 13 Mar 2018 18:37:06 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w2E0b6v75112188; Tue, 13 Mar 2018 17:37:06 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3EBFCBE042;
- Tue, 13 Mar 2018 18:37:06 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.102.58.185])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with SMTP id 06F4ABE03B;
- Tue, 13 Mar 2018 18:37:03 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 81DA14EC62A; Wed, 14 Mar 2018 11:36:56 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, geissonator@gmail.com,
- anoo@linux.vnet.ibm.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Parse PELs sent by OpenPOWER host firmware
-In-Reply-To: <2815fac8-3a1f-d2ed-3c3d-ca7072de9db2@linux.vnet.ibm.com>
-References: <2815fac8-3a1f-d2ed-3c3d-ca7072de9db2@linux.vnet.ibm.com>
-Date: Wed, 14 Mar 2018 11:36:56 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 401KfZ3Dg3zF0ps
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Mar 2018 16:15:01 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2018 22:14:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.47,468,1515484800"; d="scan'208";a="37206830"
+Received: from build0101.sh.intel.com ([10.239.164.138])
+ by fmsmga004.fm.intel.com with ESMTP; 13 Mar 2018 22:14:56 -0700
+From: Haiyue Wang <haiyue.wang@linux.intel.com>
+To: openbmc@lists.ozlabs.org
+Cc: Haiyue Wang <haiyue.wang@linux.intel.com>
+Subject: Support IPMB in OpenBMC
+Date: Wed, 14 Mar 2018 13:15:43 +0800
+Message-Id: <1521004543-4063-1-git-send-email-haiyue.wang@linux.intel.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18031400-0020-0000-0000-00000D965641
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008668; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.01002674; UDB=6.00510214; IPR=6.00782004; 
- MB=3.00020017; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-14 00:37:07
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18031400-0021-0000-0000-0000607BEC17
-Message-Id: <87vadzo5lj.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-13_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803140003
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,57 +40,407 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Mar 2018 00:37:14 -0000
+X-List-Received-Date: Wed, 14 Mar 2018 05:15:03 -0000
 
-Deepak Kodihalli <dkodihal@linux.vnet.ibm.com> writes:
-> The SELs/eSELs (System Event Log) that OpenBMC receives from 
-> hostboot/skiboot today are not interpreted, and are dumped as-is in a 
-> property of the error log D-Bus object. This means that if there's a PEL 
-> (Platform Event Log) hidden in the eSEL, admins/users of the error log 
-> need to depend on external tools to parse the PEL to human readable
-> text.
+According to the document of https://goo.gl/WgvPFi
+  IPMI is embedded within IPMB
+    ...
+    - We need a kernel interface for handling a multi-master slave
+    - Brendan suggests we need a kernel driver for doing both MCTP and IPMB
+    - Slave mode is not yet exposed to the user
+    - As we don’t have a userspace interface, it makes sense to add a new one
+We developed a driver based on linux dev-4.10 branch tree, called it as mqueue
+(message queue) I2C slave backend.
 
-My lack of love for PELs is probably fairly well known, but even if we
-replace them down the line, I think there's opportunity here for making
-things better for users (including myself).
+Just for sharing.
 
-> Here's a proposal to have the BMC itself parse such eSELs (the 
-> motivation is to make the OpenBMC error logs more useful in this 
-> context, without needing the extra steps to parse such errors) :
->
-> - Separate this from phosphor-logging. This code can't go to a phosphor 
-> app, because it's OpenPOWER specific. Have, for example, an 
-> openpower-logging app implement a D-Bus interface to parse out a PEL 
-> from an eSEL. This app will host it's own D-Bus service.
+If people have more ideas, welcome to discussing. :-)
 
-It would be a bonus if we could take different actions based on log
-format. If in the future we had a hypothetical other format, it'd be
-great if it was *really* easy to plug into OpenBMC. I suspect other
-platforms may have similar things (e.g. Google has done protobuf based
-logs in the past at least, which are structurally somewhat similar to
-PELs but different serialisation format).
+BR,
+Haiyue
+---
+ Documentation/i2c/slave-mqueue-backend.rst | 125 ++++++++++++++++++
+ drivers/i2c/Kconfig                        |  13 ++
+ drivers/i2c/Makefile                       |   1 +
+ drivers/i2c/i2c-slave-mqueue.c             | 202 +++++++++++++++++++++++++++++
+ 4 files changed, 341 insertions(+)
+ create mode 100644 Documentation/i2c/slave-mqueue-backend.rst
+ create mode 100644 drivers/i2c/i2c-slave-mqueue.c
 
-> - Such an app can watch for error D-Bus objects being created in the 
-> phosphor namespace. If it finds an eSEL in an error log, it can attempt 
-> to parse a PEL (if there's one), and store the PELs parsed text 
-> representation in a D-Bus property.
->
-> - The app can create a D-Bus object with the same path as the original 
-> object and have a D-Bus object-manager at the error log root path, so 
-> that when someone uses the OpenBMC REST API to read an error log, 
-> properties across all D-Bus services will be returned 
-> (phosphor-rest-server does this today already). This means with the 
-> existing REST API to enumerate error logs, a parsed PEL would be 
-> returned, if present.
-
-Is thre any reason for this approach rather than something like
-phosphor-logging having a list of properties/formats and external
-parsing tools? Kind of like mime type/action lists?
-
-> - To parse the PEL, use opal-elog-parse.
-
-+1
-
+diff --git a/Documentation/i2c/slave-mqueue-backend.rst b/Documentation/i2c/slave-mqueue-backend.rst
+new file mode 100644
+index 0000000..69d6437
+--- /dev/null
++++ b/Documentation/i2c/slave-mqueue-backend.rst
+@@ -0,0 +1,125 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++=====================================
++Linux I2C slave message queue backend
++=====================================
++
++:Author: Haiyue Wang <haiyue.wang@linux.intel.com>
++
++Some protocols over I2C/SMBus are designed for bi-directional transferring
++messages by using I2C Master Write protocol. This requires that both sides
++of the communication have slave addresses.
++
++Like MCTP (Management Component Transport Protocol) and IPMB (Intelligent
++Platform Management Bus), they both require that the userspace can receive
++messages from i2c dirvers under slave mode.
++
++This I2C slave mqueue (message queue) backend is used to receive and queue
++messages from the remote i2c intelligent device; and it will add the target
++slave address (with R/W# bit is always 0) into the message at the first byte,
++so that userspace can use this byte to dispatch the messages into different
++handling modules. Also, like IPMB, the address byte is in its message format,
++it needs it to do checksum.
++
++For messages are time related, so this backend will flush the oldest message
++to queue the newest one.
++
++Link
++----
++`Intelligent Platform Management Bus
++Communications Protocol Specification
++<https://www.intel.com/content/dam/www/public/us/en/documents/product-briefs/ipmp-spec-v1.0.pdf>`_
++
++`Management Component Transport Protocol (MCTP)
++SMBus/I2C Transport Binding Specification
++<https://www.dmtf.org/sites/default/files/standards/documents/DSP0237_1.1.0.pdf>`_
++
++How to use
++----------
++For example, the I2C5 bus has slave address 0x10, bellowing command will create
++the related message queue interface:
++
++    echo slave-mqueue 0x1010 > /sys/bus/i2c/devices/i2c-5/new_device
++
++Then you can dump the messages like this:
++
++    hexdump -C /sys/bus/i2c/devices/5-1010/slave-mqueue
++
++Code Example
++------------
++*Note: call 'lseek' before 'read', this is a requirement from kernfs' design.*
++
++::
++
++  #include <sys/types.h>
++  #include <sys/stat.h>
++  #include <unistd.h>
++  #include <poll.h>
++  #include <time.h>
++  #include <fcntl.h>
++  #include <stdio.h>
++
++  int main(int argc, char *argv[])
++  {
++          int i, r;
++          struct pollfd pfd;
++          struct timespec ts;
++          unsigned char data[256];
++
++          pfd.fd = open(argv[1], O_RDONLY | O_NONBLOCK);
++          if (pfd.fd < 0)
++                  return -1;
++
++          pfd.events = POLLPRI;
++
++          while (1) {
++                  r = poll(&pfd, 1, 5000);
++
++                  if (r < 0)
++                          break;
++
++                  if (r == 0 || !(pfd.revents & POLLPRI))
++                          continue;
++
++                  lseek(pfd.fd, 0, SEEK_SET);
++                  r = read(pfd.fd, data, sizeof(data));
++                  if (r <= 0)
++                          continue;
++
++                  clock_gettime(CLOCK_MONOTONIC, &ts);
++                  printf("[%ld.%.9ld] :", ts.tv_sec, ts.tv_nsec);
++                  for (i = 0; i < r; i++)
++                          printf(" %02x", data[i]);
++                  printf("\n");
++          }
++
++          close(pfd.fd);
++
++          return 0;
++  }
++
++Result
++------
++*./a.out "/sys/bus/i2c/devices/5-1010/slave-mqueue"*
++
++::
++
++  [10183.232500449] : 20 18 c8 2c 78 01 5b
++  [10183.479358348] : 20 18 c8 2c 78 01 5b
++  [10183.726556812] : 20 18 c8 2c 78 01 5b
++  [10183.972605863] : 20 18 c8 2c 78 01 5b
++  [10184.220124772] : 20 18 c8 2c 78 01 5b
++  [10184.467764166] : 20 18 c8 2c 78 01 5b
++  [10193.233421784] : 20 18 c8 2c 7c 01 57
++  [10193.480273460] : 20 18 c8 2c 7c 01 57
++  [10193.726788733] : 20 18 c8 2c 7c 01 57
++  [10193.972781945] : 20 18 c8 2c 7c 01 57
++  [10194.220487360] : 20 18 c8 2c 7c 01 57
++  [10194.468089259] : 20 18 c8 2c 7c 01 57
++  [10203.233433099] : 20 18 c8 2c 80 01 53
++  [10203.481058715] : 20 18 c8 2c 80 01 53
++  [10203.727610472] : 20 18 c8 2c 80 01 53
++  [10203.974044856] : 20 18 c8 2c 80 01 53
++  [10204.220734634] : 20 18 c8 2c 80 01 53
++  [10204.468461664] : 20 18 c8 2c 80 01 53
++
+diff --git a/drivers/i2c/Kconfig b/drivers/i2c/Kconfig
+index efc3354..7053b5b 100644
+--- a/drivers/i2c/Kconfig
++++ b/drivers/i2c/Kconfig
+@@ -118,6 +118,19 @@ if I2C_SLAVE
+ config I2C_SLAVE_EEPROM
+ 	tristate "I2C eeprom slave driver"
+ 
++config I2C_SLAVE_MQUEUE
++	tristate "I2C mqueue (message queue) slave driver"
++	help
++	  Some protocols over I2C are designed for bi-directional transferring
++	  messages by using I2C Master Write protocol. This driver is used to
++	  receive and queue messages from the remote I2C device.
++
++	  Userspace can get the messages by reading sysfs file that this driver
++	  exposes.
++
++	  This support is also available as a module. If so, the module will be
++	  called i2c-slave-mqueue.
++
+ endif
+ 
+ config I2C_DEBUG_CORE
+diff --git a/drivers/i2c/Makefile b/drivers/i2c/Makefile
+index 45095b3..e94442f 100644
+--- a/drivers/i2c/Makefile
++++ b/drivers/i2c/Makefile
+@@ -10,6 +10,7 @@ obj-$(CONFIG_I2C_MUX)		+= i2c-mux.o
+ obj-y				+= algos/ busses/ muxes/
+ obj-$(CONFIG_I2C_STUB)		+= i2c-stub.o
+ obj-$(CONFIG_I2C_SLAVE_EEPROM)	+= i2c-slave-eeprom.o
++obj-$(CONFIG_I2C_SLAVE_MQUEUE)	+= i2c-slave-mqueue.o
+ 
+ ccflags-$(CONFIG_I2C_DEBUG_CORE) := -DDEBUG
+ CFLAGS_i2c-core.o := -Wno-deprecated-declarations
+diff --git a/drivers/i2c/i2c-slave-mqueue.c b/drivers/i2c/i2c-slave-mqueue.c
+new file mode 100644
+index 0000000..a486e85
+--- /dev/null
++++ b/drivers/i2c/i2c-slave-mqueue.c
+@@ -0,0 +1,202 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2017 - 2018, Intel Corporation.
++
++#include <linux/i2c.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/sysfs.h>
++
++#define MQ_MSGBUF_SIZE		128
++#define MQ_QUEUE_SIZE		32
++#define MQ_QUEUE_NEXT(x)	(((x) + 1) & (MQ_QUEUE_SIZE - 1))
++
++struct mq_msg {
++	int	len;
++	u8	*buf;
++};
++
++struct mq_queue {
++	struct bin_attribute	bin;
++	struct kernfs_node	*kn;
++
++	spinlock_t		lock; /* spinlock for queue index handling */
++	int			in;
++	int			out;
++
++	struct mq_msg		*curr;
++	int			truncated; /* drop current if truncated */
++	struct mq_msg		queue[MQ_QUEUE_SIZE];
++};
++
++static int i2c_slave_mqueue_callback(struct i2c_client *client,
++				     enum i2c_slave_event event, u8 *val)
++{
++	struct mq_queue *mq = i2c_get_clientdata(client);
++	struct mq_msg *msg = mq->curr;
++	int ret = 0;
++
++	switch (event) {
++	case I2C_SLAVE_WRITE_REQUESTED:
++		mq->truncated = 0;
++
++		msg->len = 1;
++		msg->buf[0] = client->addr << 1;
++		break;
++
++	case I2C_SLAVE_WRITE_RECEIVED:
++		if (msg->len < MQ_MSGBUF_SIZE) {
++			msg->buf[msg->len++] = *val;
++		} else {
++			dev_err(&client->dev, "message is truncated!\n");
++			mq->truncated = 1;
++			ret = -EINVAL;
++		}
++		break;
++
++	case I2C_SLAVE_STOP:
++		if (unlikely(mq->truncated))
++			break;
++
++		spin_lock(&mq->lock);
++		mq->in = MQ_QUEUE_NEXT(mq->in);
++		mq->curr = &mq->queue[mq->in];
++
++		/* Flush the oldest message */
++		if (mq->out == mq->in)
++			mq->out = MQ_QUEUE_NEXT(mq->out);
++		spin_unlock(&mq->lock);
++
++		kernfs_notify(mq->kn);
++		break;
++
++	default:
++		*val = 0xFF;
++		break;
++	}
++
++	return ret;
++}
++
++static ssize_t i2c_slave_mqueue_bin_read(struct file *filp,
++					 struct kobject *kobj,
++					 struct bin_attribute *attr,
++					 char *buf, loff_t pos, size_t count)
++{
++	struct mq_queue *mq;
++	struct mq_msg *msg;
++	unsigned long flags;
++	bool more = false;
++	ssize_t ret = 0;
++
++	mq = dev_get_drvdata(container_of(kobj, struct device, kobj));
++
++	spin_lock_irqsave(&mq->lock, flags);
++	if (mq->out != mq->in) {
++		msg = &mq->queue[mq->out];
++
++		if (msg->len <= count) {
++			ret = msg->len;
++			memcpy(buf, msg->buf, ret);
++		} else {
++			ret = -EOVERFLOW; /* Drop this HUGE one. */
++		}
++
++		mq->out = MQ_QUEUE_NEXT(mq->out);
++		if (mq->out != mq->in)
++			more = true;
++	}
++	spin_unlock_irqrestore(&mq->lock, flags);
++
++	if (more)
++		kernfs_notify(mq->kn);
++
++	return ret;
++}
++
++static int i2c_slave_mqueue_probe(struct i2c_client *client,
++				  const struct i2c_device_id *id)
++{
++	struct device *dev = &client->dev;
++	struct mq_queue *mq;
++	int ret, i;
++	void *buf;
++
++	mq = devm_kzalloc(dev, sizeof(*mq), GFP_KERNEL);
++	if (!mq)
++		return -ENOMEM;
++
++	BUILD_BUG_ON(!is_power_of_2(MQ_QUEUE_SIZE));
++
++	buf = devm_kmalloc_array(dev, MQ_QUEUE_SIZE, MQ_MSGBUF_SIZE,
++				 GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	for (i = 0; i < MQ_QUEUE_SIZE; i++)
++		mq->queue[i].buf = buf + i * MQ_MSGBUF_SIZE;
++
++	i2c_set_clientdata(client, mq);
++
++	spin_lock_init(&mq->lock);
++	mq->curr = &mq->queue[0];
++
++	sysfs_bin_attr_init(&mq->bin);
++	mq->bin.attr.name = "slave-mqueue";
++	mq->bin.attr.mode = 0400;
++	mq->bin.read = i2c_slave_mqueue_bin_read;
++	mq->bin.size = MQ_MSGBUF_SIZE * MQ_QUEUE_SIZE;
++
++	ret = sysfs_create_bin_file(&dev->kobj, &mq->bin);
++	if (ret)
++		return ret;
++
++	mq->kn = kernfs_find_and_get(dev->kobj.sd, mq->bin.attr.name);
++	if (!mq->kn) {
++		sysfs_remove_bin_file(&dev->kobj, &mq->bin);
++		return -EFAULT;
++	}
++
++	ret = i2c_slave_register(client, i2c_slave_mqueue_callback);
++	if (ret) {
++		kernfs_put(mq->kn);
++		sysfs_remove_bin_file(&dev->kobj, &mq->bin);
++		return ret;
++	}
++
++	return 0;
++};
++
++static int i2c_slave_mqueue_remove(struct i2c_client *client)
++{
++	struct mq_queue *mq = i2c_get_clientdata(client);
++
++	i2c_slave_unregister(client);
++
++	kernfs_put(mq->kn);
++	sysfs_remove_bin_file(&client->dev.kobj, &mq->bin);
++
++	return 0;
++}
++
++static const struct i2c_device_id i2c_slave_mqueue_id[] = {
++	{ "slave-mqueue", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, i2c_slave_mqueue_id);
++
++static struct i2c_driver i2c_slave_mqueue_driver = {
++	.driver = {
++		.name	= "i2c-slave-mqueue",
++	},
++	.probe		= i2c_slave_mqueue_probe,
++	.remove		= i2c_slave_mqueue_remove,
++	.id_table	= i2c_slave_mqueue_id,
++};
++module_i2c_driver(i2c_slave_mqueue_driver);
++
++MODULE_LICENSE("GPL v2");
++MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
++MODULE_DESCRIPTION("I2C slave mode for receiving and queuing messages");
 -- 
-Stewart Smith
-OPAL Architect, IBM.
+2.7.4
