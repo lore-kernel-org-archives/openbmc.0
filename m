@@ -1,48 +1,49 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <rlippert@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::232; helo=mail-it0-x232.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::22e; helo=mail-qt0-x22e.google.com;
+ envelope-from=rlippert@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="DTQ6Shh6"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="S9cqplu5"; 
  dkim-atps=neutral
-Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
- [IPv6:2607:f8b0:4001:c0b::232])
+Received: from mail-qt0-x22e.google.com (mail-qt0-x22e.google.com
+ [IPv6:2607:f8b0:400d:c0d::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 404mVQ2blVzF1XC
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 06:34:51 +1100 (AEDT)
-Received: by mail-it0-x232.google.com with SMTP id b136-v6so5619830iti.3
- for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 12:34:51 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 404mWV0C8czF1c4
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 06:35:49 +1100 (AEDT)
+Received: by mail-qt0-x22e.google.com with SMTP id l25so19283346qtj.1
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 12:35:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Dzn6bbjQsf07UeYtFEwaiJ6G9AhdxcgIe+3DtUs/qPQ=;
- b=DTQ6Shh6H+tqp11C3DEzZ0NUfLNxMoT5O7h9xP3COi2bODdkihuNYWKfhdjpsK5LC4
- SRxzc4Rokh8nusRJYNWmqIMhi0C8LZRgIWhvdTDDlhCcGx9rp2DdqRqKU6Qw5eTKdP7W
- am5DIljN4DesIUvx5/1NLnX9tIXiHR/4LFlLLoD2vz1m3EtXCe4grUlpD3EPY1u5U0VP
- wlclE8zZ0P1V2ej8f5+oLySHhBJ630ymvzDRvvNfZ52zmZ1ghkoP91HodaPQTCK8YCSY
- WDO7h0QGBN8BBBYCQ7o9z5vxGXzxmlqhcCOGAjq35fBkPQQxw1avLeGC+/V0NLbTk45e
- wtXw==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=VnRrTW3iGig/ggPghs2YbedWPo4sAh+z8/H1kIlc/90=;
+ b=S9cqplu57uPjc9TwISqkYBDVNbqlEXj1H3L/o4IwE2LwarAEuJgsEVEvf9kEqzwdQV
+ FvpMXh+OKLddDJh9Pbj9WFrGCOwJ0c1Xw1onZ6Z/FGpXUMxQk5otIyFm2MwN499Nbbp4
+ 3YfQyrHsEhj46/VAi32fnRj3S4WE3qn1U48uq/3AlyQpkQR4plt0tzCuP/fMFpsKaDes
+ SzgSoaUUzkkyO1W/0/XkWbj/QdWhvXHlJoKrD5ETXZg5+wlW8U341iGAEZhzVOehYoUI
+ gp00RGorOdkE0wYlILnOyVXqWcdblTvg42OpWs83a3JhzsRgFJuQN5C+xMHiJeVapYKh
+ EaSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=Dzn6bbjQsf07UeYtFEwaiJ6G9AhdxcgIe+3DtUs/qPQ=;
- b=YIF8RY3aQFtLoo+HXfc4GNQ5ca2glJM90w4YVYDNSoVHZCyMfp6pjsqWNQC4g7rS0g
- Lo8AVcuhG0cz2LgosGIcW5gONgo5iOVxA110vSzX+gzuNs5XKYNRKGlGmKgPF3vrTON0
- T3OtnIZlKoL9k+Z33uHbkqo2Zo1HNM8dVDLGs/BI1A/tqI2WPIbvh+f1HCe0Vm6mJKc9
- RZAzk0ZmA5/6oAzdIQr11SHWsb7oy3l8DHyfrdvPjfPCMoH/Beq9F2YHsf/7B5ZO/9/v
- Hty77c3cAL+YsLVwKZpC9Ti3vL8yA5ICo9rJAxL0dZSbJVS0fyTrRyg7mreCsSl84P78
- 8LBA==
-X-Gm-Message-State: AElRT7E3FbGj0sss21Xytoh3u+/fZD/4R3MLZUDM9G2cyqXyZqIXvmSE
- ANS3QAnKwGvaTr/m7O/ErRBfmM9KIEtJUB/vHxKXyw==
-X-Google-Smtp-Source: AG47ELs2E0nVj3qQt75Kyk2BEd9RKMrCz5yVhtKdNpRzEYskgnaCj0LdLosMZXcYfLVnQf2ChWiuKXKh0+OZpJ0lZGE=
-X-Received: by 2002:a24:7d86:: with SMTP id
- b128-v6mr13225142itc.80.1521488088426; 
- Mon, 19 Mar 2018 12:34:48 -0700 (PDT)
+ bh=VnRrTW3iGig/ggPghs2YbedWPo4sAh+z8/H1kIlc/90=;
+ b=i51bOJfeMpfcGukeW5tJG3sGYt7u4skNNq739V3FRIPjb6GSE26RLIClesiws6eziL
+ COMt1l6Ka+9imbu4OT+QcLGPdB8Pan/sGWy4fDSwd1+8P4WPP/zzQEfyCsk6ot9ko0+f
+ yd+UwLeGWPvAhWUyQtzQ3sBVcSHnfeut5qsO0EMBoYdjnpGitWdVcubiICXYm8URv5sK
+ uP/ct3vTAbcsaBog6HHsSAqSfWP8aRCIzuNwfIL1nE2oJk2oxn7JRYmbG3GNQkElhUYO
+ 2DEDC9AyJtIH7wLRpWc3GvfJl3BQiIs+Xy5f3Pid5UPbdoF+QTRfFAirSN2OvcSe/zmM
+ eMpQ==
+X-Gm-Message-State: AElRT7FL9pN/d7X5580zr7KtCW2wwujbBok4u34WyelQxQDIcJ0nl5ZO
+ 2+ZPP5HPr/mdfYZdZaBOGyDmscKkjV1c6gPRLYbAsQ==
+X-Google-Smtp-Source: AG47ELt//LScgY07eBwfsjFfUPBCoHlc4s7CIxXMYWZVkgth2rc7xN+ukpw9yVjUD8mQWGPaz/YMx+Cmf1pW3Xry5BM=
+X-Received: by 10.200.23.213 with SMTP id r21mr19749947qtk.314.1521488146463; 
+ Mon, 19 Mar 2018 12:35:46 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 10.237.60.15 with HTTP; Mon, 19 Mar 2018 12:35:25 -0700 (PDT)
+In-Reply-To: <CAJoAoZ=g9p75Y32NeVbhL8CamLbkAinqW9sDa+PVO_3f0DdfBw@mail.gmail.com>
 References: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
  <eb3ad4a5-d261-adaa-1782-b7cf77fc7267@linux.vnet.ibm.com>
  <CAJoAoZnqH=C6Nd-XLtZE=4+AcfFQg53B0GYeTWM_03KJCQEo1w@mail.gmail.com>
@@ -50,16 +51,17 @@ References: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
  <CAJoAoZko_Y3iJp07VBJ72E+OEq8TwXXnO5XxuqEnTPw2=EqGJw@mail.gmail.com>
  <1c20052d-f274-f821-4a68-591517f62537@linux.vnet.ibm.com>
  <CAJoAoZ=g9p75Y32NeVbhL8CamLbkAinqW9sDa+PVO_3f0DdfBw@mail.gmail.com>
-In-Reply-To: <CAJoAoZ=g9p75Y32NeVbhL8CamLbkAinqW9sDa+PVO_3f0DdfBw@mail.gmail.com>
-From: Kun Yi <kunyi@google.com>
-Date: Mon, 19 Mar 2018 19:34:22 +0000
-Message-ID: <CAGMNF6XP7Pq4A=cxPps9K7OYHEnFE2Ge2u-7nOpng5kwzZWMhQ@mail.gmail.com>
+From: Rob Lippert <rlippert@google.com>
+Date: Mon, 19 Mar 2018 12:35:25 -0700
+Message-ID: <CAFRv3wzUsEFx7ZTkZoGaMa+AfoSXCnjqAmXhRytqA9A7kUPMfA@mail.gmail.com>
 Subject: Re: IPMI SOL performance
 To: Emily Shaffer <emilyshaffer@google.com>
-Cc: tomjose@linux.vnet.ibm.com, stewart@linux.vnet.ibm.com, 
- vernon.mauery@linux.intel.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- bradleyb@us.ibm.com
-Content-Type: multipart/alternative; boundary="0000000000000b33dc0567c90d7b"
+Cc: Tom Joseph <tomjose@linux.vnet.ibm.com>,
+ Stewart Smith <stewart@linux.vnet.ibm.com>, 
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Bradley W Bishop <bradleyb@us.ibm.com>, jk@ozlabs.org
+Content-Type: multipart/alternative; boundary="94eb2c04f022808a790567c910d1"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,17 +73,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Mar 2018 19:34:55 -0000
+X-List-Received-Date: Mon, 19 Mar 2018 19:35:50 -0000
 
---0000000000000b33dc0567c90d7b
+--94eb2c04f022808a790567c910d1
 Content-Type: text/plain; charset="UTF-8"
 
-SOL performance issue aside, there is also an IPMI command for selecting
-the boot device. Is that command currently supported in the client in any
-way? That might be a more reliable solution than relying on console alone.
+Another related issue: https://github.com/openbmc/obmc-console/issues/10
 
+We've worked around this problem internally with that patch mentioned in
+the issue but this has the side effect of making the SSH-based console
+output just as slowly as the real UART (115200 bps).
+The obmc console server can provide "pushback" to the host console by not
+draining the host virtual UART until all clients have consumed/ack'ed the
+data but I'm not sure this is implemented yet.
+But this will make your boot really slow so is a bit of a tradeoff.  Also
+some BIOS/firmware I've seen has timeouts on how long it will wait for the
+serial port FIFO to become available which can result in dropped characters
+if your clients are really slow.
 
-On Mon, Mar 19, 2018 at 12:21 PM Emily Shaffer <emilyshaffer@google.com>
+-Rob
+
+On Mon, Mar 19, 2018 at 12:08 PM, Emily Shaffer <emilyshaffer@google.com>
 wrote:
 
 >
@@ -153,33 +165,38 @@ wrote:
 >
 >
 
-
--- 
-Regards,
-Kun
-
---0000000000000b33dc0567c90d7b
+--94eb2c04f022808a790567c910d1
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">SOL performance issue aside, there is also an IPMI command=
- for selecting the boot device. Is that command currently supported in the =
-client in any way? That might be a more reliable solution than relying on c=
-onsole alone.</div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On M=
-on, Mar 19, 2018 at 12:21 PM Emily Shaffer &lt;<a href=3D"mailto:emilyshaff=
-er@google.com">emilyshaffer@google.com</a>&gt; wrote:<br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid=
-;padding-left:1ex"><div dir=3D"ltr"><br><br><div class=3D"gmail_quote"><div=
- dir=3D"ltr">On Mon, Mar 19, 2018 at 12:04 PM Tom Joseph &lt;<a href=3D"mai=
-lto:tomjose@linux.vnet.ibm.com" target=3D"_blank">tomjose@linux.vnet.ibm.co=
-m</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div text=3D"#0000=
-00" bgcolor=3D"#FFFFFF">
+<div dir=3D"ltr">Another related issue:=C2=A0<a href=3D"https://github.com/=
+openbmc/obmc-console/issues/10">https://github.com/openbmc/obmc-console/iss=
+ues/10</a><div><br></div><div>We&#39;ve worked around this problem internal=
+ly with that patch mentioned in the issue but this has the side effect of m=
+aking the SSH-based console output just as slowly as the real UART (115200 =
+bps).</div><div>The obmc console server can provide &quot;pushback&quot; to=
+ the host console by not draining the host virtual UART until all clients h=
+ave consumed/ack&#39;ed the data but I&#39;m not sure this is implemented y=
+et.</div><div>But this will make your boot really slow so is a bit of a tra=
+deoff.=C2=A0 Also some BIOS/firmware I&#39;ve seen has timeouts on how long=
+ it will wait for the serial port FIFO to become available which can result=
+ in dropped characters if your clients are really slow.</div><div><br></div=
+><div>-Rob</div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_qu=
+ote">On Mon, Mar 19, 2018 at 12:08 PM, Emily Shaffer <span dir=3D"ltr">&lt;=
+<a href=3D"mailto:emilyshaffer@google.com" target=3D"_blank">emilyshaffer@g=
+oogle.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=
+=3D"ltr"><br><br><div class=3D"gmail_quote"><div><div class=3D"h5"><div dir=
+=3D"ltr">On Mon, Mar 19, 2018 at 12:04 PM Tom Joseph &lt;<a href=3D"mailto:=
+tomjose@linux.vnet.ibm.com" target=3D"_blank">tomjose@linux.vnet.ibm.com</a=
+>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
+ 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div text=3D"#000000" =
+bgcolor=3D"#FFFFFF">
     <p><br>
     </p>
     <br>
-    <div class=3D"m_8665263374856410713m_-7501088321281929050moz-cite-prefi=
-x">On Tuesday 20 March 2018 12:17 AM,
+    <div class=3D"m_-6351343453046240934m_-7501088321281929050moz-cite-pref=
+ix">On Tuesday 20 March 2018 12:17 AM,
       Emily Shaffer wrote:<br>
     </div>
     <blockquote type=3D"cite">
@@ -257,17 +274,15 @@ div>
     I haven&#39;t tried this option, the OEM option is to bump the accepted
     character count field. It will need changes on the clients (like
     ipmitool).<br>
-    <br></div></blockquote><div>I don&#39;t know that this is the right app=
-roach, as it would break anybody trying to use OpenBMC with their own copy =
-of ipmitool.=C2=A0 I&#39;d rather see an entirely separate OEM command that=
- we can tailor to our needs (for example, if we are expecting ACK/NACK with=
- SOL in the form of another IPMI command, does it make more sense to just u=
-se TCP in an OEM command instead), either leaving the slow per-spec approac=
-h up as best-effort, or adding some warning to anyone trying to use it that=
- we&#39;ve added an improved OEM command.=C2=A0 Just my two cents...</div><=
-div>=C2=A0</div></div></div>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"l=
-tr">Regards,<div>Kun</div></div></div>
+    <br></div></blockquote></div></div><div>I don&#39;t know that this is t=
+he right approach, as it would break anybody trying to use OpenBMC with the=
+ir own copy of ipmitool.=C2=A0 I&#39;d rather see an entirely separate OEM =
+command that we can tailor to our needs (for example, if we are expecting A=
+CK/NACK with SOL in the form of another IPMI command, does it make more sen=
+se to just use TCP in an OEM command instead), either leaving the slow per-=
+spec approach up as best-effort, or adding some warning to anyone trying to=
+ use it that we&#39;ve added an improved OEM command.=C2=A0 Just my two cen=
+ts...</div><div>=C2=A0</div></div></div>
+</blockquote></div><br></div>
 
---0000000000000b33dc0567c90d7b--
+--94eb2c04f022808a790567c910d1--
