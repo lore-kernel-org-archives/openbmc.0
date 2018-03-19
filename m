@@ -1,67 +1,67 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="kCpmfh+p"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QTLJp7Aw"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="YNXlqNPB"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="QGbgBknW"; 
  dkim-atps=neutral
-Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
- [IPv6:2607:f8b0:400d:c0d::241])
+Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
+ [IPv6:2607:f8b0:400d:c0d::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 404KZp4PrfzF1bf
- for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 13:22:09 +1100 (AEDT)
-Received: by mail-qt0-x241.google.com with SMTP id a23so16524422qtm.4
- for <openbmc@lists.ozlabs.org>; Sun, 18 Mar 2018 19:22:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 404KbM1gM4zF1dp
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 13:22:39 +1100 (AEDT)
+Received: by mail-qt0-x242.google.com with SMTP id h4so10718051qtn.13
+ for <openbmc@lists.ozlabs.org>; Sun, 18 Mar 2018 19:22:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=4z1K+ynhXQv6e8lSikQGeuZJCCEWfIXy1E1JucYxlDY=;
- b=kCpmfh+pd9GgZqfFufBANU8K+ooJqRDhNY+ltqNVnYmJOgYbb7PdDj5nD4T2EEe5JS
- NOaQyghMcFgHOqnj4JgfeKT4u9oKHAsmCz40HEo+6zxFSjcnVPjaHjaw32oh3nGG/PDn
- 08dgl9kSqvvvcjwCXWmY1BVhyGMSepW3RX/qw6PkthGTUM5/fXY68a7N7rdc40NWJa/W
- m7Y89VJsZdXLk+1MC5hDoMdHR5WrQ0YCFDycalpOBMqnuntVofpL7K/n+a1FFqU9eeNW
- wLiMpCsQkIIsO2RIGmNK+chQ7ZkBh/rkMYEk4zdcFM/EGftC0/OxImqngzhFbcqvps2G
- uu4g==
+ bh=6+xmZNelnyGXAFsPYMhOcOXrWpVWMdgJKEq0ueXp3+U=;
+ b=QTLJp7AwFZwUFlUOdPSpj+zyAWCixF6UG6une9oTLklpTjq0byvagLAz6FpqVn99yZ
+ VNZEC9b0q/SbCg3nsJlfFWNmX3SMoW2aYQMyq8k3yOpB6rMKUq2RmcIP9Mz03nzO0LsO
+ SWGR5nlZ0TSt6oisuwGg2C8nNHU9GxXiDSyHyLC7wbBkeR/Ec3MdN81p5VWGYxsSlT6L
+ znFy0DixJbI9OjMv/uN3y2Z1GSJA9R23GCZWU3l1ZDu+7vmPbYgK23XPVlQVhKDxlYsF
+ ta4bICETTdLdeywsvXI7Y6fN9Ke/meuC8y0Jxu8NIn4OJNJAzGKTXd9Z2BoUimC3cbPb
+ I6xA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=4z1K+ynhXQv6e8lSikQGeuZJCCEWfIXy1E1JucYxlDY=;
- b=YNXlqNPB4U2gMbtfRj+4lj36uB8poJ4jGrdjS15eTw9Ed+aMbHQYdbZCIeBmYOi7yL
- cpZNnjTpND6OKnAj/pl9QFN18fx464CRS9J1IWlNFl9KN/d7LhEi1dya0Hc1qZLMiWOG
- sDBAmlvoD4sXSVZiczgAGnpnEb1FpOoQ8+1bg=
+ bh=6+xmZNelnyGXAFsPYMhOcOXrWpVWMdgJKEq0ueXp3+U=;
+ b=QGbgBknWdZ6iaQvzys1ravLXWr800ODyM4AYyoneGrXec+0U0T9zgev3NFY+qzQCVx
+ 72pzRK1NF3/T4SzdEMd0q/A+bGTZps7X36TRN2BLsKkNAu4Lj9DK2tckBsYtZBq1caAg
+ Gg8C6bDsen4UXavdtG8VI09FuXEPiOANJa4GQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=4z1K+ynhXQv6e8lSikQGeuZJCCEWfIXy1E1JucYxlDY=;
- b=jiXz7cabYPEkM4xrELFck9XcWQ13EZXp2rmmsrdP5vLLo5+8X61vo9djhJmZG53WzV
- bbK5VEkKCkrjRi+Ws2Qvqx08LAxK4eqAFIwtKnZEGK4wL8cePwR/hOg4NG/JCmBwM82v
- dsTJGoN2uVD7Rx8A3J/3qw84xwwcqX/ihnvjyY+LersazLaEqf087T7ytK/k2icsyoKz
- jm+T8IjT3qwXTFRtdUQZzi9M5wTg61eyof3/iMyEEsNlROcEYvsvDd6ChzE4R44MGdaY
- W4dRx5dEGtfJN4oOFLPVPHf/Fao1pKiEqiZDT7WG6tDGzDQNQw2nRQOAiIv/UUxB64ao
- 6Tig==
-X-Gm-Message-State: AElRT7G2CkbgAB/s3e4vFt3evabHBU7QtCJs+Hjn2E62EQWjo1Xi70u2
- pgdsHpkqzDoNHRNqdiG4NIXIseojQgSQx2jYlZo=
-X-Google-Smtp-Source: AG47ELsUdrR7epvFWMDm2XIIAHZWh9uISTNEgx6WDNGnMdBqnunhjxguZOeifp8I6ZoeHhtFUHnQG2rRtw1lnvaxy60=
-X-Received: by 10.200.57.132 with SMTP id v4mr15459373qte.204.1521426127268;
- Sun, 18 Mar 2018 19:22:07 -0700 (PDT)
+ bh=6+xmZNelnyGXAFsPYMhOcOXrWpVWMdgJKEq0ueXp3+U=;
+ b=B7PiMTSZ1kaQQ9R6ng3YYwmLD5OHmVp+hjEUS68Y+SbWuL0bxkuuQJi4lAH4XqQ8DH
+ YYAS6hEkGoVAksBud8zB6u4qfM2qYrc0G00VHFNUP/TM/ZwEtVVNhloqXtgyWcYg4Xdj
+ 4eL/4H73H8IiYq+zHd/fo7YE3okZjdTCHtsaGH2iY1npk+u5YivNW7HmOG/K+X3wb4AW
+ l86hJkrpno5hO47qrBwcVlsiLephQHr7LEf8ijS0Xiq98LukoG7/XJ6NSLq/uAQ2wuJu
+ EzJe2CZrj520kBitDJ2ydrtm0WGF4X2r3UN0ZSqDoPb870qBF4Hkey1B9Cytlt8tqCH4
+ DIIQ==
+X-Gm-Message-State: AElRT7H9RVncboCzcWmWhiT/dpLh7ym8AWO6FLrZ9Cbh2jtvMavndUMB
+ GQFua8HwJmiOj4/7C2HOEfK5QYkoxZZzZ9i+yzKB0B/f
+X-Google-Smtp-Source: AG47ELu2LIcma9p21ohCxyPw7MMaJSajWqBpFeLzVwjYCIvsQRVpUAWZzOe/jz9jHsU/XDV+hQaNhvri96GN+GZdR2Q=
+X-Received: by 10.237.36.74 with SMTP id s10mr15615438qtc.23.1521426156791;
+ Sun, 18 Mar 2018 19:22:36 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.63.197 with HTTP; Sun, 18 Mar 2018 19:21:46 -0700 (PDT)
-In-Reply-To: <1521128897-13172-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1521128897-13172-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.200.63.197 with HTTP; Sun, 18 Mar 2018 19:22:16 -0700 (PDT)
+In-Reply-To: <1520975208-6406-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1520975208-6406-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 19 Mar 2018 12:51:46 +1030
-X-Google-Sender-Auth: b65ylGF7WtCmdPuGyGuFXAIXcpo
-Message-ID: <CACPK8Xe0Gfnaj-4MmTHCW8XsQ3FwT2UyXwxuJSLJpOG8retUtg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13] watchdog: aspeed: Clear secondary boot
- flag before restart
+Date: Mon, 19 Mar 2018 12:52:16 +1030
+X-Google-Sender-Auth: DCzY__EsYPszu6CK748BwTYcEW8
+Message-ID: <CACPK8XfhcXoFh7u3Jw+ia9b+d5gDEp-jV1vcFHQdywzd5NqYig@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 v2 0/2] hwmon: (ucd9000) Add gpio and
+ debugfs interfaces
 To: Eddie James <eajames@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -76,40 +76,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Mar 2018 02:22:12 -0000
+X-List-Received-Date: Mon, 19 Mar 2018 02:22:39 -0000
 
-On Fri, Mar 16, 2018 at 2:18 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> If a watchdog device is configured to boot from the secondary boot
-> source upon timeout, and that watchdog is used as the restart device,
-> then the system will switch chips on every reboot. This is not desired.
-> Clear the secondary boot bit from the watchdog control register before
-> restarting the system.
+On Wed, Mar 14, 2018 at 7:36 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> The ucd9000 series chips have gpio pins. Add a gpio chip interface to the ucd
+> device so that users can query and set the state of the gpio pins.
 >
-> Fixes: 30e055280e3a ("watchdog: aspeed: Allow configuring for alternate boot")
-> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+> Add a debugfs interface using the existing pmbus debugfs directory to provide
+> MFR_STATUS and the status of the gpi faults to users.
+>
+> Christopher Bostic (2):
+>   hwmon: (ucd9000) Add gpio chip interface
+>   hwmon: (ucd9000) Add debugfs attributes to provide mfr_status
 
-Thanks, I merged in the upstream commit.
+Thanks, I merged in v7 of the upstream commit.
 
 Cheers,
 
 Joel
 
-> ---
->  drivers/watchdog/aspeed_wdt.c | 1 +
->  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-> index f41d246..a5b8eb2 100644
-> --- a/drivers/watchdog/aspeed_wdt.c
-> +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -159,6 +159,7 @@ static int aspeed_wdt_restart(struct watchdog_device *wdd,
->  {
->         struct aspeed_wdt *wdt = to_aspeed_wdt(wdd);
+>  drivers/hwmon/pmbus/ucd9000.c | 341 +++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 340 insertions(+), 1 deletion(-)
 >
-> +       wdt->ctrl &= ~WDT_CTRL_BOOT_SECONDARY;
->         aspeed_wdt_enable(wdt, 128 * WDT_RATE_1MHZ / 1000);
->
->         mdelay(1000);
 > --
 > 1.8.3.1
 >
