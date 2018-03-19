@@ -1,62 +1,73 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <hegdevasant@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Kt35Hx0T"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="j/oAsOvh"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=hegdevasant@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 404N0g3jJDzF0n6
- for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 15:11:14 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1E70B20A7F;
- Mon, 19 Mar 2018 00:11:09 -0400 (EDT)
-Received: from web5 ([10.202.2.215])
- by compute4.internal (MEProxy); Mon, 19 Mar 2018 00:11:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=fG51HhHtr/MZBavp+qhQPQCQQW9UC
- pCiy7wbFT8KA48=; b=Kt35Hx0TajvZKIt0SAovW9DKFuJDtZqDL5Z2EcbahWyYO
- UUpAX57T9F8pW6vS2AtU7aDIlkvb3leYQTUqP0DWmLkM81AOKItFAOicZbEmITxq
- VlbLqQA/x1BPFdOqIwiarleywolnNtpuk73kY6jrZqkY2PfUfSAVaEAX/06WV1xr
- kgJCPyF+IMedikoKaTuUCFKNvBJwl4LqGPNjAz0NaaiXuMF4aqr87whmkzX3S/5g
- h6BGEZByuVmvTUAx53wke2qqf5rv6LRiuFc30QsCt/G8cOmuXotnrkslaPRM7Bun
- liRq8ZCBEnKCo5Qm/4MYUJIVXkN49R0VXCkawMBdw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=fG51Hh
- Htr/MZBavp+qhQPQCQQW9UCpCiy7wbFT8KA48=; b=j/oAsOvhLbLdBg2NJf2Sxy
- 0HkadPFtOfPMIi1O2uSxMSYUH5l5w5AFqqvfq7kte4OzN/LDipYOJsJVqdpxsDV/
- G6pN+Gi7tSVb78E6lPGOSgr0V2M+NMmaik/lP4Wr+0kBQXfADt3czrAn+WKlSuwF
- n4mHkhS9ru3fQ/Uktry1T5yWkTiyR9nI9fP3yXSD6YDJ/FyvWQMELyhmywwo0I2Z
- d+guDQT1sOMaaZk7L/VGPBYFBOfwTFKZ/mfiSTG6cYayEK1cxGNxBS9aZs4+dIbV
- vHt6OiAKy59MUltXmzhFsvpZm3BUl3uJIPb2zamXCZZqFluDAuUbhqSOsCHv8whA
- ==
-X-ME-Sender: <xms:XTivWoUob59b2CeYtwRDABnKLreJ6qfy9qcZSxcpavIvgjutMbXnMg>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id D236E9E083; Mon, 19 Mar 2018 00:11:08 -0400 (EDT)
-Message-Id: <1521432668.4081064.1307719072.6699222C@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Amithash Prasad <amithash@fb.com>, openbmc@lists.ozlabs.org, joel@jms.id.au
+ by lists.ozlabs.org (Postfix) with ESMTPS id 404QjN4jvjzF1ct
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 17:13:11 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2J69HF5047754
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 02:13:09 -0400
+Received: from e06smtp14.uk.ibm.com (e06smtp14.uk.ibm.com [195.75.94.110])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2gt1qfhyw4-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 02:13:08 -0400
+Received: from localhost
+ by e06smtp14.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <hegdevasant@linux.vnet.ibm.com>;
+ Mon, 19 Mar 2018 06:13:05 -0000
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp14.uk.ibm.com (192.168.101.144) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Mon, 19 Mar 2018 06:13:04 -0000
+Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w2J6D3JH55771206; Mon, 19 Mar 2018 06:13:03 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 584D842054;
+ Mon, 19 Mar 2018 06:05:13 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DE3994203F;
+ Mon, 19 Mar 2018 06:05:11 +0000 (GMT)
+Received: from [9.109.198.195] (unknown [9.109.198.195])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Mon, 19 Mar 2018 06:05:11 +0000 (GMT)
+Subject: Re: Parse PELs sent by OpenPOWER host firmware
+To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, geissonator@gmail.com,
+ anoo@linux.vnet.ibm.com, stewart@linux.vnet.ibm.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <2815fac8-3a1f-d2ed-3c3d-ca7072de9db2@linux.vnet.ibm.com>
+From: Vasant Hegde <hegdevasant@linux.vnet.ibm.com>
+Date: Mon, 19 Mar 2018 11:43:01 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
+In-Reply-To: <2815fac8-3a1f-d2ed-3c3d-ca7072de9db2@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-5ce6c4ba
-Date: Mon, 19 Mar 2018 14:41:08 +1030
-References: <20180313230415.1902364-1-amithash@fb.com>
-In-Reply-To: <20180313230415.1902364-1-amithash@fb.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add Portwell Neptune
- machine
+X-TM-AS-GCONF: 00
+x-cbid: 18031906-0016-0000-0000-00000534A97C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18031906-0017-0000-0000-00002871BF31
+Message-Id: <57a7cfab-2338-552a-1482-88b5bc68a7b4@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-19_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803190079
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,230 +79,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Mar 2018 04:11:17 -0000
+X-List-Received-Date: Mon, 19 Mar 2018 06:13:13 -0000
 
-Hi Amithash,
-
-I have some pinmux-related comments inline below.
-
-On Wed, 14 Mar 2018, at 09:34, Amithash Prasad wrote:
-> Initial introduction of Portwell Neptune family equipped with
-> Aspeed 2500 BMC SoC. This adds the neptune platform device tree
-> file including the flash layout used by the neptune machines.
+On 03/13/2018 07:09 PM, Deepak Kodihalli wrote:
+> Hi,
 > 
-> Signed-off-by: Amithash Prasad <amithash@fb.com>
-> ---
->  .../devicetree/bindings/vendor-prefixes.txt        |   1 +
->  arch/arm/boot/dts/Makefile                         |   1 +
->  arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 145 +++++++++++++++++++++
->  3 files changed, 147 insertions(+)
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+> The SELs/eSELs (System Event Log) that OpenBMC receives from hostboot/skiboot 
+> today are not interpreted, and are dumped as-is in a property of the error log 
+> D-Bus object. This means that if there's a PEL (Platform Event Log) hidden in 
+> the eSEL, admins/users of the error log need to depend on external tools to 
+> parse the PEL to human readable text.
+
+Yes.  We are having hard time with this. Any improvement is welcome.
+
+
 > 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/
-> Documentation/devicetree/bindings/vendor-prefixes.txt
-> index 84601d8..9dbbe7d 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
-> @@ -228,6 +228,7 @@ pine64	Pine64
->  pixcir  PIXCIR MICROELECTRONICS Co., Ltd
->  plathome	Plat'Home Co., Ltd.
->  plda	PLDA
-> +portwell	Portwell Inc.
->  powervr	PowerVR (deprecated, use img)
->  pulsedlight	PulsedLight, Inc
->  qca	Qualcomm Atheros, Inc.
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index 7c54fc8..044b960 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -993,6 +993,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-
-> palmetto.dtb \
->  	aspeed-bmc-mellanox-msn.dtb \
->  	aspeed-bmc-quanta-q71l.dtb \
->  	aspeed-bmc-intel-s2600wf.dtb \
-> +	aspeed-bmc-portwell-neptune.dtb \
->  	aspeed-ast2500-evb.dtb
->  endif
->  
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/
-> arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-> new file mode 100644
-> index 0000000..542a4cad
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-> @@ -0,0 +1,145 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2017 Facebook Inc.
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +
-> +/ {
-> +	model = "Portwell Neptune BMC";
-> +	compatible = "portwell,neptune-bmc", "aspeed,ast2500";
-> +	aliases {
-> +		serial0 = &uart1;
-> +		serial4 = &uart5;
-> +	};
-> +	chosen {
-> +		stdout-path = &uart5;
-> +		bootargs = "console=ttyS4,115200 earlyprintk";
-> +	};
-> +
-> +	memory {
-> +		reg = <0x80000000 0x20000000>;
-> +	};
-> +
-> +	leds {
-> +		compatible = "gpio-leds";
-> +		postcode0 {
-> +			label="BMC_UP";
-> +			gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
-> +			default-state = "on";
-> +		};
-> +		postcode1 {
-> +			label="BMC_HB";
-> +			gpios = <&gpio ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
-> +			linux,default-trigger = "heartbeat";
-> +		};
-> +		postcode2 {
-> +			label="FAULT";
-> +			gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
-> +		};
-> +		// postcode3-7 are GPIOH3-H7
-> +	};
-> +};
-> +
-> +&wdt2 {
-> +	status = "okay";
-
-If you're doing anything with the watchdog reset lines you'll need to mux the WDTRST2 function. Obviously if not then you don't need to worry.
-
-> +};
-> +
-> +&fmc {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +#include "openbmc-flash-layout.dtsi"
-> +	};
-> +};
-> +
-> +&spi1 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_spi1_default>;
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +		label = "pnor";
-> +	};
-> +};
-> +
-> +&uart1 {
-> +	// Host Console
-> +	status = "okay";
-
-You'll need something like the following here:
-
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_txd1_default
-			&pinctrl_rxd1_default
-			&pinctrl_nrts1_default
-			&pinctrl_ndtr1_default
-			&pinctrl_ndsr1_default
-			&pinctrl_ncts1_default
-			&pinctrl_ndcd1_default
-			&pinctrl_nri1_default>;
-
-It depends on how you've wired up your UART to the connector as to how many of those pins you'll want to mux.
-
-> +};
-> +
-> +&uart5 {
-> +	// BMC Console
-> +	status = "okay";
-> +};
-> +
-> +&mac0 {
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rmii1_default>;
-> +	use-ncsi;
-> +};
-> +
-> +&i2c3 {
-> +	status = "okay";
-> +	// SMBus to COMe AB
-> +};
-> +
-> +&i2c4 {
-> +	status = "okay";
-> +	// I2C to COMe AB
-> +};
-> +
-> +&i2c5 {
-> +	status = "okay";
-> +	pca9555@4e {
-> +		compatible = "nxp,pca9555";
-> +		pinctrl-names = "default";
-
-I think you'll need to say what function you wish to mux here, unless this is some quirk of the pca9555. Certainly the example in the documentation has a pinctrl-0 = <...> property.
-
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +		reg = <0x27>;
-> +	};
-> +};
-> +
-> +&i2c6 {
-> +	status = "okay";
-> +	tpm@20 {
-> +		compatible = "infineon,slb9645tt";
-> +		reg = <0x20>;
-> +	};
-> +	tmp421@9c {
-> +		compatible = "ti,tmp421";
-> +		reg = <0x4e>;
-> +	};
-> +	tmp421@9e {
-> +		compatible = "ti,tmp421";
-> +		reg = <0x4f>;
-> +	};
-> +};
-> +
-> +&i2c8 {
-> +	status = "okay";
-> +	eeprom@a2 {
-> +		compatible = "atmel,24c128";
-> +		reg = <0x51>;
-> +		pagesize = <0x32>;
-> +	};
-> +};
-> +
-> +&pwm_tacho {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-> +	fan@0 {
-> +		reg = <0x00>;
-> +		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +	};
-> +
-> +	fan@1 {
-> +		reg = <0x01>;
-> +		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> +	};
-> +};
-> -- 
-> 2.9.5
+> Here's a proposal to have the BMC itself parse such eSELs (the motivation is to 
+> make the OpenBMC error logs more useful in this context, without needing the 
+> extra steps to parse such errors) :
 > 
+> - Separate this from phosphor-logging. This code can't go to a phosphor app, 
+> because it's OpenPOWER specific. Have, for example, an openpower-logging app 
+> implement a D-Bus interface to parse out a PEL from an eSEL. This app will host 
+> it's own D-Bus service.
+> 
+> - Such an app can watch for error D-Bus objects being created in the phosphor 
+> namespace. If it finds an eSEL in an error log, it can attempt to parse a PEL 
+> (if there's one), and store the PELs parsed text representation in a D-Bus 
+> property.
+> 
+> - The app can create a D-Bus object with the same path as the original object 
+> and have a D-Bus object-manager at the error log root path, so that when someone 
+> uses the OpenBMC REST API to read an error log, properties across all D-Bus 
+> services will be returned (phosphor-rest-server does this today already). This 
+> means with the existing REST API to enumerate error logs, a parsed PEL would be 
+> returned, if present.
+> 
+> - To parse the PEL, use opal-elog-parse.
 
-Looks okay otherwise.
++1. I think it has capability to detect eSEL wrapper as well. It should just 
+work fine.
 
-Cheers,
-
-Andrew
+-Vasant
