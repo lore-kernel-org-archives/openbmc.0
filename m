@@ -1,76 +1,55 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::22f; helo=mail-ua0-x22f.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="dT4BmNpl"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x22f.google.com (mail-ua0-x22f.google.com
+ [IPv6:2607:f8b0:400c:c08::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 404hKx3XPdzF1kC
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 03:27:16 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2JGPXK4012070
- for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 12:27:14 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2gtern65hg-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 12:27:13 -0400
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Mon, 19 Mar 2018 12:27:13 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 19 Mar 2018 12:27:10 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w2JGRAVo50462808; Mon, 19 Mar 2018 16:27:10 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0F02412403F;
- Mon, 19 Mar 2018 13:29:20 -0400 (EDT)
-Received: from birb.localdomain (unknown [9.85.174.149])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id CBF6A124035;
- Mon, 19 Mar 2018 13:29:19 -0400 (EDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 90C814EC62A; Mon, 19 Mar 2018 09:27:07 -0700 (PDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Emily Shaffer <emilyshaffer@google.com>,
- Tom Joseph <tomjose@linux.vnet.ibm.com>, Jeremy Kerr <jk@ozlabs.org>
-Cc: Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Bradley W Bishop <bradleyb@us.ibm.com>
-Subject: Re: IPMI SOL performance
-In-Reply-To: <CAJoAoZnqH=C6Nd-XLtZE=4+AcfFQg53B0GYeTWM_03KJCQEo1w@mail.gmail.com>
-References: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
- <eb3ad4a5-d261-adaa-1782-b7cf77fc7267@linux.vnet.ibm.com>
- <CAJoAoZnqH=C6Nd-XLtZE=4+AcfFQg53B0GYeTWM_03KJCQEo1w@mail.gmail.com>
-Date: Mon, 19 Mar 2018 09:27:07 -0700
+ by lists.ozlabs.org (Postfix) with ESMTPS id 404jKZ3hKwzF1Vc
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 04:12:01 +1100 (AEDT)
+Received: by mail-ua0-x22f.google.com with SMTP id d1so11376875ual.13
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 10:12:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=NpNAcKUFVzlD/7y6RHhjDpS3IsDB8DyJ9nIW+zU3srs=;
+ b=dT4BmNplqZHnumf3Gcb1IhIovXOTQEdBraT+n8GSx8XWbAphBe4ofGU5nLIKsjDI+s
+ Gj8oj+aA6z+yw965fh+Bj/rq1Gv2JxkjqzWMfg8zHQnizBvtgOSxdNETjYvhICTiNNIr
+ dnKG9etmFTZNO+UgiTP/lORzZReXoWsqYPkuIFZcJPeBpBhLsXHz222PGPelOtjqE2Kg
+ 8jB1ztmFgVnOwNwKVyCzV9yhhO1rwvLDNtYIGRDq/Xptllo5qc/a3vP0lejM1aHPVIdl
+ mhX5JRZbDBu+74OErT2oO2CKBOwF5cIlJC50kRnqRX1c2XIL6dxNCGLxKGh5gwYR2zd9
+ tUOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=NpNAcKUFVzlD/7y6RHhjDpS3IsDB8DyJ9nIW+zU3srs=;
+ b=N6eEss2RSDudrgTWoUYpZi2VCdAOmxzz4PCnVIqQbnPEklvTBnrW2DVtFec1DcF+wt
+ vkZSiAgzXdWQzSIYd2iW1HwHiaLNuAzKnoBngbNgEp7sMaUQrd2g034HjMTBXTTkXcny
+ xxG4MSOGRreRTrrCOUHK1wFi+vTpPKIfTI2/M2iZ3O6FukX+ADedyN4vRvA/qumkl3t1
+ P3o67J/nXVr0SZALacTjqQ1oobPvT+s8kBo1k+/2cx1uqvLtkI8M9kMUiSwqT0beOX3N
+ dRqaQ+WJ7BJP24V59IbrdEc4QyLwoQC5PSWAxuV4WWsVMWcwHTk4yuJ6Zp5EXXDYhCr4
+ DPbQ==
+X-Gm-Message-State: AElRT7FVO/i+Qm6cJDPPftn1+qnbnw8gQlxneYAyVVlTbGE6k22/pmRQ
+ JwYqgylV1mbLtOeWvHAiZaUdX2J+weDZhvLMsd7kvw==
+X-Google-Smtp-Source: AG47ELuyVLS7CAdTQuA6/mCgfe9qbZ44rOjewcRvvQ63zpd+y3UMI7Hei/PbGNAQOVMNoq1JAtkfp7bUav1zl5JqJhU=
+X-Received: by 10.176.79.229 with SMTP id t37mr8598777uah.70.1521479518719;
+ Mon, 19 Mar 2018 10:11:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18031916-0024-0000-0000-00000338F6CE
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008703; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.01005384; UDB=6.00511826; IPR=6.00784667; 
- MB=3.00020127; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-19 16:27:11
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18031916-0025-0000-0000-00004760A987
-Message-Id: <87y3iokp44.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-19_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803190184
+Received: by 10.31.58.79 with HTTP; Mon, 19 Mar 2018 10:11:38 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+Date: Mon, 19 Mar 2018 10:11:38 -0700
+Message-ID: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
+Subject: Sdbusplus-based Shared Library
+To: Ratan K Gupta <ratagupt@in.ibm.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -82,23 +61,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Mar 2018 16:27:18 -0000
+X-List-Received-Date: Mon, 19 Mar 2018 17:12:03 -0000
 
-Emily Shaffer <emilyshaffer@google.com> writes:
->> Is it a possibility to just increase the petitboot timeout? Do you have an
-> idea of how much we are missing it by?
+We have a lot of duplication across daemons using sdbusplus, and no
+new utility library.  To avoid every daemon having their own timer
+object, and their own this or that, I suggest we create this shared
+library.
 
-Worst case (may be different currently due to improvements in ipmi
-stack) was about 10-15 minutes.
+Thoughts?  We can start simple, just have a timer object in there, and
+then the new timers being introduced to phosphor-hwmon and
+phosphor-host-ipmid can be the first customers.
 
-We have different issues on the SSH console though, we can end up
-dropping chunks of console output under load (BMC CPU load or high
-console usage).
-
-I think Jeremy can relive the trauma of heading into the TTY layer, but
-I wonder if the solution here has something to do with having a
-end-to-end flow control story.
-
--- 
-Stewart Smith
-OPAL Architect, IBM.
+Patrick
