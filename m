@@ -1,57 +1,70 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.192.194; helo=mail-pf0-f194.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kernel.org
-Received: from mail-pf0-f194.google.com (mail-pf0-f194.google.com
- [209.85.192.194])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kCpmfh+p"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="YNXlqNPB"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 403zcZ2cFnzDqlT
- for <openbmc@lists.ozlabs.org>; Sun, 18 Mar 2018 23:52:29 +1100 (AEDT)
-Received: by mail-pf0-f194.google.com with SMTP id x1so5958220pfh.7
- for <openbmc@lists.ozlabs.org>; Sun, 18 Mar 2018 05:52:29 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 404KZp4PrfzF1bf
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 13:22:09 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id a23so16524422qtm.4
+ for <openbmc@lists.ozlabs.org>; Sun, 18 Mar 2018 19:22:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=4z1K+ynhXQv6e8lSikQGeuZJCCEWfIXy1E1JucYxlDY=;
+ b=kCpmfh+pd9GgZqfFufBANU8K+ooJqRDhNY+ltqNVnYmJOgYbb7PdDj5nD4T2EEe5JS
+ NOaQyghMcFgHOqnj4JgfeKT4u9oKHAsmCz40HEo+6zxFSjcnVPjaHjaw32oh3nGG/PDn
+ 08dgl9kSqvvvcjwCXWmY1BVhyGMSepW3RX/qw6PkthGTUM5/fXY68a7N7rdc40NWJa/W
+ m7Y89VJsZdXLk+1MC5hDoMdHR5WrQ0YCFDycalpOBMqnuntVofpL7K/n+a1FFqU9eeNW
+ wLiMpCsQkIIsO2RIGmNK+chQ7ZkBh/rkMYEk4zdcFM/EGftC0/OxImqngzhFbcqvps2G
+ uu4g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=4z1K+ynhXQv6e8lSikQGeuZJCCEWfIXy1E1JucYxlDY=;
+ b=YNXlqNPB4U2gMbtfRj+4lj36uB8poJ4jGrdjS15eTw9Ed+aMbHQYdbZCIeBmYOi7yL
+ cpZNnjTpND6OKnAj/pl9QFN18fx464CRS9J1IWlNFl9KN/d7LhEi1dya0Hc1qZLMiWOG
+ sDBAmlvoD4sXSVZiczgAGnpnEb1FpOoQ8+1bg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=bKRo04fsokIMHHWr2JemwABx4e+qhuZ8iULXDvWYMfI=;
- b=S9vIwDlQgKZ26K0P6J648JG8nlX5Q81B8B5pO8CNcmplTsgQsWsfKVb/kC5y90tmWa
- 09iz//FofHRS+j1QhIu4rqRbdaC9LPGm3hjo6Zh9TtY1yTEN4a0+cQ076bRLEMl1CGg7
- kSuqADj+MF/wBatQOxvG81u/fpEBRCyyoxXhn9kxdm26HcpNsXP2BG2xIqSJOiFF3C89
- Isa0PsbmsTmCanxrNEI/CIQRTGclIJUrcB+qiZAg3coFv+MqEuRyjj90CHk3jRAcbMBV
- nNkK4sVQ2n58JJ6ef6VbhLQYYJ0OaK+vLoQ0O3JKybcCvJegj9A5eAMFkUjhNSIVouER
- 0M4g==
-X-Gm-Message-State: AElRT7FUbZ6ETs6SWMBCG0bKm8J59VmQ453qGbkXJpglIMmyPFpfU0yY
- OQvLM5K0bvfZ9FZZYzN0cA==
-X-Google-Smtp-Source: AG47ELuwMRAK6eFvbNWycGvaafFvD3xIaVfAiw4OiekJhyUeCbSXZc+hh2HJQ8aeXBs51w8TaN9Bvg==
-X-Received: by 10.98.138.66 with SMTP id y63mr7203092pfd.12.1521377547504;
- Sun, 18 Mar 2018 05:52:27 -0700 (PDT)
-Received: from localhost (165084180235.ctinets.com. [165.84.180.235])
- by smtp.gmail.com with ESMTPSA id z28sm15102915pgc.15.2018.03.18.05.52.26
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 18 Mar 2018 05:52:27 -0700 (PDT)
-Date: Sun, 18 Mar 2018 07:52:25 -0500
-From: Rob Herring <robh@kernel.org>
-To: Tali Perry <tali.perry1@gmail.com>
-Cc: brendanhiggins@google.com, mark.rutland@arm.com, linux@armlinux.org.uk,
- avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com,
- mturquette@baylibre.com, sboyd@codeaurora.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-clk@vger.kernel.org
-Subject: Re: [PATCH v11 1/2] clk: npcm750: Add binding for Nuvoton NPCM7XX
- clock\n
-Message-ID: <20180318125225.sp7ppfumxhcbzbfm@rob-hp-laptop>
-References: <1521121518-32217-1-git-send-email-tali.perry1@gmail.com>
- <1521121518-32217-2-git-send-email-tali.perry1@gmail.com>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=4z1K+ynhXQv6e8lSikQGeuZJCCEWfIXy1E1JucYxlDY=;
+ b=jiXz7cabYPEkM4xrELFck9XcWQ13EZXp2rmmsrdP5vLLo5+8X61vo9djhJmZG53WzV
+ bbK5VEkKCkrjRi+Ws2Qvqx08LAxK4eqAFIwtKnZEGK4wL8cePwR/hOg4NG/JCmBwM82v
+ dsTJGoN2uVD7Rx8A3J/3qw84xwwcqX/ihnvjyY+LersazLaEqf087T7ytK/k2icsyoKz
+ jm+T8IjT3qwXTFRtdUQZzi9M5wTg61eyof3/iMyEEsNlROcEYvsvDd6ChzE4R44MGdaY
+ W4dRx5dEGtfJN4oOFLPVPHf/Fao1pKiEqiZDT7WG6tDGzDQNQw2nRQOAiIv/UUxB64ao
+ 6Tig==
+X-Gm-Message-State: AElRT7G2CkbgAB/s3e4vFt3evabHBU7QtCJs+Hjn2E62EQWjo1Xi70u2
+ pgdsHpkqzDoNHRNqdiG4NIXIseojQgSQx2jYlZo=
+X-Google-Smtp-Source: AG47ELsUdrR7epvFWMDm2XIIAHZWh9uISTNEgx6WDNGnMdBqnunhjxguZOeifp8I6ZoeHhtFUHnQG2rRtw1lnvaxy60=
+X-Received: by 10.200.57.132 with SMTP id v4mr15459373qte.204.1521426127268;
+ Sun, 18 Mar 2018 19:22:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1521121518-32217-2-git-send-email-tali.perry1@gmail.com>
-User-Agent: NeoMutt/20170609 (1.8.3)
+Sender: joel.stan@gmail.com
+Received: by 10.200.63.197 with HTTP; Sun, 18 Mar 2018 19:21:46 -0700 (PDT)
+In-Reply-To: <1521128897-13172-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1521128897-13172-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 19 Mar 2018 12:51:46 +1030
+X-Google-Sender-Auth: b65ylGF7WtCmdPuGyGuFXAIXcpo
+Message-ID: <CACPK8Xe0Gfnaj-4MmTHCW8XsQ3FwT2UyXwxuJSLJpOG8retUtg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13] watchdog: aspeed: Clear secondary boot
+ flag before restart
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,42 +76,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 18 Mar 2018 12:52:31 -0000
+X-List-Received-Date: Mon, 19 Mar 2018 02:22:12 -0000
 
-On Thu, Mar 15, 2018 at 03:45:17PM +0200, Tali Perry wrote:
-> * Nuvoton NPCM7XX Clock Controller
+On Fri, Mar 16, 2018 at 2:18 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> If a watchdog device is configured to boot from the secondary boot
+> source upon timeout, and that watchdog is used as the restart device,
+> then the system will switch chips on every reboot. This is not desired.
+> Clear the secondary boot bit from the watchdog control register before
+> restarting the system.
+>
+> Fixes: 30e055280e3a ("watchdog: aspeed: Allow configuring for alternate boot")
+> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 
-Trailing '\n' on the subject.
-> 
-> Nuvoton Poleg BMC NPCM7XX contains an integrated clock controller, which
-> generates and supplies clocks to all modules within the BMC.
-> 
-> 10 ==> 11
-> update documentation. "eth" replaced with "ethernet" in use case eaxample.
-> 
-> 2 ==> 10
-> update documentation. add external clocks as inputs to clk driver.
-> fix SPDX comment.
-> 
-> 1 ==> 2
-> This patch includes fix request described here:
-> https://patchwork.kernel.org/patch/10200033/
-> (move fixed clocks to DT)
+Thanks, I merged in the upstream commit.
 
-Changelog goes after the '---' so it doesn't end up in the git commit.
+Cheers,
 
-> 
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> 
+Joel
+
 > ---
-> 
-> 
->  .../bindings/clock/nuvoton,npcm750-clk.txt         | 100 +++++++++++++++++++++
->  include/dt-bindings/clock/nuvoton,npcm7xx-clock.h  |  44 +++++++++
->  2 files changed, 144 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
->  create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
-
-With those fixed,
-
-Reviewed-by: Rob Herring <robh@kernel.org>
+>  drivers/watchdog/aspeed_wdt.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
+> index f41d246..a5b8eb2 100644
+> --- a/drivers/watchdog/aspeed_wdt.c
+> +++ b/drivers/watchdog/aspeed_wdt.c
+> @@ -159,6 +159,7 @@ static int aspeed_wdt_restart(struct watchdog_device *wdd,
+>  {
+>         struct aspeed_wdt *wdt = to_aspeed_wdt(wdd);
+>
+> +       wdt->ctrl &= ~WDT_CTRL_BOOT_SECONDARY;
+>         aspeed_wdt_enable(wdt, 128 * WDT_RATE_1MHZ / 1000);
+>
+>         mdelay(1000);
+> --
+> 1.8.3.1
+>
