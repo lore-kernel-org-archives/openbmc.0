@@ -1,46 +1,61 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 404v9g0wspzF1bP
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 11:35:51 +1100 (AEDT)
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::235; helo=mail-io0-x235.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="u09LHuMr"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qLV3mXc4"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Received: from mail-io0-x235.google.com (mail-io0-x235.google.com
+ [IPv6:2607:f8b0:4001:c06::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 404v9f2P2Xz9sWF;
- Tue, 20 Mar 2018 11:35:49 +1100 (AEDT)
-Authentication-Results: ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1521506150; bh=b2wPndRuxtgOAGrSfG3OFIEbRr3sfJooe7Rex47hfh4=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=u09LHuMrHCloDhBvsbHRiVhZr42oYZL1ra9AvE6+T9On8lzECuPFeE52IAq98EdRS
- m01xvt3QMDXrSGBbmNZ8iOOO4IaSbI/RqWpAd76NG8AE6DssT5WAS1VgwxyjKDpfee
- wJnn0iXQtLHlv+WeizeIMPZ4eEZpWJAnjpcvV0esFTFtAIn8qrqyQ0R7nK2lE0QoBU
- XTGzr9qf/vUlR4zmRbphic6hZ4EWBd3en78I8wHVxgz2iyJx1V9vEyhfl3NCnNdy6k
- f9kawqPikk7jaE55/0wqnawTF/M4ytWusytxAsYayhc3mxWBZv6maaP5btc61Ey5O7
- vmFpMM+5yWRWQ==
-Subject: Re: IPMI SOL performance
-To: Tom Joseph <tomjose@linux.vnet.ibm.com>,
- Bradley W Bishop <bradleyb@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <32dafbf5-2568-a85a-ad3b-abd8242bf251@ozlabs.org>
-Date: Tue, 20 Mar 2018 08:35:48 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 404xlp28NDzF1XR
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 13:32:05 +1100 (AEDT)
+Received: by mail-io0-x235.google.com with SMTP id v13so443576iob.6
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Mar 2018 19:32:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=JUHEqNS3MYTuS4N7CHgF2RyZPRuMzRsdWlvg/8pmag8=;
+ b=qLV3mXc4nMHSipmE+vN9isTgqSuYZRTAEZ8xRo+pfNOHAeCtGYXmRM6CMJP7whemp6
+ BTy9toch3dozPuz874Y5FV8L28TedPioz5Hm66qC3xP069vDtn+l7H172I5fmDU+EuPw
+ hvVQBRhgF50vUTMRJhwcFYRxgTCzfFzIbFhi4ExY6lWgcx4rYlAD+AlVxPvLYdnOMvww
+ aMnnSNw1NzKIE/aHCbBkR6NTu87sO+L/8JRzwg44pEvf5sovRUC9slfkuv+qXGALxHzD
+ dza/ZLFLYtgGO9vz36KhQ4BAnsTad5A71G4Q4O7vQ6cKY21cEogPcZxRcZIRcF7vDoxP
+ kZMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=JUHEqNS3MYTuS4N7CHgF2RyZPRuMzRsdWlvg/8pmag8=;
+ b=GEcjnfCTw0QuVOoSpbTDH5TKiO6K+smCRcIqMfjkLEvftsI0HXc8YsYkSGV50LDr7r
+ KN2V6amP+uB296VcGDyO3/HehjBdxPGXSy4H8zzN5eLsWuRwelIk5buGAwVhYQ6SDOkl
+ RqpqADGK1NwkaIUz85AtCvHgT8YPHWqQOryY3lhiQyM3/nA9u5c3Pk18s1qJfVn1OKMr
+ fIvfEGofYkZpXiFl+Y4bCTmzCTFcaIRgL6n7IAz4iGIus+Z4MdStaYjgth/kqab8MoDM
+ DLIN0kU03G1VF2zGpFlfA4SrCUSjApZSQkuVIkdQdAYIXKz+aQW23z5rYWMLgLjikhCl
+ UdOw==
+X-Gm-Message-State: AElRT7E0N4/Q43TsA7zcFx+nImTgi45qX/SafVR2DTlNfCoJa/Ai2cpN
+ XNFfMmrYiCoAVIuStrCwqS0uflHOor66BKg9d4U=
+X-Google-Smtp-Source: AG47ELs1vt+7MiEl3zjsKLTHYESTApmmmm/hPBzr/jVst67edQrXjoh3Nrh4VEChEFSwchgmwn/obcijsn7j82UuUZs=
+X-Received: by 10.107.149.70 with SMTP id x67mr14210647iod.156.1521513123541; 
+ Mon, 19 Mar 2018 19:32:03 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Received: by 10.79.146.18 with HTTP; Mon, 19 Mar 2018 19:32:02 -0700 (PDT)
+In-Reply-To: <CAO=notwojtUMU920tTuG0-OyhTFGSZc0gAk21D+xSr=Kq1Tjiw@mail.gmail.com>
+References: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
+ <7E9441B1E5EFFD4681F54958E82169932F66E12E@ORSMSX114.amr.corp.intel.com>
+ <CAO=notwojtUMU920tTuG0-OyhTFGSZc0gAk21D+xSr=Kq1Tjiw@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Tue, 20 Mar 2018 10:32:02 +0800
+Message-ID: <CAARXrtkWU-aPFKmD+CU29Sxn0CwsjKv4BcFEn6=T9u8DcMYgOA@mail.gmail.com>
+Subject: Re: Sdbusplus-based Shared Library
+To: Patrick Venture <venture@google.com>
+Cc: "Tanous, Ed" <ed.tanous@intel.com>, Ratan K Gupta <ratagupt@in.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -52,59 +67,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Mar 2018 00:35:51 -0000
+X-List-Received-Date: Tue, 20 Mar 2018 02:32:07 -0000
 
-Hi Tom,
+On Tue, Mar 20, 2018 at 3:33 AM, Patrick Venture <venture@google.com> wrote:
+> On Mon, Mar 19, 2018 at 11:24 AM, Tanous, Ed <ed.tanous@intel.com> wrote:
+>> Have you tried prototyping to see how much space you'll save?  I suspect it won't be a lot for a few reasons.
+>>
+>> 1. A lot of sdbusplus is template instantiations, and unless we forward declare a number of base template instantiations for use in the shared library, most of the application code will end up in the binary anyway.
+>> 2. Sdbus calls into libsystemd, which is already a shared library.
+>> 3. The filesystem is already compressed, so I suspect that any duplicated methods that aren't inlined will have the same binary code pattern and get duplicated by the squashfs filesystem.
+>>
+>> Those are all the reasons why I haven't really looked into it for the dbus stuff;  I can't speak to the timer stuff, but I suspect the wins in size there are going to be small.
+>>
+>> Normal disclaimer, on this specific library, I haven't prototyped anything, just done back of the napkin guesses, so I could very easily be missing something here.
+>>
+>
+> So my thinking wasn't about reducing size of the binary but rather
+> reducing the toil of maintaining multiple implementations of the same
+> code.
+>
 
-> I wanted to discuss about an issue related to IPMI SOL.
+I am glad this is proposed again :)
+I definitely support a shared library for common sdbusplus code.
+I know there are comments that phosphos-xxx repos are expected to be
+independent (and thus only links to sdbusplus and phosphor-dbus-interfaces)
+But it does make each repo to have its own utils with common code like
+"getService()", "getProperty()", and timers as well if it uses timers.
 
-Cool!
-
-Given that:
-
-> The same issue is not hit by the ssh console on port 2200 and does not
-> miss the timeout of the petitboot menu option.
-
-- and that we don't see the same behaviour with other SoL
-implementations (ie, different BMC firmware on similar hardware), it
-sounds to me like this might be due to our IPMI implementation?
-
-Have you confirmed that we're making the best use of the SoL payloads?
-(ie, we're not using smaller TX buffers for any reason).
-
-> IPMI uses UDP protocol and the maximum size of the  SOL payload per
-> packet according to the specification is 255 bytes. Also the ack for
-> each of the IPMI packet requires a command lookup
-> and execution. Compared with IPMI SOL, ssh supports 64kb payloads and
-> ack does not need an application lookup, so the round-trip timing is
-> faster. IPMI specification for SOL is written with UART speed as
-> reference, but the VUART pushes the data at a much faster rate.
-
-The console multiplexer will only push data as fast as *all* consumers
-can consume it. As a bit of background: obmc-console-server will read
-from the VUART into a global 16kB ringbuffer, and write to each of the
-consumers (ie, the sockets that ssh and IPMI SoL daemons connect to).
-
-If those writes block (for any one of those consumers), the ringbuffer
-tail is not advanced. Only once the slowest consumer has unblocked and
-consumed data, we advance the tail.
-
-Once the ringbuffer is full though, we stop reading from the VUART until
-there is more space available (ie, the slowest consumer has caught up).
-
-This means that we have 16kB of space for bursty data, after which the
-daemon will slow down reads from the VUART device.
-
-So it sounds like our IPMI SoL implementation is slower than other BMC
-implementations, as we don't see the delay on other platforms. Can we
-address that?
-
-As others have mentioned, there's currently an issue with the VUART
-hardware or driver dropping serial data on high load, but that's
-somewhat separate from IPMI performance. I'm currently working on that
-now :)
-
-Regards,
-
-
-Jeremy
+>> -Ed
+>>
+>>> -----Original Message-----
+>>> From: openbmc [mailto:openbmc-
+>>> bounces+ed.tanous=intel.com@lists.ozlabs.org] On Behalf Of Patrick
+>>> Venture
+>>> Sent: Monday, March 19, 2018 10:12 AM
+>>> To: Ratan K Gupta <ratagupt@in.ibm.com>; Brad Bishop
+>>> <bradleyb@fuzziesquirrel.com>; OpenBMC Maillist
+>>> <openbmc@lists.ozlabs.org>
+>>> Subject: Sdbusplus-based Shared Library
+>>>
+>>> We have a lot of duplication across daemons using sdbusplus, and no new
+>>> utility library.  To avoid every daemon having their own timer object, and
+>>> their own this or that, I suggest we create this shared library.
+>>>
+>>> Thoughts?  We can start simple, just have a timer object in there, and then
+>>> the new timers being introduced to phosphor-hwmon and phosphor-host-
+>>> ipmid can be the first customers.
+>>>
+>>> Patrick
