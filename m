@@ -1,48 +1,74 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4059062k2lzF1Tw
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 21:58:30 +1100 (AEDT)
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="eoynMRXw"; 
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.8; helo=cpsmtpb-ews05.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="VfG8lBYf"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 4059051V49z9sCD;
- Tue, 20 Mar 2018 21:58:29 +1100 (AEDT)
-Authentication-Results: ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1521543509; bh=qqi+y0tng9eeai0aWVcLS71oYurwOdxqeh7BmWCMav0=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=eoynMRXwMoB+mNdYYdj3FGsLrujFX72TSqjRjpBUNW4bmjz/0wJrhFJIEGpK1eENP
- wEvYTLFUrqrRPnHvQiyLDFdPimw/Ez9fgDB2EST/Kg6BUtN8hQ1TRZflWAJ0M73YKt
- uJjOts7sGYLJD1++ue2LTw5oTGR0Htyz3/PBzqr42dBAtWSF92qzCohz4oV4BWxvct
- OlcGriHhBr7IlWf5eDZuTOAXDkCiKpK4WZM13tfqdpS6EtlfuSfJI0/ErPTHyqK2Bc
- zHMI/zx/Ql6BMStOb+3PPYgX37xsHGfrOz7CXuWQWD4QtwMytAZk+eAM9nYhPMk6n7
- jr5rJERqZgkrA==
-Subject: Re: IPMI SOL performance
-To: Tom Joseph <tomjose@linux.vnet.ibm.com>,
- Bradley W Bishop <bradleyb@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
- <32dafbf5-2568-a85a-ad3b-abd8242bf251@ozlabs.org>
- <f1d1091d-6019-1839-ad61-148c69b32b16@linux.vnet.ibm.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <66e35c0d-4baa-e7c7-87db-60a6edd77bc3@ozlabs.org>
-Date: Tue, 20 Mar 2018 18:58:28 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-In-Reply-To: <f1d1091d-6019-1839-ad61-148c69b32b16@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
+X-Greylist: delayed 794 seconds by postgrey-1.36 at bilbo;
+ Tue, 20 Mar 2018 22:37:28 AEDT
+Received: from cpsmtpb-ews05.kpnxchange.com (cpsmtpb-ews05.kpnxchange.com
+ [213.75.39.8])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4059s451K2zF1T4
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 22:37:27 +1100 (AEDT)
+Received: from cpsps-ews17.kpnxchange.com ([10.94.84.183]) by
+ cpsmtpb-ews05.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Tue, 20 Mar 2018 12:23:59 +0100
+X-Brand: 7Ljiz6bi2A==
+X-KPN-SpamVerdict: e1=0;e2=;e3=0(e1=10;e3=10;e2=00);EVW:White;BM:Clean
+ ;FinalVerdict:Clean
+X-Brightmail-Tracker: H4sIAAAAAAAAC+NgFrrJLMWRWlGSWpSXmKPExsVyuJJZUNf/
+ /YYog3mbv/BanGp5weLA6HF+xkLGAMYo1sy8pPyKBNaMjXeusRb8YamY/ryDvYHxJ3MXIy
+ eHhIC6xJIvJxm7GLk4hASWMUrce3gBLMEsIC5x68l8JghbR2LB7k9sELa2xLKFr5lBGlgE
+ Opklbr/byw7RvZNRYsrRVmYIZwOjxJu2A1DObkaJF4fPs4P0swloSPSsngM2S0TAUmLJg3
+ YwW1jAS2Lft9msEPFAifkP/zNB2HoSV0/PBrNZBFQlTj07DmbzCjhLvFm2BuhwDg5GAVmJ
+ ltfcEP8ISCzZcx7qN1GJl4//sULYyhJLu88yQrQKSpyc+YQFxBYSUJCYtmgZI0RNsMS3iV
+ 3sExjFZyGFwCykEJiFFAKzkIxawMiyilEiuaC4oFg3tbzY0FwvuyAPyNDLyU9OzNnECIyj
+ q94azjsYb0+NvcUozXGASYgjLbG4pCCxuFiIJS8/L1UKqCQktChMqoFRM7LoFu+imqWBpz
+ 5Oqvm4VG5WYOWCM9PE3hSaC/V1O+x7uu9kRaXxh7+uSVKRC1jya6e4T95ac05hmrA5k7Nl
+ s3vX5tpVLNe5Ts5Vv7XOhuHwvtf3U/XX3Jr5+o+GellKPWtGngp70Bnl2ijxTt2EBZdt2T
+ iKZOceM/mo83Pyvnner1K2PF+nxFKckWioxVxUnAgARZA8Z2wCAAA=
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from CPSMTPM-CMT101.kpnxchange.com ([195.121.3.17]) by
+ cpsps-ews17.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
+ Tue, 20 Mar 2018 12:23:59 +0100
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
+ c=relaxed/relaxed; t=1521545039;
+ h=mime-version:date:message-id:subject:from:to:content-type;
+ bh=o2aKuuR9SXypy1ob1gZu7l/cmlryuIv/0QaX5E93+JU=;
+ b=VfG8lBYfa4e5o2TQ3vhU6vajm4khEDkhugHy0z8H0ORFQvZ+YifaBln7hVc9qWc5pcr1lbNG+gs
+ htQwDhmF8GSbHW33ySw5gf1buE92EHU2EUwSQVGmCLiVNZvf7BrMHugGoU2nnr/4D4gnEOz6CQA+l
+ qmYEEQmDslp8hz8gwZY=
+Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
+ CPSMTPM-CMT101.kpnxchange.com over TLS secured channel with Microsoft
+ SMTPSVC(8.5.9600.16384); Tue, 20 Mar 2018 12:23:59 +0100
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Tue, 20 Mar
+ 2018 12:23:52 +0100
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Tue, 20 Mar 2018 12:23:52 +0100
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: can't access openbmc-boost-dbus when building openbmc for s2600wf
+Thread-Topic: can't access openbmc-boost-dbus when building openbmc for s2600wf
+Thread-Index: AdPAPOfRWU+eF0mXQfOdH9039C7NuQ==
+Date: Tue, 20 Mar 2018 11:23:52 +0000
+Message-ID: <89370cb4fa8e4235a9272035ddbb3263@Eltsrv03.Eltan.local>
+Accept-Language: nl-NL, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+MIME-Version: 1.0
+X-OriginalArrivalTime: 20 Mar 2018 11:23:59.0334 (UTC)
+ FILETIME=[F1096860:01D3C03D]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,55 +80,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Mar 2018 10:58:32 -0000
+X-List-Received-Date: Tue, 20 Mar 2018 11:37:31 -0000
 
-Hi Tom,
+Hello,
 
-> The accepted character count field in the SOL payload is what the
-> client(ipmitool) uses to acknowledge to BMC.
-> Since this is a 1 byte field, so the maximum SOL character data is
-> restricted to 255.
+I am trying to build openbmc for the s2600wf board.
 
-Yep, but are you sure you're sending packets of the maximum size?
+During the process I get the message that the "boost-dbus" module can't be =
+read.
 
-> Is it guaranteed that the Petitboot menu option will be shown only after
-> the obmc-console-server,
-> reads it from the VUART?
+The issue is due to the url referred to in the  openbmc/bmcweb/.gitmodules
 
-Not at all. The petitboot process has no idea what's happening on the
-BMC. Same with all other console-based processes on the host system.
+[submodule "boost-dbus"]
+	path =3D boost-dbus
+	url =3D ssh://git-amr-2.devtools.intel.com:29418/openbmc-boost-dbus
 
-> When does the petitboot menu timeout begin?
+The message I get is : "ssh: Could not resolve hostname git-amr-2.devtools.=
+intel.com: Name or service not known"
 
-As soon as the first default-bootable option is found.
+Is this a matter of a server that is down? It there an alternate location I=
+ can use for this module
 
-> One possible option is to put a limit on the buffer size and read from
-> the socket only when the buffer is within that limits.
+Thanks for helping me out.
 
-Yep, there's no real need for the IPMI SoL infrastructure to do any
-output buffering at all. If your maximum packet size is 255 bytes, just
-read a maximum of 255 bytes from the obmc-console socket.
+Best regards,
 
-However, we should still see what's slowing down the IPMI SoL data.
-10-15 minutes for it to drain is *very* slow.
-
-> The trade-off
-> would be ssh based console would output at the speed of IPMI.
-
-That would only be a concern if:
-
- - both IPMI and SSH clients are connected to the unix domain socket at
-   the same time (does the IPMI SoL process connect to the obmc-console
-   socket if no clients are connected over the network?)
-
-   and
-
- - we've filled up the 16kB burst-buffer in the obmc-console-server
-   process
-
-So, I'd say we're fine there.
-
-Regards,
-
-
-Jeremy
+Wim Vervoorn
