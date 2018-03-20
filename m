@@ -1,53 +1,79 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <stewart@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::22a; helo=mail-io0-x22a.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="u7W5C24k"; 
- dkim-atps=neutral
-Received: from mail-io0-x22a.google.com (mail-io0-x22a.google.com
- [IPv6:2607:f8b0:4001:c06::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 405F4S4fsxzF1N3
- for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 01:02:32 +1100 (AEDT)
-Received: by mail-io0-x22a.google.com with SMTP id 141so2450539iou.12
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 07:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=xt6LiKSHyMTk5wzwYm+BcuAanCJ8CNKFszE5YWLf8CY=;
- b=u7W5C24k+GyudiyDSB08JcqNLL9h3eDssZKsIdjws43t5OWIcECxrBQpz3sfyIbLdy
- nkzMNCRI//aa68jtw6hgg5VVKJcpPFjDAkIYtahs8Bxu11D6z4LSRSBcKcc8jKEI9gUX
- z290gAu7tw4sa/0gB5CYnlv3NXRHVrZyDmti2ghG+TQdXVdS/bkP8OFJIz4JKH0vHNls
- sz82D3p7/Ct5lkhayMrnqUezxLYvuUh5vsbDZlsoYLGJlAfe43PkFCsEtV6ULvW8qACu
- Wym1I33p/n3bSmID7G4XsfBG4cVf+qsX3+hdhlKdy538993d4PJccok5duQYAANuDD7l
- ndtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=xt6LiKSHyMTk5wzwYm+BcuAanCJ8CNKFszE5YWLf8CY=;
- b=NGDGxRm9++P3TP2x25K3zuD6Z8famem414mRjBOITJbpUGBUFYWIcalIr52sWDZbzX
- 1WOcb7gcsbQdOOdhBwTUNiBsoHIMaKnVk7Lnk3EVb2t/0t1jVj+Gk20wncRuwdhEOAo7
- TVyWPMzh7d0Jr/Pbq+8sqPEET7klmS2XuuGg1CqESmW/EMR9NMN0c+yE2mq8QMIHChp4
- XntIt6aP91ESBhkujitm3x0n4pLThV1ZwJQVavLB3OQ4HqajgtdzHfq16VXqsMcbT/pj
- LiW7ZPTnqyg4i0lbeQyNcs9cEuNZHhayMpZ9YRC14IoLZz0e6cnYOZCzoqU9V3WjoWDu
- JRow==
-X-Gm-Message-State: AElRT7G/aug1DKC9U9j5//VWSr8TkskrboQ+TblLcz8b4KQjYg6RH3Mo
- DTMkOVyWocd/vu0yDqO53VYDLxQvmOxgThKgJvc=
-X-Google-Smtp-Source: AG47ELvIUuQhSOnPFyqXFXIxRfUZtX88ylhpAVvwXSMNHi0kIbH+uiS+lcKqko739c7B6OhDXA6pToIsm3jtUeYNENo=
-X-Received: by 10.107.2.195 with SMTP id 186mr15713963ioc.162.1521554549638;
- Tue, 20 Mar 2018 07:02:29 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 405GpR23PvzF1b3
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 02:20:30 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2KFJpaJ139954
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 11:20:27 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gu40btw26-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 11:20:22 -0400
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Tue, 20 Mar 2018 11:20:13 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 20 Mar 2018 11:20:11 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w2KFKBh855771212; Tue, 20 Mar 2018 15:20:11 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A5B652803F;
+ Tue, 20 Mar 2018 11:19:34 -0400 (EDT)
+Received: from birb.localdomain (unknown [9.85.145.175])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 745FB28050;
+ Tue, 20 Mar 2018 11:19:34 -0400 (EDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 72C174EC697; Tue, 20 Mar 2018 08:20:08 -0700 (PDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Kun Yi <kunyi@google.com>, Emily Shaffer <emilyshaffer@google.com>
+Cc: tomjose@linux.vnet.ibm.com, vernon.mauery@linux.intel.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, bradleyb@us.ibm.com
+Subject: Re: IPMI SOL performance
+In-Reply-To: <CAGMNF6XP7Pq4A=cxPps9K7OYHEnFE2Ge2u-7nOpng5kwzZWMhQ@mail.gmail.com>
+References: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
+ <eb3ad4a5-d261-adaa-1782-b7cf77fc7267@linux.vnet.ibm.com>
+ <CAJoAoZnqH=C6Nd-XLtZE=4+AcfFQg53B0GYeTWM_03KJCQEo1w@mail.gmail.com>
+ <87y3iokp44.fsf@linux.vnet.ibm.com>
+ <CAJoAoZko_Y3iJp07VBJ72E+OEq8TwXXnO5XxuqEnTPw2=EqGJw@mail.gmail.com>
+ <1c20052d-f274-f821-4a68-591517f62537@linux.vnet.ibm.com>
+ <CAJoAoZ=g9p75Y32NeVbhL8CamLbkAinqW9sDa+PVO_3f0DdfBw@mail.gmail.com>
+ <CAGMNF6XP7Pq4A=cxPps9K7OYHEnFE2Ge2u-7nOpng5kwzZWMhQ@mail.gmail.com>
+Date: Tue, 20 Mar 2018 08:20:08 -0700
 MIME-Version: 1.0
-Received: by 10.192.164.169 with HTTP; Tue, 20 Mar 2018 07:02:29 -0700 (PDT)
-From: Kurt Taylor <kurt.r.taylor@gmail.com>
-Date: Tue, 20 Mar 2018 09:02:29 -0500
-Message-ID: <CAG5Oiwj2kQNekMjxtgnC+sN=ZspZc_0N8P2R2zrx+=Cbm8cHRA@mail.gmail.com>
-Subject: OpenBMC at OCP Summit hangout
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a113943f47023f80567d88695"
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 18032015-0024-0000-0000-000003396738
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008709; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.01005842; UDB=6.00512101; IPR=6.00785125; 
+ MB=3.00020146; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-20 15:20:13
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18032015-0025-0000-0000-000047633188
+Message-Id: <87vadqlqon.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-20_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803200177
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,24 +85,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Mar 2018 14:02:34 -0000
+X-List-Received-Date: Tue, 20 Mar 2018 15:20:31 -0000
 
---001a113943f47023f80567d88695
-Content-Type: text/plain; charset="UTF-8"
+Kun Yi <kunyi@google.com> writes:
+> SOL performance issue aside, there is also an IPMI command for selecting
+> the boot device. Is that command currently supported in the client in any
+> way? That might be a more reliable solution than relying on console
+> alone.
 
-For those of you that are at OCP Summit:  for a lower latency way to
-communicate with other OBMCers here, reply to me and I'll invite you to a
-Google hangout so we can chat, meet for dinner, beers, etc.
+There is, and any reasonable automation kit is going to do that, except
+for when it's something like my firmware test suite that executes a
+bunch of commands in the petitboot shell environment, for which there's
+no way to set "exit to shell" via IPMI, so we just use expect on the
+console. We've worked around this in op-test by just using the ssh
+console instead (and try not to pump too much data through it too
+quickly so we don't hit the bug where we lose console output).
 
-Kurt Taylor (krtaylor)
+It'd be nice to be able to run the test suite over IPMI though, if only
+for completeness.
 
---001a113943f47023f80567d88695
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>For those of you that are at OCP Summit:=C2=A0 for a =
-lower latency way to communicate with other OBMCers here, reply to me and I=
-&#39;ll invite you to a Google hangout so we can chat, meet for dinner, bee=
-rs, etc.<br><br></div>Kurt Taylor (krtaylor)<br></div>
-
---001a113943f47023f80567d88695--
+-- 
+Stewart Smith
+OPAL Architect, IBM.
