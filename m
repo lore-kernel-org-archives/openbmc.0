@@ -1,74 +1,48 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
-Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4058VW46nLzDq82
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 21:36:19 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2KAVZU0092852
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 06:36:17 -0400
-Received: from e06smtp10.uk.ibm.com (e06smtp10.uk.ibm.com [195.75.94.106])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gu002svpj-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 06:36:16 -0400
-Received: from localhost
- by e06smtp10.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Tue, 20 Mar 2018 10:36:14 -0000
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
- by e06smtp10.uk.ibm.com (192.168.101.140) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 20 Mar 2018 10:36:11 -0000
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w2KAaASk24969450; Tue, 20 Mar 2018 10:36:10 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A30F0AE05A;
- Tue, 20 Mar 2018 10:26:31 +0000 (GMT)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 739DAAE04D;
- Tue, 20 Mar 2018 10:26:30 +0000 (GMT)
-Received: from [9.124.212.252] (unknown [9.124.212.252])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Tue, 20 Mar 2018 10:26:30 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4059062k2lzF1Tw
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 21:58:30 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="eoynMRXw"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 4059051V49z9sCD;
+ Tue, 20 Mar 2018 21:58:29 +1100 (AEDT)
+Authentication-Results: ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1521543509; bh=qqi+y0tng9eeai0aWVcLS71oYurwOdxqeh7BmWCMav0=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=eoynMRXwMoB+mNdYYdj3FGsLrujFX72TSqjRjpBUNW4bmjz/0wJrhFJIEGpK1eENP
+ wEvYTLFUrqrRPnHvQiyLDFdPimw/Ez9fgDB2EST/Kg6BUtN8hQ1TRZflWAJ0M73YKt
+ uJjOts7sGYLJD1++ue2LTw5oTGR0Htyz3/PBzqr42dBAtWSF92qzCohz4oV4BWxvct
+ OlcGriHhBr7IlWf5eDZuTOAXDkCiKpK4WZM13tfqdpS6EtlfuSfJI0/ErPTHyqK2Bc
+ zHMI/zx/Ql6BMStOb+3PPYgX37xsHGfrOz7CXuWQWD4QtwMytAZk+eAM9nYhPMk6n7
+ jr5rJERqZgkrA==
 Subject: Re: IPMI SOL performance
-To: Jeremy Kerr <jk@ozlabs.org>, Bradley W Bishop <bradleyb@us.ibm.com>,
+To: Tom Joseph <tomjose@linux.vnet.ibm.com>,
+ Bradley W Bishop <bradleyb@us.ibm.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Vernon Mauery <vernon.mauery@linux.intel.com>
 References: <f34018a7-be64-9a2b-befd-632747234fd0@linux.vnet.ibm.com>
  <32dafbf5-2568-a85a-ad3b-abd8242bf251@ozlabs.org>
-From: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Date: Tue, 20 Mar 2018 16:06:07 +0530
+ <f1d1091d-6019-1839-ad61-148c69b32b16@linux.vnet.ibm.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <66e35c0d-4baa-e7c7-87db-60a6edd77bc3@ozlabs.org>
+Date: Tue, 20 Mar 2018 18:58:28 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <32dafbf5-2568-a85a-ad3b-abd8242bf251@ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <f1d1091d-6019-1839-ad61-148c69b32b16@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18032010-0040-0000-0000-00000423386A
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18032010-0041-0000-0000-0000262651D1
-Message-Id: <f1d1091d-6019-1839-ad61-148c69b32b16@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-20_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803200125
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -80,79 +54,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Mar 2018 10:36:20 -0000
+X-List-Received-Date: Tue, 20 Mar 2018 10:58:32 -0000
+
+Hi Tom,
+
+> The accepted character count field in the SOL payload is what the
+> client(ipmitool) uses to acknowledge to BMC.
+> Since this is a 1 byte field, so the maximum SOL character data is
+> restricted to 255.
+
+Yep, but are you sure you're sending packets of the maximum size?
+
+> Is it guaranteed that the Petitboot menu option will be shown only after
+> the obmc-console-server,
+> reads it from the VUART?
+
+Not at all. The petitboot process has no idea what's happening on the
+BMC. Same with all other console-based processes on the host system.
+
+> When does the petitboot menu timeout begin?
+
+As soon as the first default-bootable option is found.
+
+> One possible option is to put a limit on the buffer size and read from
+> the socket only when the buffer is within that limits.
+
+Yep, there's no real need for the IPMI SoL infrastructure to do any
+output buffering at all. If your maximum packet size is 255 bytes, just
+read a maximum of 255 bytes from the obmc-console socket.
+
+However, we should still see what's slowing down the IPMI SoL data.
+10-15 minutes for it to drain is *very* slow.
+
+> The trade-off
+> would be ssh based console would output at the speed of IPMI.
+
+That would only be a concern if:
+
+ - both IPMI and SSH clients are connected to the unix domain socket at
+   the same time (does the IPMI SoL process connect to the obmc-console
+   socket if no clients are connected over the network?)
+
+   and
+
+ - we've filled up the 16kB burst-buffer in the obmc-console-server
+   process
+
+So, I'd say we're fine there.
+
+Regards,
 
 
-
-On Tuesday 20 March 2018 06:05 AM, Jeremy Kerr wrote:
-> Hi Tom,
->
->> I wanted to discuss about an issue related to IPMI SOL.
-> Cool!
->
-> Given that:
->
->> The same issue is not hit by the ssh console on port 2200 and does not
->> miss the timeout of the petitboot menu option.
-> - and that we don't see the same behaviour with other SoL
-> implementations (ie, different BMC firmware on similar hardware), it
-> sounds to me like this might be due to our IPMI implementation?
-
-> Have you confirmed that we're making the best use of the SoL payloads?
-> (ie, we're not using smaller TX buffers for any reason).
-
-The accepted character count field in the SOL payload is what the 
-client(ipmitool) uses to acknowledge to BMC.
-Since this is a 1 byte field, so the maximum SOL character data is 
-restricted to 255.
->
->> IPMI uses UDP protocol and the maximum size of the  SOL payload per
->> packet according to the specification is 255 bytes. Also the ack for
->> each of the IPMI packet requires a command lookup
->> and execution. Compared with IPMI SOL, ssh supports 64kb payloads and
->> ack does not need an application lookup, so the round-trip timing is
->> faster. IPMI specification for SOL is written with UART speed as
->> reference, but the VUART pushes the data at a much faster rate.
-> The console multiplexer will only push data as fast as *all* consumers
-> can consume it. As a bit of background: obmc-console-server will read
-> from the VUART into a global 16kB ringbuffer, and write to each of the
-> consumers (ie, the sockets that ssh and IPMI SoL daemons connect to).
->
-> If those writes block (for any one of those consumers), the ringbuffer
-> tail is not advanced. Only once the slowest consumer has unblocked and
-> consumed data, we advance the tail.
-Is it guaranteed that the Petitboot menu option will be shown only after 
-the obmc-console-server,
-reads it from the VUART? When does the petitboot menu timeout begin?
->
-> Once the ringbuffer is full though, we stop reading from the VUART until
-> there is more space available (ie, the slowest consumer has caught up).
->
-> This means that we have 16kB of space for bursty data, after which the
-> daemon will slow down reads from the VUART device.
->
-> So it sounds like our IPMI SoL implementation is slower than other BMC
-> implementations, as we don't see the delay on other platforms. Can we
-> address that?
-This is good piece of information. IPMI server on BMC listens on 
-"\0obmc-console" socket and reads from the socket
-  on a EPOLLIN. The read console data is updated in a buffer (double 
-ended queue) and sent to the ipmitool
-based on the flow rate. Since the console data is read into the IPMI 
-buffer( and sending it to the client at the speed of client)
-is the reason that obmc-console-server does not slow down.
-
-One possible option is to put a limit on the buffer size and read from 
-the socket only when the buffer is within that limits. The trade-off
-would be ssh based console would output at the speed of IPMI.
-
-> As others have mentioned, there's currently an issue with the VUART
-> hardware or driver dropping serial data on high load, but that's
-> somewhat separate from IPMI performance. I'm currently working on that
-> now :)
->
-> Regards,
->
->
-> Jeremy
->
+Jeremy
