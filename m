@@ -1,38 +1,55 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 405ZDh3vxYzF1Zv;
- Wed, 21 Mar 2018 13:55:48 +1100 (AEDT)
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::242; helo=mail-pg0-x242.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="ZPyuUYtx"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="RVYbNHpI"; 
  dkim-atps=neutral
-Received: by ozlabs.org (Postfix, from userid 1023)
- id 405ZDh0Wx7z9s1c; Wed, 21 Mar 2018 13:55:47 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1521600948; bh=YWvCm9vfNybsF6T2DBiOuTu306t7bmW50RSYwIpP9DY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZPyuUYtxIkYEprkA6/+oDC1DC5IGbTzZ/iZb2FNmphSsyw1RSPtf6kejwcmfx0Hv4
- 8d+34kS5JzbHHSxD2QMc/aGFvgRGAWgY+UXaNlSpAz7j3X1ZMjw1RR7mfjL6CCZrUq
- FrSNFiYkaKWpISUK1vWKXiYMlGcELE/K113DswQILBBZlNQtPnHHaTRaydoZqdl49k
- rDhQ3wbbCZi7nlJylWupRw0F1AMDyDv961C4IbKYniQgyP1p3eLjkilCDmBFPecZBw
- WYbdCIV0MBWXiLwY92w/zkZHdnKK3THZyYp3U2nm60xeR6TJSo0jVF4bJims3qejA8
- gA1hxBmTdmEeQ==
-From: Jeremy Kerr <jk@ozlabs.org>
-To: linux-serial@vger.kernel.org
-Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Jiri Slaby <jslaby@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH 3/5] serial/8250: export serial8250_read_char
-Date: Wed, 21 Mar 2018 10:52:39 +0800
-Message-Id: <20180321025241.19785-4-jk@ozlabs.org>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180321025241.19785-1-jk@ozlabs.org>
-References: <20180321025241.19785-1-jk@ozlabs.org>
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 405Zrc6mZqzF0Q9
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 14:23:28 +1100 (AEDT)
+Received: by mail-pg0-x242.google.com with SMTP id l4so1468488pgp.11
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 20:23:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=adh3ZKf2PlEoNSSzxTkm/UeuZvAfANQxEYyao7zSDcs=;
+ b=RVYbNHpIhj5C+qxOE929xbSOSGx3MlI9sen4Tmlh6w7OcfL5YpuyUQNSEUHIysFAyL
+ LZR1TedVwx1Pcpa1tlSyY7QC59Vlq7mhoIXAiNauXwDmMF6JVmo1I63X0a4m62tBrPUJ
+ 5Uev9+hXoSnPEWvfNMp/q/uxPD9GXXoKl7IOZu9ehkMM1BV7s5hYV0Zo//qnFE6bWfs5
+ Z0BNtACMD6DOBpbEXnKTxP1Fgug0Ioj8Q09rUqBhu34fnBeOj0nouayWbauwzcz7AfHP
+ J8dvZMiQOx6Ov6LrZbB0XwqjHgCpPyhBkV2S3vUtMYBVTHhUfgo1yrRwt6MgMX+uZDBs
+ RtfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=adh3ZKf2PlEoNSSzxTkm/UeuZvAfANQxEYyao7zSDcs=;
+ b=ZL05bT8kQSMVTnZkYEFODcLTNFWoPV/oQF3+XSLF1EIqJuTyvuqz8lsc19YE+wXUxg
+ 5vIIAgsslxBMunLm9xi9KPwtLoujf6rlKzOwDvj5ea2CIXrIGDECXnlEw3xFwPZimYVr
+ zp9UKs84aUNi50KgIbr3hkk/Yz+lhXvJ1sxR1ZJOeKguPHjp/sjFmrdnANxNTiOU6/77
+ EMFoA3SG+JZJCTGDuqj2kIq5JP/0qQv/NcAzUUIGTbDCaV3wxCLqThoQCYSsayLK5HD6
+ ykRiOs66gat6JDEfWBqrZ+ulwaRnC/1hBQX9smTHsT0NoMh+3CPnh+3Segp/Vzkco1Hv
+ hmCQ==
+X-Gm-Message-State: AElRT7G8crx7cSzJwJBp/Pq+XuQyfYqPJi9NApFngov9h66uvtVvkCzF
+ cfGaWTeBoQrQyXLEpZmDK5Ht6uoE
+X-Google-Smtp-Source: AG47ELtx75JccET6sGV9HVyTqqGdAMA5F58yGB7DZcSxVL0ffXPo512aBKj4gUlWMtMMeZi12zTeuw==
+X-Received: by 10.99.149.21 with SMTP id p21mr205773pgd.154.1521602606414;
+ Tue, 20 Mar 2018 20:23:26 -0700 (PDT)
+Received: from localhost (45.62.100.246.16clouds.com. [45.62.100.246])
+ by smtp.gmail.com with ESMTPSA id f6sm4488477pgo.58.2018.03.20.20.23.23
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Tue, 20 Mar 2018 20:23:25 -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.13] hwmon (occ): Fix an infinite for loop issue
+Date: Wed, 21 Mar 2018 11:22:12 +0800
+Message-Id: <1521602532-11306-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -44,56 +61,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Mar 2018 02:55:48 -0000
+X-List-Received-Date: Wed, 21 Mar 2018 03:23:29 -0000
 
-Currently, we export serial8250_rx_chars, which does a whole bunch of
-reads from the 8250 data register, without any form of flow control
-between reads.
+The for loop without ++i cause either infinite loop or random memory
+access issues, e.g. unable to handle kernel NULL or kernel oops in
+snprintf.
 
-An upcoming change to the aspeed vuart driver implements more
-fine-grained flow control in the interrupt handler, requiring
-character-at-a-time control over the rx path.
+Fix it by adding ++i in the for loop.
 
-This change exports serial8250_read_char to allow this.
-
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+Signed-off-by: Lei YU <mine260309@gmail.com>
 ---
- drivers/tty/serial/8250/8250_port.c | 3 ++-
- include/linux/serial_8250.h         | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/hwmon/occ/common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index a5fe0e66c607..ea435406936c 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -1650,7 +1650,7 @@ static void serial8250_enable_ms(struct uart_port *port)
- 	serial8250_rpm_put(up);
- }
+diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+index d0b2a29..88c3291 100644
+--- a/drivers/hwmon/occ/common.c
++++ b/drivers/hwmon/occ/common.c
+@@ -916,7 +916,7 @@ static int occ_setup_sensor_attrs(struct occ *occ)
+ 		/* Special case for many-attribute power sensor. Split it into
+ 		 * a sensor number per power type, emulating several sensors.
+ 		 */
+-		for (i = 0; i < sensors->power.num_sensors; ) {
++		for (i = 0; i < sensors->power.num_sensors; ++i) {
+ 			s = (i * 4) + 1;
  
--static void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr)
-+void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr)
- {
- 	struct uart_port *port = &up->port;
- 	unsigned char ch;
-@@ -1710,6 +1710,7 @@ static void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr)
- 
- 	uart_insert_char(port, lsr, UART_LSR_OE, ch, flag);
- }
-+EXPORT_SYMBOL_GPL(serial8250_read_char);
- 
- /*
-  * serial8250_rx_chars: processes according to the passed in LSR
-diff --git a/include/linux/serial_8250.h b/include/linux/serial_8250.h
-index 61fbb440449c..4639a3608614 100644
---- a/include/linux/serial_8250.h
-+++ b/include/linux/serial_8250.h
-@@ -162,6 +162,7 @@ extern void serial8250_do_set_mctrl(struct uart_port *port, unsigned int mctrl);
- extern int fsl8250_handle_irq(struct uart_port *port);
- int serial8250_handle_irq(struct uart_port *port, unsigned int iir);
- unsigned char serial8250_rx_chars(struct uart_8250_port *up, unsigned char lsr);
-+void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr);
- void serial8250_tx_chars(struct uart_8250_port *up);
- unsigned int serial8250_modem_status(struct uart_8250_port *up);
- void serial8250_init_port(struct uart_8250_port *up);
+ 			snprintf(attr->name, sizeof(attr->name),
 -- 
-2.14.1
+2.7.4
