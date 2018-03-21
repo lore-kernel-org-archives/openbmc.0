@@ -1,33 +1,71 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <msbarth@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=msbarth@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 405v7r4bJxzF1rs
- for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 02:37:44 +1100 (AEDT)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w2LFIG1I014471;
- Wed, 21 Mar 2018 17:18:16 +0200
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id E814A5A9FF; Wed, 21 Mar 2018 17:36:41 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: arnd@arndb.de, robh+dt@kernel.org, mark.rutland@arm.com,
- linux@armlinux.org.uk, brendanhiggins@google.com,
- avifishman70@gmail.com, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 1/1] arm: dts: add Nuvoton NPCM750 device tree
-Date: Wed, 21 Mar 2018 17:36:17 +0200
-Message-Id: <1521646577-10773-2-git-send-email-tmaimon77@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1521646577-10773-1-git-send-email-tmaimon77@gmail.com>
-References: <1521646577-10773-1-git-send-email-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 405vnp3VXGzDr7y
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 03:07:07 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2LG6Q6p032504
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 12:07:04 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gurspe6ye-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 12:07:03 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <msbarth@linux.vnet.ibm.com>;
+ Wed, 21 Mar 2018 12:07:01 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 21 Mar 2018 12:06:59 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w2LG6wjt42532980; Wed, 21 Mar 2018 16:06:58 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DE31E2803F;
+ Wed, 21 Mar 2018 12:06:21 -0400 (EDT)
+Received: from [9.10.99.92] (unknown [9.10.99.92])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id ACBFF2803D;
+ Wed, 21 Mar 2018 12:06:21 -0400 (EDT)
+To: openbmc@lists.ozlabs.org
+Cc: venture@google.com, mspinler@linux.vnet.ibm.com
+From: Matthew Barth <msbarth@linux.vnet.ibm.com>
+Subject: phosphor-hwmon: Removal of sensors from dbus
+Date: Wed, 21 Mar 2018 11:06:57 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18032116-0040-0000-0000-0000040AE413
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008716; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000254; SDB=6.01006338; UDB=6.00512397; IPR=6.00785620; 
+ MB=3.00020164; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-21 16:07:00
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18032116-0041-0000-0000-0000080BEA8C
+Message-Id: <c6cfc2d6-a69c-0e13-1426-61506015d514@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-21_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803210188
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -39,323 +77,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Mar 2018 15:37:45 -0000
+X-List-Received-Date: Wed, 21 Mar 2018 16:07:10 -0000
 
-Add a common device tree for all Nuvoton NPCM7xx BMCs and a board
-specific device tree for the NPCM750 (Poleg) evaluation board.
+In regard to the following issue, please provide any feedback or other 
+ideas:
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- arch/arm/boot/dts/Makefile                    |   2 +
- arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 187 ++++++++++++++++++++++++++
- arch/arm/boot/dts/nuvoton-npcm750-evb.dts     |  39 ++++++
- arch/arm/boot/dts/nuvoton-npcm750.dtsi        |  45 +++++++
- 4 files changed, 273 insertions(+)
- create mode 100644 arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm750-evb.dts
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm750.dtsi
+https://github.com/openbmc/openbmc/issues/2327
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index ade7a38543dc..ba3bfa674e32 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -304,6 +304,8 @@ dtb-$(CONFIG_ARCH_LPC18XX) += \
- dtb-$(CONFIG_ARCH_LPC32XX) += \
- 	lpc3250-ea3250.dtb \
- 	lpc3250-phy3250.dtb
-+dtb-$(CONFIG_ARCH_NPCM7XX) += \
-+	nuvoton-npcm750-evb.dtb
- dtb-$(CONFIG_MACH_MESON6) += \
- 	meson6-atv1200.dtb
- dtb-$(CONFIG_MACH_MESON8) += \
-diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-new file mode 100644
-index 000000000000..d2d0761295a4
---- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-@@ -0,0 +1,187 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
-+// Copyright 2018 Google, Inc.
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
-+
-+	/* external reference clock */
-+	clk_refclk: clk_refclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <25000000>;
-+		clock-output-names = "refclk";
-+	};
-+
-+	/* external reference clock for cpu. float in normal operation */
-+	clk_sysbypck: clk_sysbypck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <800000000>;
-+		clock-output-names = "sysbypck";
-+	};
-+
-+	/* external reference clock for MC. float in normal operation */
-+	clk_mcbypck: clk_mcbypck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <800000000>;
-+		clock-output-names = "mcbypck";
-+	};
-+
-+	 /* external clock signal rg1refck, supplied by the phy */
-+	clk_rg1refck: clk_rg1refck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <125000000>;
-+		clock-output-names = "clk_rg1refck";
-+	};
-+
-+	 /* external clock signal rg2refck, supplied by the phy */
-+	clk_rg2refck: clk_rg2refck {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <125000000>;
-+		clock-output-names = "clk_rg2refck";
-+	};
-+
-+	clk_xin: clk_xin {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <50000000>;
-+		clock-output-names = "clk_xin";
-+	};
-+
-+	soc {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "simple-bus";
-+		interrupt-parent = <&gic>;
-+		ranges = <0x0 0xf0000000 0x00900000>;
-+
-+		gcr: gcr@800000 {
-+			compatible = "nuvoton,npcm750-gcr", "syscon",
-+				"simple-mfd";
-+			reg = <0x800000 0x1000>;
-+		};
-+
-+		scu: scu@3fe000 {
-+			compatible = "arm,cortex-a9-scu";
-+			reg = <0x3fe000 0x1000>;
-+		};
-+
-+		l2: cache-controller@3fc000 {
-+			compatible = "arm,pl310-cache";
-+			reg = <0x3fc000 0x1000>;
-+			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
-+			cache-unified;
-+			cache-level = <2>;
-+			clocks = <&clk 10>;
-+			arm,shared-override;
-+		};
-+
-+		gic: interrupt-controller@3ff000 {
-+			compatible = "arm,cortex-a9-gic";
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+			reg = <0x3ff000 0x1000>,
-+				<0x3fe100 0x100>;
-+		};
-+	};
-+
-+	ahb {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "simple-bus";
-+		interrupt-parent = <&gic>;
-+		ranges;
-+
-+		clk: clock-controller@f0801000 {
-+			compatible = "nuvoton,npcm750-clk", "syscon";
-+			#clock-cells = <1>;
-+			clock-controller;
-+			reg = <0xf0801000 0x1000>;
-+			clock-names = "refclk", "sysbypck", "mcbypck";
-+			clocks = <&clk_refclk>, <&clk_sysbypck>, <&clk_mcbypck>;
-+		};
-+
-+		apb {
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			compatible = "simple-bus";
-+			interrupt-parent = <&gic>;
-+			ranges = <0x0 0xf0000000 0x00300000>;
-+
-+			timer0: timer@8000 {
-+				compatible = "nuvoton,npcm750-timer";
-+				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-+				reg = <0x8000 0x50>;
-+				clocks = <&clk 5>;
-+			};
-+
-+			watchdog0: watchdog@801C {
-+				compatible = "nuvoton,npcm750-wdt";
-+				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
-+				reg = <0x801C 0x4>;
-+				status = "disabled";
-+				clocks = <&clk 5>;
-+			};
-+
-+			watchdog1: watchdog@901C {
-+				compatible = "nuvoton,npcm750-wdt";
-+				interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-+				reg = <0x901C 0x4>;
-+				status = "disabled";
-+				clocks = <&clk 5>;
-+			};
-+
-+			watchdog2: watchdog@a01C {
-+				compatible = "nuvoton,npcm750-wdt";
-+				interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
-+				reg = <0xa01C 0x4>;
-+				status = "disabled";
-+				clocks = <&clk 5>;
-+			};
-+
-+			serial0: serial@1000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0x1000 0x1000>;
-+				clocks = <&clk 6>;
-+				interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-+				reg-shift = <2>;
-+				status = "disabled";
-+			};
-+
-+			serial1: serial@2000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0x2000 0x1000>;
-+				clocks = <&clk 6>;
-+				interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+				reg-shift = <2>;
-+				status = "disabled";
-+			};
-+
-+			serial2: serial@3000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0x3000 0x1000>;
-+				clocks = <&clk 6>;
-+				interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-+				reg-shift = <2>;
-+				status = "disabled";
-+			};
-+
-+			serial3: serial@4000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0x4000 0x1000>;
-+				clocks = <&clk 6>;
-+				interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
-+				reg-shift = <2>;
-+				status = "disabled";
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-new file mode 100644
-index 000000000000..15f744f1beea
---- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
-+// Copyright 2018 Google, Inc.
-+
-+/dts-v1/;
-+#include "nuvoton-npcm750.dtsi"
-+
-+/ {
-+	model = "Nuvoton npcm750 Development Board (Device Tree)";
-+	compatible = "nuvoton,npcm750";
-+
-+	chosen {
-+		stdout-path = &serial3;
-+	};
-+
-+	memory {
-+		reg = <0 0x40000000>;
-+	};
-+};
-+
-+&watchdog1 {
-+	status = "okay";
-+};
-+
-+&serial0 {
-+	status = "okay";
-+};
-+
-+&serial1 {
-+	status = "okay";
-+};
-+
-+&serial2 {
-+	status = "okay";
-+};
-+
-+&serial3 {
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-new file mode 100644
-index 000000000000..5afdc730fc4a
---- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-@@ -0,0 +1,45 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
-+// Copyright 2018 Google, Inc.
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include "nuvoton-common-npcm7xx.dtsi"
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		enable-method = "nuvoton,npcm750-smp";
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk 0>;
-+			clock-names = "clk_cpu";
-+			reg = <0>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk 0>;
-+			clock-names = "clk_cpu";
-+			reg = <1>;
-+			next-level-cache = <&l2>;
-+		};
-+	};
-+	soc {
-+		timer@3fe600 {
-+			compatible = "arm,cortex-a9-twd-timer";
-+			reg = <0x3fe600 0x20>;
-+			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) |
-+						  IRQ_TYPE_LEVEL_HIGH)>;
-+			clocks = <&clk 5>;
-+		};
-+	};
-+};
--- 
-2.14.1
+After investigating how hwmon currently handles returned error codes of 
+sensors I've come up with a couple ideas where one of them seems to be 
+the most optimal choice that I'll describe here (please refer to the 
+issue on the other).
+
+Currently there's a configure option, that when enabled, removes a 
+sensor from dbus and allows hwmon to continue when an error on reading 
+the sensor occurs. I would like to enhance this change to make a hwmon 
+config file entry that could be used per sensor of a device that defines 
+a comma separated list of what return code(s) would cause that sensor to 
+be removed from dbus. This allows the greatest flexibility in handling 
+how error codes should be handled for a device's sensor(s).
+
+e.g.
+
+LABEL_temp198 = "gpu0_core_temp"
+
+REMOVERC_temp198 = EAGAIN
+
+
+In addition to this, it may also be possible to include the changes 
+needed where this REMOVERC config entry could be "globally" defined 
+where any sensor provided by that device's hwmon config file that 
+returns the given error code(s) would be removed from dbus. I have not 
+looked into the effort involved with the change described here, but it 
+would just be a further enhancement to the one described above.
+
+Thanks,
+
+Matt
