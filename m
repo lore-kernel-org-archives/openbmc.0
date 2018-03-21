@@ -1,55 +1,74 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::242; helo=mail-pg0-x242.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="RVYbNHpI"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="WzKUtEm5"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="e6xO93wl"; 
  dkim-atps=neutral
-Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
- [IPv6:2607:f8b0:400e:c05::242])
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 405Zrc6mZqzF0Q9
- for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 14:23:28 +1100 (AEDT)
-Received: by mail-pg0-x242.google.com with SMTP id l4so1468488pgp.11
- for <openbmc@lists.ozlabs.org>; Tue, 20 Mar 2018 20:23:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 405Zx46LBSzF0Xs;
+ Wed, 21 Mar 2018 14:27:20 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id j4so3952041qth.8;
+ Tue, 20 Mar 2018 20:27:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=adh3ZKf2PlEoNSSzxTkm/UeuZvAfANQxEYyao7zSDcs=;
- b=RVYbNHpIhj5C+qxOE929xbSOSGx3MlI9sen4Tmlh6w7OcfL5YpuyUQNSEUHIysFAyL
- LZR1TedVwx1Pcpa1tlSyY7QC59Vlq7mhoIXAiNauXwDmMF6JVmo1I63X0a4m62tBrPUJ
- 5Uev9+hXoSnPEWvfNMp/q/uxPD9GXXoKl7IOZu9ehkMM1BV7s5hYV0Zo//qnFE6bWfs5
- Z0BNtACMD6DOBpbEXnKTxP1Fgug0Ioj8Q09rUqBhu34fnBeOj0nouayWbauwzcz7AfHP
- J8dvZMiQOx6Ov6LrZbB0XwqjHgCpPyhBkV2S3vUtMYBVTHhUfgo1yrRwt6MgMX+uZDBs
- RtfQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=xQ+2mZYok2JUSrFufA45GZ8gLckS1HiadXg0BXT/2x8=;
+ b=WzKUtEm55Q5UuLOBifn5sks/JWvzGA4uCk9LWA8eo9EKwPp3ZLaPP4l2AuFx3FmmOI
+ YHVAkZCACt6jgZzKDM6CF/AjHJyFKZLzAnsLI3jJ54YB+trCiunVT6odOXFxnYP980Jo
+ fDSGIpSacu/edWm8Hw89kQ8BGQRL+gyndFQPYTMzJwnbcxmB6nlbIw1+bXLgb3Pn/7X6
+ 5Qi83ZbFb5pBKl047W3uK1yIap63EcAgA9qYUaSAkmVVFtBQmKrbtPHuVgfimd9X5NAD
+ xuymEPEs2bPXoL1tR0SHxjGJsCp3t9K8Scw6T6BAthLG5neG5EN/WpTrezuCpwWeydjc
+ 3gmg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=xQ+2mZYok2JUSrFufA45GZ8gLckS1HiadXg0BXT/2x8=;
+ b=e6xO93wl8R37IpTrE42UOZYVwMQHqoDT8QIC+rMSSgZZ5goobZ4w6az0EFTYIqS+jJ
+ gV/dMYnOU539n1zrVLFYxHV0muRYNZ8ijvWmAx5oAL+QRKWOeM7YFocYq/Wp0k5AOFI5
+ d83UfrLMVjTRLMHGDRyiVu/+imeSY/ivSj314=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=adh3ZKf2PlEoNSSzxTkm/UeuZvAfANQxEYyao7zSDcs=;
- b=ZL05bT8kQSMVTnZkYEFODcLTNFWoPV/oQF3+XSLF1EIqJuTyvuqz8lsc19YE+wXUxg
- 5vIIAgsslxBMunLm9xi9KPwtLoujf6rlKzOwDvj5ea2CIXrIGDECXnlEw3xFwPZimYVr
- zp9UKs84aUNi50KgIbr3hkk/Yz+lhXvJ1sxR1ZJOeKguPHjp/sjFmrdnANxNTiOU6/77
- EMFoA3SG+JZJCTGDuqj2kIq5JP/0qQv/NcAzUUIGTbDCaV3wxCLqThoQCYSsayLK5HD6
- ykRiOs66gat6JDEfWBqrZ+ulwaRnC/1hBQX9smTHsT0NoMh+3CPnh+3Segp/Vzkco1Hv
- hmCQ==
-X-Gm-Message-State: AElRT7G8crx7cSzJwJBp/Pq+XuQyfYqPJi9NApFngov9h66uvtVvkCzF
- cfGaWTeBoQrQyXLEpZmDK5Ht6uoE
-X-Google-Smtp-Source: AG47ELtx75JccET6sGV9HVyTqqGdAMA5F58yGB7DZcSxVL0ffXPo512aBKj4gUlWMtMMeZi12zTeuw==
-X-Received: by 10.99.149.21 with SMTP id p21mr205773pgd.154.1521602606414;
- Tue, 20 Mar 2018 20:23:26 -0700 (PDT)
-Received: from localhost (45.62.100.246.16clouds.com. [45.62.100.246])
- by smtp.gmail.com with ESMTPSA id f6sm4488477pgo.58.2018.03.20.20.23.23
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Tue, 20 Mar 2018 20:23:25 -0700 (PDT)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13] hwmon (occ): Fix an infinite for loop issue
-Date: Wed, 21 Mar 2018 11:22:12 +0800
-Message-Id: <1521602532-11306-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=xQ+2mZYok2JUSrFufA45GZ8gLckS1HiadXg0BXT/2x8=;
+ b=rAEwG+XSX2ebV2/a3WlWvMnX1dEswr3e49Th4JMY+GYWUtl2Y0NOYZ7Yl7o54QuWnY
+ EMKk8zEF4VY+2LehogyparorNr4HBq1pKO/wb4OnRJlIeumkyCLwWZEshNqwNAsiJL3S
+ AU/EvBIEuOmIkrrtHPBxl4wZ7AFj0GizQmOTwbwuzdZnO6A8HZJI2Naaq3UOC8h8cTUP
+ Ifso5ungDJpBtFBWJ/JTEUPUu6D9avZ3VCypRrVtmWtWcojVyYta6IBBF6F9e6Gn94mm
+ /S1iFLAv9VDCoSkEx2Y8HVI5b2R0GgdLagEYrgVRL50waCZMvTJFHpPjpKl4PzCk0Qx3
+ w8Nw==
+X-Gm-Message-State: AElRT7GAO1t1uBeTZq1IHkx1q50T3jrCB66QGQiCiN4hKkzH3kNVVCOU
+ zw2wYIug1RgxOkPHmV81fpuWfA5u3bZ9mN29W9Q=
+X-Google-Smtp-Source: AG47ELsnWGJwJWnCSIEi5Tvz6LAYlLof8k+H8qCpK4ozqRe6eokQ2aJmo0KlXz8Djj15Cdu5/mtoCih5nrufr1rdSFU=
+X-Received: by 10.200.57.132 with SMTP id v4mr27250518qte.204.1521602838055;
+ Tue, 20 Mar 2018 20:27:18 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.63.197 with HTTP; Tue, 20 Mar 2018 20:26:57 -0700 (PDT)
+In-Reply-To: <20180321025241.19785-6-jk@ozlabs.org>
+References: <20180321025241.19785-1-jk@ozlabs.org>
+ <20180321025241.19785-6-jk@ozlabs.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 21 Mar 2018 13:56:57 +1030
+X-Google-Sender-Auth: LQOBJ7KZL0JmRxeesbQ_uYGdqJc
+Message-ID: <CACPK8Xc+BhX+8o3-z1tVWCc81rCnf5EBaFA8VqU64ywvJg6aZw@mail.gmail.com>
+Subject: Re: [PATCH 5/5] serial/aspeed-vuart: Implement quick throttle
+ mechanism
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: linux-serial@vger.kernel.org, linux-aspeed@lists.ozlabs.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Jiri Slaby <jslaby@suse.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -61,31 +80,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Mar 2018 03:23:29 -0000
+X-List-Received-Date: Wed, 21 Mar 2018 03:27:22 -0000
 
-The for loop without ++i cause either infinite loop or random memory
-access issues, e.g. unable to handle kernel NULL or kernel oops in
-snprintf.
+Hi Jeremy,
 
-Fix it by adding ++i in the for loop.
+On Wed, Mar 21, 2018 at 1:22 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Although we populate the ->throttle and ->unthrottle UART operations,
+> these may not be called until the ldisc has had a chance to schedule and
+> check buffer space. This means that we may overflow the flip buffers
+> without ever hitting the ldisc's throttle threshold.
+>
+> This change implements an interrupt-based throttle, where we check for
+> space in the flip buffers before reading characters from the UART's
+> FIFO. If there's no space available, we disable the RX interrupt and
+> schedule a timer to check for space later.
+>
+> This prevents a case where we drop characters under heavy RX load.
+>
+> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+> ---
+>  drivers/tty/serial/8250/8250_aspeed_vuart.c | 103 ++++++++++++++++++++++++++--
+>  1 file changed, 99 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+> index 50c082b4a1ac..bc2b63578e58 100644
+> --- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
+> +++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+> @@ -14,6 +14,8 @@
+>  #include <linux/of_address.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/of_platform.h>
+> +#include <linux/tty.h>
+> +#include <linux/tty_flip.h>
+>  #include <linux/clk.h>
+>
+>  #include "8250.h"
+> @@ -32,8 +34,16 @@ struct aspeed_vuart {
+>         void __iomem            *regs;
+>         struct clk              *clk;
+>         int                     line;
+> +       struct timer_list       unthrottle_timer;
+>  };
+>
+> +/*
+> + * If we fill the tty flip buffers, we throttle the data ready interrupt
+> + * to prevent dropped characters. This timeout defines how long we wait
+> + * to (conditionally, depending on buffer state) unthrottle.
+> + */
+> +static const int unthrottle_timeout = HZ/10;
+> +
+>  /*
+>   * The VUART is basically two UART 'front ends' connected by their FIFO
+>   * (no actual serial line in between). One is on the BMC side (management
+> @@ -183,17 +193,23 @@ static void aspeed_vuart_shutdown(struct uart_port *uart_port)
+>         serial8250_do_shutdown(uart_port);
+>  }
+>
+> -static void aspeed_vuart_set_throttle(struct uart_port *port, bool throttle)
+> +static void __aspeed_vuart_set_throttle(struct uart_8250_port *up,
+> +               bool throttle)
+>  {
+>         unsigned char irqs = UART_IER_RLSI | UART_IER_RDI;
+> -       struct uart_8250_port *up = up_to_u8250p(port);
+> -       unsigned long flags;
+>
+> -       spin_lock_irqsave(&port->lock, flags);
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
----
- drivers/hwmon/occ/common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The diff is a bit confusing, considering you just added these
+functions. Can you explain why you did it that way?
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index d0b2a29..88c3291 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -916,7 +916,7 @@ static int occ_setup_sensor_attrs(struct occ *occ)
- 		/* Special case for many-attribute power sensor. Split it into
- 		 * a sensor number per power type, emulating several sensors.
- 		 */
--		for (i = 0; i < sensors->power.num_sensors; ) {
-+		for (i = 0; i < sensors->power.num_sensors; ++i) {
- 			s = (i * 4) + 1;
- 
- 			snprintf(attr->name, sizeof(attr->name),
--- 
-2.7.4
+Cheers,
+
+Joel
