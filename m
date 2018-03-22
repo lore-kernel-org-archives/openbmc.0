@@ -1,53 +1,61 @@
-Return-Path: <venture@google.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22f; helo=mail-ua0-x22f.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Xk3cgWQv"; 
- dkim-atps=neutral
-Received: from mail-ua0-x22f.google.com (mail-ua0-x22f.google.com
- [IPv6:2607:f8b0:400c:c08::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Y/kO4gfh"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="IcdAo7In"; dkim-atps=neutral
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 406bSt4s1NzF20R
- for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 05:54:53 +1100 (AEDT)
-Received: by mail-ua0-x22f.google.com with SMTP id i21so6258799uak.8
- for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 11:54:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=aeASgDY/uBIa4noA8SX683qai/AuXE2so+8X5sSI3Ak=;
- b=Xk3cgWQvZYWj7BarJF3RyJevffE2BYiZPE8+S4FaZ1nd7E09XtgcTlSwvQIdqw52QH
- +1HHDkDlySZSoS/VAmKH7EYUY4jdVm6IvG5Af/mx7Lyvmw9s8K5e7dQ6tgt4JlYbZOtr
- GLQUxjyHKnKWOUDu7RMoezvV/dpVYQQL3vU8+aum8d+Oye9yIGknXgni5a8udZ0iFxev
- tOdsvZKifBm8P9U7PG5+vrEvOE/tAL+WV31o2nhccvZ/I/G8kjl0iw1A5dDQrAWIE73U
- QqA5Xzoa626pzj6B4TsPyG1lHGeM7nqDK5x2tOC1+E8/3PcnvD7ZoRXiFzCpCd8tVGGV
- bJxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=aeASgDY/uBIa4noA8SX683qai/AuXE2so+8X5sSI3Ak=;
- b=NJxaVVenzJpAPwJzTtIL60K71fr58N8CJPRVXUddBmx5bHsX2/dTjaaBbkc8qjeBbr
- FBgJSccN5XkKaVEx851YpNofRnygT/8srEjhAGKzPTvWZP1dTf/ANvX44Va0d9eIRQ/A
- q72sB0D4qTgXrRg3F0oG3duONMbprbtXhDoqqY7lR6EmT/+ru3txHlqseScXpknRurS3
- o8VShz6wXOx/uhsMgrFVchgjoyz7KLjaeMgJxOCqpCuntYr2Te4Y+gl1wx+MKTsw8u4t
- t9BKgtoQK6Sino7xVZWndSIHfZqFVtzp42RK/42mNVpy6JSceg8nZHtv7ISgPdoZGBlj
- PWog==
-X-Gm-Message-State: AElRT7E4v93D2A237wbWammjBfBUH9f3Pq7RuZF+hPtnQIHzelhk/C4x
- gWzPJ00aOuVS9EclJpTHykqXoBBazhBZWrdXc77E5cN2
-X-Google-Smtp-Source: AG47ELsbcXIyi8dddUbvlxb+kSEY4ijtp0Zz8FCya/NLiQtzKngEtr96TYp7bNj8tFud7Qqb+ZrW/4LPrMuuQIwArkg=
-X-Received: by 10.176.4.118 with SMTP id 109mr15282620uav.198.1521744890180;
- Thu, 22 Mar 2018 11:54:50 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 406d8F3KFzzF1yt
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 07:10:33 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 307A22100F
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 16:10:28 -0400 (EDT)
+Received: from web5 ([10.202.2.215])
+ by compute4.internal (MEProxy); Thu, 22 Mar 2018 16:10:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=YiTUQexRI+/movzLPM5RKrFSGyh/y
+ 41/2uZMIOPOgdw=; b=Y/kO4gfheAYx3pwMAAA7ejxiMlQ778CTlvaFhiwy3iO4k
+ BSmX7qhb+kBpuGozbPAUSBfUEgQuFHQZEs6spFMStMlphwqwGeQ4tpgQXAdpL8bj
+ yBVs7Vu08ivHESPSWYXeSIBTpJGadaZIatFXrIHZXKQcShER6qN3zdzQby3TDpH6
+ iaC6Hsjdmktt0lfwrc744xf+i3OJsHNUZgAO6GyQ9K7JBLIAyeDuE96E13tbb1sK
+ DSmhYFUfVmlvZChOHmBWO2SiKFTyX6V7h+S3XRnlBnu1dShst4kK42ST9AXHktbv
+ Lk3+hXmHBp2/rDiSYEA8ls2WDIawXf23nzosTccbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=YiTUQe
+ xRI+/movzLPM5RKrFSGyh/y41/2uZMIOPOgdw=; b=IcdAo7Inj622ToaCD4rTyc
+ 2eMfwnVZ07FPwT4vvRZR3GSPNFiSRn2jz2vX2y+RN2eK3tv+/PBg8rECVZGX8rXa
+ hCG2m5tpQkRfABnEsD5Obt99wtCL98L/7pt0V5dKqW+U8edjGIlFXXsbAIGhYltP
+ gZOKqv1f/2Td5wkW08/oK6JqWWJ9takgPPnQbF/n54tTyTrebFxXuo1Purimsmk2
+ pQerAcNmAe0pMyFgGHySpfuepcTKZhZGb+mxVZ1sahcDQUcCn4Wh6M/iT75JWLuI
+ 5gqQIM/ehZmKfNXUTzIqc9B5v/Vi6DMGktaMQBbw28OjwVdFq2hiffWMIJPFypHQ
+ ==
+X-ME-Sender: <xms:tA20WtkSjEoZr715sQPRTyUgk3NZEhhI0bEl69UcBFaxUaU7cxZxZA>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id EE1389E09C; Thu, 22 Mar 2018 16:10:27 -0400 (EDT)
+Message-Id: <1521749427.3244298.1312773128.6CCE1037@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-Received: by 10.31.124.193 with HTTP; Thu, 22 Mar 2018 11:54:29 -0700 (PDT)
-From: Patrick Venture <venture@google.com>
-Date: Thu, 22 Mar 2018 11:54:29 -0700
-Message-ID: <CAO=notxQAUtUvOcJeTznwp72uXn_STHqtggV8sdexhE-BfuxFg@mail.gmail.com>
-Subject: BMC Health
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-5ce6c4ba
+References: <CAO=notxQAUtUvOcJeTznwp72uXn_STHqtggV8sdexhE-BfuxFg@mail.gmail.com>
+Date: Fri, 23 Mar 2018 06:40:27 +1030
+In-Reply-To: <CAO=notxQAUtUvOcJeTznwp72uXn_STHqtggV8sdexhE-BfuxFg@mail.gmail.com>
+Subject: Re: BMC Health
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,16 +67,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Mar 2018 18:54:56 -0000
+X-List-Received-Date: Thu, 22 Mar 2018 20:10:39 -0000
 
-The Facebook presentation yesterday talked about BMC health, free
-memory, etc.  I didn't see anything in the IPMI spec about this
-information, and beyond my general drive for metrics, just system
-health would be great.
+On Fri, 23 Mar 2018, at 05:24, Patrick Venture wrote:
+> The Facebook presentation yesterday talked about BMC health, free
+> memory, etc.  I didn't see anything in the IPMI spec about this
+> information, and beyond my general drive for metrics, just system
+> health would be great.
+> 
+> Things I care about:
+> up-time
+> free memory
+> ... other things?
 
-Things I care about:
-up-time
-free memory
-... other things?
+* Free flash space
+* Network traffic stats
+* CPU load average
 
-Patrick
+Andrew
