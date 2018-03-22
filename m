@@ -1,71 +1,33 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 405xVC4Hm5zF1nk
- for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 04:23:46 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2LHMAbR062153
- for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 13:23:44 -0400
-Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gur3wthqx-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 13:23:43 -0400
-Received: from localhost
- by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Wed, 21 Mar 2018 11:23:42 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 21 Mar 2018 11:23:39 -0600
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w2LHNc2a10289630
- for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 10:23:38 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D69FAC603E
- for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 11:23:38 -0600 (MDT)
-Received: from [9.10.99.29] (unknown [9.10.99.29])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id B01F1C6037
- for <openbmc@lists.ozlabs.org>; Wed, 21 Mar 2018 11:23:38 -0600 (MDT)
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Subject: Code levels in error log entries
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 21 Mar 2018 12:23:40 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18032117-0028-0000-0000-00000955188E
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008717; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000254; SDB=6.01006363; UDB=6.00512411; IPR=6.00785646; 
- MB=3.00020166; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-21 17:23:40
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18032117-0029-0000-0000-00003A0E42F6
-Message-Id: <120dd10d-e04a-477e-e84a-5cd536aff663@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-21_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803210199
+ by lists.ozlabs.org (Postfix) with ESMTPS id 406RNY12GSzF1wj
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 23:50:29 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2018 05:49:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.48,344,1517904000"; d="scan'208";a="35916001"
+Received: from build0101.sh.intel.com ([10.239.164.138])
+ by FMSMGA003.fm.intel.com with ESMTP; 22 Mar 2018 05:49:11 -0700
+From: Haiyue Wang <haiyue.wang@linux.intel.com>
+To: minyard@acm.org, openipmi-developer@lists.sourceforge.net,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Haiyue Wang <haiyue.wang@linux.intel.com>, joel@jms.id.au,
+ avifishman70@gmail.com
+Subject: [PATCH ipmi/kcs_bmc v1] ipmi: add an NPCM7xx KCS BMC driver
+Date: Thu, 22 Mar 2018 20:50:15 +0800
+Message-Id: <1521723015-19142-1-git-send-email-haiyue.wang@linux.intel.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,18 +39,315 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Mar 2018 17:23:48 -0000
+X-List-Received-Date: Thu, 22 Mar 2018 12:50:38 -0000
 
-For IBM systems, we need to add the current code level to each error log
-object as it's created to make it easier on the lives of support
-personnel.  It would be a new interface (or maybe use an existing
-code version one) on the /xyz/openbmc_project/logging/entry/X objects.
+This driver exposes the Keyboard Controller Style (KCS) interface on
+Novoton NPCM7xx SoCs as a character device. Such SOCs are commonly used
+as a BaseBoard Management Controller (BMC) on a server board, and KCS
+interface is commonly used to perform the in-band IPMI communication
+between the server and its BMC.
 
-Does anyone here that also uses error logs have an opinion on if they
-would also be interested in this or not, so it would go into the common
-logging code?
+Signed-off-by: Avi Fishman <avifishman70@gmail.com>
+Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+---
+ .../devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt   |  39 ++++
+ drivers/char/ipmi/Kconfig                          |  15 ++
+ drivers/char/ipmi/Makefile                         |   1 +
+ drivers/char/ipmi/kcs_bmc_npcm7xx.c                | 204 +++++++++++++++++++++
+ 4 files changed, 259 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
+ create mode 100644 drivers/char/ipmi/kcs_bmc_npcm7xx.c
 
-Unless others are interested in it, I plan on putting it in an IBM
-specific repository.  (or maybe turn on with a configure option?)
-
-Thanks
+diff --git a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
+new file mode 100644
+index 0000000..3538a21
+--- /dev/null
++++ b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
+@@ -0,0 +1,39 @@
++* Nuvoton NPCM7xx KCS (Keyboard Controller Style) IPMI interface
++
++The Nuvoton SOCs (NPCM7xx) are commonly used as BMCs
++(Baseboard Management Controllers) and the KCS interface can be
++used to perform in-band IPMI communication with their host.
++
++Required properties:
++- compatible : should be one of
++    "nuvoton,npcm750-kcs-bmc"
++- interrupts : interrupt generated by the controller
++- kcs_chan : The KCS channel number in the controller
++
++Example:
++
++    lpc_kcs: lpc_kcs@f0007000 {
++        compatible = "nuvoton,npcm750-lpc-kcs", "simple-mfd", "syscon";
++        reg = <0xf0007000 0x40>;
++        reg-io-width = <1>;
++
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0x0 0xf0007000 0x40>;
++
++        kcs1: kcs1@0 {
++            compatible = "nuvoton,npcm750-kcs-bmc";
++            reg = <0x0 0x40>;
++            interrupts = <0 9 4>;
++            kcs_chan = <1>;
++            status = "disabled";
++        };
++
++        kcs2: kcs2@0 {
++            compatible = "nuvoton,npcm750-kcs-bmc";
++            reg = <0x0 0x40>;
++            interrupts = <0 9 4>;
++            kcs_chan = <2>;
++            status = "disabled";
++        };
++    };
+\ No newline at end of file
+diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+index 3bda116..470f976 100644
+--- a/drivers/char/ipmi/Kconfig
++++ b/drivers/char/ipmi/Kconfig
+@@ -111,6 +111,21 @@ config ASPEED_KCS_IPMI_BMC
+ 	  The driver implements the BMC side of the KCS contorller, it
+ 	  provides the access of KCS IO space for BMC side.
+ 
++config NPCM7XX_KCS_IPMI_BMC
++	depends on ARCH_NPCM7XX || COMPILE_TEST
++	select IPMI_KCS_BMC
++	select REGMAP_MMIO
++	tristate "NPCM7xx KCS IPMI BMC driver"
++	help
++	  Provides a driver for the KCS (Keyboard Controller Style) IPMI
++	  interface found on Nuvoton NPCM7xx SOCs.
++
++	  The driver implements the BMC side of the KCS contorller, it
++	  provides the access of KCS IO space for BMC side.
++
++	  This support is also available as a module.  If so, the module
++	  will be called kcs_bmc_npcm7xx.
++
+ config ASPEED_BT_IPMI_BMC
+ 	depends on ARCH_ASPEED || COMPILE_TEST
+        depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
+diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
+index 21e9e87..7a3baf3 100644
+--- a/drivers/char/ipmi/Makefile
++++ b/drivers/char/ipmi/Makefile
+@@ -24,3 +24,4 @@ obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
+ obj-$(CONFIG_IPMI_KCS_BMC) += kcs_bmc.o
+ obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
+ obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs_bmc_aspeed.o
++obj-$(CONFIG_NPCM7XX_KCS_IPMI_BMC) += kcs_bmc_npcm7xx.o
+diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+new file mode 100644
+index 0000000..7bc898c
+--- /dev/null
++++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+@@ -0,0 +1,204 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2018, Nuvoton Corporation.
++ * Copyright (c) 2018, Intel Corporation.
++ */
++
++#define pr_fmt(fmt) "nuvoton-kcs-bmc: " fmt
++
++#include <linux/atomic.h>
++#include <linux/errno.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++
++#include "kcs_bmc.h"
++
++#define DEVICE_NAME	"npcm-kcs-bmc"
++#define KCS_CHANNEL_MAX	3
++
++#define KCS1ST		0x0C
++#define KCS2ST		0x1E
++#define KCS3ST		0x30
++
++#define KCS1DO		0x0E
++#define KCS2DO		0x20
++#define KCS3DO		0x32
++
++#define KCS1DI		0x10
++#define KCS2DI		0x22
++#define KCS3DI		0x34
++
++#define KCS1CTL		0x18
++#define KCS2CTL		0x2A
++#define KCS3CTL		0x3C
++#define    KCS_CTL_IBFIE	BIT(0)
++
++/*
++ * 7.2.4 Core KCS Registers
++ * Registers in this module are 8 bits. An 8-bit register must be accessed
++ * by an 8-bit read or write.
++ *
++ * sts: KCS Channel n Status Register (KCSnST).
++ * dob: KCS Channel n Data Out Buffer Register (KCSnDO).
++ * dib: KCS Channel n Data In Buffer Register (KCSnDI).
++ * ctl: KCS Channel n Control Register (KCSnCTL).
++ */
++struct npcm7xx_kcs_reg {
++	u32 sts;
++	u32 dob;
++	u32 dib;
++	u32 ctl;
++};
++
++struct npcm7xx_kcs_bmc {
++	struct regmap *map;
++
++	const struct npcm7xx_kcs_reg *reg;
++};
++
++static const struct npcm7xx_kcs_reg npcm7xx_kcs_reg_tbl[KCS_CHANNEL_MAX] = {
++	{ .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL },
++	{ .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL },
++	{ .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL },
++};
++
++static u8 npcm7xx_kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
++{
++	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++	u32 val = 0;
++	int rc;
++
++	rc = regmap_read(priv->map, reg, &val);
++	WARN(rc != 0, "regmap_read() failed: %d\n", rc);
++
++	return rc == 0 ? (u8)val : 0;
++}
++
++static void npcm7xx_kcs_outb(struct kcs_bmc *kcs_bmc, u32 reg, u8 data)
++{
++	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++	int rc;
++
++	rc = regmap_write(priv->map, reg, data);
++	WARN(rc != 0, "regmap_write() failed: %d\n", rc);
++}
++
++static void npcm7xx_kcs_enable_channel(struct kcs_bmc *kcs_bmc, bool enable)
++{
++	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++
++	regmap_update_bits(priv->map, priv->reg->ctl, KCS_CTL_IBFIE,
++			   enable ? KCS_CTL_IBFIE : 0);
++}
++
++static irqreturn_t npcm7xx_kcs_irq(int irq, void *arg)
++{
++	struct kcs_bmc *kcs_bmc = arg;
++
++	if (!kcs_bmc_handle_event(kcs_bmc))
++		return IRQ_HANDLED;
++
++	return IRQ_NONE;
++}
++
++static int npcm7xx_kcs_config_irq(struct kcs_bmc *kcs_bmc,
++				  struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	int irq;
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	return devm_request_irq(dev, irq, npcm7xx_kcs_irq, IRQF_SHARED,
++				dev_name(dev), kcs_bmc);
++}
++
++static int npcm7xx_kcs_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct npcm7xx_kcs_bmc *priv;
++	struct kcs_bmc *kcs_bmc;
++	u32 chan;
++	int rc;
++
++	rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
++	if (rc != 0 || chan == 0 || chan > KCS_CHANNEL_MAX) {
++		dev_err(dev, "no valid 'kcs_chan' configured\n");
++		return -ENODEV;
++	}
++
++	kcs_bmc = kcs_bmc_alloc(dev, sizeof(*priv), chan);
++	if (!kcs_bmc)
++		return -ENOMEM;
++
++	priv = kcs_bmc_priv(kcs_bmc);
++	priv->map = syscon_node_to_regmap(dev->parent->of_node);
++	if (IS_ERR(priv->map)) {
++		dev_err(dev, "Couldn't get regmap\n");
++		return -ENODEV;
++	}
++	priv->reg = &npcm7xx_kcs_reg_tbl[chan - 1];
++
++	kcs_bmc->ioreg.idr = priv->reg->dib;
++	kcs_bmc->ioreg.odr = priv->reg->dob;
++	kcs_bmc->ioreg.str = priv->reg->sts;
++	kcs_bmc->io_inputb = npcm7xx_kcs_inb;
++	kcs_bmc->io_outputb = npcm7xx_kcs_outb;
++
++	dev_set_drvdata(dev, kcs_bmc);
++
++	npcm7xx_kcs_enable_channel(kcs_bmc, true);
++	rc = npcm7xx_kcs_config_irq(kcs_bmc, pdev);
++	if (rc)
++		return rc;
++
++	rc = misc_register(&kcs_bmc->miscdev);
++	if (rc) {
++		dev_err(dev, "Unable to register device\n");
++		return rc;
++	}
++
++	pr_info("channel=%u idr=0x%x odr=0x%x str=0x%x\n",
++		chan,
++		kcs_bmc->ioreg.idr, kcs_bmc->ioreg.odr, kcs_bmc->ioreg.str);
++
++	return 0;
++}
++
++static int npcm7xx_kcs_remove(struct platform_device *pdev)
++{
++	struct kcs_bmc *kcs_bmc = dev_get_drvdata(&pdev->dev);
++
++	misc_deregister(&kcs_bmc->miscdev);
++
++	return 0;
++}
++
++static const struct of_device_id npcm_kcs_bmc_match[] = {
++	{ .compatible = "nuvoton,npcm750-kcs-bmc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, npcm_kcs_bmc_match);
++
++static struct platform_driver npcm_kcs_bmc_driver = {
++	.driver = {
++		.name		= DEVICE_NAME,
++		.of_match_table	= npcm_kcs_bmc_match,
++	},
++	.probe	= npcm7xx_kcs_probe,
++	.remove	= npcm7xx_kcs_remove,
++};
++module_platform_driver(npcm_kcs_bmc_driver);
++
++MODULE_LICENSE("GPL v2");
++MODULE_AUTHOR("Avi Fishman <avifishman70@gmail.com>");
++MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
++MODULE_DESCRIPTION("NPCM7xx device interface to the KCS BMC device");
+-- 
+2.7.4
