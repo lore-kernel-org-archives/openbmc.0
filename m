@@ -1,33 +1,53 @@
-Return-Path: <haiyue.wang@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::22f; helo=mail-ua0-x22f.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Xk3cgWQv"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x22f.google.com (mail-ua0-x22f.google.com
+ [IPv6:2607:f8b0:400c:c08::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 406RNY12GSzF1wj
- for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 23:50:29 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2018 05:49:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.48,344,1517904000"; d="scan'208";a="35916001"
-Received: from build0101.sh.intel.com ([10.239.164.138])
- by FMSMGA003.fm.intel.com with ESMTP; 22 Mar 2018 05:49:11 -0700
-From: Haiyue Wang <haiyue.wang@linux.intel.com>
-To: minyard@acm.org, openipmi-developer@lists.sourceforge.net,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: Haiyue Wang <haiyue.wang@linux.intel.com>, joel@jms.id.au,
- avifishman70@gmail.com
-Subject: [PATCH ipmi/kcs_bmc v1] ipmi: add an NPCM7xx KCS BMC driver
-Date: Thu, 22 Mar 2018 20:50:15 +0800
-Message-Id: <1521723015-19142-1-git-send-email-haiyue.wang@linux.intel.com>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 406bSt4s1NzF20R
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 05:54:53 +1100 (AEDT)
+Received: by mail-ua0-x22f.google.com with SMTP id i21so6258799uak.8
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 11:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=aeASgDY/uBIa4noA8SX683qai/AuXE2so+8X5sSI3Ak=;
+ b=Xk3cgWQvZYWj7BarJF3RyJevffE2BYiZPE8+S4FaZ1nd7E09XtgcTlSwvQIdqw52QH
+ +1HHDkDlySZSoS/VAmKH7EYUY4jdVm6IvG5Af/mx7Lyvmw9s8K5e7dQ6tgt4JlYbZOtr
+ GLQUxjyHKnKWOUDu7RMoezvV/dpVYQQL3vU8+aum8d+Oye9yIGknXgni5a8udZ0iFxev
+ tOdsvZKifBm8P9U7PG5+vrEvOE/tAL+WV31o2nhccvZ/I/G8kjl0iw1A5dDQrAWIE73U
+ QqA5Xzoa626pzj6B4TsPyG1lHGeM7nqDK5x2tOC1+E8/3PcnvD7ZoRXiFzCpCd8tVGGV
+ bJxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=aeASgDY/uBIa4noA8SX683qai/AuXE2so+8X5sSI3Ak=;
+ b=NJxaVVenzJpAPwJzTtIL60K71fr58N8CJPRVXUddBmx5bHsX2/dTjaaBbkc8qjeBbr
+ FBgJSccN5XkKaVEx851YpNofRnygT/8srEjhAGKzPTvWZP1dTf/ANvX44Va0d9eIRQ/A
+ q72sB0D4qTgXrRg3F0oG3duONMbprbtXhDoqqY7lR6EmT/+ru3txHlqseScXpknRurS3
+ o8VShz6wXOx/uhsMgrFVchgjoyz7KLjaeMgJxOCqpCuntYr2Te4Y+gl1wx+MKTsw8u4t
+ t9BKgtoQK6Sino7xVZWndSIHfZqFVtzp42RK/42mNVpy6JSceg8nZHtv7ISgPdoZGBlj
+ PWog==
+X-Gm-Message-State: AElRT7E4v93D2A237wbWammjBfBUH9f3Pq7RuZF+hPtnQIHzelhk/C4x
+ gWzPJ00aOuVS9EclJpTHykqXoBBazhBZWrdXc77E5cN2
+X-Google-Smtp-Source: AG47ELsbcXIyi8dddUbvlxb+kSEY4ijtp0Zz8FCya/NLiQtzKngEtr96TYp7bNj8tFud7Qqb+ZrW/4LPrMuuQIwArkg=
+X-Received: by 10.176.4.118 with SMTP id 109mr15282620uav.198.1521744890180;
+ Thu, 22 Mar 2018 11:54:50 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.31.124.193 with HTTP; Thu, 22 Mar 2018 11:54:29 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+Date: Thu, 22 Mar 2018 11:54:29 -0700
+Message-ID: <CAO=notxQAUtUvOcJeTznwp72uXn_STHqtggV8sdexhE-BfuxFg@mail.gmail.com>
+Subject: BMC Health
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -39,315 +59,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Mar 2018 12:50:38 -0000
+X-List-Received-Date: Thu, 22 Mar 2018 18:54:56 -0000
 
-This driver exposes the Keyboard Controller Style (KCS) interface on
-Novoton NPCM7xx SoCs as a character device. Such SOCs are commonly used
-as a BaseBoard Management Controller (BMC) on a server board, and KCS
-interface is commonly used to perform the in-band IPMI communication
-between the server and its BMC.
+The Facebook presentation yesterday talked about BMC health, free
+memory, etc.  I didn't see anything in the IPMI spec about this
+information, and beyond my general drive for metrics, just system
+health would be great.
 
-Signed-off-by: Avi Fishman <avifishman70@gmail.com>
-Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
----
- .../devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt   |  39 ++++
- drivers/char/ipmi/Kconfig                          |  15 ++
- drivers/char/ipmi/Makefile                         |   1 +
- drivers/char/ipmi/kcs_bmc_npcm7xx.c                | 204 +++++++++++++++++++++
- 4 files changed, 259 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
- create mode 100644 drivers/char/ipmi/kcs_bmc_npcm7xx.c
+Things I care about:
+up-time
+free memory
+... other things?
 
-diff --git a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-new file mode 100644
-index 0000000..3538a21
---- /dev/null
-+++ b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-@@ -0,0 +1,39 @@
-+* Nuvoton NPCM7xx KCS (Keyboard Controller Style) IPMI interface
-+
-+The Nuvoton SOCs (NPCM7xx) are commonly used as BMCs
-+(Baseboard Management Controllers) and the KCS interface can be
-+used to perform in-band IPMI communication with their host.
-+
-+Required properties:
-+- compatible : should be one of
-+    "nuvoton,npcm750-kcs-bmc"
-+- interrupts : interrupt generated by the controller
-+- kcs_chan : The KCS channel number in the controller
-+
-+Example:
-+
-+    lpc_kcs: lpc_kcs@f0007000 {
-+        compatible = "nuvoton,npcm750-lpc-kcs", "simple-mfd", "syscon";
-+        reg = <0xf0007000 0x40>;
-+        reg-io-width = <1>;
-+
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0x0 0xf0007000 0x40>;
-+
-+        kcs1: kcs1@0 {
-+            compatible = "nuvoton,npcm750-kcs-bmc";
-+            reg = <0x0 0x40>;
-+            interrupts = <0 9 4>;
-+            kcs_chan = <1>;
-+            status = "disabled";
-+        };
-+
-+        kcs2: kcs2@0 {
-+            compatible = "nuvoton,npcm750-kcs-bmc";
-+            reg = <0x0 0x40>;
-+            interrupts = <0 9 4>;
-+            kcs_chan = <2>;
-+            status = "disabled";
-+        };
-+    };
-\ No newline at end of file
-diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
-index 3bda116..470f976 100644
---- a/drivers/char/ipmi/Kconfig
-+++ b/drivers/char/ipmi/Kconfig
-@@ -111,6 +111,21 @@ config ASPEED_KCS_IPMI_BMC
- 	  The driver implements the BMC side of the KCS contorller, it
- 	  provides the access of KCS IO space for BMC side.
- 
-+config NPCM7XX_KCS_IPMI_BMC
-+	depends on ARCH_NPCM7XX || COMPILE_TEST
-+	select IPMI_KCS_BMC
-+	select REGMAP_MMIO
-+	tristate "NPCM7xx KCS IPMI BMC driver"
-+	help
-+	  Provides a driver for the KCS (Keyboard Controller Style) IPMI
-+	  interface found on Nuvoton NPCM7xx SOCs.
-+
-+	  The driver implements the BMC side of the KCS contorller, it
-+	  provides the access of KCS IO space for BMC side.
-+
-+	  This support is also available as a module.  If so, the module
-+	  will be called kcs_bmc_npcm7xx.
-+
- config ASPEED_BT_IPMI_BMC
- 	depends on ARCH_ASPEED || COMPILE_TEST
-        depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
-diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
-index 21e9e87..7a3baf3 100644
---- a/drivers/char/ipmi/Makefile
-+++ b/drivers/char/ipmi/Makefile
-@@ -24,3 +24,4 @@ obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
- obj-$(CONFIG_IPMI_KCS_BMC) += kcs_bmc.o
- obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
- obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs_bmc_aspeed.o
-+obj-$(CONFIG_NPCM7XX_KCS_IPMI_BMC) += kcs_bmc_npcm7xx.o
-diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
-new file mode 100644
-index 0000000..7bc898c
---- /dev/null
-+++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2018, Nuvoton Corporation.
-+ * Copyright (c) 2018, Intel Corporation.
-+ */
-+
-+#define pr_fmt(fmt) "nuvoton-kcs-bmc: " fmt
-+
-+#include <linux/atomic.h>
-+#include <linux/errno.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+
-+#include "kcs_bmc.h"
-+
-+#define DEVICE_NAME	"npcm-kcs-bmc"
-+#define KCS_CHANNEL_MAX	3
-+
-+#define KCS1ST		0x0C
-+#define KCS2ST		0x1E
-+#define KCS3ST		0x30
-+
-+#define KCS1DO		0x0E
-+#define KCS2DO		0x20
-+#define KCS3DO		0x32
-+
-+#define KCS1DI		0x10
-+#define KCS2DI		0x22
-+#define KCS3DI		0x34
-+
-+#define KCS1CTL		0x18
-+#define KCS2CTL		0x2A
-+#define KCS3CTL		0x3C
-+#define    KCS_CTL_IBFIE	BIT(0)
-+
-+/*
-+ * 7.2.4 Core KCS Registers
-+ * Registers in this module are 8 bits. An 8-bit register must be accessed
-+ * by an 8-bit read or write.
-+ *
-+ * sts: KCS Channel n Status Register (KCSnST).
-+ * dob: KCS Channel n Data Out Buffer Register (KCSnDO).
-+ * dib: KCS Channel n Data In Buffer Register (KCSnDI).
-+ * ctl: KCS Channel n Control Register (KCSnCTL).
-+ */
-+struct npcm7xx_kcs_reg {
-+	u32 sts;
-+	u32 dob;
-+	u32 dib;
-+	u32 ctl;
-+};
-+
-+struct npcm7xx_kcs_bmc {
-+	struct regmap *map;
-+
-+	const struct npcm7xx_kcs_reg *reg;
-+};
-+
-+static const struct npcm7xx_kcs_reg npcm7xx_kcs_reg_tbl[KCS_CHANNEL_MAX] = {
-+	{ .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL },
-+	{ .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL },
-+	{ .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL },
-+};
-+
-+static u8 npcm7xx_kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
-+{
-+	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
-+	u32 val = 0;
-+	int rc;
-+
-+	rc = regmap_read(priv->map, reg, &val);
-+	WARN(rc != 0, "regmap_read() failed: %d\n", rc);
-+
-+	return rc == 0 ? (u8)val : 0;
-+}
-+
-+static void npcm7xx_kcs_outb(struct kcs_bmc *kcs_bmc, u32 reg, u8 data)
-+{
-+	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
-+	int rc;
-+
-+	rc = regmap_write(priv->map, reg, data);
-+	WARN(rc != 0, "regmap_write() failed: %d\n", rc);
-+}
-+
-+static void npcm7xx_kcs_enable_channel(struct kcs_bmc *kcs_bmc, bool enable)
-+{
-+	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
-+
-+	regmap_update_bits(priv->map, priv->reg->ctl, KCS_CTL_IBFIE,
-+			   enable ? KCS_CTL_IBFIE : 0);
-+}
-+
-+static irqreturn_t npcm7xx_kcs_irq(int irq, void *arg)
-+{
-+	struct kcs_bmc *kcs_bmc = arg;
-+
-+	if (!kcs_bmc_handle_event(kcs_bmc))
-+		return IRQ_HANDLED;
-+
-+	return IRQ_NONE;
-+}
-+
-+static int npcm7xx_kcs_config_irq(struct kcs_bmc *kcs_bmc,
-+				  struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	int irq;
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	return devm_request_irq(dev, irq, npcm7xx_kcs_irq, IRQF_SHARED,
-+				dev_name(dev), kcs_bmc);
-+}
-+
-+static int npcm7xx_kcs_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct npcm7xx_kcs_bmc *priv;
-+	struct kcs_bmc *kcs_bmc;
-+	u32 chan;
-+	int rc;
-+
-+	rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
-+	if (rc != 0 || chan == 0 || chan > KCS_CHANNEL_MAX) {
-+		dev_err(dev, "no valid 'kcs_chan' configured\n");
-+		return -ENODEV;
-+	}
-+
-+	kcs_bmc = kcs_bmc_alloc(dev, sizeof(*priv), chan);
-+	if (!kcs_bmc)
-+		return -ENOMEM;
-+
-+	priv = kcs_bmc_priv(kcs_bmc);
-+	priv->map = syscon_node_to_regmap(dev->parent->of_node);
-+	if (IS_ERR(priv->map)) {
-+		dev_err(dev, "Couldn't get regmap\n");
-+		return -ENODEV;
-+	}
-+	priv->reg = &npcm7xx_kcs_reg_tbl[chan - 1];
-+
-+	kcs_bmc->ioreg.idr = priv->reg->dib;
-+	kcs_bmc->ioreg.odr = priv->reg->dob;
-+	kcs_bmc->ioreg.str = priv->reg->sts;
-+	kcs_bmc->io_inputb = npcm7xx_kcs_inb;
-+	kcs_bmc->io_outputb = npcm7xx_kcs_outb;
-+
-+	dev_set_drvdata(dev, kcs_bmc);
-+
-+	npcm7xx_kcs_enable_channel(kcs_bmc, true);
-+	rc = npcm7xx_kcs_config_irq(kcs_bmc, pdev);
-+	if (rc)
-+		return rc;
-+
-+	rc = misc_register(&kcs_bmc->miscdev);
-+	if (rc) {
-+		dev_err(dev, "Unable to register device\n");
-+		return rc;
-+	}
-+
-+	pr_info("channel=%u idr=0x%x odr=0x%x str=0x%x\n",
-+		chan,
-+		kcs_bmc->ioreg.idr, kcs_bmc->ioreg.odr, kcs_bmc->ioreg.str);
-+
-+	return 0;
-+}
-+
-+static int npcm7xx_kcs_remove(struct platform_device *pdev)
-+{
-+	struct kcs_bmc *kcs_bmc = dev_get_drvdata(&pdev->dev);
-+
-+	misc_deregister(&kcs_bmc->miscdev);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id npcm_kcs_bmc_match[] = {
-+	{ .compatible = "nuvoton,npcm750-kcs-bmc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, npcm_kcs_bmc_match);
-+
-+static struct platform_driver npcm_kcs_bmc_driver = {
-+	.driver = {
-+		.name		= DEVICE_NAME,
-+		.of_match_table	= npcm_kcs_bmc_match,
-+	},
-+	.probe	= npcm7xx_kcs_probe,
-+	.remove	= npcm7xx_kcs_remove,
-+};
-+module_platform_driver(npcm_kcs_bmc_driver);
-+
-+MODULE_LICENSE("GPL v2");
-+MODULE_AUTHOR("Avi Fishman <avifishman70@gmail.com>");
-+MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
-+MODULE_DESCRIPTION("NPCM7xx device interface to the KCS BMC device");
--- 
-2.7.4
+Patrick
