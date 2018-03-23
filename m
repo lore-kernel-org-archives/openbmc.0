@@ -6,102 +6,47 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="LJXQO6Ov"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="PiF7ul31"; dkim-atps=neutral
-X-Greylist: delayed 943 seconds by postgrey-1.36 at bilbo;
- Sat, 24 Mar 2018 05:02:26 AEDT
+ unprotected) header.d=fb.com header.i=@fb.com header.b="gMqsluT2"; 
+ dkim-atps=neutral
 Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
  [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 407BFt3mjYzDrLP
- for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 05:02:25 +1100 (AEDT)
-Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
- by mx0b-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2NHg6VA029643; Fri, 23 Mar 2018 10:46:37 -0700
+ by lists.ozlabs.org (Postfix) with ESMTPS id 407CgB3sJ6zF1k0
+ for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 06:05:57 +1100 (AEDT)
+Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
+ by m0089730.ppops.net (8.16.0.22/8.16.0.22) with SMTP id w2NJ3i9c030448
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 12:05:53 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
  h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=a3Au5WDaydWIaYlHV0tvH1uorqnl98SbBnwOYveTs5k=;
- b=LJXQO6OvJvlb0979bOL4s9Q//18VYw5dJia2YzXdmmVdq2fPeJWKSGoaO4b/QGRldkGi
- A1hEk4dILHFqkEIxcnM4uK+DRulB2IGXsrMb7ymGigNv5EjUwB+erLWZiEOkDCL30tqa
- XeBzhNIN4qTkin6XN9jzcSygZrok6xQBFn8= 
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=u8AdIjbtBxBW0LZgXcRjdT7xiFSwkTksjmbsCVgOh84=;
+ b=gMqsluT2X3NyaM3c6XGwgOiRnjA9aivD+wthBP6KdvdBVVJMdfMGGWS6wFIQFmzSy2xg
+ pUcNkaZZMcfK3z99wOEYYL32pm3r7DZnDIGSmSJVI/acSia2e4ibiQsY42b+TGGCVEbM
+ 1aDcSdUbvJELL/puq4M9EjnuoSqNUis3KbU= 
 Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0b-00082601.pphosted.com with ESMTP id 2gw3d0gjrm-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 23 Mar 2018 10:46:37 -0700
-Received: from NAM01-BY2-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.14) with Microsoft SMTP Server (TLS)
- id 14.3.361.1; Fri, 23 Mar 2018 10:46:36 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=a3Au5WDaydWIaYlHV0tvH1uorqnl98SbBnwOYveTs5k=;
- b=PiF7ul31KmBbfbYG7ddXDcBKfxA3ACsKsqVAXrX9knGmpKrX2jmZmIySkiTZ5jv2PBfUSEraUhjCpySJRv5kn7sVkOnpvkxp88T84YP+XrKQe/GTRoOvFMr2WWfWpWvJpw78p/HmPK06UCPm2GfM5Vul9Els8MndqJYxkg5I+Kc=
-Received: from MWHPR15MB1486.namprd15.prod.outlook.com (10.173.235.7) by
- MWHPR15MB1774.namprd15.prod.outlook.com (10.174.255.15) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.20.609.10; Fri, 23 Mar 2018 17:46:35 +0000
-Received: from MWHPR15MB1486.namprd15.prod.outlook.com
- ([fe80::248a:23b8:1621:5422]) by MWHPR15MB1486.namprd15.prod.outlook.com
- ([fe80::248a:23b8:1621:5422%13]) with mapi id 15.20.0609.012; Fri, 23 Mar
- 2018 17:46:35 +0000
+ by m0089730.ppops.net with ESMTP id 2gw63t870y-3
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 12:05:53 -0700
+Received: from mx-out.facebook.com (192.168.52.123) by
+ PRN-CHUB10.TheFacebook.com (192.168.16.20) with Microsoft SMTP Server id
+ 14.3.361.1; Fri, 23 Mar 2018 12:05:35 -0700
+Received: by devvm25134.prn1.facebook.com (Postfix, from userid 122613)	id
+ F19071580248; Fri, 23 Mar 2018 12:05:34 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
 From: Amithash Prasad <amithash@fb.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
+Smtp-Origin-Hostname: devvm25134.prn1.facebook.com
+To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>
+CC: Amithash Prasad <amithash@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH v3 linux dev-4.10] ARM: dts: aspeed: Add Portwell Neptune
  machine
-Thread-Topic: [PATCH linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
- machine
-Thread-Index: AQHTwkFVoh2NeD7k3EqgWfCSjq22tKPdJCiAgAB/wQA=
-Date: Fri, 23 Mar 2018 17:46:34 +0000
-Message-ID: <339F8CD7-3742-48E9-A108-C1C6AE232381@fb.com>
-References: <20180323005248.3300168-1-amithash@fb.com>
- <CACPK8XfghUK5c=0Uxz2hB=1KYegJj4i6LH2P-G3KgO5Na1vLDQ@mail.gmail.com>
-In-Reply-To: <CACPK8XfghUK5c=0Uxz2hB=1KYegJj4i6LH2P-G3KgO5Na1vLDQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::5:6bf5]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1774;
- 7:de3A8ZQrJ10i3UwAlvvC/qdms9bovDWQ0nSb6paRdGuhnvb+HYo7bjhxEL7hzIx5HywjloLt9rVWHo16yqsZyeGcJp44vRfhRheS6VLVWUBJ8yFNS6b/6mOkEWAUlERNVdbpq3HMQRQniRxRwbn9+xhv0DnTYp/xy95ZvrILin0EiIGROrFhUK2wfKZ2cV1Xs0yL8dMgewn+2/D0a99PBhc0UzfGPzKKsg6wFsEUIzrng8QBdPxtv3g4xIOeyH8O;
- 20:+zPkJj9GeKHs0niZxZS/eTM8JdJruye88gAly9GgInYMOF4CWJKrEqbIt3PWtOTw52cLODkPOoahE8w/HwbaDHhsJs53ulE9vKH4P+SzpaR3l4b+LG3C2cxOi1BraANhbtlaz5JYs1DnDe0HOZ76KUfDdA89jDD2ub5qbotn6Ys=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 14ea1e36-a039-4bc2-ed01-08d590e60575
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(7020095)(4652020)(5600026)(4604075)(3008032)(4534165)(4627221)(201703031133081)(201702281549075)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1774; 
-x-ms-traffictypediagnostic: MWHPR15MB1774:
-x-microsoft-antispam-prvs: <MWHPR15MB177415B7C19F0D19C6B13FECB2A80@MWHPR15MB1774.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:;
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(93006095)(93001095)(10201501046)(3002001)(3231221)(11241501184)(944501327)(52105095)(6041310)(20161123560045)(20161123558120)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(6072148)(201708071742011);
- SRVR:MWHPR15MB1774; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1774; 
-x-forefront-prvs: 0620CADDF3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(39380400002)(366004)(396003)(39860400002)(346002)(376002)(189003)(199004)(7736002)(478600001)(305945005)(46003)(6246003)(76176011)(6486002)(2906002)(6436002)(446003)(558084003)(6512007)(36756003)(6116002)(8936002)(11346002)(83716003)(53936002)(186003)(86362001)(105586002)(5660300001)(106356001)(5250100002)(6506007)(3280700002)(81166006)(3660700001)(6916009)(33656002)(99286004)(14454004)(82746002)(25786009)(81156014)(4326008)(8676002)(97736004)(68736007)(316002)(2900100001)(102836004)(229853002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1774;
- H:MWHPR15MB1486.namprd15.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- MX:1; A:1; LANG:en; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: e8wxYqz7+p3LzkcyvqdvnEyLHiqQr5a/6XqBXs+dHIPD7by8Jd4w9NyTfxY2S7JK34Jr0wQkfu8UgW33tVJcJG3HCWBQZbjF2XI3vSsMIYU3VrbKJCWyyYTAIrj+l1KVtwuZhpk1qwHsF7GoIDhpn06SCFdMXyKwrrkIFqhWUZazrm3QArq9X+kAeCBjUcI5WIC01QZZL95nkQqyXd2q1FXC/EN8t1+RF7l3afs+n3KcE2uwE3k0RtdYJngt1JwL0ttl2LUiYE3Uo9Z7SbW24dtahJ+Y7Kci8RxST8m06ID+pEdOJdQJKCupJZoyDkkIzxk+6I00+gbhs9qIyOEOGA==
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <08CCA94FBB44584CAEE514BF17558945@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Date: Fri, 23 Mar 2018 12:05:33 -0700
+Message-ID: <20180323190533.3105887-1-amithash@fb.com>
+X-Mailer: git-send-email 2.9.5
+X-FB-Internal: Safe
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14ea1e36-a039-4bc2-ed01-08d590e60575
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2018 17:46:34.9097 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1774
-X-OriginatorOrg: fb.com
+Content-Type: text/plain
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2018-03-23_11:, , signatures=0
 X-Proofpoint-Spam-Reason: safe
@@ -117,9 +62,213 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 18:02:27 -0000
+X-List-Received-Date: Fri, 23 Mar 2018 19:05:59 -0000
 
-PiBJZiB0aGlzIGlzIHN1cHBvc2VkIHRvIGJlIE5DU0ksIHlvdSBuZWVkIHRvIG11eCBwaW5jdHJs
-X3JtaWkyX2RlZmF1bHQuDQoNCj4gSWYgaXQncyBzdXBwb3NlZCB0byBiZSBSR01JSSwgeW91IG5l
-ZWQgdG8gbXV4IHBpbmN0cmxfcmdtaWkyX2RlZmF1bHQNCj4gYW5kIHBpbmN0cmxfbWRpbzJfZGVm
-YXVsdC4NCg0KVjIgQ29taW5nIHVwLiBUaGFua3MgZm9yIGNhdGNoaW5nIHRoaXMuDQoNCg0K
+Initial introduction of Portwell Neptune family equipped with
+Aspeed 2500 BMC SoC. Neptune is a x86 server development kit with a
+ASPEED ast2500 BMC manufactured by Portwell. Specifically, This
+adds the neptune platform device tree file including the flash
+layout used by the neptune machines.
+
+Signed-off-by: Amithash Prasad <amithash@fb.com>
+---
+ .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 162 +++++++++++++++++++++
+ 3 files changed, 164 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+index 84601d8..9dbbe7d 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.txt
++++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+@@ -228,6 +228,7 @@ pine64	Pine64
+ pixcir  PIXCIR MICROELECTRONICS Co., Ltd
+ plathome	Plat'Home Co., Ltd.
+ plda	PLDA
++portwell	Portwell Inc.
+ powervr	PowerVR (deprecated, use img)
+ pulsedlight	PulsedLight, Inc
+ qca	Qualcomm Atheros, Inc.
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 7c54fc8..044b960 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -993,6 +993,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-mellanox-msn.dtb \
+ 	aspeed-bmc-quanta-q71l.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
++	aspeed-bmc-portwell-neptune.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+new file mode 100644
+index 0000000..93e93d6
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+@@ -0,0 +1,162 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2017 Facebook Inc.
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "Portwell Neptune BMC";
++	compatible = "portwell,neptune-bmc", "aspeed,ast2500";
++	aliases {
++		serial0 = &uart1;
++		serial4 = &uart5;
++	};
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		postcode0 {
++			label="BMC_UP";
++			gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++		postcode1 {
++			label="BMC_HB";
++			gpios = <&gpio ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
++		};
++		postcode2 {
++			label="FAULT";
++			gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
++		};
++		// postcode3-7 are GPIOH3-H7
++	};
++};
++
++&wdt2 {
++	status = "okay";
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++	};
++};
++
++&uart1 {
++	// Host Console
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++		     &pinctrl_rxd1_default>;
++};
++
++&uart5 {
++	// BMC Console
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++};
++
++&mac1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii2_default>;
++	use-ncsi;
++};
++
++&i2c1 {
++	status = "okay";
++	// To PCIe slot SMBUS
++};
++
++&i2c2 {
++	status = "okay";
++	// To LAN I210
++};
++
++&i2c3 {
++	status = "okay";
++	// SMBus to COMe AB
++};
++
++&i2c4 {
++	status = "okay";
++	// I2C to COMe AB
++};
++
++&i2c5 {
++	status = "okay";
++// 	USB Debug card
++	pca9555@27 {
++		compatible = "nxp,pca9555";
++		reg = <0x27>;
++	};
++};
++
++&i2c6 {
++	status = "okay";
++	tpm@20 {
++		compatible = "infineon,slb9645tt";
++		reg = <0x20>;
++	};
++	tmp421@4e {
++		compatible = "ti,tmp421";
++		reg = <0x4e>;
++	};
++	tmp421@4f {
++		compatible = "ti,tmp421";
++		reg = <0x4f>;
++	};
++};
++
++&i2c8 {
++	status = "okay";
++	eeprom@51 {
++		compatible = "atmel,24c128";
++		reg = <0x51>;
++		pagesize = <32>;
++	};
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++
++	fan@1 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++	};
++};
+-- 
+2.9.5
