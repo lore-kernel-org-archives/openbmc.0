@@ -1,66 +1,57 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <prvs=6620b02a2e=amithash@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=6620b02a2e=amithash@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="rDMgvjwa"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="dE2pkHo1"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="jQu4s1qH"; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 406khS50StzDqwZ
- for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 11:20:24 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 8091920E5E;
- Thu, 22 Mar 2018 20:20:22 -0400 (EDT)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Thu, 22 Mar 2018 20:20:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=CuOYq6Oa7ueG1kPbFniycaop3Z/Bl
- 7/5aEuwbKAeZCU=; b=rDMgvjwa3h2Tzn4RP4cDvk/mZ1XZoqotT225jjpwIogrB
- z3lU36IkzqSg9+xzvbBjyz/EfTH8gf+7CeqHzvolv3r0MG85MXBF0OxEzwxTK15p
- QwlswCmx7Bp2WbdW0hS++UzpkqfvKKCQSYNL45wjafllEJq7aFuduNSdlc/7P4MF
- qrQmj1ZZE9SZ4yFgpEKEg31ro6iclPc0SxfCN0/llkLj0F0sSA7YXuNaT/HP91ua
- UDLv8NuJ+NxT7aN2CUY9Pmt4/G5XW5HA5JDvRB+hRLHP8N6Fwh8bIgzCgDWpvM5R
- i5oKv79z8LSrkvQno2y51HZ2Gw46qs3I5wypyGeig==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=CuOYq6
- Oa7ueG1kPbFniycaop3Z/Bl7/5aEuwbKAeZCU=; b=dE2pkHo1F1zeMYHVkCuXkm
- GgYD3/c6pFLk2Y05FmJjmJpy3NFmiZu45adMyqREf1dXgaZ4OEm0TRRJMJlZrGKI
- M+fkFOPdvZLn6JtwvutRqFiQ5hZYGY3EP3LRR6asT0i5u6a/nZElq1PLv6SaTQ+l
- S+iVZZKV+Bpga93VBfI1NehXc3OyVj8O4Qm35JA241K6WwYvdpU97xH9BqBVOJIu
- vMnqvGKihes+LcIbDpcSdLy/JCQYydfY/7+9iNqn+xxw9eJnakI1rH8KgfoGKSFE
- 9gSNC03HprxQw8elPUNKj3TMnpco+cv6lVMJi+STwAeqGGZ9FFD0XUtl01nlOC+w
- ==
-X-ME-Sender: <xms:Rki0WnRyQLIOIaD6NWwjkCP_9_ygcnxKjWwSwlj4oJ2mg0sSTy2-6w>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 5B7C1BA43B; Thu, 22 Mar 2018 20:20:22 -0400 (EDT)
-Message-Id: <1521764422.2961526.1312998048.44165FED@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 406lJ2410jzF1x6
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 11:47:42 +1100 (AEDT)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2N0dbVG003937
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 17:47:39 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=Kbu+spJhAIPM2ruyZeA3ngpOfMnmQoG5qSHvZNVo2RU=;
+ b=jQu4s1qHTGQZZcLhN3sdmoIofaVl+TWKVlvON06F3f6FzYvNaNYvKrtPYI2inmJN8FIC
+ Qi+laV7632vF4zTjDhYJ1JaAgz8C9837kh2uCg9SIY/8AlG5gvxpW0gN70Jfp488IjOQ
+ OslJr7TZYSlVfWwD4RyuH1qmnOJ+OTCCkDU= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2gvm2c8m6y-2
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 17:47:39 -0700
+Received: from mx-out.facebook.com (192.168.52.123) by
+ PRN-CHUB06.TheFacebook.com (192.168.16.16) with Microsoft SMTP Server id
+ 14.3.361.1; Thu, 22 Mar 2018 17:47:34 -0700
+Received: by devvm25134.prn1.facebook.com (Postfix, from userid 122613)	id
+ 305CC1580841; Thu, 22 Mar 2018 17:47:34 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Amithash Prasad <amithash@fb.com>
+Smtp-Origin-Hostname: devvm25134.prn1.facebook.com
+To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>
+CC: Amithash Prasad <amithash@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH v2 linux dev-4.10] ARM: dts: aspeed: Add Portwell Neptune
+ machine
+Date: Thu, 22 Mar 2018 17:47:30 -0700
+Message-ID: <20180323004730.3282982-1-amithash@fb.com>
+X-Mailer: git-send-email 2.9.5
+X-FB-Internal: Safe
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-5ce6c4ba
-References: <CAO=notxQAUtUvOcJeTznwp72uXn_STHqtggV8sdexhE-BfuxFg@mail.gmail.com>
- <1521749427.3244298.1312773128.6CCE1037@webmail.messagingengine.com>
- <CAO=notzcXOJzJroXXhYkNc9cawMZcsVtE_M3GMkAcOk6RZTgrA@mail.gmail.com>
- <1521762255.2947317.1312969448.634F7523@webmail.messagingengine.com>
- <CAO=notzwNGmghGFGgAGG_ftx1tnA2NDgMvLHvArCSYZmDM64JA@mail.gmail.com>
-In-Reply-To: <CAO=notzwNGmghGFGgAGG_ftx1tnA2NDgMvLHvArCSYZmDM64JA@mail.gmail.com>
-Subject: Re: BMC Health
-Date: Fri, 23 Mar 2018 10:50:22 +1030
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-22_12:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,45 +63,213 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 00:20:25 -0000
+X-List-Received-Date: Fri, 23 Mar 2018 00:47:47 -0000
 
-On Fri, 23 Mar 2018, at 10:29, Patrick Venture wrote:
-> On Thu, Mar 22, 2018 at 4:44 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > On Fri, 23 Mar 2018, at 08:33, Patrick Venture wrote:
-> >> On Thu, Mar 22, 2018 at 1:10 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> >> > On Fri, 23 Mar 2018, at 05:24, Patrick Venture wrote:
-> >> >> The Facebook presentation yesterday talked about BMC health, free
-> >> >> memory, etc.  I didn't see anything in the IPMI spec about this
-> >> >> information, and beyond my general drive for metrics, just system
-> >> >> health would be great.
-> >> >>
-> >> >> Things I care about:
-> >> >> up-time
-> >> >> free memory
-> >> >> ... other things?
-> >> >
-> >> > * Free flash space
-> >> > * Network traffic stats
-> >>
-> >> I actually have an OEM IPMI command for grabbing the ethernet
-> >> statistics that loads as a library into phosphor-host-ipmid.
-> >
-> > Ok. I don't know how best to export the metrics, though we (others inside IBM) are already looking at the problem.
-> >
-> >>
-> >> > * CPU load average
-> >>
-> >> Basically a cleaned uptime result?
-> >
-> > I guess? I don't really mind how we get the data, or how it's exported, just that if we're going to do metrics I think these values should be included.
-> 
-> Right.  I'm reviewing this from an IPMI perspective, things that can
-> be reported that way, instead of a network interface -- the network
-> interface being more .... solved as there are plenty of packages for
-> exporting metrics over the network.
+Initial introduction of Portwell Neptune family equipped with
+Aspeed 2500 BMC SoC. Neptune is a x86 server development kit with a
+ASPEED ast2500 BMC manufactured by Portwell. Specifically, This
+adds the neptune platform device tree file including the flash
+layout used by the neptune machines.
 
-Looks I should have absorbed more of your original mail :)
+Signed-off-by: Amithash Prasad <amithash@fb.com>
+---
+ .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 162 +++++++++++++++++++++
+ 3 files changed, 164 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
 
-Cheers,
-
-Andrew
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+index 84601d8..9dbbe7d 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.txt
++++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+@@ -228,6 +228,7 @@ pine64	Pine64
+ pixcir  PIXCIR MICROELECTRONICS Co., Ltd
+ plathome	Plat'Home Co., Ltd.
+ plda	PLDA
++portwell	Portwell Inc.
+ powervr	PowerVR (deprecated, use img)
+ pulsedlight	PulsedLight, Inc
+ qca	Qualcomm Atheros, Inc.
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 7c54fc8..044b960 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -993,6 +993,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-mellanox-msn.dtb \
+ 	aspeed-bmc-quanta-q71l.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
++	aspeed-bmc-portwell-neptune.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+new file mode 100644
+index 0000000..6bc3c23
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+@@ -0,0 +1,162 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2017 Facebook Inc.
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "Portwell Neptune BMC";
++	compatible = "portwell,neptune-bmc", "aspeed,ast2500";
++	aliases {
++		serial0 = &uart1;
++		serial4 = &uart5;
++	};
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		postcode0 {
++			label="BMC_UP";
++			gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++		postcode1 {
++			label="BMC_HB";
++			gpios = <&gpio ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
++		};
++		postcode2 {
++			label="FAULT";
++			gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
++		};
++		// postcode3-7 are GPIOH3-H7
++	};
++};
++
++&wdt2 {
++	status = "okay";
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++	};
++};
++
++&uart1 {
++	// Host Console
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++		     &pinctrl_rxd1_default>;
++};
++
++&uart5 {
++	// BMC Console
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++};
++
++&mac1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default>;
++	use-ncsi;
++};
++
++&i2c1 {
++	status = "okay";
++	// To PCIe slot SMBUS
++};
++
++&i2c2 {
++	status = "okay";
++	// To LAN I210
++};
++
++&i2c3 {
++	status = "okay";
++	// SMBus to COMe AB
++};
++
++&i2c4 {
++	status = "okay";
++	// I2C to COMe AB
++};
++
++&i2c5 {
++	status = "okay";
++// 	USB Debug card
++	pca9555@27 {
++		compatible = "nxp,pca9555";
++		reg = <0x27>;
++	};
++};
++
++&i2c6 {
++	status = "okay";
++	tpm@20 {
++		compatible = "infineon,slb9645tt";
++		reg = <0x20>;
++	};
++	tmp421@4e {
++		compatible = "ti,tmp421";
++		reg = <0x4e>;
++	};
++	tmp421@4f {
++		compatible = "ti,tmp421";
++		reg = <0x4f>;
++	};
++};
++
++&i2c8 {
++	status = "okay";
++	eeprom@51 {
++		compatible = "atmel,24c128";
++		reg = <0x51>;
++		pagesize = <32>;
++	};
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++
++	fan@1 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++	};
++};
+-- 
+2.9.5
