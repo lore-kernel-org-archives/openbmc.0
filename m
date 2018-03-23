@@ -1,108 +1,70 @@
-Return-Path: <prvs=6620b02a2e=amithash@fb.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=6620b02a2e=amithash@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::22c; helo=mail-qt0-x22c.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="HRFh3jJy"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="GxNxQe5N"; 
  dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="FAabI2Hh"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="W/r5Fo8Y"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
+ [IPv6:2607:f8b0:400d:c0d::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 406lm83Pm8zF1yR
- for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 12:08:39 +1100 (AEDT)
-Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2N14C9v005082; Thu, 22 Mar 2018 18:08:32 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=facebook;
- bh=ZGyKd/KX034x4YaclIvbTdJi5IFvSUPDNzJ3nG2BV34=;
- b=HRFh3jJyJczUVE1NJvnKJ9R5hT42WyxQkjwjGtlSxQQahKz94he6KBcXudxodRV8UY8p
- yac7SyVfTk1gmxm3ehoUcjuMzJh3mXcCKpb+Y5MLCbKqBI7zH70r+kA529BCmu5ULRJz
- RziaUMM1piGDEr9/EKTS/HGswjQqZLzGb04= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2gvp9j07hs-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 22 Mar 2018 18:08:32 -0700
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.29) with Microsoft SMTP
- Server (TLS) id 14.3.361.1; Thu, 22 Mar 2018 21:08:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=ZGyKd/KX034x4YaclIvbTdJi5IFvSUPDNzJ3nG2BV34=;
- b=FAabI2HhO+EI5W8A+bhnx+Vfnwv13HlsOcBh+gdaznIYksuBe+BH5L2lWdCzL9+brNT5fipZfsXaoiJm1AovfMIvbtJrmIRj3SC8WUFUKb9QZZf1IduSY9kTWXIARkzQ/TYvuvBIt2H8giLycHtw44vibsMmTFo2ookgaWXTaac=
-Received: from MWHPR15MB1486.namprd15.prod.outlook.com (10.173.235.7) by
- MWHPR15MB1952.namprd15.prod.outlook.com (10.175.8.149) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.20.588.14; Fri, 23 Mar 2018 01:08:29 +0000
-Received: from MWHPR15MB1486.namprd15.prod.outlook.com
- ([fe80::248a:23b8:1621:5422]) by MWHPR15MB1486.namprd15.prod.outlook.com
- ([fe80::248a:23b8:1621:5422%13]) with mapi id 15.20.0588.017; Fri, 23 Mar
- 2018 01:08:29 +0000
-From: Amithash Prasad <amithash@fb.com>
-To: Andrew Jeffery <andrew@aj.id.au>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>, "joel@jms.id.au" <joel@jms.id.au>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add Portwell Neptune
- machine
-Thread-Topic: [PATCH linux dev-4.10] ARM: dts: aspeed: Add Portwell Neptune
- machine
-Thread-Index: AQHTux+5v7OdEfeIu0qagjDuRusKMqPW+l0AgAWg4QA=
-Date: Fri, 23 Mar 2018 01:08:29 +0000
-Message-ID: <E870711B-3394-4EBA-9098-0644FCFE7FF0@fb.com>
-References: <20180313230415.1902364-1-amithash@fb.com>
- <1521432668.4081064.1307719072.6699222C@webmail.messagingengine.com>
-In-Reply-To: <1521432668.4081064.1307719072.6699222C@webmail.messagingengine.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::7:f59d]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1952;
- 20:/co5swKJEOrBkWiR924nHv8Li4IuLXbCSIxsh3KV3qks7Jyd4bCB1arCsZJ52EabN0OpM4+nO8BbZxE9aFEgixrrySsRAwmA6//9Nr52JNyDvyiOjjWGCp8N0HAdq/zM9SefIr4Q6wY2wCrqSCp61mKqUYUh1ONfb0liKCKYhJU=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 15df7ed0-29f7-41c4-7cd2-08d5905a96b1
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(7020095)(4652020)(5600026)(4604075)(3008032)(4534165)(4627221)(201703031133081)(201702281549075)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1952; 
-x-ms-traffictypediagnostic: MWHPR15MB1952:
-x-microsoft-antispam-prvs: <MWHPR15MB19521D37127E36F4D1D6E829B2A80@MWHPR15MB1952.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:;
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(10201501046)(3231221)(11241501184)(944501327)(52105095)(93006095)(93001095)(3002001)(6041310)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(20161123558120)(20161123564045)(6072148)(201708071742011);
- SRVR:MWHPR15MB1952; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1952; 
-x-forefront-prvs: 0620CADDF3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(396003)(366004)(346002)(39860400002)(376002)(39380400002)(189003)(199004)(14454004)(478600001)(46003)(33656002)(97736004)(6486002)(7736002)(305945005)(3280700002)(5660300001)(6116002)(53936002)(6512007)(6506007)(6246003)(316002)(76176011)(36756003)(105586002)(102836004)(6436002)(106356001)(86362001)(2900100001)(2201001)(99286004)(8936002)(5250100002)(229853002)(83716003)(2906002)(25786009)(81156014)(3660700001)(81166006)(2501003)(8676002)(82746002)(186003)(68736007)(446003)(110136005)(11346002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1952;
- H:MWHPR15MB1486.namprd15.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- MX:1; A:1; LANG:en; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: 7dVkeQN1SXLh6srE3RnXuxaK1ZY7+8i3BiwtviTUuhZNw6XlKSqpT/f/kOqiVj4u4r3Z1fsD8o/lC+FX3T9T0uHKoEtkiQbjTXUieBGvWD96QWJ88dd70UkUiDZ6Cj7L7zGri1XdK2Lmff/xd/29rMxBYugQ5dHSS73jZr6yIgWXoWqCo4tTFBjoQolcRtap88HBOw//Pyg84jWQoq202JR4FuKCp/dfKXiBbDoki0T3lrnM3SZJehWZ7TGlppr0jox0LItaR+IyzVP7a0q9boMQtb1Z27qBUz/jNr/w+Zv66TpTXXVgcipLWC4UNY/lbN6wL8LFWZDRIvOjmU609g==
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <83304B6C1694694DA109265F875BFA4B@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 406pRp3R1FzF1yR
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 14:09:41 +1100 (AEDT)
+Received: by mail-qt0-x22c.google.com with SMTP id j4so11229744qth.8
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Mar 2018 20:09:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=w06SuWHRvNQel5UGExXmIhKxDTBIkuwa88cJtR656Dc=;
+ b=GxNxQe5NUP4FuxN0pixOizp7YV4uLXxEptzVtefqwvbm76AT/l5kWWY/Tv6bEXBZyK
+ kmbzXI5HgBQLKe7zqEG3v6ysZtBAuofawc6R+AJvtRIygPwvsjUR7WKeWUw+dfC6TpDZ
+ omF13fmvO6fxf4gtnkmlpV2qAb1n+L/ECzcq803ycnh+Ru37Tt/wW8nY2olAsRtDZFY2
+ n69AnNVVXaeq0N8UIPOLI69idi1FowRBHGcwEL3YjXtZPI2fNKVsvR2b3hGHFkJN9uqK
+ qnJBScEpAovgoUPfGr7Pbzkyx5mg1v5KD0EpTf20RJaOK8ObGW0U5U/QFJwjxHLG+se6
+ pp1g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=w06SuWHRvNQel5UGExXmIhKxDTBIkuwa88cJtR656Dc=;
+ b=W/r5Fo8Yu8Y7Og2SFBAjVvP4L2XdFdmI6jQc7ZKlFr7awbyQD/+lCPnnaQLtq3Nn0t
+ OHIY/useqe+fgdjR+oLMDb/hAuvPvCDRLG1hGbdJLlP6qdHn0/VrT0bDkbq3IP2uPWqB
+ p3/w3/Gk7CPYIJftUe/+FknbEVlFoBchNmNKg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=w06SuWHRvNQel5UGExXmIhKxDTBIkuwa88cJtR656Dc=;
+ b=JFopaLyy0ORlBtYS+RjqdjaEXwHQ4/j1ZggKSb1tLON/UTCMIatl8u8v1c9DHiAI0n
+ jAQkcBToHqaQdFFEPg0sOoh0fYNTXNEwJrQmY7EJ/OwcmRS5EWTkzAOfnEq2UWRgV7Y1
+ bKQAt39VGrYkjqC1VSkutxvpLx8xXlcDmlJ15lTJR+Q4Q8LMctACbEuUssjyX/aE7mCq
+ pCF9sXCJAxbmW4Kcy5ycVQt+ONuL/lWYLDEW/yDONeyJntA6YLZzu8S1UNdD6FkkuxD8
+ Ux2GC1G7nmOXIfiJ9/HzCWKiZiObee3jfBSNcEr8o6SdC2omvQnZNRiXcxgxmMcDrAJP
+ hViQ==
+X-Gm-Message-State: AElRT7Hz80iRPAPXEbka0AS3+pYD2s3icOB56OZsLBj2vEDveXLTWUUL
+ FD8l60oNHm5Ma3vg33jruI2dWbUgQwY6Zijpaw0=
+X-Google-Smtp-Source: AG47ELtROXXDtQBgpqVHo3zCM7hHu8MpeL7IgPBltfklWfRK03UlstUaZL1CCOHAwk/2nPde6VLkRraV1Mbv3aflIP4=
+X-Received: by 10.237.59.49 with SMTP id p46mr40013041qte.84.1521774579372;
+ Thu, 22 Mar 2018 20:09:39 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15df7ed0-29f7-41c4-7cd2-08d5905a96b1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2018 01:08:29.1370 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1952
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-22_12:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+Sender: joel.stan@gmail.com
+Received: by 10.200.63.197 with HTTP; Thu, 22 Mar 2018 20:09:18 -0700 (PDT)
+In-Reply-To: <20180323005248.3300168-1-amithash@fb.com>
+References: <20180323005248.3300168-1-amithash@fb.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 23 Mar 2018 13:39:19 +1030
+X-Google-Sender-Auth: Zwm0m4rUuxmiCYW9g-fLYoCfGGY
+Message-ID: <CACPK8XfghUK5c=0Uxz2hB=1KYegJj4i6LH2P-G3KgO5Na1vLDQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
+ machine
+To: Amithash Prasad <amithash@fb.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -114,14 +76,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 01:08:41 -0000
+X-List-Received-Date: Fri, 23 Mar 2018 03:09:43 -0000
 
-PiA+ICsmaTJjNSB7DQo+ID4gKwlzdGF0dXMgPSAib2theSI7DQo+ID4gKwlwY2E5NTU1QDRlIHsN
-Cj4gPiArCQljb21wYXRpYmxlID0gIm54cCxwY2E5NTU1IjsNCj4gPiArCQlwaW5jdHJsLW5hbWVz
-ID0gImRlZmF1bHQiOyAgDQo+IEkgdGhpbmsgeW91J2xsIG5lZWQgdG8gc2F5IHdoYXQgZnVuY3Rp
-b24geW91IHdpc2ggdG8gbXV4IGhlcmUsIHVubGVzcyB0aGlzIGlzIHNvbWUgcXVpcmsgb2YgdGhl
-IHBjYTk1NTUuIENlcnRhaW5seSB0aGUgZXhhbXBsZSBpbiB0aGUgZG9jdW1lbnRhdGlvbiBoYXMg
-YSBwaW5jdHJsLTAgPSA8Li4uPiBwcm9wZXJ0eS4NCg0KVGhpcyBpcyBzdGlsbCBvbmUgcGFydCBv
-ZiB0aGUgYm9hcmQgSSBhbSBzdHVkeWluZy4gSSByZW1vdmVkIHRoZSBwaW5jdHJsIHBhcnQgZnJv
-bSB0aGUgdjIgcGF0Y2gNCmFuZCB3aWxsIGluY2x1ZGUgdGhlbSB3aGVuIEkgaGF2ZSBhIGJldHRl
-ciB1bmRlcnN0YW5kaW5nIG9mIHRoZSBmdW5jdGlvbi4NCiANCg0K
+On 23 March 2018 at 11:22, Amithash Prasad <amithash@fb.com> wrote:
+
+> +++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+> @@ -0,0 +1,158 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2017 Facebook Inc.
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +       model = "Portwell Neptune BMC";
+> +       compatible = "portwell,neptune-bmc", "aspeed,ast2500";
+> +       aliases {
+> +               serial0 = &uart1;
+> +               serial4 = &uart5;
+> +       };
+
+These are redundant; they are included in aspeed-g5.dtsi.
+
+> +&mac0 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rmii1_default>;
+> +};
+> +
+> +&mac1 {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rgmii2_default>;
+> +       use-ncsi;
+
+NCSI can only be used with RMII as far as I understand.
+
+If this is supposed to be NCSI, you need to mux pinctrl_rmii2_default.
+
+If it's supposed to be RGMII, you need to mux pinctrl_rgmii2_default
+and pinctrl_mdio2_default.
+
+Cheers,
+
+Joel
