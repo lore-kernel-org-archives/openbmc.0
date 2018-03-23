@@ -1,53 +1,45 @@
-Return-Path: <venture@google.com>
+Return-Path: <sboyd@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22b; helo=mail-ua0-x22b.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="bBNFHuyy"; 
- dkim-atps=neutral
-Received: from mail-ua0-x22b.google.com (mail-ua0-x22b.google.com
- [IPv6:2607:f8b0:400c:c08::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 407SgQ5p6YzF1l2
- for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 15:52:01 +1100 (AEDT)
-Received: by mail-ua0-x22b.google.com with SMTP id s92so9050122uas.11
- for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 21:52:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=mUDsqdShfkYSAjdBZcyvT9snN2h9FCyW2JrchB6Ev8k=;
- b=bBNFHuyyqxK6XSRuL8cbYFL80e4byaIZAEUhAdQJQapUT7iNco4mqxkIEnuUnu0E/A
- fKRM9o54Iu1fxur7Ke6ce/ccTxNTzg6E5q4Z8A70l7IWrZ6wDEAZ3kSnj2fd9ANbEydE
- 6FEx1uiRLt1LEgnERjJE0zxc0ivwenW89Hksrc+CR7ASLKSLsK4vK0X+/XlvBq9c7I2L
- h2t0cKL4nSLP2FvOyMh/Rll4gHlDWoFm7ToFVEgZmn018Uegifi0nOiIaWR6CxVcsoCA
- 4SN7fdgnRV02TXCeI81AJJA/gVf4O/zrdbtVNdemu/DH5tISs3HxpYPlcJKkqHDuuUGg
- nvkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=mUDsqdShfkYSAjdBZcyvT9snN2h9FCyW2JrchB6Ev8k=;
- b=V6al9C5Ywt/H+SrtNmx5j19biVllCWfarkc0M8FReSG5MYMCPxE3y92cn09OhVVEi/
- CzDRBlvbfNnGaqwJhP6Gj4SjvPM25bSoE/73ihR4eo7Ihqr5bfn4FfBaEAINiaIgfve4
- 8jTZF3wGtopU/P1LHdck1IcCi3reoA4G/K7RpWSuYVEr+ZxHylLqmX9bg5vlz4sYhuTB
- KnNDRc6NmyUiuSfCX7THFX0oBRDKncknKgRx3B3MM8q+lWDlUCu/wBH+CXM2MQ2c5z9x
- d2liG8QSNryOEpqvT8iEmfxsXCW3FKGxjMif8gEAH4V54ewYT7Lks+x+fIODEWTzht3r
- xumg==
-X-Gm-Message-State: AElRT7FMiLPGadzINC3kjWLZ9fYn0bHgcPlhPUWeffkOPhk1IJ6DKLF2
- 56tmDSW0rTdW1699NO2aqNfG0FaQvVe6eizFrbIjDA6f
-X-Google-Smtp-Source: AG47ELtPtjCCyW93RInIULbQk84ubS9zanVG0lyTdVn6/JkwmCNhF9qBCGHRrQzCA076SFRagZH72vryen/zztSC/SE=
-X-Received: by 10.176.71.78 with SMTP id i14mr21431092uac.177.1521867118637;
- Fri, 23 Mar 2018 21:51:58 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40796j4VXSzF0lf
+ for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 04:11:05 +1100 (AEDT)
+Received: from localhost (unknown [104.132.1.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 13BC821835;
+ Fri, 23 Mar 2018 17:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13BC821835
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Authentication-Results: mail.kernel.org;
+ spf=none smtp.mailfrom=sboyd@kernel.org
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Received: by 10.31.124.193 with HTTP; Fri, 23 Mar 2018 21:51:37 -0700 (PDT)
-From: Patrick Venture <venture@google.com>
-Date: Fri, 23 Mar 2018 21:51:37 -0700
-Message-ID: <CAO=notwCxfVJGwD=m-Dc=R6EvhKgBnk8hderrmkt=QHcuGcAug@mail.gmail.com>
-Subject: BMC Health Watchdog
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+To: avifishman70@gmail.com, brendanhiggins@google.com, linux@armlinux.org.uk, 
+ mark.rutland@arm.com, mturquette@baylibre.com, raltherr@google.com,
+ robh+dt@kernel.org, sboyd@codeaurora.org, tali.perry1@gmail.com,
+ tmaimon77@gmail.com
+From: Stephen Boyd <sboyd@kernel.org>
+In-Reply-To: <1521553249-6971-2-git-send-email-tali.perry1@gmail.com>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <1521553249-6971-1-git-send-email-tali.perry1@gmail.com>
+ <1521553249-6971-2-git-send-email-tali.perry1@gmail.com>
+Message-ID: <152182506241.178046.9923016351698583201@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.7
+Subject: Re: [PATCH v11 1/2] dt-binding: clk: npcm750: Add binding for Nuvoton
+ NPCM7XX Clock
+Date: Fri, 23 Mar 2018 10:11:02 -0700
+X-Mailman-Approved-At: Mon, 26 Mar 2018 09:48:48 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,16 +51,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 24 Mar 2018 04:52:03 -0000
+X-List-Received-Date: Fri, 23 Mar 2018 17:11:09 -0000
 
-I've been on a BMC health kick lately.  Mostly because it's something
-I think we all want and have different requirements.
+Quoting tali.perry1@gmail.com (2018-03-20 06:40:48)
+> From: Tali Perry <tali.perry1@gmail.com>
+> =
 
-Outside of exporting the BMC health information, which could be done
-from the same watchdog daemon, -- what requirements has everybody run
-into?
+> * Nuvoton NPCM7XX Clock Controller
+> =
 
-IIRC, the facebook presentation at the summit indicated they were
-tracking BMC health -- thoughts?
+> Nuvoton Poleg BMC NPCM7XX contains an integrated clock controller, which
+> generates and supplies clocks to all modules within the BMC.
+> =
 
-Patrick
+> ---
+> =
+
+> 10 =3D=3D> 11
+> update documentation. "eth" replaced with "ethernet" in use case eaxample.
+> =
+
+> 2 =3D=3D> 10
+> update documentation. add external clocks as inputs to clk driver.
+> fix SPDX comment.
+> =
+
+> 1 =3D=3D> 2
+> This patch includes fix request described here:
+> https://patchwork.kernel.org/patch/10200033/
+> (move fixed clocks to DT)
+> =
+
+> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+
+But this part goes before the triple dash. I'll apply it and fix it up
+on clk-next.
