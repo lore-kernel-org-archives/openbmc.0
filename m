@@ -1,34 +1,67 @@
-Return-Path: <haiyue.wang@linux.intel.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="ZIzl05FB"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4072s31ZNgzDqwd
- for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 23:28:54 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2018 05:26:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.48,349,1517904000"; d="scan'208";a="213983527"
-Received: from build0101.sh.intel.com ([10.239.164.138])
- by fmsmga006.fm.intel.com with ESMTP; 23 Mar 2018 05:26:25 -0700
-From: Haiyue Wang <haiyue.wang@linux.intel.com>
-To: wsa@the-dreams.de, brendanhiggins@google.com, linux-i2c@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Cc: Haiyue Wang <haiyue.wang@linux.intel.com>, jarkko.nikula@linux.intel.com,
- andriy.shevchenko@intel.com, jae.hyun.yoo@linux.intel.com
-Subject: [PATCH i2c/slave-mqueue v2] i2c: slave-mqueue: add a slave backend to
- receive and queue messages
-Date: Fri, 23 Mar 2018 20:27:15 +0800
-Message-Id: <1521808035-2622-1-git-send-email-haiyue.wang@linux.intel.com>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4073k71FjYzDrNC
+ for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 00:07:58 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 056745396C;
+ Fri, 23 Mar 2018 13:07:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1521810464; x=
+ 1523624865; bh=m4IYez7JXbqQFtlHieM6HFmqOFtv+nSu4iobzVop2AI=; b=Z
+ Izl05FBy+djcWt7OhNU06pht93Y1FNZwldn4gXq/EPuPCTUi87y7+b0pmYckGwQW
+ /Rdxu3csBk501y1jTBAhlpojlhLtIfA0Zb+m/Uz90F9tiwaVJEAajOoABx+9TfOW
+ CfWsieaFg8Bc0wDHugsKJd3Yh5Q88MAKOomQqt7Eoo=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id KwHxnM0o8wUi; Fri, 23 Mar 2018 16:07:44 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id A06D550C4E;
+ Fri, 23 Mar 2018 16:07:44 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 23
+ Mar 2018 16:07:44 +0300
+Subject: Re: IPMI Set LAN Configuration Parameters
+To: Emily Shaffer <emilyshaffer@google.com>
+CC: <openbmc@lists.ozlabs.org>
+References: <6de6bf00-ea77-a061-cd92-df255b2c0a7f@linux.intel.com>
+ <CAO=notyuHzYmwxDre9-kTgPeYNSSrut32wJeRo46VWzrW6Q=xQ@mail.gmail.com>
+ <7d9366d2-7816-227c-ac36-409faaa13d8b@linux.intel.com>
+ <CAO=notzcgZxFthUY90V+2BgW=YnykrVsiVG4OdV0zR7kSTFoUA@mail.gmail.com>
+ <20180214205327.GG113334@mauery>
+ <f998fef8-0be3-8d1c-6856-768510a4cc9a@linux.vnet.ibm.com>
+ <644096ed-6248-850c-832d-797624c379f7@yadro.com>
+ <CAJoAoZmUgRv5LeDYXhNhdNtJqfew7aAqBP-v=Ss6mQRQcuDFHA@mail.gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Message-ID: <0778dc78-2704-8521-2256-58b16df5a30f@yadro.com>
+Date: Fri, 23 Mar 2018 16:07:43 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
+MIME-Version: 1.0
+In-Reply-To: <CAJoAoZmUgRv5LeDYXhNhdNtJqfew7aAqBP-v=Ss6mQRQcuDFHA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="F6nFrQIGLHQ8TAyX9LYwSnY5r8AACnQKb"
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -40,416 +73,588 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 12:28:55 -0000
+X-List-Received-Date: Fri, 23 Mar 2018 13:08:00 -0000
 
-Some protocols over I2C are designed for bi-directional transferring
-messages by using I2C Master Write protocol. Like the MCTP (Management
-Component Transport Protocol) and IPMB (Intelligent Platform Management
-Bus), they both require that the userspace can receive messages from
-I2C dirvers under slave mode.
+--F6nFrQIGLHQ8TAyX9LYwSnY5r8AACnQKb
+Content-Type: multipart/mixed; boundary="64o6chH6oQYgIyLgZ3GJn2KlErkGFfIRb";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Emily Shaffer <emilyshaffer@google.com>
+Cc: openbmc@lists.ozlabs.org
+Message-ID: <0778dc78-2704-8521-2256-58b16df5a30f@yadro.com>
+Subject: Re: IPMI Set LAN Configuration Parameters
+References: <6de6bf00-ea77-a061-cd92-df255b2c0a7f@linux.intel.com>
+ <CAO=notyuHzYmwxDre9-kTgPeYNSSrut32wJeRo46VWzrW6Q=xQ@mail.gmail.com>
+ <7d9366d2-7816-227c-ac36-409faaa13d8b@linux.intel.com>
+ <CAO=notzcgZxFthUY90V+2BgW=YnykrVsiVG4OdV0zR7kSTFoUA@mail.gmail.com>
+ <20180214205327.GG113334@mauery>
+ <f998fef8-0be3-8d1c-6856-768510a4cc9a@linux.vnet.ibm.com>
+ <644096ed-6248-850c-832d-797624c379f7@yadro.com>
+ <CAJoAoZmUgRv5LeDYXhNhdNtJqfew7aAqBP-v=Ss6mQRQcuDFHA@mail.gmail.com>
+In-Reply-To: <CAJoAoZmUgRv5LeDYXhNhdNtJqfew7aAqBP-v=Ss6mQRQcuDFHA@mail.gmail.com>
 
-This new slave mqueue backend is used to receive and queue messages, it
-will exposes these messages to userspace by sysfs bin file.
+--64o6chH6oQYgIyLgZ3GJn2KlErkGFfIRb
+Content-Type: multipart/alternative;
+ boundary="------------D7364589C1A17F1FA3A04A82"
+Content-Language: en-US
 
-Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
----
-v1 -> v2:
- - Change MQ_MSGBUF_SIZE and MQ_QUEUE_SIZE to be configurable by Kconfig.
----
- Documentation/i2c/slave-mqueue-backend.rst | 125 ++++++++++++++++++
- drivers/i2c/Kconfig                        |  25 ++++
- drivers/i2c/Makefile                       |   1 +
- drivers/i2c/i2c-slave-mqueue.c             | 202 +++++++++++++++++++++++++++++
- 4 files changed, 353 insertions(+)
- create mode 100644 Documentation/i2c/slave-mqueue-backend.rst
- create mode 100644 drivers/i2c/i2c-slave-mqueue.c
+This is a multi-part message in MIME format.
+--------------D7364589C1A17F1FA3A04A82
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/i2c/slave-mqueue-backend.rst b/Documentation/i2c/slave-mqueue-backend.rst
-new file mode 100644
-index 0000000..69d6437
---- /dev/null
-+++ b/Documentation/i2c/slave-mqueue-backend.rst
-@@ -0,0 +1,125 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=====================================
-+Linux I2C slave message queue backend
-+=====================================
-+
-+:Author: Haiyue Wang <haiyue.wang@linux.intel.com>
-+
-+Some protocols over I2C/SMBus are designed for bi-directional transferring
-+messages by using I2C Master Write protocol. This requires that both sides
-+of the communication have slave addresses.
-+
-+Like MCTP (Management Component Transport Protocol) and IPMB (Intelligent
-+Platform Management Bus), they both require that the userspace can receive
-+messages from i2c dirvers under slave mode.
-+
-+This I2C slave mqueue (message queue) backend is used to receive and queue
-+messages from the remote i2c intelligent device; and it will add the target
-+slave address (with R/W# bit is always 0) into the message at the first byte,
-+so that userspace can use this byte to dispatch the messages into different
-+handling modules. Also, like IPMB, the address byte is in its message format,
-+it needs it to do checksum.
-+
-+For messages are time related, so this backend will flush the oldest message
-+to queue the newest one.
-+
-+Link
-+----
-+`Intelligent Platform Management Bus
-+Communications Protocol Specification
-+<https://www.intel.com/content/dam/www/public/us/en/documents/product-briefs/ipmp-spec-v1.0.pdf>`_
-+
-+`Management Component Transport Protocol (MCTP)
-+SMBus/I2C Transport Binding Specification
-+<https://www.dmtf.org/sites/default/files/standards/documents/DSP0237_1.1.0.pdf>`_
-+
-+How to use
-+----------
-+For example, the I2C5 bus has slave address 0x10, bellowing command will create
-+the related message queue interface:
-+
-+    echo slave-mqueue 0x1010 > /sys/bus/i2c/devices/i2c-5/new_device
-+
-+Then you can dump the messages like this:
-+
-+    hexdump -C /sys/bus/i2c/devices/5-1010/slave-mqueue
-+
-+Code Example
-+------------
-+*Note: call 'lseek' before 'read', this is a requirement from kernfs' design.*
-+
-+::
-+
-+  #include <sys/types.h>
-+  #include <sys/stat.h>
-+  #include <unistd.h>
-+  #include <poll.h>
-+  #include <time.h>
-+  #include <fcntl.h>
-+  #include <stdio.h>
-+
-+  int main(int argc, char *argv[])
-+  {
-+          int i, r;
-+          struct pollfd pfd;
-+          struct timespec ts;
-+          unsigned char data[256];
-+
-+          pfd.fd = open(argv[1], O_RDONLY | O_NONBLOCK);
-+          if (pfd.fd < 0)
-+                  return -1;
-+
-+          pfd.events = POLLPRI;
-+
-+          while (1) {
-+                  r = poll(&pfd, 1, 5000);
-+
-+                  if (r < 0)
-+                          break;
-+
-+                  if (r == 0 || !(pfd.revents & POLLPRI))
-+                          continue;
-+
-+                  lseek(pfd.fd, 0, SEEK_SET);
-+                  r = read(pfd.fd, data, sizeof(data));
-+                  if (r <= 0)
-+                          continue;
-+
-+                  clock_gettime(CLOCK_MONOTONIC, &ts);
-+                  printf("[%ld.%.9ld] :", ts.tv_sec, ts.tv_nsec);
-+                  for (i = 0; i < r; i++)
-+                          printf(" %02x", data[i]);
-+                  printf("\n");
-+          }
-+
-+          close(pfd.fd);
-+
-+          return 0;
-+  }
-+
-+Result
-+------
-+*./a.out "/sys/bus/i2c/devices/5-1010/slave-mqueue"*
-+
-+::
-+
-+  [10183.232500449] : 20 18 c8 2c 78 01 5b
-+  [10183.479358348] : 20 18 c8 2c 78 01 5b
-+  [10183.726556812] : 20 18 c8 2c 78 01 5b
-+  [10183.972605863] : 20 18 c8 2c 78 01 5b
-+  [10184.220124772] : 20 18 c8 2c 78 01 5b
-+  [10184.467764166] : 20 18 c8 2c 78 01 5b
-+  [10193.233421784] : 20 18 c8 2c 7c 01 57
-+  [10193.480273460] : 20 18 c8 2c 7c 01 57
-+  [10193.726788733] : 20 18 c8 2c 7c 01 57
-+  [10193.972781945] : 20 18 c8 2c 7c 01 57
-+  [10194.220487360] : 20 18 c8 2c 7c 01 57
-+  [10194.468089259] : 20 18 c8 2c 7c 01 57
-+  [10203.233433099] : 20 18 c8 2c 80 01 53
-+  [10203.481058715] : 20 18 c8 2c 80 01 53
-+  [10203.727610472] : 20 18 c8 2c 80 01 53
-+  [10203.974044856] : 20 18 c8 2c 80 01 53
-+  [10204.220734634] : 20 18 c8 2c 80 01 53
-+  [10204.468461664] : 20 18 c8 2c 80 01 53
-+
-diff --git a/drivers/i2c/Kconfig b/drivers/i2c/Kconfig
-index efc3354..20fa3e9 100644
---- a/drivers/i2c/Kconfig
-+++ b/drivers/i2c/Kconfig
-@@ -118,6 +118,31 @@ if I2C_SLAVE
- config I2C_SLAVE_EEPROM
- 	tristate "I2C eeprom slave driver"
- 
-+config I2C_SLAVE_MQUEUE_MESSAGE_SIZE
-+	int "The message size of I2C mqueue slave"
-+	default 128
-+
-+config I2C_SLAVE_MQUEUE_QUEUE_SIZE
-+	int "The queue size of I2C mqueue slave"
-+	default 32
-+	help
-+	  This number MUST be power of 2.
-+
-+config I2C_SLAVE_MQUEUE
-+	tristate "I2C mqueue (message queue) slave driver"
-+	select I2C_SLAVE_MQUEUE_MESSAGE_SIZE
-+	select I2C_SLAVE_MQUEUE_QUEUE_SIZE
-+	help
-+	  Some protocols over I2C are designed for bi-directional transferring
-+	  messages by using I2C Master Write protocol. This driver is used to
-+	  receive and queue messages from the remote I2C device.
-+
-+	  Userspace can get the messages by reading sysfs file that this driver
-+	  exposes.
-+
-+	  This support is also available as a module. If so, the module will be
-+	  called i2c-slave-mqueue.
-+
- endif
- 
- config I2C_DEBUG_CORE
-diff --git a/drivers/i2c/Makefile b/drivers/i2c/Makefile
-index 72c94c6..7ec287b 100644
---- a/drivers/i2c/Makefile
-+++ b/drivers/i2c/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_I2C_MUX)		+= i2c-mux.o
- obj-y				+= algos/ busses/ muxes/
- obj-$(CONFIG_I2C_STUB)		+= i2c-stub.o
- obj-$(CONFIG_I2C_SLAVE_EEPROM)	+= i2c-slave-eeprom.o
-+obj-$(CONFIG_I2C_SLAVE_MQUEUE)	+= i2c-slave-mqueue.o
- 
- ccflags-$(CONFIG_I2C_DEBUG_CORE) := -DDEBUG
- CFLAGS_i2c-core-base.o := -Wno-deprecated-declarations
-diff --git a/drivers/i2c/i2c-slave-mqueue.c b/drivers/i2c/i2c-slave-mqueue.c
-new file mode 100644
-index 0000000..6251422
---- /dev/null
-+++ b/drivers/i2c/i2c-slave-mqueue.c
-@@ -0,0 +1,202 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2017 - 2018, Intel Corporation.
-+
-+#include <linux/i2c.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/sysfs.h>
-+
-+#define MQ_MSGBUF_SIZE		CONFIG_I2C_SLAVE_MQUEUE_MESSAGE_SIZE
-+#define MQ_QUEUE_SIZE		CONFIG_I2C_SLAVE_MQUEUE_QUEUE_SIZE
-+#define MQ_QUEUE_NEXT(x)	(((x) + 1) & (MQ_QUEUE_SIZE - 1))
-+
-+struct mq_msg {
-+	int	len;
-+	u8	*buf;
-+};
-+
-+struct mq_queue {
-+	struct bin_attribute	bin;
-+	struct kernfs_node	*kn;
-+
-+	spinlock_t		lock; /* spinlock for queue index handling */
-+	int			in;
-+	int			out;
-+
-+	struct mq_msg		*curr;
-+	int			truncated; /* drop current if truncated */
-+	struct mq_msg		queue[MQ_QUEUE_SIZE];
-+};
-+
-+static int i2c_slave_mqueue_callback(struct i2c_client *client,
-+				     enum i2c_slave_event event, u8 *val)
-+{
-+	struct mq_queue *mq = i2c_get_clientdata(client);
-+	struct mq_msg *msg = mq->curr;
-+	int ret = 0;
-+
-+	switch (event) {
-+	case I2C_SLAVE_WRITE_REQUESTED:
-+		mq->truncated = 0;
-+
-+		msg->len = 1;
-+		msg->buf[0] = client->addr << 1;
-+		break;
-+
-+	case I2C_SLAVE_WRITE_RECEIVED:
-+		if (msg->len < MQ_MSGBUF_SIZE) {
-+			msg->buf[msg->len++] = *val;
-+		} else {
-+			dev_err(&client->dev, "message is truncated!\n");
-+			mq->truncated = 1;
-+			ret = -EINVAL;
-+		}
-+		break;
-+
-+	case I2C_SLAVE_STOP:
-+		if (unlikely(mq->truncated))
-+			break;
-+
-+		spin_lock(&mq->lock);
-+		mq->in = MQ_QUEUE_NEXT(mq->in);
-+		mq->curr = &mq->queue[mq->in];
-+
-+		/* Flush the oldest message */
-+		if (mq->out == mq->in)
-+			mq->out = MQ_QUEUE_NEXT(mq->out);
-+		spin_unlock(&mq->lock);
-+
-+		kernfs_notify(mq->kn);
-+		break;
-+
-+	default:
-+		*val = 0xFF;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static ssize_t i2c_slave_mqueue_bin_read(struct file *filp,
-+					 struct kobject *kobj,
-+					 struct bin_attribute *attr,
-+					 char *buf, loff_t pos, size_t count)
-+{
-+	struct mq_queue *mq;
-+	struct mq_msg *msg;
-+	unsigned long flags;
-+	bool more = false;
-+	ssize_t ret = 0;
-+
-+	mq = dev_get_drvdata(container_of(kobj, struct device, kobj));
-+
-+	spin_lock_irqsave(&mq->lock, flags);
-+	if (mq->out != mq->in) {
-+		msg = &mq->queue[mq->out];
-+
-+		if (msg->len <= count) {
-+			ret = msg->len;
-+			memcpy(buf, msg->buf, ret);
-+		} else {
-+			ret = -EOVERFLOW; /* Drop this HUGE one. */
-+		}
-+
-+		mq->out = MQ_QUEUE_NEXT(mq->out);
-+		if (mq->out != mq->in)
-+			more = true;
-+	}
-+	spin_unlock_irqrestore(&mq->lock, flags);
-+
-+	if (more)
-+		kernfs_notify(mq->kn);
-+
-+	return ret;
-+}
-+
-+static int i2c_slave_mqueue_probe(struct i2c_client *client,
-+				  const struct i2c_device_id *id)
-+{
-+	struct device *dev = &client->dev;
-+	struct mq_queue *mq;
-+	int ret, i;
-+	void *buf;
-+
-+	mq = devm_kzalloc(dev, sizeof(*mq), GFP_KERNEL);
-+	if (!mq)
-+		return -ENOMEM;
-+
-+	BUILD_BUG_ON(!is_power_of_2(MQ_QUEUE_SIZE));
-+
-+	buf = devm_kmalloc_array(dev, MQ_QUEUE_SIZE, MQ_MSGBUF_SIZE,
-+				 GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < MQ_QUEUE_SIZE; i++)
-+		mq->queue[i].buf = buf + i * MQ_MSGBUF_SIZE;
-+
-+	i2c_set_clientdata(client, mq);
-+
-+	spin_lock_init(&mq->lock);
-+	mq->curr = &mq->queue[0];
-+
-+	sysfs_bin_attr_init(&mq->bin);
-+	mq->bin.attr.name = "slave-mqueue";
-+	mq->bin.attr.mode = 0400;
-+	mq->bin.read = i2c_slave_mqueue_bin_read;
-+	mq->bin.size = MQ_MSGBUF_SIZE * MQ_QUEUE_SIZE;
-+
-+	ret = sysfs_create_bin_file(&dev->kobj, &mq->bin);
-+	if (ret)
-+		return ret;
-+
-+	mq->kn = kernfs_find_and_get(dev->kobj.sd, mq->bin.attr.name);
-+	if (!mq->kn) {
-+		sysfs_remove_bin_file(&dev->kobj, &mq->bin);
-+		return -EFAULT;
-+	}
-+
-+	ret = i2c_slave_register(client, i2c_slave_mqueue_callback);
-+	if (ret) {
-+		kernfs_put(mq->kn);
-+		sysfs_remove_bin_file(&dev->kobj, &mq->bin);
-+		return ret;
-+	}
-+
-+	return 0;
-+};
-+
-+static int i2c_slave_mqueue_remove(struct i2c_client *client)
-+{
-+	struct mq_queue *mq = i2c_get_clientdata(client);
-+
-+	i2c_slave_unregister(client);
-+
-+	kernfs_put(mq->kn);
-+	sysfs_remove_bin_file(&client->dev.kobj, &mq->bin);
-+
-+	return 0;
-+}
-+
-+static const struct i2c_device_id i2c_slave_mqueue_id[] = {
-+	{ "slave-mqueue", 0 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, i2c_slave_mqueue_id);
-+
-+static struct i2c_driver i2c_slave_mqueue_driver = {
-+	.driver = {
-+		.name	= "i2c-slave-mqueue",
-+	},
-+	.probe		= i2c_slave_mqueue_probe,
-+	.remove		= i2c_slave_mqueue_remove,
-+	.id_table	= i2c_slave_mqueue_id,
-+};
-+module_i2c_driver(i2c_slave_mqueue_driver);
-+
-+MODULE_LICENSE("GPL v2");
-+MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
-+MODULE_DESCRIPTION("I2C slave mode for receiving and queuing messages");
--- 
-2.7.4
+Emily, you at Google must have heavily refactored ipmitool to use it as
+a library because 'as is' it is completely thread-unsafe, non-reentrant,
+and overall... ehm... low quality. From my experience, OpenIPMI is much
+more useful as a library.
+
+Thanks for pointing to the openbmc ipmitool repo.
+
+Alexander.
+
+23.03.2018 00:57, Emily Shaffer wrote:
+> FWIW - OpenBMC does seem to have a fork of ipmitool... I don't think
+> we've done much to it.=C2=A0 https://github.com/openbmc/ipmitool
+>
+> However, that doesn't fix the problem you mention, that it's likely
+> not the same version packaged with the host's image, and that that
+> version is in burned-out-maintainer limbo.=C2=A0 That's why I'd prefer =
+to
+> do what we can to view ipmitool as immutable, to make it easier for
+> someone to use OpenBMC with their system.
+>
+> To flip one last time, though, at Google we use ipmitool as a library
+> and wrap it in another internal utility, and so we can make changes
+> either to ipmitool itself or two how we call it really easily.=C2=A0 I
+> wonder whether many other OpenBMC users who care about IPMI are doing
+> something similar to us.
+>
+> On Wed, Mar 21, 2018 at 7:55 AM Alexander Amelkin <a.amelkin@yadro.com
+> <mailto:a.amelkin@yadro.com>> wrote:
+>
+>     Just my 2 cents.
+>
+>     I did previously some commits to the ipmitool project, and can
+>     tell that
+>     fixing ipmitool upstream now doesn't seem feasible as the only acti=
+ve
+>     project maintainer (Zdenek Styblik) has called it quits about a yea=
+r
+>     ago. I've tried asking him to make me an admin of the project he
+>     doesn't
+>     want to maintain anymore, but he just stopped responding.
+>
+>     I'm thinking about forking off (actually did it to YADRO
+>     organization on
+>     github) and starting to maintain our own version of ipmitool. That
+>     however doesn't solve the problem as the original ipmitool is a
+>     part of
+>     all the available Linux distros, and making their maintainers
+>     switch to
+>     our version I anticipate to be hell of a quest...
+>
+>     Applying the changes with a timeout after the set-complete looks
+>     good to
+>     me as it both follows the specification and allows for addressing t=
+he
+>     incorrect behavior of the original ipmitool.
+>
+>     Alexander.
+>
+>
+>     13.03.2018 18:36, Tom Joseph wrote:
+>     > Hello,
+>     >
+>     > There is a patch up for applying the network settings, with this
+>     patch
+>     > it would not require set channel access command to apply the
+>     changes.
+>     > A timer kicks in everytime set-complete happens, and the network
+>     > settings are applied once the timer expires.
+>     >
+>     > https://gerrit.openbmc-project.xyz/#/q/topic:2932
+>     >
+>     > Regards,
+>     > Tom
+>     >
+>     > On Thursday 15 February 2018 02:23 AM, Vernon Mauery wrote:
+>     >> On 14-Feb-2018 12:32 PM, Patrick Venture wrote:
+>     >>> I thought you had to explicitly set in_progress with the
+>     ipmitool?=C2=A0 My
+>     >>> own ipmitool utility is implemented as you described where it
+>     doesn't
+>     >>> assume anything about your intent, just follows the actions.
+>     >>
+>     >> Currently, ipmitool (incorrectly) sets the "set in progress"
+>     bit for
+>     >> every lan configuration parameter it sets. Given how the CLI
+>     >> interface only allows the user to specify a single parameter at =
+a
+>     >> time, it might be smart to have ipmitool also expose controls
+>     for the
+>     >> "set in progress" bit. Alternately, providing a way to to specif=
+y
+>     >> multiple parameters in a single call would be good. Something li=
+ke:
+>     >>
+>     >> ipmitool lan set 1 ipaddr 1.2.3.4 netmask 255.255.0.0 gateway
+>     1.2.0.1
+>     >> dns 1.2.1.1 ipmitool lan set 1 ipsrc dhcp
+>     >>
+>     >> and it would automatically set and use the set in progress bit
+>     >> correctly.
+>     >>
+>     >> And ipmid could then take two actions, depending on how this bit=
+ is
+>     >> (ab)used:
+>     >> 1) if only a single command is wrapped up in the
+>     >> set-in-progress/set-complete, then employ a timeout so that afte=
+r
+>     >> some amount of time, all the queued commands get applied.
+>     >> 2) if multiple commands get wrapped up in the
+>     >> set-in-progress/set-complete, then apply the command set when th=
+e
+>     >> set-complete is received.
+>     >>
+>     >> Getting ipmitool changed to have correct behavior will take some=
+
+>     >> doing, so we will need to be able to deal with its incorrect
+>     behavior
+>     >> for now. But also responding to correct behavior can make tools
+>     that
+>     >> employ that behavior work even better (with no timeout delays).
+>     >>
+>     >> Just my $0.02.
+>     >>
+>     >> --Vernon
+>     >>
+>     >>> There's definitely the possibility of thrashing.
+>     >>>
+>     >>> On Wed, Feb 14, 2018 at 11:16 AM, Dave Cobbley
+>     >>> <david.j.cobbley@linux.intel.com
+>     <mailto:david.j.cobbley@linux.intel.com>> wrote:
+>     >>>> Do you have any concerns about ipmitool constantly flushing th=
+e
+>     >>>> network as
+>     >>>> it sets & unsets the complete bit inbetween parameters,
+>     >>>> i.e. if you are setting 4 different parameters from a script?
+>     >>>>
+>     >>>> I'm not sure if this brings a lot of thrashing to the to the i=
+pmi
+>     >>>> network
+>     >>>> stack or network manager.
+>     >>>>
+>     >>>> Seems like it would be prudent to fix ipmitool upstream to all=
+ow
+>     >>>> you to set
+>     >>>> multiple parameters, in addition to the ipmi stack.
+>     >>>>
+>     >>>>
+>     >>>>> I personally have found this non-standard implementation a bi=
+t
+>     >>>>> unpleasant, as it requires using a different command to
+>     basically
+>     >>>>> flush it.=C2=A0 I am planning to implement it such that setti=
+ng in
+>     >>>>> progress
+>     >>>>> before and complete after is how it all gets flushed instead
+>     of a
+>     >>>>> timeout, since that approach reads more correct given the
+>     >>>>> specification.=C2=A0 And really it's just about literally cal=
+ling a
+>     >>>>> subroutine to flush everything when the in_progress bit is
+>     set to
+>     >>>>> completed, and removing the code from "access on"
+>     >>>>>
+>     >>>>> If you're interested to do what I've just described, I don't
+>     think
+>     >>>>> you'll get any push-back.
+>     >>>>>
+>     >>>>> Patrick
+>     >>>>>
+>     >>>>> On Wed, Feb 14, 2018 at 9:14 AM, Dave Cobbley
+>     >>>>> <david.j.cobbley@linux.intel.com
+>     <mailto:david.j.cobbley@linux.intel.com>> wrote:
+>     >>>>>>
+>     >>>>>> I noticed that when using ipmitool lan set <channel>
+>     <parameter>,
+>     >>>>>> the
+>     >>>>>> openbmc stack does not apply the settings. This seems like a=
+
+>     >>>>>> non-standard
+>     >>>>>> implementation. While using ipmitool as the standard is not
+>     quite
+>     >>>>>> correct,
+>     >>>>>> customers do expect it to work.
+>     >>>>>>
+>     >>>>>> After sending any sort of lan set command with ipmitool,
+>     the changes
+>     >>>>>> don't
+>     >>>>>> appear to stick and this message shows up in the journal:
+>     >>>>>> =C2=A0=C2=A0=C2=A0=C2=A0 "Use Set Channel Access command to =
+apply"
+>     >>>>>>
+>     >>>>>> I know IPMI 2.0 is a little ambiguous about implementation
+>     >>>>>> specifics, but
+>     >>>>>> I
+>     >>>>>> believe the intention was to utilize the "Set In Progress" b=
+it
+>     >>>>>> (Parameter
+>     >>>>>> 0)
+>     >>>>>> while doing work, and use "Set Complete" when you are
+>     finished to
+>     >>>>>> flush
+>     >>>>>> the
+>     >>>>>> changes.
+>     >>>>>>
+>     >>>>>> To work around ipmitool constantly setting and unsetting
+>     the "Set In
+>     >>>>>> Progress" bit in between every parameter applied, some BMC
+>     stacks
+>     >>>>>> accumulate
+>     >>>>>> network changes over a period of time and apply after a
+>     timeout -
+>     >>>>>> this is
+>     >>>>>> also compatible with ipmitool's non-standard use of the "Set=
+ In
+>     >>>>>> Progress"
+>     >>>>>> bit.
+>     >>>>>>
+>     >>>>>>
+>     >>>>>> Is there a plan to circle back and change this functionality=
+ to
+>     >>>>>> work with
+>     >>>>>> ipmitool in the future?
+>     >>>>>>
+>     >>>>>> Thanks,
+>     >>>>>> -Dave Cobbley
+>     >>>>>>
+>     >>>>
+>     >>
+>     >
+>
+>
+
+
+--------------D7364589C1A17F1FA3A04A82
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+  </head>
+  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <p>Emily, you at Google must have heavily refactored ipmitool to use
+      it as a library because 'as is' it is completely thread-unsafe,
+      non-reentrant, and overall... ehm... low quality. From my
+      experience, OpenIPMI is much more useful as a library.</p>
+    <p>Thanks for pointing to the openbmc ipmitool repo.<br>
+    </p>
+    <p>Alexander.<br>
+    </p>
+    23.03.2018 00:57, Emily Shaffer wrote:<br>
+    <blockquote type=3D"cite"
+cite=3D"mid:CAJoAoZmUgRv5LeDYXhNhdNtJqfew7aAqBP-v=3DSs6mQRQcuDFHA@mail.gm=
+ail.com">
+      <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Du=
+tf-8">
+      <div dir=3D"ltr">FWIW - OpenBMC does seem to have a fork of
+        ipmitool... I don't think we've done much to it.=C2=A0 <a
+          href=3D"https://github.com/openbmc/ipmitool"
+          moz-do-not-send=3D"true">https://github.com/openbmc/ipmitool</a=
+>
+        <div><br>
+        </div>
+        <div>However, that doesn't fix the problem you mention, that
+          it's likely not the same version packaged with the host's
+          image, and that that version is in burned-out-maintainer
+          limbo.=C2=A0 That's why I'd prefer to do what we can to view
+          ipmitool as immutable, to make it easier for someone to use
+          OpenBMC with their system.</div>
+        <div><br>
+        </div>
+        <div>To flip one last time, though, at Google we use ipmitool as
+          a library and wrap it in another internal utility, and so we
+          can make changes either to ipmitool itself or two how we call
+          it really easily.=C2=A0 I wonder whether many other OpenBMC use=
+rs
+          who care about IPMI are doing something similar to us.</div>
+      </div>
+      <br>
+      <div class=3D"gmail_quote">
+        <div dir=3D"ltr">On Wed, Mar 21, 2018 at 7:55 AM Alexander Amelki=
+n
+          &lt;<a href=3D"mailto:a.amelkin@yadro.com"
+            moz-do-not-send=3D"true">a.amelkin@yadro.com</a>&gt; wrote:<b=
+r>
+        </div>
+        <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0
+          .8ex;border-left:1px #ccc solid;padding-left:1ex">Just my 2
+          cents.<br>
+          <br>
+          I did previously some commits to the ipmitool project, and can
+          tell that<br>
+          fixing ipmitool upstream now doesn't seem feasible as the only
+          active<br>
+          project maintainer (Zdenek Styblik) has called it quits about
+          a year<br>
+          ago. I've tried asking him to make me an admin of the project
+          he doesn't<br>
+          want to maintain anymore, but he just stopped responding.<br>
+          <br>
+          I'm thinking about forking off (actually did it to YADRO
+          organization on<br>
+          github) and starting to maintain our own version of ipmitool.
+          That<br>
+          however doesn't solve the problem as the original ipmitool is
+          a part of<br>
+          all the available Linux distros, and making their maintainers
+          switch to<br>
+          our version I anticipate to be hell of a quest...<br>
+          <br>
+          Applying the changes with a timeout after the set-complete
+          looks good to<br>
+          me as it both follows the specification and allows for
+          addressing the<br>
+          incorrect behavior of the original ipmitool.<br>
+          <br>
+          Alexander.<br>
+          <br>
+          <br>
+          13.03.2018 18:36, Tom Joseph wrote:<br>
+          &gt; Hello,<br>
+          &gt;<br>
+          &gt; There is a patch up for applying the network settings,
+          with this patch<br>
+          &gt; it would not require set channel access command to apply
+          the changes.<br>
+          &gt; A timer kicks in everytime set-complete happens, and the
+          network<br>
+          &gt; settings are applied once the timer expires.<br>
+          &gt;<br>
+          &gt; <a
+            href=3D"https://gerrit.openbmc-project.xyz/#/q/topic:2932"
+            rel=3D"noreferrer" target=3D"_blank" moz-do-not-send=3D"true"=
+>https://gerrit.openbmc-project.xyz/#/q/topic:2932</a><br>
+          &gt;<br>
+          &gt; Regards,<br>
+          &gt; Tom<br>
+          &gt;<br>
+          &gt; On Thursday 15 February 2018 02:23 AM, Vernon Mauery
+          wrote:<br>
+          &gt;&gt; On 14-Feb-2018 12:32 PM, Patrick Venture wrote:<br>
+          &gt;&gt;&gt; I thought you had to explicitly set in_progress
+          with the ipmitool?=C2=A0 My<br>
+          &gt;&gt;&gt; own ipmitool utility is implemented as you
+          described where it doesn't<br>
+          &gt;&gt;&gt; assume anything about your intent, just follows
+          the actions.<br>
+          &gt;&gt;<br>
+          &gt;&gt; Currently, ipmitool (incorrectly) sets the "set in
+          progress" bit for<br>
+          &gt;&gt; every lan configuration parameter it sets. Given how
+          the CLI<br>
+          &gt;&gt; interface only allows the user to specify a single
+          parameter at a<br>
+          &gt;&gt; time, it might be smart to have ipmitool also expose
+          controls for the<br>
+          &gt;&gt; "set in progress" bit. Alternately, providing a way
+          to to specify<br>
+          &gt;&gt; multiple parameters in a single call would be good.
+          Something like:<br>
+          &gt;&gt;<br>
+          &gt;&gt; ipmitool lan set 1 ipaddr 1.2.3.4 netmask 255.255.0.0
+          gateway 1.2.0.1<br>
+          &gt;&gt; dns 1.2.1.1 ipmitool lan set 1 ipsrc dhcp<br>
+          &gt;&gt;<br>
+          &gt;&gt; and it would automatically set and use the set in
+          progress bit<br>
+          &gt;&gt; correctly.<br>
+          &gt;&gt;<br>
+          &gt;&gt; And ipmid could then take two actions, depending on
+          how this bit is<br>
+          &gt;&gt; (ab)used:<br>
+          &gt;&gt; 1) if only a single command is wrapped up in the<br>
+          &gt;&gt; set-in-progress/set-complete, then employ a timeout
+          so that after<br>
+          &gt;&gt; some amount of time, all the queued commands get
+          applied.<br>
+          &gt;&gt; 2) if multiple commands get wrapped up in the<br>
+          &gt;&gt; set-in-progress/set-complete, then apply the command
+          set when the<br>
+          &gt;&gt; set-complete is received.<br>
+          &gt;&gt;<br>
+          &gt;&gt; Getting ipmitool changed to have correct behavior
+          will take some<br>
+          &gt;&gt; doing, so we will need to be able to deal with its
+          incorrect behavior<br>
+          &gt;&gt; for now. But also responding to correct behavior can
+          make tools that<br>
+          &gt;&gt; employ that behavior work even better (with no
+          timeout delays).<br>
+          &gt;&gt;<br>
+          &gt;&gt; Just my $0.02.<br>
+          &gt;&gt;<br>
+          &gt;&gt; --Vernon<br>
+          &gt;&gt;<br>
+          &gt;&gt;&gt; There's definitely the possibility of thrashing.<b=
+r>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt; On Wed, Feb 14, 2018 at 11:16 AM, Dave Cobbley<br>=
+
+          &gt;&gt;&gt; &lt;<a
+            href=3D"mailto:david.j.cobbley@linux.intel.com"
+            target=3D"_blank" moz-do-not-send=3D"true">david.j.cobbley@li=
+nux.intel.com</a>&gt;
+          wrote:<br>
+          &gt;&gt;&gt;&gt; Do you have any concerns about ipmitool
+          constantly flushing the<br>
+          &gt;&gt;&gt;&gt; network as<br>
+          &gt;&gt;&gt;&gt; it sets &amp; unsets the complete bit
+          inbetween parameters,<br>
+          &gt;&gt;&gt;&gt; i.e. if you are setting 4 different
+          parameters from a script?<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt; I'm not sure if this brings a lot of
+          thrashing to the to the ipmi<br>
+          &gt;&gt;&gt;&gt; network<br>
+          &gt;&gt;&gt;&gt; stack or network manager.<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt; Seems like it would be prudent to fix
+          ipmitool upstream to allow<br>
+          &gt;&gt;&gt;&gt; you to set<br>
+          &gt;&gt;&gt;&gt; multiple parameters, in addition to the ipmi
+          stack.<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt; I personally have found this non-standard
+          implementation a bit<br>
+          &gt;&gt;&gt;&gt;&gt; unpleasant, as it requires using a
+          different command to basically<br>
+          &gt;&gt;&gt;&gt;&gt; flush it.=C2=A0 I am planning to implement=
+ it
+          such that setting in<br>
+          &gt;&gt;&gt;&gt;&gt; progress<br>
+          &gt;&gt;&gt;&gt;&gt; before and complete after is how it all
+          gets flushed instead of a<br>
+          &gt;&gt;&gt;&gt;&gt; timeout, since that approach reads more
+          correct given the<br>
+          &gt;&gt;&gt;&gt;&gt; specification.=C2=A0 And really it's just
+          about literally calling a<br>
+          &gt;&gt;&gt;&gt;&gt; subroutine to flush everything when the
+          in_progress bit is set to<br>
+          &gt;&gt;&gt;&gt;&gt; completed, and removing the code from
+          "access on"<br>
+          &gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt; If you're interested to do what I've just
+          described, I don't think<br>
+          &gt;&gt;&gt;&gt;&gt; you'll get any push-back.<br>
+          &gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt; Patrick<br>
+          &gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt; On Wed, Feb 14, 2018 at 9:14 AM, Dave
+          Cobbley<br>
+          &gt;&gt;&gt;&gt;&gt; &lt;<a
+            href=3D"mailto:david.j.cobbley@linux.intel.com"
+            target=3D"_blank" moz-do-not-send=3D"true">david.j.cobbley@li=
+nux.intel.com</a>&gt;
+          wrote:<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; I noticed that when using ipmitool
+          lan set &lt;channel&gt; &lt;parameter&gt;,<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; the<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; openbmc stack does not apply the
+          settings. This seems like a<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; non-standard<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; implementation. While using ipmitool
+          as the standard is not quite<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; correct,<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; customers do expect it to work.<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; After sending any sort of lan set
+          command with ipmitool, the changes<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; don't<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; appear to stick and this message
+          shows up in the journal:<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0 "Use Set Chan=
+nel Access command
+          to apply"<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; I know IPMI 2.0 is a little ambiguous
+          about implementation<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; specifics, but<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; I<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; believe the intention was to utilize
+          the "Set In Progress" bit<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; (Parameter<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; 0)<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; while doing work, and use "Set
+          Complete" when you are finished to<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; flush<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; the<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; changes.<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; To work around ipmitool constantly
+          setting and unsetting the "Set In<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; Progress" bit in between every
+          parameter applied, some BMC stacks<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; accumulate<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; network changes over a period of time
+          and apply after a timeout -<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; this is<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; also compatible with ipmitool's
+          non-standard use of the "Set In<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; Progress"<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; bit.<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; Is there a plan to circle back and
+          change this functionality to<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; work with<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; ipmitool in the future?<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; Thanks,<br>
+          &gt;&gt;&gt;&gt;&gt;&gt; -Dave Cobbley<br>
+          &gt;&gt;&gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;<br>
+          &gt;<br>
+          <br>
+          <br>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------D7364589C1A17F1FA3A04A82--
+
+--64o6chH6oQYgIyLgZ3GJn2KlErkGFfIRb--
+
+--F6nFrQIGLHQ8TAyX9LYwSnY5r8AACnQKb
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJatPwfAAoJEOiTWHtbdBeN9gUQALbN+QhQOJOA5AdIlSB0ZBwc
+8kb1Js361PxcTe5NlxkjMZuyu6KSYieYDmCcxgNPCMvVRtHqsyFj+YrMpl2XjiHP
+mwQZbdE8GkA7R17GevDMsAG3Uu8V8j4cjfdRZl2idjUXKe20i4l5+mhBX4XgrXyV
+o4ZydIAeflaWAmXMdqOP2/6kp1HYdgRjHzRzUXU/UuEPi+OZOStw70opEBck3api
+JpxihkUsUf9IH0AHzes5OOgTUGlnuODMrzkoqb/TkFzAirW6pG5OA6QIrNgewODr
+e+a4yXEsRCUWtOG1MLNS+pgrKppHDifxHCqtd2b8ul3fuhJnxGw5IqKV1eS7SfbP
+Z1xY4hDZ9bBDkcGg+yBgO5cVLaGW7iy5W43SfMOf7hhDwV8RrfxA6uWbDIhvdpag
+6C6Mv/5/gBjzSeD+/ULILDdtXGhGsATNBnc2+DXalqtygCqzQSS42Ru/Tm2Q1ARv
+3b11H01xXo/FX3LCKicp7ReBDEQodPWQsZvloEEPAeu8jmkAOlAxkbilQrLXX5zG
+xkqjoV2045HZXN1m7T4XxrmfqjRvO8EaWHaUItudPrZ+EEQ3EVEwfDBffHt6SLBO
+xuExuFl+Hfus/3QD6LbQQ2aAkyRbrXMzARbGGrt7gWlbIw49Os1iDNTMByaObEAn
+I+WyznLw0FyYcRLARGVT
+=rN6I
+-----END PGP SIGNATURE-----
+
+--F6nFrQIGLHQ8TAyX9LYwSnY5r8AACnQKb--
