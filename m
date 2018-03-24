@@ -1,57 +1,53 @@
-Return-Path: <prvs=6620b02a2e=amithash@fb.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=6620b02a2e=amithash@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::22b; helo=mail-ua0-x22b.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="B4YPRFLF"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="bBNFHuyy"; 
  dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua0-x22b.google.com (mail-ua0-x22b.google.com
+ [IPv6:2607:f8b0:400c:c08::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 407CgS4HgCzF1k3
- for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 06:06:12 +1100 (AEDT)
-Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
- by mx0b-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2NJ2eIc028792
- for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 12:06:08 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=DBsIwn9XoJ6F0H/6iksgD49ZGKnI3g4hwikSmedDvXY=;
- b=B4YPRFLFB8Aq2wmHQjfdsBEX4MmQzsLEi2+5xBBoLW+GSBdBZjpBegW9v1glJ3fxEuAE
- zwvmp1IvDtN+hGS8LK76HgbJM7Aa/+wlX9a8cZoNkJxcB2wN5qP/fAY/1QB0E/xMrpLu
- VOt5CbCSo+n+aQeNpQpdW76QCjtlIBAg9bU= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0b-00082601.pphosted.com with ESMTP id 2gw3d0grb4-3
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 12:06:08 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by
- PRN-CHUB10.TheFacebook.com (192.168.16.20) with Microsoft SMTP Server id
- 14.3.361.1; Fri, 23 Mar 2018 12:06:04 -0700
-Received: by devvm25134.prn1.facebook.com (Postfix, from userid 122613)	id
- CE7E21580248; Fri, 23 Mar 2018 12:06:01 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
-From: Amithash Prasad <amithash@fb.com>
-Smtp-Origin-Hostname: devvm25134.prn1.facebook.com
-To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>
-CC: Amithash Prasad <amithash@fb.com>
-Smtp-Origin-Cluster: prn1c35
-Subject: [PATCH v2 linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
- machine
-Date: Fri, 23 Mar 2018 12:06:00 -0700
-Message-ID: <20180323190600.3134140-1-amithash@fb.com>
-X-Mailer: git-send-email 2.9.5
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 407SgQ5p6YzF1l2
+ for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 15:52:01 +1100 (AEDT)
+Received: by mail-ua0-x22b.google.com with SMTP id s92so9050122uas.11
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Mar 2018 21:52:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=mUDsqdShfkYSAjdBZcyvT9snN2h9FCyW2JrchB6Ev8k=;
+ b=bBNFHuyyqxK6XSRuL8cbYFL80e4byaIZAEUhAdQJQapUT7iNco4mqxkIEnuUnu0E/A
+ fKRM9o54Iu1fxur7Ke6ce/ccTxNTzg6E5q4Z8A70l7IWrZ6wDEAZ3kSnj2fd9ANbEydE
+ 6FEx1uiRLt1LEgnERjJE0zxc0ivwenW89Hksrc+CR7ASLKSLsK4vK0X+/XlvBq9c7I2L
+ h2t0cKL4nSLP2FvOyMh/Rll4gHlDWoFm7ToFVEgZmn018Uegifi0nOiIaWR6CxVcsoCA
+ 4SN7fdgnRV02TXCeI81AJJA/gVf4O/zrdbtVNdemu/DH5tISs3HxpYPlcJKkqHDuuUGg
+ nvkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=mUDsqdShfkYSAjdBZcyvT9snN2h9FCyW2JrchB6Ev8k=;
+ b=V6al9C5Ywt/H+SrtNmx5j19biVllCWfarkc0M8FReSG5MYMCPxE3y92cn09OhVVEi/
+ CzDRBlvbfNnGaqwJhP6Gj4SjvPM25bSoE/73ihR4eo7Ihqr5bfn4FfBaEAINiaIgfve4
+ 8jTZF3wGtopU/P1LHdck1IcCi3reoA4G/K7RpWSuYVEr+ZxHylLqmX9bg5vlz4sYhuTB
+ KnNDRc6NmyUiuSfCX7THFX0oBRDKncknKgRx3B3MM8q+lWDlUCu/wBH+CXM2MQ2c5z9x
+ d2liG8QSNryOEpqvT8iEmfxsXCW3FKGxjMif8gEAH4V54ewYT7Lks+x+fIODEWTzht3r
+ xumg==
+X-Gm-Message-State: AElRT7FMiLPGadzINC3kjWLZ9fYn0bHgcPlhPUWeffkOPhk1IJ6DKLF2
+ 56tmDSW0rTdW1699NO2aqNfG0FaQvVe6eizFrbIjDA6f
+X-Google-Smtp-Source: AG47ELtPtjCCyW93RInIULbQk84ubS9zanVG0lyTdVn6/JkwmCNhF9qBCGHRrQzCA076SFRagZH72vryen/zztSC/SE=
+X-Received: by 10.176.71.78 with SMTP id i14mr21431092uac.177.1521867118637;
+ Fri, 23 Mar 2018 21:51:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-23_11:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+Received: by 10.31.124.193 with HTTP; Fri, 23 Mar 2018 21:51:37 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+Date: Fri, 23 Mar 2018 21:51:37 -0700
+Message-ID: <CAO=notwCxfVJGwD=m-Dc=R6EvhKgBnk8hderrmkt=QHcuGcAug@mail.gmail.com>
+Subject: BMC Health Watchdog
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,211 +59,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 19:06:15 -0000
+X-List-Received-Date: Sat, 24 Mar 2018 04:52:03 -0000
 
-Initial introduction of Portwell Neptune family equipped with
-Aspeed 2500 BMC SoC. Neptune is a x86 server development kit with a
-ASPEED ast2500 BMC manufactured by Portwell. Specifically, This
-adds the neptune platform device tree file including the flash
-layout used by the neptune machines.
+I've been on a BMC health kick lately.  Mostly because it's something
+I think we all want and have different requirements.
 
-Signed-off-by: Amithash Prasad <amithash@fb.com>
----
- .../devicetree/bindings/vendor-prefixes.txt        |   1 +
- arch/arm/boot/dts/Makefile                         |   3 +-
- arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 158 +++++++++++++++++++++
- 3 files changed, 161 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+Outside of exporting the BMC health information, which could be done
+from the same watchdog daemon, -- what requirements has everybody run
+into?
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
-index daf465be..ad3406d 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.txt
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
-@@ -255,6 +255,7 @@ pine64	Pine64
- pixcir  PIXCIR MICROELECTRONICS Co., Ltd
- plathome	Plat'Home Co., Ltd.
- plda	PLDA
-+portwell	Portwell Inc.
- poslab	Poslab Technology Co., Ltd.
- powervr	PowerVR (deprecated, use img)
- pulsedlight	PulsedLight, Inc
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 5cfee25..4746060 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1061,7 +1061,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-opp-romulus.dtb \
- 	aspeed-bmc-opp-witherspoon.dtb \
- 	aspeed-bmc-opp-zaius.dtb \
--	aspeed-bmc-quanta-q71l.dtb
-+	aspeed-bmc-quanta-q71l.dtb \
-+	aspeed-bmc-portwell-neptune.dtb
- endif
- 
- dtstree		:= $(srctree)/$(src)
-diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-new file mode 100644
-index 0000000..bc0396a
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-@@ -0,0 +1,158 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2017 Facebook Inc.
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+
-+/ {
-+	model = "Portwell Neptune BMC";
-+	compatible = "portwell,neptune-bmc", "aspeed,ast2500";
-+	aliases {
-+		serial0 = &uart1;
-+		serial4 = &uart5;
-+	};
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	memory {
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		postcode0 {
-+			label="BMC_UP";
-+			gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
-+			default-state = "on";
-+		};
-+		postcode1 {
-+			label="BMC_HB";
-+			gpios = <&gpio ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+		postcode2 {
-+			label="FAULT";
-+			gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
-+		};
-+		// postcode3-7 are GPIOH3-H7
-+	};
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
-+	};
-+};
-+
-+&uart1 {
-+	// Host Console
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd1_default
-+		     &pinctrl_rxd1_default>;
-+};
-+
-+&uart5 {
-+	// BMC Console
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+};
-+
-+&mac1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii2_default>;
-+	use-ncsi;
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+	// To PCIe slot SMBUS
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+	// To LAN I210
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+	// SMBus to COMe AB
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+	// I2C to COMe AB
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+// 	USB Debug card
-+	pca9555@27 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x27>;
-+	};
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+	tpm@20 {
-+		compatible = "infineon,slb9645tt";
-+		reg = <0x20>;
-+	};
-+	tmp421@4e {
-+		compatible = "ti,tmp421";
-+		reg = <0x4e>;
-+	};
-+	tmp421@4f {
-+		compatible = "ti,tmp421";
-+		reg = <0x4f>;
-+	};
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+	eeprom@51 {
-+		compatible = "atmel,24c128";
-+		reg = <0x51>;
-+		pagesize = <32>;
-+	};
-+};
-+
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-+	fan@0 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+};
--- 
-2.9.5
+IIRC, the facebook presentation at the summit indicated they were
+tracking BMC health -- thoughts?
+
+Patrick
