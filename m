@@ -1,31 +1,34 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <Tali.Perry@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ envelope-from=tali.perry@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=fail (p=none dis=none) header.from=gmail.com
 Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 408qhV5JhfzF20y
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 21:12:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 408qr63zwQzF1pP
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 21:19:17 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w2Q9rUTQ008289;
- Mon, 26 Mar 2018 12:53:31 +0300
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 0B41D5A987; Mon, 26 Mar 2018 13:11:58 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: arnd@arndb.de, robh+dt@kernel.org, mark.rutland@arm.com,
- linux@armlinux.org.uk, avifishman70@gmail.com,
- brendanhiggins@google.com, venture@google.com, joel@jms.id.au
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w2QA0J0Y008317;
+ Mon, 26 Mar 2018 13:00:19 +0300
+Received: by talu34.nuvoton.co.il (Postfix, from userid 20088)
+ id C79915A987; Mon, 26 Mar 2018 13:18:47 +0300 (IDT)
+From: Tali Perry <tali.perry1@gmail.com>
+To: sboyd@kernel.org, brendanhiggins@google.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, linux@armlinux.org.uk, avifishman70@gmail.com,
+ tmaimon77@gmail.com, raltherr@google.com
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 0/1] arm: dts: modify Nuvoton NPCM750 device tree
-Date: Mon, 26 Mar 2018 13:11:52 +0300
-Message-Id: <1522059113-20418-1-git-send-email-tmaimon77@gmail.com>
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ Tali Perry <tali.perry1@gmail.com>
+Subject: [PATCH v12 1/2] dt-binding: clk: npcm750: add binding
+Date: Mon, 26 Mar 2018 13:16:25 +0300
+Message-Id: <1522059386-20601-2-git-send-email-tali.perry1@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1522059386-20601-1-git-send-email-tali.perry1@gmail.com>
+References: <1522059386-20601-1-git-send-email-tali.perry1@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -37,45 +40,181 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2018 10:12:43 -0000
+X-List-Received-Date: Mon, 26 Mar 2018 10:19:19 -0000
 
-The NPCM7xx are a family of BMC's that include several chips as:
-NPCM750, NPCM730 etc.
+* Nuvoton NPCM7XX Clock Controller
 
-All of the NPCM7xx BMC's have the common modules like Cortex-A9,
-WDT, timers, etc, and there are a optional modules that can be added.
+Nuvoton Poleg BMC NPCM7XX contains an integrated clock controller, which
+generates and supplies clocks to all modules within the BMC.
 
-NPCM750 device tree already pushed to arm-soc.git:
-https://git.kernel.org/pub/scm/linux/kernel/git/arm/arm-soc.git/commit/?h=for-next&id=d6bdd009c21db3f677dd1d1bbb8c20bc819074bc
 
-After discussion with Rob Herring we have modified the structure
-of the NPCM7xx device tree as follow:
 
-nuvoton-common-npcm7xx device tree include all common modules
-nuvoton-npcm750 device tree include specific npcm750 modules,
-the nuvoton-npcm750 device tree include nuvoton-common-npcm7xx device tree
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
 
-In addition, the NPCM7xx device tree include the following changes:
-        - watchdog module added
-        - clock module modification
-        - serial module modification
-        - Modify Makefile NPCM7XX configuration name
 
-Sorry if it cause more work after pushing NPCM750 device tree.
 
-Thanks a lot,
+ .../bindings/clock/nuvoton,npcm750-clk.txt         | 100 +++++++++++++++++++++
+ include/dt-bindings/clock/nuvoton,npcm7xx-clock.h  |  44 +++++++++
+ 2 files changed, 144 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+ create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
 
-Tomer
-
-Tomer Maimon (1):
-  arm: dts: modify Nuvoton NPCM750 device tree
-
- arch/arm/boot/dts/Makefile                    |   2 +-
- arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 187 ++++++++++++++++++++++++++
- arch/arm/boot/dts/nuvoton-npcm750-evb.dts     |   6 +-
- arch/arm/boot/dts/nuvoton-npcm750.dtsi        | 131 +-----------------
- 4 files changed, 198 insertions(+), 128 deletions(-)
- create mode 100644 arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-
+diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+new file mode 100644
+index 000000000000..f82064546d11
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+@@ -0,0 +1,100 @@
++* Nuvoton NPCM7XX Clock Controller
++
++Nuvoton Poleg BMC NPCM7XX contains an integrated clock controller, which
++generates and supplies clocks to all modules within the BMC.
++
++External clocks:
++
++There are six fixed clocks that are generated outside the BMC. All clocks are of
++a known fixed value that cannot be changed. clk_refclk, clk_mcbypck and
++clk_sysbypck are inputs to the clock controller.
++clk_rg1refck, clk_rg2refck and clk_xin are external clocks suppling the
++network. They are set on the device tree, but not used by the clock module. The
++network devices use them directly.
++Example can be found below.
++
++All available clocks are defined as preprocessor macros in:
++dt-bindings/clock/nuvoton,npcm7xx-clock.h
++and can be reused as DT sources.
++
++Required Properties of clock controller:
++
++	- compatible: "nuvoton,npcm750-clk" : for clock controller of Nuvoton
++		  Poleg BMC NPCM750
++
++	- reg: physical base address of the clock controller and length of
++		memory mapped region.
++
++	- #clock-cells: should be 1.
++
++Example: Clock controller node:
++
++	clk: clock-controller@f0801000 {
++		compatible = "nuvoton,npcm750-clk";
++		#clock-cells = <1>;
++		reg = <0xf0801000 0x1000>;
++		clock-names = "refclk", "sysbypck", "mcbypck";
++		clocks = <&clk_refclk>, <&clk_sysbypck>, <&clk_mcbypck>;
++	};
++
++Example: Required external clocks for network:
++
++	/* external reference clock */
++	clk_refclk: clk-refclk {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <25000000>;
++		clock-output-names = "refclk";
++	};
++
++	/* external reference clock for cpu. float in normal operation */
++	clk_sysbypck: clk-sysbypck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <800000000>;
++		clock-output-names = "sysbypck";
++	};
++
++	/* external reference clock for MC. float in normal operation */
++	clk_mcbypck: clk-mcbypck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <800000000>;
++		clock-output-names = "mcbypck";
++	};
++
++	 /* external clock signal rg1refck, supplied by the phy */
++	clk_rg1refck: clk-rg1refck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <125000000>;
++		clock-output-names = "clk_rg1refck";
++	};
++
++	 /* external clock signal rg2refck, supplied by the phy */
++	clk_rg2refck: clk-rg2refck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <125000000>;
++		clock-output-names = "clk_rg2refck";
++	};
++
++	clk_xin: clk-xin {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <50000000>;
++		clock-output-names = "clk_xin";
++	};
++
++
++Example: GMAC controller node that consumes two clocks: a generated clk by the
++clock controller and a fixed clock from DT (clk_rg1refck).
++
++	ethernet0: ethernet@f0802000 {
++		compatible = "snps,dwmac";
++		reg = <0xf0802000 0x2000>;
++		interrupts = <0 14 4>;
++		interrupt-names = "macirq";
++		clocks	= <&clk_rg1refck>, <&clk NPCM7XX_CLK_AHB>;
++		clock-names = "stmmaceth", "clk_gmac";
++	};
+diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+new file mode 100644
+index 000000000000..f21522605b94
+--- /dev/null
++++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+@@ -0,0 +1,44 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Nuvoton NPCM7xx Clock Generator binding
++ * clock binding number for all clocks supportted by nuvoton,npcm7xx-clk
++ *
++ * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
++ *
++ */
++
++#ifndef __DT_BINDINGS_CLOCK_NPCM7XX_H
++#define __DT_BINDINGS_CLOCK_NPCM7XX_H
++
++
++#define NPCM7XX_CLK_CPU 0
++#define NPCM7XX_CLK_GFX_PIXEL 1
++#define NPCM7XX_CLK_MC 2
++#define NPCM7XX_CLK_ADC 3
++#define NPCM7XX_CLK_AHB 4
++#define NPCM7XX_CLK_TIMER 5
++#define NPCM7XX_CLK_UART 6
++#define NPCM7XX_CLK_MMC  7
++#define NPCM7XX_CLK_SPI3 8
++#define NPCM7XX_CLK_PCI  9
++#define NPCM7XX_CLK_AXI 10
++#define NPCM7XX_CLK_APB4 11
++#define NPCM7XX_CLK_APB3 12
++#define NPCM7XX_CLK_APB2 13
++#define NPCM7XX_CLK_APB1 14
++#define NPCM7XX_CLK_APB5 15
++#define NPCM7XX_CLK_CLKOUT 16
++#define NPCM7XX_CLK_GFX  17
++#define NPCM7XX_CLK_SU   18
++#define NPCM7XX_CLK_SU48 19
++#define NPCM7XX_CLK_SDHC 20
++#define NPCM7XX_CLK_SPI0 21
++#define NPCM7XX_CLK_SPIX 22
++
++#define NPCM7XX_CLK_REFCLK 23
++#define NPCM7XX_CLK_SYSBYPCK 24
++#define NPCM7XX_CLK_MCBYPCK 25
++
++#define NPCM7XX_NUM_CLOCKS	 (NPCM7XX_CLK_MCBYPCK+1)
++
++#endif
 -- 
 2.14.1
