@@ -1,75 +1,66 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <rlippert@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c0d::234; helo=mail-qt0-x234.google.com;
+ envelope-from=rlippert@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="vB9+rAoh"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x234.google.com (mail-qt0-x234.google.com
+ [IPv6:2607:f8b0:400d:c0d::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4097ZJ2xF0zF26g
- for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 09:08:24 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2QM4nbF011931
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 18:08:22 -0400
-Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2gy868amap-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 18:08:21 -0400
-Received: from localhost
- by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 26 Mar 2018 18:08:20 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 26 Mar 2018 18:08:18 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w2QM8HJK48103636; Mon, 26 Mar 2018 22:08:17 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AF403AC03F;
- Mon, 26 Mar 2018 18:09:36 -0400 (EDT)
-Received: from [9.85.181.180] (unknown [9.85.181.180])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 2A2D2AC043;
- Mon, 26 Mar 2018 18:09:36 -0400 (EDT)
-Subject: Re: [PATCH] aspeed: watchdog: Add status function
-To: Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, wim@linux-watchdog.org, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-References: <1522099028-20347-1-git-send-email-eajames@linux.vnet.ibm.com>
- <eeaa2de8-937d-4371-1b32-931b3221f6ce@roeck-us.net>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Mon, 26 Mar 2018 17:08:16 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4098gy05qxzF271
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 09:58:20 +1100 (AEDT)
+Received: by mail-qt0-x234.google.com with SMTP id v11so21361774qtj.6
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 15:58:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=PJQN7Wvv9bY7yb7gHin0gXnUql+OSKzVbACPYHbwrxI=;
+ b=vB9+rAohboYos4XVoXvLavf8YNUEsGeRaF4X3iw49DppUECQa3N/4Qe6Ng8kXrJBmM
+ 9ydL6kQbHTgmuWqrIc3pCS2lCg+Jy0gfgDmkYjs0xdrrk4kcrUyqb8sLs3Y6GKdYH5EM
+ 65DNKLSznEJGrGt7Uw+d6ELH0iH5oIShJvDHoBmsoQw+vgFfHTB6+tpYONXSXetouGse
+ HXG+qly/whV6ey+rr7xoe3GkCT4E11uPUW5lnEPn1iUdeQyZmohIQy9quIyabH4Y+LPs
+ eaSCuNtYESvCthnh1OGK4OVgMsjybZSe9+CiY9W5zC3R0G3J3Xbw28LMo+r50HAdlfJl
+ mQRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=PJQN7Wvv9bY7yb7gHin0gXnUql+OSKzVbACPYHbwrxI=;
+ b=qTru70z9w17UzFpEClORSeYK1pO7mmUZi2JC/ctN0uctC4NJiqObMOkkGm0EJu1Q+A
+ cgP+RbrZKd2lixOeCt8NTaUcXF3ua/4fbOrZagXxu9oHT84A/L2+9Lege2HGMaBIPEIJ
+ ivstYkCYbmC9GXvmFBCEFpb+6wxaZSE/xnBIiq3F1GqBemOH5n3fpV69COFpaop6j1TG
+ o6gVytf5xeaZkD1zHPdQtdPDsMZjvN5+2SDlDw4jjvaoQXq5sO8J2+Msq9m8RWt+G20z
+ OhgvIV198WrXZJJqBFO4mw5ZBdmCkvomZrfX5C5x+k1RKoPyQT5UtO07ot02Z+xHov3S
+ 0+xg==
+X-Gm-Message-State: AElRT7FQeSaYZE+cLtdzLRrfUEwoCFhYkLN7IwJ4277Iqj8MhvrJn0cf
+ MmrVReEAJCPWE17xREhu8wNLZcXLg8yuJ4+PoC5Mzg==
+X-Google-Smtp-Source: AG47ELs/VC9nwW/6Sb12kikJjodayydrpx6tfTUqe12SOd1qpATYzLOUh870V4+Ie5cD04ac+r+RlDbrQDQfg0u4x+o=
+X-Received: by 10.200.43.49 with SMTP id 46mr45230897qtu.97.1522105098065;
+ Mon, 26 Mar 2018 15:58:18 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <eeaa2de8-937d-4371-1b32-931b3221f6ce@roeck-us.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18032622-0056-0000-0000-000004332D5F
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008749; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000255; SDB=6.01008851; UDB=6.00513873; IPR=6.00788133; 
- MB=3.00020256; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-26 22:08:20
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18032622-0057-0000-0000-000008753943
-Message-Id: <e3870f44-fa97-bd2d-8871-732cf68dc147@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2018-03-26_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1803260221
+Received: by 10.237.60.15 with HTTP; Mon, 26 Mar 2018 15:57:57 -0700 (PDT)
+In-Reply-To: <87y3iwo4i4.fsf@linux.vnet.ibm.com>
+References: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+ <DEC5C953-385A-4118-AEC5-D2BFDEA29469@fuzziesquirrel.com>
+ <7E9441B1E5EFFD4681F54958E82169932F669996@ORSMSX114.amr.corp.intel.com>
+ <87efkyf1xw.fsf@linux.vnet.ibm.com>
+ <CAFRv3ww59TrnRBWAKZu4LEc5V2iaSW03MEZQgQw6Yrymqt9Meg@mail.gmail.com>
+ <87y3iwo4i4.fsf@linux.vnet.ibm.com>
+From: Rob Lippert <rlippert@google.com>
+Date: Mon, 26 Mar 2018 15:57:57 -0700
+Message-ID: <CAFRv3wxYm5D_o9XJ5z=FEq_aC39Y2VgV=+L5eTfAHfFrYRPxMg@mail.gmail.com>
+Subject: Re: Exposing POST codes
+To: Stewart Smith <stewart@linux.vnet.ibm.com>
+Cc: "Tanous, Ed" <ed.tanous@intel.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ Patrick Venture <venture@google.com>,
+ "Mohit Gupta (QDT)" <guptam@qti.qualcomm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="001a11c11594aee157056858b5ee"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -81,68 +72,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2018 22:08:24 -0000
+X-List-Received-Date: Mon, 26 Mar 2018 22:58:23 -0000
 
+--001a11c11594aee157056858b5ee
+Content-Type: text/plain; charset="UTF-8"
 
+On Mon, Mar 12, 2018 at 11:48 PM, Stewart Smith <stewart@linux.vnet.ibm.com>
+wrote:
 
-On 03/26/2018 05:00 PM, Guenter Roeck wrote:
-> On 03/26/2018 02:17 PM, Eddie James wrote:
->> Populate the status watchdog operation to return the "timeout status"
->> register of the ASPEED watchdog.
->>
->> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
->> ---
->>   drivers/watchdog/aspeed_wdt.c | 9 +++++++++
->>   1 file changed, 9 insertions(+)
->>
->> diff --git a/drivers/watchdog/aspeed_wdt.c 
->> b/drivers/watchdog/aspeed_wdt.c
->> index a5b8eb2..d6dd5c9 100644
->> --- a/drivers/watchdog/aspeed_wdt.c
->> +++ b/drivers/watchdog/aspeed_wdt.c
->> @@ -55,6 +55,7 @@ struct aspeed_wdt_config {
->>   #define   WDT_CTRL_WDT_INTR        BIT(2)
->>   #define   WDT_CTRL_RESET_SYSTEM        BIT(1)
->>   #define   WDT_CTRL_ENABLE        BIT(0)
->> +#define WDT_TIMEOUT_STATUS    0x10
->>     /*
->>    * WDT_RESET_WIDTH controls the characteristics of the external 
->> pulse (if
->> @@ -138,6 +139,13 @@ static int aspeed_wdt_ping(struct 
->> watchdog_device *wdd)
->>       return 0;
->>   }
->>   +static unsigned int aspeed_wdt_status(struct watchdog_device *wdd)
->> +{
->> +    struct aspeed_wdt *wdt = to_aspeed_wdt(wdd);
->> +
->> +    return readl(wdt->base + WDT_TIMEOUT_STATUS);
->> +}
+> Rob Lippert <rlippert@google.com> writes:
+> > I implemented port 80h POST codes for POWER9 hostboot a while back:
+> > https://github.com/open-power/hostboot/blob/
+> c93bef31ae6ce781f9e0a11bb9224b6728ff120f/src/usr/
+> initservice/istepdispatcher/istepdispatcher.C#L2312
+> >
+> > On Zaius machines we are using that support with Patrick's snoop daemon
+> and
+> > a separate daemon that receives the code via dbus and outputs it over the
+> > front 7seg debug display.
+> > It has proven useful for getting early error/debug reports from
+> technicians
+> > at scale e.g. "5 machines stopped at code 35h, 2 at 72h" provides a quick
+> > overview of what the problems are for me to debug further (since I have
+> the
+> > decoder ring, and the istep names would be useless to them anyways).
 >
-> Does the register report WDIOF_* status flags/bits as defined in the 
-> API ?
-> This seems more than unlikely.
-
-Ah, I see I'm misusing the API. It does not... I will rework.
-
-Thanks,
-Eddie
-
+> Neat!
 >
-> Guenter
+> Anything we should add to skiboot or petitboot environment for this? Or
+> do we not fail in IPL enough to warrant it?
 >
->> +
->>   static int aspeed_wdt_set_timeout(struct watchdog_device *wdd,
->>                     unsigned int timeout)
->>   {
->> @@ -171,6 +179,7 @@ static int aspeed_wdt_restart(struct 
->> watchdog_device *wdd,
->>       .start        = aspeed_wdt_start,
->>       .stop        = aspeed_wdt_stop,
->>       .ping        = aspeed_wdt_ping,
->> +    .status        = aspeed_wdt_status,
->>       .set_timeout    = aspeed_wdt_set_timeout,
->>       .restart    = aspeed_wdt_restart,
->>       .owner        = THIS_MODULE,
->>
+
+I've never seen a hang in skiboot/petitboot yet so haven't done the work
+there to add POST codes yet...
+
+If you look at the picture published at openpower conference you can see
+the POST code display on the machines in a rack:
+https://www.top500.org/news/openpower-gathers-momentum-with-major-deployments/
+
+All the machines in that picture are at 0x9b which is end of hostboot aka
+"good" :)
+(except the one that seems to be soft off for some reason... oops)
+
+-Rob
+
+--001a11c11594aee157056858b5ee
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
+on, Mar 12, 2018 at 11:48 PM, Stewart Smith <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:stewart@linux.vnet.ibm.com" target=3D"_blank">stewart@linux.vnet=
+.ibm.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex"><span class=3D"gmail-">Rob Lippert &lt;<a href=3D"mailto:rlipper=
+t@google.com">rlippert@google.com</a>&gt; writes:<br>
+&gt; I implemented port 80h POST codes for POWER9 hostboot a while back:<br=
 >
+&gt; <a href=3D"https://github.com/open-power/hostboot/blob/c93bef31ae6ce78=
+1f9e0a11bb9224b6728ff120f/src/usr/initservice/istepdispatcher/istepdispatch=
+er.C#L2312" rel=3D"noreferrer" target=3D"_blank">https://github.com/open-po=
+wer/<wbr>hostboot/blob/<wbr>c93bef31ae6ce781f9e0a11bb9224b<wbr>6728ff120f/s=
+rc/usr/<wbr>initservice/istepdispatcher/<wbr>istepdispatcher.C#L2312</a><br=
+>
+&gt;<br>
+&gt; On Zaius machines we are using that support with Patrick&#39;s snoop d=
+aemon and<br>
+&gt; a separate daemon that receives the code via dbus and outputs it over =
+the<br>
+&gt; front 7seg debug display.<br>
+&gt; It has proven useful for getting early error/debug reports from techni=
+cians<br>
+&gt; at scale e.g. &quot;5 machines stopped at code 35h, 2 at 72h&quot; pro=
+vides a quick<br>
+&gt; overview of what the problems are for me to debug further (since I hav=
+e the<br>
+&gt; decoder ring, and the istep names would be useless to them anyways).<b=
+r>
+<br>
+</span>Neat!<br>
+<br>
+Anything we should add to skiboot or petitboot environment for this? Or<br>
+do we not fail in IPL enough to warrant it?<br></blockquote><div><br></div>=
+<div>I&#39;ve never seen a hang in skiboot/petitboot yet so haven&#39;t don=
+e the work there to add POST codes yet...</div><div><br></div><div>If you l=
+ook at the picture published at openpower conference you can see the POST c=
+ode display on the machines in a rack:</div><div><a href=3D"https://www.top=
+500.org/news/openpower-gathers-momentum-with-major-deployments/">https://ww=
+w.top500.org/news/openpower-gathers-momentum-with-major-deployments/</a><br=
+></div><div><br></div><div>All the machines in that picture are at 0x9b whi=
+ch is end of hostboot aka &quot;good&quot; :)</div><div>(except the one tha=
+t seems to be soft off for some reason... oops)</div><div><br></div><div>-R=
+ob</div></div></div></div>
+
+--001a11c11594aee157056858b5ee--
