@@ -1,45 +1,59 @@
-Return-Path: <sboyd@kernel.org>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c00::241; helo=mail-pf0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kernel.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gu7Mlxw/"; 
+ dkim-atps=neutral
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 407B9v2NpSzF1b9
- for <openbmc@lists.ozlabs.org>; Sat, 24 Mar 2018 04:58:59 +1100 (AEDT)
-Received: from localhost (unknown [104.132.1.75])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3601A2177C;
- Fri, 23 Mar 2018 17:58:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3601A2177C
-Authentication-Results: mail.kernel.org;
- dmarc=none (p=none dis=none) header.from=kernel.org
-Authentication-Results: mail.kernel.org;
- spf=none smtp.mailfrom=sboyd@kernel.org
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-To: avifishman70@gmail.com, brendanhiggins@google.com, linux@armlinux.org.uk, 
- mark.rutland@arm.com, mturquette@baylibre.com, raltherr@google.com,
- robh+dt@kernel.org, sboyd@codeaurora.org, tali.perry1@gmail.com,
- tmaimon77@gmail.com
-From: Stephen Boyd <sboyd@kernel.org>
-In-Reply-To: <1521553249-6971-3-git-send-email-tali.perry1@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-clk@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>
-References: <1521553249-6971-1-git-send-email-tali.perry1@gmail.com>
- <1521553249-6971-3-git-send-email-tali.perry1@gmail.com>
-Message-ID: <152182793651.178046.13824776927497999970@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.7
-Subject: Re: [PATCH v11 2/2] clk: npcm7xx: Nuvoton NPCM7XX Clock Controller
- driver
-Date: Fri, 23 Mar 2018 10:58:56 -0700
-X-Mailman-Approved-At: Mon, 26 Mar 2018 09:48:48 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 408j766dwDzF1w5
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 16:16:50 +1100 (AEDT)
+Received: by mail-pf0-x241.google.com with SMTP id f15so1371313pfn.0
+ for <openbmc@lists.ozlabs.org>; Sun, 25 Mar 2018 22:16:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:subject:date:message-id;
+ bh=lLgG4oy/PEonMiKUVMrZm7tuxUZ4Y4L1cvIMSMEAPhM=;
+ b=Gu7Mlxw/X79CQ+GiFO/GoNxUoc97vSS1OSTdXiMKO+a1l4UFfadDNzlNJZlFz46KLC
+ k0btAZWR3hLDy/9gX83wUAhci7+r0mMe2lrQEVety74xcnbrEM9spQ+apfwg0/zF/Ay0
+ RRLFm3ootT46MHNLBzQUTj3wcdNz6pEJEWC74FYdcKKCPoPtulX0se/FV5kiE3nv4iK5
+ hHVjLyehD8hC0CUdbDNpa55Iu5yGT+oMekFnSxMvFot/wJufldBGbQ3ed8AVtDQ+ro5z
+ KTwVfv+yzzsLOtCOmhks/O+3Ih0lztwhNYigh+TVxSa80rt6jKgrjsnBvhVIEZAoq7Yz
+ 73cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:subject:date:message-id;
+ bh=lLgG4oy/PEonMiKUVMrZm7tuxUZ4Y4L1cvIMSMEAPhM=;
+ b=ZlMWaU+x+bEcTu2A/J87ZOVuq8EnzYsUBniA5MmRxvejrIRRA6tt4Hyh/sYbHVZ2TM
+ aFJGuUzCWwLPVax53yg0zyuCkLzFc34GmmB/OgTd252wtZOCp3YYiX5YhbP30ehu45hA
+ qyjDLgbDjrCmWYnrdplRQ5hCJ+4SLNqs9v3M/U5Sobk2IVBUr4LfJzg2jHoA8OXFPoCd
+ N/sAjWfSw71IgOqfjvKCLumzQQFS5gPRJdawZV0RlPd4HMTHw3efs83gCJFlqnW2wr7W
+ Bh1jAmkzCfeW4KA63IDXzshE9veOBvqYv0V8u0oo/l5UOzTiTzyZPcT9xpE2Am38bH4b
+ kY/g==
+X-Gm-Message-State: AElRT7FBjft5akzVj9J+vclzcB+wUcx5/xAp4uAi8DXhvQiNBgWIlVl1
+ 0hODk1Hd99qCTe88U9QrbVkgM9dhgv0=
+X-Google-Smtp-Source: AG47ELvy8ll+R8QU2KkLwIpWeHRXvatuazLguduXU1u50NAJJT2UqxIH4JhJSbB4K/P5pfHtAHohaQ==
+X-Received: by 10.101.99.149 with SMTP id h21mr25183051pgv.345.1522041408523; 
+ Sun, 25 Mar 2018 22:16:48 -0700 (PDT)
+Received: from aurora.jms.id.au (bh02i525f01.au.ibm.com. [202.81.18.30])
+ by smtp.gmail.com with ESMTPSA id z13sm32009627pfk.129.2018.03.25.22.16.45
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 25 Mar 2018 22:16:47 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Mon, 26 Mar 2018 15:46:41 +1030
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.13] clk: aspeed: Mark bclk (PCIe) as critical
+Date: Mon, 26 Mar 2018 15:46:39 +1030
+Message-Id: <20180326051639.16555-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.15.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -51,271 +65,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 17:58:59 -0000
+X-List-Received-Date: Mon, 26 Mar 2018 05:16:51 -0000
 
-Quoting tali.perry1@gmail.com (2018-03-20 06:40:49)
-> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-> index 71ec41e6364f..353e94f2c25a 100644
-> --- a/drivers/clk/Makefile
-> +++ b/drivers/clk/Makefile
-> @@ -21,6 +21,7 @@ endif
->  obj-$(CONFIG_MACH_ASM9260)             +=3D clk-asm9260.o
->  obj-$(CONFIG_COMMON_CLK_AXI_CLKGEN)    +=3D clk-axi-clkgen.o
->  obj-$(CONFIG_ARCH_AXXIA)               +=3D clk-axm5516.o
-> +obj-$(CONFIG_ARCH_NPCM7XX)             +=3D clk-npcm7xx.o
+This is used by the host to talk to the BMC's PCIe slave device. The BMC
+is not involved, but the clock needs to be enabled so the host can use
+the device.
 
-Please sort this by filename, not config name.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/clk/clk-aspeed.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->  obj-$(CONFIG_COMMON_CLK_CDCE706)       +=3D clk-cdce706.o
->  obj-$(CONFIG_COMMON_CLK_CDCE925)       +=3D clk-cdce925.o
->  obj-$(CONFIG_ARCH_CLPS711X)            +=3D clk-clps711x.o
-> diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
-> new file mode 100644
-> index 000000000000..0d373f8f114b
-> --- /dev/null
-> +++ b/drivers/clk/clk-npcm7xx.c
-> @@ -0,0 +1,757 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Nuvoton NPCM7xx Clock Generator
-[..]
-> +
-> +
-> +static struct clk_hw_onecell_data *npcm7xx_clk_data;
-> +static void __iomem *clk_base;
-
-Please remove static singletons and allocate them during init.
-
-> +static DEFINE_SPINLOCK(lock);
-
-Please give 'lock' a better name so that lockdep reports are
-meaningful.
-
-> +
-> +
-> +static const struct of_device_id npcm7xx_clk_match_table[] =3D {
-> +                               { .compatible =3D "nuvoton,npcm750-clk"},
-> +                               {},
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, npcm7xx_clk_match_table);
-
-Is this used?
-
-> +
-> +
-> +static void __init npcm7xx_clk_init(struct device_node *clk_np)
-> +{
-> +
-> +       struct resource res;
-> +       struct clk_hw *hw;
-> +       struct clk *clk;
-> +       int ret;
-> +       int i;
-> +
-> +       pr_debug("NPCM750: clock init: ");
-> +
-> +       clk_base =3D NULL;
-> +
-> +       ret =3D of_address_to_resource(clk_np, 0, &res);
-> +       if (ret) {
-> +               pr_err("\t%s: failed to get resource, ret %d\n", clk_np->=
-name,
-> +                       ret);
-> +               return;
-> +       }
-> +
-> +
-> +       clk_base =3D ioremap(res.start, resource_size(&res));
-> +       if (IS_ERR(clk_base)) {
-> +               pr_err("\tnpcm7xx_clk_init: resource error\n");
-> +               goto npcm7xx_init_error;
-> +       }
-> +
-> +
-> +       npcm7xx_clk_data =3D kzalloc(sizeof(*npcm7xx_clk_data->hws) *
-> +               NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL=
-);
-> +
-> +       npcm7xx_clk_data->num =3D 0;
-> +
-> +       if (!npcm7xx_clk_data->hws) {
-> +               pr_err("Can't alloc npcm7xx_clk_data\n");
-
-We don't need allocation error messages, kmalloc already prints a bunch
-of info.
-
-> +               goto npcm7xx_init_np_err;
-> +       }
-> +
-> +       npcm7xx_clk_data->num =3D NPCM7XX_NUM_CLOCKS;
-> +
-> +
-> +       /*
-> +        * This way all clock fetched before the platform device probes,
-
-What platform device?
-
-> +        * except those we assign here for early use, will be deferred.
-> +        */
-> +       pr_debug("\tclk init hws\n");
-> +       for (i =3D 0; i < NPCM7XX_NUM_CLOCKS; i++)
-> +               npcm7xx_clk_data->hws[i] =3D ERR_PTR(-EPROBE_DEFER);
-> +
-> +       /* Read fixed clocks. These 3 clocks must be defined in DT */
-> +       clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
-> +       if (!IS_ERR(clk)) {
-> +               pr_err("failed to find external REFCLK: %ld\n",
-> +                       PTR_ERR(clk));
-> +               clk_put(clk);
-> +       }
-> +
-> +       clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
-> +       if (!IS_ERR(clk)) {
-> +               pr_err("failed to find external SYSBYPCK: %ld\n",
-> +                       PTR_ERR(clk));
-> +               clk_put(clk);
-> +       }
-> +
-> +       clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
-> +       if (!IS_ERR(clk)) {
-> +               pr_err("failed to find external MCBYPCK: %ld\n",
-> +                       PTR_ERR(clk));
-> +               clk_put(clk);
-> +       }
-> +
-> +       /* Register plls */
-> +       pr_debug("\tclk register pll\n");
-> +       for (i =3D 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
-> +               const struct npcm7xx_clk_pll_data *pll_data =3D &npcm7xx_=
-plls[i];
-> +
-> +               pr_debug("\tclk reg pll%d, reg=3D0x%x, name=3D%s, p=3D%s\=
-n", i,
-> +               (unsigned int)pll_data->reg, pll_data->name,
-> +               pll_data->parent_name);
-> +
-> +               hw =3D npcm7xx_clk_register_pll(clk_base + pll_data->reg,
-> +                       pll_data->name, pll_data->parent_name, pll_data->=
-flags);
-> +               if (IS_ERR(hw)) {
-> +                       pr_err("npcm7xx_clk: Can't register pll\n");
-> +                       goto npcm7xx_init_fail;
-> +               }
-> +
-> +               if (pll_data->onecell_idx >=3D 0)
-> +                       npcm7xx_clk_data->hws[pll_data->onecell_idx] =3D =
-hw;
-> +       }
-> +
-> +       /* Register fixed dividers */
-> +       pr_debug("\tclk register fixed divs\n");
-> +       clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
-> +                       NPCM7XX_CLK_S_PLL1, 0, 1, 2);
-> +       if (IS_ERR(clk)) {
-> +               pr_err("npcm7xx_clk: Can't register fixed div\n");
-> +               goto npcm7xx_init_fail;
-> +       }
-> +
-> +
-> +       clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
-> +                       NPCM7XX_CLK_S_PLL2, 0, 1, 2);
-> +
-> +       if (IS_ERR(clk)) {
-> +               pr_err("npcm7xx_clk: Can't register div2\n");
-> +               goto npcm7xx_init_fail;
-> +       }
-> +
-> +       /* Register muxes */
-> +       for (i =3D 0; i < ARRAY_SIZE(npcm7xx_muxes); i++) {
-> +               const struct npcm7xx_clk_mux_data *mux_data =3D &npcm7xx_=
-muxes[i];
-> +
-> +               pr_debug("\tadd mux%d reg=3D0x%x name=3D%s p=3D%s num_p=
-=3D%d\n",
-> +                   i, ((u32)clk_base + (u32)NPCM7XX_CLKSEL), mux_data->n=
-ame,
-> +                       mux_data->parent_names[0], mux_data->num_parents);
-> +
-> +               hw =3D clk_hw_register_mux_table(NULL,
-> +                       mux_data->name,
-> +                       mux_data->parent_names, mux_data->num_parents,
-> +                       mux_data->flags, clk_base + NPCM7XX_CLKSEL,
-> +                       mux_data->shift, mux_data->mask, 0,
-> +                       mux_data->table, &lock);
-> +
-> +               if (IS_ERR(hw)) {
-> +                       pr_err("npcm7xx_clk: Can't register mux\n");
-> +                       goto npcm7xx_init_fail;
-> +               }
-> +
-> +               if (mux_data->onecell_idx >=3D 0)
-> +                       npcm7xx_clk_data->hws[mux_data->onecell_idx] =3D =
-hw;
-> +       }
-> +
-> +       /* Register clock dividers specified in npcm7xx_divs. */
-> +       pr_debug("\tclk register divs\n");
-> +       for (i =3D 0; i < ARRAY_SIZE(npcm7xx_divs); i++) {
-> +               const struct npcm7xx_clk_div_data *div_data =3D &npcm7xx_=
-divs[i];
-> +
-> +               pr_debug("\tadd div%d reg=3D0x%x name=3D%s, parent=3D%s\n=
-",
-> +                               i, (unsigned int)div_data->reg,
-> +                               div_data->name, div_data->parent_name);
-
-Please remove all these debug prints.
-
-> +
-> +               hw =3D clk_hw_register_divider(NULL, div_data->name,
-> +                               div_data->parent_name,
-> +                               div_data->flags,
-> +                               clk_base + div_data->reg,
-> +                               div_data->shift, div_data->width,
-> +                               div_data->clk_divider_flags, &lock);
-> +               if (IS_ERR(hw)) {
-> +                       pr_err("npcm7xx_clk: Can't register div table\n");
-> +                       goto npcm7xx_init_fail;
-> +               }
-> +
-> +               if (div_data->onecell_idx >=3D 0)
-> +                       npcm7xx_clk_data->hws[div_data->onecell_idx] =3D =
-hw;
-> +       }
-> +
-> +       ret =3D of_clk_add_hw_provider(clk_np, of_clk_hw_onecell_get,
-> +                                       npcm7xx_clk_data);
-> +       if (ret)
-> +               pr_err("failed to add DT provider: %d\n", ret);
-> +
-> +       pr_info("npcm7xx clk: %d dividers, %d muxes and %d plls registere=
-d.\n",
-> +               ARRAY_SIZE(npcm7xx_divs), ARRAY_SIZE(npcm7xx_muxes),
-> +               ARRAY_SIZE(npcm7xx_plls));
-
-Please remove this "I'm alive!" message.
-
-> +
-> +       of_node_put(clk_np);
-> +
-> +       return;
-> +
-> +npcm7xx_init_fail:
-> +       pr_debug("\tclk setup fail\n");
-
-Please don't put tabs at the beginning of printks.
-
-> +       if (npcm7xx_clk_data->num)
-> +               kfree(npcm7xx_clk_data->hws);
-> +npcm7xx_init_np_err:
-> +       if (clk_base !=3D NULL)
-> +               iounmap(clk_base);
-> +npcm7xx_init_error:
-> +       of_node_put(clk_np);
-> +}
-> +
-> +CLK_OF_DECLARE(npcm7xx_clk_init, "nuvoton,npcm750-clk", npcm7xx_clk_init=
-);
-
-Any reason this can't be a platform driver?
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index 5af80b4e673e..5be88f0a0678 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -97,7 +97,7 @@ static const struct aspeed_gate_data aspeed_gates[] = {
+ 	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
+ 	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	CLK_IS_CRITICAL }, /* SDRAM */
+ 	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video Capture */
+-	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	0 }, /* PCIe/PCI */
++	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	CLK_IS_CRITICAL }, /* PCIe/PCI */
+ 	[ASPEED_CLK_GATE_DCLK] =	{  5, -1, "dclk-gate",		NULL,	0 }, /* DAC */
+ 	[ASPEED_CLK_GATE_REFCLK] =	{  6, -1, "refclk-gate",	"clkin", CLK_IS_CRITICAL },
+ 	[ASPEED_CLK_GATE_USBPORT2CLK] =	{  7,  3, "usb-port2-gate",	NULL,	0 }, /* USB2.0 Host port 2 */
+-- 
+2.15.1
