@@ -1,61 +1,33 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="r83sE0DF"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="HA5hV7yZ"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 408mwb6jXvzF1vk
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 19:07:58 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 5A29E20D5F
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 04:07:56 -0400 (EDT)
-Received: from web5 ([10.202.2.215])
- by compute4.internal (MEProxy); Mon, 26 Mar 2018 04:07:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=Uioze/kZCe1NWRtNA1A6NStTZxszA
- x7Vy2yoKS6H4bw=; b=r83sE0DFlGym62CKv4Ga31zkqxh5P3DFIPwEHzzxEsnH0
- 4BmMgn7eLaG7xBUXFHT2tdrQGTh6kv4btOV1awh62wrCknVRkJ3M+H85COIm0qrs
- QMt+FQB2enBW+UFkfI1pht/x4F+g61KayIwxbCdu5VXLgB7SB4TkG6nFmEYA1N63
- hEPh4RIofVVeL+obj551E/B+TS8la9HdOUYUSrVpijUv3VH4Z5I5cf9syhAU6lAa
- qy8JUNxq6NcRM0D+ld8DFs4G49yAOISxY1pGpne50OP3vgmuXj3GbnO5t7h/9+my
- jEBcPgfbk7O2SZT+5huhW/NX1O/q7EYfREReqFS9Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Uioze/
- kZCe1NWRtNA1A6NStTZxszAx7Vy2yoKS6H4bw=; b=HA5hV7yZRKm43zB2PvukKZ
- dsEdHgo7NKZKPxtAftObZ5JVjEXMb3NGtaoeBhRNl/eP/1tFb0unPyZ9ryW99dQP
- WVh5OJqEqtb48vpyBLrccfxfs9xtoeekfIs38ulFXVZ9J2WBZl6txIC2iFggMLuG
- c3fez2bOiFILFETZvcc+bi5kM6UI2dmfOhBicLMOPUqeEOeH+yaf1s6+1VXPj+R5
- 3/72x/7vLH++EXCCAzVSASukoH0IJtUI4LwZlDygnA/UVXBJFFmogAfG1jXGiX14
- T2MoKVUOqmwtRs6p+RkqTfd7Eg4BzWnf71oUAtuyyjfkF7p+8jaBgQHHcz9jucNQ
- ==
-X-ME-Sender: <xms:XKq4Wj7WnMy9LjB3_TgjEC_-pi3sF4zqoqZNubVxQrscB38saNMjOA>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 34E129E0AB; Mon, 26 Mar 2018 04:07:56 -0400 (EDT)
-Message-Id: <1522051676.1429236.1315961632.273FE2FC@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-5ce6c4ba
-References: <20180326051639.16555-1-joel@jms.id.au>
-In-Reply-To: <20180326051639.16555-1-joel@jms.id.au>
-Date: Mon, 26 Mar 2018 18:37:56 +1030
-Subject: Re: [PATCH linux dev-4.13] clk: aspeed: Mark bclk (PCIe) as critical
+ by lists.ozlabs.org (Postfix) with ESMTPS id 408qhV5LMlzF211
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 21:12:39 +1100 (AEDT)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w2Q9rVEN008290;
+ Mon, 26 Mar 2018 12:53:31 +0300
+Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
+ id B83105A992; Mon, 26 Mar 2018 13:11:59 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: arnd@arndb.de, robh+dt@kernel.org, mark.rutland@arm.com,
+ linux@armlinux.org.uk, avifishman70@gmail.com,
+ brendanhiggins@google.com, venture@google.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v1 1/1] arm: dts: modify Nuvoton NPCM750 device tree
+Date: Mon, 26 Mar 2018 13:11:53 +0300
+Message-Id: <1522059113-20418-2-git-send-email-tmaimon77@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1522059113-20418-1-git-send-email-tmaimon77@gmail.com>
+References: <1522059113-20418-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,41 +39,414 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2018 08:08:02 -0000
+X-List-Received-Date: Mon, 26 Mar 2018 10:12:43 -0000
 
-On Mon, 26 Mar 2018, at 15:46, Joel Stanley wrote:
-> This is used by the host to talk to the BMC's PCIe slave device. The BMC
-> is not involved, but the clock needs to be enabled so the host can use
-> the device.
-> 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+Add a common device tree for all Nuvoton NPCM7xx BMCs and
+include it in NPCM750 (Poleg) device tree.
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ arch/arm/boot/dts/Makefile                    |   2 +-
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 187 ++++++++++++++++++++++++++
+ arch/arm/boot/dts/nuvoton-npcm750-evb.dts     |   6 +-
+ arch/arm/boot/dts/nuvoton-npcm750.dtsi        | 131 +-----------------
+ 4 files changed, 198 insertions(+), 128 deletions(-)
+ create mode 100644 arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
 
-> ---
->  drivers/clk/clk-aspeed.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-> index 5af80b4e673e..5be88f0a0678 100644
-> --- a/drivers/clk/clk-aspeed.c
-> +++ b/drivers/clk/clk-aspeed.c
-> @@ -97,7 +97,7 @@ static const struct aspeed_gate_data aspeed_gates[] = 
-> {
->  	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
->  	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	
-> CLK_IS_CRITICAL }, /* SDRAM */
->  	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video 
-> Capture */
-> -	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	0 }, /* PCIe/PCI 
-> */
-> +	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	
-> CLK_IS_CRITICAL }, /* PCIe/PCI */
->  	[ASPEED_CLK_GATE_DCLK] =	{  5, -1, "dclk-gate",		NULL,	0 }, /* DAC */
->  	[ASPEED_CLK_GATE_REFCLK] =	{  6, -1, "refclk-gate",	"clkin", 
-> CLK_IS_CRITICAL },
->  	[ASPEED_CLK_GATE_USBPORT2CLK] =	{  7,  3, "usb-port2-gate",	NULL,	0 }, /* 
-> USB2.0 Host port 2 */
-> -- 
-> 2.15.1
-> 
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index c945d4670ea3..aaf9e30bce78 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -307,7 +307,7 @@ dtb-$(CONFIG_ARCH_LPC18XX) += \
+ dtb-$(CONFIG_ARCH_LPC32XX) += \
+ 	lpc3250-ea3250.dtb \
+ 	lpc3250-phy3250.dtb
+-dtb-$(CONFIG_ARCH_NPCM750) += \
++dtb-$(CONFIG_ARCH_NPCM7XX) += \
+ 	nuvoton-npcm750-evb.dtb
+ dtb-$(CONFIG_MACH_MESON6) += \
+ 	meson6-atv1200.dtb
+diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+new file mode 100644
+index 000000000000..d2d0761295a4
+--- /dev/null
++++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+@@ -0,0 +1,187 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
++// Copyright 2018 Google, Inc.
++
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&gic>;
++
++	/* external reference clock */
++	clk_refclk: clk_refclk {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <25000000>;
++		clock-output-names = "refclk";
++	};
++
++	/* external reference clock for cpu. float in normal operation */
++	clk_sysbypck: clk_sysbypck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <800000000>;
++		clock-output-names = "sysbypck";
++	};
++
++	/* external reference clock for MC. float in normal operation */
++	clk_mcbypck: clk_mcbypck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <800000000>;
++		clock-output-names = "mcbypck";
++	};
++
++	 /* external clock signal rg1refck, supplied by the phy */
++	clk_rg1refck: clk_rg1refck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <125000000>;
++		clock-output-names = "clk_rg1refck";
++	};
++
++	 /* external clock signal rg2refck, supplied by the phy */
++	clk_rg2refck: clk_rg2refck {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <125000000>;
++		clock-output-names = "clk_rg2refck";
++	};
++
++	clk_xin: clk_xin {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <50000000>;
++		clock-output-names = "clk_xin";
++	};
++
++	soc {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		compatible = "simple-bus";
++		interrupt-parent = <&gic>;
++		ranges = <0x0 0xf0000000 0x00900000>;
++
++		gcr: gcr@800000 {
++			compatible = "nuvoton,npcm750-gcr", "syscon",
++				"simple-mfd";
++			reg = <0x800000 0x1000>;
++		};
++
++		scu: scu@3fe000 {
++			compatible = "arm,cortex-a9-scu";
++			reg = <0x3fe000 0x1000>;
++		};
++
++		l2: cache-controller@3fc000 {
++			compatible = "arm,pl310-cache";
++			reg = <0x3fc000 0x1000>;
++			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
++			cache-unified;
++			cache-level = <2>;
++			clocks = <&clk 10>;
++			arm,shared-override;
++		};
++
++		gic: interrupt-controller@3ff000 {
++			compatible = "arm,cortex-a9-gic";
++			interrupt-controller;
++			#interrupt-cells = <3>;
++			reg = <0x3ff000 0x1000>,
++				<0x3fe100 0x100>;
++		};
++	};
++
++	ahb {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		compatible = "simple-bus";
++		interrupt-parent = <&gic>;
++		ranges;
++
++		clk: clock-controller@f0801000 {
++			compatible = "nuvoton,npcm750-clk", "syscon";
++			#clock-cells = <1>;
++			clock-controller;
++			reg = <0xf0801000 0x1000>;
++			clock-names = "refclk", "sysbypck", "mcbypck";
++			clocks = <&clk_refclk>, <&clk_sysbypck>, <&clk_mcbypck>;
++		};
++
++		apb {
++			#address-cells = <1>;
++			#size-cells = <1>;
++			compatible = "simple-bus";
++			interrupt-parent = <&gic>;
++			ranges = <0x0 0xf0000000 0x00300000>;
++
++			timer0: timer@8000 {
++				compatible = "nuvoton,npcm750-timer";
++				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x8000 0x50>;
++				clocks = <&clk 5>;
++			};
++
++			watchdog0: watchdog@801C {
++				compatible = "nuvoton,npcm750-wdt";
++				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x801C 0x4>;
++				status = "disabled";
++				clocks = <&clk 5>;
++			};
++
++			watchdog1: watchdog@901C {
++				compatible = "nuvoton,npcm750-wdt";
++				interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x901C 0x4>;
++				status = "disabled";
++				clocks = <&clk 5>;
++			};
++
++			watchdog2: watchdog@a01C {
++				compatible = "nuvoton,npcm750-wdt";
++				interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0xa01C 0x4>;
++				status = "disabled";
++				clocks = <&clk 5>;
++			};
++
++			serial0: serial@1000 {
++				compatible = "nuvoton,npcm750-uart";
++				reg = <0x1000 0x1000>;
++				clocks = <&clk 6>;
++				interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
++				reg-shift = <2>;
++				status = "disabled";
++			};
++
++			serial1: serial@2000 {
++				compatible = "nuvoton,npcm750-uart";
++				reg = <0x2000 0x1000>;
++				clocks = <&clk 6>;
++				interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
++				reg-shift = <2>;
++				status = "disabled";
++			};
++
++			serial2: serial@3000 {
++				compatible = "nuvoton,npcm750-uart";
++				reg = <0x3000 0x1000>;
++				clocks = <&clk 6>;
++				interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
++				reg-shift = <2>;
++				status = "disabled";
++			};
++
++			serial3: serial@4000 {
++				compatible = "nuvoton,npcm750-uart";
++				reg = <0x4000 0x1000>;
++				clocks = <&clk 6>;
++				interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
++				reg-shift = <2>;
++				status = "disabled";
++			};
++		};
++	};
++};
+diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+index cabde3d5be8a..15f744f1beea 100644
+--- a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
++++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+@@ -1,5 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
+-// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
+ // Copyright 2018 Google, Inc.
+ 
+ /dts-v1/;
+@@ -18,6 +18,10 @@
+ 	};
+ };
+ 
++&watchdog1 {
++	status = "okay";
++};
++
+ &serial0 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+index 839e45cfd695..6ac340533587 100644
+--- a/arch/arm/boot/dts/nuvoton-npcm750.dtsi
++++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+@@ -1,8 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+-// Copyright (c) 2018 Nuvoton Technology corporation.
++// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
+ // Copyright 2018 Google, Inc.
+ 
+-#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include "nuvoton-common-npcm7xx.dtsi"
+ 
+ / {
+ 	#address-cells = <1>;
+@@ -17,7 +17,7 @@
+ 		cpu@0 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+-			clocks = <&clk 10>;
++			clocks = <&clk 0>;
+ 			clock-names = "clk_cpu";
+ 			reg = <0>;
+ 			next-level-cache = <&l2>;
+@@ -26,140 +26,19 @@
+ 		cpu@1 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+-			clocks = <&clk 10>;
++			clocks = <&clk 0>;
+ 			clock-names = "clk_cpu";
+ 			reg = <1>;
+ 			next-level-cache = <&l2>;
+ 		};
+ 	};
+-
+-	/* external clock signal rg1refck, supplied by the phy */
+-	clk-rg1refck {
+-		compatible = "fixed-clock";
+-		#clock-cells = <0>;
+-		clock-frequency = <125000000>;
+-	};
+-
+-	/* external clock signal rg2refck, supplied by the phy */
+-	clk-rg2refck {
+-		compatible = "fixed-clock";
+-		#clock-cells = <0>;
+-		clock-frequency = <125000000>;
+-	};
+-
+-	clk-xin {
+-		compatible = "fixed-clock";
+-		#clock-cells = <0>;
+-		clock-frequency = <50000000>;
+-	};
+-
+ 	soc {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		compatible = "simple-bus";
+-		interrupt-parent = <&gic>;
+-		ranges = <0x0 0xf0000000 0x00900000>;
+-
+-		gcr: gcr@800000 {
+-			compatible = "nuvoton,npcm750-gcr", "syscon",
+-				"simple-mfd";
+-			reg = <0x800000 0x1000>;
+-		};
+-
+-		scu: scu@3fe000 {
+-			compatible = "arm,cortex-a9-scu";
+-			reg = <0x3fe000 0x1000>;
+-		};
+-
+-		l2: cache-controller@3fc000 {
+-			compatible = "arm,pl310-cache";
+-			reg = <0x3fc000 0x1000>;
+-			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
+-			cache-unified;
+-			cache-level = <2>;
+-			clocks = <&clk 22>;
+-			arm,shared-override;
+-		};
+-
+-		gic: interrupt-controller@3ff000 {
+-			compatible = "arm,cortex-a9-gic";
+-			interrupt-controller;
+-			#interrupt-cells = <3>;
+-			reg = <0x3ff000 0x1000>,
+-			    <0x3fe100 0x100>;
+-		};
+-
+ 		timer@3fe600 {
+ 			compatible = "arm,cortex-a9-twd-timer";
+ 			reg = <0x3fe600 0x20>;
+ 			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) |
+ 						  IRQ_TYPE_LEVEL_HIGH)>;
+-			clocks = <&clk 15>;
+-		};
+-	};
+-
+-	ahb {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		compatible = "simple-bus";
+-		interrupt-parent = <&gic>;
+-		ranges;
+-
+-		clk: clock-controller@f0801000 {
+-			compatible = "nuvoton,npcm750-clk";
+-			#clock-cells = <1>;
+-			reg = <0xf0801000 0x1000>;
+-		};
+-
+-		apb {
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			compatible = "simple-bus";
+-			interrupt-parent = <&gic>;
+-			ranges = <0x0 0xf0000000 0x00300000>;
+-
+-			timer0: timer@8000 {
+-				compatible = "nuvoton,npcm750-timer";
+-				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+-				reg = <0x8000 0x1000>;
+-				clocks = <&clk 15>;
+-			};
+-
+-			serial0: serial@1000 {
+-				compatible = "ns16550a";
+-				reg = <0x1000 0x1000>;
+-				clocks = <&clk 14>;
+-				interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+-				reg-shift = <2>;
+-				status = "disabled";
+-			};
+-
+-			serial1: serial@2000 {
+-				compatible = "ns16550a";
+-				reg = <0x2000 0x1000>;
+-				clocks = <&clk 14>;
+-				interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
+-				reg-shift = <2>;
+-				status = "disabled";
+-			};
+-
+-			serial2: serial@3000 {
+-				compatible = "ns16550a";
+-				reg = <0x3000 0x1000>;
+-				clocks = <&clk 14>;
+-				interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+-				reg-shift = <2>;
+-				status = "disabled";
+-			};
+-
+-			serial3: serial@4000 {
+-				compatible = "ns16550a";
+-				reg = <0x4000 0x1000>;
+-				clocks = <&clk 14>;
+-				interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+-				reg-shift = <2>;
+-				status = "disabled";
+-			};
++			clocks = <&clk 5>;
+ 		};
+ 	};
+ };
+-- 
+2.14.1
