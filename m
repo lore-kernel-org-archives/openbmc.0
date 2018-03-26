@@ -1,58 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::241; helo=mail-pf0-x241.google.com;
+ (client-ip=2607:f8b0:400e:c01::242; helo=mail-pl0-x242.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gu7Mlxw/"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FlmuaU+h"; 
  dkim-atps=neutral
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Received: from mail-pl0-x242.google.com (mail-pl0-x242.google.com
+ [IPv6:2607:f8b0:400e:c01::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 408j766dwDzF1w5
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 16:16:50 +1100 (AEDT)
-Received: by mail-pf0-x241.google.com with SMTP id f15so1371313pfn.0
- for <openbmc@lists.ozlabs.org>; Sun, 25 Mar 2018 22:16:50 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 408j8c325GzF1wh
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 16:18:08 +1100 (AEDT)
+Received: by mail-pl0-x242.google.com with SMTP id x4-v6so11280744pln.7
+ for <openbmc@lists.ozlabs.org>; Sun, 25 Mar 2018 22:18:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:subject:date:message-id;
- bh=lLgG4oy/PEonMiKUVMrZm7tuxUZ4Y4L1cvIMSMEAPhM=;
- b=Gu7Mlxw/X79CQ+GiFO/GoNxUoc97vSS1OSTdXiMKO+a1l4UFfadDNzlNJZlFz46KLC
- k0btAZWR3hLDy/9gX83wUAhci7+r0mMe2lrQEVety74xcnbrEM9spQ+apfwg0/zF/Ay0
- RRLFm3ootT46MHNLBzQUTj3wcdNz6pEJEWC74FYdcKKCPoPtulX0se/FV5kiE3nv4iK5
- hHVjLyehD8hC0CUdbDNpa55Iu5yGT+oMekFnSxMvFot/wJufldBGbQ3ed8AVtDQ+ro5z
- KTwVfv+yzzsLOtCOmhks/O+3Ih0lztwhNYigh+TVxSa80rt6jKgrjsnBvhVIEZAoq7Yz
- 73cg==
+ bh=NotKIiSrbaKXAeqfn+W2cYPw8COp1QEWVHWkLY1phSA=;
+ b=FlmuaU+h01hIj3yZbIM3qwmaDUoGUWjMFFTAuJyiHgLw6WJUmJQrFLm2F1cHxCQNa7
+ 4TjpOfOww/jcDt5dH1Hlaf4xvfryaUoynkpRGbBhTPAqmNSfKwHR6hH6TiHlxoSUFsdK
+ 22hkttsQDVsRFU0nIKFogyTFbx5rGH31/RoLS73WsJC792nm6I+upuCmmwFJeyR1DpaC
+ Oe3drHOu61ZnRP4esRy49P1OFbZdFbqLt/+y1dsPF7Sb+VtleV3Km1oEpWAaFuMGA/L3
+ UJRD0uAMccToTVo1pUg/StmkOnDKC5qEGFQijphDqL7vMxVQi0p+APfKydcU15uOyJbT
+ dNbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:subject:date:message-id;
- bh=lLgG4oy/PEonMiKUVMrZm7tuxUZ4Y4L1cvIMSMEAPhM=;
- b=ZlMWaU+x+bEcTu2A/J87ZOVuq8EnzYsUBniA5MmRxvejrIRRA6tt4Hyh/sYbHVZ2TM
- aFJGuUzCWwLPVax53yg0zyuCkLzFc34GmmB/OgTd252wtZOCp3YYiX5YhbP30ehu45hA
- qyjDLgbDjrCmWYnrdplRQ5hCJ+4SLNqs9v3M/U5Sobk2IVBUr4LfJzg2jHoA8OXFPoCd
- N/sAjWfSw71IgOqfjvKCLumzQQFS5gPRJdawZV0RlPd4HMTHw3efs83gCJFlqnW2wr7W
- Bh1jAmkzCfeW4KA63IDXzshE9veOBvqYv0V8u0oo/l5UOzTiTzyZPcT9xpE2Am38bH4b
- kY/g==
-X-Gm-Message-State: AElRT7FBjft5akzVj9J+vclzcB+wUcx5/xAp4uAi8DXhvQiNBgWIlVl1
- 0hODk1Hd99qCTe88U9QrbVkgM9dhgv0=
-X-Google-Smtp-Source: AG47ELvy8ll+R8QU2KkLwIpWeHRXvatuazLguduXU1u50NAJJT2UqxIH4JhJSbB4K/P5pfHtAHohaQ==
-X-Received: by 10.101.99.149 with SMTP id h21mr25183051pgv.345.1522041408523; 
- Sun, 25 Mar 2018 22:16:48 -0700 (PDT)
+ bh=NotKIiSrbaKXAeqfn+W2cYPw8COp1QEWVHWkLY1phSA=;
+ b=nNC6IFlol7RZnp3O6aptKOSMIynvBXJrdoAg+OWzaAgsXUhaiFlvalxB1Frm06XntO
+ a96TpIc2NBljBC89ahgQVRCuWuo4kskhlk3QPuc6SaW5Gk3pOkRoiEZOuoYSXkCREjz2
+ AJ6optZq/ccNxy3y7vZCIceTWW9uveGs1RB+7fSG0JmmBtuGOE2NnFk5Dg/R16Lyn7C2
+ m68ohE6ezLY9cmuXxZH7QR/md983SdWoxTVXKS3y7IQJ4U1F+RPnX8OjK/F9rRq5wbhc
+ 0Yk2LWLzFIJ3sRQIROR8/En94gHnjBGWg0FzmbbCfYZY/Mt+6HbDHyrT5gTZ2gDRdlqC
+ Rshw==
+X-Gm-Message-State: AElRT7Gy5Yr8JjdE+nblxf0Tcl9OSSLvrKqlQAwwn4dmfIeHG7V8psij
+ hqTKU4Nk9Jg/kbA3AHfQPn86FH6u/uM=
+X-Google-Smtp-Source: AIpwx491Wd+4c28XSs1bBPYWVA35BHKGEae7N734idQlI5LEiu+i7ogZswmnJAcNaRojHzXITxUO7A==
+X-Received: by 2002:a17:902:b406:: with SMTP id
+ x6-v6mr6628673plr.232.1522041486192; 
+ Sun, 25 Mar 2018 22:18:06 -0700 (PDT)
 Received: from aurora.jms.id.au (bh02i525f01.au.ibm.com. [202.81.18.30])
- by smtp.gmail.com with ESMTPSA id z13sm32009627pfk.129.2018.03.25.22.16.45
+ by smtp.gmail.com with ESMTPSA id p89sm11330949pfk.63.2018.03.25.22.18.03
  for <openbmc@lists.ozlabs.org>
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 25 Mar 2018 22:16:47 -0700 (PDT)
+ Sun, 25 Mar 2018 22:18:05 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Mon, 26 Mar 2018 15:46:41 +1030
+ Mon, 26 Mar 2018 15:48:00 +1030
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13] clk: aspeed: Mark bclk (PCIe) as critical
-Date: Mon, 26 Mar 2018 15:46:39 +1030
-Message-Id: <20180326051639.16555-1-joel@jms.id.au>
+Subject: [PATCH linux dev-4.13] ARM: dts: aspeed: Describe random number device
+Date: Mon, 26 Mar 2018 15:47:58 +1030
+Message-Id: <20180326051758.16800-1-joel@jms.id.au>
 X-Mailer: git-send-email 2.15.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -65,29 +66,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2018 05:16:51 -0000
+X-List-Received-Date: Mon, 26 Mar 2018 05:18:08 -0000
 
-This is used by the host to talk to the BMC's PCIe slave device. The BMC
-is not involved, but the clock needs to be enabled so the host can use
-the device.
+There is a random number generator that updates a register in the SCU
+every second. This is compatible with the timeriomem rng driver in the
+kernel.
+
+From the timeriomem_rng bindings:
+
+  quality: estimated number of bits of true entropy per 1024 bits read
+  from the rng.  Defaults to zero which causes the kernel's default
+  quality to be used instead.  Note that the default quality is usually
+  zero which disables using this rng to automatically fill the kernel's
+  entropy pool.
+
+As to the recommended value for us to use:
+
+ Rick Altherr <raltherr@google.com> wrote:
+ > Quality is #bit of entropy per 1000 bits read.  100 is a
+ > conservative value that was suggested by those in the know.
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/clk/clk-aspeed.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/aspeed-g4.dtsi | 7 +++++++
+ arch/arm/boot/dts/aspeed-g5.dtsi | 7 +++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-index 5af80b4e673e..5be88f0a0678 100644
---- a/drivers/clk/clk-aspeed.c
-+++ b/drivers/clk/clk-aspeed.c
-@@ -97,7 +97,7 @@ static const struct aspeed_gate_data aspeed_gates[] = {
- 	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
- 	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	CLK_IS_CRITICAL }, /* SDRAM */
- 	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video Capture */
--	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	0 }, /* PCIe/PCI */
-+	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	CLK_IS_CRITICAL }, /* PCIe/PCI */
- 	[ASPEED_CLK_GATE_DCLK] =	{  5, -1, "dclk-gate",		NULL,	0 }, /* DAC */
- 	[ASPEED_CLK_GATE_REFCLK] =	{  6, -1, "refclk-gate",	"clkin", CLK_IS_CRITICAL },
- 	[ASPEED_CLK_GATE_USBPORT2CLK] =	{  7,  3, "usb-port2-gate",	NULL,	0 }, /* USB2.0 Host port 2 */
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 6205228b18ea..3d391b428b25 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -120,6 +120,13 @@
+ 				pinctrl: pinctrl {
+ 					compatible = "aspeed,g4-pinctrl";
+ 				};
++
++				hwrng@78 {
++					compatible = "timeriomem_rng";
++					reg = <0x78 0x4>;
++					period = <1>;
++					quality = <100>;
++				};
+ 			};
+ 
+ 			adc: adc@1e6e9000 {
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 0a866da8db32..1468b4ad22dc 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -157,6 +157,13 @@
+ 					aspeed,external-nodes = <&gfx &lhc>;
+ 
+ 				};
++
++				hwrng@78 {
++					compatible = "timeriomem_rng";
++					reg = <0x78 0x4>;
++					period = <1>;
++					quality = <100>;
++				};
+ 			};
+ 
+ 			gfx: display@1e6e6000 {
 -- 
 2.15.1
