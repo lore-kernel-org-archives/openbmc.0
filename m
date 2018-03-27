@@ -1,53 +1,68 @@
-Return-Path: <xow@google.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400e:c01::233; helo=mail-pl0-x233.google.com;
- envelope-from=xow@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="aqWscPLV"; 
- dkim-atps=neutral
-Received: from mail-pl0-x233.google.com (mail-pl0-x233.google.com
- [IPv6:2607:f8b0:400e:c01::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 409dzb49kLzF2Fb
- for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 04:58:31 +1100 (AEDT)
-Received: by mail-pl0-x233.google.com with SMTP id f5-v6so14559539plj.13
- for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 10:58:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=UntGKpdXA5DZnF5tjLDNI4IAeq3wn0aLT7/7m1fuChw=;
- b=aqWscPLVaTxLbWmh7NTqXq9GeM2VUAjK/UYfuEXKr9FBncPQ40m00IyrKl+VNDjlx/
- SBSrhuYCBJKn+7xKI8+/krFFEacUUaVk6cU2LzFZ07NzWgJLyDf6GpgF+PgNH1p+/6/T
- ot1kCGFaF3+9AiBzBnDG2fgJbODKDSMjjEcgt8cirX9yovPhdaGbEx3wvJXRQO8W+kFf
- kPJB0/YRvJ1dlJIKkYYYLcnXoR32/4juR/VlpCyrWiyfPPdqGhYvopfcJmX2BjkgrPuH
- FVlIa3Fs6zRPsTzkzq7ACMsIFuZYIQrKGsJU8bIt7xQyG4v82WacdDAw4syszuC/Pdg/
- 1PCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=UntGKpdXA5DZnF5tjLDNI4IAeq3wn0aLT7/7m1fuChw=;
- b=UZXUi7e8gUSSnd7h04kbYjnpkg/BP/9T8ZpD3YUWptQZoT7e9XBzPo6GaxeqZxn2Yh
- iGunzT+abn/VFfchl6tV1dFp3/aPmaXWqX0MJAlhGRpfnaiPycCZ2OQFKmSQQrfpwcwj
- ebbFQ1CjBCHT0VFzpExX9SITcFpp+dCxEgljuz/LPtej8McS/5L9NPQlMSrnFM6qfd21
- jXSC0HwxC+waQkyTsXaz6ow9d4kWt4PJhVfdhRLNxgwRe0bQw1Jp6vqHNnIvcalaSgcs
- tylob7/JJXc025FfDEbKbdk5tRmOhQmlzA9fmNZDuE/8owr+CgqMRF4thuWt77s6C8eD
- TxeQ==
-X-Gm-Message-State: AElRT7FGM/GhiUIeOkwsPKHS7cN08JZy4XqMMI0abkhDiZIIotbW/Vtx
- CJ7IVT+8nz9R8e8dz63euB1jNMfrUlzgP6jJYmlZmbAA
-X-Google-Smtp-Source: AIpwx4/vwkRRFo+LRc/IKrrKfN/UGMkRxpx0LK0yU7SgZ/5T2xivNvDxUxUBEB2o3KOND9mu7yDcetkbMcG8UqA5Il4=
-X-Received: by 2002:a17:902:b783:: with SMTP id
- e3-v6mr298759pls.41.1522173509555; 
- Tue, 27 Mar 2018 10:58:29 -0700 (PDT)
-MIME-Version: 1.0
-From: Xo Wang <xow@google.com>
-Date: Tue, 27 Mar 2018 17:58:18 +0000
-Message-ID: <CAPH-5w6f25PWLwhZ6669eB9HrjH50Bq1-L+YqC5R21RAE2aOXA@mail.gmail.com>
-Subject: Xo deactivating
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000005325fe056868a3cb"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 409htn1d6RzF29x
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 07:09:36 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2RK8bWr067149
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 16:09:34 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2gyubdu6u6-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 16:09:34 -0400
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 27 Mar 2018 16:09:32 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 27 Mar 2018 16:09:30 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w2RK9UWO57802754; Tue, 27 Mar 2018 20:09:30 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 79332AC043;
+ Tue, 27 Mar 2018 16:10:49 -0400 (EDT)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id E3B72AC040;
+ Tue, 27 Mar 2018 16:10:48 -0400 (EDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: linux-watchdog@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ wim@linux-watchdog.org, linux@roeck-us.net, joel@jms.id.au,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH v2] aspeed: watchdog: Set bootstatus during probe
+Date: Tue, 27 Mar 2018 15:09:27 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18032720-0024-0000-0000-0000033CBEFB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008754; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000255; SDB=6.01009292; UDB=6.00514137; IPR=6.00788574; 
+ MB=3.00020274; MTD=3.00000008; XFM=3.00000015; UTC=2018-03-27 20:09:32
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18032720-0025-0000-0000-00004776CB39
+Message-Id: <1522181367-11231-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-27_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803270201
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,28 +74,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2018 17:58:36 -0000
+X-List-Received-Date: Tue, 27 Mar 2018 20:09:37 -0000
 
---0000000000005325fe056868a3cb
-Content-Type: text/plain; charset="UTF-8"
+Check the aspeed timeout status register to see if the system has booted
+from the secondary boot source. If so, set the watchdog device
+bootstatus flag for "Card previously reset the CPU."
 
-hey y'all,
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+---
+Changes since v1:
+ - use bootstatus instead of status
+ - use WDIOF_CARDRESET instead of raw register contents
 
-Heads up that I'm no longer actively working on OpenBMC so please don't
-expect expedient code reviews from me. I handed off my Zaius machine layer
-maintainership and nobody really touches skeleton these days.
+ drivers/watchdog/aspeed_wdt.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-cheers,
-xo wang
-
---0000000000005325fe056868a3cb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">hey y&#39;all,<div><br></div><div>Heads up that I&#39;m no=
- longer actively working on OpenBMC so please don&#39;t expect expedient co=
-de reviews from me. I handed off my Zaius machine layer maintainership and =
-nobody really touches skeleton these days.</div><div><br></div><div>cheers,=
-</div><div>xo wang</div><div><br></div></div>
-
---0000000000005325fe056868a3cb--
+diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
+index a5b8eb2..1abe4d0 100644
+--- a/drivers/watchdog/aspeed_wdt.c
++++ b/drivers/watchdog/aspeed_wdt.c
+@@ -55,6 +55,8 @@ struct aspeed_wdt_config {
+ #define   WDT_CTRL_WDT_INTR		BIT(2)
+ #define   WDT_CTRL_RESET_SYSTEM		BIT(1)
+ #define   WDT_CTRL_ENABLE		BIT(0)
++#define WDT_TIMEOUT_STATUS	0x10
++#define   WDT_TIMEOUT_STATUS_BOOT_SECONDARY	BIT(1)
+ 
+ /*
+  * WDT_RESET_WIDTH controls the characteristics of the external pulse (if
+@@ -192,6 +194,7 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
+ 	struct device_node *np;
+ 	const char *reset_type;
+ 	u32 duration;
++	u32 status;
+ 	int ret;
+ 
+ 	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
+@@ -307,6 +310,10 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
+ 		writel(duration - 1, wdt->base + WDT_RESET_WIDTH);
+ 	}
+ 
++	status = readl(wdt->base + WDT_TIMEOUT_STATUS);
++	if (status & WDT_TIMEOUT_STATUS_BOOT_SECONDARY)
++		wdt->wdd.bootstatus = WDIOF_CARDRESET;
++
+ 	ret = devm_watchdog_register_device(&pdev->dev, &wdt->wdd);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to register\n");
+-- 
+1.8.3.1
