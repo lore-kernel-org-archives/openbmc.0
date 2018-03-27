@@ -1,48 +1,59 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 409DM82SvzzF21G;
- Tue, 27 Mar 2018 12:44:04 +1100 (AEDT)
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::22b; helo=mail-io0-x22b.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="gnVodgt7"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tOGZNNeu"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Received: from mail-io0-x22b.google.com (mail-io0-x22b.google.com
+ [IPv6:2607:f8b0:4001:c06::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 409DM750Cfz9s1S;
- Tue, 27 Mar 2018 12:44:03 +1100 (AEDT)
-Authentication-Results: ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1522115044; bh=3mpHynfmyNmwC2FwJeye1mqgJAy3Sfm0T5iOBBINzgQ=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=gnVodgt7QWIqpszhUdmWEah78NRSVaq2EquvuymT/oNFZ2W/lpBtf2mSnAruDc5BR
- OJG4kh/STAqqFDqDhCSWS0EeOfduaV7+NNdoHbw3WMXoHOmbejW3wApPocFKGSMnk8
- VFkXrGu3sxJvZ0yo7ReubCvKlL+/03Bz1uDMEVw40kKfKNDLjxOwMHvJx+iYl9FYlF
- Ime0Wl19/JyujsNiCBAWKKXvMxNra37Wlzlh5B9ecamfnvnnBSNMCMaFce49sp693v
- 5ciAJzAOOqLpMcALmEpNINkrv0aRhEr7CnVACw2blC7LeOrEzvhAudpaR8q1w7DOpO
- D+SgSMhg4npkg==
-Subject: Re: [PATCH 2/5] serial: expose buf_overrun count through proc
- interface
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-serial@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Jiri Slaby <jslaby@suse.com>
-References: <20180321025241.19785-1-jk@ozlabs.org>
- <20180321025241.19785-3-jk@ozlabs.org> <20180323152931.GB25972@kroah.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <c7eea27e-bf63-c083-1cfd-0c2e1b095f60@ozlabs.org>
-Date: Tue, 27 Mar 2018 09:44:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 409Dmv5J1KzF27q
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 13:02:55 +1100 (AEDT)
+Received: by mail-io0-x22b.google.com with SMTP id q84so20137258iod.10
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 19:02:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=zIZdWAWe3xi2SlTAdwQE38VkwZ6kTx5bvtV7sklhdW0=;
+ b=tOGZNNeuseEl6Beo2v5YvCpsBaQSLzyiv7Ko5nVWEK7knSM4vHIVPv+RZIq7ke3mCs
+ UTTLgWMI4stXGPHrHPTfFjSUN9YzgdHBnSBT74CTa1Espb2SSG7RfyQtIY5eLMapLTHY
+ AZSBe6TQT+QO0GzIKal3YgGf5IiSgVtYVua24n6Yp+pU6iKzqJLVcUwBeJSOBE4iQkVq
+ v4TmSY6KLJvSz95D0LPLpXuOdYpCMTRsOOA2qwBVEDQkJbm5oENKHQo6ULzh5x9qFxxS
+ iKmWLC/FFeHqP5a13qEnvkq9LeMYLdf11oKVjgoqBetvcB80Zr+6J5yJJ7lyEwEIJW4u
+ 4VbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=zIZdWAWe3xi2SlTAdwQE38VkwZ6kTx5bvtV7sklhdW0=;
+ b=LJUpBz3OtdaCuoHusNZUPSjwpgy+SrLj/b62IHHKGkyQwiaT2VaZCCK1QqklGlgOEz
+ FbEXsTrSduQonulg/b9UKAxmhRTvbLGaIL3vlOWIyyYIgVlhsugWUfJJY7bgIUnTiTWo
+ c/tfAxniccQV9S0YIcPP009VNsr2JfRmuWc5/sx5RWeuxV2zofQAfFqYChUqolGF09Cv
+ aAhLM/UOLmV47Nw+HHzEyVFS3nigKBZrapgCCQYPZwjjP604M9yG+59qpBCif924gCYs
+ uHf4K1EEr5AVTRJZTQc5CEg5mCnCTZ5iQN2gfAwK18p1bX/Bts8MlufFUPHZHbv0Cnx5
+ nABw==
+X-Gm-Message-State: AElRT7EXXEql2rQ7U4hDVd8kKZs0weI5D4322OKc18KK3zGAs5vpESLV
+ qvxJsDZxxQpOL/fdGQfbFlLU5NidQm8mcV9nAkU=
+X-Google-Smtp-Source: AG47ELsXF7n1e5TTDEdxmXoIiSQxC26I+9stSj9FBtlRjEXWow87QWV0k7ePMZ8/vWZK760jUWoNy7zdhXOLwFW6lkE=
+X-Received: by 10.107.149.70 with SMTP id x67mr41747769iod.156.1522116173509; 
+ Mon, 26 Mar 2018 19:02:53 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180323152931.GB25972@kroah.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Received: by 10.79.142.67 with HTTP; Mon, 26 Mar 2018 19:02:52 -0700 (PDT)
+In-Reply-To: <13bb70dbdcefb4d41a4d0692ecd12091@linux.vnet.ibm.com>
+References: <13bb70dbdcefb4d41a4d0692ecd12091@linux.vnet.ibm.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Tue, 27 Mar 2018 10:02:52 +0800
+Message-ID: <CAARXrtk00ZgR4GNPmXsWiEGcKMDdJvxiCmCTTwk32Vy0EzG3nA@mail.gmail.com>
+Subject: Re: Inband Update
+To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Cc: jk@ozlabs.org, vernon.mauery@linux.intel.com, 
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,33 +65,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2018 01:44:04 -0000
+X-List-Received-Date: Tue, 27 Mar 2018 02:02:56 -0000
 
-Hi Greg,
+On Tue, Mar 27, 2018 at 4:57 AM, Adriana Kobylak
+<anoo@linux.vnet.ibm.com> wrote:
+> Hi Jeremy, Vernon, Andrew, Joel, and anybody interested,
+>
+> I wanted to start this thread to discuss the implementation of inband
+> update.
 
->> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
->> index 8f3dfc8b5307..fc677534b510 100644
->> --- a/drivers/tty/serial/serial_core.c
->> +++ b/drivers/tty/serial/serial_core.c
->> @@ -1780,6 +1780,8 @@ static void uart_line_info(struct seq_file *m, struct uart_driver *drv, int i)
->>  			seq_printf(m, " brk:%d", uport->icount.brk);
->>  		if (uport->icount.overrun)
->>  			seq_printf(m, " oe:%d", uport->icount.overrun);
->> +		if (uport->icount.buf_overrun)
->> +			seq_printf(m, " bo:%d", uport->icount.buf_overrun);
-> 
-> Hopefully this doesn't break any tools that might want to parse this
-> file :)
+Patrick Venture has posted in-band BMC update over OEM IPMI commands via
+PCI/LPC:
+https://gerrit.openbmc-project.xyz/#/c/9497/
 
-Given that those existing fe/pe/brk/oe fields only appear when they're
-non-zero, existing parsing code needs to be tolerant of different sets
-of fields being present/absent. Hopefully that means that a new field
-shouldn't be too much of a surprise?
+Just FYI.
 
-Otherwise, I'm happy to report the buf_overrun count elsewhere, if
-there's a more suitable place.
-
-Cheers,
-
-
-Jeremy
+> At the face-to-face earlier this year, we were discussing to use a USB drive
+> as the communication mechanism between the host and BMC.
+>
+> What would need to be the first step, is it to write a kernel driver,
+> anybody doing related work, high-level requirements, ..., ?
+>
+> Thanks.
+>
