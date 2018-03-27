@@ -2,24 +2,24 @@ Return-Path: <jk@ozlabs.org>
 Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 409HBc5yWSzF24w;
- Tue, 27 Mar 2018 14:51:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 409HBd1CP1zF271;
+ Tue, 27 Mar 2018 14:51:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=ozlabs.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="s64G2bP+"; 
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="sjcnbGkh"; 
  dkim-atps=neutral
 Received: by ozlabs.org (Postfix, from userid 1023)
- id 409HBb1Pzhz9s1w; Tue, 27 Mar 2018 14:51:50 +1100 (AEDT)
+ id 409HBb51Xjz9s1x; Tue, 27 Mar 2018 14:51:50 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1522122711; bh=h2eSkoZ5ynm2yJJrZNJFSGV8ldIDLvXLYQbWHL5NA1I=;
+ t=1522122711; bh=Ol83ISfgJHoZWMqc9JOCQYpWdWDkX1x8WOl12MdXEA4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=s64G2bP+JnsQ50wTKyrczVXQCYS6NFwwaICoLTeOaQhMmeq+5m5WQHZeU4q1HvGQV
- h7CE+t6WYUDD8Tqi9ZAZs6aiFRiMgxR2VIEWo4L/IB45glfcrTf3uUtVLEQJ0ifPDE
- IMQA6GK4SaBQjZW+owbu7ucr4UdwQTBRA1fXTH1pZlsPtldpS2UQJG3uGzwW4nsUD1
- tJJ7X0zFmGPnHsbwzMwr0u/7K0L1+RWMcnys1wigV2rpaxSfnu4U2W6Tyce9OPcUOt
- Zq0dwppRtkHXj0LdzhYL+S3ltpgSESN4HO+SsKMaR9RieOcpOguSTz1z0G/2DbPZaK
- pdLJMfuh92fLQ==
+ b=sjcnbGkhm55cD/9SxrjAXAMGrz3LyJ1xl4w+U34aOObB+q8jZHl1XjSHKcEv958Ne
+ wy/4YaFRyEushwds2sLoGRaYCQgZ+vte7ZnF4KeBs1bjUWBCoPSXp8awi/f7LFZlcb
+ 2hAow6rafOsyL4j0foXP9qxBUa9G+Hxirng6JFKy5gqVTCck4m6HXGUhCd+kyZ2pl3
+ 07QF+9u2wk1V4CVNubuC1boAy5MsL/tuSVYobFCHlniFs2I8+7iFjJpbrPxMUW1hnH
+ VE+n/MQ5De0+eGUn0lF0EC1dCPpkg0aqHrVgjMtY+i+JEL5XZ9fc02RsVKmhBsw1Kv
+ mPAF4THNr98yA==
 From: Jeremy Kerr <jk@ozlabs.org>
 To: linux-serial@vger.kernel.org
 Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
@@ -27,12 +27,13 @@ Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
  Jiri Slaby <jslaby@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Eddie James <eajames@linux.vnet.ibm.com>, Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH v2 0/4] serial: implement flow control for ASPEED VUART driver
-Date: Tue, 27 Mar 2018 11:48:23 +0800
-Message-Id: <20180327034827.20773-1-jk@ozlabs.org>
+Subject: [PATCH v2 2/4] serial/8250: export serial8250_read_char
+Date: Tue, 27 Mar 2018 11:48:25 +0800
+Message-Id: <20180327034827.20773-3-jk@ozlabs.org>
 X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180323155116.GA31423@kroah.com>
+In-Reply-To: <20180327034827.20773-1-jk@ozlabs.org>
 References: <20180323155116.GA31423@kroah.com>
+ <20180327034827.20773-1-jk@ozlabs.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -46,44 +47,55 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 27 Mar 2018 03:51:53 -0000
 
-This series implements flow control for the ASPEED VUART driver. This
-hardware is slightly unusual in that the RX data rate can quickly
-overwhelm the flip buffer code, so the ldisc-driven throttle/unthrottle
-mechanisms don't entirely solve the problem.
+Currently, we export serial8250_rx_chars, which does a whole bunch of
+reads from the 8250 data register, without any form of flow control
+between reads.
 
-To do this, we have a couple of minor changes to the tty core to allow
-tty drivers to do more explicit flow control.
+An upcoming change to the aspeed vuart driver implements more
+fine-grained flow control in the interrupt handler, requiring
+character-at-a-time control over the rx path.
 
-Then, we implement the standard throttle mechanism, and augment it with
-a fast-path to throttle if we overrun the flip buffers before the ldisc
-has had a chance to run.
+This change exports serial8250_read_char to allow this.
 
-Questions and comments most welcome; I'm fairly new to the tty layer.
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+Tested-by: Eddie James <eajames@linux.vnet.ibm.com>
+---
+ drivers/tty/serial/8250/8250_port.c | 3 ++-
+ include/linux/serial_8250.h         | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-Cheers,
-
-
-Jeremy
-
---
-v2:
- - rebase onto tty-next, dropping applied proc patch
- - 1/4 simplify status mask checks
- - 4/4 Use updated timer API, fix text wrap
-
-
-Jeremy Kerr (4):
-  serial: Introduce UPSTAT_SYNC_FIFO for synchronised FIFOs
-  serial/8250: export serial8250_read_char
-  serial/aspeed-vuart: Implement rx throttling
-  serial/aspeed-vuart: Implement quick throttle mechanism
-
- drivers/tty/serial/8250/8250_aspeed_vuart.c | 124 ++++++++++++++++++++++++++++
- drivers/tty/serial/8250/8250_port.c         |   3 +-
- drivers/tty/serial/serial_core.c            |   4 +-
- include/linux/serial_8250.h                 |   1 +
- include/linux/serial_core.h                 |   1 +
- 5 files changed, 130 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 95833cbc4338..8fbd5fbeb318 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -1680,7 +1680,7 @@ static void serial8250_enable_ms(struct uart_port *port)
+ 	serial8250_rpm_put(up);
+ }
+ 
+-static void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr)
++void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr)
+ {
+ 	struct uart_port *port = &up->port;
+ 	unsigned char ch;
+@@ -1740,6 +1740,7 @@ static void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr)
+ 
+ 	uart_insert_char(port, lsr, UART_LSR_OE, ch, flag);
+ }
++EXPORT_SYMBOL_GPL(serial8250_read_char);
+ 
+ /*
+  * serial8250_rx_chars: processes according to the passed in LSR
+diff --git a/include/linux/serial_8250.h b/include/linux/serial_8250.h
+index a27ef5f56431..76b9db71e489 100644
+--- a/include/linux/serial_8250.h
++++ b/include/linux/serial_8250.h
+@@ -163,6 +163,7 @@ extern void serial8250_do_set_mctrl(struct uart_port *port, unsigned int mctrl);
+ extern int fsl8250_handle_irq(struct uart_port *port);
+ int serial8250_handle_irq(struct uart_port *port, unsigned int iir);
+ unsigned char serial8250_rx_chars(struct uart_8250_port *up, unsigned char lsr);
++void serial8250_read_char(struct uart_8250_port *up, unsigned char lsr);
+ void serial8250_tx_chars(struct uart_8250_port *up);
+ unsigned int serial8250_modem_status(struct uart_8250_port *up);
+ void serial8250_init_port(struct uart_8250_port *up);
 -- 
 2.14.1
