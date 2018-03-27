@@ -1,41 +1,53 @@
-Return-Path: <haiyue.wang@linux.intel.com>
+Return-Path: <xow@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400e:c01::233; helo=mail-pl0-x233.google.com;
+ envelope-from=xow@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="aqWscPLV"; 
+ dkim-atps=neutral
+Received: from mail-pl0-x233.google.com (mail-pl0-x233.google.com
+ [IPv6:2607:f8b0:400e:c01::233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 409bWj3kcszF2Ck
- for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 03:07:44 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2018 09:07:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.48,367,1517904000"; d="scan'208";a="31795409"
-Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.255.24.186])
- ([10.255.24.186])
- by fmsmga002.fm.intel.com with ESMTP; 27 Mar 2018 09:07:41 -0700
-Subject: Re: KCS bridged
-To: openbmc@lists.ozlabs.org, venture@google.com, bradleyb@fuzziesquirrel.com
-References: <mailman.737.1522165077.18085.openbmc@lists.ozlabs.org>
-Cc: rlippert@google.com, yuenn@google.com, kunyi@google.com,
- emilyshaffer@google.com, Corey Minyard <minyard@acm.org>,
- Avi Fishman <avifishman70@gmail.com>
-From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
-Message-ID: <9df626a8-ef1e-27b4-60cb-c7c2822d4bef@linux.intel.com>
-Date: Wed, 28 Mar 2018 00:07:40 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 409dzb49kLzF2Fb
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 04:58:31 +1100 (AEDT)
+Received: by mail-pl0-x233.google.com with SMTP id f5-v6so14559539plj.13
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 10:58:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=UntGKpdXA5DZnF5tjLDNI4IAeq3wn0aLT7/7m1fuChw=;
+ b=aqWscPLVaTxLbWmh7NTqXq9GeM2VUAjK/UYfuEXKr9FBncPQ40m00IyrKl+VNDjlx/
+ SBSrhuYCBJKn+7xKI8+/krFFEacUUaVk6cU2LzFZ07NzWgJLyDf6GpgF+PgNH1p+/6/T
+ ot1kCGFaF3+9AiBzBnDG2fgJbODKDSMjjEcgt8cirX9yovPhdaGbEx3wvJXRQO8W+kFf
+ kPJB0/YRvJ1dlJIKkYYYLcnXoR32/4juR/VlpCyrWiyfPPdqGhYvopfcJmX2BjkgrPuH
+ FVlIa3Fs6zRPsTzkzq7ACMsIFuZYIQrKGsJU8bIt7xQyG4v82WacdDAw4syszuC/Pdg/
+ 1PCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=UntGKpdXA5DZnF5tjLDNI4IAeq3wn0aLT7/7m1fuChw=;
+ b=UZXUi7e8gUSSnd7h04kbYjnpkg/BP/9T8ZpD3YUWptQZoT7e9XBzPo6GaxeqZxn2Yh
+ iGunzT+abn/VFfchl6tV1dFp3/aPmaXWqX0MJAlhGRpfnaiPycCZ2OQFKmSQQrfpwcwj
+ ebbFQ1CjBCHT0VFzpExX9SITcFpp+dCxEgljuz/LPtej8McS/5L9NPQlMSrnFM6qfd21
+ jXSC0HwxC+waQkyTsXaz6ow9d4kWt4PJhVfdhRLNxgwRe0bQw1Jp6vqHNnIvcalaSgcs
+ tylob7/JJXc025FfDEbKbdk5tRmOhQmlzA9fmNZDuE/8owr+CgqMRF4thuWt77s6C8eD
+ TxeQ==
+X-Gm-Message-State: AElRT7FGM/GhiUIeOkwsPKHS7cN08JZy4XqMMI0abkhDiZIIotbW/Vtx
+ CJ7IVT+8nz9R8e8dz63euB1jNMfrUlzgP6jJYmlZmbAA
+X-Google-Smtp-Source: AIpwx4/vwkRRFo+LRc/IKrrKfN/UGMkRxpx0LK0yU7SgZ/5T2xivNvDxUxUBEB2o3KOND9mu7yDcetkbMcG8UqA5Il4=
+X-Received: by 2002:a17:902:b783:: with SMTP id
+ e3-v6mr298759pls.41.1522173509555; 
+ Tue, 27 Mar 2018 10:58:29 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <mailman.737.1522165077.18085.openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+From: Xo Wang <xow@google.com>
+Date: Tue, 27 Mar 2018 17:58:18 +0000
+Message-ID: <CAPH-5w6f25PWLwhZ6669eB9HrjH50Bq1-L+YqC5R21RAE2aOXA@mail.gmail.com>
+Subject: Xo deactivating
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000005325fe056868a3cb"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -47,45 +59,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2018 16:07:46 -0000
+X-List-Received-Date: Tue, 27 Mar 2018 17:58:36 -0000
 
-Hi Patrick,
+--0000000000005325fe056868a3cb
+Content-Type: text/plain; charset="UTF-8"
 
-Yes, the code is done and tested on AST2500 (by Intel BMC team)& NPCM750 
-(by Avi from Nuvoton).
+hey y'all,
 
-1. The ASPEED and the main KCS BMC stack has been in next tree:
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/char/ipmi/kcs_bmc.c?h=next-20180327
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/char/ipmi/kcs_bmc_aspeed.c?h=next-20180327
+Heads up that I'm no longer actively working on OpenBMC so please don't
+expect expedient code reviews from me. I handed off my Zaius machine layer
+maintainership and nobody really touches skeleton these days.
 
-2. The Nuvoton driver is on the fly:
-https://lkml.org/lkml/2018/3/22/284 
-<https://urldefense.proofpoint.com/v2/url?u=https-3A__lkml.org_lkml_2018_3_22_284&d=DwMGaQ&c=ue8mO8zgC4VZ4q_aNVKt8G9MC01UFDmisvMR1k-EoDM&r=kNeU5gwNy2cOhaTMIUoFhUPAXV51uTneHprahPM6I78&m=ID5-OH3zog6mXc13UaU1fkd107kOhusv44gfLsAYlzQ&s=3RwHjL1giz6-_bT-WPsD7nejvbVqOhCPjS2XB4Tchgs&e=>
+cheers,
+xo wang
 
-After upstream finished, maybe it is the right time to push the 
-kcsbridged into OpenBMC github,
-and of course, the kcsbridged needs to be enhanced for real use in OpenBMC.
+--0000000000005325fe056868a3cb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-BR,
-Haiyue
+<div dir=3D"ltr">hey y&#39;all,<div><br></div><div>Heads up that I&#39;m no=
+ longer actively working on OpenBMC so please don&#39;t expect expedient co=
+de reviews from me. I handed off my Zaius machine layer maintainership and =
+nobody really touches skeleton these days.</div><div><br></div><div>cheers,=
+</div><div>xo wang</div><div><br></div></div>
 
-On 2018-03-27 23:37, openbmc-request@lists.ozlabs.org wrote:
-> Date: Tue, 27 Mar 2018 07:41:04 -0700
-> From: Patrick Venture<venture@google.com>
-> To: OpenBMC Maillist<openbmc@lists.ozlabs.org>, Brad Bishop
-> 	<bradleyb@fuzziesquirrel.com>
-> Cc: Robert Lippert<rlippert@google.com>, Nancy Yuen
-> 	<yuenn@google.com>, Kun Yi<kunyi@google.com>, Emily Shaffer
-> 	<emilyshaffer@google.com>
-> Subject: KCS bridged
-> Message-ID:
-> 	<CAO=notyi526qbqE2bBzC6d3LWAN9=NhdCm-wmxxyh1-FNVTMGg@mail.gmail.com>
-> Content-Type: text/plain; charset="UTF-8"
->
-> I have seen several patches from at least two groups related to IPMI
-> KCS drivers for the BMC.  However, I wasn't aware of the existence of
-> a bridge daemon, equivalent to btbridged -- to plumb the messages from
-> the kernel driver to phosphor-host-ipmid.  Is there one in design,
-> develop, test, or done?
->
-> Patrick
+--0000000000005325fe056868a3cb--
