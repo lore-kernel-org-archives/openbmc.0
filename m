@@ -6,44 +6,44 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="pnDh/Ifs"; 
+ unprotected) header.d=fb.com header.i=@fb.com header.b="UudEWoUm"; 
  dkim-atps=neutral
 Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
  [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 409BFP6kQtzF1s1
- for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 11:08:53 +1100 (AEDT)
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 409BJq1MdRzF26b
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 11:11:54 +1100 (AEDT)
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w2R04ttn031109
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 17:08:51 -0700
+ w2R0AuZX007231
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 17:11:52 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=facebook;
- bh=2w392OfW7iqJxzAiqqpgob4buy5PuXgZMZhinB3Hesw=;
- b=pnDh/IfsY93rUYCiRyCJv5wojCRs4e84+H1S4CRvdJIxPLQJ5/ua5obVh25jzDg4Ptri
- rmyUohQet29BkLCc2lom0tFfe/xWG+NU69V28monywGO/mbFIQbkoC0wDKccHVd19MQp
- aCukSxtIC2/b2nP68VfrIlMc0xK2WlJNwFg= 
+ bh=cEyO2mFYFcRAEeyb4fjqJqL4JfEApOg9nHE7oCjEFQw=;
+ b=UudEWoUmkI6oApAT21GwrMSQJYCVKef+s3stOn7+Zal/WsaBvOMonUOU30QnReuQ+uxi
+ leMJIHDChFHvt0XbgFkvE292OFTQjGb8ssK8w+SSl4kPnMUUVvwxBJzvW+3z3xnpfm/6
+ HWJHkIpreFb1HcAIfD/tBkJeC4igf4ONJaM= 
 Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2gy8618h8b-3
+ by mx0a-00082601.pphosted.com with ESMTP id 2gyb6jg02q-2
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 17:08:51 -0700
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Mar 2018 17:11:52 -0700
 Received: from mx-out.facebook.com (192.168.52.123) by
- PRN-CHUB03.TheFacebook.com (192.168.16.13) with Microsoft SMTP Server id
- 14.3.361.1; Mon, 26 Mar 2018 17:08:50 -0700
+ PRN-CHUB07.TheFacebook.com (192.168.16.17) with Microsoft SMTP Server id
+ 14.3.361.1; Mon, 26 Mar 2018 17:11:51 -0700
 Received: by devvm25134.prn1.facebook.com (Postfix, from userid 122613)	id
- EAE9B158011D; Mon, 26 Mar 2018 17:08:49 -0700 (PDT)
+ 05F901580816; Mon, 26 Mar 2018 17:11:51 -0700 (PDT)
 Smtp-Origin-Hostprefix: devvm
 From: Amithash Prasad <amithash@fb.com>
 Smtp-Origin-Hostname: devvm25134.prn1.facebook.com
 To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>
 CC: Amithash Prasad <amithash@fb.com>
 Smtp-Origin-Cluster: prn1c35
-Subject: [PATCH v4 linux dev-4.10] ARM: dts: aspeed: Add Portwell Neptune
+Subject: [PATCH v3 linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
  machine
-Date: Mon, 26 Mar 2018 17:08:48 -0700
-Message-ID: <20180327000848.2968460-1-amithash@fb.com>
+Date: Mon, 26 Mar 2018 17:11:49 -0700
+Message-ID: <20180327001149.2980565-1-amithash@fb.com>
 X-Mailer: git-send-email 2.9.5
 X-FB-Internal: Safe
 MIME-Version: 1.0
@@ -63,7 +63,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2018 00:08:58 -0000
+X-List-Received-Date: Tue, 27 Mar 2018 00:11:55 -0000
 
 Initial introduction of Portwell Neptune family equipped with
 Aspeed 2500 BMC SoC. Neptune is a x86 server development kit with a
@@ -74,41 +74,43 @@ layout used by the neptune machines.
 Signed-off-by: Amithash Prasad <amithash@fb.com>
 ---
  .../devicetree/bindings/vendor-prefixes.txt        |   1 +
- arch/arm/boot/dts/Makefile                         |   1 +
- arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 163 +++++++++++++++++++++
- 3 files changed, 165 insertions(+)
+ arch/arm/boot/dts/Makefile                         |   3 +-
+ arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 159 +++++++++++++++++++++
+ 3 files changed, 162 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
 
 diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
-index 84601d8..9dbbe7d 100644
+index daf465be..ad3406d 100644
 --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
 +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
-@@ -228,6 +228,7 @@ pine64	Pine64
+@@ -255,6 +255,7 @@ pine64	Pine64
  pixcir  PIXCIR MICROELECTRONICS Co., Ltd
  plathome	Plat'Home Co., Ltd.
  plda	PLDA
 +portwell	Portwell Inc.
+ poslab	Poslab Technology Co., Ltd.
  powervr	PowerVR (deprecated, use img)
  pulsedlight	PulsedLight, Inc
- qca	Qualcomm Atheros, Inc.
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 7c54fc8..044b960 100644
+index 5cfee25..4746060 100644
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -993,6 +993,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-mellanox-msn.dtb \
- 	aspeed-bmc-quanta-q71l.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
-+	aspeed-bmc-portwell-neptune.dtb \
- 	aspeed-ast2500-evb.dtb
+@@ -1061,7 +1061,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-opp-romulus.dtb \
+ 	aspeed-bmc-opp-witherspoon.dtb \
+ 	aspeed-bmc-opp-zaius.dtb \
+-	aspeed-bmc-quanta-q71l.dtb
++	aspeed-bmc-quanta-q71l.dtb \
++	aspeed-bmc-portwell-neptune.dtb
  endif
  
+ dtstree		:= $(srctree)/$(src)
 diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
 new file mode 100644
-index 0000000..a584784
+index 0000000..43ed139
 --- /dev/null
 +++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-@@ -0,0 +1,163 @@
+@@ -0,0 +1,159 @@
 +// SPDX-License-Identifier: GPL-2.0
 +// Copyright (c) 2017 Facebook Inc.
 +/dts-v1/;
@@ -150,10 +152,6 @@ index 0000000..a584784
 +		};
 +		// postcode3-7 are GPIOH3-H7
 +	};
-+};
-+
-+&wdt2 {
-+	status = "okay";
 +};
 +
 +&fmc {
