@@ -1,57 +1,55 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::230; helo=mail-vk0-x230.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wi8Y5ept"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="J4kF6RGC"; 
  dkim-atps=neutral
-Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
- [IPv6:2607:f8b0:4001:c06::241])
+Received: from mail-vk0-x230.google.com (mail-vk0-x230.google.com
+ [IPv6:2607:f8b0:400c:c05::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 409NX51h4lzF291
- for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 18:52:20 +1100 (AEDT)
-Received: by mail-io0-x241.google.com with SMTP id d5so26421134iob.9
- for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 00:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=0TWnfJ6X0wt274ynFhqtGTOCnDHAxzOV88X9T1XvCnM=;
- b=Wi8Y5eptk7xsVuAPKh7ojHve0dj28oB2auy+e6fAI6RQnEgo/kfCYDoCsqz/hdkJCx
- prgPe7azc0FojbxdCQY+26Biq1ZrKf0UXLgcMfbFzOxA1jtXDCu42edGOgF2bTYUacVw
- o4tSCmFuvlIFOX3QxbK+RMcdVXFajkfZBVSpVojwJMHocnn/kLr7q9IDoeJLzduT3CIh
- NQhS0QTEntyg8qSBM+PtBZPhKxE1XisQzTf9QKVB28aLenrN8XowhRQBWqN/71IBhT1A
- 4/kojtmNExf85px4cibmPeJtYos3XJYeMN3lpJ7XN+5uKk1h119J7ZhIzPdpZpXkatD8
- us0Q==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 409YcC637GzF2D3
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 01:41:27 +1100 (AEDT)
+Received: by mail-vk0-x230.google.com with SMTP id b16so6787721vka.5
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 07:41:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=R/KytLw/TrQcYWA6lWomfraoBaFBSxYc/Oedmc0P7HQ=;
+ b=J4kF6RGChsJL15ORFQAnrjzCdOsF9ZFMmo0pqCVxSS5S5gA2G/Moa7P+p3VJLToN+f
+ 8az9KHIjh2lEDYx2Z45zLTUwBBiuTNKjepglFVJ2m9rZh3Jyy1ejiRjIMR5gLeq0ZBTZ
+ dg28vRMgjUMbR46cYTlZhtgh8GmeSwqLCUhL+q3pOgdtaMVHHUc18r7qh0kXCSnrI18n
+ LDDq/7ChqAvM0b+pTGUPaYgFJClasnZ3CH5T/mYvUTGJ3xr3va9Fl5sUG/xe9HluPAul
+ KmMw6VcUvn3/ffrv2t/tw3UHY07mzg1nVILcd7dougJoL9QWyikd03WQ0tyO2GisifZj
+ 5FQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=0TWnfJ6X0wt274ynFhqtGTOCnDHAxzOV88X9T1XvCnM=;
- b=r3aMUI7d2NyMlqvyjH6H55DKf93WNw+BP0xZJjRvhK07EJ5hk7t5EaMw2H1ZXk0AXe
- wApEZai2VVNjHmsBxzLd8B4CFBDDDIKPKhX3zuD4Ncm0QgrB3BIpLrScNIvMjQTUGCHm
- 6QkdAyYL+BfWigZNlMdZBJaMaOiziagliQIRYeOTngta9RVGbyzipqYVKJ7bZxjX1omx
- dmz/b29v+yi9ebzgou+llw28k2IGIAo2+XYocTmJpccn8sZRt4Sukt28neCaot/e6mD1
- tN2K4TGt8Y5s3d7sxp03mqgcRFwQ+B9ap/QzZpMtpABMjzAx5m59kQXzKCAbyEm9aASh
- TMTw==
-X-Gm-Message-State: AElRT7FHvp578SW6cQj48TJkXomJqoU18k9NV+UG3Nu13c+/ZePs73rN
- dlGjO+UMNTwlnG8RV5sUzmSI14bBjYSNT9oCM+QPritK
-X-Google-Smtp-Source: AIpwx4+//JEHojCTnXQaGwMQwtbQz54T/+FkpBMJETeMEBVElbDez4SsPm48lowBqWbhUG4aEMgpoBr/xQaSS66sCTs=
-X-Received: by 10.107.178.200 with SMTP id b191mr2160100iof.138.1522137138516; 
- Tue, 27 Mar 2018 00:52:18 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=R/KytLw/TrQcYWA6lWomfraoBaFBSxYc/Oedmc0P7HQ=;
+ b=Veumm1lz1DNyGexdmoFOeL/siHc1KBP+eA3MctepCdRxy7yaX++l1lhyJQEfDc9eFQ
+ 5ftw4cWSOxQZuzM1pdDo5MqPEgLaL8FLgkcHPRixNGXVctWhizmFpP4UR/JgSsPskvVL
+ GOxeLTYWyq83qrkvXODEFj987J/dY3Es+ZsBOj4BUgCV5l8hLu2tiB3eRnppOM3uSp33
+ JZx0V48qTQg0CpH8bR3mkupX3/LR3M03gU+yRji+r9Dx+UHci1+cbTQsBd9zQI9rUeRV
+ Jbpa0WIeHwwKIfgwAFdmdK/n+FaZcEexcgsIrmueUMUf1qIz257SewKQwFf2QTtMEkFZ
+ 78yw==
+X-Gm-Message-State: AElRT7GYdmRFomo/T02n0fScXRFkUruUJLbDhI0z8VazYYhjkVfVgF46
+ LX6LwEBIavwxvZ+gX0fzblkaJWnljbY8RSmPdixTHNsk
+X-Google-Smtp-Source: AG47ELtcjvvfRjaSYn1UO8/b7MqtNdhxuE8EE148Wf5xZN395WrSLlhMB3loQvn61x6Ja4XYR2n2bE/fOl6gUHH+x/A=
+X-Received: by 10.31.63.16 with SMTP id m16mr19670118vka.73.1522161684760;
+ Tue, 27 Mar 2018 07:41:24 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.79.142.67 with HTTP; Tue, 27 Mar 2018 00:52:17 -0700 (PDT)
-In-Reply-To: <1522051676.1429236.1315961632.273FE2FC@webmail.messagingengine.com>
-References: <20180326051639.16555-1-joel@jms.id.au>
- <1522051676.1429236.1315961632.273FE2FC@webmail.messagingengine.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 27 Mar 2018 15:52:17 +0800
-Message-ID: <CAARXrtk5vS4PeRjRxoYiDC2uMO7j6=BGimHe6dDzV_8u0iZ5fg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13] clk: aspeed: Mark bclk (PCIe) as critical
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.31.124.193 with HTTP; Tue, 27 Mar 2018 07:41:04 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+Date: Tue, 27 Mar 2018 07:41:04 -0700
+Message-ID: <CAO=notyi526qbqE2bBzC6d3LWAN9=NhdCm-wmxxyh1-FNVTMGg@mail.gmail.com>
+Subject: KCS bridged
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: Robert Lippert <rlippert@google.com>, Nancy Yuen <yuenn@google.com>,
+ Kun Yi <kunyi@google.com>, Emily Shaffer <emilyshaffer@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -64,57 +62,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2018 07:52:21 -0000
+X-List-Received-Date: Tue, 27 Mar 2018 14:41:41 -0000
 
-Tested-by: Lei YU <mine260309@gmail.com>
+I have seen several patches from at least two groups related to IPMI
+KCS drivers for the BMC.  However, I wasn't aware of the existence of
+a bridge daemon, equivalent to btbridged -- to plumb the messages from
+the kernel driver to phosphor-host-ipmid.  Is there one in design,
+develop, test, or done?
 
-With the patch, bclk is enabled (by default).
-However, the PCI/VGA device is probed by skiboot but failed to train
-in petiboot:
-
-[   55.446446203,5] PHB#0005:02:00.0 [PCID] 1a03 2000 R:41 C:030000 (
-         vga)
-...
-[   72.096462749,3] PHB#0005[0:5]: PHB Freeze/Fence detected !
-...
-
-The full log is posted at
-https://github.com/openbmc/openbmc/files/1850909/log_romulus_host_with_bmc_4.13.txt
-
-On Mon, Mar 26, 2018 at 4:07 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Mon, 26 Mar 2018, at 15:46, Joel Stanley wrote:
->> This is used by the host to talk to the BMC's PCIe slave device. The BMC
->> is not involved, but the clock needs to be enabled so the host can use
->> the device.
->>
->> Signed-off-by: Joel Stanley <joel@jms.id.au>
->
-> Acked-by: Andrew Jeffery <andrew@aj.id.au>
->
->> ---
->>  drivers/clk/clk-aspeed.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
->> index 5af80b4e673e..5be88f0a0678 100644
->> --- a/drivers/clk/clk-aspeed.c
->> +++ b/drivers/clk/clk-aspeed.c
->> @@ -97,7 +97,7 @@ static const struct aspeed_gate_data aspeed_gates[] =
->> {
->>       [ASPEED_CLK_GATE_GCLK] =        {  1,  7, "gclk-gate",          NULL,   0 }, /* 2D engine */
->>       [ASPEED_CLK_GATE_MCLK] =        {  2, -1, "mclk-gate",          "mpll",
->> CLK_IS_CRITICAL }, /* SDRAM */
->>       [ASPEED_CLK_GATE_VCLK] =        {  3,  6, "vclk-gate",          NULL,   0 }, /* Video
->> Capture */
->> -     [ASPEED_CLK_GATE_BCLK] =        {  4, 10, "bclk-gate",          "bclk", 0 }, /* PCIe/PCI
->> */
->> +     [ASPEED_CLK_GATE_BCLK] =        {  4, 10, "bclk-gate",          "bclk",
->> CLK_IS_CRITICAL }, /* PCIe/PCI */
->>       [ASPEED_CLK_GATE_DCLK] =        {  5, -1, "dclk-gate",          NULL,   0 }, /* DAC */
->>       [ASPEED_CLK_GATE_REFCLK] =      {  6, -1, "refclk-gate",        "clkin",
->> CLK_IS_CRITICAL },
->>       [ASPEED_CLK_GATE_USBPORT2CLK] = {  7,  3, "usb-port2-gate",     NULL,   0 }, /*
->> USB2.0 Host port 2 */
->> --
->> 2.15.1
->>
+Patrick
