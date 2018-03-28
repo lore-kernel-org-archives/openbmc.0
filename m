@@ -1,69 +1,56 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::241; helo=mail-pf0-x241.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400e:c00::242; helo=mail-pf0-x242.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="sBlilsfW"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="dMtSq1Qv"; 
  dkim-atps=neutral
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
+ [IPv6:2607:f8b0:400e:c00::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 409k5k669zzF2BN
- for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 08:04:10 +1100 (AEDT)
-Received: by mail-pf0-x241.google.com with SMTP id c78so110096pfj.6
- for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 14:04:10 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 409tdW0y2VzF2J8
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 14:28:46 +1100 (AEDT)
+Received: by mail-pf0-x242.google.com with SMTP id f15so478149pfn.0
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Mar 2018 20:28:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=wQvLHdi8imq1BFun9Q+rcanME8FCcCKs0M7c9TeIGS8=;
- b=sBlilsfWOpRnrO55fzP8GJm3dNRHAnw6D+A5UgXIaIUvkAT8n8gLDk1RnECepu3YkF
- vHpRuv2+K+W/xyEwrPjWsOeh6meRJlNHpbBo+qmuaWXbsIaoPSbr0xIQn4Il743j95w+
- JGueLozwohKf7StINzj8Qd2F8RR+XjrqZRUVcM/0144WptBU/MtnUnA6nr6YdcBOrIZU
- HdX7eLm6h9C5nExfY0NOVDoCoiWR7jQGyAkBrthzRE7Agmg981M/nQkwsVdM6izg+7VE
- hYEhNvYddsNA2kQ3pfBTI4GhwW3dqb/3dxMpuj2OB/rU231O+MiEM83rH8zsmTi8Dobz
- ek3w==
+ h=from:to:cc:subject:date:message-id;
+ bh=9P/DiIt4X5SSyDzr4Zpuo4zeaV+YQsFBrgu2AjhLcQM=;
+ b=dMtSq1Qvdg/D3/ShFk/1U71YvEt1D2XDiZZXH+WeXKWCuNA3RXOEqa8wxlbRsFYpSq
+ 1qtBffXHoNMjKn9lswJ/enYFX1mZLhFCd8wB9WV5ECvp4Vj7hd4bEQD9xbSQ0zEaVT3B
+ 2PcWJOeqh3DQTjskmDIArktf/fP4/GUyTKRZCsSTWRoeLZP83Gqc7BcC9tzhFRPiahmX
+ N7hanGWHwloPWmamhuf7XULrFc0izrbsIbiwbnPIYGbLeE7NnhfGIy3HHj9+fhFXY+Li
+ +GLBJougFyqiFj1/M2OnBQeuvIbmK6b4F09p0N9rVi15Y1fSCXWZ0+zrjyJfqhXqfS/W
+ eFcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=wQvLHdi8imq1BFun9Q+rcanME8FCcCKs0M7c9TeIGS8=;
- b=rWIL2xIZhvbhgk0kWfnPRVvcy5K8sPYPtyTtHdZQzXMWGdQg2wiGUsxHwJgC80JUoq
- ARwCizYDPgxFCvZ6nT8LoE3NRKtUVKsPoNQGCAd38diE7ayA1JvZ/HOBZVf3M6ggxa0U
- 5C1x2d4vdeXu1UcTfNPh00ZeM7ujVhzVFyVE4T8Ixz3iUUCulDYtXB/rXcvWnp7W9y0w
- 6SRVbLgFGHWvAWe7/o/vjDxKHdv0Qeydos1bJahsR0suRiSiugP7Vz6ow7PsqJlWJivs
- CLH07XLrGLF4uK+Cmdg/ftd4/Mn+8XSsTIk/WhYKVH2akyRHOINiCuZthi684RYQ6yIg
- Kb7Q==
-X-Gm-Message-State: AElRT7E4U7mvneepCazo6ucn78TRFKmJSFGfzCd7gk4xYw0wxi33Snv+
- 9CCCeEyLrko1Qj3ETTc2XAI=
-X-Google-Smtp-Source: AIpwx4/h7DL6l7hifmFsdAfKXEF3LL8cY3XyuUy2j9iDc70BMILD3BR/APvdTk8Fhvu5u1t2ZnP8TA==
-X-Received: by 10.98.80.5 with SMTP id e5mr661775pfb.131.1522184648687;
- Tue, 27 Mar 2018 14:04:08 -0700 (PDT)
-Received: from server.roeck-us.net
- (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id l90sm5101965pfb.96.2018.03.27.14.04.06
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 27 Mar 2018 14:04:07 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH v2] aspeed: watchdog: Set bootstatus during probe
-To: Eddie James <eajames@linux.vnet.ibm.com>, linux-watchdog@vger.kernel.org
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- wim@linux-watchdog.org, joel@jms.id.au
-References: <1522181367-11231-1-git-send-email-eajames@linux.vnet.ibm.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <09152d5f-5b49-9b8b-5ac3-829a2c9aab2e@roeck-us.net>
-Date: Tue, 27 Mar 2018 14:04:06 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-In-Reply-To: <1522181367-11231-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=9P/DiIt4X5SSyDzr4Zpuo4zeaV+YQsFBrgu2AjhLcQM=;
+ b=lnpSKKxsTWN4ebYdiQkurqsKfgDJxrPrJziLPDLN0kSSUW0du+a6lZQ2CMqtZ/20/K
+ SVN7UazXyqFYY2GaPlDytF6VXDM/cE1kCT57MkP0AZMyVjB0UJGm+w8C3na/HdgYK+vU
+ n/YjFU2h+AJTENOuTzk7Mb52CH7CZgAqUORLTig4efdnfA4mPhdq7lxqhF59WlPDcenz
+ b/A0favQumDWEk16mhrPsvd3IeqraAQwfIyUYXZRdbLnHhnKmL5dhRsEJQHcTvzJqwxH
+ qo9eaEGaCk1/No+O6VsRRWoG8PTVzQUBfvKyF7mlJyX/jhpQY/aMmF4v7DuPo/QjdRCv
+ wO0A==
+X-Gm-Message-State: AElRT7F+MK89NzU/qykNLkTEA/5SMYnXBp/03sDxhVVx8PfbjFIhTNsC
+ OIcn4ay7XaNkHiqGQmpFySeLRv6j
+X-Google-Smtp-Source: AIpwx4/GamPDRyMFszLXDqaor21oLNmox1A5jjmvmch2rKydn1xc0Mioc3lTlU3XtBAJ9VATAY3/tw==
+X-Received: by 10.98.201.194 with SMTP id l63mr1558971pfk.126.1522207724722;
+ Tue, 27 Mar 2018 20:28:44 -0700 (PDT)
+Received: from localhost (45.62.100.246.16clouds.com. [45.62.100.246])
+ by smtp.gmail.com with ESMTPSA id r14sm5365806pfa.163.2018.03.27.20.28.43
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Tue, 27 Mar 2018 20:28:43 -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.13 v2] clk: aspeed: Mark bclk (PCIe) and dclk
+ (VGA) as critical
+Date: Wed, 28 Mar 2018 11:27:22 +0800
+Message-Id: <1522207642-27653-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,55 +62,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2018 21:04:11 -0000
+X-List-Received-Date: Wed, 28 Mar 2018 03:28:47 -0000
 
-On 03/27/2018 01:09 PM, Eddie James wrote:
-> Check the aspeed timeout status register to see if the system has booted
-> from the secondary boot source. If so, set the watchdog device
-> bootstatus flag for "Card previously reset the CPU."
-> 
-> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+This is used by the host to talk to the BMC's PCIe slave device. The BMC
+is not involved, but the clock needs to be enabled so the host can use
+the device.
 
-> ---
-> Changes since v1:
->   - use bootstatus instead of status
->   - use WDIOF_CARDRESET instead of raw register contents
-> 
->   drivers/watchdog/aspeed_wdt.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-> index a5b8eb2..1abe4d0 100644
-> --- a/drivers/watchdog/aspeed_wdt.c
-> +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -55,6 +55,8 @@ struct aspeed_wdt_config {
->   #define   WDT_CTRL_WDT_INTR		BIT(2)
->   #define   WDT_CTRL_RESET_SYSTEM		BIT(1)
->   #define   WDT_CTRL_ENABLE		BIT(0)
-> +#define WDT_TIMEOUT_STATUS	0x10
-> +#define   WDT_TIMEOUT_STATUS_BOOT_SECONDARY	BIT(1)
->   
->   /*
->    * WDT_RESET_WIDTH controls the characteristics of the external pulse (if
-> @@ -192,6 +194,7 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->   	struct device_node *np;
->   	const char *reset_type;
->   	u32 duration;
-> +	u32 status;
->   	int ret;
->   
->   	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
-> @@ -307,6 +310,10 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->   		writel(duration - 1, wdt->base + WDT_RESET_WIDTH);
->   	}
->   
-> +	status = readl(wdt->base + WDT_TIMEOUT_STATUS);
-> +	if (status & WDT_TIMEOUT_STATUS_BOOT_SECONDARY)
-> +		wdt->wdd.bootstatus = WDIOF_CARDRESET;
-> +
->   	ret = devm_watchdog_register_device(&pdev->dev, &wdt->wdd);
->   	if (ret) {
->   		dev_err(&pdev->dev, "failed to register\n");
-> 
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Lei YU <mine260309@gmail.com>
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
+Tested-by: Lei YU <mine260309@gmail.com>
+---
+ drivers/clk/clk-aspeed.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index 5af80b4..4d25a4c 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -97,8 +97,8 @@ static const struct aspeed_gate_data aspeed_gates[] = {
+ 	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
+ 	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	CLK_IS_CRITICAL }, /* SDRAM */
+ 	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video Capture */
+-	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	0 }, /* PCIe/PCI */
+-	[ASPEED_CLK_GATE_DCLK] =	{  5, -1, "dclk-gate",		NULL,	0 }, /* DAC */
++	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	CLK_IS_CRITICAL }, /* PCIe/PCI */
++	[ASPEED_CLK_GATE_DCLK] =	{  5, -1, "dclk-gate",		NULL,	CLK_IS_CRITICAL }, /* DAC */
+ 	[ASPEED_CLK_GATE_REFCLK] =	{  6, -1, "refclk-gate",	"clkin", CLK_IS_CRITICAL },
+ 	[ASPEED_CLK_GATE_USBPORT2CLK] =	{  7,  3, "usb-port2-gate",	NULL,	0 }, /* USB2.0 Host port 2 */
+ 	[ASPEED_CLK_GATE_LCLK] =	{  8,  5, "lclk-gate",		NULL,	0 }, /* LPC */
+-- 
+2.7.4
