@@ -1,57 +1,53 @@
-Return-Path: <xow@google.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400e:c00::22f; helo=mail-pf0-x22f.google.com;
- envelope-from=xow@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::230; helo=mail-it0-x230.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="vbowDaSX"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="GVERi4tY"; 
  dkim-atps=neutral
-Received: from mail-pf0-x22f.google.com (mail-pf0-x22f.google.com
- [IPv6:2607:f8b0:400e:c00::22f])
+Received: from mail-it0-x230.google.com (mail-it0-x230.google.com
+ [IPv6:2607:f8b0:4001:c0b::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40BDNs5rHKzF2LQ
- for <openbmc@lists.ozlabs.org>; Thu, 29 Mar 2018 03:49:00 +1100 (AEDT)
-Received: by mail-pf0-x22f.google.com with SMTP id m68so1191781pfm.11
- for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 09:49:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=x/CA1eJ9BnorBfdZPuHMMOVy050JPvmGABBZyRWj+mY=;
- b=vbowDaSXmA9FGjYl0Y3zL6QpokbPrWcgsLCvbdCMEgtm9b4j0i3ZNQfLIaqasGEL/e
- GznL0+j2wlLAGyMKFsPRrE2omCflKE+6LJx7hSvH78oMp+5nO6QPqO3coJly08lyZSMZ
- avJ7HBTeEtU7EsUHlO44FJfraYHXliZPAosS9reLVj/dNoEgLvy63/7izIuX3KHZhEs5
- 5k9fBQhB0LxSK6EJOjLAYqot4vpXhEHqFOhU0nDuMNqSPMS03kPVb+KdsE4qZiK7JFgS
- Ma7tPcBihHVJp7x1l6f2iFOAtf9bv/0dhR3kUwnTAHu5+mOAuEFG+InqczQU8cFmxERY
- 1PKg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40BJWx1QQWzF2J1
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Mar 2018 06:55:23 +1100 (AEDT)
+Received: by mail-it0-x230.google.com with SMTP id j137-v6so5315832ita.1
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Mar 2018 12:55:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=osl5CAY+1HvZkQNbe74U/W6n9Xeaw6D6JVfHVG+WXG4=;
+ b=GVERi4tY6qs2SO8aVb8tvOAJo1Ws/iv3cfOPCOeI9K8eRVrO07ruBnJeimMTgN74sF
+ SUP3qN2W8LKle+pI7hW+GHZqyH+B7UGxDRe28OUrUk5jUEeyuwLqnbWvzP+NRiPDM8Xw
+ VUPxDo35l+2UfWEArMiClNHmTeqMFq0tQj9xH/kJ0L84PirDiO+CWUE2ZnXKLZ4ClP8E
+ TpFnONyDUAiVZniv7RNMz5fwfRRrtBH8iB/9zYV1UCe5+UfMn1J/ACsVauA+ev8jZ4nH
+ +22OYE6YuUck5qOwtHIqoldWlZeAEE4zjHhTl2A1zSX9HrXT8YQzZc0nZVjkoFWIwebS
+ 7hRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=x/CA1eJ9BnorBfdZPuHMMOVy050JPvmGABBZyRWj+mY=;
- b=PlVVuXYhHB9RCmdCs/BZvNXI+FHmhqYzEwcsqQHwlH0W/b6oByBANv1N8v0GWXA7zY
- Rf4gYp0C/FOGTaOuehCPti4CJ5fk2UEJGllKPnNziU2LWMKQG26nP/I1fywde1smJCBW
- oxUWN9HdCkZGqSY8mKeMDBXofH4ITpHwCc/FBI3R1wUk9cKqE8WmBwaMDErjiwSkow30
- +h8oldFK0kTQF9DCMXwqROzncV0qnD20cnCoBgR2Vzc3M1RN3dJaNEA5kNAKZW5+UOyB
- 7TWA7iG0iv6P08u+fdUmEAdf3MVzYG52GvNDD7ARKNaYenlYMT6ZVAYwsVToHBkRMbjF
- InJg==
-X-Gm-Message-State: AElRT7G6hJLZrjwYFB/5zGccCoBDh9Cd1N/SNUMZM8nMayUAizTGZTY8
- YXCbirHdDogyok5NX96Hp3abTZPA14HC8OJ6NYaQOg==
-X-Google-Smtp-Source: AIpwx49Sf5ndteJL/5olErZM4g+GWSjSWPGDyO/cl7Fnz2eiE8WysOwQcWJb+zjeoF1rqgNV3ZZIaZJ4AgM0wsIJpKM=
-X-Received: by 10.98.217.85 with SMTP id s82mr3592335pfg.208.1522255738095;
- Wed, 28 Mar 2018 09:48:58 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=osl5CAY+1HvZkQNbe74U/W6n9Xeaw6D6JVfHVG+WXG4=;
+ b=UOJp4s92zEjrAQycIooltZ31OWjNgycja8PZmd3GrV81LbnbnzIrLlzAe5vxxvFhiE
+ W9Kgv6sY98wpvJ9Xhz25pmRFgBPplZEwiMYOXv/QvfeiNHgn1lOh47eOY/xJu0DulaOc
+ RN29y1/CcA31dnZkbBhxqNZxnB7IE6Wf/O1oRpWzfEy1ZxYa7KGUpAWyb0xqHeUGwoX8
+ vGlY5+ItvFFN4ExxPqDa2GYkgWZMHnBEWRm69RM1YWJZ6DEvw19VklJFCEosN5y0wdR0
+ AZ8bjgDrmmerP7ZuJzMUWmG4KsnwnDJe2j+73us/Pj6OhaDQRl0MYaX81KGDOsC5pq2p
+ IXOg==
+X-Gm-Message-State: ALQs6tDSCmaPY802vcsGtb6pCNa6oQUiRNIyMwdxi5dJw43OBVdzFKR6
+ Kk4EuoNOeCo/EeTeev4cUipIBEL8JoAeOnkpFeEAug==
+X-Google-Smtp-Source: AIpwx48EQ0Hh/ydYdEEgQhE/EcE4urhKmrpvEdykvBiFgV2LagReiRLKtLovl5cJ2ZEcYNWGFcqUCi8Ohu9Rb045xBI=
+X-Received: by 2002:a24:39c8:: with SMTP id
+ l191-v6mr4821388ita.81.1522266921608; 
+ Wed, 28 Mar 2018 12:55:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAPH-5w6f25PWLwhZ6669eB9HrjH50Bq1-L+YqC5R21RAE2aOXA@mail.gmail.com>
- <CACPK8Xexitu__0UQ=Om=Ao8b-mmsUhCXeHOpoFB9LbEcGO00NA@mail.gmail.com>
-In-Reply-To: <CACPK8Xexitu__0UQ=Om=Ao8b-mmsUhCXeHOpoFB9LbEcGO00NA@mail.gmail.com>
-From: Xo Wang <xow@google.com>
-Date: Wed, 28 Mar 2018 16:48:47 +0000
-Message-ID: <CAPH-5w434v=1K3_QGOuBvQzJHtEqtTPUD5moiDk7RbKLrhQ-Mw@mail.gmail.com>
-Subject: Re: Xo deactivating
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Robert Lippert <rlippert@google.com>
+Received: by 10.107.11.159 with HTTP; Wed, 28 Mar 2018 12:55:20 -0700 (PDT)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 28 Mar 2018 14:55:20 -0500
+Message-ID: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
+Subject: Migration to new gerrit server is coming
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -64,32 +60,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Mar 2018 16:49:02 -0000
+X-List-Received-Date: Wed, 28 Mar 2018 19:55:26 -0000
 
-On Tue, Mar 27, 2018 at 9:38 PM Joel Stanley <joel@jms.id.au> wrote:
+Greetings,
 
-> On 28 March 2018 at 04:28, Xo Wang <xow@google.com> wrote:
-> > hey y'all,
-> >
-> > Heads up that I'm no longer actively working on OpenBMC so please don't
-> > expect expedient code reviews from me. I handed off my Zaius machine
-layer
-> > maintainership and nobody really touches skeleton these days.
+We've gotten ourselves a nice big server to run our gerrit instance
+on.  The virtual machine we're currently running in is going EOL
+within the next few months so I've been slowly working on a
+transition.  The migration should be pretty painless.  At some point
+I'll take down the existing gerrit, migrate the data from it to our
+new instance, and move the domain name over to the new server.
 
-> Thanks for the heads up. Who should I ping about Zaius related kernel
-things?
+I've got a test instance going now and would appreciate some poking
+around for anything obviously wrong.  It's running the latest stable
+gerrit, so we'll be getting an upgrade in this process. I synch'd over
+the data from the production gerrit this morning.
 
-> It was great to work with you. All the best for your next project.
+https://test-gerrit.openbmc-project.xyz
 
-> Cheers,
+PLEASE NOTE: No review comments or merges or ... anything will be
+saved or executed on this test-gerrit so don't get the two mixed up :)
+ https://gerrit.openbmc-project.xyz is where all real work should
+continue.
 
-> Joel
-
-Rob Lippert is fully familiar with the Zaius kernel support and already
-owns some Google parts to be upstreamed, so I'll point to him (...to pick
-somebody else, if necessary).
-
-Pleasure working with y'all.
-
-cheers
-xo
+Andrew
