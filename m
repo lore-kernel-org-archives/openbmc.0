@@ -1,42 +1,72 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <prvs=0626aa5741=tomjose@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=prvs=0626aa5741=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40BVwb47xdzDqh1
- for <openbmc@lists.ozlabs.org>; Thu, 29 Mar 2018 14:43:59 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id F13436E229;
- Wed, 28 Mar 2018 23:43:54 -0400 (EDT)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: Sdbusplus-based Shared Library
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CAO=notz7gk5oF9BSpviz+1VrDRCeBCU7t8+zQxTGZOCDYy=VmQ@mail.gmail.com>
-Date: Wed, 28 Mar 2018 23:43:54 -0400
-Cc: Ratan Gupta <ratagupt@linux.vnet.ibm.com>,
- Andrew Jeffery <andrew@aj.id.au>, Ratan K Gupta <ratagupt@in.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Tanous, Ed" <ed.tanous@intel.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1598514C-EBA7-4CF8-A7F8-04BD39498B12@fuzziesquirrel.com>
-References: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E82169932F66E12E@ORSMSX114.amr.corp.intel.com>
- <CAO=notwojtUMU920tTuG0-OyhTFGSZc0gAk21D+xSr=Kq1Tjiw@mail.gmail.com>
- <1522129666.717269.1317238976.0CC07922@webmail.messagingengine.com>
- <55311786-8102-56c1-4c95-a5ede5502277@linux.vnet.ibm.com>
- <CAO=notyvGn_nO1KgffBgukXy7hFt1VHnop26HpgJjJELeJMnow@mail.gmail.com>
- <ED94F738-2C50-416D-826B-82BE0D1B0E94@fuzziesquirrel.com>
- <CAO=notz7gk5oF9BSpviz+1VrDRCeBCU7t8+zQxTGZOCDYy=VmQ@mail.gmail.com>
-To: Patrick Venture <venture@google.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40BfT14pyrzDqlc
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Mar 2018 20:24:02 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w2T9Jq3w115428
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Mar 2018 05:23:59 -0400
+Received: from e06smtp14.uk.ibm.com (e06smtp14.uk.ibm.com [195.75.94.110])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2h0vd8ts0q-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Mar 2018 05:23:59 -0400
+Received: from localhost
+ by e06smtp14.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Thu, 29 Mar 2018 10:23:57 +0100
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp14.uk.ibm.com (192.168.101.144) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 29 Mar 2018 10:23:54 +0100
+Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w2T9NrWb57606272; Thu, 29 Mar 2018 09:23:53 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 51ABC4203F;
+ Thu, 29 Mar 2018 10:15:51 +0100 (BST)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BEAC442041;
+ Thu, 29 Mar 2018 10:15:49 +0100 (BST)
+Received: from [9.204.140.109] (unknown [9.204.140.109])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu, 29 Mar 2018 10:15:49 +0100 (BST)
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+Subject: Attention users of network IPMI
+Cc: Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Emily Shaffer <emilyshaffer@google.com>,
+ Stewart Smith <stewart@linux.vnet.ibm.com>,
+ Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 29 Mar 2018 14:53:49 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18032909-0044-0000-0000-00000541331C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18032909-0045-0000-0000-0000288134CF
+Message-Id: <d58f47d2-310c-f6cb-1ef0-6f7cae9bf7c0@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-03-29_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1803290104
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -48,101 +78,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Mar 2018 03:44:00 -0000
+X-List-Received-Date: Thu, 29 Mar 2018 09:24:06 -0000
 
+Hello,
 
-> On Mar 28, 2018, at 11:25 PM, Patrick Venture <venture@google.com> =
-wrote:
->=20
-> On Wed, Mar 28, 2018 at 6:39 PM, Brad Bishop
-> <bradleyb@fuzziesquirrel.com> wrote:
->>=20
->>> On Mar 27, 2018, at 11:43 AM, Patrick Venture <venture@google.com> =
-wrote:
->>>=20
->>> Brad,
->>>=20
->>> If you create a repository - phosphor-sdbus-utils or
->>> phosphor-sdbusplus-utils or something like that, I'll put together a
->>> starter pack on this and submit for review.
->>=20
->> May I suggest
->>=20
->> =
-https://github.com/openbmc/phosphor-dbus-monitor/tree/master/src/sdevent
->>=20
->> as a possibility for drawing ideas?  :-)
->>=20
->>>=20
->>> Patrick
->>=20
->> Thanks Patrick! will do but I=E2=80=99d like to get a bit more =
-clarity/discussion
->> on what the content of this new repo will be.
->>=20
->> So today we have sdbusplus built around the sd-bus folder in =
-libsystemd.
->>=20
->> Do we envision something like separate repos for:
->>=20
->> sdeventplus - wrappers for the sd-event folder in libsystemd
->> sddeviceplus - wrappers for the sd-device folder in libsystemd
->> =E2=80=A6etc
->>=20
->> Or should we just try and have a single c++ wrapper repository for =
-all of
->> libsystemd?  In that case should we simply rename sdbusplus to =
-libsystemdpp
->> and start putting more code in it?
->=20
-> I had envisioned all the sd-bus wrappers in one library, however, I'm
-> quite flexible about any of that. =20
+Based on  feedback from the team writing management scripts for OpenBMC. 
+There is a suggestion to
+support the "-U" parameter when running the IPMI over network, to keep 
+the script consistent across
+multiple BMC implementations.
 
-I think sdbusplus has been forked for non-openbmc use so it probably
-doesn=E2=80=99t make sense to add OpenBMC-isms to it, like the mapper =
-for instance.
-Do you agree?
+The support currently in  OpenBMC for the IPMI user accounts is the 
+nameless account and the -U option
+is not needed and only the -P option is needed. With the proposed 
+change, "-U admin" is needed, for the
+session setup to succeed. "root"  username was not preferred so that the 
+user does not get confused with the
+linux user account.
 
-I thought you were talking about extending the concept that was applied
-to sdbus (thin raii wrappers around sdbus) to sdevent.  I definitely =
-think
-we need that.
+IPMITool usage with the proposed change:
 
-I think C++ bindings around sdevent could also have general utility to =
-someone
-outside of OpenBMC so I=E2=80=99d again vote for not including =
-OpenBMC-isms in a
-library for something like that.
+ipmitool -I lanplus -H x.x.x.x -U admin -P 0penBmc <cmd>
 
-> My primary goal with pushing this
-> line of thought it to reduce code duplication in openbmc.  So many
-> daemons have the same methods that just talk to sdbusplus, etc.  So it
-> makes sense to me to have a utility library for interfacing with
-> sdbusplus for common tasks.  phosphor::util::getService(),
-> phosphor::util::get... etc, so they can be maintained in one place.
+https://gerrit.openbmc-project.xyz/#/c/9643/
 
-I feel like a number of these are mapper related.  Could we add some
-client bindings for the mapper that help here and put them in the
-mapper repository?  Here is a possible example of how that could
-look:
+Regards,
 
-=
-https://github.com/openbmc/phosphor-dbus-monitor/blob/master/src/sdbusplus=
-.hpp
-
-I wrote this class so I could mock sdbusplus calls.
-
-> Even phosphor::util::network::... because those are becoming
-> duplicated.  It might make sense to have multiple libraries for the
-> utilities, which is also fine.
-
-I guess I=E2=80=99m advocating for distributed utilities, aligned =
-functionally.  I worry
-about a monolithic library=E2=80=A6it seems like it could easily become =
-a free-for-all.
-
-Thoughts?
-
->=20
->>=20
->> -brad
+Tom
