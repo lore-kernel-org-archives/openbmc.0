@@ -1,53 +1,75 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::22f; helo=mail-io0-x22f.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QW82Klj8"; 
- dkim-atps=neutral
-Received: from mail-io0-x22f.google.com (mail-io0-x22f.google.com
- [IPv6:2607:f8b0:4001:c06::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40FxJK6RSCzF29d
- for <openbmc@lists.ozlabs.org>; Wed,  4 Apr 2018 03:42:57 +1000 (AEST)
-Received: by mail-io0-x22f.google.com with SMTP id d7so22981370ioc.11
- for <openbmc@lists.ozlabs.org>; Tue, 03 Apr 2018 10:42:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=2qkY1pLdZHpY9IyNDspgUAmoIBbHwBDTeCTaO71NOnQ=;
- b=QW82Klj89/3yaq9iBto0gma9/ZqYflupszfRVqeNeTVRG9IYZCJiVz8o6/N5WvYKJA
- hpAEt2VsvHe6q0OhvkwfmozBCK+cvQJDh6u3s1iysikyIYaZmmFWEboBCPHbJfwiN8me
- gDo20LlPCIg29hC1SSLRWCe+/NYRm6HzyYz39dPKbLjSbj81dsXgNUdEzsVh6czYNaMb
- VMrz3+Cc/hBFnaKjk+uMkyhAj0faOq/JGLa8twCDfTEyh/GlMm1wKiPfZnXdUgXCXC/I
- PXqeof/aVgy4AFVtTqbp8HrF6uEK06EAf0Js87MZEK0dew9C9i2bwv5bwWkqb8rYHRKJ
- +Ung==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=2qkY1pLdZHpY9IyNDspgUAmoIBbHwBDTeCTaO71NOnQ=;
- b=fgW/sg2eEhUCwes1EYLSZZAhI7RGyA0COxyealQDxBOsE7SD2wtE3tsDhbh51KTX3p
- LhvkZJZYwBYIMKlcboYDDNcsrbkj/fQ29vcOUOQHrccErWC+nME2BXQvlMTvE7enZotS
- ApxkyXrokj2OUDVo24TflBanBdwg/YHqenrjrDDtBEBMgRFjtIZQEfHo5+a0dpDmswXa
- puMnOZOTJn/66eBOc+xLKyhhneAEo8mBiRcZ9QQyaZofs8QZNEtBpK8dCG94kr3tizFZ
- xau1DC8Vum6oPO1+LGaP0FV8tB1qfRgLBes8Aj5vXKSzYjHh6xQpyU2dmbJYfnwbNzh5
- XXSw==
-X-Gm-Message-State: ALQs6tAT76y4JXDvcL0NOWOa30YEUJnN9AEb8u2e5aEgFgy4PqWV8kxO
- norPmCJmTCQDJ5/OB9WJZeefEMeAFYv7M6S93JoefQ==
-X-Google-Smtp-Source: AIpwx49pMgt2o4nFdlvdXsdSHeLOYaAfClp6VUxUCUhH7Anaq7tiQNFsYinlTJXWeyXkA1AS/7iXoSTBR4v5wH7M3Es=
-X-Received: by 10.107.172.65 with SMTP id v62mr13994126ioe.160.1522777375270; 
- Tue, 03 Apr 2018 10:42:55 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40G19d62shzF29F
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Apr 2018 06:37:24 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w33KZYh9038291
+ for <openbmc@lists.ozlabs.org>; Tue, 3 Apr 2018 16:37:22 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2h4fupaqam-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 03 Apr 2018 16:37:22 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 3 Apr 2018 14:37:21 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 3 Apr 2018 14:37:18 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w33KbHwa11403760; Tue, 3 Apr 2018 13:37:17 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DFEA3136046;
+ Tue,  3 Apr 2018 14:37:17 -0600 (MDT)
+Received: from [9.80.239.195] (unknown [9.80.239.195])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 3E052136043;
+ Tue,  3 Apr 2018 14:37:17 -0600 (MDT)
+Subject: Re: [PATCH linux dev-4.13 4/5] pmbus (core): Use driver callbacks in
+ pmbus_get_fan_rate()
+To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+References: <20180403142655.16681-1-andrew@aj.id.au>
+ <20180403142655.16681-5-andrew@aj.id.au>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Tue, 3 Apr 2018 15:37:16 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-Received: by 10.192.164.169 with HTTP; Tue, 3 Apr 2018 10:42:54 -0700 (PDT)
-From: Kurt Taylor <kurt.r.taylor@gmail.com>
-Date: Tue, 3 Apr 2018 12:42:54 -0500
-Message-ID: <CAG5Oiwhm3hi58JXmnDhD5xs89L_cMcnHOFkfzEzunzPtu4FypQ@mail.gmail.com>
-Subject: My OpenBMC introduction - it's official!
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="94eb2c059220866c250568f53cbe"
+In-Reply-To: <20180403142655.16681-5-andrew@aj.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18040320-0008-0000-0000-0000098C6B00
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008797; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000255; SDB=6.01012660; UDB=6.00516122; IPR=6.00791926; 
+ MB=3.00020397; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-03 20:37:20
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18040320-0009-0000-0000-000046A80808
+Message-Id: <459f1994-7d8d-a46c-3a21-111a1565c7bc@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-04-03_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1804030206
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,37 +81,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Apr 2018 17:42:58 -0000
+X-List-Received-Date: Tue, 03 Apr 2018 20:37:26 -0000
 
---94eb2c059220866c250568f53cbe
-Content-Type: text/plain; charset="UTF-8"
 
-With 20 years in open source and almost 6 years in OpenStack, I have
-officially moved within IBM to work on the OpenBMC project. Some of you may
-recognize me from previous calls and events I have been on over the past 6
-months, but now I'm wrapping up my OpenStack responsibilities and switching
-to OpenBMC full time.
 
-I will spend most of my time working on cross-community topics, but will
-also dive into some technical areas once I get up to speed. If I have not
-met you yet, I'm excited to get to meet you. I look forward to working with
-all of you.
+On 04/03/2018 09:26 AM, Andrew Jeffery wrote:
+> The driver may have overridden the pmbus_read_byte_data() callback, so
+> make sure we use that to achieve expected behaviour.
+>
+> This helps in the MAX31785 case where we may need to perform a one-shot
+> retry of transfers in the face of a failure.
 
-Regards,
-Kurt Taylor (krtaylor)
+Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
 
---94eb2c059220866c250568f53cbe
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div>With 20 years in open source and almost 6 y=
-ears in OpenStack, I have officially moved within IBM to work on the OpenBM=
-C project. Some of you may recognize me from previous calls and events I ha=
-ve been on over the past 6 months, but now I&#39;m wrapping up my OpenStack=
- responsibilities and switching to OpenBMC full time.<br><br></div>I will s=
-pend most of my time working on cross-community topics, but will also dive =
-into some technical areas once I get up to speed. If I have not met you yet=
-, I&#39;m excited to get to meet you. I look forward to working with all of=
- you.<br><br></div>Regards,<br></div>Kurt Taylor (krtaylor)<br></div>
-
---94eb2c059220866c250568f53cbe--
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>   drivers/hwmon/pmbus/pmbus_core.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+> index ee1bf11c7fc6..d0ffa4b3fcbd 100644
+> --- a/drivers/hwmon/pmbus/pmbus_core.c
+> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> @@ -453,15 +453,15 @@ static int pmbus_get_fan_rate(struct i2c_client *client, int page, int id,
+>   		return s->data;
+>   	}
+>
+> -	config = pmbus_read_byte_data(client, page,
+> -				      pmbus_fan_config_registers[id]);
+> +	config = _pmbus_read_byte_data(client, page,
+> +				       pmbus_fan_config_registers[id]);
+>   	if (config < 0)
+>   		return config;
+>
+>   	have_rpm = !!(config & pmbus_fan_rpm_mask[id]);
+>   	if (want_rpm == have_rpm)
+> -		return pmbus_read_word_data(client, page,
+> -					    pmbus_fan_command_registers[id]);
+> +		return _pmbus_read_word_data(client, page,
+> +					     pmbus_fan_command_registers[id]);
+>
+>   	/* Can't sensibly map between RPM and PWM, just return zero */
+>   	return 0;
