@@ -1,62 +1,71 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:400c:c09::235; helo=mail-wm0-x235.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="B6re6oBW"; 
- dkim-atps=neutral
-Received: from mail-wm0-x235.google.com (mail-wm0-x235.google.com
- [IPv6:2a00:1450:400c:c09::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Gd6C5wrQzF1qK
- for <openbmc@lists.ozlabs.org>; Thu,  5 Apr 2018 06:36:35 +1000 (AEST)
-Received: by mail-wm0-x235.google.com with SMTP id x4so596048wmh.5
- for <openbmc@lists.ozlabs.org>; Wed, 04 Apr 2018 13:36:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qAXL59SiqrEeg1l1EL6bR3zz92VI8ACL34rpJLhZ/GE=;
- b=B6re6oBW6abiQ+GlyhOhSH/NcjPka8c02v1xQo8VqtOH8X5zoFxgAUqXIBUgCyd3AL
- JvK/+S9q4fnIOdOksA07zXGEFY5v4GrIClrlEYwuTQ5myKhTwYHS9/S2rnH0KAh6P/0L
- 58hEFQMGZXpaeJL6I05sZp/G9bCI2PrytT1WFc+tHjRExcSyLELavwH9N8y22Tx12wrW
- 8EGdbQtBzKjxjIfeH/Z3JOtnjXBqQj/y0YL9mVFuOJLiyAvCTwbksbSfwHggneS1V+0d
- Ls8iSWrjtPSOTdBNeJ2/bujuOb98+VFOeqGKgBweGc+kkc8MnV3Gzz9nZreFmqskxJgb
- Nyzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qAXL59SiqrEeg1l1EL6bR3zz92VI8ACL34rpJLhZ/GE=;
- b=VwoeLsgKlCg5YV3buoGTqYX3V1K4mllAGtjJYahEgMNBVPWT0RFC1ZYx/BZU6vQ+/P
- UwyaB5dQ3Sq67hF/llukz432EDgWxa+QvSnLNBLdSEhrretaQevHY9HzJ9ooMHT1Mggl
- MB8qRKwamQwL9NRsIuueQHrCXeXpHmAvdgqV/ppvCzHD+y8D3dPw9IkQWXwDTlj5SwdO
- bN8mYaQ1zZFSqAPvNpzZIywYspMQO4Ql8BAMnI31D9Mh3RNI3qmpkm4DZIEpgYX1ox48
- 5l3U6JjkFPDee/ZYqHHnDC9nQHM6hfia8Cn1H3GFf2vr0TKzQzbO3u+4y7YaD9Spn0eo
- 43vQ==
-X-Gm-Message-State: ALQs6tDpjDMZuCX3ssDNsx6gWBrj/qanohB6+t7XJilsvxnyceNn0Dm2
- +XOHtpY0VhTIP4nStbt9/Qk2Hc/MxZC8HuZ6sWuqAQ==
-X-Google-Smtp-Source: AIpwx4+eH8X4jYhfgy2RqBVusF8kK+TktqNcihnsluQO6nSzbc8Jn0ydRphFzuWM2ReP6ky8Fpg5I/fjR25XhqzNLmY=
-X-Received: by 10.28.64.3 with SMTP id n3mr289591wma.33.1522874190934; Wed, 04
- Apr 2018 13:36:30 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Gxzh21dBzF1pk
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Apr 2018 19:17:03 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w359G5wS131345
+ for <openbmc@lists.ozlabs.org>; Thu, 5 Apr 2018 05:17:01 -0400
+Received: from e06smtp13.uk.ibm.com (e06smtp13.uk.ibm.com [195.75.94.109])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2h5esp5scx-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Apr 2018 05:17:00 -0400
+Received: from localhost
+ by e06smtp13.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Thu, 5 Apr 2018 10:16:58 +0100
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp13.uk.ibm.com (192.168.101.143) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 5 Apr 2018 10:16:55 +0100
+Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
+ [9.149.105.58])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w359GtQd29229304; Thu, 5 Apr 2018 09:16:55 GMT
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 347164C046;
+ Thu,  5 Apr 2018 10:09:43 +0100 (BST)
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 283A94C059;
+ Thu,  5 Apr 2018 10:09:42 +0100 (BST)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.202.245])
+ by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Thu,  5 Apr 2018 10:09:41 +0100 (BST)
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: Mapping IPMI boot device selector to D-Bbus properties
+To: tomjose@linux.vnet.ibm.com, stewart@linux.vnet.ibm.com,
+ vernon.mauery@linux.intel.com, emilyshaffer@google.com, a.amelkin@yadro.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 5 Apr 2018 14:46:55 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
+ Gecko/20100101 Thunderbird/52.6.0
 MIME-Version: 1.0
-References: <C664861D-B057-42CD-ADF1-B493E5324C79@fuzziesquirrel.com>
-In-Reply-To: <C664861D-B057-42CD-ADF1-B493E5324C79@fuzziesquirrel.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Wed, 04 Apr 2018 20:36:20 +0000
-Message-ID: <CAJoAoZ==uqjn1zKyqhF=dFPurzY+W_jrN2CXbBcXx3AKf+6ong@mail.gmail.com>
-Subject: Re: Maintainers and the CLA
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: geissonator@yahoo.com, gkeishin@in.ibm.com, joel@jms.id.au, 
- swanman@us.ibm.com, ed.tanous@intel.com, vernon.mauery@linux.intel.com, 
- jk@ozlabs.org, andrew@aj.id.au, gmills@us.ibm.com, spinler@us.ibm.com, 
- tomjoseph@in.ibm.com, anoo@linux.vnet.ibm.com, dkodihal@in.ibm.com, 
- msbarth@linux.ibm.com, venture@google.com, 
- "guptam.qdt" <guptam.qdt@qualcommdatacenter.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a114b05a230e5ab05690bc7a7"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18040509-0012-0000-0000-000005C74FD0
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18040509-0013-0000-0000-0000194365F2
+Message-Id: <e1297b05-25f0-3d74-1d03-92c26df4810a@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-04-05_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1804050099
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,97 +77,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Apr 2018 20:36:37 -0000
+X-List-Received-Date: Thu, 05 Apr 2018 09:17:04 -0000
 
---001a114b05a230e5ab05690bc7a7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Wed, Apr 4, 2018 at 12:15 PM Brad Bishop <bradleyb@fuzziesquirrel.com>
-wrote:
+We recently discovered an issue in the way the IPMI boot device selector 
+(represented by a nibble in the boot flags) is mapped to the D-Bus model.
 
-> If you are in the to: list you have code-review +2 authority
-> on one or more OpenBMC project repositories (i.e. you are a
-> project maintainer).
->
-> If you don=E2=80=99t think you are a maintainer, or don=E2=80=99t know wh=
-at
-> projects you maintain, please reply and we will get that fixed
-> up.
->
-> As you probably all know by now, the OpenBMC project has moved
-> to The Linux Foundation and under the new project charter
-> contributors must execute one of the OpenBMC CLAs.
->
-> I=E2=80=99ve put together a guide:
->
-> https://gerrit.openbmc-project.xyz/#/c/9933/
->
-> (please review it and provide feedback like anything else)
-> to help you ensure you are complying to the conditions
-> outlined in the charter, until such a time that we can have
-> a more automated verification process.
->
+In the IPMI spec the boot device selector has options for both "boot 
+source" (default/disk/crdom/network) and "boot mode" 
+(default/bios/safe/diag). Since this isn't a bit-filed, you can't 
+override for eg both the source and mode at the same time. It's probably 
+debatable to say whether such a possibility is desirable or not (for eg 
+I may want to set the boot source as network by default, but want to 
+boot to safe mode the next boot , and revert back to network for 
+subsequent boots without having to set the device again).
 
-In the meantime while we're waiting for the automated process, I suggested
-to Brad that we might be able to add a sorted/searchable plaintext list of
-CLA signers somewhere like openbmc-tools repo; I figure that even manually
-updating it based on cache miss (contributor isn't on the list) or Brad
-pinging when the CLA repo gets updated may still beat putting the onus on
-maintainers to look through all the disparate CLAs every time someone posts
-a changelist.  I'd be happy to put up the first take of this if there's no
-dissent.  (Brad suggested that we should make sure _not_ to include email
-addresses, in order to avoid spam; that's fine with me since most
-contributors use their full name along with their commits.)
+There are different D-Bus interfaces depicting the boot mode [1] and 
+boot source [2] though. So when the IPMI boot device is changed, the 
+ipmid code sets a relevant boot mode or source property. It's possible 
+that both can get set when someone for eg sets the device to cdrom and 
+then to bios. The issue is how should ipmid respond to a get boot 
+options command - there's no way for ipmid to aggregate information from 
+both D-Bus properties as in the IPMI spec only one of them can be 
+represented. Today ipmid always favors the boot source property if both 
+are set [3]. That's not what a user expects though, because the user 
+would expect his last override to go through.
 
+The solution I'm proposing is that if a set boot device is mapping to a 
+boot source, then reset the boot mode D-Bus property to default, or vice 
+versa. This way the ipmid code can determine which property is not at 
+the default value. It doesn't break the behavior from an IPMI spec 
+perspective because only one can be set at a point of time anyway, and 
+we'll consume the latest override to the boot device. Other solutions or 
+thoughts?
 
->
-> -brad
+[1] 
+https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Control/Boot/Mode.interface.yaml
+[2] 
+https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Control/Boot/Source.interface.yaml
+[3] 
+https://github.com/openbmc/phosphor-host-ipmid/blob/master/chassishandler.cpp#L1257
 
---001a114b05a230e5ab05690bc7a7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed=
-, Apr 4, 2018 at 12:15 PM Brad Bishop &lt;<a href=3D"mailto:bradleyb@fuzzie=
-squirrel.com">bradleyb@fuzziesquirrel.com</a>&gt; wrote:<br></div><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc so=
-lid;padding-left:1ex">If you are in the to: list you have code-review +2 au=
-thority<br>
-on one or more OpenBMC project repositories (i.e. you are a<br>
-project maintainer).<br>
-<br>
-If you don=E2=80=99t think you are a maintainer, or don=E2=80=99t know what=
-<br>
-projects you maintain, please reply and we will get that fixed<br>
-up.<br>
-<br>
-As you probably all know by now, the OpenBMC project has moved<br>
-to The Linux Foundation and under the new project charter<br>
-contributors must execute one of the OpenBMC CLAs.<br>
-<br>
-I=E2=80=99ve put together a guide:<br>
-<br>
-<a href=3D"https://gerrit.openbmc-project.xyz/#/c/9933/" rel=3D"noreferrer"=
- target=3D"_blank">https://gerrit.openbmc-project.xyz/#/c/9933/</a><br>
-<br>
-(please review it and provide feedback like anything else)<br>
-to help you ensure you are complying to the conditions<br>
-outlined in the charter, until such a time that we can have<br>
-a more automated verification process.<br></blockquote><div><br></div><div>=
-In the meantime while we&#39;re waiting for the automated process, I sugges=
-ted to Brad that we might be able to add a sorted/searchable plaintext list=
- of CLA signers somewhere like openbmc-tools repo; I figure that even manua=
-lly updating it based on cache miss (contributor isn&#39;t on the list) or =
-Brad pinging when the CLA repo gets updated may still beat putting the onus=
- on maintainers to look through all the disparate CLAs every time someone p=
-osts a changelist.=C2=A0 I&#39;d be happy to put up the first take of this =
-if there&#39;s no dissent.=C2=A0 (Brad suggested that we should make sure _=
-not_ to include email addresses, in order to avoid spam; that&#39;s fine wi=
-th me since most contributors use their full name along with their commits.=
-)</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0=
- 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
--brad</blockquote></div></div>
-
---001a114b05a230e5ab05690bc7a7--
+Thanks,
+Deepak
