@@ -1,70 +1,72 @@
-Return-Path: <arndbergmann@gmail.com>
+Return-Path: <stewart@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::22b; helo=mail-qk0-x22b.google.com;
- envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=arndb.de
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="YuQ6sYbA"; 
- dkim-atps=neutral
-Received: from mail-qk0-x22b.google.com (mail-qk0-x22b.google.com
- [IPv6:2607:f8b0:400d:c09::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40HFBB4QkpzF1sR
- for <openbmc@lists.ozlabs.org>; Fri,  6 Apr 2018 06:42:10 +1000 (AEST)
-Received: by mail-qk0-x22b.google.com with SMTP id p67so19298952qke.13
- for <openbmc@lists.ozlabs.org>; Thu, 05 Apr 2018 13:42:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=X3dehHXAt+3P26ry5biioESHxs2guhTNhFtPEDZY7Kw=;
- b=YuQ6sYbA8uPFCS4/VO97P1P9w3ckXDzHLoQSZy89tPhYpH+50MxE1yY0hgRBZuUFNV
- YJ08XCWLPEop7JbSzdRBInvzsVb2yYM/IrVZOLrVHLmsILaT+49xYytSFCXvxTo1EwCB
- eQhDoYWaQTYHG3e+pUKw3z+1U7t1kmFjoKK0dRCUvqybTxIaLZlCr4BztDruc3BtICZ2
- 8414SAhqjGgfmE50B2+B3CyfKYY7zFJWvJN2LVqPwyAYp10+1akM4bO9SIHiWD1HtA23
- gJo1YZMBjUPqxFHClE5ta6dYrIsGWS8ubSOxRDkVr8yqPynPr/0ABFEpAiiWg3iSiXKv
- KoIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=X3dehHXAt+3P26ry5biioESHxs2guhTNhFtPEDZY7Kw=;
- b=DpAya2slO79qweg5heR9Q0bionoLWF1b3i8fepFeEDjh3ynn/K75Ys4k4B3QJA4UeM
- GG3ABk/aIPNLCnq4XcUZJrUKoyr2bqnFqMdCgm3HWlsk/8WnH9E6ycSSNcIqNFpcEE5a
- F1m+96KPq8wM+d084+ocu6xQadYkYyob0ynzold5uOHQaS0UNf03w0h1ebPk3GbTFEYR
- hTHkcnO2yhOdWqzX5p/a2j0GFkz/yj/i9QsytRz1z8GiM/f7rL/Q52LiV8DP/YVt3aXU
- 8OPm9JbmPr/BvrV/vCPRmbXFV30/WrKThEPNCDFB1+NnVdcHcab2Hu0QtX5aXuT5jjAu
- T+Rw==
-X-Gm-Message-State: ALQs6tBogsh9IvWLi2M5yybprTFAXkGSFwkuuUjUAmH097sMhq89iowt
- lFKA8+iymP2yczdbR9X7u8oz255ZWgjm2bsi3uk=
-X-Google-Smtp-Source: AIpwx49ZwpPPW+htnIfKa2e0fjr5wX3MbciDWLA/ysHrPkxixX5NfEuxKhHc8woDMB3OuGMc7I3bNORwnv8bRx8xQ7M=
-X-Received: by 10.55.234.6 with SMTP id t6mr32669289qkj.291.1522960927686;
- Thu, 05 Apr 2018 13:42:07 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40HLZq6RRhzF1r1
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Apr 2018 10:45:23 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w360iMJC014028
+ for <openbmc@lists.ozlabs.org>; Thu, 5 Apr 2018 20:45:21 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2h5wchab90-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Apr 2018 20:45:20 -0400
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
+ Thu, 5 Apr 2018 18:45:19 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 5 Apr 2018 18:45:16 -0600
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w360jGBl11927968; Thu, 5 Apr 2018 17:45:16 -0700
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2B35F7804D;
+ Thu,  5 Apr 2018 18:45:16 -0600 (MDT)
+Received: from birb.localdomain (unknown [9.185.142.88])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id B2CCB78051;
+ Thu,  5 Apr 2018 18:45:15 -0600 (MDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 0DD074EC648; Fri,  6 Apr 2018 10:45:11 +1000 (AEST)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, tomjose@linux.vnet.ibm.com,
+ vernon.mauery@linux.intel.com, emilyshaffer@google.com, a.amelkin@yadro.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Mapping IPMI boot device selector to D-Bbus properties
+In-Reply-To: <e1297b05-25f0-3d74-1d03-92c26df4810a@linux.vnet.ibm.com>
+References: <e1297b05-25f0-3d74-1d03-92c26df4810a@linux.vnet.ibm.com>
+Date: Fri, 06 Apr 2018 10:45:11 +1000
 MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-Received: by 10.12.185.25 with HTTP; Thu, 5 Apr 2018 13:42:06 -0700 (PDT)
-In-Reply-To: <CAP6Zq1j9i0Zdt3wPCGLLnPZJPGf8BaG9Nh1pLAsnwczqWHtthQ@mail.gmail.com>
-References: <1521155412-29229-1-git-send-email-tmaimon77@gmail.com>
- <1521155412-29229-3-git-send-email-tmaimon77@gmail.com>
- <CAFd5g44NOFRmQbDJfRLw_SwsHwVB-hxsUYMYSmkqeyRKmXqSqQ@mail.gmail.com>
- <CAP6Zq1jvCvM+uG8kU_JAYzm9e3BG28AS80ANmn_0a0HmiVBm3A@mail.gmail.com>
- <CAK8P3a3HBkqgas-QkAr_J767ffBMXJTJeqqVY9fFxw2Yexi27g@mail.gmail.com>
- <CAP6Zq1j9i0Zdt3wPCGLLnPZJPGf8BaG9Nh1pLAsnwczqWHtthQ@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Thu, 5 Apr 2018 22:42:06 +0200
-X-Google-Sender-Auth: LLU4H9ShoGJJhg_E4nkL-jcxouU
-Message-ID: <CAK8P3a1zvjc8EyXX+c4r++pVHrVQ84CSUrnMA=+9kf7FZojiGg@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] arm: npcm: Enable L2 Cache in NPCM7xx
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Patrick Venture <venture@google.com>, 
- Avi Fishman <avifishman70@gmail.com>, Joel Stanley <joel@jms.id.au>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, Nancy Yuen <yuenn@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 18040600-0004-0000-0000-000013E8E779
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008811; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000256; SDB=6.01013699; UDB=6.00516731; IPR=6.00792959; 
+ MB=3.00020440; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-06 00:45:18
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18040600-0005-0000-0000-000086C3405F
+Message-Id: <87zi2hmaco.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-04-05_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1804060006
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,29 +78,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Apr 2018 20:42:11 -0000
+X-List-Received-Date: Fri, 06 Apr 2018 00:45:24 -0000
 
-On Thu, Apr 5, 2018 at 6:56 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
-> On 5 April 2018 at 15:54, Arnd Bergmann <arnd@arndb.de> wrote:
->> On Fri, Mar 16, 2018 at 10:51 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
->
-> It seems that I have to add l2c_aux_val, l2c_aux_mask parameters to the
-> DT_MACHINE_START
-> to enable the L2 Cache.
->>
->>
->> The last email in that thread mentions
->> L310_AUX_CTRL_CACHE_REPLACE_RR, is that required after all?
->
->
-> No it is not require this is why I added:
-> .l2c_aux_val    = 0x0,
-> .l2c_aux_mask   = ~0x0,
->
-> Can I resend it on Sunday?
+Deepak Kodihalli <dkodihal@linux.vnet.ibm.com> writes:
+> We recently discovered an issue in the way the IPMI boot device selector 
+> (represented by a nibble in the boot flags) is mapped to the D-Bus
+> model.
 
-Yes, please resend it as soon as you have the time to improve the changelog,
-no need to wait if you can do it right away. We can always merge bugfixes,
-but doing it earlier rather than later is better.
+for anyone playing at home, this was caught by op-test:
 
-      Arnd
+git clone https://github.com/open-power/op-test-framework.git
+cd op-test-framework
+./op-test <insert auth details here> --run testcases.OpTestInbandIPMI.SkirootFullInbandIPMI.test_chassis_bootdev
+
+and this test does pass on other BMC IPMI implementations (such as AMI).
+
+Although the exact failure was only really an accident of the test
+rather than on purpose.
+
+A happy accident at least as it means we found a bug :)
+
+> In the IPMI spec the boot device selector has options for both "boot 
+> source" (default/disk/crdom/network) and "boot mode" 
+> (default/bios/safe/diag). Since this isn't a bit-filed, you can't 
+> override for eg both the source and mode at the same time. It's probably 
+> debatable to say whether such a possibility is desirable or not (for eg 
+> I may want to set the boot source as network by default, but want to 
+> boot to safe mode the next boot , and revert back to network for 
+> subsequent boots without having to set the device again).
+>
+> There are different D-Bus interfaces depicting the boot mode [1] and 
+> boot source [2] though. So when the IPMI boot device is changed, the 
+> ipmid code sets a relevant boot mode or source property. It's possible 
+> that both can get set when someone for eg sets the device to cdrom and 
+> then to bios. The issue is how should ipmid respond to a get boot 
+> options command - there's no way for ipmid to aggregate information from 
+> both D-Bus properties as in the IPMI spec only one of them can be 
+> represented. Today ipmid always favors the boot source property if both 
+> are set [3]. That's not what a user expects though, because the user 
+> would expect his last override to go through.
+>
+> The solution I'm proposing is that if a set boot device is mapping to a 
+> boot source, then reset the boot mode D-Bus property to default, or vice 
+> versa. This way the ipmid code can determine which property is not at 
+> the default value. It doesn't break the behavior from an IPMI spec 
+> perspective because only one can be set at a point of time anyway, and 
+> we'll consume the latest override to the boot device. Other solutions or 
+> thoughts?
+
+Do we know the behaviour of other IPMI implementations? My *guess* would
+be is that they only track one bit of information and the boot mode will
+override the previous request for boot source.
+
+Perhaps the correct behaviour is to reset the temporary boot source when
+boot mode is set and vice versa? It kind-of seems like that's the intent
+from reading the IPMI spec, but I'd appreciate input and being proven
+wrong :)
+
+-- 
+Stewart Smith
+OPAL Architect, IBM.
