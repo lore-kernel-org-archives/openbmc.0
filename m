@@ -1,61 +1,62 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22c; helo=mail-it0-x22c.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="r3imorms"; 
- dkim-atps=neutral
-Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
- [IPv6:2607:f8b0:4001:c0b::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ctQthcz0"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="li5VIpYf"; dkim-atps=neutral
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40KG3x2wN2zDrpX
- for <openbmc@lists.ozlabs.org>; Mon,  9 Apr 2018 13:28:45 +1000 (AEST)
-Received: by mail-it0-x22c.google.com with SMTP id 142-v6so9005616itl.5
- for <openbmc@lists.ozlabs.org>; Sun, 08 Apr 2018 20:28:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=my0syDvgiNrznJ2s0oiiV6MW5rmeAed3WzY7cRfESYc=;
- b=r3imormsqwua1QeMRzaDmaMwHa/SghC+3zgQpgJVL9ms145ql9wtMK3CJpGEJUsIiy
- dZId14jY+lb+hY+ggEJR/ZAjnPUFp+6Ov5KtdAOf8kzoie/4TNE+yI99NDHNJCg0lBNo
- FRjNvd1BxxhSucfthU2e894zrGfOItHiXpktxxam6Sm2poI1nChCxKPvcE6b8SvSmxua
- OugpjpA83cdlNrA44Q92rQm3cVe/Br/nK7U7bXzueRIG8b4rBxdDqekSdQWaEp6ObnFl
- AJFeFUmmUJDtzz8TFM29EcNjJrbjrFTs/hxwui8dAfxTJzM1T9nk5B94zDqmu4EpN70W
- J8vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=my0syDvgiNrznJ2s0oiiV6MW5rmeAed3WzY7cRfESYc=;
- b=aXBytpk214QjyP0C4woej09AAapNQ8d90skyrPmVAeOEWR4bnGmkKTA41C/iU2EP/k
- 1TFc9frnIPwITmYlbmiZmwOmjy/5PAEpGisETAF5nsK/Mv4hoEKhjznYUlbTJxjpj6wN
- V0sJ3HaRf2njtOaLv/1KvU98PHrpt/fvmtKLv1Y9yLtxyEv8SehkrKf23KezPEvUNNnD
- b8greHO///5DZrIh3bL+uluXdlmdFciEv0ssNMqZsE8sCpRPzQWLNMsqaBNfFsxunTgs
- /HLA0AhXRXhP3dsPSBwj8an+JuXc/DGTZeHkeX24NLHx85I8yH2erWnAjFpVRCVEOZSL
- s9GA==
-X-Gm-Message-State: ALQs6tDmxlKyI7Vs/RLup2hQPzsUOz17uXZ8hJklFWf4yhLzHjiLG7U3
- SJMNPGJ6giGxEB2FqjFF0whdgyPJvkYSeWp7tW8=
-X-Google-Smtp-Source: AIpwx48uWN+kV0xP75aKZNlJj1uJXC4Mq6eYRBZvseQCQeOjBTyL/caD2jZl/6bAlExGHjUzpVdk/5fmQ9Lk2u1Dyc0=
-X-Received: by 2002:a24:a38b:: with SMTP id
- p133-v6mr26338279ite.22.1523244522494; 
- Sun, 08 Apr 2018 20:28:42 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40KG9n3dNyzDqy8
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Apr 2018 13:33:49 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C11A420B3B;
+ Sun,  8 Apr 2018 23:33:46 -0400 (EDT)
+Received: from web4 ([10.202.2.214])
+ by compute4.internal (MEProxy); Sun, 08 Apr 2018 23:33:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=K/NKtDgmmBQOki40S8jbY9tShV5KP
+ AZOKwHz+NWK6mk=; b=ctQthcz00vSicPcDR1zgmsD25u9znvl2cw50K0zdgSUaL
+ eV6DYNy539U3FusIunKhnOD0uosrnPG34PvZgQVB+0dPc3Ds0KyneJXKuLkc5mbo
+ hVW5RWGLnAEWfo0hGNB4JQjJxDqi9GdstE68DKSSercnt1tZX7tav9pJt9V2812d
+ zmOaWob3d667EDPNXmxG1BtUBcax2CYFACzbo7ve/l1CES2Vvar+pY1xCHZKhHVJ
+ jFLd4iDbhas4haJoLdkinMiPVR4H06XQGu7ajSzGVcrt4xE9vS1DcnrHcRJdlUvy
+ Y/OlI949xUniuVi8CZ8K8kfDk/VPGFdLggHGHsEQA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=K/NKtD
+ gmmBQOki40S8jbY9tShV5KPAZOKwHz+NWK6mk=; b=li5VIpYfQgRRwr3cnN51es
+ 4ZUUNIBQCCHoAmZ0TlE0Phs20N15auN2n56d7weCT6q8QprXbW4Xe24x/WUlf/uk
+ +rkxUlkkhjarbIKb0Pu46tSGyWmSpRMHH3dW0TZa8DB7O924O6Ip7s0/4gsYJnzP
+ r3o9Idv/ZUAG1U+XlfTjHo63ru+2RdBeEIMYFXWM0bEtqhYi/O1JZAC9HWiVbb8r
+ y4YIM9uoTnQplaWH9wqxz7YKF13N3NdifwDtOojAD45rjbpFbNW+V7stdoLw4TOi
+ mgdFUo46VCLxwhXLU1UtN/h+GKHIBrKybXUsLZOpAgHzio7QJB6fIbzvgHphYL+w
+ ==
+X-ME-Sender: <xms:Gt_KWqKsF5SYf7Rv5nvY9GqUYyd01zjqidMb-vgO4mOOjFoa8q5cQw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 70FA1BA43C; Sun,  8 Apr 2018 23:33:46 -0400 (EDT)
+Message-Id: <1523244826.776074.1331045080.070C8C03@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Amithash Prasad <amithash@fb.com>, openbmc@lists.ozlabs.org, joel@jms.id.au
 MIME-Version: 1.0
-Received: by 10.79.142.67 with HTTP; Sun, 8 Apr 2018 20:28:41 -0700 (PDT)
-In-Reply-To: <1409586871.2278971.1522976422431@mail.yahoo.com>
-References: <1409586871.2278971.1522976422431.ref@mail.yahoo.com>
- <1409586871.2278971.1522976422431@mail.yahoo.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Mon, 9 Apr 2018 11:28:41 +0800
-Message-ID: <CAARXrtk-8TskwQbhiPVfV9Uqm4iLreSuGJMBbJLgdZBVaU+-AQ@mail.gmail.com>
-Subject: Re: Questions on openBMC compilation
-To: Mam Nag <mam.nagv@yahoo.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-61ab7380
+Date: Mon, 09 Apr 2018 13:03:46 +0930
+In-Reply-To: <20180327001149.2980565-1-amithash@fb.com>
+References: <20180327001149.2980565-1-amithash@fb.com>
+Subject: Re: [PATCH v3 linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
+ machine
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,128 +68,224 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Apr 2018 03:28:46 -0000
+X-List-Received-Date: Mon, 09 Apr 2018 03:33:51 -0000
 
-On Fri, Apr 6, 2018 at 9:00 AM, Mam Nag <mam.nagv@yahoo.com> wrote:
-> Hello,
->
->
->
-> I am working on supporting new platform which has AST2500. Some of the
-> questions I have are:
->
->
->
-> 1.       If I want to make changes to any openBMC component for developme=
-nt,
-> is folder =E2=80=9Copenbmc/build/tmp/work/=E2=80=9D right location to mak=
-e changes?
-No.
->
-> 2.       When I try to build openBMC for AST2500, no option to configure =
-the
-> linux kernel. If I want to add new driver to the kernel to support new
-> sensor chip. Once add the code into kernel
->
-> a.       can I know which configuration file to change in the linux kerne=
-l
-> to enable new driver. In standard kernel this can be done through .config=
-.
-> However in openBMC we didn=E2=80=99t find .config file.
+On Tue, 27 Mar 2018, at 09:41, Amithash Prasad wrote:
+> Initial introduction of Portwell Neptune family equipped with
+> Aspeed 2500 BMC SoC. Neptune is a x86 server development kit with a
+> ASPEED ast2500 BMC manufactured by Portwell. Specifically, This
+> adds the neptune platform device tree file including the flash
+> layout used by the neptune machines.
+> 
+> Signed-off-by: Amithash Prasad <amithash@fb.com>
 
-It depends on the machine for the specific configs.
-The common config for AST2500 is at:
-meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-kernel/linux/linux-obmc/d=
-efconfig
-The machine specific config is put at "meta-machine" layer, e.g.
-meta-openbmc-machines/meta-openpower/meta-ibm/meta-romulus/recipes-kernel/l=
-inux/linux-obmc/romulus.cfg
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
->
-> b.      Once step =E2=80=9Ca=E2=80=9D is done how do I recompile openBMC =
-build? . Do I need
-> to run =E2=80=9Cbitbake obmc-phosphor-image=E2=80=9D again?. Will this ta=
-ke my changes
-> done?. FYI: I made small one line change in kernel source code, reran
-> =E2=80=9Cbitbake obmc-phosphor-image=E2=80=9D and got message =E2=80=9CNO=
-TE: Tasks Summary:
-> Attempted 3940 tasks of which 3940 didn't need to be rerun and all
-> succeeded=E2=80=9D =E2=80=93 looks like changes are not recognized.
+> ---
+>  .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+>  arch/arm/boot/dts/Makefile                         |   3 +-
+>  arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 159 +++++++++++++++++++++
+>  3 files changed, 162 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+> 
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/
+> Documentation/devicetree/bindings/vendor-prefixes.txt
+> index daf465be..ad3406d 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+> @@ -255,6 +255,7 @@ pine64	Pine64
+>  pixcir  PIXCIR MICROELECTRONICS Co., Ltd
+>  plathome	Plat'Home Co., Ltd.
+>  plda	PLDA
+> +portwell	Portwell Inc.
+>  poslab	Poslab Technology Co., Ltd.
+>  powervr	PowerVR (deprecated, use img)
+>  pulsedlight	PulsedLight, Inc
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 5cfee25..4746060 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -1061,7 +1061,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+>  	aspeed-bmc-opp-romulus.dtb \
+>  	aspeed-bmc-opp-witherspoon.dtb \
+>  	aspeed-bmc-opp-zaius.dtb \
+> -	aspeed-bmc-quanta-q71l.dtb
+> +	aspeed-bmc-quanta-q71l.dtb \
+> +	aspeed-bmc-portwell-neptune.dtb
+>  endif
+>  
+>  dtstree		:= $(srctree)/$(src)
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/
+> arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+> new file mode 100644
+> index 0000000..43ed139
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
+> @@ -0,0 +1,159 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2017 Facebook Inc.
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +	model = "Portwell Neptune BMC";
+> +	compatible = "portwell,neptune-bmc", "aspeed,ast2500";
+> +	aliases {
+> +		serial0 = &uart1;
+> +		serial4 = &uart5;
+> +	};
+> +	chosen {
+> +		stdout-path = &uart5;
+> +		bootargs = "console=ttyS4,115200 earlyprintk";
+> +	};
+> +
+> +	memory {
+> +		reg = <0x80000000 0x20000000>;
+> +	};
+> +
+> +	leds {
+> +		compatible = "gpio-leds";
+> +		postcode0 {
+> +			label="BMC_UP";
+> +			gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
+> +			default-state = "on";
+> +		};
+> +		postcode1 {
+> +			label="BMC_HB";
+> +			gpios = <&gpio ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger = "heartbeat";
+> +		};
+> +		postcode2 {
+> +			label="FAULT";
+> +			gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
+> +		};
+> +		// postcode3-7 are GPIOH3-H7
+> +	};
+> +};
+> +
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +#include "openbmc-flash-layout.dtsi"
+> +	};
+> +};
+> +
+> +&spi1 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +		label = "pnor";
+> +	};
+> +};
+> +
+> +&uart1 {
+> +	// Host Console
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_txd1_default
+> +		     &pinctrl_rxd1_default>;
+> +};
+> +
+> +&uart5 {
+> +	// BMC Console
+> +	status = "okay";
+> +};
+> +
+> +&mac0 {
+> +	status = "okay";
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rmii1_default
+> +		     &pinctrl_mdio1_default>;
+> +};
+> +
+> +&mac1 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rmii2_default>;
+> +	use-ncsi;
+> +};
+> +
+> +&i2c1 {
+> +	status = "okay";
+> +	// To PCIe slot SMBUS
+> +};
+> +
+> +&i2c2 {
+> +	status = "okay";
+> +	// To LAN I210
+> +};
+> +
+> +&i2c3 {
+> +	status = "okay";
+> +	// SMBus to COMe AB
+> +};
+> +
+> +&i2c4 {
+> +	status = "okay";
+> +	// I2C to COMe AB
+> +};
+> +
+> +&i2c5 {
+> +	status = "okay";
+> +// 	USB Debug card
+> +	pca9555@27 {
+> +		compatible = "nxp,pca9555";
+> +		reg = <0x27>;
+> +	};
+> +};
+> +
+> +&i2c6 {
+> +	status = "okay";
+> +	tpm@20 {
+> +		compatible = "infineon,slb9645tt";
+> +		reg = <0x20>;
+> +	};
+> +	tmp421@4e {
+> +		compatible = "ti,tmp421";
+> +		reg = <0x4e>;
+> +	};
+> +	tmp421@4f {
+> +		compatible = "ti,tmp421";
+> +		reg = <0x4f>;
+> +	};
+> +};
+> +
+> +&i2c8 {
+> +	status = "okay";
+> +	eeprom@51 {
+> +		compatible = "atmel,24c128";
+> +		reg = <0x51>;
+> +		pagesize = <32>;
+> +	};
+> +};
+> +
+> +&pwm_tacho {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
+> +	fan@0 {
+> +		reg = <0x00>;
+> +		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+> +	};
+> +
+> +	fan@1 {
+> +		reg = <0x00>;
+> +		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+> +	};
+> +};
+> -- 
+> 2.9.5
+> 
 
-There are several ways to modify a repo, e.g. you can modify the recipe
-to point to your own code, or add patches to the recipe.
-But I would suggest to use the "devtool" way to modify code.
-E.g. to modify the kernel, you actually need to modify the "linux-obmc"
-recipe, so you can do:
-```
-# It will create build/workspace/sources/linux-obmc/ and add linux-obmc's
-# bbappend in build/workspace/appends/ automatically
-# So when you do build, bitbake will build the code in your workspace
-devtool modify linux-obmc
 
-# Do modifications in build/workspace/sources/linux-obmc/
-
-bitbake obmc-phosphor-image # Now build your code
-```
-
->
-> 3.       I want add new sensor to =E2=80=9Crecipes-phosphor/sensors/=E2=
-=80=9D. (I have gone
-> through =E2=80=9Cdocs/sensor-architecture.md=E2=80=9D and couldn=E2=80=99=
-t find details for the
-> below questions)
->
-> a.       Is there any specific rules to name =E2=80=9C.conf=E2=80=9D file=
-?
->
-Yes, the doc actually mentions this:
-
-    The children of the obmc/hwmon directory should follow the children of =
-the
-    devicetree/base directory path on the system as defined by the kernel.
-
-In short, the conf file's name and path shall match the device tree.
-
-> b.      If there are multiple sensors inside i2c bus, how are =E2=80=9C.c=
-onf=E2=80=9D files
-> for each of the sensors defined?
-
-The same as above, each conf file matches the devices tree's specific devic=
-e.
-
->
-> c.       How does openBMC/phosphor know which i2c device register it has =
-to
-> talk to for a specific sensor
-
-The same as above.
-
->
-> 4.       How do I add this sensor to =E2=80=9CDbus=E2=80=9D interface?. D=
-oes step 2 cover
-> this?
-
-phosphor-hwmon parse the .conf, read the hwmon sensor in sysfs, and create
-Dbus objects.
-So both step 2 and step 3 are necessary.
-
->
-> 5.       How do I add sensor to =E2=80=9Chwmon=E2=80=9D
-
-The save as above.
-
->
-> 6.       Noticed there are many =E2=80=9Cbin=E2=80=9D files generated aft=
-er the build, can I
-> know which file to use to flash that has =E2=80=9Cuboot+kernel+openbmc+=
-=E2=80=A6=E2=80=9D. Can I
-> flash this image on new system, without making any changes to openBMC
-> components ?
-
-Please refer to
-https://github.com/openbmc/docs/blob/master/code-update/code-update.md
-
->
->  Thanks in advance for your help.
->
->
+-- 
+  Andrew Jeffery
+  andrew@aj.id.au
