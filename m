@@ -1,62 +1,106 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ctQthcz0"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="li5VIpYf"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="c+KbEbPb"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40KG9n3dNyzDqy8
- for <openbmc@lists.ozlabs.org>; Mon,  9 Apr 2018 13:33:49 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C11A420B3B;
- Sun,  8 Apr 2018 23:33:46 -0400 (EDT)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Sun, 08 Apr 2018 23:33:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=K/NKtDgmmBQOki40S8jbY9tShV5KP
- AZOKwHz+NWK6mk=; b=ctQthcz00vSicPcDR1zgmsD25u9znvl2cw50K0zdgSUaL
- eV6DYNy539U3FusIunKhnOD0uosrnPG34PvZgQVB+0dPc3Ds0KyneJXKuLkc5mbo
- hVW5RWGLnAEWfo0hGNB4JQjJxDqi9GdstE68DKSSercnt1tZX7tav9pJt9V2812d
- zmOaWob3d667EDPNXmxG1BtUBcax2CYFACzbo7ve/l1CES2Vvar+pY1xCHZKhHVJ
- jFLd4iDbhas4haJoLdkinMiPVR4H06XQGu7ajSzGVcrt4xE9vS1DcnrHcRJdlUvy
- Y/OlI949xUniuVi8CZ8K8kfDk/VPGFdLggHGHsEQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=K/NKtD
- gmmBQOki40S8jbY9tShV5KPAZOKwHz+NWK6mk=; b=li5VIpYfQgRRwr3cnN51es
- 4ZUUNIBQCCHoAmZ0TlE0Phs20N15auN2n56d7weCT6q8QprXbW4Xe24x/WUlf/uk
- +rkxUlkkhjarbIKb0Pu46tSGyWmSpRMHH3dW0TZa8DB7O924O6Ip7s0/4gsYJnzP
- r3o9Idv/ZUAG1U+XlfTjHo63ru+2RdBeEIMYFXWM0bEtqhYi/O1JZAC9HWiVbb8r
- y4YIM9uoTnQplaWH9wqxz7YKF13N3NdifwDtOojAD45rjbpFbNW+V7stdoLw4TOi
- mgdFUo46VCLxwhXLU1UtN/h+GKHIBrKybXUsLZOpAgHzio7QJB6fIbzvgHphYL+w
- ==
-X-ME-Sender: <xms:Gt_KWqKsF5SYf7Rv5nvY9GqUYyd01zjqidMb-vgO4mOOjFoa8q5cQw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 70FA1BA43C; Sun,  8 Apr 2018 23:33:46 -0400 (EDT)
-Message-Id: <1523244826.776074.1331045080.070C8C03@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Amithash Prasad <amithash@fb.com>, openbmc@lists.ozlabs.org, joel@jms.id.au
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40KRp95qXCzDrqP
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Apr 2018 20:47:29 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 84E3E51150
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Apr 2018 10:47:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-language:content-transfer-encoding:content-type
+ :content-type:in-reply-to:mime-version:user-agent:date:date
+ :message-id:from:from:references:subject:subject:received
+ :received:received; s=mta-01; t=1523270843; x=1525085244; bh=+gL
+ pXBjn20ddfAt2OR9IvWp9oqF54/jpZuIEkM62Ta8=; b=c+KbEbPb76A2tzkG0LO
+ 49agfRfgVBuJCyFHoc4jwJPnPQRJeiLozYzR7MjW3mI15XsArX1dPRhMthCV88ri
+ wnjeu21go2JP/6MLyWTHug5kXGrUKSYFbo9e0c6nqbmJQ+NaTEDZH1ed+gWAmRwP
+ eakyKDDB57jWyJqViTtwTFQs=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 2TexE6zJK2ye for <openbmc@lists.ozlabs.org>;
+ Mon,  9 Apr 2018 13:47:23 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 8857950A07
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Apr 2018 13:47:23 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 9 Apr
+ 2018 13:47:23 +0300
+Subject: Re: Parse PELs sent by OpenPOWER host firmware
+To: <openbmc@lists.ozlabs.org>
+References: <2815fac8-3a1f-d2ed-3c3d-ca7072de9db2@linux.vnet.ibm.com>
+ <87vadzo5lj.fsf@linux.vnet.ibm.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <4467ab37-c09e-c09c-306c-3447c651bf7f@yadro.com>
+Date: Mon, 9 Apr 2018 13:47:22 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <87vadzo5lj.fsf@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-61ab7380
-Date: Mon, 09 Apr 2018 13:03:46 +0930
-In-Reply-To: <20180327001149.2980565-1-amithash@fb.com>
-References: <20180327001149.2980565-1-amithash@fb.com>
-Subject: Re: [PATCH v3 linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
- machine
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,224 +112,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Apr 2018 03:33:51 -0000
+X-List-Received-Date: Mon, 09 Apr 2018 10:47:30 -0000
 
-On Tue, 27 Mar 2018, at 09:41, Amithash Prasad wrote:
-> Initial introduction of Portwell Neptune family equipped with
-> Aspeed 2500 BMC SoC. Neptune is a x86 server development kit with a
-> ASPEED ast2500 BMC manufactured by Portwell. Specifically, This
-> adds the neptune platform device tree file including the flash
-> layout used by the neptune machines.
-> 
-> Signed-off-by: Amithash Prasad <amithash@fb.com>
+14.03.2018 03:36, Stewart Smith wrote:
+> Deepak Kodihalli <dkodihal@linux.vnet.ibm.com> writes:
+>> The SELs/eSELs (System Event Log) that OpenBMC receives from=20
+>> hostboot/skiboot today are not interpreted, and are dumped as-is in a =
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+>> property of the error log D-Bus object. This means that if there's a P=
+EL=20
+>> (Platform Event Log) hidden in the eSEL, admins/users of the error log=
+=20
+>> need to depend on external tools to parse the PEL to human readable
+>> text.
+> My lack of love for PELs is probably fairly well known, but even if we
+> replace them down the line, I think there's opportunity here for making=
 
-> ---
->  .../devicetree/bindings/vendor-prefixes.txt        |   1 +
->  arch/arm/boot/dts/Makefile                         |   3 +-
->  arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts  | 159 +++++++++++++++++++++
->  3 files changed, 162 insertions(+), 1 deletion(-)
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-> 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/
-> Documentation/devicetree/bindings/vendor-prefixes.txt
-> index daf465be..ad3406d 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
-> @@ -255,6 +255,7 @@ pine64	Pine64
->  pixcir  PIXCIR MICROELECTRONICS Co., Ltd
->  plathome	Plat'Home Co., Ltd.
->  plda	PLDA
-> +portwell	Portwell Inc.
->  poslab	Poslab Technology Co., Ltd.
->  powervr	PowerVR (deprecated, use img)
->  pulsedlight	PulsedLight, Inc
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index 5cfee25..4746060 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -1061,7 +1061,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
->  	aspeed-bmc-opp-romulus.dtb \
->  	aspeed-bmc-opp-witherspoon.dtb \
->  	aspeed-bmc-opp-zaius.dtb \
-> -	aspeed-bmc-quanta-q71l.dtb
-> +	aspeed-bmc-quanta-q71l.dtb \
-> +	aspeed-bmc-portwell-neptune.dtb
->  endif
->  
->  dtstree		:= $(srctree)/$(src)
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts b/arch/
-> arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-> new file mode 100644
-> index 0000000..43ed139
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-portwell-neptune.dts
-> @@ -0,0 +1,159 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2017 Facebook Inc.
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +
-> +/ {
-> +	model = "Portwell Neptune BMC";
-> +	compatible = "portwell,neptune-bmc", "aspeed,ast2500";
-> +	aliases {
-> +		serial0 = &uart1;
-> +		serial4 = &uart5;
-> +	};
-> +	chosen {
-> +		stdout-path = &uart5;
-> +		bootargs = "console=ttyS4,115200 earlyprintk";
-> +	};
-> +
-> +	memory {
-> +		reg = <0x80000000 0x20000000>;
-> +	};
-> +
-> +	leds {
-> +		compatible = "gpio-leds";
-> +		postcode0 {
-> +			label="BMC_UP";
-> +			gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
-> +			default-state = "on";
-> +		};
-> +		postcode1 {
-> +			label="BMC_HB";
-> +			gpios = <&gpio ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
-> +			linux,default-trigger = "heartbeat";
-> +		};
-> +		postcode2 {
-> +			label="FAULT";
-> +			gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
-> +		};
-> +		// postcode3-7 are GPIOH3-H7
-> +	};
-> +};
-> +
-> +&fmc {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +#include "openbmc-flash-layout.dtsi"
-> +	};
-> +};
-> +
-> +&spi1 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_spi1_default>;
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +		label = "pnor";
-> +	};
-> +};
-> +
-> +&uart1 {
-> +	// Host Console
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_txd1_default
-> +		     &pinctrl_rxd1_default>;
-> +};
-> +
-> +&uart5 {
-> +	// BMC Console
-> +	status = "okay";
-> +};
-> +
-> +&mac0 {
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rmii1_default
-> +		     &pinctrl_mdio1_default>;
-> +};
-> +
-> +&mac1 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rmii2_default>;
-> +	use-ncsi;
-> +};
-> +
-> +&i2c1 {
-> +	status = "okay";
-> +	// To PCIe slot SMBUS
-> +};
-> +
-> +&i2c2 {
-> +	status = "okay";
-> +	// To LAN I210
-> +};
-> +
-> +&i2c3 {
-> +	status = "okay";
-> +	// SMBus to COMe AB
-> +};
-> +
-> +&i2c4 {
-> +	status = "okay";
-> +	// I2C to COMe AB
-> +};
-> +
-> +&i2c5 {
-> +	status = "okay";
-> +// 	USB Debug card
-> +	pca9555@27 {
-> +		compatible = "nxp,pca9555";
-> +		reg = <0x27>;
-> +	};
-> +};
-> +
-> +&i2c6 {
-> +	status = "okay";
-> +	tpm@20 {
-> +		compatible = "infineon,slb9645tt";
-> +		reg = <0x20>;
-> +	};
-> +	tmp421@4e {
-> +		compatible = "ti,tmp421";
-> +		reg = <0x4e>;
-> +	};
-> +	tmp421@4f {
-> +		compatible = "ti,tmp421";
-> +		reg = <0x4f>;
-> +	};
-> +};
-> +
-> +&i2c8 {
-> +	status = "okay";
-> +	eeprom@51 {
-> +		compatible = "atmel,24c128";
-> +		reg = <0x51>;
-> +		pagesize = <32>;
-> +	};
-> +};
-> +
-> +&pwm_tacho {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-> +	fan@0 {
-> +		reg = <0x00>;
-> +		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +	};
-> +
-> +	fan@1 {
-> +		reg = <0x00>;
-> +		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> +	};
-> +};
-> -- 
-> 2.9.5
-> 
+> things better for users (including myself).
+
+Just my 2 cents. The IPMI-standardized SELs are good first of all
+because of IPMI-standardized PEFs and PETs.
+
+Being able to decode the OEM SEL records is not just convenient for the
+users, but will also let them easily attach PEFs to such events if they
+want to. That's of course when PEFs are supported in OpenBMC which is
+currently not true, AFAIK.
+
+As a maintainer of ipmitool I can promise to promptly include the
+OpenPOWER event record decoder into ipmitool upstream code. All I need
+is the information on how to decode those events. So far I'm planning to
+try and deduce this information from hostboot and opal sources.
+
+I guess these logs don't need to be fully decoded at BMC or ipmitool
+levels as they contain too much of a too deeply technical information,
+but some high level hints beyond "Unknown #0x0c" and "System Event #0x01
+| Undetermined system hardware failure" that we see now in ipmitool need
+to be given to the end user.
+
+Alexander.
 
 
--- 
-  Andrew Jeffery
-  andrew@aj.id.au
+>
+>> Here's a proposal to have the BMC itself parse such eSELs (the=20
+>> motivation is to make the OpenBMC error logs more useful in this=20
+>> context, without needing the extra steps to parse such errors) :
+>>
+>> - Separate this from phosphor-logging. This code can't go to a phospho=
+r=20
+>> app, because it's OpenPOWER specific. Have, for example, an=20
+>> openpower-logging app implement a D-Bus interface to parse out a PEL=20
+>> from an eSEL. This app will host it's own D-Bus service.
+> It would be a bonus if we could take different actions based on log
+> format. If in the future we had a hypothetical other format, it'd be
+> great if it was *really* easy to plug into OpenBMC. I suspect other
+> platforms may have similar things (e.g. Google has done protobuf based
+> logs in the past at least, which are structurally somewhat similar to
+> PELs but different serialisation format).
+>
+>> - Such an app can watch for error D-Bus objects being created in the=20
+>> phosphor namespace. If it finds an eSEL in an error log, it can attemp=
+t=20
+>> to parse a PEL (if there's one), and store the PELs parsed text=20
+>> representation in a D-Bus property.
+>>
+>> - The app can create a D-Bus object with the same path as the original=
+=20
+>> object and have a D-Bus object-manager at the error log root path, so =
+
+>> that when someone uses the OpenBMC REST API to read an error log,=20
+>> properties across all D-Bus services will be returned=20
+>> (phosphor-rest-server does this today already). This means with the=20
+>> existing REST API to enumerate error logs, a parsed PEL would be=20
+>> returned, if present.
+> Is thre any reason for this approach rather than something like
+> phosphor-logging having a list of properties/formats and external
+> parsing tools? Kind of like mime type/action lists?
+>
+>> - To parse the PEL, use opal-elog-parse.
+> +1
+>
