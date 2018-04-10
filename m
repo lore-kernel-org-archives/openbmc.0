@@ -8,17 +8,17 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40LG4p2VLyzF24m
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40LG4p6dy5zF25l
  for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 04:32:58 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2018 11:32:54 -0700
+ 10 Apr 2018 11:32:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.48,433,1517904000"; d="scan'208";a="219323751"
+X-IronPort-AV: E=Sophos;i="5.48,433,1517904000"; d="scan'208";a="219323761"
 Received: from maru.jf.intel.com ([10.54.51.80])
- by fmsmga006.fm.intel.com with ESMTP; 10 Apr 2018 11:32:53 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 10 Apr 2018 11:32:55 -0700
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
  Andrew Lunn <andrew@lunn.ch>,
@@ -42,10 +42,9 @@ Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
  Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH v3 04/10] Documentations: dt-bindings: Add a document of PECI
- adapter driver for Aspeed AST24xx/25xx SoCs
-Date: Tue, 10 Apr 2018 11:32:06 -0700
-Message-Id: <20180410183212.16787-5-jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH v3 05/10] ARM: dts: aspeed: peci: Add PECI node
+Date: Tue, 10 Apr 2018 11:32:07 -0700
+Message-Id: <20180410183212.16787-6-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.16.2
 In-Reply-To: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
 References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
@@ -62,8 +61,8 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 10 Apr 2018 18:32:59 -0000
 
-This commit adds a dt-bindings document of PECI adapter driver for Aspeed
-AST24xx/25xx SoCs.
+This commit adds PECI bus/adapter node of AST24xx/AST25xx into
+aspeed-g4 and aspeed-g5.
 
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
@@ -89,75 +88,109 @@ Cc: Randy Dunlap <rdunlap@infradead.org>
 Cc: Stef van Os <stef.van.os@prodrive-technologies.com>
 Cc: Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>
 ---
- .../devicetree/bindings/peci/peci-aspeed.txt       | 60 ++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.txt
+ arch/arm/boot/dts/aspeed-g4.dtsi | 25 +++++++++++++++++++++++++
+ arch/arm/boot/dts/aspeed-g5.dtsi | 25 +++++++++++++++++++++++++
+ 2 files changed, 50 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/peci/peci-aspeed.txt b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
-new file mode 100644
-index 000000000000..4598bb8c20fa
---- /dev/null
-+++ b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
-@@ -0,0 +1,60 @@
-+Device tree configuration for PECI buses on the AST24XX and AST25XX SoCs.
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 518d2bc7c7fc..f7992eee4d1f 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -29,6 +29,7 @@
+ 		serial3 = &uart4;
+ 		serial4 = &uart5;
+ 		serial5 = &vuart;
++		peci0 = &peci0;
+ 	};
+ 
+ 	cpus {
+@@ -270,6 +271,13 @@
+ 				};
+ 			};
+ 
++			peci: peci@1e78b000 {
++				compatible = "simple-bus";
++				#address-cells = <1>;
++				#size-cells = <1>;
++				ranges = <0x0 0x1e78b000 0x60>;
++			};
 +
-+Required properties:
-+- compatible        : Should be "aspeed,ast2400-peci" or "aspeed,ast2500-peci"
-+		      - aspeed,ast2400-peci: Aspeed AST2400 family PECI
-+					     controller
-+		      - aspeed,ast2500-peci: Aspeed AST2500 family PECI
-+					     controller
-+- reg               : Should contain PECI controller registers location and
-+		      length.
-+- #address-cells    : Should be <1>.
-+- #size-cells       : Should be <0>.
-+- interrupts        : Should contain PECI controller interrupt.
-+- clocks            : Should contain clock source for PECI controller.
-+		      Should reference clkin.
-+- clock_frequency   : Should contain the operation frequency of PECI controller
-+		      in units of Hz.
-+		      187500 ~ 24000000
-+
-+Optional properties:
-+- msg-timing-nego   : Message timing negotiation period. This value will
-+		      determine the period of message timing negotiation to be
-+		      issued by PECI controller. The unit of the programmed
-+		      value is four times of PECI clock period.
-+		      0 ~ 255 (default: 1)
-+- addr-timing-nego  : Address timing negotiation period. This value will
-+		      determine the period of address timing negotiation to be
-+		      issued by PECI controller. The unit of the programmed
-+		      value is four times of PECI clock period.
-+		      0 ~ 255 (default: 1)
-+- rd-sampling-point : Read sampling point selection. The whole period of a bit
-+		      time will be divided into 16 time frames. This value will
-+		      determine the time frame in which the controller will
-+		      sample PECI signal for data read back. Usually in the
-+		      middle of a bit time is the best.
-+		      0 ~ 15 (default: 8)
-+- cmd_timeout_ms    : Command timeout in units of ms.
-+		      1 ~ 60000 (default: 1000)
-+
-+Example:
-+	peci: peci@1e78b000 {
-+		compatible = "simple-bus";
+ 			uart2: serial@1e78d000 {
+ 				compatible = "ns16550a";
+ 				reg = <0x1e78d000 0x20>;
+@@ -313,6 +321,23 @@
+ 	};
+ };
+ 
++&peci {
++	peci0: peci-bus@0 {
++		compatible = "aspeed,ast2400-peci";
++		reg = <0x0 0x60>;
 +		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges = <0x0 0x1e78b000 0x60>;
-+
-+		peci0: peci-bus@0 {
-+			compatible = "aspeed,ast2500-peci";
-+			reg = <0x0 0x60>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			interrupts = <15>;
-+			clocks = <&clk_clkin>;
-+			clock-frequency = <24000000>;
-+			msg-timing-nego = <1>;
-+			addr-timing-nego = <1>;
-+			rd-sampling-point = <8>;
-+			cmd-timeout-ms = <1000>;
-+		};
++		#size-cells = <0>;
++		interrupts = <15>;
++		clocks = <&syscon ASPEED_CLK_GATE_REFCLK>;
++		clock-frequency = <24000000>;
++		msg-timing-nego = <1>;
++		addr-timing-nego = <1>;
++		rd-sampling-point = <8>;
++		cmd-timeout-ms = <1000>;
++		status = "disabled";
 +	};
++};
++
+ &i2c {
+ 	i2c_ic: interrupt-controller@0 {
+ 		#interrupt-cells = <1>;
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index f9917717dd08..278791dba8a0 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -29,6 +29,7 @@
+ 		serial3 = &uart4;
+ 		serial4 = &uart5;
+ 		serial5 = &vuart;
++		peci0 = &peci0;
+ 	};
+ 
+ 	cpus {
+@@ -320,6 +321,13 @@
+ 				};
+ 			};
+ 
++			peci: peci@1e78b000 {
++				compatible = "simple-bus";
++				#address-cells = <1>;
++				#size-cells = <1>;
++				ranges = <0x0 0x1e78b000 0x60>;
++			};
++
+ 			uart2: serial@1e78d000 {
+ 				compatible = "ns16550a";
+ 				reg = <0x1e78d000 0x20>;
+@@ -363,6 +371,23 @@
+ 	};
+ };
+ 
++&peci {
++	peci0: peci-bus@0 {
++		compatible = "aspeed,ast2500-peci";
++		reg = <0x0 0x60>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		interrupts = <15>;
++		clocks = <&syscon ASPEED_CLK_GATE_REFCLK>;
++		clock-frequency = <24000000>;
++		msg-timing-nego = <1>;
++		addr-timing-nego = <1>;
++		rd-sampling-point = <8>;
++		cmd-timeout-ms = <1000>;
++		status = "disabled";
++	};
++};
++
+ &i2c {
+ 	i2c_ic: interrupt-controller@0 {
+ 		#interrupt-cells = <1>;
 -- 
 2.16.2
