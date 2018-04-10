@@ -1,65 +1,60 @@
-Return-Path: <arndbergmann@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
- envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::22f; helo=mail-vk0-x22f.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=arndb.de
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gL/WNV17"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="qOE/juEq"; 
  dkim-atps=neutral
-Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
- [IPv6:2607:f8b0:400d:c09::243])
+Received: from mail-vk0-x22f.google.com (mail-vk0-x22f.google.com
+ [IPv6:2607:f8b0:400c:c05::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40L8xS4zY2zF241
- for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 00:41:16 +1000 (AEST)
-Received: by mail-qk0-x243.google.com with SMTP id g7so13596290qkm.1
- for <openbmc@lists.ozlabs.org>; Tue, 10 Apr 2018 07:41:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=TrsTlGIkBprYrPgOE/Ultz2wm2Jppb/4cfB8XTmUR4U=;
- b=gL/WNV17OIYtQmCCSYu4xyZN5ADuNw1ghWip53sVBKuGMCuTg/hRdrlcAC32lldC47
- cJIibfYzwMe0UAYhut3CX/ymcCdc8GLYSTKvYxfhkTLn1U9xahINCDH9GuTXuMARyZZe
- LHbxRoNxduk8+DeOY6+MoNOm4DRwA87+P5ysTArCZeEyozlN4wC0WsvWpVccgDQ3rTgg
- Tg8pis6fwKy2KnMNvNpJJMhqVAhIn1zzr5FDj6VRUYIMZ3ZqSk/SygG7kajoNTyhbU8h
- nzmDgDlgorkZv03dnL/91ZMlqpba3bqrZYA7oynSJXt1KwRnvTEzDVEPrJNXa3CB3+sk
- UvAQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40LFLC0ZrpzF2Jd
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 03:59:30 +1000 (AEST)
+Received: by mail-vk0-x22f.google.com with SMTP id m69so7567136vka.8
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Apr 2018 10:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=nFpG0kvs8KzIfo588ke6ijk4UT0fOCfpAR4Y28q8qGk=;
+ b=qOE/juEq+g3iOyj9P51cInbh9OWzQwVY6wSsDK0DLSSyUQxaGkS6lvjg2Pngv11XfX
+ heWiLDnxWMDhOWXhqnr15ZLnfxcd9ZJWhwUUIJvEcfzUkmTXP8SXfBzlSfHlHJIenETY
+ 4uBg0FeY6lzHv+xZwHX71lXGiVxv1TF5yFIwXInDmml57z63UXDMRrK7bRVqYaKdU83e
+ 0dSlltpnHZTH1rvtcjXHBqxlGaclBOV0n/uh4400bb/8Wmauy0K84wzwsNjk8qU12aTE
+ kYdglw0r4DwWdFqzMHVGtOQQ3wWNGOelmDVZCtZoR5ckV1cH3XhaKBkFxkOZUO8VtW0U
+ 5Jkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=TrsTlGIkBprYrPgOE/Ultz2wm2Jppb/4cfB8XTmUR4U=;
- b=KZARcslQmCPI4RcgtBIbXJ4K8x2aK6iXgPLqXbAbqOvYkKjFAK3oWWqgcT4jEQHmMk
- En0q0enUyszhplAWeejpXmLUPvHF/FiIfB0nQ6vGS8166gHnYMTELL7GE6hj33FPiuEa
- jCLNAWeeh8v8VFWXNnEhTmG3GRdPPtvkJ1mEWRujiMLyJu4a5/2rnHlXuRuq9VxQ0QDy
- 9HdTfycIvFe+heMY3e5T19hPc1KGFyryhNe+B5IAsuVdwPYL2WU8P9y/7suTGRxFLSFh
- rMyipRLvAkjdPkcjtMxEd8ZJDJvVFRgigb35mq3OMvE9scySrtavgMFywef9jcGBbifJ
- PzTg==
-X-Gm-Message-State: ALQs6tD8jWiPDsp9vRT4va4N6d+zzdZKoCE5EftrTit6wVl7JjjrscoS
- Xg1fucGyL+EBkr/CzcYhodxBDS1tbl5m3kaqZDU=
-X-Google-Smtp-Source: AIpwx4+3jkOzcbJW64gWy55eH6nMDDftj4Qk0vlV044wJDJ+OGtgUynL1e23eKCO2YdwPDvxMz47azia5Eg3kMlb4JA=
-X-Received: by 10.55.5.8 with SMTP id 8mr1009416qkf.84.1523371272104; Tue, 10
- Apr 2018 07:41:12 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=nFpG0kvs8KzIfo588ke6ijk4UT0fOCfpAR4Y28q8qGk=;
+ b=cEsqZhIYCySiUsBwZI9hG/2Plyv2iS4WgjKp6h3IIqxz0dIIvi+tnXOLmB98/EEYrT
+ BYb7CVDfE+ep+i1eEZYsqW+RWllaZ3gzUq3UI6mZqkAmGY+C85U5AYugw6lzgdFktx0+
+ bgb240gn4a6N0y1jsyHeJjKRDnEP38F6R9JLEaO6jUHv7DtesI2hLIjiOptACQwEPwYT
+ G/XslNqgEa1dEMUcNkBY/8v8jDbJLoBUZqWE0O57oIDcbLfcynbZlOzSU+t8juRxg+Hk
+ GUHpGHdBYMJWVRofWalkpdFc5oHQgsZhbVYuG1QDk5xzoPIV/jIHRdWwA8mBlfGuGOc6
+ /2hg==
+X-Gm-Message-State: ALQs6tBbSP82NI1JAPQUVFgjid6nQBMI9TKpQ5REb5XaC1D6MtftqDII
+ EDTpeoNXyZ0bR6Kbl6rVqg5BQk+aazVtz0sEicDpMQ==
+X-Google-Smtp-Source: AIpwx4+e81vCwRhjCCZRP3YUZ5VTkpXnE5f7KJT6kl6SPp43wf+UowiLaVVkCO7YsX28WmnFl54ahF+2j0nFQyCdVQU=
+X-Received: by 10.31.65.11 with SMTP id o11mr1072389vka.149.1523383167798;
+ Tue, 10 Apr 2018 10:59:27 -0700 (PDT)
 MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-Received: by 10.12.185.25 with HTTP; Tue, 10 Apr 2018 07:41:11 -0700 (PDT)
-In-Reply-To: <1523196197-2072-1-git-send-email-tmaimon77@gmail.com>
-References: <1523196197-2072-1-git-send-email-tmaimon77@gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 10 Apr 2018 16:41:11 +0200
-X-Google-Sender-Auth: Qtzpi3-5EPhQeTp0WeRx0hR_SY8
-Message-ID: <CAK8P3a30uzYXUVBV72+OiAUxdVRD+=VdLg_nH4c1TSxGzfvNCw@mail.gmail.com>
-Subject: Re: [PATCH v1 0/1] arm: npcm: enable L2 cache in NPCM7xx architecture
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: arm-soc <arm@kernel.org>, Russell King - ARM Linux <linux@armlinux.org.uk>,
- Avi Fishman <avifishman70@gmail.com>,
- Brendan Higgins <brendanhiggins@google.com>, 
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Joel Stanley <joel@jms.id.au>, DTML <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.31.124.193 with HTTP; Tue, 10 Apr 2018 10:59:07 -0700 (PDT)
+In-Reply-To: <CAO=notxe=gesY2ZtH6JFiiaOe7QQ1E=M4doHSvd6Gfnf6+n6Tw@mail.gmail.com>
+References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
+ <CAARXrtmijD=6aGcxK=q71iGhF4onABfMd5Oi6PG4euyGdFGACQ@mail.gmail.com>
+ <CAO=notxe=gesY2ZtH6JFiiaOe7QQ1E=M4doHSvd6Gfnf6+n6Tw@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 10 Apr 2018 10:59:07 -0700
+Message-ID: <CAO=notwnXHTjLg8WK=jCmuFxW6CS2esPQVkBa9rM5vfx6m5RvQ@mail.gmail.com>
+Subject: Re: YASL Request
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ Emily Shaffer <emilyshaffer@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -72,26 +67,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Apr 2018 14:41:17 -0000
+X-List-Received-Date: Tue, 10 Apr 2018 17:59:32 -0000
 
-On Sun, Apr 8, 2018 at 4:03 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
-> This patch Enable ARM L2 cache module in Nuvoton NPCM7xx BMC
-> by adding L2 cache parameters into NPCM7xx DT machine start structure.
+On Mon, Apr 9, 2018 at 8:19 PM, Patrick Venture <venture@google.com> wrote:
+> On Mon, Apr 9, 2018 at 7:45 PM, Lei YU <mine260309@gmail.com> wrote:
+>> On Tue, Apr 10, 2018 at 6:27 AM, Patrick Venture <venture@google.com> wrote:
+>>> Everyone,
+>>>
+>>> I'm working on unit-testing in openbmc, and have cracked most of
+>>> sdbusplus into mockable pieces and verified I can in fact test against
+>>> those mocks with a downstream daemon.  I'll be grabbing an upstream
+>>
+>> Great! I have tried to make sdbusplus mockable previously, by changing its
+>> interfaces virtual, and find out that it is somehow complicated because some
+>> of the interfaces return the objects and it's kind of hard to mock things like
+>> bus::new_method_call().
 >
-> At patch V7 arm: npcm: add basic support for Nuvoton BMCs we got comments
-> regarding the flags use in L2 cache module.
-> - https://www.spinics.net/lists/arm-kernel/msg613212.html
->
-> After checking again the L2 cache use in the NPCM7xx,
-> the only L2 cache flag we need to set is L2C_AUX_CTRL_SHARED_OVERRIDE
-> and it is done in the device tree:
-> https://patchwork.kernel.org/patch/10063497/
->
-> L2 cache flag mask allowed all the flag option.
+> Yeah, ran into that problem, worked around it.  I'm currently fighting
+> my way through the var_args in message::append where there can be
+> mixed types, so I can't just cast the tuple to a normal array.  Could
+> use boost::any, but haven't given into that yet.
 
-I've applied the patch to my fixes branch now, but took your description above
-instead of the two-line text that you had in the patch itself. I liked
-the longer
-text much better.
+Resolved.  I'll have this up for review today along with some dummy
+code that exercises it.
 
-      Arnd
+>
+>> At that time I discussed this with Patrick Williams and he suggested sdbusplus
+>> should be compact and fast, so it's not a good idea to make it virtual.
+>> Later it's found that Brad has some good example of mocking sdbusplus in
+>> https://github.com/openbmc/phosphor-dbus-monitor/tree/master/src/test
+>>
+>> Hopefully we can get a mockable sdbusplus as a shared library as well!
+>
+> I'm mocking it in sdbusplus itself, so you get it for free.
+>
+>>
+>>> daemon (or providing a piece of one) to demonstrate how to leverage
+>>> the mocks to test OpenBMC.  If one designs with testing in mind, the
+>>> designs come out very differently if not, and so getting unit-tests
+>>> throughout OpenBMC will be a lot of breaking things apart into
+>>> testable pieces.  Anyways, where I'm going with this email is that
+>>> everything we do within a daemon needs to be something that can be
+>>> mocked -- basically.
+>>>
+>>> ***
+>>> What do I mean specifically?  Consider, file access.  If a daemon
+>>> routes all file accesses throug a common object implementation
+>>> provided by a shared library, that shared library can easily also
+>>> provide a mock interface for those accesses, such that one can easily
+>>> verify behaviors based on file contents without implementing local
+>>> files or trying to inject errors.  With a mock's file system
+>>> interface, you can simply say that a file was unable to be read, or
+>>> written, or opened, etc.  Another example is mocking ctime.  If you
+>>> want to test whether something happens after some sleep or period, if
+>>> your code can receive a mock version of that library, one can
+>>> deliberately control the results of 'time' or 'difftime', etc.  I have
+>>> to build these interfaces for some of our downstream daemons and
+>>> likely for other parts of OpenBMC, and to avoid code duplication it'll
+>>> help to have them in some library.
+>>>
+>>> YASL (yet-another-shared-library) Request.
+>>>
+>>> Previous conversations along these lines lead to the idea that we need
+>>> multiple new libraries for various things.  So, this is yet another
+>>> use case.  The library itself should be written in such a way that it
+>>> can be tested via unit-tests, but depending on how thin of a shim it
+>>> is, that isn't always practical.  See:
+>>>
+>>> class FileInterface {
+>>>   public:
+>>>      virtual int open(const char *filename, int flags) = 0;
+>>> };
+>>>
+>>> class FileImplementation : public FileInterface {
+>>>   public:
+>>>     int open(const char *filename, int flags) override {
+>>>         return ::open(filename, flags);
+>>>     }
+>>> };
+>>>
+>>> class FileMock : public FileInterface {
+>>>    public:
+>>>      MOCK_METHOD2(open, int(const char *, int));
+>>> };
+>>>
+>>> .... then one just uses the FileInterface for their normally direct
+>>> posix-style file access.  This can easily wrap iostream, or fstream,
+>>> or anything.  And then if we provide some libraries for use by
+>>> daemons, they can transition over to them over time, and then they get
+>>> mocks for free :D  For a daemon downstream, I've written a ctime
+>>> wrapper, I'll submit it for consideration later tonight along with a
+>>> few other things, and then I'll reply to this email with links.
+>>>
+>>
+>> So this library would contain several interfaces classes (e.g. FileInterface,
+>> TimeInterface, and hopefully SdbusplusInterface etc) all together, right?
+>> I vote for it!
+>
+> The sdbusplus library will have mocks ready sometime this week if I
+> can get past this va_args issue.  I haven't tried converting the call
+> to sd_bus_message_append to sd_bus_message_appendv, but I haven't
+> burned much time trying to handle this.  I haven't yet mocked out
+> everything, but sdbusplus::bus::bus and sdbusplus::message::message
+> are nearly done.  There are other bits, I just haven't started.
+>
+> If we have a set of shared libraries, then those shared libraries
+> should all have mocks available to enable testing.
+>
+>>
+>>> ***Not meant as a unit-test primer, just trying to provide some real examples.
+>>>
+>>> Patrick
