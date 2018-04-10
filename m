@@ -1,61 +1,66 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <arndbergmann@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
+ envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="rfosRBN2"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="C/2CrTfn"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gL/WNV17"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40L7VJ2Qd8zF24t
- for <openbmc@lists.ozlabs.org>; Tue, 10 Apr 2018 23:36:06 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 84F6920F5B;
- Tue, 10 Apr 2018 09:36:03 -0400 (EDT)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Tue, 10 Apr 2018 09:36:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=LN9wCxKGbOKeGC3wVLZ2OR5DijShh
- v8gTac/lAGKnoQ=; b=rfosRBN2TYOHmKBephnnXSjg4wuREbKX1D4jN1y31L1dp
- ohItgd0SJsG+TR+I5cXOKx8ikjP5DmzPEaj7rao+PDy5vVAZlVhGML8bmcxETkna
- W//ZNBqKB32lnPyTrbBY/m2daFQlKUO7dwULaVVilgN6Yji+l25sjeEWE7DdONt2
- n8Adf+6/8Gbg2SixPJq1YphSk96T+xL7UfIeg28d+RJfvNr9uASKI7IrJtHTAD7h
- FXDURKmxmantYsI5yAaq6vO+q3xJYZIpCEIxPmyYKlVzscWsS/fxq2RPpuRx4RRV
- VNSHG5YBsKiScgfTncBEInFqr/ezkT+YPJtFKK6Pw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=LN9wCx
- KGbOKeGC3wVLZ2OR5DijShhv8gTac/lAGKnoQ=; b=C/2CrTfn0WQ1wh1gCz7ves
- vZc2ad/sgl1z4Pnw69VqH78GVcEdy14JW4hRwDkGozQXRQhtqlnUHp2ErLhH5c6C
- wPDldulNQpANJfhb9Yxnxpmcb+kBCO15gsR+AQYQCmPdQ3dWaLoLs+PRVYBMBBjs
- Dy+cTk7uaWIbFnchgFAY/KKNjQNp+uFwyN4K9iFBNoN9qAk7w++Kh0aeD3toII96
- K2qDUqxYdodUNJob9IU8dRCzdigyNDVk/voS1V85lvxArV/B4K14pdJkAgrJMVzp
- L+wbLFAEIxwmZ8YdiOaYHJiSNyEGx9sGy1Fza7Az8v45R+3lhOKpGVGjlkvlYl7w
- ==
-X-ME-Sender: <xms:w73MWt0PA6ke6e6eOHpGAcfQBDW6gropKjpn_87d5XJUxio7DgCnbg>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 5958D4122; Tue, 10 Apr 2018 09:36:03 -0400 (EDT)
-Message-Id: <1523367363.1598830.1332941912.403D2457@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Brad Chou <chou.brad@gmail.com>, openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40L8xS4zY2zF241
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 00:41:16 +1000 (AEST)
+Received: by mail-qk0-x243.google.com with SMTP id g7so13596290qkm.1
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Apr 2018 07:41:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=TrsTlGIkBprYrPgOE/Ultz2wm2Jppb/4cfB8XTmUR4U=;
+ b=gL/WNV17OIYtQmCCSYu4xyZN5ADuNw1ghWip53sVBKuGMCuTg/hRdrlcAC32lldC47
+ cJIibfYzwMe0UAYhut3CX/ymcCdc8GLYSTKvYxfhkTLn1U9xahINCDH9GuTXuMARyZZe
+ LHbxRoNxduk8+DeOY6+MoNOm4DRwA87+P5ysTArCZeEyozlN4wC0WsvWpVccgDQ3rTgg
+ Tg8pis6fwKy2KnMNvNpJJMhqVAhIn1zzr5FDj6VRUYIMZ3ZqSk/SygG7kajoNTyhbU8h
+ nzmDgDlgorkZv03dnL/91ZMlqpba3bqrZYA7oynSJXt1KwRnvTEzDVEPrJNXa3CB3+sk
+ UvAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=TrsTlGIkBprYrPgOE/Ultz2wm2Jppb/4cfB8XTmUR4U=;
+ b=KZARcslQmCPI4RcgtBIbXJ4K8x2aK6iXgPLqXbAbqOvYkKjFAK3oWWqgcT4jEQHmMk
+ En0q0enUyszhplAWeejpXmLUPvHF/FiIfB0nQ6vGS8166gHnYMTELL7GE6hj33FPiuEa
+ jCLNAWeeh8v8VFWXNnEhTmG3GRdPPtvkJ1mEWRujiMLyJu4a5/2rnHlXuRuq9VxQ0QDy
+ 9HdTfycIvFe+heMY3e5T19hPc1KGFyryhNe+B5IAsuVdwPYL2WU8P9y/7suTGRxFLSFh
+ rMyipRLvAkjdPkcjtMxEd8ZJDJvVFRgigb35mq3OMvE9scySrtavgMFywef9jcGBbifJ
+ PzTg==
+X-Gm-Message-State: ALQs6tD8jWiPDsp9vRT4va4N6d+zzdZKoCE5EftrTit6wVl7JjjrscoS
+ Xg1fucGyL+EBkr/CzcYhodxBDS1tbl5m3kaqZDU=
+X-Google-Smtp-Source: AIpwx4+3jkOzcbJW64gWy55eH6nMDDftj4Qk0vlV044wJDJ+OGtgUynL1e23eKCO2YdwPDvxMz47azia5Eg3kMlb4JA=
+X-Received: by 10.55.5.8 with SMTP id 8mr1009416qkf.84.1523371272104; Tue, 10
+ Apr 2018 07:41:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-61ab7380
-Date: Tue, 10 Apr 2018 23:06:03 +0930
-Subject: Re: How to power on Intel x86 based CPUs
-References: <6BB03E30-7768-4455-BB7D-6B1C8AECBDE4@gmail.com>
-In-Reply-To: <6BB03E30-7768-4455-BB7D-6B1C8AECBDE4@gmail.com>
+Sender: arndbergmann@gmail.com
+Received: by 10.12.185.25 with HTTP; Tue, 10 Apr 2018 07:41:11 -0700 (PDT)
+In-Reply-To: <1523196197-2072-1-git-send-email-tmaimon77@gmail.com>
+References: <1523196197-2072-1-git-send-email-tmaimon77@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 10 Apr 2018 16:41:11 +0200
+X-Google-Sender-Auth: Qtzpi3-5EPhQeTp0WeRx0hR_SY8
+Message-ID: <CAK8P3a30uzYXUVBV72+OiAUxdVRD+=VdLg_nH4c1TSxGzfvNCw@mail.gmail.com>
+Subject: Re: [PATCH v1 0/1] arm: npcm: enable L2 cache in NPCM7xx architecture
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: arm-soc <arm@kernel.org>, Russell King - ARM Linux <linux@armlinux.org.uk>,
+ Avi Fishman <avifishman70@gmail.com>,
+ Brendan Higgins <brendanhiggins@google.com>, 
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Joel Stanley <joel@jms.id.au>, DTML <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,41 +72,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Apr 2018 13:36:11 -0000
+X-List-Received-Date: Tue, 10 Apr 2018 14:41:17 -0000
 
-Hi Brad,
+On Sun, Apr 8, 2018 at 4:03 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+> This patch Enable ARM L2 cache module in Nuvoton NPCM7xx BMC
+> by adding L2 cache parameters into NPCM7xx DT machine start structure.
+>
+> At patch V7 arm: npcm: add basic support for Nuvoton BMCs we got comments
+> regarding the flags use in L2 cache module.
+> - https://www.spinics.net/lists/arm-kernel/msg613212.html
+>
+> After checking again the L2 cache use in the NPCM7xx,
+> the only L2 cache flag we need to set is L2C_AUX_CTRL_SHARED_OVERRIDE
+> and it is done in the device tree:
+> https://patchwork.kernel.org/patch/10063497/
+>
+> L2 cache flag mask allowed all the flag option.
 
-On Tue, 10 Apr 2018, at 19:35, Brad Chou wrote:
-> Hi,
-> I am going to power on my OEM server board with two Intel x86 CPUs. The 
-> BMC chip is ASPEED 2500.
-> 
-> By the Intel data sheets, I just need to control a power on GPIO to 
-> emulate power button behavior.
-> The problems are, when I send Host State Control commands as mentioned 
-> in docs/host-management.md, the journal log shows a lot of systemctl 
-> errors.
-> 
-> Looks like it is going to start the OpenPower related host control 
-> services, which only applies to PowerPC system.
-> I try to modify GPIO_CONFIGS appears in skeleton recipe to match my 
-> board, but I still got some other errors says pflash stuffs.
+I've applied the patch to my fixes branch now, but took your description above
+instead of the two-line text that you had in the patch itself. I liked
+the longer
+text much better.
 
-It sounds like you're building an OpenPOWER-based BMC image - this is controlled by how you set the TEMPLATECONF environment variable when sourcing the `openbmc-env` file to build (at a guess I'd say you're building for Palmetto, as it's used throughout the examples in the docs repo).
-
-We do have support for a couple of x86 machines in the tree - your best bet is probably the Quanta 71L machine maintained by Patrick Venture:
-
-https://github.com/openbmc/openbmc/tree/master/meta-openbmc-machines/meta-x86/meta-quanta/meta-q71l
-
-As an aside, if you're experimenting and switching between target machines, it's probably a good idea to blow away your build/conf directory to make sure things get set up correctly when you next set TEMPLATECONF and source openbmc-env.
-
-> 
-> Because there is no documents to tell me how to customize the openbmc to 
-> fit on x86 CPUs, so I am not sure the GPIO_CONFIGS in skeleton is the 
-> right way or not.
-
-Yeah, there's not a wealth of documentation on bringing up a new machine. It would be great if you could document your experience once you get there :)
-
-Hope that helps in some way,
-
-Andrew
+      Arnd
