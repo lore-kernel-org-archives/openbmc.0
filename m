@@ -1,105 +1,61 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::231; helo=mail-vk0-x231.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="bhKl0pYa"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="tZokcIM5"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-vk0-x231.google.com (mail-vk0-x231.google.com
+ [IPv6:2607:f8b0:400c:c05::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Ln2m2ZlmzF1R7
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 00:47:59 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id CF79C51150
- for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 14:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-language:content-transfer-encoding:content-type
- :content-type:in-reply-to:mime-version:user-agent:date:date
- :message-id:from:from:references:subject:subject:received
- :received:received; s=mta-01; t=1523458073; x=1525272474; bh=BRY
- /lBVg66krA15YkpeJGgrt0yF/OVRMQN3fOLVI0l4=; b=bhKl0pYaaD57YU3w4p1
- DvNvk5HFXIej9BzNGo8g8DL3PsLk3m9Tnc6WanjUlVQJlhb+GdPYDM3xqB4H/uPY
- 3x6mJAQ6H5WpQoVrTzbG4uxzhvlRbJGhp12nBCSGt4QJD1Lx0m22Cl2+vVcgA8r9
- C1N6Hzn3KgxSnmyOtzRkJrfM=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id F99BeOcEK2FF for <openbmc@lists.ozlabs.org>;
- Wed, 11 Apr 2018 17:47:53 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 63771507EB
- for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 17:47:53 +0300 (MSK)
-Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 11
- Apr 2018 17:47:53 +0300
-Subject: Re: who wants some nginx?
-To: <openbmc@lists.ozlabs.org>
-References: <CALLMt=of+23peG1gq9u0aG3OTaukM-otJmjske0oS8nF4J5YCA@mail.gmail.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- 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
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <2cc3256e-94ed-747f-a2c1-e9718357d70d@yadro.com>
-Date: Wed, 11 Apr 2018 17:47:52 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40LpZT5FvvzDqlQ
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 01:57:05 +1000 (AEST)
+Received: by mail-vk0-x231.google.com with SMTP id a194so629726vke.1
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 08:57:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=G/obBTQpDvoDKutYCM78XBxnZxMQ7vijFtXjUriF7xg=;
+ b=tZokcIM5PlV7SAaLAS7vQzMR6rigi+Ihb5GmHaZNIyEn9U3vcUuS0zbBB8bJSCc3pE
+ Vz4DTFBDvxrsYrhEa8/Rddxxf9krKE8GCszHpvAWIxM6eoAHfKzVHTkksJeBh0F+dtxF
+ SqVCtI+SzYVHlrnZbgmwu+14aOah0JETf20O+kL2wtBPmDhCeONwC73nuB+JVhAWe7KV
+ lKjJBFeM33VnTsR2Qo1vOaCozeSW5ZdRg1Zb6NXFUtO2ivHTGcmydaSu2z9G2LJeRScf
+ dHW1KLlrin+KknHu/hOnyvKPlfN8d8ZUzedJvXAj4VYR8OQjUP9TDDMoGuItAl5N73l8
+ x2kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=G/obBTQpDvoDKutYCM78XBxnZxMQ7vijFtXjUriF7xg=;
+ b=g39hFIGCUa5uvqdBwqslKrAkXdEExDYKYZY7bwfnAMzVLFwYu4b4HXryDKARzL6w/u
+ wRhy8i9IylMD6d/4E8kOS2loi4+wwKbZBHeb7dfFpzYRJ1G04OlDhaDz/qPhvEBmB6mz
+ zHH/CUN6xzgqMKY1sqJumubcNdqxagX8lbYVgLh0ZmbCEMFDDHXZmCYDhS9z33HEig/j
+ CzrcYGNzHQs4k/rV9lFy/Ar3n/bFIpTZ4dkYWCje0e/z4VrElRgyNmTeecUNSY04F2Od
+ N+AeyfXJoqT4jDwuXXoUb5zPmYYh1zBYYMgy8U/X6FCS04EGVoq1LFkr2ZT4gJmY1cN3
+ zYKQ==
+X-Gm-Message-State: ALQs6tCcdCX1DjRXbX/XFv0VfclH75Z4i1n21+lOh9kxuzJaOPR4TA7B
+ renPllAKzmAfuDPr4LVwNVMCPF+G/Up8JWLjYeOJ/g==
+X-Google-Smtp-Source: AIpwx4+5L4Lcf6xW4L2Y2SXpEmpsrMdUQEDZbjpI1eere/Bx5nvePqtybekhDaYEo9XrHfP2QtIGJ8+W3GJAiqAORCc=
+X-Received: by 10.31.65.11 with SMTP id o11mr3764354vka.149.1523462222237;
+ Wed, 11 Apr 2018 08:57:02 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CALLMt=of+23peG1gq9u0aG3OTaukM-otJmjske0oS8nF4J5YCA@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [172.17.14.168]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+Received: by 10.31.124.193 with HTTP; Wed, 11 Apr 2018 08:56:41 -0700 (PDT)
+In-Reply-To: <16FF3DED-F6C6-42DF-8EED-B8D0382354C1@fuzziesquirrel.com>
+References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
+ <16FF3DED-F6C6-42DF-8EED-B8D0382354C1@fuzziesquirrel.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 11 Apr 2018 08:56:41 -0700
+Message-ID: <CAO=notyARZf31diQZnDD5FaaWqc9s+9P_0kpQHGz9qfLiv2a7g@mail.gmail.com>
+Subject: Re: YASL Request
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Emily Shaffer <emilyshaffer@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -111,31 +67,162 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Apr 2018 14:48:01 -0000
+X-List-Received-Date: Wed, 11 Apr 2018 15:57:06 -0000
 
-11.04.2018 16:21, Andrew Geissler wrote:
-> I picked up some commits from Chris that enabled Nginx in OpenBMC.  We
-> want  it for a few reasons:
->
-> - It provides an easy mechanism to redirect http to https (i.e. user
-> just types <bmc ip> and get redirected to https which then auto loads
-> the GUI
-> - It gives us flexibility to serve multiple back end servers off the
-> https port (or any port)
-> - It's much faster then our current front end server
-> - Many other cool feature we may use some day
->
-> https://gerrit.openbmc-project.xyz/#/c/6879/
->
-> The question is do we enable for all openbmc systems or just ours?
-> Any votes?  Feel free to comment the review with your thoughts.
->
-> It looks like it takes up about an additional ~250KB of flash space.
-> There is no impact to our existing REST api path with this change.
->
-Automatic redirect from http to https would be great, and I'm all for nginx.
-All we need from http is to keep it serving /snmp path to let an
-unauthenticated user download SNMP MIBs.
-As far as I understand, that can be done with nginx, isn't it?
+Hi Brad,
 
-Alexander.
+On Tue, Apr 10, 2018 at 7:34 PM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
+>
+>> On Apr 9, 2018, at 6:27 PM, Patrick Venture <venture@google.com> wrote:
+>>
+>> Everyone,
+>>
+>> I'm working on unit-testing in openbmc, and have cracked most of
+>> sdbusplus into mockable pieces and verified I can in fact test against
+>> those mocks with a downstream daemon.  I'll be grabbing an upstream
+>> daemon (or providing a piece of one) to demonstrate how to leverage
+>> the mocks to test OpenBMC.  If one designs with testing in mind, the
+>> designs come out very differently if not, and so getting unit-tests
+>> throughout OpenBMC will be a lot of breaking things apart into
+>> testable pieces.  Anyways, where I'm going with this email is that
+>> everything we do within a daemon needs to be something that can be
+>> mocked -- basically.
+>>
+>> ***
+>> What do I mean specifically?  Consider, file access.  If a daemon
+>> routes all file accesses throug a common object implementation
+>> provided by a shared library, that shared library can easily also
+>> provide a mock interface for those accesses, such that one can easily
+>> verify behaviors based on file contents without implementing local
+>> files or trying to inject errors.  With a mock's file system
+>> interface, you can simply say that a file was unable to be read, or
+>> written, or opened, etc.  Another example is mocking ctime.  If you
+>> want to test whether something happens after some sleep or period, if
+>> your code can receive a mock version of that library, one can
+>> deliberately control the results of 'time' or 'difftime', etc.  I have
+>> to build these interfaces for some of our downstream daemons and
+>> likely for other parts of OpenBMC, and to avoid code duplication it'll
+>> help to have them in some library.
+>>
+>> YASL (yet-another-shared-library) Request.
+>
+> Can you talk more about what goes in this?
+>
+> Do you envision something like:
+>
+> openbmc repo -> upstream project being wrapped
+> libcmock -> glibc
+> libstdc++mock -> libstdc++
+> libsystemdmock -> libsystemd (or sdbusplusmock)
+> libfoomock -> libfoo
+> libbarmock -> libbarmock
+>
+> Or is there a super-repo/super-library that has all the wrappers?
+> Do applications link a single shared library that provides wrappers
+> or do they link multiple libraries that provide wrappers?
+
+I really envision using shared libraries for mocks, and I don't see
+value in mocking glibc itself, there are certainly overkill things,
+for instance, there's no value IMHO to mocking memcmp from cstring.
+
+So far, from a quick audit of our code, I see uses of the
+experimental/fs library, direct file access, some fstream access, some
+time, and some socket accesses, and of course, sdbusplus tie-ins.  And
+soon sdevent stuff, which really -- you'd be testing the callback
+method itself not that it gets called -- strictly speaking, you
+could... but it's wonky.
+
+For a program downstream, I wrote something simple
+
+class TimeInterface {
+  public:
+      virtual std::time_t time(std::time_t *t) =3D 0;
+};
+class TimeImpl {
+  public:
+      std::time_t time(std::time_t *t) override { return ::time(t); }
+};
+class TimeMock {
+};
+
+The idea being to control the value from time.  However, if you didn't
+care about that, you could focus on difftime(), which was actually
+doing the computation, to make it return whatever you needed to
+trigger the cases you needed.
+
+
+>
+> I=E2=80=99m just trying to figure out what to call the repo, and get a fe=
+el
+> for what the structure would look like over time.  Is the repo for
+> non-openbmc wrappers (like standard library stuff), and wrappers for
+> openbmc hosted libraries like sdbusplus would go in the sdbusplus
+> repo?
+
+If you wanted a repo for each library, that'd be your call.  I think
+it's fine to group them.
+
+>
+>>
+>> Previous conversations along these lines lead to the idea that we need
+>> multiple new libraries for various things.  So, this is yet another
+>> use case.  The library itself should be written in such a way that it
+>> can be tested via unit-tests, but depending on how thin of a shim it
+>> is, that isn't always practical.  See:
+>>
+>> class FileInterface {
+>>  public:
+>>     virtual int open(const char *filename, int flags) =3D 0;
+>> };
+>>
+>> class FileImplementation : public FileInterface {
+>>  public:
+>>    int open(const char *filename, int flags) override {
+>>        return ::open(filename, flags);
+>>    }
+>> };
+>>
+>> class FileMock : public FileInterface {
+>>   public:
+>>     MOCK_METHOD2(open, int(const char *, int));
+>> };
+>
+> Doesn=E2=80=99t this style of programming slow things down (when you look=
+ at
+> it at scale)?  If you have a software stack, and you turn N shared
+> library calls from simple branches into this, multiplied by N processes=
+=E2=80=A6
+> aren=E2=80=99t we going to waste a lot of cycles?  Is this how people wan=
+t
+> to use their BMC cycles or do they want it running their business
+> logic?  I know IBM is already struggling with bigger-than-ideal load
+> averages / runqueue depths.
+>
+> Is it your vision the the project _requires_ that all applications
+> be written in this manner and use GMock as the unit test framework as
+> a condition for inclusion in OpenBMC, or are you just looking for the
+> capability for applications that elect to use it?  There are other ways
+> to write unit tests.  I think only allowing one framework (considering
+> the impact it has on how we write code) would drive people away from
+> the project.  Assuming sdbusplus is made to be mockable, we can probably
+> operate in the latter mode since we just don=E2=80=99t have very many sha=
+red
+> libraries in the first place (a metric I=E2=80=99d like to maintain as we=
+ grow).
+>
+>>
+>> .... then one just uses the FileInterface for their normally direct
+>> posix-style file access.  This can easily wrap iostream, or fstream,
+>> or anything.  And then if we provide some libraries for use by
+>> daemons, they can transition over to them over time, and then they get
+>> mocks for free :D  For a daemon downstream, I've written a ctime
+>> wrapper, I'll submit it for consideration later tonight along with a
+>> few other things, and then I'll reply to this email with links.
+>>
+>> ***Not meant as a unit-test primer, just trying to provide some real exa=
+mples.
+>>
+>> Patrick
+>
+>
