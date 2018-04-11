@@ -1,61 +1,93 @@
-Return-Path: <chou.brad@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c01::22f; helo=mail-pl0-x22f.google.com;
- envelope-from=chou.brad@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nu5GRe5R"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DUyPo2ab"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="ivyWI6KY"; 
  dkim-atps=neutral
-Received: from mail-pl0-x22f.google.com (mail-pl0-x22f.google.com
- [IPv6:2607:f8b0:400e:c01::22f])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Kz9z6Tz8zDqyG
- for <openbmc@lists.ozlabs.org>; Tue, 10 Apr 2018 17:21:24 +1000 (AEST)
-Received: by mail-pl0-x22f.google.com with SMTP id 61-v6so6881148plb.2
- for <openbmc@lists.ozlabs.org>; Tue, 10 Apr 2018 00:21:24 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Lj8Z1crLzF1RP;
+ Wed, 11 Apr 2018 21:52:46 +1000 (AEST)
+Received: by mail-qt0-x243.google.com with SMTP id g5so1527142qth.7;
+ Wed, 11 Apr 2018 04:52:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:mime-version:subject:message-id:date:to;
- bh=QWgmhFHwjxJqZsK3rWgizdrkSI+OoQIU4dqZn4n6SM8=;
- b=nu5GRe5RL2uEHN4JNfR61FsoOry3nzj09I/2ZFTkiedy1ZD1ay208gLNRXNViRYect
- H2aWhzXPONEg2DNU2ThFlF+bw8K6HKnZmAVbS9Jc+b6xBHf+BA+K+WnqaLIm9Zd7SyIV
- MICys2uKQ47SlDkRFXHXqcoLaC3cZLwhI62vnuQqNqDfQkvaZN5G4jkxX+xc7Hb+Sdka
- JYW9irk5M6l6idbFlDTyY//zvEK2+mLVhbXs1OUVUCRSglUHkATk5kiq2UjTX97gQ4Ob
- I8QkOM82PauRumpeepG3bYwEcfTWmrO7mfnDtcFaTzwlyq6GWIgPFUSLQfwRfJGKbPTJ
- HBnA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=+xF/QQrbDaB/C2STWUBftaDCOueXgSmK3FO0WBIu0SA=;
+ b=DUyPo2ab8NghpHM5I10oN2D6a0p48a1M37TL8+zJ2fYE5S3u0c3NKhD57JOyh3Q13/
+ v9XAg7qBZGoQpoHk5OMSwWpDOUQVwGAenxRlt24fG+EbIFnyH5ev/cwz0hRTAfzImZYb
+ lTdbh46NvaedRrPxezoBkL9IeUxHZBJa153UGn1PQsFXgqUdA4nNh90dgO+to058HWZZ
+ 5DfwJcaQNxPvvObG7NbGVq5HQrezIUGiQbL62tjieDSmeBD8QpX4OfhlMLUYbPVxXhUw
+ iBbUL5XLlSno5Rh++v77ojp6y9Un5MLVcqmuhK4z98CgNiU1q7FRwX9ORDljCFY6nz7t
+ 6xNw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=+xF/QQrbDaB/C2STWUBftaDCOueXgSmK3FO0WBIu0SA=;
+ b=ivyWI6KY6erQ8CRwDR3jeNv0sxebnDS3jGiAycByc+1f+1MtYT4kc2nMjux357uN/Q
+ W7zCgGNN5NeTxSIO90kIk/h8tkMC9P/rnWfgUrt7Al5DZ+s1GBB9SjyQDrEvhd9DI1dZ
+ 4mFw6CsLO5BpCUIGwscXtNXN3Ml62cnpH5ZMo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:mime-version:subject:message-id:date:to;
- bh=QWgmhFHwjxJqZsK3rWgizdrkSI+OoQIU4dqZn4n6SM8=;
- b=STXvmIpRyFzl4AUlJpjAMCOaDo07UTFVGjEPsHcvWfGKMKW2/c4ZGhwtWFIhVQn7H2
- q3LzFvlnJQCejwUMyeeml71TfF3yroieo9fyihlu+Z3zag5qS0T5B1WAbbTyQ2wCjrb8
- X6RUGXBNuv2+RUcmAMRjMJj143p8SGk+95xr/cAVJvx1w7j+X6llyE3baBt2ts3Ukte4
- NXBMVUUUz55YWKugNbo0gAtg/HDJUiEIyHCxBmNFHhMJTS4/QItpmBYeA4r4MkKXFlHQ
- pIWNVWBwqFDZ8hdKhb42G5vFELNMi3mJdsJeKVS4sI1oQ/gcI30P4g7MKEI4Ch0NipwZ
- Ktog==
-X-Gm-Message-State: AElRT7HehsMr0cMsF6vfEt3xh5mcr8XhKqQSqa67ghRG+hsU0DYMxz86
- Rt+W72nablGCjJX7L+h5aH+3ct8m
-X-Google-Smtp-Source: AIpwx4+3YlkAek2sVhGRxdNyEXvaJ+YPaFUB/L7kkDQPWeVr4+df5w/z5xn+eAm605gbP+XwKBs43A==
-X-Received: by 2002:a17:902:28a4:: with SMTP id
- f33-v6mr41273704plb.115.1523344882464; 
- Tue, 10 Apr 2018 00:21:22 -0700 (PDT)
-Received: from [192.168.1.2] (220-128-238-123.HINET-IP.hinet.net.
- [220.128.238.123])
- by smtp.gmail.com with ESMTPSA id l90sm5534208pfb.96.2018.04.10.00.21.20
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 10 Apr 2018 00:21:21 -0700 (PDT)
-From: Brad Chou <chou.brad@gmail.com>
-Content-Type: multipart/alternative;
- boundary="Apple-Mail=_F10AAC01-F11A-4338-92C9-6A748349DA38"
-Mime-Version: 1.0 (Mac OS X Mail 11.3 \(3445.6.18\))
-Subject: How to power on Intel x86 based CPUs
-Message-Id: <BAC67A78-8473-46F3-BD09-6A418AF0D697@gmail.com>
-Date: Tue, 10 Apr 2018 15:21:19 +0800
-To: openbmc@lists.ozlabs.org
-X-Mailer: Apple Mail (2.3445.6.18)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=+xF/QQrbDaB/C2STWUBftaDCOueXgSmK3FO0WBIu0SA=;
+ b=bj9B5PUfBeQ5jaf07Ax2ZOgJv9zZsRjDdmTGrPy8NMoo8MmYoOjYfuWtMYKs1lxEH4
+ ON9PNdnxuSuC6d7+nQriZIGfSKdOd6+MFCPNt5dj5Nqvomzi0oZpFiNRyzGK5YkbN870
+ 7p9JzncilybH9UrawTCB7Udzkm/joQuWdbj9N8jU5v7yD+gWgPsWhhcgmOccmgooo3hw
+ 843Q+/03eeWYNhSRa6tLkfssG6JvOMZc9D0lUzcR8wOZ5zbUrAZD5iEyd5WSHC7Dy+8X
+ DcJMZLyOF5qyuiNWsF15RAaLgvORsDT316xJi5SAHiINaquyfAxqhAS1UR81ob4LdYbR
+ CMwg==
+X-Gm-Message-State: ALQs6tBIA5GPIyKgopUP2/aWIlyTKdgYCHl0NcjdrN4VAx0+6c1M9N+e
+ rq7f7I4Vt/m5a4u8/5PARD91Uael2NxF8vkAEmA=
+X-Google-Smtp-Source: AIpwx4/Aqmu5PtGzNci0HuzuI7OnTYQrQEc2oFxPJYTA5ygPhGTacIJEvlXMAE/2pTiQQ7y6Wkc4Z3EEJJ6tbmF6zbw=
+X-Received: by 10.237.36.74 with SMTP id s10mr6792417qtc.23.1523447563885;
+ Wed, 11 Apr 2018 04:52:43 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.63.197 with HTTP; Wed, 11 Apr 2018 04:52:23 -0700 (PDT)
+In-Reply-To: <20180410183212.16787-5-jae.hyun.yoo@linux.intel.com>
+References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
+ <20180410183212.16787-5-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 11 Apr 2018 21:22:23 +0930
+X-Google-Sender-Auth: FToGwyE2BzKPG5iVm8whVxLh0Rw
+Message-ID: <CACPK8XcfrheC+UDB7mLPkgPRCuk8f+P830NG+cy2v6F_PJvUTw@mail.gmail.com>
+Subject: Re: [PATCH v3 04/10] Documentations: dt-bindings: Add a document of
+ PECI adapter driver for Aspeed AST24xx/25xx SoCs
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ Rob Herring <robh+dt@kernel.org>, 
+ linux-aspeed@lists.ozlabs.org, Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Andrew Lunn <andrew@lunn.ch>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Fengguang Wu <fengguang.wu@intel.com>, 
+ Greg KH <gregkh@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Haiyue Wang <haiyue.wang@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>, 
+ Jason M Biils <jason.m.bills@linux.intel.com>, Jean Delvare <jdelvare@suse.com>,
+ Julia Cartwright <juliac@eso.teric.us>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
+ Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>,
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Stef van Os <stef.van.os@prodrive-technologies.com>, 
+ Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, 
+ devicetree <devicetree@vger.kernel.org>, linux-hwmon@vger.kernel.org, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 12 Apr 2018 13:05:57 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -68,64 +100,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Apr 2018 07:21:28 -0000
+X-List-Received-Date: Wed, 11 Apr 2018 11:52:46 -0000
 
+On 11 April 2018 at 04:02, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+> This commit adds a dt-bindings document of PECI adapter driver for Aspeed
 
---Apple-Mail=_F10AAC01-F11A-4338-92C9-6A748349DA38
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+We try to capitalise ASPEED.
 
-Hi,
-I am going to power on my OEM server board with two Intel x86 CPUs. The =
-BMC chip is ASPEED 2500.
+> AST24xx/25xx SoCs.
+> ---
+>  .../devicetree/bindings/peci/peci-aspeed.txt       | 60 ++++++++++++++++++++++
+>  1 file changed, 60 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.txt
+>
+> diff --git a/Documentation/devicetree/bindings/peci/peci-aspeed.txt b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+> new file mode 100644
+> index 000000000000..4598bb8c20fa
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+> @@ -0,0 +1,60 @@
+> +Device tree configuration for PECI buses on the AST24XX and AST25XX SoCs.
+> +
+> +Required properties:
+> +- compatible        : Should be "aspeed,ast2400-peci" or "aspeed,ast2500-peci"
+> +                     - aspeed,ast2400-peci: Aspeed AST2400 family PECI
+> +                                            controller
+> +                     - aspeed,ast2500-peci: Aspeed AST2500 family PECI
+> +                                            controller
+> +- reg               : Should contain PECI controller registers location and
+> +                     length.
+> +- #address-cells    : Should be <1>.
+> +- #size-cells       : Should be <0>.
+> +- interrupts        : Should contain PECI controller interrupt.
+> +- clocks            : Should contain clock source for PECI controller.
+> +                     Should reference clkin.
 
-By the Intel data sheets, I just need to control a power on GPIO to =
-emulate power button behavior.
-The problems are, when I send Host State Control commands as mentioned =
-in docs/host-management.md, the journal log shows a lot of systemctl =
-errors.
+Are you sure that this is driven by clkin? Most peripherals on the
+Aspeed are attached to the apb, so should reference that clock.
 
-Looks like it is going to start the OpenPower related host control =
-services, which only applies to PowerPC system.
-I try to modify GPIO_CONFIGS appears in skeleton recipe to match my =
-board, but I still got some other errors says pflash stuffs.
+> +- clock_frequency   : Should contain the operation frequency of PECI controller
+> +                     in units of Hz.
+> +                     187500 ~ 24000000
 
-Because there is no documents to tell me how to customize the openbmc to =
-fit on x86 CPUs, so I am not sure the GPIO_CONFIGS in skeleton is the =
-right way or not.
+Can you explain why you need both the parent clock and this frequency
+to be specified?
 
-Can somebody share your experience ?
+> +
+> +Optional properties:
+> +- msg-timing-nego   : Message timing negotiation period. This value will
 
-Thanks.=
+Perhaps msg-timing-period? Or just msg-timing?
 
---Apple-Mail=_F10AAC01-F11A-4338-92C9-6A748349DA38
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><div =
-class=3D"">Hi,</div><div class=3D"">I am going to power on my OEM server =
-board with two Intel x86 CPUs. The BMC chip is ASPEED 2500.</div><div =
-class=3D""><br class=3D""></div><div class=3D"">By the Intel data =
-sheets, I just need to control a power on GPIO to emulate power button =
-behavior.</div><div class=3D"">The problems are, when I send <b =
-class=3D"">Host State Control </b>commands as mentioned in =
-docs/host-management.md, the journal log shows a lot of <i =
-class=3D"">systemctl</i> errors.</div><div class=3D""><br =
-class=3D""></div><div class=3D"">Looks like it is going to start the =
-OpenPower related host control services, which only applies to PowerPC =
-system.</div><div class=3D"">I try to modify <b =
-class=3D"">GPIO_CONFIGS</b> appears in skeleton recipe to match my =
-board, but I still got some other errors says <i class=3D"">pflash</i> =
-stuffs.</div><div class=3D""><br class=3D""></div><div class=3D"">Because =
-there is no documents to tell me how to customize the openbmc to fit on =
-x86 CPUs, so I am not sure the&nbsp;<b =
-class=3D"">GPIO_CONFIGS</b>&nbsp;in&nbsp;<b class=3D"">skeleton</b> is =
-the right way or not.</div><div class=3D""><br class=3D""></div><div =
-class=3D"">Can somebody share your experience ?</div><div class=3D""><br =
-class=3D""></div><div class=3D"">Thanks.</div></body></html>=
-
---Apple-Mail=_F10AAC01-F11A-4338-92C9-6A748349DA38--
+> +                     determine the period of message timing negotiation to be
+> +                     issued by PECI controller. The unit of the programmed
+> +                     value is four times of PECI clock period.
+> +                     0 ~ 255 (default: 1)
+> +- addr-timing-nego  : Address timing negotiation period. This value will
+> +                     determine the period of address timing negotiation to be
+> +                     issued by PECI controller. The unit of the programmed
+> +                     value is four times of PECI clock period.
+> +                     0 ~ 255 (default: 1)
+> +- rd-sampling-point : Read sampling point selection. The whole period of a bit
+> +                     time will be divided into 16 time frames. This value will
+> +                     determine the time frame in which the controller will
+> +                     sample PECI signal for data read back. Usually in the
+> +                     middle of a bit time is the best.
+> +                     0 ~ 15 (default: 8)
+> +- cmd_timeout_ms    : Command timeout in units of ms.
+> +                     1 ~ 60000 (default: 1000)
+> +
+> +Example:
+> +       peci: peci@1e78b000 {
+> +               compatible = "simple-bus";
+> +               #address-cells = <1>;
+> +               #size-cells = <1>;
+> +               ranges = <0x0 0x1e78b000 0x60>;
+> +
+> +               peci0: peci-bus@0 {
+> +                       compatible = "aspeed,ast2500-peci";
+> +                       reg = <0x0 0x60>;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       interrupts = <15>;
+> +                       clocks = <&clk_clkin>;
+> +                       clock-frequency = <24000000>;
+> +                       msg-timing-nego = <1>;
+> +                       addr-timing-nego = <1>;
+> +                       rd-sampling-point = <8>;
+> +                       cmd-timeout-ms = <1000>;
+> +               };
+> +       };
+> --
+> 2.16.2
+>
