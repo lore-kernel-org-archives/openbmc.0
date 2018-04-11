@@ -1,89 +1,52 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::231; helo=mail-qk0-x231.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4003:c06::229; helo=mail-oi0-x229.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="UijEdOll"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="Y6a/mC6G"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="vMiwa4K4"; 
  dkim-atps=neutral
-Received: from mail-qk0-x231.google.com (mail-qk0-x231.google.com
- [IPv6:2607:f8b0:400d:c09::231])
+Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
+ [IPv6:2607:f8b0:4003:c06::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Lj8j2lSVzF1RL
- for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 21:52:53 +1000 (AEST)
-Received: by mail-qk0-x231.google.com with SMTP id s9so1448668qke.12
- for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 04:52:53 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Ll6n4dd7zF1RN
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 23:21:21 +1000 (AEST)
+Received: by mail-oi0-x229.google.com with SMTP id c3-v6so1663285oib.5
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 06:21:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=S0BSRykHaPpL7ZImptP9LRwCTl6+uoOzn7Kd14K2rq4=;
- b=UijEdOlldCP/ORYIWIAI2X+9gJLwfhSt4ZYn5EdF7hAUSA6A1Cp7CkvQNEoOCkIdiY
- rc3rCqYB2EucWKVi7wS06QciAzET5qVFx/hWO6R8/BZw0w9BZQVO/QwwGrhFBIUZFIVP
- dqMKYHAESrOvJWz3vufQSb4GOnxGcyXBO4/VvBLmRNDz2PNO1LNOZAu8TGpUg/egnIRx
- zJaEIE5hmaW1qgoz8AQgooohDGNV0x3zVuOfvyO7LiCCzZXuy95I7Ih9UV02M+L1yBjY
- 2hvnlS6stiuWTorXOJ4yUWjnRwuH/gowb5lQBe6vSvFSrAKPulcbyqH7w2XyrsGln1tX
- BsRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=S0BSRykHaPpL7ZImptP9LRwCTl6+uoOzn7Kd14K2rq4=;
- b=Y6a/mC6GwMvMvbA82Hgodq6CpVZE7zxHa+xjl1knRuRD7muq1t1baQD+lo097iekHw
- xCdvwnTWTd2g7ou+7rcVc/2SrAk/Scb+48ydRBj+2iX8Lg15O2lDMewkMJdV3xS62NQd
- PZXwEchK1XAzJser6WzLMq0VtI2A5mmuwQf6w=
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Rp5JFyazwOnVL1cfMrpXWfXwOHov3R3re5NJ+NYPqB4=;
+ b=vMiwa4K4nfuO49yUDzSBENpaq/TRH10eVW189moHc64BDd9dbtPTMiwC9wHj3Eepwu
+ /ijvjBG6mykURS2SNRYPMA1P0qRjaQI71aOdRaY0r8n8MeqmLXl61VN/KvJ/zl5w1Ndl
+ 18GweK91LIZK4vM63nnMwtVTYPrHnR91atuV/YR/ilhAQg5RURvp6yx9tf8XqLVDAJ1y
+ F6xmcXeM70pMIOMLEBp6/g/rmPzSU4wrkN6F7Cp3lrGa34Qc2lcO+LKab7W/j6ZLWVNL
+ /jPA3KfiVu6mQHsYevF4erX1Hd0ExaesUn/bpZQgr93U1olLwdri6BQMuhS7+cA0qe9D
+ JthA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=S0BSRykHaPpL7ZImptP9LRwCTl6+uoOzn7Kd14K2rq4=;
- b=OMBfmYso9X6MyGALVnTRxHWL7iL0FDClLga6q07SEfR3yu8BobvrTMjfmAis24xg84
- lqUUjv/IS6crDc9UT9e+5NL/8KytMWbNatwhoSCGLdqM+GwFAt7ORacVzrprUZ8xz5m7
- 1+IcU5Hghz1FJRAP2RuaCxhIBWxCzGacOxUsSzF6mZF5C1rZIZQS/tUKqbvOTtbkS3/2
- KavGyaxIXdz8lxvRFYwPnGhPZtF56dlHwRwmfuHE31UH6fIOzijOsrWmZ2GfWiG/Kbvf
- VPMCLrt6Zb9NpbnR2VpZL+NjOl/o5PUybYkWgCBDBTQkiaj3JmteDS/BBEi/mFZxaPBG
- F0Dw==
-X-Gm-Message-State: ALQs6tDfWECHY8kiDCCCdPKtMCXmey9MC/FCcXuLfjXGFfLT9dsH7XwU
- E96+fGq9HzA158ZsbzoASzP9EAwcokGBbyHdDsI=
-X-Google-Smtp-Source: AIpwx4+CEbXT5ARkZBDIWS1I9TrjyR5qyCB2d2eNgUsfOJ56oHM/RNIs0DHoLoR5nMFhcdIpdKaZiPCldcc6Dsr0rpg=
-X-Received: by 10.55.4.129 with SMTP id 123mr6183010qke.203.1523447570916;
- Wed, 11 Apr 2018 04:52:50 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Rp5JFyazwOnVL1cfMrpXWfXwOHov3R3re5NJ+NYPqB4=;
+ b=JHxFjBgI9vQcCKL4uhwA4dEjjdtJ7g8hxfhindipcaD4MjxUxYulAzFZZzPoxdutBH
+ CQJVoouQs+o9A6fmcgeFc9f+LHsQmMSMBbr8RQ+RHiAPh50zIgXuJT2dMetlVk4MMTwb
+ HJ1kLlHj1+PN+SHoU/UaLXC7AXti/Bp2zuHKKvUF6laf5Potj857fiGMoqVOgKUnmM49
+ rjkqSQeELzVZE/4U5pEWnA5oz0IbqcFQbO/pWMKpyqxEd4BYZuW+56YY+LU7pRQduZvx
+ 1uwPMKuvaS5/5TJk7E3+ofV6Djk763Wpwii8sJ7Ct7m4PiyzAevn4mwtQih73couGhHO
+ xcig==
+X-Gm-Message-State: ALQs6tCINoeIYjP/XhezA4V0siqfGvmkdjIGf4QLBEtbDYjgCugCcRLg
+ u/czHNbYcGwUUs9tYWKyjSBjsU9M7fJaAu2yosUMig==
+X-Google-Smtp-Source: AIpwx49xIkS/d7wsmnPffM6WMAMAEkpyXKLB57X4961Gbag0w6dti4vEWKXowJShnqJIZCT/Yj4bkwrrAVvAIkAu7yA=
+X-Received: by 2002:aca:dc04:: with SMTP id t4-v6mr3161508oig.28.1523452878904; 
+ Wed, 11 Apr 2018 06:21:18 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.63.197 with HTTP; Wed, 11 Apr 2018 04:52:30 -0700 (PDT)
-In-Reply-To: <20180410183212.16787-6-jae.hyun.yoo@linux.intel.com>
-References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
- <20180410183212.16787-6-jae.hyun.yoo@linux.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 11 Apr 2018 21:22:30 +0930
-X-Google-Sender-Auth: 9w3a5uKeB_4X891o5gliPk2JfvU
-Message-ID: <CACPK8Xf7ta43K=POx8J6bAdjvX=wCzy-+HWqHsm+RstQxeetCQ@mail.gmail.com>
-Subject: Re: [PATCH v3 05/10] ARM: dts: aspeed: peci: Add PECI node
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
- Andrew Lunn <andrew@lunn.ch>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>, Arnd Bergmann <arnd@arndb.de>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Fengguang Wu <fengguang.wu@intel.com>, 
- Greg KH <gregkh@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>, 
- Haiyue Wang <haiyue.wang@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>, 
- Jason M Biils <jason.m.bills@linux.intel.com>, Jean Delvare <jdelvare@suse.com>,
- Julia Cartwright <juliac@eso.teric.us>,
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
- Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>,
- Randy Dunlap <rdunlap@infradead.org>, 
- Stef van Os <stef.van.os@prodrive-technologies.com>, 
- Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-doc@vger.kernel.org, 
- devicetree <devicetree@vger.kernel.org>, linux-hwmon@vger.kernel.org, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.201.50.79 with HTTP; Wed, 11 Apr 2018 06:21:18 -0700 (PDT)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 11 Apr 2018 08:21:18 -0500
+Message-ID: <CALLMt=of+23peG1gq9u0aG3OTaukM-otJmjske0oS8nF4J5YCA@mail.gmail.com>
+Subject: who wants some nginx?
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -96,22 +59,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Apr 2018 11:52:53 -0000
+X-List-Received-Date: Wed, 11 Apr 2018 13:21:22 -0000
 
-On 11 April 2018 at 04:02, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
-> This commit adds PECI bus/adapter node of AST24xx/AST25xx into
-> aspeed-g4 and aspeed-g5.
->
+I picked up some commits from Chris that enabled Nginx in OpenBMC.  We
+want  it for a few reasons:
 
-The patches to the device trees get merged by the ASPEED maintainer
-(me). Once you have the bindings reviewed you can send the patches to
-me and the linux-aspeed list (I've got a pending patch to maintainers
-that will ensure get_maintainers.pl does the right thing as far as
-email addresses go).
+- It provides an easy mechanism to redirect http to https (i.e. user
+just types <bmc ip> and get redirected to https which then auto loads
+the GUI
+- It gives us flexibility to serve multiple back end servers off the
+https port (or any port)
+- It's much faster then our current front end server
+- Many other cool feature we may use some day
 
-I'd suggest dropping it from your series and re-sending once the
-bindings and driver are reviewed.
+https://gerrit.openbmc-project.xyz/#/c/6879/
 
-Cheers,
+The question is do we enable for all openbmc systems or just ours?
+Any votes?  Feel free to comment the review with your thoughts.
 
-Joel
+It looks like it takes up about an additional ~250KB of flash space.
+There is no impact to our existing REST api path with this change.
+
+Andrew
