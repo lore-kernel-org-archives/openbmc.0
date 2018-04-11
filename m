@@ -1,35 +1,64 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="l8jLHrNb"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="KpA9oAec"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
+ [IPv6:2607:f8b0:400d:c0d::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40LVV81DYmzDrLk
- for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 13:52:15 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 618C66E23B;
- Tue, 10 Apr 2018 23:52:11 -0400 (EDT)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: YASL Request
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CAARXrtmijD=6aGcxK=q71iGhF4onABfMd5Oi6PG4euyGdFGACQ@mail.gmail.com>
-Date: Tue, 10 Apr 2018 23:52:11 -0400
-Cc: Emily Shaffer <emilyshaffer@google.com>,
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40LWJw3YCvzDrqP
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 14:29:20 +1000 (AEST)
+Received: by mail-qt0-x244.google.com with SMTP id d50so564177qtc.0
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Apr 2018 21:29:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:from:date:message-id:subject:to;
+ bh=OFx2pPpiWJxzTg9DyARYDVS0BNVnx5LgsW05Ifi1pOc=;
+ b=l8jLHrNbrQcRfEoLxyUUc7u3Ul4vnIubQgLl6Duy+kMV7m+QI7Yjf01KTIslyTgKEn
+ 6IXTuKfMaC49EbBkUSMq6/Sxvl6VWDIIe4CaRHzNg5CAKJfcXmE0DGb/+1T2JBzFsEUd
+ ipLMdLi/iKc6dah5U+v9a+paVa2GoeEeMCOfP6rZEXjs04MUlxdFMI7loj82qRk2/AeP
+ 0xd+bxSkDZS+Cx8RhZ8VHG6P7j+O+W35kLTBYUdCvXL/rCBaaJFfLCJOYmn5En2tOkVS
+ Ehc/fls7fpBr2pb7acSajwvhTS05clItcwVDqUF0wFBe3esa+kI/9x952xf51tz/x/b8
+ q4nw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:from:date:message-id:subject:to;
+ bh=OFx2pPpiWJxzTg9DyARYDVS0BNVnx5LgsW05Ifi1pOc=;
+ b=KpA9oAecqjdSSo+X/h2++YwF+dQRVABB7yqQpWZS6c+d58Mxv/+zZx0rJwneZsVSuj
+ feJblgSdpUFA+rV7TvQrqYzI3Cv91lD2608TKctcFNPtiLrlupFzWoIToAsRlEHJIiFR
+ izg6PmV+B3L6AR7RhgJXzncsh+od33fzAYEV8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+ :to; bh=OFx2pPpiWJxzTg9DyARYDVS0BNVnx5LgsW05Ifi1pOc=;
+ b=N7iNBKnsf567xYbfq/e1XiB1Cx5ukPqtYhAGw7nUkRIn3JDto7G+7N9WGMawTvSAAQ
+ aLK8w35wmUDCbXPbsBN2Q3QOIdVAZB+xOpkcMzk1l7Xjodny9hb8DywvvLI8ir05wiXg
+ Da0TalR8nC4XMCSdRJMCSs1eGVfzHi3dGWm4v6VOjtksgjG6hlwv49zEWPf1DYtmRhWe
+ rKbe0bTxSVR5gyZqnnqhg0N46xkOmR8GuzeEf2kSDfzDXDGZ5zRUxBGVmXU5Y36YeVcQ
+ rq9uzM7FQovHpqqjA5vGlwnMv7oyzZabCEw1WvG14nkrB4PWnSbtGEcE0KhI2DaiIrEw
+ dDLg==
+X-Gm-Message-State: ALQs6tC8dqqCmpTd3Y22fSUBa6Z1xWH/NVE4HKKQ0wWPZLStl1BpJ1oZ
+ y8x+FNOOhw+hGTSF49803vxPmVCUzW+t/oqj3EewR7I9
+X-Google-Smtp-Source: AIpwx48dNkpTcB7HzlP8oHBtwOZLN9iiPJW3hnJOiRqffQo9JobmAsoSiAmeLea16aGYWuV+UsaN0u5F836Lan9pTIk=
+X-Received: by 10.237.40.2 with SMTP id r2mr5179849qtd.330.1523420957565; Tue,
+ 10 Apr 2018 21:29:17 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.63.197 with HTTP; Tue, 10 Apr 2018 21:28:57 -0700 (PDT)
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 11 Apr 2018 13:58:57 +0930
+X-Google-Sender-Auth: snAXdvfnKMj3O6IebJ8yQgAwFag
+Message-ID: <CACPK8Xe3hpnwzM1mAoYPA4xTdeSi8-bCqyuPH-RJsWP_3wic5w@mail.gmail.com>
+Subject: Re: Upstream NPCM7xx to OpenBMC repository
+To: Tomer Maimon <tomer.maimon@nuvoton.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E72754E5-5580-4D58-B350-3B27AA1DFDE1@fuzziesquirrel.com>
-References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
- <CAARXrtmijD=6aGcxK=q71iGhF4onABfMd5Oi6PG4euyGdFGACQ@mail.gmail.com>
-To: Patrick Venture <venture@google.com>,
- Lei YU <mine260309@gmail.com>
-X-Mailer: Apple Mail (2.3273)
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -41,210 +70,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Apr 2018 03:52:16 -0000
+X-List-Received-Date: Wed, 11 Apr 2018 04:29:21 -0000
 
+Hi Tomer,
 
-> On Apr 9, 2018, at 10:45 PM, Lei YU <mine260309@gmail.com> wrote:
->=20
-> On Tue, Apr 10, 2018 at 6:27 AM, Patrick Venture <venture@google.com> =
-wrote:
->> Everyone,
->>=20
->> I'm working on unit-testing in openbmc, and have cracked most of
->> sdbusplus into mockable pieces and verified I can in fact test =
-against
->> those mocks with a downstream daemon.  I'll be grabbing an upstream
->=20
-> Great! I have tried to make sdbusplus mockable previously, by changing =
-its
-> interfaces virtual, and find out that it is somehow complicated =
-because some
-> of the interfaces return the objects and it's kind of hard to mock =
-things like
-> bus::new_method_call().
-> At that time I discussed this with Patrick Williams and he suggested =
-sdbusplus
-> should be compact and fast, so it's not a good idea to make it =
-virtual.
+On 9 April 2018 at 19:29,  <tomer.maimon@nuvoton.com> wrote:
+> Hi Joel,
+>
+> Commits at Linus tree:
+>
+> MAINTAINERS: Add entry for the Nuvoton NPCM architecture - 6a498e06ba22872d3a27cc0dae77b9314b1de48b
+> arm: npcm: add basic support for Nuvoton BMCs - 7bffa14c9aed5f788d3126271f0fd8758fbd129e
+> arm: dts: add Nuvoton NPCM750 device tree - d6bdd009c21db3f677dd1d1bbb8c20bc819074bc
+> serial: 8250: Add Nuvoton NPCM UART - f597fbce38d230af95384f4a04e0a13a1d0ad45d
+> arm: dts: add watchdog device to NPCM750 device tree - 1c4937eec91426014247b9ae8cb3f04935cd4865
+> arm: dts: modify UART compatible name in NPCM750 device tree - 33a5365900e9cf914cd1d2bdde1457b79b3e9ed9
+> arm: dts: modify timer register size in NPCM750 device tree - 4828b20a0b89efba524eb34b3234d98683dbe108
+> arm: dts: modify clock binding in NPCM750 device tree - 016c366f505f96dce2a4d0e1e9075fe6e0dfad3e
+> arm: dts: modify Makefile NPCM750 configuration name - 82e9f1d1f87d23ae943f8508a720f482bc2de256
+> arm: dts: modify Nuvoton NPCM7xx device tree structure - 518d2f43c358da2072948f64df99b1bd417288dc
+> arm: npcm: modify configuration for the NPCM7xx BMC - cd903711fd9dce808b5cc07e509135886d962b0c
+>
+> clocksource commits:
+>
+> clocksource/drivers/npcm: Add NPCM7xx timer driver - 1c00289ecd12471ba9733e61aaf1d39883a77b16
+> https://git.linaro.org/people/daniel.lezcano/linux.git/commit/?h=clockevents/next&id=1c00289ecd12471ba9733e61aaf1d39883a77b16
+> dt-binding: timer: document NPCM7xx timer DT bindings - ff2969c479d97c6221a9835ee0ab4c44513badc6
+> https://git.linaro.org/people/daniel.lezcano/linux.git/commit/?h=clockevents/next&id=ff2969c479d97c6221a9835ee0ab4c44513badc6
+>
+> WD driver commit:
+>
+> dt-bindings: watchdog: Add Nuvoton NPCM description - cacad4d735c5c2e73a3948b76eb5faa61fbe60cd
+> https://kernel.googlesource.com/pub/scm/linux/kernel/git/groeck/linux-staging/+/cacad4d735c5c2e73a3948b76eb5faa61fbe60cd
+> watchdog: Add Nuvoton NPCM watchdog driver - 71e57e2a025766412a9f3c645d0642c69d7d8c50
+> https://kernel.googlesource.com/pub/scm/linux/kernel/git/groeck/linux-staging/+/71e57e2a025766412a9f3c645d0642c69d7d8c50
+>
+> clock driver patch:
+>
+> dt-binding: clk: npcm750: add binding
+> https://patchwork.kernel.org/patch/10307601/
+> clk: npcm7xx: add clock controller
+> https://patchwork.kernel.org/patch/10307605/
+>
+> Enable L2 cache patch:
+>
+> arm: npcm: enable L2 cache in NPCM7xx architecture
+> https://patchwork.kernel.org/patch/10328339/
 
-FWIW, I agree with Patrick W=E2=80=99s sentiment here.  I=E2=80=99m all =
-for unit tests, but
-un-optimizing existing code so we can use a specific framework in a =
-specific
-way doesn=E2=80=99t sit well with me.
+Thanks. I've merged this list of patches to dev-4.13.
 
-> Later it's found that Brad has some good example of mocking sdbusplus =
-in
-> https://github.com/openbmc/phosphor-dbus-monitor/tree/master/src/test
+I did a build and booted it on my poleg eval board using a FIT image
+and a small initrd:
 
-Yes, I was able to mock sdbusplus with GMock without having to change =
-sdbusplus
-at all.  Patrick, is something like that on the table?  It seems like =
-instead of
-the typical:
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] random: get_random_bytes called from
+start_kernel+0x3c/0x3e4 with crng_init=0
+[    0.000000] Linux version 4.13.16-00270-g8529863ca964 (joel@aurora)
+(gcc version 7.3.0 (Ubuntu/Linaro 7.3.0-15ubuntu2)) #5 Wed Apr 11
+13:40:26 8
+[    0.000000] CPU: ARMv7 Processor [414fc091] revision 1 (ARMv7), cr=18c53c7d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing
+instruction cache
+[    0.000000] OF: fdt: Machine model: Nuvoton npcm750 Development
+Board (Device Tree)
 
-class iface
-{
-    virtual void sdbusplus_foo() =3D 0;
-};
+Congratulations on the hard work you and the team have done this past year.
 
-clase real : public iface
-{
-    void sdbusplus_foo() {}
-};
+Cheers,
 
-class fake : public face
-{
-    MOCKME(sdbusplus_foo);
-};
-
-int main()
-{
-    real r;
-    r.sdbusplus_foo();
-}
-
-void testcase()
-{
-    fake f;
-    EXPECT_BLAH_BLAH();
-    f.sdbusplus_foo();
-}
-
-=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=
-=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94
-we could do:
-
-class real
-{
-    void sdbusplus_foo() {}
-};
-
-class fake
-{
-    MOCKME(sdbusplus_foo);
-};
-
-template <typename T>
-MyClass
-{
-    MyClass(T& interface)
-    {
-        interface.sdbusplus_foo();
-    }
-};
-
-int main()
-{
-    real r;
-    MyClass<real> m(r);
-}
-
-void testcase()
-{
-    fake f;
-    MyClass<fake> m(f);
-}
-=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=
-=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94
-Granted this requires _all_ of our code to be templated, obfuscates what =
-is
-really going on and is all just a bit silly, but from where I sit it =
-isn=E2=80=99t
-any more obfuscated than wrapping every shared library function with an =
-abstract
-interface class _and_ you don=E2=80=99t incur the overhead of doing =
-that.  Am I overlooking
-anything?
-
-I=E2=80=99m only half serious with the proposal.  My real point is I =
-feel like we are
-jumping through hoops to make a unit test framework work despite there =
-being other
-ways of writing unit tests.
-
-Lei - thank you for weighing in.  If this was a poll it would be:
-
-2 in favor of becoming a GMock project at the core.
-1 against
-
-If no-one else speaks up, then I lose :-).  But it would be nice to =
-improve the
-margin of error.
-
-
->=20
-> Hopefully we can get a mockable sdbusplus as a shared library as well!
->=20
->> daemon (or providing a piece of one) to demonstrate how to leverage
->> the mocks to test OpenBMC.  If one designs with testing in mind, the
->> designs come out very differently if not, and so getting unit-tests
->> throughout OpenBMC will be a lot of breaking things apart into
->> testable pieces.  Anyways, where I'm going with this email is that
->> everything we do within a daemon needs to be something that can be
->> mocked -- basically.
->>=20
->> ***
->> What do I mean specifically?  Consider, file access.  If a daemon
->> routes all file accesses throug a common object implementation
->> provided by a shared library, that shared library can easily also
->> provide a mock interface for those accesses, such that one can easily
->> verify behaviors based on file contents without implementing local
->> files or trying to inject errors.  With a mock's file system
->> interface, you can simply say that a file was unable to be read, or
->> written, or opened, etc.  Another example is mocking ctime.  If you
->> want to test whether something happens after some sleep or period, if
->> your code can receive a mock version of that library, one can
->> deliberately control the results of 'time' or 'difftime', etc.  I =
-have
->> to build these interfaces for some of our downstream daemons and
->> likely for other parts of OpenBMC, and to avoid code duplication =
-it'll
->> help to have them in some library.
->>=20
->> YASL (yet-another-shared-library) Request.
->>=20
->> Previous conversations along these lines lead to the idea that we =
-need
->> multiple new libraries for various things.  So, this is yet another
->> use case.  The library itself should be written in such a way that it
->> can be tested via unit-tests, but depending on how thin of a shim it
->> is, that isn't always practical.  See:
->>=20
->> class FileInterface {
->>  public:
->>     virtual int open(const char *filename, int flags) =3D 0;
->> };
->>=20
->> class FileImplementation : public FileInterface {
->>  public:
->>    int open(const char *filename, int flags) override {
->>        return ::open(filename, flags);
->>    }
->> };
->>=20
->> class FileMock : public FileInterface {
->>   public:
->>     MOCK_METHOD2(open, int(const char *, int));
->> };
->>=20
->> .... then one just uses the FileInterface for their normally direct
->> posix-style file access.  This can easily wrap iostream, or fstream,
->> or anything.  And then if we provide some libraries for use by
->> daemons, they can transition over to them over time, and then they =
-get
->> mocks for free :D  For a daemon downstream, I've written a ctime
->> wrapper, I'll submit it for consideration later tonight along with a
->> few other things, and then I'll reply to this email with links.
->>=20
->=20
-> So this library would contain several interfaces classes (e.g. =
-FileInterface,
-> TimeInterface, and hopefully SdbusplusInterface etc) all together, =
-right?
-> I vote for it!
->=20
->> ***Not meant as a unit-test primer, just trying to provide some real =
-examples.
->>=20
->> Patrick
+Joel
