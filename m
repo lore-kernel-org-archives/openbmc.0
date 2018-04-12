@@ -1,73 +1,40 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40M8gL6r87zDrDT
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 15:32:30 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3C5TUtR002089
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 01:32:26 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ha044akts-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 01:32:26 -0400
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Thu, 12 Apr 2018 01:32:25 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 12 Apr 2018 01:32:24 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w3C5WNxR54919388; Thu, 12 Apr 2018 05:32:23 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 172AC28041;
- Thu, 12 Apr 2018 01:31:47 -0400 (EDT)
-Received: from birb.localdomain (unknown [9.102.48.110])
- by b01ledav001.gho.pok.ibm.com (Postfix) with SMTP id 0D8452803A;
- Thu, 12 Apr 2018 01:31:45 -0400 (EDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 061024EC648; Thu, 12 Apr 2018 15:32:18 +1000 (AEST)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Alexander Amelkin <a.amelkin@yadro.com>, openbmc@lists.ozlabs.org,
- Timothy Pearson <tpearson@raptorengineering.com>
-Subject: Re: Parse PELs sent by OpenPOWER host firmware
-In-Reply-To: <4467ab37-c09e-c09c-306c-3447c651bf7f@yadro.com>
-References: <2815fac8-3a1f-d2ed-3c3d-ca7072de9db2@linux.vnet.ibm.com>
- <87vadzo5lj.fsf@linux.vnet.ibm.com>
- <4467ab37-c09e-c09c-306c-3447c651bf7f@yadro.com>
-Date: Thu, 12 Apr 2018 15:32:17 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40MCrG4BrzzDrDT;
+ Thu, 12 Apr 2018 17:55:25 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2018 00:55:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.48,440,1517904000"; d="scan'208";a="33083420"
+Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.239.196.139])
+ ([10.239.196.139])
+ by orsmga008.jf.intel.com with ESMTP; 12 Apr 2018 00:55:21 -0700
+Subject: Re: openbmc Digest, Vol 32, Issue 32
+To: openbmc@lists.ozlabs.org, openbmc-request@lists.ozlabs.org,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ benh@kernel.crashing.org
+References: <mailman.355.1523511154.2391.openbmc@lists.ozlabs.org>
+From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
+Message-ID: <45b6959c-5743-744f-d4d6-4f40984f1323@linux.intel.com>
+Date: Thu, 12 Apr 2018 15:55:20 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.7.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18041205-0024-0000-0000-000003454411
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008841; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000256; SDB=6.01016672; UDB=6.00518490; IPR=6.00795909; 
- MB=3.00020530; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-12 05:32:25
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18041205-0025-0000-0000-000047A0CBA2
-Message-Id: <877epdj8gu.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-12_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=2 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804120056
+In-Reply-To: <mailman.355.1523511154.2391.openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,57 +46,134 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Apr 2018 05:32:31 -0000
+X-List-Received-Date: Thu, 12 Apr 2018 07:55:27 -0000
 
-Alexander Amelkin <a.amelkin@yadro.com> writes:
-> 14.03.2018 03:36, Stewart Smith wrote:
->> Deepak Kodihalli <dkodihal@linux.vnet.ibm.com> writes:
->>> The SELs/eSELs (System Event Log) that OpenBMC receives from 
->>> hostboot/skiboot today are not interpreted, and are dumped as-is in a 
->>> property of the error log D-Bus object. This means that if there's a PEL 
->>> (Platform Event Log) hidden in the eSEL, admins/users of the error log 
->>> need to depend on external tools to parse the PEL to human readable
->>> text.
->> My lack of love for PELs is probably fairly well known, but even if we
->> replace them down the line, I think there's opportunity here for making
->> things better for users (including myself).
+Hi Andrew,
+
+Facebook uses the 'devmem' utility and python script to implement the 
+soc register
+
+read and write in a simple way. And the yocto layer is also very clear 
+like different
+
+chip vendor and common parts.
+
+
+Kernel device tree upstream is also very slow, we needs two parts 
+(device tree + user app)
+
+to finish the soc setting. But Facebook just uses user app, this 
+development is fast, and
+
+simple is the best.
+
+
+Well, just for sharing what I found, I may misunderstood the BIG idea 
+after this kernel
+
+patch design. :-)
+
+
+soc_gpio_table = {
+
+	'A10': [
+
+	Function('SDA3', BitsEqual(0x90, [16], 0x1)),
+
+	Function('GPIOQ1', None)
+
+	],
+
+	'A11': [
+
+	Function('SCL3', BitsEqual(0x90, [16], 0x1)),
+
+	Function('GPIOQ0', None)
+
+	],
+
+https://github.com/facebook/openbmc/blob/helium/common/recipes-utils/openbmc-gpio/files/openbmc-gpio-1/phymemory.py
+
+https://github.com/facebook/openbmc/blob/helium/meta-aspeed/recipes-utils/ast-mdio/files/ast-mdio.py
+
+https://github.com/facebook/openbmc/blob/helium/meta-aspeed/recipes-utils/openbmc-gpio/files/openbmc-gpio-1/ast2500_gpio_table.py
+
+
+BR,
+
+Haiyue
+
+
+On 2018-04-12 13:32, openbmc-request@lists.ozlabs.org wrote:
+> Message: 1
+> Date: Thu, 12 Apr 2018 13:21:43 +0930
+> From: Andrew Jeffery<andrew@aj.id.au>
+> To:openbmc@lists.ozlabs.org
+> Cc: Andrew Jeffery<andrew@aj.id.au>,joel@jms.id.au,jk@ozlabs.org,
+> 	benh@kernel.crashing.org
+> Subject: [RFC PATCH linux dev-4.13 1/3] soc: aspeed: Miscellaneous
+> 	control interfaces
+> Message-ID:<20180412035145.21488-2-andrew@aj.id.au>
 >
-> Just my 2 cents. The IPMI-standardized SELs are good first of all
-> because of IPMI-standardized PEFs and PETs.
+> The ASPEED BMC SoCs have many knobs and switches that are sometimes
+> design-specific and often defy any approach to unify them under an
+> existing subsystem.
 >
-> Being able to decode the OEM SEL records is not just convenient for the
-> users, but will also let them easily attach PEFs to such events if they
-> want to. That's of course when PEFs are supported in OpenBMC which is
-> currently not true, AFAIK.
+> Add a driver to translate a devicetree table into sysfs entries to
+> expose bits and fields for manipulation from userspace. This encompasses
+> concepts from scratch registers to boolean conditions to enable or
+> disable host interface features.
 >
-> As a maintainer of ipmitool I can promise to promptly include the
-> OpenPOWER event record decoder into ipmitool upstream code. All I need
-> is the information on how to decode those events. So far I'm planning to
-> try and deduce this information from hostboot and opal sources.
-
-(Adding in Tim from Raptor as we were talking about this yesterday)
-
-There's opal-elog-parse, which is part of ppc64-diag, and there's
-https://github.com/open-power/libopalevents which is a quite
-bitrotted attempt to turn parsing it into a shared library rather than
-just a binary.
-
-there's also a (internal but in the process of being open sourced)
-implementation called 'errl' which is what has shipped on IBM FSP
-systems forever (but that for whatever reason we ended up doing
-opal-elog-parse rather than open sourcing it back in 2014).
-
-From hostboot, ./src/build/debug/eSEL.pl is the script that extracts
-things from the BMC IIRC.
-
-Now, there *is* a spec for the Platfrom Error Log format, which I have
-previously tried to get out into the open... so I encourage you to find
-all your IBM contacts and bug them about it.
-
-That being said, I'm not convinced PEL is the right thing to continue to
-exist. It's Yet Another Custom Binary Format, and there's probably
-enough of those in the world as it is.
-
--- 
-Stewart Smith
-OPAL Architect, IBM.
+> Signed-off-by: Andrew Jeffery<andrew@aj.id.au>
+> ---
+>   drivers/soc/Kconfig                  |   1 +
+>   drivers/soc/Makefile                 |   1 +
+>   drivers/soc/aspeed/Kconfig           |  11 +++
+>   drivers/soc/aspeed/Makefile          |   1 +
+>   drivers/soc/aspeed/aspeed-bmc-misc.c | 187 +++++++++++++++++++++++++++++++++++
+>   5 files changed, 201 insertions(+)
+>   create mode 100644 drivers/soc/aspeed/Kconfig
+>   create mode 100644 drivers/soc/aspeed/Makefile
+>   create mode 100644 drivers/soc/aspeed/aspeed-bmc-misc.c
+>
+> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+> index 07fc0ac51c52..776fd5978f70 100644
+> --- a/drivers/soc/Kconfig
+> +++ b/drivers/soc/Kconfig
+> @@ -1,6 +1,7 @@
+>   menu "SOC (System On Chip) specific Drivers"
+>   
+>   source "drivers/soc/actions/Kconfig"
+> +source "drivers/soc/aspeed/Kconfig"
+>   source "drivers/soc/atmel/Kconfig"
+>   source "drivers/soc/bcm/Kconfig"
+>   source "drivers/soc/fsl/Kconfig"
+> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+> index 9241125416ba..94a5b97c4466 100644
+> --- a/drivers/soc/Makefile
+> +++ b/drivers/soc/Makefile
+> @@ -3,6 +3,7 @@
+>   #
+>   
+>   obj-$(CONFIG_ARCH_ACTIONS)	+= actions/
+> +obj-$(CONFIG_ARCH_ASPEED)       += aspeed/
+>   obj-$(CONFIG_ARCH_AT91)		+= atmel/
+>   obj-y				+= bcm/
+>   obj-$(CONFIG_ARCH_DOVE)		+= dove/
+> diff --git a/drivers/soc/aspeed/Kconfig b/drivers/soc/aspeed/Kconfig
+> new file mode 100644
+> index 000000000000..704a4efe180f
+> --- /dev/null
+> +++ b/drivers/soc/aspeed/Kconfig
+> @@ -0,0 +1,11 @@
+> +menu "ASPEED SoC drivers"
+> +
+> +config ASPEED_BMC_MISC
+> +	bool "Miscellaneous ASPEED BMC interfaces"
+> +	depends on ARCH_ASPEED || COMPILE_TEST
+> +	default ARCH_ASPEED
+> +	help
+> +	  Say yes to expose VGA and LPC scratch registers, and other
+> +	  miscellaneous control interfaces specific to the ASPEED BMC SoCs
+> +
+> +endmenu
