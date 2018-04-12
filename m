@@ -1,90 +1,61 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::241; helo=mail-ot0-x241.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="W+rkVo2W"; 
- dkim-atps=neutral
-Received: from mail-ot0-x241.google.com (mail-ot0-x241.google.com
- [IPv6:2607:f8b0:4003:c0f::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40M23Q6tRKzF1S4
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 10:34:26 +1000 (AEST)
-Received: by mail-ot0-x241.google.com with SMTP id j8-v6so4092055ota.7
- for <openbmc@lists.ozlabs.org>; Wed, 11 Apr 2018 17:34:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WxZIuKM8G0v5SaI3pEKEe5D4cTsyKpmfzO6g7PADJ6w=;
- b=W+rkVo2Wl2rOTeA94UW1e6kvnQath3w7piPg3FHZfojNzilzNGmFJGnthNk3yfnOV/
- uTQNlb3D8x3s9GT7pPhHsz0JW1uAIsnWI5bMr4N8PJKqeIsG+8BoYOtiF0hPxbXpy0/2
- 0/PRyWZc4yC+J+8NqJmk7XsofD5vcTamnW/93XT7LT0FEJVQQQ1pdFAHk2y99+Pl07zr
- XUGeZtn4A6SG6K9pSLpRNNB0r0exZqwwgSCTUTcDqtx93yiN/Rljjr2AHwtoYZtvcsMY
- 2ZYRLAzt6R5RIno2bIw3nhxVovccoOBylPfgmcUjXzJ0I7/LH4ZFgUmeXVikJAINSZYx
- 84IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=WxZIuKM8G0v5SaI3pEKEe5D4cTsyKpmfzO6g7PADJ6w=;
- b=JL3zwR4HktGaJOii1tlZLKbGnhVNQXD0/IUlpt1j+wP4DnFgbmoJm03pdbUYb5mbk9
- iEsJnO+K8I30nBODCzDgNE8W9Tcvs9ZwM5DpmLSrMdE3WwHTCrMxsVDJCFUsRR+qZzlj
- WF0UpAe7CTBmrN7/VWmVCBVoWWIExtM/4zVgzKshYZoOi0zO18fo8ct5Wba8IhYLeOhC
- EjpQsBL6WM0oEedr+S2QUbNROBsy9M0uKVc1a3gwDrP09neZIs5UxzE1ZeqpA4IxZJ3s
- c++XGM4NGFq8z52gY61YNoaOyV3IfluQ8JvxhEZFhfzUu7so9R76wQzczKQ33jWy1Ykv
- YoFw==
-X-Gm-Message-State: ALQs6tAbOoA6KLyAMsJxUsp2cF5tJ6AYGeDOFwQrTKItKgGin4YSQ16V
- V+myXQpg9vW9lhz2pl48/ZpY3g==
-X-Google-Smtp-Source: AIpwx4+jrtR2qdyfgP99+89SGaHFckx4ctO7KoVMg2aZaDaI+niQ32A7zDQ/ejdYseOKEnTpIiXurw==
-X-Received: by 2002:a9d:3cc3:: with SMTP id
- t3-v6mr4818886otf.297.1523493263887; 
- Wed, 11 Apr 2018 17:34:23 -0700 (PDT)
-Received: from server.roeck-us.net
- (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id m35-v6sm1576844otb.74.2018.04.11.17.34.20
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 11 Apr 2018 17:34:22 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH v3 09/10] drivers/hwmon: Add PECI hwmon client drivers
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40M43Y4jvqzF1SM
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 12:04:41 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2018 19:04:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.48,439,1517904000"; d="scan'208";a="36570139"
+Received: from ifreitas-mobl.amr.corp.intel.com (HELO [10.254.104.117])
+ ([10.254.104.117])
+ by fmsmga002.fm.intel.com with ESMTP; 11 Apr 2018 19:03:58 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH v3 06/10] drivers/peci: Add a PECI adapter driver for
+ Aspeed AST24xx/AST25xx
+To: Joel Stanley <joel@jms.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>
 Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
  Andrew Lunn <andrew@lunn.ch>, Andy Shevchenko <andriy.shevchenko@intel.com>,
  Arnd Bergmann <arnd@arndb.de>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Fengguang Wu <fengguang.wu@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
- Haiyue Wang <haiyue.wang@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
+ Guenter Roeck <linux@roeck-us.net>, Haiyue Wang
+ <haiyue.wang@linux.intel.com>, James Feist <james.feist@linux.intel.com>,
  Jason M Biils <jason.m.bills@linux.intel.com>,
- Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
- Julia Cartwright <juliac@eso.teric.us>,
+ Jean Delvare <jdelvare@suse.com>, Julia Cartwright <juliac@eso.teric.us>,
  Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>,
  Randy Dunlap <rdunlap@infradead.org>,
  Stef van Os <stef.van.os@prodrive-technologies.com>,
  Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- openbmc@lists.ozlabs.org
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, devicetree <devicetree@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, Linux ARM
+ <linux-arm-kernel@lists.infradead.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
- <20180410183212.16787-10-jae.hyun.yoo@linux.intel.com>
- <20180410222800.GA8484@roeck-us.net>
- <637d7812-e567-0bc2-4f08-fbdca0ee85d8@linux.intel.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <292be2d9-e572-2e06-9899-f6c2c53fdefc@roeck-us.net>
-Date: Wed, 11 Apr 2018 17:34:19 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.7.0
+ <20180410183212.16787-7-jae.hyun.yoo@linux.intel.com>
+ <CACPK8XdODUEZNZCkSe+Aq4xdptfhfE=ureUL_v7TgR7w+rMznw@mail.gmail.com>
+Message-ID: <403a2f61-cd93-70cd-84e9-6cfc53af667d@linux.intel.com>
+Date: Wed, 11 Apr 2018 19:03:57 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <637d7812-e567-0bc2-4f08-fbdca0ee85d8@linux.intel.com>
+In-Reply-To: <CACPK8XdODUEZNZCkSe+Aq4xdptfhfE=ureUL_v7TgR7w+rMznw@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -96,1560 +67,722 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Apr 2018 00:34:28 -0000
+X-List-Received-Date: Thu, 12 Apr 2018 02:04:42 -0000
 
-On 04/11/2018 02:59 PM, Jae Hyun Yoo wrote:
-> Hi Guenter,
+Hello Joel,
+
+Thanks for sharing your time. Please see my answers inline.
+
+On 4/11/2018 4:51 AM, Joel Stanley wrote:
+> Hello Jae,
 > 
-> Thanks a lot for sharing your time. Please see my inline answers.
+> On 11 April 2018 at 04:02, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>> This commit adds PECI adapter driver implementation for Aspeed
+>> AST24xx/AST25xx.
 > 
-> On 4/10/2018 3:28 PM, Guenter Roeck wrote:
->> On Tue, Apr 10, 2018 at 11:32:11AM -0700, Jae Hyun Yoo wrote:
->>> This commit adds PECI cputemp and dimmtemp hwmon drivers.
->>>
->>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->>> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
->>> Reviewed-by: James Feist <james.feist@linux.intel.com>
->>> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
->>> Cc: Alan Cox <alan@linux.intel.com>
->>> Cc: Andrew Jeffery <andrew@aj.id.au>
->>> Cc: Andrew Lunn <andrew@lunn.ch>
->>> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
->>> Cc: Arnd Bergmann <arnd@arndb.de>
->>> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
->>> Cc: Fengguang Wu <fengguang.wu@intel.com>
->>> Cc: Greg KH <gregkh@linuxfoundation.org>
->>> Cc: Guenter Roeck <linux@roeck-us.net>
->>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->>> Cc: Jean Delvare <jdelvare@suse.com>
->>> Cc: Joel Stanley <joel@jms.id.au>
->>> Cc: Julia Cartwright <juliac@eso.teric.us>
->>> Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
->>> Cc: Milton Miller II <miltonm@us.ibm.com>
->>> Cc: Pavel Machek <pavel@ucw.cz>
->>> Cc: Randy Dunlap <rdunlap@infradead.org>
->>> Cc: Stef van Os <stef.van.os@prodrive-technologies.com>
->>> Cc: Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>
->>> ---
->>>   drivers/hwmon/Kconfig         |  28 ++
->>>   drivers/hwmon/Makefile        |   2 +
->>>   drivers/hwmon/peci-cputemp.c  | 783 ++++++++++++++++++++++++++++++++++++++++++
->>>   drivers/hwmon/peci-dimmtemp.c | 432 +++++++++++++++++++++++
->>>   4 files changed, 1245 insertions(+)
->>>   create mode 100644 drivers/hwmon/peci-cputemp.c
->>>   create mode 100644 drivers/hwmon/peci-dimmtemp.c
->>>
->>> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
->>> index f249a4428458..c52f610f81d0 100644
->>> --- a/drivers/hwmon/Kconfig
->>> +++ b/drivers/hwmon/Kconfig
->>> @@ -1259,6 +1259,34 @@ config SENSORS_NCT7904
->>>         This driver can also be built as a module.  If so, the module
->>>         will be called nct7904.
->>> +config SENSORS_PECI_CPUTEMP
->>> +    tristate "PECI CPU temperature monitoring support"
->>> +    depends on OF
->>> +    depends on PECI
->>> +    help
->>> +      If you say yes here you get support for the generic Intel PECI
->>> +      cputemp driver which provides Digital Thermal Sensor (DTS) thermal
->>> +      readings of the CPU package and CPU cores that are accessible using
->>> +      the PECI Client Command Suite via the processor PECI client.
->>> +      Check Documentation/hwmon/peci-cputemp for details.
->>> +
->>> +      This driver can also be built as a module.  If so, the module
->>> +      will be called peci-cputemp.
->>> +
->>> +config SENSORS_PECI_DIMMTEMP
->>> +    tristate "PECI DIMM temperature monitoring support"
->>> +    depends on OF
->>> +    depends on PECI
->>> +    help
->>> +      If you say yes here you get support for the generic Intel PECI hwmon
->>> +      driver which provides Digital Thermal Sensor (DTS) thermal readings of
->>> +      DIMM components that are accessible using the PECI Client Command
->>> +      Suite via the processor PECI client.
->>> +      Check Documentation/hwmon/peci-dimmtemp for details.
->>> +
->>> +      This driver can also be built as a module.  If so, the module
->>> +      will be called peci-dimmtemp.
->>> +
->>>   config SENSORS_NSA320
->>>       tristate "ZyXEL NSA320 and compatible fan speed and temperature sensors"
->>>       depends on GPIOLIB && OF
->>> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
->>> index e7d52a36e6c4..48d9598fcd3a 100644
->>> --- a/drivers/hwmon/Makefile
->>> +++ b/drivers/hwmon/Makefile
->>> @@ -136,6 +136,8 @@ obj-$(CONFIG_SENSORS_NCT7802)    += nct7802.o
->>>   obj-$(CONFIG_SENSORS_NCT7904)    += nct7904.o
->>>   obj-$(CONFIG_SENSORS_NSA320)    += nsa320-hwmon.o
->>>   obj-$(CONFIG_SENSORS_NTC_THERMISTOR)    += ntc_thermistor.o
->>> +obj-$(CONFIG_SENSORS_PECI_CPUTEMP)    += peci-cputemp.o
->>> +obj-$(CONFIG_SENSORS_PECI_DIMMTEMP)    += peci-dimmtemp.o
->>>   obj-$(CONFIG_SENSORS_PC87360)    += pc87360.o
->>>   obj-$(CONFIG_SENSORS_PC87427)    += pc87427.o
->>>   obj-$(CONFIG_SENSORS_PCF8591)    += pcf8591.o
->>> diff --git a/drivers/hwmon/peci-cputemp.c b/drivers/hwmon/peci-cputemp.c
->>> new file mode 100644
->>> index 000000000000..f0bc92687512
->>> --- /dev/null
->>> +++ b/drivers/hwmon/peci-cputemp.c
->>> @@ -0,0 +1,783 @@
->>> +// SPDX-License-Identifier: GPL-2.0
->>> +// Copyright (c) 2018 Intel Corporation
->>> +
->>> +#include <linux/delay.h>
->>> +#include <linux/hwmon.h>
->>> +#include <linux/hwmon-sysfs.h>
->>
->> Is this include needed ?
->>
+> The driver is looking good!
 > 
-> No it isn't. Will drop the line.
+> It looks like you've done some kind of review that we weren't allowed
+> to see, which is a double edged sword - I might be asking about things
+> that you've already spoken about with someone else.
 > 
->>> +#include <linux/jiffies.h>
->>> +#include <linux/module.h>
->>> +#include <linux/of_device.h>
->>> +#include <linux/peci.h>
->>> +
->>> +#define TEMP_TYPE_PECI        6  /* Sensor type 6: Intel PECI */
->>> +
->>> +#define CORE_MAX_ON_HSX       18 /* Max number of cores on Haswell */
->>> +#define CORE_MAX_ON_BDX       24 /* Max number of cores on Broadwell */
->>> +#define CORE_MAX_ON_SKX       28 /* Max number of cores on Skylake */
->>> +
->>> +#define DEFAULT_CHANNEL_NUMS  5
->>> +#define CORETEMP_CHANNEL_NUMS CORE_MAX_ON_SKX
->>> +#define CPUTEMP_CHANNEL_NUMS  (DEFAULT_CHANNEL_NUMS + CORETEMP_CHANNEL_NUMS)
->>> +
->>> +#define CLIENT_CPU_ID_MASK    0xf0ff0  /* Mask for Family / Model info */
->>> +
->>> +#define UPDATE_INTERVAL_MIN   HZ
->>> +
->>> +enum cpu_gens {
->>> +    CPU_GEN_HSX, /* Haswell Xeon */
->>> +    CPU_GEN_BRX, /* Broadwell Xeon */
->>> +    CPU_GEN_SKX, /* Skylake Xeon */
->>> +    CPU_GEN_MAX
->>> +};
->>> +
->>> +struct cpu_gen_info {
->>> +    u32 type;
->>> +    u32 cpu_id;
->>> +    u32 core_max;
->>> +};
->>> +
->>> +struct temp_data {
->>> +    bool valid;
->>> +    s32  value;
->>> +    unsigned long last_updated;
->>> +};
->>> +
->>> +struct temp_group {
->>> +    struct temp_data die;
->>> +    struct temp_data dts_margin;
->>> +    struct temp_data tcontrol;
->>> +    struct temp_data tthrottle;
->>> +    struct temp_data tjmax;
->>> +    struct temp_data core[CORETEMP_CHANNEL_NUMS];
->>> +};
->>> +
->>> +struct peci_cputemp {
->>> +    struct peci_client *client;
->>> +    struct device *dev;
->>> +    char name[PECI_NAME_SIZE];
->>> +    struct temp_group temp;
->>> +    u8 addr;
->>> +    uint cpu_no;
->>> +    const struct cpu_gen_info *gen_info;
->>> +    u32 core_mask;
->>> +    u32 temp_config[CPUTEMP_CHANNEL_NUMS + 1];
->>> +    uint config_idx;
->>> +    struct hwmon_channel_info temp_info;
->>> +    const struct hwmon_channel_info *info[2];
->>> +    struct hwmon_chip_info chip;
->>> +};
->>> +
->>> +enum cputemp_channels {
->>> +    channel_die,
->>> +    channel_dts_mrgn,
->>> +    channel_tcontrol,
->>> +    channel_tthrottle,
->>> +    channel_tjmax,
->>> +    channel_core,
->>> +};
->>> +
->>> +static const struct cpu_gen_info cpu_gen_info_table[] = {
->>> +    { .type = CPU_GEN_HSX,
->>> +      .cpu_id = 0x306f0, /* Family code: 6, Model number: 63 (0x3f) */
->>> +      .core_max = CORE_MAX_ON_HSX },
->>> +    { .type = CPU_GEN_BRX,
->>> +      .cpu_id = 0x406f0, /* Family code: 6, Model number: 79 (0x4f) */
->>> +      .core_max = CORE_MAX_ON_BDX },
->>> +    { .type = CPU_GEN_SKX,
->>> +      .cpu_id = 0x50650, /* Family code: 6, Model number: 85 (0x55) */
->>> +      .core_max = CORE_MAX_ON_SKX },
->>> +};
->>> +
->>> +static const u32 config_table[DEFAULT_CHANNEL_NUMS + 1] = {
->>> +    /* Die temperature */
->>> +    HWMON_T_LABEL | HWMON_T_INPUT | HWMON_T_MAX | HWMON_T_CRIT |
->>> +    HWMON_T_CRIT_HYST,
->>> +
->>> +    /* DTS margin temperature */
->>> +    HWMON_T_LABEL | HWMON_T_INPUT | HWMON_T_MIN | HWMON_T_LCRIT,
->>> +
->>> +    /* Tcontrol temperature */
->>> +    HWMON_T_LABEL | HWMON_T_INPUT | HWMON_T_CRIT,
->>> +
->>> +    /* Tthrottle temperature */
->>> +    HWMON_T_LABEL | HWMON_T_INPUT,
->>> +
->>> +    /* Tjmax temperature */
->>> +    HWMON_T_LABEL | HWMON_T_INPUT,
->>> +
->>> +    /* Core temperature - for all core channels */
->>> +    HWMON_T_LABEL | HWMON_T_INPUT | HWMON_T_MAX | HWMON_T_CRIT |
->>> +    HWMON_T_CRIT_HYST,
->>> +};
->>> +
->>> +static const char *cputemp_label[CPUTEMP_CHANNEL_NUMS] = {
->>> +    "Die",
->>> +    "DTS margin",
->>> +    "Tcontrol",
->>> +    "Tthrottle",
->>> +    "Tjmax",
->>> +    "Core 0", "Core 1", "Core 2", "Core 3",
->>> +    "Core 4", "Core 5", "Core 6", "Core 7",
->>> +    "Core 8", "Core 9", "Core 10", "Core 11",
->>> +    "Core 12", "Core 13", "Core 14", "Core 15",
->>> +    "Core 16", "Core 17", "Core 18", "Core 19",
->>> +    "Core 20", "Core 21", "Core 22", "Core 23",
->>> +};
->>> +
->>> +static int send_peci_cmd(struct peci_cputemp *priv,
->>> +             enum peci_cmd cmd,
->>> +             void *msg)
->>> +{
->>> +    return peci_command(priv->client->adapter, cmd, msg);
->>> +}
->>> +
->>> +static int need_update(struct temp_data *temp)
->>
->> Please use bool.
->>
-> 
-> Okay. I'll use bool instead of int.
-> 
->>> +{
->>> +    if (temp->valid &&
->>> +        time_before(jiffies, temp->last_updated + UPDATE_INTERVAL_MIN))
->>> +        return 0;
->>> +
->>> +    return 1;
->>> +}
->>> +
->>> +static void mark_updated(struct temp_data *temp)
->>> +{
->>> +    temp->valid = true;
->>> +    temp->last_updated = jiffies;
->>> +}
->>> +
->>> +static s32 ten_dot_six_to_millidegree(s32 val)
->>> +{
->>> +    return ((val ^ 0x8000) - 0x8000) * 1000 / 64;
->>> +}
->>> +
->>> +static int get_tjmax(struct peci_cputemp *priv)
->>> +{
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    int rc;
->>> +
->>> +    if (!priv->temp.tjmax.valid) {
->>> +        msg.addr = priv->addr;
->>> +        msg.index = MBX_INDEX_TEMP_TARGET;
->>> +        msg.param = 0;
->>> +        msg.rx_len = 4;
->>> +
->>> +        rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        priv->temp.tjmax.value = (s32)msg.pkg_config[2] * 1000;
->>> +        priv->temp.tjmax.valid = true;
->>> +    }
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int get_tcontrol(struct peci_cputemp *priv)
->>> +{
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    s32 tcontrol_margin;
->>> +    s32 tthrottle_offset;
->>> +    int rc;
->>> +
->>> +    if (!need_update(&priv->temp.tcontrol))
->>> +        return 0;
->>> +
->>> +    rc = get_tjmax(priv);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    msg.addr = priv->addr;
->>> +    msg.index = MBX_INDEX_TEMP_TARGET;
->>> +    msg.param = 0;
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    tcontrol_margin = msg.pkg_config[1];
->>> +    tcontrol_margin = ((tcontrol_margin ^ 0x80) - 0x80) * 1000;
->>> +    priv->temp.tcontrol.value = priv->temp.tjmax.value - tcontrol_margin;
->>> +
->>> +    tthrottle_offset = (msg.pkg_config[3] & 0x2f) * 1000;
->>> +    priv->temp.tthrottle.value = priv->temp.tjmax.value - tthrottle_offset;
->>> +
->>> +    mark_updated(&priv->temp.tcontrol);
->>> +    mark_updated(&priv->temp.tthrottle);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int get_tthrottle(struct peci_cputemp *priv)
->>> +{
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    s32 tcontrol_margin;
->>> +    s32 tthrottle_offset;
->>> +    int rc;
->>> +
->>> +    if (!need_update(&priv->temp.tthrottle))
->>> +        return 0;
->>> +
->>> +    rc = get_tjmax(priv);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    msg.addr = priv->addr;
->>> +    msg.index = MBX_INDEX_TEMP_TARGET;
->>> +    msg.param = 0;
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    tthrottle_offset = (msg.pkg_config[3] & 0x2f) * 1000;
->>> +    priv->temp.tthrottle.value = priv->temp.tjmax.value - tthrottle_offset;
->>> +
->>> +    tcontrol_margin = msg.pkg_config[1];
->>> +    tcontrol_margin = ((tcontrol_margin ^ 0x80) - 0x80) * 1000;
->>> +    priv->temp.tcontrol.value = priv->temp.tjmax.value - tcontrol_margin;
->>> +
->>> +    mark_updated(&priv->temp.tthrottle);
->>> +    mark_updated(&priv->temp.tcontrol);
->>> +
->>> +    return 0;
->>> +}
->>
->> I am quite completely missing how the two functions above are different.
->>
-> 
-> The two above functions are slightly different but uses the same PECI command which provides both Tthrottle and Tcontrol values in pkg_config array so it updates the values to reduce duplicate PECI transactions. Probably, combining these two functions into get_ttrottle_and_tcontrol() would look better. I'll rewrite it.
-> 
->>> +
->>> +static int get_die_temp(struct peci_cputemp *priv)
->>> +{
->>> +    struct peci_get_temp_msg msg;
->>> +    int rc;
->>> +
->>> +    if (!need_update(&priv->temp.die))
->>> +        return 0;
->>> +
->>> +    rc = get_tjmax(priv);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    msg.addr = priv->addr;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_GET_TEMP, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    priv->temp.die.value = priv->temp.tjmax.value +
->>> +                   ((s32)msg.temp_raw * 1000 / 64);
->>> +
->>> +    mark_updated(&priv->temp.die);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int get_dts_margin(struct peci_cputemp *priv)
->>> +{
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    s32 dts_margin;
->>> +    int rc;
->>> +
->>> +    if (!need_update(&priv->temp.dts_margin))
->>> +        return 0;
->>> +
->>> +    msg.addr = priv->addr;
->>> +    msg.index = MBX_INDEX_DTS_MARGIN;
->>> +    msg.param = 0;
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    dts_margin = (msg.pkg_config[1] << 8) | msg.pkg_config[0];
->>> +
->>> +    /**
->>> +     * Processors return a value of DTS reading in 10.6 format
->>> +     * (10 bits signed decimal, 6 bits fractional).
->>> +     * Error codes:
->>> +     *   0x8000: General sensor error
->>> +     *   0x8001: Reserved
->>> +     *   0x8002: Underflow on reading value
->>> +     *   0x8003-0x81ff: Reserved
->>> +     */
->>> +    if (dts_margin >= 0x8000 && dts_margin <= 0x81ff)
->>> +        return -EIO;
->>> +
->>> +    dts_margin = ten_dot_six_to_millidegree(dts_margin);
->>> +
->>> +    priv->temp.dts_margin.value = dts_margin;
->>> +
->>> +    mark_updated(&priv->temp.dts_margin);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int get_core_temp(struct peci_cputemp *priv, int core_index)
->>> +{
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    s32 core_dts_margin;
->>> +    int rc;
->>> +
->>> +    if (!need_update(&priv->temp.core[core_index]))
->>> +        return 0;
->>> +
->>> +    rc = get_tjmax(priv);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    msg.addr = priv->addr;
->>> +    msg.index = MBX_INDEX_PER_CORE_DTS_TEMP;
->>> +    msg.param = core_index;
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    core_dts_margin = (msg.pkg_config[1] << 8) | msg.pkg_config[0];
->>> +
->>> +    /**
->>> +     * Processors return a value of the core DTS reading in 10.6 format
->>> +     * (10 bits signed decimal, 6 bits fractional).
->>> +     * Error codes:
->>> +     *   0x8000: General sensor error
->>> +     *   0x8001: Reserved
->>> +     *   0x8002: Underflow on reading value
->>> +     *   0x8003-0x81ff: Reserved
->>> +     */
->>> +    if (core_dts_margin >= 0x8000 && core_dts_margin <= 0x81ff)
->>> +        return -EIO;
->>> +
->>> +    core_dts_margin = ten_dot_six_to_millidegree(core_dts_margin);
->>> +
->>> +    priv->temp.core[core_index].value = priv->temp.tjmax.value +
->>> +                        core_dts_margin;
->>> +
->>> +    mark_updated(&priv->temp.core[core_index]);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>
->> There is a lot of duplication in those functions. Would it be possible
->> to find common code and use functions for it instead of duplicating
->> everything several times ?
->>
-> 
-> Are you pointing out this code?
-> /**
->   * Processors return a value of the core DTS reading in 10.6 format
->   * (10 bits signed decimal, 6 bits fractional).
->   * Error codes:
->   *   0x8000: General sensor error
->   *   0x8001: Reserved
->   *   0x8002: Underflow on reading value
->   *   0x8003-0x81ff: Reserved
->   */
-> if (core_dts_margin >= 0x8000 && core_dts_margin <= 0x81ff)
->      return -EIO;
-> 
-> Then I'll rewrite it as a function. If not, please point out the duplication.
+> I'm only just learning about PECI, but I do have some general comments below.
 > 
 
-There is lots of other duplication.
+Yes, it took a hidden review process between v2 and v3. I know it's an 
+unusual process but it was requested. Hopefully, change logs in cover 
+letter could roughly provide the details. Thanks for your comments.
 
->>> +static int find_core_index(struct peci_cputemp *priv, int channel)
->>> +{
->>> +    int core_channel = channel - DEFAULT_CHANNEL_NUMS;
->>> +    int idx, found = 0;
->>> +
->>> +    for (idx = 0; idx < priv->gen_info->core_max; idx++) {
->>> +        if (priv->core_mask & BIT(idx)) {
->>> +            if (core_channel == found)
->>> +                break;
->>> +
->>> +            found++;
->>> +        }
->>> +    }
->>> +
->>> +    return idx;
+>> ---
+>>   drivers/peci/Kconfig       |  28 +++
+>>   drivers/peci/Makefile      |   3 +
+>>   drivers/peci/peci-aspeed.c | 504 +++++++++++++++++++++++++++++++++++++++++++++
+>>   3 files changed, 535 insertions(+)
+>>   create mode 100644 drivers/peci/peci-aspeed.c
 >>
->> What if nothing is found ?
+>> diff --git a/drivers/peci/Kconfig b/drivers/peci/Kconfig
+>> index 1fbc13f9e6c2..0e33420365de 100644
+>> --- a/drivers/peci/Kconfig
+>> +++ b/drivers/peci/Kconfig
+>> @@ -14,4 +14,32 @@ config PECI
+>>            processors and chipset components to external monitoring or control
+>>            devices.
 >>
+>> +         If you want PECI support, you should say Y here and also to the
+>> +         specific driver for your bus adapter(s) below.
+>> +
+>> +if PECI
+>> +
+>> +#
+>> +# PECI hardware bus configuration
+>> +#
+>> +
+>> +menu "PECI Hardware Bus support"
+>> +
+>> +config PECI_ASPEED
+>> +       tristate "Aspeed AST24xx/AST25xx PECI support"
 > 
-> Core temperature group will be registered only when it detects at least one core checked by check_resolved_cores(), so find_core_index() can be called only when priv->core_mask has a non-zero value. The 'nothing is found' case will not happen.
-> 
-That doesn't guarantee a match. If what you are saying is correct there should always be
-a well defined match of channel -> idx, and the search should be unnecessary.
-
->>> +}
->>> +
->>> +static int cputemp_read_string(struct device *dev,
->>> +                   enum hwmon_sensor_types type,
->>> +                   u32 attr, int channel, const char **str)
->>> +{
->>> +    struct peci_cputemp *priv = dev_get_drvdata(dev);
->>> +    int core_index;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_label:
->>> +        if (channel < DEFAULT_CHANNEL_NUMS) {
->>> +            *str = cputemp_label[channel];
->>> +        } else {
->>> +            core_index = find_core_index(priv, channel);
->>
->> FWIW, it might be better to pass channel - DEFAULT_CHANNEL_NUMS
->> as parameter.
->>
-> 
-> cputemp_read_string() is mapped to read_string member of hwmon_ops struct, so hwmon susbsystem passes the channel parameter based on the registered channel order. Should I modify hwmon subsystem code?
+> I think just saying ASPEED PECI support is enough. That way if the
+> next ASPEED SoC happens to have PECI we don't need to update all of
+> the help text :)
 > 
 
-Huh ? Changing
-	f(x) { y = x - const; }
-...
-	f(x);
+Agreed. I'll change the description.
 
-to
-	f(y) { }
-...
-	f(x - const);
-
-requires a hwmon core change ? Really ?
-
->> What if find_core_index() returns priv->gen_info->core_max, ie
->> if it didn't find a core ?
+>> +       select REGMAP_MMIO
+>> +       depends on OF
+>> +       depends on ARCH_ASPEED || COMPILE_TEST
+>> +       help
+>> +         Say Y here if you want support for the Platform Environment Control
+>> +         Interface (PECI) bus adapter driver on the Aspeed AST24XX and AST25XX
+>> +         SoCs.
+>> +
+>> +         This support is also available as a module.  If so, the module
+>> +         will be called peci-aspeed.
+>> +
+>> +endmenu
+>> +
+>> +endif # PECI
+>> +
+>>   endmenu
+>> diff --git a/drivers/peci/Makefile b/drivers/peci/Makefile
+>> index 9e8615e0d3ff..886285e69765 100644
+>> --- a/drivers/peci/Makefile
+>> +++ b/drivers/peci/Makefile
+>> @@ -4,3 +4,6 @@
 >>
+>>   # Core functionality
+>>   obj-$(CONFIG_PECI)             += peci-core.o
+>> +
+>> +# Hardware specific bus drivers
+>> +obj-$(CONFIG_PECI_ASPEED)      += peci-aspeed.o
+>> diff --git a/drivers/peci/peci-aspeed.c b/drivers/peci/peci-aspeed.c
+>> new file mode 100644
+>> index 000000000000..be2a1f327eb1
+>> --- /dev/null
+>> +++ b/drivers/peci/peci-aspeed.c
+>> @@ -0,0 +1,504 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +// Copyright (C) 2012-2017 ASPEED Technology Inc.
+>> +// Copyright (c) 2018 Intel Corporation
+>> +
+>> +#include <linux/clk.h>
+>> +#include <linux/delay.h>
+>> +#include <linux/interrupt.h>
+>> +#include <linux/jiffies.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of.h>
+>> +#include <linux/peci.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/regmap.h>
+>> +
+>> +#define DUMP_DEBUG 0
+>> +
+>> +/* Aspeed PECI Registers */
+>> +#define AST_PECI_CTRL     0x00
 > 
-> As explained above, find_core index() returns a correct index always.
-> 
->>> +            *str = cputemp_label[DEFAULT_CHANNEL_NUMS + core_index];
->>> +        }
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static int cputemp_read_die(struct device *dev,
->>> +                enum hwmon_sensor_types type,
->>> +                u32 attr, int channel, long *val)
->>> +{
->>> +    struct peci_cputemp *priv = dev_get_drvdata(dev);
->>> +    int rc;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_input:
->>> +        rc = get_die_temp(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.die.value;
->>> +        return 0;
->>> +    case hwmon_temp_max:
->>> +        rc = get_tcontrol(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tcontrol.value;
->>> +        return 0;
->>> +    case hwmon_temp_crit:
->>> +        rc = get_tjmax(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tjmax.value;
->>> +        return 0;
->>> +    case hwmon_temp_crit_hyst:
->>> +        rc = get_tcontrol(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tjmax.value - priv->temp.tcontrol.value;
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static int cputemp_read_dts_margin(struct device *dev,
->>> +                   enum hwmon_sensor_types type,
->>> +                   u32 attr, int channel, long *val)
->>> +{
->>> +    struct peci_cputemp *priv = dev_get_drvdata(dev);
->>> +    int rc;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_input:
->>> +        rc = get_dts_margin(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.dts_margin.value;
->>> +        return 0;
->>> +    case hwmon_temp_min:
->>> +        *val = 0;
->>> +        return 0;
->>
->> This attribute should not exist.
->>
-> 
-> This is an attribute of DTS margin temperature which reflects thermal margin to Tcontrol of the CPU package. If it shows '0' means it reached to Tcontrol, the first level of thermal warning. If the CPU keeps getting hot then this DTS margin shows a negative value until it reaches to Tjmax. When the temperature reaches to Tjmax at last then it shows the lower critcal value which lcrit indicates as the second level of thermal warning.
+> Nit: we use ASPEED instead of AST in the upstream kernel to distingush
+> from the aspeed sdk drivers. If you feel strongly about this then I
+> won't insist you change.
 > 
 
-The hwmon ABI reports chip values, not constants. Even though some drivers do
-it, reporting a constant is always wrong.
+Okay then, better change it now than later. Will change all defines.
 
->>> +    case hwmon_temp_lcrit:
->>> +        rc = get_tcontrol(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tcontrol.value - priv->temp.tjmax.value;
->>
->> lcrit is tcontrol - tjmax, and crit_hyst above is
->> tjmax - tcontrol ? How does this make sense ?
->>
+>> +#define AST_PECI_TIMING   0x04
+>> +#define AST_PECI_CMD      0x08
+>> +#define AST_PECI_CMD_CTRL 0x0c
+>> +#define AST_PECI_EXP_FCS  0x10
+>> +#define AST_PECI_CAP_FCS  0x14
+>> +#define AST_PECI_INT_CTRL 0x18
+>> +#define AST_PECI_INT_STS  0x1c
+>> +#define AST_PECI_W_DATA0  0x20
+>> +#define AST_PECI_W_DATA1  0x24
+>> +#define AST_PECI_W_DATA2  0x28
+>> +#define AST_PECI_W_DATA3  0x2c
+>> +#define AST_PECI_R_DATA0  0x30
+>> +#define AST_PECI_R_DATA1  0x34
+>> +#define AST_PECI_R_DATA2  0x38
+>> +#define AST_PECI_R_DATA3  0x3c
+>> +#define AST_PECI_W_DATA4  0x40
+>> +#define AST_PECI_W_DATA5  0x44
+>> +#define AST_PECI_W_DATA6  0x48
+>> +#define AST_PECI_W_DATA7  0x4c
+>> +#define AST_PECI_R_DATA4  0x50
+>> +#define AST_PECI_R_DATA5  0x54
+>> +#define AST_PECI_R_DATA6  0x58
+>> +#define AST_PECI_R_DATA7  0x5c
+>> +
+>> +/* AST_PECI_CTRL - 0x00 : Control Register */
+>> +#define PECI_CTRL_SAMPLING_MASK     GENMASK(19, 16)
+>> +#define PECI_CTRL_SAMPLING(x)       (((x) << 16) & PECI_CTRL_SAMPLING_MASK)
+>> +#define PECI_CTRL_SAMPLING_GET(x)   (((x) & PECI_CTRL_SAMPLING_MASK) >> 16)
+>> +#define PECI_CTRL_READ_MODE_MASK    GENMASK(13, 12)
+>> +#define PECI_CTRL_READ_MODE(x)      (((x) << 12) & PECI_CTRL_READ_MODE_MASK)
+>> +#define PECI_CTRL_READ_MODE_GET(x)  (((x) & PECI_CTRL_READ_MODE_MASK) >> 12)
+>> +#define PECI_CTRL_READ_MODE_COUNT   BIT(12)
+>> +#define PECI_CTRL_READ_MODE_DBG     BIT(13)
+>> +#define PECI_CTRL_CLK_SOURCE_MASK   BIT(11)
+>> +#define PECI_CTRL_CLK_SOURCE(x)     (((x) << 11) & PECI_CTRL_CLK_SOURCE_MASK)
+>> +#define PECI_CTRL_CLK_SOURCE_GET(x) (((x) & PECI_CTRL_CLK_SOURCE_MASK) >> 11)
+>> +#define PECI_CTRL_CLK_DIV_MASK      GENMASK(10, 8)
+>> +#define PECI_CTRL_CLK_DIV(x)        (((x) << 8) & PECI_CTRL_CLK_DIV_MASK)
+>> +#define PECI_CTRL_CLK_DIV_GET(x)    (((x) & PECI_CTRL_CLK_DIV_MASK) >> 8)
+>> +#define PECI_CTRL_INVERT_OUT        BIT(7)
+>> +#define PECI_CTRL_INVERT_IN         BIT(6)
+>> +#define PECI_CTRL_BUS_CONTENT_EN    BIT(5)
+>> +#define PECI_CTRL_PECI_EN           BIT(4)
+>> +#define PECI_CTRL_PECI_CLK_EN       BIT(0)
 > 
-> Both Tjmax and Tcontrol have positive values and Tjmax is greater than Tcontrol always. As explained above, lcrit of DTS margin should show a negative value means the margin goes down across '0'. On the other hand, crit_hyst of Die temperature should show absolute hyterisis value between Tcontrol and Tjmax.
-> 
-The hwmon ABI requires reporting of absolute temperatures in milli-degrees C.
-Your statements make it very clear that this driver does not report
-absolute temperatures. This is not acceptable.
-
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static int cputemp_read_tcontrol(struct device *dev,
->>> +                 enum hwmon_sensor_types type,
->>> +                 u32 attr, int channel, long *val)
->>> +{
->>> +    struct peci_cputemp *priv = dev_get_drvdata(dev);
->>> +    int rc;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_input:
->>> +        rc = get_tcontrol(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tcontrol.value;
->>> +        return 0;
->>> +    case hwmon_temp_crit:
->>> +        rc = get_tjmax(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tjmax.value;
->>> +        return 0;
->>
->> Am I missing something, or is the same temperature reported several times ?
->> tjmax is also reported as temp_crit cputemp_read_die(), for example.
->>
-> 
-> This driver provides multiple channels and each channel has its own supplement attributes. As you mentioned, Die temperature channel and Core temperature channel have their individual crit attributes and they reflect the same value, Tjmax. It is not reporting several times but reporting the same value.
-> 
-Then maybe fold the functions accordingly ?
-
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static int cputemp_read_tthrottle(struct device *dev,
->>> +                  enum hwmon_sensor_types type,
->>> +                  u32 attr, int channel, long *val)
->>> +{
->>> +    struct peci_cputemp *priv = dev_get_drvdata(dev);
->>> +    int rc;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_input:
->>> +        rc = get_tthrottle(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tthrottle.value;
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static int cputemp_read_tjmax(struct device *dev,
->>> +                  enum hwmon_sensor_types type,
->>> +                  u32 attr, int channel, long *val)
->>> +{
->>> +    struct peci_cputemp *priv = dev_get_drvdata(dev);
->>> +    int rc;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_input:
->>> +        rc = get_tjmax(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tjmax.value;
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static int cputemp_read_core(struct device *dev,
->>> +                 enum hwmon_sensor_types type,
->>> +                 u32 attr, int channel, long *val)
->>> +{
->>> +    struct peci_cputemp *priv = dev_get_drvdata(dev);
->>> +    int core_index = find_core_index(priv, channel);
->>> +    int rc;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_input:
->>> +        rc = get_core_temp(priv, core_index);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.core[core_index].value;
->>> +        return 0;
->>> +    case hwmon_temp_max:
->>> +        rc = get_tcontrol(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tcontrol.value;
->>> +        return 0;
->>> +    case hwmon_temp_crit:
->>> +        rc = get_tjmax(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tjmax.value;
->>> +        return 0;
->>> +    case hwmon_temp_crit_hyst:
->>> +        rc = get_tcontrol(priv);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp.tjmax.value - priv->temp.tcontrol.value;
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>
->> There is again a lot of duplication in those functions.
->>
-> 
-> Each function is called from cputemp_read() which is mapped to read function pointer of hwmon_ops struct. Since each channel has different set of attributes so the cputemp_read() calls an individual channel handler after checking the channel type. Of course, we can handle all attributes of all channels in a single function but the way also needs channel type checking code on each attribute.
-> 
->>> +
->>> +static int cputemp_read(struct device *dev,
->>> +            enum hwmon_sensor_types type,
->>> +            u32 attr, int channel, long *val)
->>> +{
->>> +    switch (channel) {
->>> +    case channel_die:
->>> +        return cputemp_read_die(dev, type, attr, channel, val);
->>> +    case channel_dts_mrgn:
->>> +        return cputemp_read_dts_margin(dev, type, attr, channel, val);
->>> +    case channel_tcontrol:
->>> +        return cputemp_read_tcontrol(dev, type, attr, channel, val);
->>> +    case channel_tthrottle:
->>> +        return cputemp_read_tthrottle(dev, type, attr, channel, val);
->>> +    case channel_tjmax:
->>> +        return cputemp_read_tjmax(dev, type, attr, channel, val);
->>> +    default:
->>> +        if (channel < CPUTEMP_CHANNEL_NUMS)
->>> +            return cputemp_read_core(dev, type, attr, channel, val);
->>> +
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static umode_t cputemp_is_visible(const void *data,
->>> +                  enum hwmon_sensor_types type,
->>> +                  u32 attr, int channel)
->>> +{
->>> +    const struct peci_cputemp *priv = data;
->>> +
->>> +    if (priv->temp_config[channel] & BIT(attr))
->>> +        return 0444;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static const struct hwmon_ops cputemp_ops = {
->>> +    .is_visible = cputemp_is_visible,
->>> +    .read_string = cputemp_read_string,
->>> +    .read = cputemp_read,
->>> +};
->>> +
->>> +static int check_resolved_cores(struct peci_cputemp *priv)
->>> +{
->>> +    struct peci_rd_pci_cfg_local_msg msg;
->>> +    int rc;
->>> +
->>> +    if (!(priv->client->adapter->cmd_mask & BIT(PECI_CMD_RD_PCI_CFG_LOCAL)))
->>> +        return -EINVAL;
->>> +
->>> +    /* Get the RESOLVED_CORES register value */
->>> +    msg.addr = priv->addr;
->>> +    msg.bus = 1;
->>> +    msg.device = 30;
->>> +    msg.function = 3;
->>> +    msg.reg = 0xB4;
->>
->> Can this be made less magic with some defines ?
->>
-> 
-> Sure, will use defines instead.
-> 
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PCI_CFG_LOCAL, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    priv->core_mask = msg.pci_config[3] << 24 |
->>> +              msg.pci_config[2] << 16 |
->>> +              msg.pci_config[1] << 8 |
->>> +              msg.pci_config[0];
->>> +
->>> +    if (!priv->core_mask)
->>> +        return -EAGAIN;
->>> +
->>> +    dev_dbg(priv->dev, "Scanned resolved cores: 0x%x\n", priv->core_mask);
->>> +    return 0;
->>> +}
->>> +
->>> +static int create_core_temp_info(struct peci_cputemp *priv)
->>> +{
->>> +    int rc, i;
->>> +
->>> +    rc = check_resolved_cores(priv);
->>> +    if (!rc) {
->>> +        for (i = 0; i < priv->gen_info->core_max; i++) {
->>> +            if (priv->core_mask & BIT(i)) {
->>> +                priv->temp_config[priv->config_idx++] =
->>> +                             config_table[channel_core];
->>> +            }
->>> +        }
->>> +    }
->>> +
->>> +    return rc;
->>> +}
->>> +
->>> +static int check_cpu_id(struct peci_cputemp *priv)
->>> +{
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    u32 cpu_id;
->>> +    int i, rc;
->>> +
->>> +    msg.addr = priv->addr;
->>> +    msg.index = MBX_INDEX_CPU_ID;
->>> +    msg.param = PKG_ID_CPU_ID;
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    cpu_id = ((msg.pkg_config[2] << 16) | (msg.pkg_config[1] << 8) |
->>> +          msg.pkg_config[0]) & CLIENT_CPU_ID_MASK;
->>> +
->>> +    for (i = 0; i < CPU_GEN_MAX; i++) {
->>> +        if (cpu_id == cpu_gen_info_table[i].cpu_id) {
->>> +            priv->gen_info = &cpu_gen_info_table[i];
->>> +            break;
->>> +        }
->>> +    }
->>> +
->>> +    if (!priv->gen_info)
->>> +        return -ENODEV;
->>> +
->>> +    dev_dbg(priv->dev, "CPU_ID: 0x%x\n", cpu_id);
->>> +    return 0;
->>> +}
->>> +
->>> +static int peci_cputemp_probe(struct peci_client *client)
->>> +{
->>> +    struct device *dev = &client->dev;
->>> +    struct peci_cputemp *priv;
->>> +    struct device *hwmon_dev;
->>> +    int rc;
->>> +
->>> +    if ((client->adapter->cmd_mask &
->>> +        (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG))) !=
->>> +        (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG))) {
->>> +        dev_err(dev, "Client doesn't support temperature monitoring\n");
->>> +        return -EINVAL;
->>
->> Does this mean there will be an error message for each non-supported CPU ?
->> Why ?
->>
-> 
-> For proper operation of this driver, PECI_CMD_GET_TEMP and PECI_CMD_RD_PKG_CFG have to be supported by a client CPU. PECI_CMD_GET_TEMP is provided as a default command but PECI_CMD_RD_PKG_CFG depends on PECI minor revision of a CPU package so this checking is needed.
+> I know these come from the ASPEED sdk driver. Do we need them all?
 > 
 
-I do not question the check. I question the error message and error return value.
-Why is it an _error_ if the CPU does not support the functionality, and why does
-it have to be reported in the kernel log ?
+It doesn't use all but better keep for bug fix or improvement use, I think.
 
->>> +    }
->>> +
->>> +    priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->>> +    if (!priv)
->>> +        return -ENOMEM;
->>> +
->>> +    dev_set_drvdata(dev, priv);
->>> +    priv->client = client;
->>> +    priv->dev = dev;
->>> +    priv->addr = client->addr;
->>> +    priv->cpu_no = priv->addr - PECI_BASE_ADDR;
->>> +
->>> +    snprintf(priv->name, PECI_NAME_SIZE, "peci_cputemp.cpu%d",
->>> +         priv->cpu_no);
->>> +
->>> +    rc = check_cpu_id(priv);
->>> +    if (rc) {
->>> +        dev_err(dev, "Client CPU is not supported\n");
->>
->> -ENODEV is not an error, and should not result in an error message.
->> Besides, the error can also be propagated from peci core code,
->> and may well be something else.
->>
+>> +
+>> +/* AST_PECI_TIMING - 0x04 : Timing Negotiation Register */
+>> +#define PECI_TIMING_MESSAGE_MASK   GENMASK(15, 8)
+>> +#define PECI_TIMING_MESSAGE(x)     (((x) << 8) & PECI_TIMING_MESSAGE_MASK)
+>> +#define PECI_TIMING_MESSAGE_GET(x) (((x) & PECI_TIMING_MESSAGE_MASK) >> 8)
+>> +#define PECI_TIMING_ADDRESS_MASK   GENMASK(7, 0)
+>> +#define PECI_TIMING_ADDRESS(x)     ((x) & PECI_TIMING_ADDRESS_MASK)
+>> +#define PECI_TIMING_ADDRESS_GET(x) ((x) & PECI_TIMING_ADDRESS_MASK)
+>> +
+>> +/* AST_PECI_CMD - 0x08 : Command Register */
+>> +#define PECI_CMD_PIN_MON    BIT(31)
+>> +#define PECI_CMD_STS_MASK   GENMASK(27, 24)
+>> +#define PECI_CMD_STS_GET(x) (((x) & PECI_CMD_STS_MASK) >> 24)
+>> +#define PECI_CMD_FIRE       BIT(0)
+>> +
+>> +/* AST_PECI_LEN - 0x0C : Read/Write Length Register */
+>> +#define PECI_AW_FCS_EN       BIT(31)
+>> +#define PECI_READ_LEN_MASK   GENMASK(23, 16)
+>> +#define PECI_READ_LEN(x)     (((x) << 16) & PECI_READ_LEN_MASK)
+>> +#define PECI_WRITE_LEN_MASK  GENMASK(15, 8)
+>> +#define PECI_WRITE_LEN(x)    (((x) << 8) & PECI_WRITE_LEN_MASK)
+>> +#define PECI_TAGET_ADDR_MASK GENMASK(7, 0)
+>> +#define PECI_TAGET_ADDR(x)   ((x) & PECI_TAGET_ADDR_MASK)
+>> +
+>> +/* AST_PECI_EXP_FCS - 0x10 : Expected FCS Data Register */
+>> +#define PECI_EXPECT_READ_FCS_MASK      GENMASK(23, 16)
+>> +#define PECI_EXPECT_READ_FCS_GET(x)    (((x) & PECI_EXPECT_READ_FCS_MASK) >> 16)
+>> +#define PECI_EXPECT_AW_FCS_AUTO_MASK   GENMASK(15, 8)
+>> +#define PECI_EXPECT_AW_FCS_AUTO_GET(x) (((x) & PECI_EXPECT_AW_FCS_AUTO_MASK) \
+>> +                                       >> 8)
+>> +#define PECI_EXPECT_WRITE_FCS_MASK     GENMASK(7, 0)
+>> +#define PECI_EXPECT_WRITE_FCS_GET(x)   ((x) & PECI_EXPECT_WRITE_FCS_MASK)
+>> +
+>> +/* AST_PECI_CAP_FCS - 0x14 : Captured FCS Data Register */
+>> +#define PECI_CAPTURE_READ_FCS_MASK    GENMASK(23, 16)
+>> +#define PECI_CAPTURE_READ_FCS_GET(x)  (((x) & PECI_CAPTURE_READ_FCS_MASK) >> 16)
+>> +#define PECI_CAPTURE_WRITE_FCS_MASK   GENMASK(7, 0)
+>> +#define PECI_CAPTURE_WRITE_FCS_GET(x) ((x) & PECI_CAPTURE_WRITE_FCS_MASK)
+>> +
+>> +/* AST_PECI_INT_CTRL/STS - 0x18/0x1c : Interrupt Register */
+>> +#define PECI_INT_TIMING_RESULT_MASK GENMASK(31, 30)
+>> +#define PECI_INT_TIMEOUT            BIT(4)
+>> +#define PECI_INT_CONNECT            BIT(3)
+>> +#define PECI_INT_W_FCS_BAD          BIT(2)
+>> +#define PECI_INT_W_FCS_ABORT        BIT(1)
+>> +#define PECI_INT_CMD_DONE           BIT(0)
+>> +
+>> +struct aspeed_peci {
+>> +       struct peci_adapter     adaper;
+>> +       struct device           *dev;
+>> +       struct regmap           *regmap;
+>> +       int                     irq;
+>> +       struct completion       xfer_complete;
+>> +       u32                     status;
+>> +       u32                     cmd_timeout_ms;
+>> +};
+>> +
+>> +#define PECI_INT_MASK  (PECI_INT_TIMEOUT | PECI_INT_CONNECT | \
+>> +                       PECI_INT_W_FCS_BAD | PECI_INT_W_FCS_ABORT | \
+>> +                       PECI_INT_CMD_DONE)
+>> +
+>> +#define PECI_IDLE_CHECK_TIMEOUT_MS      50
+>> +#define PECI_IDLE_CHECK_INTERVAL_MS     10
+>> +
+>> +#define PECI_RD_SAMPLING_POINT_DEFAULT  8
+>> +#define PECI_RD_SAMPLING_POINT_MAX      15
+>> +#define PECI_CLK_DIV_DEFAULT            0
+>> +#define PECI_CLK_DIV_MAX                7
+>> +#define PECI_MSG_TIMING_NEGO_DEFAULT    1
+>> +#define PECI_MSG_TIMING_NEGO_MAX        255
+>> +#define PECI_ADDR_TIMING_NEGO_DEFAULT   1
+>> +#define PECI_ADDR_TIMING_NEGO_MAX       255
+>> +#define PECI_CMD_TIMEOUT_MS_DEFAULT     1000
+>> +#define PECI_CMD_TIMEOUT_MS_MAX         60000
+>> +
+>> +static int aspeed_peci_xfer_native(struct aspeed_peci *priv,
+>> +                                  struct peci_xfer_msg *msg)
+>> +{
+>> +       long err, timeout = msecs_to_jiffies(priv->cmd_timeout_ms);
+>> +       u32 peci_head, peci_state, rx_data, cmd_sts;
+>> +       ktime_t start, end;
+>> +       s64 elapsed_ms;
+>> +       int i, rc = 0;
+>> +       uint reg;
+>> +
+>> +       start = ktime_get();
+>> +
+>> +       /* Check command sts and bus idle state */
+>> +       while (!regmap_read(priv->regmap, AST_PECI_CMD, &cmd_sts) &&
+>> +              (cmd_sts & (PECI_CMD_STS_MASK | PECI_CMD_PIN_MON))) {
+>> +               end = ktime_get();
+>> +               elapsed_ms = ktime_to_ms(ktime_sub(end, start));
+>> +               if (elapsed_ms >= PECI_IDLE_CHECK_TIMEOUT_MS) {
+>> +                       dev_dbg(priv->dev, "Timeout waiting for idle state!\n");
+>> +                       return -ETIMEDOUT;
+>> +               }
+>> +
+>> +               usleep_range(PECI_IDLE_CHECK_INTERVAL_MS * 1000,
+>> +                            (PECI_IDLE_CHECK_INTERVAL_MS * 1000) + 1000);
+>> +       };
 > 
-> Got it. I'll remove the error message and will add a proper handling code into PECI core.
-> 
->>> +        return rc;
->>> +    }
->>> +
->>> +    priv->temp_config[priv->config_idx++] = config_table[channel_die];
->>> +    priv->temp_config[priv->config_idx++] = config_table[channel_dts_mrgn];
->>> +    priv->temp_config[priv->config_idx++] = config_table[channel_tcontrol];
->>> +    priv->temp_config[priv->config_idx++] = config_table[channel_tthrottle];
->>> +    priv->temp_config[priv->config_idx++] = config_table[channel_tjmax];
->>> +
->>> +    rc = create_core_temp_info(priv);
->>> +    if (rc)
->>> +        dev_dbg(dev, "Failed to create core temp info\n");
->>
->> Then what ? Shouldn't this result in probe deferral or something more useful
->> instead of just being ignored ?
->>
-> 
-> This driver can't support core temperature monitoring if a CPU doesn't support PECI_CMD_RD_PCI_CFG_LOCAL command. In that case, it skips core temperature group creation and supports only basic temperature monitoring of Die, DTS margin and etc. I'll add this description as a comment.
-> 
-
-The message says "Failed to ...". It does not say "This CPU does not support ...".
-
->>> +
->>> +    priv->chip.ops = &cputemp_ops;
->>> +    priv->chip.info = priv->info;
->>> +
->>> +    priv->info[0] = &priv->temp_info;
->>> +
->>> +    priv->temp_info.type = hwmon_temp;
->>> +    priv->temp_info.config = priv->temp_config;
->>> +
->>> +    hwmon_dev = devm_hwmon_device_register_with_info(priv->dev,
->>> +                             priv->name,
->>> +                             priv,
->>> +                             &priv->chip,
->>> +                             NULL);
->>> +
->>> +    if (IS_ERR(hwmon_dev))
->>> +        return PTR_ERR(hwmon_dev);
->>> +
->>> +    dev_dbg(dev, "%s: sensor '%s'\n", dev_name(hwmon_dev), priv->name);
->>> +
-
-Why does this message display the device name twice ?
-
->>> +    return 0;
->>> +}
->>> +
->>> +static const struct of_device_id peci_cputemp_of_table[] = {
->>> +    { .compatible = "intel,peci-cputemp" },
->>> +    { }
->>> +};
->>> +MODULE_DEVICE_TABLE(of, peci_cputemp_of_table);
->>> +
->>> +static struct peci_driver peci_cputemp_driver = {
->>> +    .probe  = peci_cputemp_probe,
->>> +    .driver = {
->>> +        .name           = "peci-cputemp",
->>> +        .of_match_table = of_match_ptr(peci_cputemp_of_table),
->>> +    },
->>> +};
->>> +module_peci_driver(peci_cputemp_driver);
->>> +
->>> +MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
->>> +MODULE_DESCRIPTION("PECI cputemp driver");
->>> +MODULE_LICENSE("GPL v2");
->>> diff --git a/drivers/hwmon/peci-dimmtemp.c b/drivers/hwmon/peci-dimmtemp.c
->>> new file mode 100644
->>> index 000000000000..78bf29cb2c4c
->>> --- /dev/null
->>> +++ b/drivers/hwmon/peci-dimmtemp.c
->>
->> FWIW, this should be two separate patches.
->>
-> 
-> Should I split out hwmon documents and dt bindings too?
-> 
->>> @@ -0,0 +1,432 @@
->>> +// SPDX-License-Identifier: GPL-2.0
->>> +// Copyright (c) 2018 Intel Corporation
->>> +
->>> +#include <linux/delay.h>
->>> +#include <linux/hwmon.h>
->>> +#include <linux/hwmon-sysfs.h>
->>
->> Needed ?
->>
-> 
-> No. Will drop the line.
-> 
->>> +#include <linux/jiffies.h>
->>> +#include <linux/module.h>
->>> +#include <linux/of_device.h>
->>> +#include <linux/peci.h>
->>> +#include <linux/workqueue.h>
->>> +
->>> +#define TEMP_TYPE_PECI       6  /* Sensor type 6: Intel PECI */
->>> +
->>> +#define CHAN_RANK_MAX_ON_HSX 8  /* Max number of channel ranks on Haswell */
->>> +#define DIMM_IDX_MAX_ON_HSX  3  /* Max DIMM index per channel on Haswell */
->>> +
->>> +#define CHAN_RANK_MAX_ON_BDX 4  /* Max number of channel ranks on Broadwell */
->>> +#define DIMM_IDX_MAX_ON_BDX  3  /* Max DIMM index per channel on Broadwell */
->>> +
->>> +#define CHAN_RANK_MAX_ON_SKX 6  /* Max number of channel ranks on Skylake */
->>> +#define DIMM_IDX_MAX_ON_SKX  2  /* Max DIMM index per channel on Skylake */
->>> +
->>> +#define CHAN_RANK_MAX        CHAN_RANK_MAX_ON_HSX
->>> +#define DIMM_IDX_MAX         DIMM_IDX_MAX_ON_HSX
->>> +
->>> +#define DIMM_NUMS_MAX        (CHAN_RANK_MAX * DIMM_IDX_MAX)
->>> +
->>> +#define CLIENT_CPU_ID_MASK   0xf0ff0  /* Mask for Family / Model info */
->>> +
->>> +#define UPDATE_INTERVAL_MIN  HZ
->>> +
->>> +#define DIMM_MASK_CHECK_DELAY_JIFFIES msecs_to_jiffies(5000)
->>> +#define DIMM_MASK_CHECK_RETRY_MAX     60 /* 60 x 5 secs = 5 minutes */
->>> +
->>> +enum cpu_gens {
->>> +    CPU_GEN_HSX, /* Haswell Xeon */
->>> +    CPU_GEN_BRX, /* Broadwell Xeon */
->>> +    CPU_GEN_SKX, /* Skylake Xeon */
->>> +    CPU_GEN_MAX
->>> +};
->>> +
->>> +struct cpu_gen_info {
->>> +    u32 type;
->>> +    u32 cpu_id;
->>> +    u32 chan_rank_max;
->>> +    u32 dimm_idx_max;
->>> +};
->>> +
->>> +struct temp_data {
->>> +    bool valid;
->>> +    s32  value;
->>> +    unsigned long last_updated;
->>> +};
->>> +
->>> +struct peci_dimmtemp {
->>> +    struct peci_client *client;
->>> +    struct device *dev;
->>> +    struct workqueue_struct *work_queue;
->>> +    struct delayed_work work_handler;
->>> +    char name[PECI_NAME_SIZE];
->>> +    struct temp_data temp[DIMM_NUMS_MAX];
->>> +    u8 addr;
->>> +    uint cpu_no;
->>> +    const struct cpu_gen_info *gen_info;
->>> +    u32 dimm_mask;
->>> +    int retry_count;
->>> +    int channels;
->>> +    u32 temp_config[DIMM_NUMS_MAX + 1];
->>> +    struct hwmon_channel_info temp_info;
->>> +    const struct hwmon_channel_info *info[2];
->>> +    struct hwmon_chip_info chip;
->>> +};
->>> +
->>> +static const struct cpu_gen_info cpu_gen_info_table[] = {
->>> +    { .type  = CPU_GEN_HSX,
->>> +      .cpu_id = 0x306f0, /* Family code: 6, Model number: 63 (0x3f) */
->>> +      .chan_rank_max = CHAN_RANK_MAX_ON_HSX,
->>> +      .dimm_idx_max  = DIMM_IDX_MAX_ON_HSX },
->>> +    { .type  = CPU_GEN_BRX,
->>> +      .cpu_id = 0x406f0, /* Family code: 6, Model number: 79 (0x4f) */
->>> +      .chan_rank_max = CHAN_RANK_MAX_ON_BDX,
->>> +      .dimm_idx_max  = DIMM_IDX_MAX_ON_BDX },
->>> +    { .type  = CPU_GEN_SKX,
->>> +      .cpu_id = 0x50650, /* Family code: 6, Model number: 85 (0x55) */
->>> +      .chan_rank_max = CHAN_RANK_MAX_ON_SKX,
->>> +      .dimm_idx_max  = DIMM_IDX_MAX_ON_SKX },
->>> +};
->>> +
->>> +static const char *dimmtemp_label[CHAN_RANK_MAX][DIMM_IDX_MAX] = {
->>> +    { "DIMM A0", "DIMM A1", "DIMM A2" },
->>> +    { "DIMM B0", "DIMM B1", "DIMM B2" },
->>> +    { "DIMM C0", "DIMM C1", "DIMM C2" },
->>> +    { "DIMM D0", "DIMM D1", "DIMM D2" },
->>> +    { "DIMM E0", "DIMM E1", "DIMM E2" },
->>> +    { "DIMM F0", "DIMM F1", "DIMM F2" },
->>> +    { "DIMM G0", "DIMM G1", "DIMM G2" },
->>> +    { "DIMM H0", "DIMM H1", "DIMM H2" },
->>> +};
->>> +
->>> +static int send_peci_cmd(struct peci_dimmtemp *priv, enum peci_cmd cmd,
->>> +             void *msg)
->>> +{
->>> +    return peci_command(priv->client->adapter, cmd, msg);
->>> +}
->>> +
->>> +static int need_update(struct temp_data *temp)
->>> +{
->>> +    if (temp->valid &&
->>> +        time_before(jiffies, temp->last_updated + UPDATE_INTERVAL_MIN))
->>> +        return 0;
->>> +
->>> +    return 1;
->>> +}
->>> +
->>> +static void mark_updated(struct temp_data *temp)
->>> +{
->>> +    temp->valid = true;
->>> +    temp->last_updated = jiffies;
->>> +}
->>
->> It might make sense to provide the duplicate functions in a core file.
->>
-> 
-> It is temperature monitoring specific function and it touches module specific variables. Do you really think that this non-generic function should be moved to PECI core?
-> 
->>> +
->>> +static int get_dimm_temp(struct peci_dimmtemp *priv, int dimm_no)
->>> +{
->>> +    int dimm_order = dimm_no % priv->gen_info->dimm_idx_max;
->>> +    int chan_rank = dimm_no / priv->gen_info->dimm_idx_max;
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    int rc;
->>> +
->>> +    if (!need_update(&priv->temp[dimm_no]))
->>> +        return 0;
->>> +
->>> +    msg.addr = priv->addr;
->>> +    msg.index = MBX_INDEX_DDR_DIMM_TEMP;
->>> +    msg.param = chan_rank;
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    priv->temp[dimm_no].value = msg.pkg_config[dimm_order] * 1000;
->>> +
->>> +    mark_updated(&priv->temp[dimm_no]);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int find_dimm_number(struct peci_dimmtemp *priv, int channel)
->>> +{
->>> +    int dimm_nums_max = priv->gen_info->chan_rank_max *
->>> +                priv->gen_info->dimm_idx_max;
->>> +    int idx, found = 0;
->>> +
->>> +    for (idx = 0; idx < dimm_nums_max; idx++) {
->>> +        if (priv->dimm_mask & BIT(idx)) {
->>> +            if (channel == found)
->>> +                break;
->>> +
->>> +            found++;
->>> +        }
->>> +    }
->>> +
->>> +    return idx;
->>> +}
->>
->> This again looks like duplicate code.
->>
-> 
-> find_dimm_number()? I'm sure it isn't.
-> 
->>> +
->>> +static int dimmtemp_read_string(struct device *dev,
->>> +                enum hwmon_sensor_types type,
->>> +                u32 attr, int channel, const char **str)
->>> +{
->>> +    struct peci_dimmtemp *priv = dev_get_drvdata(dev);
->>> +    u32 dimm_idx_max = priv->gen_info->dimm_idx_max;
->>> +    int dimm_no, chan_rank, dimm_idx;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_label:
->>> +        dimm_no = find_dimm_number(priv, channel);
->>> +        chan_rank = dimm_no / dimm_idx_max;
->>> +        dimm_idx = dimm_no % dimm_idx_max;
->>> +        *str = dimmtemp_label[chan_rank][dimm_idx];
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static int dimmtemp_read(struct device *dev, enum hwmon_sensor_types type,
->>> +             u32 attr, int channel, long *val)
->>> +{
->>> +    struct peci_dimmtemp *priv = dev_get_drvdata(dev);
->>> +    int dimm_no = find_dimm_number(priv, channel);
->>> +    int rc;
->>> +
->>> +    switch (attr) {
->>> +    case hwmon_temp_input:
->>> +        rc = get_dimm_temp(priv, dimm_no);
->>> +        if (rc)
->>> +            return rc;
->>> +
->>> +        *val = priv->temp[dimm_no].value;
->>> +        return 0;
->>> +    default:
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +}
->>> +
->>> +static umode_t dimmtemp_is_visible(const void *data,
->>> +                   enum hwmon_sensor_types type,
->>> +                   u32 attr, int channel)
->>> +{
->>> +    switch (attr) {
->>> +    case hwmon_temp_label:
->>> +    case hwmon_temp_input:
->>> +        return 0444;
->>> +    default:
->>> +        return 0;
->>> +    }
->>> +}
->>> +
->>> +static const struct hwmon_ops dimmtemp_ops = {
->>> +    .is_visible = dimmtemp_is_visible,
->>> +    .read_string = dimmtemp_read_string,
->>> +    .read = dimmtemp_read,
->>> +};
->>> +
->>> +static int check_populated_dimms(struct peci_dimmtemp *priv)
->>> +{
->>> +    u32 chan_rank_max = priv->gen_info->chan_rank_max;
->>> +    u32 dimm_idx_max = priv->gen_info->dimm_idx_max;
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    int chan_rank, dimm_idx;
->>> +    int rc, channels = 0;
->>> +
->>> +    for (chan_rank = 0; chan_rank < chan_rank_max; chan_rank++) {
->>> +        msg.addr = priv->addr;
->>> +        msg.index = MBX_INDEX_DDR_DIMM_TEMP;
->>> +        msg.param = chan_rank;
->>> +        msg.rx_len = 4;
->>> +
->>> +        rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +        if (rc) {
->>> +            priv->dimm_mask = 0;
->>> +            return rc;
->>> +        }
->>> +
->>> +        for (dimm_idx = 0; dimm_idx < dimm_idx_max; dimm_idx++) {
->>> +            if (msg.pkg_config[dimm_idx]) {
->>> +                priv->dimm_mask |= BIT(chan_rank *
->>> +                               chan_rank_max +
->>> +                               dimm_idx);
->>> +                channels++;
->>> +            }
->>> +        }
->>> +    }
->>> +
->>> +    if (!priv->dimm_mask)
->>> +        return -EAGAIN;
->>> +
->>> +    priv->channels = channels;
->>> +
->>> +    dev_dbg(priv->dev, "Scanned populated DIMMs: 0x%x\n", priv->dimm_mask);
->>> +    return 0;
->>> +}
->>> +
->>> +static int create_dimm_temp_info(struct peci_dimmtemp *priv)
->>> +{
->>> +    struct device *hwmon_dev;
->>> +    int rc, i;
->>> +
->>> +    rc = check_populated_dimms(priv);
->>> +    if (!rc) {
->>
->> Please handle error cases first.
->>
-> 
-> Sure, I'll rewrite it.
-> 
->>> +        for (i = 0; i < priv->channels; i++)
->>> +            priv->temp_config[i] = HWMON_T_LABEL | HWMON_T_INPUT;
->>> +
->>> +        priv->chip.ops = &dimmtemp_ops;
->>> +        priv->chip.info = priv->info;
->>> +
->>> +        priv->info[0] = &priv->temp_info;
->>> +
->>> +        priv->temp_info.type = hwmon_temp;
->>> +        priv->temp_info.config = priv->temp_config;
->>> +
->>> +        hwmon_dev = devm_hwmon_device_register_with_info(priv->dev,
->>> +                                 priv->name,
->>> +                                 priv,
->>> +                                 &priv->chip,
->>> +                                 NULL);
->>> +        rc = PTR_ERR_OR_ZERO(hwmon_dev);
->>> +        if (!rc)
->>> +            dev_dbg(priv->dev, "%s: sensor '%s'\n",
->>> +                dev_name(hwmon_dev), priv->name);
->>> +    } else if (rc == -EAGAIN) {
->>> +        if (priv->retry_count < DIMM_MASK_CHECK_RETRY_MAX) {
->>> +            queue_delayed_work(priv->work_queue,
->>> +                       &priv->work_handler,
->>> +                       DIMM_MASK_CHECK_DELAY_JIFFIES);
->>> +            priv->retry_count++;
->>> +            dev_dbg(priv->dev,
->>> +                "Deferred DIMM temp info creation\n");
->>> +        } else {
->>> +            rc = -ETIMEDOUT;
->>> +            dev_err(priv->dev,
->>> +                "Timeout retrying DIMM temp info creation\n");
->>> +        }
->>> +    }
->>> +
->>> +    return rc;
->>> +}
->>> +
->>> +static void create_dimm_temp_info_delayed(struct work_struct *work)
->>> +{
->>> +    struct delayed_work *dwork = to_delayed_work(work);
->>> +    struct peci_dimmtemp *priv = container_of(dwork, struct peci_dimmtemp,
->>> +                          work_handler);
->>> +    int rc;
->>> +
->>> +    rc = create_dimm_temp_info(priv);
->>> +    if (rc && rc != -EAGAIN)
->>> +        dev_dbg(priv->dev, "Failed to create DIMM temp info\n");
->>> +}
->>> +
->>> +static int check_cpu_id(struct peci_dimmtemp *priv)
->>> +{
->>> +    struct peci_rd_pkg_cfg_msg msg;
->>> +    u32 cpu_id;
->>> +    int i, rc;
->>> +
->>> +    msg.addr = priv->addr;
->>> +    msg.index = MBX_INDEX_CPU_ID;
->>> +    msg.param = PKG_ID_CPU_ID;
->>> +    msg.rx_len = 4;
->>> +
->>> +    rc = send_peci_cmd(priv, PECI_CMD_RD_PKG_CFG, &msg);
->>> +    if (rc)
->>> +        return rc;
->>> +
->>> +    cpu_id = ((msg.pkg_config[2] << 16) | (msg.pkg_config[1] << 8) |
->>> +          msg.pkg_config[0]) & CLIENT_CPU_ID_MASK;
->>> +
->>> +    for (i = 0; i < CPU_GEN_MAX; i++) {
->>> +        if (cpu_id == cpu_gen_info_table[i].cpu_id) {
->>> +            priv->gen_info = &cpu_gen_info_table[i];
->>> +            break;
->>> +        }
->>> +    }
->>> +
->>> +    if (!priv->gen_info)
->>> +        return -ENODEV;
->>> +
->>> +    dev_dbg(priv->dev, "CPU_ID: 0x%x\n", cpu_id);
->>> +    return 0;
->>> +}
->>
->> More duplicate code.
->>
-> 
-> Okay. In case of check_cpu_id(), it could be used as a generic PECI function. I'll move it into PECI core.
-> 
->>> +
->>> +static int peci_dimmtemp_probe(struct peci_client *client)
->>> +{
->>> +    struct device *dev = &client->dev;
->>> +    struct peci_dimmtemp *priv;
->>> +    int rc;
->>> +
->>> +    if ((client->adapter->cmd_mask &
->>> +        (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG))) !=
->>> +        (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG))) {
->>
->> One set of ( ) is unnecessary on each side of the expression.
->>
-> 
-> '&' has a precedence over '!=' but '|' doesn't. I'll rewrite it to:
+> Could the above use regmap_read_poll_timeout instead?
 > 
 
-Actually, that is wrong. You refer to address-of. Bit operations do have lower
-precedence that comparisons. I stand corrected.
+Yes, that would be better. I'll rewrite it.
 
->      if (client->adapter->cmd_mask &
->          (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG)) !=
->          (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG)))
+>> +
+>> +       reinit_completion(&priv->xfer_complete);
+>> +
+>> +       peci_head = PECI_TAGET_ADDR(msg->addr) |
+>> +                                   PECI_WRITE_LEN(msg->tx_len) |
+>> +                                   PECI_READ_LEN(msg->rx_len);
+>> +
+>> +       rc = regmap_write(priv->regmap, AST_PECI_CMD_CTRL, peci_head);
+>> +       if (rc)
+>> +               return rc;
+>> +
+>> +       for (i = 0; i < msg->tx_len; i += 4) {
+>> +               reg = i < 16 ? AST_PECI_W_DATA0 + i % 16 :
+>> +                              AST_PECI_W_DATA4 + i % 16;
+>> +               rc = regmap_write(priv->regmap, reg,
+>> +                                 (msg->tx_buf[i + 3] << 24) |
+>> +                                 (msg->tx_buf[i + 2] << 16) |
+>> +                                 (msg->tx_buf[i + 1] << 8) |
+>> +                                 msg->tx_buf[i + 0]);
 > 
->>> +        dev_err(dev, "Client doesn't support temperature monitoring\n");
->>> +        return -EINVAL;
->>
->> Why is this "invalid", and why does it warrant an error message ?
->>
+> That looks like an endian swap. Can we do something like this?
 > 
-> Should I use -EPERM? Any suggestion?
+>   regmap_write(map, reg, cpu_to_be32p((void *)msg->tx_buff))
 > 
 
-Is it an _error_ if the CPU does not support this functionality ?
+Yes, it could be simplified like you pointed out. Will change it.
 
->>> +    }
->>> +
->>> +    priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->>> +    if (!priv)
->>> +        return -ENOMEM;
->>> +
->>> +    dev_set_drvdata(dev, priv);
->>> +    priv->client = client;
->>> +    priv->dev = dev;
->>> +    priv->addr = client->addr;
->>> +    priv->cpu_no = priv->addr - PECI_BASE_ADDR;
+>> +               if (rc)
+>> +                       return rc;
+>> +       }
+>> +
+>> +       dev_dbg(priv->dev, "HEAD : 0x%08x\n", peci_head);
+>> +#if DUMP_DEBUG
+> 
+> Having #defines is frowned upon. I think print_hex_dump_debug will do
+> what you want here.
+> 
+
+Got it. I'll replace it with print_hex_dump_debug() after removing the 
+define.
+
+>> +       print_hex_dump(KERN_DEBUG, "TX : ", DUMP_PREFIX_NONE, 16, 1,
+>> +                      msg->tx_buf, msg->tx_len, true);
+>> +#endif
+>> +
+>> +       rc = regmap_write(priv->regmap, AST_PECI_CMD, PECI_CMD_FIRE);
+>> +       if (rc)
+>> +               return rc;
+>> +
+>> +       err = wait_for_completion_interruptible_timeout(&priv->xfer_complete,
+>> +                                                       timeout);
+>> +
+>> +       dev_dbg(priv->dev, "INT_STS : 0x%08x\n", priv->status);
+>> +       if (!regmap_read(priv->regmap, AST_PECI_CMD, &peci_state))
+>> +               dev_dbg(priv->dev, "PECI_STATE : 0x%lx\n",
+>> +                       PECI_CMD_STS_GET(peci_state));
+>> +       else
+>> +               dev_dbg(priv->dev, "PECI_STATE : read error\n");
+>> +
+>> +       rc = regmap_write(priv->regmap, AST_PECI_CMD, 0);
+>> +       if (rc)
+>> +               return rc;
+>> +
+>> +       if (err <= 0 || !(priv->status & PECI_INT_CMD_DONE)) {
+>> +               if (err < 0) { /* -ERESTARTSYS */
+>> +                       return (int)err;
+>> +               } else if (err == 0) {
+>> +                       dev_dbg(priv->dev, "Timeout waiting for a response!\n");
+>> +                       return -ETIMEDOUT;
+>> +               }
+>> +
+>> +               dev_dbg(priv->dev, "No valid response!\n");
+>> +               return -EIO;
+>> +       }
+>> +
+>> +       for (i = 0; i < msg->rx_len; i++) {
+>> +               u8 byte_offset = i % 4;
+>> +
+>> +               if (byte_offset == 0) {
+>> +                       reg = i < 16 ? AST_PECI_R_DATA0 + i % 16 :
+>> +                                      AST_PECI_R_DATA4 + i % 16;
+> 
+> I find this hard to read. Use a few more lines to make it clear what
+> your code is doing.
+> 
+> Actually, the entire for loop is cryptic. I understand what it's doing
+> now. Can you rework it to make it more readable? You follow a similar
+> pattern above in the write case.
+> 
+
+Intention was that make it run just amount up to the rx_len but it's not 
+efficient. I'll rewrite it like you suggested.
+
+>> +                       rc = regmap_read(priv->regmap, reg, &rx_data);
+>> +                       if (rc)
+>> +                               return rc;
+>> +               }
+>> +
+>> +               msg->rx_buf[i] = (u8)(rx_data >> (byte_offset << 3))
+>> +       }
+>> +
+>> +#if DUMP_DEBUG
+>> +       print_hex_dump(KERN_DEBUG, "RX : ", DUMP_PREFIX_NONE, 16, 1,
+>> +                      msg->rx_buf, msg->rx_len, true);
+>> +#endif
+>> +       if (!regmap_read(priv->regmap, AST_PECI_CMD, &peci_state))
+>> +               dev_dbg(priv->dev, "PECI_STATE : 0x%lx\n",
+>> +                       PECI_CMD_STS_GET(peci_state));
+>> +       else
+>> +               dev_dbg(priv->dev, "PECI_STATE : read error\n");
+> 
+> Given the regmap_read is always going to be a memory read on the
+> aspeed, I can't think of a situation where the read will fail.
+> 
+> On that note, is there a reason you are using regmap and not just
+> accessing the hardware directly? regmap imposes a number of pointer
+> lookups and tests each time you do a read or write.
+> 
+
+No specific reason. regmap makes some overhead as you mentioned but it 
+also provides some advantages on access simplification, endianness 
+handling and register dump at run time. I'd not insist using of regmap 
+if you prefer using of raw readl and writel. Do you?
+
+>> +       dev_dbg(priv->dev, "------------------------\n");
+>> +
+>> +       return rc;
+>> +}
+>> +
+>> +static irqreturn_t aspeed_peci_irq_handler(int irq, void *arg)
+>> +{
+>> +       struct aspeed_peci *priv = arg;
+>> +       u32 status_ack = 0;
+>> +
+>> +       if (regmap_read(priv->regmap, AST_PECI_INT_STS, &priv->status))
+>> +               return IRQ_NONE;
+> 
+> Again, a memory mapped read won't fail. How about we check that the
+> regmap is working once in your _probe() function, and assume it will
+> continue working from there (or remove the regmap abstraction all
+> together).
+> 
+
+You are right. I'll keep this checking only in _probe() function and 
+remove all redundant error checking codes on memory mapped IO.
+
+>> +
+>> +       /* Be noted that multiple interrupt bits can be set at the same time */
+>> +       if (priv->status & PECI_INT_TIMEOUT) {
+>> +               dev_dbg(priv->dev, "PECI_INT_TIMEOUT\n");
+>> +               status_ack |= PECI_INT_TIMEOUT;
+>> +       }
+>> +
+>> +       if (priv->status & PECI_INT_CONNECT) {
+>> +               dev_dbg(priv->dev, "PECI_INT_CONNECT\n");
+>> +               status_ack |= PECI_INT_CONNECT;
+>> +       }
+>> +
+>> +       if (priv->status & PECI_INT_W_FCS_BAD) {
+>> +               dev_dbg(priv->dev, "PECI_INT_W_FCS_BAD\n");
+>> +               status_ack |= PECI_INT_W_FCS_BAD;
+>> +       }
+>> +
+>> +       if (priv->status & PECI_INT_W_FCS_ABORT) {
+>> +               dev_dbg(priv->dev, "PECI_INT_W_FCS_ABORT\n");
+>> +               status_ack |= PECI_INT_W_FCS_ABORT;
+>> +       }
+> 
+> All of this code is for debugging only. Do you want to put it behind
+> some kind of conditional?
+> 
+
+This code makes changes on the status_ack variable to write back ack bit 
+on each interrupt.
+
+>> +
+>> +       /**
+>> +        * All commands should be ended up with a PECI_INT_CMD_DONE bit set
+>> +        * even in an error case.
+>> +        */
+>> +       if (priv->status & PECI_INT_CMD_DONE) {
+>> +               dev_dbg(priv->dev, "PECI_INT_CMD_DONE\n");
+>> +               status_ack |= PECI_INT_CMD_DONE;
+>> +               complete(&priv->xfer_complete);
+>> +       }
+>> +
+>> +       if (regmap_write(priv->regmap, AST_PECI_INT_STS, status_ack))
+>> +               return IRQ_NONE;
+>> +
+>> +       return IRQ_HANDLED;
+>> +}
+>> +
+>> +static int aspeed_peci_init_ctrl(struct aspeed_peci *priv)
+>> +{
+>> +       u32 msg_timing_nego, addr_timing_nego, rd_sampling_point;
+>> +       u32 clk_freq, clk_divisor, clk_div_val = 0;
+>> +       struct clk *clkin;
+>> +       int ret;
+>> +
+>> +       clkin = devm_clk_get(priv->dev, NULL);
+>> +       if (IS_ERR(clkin)) {
+>> +               dev_err(priv->dev, "Failed to get clk source.\n");
+>> +               return PTR_ERR(clkin);
+>> +       }
+>> +
+>> +       ret = of_property_read_u32(priv->dev->of_node, "clock-frequency",
+>> +                                  &clk_freq);
+>> +       if (ret < 0) {
+>> +               dev_err(priv->dev,
+>> +                       "Could not read clock-frequency property.\n");
+>> +               return ret;
+>> +       }
+>> +
+>> +       clk_divisor = clk_get_rate(clkin) / clk_freq;
+>> +       devm_clk_put(priv->dev, clkin);
+>> +
+>> +       while ((clk_divisor >> 1) && (clk_div_val < PECI_CLK_DIV_MAX))
+>> +               clk_div_val++;
+> 
+> We have a framework for doing clocks in the kernel. Would it make
+> sense to write a driver for this clock and add it to
+> drivers/clk/clk-aspeed.c?
+> 
+
+Unlike other HW module, PECI uses the 24MHz external clock as its clock 
+source. Should it use clk-aspeed.c in this case?
+
+>> +
+>> +       ret = of_property_read_u32(priv->dev->of_node, "msg-timing-nego",
+>> +                                  &msg_timing_nego);
+>> +       if (ret || msg_timing_nego > PECI_MSG_TIMING_NEGO_MAX) {
+>> +               dev_warn(priv->dev,
+>> +                        "Invalid msg-timing-nego : %u, Use default : %u\n",
+>> +                        msg_timing_nego, PECI_MSG_TIMING_NEGO_DEFAULT);
+> 
+> The property is optional so I suggest we don't print a message if it's
+> not present. We certainly don't want to print a message saying
+> "invalid".
+> 
+> The same comment applies to the other optional properties below.
+> 
+
+Agreed. I'll make it print out the message only when ret == 0 and 
+msg_timing_nego > PECI_MSG_TIMING_NEGO_MAX.
+
+>> +               msg_timing_nego = PECI_MSG_TIMING_NEGO_DEFAULT;
+>> +       }
+>> +
+>> +       ret = of_property_read_u32(priv->dev->of_node, "addr-timing-nego",
+>> +                                  &addr_timing_nego);
+>> +       if (ret || addr_timing_nego > PECI_ADDR_TIMING_NEGO_MAX) {
+>> +               dev_warn(priv->dev,
+>> +                        "Invalid addr-timing-nego : %u, Use default : %u\n",
+>> +                        addr_timing_nego, PECI_ADDR_TIMING_NEGO_DEFAULT);
+>> +               addr_timing_nego = PECI_ADDR_TIMING_NEGO_DEFAULT;
+>> +       }
+>> +
+>> +       ret = of_property_read_u32(priv->dev->of_node, "rd-sampling-point",
+>> +                                  &rd_sampling_point);
+>> +       if (ret || rd_sampling_point > PECI_RD_SAMPLING_POINT_MAX) {
+>> +               dev_warn(priv->dev,
+>> +                        "Invalid rd-sampling-point : %u. Use default : %u\n",
+>> +                        rd_sampling_point,
+>> +                        PECI_RD_SAMPLING_POINT_DEFAULT);
+>> +               rd_sampling_point = PECI_RD_SAMPLING_POINT_DEFAULT;
+>> +       }
+>> +
+>> +       ret = of_property_read_u32(priv->dev->of_node, "cmd-timeout-ms",
+>> +                                  &priv->cmd_timeout_ms);
+>> +       if (ret || priv->cmd_timeout_ms > PECI_CMD_TIMEOUT_MS_MAX ||
+>> +           priv->cmd_timeout_ms == 0) {
+>> +               dev_warn(priv->dev,
+>> +                        "Invalid cmd-timeout-ms : %u. Use default : %u\n",
+>> +                        priv->cmd_timeout_ms,
+>> +                        PECI_CMD_TIMEOUT_MS_DEFAULT);
+>> +               priv->cmd_timeout_ms = PECI_CMD_TIMEOUT_MS_DEFAULT;
+>> +       }
+>> +
+>> +       ret = regmap_write(priv->regmap, AST_PECI_CTRL,
+>> +                          PECI_CTRL_CLK_DIV(PECI_CLK_DIV_DEFAULT) |
+>> +                          PECI_CTRL_PECI_CLK_EN);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       usleep_range(1000, 5000);
+> 
+> Can we probe in parallel? If not, putting a sleep in the _probe will
+> hold up the rest of drivers from being able to do anything, and hold
+> up boot.
+> 
+> If you decide that you do need to probe here, please add a comment.
+> (This is the wait for the clock to be stable?)
+> 
+
+I'll test it again and will remove it if it is not necessary.
+
+>> +
+>> +       /**
+>> +        * Timing negotiation period setting.
+>> +        * The unit of the programmed value is 4 times of PECI clock period.
+>> +        */
+>> +       ret = regmap_write(priv->regmap, AST_PECI_TIMING,
+>> +                          PECI_TIMING_MESSAGE(msg_timing_nego) |
+>> +                          PECI_TIMING_ADDRESS(addr_timing_nego));
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* Clear interrupts */
+>> +       ret = regmap_write(priv->regmap, AST_PECI_INT_STS, PECI_INT_MASK);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* Enable interrupts */
+>> +       ret = regmap_write(priv->regmap, AST_PECI_INT_CTRL, PECI_INT_MASK);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* Read sampling point and clock speed setting */
+>> +       ret = regmap_write(priv->regmap, AST_PECI_CTRL,
+>> +                          PECI_CTRL_SAMPLING(rd_sampling_point) |
+>> +                          PECI_CTRL_CLK_DIV(clk_div_val) |
+>> +                          PECI_CTRL_PECI_EN | PECI_CTRL_PECI_CLK_EN);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static const struct regmap_config aspeed_peci_regmap_config = {
+>> +       .reg_bits = 32,
+>> +       .val_bits = 32,
+>> +       .reg_stride = 4,
+>> +       .max_register = AST_PECI_R_DATA7,
+>> +       .val_format_endian = REGMAP_ENDIAN_LITTLE,
+>> +       .fast_io = true,
+>> +};
+>> +
+>> +static int aspeed_peci_xfer(struct peci_adapter *adaper,
+>> +                           struct peci_xfer_msg *msg)
+>> +{
+>> +       struct aspeed_peci *priv = peci_get_adapdata(adaper);
+>> +
+>> +       return aspeed_peci_xfer_native(priv, msg);
+>> +}
+>> +
+>> +static int aspeed_peci_probe(struct platform_device *pdev)
+>> +{
+>> +       struct aspeed_peci *priv;
+>> +       struct resource *res;
+>> +       void __iomem *base;
+>> +       int ret = 0;
+>> +
+>> +       priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+>> +       if (!priv)
+>> +               return -ENOMEM;
+>> +
+>> +       dev_set_drvdata(&pdev->dev, priv);
+>> +       priv->dev = &pdev->dev;
+>> +
+>> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>> +       base = devm_ioremap_resource(&pdev->dev, res);
+>> +       if (IS_ERR(base))
+>> +               return PTR_ERR(base);
+>> +
+>> +       priv->regmap = devm_regmap_init_mmio(&pdev->dev, base,
+>> +                                            &aspeed_peci_regmap_config);
+>> +       if (IS_ERR(priv->regmap))
+>> +               return PTR_ERR(priv->regmap);
+>> +
+>> +       priv->irq = platform_get_irq(pdev, 0);
+>> +       if (!priv->irq)
+>> +               return -ENODEV;
+>> +
+>> +       ret = devm_request_irq(&pdev->dev, priv->irq, aspeed_peci_irq_handler,
+>> +                              IRQF_SHARED,
+> 
+> This interrupt is only for the peci device. Why is it marked as shared?
+> 
+
+You are right. I'll remove the flag.
+
+>> +                              "peci-aspeed-irq",
+>> +                              priv);
+>> +       if (ret < 0)
+>> +               return ret;
+>> +
+>> +       init_completion(&priv->xfer_complete);
+>> +
+>> +       priv->adaper.dev.parent = priv->dev;
+>> +       priv->adaper.dev.of_node = of_node_get(dev_of_node(priv->dev));
+>> +       strlcpy(priv->adaper.name, pdev->name, sizeof(priv->adaper.name));
+>> +       priv->adaper.xfer = aspeed_peci_xfer;
+>> +       peci_set_adapdata(&priv->adaper, priv);
+>> +
+>> +       ret = aspeed_peci_init_ctrl(priv);
+>> +       if (ret < 0)
+>> +               return ret;
+>> +
+>> +       ret = peci_add_adapter(&priv->adaper);
+>> +       if (ret < 0)
+>> +               return ret;
+>> +
+>> +       dev_info(&pdev->dev, "peci bus %d registered, irq %d\n",
+>> +                priv->adaper.nr, priv->irq);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int aspeed_peci_remove(struct platform_device *pdev)
+>> +{
+>> +       struct aspeed_peci *priv = dev_get_drvdata(&pdev->dev);
+>> +
+>> +       peci_del_adapter(&priv->adaper);
+>> +       of_node_put(priv->adaper.dev.of_node);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static const struct of_device_id aspeed_peci_of_table[] = {
+>> +       { .compatible = "aspeed,ast2400-peci", },
+>> +       { .compatible = "aspeed,ast2500-peci", },
+>> +       { }
+>> +};
+>> +MODULE_DEVICE_TABLE(of, aspeed_peci_of_table);
+>> +
+>> +static struct platform_driver aspeed_peci_driver = {
+>> +       .probe  = aspeed_peci_probe,
+>> +       .remove = aspeed_peci_remove,
+>> +       .driver = {
+>> +               .name           = "peci-aspeed",
+>> +               .of_match_table = of_match_ptr(aspeed_peci_of_table),
+>> +       },
+>> +};
+>> +module_platform_driver(aspeed_peci_driver);
+>> +
+>> +MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
+>> +MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
+>> +MODULE_DESCRIPTION("Aspeed PECI driver");
+>> +MODULE_LICENSE("GPL v2");
+>> --
+>> 2.16.2
 >>
->> Is priv->addr guaranteed to be >= PECI_BASE_ADDR ?
-> 
-> Client address range validation will be done in peci_check_addr_validity() in PECI core before probing a device driver.
-> 
->>> +
->>> +    snprintf(priv->name, PECI_NAME_SIZE, "peci_dimmtemp.cpu%d",
->>> +         priv->cpu_no);
->>> +
->>> +    rc = check_cpu_id(priv);
->>> +    if (rc) {
->>> +        dev_err(dev, "Client CPU is not supported\n");
->>
->> Or the peci command failed.
->>
-> 
-> I'll remove the error message and will add a proper handling code into PECI core on each error type.
-> 
->>> +        return rc;
->>> +    }
->>> +
->>> +    priv->work_queue = alloc_ordered_workqueue(priv->name, 0);
->>> +    if (!priv->work_queue)
->>> +        return -ENOMEM;
->>> +
->>> +    INIT_DELAYED_WORK(&priv->work_handler, create_dimm_temp_info_delayed);
->>> +
->>> +    rc = create_dimm_temp_info(priv);
->>> +    if (rc && rc != -EAGAIN) {
->>> +        dev_err(dev, "Failed to create DIMM temp info\n");
->>> +        goto err_free_wq;
->>> +    }
->>> +
->>> +    return 0;
->>> +
->>> +err_free_wq:
->>> +    destroy_workqueue(priv->work_queue);
->>> +    return rc;
->>> +}
->>> +
->>> +static int peci_dimmtemp_remove(struct peci_client *client)
->>> +{
->>> +    struct peci_dimmtemp *priv = dev_get_drvdata(&client->dev);
->>> +
->>> +    cancel_delayed_work(&priv->work_handler);
->>
->> cancel_delayed_work_sync() ?
->>
-> 
-> Yes, it would be safer. Will fix it.
-> 
->>> +    destroy_workqueue(priv->work_queue);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static const struct of_device_id peci_dimmtemp_of_table[] = {
->>> +    { .compatible = "intel,peci-dimmtemp" },
->>> +    { }
->>> +};
->>> +MODULE_DEVICE_TABLE(of, peci_dimmtemp_of_table);
->>> +
->>> +static struct peci_driver peci_dimmtemp_driver = {
->>> +    .probe  = peci_dimmtemp_probe,
->>> +    .remove = peci_dimmtemp_remove,
->>> +    .driver = {
->>> +        .name           = "peci-dimmtemp",
->>> +        .of_match_table = of_match_ptr(peci_dimmtemp_of_table),
->>> +    },
->>> +};
->>> +module_peci_driver(peci_dimmtemp_driver);
->>> +
->>> +MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
->>> +MODULE_DESCRIPTION("PECI dimmtemp driver");
->>> +MODULE_LICENSE("GPL v2");
->>> -- 
->>> 2.16.2
->>>
-> -- 
-> To unsubscribe from this list: send the line "unsubscribe linux-hwmon" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
-> 
