@@ -6,55 +6,51 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RzotxkxP"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="CFBSHV2U"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="B5FdymRy"; dkim-atps=neutral
+ header.b="UxsRkEX4"; dkim-atps=neutral
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40M6Zc5rH3zF1RW
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 13:58:16 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40M6Zd3CYTzF1RX
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 13:58:17 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 630DC218E9;
- Wed, 11 Apr 2018 23:52:32 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id CAA4D218C8;
+ Wed, 11 Apr 2018 23:52:25 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 11 Apr 2018 23:52:32 -0400
+ by compute4.internal (MEProxy); Wed, 11 Apr 2018 23:52:25 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=uZTs07PzKhUF7x8qt
- 5oesZvgrwTazBajwdCiY9RnbS8=; b=RzotxkxPNBSKIKLdk870o0dEOQzVHISv8
- uGB0OyX5iJQw21OkiEzkgJrxnrXkd8Cy7pjUoG+3e+0KEsmEtudVrsXnwuTKuCR/
- xOYnMm55jqllci0k4cBqptE2blyb15HHV6D6Q1U4AA4jbNf4YDiio6c7vR0g6kPl
- 3oQJBWoNnGS5WkTTOJPNuEdM3xcQoUaJM7TVh1FVHZtizd2m4sso/aV5X6nKiyLj
- 6J6AQ5sQ7mzxw0Q/a6dCdjhO0IgZaIhCmDwTtVgpNhqgjEx9ygCRxqZX9T8LCvm3
- aEbmNvBjWIkYDsfKkmCBOeMV9RWbHxSonua0IAsSOcAElEuQ3bNEQ==
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=IoMzwy8YgPZvuRqwAYGlYNv9fIpKXvOBUwOosGkyM
+ zg=; b=CFBSHV2UXUOx+OVVM52FZM9VWVHhRKZZp/wBRZ4ey6qylsdKrYJ93irbJ
+ 5XbNm3m9IXrzoFiGA6TD2X/rrUD1n0KCOp0kqoIfrh2ZCm5RY2R+P7WN43EdD1HH
+ MQqePBNqLUJPLle9NDpTKFccydUh7uYoEOPCsOtDEiaDVQUPgK241EGNwRVV6ltw
+ Yd3VM/8uC8PzX3R+Y1EuVnbWQsfjviB3pyF9PykRldveSBzJS0n5RX6Y2wJ4+zjD
+ pN8fsLj6427Gubj3Pts9K1GGuKY5UwEl8qXIfruOknDbOlNpEMsnN0K9VZX7zSJ2
+ jxi4Ox7Ymfym3imI9ICuSdbH8bcZA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=uZTs07PzKhUF7x8qt5oesZvgrwTazBajwdCiY9RnbS8=; b=B5FdymRy
- q1jaqnjTvDAsXtVjcUfQogBLPRS66N2VkktI/+DmjVia4KgPZFqf6lTeW0SrbCbn
- 5LbNGdpXRYsY1nO/DxP+DccGfFAnAKCHf52Xmi5RlrxFY+K4UWcj8JKoW5zfvjhJ
- MKuK/VBQxlGxqYKqJS16gJvOkOSgIpUYQ93SJ/0tfCVeJj4RgIcikZbdTmmjPfXf
- sJHPSEznAYMahAN21y9lT3pCS2VBGb6X9usXp/SPR1m85aKIxdBkuGY348uC8Y9J
- 3j+BrlE64v7ScXO0SOABGGgN7seP9i2R3kgaJYbSY2Te3KV1XLtfnvFuTQaqLI5m
- FMCP8tGS0M3ssw==
-X-ME-Sender: <xms:ANjOWhxyp9yTMfAPwQ8WqkQzFD8LHzCGPnHuhu73Whc9Z_Iv0mI-oQ>
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=IoMzwy8YgPZvuRqwA
+ YGlYNv9fIpKXvOBUwOosGkyMzg=; b=UxsRkEX4uDmuX3jsqjWspu4lzyc+6FMZk
+ zheybMTKfI/hbLbQeHoPQjQOyWD9DoUN1oWps1uTxcZvhFnsJaXJ4gkQwvrZHoWO
+ p8NWBnVX9+sUhdRF2t1rAL3A3cv1SKOueWWkVszqJbm76h81nuDPxmoIe0iPE+ts
+ zT1+3DV1NNmPXS/7bIwm3DRGFAjOoYMp6JIqwIwyZNQqFDfHk60aFDNn9zeJB/e5
+ 0s3HisM6mJxThzscQq8SUMLv1EoGLFUGGXpZ5tB5Z/RWW7PMlrgHDdWNFV6m/YJf
+ xe11kzzq+7eSn49SjB0RC81YH4kRN9lF/LJNFdgt2ceBfHW3jdsPg==
+X-ME-Sender: <xms:-dfOWoizYMwawiRh12-kHu44l9e2IP4ZJq9aLDFhRIBdbMFLWS5H4g>
 Received: from dave.base64.com.au (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id D8E981027B;
- Wed, 11 Apr 2018 23:52:29 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 8B9C91028E;
+ Wed, 11 Apr 2018 23:52:22 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au, jk@ozlabs.org,
  benh@kernel.crashing.org
-Subject: [RFC PATCH linux dev-4.13 2/3] dts: aspeed-g5: Expose VGA scratch
- registers
-Date: Thu, 12 Apr 2018 13:21:44 +0930
-Message-Id: <20180412035145.21488-3-andrew@aj.id.au>
+Subject: [RFC PATCH linux dev-4.13 0/3] Miscellaneous BMC interfaces
+Date: Thu, 12 Apr 2018 13:21:42 +0930
+Message-Id: <20180412035145.21488-1-andrew@aj.id.au>
 X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180412035145.21488-1-andrew@aj.id.au>
-References: <20180412035145.21488-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,73 +64,51 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 12 Apr 2018 03:58:19 -0000
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/boot/dts/aspeed-g5.dtsi | 48 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+Hello,
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 1468b4ad22dc..8321df50c593 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -158,6 +158,11 @@
- 
- 				};
- 
-+				vga_scratch: scratch@50 {
-+					compatible = "aspeed,bmc-misc";
-+					reg = <0x50 0x20>;
-+				};
-+
- 				hwrng@78 {
- 					compatible = "timeriomem_rng";
- 					reg = <0x78 0x4>;
-@@ -1425,3 +1430,46 @@
- 		groups = "WDTRST2";
- 	};
- };
-+
-+&vga_scratch {
-+	vga0 {
-+		offset = <0x50>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+	vga1 {
-+		offset = <0x54>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+	vga2 {
-+		offset = <0x58>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+	vga3 {
-+		offset = <0x5c>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+	vga4 {
-+		offset = <0x60>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+	vga5 {
-+		offset = <0x64>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+	vga6 {
-+		offset = <0x68>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+	vga7 {
-+		offset = <0x6c>;
-+		bit-mask = <0xffffffff>;
-+		bit-shift = <0>;
-+	};
-+};
+The goal of this series is to expose BMC SoC-specific knobs and switches to
+userspace. This potentially includes scratch registers - I've exposed the VGA
+and SIO scratch registers for the AST2500 as an example.
+
+This series is an RFC because I can think of a few things that could be
+objectionable:
+
+1. sysfs vs chardev (at least, for the scratch register access)
+2. the name and compatible of the driver given that it's fairly generic
+3. for the same reason, the location in the source tree
+4. the devicetree bindings (which are as-yet undocumented)
+
+Regarding 1, scratch register access might better be done via a chardev. As a
+note for future reference, UIO is not appropriate in this circumstance as we
+want to access addresses in the MMIO space that aren't necessarily sized or
+aligned in terms of pages.
+
+The implementation is based on the rough outline in benh's recent email to
+lkml:
+
+https://lkml.org/lkml/2018/4/10/222
+
+Looking for comment on any of the above points.
+
+Cheers,
+
+Andrew
+
+Andrew Jeffery (3):
+  soc: aspeed: Miscellaneous control interfaces
+  dts: aspeed-g5: Expose VGA scratch registers
+  dts: aspeed-g5: Expose SuperIO scratch registers
+
+ arch/arm/boot/dts/aspeed-g5.dtsi     | 136 +++++++++++++++++++++++++
+ drivers/soc/Kconfig                  |   1 +
+ drivers/soc/Makefile                 |   1 +
+ drivers/soc/aspeed/Kconfig           |  11 +++
+ drivers/soc/aspeed/Makefile          |   1 +
+ drivers/soc/aspeed/aspeed-bmc-misc.c | 187 +++++++++++++++++++++++++++++++++++
+ 6 files changed, 337 insertions(+)
+ create mode 100644 drivers/soc/aspeed/Kconfig
+ create mode 100644 drivers/soc/aspeed/Makefile
+ create mode 100644 drivers/soc/aspeed/aspeed-bmc-misc.c
+
 -- 
 2.14.1
