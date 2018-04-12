@@ -1,29 +1,65 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40MSq60v6CzDqlJ
- for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 03:40:17 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 251F2EA08C
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 13:40:14 -0400 (EDT)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: reference platforms?
-Message-Id: <1A67395A-9FF6-4DC2-AD43-2C80308F6608@fuzziesquirrel.com>
-Date: Thu, 12 Apr 2018 13:40:13 -0400
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40MWkJ1fL5zF1Rl
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 05:51:17 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2018 12:51:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.48,443,1517904000"; d="scan'208";a="42887718"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga003.jf.intel.com with ESMTP; 12 Apr 2018 12:51:10 -0700
+Subject: Re: [PATCH v3 09/10] drivers/hwmon: Add PECI hwmon client drivers
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Andrew Lunn <andrew@lunn.ch>, Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Fengguang Wu <fengguang.wu@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
+ Haiyue Wang <haiyue.wang@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
+ Julia Cartwright <juliac@eso.teric.us>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Stef van Os <stef.van.os@prodrive-technologies.com>,
+ Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
+References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
+ <20180410183212.16787-10-jae.hyun.yoo@linux.intel.com>
+ <20180410222800.GA8484@roeck-us.net>
+ <637d7812-e567-0bc2-4f08-fbdca0ee85d8@linux.intel.com>
+ <292be2d9-e572-2e06-9899-f6c2c53fdefc@roeck-us.net>
+ <7b378954-1ce8-a2d2-5d09-8b6b36c048be@linux.intel.com>
+ <13d4c632-a20e-3c40-066a-1e9df02a0595@roeck-us.net>
+ <89c8c847-87e7-a849-e05d-d32b787e9305@linux.intel.com>
+ <20180412173714.GA13496@roeck-us.net>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <34c2c925-b62c-388b-d753-15fd4a821459@linux.intel.com>
+Date: Thu, 12 Apr 2018 12:51:10 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
+MIME-Version: 1.0
+In-Reply-To: <20180412173714.GA13496@roeck-us.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -35,56 +71,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Apr 2018 17:40:18 -0000
+X-List-Received-Date: Thu, 12 Apr 2018 19:51:20 -0000
 
-I think in the not-too-distant-future we are going to need a concept of =
-reference
-platforms.
+On 4/12/2018 10:37 AM, Guenter Roeck wrote:
+> On Thu, Apr 12, 2018 at 10:09:51AM -0700, Jae Hyun Yoo wrote:
+> [ ... ]
+>>>>>>>> +static int find_core_index(struct peci_cputemp *priv, int channel)
+>>>>>>>> +{
+>>>>>>>> +    int core_channel = channel - DEFAULT_CHANNEL_NUMS;
+>>>>>>>> +    int idx, found = 0;
+>>>>>>>> +
+>>>>>>>> +    for (idx = 0; idx < priv->gen_info->core_max; idx++) {
+>>>>>>>> +        if (priv->core_mask & BIT(idx)) {
+>>>>>>>> +            if (core_channel == found)
+>>>>>>>> +                break;
+>>>>>>>> +
+>>>>>>>> +            found++;
+>>>>>>>> +        }
+>>>>>>>> +    }
+>>>>>>>> +
+>>>>>>>> +    return idx;
+>>>>>>>
+>>>>>>> What if nothing is found ?
+>>>>>>>
+>>>>>>
+>>>>>> Core temperature group will be registered only when it detects at
+>>>>>> least one core checked by check_resolved_cores(), so
+>>>>>> find_core_index() can be called only when priv->core_mask has a
+>>>>>> non-zero value. The 'nothing is found' case will not happen.
+>>>>>>
+>>>>> That doesn't guarantee a match. If what you are saying is correct
+>>>>> there should always be
+>>>>> a well defined match of channel -> idx, and the search should be
+>>>>> unnecessary.
+>>>>>
+>>>>
+>>>> There could be some disabled cores in the resolved core mask bit
+>>>> sequence also it should remove indexing gap in channel numbering so it
+>>>> is the reason why this search function is needed. Well defined match of
+>>>> channel -> idx would not be always satisfied.
+>>>>
+>>> Are you saying that each call to the function, with the same parameters,
+>>> can return a different result ?
+>>>
+>>
+>> No, the result will be consistent. After reading the priv->core_mask once in
+>> check_resolved_cores(), the value will not be changed. I'm saying about this
+>> case, for example if core number 2 is unresolved in total 4 cores, then the
+>> idx order will be '0, 1, 3' but channel order will be '5, 6, 7' without
+>> making any indexing gap.
+>>
+> 
+> And you yet you claim that this is not well defined ? Or are you concerned
+> about the amount of memory consumed by providing an array for the mapping ?
+> 
+> Note that an indexing gap is acceptable and, in many cases, preferred.
+> 
 
-openbmc/openbmc is essentially the same thing as Poky.  A super-repo
-of other upstream repos (bitbake, oe-core, etc=E2=80=A6).  Our upstream =
-repos
-just happen to be different things like poky, meta-virtualization, =
-meta-phosphor,
-meta-aspeed, etc.
+If the indexing gap is acceptable, the index search function isn't 
+needed anymore. I'll fix all relating code to make that use direct 
+mapping of channel -> idx then. Thanks!
 
-But the similarity ends when you look at the platforms supported.  Poky
-has a set of reference platforms.  Any other platforms or distros using
-Poky are not the Yocto projects concern - they are completely maintained
-by the project that uses Poky (like us!).
+> [ ... ]
+> 
+>>>>>>>> +
+>>>>>>>> +    dev_dbg(dev, "%s: sensor '%s'\n", dev_name(hwmon_dev),
+>>>>>>>> priv->name);
+>>>>>>>> +
+>>>>>
+>>>>> Why does this message display the device name twice ?
+>>>>>
+>>>>
+>>>> For an example, dev_name(hwmon_dev) shows 'hwmon5' and priv->name shows
+>>>> 'peci-cputemp0'.
+>>>>
+>>> And dev_dbg() shows another device name. So you'll have something like
+>>>
+>>> peci-cputemp0: hwmon5: sensor 'peci-cputemp0'
+>>>
+>>
+>> Practically it shows like
+>>
+>> peci-cputemp 0-30:00: hwmon10: sensor 'peci_cputemp.cpu0'
+>>
+>> where 0-30:00 is assigned by peci core.
+>>
+> 
+> And what message would you see for cpu1 ?
+> 
 
-Thus far we have not really put any filter on what machines you get
-when you clone openbmc/openbmc.  I think that needs to change to a model
-like the one the Yocto project uses.  The clear benefits I see to that
-are:
+It shows like
 
-- It addresses a scaling problem in the openbmc/openbmc repository.  We
-are on track to repeat the mistakes of the openembedded project that led
-to the formation of Poky in the first place.  That is, we cannot add new
-platform and BSP layers indefinitely.  At some point it will become
-unmanageable.  Part of me wonders if we are already there.
-
-- Testing.  Obviously a developer cannot test a patch on 100 platforms =
-or
-10 different SOCs.  So what is the developer expected to test on?  A =
-reference
-platform.  Then who tests the other systems?  The maintainers of those
-systems.  Adopting the same mode of thinking as Poky makes this =
-distinction
-clear.
-
-So what does everyone think of the idea of reference platforms?  Can
-they help the OpenBMC project?
-
-So the obvious next question is=E2=80=A6what are the metrics for =
-defining reference
-platforms?  I predict finding the answer to that will be a challenge =
-:-).
-
-Go ahead and throw crazy ideas out there.  Pay money to the project?  =
-Most
-days without a compile failure?  There are about a million things we =
-could
-do here - but what does everyone find fair?
-
-thx - brad=
+peci-cputemp 0-31:00: hwmon10: sensor 'peci_cputemp.cpu1'
