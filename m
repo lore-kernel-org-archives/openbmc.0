@@ -1,77 +1,63 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::232; helo=mail-ua0-x232.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="LN5okgH6"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x232.google.com (mail-ua0-x232.google.com
+ [IPv6:2607:f8b0:400c:c08::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40N5ZB0RhhzF1S6
- for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 04:16:17 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3DIAxDa076516
- for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 14:16:14 -0400
-Received: from e06smtp14.uk.ibm.com (e06smtp14.uk.ibm.com [195.75.94.110])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2haxs9gu01-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 14:16:14 -0400
-Received: from localhost
- by e06smtp14.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Fri, 13 Apr 2018 19:16:12 +0100
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp14.uk.ibm.com (192.168.101.144) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Fri, 13 Apr 2018 19:16:09 +0100
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w3DIG9WK56819836; Fri, 13 Apr 2018 18:16:09 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 49D284C040;
- Fri, 13 Apr 2018 19:08:45 +0100 (BST)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E91894C044;
- Fri, 13 Apr 2018 19:08:43 +0100 (BST)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.77.214.213])
- by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Fri, 13 Apr 2018 19:08:43 +0100 (BST)
-Subject: Re: Serial Over Lan in the webui
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: "geissonator@gmail.com" <geissonator@gmail.com>,
- "gmills@linux.vnet.ibm.com" <gmills@linux.vnet.ibm.com>,
- "jayashankar.padath@in.ibm.com" <jayashankar.padath@in.ibm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <6bb68901-d843-16eb-02ae-588ce52f91a7@linux.vnet.ibm.com>
- <7E9441B1E5EFFD4681F54958E82169932F689D5D@ORSMSX114.amr.corp.intel.com>
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Fri, 13 Apr 2018 23:46:06 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
- Gecko/20100101 Thunderbird/52.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40N7LH0hDLzF1SH
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 05:36:05 +1000 (AEST)
+Received: by mail-ua0-x232.google.com with SMTP id u4so6477760uaf.10
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 12:36:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=NA63mbbfqXeyYH5qGJuCArKkwFYRJixMyDTZJvF/LmM=;
+ b=LN5okgH6dYle674k0kVAJHHlSxXb867RjL80BwKaOas2phWsZktSXzsAH0EIrJ5Ho6
+ HV2vpYcyfM5MAVgKJ78SvcBBltFLecxdSxUZtdpMZ3jyQEfsTDgnehWDqOU3qACOSmjG
+ 3wG4HWotAgyMMgwnN9fRrulqhw9ENudvEYkRcvxQXLPzkqURa27Lzc6KfW/sYxib+X9p
+ ZBqkpLbVxLupwTNU/oIR/+R0Bk28ToOlfgYkTndk6+O9GUBJXlUzDZQ+yGCIC7mss5H+
+ oakIPDe8Kms190vENgLo3CdO7S9r1OA4Y/JV8jsR2JC86GDuz1ztclrw7Ma9HWdeKCzU
+ eY8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=NA63mbbfqXeyYH5qGJuCArKkwFYRJixMyDTZJvF/LmM=;
+ b=nLg6yTFMzs/zR06+YByfOEhHZic1eH25UDOYQN+2sv6C2zIhjxYcQJSwgmnkhIUuBB
+ EShFMxrU/TcN4YwpA040saaU21eOk2wmqU64Ig2OGL0nfnNpY/N9kdYhPzUotSzXjLRj
+ ITQnmWpx62M6JganMNQpmQ8zNkI5u+d/XJ0EzD6YdwFi2AjmA4/AsbrEzLAXsF/aqtyu
+ mqZnyujxkI40WYdgMILPPx1rbEisGAXKnCp7DJc++pZ+NwBzdY9EXDq3Ka314a4dZSmC
+ 9+IaGJOYJ18FlhkLnc7T9tk6umMcYicVd1cyX9r+BHi2JoGr+4z+msWtRChBKe177tUd
+ 4L6A==
+X-Gm-Message-State: ALQs6tCoIq8iiFG7bt6M9tBdMnCVup83+LC5bi31U8xNydgwDJlR489n
+ JgiQdlzwz3oKD6gf264jBHHoPA17GRkqC9geuB8eWg==
+X-Google-Smtp-Source: AIpwx48QpIG2X6b7B+6KpXb9Vjv3EeCd1jOcBdbxPwecARwYTPrOtxGjAiCTU1DCifYtrSiQGrYkXswQWPQKaQxQGwc=
+X-Received: by 10.159.59.214 with SMTP id y22mr4908401uah.142.1523648163184;
+ Fri, 13 Apr 2018 12:36:03 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F689D5D@ORSMSX114.amr.corp.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 18041318-0044-0000-0000-0000054707AB
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18041318-0045-0000-0000-0000288748AF
-Message-Id: <1bd0b4af-cc0f-6f5b-2ad4-e5c72a7ef8ef@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-13_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804130167
+Received: by 10.31.124.193 with HTTP; Fri, 13 Apr 2018 12:35:42 -0700 (PDT)
+In-Reply-To: <CADfYTpG+ceGDtcvW7zVkmVAMehcnchrOpJcJtUjFWF7P=-W0cw@mail.gmail.com>
+References: <6BB03E30-7768-4455-BB7D-6B1C8AECBDE4@gmail.com>
+ <1523367363.1598830.1332941912.403D2457@webmail.messagingengine.com>
+ <2D4C2F3F-7B13-48C4-9E4C-5733835552F9@gmail.com>
+ <CADfYTpG+ceGDtcvW7zVkmVAMehcnchrOpJcJtUjFWF7P=-W0cw@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 13 Apr 2018 12:35:42 -0700
+Message-ID: <CAO=notymMJ=Qh9qm2UFAEAemwYH=0e5kGUrQGBQzMqkR2eqtGA@mail.gmail.com>
+Subject: Re: How to power on Intel x86 based CPUs
+To: Nancy Yuen <yuenn@google.com>
+Cc: Brad Chou <chou.brad@gmail.com>, Andrew Jeffery <andrew@aj.id.au>, 
+ Ed Tanous <ed.tanous@intel.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -83,63 +69,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Apr 2018 18:16:18 -0000
+X-List-Received-Date: Fri, 13 Apr 2018 19:36:07 -0000
 
-On 13/04/18 10:30 pm, Tanous, Ed wrote:
-> I sent you a few replies on IRC, not sure if you saw any of them.  Some ideas are below.
-
-Seem to have missed them.
-
->> -----Original Message-----
->> From: Deepak Kodihalli [mailto:dkodihal@linux.vnet.ibm.com]
->> Sent: Friday, April 13, 2018 2:59 AM
->> To: geissonator@gmail.com; Tanous, Ed <ed.tanous@intel.com>;
->> gmills@linux.vnet.ibm.com; jayashankar.padath@in.ibm.com; Brad Bishop
->> <bradleyb@fuzziesquirrel.com>
->> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
->> Subject: Serial Over Lan in the webui
+On Fri, Apr 13, 2018 at 10:53 AM, Nancy Yuen <yuenn@google.com> wrote:
+> Patrick Venture uses the q71l and may be able to answer #2.  I suspect it
+> was removed simply b/c the system we were using it on didn't use it.
+>
+> ----------
+> Nancy
+>
+> On Fri, Apr 13, 2018 at 2:43 AM, Brad Chou <chou.brad@gmail.com> wrote:
 >>
->> Based on my investigation, it might not be possible to get the SOL working in
->> the UI via the latter scenario. This is because it doesn't seem to be possible to
->> implement an ssh client with client-side html and javascript that a browser
->> can run by itself, and that's because javascript running in the browser doesn't
->> have raw tcp/ip socket support.
-> 
-> To my understanding, there is no way to implement browser WebUI based SSH in either scenario without a separate conversion to websockets, as I do not believe there is any browser support for the low level socket access you need to directly connect to an SSH socket.  As you said, you are running an intermediary on your development system to do this now, which doesn't work when deploying to the platform.
-> 
+>> Hi,
+>> Actually I am using the meta-s2600wf as my TEMPLATECONF.
+>> Now switch to Q71L but found some problems :
 >>
->> So the question is how do we solve this when the webui code is served by
->> the BMC?
-> 
-> You will need some way to transfer events (text) to the browser.  In order, my personal preference would be:
-> 
-> 1. Build a daemon that is capable of forwarding socket-like information over an authenticated websocket.  There are several examples of how to do this, Bmcweb has an example of sending VNC-like protocols over an authenticated websocket.  Rest-dbus has a websocket for transferring dbus eventing info.  You could use either of these as an example of how to build your own.
+>> 1. I can not send the same REST command to power up the host. It seems t=
+he
+>> xyz/openbmc_project/state/host0/attr/RequestedHostTransition
+>> is gone. I even can=E2=80=99t see any attributes related to
+>> xyz/openbmc_project/state.
+>>
+>> 2. I found in quanta-q71l.conf, it remove the obmc-host-state-mgmt, this
+>> may be needed when using REST to power on host. Why q71L remove it ?  Is=
+ it
+>> because of not compatible with x86 system ?
 
-I implemented that websocket for the alerts, but you're right that I 
-should be able to leverage/refer to that implementation. I was going to 
-try that first, but will look at the other ideas that you've suggested 
-as well.
+We didn't require it.  There was nothing wired up to it for us.  One
+could conceivably wire up the power-on script stuff.
 
-> 2. Use something like SSE to transfer the buffers and forward the events.
-> https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
-> 3. Use long polling on a rest api to transfer buffers.
-> https://www.pubnub.com/blog/2014-12-01-http-long-polling/
-> 
->> Is anyone aware of a pure client-side javascript based ssh client? If
->> not, we'd have to run Node or something equivalent on the BMC
-> You are free to do what you want, but I wouldn’t recommend this route, and would resist any attempts to put it in an upstream component patchset.  NodeJS is very heavyweight for running on the BMC hardware, in both flash usage and startup time, as it's jit compiling its sources using V8.  For something relatively simple (forwarding a serial interface to a websocket) I do not believe the infrastructure cost of maintaining nodejs on the BMC is warranted.
-
-I agree, I just put that into perspective to stress the need of some 
-server side work.
-
->> , or have
->> the REST server act as a proxy server between the terminal writing to a
->> socket that the rest server can intercept and convert to ssh packets. Any
->> other thoughts on how this can be achieved?
-> 
-> I would recommend going a level deeper, and avoid SSH altogether.  Directly connect the websocket to the interface that the SSH daemon is sourcing serial from.`
-
-That sounds like a good idea, thanks!
-
-Regards,
-Deepak
+>>
+>> 3. Suppose the REST is not used by Q71L, how can I power it up from LAN =
+?
+>>
+>> Thanks.
+>>
+>>
+>> On Apr 10, 2018, at 21:36, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>
+>> Hi Brad,
+>>
+>> On Tue, 10 Apr 2018, at 19:35, Brad Chou wrote:
+>>
+>> Hi,
+>> I am going to power on my OEM server board with two Intel x86 CPUs. The
+>> BMC chip is ASPEED 2500.
+>>
+>> By the Intel data sheets, I just need to control a power on GPIO to
+>> emulate power button behavior.
+>> The problems are, when I send Host State Control commands as mentioned
+>> in docs/host-management.md, the journal log shows a lot of systemctl
+>> errors.
+>>
+>> Looks like it is going to start the OpenPower related host control
+>> services, which only applies to PowerPC system.
+>> I try to modify GPIO_CONFIGS appears in skeleton recipe to match my
+>> board, but I still got some other errors says pflash stuffs.
+>>
+>>
+>> It sounds like you're building an OpenPOWER-based BMC image - this is
+>> controlled by how you set the TEMPLATECONF environment variable when
+>> sourcing the `openbmc-env` file to build (at a guess I'd say you're buil=
+ding
+>> for Palmetto, as it's used throughout the examples in the docs repo).
+>>
+>> We do have support for a couple of x86 machines in the tree - your best
+>> bet is probably the Quanta 71L machine maintained by Patrick Venture:
+>>
+>>
+>> https://github.com/openbmc/openbmc/tree/master/meta-openbmc-machines/met=
+a-x86/meta-quanta/meta-q71l
+>>
+>> As an aside, if you're experimenting and switching between target
+>> machines, it's probably a good idea to blow away your build/conf directo=
+ry
+>> to make sure things get set up correctly when you next set TEMPLATECONF =
+and
+>> source openbmc-env.
+>>
+>>
+>> Because there is no documents to tell me how to customize the openbmc to
+>> fit on x86 CPUs, so I am not sure the GPIO_CONFIGS in skeleton is the
+>> right way or not.
+>>
+>>
+>> Yeah, there's not a wealth of documentation on bringing up a new machine=
+.
+>> It would be great if you could document your experience once you get the=
+re
+>> :)
+>>
+>> Hope that helps in some way,
+>>
+>> Andrew
+>>
+>>
+>
