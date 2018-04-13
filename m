@@ -1,63 +1,41 @@
-Return-Path: <venture@google.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22d; helo=mail-ua0-x22d.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="beeANPdm"; 
- dkim-atps=neutral
-Received: from mail-ua0-x22d.google.com (mail-ua0-x22d.google.com
- [IPv6:2607:f8b0:400c:c08::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.136; helo=mga12.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40N2f02kzHzF1Rt
- for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 02:04:23 +1000 (AEST)
-Received: by mail-ua0-x22d.google.com with SMTP id j18so6088719uae.12
- for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 09:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=YNK1zAvJhVkgsD6VldIuidlsQaab2HddbYWyWk/edxc=;
- b=beeANPdmD0XeDuGBOFDHatu6oFGgKACoJDz4LTdOOoOqe5p2PJchOqZn6HYmGPvXIx
- kM2WQnMZGnWeaFIgAnFmu0z2/ocaXs5ZHFK05430s1YOxlgVS9SmmQMFrJD3lBqxEyqb
- qOSNLHrJktcrZbdklgsW8wJ2w6pBcUwxvUmG6EKdMQEUV2uLLx8c57dyl5eOqOoR7aQe
- yl27jjhRSi4RkKaYCu9357fng9QmEWef9Gx0G7X/c8E7HSmnukJd2v7XCEF8DcRVXXHb
- QmPFdyu0tpkl8qS3zP0hd5A7yNAw1Cjs+k+yN0FTLn+CMiNG7vsVrRlAowx3KM5CyHge
- hZhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=YNK1zAvJhVkgsD6VldIuidlsQaab2HddbYWyWk/edxc=;
- b=s/JSIQWQRJVpeHbvVI9WMuN2NpxTN43BQ3iLurzOyHwaADb8mnD90kUfjKVx6KCd/q
- pE2wqWL/EDVBLYu3O8fjdUgfyXzNYMgteGtnccOq0c1Zq9gvHcC8HTTdrpgllT1ORZ83
- e8WeTws85qeidrkFFt+vYaAqyb3aSwBUfFORBVEByEBEocxNNFeOsMG41HS84vpR63nW
- OgQzHBNvgsH0JkptGFELsar39wnAm4ARyFyi76uMm7Z6QoRi7PFbTFF5kW5UYXrjksg2
- scnnTanYjjBxc/8b011Ql5OTqhChJ8lvLBqrfDUNlIQIiKdooZ/MLT/+cmNFlykqfKYy
- Qsqw==
-X-Gm-Message-State: ALQs6tAU1xYCjmXEYM0PSF3/5c7RMrxC1nkdAm3yzxm5z12GWpTNkElc
- IJAYpx0v0UzhWJaSq8XJbR+TsBa0U2mEOX2OGNfBXQ==
-X-Google-Smtp-Source: AIpwx4/YqhHv+bxCBNTI3V6Me/G3Kwj/Ac7p9MNNPBbNap5FHbH63a5ANoWhqg3M/ZFWEQV8cFYjysNl7amDYYZFuto=
-X-Received: by 10.159.56.202 with SMTP id w10mr4364552uaf.147.1523635458346;
- Fri, 13 Apr 2018 09:04:18 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40N3664hM8zF1lY
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 02:25:18 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2018 09:25:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.48,446,1517904000"; d="scan'208";a="220216714"
+Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO [10.255.31.195])
+ ([10.255.31.195])
+ by fmsmga006.fm.intel.com with ESMTP; 13 Apr 2018 09:25:11 -0700
+Subject: Re: [PATCH ipmi/kcs_bmc v1] ipmi: add an NPCM7xx KCS BMC driver
+To: minyard@acm.org, openipmi-developer@lists.sourceforge.net,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: joel@jms.id.au, avifishman70@gmail.com
+References: <1521723015-19142-1-git-send-email-haiyue.wang@linux.intel.com>
+ <4a878c46-9451-8ee6-c067-955a0bd651d0@acm.org>
+From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
+Message-ID: <9fffe8eb-5e9b-db84-be9e-fa415d52a88b@linux.intel.com>
+Date: Sat, 14 Apr 2018 00:25:11 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.7.0
 MIME-Version: 1.0
-Received: by 10.31.124.193 with HTTP; Fri, 13 Apr 2018 09:03:57 -0700 (PDT)
-In-Reply-To: <A920519B-A2F5-44BB-80D5-73EC81827448@fuzziesquirrel.com>
-References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
- <1523591789.2710142.1336453024.5787B0DF@webmail.messagingengine.com>
- <A920519B-A2F5-44BB-80D5-73EC81827448@fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 13 Apr 2018 09:03:57 -0700
-Message-ID: <CAO=notx+WsxRbeGRPvLEOpfvZPkFQqmF8wx1A408s6inBk7zqQ@mail.gmail.com>
-Subject: Re: YASL Request
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Emily Shaffer <emilyshaffer@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <4a878c46-9451-8ee6-c067-955a0bd651d0@acm.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,55 +47,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Apr 2018 16:04:25 -0000
+X-List-Received-Date: Fri, 13 Apr 2018 16:25:19 -0000
 
-On Fri, Apr 13, 2018 at 8:21 AM, Brad Bishop
-<bradleyb@fuzziesquirrel.com> wrote:
->
->> On Apr 12, 2018, at 11:56 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->>
->>
->> Some advantages I've found to this technique are:
->>
->> * There's no reduction of readability in the code
->
-> This.
->
->> * You get test binaries that you can run independent of your test framew=
-ork, as there isn't really a test framework, just autotools running your te=
-st binaries in parallel
->> * By extension, if you need to debug a failing test case, you can gdb th=
-e test binary directly without needing to comprehend the side-effects of th=
-e test framework on your test binary
->
-> And this.
->
-> Honestly these are my _real_ objections but I brought up runtime overhead=
- because
-> that is not subjective.  I just don=E2=80=99t like how the direction we a=
-re headed
-> obfuscates things for developers that have a good understanding of standa=
-rd libraries,
-> tools, and language features (libc, libstd++, STL, GDB, etc...) and don=
-=E2=80=99t have an
-> understanding of the internals of GMock or the =E2=80=9Ctechniques" its u=
-se drives into the
-> code.  I expect there to be way more of the former (those up to speed on =
-the standard
-> libraries, tools, language features) than the latter (those comfortable w=
-orking on
-> a GMock inspired codebase).
+Thanks, Corey.
 
-I find a flaw in this logic that, because a developer would need to
-learn something new, because as you say few people will be familiar
-with gmock.  Every developer I've met tends to learn new things all
-the time, and I specifically hadn't used c++ since 2004, and basically
-learned it to contribute to OpenBMC, and I doubt I'd be an exception
-to this.
+BR,
 
+Haiyue
+
+
+On 2018-04-13 23:56, Corey Minyard wrote:
+> On 03/22/2018 07:50 AM, Haiyue Wang wrote:
+>> This driver exposes the Keyboard Controller Style (KCS) interface on
+>> Novoton NPCM7xx SoCs as a character device. Such SOCs are commonly used
+>> as a BaseBoard Management Controller (BMC) on a server board, and KCS
+>> interface is commonly used to perform the in-band IPMI communication
+>> between the server and its BMC.
 >
-> IMHO these concepts have a greater (positive) impact on the project overa=
-ll than
-> super-easy-unit-test writing.  I=E2=80=99d guess I=E2=80=99m in the minor=
-ity, but hey=E2=80=A6I have to
-> speak my mind right?  I can certainly relate to the opposing viewpoint.
+> Sorry, I missed this.  It is queued for the next kernel release.
+>
+> Thanks,
+>
+> -corey 
