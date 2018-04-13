@@ -1,54 +1,61 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <yuenn@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c0b::22d; helo=mail-it0-x22d.google.com;
+ envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="f5r2ZeCX"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c0b::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40N3v06771zF1qT
- for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 03:00:40 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2018 10:00:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.48,446,1517904000"; d="scan'208";a="33475788"
-Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
- by orsmga008.jf.intel.com with ESMTP; 13 Apr 2018 10:00:34 -0700
-Received: from orsmsx160.amr.corp.intel.com (10.22.226.43) by
- ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Fri, 13 Apr 2018 10:00:34 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.92]) by
- ORSMSX160.amr.corp.intel.com ([169.254.13.99]) with mapi id 14.03.0319.002;
- Fri, 13 Apr 2018 10:00:34 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: 'Deepak Kodihalli' <dkodihal@linux.vnet.ibm.com>, "geissonator@gmail.com"
- <geissonator@gmail.com>, "gmills@linux.vnet.ibm.com"
- <gmills@linux.vnet.ibm.com>, "jayashankar.padath@in.ibm.com"
- <jayashankar.padath@in.ibm.com>, Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: Serial Over Lan in the webui
-Thread-Topic: Serial Over Lan in the webui
-Thread-Index: AQHT0w4KLfnK0ii3KUWWPsWQbFlPYKP+1Zlg
-Date: Fri, 13 Apr 2018 17:00:34 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F689D5D@ORSMSX114.amr.corp.intel.com>
-References: <6bb68901-d843-16eb-02ae-588ce52f91a7@linux.vnet.ibm.com>
-In-Reply-To: <6bb68901-d843-16eb-02ae-588ce52f91a7@linux.vnet.ibm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.200.100
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.140]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40N54H6VLkzF1gK
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 03:53:47 +1000 (AEST)
+Received: by mail-it0-x22d.google.com with SMTP id m134-v6so4221050itb.3
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 10:53:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=drWB41euXOxqHWSoJhSBMB0lxdfb9IzZUEkmfcxBVKM=;
+ b=f5r2ZeCXH2Qk1sOd7A3zFW9AZBQpOOiY5/Y2XgW/sQHa9n0+SOFpba2aY8sa5hPhZe
+ htCWaZIC62pxXiP/vK6EBz0EFxuI9krlCEtxCjcfDDoLYLruH4jrlmDpYk4Tjdv1GHMy
+ LrB25bAEo1/hlEpJroRMd2lO62OL7vaLSos1UXcMgSkMgJdeP9GyZ37JzSYkT8igmylD
+ teUgenAbNnQz6ipl/JTtVt836RETxAoCZsoR0kBJhG8+UcFG5AAL3lRF42D13f1Rv+xG
+ 8pSXSwsCgVigpExLp8WX1yHCL86i5f/zMH1jT+TmEogEv1esGWucrtQdP8K5m0kc42KU
+ PDCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=drWB41euXOxqHWSoJhSBMB0lxdfb9IzZUEkmfcxBVKM=;
+ b=bkdd9EXpPIySoOYo/jXo9KWofga1jUvxsn5qWZhfsd7PYJXzuRIMBQlSKwIfDAKLMZ
+ XmRxXuuKuElnoQAuQ+hxTWdiod9godYUmEdvLI+FU9BDGjfqlsr1IMJhJm45K2uAVsms
+ TkPYWSXPzuG2agHf7T9C9TSyplT6QL2nljZR/7xv5/yIFoijymMGPN1FPe8y5ljaHfHt
+ FOUrBmmRGZ3AnAjajYjqzrAlpPNuptQ+XxwyqLj443lJaL9+yUMesp3tFujGFpstxrQX
+ tJ9BgYalZgsvp8KDulMekB5jqT95MCWfJX0uH1i7WcCXi9ls5+IuuVRm0spH9oJI2wOC
+ cpJQ==
+X-Gm-Message-State: ALQs6tBAO0DD/wyPu4DWxvDSqoqaa8m4eX3KOcTGbMtjA+8oxcU0lTio
+ vfyZ5n9iHp4l9ASrI8ewbfa9UlhQXgpdNUamsD5xNQ==
+X-Google-Smtp-Source: AIpwx48REwvh9EzxCGk3+hkDDNqhZucggcKj0gN4yHCrfRJd/kVYAbegepGqfLlJBH4j2kPfaMflZJATe7fodDF7L6Y=
+X-Received: by 2002:a24:7613:: with SMTP id
+ z19-v6mr6303784itb.153.1523642025266; 
+ Fri, 13 Apr 2018 10:53:45 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 10.107.181.134 with HTTP; Fri, 13 Apr 2018 10:53:04 -0700 (PDT)
+In-Reply-To: <2D4C2F3F-7B13-48C4-9E4C-5733835552F9@gmail.com>
+References: <6BB03E30-7768-4455-BB7D-6B1C8AECBDE4@gmail.com>
+ <1523367363.1598830.1332941912.403D2457@webmail.messagingengine.com>
+ <2D4C2F3F-7B13-48C4-9E4C-5733835552F9@gmail.com>
+From: Nancy Yuen <yuenn@google.com>
+Date: Fri, 13 Apr 2018 10:53:04 -0700
+Message-ID: <CADfYTpG+ceGDtcvW7zVkmVAMehcnchrOpJcJtUjFWF7P=-W0cw@mail.gmail.com>
+Subject: Re: How to power on Intel x86 based CPUs
+To: Brad Chou <chou.brad@gmail.com>, Patrick Venture <venture@google.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Ed Tanous <ed.tanous@intel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000aef5330569be8d3f"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -60,60 +67,172 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Apr 2018 17:00:45 -0000
+X-List-Received-Date: Fri, 13 Apr 2018 17:53:52 -0000
 
-SSBzZW50IHlvdSBhIGZldyByZXBsaWVzIG9uIElSQywgbm90IHN1cmUgaWYgeW91IHNhdyBhbnkg
-b2YgdGhlbS4gIFNvbWUgaWRlYXMgYXJlIGJlbG93Lg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tDQo+IEZyb206IERlZXBhayBLb2RpaGFsbGkgW21haWx0bzpka29kaWhhbEBsaW51eC52
-bmV0LmlibS5jb21dDQo+IFNlbnQ6IEZyaWRheSwgQXByaWwgMTMsIDIwMTggMjo1OSBBTQ0KPiBU
-bzogZ2Vpc3NvbmF0b3JAZ21haWwuY29tOyBUYW5vdXMsIEVkIDxlZC50YW5vdXNAaW50ZWwuY29t
-PjsNCj4gZ21pbGxzQGxpbnV4LnZuZXQuaWJtLmNvbTsgamF5YXNoYW5rYXIucGFkYXRoQGluLmli
-bS5jb207IEJyYWQgQmlzaG9wDQo+IDxicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb20+DQo+IENj
-OiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQo+IFN1YmplY3Q6
-IFNlcmlhbCBPdmVyIExhbiBpbiB0aGUgd2VidWkNCj4gDQo+IEJhc2VkIG9uIG15IGludmVzdGln
-YXRpb24sIGl0IG1pZ2h0IG5vdCBiZSBwb3NzaWJsZSB0byBnZXQgdGhlIFNPTCB3b3JraW5nIGlu
-DQo+IHRoZSBVSSB2aWEgdGhlIGxhdHRlciBzY2VuYXJpby4gVGhpcyBpcyBiZWNhdXNlIGl0IGRv
-ZXNuJ3Qgc2VlbSB0byBiZSBwb3NzaWJsZSB0bw0KPiBpbXBsZW1lbnQgYW4gc3NoIGNsaWVudCB3
-aXRoIGNsaWVudC1zaWRlIGh0bWwgYW5kIGphdmFzY3JpcHQgdGhhdCBhIGJyb3dzZXINCj4gY2Fu
-IHJ1biBieSBpdHNlbGYsIGFuZCB0aGF0J3MgYmVjYXVzZSBqYXZhc2NyaXB0IHJ1bm5pbmcgaW4g
-dGhlIGJyb3dzZXIgZG9lc24ndA0KPiBoYXZlIHJhdyB0Y3AvaXAgc29ja2V0IHN1cHBvcnQuDQoN
-ClRvIG15IHVuZGVyc3RhbmRpbmcsIHRoZXJlIGlzIG5vIHdheSB0byBpbXBsZW1lbnQgYnJvd3Nl
-ciBXZWJVSSBiYXNlZCBTU0ggaW4gZWl0aGVyIHNjZW5hcmlvIHdpdGhvdXQgYSBzZXBhcmF0ZSBj
-b252ZXJzaW9uIHRvIHdlYnNvY2tldHMsIGFzIEkgZG8gbm90IGJlbGlldmUgdGhlcmUgaXMgYW55
-IGJyb3dzZXIgc3VwcG9ydCBmb3IgdGhlIGxvdyBsZXZlbCBzb2NrZXQgYWNjZXNzIHlvdSBuZWVk
-IHRvIGRpcmVjdGx5IGNvbm5lY3QgdG8gYW4gU1NIIHNvY2tldC4gIEFzIHlvdSBzYWlkLCB5b3Ug
-YXJlIHJ1bm5pbmcgYW4gaW50ZXJtZWRpYXJ5IG9uIHlvdXIgZGV2ZWxvcG1lbnQgc3lzdGVtIHRv
-IGRvIHRoaXMgbm93LCB3aGljaCBkb2Vzbid0IHdvcmsgd2hlbiBkZXBsb3lpbmcgdG8gdGhlIHBs
-YXRmb3JtLg0KDQo+IA0KPiBTbyB0aGUgcXVlc3Rpb24gaXMgaG93IGRvIHdlIHNvbHZlIHRoaXMg
-d2hlbiB0aGUgd2VidWkgY29kZSBpcyBzZXJ2ZWQgYnkNCj4gdGhlIEJNQz8NCg0KWW91IHdpbGwg
-bmVlZCBzb21lIHdheSB0byB0cmFuc2ZlciBldmVudHMgKHRleHQpIHRvIHRoZSBicm93c2VyLiAg
-SW4gb3JkZXIsIG15IHBlcnNvbmFsIHByZWZlcmVuY2Ugd291bGQgYmU6DQoNCjEuIEJ1aWxkIGEg
-ZGFlbW9uIHRoYXQgaXMgY2FwYWJsZSBvZiBmb3J3YXJkaW5nIHNvY2tldC1saWtlIGluZm9ybWF0
-aW9uIG92ZXIgYW4gYXV0aGVudGljYXRlZCB3ZWJzb2NrZXQuICBUaGVyZSBhcmUgc2V2ZXJhbCBl
-eGFtcGxlcyBvZiBob3cgdG8gZG8gdGhpcywgQm1jd2ViIGhhcyBhbiBleGFtcGxlIG9mIHNlbmRp
-bmcgVk5DLWxpa2UgcHJvdG9jb2xzIG92ZXIgYW4gYXV0aGVudGljYXRlZCB3ZWJzb2NrZXQuICBS
-ZXN0LWRidXMgaGFzIGEgd2Vic29ja2V0IGZvciB0cmFuc2ZlcnJpbmcgZGJ1cyBldmVudGluZyBp
-bmZvLiAgWW91IGNvdWxkIHVzZSBlaXRoZXIgb2YgdGhlc2UgYXMgYW4gZXhhbXBsZSBvZiBob3cg
-dG8gYnVpbGQgeW91ciBvd24uDQoyLiBVc2Ugc29tZXRoaW5nIGxpa2UgU1NFIHRvIHRyYW5zZmVy
-IHRoZSBidWZmZXJzIGFuZCBmb3J3YXJkIHRoZSBldmVudHMuDQpodHRwczovL2RldmVsb3Blci5t
-b3ppbGxhLm9yZy9lbi1VUy9kb2NzL1dlYi9BUEkvU2VydmVyLXNlbnRfZXZlbnRzL1VzaW5nX3Nl
-cnZlci1zZW50X2V2ZW50cw0KMy4gVXNlIGxvbmcgcG9sbGluZyBvbiBhIHJlc3QgYXBpIHRvIHRy
-YW5zZmVyIGJ1ZmZlcnMuDQpodHRwczovL3d3dy5wdWJudWIuY29tL2Jsb2cvMjAxNC0xMi0wMS1o
-dHRwLWxvbmctcG9sbGluZy8NCg0KPiBJcyBhbnlvbmUgYXdhcmUgb2YgYSBwdXJlIGNsaWVudC1z
-aWRlIGphdmFzY3JpcHQgYmFzZWQgc3NoIGNsaWVudD8gSWYNCj4gbm90LCB3ZSdkIGhhdmUgdG8g
-cnVuIE5vZGUgb3Igc29tZXRoaW5nIGVxdWl2YWxlbnQgb24gdGhlIEJNQw0KWW91IGFyZSBmcmVl
-IHRvIGRvIHdoYXQgeW91IHdhbnQsIGJ1dCBJIHdvdWxkbuKAmXQgcmVjb21tZW5kIHRoaXMgcm91
-dGUsIGFuZCB3b3VsZCByZXNpc3QgYW55IGF0dGVtcHRzIHRvIHB1dCBpdCBpbiBhbiB1cHN0cmVh
-bSBjb21wb25lbnQgcGF0Y2hzZXQuICBOb2RlSlMgaXMgdmVyeSBoZWF2eXdlaWdodCBmb3IgcnVu
-bmluZyBvbiB0aGUgQk1DIGhhcmR3YXJlLCBpbiBib3RoIGZsYXNoIHVzYWdlIGFuZCBzdGFydHVw
-IHRpbWUsIGFzIGl0J3Mgaml0IGNvbXBpbGluZyBpdHMgc291cmNlcyB1c2luZyBWOC4gIEZvciBz
-b21ldGhpbmcgcmVsYXRpdmVseSBzaW1wbGUgKGZvcndhcmRpbmcgYSBzZXJpYWwgaW50ZXJmYWNl
-IHRvIGEgd2Vic29ja2V0KSBJIGRvIG5vdCBiZWxpZXZlIHRoZSBpbmZyYXN0cnVjdHVyZSBjb3N0
-IG9mIG1haW50YWluaW5nIG5vZGVqcyBvbiB0aGUgQk1DIGlzIHdhcnJhbnRlZC4NCg0KPiwgb3Ig
-aGF2ZQ0KPiB0aGUgUkVTVCBzZXJ2ZXIgYWN0IGFzIGEgcHJveHkgc2VydmVyIGJldHdlZW4gdGhl
-IHRlcm1pbmFsIHdyaXRpbmcgdG8gYQ0KPiBzb2NrZXQgdGhhdCB0aGUgcmVzdCBzZXJ2ZXIgY2Fu
-IGludGVyY2VwdCBhbmQgY29udmVydCB0byBzc2ggcGFja2V0cy4gQW55DQo+IG90aGVyIHRob3Vn
-aHRzIG9uIGhvdyB0aGlzIGNhbiBiZSBhY2hpZXZlZD8NCg0KSSB3b3VsZCByZWNvbW1lbmQgZ29p
-bmcgYSBsZXZlbCBkZWVwZXIsIGFuZCBhdm9pZCBTU0ggYWx0b2dldGhlci4gIERpcmVjdGx5IGNv
-bm5lY3QgdGhlIHdlYnNvY2tldCB0byB0aGUgaW50ZXJmYWNlIHRoYXQgdGhlIFNTSCBkYWVtb24g
-aXMgc291cmNpbmcgc2VyaWFsIGZyb20uYA0K
+--000000000000aef5330569be8d3f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Patrick Venture uses the q71l and may be able to answer #2.  I suspect it
+was removed simply b/c the system we were using it on didn't use it.
+
+----------
+Nancy
+
+On Fri, Apr 13, 2018 at 2:43 AM, Brad Chou <chou.brad@gmail.com> wrote:
+
+> Hi,
+> Actually I am using the meta-s2600wf as my TEMPLATECONF.
+> Now switch to Q71L but found some problems :
+>
+> 1. I can not send the same REST command to power up the host. It seems th=
+e
+> xyz/openbmc_project/state/host0/attr/RequestedHostTransition
+> is gone. I even can=E2=80=99t see any attributes related to
+> xyz/openbmc_project/state.
+>
+> 2. I found in quanta-q71l.conf, it remove the obmc-host-state-mgmt, this
+> may be needed when using REST to power on host. Why q71L remove it ?  Is =
+it
+> because of not compatible with x86 system ?
+>
+> 3. Suppose the REST is not used by Q71L, how can I power it up from LAN ?
+>
+> Thanks.
+>
+>
+> On Apr 10, 2018, at 21:36, Andrew Jeffery <andrew@aj.id.au> wrote:
+>
+> Hi Brad,
+>
+> On Tue, 10 Apr 2018, at 19:35, Brad Chou wrote:
+>
+> Hi,
+> I am going to power on my OEM server board with two Intel x86 CPUs. The
+> BMC chip is ASPEED 2500.
+>
+> By the Intel data sheets, I just need to control a power on GPIO to
+> emulate power button behavior.
+> The problems are, when I send Host State Control commands as mentioned
+> in docs/host-management.md, the journal log shows a lot of systemctl
+> errors.
+>
+> Looks like it is going to start the OpenPower related host control
+> services, which only applies to PowerPC system.
+> I try to modify GPIO_CONFIGS appears in skeleton recipe to match my
+> board, but I still got some other errors says pflash stuffs.
+>
+>
+> It sounds like you're building an OpenPOWER-based BMC image - this is
+> controlled by how you set the TEMPLATECONF environment variable when
+> sourcing the `openbmc-env` file to build (at a guess I'd say you're
+> building for Palmetto, as it's used throughout the examples in the docs
+> repo).
+>
+> We do have support for a couple of x86 machines in the tree - your best
+> bet is probably the Quanta 71L machine maintained by Patrick Venture:
+>
+> https://github.com/openbmc/openbmc/tree/master/meta-
+> openbmc-machines/meta-x86/meta-quanta/meta-q71l
+>
+> As an aside, if you're experimenting and switching between target
+> machines, it's probably a good idea to blow away your build/conf director=
+y
+> to make sure things get set up correctly when you next set TEMPLATECONF a=
+nd
+> source openbmc-env.
+>
+>
+> Because there is no documents to tell me how to customize the openbmc to
+> fit on x86 CPUs, so I am not sure the GPIO_CONFIGS in skeleton is the
+> right way or not.
+>
+>
+> Yeah, there's not a wealth of documentation on bringing up a new machine.
+> It would be great if you could document your experience once you get ther=
+e
+> :)
+>
+> Hope that helps in some way,
+>
+> Andrew
+>
+>
+>
+
+--000000000000aef5330569be8d3f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Patrick Venture uses the q71l and may be able to answer #2=
+.=C2=A0 I suspect it was removed simply b/c the system we were using it on =
+didn&#39;t use it.<br></div><div class=3D"gmail_extra"><br clear=3D"all"><d=
+iv><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature">------=
+----<br>Nancy</div></div>
+<br><div class=3D"gmail_quote">On Fri, Apr 13, 2018 at 2:43 AM, Brad Chou <=
+span dir=3D"ltr">&lt;<a href=3D"mailto:chou.brad@gmail.com" target=3D"_blan=
+k">chou.brad@gmail.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_=
+quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
+ex"><div style=3D"word-wrap:break-word;line-break:after-white-space">Hi,<di=
+v><div>Actually I am using the meta-s2600wf as my TEMPLATECONF.</div><div>N=
+ow switch to Q71L but found some problems :</div><div><br></div><div>1. I c=
+an not send the same REST command to power up the host. It seems the=C2=A0<=
+span style=3D"font-family:SFMono-Regular,Consolas,&quot;Liberation Mono&quo=
+t;,Menlo,Courier,monospace;color:rgb(36,41,46);font-size:13.600000381469727=
+px">xyz/openbmc_project/state/<wbr>host0/attr/<wbr>RequestedHostTransition=
+=C2=A0</span></div><div>is gone. I even can=E2=80=99t see any attributes re=
+lated to=C2=A0<span style=3D"color:rgb(36,41,46);font-family:SFMono-Regular=
+,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monospace;font-size:13.=
+600000381469727px">xyz/openbmc_project/state.</span></div><div><span style=
+=3D"color:rgb(36,41,46);font-family:SFMono-Regular,Consolas,&quot;Liberatio=
+n Mono&quot;,Menlo,Courier,monospace;font-size:13.600000381469727px"><br></=
+span></div><div><font color=3D"#24292e" face=3D"SFMono-Regular, Consolas, L=
+iberation Mono, Menlo, Courier, monospace" size=3D"2"><span>2. I found in=
+=C2=A0quanta-q71l.conf, it remove the obmc-host-state-mgmt, this may be nee=
+ded when using REST to power on host. Why q71L remove it ?=C2=A0 Is it beca=
+use of not compatible with x86 system ?</span></font></div><div><font color=
+=3D"#24292e" face=3D"SFMono-Regular, Consolas, Liberation Mono, Menlo, Cour=
+ier, monospace" size=3D"2"><span><br></span></font></div><div><font color=
+=3D"#24292e" face=3D"SFMono-Regular, Consolas, Liberation Mono, Menlo, Cour=
+ier, monospace" size=3D"2"><span>3. Suppose the REST is not used by Q71L, h=
+ow can I power it up from LAN ?</span></font></div><div><br></div><div><fon=
+t color=3D"#24292e" face=3D"SFMono-Regular, Consolas, Liberation Mono, Menl=
+o, Courier, monospace" size=3D"2"><span>Thanks.</span></font></div><div><di=
+v class=3D"h5"><div><font color=3D"#24292e" face=3D"SFMono-Regular, Consola=
+s, Liberation Mono, Menlo, Courier, monospace" size=3D"2"><span><br></span>=
+</font></div><div><div><br><blockquote type=3D"cite"><div>On Apr 10, 2018, =
+at 21:36, Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au" target=3D"_=
+blank">andrew@aj.id.au</a>&gt; wrote:</div><br class=3D"m_45648529384667235=
+87Apple-interchange-newline"><div><div>Hi Brad,<br><br>On Tue, 10 Apr 2018,=
+ at 19:35, Brad Chou wrote:<br><blockquote type=3D"cite">Hi,<br>I am going =
+to power on my OEM server board with two Intel x86 CPUs. The <br>BMC chip i=
+s ASPEED 2500.<br><br>By the Intel data sheets, I just need to control a po=
+wer on GPIO to <br>emulate power button behavior.<br>The problems are, when=
+ I send Host State Control commands as mentioned <br>in docs/host-managemen=
+t.md, the journal log shows a lot of systemctl <br>errors.<br><br>Looks lik=
+e it is going to start the OpenPower related host control <br>services, whi=
+ch only applies to PowerPC system.<br>I try to modify GPIO_CONFIGS appears =
+in skeleton recipe to match my <br>board, but I still got some other errors=
+ says pflash stuffs.<br></blockquote><br>It sounds like you&#39;re building=
+ an OpenPOWER-based BMC image - this is controlled by how you set the TEMPL=
+ATECONF environment variable when sourcing the `openbmc-env` file to build =
+(at a guess I&#39;d say you&#39;re building for Palmetto, as it&#39;s used =
+throughout the examples in the docs repo).<br><br>We do have support for a =
+couple of x86 machines in the tree - your best bet is probably the Quanta 7=
+1L machine maintained by Patrick Venture:<br><br><a href=3D"https://github.=
+com/openbmc/openbmc/tree/master/meta-openbmc-machines/meta-x86/meta-quanta/=
+meta-q71l" target=3D"_blank">https://github.com/openbmc/<wbr>openbmc/tree/m=
+aster/meta-<wbr>openbmc-machines/meta-x86/<wbr>meta-quanta/meta-q71l</a><br=
+><br>As an aside, if you&#39;re experimenting and switching between target =
+machines, it&#39;s probably a good idea to blow away your build/conf direct=
+ory to make sure things get set up correctly when you next set TEMPLATECONF=
+ and source openbmc-env.<br><br><blockquote type=3D"cite"><br>Because there=
+ is no documents to tell me how to customize the openbmc to <br>fit on x86 =
+CPUs, so I am not sure the GPIO_CONFIGS in skeleton is the <br>right way or=
+ not.<br></blockquote><br>Yeah, there&#39;s not a wealth of documentation o=
+n bringing up a new machine. It would be great if you could document your e=
+xperience once you get there :)<br><br>Hope that helps in some way,<br><br>=
+Andrew<br></div></div></blockquote></div><br></div></div></div></div></div>=
+</blockquote></div><br></div>
+
+--000000000000aef5330569be8d3f--
