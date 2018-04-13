@@ -1,54 +1,64 @@
-Return-Path: <guhan.sac@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4002:c05::230; helo=mail-yw0-x230.google.com;
- envelope-from=guhan.sac@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wpx1xkxY"; 
- dkim-atps=neutral
-Received: from mail-yw0-x230.google.com (mail-yw0-x230.google.com
- [IPv6:2607:f8b0:4002:c05::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cCmbyCL8"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="NNFSpv6Y"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40MhrS2gHkzDrDT
- for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 12:42:12 +1000 (AEST)
-Received: by mail-yw0-x230.google.com with SMTP id h28so2123298ywk.5
- for <openbmc@lists.ozlabs.org>; Thu, 12 Apr 2018 19:42:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=lhBFXumsrQNYydj8+RwT0k9ijzTOviQu2htvki4d0jk=;
- b=Wpx1xkxY5jQvgu6vJu85bFgDxU/3Q/EiUcJ8KOBc8r1QfCLvYRYu0IihJ8KzIOrH6E
- ZVq8YsjQtwKTMl23V5NvYR7bCdODhrIWEnrYEkPpe6MqbVgxHt8f268BsM73bdF2iin2
- cDGIeYv1Z0IbU+e9PjA93iJ99STCNYp7Gl8SxLIoCSp+cFiHlPnl5JEag0aIo2MRDE7g
- 44zzjNDxm0WnZsFM/7QdP7etIhh4ha3/6fvULI2zP9yrTv5Aoo+T9hqrrFh8BRNSTdcx
- alGyjclDM33wZF5GkePv4GDgkdj0Hvwu2rtXuD81tqcmhxvogYSpML27KuWqqJXOc1HX
- ILiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=lhBFXumsrQNYydj8+RwT0k9ijzTOviQu2htvki4d0jk=;
- b=qc4dyFRQxRKvtuLQUttblJVimrCzaCo2BboPOmwDKLvrg6ODvBsmvRzBSkO4L5GPbX
- 5FVTF2Je6/RXNeheVQGXFB7X+KAIQUa+EjW7aWClIxUw0avgOSNoAwBjCxVv1OoAxkw6
- WM32l/PFB9S6K6t7kY/ZTBhqd2zXMurPh4MfGsY80c8vesxfsfzVaE4g6h8AJ3F3kOzL
- W2fr9oHW3T9oAiipUBVxdGlXhlMXVgnp9sdpLuZj3dP3LjB4baZpmWsfcR4/HBFtKPDs
- bjUScvq6l3yekJFJARlh1QoDJhc/ltpMf8Mq1EOBMHLIhz5qOg43mQ1TGl7zKG6+pFky
- blaA==
-X-Gm-Message-State: ALQs6tBd7kOqujfiuzxUmZmc59zKqTqU08V41isEmWbqFxWmQZSLZfA4
- kLOQ7Sniay458UrkJHcTCpBzMAxpMfkA95svMr8=
-X-Google-Smtp-Source: AIpwx4/iThGRaxD/r4mi1ATzHrmSrbAuj4ox9FjIvurFc64Q9tZrROoVlPq3+J0nB7pdSkqnHjj/L+5cEZFie31xipg=
-X-Received: by 10.13.199.193 with SMTP id j184mr2667209ywd.383.1523587329699; 
- Thu, 12 Apr 2018 19:42:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40MkVC235rzDrLk
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 13:56:34 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id EA89D21A37;
+ Thu, 12 Apr 2018 23:56:29 -0400 (EDT)
+Received: from web4 ([10.202.2.214])
+ by compute4.internal (MEProxy); Thu, 12 Apr 2018 23:56:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=TJyZ9yMa259hGHJYiW7Y7WKVFq1+x
+ kibWAflboHuzyM=; b=cCmbyCL8x80n2yxfCvPT7cR2nozREDSET2V3LBtq3YJvR
+ t1vlQru0MJW7LDODW9kY/yzKPSINoMywCBVndmN8BIsE8xqqWN4xAZ3IMRkyujIn
+ D2bH0Ps2bcZzs6H1XNjXgGBmN4Tsa+DtkmOKSBpmYTWy4SYfdYZjO5sJptal7hft
+ wPPYRpaT/bpUEFHIsPcXF173CbmrwxRuKvvjirzADq/eFVa5Eug430kBOcorugV+
+ UyGmowRE0sPclpJo7T6S+Tofz0c7Dd5ABstNEq0KMBmyEyI0PoSmj3jT4ztkIsxP
+ 7N67IvPV97ydSc172RLsG+ocjEjCgMiydLgNJiGVg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=TJyZ9y
+ Ma259hGHJYiW7Y7WKVFq1+xkibWAflboHuzyM=; b=NNFSpv6YQ3y/SJI1cbAwhP
+ LSBuS17e/ypcex4bKZNwhu1i6TLfm6usNbGRwV1lSO3m4BEAFWlyDJYjhPa8lo64
+ AKLwfGJWzt/3GVxWW0iIoUBZ+06icKD6hygOqkuAy8diP2GL6E1GJMMxt9ujrS2X
+ nWmix4ckoiaIWyiARJbO4fF2wJMBhIZeB1lvhBeYbGXAIlHg4a8QIfQg6oLsB+jp
+ YfiBzAe7N2I5kb/Ie67X7OQYuQocQNwmGNjNn1g0ZYOF1UZh5vuIKxQlvjDj9jch
+ qh5EudF62YrJnv+W4rNh9pMFP6I9czSRAhclabojGmu9M4MWmXJtjROhLyNGAM9A
+ ==
+X-ME-Sender: <xms:bSrQWu6YjKlpDR3zS5vWNVRJNn1RimD4AXYCicsNjMudKO1xbpcThA>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 9EA99BA43C; Thu, 12 Apr 2018 23:56:29 -0400 (EDT)
+Message-Id: <1523591789.2710142.1336453024.5787B0DF@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Emily Shaffer <emilyshaffer@google.com>
 MIME-Version: 1.0
-Received: by 10.200.37.114 with HTTP; Thu, 12 Apr 2018 19:41:49 -0700 (PDT)
-From: guhan balasubramanian <guhan.sac@gmail.com>
-Date: Thu, 12 Apr 2018 19:41:49 -0700
-Message-ID: <CAMNAJg36J-8BjiKpHRaDJYTw0pJEnwTG=2+PKgzgNDAb_w6K9g@mail.gmail.com>
-Subject: Re: Sensor readings as 1-byte
-To: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="001a114e544a9236a40569b1d173"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-a1de26f4
+Subject: Re: YASL Request
+In-Reply-To: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
+Date: Fri, 13 Apr 2018 13:26:29 +0930
+References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -60,252 +70,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Apr 2018 02:42:17 -0000
+X-List-Received-Date: Fri, 13 Apr 2018 03:56:37 -0000
 
---001a114e544a9236a40569b1d173
-Content-Type: text/plain; charset="UTF-8"
+Hi Patrick,
 
-Hi Tom,
+On Tue, 10 Apr 2018, at 07:57, Patrick Venture wrote:
+> Everyone,
+> 
+> I'm working on unit-testing in openbmc, and have cracked most of
+> sdbusplus into mockable pieces and verified I can in fact test against
+> those mocks with a downstream daemon.  I'll be grabbing an upstream
+> daemon (or providing a piece of one) to demonstrate how to leverage
+> the mocks to test OpenBMC.  If one designs with testing in mind, the
+> designs come out very differently if not, and so getting unit-tests
+> throughout OpenBMC will be a lot of breaking things apart into
+> testable pieces.  Anyways, where I'm going with this email is that
+> everything we do within a daemon needs to be something that can be
+> mocked -- basically.
 
-Thanks for the explanation. But I still see some concerns in this
-conversion logic.
+I'm definitely on board with expanding testing in OpenBMC.
 
-For input, we have 4 given parameters as
-    1. Min and Max values of the sensor (y)
-    2. the Min and Max values of the byte value (x - assuming this is
-always 0 to 255).
+> 
+> ***
+> What do I mean specifically?  Consider, file access.  If a daemon
+> routes all file accesses throug a common object implementation
+> provided by a shared library, that shared library can easily also
+> provide a mock interface for those accesses, such that one can easily
+> verify behaviors based on file contents without implementing local
+> files or trying to inject errors.  With a mock's file system
+> interface, you can simply say that a file was unable to be read, or
+> written, or opened, etc.  Another example is mocking ctime.  If you
+> want to test whether something happens after some sleep or period, if
+> your code can receive a mock version of that library, one can
+> deliberately control the results of 'time' or 'difftime', etc.  I have
+> to build these interfaces for some of our downstream daemons and
+> likely for other parts of OpenBMC, and to avoid code duplication it'll
+> help to have them in some library.
+> 
+> YASL (yet-another-shared-library) Request.
+> 
+> Previous conversations along these lines lead to the idea that we need
+> multiple new libraries for various things.  So, this is yet another
+> use case.  The library itself should be written in such a way that it
+> can be tested via unit-tests, but depending on how thin of a shim it
+> is, that isn't always practical.  See:
+> 
+> class FileInterface {
+>   public:
+>      virtual int open(const char *filename, int flags) = 0;
+> };
+> 
+> class FileImplementation : public FileInterface {
+>   public:
+>     int open(const char *filename, int flags) override {
+>         return ::open(filename, flags);
+>     }
+> };
+> 
+> class FileMock : public FileInterface {
+>    public:
+>      MOCK_METHOD2(open, int(const char *, int));
+> };
+> 
+> .... then one just uses the FileInterface for their normally direct
+> posix-style file access.  This can easily wrap iostream, or fstream,
+> or anything.  And then if we provide some libraries for use by
+> daemons, they can transition over to them over time, and then they get
+> mocks for free :D  For a daemon downstream, I've written a ctime
+> wrapper, I'll submit it for consideration later tonight along with a
+> few other things, and then I'll reply to this email with links.
+> 
 
-For output, we have 4 paramters to calculate
-    1. multiplierM (M)
-    2. offsetB (B)
-    3. bExp (k1)
-    4. rExp (k2)
+I do wonder whether we can take better advantage of link seams[1] and avoid a lot of the indirection. I don't know how well that interacts with GMock and GTest; the nature of it would tend to eliminate the use of GTest in favour of one binary per test (needing different mocks using the same symbols isn't going to work in a single binary). However, this case is well supported by autotools' `make check` phase, to which you can attach multiple test binaries to execute and mark tests as XFAIL (expected failure) if necessary. Autotools also handles the case where XFAIL tests unexpectedly pass (which fails test suite).
 
-We have two equations to compute 4 variables in this logic.
+I've used the link-seam technique for testing the mboxbridge and phosphor-mboxd repositories (ignore that we've forked ourselves for the moment). Now admittedly a lot of the tests in both of those repositories are *integration* tests, not *unit* tests, but the point at which I've injected my mocks via link seams still allows me to control the environment as I require.
 
+Some advantages I've found to this technique are:
 
-On Sat, Mar 10, 2018 at 9:45 AM, Tom Joseph <tomjose@linux.vnet.ibm.com>
-wrote:
+* There's no runtime overhead
+* There's no reduction of readability in the code (though it has an impact on the size of the build system configuration)
+* You get test binaries that you can run independent of your test framework, as there isn't really a test framework, just autotools running your test binaries in parallel
+* By extension, if you need to debug a failing test case, you can gdb the test binary directly without needing to comprehend the side-effects of the test framework on your test binary
 
-> Hello Guhan,
-> The updated sensor-example.yaml has the Rexp field as well. These values
-> are  calculated based on the minimum and maximum value of the sensor.
->
-> If a temperature sensor has a range of -127 - +128, means y is -127 to
-> +128 and the range of x is 0-255.
-> By substituting x = 0 and y = -127 (k2 is the decimal precision and assume
-> in this case as whole nos) implies Bexp = -127.
-> Similarly substitute x = 255 and y = 128 and M is evaluated as 1.
->
+Some disadvantages of what I've got so far:
 
-In the above example, with 2 values [(0, -127) and (255, 128)] for (x,y) we
-were able to calculate M and B. We are assuming k2 as 0 since we are taking
-only whole numbers for our ranges (y values). But we are still assuming the
-values for k1 as 0.
+* There is no fancy way of testing expectations, I'm just using assert(). The EXPECT_*() and ASSERT_*() macros from GTEST are nice readability improvements.
+* I'm implementing the mocks without outside help.
 
+[1] http://www.informit.com/articles/article.aspx?p=359417&seqNum=3
 
->
-> Regards,
-> Tom
->
->
-> On Saturday 10 March 2018 08:01 AM, guhan balasubramanian wrote:
->
-> Hi,
->
-> According to the IPMI spec, we represent all sensor readings (Volt, Temp,
-> Amp, etc.) as 1-byte.
->
-> Since we represent them as 1-byte, we use a linearization formula to
-> convert to actual value as follows:
->
-> y = (M*x + B*10^(k1))*10^(k2)
->
-> where x is the 1-byte value that is filled in the get sensor reading
-> command.
->
-> We see in the ipmitool example on how an example of 3.36 V is represented
-> as 1-byte.
-> https://computercheese.blogspot.com/2013/10/ipmi-
-> sensor-reading-conversion-formula.html?q=sensor
->
-> Can any one please help on how the values for M, B, k1 and k2 are
-> populated for each sensor?
->
-> In the openbmc repo, I believe these values are present in the config.yaml
-> of phosphor-ipmi-sensor-inventory (based on the following sample).
->
-> 0xF1:
->   sensorType: 0x01
->   path: /xyz/openbmc_project/sensors/temperature/temp1
->   sensorReadingType: 0x01
->   *multiplierM*: 511
->   *offsetB*: 0
->   *bExp*: 0
->   mutability: Mutability::Write|Mutability::Read
->   serviceInterface: org.freedesktop.DBus.Properties
->   readingType: readingData
->   interfaces:
->     xyz.openbmc_project.Sensor.Value:
->       Value:
->         Offsets:
->           0x0:
->             type: int64_t
->
-> Thanks,
-> Guhan
->
-> With the given information, do you think there is a generic way
-(algorithm) where we can compute all the 4 variables M, B, k1 and k2?
+Not sure if it's going to fly generally, but this approach has been working well for me so far.
 
-Thanks,
-Guhan
+Cheers,
 
---001a114e544a9236a40569b1d173
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Tom,<div><br></div><div>Thanks for the explanation. But=
- I still see some concerns in this conversion logic.</div><div><div><br></d=
-iv><div><font color=3D"#3d85c6">For input, we have 4 given parameters as</f=
-ont></div><div><font color=3D"#3d85c6">=C2=A0 =C2=A0 1. Min and Max values =
-of the sensor (y)</font></div><div><font color=3D"#3d85c6">=C2=A0 =C2=A0 2.=
- the Min and Max values of the byte value (x - assuming this is always 0 to=
- 255).=C2=A0</font></div><div><font color=3D"#3d85c6"><br></font></div><div=
-><font color=3D"#3d85c6">For output, we have 4 paramters to calculate</font=
-></div><div><font color=3D"#3d85c6">=C2=A0 =C2=A0 1. multiplierM (M)</font>=
-</div><div><font color=3D"#3d85c6">=C2=A0 =C2=A0 2. offsetB (B)</font></div=
-><div><font color=3D"#3d85c6">=C2=A0 =C2=A0 3. bExp (k1)</font></div><div><=
-font color=3D"#3d85c6">=C2=A0 =C2=A0 4. rExp (k2)</font></div></div><div><f=
-ont color=3D"#3d85c6"><br></font></div><div><font color=3D"#3d85c6">We have=
- two equations to compute 4 variables in this logic.=C2=A0</font></div><div=
-><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra"><br><div c=
-lass=3D"gmail_quote">On Sat, Mar 10, 2018 at 9:45 AM, Tom Joseph <span dir=
-=3D"ltr">&lt;<a href=3D"mailto:tomjose@linux.vnet.ibm.com" target=3D"_blank=
-">tomjose@linux.vnet.ibm.com</a>&gt;</span> wrote:<br><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">
- =20
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF">
-    <p>Hello Guhan,</p>
-    The updated sensor-example.yaml has the Rexp field as well. These
-    values are=C2=A0 calculated based on the minimum and maximum value of t=
-he
-    sensor.<br>
-    <br>
-    If a temperature sensor has a range of -127 - +128, means y is -127
-    to +128 and the range of x is 0-255.<br>
-    By substituting x =3D 0 and y =3D -127 (k2 is the decimal precision and
-    assume in this case as whole nos) implies Bexp =3D -127.<br>
-    Similarly substitute x =3D 255 and y =3D 128 and M is evaluated as 1. <=
-br></div></blockquote><div><br></div><div><p class=3D"MsoNormal" style=3D"m=
-argin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri,sans-serif;color:=
-rgb(0,0,0);font-style:normal;font-variant-caps:normal;font-weight:normal;le=
-tter-spacing:normal;text-align:start;text-indent:0px;text-transform:none;wh=
-ite-space:normal;word-spacing:0px"><span style=3D"font-size:11pt;color:rgb(=
-68,114,196)">In the above example, with 2 values [(0, -127) and (255, 128)]=
- for (x,y) we were able to calculate M and B. We are assuming k2 as 0 since=
- we are taking only whole numbers for our ranges (y values). But we are sti=
-ll assuming the values for k1 as 0.<span class=3D"gmail-Apple-converted-spa=
-ce">=C2=A0</span></span></p></div><div>=C2=A0</div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
-04,204);padding-left:1ex"><div bgcolor=3D"#FFFFFF">
-    <br>
-    Regards,<br>
-    Tom<div><div class=3D"gmail-h5"><br>
-    <br>
-    <div class=3D"gmail-m_-4887759536924537063moz-cite-prefix">On Saturday =
-10 March 2018 08:01 AM,
-      guhan balasubramanian wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">Hi,
-        <div><br>
-        </div>
-        <div>According to the IPMI spec, we represent all sensor
-          readings (Volt, Temp, Amp, etc.) as 1-byte.=C2=A0</div>
-        <div><br>
-        </div>
-        <div>Since we represent them as 1-byte, we use a linearization
-          formula to convert to actual value as follows:</div>
-        <div><br>
-        </div>
-        <div>y =3D (M*x + B*10^(k1))*10^(k2)</div>
-        <div><br>
-        </div>
-        <div>where x is the 1-byte value that is filled in the get
-          sensor reading command.</div>
-        <div><br>
-        </div>
-        <div>We see in the ipmitool example on how an example of 3.36 V
-          is represented as 1-byte.=C2=A0</div>
-        <div><a href=3D"https://computercheese.blogspot.com/2013/10/ipmi-se=
-nsor-reading-conversion-formula.html?q=3Dsensor" target=3D"_blank">https://=
-computercheese.<wbr>blogspot.com/2013/10/ipmi-<wbr>sensor-reading-conversio=
-n-<wbr>formula.html?q=3Dsensor</a></div>
-        <div><br>
-        </div>
-        <div>Can any one please help on how the values for M, B, k1 and
-          k2 are populated for each sensor?=C2=A0</div>
-        <div><br>
-        </div>
-        <div>In the openbmc repo, I believe these values are present in
-          the config.yaml of phosphor-ipmi-sensor-inventory (based on
-          the following sample).=C2=A0</div>
-        <div><br>
-        </div>
-        <div>
-          <div>0xF1:</div>
-          <div>=C2=A0 sensorType: 0x01</div>
-          <div>=C2=A0 path: /xyz/openbmc_project/sensors/<wbr>temperature/t=
-emp1</div>
-          <div>=C2=A0 sensorReadingType: 0x01</div>
-          <div>=C2=A0 <b>multiplierM</b>: 511</div>
-          <div>=C2=A0 <b>offsetB</b>: 0</div>
-          <div>=C2=A0 <b>bExp</b>: 0</div>
-          <div>=C2=A0 mutability: Mutability::Write|Mutability::<wbr>Read</=
-div>
-          <div>=C2=A0 serviceInterface: org.freedesktop.DBus.<wbr>Propertie=
-s</div>
-          <div>=C2=A0 readingType: readingData</div>
-          <div>=C2=A0 interfaces:</div>
-          <div>=C2=A0 =C2=A0 xyz.openbmc_project.Sensor.<wbr>Value:</div>
-          <div>=C2=A0 =C2=A0 =C2=A0 Value:</div>
-          <div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 Offsets:</div>
-          <div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x0:</div>
-          <div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 type: int64_t</div=
->
-        </div>
-        <div>
-          <table class=3D"gmail-m_-4887759536924537063gmail-highlight gmail=
--m_-4887759536924537063gmail-tab-size gmail-m_-4887759536924537063gmail-js-=
-file-line-container">
-            <tbody style=3D"box-sizing:border-box">
-              <tr style=3D"box-sizing:border-box">
-                <td id=3D"gmail-m_-4887759536924537063gmail-LC18" class=3D"=
-gmail-m_-4887759536924537063gmail-blob-code gmail-m_-4887759536924537063gma=
-il-blob-code-inner gmail-m_-4887759536924537063gmail-js-file-line" style=3D=
-"box-sizing:border-box;padding:0px 10px;line-height:20px;vertical-align:top=
-;overflow:visible;font-family:SFMono-Regular,Consolas,&quot;Liberation Mono=
-&quot;,Menlo,Courier,monospace;font-size:12px;color:rgb(36,41,46);word-wrap=
-:normal;white-space:pre-wrap">
-</td>
-              </tr>
-            </tbody>
-          </table>
-          <br>
-        </div>
-        <div>Thanks,</div>
-        <div>Guhan</div>
-        <div><br></div></div></blockquote></div></div></div></blockquote><d=
-iv><font color=3D"#3d85c6">With the given information, do you think there i=
-s a generic way (algorithm) where we can compute all the 4 variables M, B, =
-k1 and k2?=C2=A0</font></div><div><font color=3D"#3d85c6"><br></font></div>=
-<div><font color=3D"#4472c4" face=3D"Calibri, sans-serif"><span style=3D"fo=
-nt-size:14.6667px">Thanks,</span></font></div><div><font color=3D"#4472c4" =
-face=3D"Calibri, sans-serif"><span style=3D"font-size:14.6667px">Guhan</spa=
-n></font></div></div><br></div></div></div>
-
---001a114e544a9236a40569b1d173--
+Andrew
