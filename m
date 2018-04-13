@@ -1,61 +1,64 @@
-Return-Path: <Yang.BrianC.W@inventec.com>
+Return-Path: <chou.brad@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inventec.com
- (client-ip=218.32.67.167; helo=mail.inventec.com;
- envelope-from=yang.brianc.w@inventec.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::235; helo=mail-pg0-x235.google.com;
+ envelope-from=chou.brad@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inventec.com
-Received: from mail.inventec.com (hub02.inventec.com [218.32.67.167])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="MaFuX8ej"; 
+ dkim-atps=neutral
+Received: from mail-pg0-x235.google.com (mail-pg0-x235.google.com
+ [IPv6:2607:f8b0:400e:c05::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40MsDx0DdqzF1jl
- for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 19:00:31 +1000 (AEST)
-Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
- IEC1-EX2010-04.iec.inventec (10.1.254.157) with Microsoft SMTP Server id
- 14.3.361.1; Fri, 13 Apr 2018 17:00:23 +0800
-Received: from IEC1-SPAM-2.inventec.com (smg2.inventec.com [10.1.254.202])	by
- IEC1-MSE-FE1.inventec.com with ESMTP id w3D90AE2056367	for
- <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 17:00:10 +0800 (GMT-8)
- (envelope-from yang.brianc.w@inventec.com)
-Received: from mail-wm0-f72.google.com (mail-wm0-f72.google.com
- [74.125.82.72])	by IEC1-SPAM-2.inventec.com with ESMTP id w3D9069x043712
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
- <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 17:00:09 +0800 (GMT-8)
- (envelope-from yang.brianc.w@inventec.com)
-Received: by mail-wm0-f72.google.com with SMTP id e185so833623wmg.5 for
- <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 02:00:08 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40MtBq1m7KzF1qc
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 19:43:46 +1000 (AEST)
+Received: by mail-pg0-x235.google.com with SMTP id e12so1698810pgn.9
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 02:43:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:mime-version:subject:date:references:to:in-reply-to:message-id;
+ bh=7t5av7jERM5D6sZwOSLjUue1btcYisLZWPsTzumXMI4=;
+ b=MaFuX8ejj/9KU+zQYP6/fg5HlQOEv9kLjhhJgS5quj3rGmgmo0C/ojvIf1R2ToiGOs
+ qNw5hj2yp2HNtU2z6+qfTYWgFiPAczm+0pBzRaJjMqceae2i42xR7nKmY198Yd7PnVP5
+ 1pRDds2m8lm34shy+wqrwmmEgeG5DJI1TmMhBRRNcYtPNo4RfHpHR81hEZCTISOPyIwz
+ C7S6hO1Elojm9xC9WdKWmgG6i6nrqYz3jzCw+T/OfuT65oElen/8ygp5tALXx0+JZEew
+ 8aCJ4ZS11yHR+GfCS9vUskDS8nPwMZU+uVhwaM5/tuspvmiu9l5sHipTacyk9VmTmnTS
+ 0ABQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=xgWLHY2mz+Sr0K4mivKqWWHJ1xlgQLxu9i7uan9OfdI=;
- b=OAaAcrMFcW7RzIT6QdQK5DaUEIjzniSKYopUn8t4qiXBXwdbKNBrFpge1mzENyRafJ
- zvVKd4rmRwY0JSwp0iK1PPMulRAGHRgtktmt/x+U0qiff6BAOHi37DfKSfEqGQslpk5d
- L9K+peQFH4qAxjsDr5tbfVvAnkliEThuTOtCea4Z+9LtGvNDdraIrxURfzAFfGToAKJj
- FXCyF8jK+2og57/lWV6PTdqZroHEp/3XPKHeDsMIPsRqyc7/nzEmz3jYqbKMPjpEPHSH
- C1MZzhcaBk6Eiyrcb3iNEJd+H5Z5p+rGgYilZKwYp8Y67tE+AJKjom8cqFUL0dMtnG9w
- ORrQ==
-X-Gm-Message-State: ALQs6tDPbHHnqDuJuG0IF8/CqBrJxFZNCtAfF4ikFnO79A1UupPGbdC6
- DVkUVWARy8TE0hrcmvotKF8CFfpPq17fhKsVCFmaL/rmz8/6TzFAHiP9P3ijDiJ5w0L7lSsblSq
- U/QirNku46FJyxErSfBSZUZXyUMoUkn07qyK44w==
-X-Received: by 10.223.190.140 with SMTP id i12mr3222038wrh.63.1523610005444;
- Fri, 13 Apr 2018 02:00:05 -0700 (PDT)
-X-Google-Smtp-Source: AIpwx4+ZDT3/6Sttv/NnS5rjAKzJkak1QHHr4REqBfKvTjXTbNmzS+4jO5vA7L6/kDwJQGA33BaQDloUchXwKAaP5eU=
-X-Received: by 10.223.190.140 with SMTP id i12mr3222011wrh.63.1523610005088;
- Fri, 13 Apr 2018 02:00:05 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.144.141 with HTTP; Fri, 13 Apr 2018 01:59:44 -0700 (PDT)
-In-Reply-To: <mailman.9.1523584802.20294.openbmc@lists.ozlabs.org>
-References: <mailman.9.1523584802.20294.openbmc@lists.ozlabs.org>
-From: =?UTF-8?B?WWFuZ0JyaWFuQy5XIOaliuWYieWBiSBUQU8=?=
- <yang.brianc.w@inventec.com>
-Date: Fri, 13 Apr 2018 16:59:44 +0800
-Message-ID: <CAAvYUAx_d7fODP8C_61QwD8--OxCiKwLNWy0K289=9VNCR-raQ@mail.gmail.com>
-Subject: Re: openbmc Digest, Vol 32, Issue 36
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-X-DNSRBL: 
-X-MAIL: IEC1-MSE-FE1.inventec.com w3D90AE2056367
+ h=x-gm-message-state:from:mime-version:subject:date:references:to
+ :in-reply-to:message-id;
+ bh=7t5av7jERM5D6sZwOSLjUue1btcYisLZWPsTzumXMI4=;
+ b=stU3tBx4AR34vniZW1+woK5thxVT244qxht4YGyFDbZczvuAZFxfM08OUBCjd3qfHB
+ Zu26pC255olB4eLah7PS3lQEfBDHfyj3pd485p1hgpCyARGRmVJp8Hc8Q42oHnsl8l99
+ y2HtcQTvkVY+qAI1E1pdg1NctSZJP7T7W4YRAg/4+/FDYwgsB1oM1X45xaVskLlNUpZ+
+ 5EKlEEG07RILn7TpkU6Dl0t+pHZrE2PeAiYJukPVYCTJM55Qh/13sCMpu9brt9/zKZ14
+ qKx0LYpAICA1t6HXpo0v/ud9KJ6VGNk1OU5qtuOpPjiGddzse4sBdXbWbnLYjISnClMo
+ 1vdg==
+X-Gm-Message-State: ALQs6tAGkEzJev4xAPwa7PU5QBOXnGZxTcVgSaSb/o4l+r4JFPgDPuT8
+ twvK2SRMq5n1CwUsLZSR0jOkz9O5
+X-Google-Smtp-Source: AIpwx48ZzZUFVa1acB3BxX8JVKBeGA+3fuml9gvkTqVmqRSiLGiN5x2pXJCxOYBS9rRC6SpDxgYiPA==
+X-Received: by 10.99.116.17 with SMTP id p17mr3586707pgc.43.1523612624847;
+ Fri, 13 Apr 2018 02:43:44 -0700 (PDT)
+Received: from [192.168.1.2] (118-163-39-90.HINET-IP.hinet.net.
+ [118.163.39.90])
+ by smtp.gmail.com with ESMTPSA id f19sm8594010pgv.39.2018.04.13.02.43.42
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 13 Apr 2018 02:43:43 -0700 (PDT)
+From: Brad Chou <chou.brad@gmail.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_42364155-0AAD-443C-B128-D93C9C114437"
+Mime-Version: 1.0 (Mac OS X Mail 11.3 \(3445.6.18\))
+Subject: Re: How to power on Intel x86 based CPUs
+Date: Fri, 13 Apr 2018 17:43:40 +0800
+References: <6BB03E30-7768-4455-BB7D-6B1C8AECBDE4@gmail.com>
+ <1523367363.1598830.1332941912.403D2457@webmail.messagingengine.com>
+To: Andrew Jeffery <andrew@aj.id.au>, Ed Tanous <ed.tanous@intel.com>,
+ openbmc@lists.ozlabs.org
+In-Reply-To: <1523367363.1598830.1332941912.403D2457@webmail.messagingengine.com>
+Message-Id: <2D4C2F3F-7B13-48C4-9E4C-5733835552F9@gmail.com>
+X-Mailer: Apple Mail (2.3445.6.18)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,545 +70,184 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Apr 2018 09:00:34 -0000
+X-List-Received-Date: Fri, 13 Apr 2018 09:43:50 -0000
 
-2018-04-13 10:00 GMT+08:00  <openbmc-request@lists.ozlabs.org>:
-> Send openbmc mailing list submissions to
->         openbmc@lists.ozlabs.org
->
-> To subscribe or unsubscribe via the World Wide Web, visit
->         https://lists.ozlabs.org/listinfo/openbmc
-> or, via email, send a message with subject or body 'help' to
->         openbmc-request@lists.ozlabs.org
->
-> You can reach the person managing the list at
->         openbmc-owner@lists.ozlabs.org
->
-> When replying, please edit your Subject line so it is more specific
-> than "Re: Contents of openbmc digest..."
->
->
-> Today's Topics:
->
->    1. Re: openbmc Digest, Vol 32, Issue 32 (Andrew Jeffery)
->    2. Re: openbmc Digest, Vol 32, Issue 32 (Wang, Haiyue)
->    3. Re: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec
->       Lanyang BMC (Andrew Jeffery)
->
->
-> ----------------------------------------------------------------------
->
-> Message: 1
-> Date: Fri, 13 Apr 2018 10:00:17 +0930
-> From: Andrew Jeffery <andrew@aj.id.au>
-> To: "Wang, Haiyue" <haiyue.wang@linux.intel.com>,
->         openbmc@lists.ozlabs.org, openbmc-request@lists.ozlabs.org, Joel
->         Stanley <joel@jms.id.au>, benh@kernel.crashing.org
-> Subject: Re: openbmc Digest, Vol 32, Issue 32
-> Message-ID:
->         <1523579417.2617274.1336331832.4088E66A@webmail.messagingengine.com>
-> Content-Type: text/plain; charset="utf-8"
->
-> Hi Haiyue,
->
-> On Thu, 12 Apr 2018, at 17:25, Wang, Haiyue wrote:
->> Hi Andrew,
->>
->> Facebook uses the 'devmem' utility and python script to implement the
->> soc register
->>
->> read and write in a simple way. And the yocto layer is also very clear
->> like different
->>
->> chip vendor and common parts.
->>
->>
->> Kernel device tree upstream is also very slow, we needs two parts
->> (device tree + user app)
->>
->> to finish the soc setting. But Facebook just uses user app, this
->> development is fast, and
->>
->> simple is the best.
->>
->>
->> Well, just for sharing what I found, I may misunderstood the BIG idea
->> after this kernel
->>
->> patch design. :-)
->
-> Ben's covered the main points, but yes, what was implicit was we're looking to improve the security of the BMC. I'll try to make sure I'm more explicit in the future.
->
-> Cheers,
->
+
+--Apple-Mail=_42364155-0AAD-443C-B128-D93C9C114437
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+Hi,
+Actually I am using the meta-s2600wf as my TEMPLATECONF.
+Now switch to Q71L but found some problems :
+
+1. I can not send the same REST command to power up the host. It seems =
+the xyz/openbmc_project/state/host0/attr/RequestedHostTransition=20
+is gone. I even can=E2=80=99t see any attributes related to =
+xyz/openbmc_project/state.
+
+2. I found in quanta-q71l.conf, it remove the obmc-host-state-mgmt, this =
+may be needed when using REST to power on host. Why q71L remove it ?  Is =
+it because of not compatible with x86 system ?
+
+3. Suppose the REST is not used by Q71L, how can I power it up from LAN =
+?
+
+Thanks.
+
+
+> On Apr 10, 2018, at 21:36, Andrew Jeffery <andrew@aj.id.au> wrote:
+>=20
+> Hi Brad,
+>=20
+> On Tue, 10 Apr 2018, at 19:35, Brad Chou wrote:
+>> Hi,
+>> I am going to power on my OEM server board with two Intel x86 CPUs. =
+The=20
+>> BMC chip is ASPEED 2500.
+>>=20
+>> By the Intel data sheets, I just need to control a power on GPIO to=20=
+
+>> emulate power button behavior.
+>> The problems are, when I send Host State Control commands as =
+mentioned=20
+>> in docs/host-management.md, the journal log shows a lot of systemctl=20=
+
+>> errors.
+>>=20
+>> Looks like it is going to start the OpenPower related host control=20
+>> services, which only applies to PowerPC system.
+>> I try to modify GPIO_CONFIGS appears in skeleton recipe to match my=20=
+
+>> board, but I still got some other errors says pflash stuffs.
+>=20
+> It sounds like you're building an OpenPOWER-based BMC image - this is =
+controlled by how you set the TEMPLATECONF environment variable when =
+sourcing the `openbmc-env` file to build (at a guess I'd say you're =
+building for Palmetto, as it's used throughout the examples in the docs =
+repo).
+>=20
+> We do have support for a couple of x86 machines in the tree - your =
+best bet is probably the Quanta 71L machine maintained by Patrick =
+Venture:
+>=20
+> =
+https://github.com/openbmc/openbmc/tree/master/meta-openbmc-machines/meta-=
+x86/meta-quanta/meta-q71l
+>=20
+> As an aside, if you're experimenting and switching between target =
+machines, it's probably a good idea to blow away your build/conf =
+directory to make sure things get set up correctly when you next set =
+TEMPLATECONF and source openbmc-env.
+>=20
+>>=20
+>> Because there is no documents to tell me how to customize the openbmc =
+to=20
+>> fit on x86 CPUs, so I am not sure the GPIO_CONFIGS in skeleton is the=20=
+
+>> right way or not.
+>=20
+> Yeah, there's not a wealth of documentation on bringing up a new =
+machine. It would be great if you could document your experience once =
+you get there :)
+>=20
+> Hope that helps in some way,
+>=20
 > Andrew
->
->
-> ------------------------------
->
-> Message: 2
-> Date: Fri, 13 Apr 2018 08:37:05 +0800
-> From: "Wang, Haiyue" <haiyue.wang@linux.intel.com>
-> To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
->         openbmc-request@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>,
->         benh@kernel.crashing.org
-> Subject: Re: openbmc Digest, Vol 32, Issue 32
-> Message-ID: <ecd541ac-0912-6fb9-bb50-a096d037f721@linux.intel.com>
-> Content-Type: text/plain; charset=utf-8; format=flowed
->
-> Hi Andrew,
->
-> I thought it just needed a memory map function for some special
-> SoC registers. I truly learn more from this security design. :)
->
-> Thanks.
->
-> BR,
-> Haiyue
->
->
-> On 2018-04-13 08:30, Andrew Jeffery wrote:
->> Hi Haiyue,
->>
->> On Thu, 12 Apr 2018, at 17:25, Wang, Haiyue wrote:
->>> Hi Andrew,
->>>
->>> Facebook uses the 'devmem' utility and python script to implement the
->>> soc register
->>>
->>> read and write in a simple way. And the yocto layer is also very clear
->>> like different
->>>
->>> chip vendor and common parts.
->>>
->>>
->>> Kernel device tree upstream is also very slow, we needs two parts
->>> (device tree + user app)
->>>
->>> to finish the soc setting. But Facebook just uses user app, this
->>> development is fast, and
->>>
->>> simple is the best.
->>>
->>>
->>> Well, just for sharing what I found, I may misunderstood the BIG idea
->>> after this kernel
->>>
->>> patch design. :-)
->> Ben's covered the main points, but yes, what was implicit was we're looking to improve the security of the BMC. I'll try to make sure I'm more explicit in the future.
->>
->> Cheers,
->>
->> Andrew
->
->
->
-> ------------------------------
->
-> Message: 3
-> Date: Fri, 13 Apr 2018 11:27:46 +0930
-> From: Andrew Jeffery <andrew@aj.id.au>
-> To: openbmc@lists.ozlabs.org
-> Subject: Re: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec
->         Lanyang BMC
-> Message-ID:
->         <1523584666.2655983.1336387696.46B4368A@webmail.messagingengine.com>
-> Content-Type: text/plain; charset="utf-8"
->
 
-Hi Andrew,
 
-> Hi Brian,
->
-> On Wed, 11 Apr 2018, at 17:12, Brian Yang wrote:
->> The Inventec Lanyang is Power 9 platform with ast2500 BMC.
->>
->> Tested-by: Brian Yang <yang.brianc.w@inventec.com>
->> Signed-off-by: Brian Yang <yang.brianc.w@inventec.com>
->>
->> ---
->>
->> v0->v1
->> -Add test information in commit
->> ---
->>  arch/arm/boot/dts/Makefile                   |   1 +
->>  arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 331 +++++++++++++++++++++++++++
->>  2 files changed, 332 insertions(+)
->>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->>
->> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
->> index 5cfee25..d1882f0 100644
->> --- a/arch/arm/boot/dts/Makefile
->> +++ b/arch/arm/boot/dts/Makefile
->> @@ -1057,6 +1057,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
->>       aspeed-ast2500-evb.dtb \
->>       aspeed-bmc-arm-centriq2400-rep.dtb \
->>       aspeed-bmc-intel-s2600wf.dtb \
->> +     aspeed-bmc-opp-lanyang.dtb \
->>       aspeed-bmc-opp-palmetto.dtb \
->>       aspeed-bmc-opp-romulus.dtb \
->>       aspeed-bmc-opp-witherspoon.dtb \
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/
->> boot/dts/aspeed-bmc-opp-lanyang.dts
->> new file mode 100644
->> index 0000000..6241730
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->> @@ -0,0 +1,331 @@
->> +// SPDX-License-Identifier: GPL-2.0+
->> +// Copyright (c) 2018 Inventec Corporation
->> +/dts-v1/;
->> +
->> +#include "aspeed-g5.dtsi"
->> +#include <dt-bindings/gpio/aspeed-gpio.h>
->> +
->> +/ {
->> +     model = "Lanyang BMC";
->> +     compatible = "inventec,lanyang-bmc", "aspeed,ast2500";
->> +
->> +     chosen {
->> +             stdout-path = &uart5;
->> +             bootargs = "console=ttyS4,115200 earlyprintk";
->> +     };
->> +
->> +     memory {
->> +             reg = <0x80000000 0x40000000>;
->> +     };
->> +
->> +     reserved-memory {
->> +             #address-cells = <1>;
->> +             #size-cells = <1>;
->> +             ranges;
->> +
->> +             flash_memory: region@98000000 {
->> +                     no-map;
->> +                     reg = <0x98000000 0x04000000>; /* 64M */
->> +             };
->> +     };
->> +
->> +     leds {
->> +             compatible = "gpio-leds";
->> +
->> +             sys_boot_status {
->> +                     label = "System_boot_status";
->> +                     gpios = <&gpio ASPEED_GPIO(B, 6) GPIO_ACTIVE_LOW>;
->> +             };
->> +
->> +             attention {
->> +                     label = "Attention_locator";
->> +                     gpios = <&gpio ASPEED_GPIO(B, 7) GPIO_ACTIVE_HIGH>;
->> +             };
->> +
->> +             plt_fault {
->> +                     label = "Platform_fault";
->> +                     gpios = <&gpio ASPEED_GPIO(B, 1) GPIO_ACTIVE_HIGH>;
->> +             };
->> +
->> +             hdd_fault {
->> +                     label = "Onboard_drive_fault";
->> +                     gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_HIGH>;
->> +             };
->> +             bmc_err {
->> +                     lable = "BMC_fault";
->> +                     gpios = <&gpio ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
->> +             };
->> +
->> +             sys_err {
->> +                     lable = "Sys_fault";
->> +                     gpios = <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
->> +             };
->> +     };
->> +
->> +     fsi: gpio-fsi {
->> +             compatible = "fsi-master-gpio", "fsi-master";
->> +             #address-cells = <2>;
->> +             #size-cells = <0>;
->> +
->> +             clock-gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>;
->> +             data-gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
->> +             trans-gpios = <&gpio ASPEED_GPIO(D, 5) GPIO_ACTIVE_HIGH>;
->> +             enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
->> +             mux-gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
->> +     };
->> +
->> +     iio-hwmon {
->> +             compatible = "iio-hwmon";
->> +             io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
->> +                     <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
->> +                     <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
->> +                     <&adc 13>, <&adc 14>, <&adc 15>;
->> +     };
->> +
->> +     iio-hwmon-battery {
->> +             compatible = "iio-hwmon";
->> +             io-channels = <&adc 12>;
->> +     };
->> +};
->> +
->> +#include "ibm-power9-cfam.dtsi"
->> +
->> +&pwm_tacho {
->> +     status = "okay";
->> +     pinctrl-names = "default";
->> +     pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
->> +             &pinctrl_pwm2_default &pinctrl_pwm3_default>;
->> +
->> +     fan@0 {
->> +             reg = <0x00>;
->> +             aspeed,fan-tach-ch = /bits/ 8 <0x00>;
->> +     };
->> +
->> +     fan@1 {
->> +             reg = <0x01>;
->> +             aspeed,fan-tach-ch = /bits/ 8 <0x01>;
->> +     };
->> +
->> +     fan@2 {
->> +             reg = <0x02>;
->> +             aspeed,fan-tach-ch = /bits/ 8 <0x02>;
->> +     };
->> +
->> +     fan@3 {
->> +             reg = <0x03>;
->> +             aspeed,fan-tach-ch = /bits/ 8 <0x03>;
->> +     };
->> +};
->> +
->> +&fmc {
->> +     status = "okay";
->> +     flash@0 {
->> +             status = "okay";
->> +             m25p,fast-read;
->> +             label = "bmc";
->> +#include "openbmc-flash-layout.dtsi"
->> +     };
->> +};
->> +
->> +&spi1 {
->> +     status = "okay";
->> +     pinctrl-names = "default";
->> +     pinctrl-0 = <&pinctrl_spi1_default>;
->> +
->> +     flash@0 {
->> +             status = "okay";
->> +             label = "pnor";
->> +             m25p,fast-read;
->> +     };
->> +};
->> +
->> +&spi2 {
->> +     status = "okay";
->> +     pinctrl-names = "default";
->> +     pinctrl-0 = <&pinctrl_spi2ck_default
->> +                  &pinctrl_spi2cs0_default
->> +                  &pinctrl_spi2cs1_default
->> +                  &pinctrl_spi2miso_default
->> +                  &pinctrl_spi2mosi_default>;
->> +
->> +     flash@0 {
->> +             status = "okay";
->> +     };
->> +};
->> +
->> +&uart1 {
->> +     status = "okay";
->> +     pinctrl-names = "default";
->> +     pinctrl-0 = <&pinctrl_txd1_default
->> +                  &pinctrl_rxd1_default>;
->> +};
->> +
->> +&lpc_ctrl {
->> +     status = "okay";
->> +     memory-region = <&flash_memory>;
->> +     flash = <&spi1>;
->> +};
->> +
->> +&lpc_snoop {
->> +     status = "okay";
->> +     snoop-ports = <0x80>;
->> +};
->> +
->> +&mbox {
->> +     status = "okay";
->> +};
->> +
->> +&uart5 {
->> +     status = "okay";
->> +};
->> +
->> +&mac0 {
->> +     status = "okay";
->> +
->> +     pinctrl-names = "default";
->> +     pinctrl-0 = <&pinctrl_rmii1_default>;
->> +     use-ncsi;
->> +};
->> +
->> +&mac1 {
->> +     status = "okay";
->> +
->> +     pinctrl-names = "default";
->> +     pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
->> +};
->> +
->> +&i2c0 {
->> +     status = "okay";
->> +
->> +     eeprom@55 {
->> +             compatible = "atmel,24c64";
->> +             reg = <0x55>;
->> +             pagesize = <32>;
->> +     };
->> +
->> +     rtc@68 {
->> +             compatible = "nxp,pcf8523";
->> +             reg = <0x68>;
->> +     };
->> +
->> +     tmp75@48 {
->> +             compatible = "ti,tmp75";
->> +             reg = <0x48>;
->> +     };
->> +};
->> +
->> +&i2c1 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c2 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c3 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c4 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c5 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c6 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c7 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c8 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c9 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c10 {
->> +     status = "okay";
->> +};
->> +
->> +&i2c11 {
->> +     status = "okay";
->> +};
->
-> Do we need to enable all of the above i2c buses? By comparison, Zaius enables i2c0, i2c1, i2c4, i2c7 and i2c8.
+--Apple-Mail=_42364155-0AAD-443C-B128-D93C9C114437
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
 
-Thank you for your review.
-We need to enable all of the above i2c buses because we want to verify
-the i2c bus is fine by i2ctool.
-Because we use the above i2c buses on Lanyang platform.
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" =
+class=3D"">Hi,<div class=3D""><div class=3D"">Actually I am using the =
+meta-s2600wf as my TEMPLATECONF.</div><div class=3D"">Now switch to Q71L =
+but found some problems :</div><div class=3D""><br class=3D""></div><div =
+class=3D"">1. I can not send the same REST command to power up the host. =
+It seems the&nbsp;<span style=3D"font-family: SFMono-Regular, Consolas, =
+&quot;Liberation Mono&quot;, Menlo, Courier, monospace; caret-color: =
+rgb(36, 41, 46); color: rgb(36, 41, 46); font-size: =
+13.600000381469727px;" =
+class=3D"">xyz/openbmc_project/state/host0/attr/RequestedHostTransition&nb=
+sp;</span></div><div class=3D"">is gone. I even can=E2=80=99t see any =
+attributes related to&nbsp;<span style=3D"caret-color: rgb(36, 41, 46); =
+color: rgb(36, 41, 46); font-family: SFMono-Regular, Consolas, =
+&quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: =
+13.600000381469727px;" =
+class=3D"">xyz/openbmc_project/state.</span></div><div class=3D""><span =
+style=3D"caret-color: rgb(36, 41, 46); color: rgb(36, 41, 46); =
+font-family: SFMono-Regular, Consolas, &quot;Liberation Mono&quot;, =
+Menlo, Courier, monospace; font-size: 13.600000381469727px;" =
+class=3D""><br class=3D""></span></div><div class=3D""><font =
+color=3D"#24292e" face=3D"SFMono-Regular, Consolas, Liberation Mono, =
+Menlo, Courier, monospace" size=3D"2" class=3D""><span =
+style=3D"caret-color: rgb(36, 41, 46);" class=3D"">2. I found =
+in&nbsp;quanta-q71l.conf, it remove the obmc-host-state-mgmt, this may =
+be needed when using REST to power on host. Why q71L remove it ? =
+&nbsp;Is it because of not compatible with x86 system =
+?</span></font></div><div class=3D""><font color=3D"#24292e" =
+face=3D"SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, =
+monospace" size=3D"2" class=3D""><span style=3D"caret-color: rgb(36, 41, =
+46);" class=3D""><br class=3D""></span></font></div><div class=3D""><font =
+color=3D"#24292e" face=3D"SFMono-Regular, Consolas, Liberation Mono, =
+Menlo, Courier, monospace" size=3D"2" class=3D""><span =
+style=3D"caret-color: rgb(36, 41, 46);" class=3D"">3. Suppose the REST =
+is not used by Q71L, how can I power it up from LAN =
+?</span></font></div><div class=3D""><br class=3D""></div><div =
+class=3D""><font color=3D"#24292e" face=3D"SFMono-Regular, Consolas, =
+Liberation Mono, Menlo, Courier, monospace" size=3D"2" class=3D""><span =
+style=3D"caret-color: rgb(36, 41, 46);" =
+class=3D"">Thanks.</span></font></div><div class=3D""><font =
+color=3D"#24292e" face=3D"SFMono-Regular, Consolas, Liberation Mono, =
+Menlo, Courier, monospace" size=3D"2" class=3D""><span =
+style=3D"caret-color: rgb(36, 41, 46);" class=3D""><br =
+class=3D""></span></font></div><div class=3D""><div><br =
+class=3D""><blockquote type=3D"cite" class=3D""><div class=3D"">On Apr =
+10, 2018, at 21:36, Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au" =
+class=3D"">andrew@aj.id.au</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><div class=3D"">Hi =
+Brad,<br class=3D""><br class=3D"">On Tue, 10 Apr 2018, at 19:35, Brad =
+Chou wrote:<br class=3D""><blockquote type=3D"cite" class=3D"">Hi,<br =
+class=3D"">I am going to power on my OEM server board with two Intel x86 =
+CPUs. The <br class=3D"">BMC chip is ASPEED 2500.<br class=3D""><br =
+class=3D"">By the Intel data sheets, I just need to control a power on =
+GPIO to <br class=3D"">emulate power button behavior.<br class=3D"">The =
+problems are, when I send Host State Control commands as mentioned <br =
+class=3D"">in docs/host-management.md, the journal log shows a lot of =
+systemctl <br class=3D"">errors.<br class=3D""><br class=3D"">Looks like =
+it is going to start the OpenPower related host control <br =
+class=3D"">services, which only applies to PowerPC system.<br class=3D"">I=
+ try to modify GPIO_CONFIGS appears in skeleton recipe to match my <br =
+class=3D"">board, but I still got some other errors says pflash =
+stuffs.<br class=3D""></blockquote><br class=3D"">It sounds like you're =
+building an OpenPOWER-based BMC image - this is controlled by how you =
+set the TEMPLATECONF environment variable when sourcing the =
+`openbmc-env` file to build (at a guess I'd say you're building for =
+Palmetto, as it's used throughout the examples in the docs repo).<br =
+class=3D""><br class=3D"">We do have support for a couple of x86 =
+machines in the tree - your best bet is probably the Quanta 71L machine =
+maintained by Patrick Venture:<br class=3D""><br class=3D""><a =
+href=3D"https://github.com/openbmc/openbmc/tree/master/meta-openbmc-machin=
+es/meta-x86/meta-quanta/meta-q71l" =
+class=3D"">https://github.com/openbmc/openbmc/tree/master/meta-openbmc-mac=
+hines/meta-x86/meta-quanta/meta-q71l</a><br class=3D""><br class=3D"">As =
+an aside, if you're experimenting and switching between target machines, =
+it's probably a good idea to blow away your build/conf directory to make =
+sure things get set up correctly when you next set TEMPLATECONF and =
+source openbmc-env.<br class=3D""><br class=3D""><blockquote type=3D"cite"=
+ class=3D""><br class=3D"">Because there is no documents to tell me how =
+to customize the openbmc to <br class=3D"">fit on x86 CPUs, so I am not =
+sure the GPIO_CONFIGS in skeleton is the <br class=3D"">right way or =
+not.<br class=3D""></blockquote><br class=3D"">Yeah, there's not a =
+wealth of documentation on bringing up a new machine. It would be great =
+if you could document your experience once you get there :)<br =
+class=3D""><br class=3D"">Hope that helps in some way,<br class=3D""><br =
+class=3D"">Andrew<br class=3D""></div></div></blockquote></div><br =
+class=3D""></div></div></body></html>=
 
->
->> +
->> +&vuart {
->> +     status = "okay";
->> +};
->> +
->> +&gfx {
->> +     status = "okay";
->> +};
->> +
->> +&pinctrl {
->> +     aspeed,external-nodes = <&gfx &lhc>;
->> +};
->> +
->> +&gpio {
->> +     pin_gpio_b0 {
->> +             gpio-hog;
->> +             gpios = <ASPEED_GPIO(B, 0) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name = "BMC_HDD1_PWR_EN";
->> +     };
->> +
->> +     pin_gpio_b5 {
->> +             gpio-hog;
->> +             gpios = <ASPEED_GPIO(B, 5) GPIO_ACTIVE_HIGH>;
->> +             input;
->> +             line-name = "BMC_USB1_OCI2";
->> +     };
->> +
->> +     pin_gpio_h5 {
->> +             gpio-hog;
->> +             gpios = <ASPEED_GPIO(H, 5) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name = "BMC_CP0_PERST_ENABLE_R";
->> +     };
->> +
->> +     pin_gpio_z2 {
->> +             gpio-hog;
->> +             gpios = <ASPEED_GPIO(Z, 2) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name = "RST_PCA9546_U177_N";
->> +     };
->> +
->> +     pin_gpio_aa6 {
->> +             gpio-hog;
->> +             gpios = <ASPEED_GPIO(AA, 6) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name = "BMC_CP0_RESET_N";
->> +     };
->> +
->> +     pin_gpio_aa7 {
->> +             gpio-hog;
->> +             gpios = <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name = "BMC_TPM_RESET_N";
->> +     };
->> +
->> +     pin_gpio_ab0 {
->> +             gpio-hog;
->> +             gpios = <ASPEED_GPIO(AB, 0) GPIO_ACTIVE_LOW>;
->> +             output-high;
->> +             line-name = "BMC_USB_PWRON_N";
->> +     };
->> +};
->> +
->> +&ibt {
->> +     status = "okay";
->> +};
->> +
->> +&adc {
->> +     status = "okay";
->> +};
->> +
->> --
->> 2.7.4
->>
->
-> Looks okay from a pinctrl perspective, so if there is reason to enable all of the i2c buses, then I'll send an Acked-by
->
-> Cheers,
->
-> Andrew
->
->
-> End of openbmc Digest, Vol 32, Issue 36
-> ***************************************
-
-Thank you
-
-Brian
+--Apple-Mail=_42364155-0AAD-443C-B128-D93C9C114437--
