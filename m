@@ -1,64 +1,60 @@
-Return-Path: <venture@google.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::234; helo=mail-ua0-x234.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="qSX1O7Ra"; 
- dkim-atps=neutral
-Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
- [IPv6:2607:f8b0:400c:c08::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <tpearson@raptorengineering.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=raptorengineering.com (client-ip=192.119.205.245;
+ helo=mail.rptsys.com; envelope-from=tpearson@raptorengineering.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=raptorengineering.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=raptorengineering.com header.i=@raptorengineering.com
+ header.b="QhcYY9ck"; dkim-atps=neutral
+X-Greylist: delayed 331 seconds by postgrey-1.36 at bilbo;
+ Sat, 14 Apr 2018 10:53:25 AEST
+Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40NFXB1C3tzDr5X
- for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 10:15:05 +1000 (AEST)
-Received: by mail-ua0-x234.google.com with SMTP id t4so1137608ual.1
- for <openbmc@lists.ozlabs.org>; Fri, 13 Apr 2018 17:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Yh+r44W6KdtpAk9+DlPaw/zjnVsWmCL4lecUqOUg4VU=;
- b=qSX1O7RaiI0olAh6WBCPACE+ELl8DW+QYPiMC+UcJWfwwJ0d/MRyvk8tLuerc6VZQ0
- ka1QkCsuwa0GbfBhpv1xwdKdoPM4hWbGD1e1ebSKX8J2jgxrCeCUepBF42/Rc2OU9u7C
- /dLi44IqXG7Zh02GuKbdSJe1wKxQgrl0/bPat7l/wlu9xUsflzwrhl+s/PnHauXpVYtU
- k3jg9tG0Bfv3lZ4gNNRedztqADseUmyrrgS4gkrgb7aPCT96YVuQBBGBua3QohMLTEgO
- fnuivFwquX7s+4XeJLz5rnzcCHDF0eE6pQzgblzzYjKcnbOye5HDEVG0yiIOMk9EgG8A
- y2Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Yh+r44W6KdtpAk9+DlPaw/zjnVsWmCL4lecUqOUg4VU=;
- b=bTQMcW76TLG2pmluzBW+LAkij9vEk9ePqFObeib6fANK9rPmArZD7Fa0gTtXdHV3oO
- /Ni1e5ueLtJprB9jZFrVnYwz7j4bXBENjEMFkhKjJW2Gp80rPt5ndrSRMY5xWFcrMdva
- H/u0DWXwtRmCUrMP9PdcQjtNKVn9mri2p4JXyDFnmV+NmAQ8D2JMu84DoRwUdqz05ETg
- DuqE9gJqDMHOXimFtrmBdq5ElPolFY2khqVrWQ5gIDnvN802XuaJ/10eW9e/jg2VM2v8
- sD2zWWyrU8gUPG4wrreiyvCS+e8kY1Rfvt4oeVZ15WIBhlz+Vzjm1ULVi1Z87kYWOWtw
- SeiQ==
-X-Gm-Message-State: ALQs6tCYGlCNOZtEru3bPmSviHa+B4Xi7wrtcEnKIKE8qcideOBxZZqE
- yrxQT6QGiTsMFMl6e8u8zNWJQ9X6JP5T/IsbryHTvQ==
-X-Google-Smtp-Source: AIpwx49HNt9siLAFllu/KYNNIG6oHWhr+l/qzE5sJF4HppWBSaUt1t/f/gIzW9qZg5r9mKugQgfyUgbj5qEXPHQO6oQ=
-X-Received: by 10.176.13.134 with SMTP id i6mr3742723uak.177.1523664902382;
- Fri, 13 Apr 2018 17:15:02 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40NGNP1WqpzF1Sb
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Apr 2018 10:53:25 +1000 (AEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 2B9CF6427B2;
+ Fri, 13 Apr 2018 19:47:46 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id oQFMTKWn2wYm; Fri, 13 Apr 2018 19:47:44 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 68EE26427E0;
+ Fri, 13 Apr 2018 19:47:44 -0500 (CDT)
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 68EE26427E0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+ t=1523666864; bh=/AJ3WyjKnoR722QH+FNrl7NQTAmoB8AsC6msesAHlAo=;
+ h=Message-ID:Date:From:MIME-Version:To:Subject:Content-Type:
+ Content-Transfer-Encoding;
+ b=QhcYY9cki/WGFyF9yH6sdB10bFats1dlIWA0JQ62r2tf5EO4gZxI0LQCvzO9h8FHq
+ Fm8gqqPSvVkxcP4kRViDBLkys+A5T3VK68LTnIBIikghIiOVjLWcalhYZbX70ENWBd
+ g4LoU5nc+7h2szTzrQcsZRW5Jw89nd1qyHJXyHpk=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id B3_XpDp25JbN; Fri, 13 Apr 2018 19:47:44 -0500 (CDT)
+Received: from [192.168.3.54] (apollo.starlink.edu [192.168.3.54])
+ by mail.rptsys.com (Postfix) with ESMTP id 0A4DB6427DF;
+ Fri, 13 Apr 2018 19:47:43 -0500 (CDT)
+Message-ID: <5AD14FAF.90109@raptorengineering.com>
+Date: Fri, 13 Apr 2018 19:47:43 -0500
+From: Timothy Pearson <tpearson@raptorengineering.com>
+Organization: Raptor Engineering, LLC
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+ rv:1.9.2.9) Gecko/20100922 Thunderbird/3.1.4
 MIME-Version: 1.0
-Received: by 10.31.124.193 with HTTP; Fri, 13 Apr 2018 17:14:41 -0700 (PDT)
-In-Reply-To: <CAO=notx+WsxRbeGRPvLEOpfvZPkFQqmF8wx1A408s6inBk7zqQ@mail.gmail.com>
-References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
- <1523591789.2710142.1336453024.5787B0DF@webmail.messagingengine.com>
- <A920519B-A2F5-44BB-80D5-73EC81827448@fuzziesquirrel.com>
- <CAO=notx+WsxRbeGRPvLEOpfvZPkFQqmF8wx1A408s6inBk7zqQ@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 13 Apr 2018 17:14:41 -0700
-Message-ID: <CAO=notzEMFtZ0gBeacoFsEB1_eArns-pU2dvJ671deztFsf_NQ@mail.gmail.com>
-Subject: Re: YASL Request
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Emily Shaffer <emilyshaffer@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: Patrick Venture <venture@google.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Exposing POST codes
+References: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+In-Reply-To: <CAO=notzv-4wn7J+uAzPYw1uWzTiN5jOGqHNEDUAzAGS+j5wivQ@mail.gmail.com>
+X-Enigmail-Version: 1.1.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -70,61 +66,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 14 Apr 2018 00:15:07 -0000
+X-List-Received-Date: Sat, 14 Apr 2018 00:53:26 -0000
 
-One can also use a fake-file-system framework to do some testing if
-you need to create a bunch of local temp files.  We have this
-internally, there is probably something similar on the outside.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
 
-On Fri, Apr 13, 2018 at 9:03 AM, Patrick Venture <venture@google.com> wrote=
-:
-> On Fri, Apr 13, 2018 at 8:21 AM, Brad Bishop
-> <bradleyb@fuzziesquirrel.com> wrote:
->>
->>> On Apr 12, 2018, at 11:56 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->>>
->>>
->>> Some advantages I've found to this technique are:
->>>
->>> * There's no reduction of readability in the code
->>
->> This.
->>
->>> * You get test binaries that you can run independent of your test frame=
-work, as there isn't really a test framework, just autotools running your t=
-est binaries in parallel
->>> * By extension, if you need to debug a failing test case, you can gdb t=
-he test binary directly without needing to comprehend the side-effects of t=
-he test framework on your test binary
->>
->> And this.
->>
->> Honestly these are my _real_ objections but I brought up runtime overhea=
-d because
->> that is not subjective.  I just don=E2=80=99t like how the direction we =
-are headed
->> obfuscates things for developers that have a good understanding of stand=
-ard libraries,
->> tools, and language features (libc, libstd++, STL, GDB, etc...) and don=
-=E2=80=99t have an
->> understanding of the internals of GMock or the =E2=80=9Ctechniques" its =
-use drives into the
->> code.  I expect there to be way more of the former (those up to speed on=
- the standard
->> libraries, tools, language features) than the latter (those comfortable =
-working on
->> a GMock inspired codebase).
->
-> I find a flaw in this logic that, because a developer would need to
-> learn something new, because as you say few people will be familiar
-> with gmock.  Every developer I've met tends to learn new things all
-> the time, and I specifically hadn't used c++ since 2004, and basically
-> learned it to contribute to OpenBMC, and I doubt I'd be an exception
-> to this.
->
->>
->> IMHO these concepts have a greater (positive) impact on the project over=
-all than
->> super-easy-unit-test writing.  I=E2=80=99d guess I=E2=80=99m in the mino=
-rity, but hey=E2=80=A6I have to
->> speak my mind right?  I can certainly relate to the opposing viewpoint.
+Sounds like multiple folks have been working on similar code.  Here's ours:
+
+https://git.raptorcs.com/git/talos-skeleton/log/pyiplobserver?h=04-13-2018
+
+The current version just parses the hostboot codes from the serial
+console, it used to use pdbg but over time it was found that using pdbg,
+even with the BMC kernel driver, destabilizes the IPL process at key
+points.  It does however also include state monitoring via BMC mailbox
+bits for skiboot and skiroot, allowing the BMC to know when the full IPL
+process is complete.
+
+I like the approach of hostboot sending data over LPC, and we're willing
+to rework the observer daemon to use that approach.  Is there any way to
+send status codes over LPC from the SBE?
+
+Thanks!
+
+On 02/28/2018 12:56 PM, Patrick Venture wrote:
+> I talked to Nancy and I think it's time to revisit previous conversations
+> about POST codes.  We have a simple daemon that exposes the information
+> over Dbus associated with https://gerrit.openbmc-project.xyz/#/c/5006
+> 
+> If there's interest, I can stage it against skeleton for review and comment.
+> 
+> We have a patch to the kernel character device for the aspeed-lpc-snoop
+> that is required and enables reading the post codes.
+> 
+> Patrick
+
+
+- -- 
+Timothy Pearson
+Raptor Engineering
++1 (415) 727-8645 (direct line)
++1 (512) 690-0200 (switchboard)
+https://www.raptorengineering.com
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJa0U+sAAoJEK+E3vEXDOFbOM4H/3WJK9SbA6ly4Q/CioC9Yz9L
+dzwsKSClKkK1pHru86wPYHadAmatn/ksA5dl4pEzQlfh5RKGBAaoFdVdVG/BdbVA
+upKn9WBudQyLCHFWtD3xg4vzX3cCsi3hFgvgGIKkdrxj4uMv+56Fp5Fwh2eWuun8
+ITadBt1LVdZlZT7z56zi2gt0eC4QSaAIBjBXq4KYIhXdc/xX9suw7pLKHAfxpb3v
+ygSlE+SGeD1jZQfA5y2CxhOYyl+ac3AmCHXlDe70WQgbyPHU6aohuJaoh1+AtJeo
+ys2mULcL9Sz2y8YTBXbEQ2QVMCJHw2BpKBmy6gxuDKChUNndqNJBselSVu7jrXU=
+=OWnM
+-----END PGP SIGNATURE-----
