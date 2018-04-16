@@ -1,64 +1,68 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <Yang.BrianC.W@inventec.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22a; helo=mail-it0-x22a.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=inventec.com
+ (client-ip=61.220.76.161; helo=mail.inventec.com;
+ envelope-from=yang.brianc.w@inventec.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="t8dvivxL"; 
- dkim-atps=neutral
-Received: from mail-it0-x22a.google.com (mail-it0-x22a.google.com
- [IPv6:2607:f8b0:4001:c0b::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=inventec.com
+Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40PXtQ6C2qzDr5X
- for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 12:50:22 +1000 (AEST)
-Received: by mail-it0-x22a.google.com with SMTP id 85-v6so7138836iti.4
- for <openbmc@lists.ozlabs.org>; Sun, 15 Apr 2018 19:50:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=LKGpqBMpP8MTMcsigIeBQjQGESkE4y8Y3mW6okYhzSc=;
- b=t8dvivxL3YO/VpK9Vq/CQgpFGvfyPt4uFf5iOHSdkDrOh1mNBthXYMMDQnadk8Ul4O
- oEKozbsEAwrpgqDd0euCiu4KEFNjuaAAuNLjnBmkYFnnXUXM8mJO1mVFgEfawQMTgCL9
- 1yot3hSc3Tb2an5fLpZ6zQIrWzXmv2D33PldXRBjDsoeH0NMFMoCPenpEjQ6lEy90JrH
- Y3uaTWDkjpNNiGZDclkwjdCYiaaGYkO1FYacwE4MDnVsH+zPjjiP3VKCQE8ZkJT4fM9O
- SICJaYxQ0kWSJftxddoNn2JrgiBwQfqZxyhlnNn5Dq52kyoNOe9f2qWLMQgw6ywdgMvX
- 5oVw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Plzj1Dg2zF1ql
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 21:10:40 +1000 (AEST)
+Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
+ IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
+ 14.3.174.1; Mon, 16 Apr 2018 19:10:56 +0800
+Received: from IEC1-SPAM-2.inventec.com (smg2.inventec.com [10.1.254.202])	by
+ IEC1-MSE-FE1.inventec.com with ESMTP id w3GBAMBQ099138	for
+ <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 19:10:22 +0800 (GMT-8)
+ (envelope-from yang.brianc.w@inventec.com)
+Received: from mail-wr0-f197.google.com (mail-wr0-f197.google.com
+ [209.85.128.197])	by IEC1-SPAM-2.inventec.com with ESMTP id w3GBAH4J056211
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
+ <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 19:10:19 +0800 (GMT-8)
+ (envelope-from yang.brianc.w@inventec.com)
+Received: by mail-wr0-f197.google.com with SMTP id b10so1215020wrf.3
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 04:10:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=LKGpqBMpP8MTMcsigIeBQjQGESkE4y8Y3mW6okYhzSc=;
- b=tpJygiSvGvwDinD2BRn/kyyzu2C+qV1KN1OeAXT9cAgHWTVJxxxwoDfaj6xlnABhzR
- 3JQS7ozbz4VOV07u+m6pWfG23C5TWYxTI0uhes3eIUX+WztMvTXCKXUt1kjHEReaedMc
- oHTa5Io3J8jGcDHl6UCdLEpbGIBAr0NYRZf7u6SIzzMpND9dmQssTyGqwthCz+wo8O15
- 8UH0Wsb47ReJPhLbcbcNlwTkUiwqUKV3HscKXu7BEx+j57MmYTJtV/vSdgyZIqBulkfv
- 82NEy8HSWEwRRHOI+VZ85TAf9K3joR/+ELvLlDhCX6lsQ3H8vgGNbn1xie8ed0ZMDqYG
- KwWA==
-X-Gm-Message-State: ALQs6tDNMZ/OCm8mDouMhUgBr/Th+PB8pyyY2pQuibzOmPReY6w2ZcVT
- DMgd9W3CN3Mzg2mfXs/qodXrqgcRXgXCAy8zSyw=
-X-Google-Smtp-Source: AIpwx4+gTi1Etqdm4gioVhG57UAyiLefQFJ/OjvjM+XGAROQ5Vj1TKDqbBuw6AimJRCbWpYiToEIUHslyHGy/u3VnLs=
-X-Received: by 2002:a24:9502:: with SMTP id
- m2-v6mr13372738itd.121.1523847020199; 
- Sun, 15 Apr 2018 19:50:20 -0700 (PDT)
+ :message-id:subject:to:content-transfer-encoding;
+ bh=NgabhPdfEN6/dOPBVJaoU6pV+wwu7OIKHB+4ArCBHmk=;
+ b=lwtTwEWuEW/XJfGMevw8RZJOX34Tvbh/im6xY+Diw1NkOJQnHIx87MCCZhikME/NlF
+ 5aRO5wHS2nRoG5LusLkAJwbolWTb5fUN2R1QEUBTN/Tl3kF+tZEXJafusSD3eleBEQv0
+ GaNJgDQ0wtuFj+ambWOTlI6y092XhS+fq4EAwaNWYg0oMaOMYa1Nz5Z+fyBvhAK0JMq4
+ TNP9zJgAEYIVmy1yHyY92SBGwvlw6G3XucpljMiF4l/ROuUabxKzxRC6hiklBuFmTtKy
+ 5fx2IUqGgFg5sBSM+aXCuvm0C1vDddigU/8SzYQEckFJSJYaJWK6FkdGB0v8zVczuUZ9
+ Pf1A==
+X-Gm-Message-State: ALQs6tA6jXHceX4dXb/a7U2QrsFNnwWxWlmFlJz5LjrvNzspNM+W/sEg
+ l+QjR7bxV/HnaKm3SO8k1t19Rr0X5OpBagB/C3ZwHwrDYfrI3rCaXpCoj8DPsHVJcFc9p8ggSIM
+ ittA9qvSVlhch/b1EHT7Vba7rDYAUaz7ZZ+nsYQ==
+X-Received: by 10.223.190.140 with SMTP id i12mr10443845wrh.63.1523877015253; 
+ Mon, 16 Apr 2018 04:10:15 -0700 (PDT)
+X-Google-Smtp-Source: AIpwx48A6WQ7yjTIU+C4qzTi4Ah5zJiwc+Wv9LhzvL60HA+d3ytdAXiMkpKvNn+8fDxzt+vQsHFagBswFI5aKRExSCw=
+X-Received: by 10.223.190.140 with SMTP id i12mr10443825wrh.63.1523877014965; 
+ Mon, 16 Apr 2018 04:10:14 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.79.142.67 with HTTP; Sun, 15 Apr 2018 19:50:19 -0700 (PDT)
-In-Reply-To: <A920519B-A2F5-44BB-80D5-73EC81827448@fuzziesquirrel.com>
-References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
- <1523591789.2710142.1336453024.5787B0DF@webmail.messagingengine.com>
- <A920519B-A2F5-44BB-80D5-73EC81827448@fuzziesquirrel.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Mon, 16 Apr 2018 10:50:19 +0800
-Message-ID: <CAARXrtmhCXisvPd2prxu5R_JAO=giLS6svkTymKASd9PnR1GiA@mail.gmail.com>
-Subject: Re: YASL Request
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Emily Shaffer <emilyshaffer@google.com>, 
- Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.28.144.141 with HTTP; Mon, 16 Apr 2018 04:09:54 -0700 (PDT)
+In-Reply-To: <39E6480C5A587146BAA4D885C7BCF7EEC6B7921E@IEC1-EX2010-MX4.iec.inventec>
+References: <1523432542-445334-1-git-send-email-yang.brianc.w@inventec.com>
+ <1523584666.2655983.1336387696.46B4368A@webmail.messagingengine.com>
+ <39E6480C5A587146BAA4D885C7BCF7EEC6B7921E@IEC1-EX2010-MX4.iec.inventec>
+From: =?UTF-8?B?WWFuZ0JyaWFuQy5XIOaliuWYieWBiSBUQU8=?=
+ <yang.brianc.w@inventec.com>
+Date: Mon, 16 Apr 2018 19:09:54 +0800
+Message-ID: <CAAvYUAw1ZH2DFrMr8mJydfQUVHatioxeNrOitwy4KU8fG5fuYA@mail.gmail.com>
+Subject: Re: FW: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec
+ Lanyang BMC
+To: =?UTF-8?B?Q2hlbi5LZW5ZWSDpmbPmsLjnh58gVEFP?= <Chen.KenYY@inventec.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery
+ <andrew@aj.id.au>, Lei YU <mine260309@gmail.com>, Joel Stanley
+ <joel@jms.id.au>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-DNSRBL: 
+X-MAIL: IEC1-MSE-FE1.inventec.com w3GBAMBQ099138
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -70,77 +74,424 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Apr 2018 02:50:23 -0000
+X-List-Received-Date: Mon, 16 Apr 2018 11:10:42 -0000
 
-On Fri, Apr 13, 2018 at 11:21 PM, Brad Bishop
-<bradleyb@fuzziesquirrel.com> wrote:
+Hi Andrew,
+
+
+2018-04-16 15:04 GMT+08:00 Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO <Chen=
+.KenYY@inventec.com>:
+> FYR
 >
->> On Apr 12, 2018, at 11:56 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> -----Original Message-----
+> From: openbmc [mailto:openbmc-bounces+chen.kenyy=3Dinventec.com@lists.ozl=
+abs.org] On Behalf Of Andrew Jeffery
+> Sent: Friday, April 13, 2018 9:58 AM
+> To: openbmc@lists.ozlabs.org
+> Subject: Re: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec Lan=
+yang BMC
+>
+> Hi Brian,
+>
+> On Wed, 11 Apr 2018, at 17:12, Brian Yang wrote:
+>> The Inventec Lanyang is Power 9 platform with ast2500 BMC.
 >>
+>> Tested-by: Brian Yang <yang.brianc.w@inventec.com>
+>> Signed-off-by: Brian Yang <yang.brianc.w@inventec.com>
 >>
->> Some advantages I've found to this technique are:
+>> ---
 >>
->> * There's no reduction of readability in the code
+>> v0->v1
+>> -Add test information in commit
+>> ---
+>>  arch/arm/boot/dts/Makefile                   |   1 +
+>>  arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 331
+>> +++++++++++++++++++++++++++
+>>  2 files changed, 332 insertions(+)
+>>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+>>
+>> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+>> index 5cfee25..d1882f0 100644
+>> --- a/arch/arm/boot/dts/Makefile
+>> +++ b/arch/arm/boot/dts/Makefile
+>> @@ -1057,6 +1057,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
+>>       aspeed-ast2500-evb.dtb \
+>>       aspeed-bmc-arm-centriq2400-rep.dtb \
+>>       aspeed-bmc-intel-s2600wf.dtb \
+>> +     aspeed-bmc-opp-lanyang.dtb \
+>>       aspeed-bmc-opp-palmetto.dtb \
+>>       aspeed-bmc-opp-romulus.dtb \
+>>       aspeed-bmc-opp-witherspoon.dtb \
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/
+>> boot/dts/aspeed-bmc-opp-lanyang.dts
+>> new file mode 100644
+>> index 0000000..6241730
+>> --- /dev/null
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+>> @@ -0,0 +1,331 @@
+>> +// SPDX-License-Identifier: GPL-2.0+
+>> +// Copyright (c) 2018 Inventec Corporation /dts-v1/;
+>> +
+>> +#include "aspeed-g5.dtsi"
+>> +#include <dt-bindings/gpio/aspeed-gpio.h>
+>> +
+>> +/ {
+>> +     model =3D "Lanyang BMC";
+>> +     compatible =3D "inventec,lanyang-bmc", "aspeed,ast2500";
+>> +
+>> +     chosen {
+>> +             stdout-path =3D &uart5;
+>> +             bootargs =3D "console=3DttyS4,115200 earlyprintk";
+>> +     };
+>> +
+>> +     memory {
+>> +             reg =3D <0x80000000 0x40000000>;
+>> +     };
+>> +
+>> +     reserved-memory {
+>> +             #address-cells =3D <1>;
+>> +             #size-cells =3D <1>;
+>> +             ranges;
+>> +
+>> +             flash_memory: region@98000000 {
+>> +                     no-map;
+>> +                     reg =3D <0x98000000 0x04000000>; /* 64M */
+>> +             };
+>> +     };
+>> +
+>> +     leds {
+>> +             compatible =3D "gpio-leds";
+>> +
+>> +             sys_boot_status {
+>> +                     label =3D "System_boot_status";
+>> +                     gpios =3D <&gpio ASPEED_GPIO(B, 6) GPIO_ACTIVE_LOW=
+>;
+>> +             };
+>> +
+>> +             attention {
+>> +                     label =3D "Attention_locator";
+>> +                     gpios =3D <&gpio ASPEED_GPIO(B, 7) GPIO_ACTIVE_HIG=
+H>;
+>> +             };
+>> +
+>> +             plt_fault {
+>> +                     label =3D "Platform_fault";
+>> +                     gpios =3D <&gpio ASPEED_GPIO(B, 1) GPIO_ACTIVE_HIG=
+H>;
+>> +             };
+>> +
+>> +             hdd_fault {
+>> +                     label =3D "Onboard_drive_fault";
+>> +                     gpios =3D <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_HIG=
+H>;
+>> +             };
+>> +             bmc_err {
+>> +                     lable =3D "BMC_fault";
+>> +                     gpios =3D <&gpio ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIG=
+H>;
+>> +             };
+>> +
+>> +             sys_err {
+>> +                     lable =3D "Sys_fault";
+>> +                     gpios =3D <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIG=
+H>;
+>> +             };
+>> +     };
+>> +
+>> +     fsi: gpio-fsi {
+>> +             compatible =3D "fsi-master-gpio", "fsi-master";
+>> +             #address-cells =3D <2>;
+>> +             #size-cells =3D <0>;
+>> +
+>> +             clock-gpios =3D <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>=
+;
+>> +             data-gpios =3D <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
+>> +             trans-gpios =3D <&gpio ASPEED_GPIO(D, 5) GPIO_ACTIVE_HIGH>=
+;
+>> +             enable-gpios =3D <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH=
+>;
+>> +             mux-gpios =3D <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
+>> +     };
+>> +
+>> +     iio-hwmon {
+>> +             compatible =3D "iio-hwmon";
+>> +             io-channels =3D <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+>> +                     <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
+>> +                     <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
+>> +                     <&adc 13>, <&adc 14>, <&adc 15>;
+>> +     };
+>> +
+>> +     iio-hwmon-battery {
+>> +             compatible =3D "iio-hwmon";
+>> +             io-channels =3D <&adc 12>;
+>> +     };
+>> +};
+>> +
+>> +#include "ibm-power9-cfam.dtsi"
+>> +
+>> +&pwm_tacho {
+>> +     status =3D "okay";
+>> +     pinctrl-names =3D "default";
+>> +     pinctrl-0 =3D <&pinctrl_pwm0_default &pinctrl_pwm1_default
+>> +             &pinctrl_pwm2_default &pinctrl_pwm3_default>;
+>> +
+>> +     fan@0 {
+>> +             reg =3D <0x00>;
+>> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x00>;
+>> +     };
+>> +
+>> +     fan@1 {
+>> +             reg =3D <0x01>;
+>> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x01>;
+>> +     };
+>> +
+>> +     fan@2 {
+>> +             reg =3D <0x02>;
+>> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x02>;
+>> +     };
+>> +
+>> +     fan@3 {
+>> +             reg =3D <0x03>;
+>> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x03>;
+>> +     };
+>> +};
+>> +
+>> +&fmc {
+>> +     status =3D "okay";
+>> +     flash@0 {
+>> +             status =3D "okay";
+>> +             m25p,fast-read;
+>> +             label =3D "bmc";
+>> +#include "openbmc-flash-layout.dtsi"
+>> +     };
+>> +};
+>> +
+>> +&spi1 {
+>> +     status =3D "okay";
+>> +     pinctrl-names =3D "default";
+>> +     pinctrl-0 =3D <&pinctrl_spi1_default>;
+>> +
+>> +     flash@0 {
+>> +             status =3D "okay";
+>> +             label =3D "pnor";
+>> +             m25p,fast-read;
+>> +     };
+>> +};
+>> +
+>> +&spi2 {
+>> +     status =3D "okay";
+>> +     pinctrl-names =3D "default";
+>> +     pinctrl-0 =3D <&pinctrl_spi2ck_default
+>> +                  &pinctrl_spi2cs0_default
+>> +                  &pinctrl_spi2cs1_default
+>> +                  &pinctrl_spi2miso_default
+>> +                  &pinctrl_spi2mosi_default>;
+>> +
+>> +     flash@0 {
+>> +             status =3D "okay";
+>> +     };
+>> +};
+>> +
+>> +&uart1 {
+>> +     status =3D "okay";
+>> +     pinctrl-names =3D "default";
+>> +     pinctrl-0 =3D <&pinctrl_txd1_default
+>> +                  &pinctrl_rxd1_default>;
+>> +};
+>> +
+>> +&lpc_ctrl {
+>> +     status =3D "okay";
+>> +     memory-region =3D <&flash_memory>;
+>> +     flash =3D <&spi1>;
+>> +};
+>> +
+>> +&lpc_snoop {
+>> +     status =3D "okay";
+>> +     snoop-ports =3D <0x80>;
+>> +};
+>> +
+>> +&mbox {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&uart5 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&mac0 {
+>> +     status =3D "okay";
+>> +
+>> +     pinctrl-names =3D "default";
+>> +     pinctrl-0 =3D <&pinctrl_rmii1_default>;
+>> +     use-ncsi;
+>> +};
+>> +
+>> +&mac1 {
+>> +     status =3D "okay";
+>> +
+>> +     pinctrl-names =3D "default";
+>> +     pinctrl-0 =3D <&pinctrl_rgmii2_default &pinctrl_mdio2_default>; };
+>> +
+>> +&i2c0 {
+>> +     status =3D "okay";
+>> +
+>> +     eeprom@55 {
+>> +             compatible =3D "atmel,24c64";
+>> +             reg =3D <0x55>;
+>> +             pagesize =3D <32>;
+>> +     };
+>> +
+>> +     rtc@68 {
+>> +             compatible =3D "nxp,pcf8523";
+>> +             reg =3D <0x68>;
+>> +     };
+>> +
+>> +     tmp75@48 {
+>> +             compatible =3D "ti,tmp75";
+>> +             reg =3D <0x48>;
+>> +     };
+>> +};
+>> +
+>> +&i2c1 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c2 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c3 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c4 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c5 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c6 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c7 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c8 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c9 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c10 {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&i2c11 {
+>> +     status =3D "okay";
+>> +};
 >
-> This.
->
->> * You get test binaries that you can run independent of your test framew=
-ork, as there isn't really a test framework, just autotools running your te=
-st binaries in parallel
->> * By extension, if you need to debug a failing test case, you can gdb th=
-e test binary directly without needing to comprehend the side-effects of th=
-e test framework on your test binary
->
+> Do we need to enable all of the above i2c buses? By comparison, Zaius ena=
+bles i2c0, i2c1, i2c4, i2c7 and i2c8.
 
-By using gtest/gmock, it is the same that the test binary is generated and =
-run
-by autotools. You can use gdb to debug the failing tests as well.
+Thank you for your review.
 
-> And this.
->
-> Honestly these are my _real_ objections but I brought up runtime overhead=
- because
-> that is not subjective.  I just don=E2=80=99t like how the direction we a=
-re headed
-> obfuscates things for developers that have a good understanding of standa=
-rd libraries,
-> tools, and language features (libc, libstd++, STL, GDB, etc...) and don=
-=E2=80=99t have an
-> understanding of the internals of GMock or the =E2=80=9Ctechniques" its u=
-se drives into the
-> code.  I expect there to be way more of the former (those up to speed on =
-the standard
-> libraries, tools, language features) than the latter (those comfortable w=
-orking on
-> a GMock inspired codebase).
+We need to enable all of the above i2c buses because we want to verify
+the i2c bus is fine by i2ctool.
 
-I get your point. And I have to admit that generally developers tend to
-*directly* use standard libraries because they are familiar with that.
-But I still want to point that by writing code that way:
-1. It makes the code harder to test and thus likely to contain potential
-   un-found bugs;
-2. It is possible to write code that put too much function in some level,
-   if the developer does not group the code well.
+Because we use the above i2c buses on Lanyang platform.
 
-By using gmock, the developer is *forced* to split the code into pieces of
-interfaces and functions, otherwise the code is un-testable.
-This helps on grouping and writing testable code, and since it's tested it =
-is
-likely to reduce the number of potential bugs.
-Althoug it does introduce runtime overhead, I expecte the overhead is tiny =
-in
-most cases.
-
-I know you are not in favor of writing code that way, but I do prefer testa=
-ble
-code than the other.
-In my previous experience, the unit test could cover most major logic of th=
-e
-code to make sure the code is (at some level) correct and robust.
 
 >
-> IMHO these concepts have a greater (positive) impact on the project overa=
-ll than
-> super-easy-unit-test writing.  I=E2=80=99d guess I=E2=80=99m in the minor=
-ity, but hey=E2=80=A6I have to
-> speak my mind right?  I can certainly relate to the opposing viewpoint.
+>> +
+>> +&vuart {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&gfx {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&pinctrl {
+>> +     aspeed,external-nodes =3D <&gfx &lhc>; };
+>> +
+>> +&gpio {
+>> +     pin_gpio_b0 {
+>> +             gpio-hog;
+>> +             gpios =3D <ASPEED_GPIO(B, 0) GPIO_ACTIVE_HIGH>;
+>> +             output-high;
+>> +             line-name =3D "BMC_HDD1_PWR_EN";
+>> +     };
+>> +
+>> +     pin_gpio_b5 {
+>> +             gpio-hog;
+>> +             gpios =3D <ASPEED_GPIO(B, 5) GPIO_ACTIVE_HIGH>;
+>> +             input;
+>> +             line-name =3D "BMC_USB1_OCI2";
+>> +     };
+>> +
+>> +     pin_gpio_h5 {
+>> +             gpio-hog;
+>> +             gpios =3D <ASPEED_GPIO(H, 5) GPIO_ACTIVE_HIGH>;
+>> +             output-high;
+>> +             line-name =3D "BMC_CP0_PERST_ENABLE_R";
+>> +     };
+>> +
+>> +     pin_gpio_z2 {
+>> +             gpio-hog;
+>> +             gpios =3D <ASPEED_GPIO(Z, 2) GPIO_ACTIVE_HIGH>;
+>> +             output-high;
+>> +             line-name =3D "RST_PCA9546_U177_N";
+>> +     };
+>> +
+>> +     pin_gpio_aa6 {
+>> +             gpio-hog;
+>> +             gpios =3D <ASPEED_GPIO(AA, 6) GPIO_ACTIVE_HIGH>;
+>> +             output-high;
+>> +             line-name =3D "BMC_CP0_RESET_N";
+>> +     };
+>> +
+>> +     pin_gpio_aa7 {
+>> +             gpio-hog;
+>> +             gpios =3D <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_HIGH>;
+>> +             output-high;
+>> +             line-name =3D "BMC_TPM_RESET_N";
+>> +     };
+>> +
+>> +     pin_gpio_ab0 {
+>> +             gpio-hog;
+>> +             gpios =3D <ASPEED_GPIO(AB, 0) GPIO_ACTIVE_LOW>;
+>> +             output-high;
+>> +             line-name =3D "BMC_USB_PWRON_N";
+>> +     };
+>> +};
+>> +
+>> +&ibt {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> +&adc {
+>> +     status =3D "okay";
+>> +};
+>> +
+>> --
+>> 2.7.4
+>>
+>
+> Looks okay from a pinctrl perspective, so if there is reason to enable al=
+l of the i2c buses, then I'll send an Acked-by
+>
+> Cheers,
+>
+> Andrew
+
+
+Thank you
+
+
+Brian
