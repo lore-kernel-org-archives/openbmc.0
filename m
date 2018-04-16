@@ -1,64 +1,45 @@
-Return-Path: <venture@google.com>
+Return-Path: <bounces+840901-6e2d-openbmc=lists.ozlabs.org@meeting.bluejeans.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=meeting.bluejeans.com (client-ip=192.254.112.36;
+ helo=o2.meeting.bluejeans.com;
+ envelope-from=bounces+840901-6e2d-openbmc=lists.ozlabs.org@meeting.bluejeans.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22e; helo=mail-ua0-x22e.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="AzM/KTJs"; 
- dkim-atps=neutral
-Received: from mail-ua0-x22e.google.com (mail-ua0-x22e.google.com
- [IPv6:2607:f8b0:400c:c08::22e])
+ dmarc=pass (p=none dis=none) header.from=bluejeans.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=bluejeans.com header.i=@bluejeans.com
+ header.b="gFLgrQOp"; dkim-atps=neutral
+Received: from o2.meeting.bluejeans.com (o2.meeting.bluejeans.com
+ [192.254.112.36])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Pyf03lnPzF1qT
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 05:11:03 +1000 (AEST)
-Received: by mail-ua0-x22e.google.com with SMTP id u4so10840796uaf.10
- for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 12:11:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=lLOjSPT+/gXaqzyYu4/Cgsf9d8676qdpiLUhDkcQIDQ=;
- b=AzM/KTJsH1YB/Cz/2+IAdvfR0BkeddPnO9kghoFKoJtlYcGQLdOYgokW5PRPrbpE08
- uajN5M1ld2p3CeDU4joVEYhvU2evIk7w4Wbx1sQWI0wS1CvH7s8TwyjRRStKudklZHLm
- MuXGKoUOFIKNgWF947n1GP5zTdBkVoRclo2DISIsXMuwzVDMYVVZmsn2L8fC8/CXCueg
- DoikaIpEuboTQotZgGRAXTGgW19yyaccmNLrEBIq3gRk/9e3yn8fz+mYP5RL/i0rvRvs
- NnZwJy0zCveuAgthU95ZhbtISSrOP4d/yx9WHqdL73sFtMcFd4rEDuhfjPIjlIQvm/f7
- OwuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=lLOjSPT+/gXaqzyYu4/Cgsf9d8676qdpiLUhDkcQIDQ=;
- b=fmM9CrGscQKM4ZLUcLmEE3KAS1IvmYp5TBUDTeaavq+X1bfccK5lpfJEj3Yidcfuyw
- 5IQhuqYHD3cjNHZxDWUIGiatk6BTuoyZeybx+Z2IB9gSw0PcLR234qfkf0QlFOuSaPNe
- x5SxpJH97UjtZ7ldUSbLNfkfFw7juXeGRQkeqxJX52ZXlBoSriThEyvEFdK+G3iWault
- K5KP28g08xXnTr9RDqQ8KsKb3zoMAy2STCpJ2qRndcMQXk7PfhJFQE8u2UkFVUJxEHkT
- ou4QdlCfwLb998HZGJ1i3DkmE4BoxT+bNdsh0AGOXVKXCG5mFfq3EdAIhSIAbOMAL/bW
- ao8w==
-X-Gm-Message-State: ALQs6tBXwdvvsSu4AsSo7Wr87E3HUe3jloXE7RY2emHbPay8hGV+4/qT
- 3ovyBYpa3ZF/PP//Bvk3J3PR/fHI5FJWWJzh1dBxeg==
-X-Google-Smtp-Source: AIpwx4+YQKI/niDT3ibI9ENDx7EiLQPvxl1u8OFuAHKYwgz5BBJrm/32e3Bigq3OeDWBxRMLayyvc3N0m4WRO82H10g=
-X-Received: by 10.176.7.36 with SMTP id h33mr2251217uah.198.1523905860864;
- Mon, 16 Apr 2018 12:11:00 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Pyq96P7WzF1SH
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 05:19:00 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=bluejeans.com; 
+ h=from:to:subject:mime-version:content-type:reply-to; s=smtpapi; 
+ bh=N3yYG3+awYE6ioaW2ij3kPhSrIc=; b=gFLgrQOpR8zmfLC9IKzO7bZhKUgnx
+ dyWIyeZE1DgE1bRrbsy7iBVsGmwvc2g4n6ZwGAOgR1wT6NK2GHmJciXUVdjktCtj
+ z3GqMsPHpqrOoU3TyPB9HY92Zoj6faAynUEa5SbLa5JLPw2DKrtIi5KI3Ft+gumH
+ y10ChomTnZu9QI=
+Received: by filter1131p1mdw1.sendgrid.net with SMTP id
+ filter1131p1mdw1-15156-5AD4F720-10
+ 2018-04-16 19:18:56.692652347 +0000 UTC
+Received: from sj1-app-102-20 (bjn-sj1-fw.bluejeansnet.com [64.215.152.5])
+ by ismtpd0004p1las1.sendgrid.net (SG) with ESMTP id YmceH1mmRbiMr3Tw2SQMnQ
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 19:18:56.652 +0000 (UTC)
+Date: Mon, 16 Apr 2018 19:18:56 +0000 (UTC)
+From: BlueJeans Network <invite@bluejeans.com>
+To: openbmc@lists.ozlabs.org
+Message-ID: <519404433.1511523906336572.JavaMail.denimuser@sj1-app-102-20>
+Subject: CANCELED: Superceeded: OpenBMC Redfish working group working call
 MIME-Version: 1.0
-Received: by 10.31.124.193 with HTTP; Mon, 16 Apr 2018 12:10:40 -0700 (PDT)
-In-Reply-To: <CAARXrtmhCXisvPd2prxu5R_JAO=giLS6svkTymKASd9PnR1GiA@mail.gmail.com>
-References: <CAO=noty8m1iU+C0k6kSDOo7vCLQu+oD3UvygQdOWiRSAO=x0Ug@mail.gmail.com>
- <1523591789.2710142.1336453024.5787B0DF@webmail.messagingengine.com>
- <A920519B-A2F5-44BB-80D5-73EC81827448@fuzziesquirrel.com>
- <CAARXrtmhCXisvPd2prxu5R_JAO=giLS6svkTymKASd9PnR1GiA@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 16 Apr 2018 12:10:40 -0700
-Message-ID: <CAO=notwhqKdezJbRTZyVD7pW3xB2PPOc4rJc4a=A7XPuFZ=CsQ@mail.gmail.com>
-Subject: Re: YASL Request
-To: Lei YU <mine260309@gmail.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew Jeffery <andrew@aj.id.au>,
- Emily Shaffer <emilyshaffer@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; 
+ boundary="----=_Part_459_1939730953.1523906336316"
+Reply-To: "Ed Tanous" <ed.tanous@intel.com>
+X-SG-EID: GLIZiYh64uL5cx/DdhkvsgERvRd4UJ/5shd1zflxZCiGEWfRXPMyP+q1Or9BFyiLhX0Jn24nN/2PKg
+ EyMoh0s32GUk7r2uZxgQcIs2frrhLteGAoEZ/Qpg7XBe6FM8HCy1S17WwHZhe1N2yPzqXKAIN8pUxT
+ izwUPa+lLZ7lYqjGlmY4dPiDWCqhlTyQvSO5s/M24IbxSa6FVVZMpelyflmiFAB2niQkIb8SuEpW9d
+ U=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -70,98 +51,185 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Apr 2018 19:11:05 -0000
+X-List-Received-Date: Mon, 16 Apr 2018 19:19:02 -0000
 
-Because there are many patches enabling this, here is the order:
+------=_Part_459_1939730953.1523906336316
+Content-Type: multipart/related; 
+	boundary="----=_Part_460_330578130.1523906336317"
 
-https://gerrit.openbmc-project.xyz/#/c/10109/
-https://gerrit.openbmc-project.xyz/#/c/10129/
-https://gerrit.openbmc-project.xyz/#/c/10157/
-https://gerrit.openbmc-project.xyz/#/c/10159/
-https://gerrit.openbmc-project.xyz/#/c/10052/
-https://gerrit.openbmc-project.xyz/#/c/10166/
+------=_Part_460_330578130.1523906336317
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_461_1242684114.1523906336317"
 
-I need to rebase and push the last one so it won't require a merge,
-but that's not urgent.  I'll be adding at least two more patches after
-lunch which will further propagate the SdBusInterface that enables
-testing without requiring more injections.
+------=_Part_461_1242684114.1523906336317
+Content-Type: text/plain; charset=utf8
+Content-Transfer-Encoding: quoted-printable
 
-If you're curious what the tests look like so far:
-https://gerrit.openbmc-project.xyz/#/c/10048/
+Ed Tanous (ed.tanous@intel.com) has cancelled the following meeting:
 
-Patrick
+Meeting Title: Superceeded: OpenBMC Redfish working group working call
+Meeting Time: Monday April 16, 2018 midnight PDT / 15 minutes
 
-On Sun, Apr 15, 2018 at 7:50 PM, Lei YU <mine260309@gmail.com> wrote:
-> On Fri, Apr 13, 2018 at 11:21 PM, Brad Bishop
-> <bradleyb@fuzziesquirrel.com> wrote:
->>
->>> On Apr 12, 2018, at 11:56 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->>>
->>>
->>> Some advantages I've found to this technique are:
->>>
->>> * There's no reduction of readability in the code
->>
->> This.
->>
->>> * You get test binaries that you can run independent of your test frame=
-work, as there isn't really a test framework, just autotools running your t=
-est binaries in parallel
->>> * By extension, if you need to debug a failing test case, you can gdb t=
-he test binary directly without needing to comprehend the side-effects of t=
-he test framework on your test binary
->>
->
-> By using gtest/gmock, it is the same that the test binary is generated an=
-d run
-> by autotools. You can use gdb to debug the failing tests as well.
->
->> And this.
->>
->> Honestly these are my _real_ objections but I brought up runtime overhea=
-d because
->> that is not subjective.  I just don=E2=80=99t like how the direction we =
-are headed
->> obfuscates things for developers that have a good understanding of stand=
-ard libraries,
->> tools, and language features (libc, libstd++, STL, GDB, etc...) and don=
-=E2=80=99t have an
->> understanding of the internals of GMock or the =E2=80=9Ctechniques" its =
-use drives into the
->> code.  I expect there to be way more of the former (those up to speed on=
- the standard
->> libraries, tools, language features) than the latter (those comfortable =
-working on
->> a GMock inspired codebase).
->
-> I get your point. And I have to admit that generally developers tend to
-> *directly* use standard libraries because they are familiar with that.
-> But I still want to point that by writing code that way:
-> 1. It makes the code harder to test and thus likely to contain potential
->    un-found bugs;
-> 2. It is possible to write code that put too much function in some level,
->    if the developer does not group the code well.
->
-> By using gmock, the developer is *forced* to split the code into pieces o=
-f
-> interfaces and functions, otherwise the code is un-testable.
-> This helps on grouping and writing testable code, and since it's tested i=
-t is
-> likely to reduce the number of potential bugs.
-> Althoug it does introduce runtime overhead, I expecte the overhead is tin=
-y in
-> most cases.
->
-> I know you are not in favor of writing code that way, but I do prefer tes=
-table
-> code than the other.
-> In my previous experience, the unit test could cover most major logic of =
-the
-> code to make sure the code is (at some level) correct and robust.
->
->>
->> IMHO these concepts have a greater (positive) impact on the project over=
-all than
->> super-easy-unit-test writing.  I=E2=80=99d guess I=E2=80=99m in the mino=
-rity, but hey=E2=80=A6I have to
->> speak my mind right?  I can certainly relate to the opposing viewpoint.
+************************************************
+
+Message/Description: Cancelled by sachinkrgtl on 2018-04-16 19:18:55.662601
+
+
+************************************************
+
+=C2=A92018 Blue Jeans Network, Inc. All rights reserved.
+
+------=_Part_461_1242684114.1523906336317
+Content-Type: text/html;charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+
+
+        <table width="100%">
+            <tr bgcolor="#ffffff">
+                <td align="center">
+                    <table width="600" bgcolor="#FFFFFF" style="margin-top:20px;padding:20px 50px 10px 50px;margin-bottom:20px;text-align:left;border: 1px solid #d8d8d8">
+        <tr>
+            <td style="padding-right:10px;padding-bottom:20px;">
+                <a href="http://bluejeans.com">
+                    <img src="https://static.bluejeans.com/z2/static/images/bjn/BlueJeans_Logo.png" alt="Blue Jeans" style="border:none;">
+                </a>
+            </td>
+        </tr>
+                        <tr>
+                            <td style="font-size: 20px;color: #333333; padding-bottom:20px;">
+                                
+<a href="mailto:ed.tanous@intel.com">Ed Tanous</a> has cancelled the following meeting:
+                            </td>
+                        </tr>
+
+
+                        
+
+                        <tr>
+                            <td>
+                                <hr size="1" noshade="noshade" style="line-height:1px;color:#CCCCCC;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="style="padding-top:10px;"">
+                                <b><span style="color:#333333">Message/Description:</span></b><br>
+                                Cancelled&nbsp;by&nbsp;sachinkrgtl&nbsp;on&nbsp;2018-04-16&nbsp;19:18:55.662601
+                            </td>
+                        </tr>
+                        
+
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+<img src="http://meeting.bluejeans.com/wf/open?upn=WRvR0uaFDj2bkiVwa2TsqW4hxYG935pB-2BRn4-2FVDU-2FdmMJ8c9WP1HMFLEmF5mC1S2nRWHoYy7Chmv9PSw-2B2oGtmKCbljKw-2FM2MFnH3s5hBKUv0VqmP39YIJ8-2FYjI72FlZEwv5baLfUQ4PdudmIl20FmsBySnyxJ0tj9Jk-2BIGv-2FNCSf-2FVdRumzdlOyAEWLrRtP0quosdTNj5iGe-2F3cXTHNgYG-2B6bMvs-2Fvw-2FpzFxbHQzx4-3D" alt="" width="1" height="1" border="0" style="height:1px !important;width:1px !important;border-width:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;"/>
+
+------=_Part_461_1242684114.1523906336317
+Content-Type: text/calendar; method=REQUEST; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:CANCEL
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VTIMEZONE
+TZID:America/Los_Angeles
+TZURL:http://tzurl.org/zoneinfo-outlook/America/Los_Angeles
+X-LIC-LOCATION:America/Los_Angeles
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0800
+TZOFFSETTO:-0700
+TZNAME:PDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0800
+TZNAME:PST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+UID:KIrnE_wd8Gk4AltT@IFY0chntoifrfrC
+DTSTART;TZID=America/Los_Angeles:20180416T000000
+DTEND;TZID=America/Los_Angeles:20180416T001500
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=DECLINED:mailto:o
+ penbmc@lists.ozlabs.org
+CREATED:20180312T164836Z
+DESCRIPTION:\nEd Tanous (ed.tanous@intel.com) has cancelled this meeting.\
+ n\n************************************************\n\nMessage/Description
+ : Cancelled by sachinkrgtl on 2018-04-16 19:18:55.662601\n\n\n************
+ ************************************\n\nBlue Jeans Network 2018\n
+DTSTAMP:20180416T191856Z
+LAST-MODIFIED:20180416T191855Z
+LOCATION:
+ORGANIZER:mailto:ed.tanous@intel.com
+SEQUENCE:2
+STATUS:CANCELLED
+SUMMARY:Superceeded: OpenBMC Redfish working group working call
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+
+------=_Part_461_1242684114.1523906336317--
+
+------=_Part_460_330578130.1523906336317--
+
+------=_Part_459_1939730953.1523906336316
+Content-Type: application/ics; name=invite.ics
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=invite.ics
+
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:CANCEL
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VTIMEZONE
+TZID:America/Los_Angeles
+TZURL:http://tzurl.org/zoneinfo-outlook/America/Los_Angeles
+X-LIC-LOCATION:America/Los_Angeles
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0800
+TZOFFSETTO:-0700
+TZNAME:PDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0800
+TZNAME:PST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+UID:KIrnE_wd8Gk4AltT@IFY0chntoifrfrC
+DTSTART;TZID=America/Los_Angeles:20180416T000000
+DTEND;TZID=America/Los_Angeles:20180416T001500
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=DECLINED:mailto:o
+ penbmc@lists.ozlabs.org
+CREATED:20180312T164836Z
+DESCRIPTION:\nEd Tanous (ed.tanous@intel.com) has cancelled this meeting.\
+ n\n************************************************\n\nMessage/Description
+ : Cancelled by sachinkrgtl on 2018-04-16 19:18:55.662601\n\n\n************
+ ************************************\n\nBlue Jeans Network 2018\n
+DTSTAMP:20180416T191856Z
+LAST-MODIFIED:20180416T191855Z
+LOCATION:
+ORGANIZER:mailto:ed.tanous@intel.com
+SEQUENCE:2
+STATUS:CANCELLED
+SUMMARY:Superceeded: OpenBMC Redfish working group working call
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+
+------=_Part_459_1939730953.1523906336316--
