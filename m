@@ -1,68 +1,45 @@
-Return-Path: <Yang.BrianC.W@inventec.com>
+Return-Path: <bounces+840901-6e2d-openbmc=lists.ozlabs.org@meeting.bluejeans.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=meeting.bluejeans.com (client-ip=192.254.112.36;
+ helo=o2.meeting.bluejeans.com;
+ envelope-from=bounces+840901-6e2d-openbmc=lists.ozlabs.org@meeting.bluejeans.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inventec.com
- (client-ip=61.220.76.161; helo=mail.inventec.com;
- envelope-from=yang.brianc.w@inventec.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inventec.com
-Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=bluejeans.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=bluejeans.com header.i=@bluejeans.com
+ header.b="sr7ggE+A"; dkim-atps=neutral
+Received: from o2.meeting.bluejeans.com (o2.meeting.bluejeans.com
+ [192.254.112.36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Plzj1Dg2zF1ql
- for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 21:10:40 +1000 (AEST)
-Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
- IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
- 14.3.174.1; Mon, 16 Apr 2018 19:10:56 +0800
-Received: from IEC1-SPAM-2.inventec.com (smg2.inventec.com [10.1.254.202])	by
- IEC1-MSE-FE1.inventec.com with ESMTP id w3GBAMBQ099138	for
- <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 19:10:22 +0800 (GMT-8)
- (envelope-from yang.brianc.w@inventec.com)
-Received: from mail-wr0-f197.google.com (mail-wr0-f197.google.com
- [209.85.128.197])	by IEC1-SPAM-2.inventec.com with ESMTP id w3GBAH4J056211
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
- <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 19:10:19 +0800 (GMT-8)
- (envelope-from yang.brianc.w@inventec.com)
-Received: by mail-wr0-f197.google.com with SMTP id b10so1215020wrf.3
- for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 04:10:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:content-transfer-encoding;
- bh=NgabhPdfEN6/dOPBVJaoU6pV+wwu7OIKHB+4ArCBHmk=;
- b=lwtTwEWuEW/XJfGMevw8RZJOX34Tvbh/im6xY+Diw1NkOJQnHIx87MCCZhikME/NlF
- 5aRO5wHS2nRoG5LusLkAJwbolWTb5fUN2R1QEUBTN/Tl3kF+tZEXJafusSD3eleBEQv0
- GaNJgDQ0wtuFj+ambWOTlI6y092XhS+fq4EAwaNWYg0oMaOMYa1Nz5Z+fyBvhAK0JMq4
- TNP9zJgAEYIVmy1yHyY92SBGwvlw6G3XucpljMiF4l/ROuUabxKzxRC6hiklBuFmTtKy
- 5fx2IUqGgFg5sBSM+aXCuvm0C1vDddigU/8SzYQEckFJSJYaJWK6FkdGB0v8zVczuUZ9
- Pf1A==
-X-Gm-Message-State: ALQs6tA6jXHceX4dXb/a7U2QrsFNnwWxWlmFlJz5LjrvNzspNM+W/sEg
- l+QjR7bxV/HnaKm3SO8k1t19Rr0X5OpBagB/C3ZwHwrDYfrI3rCaXpCoj8DPsHVJcFc9p8ggSIM
- ittA9qvSVlhch/b1EHT7Vba7rDYAUaz7ZZ+nsYQ==
-X-Received: by 10.223.190.140 with SMTP id i12mr10443845wrh.63.1523877015253; 
- Mon, 16 Apr 2018 04:10:15 -0700 (PDT)
-X-Google-Smtp-Source: AIpwx48A6WQ7yjTIU+C4qzTi4Ah5zJiwc+Wv9LhzvL60HA+d3ytdAXiMkpKvNn+8fDxzt+vQsHFagBswFI5aKRExSCw=
-X-Received: by 10.223.190.140 with SMTP id i12mr10443825wrh.63.1523877014965; 
- Mon, 16 Apr 2018 04:10:14 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Pwbj1jTMzF1SH
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 03:38:52 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=bluejeans.com; 
+ h=from:to:subject:mime-version:content-type:reply-to; s=smtpapi; 
+ bh=j9URgChdyIllTP6J1KugUOqBL/0=; b=sr7ggE+AhhikVWvOTtL9mzL/JC2HT
+ l35XaHUp7anHTJHSo7e1ksnvZfHRcWOQSs3Pmn7r22qdBL7OezsYjm8vei5LAjqx
+ digZ7K1iFf+QD98e6Xi/TJSt12OH+F+/ztOokd6flxWnFCLYueH8+g5sKHbKo/h4
+ REFIlq7JfGsWBQ=
+Received: by filter0190p1las1.sendgrid.net with SMTP id
+ filter0190p1las1-10033-5AD4DFA8-2C
+ 2018-04-16 17:38:48.96188853 +0000 UTC
+Received: from sj1-app-102-11 (bjn-sj1-fw.bluejeansnet.com [64.215.152.5])
+ by ismtpd0002p1las1.sendgrid.net (SG) with ESMTP id 39N9Ve6LSZ673jbnWMG5mw
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 17:38:48.880 +0000 (UTC)
+Date: Mon, 16 Apr 2018 17:38:49 +0000 (UTC)
+From: Ed Tanous via BlueJeans Network <invite@bluejeans.com>
+To: openbmc@lists.ozlabs.org
+Message-ID: <2076493303.560631523900328886.JavaMail.denimuser@sj1-app-102-11>
+Subject: Updated: Superceeded: OpenBMC Redfish working group working call
 MIME-Version: 1.0
-Received: by 10.28.144.141 with HTTP; Mon, 16 Apr 2018 04:09:54 -0700 (PDT)
-In-Reply-To: <39E6480C5A587146BAA4D885C7BCF7EEC6B7921E@IEC1-EX2010-MX4.iec.inventec>
-References: <1523432542-445334-1-git-send-email-yang.brianc.w@inventec.com>
- <1523584666.2655983.1336387696.46B4368A@webmail.messagingengine.com>
- <39E6480C5A587146BAA4D885C7BCF7EEC6B7921E@IEC1-EX2010-MX4.iec.inventec>
-From: =?UTF-8?B?WWFuZ0JyaWFuQy5XIOaliuWYieWBiSBUQU8=?=
- <yang.brianc.w@inventec.com>
-Date: Mon, 16 Apr 2018 19:09:54 +0800
-Message-ID: <CAAvYUAw1ZH2DFrMr8mJydfQUVHatioxeNrOitwy4KU8fG5fuYA@mail.gmail.com>
-Subject: Re: FW: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec
- Lanyang BMC
-To: =?UTF-8?B?Q2hlbi5LZW5ZWSDpmbPmsLjnh58gVEFP?= <Chen.KenYY@inventec.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery
- <andrew@aj.id.au>, Lei YU <mine260309@gmail.com>, Joel Stanley
- <joel@jms.id.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-DNSRBL: 
-X-MAIL: IEC1-MSE-FE1.inventec.com w3GBAMBQ099138
+Content-Type: multipart/mixed; 
+ boundary="----=_Part_168140_473975982.1523900328632"
+Reply-To: "Ed Tanous" <ed.tanous@intel.com>
+X-SG-EID: GLIZiYh64uL5cx/DdhkvsgERvRd4UJ/5shd1zflxZCglrrgW0whcXLP6W1Ak1IvzjPAxcTAFBvrc79
+ 0N/3NHKgvQddY2pvRpEzj/q7OrR3psYCYWKEU94U92Z0V63Oov0in9/TSl+vKm++Qahbh3abKkvZcD
+ KCPGwVHJyBs8/w6sZWazclMws9jcKgAbnDaG/KY9TIoLnKPRnfp+zW4hVP3kWyTu2wT9eDPbKc856Y
+ r9uQacqxlGZO1Pay4zHNfs
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,424 +51,292 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Apr 2018 11:10:42 -0000
+X-List-Received-Date: Mon, 16 Apr 2018 17:38:58 -0000
 
-Hi Andrew,
+------=_Part_168140_473975982.1523900328632
+Content-Type: multipart/related; 
+	boundary="----=_Part_168141_103352962.1523900328632"
 
+------=_Part_168141_103352962.1523900328632
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_168142_1122552932.1523900328632"
 
-2018-04-16 15:04 GMT+08:00 Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO <Chen=
-.KenYY@inventec.com>:
-> FYR
->
-> -----Original Message-----
-> From: openbmc [mailto:openbmc-bounces+chen.kenyy=3Dinventec.com@lists.ozl=
-abs.org] On Behalf Of Andrew Jeffery
-> Sent: Friday, April 13, 2018 9:58 AM
-> To: openbmc@lists.ozlabs.org
-> Subject: Re: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec Lan=
-yang BMC
->
-> Hi Brian,
->
-> On Wed, 11 Apr 2018, at 17:12, Brian Yang wrote:
->> The Inventec Lanyang is Power 9 platform with ast2500 BMC.
->>
->> Tested-by: Brian Yang <yang.brianc.w@inventec.com>
->> Signed-off-by: Brian Yang <yang.brianc.w@inventec.com>
->>
->> ---
->>
->> v0->v1
->> -Add test information in commit
->> ---
->>  arch/arm/boot/dts/Makefile                   |   1 +
->>  arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 331
->> +++++++++++++++++++++++++++
->>  2 files changed, 332 insertions(+)
->>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->>
->> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
->> index 5cfee25..d1882f0 100644
->> --- a/arch/arm/boot/dts/Makefile
->> +++ b/arch/arm/boot/dts/Makefile
->> @@ -1057,6 +1057,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
->>       aspeed-ast2500-evb.dtb \
->>       aspeed-bmc-arm-centriq2400-rep.dtb \
->>       aspeed-bmc-intel-s2600wf.dtb \
->> +     aspeed-bmc-opp-lanyang.dtb \
->>       aspeed-bmc-opp-palmetto.dtb \
->>       aspeed-bmc-opp-romulus.dtb \
->>       aspeed-bmc-opp-witherspoon.dtb \
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/
->> boot/dts/aspeed-bmc-opp-lanyang.dts
->> new file mode 100644
->> index 0000000..6241730
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->> @@ -0,0 +1,331 @@
->> +// SPDX-License-Identifier: GPL-2.0+
->> +// Copyright (c) 2018 Inventec Corporation /dts-v1/;
->> +
->> +#include "aspeed-g5.dtsi"
->> +#include <dt-bindings/gpio/aspeed-gpio.h>
->> +
->> +/ {
->> +     model =3D "Lanyang BMC";
->> +     compatible =3D "inventec,lanyang-bmc", "aspeed,ast2500";
->> +
->> +     chosen {
->> +             stdout-path =3D &uart5;
->> +             bootargs =3D "console=3DttyS4,115200 earlyprintk";
->> +     };
->> +
->> +     memory {
->> +             reg =3D <0x80000000 0x40000000>;
->> +     };
->> +
->> +     reserved-memory {
->> +             #address-cells =3D <1>;
->> +             #size-cells =3D <1>;
->> +             ranges;
->> +
->> +             flash_memory: region@98000000 {
->> +                     no-map;
->> +                     reg =3D <0x98000000 0x04000000>; /* 64M */
->> +             };
->> +     };
->> +
->> +     leds {
->> +             compatible =3D "gpio-leds";
->> +
->> +             sys_boot_status {
->> +                     label =3D "System_boot_status";
->> +                     gpios =3D <&gpio ASPEED_GPIO(B, 6) GPIO_ACTIVE_LOW=
->;
->> +             };
->> +
->> +             attention {
->> +                     label =3D "Attention_locator";
->> +                     gpios =3D <&gpio ASPEED_GPIO(B, 7) GPIO_ACTIVE_HIG=
-H>;
->> +             };
->> +
->> +             plt_fault {
->> +                     label =3D "Platform_fault";
->> +                     gpios =3D <&gpio ASPEED_GPIO(B, 1) GPIO_ACTIVE_HIG=
-H>;
->> +             };
->> +
->> +             hdd_fault {
->> +                     label =3D "Onboard_drive_fault";
->> +                     gpios =3D <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_HIG=
-H>;
->> +             };
->> +             bmc_err {
->> +                     lable =3D "BMC_fault";
->> +                     gpios =3D <&gpio ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIG=
-H>;
->> +             };
->> +
->> +             sys_err {
->> +                     lable =3D "Sys_fault";
->> +                     gpios =3D <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIG=
-H>;
->> +             };
->> +     };
->> +
->> +     fsi: gpio-fsi {
->> +             compatible =3D "fsi-master-gpio", "fsi-master";
->> +             #address-cells =3D <2>;
->> +             #size-cells =3D <0>;
->> +
->> +             clock-gpios =3D <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>=
-;
->> +             data-gpios =3D <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
->> +             trans-gpios =3D <&gpio ASPEED_GPIO(D, 5) GPIO_ACTIVE_HIGH>=
-;
->> +             enable-gpios =3D <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH=
->;
->> +             mux-gpios =3D <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
->> +     };
->> +
->> +     iio-hwmon {
->> +             compatible =3D "iio-hwmon";
->> +             io-channels =3D <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
->> +                     <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
->> +                     <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
->> +                     <&adc 13>, <&adc 14>, <&adc 15>;
->> +     };
->> +
->> +     iio-hwmon-battery {
->> +             compatible =3D "iio-hwmon";
->> +             io-channels =3D <&adc 12>;
->> +     };
->> +};
->> +
->> +#include "ibm-power9-cfam.dtsi"
->> +
->> +&pwm_tacho {
->> +     status =3D "okay";
->> +     pinctrl-names =3D "default";
->> +     pinctrl-0 =3D <&pinctrl_pwm0_default &pinctrl_pwm1_default
->> +             &pinctrl_pwm2_default &pinctrl_pwm3_default>;
->> +
->> +     fan@0 {
->> +             reg =3D <0x00>;
->> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x00>;
->> +     };
->> +
->> +     fan@1 {
->> +             reg =3D <0x01>;
->> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x01>;
->> +     };
->> +
->> +     fan@2 {
->> +             reg =3D <0x02>;
->> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x02>;
->> +     };
->> +
->> +     fan@3 {
->> +             reg =3D <0x03>;
->> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x03>;
->> +     };
->> +};
->> +
->> +&fmc {
->> +     status =3D "okay";
->> +     flash@0 {
->> +             status =3D "okay";
->> +             m25p,fast-read;
->> +             label =3D "bmc";
->> +#include "openbmc-flash-layout.dtsi"
->> +     };
->> +};
->> +
->> +&spi1 {
->> +     status =3D "okay";
->> +     pinctrl-names =3D "default";
->> +     pinctrl-0 =3D <&pinctrl_spi1_default>;
->> +
->> +     flash@0 {
->> +             status =3D "okay";
->> +             label =3D "pnor";
->> +             m25p,fast-read;
->> +     };
->> +};
->> +
->> +&spi2 {
->> +     status =3D "okay";
->> +     pinctrl-names =3D "default";
->> +     pinctrl-0 =3D <&pinctrl_spi2ck_default
->> +                  &pinctrl_spi2cs0_default
->> +                  &pinctrl_spi2cs1_default
->> +                  &pinctrl_spi2miso_default
->> +                  &pinctrl_spi2mosi_default>;
->> +
->> +     flash@0 {
->> +             status =3D "okay";
->> +     };
->> +};
->> +
->> +&uart1 {
->> +     status =3D "okay";
->> +     pinctrl-names =3D "default";
->> +     pinctrl-0 =3D <&pinctrl_txd1_default
->> +                  &pinctrl_rxd1_default>;
->> +};
->> +
->> +&lpc_ctrl {
->> +     status =3D "okay";
->> +     memory-region =3D <&flash_memory>;
->> +     flash =3D <&spi1>;
->> +};
->> +
->> +&lpc_snoop {
->> +     status =3D "okay";
->> +     snoop-ports =3D <0x80>;
->> +};
->> +
->> +&mbox {
->> +     status =3D "okay";
->> +};
->> +
->> +&uart5 {
->> +     status =3D "okay";
->> +};
->> +
->> +&mac0 {
->> +     status =3D "okay";
->> +
->> +     pinctrl-names =3D "default";
->> +     pinctrl-0 =3D <&pinctrl_rmii1_default>;
->> +     use-ncsi;
->> +};
->> +
->> +&mac1 {
->> +     status =3D "okay";
->> +
->> +     pinctrl-names =3D "default";
->> +     pinctrl-0 =3D <&pinctrl_rgmii2_default &pinctrl_mdio2_default>; };
->> +
->> +&i2c0 {
->> +     status =3D "okay";
->> +
->> +     eeprom@55 {
->> +             compatible =3D "atmel,24c64";
->> +             reg =3D <0x55>;
->> +             pagesize =3D <32>;
->> +     };
->> +
->> +     rtc@68 {
->> +             compatible =3D "nxp,pcf8523";
->> +             reg =3D <0x68>;
->> +     };
->> +
->> +     tmp75@48 {
->> +             compatible =3D "ti,tmp75";
->> +             reg =3D <0x48>;
->> +     };
->> +};
->> +
->> +&i2c1 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c2 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c3 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c4 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c5 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c6 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c7 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c8 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c9 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c10 {
->> +     status =3D "okay";
->> +};
->> +
->> +&i2c11 {
->> +     status =3D "okay";
->> +};
->
-> Do we need to enable all of the above i2c buses? By comparison, Zaius ena=
-bles i2c0, i2c1, i2c4, i2c7 and i2c8.
+------=_Part_168142_1122552932.1523900328632
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Thank you for your review.
+To join the meeting on a computer or mobile phone: https://bluejeans.com/923058766?src=textEmail
 
-We need to enable all of the above i2c buses because we want to verify
-the i2c bus is fine by i2ctool.
+Ed Tanous has updated the information for your video meeting.
+------------------------------------------------
+Phone Dial-in
++1.408.740.7256 (United States)
++1.408.317.9253 (Alternate number)
+Global Numbers: http://bluejeans.com/numbers
 
-Because we use the above i2c buses on Lanyang platform.
+Meeting ID: 923 058 766
+
+Room System
+199.48.152.152 or bjn.vc
+
+Meeting ID: 923 058 766
+------------------------------------------------
+Description (Updated):
+This meeting invite is canceled in lieu of the skype meeting invite to be sent out shortly.
+------------------------------------------------
+Want to test your video connection?
+https://bluejeans.com/111
 
 
->
->> +
->> +&vuart {
->> +     status =3D "okay";
->> +};
->> +
->> +&gfx {
->> +     status =3D "okay";
->> +};
->> +
->> +&pinctrl {
->> +     aspeed,external-nodes =3D <&gfx &lhc>; };
->> +
->> +&gpio {
->> +     pin_gpio_b0 {
->> +             gpio-hog;
->> +             gpios =3D <ASPEED_GPIO(B, 0) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name =3D "BMC_HDD1_PWR_EN";
->> +     };
->> +
->> +     pin_gpio_b5 {
->> +             gpio-hog;
->> +             gpios =3D <ASPEED_GPIO(B, 5) GPIO_ACTIVE_HIGH>;
->> +             input;
->> +             line-name =3D "BMC_USB1_OCI2";
->> +     };
->> +
->> +     pin_gpio_h5 {
->> +             gpio-hog;
->> +             gpios =3D <ASPEED_GPIO(H, 5) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name =3D "BMC_CP0_PERST_ENABLE_R";
->> +     };
->> +
->> +     pin_gpio_z2 {
->> +             gpio-hog;
->> +             gpios =3D <ASPEED_GPIO(Z, 2) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name =3D "RST_PCA9546_U177_N";
->> +     };
->> +
->> +     pin_gpio_aa6 {
->> +             gpio-hog;
->> +             gpios =3D <ASPEED_GPIO(AA, 6) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name =3D "BMC_CP0_RESET_N";
->> +     };
->> +
->> +     pin_gpio_aa7 {
->> +             gpio-hog;
->> +             gpios =3D <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_HIGH>;
->> +             output-high;
->> +             line-name =3D "BMC_TPM_RESET_N";
->> +     };
->> +
->> +     pin_gpio_ab0 {
->> +             gpio-hog;
->> +             gpios =3D <ASPEED_GPIO(AB, 0) GPIO_ACTIVE_LOW>;
->> +             output-high;
->> +             line-name =3D "BMC_USB_PWRON_N";
->> +     };
->> +};
->> +
->> +&ibt {
->> +     status =3D "okay";
->> +};
->> +
->> +&adc {
->> +     status =3D "okay";
->> +};
->> +
->> --
->> 2.7.4
->>
->
-> Looks okay from a pinctrl perspective, so if there is reason to enable al=
-l of the i2c buses, then I'll send an Acked-by
->
-> Cheers,
->
-> Andrew
 
 
-Thank you
+------=_Part_168142_1122552932.1523900328632
+Content-Type: text/html;charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
 
-Brian
+
+        <table width="100%">
+            <tr bgcolor="#ffffff">
+                <td align="center">
+                    <table width="600" bgcolor="#FFFFFF" style="margin-top:20px;padding:20px 50px 10px 50px;margin-bottom:20px;text-align:left;border: 1px solid #d8d8d8">
+        <tr>
+            <td style="padding-right:10px;padding-bottom:20px;">
+                <a href="http://bluejeans.com">
+                    <img src="https://static.bluejeans.com/z1/static/images/bjn/BlueJeans_Logo.png" alt="Blue Jeans" style="border:none;">
+                </a>
+            </td>
+        </tr>
+                        <tr>
+                            <td style="font-size: 20px;color: #333333; padding-bottom:20px;">
+                                <a href="mailto:ed.tanous@intel.com">Ed Tanous</a> has updated the information for your video meeting. <br>
+
+
+
+                            </td>
+                        </tr>
+
+
+                        
+
+                        <tr>
+                            <td style="padding-top:20px; padding-bottom: 20px;">
+                                
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                        <tr height="50">
+                            <td width="200" height="50" align="center" valign="middle" style="color:#FFFFFF;background:#0b88e6;">
+                                <a href="https://bluejeans.com/923058766?src=htmlEmail" style="font-family:Helvetica,sans-serif;border-radius:2px;background:#0b88e6;height:50px;line-height: 50px;text-align:center;color:#fff;font-size:16px;width: 200px;font-weight:bold;margin:auto;display:inline-block;padding:0 20px;text-decoration:none;" target="_blank">
+                                    Join Meeting
+				                </a>
+                            </td>
+                            
+                            <td height="30"></td>
+                        </tr>
+                        <tr>
+                            <td width="201">
+                                <span>(Join from computer or phone)</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                            </td>
+                        </tr>
+
+			<tr>
+                            <td>
+                                <hr size="1" noshade="noshade" style="line-height:1px;border-color:#cccccc;">
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td style="padding-top:10px; padding-bottom:10px;">
+
+
+    
+
+    
+        
+            <b>Phone Dial-in</b><br>
+            
+                <a href="tel:+1.408.740.7256">+1.408.740.7256</a> (United States)<br>
+            
+                <a href="tel:+1.408.317.9253">+1.408.317.9253</a> (Alternate number)<br>
+            (<a href="http://bluejeans.com/numbers">Global Numbers</a>)<br><br>
+            
+                Meeting ID: 923 058 766<br>
+            
+            
+        
+    
+
+<br><br>
+
+    
+        <b>Room System</b><br>
+        199.48.152.152 or bjn.vc<br><br>
+        Meeting ID: 923 058 766<br>
+        
+    
+
+
+
+
+
+			    </td>
+                        </tr>
+
+
+                       <tr>
+                            <td>
+                                <hr size="1" noshade="noshade" style="line-height:1px;border-color:#cccccc;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#FAFAD2" style="padding-top:10px;padding-bottom:10px;">
+                                <span style="color:#666666">Description:</span><br>
+                                This&nbsp;meeting&nbsp;invite&nbsp;is&nbsp;canceled&nbsp;in&nbsp;lieu&nbsp;of&nbsp;the&nbsp;skype&nbsp;meeting&nbsp;invite&nbsp;to&nbsp;be&nbsp;sent&nbsp;out<br />shortly.
+                            </td>
+                        </tr>
+                        
+
+                            <tr>
+                            <td>
+                                <hr size="1" noshade="noshade" style="line-height:1px;border-color:#cccccc;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top:10px;padding-bottom: 10px;">
+                                <span style="color:#666666">Want to test your video connection?</span><br>
+                                <a href="https://bluejeans.com/111?ll=en">https://bluejeans.com/111</a>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+<img src="http://meeting.bluejeans.com/wf/open?upn=WRvR0uaFDj2bkiVwa2TsqW4hxYG935pB-2BRn4-2FVDU-2FdnQ-2BPsT-2BK8mdt-2FZSWsGIYC0jpAzEvWbbE6FlcQ-2F7o5ETqgm5zLGWLOU-2B0jxFMdmS0jfwyRU4RQXlpdkI98a1a1oo9UmccPBilTfcVlmNYBYFXVvGgiMISbhsfw0vLYuNZ9gzsdS4DgVcGT-2Fi2g8v09JUDK-2FcO-2F2MNkS8cVE-2BLBi-2FzLRYiX4NzUWgk3qH8HrDig-3D" alt="" width="1" height="1" border="0" style="height:1px !important;width:1px !important;border-width:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;"/>
+
+------=_Part_168142_1122552932.1523900328632
+Content-Type: text/calendar; method=REQUEST; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:REQUEST
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VTIMEZONE
+TZID:America/Los_Angeles
+TZURL:http://tzurl.org/zoneinfo-outlook/America/Los_Angeles
+X-LIC-LOCATION:America/Los_Angeles
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0800
+TZOFFSETTO:-0700
+TZNAME:PDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0800
+TZNAME:PST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+UID:KIrnE_wd8Gk4AltT@IFY0chntoifrfrC
+DTSTART;TZID=America/Los_Angeles:20180416T000000
+DTEND;TZID=America/Los_Angeles:20180416T001500
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP
+ =TRUE:mailto:openbmc@lists.ozlabs.org
+CREATED:20180312T164836Z
+DESCRIPTION:\n\n\nTo join the meeting on a computer or mobile phone: https
+ ://bluejeans.com/923058766?src=calendarLink\n\nEd Tanous has invited you t
+ o a video meeting.\n-----------------------------------\nPhone Dial-in\n+1
+ .408.740.7256 (United States)\n+1.408.317.9253 (Alternate number)\nGlobal 
+ Numbers: http://bluejeans.com/numbers\n\nMeeting ID: 923 058 766\n\nRoom S
+ ystem\n199.48.152.152 or bjn.vc\n\nMeeting ID: 923 058 766\n--------------
+ ---------------------\nDescription:\nThis meeting invite is canceled in li
+ eu of the skype meeting invite to be sent out shortly.\n------------------
+ -----------------\nWant to test your video connection?\nhttps://bluejeans.
+ com/111\n\n
+DTSTAMP:20180416T173848Z
+LAST-MODIFIED:20180416T173847Z
+LOCATION:https://bluejeans.com/923058766?src=calendarLink
+ORGANIZER:mailto:ed.tanous@intel.com
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Superceeded: OpenBMC Redfish working group working call
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+
+------=_Part_168142_1122552932.1523900328632--
+
+------=_Part_168141_103352962.1523900328632--
+
+------=_Part_168140_473975982.1523900328632
+Content-Type: application/ics; name=invite.ics
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=invite.ics
+
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:REQUEST
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VTIMEZONE
+TZID:America/Los_Angeles
+TZURL:http://tzurl.org/zoneinfo-outlook/America/Los_Angeles
+X-LIC-LOCATION:America/Los_Angeles
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0800
+TZOFFSETTO:-0700
+TZNAME:PDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0800
+TZNAME:PST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+UID:KIrnE_wd8Gk4AltT@IFY0chntoifrfrC
+DTSTART;TZID=America/Los_Angeles:20180416T000000
+DTEND;TZID=America/Los_Angeles:20180416T001500
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP
+ =TRUE:mailto:openbmc@lists.ozlabs.org
+CREATED:20180312T164836Z
+DESCRIPTION:\n\n\nTo join the meeting on a computer or mobile phone: https
+ ://bluejeans.com/923058766?src=calendarLink\n\nEd Tanous has invited you t
+ o a video meeting.\n-----------------------------------\nPhone Dial-in\n+1
+ .408.740.7256 (United States)\n+1.408.317.9253 (Alternate number)\nGlobal 
+ Numbers: http://bluejeans.com/numbers\n\nMeeting ID: 923 058 766\n\nRoom S
+ ystem\n199.48.152.152 or bjn.vc\n\nMeeting ID: 923 058 766\n--------------
+ ---------------------\nDescription:\nThis meeting invite is canceled in li
+ eu of the skype meeting invite to be sent out shortly.\n------------------
+ -----------------\nWant to test your video connection?\nhttps://bluejeans.
+ com/111\n\n
+DTSTAMP:20180416T173848Z
+LAST-MODIFIED:20180416T173847Z
+LOCATION:https://bluejeans.com/923058766?src=calendarLink
+ORGANIZER:mailto:ed.tanous@intel.com
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Superceeded: OpenBMC Redfish working group working call
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+
+------=_Part_168140_473975982.1523900328632--
