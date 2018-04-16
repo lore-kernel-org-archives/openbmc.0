@@ -1,32 +1,60 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ header.from=linux.intel.com
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Pz8Z3KQ9zF1qv
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 05:34:05 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from brads-mbp.dyn.fuzziesquirrel.com
- (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 636CE12FD6C
- for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 15:34:01 -0400 (EDT)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: Community call - vote for a new time
-Date: Mon, 16 Apr 2018 15:34:01 -0400
-References: <D4564025-0417-4B95-A864-9EAB5544BCAD@fuzziesquirrel.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-In-Reply-To: <D4564025-0417-4B95-A864-9EAB5544BCAD@fuzziesquirrel.com>
-Message-Id: <C13E036C-8CA0-45B1-8CD9-745137866CFC@fuzziesquirrel.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Q3sZ1Sn3zF1qT
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 09:06:24 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2018 16:06:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.48,461,1517904000"; d="scan'208";a="192001291"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.150])
+ ([10.7.153.150])
+ by orsmga004.jf.intel.com with ESMTP; 16 Apr 2018 16:06:17 -0700
+Subject: Re: [PATCH v3 01/10] Documentations: dt-bindings: Add documents of
+ generic PECI bus, adapter and client drivers
+To: Rob Herring <robh@kernel.org>
+Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Andrew Lunn <andrew@lunn.ch>, Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Fengguang Wu <fengguang.wu@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
+ Guenter Roeck <linux@roeck-us.net>, Haiyue Wang
+ <haiyue.wang@linux.intel.com>, James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
+ Julia Cartwright <juliac@eso.teric.us>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Stef van Os <stef.van.os@prodrive-technologies.com>,
+ Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
+ <20180410183212.16787-2-jae.hyun.yoo@linux.intel.com>
+ <20180416175936.4vcse73mrnyk242m@rob-hp-laptop>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <2ce14097-e003-d59a-a05c-1cee55cb0929@linux.intel.com>
+Date: Mon, 16 Apr 2018 16:06:16 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
+MIME-Version: 1.0
+In-Reply-To: <20180416175936.4vcse73mrnyk242m@rob-hp-laptop>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -38,39 +66,205 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Apr 2018 19:34:07 -0000
+X-List-Received-Date: Mon, 16 Apr 2018 23:06:26 -0000
 
+Hi Rob,
 
-> On Apr 9, 2018, at 1:38 PM, Brad Bishop <bradleyb@fuzziesquirrel.com> =
-wrote:
->=20
-> The attendance at the Monday community call has been pretty low over =
-the
-> past couple months.  At the last one the group decided it was time to =
-try
-> something new.
->=20
-> I=E2=80=99ve put together a poll for possible meeting times.  Please =
-go vote for
-> your favorites.
->=20
-> =
-https://docs.google.com/forms/d/e/1FAIpQLScFr5VZV49bAG28DVLnSJpQ9FzUlmEYEM=
-gHsNo18HleaklAJQ/viewform
->=20
-> thx -brad
+Thanks for sharing your time. Please see my answers inline.
 
-The survey results are in.  Thank you everyone that took the time to =
-fill it out.
+On 4/16/2018 10:59 AM, Rob Herring wrote:
+> On Tue, Apr 10, 2018 at 11:32:03AM -0700, Jae Hyun Yoo wrote:
+>> This commit adds documents of generic PECI bus, adapter and client drivers.
+> 
+> "dt-bindings: ..." for the subject prefix please.
+>
 
-Today will be the last community call at 9PM CST and starting next week =
-4/23 they
-will be at 10AM CST on Mondays.
+Sure, I'll change the subject.
 
-I know this isn=E2=80=99t ideal for everyone but this time worked the =
-best for a pretty big
-majority of responders.  We=E2=80=99ll try this new time for a while and =
-see how well it
-works (or doesn=E2=80=99t).
+>>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+>> Reviewed-by: James Feist <james.feist@linux.intel.com>
+>> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
+>> Cc: Alan Cox <alan@linux.intel.com>
+>> Cc: Andrew Jeffery <andrew@aj.id.au>
+>> Cc: Andrew Lunn <andrew@lunn.ch>
+>> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+>> Cc: Arnd Bergmann <arnd@arndb.de>
+>> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+>> Cc: Fengguang Wu <fengguang.wu@intel.com>
+>> Cc: Greg KH <gregkh@linuxfoundation.org>
+>> Cc: Guenter Roeck <linux@roeck-us.net>
+>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+>> Cc: Jean Delvare <jdelvare@suse.com>
+>> Cc: Joel Stanley <joel@jms.id.au>
+>> Cc: Julia Cartwright <juliac@eso.teric.us>
+>> Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+>> Cc: Milton Miller II <miltonm@us.ibm.com>
+>> Cc: Pavel Machek <pavel@ucw.cz>
+>> Cc: Randy Dunlap <rdunlap@infradead.org>
+>> Cc: Stef van Os <stef.van.os@prodrive-technologies.com>
+>> Cc: Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>
+>> ---
+>>   .../devicetree/bindings/peci/peci-adapter.txt      | 23 ++++++++++++++++++++
+>>   .../devicetree/bindings/peci/peci-bus.txt          | 15 +++++++++++++
+>>   .../devicetree/bindings/peci/peci-client.txt       | 25 ++++++++++++++++++++++
+> 
+> This should be all one document.
+> 
 
-thx - brad=
+Okay. I'll combine them into one document.
+
+>>   3 files changed, 63 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/peci/peci-adapter.txt
+>>   create mode 100644 Documentation/devicetree/bindings/peci/peci-bus.txt
+>>   create mode 100644 Documentation/devicetree/bindings/peci/peci-client.txt
+>>
+>> diff --git a/Documentation/devicetree/bindings/peci/peci-adapter.txt b/Documentation/devicetree/bindings/peci/peci-adapter.txt
+>> new file mode 100644
+>> index 000000000000..9221374f6b11
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/peci/peci-adapter.txt
+>> @@ -0,0 +1,23 @@
+>> +Generic device tree configuration for PECI adapters.
+>> +
+>> +Required properties:
+>> +- compatible     : Should contain hardware specific definition strings that can
+>> +		   match an adapter driver implementation.
+>> +- reg            : Should contain PECI controller registers location and length.
+> 
+> No need for these 2 here.
+> 
+
+Will drop these 2.
+
+>> +- #address-cells : Should be <1>.
+>> +- #size-cells    : Should be <0>.
+> 
+> Some details on the addressing for PECI would be good.
+> 
+
+It is for the PECI client address. Will add details.
+
+>> +
+>> +Example:
+>> +	peci: peci@10000000 {
+>> +		compatible = "simple-bus";
+>> +		#address-cells = <1>;
+>> +		#size-cells = <1>;
+>> +		ranges = <0x0 0x10000000 0x1000>;
+>> +
+> 
+> This part of the example is not relevant. Just start with the adapter
+> node.
+> 
+
+Will remove that part. Thanks!
+
+>> +		peci0: peci-bus@0 {
+>> +			compatible = "soc,soc-peci";
+>> +			reg = <0x0 0x1000>;
+>> +			#address-cells = <1>;
+>> +			#size-cells = <0>;
+>> +		};
+>> +	};
+>> diff --git a/Documentation/devicetree/bindings/peci/peci-bus.txt b/Documentation/devicetree/bindings/peci/peci-bus.txt
+>> new file mode 100644
+>> index 000000000000..90bcc791ccb0
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/peci/peci-bus.txt
+>> @@ -0,0 +1,15 @@
+>> +Generic device tree configuration for PECI buses.
+>> +
+>> +Required properties:
+>> +- compatible     : Should be "simple-bus".
+> 
+> I don't understand what this has to do with PECI? "simple-bus" already
+> has a defined meaning.
+> 
+
+Maybe I'm wrong but I intended to show this node is an umbrella node of 
+a PECI bus subsystem. What should I use then?
+
+>> +- #address-cells : Should be <1>.
+>> +- #size-cells    : Should be <1>.
+>> +- ranges         : Should contain PECI controller registers ranges.
+>> +
+>> +Example:
+>> +	peci: peci@10000000 {
+>> +		compatible = "simple-bus";
+>> +		#address-cells = <1>;
+>> +		#size-cells = <1>;
+>> +		ranges = <0x0 0x10000000 0x1000>;
+>> +	};
+>> diff --git a/Documentation/devicetree/bindings/peci/peci-client.txt b/Documentation/devicetree/bindings/peci/peci-client.txt
+>> new file mode 100644
+>> index 000000000000..8e2bfd8532f6
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/peci/peci-client.txt
+>> @@ -0,0 +1,25 @@
+>> +Generic device tree configuration for PECI clients.
+>> +
+>> +Required properties:
+>> +- compatible : Should contain target device specific definition strings that can
+>> +	       match a client driver implementation.
+> 
+> Bindings are for h/w, not client drivers.
+> 
+> How are PECI devices defined?
+> 
+
+Got it. I'll correct the description. PECI client device is Intel CPU 
+which is connected through a PECI bus.
+
+>> +- reg        : Should contain address of a client CPU. Address range of CPU
+>> +	       clients is starting from 0x30 based on PECI specification.
+>> +	       <0x30> .. <0x37> (depends on the PECI_OFFSET_MAX definition)
+> 
+> 8 devices should be enough for anyone...
+> 
+> Where is PECI_OFFSET_MAX defined?
+> 
+
+PECI_OFFSET_MAX is defined in include/linux/peci.h based on the maximum 
+CPU numbers of the current IA generation. I'll remove the unnecessary 
+details. A setting out of range would be handled accordingly in kernel.
+
+>> +
+>> +Example:
+>> +	peci-bus@0 {
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +		< more properties >
+>> +
+>> +		function@cpu0 {
+> 
+> Not a valid node name. "function@30" is what it probably should be. For
+> a new bus you can define unit-address format you like, but it must be
+> based on the contents of reg. However, it doesn't look like you should
+> create anything special here.
+> 
+
+Got it. I'll fix these node name like function@30 and function@31.
+
+Thanks a lot for your comments!
+
+-Jae
+
+>> +			compatible = "device,function";
+>> +			reg = <0x30>;
+>> +		};
+>> +
+>> +		function@cpu1 {
+>> +			compatible = "device,function";
+>> +			reg = <0x31>;
+>> +		};
+>> +	};
+>> -- 
+>> 2.16.2
+>>
+>>
+>> _______________________________________________
+>> linux-arm-kernel mailing list
+>> linux-arm-kernel@lists.infradead.org
+>> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
