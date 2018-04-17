@@ -1,72 +1,69 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
+Return-Path: <robh@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=robh@kernel.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40QKtG1Gy2zDrJw
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 19:37:57 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3H9ahwa020556
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 05:37:55 -0400
-Received: from e06smtp11.uk.ibm.com (e06smtp11.uk.ibm.com [195.75.94.107])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2hdbbm95uu-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 05:37:54 -0400
-Received: from localhost
- by e06smtp11.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
- Tue, 17 Apr 2018 10:37:52 +0100
-Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
- by e06smtp11.uk.ibm.com (192.168.101.141) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 17 Apr 2018 10:37:51 +0100
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w3H9boDa55443468
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 09:37:50 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1C15FAE04D
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 10:27:41 +0100 (BST)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2BF0BAE045
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 10:27:40 +0100 (BST)
-Received: from [9.78.199.203] (unknown [9.78.199.203])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 10:27:39 +0100 (BST)
-Subject: Re: RFC for Implement SNMP trap on openBMC.
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-References: <4d0a0aa4-bd51-f72c-af18-5842d1f08456@linux.vnet.ibm.com>
-Date: Tue, 17 Apr 2018 15:07:48 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40QQlJ67PlzDrDT
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 23:17:15 +1000 (AEST)
+Received: from mail-qt0-f182.google.com (mail-qt0-f182.google.com
+ [209.85.216.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D737A2184D
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 13:17:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D737A2184D
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=robh@kernel.org
+Received: by mail-qt0-f182.google.com with SMTP id l11so9683995qtj.10
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 06:17:13 -0700 (PDT)
+X-Gm-Message-State: ALQs6tAEA8tfZiPXFAg1g5ONSMJyg4beFKb34Z5Z8VbJTsQt03KQQBP7
+ wrsb0Z+ckQKoNMqCVDGRY8FZgh91UiYUvx7v4Q==
+X-Google-Smtp-Source: AIpwx4802ncWWEWk0pJFFsJpjoTSZiUW0j3gsDUlj2tpHMj0vxmkfyQVbhsjL9XI5daoDWXmFS0uHePb+CjLbsHbOoI=
+X-Received: by 10.200.67.210 with SMTP id w18mr2402978qtn.327.1523971032932;
+ Tue, 17 Apr 2018 06:17:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <4d0a0aa4-bd51-f72c-af18-5842d1f08456@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18041709-0040-0000-0000-0000044E71CC
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18041709-0041-0000-0000-000020F2B8CD
-Message-Id: <f4f64100-10fd-9337-cd6a-ff6c14fa9502@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-17_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804170086
+Received: by 10.12.163.228 with HTTP; Tue, 17 Apr 2018 06:16:52 -0700 (PDT)
+In-Reply-To: <53ff5b2b-eba8-8311-64a9-abd4bc72226d@linux.intel.com>
+References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
+ <20180410183212.16787-5-jae.hyun.yoo@linux.intel.com>
+ <20180416181035.rcjvt4rlrwaj5yxf@rob-hp-laptop>
+ <53ff5b2b-eba8-8311-64a9-abd4bc72226d@linux.intel.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 17 Apr 2018 08:16:52 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+1wC-KhXPeCSNhCeCih6=CatJbyumO51ucD17Rt7qofw@mail.gmail.com>
+Message-ID: <CAL_Jsq+1wC-KhXPeCSNhCeCih6=CatJbyumO51ucD17Rt7qofw@mail.gmail.com>
+Subject: Re: [PATCH v3 04/10] Documentations: dt-bindings: Add a document of
+ PECI adapter driver for Aspeed AST24xx/25xx SoCs
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Andrew Lunn <andrew@lunn.ch>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Fengguang Wu <fengguang.wu@intel.com>, 
+ Greg KH <gregkh@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Haiyue Wang <haiyue.wang@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>, 
+ Jason M Biils <jason.m.bills@linux.intel.com>, Jean Delvare <jdelvare@suse.com>,
+ Joel Stanley <joel@jms.id.au>, Julia Cartwright <juliac@eso.teric.us>, 
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Milton Miller II <miltonm@us.ibm.com>, 
+ Pavel Machek <pavel@ucw.cz>, Randy Dunlap <rdunlap@infradead.org>, 
+ Stef van Os <stef.van.os@prodrive-technologies.com>, 
+ Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, 
+ devicetree@vger.kernel.org, Linux HWMON List <linux-hwmon@vger.kernel.org>, 
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -78,188 +75,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Apr 2018 09:37:58 -0000
+X-List-Received-Date: Tue, 17 Apr 2018 13:17:17 -0000
 
-Hi All,
+On Mon, Apr 16, 2018 at 6:12 PM, Jae Hyun Yoo
+<jae.hyun.yoo@linux.intel.com> wrote:
+> On 4/16/2018 11:10 AM, Rob Herring wrote:
+>>
+>> On Tue, Apr 10, 2018 at 11:32:06AM -0700, Jae Hyun Yoo wrote:
+>>>
+>>> This commit adds a dt-bindings document of PECI adapter driver for Aspeed
+>>> AST24xx/25xx SoCs.
 
-Further extending my last proposal.
+[...]
 
-Create a repo phosphor-snmp which would be exposing a lib named libsnmp.
+>>> +- clocks            : Should contain clock source for PECI controller.
+>>> +                     Should reference clkin.
+>>> +- clock_frequency   : Should contain the operation frequency of PECI
+>>> controller
+>>> +                     in units of Hz.
+>>> +                     187500 ~ 24000000
+>>
+>>
+>> This is the frequency of the bus or used to derive it? It would be
+>> better to specify the bus frequency instead and have the driver
+>> calculate its internal freq. And then use "bus-frequency" instead.
+>>
+>
+> I agree with you. Actually, it is being used for operation frequency setting
+> of PECI controller module in SoC so it's different from the meaning of
+> "bus-frequency". I'll change it to "operation-frequency".
 
-Any process which wants to send the trap link that process with this lib
-and call the following function to send the trap.
+No, now you've gone from a standard property name to something custom.
+Why do you need to set the frequency in DT if it is not related to the
+interface frequency?
 
-Prototype of sending trap function is below.
-
-template<typename T, typename... ArgTypes>
-void sendTrap(ArgTypes&&... tArgs)
-
-T = Notification Type.
-
-This Notification Type class needs to be defined and it would be defined
-by the parser at build time by reading the mib file.
-
-This parser would be custom written parser to generate these classes as 
-we can not
-use the mib2c for the same.
-
-We would be using the netsnmp lib for sending the trap.
-
-Configuration of SNMP Manager
-
-    SNMP Manager Ip/port would be configured under the settings namespace.
-
-How to add the new Notification
-===============================
-=> Define the intended notification object in the mib.
-=> Write the specific notification class until parser is ready.
-
-
-How to use the lib.
-===================
-eg
-
-Suppose we want to send the Error Notification with some data.
-
-sendTrap<ErrorNotification>(arg,.....);
-
-
-Content in the error Notification Mib
-====================================
-1) ErrorId
-2) Timestamp
-3) Severity
-4) ErrorMessage(should be small enough to be fit in single MTU.)
-
-NOTE:-  Currently in error object through REST we send other properties 
-like"additional data",
-         but we can not send the same info through SNMP trap as it makes 
-the trap heavy.
-         seems to me that is not the intent of the trap to get all the 
-info of the object.
-         Fo such requirement we should support snmp agent SNMP-GET on 
-that object.
-
-Need opinion from the community members on this proposal as well as the
-content of the Error Notification Mib.
-
-Regards
-Ratan Gupta
-
-
-On Saturday 17 March 2018 05:17 PM, Ratan Gupta wrote:
-> Hi All,
->
-> I am working on the 
-> issue(https://github.com/openbmc/openbmc/issues/3002) to Implement 
-> SNMP trap notification support on openBMC.
-> I would be explaining a rough idea of how we plan to go about.
-> Please share your thoughts and feedback on this proposal.
->
-> Requirement:- Enable support for SNMP trap notification on openbmc.
->               Currently the requirement is to send the SNMP trap in 
-> the following cases
->               1) Whenever the error log gets created.
->               2) Whenever the BMC state changes to runtime.
->
-> NOTE:- In future We would extend the support of sending trap in other 
-> use cases.
->               1) Sending the sensor telemetry data.
->               2) Application specific use cases.
->                    eg:- Multiple Authentication failure.
->
-> Configurable Trap Parameters
-> ===================
->
-> 1) Manager IP
-> 2) Interested Trap types
->     Notice
->         Warning
->         Critical
->
->
-> How to configure the SNMP Manager IP on bmc?
->
-> - Through REST (and hence D-Bus) API
->
-> We can define the MIB structure depending on the eventType
->
-> eg
->
-> ==>eventType = ErrorLog
->
-> Structure for errorLog MIB
-> ================
-> AgentIP   :   BMC IP Address
-> TimeStamp :   Time when the trap generated
-> deviceName:-  DbusObjectPath
-> alertLevel:-  Would be given by the config yaml
->     Following properties data would be fetched by making Dbus call on 
-> that object.
-> ErrorId:
-> ErrorSeverity:
-> ErrorMessage:
-> ErrorAdditionalData{array of key value}:
-> ErrorResolutionStatus:
->
-> ===>eventType = Configuration
-> AgentIP   :   BMC IP Address
-> TimeStamp :   Time when the trap generated
-> deviceName:-  DbusObjectPath
-> alertLevel:-  Would be given by the config yaml
-> eventMessage:- "BMC state changed"
-> PropertyName:-
-> PropertyValue:-
->
-> Implement the snmp trap feature
-> =====================
->
-> Currently on openbmc the data is being modeled as D-bus Object so we 
-> would be
-> leveraging the capabilities given by the existing 
-> app(phosphor-Dbus-Monitor) to get the
-> triggers on following conditions to generate the snmp trap.
->
-> 1) whenever the new object gets added
->       eg error object under /xyz/openbmc_project/Logging
->
-> 2) There is some property change on the configured D-bus object
->       eg Network configuration change.
->
-> 3) Some property reached a specific value/threshold value.
->       eg BMC state change to "poweron" or CPU temperature is > X
->
-> NOTE:- There could be cases which is independent on the D-bus object
->        eg:- Generate a trap whenever there is multiple authentication 
-> failure
->        We would expose a D-bus api to generate a trap to handle 
-> application
->        specific use cases.
->
-> Config YAML of Phosphor-Dbus-Monitor
-> ========================
-> - name: create property event
->   class: callback
->   callback: snmpEvent
->   paths: D-bus path group
->   properties: Group of interested Properties
->   eventSeverity: Notice/Warning/Critical
->   eventType: Error log / Sensor / State.
->   eventMessage: "User can give the message as per the eventType"
->          PropertyChange:- Normal property Change could be eventType as 
-> Notice eg:- StateChange/Network Configuration change
->          PropertyChange would become Warning:- if we have met a 
-> specific condition on a property
->                            eg Proc Temprature > some configured 
-> temperature value.
->
-> Opensource:- NetSnmp
->              Comes up with full suite of tools like snmp 
-> agent,snmptrapd, mib2c, bunch of other tools
->              Currently the support is for trap so we need minimal of 
-> above(libsnmp,mib2c).
->
-> Regards
->
-> Ratan Gupta
->
+Rob
