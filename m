@@ -1,70 +1,42 @@
-Return-Path: <Yang.BrianC.W@inventec.com>
+Return-Path: <sboyd@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inventec.com
- (client-ip=61.220.76.161; helo=mail.inventec.com;
- envelope-from=yang.brianc.w@inventec.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inventec.com
-Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Q9cK4zTlzF21P
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 13:25:20 +1000 (AEST)
-Received: from IEC1-MSE-FE2.inventec.com (10.1.254.204) by
- IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
- 14.3.174.1; Tue, 17 Apr 2018 11:25:27 +0800
-Received: from IEC1-SPAM-2.inventec.com (smg2.inventec.com [10.1.254.202])	by
- IEC1-MSE-FE2.inventec.com with ESMTP id w3H3OdJd072558	for
- <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 11:24:39 +0800 (GMT-8)
- (envelope-from yang.brianc.w@inventec.com)
-Received: from mail-wr0-f198.google.com (mail-wr0-f198.google.com
- [209.85.128.198])	by IEC1-SPAM-2.inventec.com with ESMTP id w3H3OaXN037675
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
- <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 11:24:38 +0800 (GMT-8)
- (envelope-from yang.brianc.w@inventec.com)
-Received: by mail-wr0-f198.google.com with SMTP id o8so14441671wra.12
- for <openbmc@lists.ozlabs.org>; Mon, 16 Apr 2018 20:24:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=2uVTpxkTZizC7SEvZEPdWej2o2v/PFsqBdfvl+lNj6w=;
- b=dMgcfFNcHVbwLu0m5dFDwaXaJRLAwQyt3PcyHZ9/ZU7A6wZPcHsodwmIcGd7z7WFBV
- yQWjBWWycRmpZWvRpk2QrEdilFybTkZngKJkNImww+ZX1Aw3TyyDLNb2pmwOmk8xppzY
- AbFNTlJwrIgVJX2nS6j8YRUrsTZ/ETGAvAUJKXeE4yC8mxEL4aiAHc3BzbiC97W0Fhlo
- hPde/lqFsLN7kXtx3KxB8TYYVOBBuS8hpSAsLoj50PSEfnt8Kv15s65RepJpmBB4QZhZ
- UU1w/r8uhu7/zHvvhHOAG14PBlpMiHANxYni8VamPjjzotGfN+PoKuOXjxCO+wLFpYya
- vRKQ==
-X-Gm-Message-State: ALQs6tAoEL61apuTjEJf3VO7Rn8yAzb+e65xoM8VWfXkS7XCKGMdETw+
- C3tYwHWn9EF63gZs7iBnMcyuwov1+l3bE6J5RHRgxYeFW9EPMBFmZcZCyZpslxOfBAUrAnXnYfW
- gCDGKmJVUywkAe7D1/DmZ1kbzfaT4Frz4m5gaaQ==
-X-Received: by 10.223.202.18 with SMTP id o18mr180366wrh.281.1523935475555;
- Mon, 16 Apr 2018 20:24:35 -0700 (PDT)
-X-Google-Smtp-Source: AIpwx490Qw19oWHvhsM1+NO7Z99XGY4GKJrqakAVWbG11niWicJd3xrWVraKp6ijE9Y3zLGY1eoiOF98UeT8e31+BtM=
-X-Received: by 10.223.202.18 with SMTP id o18mr180352wrh.281.1523935475254;
- Mon, 16 Apr 2018 20:24:35 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Q9vM4b35zF21G
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 13:38:23 +1000 (AEST)
+Received: from localhost (unknown [104.132.1.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 341512175D;
+ Tue, 17 Apr 2018 03:38:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 341512175D
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Authentication-Results: mail.kernel.org;
+ spf=none smtp.mailfrom=sboyd@kernel.org
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Received: by 10.28.144.141 with HTTP; Mon, 16 Apr 2018 20:24:14 -0700 (PDT)
-In-Reply-To: <1523930744.402617.1340420568.34CE3271@webmail.messagingengine.com>
-References: <1523432542-445334-1-git-send-email-yang.brianc.w@inventec.com>
- <1523584666.2655983.1336387696.46B4368A@webmail.messagingengine.com>
- <39E6480C5A587146BAA4D885C7BCF7EEC6B7921E@IEC1-EX2010-MX4.iec.inventec>
- <CAAvYUAw1ZH2DFrMr8mJydfQUVHatioxeNrOitwy4KU8fG5fuYA@mail.gmail.com>
- <1523930744.402617.1340420568.34CE3271@webmail.messagingengine.com>
-From: =?UTF-8?B?WWFuZ0JyaWFuQy5XIOaliuWYieWBiSBUQU8=?=
- <yang.brianc.w@inventec.com>
-Date: Tue, 17 Apr 2018 11:24:14 +0800
-Message-ID: <CAAvYUAw6t57AaLcpMfBCDa0xs_ezDyWQP0BZUVj3muchRTQvQQ@mail.gmail.com>
-Subject: Re: FW: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec
- Lanyang BMC
-To: Andrew Jeffery <andrew@aj.id.au>
-CC: =?UTF-8?B?Q2hlbi5LZW5ZWSDpmbPmsLjnh58gVEFP?= <Chen.KenYY@inventec.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Lei YU <mine260309@gmail.com>,
- Joel Stanley <joel@jms.id.au>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-DNSRBL: 
-X-MAIL: IEC1-MSE-FE2.inventec.com w3H3OdJd072558
+To: Tali Perry <tali.perry1@gmail.com>, avifishman70@gmail.com,
+ brendanhiggins@google.com, linux@armlinux.org.uk, mark.rutland@arm.com,
+ raltherr@google.com, robh+dt@kernel.org, tmaimon77@gmail.com
+From: Stephen Boyd <sboyd@kernel.org>
+In-Reply-To: <1522059386-20601-3-git-send-email-tali.perry1@gmail.com>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Tali Perry <tali.perry1@gmail.com>
+References: <1522059386-20601-1-git-send-email-tali.perry1@gmail.com>
+ <1522059386-20601-3-git-send-email-tali.perry1@gmail.com>
+Message-ID: <152393630051.51482.7797391524865573162@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.7
+Subject: Re: [PATCH v12 2/2] clk: npcm7xx: add clock controller
+Date: Mon, 16 Apr 2018 20:38:20 -0700
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,455 +48,359 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Apr 2018 03:25:23 -0000
+X-List-Received-Date: Tue, 17 Apr 2018 03:38:24 -0000
 
-Hi Andrew,
+Quoting Tali Perry (2018-03-26 03:16:26)
+> * Nuvoton NPCM7XX Clock Controller
+> =
 
-2018-04-17 10:05 GMT+08:00 Andrew Jeffery <andrew@aj.id.au>:
-> Hi Brian,
->
-> On Mon, 16 Apr 2018, at 20:39, YangBrianC.W =E6=A5=8A=E5=98=89=E5=81=89 T=
-AO wrote:
->> Hi Andrew,
->>
->>
->> 2018-04-16 15:04 GMT+08:00 Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F TAO <C=
-hen.KenYY@inventec.com>:
->> > FYR
->> >
->> > -----Original Message-----
->> > From: openbmc [mailto:openbmc-bounces+chen.kenyy=3Dinventec.com@lists.=
-ozlabs.org] On Behalf Of Andrew Jeffery
->> > Sent: Friday, April 13, 2018 9:58 AM
->> > To: openbmc@lists.ozlabs.org
->> > Subject: Re: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec =
-Lanyang BMC
->> >
->> > Hi Brian,
->> >
->> > On Wed, 11 Apr 2018, at 17:12, Brian Yang wrote:
->> >> The Inventec Lanyang is Power 9 platform with ast2500 BMC.
->> >>
->> >> Tested-by: Brian Yang <yang.brianc.w@inventec.com>
->> >> Signed-off-by: Brian Yang <yang.brianc.w@inventec.com>
->> >>
->> >> ---
->> >>
->> >> v0->v1
->> >> -Add test information in commit
->> >> ---
->> >>  arch/arm/boot/dts/Makefile                   |   1 +
->> >>  arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 331
->> >> +++++++++++++++++++++++++++
->> >>  2 files changed, 332 insertions(+)
->> >>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->> >>
->> >> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
->> >> index 5cfee25..d1882f0 100644
->> >> --- a/arch/arm/boot/dts/Makefile
->> >> +++ b/arch/arm/boot/dts/Makefile
->> >> @@ -1057,6 +1057,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
->> >>       aspeed-ast2500-evb.dtb \
->> >>       aspeed-bmc-arm-centriq2400-rep.dtb \
->> >>       aspeed-bmc-intel-s2600wf.dtb \
->> >> +     aspeed-bmc-opp-lanyang.dtb \
->> >>       aspeed-bmc-opp-palmetto.dtb \
->> >>       aspeed-bmc-opp-romulus.dtb \
->> >>       aspeed-bmc-opp-witherspoon.dtb \
->> >> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/
->> >> boot/dts/aspeed-bmc-opp-lanyang.dts
->> >> new file mode 100644
->> >> index 0000000..6241730
->> >> --- /dev/null
->> >> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->> >> @@ -0,0 +1,331 @@
->> >> +// SPDX-License-Identifier: GPL-2.0+
->> >> +// Copyright (c) 2018 Inventec Corporation /dts-v1/;
->> >> +
->> >> +#include "aspeed-g5.dtsi"
->> >> +#include <dt-bindings/gpio/aspeed-gpio.h>
->> >> +
->> >> +/ {
->> >> +     model =3D "Lanyang BMC";
->> >> +     compatible =3D "inventec,lanyang-bmc", "aspeed,ast2500";
->> >> +
->> >> +     chosen {
->> >> +             stdout-path =3D &uart5;
->> >> +             bootargs =3D "console=3DttyS4,115200 earlyprintk";
->> >> +     };
->> >> +
->> >> +     memory {
->> >> +             reg =3D <0x80000000 0x40000000>;
->> >> +     };
->> >> +
->> >> +     reserved-memory {
->> >> +             #address-cells =3D <1>;
->> >> +             #size-cells =3D <1>;
->> >> +             ranges;
->> >> +
->> >> +             flash_memory: region@98000000 {
->> >> +                     no-map;
->> >> +                     reg =3D <0x98000000 0x04000000>; /* 64M */
->> >> +             };
->> >> +     };
->> >> +
->> >> +     leds {
->> >> +             compatible =3D "gpio-leds";
->> >> +
->> >> +             sys_boot_status {
->> >> +                     label =3D "System_boot_status";
->> >> +                     gpios =3D <&gpio ASPEED_GPIO(B, 6) GPIO_ACTIVE_=
-LOW>;
->> >> +             };
->> >> +
->> >> +             attention {
->> >> +                     label =3D "Attention_locator";
->> >> +                     gpios =3D <&gpio ASPEED_GPIO(B, 7) GPIO_ACTIVE_=
-HIGH>;
->> >> +             };
->> >> +
->> >> +             plt_fault {
->> >> +                     label =3D "Platform_fault";
->> >> +                     gpios =3D <&gpio ASPEED_GPIO(B, 1) GPIO_ACTIVE_=
-HIGH>;
->> >> +             };
->> >> +
->> >> +             hdd_fault {
->> >> +                     label =3D "Onboard_drive_fault";
->> >> +                     gpios =3D <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_=
-HIGH>;
->> >> +             };
->> >> +             bmc_err {
->> >> +                     lable =3D "BMC_fault";
->> >> +                     gpios =3D <&gpio ASPEED_GPIO(H, 6) GPIO_ACTIVE_=
-HIGH>;
->> >> +             };
->> >> +
->> >> +             sys_err {
->> >> +                     lable =3D "Sys_fault";
->> >> +                     gpios =3D <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_=
-HIGH>;
->> >> +             };
->> >> +     };
->> >> +
->> >> +     fsi: gpio-fsi {
->> >> +             compatible =3D "fsi-master-gpio", "fsi-master";
->> >> +             #address-cells =3D <2>;
->> >> +             #size-cells =3D <0>;
->> >> +
->> >> +             clock-gpios =3D <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HI=
-GH>;
->> >> +             data-gpios =3D <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIG=
-H>;
->> >> +             trans-gpios =3D <&gpio ASPEED_GPIO(D, 5) GPIO_ACTIVE_HI=
-GH>;
->> >> +             enable-gpios =3D <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_H=
-IGH>;
->> >> +             mux-gpios =3D <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH=
->;
->> >> +     };
->> >> +
->> >> +     iio-hwmon {
->> >> +             compatible =3D "iio-hwmon";
->> >> +             io-channels =3D <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
->> >> +                     <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
->> >> +                     <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
->> >> +                     <&adc 13>, <&adc 14>, <&adc 15>;
->> >> +     };
->> >> +
->> >> +     iio-hwmon-battery {
->> >> +             compatible =3D "iio-hwmon";
->> >> +             io-channels =3D <&adc 12>;
->> >> +     };
->> >> +};
->> >> +
->> >> +#include "ibm-power9-cfam.dtsi"
->> >> +
->> >> +&pwm_tacho {
->> >> +     status =3D "okay";
->> >> +     pinctrl-names =3D "default";
->> >> +     pinctrl-0 =3D <&pinctrl_pwm0_default &pinctrl_pwm1_default
->> >> +             &pinctrl_pwm2_default &pinctrl_pwm3_default>;
->> >> +
->> >> +     fan@0 {
->> >> +             reg =3D <0x00>;
->> >> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x00>;
->> >> +     };
->> >> +
->> >> +     fan@1 {
->> >> +             reg =3D <0x01>;
->> >> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x01>;
->> >> +     };
->> >> +
->> >> +     fan@2 {
->> >> +             reg =3D <0x02>;
->> >> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x02>;
->> >> +     };
->> >> +
->> >> +     fan@3 {
->> >> +             reg =3D <0x03>;
->> >> +             aspeed,fan-tach-ch =3D /bits/ 8 <0x03>;
->> >> +     };
->> >> +};
->> >> +
->> >> +&fmc {
->> >> +     status =3D "okay";
->> >> +     flash@0 {
->> >> +             status =3D "okay";
->> >> +             m25p,fast-read;
->> >> +             label =3D "bmc";
->> >> +#include "openbmc-flash-layout.dtsi"
->> >> +     };
->> >> +};
->> >> +
->> >> +&spi1 {
->> >> +     status =3D "okay";
->> >> +     pinctrl-names =3D "default";
->> >> +     pinctrl-0 =3D <&pinctrl_spi1_default>;
->> >> +
->> >> +     flash@0 {
->> >> +             status =3D "okay";
->> >> +             label =3D "pnor";
->> >> +             m25p,fast-read;
->> >> +     };
->> >> +};
->> >> +
->> >> +&spi2 {
->> >> +     status =3D "okay";
->> >> +     pinctrl-names =3D "default";
->> >> +     pinctrl-0 =3D <&pinctrl_spi2ck_default
->> >> +                  &pinctrl_spi2cs0_default
->> >> +                  &pinctrl_spi2cs1_default
->> >> +                  &pinctrl_spi2miso_default
->> >> +                  &pinctrl_spi2mosi_default>;
->> >> +
->> >> +     flash@0 {
->> >> +             status =3D "okay";
->> >> +     };
->> >> +};
->> >> +
->> >> +&uart1 {
->> >> +     status =3D "okay";
->> >> +     pinctrl-names =3D "default";
->> >> +     pinctrl-0 =3D <&pinctrl_txd1_default
->> >> +                  &pinctrl_rxd1_default>;
->> >> +};
->> >> +
->> >> +&lpc_ctrl {
->> >> +     status =3D "okay";
->> >> +     memory-region =3D <&flash_memory>;
->> >> +     flash =3D <&spi1>;
->> >> +};
->> >> +
->> >> +&lpc_snoop {
->> >> +     status =3D "okay";
->> >> +     snoop-ports =3D <0x80>;
->> >> +};
->> >> +
->> >> +&mbox {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&uart5 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&mac0 {
->> >> +     status =3D "okay";
->> >> +
->> >> +     pinctrl-names =3D "default";
->> >> +     pinctrl-0 =3D <&pinctrl_rmii1_default>;
->> >> +     use-ncsi;
->> >> +};
->> >> +
->> >> +&mac1 {
->> >> +     status =3D "okay";
->> >> +
->> >> +     pinctrl-names =3D "default";
->> >> +     pinctrl-0 =3D <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;=
+> Nuvoton Poleg BMC NPCM7XX contains an integrated clock controller, which
+> generates and supplies clocks to all modules within the BMC.
+> =
+
+> =
+
+> =
+
+> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> =
+
+> =
+
+
+There should be a triple dash here.
+
+I applied this to clk-next with these changes squashed in. If anything
+is wrong let me know.
+
+----8<----
+
+diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
+index 7e4964b9e5c8..dba5384f03a4 100644
+--- a/drivers/clk/clk-npcm7xx.c
++++ b/drivers/clk/clk-npcm7xx.c
+@@ -8,24 +8,16 @@
+  */
+ =
+
+ #include <linux/module.h>
+-#include <linux/clk.h>
+ #include <linux/clk-provider.h>
+-#include <linux/device.h>
+ #include <linux/io.h>
+ #include <linux/kernel.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
+-#include <linux/of_platform.h>
+ #include <linux/of_address.h>
+-#include <linux/platform_device.h>
+ #include <linux/slab.h>
+ #include <linux/err.h>
+-#include <linux/rational.h>
+ #include <linux/bitfield.h>
+-#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
+-
+-#include <asm/cp15.h>
+ =
+
++#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
+ =
+
+ struct npcm7xx_clk_pll {
+ 	struct clk_hw	hw;
+@@ -35,9 +27,6 @@ struct npcm7xx_clk_pll {
+ =
+
+ #define to_npcm7xx_clk_pll(_hw) container_of(_hw, struct npcm7xx_clk_pll, =
+hw)
+ =
+
+-struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon, const char *=
+name,
+-	const char *parent_name, unsigned long flags);
+-
+ #define PLLCON_LOKI	BIT(31)
+ #define PLLCON_LOKS	BIT(30)
+ #define PLLCON_FBDV	GENMASK(27, 16)
+@@ -55,8 +44,7 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct c=
+lk_hw *hw,
+ 	u64 ret;
+ =
+
+ 	if (parent_rate =3D=3D 0) {
+-		pr_err("%s: parent rate is zero. reg=3D%x\n", __func__,
+-			(u32)(pll->pllcon));
++		pr_err("%s: parent rate is zero", __func__);
+ 		return 0;
+ 	}
+ =
+
+@@ -73,13 +61,13 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct=
+ clk_hw *hw,
+ 	return ret;
+ }
+ =
+
+-const struct clk_ops npcm7xx_clk_pll_ops =3D {
++static const struct clk_ops npcm7xx_clk_pll_ops =3D {
+ 	.recalc_rate =3D npcm7xx_clk_pll_recalc_rate,
  };
->> >> +
->> >> +&i2c0 {
->> >> +     status =3D "okay";
->> >> +
->> >> +     eeprom@55 {
->> >> +             compatible =3D "atmel,24c64";
->> >> +             reg =3D <0x55>;
->> >> +             pagesize =3D <32>;
->> >> +     };
->> >> +
->> >> +     rtc@68 {
->> >> +             compatible =3D "nxp,pcf8523";
->> >> +             reg =3D <0x68>;
->> >> +     };
->> >> +
->> >> +     tmp75@48 {
->> >> +             compatible =3D "ti,tmp75";
->> >> +             reg =3D <0x48>;
->> >> +     };
->> >> +};
->> >> +
->> >> +&i2c1 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c2 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c3 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c4 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c5 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c6 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c7 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c8 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c9 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c10 {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&i2c11 {
->> >> +     status =3D "okay";
->> >> +};
->> >
->> > Do we need to enable all of the above i2c buses? By comparison, Zaius =
-enables i2c0, i2c1, i2c4, i2c7 and i2c8.
->>
->> Thank you for your review.
->>
->> We need to enable all of the above i2c buses because we want to verify
->> the i2c bus is fine by i2ctool.
->>
->> Because we use the above i2c buses on Lanyang platform.
->
-> Okay, it's still not clear to me. Are there devices on all the buses? If =
-so, do any have bindings that we could use to describe them here? It looks =
-odd enabling all the buses but not "using" any of them.
->
-> If you're just enabling them to test the bus with i2ctool then I feel tha=
-t we might be better with that staying as a local change for your testing, =
-rather than merging this as is. Joel?
->
-> Cheers,
->
-> Andrew
+ =
 
-I think we could describe those devices on the i2c buses first.
+-
+-struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon, const char *=
+name,
+-	const char *parent_name, unsigned long flags)
++static struct clk_hw *
++npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
++			 const char *parent_name, unsigned long flags)
+ {
+ 	struct npcm7xx_clk_pll *pll;
+ 	struct clk_init_data init;
+@@ -90,8 +78,7 @@ struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pll=
+con, const char *name,
+ 	if (!pll)
+ 		return ERR_PTR(-ENOMEM);
+ =
 
-When I finish the drivers for those devices, I will update related code.
+-	pr_debug("%s reg, reg=3D0x%x, name=3D%s, p=3D%s\n",
+-		__func__, (unsigned int)pllcon, name, parent_name);
++	pr_debug("%s reg, name=3D%s, p=3D%s\n", __func__, name, parent_name);
+ =
 
-Thank you
+ 	init.name =3D name;
+ 	init.ops =3D &npcm7xx_clk_pll_ops;
+@@ -113,7 +100,6 @@ struct clk_hw *npcm7xx_clk_register_pll(void __iomem *p=
+llcon, const char *name,
+ 	return hw;
+ }
+ =
 
-Brian
->
->>
->>
->> >
->> >> +
->> >> +&vuart {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&gfx {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&pinctrl {
->> >> +     aspeed,external-nodes =3D <&gfx &lhc>; };
->> >> +
->> >> +&gpio {
->> >> +     pin_gpio_b0 {
->> >> +             gpio-hog;
->> >> +             gpios =3D <ASPEED_GPIO(B, 0) GPIO_ACTIVE_HIGH>;
->> >> +             output-high;
->> >> +             line-name =3D "BMC_HDD1_PWR_EN";
->> >> +     };
->> >> +
->> >> +     pin_gpio_b5 {
->> >> +             gpio-hog;
->> >> +             gpios =3D <ASPEED_GPIO(B, 5) GPIO_ACTIVE_HIGH>;
->> >> +             input;
->> >> +             line-name =3D "BMC_USB1_OCI2";
->> >> +     };
->> >> +
->> >> +     pin_gpio_h5 {
->> >> +             gpio-hog;
->> >> +             gpios =3D <ASPEED_GPIO(H, 5) GPIO_ACTIVE_HIGH>;
->> >> +             output-high;
->> >> +             line-name =3D "BMC_CP0_PERST_ENABLE_R";
->> >> +     };
->> >> +
->> >> +     pin_gpio_z2 {
->> >> +             gpio-hog;
->> >> +             gpios =3D <ASPEED_GPIO(Z, 2) GPIO_ACTIVE_HIGH>;
->> >> +             output-high;
->> >> +             line-name =3D "RST_PCA9546_U177_N";
->> >> +     };
->> >> +
->> >> +     pin_gpio_aa6 {
->> >> +             gpio-hog;
->> >> +             gpios =3D <ASPEED_GPIO(AA, 6) GPIO_ACTIVE_HIGH>;
->> >> +             output-high;
->> >> +             line-name =3D "BMC_CP0_RESET_N";
->> >> +     };
->> >> +
->> >> +     pin_gpio_aa7 {
->> >> +             gpio-hog;
->> >> +             gpios =3D <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_HIGH>;
->> >> +             output-high;
->> >> +             line-name =3D "BMC_TPM_RESET_N";
->> >> +     };
->> >> +
->> >> +     pin_gpio_ab0 {
->> >> +             gpio-hog;
->> >> +             gpios =3D <ASPEED_GPIO(AB, 0) GPIO_ACTIVE_LOW>;
->> >> +             output-high;
->> >> +             line-name =3D "BMC_USB_PWRON_N";
->> >> +     };
->> >> +};
->> >> +
->> >> +&ibt {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> +&adc {
->> >> +     status =3D "okay";
->> >> +};
->> >> +
->> >> --
->> >> 2.7.4
->> >>
->> >
->> > Looks okay from a pinctrl perspective, so if there is reason to enable=
- all of the i2c buses, then I'll send an Acked-by
->> >
->> > Cheers,
->> >
->> > Andrew
->>
->>
->> Thank you
->>
->>
->> Brian
+-
+ #define NPCM7XX_CLKEN1          (0x00)
+ #define NPCM7XX_CLKEN2          (0x28)
+ #define NPCM7XX_CLKEN3          (0x30)
+@@ -143,7 +129,6 @@ struct clk_hw *npcm7xx_clk_register_pll(void __iomem *p=
+llcon, const char *name,
+ #define NPCM7XX_SECCNT          (0x68)
+ #define NPCM7XX_CNTR25M         (0x6C)
+ =
+
+-
+ struct npcm7xx_clk_gate_data {
+ 	u32 reg;
+ 	u8 bit_idx;
+@@ -219,7 +204,6 @@ struct npcm7xx_clk_pll_data {
+ 	int onecell_idx;
+ };
+ =
+
+-
+ /*
+  * Single copy of strings used to refer to clocks within this driver index=
+ed by
+  * above enum.
+@@ -271,7 +255,6 @@ struct npcm7xx_clk_pll_data {
+ #define NPCM7XX_CLK_S_USB_BRIDGE  "usb_bridge"
+ #define NPCM7XX_CLK_S_PCI         "pci"
+ =
+
+-
+ static u32 pll_mux_table[] =3D {0, 1, 2, 3};
+ static const char * const pll_mux_parents[] __initconst =3D {
+ 	NPCM7XX_CLK_S_PLL0,
+@@ -328,7 +311,6 @@ static const char * const dvcssel_mux_parents[] __initc=
+onst =3D {
+ 	NPCM7XX_CLK_S_PLL2,
+ };
+ =
+
+-
+ static const struct npcm7xx_clk_pll_data npcm7xx_plls[] __initconst =3D {
+ 	{NPCM7XX_PLLCON0, NPCM7XX_CLK_S_PLL0, NPCM7XX_CLK_S_REFCLK, 0, -1},
+ =
+
+@@ -342,7 +324,6 @@ static const struct npcm7xx_clk_pll_data npcm7xx_plls[]=
+ __initconst =3D {
+ 	NPCM7XX_CLK_S_REFCLK, 0, -1},
+ };
+ =
+
+-
+ static const struct npcm7xx_clk_mux_data npcm7xx_muxes[] __initconst =3D {
+ 	{0, GENMASK(1, 0), cpuck_mux_table, NPCM7XX_CLK_S_CPU_MUX,
+ 	cpuck_mux_parents, ARRAY_SIZE(cpuck_mux_parents), CLK_IS_CRITICAL,
+@@ -387,7 +368,6 @@ static const struct npcm7xx_clk_div_fixed_data npcm7xx_=
+divs_fx[] __initconst =3D {
+ 	{ 1, 2, NPCM7XX_CLK_S_PLL2_DIV2, NPCM7XX_CLK_S_PLL2, 0, -1},
+ };
+ =
+
+-
+ /* configurable dividers: */
+ static const struct npcm7xx_clk_div_data npcm7xx_divs[] __initconst =3D {
+ 	{NPCM7XX_CLKDIV1, 28, 3, NPCM7XX_CLK_S_ADC,
+@@ -455,7 +435,6 @@ static const struct npcm7xx_clk_div_data npcm7xx_divs[]=
+ __initconst =3D {
+ =
+
+ };
+ =
+
+-
+ static const struct npcm7xx_clk_gate_data npcm7xx_gates[] __initconst =3D {
+ 	{NPCM7XX_CLKEN1, 31, "smb1-gate", NPCM7XX_CLK_S_APB2, 0},
+ 	{NPCM7XX_CLKEN1, 30, "smb0-gate", NPCM7XX_CLK_S_APB2, 0},
+@@ -557,23 +536,17 @@ static const struct npcm7xx_clk_gate_data npcm7xx_gat=
+es[] __initconst =3D {
+ 	{NPCM7XX_CLKEN3, 0, "pwmm1-gate", NPCM7XX_CLK_S_APB3, 0},
+ };
+ =
+
+-
+-
+ static DEFINE_SPINLOCK(npcm7xx_clk_lock);
+ =
+
+-
+ static void __init npcm7xx_clk_init(struct device_node *clk_np)
+ {
+ 	struct clk_hw_onecell_data *npcm7xx_clk_data;
+ 	void __iomem *clk_base;
+ 	struct resource res;
+ 	struct clk_hw *hw;
+-	struct clk *clk;
+ 	int ret;
+ 	int i;
+ =
+
+-	clk_base =3D NULL;
+-
+ 	ret =3D of_address_to_resource(clk_np, 0, &res);
+ 	if (ret) {
+ 		pr_err("%s: failed to get resource, ret %d\n", clk_np->name,
+@@ -581,49 +554,20 @@ static void __init npcm7xx_clk_init(struct device_nod=
+e *clk_np)
+ 		return;
+ 	}
+ =
+
+-
+ 	clk_base =3D ioremap(res.start, resource_size(&res));
+ 	if (IS_ERR(clk_base))
+ 		goto npcm7xx_init_error;
+ =
+
+-
+ 	npcm7xx_clk_data =3D kzalloc(sizeof(*npcm7xx_clk_data->hws) *
+ 		NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL);
+-
+-	npcm7xx_clk_data->num =3D 0;
+-
+-	if (!npcm7xx_clk_data->hws) {
+-		pr_err("Can't alloc npcm7xx_clk_data\n");
++	if (!npcm7xx_clk_data)
+ 		goto npcm7xx_init_np_err;
+-	}
+ =
+
+ 	npcm7xx_clk_data->num =3D NPCM7XX_NUM_CLOCKS;
+ =
+
+ 	for (i =3D 0; i < NPCM7XX_NUM_CLOCKS; i++)
+ 		npcm7xx_clk_data->hws[i] =3D ERR_PTR(-EPROBE_DEFER);
+ =
+
+-	/* Read fixed clocks. These 3 clocks must be defined in DT */
+-	clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
+-	if (!IS_ERR(clk)) {
+-		pr_err("failed to find external REFCLK: %ld\n",
+-			PTR_ERR(clk));
+-		clk_put(clk);
+-	}
+-
+-	clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
+-	if (!IS_ERR(clk)) {
+-		pr_err("failed to find external SYSBYPCK: %ld\n",
+-			PTR_ERR(clk));
+-		clk_put(clk);
+-	}
+-
+-	clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
+-	if (!IS_ERR(clk)) {
+-		pr_err("failed to find external MCBYPCK: %ld\n",
+-			PTR_ERR(clk));
+-		clk_put(clk);
+-	}
+-
+ 	/* Register plls */
+ 	for (i =3D 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
+ 		const struct npcm7xx_clk_pll_data *pll_data =3D &npcm7xx_plls[i];
+@@ -640,18 +584,16 @@ static void __init npcm7xx_clk_init(struct device_nod=
+e *clk_np)
+ 	}
+ =
+
+ 	/* Register fixed dividers */
+-	clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
++	hw =3D clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
+ 			NPCM7XX_CLK_S_PLL1, 0, 1, 2);
+-	if (IS_ERR(clk)) {
++	if (IS_ERR(hw)) {
+ 		pr_err("npcm7xx_clk: Can't register fixed div\n");
+ 		goto npcm7xx_init_fail;
+ 	}
+ =
+
+-
+-	clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
++	hw =3D clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
+ 			NPCM7XX_CLK_S_PLL2, 0, 1, 2);
+-
+-	if (IS_ERR(clk)) {
++	if (IS_ERR(hw)) {
+ 		pr_err("npcm7xx_clk: Can't register div2\n");
+ 		goto npcm7xx_init_fail;
+ 	}
+@@ -676,7 +618,7 @@ static void __init npcm7xx_clk_init(struct device_node =
+*clk_np)
+ 			npcm7xx_clk_data->hws[mux_data->onecell_idx] =3D hw;
+ 	}
+ =
+
+-	/* Register clock dividers specified in npcm7xx_divs. */
++	/* Register clock dividers specified in npcm7xx_divs */
+ 	for (i =3D 0; i < ARRAY_SIZE(npcm7xx_divs); i++) {
+ 		const struct npcm7xx_clk_div_data *div_data =3D &npcm7xx_divs[i];
+ =
+
+@@ -700,23 +642,15 @@ static void __init npcm7xx_clk_init(struct device_nod=
+e *clk_np)
+ 	if (ret)
+ 		pr_err("failed to add DT provider: %d\n", ret);
+ =
+
+-
+ 	of_node_put(clk_np);
+ =
+
+ 	return;
+ =
+
+ npcm7xx_init_fail:
+-	if (npcm7xx_clk_data->num)
+-		kfree(npcm7xx_clk_data->hws);
++	kfree(npcm7xx_clk_data->hws);
+ npcm7xx_init_np_err:
+-	if (clk_base !=3D NULL)
+-		iounmap(clk_base);
++	iounmap(clk_base);
+ npcm7xx_init_error:
+ 	of_node_put(clk_np);
+-	pr_err("clk setup fail\n");
+ }
+-
+ CLK_OF_DECLARE(npcm7xx_clk_init, "nuvoton,npcm750-clk", npcm7xx_clk_init);
+-
+-
+-
