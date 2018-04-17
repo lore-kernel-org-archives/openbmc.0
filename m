@@ -1,27 +1,27 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40QcZg6D6HzF204
- for <openbmc@lists.ozlabs.org>; Wed, 18 Apr 2018 06:40:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40QfTT4sHbzF1RD
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Apr 2018 08:06:04 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2018 13:40:18 -0700
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2018 15:06:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.48,464,1517904000"; d="scan'208";a="192266805"
+X-IronPort-AV: E=Sophos;i="5.48,464,1517904000"; d="scan'208";a="192288160"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.150])
  ([10.7.153.150])
- by orsmga004.jf.intel.com with ESMTP; 17 Apr 2018 13:40:18 -0700
-Subject: Re: [PATCH v3 07/10] Documentation: dt-bindings: Add documents for
- PECI hwmon client drivers
+ by orsmga004.jf.intel.com with ESMTP; 17 Apr 2018 15:06:02 -0700
+Subject: Re: [PATCH v3 04/10] Documentations: dt-bindings: Add a document of
+ PECI adapter driver for Aspeed AST24xx/25xx SoCs
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Rob Herring <robh@kernel.org>
 Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
@@ -39,21 +39,25 @@ Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
  Randy Dunlap <rdunlap@infradead.org>,
  Stef van Os <stef.van.os@prodrive-technologies.com>,
  Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- openbmc@lists.ozlabs.org
+ Linux HWMON List <linux-hwmon@vger.kernel.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
- <20180410183212.16787-8-jae.hyun.yoo@linux.intel.com>
- <20180416181423.t4vf7sugv6z3aw5h@rob-hp-laptop>
- <aee4e04c-885f-b1d8-9e85-9e741551342f@linux.intel.com>
- <287e0fd9-b631-2602-2785-7b8aaed7a6b9@linux.intel.com>
-Message-ID: <6ff697e8-cd20-e551-da13-b614cc39f900@linux.intel.com>
-Date: Tue, 17 Apr 2018 13:40:18 -0700
+ <20180410183212.16787-5-jae.hyun.yoo@linux.intel.com>
+ <20180416181035.rcjvt4rlrwaj5yxf@rob-hp-laptop>
+ <53ff5b2b-eba8-8311-64a9-abd4bc72226d@linux.intel.com>
+ <CAL_Jsq+1wC-KhXPeCSNhCeCih6=CatJbyumO51ucD17Rt7qofw@mail.gmail.com>
+ <f07623c4-5f0c-4ab1-f761-44bd702bbdf0@linux.intel.com>
+Message-ID: <584aca6c-c87a-ff7a-2fdc-3c742236be60@linux.intel.com>
+Date: Tue, 17 Apr 2018 15:06:02 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <287e0fd9-b631-2602-2785-7b8aaed7a6b9@linux.intel.com>
+In-Reply-To: <f07623c4-5f0c-4ab1-f761-44bd702bbdf0@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -68,68 +72,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Apr 2018 20:40:28 -0000
+X-List-Received-Date: Tue, 17 Apr 2018 22:06:06 -0000
 
-On 4/16/2018 4:51 PM, Jae Hyun Yoo wrote:
-> On 4/16/2018 4:22 PM, Jae Hyun Yoo wrote:
->> On 4/16/2018 11:14 AM, Rob Herring wrote:
->>> On Tue, Apr 10, 2018 at 11:32:09AM -0700, Jae Hyun Yoo wrote:
->>>> This commit adds dt-bindings documents for PECI cputemp and dimmtemp 
->>>> client
->>>> drivers.
->>>
-
-[...]
-
->>>> +Example:
->>>> +    peci-bus@0 {
->>>> +        #address-cells = <1>;
->>>> +        #size-cells = <0>;
->>>> +        < more properties >
->>>> +
->>>> +        peci-dimmtemp@cpu0 {
->>>
->>> unit-address is wrong.
->>>
+On 4/17/2018 11:16 AM, Jae Hyun Yoo wrote:
+> On 4/17/2018 6:16 AM, Rob Herring wrote:
+>> On Mon, Apr 16, 2018 at 6:12 PM, Jae Hyun Yoo
+>> <jae.hyun.yoo@linux.intel.com> wrote:
+>>> On 4/16/2018 11:10 AM, Rob Herring wrote:
+>>>>
+>>>> On Tue, Apr 10, 2018 at 11:32:06AM -0700, Jae Hyun Yoo wrote:
+>>>>>
+>>>>> This commit adds a dt-bindings document of PECI adapter driver for 
+>>>>> Aspeed
+>>>>> AST24xx/25xx SoCs.
 >>
->> Will fix it using the reg value.
+>> [...]
 >>
->>> It is a different bus from cputemp? Otherwise, you have conflicting
->>> addresses. If that's the case, probably should make it clear by showing
->>> different host adapters for each example.
+>>>>> +- clocks            : Should contain clock source for PECI 
+>>>>> controller.
+>>>>> +                     Should reference clkin.
+>>>>> +- clock_frequency   : Should contain the operation frequency of PECI
+>>>>> controller
+>>>>> +                     in units of Hz.
+>>>>> +                     187500 ~ 24000000
+>>>>
+>>>>
+>>>> This is the frequency of the bus or used to derive it? It would be
+>>>> better to specify the bus frequency instead and have the driver
+>>>> calculate its internal freq. And then use "bus-frequency" instead.
+>>>>
 >>>
+>>> I agree with you. Actually, it is being used for operation frequency 
+>>> setting
+>>> of PECI controller module in SoC so it's different from the meaning of
+>>> "bus-frequency". I'll change it to "operation-frequency".
 >>
->> It could be the same bus with cputemp. Also, client address sharing is 
->> possible by PECI core if the functionality is different. I mean, 
->> cputemp and dimmtemp targeting the same client is possible case like 
->> this.
->> peci-cputemp@30
->> peci-dimmtemp@30
+>> No, now you've gone from a standard property name to something custom.
+>> Why do you need to set the frequency in DT if it is not related to the
+>> interface frequency?
+>>
+>> Rob
 >>
 > 
-> Oh, I got your point. Probably, I should change these separate settings 
-> into one like
-> 
-> peci-client@30 {
->      compatible = "intel,peci-client";
->      reg = <0x30>;
-> };
-> 
-> Then cputemp and dimmtemp drivers could refer the same compatible 
-> string. Will rewrite it.
+> Actually, the interface frequency is affected by the operation frequency
+> but there is no description of its relationship in datasheet. I'll check
+> again about the detail to ASPEED chip vendor and will use
+> 'bus-frequency' if available.
 > 
 
-I've checked it again and realized that it should use function based 
-node name like:
-
-peci-cputemp@30
-peci-dimmtemp@30
-
-If it use the same string like 'peci-client@30', the drivers cannot be 
-selectively enabled. The client address sharing way is well handled in 
-PECI core and this way would be better for the future implementations of 
-other PECI functional drivers such as crash dump driver and so on. So 
-I'm going change the unit-address only.
+I investigated it more deeply. Basically, by the spec, PECI bus speed
+cannot be set as a fixed speed. A PECI bus can have a wide speed range
+from 2Kbps to 2Mbps which is dynamically set by a handshaking sequence
+between an originator and clients called 'timing negotiation' in spec.
+This timing negotiation behavior happens on every single transaction so 
+the bus speed also can vary on every transactions. So I'm thinking a 
+custom property name for it, 'peci-clk-frequency' if it is acceptable.
 
 Thanks,
 
