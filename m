@@ -1,42 +1,57 @@
-Return-Path: <sboyd@kernel.org>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kernel.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="bo7teiGA"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="jSJ04dUC"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Q9vM4b35zF21G
- for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 13:38:23 +1000 (AEST)
-Received: from localhost (unknown [104.132.1.75])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 341512175D;
- Tue, 17 Apr 2018 03:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 341512175D
-Authentication-Results: mail.kernel.org;
- dmarc=none (p=none dis=none) header.from=kernel.org
-Authentication-Results: mail.kernel.org;
- spf=none smtp.mailfrom=sboyd@kernel.org
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-To: Tali Perry <tali.perry1@gmail.com>, avifishman70@gmail.com,
- brendanhiggins@google.com, linux@armlinux.org.uk, mark.rutland@arm.com,
- raltherr@google.com, robh+dt@kernel.org, tmaimon77@gmail.com
-From: Stephen Boyd <sboyd@kernel.org>
-In-Reply-To: <1522059386-20601-3-git-send-email-tali.perry1@gmail.com>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Tali Perry <tali.perry1@gmail.com>
-References: <1522059386-20601-1-git-send-email-tali.perry1@gmail.com>
- <1522059386-20601-3-git-send-email-tali.perry1@gmail.com>
-Message-ID: <152393630051.51482.7797391524865573162@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.7
-Subject: Re: [PATCH v12 2/2] clk: npcm7xx: add clock controller
-Date: Mon, 16 Apr 2018 20:38:20 -0700
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40QBw21RqMzF21J
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Apr 2018 14:24:01 +1000 (AEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 18A41210C3;
+ Tue, 17 Apr 2018 00:23:59 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Tue, 17 Apr 2018 00:23:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=yklKjnFUsLQ7MSdKM
+ HzNKW7v6eG/faWTYbZFoHDuKLw=; b=bo7teiGADN3IVWDKciw1Rtxky29gxo/2z
+ fq+8dHOSGD2GTd7i9p1/T0dGCta9A/WAW1TcWnR0NV992UP3afZ4RwspfAcatyiF
+ /NPspsop60sWO8QwBuVI4YFTdSRWbPTLyxVo1/kJlUvHoZrGkuutuBkNE6ekgG1/
+ 39N/MDPP8kMVp1n61ZYcTPL5pAaWZ9HHupeBxCaZxVqBVq0PFxgYLLPQ1ieU7hrX
+ IILe7JgxXkpQ8RnXNYJkPbsmqvx5O+AQedyrJNP6GT7fb8AaAN5F/Ss/kGLzyo/U
+ H5KDSRJtOZbZp0qY4Wmh0XI15VHl19L8AgJGQj8WG2L8ShlMXvEBw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=yklKjnFUsLQ7MSdKM
+ HzNKW7v6eG/faWTYbZFoHDuKLw=; b=jSJ04dUCdX+fKsFWNZBoo1V7OA+7Snqbd
+ OWV/cQnB0+x+uDMagKql3x0bJFHipkx4y4aw3Zm552zMZxbQZqc1XCckmPaudGyC
+ 1OEbSjzjLPEQ5+MeYp58FY/bKNTuYLqy0vtt63rusLEspmiKNo6VR+EwjrScy3KG
+ Ay+2qa/ZHhYgqxqkAskEy2M8xiPROoIgg4LxCEIwpXATlI3oA75ddwlfb930QEdp
+ HGu/qjk5mJzlpK9m7Oj1ZqwqDcBhUNxE6d2DaYAhrIZgKTweADFu4PJN49rVwsq9
+ 2lTjVpfbLRNLR50OWkSOlvdv3QtrweyYV72qdsGR3hsVLQsueQhFQ==
+X-ME-Sender: <xms:3nbVWv_H805sAfaSmy4HiF1eY61pWYreUxIwXYY5UmWidHLA5njiwQ>
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 50DBC10278;
+ Tue, 17 Apr 2018 00:23:56 -0400 (EDT)
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: netdev@vger.kernel.org
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH RESEND net-next] net/ncsi: Refactor MAC, VLAN filters
+Date: Tue, 17 Apr 2018 14:23:23 +1000
+Message-Id: <20180417042323.27941-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.17.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -48,359 +63,711 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Apr 2018 03:38:24 -0000
+X-List-Received-Date: Tue, 17 Apr 2018 04:24:04 -0000
 
-Quoting Tali Perry (2018-03-26 03:16:26)
-> * Nuvoton NPCM7XX Clock Controller
-> =
+The NCSI driver defines a generic ncsi_channel_filter struct that can be
+used to store arbitrarily formatted filters, and several generic methods
+of accessing data stored in such a filter.
+However in both the driver and as defined in the NCSI specification
+there are only two actual filters: VLAN ID filters and MAC address
+filters. The splitting of the MAC filter into unicast, multicast, and
+mixed is also technically not necessary as these are stored in the same
+location in hardware.
 
-> Nuvoton Poleg BMC NPCM7XX contains an integrated clock controller, which
-> generates and supplies clocks to all modules within the BMC.
-> =
+To save complexity, particularly in the set up and accessing of these
+generic filters, remove them in favour of two specific structs. These
+can be acted on directly and do not need several generic helper
+functions to use.
 
-> =
+This also fixes a memory error found by KASAN on ARM32 (which is not
+upstream yet), where response handlers accessing a filter's data field
+could write past allocated memory.
 
-> =
+[  114.926512] ==================================================================
+[  114.933861] BUG: KASAN: slab-out-of-bounds in ncsi_configure_channel+0x4b8/0xc58
+[  114.941304] Read of size 2 at addr 94888558 by task kworker/0:2/546
+[  114.947593]
+[  114.949146] CPU: 0 PID: 546 Comm: kworker/0:2 Not tainted 4.16.0-rc6-00119-ge156398bfcad #13
+...
+[  115.170233] The buggy address belongs to the object at 94888540
+[  115.170233]  which belongs to the cache kmalloc-32 of size 32
+[  115.181917] The buggy address is located 24 bytes inside of
+[  115.181917]  32-byte region [94888540, 94888560)
+[  115.192115] The buggy address belongs to the page:
+[  115.196943] page:9eeac100 count:1 mapcount:0 mapping:94888000 index:0x94888fc1
+[  115.204200] flags: 0x100(slab)
+[  115.207330] raw: 00000100 94888000 94888fc1 0000003f 00000001 9eea2014 9eecaa74 96c003e0
+[  115.215444] page dumped because: kasan: bad access detected
+[  115.221036]
+[  115.222544] Memory state around the buggy address:
+[  115.227384]  94888400: fb fb fb fb fc fc fc fc 04 fc fc fc fc fc fc fc
+[  115.233959]  94888480: 00 00 00 fc fc fc fc fc 00 04 fc fc fc fc fc fc
+[  115.240529] >94888500: 00 00 04 fc fc fc fc fc 00 00 04 fc fc fc fc fc
+[  115.247077]                                             ^
+[  115.252523]  94888580: 00 04 fc fc fc fc fc fc 06 fc fc fc fc fc fc fc
+[  115.259093]  94888600: 00 00 06 fc fc fc fc fc 00 00 04 fc fc fc fc fc
+[  115.265639] ==================================================================
 
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> =
+Reported-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+ net/ncsi/internal.h     |  34 +++---
+ net/ncsi/ncsi-manage.c  | 226 +++++++++-------------------------------
+ net/ncsi/ncsi-netlink.c |  20 ++--
+ net/ncsi/ncsi-rsp.c     | 178 +++++++++++++------------------
+ 4 files changed, 147 insertions(+), 311 deletions(-)
 
-> =
-
-
-There should be a triple dash here.
-
-I applied this to clk-next with these changes squashed in. If anything
-is wrong let me know.
-
-----8<----
-
-diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
-index 7e4964b9e5c8..dba5384f03a4 100644
---- a/drivers/clk/clk-npcm7xx.c
-+++ b/drivers/clk/clk-npcm7xx.c
-@@ -8,24 +8,16 @@
-  */
- =
-
- #include <linux/module.h>
--#include <linux/clk.h>
- #include <linux/clk-provider.h>
--#include <linux/device.h>
- #include <linux/io.h>
- #include <linux/kernel.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
--#include <linux/of_platform.h>
- #include <linux/of_address.h>
--#include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/err.h>
--#include <linux/rational.h>
- #include <linux/bitfield.h>
--#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index 8da84312cd3b..8055e3965cef 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -68,15 +68,6 @@ enum {
+ 	NCSI_MODE_MAX
+ };
+ 
+-enum {
+-	NCSI_FILTER_BASE	= 0,
+-	NCSI_FILTER_VLAN	= 0,
+-	NCSI_FILTER_UC,
+-	NCSI_FILTER_MC,
+-	NCSI_FILTER_MIXED,
+-	NCSI_FILTER_MAX
+-};
 -
--#include <asm/cp15.h>
- =
-
-+#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
- =
-
- struct npcm7xx_clk_pll {
- 	struct clk_hw	hw;
-@@ -35,9 +27,6 @@ struct npcm7xx_clk_pll {
- =
-
- #define to_npcm7xx_clk_pll(_hw) container_of(_hw, struct npcm7xx_clk_pll, =
-hw)
- =
-
--struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon, const char *=
-name,
--	const char *parent_name, unsigned long flags);
+ struct ncsi_channel_version {
+ 	u32 version;		/* Supported BCD encoded NCSI version */
+ 	u32 alpha2;		/* Supported BCD encoded NCSI version */
+@@ -98,11 +89,18 @@ struct ncsi_channel_mode {
+ 	u32 data[8];	/* Data entries                */
+ };
+ 
+-struct ncsi_channel_filter {
+-	u32 index;	/* Index of channel filters          */
+-	u32 total;	/* Total entries in the filter table */
+-	u64 bitmap;	/* Bitmap of valid entries           */
+-	u32 data[];	/* Data for the valid entries        */
++struct ncsi_channel_mac_filter {
++	u8	n_uc;
++	u8	n_mc;
++	u8	n_mixed;
++	u64	bitmap;
++	unsigned char	*addrs;
++};
++
++struct ncsi_channel_vlan_filter {
++	u8	n_vids;
++	u64	bitmap;
++	u16	*vids;
+ };
+ 
+ struct ncsi_channel_stats {
+@@ -186,7 +184,9 @@ struct ncsi_channel {
+ 	struct ncsi_channel_version version;
+ 	struct ncsi_channel_cap	    caps[NCSI_CAP_MAX];
+ 	struct ncsi_channel_mode    modes[NCSI_MODE_MAX];
+-	struct ncsi_channel_filter  *filters[NCSI_FILTER_MAX];
++	/* Filtering Settings */
++	struct ncsi_channel_mac_filter	mac_filter;
++	struct ncsi_channel_vlan_filter	vlan_filter;
+ 	struct ncsi_channel_stats   stats;
+ 	struct {
+ 		struct timer_list   timer;
+@@ -320,10 +320,6 @@ extern spinlock_t ncsi_dev_lock;
+ 	list_for_each_entry_rcu(nc, &np->channels, node)
+ 
+ /* Resources */
+-u32 *ncsi_get_filter(struct ncsi_channel *nc, int table, int index);
+-int ncsi_find_filter(struct ncsi_channel *nc, int table, void *data);
+-int ncsi_add_filter(struct ncsi_channel *nc, int table, void *data);
+-int ncsi_remove_filter(struct ncsi_channel *nc, int table, int index);
+ void ncsi_start_channel_monitor(struct ncsi_channel *nc);
+ void ncsi_stop_channel_monitor(struct ncsi_channel *nc);
+ struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index c3695ba0cf94..5561e221b71f 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -27,125 +27,6 @@
+ LIST_HEAD(ncsi_dev_list);
+ DEFINE_SPINLOCK(ncsi_dev_lock);
+ 
+-static inline int ncsi_filter_size(int table)
+-{
+-	int sizes[] = { 2, 6, 6, 6 };
 -
- #define PLLCON_LOKI	BIT(31)
- #define PLLCON_LOKS	BIT(30)
- #define PLLCON_FBDV	GENMASK(27, 16)
-@@ -55,8 +44,7 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct c=
-lk_hw *hw,
- 	u64 ret;
- =
-
- 	if (parent_rate =3D=3D 0) {
--		pr_err("%s: parent rate is zero. reg=3D%x\n", __func__,
--			(u32)(pll->pllcon));
-+		pr_err("%s: parent rate is zero", __func__);
- 		return 0;
+-	BUILD_BUG_ON(ARRAY_SIZE(sizes) != NCSI_FILTER_MAX);
+-	if (table < NCSI_FILTER_BASE || table >= NCSI_FILTER_MAX)
+-		return -EINVAL;
+-
+-	return sizes[table];
+-}
+-
+-u32 *ncsi_get_filter(struct ncsi_channel *nc, int table, int index)
+-{
+-	struct ncsi_channel_filter *ncf;
+-	int size;
+-
+-	ncf = nc->filters[table];
+-	if (!ncf)
+-		return NULL;
+-
+-	size = ncsi_filter_size(table);
+-	if (size < 0)
+-		return NULL;
+-
+-	return ncf->data + size * index;
+-}
+-
+-/* Find the first active filter in a filter table that matches the given
+- * data parameter. If data is NULL, this returns the first active filter.
+- */
+-int ncsi_find_filter(struct ncsi_channel *nc, int table, void *data)
+-{
+-	struct ncsi_channel_filter *ncf;
+-	void *bitmap;
+-	int index, size;
+-	unsigned long flags;
+-
+-	ncf = nc->filters[table];
+-	if (!ncf)
+-		return -ENXIO;
+-
+-	size = ncsi_filter_size(table);
+-	if (size < 0)
+-		return size;
+-
+-	spin_lock_irqsave(&nc->lock, flags);
+-	bitmap = (void *)&ncf->bitmap;
+-	index = -1;
+-	while ((index = find_next_bit(bitmap, ncf->total, index + 1))
+-	       < ncf->total) {
+-		if (!data || !memcmp(ncf->data + size * index, data, size)) {
+-			spin_unlock_irqrestore(&nc->lock, flags);
+-			return index;
+-		}
+-	}
+-	spin_unlock_irqrestore(&nc->lock, flags);
+-
+-	return -ENOENT;
+-}
+-
+-int ncsi_add_filter(struct ncsi_channel *nc, int table, void *data)
+-{
+-	struct ncsi_channel_filter *ncf;
+-	int index, size;
+-	void *bitmap;
+-	unsigned long flags;
+-
+-	size = ncsi_filter_size(table);
+-	if (size < 0)
+-		return size;
+-
+-	index = ncsi_find_filter(nc, table, data);
+-	if (index >= 0)
+-		return index;
+-
+-	ncf = nc->filters[table];
+-	if (!ncf)
+-		return -ENODEV;
+-
+-	spin_lock_irqsave(&nc->lock, flags);
+-	bitmap = (void *)&ncf->bitmap;
+-	do {
+-		index = find_next_zero_bit(bitmap, ncf->total, 0);
+-		if (index >= ncf->total) {
+-			spin_unlock_irqrestore(&nc->lock, flags);
+-			return -ENOSPC;
+-		}
+-	} while (test_and_set_bit(index, bitmap));
+-
+-	memcpy(ncf->data + size * index, data, size);
+-	spin_unlock_irqrestore(&nc->lock, flags);
+-
+-	return index;
+-}
+-
+-int ncsi_remove_filter(struct ncsi_channel *nc, int table, int index)
+-{
+-	struct ncsi_channel_filter *ncf;
+-	int size;
+-	void *bitmap;
+-	unsigned long flags;
+-
+-	size = ncsi_filter_size(table);
+-	if (size < 0)
+-		return size;
+-
+-	ncf = nc->filters[table];
+-	if (!ncf || index >= ncf->total)
+-		return -ENODEV;
+-
+-	spin_lock_irqsave(&nc->lock, flags);
+-	bitmap = (void *)&ncf->bitmap;
+-	if (test_and_clear_bit(index, bitmap))
+-		memset(ncf->data + size * index, 0, size);
+-	spin_unlock_irqrestore(&nc->lock, flags);
+-
+-	return 0;
+-}
+-
+ static void ncsi_report_link(struct ncsi_dev_priv *ndp, bool force_down)
+ {
+ 	struct ncsi_dev *nd = &ndp->ndev;
+@@ -339,20 +220,13 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
+ static void ncsi_remove_channel(struct ncsi_channel *nc)
+ {
+ 	struct ncsi_package *np = nc->package;
+-	struct ncsi_channel_filter *ncf;
+ 	unsigned long flags;
+-	int i;
+ 
+-	/* Release filters */
+ 	spin_lock_irqsave(&nc->lock, flags);
+-	for (i = 0; i < NCSI_FILTER_MAX; i++) {
+-		ncf = nc->filters[i];
+-		if (!ncf)
+-			continue;
+ 
+-		nc->filters[i] = NULL;
+-		kfree(ncf);
+-	}
++	/* Release filters */
++	kfree(nc->mac_filter.addrs);
++	kfree(nc->vlan_filter.vids);
+ 
+ 	nc->state = NCSI_CHANNEL_INACTIVE;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+@@ -670,32 +544,26 @@ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
+ static int clear_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
+ 			 struct ncsi_cmd_arg *nca)
+ {
++	struct ncsi_channel_vlan_filter *ncf;
++	unsigned long flags;
++	void *bitmap;
+ 	int index;
+-	u32 *data;
+ 	u16 vid;
+ 
+-	index = ncsi_find_filter(nc, NCSI_FILTER_VLAN, NULL);
+-	if (index < 0) {
+-		/* Filter table empty */
+-		return -1;
+-	}
++	ncf = &nc->vlan_filter;
++	bitmap = &ncf->bitmap;
+ 
+-	data = ncsi_get_filter(nc, NCSI_FILTER_VLAN, index);
+-	if (!data) {
+-		netdev_err(ndp->ndev.dev,
+-			   "NCSI: failed to retrieve filter %d\n", index);
+-		/* Set the VLAN id to 0 - this will still disable the entry in
+-		 * the filter table, but we won't know what it was.
+-		 */
+-		vid = 0;
+-	} else {
+-		vid = *(u16 *)data;
++	spin_lock_irqsave(&nc->lock, flags);
++	index = find_next_bit(bitmap, ncf->n_vids, 0);
++	if (index >= ncf->n_vids) {
++		spin_unlock_irqrestore(&nc->lock, flags);
++		return -1;
  	}
- =
-
-@@ -73,13 +61,13 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct=
- clk_hw *hw,
- 	return ret;
- }
- =
-
--const struct clk_ops npcm7xx_clk_pll_ops =3D {
-+static const struct clk_ops npcm7xx_clk_pll_ops =3D {
- 	.recalc_rate =3D npcm7xx_clk_pll_recalc_rate,
- };
- =
-
--
--struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon, const char *=
-name,
--	const char *parent_name, unsigned long flags)
-+static struct clk_hw *
-+npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
-+			 const char *parent_name, unsigned long flags)
++	vid = ncf->vids[index];
+ 
+-	netdev_printk(KERN_DEBUG, ndp->ndev.dev,
+-		      "NCSI: removed vlan tag %u at index %d\n",
+-		      vid, index + 1);
+-	ncsi_remove_filter(nc, NCSI_FILTER_VLAN, index);
++	clear_bit(index, bitmap);
++	ncf->vids[index] = 0;
++	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+ 	nca->type = NCSI_PKT_CMD_SVF;
+ 	nca->words[1] = vid;
+@@ -711,45 +579,55 @@ static int clear_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
+ static int set_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
+ 		       struct ncsi_cmd_arg *nca)
  {
- 	struct npcm7xx_clk_pll *pll;
- 	struct clk_init_data init;
-@@ -90,8 +78,7 @@ struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pll=
-con, const char *name,
- 	if (!pll)
- 		return ERR_PTR(-ENOMEM);
- =
-
--	pr_debug("%s reg, reg=3D0x%x, name=3D%s, p=3D%s\n",
--		__func__, (unsigned int)pllcon, name, parent_name);
-+	pr_debug("%s reg, name=3D%s, p=3D%s\n", __func__, name, parent_name);
- =
-
- 	init.name =3D name;
- 	init.ops =3D &npcm7xx_clk_pll_ops;
-@@ -113,7 +100,6 @@ struct clk_hw *npcm7xx_clk_register_pll(void __iomem *p=
-llcon, const char *name,
- 	return hw;
- }
- =
-
--
- #define NPCM7XX_CLKEN1          (0x00)
- #define NPCM7XX_CLKEN2          (0x28)
- #define NPCM7XX_CLKEN3          (0x30)
-@@ -143,7 +129,6 @@ struct clk_hw *npcm7xx_clk_register_pll(void __iomem *p=
-llcon, const char *name,
- #define NPCM7XX_SECCNT          (0x68)
- #define NPCM7XX_CNTR25M         (0x6C)
- =
-
--
- struct npcm7xx_clk_gate_data {
- 	u32 reg;
- 	u8 bit_idx;
-@@ -219,7 +204,6 @@ struct npcm7xx_clk_pll_data {
- 	int onecell_idx;
- };
- =
-
--
- /*
-  * Single copy of strings used to refer to clocks within this driver index=
-ed by
-  * above enum.
-@@ -271,7 +255,6 @@ struct npcm7xx_clk_pll_data {
- #define NPCM7XX_CLK_S_USB_BRIDGE  "usb_bridge"
- #define NPCM7XX_CLK_S_PCI         "pci"
- =
-
--
- static u32 pll_mux_table[] =3D {0, 1, 2, 3};
- static const char * const pll_mux_parents[] __initconst =3D {
- 	NPCM7XX_CLK_S_PLL0,
-@@ -328,7 +311,6 @@ static const char * const dvcssel_mux_parents[] __initc=
-onst =3D {
- 	NPCM7XX_CLK_S_PLL2,
- };
- =
-
--
- static const struct npcm7xx_clk_pll_data npcm7xx_plls[] __initconst =3D {
- 	{NPCM7XX_PLLCON0, NPCM7XX_CLK_S_PLL0, NPCM7XX_CLK_S_REFCLK, 0, -1},
- =
-
-@@ -342,7 +324,6 @@ static const struct npcm7xx_clk_pll_data npcm7xx_plls[]=
- __initconst =3D {
- 	NPCM7XX_CLK_S_REFCLK, 0, -1},
- };
- =
-
--
- static const struct npcm7xx_clk_mux_data npcm7xx_muxes[] __initconst =3D {
- 	{0, GENMASK(1, 0), cpuck_mux_table, NPCM7XX_CLK_S_CPU_MUX,
- 	cpuck_mux_parents, ARRAY_SIZE(cpuck_mux_parents), CLK_IS_CRITICAL,
-@@ -387,7 +368,6 @@ static const struct npcm7xx_clk_div_fixed_data npcm7xx_=
-divs_fx[] __initconst =3D {
- 	{ 1, 2, NPCM7XX_CLK_S_PLL2_DIV2, NPCM7XX_CLK_S_PLL2, 0, -1},
- };
- =
-
--
- /* configurable dividers: */
- static const struct npcm7xx_clk_div_data npcm7xx_divs[] __initconst =3D {
- 	{NPCM7XX_CLKDIV1, 28, 3, NPCM7XX_CLK_S_ADC,
-@@ -455,7 +435,6 @@ static const struct npcm7xx_clk_div_data npcm7xx_divs[]=
- __initconst =3D {
- =
-
- };
- =
-
--
- static const struct npcm7xx_clk_gate_data npcm7xx_gates[] __initconst =3D {
- 	{NPCM7XX_CLKEN1, 31, "smb1-gate", NPCM7XX_CLK_S_APB2, 0},
- 	{NPCM7XX_CLKEN1, 30, "smb0-gate", NPCM7XX_CLK_S_APB2, 0},
-@@ -557,23 +536,17 @@ static const struct npcm7xx_clk_gate_data npcm7xx_gat=
-es[] __initconst =3D {
- 	{NPCM7XX_CLKEN3, 0, "pwmm1-gate", NPCM7XX_CLK_S_APB3, 0},
- };
- =
-
--
--
- static DEFINE_SPINLOCK(npcm7xx_clk_lock);
- =
-
--
- static void __init npcm7xx_clk_init(struct device_node *clk_np)
++	struct ncsi_channel_vlan_filter *ncf;
+ 	struct vlan_vid *vlan = NULL;
+-	int index = 0;
++	unsigned long flags;
++	int i, index;
++	void *bitmap;
++	u16 vid;
+ 
++	if (list_empty(&ndp->vlan_vids))
++		return -1;
++
++	ncf = &nc->vlan_filter;
++	bitmap = &ncf->bitmap;
++
++	spin_lock_irqsave(&nc->lock, flags);
++
++	rcu_read_lock();
+ 	list_for_each_entry_rcu(vlan, &ndp->vlan_vids, list) {
+-		index = ncsi_find_filter(nc, NCSI_FILTER_VLAN, &vlan->vid);
+-		if (index < 0) {
+-			/* New tag to add */
+-			netdev_printk(KERN_DEBUG, ndp->ndev.dev,
+-				      "NCSI: new vlan id to set: %u\n",
+-				      vlan->vid);
++		vid = vlan->vid;
++		for (i = 0; i < ncf->n_vids; i++)
++			if (ncf->vids[i] == vid) {
++				vid = 0;
++				break;
++			}
++		if (vid)
+ 			break;
+-		}
+-		netdev_printk(KERN_DEBUG, ndp->ndev.dev,
+-			      "vid %u already at filter pos %d\n",
+-			      vlan->vid, index);
+ 	}
++	rcu_read_unlock();
+ 
+-	if (!vlan || index >= 0) {
+-		netdev_printk(KERN_DEBUG, ndp->ndev.dev,
+-			      "no vlan ids left to set\n");
++	if (!vid) {
++		/* No VLAN ID is not set */
++		spin_unlock_irqrestore(&nc->lock, flags);
+ 		return -1;
+ 	}
+ 
+-	index = ncsi_add_filter(nc, NCSI_FILTER_VLAN, &vlan->vid);
+-	if (index < 0) {
++	index = find_next_zero_bit(bitmap, ncf->n_vids, 0);
++	if (index < 0 || index >= ncf->n_vids) {
+ 		netdev_err(ndp->ndev.dev,
+-			   "Failed to add new VLAN tag, error %d\n", index);
+-		if (index == -ENOSPC)
+-			netdev_err(ndp->ndev.dev,
+-				   "Channel %u already has all VLAN filters set\n",
+-				   nc->id);
++			   "Channel %u already has all VLAN filters set\n",
++			   nc->id);
++		spin_unlock_irqrestore(&nc->lock, flags);
+ 		return -1;
+ 	}
+ 
+-	netdev_printk(KERN_DEBUG, ndp->ndev.dev,
+-		      "NCSI: set vid %u in packet, index %u\n",
+-		      vlan->vid, index + 1);
++	ncf->vids[index] = vid;
++	set_bit(index, bitmap);
++	spin_unlock_irqrestore(&nc->lock, flags);
++
+ 	nca->type = NCSI_PKT_CMD_SVF;
+-	nca->words[1] = vlan->vid;
++	nca->words[1] = vid;
+ 	/* HW filter index starts at 1 */
+ 	nca->bytes[6] = index + 1;
+ 	nca->bytes[7] = 0x01;
+diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
+index 8d7e849d4825..b09ef77bf4cd 100644
+--- a/net/ncsi/ncsi-netlink.c
++++ b/net/ncsi/ncsi-netlink.c
+@@ -58,10 +58,9 @@ static int ncsi_write_channel_info(struct sk_buff *skb,
+ 				   struct ncsi_dev_priv *ndp,
+ 				   struct ncsi_channel *nc)
  {
- 	struct clk_hw_onecell_data *npcm7xx_clk_data;
- 	void __iomem *clk_base;
- 	struct resource res;
- 	struct clk_hw *hw;
--	struct clk *clk;
- 	int ret;
+-	struct nlattr *vid_nest;
+-	struct ncsi_channel_filter *ncf;
++	struct ncsi_channel_vlan_filter *ncf;
+ 	struct ncsi_channel_mode *m;
+-	u32 *data;
++	struct nlattr *vid_nest;
  	int i;
- =
-
--	clk_base =3D NULL;
--
- 	ret =3D of_address_to_resource(clk_np, 0, &res);
- 	if (ret) {
- 		pr_err("%s: failed to get resource, ret %d\n", clk_np->name,
-@@ -581,49 +554,20 @@ static void __init npcm7xx_clk_init(struct device_nod=
-e *clk_np)
- 		return;
+ 
+ 	nla_put_u32(skb, NCSI_CHANNEL_ATTR_ID, nc->id);
+@@ -79,18 +78,13 @@ static int ncsi_write_channel_info(struct sk_buff *skb,
+ 	vid_nest = nla_nest_start(skb, NCSI_CHANNEL_ATTR_VLAN_LIST);
+ 	if (!vid_nest)
+ 		return -ENOMEM;
+-	ncf = nc->filters[NCSI_FILTER_VLAN];
++	ncf = &nc->vlan_filter;
+ 	i = -1;
+-	if (ncf) {
+-		while ((i = find_next_bit((void *)&ncf->bitmap, ncf->total,
+-					  i + 1)) < ncf->total) {
+-			data = ncsi_get_filter(nc, NCSI_FILTER_VLAN, i);
+-			/* Uninitialised channels will have 'zero' vlan ids */
+-			if (!data || !*data)
+-				continue;
++	while ((i = find_next_bit((void *)&ncf->bitmap, ncf->n_vids,
++				  i + 1)) < ncf->n_vids) {
++		if (ncf->vids[i])
+ 			nla_put_u16(skb, NCSI_CHANNEL_ATTR_VLAN_ID,
+-				    *(u16 *)data);
+-		}
++				    ncf->vids[i]);
  	}
- =
-
--
- 	clk_base =3D ioremap(res.start, resource_size(&res));
- 	if (IS_ERR(clk_base))
- 		goto npcm7xx_init_error;
- =
-
--
- 	npcm7xx_clk_data =3D kzalloc(sizeof(*npcm7xx_clk_data->hws) *
- 		NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL);
--
--	npcm7xx_clk_data->num =3D 0;
--
--	if (!npcm7xx_clk_data->hws) {
--		pr_err("Can't alloc npcm7xx_clk_data\n");
-+	if (!npcm7xx_clk_data)
- 		goto npcm7xx_init_np_err;
--	}
- =
-
- 	npcm7xx_clk_data->num =3D NPCM7XX_NUM_CLOCKS;
- =
-
- 	for (i =3D 0; i < NPCM7XX_NUM_CLOCKS; i++)
- 		npcm7xx_clk_data->hws[i] =3D ERR_PTR(-EPROBE_DEFER);
- =
-
--	/* Read fixed clocks. These 3 clocks must be defined in DT */
--	clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
--	if (!IS_ERR(clk)) {
--		pr_err("failed to find external REFCLK: %ld\n",
--			PTR_ERR(clk));
--		clk_put(clk);
--	}
--
--	clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
--	if (!IS_ERR(clk)) {
--		pr_err("failed to find external SYSBYPCK: %ld\n",
--			PTR_ERR(clk));
--		clk_put(clk);
--	}
--
--	clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
--	if (!IS_ERR(clk)) {
--		pr_err("failed to find external MCBYPCK: %ld\n",
--			PTR_ERR(clk));
--		clk_put(clk);
--	}
--
- 	/* Register plls */
- 	for (i =3D 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
- 		const struct npcm7xx_clk_pll_data *pll_data =3D &npcm7xx_plls[i];
-@@ -640,18 +584,16 @@ static void __init npcm7xx_clk_init(struct device_nod=
-e *clk_np)
+ 	nla_nest_end(skb, vid_nest);
+ 
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index efd933ff5570..ce9497966ebe 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+@@ -334,9 +334,9 @@ static int ncsi_rsp_handler_svf(struct ncsi_request *nr)
+ 	struct ncsi_rsp_pkt *rsp;
+ 	struct ncsi_dev_priv *ndp = nr->ndp;
+ 	struct ncsi_channel *nc;
+-	struct ncsi_channel_filter *ncf;
+-	unsigned short vlan;
+-	int ret;
++	struct ncsi_channel_vlan_filter *ncf;
++	unsigned long flags;
++	void *bitmap;
+ 
+ 	/* Find the package and channel */
+ 	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->rsp);
+@@ -346,22 +346,23 @@ static int ncsi_rsp_handler_svf(struct ncsi_request *nr)
+ 		return -ENODEV;
+ 
+ 	cmd = (struct ncsi_cmd_svf_pkt *)skb_network_header(nr->cmd);
+-	ncf = nc->filters[NCSI_FILTER_VLAN];
+-	if (!ncf)
+-		return -ENOENT;
+-	if (cmd->index >= ncf->total)
++	ncf = &nc->vlan_filter;
++	if (cmd->index > ncf->n_vids)
+ 		return -ERANGE;
+ 
+-	/* Add or remove the VLAN filter */
++	/* Add or remove the VLAN filter. Remember HW indexes from 1 */
++	spin_lock_irqsave(&nc->lock, flags);
++	bitmap = &ncf->bitmap;
+ 	if (!(cmd->enable & 0x1)) {
+-		/* HW indexes from 1 */
+-		ret = ncsi_remove_filter(nc, NCSI_FILTER_VLAN, cmd->index - 1);
++		if (test_and_clear_bit(cmd->index - 1, bitmap))
++			ncf->vids[cmd->index - 1] = 0;
+ 	} else {
+-		vlan = ntohs(cmd->vlan);
+-		ret = ncsi_add_filter(nc, NCSI_FILTER_VLAN, &vlan);
++		set_bit(cmd->index - 1, bitmap);
++		ncf->vids[cmd->index - 1] = ntohs(cmd->vlan);
  	}
- =
-
- 	/* Register fixed dividers */
--	clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
-+	hw =3D clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
- 			NPCM7XX_CLK_S_PLL1, 0, 1, 2);
--	if (IS_ERR(clk)) {
-+	if (IS_ERR(hw)) {
- 		pr_err("npcm7xx_clk: Can't register fixed div\n");
- 		goto npcm7xx_init_fail;
- 	}
- =
-
--
--	clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
-+	hw =3D clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
- 			NPCM7XX_CLK_S_PLL2, 0, 1, 2);
--
--	if (IS_ERR(clk)) {
-+	if (IS_ERR(hw)) {
- 		pr_err("npcm7xx_clk: Can't register div2\n");
- 		goto npcm7xx_init_fail;
- 	}
-@@ -676,7 +618,7 @@ static void __init npcm7xx_clk_init(struct device_node =
-*clk_np)
- 			npcm7xx_clk_data->hws[mux_data->onecell_idx] =3D hw;
- 	}
- =
-
--	/* Register clock dividers specified in npcm7xx_divs. */
-+	/* Register clock dividers specified in npcm7xx_divs */
- 	for (i =3D 0; i < ARRAY_SIZE(npcm7xx_divs); i++) {
- 		const struct npcm7xx_clk_div_data *div_data =3D &npcm7xx_divs[i];
- =
-
-@@ -700,23 +642,15 @@ static void __init npcm7xx_clk_init(struct device_nod=
-e *clk_np)
- 	if (ret)
- 		pr_err("failed to add DT provider: %d\n", ret);
- =
-
--
- 	of_node_put(clk_np);
- =
-
- 	return;
- =
-
- npcm7xx_init_fail:
--	if (npcm7xx_clk_data->num)
--		kfree(npcm7xx_clk_data->hws);
-+	kfree(npcm7xx_clk_data->hws);
- npcm7xx_init_np_err:
--	if (clk_base !=3D NULL)
--		iounmap(clk_base);
-+	iounmap(clk_base);
- npcm7xx_init_error:
- 	of_node_put(clk_np);
--	pr_err("clk setup fail\n");
++	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+-	return ret;
++	return 0;
  }
+ 
+ static int ncsi_rsp_handler_ev(struct ncsi_request *nr)
+@@ -422,8 +423,12 @@ static int ncsi_rsp_handler_sma(struct ncsi_request *nr)
+ 	struct ncsi_rsp_pkt *rsp;
+ 	struct ncsi_dev_priv *ndp = nr->ndp;
+ 	struct ncsi_channel *nc;
+-	struct ncsi_channel_filter *ncf;
++	struct ncsi_channel_mac_filter *ncf;
++	unsigned long flags;
+ 	void *bitmap;
++	bool enabled;
++	int index;
++
+ 
+ 	/* Find the package and channel */
+ 	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->rsp);
+@@ -436,31 +441,23 @@ static int ncsi_rsp_handler_sma(struct ncsi_request *nr)
+ 	 * isn't supported yet.
+ 	 */
+ 	cmd = (struct ncsi_cmd_sma_pkt *)skb_network_header(nr->cmd);
+-	switch (cmd->at_e >> 5) {
+-	case 0x0:	/* UC address */
+-		ncf = nc->filters[NCSI_FILTER_UC];
+-		break;
+-	case 0x1:	/* MC address */
+-		ncf = nc->filters[NCSI_FILTER_MC];
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
++	enabled = cmd->at_e & 0x1;
++	ncf = &nc->mac_filter;
++	bitmap = &ncf->bitmap;
+ 
+-	/* Sanity check on the filter */
+-	if (!ncf)
+-		return -ENOENT;
+-	else if (cmd->index >= ncf->total)
++	if (cmd->index > ncf->n_uc + ncf->n_mc + ncf->n_mixed)
+ 		return -ERANGE;
+ 
+-	bitmap = &ncf->bitmap;
+-	if (cmd->at_e & 0x1) {
+-		set_bit(cmd->index, bitmap);
+-		memcpy(ncf->data + 6 * cmd->index, cmd->mac, 6);
++	index = (cmd->index - 1) * ETH_ALEN;
++	spin_lock_irqsave(&nc->lock, flags);
++	if (enabled) {
++		set_bit(cmd->index - 1, bitmap);
++		memcpy(&ncf->addrs[index], cmd->mac, ETH_ALEN);
+ 	} else {
+-		clear_bit(cmd->index, bitmap);
+-		memset(ncf->data + 6 * cmd->index, 0, 6);
++		clear_bit(cmd->index - 1, bitmap);
++		memset(&ncf->addrs[index], 0, ETH_ALEN);
+ 	}
++	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+ 	return 0;
+ }
+@@ -631,9 +628,7 @@ static int ncsi_rsp_handler_gc(struct ncsi_request *nr)
+ 	struct ncsi_rsp_gc_pkt *rsp;
+ 	struct ncsi_dev_priv *ndp = nr->ndp;
+ 	struct ncsi_channel *nc;
+-	struct ncsi_channel_filter *ncf;
+-	size_t size, entry_size;
+-	int cnt, i;
++	size_t size;
+ 
+ 	/* Find the channel */
+ 	rsp = (struct ncsi_rsp_gc_pkt *)skb_network_header(nr->rsp);
+@@ -655,64 +650,40 @@ static int ncsi_rsp_handler_gc(struct ncsi_request *nr)
+ 	nc->caps[NCSI_CAP_VLAN].cap = rsp->vlan_mode &
+ 				      NCSI_CAP_VLAN_MASK;
+ 
+-	/* Build filters */
+-	for (i = 0; i < NCSI_FILTER_MAX; i++) {
+-		switch (i) {
+-		case NCSI_FILTER_VLAN:
+-			cnt = rsp->vlan_cnt;
+-			entry_size = 2;
+-			break;
+-		case NCSI_FILTER_MIXED:
+-			cnt = rsp->mixed_cnt;
+-			entry_size = 6;
+-			break;
+-		case NCSI_FILTER_MC:
+-			cnt = rsp->mc_cnt;
+-			entry_size = 6;
+-			break;
+-		case NCSI_FILTER_UC:
+-			cnt = rsp->uc_cnt;
+-			entry_size = 6;
+-			break;
+-		default:
+-			continue;
+-		}
 -
- CLK_OF_DECLARE(npcm7xx_clk_init, "nuvoton,npcm750-clk", npcm7xx_clk_init);
+-		if (!cnt || nc->filters[i])
+-			continue;
 -
+-		size = sizeof(*ncf) + cnt * entry_size;
+-		ncf = kzalloc(size, GFP_ATOMIC);
+-		if (!ncf) {
+-			pr_warn("%s: Cannot alloc filter table (%d)\n",
+-				__func__, i);
+-			return -ENOMEM;
+-		}
 -
+-		ncf->index = i;
+-		ncf->total = cnt;
+-		if (i == NCSI_FILTER_VLAN) {
+-			/* Set VLAN filters active so they are cleared in
+-			 * first configuration state
+-			 */
+-			ncf->bitmap = U64_MAX;
+-		} else {
+-			ncf->bitmap = 0x0ul;
+-		}
+-		nc->filters[i] = ncf;
+-	}
++	size = (rsp->uc_cnt + rsp->mc_cnt + rsp->mixed_cnt) * ETH_ALEN;
++	nc->mac_filter.addrs = kzalloc(size, GFP_KERNEL);
++	if (!nc->mac_filter.addrs)
++		return -ENOMEM;
++	nc->mac_filter.n_uc = rsp->uc_cnt;
++	nc->mac_filter.n_mc = rsp->mc_cnt;
++	nc->mac_filter.n_mixed = rsp->mixed_cnt;
++
++	nc->vlan_filter.vids = kcalloc(rsp->vlan_cnt,
++				       sizeof(*nc->vlan_filter.vids),
++				       GFP_KERNEL);
++	if (!nc->vlan_filter.vids)
++		return -ENOMEM;
++	/* Set VLAN filters active so they are cleared in the first
++	 * configuration state
++	 */
++	nc->vlan_filter.bitmap = U64_MAX;
++	nc->vlan_filter.n_vids = rsp->vlan_cnt;
+ 
+ 	return 0;
+ }
+ 
+ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+ {
+-	struct ncsi_rsp_gp_pkt *rsp;
++	struct ncsi_channel_vlan_filter *ncvf;
++	struct ncsi_channel_mac_filter *ncmf;
+ 	struct ncsi_dev_priv *ndp = nr->ndp;
++	struct ncsi_rsp_gp_pkt *rsp;
+ 	struct ncsi_channel *nc;
+-	unsigned short enable, vlan;
++	unsigned short enable;
+ 	unsigned char *pdata;
+-	int table, i;
++	unsigned long flags;
++	void *bitmap;
++	int i;
+ 
+ 	/* Find the channel */
+ 	rsp = (struct ncsi_rsp_gp_pkt *)skb_network_header(nr->rsp);
+@@ -746,36 +717,33 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+ 	/* MAC addresses filter table */
+ 	pdata = (unsigned char *)rsp + 48;
+ 	enable = rsp->mac_enable;
++	ncmf = &nc->mac_filter;
++	spin_lock_irqsave(&nc->lock, flags);
++	bitmap = &ncmf->bitmap;
+ 	for (i = 0; i < rsp->mac_cnt; i++, pdata += 6) {
+-		if (i >= (nc->filters[NCSI_FILTER_UC]->total +
+-			  nc->filters[NCSI_FILTER_MC]->total))
+-			table = NCSI_FILTER_MIXED;
+-		else if (i >= nc->filters[NCSI_FILTER_UC]->total)
+-			table = NCSI_FILTER_MC;
+-		else
+-			table = NCSI_FILTER_UC;
 -
+ 		if (!(enable & (0x1 << i)))
+-			continue;
+-
+-		if (ncsi_find_filter(nc, table, pdata) >= 0)
+-			continue;
++			clear_bit(i, bitmap);
++		else
++			set_bit(i, bitmap);
+ 
+-		ncsi_add_filter(nc, table, pdata);
++		memcpy(&ncmf->addrs[i * ETH_ALEN], pdata, ETH_ALEN);
+ 	}
++	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+ 	/* VLAN filter table */
+ 	enable = ntohs(rsp->vlan_enable);
++	ncvf = &nc->vlan_filter;
++	bitmap = &ncvf->bitmap;
++	spin_lock_irqsave(&nc->lock, flags);
+ 	for (i = 0; i < rsp->vlan_cnt; i++, pdata += 2) {
+ 		if (!(enable & (0x1 << i)))
+-			continue;
+-
+-		vlan = ntohs(*(__be16 *)pdata);
+-		if (ncsi_find_filter(nc, NCSI_FILTER_VLAN, &vlan) >= 0)
+-			continue;
++			clear_bit(i, bitmap);
++		else
++			set_bit(i, bitmap);
+ 
+-		ncsi_add_filter(nc, NCSI_FILTER_VLAN, &vlan);
++		ncvf->vids[i] = ntohs(*(__be16 *)pdata);
+ 	}
++	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+ 	return 0;
+ }
+-- 
+2.17.0
