@@ -1,63 +1,70 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::22f; helo=mail-qk0-x22f.google.com;
+ (client-ip=2607:f8b0:400d:c0d::236; helo=mail-qt0-x236.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="qsbHKDMI"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ijgSPB6y"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="EiYFG9IO"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="MIqD9w1S"; 
  dkim-atps=neutral
-Received: from mail-qk0-x22f.google.com (mail-qk0-x22f.google.com
- [IPv6:2607:f8b0:400d:c09::22f])
+Received: from mail-qt0-x236.google.com (mail-qt0-x236.google.com
+ [IPv6:2607:f8b0:400d:c0d::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40RMhq3YyQzDqZH
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 12:03:22 +1000 (AEST)
-Received: by mail-qk0-x22f.google.com with SMTP id c136so3928883qkb.12
- for <openbmc@lists.ozlabs.org>; Wed, 18 Apr 2018 19:03:22 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40RNvL4wHQzF1v3
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 12:57:34 +1000 (AEST)
+Received: by mail-qt0-x236.google.com with SMTP id w12-v6so4066788qti.4
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Apr 2018 19:57:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:from:date:message-id:subject:to;
- bh=GjGl6/AJxZH9BgTW35HKatrp+tpjg6c8756mhke5QQs=;
- b=qsbHKDMIOYy73JpW5S6EEcdUSecqXa7sezizF2EwpyMIlgMzhJ3kkz2LUMY0YrFrwy
- MizO7f7C8HKNWHycHK3WwQ7SKS9QrLyNZBKJa9Zim3WHPvZTgLTQm9FShatOwafdLDo2
- h87SJsidAa8qPs9aWGJSHjHQEE9WRG6dHzW5Xr2gQRzzs5qICfyDFzqFLHrE3MFcuejm
- jOxQE3m97mIP90n3aw7QVkH8BisojuUhGB2ReBAch+EU1/8s3GcogmcKGP92dDydFo+A
- +fus8eTCpKAMOAtSBW37PLv81UYJyTuUEpNtc4fWQSSB2gDD2YgNNNG8/q30mCpKM0QW
- tsAg==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=52Ko3CfWjEyaGPo0JNzOCxtxf0zvVboMXsrTxkrvsVA=;
+ b=ijgSPB6yVi7JDVkJjxBKS7WaX+qvALWVj9i+TOHjwgvwdsFWtJYOg1RVvxPfslLyLK
+ z0f7uQAjUJ1Z/wo9uqZb2XZ+u5sVjiaACZOGobOrKPZntzvtlaNJcbz+sqJNjsTKjG8i
+ cMItfdb5gTi9sHRwn9bUe53DimJ0+RWL0hA18BAk4xbnuP/f/RMnDPm+No/9M8Y4cP4v
+ rUpmSwi+oDl7gEzieYNRStj6tyGj7In2LVTKiPrxHFgpHKsM1JXMYXyJMx3YPdco9AMJ
+ mfDEziug3XCvyw/h1hfBlH/P7tsaLJCPjPbSqblVSJmnpmgc+13CF46li6Hyk+80HQ0o
+ OvZQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:from:date:message-id:subject:to;
- bh=GjGl6/AJxZH9BgTW35HKatrp+tpjg6c8756mhke5QQs=;
- b=EiYFG9IOBXWK5BtIAw7p66oVYmrMvN5QYgcoTvzNPPA2RwwHflqZk4TksOjvqN5qTO
- dCR079H3jRpoulA+dqI+FZWb8HMPmrlUcbZ0IeGAqOMRldL8fSqChqISLGd+zZIhX8v7
- 9BvIIXxMsq8Y6KZAMO8LhMEJpWo717EAQ+O3U=
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=52Ko3CfWjEyaGPo0JNzOCxtxf0zvVboMXsrTxkrvsVA=;
+ b=MIqD9w1SDn4Wl1pcEngyV0JH/LhW7/CXQTPIiLvvY+x3IMbB6Jto4gOiK2Qo7svIQB
+ jobLgOAHcMOcsF8+AS8LRycEnnhIsSoFAXRJVLndEQ9adT+hnzQLD8yZf+r1DX9GDYIR
+ AXkIij2xFVfFg2Nhfi0N7GEMsnCKTWSRqmDNc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to; bh=GjGl6/AJxZH9BgTW35HKatrp+tpjg6c8756mhke5QQs=;
- b=g5qdjI4R/Vr4YCV4LHU6n+IlxJhGxPXPEAgB8jV92SMUrv7DqWNNkjRgeM6FcQp6F9
- ICB/gplQ8t9II7Jc0rMQy4jKvT1wJW9Vbf+JpoYHtYSS+OsyJE/e0acPRzoPFjAFzf5j
- NY1OGrHKqSXnafzYZ/Hf0srFGeMUg2imClF5T/eco0n9rB/l9x2IeVgYwF+OcWp44B4B
- sx/OKZpI2rzzr51u7aD/tZwJh1MkycYK8HrMeuZ61Eo2f+cw91iVruu4mYRQs4bxKBEa
- 5cptZn8vQ149QKbiVmFPECzZ48nVPxaq8qCTn7YvRJGwNE6fMPCNEWPLrXAcoO5DDefn
- UrGQ==
-X-Gm-Message-State: ALQs6tD/mCwU2yJ7eiAiJ29GZtf+Kd6uM0+uym0Yca94zVp29M/SCni5
- MPF7NQIgXVJeBBbwNLp81238BJ5AhBhohtoXufiI1zll
-X-Google-Smtp-Source: AIpwx4/seE9M5GoK8dgbBxhsucZM/XaA/VzxDBbONX0qAYQWb7IwZxlaU/DFBwCA8Pf/TBQ63jqgHXGn4Bfph06Ufxg=
-X-Received: by 10.55.212.69 with SMTP id l66mr4154538qki.112.1524103398987;
- Wed, 18 Apr 2018 19:03:18 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=52Ko3CfWjEyaGPo0JNzOCxtxf0zvVboMXsrTxkrvsVA=;
+ b=ChCW5cu6Owsj0YRyAUC4yFRaV2ENwEZGdHA7MWqbOaDj7O658sYHyjhujhU85hMtWJ
+ /iG4uBBila840L7IiMBxv8Mlmh3wZgjvCwAteUFnIb96+AqEeVuW7BGQBh9zu3gSTeBJ
+ RSgZ+VTaT+kYg7lc05sJuMvgL5+h344UFHiCgpcYJYBs34otlaL8+Xvyh0gpMFeuTn98
+ +nItuy44jDXYruzGB3O9hkx/PORYsJbe2y4amCbn7BcUV2lLpeYs1xN1iJ2oSce8+aDO
+ eD64C778kyntof6bhu8PmRzKFi7wmQVmODhBv6/oru/xgKEl+zMweYENaDadFBELce2v
+ NFyA==
+X-Gm-Message-State: ALQs6tCbrNqS+5DQTr/fXWq8RY0rRa+CRHCPw+6MzmXIfVy6yEZHxzmI
+ 2hDsRZsJr8F5bQnvLypaGJHzFxqhmiN5dAGu0G8=
+X-Google-Smtp-Source: AB8JxZpvC9q5iQyHHmzApUq3oYNJA8WRHM3ESkKoj3rrgVN71PWXhFyupFXe68Qn4zljGxBlEOUk4bWrIA9XCyQ00OU=
+X-Received: by 2002:ac8:684:: with SMTP id f4-v6mr4310976qth.306.1524106650623; 
+ Wed, 18 Apr 2018 19:57:30 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Wed, 18 Apr 2018 19:02:57 -0700 (PDT)
+Received: by 10.200.24.79 with HTTP; Wed, 18 Apr 2018 19:57:10 -0700 (PDT)
+In-Reply-To: <8E4514F2-2842-487D-B727-2C2D17FFAE7A@fuzziesquirrel.com>
+References: <8E4514F2-2842-487D-B727-2C2D17FFAE7A@fuzziesquirrel.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 19 Apr 2018 11:32:57 +0930
-X-Google-Sender-Auth: m_MwqgkxhqWSCkx4Qy_9Vmat31o
-Message-ID: <CACPK8Xdgcw2VF3mSssAajEyGask0mHeei59ivDLEEcP-NZ8KxA@mail.gmail.com>
-Subject: Merged DRM 4.14 tree into OpenBMC dev-4.13
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 19 Apr 2018 12:27:10 +0930
+X-Google-Sender-Auth: b1jBCI1AoY_dsfYgwTSEcltOdOM
+Message-ID: <CACPK8Xcpvyp6kAs4CNLv+vCAu6hJnQ5iRpU4Je=Ehcn4NYNQ=A@mail.gmail.com>
+Subject: Re: OpenBMC v2.2
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,19 +76,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 02:03:24 -0000
+X-List-Received-Date: Thu, 19 Apr 2018 02:57:35 -0000
 
-Hello OpenBMC kernel hackers,
+On 19 April 2018 at 10:53, Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
+> There has been lots of cool work in the last couple months and we=E2=80=
+=99ve been
+> reasonably stable with Yocto 2.4 and Linux 4.13 for some time now so lets
+> have a tag!
+>
+> Last time I mentioned v2.1 might be the last tag before switching to some
+> new branch strategy, but nothing has happened on that front.  So like
+> before,
+> stay tuned to the list for updates.
 
-Just a heads up that I intend to merge the DRM tree that was merged
-into the mainline 4.14 kernel. The ASPEED GFX DRM driver requires
-functionality that was included in this tree.
-
-This should have no impact on other parts of the BMC.
-
-I think in the future we'd prefer to move to a newer kernel base, but
-this is another option for gaining functionality in our tree. We will
-see how it goes.
+Cool. As someone who sees these numbers as a user (tech support
+person) of openbmc more than a developer, I would like to see them
+continue. In the past I suggested every six weeks, as it gives fast
+feedback of "this is old" or "this is new" (or "wow OpenBMC has moved
+on a lot since I booted it last").
 
 Cheers,
 
