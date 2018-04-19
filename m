@@ -6,43 +6,44 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="V9P1QFw8"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="UJiP56ZC"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Rf613z29zF21Q
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 22:52:41 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40RgFK63WQzF21Z
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 23:44:05 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 6ABFE51969;
- Thu, 19 Apr 2018 12:52:36 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id D0EB851969
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 13:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1524142355; x=
- 1525956756; bh=6kDhdy5HzLxhpA4E71+LQTO9aMyS3nU7r+xkvHMibpQ=; b=V
- 9P1QFw8K8UV5RCKcGxvvwWfExPSf1xVgCEJZz97szZrj1jAUSK/WFh4BNcCCodfa
- gzxjwih0EFnszsmNEqTNAXVGH4dsYTK2XToynBJZDaDaILHQvss59Nf5DKTd9cen
- Zv6Ya2aFgQpgUBRMPxb68TGAUtOW7nqKDtEZsVas1Q=
+ :received:received:received; s=mta-01; t=1524145438; x=
+ 1525959839; bh=keAMDI2uZUi6AK5oOpxj+/I1drKY8PR91vDvqT0IBwU=; b=U
+ JiP56ZCFKdNtqBmOe17zAj1LTzPok1JDIIb7hu+8yBCR1RiFWgxbjDSRjsRhzp5H
+ 3BvsHhOHPJ6bG6YYb07Y+W7nanHGSRcLT1uMKbMNjGP1ZnwqT75IwFI0bTo5qZPR
+ J6UAK3XY7oBDiLTnJedYvyAihx48pZZ0cj0wgYGi70=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id fOaPL4itacby; Thu, 19 Apr 2018 15:52:35 +0300 (MSK)
+ with ESMTP id BsefobMe-4sn for <openbmc@lists.ozlabs.org>;
+ Thu, 19 Apr 2018 16:43:58 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 3F99750A07;
- Thu, 19 Apr 2018 15:52:35 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 77EE450A07
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 16:43:58 +0300 (MSK)
 Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 19
- Apr 2018 15:52:34 +0300
-Subject: Re: IPMI Firmware Firewall
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, <emilyshaffer@google.com>, 
- <vernon.mauery@linux.intel.com>, <tomjose@linux.vnet.ibm.com>, OpenBMC
- Maillist <openbmc@lists.ozlabs.org>
-References: <1d827b60-27cf-25f9-3df0-07f28de9fdf5@linux.vnet.ibm.com>
+ Apr 2018 16:43:58 +0300
+Subject: Domains (was: Migration to new gerrit server is coming)
+To: <openbmc@lists.ozlabs.org>
+References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
+ <CACPK8XcFXZb1yyjsQpY8Qb=Yxrst8c4BYPtA2VBNea_bHU5VLA@mail.gmail.com>
+ <CALLMt=qWz4eJYN+BzpO1L7ihhvQA=RPQxsKG4AQpyyEB=sk0eg@mail.gmail.com>
 From: Alexander Amelkin <a.amelkin@yadro.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
@@ -88,15 +89,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  ESE0npJ5eeAcVWPHjhCwL8phZCDtfxJMy2cqYS8QLIBGfQTIHMQAgqBbpq9FLXCn008tvaTr
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <1d8664d8-d3ad-0be8-7237-535ed0f6ea34@yadro.com>
-Date: Thu, 19 Apr 2018 15:52:34 +0300
+Message-ID: <49734a94-6e64-5f3f-10cd-546303cc5d08@yadro.com>
+Date: Thu, 19 Apr 2018 16:43:57 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.5.0
 MIME-Version: 1.0
-In-Reply-To: <1d827b60-27cf-25f9-3df0-07f28de9fdf5@linux.vnet.ibm.com>
+In-Reply-To: <CALLMt=qWz4eJYN+BzpO1L7ihhvQA=RPQxsKG4AQpyyEB=sk0eg@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="UByPUSeJsnyovmm0tWESiFUc8jZfoDhv0"
+ boundary="V06MuddkMU9Xzdst1CS0vr5Sk7dzDqg04"
 X-Originating-IP: [172.17.14.168]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -111,57 +112,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 12:52:44 -0000
+X-List-Received-Date: Thu, 19 Apr 2018 13:44:06 -0000
 
---UByPUSeJsnyovmm0tWESiFUc8jZfoDhv0
-Content-Type: multipart/mixed; boundary="qjncsDWnrVLoCepbiQvD2CTX2tT0U24B2";
+--V06MuddkMU9Xzdst1CS0vr5Sk7dzDqg04
+Content-Type: multipart/mixed; boundary="AzK2EHjE3QwveKqXHnK78q4CvNqIJsvZA";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, emilyshaffer@google.com,
- vernon.mauery@linux.intel.com, tomjose@linux.vnet.ibm.com,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Message-ID: <1d8664d8-d3ad-0be8-7237-535ed0f6ea34@yadro.com>
-Subject: Re: IPMI Firmware Firewall
-References: <1d827b60-27cf-25f9-3df0-07f28de9fdf5@linux.vnet.ibm.com>
-In-Reply-To: <1d827b60-27cf-25f9-3df0-07f28de9fdf5@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Message-ID: <49734a94-6e64-5f3f-10cd-546303cc5d08@yadro.com>
+Subject: Domains (was: Migration to new gerrit server is coming)
+References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
+ <CACPK8XcFXZb1yyjsQpY8Qb=Yxrst8c4BYPtA2VBNea_bHU5VLA@mail.gmail.com>
+ <CALLMt=qWz4eJYN+BzpO1L7ihhvQA=RPQxsKG4AQpyyEB=sk0eg@mail.gmail.com>
+In-Reply-To: <CALLMt=qWz4eJYN+BzpO1L7ihhvQA=RPQxsKG4AQpyyEB=sk0eg@mail.gmail.com>
 
---qjncsDWnrVLoCepbiQvD2CTX2tT0U24B2
+--AzK2EHjE3QwveKqXHnK78q4CvNqIJsvZA
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Content-Language: en-US
 
-Well, although I've never seen this feature actually implemented
-anywhere, I can imagine that it can be useful for cases when the host OS
-is "owned"/managed by a different entity than the hardware. E.g. in a
-dedicated server hosting or similar scenarios. The owner of the hardware
-may not want to allow the tenants to be able to perform destructive or
-potentially destructive operations on the BMC. I can think of
-prohibiting firmware updates (even with good firmwares), user
-management, network configuration, SEL and PEF/PET manipulation, et al.
 
-Sincerely,
+03.04.2018 18:30, Andrew Geissler wrote:
+> On Mon, Apr 2, 2018 at 5:46 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> Do we have plans to use the gerrit.openbmc.org domain instead?
+> In order to reduce what's changing with this first migration, I'll
+> keep the old name but yes, Brad got me in touch with someone from the
+> Linux Foundation and long term we'll be moving to something like
+> gerrit.openbmc.org.
+I'm kind of lost with all these domains...
+I remember we have an ongoing effort to move all d-bus stuff from
+org.openbmc to xyz.openbmc-project.
+Now you're saying we'll be moving gerrit to openbmc.org...
+What is the official domain for openbmc now?
+Are we going to move the d-bus stuff back to org.openbmc now?
+Personally, I would welcome that as I hate the .xyz TLD as it is
+meaningless and beside that has some not very nice connotation for any
+Russian speaker. I also think that short 'openbmc' is way more neat than
+'openbmc-project'.
+Also, as openbmc-project.xyz is owned by Patrick Williams (as well as
+OpenBMC IANA PEN), and openbmc.org is owned by TLF, I'd say that we must
+go with openbmc.org everywhere.
+However, I'd like to know the official intention.
+
 Alexander.
 
-19.04.2018 13:17, Deepak Kodihalli wrote:
-> Hi All,
->
-> The Firmware Firewall is something that the OpenBMC stack does not
-> implement today. Do you know how useful this is to an IPMI user? Is
-> this something we must implement in the IPMI stack?
->
-> It seems to apply to malicious firmware running on the BMC in a blade
-> server/multi-bmc environment, but aren't those concerns addressed by
-> signed images and/or other modern security features?
->
-> Thanks,
-> Deepak
->
 
+--AzK2EHjE3QwveKqXHnK78q4CvNqIJsvZA--
 
-
---qjncsDWnrVLoCepbiQvD2CTX2tT0U24B2--
-
---UByPUSeJsnyovmm0tWESiFUc8jZfoDhv0
+--V06MuddkMU9Xzdst1CS0vr5Sk7dzDqg04
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -169,19 +167,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJa2JESAAoJEOiTWHtbdBeNYVUP/26d3206jEXXoqIStG+fLcgC
-mHkFQpcYDKzzi2l+xZfm8ofT1D/4MZGXdp2NnqcSsibzyqKKb0WY/G59V5Bl9WKV
-zHGGjGOy0NDWelCMBzcT2abtugEcxHY5ze8OlCHPIlRjUAzRBHUTm8Oszxd3kL3N
-f7pheK7C47/DjQcbNQAH4OrIgToVAl71zXtEZFGYPcYxOTKm3l8i7JzuMpSGHYQ0
-oPhiRoj4Xvfbal3MAfA2a8AdlUZec3jMqnKGZTbkdVdtI4YkuZEESxKlN30UM4ft
-KsA0pphEweST3NbSU2Y96nkvu/OCN1G6PZ291jihBprxncYM04buogYrsgGDob4B
-k4zxqnvDCzQpP/5uQJ6O3CSCsgY2W/G5jgGHgxYVkVV66TnXPx9lEn3nM+O4lGOK
-sA2X3IrBFtfKFwUj0Yi3UdpZHndW9n0MnVK/PNNWXBUn4iUHehcZuJO0YBuhMOih
-fu4mBB4g6vQmQ1RurauoCGZTpGXLVseW9tcRegVJl8GQHn1UKBvwOiBJUnW+yTLL
-3ddaRd4H7LDX0B8q7lX0l9ECJ6nGxuZrx8ka1h0PLB6Z1XecyXldAqNbrJobyC0T
-xHuHACmmdI987Eoh29Gt0mEk2Fm7TCixda9yuExLQevZSOPOAS9uQaN7EpmL/yhR
-WEkTY6Lzr5wwvKOVFCHf
-=wfbr
+iQIcBAEBCAAGBQJa2J0dAAoJEOiTWHtbdBeNaeYP/ip5B4Rt2/eLcJ9khZbGEkk4
+tIhQiF4v2c1lue4P8/YzDGVJirhY1y0tJVol4UozGLHXCcrssSo5v/b5lWum4+8Y
+tPJWJpjPZZ/+S5TWdrFHlIgGL1iv038+drkTkyYt1VH0GPFy8jJ/Lcuq/LQT40vP
+PWTXWKWDvk9s8o0sCs+/G0xtEyhxHDsWs3LzxhW0KRxLKWIH+vyUyBqCTmtDroWr
+QTCD/NDeGkPOAvDVRF3e1vzzMsm+qjmkQ2N3N+A7bkMrRS7Untl23ttRr80F+ErL
+0T0+xGAT9E4tyxoXU5yJ3SU7rzBqCuzmdAnHi/ZhAeNkr/82pQcv3q21b7eiA2tm
+xmFeDN5lv/7rvapVBOofxGx8z/MqcP3dluyDkByl8BTqOxgd/STfyb8vaDyKYtDb
+U8CCOQcrYEPntT5JRJ9H/JbbsTi6wVL2EhpWP1JzLOUk9mgmBsX1WYO2WKDZu6lJ
+15PYzN6Y6qCrcrmfgy2HQ9kns9Z7vA6WM9aOvI2HvhawcMo32s8t08x+FYZatyXM
+dg2oD0l5LJQnEVdDCymt+uSu0nsNRito9lczzBh3u/NVbDy9VTixMb7S4fDGiGE+
+J14qiA5j6c199SkH9yKzEHaaHEexTXa3bcxzeTTxcDZM7RPlZw/kM3nJlYdrtLwU
+aSqZYxGrQSyAPow630Pw
+=L10W
 -----END PGP SIGNATURE-----
 
---UByPUSeJsnyovmm0tWESiFUc8jZfoDhv0--
+--V06MuddkMU9Xzdst1CS0vr5Sk7dzDqg04--
