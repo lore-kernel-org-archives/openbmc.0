@@ -1,68 +1,68 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
+ (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pSPhnP4x"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bveuxjrk"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="Le14p68d"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="N16QCwQy"; 
  dkim-atps=neutral
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40RP7d6r2XzDr3t
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 13:08:13 +1000 (AEST)
-Received: by mail-qk0-x244.google.com with SMTP id c136so4045390qkb.12
- for <openbmc@lists.ozlabs.org>; Wed, 18 Apr 2018 20:08:13 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40RPZh1Nq2zF1s3
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 13:28:12 +1000 (AEST)
+Received: by mail-qk0-x241.google.com with SMTP id d74so4106303qkg.4
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Apr 2018 20:28:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=I5c5izz6JhofF1fq068rzSq6EB0J3whgCmidpCnd0DI=;
- b=pSPhnP4xwtx1rDxE5EqyJUk6FOK2ZqN6Fg3VxOb/Awuwa7qbHPd5SIKighVa8T96rv
- m+Ul5mh76ALNQt3g8yTCkpJYwJFqdpycLnhIBmqcQQ1fcuiyVjCKDTQIf/jbatPYpQvv
- IX1hStNqefvfsTI08/JIlgYNjGS3+GNVcCohtBH58kju2XcmYjwWA6vmrM5cfFLZfUV6
- 9UnyZ4qXpY4IEXBbuCKZDGZNCv9/1RL15XCbAzkK8lu/OJu5jmGWeLmnsM5TRdjS++Ad
- w0OuoDGG1vF4Pn41uXDuXAtuYaupenQp+9VxZ2I/24Z2N8ZVc6gCAYncFTTFTLcPXKX1
- lLbQ==
+ bh=JVjDFmK7XoxWORvWazjpDSeIAMCY509waCD00vThyd8=;
+ b=BveuxjrkDaiUCBp8bFvwxS001sYqcKgTMyQRZ5EAmUe3kT5GZS+BCWnAuR9SvFBBub
+ L+V8M12EV6wbSAg1qAvwE/iMnj14bcIju13hP1HR6ml3KlzpJcMmJrW1C+KevGy7+wCQ
+ /uVqukVUFjkG5uy5irt/NSYu1DwM9/F+mf3S7GVoW510fSTQS2rmzL3vqoh4JgH3wy+i
+ 2TYdOnwG19yccIyCUwEUXLsvojWAampvyu3AdYwvIiEKtszJ0CmU2edSAvsTzQ+tLp1p
+ ekVw/qVo+sBG4DrZy4VKXHlMdXjVftOroJVdkYquPZGptLgSNUlh+PoVIwYeexbCuUOx
+ XHPQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=I5c5izz6JhofF1fq068rzSq6EB0J3whgCmidpCnd0DI=;
- b=Le14p68dD8sWxbhNCMEL4tKYxInk8JKefYtdH71UmK7XdmGqR720uQMLAgaflUJkP7
- QJXj5KCuHxG1fOkIRKgvE4EVxe5p1HbUjvGk+PB939+0MgqXstBTn9hUzd6T8tM+Tm71
- B2X49/JXNREL9JOvIAOcIF+slCg1XT/Z8nhHM=
+ bh=JVjDFmK7XoxWORvWazjpDSeIAMCY509waCD00vThyd8=;
+ b=N16QCwQyCC3BDMTN+Mo9PS+W5Tq81MbbexHukto4+MFxG+yvUZIVN3S1rDXTCoD4lF
+ 0Hqo9IXNZoEvyMhVH9xUXeorD/zcK2joi1NZufgIR4Liow6fusD0dU7pm3qS3Siu/JlP
+ xHhDivWK2MJOWcl93nsw2H5lkFNEChuiYJ+S0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=I5c5izz6JhofF1fq068rzSq6EB0J3whgCmidpCnd0DI=;
- b=tlFXlrxWt6spvnICFZDsfaH0v9zxUokXKwSKKLbEZpnCuvyWSElYL/2EwABKt5nIo4
- sqsaws9Jg0/EiuNtxI1470bCjWgNmWmTqSJ+RpdDe4DbUJEWjGbc6UEvfVrEpie2SmxY
- l9XgOx+kuOrvLQvhhNYmAjbfHJyWiUiugq/iWaYCQkaZlKL2P60aLhHKwDCGFOfpjUmN
- bN/+FNUg7RnSHBKJfjuG9kL87JoSAjSrc4KKqjphqdeHW6gcmm+fhyflVRRH47ahSKmI
- 4ZpNcbLN3Plbo45ZHUwOjShGkk5ao9jyhu6pbxYdRIZpYatkVRhDEXK4zriyAFUBaYwm
- J1Tw==
-X-Gm-Message-State: ALQs6tDE5N9zCynkoA+QJ6PYcHOt5RexUIqjTn2xWEHtT8TI40WENl5I
- /oCng/F0IQUQ7QzLKcIovEOYKQH3ghMZFgtyOzE=
-X-Google-Smtp-Source: AB8JxZqki3SSdBqbUaZXO6s94RJ+r6fyRAjv/RySPwDOLkmVUh7nh7R2i8w3iT3Js+J09LQ50+J1yu45kv3rcq+Up5E=
-X-Received: by 10.55.31.129 with SMTP id n1mr4101276qkh.416.1524107289476;
- Wed, 18 Apr 2018 20:08:09 -0700 (PDT)
+ bh=JVjDFmK7XoxWORvWazjpDSeIAMCY509waCD00vThyd8=;
+ b=MqoTBwTTQlyaLxge6l9w7dCK5+8pd5R4DgI9JizvYoaa5N5TlV3oBi9Xsl34NQZgkI
+ UyvqzcszvB1feaFCk9K+3w4WZpFJ7XKHsTQlLu/ecagJvLFWmF9/gieabPESn3l78f9E
+ U7Sl+44xM3RNix2MZUfgmNttDYINnPLQLzOpgX/BCYZNxZOolEI9/gFXiJL3Psn84hlk
+ KdG5i6RSlSVF9r3HkwXhrK+EGiY7PTm+woU+ZTEGnVYRcyn0KcmzVkRbdCKxVMXYtf7Y
+ PNl/ElMuI/KO7Ag6xVyItDws7i8O3P6b/IwgeU5a6hvC1F5IjAMMfaBDgiYp4vpmFB+b
+ 6pjw==
+X-Gm-Message-State: ALQs6tB1hfgjwyWPmkHqedGQXxUVLDJ30/H673jH4Qzb6B9cyqYvZo1o
+ /PGSIkS5IMa19y1Oj/RrBgPnOCwu+lNi7ZBtNmM=
+X-Google-Smtp-Source: AB8JxZrlCMc5J8y3ZN+/LdZTKFiL5xorpzuPPPsOM/6HLlrpYT/S8hRaA/ewNt9K8UfB8mo+fSg7HQCrCS+LemU5q5s=
+X-Received: by 10.55.105.193 with SMTP id e184mr4187185qkc.352.1524108488709; 
+ Wed, 18 Apr 2018 20:28:08 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Wed, 18 Apr 2018 20:07:48 -0700 (PDT)
-In-Reply-To: <20180412035145.21488-2-andrew@aj.id.au>
+Received: by 10.200.24.79 with HTTP; Wed, 18 Apr 2018 20:27:48 -0700 (PDT)
+In-Reply-To: <20180412035145.21488-3-andrew@aj.id.au>
 References: <20180412035145.21488-1-andrew@aj.id.au>
- <20180412035145.21488-2-andrew@aj.id.au>
+ <20180412035145.21488-3-andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 19 Apr 2018 12:37:48 +0930
-X-Google-Sender-Auth: F4IfbQFFxA0WUpxOXcMldblce1k
-Message-ID: <CACPK8Xco1vLEFtxTmfp_roN0khOfdYMQAjN+R4mgo6DScwRZWA@mail.gmail.com>
-Subject: Re: [RFC PATCH linux dev-4.13 1/3] soc: aspeed: Miscellaneous control
- interfaces
+Date: Thu, 19 Apr 2018 12:57:48 +0930
+X-Google-Sender-Auth: kFPHeia_YDOPfmkAbxIjxESHY5M
+Message-ID: <CACPK8Xfijj9Ym5pLaP8ES_YYsw+VmDj+=16_6DkU44ckq0sZYw@mail.gmail.com>
+Subject: Re: [RFC PATCH linux dev-4.13 2/3] dts: aspeed-g5: Expose VGA scratch
+ registers
 To: Andrew Jeffery <andrew@aj.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>, 
  Benjamin Herrenschmidt <benh@kernel.crashing.org>
@@ -78,112 +78,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 03:08:15 -0000
+X-List-Received-Date: Thu, 19 Apr 2018 03:28:13 -0000
 
 On 12 April 2018 at 13:21, Andrew Jeffery <andrew@aj.id.au> wrote:
-> The ASPEED BMC SoCs have many knobs and switches that are sometimes
-> design-specific and often defy any approach to unify them under an
-> existing subsystem.
->
-> Add a driver to translate a devicetree table into sysfs entries to
-> expose bits and fields for manipulation from userspace. This encompasses
-> concepts from scratch registers to boolean conditions to enable or
-> disable host interface features.
->
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > ---
->  drivers/soc/Kconfig                  |   1 +
->  drivers/soc/Makefile                 |   1 +
->  drivers/soc/aspeed/Kconfig           |  11 +++
->  drivers/soc/aspeed/Makefile          |   1 +
->  drivers/soc/aspeed/aspeed-bmc-misc.c | 187 +++++++++++++++++++++++++++++++++++
->  5 files changed, 201 insertions(+)
->  create mode 100644 drivers/soc/aspeed/Kconfig
->  create mode 100644 drivers/soc/aspeed/Makefile
->  create mode 100644 drivers/soc/aspeed/aspeed-bmc-misc.c
+>  arch/arm/boot/dts/aspeed-g5.dtsi | 48 ++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
 >
-> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-> index 07fc0ac51c52..776fd5978f70 100644
-> --- a/drivers/soc/Kconfig
-> +++ b/drivers/soc/Kconfig
-> @@ -1,6 +1,7 @@
->  menu "SOC (System On Chip) specific Drivers"
+> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+> index 1468b4ad22dc..8321df50c593 100644
+> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+> @@ -158,6 +158,11 @@
 >
->  source "drivers/soc/actions/Kconfig"
-> +source "drivers/soc/aspeed/Kconfig"
->  source "drivers/soc/atmel/Kconfig"
->  source "drivers/soc/bcm/Kconfig"
->  source "drivers/soc/fsl/Kconfig"
-> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-> index 9241125416ba..94a5b97c4466 100644
-> --- a/drivers/soc/Makefile
-> +++ b/drivers/soc/Makefile
-> @@ -3,6 +3,7 @@
->  #
+>                                 };
 >
->  obj-$(CONFIG_ARCH_ACTIONS)     += actions/
-> +obj-$(CONFIG_ARCH_ASPEED)       += aspeed/
->  obj-$(CONFIG_ARCH_AT91)                += atmel/
->  obj-y                          += bcm/
->  obj-$(CONFIG_ARCH_DOVE)                += dove/
-> diff --git a/drivers/soc/aspeed/Kconfig b/drivers/soc/aspeed/Kconfig
-> new file mode 100644
-> index 000000000000..704a4efe180f
-> --- /dev/null
-> +++ b/drivers/soc/aspeed/Kconfig
-> @@ -0,0 +1,11 @@
-> +menu "ASPEED SoC drivers"
+> +                               vga_scratch: scratch@50 {
+> +                                       compatible = "aspeed,bmc-misc";
+
+Convention is to use aspeed,<socname>-<hardware>, so this would be
+aspeed,ast2500-bmc-misc.
+
+
+> +                                       reg = <0x50 0x20>;
+> +                               };
 > +
-> +config ASPEED_BMC_MISC
-> +       bool "Miscellaneous ASPEED BMC interfaces"
-
-Do you mean bool or tristate? if you mean bool, drop the module-y bits below.
-
-> +       depends on ARCH_ASPEED || COMPILE_TEST
-> +       default ARCH_ASPEED
-> +       help
-> +         Say yes to expose VGA and LPC scratch registers, and other
-> +         miscellaneous control interfaces specific to the ASPEED BMC SoCs
+>                                 hwrng@78 {
+>                                         compatible = "timeriomem_rng";
+>                                         reg = <0x78 0x4>;
+> @@ -1425,3 +1430,46 @@
+>                 groups = "WDTRST2";
+>         };
+>  };
 > +
-> +endmenu
-> diff --git a/drivers/soc/aspeed/Makefile b/drivers/soc/aspeed/Makefile
-> new file mode 100644
-> index 000000000000..d1a80f9a584f
-> --- /dev/null
-> +++ b/drivers/soc/aspeed/Makefile
-> @@ -0,0 +1 @@
-> +obj-$(CONFIG_ASPEED_BMC_MISC) += aspeed-bmc-misc.o
-> diff --git a/drivers/soc/aspeed/aspeed-bmc-misc.c b/drivers/soc/aspeed/aspeed-bmc-misc.c
-> new file mode 100644
-> index 000000000000..48522a736a05
-> --- /dev/null
-> +++ b/drivers/soc/aspeed/aspeed-bmc-misc.c
+> +&vga_scratch {
+> +       vga0 {
 
-copyright headahs
+Do these names come out in the userspace API?
 
-> @@ -0,0 +1,187 @@
-> +#include <linux/kobject.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/mfd/syscon.h>
-> +
-> +#define DEVICE_NAME "aspeed-bmc-misc"
+> +               offset = <0x50>;
 
-This is the name of our chardev? No, it appears to just be the driver
-name. You can probably just use it directly.
+Would reg <> be more devicetree-y than offset = <>?
 
-An observation: It's the only thing inside this file that is aspeed
-specific. If not for the name, it could be generic code.
 
-lgtm. I suggest writing up some bindings and putting on the asbestos pants.
+> +               bit-mask = <0xffffffff>;
+> +               bit-shift = <0>;
 
-I'll merge this into openbmc with the IBM copyright added to the top.
-With this adding userspace ABI, anyone who writes code against it will
-need to make themselves available for rework as it goes through
-upstream review.
+Should we assume this is the default? Or something else? Having a
+default for the common case would be nice.
 
-Cheers,
-
-Joel
+> +       };
+> +       vga1 {
+> +               offset = <0x54>;
+> +               bit-mask = <0xffffffff>;
+> +               bit-shift = <0>;
