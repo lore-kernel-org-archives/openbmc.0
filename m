@@ -6,58 +6,58 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="GG1sIozt"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="I0gtyG23"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="HcWRjsjr"; dkim-atps=neutral
+ header.b="XbbYDZNk"; dkim-atps=neutral
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40RSvY4Jv4zDqhm
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 15:58:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40RSwB70n3zF1pj
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 15:58:34 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 61EA3217FD;
- Thu, 19 Apr 2018 01:57:59 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id A8AAD211C9;
+ Thu, 19 Apr 2018 01:58:32 -0400 (EDT)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Thu, 19 Apr 2018 01:57:59 -0400
+ by compute4.internal (MEProxy); Thu, 19 Apr 2018 01:58:32 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=GD4HP8tbe6YU1hjewdKZAQizbyGIp
- X42X2X/+0bQ7to=; b=GG1sIoztOFUKsOWCRyqyaxELhn44m7Gk6xEXblGF7NZU/
- qvYeod+rt66jBUgBHWeFlmo2q7yK33rlJE8oNXu54YnsZ2WI8RYRBr7sudgKB8tz
- tAHM+6awRB9rOoU+jbXh8syo3BeCvAD7X8YrYL4kGgif7ILc8+xJBroO3AypwayI
- 9XNm8Bmc93HTAgPew57NO/venEUXJoENqspoAGRrLKVMv03n4Rd/6cAJ2yhZdVvR
- l8TYJqjpL7xENPr3tFFnp+en/yCp0xKoDayN1YQxmkUso+5H/U2+oYqgu3JRmkOP
- P68LtypjOaYO2db0l/JJ6IDUz6QCEaTjk2s7zrcZg==
+ :x-me-sender:x-sasl-enc; s=fm2; bh=NNENotBYsjvzs8sK1Ywnu0GN+h+Zq
+ /Mv/1lMyAnqLns=; b=I0gtyG23gWTrZP1afuWNCXfuWpQby/UwlHIDbbBIBK0bT
+ bJfg4QBVQmj9DcMkZpZYb5cWpaJ6WrTWngMCShQAD1YtcM9sTVVnKB9K5bshISYJ
+ +0xnmrKNaY61jYuApK+Mq9dV/7YuPIVLsvbfIQF5BZMuArTQM548v7edKuEj2iVt
+ 483xIL1QgoOrJA8GtZ2pTwrn3IOp/rOJxFrgfVyRua3Bx5CUloPu8ZM9IeFM8zJ7
+ x9Wbh42Q0h3c9riMytFDXMKWDpIgfmDos5kRZbh5mxTKCcpU/auvJ+y7OTjXbHMl
+ akyVl7i0g1Ddn6k/s4+SGNaVrr3UHcG8anZHvUerg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=GD4HP8
- tbe6YU1hjewdKZAQizbyGIpX42X2X/+0bQ7to=; b=HcWRjsjrd90YGbadY+AQgz
- A1W0/qtVX/Roo5dV3fErvCLex+0TOB4NyoV4VdBICl77CrXHeUHWhIzCNiwEIw5q
- lq55fU3wlqVohPQIzZD+FTLNt3eZu+NcCk/erO59dHSUsAv+5pOgmJio88r4Re6u
- LDxSoGnpzXJW1MkI/a6fkerU/tNBmBkna8NagydPdo0T95OeAHNhOmVipacHcJd9
- /XYfuB4kVJ6Rl5/gu/b127na4kY9ghWKuPEmB5KuObqFr4c/4kCx24MV+Kiwzm7d
- QBf6b76hCP6YYTlVi6kCIqhHFEHKuy8vDv7cOqCu62mZ2NLSMJC0IQuYPgLxNBqw
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=NNENot
+ BYsjvzs8sK1Ywnu0GN+h+Zq/Mv/1lMyAnqLns=; b=XbbYDZNkxwnnaxVF43TfZH
+ vfdURaf2aUNqnUtOO1VbXmPE8ZCn/QJVI4P2ztCNpNBXl2m6fLnDOPyB8BNaYz6D
+ VBp8fC0/AQG8tp3Y/iDK3mo3FF9wvBBewn0tjeOGwnCPfC2dvG6qTY8woX0cFAFk
+ D9ZEtR7Xq4P6iWTt1dSR8ablHxZhXenHakNb/KcnOrPK8LdYmdqxIYMX4K+GvEdL
+ noLvo+BXhLMpwrYvX1E5uVHA85L33iJU5fFXeVee0pq3bHxeTjg/GKdIr9SqWOXy
+ B+bvtIgBwSKOpK8f/LwH3LPHknlu0OAxIuc7H1Reb3KytITM6iwJrloqKONmQIiQ
  ==
-X-ME-Sender: <xms:5y_YWhQI7Q4nSBgcXesQXc5Ug5CF12ff8XRxqF5xAh_EUtjLZmQhhg>
+X-ME-Sender: <xms:CDDYWgabfzjeWqCexFChfrO_PmeDfq71_dr1s6mL-cWPy2I3Dgrf1g>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 07F444256; Thu, 19 Apr 2018 01:57:59 -0400 (EDT)
-Message-Id: <1524117478.2472615.1343250272.196BFE6E@webmail.messagingengine.com>
+ id 7B8604256; Thu, 19 Apr 2018 01:58:32 -0400 (EDT)
+Message-Id: <1524117512.2472690.1343250512.1F985982@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-f3006b89
-Subject: Re: [PATCH linux dev-4.13 4/5] ARM: dts: ast2500-evb: Enable the GFX
- IP
-Date: Thu, 19 Apr 2018 15:27:58 +0930
-In-Reply-To: <20180419042004.25168-5-joel@jms.id.au>
 References: <20180419042004.25168-1-joel@jms.id.au>
- <20180419042004.25168-5-joel@jms.id.au>
+ <20180419042004.25168-6-joel@jms.id.au>
+Subject: Re: [PATCH linux dev-4.13 5/5] ARM: dts: witherspoon: Enable the GFX
+ IP
+In-Reply-To: <20180419042004.25168-6-joel@jms.id.au>
+Date: Thu, 19 Apr 2018 15:28:32 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,7 +69,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 05:58:02 -0000
+X-List-Received-Date: Thu, 19 Apr 2018 05:58:35 -0000
 
 On Thu, 19 Apr 2018, at 13:50, Joel Stanley wrote:
 > The GFX controller is the internal graphics device used by the SoC
@@ -83,31 +83,18 @@ On Thu, 19 Apr 2018, at 13:50, Joel Stanley wrote:
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
 > ---
->  arch/arm/boot/dts/aspeed-ast2500-evb.dts | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/
-> dts/aspeed-ast2500-evb.dts
-> index 45efac8f8806..c0a7f51e7eb6 100644
-> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> @@ -13,12 +13,26 @@
->  
->  	chosen {
->  		stdout-path = &uart5;
-> -		bootargs = "console=ttyS4,115200 earlyprintk";
-> +		bootargs = "console=tty0 console=ttyS4,115200 earlyprintk";
->  	};
->  
->  	memory@80000000 {
-> +		device_type = "memory";
->  		reg = <0x80000000 0x20000000>;
->  	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/
+> arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index e8e4d305a9cf..596608f4b936 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -26,6 +26,13 @@
+>  			no-map;
+>  			reg = <0x98000000 0x04000000>; /* 64M */
+>  		};
 > +
 > +		gfx_memory: framebuffer {
 > +			size = <0x01000000>;
@@ -115,19 +102,17 @@ Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 > +			compatible = "shared-dma-pool";
 > +			reusable;
 > +		};
-> +	};
+>  	};
+>  
+>  	gpio-keys {
+> @@ -617,6 +624,7 @@
+>  
+>  &gfx {
+>  	status = "okay";
+> +	memory-region = <&gfx_memory>;
 >  };
 >  
->  &fmc {
-> @@ -80,3 +94,8 @@
->  		reg = <0x4d>;
->  	};
->  };
-> +
-> +&gfx {
-> +     status = "okay";
-> +     memory-region = <&gfx_memory>;
-> +};
+>  &pinctrl {
 > -- 
 > 2.17.0
 > 
