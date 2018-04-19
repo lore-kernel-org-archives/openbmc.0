@@ -1,70 +1,72 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <stewart@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40RqLM5LSKzF213
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 05:48:58 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2018 12:48:56 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,297,1520924400"; d="scan'208";a="35575832"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
- ([10.7.153.147])
- by orsmga006.jf.intel.com with ESMTP; 19 Apr 2018 12:48:56 -0700
-Subject: Re: [PATCH v3 07/10] Documentation: dt-bindings: Add documents for
- PECI hwmon client drivers
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
- Andrew Lunn <andrew@lunn.ch>, Andy Shevchenko <andriy.shevchenko@intel.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Fengguang Wu <fengguang.wu@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
- Guenter Roeck <linux@roeck-us.net>, Haiyue Wang
- <haiyue.wang@linux.intel.com>, James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
- Julia Cartwright <juliac@eso.teric.us>,
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>,
- Randy Dunlap <rdunlap@infradead.org>,
- Stef van Os <stef.van.os@prodrive-technologies.com>,
- Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
- Linux HWMON List <linux-hwmon@vger.kernel.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Rvbw4GmMzF20W
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 09:01:00 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w3JMx4Dg007302
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 19:00:57 -0400
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2hf42vgnct-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 19:00:57 -0400
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
+ Thu, 19 Apr 2018 19:00:56 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 19 Apr 2018 19:00:53 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w3JN0rNw3801368; Thu, 19 Apr 2018 23:00:53 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 75E8928041;
+ Thu, 19 Apr 2018 19:00:16 -0400 (EDT)
+Received: from birb.localdomain (unknown [9.102.50.46])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with SMTP id AC2782803F;
+ Thu, 19 Apr 2018 19:00:15 -0400 (EDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 9AA6F4EC649; Fri, 20 Apr 2018 09:00:47 +1000 (AEST)
+From: Stewart Smith <stewart@linux.ibm.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
- <20180410183212.16787-8-jae.hyun.yoo@linux.intel.com>
- <20180416181423.t4vf7sugv6z3aw5h@rob-hp-laptop>
- <aee4e04c-885f-b1d8-9e85-9e741551342f@linux.intel.com>
- <287e0fd9-b631-2602-2785-7b8aaed7a6b9@linux.intel.com>
- <6ff697e8-cd20-e551-da13-b614cc39f900@linux.intel.com>
- <CAL_JsqLcxEnCOywTtU14G4=6A5m6G=KH3oi8m1VxKSEdxuv-ww@mail.gmail.com>
- <1f2a86ff-b902-1d1d-488a-807ac1dd20cc@linux.intel.com>
- <CAL_JsqLpuNj4kQ8oXB0kxOsS7ww9Jk-oq4tJrroDKkLRTPrjSA@mail.gmail.com>
- <884d3c16-84e8-e38a-731a-313ba7105176@linux.intel.com>
-Message-ID: <411481f1-78fe-d53f-cf56-c58a5ce954f3@linux.intel.com>
-Date: Thu, 19 Apr 2018 12:48:55 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+Subject: Re: OpenBMC v2.2
+In-Reply-To: <8E4514F2-2842-487D-B727-2C2D17FFAE7A@fuzziesquirrel.com>
+References: <8E4514F2-2842-487D-B727-2C2D17FFAE7A@fuzziesquirrel.com>
+Date: Fri, 20 Apr 2018 09:00:47 +1000
 MIME-Version: 1.0
-In-Reply-To: <884d3c16-84e8-e38a-731a-313ba7105176@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+x-cbid: 18041923-0044-0000-0000-000004081513
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008885; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000257; SDB=6.01020377; UDB=6.00520637; IPR=6.00799615; 
+ MB=3.00020673; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-19 23:00:54
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18041923-0045-0000-0000-0000083A1B8C
+Message-Id: <87k1t2hkdc.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-04-19_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1804190205
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,178 +78,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 19:49:00 -0000
+X-List-Received-Date: Thu, 19 Apr 2018 23:01:01 -0000
 
-On 4/18/2018 2:57 PM, Jae Hyun Yoo wrote:
-> On 4/18/2018 2:28 PM, Rob Herring wrote:
->> On Wed, Apr 18, 2018 at 3:28 PM, Jae Hyun Yoo
->> <jae.hyun.yoo@linux.intel.com> wrote:
->>> On 4/18/2018 7:32 AM, Rob Herring wrote:
->>>>
->>>> On Tue, Apr 17, 2018 at 3:40 PM, Jae Hyun Yoo
->>>> <jae.hyun.yoo@linux.intel.com> wrote:
->>>>>
->>>>> On 4/16/2018 4:51 PM, Jae Hyun Yoo wrote:
->>>>>>
->>>>>>
->>>>>> On 4/16/2018 4:22 PM, Jae Hyun Yoo wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 4/16/2018 11:14 AM, Rob Herring wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On Tue, Apr 10, 2018 at 11:32:09AM -0700, Jae Hyun Yoo wrote:
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> This commit adds dt-bindings documents for PECI cputemp and 
->>>>>>>>> dimmtemp
->>>>>>>>> client
->>>>>>>>> drivers.
->>>>>>>>
->>>>>>>>
->>>>>>>>
->>>>>
->>>>> [...]
->>>>>
->>>>>>>>> +Example:
->>>>>>>>> +    peci-bus@0 {
->>>>>>>>> +        #address-cells = <1>;
->>>>>>>>> +        #size-cells = <0>;
->>>>>>>>> +        < more properties >
->>>>>>>>> +
->>>>>>>>> +        peci-dimmtemp@cpu0 {
->>>>>>>>
->>>>>>>>
->>>>>>>>
->>>>>>>> unit-address is wrong.
->>>>>>>>
->>>>>>>
->>>>>>> Will fix it using the reg value.
->>>>>>>
->>>>>>>> It is a different bus from cputemp? Otherwise, you have conflicting
->>>>>>>> addresses. If that's the case, probably should make it clear by
->>>>>>>> showing
->>>>>>>> different host adapters for each example.
->>>>>>>>
->>>>>>>
->>>>>>> It could be the same bus with cputemp. Also, client address 
->>>>>>> sharing is
->>>>>>> possible by PECI core if the functionality is different. I mean,
->>>>>>> cputemp and
->>>>>>> dimmtemp targeting the same client is possible case like this.
->>>>>>> peci-cputemp@30
->>>>>>> peci-dimmtemp@30
->>>>>>>
->>>>>>
->>>>>> Oh, I got your point. Probably, I should change these separate 
->>>>>> settings
->>>>>> into one like
->>>>>>
->>>>>> peci-client@30 {
->>>>>>        compatible = "intel,peci-client";
->>>>>>        reg = <0x30>;
->>>>>> };
->>>>>>
->>>>>> Then cputemp and dimmtemp drivers could refer the same compatible
->>>>>> string.
->>>>>> Will rewrite it.
->>>>>>
->>>>>
->>>>> I've checked it again and realized that it should use function 
->>>>> based node
->>>>> name like:
->>>>>
->>>>> peci-cputemp@30
->>>>> peci-dimmtemp@30
->>>>>
->>>>> If it use the same string like 'peci-client@30', the drivers cannot be
->>>>> selectively enabled. The client address sharing way is well handled in
->>>>> PECI
->>>>> core and this way would be better for the future implementations of 
->>>>> other
->>>>> PECI functional drivers such as crash dump driver and so on. So I'm 
->>>>> going
->>>>> change the unit-address only.
->>>>
->>>>
->>>> 2 nodes at the same address is wrong (and soon dtc will warn you on
->>>> this). You have 2 potential options. The first is you need additional
->>>> address information in the DT if these are in fact 2 independent
->>>> devices. This could be something like a function number to use
->>>> something from PCI addressing. From what I found on PECI, it doesn't
->>>> seem to have anything like that. The 2nd option is you have a single
->>>> DT node which registers multiple hwmon devices. DT nodes and drivers
->>>> don't have to be 1-1. Don't design your DT nodes from how you want to
->>>> partition drivers in some OS.
->>>>
->>>> Rob
->>>>
->>>
->>> Please correct me if I'm wrong but I'm still thinking that it is
->>> possible. Also, I did compile it but dtc doesn't make a warning. Let me
->>> show an another use case which is similar to this case:
->>
->> I did say *soon*. It's in dtc repo, but not the kernel copy yet.
->>
->>> In arch/arm/boot/dts/aspeed-g5.dtsi
->>> [...]
->>> lpc_host: lpc-host@80 {
->>>          compatible = "aspeed,ast2500-lpc-host", "simple-mfd", "syscon";
->>>          reg = <0x80 0x1e0>;
->>>          reg-io-width = <4>;
->>>
->>>          #address-cells = <1>;
->>>          #size-cells = <1>;
->>>          ranges = <0x0 0x80 0x1e0>;
->>>
->>>          lpc_ctrl: lpc-ctrl@0 {
->>>                  compatible = "aspeed,ast2500-lpc-ctrl";
->>>                  reg = <0x0 0x80>;
->>>                  clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
->>>                  status = "disabled";
->>>          };
->>>
->>>          lpc_snoop: lpc-snoop@0 {
->>>                  compatible = "aspeed,ast2500-lpc-snoop";
->>>                  reg = <0x0 0x80>;
->>>                  interrupts = <8>;
->>>                  status = "disabled";
->>>          };
->>> }
->>> [...]
->>>
->>> This is device tree setting for LPC interface and its child nodes.
->>> LPC interface can be used as a multi-functional interface such as
->>> snoop 80, KCS, SIO and so on. In this use case, lpc-ctrl@0 and
->>> lpc-snoop@0 are sharing their address range from their individual
->>> driver modules and they can be registered quite well through both
->>> static dt or dynamic dtoverlay. PECI is also a multi-functional
->>> interface which is similar to the above case, I think.
->>
->> This case too is poor design and should be fixed as well. Simply put,
->> you can have 2 devices on a bus at the same address without some sort
->> of mux or arbitration device in the middle. If you have a device/block
->> with multiple functions provided to the OS, then it is the OS's
->> problem to arbitrate access. It is not a DT problem because OS's can
->> vary in how they handle that both from OS to OS and over time.
->>
->> Rob
->>
-> 
-> If I change it to a single DT node which registers 2 hwmon devices using
-> the 2nd option above, then I still have 2 devices on a bus at the same
-> address. Does it also make a problem to the OS then?
-> 
-> Jae
+Brad Bishop <bradleyb@fuzziesquirrel.com> writes:
+> There has been lots of cool work in the last couple months and we=E2=80=
+=99ve been
+> reasonably stable with Yocto 2.4 and Linux 4.13 for some time now so lets
+> have a tag!
 
-Additionally, I need to explain that there is one and only bus host
-(adapter) and multiple clients on a PECI bus, and PECI spec doesn't
-allow multiple originators so only the host device can originate
-message. In this implementation, all message transactions on a bus from
-client driver modules and user space will be serialized well in the PECI
-core bus driver so bus occupation and traffic arbitration will be
-managed well in the PECI core bus driver even in case of a bus has 2 
-client drivers at the same address. I'm sure that this implementation 
-doesn't make that kind of problem to OS.
+I echo that feeling - I've been building and running with openbmc master
+as of whatever stage it's in at 8am each morning for a while, and
+legitimately only hit one decent problem (okay, that was the bmc
+bricking itself, no idea why yet because having BMC serial would be
+useful, so of course I don't have it).
 
-Jae
+Thanks to everyone for the efforts in making things more stable.
+
+--=20
+Stewart Smith
+OPAL Architect, IBM.
