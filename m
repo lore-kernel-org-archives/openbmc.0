@@ -1,57 +1,61 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22e; helo=mail-it0-x22e.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4003:c0f::232; helo=mail-ot0-x232.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nesGr7QE"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="PSmtBJfm"; 
  dkim-atps=neutral
-Received: from mail-it0-x22e.google.com (mail-it0-x22e.google.com
- [IPv6:2607:f8b0:4001:c0b::22e])
+Received: from mail-ot0-x232.google.com (mail-ot0-x232.google.com
+ [IPv6:2607:f8b0:4003:c0f::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Rhqv1hJXzF1Rl
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 00:55:38 +1000 (AEST)
-Received: by mail-it0-x22e.google.com with SMTP id 71-v6so7043036ith.2
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 07:55:38 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40RjHT4m2qzF1yt
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 01:16:05 +1000 (AEST)
+Received: by mail-ot0-x232.google.com with SMTP id w2-v6so6233719otj.0
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 08:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=YOhLfqmmFGKwObRsZjLT9RK/LP+9FfiRKUc0uLYg3IU=;
- b=nesGr7QE9qe+oci9uDIXtSQR1TbfEW1YEkbGvVOFgGeAwdINp4Qfnm7YHc8knuwdra
- izpIkCEMLWSMc9gFNP5kjQO1FhSBzvByFMbdrylDvrVmyVsd3YmHM6duPG3VQXq2ljEZ
- 2UzrzRrh161Essqe6/9I79NakdXYVcTJvykpPyy1bxvvh8ZpNR06EOH2+mk1qYgjAcTg
- ub0MVf75toHxMWylo7a3r/MBubldMtFFFFmQa8fXGlmGFDZuB5pUe5pPXOknDNYzaIdy
- gZG0Ucv3jzAWKuOQQ6kkarJXoJquxp+ba2+tMA1LOuookaYOKNmYrks/oJWiXWeiKHM9
- JITw==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=ZgOzZXNfZG5Y8oKaTNvr7a7Ut9VEqP6SbK3WUHd4W14=;
+ b=PSmtBJfmZkOgBvhwo29NMcIaG2ZZJV8VB7QtMnjayTBZf0F9DubKdksgJVO1s+MFTZ
+ sKZPluF+e9zWaHWC0Bd80E2X6FGKRl7KxoJnaw62ByzgoG0GSGghJSskJKAeIRbIkG+3
+ jmQ7fwsFfRcQKQq4M+tVrazoN6e0LEcq1FsrGos2ardKu3qgI6IOEhQn7dO2UWsGAzml
+ POi0kXW5jlibxR54LkZ4/l/mJ2Atvkv8sRlgOqYTFED7xQs/ex86cL6fb3c/xE3wG84E
+ HTTsRgXvhlDyre9f+6fAbMDVceTaBtd3UAuGsgULy9w9GpgplOYM0v2I0395zAvctqCf
+ v/QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=YOhLfqmmFGKwObRsZjLT9RK/LP+9FfiRKUc0uLYg3IU=;
- b=P3L43r0eOdzRKMs0cPjUB/kt0fG+CtYFsROkstKfLsucfj3ZPvBsE+R0T3YWtavegu
- YMMIblnYmCujSd3yk5kQr6er6nbmaieN+AcRP67YL2AeolbCHpW51SRSJ/Lc7vcREoHu
- XnIoqjtu0LTB/fahB2iHLV1QoJYSpFRp8F1p8axKItArQTNwAXxLdsGTwU8k/s9sqwlE
- eRD3ge4EwSYodUXVZvm7FVlnPvB2KkTzCjS9emJA7ud3kzROKk2hSVi/yviN4ooxC0C5
- JKkL75FusvHaW9BE3jHbtEloZ0d2H0NALUsOf7VjRZH7AeYoftHfZOZJp95ppTRybhYb
- TBPg==
-X-Gm-Message-State: ALQs6tAetsUiUHfWJrjVuV3RIGyiOO0pByvhc+K91L8cy+qdK09KVv+1
- Lk0Q2+nXQjRnNGESVYZkKKePynBdPKdMsYvVCFE=
-X-Google-Smtp-Source: AIpwx496Rxcj1ceJTKzj6KUxD2xV9ipBhM1OBIrYILEyHg659lDozEeCJsM5I+ZWi8IreiKjyMQwonKH5b2mLsOaoW4=
-X-Received: by 2002:a24:cf07:: with SMTP id y7-v6mr6715836itf.94.1524149735723; 
- Thu, 19 Apr 2018 07:55:35 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=ZgOzZXNfZG5Y8oKaTNvr7a7Ut9VEqP6SbK3WUHd4W14=;
+ b=sqZc/ZrA0WpqTEuGIIRNdVxHkDccEnuVhSf0VtHMI2BKNGopJ1qYXmf6pEw0TjLxLy
+ 46dPp/Xtk0rjs/qjGeZ+7NKRUix1aRMXdq5xVjw8ayS0L9u0hDqMLokI2iQFDQabpKTi
+ oMxJPDSqg8Sya5zZDJU1slaGjiQS97ggDZrUI9LNciG6hvuCX/Jj4VYXtLfm+/iNlzO+
+ xb6WgRLa3QamV2EbqjcQPmMIsOHYAFdeXqL7ooPJdyMU0G8DpybDL2ygDJRBZ14Qb5P6
+ BGBIKF7nLI006tT5kFPpaAIimTqf6edYPP8cQtCLL65VBZTjnExT8vyAJLB4wtGJITFB
+ wLjQ==
+X-Gm-Message-State: ALQs6tBirCuvkHCef3a/RfjiBwnMsJNEveuMU9lNRiQRSByGpOJdM++N
+ TEvOYpxSsGB5vEQHEQt27QpNM6ON/0ulY8XkDiM=
+X-Google-Smtp-Source: AIpwx49kuH2I5fSvhRXmdsFL9RiBJmKzbiQn5CJeexkBonby2ejCU/rKroaoXdbn5sJnMM6acjgK+mRzaBm9qBJRM60=
+X-Received: by 2002:a9d:3033:: with SMTP id
+ d48-v6mr4462316otc.329.1524150962712; 
+ Thu, 19 Apr 2018 08:16:02 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.192.229.15 with HTTP; Thu, 19 Apr 2018 07:55:35 -0700 (PDT)
-In-Reply-To: <C13E036C-8CA0-45B1-8CD9-745137866CFC@fuzziesquirrel.com>
-References: <D4564025-0417-4B95-A864-9EAB5544BCAD@fuzziesquirrel.com>
- <C13E036C-8CA0-45B1-8CD9-745137866CFC@fuzziesquirrel.com>
-From: Kurt Taylor <kurt.r.taylor@gmail.com>
-Date: Thu, 19 Apr 2018 09:55:35 -0500
-Message-ID: <CAG5Oiwg0zu=twou-3wu5uyrmk8qHipf5_13pW6N0_wBx982YEw@mail.gmail.com>
-Subject: Re: Community call - vote for a new time
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000951a5e056a34c341"
+Received: by 10.201.50.79 with HTTP; Thu, 19 Apr 2018 08:16:02 -0700 (PDT)
+In-Reply-To: <49734a94-6e64-5f3f-10cd-546303cc5d08@yadro.com>
+References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
+ <CACPK8XcFXZb1yyjsQpY8Qb=Yxrst8c4BYPtA2VBNea_bHU5VLA@mail.gmail.com>
+ <CALLMt=qWz4eJYN+BzpO1L7ihhvQA=RPQxsKG4AQpyyEB=sk0eg@mail.gmail.com>
+ <49734a94-6e64-5f3f-10cd-546303cc5d08@yadro.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 19 Apr 2018 10:16:02 -0500
+Message-ID: <CALLMt=ro3GKkt=1zuddQk2=sHO_mt=SBOK9RqdDjRpRP3dYcpA@mail.gmail.com>
+Subject: Re: Domains (was: Migration to new gerrit server is coming)
+To: Alexander Amelkin <a.amelkin@yadro.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,100 +67,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 14:55:41 -0000
+X-List-Received-Date: Thu, 19 Apr 2018 15:16:06 -0000
 
---000000000000951a5e056a34c341
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Apr 19, 2018 at 8:43 AM, Alexander Amelkin <a.amelkin@yadro.com> wrote:
+>
+> 03.04.2018 18:30, Andrew Geissler wrote:
+>> On Mon, Apr 2, 2018 at 5:46 PM, Joel Stanley <joel@jms.id.au> wrote:
+>>> Do we have plans to use the gerrit.openbmc.org domain instead?
+>> In order to reduce what's changing with this first migration, I'll
+>> keep the old name but yes, Brad got me in touch with someone from the
+>> Linux Foundation and long term we'll be moving to something like
+>> gerrit.openbmc.org.
+> I'm kind of lost with all these domains...
+> I remember we have an ongoing effort to move all d-bus stuff from
+> org.openbmc to xyz.openbmc-project.
+> Now you're saying we'll be moving gerrit to openbmc.org...
+> What is the official domain for openbmc now?
 
-I've updated the OpenBMC meeting wiki page with the new time.
+For this initial move, I will keep it the same,
+gerrit.openbmc-project.xyz.  A little history on this.  Initially when
+openbmc was formed, it used the openbmc.org for it's REST api's.
+After a while it was discovered openbmc didn't actually own that
+domain.  The initial code as mostly proof of concept anyway so the
+team decided to get an official domain (openbmc-project.xyz) and use
+that to reflect the refactoring work (i.e. you would know if something
+was "product" code if it had that new openbmc-project.xyz API).  Fast
+forward a year or two and suddenly the openbmc project now owns
+openbmc.org (through the LF).  Most people share your thought below
+that it would be nice to use that.
 
-Kurt Taylor (krtaylor)
+> Are we going to move the d-bus stuff back to org.openbmc now?
 
-On Mon, Apr 16, 2018 at 2:34 PM, Brad Bishop <bradleyb@fuzziesquirrel.com>
-wrote:
+I don't think anyone is going to have a desire to do this given how
+much work it was to do the initial move, and that we would break
+countless clients who have coded tools against these (since our DBUS
+api's map directly to our REST api's).  Long term the REST api's will
+become deprecated and debug only as we move to Redfish, so there's an
+opportunity for us as a community to maybe do something there?
+
+> Personally, I would welcome that as I hate the .xyz TLD as it is
+> meaningless and beside that has some not very nice connotation for any
+> Russian speaker. I also think that short 'openbmc' is way more neat than
+> 'openbmc-project'.
+> Also, as openbmc-project.xyz is owned by Patrick Williams (as well as
+> OpenBMC IANA PEN), and openbmc.org is owned by TLF, I'd say that we must
+> go with openbmc.org everywhere.
+> However, I'd like to know the official intention.
+
+Patrick will be transferring openbmc-project.xyz to the LF once we
+finish this gerrit migration but I think most people do agree that
+openbmc.org is better.
 
 >
-> > On Apr 9, 2018, at 1:38 PM, Brad Bishop <bradleyb@fuzziesquirrel.com>
-> wrote:
-> >
-> > The attendance at the Monday community call has been pretty low over th=
-e
-> > past couple months.  At the last one the group decided it was time to t=
-ry
-> > something new.
-> >
-> > I=E2=80=99ve put together a poll for possible meeting times.  Please go=
- vote for
-> > your favorites.
-> >
-> > https://docs.google.com/forms/d/e/1FAIpQLScFr5VZV49bAG28DVLnSJpQ
-> 9FzUlmEYEMgHsNo18HleaklAJQ/viewform
-> >
-> > thx -brad
+> Alexander.
 >
-> The survey results are in.  Thank you everyone that took the time to fill
-> it out.
->
-> Today will be the last community call at 9PM CST and starting next week
-> 4/23 they
-> will be at 10AM CST on Mondays.
->
-> I know this isn=E2=80=99t ideal for everyone but this time worked the bes=
-t for a
-> pretty big
-> majority of responders.  We=E2=80=99ll try this new time for a while and =
-see how
-> well it
-> works (or doesn=E2=80=99t).
->
-> thx - brad
-
---000000000000951a5e056a34c341
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I&#39;ve updated the OpenBMC meeting wiki page with t=
-he new time.<br><br></div>Kurt Taylor (krtaylor)<br></div><div class=3D"gma=
-il_extra"><br><div class=3D"gmail_quote">On Mon, Apr 16, 2018 at 2:34 PM, B=
-rad Bishop <span dir=3D"ltr">&lt;<a href=3D"mailto:bradleyb@fuzziesquirrel.=
-com" target=3D"_blank">bradleyb@fuzziesquirrel.com</a>&gt;</span> wrote:<br=
-><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
-px #ccc solid;padding-left:1ex"><div class=3D"HOEnZb"><div class=3D"h5"><br=
->
-&gt; On Apr 9, 2018, at 1:38 PM, Brad Bishop &lt;<a href=3D"mailto:bradleyb=
-@fuzziesquirrel.com">bradleyb@fuzziesquirrel.com</a>&gt; wrote:<br>
-&gt; <br>
-&gt; The attendance at the Monday community call has been pretty low over t=
-he<br>
-&gt; past couple months.=C2=A0 At the last one the group decided it was tim=
-e to try<br>
-&gt; something new.<br>
-&gt; <br>
-&gt; I=E2=80=99ve put together a poll for possible meeting times.=C2=A0 Ple=
-ase go vote for<br>
-&gt; your favorites.<br>
-&gt; <br>
-&gt; <a href=3D"https://docs.google.com/forms/d/e/1FAIpQLScFr5VZV49bAG28DVL=
-nSJpQ9FzUlmEYEMgHsNo18HleaklAJQ/viewform" rel=3D"noreferrer" target=3D"_bla=
-nk">https://docs.google.com/forms/<wbr>d/e/<wbr>1FAIpQLScFr5VZV49bAG28DVLnS=
-JpQ<wbr>9FzUlmEYEMgHsNo18HleaklAJQ/<wbr>viewform</a><br>
-&gt; <br>
-&gt; thx -brad<br>
-<br>
-</div></div>The survey results are in.=C2=A0 Thank you everyone that took t=
-he time to fill it out.<br>
-<br>
-Today will be the last community call at 9PM CST and starting next week 4/2=
-3 they<br>
-will be at 10AM CST on Mondays.<br>
-<br>
-I know this isn=E2=80=99t ideal for everyone but this time worked the best =
-for a pretty big<br>
-majority of responders.=C2=A0 We=E2=80=99ll try this new time for a while a=
-nd see how well it<br>
-works (or doesn=E2=80=99t).<br>
-<br>
-thx - brad</blockquote></div><br></div>
-
---000000000000951a5e056a34c341--
