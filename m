@@ -6,46 +6,46 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="G0iiBqWd"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XLeC+VHV"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="E5O+y5Xe"; dkim-atps=neutral
+ header.b="DRDFlyNZ"; dkim-atps=neutral
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40RQ6s4MPQzF21J
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 13:52:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40RQJD66rRzF1s3
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 14:00:44 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A788B21D1A;
- Wed, 18 Apr 2018 23:52:34 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 9446821B78;
+ Thu, 19 Apr 2018 00:00:42 -0400 (EDT)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Wed, 18 Apr 2018 23:52:34 -0400
+ by compute4.internal (MEProxy); Thu, 19 Apr 2018 00:00:42 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=4LMbFl3bLdmyVe/S70wxA/v+TaZG1
- UI9WyEUprJ6LQo=; b=G0iiBqWdU/k3psz7Kiw+T/aFOxWh7KC/6tlPllAsUoeGf
- kogljAElOaWd5L/F96JLVVKiIuVq7o6BfGAsGqh/0iGenJVHO74IPv0nGT140x2E
- LLkmShnwM0FR1A0cjfWob834jH/RaCiQgtJTY4lRfXNUfMHBBIFd+7xPQmV6uJ28
- 9Qho1EXVA5gs9Ck/Lp/iL3z4zOOx0gVEVFE/CjjJ3howY5j/VHh0PQ0ETC73JD5n
- y7YT+K4kda981VsQ00xoQ7YXdLmiMO304eQNUIfhdP5POhI8EVwf49gedXDYe1TQ
- WRooBRXSbu3GEL7F2OnotK7bk6bwet3LqdA+Xt44Q==
+ :x-me-sender:x-sasl-enc; s=fm2; bh=1eimvYLVuYR1ipwKLZ35Vno3s0LM6
+ 1+3iLEgZmEEMD4=; b=XLeC+VHVUAc7kbSZq+L/6wbCg7C8zZDLs60qddXm3PTKb
+ 9zmL51ZiPkwgfc4E/drqAo0dZgEguKvilmDB45UeJ3IvNvqCcGdumWn9DgvrR/A6
+ dCP3fs8iWKn+VBkW6vf22lp14Wjquwk/75bGew2K6DY7LDsTGWlCJ1vTP30bs/Se
+ 6rVp6ysSltyiEk5NnJfbiwK/VI8u+VuVMKk738+qduTMr6fjudYoZ/GYN+vm2faO
+ lQ59d2bq4i2JlhQ0PYpOaM5kDdxdlGRXLVPQHdl1CGOncr+2nkIkIQTndrvtZv6V
+ lh8hgelOfvo88SBge9fKs91xCp2BYR827BT9aWr5Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=4LMbFl
- 3bLdmyVe/S70wxA/v+TaZG1UI9WyEUprJ6LQo=; b=E5O+y5XesWOtbr81/CuREK
- o+T/yN4ySDY241Fg5BYxW0QiWVxhF3DPZSgPilJRuUQM8/wQVfeEJV1O1rRengg9
- LaNq3Kx8C6E2NzgBqr3cYb9u5xg/z+wRTie5t3zwJgKEXMHtkQWXyxCP3m+WpZnY
- QzWCI474K/tqGhJWgP4KlBBscgZabEv8tbtsLO6TKX4pUMIFVK8owBrr/4jsLPI6
- ibcIzCR90P9+w5ip67vyHZziDDC4MH1TBGDJUe5BMe5Q5IOgwCndLYhxc3/gVC9f
- Zf6qn3beABfCg76vVPFXhCrninyIDMADtDgONGBpM6lVXsTLdIQOnK/vcXB+h/lQ
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=1eimvY
+ LVuYR1ipwKLZ35Vno3s0LM61+3iLEgZmEEMD4=; b=DRDFlyNZ+WygemCZxcXAGx
+ uNe4QECjZ1oCeXw9PMfaGYfKAcRVI+puhX93kRfWy/1yry5qBaIPMS+3txQxRn3j
+ aimihAhsftDn3QGyXyzQQkjgE7DbAWU8OjiYZ85pKAW2A+2i/tJ2lJD4DVwIqLEP
+ XRb3BvR2ZSosGapZlz55NGtxPZHF2am5AAJ09jzzj+VD8VmVQJ4KZKEO/nAf8RpX
+ JFsMKV7faUrgU5r0IrkDf4K0TKR/7T9b9m41JJkdGwIOw+xbcPQHAQx3RR7A+npi
+ Lqax1TF+1s1T73zG0GIfu4sA7p6iqcQo+Ui8oaLB6jzR5/a4/Sv/Lk6bDWqdsh4w
  ==
-X-ME-Sender: <xms:ghLYWl07K_vzt3K9IDRDyxdzKRPJWpN_AZdnjsikDzvtqw4XOCoE_Q>
+X-ME-Sender: <xms:ahTYWnUJg1cTPDTzzeYYNueivVrHSQwOZme73THckSx3Pa-4J5fOSw>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 6153F4256; Wed, 18 Apr 2018 23:52:34 -0400 (EDT)
-Message-Id: <1524109954.2421916.1343180600.297713A4@webmail.messagingengine.com>
+ id 33A034256; Thu, 19 Apr 2018 00:00:42 -0400 (EDT)
+Message-Id: <1524110442.2424770.1343182008.51EBEAAA@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>, 
@@ -54,13 +54,13 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-f3006b89
-Subject: Re: [RFC PATCH linux dev-4.13 1/3] soc: aspeed: Miscellaneous control
- interfaces
-Date: Thu, 19 Apr 2018 13:22:34 +0930
-In-Reply-To: <CACPK8Xco1vLEFtxTmfp_roN0khOfdYMQAjN+R4mgo6DScwRZWA@mail.gmail.com>
+Date: Thu, 19 Apr 2018 13:30:42 +0930
+Subject: Re: [RFC PATCH linux dev-4.13 2/3] dts: aspeed-g5: Expose VGA scratch
+ registers
 References: <20180412035145.21488-1-andrew@aj.id.au>
- <20180412035145.21488-2-andrew@aj.id.au>
- <CACPK8Xco1vLEFtxTmfp_roN0khOfdYMQAjN+R4mgo6DScwRZWA@mail.gmail.com>
+ <20180412035145.21488-3-andrew@aj.id.au>
+ <CACPK8Xfijj9Ym5pLaP8ES_YYsw+VmDj+=16_6DkU44ckq0sZYw@mail.gmail.com>
+In-Reply-To: <CACPK8Xfijj9Ym5pLaP8ES_YYsw+VmDj+=16_6DkU44ckq0sZYw@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,135 +72,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 03:52:39 -0000
+X-List-Received-Date: Thu, 19 Apr 2018 04:00:45 -0000
 
-
-
-On Thu, 19 Apr 2018, at 12:37, Joel Stanley wrote:
+On Thu, 19 Apr 2018, at 12:57, Joel Stanley wrote:
 > On 12 April 2018 at 13:21, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > The ASPEED BMC SoCs have many knobs and switches that are sometimes
-> > design-specific and often defy any approach to unify them under an
-> > existing subsystem.
-> >
-> > Add a driver to translate a devicetree table into sysfs entries to
-> > expose bits and fields for manipulation from userspace. This encompasses
-> > concepts from scratch registers to boolean conditions to enable or
-> > disable host interface features.
-> >
 > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > > ---
-> >  drivers/soc/Kconfig                  |   1 +
-> >  drivers/soc/Makefile                 |   1 +
-> >  drivers/soc/aspeed/Kconfig           |  11 +++
-> >  drivers/soc/aspeed/Makefile          |   1 +
-> >  drivers/soc/aspeed/aspeed-bmc-misc.c | 187 +++++++++++++++++++++++++++++++++++
-> >  5 files changed, 201 insertions(+)
-> >  create mode 100644 drivers/soc/aspeed/Kconfig
-> >  create mode 100644 drivers/soc/aspeed/Makefile
-> >  create mode 100644 drivers/soc/aspeed/aspeed-bmc-misc.c
+> >  arch/arm/boot/dts/aspeed-g5.dtsi | 48 ++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 48 insertions(+)
 > >
-> > diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-> > index 07fc0ac51c52..776fd5978f70 100644
-> > --- a/drivers/soc/Kconfig
-> > +++ b/drivers/soc/Kconfig
-> > @@ -1,6 +1,7 @@
-> >  menu "SOC (System On Chip) specific Drivers"
+> > diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+> > index 1468b4ad22dc..8321df50c593 100644
+> > --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+> > +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+> > @@ -158,6 +158,11 @@
 > >
-> >  source "drivers/soc/actions/Kconfig"
-> > +source "drivers/soc/aspeed/Kconfig"
-> >  source "drivers/soc/atmel/Kconfig"
-> >  source "drivers/soc/bcm/Kconfig"
-> >  source "drivers/soc/fsl/Kconfig"
-> > diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-> > index 9241125416ba..94a5b97c4466 100644
-> > --- a/drivers/soc/Makefile
-> > +++ b/drivers/soc/Makefile
-> > @@ -3,6 +3,7 @@
-> >  #
+> >                                 };
 > >
-> >  obj-$(CONFIG_ARCH_ACTIONS)     += actions/
-> > +obj-$(CONFIG_ARCH_ASPEED)       += aspeed/
-> >  obj-$(CONFIG_ARCH_AT91)                += atmel/
-> >  obj-y                          += bcm/
-> >  obj-$(CONFIG_ARCH_DOVE)                += dove/
-> > diff --git a/drivers/soc/aspeed/Kconfig b/drivers/soc/aspeed/Kconfig
-> > new file mode 100644
-> > index 000000000000..704a4efe180f
-> > --- /dev/null
-> > +++ b/drivers/soc/aspeed/Kconfig
-> > @@ -0,0 +1,11 @@
-> > +menu "ASPEED SoC drivers"
+> > +                               vga_scratch: scratch@50 {
+> > +                                       compatible = "aspeed,bmc-misc";
+> 
+> Convention is to use aspeed,<socname>-<hardware>, so this would be
+> aspeed,ast2500-bmc-misc.
+
+Yeah, this partly comes back to the naming problem you mentioned in the other patch. The functionality is generic, and so probably shouldn't mention aspeed at all, let alone the SoC revision.
+
+> 
+> 
+> > +                                       reg = <0x50 0x20>;
+> > +                               };
 > > +
-> > +config ASPEED_BMC_MISC
-> > +       bool "Miscellaneous ASPEED BMC interfaces"
-> 
-> Do you mean bool or tristate? if you mean bool, drop the module-y bits below.
-
-Should be tristate, was just slapping bits together :)
-
-> 
-> > +       depends on ARCH_ASPEED || COMPILE_TEST
-> > +       default ARCH_ASPEED
-> > +       help
-> > +         Say yes to expose VGA and LPC scratch registers, and other
-> > +         miscellaneous control interfaces specific to the ASPEED BMC SoCs
+> >                                 hwrng@78 {
+> >                                         compatible = "timeriomem_rng";
+> >                                         reg = <0x78 0x4>;
+> > @@ -1425,3 +1430,46 @@
+> >                 groups = "WDTRST2";
+> >         };
+> >  };
 > > +
-> > +endmenu
-> > diff --git a/drivers/soc/aspeed/Makefile b/drivers/soc/aspeed/Makefile
-> > new file mode 100644
-> > index 000000000000..d1a80f9a584f
-> > --- /dev/null
-> > +++ b/drivers/soc/aspeed/Makefile
-> > @@ -0,0 +1 @@
-> > +obj-$(CONFIG_ASPEED_BMC_MISC) += aspeed-bmc-misc.o
-> > diff --git a/drivers/soc/aspeed/aspeed-bmc-misc.c b/drivers/soc/aspeed/aspeed-bmc-misc.c
-> > new file mode 100644
-> > index 000000000000..48522a736a05
-> > --- /dev/null
-> > +++ b/drivers/soc/aspeed/aspeed-bmc-misc.c
+> > +&vga_scratch {
+> > +       vga0 {
 > 
-> copyright headahs
+> Do these names come out in the userspace API?
 
-Good catch.
+Yes, though you can override the use of the node name by adding a label property inside the node. That way if someone complains about the node naming we don't have to break userspace.
 
 > 
-> > @@ -0,0 +1,187 @@
-> > +#include <linux/kobject.h>
-> > +#include <linux/module.h>
-> > +#include <linux/of.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/mfd/syscon.h>
-> > +
-> > +#define DEVICE_NAME "aspeed-bmc-misc"
+> > +               offset = <0x50>;
 > 
-> This is the name of our chardev? No, it appears to just be the driver
-> name. You can probably just use it directly.
+> Would reg <> be more devicetree-y than offset = <>?
 
-Yep
+There's a mix. I was looking through some other syscon-type stuff and some of those drivers used offset. This approach might avoid militant opinions around the relationship between the unit address and the reg property, as you "can't" have multiple nodes with the same unit address. There's some discussion on this in the PECI threads.
 
 > 
-> An observation: It's the only thing inside this file that is aspeed
-> specific. If not for the name, it could be generic code.
-
-I agree, hence some of the bullet points in the cover letter. But it's name and location was also partly driven by Arnd's suggestion that we stick the junk in drivers/soc, and it felt a bit weird not to use aspeed in the name given the convention there.
-
 > 
-> lgtm. I suggest writing up some bindings and putting on the asbestos pants.
-
-Wheee...
-
+> > +               bit-mask = <0xffffffff>;
+> > +               bit-shift = <0>;
 > 
-> I'll merge this into openbmc with the IBM copyright added to the top.
+> Should we assume this is the default? Or something else? Having a
+> default for the common case would be nice.
 
-Sounds good.
+Whilst the nodes I've added in these examples expose an entire register, I think this would actually be a bit of an unusual case. More likely you'll want to expose a single bit from some register, in which case a default for mask (though maybe 0x1?) or shift isn't going to make any sense.
 
-> With this adding userspace ABI, anyone who writes code against it will
-> need to make themselves available for rework as it goes through
-> upstream review.
-
-Yeah. Will try to make sure people are aware of this.
-
-Thanks for the feedback.
+Cheers,
 
 Andrew
