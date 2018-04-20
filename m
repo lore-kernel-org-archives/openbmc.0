@@ -1,73 +1,91 @@
-Return-Path: <stewart@linux.ibm.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40S6sR0PD1zF259
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 17:28:26 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3K7PYve088151
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 03:28:24 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2hf8028ydd-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 03:28:24 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Fri, 20 Apr 2018 01:28:23 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 20 Apr 2018 01:28:21 -0600
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w3K7SK305439912; Fri, 20 Apr 2018 00:28:20 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 81A67C6042;
- Fri, 20 Apr 2018 01:28:20 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.102.50.46])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with SMTP id D5538C603C;
- Fri, 20 Apr 2018 01:28:19 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 2D8524EC649; Fri, 20 Apr 2018 17:28:18 +1000 (AEST)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40S6wZ3g7yzF1yt
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 17:31:10 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="fTezQMid"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 40S6wZ0mzYz9s1B;
+ Fri, 20 Apr 2018 17:31:10 +1000 (AEST)
+Authentication-Results: ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1524209470; bh=8EUfTKU2Pt12Nhh+0ce41DGl/vz3IlHjQVDybih5kd8=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=fTezQMidefdnVusBtcHP9qafjXkqWZv62byqQlK05siD2BZPXSL9XRKq2TUPGK0HO
+ fmIZp2wOpJ4QYl+xyUZ0y//sdJ9XQ57BBVzCdb69uHv7AdAwBhI3FtDT2FMY2xqLuB
+ P4AB1BY13ud6MOKhputZDGAf4l63ojWTszFIT6xOqlAeFJyYNGMclNXbW2h3jLdJeX
+ E4NiskViaYnf7XvRwgwLZa6WbkgD4HYz8qg+tizW+C4/fkZ3K443b2JB/doFdAADlU
+ 8IzXuFjZFHWyUnsMEUsTJhpu4buzX4+QPv1emS0nkzxcaffSCS8b8W4qc6aym442cc
+ yp6kD3jaBos1A==
 Subject: Re: Fwd: Migration to new gerrit server is coming
-In-Reply-To: <CALLMt=qZkG1e2dnJm9EfVpjotq-myc5RAY2OHVxoxLNdHiYoCQ@mail.gmail.com>
+To: Stewart Smith <stewart@linux.ibm.com>,
+ Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
  <CALLMt=omgN_yj6GjEaKRwWaKp4wKR++6cx3+NHixNi7YMHBm6g@mail.gmail.com>
  <CALLMt=qZkG1e2dnJm9EfVpjotq-myc5RAY2OHVxoxLNdHiYoCQ@mail.gmail.com>
-Date: Fri, 20 Apr 2018 17:28:18 +1000
+ <87in8mfib1.fsf@linux.vnet.ibm.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Openpgp: preference=signencrypt
+Autocrypt: addr=jk@ozlabs.org; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <cf4ed490-47a2-d644-f929-1fbcddf27c2d@ozlabs.org>
+Date: Fri, 20 Apr 2018 15:31:08 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.7.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18042007-0016-0000-0000-0000089189A1
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008887; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000257; SDB=6.01020547; UDB=6.00520737; IPR=6.00799784; 
- MB=3.00020678; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-20 07:28:22
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18042007-0017-0000-0000-00003E559F94
-Message-Id: <87in8mfib1.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-20_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804200075
+In-Reply-To: <87in8mfib1.fsf@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,26 +97,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Apr 2018 07:28:27 -0000
+X-List-Received-Date: Fri, 20 Apr 2018 07:31:11 -0000
 
-Andrew Geissler <geissonator@gmail.com> writes:
-> All righty, migration complete.  I did a variety of tests and things
-> look ok to me.  Let me know if you run into anything.
->
-> You'll probably get a "WARNING: POSSIBLE DNS SPOOFING DETECTED!"
-> message but that's because we moved the IP :)  So just run the
-> provided command to delete the key and get a new one.
+Hi Stewart,
 
-It looks as though mail is now being rewritten by some SMTP server in
-the way, I'm getting things like this:
+> It could quite legitimately be IBM being stupid with email (again), but
+> could this be because of the migration?
 
-> Jenkins has posted comments on this change. (
-> https://u7284519.ct.sendgrid.net/wf/click?upn=N3bMtLYoQvnDsGxa5TuMrF8I5vlKaubPrsMlut73dkiMe82YTw9KXaZCckvzT-2FCe_kmqSwegD0GEk3FSxKpQbnEqNaV14xOGAsyeeoKUjpYz4XOpLVYolUFBsX3kdZzInsioR4TGTr6qhQI81lP2rA9eMn4gNcLclCczCmXX1k7PhcrEZX1R2kTzcr-2BLFR7cn-2BUe8LnTznhxeWjnKpdgXnzH6L4NdvgjjmZrAl0Kr3osAIZJEiVHJf2cFlABQGZC4JS8wisPDTEIlQxGh5UYhjjIYg7VNIPRYT6hMnCNmJIY-3D
-> )
+I'm getting these to my non-IBM email account, with the sendgrid link
+rewrite. So it's not just IBM SMTP here.
 
-It could quite legitimately be IBM being stupid with email (again), but
-could this be because of the migration?
+Cheers,
 
--- 
-Stewart Smith
-OPAL Architect, IBM.
+
+Jeremy
