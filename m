@@ -1,72 +1,58 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c0f::231; helo=mail-ot0-x231.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZprLAs+D"; 
+ dkim-atps=neutral
+Received: from mail-ot0-x231.google.com (mail-ot0-x231.google.com
+ [IPv6:2607:f8b0:4003:c0f::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Rvbw4GmMzF20W
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 09:01:00 +1000 (AEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3JMx4Dg007302
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 19:00:57 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2hf42vgnct-1
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 19:00:57 -0400
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Thu, 19 Apr 2018 19:00:56 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 19 Apr 2018 19:00:53 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w3JN0rNw3801368; Thu, 19 Apr 2018 23:00:53 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 75E8928041;
- Thu, 19 Apr 2018 19:00:16 -0400 (EDT)
-Received: from birb.localdomain (unknown [9.102.50.46])
- by b01ledav001.gho.pok.ibm.com (Postfix) with SMTP id AC2782803F;
- Thu, 19 Apr 2018 19:00:15 -0400 (EDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 9AA6F4EC649; Fri, 20 Apr 2018 09:00:47 +1000 (AEST)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC v2.2
-In-Reply-To: <8E4514F2-2842-487D-B727-2C2D17FFAE7A@fuzziesquirrel.com>
-References: <8E4514F2-2842-487D-B727-2C2D17FFAE7A@fuzziesquirrel.com>
-Date: Fri, 20 Apr 2018 09:00:47 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Rxfv6QG9zF1tF
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 10:33:43 +1000 (AEST)
+Received: by mail-ot0-x231.google.com with SMTP id p2-v6so7854593otf.3
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Apr 2018 17:33:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
+ bh=CfHB4Emr4pLjRWePBsy+2k9TEIcku7erfynnS2DW53Q=;
+ b=ZprLAs+D0jZUWQkXWcqvVB25kcPDusQSg8oPht7AhGthZw4ZFjloLdVNuwvl2Rw855
+ A1Jed0beYqvWco2XK1R+Eev/gAs+lEHObLUq5pxaDT6jPBLoHo8o5VHAy14IWGyXM5Bp
+ /GuYMOMBXnT/WdAp7OBeFTnO8Ir0TOueYqk9sOlySoerFPAOV4e0Gv7l+E68tg2X18jP
+ lV0LCCCDiWZdFIrXXMQ6+TwgNNiYJ50penR/fwKrMY+YYL++3TqOFTvCM6mncKZGJxrB
+ Uq4kfsjbLVZ43yQ9rpEp8/z+b7h57MMgjZbbX/CgaKOELNLU9AdW9WhA0LmjeU0MDc4i
+ mWFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to;
+ bh=CfHB4Emr4pLjRWePBsy+2k9TEIcku7erfynnS2DW53Q=;
+ b=OLpguQyOgPkcWrZqX8+UoxGgKKwMZ7P/H5nt+Bha9NwfTxMndHu3UgTLBD3m+ZsUBm
+ dE0eYVHnT3LUVhuRVFOf9Twdo7KlWX/ns2kkT5FLKxCdbCUOVLunTkA32MzF97kgwqMn
+ tIWZjDImzj25j6QsJ/RoPiIM509eBMQJ2AxiuwtX+7secc7G8G/RJBqX9bkzheCjonSJ
+ sGilOj0qESCEk5sQqTL+zyRqw+yyMauGYFeuF89tq7TAYkEvT1/6qKFN0DvhVXY01ogG
+ lCdVUKS5EF+TtonKsb05buUyN70LILSfqSacM6cmiV35jicwOsavEjwGKcaKmt/1qQbt
+ qIjQ==
+X-Gm-Message-State: ALQs6tB0rNnQjHjGlC6DyOFhjcrhB98v44ODxBd7hMy/rklzz7jdOiHT
+ qngDzPflKRPT4X142nxT6/sPejIWWnSd29C1Aw4aEQ==
+X-Google-Smtp-Source: AIpwx48EgbbfVV0afVxXsg6vZhZZVpsSIuN3KxxQubcKx6xkUTAQ5/8GiA5Pmu/xtCH0Tv72VOJ7wPMX+3XdKz4gtAQ=
+X-Received: by 2002:a9d:5f87:: with SMTP id
+ g7-v6mr5081456oti.139.1524184420928; 
+ Thu, 19 Apr 2018 17:33:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-x-cbid: 18041923-0044-0000-0000-000004081513
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008885; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000257; SDB=6.01020377; UDB=6.00520637; IPR=6.00799615; 
- MB=3.00020673; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-19 23:00:54
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18041923-0045-0000-0000-0000083A1B8C
-Message-Id: <87k1t2hkdc.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-19_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804190205
+Received: by 10.201.50.79 with HTTP; Thu, 19 Apr 2018 17:33:40 -0700 (PDT)
+In-Reply-To: <CALLMt=omgN_yj6GjEaKRwWaKp4wKR++6cx3+NHixNi7YMHBm6g@mail.gmail.com>
+References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
+ <CALLMt=omgN_yj6GjEaKRwWaKp4wKR++6cx3+NHixNi7YMHBm6g@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 19 Apr 2018 19:33:40 -0500
+Message-ID: <CALLMt=qZkG1e2dnJm9EfVpjotq-myc5RAY2OHVxoxLNdHiYoCQ@mail.gmail.com>
+Subject: Fwd: Migration to new gerrit server is coming
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -78,22 +64,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 23:01:01 -0000
+X-List-Received-Date: Fri, 20 Apr 2018 00:33:44 -0000
 
-Brad Bishop <bradleyb@fuzziesquirrel.com> writes:
-> There has been lots of cool work in the last couple months and we=E2=80=
-=99ve been
-> reasonably stable with Yocto 2.4 and Linux 4.13 for some time now so lets
-> have a tag!
+All righty, migration complete.  I did a variety of tests and things
+look ok to me.  Let me know if you run into anything.
 
-I echo that feeling - I've been building and running with openbmc master
-as of whatever stage it's in at 8am each morning for a while, and
-legitimately only hit one decent problem (okay, that was the bmc
-bricking itself, no idea why yet because having BMC serial would be
-useful, so of course I don't have it).
+You'll probably get a "WARNING: POSSIBLE DNS SPOOFING DETECTED!"
+message but that's because we moved the IP :)  So just run the
+provided command to delete the key and get a new one.
 
-Thanks to everyone for the efforts in making things more stable.
+Andrew
 
---=20
-Stewart Smith
-OPAL Architect, IBM.
+---------- Forwarded message ----------
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, Apr 19, 2018 at 7:37 AM
+Subject: Fwd: Migration to new gerrit server is coming
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+
+
+Hello everyone,
+
+I got agreement from the current VM and openbmc-project.xyz domain
+owner to work with me today on this transition.  The bad news is that
+it's going to have to happen today at around 4:30pm Central time.
+
+A good excuse for the west coast crew to start an early Thursday happy hour.
+
+My estimate on the outage is around 2 hours. There will be no impact
+or domain changes. We'll just move the DNS for
+gerrit.openbmc-project.xyz over to the new server.
+
+Andrew
+
+---------- Forwarded message ----------
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, Mar 28, 2018 at 2:55 PM
+Subject: Migration to new gerrit server is coming
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+
+
+Greetings,
+
+We've gotten ourselves a nice big server to run our gerrit instance
+on.  The virtual machine we're currently running in is going EOL
+within the next few months so I've been slowly working on a
+transition.  The migration should be pretty painless.  At some point
+I'll take down the existing gerrit, migrate the data from it to our
+new instance, and move the domain name over to the new server.
+
+I've got a test instance going now and would appreciate some poking
+around for anything obviously wrong.  It's running the latest stable
+gerrit, so we'll be getting an upgrade in this process. I synch'd over
+the data from the production gerrit this morning.
+
+https://test-gerrit.openbmc-project.xyz
+
+PLEASE NOTE: No review comments or merges or ... anything will be
+saved or executed on this test-gerrit so don't get the two mixed up :)
+ https://gerrit.openbmc-project.xyz is where all real work should
+continue.
+
+Andrew
