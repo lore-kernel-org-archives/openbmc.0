@@ -1,61 +1,73 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <stewart@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c01::244; helo=mail-pl0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="I1TBUEvt"; 
- dkim-atps=neutral
-Received: from mail-pl0-x244.google.com (mail-pl0-x244.google.com
- [IPv6:2607:f8b0:400e:c01::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40S6p62BbhzF24t
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 17:25:33 +1000 (AEST)
-Received: by mail-pl0-x244.google.com with SMTP id w21-v6so4767586plq.2
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 00:25:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id;
- bh=4/XwDIojKVnETuaiAjYN78dXVgwMGiX56NszeNyUJJ4=;
- b=I1TBUEvtV/KUXDF5PZaoukaZG0amF93AN4HBEUJBPgKrauPjzJqtvrfolbzAvriVE7
- 59p/jHfEv8RWrdW3/1cAvTIeMDgR206MZ6uzZSMy4MXEpEAJ+J6Z1v0I3fg8kHoyjy0T
- H1vz8dqKZL9hceuW6Xws22W2M0hifNVlF6bzbaomigpgIydPWI9PEWtTs5/Ms5sNyEi2
- Xo6WSUg55atRQ3pP/jYj8kSG6cxh3gnwG4MHGqMWQdnWKwvDJoW4X7A9UOSXF14UrJOx
- WUAFbOSL6Kh+u14uAjv33+hhjC5i0jdSY6MulmyBkm6qKp/8jeopabcBEJdmT4ukUVqo
- 6n7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:subject:date:message-id;
- bh=4/XwDIojKVnETuaiAjYN78dXVgwMGiX56NszeNyUJJ4=;
- b=HEwT0nFdCoorHDlMxLviRnwNmdz/zGzJga71DiuKeisW54CqQrNEEpeKaBWea13LQB
- KJ1gKs6cfC9eCdWimauX13WGN7EaChQR2JXv7Sua1JkZ20mJWZsVQxkSCzQVdgErY4BF
- 3xbCVw9kCVL5R7a3XK7jqu+ppaVNyUBI3fKu0UZ/decJvENZnVXT3jbHrplN8FKw3WLc
- jXZYLfz60TMFR6HQiubYvFWgfC6OGundFmUyzYBWlBvhNbbHbC7Cwu4W6bLbbf82bQjT
- OnH4nK7wlpWn7iNfQ/YO+Gap+UBMBqQaZ0yZoB28AL2OxW+/4ZM9yXV0dMi2Qhg7J2Er
- J94g==
-X-Gm-Message-State: ALQs6tB/B8dps2sYs9UDSwPGE6ujrhLlXVpLB7Mthux7l5bl1w1b6Sno
- 1WIkd+3fyX311f9pp6Xztrixn1Zu
-X-Google-Smtp-Source: AIpwx4/sS3OOKaYhdHnqMPPlmmbz0KzvzCSGhET3LAOGnnMvNs4TKavU9+gKfxQy88ubZ/Enc1TzZQ==
-X-Received: by 2002:a17:902:aa03:: with SMTP id
- be3-v6mr8890096plb.299.1524209131761; 
- Fri, 20 Apr 2018 00:25:31 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id h6sm9118664pfi.35.2018.04.20.00.25.28
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 20 Apr 2018 00:25:31 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 20 Apr 2018 16:55:25 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org,
-	andrew@aj.id.au
-Subject: [PATCH linux dev-4.13] ARM: dts: aspeed-g5: Add DAC MUX userspace
- control
-Date: Fri, 20 Apr 2018 16:55:24 +0930
-Message-Id: <20180420072524.14127-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.17.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40S6sR0PD1zF259
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 17:28:26 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w3K7PYve088151
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 03:28:24 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2hf8028ydd-1
+ (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 03:28:24 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
+ Fri, 20 Apr 2018 01:28:23 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 20 Apr 2018 01:28:21 -0600
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w3K7SK305439912; Fri, 20 Apr 2018 00:28:20 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 81A67C6042;
+ Fri, 20 Apr 2018 01:28:20 -0600 (MDT)
+Received: from birb.localdomain (unknown [9.102.50.46])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with SMTP id D5538C603C;
+ Fri, 20 Apr 2018 01:28:19 -0600 (MDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 2D8524EC649; Fri, 20 Apr 2018 17:28:18 +1000 (AEST)
+From: Stewart Smith <stewart@linux.ibm.com>
+To: Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Fwd: Migration to new gerrit server is coming
+In-Reply-To: <CALLMt=qZkG1e2dnJm9EfVpjotq-myc5RAY2OHVxoxLNdHiYoCQ@mail.gmail.com>
+References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
+ <CALLMt=omgN_yj6GjEaKRwWaKp4wKR++6cx3+NHixNi7YMHBm6g@mail.gmail.com>
+ <CALLMt=qZkG1e2dnJm9EfVpjotq-myc5RAY2OHVxoxLNdHiYoCQ@mail.gmail.com>
+Date: Fri, 20 Apr 2018 17:28:18 +1000
+MIME-Version: 1.0
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 18042007-0016-0000-0000-0000089189A1
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008887; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000257; SDB=6.01020547; UDB=6.00520737; IPR=6.00799784; 
+ MB=3.00020678; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-20 07:28:22
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18042007-0017-0000-0000-00003E559F94
+Message-Id: <87in8mfib1.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-04-20_02:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1804200075
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,41 +79,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Apr 2018 07:25:35 -0000
+X-List-Received-Date: Fri, 20 Apr 2018 07:28:27 -0000
 
-This exposes SCU2C "Misc. Control Register" bits 16 and 17 which control
-the input to the VGA DAC. They are used to select which graphics device
-drives the analog output:
+Andrew Geissler <geissonator@gmail.com> writes:
+> All righty, migration complete.  I did a variety of tests and things
+> look ok to me.  Let me know if you run into anything.
+>
+> You'll probably get a "WARNING: POSSIBLE DNS SPOOFING DETECTED!"
+> message but that's because we moved the IP :)  So just run the
+> provided command to delete the key and get a new one.
 
-  00: VGA mode (default)
-  01: Graphics CRT mode
-  10: Pass-through mode from Video input port-A
-  11: Pass-through mode from Video input port-B
+It looks as though mail is now being rewritten by some SMTP server in
+the way, I'm getting things like this:
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-g5.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> Jenkins has posted comments on this change. (
+> https://u7284519.ct.sendgrid.net/wf/click?upn=N3bMtLYoQvnDsGxa5TuMrF8I5vlKaubPrsMlut73dkiMe82YTw9KXaZCckvzT-2FCe_kmqSwegD0GEk3FSxKpQbnEqNaV14xOGAsyeeoKUjpYz4XOpLVYolUFBsX3kdZzInsioR4TGTr6qhQI81lP2rA9eMn4gNcLclCczCmXX1k7PhcrEZX1R2kTzcr-2BLFR7cn-2BUe8LnTznhxeWjnKpdgXnzH6L4NdvgjjmZrAl0Kr3osAIZJEiVHJf2cFlABQGZC4JS8wisPDTEIlQxGh5UYhjjIYg7VNIPRYT6hMnCNmJIY-3D
+> )
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 4ca4bc463347..83b07954644a 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -158,6 +158,15 @@
- 
- 				};
- 
-+				scratch@2c {
-+					compatible = "aspeed,bmc-misc";
-+					dac_mux {
-+						offset = <0x2c>;
-+						bit-mask = <0x3>;
-+						bit-shift = <16>;
-+					};
-+				};
-+
- 				vga_scratch: scratch@50 {
- 					compatible = "aspeed,bmc-misc";
- 					reg = <0x50 0x20>;
+It could quite legitimately be IBM being stupid with email (again), but
+could this be because of the migration?
+
 -- 
-2.17.0
+Stewart Smith
+OPAL Architect, IBM.
