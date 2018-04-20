@@ -1,65 +1,109 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::235; helo=mail-it0-x235.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="iCp+Vilr"; 
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="NYB2yvmi"; 
  dkim-atps=neutral
-Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
- [IPv6:2607:f8b0:4001:c0b::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40S7R11YG9zF24d
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 17:54:04 +1000 (AEST)
-Received: by mail-it0-x235.google.com with SMTP id 19-v6so1487710itw.3
- for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 00:54:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=ER8DfhVNcWULMOC2OvqH7h8i7nTOt+QL2G7BtBFLIpw=;
- b=iCp+VilrXw8YFF1jIpnkGbUXGNd42UglgMnt/f8Z5LpCSVn8uzUsGJXycv7LxWyQp9
- 6a+8/LeqbyMgr2TRcIMidqF3yJZQH7yRnlbh7Yj1jFUVzJOmqhFtfOhHk5SIKH0A527V
- DjVdHz4xLPGPZSthDYqtSdrEaNErJgKLu7VJg+2MzV+b+k/runU794PPGTTIRyVrLEqo
- fGmXJBxlu5gyP+gSxczgakqCAZilazjbcdJmXEWFWV4///vGK9GAA4FD1kQvdm/7djqb
- 1GVpUc/ZcG1IIUK8qfICq2wLcSeFthstbA7G2Hf0NeRj4r1umlQZewyAV8WKIz49Viaf
- Szsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=ER8DfhVNcWULMOC2OvqH7h8i7nTOt+QL2G7BtBFLIpw=;
- b=p8qkXgkCR3CuRM0pUWKcLjeizF3n+3lyyodmfQP+fRPugM0N6z5cbbbPN2oyNnBjVG
- G8hC3HcnHT/XguO2CtBPZh1nUhf2SrtvROkz9ZWBFOYQHlPJrL1rOtsIOSQ1FxQhmVT4
- d5FtnkBJm0eo3uG2x03GOPRc0VVDmQJQRqUjU38hl8RUvWOFYo762e3DbjfVzbicdgFj
- cfm+iq+ymL9pAU+vM2EAeKyMgWqHPlqHQw7EAjVXdsFO2Klww9WU3zZOQE1loFL6HNpr
- gRvjGEFPal3N5AOOuYSV2GCc5WxczpneOSUlr3w12kBFbtUO4uiJUEbwY8x78B4SZs79
- dIUA==
-X-Gm-Message-State: ALQs6tAg+umDtUsvTcpaA41uR3lh1y9xyK/gJSxHX/e7eS2SZSdC1YbV
- dWtVMm1ErlOlYY9e1n1+i0eNsFlt6UH0FppLqhs=
-X-Google-Smtp-Source: AIpwx48SMa/NHVvwLgW9tdKXC2SYB6rhB9GGFlm6jEKTU1wtCf3GMwflkmyZ4AjRndu7Z6jartQ/aHTOpn14ih4i7j4=
-X-Received: by 2002:a24:aa0e:: with SMTP id
- b14-v6mr181279itf.121.1524210842369; 
- Fri, 20 Apr 2018 00:54:02 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a4f:1f84:0:0:0:0:0 with HTTP; Fri, 20 Apr 2018 00:54:01
- -0700 (PDT)
-In-Reply-To: <cf4ed490-47a2-d644-f929-1fbcddf27c2d@ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40SDmN3S88zF1RD
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Apr 2018 21:54:28 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 5B38C516F6;
+ Fri, 20 Apr 2018 11:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1524225263; x=
+ 1526039664; bh=PcRKUg7kePHtnWpnlCyvSg4VLGFzcgCygTUJ4eY0Fx0=; b=N
+ YB2yvmiGv1CgHNizLBGD6QnYoWqOZis2kB/LXdoNNIDWYR0R1+m2DIRkZwbenVSy
+ dLQOgKWDLgSgmt/bEhjwL5W4bs/TFK25NRvLO40PDkZgrKDmvl+DMIgqgohj/+dg
+ 408KS0E9BzhglgBpaiIW1+J7PhYBcfuwnt1tPD60AE=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id OSqwXICndS2n; Fri, 20 Apr 2018 14:54:23 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id E0A6350A07;
+ Fri, 20 Apr 2018 14:54:22 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 20
+ Apr 2018 14:54:22 +0300
+Subject: Re: Domains
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew Geissler
+ <geissonator@gmail.com>
+CC: <openbmc@lists.ozlabs.org>
 References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
- <CALLMt=omgN_yj6GjEaKRwWaKp4wKR++6cx3+NHixNi7YMHBm6g@mail.gmail.com>
- <CALLMt=qZkG1e2dnJm9EfVpjotq-myc5RAY2OHVxoxLNdHiYoCQ@mail.gmail.com>
- <87in8mfib1.fsf@linux.vnet.ibm.com>
- <cf4ed490-47a2-d644-f929-1fbcddf27c2d@ozlabs.org>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 20 Apr 2018 15:54:01 +0800
-Message-ID: <CAARXrtncu8O6sH3R33S=X68gmXAPO16_fkF0d1EOeaDhHPqiLw@mail.gmail.com>
-Subject: Re: Fwd: Migration to new gerrit server is coming
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: Stewart Smith <stewart@linux.ibm.com>,
- Andrew Geissler <geissonator@gmail.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CACPK8XcFXZb1yyjsQpY8Qb=Yxrst8c4BYPtA2VBNea_bHU5VLA@mail.gmail.com>
+ <CALLMt=qWz4eJYN+BzpO1L7ihhvQA=RPQxsKG4AQpyyEB=sk0eg@mail.gmail.com>
+ <49734a94-6e64-5f3f-10cd-546303cc5d08@yadro.com>
+ <FD928405-0C6F-4708-9DA5-DB099C4D2B1B@fuzziesquirrel.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <0a0ed6f6-33cf-5b9b-9bf0-ec98e4b92fb3@yadro.com>
+Date: Fri, 20 Apr 2018 14:54:21 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
+MIME-Version: 1.0
+In-Reply-To: <FD928405-0C6F-4708-9DA5-DB099C4D2B1B@fuzziesquirrel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="92mQKzEEAGY4baU3lL4CgHnOifaoW8YYc"
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,19 +115,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Apr 2018 07:54:05 -0000
+X-List-Received-Date: Fri, 20 Apr 2018 11:54:29 -0000
 
-On Fri, Apr 20, 2018 at 3:31 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Stewart,
->
->> It could quite legitimately be IBM being stupid with email (again), but
->> could this be because of the migration?
->
-> I'm getting these to my non-IBM email account, with the sendgrid link
-> rewrite. So it's not just IBM SMTP here.
+--92mQKzEEAGY4baU3lL4CgHnOifaoW8YYc
+Content-Type: multipart/mixed; boundary="q7W6gImulMNy3YzmLqRsOeUgfwHMGZFe2";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Andrew Geissler <geissonator@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Message-ID: <0a0ed6f6-33cf-5b9b-9bf0-ec98e4b92fb3@yadro.com>
+Subject: Re: Domains
+References: <CALLMt=rhu44zQUK3rv4vzCCzLJ7ehevQ-UQB8ydzdG0AHCvQSw@mail.gmail.com>
+ <CACPK8XcFXZb1yyjsQpY8Qb=Yxrst8c4BYPtA2VBNea_bHU5VLA@mail.gmail.com>
+ <CALLMt=qWz4eJYN+BzpO1L7ihhvQA=RPQxsKG4AQpyyEB=sk0eg@mail.gmail.com>
+ <49734a94-6e64-5f3f-10cd-546303cc5d08@yadro.com>
+ <FD928405-0C6F-4708-9DA5-DB099C4D2B1B@fuzziesquirrel.com>
+In-Reply-To: <FD928405-0C6F-4708-9DA5-DB099C4D2B1B@fuzziesquirrel.com>
 
-Me too, the gerrit's mail contains a lot of links staring with
-u7284519.ct.sendgrid.net, probably gerrit is configured to use SendGrid[1]'s
-service?
+--q7W6gImulMNy3YzmLqRsOeUgfwHMGZFe2
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-[1]: https://en.wikipedia.org/wiki/SendGrid
+19.04.2018 18:18, Brad Bishop wrote:
+> We are in the process of transferring the xyz domain and the IANA PEN
+> from Patrick to TLF.  There isn=E2=80=99t any resistance on Patrick=E2=80=
+=99s end, if
+> that makes anyone feel better.  It is just a matter of getting it done.=
+=20
+I never suspected Patrick of any resistance. :)
+I think I have already explained earlier my concern regarding personal
+ownership of project pieces.
+That concern was the only reason I spoke about it again.
+>> However, I'd like to know the official intention.
+> Have I answered this?
+Yes, thank you and Andrew for explaining it all.
+
+Alexander.
+
+
+
+--q7W6gImulMNy3YzmLqRsOeUgfwHMGZFe2--
+
+--92mQKzEEAGY4baU3lL4CgHnOifaoW8YYc
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJa2dTuAAoJEOiTWHtbdBeNe88P/RXyA/L27zTR+sGv4z5WK9FB
+ItJX7P0/+99bRn+5qx2DOcb0bpQJ9J+z5B/lfQ3jBcnAANQDHD6PDNC/rXxegBOS
+XuLTuwW1C68fQHlXTrP8xKCjD4QYLvbMeusNRCCw4ctsfgLFbAA0JFK6XnuS5EMM
+e9Apziaze4gBjbNqGarpG1evMrbFFZnvyaBuhXrIOtI0TKf6792oZV30X30YFJoW
+ms9ZPy+T4HQ8W94DkA5yUHyf6RogDaDGHX3c1Tg7ZgQMo2oovdyMuiun/NfG8Y3x
+QUphe7H3XeXLTQypaNNckZex37Qjxivnfyp6WmqKl1Wf+M5cYIwPm4ceStrRN0Jx
+aDMV3FPTnDWxp2OewSWyaLJO6fZNVoEcoseAdOgHdra36YUJqXlWrhyM7QQuSx2s
+n7qPMeYZGS5Ll7fIsgPpSyYV4aEHoE4cFkdk1gPivY5rd+yfF2Meg0661/iicGEj
+64wqa4zg/2YA+iZ6dC/HQkuKLWfOyON6VtHr3em6FBCcRi/LFoDDyam9KfDZdxaW
+o6xV3toIIaw77c7cdwc7hp+Y/xJuqFhiodfE6WowB/4OGEorvv+UMIipyVSf6GRx
+YLowQVp4EdyS1l0DxHxsQWYnMLx3B0m9BdbQyU4FlmDR4sUQfMg10exyaClt9y3A
+HjOYLnjwCyd8UCdiQK/D
+=28dh
+-----END PGP SIGNATURE-----
+
+--92mQKzEEAGY4baU3lL4CgHnOifaoW8YYc--
