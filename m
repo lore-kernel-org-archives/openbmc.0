@@ -1,26 +1,27 @@
 Return-Path: <andriy.shevchenko@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
  envelope-from=andriy.shevchenko@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40VnyD5ZhlzF1RV
- for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 01:56:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Vp4J1GmhzF1RV
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 02:02:07 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2018 08:56:44 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2018 09:02:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,323,1520924400"; d="scan'208";a="222955339"
+X-IronPort-AV: E=Sophos;i="5.49,323,1520924400"; d="scan'208";a="50430491"
 Received: from smile.fi.intel.com (HELO smile) ([10.237.72.86])
- by fmsmga005.fm.intel.com with ESMTP; 24 Apr 2018 08:56:38 -0700
-Message-ID: <1524585397.21176.502.camel@linux.intel.com>
-Subject: Re: [PATCH v3 09/10] drivers/hwmon: Add PECI hwmon client drivers
+ by orsmga001.jf.intel.com with ESMTP; 24 Apr 2018 09:01:58 -0700
+Message-ID: <1524585717.21176.504.camel@linux.intel.com>
+Subject: Re: [PATCH v3 03/10] drivers/peci: Add support for PECI bus driver
+ core
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Alan Cox
  <alan@linux.intel.com>,  Andrew Jeffery <andrew@aj.id.au>, Andrew Lunn
@@ -39,10 +40,10 @@ To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Alan Cox
 Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-Date: Tue, 24 Apr 2018 18:56:37 +0300
-In-Reply-To: <20180410183212.16787-10-jae.hyun.yoo@linux.intel.com>
+Date: Tue, 24 Apr 2018 19:01:57 +0300
+In-Reply-To: <20180410183212.16787-4-jae.hyun.yoo@linux.intel.com>
 References: <20180410183212.16787-1-jae.hyun.yoo@linux.intel.com>
- <20180410183212.16787-10-jae.hyun.yoo@linux.intel.com>
+ <20180410183212.16787-4-jae.hyun.yoo@linux.intel.com>
 Organization: Intel Finland Oy
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.26.5-1+b1 
@@ -59,44 +60,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Apr 2018 15:56:53 -0000
+X-List-Received-Date: Tue, 24 Apr 2018 16:02:09 -0000
 
 On Tue, 2018-04-10 at 11:32 -0700, Jae Hyun Yoo wrote:
-
->  drivers/hwmon/peci-cputemp.c  | 783
-> ++++++++++++++++++++++++++++++++++++++++++
->  drivers/hwmon/peci-dimmtemp.c | 432 +++++++++++++++++++++++
-
-Does it make sense one driver per patch?
-
-> +#define CLIENT_CPU_ID_MASK    0xf0ff0  /* Mask for Family / Model
-> info */
-
-> +struct cpu_gen_info {
-> +	u32 type;
-> +	u32 cpu_id;
-> +	u32 core_max;
-> +};
+> This commit adds driver implementation for PECI bus core into linux
+> driver framework.
 > 
 
-> +static const struct cpu_gen_info cpu_gen_info_table[] = {
-> +	{ .type = CPU_GEN_HSX,
-> +	  .cpu_id = 0x306f0, /* Family code: 6, Model number: 63
-> (0x3f) */
-> +	  .core_max = CORE_MAX_ON_HSX },
-> +	{ .type = CPU_GEN_BRX,
-> +	  .cpu_id = 0x406f0, /* Family code: 6, Model number: 79
-> (0x4f) */
-> +	  .core_max = CORE_MAX_ON_BDX },
-> +	{ .type = CPU_GEN_SKX,
-> +	  .cpu_id = 0x50650, /* Family code: 6, Model number: 85
-> (0x55) */
-> +	  .core_max = CORE_MAX_ON_SKX },
-> +};
+All comments you got for patch 6 are applicable here.
 
-Are we talking about x86 CPU IDs here?
-If so, why x86 corresponding headers, including intel-family.h are not
-used?
+And perhaps in the rest of the series.
+
+The rule of thumb: when you get even single comment in a certain place,
+re-check _entire_ series for the same / similar patterns!
 
 -- 
 Andy Shevchenko <andriy.shevchenko@linux.intel.com>
