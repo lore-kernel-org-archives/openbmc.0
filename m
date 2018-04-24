@@ -1,34 +1,39 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ header.from=linux.intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40VkvQ4JgfzF1RV
- for <openbmc@lists.ozlabs.org>; Tue, 24 Apr 2018 23:39:14 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.38] (unknown [192.168.253.38])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 814B2E9F87;
- Tue, 24 Apr 2018 09:39:10 -0400 (EDT)
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: Supporting insecure protocols in RMCP+
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <20180423184729.GA130821@mauery>
-Date: Tue, 24 Apr 2018 09:39:09 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40VnT66KGPzF1RV
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 01:35:02 +1000 (AEST)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2018 08:34:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,323,1520924400"; d="scan'208";a="50423459"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
+ by orsmga001.jf.intel.com with ESMTP; 24 Apr 2018 08:34:56 -0700
+Date: Tue, 24 Apr 2018 08:34:56 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
 Cc: OpenBMC Development <openbmc@lists.ozlabs.org>,
  Emily Shaffer <emilyshaffer@google.com>,
  MARRI DEVENDER RAO <devenrao@in.ibm.com>, Tom Joseph <tomjoseph@in.ibm.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <89D77F3D-487B-4FF6-B9B6-5528B8E297B7@fuzziesquirrel.com>
-References: <20180423184729.GA130821@mauery>
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
-X-Mailer: Apple Mail (2.3273)
+Subject: Re: Supporting insecure protocols in RMCP+
+Message-ID: <20180424153456.GC130821@mauery>
+References: <20180423184729.GA130821@mauery> <20180423193027.GB130821@mauery>
+ <EA662B0F-9F97-49FA-9D9B-8545CBFD3E3B@fuzziesquirrel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <EA662B0F-9F97-49FA-9D9B-8545CBFD3E3B@fuzziesquirrel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -40,84 +45,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Apr 2018 13:39:15 -0000
+X-List-Received-Date: Tue, 24 Apr 2018 15:35:07 -0000
 
+On 24-Apr-2018 09:17 AM, Brad Bishop wrote:
+>
+>> On Apr 23, 2018, at 3:30 PM, Vernon Mauery <vernon.mauery@linux.intel.com> wrote:
+>>
+>> On 23-Apr-2018 11:47 AM, Vernon Mauery wrote:
+>>>> Patch Set 4:
+>>>>
+>>>>> Given that RMCP+ is already insecure, unless it is a requirement to support 1, 2, 15, and 16, you may just want to support 3 and 17.
+>>>>
+>>>> 1,2,3 are marked as mandatory in the specification. It should be a community decision to revoke support for 1,2. If the community is ok, it will need additional code changes.
+>>>
+>>> tl;dr IPMI is old; let's drop the most insecure parts
+>>
+>> While I am at it, can we agree
+>
+>I agree with all your points.  But why is consensus necessary?
 
-> On Apr 23, 2018, at 2:47 PM, Vernon Mauery =
-<vernon.mauery@linux.intel.com> wrote:
->=20
->> Patch Set 4:
->>=20
->>> Given that RMCP+ is already insecure, unless it is a requirement to =
-support 1, 2, 15, and 16, you may just want to support 3 and 17.
->>=20
->> 1,2,3 are marked as mandatory in the specification. It should be a =
-community decision to revoke support for 1,2. If the community is ok, it =
-will need additional code changes.
->=20
-> tl;dr IPMI is old; let's drop the most insecure parts
->=20
-> Opening this up to a wider audience. I would like some community =
-consensus on how we should deal with parts of specifications that don't =
-make sense anymore.
->=20
+Consensus is best when we are intentionally going against the IPMI 
+standard. With IPMI, there may be several of these things where we might 
+want to break the standard in order to provide better security. But I 
+don't think we can do that unilaterally.
 
-I agree.
+--Vernon
 
-However, if someone came along and tried to add this back in
-(proving that there is at least one user in the world),
-I would let them (provided its opt-in behavior).
-
-> Tables in section 13.28:
-> (authentication algorithm support)
-> 00h: RAKP-none        Mandatory (recommend dropping support)
-> 01h: RAKP-HMAC-SHA1   Mandatory (good, but not best; keep for now)
-> 02h: RAKP-HMAC-MD5    Optional (not implemented; do not implement)
-> 03h: RAKP-HMAC-SHA256 Optional (implemented; best available)
->=20
-> (integrity algorithm support)
-> 00h: none             Mandatory (recommend dropping support)
-> 01h: HMAC-SHA1-96     Mandatory (good, but not best; keep for now)
-> 02h: HMAC-MD5-128     Optional (not implemented; do not implement)
-> 03h: MD5-128          Optional (not implemented; do not implement)
-> 04h: HMAC-SHA256-128  Optional (implemented; best available)
->=20
-> (confidentiality algorithm support)
-> 00h: none             Mandatory (recommend dropping support)
-> 01h: AES-CBC-128      Mandatory (implemented; best available)
-> 02h: xRC4-128         Optional (not implemented; do not implement)
-> 03h: xRC4-40          Optional (not implemented; do not implement)
->=20
-> The IPMI spec was written in a time when computing resources were =
-minimal and before some of the real security awareness started. And as =
-such, it contains some legacy stuff that should really be dropped or at =
-the very least deprecated.
->=20
-> The IPMI spec only says that we must implement certain authentication, =
-integrity, and confidentiality algorithms, it does not explicitly say =
-what cipher suites must be implemented. But, if we implement every =
-cipher suite that is available with the required algorithms, we would =
-implement cipher suites 0, 1, 2, and 3. And if we added in sha256 =
-integrity and authentication, we add in 15, 16, and 17.
->=20
-> Just for comparison, DCMI 1.5 requires only 3, with 17 as recommended =
-and 8 as optional. This is a step up from IPMI's security =
-recommendations, but still not best. I would say that 3 and 17 should be =
-required, with the recommendation that 3 be deprecated (or disabled at =
-runtime) in favor of 17 only.
->=20
-> I think we can all agree that cipher suite 0 is poison. It is a gaping =
-open door with bright lights saying, "Hack me!" I would argue that =
-cipher suites 1 and 2 are not much better. We have the computing =
-resources to perform better security, so we should do it. As web =
-browsers move along, they deprecate and then disable old versions of =
-SSL/TLS. We should do the same. Just because at one point in history it =
-was fine to authenticate with plaintext passwords, does not mean we =
-should continue to do so. If you know better, do better.
->=20
-> Even if end users come to us and say that they MUST have cipher suite =
-1 or 2, I would argue that we should tell them to update their =
-infrastructure rather than re-implement old insecure protocols.
->=20
->=20
-> --Vernon
+>> that anonymous and nameless accounts are dangerous. I know that the IPMI spec says that having an account with no name is mandatory, I think this is another case of security trumps the standard.
+>>
+>> I would at least like a way to disable this at build time so we CANNOT have this exploited.
+>
+>That sounds like a reasonable way to make the code do what you need.
+>
+>>
+>> --Vernon
