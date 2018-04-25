@@ -1,33 +1,57 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::233; helo=mail-vk0-x233.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="CsewtJPx"; 
+ dkim-atps=neutral
+Received: from mail-vk0-x233.google.com (mail-vk0-x233.google.com
+ [IPv6:2607:f8b0:400c:c05::233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Vywq1dfMzF24G;
- Wed, 25 Apr 2018 08:41:13 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2018 15:41:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,324,1520924400"; d="scan'208";a="223090587"
-Received: from maru.jf.intel.com ([10.54.51.80])
- by fmsmga006.fm.intel.com with ESMTP; 24 Apr 2018 15:41:09 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Andrew Jeffery <andrew@aj.id.au>,
-	Joel Stanley <joel@jms.id.au>
-Cc: linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH linux dev-4.13] clk:aspeed: Fix reset bits for PCI/VGA and PECI
-Date: Tue, 24 Apr 2018 15:40:56 -0700
-Message-Id: <20180424224056.23384-1-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.16.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40WPxS58QczF24H
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Apr 2018 01:58:19 +1000 (AEST)
+Received: by mail-vk0-x233.google.com with SMTP id w1so14157371vkf.3
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 08:58:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=BK5EvPqAuvVygD/CcNpe6B8t9yrqP++yksOm/2eV668=;
+ b=CsewtJPx7Uw/7XL9KAFS9envqeP+uCdRU6Wh44fsndCDLq4CAe1aM5HrVKaNej/9iy
+ y7k1dlHxlYtR288+HSE40fvshYUAaere3OWnSb0VxTOgXpsWMxfFHeI6jh6b/5DF4pE2
+ 40hXZPo7RlxuLlE2f+BsyXTZyzQFOJKRTkwLmXmUW1Sybis/6SHsCMgE1wGWt0v+OVk6
+ J1jsQY/mBvl1L+h3TgMIpdi76AXMe4LOrYotv1QrwxWdcw7LES47uV2V6aSpH65RbuRl
+ 2olksfj5fSEqOqs90ZjKytbS9UGkKirlTn9ICTgiQXRCk2zZNLNoy9FM/QcIxIBRJVzZ
+ Iqmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=BK5EvPqAuvVygD/CcNpe6B8t9yrqP++yksOm/2eV668=;
+ b=I1Z5wNbD97ZvY8+KUGrnwTF0sJhlN6Ay05wN06Li5bn0WK5sxtk3ah0n/0wgW4PYvR
+ wpV0ba4xBAmHpOGJ3IU6o8uG2RygJ5mCj/gWheRVE82Zd9gQGlml9H/hBgKEzgV1s0bN
+ c3+5q4Re09i+O5R0Rb/VdraiPisAqX8fpyDK6yhaX+botw7RnDL+ksCoHlFCkAEIN80n
+ ZeIubMBkf2H2R0BPrbKhFmCR7bx7t6PMciwegLzuu5j4iz9UU9tQ4wQBRQ0iv37dY1DM
+ 6qhoBrTWP2uv0M1Nr+puZfe7gDc2w4pQPtNRVS+kQ7a73mVoIqzDr7F4QsNN02QQzV06
+ tgUQ==
+X-Gm-Message-State: ALQs6tAESUe8ab5vM9o5Q+F1McApsfzul+jQLKlzOP3u/iD6cnWxNEnE
+ tJ0G8YfaMAVD1jQvpNv+I15+YNSCmmdre0k4ffOlyCPb
+X-Google-Smtp-Source: AIpwx4/4IWS9V9qzZc5P9qj1/qXoTzTu6B0LJ4Nbf5FqrDrW6rlbOjJ6nZ4I3S6kfcu0sWiCcj5SvL59PnfXjQCUP7w=
+X-Received: by 10.31.114.207 with SMTP id n198mr20810126vkc.149.1524671894058; 
+ Wed, 25 Apr 2018 08:58:14 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.31.87.198 with HTTP; Wed, 25 Apr 2018 08:57:53 -0700 (PDT)
+In-Reply-To: <CAO=notyO-hhCvPY9t5Pa-FWPORkD8XWupPwhxMir+ZCEg6hLcQ@mail.gmail.com>
+References: <CAO=notyO-hhCvPY9t5Pa-FWPORkD8XWupPwhxMir+ZCEg6hLcQ@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 25 Apr 2018 08:57:53 -0700
+Message-ID: <CAO=notz+ALDanrXAHGrPSwjZtf93aecFujkuj63ekeNGj=XO7w@mail.gmail.com>
+Subject: Re: maintaining the quanta-q71l
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -39,57 +63,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Apr 2018 22:41:16 -0000
+X-List-Received-Date: Wed, 25 Apr 2018 15:58:21 -0000
 
-This commit fixes incorrect setting of reset bits for PCI/VGA and
-PECI modules.
+Quanta-q71l is supported in v2.2, but since nobody will be taking it
+over, I'm deprecating it shortly.
 
-1. Reset bit for PCI/VGA is 8.
-2. PECI reset logic is missing so added bit 10 as its reset bit.
+Patrick
 
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
----
- drivers/clk/clk-aspeed.c                 | 4 ++--
- include/dt-bindings/clock/aspeed-clock.h | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-index de8e1db..71404a2 100644
---- a/drivers/clk/clk-aspeed.c
-+++ b/drivers/clk/clk-aspeed.c
-@@ -100,7 +100,7 @@ static const struct aspeed_gate_data aspeed_gates[] = {
- 	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
- 	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	CLK_IS_CRITICAL }, /* SDRAM */
- 	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video Capture */
--	[ASPEED_CLK_GATE_BCLK] =	{  4, 10, "bclk-gate",		"bclk",	CLK_IS_CRITICAL }, /* PCIe/PCI */
-+	[ASPEED_CLK_GATE_BCLK] =	{  4,  8, "bclk-gate",		"bclk",	CLK_IS_CRITICAL }, /* PCIe/PCI */
- 	[ASPEED_CLK_GATE_DCLK] =	{  5, -1, "dclk-gate",		NULL,	CLK_IS_CRITICAL }, /* DAC */
- 	[ASPEED_CLK_GATE_REFCLK] =	{  6, -1, "refclk-gate",	"clkin", CLK_IS_CRITICAL },
- 	[ASPEED_CLK_GATE_USBPORT2CLK] =	{  7,  3, "usb-port2-gate",	NULL,	0 }, /* USB2.0 Host port 2 */
-@@ -315,8 +315,8 @@ static const u8 aspeed_resets[] = {
- 	[ASPEED_RESET_ADC]	= 23,
- 	[ASPEED_RESET_JTAG_MASTER] = 22,
- 	[ASPEED_RESET_MIC]	= 18,
-+	[ASPEED_RESET_PECI]	= 10,
- 	[ASPEED_RESET_PWM]	=  9,
--	[ASPEED_RESET_PCIVGA]	=  8,
- 	[ASPEED_RESET_I2C]	=  2,
- 	[ASPEED_RESET_AHB]	=  1,
- 
-diff --git a/include/dt-bindings/clock/aspeed-clock.h b/include/dt-bindings/clock/aspeed-clock.h
-index e983d17..379f727 100644
---- a/include/dt-bindings/clock/aspeed-clock.h
-+++ b/include/dt-bindings/clock/aspeed-clock.h
-@@ -43,8 +43,8 @@
- #define ASPEED_RESET_ADC		2
- #define ASPEED_RESET_JTAG_MASTER	3
- #define ASPEED_RESET_MIC		4
--#define ASPEED_RESET_PWM		5
--#define ASPEED_RESET_PCIVGA		6
-+#define ASPEED_RESET_PECI		5
-+#define ASPEED_RESET_PWM		6
- #define ASPEED_RESET_I2C		7
- #define ASPEED_RESET_AHB		8
- #define ASPEED_RESET_CRT1		9
--- 
-2.7.4
+On Fri, Apr 13, 2018 at 12:41 PM, Patrick Venture <venture@google.com> wrote:
+> Hi OpenBMC,
+>
+> Long-term I'm not able to support the quanta-q71l machine.  I have
+> some patches that'll make it build again, but beyond that I don't have
+> the cycles to keep it up-to-date as is really required for it to
+> continue to exist in the meta-openbmc-machines layer.
+>
+> Are there any volunteers who are using the platform and have the time?
+>
+> Patrick
