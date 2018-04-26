@@ -1,71 +1,69 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="bV//QFO/"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="umniPhps"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="IvHjF+90"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="lcXN27xH"; 
  dkim-atps=neutral
-Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
- [IPv6:2607:f8b0:400d:c0d::241])
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40WgC22dW1zDqGZ;
- Thu, 26 Apr 2018 11:55:57 +1000 (AEST)
-Received: by mail-qt0-x241.google.com with SMTP id m5-v6so162171qti.1;
- Wed, 25 Apr 2018 18:55:57 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40WgD7003pzDqGZ
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Apr 2018 11:56:54 +1000 (AEST)
+Received: by mail-qk0-x244.google.com with SMTP id b39so24333290qkb.5
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 18:56:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=v1/ERZ9NWXUY6GgFL64gzQApH28t8NkhM1YtLTTnynY=;
- b=bV//QFO/ephzpo9+QwwQ+adRY60IAWPIcLS7esjrGYY+baKfQO1OoF5I5zX8DBXzXq
- vYPf186oqZsipLhPba/vlB9yaXZfTgkyGCioKvDYMzgi60h4y/JYPY5CZEGQC7mHGAS0
- JbWuClEwHPNMxxg39tDVatp2KCHoZEZMPoX4uSs3oB1hHAcPFDNk7ec03XX+volhfeBA
- m9BbcGhMvj7EFH1skuRDU/W4F2+1sJslT7SxfB5OyCg/OHLbDZoFit7hkcqvEaQsOrW5
- q6LMLOh8kp1tyiNIg4V95IGmuVOA/a8A1GQlvcRQ39zCulVpfEBsVlqxD2yazBws0qSH
- bvaQ==
+ bh=7ClkhMcj/8h/oSggolziongJb03MiUjWjEOrkcoJfzY=;
+ b=umniPhpsCpvdc81mjnji92rqtatU0CBWmbQQmd/kl/jHuani6zscAKEwULzPFDjw3q
+ ayFkzYRDndlltQucF9ZbK51CkkKA/ixN1304nV3/o8qh1nCPvwDcfA1Hcjw5vBV2HCvy
+ EAvBSAvIcCcXRCevzM54B7Q/1ZiKwpwV3Yj+san+MtkZ92S947UMw1Hv1FtrWzTI4ICy
+ nbNw6VZIxx40Zj228BaWV7TKkh5fuIDPHCgL6GwcmD40giYmy5/NO4k5agvKA+lchWsI
+ 6x6ihkyxxKAQaMlpn4z81Tw4+Q/yCeTdg/xqwBNNjYMI80SgePTMyJxMhb5USAK5OVAT
+ 0OOQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=v1/ERZ9NWXUY6GgFL64gzQApH28t8NkhM1YtLTTnynY=;
- b=IvHjF+907RIeL9DhmgbVAajfzlBXdRS4r7UEdL3X9Rv/yBYQs5oPbGVCh6hdjEYxQG
- gjrqDmL9HqiYkJyJt4wsve71GmuRqg6Z4XofbCz9NBEVCPS8fN4BBtYH8Molb25fgdlW
- wmNolglzeZpEH+1uCMAIf99GS534VMWONt8Fg=
+ bh=7ClkhMcj/8h/oSggolziongJb03MiUjWjEOrkcoJfzY=;
+ b=lcXN27xHSIGbrY8d8l8uhl7Q2dDBqmHP2HSw74GqL9n9BSl3KE3PUALGZx+8I1EavF
+ ORMFn3VCFWJ0lETTftbLri+ueBTUwGqdhXY09RINrEzux9AciBTbbKW2jNQRhVEUpTF9
+ E78STc00byBOopSFzTTOn4tLqgU25ErcItpkI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=v1/ERZ9NWXUY6GgFL64gzQApH28t8NkhM1YtLTTnynY=;
- b=t8Tq5D98TlPZnusBisPMqqRomvp7NOAU2eB9vNRtng/VqfjudBycDiapMhjYAAH/Up
- VLpLTFlnzbQn3hpBM90ykZzf66eB8MhcmYdF1sK4Q3anRtpDQ6vFd9WUICetwer8JW3B
- q6hl04oLOQ+URiUVzu9cn+KSqt3FzUmw/StLZlOJqWosFAIShxNsv3cAlyS9hISZuPR4
- OdDwXb1AWA0uOfOleez/9GzuB2+yAsHiw3TXLmmweAXLQOs8rEp7NHbq6B9laRu/iX6o
- bECptENt8Oek1Hmxj34iaObCvdyqWl/2tyi/py53fEAQMSqDuQQOSBmo1UmBgCOV5M4D
- 3aiQ==
-X-Gm-Message-State: ALQs6tAj9BUSI6yMvCGrRRs/eIKjLLVyeyxYLFggoJZT5r8TUsw7SVZY
- 5tkwVn6misbjFazG2Dx9aTbIjuSCpwhnFZF9OEg=
-X-Google-Smtp-Source: AB8JxZox0atozSdn8f2eyctzkz1z4NBeLkkbPMuLLbUsZdHolvld7szygujZmtHuPDFWF/d6NzxODRI7j1MPWRw33EY=
-X-Received: by 10.12.155.138 with SMTP id o10mr10525652qve.89.1524707754301;
- Wed, 25 Apr 2018 18:55:54 -0700 (PDT)
+ bh=7ClkhMcj/8h/oSggolziongJb03MiUjWjEOrkcoJfzY=;
+ b=E4ipGQZSBMne2dcd1cIhlXcm7au+W6SzINXgN2Q4E4gOkrMPnVTiUjxZRKn+MkJtve
+ KuslNLVFySkcmdsue6n5t8JSns0knQ74hbxcjv3ZpUvEEfpyKIcwwwe8OKmCLuaZgdAp
+ tCY/SCzb5HikFUAZA5xVeSOosA3sX0rwyditTQXv8zis4LCFHBRGlD5lfLFOZfDpFHKm
+ vHS7MqzqO9WFRoYPowWAcdXI+pdQFk4ne6XiRNmRuMA6AWUCCXoyDhwuAY5obYXBQCTC
+ +zvQsbxoLhDs71DAcXpVIjBvyE7t8WWA5k/mWVMRYsoe7qgZVppfKplf8YCLbuffi6QW
+ Srwg==
+X-Gm-Message-State: ALQs6tARJD0iYGE7ppf/zux6tsEzy7eP660e5Pu24exfehvfV3eQDWgC
+ /hrLf8Yy5Y13uJYw7I48cnZdcwKo17RZDJ0B2mH/xA==
+X-Google-Smtp-Source: AB8JxZp+QTKMnt+zO6iaYlxm2U90WtsYgJs+XwaNdDMvcRb+b6FqhqkuC+nYnw/pnI+mVrBSj2QyBmdMg03Pyzmi8es=
+X-Received: by 10.55.105.193 with SMTP id e184mr31596735qkc.352.1524707811006; 
+ Wed, 25 Apr 2018 18:56:51 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Wed, 25 Apr 2018 18:55:33 -0700 (PDT)
-In-Reply-To: <20180424224056.23384-1-jae.hyun.yoo@linux.intel.com>
-References: <20180424224056.23384-1-jae.hyun.yoo@linux.intel.com>
+Received: by 10.200.24.79 with HTTP; Wed, 25 Apr 2018 18:56:30 -0700 (PDT)
+In-Reply-To: <20180425223321.9290-1-jae.hyun.yoo@linux.intel.com>
+References: <20180425223321.9290-1-jae.hyun.yoo@linux.intel.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 26 Apr 2018 11:25:33 +0930
-X-Google-Sender-Auth: jVxfbwcuwVOrMKKocJNfbgTNkaY
-Message-ID: <CACPK8Xe99zZ9Q0Y2HqoaGDXigBaZpkTcbfRe=gvsR5x6XMWzYA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13] clk:aspeed: Fix reset bits for PCI/VGA and
- PECI
+Date: Thu, 26 Apr 2018 11:26:30 +0930
+X-Google-Sender-Auth: uK2fNwp80ub86cdUBYK7O0wmic8
+Message-ID: <CACPK8XeDctYa3m9+waTbuSOzEppDd5W_XDMVvuQ75CZ=9feX6A@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13] clk:aspeed: Fix reset assert logic
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Cc: Andrew Jeffery <andrew@aj.id.au>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -78,52 +76,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Apr 2018 01:56:01 -0000
+X-List-Received-Date: Thu, 26 Apr 2018 01:56:55 -0000
 
-Hello Jae,
-
-On 25 April 2018 at 08:10, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
-> This commit fixes incorrect setting of reset bits for PCI/VGA and
-> PECI modules.
+On 26 April 2018 at 08:03, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+> This commit fixes a bug in aspeed_reset_assert() which determines
+> the second reset register using condition.
 >
-> 1. Reset bit for PCI/VGA is 8.
-> 2. PECI reset logic is missing so added bit 10 as its reset bit.
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 
-Great find!
+Thanks. This patch has not been applied upstream, so I will send a V2
+that incorporates your fix.
 
-Can you please send these upstream as a fix? Apply to 4.17-rc2, and
-use get_maintainers.pl to identify the lists to send it to.
-
-Also add:
-
-Fixes: 15ed8ce5f84e ("clk: aspeed: Register gated clocks")
-Cc: stable <stable@vger.kernel.org>
-
-> +++ b/include/dt-bindings/clock/aspeed-clock.h
-> @@ -43,8 +43,8 @@
->  #define ASPEED_RESET_ADC               2
->  #define ASPEED_RESET_JTAG_MASTER       3
->  #define ASPEED_RESET_MIC               4
-> -#define ASPEED_RESET_PWM               5
-> -#define ASPEED_RESET_PCIVGA            6
-> +#define ASPEED_RESET_PECI              5
-> +#define ASPEED_RESET_PWM               6
-
-This numbers form the kernel ABI, so we shouldn't be changing them.
-However, none of the mainline device trees use PCIVGA, so we can
-rename that without breaking any one.
-
-If we leave PWM as 5, and rename PCIVGA to PECI, we won't break any
-existing device trees.
+I've applied this patch to dev-4.13.
 
 Cheers,
 
 Joel
 
-
->  #define ASPEED_RESET_I2C               7
->  #define ASPEED_RESET_AHB               8
->  #define ASPEED_RESET_CRT1              9
+> ---
+>  drivers/clk/clk-aspeed.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+> index de8e1dba6eec..c5d2af2ace2e 100644
+> --- a/drivers/clk/clk-aspeed.c
+> +++ b/drivers/clk/clk-aspeed.c
+> @@ -349,7 +349,7 @@ static int aspeed_reset_assert(struct reset_controller_dev *rcdev,
+>         u32 reg = ASPEED_RESET_CTRL;
+>         u32 bit = aspeed_resets[id];
+>
+> -       if (bit >= ASPEED_RESET_CTRL2) {
+> +       if (bit >= ASPEED_RESET2_OFFSET) {
+>                 bit -= ASPEED_RESET2_OFFSET;
+>                 reg = ASPEED_RESET_CTRL2;
+>         }
 > --
-> 2.7.4
+> 2.17.0
 >
