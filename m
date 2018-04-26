@@ -1,69 +1,68 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="umniPhps"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ofhHE1ir"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="lcXN27xH"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="nbcjyj82"; 
  dkim-atps=neutral
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40WgD7003pzDqGZ
- for <openbmc@lists.ozlabs.org>; Thu, 26 Apr 2018 11:56:54 +1000 (AEST)
-Received: by mail-qk0-x244.google.com with SMTP id b39so24333290qkb.5
- for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 18:56:54 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40WgTM1J2TzDqyL
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Apr 2018 12:08:22 +1000 (AEST)
+Received: by mail-qt0-x243.google.com with SMTP id s2-v6so29568227qti.2
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 19:08:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=7ClkhMcj/8h/oSggolziongJb03MiUjWjEOrkcoJfzY=;
- b=umniPhpsCpvdc81mjnji92rqtatU0CBWmbQQmd/kl/jHuani6zscAKEwULzPFDjw3q
- ayFkzYRDndlltQucF9ZbK51CkkKA/ixN1304nV3/o8qh1nCPvwDcfA1Hcjw5vBV2HCvy
- EAvBSAvIcCcXRCevzM54B7Q/1ZiKwpwV3Yj+san+MtkZ92S947UMw1Hv1FtrWzTI4ICy
- nbNw6VZIxx40Zj228BaWV7TKkh5fuIDPHCgL6GwcmD40giYmy5/NO4k5agvKA+lchWsI
- 6x6ihkyxxKAQaMlpn4z81Tw4+Q/yCeTdg/xqwBNNjYMI80SgePTMyJxMhb5USAK5OVAT
- 0OOQ==
+ bh=wp8KV3TkQNkvR75l2N6B2eB+IiIHpXofIMehHmdCx0c=;
+ b=ofhHE1irsc2WNZUeF/lbYlYU+kloGc4dPMAvTrsHsiC5dNIgHuCjryqiIWEO85y07U
+ sxwZB40imKNfyms+qIxyF+KdChpSiZtQWzXmRIV1m8fWxba4RTKgyNEyroyJq1NmTs1+
+ kZkzzjUsxPkoVoKrykAiNZ5pwEfouPW488PYH87sHcYTOWZXaq5jmSHZ4TAfGEq3qZbt
+ CzjZaA2Fqi44HqzDFgRaTj5RF/5+QxeuIwwott2oh8dwvy7GLOh+smPiOxsTpw9tjlbA
+ vvFYFkm54DRSakOpJo/IlBll3v9be++uEH6XyR0c3iMDEkVk3qx+O3bAdn/nV/NfoIe9
+ tREg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=7ClkhMcj/8h/oSggolziongJb03MiUjWjEOrkcoJfzY=;
- b=lcXN27xHSIGbrY8d8l8uhl7Q2dDBqmHP2HSw74GqL9n9BSl3KE3PUALGZx+8I1EavF
- ORMFn3VCFWJ0lETTftbLri+ueBTUwGqdhXY09RINrEzux9AciBTbbKW2jNQRhVEUpTF9
- E78STc00byBOopSFzTTOn4tLqgU25ErcItpkI=
+ bh=wp8KV3TkQNkvR75l2N6B2eB+IiIHpXofIMehHmdCx0c=;
+ b=nbcjyj82NEpkxZMvekinSSlO1qL6SPK6Q/YUV9hgiQfajmmduzLmOW/qcbo3hHmT4W
+ k2gq8QcxYwwkN/YAUrRpgMbn4k3lAY4Y2LCiBsnEUV2eGTDRLHlo7c8uWgVJFSMWJTVS
+ uVs99gPASL7urWiBNYKJx0pZhP36giVrEOVdw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=7ClkhMcj/8h/oSggolziongJb03MiUjWjEOrkcoJfzY=;
- b=E4ipGQZSBMne2dcd1cIhlXcm7au+W6SzINXgN2Q4E4gOkrMPnVTiUjxZRKn+MkJtve
- KuslNLVFySkcmdsue6n5t8JSns0knQ74hbxcjv3ZpUvEEfpyKIcwwwe8OKmCLuaZgdAp
- tCY/SCzb5HikFUAZA5xVeSOosA3sX0rwyditTQXv8zis4LCFHBRGlD5lfLFOZfDpFHKm
- vHS7MqzqO9WFRoYPowWAcdXI+pdQFk4ne6XiRNmRuMA6AWUCCXoyDhwuAY5obYXBQCTC
- +zvQsbxoLhDs71DAcXpVIjBvyE7t8WWA5k/mWVMRYsoe7qgZVppfKplf8YCLbuffi6QW
- Srwg==
-X-Gm-Message-State: ALQs6tARJD0iYGE7ppf/zux6tsEzy7eP660e5Pu24exfehvfV3eQDWgC
- /hrLf8Yy5Y13uJYw7I48cnZdcwKo17RZDJ0B2mH/xA==
-X-Google-Smtp-Source: AB8JxZp+QTKMnt+zO6iaYlxm2U90WtsYgJs+XwaNdDMvcRb+b6FqhqkuC+nYnw/pnI+mVrBSj2QyBmdMg03Pyzmi8es=
-X-Received: by 10.55.105.193 with SMTP id e184mr31596735qkc.352.1524707811006; 
- Wed, 25 Apr 2018 18:56:51 -0700 (PDT)
+ bh=wp8KV3TkQNkvR75l2N6B2eB+IiIHpXofIMehHmdCx0c=;
+ b=RDC2qlBgddid8pqeRXmXpb9OgV53nov6W3dLd25lv2qBg6T0Ep292HNukHRQLMVp8A
+ doUPyecvHLNVYWc86eIYrylKTbhS1HEtYZJniYI6OwIZWQW5w0qB0Dgn/6O1dp129e1y
+ b+vO6mLF91vLyJwonWgp/h9AhFP82qhWbhAnNn6bOb6jmTCBCp3lBjbcSVdPvs1BK4Ki
+ MbMzupbBsjtEvYF9oBb1KCEvKb1fvS8/vUAhhIZ5TnoKkf7BaXFekbzy265zyvGVKH+6
+ MODvU6GlFGcxQT/DqmMOyoIRboRRIvpwsqnpZb0Juc4uuFU+fD7QJo+ZTg54yETX9IGb
+ RyHA==
+X-Gm-Message-State: ALQs6tDTfm1M2OSZ89AB45rRGAvk1qrNSdTnwM0Q6HbyvstmHHtuLGbj
+ /c8jt2SgSi1J6A4jADeV/is1A2gKowfwmLLFj4Pm1w==
+X-Google-Smtp-Source: AB8JxZoW1uePuGkJLHNg/Exm0mOuiXetxIOmGt/Biw7xr0ousJRkhPpOKe3hkgLg+X34DfyXvu763oC5ZQlDj5hO6c8=
+X-Received: by 2002:aed:3031:: with SMTP id
+ 46-v6mr5047073qte.340.1524708499444; 
+ Wed, 25 Apr 2018 19:08:19 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Wed, 25 Apr 2018 18:56:30 -0700 (PDT)
-In-Reply-To: <20180425223321.9290-1-jae.hyun.yoo@linux.intel.com>
-References: <20180425223321.9290-1-jae.hyun.yoo@linux.intel.com>
+Received: by 10.200.24.79 with HTTP; Wed, 25 Apr 2018 19:07:59 -0700 (PDT)
+In-Reply-To: <20180426013746.27256-1-joel@jms.id.au>
+References: <20180426013746.27256-1-joel@jms.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 26 Apr 2018 11:26:30 +0930
-X-Google-Sender-Auth: uK2fNwp80ub86cdUBYK7O0wmic8
-Message-ID: <CACPK8XeDctYa3m9+waTbuSOzEppDd5W_XDMVvuQ75CZ=9feX6A@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13] clk:aspeed: Fix reset assert logic
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 26 Apr 2018 11:37:59 +0930
+X-Google-Sender-Auth: 8fJXPL5qKnpE7MWO-6Y3d20q6ug
+Message-ID: <CACPK8Xet68CF+kRD=_pJ+L=0WtGasmUJQXFhddFHfCvyKUrLqQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13] ARM: dts: romulus: Enable the GFX IP
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -76,40 +75,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Apr 2018 01:56:55 -0000
+X-List-Received-Date: Thu, 26 Apr 2018 02:08:23 -0000
 
-On 26 April 2018 at 08:03, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
-> This commit fixes a bug in aspeed_reset_assert() which determines
-> the second reset register using condition.
+On 26 April 2018 at 11:07, Joel Stanley <joel@jms.id.au> wrote:
+> The GFX controller is the internal graphics device used by the SoC
+> (opposed to the one connected via the PCIe device and used by the host).
 >
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> This configures it with a framebuffer region and adds it to the command
+> line so kernel boot messages appear on the display.
 
-Thanks. This patch has not been applied upstream, so I will send a V2
-that incorporates your fix.
+This commit message is incorrect; it does not add the command line option.
 
-I've applied this patch to dev-4.13.
+I'll send a v2.
 
 Cheers,
 
 Joel
 
+>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
->  drivers/clk/clk-aspeed.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 >
-> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-> index de8e1dba6eec..c5d2af2ace2e 100644
-> --- a/drivers/clk/clk-aspeed.c
-> +++ b/drivers/clk/clk-aspeed.c
-> @@ -349,7 +349,7 @@ static int aspeed_reset_assert(struct reset_controller_dev *rcdev,
->         u32 reg = ASPEED_RESET_CTRL;
->         u32 bit = aspeed_resets[id];
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> index 00812a2fecf0..d746e562e8fd 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -30,6 +30,13 @@
+>                         no-map;
+>                         reg = <0x98000000 0x04000000>; /* 64M */
+>                 };
+> +
+> +               gfx_memory: framebuffer {
+> +                       size = <0x01000000>;
+> +                       alignment = <0x01000000>;
+> +                       compatible = "shared-dma-pool";
+> +                       reusable;
+> +               };
+>         };
 >
-> -       if (bit >= ASPEED_RESET_CTRL2) {
-> +       if (bit >= ASPEED_RESET2_OFFSET) {
->                 bit -= ASPEED_RESET2_OFFSET;
->                 reg = ASPEED_RESET_CTRL2;
->         }
+>         leds {
+> @@ -280,3 +287,8 @@
+>  &ibt {
+>         status = "okay";
+>  };
+> +
+> +&gfx {
+> +     status = "okay";
+> +     memory-region = <&gfx_memory>;
+> +};
 > --
 > 2.17.0
 >
