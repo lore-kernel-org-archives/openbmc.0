@@ -1,55 +1,60 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ (client-ip=2607:f8b0:400d:c0d::22d; helo=mail-qt0-x22d.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="i12TZjgb"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="GBz2K8HU"; 
  dkim-atps=neutral
-Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
- [IPv6:2607:f8b0:400d:c0d::241])
+Received: from mail-qt0-x22d.google.com (mail-qt0-x22d.google.com
+ [IPv6:2607:f8b0:400d:c0d::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40WhRW4bjrzDqyL
- for <openbmc@lists.ozlabs.org>; Thu, 26 Apr 2018 12:51:50 +1000 (AEST)
-Received: by mail-qt0-x241.google.com with SMTP id h2-v6so17584675qtp.7
- for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 19:51:50 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40WhTw3XvHzDqyL
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Apr 2018 12:53:56 +1000 (AEST)
+Received: by mail-qt0-x22d.google.com with SMTP id z23-v6so29677640qti.5
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 19:53:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3aSt8nZPodfAq4WIJsorfz0fV3lSRzdx6YDx5K4cRCY=;
- b=i12TZjgbkEbFPM0afUK8k3EnNA+RFmpouUILdglghpX9/X9k1ICdGKBXFJdtXBveds
- zfDJbsJRuU397yv+9um1hKKuHWOm9ZqRK70gsSlHyqAEZDFe+OwcAuAJPItjfeJfm1Jh
- xfbczryRh8++l+p2NQi2h8sRgbErRSHDKDtKM=
+ :cc; bh=vXEhTx6AWaJu66SoQPW7gjfUV5H7JlquqGv6ry9difk=;
+ b=GBz2K8HUY1V/Q9YxkvEsDfQ9pUxGbH1nssSHDvQgF8bowiXtKCQ5GeG9SF79Wky3NM
+ E0cSlNFiquak8vXeEaJ6bFuXoYQAyVN9xmmmRxPX7Si0rf6NUIp/06H3bLfjHhOqV7NK
+ rk5bc2gC1l+H/u74IllnuSXs4O5CUZZG7NFqg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=3aSt8nZPodfAq4WIJsorfz0fV3lSRzdx6YDx5K4cRCY=;
- b=Pq3NwlcQ+dKnGKRoqz1Nn8DHDs5q7HPVC6HSrIDF5ZE7lVg/w+e4rpNT4i9O0aUvZ3
- ydtqCHlrBDJG0UDLl81YLSVj6KszBPUx4Ch/PLBFOBKUXmOmwDy1S9wcCYJXChV/tsB7
- /XqeEs0mJMSl0DlibkknFJF2xW6Gu7//XEYfSmzR4x3lZ02+jauqE7ed0RZjO3d2TSTS
- vqMWZvc/4LGRuNwkmTRdT8HblmpyTng+AwI1Ivbpv3PVoDh4OwTajhrNPPKvse3pZfw/
- KnL30xVr169fIX8HpbkpElxLGIv4jax6ePwOJ6Pr4NoOTGsz8hypoPZ+wysPBgrtidvu
- IrMw==
-X-Gm-Message-State: ALQs6tCpfgIdOQLEgX3qYeI7hJa6nkJf1or5ZmVPQ4syCH2sYO/KERTd
- P+/XHeHru27ASohjJjTX+DX1qEpwdFEUQlM/EHE=
-X-Google-Smtp-Source: AB8JxZqa3LoT3+hK7XWSToZh9LQ0a4h2vo+xEvbaefno8YHOtrlrnx6B1N//ln3VwxRfgT9vptzhVgnqN77760prvUY=
-X-Received: by 10.12.155.138 with SMTP id o10mr10663014qve.89.1524711107901;
- Wed, 25 Apr 2018 19:51:47 -0700 (PDT)
+ bh=vXEhTx6AWaJu66SoQPW7gjfUV5H7JlquqGv6ry9difk=;
+ b=k9mNLcXJNzs8IEmuQugmPEw0K7qOnZUxloQZ8Odan5Tc5pWrTGzaRIGWB25YVrAyed
+ X+aTSUqtHycol3M58GnRHkXe57dzmU1H1GxnRigAm6b//VgT9svKt7EHqLtTC4znx2cc
+ /d+2484D7oyyqA6WUuRyqECoYsDEGoDPxd7SRNFBJHthdO4U6SoFWHRtKbR87pcS/6aT
+ +RAFVssNKkDebx5Zl7BhwavhZBLcfIRTj3go2DWXs9457rSqMXBeSp2AeHLPEPUWTzQ2
+ gUixawSi8fjp8S6gkjM6HDQ+fU4KklzGeqTC5avGe4uXVQ0+Tgpwx9UpHD2M9zA+DPw7
+ 0RWw==
+X-Gm-Message-State: ALQs6tDxL6/RK+fdfXxUrAhZcr249zARF5D5EhPssOTe9emK9PGOp1Yd
+ C+B/lN/Kjx/60xm0Om7rwZOmRvlTDbqhml3LiJU=
+X-Google-Smtp-Source: AB8JxZrDOMJPNWlwXjN7tuoxtmsPDQNNqHxOTguGNppO5sdO6pv+3SaVETjn9muMnrtr3E/dsKrdiFwyZOjOunRcndE=
+X-Received: by 10.12.185.1 with SMTP id u1mr10598746qvf.21.1524711233750; Wed,
+ 25 Apr 2018 19:53:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180327001149.2980565-1-amithash@fb.com>
- <1523244826.776074.1331045080.070C8C03@webmail.messagingengine.com>
-In-Reply-To: <1523244826.776074.1331045080.070C8C03@webmail.messagingengine.com>
+References: <1523432542-445334-1-git-send-email-yang.brianc.w@inventec.com>
+ <1523584666.2655983.1336387696.46B4368A@webmail.messagingengine.com>
+ <39E6480C5A587146BAA4D885C7BCF7EEC6B7921E@IEC1-EX2010-MX4.iec.inventec>
+ <CAAvYUAw1ZH2DFrMr8mJydfQUVHatioxeNrOitwy4KU8fG5fuYA@mail.gmail.com>
+ <1523930744.402617.1340420568.34CE3271@webmail.messagingengine.com>
+ <CACPK8XeRZ_NbaduF-jbPoSA+-HO6O4Zoy3M1-geqkhkyohq6ag@mail.gmail.com>
+ <1524101765.2367494.1343094608.58E4CC87@webmail.messagingengine.com>
+In-Reply-To: <1524101765.2367494.1343094608.58E4CC87@webmail.messagingengine.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 26 Apr 2018 02:51:36 +0000
-Message-ID: <CACPK8Xc9uNvEqesS2OJDO-8sNT+1CNm_zVOo2d_yUJUwR6eekg@mail.gmail.com>
-Subject: Re: [PATCH v3 linux dev-4.13] ARM: dts: aspeed: Add Portwell Neptune
- machine
+Date: Thu, 26 Apr 2018 02:53:43 +0000
+Message-ID: <CACPK8Xf0NmA+9tO7LZ3R44vRLKd8S7YVNGfJ=qgdONvcYaheJw@mail.gmail.com>
+Subject: Re: FW: [PATCH linux dev-4.13 v1] ARM: dts: aspeed: Add Inventec
+ Lanyang BMC
 To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Amithash Prasad <amithash@fb.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Brian Yang <yang.brianc.w@inventec.com>, Ken Chen <Chen.KenYY@inventec.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Lei YU <mine260309@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -62,18 +67,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Apr 2018 02:51:52 -0000
+X-List-Received-Date: Thu, 26 Apr 2018 02:53:57 -0000
 
-On Mon, 9 Apr 2018 at 13:03, Andrew Jeffery <andrew@aj.id.au> wrote:
-
-> On Tue, 27 Mar 2018, at 09:41, Amithash Prasad wrote:
-> > Initial introduction of Portwell Neptune family equipped with
-> > Aspeed 2500 BMC SoC. Neptune is a x86 server development kit with a
-> > ASPEED ast2500 BMC manufactured by Portwell. Specifically, This
-> > adds the neptune platform device tree file including the flash
-> > layout used by the neptune machines.
-> >
-> > Signed-off-by: Amithash Prasad <amithash@fb.com>
+On Thu, 19 Apr 2018 at 11:06, Andrew Jeffery <andrew@aj.id.au> wrote:
 
 > Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
