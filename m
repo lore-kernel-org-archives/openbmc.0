@@ -1,59 +1,72 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::244; helo=mail-pf0-x244.google.com;
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="BG3ht+j2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bV//QFO/"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="IvHjF+90"; 
  dkim-atps=neutral
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40WfpJ1qrVzF24Y
- for <openbmc@lists.ozlabs.org>; Thu, 26 Apr 2018 11:37:58 +1000 (AEST)
-Received: by mail-pf0-x244.google.com with SMTP id j5so16808688pfh.2
- for <openbmc@lists.ozlabs.org>; Wed, 25 Apr 2018 18:37:58 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40WgC22dW1zDqGZ;
+ Thu, 26 Apr 2018 11:55:57 +1000 (AEST)
+Received: by mail-qt0-x241.google.com with SMTP id m5-v6so162171qti.1;
+ Wed, 25 Apr 2018 18:55:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=Lzdk9Fo/XpSIXEMunDL3AU7Liwp4AzjQf3BLNVkqkvo=;
- b=BG3ht+j2yYczoAxjTRCwQn0ulBi1q325ITiSfavHZMJMYP+l/NxU2B9aHCqUv9bIjr
- S4TsC+u5IKXvJOi5XDJM9j6bFLVs86yrxgevpUcXW7FGtncJ5TMcHonCjgvokGxoH/Ce
- oRhS6Bept/UkPCuTWFq+jMqXJwhqnv3RScsgJwd7wP+ndB6KeESWK9i2CmXLrvW3iHQ3
- PvdlHvj7DZeg4jjbR5O6Ix+tc0JV5F6jETI/4IB7hqbm+KW/N2ioQp8S/PRvKJogincj
- BtP4xerDHP0GCggNikX+lmbEApP24GLycdNCKKDn8z5ePDNjo1O7J+GL0DJqBEkUr0DJ
- WzFA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=v1/ERZ9NWXUY6GgFL64gzQApH28t8NkhM1YtLTTnynY=;
+ b=bV//QFO/ephzpo9+QwwQ+adRY60IAWPIcLS7esjrGYY+baKfQO1OoF5I5zX8DBXzXq
+ vYPf186oqZsipLhPba/vlB9yaXZfTgkyGCioKvDYMzgi60h4y/JYPY5CZEGQC7mHGAS0
+ JbWuClEwHPNMxxg39tDVatp2KCHoZEZMPoX4uSs3oB1hHAcPFDNk7ec03XX+volhfeBA
+ m9BbcGhMvj7EFH1skuRDU/W4F2+1sJslT7SxfB5OyCg/OHLbDZoFit7hkcqvEaQsOrW5
+ q6LMLOh8kp1tyiNIg4V95IGmuVOA/a8A1GQlvcRQ39zCulVpfEBsVlqxD2yazBws0qSH
+ bvaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=v1/ERZ9NWXUY6GgFL64gzQApH28t8NkhM1YtLTTnynY=;
+ b=IvHjF+907RIeL9DhmgbVAajfzlBXdRS4r7UEdL3X9Rv/yBYQs5oPbGVCh6hdjEYxQG
+ gjrqDmL9HqiYkJyJt4wsve71GmuRqg6Z4XofbCz9NBEVCPS8fN4BBtYH8Molb25fgdlW
+ wmNolglzeZpEH+1uCMAIf99GS534VMWONt8Fg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=Lzdk9Fo/XpSIXEMunDL3AU7Liwp4AzjQf3BLNVkqkvo=;
- b=Sdjs0/KEkAENBUG60q41QIoKQDZtoqAXZG3pRYJpEKYqTIqApe8EXY5cNfly7sZfRU
- CsQLa3InOZ0NfkBgiBTa9rlNygqdfLcAexKZ4jURHl7T8OL0wdd3f1fO7F1ZmeWcnU4J
- ZerQqclYXtBc32VlUTTEtyYJeDHkpZtDD5gNPzwnd8DF3zrzoEccEZdA6eh7NkDDHrqc
- fOp26ym1+4h+q7EoRBUEDQ7sxJ0XwIJkPhkOtmKR2ik3BrC82aDxknKb2agVCAQwGLrp
- ny7uzcnfCjeDRd8hVhcmeizvQcLS95YbtvQaCAabOWg9wtDN8p6cDmf9csLsIQiDge1L
- HTMA==
-X-Gm-Message-State: ALQs6tCC82eTEdxGQjg5PoazcR+sh+4XIo7WKLRrevdZqYp3dQYENiAu
- kWv0q48u3mVI66aaNcIQNDi0wot7
-X-Google-Smtp-Source: AIpwx49VaNVbLCZDsrNhmyVmP4GrZSK0mmcj0FxWEbUP0jfUvwb2mkycQjbTbt69htMCqXlFqGH4wA==
-X-Received: by 2002:a17:902:6086:: with SMTP id
- s6-v6mr31125503plj.307.1524706676080; 
- Wed, 25 Apr 2018 18:37:56 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id u4sm19964891pfn.3.2018.04.25.18.37.53
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 25 Apr 2018 18:37:55 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 26 Apr 2018 11:07:49 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=v1/ERZ9NWXUY6GgFL64gzQApH28t8NkhM1YtLTTnynY=;
+ b=t8Tq5D98TlPZnusBisPMqqRomvp7NOAU2eB9vNRtng/VqfjudBycDiapMhjYAAH/Up
+ VLpLTFlnzbQn3hpBM90ykZzf66eB8MhcmYdF1sK4Q3anRtpDQ6vFd9WUICetwer8JW3B
+ q6hl04oLOQ+URiUVzu9cn+KSqt3FzUmw/StLZlOJqWosFAIShxNsv3cAlyS9hISZuPR4
+ OdDwXb1AWA0uOfOleez/9GzuB2+yAsHiw3TXLmmweAXLQOs8rEp7NHbq6B9laRu/iX6o
+ bECptENt8Oek1Hmxj34iaObCvdyqWl/2tyi/py53fEAQMSqDuQQOSBmo1UmBgCOV5M4D
+ 3aiQ==
+X-Gm-Message-State: ALQs6tAj9BUSI6yMvCGrRRs/eIKjLLVyeyxYLFggoJZT5r8TUsw7SVZY
+ 5tkwVn6misbjFazG2Dx9aTbIjuSCpwhnFZF9OEg=
+X-Google-Smtp-Source: AB8JxZox0atozSdn8f2eyctzkz1z4NBeLkkbPMuLLbUsZdHolvld7szygujZmtHuPDFWF/d6NzxODRI7j1MPWRw33EY=
+X-Received: by 10.12.155.138 with SMTP id o10mr10525652qve.89.1524707754301;
+ Wed, 25 Apr 2018 18:55:54 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.24.79 with HTTP; Wed, 25 Apr 2018 18:55:33 -0700 (PDT)
+In-Reply-To: <20180424224056.23384-1-jae.hyun.yoo@linux.intel.com>
+References: <20180424224056.23384-1-jae.hyun.yoo@linux.intel.com>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13] ARM: dts: romulus: Enable the GFX IP
-Date: Thu, 26 Apr 2018 11:07:46 +0930
-Message-Id: <20180426013746.27256-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.17.0
+Date: Thu, 26 Apr 2018 11:25:33 +0930
+X-Google-Sender-Auth: jVxfbwcuwVOrMKKocJNfbgTNkaY
+Message-ID: <CACPK8Xe99zZ9Q0Y2HqoaGDXigBaZpkTcbfRe=gvsR5x6XMWzYA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13] clk:aspeed: Fix reset bits for PCI/VGA and
+ PECI
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,45 +78,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Apr 2018 01:38:00 -0000
+X-List-Received-Date: Thu, 26 Apr 2018 01:56:01 -0000
 
-The GFX controller is the internal graphics device used by the SoC
-(opposed to the one connected via the PCIe device and used by the host).
+Hello Jae,
 
-This configures it with a framebuffer region and adds it to the command
-line so kernel boot messages appear on the display.
+On 25 April 2018 at 08:10, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+> This commit fixes incorrect setting of reset bits for PCI/VGA and
+> PECI modules.
+>
+> 1. Reset bit for PCI/VGA is 8.
+> 2. PECI reset logic is missing so added bit 10 as its reset bit.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Great find!
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index 00812a2fecf0..d746e562e8fd 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -30,6 +30,13 @@
- 			no-map;
- 			reg = <0x98000000 0x04000000>; /* 64M */
- 		};
-+
-+		gfx_memory: framebuffer {
-+			size = <0x01000000>;
-+			alignment = <0x01000000>;
-+			compatible = "shared-dma-pool";
-+			reusable;
-+		};
- 	};
- 
- 	leds {
-@@ -280,3 +287,8 @@
- &ibt {
- 	status = "okay";
- };
-+
-+&gfx {
-+     status = "okay";
-+     memory-region = <&gfx_memory>;
-+};
--- 
-2.17.0
+Can you please send these upstream as a fix? Apply to 4.17-rc2, and
+use get_maintainers.pl to identify the lists to send it to.
+
+Also add:
+
+Fixes: 15ed8ce5f84e ("clk: aspeed: Register gated clocks")
+Cc: stable <stable@vger.kernel.org>
+
+> +++ b/include/dt-bindings/clock/aspeed-clock.h
+> @@ -43,8 +43,8 @@
+>  #define ASPEED_RESET_ADC               2
+>  #define ASPEED_RESET_JTAG_MASTER       3
+>  #define ASPEED_RESET_MIC               4
+> -#define ASPEED_RESET_PWM               5
+> -#define ASPEED_RESET_PCIVGA            6
+> +#define ASPEED_RESET_PECI              5
+> +#define ASPEED_RESET_PWM               6
+
+This numbers form the kernel ABI, so we shouldn't be changing them.
+However, none of the mainline device trees use PCIVGA, so we can
+rename that without breaking any one.
+
+If we leave PWM as 5, and rename PCIVGA to PECI, we won't break any
+existing device trees.
+
+Cheers,
+
+Joel
+
+
+>  #define ASPEED_RESET_I2C               7
+>  #define ASPEED_RESET_AHB               8
+>  #define ASPEED_RESET_CRT1              9
+> --
+> 2.7.4
+>
