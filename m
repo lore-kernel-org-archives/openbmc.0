@@ -1,76 +1,61 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="mKThyzgW"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Xhzde9EW"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40ZcgT3MCDzF2QF
- for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 07:12:20 +1000 (AEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3UL9YXm123810
- for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 17:12:17 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2hp7x3pvv6-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 17:12:17 -0400
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 30 Apr 2018 17:12:17 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 30 Apr 2018 17:12:14 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w3ULCDOd51642420; Mon, 30 Apr 2018 21:12:14 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CF80CB2052;
- Mon, 30 Apr 2018 18:14:14 -0400 (EDT)
-Received: from [9.41.241.240] (unknown [9.41.241.240])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 3D036B204E;
- Mon, 30 Apr 2018 18:14:14 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.13 v3] fsi: occ: Use PutOCCSRAM in circular
- mode for OCC attention
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>,
- Andrew Jeffery <andrew@aj.id.au>
-Cc: "Edward A . James" <eajames@us.ibm.com>, openbmc@lists.ozlabs.org
-References: <20180427144559.25907-1-andrew@aj.id.au>
- <f16c3ac779c7bbedc8cc9b1fd2f82bcf@linux.vnet.ibm.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Mon, 30 Apr 2018 16:12:12 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Zg8s3NgwzF25b
+ for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 09:04:28 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 443D821859;
+ Mon, 30 Apr 2018 19:04:25 -0400 (EDT)
+Received: from web6 ([10.202.2.216])
+ by compute4.internal (MEProxy); Mon, 30 Apr 2018 19:04:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=s23v3ypBNy9AH8cl+PNhqTpn3zBET
+ lJLxoRTtsTM4kY=; b=mKThyzgWkRydbaj8qG9B/zC/lVTppAg+IGhgeJGna9s5D
+ EpNvU62urIH12zfY9+SRJyyDtErhhQhe/Dygg1izxgKMQcLW9C222QAKr2CUZJNr
+ T1rikAPm+/pvSFidwKlEy1xaSwHT+3WKEQzLdJJfDweHBHYlhvUQc6wpR7vmi4id
+ GWOqZlkLMRpvt76q4DXBhr4jNq324Ov8ojf8nhMQYTb/1C0+1drE/om1CCgPb068
+ DY47ak/3kcDyHCeHYCvC6Pcxalsev+yBc6eBzo7Ol9qeZGRTD6OHcXWIdn/x60Wo
+ GV6rxtdmy9DDvZ2lynOKPKw8u4qIMzvlNHJ27nIBA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=s23v3y
+ pBNy9AH8cl+PNhqTpn3zBETlJLxoRTtsTM4kY=; b=Xhzde9EWJ3MP1YNeh84b5+
+ PRRe+Og7INRMcxK1DjYvlxXtiI6XG+vJCAR3iPa8GL9WAGoRxsvhtR8h3lyX09Tb
+ 786Ahus9ex5i26lobCXZshz+yOmsg2PPiA8It7+gmt2B6mBvnOGg1cZSAboU/fBP
+ Bpw/m9XXn4qi9hzk70xmrV9ym7wB4YqhwmOAK1u7NOthE7ejdr13wo7MxImgnwqS
+ P7jP3l5tcLZBtzZobNN+zn2T9KKDwt/xyyjriNIsf0t/9fUX8YghTPRa/wyFslCW
+ +Wbz3KHw/ELQ4FhhocKkUcZkd0/vX8mSiGx5skp3a5ejHkhyV6mv8aCyqjc1mNZw
+ ==
+X-ME-Sender: <xms:-aDnWqeRN-45lJUIzEluWZj7ZmhViJ4ZdwT9ndD8aiB8-mgb716j6A>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 20D4E425A; Mon, 30 Apr 2018 19:04:25 -0400 (EDT)
+Message-Id: <1525129465.240098.1356240360.493222DA@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-In-Reply-To: <f16c3ac779c7bbedc8cc9b1fd2f82bcf@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18043021-0024-0000-0000-000003517F5F
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008953; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000257; SDB=6.01025620; UDB=6.00523751; IPR=6.00804851; 
- MB=3.00020870; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-30 21:12:15
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18043021-0025-0000-0000-000047D98198
-Message-Id: <2524f40e-2ff3-698d-1d40-4722e65be614@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-30_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804300203
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-f3006b89
+Date: Tue, 01 May 2018 08:34:25 +0930
+In-Reply-To: <20180426021026.12548-1-joel@jms.id.au>
+Subject: Re: [PATCH linux dev-4.13 v2] ARM: dts: romulus: Enable the GFX IP
+References: <20180426021026.12548-1-joel@jms.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -82,93 +67,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Apr 2018 21:12:22 -0000
+X-List-Received-Date: Mon, 30 Apr 2018 23:04:32 -0000
 
+On Thu, 26 Apr 2018, at 11:40, Joel Stanley wrote:
+> The GFX controller is the internal graphics device used by the SoC
+> (opposed to the one connected via the PCIe device and used by the host).
+> 
+> This configures it with a framebuffer region and enables the GFX node.
+> 
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
-On 04/27/2018 02:56 PM, Matt Spinler wrote:
-> Reviewed-by: Matt Spinler mspinler@linux.vnet.ibm.com
->
-> On 2018-04-27 09:45, Andrew Jeffery wrote:
->> We can't do SCOMs from the BMC when the host is booted in secure mode,
->> and without triggering the attention of the OCC our commands won't be
->> processed. Further, the SCOM operation fails, which causes the OCC
->> driver's probe to fail, which leads the BMC to think that the OCC has
->> failed.
->>
->> We have an alternative to the SCOM though: We can trigger the OCC by
->> writing the correct attention magic in circular buffer mode.
->>
->> The PutOCCSRAM operation returns the written data length in the response
->> payload before the 0xCODE word, so the condition testing the success of
->> the operation is rearranged.
-
-Thanks Andrew, looks good.
-
-Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
-
->>
->> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->> ---
->>
->> v3:
->> * Address Matt Spinler's feedback that the address field is ignored 
->> in mode 3
->>
->> Tested on two Witherspoon systems, one with secure-boot enabled and 
->> one without
->>
->> v2:
->> * Minor typo and documentation cleanups
->>
->>  drivers/fsi/fsi-occ.c | 22 +++++++++-------------
->>  1 file changed, 9 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
->> index 45ae13cd7a3d..938601fd7347 100644
->> --- a/drivers/fsi/fsi-occ.c
->> +++ b/drivers/fsi/fsi-occ.c
->> @@ -575,19 +575,16 @@ static int occ_putsram(struct device *sbefifo,
->> u32 address, u8 *data,
->>  static int occ_trigger_attn(struct device *sbefifo)
->>  {
->>      int rc;
->> -    __be32 buf[6];
->> +    __be32 buf[7];
->>      struct sbefifo_client *client;
->>
->> -    /*
->> -     * Magic sequence to do SBE putscom command. SBE will write 8 
->> bytes to
->> -     * specified SCOM address.
->> -     */
->> -    buf[0] = cpu_to_be32(0x6);
->> -    buf[1] = cpu_to_be32(0xa202);
->> -    buf[2] = 0;
->> -    buf[3] = cpu_to_be32(0x6D035);
->> -    buf[4] = cpu_to_be32(0x20010000);    /* trigger occ attention */
->> -    buf[5] = 0;
->> +    buf[0] = cpu_to_be32(0x5 + 0x2);        /* Chip-op length in 
->> words */
->> +    buf[1] = cpu_to_be32(0xa404);           /* PutOCCSRAM */
->> +    buf[2] = cpu_to_be32(0x3);              /* Mode: Circular */
->> +    buf[3] = cpu_to_be32(0x0);              /* Address: ignored in 
->> mode 3 */
->> +    buf[4] = cpu_to_be32(0x8);              /* Data length in bytes */
->> +    buf[5] = cpu_to_be32(0x20010000);       /* Trigger OCC attention */
->> +    buf[6] = 0;
->>
->>      client = sbefifo_drv_open(sbefifo, 0);
->>      if (!client)
->> @@ -602,8 +599,7 @@ static int occ_trigger_attn(struct device *sbefifo)
->>          goto done;
->>
->>      /* check for good response */
->> -    if ((be32_to_cpu(buf[0]) != 0xC0DEA202) ||
->> -        (be32_to_cpu(buf[1]) & 0x0FFFFFFF))
->> +    if ((be32_to_cpu(buf[0]) != 8) || (be32_to_cpu(buf[1]) != 
->> 0xC0DEA404))
->>          rc = -EBADMSG;
->>
->>  done:
->
+> ---
+> v2: Fix the commit message, as we do not output bmc kenrel messages to
+> the VGA device with this change
+> 
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/
+> boot/dts/aspeed-bmc-opp-romulus.dts
+> index 00812a2fecf0..d746e562e8fd 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -30,6 +30,13 @@
+>  			no-map;
+>  			reg = <0x98000000 0x04000000>; /* 64M */
+>  		};
+> +
+> +		gfx_memory: framebuffer {
+> +			size = <0x01000000>;
+> +			alignment = <0x01000000>;
+> +			compatible = "shared-dma-pool";
+> +			reusable;
+> +		};
+>  	};
+>  
+>  	leds {
+> @@ -280,3 +287,8 @@
+>  &ibt {
+>  	status = "okay";
+>  };
+> +
+> +&gfx {
+> +     status = "okay";
+> +     memory-region = <&gfx_memory>;
+> +};
+> -- 
+> 2.17.0
+> 
