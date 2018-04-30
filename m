@@ -1,75 +1,35 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40ZYQF1GFdzF2Q5
- for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 04:45:40 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3UIfpNA073612
- for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 14:45:35 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2hp7adu8w5-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 14:45:35 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Mon, 30 Apr 2018 12:45:34 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 30 Apr 2018 12:45:32 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w3UIiH377012684; Mon, 30 Apr 2018 11:44:17 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 52CBABE042;
- Mon, 30 Apr 2018 12:44:17 -0600 (MDT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 3BC2CBE03A;
- Mon, 30 Apr 2018 12:44:17 -0600 (MDT)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Mon, 30 Apr 2018 13:46:58 -0500
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40ZZVF4ySzzF2Q9
+ for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 05:34:13 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 9739DE9D51;
+ Mon, 30 Apr 2018 15:34:08 -0400 (EDT)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: reference platforms?
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <FA93D326-6F39-4E5F-8A51-1ED819BFF0F1@fb.com>
+Date: Mon, 30 Apr 2018 15:34:08 -0400
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Code levels in error log entries
-In-Reply-To: <6eff09e8-6e8e-db50-2207-94549d24e8ba@linux.vnet.ibm.com>
-References: <120dd10d-e04a-477e-e84a-5cd536aff663@linux.vnet.ibm.com>
- <98ce31d805dcc9c6d44154ef5825efd3@linux.vnet.ibm.com>
- <6eff09e8-6e8e-db50-2207-94549d24e8ba@linux.vnet.ibm.com>
-X-Sender: mspinler@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 18043018-0016-0000-0000-000008A0FF0A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008952; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000257; SDB=6.01025571; UDB=6.00523721; IPR=6.00804802; 
- MB=3.00020867; MTD=3.00000008; XFM=3.00000015; UTC=2018-04-30 18:45:33
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18043018-0017-0000-0000-00003E7C7B59
-Message-Id: <a41f90537695e0195c744f2d99aa59e5@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-30_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804300179
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BC2069D9-DAC3-4EEB-9A35-D36F68947E06@fuzziesquirrel.com>
+References: <1A67395A-9FF6-4DC2-AD43-2C80308F6608@fuzziesquirrel.com>
+ <4723874F-4115-4E9E-90D5-4DC2C52EF326@fb.com>
+ <650906BF-A79F-467F-B9C7-4CD3C9730E19@fuzziesquirrel.com>
+ <FA93D326-6F39-4E5F-8A51-1ED819BFF0F1@fb.com>
+To: Sai Dasari <sdasari@fb.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -81,61 +41,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Apr 2018 18:45:41 -0000
+X-List-Received-Date: Mon, 30 Apr 2018 19:34:14 -0000
 
-On 2018-04-30 12:31, Deepak Kodihalli wrote:
-> On 30/04/18 8:18 pm, Matt Spinler wrote:
->> On 2018-03-21 12:23, Matt Spinler wrote:
->>> For IBM systems, we need to add the current code level to each error 
->>> log
->>> object as it's created to make it easier on the lives of support
->>> personnel.  It would be a new interface (or maybe use an existing
->>> code version one) on the /xyz/openbmc_project/logging/entry/X 
->>> objects.
->>> 
->>> Does anyone here that also uses error logs have an opinion on if they
->>> would also be interested in this or not, so it would go into the 
->>> common
->>> logging code?
->>> 
->>> Unless others are interested in it, I plan on putting it in an IBM
->>> specific repository.  (or maybe turn on with a configure option?)
->> 
->> 
->> After some additional discussion, we decided this would be useful 
->> enough to
->> warrant putting it into the base error logging code.  I plan on 
->> adding the
->> xyz.openbmc_project.Software.Version interface to the logging objects 
->> and
->> populating it with the VERSION_ID field from /etc/os-release.
-> 
-> I see the Version interface also has a 'VersionPurpose' enum property.
-> What would you populate that with? VersionPurpose.BMC? What if the
-> error was from host and the version required was that of the host
-> firmware?
+Hey Sai
 
-I was always planning on putting the BMC code version into this.  In the 
-case of
-OpenPower, the host already includes their code version in their 
-embedded PEL error
-I believe.
+Sorry it has taken me so long to respond.  I hope others will weigh in
+with their ideas on this topic.
 
-> 
-> Also, the value that gets into the /etc/os-release is known to the
-> os-release recipe, so you could provide that to the logging recipe at
-> build time (ipmi does something similar).
+> On Apr 13, 2018, at 7:55 PM, Sai Dasari <sdasari@fb.com> wrote:
+>=20
+> Your proposed changes are good from scaling the development. My =
+original question was from the end-user point of view who acquires bunch =
+of OCP machines and tries to find a way to build OpenBMC for those =
+machines. I was wondering if we can point those end-users to one unified =
+repo @ "github.com/openbmc" and allow them to build OpenBMC binary for =
+that platform. The other option would be for them to let them figure out =
+the repo for that machine e.g. "github.com/<awesome-company>". I think =
+any of these methods will work in practice.=20
 
+Yep, I understand the goal.  I don=E2=80=99t have any great ideas off =
+the top
+of my head but I don=E2=80=99t think it should be too hard to come up =
+with a
+solution that meets both needs - a scalable development process _and_
+a one-stop-shop for OCP platform builders (or others).
 
-Thanks.  Will look into that.
+>=20
+>> Put another way, we _could_ build the answer to the question into the
+>> core of the project, but why (and at what cost to the project=E2=80=99s=
+ ability
+>> to scale)?  Someone could also just host a list somewhere, or maybe a
+>> layer-index like OE has?
+>>=20
+>>> Does each openbmc adopter encouraged to maintains independent github =
+repo with recipes needed to bring in the openbmc code and build for =
+their supported machines?=20
+>>=20
+>>    I think so.  The specifics of what the adopter does/maintains are =
+up to
+>>    the adopter.  What are some pros/cons of a model like that?  This =
+is what
+>>    most everyone is doing already.  They fork some part of the =
+project (or
+>>    all of it), build on it (mostly in a machine layer?  hopefully?)  =
+and then
+>>    maybe/maybe not contribute something of what they did back to the =
+upstream
+>>    project.  It is my guess that this is the usual way in which =
+product
+>>    development teams use FLOSS.
+> I am sure FLOSS allows forks, but for the benefit of community, it =
+would be good to encourage contribution to the upstream openbmc repo. =
+While it helps to scale to separate machine layer repo outside of =
+upstream, I have concern that the adopter's focus would shift away from =
+upstream to that external repo.  This might have side-effect of =
+duplicate work in independent repos (might have good intention of =
+upstreaming later), as opposed to ideal work flow (in my mind) of =
+{'upstream-first'-> cherry pick to external repo}.=20
 
+I think this valid concern could mostly be mitigated by careful =
+selection of
+maintainers and how we structure content amongst repositories.  I will =
+try
+and elaborate on how I think it could work with some pictures in the =
+near
+future.
 
-> 
->> 
->> 
->> 
->>> 
->>> Thanks
-> 
-> Thanks,
-> Deepak
+>=20
+>>> One (crazy) idea would be to come up with a minimum acceptance test =
+suite (which can be automated) that validates all the core features and =
+use this for accepting new platforms as reference platforms from =
+community.
+>>=20
+>>    So my clarification is that the acceptance test would not measure =
+how well
+>>    a machine meets end-user requirements, but rather how well a =
+machine makes
+>>    use of the project=E2=80=99s common code.  Maybe a metric measured =
+by the test could
+>>    be something like least number of deviations from the defaults?
+> Looks good metric to me for various application level service/daemons. =
+Still not sure how the code changes specific to hardware can be =
+regression tested e.g. KCS vs. BT, IPMB, NC-SI etc.
