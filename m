@@ -6,56 +6,57 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="mKThyzgW"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ovc5bOcU"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Xhzde9EW"; dkim-atps=neutral
+ header.b="ZZ3BsiP0"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Zg8s3NgwzF25b
- for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 09:04:28 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Zh2l11vrzF2QN
+ for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 09:44:15 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 443D821859;
- Mon, 30 Apr 2018 19:04:25 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 9AEBC229FE;
+ Mon, 30 Apr 2018 19:44:12 -0400 (EDT)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Mon, 30 Apr 2018 19:04:25 -0400
+ by compute4.internal (MEProxy); Mon, 30 Apr 2018 19:44:12 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=s23v3ypBNy9AH8cl+PNhqTpn3zBET
- lJLxoRTtsTM4kY=; b=mKThyzgWkRydbaj8qG9B/zC/lVTppAg+IGhgeJGna9s5D
- EpNvU62urIH12zfY9+SRJyyDtErhhQhe/Dygg1izxgKMQcLW9C222QAKr2CUZJNr
- T1rikAPm+/pvSFidwKlEy1xaSwHT+3WKEQzLdJJfDweHBHYlhvUQc6wpR7vmi4id
- GWOqZlkLMRpvt76q4DXBhr4jNq324Ov8ojf8nhMQYTb/1C0+1drE/om1CCgPb068
- DY47ak/3kcDyHCeHYCvC6Pcxalsev+yBc6eBzo7Ol9qeZGRTD6OHcXWIdn/x60Wo
- GV6rxtdmy9DDvZ2lynOKPKw8u4qIMzvlNHJ27nIBA==
+ :x-me-sender:x-sasl-enc; s=fm2; bh=ccHv456iYV7DQpC6d0rePN24K5DBF
+ lhH20t4139DKoI=; b=ovc5bOcUTFEqhyo1rRYA5sFpwunMvnMigPUVzWd4fXwkf
+ OddOcd5cULvKAYKEMtsxWNNu6johWwqgldVeeurN2/8s+AQhVOPphIaUEQm/fjwK
+ nGCu1YuyNq92rRyEGodTMh/9Yc2tiXYSgVrIMiTaDgnc5XB9OGqdxEGTITjstgwQ
+ qCfwo2kOebO66k+Mc8qpY+wRcpFxvt2XF5Jg6Ge6NTk/xHQBYjbJTlpIe6PKyTm6
+ Q65n3F11ZWajhmK7kgq4UoP13bL2q2vRBcUWd+Vrpf/zJgL5G1PnWsBZ9ocvcEF4
+ NIVOhY45mm2D96S50+IuJ3PPCjNMl78n3DZ5XrFvQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=s23v3y
- pBNy9AH8cl+PNhqTpn3zBETlJLxoRTtsTM4kY=; b=Xhzde9EWJ3MP1YNeh84b5+
- PRRe+Og7INRMcxK1DjYvlxXtiI6XG+vJCAR3iPa8GL9WAGoRxsvhtR8h3lyX09Tb
- 786Ahus9ex5i26lobCXZshz+yOmsg2PPiA8It7+gmt2B6mBvnOGg1cZSAboU/fBP
- Bpw/m9XXn4qi9hzk70xmrV9ym7wB4YqhwmOAK1u7NOthE7ejdr13wo7MxImgnwqS
- P7jP3l5tcLZBtzZobNN+zn2T9KKDwt/xyyjriNIsf0t/9fUX8YghTPRa/wyFslCW
- +Wbz3KHw/ELQ4FhhocKkUcZkd0/vX8mSiGx5skp3a5ejHkhyV6mv8aCyqjc1mNZw
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=ccHv45
+ 6iYV7DQpC6d0rePN24K5DBFlhH20t4139DKoI=; b=ZZ3BsiP0cOllpuCAAhEJvV
+ UahgWc2AiAEfzIIzcEquOcWQa35FTDIpT46a7cXxW8oznwDC8JbzPpkIQdd7M1to
+ dVMYMC8UThb+RVVa8beWZqNfOnU8LVyNHHMB4BJsS6fPXZ/f5aOqWsXTpaI/jGAL
+ qWPdV3PJIft3mCpyu+gnX+6d4QZev/lJD74L77w9XqoEKykYeLos5Mfis2KONOAu
+ 0J9stMp2KkLRxhuEH0lvkFcE6bOF3cvkjR1CTDF+H0/Xa29CuaBblNowk8DXTaoa
+ Ob+YMOr1dPsmAPAxVTqyG0iFzX3UzdID9g6Gaje/z+2xnM7ph+7JYILIu8AubjeQ
  ==
-X-ME-Sender: <xms:-aDnWqeRN-45lJUIzEluWZj7ZmhViJ4ZdwT9ndD8aiB8-mgb716j6A>
+X-ME-Sender: <xms:TKrnWn1bhkb0_ULr_Vxa5m_c8d-lBxTrLQqQOsE7XwgFS_B2QYBreQ>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 20D4E425A; Mon, 30 Apr 2018 19:04:25 -0400 (EDT)
-Message-Id: <1525129465.240098.1356240360.493222DA@webmail.messagingengine.com>
+ id EA94542A8; Mon, 30 Apr 2018 19:44:09 -0400 (EDT)
+Message-Id: <1525131849.252145.1356261360.2E85A1F6@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-f3006b89
-Date: Tue, 01 May 2018 08:34:25 +0930
-In-Reply-To: <20180426021026.12548-1-joel@jms.id.au>
-Subject: Re: [PATCH linux dev-4.13 v2] ARM: dts: romulus: Enable the GFX IP
-References: <20180426021026.12548-1-joel@jms.id.au>
+In-Reply-To: <1525122321-12244-1-git-send-email-eajames@linux.vnet.ibm.com>
+Subject: Re: [PATCH linux dev-4.13] fsi: occ: Add check for OCC response
+ checksum
+References: <1525122321-12244-1-git-send-email-eajames@linux.vnet.ibm.com>
+Date: Tue, 01 May 2018 09:14:09 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,53 +68,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Apr 2018 23:04:32 -0000
+X-List-Received-Date: Mon, 30 Apr 2018 23:44:15 -0000
 
-On Thu, 26 Apr 2018, at 11:40, Joel Stanley wrote:
-> The GFX controller is the internal graphics device used by the SoC
-> (opposed to the one connected via the PCIe device and used by the host).
+
+
+On Tue, 1 May 2018, at 06:35, Eddie James wrote:
+> The OCC specification indicates that it is an error scenario if the
+> response checksum doesn't match the sum of the bytes of the response.
+> The driver needs to perform this calculation and check, and return an
+> error if it's a mismatch.
 > 
-> This configures it with a framebuffer region and enables the GFX node.
-> 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
-
+> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 > ---
-> v2: Fix the commit message, as we do not output bmc kenrel messages to
-> the VGA device with this change
+>  drivers/fsi/fsi-occ.c | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
 > 
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/
-> boot/dts/aspeed-bmc-opp-romulus.dts
-> index 00812a2fecf0..d746e562e8fd 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -30,6 +30,13 @@
->  			no-map;
->  			reg = <0x98000000 0x04000000>; /* 64M */
->  		};
-> +
-> +		gfx_memory: framebuffer {
-> +			size = <0x01000000>;
-> +			alignment = <0x01000000>;
-> +			compatible = "shared-dma-pool";
-> +			reusable;
-> +		};
->  	};
->  
->  	leds {
-> @@ -280,3 +287,8 @@
->  &ibt {
->  	status = "okay";
+> diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
+> index 45ae13c..16f18df 100644
+> --- a/drivers/fsi/fsi-occ.c
+> +++ b/drivers/fsi/fsi-occ.c
+> @@ -427,6 +427,27 @@ static int occ_release(struct inode *inode, struct 
+> file *file)
+>  	.release = occ_release,
 >  };
+>  
+> +static int occ_check_sum(struct occ_response *resp, u16 data_length)
+
+Why pass in data_length when it's been extracted from resp?
+
+> +{
+> +	unsigned int i;
+> +	u16 checksum = 0;
+> +	u16 checksum_resp = get_unaligned_be16(&resp->data[data_length]);
+
+This looks like the definition of struct occ_response is broken:
+
+struct occ_response {
+	u8 seq_no;
+	u8 cmd_type;
+	u8 return_status;
+	__be16 data_length;
+	u8 data[OCC_RESP_DATA_BYTES];
+	__be16 checksum;
+} __packed;
+
+The checksum member is misleading, as we're not always transferring 4089 bytes of data, but it is necessary to "avoid" an out-of-bounds memory access if we do. I think it's worth redefining data as `u8 data[OCC_RESP_DATA_BYTES + 2]` and dropping the checksum member.
+
+Also can you add a comment explaining why you're doing an "out of bounds" access through the data member by indexing with data_length?
+
 > +
-> +&gfx {
-> +     status = "okay";
-> +     memory-region = <&gfx_memory>;
-> +};
+> +	checksum += resp->seq_no;
+> +	checksum += resp->cmd_type;
+> +	checksum += resp->return_status;
+> +	checksum += (data_length >> 8) + (data_length & 0xFF);
+> +
+> +	for (i = 0; i < data_length; ++i) {
+> +		checksum += resp->data[i];
+> +	}
+> +
+> +	if (checksum != checksum_resp)
+> +		return -EBADMSG;
+> +
+> +	return 0;
+> +}
+> +
+>  static int occ_write_sbefifo(struct sbefifo_client *client, const char *buf,
+>  			     ssize_t len)
+>  {
+> @@ -692,6 +713,8 @@ static void occ_worker(struct work_struct *work)
+>  
+>  	xfr->resp_data_length = resp_data_length + 7;
+>  
+> +	rc = occ_check_sum(resp, resp_data_length);
+> +
+
+It's a pity there aren't two checksums: one for the fixed length data (covering the variable data length value) and one for the variable length data. We're pretty much reduced to inferring that the data length is fine if it doesn't exceed OCC_RESP_DATA_BYTES, but that doesn't mean that it isn't corrupt.
+
+Cheers,
+
+Andrew
+
+>  done:
+>  	mutex_unlock(&occ->occ_lock);
+>  
 > -- 
-> 2.17.0
+> 1.8.3.1
 > 
