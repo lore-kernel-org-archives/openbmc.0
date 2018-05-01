@@ -1,71 +1,34 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <Tali.Perry@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tali.perry@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ChGUljGH"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="m0fTEHh6"; 
- dkim-atps=neutral
-Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
- [IPv6:2607:f8b0:400d:c0d::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+X-Greylist: delayed 2895 seconds by postgrey-1.36 at bilbo;
+ Tue, 01 May 2018 18:14:06 AEST
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40Zmpp28P5zDqyL
- for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 13:19:13 +1000 (AEST)
-Received: by mail-qt0-x242.google.com with SMTP id f1-v6so13408866qtj.6
- for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 20:19:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=td1mpohKrD1Jn6KmV+CX3eJzBpA+99Yyu8ngXbdRGI0=;
- b=ChGUljGHhp3KyC+hjAOw75Bd6g8RrjZczLRrVHQHwVHTF2J5PjHVpqbGDyzA2eezLg
- dHP2cd82/rdNwUhIwrBz5Jwgg9+fD2YQiYOT8BMUaS+9dB8QI4+h6W2tQC+Q/yU5rodh
- 9du8JdeSOpqdZgjev0UcHFMW9Sjajkqa5jJdm6Ct0qG7gWaKP6XbSUwcdcqyFJyLWTZr
- 466ONG1vquCzlON0QgZWfp/1ldFbTdEAUKJAIdc6IomozWFgjLGpPhXM0aVsXzsrikjT
- LaqcpZRgY4wIM8zQNAabZH/ZuLNQhi6jB2gWeP6IwqhnV/aYJHciBPHLb6WgIpxap8iq
- MHPQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=td1mpohKrD1Jn6KmV+CX3eJzBpA+99Yyu8ngXbdRGI0=;
- b=m0fTEHh6hKV21tLDWDlp4YiLl15LrvWDCWwNOfVmSNuAWXSq8SNKIstvjcdGuvjbhV
- 6CmU5IcH4gc3dpnUJe6i3BK9gPhM2cvNE83yzFZee1g5BGnqtIS0dsFniTlSr+hriJRq
- JSxAfU7vFhlJU6wG2QTL7zUhBDvhsEh9XHE2A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=td1mpohKrD1Jn6KmV+CX3eJzBpA+99Yyu8ngXbdRGI0=;
- b=VNSDWZUX1F6LDhHgUlP5HuIqnuTLQW87ff0zHf3U2b/9cJRfLsxGYFGSB/mr7cM8wi
- m70YYtrPJ8DYeCmZZ+JjSDM4mX13yK1Cgu5J+sDsC5pQ9xnVU3V3fsdpr1YNKnMy/tua
- iEAP6lfkS03EiTet9M7YTrxLdwxXg8IopPNzC0mlqvmWEay934J1CgM9LWgeemZ1e7wW
- KQg7ENKnzwg/buHvUcOX9PaogdCVWtDnPZ9rZbBNqUPyiVOpIaBkJI8pbysx5qLn5qVB
- kB8GGX3hM5fjXJaqmhpU/d2NiFatfs2hjsgGtKzYGeP05URiDx/XbxvGzghO/yVU1qZu
- OT5w==
-X-Gm-Message-State: ALQs6tC4AtMwFOwfFPs6NmOC5EX4q5VsuaiAszp2fVekioRvyGBXa1WM
- sWub8rTUNA6MlzIjOHsaTmFGb8nYIIeRUHIpwRz3UQ==
-X-Google-Smtp-Source: AB8JxZp8ruOjGaSonAUj9gLoj6goTAhBZbHkBK5LZlU/nr5OWGv+PuLu5k1xFeidlYqzGabTASSH1XB2i89OftS9thU=
-X-Received: by 2002:a0c:b38c:: with SMTP id
- t12-v6mr12285442qve.21.1525144751213; 
- Mon, 30 Apr 2018 20:19:11 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Mon, 30 Apr 2018 20:18:50 -0700 (PDT)
-In-Reply-To: <1525129465.240098.1356240360.493222DA@webmail.messagingengine.com>
-References: <20180426021026.12548-1-joel@jms.id.au>
- <1525129465.240098.1356240360.493222DA@webmail.messagingengine.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 1 May 2018 12:48:50 +0930
-X-Google-Sender-Auth: DeslFtRKG5ng9slRVhxU9TmGrC4
-Message-ID: <CACPK8XehQgYvAS9hiJctdfiVQ2-f7cF=OMDNFpbN+LLUbmYTng@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 v2] ARM: dts: romulus: Enable the GFX IP
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40ZvM226zmzF2Pn
+ for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 18:14:05 +1000 (AEST)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w417ONHN001069;
+ Tue, 1 May 2018 10:24:23 +0300
+Received: by talu34.nuvoton.co.il (Postfix, from userid 20088)
+ id 5D4EE5AAB0; Tue,  1 May 2018 10:24:23 +0300 (IDT)
+From: Tali Perry <tali.perry1@gmail.com>
+To: sboyd@kernel.org, brendanhiggins@google.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, linux@armlinux.org.uk, weiyongjunl@huawei.com,
+ avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ Tali Perry <tali.perry1@gmail.com>, Wei Yongjun <weiyongjun1@huawei.com>
+Subject: [PATCH v1 0/1] clk: npcm750: fix base address and of_clk_get_by_name
+Date: Tue,  1 May 2018 10:23:26 +0300
+Message-Id: <1525159407-31708-1-git-send-email-tali.perry1@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,21 +40,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 May 2018 03:19:15 -0000
+X-List-Received-Date: Tue, 01 May 2018 08:14:16 -0000
 
-On 1 May 2018 at 08:34, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Thu, 26 Apr 2018, at 11:40, Joel Stanley wrote:
->> The GFX controller is the internal graphics device used by the SoC
->> (opposed to the one connected via the PCIe device and used by the host).
->>
->> This configures it with a framebuffer region and enables the GFX node.
->>
->> Signed-off-by: Joel Stanley <joel@jms.id.au>
->
-> Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
-Merged to dev-4.13.
+Nuvoton NPCM7XX Clock Controller
+fix base address and of_clk_get_by_name error handling.
+    Also update error messages to be more informative.
+    
+    In case clk_base allocation is erronoeous the return value is null.
+    Also fix handling of of_clk_get_by_name returns an error. 
+    Print a better error message pointing to the dt-binding documention.
 
-Cheers,
 
-Joel
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+
+Tali Perry (2):
+
+---
+
+Tali Perry (1):
+  clk: npcm750: fix base address and of_clk_get_by_name error handling.
+    Also update error messages to be more informative
+
+ drivers/clk/clk-npcm7xx.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+-- 
+2.14.1
