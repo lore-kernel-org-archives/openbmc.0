@@ -1,72 +1,71 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ChGUljGH"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="m0fTEHh6"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
+ [IPv6:2607:f8b0:400d:c0d::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40ZhRs0lTJzF2QN
- for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 10:02:32 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w3UNx7gc138671
- for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 20:02:30 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2hpa5nx8xq-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 20:02:29 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Mon, 30 Apr 2018 18:02:28 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 30 Apr 2018 18:02:27 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w4102RCe12321186; Mon, 30 Apr 2018 17:02:27 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 047F86E041;
- Mon, 30 Apr 2018 18:02:27 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.102.38.196])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with SMTP id 596B36E044;
- Mon, 30 Apr 2018 18:02:26 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 93C5C4EC649; Tue,  1 May 2018 10:02:24 +1000 (AEST)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@linux.vnet.ibm.com>
-Subject: Re: [PATCH linux dev-4.13] fsi: occ: Add check for OCC response
- checksum
-In-Reply-To: <1525122321-12244-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1525122321-12244-1-git-send-email-eajames@linux.vnet.ibm.com>
-Date: Tue, 01 May 2018 10:02:24 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40Zmpp28P5zDqyL
+ for <openbmc@lists.ozlabs.org>; Tue,  1 May 2018 13:19:13 +1000 (AEST)
+Received: by mail-qt0-x242.google.com with SMTP id f1-v6so13408866qtj.6
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Apr 2018 20:19:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=td1mpohKrD1Jn6KmV+CX3eJzBpA+99Yyu8ngXbdRGI0=;
+ b=ChGUljGHhp3KyC+hjAOw75Bd6g8RrjZczLRrVHQHwVHTF2J5PjHVpqbGDyzA2eezLg
+ dHP2cd82/rdNwUhIwrBz5Jwgg9+fD2YQiYOT8BMUaS+9dB8QI4+h6W2tQC+Q/yU5rodh
+ 9du8JdeSOpqdZgjev0UcHFMW9Sjajkqa5jJdm6Ct0qG7gWaKP6XbSUwcdcqyFJyLWTZr
+ 466ONG1vquCzlON0QgZWfp/1ldFbTdEAUKJAIdc6IomozWFgjLGpPhXM0aVsXzsrikjT
+ LaqcpZRgY4wIM8zQNAabZH/ZuLNQhi6jB2gWeP6IwqhnV/aYJHciBPHLb6WgIpxap8iq
+ MHPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=td1mpohKrD1Jn6KmV+CX3eJzBpA+99Yyu8ngXbdRGI0=;
+ b=m0fTEHh6hKV21tLDWDlp4YiLl15LrvWDCWwNOfVmSNuAWXSq8SNKIstvjcdGuvjbhV
+ 6CmU5IcH4gc3dpnUJe6i3BK9gPhM2cvNE83yzFZee1g5BGnqtIS0dsFniTlSr+hriJRq
+ JSxAfU7vFhlJU6wG2QTL7zUhBDvhsEh9XHE2A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=td1mpohKrD1Jn6KmV+CX3eJzBpA+99Yyu8ngXbdRGI0=;
+ b=VNSDWZUX1F6LDhHgUlP5HuIqnuTLQW87ff0zHf3U2b/9cJRfLsxGYFGSB/mr7cM8wi
+ m70YYtrPJ8DYeCmZZ+JjSDM4mX13yK1Cgu5J+sDsC5pQ9xnVU3V3fsdpr1YNKnMy/tua
+ iEAP6lfkS03EiTet9M7YTrxLdwxXg8IopPNzC0mlqvmWEay934J1CgM9LWgeemZ1e7wW
+ KQg7ENKnzwg/buHvUcOX9PaogdCVWtDnPZ9rZbBNqUPyiVOpIaBkJI8pbysx5qLn5qVB
+ kB8GGX3hM5fjXJaqmhpU/d2NiFatfs2hjsgGtKzYGeP05URiDx/XbxvGzghO/yVU1qZu
+ OT5w==
+X-Gm-Message-State: ALQs6tC4AtMwFOwfFPs6NmOC5EX4q5VsuaiAszp2fVekioRvyGBXa1WM
+ sWub8rTUNA6MlzIjOHsaTmFGb8nYIIeRUHIpwRz3UQ==
+X-Google-Smtp-Source: AB8JxZp8ruOjGaSonAUj9gLoj6goTAhBZbHkBK5LZlU/nr5OWGv+PuLu5k1xFeidlYqzGabTASSH1XB2i89OftS9thU=
+X-Received: by 2002:a0c:b38c:: with SMTP id
+ t12-v6mr12285442qve.21.1525144751213; 
+ Mon, 30 Apr 2018 20:19:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18050100-0008-0000-0000-000009B05BD6
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008953; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000257; SDB=6.01025676; UDB=6.00523785; IPR=6.00804908; 
- MB=3.00020872; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-01 00:02:28
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18050100-0009-0000-0000-0000470ACE85
-Message-Id: <87po2g6y5r.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-04-30_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1804300232
+Sender: joel.stan@gmail.com
+Received: by 10.200.24.79 with HTTP; Mon, 30 Apr 2018 20:18:50 -0700 (PDT)
+In-Reply-To: <1525129465.240098.1356240360.493222DA@webmail.messagingengine.com>
+References: <20180426021026.12548-1-joel@jms.id.au>
+ <1525129465.240098.1356240360.493222DA@webmail.messagingengine.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 1 May 2018 12:48:50 +0930
+X-Google-Sender-Auth: DeslFtRKG5ng9slRVhxU9TmGrC4
+Message-ID: <CACPK8XehQgYvAS9hiJctdfiVQ2-f7cF=OMDNFpbN+LLUbmYTng@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 v2] ARM: dts: romulus: Enable the GFX IP
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -78,40 +77,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 May 2018 00:02:33 -0000
+X-List-Received-Date: Tue, 01 May 2018 03:19:15 -0000
 
-Eddie James <eajames@linux.vnet.ibm.com> writes:
-> The OCC specification indicates that it is an error scenario if the
-> response checksum doesn't match the sum of the bytes of the response.
-> The driver needs to perform this calculation and check, and return an
-> error if it's a mismatch.
+On 1 May 2018 at 08:34, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Thu, 26 Apr 2018, at 11:40, Joel Stanley wrote:
+>> The GFX controller is the internal graphics device used by the SoC
+>> (opposed to the one connected via the PCIe device and used by the host).
+>>
+>> This configures it with a framebuffer region and enables the GFX node.
+>>
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
 >
-> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
-> ---
->  drivers/fsi/fsi-occ.c | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
->
-> diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
-> index 45ae13c..16f18df 100644
-> --- a/drivers/fsi/fsi-occ.c
-> +++ b/drivers/fsi/fsi-occ.c
-> @@ -427,6 +427,27 @@ static int occ_release(struct inode *inode, struct file *file)
->  	.release = occ_release,
->  };
->  
-> +static int occ_check_sum(struct occ_response *resp, u16 data_length)
+> Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
-Minor nitpick: It looks like 'checksum' is the standard rather than 'check_sum':
+Merged to dev-4.13.
 
-[stewart@birb linux]$ ack check_sum|wc -l
-133
-[stewart@birb linux]$ ack checksum|wc -l
-7284
+Cheers,
 
-Would a more accurate name be occ_resp_verify_checksum() ? By the name
-'occ_check_sum' alone, I'd assume that it was returning the calculated
-checksum rather than verifying it.
-
--- 
-Stewart Smith
-OPAL Architect, IBM.
+Joel
