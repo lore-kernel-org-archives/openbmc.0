@@ -1,60 +1,56 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::244; helo=mail-pf0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hSJB9fpA"; 
- dkim-atps=neutral
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="LtvfpTAD"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="fP8tLSm1"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40cbt72vHmzF155
- for <openbmc@lists.ozlabs.org>; Fri,  4 May 2018 12:43:26 +1000 (AEST)
-Received: by mail-pf0-x244.google.com with SMTP id q22so16268080pff.11
- for <openbmc@lists.ozlabs.org>; Thu, 03 May 2018 19:43:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=u2O2TuObOekSP85Ka9GSB8S4jCMwxvdnOvNsE9KqKvI=;
- b=hSJB9fpAoPI5h5f2WaOw589BQTkjkwjHcMU1QrQ+DDJRRNp69u5n6r0VPMmtVxpPnw
- y2r/Kf95/eBQQwgCpBoOaQqyDOuVhkVJYLzMzCoCCHyAclfvboX7zoSZ6XDhE90YH3Tu
- Txb9smg5UqPg0RXB6BGf09U2/VImh+w3AzVjvC/we5OATxdsbodR0kt26GMsxdtz8Zek
- 2cF14UKA+HoCf3wDNIrG8dRxh/QnlCAJ3sc8R8gEVRS+POFOTS5vA5Y09fTe+wQnsrdF
- 16+718/Q/LoVW6x9etBHJOADCiEVFkQ3xhlNFSnUwY59/JNBRKgPY842tLdkjpL4/84Q
- LnTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=u2O2TuObOekSP85Ka9GSB8S4jCMwxvdnOvNsE9KqKvI=;
- b=IH820Rbn6ENc+G7j+KFRgSFOhnJGUXBAW/UYZZ6X1TJ/m6OQozMkL7K9vN6McKnfal
- LfiK7p8XcGGLtAQ9CA7p+65mJs63mzxgmz1y+iKRXwpEiyRyw0QAQaVmGGjF5q5A2dbc
- sC8xmuSClUPebLwRuwICyofoczO8ooGKK4A3FJ64W0dCVJJrb6BZI3z26KFIfAyzwjq/
- kO4p13Ab87yixD/+Q4e+OCXm0vDl2GqhFXJhO35UF/sjN4Py9pIjaK05wF2H3dl7l+Zi
- TG9nJvi/p7SExGXX+0RqiPb7KO7LwWxiymR6dQvY8XVxHF5r5flB2EWdRUIZBhFYcVym
- NAIg==
-X-Gm-Message-State: ALQs6tD1VKwc8xdJXmRSunJCXSsKouFMv4KrqNts4gmWaQlpWMb6+D/w
- ZV9M45aQDdtLYY63zkbzRHnenZNg
-X-Google-Smtp-Source: AB8JxZpEQQGd7DBiYukQ7rSbE69kenCIsDJnUklcHONDISrbRJSfeEYs7RgUMVJSoqNWRYOxkBw8lw==
-X-Received: by 2002:a17:902:8d8d:: with SMTP id
- v13-v6mr11282319plo.362.1525401804108; 
- Thu, 03 May 2018 19:43:24 -0700 (PDT)
-Received: from aurora.jms.id.au ([45.124.203.19])
- by smtp.gmail.com with ESMTPSA id j74sm31353551pfk.25.2018.05.03.19.43.20
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 03 May 2018 19:43:23 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 04 May 2018 12:13:17 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: andrew@aj.id.au
-Subject: [PATCH linux dev-4.13] ARM: dts: aspeed: Move random number device
-Date: Fri,  4 May 2018 12:13:13 +0930
-Message-Id: <20180504024313.19645-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.17.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40cjSc4PYGzF13T
+ for <openbmc@lists.ozlabs.org>; Fri,  4 May 2018 16:55:12 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id A9B1B2258A;
+ Fri,  4 May 2018 02:55:09 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Fri, 04 May 2018 02:55:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=bYBLy5PyOxwbzKzfLPr88VnxWOyP0Qs/XdVyUBgRH
+ 3g=; b=LtvfpTADQQk1zEXPMH/wlA8Rky10MB2iQmnnXgzZtfeKNpBh9lRRQG/Se
+ kzRRmSI4/Lr1F28eRYWvG6OnCm49ZR2lB4tvVgflcgQcdT3cjve+QF2TpbLYfQ6v
+ YTv648qtg/c2tOefHXZDWSHhEWFZ+nUnDbkI/bOFLYR2EtR2tDvccoE2oYnNcXBK
+ MYa8htC3SUPTy4wziGJPg86KxZg4zR9gyxV41au3MWHRvwi5pMLV7PTD9jQ0en5N
+ wRthgYPQrctXMrmvgo1pv/NQ6oFe9VE/K1cH24uOTxGnp6CuBymZCUFbev3ReAtw
+ n3LmL4i3Noot7EGGsO3uPgMM/7xGQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=bYBLy5PyOxwbzKzfL
+ Pr88VnxWOyP0Qs/XdVyUBgRH3g=; b=fP8tLSm1YaRmU7cgw2gmWB0eerLEUbFk+
+ UqxPzXTmeiYx2NgFc260v21L51m8CiqldsHq+a1xUpNVN3SKiqvFs+aTFGL2qagT
+ P5XDNXGA+KmNfUQy7s+BAWRGHcsQ4VfRO12Tu527PKuwFS4G6g9FkmM05N5uEwh5
+ KT/2CTn7pzmjYe1avUkImM+sFc+HVRIZRu+QBTARKE2lLFaMSxvwKjNP0dobDwup
+ fHKt/nXBMrtZ5RS8GmixSi9+qlUr3l8xnvI/0+csKcb8UicYfBJcsWY3fYnkQpzv
+ ShOV17mWIQz3oDA9NkmHI38LRH6alhDbukUsYK4vUuFigDoSDHYxw==
+X-ME-Sender: <xms:zQPsWsqbLRjn2BoVBDGl65JugRnBT0Pkve4DxNwuFw-WipOEILtHMA>
+Received: from dave.base64.com.au (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DC6FAE4408;
+ Fri,  4 May 2018 02:55:07 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openembedded-devel@lists.openembedded.org
+Cc: openbmc@lists.ozlabs.org,
+	Andrew Jeffery <andrew@aj.id.au>
+Subject: [meta-python][PATCH 1/3] meta-python: Add python-pyflame recipe
+Date: Fri,  4 May 2018 16:24:30 +0930
+Message-Id: <20180504065432.10308-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.14.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,66 +62,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 May 2018 02:43:28 -0000
+X-List-Received-Date: Fri, 04 May 2018 06:55:14 -0000
 
-Move the node out from under the syscon/simple-mfd.
-
-Being a child of this node causes the driver to fail to probe, as
-platform_get_resource returns NULL due to dev->num_resources being zero.
-
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- arch/arm/boot/dts/aspeed-g4.dtsi | 12 ++++++------
- arch/arm/boot/dts/aspeed-g5.dtsi | 12 ++++++------
- 2 files changed, 12 insertions(+), 12 deletions(-)
+ meta-python/recipes-devtools/python/python-pyflame.inc      | 9 +++++++++
+ meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb | 5 +++++
+ 2 files changed, 14 insertions(+)
+ create mode 100644 meta-python/recipes-devtools/python/python-pyflame.inc
+ create mode 100644 meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 3d391b428b25..50bc661b8fff 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -120,13 +120,13 @@
- 				pinctrl: pinctrl {
- 					compatible = "aspeed,g4-pinctrl";
- 				};
-+			};
- 
--				hwrng@78 {
--					compatible = "timeriomem_rng";
--					reg = <0x78 0x4>;
--					period = <1>;
--					quality = <100>;
--				};
-+			rng: hwrng@78 {
-+				compatible = "timeriomem_rng";
-+				reg = <0x78 0x4>;
-+				period = <1>;
-+				quality = <100>;
- 			};
- 
- 			adc: adc@1e6e9000 {
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 01b66359e6d6..e9e039a6407c 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -161,13 +161,13 @@
- 				vga_scratch: scratch {
- 					compatible = "aspeed,bmc-misc";
- 				};
-+			};
- 
--				hwrng@78 {
--					compatible = "timeriomem_rng";
--					reg = <0x78 0x4>;
--					period = <1>;
--					quality = <100>;
--				};
-+			rng: hwrng@78 {
-+				compatible = "timeriomem_rng";
-+				reg = <0x78 0x4>;
-+				period = <1>;
-+				quality = <100>;
- 			};
- 
- 			gfx: display@1e6e6000 {
+diff --git a/meta-python/recipes-devtools/python/python-pyflame.inc b/meta-python/recipes-devtools/python/python-pyflame.inc
+new file mode 100644
+index 000000000000..37ceab888533
+--- /dev/null
++++ b/meta-python/recipes-devtools/python/python-pyflame.inc
+@@ -0,0 +1,9 @@
++S = "${WORKDIR}/pyflame-${PV}"
++
++LICENSE = "Apache-2.0"
++LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
++
++DEPENDS = "python"
++
++inherit pkgconfig autotools
++
+diff --git a/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+new file mode 100644
+index 000000000000..c902e121231b
+--- /dev/null
++++ b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+@@ -0,0 +1,5 @@
++require python-pyflame.inc
++
++SRC_URI = "https://github.com/uber/pyflame/archive/v${PV}.tar.gz"
++SRC_URI[md5sum] = "53d5822e5be371303e217a68ea9ea3e5"
++SRC_URI[sha256sum] = "03723509c037a994585e81e4a9c6d8e4fed87b486e23edd8d355a7bcc009bf79"
 -- 
-2.17.0
+2.14.1
