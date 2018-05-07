@@ -1,71 +1,70 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TbRlSYw9"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="Vj0eJCKb"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40fdJs422dzF1Nq
- for <openbmc@lists.ozlabs.org>; Mon,  7 May 2018 19:55:05 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w479mkeV042255
- for <openbmc@lists.ozlabs.org>; Mon, 7 May 2018 05:55:01 -0400
-Received: from e06smtp12.uk.ibm.com (e06smtp12.uk.ibm.com [195.75.94.108])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2htm3fh6n2-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 07 May 2018 05:55:01 -0400
-Received: from localhost
- by e06smtp12.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Mon, 7 May 2018 10:54:59 +0100
-Received: from b06cxnps3074.portsmouth.uk.ibm.com (9.149.109.194)
- by e06smtp12.uk.ibm.com (192.168.101.142) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Mon, 7 May 2018 10:54:57 +0100
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w479sv8B66977952; Mon, 7 May 2018 09:54:57 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 10C03AE053;
- Mon,  7 May 2018 10:44:27 +0100 (BST)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E4B67AE045;
- Mon,  7 May 2018 10:44:25 +0100 (BST)
-Received: from [9.193.103.147] (unknown [9.193.103.147])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Mon,  7 May 2018 10:44:25 +0100 (BST)
-Subject: Re: How the Set boot mode and Set boot source works ?
-To: Brad Chou <chou.brad@gmail.com>, openbmc@lists.ozlabs.org
-References: <4B72FB83-4B7F-4704-BE55-555B14FFC801@gmail.com>
-From: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Date: Mon, 7 May 2018 15:24:54 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40fgdl5PWKzF1QD
+ for <openbmc@lists.ozlabs.org>; Mon,  7 May 2018 21:39:55 +1000 (AEST)
+Received: by mail-qt0-x241.google.com with SMTP id g13-v6so35708360qth.8
+ for <openbmc@lists.ozlabs.org>; Mon, 07 May 2018 04:39:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Q/lNPp3VEMEPAyxHojZE0wNeS/dwZ8evgras63kriwI=;
+ b=TbRlSYw95gYdQ63HzrhLzAjcMT+QOUQrCuG3XYpfp6PnzH3Gvvxn8lOoJj6NFh1TSn
+ 4EK2wUDWY7/hQAA721drmY5NFAf/rfn6lMJTVzJZH8AIjrwW7GUvxuMARnxF22mNQOxI
+ /BtwBCJy1mGWe8QMRY69VhvrwqAUZVVxRAf5StIL7uFzJdmGP/7D3kO4EW//TOdn6hu4
+ 3UsEbafljkErPAeTA5UHPdO4YGCU8Ep3VQq9d1YpGqHkXvSVkoL3ATE9f27YTuOidEbW
+ 2Up+ixX5Jwo+O/8LE/H53Qcxmmo8s4mLQ34qZayK+78fmIkSA43BKO9MYyq+rpL7g/Sk
+ C8CA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Q/lNPp3VEMEPAyxHojZE0wNeS/dwZ8evgras63kriwI=;
+ b=Vj0eJCKbcdicKqEuVzM1oRWlD0Ry0os93mTLrVI35auVoj2A/1q9VWXzQoKu4H+nyV
+ 7Z3f/91pQssjOmbIyZqftXK9l3uVX5lMvwQyIqYLtlADV+xYgXscvtApXqGFoiD0cRhG
+ hIrx1G/CtQFJVm8WuzPWk4YUWdL9ScHyWqIAg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Q/lNPp3VEMEPAyxHojZE0wNeS/dwZ8evgras63kriwI=;
+ b=VIPNEMLYUhQEsJcZou/pXo6JrD2sByKAIF+OOD1bMRCapaAInXOrNR+r/jnbmYoJnD
+ vPkqJOscli0Zn/FRsi7hvks/GWbiPMrVApCVPSF3S14bNnOQQP+ngIsKHm1Zy0H0VnJy
+ bVLvDJkPTgKIqCKBQ9E2fG8OIJNq/qGqDbX9vuNR385II/clxHWt+pUOyBpRY29KSutE
+ qr5LE2CGkDXEDQXS5v9cmi8EO1S9KDCsnZsptZjrM/jyCHfbQBBzWubfINbOEWVMjCQI
+ k3EmTKkv2tNx4gW+5Rp7ZEOlPKSjShpV9wPBKnwcX3rvfeRCqkMLrfbvafTfzrK7FShr
+ 41vA==
+X-Gm-Message-State: ALQs6tCIgks3MvMnzSwsVcdsD8vkWtEu/BON/c7cZSC/PB84OA2gA3ZW
+ ZuqU66lOjtRIvW8zIzLaS7BLQU9VKNfYaZL+C64=
+X-Google-Smtp-Source: AB8JxZrK5bls28opMF1FbuadcjQlGQUiZQ3cWhjl0IVA3fhny6nkz81TCJjkYud6IskyoAM1F5qtd++E+89vjtTf2ac=
+X-Received: by 2002:ac8:1a02:: with SMTP id
+ v2-v6mr34028299qtj.342.1525693191330; 
+ Mon, 07 May 2018 04:39:51 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <4B72FB83-4B7F-4704-BE55-555B14FFC801@gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------DE90DE055ED15761CCF2FA14"
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18050709-0008-0000-0000-000004F3DF14
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18050709-0009-0000-0000-00001E88186E
-Message-Id: <fe47b2a0-34e1-6fd3-9afc-e37a5b321d73@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-07_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805070102
+Sender: joel.stan@gmail.com
+Received: by 10.200.24.79 with HTTP; Mon, 7 May 2018 04:39:30 -0700 (PDT)
+In-Reply-To: <1525361013-19896-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1525361013-19896-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 7 May 2018 21:09:30 +0930
+X-Google-Sender-Auth: NCZCAgzmjzUbBFTJN1l1XamKV3w
+Message-ID: <CACPK8XdpeawrSMH_msZWPuNkwTPaYrLKwsKJBMgE=3Y5qsJZsA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13] ARM: configs: aspeed: Add watchdog sysfs
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,101 +76,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 May 2018 09:55:10 -0000
+X-List-Received-Date: Mon, 07 May 2018 11:39:58 -0000
 
-This is a multi-part message in MIME format.
---------------DE90DE055ED15761CCF2FA14
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi Eddie,
 
-Hello Brad,
-
-These boot options correspond to the boot flags in the Get/Set system 
-boot options command.
-The get/set system boot options command can be used to configure boot 
-mode/boot source.
-On OpenPower systems, Petitboot sends IPMI commands to get/set these 
-parameters.
-
-Refer this to understand how the IPMI command is mapped to the D-Bus 
-property.
-
-https://github.com/openbmc/phosphor-host-ipmid/blob/master/chassishandler.cpp#L1181
-https://github.com/openbmc/phosphor-host-ipmid/blob/master/chassishandler.cpp#L1320
-
-Regards,
-Tom
-
-On Monday 07 May 2018 03:09 PM, Brad Chou wrote:
-> Hi everyone,
-> I have read the 
-> https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md
-> And follow it to *Set boot mode* and *Set boot source*.
-> My CPU is Intel x86 based, so I don’t expected it will work with those 
-> two commands.
-> So I just want to know how those two commands work with openpower system.
-> Does the CPU send some commands to BMC to get these settings when 
-> power up ?
-> What kind of command formate ?
-> If I want to make my x86 CPU to work with it, what should I going to 
-> do first ?
+On 4 May 2018 at 00:53, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> This kernel config adds sysfs entries for watchdog devices. This is
+> needed in order to access the bootstatus sysfs file that will indicate
+> whether or not the BMC has tripped the watchdog and subsequently
+> switched sides.
 >
-> Thanks.
+> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+> ---
+>  arch/arm/configs/aspeed_g4_defconfig | 1 +
+>  arch/arm/configs/aspeed_g5_defconfig | 1 +
+>  2 files changed, 2 insertions(+)
+>
+> diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
+> index 74d9343..ed1c470 100644
+> --- a/arch/arm/configs/aspeed_g4_defconfig
+> +++ b/arch/arm/configs/aspeed_g4_defconfig
+> @@ -219,6 +219,7 @@ CONFIG_SCHED_STACK_END_CHECK=y
+>  CONFIG_FUNCTION_TRACER=y
+>  # CONFIG_TRACING_EVENTS_GPIO is not set
+>  CONFIG_DEBUG_USER=y
+> +CONFIG_WATCHDOG_SYSFS=y
+>  # CONFIG_CRYPTO_ECHAINIV is not set
+>  # CONFIG_CRYPTO_HW is not set
+>  # CONFIG_XZ_DEC_X86 is not set
+> diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+> index 538e30b..66450bd 100644
+> --- a/arch/arm/configs/aspeed_g5_defconfig
+> +++ b/arch/arm/configs/aspeed_g5_defconfig
+> @@ -222,6 +222,7 @@ CONFIG_SCHED_STACK_END_CHECK=y
+>  CONFIG_FUNCTION_TRACER=y
+>  # CONFIG_TRACING_EVENTS_GPIO is not set
+>  CONFIG_DEBUG_USER=y
+> +CONFIG_WATCHDOG_SYSFS=y
 
+When you update a defconfig you must follow these steps:
 
---------------DE90DE055ED15761CCF2FA14
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+make aspeed_g5_defconfig
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Hello Brad,</p>
-    These boot options correspond to the boot flags in the Get/Set
-    system boot options command.<br>
-    The get/set system boot options command can be used to configure
-    boot mode/boot source.<br>
-    On OpenPower systems, Petitboot sends IPMI commands to get/set these
-    parameters.<br>
-    <br>
-    Refer this to understand how the IPMI command is mapped to the D-Bus
-    property.<br>
-    <br>
-<a class="moz-txt-link-freetext" href="https://github.com/openbmc/phosphor-host-ipmid/blob/master/chassishandler.cpp#L1181">https://github.com/openbmc/phosphor-host-ipmid/blob/master/chassishandler.cpp#L1181</a><br>
-<a class="moz-txt-link-freetext" href="https://github.com/openbmc/phosphor-host-ipmid/blob/master/chassishandler.cpp#L1320">https://github.com/openbmc/phosphor-host-ipmid/blob/master/chassishandler.cpp#L1320</a><br>
-    <br>
-    Regards,<br>
-    Tom<br>
-    <br>
-    <div class="moz-cite-prefix">On Monday 07 May 2018 03:09 PM, Brad
-      Chou wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:4B72FB83-4B7F-4704-BE55-555B14FFC801@gmail.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div class="">Hi everyone,</div>
-      I have read the <a
-        href="https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md"
-        class="" moz-do-not-send="true">https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md</a>
-      <div class="">And follow it to <b class="">Set boot mode</b> and <b
-          class="">Set boot source</b>.</div>
-      <div class="">My CPU is Intel x86 based, so I don’t expected it
-        will work with those two commands.</div>
-      <div class="">So I just want to know how those two commands work
-        with openpower system.</div>
-      <div class="">Does the CPU send some commands to BMC to get these
-        settings when power up ?</div>
-      <div class="">What kind of command formate ?</div>
-      <div class="">If I want to make my x86 CPU to work with it, what
-        should I going to do first ?</div>
-      <div class=""><br class="">
-      </div>
-      <div class="">Thanks.</div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+enable the options you require
 
---------------DE90DE055ED15761CCF2FA14--
+make savedefconig
+cp aspeed_g5_defconfig arc/arm/boot/config/
+
+And create your commit based on that.
+
+I have done this for you in this case and applied the result to dev-4.13.
+
+Cheers,
+
+Joel
