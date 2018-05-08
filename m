@@ -1,73 +1,54 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
+Return-Path: <yuenn@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c06::22d; helo=mail-io0-x22d.google.com;
+ envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Si8uA3bS"; 
+ dkim-atps=neutral
+Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c06::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40gQJy1yhkzF13r
- for <openbmc@lists.ozlabs.org>; Wed,  9 May 2018 02:42:58 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w48GdnrB132354
- for <openbmc@lists.ozlabs.org>; Tue, 8 May 2018 12:42:56 -0400
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2hucw0s9d5-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 08 May 2018 12:42:55 -0400
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Tue, 8 May 2018 12:42:54 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 8 May 2018 12:42:51 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w48GgpDN45875278; Tue, 8 May 2018 16:42:51 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AB13F112040;
- Tue,  8 May 2018 12:42:44 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.85.178.108])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 76D00112047;
- Tue,  8 May 2018 12:42:44 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.13 3/6] fsi/fsi-master-gpio: Sample input data
- on different clock phase
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
-References: <20180508010640.14113-1-benh@kernel.crashing.org>
- <20180508010640.14113-3-benh@kernel.crashing.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Tue, 8 May 2018 11:42:50 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40gV161JhkzF1v3
+ for <openbmc@lists.ozlabs.org>; Wed,  9 May 2018 05:29:28 +1000 (AEST)
+Received: by mail-io0-x22d.google.com with SMTP id d11-v6so39842616iof.11
+ for <openbmc@lists.ozlabs.org>; Tue, 08 May 2018 12:29:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=/kQ9UVAVisc4Rq6h+y1iSGP5+OJJu0hVp3liSs4Gp74=;
+ b=Si8uA3bSKjJmlYgIWW2BUSUc5ZH1WrEwd35D0KdDpKFNkgf/brVGck22NhD/PN5CuH
+ t33yrt2r7/hs5fLFRxGAeOaxqvJ6cYAMXLbI17kP4nHNj/1XIRMukWjIe/rhoXrdW8Sr
+ HznocWB/qV738k85VTP+uarMTOaXwtxFVG/5SMZAOs6cGwCxjvm3NpFSNEiaO6A9cXhP
+ jpxc2P20N20Q9DfKf9x4q0cmRMZCuS++7gcnCG62EkzwlaYzw7FA7Nme7u8fV2VUfsI1
+ D16aqYcg0K0B3BTuM1qov8hD1BpKOH0GVdFViH35b0UTd4cUYyGqpXOF/QW9jH/qoUmZ
+ Z0PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=/kQ9UVAVisc4Rq6h+y1iSGP5+OJJu0hVp3liSs4Gp74=;
+ b=H7fj02Szx2SJ3GB57eqIgnFaOjxWqqo9j0cVJdcXwlL1n3y8ZH/XuMg1dzYpXEeqmL
+ c0zmAmmM/s2cjD7XNjv4gcJttPO+TUTcuACPH8UUGyDDoNRAVtUy/Gv5w9BdDtHqZ3hr
+ B4z7W6UJ6tExId8l7NP1uJhYLuNOkfrbd+nG59fRMOrrB21n/pniSCaCjCUALah8lOC0
+ kycLtMqBnFdVs/lfFQLWTw1I5WxfCBgsVfZJkXTe3MrTad5KefXEARWMMsbKL/lYU2k9
+ Lh72pcetb3kD67TZLh38TkHkAQOxIZQ1SQiyLaqMFj+wAlHauj2d7HOI3CD33hAzmflj
+ 2D5g==
+X-Gm-Message-State: ALQs6tDyvD4aSj/5KN+TqUfMPzU+vquIoGO/nir9JRHnowcKFu/HTih+
+ oTY5s+ueNOtSK7GFGpIZRqeSu3QPWo9ZQFM0Kp1wQLOG
+X-Google-Smtp-Source: AB8JxZpIU7DcSPObgNQ1n5eT/0Vb80rGfK86MhymzK/A83VOVuLSUJwPqDOs/x0lnPhXZDts3jrpF9eFfSvG49WiMTQ=
+X-Received: by 2002:a6b:27d5:: with SMTP id
+ n204-v6mr45778952ion.206.1525807766263; 
+ Tue, 08 May 2018 12:29:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180508010640.14113-3-benh@kernel.crashing.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18050816-0036-0000-0000-000002F14730
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008993; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000259; SDB=6.01029369; UDB=6.00525982; IPR=6.00808502; 
- MB=3.00020997; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-08 16:42:52
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18050816-0037-0000-0000-00004442A3A0
-Message-Id: <22ba2038-a824-f1e1-b69d-7d8dec5ab4c4@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-08_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805080160
+Received: by 10.107.111.9 with HTTP; Tue, 8 May 2018 12:28:45 -0700 (PDT)
+From: Nancy Yuen <yuenn@google.com>
+Date: Tue, 8 May 2018 12:28:45 -0700
+Message-ID: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
+Subject: OpenBMC Fix-It
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000e7f0e3056bb6cdce"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,52 +60,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 May 2018 16:42:58 -0000
+X-List-Received-Date: Tue, 08 May 2018 19:29:31 -0000
 
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+--000000000000e7f0e3056bb6cdce
+Content-Type: text/plain; charset="UTF-8"
 
-On 5/7/18 8:06 PM, Benjamin Herrenschmidt wrote:
-> We currently sample the input data right after we toggle the
-> clock low, then high. The slave establishes the data on the
-> rising edge, so this is not ideal. We should sample it on
-> the low phase instead.
->
-> This currently works because we have an extra delay, but subsequent
-> patches will remove it.
->
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> ---
->   drivers/fsi/fsi-master-gpio.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index 4295a46780cb..d6508bbad1fb 100644
-> --- a/drivers/fsi/fsi-master-gpio.c
-> +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -86,12 +86,15 @@ static void clock_toggle(struct fsi_master_gpio *master, int count)
->   	}
->   }
->
-> -static int sda_in(struct fsi_master_gpio *master)
-> +static int sda_clock_in(struct fsi_master_gpio *master)
->   {
->   	int in;
->
->   	ndelay(FSI_GPIO_STD_DLY);
-> +	gpiod_set_value(master->gpio_clk, 0);
->   	in = gpiod_get_value(master->gpio_data);
-> +	ndelay(FSI_GPIO_STD_DLY);
-> +	gpiod_set_value(master->gpio_clk, 1);
->   	return in ? 1 : 0;
->   }
->
-> @@ -126,8 +129,7 @@ static void serial_in(struct fsi_master_gpio *master, struct fsi_gpio_msg *msg,
->   	set_sda_input(master);
->
->   	for (bit = 0; bit < num_bits; bit++) {
-> -		clock_toggle(master, 1);
-> -		in_bit = sda_in(master);
-> +		in_bit = sda_clock_in(master);
->   		msg->msg <<= 1;
->   		msg->msg |= ~in_bit & 0x1;	/* Data is active low */
->   	}
+Please join my team for an OpenBMC  community "fix-it" event in June!
+
+My team is devoting the week of 6/11/-15 to a Google OpenBMC "fix it" as
+part of a larger fix-it initiative. OpenBMC is a large part of our project
+so I'd like to spend part of the week on a fix-it on OpenBMC.
+
+I propose to have the fix it on Tues and Wed 6/12 & 6/13.  We could set up
+an IRC channel for the fix it where everyone participating would hang out
+for the day.  We could pick one or two areas to focus on for those days,
+put together a list of things to "fix" in those areas ahead of time.  On
+the day, we all tackle things on the list (or something not on the list),
+discuss over IRC and do code reviews.  Inevitably, people have meetings or
+things they can't get out of, but if you can be available for most of the
+day, that would be enough!
+
+Anyone interested in participating?
+
+----------
+Nancy
+
+--000000000000e7f0e3056bb6cdce
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><font size=3D"4">Please join my team for an OpenBMC=
+=C2=A0 community &quot;fix-it&quot; event in June!</font></div><div><font s=
+ize=3D"4"><br></font></div><font size=3D"4">My team is devoting the week of=
+ 6/11/-15 to a Google OpenBMC &quot;fix it&quot; as part of a larger fix-it=
+ initiative. OpenBMC is a large part of our project so I&#39;d like to spen=
+d part of the week on a fix-it on OpenBMC.</font><div><font size=3D"4"><br>=
+</font></div><div><font size=3D"4">I propose to have the fix it on Tues and=
+ Wed 6/12 &amp; 6/13.=C2=A0 We could set up an IRC channel for the fix it w=
+here everyone participating would hang out for the day.=C2=A0 We could pick=
+ one or two areas to focus on for those days, put together a list of things=
+ to &quot;fix&quot; in those areas ahead of time.=C2=A0 On the day, we all =
+tackle things on the list (or something not on the list), discuss over IRC =
+and do code reviews.=C2=A0 Inevitably, people have meetings or things they =
+can&#39;t get out of, but if you can be available for most of the day, that=
+ would be enough!</font></div><div><font size=3D"4"><br></font></div><div><=
+font size=3D"4">Anyone interested in participating?</font></div><div><font =
+size=3D"4"><br></font></div><div><div><div><div><div class=3D"m_-7890294177=
+612788909gmail_signature" data-smartmail=3D"gmail_signature"><font size=3D"=
+4">----------<br>Nancy</font></div></div>
+</div></div></div></div>
+
+--000000000000e7f0e3056bb6cdce--
