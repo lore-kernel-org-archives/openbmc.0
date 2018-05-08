@@ -8,24 +8,21 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40g2Qp0VwjzF1dn
- for <openbmc@lists.ozlabs.org>; Tue,  8 May 2018 11:46:41 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w481kINR024078;
- Mon, 7 May 2018 20:46:19 -0500
-Message-ID: <05e89ea8549634e750d783360590f2802954437d.camel@kernel.crashing.org>
-Subject: [PATCH linux dev-4.13 6/6] fsi/fsi-master-gpio: Reduce dpoll clocks
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40g2TM0QYyzF1dk
+ for <openbmc@lists.ozlabs.org>; Tue,  8 May 2018 11:48:54 +1000 (AEST)
+Received: from pasglop.au.ibm.com (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4816hrT022397;
+ Mon, 7 May 2018 20:07:42 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: openbmc@lists.ozlabs.org
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>
-Date: Tue, 08 May 2018 11:46:18 +1000
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Subject: [PATCH linux dev-4.13 6/6] fsi/fsi-master-gpio: Reduce dpoll clocks
+Date: Tue,  8 May 2018 11:06:40 +1000
+Message-Id: <20180508010640.14113-6-benh@kernel.crashing.org>
+X-Mailer: git-send-email 2.17.0
 In-Reply-To: <20180508010640.14113-1-benh@kernel.crashing.org>
 References: <20180508010640.14113-1-benh@kernel.crashing.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -37,7 +34,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 May 2018 01:46:42 -0000
+X-List-Received-Date: Tue, 08 May 2018 01:48:56 -0000
 
 FSI_GPIO_DPOLL_CLOCKS is the number of clocks before sending
 a DPOLL command after receiving a BUSY status. It should be
@@ -78,3 +75,5 @@ index 029b0a5b6d89..bd2b2cbd5eb5 100644
  #define	FSI_GPIO_MTOE_COUNT	1000
  #define	FSI_GPIO_DRAIN_BITS	20
  #define	FSI_GPIO_CRC_SIZE	4
+-- 
+2.17.0
