@@ -1,59 +1,62 @@
 Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c01::241; helo=mail-pl0-x241.google.com;
+ (client-ip=2607:f8b0:400e:c00::244; helo=mail-pf0-x244.google.com;
  envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="mUyknVWi"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="LrYZBCbU"; 
  dkim-atps=neutral
-Received: from mail-pl0-x241.google.com (mail-pl0-x241.google.com
- [IPv6:2607:f8b0:400e:c01::241])
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40grp65K48zF27m
- for <openbmc@lists.ozlabs.org>; Wed,  9 May 2018 19:36:14 +1000 (AEST)
-Received: by mail-pl0-x241.google.com with SMTP id a39-v6so3969945pla.10
- for <openbmc@lists.ozlabs.org>; Wed, 09 May 2018 02:36:14 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40grpH3QrhzF27m
+ for <openbmc@lists.ozlabs.org>; Wed,  9 May 2018 19:36:23 +1000 (AEST)
+Received: by mail-pf0-x244.google.com with SMTP id e9so21353237pfi.4
+ for <openbmc@lists.ozlabs.org>; Wed, 09 May 2018 02:36:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=eFFUqPEnFgISpXeOQqoTJJg2eekl6A9J2+iRtEGnrZE=;
- b=mUyknVWiw84Ln5yyY1wvsaNwkbCu4oTHb4M2eh0+I28Mg9BLX6cNuqmgtoiioh9Qqc
- Q6J3SV5D6Nn7pGAJynIOLbeEWrLBkKGS7tQ8IV3jRKvAgRhQFN0YanOMw0XdqkUsteNx
- HTOOKoqAAgkKuaqg2OtRCdHqF1EM4f8sxPbrREYusWNgeu5KDJFWrnVYIXcYsYrgaMGM
- PCxpFert0tCJbEAYOENzV/DbqZlAB7Dta5719QL92zARRuuYL2dphXohzSEgcxJFzymz
- AIKXYq0DnXQqRa//EhVXp8dC+gqJbMsiYQEt3lAH/ZbuBr3FyjYwvKLtB4pObWk01XV1
- D24A==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=ROGIlT9YWWCfnlG8vSWVy4IImCEb7Z46lC6HvCUD6jU=;
+ b=LrYZBCbUde5ThkvAQGztpNGs380I5z+yHOrur/qC2y0CRF4JhElWtV9fRY27OBdQyz
+ jdhjztrePtsuWbhpBtKRNo2WwvAFiu8ZdZ6iqvDz4Fjwz2uZ+TASV0H/vIsLKOXgmmfl
+ wanX31vBKZ3ILbyut6SVsaitOEpZ6l6Gn98yL44YVpf0hsZNCDmgeeeXVe5jCs9c9yey
+ KjKOlrWOB7w0NqHw1htmQppleG8ysa+XNsQmBC8y7WMcoaDmkC5ygG1BMCOJkrn7gWMp
+ 9H/hcZ8IdKdCdhf4zUSCXjm1kNLLIpdZjZWbAR5WSFhg1kOHKxZuYsrEvaFzcyKAUz0I
+ Qi6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=eFFUqPEnFgISpXeOQqoTJJg2eekl6A9J2+iRtEGnrZE=;
- b=Pl9YURM6MR+m00rYfauxUdLJMZOHf/N9arysmDPrZ0LYy0RBGggOPXgXxSUZsGD5za
- XbitIVW9tf/kilFvRdwBNhzdVbeXG5aF1oq/oWDvt1ITsYs3cGU1bHGXLriIDJKNt1u/
- fafKdgS4pJJWtpG0WEd0hqECxZaiLCy5HSCufv19ptCJZ3x3kXT7Cr3zAtdacLVrJCVL
- KaFLJfULK7Rqcug3BBnOfYHJOUXBZRO4xoYD0m5XH7ghqAR72FkYtlNtwqQNTSEUT/7Y
- rW2WE1KDTn36KgnDKBa5E7WJGsvebIoQp8XlXynU81qDyvTsCVlHlIq+4AN+x8k6LS9L
- 2sgg==
-X-Gm-Message-State: ALQs6tCLrN89GT05FC/6xmwZlvCD8Xl2k1KQcnq1KcwUxfO3Pd5amVfK
- KrQtAYE4SPCy7kmt5OJuN4zOGTa8EgY=
-X-Google-Smtp-Source: AB8JxZpjyaJQW9t4RODZuwUteJOij4V9bohabgsBCb0QdRhaspZMea8dim9urERjl/frbsZJcgESog==
-X-Received: by 2002:a17:902:3f83:: with SMTP id
- a3-v6mr44993239pld.279.1525858572153; 
- Wed, 09 May 2018 02:36:12 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=ROGIlT9YWWCfnlG8vSWVy4IImCEb7Z46lC6HvCUD6jU=;
+ b=oZLG0Y6bL4Qy9l5bQGHaunnV9eRSJ+u9h7hUYWDOHGQQ0CJxGx9fnvqJf3aiByePmi
+ j/sSWRxuL8ZTuwM3ER8GJ65TecX234JjB5yUAQfFFqARASgQkoa8/BQX0ZKnn76evA7a
+ x/Ar3Z7u6pLKXp/BES167WUG78xHWQphy52hmLxU/RL37vg7GY6qgDxZH7a9S8zUWBOQ
+ bI3sX0tNQZbqpeWTZOh3h0WCDKVHK4TpOiDPPeeb5bDo/O/jufdLIdT+AQu0IQCTOeAL
+ wKbVLm15KU58hFew7iH/H41wz1mnwsOEAYahpxxo14U+HNqQ7oj42xv42yetzDWPBD38
+ nznA==
+X-Gm-Message-State: ALQs6tAeYUkmjE4/GzjDpJin30WEH45kzxtWL0y8JRo83VOBq1vNf9sI
+ 8B422IvTbM6p1UwHOBMOOVzXBtECRYE=
+X-Google-Smtp-Source: AB8JxZq5jPmAGBzJO91ZaXR9ibWCnyfsedop5g1gpiJ0TYtYPy4m4K5u4pr4dsaH7qSIMU/YKdtDnA==
+X-Received: by 10.98.178.4 with SMTP id x4mr43283854pfe.21.1525858581433;
+ Wed, 09 May 2018 02:36:21 -0700 (PDT)
 Received: from localhost (45.62.100.246.16clouds.com. [45.62.100.246])
- by smtp.gmail.com with ESMTPSA id o10-v6sm44508488pgc.80.2018.05.09.02.36.11
+ by smtp.gmail.com with ESMTPSA id z13sm5207306pfe.77.2018.05.09.02.36.20
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 09 May 2018 02:36:11 -0700 (PDT)
+ Wed, 09 May 2018 02:36:20 -0700 (PDT)
 From: Lei YU <mine260309@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: Lei YU <mine260309@gmail.com>,
 	joel@jms.id.au,
 	ryan_chen@aspeedtech.com
-Subject: [PATCH linux dev-4.13 1/2] clk: aspeed: Add 24MHz fixed clock
-Date: Wed,  9 May 2018 17:35:58 +0800
-Message-Id: <1525858559-130220-1-git-send-email-mine260309@gmail.com>
+Subject: [PATCH linux dev-4.13 2/2] ARM: dts: aspeed: Use 24MHz fixed clock
+ for pwm
+Date: Wed,  9 May 2018 17:35:59 +0800
+Message-Id: <1525858559-130220-2-git-send-email-mine260309@gmail.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1525858559-130220-1-git-send-email-mine260309@gmail.com>
+References: <1525858559-130220-1-git-send-email-mine260309@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,54 +68,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 May 2018 09:36:15 -0000
+X-List-Received-Date: Wed, 09 May 2018 09:36:23 -0000
 
-Add a 24MHz fixed clock.
-This clock will be used for certain devices, e.g. pwm.
+The aspeed pwm driver always sets the clock source to 24MHz, specify
+the fixed clock in device tree to make sure the driver is using the
+correct clock frequency to calculate the fan speed.
 
 Signed-off-by: Lei YU <mine260309@gmail.com>
 ---
- drivers/clk/clk-aspeed.c                 | 8 +++++++-
- include/dt-bindings/clock/aspeed-clock.h | 1 +
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/aspeed-g4.dtsi | 2 +-
+ arch/arm/boot/dts/aspeed-g5.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-index c5d2af2..2ea1ec1 100644
---- a/drivers/clk/clk-aspeed.c
-+++ b/drivers/clk/clk-aspeed.c
-@@ -23,7 +23,7 @@
- 
- #include <dt-bindings/clock/aspeed-clock.h>
- 
--#define ASPEED_NUM_CLKS		35
-+#define ASPEED_NUM_CLKS		36
- 
- #define ASPEED_RESET2_OFFSET	32
- 
-@@ -517,6 +517,12 @@ static int aspeed_clk_probe(struct platform_device *pdev)
- 		return PTR_ERR(hw);
- 	aspeed_clk_data->hws[ASPEED_CLK_BCLK] = hw;
- 
-+	/* Fixed 24MHz clock */
-+	hw = clk_hw_register_fixed_rate(NULL, "fixed-24m", NULL, 0, 24000000);
-+	if (IS_ERR(hw))
-+		return PTR_ERR(hw);
-+	aspeed_clk_data->hws[ASPEED_CLK_24M] = hw;
-+
- 	/*
- 	 * TODO: There are a number of clocks that not included in this driver
- 	 * as more information is required:
-diff --git a/include/dt-bindings/clock/aspeed-clock.h b/include/dt-bindings/clock/aspeed-clock.h
-index e983d17..9733c77 100644
---- a/include/dt-bindings/clock/aspeed-clock.h
-+++ b/include/dt-bindings/clock/aspeed-clock.h
-@@ -37,6 +37,7 @@
- #define ASPEED_CLK_MAC			32
- #define ASPEED_CLK_BCLK			33
- #define ASPEED_CLK_MPLL			34
-+#define ASPEED_CLK_24M			35
- 
- #define ASPEED_RESET_XDMA		0
- #define ASPEED_RESET_MCTP		1
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 50bc661..9354ac9 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -201,7 +201,7 @@
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 				reg = <0x1e786000 0x1000>;
+-				clocks = <&syscon ASPEED_CLK_APB>;
++				clocks = <&syscon ASPEED_CLK_24M>;
+ 				resets = <&syscon ASPEED_RESET_PWM>;
+ 				status = "disabled";
+ 			};
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index e9e039a..0633162 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -259,7 +259,7 @@
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 				reg = <0x1e786000 0x1000>;
+-				clocks = <&syscon ASPEED_CLK_APB>;
++				clocks = <&syscon ASPEED_CLK_24M>;
+ 				resets = <&syscon ASPEED_RESET_PWM>;
+ 				status = "disabled";
+ 			};
 -- 
 2.7.4
