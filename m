@@ -1,65 +1,66 @@
-Return-Path: <Eugene.Cho@dell.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
- envelope-from=eugene.cho@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c0f::231; helo=mail-ot0-x231.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=dell.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="CDKuD1E4"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nqruDzEr"; 
  dkim-atps=neutral
-Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
- [68.232.149.214])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot0-x231.google.com (mail-ot0-x231.google.com
+ [IPv6:2607:f8b0:4003:c0f::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40hYP23BTtzF2C4
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 23:05:24 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1525957526; x=1557493526;
- h=from:to:cc:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=nrJQu3my8tuFUwdMOFGJehRZCq66ddfmDqeqcyiSYYo=;
- b=CDKuD1E4oAV9taQxgeHF97KljUtM3CIoAHcPFItha2+1D0ff4Bmtjjds
- TGJX63qO0qzE5j/T6y3a0im3kX0hup21pRyh32I9DjD+BYlQQNpDtp38L
- o3CUPOeCA0bAGOaC8GI5GKS8eONDoSnQMOspiB8ceDYNCAa+AL8MS13Te s=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GqAgDJQvRahz+a6ERcHQEBBQELAYQWg?=
- =?us-ascii?q?QkymFaDCJNEgWQLhGyDAiE3FQECAQEBAQEBAgEBAhABAQEKCwkIKC+CNSKDARM?=
- =?us-ascii?q?/EgE+YQcBBA4NgxuBcBGsWDOHaF+CSIglghOIURpuhQgCmC0IjkeBL4s9kFKBJ?=
- =?us-ascii?q?TKBdXCDFIItjiCPCIEfgRgBAQ?=
-X-IPAS-Result: =?us-ascii?q?A2GqAgDJQvRahz+a6ERcHQEBBQELAYQWgQkymFaDCJNEgWQ?=
- =?us-ascii?q?LhGyDAiE3FQECAQEBAQEBAgEBAhABAQEKCwkIKC+CNSKDARM/EgE+YQcBBA4Ng?=
- =?us-ascii?q?xuBcBGsWDOHaF+CSIglghOIURpuhQgCmC0IjkeBL4s9kFKBJTKBdXCDFIItjiC?=
- =?us-ascii?q?PCIEfgRgBAQ?=
-Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
- by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 May 2018 08:05:21 -0500
-From: <Eugene.Cho@dell.com>
-Received: from ausc60ps301.us.dell.com ([143.166.148.206])
- by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 May 2018 19:02:30 +0600
-X-LoopCount0: from 10.166.132.134
-X-IronPort-AV: E=Sophos;i="5.49,385,1520917200"; d="scan'208";a="1149309809"
-X-DLP: DLP_GlobalPCIDSS
-To: <cyrilbur@gmail.com>
-CC: <openbmc@lists.ozlabs.org>
-Subject: common bmc mailbox driver
-Thread-Topic: common bmc mailbox driver
-Thread-Index: AdPoXuWSWf7y8INVQQa+TJMSn0fZ2w==
-Date: Thu, 10 May 2018 13:04:59 +0000
-Message-ID: <28825ffd2af2405eacbb48f1388992f8@AUSX13MPC105.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titusconfig: No Restrictions 04051212
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiJiYWQ3MjQxYS0xOGIzLTQyNGUtOTIxZS1iZmM1ZWQwOTJjN2MiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6InA4RFRZRmVWQ3d2aWRCdnZIUGRGXC81QUFSN01ySFphMzlWR1g4Rk8rVDlnPSJ9
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40hZbS6sdJzF2C9
+ for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 23:59:32 +1000 (AEST)
+Received: by mail-ot0-x231.google.com with SMTP id 15-v6so2382838otn.12
+ for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 06:59:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language;
+ bh=cJ3XYKGrr2C3aoMqsLz3JWsiqGAznsuMAtQBbGkj+I8=;
+ b=nqruDzErit9Evpacea6T5j63GGqUkLn5uKZjAwD4j7H0HnRm8HAkhKfaac+lthCatW
+ /bL5+kB5WU20Y/bcqXTBkcD3fHpBfEl6/HC7MnaMcXL1qOqe4RjPxb4rw8okSXcDsOa2
+ PkxGeEkgNmDIFN77Nx99PHyV6L2QH2WCn6mQIfnuFeSMH4FQ7rJs8qI49cTYoraFOVbA
+ 30jA3bZ2s13gNY8tPGtR9v8lk2eBbS/nE4BU+LmpzJg5eAuwOmfzeA3+55QH1ag3ROVY
+ d54vGGTFMpX+p8lbkPQfBFYI81AQHFuHkmABwM6zeOLMrRTlukGROfYoNN7GfmCrrZ7Q
+ Xo6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language;
+ bh=cJ3XYKGrr2C3aoMqsLz3JWsiqGAznsuMAtQBbGkj+I8=;
+ b=gFPcrBe1nvKVFrTDadJvoqQWZNsutPe4Fs8deIu0BVvqWwUkgdpFJHKG/gUCZFYor/
+ S2Xl2tAr7Rg42+1D5jm4aGMbsO//UXI5OSK0mi2GxM4pL8ILnzVnVzqmGDLUZ5gLUZnJ
+ YftuQ/RziMPBKW72ResiUcjXkOgT8od14D9pW9nHAm3avZmTw1JKgWinJmGVsh9xXcYw
+ z7J268aSNqLaGOOzMOXpMmZALx33SRvO85wCEtM4Kh93XyDUjKzOClU4lRBXypbxtox/
+ MAt3VxA41P9AX5d9eXSaTO76QvA1R0pTW2bdC2Xuga9VRsNkzkIbxhfob++GLEtmI3+f
+ WfMg==
+X-Gm-Message-State: ALKqPwe24lORxPV+f4Bj3JhdNoxGc4ceDHcOJXcDB8fgxRq5t6wutaWb
+ RAVtADHOZ9nDcTfd7VOLlvqMThXk
+X-Google-Smtp-Source: AB8JxZrS/1TSeMyfcmtpoKSyOPjZG3Z5kZKBYIX5k6HA3fhOyJccCXpyK6Uy6dbqn8E4f8LQ4kRkmA==
+X-Received: by 2002:a9d:33a0:: with SMTP id
+ u32-v6mr1051507otc.232.1525960767892; 
+ Thu, 10 May 2018 06:59:27 -0700 (PDT)
+Received: from krtaylors-mbp.austin.ibm.com ([32.97.110.52])
+ by smtp.gmail.com with ESMTPSA id p3-v6sm438154otp.2.2018.05.10.06.59.27
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 10 May 2018 06:59:27 -0700 (PDT)
+Subject: Re: OpenBMC Fix-It
+To: openbmc@lists.ozlabs.org
+References: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <78bfadf4-1493-d9e9-58c0-9d1163f99f76@gmail.com>
+Date: Thu, 10 May 2018 08:59:26 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.7.0
 MIME-Version: 1.0
+In-Reply-To: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
+Content-Type: multipart/alternative;
+ boundary="------------516EB1D4130EE64CC8186840"
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,16 +72,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 May 2018 13:05:28 -0000
+X-List-Received-Date: Thu, 10 May 2018 13:59:33 -0000
 
-Hey Cyril,
-   I was recently following your upstream submission attempt for the aspeed=
- mbox/mailbox, was wondering if there was been any progress since?
+This is a multi-part message in MIME format.
+--------------516EB1D4130EE64CC8186840
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Reason I ask - is Nuvoton also has a "mailbox" for bmc<->host communication=
-, which does the same thing (shared memory + interrupts both ways), and was=
- wondering if we could just have 1 driver for both, instead 2 separate driv=
-ers.
+On 5/8/18 2:28 PM, Nancy Yuen wrote:
+> Please join my team for an OpenBMC community "fix-it" event in June!
+>
+> My team is devoting the week of 6/11/-15 to a Google OpenBMC "fix it" 
+> as part of a larger fix-it initiative. OpenBMC is a large part of our 
+> project so I'd like to spend part of the week on a fix-it on OpenBMC.
+>
+> I propose to have the fix it on Tues and Wed 6/12 & 6/13.  We could 
+> set up an IRC channel for the fix it where everyone participating 
+> would hang out for the day. We could pick one or two areas to
+I'd say let's just use the #openbmc channel, it may pull in others as 
+you move along.
+> focus on for those days, put together a list of things to "fix" in 
+> those areas ahead of time.  On the day, we all tackle things on the 
+> list (or something not on the list), discuss over IRC and do code 
+> reviews. Inevitably, people have meetings or things they can't get out 
+> of, but if you can be available for most of the day, that would be enough!
+>
+> Anyone interested in participating?
 
-Glancing at the aspeed driver, only key difference I see is the setting and=
- handling the interrupt. Thoughts on this?
+I'm in.
+
+Thanks for organizing this Nancy!
+
+Kurt Taylor (krtaylor)
+
+
+--------------516EB1D4130EE64CC8186840
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    On 5/8/18 2:28 PM, Nancy Yuen wrote:<br>
+    <blockquote type="cite"
+cite="mid:CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com">
+      <div dir="ltr">
+        <div><font size="4">Please join my team for an OpenBMC 
+            community "fix-it" event in June!</font></div>
+        <div><font size="4"><br>
+          </font></div>
+        <font size="4">My team is devoting the week of 6/11/-15 to a
+          Google OpenBMC "fix it" as part of a larger fix-it initiative.
+          OpenBMC is a large part of our project so I'd like to spend
+          part of the week on a fix-it on OpenBMC.</font>
+        <div><font size="4"><br>
+          </font></div>
+        <div><font size="4">I propose to have the fix it on Tues and Wed
+            6/12 &amp; 6/13.  We could set up an IRC channel for the fix
+            it where everyone participating would hang out for the day. 
+            We could pick one or two areas to </font></div>
+      </div>
+    </blockquote>
+    I'd say let's just use the #openbmc channel, it may pull in others
+    as you move along.
+    <blockquote type="cite"
+cite="mid:CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com">
+      <div dir="ltr">
+        <div><font size="4">focus on for those days, put together a list
+            of things to "fix" in those areas ahead of time.  On the
+            day, we all tackle things on the list (or something not on
+            the list), discuss over IRC and do code reviews. 
+            Inevitably, people have meetings or things they can't get
+            out of, but if you can be available for most of the day,
+            that would be enough!</font></div>
+        <div><font size="4"><br>
+          </font></div>
+        <div><font size="4">Anyone interested in participating?</font></div>
+      </div>
+    </blockquote>
+    <p>I'm in.<br>
+    </p>
+    <p>Thanks for organizing this Nancy! </p>
+    <p>Kurt Taylor (krtaylor)<br>
+    </p>
+  </body>
+</html>
+
+--------------516EB1D4130EE64CC8186840--
