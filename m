@@ -1,71 +1,67 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oCOjsxZy"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="awM0rrGs"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40gyf00ZvqzF2Mq
- for <openbmc@lists.ozlabs.org>; Wed,  9 May 2018 23:59:35 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w49DxDsb102692
- for <openbmc@lists.ozlabs.org>; Wed, 9 May 2018 09:59:32 -0400
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2hv0c1xa7y-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 09 May 2018 09:59:27 -0400
-Received: from localhost
- by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Wed, 9 May 2018 09:59:23 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 9 May 2018 09:59:21 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w49DxL7u36307044; Wed, 9 May 2018 13:59:21 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B102AAC03A;
- Wed,  9 May 2018 10:00:52 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.85.187.136])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 6FD35AC040;
- Wed,  9 May 2018 10:00:52 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.13] fsi: scom: Remove PIB reset during probe
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1525819412-21308-1-git-send-email-eajames@linux.vnet.ibm.com>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Wed, 9 May 2018 08:59:20 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40hGS938qCzF2SK
+ for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 11:52:08 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1F9F821C07;
+ Wed,  9 May 2018 21:52:05 -0400 (EDT)
+Received: from web6 ([10.202.2.216])
+ by compute4.internal (MEProxy); Wed, 09 May 2018 21:52:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=d9f73JGNdVEVRyVsCh4c7HiuQ2hGI
+ t4U3T/E/oqSigA=; b=oCOjsxZyUArElLW43nqBBDzdFVJqnXYWgnOHwYGsM4HRu
+ jAY0rYR/nWlwc/pGAvXi4vBtcHGJbVbUcUiwO8f37BIoa26zvvU84z/1DDmwv4DO
+ PpWscozQtqvmP2/WziTGb3mcyr8NRWFNu3C0rYNF7NxbtOPiu6dJiu+gP3qxn488
+ o4rhxLghF3FwoOkAX4N2w6tGz9a8WJMAaN+Pf17yvtHB2j847ytmgg9iEdUetJX1
+ 6B2hlDFoVK9Tf+R8dKQs+FVK8T7tI88xCEFjeW1k7m31XlkMcfAZs326bbTwoo61
+ iX7P176ehgwjVXEsPyLoFDpza8hAEJ/xnrdgX6aTg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=d9f73J
+ GNdVEVRyVsCh4c7HiuQ2hGIt4U3T/E/oqSigA=; b=awM0rrGsbqpbPcVlQLgYLJ
+ KP+tyK8yGkpHzYJjdsvTRZW5qNFBXggdZ7aLCJ9z47NuH2xq8C/imO7JUkc50aHV
+ awiwOQ+lZB57asmHgcSGZx+deZWiovI8Wu7bY3kpxwV8nVcH6yvGapAL6eH7ZjFT
+ ZGvcB7UySS1qNTxdIvhkj3GNCRFXS0nISz8NdhXX4z0Y93agtBFfp+5NiJVSv/Gc
+ attXnPvV4Q8S7XXLYUUZWpLd2lbF2hTW12id8qi2Ag0ND2lsnUXkZmUAIVQhBKYJ
+ vIg894PVoMtHbrz687L7ZNa+paBmdJmhViRKk5tGuaKTYOZKEDivaZHeaf1gBnOQ
+ ==
+X-ME-Sender: <xms:xKXzWpr1kfUL1QM2uJ_9n14Kv0X6Jh3LbJIwHR3mshWAaKxhil_Qsw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id DD55D41AF; Wed,  9 May 2018 21:52:04 -0400 (EDT)
+Message-Id: <1525917124.2417085.1366924696.1ADBC6F3@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Eugene.Cho@dell.com, joel@jms.id.au, benh@kernel.crashing.org
+Cc: openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-In-Reply-To: <1525819412-21308-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18050913-0008-0000-0000-00000304F2BA
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008997; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000259; SDB=6.01029792; UDB=6.00526236; IPR=6.00808927; 
- MB=3.00021011; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-09 13:59:23
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18050913-0009-0000-0000-000039301823
-Message-Id: <7fc4cedd-0ca3-5f17-f666-6b7ce4c58489@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-09_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805090132
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-29fe4c42
+References: <20180412035145.21488-1-andrew@aj.id.au>
+ <20180412035145.21488-2-andrew@aj.id.au>
+ <CACPK8Xco1vLEFtxTmfp_roN0khOfdYMQAjN+R4mgo6DScwRZWA@mail.gmail.com>
+ <1524109954.2421916.1343180600.297713A4@webmail.messagingengine.com>
+ <d0d76c65aa504f63a4105207941ec24c@AUSX13MPC105.AMER.DELL.COM>
+In-Reply-To: <d0d76c65aa504f63a4105207941ec24c@AUSX13MPC105.AMER.DELL.COM>
+Subject: Re: [RFC PATCH linux dev-4.13 1/3] soc: aspeed: Miscellaneous control
+ interfaces
+Date: Thu, 10 May 2018 11:22:04 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,55 +73,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 May 2018 13:59:36 -0000
+X-List-Received-Date: Thu, 10 May 2018 01:52:11 -0000
 
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Hi Eugene,
 
+On Wed, 2 May 2018, at 02:51, Eugene.Cho@dell.com wrote:
+> 
+> >> An observation: It's the only thing inside this file that is aspeed 
+> >> specific. If not for the name, it could be generic code.
+> 
+> >I agree, hence some of the bullet points in the cover letter. But it's name and location was also partly driven by Arnd's suggestion that we stick the junk in drivers/soc, and it felt a bit weird not to use aspeed in the name >given the convention there.
+> 
+> Just FYI - We've got the same exact problem on Nuvoton (just odds and 
+> ends in misc registers). Does this imply we will need a soc/npcm750 
+> which also does the exact same thing?
 
-On 5/8/18 5:43 PM, Eddie James wrote:
-> The PIB reset causes problems for the running P9 chip. The reset
-> shouldn't be performed by this driver.
->
-> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
-> ---
->   drivers/fsi/fsi-scom.c | 8 --------
->   1 file changed, 8 deletions(-)
->
-> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-> index e13353a..c8eb5e5 100644
-> --- a/drivers/fsi/fsi-scom.c
-> +++ b/drivers/fsi/fsi-scom.c
-> @@ -26,15 +26,11 @@
->
->   #define FSI_ENGID_SCOM		0x5
->
-> -#define SCOM_FSI2PIB_DELAY	50
-> -
->   /* SCOM engine register set */
->   #define SCOM_DATA0_REG		0x00
->   #define SCOM_DATA1_REG		0x04
->   #define SCOM_CMD_REG		0x08
-> -#define SCOM_RESET_REG		0x1C
->
-> -#define SCOM_RESET_CMD		0x80000000
->   #define SCOM_WRITE_CMD		0x80000000
->
->   struct scom_device {
-> @@ -180,7 +176,6 @@ static loff_t scom_llseek(struct file *file, loff_t offset, int whence)
->
->   static int scom_probe(struct device *dev)
->   {
-> -	uint32_t data;
->   	struct fsi_device *fsi_dev = to_fsi_dev(dev);
->   	struct scom_device *scom;
->
-> @@ -197,9 +192,6 @@ static int scom_probe(struct device *dev)
->   	scom->mdev.parent = dev;
->   	list_add(&scom->link, &scom_devices);
->
-> -	data = cpu_to_be32(SCOM_RESET_CMD);
-> -	fsi_device_write(fsi_dev, SCOM_RESET_REG, &data, sizeof(uint32_t));
-> -
->   	return misc_register(&scom->mdev);
->   }
->
+I don't think so, if anything it's an argument for moving it out of soc/aspeed
+
+> 
+> I'm guessing making it too generic - will make it harder to get upstream?
+> 
+
+Probably, but the more evidence we have for requiring it the harder it is to argue against, and so the fact that this could help the NPCM as well might even make it easier to upstream.
+
+Have you played with the implementation at all? Would be good to get some consensus on it being a decent approach here before we go upstream with it. I also need to add devicetree bindings and ABI documentation...
+
+Cheers,
+
+Andrew
