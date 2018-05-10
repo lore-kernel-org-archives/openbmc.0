@@ -6,62 +6,57 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oCOjsxZy"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AL4UF2Yr"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="awM0rrGs"; dkim-atps=neutral
+ header.b="CcO36lLd"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40hGS938qCzF2SK
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 11:52:08 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40hGhc0XhczF1n3
+ for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 12:02:55 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1F9F821C07;
- Wed,  9 May 2018 21:52:05 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 98ABA229B5;
+ Wed,  9 May 2018 22:02:53 -0400 (EDT)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Wed, 09 May 2018 21:52:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
+ by compute4.internal (MEProxy); Wed, 09 May 2018 22:02:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=d9f73JGNdVEVRyVsCh4c7HiuQ2hGI
- t4U3T/E/oqSigA=; b=oCOjsxZyUArElLW43nqBBDzdFVJqnXYWgnOHwYGsM4HRu
- jAY0rYR/nWlwc/pGAvXi4vBtcHGJbVbUcUiwO8f37BIoa26zvvU84z/1DDmwv4DO
- PpWscozQtqvmP2/WziTGb3mcyr8NRWFNu3C0rYNF7NxbtOPiu6dJiu+gP3qxn488
- o4rhxLghF3FwoOkAX4N2w6tGz9a8WJMAaN+Pf17yvtHB2j847ytmgg9iEdUetJX1
- 6B2hlDFoVK9Tf+R8dKQs+FVK8T7tI88xCEFjeW1k7m31XlkMcfAZs326bbTwoo61
- iX7P176ehgwjVXEsPyLoFDpza8hAEJ/xnrdgX6aTg==
+ :x-me-sender:x-sasl-enc; s=fm2; bh=ajIX2E7YIJeKLiCP5qEeti+M8CYya
+ L0hWR/1qp/FYVo=; b=AL4UF2YrJDZVqZmP9Te00Fpa3d0iyif77+7wzO6p/Tw76
+ qVzH+mPG7+K3iyWT0XPDMTsbVJYUjLlNzoaUFLjPCQGmJS430/co3VGnMcpFaebN
+ I77YIiONKgE7gUYChcPlba3e1LXUM3kKEh2/WBdk6g1nVlfLiWfFzFPEvL9TQhR3
+ ATC67F7xfRl6xYFEgljgCDTZR5yPtBXJFkzUgB8QUWIflBapnTo9fLo2qpcFwN4c
+ 6PHuav10Dc22KVxMUV3MYQFIK7NQpa0mDcvTyJULSu0xdc48nS0mhHZIBhhSdPRM
+ S098nwMeuWWiyDMYrP/Jo50zOnDYTymhGkYVo1L7A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
+ messagingengine.com; h=content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=d9f73J
- GNdVEVRyVsCh4c7HiuQ2hGIt4U3T/E/oqSigA=; b=awM0rrGsbqpbPcVlQLgYLJ
- KP+tyK8yGkpHzYJjdsvTRZW5qNFBXggdZ7aLCJ9z47NuH2xq8C/imO7JUkc50aHV
- awiwOQ+lZB57asmHgcSGZx+deZWiovI8Wu7bY3kpxwV8nVcH6yvGapAL6eH7ZjFT
- ZGvcB7UySS1qNTxdIvhkj3GNCRFXS0nISz8NdhXX4z0Y93agtBFfp+5NiJVSv/Gc
- attXnPvV4Q8S7XXLYUUZWpLd2lbF2hTW12id8qi2Ag0ND2lsnUXkZmUAIVQhBKYJ
- vIg894PVoMtHbrz687L7ZNa+paBmdJmhViRKk5tGuaKTYOZKEDivaZHeaf1gBnOQ
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=ajIX2E
+ 7YIJeKLiCP5qEeti+M8CYyaL0hWR/1qp/FYVo=; b=CcO36lLdTWmMBWeFjpMHPE
+ RlFyP6GyJ+zzL0IHOx4oalpD5PnQLE6vqD96dD79qj/4V3q/Js482C5DhQ3+Gx09
+ QNQypRMrdEVJA3d3WwFEi3w5MsCQ6/A03yVfmpdtmI/Pc7THmFW0yRqC74hZmbyj
+ Dypvys8esMJ/0GeMc7tL7NDtxjtrsobreYzrAqpn6mAn7fEW5EpxZlODFZnI5zhg
+ T20Sbmpmk4XroTOimJ23yfBm1ajjmznkqY+Ycar/wVBYX+rDjzTfFbzJGtN01waO
+ PSeMB/OczedbQGv8sNweKrXYiG91kreHSOBbpR1MNtEKZIYABvYB+fOoRcjLY3Hg
  ==
-X-ME-Sender: <xms:xKXzWpr1kfUL1QM2uJ_9n14Kv0X6Jh3LbJIwHR3mshWAaKxhil_Qsw>
+X-ME-Sender: <xms:TajzWt4QjE9BVhUZfcK8DcLJ7N1i-JBBgizQLj963Fh9sytRkNcoSg>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id DD55D41AF; Wed,  9 May 2018 21:52:04 -0400 (EDT)
-Message-Id: <1525917124.2417085.1366924696.1ADBC6F3@webmail.messagingengine.com>
+ id 6786E412B; Wed,  9 May 2018 22:02:53 -0400 (EDT)
+Message-Id: <1525917773.2419605.1366930024.0B69BF3D@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Eugene.Cho@dell.com, joel@jms.id.au, benh@kernel.crashing.org
-Cc: openbmc@lists.ozlabs.org
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org,
+ benh@kernel.crashing.org, jk@ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-29fe4c42
-References: <20180412035145.21488-1-andrew@aj.id.au>
- <20180412035145.21488-2-andrew@aj.id.au>
- <CACPK8Xco1vLEFtxTmfp_roN0khOfdYMQAjN+R4mgo6DScwRZWA@mail.gmail.com>
- <1524109954.2421916.1343180600.297713A4@webmail.messagingengine.com>
- <d0d76c65aa504f63a4105207941ec24c@AUSX13MPC105.AMER.DELL.COM>
-In-Reply-To: <d0d76c65aa504f63a4105207941ec24c@AUSX13MPC105.AMER.DELL.COM>
-Subject: Re: [RFC PATCH linux dev-4.13 1/3] soc: aspeed: Miscellaneous control
- interfaces
-Date: Thu, 10 May 2018 11:22:04 +0930
+References: <20180504024313.19645-1-joel@jms.id.au>
+Subject: Re: [PATCH linux dev-4.13] ARM: dts: aspeed: Move random number device
+In-Reply-To: <20180504024313.19645-1-joel@jms.id.au>
+Date: Thu, 10 May 2018 11:32:53 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -73,31 +68,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 May 2018 01:52:11 -0000
+X-List-Received-Date: Thu, 10 May 2018 02:02:56 -0000
 
-Hi Eugene,
+On Fri, 4 May 2018, at 12:13, Joel Stanley wrote:
+> Move the node out from under the syscon/simple-mfd.
+> 
+> Being a child of this node causes the driver to fail to probe, as
+> platform_get_resource returns NULL due to dev->num_resources being zero.
 
-On Wed, 2 May 2018, at 02:51, Eugene.Cho@dell.com wrote:
-> 
-> >> An observation: It's the only thing inside this file that is aspeed 
-> >> specific. If not for the name, it could be generic code.
-> 
-> >I agree, hence some of the bullet points in the cover letter. But it's name and location was also partly driven by Arnd's suggestion that we stick the junk in drivers/soc, and it felt a bit weird not to use aspeed in the name >given the convention there.
-> 
-> Just FYI - We've got the same exact problem on Nuvoton (just odds and 
-> ends in misc registers). Does this imply we will need a soc/npcm750 
-> which also does the exact same thing?
+Ugh. I'm frustrated by the schism that simple-mfd/syscon introduces. It looks like such an attractive solution right up until its not, when you have existing drivers like this that you want to plug into MMIO space already covered by the syscon/simple-mfd.
 
-I don't think so, if anything it's an argument for moving it out of soc/aspeed
+Do we have a way out of this kind of mess?
+
+What about adding regmap support to the timeriomem_rng driver?
 
 > 
-> I'm guessing making it too generic - will make it harder to get upstream?
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+>  arch/arm/boot/dts/aspeed-g4.dtsi | 12 ++++++------
+>  arch/arm/boot/dts/aspeed-g5.dtsi | 12 ++++++------
+>  2 files changed, 12 insertions(+), 12 deletions(-)
 > 
-
-Probably, but the more evidence we have for requiring it the harder it is to argue against, and so the fact that this could help the NPCM as well might even make it easier to upstream.
-
-Have you played with the implementation at all? Would be good to get some consensus on it being a decent approach here before we go upstream with it. I also need to add devicetree bindings and ABI documentation...
-
-Cheers,
-
-Andrew
+> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+> index 3d391b428b25..50bc661b8fff 100644
+> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+> @@ -120,13 +120,13 @@
+>  				pinctrl: pinctrl {
+>  					compatible = "aspeed,g4-pinctrl";
+>  				};
+> +			};
+>  
+> -				hwrng@78 {
+> -					compatible = "timeriomem_rng";
+> -					reg = <0x78 0x4>;
+> -					period = <1>;
+> -					quality = <100>;
+> -				};
+> +			rng: hwrng@78 {
+> +				compatible = "timeriomem_rng";
+> +				reg = <0x78 0x4>;
+> +				period = <1>;
+> +				quality = <100>;
+>  			};
+>  
+>  			adc: adc@1e6e9000 {
+> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+> index 01b66359e6d6..e9e039a6407c 100644
+> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+> @@ -161,13 +161,13 @@
+>  				vga_scratch: scratch {
+>  					compatible = "aspeed,bmc-misc";
+>  				};
+> +			};
+>  
+> -				hwrng@78 {
+> -					compatible = "timeriomem_rng";
+> -					reg = <0x78 0x4>;
+> -					period = <1>;
+> -					quality = <100>;
+> -				};
+> +			rng: hwrng@78 {
+> +				compatible = "timeriomem_rng";
+> +				reg = <0x78 0x4>;
+> +				period = <1>;
+> +				quality = <100>;
+>  			};
+>  
+>  			gfx: display@1e6e6000 {
+> -- 
+> 2.17.0
+> 
