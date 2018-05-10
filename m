@@ -1,70 +1,65 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <Eugene.Cho@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::22c; helo=mail-qt0-x22c.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
+ envelope-from=eugene.cho@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="IEoATQiT"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="OBSvYI2W"; 
+ dmarc=pass (p=none dis=none) header.from=dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="CDKuD1E4"; 
  dkim-atps=neutral
-Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
- [IPv6:2607:f8b0:400d:c0d::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
+ [68.232.149.214])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40hXwV61tkzF2BG
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 22:44:10 +1000 (AEST)
-Received: by mail-qt0-x22c.google.com with SMTP id f1-v6so2300145qtj.6
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 05:44:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=nBfh7A7+NsLXFRnEQy1sn7WHEhqhtg/tJzrweuRPcPo=;
- b=IEoATQiTXh+ig1frwV10uo2Vwoaafd7QmR5ZsMtIf0XqbQebzi9qN/Kv6igcjM89IP
- FEsq+KUbjB8Tg730O5xvY+eHwZTqkICDQK34jjVQIL+Z5FUZR0XpLIodofU/gnFpiOf/
- MIXUCD+mGzRDdRIHUTatroMrqOYUGcgPyVzGSU+i7IT2dTbyg3/k081oxwbBK9kUv8aG
- 1YfkZKBSkRPEF+L8Nl3RXuODt0RDLK5/kPYlZy0x5pMDHAQAuKucp9/pwdIsPbue1rA7
- B7RxUi6rSZisZjbzLI3gm99miKoiHk7P6CuXg/8aRz/GALEM6yCbi9+Pl4I2Rsq6+q/J
- cTFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=nBfh7A7+NsLXFRnEQy1sn7WHEhqhtg/tJzrweuRPcPo=;
- b=OBSvYI2W5MGz3hJzq85aGNKNu8NZmlGnYqjOWH3cXdQKP1NoS8uuso1omOum1Tmi23
- TxeQPNFZgjy90rogNTVseBBmd+TjCKE+o9hsVz3z9s4JBV+Z7RkZOQfsXmRqhUfx3Knf
- Dbh/u1pjVZDe4IsTpl1kL5V/Z+/1oCjEnlQjk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=nBfh7A7+NsLXFRnEQy1sn7WHEhqhtg/tJzrweuRPcPo=;
- b=LqcZbpCfZmr5HQy5xb34NN+koz7f+BHYIuBIPhFXZ4RsXqwGzuOxZM7Mx4AzULqtNg
- lE1M9v7Y0eVVvPs2Q8YxyEUI3mbn8IFGMG78jirJGTBEw2IoJfEv0OGcMJ/bgmKZU1FZ
- f+HQ+o2BQmZyClJEnQhIVEBnHNxStC2FgkX9QrnhirXhjbFG6Dcfg0+zLrrkXSIiPD8v
- WzZJNRSQx/9NBc7iXPOYng3Yv99/KdmYDw6B/TFFPlXr4jex/iEJfOVauf+Ctsuup1pW
- UPCTwBFLNkY4soo8f9BVm5QoJ9F6O3Lk4r0+m19TzhdrrgUj9hXd1+xkeEvYeN+o1Kmx
- 8rSw==
-X-Gm-Message-State: ALKqPwdMVFD6dvLB+NYD2Jnf6GGANFcqzk7QXVNr/4dJKw0yotwSsE5b
- kUP7hw4BqOIEmfs2XwbNNOktPrL/dK5twc3MdAo=
-X-Google-Smtp-Source: AB8JxZqWHifixotYoZC9uOZ6xZDlS/ZQA/YSlhjyVtt/T0MCVRuJ+mYmqkgdNGd9AWYpko6vkfsuMdsoh6nruMWQd3k=
-X-Received: by 2002:aed:3b37:: with SMTP id
- p52-v6mr1170605qte.106.1525956247614; 
- Thu, 10 May 2018 05:44:07 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40hYP23BTtzF2C4
+ for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 23:05:24 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1525957526; x=1557493526;
+ h=from:to:cc:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=nrJQu3my8tuFUwdMOFGJehRZCq66ddfmDqeqcyiSYYo=;
+ b=CDKuD1E4oAV9taQxgeHF97KljUtM3CIoAHcPFItha2+1D0ff4Bmtjjds
+ TGJX63qO0qzE5j/T6y3a0im3kX0hup21pRyh32I9DjD+BYlQQNpDtp38L
+ o3CUPOeCA0bAGOaC8GI5GKS8eONDoSnQMOspiB8ceDYNCAa+AL8MS13Te s=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GqAgDJQvRahz+a6ERcHQEBBQELAYQWg?=
+ =?us-ascii?q?QkymFaDCJNEgWQLhGyDAiE3FQECAQEBAQEBAgEBAhABAQEKCwkIKC+CNSKDARM?=
+ =?us-ascii?q?/EgE+YQcBBA4NgxuBcBGsWDOHaF+CSIglghOIURpuhQgCmC0IjkeBL4s9kFKBJ?=
+ =?us-ascii?q?TKBdXCDFIItjiCPCIEfgRgBAQ?=
+X-IPAS-Result: =?us-ascii?q?A2GqAgDJQvRahz+a6ERcHQEBBQELAYQWgQkymFaDCJNEgWQ?=
+ =?us-ascii?q?LhGyDAiE3FQECAQEBAQEBAgEBAhABAQEKCwkIKC+CNSKDARM/EgE+YQcBBA4Ng?=
+ =?us-ascii?q?xuBcBGsWDOHaF+CSIglghOIURpuhQgCmC0IjkeBL4s9kFKBJTKBdXCDFIItjiC?=
+ =?us-ascii?q?PCIEfgRgBAQ?=
+Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
+ by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 May 2018 08:05:21 -0500
+From: <Eugene.Cho@dell.com>
+Received: from ausc60ps301.us.dell.com ([143.166.148.206])
+ by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 May 2018 19:02:30 +0600
+X-LoopCount0: from 10.166.132.134
+X-IronPort-AV: E=Sophos;i="5.49,385,1520917200"; d="scan'208";a="1149309809"
+X-DLP: DLP_GlobalPCIDSS
+To: <cyrilbur@gmail.com>
+CC: <openbmc@lists.ozlabs.org>
+Subject: common bmc mailbox driver
+Thread-Topic: common bmc mailbox driver
+Thread-Index: AdPoXuWSWf7y8INVQQa+TJMSn0fZ2w==
+Date: Thu, 10 May 2018 13:04:59 +0000
+Message-ID: <28825ffd2af2405eacbb48f1388992f8@AUSX13MPC105.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titusconfig: No Restrictions 04051212
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvIiwiaWQiOiJiYWQ3MjQxYS0xOGIzLTQyNGUtOTIxZS1iZmM1ZWQwOTJjN2MiLCJwcm9wcyI6W3sibiI6IkNsYXNzaWZpY2F0aW9uIiwidmFscyI6W3sidmFsdWUiOiJObyBSZXN0cmljdGlvbnMifV19LHsibiI6IlN1YmxhYmVscyIsInZhbHMiOltdfSx7Im4iOiJFeHRlcm5hbENvcnJlc3BvbmRlbmNlIiwidmFscyI6W119XX0sIlN1YmplY3RMYWJlbHMiOltdLCJUTUNWZXJzaW9uIjoiMTYuMi4xMS4wIiwiVHJ1c3RlZExhYmVsSGFzaCI6InA4RFRZRmVWQ3d2aWRCdnZIUGRGXC81QUFSN01ySFphMzlWR1g4Rk8rVDlnPSJ9
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Thu, 10 May 2018 05:43:47 -0700 (PDT)
-In-Reply-To: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
-References: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 10 May 2018 22:13:47 +0930
-X-Google-Sender-Auth: Yd9hglGQMQ9WqRqeyA5JVjhS6R4
-Message-ID: <CACPK8XcTC_BnxVCW4fEymcfGGwpOPGY-cOhWx_1MfhJ6jD_stg@mail.gmail.com>
-Subject: Re: OpenBMC Fix-It
-To: Nancy Yuen <yuenn@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,21 +71,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 May 2018 12:44:12 -0000
+X-List-Received-Date: Thu, 10 May 2018 13:05:28 -0000
 
-Hi Nancy,
+Hey Cyril,
+   I was recently following your upstream submission attempt for the aspeed=
+ mbox/mailbox, was wondering if there was been any progress since?
 
-On 9 May 2018 at 04:58, Nancy Yuen <yuenn@google.com> wrote:
-> Please join my team for an OpenBMC  community "fix-it" event in June!
->
-> My team is devoting the week of 6/11/-15 to a Google OpenBMC "fix it" as
-> part of a larger fix-it initiative. OpenBMC is a large part of our project
-> so I'd like to spend part of the week on a fix-it on OpenBMC.
+Reason I ask - is Nuvoton also has a "mailbox" for bmc<->host communication=
+, which does the same thing (shared memory + interrupts both ways), and was=
+ wondering if we could just have 1 driver for both, instead 2 separate driv=
+ers.
 
-> Anyone interested in participating?
-
-I would be, as much as is practical given timezones :)
-
-Cheers,
-
-Joel
+Glancing at the aspeed driver, only key difference I see is the setting and=
+ handling the interrupt. Thoughts on this?
