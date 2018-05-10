@@ -1,66 +1,99 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <oleksandrs@mellanox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::231; helo=mail-ot0-x231.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=104.47.0.47; helo=eur01-he1-obe.outbound.protection.outlook.com;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nqruDzEr"; 
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="dv3NcOj0";
  dkim-atps=neutral
-Received: from mail-ot0-x231.google.com (mail-ot0-x231.google.com
- [IPv6:2607:f8b0:4003:c0f::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on0047.outbound.protection.outlook.com [104.47.0.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40hZbS6sdJzF2C9
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 23:59:32 +1000 (AEST)
-Received: by mail-ot0-x231.google.com with SMTP id 15-v6so2382838otn.12
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 06:59:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language;
- bh=cJ3XYKGrr2C3aoMqsLz3JWsiqGAznsuMAtQBbGkj+I8=;
- b=nqruDzErit9Evpacea6T5j63GGqUkLn5uKZjAwD4j7H0HnRm8HAkhKfaac+lthCatW
- /bL5+kB5WU20Y/bcqXTBkcD3fHpBfEl6/HC7MnaMcXL1qOqe4RjPxb4rw8okSXcDsOa2
- PkxGeEkgNmDIFN77Nx99PHyV6L2QH2WCn6mQIfnuFeSMH4FQ7rJs8qI49cTYoraFOVbA
- 30jA3bZ2s13gNY8tPGtR9v8lk2eBbS/nE4BU+LmpzJg5eAuwOmfzeA3+55QH1ag3ROVY
- d54vGGTFMpX+p8lbkPQfBFYI81AQHFuHkmABwM6zeOLMrRTlukGROfYoNN7GfmCrrZ7Q
- Xo6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=cJ3XYKGrr2C3aoMqsLz3JWsiqGAznsuMAtQBbGkj+I8=;
- b=gFPcrBe1nvKVFrTDadJvoqQWZNsutPe4Fs8deIu0BVvqWwUkgdpFJHKG/gUCZFYor/
- S2Xl2tAr7Rg42+1D5jm4aGMbsO//UXI5OSK0mi2GxM4pL8ILnzVnVzqmGDLUZ5gLUZnJ
- YftuQ/RziMPBKW72ResiUcjXkOgT8od14D9pW9nHAm3avZmTw1JKgWinJmGVsh9xXcYw
- z7J268aSNqLaGOOzMOXpMmZALx33SRvO85wCEtM4Kh93XyDUjKzOClU4lRBXypbxtox/
- MAt3VxA41P9AX5d9eXSaTO76QvA1R0pTW2bdC2Xuga9VRsNkzkIbxhfob++GLEtmI3+f
- WfMg==
-X-Gm-Message-State: ALKqPwe24lORxPV+f4Bj3JhdNoxGc4ceDHcOJXcDB8fgxRq5t6wutaWb
- RAVtADHOZ9nDcTfd7VOLlvqMThXk
-X-Google-Smtp-Source: AB8JxZrS/1TSeMyfcmtpoKSyOPjZG3Z5kZKBYIX5k6HA3fhOyJccCXpyK6Uy6dbqn8E4f8LQ4kRkmA==
-X-Received: by 2002:a9d:33a0:: with SMTP id
- u32-v6mr1051507otc.232.1525960767892; 
- Thu, 10 May 2018 06:59:27 -0700 (PDT)
-Received: from krtaylors-mbp.austin.ibm.com ([32.97.110.52])
- by smtp.gmail.com with ESMTPSA id p3-v6sm438154otp.2.2018.05.10.06.59.27
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 10 May 2018 06:59:27 -0700 (PDT)
-Subject: Re: OpenBMC Fix-It
-To: openbmc@lists.ozlabs.org
-References: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
-From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <78bfadf4-1493-d9e9-58c0-9d1163f99f76@gmail.com>
-Date: Thu, 10 May 2018 08:59:26 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.7.0
-MIME-Version: 1.0
-In-Reply-To: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------516EB1D4130EE64CC8186840"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40hcF83r60zF2BJ
+ for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 01:13:41 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=wZ2Xji7lx/czSxvf+11tYYrOgCEn5rsRPSaCgsdDXKI=;
+ b=dv3NcOj02mlfSoBtDlb9XLSxvcYWklNF6JX9bHbvK241/10yXcpS0GLSgoJjNplJO2+ft/p3bxkIoFgwsh5UvziwCc9vcxxwk5WeshLl6Mfw1xZy/rNp8yAWGp0/l0AQrfHwlDoZm0lNl7WNNPw/kYOUholWChMmtByEYX0ER10=
+Received: from HE1PR0502MB2972.eurprd05.prod.outlook.com (10.175.30.141) by
+ HE1PR0502MB3818.eurprd05.prod.outlook.com (10.167.127.160) with Microsoft
+ SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.755.16; Thu, 10
+ May 2018 15:13:26 +0000
+Received: from HE1PR0502MB2972.eurprd05.prod.outlook.com
+ ([fe80::3120:aa95:cbf0:3ac8]) by HE1PR0502MB2972.eurprd05.prod.outlook.com
+ ([fe80::3120:aa95:cbf0:3ac8%18]) with mapi id 15.20.0755.012; Thu, 10 May
+ 2018 15:13:26 +0000
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: Florian Fainelli <f.fainelli@gmail.com>, "gregkh@linuxfoundation.org"
+ <gregkh@linuxfoundation.org>, "arnd@arndb.de" <arnd@arndb.de>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>, "joel@jms.id.au" <joel@jms.id.au>,
+ "jiri@resnulli.us" <jiri@resnulli.us>, "tklauser@distanz.ch"
+ <tklauser@distanz.ch>, "linux-serial@vger.kernel.org"
+ <linux-serial@vger.kernel.org>, Vadim Pasternak <vadimp@mellanox.com>,
+ system-sw-low-level <system-sw-low-level@mellanox.com>, "robh+dt@kernel.org"
+ <robh+dt@kernel.org>, "openocd-devel-owner@lists.sourceforge.net"
+ <openocd-devel-owner@lists.sourceforge.net>, "linux-api@vger.kernel.org"
+ <linux-api@vger.kernel.org>, "davem@davemloft.net" <davem@davemloft.net>,
+ "mchehab@kernel.org" <mchehab@kernel.org>
+Subject: RE: [patch v18 0/4] JTAG driver introduction
+Thread-Topic: [patch v18 0/4] JTAG driver introduction
+Thread-Index: AQHTmQ3800fthZTMJk+uk3ntR7rluaONTgeAgJxUsJA=
+Date: Thu, 10 May 2018 15:13:26 +0000
+Message-ID: <HE1PR0502MB2972F340728121766CEEC593B1980@HE1PR0502MB2972.eurprd05.prod.outlook.com>
+References: <1517236305-4880-1-git-send-email-oleksandrs@mellanox.com>
+ <ff739c26-d3b2-3df7-e751-fbf037ae96d1@gmail.com>
+In-Reply-To: <ff739c26-d3b2-3df7-e751-fbf037ae96d1@gmail.com>
+Accept-Language: en-US, uk-UA
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandrs@mellanox.com; 
+x-originating-ip: [79.135.198.29]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; HE1PR0502MB3818;
+ 7:jMW1X96hxVWU6PyKn0M+m16etunb3c9RCz5NEKoC3q4xwOqYB8M09bav/L7Z120dVTDvo3GtnjRNGLGuQJYLVMxiWDnBwrp3qVWlJyCJ9AT0nnJ0L8Sye/ljvsNtcbh44kiG1KWKWT5lRiD5OXVBGnx1I7mWzYGaIvFp/sXovuionh0SB5S+We35eEbacFutvJnDmgGwUWwLe86lyDjRGsHc3pzfj7gTzHxhcr+0nmfJMbBjMcdxhERjoh/4ITto
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(7020095)(4652020)(5600026)(4534165)(4627221)(201703031133081)(201702281549075)(48565401081)(2017052603328)(7153060)(7193020);
+ SRVR:HE1PR0502MB3818; 
+x-ms-traffictypediagnostic: HE1PR0502MB3818:
+x-microsoft-antispam-prvs: <HE1PR0502MB38185C38FBC63B9A20D0F3E9B1980@HE1PR0502MB3818.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(143289334528602)(166708455590820)(9452136761055)(65623756079841)(85827821059158)(788757137089)(258649278758335)(42262312472803)(21532816269658);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(3002001)(10201501046)(3231254)(944501410)(52105095)(6055026)(149027)(150027)(6041310)(20161123560045)(20161123564045)(20161123562045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(6072148)(201708071742011);
+ SRVR:HE1PR0502MB3818; BCL:0; PCL:0; RULEID:; SRVR:HE1PR0502MB3818; 
+x-forefront-prvs: 066898046A
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(39860400002)(39380400002)(396003)(346002)(376002)(366004)(13464003)(189003)(199004)(11346002)(446003)(486006)(476003)(229853002)(26005)(6116002)(102836004)(53546011)(6506007)(5250100002)(186003)(14454004)(2501003)(86362001)(7696005)(110136005)(54906003)(99286004)(316002)(305945005)(3846002)(6436002)(76176011)(59450400001)(2201001)(66066001)(97736004)(7736002)(74316002)(8936002)(9686003)(478600001)(81166006)(33656002)(6306002)(966005)(81156014)(2906002)(551934003)(55016002)(25786009)(53936002)(5660300001)(4326008)(39060400002)(2900100001)(106356001)(3280700002)(7416002)(6246003)(3660700001)(68736007)(105586002)(8676002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:HE1PR0502MB3818;
+ H:HE1PR0502MB2972.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: C1zhRa5mR8GG8hKsbUgi11+X56njru6uBUehjeeW1gO4wU80wQSoIocOEuKFKeXWQpwDYSdjz8PmfSu0BHNY0K1OFsZEnos8lIR3SCUwZOb2TF5rahmW2DhYdmQED5smh9sqmDeiAA90xBPy8Y+FFrtP8rPyvOlgt2vmi0jMylBfn08woVF7gVyQFYQ5Q4TP
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Office365-Filtering-Correlation-Id: 3c573abd-aca0-4d95-7bc8-08d5b6889468
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c573abd-aca0-4d95-7bc8-08d5b6889468
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 May 2018 15:13:26.3069 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0502MB3818
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,92 +105,148 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 May 2018 13:59:33 -0000
+X-List-Received-Date: Thu, 10 May 2018 15:13:50 -0000
 
-This is a multi-part message in MIME format.
---------------516EB1D4130EE64CC8186840
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi Florian.
 
-On 5/8/18 2:28 PM, Nancy Yuen wrote:
-> Please join my team for an OpenBMC community "fix-it" event in June!
+>> We propose to implement general JTAG interface and infrastructure=20
+>> to communicate with user layer application. In such way, we can=20
+>> have the standard JTAG interface core part and separation from=20
+>> specific HW implementation.
 >
-> My team is devoting the week of 6/11/-15 to a Google OpenBMC "fix it" 
-> as part of a larger fix-it initiative. OpenBMC is a large part of our 
-> project so I'd like to spend part of the week on a fix-it on OpenBMC.
->
-> I propose to have the fix it on Tues and Wed 6/12 & 6/13.  We could 
-> set up an IRC channel for the fix it where everyone participating 
-> would hang out for the day. We could pick one or two areas to
-I'd say let's just use the #openbmc channel, it may pull in others as 
-you move along.
-> focus on for those days, put together a list of things to "fix" in 
-> those areas ahead of time.  On the day, we all tackle things on the 
-> list (or something not on the list), discuss over IRC and do code 
-> reviews. Inevitably, people have meetings or things they can't get out 
-> of, but if you can be available for most of the day, that would be enough!
->
-> Anyone interested in participating?
+>Well, the framework in its current shape is still extremely=20
+>simplistic, therefore leaving a lot of room (read: bugs,=20
+>inconsistencies) within the hands of the driver, so while the=20
+>user-space interface is standard through the proposed character=20
+>device, the user experience, likely might not.
 
-I'm in.
+Well, the framework is intentionally simply and provide the very basic
+interface. It supposed that interface can be extended in the future, if=20
+necessary. Current kernel does not provide a framework for JTAG interface,
+and we believe this is good starting point to allow such framework. This
+provide minimal, but sufficient interface and any future extension will be
+of course welcomed.
 
-Thanks for organizing this Nancy!
-
-Kurt Taylor (krtaylor)
+At the moment we have one controller driver, which works well with this
+infrastructure. And we have very reasonable use case - this driver allows
+flashing for all the programmable devices, connected to JTAG interface,
+where the image for these device is provided with the standard SVF format.
 
 
---------------516EB1D4130EE64CC8186840
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+>> This allow new capability to debug the CPU or program system's=20
+>> device via BMC without additional devices nor cost.
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    On 5/8/18 2:28 PM, Nancy Yuen wrote:<br>
-    <blockquote type="cite"
-cite="mid:CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com">
-      <div dir="ltr">
-        <div><font size="4">Please join my team for an OpenBMC 
-            community "fix-it" event in June!</font></div>
-        <div><font size="4"><br>
-          </font></div>
-        <font size="4">My team is devoting the week of 6/11/-15 to a
-          Google OpenBMC "fix it" as part of a larger fix-it initiative.
-          OpenBMC is a large part of our project so I'd like to spend
-          part of the week on a fix-it on OpenBMC.</font>
-        <div><font size="4"><br>
-          </font></div>
-        <div><font size="4">I propose to have the fix it on Tues and Wed
-            6/12 &amp; 6/13.  We could set up an IRC channel for the fix
-            it where everyone participating would hang out for the day. 
-            We could pick one or two areas to </font></div>
-      </div>
-    </blockquote>
-    I'd say let's just use the #openbmc channel, it may pull in others
-    as you move along.
-    <blockquote type="cite"
-cite="mid:CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com">
-      <div dir="ltr">
-        <div><font size="4">focus on for those days, put together a list
-            of things to "fix" in those areas ahead of time.  On the
-            day, we all tackle things on the list (or something not on
-            the list), discuss over IRC and do code reviews. 
-            Inevitably, people have meetings or things they can't get
-            out of, but if you can be available for most of the day,
-            that would be enough!</font></div>
-        <div><font size="4"><br>
-          </font></div>
-        <div><font size="4">Anyone interested in participating?</font></div>
-      </div>
-    </blockquote>
-    <p>I'm in.<br>
-    </p>
-    <p>Thanks for organizing this Nancy! </p>
-    <p>Kurt Taylor (krtaylor)<br>
-    </p>
-  </body>
-</html>
+>If that is the case, should not we leverage the kernel's device=20
+>driver model and expect the JTAG framework to create specific devices=20
+>for the different pieces of HW discovered on the scan chain? That=20
+>would also
+>presumably allow the core JTAG framework to retain the necessary=20
+>state
+>changes in order to address one particular device within the scan chain.
 
---------------516EB1D4130EE64CC8186840--
+For the device programming use case, the flashing image will contain
+jtag chain topology. If for example, jtag domain contains x devices, but
+image contains less, the only relevant devices will be flashed and there is
+no need to distinct between them.
+In case there are several domains, jtag interface is  configured to be
+connected to the relevant one.
+
+For the CPU debug use case, jtag interface is configured to be connected
+to CPU only.
+
+System should be able to provide jtag selection according to the needs
+and this kind of operations should be out of the JTAG driver scope.
+
+
+>> This patch purpose is to add JTAG master core infrastructure by=20
+>> defining new JTAG class and provide generic JTAG interface to allow=20
+>> hardware specific drivers to connect this interface.
+>> This will enable all JTAG drivers to use the common interface part=20
+>> and will have separate for hardware implementation.
+
+>Let's consider I want to get rid of OpenOCD, or rather, move its=20
+>driver interface within the kernel and replace it on the OpenOCD side=20
+>with a generic character device interface. I could presumably=20
+>amortize the costly operations which are currently I/O and/or system=20
+>call limiting when running in user-space, what would it look like=20
+>with your proposed framework, have you given some thoughts about that?
+
+
+The JTAG driver using SDR/SIR transactions to send/receive data.
+It can send/receive multiple data bits by a single transaction.
+
+For the bit-banging style drivers it gives you an advantage of sending
+Bits stream by one system call vs per-bit system call.
+So, instead of updating GPIO pins a few time through user space interface
+(sysfs) for sending single bit, an application can send multiple bits in a
+stream by one call. And all GPIO operations will be performed than in a
+kernel space.
+It'll be necessary to have bit-banging driver, using the JTAG infrastructur=
+e,
+which should be configured according to the particular system during
+initialization. And we are planning to develop such kind of driver.
+It definitely reduces system calls and saves time for JTAG operations.
+
+For the system equipped with the JTAG master there the same advantages
+plus hardware acceleration for pin access (all pins can be accessed by
+one shot).
+
+Driver supports universal transactions (include/uapi/linux/jtag.h),
+which are sent through  IOCTL interface JTAG_IOCRUNTEST, JTAG_IOCXFER
+struct struct jtag_xfer {
+              __u8      type;
+              __u8      direction;
+              __u8      endstate;
+              __u8      padding;
+              __u32    length;
+               __u64    tdio;
+};
+
+jtag_run_test_idle {
+              __u8      reset;
+              __u8      endstate;
+              __u8      tck;
+};
+
+You can see usage example on https://github.com/mellanoxbmc/mellanox-bmc-to=
+ols/tree/master/mlnx_cpldprog
+
+Best Regards,
+Oleksandr Shamray
+
+> -----Original Message-----
+> From: Florian Fainelli [mailto:f.fainelli@gmail.com]
+> Sent: 31 =D1=CE=D7=C1=D2=D1 2018 =C7. 5:03
+> To: Oleksandr Shamray <oleksandrs@mellanox.com>;
+> gregkh@linuxfoundation.org; arnd@arndb.de
+> Cc: linux-kernel@vger.kernel.org; linux-arm-kernel@lists.infradead.org;
+> devicetree@vger.kernel.org; openbmc@lists.ozlabs.org; joel@jms.id.au;
+> jiri@resnulli.us; tklauser@distanz.ch; linux-serial@vger.kernel.org; Vadi=
+m
+> Pasternak <vadimp@mellanox.com>; system-sw-low-level <system-sw-low-
+> level@mellanox.com>; robh+dt@kernel.org; openocd-devel-
+> owner@lists.sourceforge.net; linux-api@vger.kernel.org;
+> davem@davemloft.net; mchehab@kernel.org
+> Subject: Re: [patch v18 0/4] JTAG driver introduction
+>=20
+> On 01/29/2018 06:31 AM, Oleksandr Shamray wrote:
+> > When a need raise up to use JTAG interface for system's devices
+> > programming or CPU debugging, usually the user layer application
+> > implements jtag protocol by bit-bang or using a proprietary connection
+> > to vendor hardware.
+> > This method can be slow and not generic.
+> >
+> > We propose to implement general JTAG interface and infrastructure to
+> > communicate with user layer application. In such way, we can have the
+> > standard JTAG interface core part and separation from specific HW
+> > implementation.
+> > This allow new capability to debug the CPU or program system's device
+> > via BMC without additional devices nor cost.
+>=20
+> Oleksandr, you have completed dodged my questions here:
+>=20
+> https://lkml.org/lkml/2017/12/25/163
+>=20
+> can you try to respond to some of these questions please?
+> --
+> Florian
