@@ -1,60 +1,75 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c01::244; helo=mail-pl0-x244.google.com;
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ErjYRl7u"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QVca9pBj"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="ckG0iVfz"; 
  dkim-atps=neutral
-Received: from mail-pl0-x244.google.com (mail-pl0-x244.google.com
- [IPv6:2607:f8b0:400e:c01::244])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40hzgt3kDCzDrpY
- for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 15:49:45 +1000 (AEST)
-Received: by mail-pl0-x244.google.com with SMTP id i5-v6so2665025plt.2
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 22:49:45 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40j6Nl6qP7zF2FT
+ for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 20:52:07 +1000 (AEST)
+Received: by mail-qt0-x243.google.com with SMTP id d3-v6so6422695qtp.11
+ for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 03:52:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=EisHY2sR9P1BatKe6P2ejUAdbGDEtSomNPFrP7YYyOs=;
- b=ErjYRl7u50m/j67XJcskVZog5ogQpbDiVS2H9imwF9NupZx0wQMEkTskYPFt5H8i5I
- 42qF4rRmp7jeo6psx6WAnBSsAJIfMb0+j4fbKWGfWalzkyWRVW++J9KoHnmD6WsvcaJj
- RsA9TPvZ43/bh1XxGHXHmTtlLXF+tn5awe7k5LXgDByVdKuLRgZQKAR8y5TZMiBiX7R1
- T8VlTZ8w9uxReIdB26yyyadrKsmpki+lmPrgVAjn7y7lMPJ32ihHx8+8KlgrNYqD/qWO
- g+wOxJZ9Wu/eux8BVmF9DvUJX2jfJ+KBYwEM6QbAt+DQ3ObqvyIZJF++V6cKoA48b5UV
- wm2g==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=YpizrVJXrrexFJoVPFV88cWFaeWllW75kTd9Brn9ieg=;
+ b=QVca9pBj6FctE0MRGYt/KHAAGO4+Z6TLkNXQ5CGPXedIESnrozbQbx2akq/5rSI2ut
+ WxOlvGWwJv80VcqRl3n/o1X5H5qjwdE6oSU8jCAC3FHokhSqfw61ypNVfwyUmpa+aSDC
+ MiVeA5CWZAzacsgERNr9Nv2DFk1Nxv2D7tiE6QoDMOp1lzPpOzJyNJPvSstlJyyFpo1r
+ ++Gtw4b3D2EEmYZrYySifi/r1vm7UJDlwikxz6k8bbnCq7ITfu6YCYMvkcOWs/WqWylY
+ 4woqBAqXHvI2kF9rlGeIoQbHll/psI+Wb816ps+CIPJ1sJK4/Sfw+HiyIev2aMBcrtfy
+ NNkA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=YpizrVJXrrexFJoVPFV88cWFaeWllW75kTd9Brn9ieg=;
+ b=ckG0iVfzRFgvNSscfEKEL17A+uJrMt0KefRGNFBBGV8qwSVCZ5fxhXrayhB7YgeFTW
+ e0MFXlKthbuwRW6SyQJsWqT7uI1vQu35UXt2t+E+1ErWzKRESsOkLkQ5CGwUz0miTC+/
+ mP2Qm6S+PWazYA74h3QkKaihhopBGHhXVmPV0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=EisHY2sR9P1BatKe6P2ejUAdbGDEtSomNPFrP7YYyOs=;
- b=W1AEJSmFanZF9UigBxzwwxsyHTcTuDQCdLOtmGQ9JUgdlf1/MyzbJ6B40wdzjbfwSv
- K14j5zRrrblGS7DZo1cjwLd/Xz/7jMU9Q0xCI4EfD5a8zJbIE+eRjtLu5P+JBi7qu97p
- brVYGgvs+Zaxy4Z9SckglhkkjxxxLEQXWhwGx5ylY5LFrbKb7Ha7ipkTx+1GmsJD5idg
- NUPlFBUZHFmpBbl6X2hfpGWBPh0ZYz1QUS1dYQDi78g6Ej2fs7BLDX10VWyXf2T1PnKN
- Esj0k63xiV0sA0GmjeD9ZSRkBIhEXsKr7ytaGNudpv0ZYcaVHGAu69Rbef6ODkeXAsLX
- USOw==
-X-Gm-Message-State: ALKqPwepVZYcP9lwPLWH2eajiIMiyY9YDYig3hmWVKaZe8FqechrNACY
- EaxwPIDHlUxTz5NUKK040e4FIyB7
-X-Google-Smtp-Source: AB8JxZoCltmsS+EN7mPkD8pvldDdeNK9DUJ3swRG2hY5SPlwf360H7VqUxvOm3h98in7iv94T6pJXg==
-X-Received: by 2002:a17:902:28a7:: with SMTP id
- f36-v6mr3326140plb.155.1526017783009; 
- Thu, 10 May 2018 22:49:43 -0700 (PDT)
-Received: from aurora.jms.id.au ([45.124.203.19])
- by smtp.gmail.com with ESMTPSA id u86-v6sm6326720pfg.71.2018.05.10.22.49.39
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 10 May 2018 22:49:42 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 11 May 2018 15:19:36 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=YpizrVJXrrexFJoVPFV88cWFaeWllW75kTd9Brn9ieg=;
+ b=jUBkSeqCU4zuhDvxF2rqY+gdksqs7HSNb/MkTJT9aDJA19FLz4DLuyywufYm2J1Ow5
+ Uuk/FclMf9F7EdXqQkDWsX7wx3r1kBLqNBLoVu1FxW62LuX/cvnlrX1dvRBdiYaD6fgT
+ 5k3Y0+tmwUsi+sD7YfdBi1xJQUJ9pGQavkgmjUg2uF0HrKGtR0x76yUZc6vmxWflw7YG
+ WVOm5J46Ag6+75E+kJq/QoFbg6Cj1pSsUyQh+2IhaO8RwfoGTwebEW+O6clSBMvpMv78
+ CcyRKZmR5HFfjYOxaa5l+6FxbFTJEt84C2XqSorNOxSMSKHCkytwwts/8za9HvAQ2uF/
+ v9fQ==
+X-Gm-Message-State: ALKqPwcxd3hUHkv+rRJPwug58c7mL0d9DJEZV2aLFhlOw/kS7Je9SC/b
+ kyhDIqhc+eS0y+MpoWDI0bJZN/NTcZYhfbE4POk=
+X-Google-Smtp-Source: AB8JxZq4JkdmQqP+9sznf6mta5SeuK5t3I0qtW5Sq32DxSmxpi9ubQbTfk5bSH42mlBbQ6HSAmWEzEkiZVTlRfXEFWA=
+X-Received: by 2002:a0c:9b8a:: with SMTP id
+ o10-v6mr4599254qve.89.1526035924177; 
+ Fri, 11 May 2018 03:52:04 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.200.24.79 with HTTP; Fri, 11 May 2018 03:51:43 -0700 (PDT)
+In-Reply-To: <1525920616.2432221.1366964432.1752B0F8@webmail.messagingengine.com>
+References: <20180508010640.14113-1-benh@kernel.crashing.org>
+ <b81ceb27-73b3-3060-54fa-7a703c422136@linux.vnet.ibm.com>
+ <1525920616.2432221.1366964432.1752B0F8@webmail.messagingengine.com>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: andrew@aj.id.au
-Subject: [PATCH linux dev-4.13] ARM: dts: aspeed-g5: Clean up sio registers
-Date: Fri, 11 May 2018 15:19:35 +0930
-Message-Id: <20180511054935.31164-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.17.0
+Date: Fri, 11 May 2018 20:21:43 +0930
+X-Google-Sender-Auth: 2ktXn1KkXOxr66EMer4cmDoPa6s
+Message-ID: <CACPK8XdE=Vx7M6F4Hmyw_sYAAWPQQ2_bz6PcOvNchgG-Yrk4Qw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 1/6] gpio/aspeed: Set output latch before
+ changing direction
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,131 +81,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 May 2018 05:49:47 -0000
+X-List-Received-Date: Fri, 11 May 2018 10:52:09 -0000
 
-Remove the unnecessary reg property. Drop the 'rx' in the name, as this
-refers to a quirk in the datasheet and is not useful.
+On 10 May 2018 at 12:20, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Wed, 9 May 2018, at 01:43, Christopher Bostic wrote:
+>> Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>>
+>>
+>> On 5/7/18 8:06 PM, Benjamin Herrenschmidt wrote:
+>> > In aspeed_gpio_dir_out(), we need to establish the new output
+>> > value in the output latch *before* we change the direction
+>> > to output in order to avoid a glitch on the output line if
+>> > the previous value of the latch was different.
+>> >
+>
+> I think Milton mentioned this in a review way back when I was upstreaming the driver, but looks like I forgot to address it.
+>
+>> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+>
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-g5.dtsi | 37 ++++++++++++++++----------------
- 1 file changed, 18 insertions(+), 19 deletions(-)
+I've applied this series to dev-4.13. Thanks for the patches, and
+thanks to everyone who reviewed.
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index e9e039a6407c..7588a4c9643a 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -328,9 +328,8 @@
- 						status = "disabled";
- 					};
- 
--					sio_scratch: scratch@f0 {
-+					sio_regs: regs {
- 						compatible = "aspeed,bmc-misc";
--						reg = <0xf0 0x10>;
- 					};
- 
- 					mbox: mbox@180 {
-@@ -1487,83 +1486,83 @@
- 	};
- };
- 
--&sio_scratch {
--	siorx_2b {
-+&sio_regs {
-+	sio_2b {
- 		offset = <0xf0>;
- 		bit-mask = <0xff>;
- 		bit-shift = <24>;
- 	};
--	siorx_2a {
-+	sio_2a {
- 		offset = <0xf0>;
- 		bit-mask = <0xff>;
- 		bit-shift = <16>;
- 	};
--	siorx_29 {
-+	sio_29 {
- 		offset = <0xf0>;
- 		bit-mask = <0xff>;
- 		bit-shift = <8>;
- 	};
--	siorx_28 {
-+	sio_28 {
- 		offset = <0xf0>;
- 		bit-mask = <0xff>;
- 		bit-shift = <0>;
- 	};
--	siorx_2f {
-+	sio_2f {
- 		offset = <0xf4>;
- 		bit-mask = <0xff>;
- 		bit-shift = <24>;
- 	};
--	siorx_2e {
-+	sio_2e {
- 		offset = <0xf4>;
- 		bit-mask = <0xff>;
- 		bit-shift = <16>;
- 	};
--	siorx_2d {
-+	sio_2d {
- 		offset = <0xf4>;
- 		bit-mask = <0xff>;
- 		bit-shift = <8>;
- 	};
--	siorx_2c {
-+	sio_2c {
- 		offset = <0xf4>;
- 		bit-mask = <0xff>;
- 		bit-shift = <0>;
- 	};
--	siorx_23 {
-+	sio_23 {
- 		offset = <0xf8>;
- 		bit-mask = <0xff>;
- 		bit-shift = <24>;
- 	};
--	siorx_22 {
-+	sio_22 {
- 		offset = <0xf8>;
- 		bit-mask = <0xff>;
- 		bit-shift = <16>;
- 	};
--	siorx_21 {
-+	sio_21 {
- 		offset = <0xf8>;
- 		bit-mask = <0xff>;
- 		bit-shift = <8>;
- 	};
--	siorx_20 {
-+	sio_20 {
- 		offset = <0xf8>;
- 		bit-mask = <0xff>;
- 		bit-shift = <0>;
- 	};
--	siorx_27 {
-+	sio_27 {
- 		offset = <0xfc>;
- 		bit-mask = <0xff>;
- 		bit-shift = <24>;
- 	};
--	siorx_26 {
-+	sio_26 {
- 		offset = <0xfc>;
- 		bit-mask = <0xff>;
- 		bit-shift = <16>;
- 	};
--	siorx_25 {
-+	sio_25 {
- 		offset = <0xfc>;
- 		bit-mask = <0xff>;
- 		bit-shift = <8>;
- 	};
--	siorx_24 {
-+	sio_24 {
- 		offset = <0xfc>;
- 		bit-mask = <0xff>;
- 		bit-shift = <0>;
--- 
-2.17.0
+Cheers,
+
+Joel
