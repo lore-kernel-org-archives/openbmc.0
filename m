@@ -1,75 +1,68 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QVca9pBj"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="ckG0iVfz"; 
- dkim-atps=neutral
-Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
- [IPv6:2607:f8b0:400d:c0d::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40j6Nl6qP7zF2FT
- for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 20:52:07 +1000 (AEST)
-Received: by mail-qt0-x243.google.com with SMTP id d3-v6so6422695qtp.11
- for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 03:52:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=YpizrVJXrrexFJoVPFV88cWFaeWllW75kTd9Brn9ieg=;
- b=QVca9pBj6FctE0MRGYt/KHAAGO4+Z6TLkNXQ5CGPXedIESnrozbQbx2akq/5rSI2ut
- WxOlvGWwJv80VcqRl3n/o1X5H5qjwdE6oSU8jCAC3FHokhSqfw61ypNVfwyUmpa+aSDC
- MiVeA5CWZAzacsgERNr9Nv2DFk1Nxv2D7tiE6QoDMOp1lzPpOzJyNJPvSstlJyyFpo1r
- ++Gtw4b3D2EEmYZrYySifi/r1vm7UJDlwikxz6k8bbnCq7ITfu6YCYMvkcOWs/WqWylY
- 4woqBAqXHvI2kF9rlGeIoQbHll/psI+Wb816ps+CIPJ1sJK4/Sfw+HiyIev2aMBcrtfy
- NNkA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=YpizrVJXrrexFJoVPFV88cWFaeWllW75kTd9Brn9ieg=;
- b=ckG0iVfzRFgvNSscfEKEL17A+uJrMt0KefRGNFBBGV8qwSVCZ5fxhXrayhB7YgeFTW
- e0MFXlKthbuwRW6SyQJsWqT7uI1vQu35UXt2t+E+1ErWzKRESsOkLkQ5CGwUz0miTC+/
- mP2Qm6S+PWazYA74h3QkKaihhopBGHhXVmPV0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=YpizrVJXrrexFJoVPFV88cWFaeWllW75kTd9Brn9ieg=;
- b=jUBkSeqCU4zuhDvxF2rqY+gdksqs7HSNb/MkTJT9aDJA19FLz4DLuyywufYm2J1Ow5
- Uuk/FclMf9F7EdXqQkDWsX7wx3r1kBLqNBLoVu1FxW62LuX/cvnlrX1dvRBdiYaD6fgT
- 5k3Y0+tmwUsi+sD7YfdBi1xJQUJ9pGQavkgmjUg2uF0HrKGtR0x76yUZc6vmxWflw7YG
- WVOm5J46Ag6+75E+kJq/QoFbg6Cj1pSsUyQh+2IhaO8RwfoGTwebEW+O6clSBMvpMv78
- CcyRKZmR5HFfjYOxaa5l+6FxbFTJEt84C2XqSorNOxSMSKHCkytwwts/8za9HvAQ2uF/
- v9fQ==
-X-Gm-Message-State: ALKqPwcxd3hUHkv+rRJPwug58c7mL0d9DJEZV2aLFhlOw/kS7Je9SC/b
- kyhDIqhc+eS0y+MpoWDI0bJZN/NTcZYhfbE4POk=
-X-Google-Smtp-Source: AB8JxZq4JkdmQqP+9sznf6mta5SeuK5t3I0qtW5Sq32DxSmxpi9ubQbTfk5bSH42mlBbQ6HSAmWEzEkiZVTlRfXEFWA=
-X-Received: by 2002:a0c:9b8a:: with SMTP id
- o10-v6mr4599254qve.89.1526035924177; 
- Fri, 11 May 2018 03:52:04 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Fri, 11 May 2018 03:51:43 -0700 (PDT)
-In-Reply-To: <1525920616.2432221.1366964432.1752B0F8@webmail.messagingengine.com>
-References: <20180508010640.14113-1-benh@kernel.crashing.org>
- <b81ceb27-73b3-3060-54fa-7a703c422136@linux.vnet.ibm.com>
- <1525920616.2432221.1366964432.1752B0F8@webmail.messagingengine.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 11 May 2018 20:21:43 +0930
-X-Google-Sender-Auth: 2ktXn1KkXOxr66EMer4cmDoPa6s
-Message-ID: <CACPK8XdE=Vx7M6F4Hmyw_sYAAWPQQ2_bz6PcOvNchgG-Yrk4Qw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 1/6] gpio/aspeed: Set output latch before
- changing direction
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40jLw207z7zF2w4
+ for <openbmc@lists.ozlabs.org>; Sat, 12 May 2018 06:16:32 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w4BK9D6m031423
+ for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 16:16:30 -0400
+Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2hwfcfpbr5-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 16:16:29 -0400
+Received: from localhost
+ by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 11 May 2018 16:16:28 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 11 May 2018 16:16:25 -0400
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w4BKGOQC48824358; Fri, 11 May 2018 20:16:24 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 501E6AE034;
+ Fri, 11 May 2018 16:18:23 -0400 (EDT)
+Received: from talon7.ibm.com (unknown [9.41.241.240])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 81D95AE03B;
+ Fri, 11 May 2018 16:18:22 -0400 (EDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, mspinler@linux.vnet.ibm.com,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.13] pmbus: core: Use 64-bit ints for returned
+ sensor values
+Date: Fri, 11 May 2018 15:16:22 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18051120-0056-0000-0000-0000044D1350
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009007; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000260; SDB=6.01030878; UDB=6.00526882; IPR=6.00810009; 
+ MB=3.00021055; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-11 20:16:26
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18051120-0057-0000-0000-000008912450
+Message-Id: <1526069782-20693-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-05-11_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1805110184
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -81,29 +74,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 May 2018 10:52:09 -0000
+X-List-Received-Date: Fri, 11 May 2018 20:16:34 -0000
 
-On 10 May 2018 at 12:20, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Wed, 9 May 2018, at 01:43, Christopher Bostic wrote:
->> Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->>
->>
->> On 5/7/18 8:06 PM, Benjamin Herrenschmidt wrote:
->> > In aspeed_gpio_dir_out(), we need to establish the new output
->> > value in the output latch *before* we change the direction
->> > to output in order to avoid a glitch on the output line if
->> > the previous value of the latch was different.
->> >
->
-> I think Milton mentioned this in a review way back when I was upstreaming the driver, but looks like I forgot to address it.
->
->> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
->
-> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+It's possible to overflow sensor values, especially for power sensors
+reporting micro Watts. Use 64-bit values to prevent overflow.
 
-I've applied this series to dev-4.13. Thanks for the patches, and
-thanks to everyone who reviewed.
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+---
+ drivers/hwmon/pmbus/pmbus_core.c | 33 +++++++++++++++++----------------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
 
-Cheers,
-
-Joel
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index d0ffa4b..4957243 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -629,12 +629,12 @@ static struct pmbus_data *pmbus_update_device(struct device *dev)
+  * Convert linear sensor values to milli- or micro-units
+  * depending on sensor type.
+  */
+-static long pmbus_reg2data_linear(struct pmbus_data *data,
+-				  struct pmbus_sensor *sensor)
++static s64 pmbus_reg2data_linear(struct pmbus_data *data,
++				 struct pmbus_sensor *sensor)
+ {
+ 	s16 exponent;
+ 	s32 mantissa;
+-	long val;
++	s64 val;
+ 
+ 	if (sensor->class == PSC_VOLTAGE_OUT) {	/* LINEAR16 */
+ 		exponent = data->exponent[sensor->page];
+@@ -648,11 +648,11 @@ static long pmbus_reg2data_linear(struct pmbus_data *data,
+ 
+ 	/* scale result to milli-units for all sensors except fans */
+ 	if (sensor->class != PSC_FAN)
+-		val = val * 1000L;
++		val = val * 1000LL;
+ 
+ 	/* scale result to micro-units for power sensors */
+ 	if (sensor->class == PSC_POWER)
+-		val = val * 1000L;
++		val = val * 1000LL;
+ 
+ 	if (exponent >= 0)
+ 		val <<= exponent;
+@@ -666,10 +666,10 @@ static long pmbus_reg2data_linear(struct pmbus_data *data,
+  * Convert direct sensor values to milli- or micro-units
+  * depending on sensor type.
+  */
+-static long pmbus_reg2data_direct(struct pmbus_data *data,
+-				  struct pmbus_sensor *sensor)
++static s64 pmbus_reg2data_direct(struct pmbus_data *data,
++				 struct pmbus_sensor *sensor)
+ {
+-	long val = (s16) sensor->data;
++	s64 val = sensor->data;
+ 	long m, b, R;
+ 
+ 	m = data->info->m[sensor->class];
+@@ -694,23 +694,24 @@ static long pmbus_reg2data_direct(struct pmbus_data *data,
+ 	}
+ 
+ 	while (R > 0) {
+-		val *= 10;
++		val *= 10LL;
+ 		R--;
+ 	}
+ 	while (R < 0) {
+-		val = DIV_ROUND_CLOSEST(val, 10);
++		val = DIV_ROUND_CLOSEST_ULL(val, 10);
+ 		R++;
+ 	}
+ 
+-	return (val - b) / m;
++	val -= b;
++	return do_div(val, m);
+ }
+ 
+ /*
+  * Convert VID sensor values to milli- or micro-units
+  * depending on sensor type.
+  */
+-static long pmbus_reg2data_vid(struct pmbus_data *data,
+-			       struct pmbus_sensor *sensor)
++static s64 pmbus_reg2data_vid(struct pmbus_data *data,
++			      struct pmbus_sensor *sensor)
+ {
+ 	long val = sensor->data;
+ 	long rv = 0;
+@@ -728,9 +729,9 @@ static long pmbus_reg2data_vid(struct pmbus_data *data,
+ 	return rv;
+ }
+ 
+-static long pmbus_reg2data(struct pmbus_data *data, struct pmbus_sensor *sensor)
++static s64 pmbus_reg2data(struct pmbus_data *data, struct pmbus_sensor *sensor)
+ {
+-	long val;
++	s64 val;
+ 
+ 	if (!sensor->convert)
+ 		return sensor->data;
+@@ -968,7 +969,7 @@ static ssize_t pmbus_show_sensor(struct device *dev,
+ 	if (sensor->data < 0)
+ 		return sensor->data;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%ld\n", pmbus_reg2data(data, sensor));
++	return snprintf(buf, PAGE_SIZE, "%lld\n", pmbus_reg2data(data, sensor));
+ }
+ 
+ static ssize_t pmbus_set_sensor(struct device *dev,
+-- 
+1.8.3.1
