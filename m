@@ -6,64 +6,57 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="HpHvdjOR"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XW86J6uo"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="imOKaNUv"; dkim-atps=neutral
+ header.b="MuDPSpjg"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40hrtL49NtzF2Cc
- for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 10:43:21 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40hsDr4MG4zF257
+ for <openbmc@lists.ozlabs.org>; Fri, 11 May 2018 10:59:23 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id DF8332253A;
- Thu, 10 May 2018 20:43:14 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 05B1521180;
+ Thu, 10 May 2018 20:59:21 -0400 (EDT)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Thu, 10 May 2018 20:43:14 -0400
+ by compute4.internal (MEProxy); Thu, 10 May 2018 20:59:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=kDFQVGwg49+3YjRUc9fGR3pDmprmV
- L7YxCghtMVDIso=; b=HpHvdjORGOtBpH7Neh3DvZF1nPA+Nzx60BH4el/7f3cuW
- C3t+AQgI8o3X6NDKzxIB4xY2qW3HsuO8Z0dC0bm5O7c8JdFlDhnquSy5/UKcSBjb
- fnZ7ctg8iS7ahCw6T+paGqKw9mV/ZsO4wnpqCXzVcb7oyGbhirQAno37Alc1kESo
- tPRi8vOQoszrCIdLFYYON5wnArEewmpJIt4b510C7qvZWSA4g9nlv47Cfr3w64u4
- hdkkWmD8GNOhklJ5+I42sJm54sACqBfDWJaJH4rsN0s5LPG2UDX+7128kZBs1cm0
- Mf+IGWPjuuh4kpOCjEE/Oa2npe9ZBw9S7QFMzHaFA==
+ :x-me-sender:x-sasl-enc; s=fm2; bh=tUnjZJAxbed2jD4mG9J9j1UrSn5Ku
+ WW96h2vY8QFki8=; b=XW86J6uojO6h/1LwOk1Tyrg8uE1jJ8DnMu3czGNi5WAgE
+ 3/LnaonUthUTBiiKLoGa7T9gm0z197BXo8PegvjHsuxPmRSG7BllGBmrjKO+/K9L
+ DVqvUnK2NFWDaUF+Ok9EUzSmkqXhGtJAY0HNmSN1EYW8Yh++csx3f5g3DJO9hYtm
+ CzwA+V3m8LMyphpPq7UWgBTSVLfjH65OvUPeU6i3krhZuOrdCGyeNbkG3GOfqdmS
+ I53hNbVoo/H88lK48j8abMP43AN0dJD97cc3R+zTjUA2MbKhm/LjxirZUcegLO8j
+ N50rsLPdZsCs8pEX2aerLkrzzMMfK6KZq2SIXifZw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=kDFQVG
- wg49+3YjRUc9fGR3pDmprmVL7YxCghtMVDIso=; b=imOKaNUviNr8r6+vunvjFi
- XK0xg8vypPMEp33027uL80PrGR8M5cIjGdPY62HN7WRiBFgCkaVeSazQ+NRxqUdX
- gurdGi5PKgb+FUbbG0LfCedVuJ4KPmALn7ShuMiar06scUOeN4I8waIJP4J183Iu
- IQHplFCqW0dg5PHqKT0RZ8Lp0cvKl27sBPdlO1SE/09f8mPBSxmf3dux7vKh1INk
- 5GZlTFhHbc8NMKu3xYJLdwqpp4gt2qXtuEao8E+WOw0uPmT0yp9EPDzPnHz4ursL
- KSpbrDmlGUNYlEYPAz/4jYY1sgBSg+PkRHX3vFM1rjCkEKG1Elz/fzmC6xA+mO/w
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=tUnjZJ
+ Axbed2jD4mG9J9j1UrSn5KuWW96h2vY8QFki8=; b=MuDPSpjgWhHBBnrem+ra3P
+ sad9a4rfONa3powAqb6CdSEq4cleTqcOA8hMtXEwEDOQ6vzo1JiK/C/asOIanH2U
+ deEijzEYgmXrmQ+YTa4Ms3FBSpSySBOSMC6lUyWIcYB9hFJx5hiikn0uEbC70ngn
+ KIvEdjmvQeOuMaNygq6CRBNoDOLRrjFqbJqh9rSQEEdsx8RFh1Ck7XUV2y3DiRn/
+ 37NnpjM7EywmCmQ6E++rVZFjvliT+bH9xzs/+gxdwsNN1jO1T0heQPCcPEPWH0tA
+ JAWq/LDVwVhJxVrZUQ60DlCmpCmplGUjK3tXRY53T9+HWULjNqW7lsR4tishmolg
  ==
-X-ME-Sender: <xms:Iuf0WscEvX8FZ8HXsCh6-4qi-7zYsAwEVyvRFcS3k5Z_RXhaG0LruA>
+X-ME-Sender: <xms:6Or0Wl5Kxit0JlPBfdK55GQ4VYq0MwRBCt4tUZ0YVgz83R_mexoEQQ>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id B088740D1; Thu, 10 May 2018 20:43:14 -0400 (EDT)
-Message-Id: <1525999394.3941141.1368138920.1E761A8F@webmail.messagingengine.com>
+ id C2ACE40D1; Thu, 10 May 2018 20:59:20 -0400 (EDT)
+Message-Id: <1526000360.3946551.1368145784.74E52A28@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Eugene.Cho@dell.com, joel@jms.id.au, benh@kernel.crashing.org
+To: Eugene.Cho@dell.com, cyrilbur@gmail.com
 Cc: openbmc@lists.ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-29fe4c42
-In-Reply-To: <4036e67550b341668ac78fd6e493f878@AUSX13MPC105.AMER.DELL.COM>
-Subject: Re: [RFC PATCH linux dev-4.13 1/3] soc: aspeed: Miscellaneous control
- interfaces
-Date: Fri, 11 May 2018 10:13:14 +0930
-References: <20180412035145.21488-1-andrew@aj.id.au>
- <20180412035145.21488-2-andrew@aj.id.au>
- <CACPK8Xco1vLEFtxTmfp_roN0khOfdYMQAjN+R4mgo6DScwRZWA@mail.gmail.com>
- <1524109954.2421916.1343180600.297713A4@webmail.messagingengine.com>
- <d0d76c65aa504f63a4105207941ec24c@AUSX13MPC105.AMER.DELL.COM>
- <1525917124.2417085.1366924696.1ADBC6F3@webmail.messagingengine.com>
- <4036e67550b341668ac78fd6e493f878@AUSX13MPC105.AMER.DELL.COM>
+In-Reply-To: <28825ffd2af2405eacbb48f1388992f8@AUSX13MPC105.AMER.DELL.COM>
+Date: Fri, 11 May 2018 10:29:20 +0930
+Subject: Re: common bmc mailbox driver
+References: <28825ffd2af2405eacbb48f1388992f8@AUSX13MPC105.AMER.DELL.COM>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,22 +68,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 May 2018 00:43:24 -0000
+X-List-Received-Date: Fri, 11 May 2018 00:59:25 -0000
 
-On Fri, 11 May 2018, at 04:09, Eugene.Cho@dell.com wrote:
-> Hey Andrew - 
-> 
-> > Have you played with the implementation at all? Would be good to get some consensus on it being a decent approach here before we go upstream with it. I also need to add devicetree bindings and ABI documentation...
-> 
-> Yea we have a "Dell" driver which almost matches exactly aspeed-bmc-
-> misc.c (sysfs node per register field...  label,reg-offset, and bit-mask 
-> configured via dt). 
-> I think what you got is good, only thing I would say is maybe remove the 
-> references to aspeed?
-> 
+Hi Eugene,
 
-Yeah, I'll rework the patches to file-off the ASPEED parts and find a more appropriate home for the driver.
+On Thu, 10 May 2018, at 22:34, Eugene.Cho@dell.com wrote:
+> Hey Cyril,
+>    I was recently following your upstream submission attempt for the 
+> aspeed mbox/mailbox, was wondering if there was been any progress since?
 
-Cheers for the feedback.
+FYI Cyril's moved on from IBM and OpenBMC, and so may have lost some motivation here.
+
+> 
+> Reason I ask - is Nuvoton also has a "mailbox" for bmc<->host 
+> communication, which does the same thing (shared memory + interrupts 
+> both ways), and was wondering if we could just have 1 driver for both, 
+> instead 2 separate drivers.
+> 
+> Glancing at the aspeed driver, only key difference I see is the setting 
+> and handling the interrupt. Thoughts on this?
+
+(Somewhat unfortunately) the ASPEED mailbox driver isn't upstream yet due to push-back from the upstream mailbox subsystem maintainer*. Similar to the misc driver it sounds like we should work together to get things moving.
+
+* It turns out the mailbox subsystem as it stands doesn't fit our needs - it's written from the perspective of the host kernel communicating with some firmware black box on the other side of the mailbox, rather than the kernel of interest *being* the black box.
 
 Andrew
