@@ -1,116 +1,64 @@
-Return-Path: <peda@axentia.se>
+Return-Path: <joe@perches.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=axentia.se
- (client-ip=40.107.2.116; helo=eur02-ve1-obe.outbound.protection.outlook.com;
- envelope-from=peda@axentia.se; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=perches.com
+ (client-ip=216.40.44.225; helo=smtprelay.hostedemail.com;
+ envelope-from=joe@perches.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=axentia.se
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=axentia.se header.i=@axentia.se header.b="oF8FbeIy"; 
- dkim-atps=neutral
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20116.outbound.protection.outlook.com [40.107.2.116])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=perches.com
+X-Greylist: delayed 522 seconds by postgrey-1.36 at bilbo;
+ Tue, 15 May 2018 02:20:55 AEST
+Received: from smtprelay.hostedemail.com (smtprelay0225.hostedemail.com
+ [216.40.44.225])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40l3cv4n7XzF2fB;
- Tue, 15 May 2018 00:54:23 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axentia.se;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=jaLo4uMF+vNE0IbtlzldIm4j5w0JJdGkYSeCx+u8P8E=;
- b=oF8FbeIyyh7i291BJoI4chnruhoFIaRAoTM0tI1PUXUU7ySZqwMcNsd6+5EF2MdIyr00Ci/Dfrw3/usLVw3tTOdbW4yt+dCNU+f2rwYB0X7rybzFHb7IWZN8hftndSCC9vF8+HiQdWQ3onlQiN8JNGyyUyBdZSq3AHyh9ddd70M=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=peda@axentia.se; 
-Received: from orc.pedanet (85.226.244.23) by
- VI1PR0202MB2782.eurprd02.prod.outlook.com (2603:10a6:800:db::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.755.16; Mon, 14
- May 2018 14:54:16 +0000
-From: Peter Rosin <peda@axentia.se>
-To: linux-kernel@vger.kernel.org
-Cc: Peter Rosin <peda@axentia.se>, Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-Subject: [PATCH 04/21] i2c: aspeed: make use of i2c_8bit_addr_from_msg
-Date: Mon, 14 May 2018 16:53:13 +0200
-Message-Id: <20180514145330.4857-5-peda@axentia.se>
-X-Mailer: git-send-email 2.11.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40l5Xl0yT8zF3h1;
+ Tue, 15 May 2018 02:20:54 +1000 (AEST)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+ [10.5.19.251])
+ by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 3390318031DBA;
+ Mon, 14 May 2018 16:12:14 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+ [216.40.38.60])
+ by smtprelay02.hostedemail.com (Postfix) with ESMTP id 7A3096128;
+ Mon, 14 May 2018 16:12:02 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com,
+ :::::::::::::::::::::::::::::::::::::::::,
+ RULES_HIT:41:355:379:541:599:960:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1539:1593:1594:1711:1714:1730:1747:1777:1792:1801:2198:2199:2393:2559:2562:2828:2914:3138:3139:3140:3141:3142:3351:3622:3865:3866:3868:3870:3871:4321:4605:5007:6742:9040:10004:10400:10848:11026:11232:11473:11658:11914:12438:12740:12760:12895:13069:13161:13229:13311:13357:13439:14180:14659:21060:21080:21212:21627:30054:30091,
+ 0,
+ RBL:47.151.150.235:@perches.com:.lbl8.mailshell.net-62.14.0.100 64.201.201.201,
+ CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none, DomainCache:0,
+ MSF:not bulk, SPF:fn, MSBL:0, DNSBL:neutral, Custom_rules:0:0:0, LFtime:28,
+ LUA_SUMMARY:none
+X-HE-Tag: mark95_2e7653012c449
+X-Filterd-Recvd-Size: 2138
+Received: from XPS-9350.home (unknown [47.151.150.235])
+ (Authenticated sender: joe@perches.com)
+ by omf07.hostedemail.com (Postfix) with ESMTPA;
+ Mon, 14 May 2018 16:11:59 +0000 (UTC)
+Message-ID: <c83bb5ddf36b419c4c01e20384c7b532c9a48cd4.camel@perches.com>
+Subject: Re: [PATCH 00/21] i2c: make use of i2c_8bit_addr_from_msg
+From: Joe Perches <joe@perches.com>
+To: Peter Rosin <peda@axentia.se>, linux-kernel@vger.kernel.org
+Cc: Brendan Higgins <brendanhiggins@google.com>, Benjamin Herrenschmidt
+ <benh@kernel.crashing.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+ <andrew@aj.id.au>, Guenter Roeck <linux@roeck-us.net>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>,  Peter Korsgaard <jacmet@sunsite.dk>,
+ Andy Gross <andy.gross@linaro.org>, David Brown <david.brown@linaro.org>, 
+ Linus Walleij <linus.walleij@linaro.org>, linux-i2c@vger.kernel.org,
+ openbmc@lists.ozlabs.org,  linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org,  linuxppc-dev@lists.ozlabs.org,
+ linux-arm-msm@vger.kernel.org,  linux-soc@vger.kernel.org
+Date: Mon, 14 May 2018 09:11:57 -0700
 In-Reply-To: <20180514145330.4857-1-peda@axentia.se>
 References: <20180514145330.4857-1-peda@axentia.se>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [85.226.244.23]
-X-ClientProxiedBy: HE1PR08CA0043.eurprd08.prod.outlook.com
- (2603:10a6:7:2a::14) To VI1PR0202MB2782.eurprd02.prod.outlook.com
- (2603:10a6:800:db::7)
-X-MS-PublicTrafficType: Email
-X-Microsoft-Antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(7020095)(4652020)(7021125)(5600026)(4534165)(7022125)(4603075)(4627221)(201702281549075)(7048125)(7024125)(7027125)(7028125)(7023125)(2017052603328)(7153060)(7193020);
- SRVR:VI1PR0202MB2782; 
-X-Microsoft-Exchange-Diagnostics: 1; VI1PR0202MB2782;
- 3:X7Z3sStox4t+sLTRxaJ6e9f4ZqMsFwN1aQmuRnx6L/d4/NgDUU7kYwcIrmdNL6Q7HidoPl7We09p7oDgn0lpn7uO+7/v5dVjLbTanPEUvnESt5HA32geX3vV4wh2mD9nyTjiztTz0KxuDzkRwGAcg8GxTc2MUlDWqSaMTK7dpIvN87wG67hvv4B0d1a95n70wziGvCq+DuFMtTXjj9X5POQTY3s57Nvjm23yOmLfPNEh6A9vsAdC0ysNKcqlyCdV;
- 25:YK6ULX0sECz6l0GLfEHRAKT/JrgOkndCawwzY9ZiYD9A6l/q95gwWrFDNi2uHfZk7l7abPrr495VkNBNgniQFNEDYf+hjV1OFNR40QX3EVIeGqTl6HQ1YvJD86NQTFsycII08znsMFeB27YpAb0YkbhHhsO2nHX567hHE2DWBYBKQ02XQD8Qnl0nLIheYUsXaD65rkKMmeDNrB8pFaFNhwjogolixp1VrFu/IAB+0ZPBkP6Aos+HLaMvu66I3ML48H64TzvcyKJVDqypzoXSEpLTrt2VrsDzBG5vyqluXfW6cNkNzoXpQzD4SmYQnAoMg/Q04tjTyITbqpyJC69hvw==;
- 31:uBQLLBIpqiw9xJZBISKkP7WK80E8lge/rvggMqQgg3Y4D3DaVeViLnJlcOI9ZIK/ysVcBp2GaV/L36vb6U8db2lEezuNqVlUj8iJl40BE+HYV2MXW4n+Y+LUG8TzMzoWJiJxQCW6CDLGqMhJnc+Zv2lNoaazO1SAZ0csgPAwZyBpqxVVNLrQ4Kw/sqkDGmcAmUWX+epgOMjS8WYDKDdOOOhffC1weVtjgR2Ab0DRMQw=
-X-MS-TrafficTypeDiagnostic: VI1PR0202MB2782:
-X-Microsoft-Antispam-PRVS: <VI1PR0202MB2782B947BCC928B900A13C8DBC9C0@VI1PR0202MB2782.eurprd02.prod.outlook.com>
-X-Exchange-Antispam-Report-Test: UriScan:;
-X-MS-Exchange-SenderADCheck: 1
-X-Exchange-Antispam-Report-CFA-Test: BCL:0; PCL:0;
- RULEID:(6040522)(2401047)(5005006)(8121501046)(3002001)(93006095)(93001095)(3231254)(944501410)(52105095)(10201501046)(149027)(150027)(6041310)(2016111802025)(20161123558120)(20161123564045)(20161123560045)(20161123562045)(6072148)(6043046)(201708071742011);
- SRVR:VI1PR0202MB2782; BCL:0; PCL:0; RULEID:; SRVR:VI1PR0202MB2782; 
-X-Microsoft-Exchange-Diagnostics: 1; VI1PR0202MB2782;
- 4:i45CPtHY+YSjIzKRUVNWp3eA9QTL7P2ZUeAQkIkq4MZlzosKrfwcA3wLpmTlMH7s2GotdoAie0jGsnuzBOV9CXdLEmVnhRbYWJe2KtrYwkADWO/Ru/aHPpMgq80GNvdyW0JJmAl6byNPKndeiZm0yx1iVYkt02kW1Hm07Vi16oyVGVBnRTp7eOjiWxqypPHpjECraXuHPK8/aKpyAWXl5sK4loDnWqfCcPAQ3vlWM86jNNI6tX/dz9YkuvjwO3XTGqK46M7+GfVY6Ew2iDOGVA==
-X-Forefront-PRVS: 067270ECAF
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10019020)(366004)(39380400002)(396003)(376002)(39830400003)(346002)(189003)(199004)(48376002)(6116002)(97736004)(68736007)(478600001)(4326008)(5660300001)(1076002)(6666003)(2906002)(53936002)(16586007)(3846002)(66066001)(6916009)(316002)(15760500003)(47776003)(50466002)(54906003)(6486002)(50226002)(7416002)(186003)(16526019)(476003)(81166006)(25786009)(6512007)(11346002)(446003)(105586002)(7736002)(956004)(106356001)(2616005)(6506007)(36756003)(76176011)(386003)(2351001)(305945005)(486006)(52116002)(51416003)(26005)(575784001)(8676002)(81156014)(74482002)(86362001)(2361001)(8936002)(42262002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:VI1PR0202MB2782; H:orc.pedanet; FPR:; SPF:None;
- LANG:en; PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: axentia.se does not designate
- permitted sender hosts)
-X-Microsoft-Exchange-Diagnostics: =?us-ascii?Q?1; VI1PR0202MB2782;
- 23:Y2ds0rzHqTDfMjDkELPZzM63jkjxb6bU05X/1n+?=
- =?us-ascii?Q?l8MCs11LFzFdhideQ+HBs2QyOPxomuJVjZJbDjQzHbjwj0CovC3KaTJN/fKJ?=
- =?us-ascii?Q?VU+B9NFSh90mFZB5rWJFxaZ/3LTH61s1/1JtmrO6Sd5iv5EoPBSRcb0/eaKh?=
- =?us-ascii?Q?NoCQ2Agb55r7kO2w5kMt8q6i/befFudd+git7qHVGGeOt8qfm7gLJJDj61yQ?=
- =?us-ascii?Q?34uY8bFPrLSsUhHDSLaZMe70Bvu/68W1773mlc1dB3ssKy5qkpQc9rASs10K?=
- =?us-ascii?Q?IwgC5thfDNL1lwyE62VGuEuZiKiXqjIsqQp7KIweoGr2fknf66X+XCcflBLL?=
- =?us-ascii?Q?Gu+c3pwbBkumi3JJQ/7KsdXNXWEzFxMHbcHuFpeMrxN4RkuKLTaVMYc9ujp/?=
- =?us-ascii?Q?mZy1yNmm0OoZe6GOr2sg1i7ARCoFbKiMD1x2fZ7HtHcXqpvDFeukmNDshGI7?=
- =?us-ascii?Q?vULKN0W+9OC3Eifg+gxUyFoI6DgRcXR0jBG5JnFJOqEN0a8fGy+RvqABdznP?=
- =?us-ascii?Q?MECbVpLBey2Jl9blexDUssMPsKQ7GE2ZTzXYbcwT68llJivmx9x/iXNEIlf+?=
- =?us-ascii?Q?OfBdim7XiMaoLkmcP+CJq//roh8KJwhHFwu8nCTQ+bv8OzJbgVTLCTJAbFgV?=
- =?us-ascii?Q?oBYj+02Y+4TFA5H5Cz67LplSvivY/59NJOtbMYcmc+w/Qsl6Jqr3lEn8M0oD?=
- =?us-ascii?Q?HhtcIc9KOF2HdSVxMeW6U89aSkaYvrgd4iSjusDXBI1u9dyyHhUm0G37aJTY?=
- =?us-ascii?Q?xJhXRPDHVNbO7Z1OGIWXbN/nHm3eRqJ4HPimERRHcpj5JY4Wr+2ZZRIXBNND?=
- =?us-ascii?Q?6s1TJwtNw3+niCadiqzvG9PsV2ZSfJxyIDt2iOEf0Y2K50e4SYgo4xdNmRi+?=
- =?us-ascii?Q?sXauJg/m9Y7Mpao/H0oBOjsIX6pk2WcxkNDdRyrorWBQl6zmFh1nEMoGugxA?=
- =?us-ascii?Q?FCRyALqiTaLrbFuoCDwEg8Sw3VGIi4ro+7oT2KFJ8Z8X6sqvCe69LuAiz38c?=
- =?us-ascii?Q?9nhXxFyG5xFESxBJ1BS9PSkQnUtpQ1JdY6E739rZHGzdcNHni2vA1raI5OIy?=
- =?us-ascii?Q?Te5Im2Zl99mQjgRgEulXaTU08ulXU8ODkto79wgKtcAXWPvyGmhxWdU5oqm1?=
- =?us-ascii?Q?MVhqNQ2upWUFJl3YEbQnI36Qm1COvR7Hjv5ufjEABr+PRWuLxzMGDjKXyV99?=
- =?us-ascii?Q?FzQnUKW+x8H8/aKa2TTaOaZg4JgJZg41w3PPlnQQV7peTi5d4FUJNqPQk8i8?=
- =?us-ascii?Q?dkYAz7tAgs7yER/S/5MbnJlCppNR4G5jB+m4YWixTbeh2vtwAPnyfxg14OC+?=
- =?us-ascii?Q?s8H6F4dX9DbJX6f4goJLKU39+ll9BCRc4IOoijHi3xfLjisbSInSd1G7JS2T?=
- =?us-ascii?Q?RdwkPR2pcaYk3y2qbGG/0nDY77YY=3D?=
-X-Microsoft-Antispam-Message-Info: Gp7+xWoFn3hvEDjQy1UVxD9VsAXp4Ysv0iOmm6/1bceGkT9ckbx6WEYOpsS1cHf3e0VxoiDPDvnavq9RGWsklo29KlE7KSjLX3j8KEzv3NMh2REfkax+c8fWI3bsEFk3yaGXcrx0GD/L2rIUXtnupeWikq0TG88cpfwOOq4p2RX+ZsnCErIJ/KmpblHx0MA5
-X-Microsoft-Exchange-Diagnostics: 1; VI1PR0202MB2782;
- 6:paLvJxlQ+hR/l+d2jcMfYzMfvCw7Jv++JzOKSElywFbj2x7lzYjdXrge7Io7cn1xhXr7SlJJhphesDbD4RhmP2yJV9DdlKfdaOiehgkNnYhy2he7zHTyJV0sm06Mm9LIq4ZtKkflJmsOGL1n+b9SuxXRkmNstaLEMlIfmUY69bk/ZYMYBShYfC0zJkmO4q1uSeLs+OsBtr996Xn7pkFFB6XQLXME83KUmnIqkKRSQ9bp/sn+51hLB9tsgzpZkmtyk6GIEcDski6H5Hr6cWsGaYd91waZIGVG0cHB59HjDRVHeJiUphug6vij/+6Qt9CFht7/OyzvTR+xtg5VmwUBKvSJYsd/cZ73hebYMOdwLZzG3sN9wMDRaVXKKbbdMu787PBCy+LXFexA6TbvARVXhX8ozeJ7+tMQRyoCeo0IZ+V4PerbOK6OVX1vpCxZgjJvVxiXYdJ4lundlQJ3D2/92A==;
- 5:u0NphFsBuDkbUsGjJLdiRrI29tTJWEuprvVH3nHP/l03GYfSa0tPpaSKxcuXlG26wDLr6xpNr6G4BP/aBMNsXZYoU2AsNeDn3wnivegpn7cz+2sOsh1VVbWNCxmsHbgy/BQ2EpMHp4CIW2NnDTFR1y9WhxhB9ji8XnUYZCIBZsI=;
- 24:JIH2j+f4g8vMrD5Sl/+VB3z54rRB75wdZS5DHZGvAnnQmlcfAic/rfRHu66UNKgDhbGAgMCunbW+YX38904MP9ub7AV1vDYs28bWTFt+qro=
-SpamDiagnosticOutput: 1:99
-SpamDiagnosticMetadata: NSPM
-X-Microsoft-Exchange-Diagnostics: 1; VI1PR0202MB2782;
- 7:KnSCTiMdDYtXxPdkxyD+HJHrMcYs+tWwy8mXacy/v1c5ix2+e0GYyVDe2P/U17yH4vxW9AgN91jTGbFBrhlJNkjR5ptvX9Nm9VKC7/7n9Qq9Zgmq3ZDQz2PcmmcekBVkDL0NtHajn6MJK0LyeY4ps/YvEn/dCpLfNEn4o4vzNs2JROm7Rx3Moo2bxOvGQtsM4bFSdzRyAmluwYUPjJjjxtTwLfoe/ZPF4OOJQkV99CWkKh8V9gmy9v5B7cT1dzHC
-X-MS-Office365-Filtering-Correlation-Id: 131a0c51-efa2-426c-3a13-08d5b9aa911a
-X-OriginatorOrg: axentia.se
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2018 14:54:16.4505 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 131a0c51-efa2-426c-3a13-08d5b9aa911a
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4ee68585-03e1-4785-942a-df9c1871a234
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0202MB2782
-X-Mailman-Approved-At: Tue, 15 May 2018 09:10:40 +1000
+Content-Type: text/plain; charset="ISO-8859-1"
+X-Mailer: Evolution 3.28.1-2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 15 May 2018 09:10:39 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -122,33 +70,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 May 2018 14:54:24 -0000
+X-List-Received-Date: Mon, 14 May 2018 16:20:55 -0000
 
-Because it looks neater.
+On Mon, 2018-05-14 at 16:53 +0200, Peter Rosin wrote:
+> Hi!
+> 
+> The nice little inline i2c_8bit_addr_from_msg is not getting
+> enough use. This series improves the situation and drops a
+> bunch of lines in the process.
 
-Signed-off-by: Peter Rosin <peda@axentia.se>
----
- drivers/i2c/busses/i2c-aspeed.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Perhaps the inline should test for I2C_M_REV_DIR_ADDR
+as there is at least one use like
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index 7d4aeb4465b3..60e4d0e939a3 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -335,13 +335,12 @@ static void aspeed_i2c_do_start(struct aspeed_i2c_bus *bus)
- {
- 	u32 command = ASPEED_I2CD_M_START_CMD | ASPEED_I2CD_M_TX_CMD;
- 	struct i2c_msg *msg = &bus->msgs[bus->msgs_index];
--	u8 slave_addr = msg->addr << 1;
-+	u8 slave_addr = i2c_8bit_addr_from_msg(msg);
- 
- 	bus->master_state = ASPEED_I2C_MASTER_START;
- 	bus->buf_index = 0;
- 
- 	if (msg->flags & I2C_M_RD) {
--		slave_addr |= 1;
- 		command |= ASPEED_I2CD_M_RX_CMD;
- 		/* Need to let the hardware know to NACK after RX. */
- 		if (msg->len == 1 && !(msg->flags & I2C_M_RECV_LEN))
--- 
-2.11.0
+-               addr = msg->addr << 1;
+-               if (flags & I2C_M_RD)
+-                       addr |= 1;
++               addr = i2c_8bit_addr_from_msg(msg);
+                if (flags & I2C_M_REV_DIR_ADDR)
+                        addr ^= 1;
+
+which look odd
+
+Do any of these changes now no longer need
+the temporary flags variable?
