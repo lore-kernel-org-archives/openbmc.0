@@ -1,61 +1,58 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::233; helo=mail-it0-x233.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="GwUf3I+V"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="W91SVP9k"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hv8/hNUl"; 
+ dkim-atps=neutral
+Received: from mail-it0-x233.google.com (mail-it0-x233.google.com
+ [IPv6:2607:f8b0:4001:c0b::233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40krBB07BTzF2L8
- for <openbmc@lists.ozlabs.org>; Mon, 14 May 2018 16:18:58 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CD0AE20E24;
- Mon, 14 May 2018 02:18:55 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Mon, 14 May 2018 02:18:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=qXc95ej5YSF5YLrfz
- UKqG+MEAE5640B5nSmJ1Bs64lE=; b=GwUf3I+VKtIWhdcxeI79q7veU8OBxZWRQ
- iAEi+slAXel5u12GXIZuwTez8ns4c20kAtBFHYztUCrDF9KaUVujUA75O3mxw9dt
- hBK+rgdNP9QC0RYwxGi4pQc0dT8Qw3lHCvfF0bYbIGi4IUtt/KTHtYxTkhjuszVQ
- 7xnXivZcshaD9pYYIiAmMx5Qi5mCnUl+K76+BrO7qYiZWOqB78Em0+Hn5g4TI5xs
- jjfERoUriraot5k1EY3gbdOFVcD2eAaBrJ+N/Bd3LQ4Sk4oX1sTkbxbaVQIsnzYt
- ImQdUJp4bAzPaMjwtREpd73E3KC4cbyYQM4cd3OWPFf3C1u/XQ4mw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=qXc95ej5YSF5YLrfzUKqG+MEAE5640B5nSmJ1Bs64lE=; b=W91SVP9k
- IskRxcmpRqdHNTFrl3ZX7bf8xOxGJpkd1NwCtRO2takOXCtObbAd+AvAL4B1PKd5
- 1K91W9KD35s2kG9ztG4U3U+PqawwadU9xWfJF5ByOvt3ObmXmv8sr+M5J44JoBuL
- Yk63uuHf8waoD7C9P1adD115qzwqTrioF1a5oF3wQ4rG/rnn7Z5xhnlrRW4dAgYM
- Rk2sbS55al0Z7NwmMUjEFnjcRQZKxohZOSYtxXZHw+gT9NHkqmnatK6n3xBNVygH
- 1GEyrFFmRnyBC9GZv1EVZDlWrPLQhWXRYEE9NonGcQu3+fdL3r2RC7EAAwOMbnN1
- yH5pXNM/FB756g==
-X-ME-Sender: <xms:Tyr5WqLchOGFj7FdrpmABAel4jUVs0VILc3o-jARhb-XQCeiIBkLcQ>
-Received: from dave.aj.id.au (ppp118-210-26-60.bras1.adl4.internode.on.net
- [118.210.26.60])
- by mail.messagingengine.com (Postfix) with ESMTPA id 94BE210260;
- Mon, 14 May 2018 02:18:53 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: Andrew Jeffery <andrew@aj.id.au>, eajames.ibm@gmail.com,
- benh@kernel.crashing.org, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13 2/2] fsi: sbefifo: Return 0 on read() to
- indicate end of response
-Date: Mon, 14 May 2018 15:48:09 +0930
-Message-Id: <20180514061809.11487-3-andrew@aj.id.au>
-X-Mailer: git-send-email 2.17.0
-In-Reply-To: <20180514061809.11487-1-andrew@aj.id.au>
-References: <20180514061809.11487-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40l2Vw28mQzF2TW
+ for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 00:04:07 +1000 (AEST)
+Received: by mail-it0-x233.google.com with SMTP id p3-v6so10464452itc.0
+ for <openbmc@lists.ozlabs.org>; Mon, 14 May 2018 07:04:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=286pd8M1pYu+5/qLbsul57AXkj4wGRSwL7CQYwmtvdE=;
+ b=Hv8/hNUlJomaHpZeoviSQBj6AsPtSQpsVDNuEnu/YONgs1CojRMG8AO72X9gHf0rQl
+ riSUsvsvBy+mVV22Y3atCQDIksyhyqGhevO92oyDXhjgnPfTbIjDaaB14gDft3CpZhU0
+ OYSdOQWOYDO/TlJX0A7HpBDNGpZ2M468NU+afcWF5+SqmSPxDNQuC0skGx8Y3pTQ6yZk
+ nO3Ac5dyJIOPgx4k5DlXmfWzxAPWjQaExMZ146TFNOtXP3MNHEUSONIzQjeHkQOb3+XB
+ 9hpbOiznKq7zAJsMQLlNJEXTfK7KgpZ5ld6k6LtVmsuC8ionQk0qfLFBGucRo0vlcmPd
+ e9pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=286pd8M1pYu+5/qLbsul57AXkj4wGRSwL7CQYwmtvdE=;
+ b=AZ9vCLwQ4qu8UFaLoEtqDwjJk0OXOqHVOFaSxzwHLdOzdPv/KyBl4DoJ6RW0lDLqfh
+ 3cfCai+aZTJKRfUgx4aiypknq7sac4pPrAReiZushglV3oAi+gxsWUfeqgygJz04kFqE
+ CNijoP6+j5Dt1OhEGBz8oAxMpb9jemnWoqn971rWYujjkCVcZ6eupZgSLrqwZ3ld+ZnX
+ KJmIowqj8fDDzVvp99iK7MVqsQBxZEg+PzgtweqM6doFT7BpruzOVxYd12CDXVuoNmoO
+ DO6yo4unvmhkGfR6E5WE2+WPvrwlaPgJga7qkqdEXtrqRLbmzBnMHfmmcpuLEXcyh6bJ
+ +a8w==
+X-Gm-Message-State: ALKqPwcy3uQcZQPVnTEmDpsh9jn2UIzRV7MBWFZ06UNDU7nViKfIUZUm
+ VU8qIxFKr5JDZpZzeBr8wo6Mtf7lbVdrVUw40Bc=
+X-Google-Smtp-Source: AB8JxZpml5QQOXNmkGadKEv52KnnuPAXNf+HHOLq2dINcmaBLSSR6YUwTs5U7AiD1CuRcLeKd+uPXX3V6jRDjAEkl/I=
+X-Received: by 2002:a6b:109:: with SMTP id 9-v6mr10022068iob.138.1526306645615; 
+ Mon, 14 May 2018 07:04:05 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Mon, 14 May 2018 07:04:05
+ -0700 (PDT)
+In-Reply-To: <495148e9d2b74b00b2fc6e5eedf13cc3@ausx13mpc109.AMER.DELL.COM>
+References: <495148e9d2b74b00b2fc6e5eedf13cc3@ausx13mpc109.AMER.DELL.COM>
+From: Lei YU <mine260309@gmail.com>
+Date: Mon, 14 May 2018 22:04:05 +0800
+Message-ID: <CAARXrt=ee74cA2rx=KeBDCS_dENdDpEm7onPs+mzQwgv7N01Tw@mail.gmail.com>
+Subject: Re: Aspeed AST2520 support in openbmc
+To: Lakesh.Sharma@dell.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,98 +64,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 May 2018 06:18:58 -0000
+X-List-Received-Date: Mon, 14 May 2018 14:04:09 -0000
 
-Previously the driver would return EAGAIN for a read() subsequent to
-last byte being read. This makes it difficult to userspace to read
-messages out of the pipe without knowing the size of the response ahead
-of time, which is actually impossible given the design of the hardware.
+On Thu, May 10, 2018 at 5:54 AM,  <Lakesh.Sharma@dell.com> wrote:
+>
+> Hello
+>
+> I Aspeed AST2520 supported by openbmc ?
 
-The justification for moving the SBEFIFO_XFR_COMPLETE test is as
-follows:
+Yes, it's pretty much the same as AST2500 except that it has no VGA.
+So it's supported.
 
-1. Assume that the transfer has completed from the hardware perspective,
-   that is, we've acknowledged the EOT flag and set SBEFIFO_XFR_COMPLETE,
-   but the client (caller) has not completely read out the response data
-
-2. The client calls through sbefifo_read_common() and hits
-   wait_event_interruptible(), which calls through sbefifo_read_ready()
-   to judge the state of the transfer
-
-3. sbefifo_read_ready() reports the number of words available and tests
-   for SBEFIFO_XFR_COMPLETE. Given the assumed state above this will
-   cause wait_event_interruptible() to return immediately
-
-4. The appropriate copy is performed dependent on the client and the
-   relative buffer sizes
-
-5. If the destination buffer is smaller than the remaining transfer data
-   then sbefifo_buf_readnb() will return false by its ring-buffer index
-   calculations, the transfer will remain the current transfer, and we
-   repeat from step 2.
-
-6. If the destination buffer is equal to or larger than the remaining
-   transfer data then sbefifo_buf_readnb() will return true indicating
-   the transfer has been completely drained.
-
-7. Assuming we take 6, we go around again, repeating steps 2 and 3,
-   however sbefifo_read_read() will report 0 this time around, which
-   triggers the removal of the transfer from the client and transfers
-   list, and returns 0 to the caller.
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/fsi/fsi-sbefifo.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index afb5ff48aa3b..6f0e3f6c53d5 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -640,9 +640,6 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
- 		if (sbefifo_xfr_test(client, SBEFIFO_XFR_WRITE_DONE))
- 			return -EAGAIN;
- 
--		if (sbefifo_xfr_test(client, SBEFIFO_XFR_COMPLETE))
--			return -EAGAIN;
--
- 		if (sbefifo_xfr_test(client, SBEFIFO_XFR_CANCEL))
- 			return -EAGAIN;
- 	}
-@@ -666,6 +663,23 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
- 
- 	n = min_t(size_t, n, len);
- 
-+	/* Check if we've performed the final read */
-+	if (sbefifo_xfr_test(client, SBEFIFO_XFR_COMPLETE) && !n) {
-+		xfr = list_first_entry_or_null(&client->xfrs,
-+					       struct sbefifo_xfr, client);
-+		if (!xfr) {
-+			/* should be impossible to not have an xfr here */
-+			WARN_ONCE(1, "no xfr in queue");
-+			ret = -EPROTO;
-+			goto out;
-+		}
-+
-+		list_del(&xfr->client);
-+		kfree(xfr);
-+		wake_up_interruptible(&sbefifo->wait);
-+		return 0;
-+	}
-+
- 	if (ubuf) {
- 		if (copy_to_user(ubuf, READ_ONCE(client->rbuf.rpos), n)) {
- 			ret = -EFAULT;
-@@ -690,10 +704,6 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
- 			sbefifo_get(sbefifo);
- 			if (!queue_work(sbefifo_wq, &sbefifo->work.work))
- 				sbefifo_put(sbefifo);
--		} else {
--			list_del(&xfr->client);
--			kfree(xfr);
--			wake_up_interruptible(&sbefifo->wait);
- 		}
- 	}
- 
--- 
-2.17.0
+> I don't see it in  folder meta-openbmc-machines/meta-arm
+>
+> regards
+> lakesh
