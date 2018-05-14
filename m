@@ -1,64 +1,57 @@
-Return-Path: <Lakesh.Sharma@dell.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.96; helo=esa7.dell-outbound.iphmx.com;
- envelope-from=lakesh.sharma@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=dell.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="DiVsmAyy"; 
- dkim-atps=neutral
-X-Greylist: delayed 713 seconds by postgrey-1.36 at bilbo;
- Thu, 10 May 2018 08:06:30 AEST
-Received: from esa7.dell-outbound.iphmx.com (esa7.dell-outbound.iphmx.com
- [68.232.153.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZuxMxvgN"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ZAAXeW0v"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40h9Rp3XKJzF2Rm
- for <openbmc@lists.ozlabs.org>; Thu, 10 May 2018 08:06:29 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1525903557; x=1557439557; h=from:to:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=VIDtNYPd93qAG60ICA5ZlFeNKhocN82tvwuR/FeqGOM=;
- b=DiVsmAyyIcXHdmAZ3fHqLUnDMMVhrmsTuyVBX+PyUAatkLZZAjGtFfn1
- 5uByApp5awBuaUJe26rpBZswDsumb9l2uqEzZuf6r5e2tYKJO7zp67Nw4
- XW+erCiGjJy9Oxt1n0P/6gfoHMvveiQ8uQ1Hu4VOWb6kVHTN3QXB7zC/0 I=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GDAgAxbfNah8qZ6ERcHAEBAQQBAQoBA?=
- =?us-ascii?q?YQWgQgymFeDCF+UQwuHXCE4FAECAQEBAQEBAgEBAhABAQEKCwkIKC+CNSKDFFE?=
- =?us-ascii?q?BPmkEG4MbggGsGohGgkiIJYIThVuDfoUIAoc8kHAIjkeBLwGLO5BPgSUzgXRwg?=
- =?us-ascii?q?xSBbAFAjiCQe4EYAQE?=
-X-IPAS-Result: =?us-ascii?q?A2GDAgAxbfNah8qZ6ERcHAEBAQQBAQoBAYQWgQgymFeDCF+?=
- =?us-ascii?q?UQwuHXCE4FAECAQEBAQEBAgEBAhABAQEKCwkIKC+CNSKDFFEBPmkEG4MbggGsG?=
- =?us-ascii?q?ohGgkiIJYIThVuDfoUIAoc8kHAIjkeBLwGLO5BPgSUzgXRwgxSBbAFAjiCQe4E?=
- =?us-ascii?q?YAQE?=
-Received: from esa2.dell-outbound2.iphmx.com ([68.232.153.202])
- by esa7.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 May 2018 16:45:06 -0500
-From: <Lakesh.Sharma@dell.com>
-Received: from ausxippc101.us.dell.com ([143.166.85.207])
- by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 May 2018 03:53:57 +0600
-X-LoopCount0: from 10.166.132.56
-X-IronPort-AV: E=Sophos;i="5.49,382,1520917200"; d="scan'208";a="1085501078"
-X-DLP: DLP_GlobalPCIDSS
-To: <openbmc@lists.ozlabs.org>
-Subject: Aspeed AST2520 support in openbmc
-Thread-Topic: Aspeed AST2520 support in openbmc
-Thread-Index: AQHT5+BPanqUYFMLpkGTItPgQuhwGg==
-Date: Wed, 9 May 2018 21:54:32 +0000
-Message-ID: <495148e9d2b74b00b2fc6e5eedf13cc3@ausx13mpc109.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 14 May 2018 11:20:38 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40krB52cjdzF2JW
+ for <openbmc@lists.ozlabs.org>; Mon, 14 May 2018 16:18:53 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 816E320F8A;
+ Mon, 14 May 2018 02:18:50 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 14 May 2018 02:18:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=UiRyHyVWxXqplehsgaANg8/i81fChJboP7MH4Nkz5
+ Ng=; b=ZuxMxvgNdqtQ9WdD/zKD7uYCUG0NUjk7eDxqGcdvrIMBcPzklCwD0y2Jf
+ ZYusjVXinGQ1meuzdnUEnq9yuNlt8y+2e3JBYapl0tX6BMW+MYv6h1aoD9udR6Lp
+ Vsu1SMfDsbx9m9RrLX/3eQSGwvBvf67LC5XoYvFFu/E5Z8/KzpgIf5vSlqjA7pQZ
+ br0f91PNrlmP4lQieLQDuncMkvNI32kn4/QXVUJcRtpXrCW/wFCK9K37P8RCp9HA
+ 4dCzsSau6nJgxwkjax6UaP+l72oHNgskUfDZqi1FMUvJ7koiUTUjiyXqzGlUmQdy
+ T4eSOa4dgYcJSPgnPx88mkNQBeZwg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=UiRyHyVWxXqplehsg
+ aANg8/i81fChJboP7MH4Nkz5Ng=; b=ZAAXeW0vA/No4NOLbUmSWlcViscv004dr
+ Snio8JuLqFUhZjVh7bVwMXVjFJQbItpkpfW7hqIqZgUV5/HWC4CVICCmDSbsf1Ti
+ Yu8n6t4zqSQX2FRQ7DxZV3ZVkyRJovS2DtNFY4neFrbpaN9IKabJNvxdPDAoGebF
+ 9HmlhCuwaqNeT7Xc+HhoMXNgCov06ike19Fyzak4yuo4QFhic9PQpBVAEZbq0rC0
+ p1y0YQe/MM7gf5a2pC+2XvwpH3X+SUH9zyTi2IWX5rZlXuOb6fmbFdMDDzMHxjsL
+ Uot8edi90sdYjAjTbqt5eI72of8fox84gfKjdW86+b/Y7OX4vc+4w==
+X-ME-Sender: <xms:Sir5WiTQ08Q_kHZzFd1QRPcnAz7wVyguExWqCy_ow739F4RsctXNHQ>
+Received: from dave.aj.id.au (ppp118-210-26-60.bras1.adl4.internode.on.net
+ [118.210.26.60])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1ACA410260;
+ Mon, 14 May 2018 02:18:47 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>, eajames.ibm@gmail.com,
+ benh@kernel.crashing.org, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.13 0/2] Fix SBEFIFO chardev read behaviour
+Date: Mon, 14 May 2018 15:48:07 +0930
+Message-Id: <20180514061809.11487-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.17.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -70,13 +63,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 May 2018 22:06:31 -0000
+X-List-Received-Date: Mon, 14 May 2018 06:18:54 -0000
 
+Hello,
 
-Hello
+read() on the SBEFIFO chardevs is currently unusuable as it will always return
+-EAGAIN on a read subsequent to the EOT flag being observed. This breaks reads
+using short buffers as we now have no way to know when we have received the
+entire message. This is made infinitely worse by the protocol, which as
+defined, means we cannot know how much data must be read, and therefore all
+buffers are effectively short*.
 
-I Aspeed AST2520 supported by openbmc ?
-I don't see it in  folder meta-openbmc-machines/meta-arm
+These two patches help by at least returning 0 for a read subsequent to one
+which drains the last byte from the transfer buffer. A read subsequent to one
+returning 0 will then return -EAGAIN if necessary, under the expectation that a
+write() has been issued.
 
-regards
-lakesh=
+This is a work-around until BenH gets his alternative SBEFIFO implementation in
+shape.
+
+* This is true to a point - it recently came to light that we can expect any
+  FFDC to be at a maximum 8K in size, and the maximum size of the transfer is
+  defined as:
+
+  * The requested response size, plus
+  * The status "header", plus
+  * Up to 8K of FFDC
+
+Andrew Jeffery (2):
+  fsi: sbefifo: Unpack !sbefifo_xfr_rsp_pending(client) test
+  fsi: sbefifo: Return 0 on read() to indicate end of response
+
+ drivers/fsi/fsi-sbefifo.c | 48 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 38 insertions(+), 10 deletions(-)
+
+-- 
+2.17.0
