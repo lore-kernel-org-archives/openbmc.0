@@ -1,53 +1,34 @@
-Return-Path: <andresoportus@google.com>
+Return-Path: <oleksandrs@mellanox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::230; helo=mail-it0-x230.google.com;
- envelope-from=andresoportus@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="HMaKMlmC"; 
- dkim-atps=neutral
-Received: from mail-it0-x230.google.com (mail-it0-x230.google.com
- [IPv6:2607:f8b0:4001:c0b::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40l4nn3J6wzF3Yf
- for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 01:47:05 +1000 (AEST)
-Received: by mail-it0-x230.google.com with SMTP id e185-v6so4038529ita.0
- for <openbmc@lists.ozlabs.org>; Mon, 14 May 2018 08:47:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=5UNm1dHfCmEE3ognSTXgZ023/gR7oHXET1lATR3kjE8=;
- b=HMaKMlmC6pNCTVtQiXUviZ1kixY5RutNRNJBO46v2fjM9Y9Wc3+LDP9jShilb6QyDz
- rcGi2f1De150ChZ2hdyyVEF4D5XMDoHEXIH3jAGkcbubYgoz2bs8xUnCEEysFDl3waGB
- jHxh6JAld6f8ga7xNHfwG22zYidNr2xGyc8IQkkfUnDKUfIYaLfMWw5Evbj6FDSkF11W
- G32gZqhrNzkBFCLRYvWxmJ9jOw5AXl0/aBxb1h7d5TfPjhC7X5tyyDOr6zMz3Us9KCW4
- jsOBeVbquDOrLGPWIqfdVWKALpXBAQckzRzNpg7EBteCBcwjPk7UJLjUe5QOjpqcM9+L
- 1Pgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=5UNm1dHfCmEE3ognSTXgZ023/gR7oHXET1lATR3kjE8=;
- b=H44DhWUZYelAICUZk7Tak7an03GAKGkyPPW2kAFKmj9ouKy23yjHFUYi0RTh4/8wMx
- BX20Kc7dnURflRYIfmfhPZyysRF3g8sQUvVl9Df+KkURvqsjgnDubYyL177iOFdEQR8J
- YZ/0TCuv+SLxGcxGWcRrFxGMkNwM+gOWVfUCiDIjTCFanLnOVlR+7uhVeDNuEEtX8I3Y
- kIUUxQJLPAPSD4jyU3p3qwVSNW/rbV1jlxRJGv8rsTlXDgULnFWO8m0ttWeqMsNGh2z+
- vCJCx8BHCI9vo02vm7e8WOLQxdpTbW3WMsoxE+wsHoVw312hcMulf9swHoREUzQdJWxg
- ry3w==
-X-Gm-Message-State: ALKqPwcMOxwc4QztXkak6HQKV/0NmLCZObYX3b2GhDX1INJw0xHPmdUT
- T95LqmJsyqUT1VMZU+TmUnsRHNobYwniHTbjAVmnyL2b
-X-Google-Smtp-Source: AB8JxZqG6k7syGffjkVkYkACa/Y7bkPUlQRyLKNuNYpjH1FxolAmyI8noPjJymmwtQ+cjIFLDdtSNme8rI3UN3MzsVI=
-X-Received: by 2002:a6b:590a:: with SMTP id
- n10-v6mr10882313iob.228.1526312822732; 
- Mon, 14 May 2018 08:47:02 -0700 (PDT)
-MIME-Version: 1.0
-From: Andres Oportus <andresoportus@google.com>
-Date: Mon, 14 May 2018 08:46:26 -0700
-Message-ID: <CAD5O4R24451=iRYh5M_Bokhj8wMAzPdGfj5XSzhU6CJ6cOqotA@mail.gmail.com>
-Subject: Question on States monitoring
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 40l5Wx56yZzF393
+ for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 02:20:12 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 14 May 2018 19:21:56 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w4EGK3AW020510;
+ Mon, 14 May 2018 19:20:07 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v20 4/4] Documentation: jtag: Add ABI documentation
+Date: Mon, 14 May 2018 19:20:03 +0300
+Message-Id: <1526314803-3532-5-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
+In-Reply-To: <1526314803-3532-1-git-send-email-oleksandrs@mellanox.com>
+References: <1526314803-3532-1-git-send-email-oleksandrs@mellanox.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,16 +40,231 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 May 2018 15:47:10 -0000
+X-List-Received-Date: Mon, 14 May 2018 16:20:15 -0000
 
-Are there any ongoing efforts on expanding States (say provided by GPIOs)
-monitoring/management?  I see that phosphor-state-manager has
-Chassis/Host/BMC states that are placed onto DBUS but not a more generic
-mechanism.  On the GPIO specific side, I see that phosphor-gpio-monitor
-allows for interrupt driven GPIO monitoring (seemly only used under a
-gpio-keys driver with /dev/input for Power's checkstop monitoring?), but no
-generic GPIO setting/getting for those not allowing interrupt type
-monitoring (say output GPIOs).
+Added document that describe the ABI for JTAG class drivrer
 
-Thanks,
-Andres
+Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+---
+v19->v20
+Comments pointed by Randy Dunlap <rdunlap@infradead.org>
+- Fix JTAG doccumentation
+
+v18->v19
+Pavel Machek <pavel@ucw.cz>
+- Added JTAG doccumentation to Documentation/jtag
+
+v17->v18
+v16->v17
+v15->v16
+v14->v15
+v13->v14
+v12->v13
+v11->v12
+Tobias Klauser <tklauser@distanz.ch>
+- rename /Documentation/ABI/testing/jatg-dev -> jtag-dev
+- Typo: s/interfase/interface
+v10->v11
+v9->v10
+Fixes added by Oleksandr:
+- change jtag-cdev to jtag-dev in documentation
+- update Kernel Version and Date in jtag-dev documentation;
+v8->v9
+v7->v8
+v6->v7
+Comments pointed by Pavel Machek <pavel@ucw.cz>
+- Added jtag-cdev documentation to Documentation/ABI/testing folder
+---
+ Documentation/ABI/testing/jtag-dev |   27 +++++++++
+ Documentation/jtag/overview        |   28 +++++++++
+ Documentation/jtag/transactions    |  109 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 164 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jtag-dev
+ create mode 100644 Documentation/jtag/overview
+ create mode 100644 Documentation/jtag/transactions
+
+diff --git a/Documentation/ABI/testing/jtag-dev b/Documentation/ABI/testing/jtag-dev
+new file mode 100644
+index 0000000..4325316
+--- /dev/null
++++ b/Documentation/ABI/testing/jtag-dev
+@@ -0,0 +1,27 @@
++What:		/dev/jtag[0-9]+
++Date:		May 2018
++KernelVersion:	4.18
++Contact:	oleksandrs@mellanox.com
++Description:
++		The misc device files /dev/jtag* are the interface
++		between JTAG master interface and userspace.
++
++		The ioctl(2)-based ABI is defined and documented in
++		[include/uapi]<linux/jtag.h>.
++
++		The following file operations are supported:
++
++		open(2)
++		The argument flag currently support only one access
++		mode O_RDWR.
++
++		ioctl(2)
++		Initiate various actions.
++		See the inline documentation in [include/uapi]<linux/jtag.h>
++		for descriptions of all ioctls.
++
++		close(2)
++		Stops and free up the I/O contexts that was associated
++		with the file descriptor.
++
++Users:		TBD
+diff --git a/Documentation/jtag/overview b/Documentation/jtag/overview
+new file mode 100644
+index 0000000..a86f188
+--- /dev/null
++++ b/Documentation/jtag/overview
+@@ -0,0 +1,28 @@
++Linux kernel JTAG support
++=========================
++
++The JTAG is an industry standard for verifying hardware
++JTAG provides access to many logic signals of a complex integrated circuit,
++including the device pins.
++
++A JTAG interface is a special interface added to a chip.
++Depending on the version of JTAG, two, four, or five pins are added.
++
++The connector pins are:
++	TDI (Test Data In)
++	TDO (Test Data Out)
++	TCK (Test Clock)
++	TMS (Test Mode Select)
++	TRST (Test Reset) optional.
++
++JTAG interface is designed to have two parts - basic core driver and
++hardware specific driver. The basic driver introduces a general interface
++which is not dependent of specific hardware. It provides communication
++between user space and hardware specific driver.
++Each JTAG device is represented as a char device from (jtag0, jtag1, ...).
++Access to a JTAG device is performed through IOCTL calls.
++
++Call flow example:
++User: open  -> /dev/jatgX
++User: ioctl -> /dev/jtagX -> JTAG core driver -> JTAG hw specific driver
++User: close -> /dev/jatgX
+diff --git a/Documentation/jtag/transactions b/Documentation/jtag/transactions
+new file mode 100644
+index 0000000..6a857c8
+--- /dev/null
++++ b/Documentation/jtag/transactions
+@@ -0,0 +1,109 @@
++The JTAG API
++=============
++
++JTAG master devices can be accessed through a character misc-device.
++Each JTAG master interface can be accessed by using /dev/jtagN
++
++JTAG system calls set:
++- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
++- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
++- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
++number of clocks.
++
++open(), close()
++-------
++open() opens JTAG device. Only one open operation per JTAG device
++can be performed. Two or more open for one device will return error
++
++Open/Close  device:
++- open("/dev/jtag0", O_RDWR);
++- close(jtag_fd');
++
++ioctl()
++-------
++All access operations to JTAG devices performed through ioctl interface.
++The IOCTL interface supports this requests:
++	JTAG_IOCRUNTEST - Force JTAG state machine to RUN_TEST/IDLE state
++	JTAG_SIOCFREQ - Set JTAG TCK frequency
++	JTAG_GIOCFREQ - Get JTAG TCK frequency
++	JTAG_IOCXFER - send JTAG data Xfer
++	JTAG_GIOCSTATUS - get current JTAG TAP status
++	JTAG_SIOCMODE - set JTAG mode flags.
++
++JTAG_SIOCFREQ, JTAG_GIOCFREQ
++------
++Set/Get JTAG clock speed:
++
++	unsigned int jtag_fd;
++	ioctl(jtag_fd, JTAG_SIOCFREQ, &frq);
++	ioctl(jtag_fd, JTAG_GIOCFREQ, &frq);
++
++JTAG_IOCRUNTEST
++------
++Force JTAG state machine to RUN_TEST/IDLE state
++
++struct jtag_run_test_idle {
++	__u8	reset;
++	__u8	endstate;
++	__u8	tck;
++};
++
++reset: 0 - run IDLE/PAUSE from current state
++	   1 - go through TEST_LOGIC/RESET state before  IDLE/PAUSE
++endstate: completion flag
++tck: clock counter
++
++Example:
++	struct jtag_run_test_idle runtest;
++
++	runtest.endstate = JTAG_STATE_IDLE;
++	runtest.reset = 0;
++	runtest.tck = data_p->tck;
++	usleep(25 * 1000);
++	ioctl(jtag_fd, JTAG_IOCRUNTEST, &runtest);
++
++JTAG_IOCXFER
++------
++Send SDR/SIR transaction
++
++struct jtag_xfer {
++	__u8	type;
++	__u8	direction;
++	__u8	endstate;
++	__u8	padding;
++	__u32	length;
++	__u64	tdio;
++};
++
++type: transfer type - JTAG_SIR_XFER/JTAG_SDR_XFER
++direction: xfer direction - JTAG_SIR_XFER/JTAG_SDR_XFER,
++length: xfer data len in bits
++tdio : xfer data array
++endstate: xfer end state after transaction finish
++	   can be: JTAG_STATE_IDLE/JTAG_STATE_PAUSEIR/JTAG_STATE_PAUSEDR
++
++Example:
++	struct jtag_xfer xfer;
++	static char buf[64];
++	static unsigned int buf_len = 0;
++	[...]
++	xfer.type = JTAG_SDR_XFER;
++	xfer.tdio = (__u64)buf;
++	xfer.length = buf_len;
++	xfer.endstate = JTAG_STATE_IDLE;
++
++	if (is_read)
++		xfer.direction = JTAG_READ_XFER;
++	else
++		xfer.direction = JTAG_WRITE_XFER;
++
++	ioctl(jtag_fd, JTAG_IOCXFER, &xfer);
++
++JTAG_SIOCMODE
++------
++If hw driver can support different running modes you can change it.
++
++Example:
++	unsigned int mode;
++	mode = JTAG_XFER_HW_MODE;
++	ioctl(jtag_fd, JTAG_SIOCMODE, &mode);
+-- 
+1.7.1
