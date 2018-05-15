@@ -1,57 +1,56 @@
 Return-Path: <andy.shevchenko@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
+ (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
  envelope-from=andy.shevchenko@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KkZV71Z5"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="GjXYeyXg"; 
  dkim-atps=neutral
-Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
- [IPv6:2607:f8b0:400d:c09::243])
+Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
+ [IPv6:2607:f8b0:400d:c0d::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40lqhR2ZMCzF2Fh
- for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 07:00:03 +1000 (AEST)
-Received: by mail-qk0-x243.google.com with SMTP id a8-v6so1363918qkj.12
- for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 14:00:03 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40lr9H1fF4zF2F3
+ for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 07:21:38 +1000 (AEST)
+Received: by mail-qt0-x242.google.com with SMTP id m16-v6so2292116qtg.13
+ for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 14:21:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=j9sl9NJGrODU8bMiyN+yHAfwthgnEbsFVrH/Zmfi9R0=;
- b=KkZV71Z5xoV4QZDJQ1rzL/UhryI8WsEKOPyFQ4islzJRYRDJhbaYkacn6VEgEiSCjN
- ntrABx9gORtG3VRf1rHN6+DxiWbpDqQ25y/FLrqGnS/a75B4wvc8vBV+hJt9rPNXsjvV
- JFgf34hkiKFXxzHAa0kI+ZV/Kf89MUPs5x3varxCignCCxZ3TZReuCinxiNqlSOWmqcm
- wEwU+WNShgSb5YUiry19WDa2zwWgV63M6a1k0SpWH6bOPz3CxehxHB45O5cUtUg/5NSD
- Nlu7tIRt/SvMgK6AX2HF4QmF0I9KVOVXDldWNSWd0psb7IlB7RYcAgElNws804WkujKH
- oWXw==
+ :cc; bh=Kv3Dsb136m6woDcLeq0RvetZlxd07JTKK/EPH5bVjKE=;
+ b=GjXYeyXghAo02f4jjkuKBv2M0xrQhcoR/2/nNezd+VFThSEWvzWGhAFhAH0tQxHBHm
+ S6EUmYbm0FLRcAqF7nL47eurnLRItrjzq8LgeVHcmIyn6MmktTiHg7jvPXDI/ur1urYE
+ Fp38TijBUwhe8evZ10Q0qzMBLItL47W2Ij9KbKZj+0oy3a7LNPIrPxN23jlB4X7mqdQa
+ KlaZrSrUl5K4ZnhJ0l2/MVouOeVzex0PyAv1HCqR602IeGD8NqWMAUilmYYRgxrXPJX6
+ IJr7aXkLGIFXIK3efu8muFL17XXc8m2xk/V/SZOonuOhl+r56JU3q6/QNUt2k5lWPldZ
+ FRgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=j9sl9NJGrODU8bMiyN+yHAfwthgnEbsFVrH/Zmfi9R0=;
- b=aAjeBCFlpXZZ1y48nbJIhUTtTL7Si1BKNhh2qc1DJBrLdak04c5W4IUBFMjrT8w+yT
- Z2UZpwWVvkAqkFRcBIH15cN9icZ4ryla/THxrXVec2sMIIYJr95TbcgmFI+7ac13mcMR
- 9inmkMZOq46UbJqEHUBo8zkCkFvb3vIW8CMe/lrY/gQSO198tOj6nziUhtRTBwHMzDkg
- 6AfaQ01p5tqk0FhLxL+Y68Ve/rw05ssuwQKP06E5tq5CCbOjq9wpegh0lFGmIcOlkaiA
- LQ077diro48FF5wP6V0tYu9frQbqyRdG6D+1c+jOWlnihfHCUIqcU0xr9Nz/ZmjIprIP
- 9C7A==
-X-Gm-Message-State: ALKqPwfW7ADsu67VyOen5wBB4ELSa4Ax1LVlfOHKQkoyA1oVDPQWHCbq
- DHhI7qiUqw4JBKIRnPMNGC+CIr5Fvd6Fnyrw5aY=
-X-Google-Smtp-Source: AB8JxZrD4Esbm1ML4OnAxPQQHZJYl0aABKNU+3XNC+goOlYX2uVghu+yw/9nq7zuMgkdzDE62KbgTYBA4nhqj3BQZCk=
-X-Received: by 2002:a37:d1d3:: with SMTP id
- o80-v6mr14384609qkl.3.1526418001153; 
- Tue, 15 May 2018 14:00:01 -0700 (PDT)
+ bh=Kv3Dsb136m6woDcLeq0RvetZlxd07JTKK/EPH5bVjKE=;
+ b=ugyqtfHN9VIJ0hOYHpdKZ5P36Hbqr7zKsHapaI/gbZWaHS+XJqzNa0sLCrZ0SqKUIa
+ 5P3CYALJ8KDYjdDDY4l1c0ukwFt1WDvxnFU77h8CiRaLcC0HiYpmUQd0BWxuFHl7q23f
+ g7y+R06Cpou3F6INQZMe5BduSsbOTnkerYMz/4G8FroEXbJfbe6hn6P6Ccl6FNHfsQa3
+ zzUKU/iKU3ZDM707BAhnHLJDj3eIH352/etKWEjUJ46mq89+H+Q2zwNJdQFOWTcgzsEl
+ LzD0RxZSnmM8ca9Fq072/rtXJpPTMBcmqWxT7nHzZlTOY07ZztSCmvNFjxtDHxYYntEO
+ KTvg==
+X-Gm-Message-State: ALKqPwcILhyTuHEU6+vf/5Y+LwBB9+njyeq41Hxgo4z4uOKXITuDViON
+ /17923g70illR0ABhMRaedUQj9gevwOg+5z1yLA=
+X-Google-Smtp-Source: AB8JxZqi0xZPcyi45/szUYWmr5XylYAnXn4h1xa6ibkOTYgWl2kpg3ouL5RESynGOJ9ch4Ynbn3By9H85uT9f9LFqrE=
+X-Received: by 2002:ac8:354f:: with SMTP id
+ z15-v6mr15555316qtb.295.1526419296060; 
+ Tue, 15 May 2018 14:21:36 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.12.152.150 with HTTP; Tue, 15 May 2018 14:00:00 -0700 (PDT)
-In-Reply-To: <1526394095-5069-3-git-send-email-oleksandrs@mellanox.com>
+Received: by 10.12.152.150 with HTTP; Tue, 15 May 2018 14:21:35 -0700 (PDT)
+In-Reply-To: <1526394095-5069-2-git-send-email-oleksandrs@mellanox.com>
 References: <1526394095-5069-1-git-send-email-oleksandrs@mellanox.com>
- <1526394095-5069-3-git-send-email-oleksandrs@mellanox.com>
+ <1526394095-5069-2-git-send-email-oleksandrs@mellanox.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 16 May 2018 00:00:00 +0300
-Message-ID: <CAHp75Ve7EYiWBiE73i0CmyJhPMOdSKsGzCr0SUvta3Uya=Ov1Q@mail.gmail.com>
-Subject: Re: [patch v21 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
- families JTAG master driver
+Date: Wed, 16 May 2018 00:21:35 +0300
+Message-ID: <CAHp75VctG5RBtLF3nT5e_j7_e9O12u=5gerJ6OMxWbABM9ft2w@mail.gmail.com>
+Subject: Re: [patch v21 1/4] drivers: jtag: Add JTAG core driver
 To: Oleksandr Shamray <oleksandrs@mellanox.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Arnd Bergmann <arnd@arndb.de>, 
@@ -79,253 +78,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 May 2018 21:00:08 -0000
+X-List-Received-Date: Tue, 15 May 2018 21:21:40 -0000
 
 On Tue, May 15, 2018 at 5:21 PM, Oleksandr Shamray
 <oleksandrs@mellanox.com> wrote:
-> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
+> Initial patch for JTAG driver
+> JTAG class driver provide infrastructure to support hardware/software
+> JTAG platform drivers. It provide user layer API interface for flashing
+> and debugging external devices which equipped with JTAG interface
+> using standard transactions.
 >
-> Driver implements the following jtag ops:
-> - freq_get;
-> - freq_set;
-> - status_get;
-> - idle;
-> - xfer;
+> Driver exposes set of IOCTL to user space for:
+> - XFER:
+> - SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+> - SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+>   number of clocks).
+> - SIOCFREQ/GIOCFREQ for setting and reading JTAG frequency.
 >
-> It has been tested on Mellanox system with BMC equipped with
-> Aspeed 2520 SoC for programming CPLD devices.
+> Driver core provides set of internal APIs for allocation and
+> registration:
+> - jtag_register;
+> - jtag_unregister;
+> - jtag_alloc;
+> - jtag_free;
+>
+> Platform driver on registration with jtag-core creates the next
+> entry in dev folder:
+> /dev/jtagX
 
-> +#define ASPEED_JTAG_DATA               0x00
-> +#define ASPEED_JTAG_INST               0x04
-> +#define ASPEED_JTAG_CTRL               0x08
-> +#define ASPEED_JTAG_ISR                        0x0C
-> +#define ASPEED_JTAG_SW                 0x10
-> +#define ASPEED_JTAG_TCK                        0x14
-> +#define ASPEED_JTAG_EC                 0x18
-> +
-> +#define ASPEED_JTAG_DATA_MSB           0x01
-> +#define ASPEED_JTAG_DATA_CHUNK_SIZE    0x20
+>  0xB0   all     RATIO devices           in development:
+>                                         <mailto:vgo@ratio.de>
+>  0xB1   00-1F   PPPoX                   <mailto:mostrows@styx.uwaterloo.ca>
+> +0xB2   00-0f   linux/jtag.h            JTAG driver
+> +                                       <mailto:oleksandrs@mellanox.com>
 
+Consider to preserve style (upper vs. lower).
 
-> +#define ASPEED_JTAG_IOUT_LEN(len)      (ASPEED_JTAG_CTL_ENG_EN |\
-> +                                        ASPEED_JTAG_CTL_ENG_OUT_EN |\
-> +                                        ASPEED_JTAG_CTL_INST_LEN(len))
+> +         This provides basic core functionality support for JTAG class devices.
+> +         Hardware that is equipped with a JTAG microcontroller can be
+> +         supported by using this driver's interfaces.
+> +         This driver exposes a set of IOCTLs to the user space for
+> +         the following commands:
+> +         SDR: (Scan Data Register) Performs an IEEE 1149.1 Data Register scan
+> +         SIR: (Scan Instruction Register) Performs an IEEE 1149.1 Instruction
+> +         Register scan.
+> +         RUNTEST: Forces the IEEE 1149.1 bus to a run state for a specified
+> +         number of clocks or a specified time period.
 
-Better to read
+Something feels wrong with formatting here.
 
-#define MY_COOL_CONST_OR_MACRO(xxx) \
- ...
+> +#define MAX_JTAG_NAME_LEN (sizeof("jtag") + 5)
 
-> +#define ASPEED_JTAG_DOUT_LEN(len)      (ASPEED_JTAG_CTL_ENG_EN |\
-> +                                        ASPEED_JTAG_CTL_ENG_OUT_EN |\
-> +                                        ASPEED_JTAG_CTL_DATA_LEN(len))
+Interesting definition. Why not to set to 10 explicitly? And why 10?
+(16 sounds better)
 
-Ditto.
+> +struct jtag {
+> +       struct miscdevice miscdev;
 
-> +static char *end_status_str[] = {"idle", "ir pause", "drpause"};
+> +       struct device *dev;
 
-> +static int aspeed_jtag_freq_set(struct jtag *jtag, u32 freq)
+Doesn't miscdev parent contain exactly this one?
+
+> +       const struct jtag_ops *ops;
+> +       int id;
+> +       bool opened;
+> +       struct mutex open_lock;
+> +       unsigned long priv[0];
+> +};
+
+> +               err = copy_to_user(u64_to_user_ptr(xfer.tdio),
+> +                                  (void *)(xfer_data), data_size);
+
+Redundant parens in one case. Check the rest similar places.
+
+> +static int jtag_open(struct inode *inode, struct file *file)
 > +{
-> +       struct aspeed_jtag *aspeed_jtag = jtag_priv(jtag);
-> +       unsigned long apb_frq;
-> +       u32 tck_val;
-> +       u16 div;
-> +
-> +       apb_frq = clk_get_rate(aspeed_jtag->pclk);
 
-> +       div = (apb_frq % freq == 0) ? (apb_frq / freq) - 1 : (apb_frq / freq);
+> +       struct jtag *jtag = container_of(file->private_data, struct jtag,
+> +                                        miscdev);
 
-Isn't it the same as
+I would don't care about length and put it on one line.
 
-div = (apb_frq - 1) / freq;
+> +       if (jtag->opened) {
+> +       jtag->opened = true;
+> +       jtag->opened = false;
 
-?
+Can it be opened non exclusively several times? If so, this needs to
+be a ref counter instead.
 
-> +       tck_val = aspeed_jtag_read(aspeed_jtag, ASPEED_JTAG_TCK);
-> +       aspeed_jtag_write(aspeed_jtag,
-> +                         (tck_val & ASPEED_JTAG_TCK_DIVISOR_MASK) | div,
-> +                         ASPEED_JTAG_TCK);
-> +       return 0;
-> +}
+> +       if (!ops->idle || !ops->mode_set || !ops->status_get || !ops->xfer)
+> +               return NULL;
 
-> +static void aspeed_jtag_sw_delay(struct aspeed_jtag *aspeed_jtag, int cnt)
-> +{
-> +       int i;
-> +
-> +       for (i = 0; i < cnt; i++)
-> +               aspeed_jtag_read(aspeed_jtag, ASPEED_JTAG_SW);
+Are all of them mandatory?
 
-Isn't it readsl() (or how it's called, I don't remember).
+> +int jtag_register(struct jtag *jtag)
 
-> +}
+Perhaps devm_ variant.
 
-> +static void aspeed_jtag_wait_instruction_pause(struct aspeed_jtag *aspeed_jtag)
-> +{
-> +       wait_event_interruptible(aspeed_jtag->jtag_wq, aspeed_jtag->flag &
-> +                                ASPEED_JTAG_ISR_INST_PAUSE);
+> +#define jtag_u64_to_ptr(arg) ((void *)(uintptr_t)arg)
 
-In such cases I prefer to see a new line with a parameter in full.
-Check all places.
+Where is this used or supposed to be used?
 
-> +       aspeed_jtag->flag &= ~ASPEED_JTAG_ISR_INST_PAUSE;
-> +}
+> +#define JTAG_MAX_XFER_DATA_LEN 65535
 
-> +static void aspeed_jtag_sm_cycle(struct aspeed_jtag *aspeed_jtag, const u8 *tms,
-> +                                int len)
-> +{
-> +       int i;
-> +
-> +       for (i = 0; i < len; i++)
-> +               aspeed_jtag_tck_cycle(aspeed_jtag, tms[i], 0);
-> +}
-> +
-> +static void aspeed_jtag_run_test_idle_sw(struct aspeed_jtag *aspeed_jtag,
-> +                                        struct jtag_run_test_idle *runtest)
-> +{
-> +       static const u8 sm_pause_irpause[] = {1, 1, 1, 1, 0, 1, 0};
-> +       static const u8 sm_pause_drpause[] = {1, 1, 1, 0, 1, 0};
-> +       static const u8 sm_idle_irpause[] = {1, 1, 0, 1, 0};
-> +       static const u8 sm_idle_drpause[] = {1, 0, 1, 0};
-> +       static const u8 sm_pause_idle[] = {1, 1, 0};
-> +       int i;
-> +
-> +       /* SW mode from idle/pause-> to pause/idle */
-> +       if (runtest->reset) {
-> +               for (i = 0; i < ASPEED_JTAG_RESET_CNTR; i++)
-> +                       aspeed_jtag_tck_cycle(aspeed_jtag, 1, 0);
-> +       }
-
-I would rather split this big switch to a few helper functions per
-each status of surrounding switch.
-
-> +
-> +       /* Stay on IDLE for at least  TCK cycle */
-> +       for (i = 0; i < runtest->tck; i++)
-> +               aspeed_jtag_tck_cycle(aspeed_jtag, 0, 0);
-> +}
-
+Is this limitation from some spec?
+Otherwise why not to allow 64K?
 
 > +/**
-> + * aspeed_jtag_run_test_idle:
-> + * JTAG reset: generates at least 9 TMS high and 1 TMS low to force
-> + * devices into Run-Test/Idle State.
+> + * struct jtag_ops - callbacks for jtag control functions:
+> + *
+> + * @freq_get: get frequency function. Filled by device driver
+> + * @freq_set: set frequency function. Filled by device driver
+> + * @status_get: set status function. Filled by device driver
+> + * @idle: set JTAG to idle state function. Filled by device driver
+> + * @xfer: send JTAG xfer function. Filled by device driver
 > + */
 
-It's rather broken kernel doc.
-
-> +               aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_CTL_ENG_EN |
-> +                                 ASPEED_JTAG_CTL_ENG_OUT_EN |
-> +                                 ASPEED_JTAG_CTL_FORCE_TMS, ASPEED_JTAG_CTRL);
-
-> +               aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_EC_GO_IDLE,
-> +                                 ASPEED_JTAG_EC);
-
-> +       aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_SW_MODE_EN |
-> +                         ASPEED_JTAG_SW_MODE_TDIO, ASPEED_JTAG_SW);
-
-Here you have permutations of flag some of which are repeatetive in
-the code. Perhaps make additional definitions instead.
-Check other similar places.
-
-
-> +       char          tdo;
-
-Indentation.
-
-> +       if (xfer->direction == JTAG_READ_XFER)
-> +               tdi = UINT_MAX;
-> +       else
-> +               tdi = data[index];
-
-> +                       if (xfer->direction == JTAG_READ_XFER)
-> +                               tdi = UINT_MAX;
-> +                       else
-> +                               tdi = data[index];
-
-Take your time to think how the above duplication can be avoided.
-
-> +               }
-> +       }
-> +
-> +       tdo = aspeed_jtag_tck_cycle(aspeed_jtag, 1, tdi & ASPEED_JTAG_DATA_MSB);
-> +       data[index] |= tdo << (shift_bits % ASPEED_JTAG_DATA_CHUNK_SIZE);
-> +}
-
-
-> +       if (endstate != JTAG_STATE_IDLE) {
-
-Why not to use positive check?
-
-> +       int i;
-> +
-> +       for (i = 0; i <= xfer->length / BITS_PER_BYTE; i++) {
-> +               pos += snprintf(&dbg_str[pos], sizeof(dbg_str) - pos,
-> +                               "0x%02x ", xfer_data[i]);
-> +       }
-
-Oh, NO! Consider reading printk-formats (for %*ph) and other
-documentation about available APIs.
-
-> +       if (!(aspeed_jtag->mode & JTAG_XFER_HW_MODE)) {
-> +               /* SW mode */
-
-This is rather too complex to be in one function.
-
-> +       } else {
-
-> +               /* hw mode */
-> +               aspeed_jtag_write(aspeed_jtag, 0, ASPEED_JTAG_SW);
-> +               aspeed_jtag_xfer_hw(aspeed_jtag, xfer, data);
-
-For symmetry it might be another function.
-
-> +       }
-
-> +       dev_dbg(aspeed_jtag->dev, "status %x\n", status);
-
-Perhaps someone should become familiar with tracepoints?
-
-> +               dev_err(aspeed_jtag->dev, "irq status:%x\n",
-> +                       status);
-
-
-Huh, really?! SPAM.
-
-(I would drop it completely, though you may use ratelimited variant)
-
-> +               ret = IRQ_NONE;
-> +       }
-> +       return ret;
-> +}
-
-> +       clk_prepare_enable(aspeed_jtag->pclk);
-
-This might fail.
-
-> +       dev_dbg(&pdev->dev, "IRQ %d.\n", aspeed_jtag->irq);
-
-Noise even for debug.
-
-> +       err = jtag_register(jtag);
-
-Perhaps we might have devm_ variant of this. Check how SPI framework
-deal with a such.
-
-> +static int aspeed_jtag_remove(struct platform_device *pdev)
-> +{
-
-> +       struct jtag *jtag;
-> +
-> +       jtag = platform_get_drvdata(pdev);
-
-Usually we put this on one line
-
-> +       aspeed_jtag_deinit(pdev, jtag_priv(jtag));
-> +       jtag_unregister(jtag);
-> +       jtag_free(jtag);
-> +       return 0;
-> +}
-
+Perhaps you need to describe which of them are _really_ mandatory and
+which are optional.
 
 -- 
 With Best Regards,
