@@ -1,80 +1,73 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <andy.shevchenko@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
+ envelope-from=andy.shevchenko@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="KkZV71Z5"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40lpN93QFFzF27x
- for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 06:00:56 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w4FJx8Rq095955
- for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 16:00:52 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2j04wa3hk9-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 16:00:51 -0400
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Tue, 15 May 2018 14:00:50 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 15 May 2018 14:00:48 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w4FK0itO12517808; Tue, 15 May 2018 13:00:47 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8EAB313603C;
- Tue, 15 May 2018 14:00:47 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.41.172.201])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 78038136043;
- Tue, 15 May 2018 14:00:47 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id B0DF84EC649; Tue, 15 May 2018 15:00:45 -0500 (CDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Lei YU <mine260309@gmail.com>, Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: BMC Image Signing Proposal
-In-Reply-To: <CAARXrtn6M=tzE-yMJWN4yaSHZJUYksMT=vMvVymY0kvgQJ4bfQ@mail.gmail.com>
-References: <70e1d00f2f9abaea58ff3710d4fbcbff@linux.vnet.ibm.com>
- <7857d6b0-5c9b-63c1-4216-a737513a3f5a@yadro.com>
- <1517207425.21006.27.camel@aj.id.au> <87shaoymux.fsf@linux.vnet.ibm.com>
- <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
- <87lggezywe.fsf@linux.vnet.ibm.com>
- <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
- <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
- <874lm8pjd7.fsf@linux.vnet.ibm.com>
- <e1431b039c817b23b49b6f5833760152@linux.vnet.ibm.com>
- <CAARXrtn6M=tzE-yMJWN4yaSHZJUYksMT=vMvVymY0kvgQJ4bfQ@mail.gmail.com>
-Date: Tue, 15 May 2018 15:00:45 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40lqhR2ZMCzF2Fh
+ for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 07:00:03 +1000 (AEST)
+Received: by mail-qk0-x243.google.com with SMTP id a8-v6so1363918qkj.12
+ for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 14:00:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=j9sl9NJGrODU8bMiyN+yHAfwthgnEbsFVrH/Zmfi9R0=;
+ b=KkZV71Z5xoV4QZDJQ1rzL/UhryI8WsEKOPyFQ4islzJRYRDJhbaYkacn6VEgEiSCjN
+ ntrABx9gORtG3VRf1rHN6+DxiWbpDqQ25y/FLrqGnS/a75B4wvc8vBV+hJt9rPNXsjvV
+ JFgf34hkiKFXxzHAa0kI+ZV/Kf89MUPs5x3varxCignCCxZ3TZReuCinxiNqlSOWmqcm
+ wEwU+WNShgSb5YUiry19WDa2zwWgV63M6a1k0SpWH6bOPz3CxehxHB45O5cUtUg/5NSD
+ Nlu7tIRt/SvMgK6AX2HF4QmF0I9KVOVXDldWNSWd0psb7IlB7RYcAgElNws804WkujKH
+ oWXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=j9sl9NJGrODU8bMiyN+yHAfwthgnEbsFVrH/Zmfi9R0=;
+ b=aAjeBCFlpXZZ1y48nbJIhUTtTL7Si1BKNhh2qc1DJBrLdak04c5W4IUBFMjrT8w+yT
+ Z2UZpwWVvkAqkFRcBIH15cN9icZ4ryla/THxrXVec2sMIIYJr95TbcgmFI+7ac13mcMR
+ 9inmkMZOq46UbJqEHUBo8zkCkFvb3vIW8CMe/lrY/gQSO198tOj6nziUhtRTBwHMzDkg
+ 6AfaQ01p5tqk0FhLxL+Y68Ve/rw05ssuwQKP06E5tq5CCbOjq9wpegh0lFGmIcOlkaiA
+ LQ077diro48FF5wP6V0tYu9frQbqyRdG6D+1c+jOWlnihfHCUIqcU0xr9Nz/ZmjIprIP
+ 9C7A==
+X-Gm-Message-State: ALKqPwfW7ADsu67VyOen5wBB4ELSa4Ax1LVlfOHKQkoyA1oVDPQWHCbq
+ DHhI7qiUqw4JBKIRnPMNGC+CIr5Fvd6Fnyrw5aY=
+X-Google-Smtp-Source: AB8JxZrD4Esbm1ML4OnAxPQQHZJYl0aABKNU+3XNC+goOlYX2uVghu+yw/9nq7zuMgkdzDE62KbgTYBA4nhqj3BQZCk=
+X-Received: by 2002:a37:d1d3:: with SMTP id
+ o80-v6mr14384609qkl.3.1526418001153; 
+ Tue, 15 May 2018 14:00:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18051520-0020-0000-0000-00000DF04E44
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009030; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000260; SDB=6.01032792; UDB=6.00528030; IPR=6.00811924; 
- MB=3.00021131; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-15 20:00:49
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18051520-0021-0000-0000-00006163CDE5
-Message-Id: <871seczo2a.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-15_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805150196
+Received: by 10.12.152.150 with HTTP; Tue, 15 May 2018 14:00:00 -0700 (PDT)
+In-Reply-To: <1526394095-5069-3-git-send-email-oleksandrs@mellanox.com>
+References: <1526394095-5069-1-git-send-email-oleksandrs@mellanox.com>
+ <1526394095-5069-3-git-send-email-oleksandrs@mellanox.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 16 May 2018 00:00:00 +0300
+Message-ID: <CAHp75Ve7EYiWBiE73i0CmyJhPMOdSKsGzCr0SUvta3Uya=Ov1Q@mail.gmail.com>
+Subject: Re: [patch v21 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
+ families JTAG master driver
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>, 
+ devicetree <devicetree@vger.kernel.org>, openbmc@lists.ozlabs.org, 
+ Joel Stanley <joel@jms.id.au>,
+ =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
+ Tobias Klauser <tklauser@distanz.ch>, 
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ Vadim Pasternak <vadimp@mellanox.com>, 
+ system-sw-low-level@mellanox.com, Rob Herring <robh+dt@kernel.org>, 
+ openocd-devel-owner@lists.sourceforge.net, linux-api@vger.kernel.org, 
+ "David S. Miller" <davem@davemloft.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jiri Pirko <jiri@mellanox.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -86,28 +79,254 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 May 2018 20:00:58 -0000
+X-List-Received-Date: Tue, 15 May 2018 21:00:08 -0000
 
-Lei YU <mine260309@gmail.com> writes:
-> I'd like to bring this topic again.
+On Tue, May 15, 2018 at 5:21 PM, Oleksandr Shamray
+<oleksandrs@mellanox.com> wrote:
+> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
 >
-> As I know image signing feature is completed for both BMC and PNOR:
-> https://github.com/openbmc/phosphor-bmc-code-mgmt
-> https://github.com/openbmc/openpower-pnor-code-mgmt
+> Driver implements the following jtag ops:
+> - freq_get;
+> - freq_set;
+> - status_get;
+> - idle;
+> - xfer;
 >
-> However, the above repos are only for systems with UBI-FS feature.
-> Most of machines are still using the "legacy" obmc flash layout, and thus
-> they do not have image singing feature.
->
-> So I would like to ask for ideas about how to support image signing feature
-> for machines with "legacy" flash layout?
-> 1. Should we use UBI-FS for machines that requires image signing feature?
-> 2. Or should we implement image signing feature on "legacy" flash layout as
-> well?
+> It has been tested on Mellanox system with BMC equipped with
+> Aspeed 2520 SoC for programming CPLD devices.
 
-Either option is valid. I think we should get it gonig for non-UBI-FS
-systems though, and we should do that through the host
+> +#define ASPEED_JTAG_DATA               0x00
+> +#define ASPEED_JTAG_INST               0x04
+> +#define ASPEED_JTAG_CTRL               0x08
+> +#define ASPEED_JTAG_ISR                        0x0C
+> +#define ASPEED_JTAG_SW                 0x10
+> +#define ASPEED_JTAG_TCK                        0x14
+> +#define ASPEED_JTAG_EC                 0x18
+> +
+> +#define ASPEED_JTAG_DATA_MSB           0x01
+> +#define ASPEED_JTAG_DATA_CHUNK_SIZE    0x20
+
+
+> +#define ASPEED_JTAG_IOUT_LEN(len)      (ASPEED_JTAG_CTL_ENG_EN |\
+> +                                        ASPEED_JTAG_CTL_ENG_OUT_EN |\
+> +                                        ASPEED_JTAG_CTL_INST_LEN(len))
+
+Better to read
+
+#define MY_COOL_CONST_OR_MACRO(xxx) \
+ ...
+
+> +#define ASPEED_JTAG_DOUT_LEN(len)      (ASPEED_JTAG_CTL_ENG_EN |\
+> +                                        ASPEED_JTAG_CTL_ENG_OUT_EN |\
+> +                                        ASPEED_JTAG_CTL_DATA_LEN(len))
+
+Ditto.
+
+> +static char *end_status_str[] = {"idle", "ir pause", "drpause"};
+
+> +static int aspeed_jtag_freq_set(struct jtag *jtag, u32 freq)
+> +{
+> +       struct aspeed_jtag *aspeed_jtag = jtag_priv(jtag);
+> +       unsigned long apb_frq;
+> +       u32 tck_val;
+> +       u16 div;
+> +
+> +       apb_frq = clk_get_rate(aspeed_jtag->pclk);
+
+> +       div = (apb_frq % freq == 0) ? (apb_frq / freq) - 1 : (apb_frq / freq);
+
+Isn't it the same as
+
+div = (apb_frq - 1) / freq;
+
+?
+
+> +       tck_val = aspeed_jtag_read(aspeed_jtag, ASPEED_JTAG_TCK);
+> +       aspeed_jtag_write(aspeed_jtag,
+> +                         (tck_val & ASPEED_JTAG_TCK_DIVISOR_MASK) | div,
+> +                         ASPEED_JTAG_TCK);
+> +       return 0;
+> +}
+
+> +static void aspeed_jtag_sw_delay(struct aspeed_jtag *aspeed_jtag, int cnt)
+> +{
+> +       int i;
+> +
+> +       for (i = 0; i < cnt; i++)
+> +               aspeed_jtag_read(aspeed_jtag, ASPEED_JTAG_SW);
+
+Isn't it readsl() (or how it's called, I don't remember).
+
+> +}
+
+> +static void aspeed_jtag_wait_instruction_pause(struct aspeed_jtag *aspeed_jtag)
+> +{
+> +       wait_event_interruptible(aspeed_jtag->jtag_wq, aspeed_jtag->flag &
+> +                                ASPEED_JTAG_ISR_INST_PAUSE);
+
+In such cases I prefer to see a new line with a parameter in full.
+Check all places.
+
+> +       aspeed_jtag->flag &= ~ASPEED_JTAG_ISR_INST_PAUSE;
+> +}
+
+> +static void aspeed_jtag_sm_cycle(struct aspeed_jtag *aspeed_jtag, const u8 *tms,
+> +                                int len)
+> +{
+> +       int i;
+> +
+> +       for (i = 0; i < len; i++)
+> +               aspeed_jtag_tck_cycle(aspeed_jtag, tms[i], 0);
+> +}
+> +
+> +static void aspeed_jtag_run_test_idle_sw(struct aspeed_jtag *aspeed_jtag,
+> +                                        struct jtag_run_test_idle *runtest)
+> +{
+> +       static const u8 sm_pause_irpause[] = {1, 1, 1, 1, 0, 1, 0};
+> +       static const u8 sm_pause_drpause[] = {1, 1, 1, 0, 1, 0};
+> +       static const u8 sm_idle_irpause[] = {1, 1, 0, 1, 0};
+> +       static const u8 sm_idle_drpause[] = {1, 0, 1, 0};
+> +       static const u8 sm_pause_idle[] = {1, 1, 0};
+> +       int i;
+> +
+> +       /* SW mode from idle/pause-> to pause/idle */
+> +       if (runtest->reset) {
+> +               for (i = 0; i < ASPEED_JTAG_RESET_CNTR; i++)
+> +                       aspeed_jtag_tck_cycle(aspeed_jtag, 1, 0);
+> +       }
+
+I would rather split this big switch to a few helper functions per
+each status of surrounding switch.
+
+> +
+> +       /* Stay on IDLE for at least  TCK cycle */
+> +       for (i = 0; i < runtest->tck; i++)
+> +               aspeed_jtag_tck_cycle(aspeed_jtag, 0, 0);
+> +}
+
+
+> +/**
+> + * aspeed_jtag_run_test_idle:
+> + * JTAG reset: generates at least 9 TMS high and 1 TMS low to force
+> + * devices into Run-Test/Idle State.
+> + */
+
+It's rather broken kernel doc.
+
+> +               aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_CTL_ENG_EN |
+> +                                 ASPEED_JTAG_CTL_ENG_OUT_EN |
+> +                                 ASPEED_JTAG_CTL_FORCE_TMS, ASPEED_JTAG_CTRL);
+
+> +               aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_EC_GO_IDLE,
+> +                                 ASPEED_JTAG_EC);
+
+> +       aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_SW_MODE_EN |
+> +                         ASPEED_JTAG_SW_MODE_TDIO, ASPEED_JTAG_SW);
+
+Here you have permutations of flag some of which are repeatetive in
+the code. Perhaps make additional definitions instead.
+Check other similar places.
+
+
+> +       char          tdo;
+
+Indentation.
+
+> +       if (xfer->direction == JTAG_READ_XFER)
+> +               tdi = UINT_MAX;
+> +       else
+> +               tdi = data[index];
+
+> +                       if (xfer->direction == JTAG_READ_XFER)
+> +                               tdi = UINT_MAX;
+> +                       else
+> +                               tdi = data[index];
+
+Take your time to think how the above duplication can be avoided.
+
+> +               }
+> +       }
+> +
+> +       tdo = aspeed_jtag_tck_cycle(aspeed_jtag, 1, tdi & ASPEED_JTAG_DATA_MSB);
+> +       data[index] |= tdo << (shift_bits % ASPEED_JTAG_DATA_CHUNK_SIZE);
+> +}
+
+
+> +       if (endstate != JTAG_STATE_IDLE) {
+
+Why not to use positive check?
+
+> +       int i;
+> +
+> +       for (i = 0; i <= xfer->length / BITS_PER_BYTE; i++) {
+> +               pos += snprintf(&dbg_str[pos], sizeof(dbg_str) - pos,
+> +                               "0x%02x ", xfer_data[i]);
+> +       }
+
+Oh, NO! Consider reading printk-formats (for %*ph) and other
+documentation about available APIs.
+
+> +       if (!(aspeed_jtag->mode & JTAG_XFER_HW_MODE)) {
+> +               /* SW mode */
+
+This is rather too complex to be in one function.
+
+> +       } else {
+
+> +               /* hw mode */
+> +               aspeed_jtag_write(aspeed_jtag, 0, ASPEED_JTAG_SW);
+> +               aspeed_jtag_xfer_hw(aspeed_jtag, xfer, data);
+
+For symmetry it might be another function.
+
+> +       }
+
+> +       dev_dbg(aspeed_jtag->dev, "status %x\n", status);
+
+Perhaps someone should become familiar with tracepoints?
+
+> +               dev_err(aspeed_jtag->dev, "irq status:%x\n",
+> +                       status);
+
+
+Huh, really?! SPAM.
+
+(I would drop it completely, though you may use ratelimited variant)
+
+> +               ret = IRQ_NONE;
+> +       }
+> +       return ret;
+> +}
+
+> +       clk_prepare_enable(aspeed_jtag->pclk);
+
+This might fail.
+
+> +       dev_dbg(&pdev->dev, "IRQ %d.\n", aspeed_jtag->irq);
+
+Noise even for debug.
+
+> +       err = jtag_register(jtag);
+
+Perhaps we might have devm_ variant of this. Check how SPI framework
+deal with a such.
+
+> +static int aspeed_jtag_remove(struct platform_device *pdev)
+> +{
+
+> +       struct jtag *jtag;
+> +
+> +       jtag = platform_get_drvdata(pdev);
+
+Usually we put this on one line
+
+> +       aspeed_jtag_deinit(pdev, jtag_priv(jtag));
+> +       jtag_unregister(jtag);
+> +       jtag_free(jtag);
+> +       return 0;
+> +}
+
 
 -- 
-Stewart Smith
-OPAL Architect, IBM.
+With Best Regards,
+Andy Shevchenko
