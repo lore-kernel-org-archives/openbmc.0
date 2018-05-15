@@ -1,33 +1,34 @@
-Return-Path: <Avi.Fishman@nuvoton.com>
+Return-Path: <oleksandrs@mellanox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40lfhj2FqMzF2Ss
- for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 00:14:44 +1000 (AEST)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w4FDdfh4018930;
- Tue, 15 May 2018 16:39:41 +0300
-Received: by talu34.nuvoton.co.il (Postfix, from userid 8441)
- id AF06D5AA62; Tue, 15 May 2018 16:39:41 +0300 (IDT)
-From: avifishman70@gmail.com
-To: minyard@acm.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- openipmi-developer@lists.sourceforge.net, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-Cc: haiyue.wang@linux.intel.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
- Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v1 1/1] ipmi: NPCM7xx KCS BMC: enable interrupt to the host
-Date: Tue, 15 May 2018 16:38:34 +0300
-Message-Id: <1526391514-17746-2-git-send-email-avifishman70@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1526391514-17746-1-git-send-email-avifishman70@gmail.com>
-References: <1526391514-17746-1-git-send-email-avifishman70@gmail.com>
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 40lfrr1FhtzF2RZ
+ for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 00:21:46 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 15 May 2018 17:23:28 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w4FELbkH032466;
+ Tue, 15 May 2018 17:21:38 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v21 4/4] Documentation: jtag: Add ABI documentation
+Date: Tue, 15 May 2018 17:21:35 +0300
+Message-Id: <1526394095-5069-5-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
+In-Reply-To: <1526394095-5069-1-git-send-email-oleksandrs@mellanox.com>
+References: <1526394095-5069-1-git-send-email-oleksandrs@mellanox.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -39,72 +40,231 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 May 2018 14:14:46 -0000
+X-List-Received-Date: Tue, 15 May 2018 14:21:49 -0000
 
-From: Avi Fishman <AviFishman70@gmail.com>
+Added document that describe the ABI for JTAG class drivrer
 
-Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
+Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
+Acked-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/char/ipmi/kcs_bmc_npcm7xx.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+v19->v20
+Comments pointed by Randy Dunlap <rdunlap@infradead.org>
+- Fix JTAG doccumentation
 
-diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
-index 7bc898c5d372..5894561d061f 100644
---- a/drivers/char/ipmi/kcs_bmc_npcm7xx.c
-+++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
-@@ -37,7 +37,14 @@
- #define KCS1CTL		0x18
- #define KCS2CTL		0x2A
- #define KCS3CTL		0x3C
--#define    KCS_CTL_IBFIE	BIT(0)
+v18->v19
+Pavel Machek <pavel@ucw.cz>
+- Added JTAG doccumentation to Documentation/jtag
+
+v17->v18
+v16->v17
+v15->v16
+v14->v15
+v13->v14
+v12->v13
+v11->v12
+Tobias Klauser <tklauser@distanz.ch>
+- rename /Documentation/ABI/testing/jatg-dev -> jtag-dev
+- Typo: s/interfase/interface
+v10->v11
+v9->v10
+Fixes added by Oleksandr:
+- change jtag-cdev to jtag-dev in documentation
+- update Kernel Version and Date in jtag-dev documentation;
+v8->v9
+v7->v8
+v6->v7
+Comments pointed by Pavel Machek <pavel@ucw.cz>
+- Added jtag-cdev documentation to Documentation/ABI/testing folder
+---
+ Documentation/ABI/testing/jtag-dev |   27 +++++++++
+ Documentation/jtag/overview        |   28 +++++++++
+ Documentation/jtag/transactions    |  109 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 164 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jtag-dev
+ create mode 100644 Documentation/jtag/overview
+ create mode 100644 Documentation/jtag/transactions
+
+diff --git a/Documentation/ABI/testing/jtag-dev b/Documentation/ABI/testing/jtag-dev
+new file mode 100644
+index 0000000..4325316
+--- /dev/null
++++ b/Documentation/ABI/testing/jtag-dev
+@@ -0,0 +1,27 @@
++What:		/dev/jtag[0-9]+
++Date:		May 2018
++KernelVersion:	4.18
++Contact:	oleksandrs@mellanox.com
++Description:
++		The misc device files /dev/jtag* are the interface
++		between JTAG master interface and userspace.
 +
-+#define KCS1IE		0x1C
-+#define KCS2IE		0x2E
-+#define KCS3IE		0x40
++		The ioctl(2)-based ABI is defined and documented in
++		[include/uapi]<linux/jtag.h>.
 +
-+#define KCS_CTL_IBFIE	BIT(0)
-+#define KCS_IE_IRQE	BIT(0)
-+#define KCS_IE_HIRQE	BIT(3)
- 
- /*
-  * 7.2.4 Core KCS Registers
-@@ -48,12 +55,14 @@
-  * dob: KCS Channel n Data Out Buffer Register (KCSnDO).
-  * dib: KCS Channel n Data In Buffer Register (KCSnDI).
-  * ctl: KCS Channel n Control Register (KCSnCTL).
-+ * ie : KCS Channel n  Interrupt Enable Register (KCSnIE).
-  */
- struct npcm7xx_kcs_reg {
- 	u32 sts;
- 	u32 dob;
- 	u32 dib;
- 	u32 ctl;
-+	u32 ie;
- };
- 
- struct npcm7xx_kcs_bmc {
-@@ -63,9 +72,9 @@ struct npcm7xx_kcs_bmc {
- };
- 
- static const struct npcm7xx_kcs_reg npcm7xx_kcs_reg_tbl[KCS_CHANNEL_MAX] = {
--	{ .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL },
--	{ .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL },
--	{ .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL },
-+	{ .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL, .ie = KCS1IE },
-+	{ .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL, .ie = KCS2IE },
-+	{ .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL, .ie = KCS3IE },
- };
- 
- static u8 npcm7xx_kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
-@@ -95,6 +104,9 @@ static void npcm7xx_kcs_enable_channel(struct kcs_bmc *kcs_bmc, bool enable)
- 
- 	regmap_update_bits(priv->map, priv->reg->ctl, KCS_CTL_IBFIE,
- 			   enable ? KCS_CTL_IBFIE : 0);
++		The following file operations are supported:
 +
-+	regmap_update_bits(priv->map, priv->reg->ie, KCS_IE_IRQE | KCS_IE_HIRQE,
-+			   enable ? KCS_IE_IRQE | KCS_IE_HIRQE : 0);
- }
- 
- static irqreturn_t npcm7xx_kcs_irq(int irq, void *arg)
++		open(2)
++		The argument flag currently support only one access
++		mode O_RDWR.
++
++		ioctl(2)
++		Initiate various actions.
++		See the inline documentation in [include/uapi]<linux/jtag.h>
++		for descriptions of all ioctls.
++
++		close(2)
++		Stops and free up the I/O contexts that was associated
++		with the file descriptor.
++
++Users:		TBD
+diff --git a/Documentation/jtag/overview b/Documentation/jtag/overview
+new file mode 100644
+index 0000000..a86f188
+--- /dev/null
++++ b/Documentation/jtag/overview
+@@ -0,0 +1,28 @@
++Linux kernel JTAG support
++=========================
++
++The JTAG is an industry standard for verifying hardware
++JTAG provides access to many logic signals of a complex integrated circuit,
++including the device pins.
++
++A JTAG interface is a special interface added to a chip.
++Depending on the version of JTAG, two, four, or five pins are added.
++
++The connector pins are:
++	TDI (Test Data In)
++	TDO (Test Data Out)
++	TCK (Test Clock)
++	TMS (Test Mode Select)
++	TRST (Test Reset) optional.
++
++JTAG interface is designed to have two parts - basic core driver and
++hardware specific driver. The basic driver introduces a general interface
++which is not dependent of specific hardware. It provides communication
++between user space and hardware specific driver.
++Each JTAG device is represented as a char device from (jtag0, jtag1, ...).
++Access to a JTAG device is performed through IOCTL calls.
++
++Call flow example:
++User: open  -> /dev/jatgX
++User: ioctl -> /dev/jtagX -> JTAG core driver -> JTAG hw specific driver
++User: close -> /dev/jatgX
+diff --git a/Documentation/jtag/transactions b/Documentation/jtag/transactions
+new file mode 100644
+index 0000000..6a857c8
+--- /dev/null
++++ b/Documentation/jtag/transactions
+@@ -0,0 +1,109 @@
++The JTAG API
++=============
++
++JTAG master devices can be accessed through a character misc-device.
++Each JTAG master interface can be accessed by using /dev/jtagN
++
++JTAG system calls set:
++- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
++- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
++- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
++number of clocks.
++
++open(), close()
++-------
++open() opens JTAG device. Only one open operation per JTAG device
++can be performed. Two or more open for one device will return error
++
++Open/Close  device:
++- open("/dev/jtag0", O_RDWR);
++- close(jtag_fd');
++
++ioctl()
++-------
++All access operations to JTAG devices performed through ioctl interface.
++The IOCTL interface supports this requests:
++	JTAG_IOCRUNTEST - Force JTAG state machine to RUN_TEST/IDLE state
++	JTAG_SIOCFREQ - Set JTAG TCK frequency
++	JTAG_GIOCFREQ - Get JTAG TCK frequency
++	JTAG_IOCXFER - send JTAG data Xfer
++	JTAG_GIOCSTATUS - get current JTAG TAP status
++	JTAG_SIOCMODE - set JTAG mode flags.
++
++JTAG_SIOCFREQ, JTAG_GIOCFREQ
++------
++Set/Get JTAG clock speed:
++
++	unsigned int jtag_fd;
++	ioctl(jtag_fd, JTAG_SIOCFREQ, &frq);
++	ioctl(jtag_fd, JTAG_GIOCFREQ, &frq);
++
++JTAG_IOCRUNTEST
++------
++Force JTAG state machine to RUN_TEST/IDLE state
++
++struct jtag_run_test_idle {
++	__u8	reset;
++	__u8	endstate;
++	__u8	tck;
++};
++
++reset: 0 - run IDLE/PAUSE from current state
++	   1 - go through TEST_LOGIC/RESET state before  IDLE/PAUSE
++endstate: completion flag
++tck: clock counter
++
++Example:
++	struct jtag_run_test_idle runtest;
++
++	runtest.endstate = JTAG_STATE_IDLE;
++	runtest.reset = 0;
++	runtest.tck = data_p->tck;
++	usleep(25 * 1000);
++	ioctl(jtag_fd, JTAG_IOCRUNTEST, &runtest);
++
++JTAG_IOCXFER
++------
++Send SDR/SIR transaction
++
++struct jtag_xfer {
++	__u8	type;
++	__u8	direction;
++	__u8	endstate;
++	__u8	padding;
++	__u32	length;
++	__u64	tdio;
++};
++
++type: transfer type - JTAG_SIR_XFER/JTAG_SDR_XFER
++direction: xfer direction - JTAG_SIR_XFER/JTAG_SDR_XFER,
++length: xfer data len in bits
++tdio : xfer data array
++endstate: xfer end state after transaction finish
++	   can be: JTAG_STATE_IDLE/JTAG_STATE_PAUSEIR/JTAG_STATE_PAUSEDR
++
++Example:
++	struct jtag_xfer xfer;
++	static char buf[64];
++	static unsigned int buf_len = 0;
++	[...]
++	xfer.type = JTAG_SDR_XFER;
++	xfer.tdio = (__u64)buf;
++	xfer.length = buf_len;
++	xfer.endstate = JTAG_STATE_IDLE;
++
++	if (is_read)
++		xfer.direction = JTAG_READ_XFER;
++	else
++		xfer.direction = JTAG_WRITE_XFER;
++
++	ioctl(jtag_fd, JTAG_IOCXFER, &xfer);
++
++JTAG_SIOCMODE
++------
++If hw driver can support different running modes you can change it.
++
++Example:
++	unsigned int mode;
++	mode = JTAG_XFER_HW_MODE;
++	ioctl(jtag_fd, JTAG_SIOCMODE, &mode);
 -- 
-2.14.1
+1.7.1
