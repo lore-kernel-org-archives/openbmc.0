@@ -1,65 +1,64 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::235; helo=mail-it0-x235.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FBQW6JPw"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ERMpmzSq"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bNtb7oKX"; 
+ dkim-atps=neutral
+Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
+ [IPv6:2607:f8b0:4001:c0b::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40lLFQ3ylrzDrpY
- for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 11:53:29 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EE48D22373;
- Mon, 14 May 2018 21:53:23 -0400 (EDT)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Mon, 14 May 2018 21:53:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=LBqRdR/N9HuQ1PsIwFKlXyVucbfgb
- idwUdvQxQwY5Ko=; b=FBQW6JPwtR1wloCHQww5v/Men9Z75l1Brv1Q1ToOr8vQY
- Dl3mejLjjBmoHTJ6Pafhao3WBOTJXAuQavQzed/e6rSUABnc02LL4iB3NQH+uTi3
- cIh/Geph+yAHFmsF3rf6BfHz6Rm0XZGmNEjGdfUxzvS/JfJegrhkb1+aGkR2dIqs
- 63ZIGW2do9s7PMi0EggwQZaMu5EHt5Mil8+FZRnYKKXlPcHvnnbaJw7svj8KQT9/
- 4frM2iza5qkB8eTX5VQQN3OrfQ30mEYBD0gaw8bNLUHpJjHyjfXT16eOuBAu8zl7
- E74zCSKltudnlARaZHL/IlYugQejxE4hj1mwF69BQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=LBqRdR
- /N9HuQ1PsIwFKlXyVucbfgbidwUdvQxQwY5Ko=; b=ERMpmzSqLaKBopxyNuW92W
- 0+3t5LnSFMQ3RiRTlicnBRQI9MV6RpQ0LhBnDlqmM3fDrh/T/jESvBWxiKhYq6CV
- RwD63j4C8HJonvMjVC75tLn4Q0V2/pu2AT3khEsB22myQwurJ/9SUNGzY0I/+7ED
- 8EoW1Byl/JGggRBa3SwUXzhI1cJ08Q2RxNWIA8Dcb5kLaeeJH37dUUTxt11ZI4Dl
- kQ+Z52Z27ih2eIPWlWQHJagRxIeVZQHKF1P3TrYoyUTLcNGU+5G2FPh3CAycNxQa
- 9XXUVjx0c8Lj10RZZ8HWi8RNyNIhSkwsz9mtQ7JNKA9k2Zk/mfenADKuSrY6vKaA
- ==
-X-ME-Sender: <xms:kz36Wu89Cap1Azhy818B2abyeGL11SrXRZXTzTee8dvGDbTRViAbtQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 99B56422D; Mon, 14 May 2018 21:53:23 -0400 (EDT)
-Message-Id: <1526349203.3522551.1372178312.7B38A3F9@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Lei YU <mine260309@gmail.com>, Andres Oportus <andresoportus@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40lLLc2tQQzF37D
+ for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 11:57:59 +1000 (AEST)
+Received: by mail-it0-x235.google.com with SMTP id y189-v6so15326051itb.2
+ for <openbmc@lists.ozlabs.org>; Mon, 14 May 2018 18:57:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=wprIMFtWNdv0n43ZSaIzFDbVe4iZtDcTqewuicapnRM=;
+ b=bNtb7oKXtxt4X3AHhP9UNLpyGVU6tjod9wxssYU531aarowjrNmGQPildPdrEnuFDE
+ zk7u/RFG7rK8rXJCAqwer+iZKhtzGgx4yRqsaW0a/p2UeIwcOiFC643PcxxnqEA6qSjX
+ nASB4PRl0IaEmIY6q9pjyEBuZ7BYZYqxTmCyswDcxKUrKcrulEkbaPa9f78TbV9o6lbn
+ Q3gA2qi9QIDYrlVGToTPa70krdHjGnfJu12XaoJ+8yYYZnypRBaKSgctx6lbDdjaayo0
+ zCpX0xA+4Xo8+pIHK8i7RLHCqbuyFgYQaxBS0vBVReuD6geN47+fHp28oe6w4YCjteR1
+ PAjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=wprIMFtWNdv0n43ZSaIzFDbVe4iZtDcTqewuicapnRM=;
+ b=QLgXVZLNBQVnKd29ADMoKe2ly2vkkPG6LPSJxQtgg50zxkU3+gqn3//0+GboIchopU
+ ZZcAAjl6igyy2QPNJAYUwvKOAVaDQw7oQLnl/V5brJZrCKW+d/sPnTQimBTJsEUkJhFQ
+ iKERYTpEzueXI87L9+5QUQlY8qbi/hg2tk39ndxV0ZrmZtjjgHf49gUFj4gGau+a+q70
+ lhPqz1Y3vhSJCE30Hs2fKYo/NkjHHwdUqTIhAsA5IPOgiFYTo7ehf1DIqedAQrNfBOGr
+ baYbUAFNF243HBf5zNBFcZZRhaVZGt7iGBQKxba2N0G2dX4Gg0vTX4w/nt1bsUvifFrk
+ vifg==
+X-Gm-Message-State: ALKqPwf25k7LdQ9bcFLHYnvphhNTDuPA8U/AMItRnMK/PGdnaLwlWJVH
+ 5/C5UucmdTRJZsCZurXdx55eC534ve5Ze1yyeOU=
+X-Google-Smtp-Source: AB8JxZoX1lmbBT3sDC/8LYpeBnSaW122o++u6FqDwGMAnFK6Hy1+0/u4XYOdBxtrZCJZQNW0gFMnagE9fZadDbr31LM=
+X-Received: by 2002:a6b:11df:: with SMTP id
+ 92-v6mr12995769ior.156.1526349477751; 
+ Mon, 14 May 2018 18:57:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-29fe4c42
+Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Mon, 14 May 2018 18:57:57
+ -0700 (PDT)
+In-Reply-To: <1526349203.3522551.1372178312.7B38A3F9@webmail.messagingengine.com>
 References: <CAD5O4R24451=iRYh5M_Bokhj8wMAzPdGfj5XSzhU6CJ6cOqotA@mail.gmail.com>
  <1526339800.3484892.1372056960.17AECCFA@webmail.messagingengine.com>
  <CAD5O4R3f1u9Ptk0_rz12teQgmqNkucGpOWmU9EKNBmxdSYAMrg@mail.gmail.com>
  <CAARXrt=Pkddt03EVfwjZN9Qpp8No5LA5X6dqJ+MfU6_K+k-00Q@mail.gmail.com>
-In-Reply-To: <CAARXrt=Pkddt03EVfwjZN9Qpp8No5LA5X6dqJ+MfU6_K+k-00Q@mail.gmail.com>
-Date: Tue, 15 May 2018 11:23:23 +0930
+ <1526349203.3522551.1372178312.7B38A3F9@webmail.messagingengine.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Tue, 15 May 2018 09:57:57 +0800
+Message-ID: <CAARXrtkc86rh2WDbK9nAnfY0PPJS2BpSeQSJTLFf3Ccxzc3edQ@mail.gmail.com>
 Subject: Re: Question on States monitoring
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Andres Oportus <andresoportus@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,32 +70,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 May 2018 01:53:32 -0000
+X-List-Received-Date: Tue, 15 May 2018 01:58:01 -0000
 
-Hi Lei,
+On Tue, May 15, 2018 at 9:53 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Hi Lei,
+>
+> On Tue, 15 May 2018, at 11:19, Lei YU wrote:
+>> Hi Andres,
+>>
+>> The existing [phosphor-gpio-monitor][1] contains two services, one is for
+>> monitor gpio interrupts, the other is "phosphor-gpio-presence" that checks a
+>> gpio output and let it be some state on DBus.
+>>
+>> I guess the "presence" service is what you are looking for, that maps a
+>> gpio output to a Dbus object.
+>>
+>> The existing use case is:
+>> 1. Witherspoon checks if power supply is connected and create dbus object
+>>    /inventory/system/chassis/motherboard/powersupplyX, it also is able to
+>>    bind the kernel driver when it is attached.
+>> 2. Zaius checks if a PCIE card is connected on E2B and create dbus object
+>>    /inventory/system/chassis/pcie_card_e2b
+>>
+>> You can see a little detailed explanation at
+>> https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide.md#gpio-presence
+>
+> That porting guide looks like it has some interesting info, and I feel like we should probably make it part of the docs repository. Did you have any plans on integrating it?
 
-On Tue, 15 May 2018, at 11:19, Lei YU wrote:
-> Hi Andres,
-> 
-> The existing [phosphor-gpio-monitor][1] contains two services, one is for
-> monitor gpio interrupts, the other is "phosphor-gpio-presence" that checks a
-> gpio output and let it be some state on DBus.
-> 
-> I guess the "presence" service is what you are looking for, that maps a
-> gpio output to a Dbus object.
-> 
-> The existing use case is:
-> 1. Witherspoon checks if power supply is connected and create dbus object
->    /inventory/system/chassis/motherboard/powersupplyX, it also is able to
->    bind the kernel driver when it is attached.
-> 2. Zaius checks if a PCIE card is connected on E2B and create dbus object
->    /inventory/system/chassis/pcie_card_e2b
-> 
-> You can see a little detailed explanation at
-> https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide.md#gpio-presence
+Yup, I will submit to openbmc/doc (when it's somehow ready).
 
-That porting guide looks like it has some interesting info, and I feel like we should probably make it part of the docs repository. Did you have any plans on integrating it?
+This doc is my attempt to help system vendors to know OpenBMC and get it
+ported on their machine.
+And for now I have sent this to 2 or 3 vendors and ask for feedback.
 
-Cheers,
+It's not completed yet as I need to add one more page for some development
+tips, e.g. how to quickly modify a code and get it tested.
 
-Andrew
+>
+> Cheers,
+>
+> Andrew
