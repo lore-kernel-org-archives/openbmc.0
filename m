@@ -1,66 +1,29 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22c; helo=mail-it0-x22c.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="CHbx7mqP"; 
- dkim-atps=neutral
-Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
- [IPv6:2607:f8b0:4001:c0b::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40lcQq2Mv5zF2Xx
- for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 22:32:35 +1000 (AEST)
-Received: by mail-it0-x22c.google.com with SMTP id 144-v6so881601iti.5
- for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 05:32:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=yNR4eaKa1UeGEZH3UZMGYTNxvE77FOGmJI2ix/qFpuc=;
- b=CHbx7mqP5xRTRa2q5B9kNafsxO2cj9GOa0wQhUTp3qCKKUUr1jz7rN5TwSfhQ0p4R1
- zXRQf9b224hrYSs04R6CSIzS4JgWtgsO6Q3grITIofOGc48nQO+AwjScaKPNM/5axc/A
- XS+jpH6AiPgpg36uA7jNDb9CRaDx6E5viQYIMmetzgZUkAxC5KGLFq6C2jFG+xr7JVwY
- HgS7HrsZdAG9XnjsvQks0YkDFejwgpGnM/9YktsGXeDTv4Jyh1D2JlXsbzEFZJtFe654
- llaBmKWYPuBBt4YteuG/z18CpjLj15ouBHkvYotyt2iJf4FCQN/uOTS3HQyjPXiLb9bz
- 6jPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=yNR4eaKa1UeGEZH3UZMGYTNxvE77FOGmJI2ix/qFpuc=;
- b=jDKz6ryy+ZeJZAi3aqRBoHQl0y5DFH45Ht+Rju3a7jySSVRKxC8LzZL7totdifqrCe
- CitwBcOvII98+M3ibiPlwXLLkUs7BrxYIN6jYMarCe7+YyxsBPygY+KnQs7anD1Jt2Xr
- QU2P4cgfoqZlYK9u98I2wjnt9T58r78zmS/MwSMSKIL6QKHz6z+sgNwxsAFUAQEIBP3z
- yiaNtORF6kQ1mRc/N32W4SBLh0FANOdy1PbMHMtoLyANbxMzaxjuZtB6fZkjlAYyrcs3
- dgcfc0yiw3qcY7idy3fSG5KfOWkUSv2dtxpjQgR+pYQ1TYPuFWHNtmc3TYibDObL3HuW
- q+JA==
-X-Gm-Message-State: ALKqPwejXuK4SwclfQZSkk3SIrx3Spk2L7z+0l7RIJeAbBI7kfaCXU0t
- 9EqmhzO/MgJDDxA7FXM+/QQtTdlduYUtH1m1Tyw=
-X-Google-Smtp-Source: AB8JxZpRlPxqTI6kUNlL4PJE+1TcEIckbFe2D8q7nX1AzGv+OX3AL4D6XV/+g3fBdQ/UCsE5gV6fUllS27LrhsnQBHU=
-X-Received: by 2002:a24:aa4f:: with SMTP id
- y15-v6mr11412584iti.144.1526387552501; 
- Tue, 15 May 2018 05:32:32 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Tue, 15 May 2018 05:32:31
- -0700 (PDT)
-In-Reply-To: <CAD5O4R2j0E-5ROWW=4Zf4TzB428YOwraDvwcCvXJoLoaZ3SsBA@mail.gmail.com>
-References: <CAD5O4R24451=iRYh5M_Bokhj8wMAzPdGfj5XSzhU6CJ6cOqotA@mail.gmail.com>
- <1526339800.3484892.1372056960.17AECCFA@webmail.messagingengine.com>
- <CAD5O4R3f1u9Ptk0_rz12teQgmqNkucGpOWmU9EKNBmxdSYAMrg@mail.gmail.com>
- <CAARXrt=Pkddt03EVfwjZN9Qpp8No5LA5X6dqJ+MfU6_K+k-00Q@mail.gmail.com>
- <1526349203.3522551.1372178312.7B38A3F9@webmail.messagingengine.com>
- <CAARXrtkc86rh2WDbK9nAnfY0PPJS2BpSeQSJTLFf3Ccxzc3edQ@mail.gmail.com>
- <CAD5O4R2j0E-5ROWW=4Zf4TzB428YOwraDvwcCvXJoLoaZ3SsBA@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 15 May 2018 20:32:31 +0800
-Message-ID: <CAARXrtkovYbEp=F0f1bTJOnVP46TEOfPK7S3DzEO+DQkcEcmbg@mail.gmail.com>
-Subject: Re: Question on States monitoring
-To: Andres Oportus <andresoportus@google.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40ld9x4m2nzF27V
+ for <openbmc@lists.ozlabs.org>; Tue, 15 May 2018 23:06:29 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4FD5wMF006300;
+ Tue, 15 May 2018 08:05:59 -0500
+Message-ID: <d7c1b4c513fb4d2d96cb1ff3735b7b27c14d336e.camel@kernel.crashing.org>
+Subject: [PATCH linux dev-4.13] fsi/fsi-master-gpio: Delay sampling of FSI
+ data input
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: openbmc@lists.ozlabs.org
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Tue, 15 May 2018 23:05:58 +1000
 Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,11 +35,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 May 2018 12:32:36 -0000
+X-List-Received-Date: Tue, 15 May 2018 13:06:30 -0000
 
-> Thanks for info.  It seems that since both monitor and presence are
-> subclasses from Evdev they, at least in their current form, need GPIOs to
-> be setup as input (in the examples use /dev/input devices) with a driver
-> like gpio-keys, is this the case?
+Most SoC GPIO implementations, including the Aspeed one, have
+synchronizers on the GPIO inputs. This means that the value
+read from a GPIO is a couple of clocks old, from whatever clock
+source feeds those synchronizers.
 
-Yup, at this level they are the same, using the same driver.
+In practice, this means that in no-delay mode, we are using a
+value that can potentially be a bit too old and too close to
+the clock edge establishing the data on the other side of the link.
+
+The voltage converters we use on some systems make this worse
+and sensitive to things like voltage fluctuations etc... This is,
+we believe, the cause of occasional CRC errors encountered during
+heavy activity on the LPC bus.
+
+This is fixed by introducing a dummy GPIO read before the actual
+data read. It slows down SBEFIFO by about 15% (less than any delay
+primitive) and the end result is so far solid.
+
+Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+---
+ drivers/fsi/fsi-master-gpio.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index 98700eac16fd..36a71efd802c 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -98,6 +98,11 @@ static int sda_clock_in(struct fsi_master_gpio *master)
+ 	if (!master->no_delays)
+ 		ndelay(FSI_GPIO_STD_DLY);
+ 	gpiod_set_value(master->gpio_clk, 0);
++
++	/* Dummy read to feed the synchronizers */
++	gpiod_get_value(master->gpio_data);
++
++	/* Actual data read */
+ 	in = gpiod_get_value(master->gpio_data);
+ 	if (!master->no_delays)
+ 		ndelay(FSI_GPIO_STD_DLY);
