@@ -1,48 +1,72 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <cbostic@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40mK2J1CLfzF15L
- for <openbmc@lists.ozlabs.org>; Thu, 17 May 2018 02:02:13 +1000 (AEST)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 May 2018 09:02:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,406,1520924400"; d="scan'208";a="56436370"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.73])
- by orsmga001.jf.intel.com with ESMTP; 16 May 2018 09:02:09 -0700
-Date: Wed, 16 May 2018 09:02:09 -0700
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Yugi Mani <yupalani@microsoft.com>
-Cc: Lei YU <mine260309@gmail.com>, Adriana Kobylak <anoo@linux.vnet.ibm.com>,
- Stewart Smith <stewart@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: BMC Image Signing Proposal
-Message-ID: <20180516160209.GB105329@mauery>
-References: <1517207425.21006.27.camel@aj.id.au>
- <87shaoymux.fsf@linux.vnet.ibm.com>
- <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
- <87lggezywe.fsf@linux.vnet.ibm.com>
- <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
- <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
- <874lm8pjd7.fsf@linux.vnet.ibm.com>
- <e1431b039c817b23b49b6f5833760152@linux.vnet.ibm.com>
- <CAARXrtn6M=tzE-yMJWN4yaSHZJUYksMT=vMvVymY0kvgQJ4bfQ@mail.gmail.com>
- <MWHPR21MB0864432C6CB8EF9A575589B0D6930@MWHPR21MB0864.namprd21.prod.outlook.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40mLSC1J22zF14h
+ for <openbmc@lists.ozlabs.org>; Thu, 17 May 2018 03:06:18 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w4GH5U9u100848
+ for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 13:06:16 -0400
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2j0pycndce-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 13:06:15 -0400
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 16 May 2018 11:06:15 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 16 May 2018 11:06:12 -0600
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w4GH6C0212976390; Wed, 16 May 2018 10:06:12 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 078C6C603C;
+ Wed, 16 May 2018 11:06:12 -0600 (MDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.85.200.247])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 85886C604F;
+ Wed, 16 May 2018 11:06:11 -0600 (MDT)
+Subject: Re: [PATCH linux dev-4.13] fsi/fsi-master-gpio: Delay sampling of FSI
+ data input
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
+References: <d7c1b4c513fb4d2d96cb1ff3735b7b27c14d336e.camel@kernel.crashing.org>
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Wed, 16 May 2018 12:06:10 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <MWHPR21MB0864432C6CB8EF9A575589B0D6930@MWHPR21MB0864.namprd21.prod.outlook.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+In-Reply-To: <d7c1b4c513fb4d2d96cb1ff3735b7b27c14d336e.camel@kernel.crashing.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18051617-8235-0000-0000-00000D82F0C4
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009035; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000260; SDB=6.01033214; UDB=6.00528282; IPR=6.00812346; 
+ MB=3.00021148; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-16 17:06:13
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18051617-8236-0000-0000-000040FDCA42
+Message-Id: <6932c776-5297-d477-0980-a794aaae637f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-05-16_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1805160170
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,52 +78,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 May 2018 16:02:16 -0000
+X-List-Received-Date: Wed, 16 May 2018 17:06:19 -0000
 
-On 15-May-2018 06:18 PM, Yugi Mani wrote:
->Good point. We at MSFT are using legacy (non-UBI) layout. We have a manifest for boot verification and we append the hash to image for update verification.
->I can share details about the design/implementation, if you have any specific questions.
+Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 
-At Intel, we are using a legacy layout as well, either ping-ponging 
-between partitions or using a active/temp/recovery partition scheme 
-depending on the secure boot mechanism for that platform.
 
---Vernon
-
->> -----Original Message-----
->> From: openbmc <openbmc-
->> bounces+yupalani=microsoft.com@lists.ozlabs.org> On Behalf Of Lei YU
->> Sent: Monday, May 14, 2018 7:06 PM
->> To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
->> Cc: Stewart Smith <stewart@linux.vnet.ibm.com>; OpenBMC Maillist
->> <openbmc@lists.ozlabs.org>
->> Subject: Re: BMC Image Signing Proposal
->>
->> I'd like to bring this topic again.
->>
->> As I know image signing feature is completed for both BMC and PNOR:
->> https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit
->> hub.com%2Fopenbmc%2Fphosphor-bmc-code-
->> mgmt&data=02%7C01%7Cyupalani%40microsoft.com%7C12f250ae199b4
->> 32be89a08d5ba089773%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C
->> 0%7C636619468424007343&sdata=GHBBgm9g9kBpfNAzYxgveFoGWXXl1
->> QOr8fHwZNJNvNA%3D&reserved=0
->> https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit
->> hub.com%2Fopenbmc%2Fopenpower-pnor-code-
->> mgmt&data=02%7C01%7Cyupalani%40microsoft.com%7C12f250ae199b4
->> 32be89a08d5ba089773%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C
->> 0%7C636619468424007343&sdata=CR2o%2FgVnHPfMr7w8fwOYeRsbOdF
->> B3VMiB%2FFUCnE2aHE%3D&reserved=0
->>
->> However, the above repos are only for systems with UBI-FS feature.
->> Most of machines are still using the "legacy" obmc flash layout, and thus
->> they do not have image singing feature.
->>
->> So I would like to ask for ideas about how to support image signing
->> feature for machines with "legacy" flash layout?
->> 1. Should we use UBI-FS for machines that requires image signing
->> feature?
->> 2. Or should we implement image signing feature on "legacy" flash layout
->> as well?
->>
->> Thanks!
+On 5/15/18 8:05 AM, Benjamin Herrenschmidt wrote:
+> Most SoC GPIO implementations, including the Aspeed one, have
+> synchronizers on the GPIO inputs. This means that the value
+> read from a GPIO is a couple of clocks old, from whatever clock
+> source feeds those synchronizers.
+>
+> In practice, this means that in no-delay mode, we are using a
+> value that can potentially be a bit too old and too close to
+> the clock edge establishing the data on the other side of the link.
+>
+> The voltage converters we use on some systems make this worse
+> and sensitive to things like voltage fluctuations etc... This is,
+> we believe, the cause of occasional CRC errors encountered during
+> heavy activity on the LPC bus.
+>
+> This is fixed by introducing a dummy GPIO read before the actual
+> data read. It slows down SBEFIFO by about 15% (less than any delay
+> primitive) and the end result is so far solid.
+>
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> ---
+>   drivers/fsi/fsi-master-gpio.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index 98700eac16fd..36a71efd802c 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -98,6 +98,11 @@ static int sda_clock_in(struct fsi_master_gpio *master)
+>   	if (!master->no_delays)
+>   		ndelay(FSI_GPIO_STD_DLY);
+>   	gpiod_set_value(master->gpio_clk, 0);
+> +
+> +	/* Dummy read to feed the synchronizers */
+> +	gpiod_get_value(master->gpio_data);
+> +
+> +	/* Actual data read */
+>   	in = gpiod_get_value(master->gpio_data);
+>   	if (!master->no_delays)
+>   		ndelay(FSI_GPIO_STD_DLY);
+>
