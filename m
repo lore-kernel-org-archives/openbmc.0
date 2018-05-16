@@ -1,72 +1,56 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
+Return-Path: <rdunlap@infradead.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=infradead.org
+ (client-ip=2001:8b0:10b:1231::1; helo=merlin.infradead.org;
+ envelope-from=rdunlap@infradead.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=infradead.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=infradead.org header.i=@infradead.org
+ header.b="G79USmIY"; dkim-atps=neutral
+Received: from merlin.infradead.org (merlin.infradead.org
+ [IPv6:2001:8b0:10b:1231::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40mLSC1J22zF14h
- for <openbmc@lists.ozlabs.org>; Thu, 17 May 2018 03:06:18 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w4GH5U9u100848
- for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 13:06:16 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2j0pycndce-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 13:06:15 -0400
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Wed, 16 May 2018 11:06:15 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 16 May 2018 11:06:12 -0600
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w4GH6C0212976390; Wed, 16 May 2018 10:06:12 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 078C6C603C;
- Wed, 16 May 2018 11:06:12 -0600 (MDT)
-Received: from christophersmbp.austin.ibm.com (unknown [9.85.200.247])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 85886C604F;
- Wed, 16 May 2018 11:06:11 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.13] fsi/fsi-master-gpio: Delay sampling of FSI
- data input
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
-References: <d7c1b4c513fb4d2d96cb1ff3735b7b27c14d336e.camel@kernel.crashing.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Wed, 16 May 2018 12:06:10 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40mN2H3KKqzF13r
+ for <openbmc@lists.ozlabs.org>; Thu, 17 May 2018 04:17:27 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=6Y6c67k9kyU5Q59nxU0aSYRDClWz6O8+lcVVx7dufFY=; b=G79USmIYMJvPHEXFUJUX1DesO3
+ NBV6vqygR5ATW2BZeQwFDAe9eHTV+jKt95A2qL40ODfeb+4vNhtzcGh7AW1kWkAvHrb6R4gb4/vWw
+ FiSgB+EoWPS/+PPGtaRUWsefdJg8+uwnyl8GaEfPjm35lNx86qgjXo9g7Tp7ZvypBl4OqVeQ9IJgR
+ 2a6SqU2qrMhmwoKgB7SNojEU+kFNK6NNikvIUs5qTEV/Xa3TMUmnCah9VKbg9sFU9+rUB1z5t9fL0
+ 44ZsNTp4hf4l4QwLrmlaHDVenqdRmAu4CLnO+mtsnjPerx3ae2bbZUxpa5gwzpt5ZHwpvjHPck7ch
+ xSB88TyQ==;
+Received: from static-50-53-52-16.bvtn.or.frontiernet.net ([50.53.52.16]
+ helo=midway.dunlab)
+ by merlin.infradead.org with esmtpsa (Exim 4.90_1 #2 (Red Hat Linux))
+ id 1fJ0yy-0002ik-SB; Wed, 16 May 2018 18:17:01 +0000
+Subject: Re: [patch v21 4/4] Documentation: jtag: Add ABI documentation
+To: Oleksandr Shamray <oleksandrs@mellanox.com>, gregkh@linuxfoundation.org,
+ arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com, robh+dt@kernel.org,
+ openocd-devel-owner@lists.sourceforge.net, linux-api@vger.kernel.org,
+ davem@davemloft.net, mchehab@kernel.org
+References: <1526394095-5069-1-git-send-email-oleksandrs@mellanox.com>
+ <1526394095-5069-5-git-send-email-oleksandrs@mellanox.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <31c3b10e-7f8a-f997-4942-aed533d8801b@infradead.org>
+Date: Wed, 16 May 2018 11:16:54 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.7.0
 MIME-Version: 1.0
-In-Reply-To: <d7c1b4c513fb4d2d96cb1ff3735b7b27c14d336e.camel@kernel.crashing.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <1526394095-5069-5-git-send-email-oleksandrs@mellanox.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18051617-8235-0000-0000-00000D82F0C4
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009035; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000260; SDB=6.01033214; UDB=6.00528282; IPR=6.00812346; 
- MB=3.00021148; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-16 17:06:13
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18051617-8236-0000-0000-000040FDCA42
-Message-Id: <6932c776-5297-d477-0980-a794aaae637f@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-16_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805160170
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -78,49 +62,193 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 May 2018 17:06:19 -0000
+X-List-Received-Date: Wed, 16 May 2018 18:17:28 -0000
 
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-
-
-On 5/15/18 8:05 AM, Benjamin Herrenschmidt wrote:
-> Most SoC GPIO implementations, including the Aspeed one, have
-> synchronizers on the GPIO inputs. This means that the value
-> read from a GPIO is a couple of clocks old, from whatever clock
-> source feeds those synchronizers.
->
-> In practice, this means that in no-delay mode, we are using a
-> value that can potentially be a bit too old and too close to
-> the clock edge establishing the data on the other side of the link.
->
-> The voltage converters we use on some systems make this worse
-> and sensitive to things like voltage fluctuations etc... This is,
-> we believe, the cause of occasional CRC errors encountered during
-> heavy activity on the LPC bus.
->
-> This is fixed by introducing a dummy GPIO read before the actual
-> data read. It slows down SBEFIFO by about 15% (less than any delay
-> primitive) and the end result is so far solid.
->
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+On 05/15/2018 07:21 AM, Oleksandr Shamray wrote:
+> Added document that describe the ABI for JTAG class drivrer
+> 
 > ---
->   drivers/fsi/fsi-master-gpio.c | 5 +++++
->   1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index 98700eac16fd..36a71efd802c 100644
-> --- a/drivers/fsi/fsi-master-gpio.c
-> +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -98,6 +98,11 @@ static int sda_clock_in(struct fsi_master_gpio *master)
->   	if (!master->no_delays)
->   		ndelay(FSI_GPIO_STD_DLY);
->   	gpiod_set_value(master->gpio_clk, 0);
+>  Documentation/ABI/testing/jtag-dev |   27 +++++++++
+>  Documentation/jtag/overview        |   28 +++++++++
+>  Documentation/jtag/transactions    |  109 ++++++++++++++++++++++++++++++++++++
+>  3 files changed, 164 insertions(+), 0 deletions(-)
+>  create mode 100644 Documentation/ABI/testing/jtag-dev
+>  create mode 100644 Documentation/jtag/overview
+>  create mode 100644 Documentation/jtag/transactions
+> 
+
+> diff --git a/Documentation/jtag/overview b/Documentation/jtag/overview
+> new file mode 100644
+> index 0000000..a86f188
+> --- /dev/null
+> +++ b/Documentation/jtag/overview
+> @@ -0,0 +1,28 @@
+> +Linux kernel JTAG support
+> +=========================
 > +
-> +	/* Dummy read to feed the synchronizers */
-> +	gpiod_get_value(master->gpio_data);
+> +The JTAG is an industry standard for verifying hardware
+
+   JTAG is an industry standard for verifying hardware.
+
+> +JTAG provides access to many logic signals of a complex integrated circuit,
+> +including the device pins.
 > +
-> +	/* Actual data read */
->   	in = gpiod_get_value(master->gpio_data);
->   	if (!master->no_delays)
->   		ndelay(FSI_GPIO_STD_DLY);
->
+> +A JTAG interface is a special interface added to a chip.
+> +Depending on the version of JTAG, two, four, or five pins are added.
+> +
+> +The connector pins are:
+> +	TDI (Test Data In)
+> +	TDO (Test Data Out)
+> +	TCK (Test Clock)
+> +	TMS (Test Mode Select)
+> +	TRST (Test Reset) optional.
+> +
+> +JTAG interface is designed to have two parts - basic core driver and
+> +hardware specific driver. The basic driver introduces a general interface
+> +which is not dependent of specific hardware. It provides communication
+> +between user space and hardware specific driver.
+> +Each JTAG device is represented as a char device from (jtag0, jtag1, ...).
+> +Access to a JTAG device is performed through IOCTL calls.
+> +
+> +Call flow example:
+> +User: open  -> /dev/jatgX
+> +User: ioctl -> /dev/jtagX -> JTAG core driver -> JTAG hw specific driver
+
+                                                    JTAG hardware specific driver
+
+> +User: close -> /dev/jatgX
+> diff --git a/Documentation/jtag/transactions b/Documentation/jtag/transactions
+> new file mode 100644
+> index 0000000..6a857c8
+> --- /dev/null
+> +++ b/Documentation/jtag/transactions
+> @@ -0,0 +1,109 @@
+> +The JTAG API
+> +=============
+> +
+> +JTAG master devices can be accessed through a character misc-device.
+> +Each JTAG master interface can be accessed by using /dev/jtagN
+
+                                                       /dev/jtagN.
+
+> +
+> +JTAG system calls set:
+> +- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
+> +- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
+> +- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+> +number of clocks.
+> +
+> +open(), close()
+> +-------
+> +open() opens JTAG device. Only one open operation per JTAG device
+> +can be performed. Two or more open for one device will return error
+
+                                                     will return error.
+
+> +
+> +Open/Close  device:
+> +- open("/dev/jtag0", O_RDWR);
+> +- close(jtag_fd');
+
+     close(jtag_fd);
+
+> +
+> +ioctl()
+> +-------
+> +All access operations to JTAG devices performed through ioctl interface.
+> +The IOCTL interface supports this requests:
+
+                                these requests:
+
+> +	JTAG_IOCRUNTEST - Force JTAG state machine to RUN_TEST/IDLE state
+> +	JTAG_SIOCFREQ - Set JTAG TCK frequency
+> +	JTAG_GIOCFREQ - Get JTAG TCK frequency
+> +	JTAG_IOCXFER - send JTAG data Xfer
+> +	JTAG_GIOCSTATUS - get current JTAG TAP status
+> +	JTAG_SIOCMODE - set JTAG mode flags.
+> +
+> +JTAG_SIOCFREQ, JTAG_GIOCFREQ
+> +------
+> +Set/Get JTAG clock speed:
+> +
+> +	unsigned int jtag_fd;
+> +	ioctl(jtag_fd, JTAG_SIOCFREQ, &frq);
+> +	ioctl(jtag_fd, JTAG_GIOCFREQ, &frq);
+> +
+> +JTAG_IOCRUNTEST
+> +------
+> +Force JTAG state machine to RUN_TEST/IDLE state
+> +
+> +struct jtag_run_test_idle {
+> +	__u8	reset;
+> +	__u8	endstate;
+> +	__u8	tck;
+> +};
+> +
+> +reset: 0 - run IDLE/PAUSE from current state
+> +	   1 - go through TEST_LOGIC/RESET state before  IDLE/PAUSE
+> +endstate: completion flag
+> +tck: clock counter
+> +
+> +Example:
+> +	struct jtag_run_test_idle runtest;
+> +
+> +	runtest.endstate = JTAG_STATE_IDLE;
+> +	runtest.reset = 0;
+> +	runtest.tck = data_p->tck;
+> +	usleep(25 * 1000);
+> +	ioctl(jtag_fd, JTAG_IOCRUNTEST, &runtest);
+> +
+> +JTAG_IOCXFER
+> +------
+> +Send SDR/SIR transaction
+> +
+> +struct jtag_xfer {
+> +	__u8	type;
+> +	__u8	direction;
+> +	__u8	endstate;
+> +	__u8	padding;
+> +	__u32	length;
+> +	__u64	tdio;
+> +};
+> +
+> +type: transfer type - JTAG_SIR_XFER/JTAG_SDR_XFER
+> +direction: xfer direction - JTAG_SIR_XFER/JTAG_SDR_XFER,
+> +length: xfer data len in bits
+> +tdio : xfer data array
+> +endstate: xfer end state after transaction finish
+> +	   can be: JTAG_STATE_IDLE/JTAG_STATE_PAUSEIR/JTAG_STATE_PAUSEDR
+> +
+> +Example:
+> +	struct jtag_xfer xfer;
+> +	static char buf[64];
+> +	static unsigned int buf_len = 0;
+> +	[...]
+> +	xfer.type = JTAG_SDR_XFER;
+> +	xfer.tdio = (__u64)buf;
+> +	xfer.length = buf_len;
+> +	xfer.endstate = JTAG_STATE_IDLE;
+> +
+> +	if (is_read)
+> +		xfer.direction = JTAG_READ_XFER;
+> +	else
+> +		xfer.direction = JTAG_WRITE_XFER;
+> +
+> +	ioctl(jtag_fd, JTAG_IOCXFER, &xfer);
+> +
+> +JTAG_SIOCMODE
+> +------
+> +If hw driver can support different running modes you can change it.
+
+   If hardware driver
+
+> +
+> +Example:
+> +	unsigned int mode;
+> +	mode = JTAG_XFER_HW_MODE;
+> +	ioctl(jtag_fd, JTAG_SIOCMODE, &mode);
+> 
+
+
+-- 
+~Randy
