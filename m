@@ -1,103 +1,61 @@
-Return-Path: <yupalani@microsoft.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=microsoft.com
- (client-ip=104.47.38.104; helo=nam02-bl2-obe.outbound.protection.outlook.com;
- envelope-from=yupalani@microsoft.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none)
- header.from=microsoft.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=microsoft.com header.i=@microsoft.com
- header.b="OnNa0ciJ"; dkim-atps=neutral
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-bl2nam02on0104.outbound.protection.outlook.com [104.47.38.104])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40n3GW3gkGzF26F
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 06:45:22 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1gMY5sfNi/tVuH8D50PiYEI65S6Gk2Zrrvr0EhvsWrI=;
- b=OnNa0ciJtYmOT+DtY8HbjOfaJLNnYrizAUuKXERfcvriCbIxMOyjU4bh0nM+Vu4h2YyWb6WsUM++CCmCZkezcPV8kacaH3P0a8+LClx+PZt/1yAHhsAemAeoqelXAZ1Z2/pBdSU5hz6yqvbtwcUMoxadwPmkSO9/qWFKRGNqUJg=
-Received: from MWHPR21MB0864.namprd21.prod.outlook.com (10.173.51.146) by
- MWHPR21MB0160.namprd21.prod.outlook.com (10.173.52.18) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.797.3; Thu, 17 May 2018 20:45:16 +0000
-Received: from MWHPR21MB0864.namprd21.prod.outlook.com
- ([fe80::b85a:5aef:f32a:d034]) by MWHPR21MB0864.namprd21.prod.outlook.com
- ([fe80::b85a:5aef:f32a:d034%6]) with mapi id 15.20.0797.007; Thu, 17 May 2018
- 20:45:16 +0000
-From: Yugi Mani <yupalani@microsoft.com>
-To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
- "ed.tanous@intel.com" <ed.tanous@intel.com>, "openbmc@lists.ozlabs.org"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40n46L1jh9zF284
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 07:23:11 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 May 2018 14:23:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,412,1520924400"; 
+ d="scan'208,217";a="200301195"
+Received: from orsmsx102.amr.corp.intel.com ([10.22.225.129])
+ by orsmga004.jf.intel.com with ESMTP; 17 May 2018 14:23:05 -0700
+Received: from orsmsx111.amr.corp.intel.com (10.22.240.12) by
+ ORSMSX102.amr.corp.intel.com (10.22.225.129) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Thu, 17 May 2018 14:23:04 -0700
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.24]) by
+ ORSMSX111.amr.corp.intel.com ([169.254.12.244]) with mapi id 14.03.0319.002;
+ Thu, 17 May 2018 14:23:04 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Yugi Mani <yupalani@microsoft.com>, "Michael.E.Brown@dell.com"
+ <Michael.E.Brown@dell.com>, "openbmc@lists.ozlabs.org"
  <openbmc@lists.ozlabs.org>, "Paul.Vancil@dell.com" <Paul.Vancil@dell.com>,
  "hramasub@in.ibm.com" <hramasub@in.ibm.com>, "Balaji.B.Rao@dell.com"
  <Balaji.B.Rao@dell.com>, "bradleyb@fuzziesquirrel.com"
  <bradleyb@fuzziesquirrel.com>, "pradeep.kumar36@tcs.com"
  <pradeep.kumar36@tcs.com>, "rolfb@us.ibm.com" <rolfb@us.ibm.com>, Chris Ong
  <Chris.Ong@microsoft.com>, Ali Larijani <alirhas@microsoft.com>
-Subject: RE: Meeting Minutes 5/14 -- RE: OpenBMC Redfish working group working
- call
+Subject: RE: Meeting Minutes 5/14 -- RE: OpenBMC Redfish working group
+ working call
 Thread-Topic: Meeting Minutes 5/14 -- RE: OpenBMC Redfish working group
  working call
-Thread-Index: AdPsYkRv1Xl4DXIGTxCVOcJsabY0fQBvTmKA
-Date: Thu, 17 May 2018 20:45:16 +0000
-Message-ID: <MWHPR21MB086447F0749C77694C01B331D6910@MWHPR21MB0864.namprd21.prod.outlook.com>
+Thread-Index: AdPsYkRv1Xl4DXIGTxCVOcJsabY0fQBvTmKAAAE0gxA=
+Date: Thu, 17 May 2018 21:23:04 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169933A0B9D1A@ORSMSX114.amr.corp.intel.com>
 References: <0af13b580c2e4930a98204349822a82b@ausx13mps334.AMER.DELL.COM>
-In-Reply-To: <0af13b580c2e4930a98204349822a82b@ausx13mps334.AMER.DELL.COM>
+ <MWHPR21MB086447F0749C77694C01B331D6910@MWHPR21MB0864.namprd21.prod.outlook.com>
+In-Reply-To: <MWHPR21MB086447F0749C77694C01B331D6910@MWHPR21MB0864.namprd21.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=True;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Owner=yupalani@microsoft.com; 
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2018-05-17T20:45:14.7274583Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=General;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Application=Microsoft Azure
- Information Protection;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Extended_MSFT_Method=Automatic;
- Sensitivity=General
-x-originating-ip: [2001:4898:80e8:e::83]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR21MB0160;
- 7:F6u4nfCEUkYPP3UDqVHqSXECdG2VuZSmWLKCOXK+pXLhEWOWU3X8deuMZWm9Eev/IVlsRV8607dB5gH+4Dn9Lcd+nT0lINVvTR0g7EGkRxERJgO6buinp/XdIHBOxaMyNRssl6ZyHzMf37/5nkUNDsnyFSjhX2aEqohrMn451VM1Vb822bHp5fa/V7DlJeimvKrRMJgXJi5zdRsMtHYkX9ihXDP+WVUzRhXzjfSY4mpbS8CynZLwAt3cMEewxmiu;
- 20:/MHvoo/V58PFgadYaaDcAgA7pWDnE3vn5Sg5pa4HPRJhte4WXokk/sJdb1M6nuA1bFIQmRiz9nuD0bKN/Xo/a8EvY9017IxO99xhwCoff5ysZ1S/8uIrYEWTNQWvv8N0D7aV/w5lJj0dk1B73duqMFPucaL9MtcCFrv7lvSiskU=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(7020095)(4652020)(5600026)(48565401081)(4534165)(4627221)(201703031133081)(201702281549075)(2017052603328)(7193020);
- SRVR:MWHPR21MB0160; 
-x-ms-traffictypediagnostic: MWHPR21MB0160:
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=yupalani@microsoft.com; 
-x-microsoft-antispam-prvs: <MWHPR21MB016081D007CC1773AE09C4A5D6910@MWHPR21MB0160.namprd21.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(28532068793085)(89211679590171)(189930954265078)(65623756079841)(114017886912203)(274839183919467)(219752817060721)(280536654915231)(21748063052155)(104084551191319);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(3002001)(10201501046)(93006095)(93001095)(3231254)(2018427008)(944501410)(52105095)(6055026)(149027)(150027)(6041310)(20161123558120)(20161123562045)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(6072148)(201708071742011)(7699016);
- SRVR:MWHPR21MB0160; BCL:0; PCL:0; RULEID:; SRVR:MWHPR21MB0160; 
-x-forefront-prvs: 067553F396
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(346002)(376002)(39860400002)(366004)(39380400002)(396003)(497574002)(50944005)(199004)(189003)(8676002)(2201001)(8936002)(478600001)(81156014)(81166006)(1511001)(86362001)(3660700001)(5250100002)(25786009)(3280700002)(2501003)(7736002)(2906002)(8656006)(2900100001)(6636002)(7696005)(10290500003)(76176011)(476003)(5660300001)(19609705001)(790700001)(68736007)(6116002)(11346002)(74316002)(486006)(446003)(33656002)(8990500004)(6306002)(54896002)(9686003)(236005)(186003)(105586002)(106356001)(10090500001)(110136005)(316002)(6506007)(59450400001)(53546011)(46003)(22452003)(86612001)(99286004)(606006)(6246003)(53936002)(554214002)(97736004)(102836004)(14454004)(229853002)(8666007)(6436002)(55016002)(921003)(42262002)(1121003);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR21MB0160;
- H:MWHPR21MB0864.namprd21.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: microsoft.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: QXpcOt6hFbGbrLX2tnm5SIydp41unQPN0AoPwrvy+nWrAfcnZEkjiviA81nNgfIMyGN1riaXupzWk1kurdIN4egLImkX3Yb+Cpmd4nAgUs1tSLvzv4Qkr2OYWISaIktOOsfVpEndUc1ewFvovgwJ49zOilAbhXSlZX2CcCQ63p9uXTb6K4dKLzbRQ4KQLgvX
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
+dlp-product: dlpe-windows
+dlp-version: 11.0.200.100
+dlp-reaction: request-justification,no-action
+x-originating-ip: [10.22.254.138]
 Content-Type: multipart/alternative;
- boundary="_000_MWHPR21MB086447F0749C77694C01B331D6910MWHPR21MB0864namp_"
+ boundary="_000_7E9441B1E5EFFD4681F54958E82169933A0B9D1AORSMSX114amrcor_"
 MIME-Version: 1.0
-X-MS-Office365-Filtering-Correlation-Id: 4fd1f7ee-7389-443b-4e5e-08d5bc3718ac
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fd1f7ee-7389-443b-4e5e-08d5bc3718ac
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2018 20:45:16.3419 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR21MB0160
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -109,11 +67,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 May 2018 20:45:25 -0000
+X-List-Received-Date: Thu, 17 May 2018 21:23:23 -0000
 
---_000_MWHPR21MB086447F0749C77694C01B331D6910MWHPR21MB0864namp_
+--_000_7E9441B1E5EFFD4681F54958E82169933A0B9D1AORSMSX114amrcor_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+It looks like it just got published on Monday in the 2018.1 Schema drop.  Y=
+ou're looking for the Assembly schema "Assembly_v1.xml" posted here:
+
+https://www.dmtf.org/sites/default/files/standards/documents/DSP8010_2018.1=
+.zip
+
+-Ed
+
+From: Yugi Mani [mailto:yupalani@microsoft.com]
+Sent: Thursday, May 17, 2018 1:45 PM
+To: Michael.E.Brown@dell.com; Tanous, Ed <ed.tanous@intel.com>; openbmc@lis=
+ts.ozlabs.org; Paul.Vancil@dell.com; hramasub@in.ibm.com; Balaji.B.Rao@dell=
+.com; bradleyb@fuzziesquirrel.com; pradeep.kumar36@tcs.com; rolfb@us.ibm.co=
+m; Chris Ong <Chris.Ong@microsoft.com>; Ali Larijani <alirhas@microsoft.com=
+>
+Subject: RE: Meeting Minutes 5/14 -- RE: OpenBMC Redfish working group work=
+ing call
 
 I am looking for DSP# for FRU Schema that is currently DMTF work in progres=
 s.
@@ -125,20 +101,26 @@ DSP# by any chance?
 
 Yugi
 
-From: Michael.E.Brown@dell.com <Michael.E.Brown@dell.com>
+From: Michael.E.Brown@dell.com<mailto:Michael.E.Brown@dell.com> <Michael.E.=
+Brown@dell.com<mailto:Michael.E.Brown@dell.com>>
 Sent: Tuesday, May 15, 2018 8:35 AM
-To: ed.tanous@intel.com; openbmc@lists.ozlabs.org; Paul.Vancil@dell.com; hr=
-amasub@in.ibm.com; Balaji.B.Rao@dell.com; bradleyb@fuzziesquirrel.com; prad=
-eep.kumar36@tcs.com; rolfb@us.ibm.com; Chris Ong <Chris.Ong@microsoft.com>;=
- Ali Larijani <alirhas@microsoft.com>; Yugi Mani <yupalani@microsoft.com>
+To: ed.tanous@intel.com<mailto:ed.tanous@intel.com>; openbmc@lists.ozlabs.o=
+rg<mailto:openbmc@lists.ozlabs.org>; Paul.Vancil@dell.com<mailto:Paul.Vanci=
+l@dell.com>; hramasub@in.ibm.com<mailto:hramasub@in.ibm.com>; Balaji.B.Rao@=
+dell.com<mailto:Balaji.B.Rao@dell.com>; bradleyb@fuzziesquirrel.com<mailto:=
+bradleyb@fuzziesquirrel.com>; pradeep.kumar36@tcs.com<mailto:pradeep.kumar3=
+6@tcs.com>; rolfb@us.ibm.com<mailto:rolfb@us.ibm.com>; Chris Ong <Chris.Ong=
+@microsoft.com<mailto:Chris.Ong@microsoft.com>>; Ali Larijani <alirhas@micr=
+osoft.com<mailto:alirhas@microsoft.com>>; Yugi Mani <yupalani@microsoft.com=
+<mailto:yupalani@microsoft.com>>
 Subject: Meeting Minutes 5/14 -- RE: OpenBMC Redfish working group working =
 call
 
 Meeting minutes for 5/14
-*       Pavel presented POC for implementing custom Redfish endpoints and a=
-ttributes/properties
-*       DBUS based approach where individual processes put custom Redfish i=
-nterfaces on dbus and bmcweb notices them and adds them to the tree.
+*         Pavel presented POC for implementing custom Redfish endpoints and=
+ attributes/properties
+*         DBUS based approach where individual processes put custom Redfish=
+ interfaces on dbus and bmcweb notices them and adds them to the tree.
 
 --
 Michael
@@ -148,8 +130,10 @@ From: Tanous, Ed [mailto:ed.tanous@intel.com]
 Sent: Monday, April 16, 2018 12:40 PM
 To: Tanous, Ed; OpenBMC Maillist; Brown, Michael E; Vancil, Paul; Hariharas=
 ubramanian Ramasubramanian; Rao, Balaji B; Brad Bishop; pradeep.kumar36@tcs=
-.com; rolfb@us.ibm.com; Chris.Ong@microsoft.com; alirhas@microsoft.com; yup=
-alani@microsoft.com
+.com<mailto:pradeep.kumar36@tcs.com>; rolfb@us.ibm.com<mailto:rolfb@us.ibm.=
+com>; Chris.Ong@microsoft.com<mailto:Chris.Ong@microsoft.com>; alirhas@micr=
+osoft.com<mailto:alirhas@microsoft.com>; yupalani@microsoft.com<mailto:yupa=
+lani@microsoft.com>
 Subject: OpenBMC Redfish working group working call
 When: Monday, May 14, 2018 2:00 PM-3:00 PM (UTC-08:00) Pacific Time (US & C=
 anada).
@@ -220,7 +204,7 @@ erved=3D0>
 
 
 
---_000_MWHPR21MB086447F0749C77694C01B331D6910MWHPR21MB0864namp_
+--_000_7E9441B1E5EFFD4681F54958E82169933A0B9D1AORSMSX114amrcor_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -271,14 +255,16 @@ p.emailquote, li.emailquote, div.emailquote
 	margin-right:0in;
 	mso-margin-bottom-alt:auto;
 	margin-left:1.0pt;
-	border:none;
-	padding:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
 span.EmailStyle19
-	{mso-style-type:personal-reply;
+	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -453,6 +439,39 @@ ul
 </head>
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">It looks like it just =
+got published on Monday in the 2018.1 Schema drop.&nbsp; You&#8217;re looki=
+ng for the Assembly schema &#8220;Assembly_v1.xml&#8221; posted here:<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">https://www.dmtf.org/s=
+ites/default/files/standards/documents/DSP8010_2018.1.zip<o:p></o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">-Ed<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Yugi Mani [mailto:yupalani@microsoft.co=
+m] <br>
+<b>Sent:</b> Thursday, May 17, 2018 1:45 PM<br>
+<b>To:</b> Michael.E.Brown@dell.com; Tanous, Ed &lt;ed.tanous@intel.com&gt;=
+; openbmc@lists.ozlabs.org; Paul.Vancil@dell.com; hramasub@in.ibm.com; Bala=
+ji.B.Rao@dell.com; bradleyb@fuzziesquirrel.com; pradeep.kumar36@tcs.com; ro=
+lfb@us.ibm.com; Chris Ong &lt;Chris.Ong@microsoft.com&gt;;
+ Ali Larijani &lt;alirhas@microsoft.com&gt;<br>
+<b>Subject:</b> RE: Meeting Minutes 5/14 -- RE: OpenBMC Redfish working gro=
+up working call<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">I am looking for DSP# for FRU Schema that is current=
 ly DMTF work in progress.
 <o:p></o:p></p>
@@ -469,15 +488,25 @@ eview. Do you have the DSP# by any chance?<o:p></o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Michael.E.Brown@dell.com &lt;Michael.E.=
-Brown@dell.com&gt;
+<p class=3D"MsoNormal"><b>From:</b> <a href=3D"mailto:Michael.E.Brown@dell.=
+com">Michael.E.Brown@dell.com</a> &lt;<a href=3D"mailto:Michael.E.Brown@del=
+l.com">Michael.E.Brown@dell.com</a>&gt;
 <br>
 <b>Sent:</b> Tuesday, May 15, 2018 8:35 AM<br>
-<b>To:</b> ed.tanous@intel.com; openbmc@lists.ozlabs.org; Paul.Vancil@dell.=
-com; hramasub@in.ibm.com; Balaji.B.Rao@dell.com; bradleyb@fuzziesquirrel.co=
-m; pradeep.kumar36@tcs.com; rolfb@us.ibm.com; Chris Ong &lt;Chris.Ong@micro=
-soft.com&gt;; Ali Larijani &lt;alirhas@microsoft.com&gt;;
- Yugi Mani &lt;yupalani@microsoft.com&gt;<br>
+<b>To:</b> <a href=3D"mailto:ed.tanous@intel.com">ed.tanous@intel.com</a>; =
+<a href=3D"mailto:openbmc@lists.ozlabs.org">
+openbmc@lists.ozlabs.org</a>; <a href=3D"mailto:Paul.Vancil@dell.com">Paul.=
+Vancil@dell.com</a>;
+<a href=3D"mailto:hramasub@in.ibm.com">hramasub@in.ibm.com</a>; <a href=3D"=
+mailto:Balaji.B.Rao@dell.com">
+Balaji.B.Rao@dell.com</a>; <a href=3D"mailto:bradleyb@fuzziesquirrel.com">b=
+radleyb@fuzziesquirrel.com</a>;
+<a href=3D"mailto:pradeep.kumar36@tcs.com">pradeep.kumar36@tcs.com</a>; <a =
+href=3D"mailto:rolfb@us.ibm.com">
+rolfb@us.ibm.com</a>; Chris Ong &lt;<a href=3D"mailto:Chris.Ong@microsoft.c=
+om">Chris.Ong@microsoft.com</a>&gt;; Ali Larijani &lt;<a href=3D"mailto:ali=
+rhas@microsoft.com">alirhas@microsoft.com</a>&gt;; Yugi Mani &lt;<a href=3D=
+"mailto:yupalani@microsoft.com">yupalani@microsoft.com</a>&gt;<br>
 <b>Subject:</b> Meeting Minutes 5/14 -- RE: OpenBMC Redfish working group w=
 orking call<o:p></o:p></p>
 </div>
@@ -488,18 +517,20 @@ orking call<o:p></o:p></p>
 14</span><o:p></o:p></p>
 </div>
 <p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
-lt:auto;margin-left:0in;text-indent:-.25in;mso-list:l1 level1 lfo1">
+lt:auto;margin-left:0in;text-indent:-.25in;mso-list:l1 level1 lfo2">
 <![if !supportLists]><span style=3D"font-size:10.0pt;font-family:Symbol;col=
 or:#1F497D"><span style=3D"mso-list:Ignore">&middot;<span style=3D"font:7.0=
-pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
 </span></span></span><![endif]><span style=3D"color:#1F497D">Pavel presente=
 d POC for implementing custom Redfish endpoints and attributes/properties<o=
 :p></o:p></span></p>
 <p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
-lt:auto;margin-left:0in;text-indent:-.25in;mso-list:l0 level1 lfo2">
+lt:auto;margin-left:0in;text-indent:-.25in;mso-list:l0 level1 lfo4">
 <![if !supportLists]><span style=3D"font-size:10.0pt;font-family:Symbol;col=
 or:#1F497D"><span style=3D"mso-list:Ignore">&middot;<span style=3D"font:7.0=
-pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
 </span></span></span><![endif]><span style=3D"color:#1F497D">DBUS based app=
 roach where individual processes put custom Redfish interfaces on dbus and =
 bmcweb notices them and adds them to the tree.<o:p></o:p></span></p>
@@ -526,9 +557,14 @@ anous@intel.com</a>]
 <br>
 <b>Sent:</b> Monday, April 16, 2018 12:40 PM<br>
 <b>To:</b> Tanous, Ed; OpenBMC Maillist; Brown, Michael E; Vancil, Paul; Ha=
-riharasubramanian Ramasubramanian; Rao, Balaji B; Brad Bishop; pradeep.kuma=
-r36@tcs.com; rolfb@us.ibm.com; Chris.Ong@microsoft.com; alirhas@microsoft.c=
-om; yupalani@microsoft.com<br>
+riharasubramanian Ramasubramanian; Rao, Balaji B; Brad Bishop;
+<a href=3D"mailto:pradeep.kumar36@tcs.com">pradeep.kumar36@tcs.com</a>; <a =
+href=3D"mailto:rolfb@us.ibm.com">
+rolfb@us.ibm.com</a>; <a href=3D"mailto:Chris.Ong@microsoft.com">Chris.Ong@=
+microsoft.com</a>;
+<a href=3D"mailto:alirhas@microsoft.com">alirhas@microsoft.com</a>; <a href=
+=3D"mailto:yupalani@microsoft.com">
+yupalani@microsoft.com</a><br>
 <b>Subject:</b> OpenBMC Redfish working group working call<br>
 <b>When:</b> Monday, May 14, 2018 2:00 PM-3:00 PM (UTC-08:00) Pacific Time =
 (US &amp; Canada).<br>
@@ -688,7 +724,8 @@ tyle=3D"font-size:3.0pt">&nbsp;&nbsp;&nbsp;&nbsp;
 <p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_MWHPR21MB086447F0749C77694C01B331D6910MWHPR21MB0864namp_--
+--_000_7E9441B1E5EFFD4681F54958E82169933A0B9D1AORSMSX114amrcor_--
