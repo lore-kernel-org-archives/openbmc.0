@@ -1,73 +1,29 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::242; helo=mail-qk0-x242.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="c4kFZQIK"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="BOJE5uRp"; 
- dkim-atps=neutral
-Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
- [IPv6:2607:f8b0:400d:c09::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40mbJc0clDzF1PQ
- for <openbmc@lists.ozlabs.org>; Thu, 17 May 2018 12:45:35 +1000 (AEST)
-Received: by mail-qk0-x242.google.com with SMTP id c11-v6so2471273qkm.0
- for <openbmc@lists.ozlabs.org>; Wed, 16 May 2018 19:45:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=DwyHRmTT1us4upkjAhxkTRZX6SGCCN+z6TyNZ+UN7Bg=;
- b=c4kFZQIKj0H0ud79TUltM+nlnDDtOHEJvdixcjnUdwqdr+a09jmOq5q5NcibI8dlcv
- yM9vfjl8OrZnIomPxNCjrd8xfbsbLTTZL8eYzY/JvPBGirEQ7vfz5ePPk5ZspTtAczFp
- 1t5cwfk1xnL1giR92RFPfBJWEA2VJZYmlq04rK4cvPQygst8qcSGncZV9o2SmUsZd+zg
- K797+CgrHe5OkDDjxrU1kL03ZOKUL2upUHYxvRXyGbnatYhwQPJEpglr2nqxv/3yhDaz
- I9nP6IUea+aXJiJmDPDGsVL7GvByVBHghZ046VPOxtN23hBzGelrT234gQsM8U4I+tiw
- zwTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=DwyHRmTT1us4upkjAhxkTRZX6SGCCN+z6TyNZ+UN7Bg=;
- b=BOJE5uRpkGOF7ujNEiuslmrYTIEdvqiFfqaJEwE2qTEhQH4yHjbbsFFenNYTTIn8T/
- TTuwoSK1sWrA+E7LOfbsjAG7SRnaXR6H52mwONauo8+17JUtDyNByvLH1Hp9MEFpO4At
- vRlYxeYWnijFVy+MGUOajJMaxPS90XYkos1+Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=DwyHRmTT1us4upkjAhxkTRZX6SGCCN+z6TyNZ+UN7Bg=;
- b=md4fy6Ct947ZqssKhQGdRaLQk50KogDgd5bi7c9PBTyfAWgQUXxzHL2saPRe8dqMkJ
- BgigofEJaOEBubNIoVgLoOARUGon7idKml24wrqMR9i6HtUxU8b2YNC+2L/dBV/kpiMW
- RVvqEDk7/y1QWPWVdhMupCdy14/mEaCWXNFVPi2YffRPafuashpGh0oFIojNSAGyMvTx
- 7GqNOXDOywcCpRcYmxsc4DtiFnaWPYVz0Ldyndd4Be2qkHsSboO6zuT9ijevqVKP+mgS
- yojaw3nft+QVfo4fAakcoC9dAzVTF8amFMU2fUOvI8MzwkycqTOdw17UiKMa6OkMv5xS
- oTWg==
-X-Gm-Message-State: ALKqPwdpJnwnHC3wvisMn1GJ/e42WEtLjr79n0ebqTql0CQ47qkhoR65
- h8v8Gl+W5JQN2UraOGYPNvFV34XAyTq5xswK3k4=
-X-Google-Smtp-Source: AB8JxZo7Vz9u4IkBxwp7ah7PZuFmOlmXOUYzTaf4RLkuintw8r/Bt8rFeWf9kqbXMggCcGzlFytmpr/5h4y3bYSaj1s=
-X-Received: by 2002:a37:d445:: with SMTP id
- l66-v6mr3366729qki.112.1526525133299; 
- Wed, 16 May 2018 19:45:33 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Wed, 16 May 2018 19:45:12 -0700 (PDT)
-In-Reply-To: <aa6d2b18-de49-e0c5-31e6-20639e3f90fe@linux.vnet.ibm.com>
-References: <1526069782-20693-1-git-send-email-eajames@linux.vnet.ibm.com>
- <aa6d2b18-de49-e0c5-31e6-20639e3f90fe@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 17 May 2018 12:15:12 +0930
-X-Google-Sender-Auth: zxBleoFw1jGmqZmJLbHh9tlb66Q
-Message-ID: <CACPK8XdXN_HKiVbtH1MZiZe04B=yQ56Fx-dhXw=k8fS83azv-A@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13] pmbus: core: Use 64-bit ints for returned
- sensor values
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Matt Spinler <mspinler@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40mc1W0ptHzF15F
+ for <openbmc@lists.ozlabs.org>; Thu, 17 May 2018 13:17:34 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4H3HQWo027843;
+ Wed, 16 May 2018 22:17:27 -0500
+Message-ID: <1757792fbbffa1e4b9a308e7a285e91f955c09bc.camel@kernel.crashing.org>
+Subject: [PATCH linux dev-4.13 2/3] fsi/fsi-master-gpio: Implement CRC error
+ recovery
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: openbmc@lists.ozlabs.org
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Thu, 17 May 2018 13:17:26 +1000
 Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,22 +35,126 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 May 2018 02:45:37 -0000
+X-List-Received-Date: Thu, 17 May 2018 03:17:35 -0000
 
-On 12 May 2018 at 05:51, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->
->
-> On 05/11/2018 03:16 PM, Eddie James wrote:
->>
->> It's possible to overflow sensor values, especially for power sensors
->> reporting micro Watts. Use 64-bit values to prevent overflow.
->
->
-> Cancel that. This has been fixed in linux-next with
-> bd467e4eababe4c04272c1e646f066db02734c79
+The FSI protocol defines two modes of recovery from CRC errors,
+this implements both:
 
-I have cherry picked this into dev-4.13.
+ - If the device returns an ECRC (it detected a CRC error in the
+   command), then we simply issue the command again.
 
-Cheers,
+ - If the master detects a CRC error in the response, we send
+   an E_POLL command which requests a resend of the response
+   without actually re-executing the command (which could otherwise
+   have unwanted side effects such as dequeuing a FIFO twice).
 
-Joel
+Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+---
+
+Note: This was actually tested by removing some of my fixes, thus
+causing us to hit occasional CRC errors during high LPC activity.
+
+ drivers/fsi/fsi-master-gpio.c | 57 ++++++++++++++++++++++++++++-------
+ 1 file changed, 46 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index bf917fadae20..b22685850837 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -22,20 +22,23 @@
+ #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
+ #define	FSI_POST_BREAK_CLOCKS	16000	/* Number clocks to set up cfam */
+ #define	FSI_INIT_CLOCKS		5000	/* Clock out any old data */
++#define	FSI_GPIO_DPOLL_CLOCKS	50      /* < 21 will cause slave to hang */
++#define	FSI_GPIO_EPOLL_CLOCKS	50      /* Number of clocks for E_POLL retry */
+ #define	FSI_GPIO_STD_DELAY	10	/* Standard GPIO delay in nS */
+ 					/* todo: adjust down as low as */
+ 					/* possible or eliminate */
++#define FSI_CRC_ERR_RETRIES	10
++
+ #define	FSI_GPIO_CMD_DPOLL      0x2
++#define	FSI_GPIO_CMD_EPOLL      0x3
+ #define	FSI_GPIO_CMD_TERM	0x3f
+ #define FSI_GPIO_CMD_ABS_AR	0x4
+ #define FSI_GPIO_CMD_REL_AR	0x5
+ #define FSI_GPIO_CMD_SAME_AR	0x3	/* but only a 2-bit opcode... */
+ 
+-
+-#define	FSI_GPIO_DPOLL_CLOCKS	50      /* < 21 will cause slave to hang */
+-
+-/* Bus errors */
+-#define	FSI_GPIO_ERR_BUSY	1	/* Slave stuck in busy state */
++/* Slave responses */
++#define	FSI_GPIO_RESP_ACK	0	/* Success */
++#define	FSI_GPIO_RESP_BUSY	1	/* Slave busy */
+ #define	FSI_GPIO_RESP_ERRA	2	/* Any (misc) Error */
+ #define	FSI_GPIO_RESP_ERRC	3	/* Slave reports master CRC error */
+ #define	FSI_GPIO_MTOE		4	/* Master time out error */
+@@ -330,6 +333,16 @@ static void build_dpoll_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
+ 	msg_push_crc(cmd);
+ }
+ 
++static void build_epoll_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
++{
++	cmd->bits = 0;
++	cmd->msg = 0;
++
++	msg_push_bits(cmd, slave_id, 2);
++	msg_push_bits(cmd, FSI_GPIO_CMD_EPOLL, 3);
++	msg_push_crc(cmd);
++}
++
+ static void echo_delay(struct fsi_master_gpio *master)
+ {
+ 	set_sda_output(master, 1);
+@@ -451,10 +464,24 @@ static int poll_for_response(struct fsi_master_gpio *master,
+ 	unsigned long flags;
+ 	uint8_t tag;
+ 	uint8_t *data_byte = data;
+-
++	int crc_err_retries = 0;
+ retry:
+ 	rc = read_one_response(master, size, &response, &tag);
+-	if (rc)
++
++	/* Handle retries on CRC errors */
++	if (rc == FSI_ERR_RESP_CRC) {
++		if (crc_err_retries++ > FSI_CRC_ERR_RETRIES)
++			goto fail;
++		dev_warn(master->dev,
++			 "CRC error retry %d\n", crc_err_retries);
++		build_epoll_command(&cmd, slave);
++		spin_lock_irqsave(&master->bit_lock, flags);
++		clock_zeros(master, FSI_GPIO_EPOLL_CLOCKS);
++		serial_out(master, &cmd);
++		echo_delay(master);
++		spin_unlock_irqrestore(&master->bit_lock, flags);
++		goto retry;
++	} else if (rc)
+ 		goto fail;
+ 
+ 	switch (tag) {
+@@ -539,11 +566,19 @@ static int send_request(struct fsi_master_gpio *master,
+ static int fsi_master_gpio_xfer(struct fsi_master_gpio *master, uint8_t slave,
+ 		struct fsi_gpio_msg *cmd, size_t resp_len, void *resp)
+ {
+-	int rc;
++	int rc = FSI_ERR_ERRC, retries = 0;
+ 
+-	rc = send_request(master, cmd);
+-	if (!rc)
+-		rc = poll_for_response(master, slave, resp_len, resp);
++	while ((retries++) < FSI_CRC_ERR_RETRIES) {
++		rc = send_request(master, cmd);
++		if (!rc)
++			rc = poll_for_response(master, slave, resp_len, resp);
++		if (rc != FSI_ERR_ERRC)
++			break;
++		dev_warn(master->dev, "ECRC retry %d\n", retries);
++
++		/* Pace it a bit before retry */
++		msleep(1);
++	}
+ 
+ 	return rc;
+ }
