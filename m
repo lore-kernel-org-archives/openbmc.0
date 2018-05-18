@@ -8,20 +8,20 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40n9Gt68ChzF29h
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:16:06 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40n9hj30fGzF14Y
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:35:00 +1000 (AEST)
 Received: from pasglop.ozlabs.ibm.com (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4I1FK0h015236;
- Thu, 17 May 2018 20:15:27 -0500
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4I1YVmk016252;
+ Thu, 17 May 2018 20:34:42 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH v2 linux dev-4.13 3/3] fsi/fsi-occ: Simple conversion to new
+Subject: [PATCH v3 linux dev-4.13 3/3] fsi/fsi-occ: Simple conversion to new
  sbefifo driver
-Date: Fri, 18 May 2018 11:15:17 +1000
-Message-Id: <20180518011517.10045-3-benh@kernel.crashing.org>
+Date: Fri, 18 May 2018 11:34:29 +1000
+Message-Id: <20180518013429.17732-3-benh@kernel.crashing.org>
 X-Mailer: git-send-email 2.17.0
-In-Reply-To: <20180518011517.10045-1-benh@kernel.crashing.org>
-References: <20180518011517.10045-1-benh@kernel.crashing.org>
+In-Reply-To: <20180518013429.17732-1-benh@kernel.crashing.org>
+References: <20180518013429.17732-1-benh@kernel.crashing.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -33,7 +33,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 May 2018 01:16:08 -0000
+X-List-Received-Date: Fri, 18 May 2018 01:35:02 -0000
 
 Replace open/close/write/read API with the simple submit()
 API and the helper to parse status.
