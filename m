@@ -1,71 +1,45 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <Henbin-Chang@mic.com.tw>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::232; helo=mail-io0-x232.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=mic.com.tw
+ (client-ip=220.130.36.7; helo=micmsefe02.mic.com.tw;
+ envelope-from=henbin-chang@mic.com.tw; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nqwPbipW"; 
- dkim-atps=neutral
-Received: from mail-io0-x232.google.com (mail-io0-x232.google.com
- [IPv6:2607:f8b0:4001:c06::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=mic.com.tw
+X-Greylist: delayed 6702 seconds by postgrey-1.36 at bilbo;
+ Fri, 18 May 2018 15:31:55 AEST
+Received: from MICMSEFE02.mic.com.tw (mail22.mic.com.tw [220.130.36.7])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40nDKN53kRzDsQ6
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 13:33:28 +1000 (AEST)
-Received: by mail-io0-x232.google.com with SMTP id g1-v6so4571146iob.2
- for <openbmc@lists.ozlabs.org>; Thu, 17 May 2018 20:33:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=crxqYn0eHIf0qwGltm30VXlRxQfGFPBxLchx+9KzEPI=;
- b=nqwPbipWrRVvzKQMQzX1FFZULPkEdvuKIiPQSBFyJumz6lNd2/paKFEfQbktbvu4pu
- ux8PW5685LJuPKZyLCn+w2+LFWcnugj0+2531c49ByIHyScnnkB711kfPcAQ5tSAhr2v
- JDsJpAXHY0TzywK9xfLgOEt5WbXMRyyrP5hcHpVEVKx9Vr9t69nLTTWsGRAovbaCREJ4
- E6X7e6XUuYUweNE1MKjwKhm5wjAWgQVhrdPw5sDH6XOklLE1+leOOgtYA3/x8yvJjrdz
- 4qTD9XYEVPpIrtM/wtz8PT2Cwkdpe5fy7ruMOWgTyfc/sffvo4O0lW2SG5PACE5Ze3Iz
- xMlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=crxqYn0eHIf0qwGltm30VXlRxQfGFPBxLchx+9KzEPI=;
- b=mExor4yYwbQercYgV9YvjWshnAxBBqKkcEn5UnzxcEGpbOyWDaip//1hdN89iu2gmr
- Z/rEgVB9m96RlBQ6bqWQB8tf3KwZ/UAdaFl+NwKTrzleuODn5ClJAgEos4InzDSjCjSA
- nakMkv+wyLxtHq+q90j6OA63Voukv1zJyJOvzG54sNX5qTsdoYXHcyaKRrAXy8Osr3qO
- kHMtjbBjXEHilZGnJ5DtWCbkTDLrdvq4hKaUyKpeYvOMafkPR6sPaOh+5TtX49RkhGWm
- OP1LKfrGC7QBSXYfLQRP83Lv1fUcZgX84ZrnKeY4Va4CAukAMHJp+T+WpXrAz5dhKR26
- 8OYQ==
-X-Gm-Message-State: ALKqPwcx7rIfyV2G/3B+KLAqplf8+z5ts2SiqYsWeBxfAmL/F5BSNfGD
- VhWSLQwx/OcV0QkRNLd3+2PHm4NGUDpEJAYyNe8=
-X-Google-Smtp-Source: AB8JxZrd72c8ECvhVBNUku28IZISeT7WOzk9/lCmVSJezeBjoGfB3NEZP0gbWAoC0Kzl1kahTZuu0WLGlYZ/PfKrMwk=
-X-Received: by 2002:a6b:109:: with SMTP id 9-v6mr7914515iob.138.1526614406093; 
- Thu, 17 May 2018 20:33:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40nGy32JWbzF29B
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 15:31:55 +1000 (AEST)
+Received: from MICMSEFE02.mic.com.tw (localhost [127.0.0.2] (may be forged))
+ by MICMSEFE02.mic.com.tw with ESMTP id w4I3eDWX033540
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:40:13 +0800 (GMT-8)
+ (envelope-from Henbin-Chang@mic.com.tw)
+Received: from MICEXVCAS01.mitacad.com (micexvcas01.mitacad.com [10.88.2.25])
+ by MICMSEFE02.mic.com.tw with ESMTP id w4I3dtZs033306
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:39:55 +0800 (GMT-8)
+ (envelope-from Henbin-Chang@mic.com.tw)
+Received: from MICEXVMS02.mitacad.com ([10.88.2.28]) by
+ MICEXVCAS01.mitacad.com ([10.88.2.25]) with mapi id 14.03.0210.002; Fri, 18
+ May 2018 11:39:56 +0800
+From: <Henbin-Chang@mic.com.tw>
+To: <openbmc@lists.ozlabs.org>
+Subject: [PATCH linux dev-4.13] clk:aspeed: Fix reset bits for PCI/VGA and PECI
+Thread-Topic: [PATCH linux dev-4.13] clk:aspeed: Fix reset bits for PCI/VGA
+ and PECI
+Thread-Index: AdPuWQDHE3Zy4MS9S6a4steCaVvQnA==
+Date: Fri, 18 May 2018 03:39:55 +0000
+Message-ID: <7B70FEB8C93F7E4EB9716251FA088E1DB17108EE@MICEXVMS02.mitacad.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.88.25.29]
+Content-Type: multipart/alternative;
+ boundary="_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_"
 MIME-Version: 1.0
-Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Thu, 17 May 2018 20:33:25
- -0700 (PDT)
-In-Reply-To: <20180516160209.GB105329@mauery>
-References: <1517207425.21006.27.camel@aj.id.au>
- <87shaoymux.fsf@linux.vnet.ibm.com>
- <CACPK8XcLF+hw_gRM76fgJ9tPNZYr3_RiN=euOzw8KLOJ11ibXA@mail.gmail.com>
- <87lggezywe.fsf@linux.vnet.ibm.com>
- <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
- <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
- <874lm8pjd7.fsf@linux.vnet.ibm.com>
- <e1431b039c817b23b49b6f5833760152@linux.vnet.ibm.com>
- <CAARXrtn6M=tzE-yMJWN4yaSHZJUYksMT=vMvVymY0kvgQJ4bfQ@mail.gmail.com>
- <MWHPR21MB0864432C6CB8EF9A575589B0D6930@MWHPR21MB0864.namprd21.prod.outlook.com>
- <20180516160209.GB105329@mauery>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 18 May 2018 11:33:25 +0800
-Message-ID: <CAARXrtksFbirzq70cLzvWRcxKxOT9rGYKPMa-+UQcMpvx0=ycw@mail.gmail.com>
-Subject: Re: BMC Image Signing Proposal
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
-Cc: Yugi Mani <yupalani@microsoft.com>,
- Adriana Kobylak <anoo@linux.vnet.ibm.com>, 
- Stewart Smith <stewart@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MAIL: MICMSEFE02.mic.com.tw w4I3dtZs033306
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,30 +51,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 May 2018 03:33:29 -0000
+X-List-Received-Date: Fri, 18 May 2018 05:31:56 -0000
 
-On Thu, May 17, 2018 at 12:02 AM, Vernon Mauery
-<vernon.mauery@linux.intel.com> wrote:
-> On 15-May-2018 06:18 PM, Yugi Mani wrote:
->>
->> Good point. We at MSFT are using legacy (non-UBI) layout. We have a
->> manifest for boot verification and we append the hash to image for update
->> verification.
->> I can share details about the design/implementation, if you have any
->> specific questions.
->
->
-> At Intel, we are using a legacy layout as well, either ping-ponging between
-> partitions or using a active/temp/recovery partition scheme depending on the
-> secure boot mechanism for that platform.
->
+--_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Thanks for info!
-So I think it is better for OpenBMC project to have a common (or example)
-image signing tools/code, not for a specific machine or product, but for the
-general machines in this project using legacy flash layout.
-Let's discuss and get a design proposal?
+SGkgSmFlLA0KDQpJIHRyaWVkIHRvIGFkZCB0aGUgcGF0Y2ggdG8gbXkgS2VybmVsIGNvZGUgYnV0
+IHRoZSBQRUNJIGNvbnRyb2xsZXIgc3RpbGwgd2FzIHJlc2V0Lg0KDQpkZXZtZW0gMHgxZTZlMjAw
+NCAzMg0KMHhGNzhGRTREOA0KDQpDb3VsZCB5b3UgaGVscCBjaGVjayBpZiBzb21ldGhpbmcgd3Jv
+bmc/DQoNClRoYW5rcy4NCkhlbmJpbi4NCg==
 
-> --Vernon
->
->
+--_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+5paw57Sw5piO6auUOw0KCXBhbm9zZS0xOjIgMiA1IDAgMCAwIDAgMCAwIDA7fQ0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseTrmlrDntLDmmI7pq5Q7DQoJcGFub3NlLTE6MiAyIDUgMCAwIDAgMCAw
+IDAgMDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAx
+NSA1IDIgMiAyIDQgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEDmlrDntLDm
+mI7pq5QiOw0KCXBhbm9zZS0xOjIgMiA1IDAgMCAwIDAgMCAwIDA7fQ0KLyogU3R5bGUgRGVmaW5p
+dGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFy
+Z2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglm
+b250LWZhbWlseToiQ2FsaWJyaSIsInNhbnMtc2VyaWYiO30NCmE6bGluaywgc3Bhbi5Nc29IeXBl
+cmxpbmsNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNv
+cmF0aW9uOnVuZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQN
+Cgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRp
+b246dW5kZXJsaW5lO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNv
+bmFsLWNvbXBvc2U7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLCJzYW5zLXNlcmlmIjsNCgljb2xv
+cjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1v
+bmx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIiwic2Fucy1zZXJpZiI7fQ0KLyogUGFnZSBEZWZp
+bml0aW9ucyAqLw0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6NjEyLjBwdCA3OTIuMHB0Ow0K
+CW1hcmdpbjo3Mi4wcHQgOTAuMHB0IDcyLjBwdCA5MC4wcHQ7fQ0KZGl2LldvcmRTZWN0aW9uMQ0K
+CXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1s
+Pg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1s
+PjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpl
+eHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVs
+YXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJaSC1UVyIgbGlu
+az0iYmx1ZSIgdmxpbms9InB1cnBsZSIgc3R5bGU9InRleHQtanVzdGlmeS10cmltOnB1bmN0dWF0
+aW9uIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+c3BhbiBsYW5nPSJFTi1VUyI+SGkgSmFlLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
+L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+SSB0cmllZCB0byBh
+ZGQgdGhlIHBhdGNoIHRvIG15IEtlcm5lbCBjb2RlIGJ1dCB0aGUgUEVDSSBjb250cm9sbGVyIHN0
+aWxsIHdhcyByZXNldC48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPmRldm1lbSAweDFlNmUyMDA0IDMyPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
+VVMiPjB4Rjc4RkU8Yj40PC9iPkQ4PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5Db3VsZCB5b3UgaGVscCBj
+aGVjayBpZiBzb21ldGhpbmcgd3Jvbmc/PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
+cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5UaGFua3MuPG86cD48
+L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
+PkhlbmJpbi48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4N
+Cg==
+
+--_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_--
