@@ -1,45 +1,71 @@
-Return-Path: <Henbin-Chang@mic.com.tw>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=mic.com.tw
- (client-ip=220.130.36.7; helo=micmsefe02.mic.com.tw;
- envelope-from=henbin-chang@mic.com.tw; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=mic.com.tw
-X-Greylist: delayed 6702 seconds by postgrey-1.36 at bilbo;
- Fri, 18 May 2018 15:31:55 AEST
-Received: from MICMSEFE02.mic.com.tw (mail22.mic.com.tw [220.130.36.7])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EfwSjUUV"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="C5YZ8d2Y"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40nGy32JWbzF29B
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 15:31:55 +1000 (AEST)
-Received: from MICMSEFE02.mic.com.tw (localhost [127.0.0.2] (may be forged))
- by MICMSEFE02.mic.com.tw with ESMTP id w4I3eDWX033540
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:40:13 +0800 (GMT-8)
- (envelope-from Henbin-Chang@mic.com.tw)
-Received: from MICEXVCAS01.mitacad.com (micexvcas01.mitacad.com [10.88.2.25])
- by MICMSEFE02.mic.com.tw with ESMTP id w4I3dtZs033306
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:39:55 +0800 (GMT-8)
- (envelope-from Henbin-Chang@mic.com.tw)
-Received: from MICEXVMS02.mitacad.com ([10.88.2.28]) by
- MICEXVCAS01.mitacad.com ([10.88.2.25]) with mapi id 14.03.0210.002; Fri, 18
- May 2018 11:39:56 +0800
-From: <Henbin-Chang@mic.com.tw>
-To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-4.13] clk:aspeed: Fix reset bits for PCI/VGA and PECI
-Thread-Topic: [PATCH linux dev-4.13] clk:aspeed: Fix reset bits for PCI/VGA
- and PECI
-Thread-Index: AdPuWQDHE3Zy4MS9S6a4steCaVvQnA==
-Date: Fri, 18 May 2018 03:39:55 +0000
-Message-ID: <7B70FEB8C93F7E4EB9716251FA088E1DB17108EE@MICEXVMS02.mitacad.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.88.25.29]
-Content-Type: multipart/alternative;
- boundary="_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40nL4V2KbzzF29L
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 17:52:42 +1000 (AEST)
+Received: by mail-qk0-x244.google.com with SMTP id l132-v6so5743552qke.3
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 00:52:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=mjU8rT5NkU910K2otjXRcI6g5mu86Ta2fCFO5+S23Dk=;
+ b=EfwSjUUV4/rhMr9wJ8a8X84Nccp8O+aDk/GVOzhNAKko8ZHjLEWXEXk7b/T+JqgiDI
+ h/CX6kSAvy0AbR9kMx73VGccJHhXpM4gy5rpLNOrjXMPqEzeNMuQoTzcoa2DLaAnLA+u
+ nckoWHOCf5mm86W6I8CVJUR4tCXC4dGY7cAmHLiTWkLz7gRrhMe85iDvIWx0d/Nk0LZH
+ QSFUd0n4Pij7jDaq6WviS3JnevZjU62FPXY26B5FwhUpJmOlenLGBeXjdm853LvmGh5q
+ Chd1HN16KzHbvUnvDDv58IbzEXn0fKcJCRYXzx03QyiI3QvVIenK+rFk/M2uQr2IrMrV
+ fzCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=mjU8rT5NkU910K2otjXRcI6g5mu86Ta2fCFO5+S23Dk=;
+ b=C5YZ8d2Y1h/eVZI9ZE7FnDr8GxxCfvRJsM4u1utXwC+S0tOKUjbO9SouvwvCt9m7jA
+ ZnFTP4Jv1HlvVjsUpAL1YGERVUeKNgjb15QsRZHtLzP6yQkofwbQTGAL9iQwgg3cTWY/
+ F0/OwtAhrf47UaVGAulA6YFl92MgOuapSb3/w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=mjU8rT5NkU910K2otjXRcI6g5mu86Ta2fCFO5+S23Dk=;
+ b=kihUxbTgKxXT1YU4PR7wwy4agVVRrbfmL/hGa0GqLMxfUz3J+7VfiIym9uiO14/Yud
+ +/S1mELbIGOSdQdFF069otpbokdnWggatEaE97yGCRnYuR0/Gzd01y6WDsvMf/tsVFl2
+ SLeQn6uwguQcyAWWJTzNobTULfDTOQxv74/KyUt0lJmL576gJr+ULoTE30eAPosfYmBK
+ TyjNmON5UTgs3J9RLTCw+BXi1sgETiIk+RTxFceDKpbqcnszjI7xDZbANUE2/5Eh+y+X
+ 9Wg345GNzJRUrBhWI0rG6xnGKWgZPliPgFoFdvR3T6+lD/twI1tzyRhct4VMllMZMsE/
+ tqOQ==
+X-Gm-Message-State: ALKqPwcDhIhiME8rD/WoqiQDsZJqdEWbjNgcXIzshnNcThb5jrRdkGUs
+ gDUkgGHQZrodTljmDbJzZmZxpcNbR/v7loKGVGk=
+X-Google-Smtp-Source: AB8JxZr03dlYZMP0lsD1QRG9LX8foU+mE+0KRpIoA2HNVqBorgD/kCWGT77Vd9DiLmbb/kxxLRFSdG2JNQyv0wakoP4=
+X-Received: by 2002:a37:5d84:: with SMTP id
+ r126-v6mr7596613qkb.352.1526629959516; 
+ Fri, 18 May 2018 00:52:39 -0700 (PDT)
 MIME-Version: 1.0
-X-MAIL: MICMSEFE02.mic.com.tw w4I3dtZs033306
+Sender: joel.stan@gmail.com
+Received: by 10.200.24.79 with HTTP; Fri, 18 May 2018 00:52:19 -0700 (PDT)
+In-Reply-To: <1525858559-130220-1-git-send-email-mine260309@gmail.com>
+References: <1525858559-130220-1-git-send-email-mine260309@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 18 May 2018 17:22:19 +0930
+X-Google-Sender-Auth: DeTFYax4yiDkA_CYV7ymrw2z4Z0
+Message-ID: <CACPK8XfeFU9msw_HHwgSuUL_WGSygGYoTyzyXktHprusf7qsrw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.13 1/2] clk: aspeed: Add 24MHz fixed clock
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -51,69 +77,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 May 2018 05:31:56 -0000
+X-List-Received-Date: Fri, 18 May 2018 07:52:44 -0000
 
---_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+On 9 May 2018 at 19:05, Lei YU <mine260309@gmail.com> wrote:
+> Add a 24MHz fixed clock.
+> This clock will be used for certain devices, e.g. pwm.
+>
+> Signed-off-by: Lei YU <mine260309@gmail.com>
+> ---
+>  drivers/clk/clk-aspeed.c                 | 8 +++++++-
+>  include/dt-bindings/clock/aspeed-clock.h | 1 +
+>  2 files changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+> index c5d2af2..2ea1ec1 100644
+> --- a/drivers/clk/clk-aspeed.c
+> +++ b/drivers/clk/clk-aspeed.c
+> @@ -23,7 +23,7 @@
+>
+>  #include <dt-bindings/clock/aspeed-clock.h>
+>
+> -#define ASPEED_NUM_CLKS                35
+> +#define ASPEED_NUM_CLKS                36
+>
+>  #define ASPEED_RESET2_OFFSET   32
+>
+> @@ -517,6 +517,12 @@ static int aspeed_clk_probe(struct platform_device *pdev)
+>                 return PTR_ERR(hw);
+>         aspeed_clk_data->hws[ASPEED_CLK_BCLK] = hw;
+>
+> +       /* Fixed 24MHz clock */
+> +       hw = clk_hw_register_fixed_rate(NULL, "fixed-24m", NULL, 0, 24000000);
 
-SGkgSmFlLA0KDQpJIHRyaWVkIHRvIGFkZCB0aGUgcGF0Y2ggdG8gbXkgS2VybmVsIGNvZGUgYnV0
-IHRoZSBQRUNJIGNvbnRyb2xsZXIgc3RpbGwgd2FzIHJlc2V0Lg0KDQpkZXZtZW0gMHgxZTZlMjAw
-NCAzMg0KMHhGNzhGRTREOA0KDQpDb3VsZCB5b3UgaGVscCBjaGVjayBpZiBzb21ldGhpbmcgd3Jv
-bmc/DQoNClRoYW5rcy4NCkhlbmJpbi4NCg==
+Ryan had this to say:
 
---_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+>  it comes from external osc is soc input clock source.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-5paw57Sw5piO6auUOw0KCXBhbm9zZS0xOjIgMiA1IDAgMCAwIDAgMCAwIDA7fQ0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseTrmlrDntLDmmI7pq5Q7DQoJcGFub3NlLTE6MiAyIDUgMCAwIDAgMCAw
-IDAgMDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAx
-NSA1IDIgMiAyIDQgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEDmlrDntLDm
-mI7pq5QiOw0KCXBhbm9zZS0xOjIgMiA1IDAgMCAwIDAgMCAwIDA7fQ0KLyogU3R5bGUgRGVmaW5p
-dGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFy
-Z2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglm
-b250LWZhbWlseToiQ2FsaWJyaSIsInNhbnMtc2VyaWYiO30NCmE6bGluaywgc3Bhbi5Nc29IeXBl
-cmxpbmsNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNv
-cmF0aW9uOnVuZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQN
-Cgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRp
-b246dW5kZXJsaW5lO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNv
-bmFsLWNvbXBvc2U7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLCJzYW5zLXNlcmlmIjsNCgljb2xv
-cjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1v
-bmx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIiwic2Fucy1zZXJpZiI7fQ0KLyogUGFnZSBEZWZp
-bml0aW9ucyAqLw0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6NjEyLjBwdCA3OTIuMHB0Ow0K
-CW1hcmdpbjo3Mi4wcHQgOTAuMHB0IDcyLjBwdCA5MC4wcHQ7fQ0KZGl2LldvcmRTZWN0aW9uMQ0K
-CXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1s
-Pg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1s
-PjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpl
-eHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVs
-YXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJaSC1UVyIgbGlu
-az0iYmx1ZSIgdmxpbms9InB1cnBsZSIgc3R5bGU9InRleHQtanVzdGlmeS10cmltOnB1bmN0dWF0
-aW9uIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBsYW5nPSJFTi1VUyI+SGkgSmFlLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
-L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+SSB0cmllZCB0byBh
-ZGQgdGhlIHBhdGNoIHRvIG15IEtlcm5lbCBjb2RlIGJ1dCB0aGUgUEVDSSBjb250cm9sbGVyIHN0
-aWxsIHdhcyByZXNldC48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPmRldm1lbSAweDFlNmUyMDA0IDMyPG86
-cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
-VVMiPjB4Rjc4RkU8Yj40PC9iPkQ4PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5Db3VsZCB5b3UgaGVscCBj
-aGVjayBpZiBzb21ldGhpbmcgd3Jvbmc/PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5UaGFua3MuPG86cD48
-L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
-PkhlbmJpbi48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4N
-Cg==
+So we should set the parent to be "clkin".
 
---_000_7B70FEB8C93F7E4EB9716251FA088E1DB17108EEMICEXVMS02mitac_--
+Please add that and send upstream. I'll have this with the fix to dev-4.13.
+
+Cheers,
+
+Joel
+
+
+> +       if (IS_ERR(hw))
+> +               return PTR_ERR(hw);
+> +       aspeed_clk_data->hws[ASPEED_CLK_24M] = hw;
+> +
+>         /*
+>          * TODO: There are a number of clocks that not included in this driver
+>          * as more information is required:
+> diff --git a/include/dt-bindings/clock/aspeed-clock.h b/include/dt-bindings/clock/aspeed-clock.h
+> index e983d17..9733c77 100644
+> --- a/include/dt-bindings/clock/aspeed-clock.h
+> +++ b/include/dt-bindings/clock/aspeed-clock.h
+> @@ -37,6 +37,7 @@
+>  #define ASPEED_CLK_MAC                 32
+>  #define ASPEED_CLK_BCLK                        33
+>  #define ASPEED_CLK_MPLL                        34
+> +#define ASPEED_CLK_24M                 35
+>
+>  #define ASPEED_RESET_XDMA              0
+>  #define ASPEED_RESET_MCTP              1
+> --
+> 2.7.4
+>
