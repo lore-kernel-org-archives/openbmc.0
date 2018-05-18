@@ -1,74 +1,74 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="XxjBodSH"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="GGLcdslc"; 
- dkim-atps=neutral
-Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
- [IPv6:2607:f8b0:400d:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40nLyk3LT1zF13r
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 18:32:46 +1000 (AEST)
-Received: by mail-qk0-x243.google.com with SMTP id c137-v6so5807860qkg.2
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 01:32:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=1oh87VZ/ptql29xJsBK0Dz3fT9wMXXantoL5ulw7dJM=;
- b=XxjBodSHy99Noz1f+BZlksawxlbTmPCb2ifZ75b/OsTwZlFW2Yd+mdWzqbwfMtconS
- f5AJc6PeXAUpEP/u8R+fs0+QrQGuSa/OQcnaVBqWJqYjXsxITaHeuGfhFIeJflCP3XIx
- VoMjsHy5ondqHY9+uWXXGchU8bwYhRlEV3vrcufVxAuag9jXnhkO2S6TAYCW6b1SHNVA
- kcFtW/9STi3nLhzoxnYc0W5VdeIFEINx+ViKTGL5cIsrGi7p3DgCokN8NWVewajEJRq3
- 8vNHRfgZ1lXjWF9VrINfNFHGdZkNtmwjkx4oKe73plX28ACo2rHpRyPVfgBc/bAPC2xV
- sSVg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=1oh87VZ/ptql29xJsBK0Dz3fT9wMXXantoL5ulw7dJM=;
- b=GGLcdslcVtJRoQJYSbkz4wlbjsD3CrryruKum5OL2nheYHHIXbJsPY5ZjnyhU26kD8
- Oignt7Zgcufim8F4xu8s5RdOwym5PTjXbeLPsETH2oP6ZicmNKqnNonWFdocwNvNijzn
- NPcjvfTLwm17Ns+Nf5xpS36hh9HCWe675qKeg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=1oh87VZ/ptql29xJsBK0Dz3fT9wMXXantoL5ulw7dJM=;
- b=kmLdGvXHB4ADs7FR1XZ989pFQHNP9AmqFcp5usp2O928wk+tbXScd6NOZ6LpDmEbVs
- IMhm6gSuS6fH2W+2BK8neitHt3d4OIxteiP+6Q3qpmT/ybLlcne8kkh4+tiBUFfu/ldK
- +tMNg+hdvKlws5F5J+bL82yD0mPRZ2dfj7zyTysQan+OCio+eJdIt6KgpRnnVsN8Gqm5
- CxiZnUhgOMdkW7Vne7b+W9NdiVmaz7VQfLYU9zjrihsr6wdsFtGZY3aEHvDv/Ww+podH
- x0ipskGJbCUkoOY8eQnX7dWc6A5jcmQ1nK8GsUJmJ4fjIzWybHyFxX12YGWswi9GmwXz
- SUOw==
-X-Gm-Message-State: ALKqPwfGb0Z4Uhvqmi8qVuX8rLPZLlotOgMC4iDEKDvOL4F1dw2GH6sT
- tF+nyfxmwWJNqbMcLGzctH9tFCu6OJiZrnYw/2U=
-X-Google-Smtp-Source: AB8JxZq2X04jD7N/KLz8fG3Wvay58GBN0TO+FFzKgip+/pZoFo7alw3fD9dulnsKiVedavyVXy+8WJC65toeanPiLE4=
-X-Received: by 2002:a37:5d84:: with SMTP id
- r126-v6mr7674011qkb.352.1526632363275; 
- Fri, 18 May 2018 01:32:43 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40nXVP3dqqzF2Cg
+ for <openbmc@lists.ozlabs.org>; Sat, 19 May 2018 01:42:20 +1000 (AEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w4IFU1fI085195
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:42:18 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2j1xcf238q-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:42:17 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 18 May 2018 11:42:16 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 18 May 2018 11:42:14 -0400
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w4IFgDTD58064902
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 15:42:13 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EAD3B124058
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 12:44:04 -0400 (EDT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B13FC124055
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 12:44:04 -0400 (EDT)
+Received: from [9.41.241.240] (unknown [9.41.241.240])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 12:44:04 -0400 (EDT)
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [RFC] AST2500 video engine driver design
+Date: Fri, 18 May 2018 10:42:12 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.7.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.200.24.79 with HTTP; Fri, 18 May 2018 01:32:22 -0700 (PDT)
-In-Reply-To: <1526563450-20630-3-git-send-email-tmaimon77@gmail.com>
-References: <1526563450-20630-1-git-send-email-tmaimon77@gmail.com>
- <1526563450-20630-3-git-send-email-tmaimon77@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 18 May 2018 18:02:22 +0930
-X-Google-Sender-Auth: Q26l7aRTgkXb6DuZFtkdT7Du09w
-Message-ID: <CACPK8XcTM82naCWgpK8_jsMync6GoGXJiQhv7jeb0BkHRUgA7A@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 v2 2/2] pinctrl: npcm: add NPCM7xx pin
- control driver
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18051815-0048-0000-0000-0000026F278A
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009047; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000261; SDB=6.01034146; UDB=6.00528840; IPR=6.00813275; 
+ MB=3.00021186; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-18 15:42:15
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18051815-0049-0000-0000-0000452ABF22
+Message-Id: <ff0a9c9c-2b09-00e5-3f04-4406b16309e3@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-05-18_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1805180170
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -80,185 +80,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 May 2018 08:32:47 -0000
+X-List-Received-Date: Fri, 18 May 2018 15:42:22 -0000
 
-Hi Tomer,
+Hi,
 
-On 17 May 2018 at 22:54, Tomer Maimon <tmaimon77@gmail.com> wrote:
-> Add Nuvoton BMC NPCM7xx pin controller driver.
->
-> The NPCM7XX Pin Controller multi-function routed
-> through the multiplexing block, Each pin supports
-> GPIO functionality (GPIOx) and multiple functions
-> that directly connect the pin to different hardware
-> blocks.
->
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+I'm working on a driver for the AST2500 video engine; just wanted to 
+post up the plan in case anyone has any ideas. The purpose behind this 
+development is to be able to use IKVM with video from the host and i/o 
+from a remote user.
 
-I've applied this to dev-4.13 with some minor fixes. How is the
-upstream submission of this one going?
+The video engine is a piece of hardware in the AST24/2500 that captures 
+and/or compresses video data. Typically the input is the host graphics, 
+writing it's RGB output to the VGA memory on the BMC. The video engine 
+will capture and compress the data and store it in memory. The driver 
+should provide an interface for an application to read that compressed 
+video in order to get it on the network.
 
-> ---
->  drivers/pinctrl/Kconfig                   |    1 +
->  drivers/pinctrl/Makefile                  |    2 +
->  drivers/pinctrl/nuvoton/Kconfig           |   12 +
->  drivers/pinctrl/nuvoton/Makefile          |    1 +
->  drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 2133 +++++++++++++++++++++++=
-++++++
->  5 files changed, 2149 insertions(+)
->  create mode 100644 drivers/pinctrl/nuvoton/Kconfig
->  create mode 100644 drivers/pinctrl/nuvoton/Makefile
->  create mode 100644 drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
->
-> diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-> index e14b46c7b37f..25b7c1383631 100644
-> --- a/drivers/pinctrl/Kconfig
-> +++ b/drivers/pinctrl/Kconfig
-> @@ -351,6 +351,7 @@ source "drivers/pinctrl/uniphier/Kconfig"
->  source "drivers/pinctrl/vt8500/Kconfig"
->  source "drivers/pinctrl/mediatek/Kconfig"
->  source "drivers/pinctrl/zte/Kconfig"
-> +source "drivers/pinctrl/nuvoton/Kconfig"
->
->  config PINCTRL_XWAY
->         bool
-> diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
-> index 2bc641d62400..925d99b05e47 100644
-> --- a/drivers/pinctrl/Makefile
-> +++ b/drivers/pinctrl/Makefile
-> @@ -62,3 +62,5 @@ obj-$(CONFIG_PINCTRL_UNIPHIER)        +=3D uniphier/
->  obj-$(CONFIG_ARCH_VT8500)      +=3D vt8500/
->  obj-$(CONFIG_PINCTRL_MTK)      +=3D mediatek/
->  obj-$(CONFIG_PINCTRL_ZX)       +=3D zte/
-> +obj-$(CONFIG_ARCH_NPCM7XX)     +=3D nuvoton/
-> +
-> diff --git a/drivers/pinctrl/nuvoton/Kconfig b/drivers/pinctrl/nuvoton/Kc=
-onfig
-> new file mode 100644
-> index 000000000000..e174a83e8be2
-> --- /dev/null
-> +++ b/drivers/pinctrl/nuvoton/Kconfig
-> @@ -0,0 +1,12 @@
-> +config PINCTRL_NPCM7XX
-> +       bool "Pinctrl driver for Nuvoton NPCM7XX"
-> +       depends on (ARCH_NPCM7XX || COMPILE_TEST) && OF
-> +       depends on MFD_SYSCON
+The driver interface will use the Video4Linux2 API. This involves 
+standard file operations like open, read, and close, as well as a video 
+ioctl interface for configuring the device. Configuration options will 
+probably be limited, as I think there will only be one mode that will 
+provide enough performance for IKVM. I do want to be able to configure 
+the video source; either direct from host at the BMC VGA memory or from 
+the BMC DRM driver.
 
-This needed to be select MFD_SYSCON, or else I got Kconfig warnings.
+The most substantial part of the driver will just be the hardware setup 
+and manipulation. Intel has done some work here already (thanks Ed) 
+which has been useful for configuring the hardware and doing the 
+capture/compress loop. I'll be following what I think is fairly common 
+for video drivers and only initializing the engine once a file 
+descriptor is opened, and then allow more file descriptors to be opened 
+as necessary without further touching the engine, though changing 
+configs will obviously do the necessary engine operations. Once the last 
+file descriptor is released, the engine and clocks will be shut down. 
+The read operation will trigger a single frame capture/compress for now.
 
+I still have details to hash out regarding streaming, user-space 
+buffers, etc, which will probably be necessary to get the performance we 
+need.
 
-> +       select GPIOLIB
-> +       select GPIOLIB_IRQCHIP
-> +       select PINMUX
-> +       select PINCONF
-> +       select GENERIC_PINCONF
-> +       help
-> +         Say Y here to enable pin controller and GPIO support
-> +         for Nuvoton NPCM7xx SoCs.
+Any comments/questions/concerns?
 
-> --- /dev/null
-> +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+Thanks,
 
-> +
-> +#define DRV_DATE    "2018-05-14"
-> +#define DRV_VERSION "2.0.0"
-
-I don't think this is necessary.
-
-
-> +/* Get slew rate of pin (high/low) */
-> +static int npcm_get_slew_rate(struct NPCM_GPIO *bank,
-> +                             struct regmap *gcr_regmap, unsigned int pin=
-)
-> +{
-> +       u32 val;
-> +       int gpio =3D (pin % bank->gc.ngpio);
-> +
-> +       if (pincfg[pin].flag & SLEW)
-> +               return gpio_bitop(bank, opGETBIT, gpio, NPCM_GP_N_OSRC);
-> +       /* LPC Slew rate in SRCNT register */
-> +       if (pincfg[pin].flag & SLEWLPC)
-> +       {
-> +               regmap_read(gcr_regmap, NPCM7XX_GCR_SRCNT, &val);
-> +               return !!(val & SRCNT_ESPI);
-> +       }
-> +       return -EINVAL;
-> +}
-> +
-> +/* Get drive strength for a pin, if supported */
-> +static int npcm_get_drive_strength(struct pinctrl_dev *pctldev,
-> +                                  unsigned int pin)
-> +{
-> +       struct NPCM7xx_pinctrl *npcm =3D pinctrl_dev_get_drvdata(pctldev)=
-;
-> +       struct NPCM_GPIO *bank =3D &npcm->gpio_bank[pin/GPIO_PER_BANK];
-> +       int gpio =3D (pin % bank->gc.ngpio);
-> +       u32 val, ds =3D 0;
-> +       int flg;
-> +
-> +       flg =3D pincfg[pin].flag;
-> +       if (flg & DRIVE_STRENGTH_MASK) {
-> +               /* Get standard reading */
-> +               val =3D gpio_bitop(bank, opGETBIT, gpio, NPCM_GP_N_ODSC);
-> +               ds =3D val ? DSHI(flg) : DSLO(flg);
-> +       }
-> +       dev_dbg(bank->gc.parent, " pin %d strength %d =3D %d\n", pin, val=
-, ds);
-
-I got a warning here:
-
-
-drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c: In function =E2=80=98npcm_config=
-_get=E2=80=99:
-./include/linux/dynamic_debug.h:134:3: warning: =E2=80=98val=E2=80=99 may b=
-e used
-uninitialized in this function [-Wmaybe-uninitialized]
-   __dynamic_dev_dbg(&descriptor, dev, fmt, \
-   ^~~~~~~~~~~~~~~~~
-drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c:1560:6: note: =E2=80=98val=E2=80=
-=99 was declared here
-  u32 val, ds =3D 0;
-      ^~~
-
-It might make sense to move the dev_dbg up into the if ().
-
-
-> +       return ds;
-
-In the case where DRIVE_STRENGTH_MASK is not supported, should you
-instead return EINVAL like you do for the slew rate above?
-
-
-> +}
-> +
-> +/* Set drive strength for a pin, if supported */
-> +static int npcm_set_drive_strength(struct NPCM7xx_pinctrl *npcm,
-> +                                  unsigned int pin, int nval)
-> +{
-> +       int v;
-> +       struct NPCM_GPIO *bank =3D &npcm->gpio_bank[pin/GPIO_PER_BANK];
-> +       int gpio =3D (pin % bank->gc.ngpio);
-> +
-> +       v =3D (pincfg[pin].flag & DRIVE_STRENGTH_MASK);
-> +       if (!nval || !v)
-> +               return 0;
-> +       if (DSLO(v) =3D=3D nval) {
-> +               dev_dbg(bank->gc.parent, " setting pin %d to low strength=
- "
-> +                                        "[%d]\n", pin, nval);
-> +               gpio_bitop(bank, opCLRBIT, gpio, NPCM_GP_N_ODSC);
-> +               return 1;
-> +       } else if (DSHI(v) =3D=3D nval) {
-> +               dev_dbg(bank->gc.parent, " setting pin %d to high strengt=
-h "
-> +                                        "[%d]\n", pin, nval);
-> +               gpio_bitop(bank, opSETBIT, gpio, NPCM_GP_N_ODSC);
-> +               return 1;
-> +       }
-> +       return 0;
-> +}
->
-
-Cheers,
-
-Joel
+Eddie
