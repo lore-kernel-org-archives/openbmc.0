@@ -8,17 +8,16 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40n9jX0n99zF29S
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:35:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40n9jh6RdpzF29l
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 11:35:52 +1000 (AEST)
 Received: from pasglop.ozlabs.ibm.com (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4I1Z2Vk016295;
- Thu, 17 May 2018 20:35:13 -0500
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4I1Z2Vl016295;
+ Thu, 17 May 2018 20:35:14 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13 3/4] fsi/occ: Nicer error messages when talking
- to a host that isn't ready
-Date: Fri, 18 May 2018 11:34:59 +1000
-Message-Id: <20180518013500.18005-3-benh@kernel.crashing.org>
+Subject: [PATCH linux dev-4.13 4/4] fsi/occ: Don't set driver data late
+Date: Fri, 18 May 2018 11:35:00 +1000
+Message-Id: <20180518013500.18005-4-benh@kernel.crashing.org>
 X-Mailer: git-send-email 2.17.0
 In-Reply-To: <20180518013500.18005-1-benh@kernel.crashing.org>
 References: <20180518013500.18005-1-benh@kernel.crashing.org>
@@ -33,70 +32,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 May 2018 01:35:45 -0000
+X-List-Received-Date: Fri, 18 May 2018 01:35:54 -0000
+
+Until now, the OCC driver was setting the driver data after
+registering the character device and the hwmon device.
+
+This might have been intentional, as doing so makes the initial
+probe of the OCC by the hwmon device fail while the data is NULL
+(provided you are lucky and the hwmon driver doesn't get bound
+asynchronously). That failure used to be necessary, otherwise
+the driver would try to access the SBE fifo at a time when it's
+not ready, causing all sort of problems.
+
+The new SBE fifo driver is much more robust and will return an
+appropriate error code, so that (fragile) tweak is no longer
+necessary.
 
 Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 ---
- drivers/fsi/fsi-occ.c      | 12 ++++++++++++
- drivers/hwmon/occ/common.c |  9 +++++++--
- 2 files changed, 19 insertions(+), 2 deletions(-)
+ drivers/fsi/fsi-occ.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
-index 7a5afa78fb6b..4bda1b435ecb 100644
+index 4bda1b435ecb..170fd8020829 100644
 --- a/drivers/fsi/fsi-occ.c
 +++ b/drivers/fsi/fsi-occ.c
-@@ -484,6 +484,10 @@ static int occ_getsram(struct device *sbefifo, u32 address, u8 *data,
- 		rc = sbefifo_submit(sbefifo, cmd, 5, resp, &resp_len);
- 		if (rc == 0)
- 			rc = sbefifo_parse_status(0xa403, resp, resp_len, &resp_len);
-+		if (rc == -ESHUTDOWN) {
-+			pr_info("occ: Host not ready\n");
-+			return rc;
-+		}
- 		if (rc) {
- 			if (rc < 0)
- 				pr_err("occ: FSI error %d, retrying sram read\n", rc);
-@@ -548,6 +552,10 @@ static int occ_putsram(struct device *sbefifo, u32 address, u8 *data,
- 
- 		resp_len = OCC_SBE_STATUS_WORDS;
- 		rc = sbefifo_submit(sbefifo, buf, cmd_len, buf, &resp_len);
-+		if (rc == -ESHUTDOWN) {
-+			pr_info("occ: Host not ready\n");
-+			return rc;
-+		}
- 		if (rc == 0)
- 			rc = sbefifo_parse_status(0xa404, buf, resp_len, &resp_len);
- 		if (rc) {
-@@ -604,6 +612,10 @@ static int occ_trigger_attn(struct device *sbefifo)
- 		buf[6] = 0;
- 
- 		rc = sbefifo_submit(sbefifo, buf, 7, buf, &resp_len);
-+		if (rc == -ESHUTDOWN) {
-+			pr_info("occ: Host not ready\n");
-+			return rc;
-+		}
- 		if (rc == 0)
- 			rc = sbefifo_parse_status(0xa404, buf, resp_len, &resp_len);
- 		if (rc) {
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index 88c32915b8bf..10f5c0586d47 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -1350,8 +1350,13 @@ int occ_setup(struct occ *occ, const char *name)
- 	/* no need to lock */
- 	rc = occ_poll(occ);
- 	if (rc < 0) {
--		dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
--			rc);
-+		/*
-+		 * If the error is -ESHUTDOWN, fail silently, as this happen in
-+		 * normal circumstances when the driver is loaded too early
-+		 */
-+		if (rc != -ESHUTDOWN)
-+			dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
-+				rc);
- 		return rc;
+@@ -836,6 +836,8 @@ static int occ_probe(struct platform_device *pdev)
+ 		occ->idx = ida_simple_get(&occ_ida, 1, INT_MAX, GFP_KERNEL);
  	}
+ 
++	platform_set_drvdata(pdev, occ);
++
+ 	snprintf(occ->name, sizeof(occ->name), "occ%d", occ->idx);
+ 	occ->mdev.fops = &occ_fops;
+ 	occ->mdev.minor = MISC_DYNAMIC_MINOR;
+@@ -854,8 +856,6 @@ static int occ_probe(struct platform_device *pdev)
+ 	if (!hwmon_dev)
+ 		dev_warn(dev, "failed to create hwmon device\n");
+ 
+-	platform_set_drvdata(pdev, occ);
+-
+ 	return 0;
+ }
  
 -- 
 2.17.0
