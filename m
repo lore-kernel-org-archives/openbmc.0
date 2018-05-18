@@ -1,60 +1,60 @@
 Return-Path: <yuenn@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c06::22d; helo=mail-io0-x22d.google.com;
+ (client-ip=2607:f8b0:4001:c0b::229; helo=mail-it0-x229.google.com;
  envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="dN0bS91L"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Upy9++qb"; 
  dkim-atps=neutral
-Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
- [IPv6:2607:f8b0:4001:c06::22d])
+Received: from mail-it0-x229.google.com (mail-it0-x229.google.com
+ [IPv6:2607:f8b0:4001:c0b::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40ndBQ3DqczF2Fh
- for <openbmc@lists.ozlabs.org>; Sat, 19 May 2018 05:13:49 +1000 (AEST)
-Received: by mail-io0-x22d.google.com with SMTP id r9-v6so7434885iod.6
- for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 12:13:49 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40ndFD5mx0zF2Ff
+ for <openbmc@lists.ozlabs.org>; Sat, 19 May 2018 05:16:15 +1000 (AEST)
+Received: by mail-it0-x229.google.com with SMTP id q4-v6so14461858ite.3
+ for <openbmc@lists.ozlabs.org>; Fri, 18 May 2018 12:16:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=H17ayMtGlANjygzxwF1Xdxt1r8/6nmax1JR4PRf1wfE=;
- b=dN0bS91Lcq8TFOaqOv3gvT+b2TflKaWvJyunRQ6asR2HVm/9XAc37Cg2FiIKUS6jh+
- wbXj9q+4urLRukN4fyOI09RWsFFHVRYgbwYRujV0+E9kA0cO6CHVCtop3HJKfqd3Fj8h
- 4ncmtgcGdFEBuL+dFUcCJ/JL8kNAFw31yArB35r63oC0eqRo3hj7m+hhaYYeKRPR5eW3
- Y9mJopcTmBQbQWg+CvfmN5bd9IAd8RVczQODLYJ1jSaz9KP3wxulMxiUB2ozkSS0/35x
- ntdpTNN0RwzBJcf+HC4JUruglzuYrcHBb5HGdu5JO2VPKbKofKeh1oB+IMynQMF52Xe3
- fRvw==
+ :cc; bh=EXODgq7jOZAfyvvOnHDgr7Fxocgj/D30tIAQMFwe6wM=;
+ b=Upy9++qbf2xTOv//COkH/YB9jHHWNsJE5bOcoZV127L6f/lqoQgEtcjIyooYOXb7nH
+ hkvDpQgNTkWH8DZLtfB7J20HYESJM6Nlp0hiXWUcC05IllnfMvEUQvz6VGB7spsxnEL2
+ eDnBL3uV0p5gevrrTj0m6NT92CmgVXHpxIZGI/hx+Dp2es9U3PiZrDDY3ZOp0htMKMZ5
+ i/XLHM31vvqiA1Mow8o5FclRWKLRKhFzvvQful5tVFG7DZQ+MQH7NLvmGF3YqL2WMNiq
+ RLdZ/gkiiJJMjIQjHUxXD8akR2ZSQk31i1x1kmgyDsxiiwEvYIf/6EGEgKwcZulW+hOz
+ XWFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=H17ayMtGlANjygzxwF1Xdxt1r8/6nmax1JR4PRf1wfE=;
- b=JhklEXjPQXs5x0+WM2KUhsyjTIooM4uwdcNGERbxm9uzkWcINn8EQ3VEA2BSbI44eW
- KDTbosPRdlYoXTWoQBMztQbYliEEyV24Fbf9AkGVzyCbRdwMxadvo+sh8YCaJUtCUQff
- G8lS2UKYjfmK+6HcrFbryDb6vBU5P5lB78PMbMaXu8u2uOo2KLB+yKdQg+UxyF/cvGfS
- WHeSBFuluzOA8IE4HO/kirV4CE9toTeXueEEI9lRIwNVMxjFW6oXoHhpuKR47dqZAzL5
- lf/Iew0CGSMQQIrfmAY4QFwokgswYkopUPaSwPnVfK4xjmERdsbPmtPC+6+VoGipbBqg
- bTNw==
-X-Gm-Message-State: ALKqPwf2Lm0hlgDATaKkBtze5+tEOeq+W89YCqSFiTJLgbvsty0iNJvg
- BWVqzBDxuaDDELbdpWKq7NtYexHZSUCrbwOI2pFUCQZa6uA=
-X-Google-Smtp-Source: AB8JxZrqwMRuz5sULvUKlNXlxoe5cnH7l3dRjnptvl6kQ4/ys/ZQldhkJLV2zSsvn6wHsXy+zUvezyyBctaRb2lxBjI=
-X-Received: by 2002:a6b:c006:: with SMTP id
- q6-v6mr11749023iof.61.1526670826336; 
- Fri, 18 May 2018 12:13:46 -0700 (PDT)
+ bh=EXODgq7jOZAfyvvOnHDgr7Fxocgj/D30tIAQMFwe6wM=;
+ b=YxBUWG3bxZVwCRPlFBaFaVCg7VAkr+fiRueL9Ue8HTjPZF4QMz3wdvjBUn/P3cIk4z
+ 15sGBJq6qTjvTuzzjh5sqYhSqzyibV6cisHt1TyTQemZnFDG+ClTZTwmcHZoE9wvYNeQ
+ kDkTA8UJDdS8PpZej11fbUv+osG4fzeZzDzcgtiItWuXSz/mFlnJnuLVIJRfFiBkkBEB
+ b7qBlUFpXb9snGaG73/Z9Kz5zgNDnxBQPXBV2/C1JAG9XnfovJyZunDDMEP4d8kpOaWR
+ zQOYmnvK0GIhmp3x5P3ggyhJBY2RbLdpGvy1D1FnOpgF6/mpk3xNHQSSroqVfxOB6ksU
+ IjVw==
+X-Gm-Message-State: ALKqPwe0bcvNLi8ZLxnJ5N9FvYg4KlAGwaxtTNhY3++hwIhOINXj4s4m
+ nBpwbMTQubUAUfk/K0F+x79kzaAudeOD3Uv0V9SsOA==
+X-Google-Smtp-Source: AB8JxZopzznWEv3YeDpCtMpZsQDHr31XvXccfUnvhpfSxJxtaMV/zC1qrtEQUUrCYDMkpfxRc1pGl4pZ+WMfgY4O+qw=
+X-Received: by 2002:a24:94c9:: with SMTP id
+ j192-v6mr8450625ite.153.1526670973171; 
+ Fri, 18 May 2018 12:16:13 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a5e:c90c:0:0:0:0:0 with HTTP; Fri, 18 May 2018 12:13:05
+Received: by 2002:a5e:c90c:0:0:0:0:0 with HTTP; Fri, 18 May 2018 12:15:32
  -0700 (PDT)
-In-Reply-To: <CACPK8XcTC_BnxVCW4fEymcfGGwpOPGY-cOhWx_1MfhJ6jD_stg@mail.gmail.com>
+In-Reply-To: <78bfadf4-1493-d9e9-58c0-9d1163f99f76@gmail.com>
 References: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
- <CACPK8XcTC_BnxVCW4fEymcfGGwpOPGY-cOhWx_1MfhJ6jD_stg@mail.gmail.com>
+ <78bfadf4-1493-d9e9-58c0-9d1163f99f76@gmail.com>
 From: Nancy Yuen <yuenn@google.com>
-Date: Fri, 18 May 2018 12:13:05 -0700
-Message-ID: <CADfYTpEb25ex9znunS1xBtWm7x-Zc8VOw2wAQ33B1NT03rvouQ@mail.gmail.com>
+Date: Fri, 18 May 2018 12:15:32 -0700
+Message-ID: <CADfYTpHhmE-TGMyyCLQBnJ45-9mHu4qawoDC-Ed1fCN7NQxwcQ@mail.gmail.com>
 Subject: Re: OpenBMC Fix-It
-To: Joel Stanley <joel@jms.id.au>
+To: krtaylor <kurt.r.taylor@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000004c174b056c7fc0f3"
+Content-Type: multipart/alternative; boundary="0000000000000c2895056c7fc926"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,68 +66,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 May 2018 19:13:51 -0000
+X-List-Received-Date: Fri, 18 May 2018 19:16:17 -0000
 
---0000000000004c174b056c7fc0f3
+--0000000000000c2895056c7fc926
 Content-Type: text/plain; charset="UTF-8"
 
-:D Happy to have you for any part of it Joel!
+Next week I will post a shared doc where everyone can submit ideas for
+things to work on.
 
 ----------
 Nancy
 
-On Thu, May 10, 2018 at 5:43 AM, Joel Stanley <joel@jms.id.au> wrote:
+On Thu, May 10, 2018 at 6:59 AM, krtaylor <kurt.r.taylor@gmail.com> wrote:
 
-> Hi Nancy,
+> On 5/8/18 2:28 PM, Nancy Yuen wrote:
 >
-> On 9 May 2018 at 04:58, Nancy Yuen <yuenn@google.com> wrote:
-> > Please join my team for an OpenBMC  community "fix-it" event in June!
-> >
-> > My team is devoting the week of 6/11/-15 to a Google OpenBMC "fix it" as
-> > part of a larger fix-it initiative. OpenBMC is a large part of our
-> project
-> > so I'd like to spend part of the week on a fix-it on OpenBMC.
+> Please join my team for an OpenBMC  community "fix-it" event in June!
 >
-> > Anyone interested in participating?
+> My team is devoting the week of 6/11/-15 to a Google OpenBMC "fix it" as
+> part of a larger fix-it initiative. OpenBMC is a large part of our project
+> so I'd like to spend part of the week on a fix-it on OpenBMC.
 >
-> I would be, as much as is practical given timezones :)
+> I propose to have the fix it on Tues and Wed 6/12 & 6/13.  We could set up
+> an IRC channel for the fix it where everyone participating would hang out
+> for the day.  We could pick one or two areas to
 >
-> Cheers,
+> I'd say let's just use the #openbmc channel, it may pull in others as you
+> move along.
 >
-> Joel
+> focus on for those days, put together a list of things to "fix" in those
+> areas ahead of time.  On the day, we all tackle things on the list (or
+> something not on the list), discuss over IRC and do code reviews.
+> Inevitably, people have meetings or things they can't get out of, but if
+> you can be available for most of the day, that would be enough!
+>
+> Anyone interested in participating?
+>
+> I'm in.
+>
+> Thanks for organizing this Nancy!
+>
+> Kurt Taylor (krtaylor)
 >
 
---0000000000004c174b056c7fc0f3
+--0000000000000c2895056c7fc926
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">:D Happy to have you for any part of it Joel!<br></div><di=
-v class=3D"gmail_extra"><br clear=3D"all"><div><div class=3D"gmail_signatur=
-e" data-smartmail=3D"gmail_signature">----------<br>Nancy</div></div>
-<br><div class=3D"gmail_quote">On Thu, May 10, 2018 at 5:43 AM, Joel Stanle=
-y <span dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank"=
->joel@jms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" =
-style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi =
-Nancy,<br>
-<span class=3D"gmail-"><br>
-On 9 May 2018 at 04:58, Nancy Yuen &lt;<a href=3D"mailto:yuenn@google.com">=
-yuenn@google.com</a>&gt; wrote:<br>
-&gt; Please join my team for an OpenBMC=C2=A0 community &quot;fix-it&quot; =
-event in June!<br>
-&gt;<br>
-&gt; My team is devoting the week of 6/11/-15 to a Google OpenBMC &quot;fix=
- it&quot; as<br>
-&gt; part of a larger fix-it initiative. OpenBMC is a large part of our pro=
-ject<br>
-&gt; so I&#39;d like to spend part of the week on a fix-it on OpenBMC.<br>
-<br>
-</span>&gt; Anyone interested in participating?<br>
-<br>
-I would be, as much as is practical given timezones :)<br>
-<br>
-Cheers,<br>
-<br>
-Joel<br>
+<div dir=3D"ltr">Next week I will post a shared doc where everyone can subm=
+it ideas for things to work on.</div><div class=3D"gmail_extra"><br clear=
+=3D"all"><div><div class=3D"gmail_signature" data-smartmail=3D"gmail_signat=
+ure">----------<br>Nancy</div></div>
+<br><div class=3D"gmail_quote">On Thu, May 10, 2018 at 6:59 AM, krtaylor <s=
+pan dir=3D"ltr">&lt;<a href=3D"mailto:kurt.r.taylor@gmail.com" target=3D"_b=
+lank">kurt.r.taylor@gmail.com</a>&gt;</span> wrote:<br><blockquote class=3D=
+"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
+-left:1ex">
+ =20
+   =20
+ =20
+  <div bgcolor=3D"#FFFFFF"><span class=3D"gmail-">
+    On 5/8/18 2:28 PM, Nancy Yuen wrote:<br>
+    <blockquote type=3D"cite">
+      <div dir=3D"ltr">
+        <div><font size=3D"4">Please join my team for an OpenBMC=C2=A0
+            community &quot;fix-it&quot; event in June!</font></div>
+        <div><font size=3D"4"><br>
+          </font></div>
+        <font size=3D"4">My team is devoting the week of 6/11/-15 to a
+          Google OpenBMC &quot;fix it&quot; as part of a larger fix-it init=
+iative.
+          OpenBMC is a large part of our project so I&#39;d like to spend
+          part of the week on a fix-it on OpenBMC.</font>
+        <div><font size=3D"4"><br>
+          </font></div>
+        <div><font size=3D"4">I propose to have the fix it on Tues and Wed
+            6/12 &amp; 6/13.=C2=A0 We could set up an IRC channel for the f=
+ix
+            it where everyone participating would hang out for the day.=C2=
+=A0
+            We could pick one or two areas to </font></div>
+      </div>
+    </blockquote></span>
+    I&#39;d say let&#39;s just use the #openbmc channel, it may pull in oth=
+ers
+    as you move along.
+    <span class=3D"gmail-"><blockquote type=3D"cite">
+      <div dir=3D"ltr">
+        <div><font size=3D"4">focus on for those days, put together a list
+            of things to &quot;fix&quot; in those areas ahead of time.=C2=
+=A0 On the
+            day, we all tackle things on the list (or something not on
+            the list), discuss over IRC and do code reviews.=C2=A0
+            Inevitably, people have meetings or things they can&#39;t get
+            out of, but if you can be available for most of the day,
+            that would be enough!</font></div>
+        <div><font size=3D"4"><br>
+          </font></div>
+        <div><font size=3D"4">Anyone interested in participating?</font></d=
+iv>
+      </div>
+    </blockquote>
+    </span><p>I&#39;m in.<br>
+    </p>
+    <p>Thanks for organizing this Nancy!=C2=A0</p>
+    <p>Kurt Taylor (krtaylor)<br>
+    </p>
+  </div>
+
 </blockquote></div><br></div>
 
---0000000000004c174b056c7fc0f3--
+--0000000000000c2895056c7fc926--
