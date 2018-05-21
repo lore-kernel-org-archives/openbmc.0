@@ -1,68 +1,61 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::231; helo=mail-it0-x231.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZM768Ogo"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="OqAW0v0z"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oh50qeXH"; 
+ dkim-atps=neutral
+Received: from mail-it0-x231.google.com (mail-it0-x231.google.com
+ [IPv6:2607:f8b0:4001:c0b::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40q36r4ywszF0Vv
- for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 12:45:40 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CE70C22199;
- Sun, 20 May 2018 22:45:37 -0400 (EDT)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Sun, 20 May 2018 22:45:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=FNWeUSCpEGuaweWwg2QTJvo/zXmJt
- 1QsiC+I5SLpGdc=; b=ZM768Ogos07NLJspJPUqryAZ2jSZybSLQLHaVCa3aOMX4
- EJSGo5jRglu5tlhK1P+BGiQTSF1SXXJyWmhGmn0dHF5jXgod0W7hQZyonT7VR7Bd
- OsnOI7QbPmz3u0q7OGa/XU286q331YbwSEWd4CwV5GhNOZX4qFkuN/KDjgukK4OL
- RXuLQylxrhWwcXsHOQNaajMn9OfBkZhQrGc5a2FiebFFec8ufBfhX0hNmIEXut94
- Drvw3a6lickinUpxbDCvKPMQt1pVkBJhJIauOaLt/yCb75A9MmStG198ZjEPfqe/
- HAU1lY2for+klMGGShkZxHVqTeyfnpmL9ksDZo9Kw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=FNWeUS
- CpEGuaweWwg2QTJvo/zXmJt1QsiC+I5SLpGdc=; b=OqAW0v0zW3PgOpVcZHR7wt
- SeFji2nlkj35x7kssVonWzT1zb0grBL/sAytGAHAAxxXB6qipfICeOOf+hL9YS1T
- ExUAoWKkr9SyepDZ6HmSQkXcml/JQuAhuQ29Qnq7ZtuADD9TiQQgNLYjjfK88oMU
- gbiOpq9Dj8E6oOuS8TxUBPz4JNDb0qy4FEWABxsf+FmNQ25hLEoj+XX//7iHFMW6
- 7j+REDLToKQXD9jJg45ZSFx5yEyudAbS9nGnBjR5szB4hHERf8xgQckjEOZrQEQ1
- YrbtOmwG8h/pAd8GkDv3ce2YJ9nqkiAB2ZothsZGxB/rEH6WJP+EvRPUNGvUB+CQ
- ==
-X-ME-Proxy: <xmx:0TICW3NqQ1Fk3BNxPEQDYO1gP4viH141McYTXEZEz3zWUzngut6KaA>
-X-ME-Proxy: <xmx:0TICWzkEa0uuv3C4klGIfw2ehTbezTMScDH7DA2L29MzrLEZ-JRvCw>
-X-ME-Proxy: <xmx:0TICW0-s2TgT2kb_lol3gmixzYr692HDmO2c8xQXcFMG8YSK5xNxzQ>
-X-ME-Proxy: <xmx:0TICW0OvSNipQvVEsy0-Y-81JWc7XNiMYkSaPEoc2QcSi1vikg4zkg>
-X-ME-Proxy: <xmx:0TICWwHo0Jnpe_cXBs4B6YpxoSK8Es1s5xYrT3918u0Y1Uefo4V4GA>
-X-ME-Proxy: <xmx:0TICWy86VV837tUqGPWfQSCOfFHFZakzqO4xYe_cggNEg5e89omIag>
-X-ME-Sender: <xms:0TICWx5mO0d5tyB60Z6fDH9_Gex3qtuiP5YYnJtCuc6hYO2yYxResA>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 555FE40DC; Sun, 20 May 2018 22:45:37 -0400 (EDT)
-Message-Id: <1526870737.2605431.1378859312.7251F6CD@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40q3QZ60fqzF0Tj
+ for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 12:59:17 +1000 (AEST)
+Received: by mail-it0-x231.google.com with SMTP id e185-v6so7512216ita.0
+ for <openbmc@lists.ozlabs.org>; Sun, 20 May 2018 19:59:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=8M6tEO+G+qMt2CAi8ODOqJhlelxwu1xOE+WaLFQI+38=;
+ b=Oh50qeXHHoZ7/MLtYxUMceTwKBOAs4bGqqXv9CHDKbivBkdjD/TznQtZ35JUxJdETq
+ V9DyJGz9UkR7igsaALH0XeE9Y3oGVePFH2cgRxaCfNgz8sw9oP3/JhsgsfdgEbNarn2Z
+ dF1JOX6XT9YJXWQBta2u7QZHfryl2NwKPzWmAVDBfv8EXsorit0TwLmbnYT/0tQF0Sk7
+ JCyg0xNMd6LSQbMjRjomrX1rMhjMRiqGIg7cI6H3niSVv9cI7cl3LSVRtVMrCehtARhR
+ DQr5eyS5f9A5xJS1rM9my+5dXXLBaTY1uBk4WeyH7o1Pax9fLYPTgPXYe9YmpxipE/3/
+ Ovng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=8M6tEO+G+qMt2CAi8ODOqJhlelxwu1xOE+WaLFQI+38=;
+ b=G07EpRoFkQ9nEhgwDnUQ/9iDkpm8kEHCw8fzS+mlifMKQw+ZVxjawxAeGXbWMjfy7m
+ mn4+J1dopMjf+/s2qxj0X7VRzlyFpmmKFHvnp8Pmr9lm4WlFXBGJx0/rWXoTc9m+g/QL
+ ZGy6MNKhRw/csEHLJqLIqIIRF3Xcnod9vUI/hH0SZjFHTkT/oXHOjgw7DDkIE+yvRen6
+ j0i9GB+CqhJOD5ccq5t8tk9fQzIi4Iuf78sJAgQoaUJK2t4ADWBslrsnFyHqiPBbrK71
+ nLSbgn8/UESCotTdV+FQGcnabR0mTPYFVnptiF6vsidvTlRveedSatB46ibNApW2wALt
+ EMTA==
+X-Gm-Message-State: ALKqPwcK4XrHm3Y5rPQUxVWGQj/LOkxyrLPDNZ/qhTmEW5enKvw9Ccb1
+ okh6IBdQLAqCSayJuMbMW/nrBevABgFO4a/JWx4=
+X-Google-Smtp-Source: AB8JxZpPPa2YMVRUeBDj0X+xmKnFh94SQEQdiLzMdSqDdYMuKXFnKg/xvRmFjvtA3BwYMvGgUCcJHe83KLU3jzLEg7o=
+X-Received: by 2002:a24:8d85:: with SMTP id
+ w127-v6mr15090503itd.22.1526871554986; 
+ Sun, 20 May 2018 19:59:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-a224ff37
-Date: Mon, 21 May 2018 12:15:37 +0930
-Subject: Re: [RFC] AST2500 video engine driver design
-In-Reply-To: <ff0a9c9c-2b09-00e5-3f04-4406b16309e3@linux.vnet.ibm.com>
-References: <ff0a9c9c-2b09-00e5-3f04-4406b16309e3@linux.vnet.ibm.com>
+Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Sun, 20 May 2018 19:59:14
+ -0700 (PDT)
+In-Reply-To: <CADfYTpEb25ex9znunS1xBtWm7x-Zc8VOw2wAQ33B1NT03rvouQ@mail.gmail.com>
+References: <CADfYTpFfoEe2SvvBAsjL-UAPocC02Z49o-rTDxA7JwA9OagHnw@mail.gmail.com>
+ <CACPK8XcTC_BnxVCW4fEymcfGGwpOPGY-cOhWx_1MfhJ6jD_stg@mail.gmail.com>
+ <CADfYTpEb25ex9znunS1xBtWm7x-Zc8VOw2wAQ33B1NT03rvouQ@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Mon, 21 May 2018 10:59:14 +0800
+Message-ID: <CAARXrtmUQHcZi-3dHaY1smbc9stBt7TLANqgMm3E=GUQvv=3fQ@mail.gmail.com>
+Subject: Re: OpenBMC Fix-It
+To: Nancy Yuen <yuenn@google.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,51 +67,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 May 2018 02:45:43 -0000
+X-List-Received-Date: Mon, 21 May 2018 02:59:19 -0000
 
-On Sat, 19 May 2018, at 01:12, Eddie James wrote:
-> Hi,
-> 
-> I'm working on a driver for the AST2500 video engine; just wanted to 
-> post up the plan in case anyone has any ideas. The purpose behind this 
-> development is to be able to use IKVM with video from the host and i/o 
-> from a remote user.
-> 
-> The video engine is a piece of hardware in the AST24/2500 that captures 
-> and/or compresses video data. Typically the input is the host graphics, 
-> writing it's RGB output to the VGA memory on the BMC. The video engine 
-> will capture and compress the data and store it in memory. The driver 
-> should provide an interface for an application to read that compressed 
-> video in order to get it on the network.
-> 
-> The driver interface will use the Video4Linux2 API. This involves 
-> standard file operations like open, read, and close, as well as a video 
-> ioctl interface for configuring the device. Configuration options will 
-> probably be limited, as I think there will only be one mode that will 
-> provide enough performance for IKVM. I do want to be able to configure 
-> the video source; either direct from host at the BMC VGA memory or from 
-> the BMC DRM driver.
-> 
-> The most substantial part of the driver will just be the hardware setup 
-> and manipulation. Intel has done some work here already (thanks Ed) 
-> which has been useful for configuring the hardware and doing the 
-> capture/compress loop. I'll be following what I think is fairly common 
-> for video drivers and only initializing the engine once a file 
-> descriptor is opened, and then allow more file descriptors to be opened 
-> as necessary without further touching the engine, though changing 
-> configs will obviously do the necessary engine operations. Once the last 
-> file descriptor is released, the engine and clocks will be shut down. 
-> The read operation will trigger a single frame capture/compress for now.
-> 
-> I still have details to hash out regarding streaming, user-space 
-> buffers, etc, which will probably be necessary to get the performance we 
-> need.
-> 
-> Any comments/questions/concerns?
-> 
+On Sat, May 19, 2018 at 3:13 AM, Nancy Yuen <yuenn@google.com> wrote:
+> :D Happy to have you for any part of it Joel!
+>
+> ----------
+> Nancy
+>
+> On Thu, May 10, 2018 at 5:43 AM, Joel Stanley <joel@jms.id.au> wrote:
+>>
+>> Hi Nancy,
+>>
+>> On 9 May 2018 at 04:58, Nancy Yuen <yuenn@google.com> wrote:
+>> > Please join my team for an OpenBMC  community "fix-it" event in June!
+>> >
+>> > My team is devoting the week of 6/11/-15 to a Google OpenBMC "fix it" as
+>> > part of a larger fix-it initiative. OpenBMC is a large part of our
+>> > project
+>> > so I'd like to spend part of the week on a fix-it on OpenBMC.
+>>
+>> > Anyone interested in participating?
+>>
+>> I would be, as much as is practical given timezones :)
 
-Sounds reasonable to me, but I don't have much experience in V4L land. Keep us posted on your progress, and pipe up if you are looking for opinions on the driver design.
+I would be interested and would like to fix unit tests in sdbusplus.
+But I'm not sure a different timezone (GMT+8) is OK or not :D
 
-Cheers,
-
-Andrew
+>>
+>> Cheers,
+>>
+>> Joel
+>
+>
