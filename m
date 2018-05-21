@@ -1,50 +1,68 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZM768Ogo"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="OqAW0v0z"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40ngcQ2lNCzDrTs;
- Sat, 19 May 2018 07:03:01 +1000 (AEST)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 May 2018 14:02:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,415,1520924400"; d="scan'208";a="225437929"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.73])
- by orsmga005.jf.intel.com with ESMTP; 18 May 2018 14:02:54 -0700
-Date: Fri, 18 May 2018 14:02:54 -0700
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Adriana Kobylak <anoo@linux.ibm.com>
-Cc: Lei YU <mine260309@gmail.com>, Adriana Kobylak <anoo@linux.vnet.ibm.com>,
- Stewart Smith <stewart@linux.vnet.ibm.com>,
- Yugi Mani <yupalani@microsoft.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- openbmc <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
-Subject: Re: BMC Image Signing Proposal
-Message-ID: <20180518210254.GC105329@mauery>
-References: <87lggezywe.fsf@linux.vnet.ibm.com>
- <3d38bc878a5b36f9091588d1fb842c1e@linux.vnet.ibm.com>
- <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
- <874lm8pjd7.fsf@linux.vnet.ibm.com>
- <e1431b039c817b23b49b6f5833760152@linux.vnet.ibm.com>
- <CAARXrtn6M=tzE-yMJWN4yaSHZJUYksMT=vMvVymY0kvgQJ4bfQ@mail.gmail.com>
- <MWHPR21MB0864432C6CB8EF9A575589B0D6930@MWHPR21MB0864.namprd21.prod.outlook.com>
- <20180516160209.GB105329@mauery>
- <CAARXrtksFbirzq70cLzvWRcxKxOT9rGYKPMa-+UQcMpvx0=ycw@mail.gmail.com>
- <435d4ae31bb1d8c4c06ec95cca51b5d2@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40q36r4ywszF0Vv
+ for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 12:45:40 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id CE70C22199;
+ Sun, 20 May 2018 22:45:37 -0400 (EDT)
+Received: from web6 ([10.202.2.216])
+ by compute4.internal (MEProxy); Sun, 20 May 2018 22:45:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=FNWeUSCpEGuaweWwg2QTJvo/zXmJt
+ 1QsiC+I5SLpGdc=; b=ZM768Ogos07NLJspJPUqryAZ2jSZybSLQLHaVCa3aOMX4
+ EJSGo5jRglu5tlhK1P+BGiQTSF1SXXJyWmhGmn0dHF5jXgod0W7hQZyonT7VR7Bd
+ OsnOI7QbPmz3u0q7OGa/XU286q331YbwSEWd4CwV5GhNOZX4qFkuN/KDjgukK4OL
+ RXuLQylxrhWwcXsHOQNaajMn9OfBkZhQrGc5a2FiebFFec8ufBfhX0hNmIEXut94
+ Drvw3a6lickinUpxbDCvKPMQt1pVkBJhJIauOaLt/yCb75A9MmStG198ZjEPfqe/
+ HAU1lY2for+klMGGShkZxHVqTeyfnpmL9ksDZo9Kw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=FNWeUS
+ CpEGuaweWwg2QTJvo/zXmJt1QsiC+I5SLpGdc=; b=OqAW0v0zW3PgOpVcZHR7wt
+ SeFji2nlkj35x7kssVonWzT1zb0grBL/sAytGAHAAxxXB6qipfICeOOf+hL9YS1T
+ ExUAoWKkr9SyepDZ6HmSQkXcml/JQuAhuQ29Qnq7ZtuADD9TiQQgNLYjjfK88oMU
+ gbiOpq9Dj8E6oOuS8TxUBPz4JNDb0qy4FEWABxsf+FmNQ25hLEoj+XX//7iHFMW6
+ 7j+REDLToKQXD9jJg45ZSFx5yEyudAbS9nGnBjR5szB4hHERf8xgQckjEOZrQEQ1
+ YrbtOmwG8h/pAd8GkDv3ce2YJ9nqkiAB2ZothsZGxB/rEH6WJP+EvRPUNGvUB+CQ
+ ==
+X-ME-Proxy: <xmx:0TICW3NqQ1Fk3BNxPEQDYO1gP4viH141McYTXEZEz3zWUzngut6KaA>
+X-ME-Proxy: <xmx:0TICWzkEa0uuv3C4klGIfw2ehTbezTMScDH7DA2L29MzrLEZ-JRvCw>
+X-ME-Proxy: <xmx:0TICW0-s2TgT2kb_lol3gmixzYr692HDmO2c8xQXcFMG8YSK5xNxzQ>
+X-ME-Proxy: <xmx:0TICW0OvSNipQvVEsy0-Y-81JWc7XNiMYkSaPEoc2QcSi1vikg4zkg>
+X-ME-Proxy: <xmx:0TICWwHo0Jnpe_cXBs4B6YpxoSK8Es1s5xYrT3918u0Y1Uefo4V4GA>
+X-ME-Proxy: <xmx:0TICWy86VV837tUqGPWfQSCOfFHFZakzqO4xYe_cggNEg5e89omIag>
+X-ME-Sender: <xms:0TICWx5mO0d5tyB60Z6fDH9_Gex3qtuiP5YYnJtCuc6hYO2yYxResA>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 555FE40DC; Sun, 20 May 2018 22:45:37 -0400 (EDT)
+Message-Id: <1526870737.2605431.1378859312.7251F6CD@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Eddie James <eajames@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <435d4ae31bb1d8c4c06ec95cca51b5d2@linux.vnet.ibm.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-a224ff37
+Date: Mon, 21 May 2018 12:15:37 +0930
+Subject: Re: [RFC] AST2500 video engine driver design
+In-Reply-To: <ff0a9c9c-2b09-00e5-3f04-4406b16309e3@linux.vnet.ibm.com>
+References: <ff0a9c9c-2b09-00e5-3f04-4406b16309e3@linux.vnet.ibm.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -56,79 +74,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 May 2018 21:03:04 -0000
+X-List-Received-Date: Mon, 21 May 2018 02:45:43 -0000
 
-On 18-May-2018 11:01 AM, Adriana Kobylak wrote:
->On 2018-05-17 22:33, Lei YU wrote:
->
->>So I think it is better for OpenBMC project to have a common (or 
->>example)
->>image signing tools/code, not for a specific machine or product, but 
->>for the
->>general machines in this project using legacy flash layout.
->>Let's discuss and get a design proposal?
->>
->
->Yeah, ideally we'd converge the legacy and ubi code update methods 
->into one, to take advantage of the Software D-Bus interfaces and have 
->the different features like signature verification, filesystem 
->mirroring, etc be able to be picked up as separate packages. One 
->starting point for the design proposal would be to determine how to 
->separate in the build and the repo the different code update methods. 
->Lei, want to take an initial stab at it? :)
+On Sat, 19 May 2018, at 01:12, Eddie James wrote:
+> Hi,
+> 
+> I'm working on a driver for the AST2500 video engine; just wanted to 
+> post up the plan in case anyone has any ideas. The purpose behind this 
+> development is to be able to use IKVM with video from the host and i/o 
+> from a remote user.
+> 
+> The video engine is a piece of hardware in the AST24/2500 that captures 
+> and/or compresses video data. Typically the input is the host graphics, 
+> writing it's RGB output to the VGA memory on the BMC. The video engine 
+> will capture and compress the data and store it in memory. The driver 
+> should provide an interface for an application to read that compressed 
+> video in order to get it on the network.
+> 
+> The driver interface will use the Video4Linux2 API. This involves 
+> standard file operations like open, read, and close, as well as a video 
+> ioctl interface for configuring the device. Configuration options will 
+> probably be limited, as I think there will only be one mode that will 
+> provide enough performance for IKVM. I do want to be able to configure 
+> the video source; either direct from host at the BMC VGA memory or from 
+> the BMC DRM driver.
+> 
+> The most substantial part of the driver will just be the hardware setup 
+> and manipulation. Intel has done some work here already (thanks Ed) 
+> which has been useful for configuring the hardware and doing the 
+> capture/compress loop. I'll be following what I think is fairly common 
+> for video drivers and only initializing the engine once a file 
+> descriptor is opened, and then allow more file descriptors to be opened 
+> as necessary without further touching the engine, though changing 
+> configs will obviously do the necessary engine operations. Once the last 
+> file descriptor is released, the engine and clocks will be shut down. 
+> The read operation will trigger a single frame capture/compress for now.
+> 
+> I still have details to hash out regarding streaming, user-space 
+> buffers, etc, which will probably be necessary to get the performance we 
+> need.
+> 
+> Any comments/questions/concerns?
+> 
 
-As far as the update methods go, just using a descriptive payload goes a 
-long way. Historically, using a manifest type thing that told the update 
-mechanism which bytes to write to where was pretty simple and very 
-effective. The update mechanism would check the authenticity of the 
-payload before trusting the manifest, but then the manifest and payload 
-would all get written to the flash. This was for specific flash offsets 
-and did not fully comprehend the notion of A/B or other redundant 
-scenarios, so all the offsets were relative.
+Sounds reasonable to me, but I don't have much experience in V4L land. Keep us posted on your progress, and pipe up if you are looking for opinions on the driver design.
 
-But doing something in the manifest so simple as this would work for a 
-variety of scenarios:
+Cheers,
 
-MANIFEST:
-purpose=xyz.openbmc_project.Software.Version.VersionPurpose.BMC
-version=v2.2-32-gc6712d3-dirty
-KeyType=OpenBMC
-HashType=RSA-SHA256
-
-# Expected is a list of files alongside the manifest
-Expected=part1,part2,part3,partN
-
-update_pre=<target to activate prior to fwupdate>
-
-# obmc-flash-bmc-by-name knows where to place this part by name
-# (e.g. u-boot always goes at 0x00000000)
-part1_update=obmc-flash-bmc-by-name@.service
-
-# obmc-flash-bmc-at-offset places a part at a fixed offset
-# optionally relative to an optionally specified MTD partition
-# (default relative to /dev/mtd0)
-part2_update=obmc-flash-bmc-at-offset@.service 0x130000
-# (default relative to /dev/mtd0)
-part3_update=obmc-flash-bmc-at-offset@.service 0x130000
-
-# not a ubi person, so I can't comment on all the options :)
-part4_update=obmc-flash-bmc-ubi@.service
-
-partN_update=<service for updating partN> 
-
-update_post=<target to activate post fwupdate>
-
-
-The idea is that we can have a series of service files that can handle 
-the majority of operations generically and any special cases can supply 
-their own. But since it is just a service, the dependencies are all 
-taken care of.
-
-
-Just some thoughts on how this might be done. This is actually something 
-that I am working on right now, trying to get our redundant image 
-booting working internally, so I am glad to hear that others are working 
-toward similar goals.
-
-
---Vernon
+Andrew
