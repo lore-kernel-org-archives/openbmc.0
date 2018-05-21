@@ -1,68 +1,33 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="qlr4In+X"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Zp8BwFu4"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40q76b4sDlzF0wM
- for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 15:45:43 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 5F08E21E2B;
- Mon, 21 May 2018 01:45:41 -0400 (EDT)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Mon, 21 May 2018 01:45:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=965/qjPGfVSlq8Vsu+rRieO8wA1ro
- 1sqyzbJteBRs/o=; b=qlr4In+Xi6r8CEcIxtbUeDkn0j98fnrTWLmwkOx0NcVox
- vEBYIBd8TsxDrneKu39m6kTIbeS9MI0TamZ4yOr9UlosBu62rV+dUwkkNdGIW1qe
- u8Qt+rCpoOAd0y8siMyPadZ5yO8vGKYCj4Yl06woS91NxhkN+ocPDfVNr+UE6uct
- kXHJvaB6DUax4vbgkUyMTDOBPxrlJqneWuerPj+p5lxdoSmtd6HvovqtmU9LT5u8
- 88d7HBDObKpcOdsKZE1yZriCsiJW1JB0uQKBSZT86R2/vGVh9PhCkPu7Ja5QhRnV
- aPAoPvdKbOlEnG0qw/AS9UVeo6C63D78uzrSSuFjw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=965/qj
- PGfVSlq8Vsu+rRieO8wA1ro1sqyzbJteBRs/o=; b=Zp8BwFu4YBw9QKi8K1qThy
- X163hyZqhdINnYHKez/2EqgtIHY580NJRwkE+sSQxTKsoxxnalW3p8xaCBmIRV4X
- S3CgNYwqAbETGbgAA3TOsigZuylhpYErA9vizr+ewru6kmBMEuGZR7aQ5jUZNctM
- nK8p9kfVjZEmiJ0cCgIwybi8WeKs9LflheLxXpwAT6dbS4EBWr7I9At0em/GFAaz
- ZPO9K4Nt2gustuA3cY4K13pVj+WblfdJw4TIOk7JGzMN1C3GZc9uT5tlczde6AmO
- lTlTTNUsZxG7A35qKwaw06Udq3pimNHGmeHo4ntGTcLHQ1TNg9FaB9zvF5DT0Tug
- ==
-X-ME-Proxy: <xmx:BV0CW5DdbB27eOqGzIsPjXAd5c0ZEWZFSA9YRRWFwOxiGoITGnPj9Q>
-X-ME-Proxy: <xmx:BV0CW--t-yjzhPRj5jL3yWdl_0AKvyMHtP1SzAUp3NRwn3cNFZuiKA>
-X-ME-Proxy: <xmx:BV0CWx_RP2BFX1DaKimKStRezCjkkVqROFHr1POVR-MBSl1uxJJzpg>
-X-ME-Proxy: <xmx:BV0CW9dnbORCrbbsyT1zBsWtI_AT1j0F_4uZlcHBnfWyKy3nWfTPtQ>
-X-ME-Proxy: <xmx:BV0CWyHcCD7xJ0PTWVbLSDsywHzFm2Bp3Llw3A6J6d1-93fp3ylcjQ>
-X-ME-Proxy: <xmx:BV0CW0W6uP3acOImBWkKe6SJmPartWcF5lENFmmltgb6EBMKcQySKw>
-X-ME-Sender: <xms:BV0CWzOrusKturR0f7baZzU_sw8XF3k6HU-SgYmv7MH-MOJz0CpU9Q>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 2B2A240DC; Mon, 21 May 2018 01:45:41 -0400 (EDT)
-Message-Id: <1526881541.2648797.1378961240.61A1FFDB@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40qBnL116WzF12N
+ for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 18:31:01 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4L8UePO010464;
+ Mon, 21 May 2018 03:30:47 -0500
+Message-ID: <85b59d57c40db1b69101ca2bb295d8203a6223a3.camel@kernel.crashing.org>
+Subject: Re: [PATCH v3 linux dev-4.13 2/3] fsi/sbefifo: Add driver for the
+ SBE FIFO
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+Cc: Nick Piggin <npiggin@au1.ibm.com>
+Date: Mon, 21 May 2018 18:30:40 +1000
+In-Reply-To: <1526874415.2620050.1378895248.510458F0@webmail.messagingengine.com>
+References: <20180518013429.17732-1-benh@kernel.crashing.org>
+ <20180518013429.17732-2-benh@kernel.crashing.org>
+ <1526874415.2620050.1378895248.510458F0@webmail.messagingengine.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-a224ff37
-Subject: Re: [PATCH linux dev-4.13] hwmon/occ: Silence probe error message when
- host is shutdown
-In-Reply-To: <20180518014311.20781-1-benh@kernel.crashing.org>
-References: <20180518014311.20781-1-benh@kernel.crashing.org>
-Date: Mon, 21 May 2018 15:15:41 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,43 +39,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 May 2018 05:45:44 -0000
+X-List-Received-Date: Mon, 21 May 2018 08:31:02 -0000
 
-On Fri, 18 May 2018, at 11:13, Benjamin Herrenschmidt wrote:
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
++Nick (see question about iovec)
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-> ---
->  drivers/hwmon/occ/p9_sbe.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+> > --- /dev/null
+> > +++ b/drivers/fsi/fsi-sbefifo.c
+> > @@ -0,0 +1,867 @@
+> > +/*
+> > + * Copyright (C) IBM Corporation 2017
+> > + *
+> > + * This program is free software; you can redistribute it and/or modify
+> > + * it under the terms of the GNU General Public License version 2 as
+> > + * published by the Free Software Foundation.
+> > + *
+> > + * This program is distributed in the hope that it will be useful,
+> > + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> > + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> > + * GNU General Public License for more details.
+> > + */
 > 
-> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-> index 27886897a3d6..9a1d3ae56d69 100644
-> --- a/drivers/hwmon/occ/p9_sbe.c
-> +++ b/drivers/hwmon/occ/p9_sbe.c
-> @@ -110,6 +110,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->  static int p9_sbe_occ_probe(struct platform_device *pdev)
->  {
->  	struct occ *occ;
-> +	int rc;
->  	struct p9_sbe_occ *ctx = devm_kzalloc(&pdev->dev,
->  						     sizeof(*ctx),
->  						     GFP_KERNEL);
-> @@ -126,7 +127,12 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
->  	occ->poll_cmd_data = 0x20;		/* P9 OCC poll data */
->  	occ->send_cmd = p9_sbe_occ_send_cmd;
->  
-> -	return occ_setup(occ, "p9_occ");
-> +	rc = occ_setup(occ, "p9_occ");
-> +
-> +	/* Host is shutdown, don't spew errors */
-> +	if (rc == -ESHUTDOWN)
-> +		rc = -ENODEV;
-> +	return rc;
->  }
->  
->  static int p9_sbe_occ_remove(struct platform_device *pdev)
-> -- 
-> 2.17.0
+> Should be SPDX-style?
+
+Yup, keep forgetting about that new thing :)
+
+> > 
+
+ .../...
+
+> > +static int sbefifo_get_sbe_state(struct sbefifo *sbefifo)
 > 
+> This isn't so much getting the state as ensuring it's in a usable
+> state, or it's conflating error codes with the SBE state. Maybe
+> sbefifo_is_ready()?
+
+Hrm... I would expect something called is_something() to return a
+boolean, while here I have 3 different result codes as I want to
+differenciate busy. I'm also adding some more in the next version
+to extract the bit indicating that an SBE async FFDC is present.
+
+So what about calling it sbefifo_check_sbe_state() instead ?
+
+IE. It's not a "getter" .. 
+
+  .../...
+
+> > +/**
+> > + * sbefifo_submit() - Submit and SBE fifo command and receive response
+> > + * @dev: The sbefifo device
+> > + * @command: The raw command data
+> > + * @cmd_len: The command size (in 32-bit words)
+> > + * @response: The output response buffer
+> > + * @resp_len: In: Response buffer size, Out: Response size
+> > + *
+> > + * This will perform the entire operation. If the reponse buffer
+> > + * overflows, returns -EOVERFLOW
+> > + */
+> > +int sbefifo_submit(struct device *dev, const __be32 *command, size_t 
+> > cmd_len,
+> > +		   __be32 *response, size_t *resp_len)
+> > +{
+> > +	struct sbefifo *sbefifo = dev_get_drvdata(dev);
+> > +	mm_segment_t old_fs;
+> > +	int rc;
+> > +
+> > +	if (!dev || !sbefifo)
+> > +		return -ENODEV;
+> > +	if (WARN_ON_ONCE(sbefifo->magic != SBEFIFO_MAGIC))
+> > +		return -ENODEV;
+> > +	if (!resp_len || !command || !response || cmd_len > 
+> > SBEFIFO_MAX_CMD_LEN)
+> > +		return -EINVAL;
+> > +
+> > +	mutex_lock(&sbefifo->lock);
+> > +	old_fs = get_fs();
+> > +	set_fs(KERNEL_DS);
+> > +	rc = __sbefifo_submit(sbefifo, command, cmd_len,
+> > +			      response, resp_len);
+> > +	set_fs(old_fs);
+> 
+> Can you talk about why the get_fs()/set_fs()/set_fs() sequence is the
+> right way to go here when there's been discussion in the past about
+> removing the whole show?
+> 
+> https://lwn.net/Articles/722267/
+
+Interesting, I had missed that conversation/debate, it's an old API but
+I've been around for a long time :-) It used to be the way to do that
+sort of thing.
+
+The above use is a rather safe since the oops case has been fixed, but
+if it's actively being phased out then I should try to find a different
+way, though sadly nothing will be as simple and efficient as the above.
+
+Nick, you added some of that iovec stuff, what do you think is the
+right construct here ?
+
+I read from the HW fifo synchronously and currently just put_user() one
+word at a time into the destination buffer, which can be either a user
+address (read() syscall to the driver) or a kernel address (in-kernel
+API).
+
+The old code just had 2 pointer argument, one kernel pointer and one
+user pointer and would write to which ever was populated, which I
+thought was gross.
+
+The iovec stuff looks ... complicated for such a simple use case.
+
+Cheers,
+Ben.
