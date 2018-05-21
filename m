@@ -9,23 +9,25 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40qJKj1r9pzF0mF
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40qJKj1tWwzF16f
  for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 22:40:51 +1000 (AEST)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w4LCeIFt014631;
- Mon, 21 May 2018 15:40:18 +0300
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w4LCeO4g014634;
+ Mon, 21 May 2018 15:40:24 +0300
 Received: by talu34.nuvoton.co.il (Postfix, from userid 8441)
- id CB8105AB1A; Mon, 21 May 2018 15:40:17 +0300 (IDT)
+ id 9ADFE5AB1A; Mon, 21 May 2018 15:40:24 +0300 (IDT)
 From: avifishman70@gmail.com
 To: minyard@acm.org, arnd@arndb.de, gregkh@linuxfoundation.org,
  openipmi-developer@lists.sourceforge.net, joel@jms.id.au,
  openbmc@lists.ozlabs.org
 Cc: haiyue.wang@linux.intel.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
  avifishman70@gmail.com, Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v2 0/1] ipmi: NPCM7xx KCS BMC: enable interrupt to the host
-Date: Mon, 21 May 2018 15:39:58 +0300
-Message-Id: <1526906399-30140-1-git-send-email-avifishman70@gmail.com>
+Subject: [PATCH v2 1/1] ipmi: NPCM7xx KCS BMC: enable interrupt to the host
+Date: Mon, 21 May 2018 15:39:59 +0300
+Message-Id: <1526906399-30140-2-git-send-email-avifishman70@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1526906399-30140-1-git-send-email-avifishman70@gmail.com>
+References: <1526906399-30140-1-git-send-email-avifishman70@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -41,21 +43,71 @@ X-List-Received-Date: Mon, 21 May 2018 12:40:58 -0000
 
 From: Avi Fishman <AviFishman70@gmail.com>
 
-Changes since version 1:
-Apply code style comments from "Wang, Haiyue" <haiyue.wang@linux.intel.com>
-
-
 Original kcs_bmc_npcm7xx.c was missing enabling to send interrupt to the
 host on writes to output buffer.
 This patch fixes it by setting the bits that enables the generation of
 IRQn events by hardware control based on the status of the OBF flag.
 
-
-Avi Fishman (1):
-  ipmi: NPCM7xx KCS BMC: enable interrupt to the host
-
+Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
+Reviewed-by:   Haiyue Wang <haiyue.wang@linux.intel.com>
+---
  drivers/char/ipmi/kcs_bmc_npcm7xx.c | 17 ++++++++++++++---
  1 file changed, 14 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+index 7bc898c5d372..722f7391fe1f 100644
+--- a/drivers/char/ipmi/kcs_bmc_npcm7xx.c
++++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+@@ -39,6 +39,12 @@
+ #define KCS3CTL		0x3C
+ #define    KCS_CTL_IBFIE	BIT(0)
+ 
++#define KCS1IE		0x1C
++#define KCS2IE		0x2E
++#define KCS3IE		0x40
++#define    KCS_IE_IRQE          BIT(0)
++#define    KCS_IE_HIRQE         BIT(3)
++
+ /*
+  * 7.2.4 Core KCS Registers
+  * Registers in this module are 8 bits. An 8-bit register must be accessed
+@@ -48,12 +54,14 @@
+  * dob: KCS Channel n Data Out Buffer Register (KCSnDO).
+  * dib: KCS Channel n Data In Buffer Register (KCSnDI).
+  * ctl: KCS Channel n Control Register (KCSnCTL).
++ * ie : KCS Channel n  Interrupt Enable Register (KCSnIE).
+  */
+ struct npcm7xx_kcs_reg {
+ 	u32 sts;
+ 	u32 dob;
+ 	u32 dib;
+ 	u32 ctl;
++	u32 ie;
+ };
+ 
+ struct npcm7xx_kcs_bmc {
+@@ -63,9 +71,9 @@ struct npcm7xx_kcs_bmc {
+ };
+ 
+ static const struct npcm7xx_kcs_reg npcm7xx_kcs_reg_tbl[KCS_CHANNEL_MAX] = {
+-	{ .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL },
+-	{ .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL },
+-	{ .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL },
++	{ .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL, .ie = KCS1IE },
++	{ .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL, .ie = KCS2IE },
++	{ .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL, .ie = KCS3IE },
+ };
+ 
+ static u8 npcm7xx_kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
+@@ -95,6 +103,9 @@ static void npcm7xx_kcs_enable_channel(struct kcs_bmc *kcs_bmc, bool enable)
+ 
+ 	regmap_update_bits(priv->map, priv->reg->ctl, KCS_CTL_IBFIE,
+ 			   enable ? KCS_CTL_IBFIE : 0);
++
++	regmap_update_bits(priv->map, priv->reg->ie, KCS_IE_IRQE | KCS_IE_HIRQE,
++			   enable ? KCS_IE_IRQE | KCS_IE_HIRQE : 0);
+ }
+ 
+ static irqreturn_t npcm7xx_kcs_irq(int irq, void *arg)
 -- 
 2.14.1
