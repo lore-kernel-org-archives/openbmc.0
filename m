@@ -6,64 +6,63 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XQERdKvm"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RzlVsKDq"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="E7/+JKLe"; dkim-atps=neutral
+ header.b="McrzYgXI"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40q6nQ3nlGzF0wY
- for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 15:30:50 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40q75L1CjyzDqNY
+ for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 15:44:38 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E60BD21908;
- Mon, 21 May 2018 01:30:47 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 79D7F20D5F;
+ Mon, 21 May 2018 01:44:35 -0400 (EDT)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Mon, 21 May 2018 01:30:47 -0400
+ by compute4.internal (MEProxy); Mon, 21 May 2018 01:44:35 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=I6LN3c+N1xZ1CwyBT2v4m4zvGmJEn
- vHaoQ4CLq4l6fg=; b=XQERdKvmLyXa/f2CSgHVebHUe1xJruBKqfxx6avJVcbcx
- ZcaLVqxjcSOxqk0GZdjSLulQwHjwEdNu6QwxlFMS+mpIfy40UEY2KaB7Xsh7PH6G
- kG1flBFZ4RQEMC++a+yI8sQUtHyl7JgtIja6X+nXWVpCOL/l7SrbdsNC/AfBltKN
- DLfNnPeF0eFBlhmvuILwh1lnb7W/yXDGXzabYvtOR1y0ZsGs9tSrcpkEGUl2w8gb
- Lvaj5gBBIwLdWXwq4U4hvC/Tjgnztm9o2liCJm5gXXq9xJExzXFpOQq29upxT4dB
- G9f7UraPHMfiL872xkpn+/BZGW6DIPtrJwZvHdk/A==
+ :x-me-sender:x-sasl-enc; s=fm2; bh=q1MpigXihS0xUBH8pjCfrxqSKp7aR
+ nXOWs4oNy9Z/ak=; b=RzlVsKDq5ubfUclmbHlGLiRUtifmloGFLiKaYe13eMylE
+ HA8jtYahv3aDetXCapoxmSFAlGb+T7Bd+mt0lksimOvTRQSptR7UKXgZfJa2bqeC
+ Tkf00/78wLRr61+pKOgtcCWaImA2drXg17ZY9a7db/xNBth5oAarCbh/gHGE1iNm
+ v/w4b0QNiO9iRIHPVeuWI3GIygd/uPK3ChczTcELlfqLFt/A6SyG67kWayyNlp8T
+ ovr8C5Vk5qIRfvhXdOOBLQdHtIaclRMSMJVTiXsdSM63biRE71PtH9nTtUcKsjZB
+ PRTyvVjxv4bUMx7b/cK2dtKlIsJio7HRCcp/xgFHQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=I6LN3c
- +N1xZ1CwyBT2v4m4zvGmJEnvHaoQ4CLq4l6fg=; b=E7/+JKLeIxVO0Zen/qoSun
- UKjmBKFrmX1gLvbawjl9J51tYNxVV38CdqTLxhefU082rz3mzX7yJNAeUlyHPw6G
- 7zX3cZmQyHQlN85a+u3E7Xf5fBLZaUVUrwKxSBxxENCqUV/FEZu49Ql7qGqRkXS3
- Aw8G1WlAQ0YgNq+P9aD83S3X9WwfArGXN+AmyvzEqNT6Xoa3ypLQ/tKsZfKIfiDA
- /+GXhnxeLnnLboQQ4iF8D6IULdhQS+nJlb7JuRZt6FytxosHcLRufEH479Qdozzy
- gCWC4vY8KvbWylzv0DCCkMkJWa1R6R4iemRKsvjpjqbFYRZfYCI1IlkSHbqudHkg
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=q1Mpig
+ XihS0xUBH8pjCfrxqSKp7aRnXOWs4oNy9Z/ak=; b=McrzYgXI7oEpgPuOAiiaMf
+ 0BRQp/HvlYa4yAlH+sebvuqmE1ILjvqImKmlR/YXJbk3cO61TBSTRLhstNuv0QF0
+ llAejhbV9gFXJEgmjkIFWGmaZVL/od4QFFnmSsqXDD4QM+M9CQJ5Gx5RcFae1XRI
+ JXndxqG1mne12SR5LRgPSteMq3KnaOAxcTPt5Htge/qaU7weyNN/Nri7j/hFklWC
+ 6Bo9isZLJS0Lj1Ckcupf/H/uhBajFR9UHbAtCJPrbDPZ7/ilS/IjSameX0rBjq31
+ KvMJDNbYrCdpz+CbIme/Df0Bs/SZYO3JT3s8PHLzGn81dv2Sj/wcyqJhRoCawyXg
  ==
-X-ME-Proxy: <xmx:h1kCW5w3w2b1XN-ql9Dd79GFjgM8ISBN9GOlRFZAHRJa1a7WrTwArQ>
-X-ME-Proxy: <xmx:h1kCW2aS-uW3-u5uiPNEOFbwZzjX6ez-J027tm20gmZ53_vHQs5FOA>
-X-ME-Proxy: <xmx:h1kCWyVTPHkfptdZUmFc47nuZGo0H2DS1Ds8ttdG6fsTSHUZ5JVLyg>
-X-ME-Proxy: <xmx:h1kCW8jst-OrjF26cddcboC4GMm0H7x2GLP8L2AedpHj9pMt9qKQhQ>
-X-ME-Proxy: <xmx:h1kCW4vC3OM0NXlDHOO-F2X4IiW3KbMLfLiqIxCrDT7iAbVlglRKUg>
-X-ME-Proxy: <xmx:h1kCW7sw74zwLdXyeqyj_GZT5Z5V-61RCgUzZrwdIKfaHgs2z3UHGw>
-X-ME-Sender: <xms:h1kCW2AO9M5W4_S8jwL4qC-Ik6iJo7cyhlFxaQC9fNYNXVLzacLbCg>
+X-ME-Proxy: <xmx:w1wCWzyTA_KszYcLQ_fcNQf9NZTj60LZiNR1kykNr2wfSBIn6wz0Jw>
+X-ME-Proxy: <xmx:w1wCW3oY_kX2I_fkUlWJthKYJ4e-dyxdVcxEYLaC2aZry_hCzu1vag>
+X-ME-Proxy: <xmx:w1wCWxyZYbY1EeXpZzmuHFNtwa1R0RnMJuacrWR-Um-dwTyTuoUiXA>
+X-ME-Proxy: <xmx:w1wCW7ptIkzuay66cMnbtPi4ll1ramj9RuF0cYV7tEEx5lFO6khM-w>
+X-ME-Proxy: <xmx:w1wCWxd0fHk8gA-NI1BLlJIpBbUTJXshZpoLehu96S-EbYLpWM1jTw>
+X-ME-Proxy: <xmx:w1wCW_T-3uHVA19U-rfeOZqEGlLS5TcLRa-1kqeJUF4xZzijLzLw7w>
+X-ME-Sender: <xms:w1wCW8eOPbvJQAxp8B7TexXvxpNjD1rIgguemAEJb9FQshlQ_lKxnQ>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 8ABF740DC; Mon, 21 May 2018 01:30:47 -0400 (EDT)
-Message-Id: <1526880647.2645672.1378951184.5EC6A9F7@webmail.messagingengine.com>
+ id 39F5A40DC; Mon, 21 May 2018 01:44:35 -0400 (EDT)
+Message-Id: <1526881475.2648677.1378959216.39A6553A@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-a224ff37
-Date: Mon, 21 May 2018 15:00:47 +0930
+Subject: Re: [PATCH linux dev-4.13 4/4] fsi/occ: Don't set driver data late
+In-Reply-To: <20180518013500.18005-4-benh@kernel.crashing.org>
 References: <20180518013500.18005-1-benh@kernel.crashing.org>
- <20180518013500.18005-3-benh@kernel.crashing.org>
-In-Reply-To: <20180518013500.18005-3-benh@kernel.crashing.org>
-Subject: Re: [PATCH linux dev-4.13 3/4] fsi/occ: Nicer error messages when
- talking to a host that isn't ready
+ <20180518013500.18005-4-benh@kernel.crashing.org>
+Date: Mon, 21 May 2018 15:14:35 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,76 +74,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 May 2018 05:30:51 -0000
+X-List-Received-Date: Mon, 21 May 2018 05:44:38 -0000
 
-On Fri, 18 May 2018, at 11:04, Benjamin Herrenschmidt wrote:
+On Fri, 18 May 2018, at 11:05, Benjamin Herrenschmidt wrote:
+> Until now, the OCC driver was setting the driver data after
+> registering the character device and the hwmon device.
+> 
+> This might have been intentional, as doing so makes the initial
+> probe of the OCC by the hwmon device fail while the data is NULL
+> (provided you are lucky and the hwmon driver doesn't get bound
+> asynchronously). That failure used to be necessary, otherwise
+> the driver would try to access the SBE fifo at a time when it's
+> not ready, causing all sort of problems.
+> 
+> The new SBE fifo driver is much more robust and will return an
+> appropriate error code, so that (fragile) tweak is no longer
+> necessary.
+> 
 > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+
++1000
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
 > ---
->  drivers/fsi/fsi-occ.c      | 12 ++++++++++++
->  drivers/hwmon/occ/common.c |  9 +++++++--
->  2 files changed, 19 insertions(+), 2 deletions(-)
+>  drivers/fsi/fsi-occ.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
-> index 7a5afa78fb6b..4bda1b435ecb 100644
+> index 4bda1b435ecb..170fd8020829 100644
 > --- a/drivers/fsi/fsi-occ.c
 > +++ b/drivers/fsi/fsi-occ.c
-> @@ -484,6 +484,10 @@ static int occ_getsram(struct device *sbefifo, u32 
-> address, u8 *data,
->  		rc = sbefifo_submit(sbefifo, cmd, 5, resp, &resp_len);
->  		if (rc == 0)
->  			rc = sbefifo_parse_status(0xa403, resp, resp_len, &resp_len);
-> +		if (rc == -ESHUTDOWN) {
-> +			pr_info("occ: Host not ready\n");
-> +			return rc;
-> +		}
->  		if (rc) {
->  			if (rc < 0)
->  				pr_err("occ: FSI error %d, retrying sram read\n", rc);
-> @@ -548,6 +552,10 @@ static int occ_putsram(struct device *sbefifo, u32 
-> address, u8 *data,
->  
->  		resp_len = OCC_SBE_STATUS_WORDS;
->  		rc = sbefifo_submit(sbefifo, buf, cmd_len, buf, &resp_len);
-> +		if (rc == -ESHUTDOWN) {
-> +			pr_info("occ: Host not ready\n");
-> +			return rc;
-> +		}
->  		if (rc == 0)
->  			rc = sbefifo_parse_status(0xa404, buf, resp_len, &resp_len);
->  		if (rc) {
-> @@ -604,6 +612,10 @@ static int occ_trigger_attn(struct device *sbefifo)
->  		buf[6] = 0;
->  
->  		rc = sbefifo_submit(sbefifo, buf, 7, buf, &resp_len);
-> +		if (rc == -ESHUTDOWN) {
-> +			pr_info("occ: Host not ready\n");
-> +			return rc;
-> +		}
->  		if (rc == 0)
->  			rc = sbefifo_parse_status(0xa404, buf, resp_len, &resp_len);
->  		if (rc) {
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index 88c32915b8bf..10f5c0586d47 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -1350,8 +1350,13 @@ int occ_setup(struct occ *occ, const char *name)
->  	/* no need to lock */
->  	rc = occ_poll(occ);
->  	if (rc < 0) {
-> -		dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
-> -			rc);
-> +		/*
-> +		 * If the error is -ESHUTDOWN, fail silently, as this happen in
-> +		 * normal circumstances when the driver is loaded too early
-> +		 */
-> +		if (rc != -ESHUTDOWN)
-> +			dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
-> +				rc);
->  		return rc;
+> @@ -836,6 +836,8 @@ static int occ_probe(struct platform_device *pdev)
+>  		occ->idx = ida_simple_get(&occ_ida, 1, INT_MAX, GFP_KERNEL);
 >  	}
+>  
+> +	platform_set_drvdata(pdev, occ);
+> +
+>  	snprintf(occ->name, sizeof(occ->name), "occ%d", occ->idx);
+>  	occ->mdev.fops = &occ_fops;
+>  	occ->mdev.minor = MISC_DYNAMIC_MINOR;
+> @@ -854,8 +856,6 @@ static int occ_probe(struct platform_device *pdev)
+>  	if (!hwmon_dev)
+>  		dev_warn(dev, "failed to create hwmon device\n");
+>  
+> -	platform_set_drvdata(pdev, occ);
+> -
+>  	return 0;
+>  }
 >  
 > -- 
 > 2.17.0
