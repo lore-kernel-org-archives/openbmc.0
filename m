@@ -6,64 +6,64 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="lfZZm02f"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XQERdKvm"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="DQnpSX+w"; dkim-atps=neutral
+ header.b="E7/+JKLe"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40q6hD3MhzzF0wk
- for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 15:26:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40q6nQ3nlGzF0wY
+ for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 15:30:50 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EDFFF21AE4;
- Mon, 21 May 2018 01:26:17 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id E60BD21908;
+ Mon, 21 May 2018 01:30:47 -0400 (EDT)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Mon, 21 May 2018 01:26:17 -0400
+ by compute4.internal (MEProxy); Mon, 21 May 2018 01:30:47 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=unBjkAEpwxCvVFYJ98t9Sck7SKP2t
- K1x2MzEYqFvwIA=; b=lfZZm02fVM/AJjbnRt/9K3UZxsSo4Y/D2WqOyYJSXspVL
- vDc+YGTEpaYN7HqRv9JW14iGjrgrenZMGX88/d6HORqw0xmh/rFkQdP0JVS536KS
- CjD82p7hGFdxPad55Jymss+vcXHtbzZHQij0kvxhtSF/Txozg6N+m8nFgRU8QocA
- 5SdHL8W8XZP9i6gXIZhnfhEZhs9vtUFZ6RipfpZmYaUgqDBJyyCbylVC9oXkQlR2
- aH0JEt8ggUiifDxGL984CGXGIGHNALg1twlF4AB9xPEAZxOL7oHng/kfMEybgbUQ
- jFkvL+2/tImeN9cSZonRCWV4hmVx/7ax0YPkNsNkQ==
+ :x-me-sender:x-sasl-enc; s=fm2; bh=I6LN3c+N1xZ1CwyBT2v4m4zvGmJEn
+ vHaoQ4CLq4l6fg=; b=XQERdKvmLyXa/f2CSgHVebHUe1xJruBKqfxx6avJVcbcx
+ ZcaLVqxjcSOxqk0GZdjSLulQwHjwEdNu6QwxlFMS+mpIfy40UEY2KaB7Xsh7PH6G
+ kG1flBFZ4RQEMC++a+yI8sQUtHyl7JgtIja6X+nXWVpCOL/l7SrbdsNC/AfBltKN
+ DLfNnPeF0eFBlhmvuILwh1lnb7W/yXDGXzabYvtOR1y0ZsGs9tSrcpkEGUl2w8gb
+ Lvaj5gBBIwLdWXwq4U4hvC/Tjgnztm9o2liCJm5gXXq9xJExzXFpOQq29upxT4dB
+ G9f7UraPHMfiL872xkpn+/BZGW6DIPtrJwZvHdk/A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=unBjkA
- EpwxCvVFYJ98t9Sck7SKP2tK1x2MzEYqFvwIA=; b=DQnpSX+wMUHzBOakKsUc6E
- BrX9v0s6XwKss4aPsw+4pAUUu2MUPqhSylJOKh8h/h7g+02QLBS7PALH18FrOpes
- ILsxOv3d4tjDByS9k9evYgOFf+gQ7pQoZP6eAwTm43TFu+8wuzyrkUA9cvEuBfZb
- YUsjgaMRw1UsWXi8iF0SGbIK6Aoge+ltFCJC6xyqSZes4BRJ4UhLf8Eo/tu3kw5q
- D6xl4ceSftT7Jt4NMRMnk3Tou+7blWBrBDGCDBUUehL51JzB16p7cWcn9RZtCh+w
- /OSKH9J25Rk1RX+Omb6plA4qdiPbE5MkTR9eJHyoljCloimakPNB5bylmUM40cIA
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=I6LN3c
+ +N1xZ1CwyBT2v4m4zvGmJEnvHaoQ4CLq4l6fg=; b=E7/+JKLeIxVO0Zen/qoSun
+ UKjmBKFrmX1gLvbawjl9J51tYNxVV38CdqTLxhefU082rz3mzX7yJNAeUlyHPw6G
+ 7zX3cZmQyHQlN85a+u3E7Xf5fBLZaUVUrwKxSBxxENCqUV/FEZu49Ql7qGqRkXS3
+ Aw8G1WlAQ0YgNq+P9aD83S3X9WwfArGXN+AmyvzEqNT6Xoa3ypLQ/tKsZfKIfiDA
+ /+GXhnxeLnnLboQQ4iF8D6IULdhQS+nJlb7JuRZt6FytxosHcLRufEH479Qdozzy
+ gCWC4vY8KvbWylzv0DCCkMkJWa1R6R4iemRKsvjpjqbFYRZfYCI1IlkSHbqudHkg
  ==
-X-ME-Proxy: <xmx:eVgCW7zsYQdI8fx6W67Bxqwtoy-R6Y62UKX5SyKGfD_GOdvQfxPOwQ>
-X-ME-Proxy: <xmx:eVgCWzeq-5iIBFjLh6vPU0v8Vq5tJF_D27N344kz2mOQZfJp8I10Lw>
-X-ME-Proxy: <xmx:eVgCW3IsowJTHl7NFK8AAMxynoLkIrmIh2iXxbvHDvwMQobaPPfF1g>
-X-ME-Proxy: <xmx:eVgCW0HWRnhKZm9Lq-_AWbROlHT1dMdTUZzH-bm-VpGUnOf8NjX5gg>
-X-ME-Proxy: <xmx:eVgCWxqLK1rqZdMA2dq__TWPfUbOqVXiUrtufVXtz9X_-TDzFNwHtQ>
-X-ME-Proxy: <xmx:eVgCWwN497_Qn0dCKytuA3Pq7SqBgyvXchwitAMMf05_gL0FsgKPdg>
-X-ME-Sender: <xms:eVgCW2eHWWchaqf2BKAG0mKFVQI2P9H6vWulWCF724HLG6PFHhGafA>
+X-ME-Proxy: <xmx:h1kCW5w3w2b1XN-ql9Dd79GFjgM8ISBN9GOlRFZAHRJa1a7WrTwArQ>
+X-ME-Proxy: <xmx:h1kCW2aS-uW3-u5uiPNEOFbwZzjX6ez-J027tm20gmZ53_vHQs5FOA>
+X-ME-Proxy: <xmx:h1kCWyVTPHkfptdZUmFc47nuZGo0H2DS1Ds8ttdG6fsTSHUZ5JVLyg>
+X-ME-Proxy: <xmx:h1kCW8jst-OrjF26cddcboC4GMm0H7x2GLP8L2AedpHj9pMt9qKQhQ>
+X-ME-Proxy: <xmx:h1kCW4vC3OM0NXlDHOO-F2X4IiW3KbMLfLiqIxCrDT7iAbVlglRKUg>
+X-ME-Proxy: <xmx:h1kCW7sw74zwLdXyeqyj_GZT5Z5V-61RCgUzZrwdIKfaHgs2z3UHGw>
+X-ME-Sender: <xms:h1kCW2AO9M5W4_S8jwL4qC-Ik6iJo7cyhlFxaQC9fNYNXVLzacLbCg>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 8B4C740DC; Mon, 21 May 2018 01:26:17 -0400 (EDT)
-Message-Id: <1526880377.2644647.1378943632.1451B0E7@webmail.messagingengine.com>
+ id 8ABF740DC; Mon, 21 May 2018 01:30:47 -0400 (EDT)
+Message-Id: <1526880647.2645672.1378951184.5EC6A9F7@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- openbmc@lists.ozlabs.org, Eddie James <eajames@linux.vnet.ibm.com>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-a224ff37
-Date: Mon, 21 May 2018 14:56:17 +0930
-Subject: Re: [PATCH linux dev-4.13 2/4] fsi/occ: Add Retries on checksum errors
+Date: Mon, 21 May 2018 15:00:47 +0930
 References: <20180518013500.18005-1-benh@kernel.crashing.org>
- <20180518013500.18005-2-benh@kernel.crashing.org>
-In-Reply-To: <20180518013500.18005-2-benh@kernel.crashing.org>
+ <20180518013500.18005-3-benh@kernel.crashing.org>
+In-Reply-To: <20180518013500.18005-3-benh@kernel.crashing.org>
+Subject: Re: [PATCH linux dev-4.13 3/4] fsi/occ: Nicer error messages when
+ talking to a host that isn't ready
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,56 +75,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 May 2018 05:26:21 -0000
+X-List-Received-Date: Mon, 21 May 2018 05:30:51 -0000
 
 On Fri, 18 May 2018, at 11:04, Benjamin Herrenschmidt wrote:
-> Similarily to the new retry on SBE fifo errors, this adds
-> retries if the data we obtain from the OCC has a bad checksum.
-> 
 > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+
 > ---
->  drivers/fsi/fsi-occ.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>  drivers/fsi/fsi-occ.c      | 12 ++++++++++++
+>  drivers/hwmon/occ/common.c |  9 +++++++--
+>  2 files changed, 19 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
-> index f4b2df7a3084..7a5afa78fb6b 100644
+> index 7a5afa78fb6b..4bda1b435ecb 100644
 > --- a/drivers/fsi/fsi-occ.c
 > +++ b/drivers/fsi/fsi-occ.c
-> @@ -652,7 +652,7 @@ static void occ_worker(struct work_struct *work)
->  	struct occ_client *client;
->  	struct occ *occ = container_of(work, struct occ, work);
->  	struct device *sbefifo = occ->sbefifo;
-> -
-> +	int retries = 0;
->  again:
->  	if (occ->cancel)
->  		return;
-> @@ -720,7 +720,10 @@ static void occ_worker(struct work_struct *work)
->  	xfr->resp_data_length = resp_data_length + 7;
+> @@ -484,6 +484,10 @@ static int occ_getsram(struct device *sbefifo, u32 
+> address, u8 *data,
+>  		rc = sbefifo_submit(sbefifo, cmd, 5, resp, &resp_len);
+>  		if (rc == 0)
+>  			rc = sbefifo_parse_status(0xa403, resp, resp_len, &resp_len);
+> +		if (rc == -ESHUTDOWN) {
+> +			pr_info("occ: Host not ready\n");
+> +			return rc;
+> +		}
+>  		if (rc) {
+>  			if (rc < 0)
+>  				pr_err("occ: FSI error %d, retrying sram read\n", rc);
+> @@ -548,6 +552,10 @@ static int occ_putsram(struct device *sbefifo, u32 
+> address, u8 *data,
 >  
->  	rc = occ_verify_checksum(resp, resp_data_length);
-> -
-> +	if (rc) {
-> +		if (retries++ < OCC_COMMAND_RETRIES)
-> +			goto again;
-> +	}
-
-How should this interact with the OCC error handling mentioned in my reply on the previous patch? I feel like a checksum error is a bit of a grey area - probably caused by the transport, but possibly due to OCC firmware bugs as well? If it's the former then retrying independent of the OCC error handling protocol is probably okay, but if we're trying to catch the latter then maybe we should let this be handled as part of the OCC error handling code?
-
-Eddie?
-
-Ben: Did you actually hit cases where this path was triggered? There was the corruption issue with simultaneous LPC cycles that turned out to be issues around level-shifters and synchronisers, was that it?
-
->  done:
->  	mutex_unlock(&occ->occ_lock);
+>  		resp_len = OCC_SBE_STATUS_WORDS;
+>  		rc = sbefifo_submit(sbefifo, buf, cmd_len, buf, &resp_len);
+> +		if (rc == -ESHUTDOWN) {
+> +			pr_info("occ: Host not ready\n");
+> +			return rc;
+> +		}
+>  		if (rc == 0)
+>  			rc = sbefifo_parse_status(0xa404, buf, resp_len, &resp_len);
+>  		if (rc) {
+> @@ -604,6 +612,10 @@ static int occ_trigger_attn(struct device *sbefifo)
+>  		buf[6] = 0;
 >  
-> @@ -732,6 +735,7 @@ static void occ_worker(struct work_struct *work)
->  	clear_bit(XFR_IN_PROGRESS, &xfr->flags);
->  	list_del(&xfr->link);
->  	empty = list_empty(&occ->xfrs);
-> +	retries = 0;
->  
->  	spin_unlock_irqrestore(&occ->list_lock, flags);
+>  		rc = sbefifo_submit(sbefifo, buf, 7, buf, &resp_len);
+> +		if (rc == -ESHUTDOWN) {
+> +			pr_info("occ: Host not ready\n");
+> +			return rc;
+> +		}
+>  		if (rc == 0)
+>  			rc = sbefifo_parse_status(0xa404, buf, resp_len, &resp_len);
+>  		if (rc) {
+> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> index 88c32915b8bf..10f5c0586d47 100644
+> --- a/drivers/hwmon/occ/common.c
+> +++ b/drivers/hwmon/occ/common.c
+> @@ -1350,8 +1350,13 @@ int occ_setup(struct occ *occ, const char *name)
+>  	/* no need to lock */
+>  	rc = occ_poll(occ);
+>  	if (rc < 0) {
+> -		dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
+> -			rc);
+> +		/*
+> +		 * If the error is -ESHUTDOWN, fail silently, as this happen in
+> +		 * normal circumstances when the driver is loaded too early
+> +		 */
+> +		if (rc != -ESHUTDOWN)
+> +			dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
+> +				rc);
+>  		return rc;
+>  	}
 >  
 > -- 
 > 2.17.0
