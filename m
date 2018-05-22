@@ -1,62 +1,68 @@
-Return-Path: <cyrilbur@gmail.com>
+Return-Path: <Michael.E.Brown@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400c:c08::243; helo=mail-ua0-x243.google.com;
- envelope-from=cyrilbur@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
+ envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZI4G/7Ch"; 
+ dmarc=pass (p=none dis=none) header.from=dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="tpHAcGJe"; 
  dkim-atps=neutral
-Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
- [IPv6:2607:f8b0:400c:c08::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
+ [68.232.149.214])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40qsYx30P4zDqL4
- for <openbmc@lists.ozlabs.org>; Tue, 22 May 2018 20:38:23 +1000 (AEST)
-Received: by mail-ua0-x243.google.com with SMTP id g9-v6so11971957uak.7
- for <openbmc@lists.ozlabs.org>; Tue, 22 May 2018 03:38:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=xUCiAtVb/RZd+g7yO5BaNL3K+1+p2j9OC2X2/ZG41k8=;
- b=ZI4G/7Chpzs43lwdR7fWEgRJ9VQCZ5epLeAEKtw7r7kzbYvWZaydjk8AgbpDtVoGky
- snbMJYZAtNXDiq/CEAbQcjZGWqrXM8q7RkrZKimudHWefbOQLPASU25fh5YmElRDC+SU
- RRV/GNxY4xMyf0wXZG1J+69CysueAsVZqwBXycL/HBJvU6KgFC8wJB4zrYDassUWNV60
- SUwYxXO/SQdWuLlrhEu/yweHPXwY3KWX6r/l6KSA91FFxgSkjDe57UkI+6s2vaCclU3y
- HzetumdysnnVYPEnRsyY+UQoulJMGHmsdIw/GEyF11ThIh4bqNsiJo0oZuAppiL804kC
- w3oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=xUCiAtVb/RZd+g7yO5BaNL3K+1+p2j9OC2X2/ZG41k8=;
- b=PJyDn4bNsf0RGvSB+p5+Omx/DnRUi3wuo9w2x2KclMh7GCXUpnZWH7vxdAdNBUI27o
- KLND8hK6TbcctC/3ytal+LPPbIRYrC10RIxz7xbaDn4JCI72CRrbywVxsId67mVxOONs
- CorrOKg5sH7I5wW71mHwgSUrJWF3Dbuarw8Ez0lr/hD7TRG20avFyJOw/j7maPYZZEdT
- i2jJkNHO4ZFNmLEqPtquB5xw0HIknWlcEKrCXwlSbB0h/vNnlQgeELqK/JgmkI635ypF
- o8mPId6pmcx8T2iz8PZTOEjskXhSjUKGCmq8/NjbWxPeM/WzS/N7kgBLmeBGUf1bHB9V
- mV3Q==
-X-Gm-Message-State: ALKqPwfJ5zIq2NNQnKvZaJGpK192rkUWHzB6H3rufCYLkkd+IVqVcgz1
- RxlqmKgbLApFxHqVU5NamajKcOiRIjU4DTjF41s=
-X-Google-Smtp-Source: AB8JxZqVWfKdvhfJaJr6SKgup5opthcbk8+Uzprdsl2dY9gVV1BC3JQD3OI3Nk9oEC62FiJQJSK5xnM/9BMyq8g5thw=
-X-Received: by 2002:ab0:9ce:: with SMTP id
- e14-v6mr17063987uah.105.1526985500707; 
- Tue, 22 May 2018 03:38:20 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a67:3dd0:0:0:0:0:0 with HTTP; Tue, 22 May 2018 03:37:49
- -0700 (PDT)
-In-Reply-To: <1526000360.3946551.1368145784.74E52A28@webmail.messagingengine.com>
-References: <28825ffd2af2405eacbb48f1388992f8@AUSX13MPC105.AMER.DELL.COM>
- <1526000360.3946551.1368145784.74E52A28@webmail.messagingengine.com>
-From: Cyril Bur <cyrilbur@gmail.com>
-Date: Tue, 22 May 2018 11:37:49 +0100
-Message-ID: <CAN-ccASVchSQ_KzuM_SVWbH8WTkQ+hy31fp1ug=-qot5pGxzHQ@mail.gmail.com>
-Subject: Re: common bmc mailbox driver
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Eugene.Cho@dell.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40qwls19cZzDqNY
+ for <openbmc@lists.ozlabs.org>; Tue, 22 May 2018 23:02:15 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1526994137; x=1558530137; h=from:to:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=Bzlb+cIzajJCRQ549NYaY91d9u+9sNuCUrtKhlfJ1hs=;
+ b=tpHAcGJe5k9LwFRgyZ1R1BFJ7m2vEr2hyKaOJ610MMHkZU1IA9LAMEYX
+ OTLM3I1BHgqz5kUsa8TqgJ3IF3iLS3SCk+Wvu5amgHVAjkcT3XP76xkio
+ A9dZrvArhvXvdUOZAjvvWQ3E8Lu+kF+7FdF2Qtbw8JP/Oe5SEAfHuyzo4 w=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FwAACUFARbh2Oa6ERaAxkBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQEHAQEBAQGDFIEDgQsoCoNrlHuDCF+LaYZuFIFkC4RsgiQhNhYBAgEBAQE?=
+ =?us-ascii?q?BAQIBAQIQAQEBCgsJCCgjDII1IoJTAQEiBAFEAgYZBAEZBAEBAgMLBhICAx0rC?=
+ =?us-ascii?q?QkBBAESCIMaggGNA5s+AYIgg3gBAYRLgg8FgQGHL4ITiEpmHgiCNoJXAphPBwI?=
+ =?us-ascii?q?JjkaBP4NuhkiBEZB6gSUjBYF/cFCCQ4IuiFqFEAE1b4wYBIEqgRgBAQ?=
+X-IPAS-Result: =?us-ascii?q?A2FwAACUFARbh2Oa6ERaAxkBAQEBAQEBAQEBAQEHAQEBAQG?=
+ =?us-ascii?q?DFIEDgQsoCoNrlHuDCF+LaYZuFIFkC4RsgiQhNhYBAgEBAQEBAQIBAQIQAQEBC?=
+ =?us-ascii?q?gsJCCgjDII1IoJTAQEiBAFEAgYZBAEZBAEBAgMLBhICAx0rCQkBBAESCIMaggG?=
+ =?us-ascii?q?NA5s+AYIgg3gBAYRLgg8FgQGHL4ITiEpmHgiCNoJXAphPBwIJjkaBP4NuhkiBE?=
+ =?us-ascii?q?ZB6gSUjBYF/cFCCQ4IuiFqFEAE1b4wYBIEqgRgBAQ?=
+Received: from esa6.dell-outbound2.iphmx.com ([68.232.154.99])
+ by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 May 2018 08:01:54 -0500
+From: <Michael.E.Brown@dell.com>
+To: <ed.tanous@intel.com>, <openbmc@lists.ozlabs.org>, <Paul.Vancil@dell.com>, 
+ <hramasub@in.ibm.com>, <Balaji.B.Rao@dell.com>,
+ <bradleyb@fuzziesquirrel.com>, <pradeep.kumar36@tcs.com>, <rolfb@us.ibm.com>, 
+ <Chris.Ong@microsoft.com>, <alirhas@microsoft.com>, <yupalani@microsoft.com>
+Received: from ausc60pc101.us.dell.com ([143.166.85.206])
+ by esa6.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 May 2018 19:01:54 +0600
+X-LoopCount0: from 10.166.132.55
+X-IronPort-AV: E=Sophos;i="5.49,430,1520917200"; d="scan'208";a="1253931210"
+X-DLP: DLP_GlobalPCIDSS
+Subject: Meeting Minutes 5/21/2018 - RE: OpenBMC Redfish working group working
+ call
+Thread-Topic: Meeting Minutes 5/21/2018 - RE: OpenBMC Redfish working group
+ working call
+Thread-Index: AdPxR2L8aPsaXMUkQRSsKaWiyuHFGQ==
+Date: Tue, 22 May 2018 13:01:52 +0000
+Message-ID: <affe8617cd4748f191bba0a27b616343@ausx13mps334.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,56 +74,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 May 2018 10:38:30 -0000
+X-List-Received-Date: Tue, 22 May 2018 13:02:18 -0000
 
-On 11 May 2018 at 01:59, Andrew Jeffery <andrew@aj.id.au> wrote:
-> Hi Eugene,
->
-> On Thu, 10 May 2018, at 22:34, Eugene.Cho@dell.com wrote:
->> Hey Cyril,
->>    I was recently following your upstream submission attempt for the
->> aspeed mbox/mailbox, was wondering if there was been any progress since?
->
-> FYI Cyril's moved on from IBM and OpenBMC, and so may have lost some moti=
-vation here.
->
+ - No meeting next week (AI: ED: please cancel for next week. Memorial day)
+ - Pavel - working on documentation to post for the dbus implementation of =
+extensions. Intent is to post these docs by the middle of the week.
+ - Ed pushed a patch set to enable feature selection to bmcweb at compile t=
+ime (!) - yay!   (Please review!)
 
-Hi, sorry for the delayed response. Andrew is correct here.
-Unfortunately I won't be continuing the upstreaming efforts for the
-driver as I won't have the time to rewrite it thrice more but more
-importantly I don't have the ability to do anything more than a
-compile test.
+ - MAJOR: proposal to make "bmcweb" the official redfish stack of the openb=
+mc project.
+	Intention is to have this be discussion topic for our next meeting and to =
+make a list of any missing features needed to get it up to par for everybod=
+y's needs.
 
-You are more than welcome to take whatever is useful or was useful and
-do with it whatever you want.
+--
+Michael
 
->>
->> Reason I ask - is Nuvoton also has a "mailbox" for bmc<->host
->> communication, which does the same thing (shared memory + interrupts
->> both ways), and was wondering if we could just have 1 driver for both,
->> instead 2 separate drivers.
->>
->> Glancing at the aspeed driver, only key difference I see is the setting
->> and handling the interrupt. Thoughts on this?
->
-> (Somewhat unfortunately) the ASPEED mailbox driver isn't upstream yet due=
- to push-back from the upstream mailbox subsystem maintainer*. Similar to t=
-he misc driver it sounds like we should work together to get things moving.
->
-> * It turns out the mailbox subsystem as it stands doesn't fit our needs -=
- it's written from the perspective of the host kernel communicating with so=
-me firmware black box on the other side of the mailbox, rather than the ker=
-nel of interest *being* the black box.
->
-
-I wish you all the best of luck overcoming these     problems.
-
-> Andrew
+-----Original Appointment-----
+From: Tanous, Ed [mailto:ed.tanous@intel.com]=20
+Sent: Monday, April 16, 2018 12:40 PM
+To: Tanous, Ed; OpenBMC Maillist; Brown, Michael E; Vancil, Paul; Hariharas=
+ubramanian Ramasubramanian; Rao, Balaji B; Brad Bishop; pradeep.kumar36@tcs=
+.com; rolfb@us.ibm.com; Chris.Ong@microsoft.com; alirhas@microsoft.com; yup=
+alani@microsoft.com
+Subject: OpenBMC Redfish working group working call
+When: Monday, May 21, 2018 2:00 PM-3:00 PM (UTC-08:00) Pacific Time (US & C=
+anada).
+Where: Skype Meeting
 
 
 
---=20
-Cyril
+Due to the problems with Blue Jeans we had last week, and the fact that we =
+don=1B$B!G=1B(Bt seem to use the video conference feature, lets switch back=
+ to Skype.  Unfortunately, BlueJeans doesn=1B$B!G=1B(Bt give an easy way to=
+ send out cancelations, and my account is in a state of flux,=20
 
-p.s. Apologies if this comes through as html or anything strange -
-I've resorted to using the gmail web interface.
+Description:
+Per meeting decision, this meeting invite is for the =1B$B!H=1B(BOpenBMC Re=
+dfish working group=1B$B!I=1B(B. This
+working group will meet every Monday at 4pm CST and publish meeting minutes=
+ to the mailing
+list. The working group is open to anybody who would like to participate in=
+ development of
+Redfish on OpenBMC.
+=20
+
+Base agenda:
+=20
+Call for opens
+Presentation of frameworks
+Discussion of Redfish on OpenBMC
+
+=20
+=20
+=20
+...........................................................................=
+..............................................................
+=1B$B"*=1B(B Join Skype Meeting    =20
+Trouble Joining? Try Skype Web App=20
+Join by phone
++1(916)356-2663 (or your local bridge access #) Choose bridge 5. (Global)  =
+              English (United States)=20
+Find a local number=20
+=20
+Conference ID: 205576574
+Forgot your dial-in PIN? |Help    =20
+=20
+[!OC([1033])!]
+...........................................................................=
+..............................................................
+=20
+=20
