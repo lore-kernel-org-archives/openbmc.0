@@ -1,101 +1,49 @@
-Return-Path: <oleksandrs@mellanox.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mellanox.com
- (client-ip=2a01:111:f400:fe08::603;
- helo=eur03-am5-obe.outbound.protection.outlook.com;
- envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=mellanox.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="oCcN+FeO";
- dkim-atps=neutral
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03on0603.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe08::603])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40qzNB26hSzDr3M
- for <openbmc@lists.ozlabs.org>; Wed, 23 May 2018 01:00:26 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zm3RU9ZtwFiGs+wFgor/n5Pb9Uc1NGnjR5azMA2QYZY=;
- b=oCcN+FeO8ODIwtk2Kf8h+udDebE3PFgEdATtpnN2E2rCPXiZdfvPhUrFIT44w5lvTYCQxblqtZNXxbRvLqmqi/6jkIgmTk3xjI5Kl4vwIYKFV6PZ6JkoTvBQs77DRVZJqrt7r4xeG0LfbTFKG1odqhPx4kWplLCHPVkF8obkWdU=
-Received: from AM5PR0501MB2449.eurprd05.prod.outlook.com (10.169.149.151) by
- AM5PR0501MB2436.eurprd05.prod.outlook.com (10.169.149.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.776.16; Tue, 22 May 2018 15:00:19 +0000
-Received: from AM5PR0501MB2449.eurprd05.prod.outlook.com
- ([fe80::e878:c2ac:dff3:1d44]) by AM5PR0501MB2449.eurprd05.prod.outlook.com
- ([fe80::e878:c2ac:dff3:1d44%6]) with mapi id 15.20.0797.011; Tue, 22 May 2018
- 15:00:19 +0000
-From: Oleksandr Shamray <oleksandrs@mellanox.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann
- <arnd@arndb.de>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>, devicetree
- <devicetree@vger.kernel.org>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- =?utf-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, Tobias Klauser
- <tklauser@distanz.ch>, "open list:SERIAL DRIVERS"
- <linux-serial@vger.kernel.org>, Vadim Pasternak <vadimp@mellanox.com>,
- system-sw-low-level <system-sw-low-level@mellanox.com>, Rob Herring
- <robh+dt@kernel.org>, "openocd-devel-owner@lists.sourceforge.net"
- <openocd-devel-owner@lists.sourceforge.net>, "linux-api@vger.kernel.org"
- <linux-api@vger.kernel.org>, "David S. Miller" <davem@davemloft.net>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, Jiri Pirko <jiri@mellanox.com>
-Subject: RE: [patch v21 1/4] drivers: jtag: Add JTAG core driver
-Thread-Topic: [patch v21 1/4] drivers: jtag: Add JTAG core driver
-Thread-Index: AQHT7Fg4JVUxm4yS/U6o5SZv4NfOXaQxTLeAgAp9ZqA=
-Date: Tue, 22 May 2018 15:00:19 +0000
-Message-ID: <AM5PR0501MB2449FE5F9439B6C6E7396DFBB1940@AM5PR0501MB2449.eurprd05.prod.outlook.com>
-References: <1526394095-5069-1-git-send-email-oleksandrs@mellanox.com>
- <1526394095-5069-2-git-send-email-oleksandrs@mellanox.com>
- <CAHp75VctG5RBtLF3nT5e_j7_e9O12u=5gerJ6OMxWbABM9ft2w@mail.gmail.com>
-In-Reply-To: <CAHp75VctG5RBtLF3nT5e_j7_e9O12u=5gerJ6OMxWbABM9ft2w@mail.gmail.com>
-Accept-Language: en-US, uk-UA
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=oleksandrs@mellanox.com; 
-x-originating-ip: [79.135.198.29]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; AM5PR0501MB2436;
- 7:9k7dObWRiNmifnTWUzBkjOq73RfxKkiVInwdGUPMSo2VgNcapAHB+3VCcBdxUsTT0jVDV+DG52XZdcuUEDZ8vcvbRLlHRJWwmUd3ib3fLHxoTPtEv7mQOppAiURXXnKPO3yvJ7E/zfLsPAYX+5jdFDRKAklnv6ycAs2WQYSRPwC5t5zM0Zi98GS5W7jxYOGv73V2mc/U+BOYjaWm80NmO/sU3zwBXh8V6nVdIQ04JtZ0sYrn1eIb62uzU0TV/y0w
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(7020095)(4652020)(4534165)(4627221)(201703031133081)(201702281549075)(5600026)(48565401081)(2017052603328)(7153060)(7193020);
- SRVR:AM5PR0501MB2436; 
-x-ms-traffictypediagnostic: AM5PR0501MB2436:
-x-microsoft-antispam-prvs: <AM5PR0501MB2436535E68766047168C3408B1940@AM5PR0501MB2436.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(143289334528602)(9452136761055)(65623756079841)(85827821059158)(258649278758335)(42262312472803)(157189615257929);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(3231254)(944501410)(52105095)(93006095)(93001095)(3002001)(6055026)(149027)(150027)(6041310)(20161123560045)(20161123562045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(6072148)(201708071742011)(7699016);
- SRVR:AM5PR0501MB2436; BCL:0; PCL:0; RULEID:; SRVR:AM5PR0501MB2436; 
-x-forefront-prvs: 0680FADD48
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(39860400002)(366004)(396003)(39380400002)(346002)(376002)(13464003)(199004)(189003)(55885003)(2900100001)(5250100002)(6506007)(86362001)(305945005)(54906003)(55016002)(102836004)(7736002)(14454004)(76176011)(74316002)(6246003)(68736007)(66066001)(4326008)(7696005)(8936002)(486006)(25786009)(8676002)(11346002)(97736004)(39060400002)(81156014)(26005)(81166006)(446003)(53546011)(107886003)(476003)(105586002)(106356001)(9686003)(186003)(3660700001)(6916009)(229853002)(316002)(3280700002)(3846002)(33656002)(6116002)(7416002)(2906002)(99286004)(59450400001)(53936002)(5660300001)(6436002)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM5PR0501MB2436;
- H:AM5PR0501MB2449.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: jgMShw2ESGRmU3VVw1+QDsQiekxVUGQRunmSRncY+mIy2jiRELDnvOdp4H54/OXfa326J2S1ysF+oZrQ9QHHMvBoGwsnTdqCPuQKnXDvQ0svDcq16oaT3eyZSmGfmb6LjiQLv+r4k/SEYMYhV3tMjDu+3dKIdsspftd0dUr45Vdq+e4jzYqzknuqb6UwZNjk
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40r02q6y4zzDqL5;
+ Wed, 23 May 2018 01:30:27 +1000 (AEST)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 May 2018 08:30:24 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,430,1520924400"; d="scan'208";a="43019416"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.73])
+ by orsmga007.jf.intel.com with ESMTP; 22 May 2018 08:30:24 -0700
+Date: Tue, 22 May 2018 08:30:24 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Lei YU <mine260309@gmail.com>
+Cc: Adriana Kobylak <anoo@linux.vnet.ibm.com>,
+ Stewart Smith <stewart@linux.vnet.ibm.com>,
+ Yugi Mani <yupalani@microsoft.com>,
+ openbmc <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: BMC Image Signing Proposal
+Message-ID: <20180522153024.GD105329@mauery>
+References: <8172868d02b4f54ceaa101ba1c99fa5b@linux.vnet.ibm.com>
+ <874lm8pjd7.fsf@linux.vnet.ibm.com>
+ <e1431b039c817b23b49b6f5833760152@linux.vnet.ibm.com>
+ <CAARXrtn6M=tzE-yMJWN4yaSHZJUYksMT=vMvVymY0kvgQJ4bfQ@mail.gmail.com>
+ <MWHPR21MB0864432C6CB8EF9A575589B0D6930@MWHPR21MB0864.namprd21.prod.outlook.com>
+ <20180516160209.GB105329@mauery>
+ <CAARXrtksFbirzq70cLzvWRcxKxOT9rGYKPMa-+UQcMpvx0=ycw@mail.gmail.com>
+ <435d4ae31bb1d8c4c06ec95cca51b5d2@linux.vnet.ibm.com>
+ <20180518210254.GC105329@mauery>
+ <CAARXrtnTfgsFNvB4UTBw0_3QodeuCdmG51kAbtdEAMBffffsFQ@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-Office365-Filtering-Correlation-Id: 35411cd7-4d5c-461d-ca0a-08d5bff4bc3d
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35411cd7-4d5c-461d-ca0a-08d5bff4bc3d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2018 15:00:19.2343 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0501MB2436
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CAARXrtnTfgsFNvB4UTBw0_3QodeuCdmG51kAbtdEAMBffffsFQ@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -107,125 +55,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 May 2018 15:00:27 -0000
+X-List-Received-Date: Tue, 22 May 2018 15:30:29 -0000
 
-SGkgQW5keS4gDQpUaGFua3MgZm9yIHJldmlldy4NCg0KUGxlYXNlIHJlYWQgbXkgYW5zd2VycyBp
-bmxpbmUuDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQW5keSBTaGV2
-Y2hlbmtvIFttYWlsdG86YW5keS5zaGV2Y2hlbmtvQGdtYWlsLmNvbV0NCj4gU2VudDogMTYg0LzQ
-sNGPIDIwMTgg0LMuIDA6MjINCj4gVG86IE9sZWtzYW5kciBTaGFtcmF5IDxvbGVrc2FuZHJzQG1l
-bGxhbm94LmNvbT4NCj4gQ2M6IEdyZWcgS3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRh
-dGlvbi5vcmc+OyBBcm5kIEJlcmdtYW5uIA0KPiA8YXJuZEBhcm5kYi5kZT47IExpbnV4IEtlcm5l
-bCBNYWlsaW5nIExpc3QgDQo+IDxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnPjsgbGludXgt
-YXJtIE1haWxpbmcgTGlzdCANCj4gPGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9y
-Zz47IGRldmljZXRyZWUgDQo+IDxkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZz47IG9wZW5ibWNA
-bGlzdHMub3psYWJzLm9yZzsgSm9lbCBTdGFubGV5IA0KPiA8am9lbEBqbXMuaWQuYXU+OyBKacWZ
-w60gUMOtcmtvIDxqaXJpQHJlc251bGxpLnVzPjsgVG9iaWFzIEtsYXVzZXIgDQo+IDx0a2xhdXNl
-ckBkaXN0YW56LmNoPjsgb3BlbiBsaXN0OlNFUklBTCBEUklWRVJTIDxsaW51eC0gDQo+IHNlcmlh
-bEB2Z2VyLmtlcm5lbC5vcmc+OyBWYWRpbSBQYXN0ZXJuYWsgPHZhZGltcEBtZWxsYW5veC5jb20+
-OyANCj4gc3lzdGVtLXN3LWxvdy1sZXZlbCA8c3lzdGVtLXN3LWxvdy1sZXZlbEBtZWxsYW5veC5j
-b20+OyBSb2IgSGVycmluZyANCj4gPHJvYmgrZHRAa2VybmVsLm9yZz47IG9wZW5vY2QtZGV2ZWwt
-b3duZXJAbGlzdHMuc291cmNlZm9yZ2UubmV0OyANCj4gbGludXgtIGFwaUB2Z2VyLmtlcm5lbC5v
-cmc7IERhdmlkIFMuIE1pbGxlciA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5ldD47IA0KPiBNYXVybyBDYXJ2
-YWxobyBDaGVoYWIgPG1jaGVoYWJAa2VybmVsLm9yZz47IEppcmkgUGlya28gDQo+IDxqaXJpQG1l
-bGxhbm94LmNvbT4NCj4gU3ViamVjdDogUmU6IFtwYXRjaCB2MjEgMS80XSBkcml2ZXJzOiBqdGFn
-OiBBZGQgSlRBRyBjb3JlIGRyaXZlcg0KPiANCj4gT24gVHVlLCBNYXkgMTUsIDIwMTggYXQgNToy
-MSBQTSwgT2xla3NhbmRyIFNoYW1yYXkgDQo+IDxvbGVrc2FuZHJzQG1lbGxhbm94LmNvbT4gd3Jv
-dGU6DQo+ID4gSW5pdGlhbCBwYXRjaCBmb3IgSlRBRyBkcml2ZXINCj4gPiBKVEFHIGNsYXNzIGRy
-aXZlciBwcm92aWRlIGluZnJhc3RydWN0dXJlIHRvIHN1cHBvcnQgDQo+ID4gaGFyZHdhcmUvc29m
-dHdhcmUgSlRBRyBwbGF0Zm9ybSBkcml2ZXJzLiBJdCBwcm92aWRlIHVzZXIgbGF5ZXIgQVBJIA0K
-PiA+IGludGVyZmFjZSBmb3IgZmxhc2hpbmcgYW5kIGRlYnVnZ2luZyBleHRlcm5hbCBkZXZpY2Vz
-IHdoaWNoIGVxdWlwcGVkIA0KPiA+IHdpdGggSlRBRyBpbnRlcmZhY2UgdXNpbmcgc3RhbmRhcmQg
-dHJhbnNhY3Rpb25zLg0KPiA+DQo+ID4gRHJpdmVyIGV4cG9zZXMgc2V0IG9mIElPQ1RMIHRvIHVz
-ZXIgc3BhY2UgZm9yOg0KPiA+IC0gWEZFUjoNCj4gPiAtIFNJUiAoU2NhbiBJbnN0cnVjdGlvbiBS
-ZWdpc3RlciwgSUVFRSAxMTQ5LjEgRGF0YSBSZWdpc3RlciBzY2FuKTsNCj4gPiAtIFNEUiAoU2Nh
-biBEYXRhIFJlZ2lzdGVyLCBJRUVFIDExNDkuMSBJbnN0cnVjdGlvbiBSZWdpc3RlciBzY2FuKTsN
-Cj4gPiAtIFJVTlRFU1QgKEZvcmNlcyB0aGUgSUVFRSAxMTQ5LjEgYnVzIHRvIGEgcnVuIHN0YXRl
-IGZvciBhIHNwZWNpZmllZA0KPiA+ICAgbnVtYmVyIG9mIGNsb2NrcykuDQo+ID4gLSBTSU9DRlJF
-US9HSU9DRlJFUSBmb3Igc2V0dGluZyBhbmQgcmVhZGluZyBKVEFHIGZyZXF1ZW5jeS4NCj4gPg0K
-PiA+IERyaXZlciBjb3JlIHByb3ZpZGVzIHNldCBvZiBpbnRlcm5hbCBBUElzIGZvciBhbGxvY2F0
-aW9uIGFuZA0KPiA+IHJlZ2lzdHJhdGlvbjoNCj4gPiAtIGp0YWdfcmVnaXN0ZXI7DQo+ID4gLSBq
-dGFnX3VucmVnaXN0ZXI7DQo+ID4gLSBqdGFnX2FsbG9jOw0KPiA+IC0ganRhZ19mcmVlOw0KPiA+
-DQo+ID4gUGxhdGZvcm0gZHJpdmVyIG9uIHJlZ2lzdHJhdGlvbiB3aXRoIGp0YWctY29yZSBjcmVh
-dGVzIHRoZSBuZXh0IA0KPiA+IGVudHJ5IGluIGRldiBmb2xkZXI6DQo+ID4gL2Rldi9qdGFnWA0K
-PiANCj4gPiAgMHhCMCAgIGFsbCAgICAgUkFUSU8gZGV2aWNlcyAgICAgICAgICAgaW4gZGV2ZWxv
-cG1lbnQ6DQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxtYWls
-dG86dmdvQHJhdGlvLmRlPg0KPiA+ICAweEIxICAgMDAtMUYgICBQUFBvWCAgICAgICAgICAgICAg
-ICAgICA8bWFpbHRvOm1vc3Ryb3dzQHN0eXgudXdhdGVybG9vLmNhPg0KPiA+ICsweEIyICAgMDAt
-MGYgICBsaW51eC9qdGFnLmggICAgICAgICAgICBKVEFHIGRyaXZlcg0KPiA+ICsNCj4gPiArPG1h
-aWx0bzpvbGVrc2FuZHJzQG1lbGxhbm94LmNvbT4NCj4gDQo+IENvbnNpZGVyIHRvIHByZXNlcnZl
-IHN0eWxlICh1cHBlciB2cy4gbG93ZXIpLg0KDQpKVEFHIGluIGNvZGUgaXMgbG93ZXIgKGp0YWcp
-IGNhbmUgYnV0IGluIGRlc2NyaXB0aW9ucyBhbmQgbm90ZXMgaXQgIGlzIHVwcGVyIChKVEFHKS4N
-CkluIGFsbCBwbGFjZXMgd2hpY2ggZG8gbm90IGNvcnJlc3BvbmQgdG8gdGhpcyBJIHdpbGwgZml4
-LiANCg0KPiANCj4gPiArICAgICAgICAgVGhpcyBwcm92aWRlcyBiYXNpYyBjb3JlIGZ1bmN0aW9u
-YWxpdHkgc3VwcG9ydCBmb3IgSlRBRyBjbGFzcyBkZXZpY2VzLg0KPiA+ICsgICAgICAgICBIYXJk
-d2FyZSB0aGF0IGlzIGVxdWlwcGVkIHdpdGggYSBKVEFHIG1pY3JvY29udHJvbGxlciBjYW4gYmUN
-Cj4gPiArICAgICAgICAgc3VwcG9ydGVkIGJ5IHVzaW5nIHRoaXMgZHJpdmVyJ3MgaW50ZXJmYWNl
-cy4NCj4gPiArICAgICAgICAgVGhpcyBkcml2ZXIgZXhwb3NlcyBhIHNldCBvZiBJT0NUTHMgdG8g
-dGhlIHVzZXIgc3BhY2UgZm9yDQo+ID4gKyAgICAgICAgIHRoZSBmb2xsb3dpbmcgY29tbWFuZHM6
-DQo+ID4gKyAgICAgICAgIFNEUjogKFNjYW4gRGF0YSBSZWdpc3RlcikgUGVyZm9ybXMgYW4gSUVF
-RSAxMTQ5LjEgRGF0YSBSZWdpc3RlciBzY2FuDQo+ID4gKyAgICAgICAgIFNJUjogKFNjYW4gSW5z
-dHJ1Y3Rpb24gUmVnaXN0ZXIpIFBlcmZvcm1zIGFuIElFRUUgMTE0OS4xIEluc3RydWN0aW9uDQo+
-ID4gKyAgICAgICAgIFJlZ2lzdGVyIHNjYW4uDQo+ID4gKyAgICAgICAgIFJVTlRFU1Q6IEZvcmNl
-cyB0aGUgSUVFRSAxMTQ5LjEgYnVzIHRvIGEgcnVuIHN0YXRlIGZvciBhIHNwZWNpZmllZA0KPiA+
-ICsgICAgICAgICBudW1iZXIgb2YgY2xvY2tzIG9yIGEgc3BlY2lmaWVkIHRpbWUgcGVyaW9kLg0K
-PiANCj4gU29tZXRoaW5nIGZlZWxzIHdyb25nIHdpdGggZm9ybWF0dGluZyBoZXJlLg0KPiANCg0K
-V2lsbCBmaXgNCg0KPiA+ICsjZGVmaW5lIE1BWF9KVEFHX05BTUVfTEVOIChzaXplb2YoImp0YWci
-KSArIDUpDQo+IA0KPiBJbnRlcmVzdGluZyBkZWZpbml0aW9uLiBXaHkgbm90IHRvIHNldCB0byAx
-MCBleHBsaWNpdGx5PyBBbmQgd2h5IDEwPw0KPiAoMTYgc291bmRzIGJldHRlcikNCj4gDQo1IC0g
-aXMgYSBtYXggbGVuIG9mIEpUQUcgZGV2aWNlIGlkIGluIGRldmljZSBuYW1lLiBJIHdpbGwgYWRk
-IGRlZmluZSB0byBpdC4NCg0KSW4gZ2VuZXJhbCBJIGRvbid0IHNlZSB0aGUgY2FzZSBmb3IgdGhl
-IHN5c3RlbSB3aXRoIGh1bmRyZWRzIEpUQUcgaW50ZXJmYWNlcy4NCkkgd2lsbCBsaW1pdCBtYXhp
-bXVtIGp0YWcgbWFzdGVyIHRvIDI1NSBkZXZpY2VzIGFuZCBjaGFuZ2UgIGlkIGxlbiB0byAzDQoN
-CiNkZWZpbmUgTUFYX0pUQUdfSURfU1RSX0xFTiA1DQojZGVmaW5lIE1BWF9KVEFHX05BTUVfTEVO
-IChzaXplb2YoImp0YWciKSArIE1BWF9KVEFHX0lEX1NUUl9MRU4pDQoNCj4gPiArc3RydWN0IGp0
-YWcgew0KPiA+ICsgICAgICAgc3RydWN0IG1pc2NkZXZpY2UgbWlzY2RldjsNCj4gDQo+ID4gKyAg
-ICAgICBzdHJ1Y3QgZGV2aWNlICpkZXY7DQo+IA0KPiBEb2Vzbid0IG1pc2NkZXYgcGFyZW50IGNv
-bnRhaW4gZXhhY3RseSB0aGlzIG9uZT8NCg0KWWVzLiANCldpbGwgZml4Lg0KDQo+IA0KPiA+ICsg
-ICAgICAgY29uc3Qgc3RydWN0IGp0YWdfb3BzICpvcHM7DQo+ID4gKyAgICAgICBpbnQgaWQ7DQo+
-ID4gKyAgICAgICBib29sIG9wZW5lZDsNCj4gPiArICAgICAgIHN0cnVjdCBtdXRleCBvcGVuX2xv
-Y2s7DQo+ID4gKyAgICAgICB1bnNpZ25lZCBsb25nIHByaXZbMF07DQo+ID4gK307DQo+IA0KPiA+
-ICsgICAgICAgICAgICAgICBlcnIgPSBjb3B5X3RvX3VzZXIodTY0X3RvX3VzZXJfcHRyKHhmZXIu
-dGRpbyksDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAodm9pZCAqKSh4
-ZmVyX2RhdGEpLCBkYXRhX3NpemUpOw0KPiANCj4gUmVkdW5kYW50IHBhcmVucyBpbiBvbmUgY2Fz
-ZS4gQ2hlY2sgdGhlIHJlc3Qgc2ltaWxhciBwbGFjZXMuDQo+IA0KDQpZZXMuDQoNCj4gPiArc3Rh
-dGljIGludCBqdGFnX29wZW4oc3RydWN0IGlub2RlICppbm9kZSwgc3RydWN0IGZpbGUgKmZpbGUp
-IHsNCj4gDQo+ID4gKyAgICAgICBzdHJ1Y3QganRhZyAqanRhZyA9IGNvbnRhaW5lcl9vZihmaWxl
-LT5wcml2YXRlX2RhdGEsIHN0cnVjdCBqdGFnLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgbWlzY2Rldik7DQo+IA0KPiBJIHdvdWxkIGRvbid0IGNhcmUgYWJv
-dXQgbGVuZ3RoIGFuZCBwdXQgaXQgb24gb25lIGxpbmUuDQo+IA0KDQpCdXQgZm9sbG93aW5nIHRv
-IExJTlVYIGtlcm5lbCBzdHlsZSwgaXQgc2hvdWxkIGJlIG5vIGxvbmdlciB0aGFuIDgwIHN5bWJv
-bHMuIA0KSXQgd2lsbCBub3QgcGFzcyBieSAgLi9zY3JpcHRzL2NoZWNrcGF0Y2gucGwNCg0KV2ls
-bCBpdCBiZSBPSyB0byBzZW5kIGEgcGF0Y2ggd2hpY2ggZmFpbGVkIDgwIHN5bWJvbHMgbGltaXRh
-dGlvbiBjaGVjaz8NCg0KPiA+ICsgICAgICAgaWYgKGp0YWctPm9wZW5lZCkgew0KPiA+ICsgICAg
-ICAganRhZy0+b3BlbmVkID0gdHJ1ZTsNCj4gPiArICAgICAgIGp0YWctPm9wZW5lZCA9IGZhbHNl
-Ow0KPiANCj4gQ2FuIGl0IGJlIG9wZW5lZCBub24gZXhjbHVzaXZlbHkgc2V2ZXJhbCB0aW1lcz8g
-SWYgc28sIHRoaXMgbmVlZHMgdG8gDQo+IGJlIGEgcmVmIGNvdW50ZXIgaW5zdGVhZC4NCg0KSXQg
-Y2FuIGJlIG9wZW5lZCBvbmx5IG9uY2UuDQoNCj4gDQo+ID4gKyAgICAgICBpZiAoIW9wcy0+aWRs
-ZSB8fCAhb3BzLT5tb2RlX3NldCB8fCAhb3BzLT5zdGF0dXNfZ2V0IHx8ICFvcHMtPnhmZXIpDQo+
-ID4gKyAgICAgICAgICAgICAgIHJldHVybiBOVUxMOw0KPiANCj4gQXJlIGFsbCBvZiB0aGVtIG1h
-bmRhdG9yeT8NCj4gDQoNClllcywgZXhjZXB0ICJtb2RlX3NldCINCldpbGwgcmVtb3ZlIG1vZGVf
-c2V0IGZyb20gY2hlY2sNCg0KPiA+ICtpbnQganRhZ19yZWdpc3RlcihzdHJ1Y3QganRhZyAqanRh
-ZykNCj4gDQo+IFBlcmhhcHMgZGV2bV8gdmFyaWFudC4NCg0KSnRhZyBkcml2ZXIgdXNlcyBtaXNj
-ZGV2aWNlIGFuZCByZWxhdGVkICBtaXNjX3JlZ2lzdGVyIGFuZCBtaXNjX2RlcmVnaXN0ZXIgDQpj
-YWxscyBmb3IgY3JlYXRpb24gYW5kIGRlc3RydWN0aW9uLiBUaGVyZSBpcyBubyBkZXZpY2Ugb2Jq
-ZWN0IHByaW9yIHRvIA0KY2FsbCB0byAgbWlzY19yZWdpc3Rlciwgd2hpY2ggY291bGQgYmUgdXNl
-ZCBpbiBkZXZtX2p0YWdfcmVnaXN0ZXIuDQoNCj4gDQo+ID4gKyNkZWZpbmUganRhZ191NjRfdG9f
-cHRyKGFyZykgKCh2b2lkICopKHVpbnRwdHJfdClhcmcpDQo+IA0KDQpSZWR1bmRhbnQuIFJlbW92
-ZWQuDQoNCj4gV2hlcmUgaXMgdGhpcyB1c2VkIG9yIHN1cHBvc2VkIHRvIGJlIHVzZWQ/DQo+IA0K
-PiA+ICsjZGVmaW5lIEpUQUdfTUFYX1hGRVJfREFUQV9MRU4gNjU1MzUNCj4gDQo+IElzIHRoaXMg
-bGltaXRhdGlvbiBmcm9tIHNvbWUgc3BlYz8NCj4gT3RoZXJ3aXNlIHdoeSBub3QgdG8gYWxsb3cg
-NjRLPw0KPiANCg0KSXQgbm90IGxpbWl0ZWQgYnkgc3BlY2lmaWNhdGlvbi4gIA0KQnV0IHdlIGVu
-Zm9yY2UgYW4gdXBwZXIgYm91bmQgZm9yIHRoZSBsZW5ndGggaGVyZSwgdG8gcHJldmVudCB1c2Vy
-cyBmcm9tIGRyYWluaW5nIA0Ka2VybmVsIG1lbW9yeSB3aXRoIGdpYW50IGJ1ZmZlcnMuDQpTbyBp
-dCB3YXMgbGltaXRlZCBieSAgc2l6ZSBvZiB1bnNpZ25lZCBzaG9ydCBpbnQgKDY1NTM1KQ0KDQo+
-ID4gKy8qKg0KPiA+ICsgKiBzdHJ1Y3QganRhZ19vcHMgLSBjYWxsYmFja3MgZm9yIGp0YWcgY29u
-dHJvbCBmdW5jdGlvbnM6DQo+ID4gKyAqDQo+ID4gKyAqIEBmcmVxX2dldDogZ2V0IGZyZXF1ZW5j
-eSBmdW5jdGlvbi4gRmlsbGVkIGJ5IGRldmljZSBkcml2ZXINCj4gPiArICogQGZyZXFfc2V0OiBz
-ZXQgZnJlcXVlbmN5IGZ1bmN0aW9uLiBGaWxsZWQgYnkgZGV2aWNlIGRyaXZlcg0KPiA+ICsgKiBA
-c3RhdHVzX2dldDogc2V0IHN0YXR1cyBmdW5jdGlvbi4gRmlsbGVkIGJ5IGRldmljZSBkcml2ZXIN
-Cj4gPiArICogQGlkbGU6IHNldCBKVEFHIHRvIGlkbGUgc3RhdGUgZnVuY3Rpb24uIEZpbGxlZCBi
-eSBkZXZpY2UgZHJpdmVyDQo+ID4gKyAqIEB4ZmVyOiBzZW5kIEpUQUcgeGZlciBmdW5jdGlvbi4g
-RmlsbGVkIGJ5IGRldmljZSBkcml2ZXIgICovDQo+IA0KPiBQZXJoYXBzIHlvdSBuZWVkIHRvIGRl
-c2NyaWJlIHdoaWNoIG9mIHRoZW0gYXJlIF9yZWFsbHlfIG1hbmRhdG9yeSBhbmQgDQo+IHdoaWNo
-IGFyZSBvcHRpb25hbC4NCj4gDQoNCk9rDQoNCj4gLS0NCj4gV2l0aCBCZXN0IFJlZ2FyZHMsDQo+
-IEFuZHkgU2hldmNoZW5rbw0KDQpCZXN0IFJlZ2FyZHMsDQpPbGVrc2FuZHIgU2hhbXJheQ0KDQo=
+On 22-May-2018 02:46 PM, Lei YU wrote:
+>On Sat, May 19, 2018 at 5:02 AM, Vernon Mauery
+><vernon.mauery@linux.intel.com> wrote:
+>> On 18-May-2018 11:01 AM, Adriana Kobylak wrote:
+>>>
+>>> On 2018-05-17 22:33, Lei YU wrote:
+>>>
+>>>> So I think it is better for OpenBMC project to have a common (or example)
+>>>> image signing tools/code, not for a specific machine or product, but for
+>>>> the
+>>>> general machines in this project using legacy flash layout.
+>>>> Let's discuss and get a design proposal?
+>>>>
+>>>
+>>> Yeah, ideally we'd converge the legacy and ubi code update methods into
+>>> one, to take advantage of the Software D-Bus interfaces and have the
+>>> different features like signature verification, filesystem mirroring, etc be
+>>> able to be picked up as separate packages. One starting point for the design
+>>> proposal would be to determine how to separate in the build and the repo the
+>>> different code update methods. Lei, want to take an initial stab at it? :)
+>>
+>>
+>> As far as the update methods go, just using a descriptive payload goes a
+>> long way. Historically, using a manifest type thing that told the update
+>> mechanism which bytes to write to where was pretty simple and very
+>> effective. The update mechanism would check the authenticity of the payload
+>> before trusting the manifest, but then the manifest and payload would all
+>> get written to the flash. This was for specific flash offsets and did not
+>> fully comprehend the notion of A/B or other redundant scenarios, so all the
+>> offsets were relative.
+>>
+>> But doing something in the manifest so simple as this would work for a
+>> variety of scenarios:
+>>
+>> MANIFEST:
+>> purpose=xyz.openbmc_project.Software.Version.VersionPurpose.BMC
+>> version=v2.2-32-gc6712d3-dirty
+>> KeyType=OpenBMC
+>> HashType=RSA-SHA256
+>>
+>> # Expected is a list of files alongside the manifest
+>> Expected=part1,part2,part3,partN
+>>
+>> update_pre=<target to activate prior to fwupdate>
+>>
+>> # obmc-flash-bmc-by-name knows where to place this part by name
+>> # (e.g. u-boot always goes at 0x00000000)
+>> part1_update=obmc-flash-bmc-by-name@.service
+>>
+>> # obmc-flash-bmc-at-offset places a part at a fixed offset
+>> # optionally relative to an optionally specified MTD partition
+>> # (default relative to /dev/mtd0)
+>> part2_update=obmc-flash-bmc-at-offset@.service 0x130000
+>> # (default relative to /dev/mtd0)
+>> part3_update=obmc-flash-bmc-at-offset@.service 0x130000
+>>
+>> # not a ubi person, so I can't comment on all the options :)
+>> part4_update=obmc-flash-bmc-ubi@.service
+>>
+>> partN_update=<service for updating partN>
+>> update_post=<target to activate post fwupdate>
+>
+>This is interesting, and it looks like a general method for code updating to
+>support both non-ubi and ubi layout. (Though it would require code changes in
+>phosphor-software-manager).
+
+That was the idea :)
+
+I think that if we really want to converge on some common code here, 
+having the phosphor-software-manager handle several different flash 
+formats is important. This is the sort of thing that could easily be 
+selectable at build time, one method should have little impact on the 
+other.
+
+>I have several questions though.
+>
+>Background:
+>* For non-ubi, there are two ways to do code update:
+>   1. Copy image-bmc (or image-rofs, etc) to /run/initramfs, and reboot.
+>      A updater script in initramfs will run to program the image to flash.
+>      During the code update, BMC is NOT operational;
+>   2. Invoking "prepareForUpdate" method to ask BMC reboot into a ramfs, then
+>      invoking the updater script to program the image to flash.
+>      During the code update, BMC is working.
+>   3. There is not WebUI support (yet)
+>* For ubi:
+>   1. The update happens when BMC is working (due to the fact it assumes the
+>      flash contains enough space for two images).
+>   2. The WebUI will upload the image and "activate" it when BMC is running.
+>
+>So here is my question: to support non-ubifs code update in a general way,
+>should it do "prepareForUpdate", making BMC to reboot into ramfs, or should it
+>do the update during reboot?
+>
+>* If we prefer the "prepareForUpdate" way, then the WebUI should add this
+>   function to make BMC enter "update" mode;
+
+Intel has a requirement to do firmware updates while the BMC is active, 
+so we will need to enable this feature in the WebUI. This is not a hard 
+problem, given that a redfish mechanism is already in the works.
+
+--Vernon
+
+>* If we prefer to update during reboot, then the BMC will not be working for a
+>   few minutes during the code update, WebUI will not be working as well.
+>
+>>
+>>
+>> The idea is that we can have a series of service files that can handle the
+>> majority of operations generically and any special cases can supply their
+>> own. But since it is just a service, the dependencies are all taken care of.
+>>
+>>
+>> Just some thoughts on how this might be done. This is actually something
+>> that I am working on right now, trying to get our redundant image booting
+>> working internally, so I am glad to hear that others are working toward
+>> similar goals.
+>>
+>>
+>> --Vernon
