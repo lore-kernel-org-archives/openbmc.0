@@ -1,65 +1,65 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <liyiadam@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::236; helo=mail-pg0-x236.google.com;
+ envelope-from=liyiadam@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SMdYI+ZP"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Nzq8emW8"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gtv1+BKw"; 
+ dkim-atps=neutral
+Received: from mail-pg0-x236.google.com (mail-pg0-x236.google.com
+ [IPv6:2607:f8b0:400e:c05::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40qdj52vXVzDqgK
- for <openbmc@lists.ozlabs.org>; Tue, 22 May 2018 11:43:52 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A704921221;
- Mon, 21 May 2018 21:43:47 -0400 (EDT)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Mon, 21 May 2018 21:43:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=DK3MpbSTkWOceumyfOjrCxoSloyNpyUe19psnHDw/pk=; b=SMdYI+ZP
- Lj/ntALPONDTGeU05xYzPiO0TgpEwr8nTO6KSQGRl7R2QMgicqIyOqhuuqAP5gbR
- KrOw7JX0d5GcNNd8Sa2uqIcLuLRW9bNoGobDcKfxTsnmNOR6CyWO8aJ5k3lckvQ2
- ntsJ+VPDRt98IpP+YPhoDJ1NkeS63GWJvdUA3a+VkkoeML7h+P4g/8cUzgy9JFId
- 0tRmZqXSZYcwr02BhANuf/IGgQeIUA2cIn0pAJsIp/j+BeW9NcXRbca42hc6MKe0
- TnZGEkCiE47yOtqeqwy0QWomK475iFNeTk52YEJ283In3YkCVu9UqfEVOCO6I/Br
- tC+9mBgaEXawyw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:message-id:mime-version:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=DK3MpbSTkWOceumyfOjrCxoSloyNp
- yUe19psnHDw/pk=; b=Nzq8emW8QdwulJQDSx8jai8EQomt5/O4xQU5CP+D4+8Um
- 1eRbxyazzGYx52nX914W72ahxeCNj+9ozdIYTEdUW7+Gki9IQfRri2Tq+5qOMxUz
- uiNMAdmex6QIbblijj2LWTgFd4f6QDh5IVnK/4ESq6J0jlaagGwUq7siaSF0Ngff
- B1Mc88De9VurafRvJ2oHiSmeaKNrsXAxaAovYv5G8lyMOq3/RRh2y8TTzA3ZWL81
- zJQBHFPWmVOvSFcKTZulfm4u079JR+M7Vcmew9+S7GVLqwXZTmZ7C0g0IqJg6Qeu
- 14I8mN7Upe6qpVTswnTX2FT0SIGJyBQalXBdEJyfQ==
-X-ME-Proxy: <xmx:03UDW2Nwze6V9i2brVVrXvQG1sQlGcODdT4925CB3t6nawWz0J653g>
-X-ME-Proxy: <xmx:03UDW95JfJ-mMhMRi_2lZRjRseg07VCV1l4R675sbMUKZfLm9oLDxA>
-X-ME-Proxy: <xmx:03UDW_PSiMzggF5rH_8IdqEE_2q4hcHsQkVBP8r8xqBfCKSuzXPDtA>
-X-ME-Proxy: <xmx:03UDWznWYBHlgQxIb0FiGj_MjBZuLjY9E4NIHolH8XSGKfgtzn8yfA>
-X-ME-Proxy: <xmx:03UDW-RjEANXhCTdpqCojhZATtlEKtGcio62qjRMMfsEWZ5CvxNbbA>
-X-ME-Proxy: <xmx:03UDW1oWj0ZIBS2iZ6mxW4rdZ7LXeFgWFH3ZaV4nRmVhRNVFODQUcQ>
-X-ME-Sender: <xms:03UDWwlapLgPhHpE2aLcLJhv5EWLB6oNkqaLUYQqF3kBOFZbJ99KiQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 624B441A0; Mon, 21 May 2018 21:43:47 -0400 (EDT)
-Message-Id: <1526953427.458876.1380098832.53C3F9C7@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: bradleyb@fuzziesquirrel.com, Andrew Geissler <geissonator@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-a224ff37
-Subject: obmc-gerrit: A tool for automagically adding reviewers to your patches
-Date: Tue, 22 May 2018 11:13:47 +0930
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40qf2C44QkzDq7c
+ for <openbmc@lists.ozlabs.org>; Tue, 22 May 2018 11:58:39 +1000 (AEST)
+Received: by mail-pg0-x236.google.com with SMTP id c22-v6so6466129pgn.11
+ for <openbmc@lists.ozlabs.org>; Mon, 21 May 2018 18:58:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=J/GulkbCBiKpqOdVlrsFLPonK3kWz/ADb1EuVIPTizs=;
+ b=gtv1+BKweeUbUyt8Udj15tNSBG8g5aozT64S+XriXoBz+OWQqdaxJK/osEw/X/vYCQ
+ 4Cc3H7IEXPzpZjUMh8kZi9tRUZ1GNLSlMY1qwetCEjhbxueRvFP4crTjdA/EMR+rIUPe
+ aArOcwBkM9u/KhHnFfHekeFUYOddbCYwEiITk1ZcrISGkkqTx4ideb6mKHM2zVDq+8O6
+ MTSGowmDyR8BgoaNedMs9FoLL1o3wPR7AWl/LlypVlu5Ou8FGICVpigtpCGInNX6vtEr
+ nENozXVEB7oq8aF3PD53WtymeGNAzlxOomooWr5S3+YdU1i21m8jYfoYCdA4SngZC8SQ
+ HAiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=J/GulkbCBiKpqOdVlrsFLPonK3kWz/ADb1EuVIPTizs=;
+ b=KBuahI8H2If0pggjKwnloYm1+u0J87YL/vJm9+PlCcMNAo+PKHFLy2HlPNVPoy+imH
+ fR4N4qoGE89xoYf0Yr1L4yhhxirhLY8G+Wc7omJ71FRGPSkQDVKl6GZp2vmUvDKtaMtV
+ lav+C6rPjX8K1JuLK84J2Kx+rXHsjUMXoYRqnst1jVPtjDTXHquU/HGvKnkh2tBhjYWn
+ Rx5lj+9dvWKgQc9fdkOSMGHxF+NaXp8V2N9H8HWI8w5BsJ4s4q6CyXjySulK5C8uMGRv
+ ecWjaHPhXXOqc01j/deKbzA4UtonOSGBURnV4HmRY1zvahmEitJkv1EkabLvRgApoKLq
+ IDWw==
+X-Gm-Message-State: ALKqPwc7i75dmXhvuLumlz2raiy146Hg+1ks1t2HB/DwDFDJC/3IMCGC
+ 3oxzQJHfGl6NRu52q2ezhgg=
+X-Google-Smtp-Source: AB8JxZoAzXf/4CVfIlfj0szxtkdaB0gcuqD7QcMdY1yP0enjyE7gLAWwgZqh7lhMFuW+m3i3IA0bIQ==
+X-Received: by 2002:a62:6c3:: with SMTP id
+ 186-v6mr21996681pfg.151.1526954317019; 
+ Mon, 21 May 2018 18:58:37 -0700 (PDT)
+Received: from adams-mbp.cn.ibm.com ([204.110.13.89])
+ by smtp.gmail.com with ESMTPSA id u68-v6sm26657464pfu.32.2018.05.21.18.58.33
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 21 May 2018 18:58:36 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 11.2 \(3445.5.20\))
+Subject: Re: [RFC] AST2500 video engine driver design
+From: Yi Li <liyiadam@gmail.com>
+In-Reply-To: <ff0a9c9c-2b09-00e5-3f04-4406b16309e3@linux.vnet.ibm.com>
+Date: Tue, 22 May 2018 09:58:23 +0800
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <D092E346-94F2-4827-AC22-0BE3CF8C991D@gmail.com>
+References: <ff0a9c9c-2b09-00e5-3f04-4406b16309e3@linux.vnet.ibm.com>
+To: Eddie James <eajames@linux.vnet.ibm.com>
+X-Mailer: Apple Mail (2.3445.5.20)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,20 +71,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 May 2018 01:43:55 -0000
+X-List-Received-Date: Tue, 22 May 2018 01:58:44 -0000
 
-Hello,
 
-I've created a helper script that automatically adds reviewers to your patches when you push them to Gerrit:
 
-https://github.com/openbmc/openbmc-tools/tree/master/amboar/obmc-scripts/maintainers
+> On 18 May 2018, at 11:42 PM, Eddie James <eajames@linux.vnet.ibm.com> =
+wrote:
+>=20
+> Hi,
+>=20
+> I'm working on a driver for the AST2500 video engine; just wanted to =
+post up the plan in case anyone has any ideas. The purpose behind this =
+development is to be able to use IKVM with video from the host and i/o =
+from a remote user.
+>=20
+> The video engine is a piece of hardware in the AST24/2500 that =
+captures and/or compresses video data. Typically the input is the host =
+graphics, writing it's RGB output to the VGA memory on the BMC. The =
+video engine will capture and compress the data and store it in memory. =
+The driver should provide an interface for an application to read that =
+compressed video in order to get it on the network.
+>=20
+> The driver interface will use the Video4Linux2 API. This involves =
+standard file operations like open, read, and close, as well as a video =
+ioctl interface for configuring the device. Configuration options will =
+probably be limited, as I think there will only be one mode that will =
+provide enough performance for IKVM. I do want to be able to configure =
+the video source; either direct from host at the BMC VGA memory or from =
+the BMC DRM driver.
+>=20
+> The most substantial part of the driver will just be the hardware =
+setup and manipulation. Intel has done some work here already (thanks =
+Ed) which has been useful for configuring the hardware and doing the =
+capture/compress loop. I'll be following what I think is fairly common =
+for video drivers and only initializing the engine once a file =
+descriptor is opened, and then allow more file descriptors to be opened =
+as necessary without further touching the engine, though changing =
+configs will obviously do the necessary engine operations. Once the last =
+file descriptor is released, the engine and clocks will be shut down. =
+The read operation will trigger a single frame capture/compress for now.
+>=20
+> I still have details to hash out regarding streaming, user-space =
+buffers, etc, which will probably be necessary to get the performance we =
+need.
+>=20
+> Any comments/questions/concerns?
+>=20
 
-Why do you care? I'm hoping that it reduces the time it takes for your patches to get attention *and* relieves you from the tedium of adding the reviewers yourself.
+There is a requirement from data center customer for BMC, to capture the =
+=E2=80=9Clast screen (or snapshot)=E2=80=9D of host system when hosts =
+shutdown, reset or crash. Hope there is interface for this feature in =
+your design.
 
-The script is a wrapper for `git push` that also parses the MAINTAINERS file in the root of the repository. I recently sent a flood of patches adding a MAINTAINERS file to each repo maintained by the OpenBMC organisation, so obmc-gerrit should be generally useful in the very near future.
-
-I'm always open to feedback, so make sure to reply here or ping me on IRC if you have opinions.
-
-Cheers,
-
-Andrew
+Thanks,
+-Yi=
