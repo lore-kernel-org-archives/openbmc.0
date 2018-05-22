@@ -1,34 +1,65 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SMdYI+ZP"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Nzq8emW8"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40qcD01gD6zDqH4
- for <openbmc@lists.ozlabs.org>; Tue, 22 May 2018 10:37:03 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4M0aofY018389;
- Mon, 21 May 2018 19:36:51 -0500
-Message-ID: <d8828349e3d4f01a5ce9ecde529b84c792b708c3.camel@kernel.crashing.org>
-Subject: Re: [PATCH linux dev-4.13 2/4] fsi/occ: Add Retries on checksum errors
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Eddie James <eajames@linux.vnet.ibm.com>, Andrew Jeffery
- <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-Date: Tue, 22 May 2018 10:36:49 +1000
-In-Reply-To: <db3ce0ae-9aba-c764-5e79-0140e095330e@linux.vnet.ibm.com>
-References: <20180518013500.18005-1-benh@kernel.crashing.org>
- <20180518013500.18005-2-benh@kernel.crashing.org>
- <1526880377.2644647.1378943632.1451B0E7@webmail.messagingengine.com>
- <05ebcf5940e45a9083a65f6cc35eda367b44f9fc.camel@kernel.crashing.org>
- <db3ce0ae-9aba-c764-5e79-0140e095330e@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40qdj52vXVzDqgK
+ for <openbmc@lists.ozlabs.org>; Tue, 22 May 2018 11:43:52 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id A704921221;
+ Mon, 21 May 2018 21:43:47 -0400 (EDT)
+Received: from web6 ([10.202.2.216])
+ by compute4.internal (MEProxy); Mon, 21 May 2018 21:43:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=DK3MpbSTkWOceumyfOjrCxoSloyNpyUe19psnHDw/pk=; b=SMdYI+ZP
+ Lj/ntALPONDTGeU05xYzPiO0TgpEwr8nTO6KSQGRl7R2QMgicqIyOqhuuqAP5gbR
+ KrOw7JX0d5GcNNd8Sa2uqIcLuLRW9bNoGobDcKfxTsnmNOR6CyWO8aJ5k3lckvQ2
+ ntsJ+VPDRt98IpP+YPhoDJ1NkeS63GWJvdUA3a+VkkoeML7h+P4g/8cUzgy9JFId
+ 0tRmZqXSZYcwr02BhANuf/IGgQeIUA2cIn0pAJsIp/j+BeW9NcXRbca42hc6MKe0
+ TnZGEkCiE47yOtqeqwy0QWomK475iFNeTk52YEJ283In3YkCVu9UqfEVOCO6I/Br
+ tC+9mBgaEXawyw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=DK3MpbSTkWOceumyfOjrCxoSloyNp
+ yUe19psnHDw/pk=; b=Nzq8emW8QdwulJQDSx8jai8EQomt5/O4xQU5CP+D4+8Um
+ 1eRbxyazzGYx52nX914W72ahxeCNj+9ozdIYTEdUW7+Gki9IQfRri2Tq+5qOMxUz
+ uiNMAdmex6QIbblijj2LWTgFd4f6QDh5IVnK/4ESq6J0jlaagGwUq7siaSF0Ngff
+ B1Mc88De9VurafRvJ2oHiSmeaKNrsXAxaAovYv5G8lyMOq3/RRh2y8TTzA3ZWL81
+ zJQBHFPWmVOvSFcKTZulfm4u079JR+M7Vcmew9+S7GVLqwXZTmZ7C0g0IqJg6Qeu
+ 14I8mN7Upe6qpVTswnTX2FT0SIGJyBQalXBdEJyfQ==
+X-ME-Proxy: <xmx:03UDW2Nwze6V9i2brVVrXvQG1sQlGcODdT4925CB3t6nawWz0J653g>
+X-ME-Proxy: <xmx:03UDW95JfJ-mMhMRi_2lZRjRseg07VCV1l4R675sbMUKZfLm9oLDxA>
+X-ME-Proxy: <xmx:03UDW_PSiMzggF5rH_8IdqEE_2q4hcHsQkVBP8r8xqBfCKSuzXPDtA>
+X-ME-Proxy: <xmx:03UDWznWYBHlgQxIb0FiGj_MjBZuLjY9E4NIHolH8XSGKfgtzn8yfA>
+X-ME-Proxy: <xmx:03UDW-RjEANXhCTdpqCojhZATtlEKtGcio62qjRMMfsEWZ5CvxNbbA>
+X-ME-Proxy: <xmx:03UDW1oWj0ZIBS2iZ6mxW4rdZ7LXeFgWFH3ZaV4nRmVhRNVFODQUcQ>
+X-ME-Sender: <xms:03UDWwlapLgPhHpE2aLcLJhv5EWLB6oNkqaLUYQqF3kBOFZbJ99KiQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 624B441A0; Mon, 21 May 2018 21:43:47 -0400 (EDT)
+Message-Id: <1526953427.458876.1380098832.53C3F9C7@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: bradleyb@fuzziesquirrel.com, Andrew Geissler <geissonator@gmail.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-a224ff37
+Subject: obmc-gerrit: A tool for automagically adding reviewers to your patches
+Date: Tue, 22 May 2018 11:13:47 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -40,25 +71,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 May 2018 00:37:05 -0000
+X-List-Received-Date: Tue, 22 May 2018 01:43:55 -0000
 
-On Mon, 2018-05-21 at 13:58 -0500, Eddie James wrote:
-> > >    If it's the former then retrying independent of the OCC error
-> > > handling protocol is probably okay, but if we're trying to catch the
-> > > latter then maybe we should let this be handled as part of the OCC
-> > > error handling code?
-> > > 
-> > > Eddie?
-> 
-> The checksum is part of the OCC response, so it's not a transport thing. 
-> If we've gotten to checking the checksum then we've got a full response 
-> that looks valid so far (reasonable length, etc).
-> 
-> If we're trying to adhere to the OCC spec, then I'm of the opinion that 
-> we shouldn't do any retries except for those handled in the occ-hwmon 
-> driver.
+Hello,
 
-I don't see any in there ... what am I missing ?
+I've created a helper script that automatically adds reviewers to your patches when you push them to Gerrit:
+
+https://github.com/openbmc/openbmc-tools/tree/master/amboar/obmc-scripts/maintainers
+
+Why do you care? I'm hoping that it reduces the time it takes for your patches to get attention *and* relieves you from the tedium of adding the reviewers yourself.
+
+The script is a wrapper for `git push` that also parses the MAINTAINERS file in the root of the repository. I recently sent a flood of patches adding a MAINTAINERS file to each repo maintained by the OpenBMC organisation, so obmc-gerrit should be generally useful in the very near future.
+
+I'm always open to feedback, so make sure to reply here or ping me on IRC if you have opinions.
 
 Cheers,
-Ben.
+
+Andrew
