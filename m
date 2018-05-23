@@ -1,67 +1,82 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <Supreeth.Venkatesh@arm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::22b; helo=mail-ot0-x22b.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=arm.com
+ (client-ip=104.47.2.63; helo=eur01-db5-obe.outbound.protection.outlook.com;
+ envelope-from=supreeth.venkatesh@arm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kk4dtwX5"; 
- dkim-atps=neutral
-Received: from mail-ot0-x22b.google.com (mail-ot0-x22b.google.com
- [IPv6:2607:f8b0:4003:c0f::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=arm.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=armh.onmicrosoft.com header.i=@armh.onmicrosoft.com
+ header.b="EOYyUeyX"; dkim-atps=neutral
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0063.outbound.protection.outlook.com [104.47.2.63])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40rb6g54mYzF0sk
- for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 00:50:50 +1000 (AEST)
-Received: by mail-ot0-x22b.google.com with SMTP id l12-v6so25516151oth.6
- for <openbmc@lists.ozlabs.org>; Wed, 23 May 2018 07:50:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language;
- bh=eTWTQ86iF8oE2JgfmFwYwlTqQe2oQfzjy7OpPVSbPBA=;
- b=Kk4dtwX5qYUZjLo0xFzMLoIxkaygeQXzo9PkFpxh0MZi5DViBF6IKpXa10aWTIGhe9
- ftIH/7rT3sGc+83YAuCQwkDoEhrRv7zARiH0LaPayjJ+j2rph8br/w2pJfc7kvVSuWKN
- hyhRNBVYT+Fry53zUtj3uXl2tOWdJrF4r/uW4DmzxAaVjneEoVE2wrYuSz6N/MZ0aew2
- /Bkpi1qqW4CD+Zd74JN7EHdnQ8irnafS1VsMhdKF+hWA3lO2MWErlNzb2g0GNzFFx05D
- KK+CwoAPSgtlmDvQZKsl72PLhW1icOfKEonFnd51WB52+l8ZRJeLte0ksrL1vfJDJLvb
- n49Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=eTWTQ86iF8oE2JgfmFwYwlTqQe2oQfzjy7OpPVSbPBA=;
- b=ZqXt0yz2sy9C++NXFDAAWE+ITxe3hQBRbykiYoW/O3h7kbNMAgtQn6SEyUntqKRdB7
- cBKxSA7rjoJaRh3LW0gbX1/dsS9iSlIOZlcV/GgzBI8xwnkByGiDApq7/NjszvCrtM1W
- YXT1o4EqJwrnj3Pk9P7Dq6DAkq0CTTWXvP0qilKA5VF7eKHAIUs7+C0/RLbVGkg2VPrJ
- 4/BwrC6ZFJrAfeIWCSZdQjRv42AMjpuue9amPsovyp72KWKe2EdbNux5PaGmcm0pR+a1
- 169wG7xv60QTpKNlwnIIEgApe9sHVrUDNl2khb+sEIBqhUhBfaA1x7DAchridC0wfgJO
- fv5Q==
-X-Gm-Message-State: ALKqPwcZPPx5up8HIIPeJe63LI/KQY8Z31uCQEfxtPjeLoarUqld4hRh
- MAfBj0ly+XeaPqTz674LaR1EPkhS
-X-Google-Smtp-Source: AB8JxZp6oCaowqnfpn35qLmR1MlKDnT0JV4iG4UxqPVk+jGqvlj4xkaarr3azSqKjgc86p7lwRHbuQ==
-X-Received: by 2002:a9d:5014:: with SMTP id
- a20-v6mr1818001oth.205.1527087048470; 
- Wed, 23 May 2018 07:50:48 -0700 (PDT)
-Received: from krtaylors-MacBook-Pro.local
- (cpe-72-182-100-19.austin.res.rr.com. [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id u13-v6sm9474573oia.37.2018.05.23.07.50.47
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 23 May 2018 07:50:48 -0700 (PDT)
-Subject: Re: please add me into the email lists.
-To: "Wang, Kuiying" <kuiying.wang@intel.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <959CAFA1E282D14FB901BE9A7BF4E77249C6F4BA@SHSMSX101.ccr.corp.intel.com>
-From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <33b199d4-e9b5-c96b-d2d9-5ba2269127ca@gmail.com>
-Date: Wed, 23 May 2018 09:50:47 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.8.0
-MIME-Version: 1.0
-In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E77249C6F4BA@SHSMSX101.ccr.corp.intel.com>
-Content-Type: multipart/alternative;
- boundary="------------204933F674462FF53ADE0D9A"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40rf9S4lPBzF0wf
+ for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 03:08:22 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector1-arm-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fk4V3MWpeD38mx171Sldxu3vUfMPMY3zkC78f598wzE=;
+ b=EOYyUeyXf+SP7oAo6Td1QUdAp2It4me1mIQor5BgCZ2/Y3pfgVDK+GF7yUJpMMfaLfAkvLq9G9javveGZmwoUxsZK5p0ADXN53MTS6J99VD4WwUbpWWsrDWEbuv7XioqBWsc524jbFyGUH8u35Bo68JqT6px/6bupkAWkrUy4EA=
+Received: from AM4PR0802MB2306.eurprd08.prod.outlook.com (10.172.218.15) by
+ AM4PR0802MB2177.eurprd08.prod.outlook.com (10.172.217.15) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.797.11; Wed, 23 May 2018 17:08:16 +0000
+Received: from AM4PR0802MB2306.eurprd08.prod.outlook.com
+ ([fe80::c069:5358:a14d:c096]) by AM4PR0802MB2306.eurprd08.prod.outlook.com
+ ([fe80::c069:5358:a14d:c096%10]) with mapi id 15.20.0797.011; Wed, 23 May
+ 2018 17:08:16 +0000
+From: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Community Meetings
+Thread-Topic: Community Meetings
+Thread-Index: AdPyt1i7D7Jr4rimRWCiqATcbOo7pw==
+Date: Wed, 23 May 2018 17:08:16 +0000
+Message-ID: <AM4PR0802MB23062619ABE44754D92668EE806B0@AM4PR0802MB2306.eurprd08.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Supreeth.Venkatesh@arm.com; 
+x-originating-ip: [217.140.111.135]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; AM4PR0802MB2177;
+ 7:kANCLalWVVPnZOimW8NzYTvif5wk77PjV9tIGIPpUpyU0JRwGUHDkUF8XUrkbr9sb0C9TJ87kHk0DkjHiuqiuP2noYclQmiddDfb2BBhck+J68/c04K50TrJCrRbZZudxzdCnUeVoFmndpIMtopVJZov0nVxGpqKY/PA3ZBjMrEW1+eK+KHFGGsBsu6UgyHYjsPEZ1vIqaCEQOxvybU3xItbDNXMUKb4z9IQXPStRSNCVOoH8mEDcm4CW0ok1kXB
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(7020095)(4652020)(5600026)(48565401081)(4534165)(4627221)(201703031133081)(201702281549075)(2017052603328)(7153060)(7193020);
+ SRVR:AM4PR0802MB2177; 
+x-ms-traffictypediagnostic: AM4PR0802MB2177:
+x-microsoft-antispam-prvs: <AM4PR0802MB2177EDD2EB37DF0463D07846806B0@AM4PR0802MB2177.eurprd08.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(28532068793085)(21748063052155);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(3231254)(944501410)(52105095)(3002001)(93006095)(93001095)(6055026)(149027)(150027)(6041310)(20161123558120)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(20161123560045)(6072148)(201708071742011)(7699016);
+ SRVR:AM4PR0802MB2177; BCL:0; PCL:0; RULEID:; SRVR:AM4PR0802MB2177; 
+x-forefront-prvs: 06818431B9
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(376002)(39860400002)(346002)(39380400002)(366004)(396003)(189003)(40434004)(199004)(5640700003)(6436002)(106356001)(53936002)(5660300001)(7116003)(790700001)(6116002)(3846002)(6306002)(221733001)(9686003)(54896002)(486006)(476003)(55016002)(74316002)(2351001)(97736004)(86362001)(5890100001)(2501003)(5250100002)(3280700002)(2906002)(3660700001)(25786009)(33656002)(2900100001)(316002)(478600001)(68736007)(72206003)(14454004)(99286004)(59450400001)(7736002)(7696005)(6506007)(6916009)(66066001)(105586002)(186003)(26005)(81166006)(81156014)(1730700003)(8676002)(102836004)(3480700004)(8936002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM4PR0802MB2177;
+ H:AM4PR0802MB2306.eurprd08.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: arm.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: h3ifonwoNlDpkXqCJZH6Cpl0OYqWfnVcdv9j5M8NBlfyyM/m/X9SMtACzKTuQ6U1arpM3rZHn3UnRbJ+APQHlKTCmCtBu53NFFEUmpV4oZJDWcJ9IH+yCOlotvEpTuTdEgKFgTu1QIDs6ZFg5gQr6EO/9VMzqRGDwJkERwMbN6yo3bW04wmDAikOmSSN36Gk
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_AM4PR0802MB23062619ABE44754D92668EE806B0AM4PR0802MB2306_"
+MIME-Version: 1.0
+X-MS-Office365-Filtering-Correlation-Id: b1b192b3-4dbe-4bea-b924-08d5c0cfc6bb
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1b192b3-4dbe-4bea-b924-08d5c0cfc6bb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2018 17:08:16.6737 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR0802MB2177
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -73,70 +88,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 May 2018 14:50:52 -0000
+X-List-Received-Date: Wed, 23 May 2018 17:08:30 -0000
 
-This is a multi-part message in MIME format.
---------------204933F674462FF53ADE0D9A
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+--_000_AM4PR0802MB23062619ABE44754D92668EE806B0AM4PR0802MB2306_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+Hello Openbmc community,
 
-On 5/23/18 3:28 AM, Wang, Kuiying wrote:
+I am from Arm and just started looking into openbmc enablement.
+I am subscribed to the mailing list, However, I am unable to participate in=
+ community meetings as
+I don't see any meeting requests on the mailing list.
+
+It will be appreciated, if someone could help me on how to subscribe to
+openbmc developer community meetings.
+
+I am attending  (DMTF) PMCI work group meetings, but not sure whether there=
+ is openbmc developer community
+meeting as well.
+
+Thanks,
+Supreeth
+IMPORTANT NOTICE: The contents of this email and any attachments are confid=
+ential and may also be privileged. If you are not the intended recipient, p=
+lease notify the sender immediately and do not disclose the contents to any=
+ other person, use it for any purpose, or store or copy the information in =
+any medium. Thank you.
+
+--_000_AM4PR0802MB23062619ABE44754D92668EE806B0AM4PR0802MB2306_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Hi,
->
-> I am working OpenBMC project.
->
-> So please help add me into the shis email list, so that I can follow 
-> openbmc topics.
->
-It is self service - feel free to join: 
-https://lists.ozlabs.org/listinfo/openbmc
-
-Lol, I originally just replied to the list, which you would obviously 
-not see yet.
-
-Kurt Taylor (krtaylor)
->
-> Thanks,
->
-> Kuiying.
->
-
-
---------------204933F674462FF53ADE0D9A
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <div class="moz-cite-prefix">On 5/23/18 3:28 AM, Wang, Kuiying
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:959CAFA1E282D14FB901BE9A7BF4E77249C6F4BA@SHSMSX101.ccr.corp.intel.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
 /* Font Definitions */
-@font-face
-	{font-family:\5B8B\4F53;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"\@\5B8B\4F53";
+	{font-family:"\@DengXian";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
@@ -161,42 +165,47 @@ span.EmailStyle17
 	font-family:"Calibri",sans-serif;}
 @page WordSection1
 	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
+	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
 --></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
 </o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal">Hi,<o:p></o:p></p>
-        <p class="MsoNormal">I am working OpenBMC project.<o:p></o:p></p>
-        <p class="MsoNormal">So please help add me into the shis email
-          list, so that I can follow openbmc topics.<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-      </div>
-    </blockquote>
-    It is self service - feel free to join:
-    <a class="moz-txt-link-freetext" href="https://lists.ozlabs.org/listinfo/openbmc">https://lists.ozlabs.org/listinfo/openbmc</a><br>
-    <br>
-    Lol, I originally just replied to the list, which you would
-    obviously not see yet.<br>
-    <br>
-    Kurt Taylor (krtaylor)<br>
-    <blockquote type="cite"
-cite="mid:959CAFA1E282D14FB901BE9A7BF4E77249C6F4BA@SHSMSX101.ccr.corp.intel.com">
-      <div class="WordSection1">
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">Thanks,<o:p></o:p></p>
-        <p class="MsoNormal">Kuiying.<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-      </div>
-    </blockquote>
-    <br>
-  </body>
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hello Openbmc community,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am from Arm and just started looking into openbmc =
+enablement.<o:p></o:p></p>
+<p class=3D"MsoNormal">I am subscribed to the mailing list, However, I am u=
+nable to participate in community meetings as
+<o:p></o:p></p>
+<p class=3D"MsoNormal">I don&#8217;t see any meeting requests on the mailin=
+g list. <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">It will be appreciated, if someone could help me on =
+how to subscribe to
+<o:p></o:p></p>
+<p class=3D"MsoNormal">openbmc developer community meetings.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am attending&nbsp; (DMTF) PMCI work group meetings=
+, but not sure whether there is openbmc developer community
+<o:p></o:p></p>
+<p class=3D"MsoNormal">meeting as well.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Supreeth<o:p></o:p></p>
+</div>
+IMPORTANT NOTICE: The contents of this email and any attachments are confid=
+ential and may also be privileged. If you are not the intended recipient, p=
+lease notify the sender immediately and do not disclose the contents to any=
+ other person, use it for any purpose,
+ or store or copy the information in any medium. Thank you.
+</body>
 </html>
 
---------------204933F674462FF53ADE0D9A--
+--_000_AM4PR0802MB23062619ABE44754D92668EE806B0AM4PR0802MB2306_--
