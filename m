@@ -1,48 +1,66 @@
-Return-Path: <kuiying.wang@intel.com>
+Return-Path: <avifishman70@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::242; helo=mail-io0-x242.google.com;
+ envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="OJuftGbz"; 
+ dkim-atps=neutral
+Received: from mail-io0-x242.google.com (mail-io0-x242.google.com
+ [IPv6:2607:f8b0:4001:c06::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40rQdj2jC8zF0gv
- for <openbmc@lists.ozlabs.org>; Wed, 23 May 2018 18:28:36 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 May 2018 01:28:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,432,1520924400"; d="scan'208,217";a="43231964"
-Received: from fmsmsx108.amr.corp.intel.com ([10.18.124.206])
- by orsmga007.jf.intel.com with ESMTP; 23 May 2018 01:28:34 -0700
-Received: from fmsmsx116.amr.corp.intel.com (10.18.116.20) by
- FMSMSX108.amr.corp.intel.com (10.18.124.206) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Wed, 23 May 2018 01:28:33 -0700
-Received: from shsmsx151.ccr.corp.intel.com (10.239.6.50) by
- fmsmsx116.amr.corp.intel.com (10.18.116.20) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Wed, 23 May 2018 01:28:33 -0700
-Received: from shsmsx101.ccr.corp.intel.com ([169.254.1.40]) by
- SHSMSX151.ccr.corp.intel.com ([169.254.3.179]) with mapi id 14.03.0319.002;
- Wed, 23 May 2018 16:28:31 +0800
-From: "Wang, Kuiying" <kuiying.wang@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: please add me into the email lists.
-Thread-Topic: please add me into the email lists.
-Thread-Index: AdPyb87alPKx6rh+SlGZWANIuNCW6A==
-Date: Wed, 23 May 2018 08:28:30 +0000
-Message-ID: <959CAFA1E282D14FB901BE9A7BF4E77249C6F4BA@SHSMSX101.ccr.corp.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-Content-Type: multipart/alternative;
- boundary="_000_959CAFA1E282D14FB901BE9A7BF4E77249C6F4BASHSMSX101ccrcor_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40rSF26NJrzDr2J
+ for <openbmc@lists.ozlabs.org>; Wed, 23 May 2018 19:40:51 +1000 (AEST)
+Received: by mail-io0-x242.google.com with SMTP id r9-v6so22000036iod.6
+ for <openbmc@lists.ozlabs.org>; Wed, 23 May 2018 02:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=RWwrOM43vyJjmhPErQY/tR6Rikm/iiPmdds8xl+akxQ=;
+ b=OJuftGbz4l+yIss80JV1JrT1SGU2E98/FAnLm85f9nRGROjUX2dGs0xGc5ps0ol6qb
+ WwT8RgN7XE7DkU937kfmeYm7TfQ8PP3j1yGLwYoeuUfKJdmK+8y3Yal/L3wm9Id3uulG
+ CPiGL0Pr88ZcburRnadyQpfUrPUkgTVAy3tYHS/pCzNqdWWqnv4Co5jAHpc/5zMyIzRR
+ DGYQQrhwlf6F+vAz5bA+fOAT2UxP7SohwL9+tFiBZpxqhty7ePZjAdfhSxjWM2BcATYd
+ 1HMZb0u9ozGMiLxOvTLyVbq14aohAZlSGZ8hKrU7l1QNrwJQYP6hknOo85aJR7uujINW
+ R5cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=RWwrOM43vyJjmhPErQY/tR6Rikm/iiPmdds8xl+akxQ=;
+ b=dwCuD9vPGjyBvkG+6EIrcW1GTX6EDBTLqc0kYcjAl3ofQHh+44SJN4GBukoz1+YOJH
+ 7RYzi02CErppAiwFQKGp30yIBa+BmJB+YJioCvEa3CyLX3FJ6NdeSHp28RqBsV5scqXr
+ nAlqaNKg+eVcGPBpEcAM4qrHR0qoeaHSOFgnpXL5yRZeDP4eGnVfPBR9yA71ImJ6TJbJ
+ RoXFVg+MSBSbOHU96Rah+jeqPnGwmuEZfMSnoDMo3ip+zxmPc8lHcv6xtCAo0KPIdfTX
+ URg4InnZtrl5aVV1BxIwCbrBoppF0fICFA+uYvVkYOCXZS1qODP3cP2qHCUIoCusbeRN
+ 4rpg==
+X-Gm-Message-State: ALKqPwdBIgdGKZvAVSkDsx04kOGw01CI6EZ8OwCFSjl5FICZGOaAidZZ
+ gu5GKXkYfrB2BmDOFUUmNm00di/J4yxn78Zlsw==
+X-Google-Smtp-Source: ADUXVKLMtU1VGOQXut3DA0Yig2oI6kj/fWTERcC9x2zUxLqht7NUgXwR4oQmv8/UmsIBlkizIczGUPSGJSlOWOwsWTk=
+X-Received: by 2002:a6b:ab01:: with SMTP id
+ u1-v6mr1708732ioe.214.1527068449335; 
+ Wed, 23 May 2018 02:40:49 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 2002:a4f:fc8:0:0:0:0:0 with HTTP;
+ Wed, 23 May 2018 02:40:48 -0700 (PDT)
+In-Reply-To: <3977bafa-3b0b-eb3c-7c20-57b333e8a2c8@acm.org>
+References: <1526906399-30140-1-git-send-email-avifishman70@gmail.com>
+ <1526906399-30140-2-git-send-email-avifishman70@gmail.com>
+ <3977bafa-3b0b-eb3c-7c20-57b333e8a2c8@acm.org>
+From: Avi Fishman <avifishman70@gmail.com>
+Date: Wed, 23 May 2018 12:40:48 +0300
+Message-ID: <CAKKbWA5oo_hKrLi=NKh_Xmko4T9RBv=PGpUqNtkoBB=7skO_9w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] ipmi: NPCM7xx KCS BMC: enable interrupt to the host
+To: Corey Minyard <minyard@acm.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ openipmi-developer@lists.sourceforge.net, Joel Stanley <joel@jms.id.au>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Wang,
+ Haiyue" <haiyue.wang@linux.intel.com>, 
+ Tomer Maimon <tmaimon77@gmail.com>, tali.perry1@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,97 +72,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 May 2018 08:28:42 -0000
+X-List-Received-Date: Wed, 23 May 2018 09:40:55 -0000
 
---_000_959CAFA1E282D14FB901BE9A7BF4E77249C6F4BASHSMSX101ccrcor_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-I am working OpenBMC project.
-So please help add me into the shis email list, so that I can follow openbm=
-c topics.
-
-
-
-Thanks,
-Kuiying.
-
-
---_000_959CAFA1E282D14FB901BE9A7BF4E77249C6F4BASHSMSX101ccrcor_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
-hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Tue, May 22, 2018 at 9:52 PM, Corey Minyard <minyard@acm.org> wrote:
+> On 05/21/2018 07:39 AM, avifishman70@gmail.com wrote:
+>>
+>> From: Avi Fishman <AviFishman70@gmail.com>
+>>
+>> Original kcs_bmc_npcm7xx.c was missing enabling to send interrupt to the
+>> host on writes to output buffer.
+>> This patch fixes it by setting the bits that enables the generation of
+>> IRQn events by hardware control based on the status of the OBF flag.
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:\5B8B\4F53;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@\5B8B\4F53";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
-<p class=3D"MsoNormal">I am working OpenBMC project.<o:p></o:p></p>
-<p class=3D"MsoNormal">So please help add me into the shis email list, so t=
-hat I can follow openbmc topics.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
-<p class=3D"MsoNormal">Kuiying.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
+>
+> This look ok, I've added it to my 4.19 queue.
 
---_000_959CAFA1E282D14FB901BE9A7BF4E77249C6F4BASHSMSX101ccrcor_--
+Thanks Corey,
+
+Since drivers/char/ipmi/kcs_bmc_npcm7xx.c already exists in linux-next
+(4.18) what not adding it as a fix in 4.18?
+
+-Avi
+
+>
+> -corey
+>
+>
+>> Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
+>> Reviewed-by:   Haiyue Wang <haiyue.wang@linux.intel.com>
+>> ---
+>>   drivers/char/ipmi/kcs_bmc_npcm7xx.c | 17 ++++++++++++++---
+>>   1 file changed, 14 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+>> b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+>> index 7bc898c5d372..722f7391fe1f 100644
+>> --- a/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+>> +++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+>> @@ -39,6 +39,12 @@
+>>   #define KCS3CTL               0x3C
+>>   #define    KCS_CTL_IBFIE      BIT(0)
+>>   +#define KCS1IE               0x1C
+>> +#define KCS2IE         0x2E
+>> +#define KCS3IE         0x40
+>> +#define    KCS_IE_IRQE          BIT(0)
+>> +#define    KCS_IE_HIRQE         BIT(3)
+>> +
+>>   /*
+>>    * 7.2.4 Core KCS Registers
+>>    * Registers in this module are 8 bits. An 8-bit register must be
+>> accessed
+>> @@ -48,12 +54,14 @@
+>>    * dob: KCS Channel n Data Out Buffer Register (KCSnDO).
+>>    * dib: KCS Channel n Data In Buffer Register (KCSnDI).
+>>    * ctl: KCS Channel n Control Register (KCSnCTL).
+>> + * ie : KCS Channel n  Interrupt Enable Register (KCSnIE).
+>>    */
+>>   struct npcm7xx_kcs_reg {
+>>         u32 sts;
+>>         u32 dob;
+>>         u32 dib;
+>>         u32 ctl;
+>> +       u32 ie;
+>>   };
+>>     struct npcm7xx_kcs_bmc {
+>> @@ -63,9 +71,9 @@ struct npcm7xx_kcs_bmc {
+>>   };
+>>     static const struct npcm7xx_kcs_reg
+>> npcm7xx_kcs_reg_tbl[KCS_CHANNEL_MAX] = {
+>> -       { .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL },
+>> -       { .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL },
+>> -       { .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL },
+>> +       { .sts = KCS1ST, .dob = KCS1DO, .dib = KCS1DI, .ctl = KCS1CTL, .ie
+>> = KCS1IE },
+>> +       { .sts = KCS2ST, .dob = KCS2DO, .dib = KCS2DI, .ctl = KCS2CTL, .ie
+>> = KCS2IE },
+>> +       { .sts = KCS3ST, .dob = KCS3DO, .dib = KCS3DI, .ctl = KCS3CTL, .ie
+>> = KCS3IE },
+>>   };
+>>     static u8 npcm7xx_kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
+>> @@ -95,6 +103,9 @@ static void npcm7xx_kcs_enable_channel(struct kcs_bmc
+>> *kcs_bmc, bool enable)
+>>         regmap_update_bits(priv->map, priv->reg->ctl, KCS_CTL_IBFIE,
+>>                            enable ? KCS_CTL_IBFIE : 0);
+>> +
+>> +       regmap_update_bits(priv->map, priv->reg->ie, KCS_IE_IRQE |
+>> KCS_IE_HIRQE,
+>> +                          enable ? KCS_IE_IRQE | KCS_IE_HIRQE : 0);
+>>   }
+>>     static irqreturn_t npcm7xx_kcs_irq(int irq, void *arg)
+>
+>
+>
