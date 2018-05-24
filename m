@@ -9,63 +9,63 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40sBjG1kctzF1Pr
- for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 00:34:25 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40sCP05SvDzF1Pr
+ for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 01:05:24 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w4OEXwIx053510
- for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 10:34:23 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2j5xq2j3av-1
+ w4OF4iim009466
+ for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 11:05:21 -0400
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2j5wuqppnc-1
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 10:34:23 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 11:05:20 -0400
 Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 24 May 2018 10:34:21 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 24 May 2018 11:05:19 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 24 May 2018 10:34:19 -0400
+ Thu, 24 May 2018 11:05:17 -0400
 Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
  [9.57.199.108])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w4OEYIM910354974
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w4OF5GJD4849994
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 24 May 2018 14:34:18 GMT
+ Thu, 24 May 2018 15:05:16 GMT
 Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CDB3AB2070;
- Thu, 24 May 2018 11:36:05 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id E33E0B2065;
+ Thu, 24 May 2018 12:07:03 -0400 (EDT)
 Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 98D16B206C;
- Thu, 24 May 2018 11:36:05 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id 9B931B2066;
+ Thu, 24 May 2018 12:07:03 -0400 (EDT)
 Received: from Christophers-MacBook-Pro.local (unknown [9.85.164.58])
  by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 24 May 2018 11:36:05 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.13 02/10] fsi/gpio: Use relative-addressing
- commands
+ Thu, 24 May 2018 12:07:03 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.13 03/10] fsi/fsi-master-gpio: Implement CRC
+ error recovery
 To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
 References: <20180524051429.4638-1-benh@kernel.crashing.org>
- <20180524051429.4638-2-benh@kernel.crashing.org>
+ <20180524051429.4638-3-benh@kernel.crashing.org>
 From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Thu, 24 May 2018 09:34:17 -0500
+Date: Thu, 24 May 2018 10:05:15 -0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:45.0)
  Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-In-Reply-To: <20180524051429.4638-2-benh@kernel.crashing.org>
+In-Reply-To: <20180524051429.4638-3-benh@kernel.crashing.org>
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
-x-cbid: 18052414-0040-0000-0000-000004312D0C
+x-cbid: 18052415-0044-0000-0000-0000041A3832
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00009065; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000261; SDB=6.01036001; UDB=6.00529949; IPR=6.00815130; 
- MB=3.00021234; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-24 14:34:20
+ MB=3.00021234; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-24 15:05:18
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18052414-0041-0000-0000-000008374A19
-Message-Id: <17eca970-402c-e4e1-e956-4d6e34d2feef@linux.vnet.ibm.com>
+x-cbparentid: 18052415-0045-0000-0000-0000084C54E3
+Message-Id: <e7751d1f-baad-62ad-c62a-658a506ac257@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-05-24_03:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -73,7 +73,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
  clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805240171
+ definitions=main-1805240176
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -85,208 +85,238 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 May 2018 14:34:26 -0000
+X-List-Received-Date: Thu, 24 May 2018 15:05:25 -0000
 
 Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 
 
 On 5/24/18 12:14 AM, Benjamin Herrenschmidt wrote:
-> From: Jeremy Kerr <jk@ozlabs.org>
+> The FSI protocol defines two modes of recovery from CRC errors,
+> this implements both:
 >
-> FSI CFAMs support shorter commands that use a relative (or same) address
-> as the last. This change introduces a last_addr to the master state, and
-> uses it for subsequent reads/writes, and performs relative addressing
-> when a subsequent read/write is in range.
+>   - If the device returns an ECRC (it detected a CRC error in the
+>     command), then we simply issue the command again.
 >
-> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+>   - If the master detects a CRC error in the response, we send
+>     an E_POLL command which requests a resend of the response
+>     without actually re-executing the command (which could otherwise
+>     have unwanted side effects such as dequeuing a FIFO twice).
+>
 > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 > ---
->   drivers/fsi/fsi-master-gpio.c | 102 ++++++++++++++++++++++++++++++----
->   1 file changed, 91 insertions(+), 11 deletions(-)
+>
+> Note: This was actually tested by removing some of my fixes, thus
+> causing us to hit occasional CRC errors during high LPC activity.
+> ---
+>   drivers/fsi/fsi-master-gpio.c          | 90 ++++++++++++++++++++------
+>   include/trace/events/fsi_master_gpio.h | 27 ++++++++
+>   2 files changed, 99 insertions(+), 18 deletions(-)
 >
 > diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index d50ea4849377..0a6799bda294 100644
+> index 0a6799bda294..351c12f2ac55 100644
 > --- a/drivers/fsi/fsi-master-gpio.c
 > +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -28,6 +28,8 @@
+> @@ -22,20 +22,23 @@
+>   #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
+>   #define	FSI_POST_BREAK_CLOCKS	16000	/* Number clocks to set up cfam */
+>   #define	FSI_INIT_CLOCKS		5000	/* Clock out any old data */
+> +#define	FSI_GPIO_DPOLL_CLOCKS	50      /* < 21 will cause slave to hang */
+> +#define	FSI_GPIO_EPOLL_CLOCKS	50      /* Number of clocks for E_POLL retry */
+>   #define	FSI_GPIO_STD_DELAY	10	/* Standard GPIO delay in nS */
+>   					/* todo: adjust down as low as */
+>   					/* possible or eliminate */
+> +#define FSI_CRC_ERR_RETRIES	10
+> +
 >   #define	FSI_GPIO_CMD_DPOLL      0x2
+> +#define	FSI_GPIO_CMD_EPOLL      0x3
 >   #define	FSI_GPIO_CMD_TERM	0x3f
 >   #define FSI_GPIO_CMD_ABS_AR	0x4
-> +#define FSI_GPIO_CMD_REL_AR	0x5
-> +#define FSI_GPIO_CMD_SAME_AR	0x3	/* but only a 2-bit opcode... */
+>   #define FSI_GPIO_CMD_REL_AR	0x5
+>   #define FSI_GPIO_CMD_SAME_AR	0x3	/* but only a 2-bit opcode... */
 >
->
->   #define	FSI_GPIO_DPOLL_CLOCKS	50      /* < 21 will cause slave to hang */
-> @@ -52,6 +54,8 @@
->   #define	FSI_GPIO_MSG_RESPID_SIZE	2
->   #define	FSI_GPIO_PRIME_SLAVE_CLOCKS	20
->
-> +#define LAST_ADDR_INVALID		0x1
-> +
->   struct fsi_master_gpio {
->   	struct fsi_master	master;
->   	struct device		*dev;
-> @@ -64,6 +68,7 @@ struct fsi_master_gpio {
->   	struct gpio_desc	*gpio_mux;	/* Mux control */
->   	bool			external_mode;
->   	bool			no_delays;
-> +	uint32_t		last_addr;
->   };
->
->   #define CREATE_TRACE_POINTS
-> @@ -205,22 +210,89 @@ static void msg_push_crc(struct fsi_gpio_msg *msg)
->   	msg_push_bits(msg, crc, 4);
+> -
+> -#define	FSI_GPIO_DPOLL_CLOCKS	50      /* < 21 will cause slave to hang */
+> -
+> -/* Bus errors */
+> -#define	FSI_GPIO_ERR_BUSY	1	/* Slave stuck in busy state */
+> +/* Slave responses */
+> +#define	FSI_GPIO_RESP_ACK	0	/* Success */
+> +#define	FSI_GPIO_RESP_BUSY	1	/* Slave busy */
+>   #define	FSI_GPIO_RESP_ERRA	2	/* Any (misc) Error */
+>   #define	FSI_GPIO_RESP_ERRC	3	/* Slave reports master CRC error */
+>   #define	FSI_GPIO_MTOE		4	/* Master time out error */
+> @@ -330,6 +333,16 @@ static void build_dpoll_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
+>   	msg_push_crc(cmd);
 >   }
 >
-> +static bool check_same_address(struct fsi_master_gpio *master, int id,
-> +		uint32_t addr)
+> +static void build_epoll_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
 > +{
-> +	/* this will also handle LAST_ADDR_INVALID */
-> +	return master->last_addr == (((id & 0x3) << 21) | (addr & ~0x3));
+> +	cmd->bits = 0;
+> +	cmd->msg = 0;
+> +
+> +	msg_push_bits(cmd, slave_id, 2);
+> +	msg_push_bits(cmd, FSI_GPIO_CMD_EPOLL, 3);
+> +	msg_push_crc(cmd);
 > +}
 > +
-> +static bool check_relative_address(struct fsi_master_gpio *master, int id,
-> +		uint32_t addr, uint32_t *rel_addrp)
-> +{
-> +	uint32_t last_addr = master->last_addr;
-> +	int32_t rel_addr;
-> +
-> +	if (last_addr == LAST_ADDR_INVALID)
-> +		return false;
-> +
-> +	/* We may be in 23-bit addressing mode, which uses the id as the
-> +	 * top two address bits. So, if we're referencing a different ID,
-> +	 * use absolute addresses.
-> +	 */
-> +	if (((last_addr >> 21) & 0x3) != id)
-> +		return false;
-> +
-> +	/* remove the top two bits from any 23-bit addressing */
-> +	last_addr &= (1 << 21) - 1;
-> +
-> +	/* We know that the addresses are limited to 21 bits, so this won't
-> +	 * overflow the signed rel_addr */
-> +	rel_addr = addr - last_addr;
-> +	if (rel_addr > 255 || rel_addr < -256)
-> +		return false;
-> +
-> +	*rel_addrp = (uint32_t)rel_addr;
-> +
-> +	return true;
-> +}
-> +
-> +static void last_address_update(struct fsi_master_gpio *master,
-> +		int id, bool valid, uint32_t addr)
-> +{
-> +	if (!valid)
-> +		master->last_addr = LAST_ADDR_INVALID;
-> +	else
-> +		master->last_addr = ((id & 0x3) << 21) | (addr & ~0x3);
-> +}
-> +
->   /*
-> - * Encode an Absolute Address command
-> + * Encode an Absolute/Relative/Same Address command
->    */
-> -static void build_abs_ar_command(struct fsi_gpio_msg *cmd,
-> -		uint8_t id, uint32_t addr, size_t size, const void *data)
-> +static void build_ar_command(struct fsi_master_gpio *master,
-> +		struct fsi_gpio_msg *cmd, uint8_t id,
-> +		uint32_t addr, size_t size, const void *data)
+>   static void echo_delay(struct fsi_master_gpio *master)
 >   {
-> +	int i, addr_bits, opcode_bits;
->   	bool write = !!data;
-> -	uint8_t ds;
-> -	int i;
-> +	uint8_t ds, opcode;
-> +	uint32_t rel_addr;
+>   	set_sda_output(master, 1);
+> @@ -355,6 +368,12 @@ static void fsi_master_gpio_error(struct fsi_master_gpio *master, int error)
 >
->   	cmd->bits = 0;
->   	cmd->msg = 0;
+>   }
 >
-> -	msg_push_bits(cmd, id, 2);
-> -	msg_push_bits(cmd, FSI_GPIO_CMD_ABS_AR, 3);
-> -	msg_push_bits(cmd, write ? 0 : 1, 1);
-> +	/* we have 21 bits of address max */
-> +	addr &= ((1 << 21) - 1);
+> +/*
+> + * Note: callers rely specifically on this returning -EAGAIN for
+> + * a CRC error detected in the response. Use other error code
+> + * for other situations. It will be converted to something else
+> + * higher up the stack before it reaches userspace.
+> + */
+>   static int read_one_response(struct fsi_master_gpio *master,
+>   		uint8_t data_size, struct fsi_gpio_msg *msgp, uint8_t *tagp)
+>   {
+> @@ -379,7 +398,7 @@ static int read_one_response(struct fsi_master_gpio *master,
+>   			"Master time out waiting for response\n");
+>   		fsi_master_gpio_error(master, FSI_GPIO_MTOE);
+>   		spin_unlock_irqrestore(&master->bit_lock, flags);
+> -		return -EIO;
+> +		return -ETIMEDOUT;
+>   	}
+>
+>   	msg.bits = 0;
+> @@ -405,7 +424,7 @@ static int read_one_response(struct fsi_master_gpio *master,
+>   	if (crc) {
+>   		dev_dbg(master->dev, "ERR response CRC\n");
+>   		fsi_master_gpio_error(master, FSI_GPIO_CRC_INVAL);
+> -		return -EIO;
+> +		return -EAGAIN;
+>   	}
+>
+>   	if (msgp)
+> @@ -451,11 +470,33 @@ static int poll_for_response(struct fsi_master_gpio *master,
+>   	unsigned long flags;
+>   	uint8_t tag;
+>   	uint8_t *data_byte = data;
+> -
+> +	int crc_err_retries = 0;
+>   retry:
+>   	rc = read_one_response(master, size, &response, &tag);
+> -	if (rc)
+> -		return rc;
 > +
-> +	/* cmd opcodes are variable length - SAME_AR is only two bits */
-> +	opcode_bits = 3;
+> +	/* Handle retries on CRC errors */
+> +	if (rc == -EAGAIN) {
+> +		/* Too many retries ? */
+> +		if (crc_err_retries++ > FSI_CRC_ERR_RETRIES) {
+> +			/*
+> +			 * Pass it up as a -EIO otherwise upper level will retry
+> +			 * the whole command which isn't what we want here.
+> +			 */
+> +			rc = -EIO;
+> +			goto fail;
+> +		}
+> +		dev_dbg(master->dev,
+> +			 "CRC error retry %d\n", crc_err_retries);
+> +		trace_fsi_master_gpio_crc_rsp_error(master);
+> +		build_epoll_command(&cmd, slave);
+> +		spin_lock_irqsave(&master->bit_lock, flags);
+> +		clock_zeros(master, FSI_GPIO_EPOLL_CLOCKS);
+> +		serial_out(master, &cmd);
+> +		echo_delay(master);
+> +		spin_unlock_irqrestore(&master->bit_lock, flags);
+> +		goto retry;
+> +	} else if (rc)
+> +		goto fail;
+>
+>   	switch (tag) {
+>   	case FSI_GPIO_RESP_ACK:
+> @@ -496,18 +537,21 @@ static int poll_for_response(struct fsi_master_gpio *master,
+>   		break;
+>
+>   	case FSI_GPIO_RESP_ERRA:
+> -	case FSI_GPIO_RESP_ERRC:
+> -		dev_dbg(master->dev, "ERR%c received: 0x%x\n",
+> -			tag == FSI_GPIO_RESP_ERRA ? 'A' : 'C',
+> -			(int)response.msg);
+> +		dev_dbg(master->dev, "ERRA received: 0x%x\n", (int)response.msg);
+>   		fsi_master_gpio_error(master, response.msg);
+>   		rc = -EIO;
+>   		break;
+> +	case FSI_GPIO_RESP_ERRC:
+> +		dev_dbg(master->dev, "ERRC received: 0x%x\n", (int)response.msg);
+> +		fsi_master_gpio_error(master, response.msg);
+> +		trace_fsi_master_gpio_crc_cmd_error(master);
+> +		rc = -EAGAIN;
+> +		break;
+>   	}
+>
+>   	if (busy_count > 0)
+>   		trace_fsi_master_gpio_poll_response_busy(master, busy_count);
+> -
+> + fail:
+>   	/* Clock the slave enough to be ready for next operation */
+>   	spin_lock_irqsave(&master->bit_lock, flags);
+>   	clock_zeros(master, FSI_GPIO_PRIME_SLAVE_CLOCKS);
+> @@ -536,11 +580,21 @@ static int send_request(struct fsi_master_gpio *master,
+>   static int fsi_master_gpio_xfer(struct fsi_master_gpio *master, uint8_t slave,
+>   		struct fsi_gpio_msg *cmd, size_t resp_len, void *resp)
+>   {
+> -	int rc;
+> +	int rc = -EAGAIN, retries = 0;
+>
+> -	rc = send_request(master, cmd);
+> -	if (!rc)
+> +	while ((retries++) < FSI_CRC_ERR_RETRIES) {
+> +		rc = send_request(master, cmd);
+> +		if (rc)
+> +			break;
+>   		rc = poll_for_response(master, slave, resp_len, resp);
+> +		if (rc != -EAGAIN)
+> +			break;
+> +		rc = -EIO;
+> +		dev_warn(master->dev, "ECRC retry %d\n", retries);
 > +
-> +	if (check_same_address(master, id, addr)) {
-> +		/* we still address the byte offset within the word */
-> +		addr_bits = 2;
-> +		opcode_bits = 2;
-> +		opcode = FSI_GPIO_CMD_SAME_AR;
-> +
-> +	} else if (check_relative_address(master, id, addr, &rel_addr)) {
-> +		/* 8 bits plus sign */
-> +		addr_bits = 9;
-> +		addr = rel_addr;
-> +		opcode = FSI_GPIO_CMD_REL_AR;
-> +
-> +	} else {
-> +		addr_bits = 21;
-> +		opcode = FSI_GPIO_CMD_ABS_AR;
+> +		/* Pace it a bit before retry */
+> +		msleep(1);
 > +	}
 >
->   	/*
->   	 * The read/write size is encoded in the lower bits of the address
-> @@ -237,7 +309,10 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd,
->   	if (size == 4)
->   		addr |= 1;
->
-> -	msg_push_bits(cmd, addr & ((1 << 21) - 1), 21);
-> +	msg_push_bits(cmd, id, 2);
-> +	msg_push_bits(cmd, opcode, opcode_bits);
-> +	msg_push_bits(cmd, write ? 0 : 1, 1);
-> +	msg_push_bits(cmd, addr, addr_bits);
->   	msg_push_bits(cmd, ds, 1);
->   	for (i = 0; write && i < size; i++)
->   		msg_push_bits(cmd, ((uint8_t *)data)[i], 8);
-> @@ -481,8 +556,9 @@ static int fsi_master_gpio_read(struct fsi_master *_master, int link,
->   		return -ENODEV;
->
->   	mutex_lock(&master->cmd_lock);
-> -	build_abs_ar_command(&cmd, id, addr, size, NULL);
-> +	build_ar_command(master, &cmd, id, addr, size, NULL);
->   	rc = fsi_master_gpio_xfer(master, id, &cmd, size, val);
-> +	last_address_update(master, id, rc == 0, addr);
->   	mutex_unlock(&master->cmd_lock);
->
 >   	return rc;
-> @@ -499,8 +575,9 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
->   		return -ENODEV;
+>   }
+> diff --git a/include/trace/events/fsi_master_gpio.h b/include/trace/events/fsi_master_gpio.h
+> index 48e83e5755f4..e18b94ce85b2 100644
+> --- a/include/trace/events/fsi_master_gpio.h
+> +++ b/include/trace/events/fsi_master_gpio.h
+> @@ -63,6 +63,33 @@ TRACE_EVENT(fsi_master_gpio_break,
+>   	)
+>   );
 >
->   	mutex_lock(&master->cmd_lock);
-> -	build_abs_ar_command(&cmd, id, addr, size, val);
-> +	build_ar_command(master, &cmd, id, addr, size, val);
->   	rc = fsi_master_gpio_xfer(master, id, &cmd, 0, NULL);
-> +	last_address_update(master, id, rc == 0, addr);
->   	mutex_unlock(&master->cmd_lock);
+> +TRACE_EVENT(fsi_master_gpio_crc_cmd_error,
+> +	TP_PROTO(const struct fsi_master_gpio *master),
+> +	TP_ARGS(master),
+> +	TP_STRUCT__entry(
+> +		__field(int,	master_idx)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->master_idx = master->master.idx;
+> +	),
+> +	TP_printk("fsi-gpio%d ----CRC command retry---",
+> +		__entry->master_idx
+> +	)
+> +);
+> +
+> +TRACE_EVENT(fsi_master_gpio_crc_rsp_error,
+> +	TP_PROTO(const struct fsi_master_gpio *master),
+> +	TP_ARGS(master),
+> +	TP_STRUCT__entry(
+> +		__field(int,	master_idx)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->master_idx = master->master.idx;
+> +	),
+> +	TP_printk("fsi-gpio%d ----CRC response---",
+> +		__entry->master_idx
+> +	)
+> +);
 >
->   	return rc;
-> @@ -519,6 +596,7 @@ static int fsi_master_gpio_term(struct fsi_master *_master,
->   	mutex_lock(&master->cmd_lock);
->   	build_term_command(&cmd, id);
->   	rc = fsi_master_gpio_xfer(master, id, &cmd, 0, NULL);
-> +	last_address_update(master, id, false, 0);
->   	mutex_unlock(&master->cmd_lock);
->
->   	return rc;
-> @@ -552,6 +630,7 @@ static int fsi_master_gpio_break(struct fsi_master *_master, int link)
->   	clock_toggle(master, FSI_POST_BREAK_CLOCKS);
->
->   	spin_unlock_irqrestore(&master->bit_lock, flags);
-> +	last_address_update(master, 0, false, 0);
->   	mutex_unlock(&master->cmd_lock);
->
->   	/* Wait for logic reset to take effect */
-> @@ -662,6 +741,7 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
->   	master->dev = &pdev->dev;
->   	master->master.dev.parent = master->dev;
->   	master->master.dev.of_node = of_node_get(dev_of_node(master->dev));
-> +	master->last_addr = LAST_ADDR_INVALID;
->
->   	gpio = devm_gpiod_get(&pdev->dev, "clock", 0);
->   	if (IS_ERR(gpio)) {
+>   TRACE_EVENT(fsi_master_gpio_poll_response_busy,
+>   	TP_PROTO(const struct fsi_master_gpio *master, int busy),
