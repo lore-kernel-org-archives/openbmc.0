@@ -1,79 +1,65 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
+Return-Path: <Lakesh.Sharma@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.90; helo=esa1.dell-outbound.iphmx.com;
+ envelope-from=lakesh.sharma@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="BsgviRFb"; 
+ dkim-atps=neutral
+Received: from esa1.dell-outbound.iphmx.com (esa1.dell-outbound.iphmx.com
+ [68.232.153.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40sCP05SvDzF1Pr
- for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 01:05:24 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w4OF4iim009466
- for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 11:05:21 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2j5wuqppnc-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 11:05:20 -0400
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 24 May 2018 11:05:19 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 24 May 2018 11:05:17 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w4OF5GJD4849994
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 24 May 2018 15:05:16 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E33E0B2065;
- Thu, 24 May 2018 12:07:03 -0400 (EDT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9B931B2066;
- Thu, 24 May 2018 12:07:03 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.85.164.58])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 24 May 2018 12:07:03 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.13 03/10] fsi/fsi-master-gpio: Implement CRC
- error recovery
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
-References: <20180524051429.4638-1-benh@kernel.crashing.org>
- <20180524051429.4638-3-benh@kernel.crashing.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Thu, 24 May 2018 10:05:15 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40sFrb3vx8zF1Pr
+ for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 02:55:58 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1527180656; x=1558716656;
+ h=from:to:subject:date:message-id:mime-version;
+ bh=xaqg/Anek1rZFkkR/TaAW6PKe9RVyTv2OpJTTJIf0Uc=;
+ b=BsgviRFb1zu/FHmbXmS9HVk08Sv90sK62RakZnUXN8ja25gkZ6evh7Js
+ Bt9dBn61c4/ItR2Sf0U5I23s7vMr4tSqe78ynXvbbd+eIkyxZ3PX0wMZI
+ UgLI/2gS18VDvuqiXSCcCTJCNBTW5hHk42RtmVje5qc/6cObk0RKVi7aI A=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FnAQAM7gZbmMqZ6ERcHAEBAQQBAQoBA?=
+ =?us-ascii?q?YJOgUoCDH0oCotxjGc0glSSVGWBPRckCyUJg3iCVCE0GAECAQEBAQEBAgEBAhA?=
+ =?us-ascii?q?BAQEBAQgLCwYoIwyCNSINBEsqMgEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQEBCQINDjBZXgGBJgEEG4MaAoEbZA+tY4hDgXyINoELgQiBD4YHFwQBhzE?=
+ =?us-ascii?q?ChzyEbYEig1WHPwcChWqIaIFCPoMxh1yJZocbgUGCC3CDEwmCJYgnO4U+bwEBA?=
+ =?us-ascii?q?QEIjQ+BGAEB?=
+X-IPAS-Result: =?us-ascii?q?A2FnAQAM7gZbmMqZ6ERcHAEBAQQBAQoBAYJOgUoCDH0oCot?=
+ =?us-ascii?q?xjGc0glSSVGWBPRckCyUJg3iCVCE0GAECAQEBAQEBAgEBAhABAQEBAQgLCwYoI?=
+ =?us-ascii?q?wyCNSINBEsqMgEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBCQINDjB?=
+ =?us-ascii?q?ZXgGBJgEEG4MaAoEbZA+tY4hDgXyINoELgQiBD4YHFwQBhzEChzyEbYEig1WHP?=
+ =?us-ascii?q?wcChWqIaIFCPoMxh1yJZocbgUGCC3CDEwmCJYgnO4U+bwEBAQEIjQ+BGAEB?=
+Received: from esa2.dell-outbound2.iphmx.com ([68.232.153.202])
+ by esa1.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 May 2018 11:50:52 -0500
+From: <Lakesh.Sharma@dell.com>
+Received: from ausc60ps301.us.dell.com ([143.166.148.206])
+ by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 May 2018 22:54:16 +0600
+X-LoopCount0: from 10.166.132.71
+X-IronPort-AV: E=Sophos;i="5.49,436,1520917200"; 
+ d="scan'208,217";a="1159055021"
+X-DLP: DLP_GlobalPCIDSS
+To: <openbmc@lists.ozlabs.org>
+Subject: openbmc build err "internal compiler error'
+Thread-Topic: openbmc build err "internal compiler error'
+Thread-Index: AdPzf/BfFD8XbX/RS/y0bRg59wQL0Q==
+Date: Thu, 24 May 2018 16:55:53 +0000
+Message-ID: <90852837c20b4169a7d4d66efaca7399@ausx13mpc109.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: multipart/alternative;
+ boundary="_000_90852837c20b4169a7d4d66efaca7399ausx13mpc109AMERDELLCOM_"
 MIME-Version: 1.0
-In-Reply-To: <20180524051429.4638-3-benh@kernel.crashing.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18052415-0044-0000-0000-0000041A3832
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009065; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000261; SDB=6.01036001; UDB=6.00529949; IPR=6.00815130; 
- MB=3.00021234; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-24 15:05:18
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18052415-0045-0000-0000-0000084C54E3
-Message-Id: <e7751d1f-baad-62ad-c62a-658a506ac257@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-24_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805240176
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -85,238 +71,305 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 May 2018 15:05:25 -0000
+X-List-Received-Date: Thu, 24 May 2018 16:56:01 -0000
 
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+--_000_90852837c20b4169a7d4d66efaca7399ausx13mpc109AMERDELLCOM_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I am seeing following build err.
+"arm-openbmc-linux-gnueabi-g++: internal compiler error: Killed (program cc=
+1plus)"
+More logs shown below.
+I am using Ubuntu 14.04 based VM. Could it be an issue, do I have to use ac=
+tual stand-alone linux host.
+
+Steps followed:
+export TEMPLATECONF=3Dmeta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-e=
+vb-ast2500/conf
+. openbmc-env
+bitbake obmc-phosphor-imag
 
 
-On 5/24/18 12:14 AM, Benjamin Herrenschmidt wrote:
-> The FSI protocol defines two modes of recovery from CRC errors,
-> this implements both:
+Build err log:
+
+NOTE: Executing RunQueue Tasks
+WARNING: nspr-native-4.16-r0 do_fetch: Failed to fetch URL http://ftp.mozil=
+la.org/pub/nspr/releases/v4.16/src/nspr-4.16.tar.gz, attempting MIRRORS if =
+available
+WARNING: nss-native-3.31.1-r0 do_fetch: Failed to fetch URL http://ftp.mozi=
+lla.org/pub/mozilla.org/security/nss/releases/NSS_3_31_1_RTM/src/nss-3.31.1=
+.tar.gz, attempting MIRRORS if available
+WARNING: shadow-4.2.1-r0 do_fetch: Failed to fetch URL http://pkg-shadow.al=
+ioth.debian.org/releases/shadow-4.2.1.tar.xz, attempting MIRRORS if availab=
+le
+WARNING: libpng-native-1.6.31-r0 do_fetch: Failed to fetch URL http://downl=
+oads.sourceforge.net/project/libpng/libpng16/1.6.31/libpng-1.6.31.tar.xz, a=
+ttempting MIRRORS if available
+WARNING: coreutils-8.27-r0 do_fetch: Failed to fetch URL http://distfiles.g=
+entoo.org/distfiles/coreutils-8.27-man.tar.xz;name=3Dmanpages, attempting M=
+IRRORS if available
+ERROR: phosphor-ipmi-host-1.0-r1 do_compile: oe_runmake failed
+ERROR: phosphor-ipmi-host-1.0-r1 do_compile: Function failed: do_compile (l=
+og file is located at /home/lsharma/open_bmc_evb/ws/openbmc/build/tmp/work/=
+armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/temp/log.do_compile.1=
+444)
+ERROR: Logfile of failure stored in: /home/lsharma/open_bmc_evb/ws/openbmc/=
+build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/temp/l=
+og.do_compile.1444
+Log data follows:
+
+....
+
+| arm-openbmc-linux-gnueabi-libtool: compile:  arm-openbmc-linux-gnueabi-g+=
++ -march=3Darmv6 -marm -mtune=3Darm1176jz-s --sysroot=3D/home/lsharma/open_=
+bmc_evb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi=
+-host/1.0-r1/recipe-sysroot -DHAVE_CONFIG_H -I. -I../git -O2 -pipe -g -feli=
+minate-unused-debug-types -fdebug-prefix-map=3D/home/lsharma/open_bmc_evb/w=
+s/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0=
+-r1=3D/usr/src/debug/phosphor-ipmi-host/1.0-r1 -fdebug-prefix-map=3D/home/l=
+sharma/open_bmc_evb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/p=
+hosphor-ipmi-host/1.0-r1/recipe-sysroot-native=3D -fdebug-prefix-map=3D/hom=
+e/lsharma/open_bmc_evb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueab=
+i/phosphor-ipmi-host/1.0-r1/recipe-sysroot=3D -fvisibility-inlines-hidden -=
+Wall -Werror -c sensor-gen.cpp  -fPIC -DPIC -o .libs/libapphandler_la-senso=
+r-gen.o
+| arm-openbmc-linux-gnueabi-g++: internal compiler error: Killed (program c=
+c1plus)
+| Please submit a full bug report,
+| with preprocessed source if appropriate.
+| See <https://gcc.gnu.org/bugs/> for instructions.
+| make[2]: *** [libapphandler_la-sensor-gen.lo] Error 1
+| make[2]: Leaving directory `/home/lsharma/open_bmc_evb/ws/openbmc/build/t=
+mp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/build'
+| make[1]: *** [all-recursive] Error 1
+| make[1]: Leaving directory `/home/lsharma/open_bmc_evb/ws/openbmc/build/t=
+mp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/build'
+| make: *** [all] Error 2
+| ERROR: oe_runmake failed
+| WARNING: exit code 1 from a shell command.
+| ERROR: Function failed: do_compile (log file is located at /home/lsharma/=
+open_bmc_evb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor=
+-ipmi-host/1.0-r1/temp/log.do_compile.1444)
+ERROR: Task (/home/lsharma/open_bmc_evb/ws/openbmc/meta-phosphor/common/rec=
+ipes-phosphor/ipmi/phosphor-ipmi-host.bb:do_compile) failed with exit code =
+'1'
+NOTE: Tasks Summary: Attempted 2071 tasks of which 6 didn't need to be reru=
+n and 1 failed.
+
+Summary: 1 task failed:
+  /home/lsharma/open_bmc_evb/ws/openbmc/meta-phosphor/common/recipes-phosph=
+or/ipmi/phosphor-ipmi-host.bb:do_compile
+Summary: There were 5 WARNING messages shown.
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.
+
+
+
+
+Log file openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-h=
+ost/1.0-r1/temp/log.do_compile.1444 shows following err.
+
+arm-openbmc-linux-gnueabi-g++: internal compiler error: Killed (program cc1=
+plus)
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <https://gcc.gnu.org/bugs/> for instructions.
+make[2]: *** [libapphandler_la-sensor-gen.lo] Error 1
+make[2]: Leaving directory `/home/lsharma/open_bmc_evb/ws/openbmc/build/tmp=
+/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/build'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/home/lsharma/open_bmc_evb/ws/openbmc/build/tmp=
+/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/build'
+make: *** [all] Error 2
+ERROR: oe_runmake failed
+WARNING: exit code 1 from a shell command.
+
+
+--_000_90852837c20b4169a7d4d66efaca7399ausx13mpc109AMERDELLCOM_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
->   - If the device returns an ECRC (it detected a CRC error in the
->     command), then we simply issue the command again.
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I am seeing following build err.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#8220;arm-openbmc-linux-gnueabi-g&#43;&#43;: intern=
+al compiler error: Killed (program cc1plus)&#8221;<o:p></o:p></p>
+<p class=3D"MsoNormal">More logs shown below.<o:p></o:p></p>
+<p class=3D"MsoNormal">I am using Ubuntu 14.04 based VM. Could it be an iss=
+ue, do I have to use actual stand-alone linux host.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Steps followed:<o:p></o:p></p>
+<p class=3D"MsoNormal">export TEMPLATECONF=3Dmeta-openbmc-machines/meta-evb=
+/meta-evb-aspeed/meta-evb-ast2500/conf<o:p></o:p></p>
+<p class=3D"MsoNormal">. openbmc-env<o:p></o:p></p>
+<p class=3D"MsoNormal">bitbake obmc-phosphor-imag<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Build err log:<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">NOTE: Executing RunQueue Tasks<o:p></o:p></p>
+<p class=3D"MsoNormal">WARNING: nspr-native-4.16-r0 do_fetch: Failed to fet=
+ch URL http://ftp.mozilla.org/pub/nspr/releases/v4.16/src/nspr-4.16.tar.gz,=
+ attempting MIRRORS if available<o:p></o:p></p>
+<p class=3D"MsoNormal">WARNING: nss-native-3.31.1-r0 do_fetch: Failed to fe=
+tch URL http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_=
+31_1_RTM/src/nss-3.31.1.tar.gz, attempting MIRRORS if available<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">WARNING: shadow-4.2.1-r0 do_fetch: Failed to fetch U=
+RL http://pkg-shadow.alioth.debian.org/releases/shadow-4.2.1.tar.xz, attemp=
+ting MIRRORS if available<o:p></o:p></p>
+<p class=3D"MsoNormal">WARNING: libpng-native-1.6.31-r0 do_fetch: Failed to=
+ fetch URL http://downloads.sourceforge.net/project/libpng/libpng16/1.6.31/=
+libpng-1.6.31.tar.xz, attempting MIRRORS if available<o:p></o:p></p>
+<p class=3D"MsoNormal">WARNING: coreutils-8.27-r0 do_fetch: Failed to fetch=
+ URL http://distfiles.gentoo.org/distfiles/coreutils-8.27-man.tar.xz;name=
+=3Dmanpages, attempting MIRRORS if available<o:p></o:p></p>
+<p class=3D"MsoNormal">ERROR: phosphor-ipmi-host-1.0-r1 do_compile: oe_runm=
+ake failed<o:p></o:p></p>
+<p class=3D"MsoNormal">ERROR: phosphor-ipmi-host-1.0-r1 do_compile: Functio=
+n failed: do_compile (log file is located at /home/lsharma/open_bmc_evb/ws/=
+openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r=
+1/temp/log.do_compile.1444)<o:p></o:p></p>
+<p class=3D"MsoNormal">ERROR: Logfile of failure stored in: /home/lsharma/o=
+pen_bmc_evb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-=
+ipmi-host/1.0-r1/temp/log.do_compile.1444<o:p></o:p></p>
+<p class=3D"MsoNormal">Log data follows:<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&#8230;.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">| arm-openbmc-linux-gnueabi-libtool: compile:&nbsp; =
+arm-openbmc-linux-gnueabi-g&#43;&#43; -march=3Darmv6 -marm -mtune=3Darm1176=
+jz-s --sysroot=3D/home/lsharma/open_bmc_evb/ws/openbmc/build/tmp/work/armv6=
+-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/recipe-sysroot
+ -DHAVE_CONFIG_H -I. -I../git -O2 -pipe -g -feliminate-unused-debug-types -=
+fdebug-prefix-map=3D/home/lsharma/open_bmc_evb/ws/openbmc/build/tmp/work/ar=
+mv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1=3D/usr/src/debug/phosph=
+or-ipmi-host/1.0-r1 -fdebug-prefix-map=3D/home/lsharma/open_bmc_evb/ws/open=
+bmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/re=
+cipe-sysroot-native=3D
+ -fdebug-prefix-map=3D/home/lsharma/open_bmc_evb/ws/openbmc/build/tmp/work/=
+armv6-openbmc-linux-gnueabi/phosphor-ipmi-host/1.0-r1/recipe-sysroot=3D -fv=
+isibility-inlines-hidden -Wall -Werror -c sensor-gen.cpp&nbsp; -fPIC -DPIC =
+-o .libs/libapphandler_la-sensor-gen.o<o:p></o:p></p>
+<p class=3D"MsoNormal">| arm-openbmc-linux-gnueabi-g&#43;&#43;: internal co=
+mpiler error: Killed (program cc1plus)<o:p></o:p></p>
+<p class=3D"MsoNormal">| Please submit a full bug report,<o:p></o:p></p>
+<p class=3D"MsoNormal">| with preprocessed source if appropriate.<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">| See &lt;https://gcc.gnu.org/bugs/&gt; for instruct=
+ions.<o:p></o:p></p>
+<p class=3D"MsoNormal">| make[2]: *** [libapphandler_la-sensor-gen.lo] Erro=
+r 1<o:p></o:p></p>
+<p class=3D"MsoNormal">| make[2]: Leaving directory `/home/lsharma/open_bmc=
+_evb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-ho=
+st/1.0-r1/build'<o:p></o:p></p>
+<p class=3D"MsoNormal">| make[1]: *** [all-recursive] Error 1<o:p></o:p></p=
 >
->   - If the master detects a CRC error in the response, we send
->     an E_POLL command which requests a resend of the response
->     without actually re-executing the command (which could otherwise
->     have unwanted side effects such as dequeuing a FIFO twice).
->
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> ---
->
-> Note: This was actually tested by removing some of my fixes, thus
-> causing us to hit occasional CRC errors during high LPC activity.
-> ---
->   drivers/fsi/fsi-master-gpio.c          | 90 ++++++++++++++++++++------
->   include/trace/events/fsi_master_gpio.h | 27 ++++++++
->   2 files changed, 99 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index 0a6799bda294..351c12f2ac55 100644
-> --- a/drivers/fsi/fsi-master-gpio.c
-> +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -22,20 +22,23 @@
->   #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
->   #define	FSI_POST_BREAK_CLOCKS	16000	/* Number clocks to set up cfam */
->   #define	FSI_INIT_CLOCKS		5000	/* Clock out any old data */
-> +#define	FSI_GPIO_DPOLL_CLOCKS	50      /* < 21 will cause slave to hang */
-> +#define	FSI_GPIO_EPOLL_CLOCKS	50      /* Number of clocks for E_POLL retry */
->   #define	FSI_GPIO_STD_DELAY	10	/* Standard GPIO delay in nS */
->   					/* todo: adjust down as low as */
->   					/* possible or eliminate */
-> +#define FSI_CRC_ERR_RETRIES	10
-> +
->   #define	FSI_GPIO_CMD_DPOLL      0x2
-> +#define	FSI_GPIO_CMD_EPOLL      0x3
->   #define	FSI_GPIO_CMD_TERM	0x3f
->   #define FSI_GPIO_CMD_ABS_AR	0x4
->   #define FSI_GPIO_CMD_REL_AR	0x5
->   #define FSI_GPIO_CMD_SAME_AR	0x3	/* but only a 2-bit opcode... */
->
-> -
-> -#define	FSI_GPIO_DPOLL_CLOCKS	50      /* < 21 will cause slave to hang */
-> -
-> -/* Bus errors */
-> -#define	FSI_GPIO_ERR_BUSY	1	/* Slave stuck in busy state */
-> +/* Slave responses */
-> +#define	FSI_GPIO_RESP_ACK	0	/* Success */
-> +#define	FSI_GPIO_RESP_BUSY	1	/* Slave busy */
->   #define	FSI_GPIO_RESP_ERRA	2	/* Any (misc) Error */
->   #define	FSI_GPIO_RESP_ERRC	3	/* Slave reports master CRC error */
->   #define	FSI_GPIO_MTOE		4	/* Master time out error */
-> @@ -330,6 +333,16 @@ static void build_dpoll_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
->   	msg_push_crc(cmd);
->   }
->
-> +static void build_epoll_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
-> +{
-> +	cmd->bits = 0;
-> +	cmd->msg = 0;
-> +
-> +	msg_push_bits(cmd, slave_id, 2);
-> +	msg_push_bits(cmd, FSI_GPIO_CMD_EPOLL, 3);
-> +	msg_push_crc(cmd);
-> +}
-> +
->   static void echo_delay(struct fsi_master_gpio *master)
->   {
->   	set_sda_output(master, 1);
-> @@ -355,6 +368,12 @@ static void fsi_master_gpio_error(struct fsi_master_gpio *master, int error)
->
->   }
->
-> +/*
-> + * Note: callers rely specifically on this returning -EAGAIN for
-> + * a CRC error detected in the response. Use other error code
-> + * for other situations. It will be converted to something else
-> + * higher up the stack before it reaches userspace.
-> + */
->   static int read_one_response(struct fsi_master_gpio *master,
->   		uint8_t data_size, struct fsi_gpio_msg *msgp, uint8_t *tagp)
->   {
-> @@ -379,7 +398,7 @@ static int read_one_response(struct fsi_master_gpio *master,
->   			"Master time out waiting for response\n");
->   		fsi_master_gpio_error(master, FSI_GPIO_MTOE);
->   		spin_unlock_irqrestore(&master->bit_lock, flags);
-> -		return -EIO;
-> +		return -ETIMEDOUT;
->   	}
->
->   	msg.bits = 0;
-> @@ -405,7 +424,7 @@ static int read_one_response(struct fsi_master_gpio *master,
->   	if (crc) {
->   		dev_dbg(master->dev, "ERR response CRC\n");
->   		fsi_master_gpio_error(master, FSI_GPIO_CRC_INVAL);
-> -		return -EIO;
-> +		return -EAGAIN;
->   	}
->
->   	if (msgp)
-> @@ -451,11 +470,33 @@ static int poll_for_response(struct fsi_master_gpio *master,
->   	unsigned long flags;
->   	uint8_t tag;
->   	uint8_t *data_byte = data;
-> -
-> +	int crc_err_retries = 0;
->   retry:
->   	rc = read_one_response(master, size, &response, &tag);
-> -	if (rc)
-> -		return rc;
-> +
-> +	/* Handle retries on CRC errors */
-> +	if (rc == -EAGAIN) {
-> +		/* Too many retries ? */
-> +		if (crc_err_retries++ > FSI_CRC_ERR_RETRIES) {
-> +			/*
-> +			 * Pass it up as a -EIO otherwise upper level will retry
-> +			 * the whole command which isn't what we want here.
-> +			 */
-> +			rc = -EIO;
-> +			goto fail;
-> +		}
-> +		dev_dbg(master->dev,
-> +			 "CRC error retry %d\n", crc_err_retries);
-> +		trace_fsi_master_gpio_crc_rsp_error(master);
-> +		build_epoll_command(&cmd, slave);
-> +		spin_lock_irqsave(&master->bit_lock, flags);
-> +		clock_zeros(master, FSI_GPIO_EPOLL_CLOCKS);
-> +		serial_out(master, &cmd);
-> +		echo_delay(master);
-> +		spin_unlock_irqrestore(&master->bit_lock, flags);
-> +		goto retry;
-> +	} else if (rc)
-> +		goto fail;
->
->   	switch (tag) {
->   	case FSI_GPIO_RESP_ACK:
-> @@ -496,18 +537,21 @@ static int poll_for_response(struct fsi_master_gpio *master,
->   		break;
->
->   	case FSI_GPIO_RESP_ERRA:
-> -	case FSI_GPIO_RESP_ERRC:
-> -		dev_dbg(master->dev, "ERR%c received: 0x%x\n",
-> -			tag == FSI_GPIO_RESP_ERRA ? 'A' : 'C',
-> -			(int)response.msg);
-> +		dev_dbg(master->dev, "ERRA received: 0x%x\n", (int)response.msg);
->   		fsi_master_gpio_error(master, response.msg);
->   		rc = -EIO;
->   		break;
-> +	case FSI_GPIO_RESP_ERRC:
-> +		dev_dbg(master->dev, "ERRC received: 0x%x\n", (int)response.msg);
-> +		fsi_master_gpio_error(master, response.msg);
-> +		trace_fsi_master_gpio_crc_cmd_error(master);
-> +		rc = -EAGAIN;
-> +		break;
->   	}
->
->   	if (busy_count > 0)
->   		trace_fsi_master_gpio_poll_response_busy(master, busy_count);
-> -
-> + fail:
->   	/* Clock the slave enough to be ready for next operation */
->   	spin_lock_irqsave(&master->bit_lock, flags);
->   	clock_zeros(master, FSI_GPIO_PRIME_SLAVE_CLOCKS);
-> @@ -536,11 +580,21 @@ static int send_request(struct fsi_master_gpio *master,
->   static int fsi_master_gpio_xfer(struct fsi_master_gpio *master, uint8_t slave,
->   		struct fsi_gpio_msg *cmd, size_t resp_len, void *resp)
->   {
-> -	int rc;
-> +	int rc = -EAGAIN, retries = 0;
->
-> -	rc = send_request(master, cmd);
-> -	if (!rc)
-> +	while ((retries++) < FSI_CRC_ERR_RETRIES) {
-> +		rc = send_request(master, cmd);
-> +		if (rc)
-> +			break;
->   		rc = poll_for_response(master, slave, resp_len, resp);
-> +		if (rc != -EAGAIN)
-> +			break;
-> +		rc = -EIO;
-> +		dev_warn(master->dev, "ECRC retry %d\n", retries);
-> +
-> +		/* Pace it a bit before retry */
-> +		msleep(1);
-> +	}
->
->   	return rc;
->   }
-> diff --git a/include/trace/events/fsi_master_gpio.h b/include/trace/events/fsi_master_gpio.h
-> index 48e83e5755f4..e18b94ce85b2 100644
-> --- a/include/trace/events/fsi_master_gpio.h
-> +++ b/include/trace/events/fsi_master_gpio.h
-> @@ -63,6 +63,33 @@ TRACE_EVENT(fsi_master_gpio_break,
->   	)
->   );
->
-> +TRACE_EVENT(fsi_master_gpio_crc_cmd_error,
-> +	TP_PROTO(const struct fsi_master_gpio *master),
-> +	TP_ARGS(master),
-> +	TP_STRUCT__entry(
-> +		__field(int,	master_idx)
-> +	),
-> +	TP_fast_assign(
-> +		__entry->master_idx = master->master.idx;
-> +	),
-> +	TP_printk("fsi-gpio%d ----CRC command retry---",
-> +		__entry->master_idx
-> +	)
-> +);
-> +
-> +TRACE_EVENT(fsi_master_gpio_crc_rsp_error,
-> +	TP_PROTO(const struct fsi_master_gpio *master),
-> +	TP_ARGS(master),
-> +	TP_STRUCT__entry(
-> +		__field(int,	master_idx)
-> +	),
-> +	TP_fast_assign(
-> +		__entry->master_idx = master->master.idx;
-> +	),
-> +	TP_printk("fsi-gpio%d ----CRC response---",
-> +		__entry->master_idx
-> +	)
-> +);
->
->   TRACE_EVENT(fsi_master_gpio_poll_response_busy,
->   	TP_PROTO(const struct fsi_master_gpio *master, int busy),
+<p class=3D"MsoNormal">| make[1]: Leaving directory `/home/lsharma/open_bmc=
+_evb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-ho=
+st/1.0-r1/build'<o:p></o:p></p>
+<p class=3D"MsoNormal">| make: *** [all] Error 2<o:p></o:p></p>
+<p class=3D"MsoNormal">| ERROR: oe_runmake failed<o:p></o:p></p>
+<p class=3D"MsoNormal">| WARNING: exit code 1 from a shell command.<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">| ERROR: Function failed: do_compile (log file is lo=
+cated at /home/lsharma/open_bmc_evb/ws/openbmc/build/tmp/work/armv6-openbmc=
+-linux-gnueabi/phosphor-ipmi-host/1.0-r1/temp/log.do_compile.1444)<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">ERROR: Task (/home/lsharma/open_bmc_evb/ws/openbmc/m=
+eta-phosphor/common/recipes-phosphor/ipmi/phosphor-ipmi-host.bb:do_compile)=
+ failed with exit code '1'<o:p></o:p></p>
+<p class=3D"MsoNormal">NOTE: Tasks Summary: Attempted 2071 tasks of which 6=
+ didn't need to be rerun and 1 failed.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Summary: 1 task failed:<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; /home/lsharma/open_bmc_evb/ws/openbmc/meta-ph=
+osphor/common/recipes-phosphor/ipmi/phosphor-ipmi-host.bb:do_compile<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">Summary: There were 5 WARNING messages shown.<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">Summary: There were 2 ERROR messages shown, returnin=
+g a non-zero exit code.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Log file openbmc/build/tmp/work/armv6-openbmc-linux-=
+gnueabi/phosphor-ipmi-host/1.0-r1/temp/log.do_compile.1444 shows following =
+err.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">arm-openbmc-linux-gnueabi-g&#43;&#43;: internal comp=
+iler error: Killed (program cc1plus)<o:p></o:p></p>
+<p class=3D"MsoNormal">Please submit a full bug report,<o:p></o:p></p>
+<p class=3D"MsoNormal">with preprocessed source if appropriate.<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">See &lt;https://gcc.gnu.org/bugs/&gt; for instructio=
+ns.<o:p></o:p></p>
+<p class=3D"MsoNormal">make[2]: *** [libapphandler_la-sensor-gen.lo] Error =
+1<o:p></o:p></p>
+<p class=3D"MsoNormal">make[2]: Leaving directory `/home/lsharma/open_bmc_e=
+vb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host=
+/1.0-r1/build'<o:p></o:p></p>
+<p class=3D"MsoNormal">make[1]: *** [all-recursive] Error 1<o:p></o:p></p>
+<p class=3D"MsoNormal">make[1]: Leaving directory `/home/lsharma/open_bmc_e=
+vb/ws/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-ipmi-host=
+/1.0-r1/build'<o:p></o:p></p>
+<p class=3D"MsoNormal">make: *** [all] Error 2<o:p></o:p></p>
+<p class=3D"MsoNormal">ERROR: oe_runmake failed<o:p></o:p></p>
+<p class=3D"MsoNormal">WARNING: exit code 1 from a shell command.<o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_90852837c20b4169a7d4d66efaca7399ausx13mpc109AMERDELLCOM_--
