@@ -8,17 +8,17 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40ryHz4xS0zF1LR
- for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 15:15:11 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40ryJ205X2zF1KG
+ for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 15:15:13 +1000 (AEST)
 Received: from pasglop.ozlabs.ibm.com (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4O5EU5m003638;
- Thu, 24 May 2018 00:14:39 -0500
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4O5EU5p003638;
+ Thu, 24 May 2018 00:14:45 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13 05/10] fsi/master-gpio: Replace bit_bit lock
- with IRQ disable/enable
-Date: Thu, 24 May 2018 15:14:24 +1000
-Message-Id: <20180524051429.4638-5-benh@kernel.crashing.org>
+Subject: [PATCH linux dev-4.13 08/10] fsi/fsi-occ: Simple conversion to new
+ sbefifo driver
+Date: Thu, 24 May 2018 15:14:27 +1000
+Message-Id: <20180524051429.4638-8-benh@kernel.crashing.org>
 X-Mailer: git-send-email 2.17.0
 In-Reply-To: <20180524051429.4638-1-benh@kernel.crashing.org>
 References: <20180524051429.4638-1-benh@kernel.crashing.org>
@@ -33,198 +33,332 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 May 2018 05:15:12 -0000
+X-List-Received-Date: Thu, 24 May 2018 05:15:15 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+Replace open/close/write/read API with the simple submit()
+API and the helper to parse status.
 
-We currently use a spinlock (bit_lock) around operations that clock bits
-out of the FSI bus, and a mutex to protect against simultaneous access
-to the master.
-
-This means that bit_lock isn't needed for mutual exlusion, only to
-prevent timing issues when clocking bits out.
-
-To reflect this, this change converts bit_lock to just the
-local_irq_save/restore operation.
-
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 ---
- drivers/fsi/fsi-master-gpio.c | 48 +++++++++++++++++------------------
- 1 file changed, 23 insertions(+), 25 deletions(-)
+ drivers/fsi/Makefile       |   2 +-
+ drivers/fsi/fsi-occ.c      | 209 +++++++++++++++++--------------------
+ drivers/hwmon/occ/Makefile |   2 +-
+ 3 files changed, 99 insertions(+), 114 deletions(-)
 
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-index da556da62846..084e9da8d151 100644
---- a/drivers/fsi/fsi-master-gpio.c
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -8,11 +8,11 @@
- #include <linux/fsi.h>
- #include <linux/gpio/consumer.h>
- #include <linux/io.h>
-+#include <linux/irqflags.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
--#include <linux/spinlock.h>
+diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+index f331e929423c..75fdc6d8cfc4 100644
+--- a/drivers/fsi/Makefile
++++ b/drivers/fsi/Makefile
+@@ -4,4 +4,4 @@ obj-$(CONFIG_FSI_MASTER_HUB) += fsi-master-hub.o
+ obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
+ obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
+ obj-$(CONFIG_FSI_SBEFIFO) += fsi-sbefifo.o
+-#obj-$(CONFIG_FSI_OCC) += fsi-occ.o
++obj-$(CONFIG_FSI_OCC) += fsi-occ.o
+diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
+index d368b62e5471..3f96d7ddea91 100644
+--- a/drivers/fsi/fsi-occ.c
++++ b/drivers/fsi/fsi-occ.c
+@@ -36,6 +36,13 @@
+ #define OCC_CMD_DATA_BYTES	4090
+ #define OCC_RESP_DATA_BYTES	4089
  
- #include "fsi-master.h"
- 
-@@ -56,7 +56,6 @@ struct fsi_master_gpio {
- 	struct fsi_master	master;
- 	struct device		*dev;
- 	struct mutex		cmd_lock;	/* mutex for command ordering */
--	spinlock_t		bit_lock;	/* lock for clocking bits out */
- 	struct gpio_desc	*gpio_clk;
- 	struct gpio_desc	*gpio_data;
- 	struct gpio_desc	*gpio_trans;	/* Voltage translator */
-@@ -367,7 +366,7 @@ static int read_one_response(struct fsi_master_gpio *master,
- 	uint8_t tag;
- 	int i;
- 
--	spin_lock_irqsave(&master->bit_lock, flags);
-+	local_irq_save(flags);
- 
- 	/* wait for the start bit */
- 	for (i = 0; i < FSI_GPIO_MTOE_COUNT; i++) {
-@@ -380,7 +379,7 @@ static int read_one_response(struct fsi_master_gpio *master,
- 	if (i == FSI_GPIO_MTOE_COUNT) {
- 		dev_dbg(master->dev,
- 			"Master time out waiting for response\n");
--		spin_unlock_irqrestore(&master->bit_lock, flags);
-+		local_irq_restore(flags);
- 		return -ETIMEDOUT;
- 	}
- 
-@@ -399,7 +398,7 @@ static int read_one_response(struct fsi_master_gpio *master,
- 	/* read CRC */
- 	serial_in(master, &msg, FSI_GPIO_CRC_SIZE);
- 
--	spin_unlock_irqrestore(&master->bit_lock, flags);
-+	local_irq_restore(flags);
- 
- 	/* we have a whole message now; check CRC */
- 	crc = crc4(0, 1, 1);
-@@ -430,10 +429,10 @@ static int issue_term(struct fsi_master_gpio *master, uint8_t slave)
- 
- 	build_term_command(&cmd, slave);
- 
--	spin_lock_irqsave(&master->bit_lock, flags);
-+	local_irq_save(flags);
- 	serial_out(master, &cmd);
- 	echo_delay(master);
--	spin_unlock_irqrestore(&master->bit_lock, flags);
-+	local_irq_restore(flags);
- 
- 	rc = read_one_response(master, 0, NULL, &tag);
- 	if (rc < 0) {
-@@ -475,11 +474,11 @@ static int poll_for_response(struct fsi_master_gpio *master,
- 			 "CRC error retry %d\n", crc_err_retries);
- 		trace_fsi_master_gpio_crc_rsp_error(master);
- 		build_epoll_command(&cmd, slave);
--		spin_lock_irqsave(&master->bit_lock, flags);
-+		local_irq_save(flags);
- 		clock_zeros(master, FSI_GPIO_EPOLL_CLOCKS);
- 		serial_out(master, &cmd);
- 		echo_delay(master);
--		spin_unlock_irqrestore(&master->bit_lock, flags);
-+		local_irq_restore(flags);
- 		goto retry;
- 	} else if (rc)
- 		goto fail;
-@@ -506,18 +505,18 @@ static int poll_for_response(struct fsi_master_gpio *master,
- 		 */
- 		if (busy_count++ < FSI_GPIO_MAX_BUSY) {
- 			build_dpoll_command(&cmd, slave);
--			spin_lock_irqsave(&master->bit_lock, flags);
-+			local_irq_save(flags);
- 			clock_zeros(master, FSI_GPIO_DPOLL_CLOCKS);
- 			serial_out(master, &cmd);
- 			echo_delay(master);
--			spin_unlock_irqrestore(&master->bit_lock, flags);
-+			local_irq_restore(flags);
- 			goto retry;
- 		}
- 		dev_warn(master->dev,
- 			"ERR slave is stuck in busy state, issuing TERM\n");
--		spin_lock_irqsave(&master->bit_lock, flags);
-+		local_irq_save(flags);
- 		clock_zeros(master, FSI_GPIO_DPOLL_CLOCKS);
--		spin_unlock_irqrestore(&master->bit_lock, flags);
-+		local_irq_restore(flags);
- 		issue_term(master, slave);
- 		rc = -EIO;
- 		break;
-@@ -537,9 +536,10 @@ static int poll_for_response(struct fsi_master_gpio *master,
- 		trace_fsi_master_gpio_poll_response_busy(master, busy_count);
-  fail:
- 	/* Clock the slave enough to be ready for next operation */
--	spin_lock_irqsave(&master->bit_lock, flags);
-+	local_irq_save(flags);
- 	clock_zeros(master, FSI_GPIO_PRIME_SLAVE_CLOCKS);
--	spin_unlock_irqrestore(&master->bit_lock, flags);
-+	local_irq_restore(flags);
++/*
++ * Assume we don't have FFDC, if we do we'll overflow and
++ * fail the command. This needs to be big enough for simple
++ * commands as well.
++ */
++#define OCC_SBE_STATUS_WORDS	16
 +
+ #define OCC_TIMEOUT_MS		1000
+ #define OCC_CMD_IN_PRG_WAIT_MS	50
+ 
+@@ -447,110 +454,72 @@ static int occ_verify_checksum(struct occ_response *resp, u16 data_length)
+ 	return 0;
+ }
+ 
+-static int occ_write_sbefifo(struct sbefifo_client *client, const char *buf,
+-			     ssize_t len)
+-{
+-	int rc;
+-	ssize_t total = 0;
+-
+-	do {
+-		rc = sbefifo_drv_write(client, &buf[total], len - total);
+-		if (rc < 0)
+-			return rc;
+-		else if (!rc)
+-			break;
+-
+-		total += rc;
+-	} while (total < len);
+-
+-	return (total == len) ? 0 : -ENOSPC;
+-}
+-
+-static int occ_read_sbefifo(struct sbefifo_client *client, char *buf,
+-			    ssize_t len)
+-{
+-	int rc;
+-	ssize_t total = 0;
+-
+-	do {
+-		rc = sbefifo_drv_read(client, &buf[total], len - total);
+-		if (rc < 0)
+-			return rc;
+-		else if (!rc)
+-			break;
+-
+-		total += rc;
+-	} while (total < len);
+-
+-	return (total == len) ? 0 : -ENODATA;
+-}
+-
+ static int occ_getsram(struct device *sbefifo, u32 address, u8 *data,
+ 		       ssize_t len)
+ {
+-	int rc;
+-	u8 *resp;
+-	__be32 buf[5];
+ 	u32 data_len = ((len + 7) / 8) * 8;	/* must be multiples of 8 B */
+-	struct sbefifo_client *client;
++	size_t resp_len, resp_data_len;
++	__be32 *resp, cmd[5];
++	int rc;
+ 
+ 	/*
+ 	 * Magic sequence to do SBE getsram command. SBE will fetch data from
+ 	 * specified SRAM address.
+ 	 */
+-	buf[0] = cpu_to_be32(0x5);
+-	buf[1] = cpu_to_be32(0xa403);
+-	buf[2] = cpu_to_be32(1);
+-	buf[3] = cpu_to_be32(address);
+-	buf[4] = cpu_to_be32(data_len);
+-
+-	client = sbefifo_drv_open(sbefifo, 0);
+-	if (!client)
+-		return -ENODEV;
+-
+-	rc = occ_write_sbefifo(client, (const char *)buf, sizeof(buf));
+-	if (rc)
+-		goto done;
+-
+-	resp = kzalloc(data_len, GFP_KERNEL);
+-	if (!resp) {
+-		rc = -ENOMEM;
+-		goto done;
+-	}
++	cmd[0] = cpu_to_be32(0x5);
++	cmd[1] = cpu_to_be32(SBEFIFO_CMD_GET_OCC_SRAM);
++	cmd[2] = cpu_to_be32(1);
++	cmd[3] = cpu_to_be32(address);
++	cmd[4] = cpu_to_be32(data_len);
++
++	resp_len = (data_len >> 2) + OCC_SBE_STATUS_WORDS;
++	resp = kzalloc(resp_len << 2 , GFP_KERNEL);
++	if (!resp)
++		return -ENOMEM;
+ 
+-	rc = occ_read_sbefifo(client, (char *)resp, data_len);
++	rc = sbefifo_submit(sbefifo, cmd, 5, resp, &resp_len);
+ 	if (rc)
+ 		goto free;
+-
+-	/* check for good response */
+-	rc = occ_read_sbefifo(client, (char *)buf, 8);
++	rc = sbefifo_parse_status(sbefifo, SBEFIFO_CMD_GET_OCC_SRAM,
++				  resp, resp_len, &resp_len);
+ 	if (rc)
+ 		goto free;
+ 
+-	if ((be32_to_cpu(buf[0]) == data_len) &&
+-	    (be32_to_cpu(buf[1]) == 0xC0DEA403))
+-		memcpy(data, resp, len);
+-	else
++	resp_data_len = be32_to_cpu(resp[resp_len - 1]);
++	if (resp_data_len != data_len) {
++		pr_err("occ: SRAM read expected %d bytes got %zd\n",
++		       data_len, resp_data_len);
+ 		rc = -EBADMSG;
++	} else {
++		memcpy(data, resp, len);
++	}
+ 
+ free:
++	/* Convert positive SBEI status */
++	if (rc > 0) {
++		pr_err("occ: SRAM read returned failure status: %08x\n", rc);
++		rc = -EBADMSG;
++	}
+ 	kfree(resp);
+-
+-done:
+-	sbefifo_drv_release(client);
  	return rc;
  }
  
-@@ -548,15 +548,13 @@ static int send_request(struct fsi_master_gpio *master,
+ static int occ_putsram(struct device *sbefifo, u32 address, u8 *data,
+ 		       ssize_t len)
  {
- 	unsigned long flags;
+-	int rc;
+-	__be32 *buf;
++	size_t cmd_len, buf_len, resp_len, resp_data_len;
+ 	u32 data_len = ((len + 7) / 8) * 8;	/* must be multiples of 8 B */
+-	size_t cmd_len = data_len + 20;
+-	struct sbefifo_client *client;
++	__be32 *buf;
++	int rc;
  
--	spin_lock_irqsave(&master->bit_lock, flags);
--	if (master->external_mode) {
--		spin_unlock_irqrestore(&master->bit_lock, flags);
-+	if (master->external_mode)
- 		return -EBUSY;
+-	buf = kzalloc(cmd_len, GFP_KERNEL);
++	/*
++	 * We use the same buffer for command and response, make
++	 * sure it's big enough
++	 */
++	resp_len = OCC_SBE_STATUS_WORDS;
++	cmd_len = (data_len >> 2) + 5;
++	buf_len = max(cmd_len, resp_len);
++	buf = kzalloc(buf_len << 2, GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
+ 
+@@ -558,72 +527,88 @@ static int occ_putsram(struct device *sbefifo, u32 address, u8 *data,
+ 	 * Magic sequence to do SBE putsram command. SBE will transfer
+ 	 * data to specified SRAM address.
+ 	 */
+-	buf[0] = cpu_to_be32(0x5 + (data_len / 4));
+-	buf[1] = cpu_to_be32(0xa404);
++	buf[0] = cpu_to_be32(cmd_len);
++	buf[1] = cpu_to_be32(SBEFIFO_CMD_PUT_OCC_SRAM);
+ 	buf[2] = cpu_to_be32(1);
+ 	buf[3] = cpu_to_be32(address);
+ 	buf[4] = cpu_to_be32(data_len);
+ 
+ 	memcpy(&buf[5], data, len);
+ 
+-	client = sbefifo_drv_open(sbefifo, 0);
+-	if (!client) {
+-		rc = -ENODEV;
+-		goto free;
 -	}
+-
+-	rc = occ_write_sbefifo(client, (const char *)buf, cmd_len);
++	rc = sbefifo_submit(sbefifo, buf, cmd_len, buf, &resp_len);
+ 	if (rc)
+-		goto done;
+-
+-	rc = occ_read_sbefifo(client, (char *)buf, 8);
++		goto free;
++	rc = sbefifo_parse_status(sbefifo, SBEFIFO_CMD_PUT_OCC_SRAM,
++				  buf, resp_len, &resp_len);
+ 	if (rc)
+-		goto done;
++		goto free;
  
-+	local_irq_save(flags);
- 	serial_out(master, cmd);
- 	echo_delay(master);
--	spin_unlock_irqrestore(&master->bit_lock, flags);
-+	local_irq_restore(flags);
- 
- 	return 0;
+-	/* check for good response */
+-	if ((be32_to_cpu(buf[0]) != data_len) ||
+-	    (be32_to_cpu(buf[1]) != 0xC0DEA404))
++	if (resp_len != 1) {
++		pr_err("occ: SRAM write response lenght invalid: %zd\n",
++		       resp_len);
+ 		rc = -EBADMSG;
+-
+-done:
+-	sbefifo_drv_release(client);
++	} else {
++		resp_data_len = be32_to_cpu(buf[0]);
++		if (resp_data_len != data_len) {
++			pr_err("occ: SRAM write expected %d bytes got %zd\n",
++			       data_len, resp_data_len);
++			rc = -EBADMSG;
++		}
++	}
+ free:
++	/* Convert positive SBEI status */
++	if (rc > 0) {
++		pr_err("occ: SRAM write returned failure status: %08x\n", rc);
++		rc = -EBADMSG;
++	}
+ 	kfree(buf);
+ 	return rc;
  }
-@@ -656,7 +654,7 @@ static int fsi_master_gpio_break(struct fsi_master *_master, int link)
- 		return -EBUSY;
- 	}
  
--	spin_lock_irqsave(&master->bit_lock, flags);
-+	local_irq_save(flags);
- 
- 	set_sda_output(master, 1);
- 	sda_out(master, 1);
-@@ -667,7 +665,8 @@ static int fsi_master_gpio_break(struct fsi_master *_master, int link)
- 	sda_out(master, 1);
- 	clock_toggle(master, FSI_POST_BREAK_CLOCKS);
- 
--	spin_unlock_irqrestore(&master->bit_lock, flags);
-+	local_irq_restore(flags);
+ static int occ_trigger_attn(struct device *sbefifo)
+ {
++	__be32 buf[OCC_SBE_STATUS_WORDS];
++	size_t resp_len, resp_data_len;
+ 	int rc;
+-	__be32 buf[7];
+-	struct sbefifo_client *client;
 +
- 	last_address_update(master, 0, false, 0);
- 	mutex_unlock(&master->cmd_lock);
++	BUILD_BUG_ON(OCC_SBE_STATUS_WORDS < 7);
++	resp_len = OCC_SBE_STATUS_WORDS;
  
-@@ -688,9 +687,9 @@ static void fsi_master_gpio_init(struct fsi_master_gpio *master)
- 	gpiod_direction_output(master->gpio_data, 1);
+ 	buf[0] = cpu_to_be32(0x5 + 0x2);        /* Chip-op length in words */
+-	buf[1] = cpu_to_be32(0xa404);           /* PutOCCSRAM */
++	buf[1] = cpu_to_be32(SBEFIFO_CMD_PUT_OCC_SRAM);
+ 	buf[2] = cpu_to_be32(0x3);              /* Mode: Circular */
+ 	buf[3] = cpu_to_be32(0x0);              /* Address: ignored in mode 3 */
+ 	buf[4] = cpu_to_be32(0x8);              /* Data length in bytes */
+ 	buf[5] = cpu_to_be32(0x20010000);       /* Trigger OCC attention */
+ 	buf[6] = 0;
  
- 	/* todo: evaluate if clocks can be reduced */
--	spin_lock_irqsave(&master->bit_lock, flags);
-+	local_irq_save(flags);
- 	clock_zeros(master, FSI_INIT_CLOCKS);
--	spin_unlock_irqrestore(&master->bit_lock, flags);
-+	local_irq_restore(flags);
+-	client = sbefifo_drv_open(sbefifo, 0);
+-	if (!client)
+-		return -ENODEV;
+-
+-	rc = occ_write_sbefifo(client, (const char *)buf, sizeof(buf));
++	rc = sbefifo_submit(sbefifo, buf, 7, buf, &resp_len);
+ 	if (rc)
+-		goto done;
+-
+-	rc = occ_read_sbefifo(client, (char *)buf, 8);
++		goto error;
++	rc = sbefifo_parse_status(sbefifo, SBEFIFO_CMD_PUT_OCC_SRAM,
++				  buf, resp_len, &resp_len);
+ 	if (rc)
+-		goto done;
++		goto error;
+ 
+-	/* check for good response */
+-	if ((be32_to_cpu(buf[0]) != 8) || (be32_to_cpu(buf[1]) != 0xC0DEA404))
++	if (resp_len != 1) {
++		pr_err("occ: SRAM attn response lenght invalid: %zd\n",
++		       resp_len);
+ 		rc = -EBADMSG;
++	} else {
++		resp_data_len = be32_to_cpu(buf[0]);
++		if (resp_data_len != 8) {
++			pr_err("occ: SRAM attn expected 8 bytes got %zd\n",
++			       resp_data_len);
++			rc = -EBADMSG;
++		}
++	}
++ error:
++	/* Convert positive SBEI status */
++	if (rc > 0) {
++		pr_err("occ: SRAM attn returned failure status: %08x\n", rc);
++		rc = -EBADMSG;
++	}
+ 
+-done:
+-	sbefifo_drv_release(client);
+ 
+ 	return rc;
  }
+diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
+index ca6d25ae9da8..ab5c3e965ccb 100644
+--- a/drivers/hwmon/occ/Makefile
++++ b/drivers/hwmon/occ/Makefile
+@@ -1,7 +1,7 @@
+ occ-hwmon-objs := common.o
  
- static void fsi_master_gpio_init_external(struct fsi_master_gpio *master)
-@@ -832,7 +831,6 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
- 	master->master.send_break = fsi_master_gpio_break;
- 	master->master.link_enable = fsi_master_gpio_link_enable;
- 	platform_set_drvdata(pdev, master);
--	spin_lock_init(&master->bit_lock);
- 	mutex_init(&master->cmd_lock);
+ ifeq ($(CONFIG_SENSORS_OCC_P9_SBE), y)
+-#occ-hwmon-objs += p9_sbe.o
++occ-hwmon-objs += p9_sbe.o
+ endif
  
- 	fsi_master_gpio_init(master);
+ ifeq ($(CONFIG_SENSORS_OCC_P8_I2C), y)
 -- 
 2.17.0
