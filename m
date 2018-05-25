@@ -1,70 +1,51 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <pawel.rapkiewicz@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::241; helo=mail-it0-x241.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.136; helo=mga12.intel.com;
+ envelope-from=pawel.rapkiewicz@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="uaWmfBUD"; 
- dkim-atps=neutral
-Received: from mail-it0-x241.google.com (mail-it0-x241.google.com
- [IPv6:2607:f8b0:4001:c0b::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40scf10NdfzF1fl
- for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 17:03:04 +1000 (AEST)
-Received: by mail-it0-x241.google.com with SMTP id q72-v6so5629768itc.0
- for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 00:03:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=uPkTBXKUoav9Fs6PX+nM9IeXol27DMybN2CziGeqor4=;
- b=uaWmfBUDb/aah9OgNsd/WGBPra/Wb1GBFeTzlW1l4WMBHHujL6Up6En75VD/tREFf6
- iDYYeJ98LNvqq9Np72hWojakXlFXIQ6V4GWda6aOXrPPVTKx4AaldDMX6YaU27UiUtdK
- WOxa2T5jLsqgLVJ2ntV9/BYU0T1Pb3gp/ImlxJttNeI9LqaMItiB5Afc5n8etWDS8UKh
- Besx9bM4GmrWBZHf8NCoNZpEXtIOO7+4/KpYxf0XgAUHFMbADV2p4qyuss45cG/ddaBp
- lr50XbEOAnjygWCxuMO1Ea8lbR7HbOudy1UGi9Xtz8DdDiLG1mi4HD2o92bfREh5Q/Y0
- gJGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=uPkTBXKUoav9Fs6PX+nM9IeXol27DMybN2CziGeqor4=;
- b=d5BmBsG0y+hSaXR/ZEcGc3Ltl7tavft5N3X2Z2xHrI8QbyBUjgZbV4uJhaJiSrU5zl
- 4cl7L+HNpZW2vpCcmMrac61kFGZk6VQeODc2/5xb1NinQwRRN+GqYa7jEZDAlzOmbxFZ
- KHjEgiFcyrbRiatYhYgNP5lAaYJ2+suM63Efp3Vyx5SXDtL5SBmNBvsjNrXNv96Mm1h5
- v1Q/LIusMiCCA3OXSTWtX+I8Z1c4ECsJZCbKxKIQsjEoFv6Qpv7DDCgR3WYdUcazCuls
- kykqiBKEFC4BusFmjU+zLTCIb0sOsy5wvWsMKTOjvNz16IRA7k637p24dJGMW24/WZck
- kmhg==
-X-Gm-Message-State: ALKqPwd6DFn4S+LOaOBQqP6FNL16icaLfsQQ9HhyOV6bT5BphP7igeLM
- uL1CkUYBRK6ynQN2cZf106ZVtV2VTytll+4NgJk=
-X-Google-Smtp-Source: AB8JxZqky+EbrNi4dQVsxKe8peBBW+FMwBtKBP7yvnFUZ3QlTUJ4xbk43QGQmiWedP5txOojJeZYs7YsNeEoPEKTxFs=
-X-Received: by 2002:a24:e08f:: with SMTP id
- c137-v6mr951590ith.114.1527231781894; 
- Fri, 25 May 2018 00:03:01 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40sdfs4YY3zF1fW
+ for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 17:48:49 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 May 2018 00:48:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,439,1520924400"; d="scan'208";a="58924756"
+Received: from irsmsx109.ger.corp.intel.com ([163.33.3.23])
+ by orsmga001.jf.intel.com with ESMTP; 25 May 2018 00:48:44 -0700
+Received: from irsmsx106.ger.corp.intel.com ([169.254.8.241]) by
+ IRSMSX109.ger.corp.intel.com ([169.254.13.176]) with mapi id 14.03.0319.002;
+ Fri, 25 May 2018 08:48:42 +0100
+From: "Rapkiewicz, Pawel" <pawel.rapkiewicz@intel.com>
+To: Yugi Mani <yupalani@microsoft.com>, "Tanous, Ed" <ed.tanous@intel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Request for review: Redfish OEM extensions
+Thread-Topic: Request for review: Redfish OEM extensions
+Thread-Index: AdPzltrM33ibQy9QQmKXV4lisgoMpAAWBQDwAANemuA=
+Date: Fri, 25 May 2018 07:48:42 +0000
+Message-ID: <53D123781965AE42A2ABEE982B242E41899FC7E5@IRSMSX106.ger.corp.intel.com>
+References: <7E9441B1E5EFFD4681F54958E82169933A0BC863@ORSMSX114.amr.corp.intel.com>
+ <MWHPR21MB086427F0296C47E1C18BBF6AD6690@MWHPR21MB0864.namprd21.prod.outlook.com>
+In-Reply-To: <MWHPR21MB086427F0296C47E1C18BBF6AD6690@MWHPR21MB0864.namprd21.prod.outlook.com>
+Accept-Language: pl-PL, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMzViMTJkNjgtYjI2ZS00ZTcxLTk3OTQtMWIzZDZhN2EzMWM4IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoidTZxWjZLeVZKMTloajBZbDEzSmVhdFNNYmVPM2RlSTdNUitOTDRXNG83VlkybGdmcU9HYVNqeE40bGF5dlwvT3UifQ==
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.0.200.100
+dlp-reaction: request-justification,no-action
+x-originating-ip: [163.33.239.181]
+Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
-Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Fri, 25 May 2018 00:03:01
- -0700 (PDT)
-In-Reply-To: <e852980c650798a5b6b431324d9918a4@linux.vnet.ibm.com>
-References: <874lm8pjd7.fsf@linux.vnet.ibm.com>
- <e1431b039c817b23b49b6f5833760152@linux.vnet.ibm.com>
- <CAARXrtn6M=tzE-yMJWN4yaSHZJUYksMT=vMvVymY0kvgQJ4bfQ@mail.gmail.com>
- <MWHPR21MB0864432C6CB8EF9A575589B0D6930@MWHPR21MB0864.namprd21.prod.outlook.com>
- <20180516160209.GB105329@mauery>
- <CAARXrtksFbirzq70cLzvWRcxKxOT9rGYKPMa-+UQcMpvx0=ycw@mail.gmail.com>
- <435d4ae31bb1d8c4c06ec95cca51b5d2@linux.vnet.ibm.com>
- <20180518210254.GC105329@mauery>
- <CAARXrtnTfgsFNvB4UTBw0_3QodeuCdmG51kAbtdEAMBffffsFQ@mail.gmail.com>
- <20180522153024.GD105329@mauery> <20180522182824.GE105329@mauery>
- <e852980c650798a5b6b431324d9918a4@linux.vnet.ibm.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 25 May 2018 15:03:01 +0800
-Message-ID: <CAARXrtkuy5vugFJd7BtLwha1L_OQb3ptXxM3dOSh36zwpm2JxA@mail.gmail.com>
-Subject: Re: BMC Image Signing Proposal
-To: Adriana Kobylak <anoo@linux.ibm.com>
-Cc: Vernon Mauery <vernon.mauery@linux.intel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,57 +57,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 May 2018 07:03:06 -0000
+X-List-Received-Date: Fri, 25 May 2018 07:48:54 -0000
 
-On Fri, May 25, 2018 at 1:12 AM, Adriana Kobylak <anoo@linux.ibm.com> wrote:
-> On 2018-05-22 13:28, Vernon Mauery wrote:
->>
->>
->> One other thought I had was that we could make the manifest a JSON
->> file which makes for very simple parsing (since the parser is already
->> written).  Then we could go with something like this:
->>
->
-> That's a good option, at least for the write to flash piece. We could
-> even extend the manifest to include the names of the service files to
-> delete/clean up the flash. Most of the rest of the code manages the
-> D-Bus objects so that'd be common with all flash layouts.
->
-> Another option, or combination with a json manifest, would be to have
-> different repos or different subdirectories for specific implementations.
->
->
-> Lei, thinking we could convert Romulus to ubi, and use the PNOR chip
-> to store the alternate BMC version. I think that'd be more straight fwd
-> and the advantage would be that the interfaces are tested and verified.
-> And on the side we can continue this discussion on how to make the
-> code more modular to support other layouts and we can start making
-> the changes but at least we can get Romulus using signature validation
-> in the mean time.
+Hi,
 
-By default Romulus has a single 32MiB for BMC and 64MiB for PNOR, there is not
-enough room for Romulus to enable ubi with alternative BMC.
-So I am afraid that it can not enable ubifs.
+Here is a correct link to the gerrit review:
+https://gerrit.openbmc-project.xyz/#/c/10813/
 
-But I do have enabled image signature verification on fixed layout and tested
-on Romulus.
+The one sent by Ed was created since I was not able to commit changes to th=
+e official OpenBMC one.
 
-The related changes are:
-https://gerrit.openbmc-project.xyz/#/c/10765/
-https://gerrit.openbmc-project.xyz/#/c/10801/
-https://gerrit.openbmc-project.xyz/#/c/10768/
-https://gerrit.openbmc-project.xyz/#/c/10800/
+Regards,
+Pawel
 
-I have tested on Romulus that:
-* Code update successful with valid image, both REST API and in WebUI;
-* Code update failure with invalid image (signature verify failure), if
-   FieldMode is enabled;
+-----Original Message-----
+From: openbmc [mailto:openbmc-bounces+pawel.rapkiewicz=3Dintel.com@lists.oz=
+labs.org] On Behalf Of Yugi Mani
+Sent: Friday, May 25, 2018 8:12 AM
+To: Tanous, Ed <ed.tanous@intel.com>; openbmc@lists.ozlabs.org
+Subject: RE: Request for review: Redfish OEM extensions
 
-I you think that is OK, we can merge the changes, as it adds the new features
-(code update and signature verify in phosphor-software-manager) without
-breaking existing services.
-It could be a start point for phosphor-software-manager to handle both ubifs
-and non-ubifs.
+Ed, =
 
-Then we can continue to work on enhancing/refactoring to make it more generic
-as Vernon suggested.
+
+Is your gerrit server accessible from outside? Browser (chrome) couldn't re=
+ach the server's IP address. =
+
+
+Yugi
+
+-----Original Message-----
+From: openbmc <openbmc-bounces+yupalani=3Dmicrosoft.com@lists.ozlabs.org> O=
+n Behalf Of Tanous, Ed
+Sent: Thursday, May 24, 2018 12:43 PM
+To: openbmc@lists.ozlabs.org
+Subject: Request for review: Redfish OEM extensions
+
+The document we discussed last week in the Redfish call is open for review =
+and comment.  It attempts to propose a solution to the "How do I extend red=
+fish in OpenBMC?"  Pawel would very much appreciate comments a broader audi=
+ence.
+
+https://na01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit-amr-=
+2.devtools.intel.com%2Fgerrit%2F%23%2Fc%2F130414%2F&data=3D02%7C01%7Cyupala=
+ni%40microsoft.com%7C6a04083be7ff41e398fe08d5c1aee6b9%7C72f988bf86f141af91a=
+b2d7cd011db47%7C1%7C0%7C636627879299887599&sdata=3DN9%2FJlO36maY7cI0yexYHlO=
+dh3Hm%2BfDQo2Ezu3BsT%2Fgg%3D&reserved=3D0
+
+Along with looking at the review, if anyone has input on any of the followi=
+ng, we'd love to hear about it.
+1. Requirements for redfish OEM extensions in OpenBmc 2. Specific use cases=
+ that aren't covered by OpenBMC today (for example, uploading an ssl certif=
+icate) 3. Performance concerns and extension concerns 4. Requests for schem=
+a support not already in review
+
+Thanks,
+
+-Ed
+--------------------------------------------------------------------
+
+Intel Technology Poland sp. z o.o.
+ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydz=
+ial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-31=
+6 | Kapital zakladowy 200.000 PLN.
+
+Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata=
+ i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wi=
+adomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiek=
+olwiek
+przegladanie lub rozpowszechnianie jest zabronione.
+This e-mail and any attachments may contain confidential material for the s=
+ole use of the intended recipient(s). If you are not the intended recipient=
+, please contact the sender and delete all copies; any review or distributi=
+on by
+others is strictly prohibited.
