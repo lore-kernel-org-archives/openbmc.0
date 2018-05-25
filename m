@@ -1,59 +1,60 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <james.mihm@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22b; helo=mail-it0-x22b.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4002:c09::22c; helo=mail-yb0-x22c.google.com;
+ envelope-from=james.mihm@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tgbwOjXC"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="JnyXYE2v"; 
  dkim-atps=neutral
-Received: from mail-it0-x22b.google.com (mail-it0-x22b.google.com
- [IPv6:2607:f8b0:4001:c0b::22b])
+Received: from mail-yb0-x22c.google.com (mail-yb0-x22c.google.com
+ [IPv6:2607:f8b0:4002:c09::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40sTWG2CjMzF1Rc
- for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 11:41:45 +1000 (AEST)
-Received: by mail-it0-x22b.google.com with SMTP id p3-v6so4888258itc.0
- for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 18:41:45 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40sTx702yqzF1Rw
+ for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 12:00:41 +1000 (AEST)
+Received: by mail-yb0-x22c.google.com with SMTP id i1-v6so1331336ybe.1
+ for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 19:00:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=F6x4CTvp/doSWMfpztB79yRfPf277u4PEuag9BM12Mk=;
- b=tgbwOjXCn+08G75+l6krUvxay8BRsL+Gy5DAicdOk8EHuOJXTQtQVuEk7Edqqo6nLP
- 6S0f4btr3OQAwSo+lSXnNjsJ2kFzaEFd7cIxVLD4Qw0KwVPCqsKnUTrTSOZUf/KcNT7e
- sdh64jhG9oTErEu+q/TzKvy3/N3pM6dF3GsZc+0HLTMcBBVEIksIoo6b77IVpsDJSziq
- CdE4FINOG30VIrlcqWC7EIBSONh2I+LLNxWS61QYmvzWZGWFGlq0wGgwCx/Jt+LOc1tX
- U+67Q8heNWZwxYSd4AByqRIFHpdUbIBKMr+oeXJIL1hwmCUDAh8npxm1BPZVtxLy3diA
- M8XA==
+ bh=waNEpsjc8MgCDZ8+/y34k5OZMKwXPxoKjHkGFiFD+bA=;
+ b=JnyXYE2vRqtxkMxU4dPb5Ku8oznoZUdRf3nc5f3kFKVj1fZP8tKdsk8z/K7jq5HPvJ
+ 8hGz0ZKVJXinknQKrP97Gbd4zFqRPlZetXK0iJ47Xr/1n6HPUi/JdbJa+kH+at+6/NtC
+ hgOCC2egty/NWBfYlr1dXSeqbNSypXNaweJcGmaxlWGdfnJnPWc925zWRDWlpZq36WR1
+ Kg+J5q5rPyK/R7KUwMXYpPpDo46cMuc+P6pRuHOsKYAlgKCHlWI5LLeGaP/Pp8iWDU9H
+ eF3d+lda+67SzXgjICpN4wqzS+9IVy5+cm7yzLqiFHn39Cp/X5HvcxTj1ez3Q1/vIwF+
+ hx5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=F6x4CTvp/doSWMfpztB79yRfPf277u4PEuag9BM12Mk=;
- b=hImrRkMedhWW5xdfK//ATZKR2uviKrb7EzP3f7t79zgAv7GHA0qWKTGBz2DjOc5xn6
- Jd9Z0C8mp+bjqo5b3pdRlBlJRQtbF3i+yoV6ovFtx+c2RySDSe3AN1NXzCi70ZAuhjmf
- 3Mo4GSgEarKHy/TfL8yOAV6Ec4CVeqYuvwv5whFBr/wKbRRJRRcfQbHKZ0iHfc5NV9JV
- Q93cBUaGv6aqflJ24U8VbDFdXimWatMUIhtS80C05SZHefgNhalw4iGn4N/1t/xpsQ1T
- J1VVJOB/MBOhNvn0lTrf3BGGmxb5CoqCOZZ+tVDp/YBLHizoHIf+WyPjmoaJO3N00/XL
- 9aHA==
-X-Gm-Message-State: ALKqPwf7fOEJbn30SDRzc+8Ct0mcbcIRFzG0xSKWy2n2eHml3gSAuIRr
- bYEJ8HoY4wI43eoquHl0ewolCHQW9NGeAMqzAso=
-X-Google-Smtp-Source: ADUXVKJ9J5LcQ7e2M5w6Osd9xx+76L5FWBq0Dtv1vGdETOp3WwaOAuBXk7hDEkyGj4ylF6BQfe+9hmF36aRpuQJLo2Q=
-X-Received: by 2002:a24:7292:: with SMTP id
- x140-v6mr278824itc.14.1527212503396; 
- Thu, 24 May 2018 18:41:43 -0700 (PDT)
+ bh=waNEpsjc8MgCDZ8+/y34k5OZMKwXPxoKjHkGFiFD+bA=;
+ b=UZfjdXQbJXYgInpWaCI1M7iYoolUDr4XlLf787lAyVM1lPB6OPw5coRKlshhgEjrIJ
+ bpY0HImRpWQb3xZwprCfkB0G1jIe60hhG/vzIA0tJBq4L5q9MZBRP99pMGq0c+QPWOqO
+ hduOsND7Ckqe6jNj1UJWQz8pJWLp5robZssO/JoFIM8pdVgRNz97Fs9beHnaCdH9X382
+ 4Solo6/tJT8iXvH/6AWc+tfzsGp+J+j640HaNNNdnHK+WKdKMTSafBXh3S0G+UHSg4SH
+ TAzC0ZVtd+5fVYwwNuLIgDxPkNqvhTpM9HARuV6+NEfyW+0+mTda8dzUmIGMTM6CeVLs
+ pPzg==
+X-Gm-Message-State: ALKqPwdxKe98KqG7zPtkhY3NIA/FaOJWvdYc4VV/OE8/eSYGUo6EnhwX
+ szj63mwZfMOd7cUntRq5tIQrWNrcdBEdWSLMFNI=
+X-Google-Smtp-Source: AB8JxZqIXFCaYej8S6LmNTkS8C1bB0wuJubewr6ngGiuy7YM307guZodtzbFbZ+pTm95Ys4rL7w2oXjc5cfjQ8jZ8J0=
+X-Received: by 2002:a25:a023:: with SMTP id
+ x32-v6mr216348ybh.441.1527213638033; 
+ Thu, 24 May 2018 19:00:38 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Thu, 24 May 2018 18:41:42
+Received: by 2002:a25:2d5a:0:0:0:0:0 with HTTP; Thu, 24 May 2018 18:59:57
  -0700 (PDT)
-In-Reply-To: <90852837c20b4169a7d4d66efaca7399@ausx13mpc109.AMER.DELL.COM>
-References: <90852837c20b4169a7d4d66efaca7399@ausx13mpc109.AMER.DELL.COM>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 25 May 2018 09:41:42 +0800
-Message-ID: <CAARXrtmp_MdKe44q-dgMyO-P=FQRWH5JQ7zMVWVZSj=_HGykmQ@mail.gmail.com>
-Subject: Re: openbmc build err "internal compiler error'
-To: Lakesh.Sharma@dell.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+In-Reply-To: <571344FE-9386-4B1E-BCC6-39294C7DDC6B@fuzziesquirrel.com>
+References: <f25e143f-dce7-3f6e-3d4e-72ce7fe51ee4@gmail.com>
+ <571344FE-9386-4B1E-BCC6-39294C7DDC6B@fuzziesquirrel.com>
+From: James Mihm <james.mihm@gmail.com>
+Date: Thu, 24 May 2018 18:59:57 -0700
+Message-ID: <CADy_Pt0w4N0yk95f7iuOP4-am8F_E+=HW0b8LnKYHSULy-=75w@mail.gmail.com>
+Subject: Re: Proposal for OpenBMC releases
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: krtaylor <kurt.r.taylor@gmail.com>, openbmc@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -67,20 +68,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 May 2018 01:41:47 -0000
+X-List-Received-Date: Fri, 25 May 2018 02:00:43 -0000
 
-On Fri, May 25, 2018 at 12:55 AM,  <Lakesh.Sharma@dell.com> wrote:
-> I am seeing following build err.
+Releases every six months are a good cadence, and I'm in favor of
+starting in November.
+
+I like the idea of naming release such as Yocto. I find that names are
+an easier mental map to projects and version.
+
+I don't see the need for the *-next branches, but I'll defer to the
+maintainers.
+
+Project support for N (master) and N-1 is a good goal. Anything more
+than N-1 should be a downstream product support responsibility.
+Anything beyond N-1 will be a challenge for maintainers as time passes.
+
+Milestones are a definite requirement. Having a setup time of 1-month
+is a good target, but it should be flexible depending on the
+situation.
+Where security fixes should be a priority.
+
+
+On Wed, May 23, 2018 at 4:22 PM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
 >
-> =E2=80=9Carm-openbmc-linux-gnueabi-g++: internal compiler error: Killed (=
-program
-> cc1plus)=E2=80=9D
+>> On May 21, 2018, at 1:07 PM, krtaylor <kurt.r.taylor@gmail.com> wrote:
+>>
+>> In order for us to facilitate all member companies in the OpenBMC work p=
+lanning process, I believe it is important for the project to adopt a forma=
+l release schedule. Release cycles allow member companies to plan on conten=
+t being delivered, get a read on project priorities, and exchange design id=
+eas on the best implementation. As with other projects, release dates would=
+ be fixed in time. If a feature didn't make the release cutoff, then it shi=
+ps in the next release. This really helps drive prioritization of new funct=
+ionality.
+>>
+>> As Brad commented in the community call today, let's start off the propo=
+sal with aligning with the Yocto project releases plus some time for projec=
+t testing/hardening. Yocto releases are every 6 months, around May-October[=
+1], so if we allow for a month of freeze and testing, that would be OpenBMC=
+ releases every June-November. Since June is next month, I'd propose that w=
+e start planning now for the November release.
+>>
+>> OpenBMC release ? November 2018
+>>
+>> Questions:
+>> How do we number releases? do we want to code name them?
 >
-
-I guess g++ is killed due to using too much memory, maybe you can check you=
-r
-system log to see if there is any oom.
-It is known issue that building phosphor-host-ipmid (more precisely, the
-generated sensor-gen.cpp) consumes too much memory.
-
-Possibly increase the RAM for your VM, e.g. my 16GiB VM is fine.
+> I would suggest/vote-for adopting Yocto/Poky/OE conventions here=E2=80=A6
+> so 2.3 -> pyro, 2.4 -> rocko, etc.
+>
+>> Do we want a stable branch/working branch organization?
+>
+> I would think so.  Again I'd suggest/propose something similar to
+> Yocto/Poky/OE:
+>
+> master
+> master-next
+> rocko
+> rocko-next
+> pyro
+> pyro-next
+>
+> Perhaps we could skip the -next branches.
+>
+>> How long does the project maintain a stable branch? n-1? n-2?
+>
+> I=E2=80=99m not sure.  My gut reaction was, as many as the community is w=
+illing
+> to write patches against, test, and maintain.
+>
+> Do you consider N to be master (dev branch) or the most recent release?
+> If the latter=E2=80=A6I=E2=80=99d be happy to start with supporting just =
+N.  We can
+> see about N-1, N-2 once we get a taste of supporting something other
+> than just master.
+>
+>> Do we want project milestones for content proposal, code freeze and rele=
+ase?
+>
+> Most definitely, IMO.
+>
+>>
+>> [1] https://wiki.yoctoproject.org/wiki/Releases
+>>
+>> Kurt Taylor (krtaylor)
