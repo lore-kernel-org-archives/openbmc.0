@@ -1,48 +1,61 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::22b; helo=mail-it0-x22b.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tgbwOjXC"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22b.google.com (mail-it0-x22b.google.com
+ [IPv6:2607:f8b0:4001:c0b::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40sKYf1qCMzF1Rm
- for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 05:43:15 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 May 2018 12:43:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,437,1520924400"; d="scan'208";a="231567700"
-Received: from orsmsx110.amr.corp.intel.com ([10.22.240.8])
- by fmsmga006.fm.intel.com with ESMTP; 24 May 2018 12:43:13 -0700
-Received: from orsmsx113.amr.corp.intel.com (10.22.240.9) by
- ORSMSX110.amr.corp.intel.com (10.22.240.8) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 24 May 2018 12:43:12 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.24]) by
- ORSMSX113.amr.corp.intel.com ([169.254.9.232]) with mapi id 14.03.0319.002;
- Thu, 24 May 2018 12:43:12 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Request for review: Redfish OEM extensions
-Thread-Topic: Request for review: Redfish OEM extensions
-Thread-Index: AdPzltrM33ibQy9QQmKXV4lisgoMpA==
-Date: Thu, 24 May 2018 19:43:11 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169933A0BC863@ORSMSX114.amr.corp.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.200.100
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.138]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40sTWG2CjMzF1Rc
+ for <openbmc@lists.ozlabs.org>; Fri, 25 May 2018 11:41:45 +1000 (AEST)
+Received: by mail-it0-x22b.google.com with SMTP id p3-v6so4888258itc.0
+ for <openbmc@lists.ozlabs.org>; Thu, 24 May 2018 18:41:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=F6x4CTvp/doSWMfpztB79yRfPf277u4PEuag9BM12Mk=;
+ b=tgbwOjXCn+08G75+l6krUvxay8BRsL+Gy5DAicdOk8EHuOJXTQtQVuEk7Edqqo6nLP
+ 6S0f4btr3OQAwSo+lSXnNjsJ2kFzaEFd7cIxVLD4Qw0KwVPCqsKnUTrTSOZUf/KcNT7e
+ sdh64jhG9oTErEu+q/TzKvy3/N3pM6dF3GsZc+0HLTMcBBVEIksIoo6b77IVpsDJSziq
+ CdE4FINOG30VIrlcqWC7EIBSONh2I+LLNxWS61QYmvzWZGWFGlq0wGgwCx/Jt+LOc1tX
+ U+67Q8heNWZwxYSd4AByqRIFHpdUbIBKMr+oeXJIL1hwmCUDAh8npxm1BPZVtxLy3diA
+ M8XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=F6x4CTvp/doSWMfpztB79yRfPf277u4PEuag9BM12Mk=;
+ b=hImrRkMedhWW5xdfK//ATZKR2uviKrb7EzP3f7t79zgAv7GHA0qWKTGBz2DjOc5xn6
+ Jd9Z0C8mp+bjqo5b3pdRlBlJRQtbF3i+yoV6ovFtx+c2RySDSe3AN1NXzCi70ZAuhjmf
+ 3Mo4GSgEarKHy/TfL8yOAV6Ec4CVeqYuvwv5whFBr/wKbRRJRRcfQbHKZ0iHfc5NV9JV
+ Q93cBUaGv6aqflJ24U8VbDFdXimWatMUIhtS80C05SZHefgNhalw4iGn4N/1t/xpsQ1T
+ J1VVJOB/MBOhNvn0lTrf3BGGmxb5CoqCOZZ+tVDp/YBLHizoHIf+WyPjmoaJO3N00/XL
+ 9aHA==
+X-Gm-Message-State: ALKqPwf7fOEJbn30SDRzc+8Ct0mcbcIRFzG0xSKWy2n2eHml3gSAuIRr
+ bYEJ8HoY4wI43eoquHl0ewolCHQW9NGeAMqzAso=
+X-Google-Smtp-Source: ADUXVKJ9J5LcQ7e2M5w6Osd9xx+76L5FWBq0Dtv1vGdETOp3WwaOAuBXk7hDEkyGj4ylF6BQfe+9hmF36aRpuQJLo2Q=
+X-Received: by 2002:a24:7292:: with SMTP id
+ x140-v6mr278824itc.14.1527212503396; 
+ Thu, 24 May 2018 18:41:43 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Thu, 24 May 2018 18:41:42
+ -0700 (PDT)
+In-Reply-To: <90852837c20b4169a7d4d66efaca7399@ausx13mpc109.AMER.DELL.COM>
+References: <90852837c20b4169a7d4d66efaca7399@ausx13mpc109.AMER.DELL.COM>
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 25 May 2018 09:41:42 +0800
+Message-ID: <CAARXrtmp_MdKe44q-dgMyO-P=FQRWH5JQ7zMVWVZSj=_HGykmQ@mail.gmail.com>
+Subject: Re: openbmc build err "internal compiler error'
+To: Lakesh.Sharma@dell.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,24 +67,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 May 2018 19:43:19 -0000
+X-List-Received-Date: Fri, 25 May 2018 01:41:47 -0000
 
-The document we discussed last week in the Redfish call is open for review =
-and comment.  It attempts to propose a solution to the "How do I extend red=
-fish in OpenBMC?"  Pawel would very much appreciate comments a broader audi=
-ence.
+On Fri, May 25, 2018 at 12:55 AM,  <Lakesh.Sharma@dell.com> wrote:
+> I am seeing following build err.
+>
+> =E2=80=9Carm-openbmc-linux-gnueabi-g++: internal compiler error: Killed (=
+program
+> cc1plus)=E2=80=9D
+>
 
-https://git-amr-2.devtools.intel.com/gerrit/#/c/130414/
+I guess g++ is killed due to using too much memory, maybe you can check you=
+r
+system log to see if there is any oom.
+It is known issue that building phosphor-host-ipmid (more precisely, the
+generated sensor-gen.cpp) consumes too much memory.
 
-Along with looking at the review, if anyone has input on any of the followi=
-ng, we'd=20
-love to hear about it.
-1. Requirements for redfish OEM extensions in OpenBmc
-2. Specific use cases that aren't covered by OpenBMC today (for example, up=
-loading an ssl certificate)
-3. Performance concerns and extension concerns
-4. Requests for schema support not already in review
-
-Thanks,
-
--Ed
+Possibly increase the RAM for your VM, e.g. my 16GiB VM is fine.
