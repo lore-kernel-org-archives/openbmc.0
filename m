@@ -1,79 +1,59 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::234; helo=mail-vk0-x234.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="TJBC3Oz7"; 
+ dkim-atps=neutral
+Received: from mail-vk0-x234.google.com (mail-vk0-x234.google.com
+ [IPv6:2607:f8b0:400c:c05::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wHJJ5cY4zDr4N
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 01:12:00 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w4TF4NeU010086
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 11:11:57 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2j9955rhnc-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 11:11:57 -0400
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 29 May 2018 11:11:56 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 29 May 2018 11:11:53 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w4TFBqrr37093522
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 29 May 2018 15:11:52 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5F07128083;
- Tue, 29 May 2018 11:11:51 -0400 (EDT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D1FCD28078;
- Tue, 29 May 2018 11:11:50 -0400 (EDT)
-Received: from [9.80.223.183] (unknown [9.80.223.183])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue, 29 May 2018 11:11:50 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.13] i2c: fsi: Don't take a lock around FSI
- accesses
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
-References: <20180529042849.11282-1-benh@kernel.crashing.org>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Tue, 29 May 2018 10:11:51 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wJdQ6dBpzDrJF
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 02:11:54 +1000 (AEST)
+Received: by mail-vk0-x234.google.com with SMTP id s63-v6so7361997vkh.9
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 09:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=JMsBsUvhYxjnOat+c1uqlGvLGlVaHvaVn5H4Sxu7qck=;
+ b=TJBC3Oz7tAwOHRr25dFITmNyHoU8MeeJnHUqSi/tRaHqWGcDChMKqWoGPyW040g4FY
+ 0FKZ9OX9GlrrY6Yh8eMlBdiaKnx54sS19DBinZ1B+01U/TkKFErEx7DbaXaERubNf5k+
+ 4QQ5GHOsm6CWKYmu10ppQwnvyyiWxO6FnnIIHhZRVqN+c/hetPI553l5sn0n/5IhTr9j
+ oDHhchI8AleSPH74jUqtwUkZfS6kuUCYmTGrO2w81bc+3PhT7vJ+ZXc7cC/OWn01i+An
+ Py3LmQj7ZQd4MaaTEWl8eK91IuI5YWyMGPvAz9X65HiKxa7EhK/DV5L3UTvz1zLG3cEE
+ CfUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=JMsBsUvhYxjnOat+c1uqlGvLGlVaHvaVn5H4Sxu7qck=;
+ b=s3k+0XCxRH7Cc+zZ9JWfam0v6ykY7B4yuo6q+ubYOPBBQO9hIVe0/T89219ywaL6sV
+ LCX/0urh2TZhB8dqyGV53ZDUK59m9qm/slWbR5/GEfzcx8lBeafogxI9qX/LlU5AKcsO
+ uvJXybwAdxb55A1IG2SevIcTd3K0kwjH0KzC4srrEcSshh1D/vzcF4/Pfa7b9rWfI6WI
+ IHj0K7gF83UubRv92xGPFqw5aO6939m+6yeTgFN8p1vRnz0kyGpbgeb7lwJ8ngx/jaCm
+ 7ZsOaNwjTKIRIwlDtZ5HpojfkT/XaY8YHx9/4arkgPnQeE4NIQljTnJrvlFAbnlhxEwo
+ qCcQ==
+X-Gm-Message-State: ALKqPweKd3lrlpkYfraU/QofGdvmKZzGuRCKv8JTSV0H1/M2+ua+H3De
+ XY5YuMyq2fvoTYQUmfCYxmLWyAlFk6DyZzPxF6bMEw==
+X-Google-Smtp-Source: ADUXVKLnKWhyKsBbf9WOHc5h8vOdGSsacI6tgPWo14uXmMKQiJtmTkthhIwfKIsSU982uEvaSf0rP+DqkAcjyNj6/Xs=
+X-Received: by 2002:a1f:e483:: with SMTP id
+ b125-v6mr10330931vkh.149.1527610311716; 
+ Tue, 29 May 2018 09:11:51 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180529042849.11282-1-benh@kernel.crashing.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18052915-0024-0000-0000-000003620647
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009096; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000264; SDB=6.01039412; UDB=6.00531978; IPR=6.00818541; 
- MB=3.00021359; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-29 15:11:55
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18052915-0025-0000-0000-0000482B48B5
-Message-Id: <332bd020-2168-1cc2-ad58-1efcfdf38b33@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-29_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1805290170
+Received: by 2002:a1f:57c6:0:0:0:0:0 with HTTP; Tue, 29 May 2018 09:11:31
+ -0700 (PDT)
+In-Reply-To: <CACPK8Xc_gTiJaCUzDiG6aNOu7rF6gU3e_oc-bd19bOswju7yTw@mail.gmail.com>
+References: <CACPK8Xc_gTiJaCUzDiG6aNOu7rF6gU3e_oc-bd19bOswju7yTw@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 29 May 2018 09:11:31 -0700
+Message-ID: <CAO=notx8OwkJrKf6LhhDZ=_-96e+C0y=REtFEPLfDbdWxLDQSw@mail.gmail.com>
+Subject: Re: Gerrit +1 policy
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -85,71 +65,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 15:12:01 -0000
+X-List-Received-Date: Tue, 29 May 2018 16:11:56 -0000
 
++2!
 
-
-On 05/28/2018 11:28 PM, Benjamin Herrenschmidt wrote:
-> That lock is incorrect as FSI can sleep and thus will
-> trigger lockdep warnings. It is also unnecessary as
-> it was meant to "speed up" the reset process for
-> unspecified reasons, not to protect against anything.
+On Tue, May 29, 2018 at 5:53 AM, Joel Stanley <joel@jms.id.au> wrote:
+> I get frustrated by Gerrit removing +1s from patches when I make a
+> small change to the commit message.
 >
-> The the master semaphore should prevent any concurrent user from
-> seeing the intermediate state already and the recent improvements
-> to the FSI layer should take care of potential speed issues.
+> This is a configurable option in Gerrit:
 >
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> ---
->   drivers/i2c/busses/i2c-fsi.c | 8 ++------
->   1 file changed, 2 insertions(+), 6 deletions(-)
+> https://gerrit-review.googlesource.com/Documentation/config-labels.html#label_copyAllScoresIfNoCodeChange
 >
-> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-> index 10f693fc855b..41cbffea4325 100644
-> --- a/drivers/i2c/busses/i2c-fsi.c
-> +++ b/drivers/i2c/busses/i2c-fsi.c
-> @@ -23,6 +23,7 @@
->   #include <linux/semaphore.h>
->   #include <linux/spinlock.h>
->   #include <linux/wait.h>
-> +#include <linux/delay.h>
-
-delay.h was already included :)
-
-And probably need to remove the spinlock from the master structure, as 
-it's unused.
-
-Thanks,
-Eddie
-
+> I would like to propose we change this setting to true.
 >
->   #define FSI_ENGID_I2C		0x7
+> The downside is someone could radically change the content of their
+> commit message that you've +1'd. However the maintainer still gets a
+> chance to pull someone up on this if they think someone has pulled a
+> swift one.
 >
-> @@ -427,10 +428,6 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
->   {
->   	int rc;
->   	u32 mode, stat, dummy = 0;
-> -	unsigned long flags;
-> -
-> -	/* disable pre-emption; bus won't get left in a bad state for long */
-> -	spin_lock_irqsave(&i2c->reset_lock, flags);
+> If there are some repositories that would like to maintain the status
+> quo, this could be done at the top level, so that all repositories
+> inherit the new default, but would allow for individual projects to
+> override the setting if they desired.
 >
->   	/* reset engine */
->   	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-> @@ -472,7 +469,7 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
->   		goto done;
+> Cheers,
 >
->   	/* wait for command complete; time from legacy driver */
-> -	udelay(1000);
-> +	msleep(1);
->
->   	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
->   	if (rc)
-> @@ -490,7 +487,6 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
->   	rc = fsi_i2c_dev_init(i2c);
->
->   done:
-> -	spin_unlock_irqrestore(&i2c->reset_lock, flags);
->   	return rc;
->   }
->
+> Joel
