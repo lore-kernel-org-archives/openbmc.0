@@ -1,56 +1,73 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=infradead.org
- (client-ip=2001:8b0:10b:1231::1; helo=merlin.infradead.org;
- envelope-from=rdunlap@infradead.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=infradead.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=infradead.org header.i=@infradead.org
- header.b="HGsLYnI5"; dkim-atps=neutral
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wNFY26V1zDr4h
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 04:54:57 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=fbkfEP+xhpryin3s1ch9hxPWLFA4E3pTb2gsESkxG20=; b=HGsLYnI5o+5m5by+0/IFnLPROc
- IQ4GxULdf0dSm5zCjbNjrDUdZBCHOOvaXAAvVpRe5omhbNRhlcqFBaZK8YtBAwt4kl3DG/6Kb+JI7
- arAyAK5UmLORlu+qh/B2WFIpkRL+HeJJfasfWRF00jTNzuKC04Xhf1tGmT0dDsLlKlqjqgyvldGKk
- s/5tuvxzYjvd/6g+p9HFA0+SrgCDL9HioLbxdavwin14HjZHZQYBcKwht008M21zwGCJ72IFAmzJ6
- 9+E2EHZifyFJWJB/gcHr9LJlCorQY5U80HkIhHKiuAxhrmPFZTmUUqXjFz8sxWm/V2IBB1GH48MPH
- QKq8HeEg==;
-Received: from static-50-53-52-16.bvtn.or.frontiernet.net ([50.53.52.16]
- helo=midway.dunlab)
- by merlin.infradead.org with esmtpsa (Exim 4.90_1 #2 (Red Hat Linux))
- id 1fNjlQ-0008Io-Ju; Tue, 29 May 2018 18:54:32 +0000
-Subject: Re: [patch v25 4/4] Documentation: jtag: Add ABI documentation
-To: Oleksandr Shamray <oleksandrs@mellanox.com>, gregkh@linuxfoundation.org,
- arnd@arndb.de
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
- jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
- vadimp@mellanox.com, system-sw-low-level@mellanox.com, robh+dt@kernel.org,
- openocd-devel-owner@lists.sourceforge.net, linux-api@vger.kernel.org,
- davem@davemloft.net, mchehab@kernel.org
-References: <1527605618-15705-1-git-send-email-oleksandrs@mellanox.com>
- <1527605618-15705-5-git-send-email-oleksandrs@mellanox.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <b1afae1e-b93b-3b86-1a45-ab0e408087e1@infradead.org>
-Date: Tue, 29 May 2018 11:54:30 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
-MIME-Version: 1.0
-In-Reply-To: <1527605618-15705-5-git-send-email-oleksandrs@mellanox.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wNks0vV7zDr7s
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 05:16:52 +1000 (AEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w4TJGMMc075485
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 15:16:49 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2j9ahnp5yh-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 15:16:48 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 29 May 2018 13:16:48 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 29 May 2018 13:16:45 -0600
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w4TJGisS11338028
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 29 May 2018 12:16:44 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 24160C6037;
+ Tue, 29 May 2018 13:16:44 -0600 (MDT)
+Received: from talon7.ibm.com (unknown [9.80.223.183])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 59F88C603E;
+ Tue, 29 May 2018 13:16:43 -0600 (MDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, benh@kernel.crashing.org,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.13 1/3] i2c: fsi: Don't take a lock around FSI
+ accesses
+Date: Tue, 29 May 2018 14:16:36 -0500
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <1527621398-26526-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1527621398-26526-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-TM-AS-GCONF: 00
+x-cbid: 18052919-0020-0000-0000-00000E09C8B9
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009097; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000264; SDB=6.01039494; UDB=6.00532026; IPR=6.00818622; 
+ MB=3.00021361; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-29 19:16:46
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18052919-0021-0000-0000-000061A47EE2
+Message-Id: <1527621398-26526-2-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-05-29_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1805290205
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -62,104 +79,137 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 18:55:01 -0000
+X-List-Received-Date: Tue, 29 May 2018 19:16:53 -0000
 
-On 05/29/2018 07:53 AM, Oleksandr Shamray wrote:
-> Added document that describe the ABI for JTAG class drivrer
+That lock is incorrect as FSI can sleep and thus will
+trigger lockdep warnings. It is also unnecessary as
+it was meant to "speed up" the reset process for
+unspecified reasons, not to protect against anything.
 
-Sorry, there are still a few typos.  Please see below.
+The the master semaphore should prevent any concurrent user from
+seeing the intermediate state already and the recent improvements
+to the FSI layer should take care of potential speed issues.
 
-> ---
->  Documentation/ABI/testing/gpio-cdev |    1 -
->  Documentation/ABI/testing/jtag-dev  |   23 +++++++
->  Documentation/jtag/overview         |   27 +++++++++
->  Documentation/jtag/transactions     |  109 +++++++++++++++++++++++++++++++++++
->  MAINTAINERS                         |    1 +
->  5 files changed, 160 insertions(+), 1 deletions(-)
->  create mode 100644 Documentation/ABI/testing/jtag-dev
->  create mode 100644 Documentation/jtag/overview
->  create mode 100644 Documentation/jtag/transactions
-> 
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+---
+This is Benjamin Herrenschmidt's <benh@kernel.crashing.org> patch, but I also
+removed the reset_lock in the master structure and didn't add delay.h include;
+thought I would just get these in one patch set for convenience.
 
-> diff --git a/Documentation/jtag/overview b/Documentation/jtag/overview
-> new file mode 100644
-> index 0000000..f179095
-> --- /dev/null
-> +++ b/Documentation/jtag/overview
-> @@ -0,0 +1,27 @@
-> +Linux kernel JTAG support
-> +=========================
-> +
-> +JTAG is an industry standard for verifying hardware.JTAG provides access to
+ drivers/i2c/busses/i2c-fsi.c | 35 ++++++++++++-----------------------
+ 1 file changed, 12 insertions(+), 23 deletions(-)
 
-needs space:
-                                              hardware. JTAG provides
-
-> +many logic signals of a complex integrated circuit, including the device pins.
-> +
-> +A JTAG interface is a special interface added to a chip.
-> +Depending on the version of JTAG, two, four, or five pins are added.
-> +
-> +The connector pins are:
-> +	TDI (Test Data In)
-> +	TDO (Test Data Out)
-> +	TCK (Test Clock)
-> +	TMS (Test Mode Select)
-> +	TRST (Test Reset) optional
-> +
-> +JTAG interface is designed to have two parts - basic core driver and
-> +hardware specific driver. The basic driver introduces a general interface
-> +which is not dependent of specific hardware. It provides communication
-> +between user space and hardware specific driver.
-> +Each JTAG device is represented as a char device from (jtag0, jtag1, ...).
-> +Access to a JTAG device is performed through IOCTL calls.
-> +
-> +Call flow example:
-> +User: open  -> /dev/jatgX
-> +User: ioctl -> /dev/jtagX -> JTAG core driver -> JTAG hardware specific driver
-> +User: close -> /dev/jatgX
-
-> diff --git a/Documentation/jtag/transactions b/Documentation/jtag/transactions
-> new file mode 100644
-> index 0000000..c5176a7
-> --- /dev/null
-> +++ b/Documentation/jtag/transactions
-> @@ -0,0 +1,109 @@
-> +The JTAG API
-> +=============
-> +
-> +JTAG master devices can be accessed through a character misc-device.
-> +Each JTAG master interface can be accessed by using /dev/jtagN.
-> +
-> +JTAG system calls set:
-> +- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
-> +- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
-> +- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
-> +number of clocks.
-> +
-> +open(), close()
-> +-------
-> +open() opens JTAG device.
-> +
-> +Open/Close  device:
-> +- jtag_fd = open("/dev/jtag0", O_RDWR);
-> +- close(jtag_fd);
-> +
-> +ioctl()
-> +-------
-> +All access operations to JTAG devices are erformed through ioctl interface.
-
-                                             performed
-
-> +The IOCTL interface supports these requests:
-> +	JTAG_IOCRUNTEST - Force JTAG state machine to RUN_TEST/IDLE state
-> +	JTAG_SIOCFREQ - Set JTAG TCK frequency
-> +	JTAG_GIOCFREQ - Get JTAG TCK frequency
-> +	JTAG_IOCXFER - send JTAG data Xfer
-> +	JTAG_GIOCSTATUS - get current JTAG TAP status
-> +	JTAG_SIOCMODE - set JTAG mode flags.
-
-
-
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index 10f693f..3fcc14e 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -21,7 +21,6 @@
+ #include <linux/of.h>
+ #include <linux/sched.h>
+ #include <linux/semaphore.h>
+-#include <linux/spinlock.h>
+ #include <linux/wait.h>
+ 
+ #define FSI_ENGID_I2C		0x7
+@@ -148,7 +147,6 @@ struct fsi_i2c_master {
+ 	struct list_head	ports;
+ 	wait_queue_head_t	wait;
+ 	struct semaphore	lock;
+-	spinlock_t		reset_lock;
+ };
+ 
+ struct fsi_i2c_port {
+@@ -427,71 +425,63 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
+ {
+ 	int rc;
+ 	u32 mode, stat, dummy = 0;
+-	unsigned long flags;
+-
+-	/* disable pre-emption; bus won't get left in a bad state for long */
+-	spin_lock_irqsave(&i2c->reset_lock, flags);
+ 
+ 	/* reset engine */
+ 	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	/* re-init engine */
+ 	rc = fsi_i2c_dev_init(i2c);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	/* set port; default after reset is 0 */
+ 	if (port) {
+ 		mode = SETFIELD(I2C_MODE_PORT, mode, port);
+ 		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+ 		if (rc)
+-			goto done;
++			return rc;
+ 	}
+ 
+ 	/* reset busy register; hw workaround */
+ 	dummy = I2C_PORT_BUSY_RESET;
+ 	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_PORT_BUSY, &dummy);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	/* force bus reset */
+ 	rc = fsi_i2c_reset_bus(i2c);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	/* reset errors */
+ 	dummy = 0;
+ 	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	/* wait for command complete; time from legacy driver */
+-	udelay(1000);
++	msleep(1);
+ 
+ 	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	if (stat & I2C_STAT_CMD_COMP)
+-		goto done;
++		return rc;
+ 
+ 	/* failed to get command complete; reset engine again */
+ 	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	/* re-init engine again */
+-	rc = fsi_i2c_dev_init(i2c);
+-
+-done:
+-	spin_unlock_irqrestore(&i2c->reset_lock, flags);
+-	return rc;
++	return fsi_i2c_dev_init(i2c);
+ }
+ 
+ static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
+@@ -711,7 +701,6 @@ static int fsi_i2c_probe(struct device *dev)
+ 
+ 	init_waitqueue_head(&i2c->wait);
+ 	sema_init(&i2c->lock, 1);
+-	spin_lock_init(&i2c->reset_lock);
+ 	i2c->fsi = to_fsi_dev(dev);
+ 	INIT_LIST_HEAD(&i2c->ports);
+ 
 -- 
-~Randy
+1.8.3.1
