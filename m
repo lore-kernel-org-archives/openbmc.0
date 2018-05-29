@@ -1,33 +1,32 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wGnV1x2kzDr6B
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 00:48:45 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4TEmQEO027834;
- Tue, 29 May 2018 09:48:27 -0500
-Message-ID: <611f74ee2921b41d85449c91e60e07e3afa9ae55.camel@kernel.crashing.org>
-Subject: Re: [PATCH linux dev-4.13 2/3] hwmon: occ: Avoid displaying an
- error when host is down
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 30 May 2018 00:48:26 +1000
-In-Reply-To: <CACPK8Xco8zzbyTZT45ER=b6i+p1_7a+Cm2WTdqP5bYRe3H2YMg@mail.gmail.com>
-References: <20180529042833.11158-1-benh@kernel.crashing.org>
- <20180529042833.11158-2-benh@kernel.crashing.org>
- <CACPK8Xco8zzbyTZT45ER=b6i+p1_7a+Cm2WTdqP5bYRe3H2YMg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Return-Path: <oleksandrs@mellanox.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 40wGvC1ZhkzDr4d
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 00:53:41 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 29 May 2018 17:55:44 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w4TErcab003082;
+ Tue, 29 May 2018 17:53:38 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v25 0/4] JTAG driver introduction
+Date: Tue, 29 May 2018 17:53:34 +0300
+Message-Id: <1527605618-15705-1-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -39,36 +38,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 14:48:47 -0000
+X-List-Received-Date: Tue, 29 May 2018 14:53:44 -0000
+X-List-Received-Date: Tue, 29 May 2018 14:53:44 -0000
 
-On Tue, 2018-05-29 at 14:12 +0930, Joel Stanley wrote:
-> On 29 May 2018 at 13:58, Benjamin Herrenschmidt
-> <benh@kernel.crashing.org> wrote:
-> > Instead display a much less scary informational message as
-> > this can happen in normal circumstances.
-> > 
-> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> > ---
-> >  drivers/hwmon/occ/common.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> > index 365bf207cf0d..0673af00a99b 100644
-> > --- a/drivers/hwmon/occ/common.c
-> > +++ b/drivers/hwmon/occ/common.c
-> > @@ -1359,7 +1359,10 @@ int occ_setup(struct occ *occ, const char *name)
-> > 
-> >         /* no need to lock */
-> >         rc = occ_poll(occ);
-> > -       if (rc < 0) {
-> > +       if (rc == -ESHUTDOWN) {
-> > +               dev_info(occ->bus_dev, "Host is not ready\n");
-> 
-> Given this is normal, should we make this dev_dbg?
-> 
-> Otherwise we see it on the bmc serial console every time we boot the machine.
+When a need raise up to use JTAG interface for system's devices
+programming or CPU debugging, usually the user layer
+application implements jtag protocol by bit-bang or using a 
+proprietary connection to vendor hardware.
+This method can be slow and not generic.
+ 
+We propose to implement general JTAG interface and infrastructure
+to communicate with user layer application. In such way, we can
+have the standard JTAG interface core part and separation from
+specific HW implementation.
+This allow new capability to debug the CPU or program system's 
+device via BMC without additional devices nor cost. 
 
-Up to you, feel free to tweak it as you merge :-)
+This patch purpose is to add JTAG master core infrastructure by 
+defining new JTAG class and provide generic JTAG interface
+to allow hardware specific drivers to connect this interface.
+This will enable all JTAG drivers to use the common interface
+part and will have separate for hardware implementation.
 
-Cheers,
-Ben.
+The JTAG (Joint Test Action Group) core driver provides minimal generic
+JTAG interface, which can be used by hardware specific JTAG master
+controllers. By providing common interface for the JTAG controllers,
+user space device programing is hardware independent.
+ 
+Modern SoC which in use for embedded system' equipped with
+internal JTAG master interface.
+This interface is used for programming and debugging system's
+hardware components, like CPLD, FPGA, CPU, voltage and
+industrial controllers.
+Firmware for such devices can be upgraded through JTAG interface during
+Runtime. The JTAG standard support for multiple devices programming,
+is in case their lines are daisy-chained together.
+
+For example, systems which equipped with host CPU, BMC SoC or/and 
+number of programmable devices are capable to connect a pin and
+select system components dynamically for programming and debugging,
+This is using by the BMC which is equipped with internal SoC master
+controller.
+For example:
+
+BMC JTAG master --> pin selected to CPLDs chain for programming (filed
+upgrade, production) 
+BMC JTAG master --> pin selected to voltage monitors for programming 
+(field upgrade, production) 
+BMC JTAG master --> pin selected to host CPU (on-site debugging 
+and developers debugging)
+
+For example, we can have application in user space which using calls
+to JTAG driver executes CPLD programming directly from SVF file
+ 
+The JTAG standard (IEEE 1149.1) defines the next connector pins:
+- TDI (Test Data In);
+- TDO (Test Data Out);
+- TCK (Test Clock);
+- TMS (Test Mode Select);
+- TRST (Test Reset) (Optional);
+
+The SoC equipped with JTAG master controller, performs
+device programming on command or vector level. For example
+a file in a standard SVF (Serial Vector Format) that contains
+boundary scan vectors, can be used by sending each vector
+to the JTAG interface and the JTAG controller will execute
+the programming.
+
+Initial version provides the system calls set for:
+- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
+- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
+- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+  number of clocks.
+
+SoC which are not equipped with JTAG master interface, can be built
+on top of JTAG core driver infrastructure, by applying bit-banging of
+TDI, TDO, TCK and TMS pins within the hardware specific driver.
+
+Oleksandr Shamray (4):
+  drivers: jtag: Add JTAG core driver
+  drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
+    driver
+  Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
+    families     JTAG master driver
+  Documentation: jtag: Add ABI documentation
+
+ Documentation/ABI/testing/gpio-cdev                |    1 -
+ Documentation/ABI/testing/jtag-dev                 |   23 +
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   22 +
+ Documentation/ioctl/ioctl-number.txt               |    2 +
+ Documentation/jtag/overview                        |   27 +
+ Documentation/jtag/transactions                    |  109 +++
+ MAINTAINERS                                        |   10 +
+ drivers/Kconfig                                    |    2 +
+ drivers/Makefile                                   |    1 +
+ drivers/jtag/Kconfig                               |   31 +
+ drivers/jtag/Makefile                              |    2 +
+ drivers/jtag/jtag-aspeed.c                         |  756 ++++++++++++++++++++
+ drivers/jtag/jtag.c                                |  274 +++++++
+ include/linux/jtag.h                               |   41 ++
+ include/uapi/linux/jtag.h                          |  109 +++
+ 15 files changed, 1409 insertions(+), 1 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jtag-dev
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+ create mode 100644 Documentation/jtag/overview
+ create mode 100644 Documentation/jtag/transactions
+ create mode 100644 drivers/jtag/Kconfig
+ create mode 100644 drivers/jtag/Makefile
+ create mode 100644 drivers/jtag/jtag-aspeed.c
+ create mode 100644 drivers/jtag/jtag.c
+ create mode 100644 include/linux/jtag.h
+ create mode 100644 include/uapi/linux/jtag.h
