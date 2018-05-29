@@ -1,62 +1,38 @@
-Return-Path: <SRS0=7qdu=IQ=linuxfoundation.org=gregkh@kernel.org>
+Return-Path: <Avi.Fishman@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org;
- envelope-from=srs0=7qdu=iq=linuxfoundation.org=gregkh@kernel.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linuxfoundation.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="cJMQJx6l"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40w4mB3ZdtzDqGD
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 17:16:55 +1000 (AEST)
-Received: from localhost (LFbn-1-12247-202.w90-92.abo.wanadoo.fr
- [90.92.61.202])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id ED21E20842;
- Tue, 29 May 2018 07:16:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1527578213;
- bh=V0PAqC+aydYXox+8iYNm1m7R/OMNr6CrcYTD+vFOiOM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cJMQJx6lnBaYS1ZaiQeG4RsZP3MbpB2ix91npdtOQSdSeb6rUGooRVUIWQ6Tb6Tag
- k/fpza9bXWooNZS29J0vIDzzK+11wsoLoxZWi5c902XndTeUaZAvii/T/jXQj6PJhf
- EBi2hu3OZNoEXTP4skfzzBieTW9kQQVP9LQybQxw=
-Date: Tue, 29 May 2018 09:16:33 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: "arnd@arndb.de" <arnd@arndb.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "joel@jms.id.au" <joel@jms.id.au>, "jiri@resnulli.us" <jiri@resnulli.us>,
- "tklauser@distanz.ch" <tklauser@distanz.ch>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- Vadim Pasternak <vadimp@mellanox.com>,
- system-sw-low-level <system-sw-low-level@mellanox.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "openocd-devel-owner@lists.sourceforge.net"
- <openocd-devel-owner@lists.sourceforge.net>, 
- "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "mchehab@kernel.org" <mchehab@kernel.org>
-Subject: Re: [patch v22 1/4] drivers: jtag: Add JTAG core driver
-Message-ID: <20180529071633.GB20427@kroah.com>
-References: <1527503652-21975-1-git-send-email-oleksandrs@mellanox.com>
- <1527503652-21975-2-git-send-email-oleksandrs@mellanox.com>
- <20180528123527.GA17613@kroah.com>
- <AM5PR0501MB24490173AD50A2E478DFCF35B16E0@AM5PR0501MB2449.eurprd05.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AM5PR0501MB24490173AD50A2E478DFCF35B16E0@AM5PR0501MB2449.eurprd05.prod.outlook.com>
-User-Agent: Mutt/1.10.0 (2018-05-17)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40w6Xt4WVczDr43
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 18:37:14 +1000 (AEST)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w4T8Zj3u030305;
+ Tue, 29 May 2018 11:35:46 +0300
+Received: by talu34.nuvoton.co.il (Postfix, from userid 8441)
+ id A06CF5A96D; Tue, 29 May 2018 11:35:45 +0300 (IDT)
+From: avifishman70@gmail.com
+To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu
+Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
+ yuenn@google.com, brendanhiggins@google.com,
+ mathias.nyman@linux.intel.com, bjorn.andersson@linaro.org,
+ jhogan@kernel.org, albeu@free.fr, chunfeng.yun@mediatek.com,
+ tony@atomide.com, baolu.lu@linux.intel.com, elder@linaro.org,
+ digetx@gmail.com, kstewart@linuxfoundation.org, hdegoede@redhat.com,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ devicetree@vger.kernel.org, davem@davemloft.net,
+ mchehab+samsung@kernel.org, akpm@linux-foundation.org,
+ rdunlap@infradead.org, Avi Fishman <AviFishman70@gmail.com>
+Subject: [PATCH v1 0/3] USB host: Add USB ehci support for nuvoton npcm7xx
+Date: Tue, 29 May 2018 11:35:32 +0300
+Message-Id: <1527582935-31175-1-git-send-email-avifishman70@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,94 +44,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 07:16:59 -0000
+X-List-Received-Date: Tue, 29 May 2018 08:37:19 -0000
 
-On Mon, May 28, 2018 at 03:59:46PM +0000, Oleksandr Shamray wrote:
-> > > +	const struct jtag_ops *ops;
-> > > +	int id;
-> > > +	bool opened;
-> > 
-> > You shouldn't care about this, but ok...
-> 
-> Jtag HW not support to using with multiple requests from different users. So we prohibit this.
+From: Avi Fishman <AviFishman70@gmail.com>
 
-Ok, but then that's a userspace problem, not your driver's problem.
-Serial ports can't handle multiple requests in a sane way either, and so
-it's a userspace bug if they do that.  It's not up to the kernel to try
-to prevent it, and really, you are not preventing this from happening at
-all, you are only keeping more than one open() call from happening.  You
-aren't serializing the device access at all.
+This patch adds support for ehci controller for the Nuvoton npcm7xx platform.
+Most of the code was taken from ehci-spear.c + specific initialization code
 
-So you are giving yourself a false sense of "We are protecting the
-device" here.  Just drop the whole "only one open() call" logic
-entirely.  It will make your kernel code simpler and you aren't giving
-yourself false-hope that you really prevented userspace from doing
-something stupid :)
+Avi Fishman (3):
+  USB host: Add USB ehci support for nuvoton npcm7xx platform
+  USB: DT probing support to ehci-npcm7xx
+  MAINTAINERS: add subfolders for nuvoton *npcm*
 
-> > > +	case JTAG_IOCRUNTEST:
-> > > +		if (copy_from_user(&idle, (const void __user *)arg,
-> > > +				   sizeof(struct jtag_run_test_idle)))
-> > > +			return -EFAULT;
-> > > +
-> > > +		if (idle.endstate > JTAG_STATE_PAUSEDR)
-> > > +			return -EINVAL;
-> > 
-> > No validation that idle contains sane values?  Don't make every jtag driver
-> > have to do this type of validation please.
-> > 
-> 
-> I have partially validation of idle structure  (if (idle.endstate > JTAG_STATE_PAUSEDR)).
-> But I will add more validation.
+ .../devicetree/bindings/usb/npcm7xx-usb.txt        |  18 ++
+ MAINTAINERS                                        |   3 +
+ drivers/usb/host/Kconfig                           |   8 +
+ drivers/usb/host/Makefile                          |   1 +
+ drivers/usb/host/ehci-npcm7xx.c                    | 212 +++++++++++++++++++++
+ 5 files changed, 242 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+ create mode 100644 drivers/usb/host/ehci-npcm7xx.c
 
-Go to the nearest whiteboard and write this at the top:
-	ALL INPUT IS EVIL
-
-Don't erase it.  You have to validate all the things, otherwise
-something bad will happen, I guarantee it.  Wait until the syzbot gets
-ahold of this layer if you don't believe me :)
-
-> > > +static int jtag_open(struct inode *inode, struct file *file) {
-> > > +	struct jtag *jtag = container_of(file->private_data, struct jtag,
-> > > +miscdev);
-> > > +
-> > > +	if (mutex_lock_interruptible(&jtag->open_lock))
-> > > +		return -ERESTARTSYS;
-> > 
-> > Why restart?  Just grab the lock, you don't want to have to do restartable
-> > logic in userspace, right?
-> 
-> Will change like:
-> 
-> ret = mutex_lock_interruptible(&jtag->open_lock);
-> if (ret)
-> 	return ret;
-
-No, what's wrong with a simple:
-	mutex_lock();
-?
-
-You are only holding it for a very short time, people can wait, there is
-no rush here or "fast path" happening.
-
-Anyway, this whole lock should just go away entirely, due to the lack of
-needing to track open() calls.  But in the future, keep locks simple, no
-need to add complexity when it is not warranted.
-
-> > > +	if (jtag->opened) {
-> > > +		mutex_unlock(&jtag->open_lock);
-> > > +		return -EBUSY;
-> > 
-> > Why do you care about only 1 userspace open call?  What does that buy you?
-> > Userspace can always pass around that file descriptor and use it in multiple
-> > places, so you are not really "protecting" yourself from anything.
-> > 
-> 
-> Accessing to JTAG HW from multiple processes will make confusion in the work of the JTAG protocol.
-> And I want to prohibit this.
-
-See my previous comments for why your attempt at protecting open() does
-not prevent this from happening.  Hint, you forgot about dup(3) :(
-
-thanks,
-
-greg k-h
+-- 
+2.14.1
