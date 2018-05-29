@@ -1,68 +1,32 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <oleksandrs@mellanox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="rRS7B02Q"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="isniP9O6"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wBnJ0ZGvzDr43
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 21:48:18 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6E00421A7B;
- Tue, 29 May 2018 07:48:15 -0400 (EDT)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Tue, 29 May 2018 07:48:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=zZFCZKTT7X6tfu8U5UFauSPyRLvWj
- 1eJ9tU8cHKk2FE=; b=rRS7B02Q8/OPqwVCrF4VPmFwj4bRLXYDRqeknHsPRM+Pw
- cnjLhawCHbcz5CddJ48EyGId1u8IovKeSfKeg8EFCnHdLqleh9WcGc5SKVgIbhVz
- tujDgdyxq5UqXvbcL/8EUI834F2J2v+5DZUvYAhHtVZN8O2l7qhRuwesV/OxZzc3
- DYM3W7kSi2ihrwZW0AWsN1MQH4/rZmb8qAawHOk4mOyr7sUwmnCbU6+CX/4lKua/
- LgbAblVhSIi4sciIgIrWMs7lk2jlnE1r3A5ToV+RcmHYrJK6yTXwDLMcxp4zKiwF
- k9Dexmm41uZdeqnEtQ/uQ8QxvGHFTGofnTSXIBgSQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=zZFCZK
- TT7X6tfu8U5UFauSPyRLvWj1eJ9tU8cHKk2FE=; b=isniP9O6NhwMM09b85A0+z
- rKozAtZSOMm6bezBUfjmKnuQtCjWsJoXFsO88ckgmORr29ZKhJ2GLrsk3G+5pQYP
- GVewDnlGDzEDtRrRHQf9v3TMPALhbkAsnCMh8zdpeLs/9JMUC4GKXvQNzZwr2yIs
- /R5ZONBpwKc6GxxtKH+Yi5gzbelRSfHTL85sURpgKkkJmyU1V6KjfwRHL1aGNr7i
- VJy1wJ0Bb6xPO17apMNnUGbBxH29WLwlVH9M94sg93zyIL1TizONB/LA6KCc9asx
- hX36codsK5ujFEGmUbYB2QcZSHZRnfBa9B8bGell17Ig3rcXzVmLTV5JLd8tOIYw
- ==
-X-ME-Proxy: <xmx:_z0NWy_FmdZRY9Rb722W30lX78iBY2IH_oWp2kUnl_RxRBMVwib0wA>
-X-ME-Proxy: <xmx:_z0NW-4c8P7LF0OyRnHcY7VufMkplCNfQnljTJvHU1F6D7mWeCfzbg>
-X-ME-Proxy: <xmx:_z0NW67bQNC8o_oZjHiZCWNaS--XsjcR9sS5UUKd0cKsjJyjT5Gc7g>
-X-ME-Proxy: <xmx:_z0NW5HfZzU0tSBegEkz1zXrnSURLm8Gl-8GrG3rTthizgfUl_cT2A>
-X-ME-Proxy: <xmx:_z0NW50Biio4xE11Rfg9lSgKmsCfd_Ow5mARVQICFgG6KW9vtPHaLw>
-X-ME-Proxy: <xmx:_z0NW_RPArGJDrLHX5zA2DVl9bjiR5vKVcuYNjUX85jqveSqLPE0lg>
-X-ME-Sender: <xms:_z0NW9qlgx1A6q15LC6Wzg6GP1ks0_2ukcSpqOxmMqHD7BJg1tT8TA>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id E7AF5410C; Tue, 29 May 2018 07:48:14 -0400 (EDT)
-Message-Id: <1527594494.687641.1388974752.4113AC8F@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Andrew Jeffery <andrew@aj.id.au>, openembedded-devel@lists.openembedded.org
-Cc: anuj.mittal@intel.com, openbmc@lists.ozlabs.org
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-397f98d6
-Subject: Re: [meta-python][PATCH v2 1/3] meta-python: Add python-pyflame recipe
-References: <20180510063718.16913-1-andrew@aj.id.au>
-Date: Tue, 29 May 2018 21:18:14 +0930
-In-Reply-To: <20180510063718.16913-1-andrew@aj.id.au>
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 40wBpH6SQ6zDr6Q
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 21:49:09 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 29 May 2018 14:51:10 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w4TBn5wC002578;
+ Tue, 29 May 2018 14:49:05 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v23 0/4] JTAG driver introduction
+Date: Tue, 29 May 2018 14:49:01 +0300
+Message-Id: <1527594545-19870-1-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,52 +38,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 11:48:21 -0000
+X-List-Received-Date: Tue, 29 May 2018 11:49:13 -0000
 
-On Thu, 10 May 2018, at 16:07, Andrew Jeffery wrote:
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+JTAG driver introduction
 
-Ping - is there anything I need to revise for this patch or the following two?
+When a need raise up to use JTAG interface for system's devices
+programming or CPU debugging, usually the user layer
+application implements jtag protocol by bit-bang or using a 
+proprietary connection to vendor hardware.
+This method can be slow and not generic.
+ 
+We propose to implement general JTAG interface and infrastructure
+to communicate with user layer application. In such way, we can
+have the standard JTAG interface core part and separation from
+specific HW implementation.
+This allow new capability to debug the CPU or program system's 
+device via BMC without additional devices nor cost. 
 
-Cheers,
+This patch purpose is to add JTAG master core infrastructure by 
+defining new JTAG class and provide generic JTAG interface
+to allow hardware specific drivers to connect this interface.
+This will enable all JTAG drivers to use the common interface
+part and will have separate for hardware implementation.
 
-Andrew
+The JTAG (Joint Test Action Group) core driver provides minimal generic
+JTAG interface, which can be used by hardware specific JTAG master
+controllers. By providing common interface for the JTAG controllers,
+user space device programing is hardware independent.
+ 
+Modern SoC which in use for embedded system' equipped with
+internal JTAG master interface.
+This interface is used for programming and debugging system's
+hardware components, like CPLD, FPGA, CPU, voltage and
+industrial controllers.
+Firmware for such devices can be upgraded through JTAG interface during
+Runtime. The JTAG standard support for multiple devices programming,
+is in case their lines are daisy-chained together.
 
-> ---
->  meta-python/recipes-devtools/python/python-pyflame.inc      | 12 ++++++++++++
->  meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb |  1 +
->  2 files changed, 13 insertions(+)
->  create mode 100644 meta-python/recipes-devtools/python/python-pyflame.inc
->  create mode 100644 meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
-> 
-> diff --git a/meta-python/recipes-devtools/python/python-pyflame.inc b/
-> meta-python/recipes-devtools/python/python-pyflame.inc
-> new file mode 100644
-> index 000000000000..3b84a7e8f8e3
-> --- /dev/null
-> +++ b/meta-python/recipes-devtools/python/python-pyflame.inc
-> @@ -0,0 +1,12 @@
-> +SUMMARY = "Pyflame: A Ptracing Profiler For Python"
-> +HOMEPAGE = "https://github.com/uber/pyflame"
-> +SECTION = "devel/python"
-> +LICENSE = "Apache-2.0"
-> +LIC_FILES_CHKSUM = "file://${S}/
-> LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
-> +DEPENDS = "python"
-> +
-> +SRC_URI = "git://github.com/uber/pyflame.git;protocol=https;tag=v${PV}"
-> +S = "${WORKDIR}/git"
-> +
-> +inherit pkgconfig autotools
-> +
-> diff --git a/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb 
-> b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
-> new file mode 100644
-> index 000000000000..96f03305f883
-> --- /dev/null
-> +++ b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
-> @@ -0,0 +1 @@
-> +require python-pyflame.inc
-> -- 
-> 2.14.1
-> 
+For example, systems which equipped with host CPU, BMC SoC or/and 
+number of programmable devices are capable to connect a pin and
+select system components dynamically for programming and debugging,
+This is using by the BMC which is equipped with internal SoC master
+controller.
+For example:
+
+BMC JTAG master --> pin selected to CPLDs chain for programming (filed
+upgrade, production) 
+BMC JTAG master --> pin selected to voltage monitors for programming 
+(field upgrade, production) 
+BMC JTAG master --> pin selected to host CPU (on-site debugging 
+and developers debugging)
+
+For example, we can have application in user space which using calls
+to JTAG driver executes CPLD programming directly from SVF file
+ 
+The JTAG standard (IEEE 1149.1) defines the next connector pins:
+- TDI (Test Data In);
+- TDO (Test Data Out);
+- TCK (Test Clock);
+- TMS (Test Mode Select);
+- TRST (Test Reset) (Optional);
+
+The SoC equipped with JTAG master controller, performs
+device programming on command or vector level. For example
+a file in a standard SVF (Serial Vector Format) that contains
+boundary scan vectors, can be used by sending each vector
+to the JTAG interface and the JTAG controller will execute
+the programming.
+
+Initial version provides the system calls set for:
+- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
+- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
+- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+  number of clocks.
+
+SoC which are not equipped with JTAG master interface, can be built
+on top of JTAG core driver infrastructure, by applying bit-banging of
+TDI, TDO, TCK and TMS pins within the hardware specific driver.
+
+Oleksandr Shamray (4):
+  drivers: jtag: Add JTAG core driver
+  drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
+    driver
+  Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
+    families     JTAG master driver
+  Documentation: jtag: Add ABI documentation
+
+ Documentation/ABI/testing/jtag-dev                 |   27 +
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   22 +
+ Documentation/ioctl/ioctl-number.txt               |    2 +
+ Documentation/jtag/overview                        |   27 +
+ Documentation/jtag/transactions                    |  109 +++
+ MAINTAINERS                                        |   10 +
+ drivers/Kconfig                                    |    2 +
+ drivers/Makefile                                   |    1 +
+ drivers/jtag/Kconfig                               |   31 +
+ drivers/jtag/Makefile                              |    2 +
+ drivers/jtag/jtag-aspeed.c                         |  769 ++++++++++++++++++++
+ drivers/jtag/jtag.c                                |  279 +++++++
+ include/linux/jtag.h                               |   40 +
+ include/uapi/linux/jtag.h                          |  109 +++
+ 14 files changed, 1430 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jtag-dev
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+ create mode 100644 Documentation/jtag/overview
+ create mode 100644 Documentation/jtag/transactions
+ create mode 100644 drivers/jtag/Kconfig
+ create mode 100644 drivers/jtag/Makefile
+ create mode 100644 drivers/jtag/jtag-aspeed.c
+ create mode 100644 drivers/jtag/jtag.c
+ create mode 100644 include/linux/jtag.h
+ create mode 100644 include/uapi/linux/jtag.h
