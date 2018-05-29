@@ -1,66 +1,42 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <wsa@the-dreams.de>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=roeck-us.net
- (client-ip=208.91.199.152; helo=bh-25.webhostbox.net;
- envelope-from=linux@roeck-us.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=the-dreams.de
+ (client-ip=88.99.104.3; helo=pokefinder.org; envelope-from=wsa@the-dreams.de;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="f/s6OuIq";
- dkim-atps=neutral
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wMGR3qj9zDr43
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 04:10:39 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
- :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OCZdEQGnSoqU+WlKWC9w1bPmFq6sAKNV1Vte1YWXrPI=; b=f/s6OuIqjUQipDaCBXXRU6RErB
- sjjYN8Co6UAl9qFstvqwaPI9cQmkM0i83nuSMlyq2MkbPaZvhdnDt1WVM41PwtvzxKuSWVy6Az1LH
- OfC4U9oOtjvRNMBmOYzKVjnuMczN4wZ09+XeIibtyoLjBaiBICauObhFitF7LWTuTLGTR9+Tn/kuY
- GdxyQm4fV9iGT8g0LA2XtVzEBNAGVrCWZfjknxJfj7JJi79nNrXkhpVT16GkfzSaSxK4aZs7eWwMw
- uQgOQhj0V4QGa/+PO1Km58MFa86QyC98bWoGLmuNu2IHnh7Wy5Tcj0JvsE5hZqNmVjAujaxqZQGP+
- To40ZDhQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:35852 helo=localhost)
- by bh-25.webhostbox.net with esmtpa (Exim 4.89)
- (envelope-from <linux@roeck-us.net>)
- id 1fNhwN-002Q40-6P; Tue, 29 May 2018 16:57:43 +0000
-Date: Tue, 29 May 2018 09:57:42 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: robh+dt@kernel.org, mark.rutland@arm.com, jdelvare@suse.com,
- avifishman70@gmail.com, yuenn@google.com, brendanhiggins@google.com,
- venture@google.com, joel@jms.id.au, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v1 1/2] dt-binding: hwmon: Add NPCM7xx PWM documentation
-Message-ID: <20180529165742.GE2162@roeck-us.net>
-References: <1527588141-18639-1-git-send-email-tmaimon77@gmail.com>
- <1527588141-18639-2-git-send-email-tmaimon77@gmail.com>
+ dmarc=none (p=none dis=none) header.from=the-dreams.de
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+ by lists.ozlabs.org (Postfix) with ESMTP id 40wMsX40HvzDr43;
+ Wed, 30 May 2018 04:37:36 +1000 (AEST)
+Received: from localhost (p54B3340F.dip0.t-ipconnect.de [84.179.52.15])
+ by pokefinder.org (Postfix) with ESMTPSA id D850044DDE3;
+ Tue, 29 May 2018 20:31:38 +0200 (CEST)
+Date: Tue, 29 May 2018 20:31:38 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Peter Rosin <peda@axentia.se>
+Cc: linux-kernel@vger.kernel.org, Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Peter Korsgaard <jacmet@sunsite.dk>, Andy Gross <andy.gross@linaro.org>,
+ David Brown <david.brown@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-i2c@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-msm@vger.kernel.org, linux-soc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] i2c: algos: make use of i2c_8bit_addr_from_msg
+Message-ID: <20180529183137.vsl7cuh2zjlplzfj@ninjato>
+References: <20180516071647.29277-1-peda@axentia.se>
+ <20180516071647.29277-2-peda@axentia.se>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="5jxqd6gx2jsy35an"
 Content-Disposition: inline
-In-Reply-To: <1527588141-18639-2-git-send-email-tmaimon77@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+In-Reply-To: <20180516071647.29277-2-peda@axentia.se>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,59 +48,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 18:10:40 -0000
+X-List-Received-Date: Tue, 29 May 2018 18:37:37 -0000
 
-On Tue, May 29, 2018 at 01:02:20PM +0300, Tomer Maimon wrote:
-> Added device tree binding documentation for Nuvoton BMC
-> NPCM7xx Pulse Width Modulation (PWM) controller.
-> 
 
-As mentioned in the other commit, this should be a pwm driver,
-not a hwmon driver.
+--5jxqd6gx2jsy35an
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Guenter
+On Wed, May 16, 2018 at 09:16:46AM +0200, Peter Rosin wrote:
+> Because it looks neater.
+>=20
+> Signed-off-by: Peter Rosin <peda@axentia.se>
 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  .../devicetree/bindings/hwmon/npcm7xx-pwm.txt      | 25 ++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt b/Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt
-> new file mode 100644
-> index 000000000000..2d8a7ccdc8cf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/npcm7xx-pwm.txt
-> @@ -0,0 +1,25 @@
-> +Nuvoton NPCM7xx Pulse-width modulation (PWM) controller device driver
-> +
-> +The NPCM7xx has two identical PWM controller modules,
-> +Each module has four PWM controller outputs.
-> +NPCM7xx PWM controller module 0 outputs PWM0-3 and NPCM7xx PWM controller
-> +module 1 outputs PWM4-7.
-> +
-> +Required properties:
-> +- compatible	: "nuvoton,npcm750-pwm" for Poleg NPCM7XX.
-> +- reg		: Offset and length of the registers set for the device.
-> +- clocks	: phandle of pwm reference clock.
-> +- pinctrl-names	: a pinctrl state named "default" must be defined.
-> +- pinctrl-0 	: phandle referencing pin configuration of the PWM ports.
-> +
-> +pwm:pwm@f0103000 {
-> +	compatible = "nuvoton,npcm750-pwm";
-> +	reg = <0xf0103000 0x50
-> +		0xf0104000 0x50>;
-> +	clocks = <&clk NPCM7XX_CLK_APB3>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pwm0_pins &pwm1_pins
-> +			&pwm2_pins &pwm3_pins
-> +			&pwm4_pins &pwm5_pins
-> +			&pwm6_pins &pwm7_pins>;
-> +};
-> -- 
-> 2.14.1
-> 
-> --
-> To unsubscribe from this list: send the line "unsubscribe linux-hwmon" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+Applied to for-next, thanks!
+
+
+--5jxqd6gx2jsy35an
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlsNnIkACgkQFA3kzBSg
+KbZsGg/+ONTuHz2aI66jHvuwKWxiAcRBdlIiawe6gDudTXDr9Uwt9fFXc0YJXxkx
+xB0lnDjcjY/pNi792W0ejqt5G1pGGyPnffD4/MtOS8yH7NewKy/JTurGn3QjvoH6
+qz58+Vmt9sXJkwt2mYOm66euOxRw7DzSJfd/BEovH+lJ2V3bMe9H9AMkns6/buti
+H6t6HGZz0C/Y4G7zhSfmJQJ6K8F1Ak0Swbc4Jc5cvhE+/7K+slKJ8hsbi3Bh9/VG
+2UFwIHW6h3ICBt0xDAhzeH+/tPyGXNyzSph2QCOAnli7nER72sc7hWyIlL6wymJD
+nQq8gfqRJa95mBiIt1BoeMUAO3sR1qzDMdx9j0dEAk868U2/P9AEYHEOw0/L0jU1
+mjypB7RXFg/2aBTiGaqIJL+Nr7a3uYcpk/KqZjmaN3wibZc8MJwE5gio14rPf09F
+akvxCLzRslRKJjG0AdoO3xJZHtYGsPqOKUjrj3t9clhGfuUZnfCepft3xwirIu7p
+8AqGeJB5DWNssIIlzb+2I9243RmV2808BfFB8JBzgHP+AbJ8yCDBfJCj0BqPaGqj
+c/qAYFvPPKwb7qmLNsHLoErqH/2OjqAiOHlHckc3s1/eQNR+XpVD1L37jTROUBNq
+2KI58ADi8/UcUCM6Y5JDyM/G7X6xC+q6oWUmRffSmWkmcoZITVk=
+=y2Wp
+-----END PGP SIGNATURE-----
+
+--5jxqd6gx2jsy35an--
