@@ -1,72 +1,31 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="GjIo1myP"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="VejyV+Kj"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wSRW18K9zDr4N
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 08:03:50 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 89E8321CE5;
- Tue, 29 May 2018 18:03:48 -0400 (EDT)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Tue, 29 May 2018 18:03:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=dRiuH1I3Ij577fFro3kRGYQHolVnn
- wg7biOGGBuZLvU=; b=GjIo1myPvAC3zMIQoJYVRu48zoJEm+LC/UuO4dfbQ0UH7
- RKBf03zcEvy4mJmMaglWE1KH3zS0WV+Xd1HxFahMKxSb8eVi20dSv43kK9pumLRv
- EJqVnFQT2qB5CKI5ECSWGbSGOrdj7pZLDUp0PEYU2bOiBzwV1KWhKqfBesdXAQ+h
- eMFQO5butl8Zidk9d8+IOSOB/yn8Rry2Lpk5nUmOhXt12MRwFtdreYC42hIJjKX9
- Grnb7cq0zuBIhBRbvLBvjCJSqVpVQt9DIKHZ8pRDW3sdYocx6QFTwyAcbLOXqh8n
- 2ygPXK4lkjqGtIlJC9RNsICB3h16P0WbwVL0cpTNg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=dRiuH1
- I3Ij577fFro3kRGYQHolVnnwg7biOGGBuZLvU=; b=VejyV+KjII3uRi1PQW50KY
- +7WG3UTOLE42vSxTBNwlsNMG/9s7oNI+noj5MGrZ62+b4ZL09DSYO7UrVPIiWHTg
- V13x+1EzWqQF/C2v2C8PykDg4/W2uMf7znq6N/r5YTShYntej5b7fFwQQr2FmVmW
- HHg2Lcl2Yi1Y5ydaQN98/TK4lOK614SbTySI5am6CjwCy/h6NnOfHxGYfwthn2uq
- Z0xZWUm8BuM3EcmA+gUW8PLH3ZHBCXn1/XTEOu+GpqmQ8e70tm46+2KXtfE1EO3E
- c3mkQAfHhxA/R2grypTWfrprzdgsqE1XDJyfIxmh3U6POx60si3zrzuO5z87iUlg
- ==
-X-ME-Proxy: <xmx:RM4NW5E3LZfY8B2CKVdeIA0pdJQqJq5k03Dh4yIBd-ua8CqvGEW5Jw>
-X-ME-Proxy: <xmx:RM4NW5SF2CUiTpsH04s3Usja5VK7kZyb_JD-tb5zd_8sUczWQokjtw>
-X-ME-Proxy: <xmx:RM4NW9y9unq0MfgvLb0hk5WLmhWzfKVK8DmKI75m2dCSVzJWT3Ricg>
-X-ME-Proxy: <xmx:RM4NW90yl-keeVPe2DkfZNFdDktoDPhr3fHY7i8Evd0qryZA81J36w>
-X-ME-Proxy: <xmx:RM4NWytJ4UHrt_F9NvRrdsm4Ne5cbk6p_GL46jOh7MWUgXJ9oIXC2A>
-X-ME-Proxy: <xmx:RM4NWzMvXBpeK9dYSveOteMaZOzFHjBsW3SapxMvGJFyQuknAamifw>
-X-ME-Sender: <xms:RM4NWwRbZVtuNX2_1hceKYHjHsp_IYR4O8bIjGLHz14fkMmOxazuZw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 2AD6D4112; Tue, 29 May 2018 18:03:48 -0400 (EDT)
-Message-Id: <1527631428.3392595.1389703584.53FF3C93@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Khem Raj <raj.khem@gmail.com>
-Cc: "openembeded-devel" <openembedded-devel@lists.openembedded.org>,
- openbmc@lists.ozlabs.org
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wSgs11KQzDr4N
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 08:14:32 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w4TMEO26031748;
+ Tue, 29 May 2018 17:14:26 -0500
+Message-ID: <b20182d235786a26e69e9d4c5767441af8f3d828.camel@kernel.crashing.org>
+Subject: Re: [PATCH linux dev-4.13] i2c: fsi: Don't take a lock around FSI
+ accesses
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Date: Wed, 30 May 2018 08:14:24 +1000
+In-Reply-To: <332bd020-2168-1cc2-ad58-1efcfdf38b33@linux.vnet.ibm.com>
+References: <20180529042849.11282-1-benh@kernel.crashing.org>
+ <332bd020-2168-1cc2-ad58-1efcfdf38b33@linux.vnet.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-397f98d6
-References: <20180510063718.16913-1-andrew@aj.id.au>
- <1527594494.687641.1388974752.4113AC8F@webmail.messagingengine.com>
- <CAMKF1sp+qOKAhA3K1OqLuPBwY3w2xNFkzSnoUsEY9okKxT45ow@mail.gmail.com>
-Subject: Re: [oe] [meta-python][PATCH v2 1/3] meta-python: Add python-pyflame
- recipe
-In-Reply-To: <CAMKF1sp+qOKAhA3K1OqLuPBwY3w2xNFkzSnoUsEY9okKxT45ow@mail.gmail.com>
-Date: Wed, 30 May 2018 07:33:48 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -78,26 +37,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 22:03:53 -0000
+X-List-Received-Date: Tue, 29 May 2018 22:14:33 -0000
 
-
-
-On Wed, 30 May 2018, at 02:34, Khem Raj wrote:
-> On Tue, May 29, 2018 at 4:48 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > On Thu, 10 May 2018, at 16:07, Andrew Jeffery wrote:
-> >> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> >
-> > Ping - is there anything I need to revise for this patch or the following two?
-> >
+On Tue, 2018-05-29 at 10:11 -0500, Eddie James wrote:
 > 
-> There was a review comment for you to adress, see
+> On 05/28/2018 11:28 PM, Benjamin Herrenschmidt wrote:
+> > That lock is incorrect as FSI can sleep and thus will
+> > trigger lockdep warnings. It is also unnecessary as
+> > it was meant to "speed up" the reset process for
+> > unspecified reasons, not to protect against anything.
+> > 
+> > The the master semaphore should prevent any concurrent user from
+> > seeing the intermediate state already and the recent improvements
+> > to the FSI layer should take care of potential speed issues.
+> > 
+> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> > ---
+> >   drivers/i2c/busses/i2c-fsi.c | 8 ++------
+> >   1 file changed, 2 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+> > index 10f693fc855b..41cbffea4325 100644
+> > --- a/drivers/i2c/busses/i2c-fsi.c
+> > +++ b/drivers/i2c/busses/i2c-fsi.c
+> > @@ -23,6 +23,7 @@
+> >   #include <linux/semaphore.h>
+> >   #include <linux/spinlock.h>
+> >   #include <linux/wait.h>
+> > +#include <linux/delay.h>
 > 
-> https://patchwork.openembedded.org/patch/150467/
+> delay.h was already included :)
 > 
-> if you have addressed that please send a v3 for whole series.
+> And probably need to remove the spinlock from the master structure, as 
+> it's unused.
 
-That comment is on v1 of the series. This is v2, and I have reworked the recipe to simply clone the git repo instead of grab the tarball to avoid the issue that was pointed out.
+Ah right.
 
-Thanks,
+Cheers,
+Ben.
 
-Andrew
+> Thanks,
+> Eddie
+> 
+> > 
+> >   #define FSI_ENGID_I2C		0x7
+> > 
+> > @@ -427,10 +428,6 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
+> >   {
+> >   	int rc;
+> >   	u32 mode, stat, dummy = 0;
+> > -	unsigned long flags;
+> > -
+> > -	/* disable pre-emption; bus won't get left in a bad state for long */
+> > -	spin_lock_irqsave(&i2c->reset_lock, flags);
+> > 
+> >   	/* reset engine */
+> >   	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
+> > @@ -472,7 +469,7 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
+> >   		goto done;
+> > 
+> >   	/* wait for command complete; time from legacy driver */
+> > -	udelay(1000);
+> > +	msleep(1);
+> > 
+> >   	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
+> >   	if (rc)
+> > @@ -490,7 +487,6 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
+> >   	rc = fsi_i2c_dev_init(i2c);
+> > 
+> >   done:
+> > -	spin_unlock_irqrestore(&i2c->reset_lock, flags);
+> >   	return rc;
+> >   }
+> > 
