@@ -1,31 +1,65 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <chou.brad@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c01::244; helo=mail-pl0-x244.google.com;
+ envelope-from=chou.brad@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="T4Cfz5ZR"; 
+ dkim-atps=neutral
+Received: from mail-pl0-x244.google.com (mail-pl0-x244.google.com
+ [IPv6:2607:f8b0:400e:c01::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wBFn48yHzDqGD
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 21:24:26 +1000 (AEST)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w4TBOE1S000860;
- Tue, 29 May 2018 14:24:14 +0300
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 48A675AA0F; Tue, 29 May 2018 14:24:14 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v1 2/2] hwmon: npcm-pwm: add NPCM7xx PWM driver
-Date: Tue, 29 May 2018 14:24:10 +0300
-Message-Id: <1527593050-21162-3-git-send-email-tmaimon77@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1527593050-21162-1-git-send-email-tmaimon77@gmail.com>
-References: <1527593050-21162-1-git-send-email-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wBKD5DdZzDr43
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 21:27:28 +1000 (AEST)
+Received: by mail-pl0-x244.google.com with SMTP id bi12-v6so8772115plb.12
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 04:27:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=Y8HMSNlc6CybZEVDyS8J969z8c6LiD5Wni6Xsj6Ygsc=;
+ b=T4Cfz5ZRmWsLQgltyAQMIH+eazj/Gh4WJB+h5GBQ3+JpaCk//9xkJE9OWCzECUA0rR
+ viuOGKPUURwmdWLTvdk59D4ujhQY8HwhtQe38RmVuBzDFaLHJjFtM/QR914zHK2rIt/8
+ wrpmv9ZK6aXqKzwz0NMHtivrUpFVpIEuj5VV//Cd6+t4lIWYRYjYDHBjBhdsu4uf9hRM
+ RMdCJOa+HRr3aTARw87bwHjBW/RZrj1jw7vZnsHYdDvWc3OcS9yLfTtFzeedoFdIL7Ra
+ udkaj2YoxTzadk0dhPLD3JVVvWcAMg3liIBw2ju0mAjQW/QE13FJRv29JZchLUjUS20j
+ XXDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=Y8HMSNlc6CybZEVDyS8J969z8c6LiD5Wni6Xsj6Ygsc=;
+ b=UGQIknNoAYv2ueAgfQgFxikt0gZ/Sb8fJwui/9FPVKy2dhHegb2/HwXhzyc+ZmOsTM
+ 8X/tGGuDnjI+DTYz/vbQ3euo0nv7YTn7hTBPPhQlOhJM578QofN02Vo8BfmaU174o59+
+ Pn3kYtuRru6OM6NUIiYM8v4eG/QiJp9IOeJZpZ/wSLAEq3UfuZ1NXgzJ6Cb3nxDwuiCS
+ /mnFcxtmneZD0Go1zPhG6gsd1UzB7lzc6F5Qlw1Sanq8ucchpKIZVM+f0UWzX04JFWLI
+ YEGi9R/hzALg4Oqxpu1q1XG7kf65hJye5ACNdEl9Jn3oNfU7SY+/4V4uloxPJ4OFSkBn
+ FztA==
+X-Gm-Message-State: ALKqPwcAGi/bhV0SYN5EQC7ZuxAuFFYaH5VBc1HEHYC2Bjyutxc6kasR
+ x3tx4S/KG9dayDww+sdmRe8=
+X-Google-Smtp-Source: ADUXVKL/xdEg51n/7bYVL4hp8mcrPQOlMPt1RoLtqwK0jAKE4QabvNa+RelaN1MIBKYx5FgaO66V/g==
+X-Received: by 2002:a17:902:ba87:: with SMTP id
+ k7-v6mr11953858pls.271.1527593246493; 
+ Tue, 29 May 2018 04:27:26 -0700 (PDT)
+Received: from [192.168.1.2] (220-128-238-123.HINET-IP.hinet.net.
+ [220.128.238.123])
+ by smtp.gmail.com with ESMTPSA id w19-v6sm41105358pgv.59.2018.05.29.04.27.25
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 29 May 2018 04:27:25 -0700 (PDT)
+From: Brad Chou <chou.brad@gmail.com>
+Message-Id: <3A58F91A-3DB3-4C38-A22E-19D739807B0F@gmail.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_63930555-0095-4AF5-A492-812E317829F9"
+Mime-Version: 1.0 (Mac OS X Mail 11.3 \(3445.6.18\))
+Subject: Re: Fail to start org.openbmc.managers.System.service
+Date: Tue, 29 May 2018 19:27:22 +0800
+In-Reply-To: <OF3B2252E3.FE6C041B-ON0025829B.00434D62-6525829B.0043BF4E@notes.na.collabserv.com>
+Cc: openbmc@lists.ozlabs.org
+To: George Keishing <gkeishin@in.ibm.com>
+References: <6A9E4639-55AA-4DE5-B62B-92056DBB2AAD@gmail.com>
+ <OF3B2252E3.FE6C041B-ON0025829B.00434D62-6525829B.0043BF4E@notes.na.collabserv.com>
+X-Mailer: Apple Mail (2.3445.6.18)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -37,418 +71,238 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 11:24:30 -0000
+X-List-Received-Date: Tue, 29 May 2018 11:27:29 -0000
 
-Add Nuvoton BMC NPCM7xx Pulse Width Modulation (PWM) driver.
 
-The Nuvoton BMC NPCM7xx has two identical PWM controller modules,
-each module has four PWM controller outputs.
+--Apple-Mail=_63930555-0095-4AF5-A492-812E317829F9
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/hwmon/Kconfig       |   6 +
- drivers/hwmon/Makefile      |   1 +
- drivers/hwmon/npcm7xx-pwm.c | 363 ++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 370 insertions(+)
- create mode 100644 drivers/hwmon/npcm7xx-pwm.c
+Hi George,
+I have tried your suggestion, but the problem doesn=E2=80=99t fix.
+And just noticed a commit here:
+=
+https://github.com/openbmc/skeleton/commit/f6e918e4e05e94d0eaafa97c6c31d47=
+ae5b1bf49#diff-b07a6297d344f5bbff9249965d0e8e3c =
+<https://github.com/openbmc/skeleton/commit/f6e918e4e05e94d0eaafa97c6c31d4=
+7ae5b1bf49#diff-b07a6297d344f5bbff9249965d0e8e3c>
+=
+https://gerrit.openbmc-project.xyz/#/c/9737/3/pysystemmgr/system_manager.p=
+y =
+<https://gerrit.openbmc-project.xyz/#/c/9737/3/pysystemmgr/system_manager.=
+py>
 
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 5ef2814345ef..cedfbf36e187 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1861,6 +1861,12 @@ config SENSORS_XGENE
- 	  If you say yes here you get support for the temperature
- 	  and power sensors for APM X-Gene SoC.
- 
-+config SENSORS_NPCM7XX
-+	tristate "Nuvoton NPCM7XX PWM and Fan driver"
-+	help
-+	  This driver provides support for Nuvoton NPCM7XX PWM and Fan
-+	  controllers.
-+
- if ACPI
- 
- comment "ACPI drivers"
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index d4641a9f16c1..26199a5b08fb 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -169,6 +169,7 @@ obj-$(CONFIG_SENSORS_W83L786NG)	+= w83l786ng.o
- obj-$(CONFIG_SENSORS_WM831X)	+= wm831x-hwmon.o
- obj-$(CONFIG_SENSORS_WM8350)	+= wm8350-hwmon.o
- obj-$(CONFIG_SENSORS_XGENE)	+= xgene-hwmon.o
-+obj-$(CONFIG_SENSORS_NPCM7XX)	+= npcm7xx-pwm.o
- 
- obj-$(CONFIG_PMBUS)		+= pmbus/
- 
-diff --git a/drivers/hwmon/npcm7xx-pwm.c b/drivers/hwmon/npcm7xx-pwm.c
-new file mode 100644
-index 000000000000..6122ca82b94d
---- /dev/null
-+++ b/drivers/hwmon/npcm7xx-pwm.c
-@@ -0,0 +1,363 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2014-2018 Nuvoton Technology corporation.
-+
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/device.h>
-+#include <linux/clk.h>
-+#include <linux/platform_device.h>
-+#include <linux/hwmon.h>
-+#include <linux/hwmon-sysfs.h>
-+#include <linux/sysfs.h>
-+#include <linux/of_irq.h>
-+#include <linux/of_address.h>
-+
-+/* NPCM7XX PWM port base address */
-+#define NPCM7XX_PWM_REG_PR		0x0
-+#define NPCM7XX_PWM_REG_CSR		0x4
-+#define NPCM7XX_PWM_REG_CR		0x8
-+#define NPCM7XX_PWM_REG_CNRx(PORT)	(0xC + (12 * PORT))
-+#define NPCM7XX_PWM_REG_CMRx(PORT)	(0x10 + (12 * PORT))
-+#define NPCM7XX_PWM_REG_PDRx(PORT)	(0x14 + (12 * PORT))
-+#define NPCM7XX_PWM_REG_PIER		0x3C
-+#define NPCM7XX_PWM_REG_PIIR		0x40
-+
-+#define NPCM7XX_PWM_CTRL_CH0_MODE_BIT		BIT(3)
-+#define NPCM7XX_PWM_CTRL_CH1_MODE_BIT		BIT(11)
-+#define NPCM7XX_PWM_CTRL_CH2_MODE_BIT		BIT(15)
-+#define NPCM7XX_PWM_CTRL_CH3_MODE_BIT		BIT(19)
-+
-+#define NPCM7XX_PWM_CTRL_CH0_INV_BIT		BIT(2)
-+#define NPCM7XX_PWM_CTRL_CH1_INV_BIT		BIT(10)
-+#define NPCM7XX_PWM_CTRL_CH2_INV_BIT		BIT(14)
-+#define NPCM7XX_PWM_CTRL_CH3_INV_BIT		BIT(18)
-+
-+#define NPCM7XX_PWM_CTRL_CH0_EN_BIT		BIT(0)
-+#define NPCM7XX_PWM_CTRL_CH1_EN_BIT		BIT(8)
-+#define NPCM7XX_PWM_CTRL_CH2_EN_BIT		BIT(12)
-+#define NPCM7XX_PWM_CTRL_CH3_EN_BIT		BIT(16)
-+
-+/* Define the maximum PWM channel number */
-+#define NPCM7XX_PWM_MAX_CHN_NUM			8
-+#define NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE	4
-+#define NPCM7XX_PWM_MAX_MODULES                 2
-+
-+/* Define the Counter Register, value = 100 for match 100% */
-+#define NPCM7XX_PWM_COUNTER_DEFALUT_NUM		255
-+#define NPCM7XX_PWM_COMPARATOR_DEFALUT_NUM	127
-+
-+#define NPCM7XX_PWM_COMPARATOR_MAX		255
-+
-+
-+/* default all PWM channels PRESCALE2 = 1 */
-+#define NPCM7XX_PWM_PRESCALE2_DEFALUT_CH0	0x4
-+#define NPCM7XX_PWM_PRESCALE2_DEFALUT_CH1	0x40
-+#define NPCM7XX_PWM_PRESCALE2_DEFALUT_CH2	0x400
-+#define NPCM7XX_PWM_PRESCALE2_DEFALUT_CH3	0x4000
-+
-+#define PWM_OUTPUT_FREQ_25KHZ			25000
-+#define PWN_CNT_DEFAULT				256
-+#define MIN_PRESCALE1				2
-+#define NPCM7XX_PWM_PRESCALE_SHIFT_CH01		8
-+
-+#define NPCM7XX_PWM_PRESCALE2_DEFALUT	(NPCM7XX_PWM_PRESCALE2_DEFALUT_CH0 | \
-+					NPCM7XX_PWM_PRESCALE2_DEFALUT_CH1 | \
-+					NPCM7XX_PWM_PRESCALE2_DEFALUT_CH2 | \
-+					NPCM7XX_PWM_PRESCALE2_DEFALUT_CH3)
-+
-+#define NPCM7XX_PWM_CTRL_MODE_DEFALUT	(NPCM7XX_PWM_CTRL_CH0_MODE_BIT | \
-+					NPCM7XX_PWM_CTRL_CH1_MODE_BIT | \
-+					NPCM7XX_PWM_CTRL_CH2_MODE_BIT | \
-+					NPCM7XX_PWM_CTRL_CH3_MODE_BIT)
-+
-+#define NPCM7XX_PWM_CTRL_EN_DEFALUT	(NPCM7XX_PWM_CTRL_CH0_EN_BIT | \
-+					NPCM7XX_PWM_CTRL_CH1_EN_BIT | \
-+					NPCM7XX_PWM_CTRL_CH2_EN_BIT | \
-+					NPCM7XX_PWM_CTRL_CH3_EN_BIT)
-+
-+struct npcm7xx_pwm_data {
-+	unsigned long clk_freq;
-+	void __iomem *pwm_base[NPCM7XX_PWM_MAX_MODULES];
-+	struct mutex npcm7xx_pwm_lock[NPCM7XX_PWM_MAX_CHN_NUM];
-+};
-+
-+static const struct of_device_id pwm_dt_id[];
-+
-+static int npcm7xx_pwm_config_set(struct npcm7xx_pwm_data *data, int channel,
-+				  u16 val)
-+{
-+	u32 PWMChannel = (channel % NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
-+	u32 n_module = (channel / NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
-+	u32 u32TmpBuf = 0, ctrl_en_bit;
-+
-+	/*
-+	 * Config PWM Comparator register for setting duty cycle
-+	 */
-+	if (val < 0 || val > NPCM7XX_PWM_COMPARATOR_MAX)
-+		return -EINVAL;
-+
-+	/* write new CMR value  */
-+	iowrite32(val, data->pwm_base[n_module] +
-+		  NPCM7XX_PWM_REG_CMRx(PWMChannel));
-+
-+	u32TmpBuf = ioread32(data->pwm_base[n_module] + NPCM7XX_PWM_REG_CR);
-+
-+	switch (PWMChannel) {
-+	case 0:
-+		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH0_EN_BIT;
-+		break;
-+	case 1:
-+		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH1_EN_BIT;
-+		break;
-+	case 2:
-+		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH2_EN_BIT;
-+		break;
-+	case 3:
-+		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH3_EN_BIT;
-+		break;
-+	default:
-+		return -ENODEV;
-+	}
-+
-+	if (val == 0)
-+		/* Disable PWM */
-+		u32TmpBuf &= ~(ctrl_en_bit);
-+	else
-+		/* Enable PWM */
-+		u32TmpBuf |= ctrl_en_bit;
-+
-+	mutex_lock(&data->npcm7xx_pwm_lock[n_module]);
-+	iowrite32(u32TmpBuf, data->pwm_base[n_module] + NPCM7XX_PWM_REG_CR);
-+	mutex_unlock(&data->npcm7xx_pwm_lock[n_module]);
-+
-+	return 0;
-+}
-+
-+static int npcm7xx_read_pwm(struct device *dev, u32 attr, int channel,
-+			     long *val)
-+{
-+	struct npcm7xx_pwm_data *data = dev_get_drvdata(dev);
-+	u32 PWMChannel = (channel % NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
-+	u32 n_module = (channel / NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
-+
-+	if (IS_ERR(data))
-+		return PTR_ERR(data);
-+
-+	switch (attr) {
-+	case hwmon_pwm_input:
-+		*val = (long)ioread32(data->pwm_base[n_module] +
-+				      NPCM7XX_PWM_REG_CMRx(PWMChannel));
-+		return 0;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int npcm7xx_write_pwm(struct device *dev, u32 attr, int channel,
-+			      long val)
-+{
-+	struct npcm7xx_pwm_data *data = dev_get_drvdata(dev);
-+	int err = 0;
-+
-+	switch (attr) {
-+	case hwmon_pwm_input:
-+		err = npcm7xx_pwm_config_set(data, channel, (u16)val);
-+		break;
-+	default:
-+		err = -EOPNOTSUPP;
-+		break;
-+	}
-+
-+	return err;
-+}
-+
-+static umode_t npcm7xx_pwm_is_visible(const void *_data, u32 attr, int channel)
-+{
-+	switch (attr) {
-+	case hwmon_pwm_input:
-+		return 0644;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static int npcm7xx_read(struct device *dev, enum hwmon_sensor_types type,
-+			 u32 attr, int channel, long *val)
-+{
-+	switch (type) {
-+	case hwmon_pwm:
-+		return npcm7xx_read_pwm(dev, attr, channel, val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int npcm7xx_write(struct device *dev, enum hwmon_sensor_types type,
-+			  u32 attr, int channel, long val)
-+{
-+	switch (type) {
-+	case hwmon_pwm:
-+		return npcm7xx_write_pwm(dev, attr, channel, val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static umode_t npcm7xx_is_visible(const void *data,
-+				   enum hwmon_sensor_types type,
-+				   u32 attr, int channel)
-+{
-+	switch (type) {
-+	case hwmon_pwm:
-+		return npcm7xx_pwm_is_visible(data, attr, channel);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static const u32 npcm7xx_pwm_config[] = {
-+	HWMON_PWM_INPUT,
-+	HWMON_PWM_INPUT,
-+	HWMON_PWM_INPUT,
-+	HWMON_PWM_INPUT,
-+	HWMON_PWM_INPUT,
-+	HWMON_PWM_INPUT,
-+	HWMON_PWM_INPUT,
-+	HWMON_PWM_INPUT,
-+	0
-+};
-+
-+static const struct hwmon_channel_info npcm7xx_pwm = {
-+	.type = hwmon_pwm,
-+	.config = npcm7xx_pwm_config,
-+};
-+
-+static const struct hwmon_channel_info *npcm7xx_info[] = {
-+	&npcm7xx_pwm,
-+	NULL
-+};
-+
-+static const struct hwmon_ops npcm7xx_hwmon_ops = {
-+	.is_visible = npcm7xx_is_visible,
-+	.read = npcm7xx_read,
-+	.write = npcm7xx_write,
-+};
-+
-+static const struct hwmon_chip_info npcm7xx_chip_info = {
-+	.ops = &npcm7xx_hwmon_ops,
-+	.info = npcm7xx_info,
-+};
-+
-+static int npcm7xx_pwm_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct npcm7xx_pwm_data *data;
-+	struct resource res[NPCM7XX_PWM_MAX_MODULES];
-+	struct device *hwmon;
-+	struct clk *clk;
-+	int m, ch, res_cnt, ret;
-+	u32 Prescale_val, output_freq;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	for (res_cnt = 0; res_cnt < NPCM7XX_PWM_MAX_MODULES  ; res_cnt++) {
-+		ret = of_address_to_resource(dev->of_node, res_cnt,
-+					     &res[res_cnt]);
-+		if (ret) {
-+			pr_err("PWM of_address_to_resource fail ret %d\n",
-+			       ret);
-+			return -EINVAL;
-+		}
-+
-+		data->pwm_base[res_cnt] =
-+			devm_ioremap_resource(dev, &(res[res_cnt]));
-+		pr_debug("pwm%d base is 0x%08X, res.start 0x%08X , size 0x%08X\n",
-+			 res_cnt, (u32)data->pwm_base[res_cnt],
-+			 res[res_cnt].start, resource_size(&(res[res_cnt])));
-+
-+		if (!data->pwm_base[res_cnt]) {
-+			pr_err("pwm probe failed: can't read pwm base address for resource %d.\n",
-+			       res_cnt);
-+			return -ENOMEM;
-+		}
-+
-+		mutex_init(&data->npcm7xx_pwm_lock[res_cnt]);
-+	}
-+
-+	clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(clk))
-+		return -ENODEV;
-+
-+	data->clk_freq = clk_get_rate(clk);
-+
-+	/* Adjust NPCM7xx PWMs output frequency to ~25Khz */
-+	output_freq = data->clk_freq / PWN_CNT_DEFAULT;
-+	Prescale_val = DIV_ROUND_CLOSEST(output_freq, PWM_OUTPUT_FREQ_25KHZ);
-+
-+	/* If Prescale_val = 0, then the prescale output clock is stopped */
-+	if (Prescale_val < MIN_PRESCALE1)
-+		Prescale_val = MIN_PRESCALE1;
-+	/*
-+	 * Prescale_val need to decrement in one because in the PWM Prescale
-+	 * register the Prescale value increment by one
-+	 */
-+	Prescale_val--;
-+
-+	/* Setting PWM Prescale Register value register to both modules */
-+	Prescale_val |= (Prescale_val << NPCM7XX_PWM_PRESCALE_SHIFT_CH01);
-+
-+	for (m = 0; m < NPCM7XX_PWM_MAX_MODULES  ; m++) {
-+		iowrite32(Prescale_val,
-+			  data->pwm_base[m] + NPCM7XX_PWM_REG_PR);
-+		iowrite32(NPCM7XX_PWM_PRESCALE2_DEFALUT,
-+			  data->pwm_base[m] + NPCM7XX_PWM_REG_CSR);
-+		iowrite32(NPCM7XX_PWM_CTRL_MODE_DEFALUT,
-+			  data->pwm_base[m] + NPCM7XX_PWM_REG_CR);
-+
-+		for (ch = 0; ch < NPCM7XX_PWM_MAX_CHN_NUM; ch++) {
-+			iowrite32(NPCM7XX_PWM_COUNTER_DEFALUT_NUM,
-+				  data->pwm_base[m] + NPCM7XX_PWM_REG_CNRx(ch));
-+			iowrite32(NPCM7XX_PWM_COMPARATOR_DEFALUT_NUM,
-+				  data->pwm_base[m] + NPCM7XX_PWM_REG_CMRx(ch));
-+		}
-+
-+		iowrite32(NPCM7XX_PWM_CTRL_MODE_DEFALUT |
-+			  NPCM7XX_PWM_CTRL_EN_DEFALUT,
-+			  data->pwm_base[m] + NPCM7XX_PWM_REG_CR);
-+	}
-+
-+	hwmon = devm_hwmon_device_register_with_info(dev, "npcm7xx_pwm", data,
-+						     &npcm7xx_chip_info, NULL);
-+
-+	if (IS_ERR(hwmon)) {
-+		pr_err("PWM Driver failed - devm_hwmon_device_register_with_groups failed\n");
-+		return PTR_ERR(hwmon);
-+	}
-+
-+	pr_info("NPCM7XX PWM Driver probed, PWM output Freq %dHz\n",
-+		output_freq / ((Prescale_val & 0xf) + 1));
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id of_pwm_match_table[] = {
-+	{ .compatible = "nuvoton,npcm750-pwm", },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, of_pwm_match_table);
-+
-+static struct platform_driver npcm7xx_pwm_driver = {
-+	.probe		= npcm7xx_pwm_probe,
-+	.driver		= {
-+		.name	= "npcm7xx_pwm",
-+		.of_match_table = of_pwm_match_table,
-+	},
-+};
-+
-+module_platform_driver(npcm7xx_pwm_driver);
-+
-+MODULE_DESCRIPTION("Nuvoton NPCM7XX PWM Driver");
-+MODULE_AUTHOR("Tomer Maimon <tomer.maimon@nuvoton.com>");
-+MODULE_LICENSE("GPL v2");
--- 
-2.14.1
+Looks like the obmc.inventory can be removed, but has some other =
+problems on Witherspoon.
+After removed this commit, the org.openbmc.managers.System.service start =
+working good.
+But I am not sure if this is  a correct way to fix it.
+
+Thanks.
+
+> On May 28, 2018, at 20:19, George Keishing <gkeishin@in.ibm.com> =
+wrote:
+>=20
+> Brad,
+>=20
+> Not sure if this would help. Probably previous build left over, try =
+this
+>=20
+> Login to BMC =20
+>=20
+> cd /var/lib/
+>=20
+> root@witherspoon:/var/lib# ls
+> dropbear                    obmc                        =
+phosphor-inventory-manager  phosphor-settings-manager   =
+phosphor-state-manager
+> machines                    phosphor-debug-collector    =
+phosphor-logging            phosphor-software-manager   systemd
+> root@witherspoon:/var/lib#
+>=20
+> root@witherspoon:/var/lib# rm -rf phosphor-inventory-manager =
+phosphor-settings-manager phosphor-state-manager
+>=20
+> Reboot BMC=20
+>=20
+>=20
+> Thanks and Regards,
+>    George Keishing
+>    IBM Systems &Technology Lab, Firmware Development,
+> =E2=80=9CThere isn't enough time in a day to be lazy!!! .=E2=80=9D
+> <Mail Attachment.jpeg>
+>=20
+>=20
+>=20
+>=20
+> From:        Brad Chou <chou.brad@gmail.com>
+> To:        openbmc@lists.ozlabs.org
+> Date:        05/28/2018 03:34 PM
+> Subject:        Fail to start org.openbmc.managers.System.service
+> Sent by:        "openbmc" =
+<openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org>
+>=20
+>=20
+>=20
+> Hi all,
+> I have s problem while start the org.openbmc.managers.System.service
+> The log says it fail to import obmc.inventory
+> Then every other service that required =
+org.openbmc.managers.System.service just forced to be stoped.
+> Can anyone tell me what the obmc.inventory is ?
+> How can I fix this problem ?
+> Thanks.
+>=20
+> May 25 11:20:58 system_manager.py[1015]: Traceback (most recent call =
+last):
+> May 25 11:20:58 system_manager.py[1015]:   File =
+"/usr/sbin/system_manager.py", line 15, in <module>
+> May 25 11:20:58 system_manager.py[1015]:     import obmc.inventory
+> May 25 11:20:58 system_manager.py[1015]: ImportError: No module named =
+inventory
+> May 25 11:20:59 systemd[1]: org.openbmc.managers.System.service: Main =
+process exited, code=3Dexited, status=3D1/FAILURE
+> May 25 11:20:59 systemd[1]: Failed to start Phoshpor System Manager.
+> May 25 11:20:59 systemd[1]: org.openbmc.managers.System.service: Unit =
+entered failed state.
+> May 25 11:20:59 systemd[1]: org.openbmc.managers.System.service: =
+Failed with result 'exit-code'.
+>=20
+>=20
+>=20
+
+
+--Apple-Mail=_63930555-0095-4AF5-A492-812E317829F9
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D"">Hi =
+George,<div class=3D"">I have tried your suggestion, but the problem =
+doesn=E2=80=99t fix.</div><div class=3D"">And just noticed a commit =
+here:</div><div class=3D""><a =
+href=3D"https://github.com/openbmc/skeleton/commit/f6e918e4e05e94d0eaafa97=
+c6c31d47ae5b1bf49#diff-b07a6297d344f5bbff9249965d0e8e3c" =
+class=3D"">https://github.com/openbmc/skeleton/commit/f6e918e4e05e94d0eaaf=
+a97c6c31d47ae5b1bf49#diff-b07a6297d344f5bbff9249965d0e8e3c</a></div><div =
+class=3D""><a =
+href=3D"https://gerrit.openbmc-project.xyz/#/c/9737/3/pysystemmgr/system_m=
+anager.py" =
+class=3D"">https://gerrit.openbmc-project.xyz/#/c/9737/3/pysystemmgr/syste=
+m_manager.py</a></div><div class=3D""><br class=3D""></div><div =
+class=3D"">Looks like the obmc.inventory can be removed, but has some =
+other problems on Witherspoon.</div><div class=3D"">After removed this =
+commit, the&nbsp;org.openbmc.managers.System.service start working =
+good.</div><div class=3D"">But I am not sure if this is &nbsp;a correct =
+way to fix it.</div><div class=3D""><br class=3D""></div><div =
+class=3D"">Thanks.<br class=3D""><div><br class=3D""><blockquote =
+type=3D"cite" class=3D""><div class=3D"">On May 28, 2018, at 20:19, =
+George Keishing &lt;<a href=3D"mailto:gkeishin@in.ibm.com" =
+class=3D"">gkeishin@in.ibm.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><span style=3D" =
+font-size:10pt;font-family:sans-serif" class=3D"">Brad,</span><br =
+class=3D""><br class=3D""><span style=3D" =
+font-size:10pt;font-family:sans-serif" class=3D"">Not sure if this
+would help. Probably previous build left over, try this</span><br =
+class=3D""><br class=3D""><span style=3D" =
+font-size:10pt;font-family:sans-serif" class=3D"">Login to BMC =
+&nbsp;</span><br class=3D""><br class=3D""><span style=3D" =
+font-size:10pt;font-family:sans-serif" class=3D"">cd /var/lib/</span><br =
+class=3D""><br class=3D""><span style=3D" =
+font-size:10pt;font-family:sans-serif" =
+class=3D"">root@witherspoon:/var/lib#
+ls</span><br class=3D""><span style=3D" =
+font-size:10pt;font-family:sans-serif" class=3D"">dropbear &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;obmc =
+&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp;phosphor-inventory-manager
+&nbsp;phosphor-settings-manager &nbsp; phosphor-state-manager</span><br =
+class=3D""><span style=3D" font-size:10pt;font-family:sans-serif" =
+class=3D"">machines &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp;phosphor-debug-collector
+&nbsp; &nbsp;phosphor-logging &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp;phosphor-software-manager
+&nbsp; systemd</span><br class=3D""><span style=3D" =
+font-size:10pt;font-family:sans-serif" =
+class=3D"">root@witherspoon:/var/lib#</span><br class=3D""><br =
+class=3D""><span style=3D" font-size:10pt;font-family:sans-serif" =
+class=3D"">root@witherspoon:/var/lib#
+rm -rf phosphor-inventory-manager phosphor-settings-manager =
+phosphor-state-manager</span><br class=3D""><br class=3D""><span style=3D"=
+ font-size:10pt;font-family:sans-serif" class=3D"">Reboot BMC </span><br =
+class=3D""><br class=3D""><br class=3D""><span style=3D" =
+font-size:10pt;color:blue;font-family:sans-serif" class=3D""><b =
+class=3D"">Thanks
+and Regards,</b></span><br class=3D""><span style=3D" =
+font-size:10pt;color:blue;font-family:sans-serif" class=3D"">&nbsp;
+&nbsp;George Keishing</span><br class=3D""><span style=3D" =
+font-size:10pt;color:blue;font-family:sans-serif" class=3D"">&nbsp;
+&nbsp;IBM Systems &amp;Technology Lab, Firmware Development,</span><br =
+class=3D""><span style=3D" font-size:10pt;font-family:sans-serif" =
+class=3D""><i class=3D"">=E2=80=9C</i></span><span style=3D" =
+font-size:12pt" class=3D"">There isn't enough time in a day to be =
+lazy!!! </span><span style=3D" font-size:9pt;font-family:sans-serif" =
+class=3D"">.=E2=80=9D</span><br class=3D""><span =
+id=3D"cid:_2_0AF7F53C0AF7F2D00043788C6525829B">&lt;Mail =
+Attachment.jpeg&gt;</span><br class=3D""><br class=3D""><br class=3D""><br=
+ class=3D""><br class=3D""><span style=3D" =
+font-size:9pt;color:#5f5f5f;font-family:sans-serif" class=3D"">From:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" =
+font-size:9pt;font-family:sans-serif" class=3D"">Brad
+Chou &lt;<a href=3D"mailto:chou.brad@gmail.com" =
+class=3D"">chou.brad@gmail.com</a>&gt;</span><br class=3D""><span =
+style=3D" font-size:9pt;color:#5f5f5f;font-family:sans-serif" =
+class=3D"">To:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" =
+font-size:9pt;font-family:sans-serif" class=3D""><a =
+href=3D"mailto:openbmc@lists.ozlabs.org" =
+class=3D"">openbmc@lists.ozlabs.org</a></span><br class=3D""><span =
+style=3D" font-size:9pt;color:#5f5f5f;font-family:sans-serif" =
+class=3D"">Date:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" =
+font-size:9pt;font-family:sans-serif" class=3D"">05/28/2018
+03:34 PM</span><br class=3D""><span style=3D" =
+font-size:9pt;color:#5f5f5f;font-family:sans-serif" class=3D"">Subject:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" =
+font-size:9pt;font-family:sans-serif" class=3D"">Fail
+to start org.openbmc.managers.System.service</span><br class=3D""><span =
+style=3D" font-size:9pt;color:#5f5f5f;font-family:sans-serif" =
+class=3D"">Sent
+by: &nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" =
+font-size:9pt;font-family:sans-serif" class=3D"">"openbmc"
+&lt;<a =
+href=3D"mailto:openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org" =
+class=3D"">openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org</a>&gt;<=
+/span><br class=3D""><hr noshade=3D"" class=3D""><br class=3D""><br =
+class=3D""><br class=3D""><tt class=3D""><span style=3D" font-size:10pt" =
+class=3D"">Hi all,<br class=3D"">I have s problem while start the =
+org.openbmc.managers.System.service<br class=3D"">The log says it fail =
+to import obmc.inventory<br class=3D"">Then every other service that =
+required org.openbmc.managers.System.service
+just forced to be stoped.<br class=3D"">Can anyone tell me what the =
+obmc.inventory is ?<br class=3D"">How can I fix this problem ?<br =
+class=3D"">Thanks.<br class=3D""><br class=3D"">May 25 11:20:58 =
+system_manager.py[1015]: Traceback (most recent call last):<br =
+class=3D"">May 25 11:20:58 system_manager.py[1015]: &nbsp; File =
+"/usr/sbin/system_manager.py",
+line 15, in &lt;module&gt;<br class=3D"">May 25 11:20:58 =
+system_manager.py[1015]: &nbsp; &nbsp; import obmc.inventory<br =
+class=3D"">May 25 11:20:58 system_manager.py[1015]: ImportError: No =
+module named inventory<br class=3D"">May 25 11:20:59 systemd[1]: =
+org.openbmc.managers.System.service: Main process
+exited, code=3Dexited, status=3D1/FAILURE<br class=3D"">May 25 11:20:59 =
+systemd[1]: Failed to start Phoshpor System Manager.<br class=3D"">May =
+25 11:20:59 systemd[1]: org.openbmc.managers.System.service: Unit =
+entered
+failed state.<br class=3D"">May 25 11:20:59 systemd[1]: =
+org.openbmc.managers.System.service: Failed
+with result 'exit-code'.<br class=3D""></span></tt><br class=3D""><br =
+class=3D""><br class=3D"">
+</div></blockquote></div><br class=3D""></div></body></html>=
+
+--Apple-Mail=_63930555-0095-4AF5-A492-812E317829F9--
