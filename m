@@ -1,62 +1,67 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
- envelope-from=raj.khem@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QPzwLlQN"; 
- dkim-atps=neutral
-Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
- [IPv6:2607:f8b0:400d:c0d::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jjl7IHF/"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="RgOCmcU3"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wStc1pcbzDr4N
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 08:23:51 +1000 (AEST)
-Received: by mail-qt0-x242.google.com with SMTP id h5-v6so12797675qtm.13
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 15:23:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dtv4hr3G0QP+HGzY5uiqXSDt6vu5hrBpzlv6yHTrw0k=;
- b=QPzwLlQNf16itOtAfN1TEjB6kmqqCyanown1bgInALjv4E969gMp6xr2I78cmPvmRq
- q1iyGy6APE6Sss6kHMdqV/ogXmP6P0zpGJUb38unt0m8jgsWuAWE+gGc8tl9t75CqR01
- FpuVvkDmf00ozRJHEEpE9e5WZ+ldvn88UoR6MgI/wEPdByzUb/HRu+FxkTF+VqHrmx+W
- kY2TeyckODkbrP4EuH8hUW/ddKsiE+3pcN+vJrkerrYjIvP89xjGVI5eiMcqqKGEPLQb
- MaVPsy9+XuQI6mWhc9NPjiWpoVK75zgfWu5C+IM33Zf1PYLpSd+fZVoYGTGf5tzLliDB
- YPiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=dtv4hr3G0QP+HGzY5uiqXSDt6vu5hrBpzlv6yHTrw0k=;
- b=RXShewtVnv2riafBBiUP0XN7Kv6fl9Mzo4HlVbdR39Bu74+N8ri54p1/9AT+BldJSw
- NDtCpB42gYl4Orh5+AGlIDcGYHuM7QlaD0jzKNo3SYGv62fXTIKQRAlRLtZLBrqgFrKx
- 1Z22ysKBjJDAsjgAWwQQ4vTCnToZ0nY8vIOmIYQpnfIbS1/122WqkGmmthLuDU0ZCXre
- oJrRByTpKcsBRm8HyCjEU7J+FgBOGGkE+wJo4rfjdup7FNSgAAhsuqLgpuPNgtaCgnfX
- OdYVWoAAbPhXGNJ2B/lrOCY7e554YFQ/wrd9aYLh8AF3LGYOCGbVGXyHoGhurtjPJRKk
- nHAg==
-X-Gm-Message-State: APt69E0deIKtpjpnM26fI67XLelHCy9ZmbLJ/cjTFUnnFmjHWeX3nQNt
- 2sYUN+7uAkNsduxx4NNNv7QwYaPSxYkY9mj4HfM=
-X-Google-Smtp-Source: ADUXVKII3/T+3YeAODeRfkEJkLtNChj3oPsGieI//C5qsDS/ccU9G/qjXHCf+q5UjpeMKtwtwqcVwC4A4rvkHTY09AI=
-X-Received: by 2002:ac8:26ea:: with SMTP id 39-v6mr287870qtp.128.1527632629354; 
- Tue, 29 May 2018 15:23:49 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wWtJ1pdRzDr30
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 10:38:47 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9F58A21BAB
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 20:38:45 -0400 (EDT)
+Received: from web4 ([10.202.2.214])
+ by compute4.internal (MEProxy); Tue, 29 May 2018 20:38:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=uHnVY1lhqMQ/U4DbRUkX0ZsXqU0Pc
+ HwkOmRQnL7G/bM=; b=jjl7IHF/kaMHuAyeD2QWWb1hfQ3FZ98EuH58vvCDpWcbs
+ mP/WXwJIyYKedN1eySoKSYA0tQTZV+UQ4RrWcfGK7vs9pYMXlCSmTqCzxiioxiAb
+ bI7dXnEobEhxDjNEnNfHD03r/vx+Tt8k1de8xySrSz1p+7c3iFgC464P3gIciP23
+ /WRlW1sme1irsvislGYFIgL4A0w2wNYjEHpl4jGkPk4Wf1r08rbiLW4/CW3+ygWK
+ c1AaY++29L/zfOhrXe8MPpI6jZB1qh3m7kUKrE+Fki4fEDQF6s26KxfsqXm7DEIH
+ 6PWZbWsKhmnTvG4Vks32mNtGG7EUl5w6tWf12LABA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=uHnVY1
+ lhqMQ/U4DbRUkX0ZsXqU0PcHwkOmRQnL7G/bM=; b=RgOCmcU3eu6TQIdCgJVRTR
+ 1/EIFc4r42tH2ORCP7Z1KRxl2i7yTJOYOr8tIZNu3edO6ThPxTL4j5w1nq2hKLiT
+ 37kuOekHLaXdaYnHc2gAUUp/OhUdjJ202KJuy06+2dT6Kj1p0Rz6tqYgEUbFKmSk
+ f2iIEGfXICPZMwsmlvThH6/8Bk59fFuMgXTBK8r06sVVyhd1kYisTWl2CnMrf1Rd
+ IazqvAiP8BgCFWfGDsgLOpOzXMBlhER2n0FrCckJF6cY2A4ErJrkKxyN+VhZavq8
+ +Os0iUrJCR7zB1DIyDu5epWOHWkbPR9k1JFtqfjChJLv3aemF0Te5ufS1HxfdNPw
+ ==
+X-ME-Proxy: <xmx:lfINW_dkPM6OzWbRgsZUDg3KOwClI016G-VCBny06NIeMeTJY-54Mg>
+X-ME-Proxy: <xmx:lfINW-JFhUeGt0PJ4rxNReTPgmyJtpWNdt8aF5vplOKsxq9gFRMN3g>
+X-ME-Proxy: <xmx:lfINW107mDrbCtvevk2VZa13WrRNDNJvCgoLvvt2UZUAPdFfi6rCsg>
+X-ME-Proxy: <xmx:lfINW0qHgAZgXA4sQBPXfzgHFwlIk4Jrc2c3AbyDfvH5fMY1HYJIQg>
+X-ME-Proxy: <xmx:lfINW9rSJVqO5Dl5oku34brPcJ0xUEv0ubvApEfhbltWjIkI_iGb-g>
+X-ME-Proxy: <xmx:lfINW9iKwdfzqcqko3beytkC5D5r2UgDNXNzCRHdkPzeWs9c94gqOw>
+X-ME-Sender: <xms:lfINW0dE4SZb4wGWogz2lWc8wRk-HM950Ae8B2KNVnsLhLI1JRBWig>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 428E5BA780; Tue, 29 May 2018 20:38:45 -0400 (EDT)
+Message-Id: <1527640725.1548539.1389826896.64777E84@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-References: <20180510063718.16913-1-andrew@aj.id.au>
- <1527594494.687641.1388974752.4113AC8F@webmail.messagingengine.com>
- <CAMKF1sp+qOKAhA3K1OqLuPBwY3w2xNFkzSnoUsEY9okKxT45ow@mail.gmail.com>
- <1527631428.3392595.1389703584.53FF3C93@webmail.messagingengine.com>
-In-Reply-To: <1527631428.3392595.1389703584.53FF3C93@webmail.messagingengine.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 29 May 2018 15:23:37 -0700
-Message-ID: <CAMKF1srL5ovf3FfNsk-S83djSY63gG4UyBmqGohvgEfJsW4qGA@mail.gmail.com>
-Subject: Re: [oe] [meta-python][PATCH v2 1/3] meta-python: Add python-pyflame
- recipe
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: openbmc@lists.ozlabs.org, 
- openembeded-devel <openembedded-devel@lists.openembedded.org>
-Content-Type: multipart/alternative; boundary="0000000000003854a6056d5fb088"
-X-Mailman-Approved-At: Wed, 30 May 2018 09:05:36 +1000
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-397f98d6
+References: <CACPK8Xc_gTiJaCUzDiG6aNOu7rF6gU3e_oc-bd19bOswju7yTw@mail.gmail.com>
+In-Reply-To: <CACPK8Xc_gTiJaCUzDiG6aNOu7rF6gU3e_oc-bd19bOswju7yTw@mail.gmail.com>
+Date: Wed, 30 May 2018 10:08:45 +0930
+Subject: Re: Gerrit +1 policy
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,86 +73,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 22:23:53 -0000
+X-List-Received-Date: Wed, 30 May 2018 00:38:49 -0000
 
---0000000000003854a6056d5fb088
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 29, 2018 at 3:03 PM Andrew Jeffery <andrew@aj.id.au> wrote:
 
->
->
-> On Wed, 30 May 2018, at 02:34, Khem Raj wrote:
-> > On Tue, May 29, 2018 at 4:48 AM, Andrew Jeffery <andrew@aj.id.au> wrote=
-:
-> > > On Thu, 10 May 2018, at 16:07, Andrew Jeffery wrote:
-> > >> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > >
-> > > Ping - is there anything I need to revise for this patch or the
-> following two?
-> > >
-> >
-> > There was a review comment for you to adress, see
-> >
-> > https://patchwork.openembedded.org/patch/150467/
-> >
-> > if you have addressed that please send a v3 for whole series.
->
-> That comment is on v1 of the series. This is v2, and I have reworked the
-> recipe to simply clone the git repo instead of grab the tarball to avoid
-> the issue that was pointed out.
->
+On Tue, 29 May 2018, at 22:23, Joel Stanley wrote:
+> I get frustrated by Gerrit removing +1s from patches when I make a
+> small change to the commit message.
+> 
+> This is a configurable option in Gerrit:
+> 
+> https://gerrit-review.googlesource.com/Documentation/config-labels.html#label_copyAllScoresIfNoCodeChange
+> 
+> I would like to propose we change this setting to true.
+> 
+> The downside is someone could radically change the content of their
+> commit message that you've +1'd. However the maintainer still gets a
+> chance to pull someone up on this if they think someone has pulled a
+> swift one.
+> 
+> If there are some repositories that would like to maintain the status
+> quo, this could be done at the top level, so that all repositories
+> inherit the new default, but would allow for individual projects to
+> override the setting if they desired.
+> 
+> Cheers,
+> 
+> Joel
 
-Ok thanks I think the v2 seems to be missing in patchwork that=E2=80=99s th=
-e reason
-it will go missed i wonder if you resend than patchwork will catch it
+Jumping on the bandwagon here: +1 from me!
 
->
-> Thanks,
->
-> Andrew
->
-
---0000000000003854a6056d5fb088
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div><br><div class=3D"gmail_quote"><div dir=3D"auto">On Tue, May 29, 2018 =
-at 3:03 PM Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au">andrew@aj.=
-id.au</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
-<br>
-On Wed, 30 May 2018, at 02:34, Khem Raj wrote:<br>
-&gt; On Tue, May 29, 2018 at 4:48 AM, Andrew Jeffery &lt;<a href=3D"mailto:=
-andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; wrote:<br>
-&gt; &gt; On Thu, 10 May 2018, at 16:07, Andrew Jeffery wrote:<br>
-&gt; &gt;&gt; Signed-off-by: Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj=
-.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Ping - is there anything I need to revise for this patch or the f=
-ollowing two?<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; There was a review comment for you to adress, see<br>
-&gt; <br>
-&gt; <a href=3D"https://patchwork.openembedded.org/patch/150467/" rel=3D"no=
-referrer" target=3D"_blank">https://patchwork.openembedded.org/patch/150467=
-/</a><br>
-&gt; <br>
-&gt; if you have addressed that please send a v3 for whole series.<br>
-<br>
-That comment is on v1 of the series. This is v2, and I have reworked the re=
-cipe to simply clone the git repo instead of grab the tarball to avoid the =
-issue that was pointed out.<br>
-</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto">Ok thanks I thin=
-k the v2 seems to be missing in patchwork that=E2=80=99s the reason it will=
- go missed i wonder if you resend than patchwork will catch it</div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex"><br>
-Thanks,<br>
-<br>
-Andrew<br>
-</blockquote></div></div>
-
---0000000000003854a6056d5fb088--
+Andrew
