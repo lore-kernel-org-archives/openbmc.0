@@ -1,62 +1,54 @@
 Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::235; helo=mail-qt0-x235.google.com;
+ (client-ip=2607:f8b0:400d:c0d::230; helo=mail-qt0-x230.google.com;
  envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="jqCnw0Ad"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="JDhkFeZF"; 
  dkim-atps=neutral
-Received: from mail-qt0-x235.google.com (mail-qt0-x235.google.com
- [IPv6:2607:f8b0:400d:c0d::235])
+Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
+ [IPv6:2607:f8b0:400d:c0d::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wgBg6npnzDr5J
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 16:08:26 +1000 (AEST)
-Received: by mail-qt0-x235.google.com with SMTP id e8-v6so21872091qth.0
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 23:08:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wjvK0bBxzDr5J
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 18:10:20 +1000 (AEST)
+Received: by mail-qt0-x230.google.com with SMTP id f1-v6so22163033qtj.6
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 01:10:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Pk3LKXqOKL2R92PV+CIesVODwtPKqhz9RP3KYuB0gN8=;
- b=jqCnw0AdTyJcuEFWThHfWULfgfnftk/8DHe9sRfxym9fsn4Esp0pSrb52dObFmcP+f
- gs0aPEYTxVYWyG+6oj00gQA4M4BDEIE4HQr3KBdiQWFfp8YOfF3+qCY5sQhkPJ3Kh0W2
- Xs58ngy8zERbYilkHM+WNXqJ1DyulThPQwSpb+6CpPXlFzuCKts6h2MOeeVCWuXaqcpM
- BhHfLXam1MPWtmlOTYsNhKtARelHBHykgAI+ZYGpPH07M4K7RY5avX6LJL/ZyeNkCHGH
- YaQSsfGQTglyg+C/wNRFOS2hmsHNrezx2vb/4uNt1vQ+VjPJjbV+8R1AyB4UIfHbvoVz
- C0zQ==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=GfwXe+Yq7R7SFCnSk+QELsD3KRwCH2jD48KdHP+eBpg=;
+ b=JDhkFeZFp8Q0vigYE2mhgNBZgG4PXNYYzkrJpHDl6VXuswYfpIspBt6wA3WEDhSq7C
+ F/y6hKBXEmzqEq0NWFtLANk6dIA2a7MOqc//woexWJF/c6RMgKxnIdyfQxyoofqdgbeW
+ MMNf99Ug0f2qfrlgK6BOg8LMjZLLz9hslB4VyvDAvly0LcCOQ1Ntts1QjLP2fWwuvPoo
+ Ak6yB/3S8IS5Rwfl1Xzf5VkngvX8A0MIR/rmYMWcCtdjwtFtmXS5lGe1cJ+MQBta/3h2
+ DZZQpAo4MG4QJ3levUQVPkJ39tc+XrHxqaLbLF6All4IrSp/s1FlWDY7bQHyXfV7q4Jj
+ 8Wpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=Pk3LKXqOKL2R92PV+CIesVODwtPKqhz9RP3KYuB0gN8=;
- b=adwMYmQBc//z47Zbnfgd+5dLrS5ci/23LRqx2G0UoelfAUOxcJS/xKLKLWp9OV0VmR
- oMamxA++y4S6x7h/vGDK9KVvSOIE67V4QGQfvVpiDD+LV3cuz14fuB4Q97e1u5Q6AmCb
- zL771B4oBoFwbSiCA5Nn7hW3hLZ/G/UVaCreRRNLVzns4/Otou2DNVLLETcUwVZimJYG
- 4mNJGDvUblZfZl1fK6ybW5pwwsvMf/W3XQdrWftaso7Hl2777cRvC2W3X0uy92YOA2pH
- TWtcttpXueH8qsS18wLAzOOZIb+M4UqZ95meP2lxWicp/YtWsHw3Q7qZLjSshJo0GAXe
- 18Mg==
-X-Gm-Message-State: APt69E1thSWT2p8k9VhGgUENlyk1f1wvRvkhElc5wRRKiJMPONYWsEiu
- hRJGZieUDZX9cF8OEgD69/m3xLkxLltUlxD034Bbcg==
-X-Google-Smtp-Source: ADUXVKLnMcig/lFX+9drOxszaAm4m7c8BBatE3DZAVGLVAZUadRpNUNkI+ALYO4dPti9qKTSFcZTxg+6gMTT8FULInU=
-X-Received: by 2002:aed:2413:: with SMTP id
- r19-v6mr1284751qtc.110.1527660503506; 
- Tue, 29 May 2018 23:08:23 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=GfwXe+Yq7R7SFCnSk+QELsD3KRwCH2jD48KdHP+eBpg=;
+ b=sm+pnNobi3IHyc3OZz++vgaR69+LYTY4/rKHIxgbienGw6ahNP0bGHU9kGcLNoKSPM
+ 2XYh7biK5TtWlAdDOtkizHkQzMassamsXu6dQmzmtJCQWeQ1oKnhYQy2CYfp9wz/T7Hs
+ GUIc1mDSFsi2SGZHSyU/Fcy+C8W7Pq15dq1SaHJsNTNcKhjl4l5L0c320vxmpSiWxDh1
+ NXIjyAY6qbC1i45bYS+x6uj6REaezniQERwgEwGSkMlhUo65PvpGN8VlSaZo3jUy5B2b
+ r4txyoNW9C+Np47y+ZZ4ijkm7EL7LD3LWwxxnaOQGwJl1r7csKDRIICLt5WyD8SYgyPU
+ loUA==
+X-Gm-Message-State: APt69E2iFMNh2wi3fBOI2c4GoHVcJ7PepdMJz4/zJEx9ZyNKLvbvJktG
+ dFu4qa7AYKvwg+N16Asm9W5lw+GJYyqFIaHRGUMIoQ==
+X-Google-Smtp-Source: ADUXVKLX5Y5EMasSiuK1BorEYozYyTldOBKC/asbubBvoxXA6knG9dFmkt20ha4fiuPDURp2Ldtx9iZeDNtQ4kXmKfg=
+X-Received: by 2002:a0c:87c1:: with SMTP id 1-v6mr1509776qvk.141.1527667817967; 
+ Wed, 30 May 2018 01:10:17 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:aed:2d65:0:0:0:0:0 with HTTP; Tue, 29 May 2018 23:08:22
+Received: by 2002:ac8:7355:0:0:0:0:0 with HTTP; Wed, 30 May 2018 01:10:17
  -0700 (PDT)
-In-Reply-To: <CAARXrt=7NO+qyMTX7w=bKT4sKUFyFeD+fAQ3Aa3N-bddDHsOgQ@mail.gmail.com>
-References: <CAG9c7cCVmjbxMLFie0_bHtU60amR1S2aoygHgT7bV9rWRdEXTA@mail.gmail.com>
- <CAARXrt=5dFZwqeW4+sradJYwYaaFr4-rQbVP-MhQf=j6LQCQuA@mail.gmail.com>
- <CAG9c7cDZpOFbuwXXDQKTJ0cVE54ihxH_tezcssngF+jpwnyMvg@mail.gmail.com>
- <CAARXrt=7NO+qyMTX7w=bKT4sKUFyFeD+fAQ3Aa3N-bddDHsOgQ@mail.gmail.com>
 From: Henbin Chang <henbinchang@gmail.com>
-Date: Wed, 30 May 2018 14:08:22 +0800
-Message-ID: <CAG9c7cDAHUjsU0FWBxr3JRRz4JKsXiTLri6evn9ciBZJWHxS7w@mail.gmail.com>
-Subject: Re: Fail to start org.openbmc.managers.System.service
-To: Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000a62284056d662dbb"
+Date: Wed, 30 May 2018 16:10:17 +0800
+Message-ID: <CAG9c7cB8S=VL6g2Z6dXmC55P-3CW+p+wURH=Qgy-sZXL6b9deA@mail.gmail.com>
+Subject: Unable to find mtd partition for image-bmc
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000009ff39f056d67e176"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,65 +60,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 06:08:28 -0000
+X-List-Received-Date: Wed, 30 May 2018 08:10:21 -0000
 
---000000000000a62284056d662dbb
+--0000000000009ff39f056d67e176
 Content-Type: text/plain; charset="UTF-8"
 
->
-> The "_append_df-openpower" means this is valid only when openpower
-> distro feature is enabled.
-> You are on x86 build so there is not openpower distro feature, so you
-> still do not get this recipe.
-> You can remove "_append_df-openpower" and it should work.
+Hi,
+I followed the instructions described in the the below doc to update
+OpenBMC FW via REST.
 
+https://github.com/openbmc/docs/blob/master/code-update/code-update.md
 
-It did work.
+And I got the below error message.
 
-Thanks for your help.
+{
+  "data": "Verify error: update: --no-flash --ignore-mount --no-save-files
+--no-restore-files --no-clean-saved-files\nERROR: Unable to find mtd
+partition for image-bmc.\n\n",
+  "message": "200 OK",
+  "status": "ok"
+}
 
---000000000000a62284056d662dbb
+Does anyone have the suggestion?
+
+Thanks.
+
+--0000000000009ff39f056d67e176
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">
+<div dir=3D"ltr"><div>Hi,</div><div>I followed the instructions described i=
+n the the below doc to update OpenBMC FW via REST.=C2=A0</div><div><span st=
+yle=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:small;fon=
+t-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-=
+weight:400;letter-spacing:normal;text-align:start;text-indent:0px;text-tran=
+sform:none;white-space:normal;word-spacing:0px;background-color:rgb(255,255=
+,255);text-decoration-style:initial;text-decoration-color:initial;float:non=
+e;display:inline"><br></span></div><div>
 
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex"><span style=3D"color:rgb(=
-34,34,34);font-family:arial,sans-serif;font-size:14px;font-style:normal;fon=
-t-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-=
-spacing:normal;text-align:start;text-indent:0px;text-transform:none;white-s=
-pace:normal;word-spacing:0px;background-color:rgb(255,255,255);text-decorat=
-ion-style:initial;text-decoration-color:initial;float:none;display:inline">=
-The &quot;_append_df-openpower&quot; means this is valid only when openpowe=
-r<br></span><span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif=
-;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-varian=
-t-caps:normal;font-weight:400;letter-spacing:normal;text-align:start;text-i=
-ndent:0px;text-transform:none;white-space:normal;word-spacing:0px;backgroun=
-d-color:rgb(255,255,255);text-decoration-style:initial;text-decoration-colo=
-r:initial;float:none;display:inline">distro feature is enabled.<br></span><=
-span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:14=
-px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal=
-;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0px;tex=
-t-transform:none;white-space:normal;word-spacing:0px;background-color:rgb(2=
-55,255,255);text-decoration-style:initial;text-decoration-color:initial;flo=
-at:none;display:inline">You are on x86 build so there is not openpower dist=
-ro feature, so you<br></span><span style=3D"color:rgb(34,34,34);font-family=
-:arial,sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:n=
-ormal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;text-a=
-lign:start;text-indent:0px;text-transform:none;white-space:normal;word-spac=
-ing:0px;background-color:rgb(255,255,255);text-decoration-style:initial;tex=
-t-decoration-color:initial;float:none;display:inline">still do not get this=
- recipe.<br></span><span style=3D"color:rgb(34,34,34);font-family:arial,san=
-s-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font=
--variant-caps:normal;font-weight:400;letter-spacing:normal;text-align:start=
-;text-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;ba=
-ckground-color:rgb(255,255,255);text-decoration-style:initial;text-decorati=
-on-color:initial;float:none;display:inline">You can remove &quot;_append_df=
--openpower&quot; and it should work.</span>
+<span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:s=
+mall;font-style:normal;font-variant-ligatures:normal;font-variant-caps:norm=
+al;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0px;t=
+ext-transform:none;white-space:normal;word-spacing:0px;background-color:rgb=
+(255,255,255);text-decoration-style:initial;text-decoration-color:initial;f=
+loat:none;display:inline"><a href=3D"https://github.com/openbmc/docs/blob/m=
+aster/code-update/code-update.md">https://github.com/openbmc/docs/blob/mast=
+er/code-update/code-update.md</a></span>
 
-</blockquote><div class=3D"gmail_extra"><div class=3D"gmail_quote"><br></di=
-v><div class=3D"gmail_quote">It did work.</div><div class=3D"gmail_quote"><=
-br></div><div class=3D"gmail_quote">Thanks for your help.</div></div></div>
+<br></div><div><br></div><div>And I got the below error message.</div><div>=
+<br></div><div>{</div><div>=C2=A0 &quot;data&quot;: &quot;Verify error: upd=
+ate: --no-flash --ignore-mount --no-save-files --no-restore-files --no-clea=
+n-saved-files\nERROR: Unable to find mtd partition for image-bmc.\n\n&quot;=
+,</div><div>=C2=A0 &quot;message&quot;: &quot;200 OK&quot;,</div><div>=C2=
+=A0 &quot;status&quot;: &quot;ok&quot;</div><div>}</div><div><br></div><div=
+><span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:=
+small;font-style:normal;font-variant-ligatures:normal;font-variant-caps:nor=
+mal;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0px;=
+text-transform:none;white-space:normal;word-spacing:0px;background-color:rg=
+b(255,255,255);text-decoration-style:initial;text-decoration-color:initial;=
+float:none;display:inline">Does anyone have the suggestion?</span>
 
---000000000000a62284056d662dbb--
+<br></div><div><br></div><div>Thanks.</div></div>
+
+--0000000000009ff39f056d67e176--
