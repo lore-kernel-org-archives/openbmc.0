@@ -1,72 +1,59 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4003:c06::22b; helo=mail-oi0-x22b.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cs+B9oBD"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="XPAukQAv"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZgHQVQWN"; 
  dkim-atps=neutral
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
+Received: from mail-oi0-x22b.google.com (mail-oi0-x22b.google.com
+ [IPv6:2607:f8b0:4003:c06::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wt7W2bB8zDr69
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 00:21:27 +1000 (AEST)
-Received: by mail-qk0-x244.google.com with SMTP id j12-v6so11123976qkk.4
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 07:21:27 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wvmS5ZwFzDr6B
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 01:35:04 +1000 (AEST)
+Received: by mail-oi0-x22b.google.com with SMTP id d5-v6so13697281oib.5
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 08:35:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=0MWFD2tLgSKkX99zvUsqhxm93VSMYNEa5yKzuLSV+FU=;
- b=cs+B9oBDG5IERGdf1hdTkrmUpErYKjxYsKVSOkq+WFe7Q1OTYiyZn1Bj3/vlF+F9kM
- hmHWcbMv1hHetWHDiVakPsNG58zD4hTgKOAlpRohufh/l1YgKHjBFtaMn10XSEg4dtXR
- Mnus8o3y/QKRAh/eGmvwFmFbD1oTX2HbavEgZJk2iRE3keWZrp46MKsWaMQ+YADwLhVh
- DbYHvRRma7L2kQfAXQuGTcf0Kwl6rYGJoq2EMqSYC6uPNaEQjI23cWbKyB8WfiNk9m2q
- /zokWH2wGCReMpdgG+PE+1kU7DQU2MfPTuXGdhMzdd1WcYNoDWcDoElBiiJZzeDoKLoD
- asJA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=0MWFD2tLgSKkX99zvUsqhxm93VSMYNEa5yKzuLSV+FU=;
- b=XPAukQAv0MS6bVybLNEex4iyCQrbKQtN2WfY5RHTuPfUYvUaKKY9pooArED0DmDK1g
- WwQdMg+iHGJD6pGpZSvFyHbFVeoW9wuhsEoSIhnjB5++muQdrOdqKaVv/jiCb9FCt+Ui
- LKem0IU5/9UaeV7eGWKWiS6+MlCHErQn+0D+o=
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=8o1akaZJAqDUDfn0scqElb73saBMzAl0EBw33nlhqIo=;
+ b=ZgHQVQWNvepLan0jqtJr99dO/+xJn3B9YJA4wBYoRpoEseuzHkTPXyieC1W9kqtgtG
+ pz/677JwYBsI5/X4TI2PhgA5LyZ2xdfohp6NuLq/qxyM+6T1JgvUh8rMxaE5+jyf7KRy
+ a++lJziNQY6OkjKkKFPbGRHx7FjAuFNEuc1ARG5deMWwated3K85Dk4xYFPwY4yh8XxZ
+ FLv54sOtoBr7uS1fcBcLl3xSyvx6Eg4AFUk5W0mYOJ9EvrPuSlY3Ju6ClDp9TlQ+cFyw
+ ypq7njRzRgWXUOti9ZnG6hu2x0eMwrmyI9F5r64eEqqVUdvP4P7mqkwXOJPO93wV95uS
+ YF5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=0MWFD2tLgSKkX99zvUsqhxm93VSMYNEa5yKzuLSV+FU=;
- b=lITDN31NTUvacxrs4ZH5FR+5QjDz2i8n+7gLIb+ukgulZt7VSqVRm/+iTO00VyXk93
- R5xo2O4jSmqgPUxUcwikqCe4j346S6MEdfmObBKIfo3we0YJ0xeyRcsvp1kmowFUnpZZ
- CGzduKqyzgT3xmN1BfqMPLVxW7Xdla+zrWAlM+/hZC3vA1Tltf7arq+yigvZgsqfPakV
- hJxhES3Lafp4HTCjZXuidBalCIVwz3xxOzArLpoUHTmCa2h4mC4h2dK4GoaX5itkYZm8
- Nfw01nbUvyTUZuwhFoOCasGayfSd6aoSvIbwoft6wpJaMV52PgL/Kw/ojpOTyfDSS54V
- Ea1Q==
-X-Gm-Message-State: APt69E0pfRmrBkp+LDm9P9LO2xu5/t5glaFTVADwhTn+83ZXYwIXSoHV
- b6cVY4Ilr8w13UsdCihOlu2twzbFGyByXBTtY9g=
-X-Google-Smtp-Source: ADUXVKL8ljZMpC7ZAMDArUNhyRBZfU4tCuseO4WlOr2WsM7Vdj6UMAd2GlEVv/nkE7aCqEFIKDj7qpOLA/1IXLiFNRA=
-X-Received: by 2002:a37:6983:: with SMTP id
- e125-v6mr2478704qkc.352.1527690084310; 
- Wed, 30 May 2018 07:21:24 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=8o1akaZJAqDUDfn0scqElb73saBMzAl0EBw33nlhqIo=;
+ b=Vq0D1Hps6EeEqvlF5gFRwiDZEXt04WNgvbUG7WMUF2pjQTsfvgZ4UJUggmGqI39lLh
+ 9GFX8gHqpRoNK5BKFxjTJ7Q9ZgOuWyhCVzAerWWekqHUsqdvH5v9MYEG6VxMSdUJrOQ8
+ 9YdpUHiMQEEuR0DoRYMSgxS4P47UTQeWlOeff29gs/0MwryKUe/qsqsGmKu8O6/G5nYk
+ SjDJ2RjIwagHH+AOHU400OlClPGgjdqGEIqmylV2I1yw8ARi57XUQFn/xgx0aQQ2hWD4
+ yHNtPAjJCTo1gXVcE55xnVP0qxf7VEF8pf2l2lhvTIKlVNwdFrBHbfjPPi0ygZ3kBi4p
+ 9X4g==
+X-Gm-Message-State: APt69E2IL6gHHHOP+UTG2Mk/UhJ4O7Sukekhv6/4D1sP0Fvbu+FEPLBP
+ 4DMYr/DaRbOqlGlu98nHAeK0mOmSHO1Ofsf2cf4=
+X-Google-Smtp-Source: ADUXVKIW61dQmWLDHnzp1lcfMhYELOVPNeViIVXZZyQDtkZpYgoTofxB3KzIFaZl+lhzZnbiXiJOMXG1JPFNCxziEnE=
+X-Received: by 2002:aca:2810:: with SMTP id
+ 16-v6mr1877036oix.342.1527694502074; 
+ Wed, 30 May 2018 08:35:02 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP; Wed, 30 May 2018 07:21:03
+Received: by 2002:ac9:3262:0:0:0:0:0 with HTTP; Wed, 30 May 2018 08:35:01
  -0700 (PDT)
-In-Reply-To: <1527621398-26526-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1527621398-26526-1-git-send-email-eajames@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 30 May 2018 23:51:03 +0930
-X-Google-Sender-Auth: hpzgOxdIwJLwmapLhRG2OVufwCE
-Message-ID: <CACPK8Xfw_Ui+S8eqfk=R3_mDkJKuw=0F47Ebdn0XA_QZaxr4-A@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.13 0/3] i2c: fsi: Fix locking and simplify the
- driver
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
+In-Reply-To: <1527640725.1548539.1389826896.64777E84@webmail.messagingengine.com>
+References: <CACPK8Xc_gTiJaCUzDiG6aNOu7rF6gU3e_oc-bd19bOswju7yTw@mail.gmail.com>
+ <1527640725.1548539.1389826896.64777E84@webmail.messagingengine.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 30 May 2018 10:35:01 -0500
+Message-ID: <CALLMt=qrXna7cd_x0F+mjNRbWNBPXuNcHioTCcAsmHY5gRLjfg@mail.gmail.com>
+Subject: Re: Gerrit +1 policy
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -79,20 +66,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 14:21:28 -0000
+X-List-Received-Date: Wed, 30 May 2018 15:35:05 -0000
 
-On 30 May 2018 at 04:46, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> This series fixes up the FSI-based I2C driver. Thanks to Ben H for the first
-> patch.
+All righty, I updated the gerrit config to maintain code review scores
+if no code changes occur.
 
-Thanks for the series. I noticed you got some comments on the version
-you sent upstream, so I'll let you re-spin this series to match those
-comments.
+Not clear to me if a gerrit restart is needed or not to pick it up. If
+so, it'll have to be done in our next maint window.
 
-On Monday I'll apply the upstream series to the dev-4.17 tree.
-However, it would be nice to get these fixes into the 4.13 branch
-before we move on.
+Andrew
 
-Cheers,
-
-Joel
+On Tue, May 29, 2018 at 7:38 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>
+>
+> On Tue, 29 May 2018, at 22:23, Joel Stanley wrote:
+>> I get frustrated by Gerrit removing +1s from patches when I make a
+>> small change to the commit message.
+>>
+>> This is a configurable option in Gerrit:
+>>
+>> https://gerrit-review.googlesource.com/Documentation/config-labels.html#label_copyAllScoresIfNoCodeChange
+>>
+>> I would like to propose we change this setting to true.
+>>
+>> The downside is someone could radically change the content of their
+>> commit message that you've +1'd. However the maintainer still gets a
+>> chance to pull someone up on this if they think someone has pulled a
+>> swift one.
+>>
+>> If there are some repositories that would like to maintain the status
+>> quo, this could be done at the top level, so that all repositories
+>> inherit the new default, but would allow for individual projects to
+>> override the setting if they desired.
+>>
+>> Cheers,
+>>
+>> Joel
+>
+> Jumping on the bandwagon here: +1 from me!
+>
+> Andrew
