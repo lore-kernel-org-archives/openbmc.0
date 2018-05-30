@@ -1,70 +1,60 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::22c; helo=mail-qt0-x22c.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="D7tdpHFs"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="jaliLk/l"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="r4S9MO79"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
+ [IPv6:2607:f8b0:400d:c0d::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wcVd0zWKzDr3M;
- Wed, 30 May 2018 14:07:03 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EFAF421B46;
- Wed, 30 May 2018 00:06:59 -0400 (EDT)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Wed, 30 May 2018 00:06:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=AF4LrFbI0DDCh3iBOIRa1AqW1X1mR
- XQKQRGAeMW4LLI=; b=D7tdpHFszxhUZr0ld3JGcmZJS+XaKAIIngV1QuzBIuIrJ
- QlkfUXseJ7sOC22sOrtJsoJz0QN3JbwLWnm/QBiil7alVhVBMW2GClnLIsOZmdWD
- 7W2VEtuYFTwJ4tiivByONRaKxRqHS2fu6OLV//T9XNJLcrS3T5Zz2cdFbx2vTKQH
- J3bJryxhUw9O1TD9PwF16ChM9xwyX9tIQx2KB/LMu0dqQFcY4gQrYmO3mNFrTPMj
- NnxSsbXfP4X4A+9FAzaPAHOEKAXOUgYmgaM9KlXT8JfkZCeBksLKIHjHoMg7SlvN
- 3mBaOFJ057k1GZIMRYUfzXCZsEC2w7An/lOiUGOXQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=AF4LrF
- bI0DDCh3iBOIRa1AqW1X1mRXQKQRGAeMW4LLI=; b=jaliLk/l/v8w7sM3dVdG8Z
- NSedbZgnDxBpVCebB2Ln4m0IEKAqNF33AkCj6lJeFInERbLkmdV2Nn87o5gmGWTu
- 3fLSxxETK5FfThYr1EG3G2y2oV+9Cma2J/Jh3OVXWR6EVApUR09G+TKY8OGfe8+g
- C1LzqYIniR2ojZgKBkxEZyVgN2s3S+hdZf4gRjDFXQP97LNRxjQ5ixjKOC6f9ao6
- q5FVDIv06GDBDQRIUoKThD39WLtArQgjatW1uE7ZgfQOJPNsgRXulKj/I2wAxlfE
- XIl/SdEL2a6xh6kmq49tlI8ad9JuTzkn9ONr+9TwSudLNh0VxD07WynKA9Phvtag
- ==
-X-ME-Proxy: <xmx:YyMOW42iVh9vGYAQPARnGOP1ugo0ZkSc728Xbn_JDTxxqNlRk1YNIA>
-X-ME-Proxy: <xmx:YyMOW1CSA6iDh_TxuLcUgFKtsHZXoNwQTVzK6SLfMu8DystFPhzPGw>
-X-ME-Proxy: <xmx:YyMOW7QfP7DWiqP3hfaA6ldxw86VahG3he1Nor51CsWcfZYcPHG4vw>
-X-ME-Proxy: <xmx:YyMOW_JdvvZPwFA0IoWkyJpIbqZzoIOhjFaaGJRFDwWZzrwHwLmIjQ>
-X-ME-Proxy: <xmx:YyMOW6FtIIina-vfWXvV2SfCfZqeorFyE4NC0dMBC7mDW2pR971_QQ>
-X-ME-Proxy: <xmx:YyMOW3kxsw6iFeO2z28rvVVX0OWo8nezWDGmuGND-EvRwgpESyJsmg>
-X-ME-Sender: <xms:YyMOW5_sWzP4A_PppxWlZpfUeRKlk-D6jW9c9GWUTIAZ0qNcbQ2gcA>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id A7208BA77F; Wed, 30 May 2018 00:06:59 -0400 (EDT)
-Message-Id: <1527653219.1600524.1389969792.6D07B793@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Paul Menzel <pmenzel@molgen.mpg.de>, Joel Stanley <joel@jms.id.au>
-Cc: Gunnar Mills <gmills@us.ibm.com>, openbmc@lists.ozlabs.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wfRF6TQ1zDr61
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 15:34:17 +1000 (AEST)
+Received: by mail-qt0-x22c.google.com with SMTP id d3-v6so21758672qtp.11
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 22:34:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=vLL179eqJg4aE9hxsitjG9eh3S8+b+/bdB5PDt8g2eA=;
+ b=r4S9MO79/4pYwpApVBE8GetBrU4YCUUbe/n1mau6HdwbZhoILZ3bgxcS47nH1nFtio
+ nNYNC58rZLd/F/wfnQ+G6GHlq19ExqPiIvFZm7p7+YZ5xQiD6seiaC7DEXqm87SbX7f2
+ TIr1Mn7brasTyZ8ouxTaFrtp4A7gOnyMNuunwMyjuNe4BIUqU7iJegF+ydJGElNiPmGi
+ y0JekKlxGp8ZA66HRW2f60hT6swdJmM0n8Co0dxW8HfSM8hZTlIchg8Dh6P4Sqzwb9XP
+ ZXZ7NcFULpf0LiZvC9mJNWeFX7jlo7pXBWQy69TmE+LC/4IOUFRRhMXMOZL4muF9MsM+
+ IZVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=vLL179eqJg4aE9hxsitjG9eh3S8+b+/bdB5PDt8g2eA=;
+ b=LXk3LdhqOpLN17iiDESXByafn6qZE6SMsuDnWKqVoz925/PoCTC60gFcSFXV1nM/aQ
+ jucEcgF4bs/VE7Y3xNf5y95wBjiFUvSZlu2EwaBbytjWqsESUWo3/VmI7vRb45naAnRI
+ o7CFIutuUkEE+Uj+8rO/R4DWy8kyyNiuOZ1K8iFDae5yAVB0Ces3t4YzScgZkCDSmuXr
+ qa/onvpql/I5vvPpMwjC+wGJ8nSnkNWHNEOcF337Jmo6Anrz3PEXXhlvASREt9gNJKLO
+ bnIINOS+dyiUdJaJcNoRwcZlTEM8tpe+i4IcQBL3l8j7HN4OLMBkkkMQ6Y7LnjFzfpFf
+ ovSQ==
+X-Gm-Message-State: APt69E0u8In/U4kNH8t9BsoKhYcIDDUBqxt+d1WKgCddZx2VluYJ8f8P
+ TFnIGPnG8fZgXrBYPc4rtjN5NIRlJYwsKk/IfR4=
+X-Google-Smtp-Source: ADUXVKJT4tnv8EQfiUgtttr3IYXE/Fxr4d2gouNObKjBGkePn2j9nzaroH8saorV8NgT5Vi+xY+rhj2sUpTIS2GeLN0=
+X-Received: by 2002:a0c:ae2f:: with SMTP id
+ y44-v6mr1187358qvc.157.1527658454751; 
+ Tue, 29 May 2018 22:34:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-397f98d6
-In-Reply-To: <287c6a85-65ba-5782-e532-d17d517614f5@molgen.mpg.de>
-Date: Wed, 30 May 2018 13:36:59 +0930
-Subject: Re: Status of aspeed-bmc-opp-firestone (IBM S822LC)
-References: <287c6a85-65ba-5782-e532-d17d517614f5@molgen.mpg.de>
+Received: by 2002:aed:2d65:0:0:0:0:0 with HTTP; Tue, 29 May 2018 22:34:14
+ -0700 (PDT)
+In-Reply-To: <CAARXrt=5dFZwqeW4+sradJYwYaaFr4-rQbVP-MhQf=j6LQCQuA@mail.gmail.com>
+References: <CAG9c7cCVmjbxMLFie0_bHtU60amR1S2aoygHgT7bV9rWRdEXTA@mail.gmail.com>
+ <CAARXrt=5dFZwqeW4+sradJYwYaaFr4-rQbVP-MhQf=j6LQCQuA@mail.gmail.com>
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Wed, 30 May 2018 13:34:14 +0800
+Message-ID: <CAG9c7cDZpOFbuwXXDQKTJ0cVE54ihxH_tezcssngF+jpwnyMvg@mail.gmail.com>
+Subject: Re: Fail to start org.openbmc.managers.System.service
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000889df5056d65b30f"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,40 +66,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 04:07:07 -0000
+X-List-Received-Date: Wed, 30 May 2018 05:34:19 -0000
 
-Hi Paul,
+--000000000000889df5056d65b30f
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 30 May 2018, at 00:23, Paul Menzel wrote:
-> Dear Joel, dear Linux folks,
-> 
-> 
-> We have an IBM S822LC system (Firestone(?)). Building of OpenBMC 
-> currently fails, as the not everything was ported from dev-4.10 to 
-> dev-4.13 [1], and therefore a file cannot be found.
-> 
-> Looking at upstream Linux, there are BMCs for Power 8 systems, like 
-> Palmetto, included.
-> 
-> ```
-> $ ls arch/arm/boot/dts/aspeed-bmc-opp-*
-> arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> ```
-> 
-> Does somebody know, why Firestone was not upstreamed? Is somebody 
-> working on upstreaming it? If not, do you have scripts to port such 
-> work? Manually cherry-picking stuff in this case is hard, as there are a 
-> lot of conflicts.
+>
+> It looks like your build is missing the `pyinventorymgr`
+> A quick check:
+> 1. It comes from obmc-mgr-inventory.bb;
+> 2. This recipe is added by packagegroup-obmc-apps.bbappend in
+> meta-openpower
+> layer, with openpower distro feature:
+>     RDEPENDS_${PN}-inventory_append_df-openpower = " obmc-mgr-inventory"
+> Since you are missing this recipe, I guess your build is not openpower?
 
-Firestone was never really maintained. We hacked around with it for a bit, but nothing concrete really came of it. As far as I'm aware, no-one is working on upstreaming it.
 
-Also, I don't think there were any scripts used in the process, so it's going to be some drudge work to get things running.
+Thanks for your response.
+Yes, my build is x86 not opeppower.
 
-Sorry that I don't have a more positive answer. Maybe someone else knows better.
+I tried to add the line into
+*meta-common/recipes-phosphor/packagegroups/packagegroup-obmc-apps.bbappend.*
+RDEPENDS_${PN}-inventory_append_df-openpower = " obmc-mgr-inventory"
 
-Cheers,
+But I still couldn't find the inventory in
+the /usr/lib/python2.7/site-packages/obmc/
 
-Andrew
+--000000000000889df5056d65b30f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">
+
+<blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex" class=3D"gmail_quote">It looks like your build =
+is missing the `pyinventorymgr`<br>A quick check:<br>1. It comes from<span>=
+=C2=A0</span><a href=3D"http://obmc-mgr-inventory.bb/" target=3D"_blank" st=
+yle=3D"color:rgb(17,85,204)">obmc-mgr-inventory.bb</a>;<br>2. This recipe i=
+s added by packagegroup-obmc-apps.<wbr>bbappend in meta-openpower<br>layer,=
+ with openpower distro feature:<br>=C2=A0 =C2=A0 RDEPENDS_${PN}-inventory_<=
+wbr>append_df-openpower =3D &quot; obmc-mgr-inventory&quot;<br>Since you ar=
+e missing this recipe, I guess your build is not openpower?</blockquote><di=
+v><br></div><div>Thanks for your response.</div><div>Yes, my build is x86 n=
+ot opeppower.</div><div><br></div><div>I tried to add the line into=C2=A0<i=
+>meta-common/recipes-phosphor/packagegroups/packagegroup-obmc-apps.bbappend=
+.</i></div><div>
+
+<span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:s=
+mall;font-style:normal;font-variant-ligatures:normal;font-variant-caps:norm=
+al;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0px;t=
+ext-transform:none;white-space:normal;word-spacing:0px;background-color:rgb=
+(255,255,255);text-decoration-style:initial;text-decoration-color:initial;f=
+loat:none;display:inline">RDEPENDS_${PN}-inventory_</span><wbr style=3D"col=
+or:rgb(34,34,34);font-family:arial,sans-serif;font-size:small;font-style:no=
+rmal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400=
+;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:none=
+;white-space:normal;word-spacing:0px;background-color:rgb(255,255,255);text=
+-decoration-style:initial;text-decoration-color:initial"><span style=3D"col=
+or:rgb(34,34,34);font-family:arial,sans-serif;font-size:small;font-style:no=
+rmal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400=
+;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:none=
+;white-space:normal;word-spacing:0px;background-color:rgb(255,255,255);text=
+-decoration-style:initial;text-decoration-color:initial;float:none;display:=
+inline">append_df-openpower =3D &quot; obmc-mgr-inventory&quot;</span>
+
+<br></div><div><br></div><div>But I still couldn&#39;t find the inventory i=
+n the=C2=A0/usr/lib/python2.7/site-packages/obmc/</div><div><br></div></div=
+>
+
+--000000000000889df5056d65b30f--
