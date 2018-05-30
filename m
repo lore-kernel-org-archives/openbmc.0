@@ -1,61 +1,62 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::22f; helo=mail-io0-x22f.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::235; helo=mail-qt0-x235.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="CsqoTxlV"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="jqCnw0Ad"; 
  dkim-atps=neutral
-Received: from mail-io0-x22f.google.com (mail-io0-x22f.google.com
- [IPv6:2607:f8b0:4001:c06::22f])
+Received: from mail-qt0-x235.google.com (mail-qt0-x235.google.com
+ [IPv6:2607:f8b0:400d:c0d::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wffm29VdzDr61
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 15:44:15 +1000 (AEST)
-Received: by mail-io0-x22f.google.com with SMTP id g14-v6so20250130ioc.7
- for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 22:44:15 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wgBg6npnzDr5J
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 16:08:26 +1000 (AEST)
+Received: by mail-qt0-x235.google.com with SMTP id e8-v6so21872091qth.0
+ for <openbmc@lists.ozlabs.org>; Tue, 29 May 2018 23:08:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=LF4wXu7PfTDjMl8hAM7JFj6cvQfmGupeCQUOl1aWBmE=;
- b=CsqoTxlV7eVEnDgBycoPZGe/IeKEqX7ogPZqMFLAsSQcI0y17RxMCBmnITrjbmTkYj
- uuFxt+0KkqQxGkX/kzllMWRced8BqI8HY48IGrQu5zENjkuRWkcMsfWrGAkNawOnhfH9
- DWDMCfd8bRkSntR1FeGOVquZ5w1Aw4T6i25/OnZN00Mf5RfPvp5adkGBydtRrfbg4Fio
- b1xeTtnhE6cvjqsFcybtZm+wjWfTe9CJRHKtJTL7BlEppImyPJVp7X9N0LsFBVbzXFE3
- UanAp6hL2XrOf2tSvRjsgeaLLuEbn1vvUpzHMA+A0OisZ4NStkkMtbKjMIDINZADJ9jg
- rpZw==
+ :cc; bh=Pk3LKXqOKL2R92PV+CIesVODwtPKqhz9RP3KYuB0gN8=;
+ b=jqCnw0AdTyJcuEFWThHfWULfgfnftk/8DHe9sRfxym9fsn4Esp0pSrb52dObFmcP+f
+ gs0aPEYTxVYWyG+6oj00gQA4M4BDEIE4HQr3KBdiQWFfp8YOfF3+qCY5sQhkPJ3Kh0W2
+ Xs58ngy8zERbYilkHM+WNXqJ1DyulThPQwSpb+6CpPXlFzuCKts6h2MOeeVCWuXaqcpM
+ BhHfLXam1MPWtmlOTYsNhKtARelHBHykgAI+ZYGpPH07M4K7RY5avX6LJL/ZyeNkCHGH
+ YaQSsfGQTglyg+C/wNRFOS2hmsHNrezx2vb/4uNt1vQ+VjPJjbV+8R1AyB4UIfHbvoVz
+ C0zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=LF4wXu7PfTDjMl8hAM7JFj6cvQfmGupeCQUOl1aWBmE=;
- b=peCLeQO1cBDYCkJQ058vuTKOekYjq3Lx9+kBgtvgHGjrFMxTe+O0v7wSeLzo+HM8wb
- hfW95rrkNRUGh/6njv7JZSukePYB79iSsLODyrAiV5wXsHrDdveZN520amIWai8cXRK6
- 30J2ezopwAQtDdn5vcpOo+LafXCN8qKSz5c0vhxrtNDd/ccMZATl0XlbgcqvvTBcJsd3
- bUYLG1iXTafG0jrFVYQMyBWbcRE8sKaWlBQStBLn/11B8qWCzsGywfP9tsqEnrJAu+Ux
- m7YBQuc0rroMJvrv0ulQhfb3C366OVOOjTqLWw62FhBgUbwCBxrG2wVlnCrByfBfxbqz
- Ohiw==
-X-Gm-Message-State: ALKqPwe42icR59EoT5io1Rlub0kM4LDTqyh/2h9/wTvmYWRieBc8iTky
- BUGR9EhoqbHs+l6/p/Ur4Usa7+BZWZzQo+L57ss=
-X-Google-Smtp-Source: ADUXVKK96Q54iF8JbFS9n7mFnESIZqW6mRJ07aTvwlF/Hkx6tFN631dpDmTRcPYrCP3WXpoNVQlYCcLLQ12aXS6KxFY=
-X-Received: by 2002:a6b:a784:: with SMTP id
- q126-v6mr1080106ioe.98.1527659053096; 
- Tue, 29 May 2018 22:44:13 -0700 (PDT)
+ bh=Pk3LKXqOKL2R92PV+CIesVODwtPKqhz9RP3KYuB0gN8=;
+ b=adwMYmQBc//z47Zbnfgd+5dLrS5ci/23LRqx2G0UoelfAUOxcJS/xKLKLWp9OV0VmR
+ oMamxA++y4S6x7h/vGDK9KVvSOIE67V4QGQfvVpiDD+LV3cuz14fuB4Q97e1u5Q6AmCb
+ zL771B4oBoFwbSiCA5Nn7hW3hLZ/G/UVaCreRRNLVzns4/Otou2DNVLLETcUwVZimJYG
+ 4mNJGDvUblZfZl1fK6ybW5pwwsvMf/W3XQdrWftaso7Hl2777cRvC2W3X0uy92YOA2pH
+ TWtcttpXueH8qsS18wLAzOOZIb+M4UqZ95meP2lxWicp/YtWsHw3Q7qZLjSshJo0GAXe
+ 18Mg==
+X-Gm-Message-State: APt69E1thSWT2p8k9VhGgUENlyk1f1wvRvkhElc5wRRKiJMPONYWsEiu
+ hRJGZieUDZX9cF8OEgD69/m3xLkxLltUlxD034Bbcg==
+X-Google-Smtp-Source: ADUXVKLnMcig/lFX+9drOxszaAm4m7c8BBatE3DZAVGLVAZUadRpNUNkI+ALYO4dPti9qKTSFcZTxg+6gMTT8FULInU=
+X-Received: by 2002:aed:2413:: with SMTP id
+ r19-v6mr1284751qtc.110.1527660503506; 
+ Tue, 29 May 2018 23:08:23 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Tue, 29 May 2018 22:44:12
+Received: by 2002:aed:2d65:0:0:0:0:0 with HTTP; Tue, 29 May 2018 23:08:22
  -0700 (PDT)
-In-Reply-To: <CAG9c7cDZpOFbuwXXDQKTJ0cVE54ihxH_tezcssngF+jpwnyMvg@mail.gmail.com>
+In-Reply-To: <CAARXrt=7NO+qyMTX7w=bKT4sKUFyFeD+fAQ3Aa3N-bddDHsOgQ@mail.gmail.com>
 References: <CAG9c7cCVmjbxMLFie0_bHtU60amR1S2aoygHgT7bV9rWRdEXTA@mail.gmail.com>
  <CAARXrt=5dFZwqeW4+sradJYwYaaFr4-rQbVP-MhQf=j6LQCQuA@mail.gmail.com>
  <CAG9c7cDZpOFbuwXXDQKTJ0cVE54ihxH_tezcssngF+jpwnyMvg@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 30 May 2018 13:44:12 +0800
-Message-ID: <CAARXrt=7NO+qyMTX7w=bKT4sKUFyFeD+fAQ3Aa3N-bddDHsOgQ@mail.gmail.com>
+ <CAARXrt=7NO+qyMTX7w=bKT4sKUFyFeD+fAQ3Aa3N-bddDHsOgQ@mail.gmail.com>
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Wed, 30 May 2018 14:08:22 +0800
+Message-ID: <CAG9c7cDAHUjsU0FWBxr3JRRz4JKsXiTLri6evn9ciBZJWHxS7w@mail.gmail.com>
 Subject: Re: Fail to start org.openbmc.managers.System.service
-To: Henbin Chang <henbinchang@gmail.com>
+To: Lei YU <mine260309@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/alternative; boundary="000000000000a62284056d662dbb"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,31 +68,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 05:44:17 -0000
+X-List-Received-Date: Wed, 30 May 2018 06:08:28 -0000
 
-On Wed, May 30, 2018 at 1:34 PM, Henbin Chang <henbinchang@gmail.com> wrote:
->>
->> It looks like your build is missing the `pyinventorymgr`
->> A quick check:
->> 1. It comes from obmc-mgr-inventory.bb;
->> 2. This recipe is added by packagegroup-obmc-apps.bbappend in meta-openpower
->> layer, with openpower distro feature:
->>     RDEPENDS_${PN}-inventory_append_df-openpower = " obmc-mgr-inventory"
->> Since you are missing this recipe, I guess your build is not openpower?
->
->
-> Thanks for your response.
-> Yes, my build is x86 not opeppower.
->
-> I tried to add the line into meta-common/recipes-phosphor/packagegroups/packagegroup-obmc-apps.bbappend.
-> RDEPENDS_${PN}-inventory_append_df-openpower = " obmc-mgr-inventory"
->
+--000000000000a62284056d662dbb
+Content-Type: text/plain; charset="UTF-8"
 
-The "_append_df-openpower" means this is valid only when openpower
-distro feature is enabled.
-You are on x86 build so there is not openpower distro feature, so you
-still do not get this recipe.
-You can remove "_append_df-openpower" and it should work.
-
-> But I still couldn't find the inventory in the /usr/lib/python2.7/site-packages/obmc/
 >
+> The "_append_df-openpower" means this is valid only when openpower
+> distro feature is enabled.
+> You are on x86 build so there is not openpower distro feature, so you
+> still do not get this recipe.
+> You can remove "_append_df-openpower" and it should work.
+
+
+It did work.
+
+Thanks for your help.
+
+--000000000000a62284056d662dbb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">
+
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex"><span style=3D"color:rgb(=
+34,34,34);font-family:arial,sans-serif;font-size:14px;font-style:normal;fon=
+t-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-=
+spacing:normal;text-align:start;text-indent:0px;text-transform:none;white-s=
+pace:normal;word-spacing:0px;background-color:rgb(255,255,255);text-decorat=
+ion-style:initial;text-decoration-color:initial;float:none;display:inline">=
+The &quot;_append_df-openpower&quot; means this is valid only when openpowe=
+r<br></span><span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif=
+;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-varian=
+t-caps:normal;font-weight:400;letter-spacing:normal;text-align:start;text-i=
+ndent:0px;text-transform:none;white-space:normal;word-spacing:0px;backgroun=
+d-color:rgb(255,255,255);text-decoration-style:initial;text-decoration-colo=
+r:initial;float:none;display:inline">distro feature is enabled.<br></span><=
+span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:14=
+px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal=
+;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0px;tex=
+t-transform:none;white-space:normal;word-spacing:0px;background-color:rgb(2=
+55,255,255);text-decoration-style:initial;text-decoration-color:initial;flo=
+at:none;display:inline">You are on x86 build so there is not openpower dist=
+ro feature, so you<br></span><span style=3D"color:rgb(34,34,34);font-family=
+:arial,sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:n=
+ormal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;text-a=
+lign:start;text-indent:0px;text-transform:none;white-space:normal;word-spac=
+ing:0px;background-color:rgb(255,255,255);text-decoration-style:initial;tex=
+t-decoration-color:initial;float:none;display:inline">still do not get this=
+ recipe.<br></span><span style=3D"color:rgb(34,34,34);font-family:arial,san=
+s-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font=
+-variant-caps:normal;font-weight:400;letter-spacing:normal;text-align:start=
+;text-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;ba=
+ckground-color:rgb(255,255,255);text-decoration-style:initial;text-decorati=
+on-color:initial;float:none;display:inline">You can remove &quot;_append_df=
+-openpower&quot; and it should work.</span>
+
+</blockquote><div class=3D"gmail_extra"><div class=3D"gmail_quote"><br></di=
+v><div class=3D"gmail_quote">It did work.</div><div class=3D"gmail_quote"><=
+br></div><div class=3D"gmail_quote">Thanks for your help.</div></div></div>
+
+--000000000000a62284056d662dbb--
