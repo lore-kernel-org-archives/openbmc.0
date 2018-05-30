@@ -1,69 +1,71 @@
-Return-Path: <avifishman70@gmail.com>
+Return-Path: <linux@roeck-us.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
- envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=roeck-us.net
+ (client-ip=208.91.199.152; helo=bh-25.webhostbox.net;
+ envelope-from=linux@roeck-us.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="f+rI1/uY"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="ktRU5mqY";
  dkim-atps=neutral
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wwqX43svzDr61
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 02:22:48 +1000 (AEST)
-Received: by mail-it0-x242.google.com with SMTP id j186-v6so24200822ita.5
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 09:22:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=j2a/VYM3KQClcjM+Ikupiud4n2mw87Velhk/QRJUYME=;
- b=f+rI1/uYqGH2edR1YDTPEZ402tffyASfpq/pzvo5IJeuNp0xax0sgJhhyP9H/KDE0T
- 8qj0JtXhRa+CBIYne44UWWlB/fbUu7pGPL3x/bk6m0k8NAyAac1zDLXThIXqGrIvMTRD
- redqPz/Lq11c3b2Vnz5S62fnH+hwd9wUn8eoE61aUzwu6G8F3KzDx6SuCx7MFKNYDD2O
- 8W+AYCue8Vpxma3uJxqGAX26yeW4rGiTc42qfnaS2ckyMwg5CFHxOCebDYp6XfvKg1fr
- ipKR0irg3wJKNb3Cww9Q7CuZXvZNJMzBzo/0ZrbtATREK0Kpcn8nV/CAugfLwjrYWYBU
- QWTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=j2a/VYM3KQClcjM+Ikupiud4n2mw87Velhk/QRJUYME=;
- b=rQdx+SQ0UrwrXQR9ugFvM6DOSvKW2wBinVlkK7jWLhblV0k7bgKSRqEWKzLJKaKJcn
- kKsQMFekEJwt1Bahq+Q+uv4c468Vpgd7cabnRYsE9+16mMHBIqFXERb0CsZAeNvxt0ph
- 3lFxQ682uJAFjxV6RAFIELm8bbXYBLo5xKlzKSzzcbPi2urrulBiE/rwGaBBJuh8WRVN
- ocvCgoMWFDHyNPhXzXr67OU9OgTuHsx5G0cS0mbZAOghdoMp10vGXEr84FzHoZt3PC5C
- 5Bn7iwmM9H++JD11hEsf66+pj+32o8IIzbsJ6tL0VTbf426zC/DQqV+UOSMlW5ueRHK8
- bIaA==
-X-Gm-Message-State: APt69E3HxZk1E177elvnQKCLVdvSTLBOaBymog+SAVDRro2jGZJlyk1B
- 6DjeRc9cpsTnZ6EPhpGQpzoBXkirviaUbqFpXQ==
-X-Google-Smtp-Source: ADUXVKIZjszVMPD3A5TY1sOW9HTG63EP43FzrUsAsf7zc6qhGNEmU6+lB1HH6VHnWttFPcpgIJbbzByfDeWF7RtZrM4=
-X-Received: by 2002:a24:4151:: with SMTP id x78-v6mr2334956ita.0.1527697366048; 
- Wed, 30 May 2018 09:22:46 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wxLc1FTbzDr5J
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 02:46:15 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=v/Ev3IImTtHU49L3aOleTbAd9lsECbzXiIZvpdNyY/8=; b=ktRU5mqYChGxpoZ16O8AQSwdhN
+ fXUHC9D30iQbMSEFi0jW2I7D4sMrDG4EHlXx6WfuN0hxBbZ8ll7BnpgazmWwMTSucCw/mdShcpUgA
+ R5bvnwAknH34RusTVm4u+Kvg0t9DztymCkxKtbJ8wFCD+Wmv4qlpe0kpecZt1tb7GLIMICtRpUHeC
+ RR8moIVxaKYPLFYxYO9SOVlm4BLTz9ebWS0ffqkHfuP7ZjBtoPwjI/xGbHHzFxqRw5KvoiP5ZiPbM
+ oLhu6YGFbdT4ZPfMyTaRpUK3xyLi1oOcYOL4tZ2rafO2hbahVMsL03dyKuoLBi1Yn9OT5eFQD6iBq
+ tNNLcyRQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:45478 helo=localhost)
+ by bh-25.webhostbox.net with esmtpa (Exim 4.89)
+ (envelope-from <linux@roeck-us.net>)
+ id 1fO4Ek-000lKe-Ij; Wed, 30 May 2018 16:46:11 +0000
+Date: Wed, 30 May 2018 09:46:04 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ jdelvare@suse.com, Avi Fishman <avifishman70@gmail.com>,
+ Nancy Yuen <yuenn@google.com>, Brendan Higgins <brendanhiggins@google.com>,
+ Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>,
+ devicetree <devicetree@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ linux-pwm@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>
+Subject: Re: [PATCH v1 2/2] hwmon: npcm-pwm: add NPCM7xx PWM driver
+Message-ID: <20180530164604.GB8270@roeck-us.net>
+References: <1527588141-18639-1-git-send-email-tmaimon77@gmail.com>
+ <1527588141-18639-3-git-send-email-tmaimon77@gmail.com>
+ <20180529165617.GD2162@roeck-us.net>
+ <CAP6Zq1h8_n8R=dqmBxC_bK_YstLt1kkE6UCp2OVsNpKp=RK8og@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 2002:a4f:ba01:0:0:0:0:0 with HTTP; Wed, 30 May 2018 09:22:45
- -0700 (PDT)
-In-Reply-To: <CAKKbWA5zu2ty-OapQMiYXWg6wk0UisPq56gow7_1Tti_fg7fkw@mail.gmail.com>
-References: <1527582935-31175-1-git-send-email-avifishman70@gmail.com>
- <CAKKbWA5zu2ty-OapQMiYXWg6wk0UisPq56gow7_1Tti_fg7fkw@mail.gmail.com>
-From: Avi Fishman <avifishman70@gmail.com>
-Date: Wed, 30 May 2018 19:22:45 +0300
-Message-ID: <CAKKbWA7N8aaCkJvMeNg3+3cJs3=AfaF5U8ZH_isVpL3oOs8t9Q@mail.gmail.com>
-Subject: Re: [PATCH v1 0/3] USB host: Add USB ehci support for nuvoton npcm7xx
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stern@rowland.harvard.edu
-Cc: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>, mathias.nyman@linux.intel.com, 
- bjorn.andersson@linaro.org, jhogan@kernel.org, albeu@free.fr, 
- chunfeng.yun@mediatek.com, tony@atomide.com, baolu.lu@linux.intel.com, 
- elder@linaro.org, digetx@gmail.com, kstewart@linuxfoundation.org, 
- hdegoede@redhat.com, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- linux-usb@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- devicetree <devicetree@vger.kernel.org>, davem@davemloft.net,
- akpm@linux-foundation.org, rdunlap@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAP6Zq1h8_n8R=dqmBxC_bK_YstLt1kkE6UCp2OVsNpKp=RK8og@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,27 +77,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 16:22:49 -0000
+X-List-Received-Date: Wed, 30 May 2018 16:46:17 -0000
 
-From: Avi Fishman <AviFishman70@gmail.com>
+On Wed, May 30, 2018 at 06:44:58PM +0300, Tomer Maimon wrote:
+> Hi  Guenter,
+> 
+> Thanks for your prompt reply!
+> 
+> 
+> On 29 May 2018 at 19:56, Guenter Roeck <linux@roeck-us.net> wrote:
+> 
+> > On Tue, May 29, 2018 at 01:02:21PM +0300, Tomer Maimon wrote:
+> > > Add Nuvoton BMC NPCM7xx Pulse Width Modulation (PWM) driver.
+> > >
+> > > The Nuvoton BMC NPCM7xx has two identical PWM controller modules,
+> > > each module has four PWM controller outputs.
+> > >
+> >
+> > I don't see it guaranteed that all future NPCM7xx devices will be PWM
+> > controllers, much less that they will be compatible to the chip really
+> >
+> 
+> Actually all NPCM7xx family have PWM and FAN modules support,
+> 
+> 
+> > supported here. NPCM750, I presume ? I would suggest name the driver
+> > accordingly.
+> >
+> 
+> The compatible name can not be a family name like nuvoton,npcm7xx-pwm, only
+> a specific chip name. (in our case the NPCM750 is the full modules SOC)
+> still you think i should change the driver name? (note: all of our NPCM7xx
+> unique modules drivers are named npcm7xx-*.c or *-npcm7xx.c)
+> 
 
-This patch adds support for ehci controller for the Nuvoton npcm7xx platform.
-Most of the code was taken from ehci-spear.c + specific initialization code
+drivers/watchdog/npcm_wdt.c contradicts that statement.
 
-Avi Fishman (3):
-  USB host: Add USB ehci support for nuvoton npcm7xx platform
-  USB: DT probing support to ehci-npcm7xx
-  MAINTAINERS: add subfolders for nuvoton *npcm*
+Please discuss with the pwm maintainer. In hwmon, wildcards in driver file
+names are discouraged and will not be accepted. Our recommendation is to pick
+one chip from the family and use it as part of the file name.
 
- .../devicetree/bindings/usb/npcm7xx-usb.txt        |  18 ++
- MAINTAINERS                                        |   3 +
- drivers/usb/host/Kconfig                           |   8 +
- drivers/usb/host/Makefile                          |   1 +
- drivers/usb/host/ehci-npcm7xx.c                    | 212 +++++++++++++++++++++
- 5 files changed, 242 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
- create mode 100644 drivers/usb/host/ehci-npcm7xx.c
+> 
+> > As a generic pwm driver, not specifically tied to a fan controller,
+> > this driver does not belong into hwmon. It should be added to the pwm
+> > subsystem. Copying the maintainer and mailing list.
+> >
+> > In the NPCM7xx we have PWM and FAN controller modules,  usually in the
+> aspect of our BMC clients the two module
+> are used together to control the fans.
+> 
+> But because in the NPCM7xx the PWM and the FAN controller are separate
+> modules we
+> thought to do two separate drivers in the hwmon
+> is it possible? or you think it is better to do one hwmon driver for the
+> PWM and the FAN controller.
+> 
+That depends on how closely the two modules are intertwined. If the pwm module
+is generic, it belongs into the pwm subsystem. It only belongs into hwmon
+if it can _only_ be used for fan control, eg if the data reported by the fan
+module is used by the hardware to control the pwm output based on some
+fan speed <-> pw value mapping which is programmed into the chip, and/or
+if the pwm output can only connect to a fan and nothing else, and if the
+relationship between pwm output and fan input is well defined.
 
+If both end up in hwmon, I don't see the benefit of having two separate
+drivers. That means two hwmon devices for the same fan or set of fans,
+one being all but useless in respect to output from the 'sensors'
+command. You'll have to convince me why that would make sense; I just
+don't see the point.  In that case, I would also not see the point of
+having two separate devicetree nodes; to me, that would be similar
+to having two interfaces for a single serial line, one for receive
+and one for transmit.
 
--- 
-2.14.1
+> note that we were going to submit soon also the FAN controller driver under
+> hwmon.
+> 
+No problem with that as long as there are no wildcards in the file name.
+
+Guenter
