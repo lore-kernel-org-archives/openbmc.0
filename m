@@ -1,64 +1,58 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::232; helo=mail-qt0-x232.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4001:c06::229; helo=mail-io0-x229.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SAVEQRPj"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="iv0Ps0Aj"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="pY/sPx7d"; 
  dkim-atps=neutral
-Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
- [IPv6:2607:f8b0:400d:c0d::232])
+Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
+ [IPv6:2607:f8b0:4001:c06::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40wklz1Ws9zDrbH
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 18:49:02 +1000 (AEST)
-Received: by mail-qt0-x232.google.com with SMTP id m5-v6so22270048qti.1
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 01:49:02 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40wl5T6cGPzDrRY
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 19:04:13 +1000 (AEST)
+Received: by mail-io0-x229.google.com with SMTP id t6-v6so2192054iob.10
+ for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 02:04:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:from:date:message-id:subject:to;
- bh=fY3hELR06uAIE5EqdzSThNWvaTbGnfJU1gdKN+CwH/4=;
- b=SAVEQRPjXBI91oiIyPoNMjxMI4dBgkJxi0KV+d+hBlm/7PGykvHDoP2n23AVZyHMiw
- 8ljkaXmj0Z7BbZGrNLsZ/m6Fl4hpmcu2rBDbQWZjUX1+qKwqQ7kf1fCzQ8HO10Mmm4Ew
- iHol8Jgl7Ex//RAJEz5vPMal9lihLOfvEJM/WYSd5a+Cr2HtQt8wSi3YWp+yQMTyJaft
- KdwflFBNJvBkKASrjkqNgzQG8hKQwx2t6+pAUzgiTmHsVkvYsKetcHYHnr7449mfcc8i
- EITCwXNNfa8vYEie8fLsSJpD68e13h+Ig1crtexMYnCdmuFJN2nTdUKKGMI3nA+QxFcb
- KQAg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:from:date:message-id:subject:to;
- bh=fY3hELR06uAIE5EqdzSThNWvaTbGnfJU1gdKN+CwH/4=;
- b=iv0Ps0AjKphl/XWXG5z31IprmsDvCt+EjrMQF7ET0o4JiWXOv11vpNuug0zXMx5hOP
- xFxY9yLaIW5n8gX5IZ0+A4jiYm9ffdhp5eeTL2GsOdH+CktlPi1DxwqAn27YWiJ5nwS+
- osMnrycR7CV1nosfiiPwnBJIVnmPibWY44+Ws=
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=nubo9UYT9ojG0rJM0SX5ko02GRNToCNkziCu3QNsqSo=;
+ b=pY/sPx7d25ls+K+du3YlMWckCtBqWoHYumOhjLhpSVTpHpKr23IP++SzbVWDnUTAvE
+ 5A+Y3OlsSglxO2cAsuDh7Or3tbCHSpINOUx+4TlzhGTUuir5IO9RM8Xmz/ZS5DqxAPIP
+ Y82WL3x4BnuIzOkX5mIzC63vFYXA6jZY2HD4C5klJ3rutsh3uwC/ePIKHe4eY//4gRWi
+ Gvf0lkOW4V4vmfHfOeHEzU8B8kkwNlJ7Meqi+sifELFkiBwZJjprjLon+tpjd/+Z94m6
+ L7wLJ3WiEoeJGyNrxvkDi+nrbyBMJictz7ApuXmj6SRx2O3ioEQ6Y/G6G4ZOU6QL/OHS
+ 3fYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to; bh=fY3hELR06uAIE5EqdzSThNWvaTbGnfJU1gdKN+CwH/4=;
- b=HOjnSqHofDvG2vUXlxuIv8jZG0lxyantgMJ0lLs0GRHbTLG3o/BvsT+XaUhiYs1Vu+
- Tyav9y+esl8a3GsXbivTkGOq2NDJ2FB6ERalpox0fEhEIXo8qgPnkx2Bt9ZXTRRelcXS
- VEsSdwwMmsrjdBTFk9LmQrZCUyIHveX5Ve56tRH1ucthGgI/nGwVPjWVFIc/MYW/hJkD
- KnrQr0J0dEFF14iW1zd9JXhS6ARWgmJCFzzzob08XFW2DdAa0Koakk3+0NvcVmxkm+hm
- nWMQJLUDcd/5aLPrTQfu+R6I/jdrtJOkdA5aHQW+TGknpDFbVu/8o4mObI0Oocxx8fZu
- TiXw==
-X-Gm-Message-State: APt69E3w5A96S96fDlICEmtvigLB8V/LOr+fvMf+jejjiSd8ZxIoJcOO
- cDeuQhRJaHwMq/2eWF3UWEy9o4sWYNbQ5NcBEQw=
-X-Google-Smtp-Source: ADUXVKJTrCGmM/Nkq8IHBMJhKJMlA0cs5wFW4PYptJy0XkuBrkgk1+/XSTbWUZH/tP0OF/AsPRSRgctYjsamMAFFEk0=
-X-Received: by 2002:ac8:65c6:: with SMTP id
- t6-v6mr1633068qto.347.1527670140109; 
- Wed, 30 May 2018 01:49:00 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=nubo9UYT9ojG0rJM0SX5ko02GRNToCNkziCu3QNsqSo=;
+ b=jKGrFbAN0im1VK1WMsdIzBE5LJTri7V+c6aXLrQnPK6I/bTSx1soitu4u0RefUfsu7
+ 8HA5Prq4bx1KBz0fMYX//pI7m6F6aRgVu/Hpei3B6l2RxbI7uaZpx6p+0v0WN1Qwok9i
+ N+qwftGQ5xsMYhnheBH5ay6JAHQmETXOESCy/u8502dvwNa2dhBiGBmREXMekalMPIxE
+ zpLo8dTv5mOuOkjp8hta1s4rEG26GjABQAHc+ljmNcxDeWfPRlCe2AvgUttg0Gpccekr
+ fc4qmV+uvtcBzvPMD8qZ1jtK/y9CbQ4KdxozlmyXXbcsrnZdjBtFaR6bJMMpoGdmd8Gn
+ oqkQ==
+X-Gm-Message-State: ALKqPweafGDEaDqgx5gpsa5IvTaS/dwVD2RYyBEsDcY7hTL4mMdeAEsD
+ Iuzvic0BFR2QQqg98mAteLfIsujf4KbACcZHl1Y=
+X-Google-Smtp-Source: ADUXVKILCP/pjYNu6JWkgZzOxUI2p0dh9L0UjEVPf93qB8jNk4h4dYsmCwnrZE4/DGyNS4LIFhMHjLQerdyPUvdsOFk=
+X-Received: by 2002:a6b:a50c:: with SMTP id
+ o12-v6mr1456246ioe.16.1527671051167; 
+ Wed, 30 May 2018 02:04:11 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP; Wed, 30 May 2018 01:48:39
+Received: by 2002:a4f:558a:0:0:0:0:0 with HTTP; Wed, 30 May 2018 02:04:10
  -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 30 May 2018 18:18:39 +0930
-X-Google-Sender-Auth: JqPGUOSVMcztYMv7OtpFCku3Srk
-Message-ID: <CACPK8XfTDqprASF==8wjeH+KnpECiJHrSiQ9ugYuBEe+RM4tgw@mail.gmail.com>
-Subject: Re: Linux kenrel: Moving to a 4.17 base
-To: Tao Ren <taoren@fb.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+In-Reply-To: <CAG9c7cB8S=VL6g2Z6dXmC55P-3CW+p+wURH=Qgy-sZXL6b9deA@mail.gmail.com>
+References: <CAG9c7cB8S=VL6g2Z6dXmC55P-3CW+p+wURH=Qgy-sZXL6b9deA@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Wed, 30 May 2018 17:04:10 +0800
+Message-ID: <CAARXrtkSDZQU_m5CD+7aprwZ33NH3gZ6z5hJVZ57rDJ-QXq5ow@mail.gmail.com>
+Subject: Re: Unable to find mtd partition for image-bmc
+To: Henbin Chang <henbinchang@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -71,49 +65,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 08:49:04 -0000
+X-List-Received-Date: Wed, 30 May 2018 09:04:14 -0000
 
-Hello Tao,
-
-On 30 May 2018 at 17:57, Tao Ren <taoren@fb.com> wrote:
-> This is great news! I'm from Facebook OpenBMC team, and I'm working on enabling your Linux tree in Facebook OpenBMC and later contributing fixes back to the community.
-
-Thank you for the feedback.
-
-> I found a lot of good documents about how to contribute code, but I cannot find information regarding branching strategy and release timeline. For example,
+On Wed, May 30, 2018 at 4:10 PM, Henbin Chang <henbinchang@gmail.com> wrote:
+> Hi,
+> I followed the instructions described in the the below doc to update OpenBMC
+> FW via REST.
 >
-> 1) what are the major reasons/factors to trigger the version upgrade (4.10 to 4.13 and then 4.17)?
+> https://github.com/openbmc/docs/blob/master/code-update/code-update.md
 >
-> 2) Are we planning to keep OpenBMC linux kernel in-sync with Torvalds's tree or linux stable tree?
+> And I got the below error message.
 >
-> 3) Since we are discussing OpenBMC release schedule in another thread, I'm curious how to align linux tree with OpenBMC release schedule? For example, creating tags for OpenBMC releases?
+> {
+>   "data": "Verify error: update: --no-flash --ignore-mount --no-save-files
+> --no-restore-files --no-clean-saved-files\nERROR: Unable to find mtd
+> partition for image-bmc.\n\n",
+>   "message": "200 OK",
+>   "status": "ok"
+> }
+>
+> Does anyone have the suggestion?
 
-Last year I came up with a development process that aimed for very
-regular rebasing on upstream:
+As the message indicates, the update script fails to find a mtd partition for
+"image-bmc".
+What is your devices's mtd parts?
+The expected OpenBMC flash layout is like this:
 
- https://github.com/openbmc/linux/wiki/DevelopmentProcess#openbmc-kernel-maintainer
+# ls -l /dev/mtd/
+total 0
+lrwxrwxrwx    1 root     root             7 May 30 06:47 bmc -> ../mtd0
+lrwxrwxrwx    1 root     root             7 May 30 06:47 kernel -> ../mtd3
+lrwxrwxrwx    1 root     root             7 May 30 06:47 pnor -> ../mtd6
+lrwxrwxrwx    1 root     root             7 May 30 06:47 rofs -> ../mtd4
+lrwxrwxrwx    1 root     root             7 May 30 06:47 rwfs -> ../mtd5
+lrwxrwxrwx    1 root     root             7 May 30 06:47 u-boot -> ../mtd1
+lrwxrwxrwx    1 root     root             7 May 30 06:47 u-boot-env -> ../mtd2
 
-This was optimistic. In practice, I've not had the time to do this as
-often as I would like. We have spent a lot of effort in the past year
-on is getting code upstream, so that moving to a new base is as easy
-as possible.
+For "image-bmc" it will update the partition labeled "bmc", which is mtd0.
 
-I would like to propose we try to move to the new kernel base as
-mainline makes a new release. This would mean a three monthly cadence,
-with the trigger being the tagging of the final release.
-
-By keeping in sync with upstream, we will have community support from
-the stable tree. I will merge these point releases (the z in x.y.z, eg
-4.17.z) in as they are released.
-
-My goal is to have OpenBMC products shipping mainline kernels with no
-further patches. We are very close to this goal for OpenPower Power9
-machines, and I look forward to supporting other platforms achieve
-this too.
-
-A non-goal is to maintain a long-lived stable tree, as this takes time
-away from the first goal.
-
-Cheers,
-
-Joel
+>
+> Thanks.
