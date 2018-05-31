@@ -1,74 +1,39 @@
-Return-Path: <avifishman70@gmail.com>
+Return-Path: <Avi.Fishman@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
- envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="BP59+D9u"; 
- dkim-atps=neutral
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xSzb0gTGzDrYf
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 23:31:38 +1000 (AEST)
-Received: by mail-it0-x242.google.com with SMTP id d10-v6so27598890itj.1
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 06:31:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=+PCgqo8w2bjopx8x529AI+NMkNKbNVMCp6qICNCPHDw=;
- b=BP59+D9une3/PCZqboRAWwkTXVCOlWcfxYCKTkCsP9ooWaNDDVR6JTckQs3SuXkT7Y
- QuEaOko9YoYycsol4zNDOte6sqrBigYs8g3eknxNQu+95AWolO8Y1tp+UQhuHDxUDtKu
- ojIkPNrC1SwPpy797ZLx8DJnZB+otYlQw3YkEAkv/+0DmsfTivWDTHBPSvap4NAX/e9J
- kinwC2ycImc6vCMV8EEf5hny2UNw6umbDPWrANdJAlTtpOaMrhzJDf5ivxhMSqEqD5OD
- OlE6DAl2DFyk7MmS3gvb2N695fW52Te7GHiQ5NcVoA4+kJjipY2uKm2fyP2MiHDx4oKI
- 8Snw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=+PCgqo8w2bjopx8x529AI+NMkNKbNVMCp6qICNCPHDw=;
- b=E6EKrY4aMUGyHDsyAE836qXoeJkKhBQ5btRpm3+3vtmoOp+FaihOpXupE6tiKXm5A4
- +/UZAtrEDs4RYsLB7sOhXrIpYWtHd+0rKJL9o786cJ08vtj0NE3jYevvUYEVfFpX8dpM
- rLyaScqJ0soaFo4ERGoDsM3kI2N+zzio+R3eRGywzj8978UVMqr1jqr5jPmLCwbYKyhK
- NeulVndTZr4yEpFfI+ogt4q6i3a1pMI6ovSp6XI680AqwcqQmbEQXmkEwleA3uJwc+4l
- rZfha6IaA/AVd7YXprwYysVljX8fwsIuCoTk9k5Z0nPgFsaUMzwIiz1iEouPrEWoE3xJ
- reZA==
-X-Gm-Message-State: APt69E3z6ToibAw7HI6EErXfYONc32+SvyWOLzn5cVUsfUOnUMoMuGBf
- PoAcSQWPOMiBFkt17GI3hhV0IkbQpVf0h6XRxQ==
-X-Google-Smtp-Source: ADUXVKL4e+0aaZJaWEhnGckLU+TNw4r8V4YZT6Tz1DmUG4KSwm6s2o3gAz0Lw4CKsgqHj+v9R6i2vBJnrjGjrbXsBic=
-X-Received: by 2002:a24:320d:: with SMTP id
- j13-v6mr5585176ita.129.1527773496320; 
- Thu, 31 May 2018 06:31:36 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a4f:ba01:0:0:0:0:0 with HTTP; Thu, 31 May 2018 06:31:35
- -0700 (PDT)
-In-Reply-To: <CAKKbWA6CF3M7+ohT5dsrmQbR_S1om+zQVgakAsYb165PBctadA@mail.gmail.com>
-References: <1527773132-7491-1-git-send-email-AviFishman70@gmail.com>
- <CAKKbWA6CF3M7+ohT5dsrmQbR_S1om+zQVgakAsYb165PBctadA@mail.gmail.com>
-From: Avi Fishman <avifishman70@gmail.com>
-Date: Thu, 31 May 2018 16:31:35 +0300
-Message-ID: <CAKKbWA7iyokX8sC=EyCB+53TsmD-aHZegX0kcsNpmfpyRhhSeg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] USB host: Add USB ehci support for nuvoton npcm7xx
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alan Stern <stern@rowland.harvard.edu>
-Cc: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>, mathias.nyman@linux.intel.com, 
- bjorn.andersson@linaro.org, jhogan@kernel.org, albeu@free.fr, 
- chunfeng.yun@mediatek.com, Tony Lindgren <tony@atomide.com>,
- baolu.lu@linux.intel.com, 
- Alex Elder <elder@linaro.org>, Dmitry Osipenko <digetx@gmail.com>, 
- Kate Stewart <kstewart@linuxfoundation.org>, hdegoede@redhat.com, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-usb@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, devicetree <devicetree@vger.kernel.org>,
- davem@davemloft.net, 
- mchehab+samsung@kernel.org, akpm@linux-foundation.org, rdunlap@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xTC6562pzDrbH
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 23:41:34 +1000 (AEST)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w4VDen1R022186;
+ Thu, 31 May 2018 16:40:49 +0300
+Received: by talu34.nuvoton.co.il (Postfix, from userid 8441)
+ id D8F295A259; Thu, 31 May 2018 16:40:48 +0300 (IDT)
+From: avifishman70@gmail.com
+To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu
+Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
+ yuenn@google.com, brendanhiggins@google.com,
+ mathias.nyman@linux.intel.com, bjorn.andersson@linaro.org,
+ jhogan@kernel.org, albeu@free.fr, chunfeng.yun@mediatek.com,
+ tony@atomide.com, baolu.lu@linux.intel.com, elder@linaro.org,
+ digetx@gmail.com, kstewart@linuxfoundation.org, hdegoede@redhat.com,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ devicetree@vger.kernel.org, Avi Fishman <AviFishman70@gmail.com>
+Subject: [PATCH v2 1/3] USB host: Add USB ehci support for nuvoton npcm7xx
+ platform
+Date: Thu, 31 May 2018 16:40:44 +0300
+Message-Id: <1527774046-7952-2-git-send-email-avifishman70@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1527774046-7952-1-git-send-email-avifishman70@gmail.com>
+References: <1527774046-7952-1-git-send-email-avifishman70@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -80,29 +45,271 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 13:31:40 -0000
+X-List-Received-Date: Thu, 31 May 2018 13:41:39 -0000
 
-Changes since version 1:
-- Follow Rob comments in device tree documentation
-- minor log error fix in ehci-npcm7xx.c
+From: Avi Fishman <AviFishman70@gmail.com>
 
-This patch adds support for ehci controller for the Nuvoton npcm7xx platform.
-Most of the code was taken from ehci-spear.c + specific initialization code
+This patch adds support for ehci controller for the Nuvoton
+npcm7xx platform.
+Most of the code was taken from ehci-spear.c + specific initialization
+code
 
-Avi Fishman (3):
-  USB host: Add USB ehci support for nuvoton npcm7xx platform
-  USB: DT probing support to ehci-npcm7xx
-  MAINTAINERS: add subfolders for nuvoton *npcm*
-
- .../devicetree/bindings/usb/npcm7xx-usb.txt        |  17 ++
- MAINTAINERS                                        |   3 +
- drivers/usb/host/Kconfig                           |   8 +
- drivers/usb/host/Makefile                          |   1 +
- drivers/usb/host/ehci-npcm7xx.c                    | 212 +++++++++++++++++++++
- 5 files changed, 241 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
+---
+ drivers/usb/host/Kconfig        |   8 ++
+ drivers/usb/host/Makefile       |   1 +
+ drivers/usb/host/ehci-npcm7xx.c | 212 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 221 insertions(+)
  create mode 100644 drivers/usb/host/ehci-npcm7xx.c
 
-
+diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
+index 9f0aeb068acb..e3100b249f0f 100644
+--- a/drivers/usb/host/Kconfig
++++ b/drivers/usb/host/Kconfig
+@@ -185,6 +185,14 @@ config USB_EHCI_MXC
+ 	---help---
+ 	  Variation of ARC USB block used in some Freescale chips.
+ 
++config USB_EHCI_HCD_NPCM7XX
++	tristate "Support for Nuvoton NPCM7XX on-chip EHCI USB controller"
++	depends on (USB_EHCI_HCD && ARCH_NPCM7XX) || COMPILE_TEST
++	default y
++	help
++	  Enables support for the on-chip EHCI controller on
++	  Nuvoton NPCM7XX chips.
++
+ config USB_EHCI_HCD_OMAP
+ 	tristate "EHCI support for OMAP3 and later chips"
+ 	depends on ARCH_OMAP
+diff --git a/drivers/usb/host/Makefile b/drivers/usb/host/Makefile
+index 8a8cffe0b445..fcf5dab5efa4 100644
+--- a/drivers/usb/host/Makefile
++++ b/drivers/usb/host/Makefile
+@@ -43,6 +43,7 @@ obj-$(CONFIG_USB_EHCI_HCD)	+= ehci-hcd.o
+ obj-$(CONFIG_USB_EHCI_PCI)	+= ehci-pci.o
+ obj-$(CONFIG_USB_EHCI_HCD_PLATFORM)	+= ehci-platform.o
+ obj-$(CONFIG_USB_EHCI_MXC)	+= ehci-mxc.o
++obj-$(CONFIG_USB_EHCI_HCD_NPCM7XX)	+= ehci-npcm7xx.o
+ obj-$(CONFIG_USB_EHCI_HCD_OMAP)	+= ehci-omap.o
+ obj-$(CONFIG_USB_EHCI_HCD_ORION)	+= ehci-orion.o
+ obj-$(CONFIG_USB_EHCI_HCD_SPEAR)	+= ehci-spear.o
+diff --git a/drivers/usb/host/ehci-npcm7xx.c b/drivers/usb/host/ehci-npcm7xx.c
+new file mode 100644
+index 000000000000..c80a8792d3b0
+--- /dev/null
++++ b/drivers/usb/host/ehci-npcm7xx.c
+@@ -0,0 +1,212 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Nuvoton NPCM7xx driver for EHCI HCD
++ *
++ * Copyright (C) 2018 Nuvoton Technologies,
++ * Avi Fishman <avi.fishman@nuvoton.com> <avifishman70@gmail.com>
++ * Tomer Maimon <tomer.maimon@nuvoton.com> <tmaimon77@gmail.com>
++ *
++ * Based on various ehci-spear.c driver
++ */
++
++
++#include <linux/dma-mapping.h>
++
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/pm.h>
++#include <linux/usb.h>
++#include <linux/usb/hcd.h>
++
++#include "ehci.h"
++
++#include <linux/regmap.h>
++#include <linux/mfd/syscon.h>
++
++#define DRIVER_DESC "EHCI npcm7xx driver"
++
++static const char hcd_name[] = "npcm7xx-ehci";
++
++#define  USB2PHYCTL_OFFSET 0x144
++
++#define  IPSRST2_OFFSET 0x24
++#define  IPSRST3_OFFSET 0x34
++
++
++static struct hc_driver __read_mostly ehci_npcm7xx_hc_driver;
++
++#ifdef CONFIG_PM_SLEEP
++static int ehci_npcm7xx_drv_suspend(struct device *dev)
++{
++	struct usb_hcd *hcd = dev_get_drvdata(dev);
++	bool do_wakeup = device_may_wakeup(dev);
++
++	return ehci_suspend(hcd, do_wakeup);
++}
++
++static int ehci_npcm7xx_drv_resume(struct device *dev)
++{
++	struct usb_hcd *hcd = dev_get_drvdata(dev);
++
++	ehci_resume(hcd, false);
++	return 0;
++}
++#endif /* CONFIG_PM_SLEEP */
++
++static SIMPLE_DEV_PM_OPS(ehci_npcm7xx_pm_ops, ehci_npcm7xx_drv_suspend,
++		ehci_npcm7xx_drv_resume);
++
++static int npcm7xx_ehci_hcd_drv_probe(struct platform_device *pdev)
++{
++	struct usb_hcd *hcd;
++	struct resource *res;
++	struct regmap *gcr_regmap;
++	struct regmap *rst_regmap;
++	const struct hc_driver *driver = &ehci_npcm7xx_hc_driver;
++	int irq;
++	int retval;
++
++	dev_dbg(&pdev->dev,	"initializing npcm7xx ehci USB Controller\n");
++
++	gcr_regmap = syscon_regmap_lookup_by_compatible("nuvoton,npcm750-gcr");
++	if (IS_ERR(gcr_regmap)) {
++		dev_err(&pdev->dev, "%s: failed to find nuvoton,npcm750-gcr\n",
++			__func__);
++		return IS_ERR(gcr_regmap);
++	}
++
++	rst_regmap = syscon_regmap_lookup_by_compatible("nuvoton,npcm750-rst");
++	if (IS_ERR(rst_regmap)) {
++		dev_err(&pdev->dev, "%s: failed to find nuvoton,npcm750-rst\n",
++			__func__);
++		return IS_ERR(rst_regmap);
++	}
++
++	/********* phy init  ******/
++	// reset usb host
++	regmap_update_bits(rst_regmap, IPSRST2_OFFSET,
++			(0x1 << 26), (0x1 << 26));
++	regmap_update_bits(rst_regmap, IPSRST3_OFFSET,
++			(0x1 << 25), (0x1 << 25));
++	regmap_update_bits(gcr_regmap, USB2PHYCTL_OFFSET,
++			(0x1 << 28), 0);
++
++	udelay(1);
++
++	// enable phy
++	regmap_update_bits(rst_regmap, IPSRST3_OFFSET,
++			(0x1 << 25), 0);
++
++	udelay(50); // enable phy
++
++	regmap_update_bits(gcr_regmap, USB2PHYCTL_OFFSET,
++			(0x1 << 28), (0x1 << 28));
++
++	// enable host
++	regmap_update_bits(rst_regmap, IPSRST2_OFFSET,
++			(0x1 << 26), 0);
++
++	if (usb_disabled())
++		return -ENODEV;
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0) {
++		retval = irq;
++		goto fail;
++	}
++
++	/*
++	 * Right now device-tree probed devices don't get dma_mask set.
++	 * Since shared usb code relies on it, set it here for now.
++	 * Once we have dma capability bindings this can go away.
++	 */
++	retval = dma_coerce_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
++	if (retval)
++		goto fail;
++
++	hcd = usb_create_hcd(driver, &pdev->dev, dev_name(&pdev->dev));
++	if (!hcd) {
++		retval = -ENOMEM;
++		goto fail;
++	}
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	hcd->regs = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR(hcd->regs)) {
++		retval = PTR_ERR(hcd->regs);
++		goto err_put_hcd;
++	}
++	hcd->rsrc_start = res->start;
++	hcd->rsrc_len = resource_size(res);
++
++	/* registers start at offset 0x0 */
++	hcd_to_ehci(hcd)->caps = hcd->regs;
++
++	retval = usb_add_hcd(hcd, irq, IRQF_SHARED);
++	if (retval)
++		goto err_put_hcd;
++
++	device_wakeup_enable(hcd->self.controller);
++	return retval;
++
++err_put_hcd:
++	usb_put_hcd(hcd);
++fail:
++	dev_err(&pdev->dev, "init fail, %d\n", retval);
++
++	return retval;
++}
++
++static int npcm7xx_ehci_hcd_drv_remove(struct platform_device *pdev)
++{
++	struct usb_hcd *hcd = platform_get_drvdata(pdev);
++
++	usb_remove_hcd(hcd);
++
++	usb_put_hcd(hcd);
++
++	return 0;
++}
++
++static const struct of_device_id npcm7xx_ehci_id_table[] = {
++	{ .compatible = "nuvoton,npcm750-ehci" },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, npcm7xx_ehci_id_table);
++
++static struct platform_driver npcm7xx_ehci_hcd_driver = {
++	.probe		= npcm7xx_ehci_hcd_drv_probe,
++	.remove		= npcm7xx_ehci_hcd_drv_remove,
++	.shutdown	= usb_hcd_platform_shutdown,
++	.driver		= {
++		.name = "npcm7xx-ehci",
++		.bus = &platform_bus_type,
++		.pm = &ehci_npcm7xx_pm_ops,
++		.of_match_table = npcm7xx_ehci_id_table,
++	}
++};
++
++static int __init ehci_npcm7xx_init(void)
++{
++	if (usb_disabled())
++		return -ENODEV;
++
++	pr_info("%s: " DRIVER_DESC "\n", hcd_name);
++
++	ehci_init_driver(&ehci_npcm7xx_hc_driver, NULL);
++	return platform_driver_register(&npcm7xx_ehci_hcd_driver);
++}
++module_init(ehci_npcm7xx_init);
++
++static void __exit ehci_npcm7xx_cleanup(void)
++{
++	platform_driver_unregister(&npcm7xx_ehci_hcd_driver);
++}
++module_exit(ehci_npcm7xx_cleanup);
++
++MODULE_DESCRIPTION(DRIVER_DESC);
++MODULE_ALIAS("platform:npcm7xx-ehci");
++MODULE_AUTHOR("Avi Fishman");
++MODULE_LICENSE("GPL v2");
 -- 
 2.14.1
