@@ -1,70 +1,93 @@
-Return-Path: <Lakesh.Sharma@dell.com>
+Return-Path: <mkbrown32@hotmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
- envelope-from=lakesh.sharma@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=hotmail.com
+ (client-ip=40.92.0.106; helo=nam01-bn3-obe.outbound.protection.outlook.com;
+ envelope-from=mkbrown32@hotmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=dell.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="JfHVmtzr"; 
+ dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="WDtt6IHD"; 
  dkim-atps=neutral
-X-Greylist: delayed 613 seconds by postgrey-1.36 at bilbo;
- Fri, 01 Jun 2018 03:22:33 AEST
-Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
- [68.232.149.214])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+ (mail-oln040092000106.outbound.protection.outlook.com [40.92.0.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xZ611WTfzDrbk
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 03:22:31 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1527787353; x=1559323353;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=VcagZChRa6aJMcpnNXUFTgE2WvWasNlcZcetVEgzAI4=;
- b=JfHVmtzr+ORfW7/G5hsnmz1668jkMREN6avAJxZ0VztqYHB9bJ5E15C7
- 6X7o59Iz9I/wb3IBeK25cGtMqnU/cSgZzHrrTVPEIBnOr7uECEWT6P1h/
- GXInK6D4HSforvmaqVAHSzrVu+gOFYPqmim+uyUBdPEJ4aruKQXbr73Ob Q=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2E1AADrKxBbmD+a6ERcGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQYgQ0oCoNtiASMZIF5gQ9fhiiMNYF4C4RsAheBbiE0GAECAQE?=
- =?us-ascii?q?BAQEBAgEBAhABAQEBAQgLCwYoL4I1IoJTAQEBBCMRRQwEAgEIEQQBAQECAiMDA?=
- =?us-ascii?q?gICHyUBCAgBAQQOBQiDGoFpAxWmRBGBIIIchwcNgSyBaIEKhzeCE4EPgw2CT4I?=
- =?us-ascii?q?rMxKCNIJUAoc9hhKKbiwHAotggnmNG4o7hlqBQYILcIMTgi6OIG+OSIEZAQE?=
-X-IPAS-Result: =?us-ascii?q?A2E1AADrKxBbmD+a6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?YgQ0oCoNtiASMZIF5gQ9fhiiMNYF4C4RsAheBbiE0GAECAQEBAQEBAgEBAhABA?=
- =?us-ascii?q?QEBAQgLCwYoL4I1IoJTAQEBBCMRRQwEAgEIEQQBAQECAiMDAgICHyUBCAgBAQQ?=
- =?us-ascii?q?OBQiDGoFpAxWmRBGBIIIchwcNgSyBaIEKhzeCE4EPgw2CT4IrMxKCNIJUAoc9h?=
- =?us-ascii?q?hKKbiwHAotggnmNG4o7hlqBQYILcIMTgi6OIG+OSIEZAQE?=
-Received: from esa3.dell-outbound2.iphmx.com ([68.232.154.63])
- by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 May 2018 12:12:16 -0500
-From: <Lakesh.Sharma@dell.com>
-Received: from ausxipps306.us.dell.com ([143.166.148.156])
- by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 May 2018 23:10:07 +0600
-X-LoopCount0: from 10.166.132.71
-X-IronPort-AV: E=Sophos;i="5.49,463,1520917200"; d="scan'208";a="204767690"
-X-DLP: DLP_GlobalPCIDSS
-To: <mine260309@gmail.com>
-CC: <openbmc@lists.ozlabs.org>
-Subject: RE: openbmc build err "internal compiler error'
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xZR24j6mzDrbk
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 03:37:14 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WajABRh8p5HFiwUFbpqG9f01XdEvRBaKyKV/GdtBqzw=;
+ b=WDtt6IHDAPlMRDCmsPEhf+uA8bWujyeBTRrtY+6dXojFHi+Ro67Efb3hv/hWU73G4HmAbld3uq0WFjnUEp6ivqredTES97u1jQvtAjjK7KQfGnT5f+lsn6kMEq+zrhQkjGVVlTrpfHSZ6uicWDMHwD6RDPM0bbbpSkdMPcR2oqoHFcMlh6U/hY0OPZGRuJE9LA327XWK7W6U5B1P6lTvL3opPcgYNbZ8nYJ3/Flqij6dNGLMrSsSWru8TlO5ntgzC40Vw9jXeFB/Wgo0jB3Q35/gOUKTP9AHjTS14Rbivuu7b3q5ywJK5kwQtwD+3fTgUyVyvaBAGtvbueXDsYXRSw==
+Received: from BN3NAM01FT061.eop-nam01.prod.protection.outlook.com
+ (10.152.66.51) by BN3NAM01HT162.eop-nam01.prod.protection.outlook.com
+ (10.152.66.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.20.820.8; Thu, 31
+ May 2018 17:36:44 +0000
+Received: from MWHPR02MB2320.namprd02.prod.outlook.com (10.152.66.54) by
+ BN3NAM01FT061.mail.protection.outlook.com (10.152.66.252) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.20.820.8 via Frontend Transport; Thu, 31 May 2018 17:36:44 +0000
+Received: from MWHPR02MB2320.namprd02.prod.outlook.com
+ ([fe80::65c6:2abe:3b49:9542]) by MWHPR02MB2320.namprd02.prod.outlook.com
+ ([fe80::65c6:2abe:3b49:9542%14]) with mapi id 15.20.0797.017; Thu, 31 May
+ 2018 17:36:44 +0000
+From: Mark Brown <mkbrown32@hotmail.com>
+To: "Lakesh.Sharma@dell.com" <Lakesh.Sharma@dell.com>, "mine260309@gmail.com"
+ <mine260309@gmail.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: openbmc build err "internal compiler error'
 Thread-Topic: openbmc build err "internal compiler error'
-Thread-Index: AdPzf/BfFD8XbX/RS/y0bRg59wQL0QAc4B8AAUNb//A=
-Date: Thu, 31 May 2018 17:12:14 +0000
-Message-ID: <0928cde3464f4377be4f58f114486543@ausx13mpc113.AMER.DELL.COM>
+Thread-Index: AdPzf/BfFD8XbX/RS/y0bRg59wQL0QASZekAAU4/PQAAAMrqhA==
+Date: Thu, 31 May 2018 17:36:43 +0000
+Message-ID: <MWHPR02MB2320468019D310BACB2B3E7AAE630@MWHPR02MB2320.namprd02.prod.outlook.com>
 References: <90852837c20b4169a7d4d66efaca7399@ausx13mpc109.AMER.DELL.COM>
- <CAARXrtmp_MdKe44q-dgMyO-P=FQRWH5JQ7zMVWVZSj=_HGykmQ@mail.gmail.com>
-In-Reply-To: <CAARXrtmp_MdKe44q-dgMyO-P=FQRWH5JQ7zMVWVZSj=_HGykmQ@mail.gmail.com>
+ <CAARXrtmp_MdKe44q-dgMyO-P=FQRWH5JQ7zMVWVZSj=_HGykmQ@mail.gmail.com>,
+ <0928cde3464f4377be4f58f114486543@ausx13mpc113.AMER.DELL.COM>
+In-Reply-To: <0928cde3464f4377be4f58f114486543@ausx13mpc113.AMER.DELL.COM>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.18.86]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-incomingtopheadermarker: OriginalChecksum:A77AFC5F9C527236F4C431ED21AB8796ADCD8A8A19256DFF151A4689E10CE59E;
+ UpperCasedChecksum:572ECF5588840F30F56AED1DAB6B07A51D0E6B0DC3E5D1068417F3FB2BDFDDB7;
+ SizeAsReceived:7444; Count:47
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [z1yWuYkkIp3NzTN+z6vi0jiVm3rUNVLF9+bR4VvmYyp9QWUKp06p+LC29L8Lpgsm/cUlAkioQds=]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; BN3NAM01HT162;
+ 7:qJXRfhStPuH3k4/xnTimJfnB0YLs7TLGhtzO4lY2gdk/AWvWO00dq5Y+pqZ6Xsq9Lwoa7gjerY+IW31Xgkhy8v7SzQCrFo1si2jOQv8977QBdYSEn73hrulBn7J5MvJMzPPgausDTAhQRX8O8/tK8gKFdW38WZL3FRxJs0KX+W9LOCMghcAk0JmAd9Trrli0/Hdu24rMPBsHTjQEu3yYxvorz1bVOtzf3ME3yFuo9QBcnJp0WmlvZdfPIBm27GuE
+x-incomingheadercount: 47
+x-eopattributedmessage: 0
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(7020095)(201702061078)(5061506573)(5061507331)(1603103135)(2017031320274)(2017031324274)(2017031323274)(2017031322404)(1603101448)(1601125466)(1701031045);
+ SRVR:BN3NAM01HT162; 
+x-ms-traffictypediagnostic: BN3NAM01HT162:
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0; RULEID:(444000031);
+ SRVR:BN3NAM01HT162; BCL:0; PCL:0; RULEID:; SRVR:BN3NAM01HT162; 
+x-forefront-prvs: 06891E23FB
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(7070007)(199004)(13464003)(189003)(8666007)(20460500001)(87572001)(102836004)(2900100001)(5660300001)(305945005)(68736007)(110136005)(81156014)(76176011)(53546011)(6506007)(8936002)(6346003)(83332001)(11346002)(476003)(3660700001)(486006)(3280700002)(5250100002)(8676002)(59450400001)(2501003)(25786009)(97736004)(106356001)(446003)(105586002)(4326008)(39060400002)(6246003)(99286004)(55016002)(14454004)(7696005)(229853002)(104016004)(33656002)(73972006)(74316002)(82202002)(6436002)(9686003)(46003)(86362001)(15852004);
+ DIR:OUT; SFP:1901; SCL:1; SRVR:BN3NAM01HT162;
+ H:MWHPR02MB2320.namprd02.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ A:1; MX:1; LANG:; 
+received-spf: None (protection.outlook.com: hotmail.com does not designate
+ permitted sender hosts)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=mkbrown32@hotmail.com; 
+x-microsoft-antispam-message-info: lH65SqFkcusjsQF82bVIhg+dnLZbV3NgZH07czgMQW9NwRF2DfzQJR5lH2/B6JQf6lgihfhyGQG78IMEJCr5eU0LpPN/cpFOEtZqIdC+7BLop19rGPLHxGHADCG1KdqQqL0Feyfyfx27w1eCylSmB+VnmDHJvaOvtbo++fvWuf16acSHy9oVToFUsgBhDuEK
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
+X-MS-Office365-Filtering-Correlation-Id: 40388731-6f29-42c5-94d8-08d5c71d13ae
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 54485d23-c432-40fe-8436-6091d627118c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40388731-6f29-42c5-94d8-08d5c71d13ae
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 54485d23-c432-40fe-8436-6091d627118c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 May 2018 17:36:44.0043 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3NAM01HT162
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,41 +99,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 17:22:34 -0000
+X-List-Received-Date: Thu, 31 May 2018 17:37:20 -0000
 
-DQpUaGFua3MsIEkgaW5jcmVhc2VkIHRoZSBtZW1vcnkgb2YgVk0sIGFuZCBhZnRlciB0aGF0IGl0
-IHNlZW1zIHRvIHByb2dyZXNzIG9rLiBJIHNlZSAgekltYWdlLCBmaXRJbWFnZSBhbmQgZmV3IG90
-aGVyIGJpbmFyaWVzIGluIGltYWdlcyBmb2xkZXIuDQpIb3dldmVyIEkgYWxzbyBzYXcgZm9sbG93
-aW5nIGVyciBtZXNzYWdlIGluIGJ1aWxkIGxvZy4gQ291bGQgaXQgYmUgZHVlIHVib290IGFyY2hp
-dmUgd2FzIG5vdCBhdmFpbGFibGUgb3IgaXQgY291bGQgbm90IGRvd25sb2FkIGl0ID8NClNob3Vs
-ZCBJIGF0dGVtcHQgcmVidWlsZCwgYW5kIGlmIHNlZSBzYW1lIGVyciB0aGVuIHByb2JhYmx5IHB1
-dCB1Ym9vdCBhcmNoaXZlIG1hbnVhbGx5IGluIGJ1aWxkL2Rvd25sb2FkLCBpZiBzbyB3aGljaCB2
-ZXIgPw0KDQp8IGRkOiBmYWlsZWQgdG8gb3BlbiA/L2hvbWUvbHNoYXJtYS9vcGVuX2JtY19ldmIv
-d3Mvb3BlbmJtYy9idWlsZC90bXAvZGVwbG95L2ltYWdlcy9ldmItYXN0MjUwMC91LWJvb3QuYmlu
-PzogTm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeQ0KfCBXQVJOSU5HOiBleGl0IGNvZGUgMSBmcm9t
-IGEgc2hlbGwgY29tbWFuZC4NCnwgRVJST1I6IEZ1bmN0aW9uIGZhaWxlZDogZG9fZ2VuZXJhdGVf
-c3RhdGljIChsb2cgZmlsZSBpcyBsb2NhdGVkIGF0IC9ob21lL2xzaGFybWEvb3Blbl9ibWNfZXZi
-L3dzL29wZW5ibWMvYnVpbGQvdG1wL3dvcmsvZXZiX2FzdDI1MDAtb3BlbmJtYy1saW51eC1nbnVl
-YWJpL29ibWMtcGhvc3Bob3ItaW1hZ2UvMS4wLXIwL3RlbXAvbG9nLmRvX2dlbmVyYXRlX3N0YXRp
-Yy4yOTQxNSkNCkVSUk9SOiBUYXNrICgvaG9tZS9sc2hhcm1hL29wZW5fYm1jX2V2Yi93cy9vcGVu
-Ym1jL21ldGEtcGhvc3Bob3IvY29tbW9uL3JlY2lwZXMtcGhvc3Bob3IvaW1hZ2VzL29ibWMtcGhv
-c3Bob3ItaW1hZ2UuYmI6ZG9fZ2VuZXJhdGVfc3RhdGljKSBmYWlsZWQgd2l0aCBleGl0IGNvZGUg
-JzEnDQpOT1RFOiBUYXNrcyBTdW1tYXJ5OiBBdHRlbXB0ZWQgMzM5NiB0YXNrcyBvZiB3aGljaCAy
-MDgyIGRpZG4ndCBuZWVkIHRvIGJlIHJlcnVuIGFuZCAxIGZhaWxlZC4NCg0KU3VtbWFyeTogMSB0
-YXNrIGZhaWxlZDoNCiAgL2hvbWUvbHNoYXJtYS9vcGVuX2JtY19ldmIvd3Mvb3BlbmJtYy9tZXRh
-LXBob3NwaG9yL2NvbW1vbi9yZWNpcGVzLXBob3NwaG9yL2ltYWdlcy9vYm1jLXBob3NwaG9yLWlt
-YWdlLmJiOmRvX2dlbmVyYXRlX3N0YXRpYw0KU3VtbWFyeTogVGhlcmUgd2FzIDEgRVJST1IgbWVz
-c2FnZSBzaG93biwgcmV0dXJuaW5nIGEgbm9uLXplcm8gZXhpdCBjb2RlLg0KDQoNCi0tLS0tT3Jp
-Z2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBMZWkgWVUgW21haWx0bzptaW5lMjYwMzA5QGdtYWls
-LmNvbV0gDQpTZW50OiBUaHVyc2RheSwgTWF5IDI0LCAyMDE4IDY6NDIgUE0NClRvOiBTaGFybWEs
-IExha2VzaA0KQ2M6IE9wZW5CTUMgTWFpbGxpc3QNClN1YmplY3Q6IFJlOiBvcGVuYm1jIGJ1aWxk
-IGVyciAiaW50ZXJuYWwgY29tcGlsZXIgZXJyb3InDQoNCk9uIEZyaSwgTWF5IDI1LCAyMDE4IGF0
-IDEyOjU1IEFNLCAgPExha2VzaC5TaGFybWFAZGVsbC5jb20+IHdyb3RlOg0KPiBJIGFtIHNlZWlu
-ZyBmb2xsb3dpbmcgYnVpbGQgZXJyLg0KPg0KPiDigJxhcm0tb3BlbmJtYy1saW51eC1nbnVlYWJp
-LWcrKzogaW50ZXJuYWwgY29tcGlsZXIgZXJyb3I6IEtpbGxlZCANCj4gKHByb2dyYW0gY2MxcGx1
-cynigJ0NCj4NCg0KSSBndWVzcyBnKysgaXMga2lsbGVkIGR1ZSB0byB1c2luZyB0b28gbXVjaCBt
-ZW1vcnksIG1heWJlIHlvdSBjYW4gY2hlY2sgeW91ciBzeXN0ZW0gbG9nIHRvIHNlZSBpZiB0aGVy
-ZSBpcyBhbnkgb29tLg0KSXQgaXMga25vd24gaXNzdWUgdGhhdCBidWlsZGluZyBwaG9zcGhvci1o
-b3N0LWlwbWlkIChtb3JlIHByZWNpc2VseSwgdGhlIGdlbmVyYXRlZCBzZW5zb3ItZ2VuLmNwcCkg
-Y29uc3VtZXMgdG9vIG11Y2ggbWVtb3J5Lg0KDQpQb3NzaWJseSBpbmNyZWFzZSB0aGUgUkFNIGZv
-ciB5b3VyIFZNLCBlLmcuIG15IDE2R2lCIFZNIGlzIGZpbmUuDQo=
+What was the earlier VM Memory size and what is the current VM Memory size =
+?
+
+________________________________________
+From: openbmc <openbmc-bounces+mkbrown32=3Dhotmail.com@lists.ozlabs.org> on=
+ behalf of Lakesh.Sharma@dell.com <Lakesh.Sharma@dell.com>
+Sent: Thursday, May 31, 2018 10:12 AM
+To: mine260309@gmail.com
+Cc: openbmc@lists.ozlabs.org
+Subject: RE: openbmc build err "internal compiler error'
+
+
+Thanks, I increased the memory of VM, and after that it seems to progress o=
+k. I see  zImage, fitImage and few other binaries in images folder.
+However I also saw following err message in build log. Could it be due uboo=
+t archive was not available or it could not download it ?
+Should I attempt rebuild, and if see same err then probably put uboot archi=
+ve manually in build/download, if so which ver ?
+
+| dd: failed to open ?/home/lsharma/open_bmc_evb/ws/openbmc/build/tmp/deplo=
+y/images/evb-ast2500/u-boot.bin?: No such file or directory
+| WARNING: exit code 1 from a shell command.
+| ERROR: Function failed: do_generate_static (log file is located at /home/=
+lsharma/open_bmc_evb/ws/openbmc/build/tmp/work/evb_ast2500-openbmc-linux-gn=
+ueabi/obmc-phosphor-image/1.0-r0/temp/log.do_generate_static.29415)
+ERROR: Task (/home/lsharma/open_bmc_evb/ws/openbmc/meta-phosphor/common/rec=
+ipes-phosphor/images/obmc-phosphor-image.bb:do_generate_static) failed with=
+ exit code '1'
+NOTE: Tasks Summary: Attempted 3396 tasks of which 2082 didn't need to be r=
+erun and 1 failed.
+
+Summary: 1 task failed:
+  /home/lsharma/open_bmc_evb/ws/openbmc/meta-phosphor/common/recipes-phosph=
+or/images/obmc-phosphor-image.bb:do_generate_static
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+
+
+-----Original Message-----
+From: Lei YU [mailto:mine260309@gmail.com]
+Sent: Thursday, May 24, 2018 6:42 PM
+To: Sharma, Lakesh
+Cc: OpenBMC Maillist
+Subject: Re: openbmc build err "internal compiler error'
+
+On Fri, May 25, 2018 at 12:55 AM,  <Lakesh.Sharma@dell.com> wrote:
+> I am seeing following build err.
+>
+> =93arm-openbmc-linux-gnueabi-g++: internal compiler error: Killed
+> (program cc1plus)=94
+>
+
+I guess g++ is killed due to using too much memory, maybe you can check you=
+r system log to see if there is any oom.
+It is known issue that building phosphor-host-ipmid (more precisely, the ge=
+nerated sensor-gen.cpp) consumes too much memory.
+
+Possibly increase the RAM for your VM, e.g. my 16GiB VM is fine.
