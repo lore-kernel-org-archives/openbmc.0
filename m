@@ -1,63 +1,48 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <fengguang.wu@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="POoZUEtd"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="lAcO7cMh"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=fengguang.wu@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xJMZ2MkbzDrYf
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 17:03:21 +1000 (AEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 7F6B821B87;
- Thu, 31 May 2018 03:03:15 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 31 May 2018 03:03:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=exA1jdJ1mD8CStDkR
- Z4x4WlG+tIsf7JpEKs3jdVhHvM=; b=POoZUEtdQmhTyG8jmkQrG5dVh16zBBKWe
- a85azSLjYXPAqM+LpRjaf6XPRT82yswj0fLEHYzbDwA1/qgOucEE5qnm75rX4z4s
- RUfswdi2q7hQcg55/Wue6wWNqB7Z9lhv3JeU6fWoQDwAQ/KZ9fSwrBrza4N3s/Vz
- Mh6/jvfQwcdtu8pim/MiBUbvXeYiU2aNb2b1DYm5GUlbb0RAEwjd7g5iQvF16efq
- tc3ngLJv5PwXjP5gIhJVzRYAUSdw3r62T1W+ad73/PvE5nVWEXhDnRiysSyxA6Sh
- ZNa8ecMFlyRp2cIFjVhtHBpRHaq5QW2C/KY3RZMGFq1WtFu2ir84g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=exA1jdJ1mD8CStDkR
- Z4x4WlG+tIsf7JpEKs3jdVhHvM=; b=lAcO7cMhZQeAGty5H2e3T25nk940venvS
- vUhNRHrSQp0bETRrBxAE1Df7oPBYmjmZdUA0tssnCkytU9z51HB6o5g5Ofk+GnKN
- YeL8nS+8Ve/0A1wqSJf6ICNhcWVYHHsw7WQldcyE21VyM3HXnCeFPe0jsAv3wKRx
- aVLPRH4Mi6VQGQgXUfEEM3vnsMV632qbnjEDYRTq6LRLGniyvnBNuGMDlJNeR1Mc
- 6SYolbLSX+rWUADkXUF9ofv6Qvi2PWmH/iLG1gPM9hL6QQ4vUvknHWimcnhow1xU
- tAUxzxv9cipb93AAVBqWopaLFoS4z9YSS4zSnaBjNhqfvLw56yckw==
-X-ME-Proxy: <xmx:M54PWxWHtQ1Tn_189QNDPe36frM5GhijU7uVItQ633SKnOIRbVSeAQ>
-X-ME-Proxy: <xmx:M54PW4QzPy2Zym5huIQ-qkp9u-midijIUxMvKs-E97Z8TNi14Yuc7g>
-X-ME-Proxy: <xmx:M54PWx3cj-NcxryAIwOR5swzl8BIg5zLY0jqO8sIUkVr79IqaGEA5Q>
-X-ME-Proxy: <xmx:M54PWygV_2fLTI6HhWNCLwYzbc4Hyk76u2rYhsd0HdZP2r-qkkXi0Q>
-X-ME-Proxy: <xmx:M54PWyUgp8YORl46pzadMUm2ibi4NZ0kgMvMCmr9PMYqR0T_V-frvQ>
-X-ME-Proxy: <xmx:M54PWw3Y5Za4TGVyvx_8yepYEJKYXNrXR1Rzj0JRxjLmNKHNOVRyEQ>
-X-ME-Sender: <xms:M54PWzUU6HYAIAgBRbKfNTnAPfGJnmmV59zEnAaz1X3sfrN9e63Wyw>
-Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1A1D2102C0;
- Thu, 31 May 2018 03:03:12 -0400 (EDT)
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: netdev@vger.kernel.org
-Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
- "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: [PATCH net-next] net/ncsi: Avoid GFP_KERNEL in response handler
-Date: Thu, 31 May 2018 17:02:54 +1000
-Message-Id: <20180531070254.28878-1-sam@mendozajonas.com>
-X-Mailer: git-send-email 2.17.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xJfX0RyqzDr30
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 17:16:18 +1000 (AEST)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 May 2018 00:16:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,463,1520924400"; d="scan'208";a="45305328"
+Received: from bee.sh.intel.com (HELO bee) ([10.239.97.14])
+ by orsmga007.jf.intel.com with ESMTP; 31 May 2018 00:16:12 -0700
+Received: from kbuild by bee with local (Exim 4.84_2)
+ (envelope-from <fengguang.wu@intel.com>)
+ id 1fOHoh-000X12-Ri; Thu, 31 May 2018 15:16:11 +0800
+Date: Thu, 31 May 2018 15:16:11 +0800
+From: kbuild test robot <lkp@intel.com>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: kbuild-all@01.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, linux@roeck-us.net, avifishman70@gmail.com,
+ yuenn@google.com, brendanhiggins@google.com, venture@google.com,
+ joel@jms.id.au, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
+Subject: Re: [PATCH v1 2/2] hwmon: npcm-pwm: add NPCM7xx PWM driver
+Message-ID: <201805311515.VL3llohd%fengguang.wu@intel.com>
+References: <1527588141-18639-3-git-send-email-tmaimon77@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1527588141-18639-3-git-send-email-tmaimon77@gmail.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: fengguang.wu@intel.com
+X-SA-Exim-Scanned: No (on bee); SAEximRunCond expanded to false
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,69 +54,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 07:03:24 -0000
+X-List-Received-Date: Thu, 31 May 2018 07:16:21 -0000
 
-ncsi_rsp_handler_gc() allocates the filter arrays using GFP_KERNEL in
-softirq context, causing the below backtrace. This allocation is only a
-few dozen bytes during probing so allocate with GFP_ATOMIC instead.
+Hi Tomer,
 
-[   42.813372] BUG: sleeping function called from invalid context at mm/slab.h:416
-[   42.820900] in_atomic(): 1, irqs_disabled(): 0, pid: 213, name: kworker/0:1
-[   42.827893] INFO: lockdep is turned off.
-[   42.832023] CPU: 0 PID: 213 Comm: kworker/0:1 Tainted: G        W       4.13.16-01441-gad99b38 #65
-[   42.841007] Hardware name: Generic DT based system
-[   42.845966] Workqueue: events ncsi_dev_work
-[   42.850251] [<8010a494>] (unwind_backtrace) from [<80107510>] (show_stack+0x20/0x24)
-[   42.858046] [<80107510>] (show_stack) from [<80612770>] (dump_stack+0x20/0x28)
-[   42.865309] [<80612770>] (dump_stack) from [<80148248>] (___might_sleep+0x230/0x2b0)
-[   42.873241] [<80148248>] (___might_sleep) from [<80148334>] (__might_sleep+0x6c/0xac)
-[   42.881129] [<80148334>] (__might_sleep) from [<80240d6c>] (__kmalloc+0x210/0x2fc)
-[   42.888737] [<80240d6c>] (__kmalloc) from [<8060ad54>] (ncsi_rsp_handler_gc+0xd0/0x170)
-[   42.896770] [<8060ad54>] (ncsi_rsp_handler_gc) from [<8060b454>] (ncsi_rcv_rsp+0x16c/0x1d4)
-[   42.905314] [<8060b454>] (ncsi_rcv_rsp) from [<804d86c8>] (__netif_receive_skb_core+0x3c8/0xb50)
-[   42.914158] [<804d86c8>] (__netif_receive_skb_core) from [<804d96cc>] (__netif_receive_skb+0x20/0x7c)
-[   42.923420] [<804d96cc>] (__netif_receive_skb) from [<804de4b0>] (netif_receive_skb_internal+0x78/0x6a4)
-[   42.932931] [<804de4b0>] (netif_receive_skb_internal) from [<804df980>] (netif_receive_skb+0x78/0x158)
-[   42.942292] [<804df980>] (netif_receive_skb) from [<8042f204>] (ftgmac100_poll+0x43c/0x4e8)
-[   42.950855] [<8042f204>] (ftgmac100_poll) from [<804e094c>] (net_rx_action+0x278/0x4c4)
-[   42.958918] [<804e094c>] (net_rx_action) from [<801016a8>] (__do_softirq+0xe0/0x4c4)
-[   42.966716] [<801016a8>] (__do_softirq) from [<8011cd9c>] (do_softirq.part.4+0x50/0x78)
-[   42.974756] [<8011cd9c>] (do_softirq.part.4) from [<8011cebc>] (__local_bh_enable_ip+0xf8/0x11c)
-[   42.983579] [<8011cebc>] (__local_bh_enable_ip) from [<804dde08>] (__dev_queue_xmit+0x260/0x890)
-[   42.992392] [<804dde08>] (__dev_queue_xmit) from [<804df1f0>] (dev_queue_xmit+0x1c/0x20)
-[   43.000689] [<804df1f0>] (dev_queue_xmit) from [<806099c0>] (ncsi_xmit_cmd+0x1c0/0x244)
-[   43.008763] [<806099c0>] (ncsi_xmit_cmd) from [<8060dc14>] (ncsi_dev_work+0x2e0/0x4c8)
-[   43.016725] [<8060dc14>] (ncsi_dev_work) from [<80133dfc>] (process_one_work+0x214/0x6f8)
-[   43.024940] [<80133dfc>] (process_one_work) from [<80134328>] (worker_thread+0x48/0x558)
-[   43.033070] [<80134328>] (worker_thread) from [<8013ba80>] (kthread+0x130/0x174)
-[   43.040506] [<8013ba80>] (kthread) from [<80102950>] (ret_from_fork+0x14/0x24)
+I love your patch! Perhaps something to improve:
 
-Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+[auto build test WARNING on hwmon/hwmon-next]
+[also build test WARNING on v4.17-rc7]
+[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
+
+url:    https://github.com/0day-ci/linux/commits/Tomer-Maimon/dt-binding-hwmon-Add-NPCM7xx-PWM-documentation/20180531-034040
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-next
+config: x86_64-allmodconfig
+compiler: gcc-7 (Debian 7.3.0-16) 7.3.0
+reproduce:
+        make ARCH=x86_64  allmodconfig
+        make ARCH=x86_64 
+
+All warnings (new ones prefixed by >>):
+
+
+vim +277 drivers/hwmon/npcm7xx-pwm.c
+
+   250	
+   251	static int npcm7xx_pwm_probe(struct platform_device *pdev)
+   252	{
+   253		struct device *dev = &pdev->dev;
+   254		struct npcm7xx_pwm_data *data;
+   255		struct resource res[NPCM7XX_PWM_MAX_MODULES];
+   256		struct device *hwmon;
+   257		struct clk *clk;
+   258		int m, ch, res_cnt, ret;
+   259		u32 Prescale_val, output_freq;
+   260	
+   261		data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+   262		if (!data)
+   263			return -ENOMEM;
+   264	
+   265		for (res_cnt = 0; res_cnt < NPCM7XX_PWM_MAX_MODULES  ; res_cnt++) {
+   266			ret = of_address_to_resource(dev->of_node, res_cnt,
+   267						     &res[res_cnt]);
+   268			if (ret) {
+   269				pr_err("PWM of_address_to_resource fail ret %d\n",
+   270				       ret);
+   271				return -EINVAL;
+   272			}
+   273	
+   274			data->pwm_base[res_cnt] =
+   275				devm_ioremap_resource(dev, &(res[res_cnt]));
+ > 276			pr_debug("pwm%d base is 0x%08X, res.start 0x%08X , size 0x%08X\n",
+ > 277				 res_cnt, (u32)data->pwm_base[res_cnt],
+   278				 res[res_cnt].start, resource_size(&(res[res_cnt])));
+   279	
+   280			if (!data->pwm_base[res_cnt]) {
+   281				pr_err("pwm probe failed: can't read pwm base address for resource %d.\n",
+   282				       res_cnt);
+   283				return -ENOMEM;
+   284			}
+   285	
+   286			mutex_init(&data->npcm7xx_pwm_lock[res_cnt]);
+   287		}
+   288	
+   289		clk = devm_clk_get(dev, NULL);
+   290		if (IS_ERR(clk))
+   291			return -ENODEV;
+   292	
+   293		data->clk_freq = clk_get_rate(clk);
+   294	
+   295		/* Adjust NPCM7xx PWMs output frequency to ~25Khz */
+   296		output_freq = data->clk_freq / PWN_CNT_DEFAULT;
+   297		Prescale_val = DIV_ROUND_CLOSEST(output_freq, PWM_OUTPUT_FREQ_25KHZ);
+   298	
+   299		/* If Prescale_val = 0, then the prescale output clock is stopped */
+   300		if (Prescale_val < MIN_PRESCALE1)
+   301			Prescale_val = MIN_PRESCALE1;
+   302		/*
+   303		 * Prescale_val need to decrement in one because in the PWM Prescale
+   304		 * register the Prescale value increment by one
+   305		 */
+   306		Prescale_val--;
+   307	
+   308		/* Setting PWM Prescale Register value register to both modules */
+   309		Prescale_val |= (Prescale_val << NPCM7XX_PWM_PRESCALE_SHIFT_CH01);
+   310	
+   311		for (m = 0; m < NPCM7XX_PWM_MAX_MODULES  ; m++) {
+   312			iowrite32(Prescale_val,
+   313				  data->pwm_base[m] + NPCM7XX_PWM_REG_PR);
+   314			iowrite32(NPCM7XX_PWM_PRESCALE2_DEFALUT,
+   315				  data->pwm_base[m] + NPCM7XX_PWM_REG_CSR);
+   316			iowrite32(NPCM7XX_PWM_CTRL_MODE_DEFALUT,
+   317				  data->pwm_base[m] + NPCM7XX_PWM_REG_CR);
+   318	
+   319			for (ch = 0; ch < NPCM7XX_PWM_MAX_CHN_NUM; ch++) {
+   320				iowrite32(NPCM7XX_PWM_COUNTER_DEFALUT_NUM,
+   321					  data->pwm_base[m] + NPCM7XX_PWM_REG_CNRx(ch));
+   322				iowrite32(NPCM7XX_PWM_COMPARATOR_DEFALUT_NUM,
+   323					  data->pwm_base[m] + NPCM7XX_PWM_REG_CMRx(ch));
+   324			}
+   325	
+   326			iowrite32(NPCM7XX_PWM_CTRL_MODE_DEFALUT |
+   327				  NPCM7XX_PWM_CTRL_EN_DEFALUT,
+   328				  data->pwm_base[m] + NPCM7XX_PWM_REG_CR);
+   329		}
+   330	
+   331		hwmon = devm_hwmon_device_register_with_info(dev, "npcm7xx_pwm", data,
+   332							     &npcm7xx_chip_info, NULL);
+   333	
+   334		if (IS_ERR(hwmon)) {
+   335			pr_err("PWM Driver failed - devm_hwmon_device_register_with_groups failed\n");
+   336			return PTR_ERR(hwmon);
+   337		}
+   338	
+   339		pr_info("NPCM7XX PWM Driver probed, PWM output Freq %dHz\n",
+   340			output_freq / ((Prescale_val & 0xf) + 1));
+   341	
+   342		return 0;
+   343	}
+   344	
+
 ---
- net/ncsi/ncsi-rsp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index a6b7c7d5c829..930c1d3796f0 100644
---- a/net/ncsi/ncsi-rsp.c
-+++ b/net/ncsi/ncsi-rsp.c
-@@ -652,7 +652,7 @@ static int ncsi_rsp_handler_gc(struct ncsi_request *nr)
- 				      NCSI_CAP_VLAN_MASK;
- 
- 	size = (rsp->uc_cnt + rsp->mc_cnt + rsp->mixed_cnt) * ETH_ALEN;
--	nc->mac_filter.addrs = kzalloc(size, GFP_KERNEL);
-+	nc->mac_filter.addrs = kzalloc(size, GFP_ATOMIC);
- 	if (!nc->mac_filter.addrs)
- 		return -ENOMEM;
- 	nc->mac_filter.n_uc = rsp->uc_cnt;
-@@ -661,7 +661,7 @@ static int ncsi_rsp_handler_gc(struct ncsi_request *nr)
- 
- 	nc->vlan_filter.vids = kcalloc(rsp->vlan_cnt,
- 				       sizeof(*nc->vlan_filter.vids),
--				       GFP_KERNEL);
-+				       GFP_ATOMIC);
- 	if (!nc->vlan_filter.vids)
- 		return -ENOMEM;
- 	/* Set VLAN filters active so they are cleared in the first
--- 
-2.17.0
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
