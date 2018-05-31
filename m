@@ -1,38 +1,38 @@
-Return-Path: <Avi.Fishman@nuvoton.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xZYp59xlzF0TM
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 03:43:10 +1000 (AEST)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w4VHeXl0026427;
- Thu, 31 May 2018 20:40:33 +0300
-Received: by talu34.nuvoton.co.il (Postfix, from userid 8441)
- id D76AD5A259; Thu, 31 May 2018 20:40:32 +0300 (IDT)
-From: avifishman70@gmail.com
-To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu
-Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
- yuenn@google.com, brendanhiggins@google.com,
- mathias.nyman@linux.intel.com, bjorn.andersson@linaro.org,
- jhogan@kernel.org, albeu@free.fr, chunfeng.yun@mediatek.com,
- tony@atomide.com, baolu.lu@linux.intel.com, elder@linaro.org,
- digetx@gmail.com, kstewart@linuxfoundation.org, hdegoede@redhat.com,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
- devicetree@vger.kernel.org, Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v3 3/3] MAINTAINERS: add subfolders for nuvoton *npcm*
-Date: Thu, 31 May 2018 20:40:30 +0300
-Message-Id: <1527788430-12494-4-git-send-email-avifishman70@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1527788430-12494-1-git-send-email-avifishman70@gmail.com>
-References: <1527788430-12494-1-git-send-email-avifishman70@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xdSw3TgXzDrp0
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 05:54:03 +1000 (AEST)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 May 2018 12:53:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,463,1520924400"; d="scan'208";a="45469746"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.73])
+ by orsmga007.jf.intel.com with ESMTP; 31 May 2018 12:53:48 -0700
+Date: Thu, 31 May 2018 12:53:48 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Stewart Smith <stewart@linux.ibm.com>
+Cc: Nancy Yuen <yuenn@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: OpenBMC Security Working Group Kick Off
+Message-ID: <20180531195348.GG105329@mauery>
+References: <CADfYTpFTzVbnSpZn+J74fHNCDZ0QAKKyNLXMzbPKT2JK3fTefQ@mail.gmail.com>
+ <87efhs43uo.fsf@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <87efhs43uo.fsf@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -44,29 +44,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 17:43:11 -0000
+X-List-Received-Date: Thu, 31 May 2018 19:54:09 -0000
 
-From: Avi Fishman <AviFishman70@gmail.com>
+On 31-May-2018 06:38 PM, Stewart Smith wrote:
+>Nancy Yuen <yuenn@google.com> writes:
+>> The OpenBMC Security Work Group kick off meeting is scheduled for Thurs May
+>> 31, 9AM PDT.  This first meeting is by invite only.  Please email me if you
+>> are interested in participating in this working group.
+>
+>Would topics like "security of the BMC from a hostile host" be part of
+>this?
 
-Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
----
- MAINTAINERS | 3 +++
- 1 file changed, 3 insertions(+)
+I would vote yes. From a platform architecture, while the pre-boot 
+communications from the Host might be more trusted, after the OS boots, 
+the host should be considered hostile.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e0ce3c5f32e5..23c450adad44 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1727,7 +1727,10 @@ F:	arch/arm/mach-npcm/
- F:	arch/arm/boot/dts/nuvoton-npcm*
- F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
- F:	drivers/*/*npcm*
-+F:	drivers/*/*/*npcm*
- F:	Documentation/*/*npcm*
-+F:	Documentation/*/*/*npcm*
-+F:	Documentation/*/*/*/*npcm*
- 
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
--- 
-2.14.1
+>A design of OpenPOWER systems is that the BMC and the Host don't have to
+>trust each other, and this should extend to a host that's hostile
+>towards the BMC.
+
+I agree. This is just a plain good design choice. :)
+
+--Vernon
+
+>I'd be surprised if we didn't find bugs in both mboxd and host ipmi if
+>we started fuzzing those interfaces.
+>
+>-- 
+>Stewart Smith
+>OPAL Architect, IBM.
+>
