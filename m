@@ -1,71 +1,74 @@
-Return-Path: <tmaimon77@gmail.com>
+Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::242; helo=mail-io0-x242.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400e:c00::241; helo=mail-pf0-x241.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="IjZGsiiz"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ed9ooJLk"; 
  dkim-atps=neutral
-Received: from mail-io0-x242.google.com (mail-io0-x242.google.com
- [IPv6:2607:f8b0:4001:c06::242])
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xRg868CHzDr30
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 22:32:20 +1000 (AEST)
-Received: by mail-io0-x242.google.com with SMTP id t5-v6so12972772ioa.8
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 05:32:20 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xScL6RZwzDrYf
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 23:14:58 +1000 (AEST)
+Received: by mail-pf0-x241.google.com with SMTP id c10-v6so10768278pfi.12
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 06:14:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=TT6iOLsDzo9dQJeh4UqZoTIwxTw9ADj6srAB8R501ZQ=;
- b=IjZGsiizF5eFm3lSY+OoFQ7r4xYqDTtGA+ZJVKvDQawUV1/Kj5/lHPym1U4R3Rg2+m
- yaG2QW4Q5P83WYyZolPl9et/vH2XhoEtG33f9RS70fy7CVBO/isOKqo6jKylD9ZxJ+xI
- lMKFcbIcNcb2flPOYgrdQ4cMAEo6nPzlKgJDyeGA/XgVq43txf3pJEcgAGb/nn8EbItn
- wsioMWAGoLrI6V7NTPvG2Jj5hgygKvaYU00PR1hbtk6gQogFrEmOrI28q+kd+C1GAaP0
- TZCC69C7397NwB6QsiWMYQLlbRyU8Rs8datiffw80L4vgz/6yFbkGQ3TBepJ/eLgNASh
- qE3Q==
+ h=sender:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=hP1e7ciPpIiGuuuzI26E/RsRbrxKGFhyaJQLPAF9hJE=;
+ b=ed9ooJLkH/9YCocYxUrOG9GcCSCTH9KCnj+oZFHlkS4nKj7YeTRjTokH4sZOv7r2NF
+ iTzIooD1d4nRV9VbkTPUEx5rz/HkUo7/+F99Cdj+kSloIPCdyC3TgE8s9SShBX1KmTmT
+ Cy2uKR4hGrHW4izTpTBZ2wzlqsl1xdhm3m6LsKK00Up3W3YtMrDHlYOqmG4tONHvStY4
+ 425HGz07ocL/tk2AuFfthmCzQHvARItegEdkLEOnsr/HSqpiw30eVev2EFPqvM1h1VZJ
+ Ybev37p2jv9fqBUYbBazhGQDkG1AIGj1GMcsJ6pgrjMFaOJK0E3JGv53Qb7MHWm34Weg
+ Y2qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=TT6iOLsDzo9dQJeh4UqZoTIwxTw9ADj6srAB8R501ZQ=;
- b=S8SUobSyox1AoM7kdZgQueDBUcpnEiwo8LHOwQVcQGFQf7GvoNmMzHMwFVdA0KLO1f
- N13QpocwcqcD0Jkn/36oY8HVCJvFr0J6YGzinfdCEcwYVAhVtZfwcZqEesL2yEsICTz0
- nAo/zheYPrw7HDOObLmcChh7OlHBpiT9ifSRY6JZmDpQ7foBqoDeChE/zpEc49+Y5/VP
- LynNGJcxRnBGTB8hbl9HqSXDx2DPs2EnpQ8UYImVcQEDii/FjeCTi3JRcJnkfS6VIFhC
- HPDLmC16Z6uRjuNgMFCsmlJeVZaXcbVAqY68uKz6fnPtfZq93hikJovNn0N5E1WVJ63+
- mPyg==
-X-Gm-Message-State: ALKqPwdjHPIrhQHdgZ9VMXakWbTHuIlduzr0i5jE5aN1vem12ObA5Kxu
- JQYVzELDCbl135QLuyLg7GzOAXYeyK4QR6e6hIU=
-X-Google-Smtp-Source: ADUXVKJVh1Ny+mqrUAqawa5QMQya49yS23kbaxxko4r5jXFAPsuIxcLI8iCE7r8WhLf6Ej8GESKrCujLze5dBeduKBo=
-X-Received: by 2002:a6b:8f08:: with SMTP id r8-v6mr769746iod.252.1527769938392; 
- Thu, 31 May 2018 05:32:18 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a02:856f:0:0:0:0:0 with HTTP; Thu, 31 May 2018 05:32:17
- -0700 (PDT)
-In-Reply-To: <20180530164604.GB8270@roeck-us.net>
-References: <1527588141-18639-1-git-send-email-tmaimon77@gmail.com>
- <1527588141-18639-3-git-send-email-tmaimon77@gmail.com>
- <20180529165617.GD2162@roeck-us.net>
- <CAP6Zq1h8_n8R=dqmBxC_bK_YstLt1kkE6UCp2OVsNpKp=RK8og@mail.gmail.com>
- <20180530164604.GB8270@roeck-us.net>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Thu, 31 May 2018 15:32:17 +0300
-Message-ID: <CAP6Zq1j1uYmnZF73NWKVq6=K40iTEe1akSS67i0XOZvHgHzNDQ@mail.gmail.com>
+ h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=hP1e7ciPpIiGuuuzI26E/RsRbrxKGFhyaJQLPAF9hJE=;
+ b=hy9VlfsDMtalpdOz7zTgvIVxlfX1slox+tPPTMD8qbjbRoSDfJP8tFkYnrle/UilE3
+ SeHsS3p50/EnD7J/vZNNJSoywidooWZcNzJlFIb1z12Gif1tzZZxKnYGnkdtYMLOrvee
+ YvUCQXA4kad1760B7L6sjrmpWg+d3qcAd+Ntf/shkz44TTf8uKkNsm/5F4QDhKECAecG
+ swqCtwwdSVitGulZNlzZlooEdfLcaXyiBjlvrklDwnMKQo2w6zvdsWG8BcAViUHIU/Pb
+ wWdqimot0B0VCZeMmStLCSx8JDpMeZ21zjI/sn5G8GnEIpxrma8XFJVGiWPl/wIOMHRR
+ c5Fw==
+X-Gm-Message-State: ALKqPwf5Z9EwUBlZk8K+tHY0zv+zRzGNYCmZjMjEoQ0AdJUsncRQGCJm
+ dojdRa3pcOe/9wmcUUeN3LRTpw==
+X-Google-Smtp-Source: ADUXVKJYd6zt3iNxc0fTtQXFw1cL+KWqHZuzemkOM/PczrG7vZXlk0cRydTfhrrIZi2qWMPnwkPRHA==
+X-Received: by 2002:a62:dc1c:: with SMTP id
+ t28-v6mr2440748pfg.137.1527772495690; 
+ Thu, 31 May 2018 06:14:55 -0700 (PDT)
+Received: from server.roeck-us.net
+ (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id g207-v6sm68042540pfb.18.2018.05.31.06.14.53
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 31 May 2018 06:14:54 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
 Subject: Re: [PATCH v1 2/2] hwmon: npcm-pwm: add NPCM7xx PWM driver
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- jdelvare@suse.com, 
- Avi Fishman <avifishman70@gmail.com>, Nancy Yuen <yuenn@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>,
- Patrick Venture <venture@google.com>, 
- Joel Stanley <joel@jms.id.au>, devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-pwm@vger.kernel.org, 
- Thierry Reding <thierry.reding@gmail.com>, eyal.cohen@nuvoton.com
-Content-Type: multipart/alternative; boundary="00000000000079fa60056d7fa846"
+To: kbuild test robot <lkp@intel.com>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: kbuild-all@01.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, avifishman70@gmail.com, yuenn@google.com,
+ brendanhiggins@google.com, venture@google.com, joel@jms.id.au,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org
+References: <1527588141-18639-3-git-send-email-tmaimon77@gmail.com>
+ <201805311515.VL3llohd%fengguang.wu@intel.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <6843f9d0-55e6-725e-456b-533123c2d9c4@roeck-us.net>
+Date: Thu, 31 May 2018 06:14:52 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
+MIME-Version: 1.0
+In-Reply-To: <201805311515.VL3llohd%fengguang.wu@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,288 +80,134 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 12:32:21 -0000
+X-List-Received-Date: Thu, 31 May 2018 13:15:00 -0000
 
---00000000000079fa60056d7fa846
-Content-Type: text/plain; charset="UTF-8"
+On 05/31/2018 12:16 AM, kbuild test robot wrote:
+> Hi Tomer,
+> 
+> I love your patch! Perhaps something to improve:
+> 
+> [auto build test WARNING on hwmon/hwmon-next]
+> [also build test WARNING on v4.17-rc7]
+> [if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
+> 
+> url:    https://github.com/0day-ci/linux/commits/Tomer-Maimon/dt-binding-hwmon-Add-NPCM7xx-PWM-documentation/20180531-034040
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-next
+> config: x86_64-allmodconfig
+> compiler: gcc-7 (Debian 7.3.0-16) 7.3.0
+> reproduce:
+>          make ARCH=x86_64  allmodconfig
+>          make ARCH=x86_64
+> 
+> All warnings (new ones prefixed by >>):
+> 
+> 
+> vim +277 drivers/hwmon/npcm7xx-pwm.c
+> 
+>     250	
+>     251	static int npcm7xx_pwm_probe(struct platform_device *pdev)
+>     252	{
+>     253		struct device *dev = &pdev->dev;
+>     254		struct npcm7xx_pwm_data *data;
+>     255		struct resource res[NPCM7XX_PWM_MAX_MODULES];
+>     256		struct device *hwmon;
+>     257		struct clk *clk;
+>     258		int m, ch, res_cnt, ret;
+>     259		u32 Prescale_val, output_freq;
+>     260	
+>     261		data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+>     262		if (!data)
+>     263			return -ENOMEM;
+>     264	
+>     265		for (res_cnt = 0; res_cnt < NPCM7XX_PWM_MAX_MODULES  ; res_cnt++) {
+>     266			ret = of_address_to_resource(dev->of_node, res_cnt,
+>     267						     &res[res_cnt]);
+>     268			if (ret) {
+>     269				pr_err("PWM of_address_to_resource fail ret %d\n",
+>     270				       ret);
+>     271				return -EINVAL;
+>     272			}
+>     273	
+>     274			data->pwm_base[res_cnt] =
+>     275				devm_ioremap_resource(dev, &(res[res_cnt]));
+>   > 276			pr_debug("pwm%d base is 0x%08X, res.start 0x%08X , size 0x%08X\n",
+>   > 277				 res_cnt, (u32)data->pwm_base[res_cnt],
+>     278				 res[res_cnt].start, resource_size(&(res[res_cnt])));
+>     279
 
-Hi Guenter,
+No idea what the tool is complaining about, but the messages should use dev_ functions.
 
-Thanks for the prompt and detailed reply,
-
-On 30 May 2018 at 19:46, Guenter Roeck <linux@roeck-us.net> wrote:
-
-> On Wed, May 30, 2018 at 06:44:58PM +0300, Tomer Maimon wrote:
-> > Hi  Guenter,
-> >
-> > Thanks for your prompt reply!
-> >
-> >
-> > On 29 May 2018 at 19:56, Guenter Roeck <linux@roeck-us.net> wrote:
-> >
-> > > On Tue, May 29, 2018 at 01:02:21PM +0300, Tomer Maimon wrote:
-> > > > Add Nuvoton BMC NPCM7xx Pulse Width Modulation (PWM) driver.
-> > > >
-> > > > The Nuvoton BMC NPCM7xx has two identical PWM controller modules,
-> > > > each module has four PWM controller outputs.
-> > > >
-> > >
-> > > I don't see it guaranteed that all future NPCM7xx devices will be PWM
-> > > controllers, much less that they will be compatible to the chip really
-> > >
-> >
-> > Actually all NPCM7xx family have PWM and FAN modules support,
-> >
-> >
-> > > supported here. NPCM750, I presume ? I would suggest name the driver
-> > > accordingly.
-> > >
-> >
-> > The compatible name can not be a family name like nuvoton,npcm7xx-pwm,
-> only
-> > a specific chip name. (in our case the NPCM750 is the full modules SOC)
-> > still you think i should change the driver name? (note: all of our
-> NPCM7xx
-> > unique modules drivers are named npcm7xx-*.c or *-npcm7xx.c)
-> >
->
-> drivers/watchdog/npcm_wdt.c contradicts that statement.
->
-> Please discuss with the pwm maintainer. In hwmon, wildcards in driver file
-> names are discouraged and will not be accepted. Our recommendation is to
-> pick
-> one chip from the family and use it as part of the file name.
->
-
-Thanks for the clarification, we will name the driver according your
-recommendation.
-
->
-> >
-> > > As a generic pwm driver, not specifically tied to a fan controller,
-> > > this driver does not belong into hwmon. It should be added to the pwm
-> > > subsystem. Copying the maintainer and mailing list.
-> > >
-> > > In the NPCM7xx we have PWM and FAN controller modules,  usually in the
-> > aspect of our BMC clients the two module
-> > are used together to control the fans.
-> >
-> > But because in the NPCM7xx the PWM and the FAN controller are separate
-> > modules we
-> > thought to do two separate drivers in the hwmon
-> > is it possible? or you think it is better to do one hwmon driver for the
-> > PWM and the FAN controller.
-> >
-> That depends on how closely the two modules are intertwined. If the pwm
-> module
-> is generic, it belongs into the pwm subsystem. It only belongs into hwmon
-> if it can _only_ be used for fan control, eg if the data reported by the
-> fan
-> module is used by the hardware to control the pwm output based on some
-> fan speed <-> pw value mapping which is programmed into the chip, and/or
-> if the pwm output can only connect to a fan and nothing else, and if the
-> relationship between pwm output and fan input is well defined.
->
->
-Again thank you for your clarification, our PWM module was designed to work
-with fan devices and for fan control.
-i.e. on all server boards the pwm output is only connect to a fan device.
-
-
-> If both end up in hwmon, I don't see the benefit of having two separate
-> drivers. That means two hwmon devices for the same fan or set of fans,
-> one being all but useless in respect to output from the 'sensors'
-> command. You'll have to convince me why that would make sense; I just
-> don't see the point.  In that case, I would also not see the point of
-> having two separate devicetree nodes; to me, that would be similar
-> to having two interfaces for a single serial line, one for receive
-> and one for transmit.
-
-
-Since our PWM and FAN are made only for handling the fans we will use them
-in a single hwmon driver as you recommended
-
-> note that we were going to submit soon also the FAN controller driver
-> under
-> > hwmon.
-> >
-> No problem with that as long as there are no wildcards in the file name.
->
-> Guenter
->
-
-Thanks,
-
-Tomer
-
---00000000000079fa60056d7fa846
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Guenter,<div><br></div><div>Thanks for the prompt and d=
-etailed reply,</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quot=
-e">On 30 May 2018 at 19:46, Guenter Roeck <span dir=3D"ltr">&lt;<a href=3D"=
-mailto:linux@roeck-us.net" target=3D"_blank">linux@roeck-us.net</a>&gt;</sp=
-an> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
-border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Wed, May 3=
-0, 2018 at 06:44:58PM +0300, Tomer Maimon wrote:<br>
-&gt; Hi=C2=A0 Guenter,<br>
-&gt; <br>
-&gt; Thanks for your prompt reply!<br>
-&gt; <br>
-&gt; <br>
-&gt; On 29 May 2018 at 19:56, Guenter Roeck &lt;<a href=3D"mailto:linux@roe=
-ck-us.net">linux@roeck-us.net</a>&gt; wrote:<br>
-&gt; <br>
-&gt; &gt; On Tue, May 29, 2018 at 01:02:21PM +0300, Tomer Maimon wrote:<br>
-&gt; &gt; &gt; Add Nuvoton BMC NPCM7xx Pulse Width Modulation (PWM) driver.=
-<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; The Nuvoton BMC NPCM7xx has two identical PWM controller mod=
-ules,<br>
-&gt; &gt; &gt; each module has four PWM controller outputs.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt;<br>
-&gt; &gt; I don&#39;t see it guaranteed that all future NPCM7xx devices wil=
-l be PWM<br>
-&gt; &gt; controllers, much less that they will be compatible to the chip r=
-eally<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; Actually all NPCM7xx family have PWM and FAN modules support,<br>
-&gt; <br>
-&gt; <br>
-&gt; &gt; supported here. NPCM750, I presume ? I would suggest name the dri=
-ver<br>
-&gt; &gt; accordingly.<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; The compatible name can not be a family name like nuvoton,npcm7xx-pwm,=
- only<br>
-&gt; a specific chip name. (in our case the NPCM750 is the full modules SOC=
-)<br>
-&gt; still you think i should change the driver name? (note: all of our NPC=
-M7xx<br>
-&gt; unique modules drivers are named npcm7xx-*.c or *-npcm7xx.c)<br>
-&gt; <br>
-<br>
-</span>drivers/watchdog/npcm_wdt.c contradicts that statement.<br>
-<br>
-Please discuss with the pwm maintainer. In hwmon, wildcards in driver file<=
-br>
-names are discouraged and will not be accepted. Our recommendation is to pi=
-ck<br>
-one chip from the family and use it as part of the file name.<br></blockquo=
-te><div><br></div><div>Thanks for the clarification, we will name the drive=
-r according your=C2=A0<span style=3D"color:rgb(34,34,34);font-family:arial,=
-sans-serif;font-size:small;font-style:normal;font-variant-ligatures:normal;=
-font-variant-caps:normal;font-weight:400;letter-spacing:normal;text-align:s=
-tart;text-indent:0px;text-transform:none;white-space:normal;word-spacing:0p=
-x;background-color:rgb(255,255,255);text-decoration-style:initial;text-deco=
-ration-color:initial;float:none;display:inline">recommendation.</span></div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
-px #ccc solid;padding-left:1ex">
-<span class=3D""><br>
-&gt; <br>
-&gt; &gt; As a generic pwm driver, not specifically tied to a fan controlle=
-r,<br>
-&gt; &gt; this driver does not belong into hwmon. It should be added to the=
- pwm<br>
-&gt; &gt; subsystem. Copying the maintainer and mailing list.<br>
-&gt; &gt;<br>
-&gt; &gt; In the NPCM7xx we have PWM and FAN controller modules,=C2=A0 usua=
-lly in the<br>
-&gt; aspect of our BMC clients the two module<br>
-&gt; are used together to control the fans.<br>
-&gt; <br>
-&gt; But because in the NPCM7xx the PWM and the FAN controller are separate=
-<br>
-&gt; modules we<br>
-&gt; thought to do two separate drivers in the hwmon<br>
-&gt; is it possible? or you think it is better to do one hwmon driver for t=
-he<br>
-&gt; PWM and the FAN controller.<br>
-&gt; <br>
-</span>That depends on how closely the two modules are intertwined. If the =
-pwm module<br>
-is generic, it belongs into the pwm subsystem. It only belongs into hwmon<b=
-r>
-if it can _only_ be used for fan control, eg if the data reported by the fa=
-n<br>
-module is used by the hardware to control the pwm output based on some<br>
-fan speed &lt;-&gt; pw value mapping which is programmed into the chip, and=
-/or<br>
-if the pwm output can only connect to a fan and nothing else, and if the<br=
->
-relationship between pwm output and fan input is well defined.<br>
-<br></blockquote><div>=C2=A0</div><div>
-
-<div style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:sm=
-all;font-style:normal;font-variant-ligatures:normal;font-variant-caps:norma=
-l;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0px;te=
-xt-transform:none;white-space:normal;word-spacing:0px;background-color:rgb(=
-255,255,255);text-decoration-style:initial;text-decoration-color:initial">A=
-gain thank you for your clarification, our PWM module was designed to work =
-with fan devices and for fan control.</div><div style=3D"color:rgb(34,34,34=
-);font-family:arial,sans-serif;font-size:small;font-style:normal;font-varia=
-nt-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing=
-:normal;text-align:start;text-indent:0px;text-transform:none;white-space:no=
-rmal;word-spacing:0px;background-color:rgb(255,255,255);text-decoration-sty=
-le:initial;text-decoration-color:initial">i.e. on all server boards the=C2=
-=A0<span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-siz=
-e:small;font-style:normal;font-variant-ligatures:normal;font-variant-caps:n=
-ormal;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0p=
-x;text-transform:none;white-space:normal;word-spacing:0px;background-color:=
-rgb(255,255,255);text-decoration-style:initial;text-decoration-color:initia=
-l;float:none;display:inline">pwm output is only connect to a fan</span>=C2=
-=A0device.</div><div style=3D"color:rgb(34,34,34);font-family:arial,sans-se=
-rif;font-size:small;font-style:normal;font-variant-ligatures:normal;font-va=
-riant-caps:normal;font-weight:400;letter-spacing:normal;text-align:start;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;backg=
-round-color:rgb(255,255,255);text-decoration-style:initial;text-decoration-=
-color:initial">=C2=A0<br></div></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">If both=
- end up in hwmon, I don&#39;t see the benefit of having two separate<br>
-drivers. That means two hwmon devices for the same fan or set of fans,<br>
-one being all but useless in respect to output from the &#39;sensors&#39;<b=
-r>
-command. You&#39;ll have to convince me why that would make sense; I just<b=
-r>
-don&#39;t see the point.=C2=A0 In that case, I would also not see the point=
- of<br>
-having two separate devicetree nodes; to me, that would be similar<br>
-to having two interfaces for a single serial line, one for receive<br>
-and one for transmit.</blockquote><div>=C2=A0</div><div>
-
-<div style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:sm=
-all;font-style:normal;font-variant-ligatures:normal;font-variant-caps:norma=
-l;font-weight:400;letter-spacing:normal;text-align:start;text-indent:0px;te=
-xt-transform:none;white-space:normal;word-spacing:0px;text-decoration-style=
-:initial;text-decoration-color:initial;background-color:rgb(255,255,255)">S=
-ince our PWM and FAN are made only for handling the fans we will use them i=
-n a single hwmon driver as you recommended</div><div style=3D"color:rgb(34,=
-34,34);font-family:arial,sans-serif;font-size:small;font-style:normal;font-=
-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-sp=
-acing:normal;text-align:start;text-indent:0px;text-transform:none;white-spa=
-ce:normal;word-spacing:0px;text-decoration-style:initial;text-decoration-co=
-lor:initial;background-color:rgb(255,255,255)"><br></div><span style=3D"col=
-or:rgb(34,34,34);font-family:arial,sans-serif;font-size:small;font-style:no=
-rmal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400=
-;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:none=
-;white-space:normal;word-spacing:0px;background-color:rgb(255,255,255);text=
--decoration-style:initial;text-decoration-color:initial;float:none;display:=
-inline"></span></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 =
-0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">
-&gt; note that we were going to submit soon also the FAN controller driver =
-under<br>
-&gt; hwmon.<br>
-&gt; <br>
-</span>No problem with that as long as there are no wildcards in the file n=
-ame.<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
-Guenter<br>
-</font></span></blockquote></div><br></div><div class=3D"gmail_extra">Thank=
-s,</div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Tom=
-er</div></div>
-
---00000000000079fa60056d7fa846--
+>     280			if (!data->pwm_base[res_cnt]) {
+>     281				pr_err("pwm probe failed: can't read pwm base address for resource %d.\n",
+>     282				       res_cnt);
+>     283				return -ENOMEM;
+>     284			}
+>     285	
+>     286			mutex_init(&data->npcm7xx_pwm_lock[res_cnt]);
+>     287		}
+>     288	
+>     289		clk = devm_clk_get(dev, NULL);
+>     290		if (IS_ERR(clk))
+>     291			return -ENODEV;
+>     292	
+>     293		data->clk_freq = clk_get_rate(clk);
+>     294	
+>     295		/* Adjust NPCM7xx PWMs output frequency to ~25Khz */
+>     296		output_freq = data->clk_freq / PWN_CNT_DEFAULT;
+>     297		Prescale_val = DIV_ROUND_CLOSEST(output_freq, PWM_OUTPUT_FREQ_25KHZ);
+>     298	
+>     299		/* If Prescale_val = 0, then the prescale output clock is stopped */
+>     300		if (Prescale_val < MIN_PRESCALE1)
+>     301			Prescale_val = MIN_PRESCALE1;
+>     302		/*
+>     303		 * Prescale_val need to decrement in one because in the PWM Prescale
+>     304		 * register the Prescale value increment by one
+>     305		 */
+>     306		Prescale_val--;
+>     307	
+>     308		/* Setting PWM Prescale Register value register to both modules */
+>     309		Prescale_val |= (Prescale_val << NPCM7XX_PWM_PRESCALE_SHIFT_CH01);
+>     310	
+>     311		for (m = 0; m < NPCM7XX_PWM_MAX_MODULES  ; m++) {
+>     312			iowrite32(Prescale_val,
+>     313				  data->pwm_base[m] + NPCM7XX_PWM_REG_PR);
+>     314			iowrite32(NPCM7XX_PWM_PRESCALE2_DEFALUT,
+>     315				  data->pwm_base[m] + NPCM7XX_PWM_REG_CSR);
+>     316			iowrite32(NPCM7XX_PWM_CTRL_MODE_DEFALUT,
+>     317				  data->pwm_base[m] + NPCM7XX_PWM_REG_CR);
+>     318	
+>     319			for (ch = 0; ch < NPCM7XX_PWM_MAX_CHN_NUM; ch++) {
+>     320				iowrite32(NPCM7XX_PWM_COUNTER_DEFALUT_NUM,
+>     321					  data->pwm_base[m] + NPCM7XX_PWM_REG_CNRx(ch));
+>     322				iowrite32(NPCM7XX_PWM_COMPARATOR_DEFALUT_NUM,
+>     323					  data->pwm_base[m] + NPCM7XX_PWM_REG_CMRx(ch));
+>     324			}
+>     325	
+>     326			iowrite32(NPCM7XX_PWM_CTRL_MODE_DEFALUT |
+>     327				  NPCM7XX_PWM_CTRL_EN_DEFALUT,
+>     328				  data->pwm_base[m] + NPCM7XX_PWM_REG_CR);
+>     329		}
+>     330	
+>     331		hwmon = devm_hwmon_device_register_with_info(dev, "npcm7xx_pwm", data,
+>     332							     &npcm7xx_chip_info, NULL);
+>     333	
+>     334		if (IS_ERR(hwmon)) {
+>     335			pr_err("PWM Driver failed - devm_hwmon_device_register_with_groups failed\n");
+>     336			return PTR_ERR(hwmon);
+>     337		}
+>     338	
+>     339		pr_info("NPCM7XX PWM Driver probed, PWM output Freq %dHz\n",
+>     340			output_freq / ((Prescale_val & 0xf) + 1));
+>     341	
+>     342		return 0;
+>     343	}
+>     344	
+> 
+> ---
+> 0-DAY kernel test infrastructure                Open Source Technology Center
+> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+> --
+> To unsubscribe from this list: send the line "unsubscribe linux-hwmon" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+> 
