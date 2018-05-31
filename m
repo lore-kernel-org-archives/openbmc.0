@@ -1,48 +1,58 @@
-Return-Path: <james.mihm@intel.com>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=james.mihm@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c0d::230; helo=mail-qt0-x230.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Slrf8n6K"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
+ [IPv6:2607:f8b0:400d:c0d::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xk6L4WkDzDrbH
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 09:23:13 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 May 2018 16:23:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,464,1520924400"; 
- d="scan'208,217";a="228974241"
-Received: from orsmsx102.amr.corp.intel.com ([10.22.225.129])
- by orsmga005.jf.intel.com with ESMTP; 31 May 2018 16:23:08 -0700
-Received: from orsmsx156.amr.corp.intel.com (10.22.240.22) by
- ORSMSX102.amr.corp.intel.com (10.22.225.129) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 31 May 2018 16:23:08 -0700
-Received: from orsmsx101.amr.corp.intel.com ([169.254.8.86]) by
- ORSMSX156.amr.corp.intel.com ([169.254.8.16]) with mapi id 14.03.0319.002;
- Thu, 31 May 2018 16:23:08 -0700
-From: "Mihm, James" <james.mihm@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Hackathon - Sept 18th - 20th, 2018
-Thread-Topic: Hackathon - Sept 18th - 20th, 2018
-Thread-Index: AdP5NYxL3Pk4CeCcSXa7vblhWCxqyQ==
-Date: Thu, 31 May 2018 23:23:07 +0000
-Message-ID: <C599FC839619124CAC44E062ABB7DFE2D6FA04AD@ORSMSX101.amr.corp.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiODI4MmE2YzgtODk3ZC00ZDYyLWI0Y2YtYzM5Nzg4OTYwMDUwIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiMVRLSUhcL3VlY1VURmp4NWpzRWYrbmZMd1czakV2M2MyN1hyc1lhblZXS3BldGNuMmVkNWZ5U0xSXC9HeHNPRk9TIn0=
-x-ctpclassification: CTP_NT
-x-originating-ip: [10.22.254.140]
-Content-Type: multipart/alternative;
- boundary="_000_C599FC839619124CAC44E062ABB7DFE2D6FA04ADORSMSX101amrcor_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xkRN0NY8zDrZD
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 09:38:04 +1000 (AEST)
+Received: by mail-qt0-x230.google.com with SMTP id h5-v6so22032136qtm.13
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 16:38:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=MF+hwh/HikChp72XKCAvXfbsciGSTyL+ZvhKtY1N19s=;
+ b=Slrf8n6KOsmYeLqbdQFcRnGc+SCjiQSeRicddDXrEHkeoZ4q0tIc/z6iMd3Psd1kSM
+ QFV1lqAkLh9FHecTh7xwx1QdxEAn8BdwvT5nVVXJAAYUW35vpjeGVn9f/rGARbI3P4Lv
+ fSgvqGsA8tNZCfP8eOKIDR66ktQwcdHbpiomrO1PujHO2bna4eCFPiu/rJRXJSaSJPoO
+ bdMJqMy8fdzS4afIpHRNkxZiMDPH2vtgt7F3K8VZ74xQDQwJTCiqLohdiwAmaqxtiZgq
+ uYVHbmecRhbsuuNOZeWykO2ZwZbrj44KRHm61/3OGbvM2/n3JsDVMsdXlJg6N5q1cEHk
+ uQnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=MF+hwh/HikChp72XKCAvXfbsciGSTyL+ZvhKtY1N19s=;
+ b=jpOxeGLIxJyC+3ueAYYIdJFqX/qul1fEWv1TBjhzbUM3cQ+HglJ2RnIv96a7lwSXcb
+ +ytCXpZhAphCSAvOQ3f1jhHH3Tj1JQ4PZ+SGb8BWXHnELbPK4Nk9tpPPhlaJIQJNihSq
+ DPDVjTmva14KK6a4DU0JWy54vc8kiW52xTjXLipIVat7q4ca4vOjYuElhVy4mTGRE6X8
+ k/Bbzena1iPMzNsl3Y+O//fEBDm0Q6Fq9GMqs+4QeHed5v96mw1IDAvwtpPPSj4VUGyJ
+ RY3CZCW9/LJmJRhwkxc328CPsnmUaMCfHmL8DNqRfkijyu2lbbJZUChCtRu/0jdbdhq6
+ rGdA==
+X-Gm-Message-State: APt69E0geaWA059o+FrhZp9RLxqsWekcfh2Ni2jVAjg7JF3zsDSZRcPi
+ sLspTTsF0ccYDZ/elxT0Ylt0PaiBmm8DgjdT/cX/9w==
+X-Google-Smtp-Source: ADUXVKLPim5Qw1G71PH52eVg4RP/CNQLPHVqihJ98OYJ9093Ud73qKzg4MiNZ9mQhG3gm3Zmd8ld7+VxS0m/L6QAFAQ=
+X-Received: by 2002:aed:3c7a:: with SMTP id
+ u55-v6mr8485214qte.391.1527809881406; 
+ Thu, 31 May 2018 16:38:01 -0700 (PDT)
 MIME-Version: 1.0
+References: <1526953427.458876.1380098832.53C3F9C7@webmail.messagingengine.com>
+In-Reply-To: <1526953427.458876.1380098832.53C3F9C7@webmail.messagingengine.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Thu, 31 May 2018 16:37:47 -0700
+Message-ID: <CAJoAoZmd+RJepSkFE+VUapmrY_rYdftKX0LnSrjUXSqv_bGy2w@mail.gmail.com>
+Subject: Re: obmc-gerrit: A tool for automagically adding reviewers to your
+ patches
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com
+Content-Type: multipart/alternative; boundary="00000000000044d0d2056d88f5e3"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,149 +64,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 23:23:23 -0000
+X-List-Received-Date: Thu, 31 May 2018 23:38:09 -0000
 
---_000_C599FC839619124CAC44E062ABB7DFE2D6FA04ADORSMSX101amrcor_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--00000000000044d0d2056d88f5e3
+Content-Type: text/plain; charset="UTF-8"
 
-Event:  OpenBMC Hackathon hosted by Intel
+Excellent! Thanks Andrew!!!!!
 
-Date:  September 18th - 20th, 2018
+On Mon, May 21, 2018 at 6:45 PM Andrew Jeffery <andrew@aj.id.au> wrote:
 
-Location:  Intel Corporation
-                    Jones Farm Campus - Building 5   (JF5)
-                    2111 NE 25th Ave,
-                    Hillsboro, Oregon  97124
-
-                    Entrance to JF5:  NE Jones Farm Parkway and NE 15th Ave=
-., Hillsboro, Oregon, 97124
-
-Please join us for the second OpenBMC Hackathon at Intel in Hillsboro, Oreg=
-on, USA.
-
-This is an opportunity for the OpenBMC community to meet the awesome engine=
-ers from the openbmc community, network, work on code, brainstorm, and solv=
-e problems.
-
-Watch for an eInvite and registration page. Register early as there will be=
- limited seating due to space constraints.
-
-James Mihm
-Intel - DCG/DEG BMC Core Firmware
-(503) 264-5129
-
-
---_000_C599FC839619124CAC44E062ABB7DFE2D6FA04ADORSMSX101amrcor_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
-hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> Hello,
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Comic Sans MS";
-	panose-1:3 15 7 2 3 3 2 2 2 4;}
-@font-face
-	{font-family:Com;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Comic Sans MS";
-	color:#44546A;
-	font-weight:normal;
-	font-style:normal;
-	text-decoration:none none;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Event:&nbsp; OpenBMC Hackathon hosted by Intel<o:p><=
-/o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Date:&nbsp; September 18<sup>th</sup> &#8211; 20<sup=
->th</sup>, 2018<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Location:&nbsp; Intel Corporation<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jones Farm Campus &#8211; Building =
-5&nbsp;&nbsp; (JF5)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2111 NE 25<sup>th</sup> Ave,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hillsboro, Oregon&nbsp; 97124<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Entrance to JF5:&nbsp; NE Jone=
-s Farm Parkway and NE 15th Ave., Hillsboro, Oregon, 97124<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Please join us for the second OpenBMC Hackathon at I=
-ntel in Hillsboro, Oregon, USA.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">This is an opportunity for the OpenBMC community to =
-meet the awesome engineers from the openbmc community, network, work on cod=
-e, brainstorm, and solve problems.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Watch for an eInvite and registration page. Register=
- early as there will be limited seating due to space constraints.
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-mic Sans MS&quot;;color:#44546A"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:navy">James Mihm</spa=
-n><span style=3D"font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;=
-color:#44546A">
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:navy">Intel &#8211; D=
-CG/DEG BMC Core Firmware</span><span style=3D"font-size:10.0pt;font-family:=
-Com;color:navy"><br>
-</span><span style=3D"font-size:10.0pt;font-family:&quot;Comic Sans MS&quot=
-;;color:navy">(503) 264-5129</span><span style=3D"font-size:12.0pt;font-fam=
-ily:&quot;Arial&quot;,sans-serif;color:#44546A"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
+> I've created a helper script that automatically adds reviewers to your
+> patches when you push them to Gerrit:
+>
+>
+> https://github.com/openbmc/openbmc-tools/tree/master/amboar/obmc-scripts/maintainers
+>
+> Why do you care? I'm hoping that it reduces the time it takes for your
+> patches to get attention *and* relieves you from the tedium of adding the
+> reviewers yourself.
+>
+> The script is a wrapper for `git push` that also parses the MAINTAINERS
+> file in the root of the repository. I recently sent a flood of patches
+> adding a MAINTAINERS file to each repo maintained by the OpenBMC
+> organisation, so obmc-gerrit should be generally useful in the very near
+> future.
+>
+> I'm always open to feedback, so make sure to reply here or ping me on IRC
+> if you have opinions.
+>
+> Cheers,
+>
+> Andrew
+>
 
---_000_C599FC839619124CAC44E062ABB7DFE2D6FA04ADORSMSX101amrcor_--
+--00000000000044d0d2056d88f5e3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Excellent! Thanks Andrew!!!!!</div><br><div class=3D"gmail=
+_quote"><div dir=3D"ltr">On Mon, May 21, 2018 at 6:45 PM Andrew Jeffery &lt=
+;<a href=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex">Hello,<br>
+<br>
+I&#39;ve created a helper script that automatically adds reviewers to your =
+patches when you push them to Gerrit:<br>
+<br>
+<a href=3D"https://github.com/openbmc/openbmc-tools/tree/master/amboar/obmc=
+-scripts/maintainers" rel=3D"noreferrer" target=3D"_blank">https://github.c=
+om/openbmc/openbmc-tools/tree/master/amboar/obmc-scripts/maintainers</a><br=
+>
+<br>
+Why do you care? I&#39;m hoping that it reduces the time it takes for your =
+patches to get attention *and* relieves you from the tedium of adding the r=
+eviewers yourself.<br>
+<br>
+The script is a wrapper for `git push` that also parses the MAINTAINERS fil=
+e in the root of the repository. I recently sent a flood of patches adding =
+a MAINTAINERS file to each repo maintained by the OpenBMC organisation, so =
+obmc-gerrit should be generally useful in the very near future.<br>
+<br>
+I&#39;m always open to feedback, so make sure to reply here or ping me on I=
+RC if you have opinions.<br>
+<br>
+Cheers,<br>
+<br>
+Andrew<br>
+</blockquote></div>
+
+--00000000000044d0d2056d88f5e3--
