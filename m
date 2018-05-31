@@ -1,73 +1,69 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <eric.dumazet@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c00::243; helo=mail-pf0-x243.google.com;
+ envelope-from=eric.dumazet@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="aHTKjkb5"; 
+ dkim-atps=neutral
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xLTM41wZzDr30
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 18:38:31 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w4V8Z54m140682
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 04:38:28 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2jab5qwyae-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 04:38:28 -0400
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Thu, 31 May 2018 02:38:27 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 31 May 2018 02:38:26 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w4V8cPW711141612
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 31 May 2018 01:38:25 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4BD4CBE03A;
- Thu, 31 May 2018 02:38:25 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.81.205.11])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with SMTP id A3F88BE039;
- Thu, 31 May 2018 02:38:24 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 2E8C04EC638; Thu, 31 May 2018 18:38:23 +1000 (AEST)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Nancy Yuen <yuenn@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC Security Working Group Kick Off
-In-Reply-To: <CADfYTpFTzVbnSpZn+J74fHNCDZ0QAKKyNLXMzbPKT2JK3fTefQ@mail.gmail.com>
-References: <CADfYTpFTzVbnSpZn+J74fHNCDZ0QAKKyNLXMzbPKT2JK3fTefQ@mail.gmail.com>
-Date: Thu, 31 May 2018 18:38:23 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xLlB6kKWzDr30
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 18:50:27 +1000 (AEST)
+Received: by mail-pf0-x243.google.com with SMTP id a14-v6so10451359pfi.1
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 01:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=G3Z75WRH03cy/sis3Q1mtSYEYWOJL6GZiYMlbFfI01c=;
+ b=aHTKjkb5H7RkE6CiwgFjy3LY4cBD0mMa62N2sss28SVvOEpeKpkQZ4RS708Hvht2TG
+ bw/HGTDQyfH4+TGsU4p7brI15KkWJ9eBUnsoWhW9vvYZsZ9TPwAbf/4pEWiXi6WAvG7w
+ CGcgDSHbewWnMRwBaKoUkBFlgHfuD5I29yEacBVmWsvWVso6JSnzobhJwyjNCppPB3Od
+ NdPMydG1M4QSoaNcJ+h4LiOag+wbAblJGPp03Y7+d+wFgxYUiRhREM4W+iZF32zdem6R
+ O0wu56cI2Tza2F8xwxbQSWAtsMcugrQlzyXCvzBtCKiyi9BcwnwCoKLhW96I4wyKBSUr
+ lPxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=G3Z75WRH03cy/sis3Q1mtSYEYWOJL6GZiYMlbFfI01c=;
+ b=IGH9DOZH3oKV219kIfSGm1s9CwV2Fnqgtuyo5zLl4glPhZlV7I5XVspD9UDGRxftWC
+ NUheCFgnhrYIHUWTZ+vdfU2GdKigyRqmO9Rgt7cFH4HP+6uysI5Px9WjjE5Pq3ESyNCN
+ jXQ0m0zwWcn0m2GNPy5qOQz8n/Dx0tKDkQDQMorufA4xxCeg5nOsBeip93K7A40vK8ZR
+ QdRUcEvj6gFIj5BaCmd13k+ycmUalOqh+k+BkxwRwslzjSqX+hQ7Bi75Q4hwsWbN4vhC
+ MNsDYxpUN5bYFFSWuyifDQ8pJaIHbcvlgHJa96GYgKoKbMcFjOhj0DmdbJE6BPDyLCMk
+ M1Vw==
+X-Gm-Message-State: ALKqPwcWwBlo+XEAeICSkz4K2QubBr4jxcUtbCiypyw17/JQowd4aDY8
+ 56uGVgXyhMtTKIfxFB8Dy6btjtui
+X-Google-Smtp-Source: ADUXVKIKu4W7UCIdmRYGLWi9z2ODkxcAbJu+WmCYtA3hDASYwslNe++F59i54tU3ubgCTFqDAatHvQ==
+X-Received: by 2002:a63:b008:: with SMTP id
+ h8-v6mr3329768pgf.137.1527756623811; 
+ Thu, 31 May 2018 01:50:23 -0700 (PDT)
+Received: from [10.246.221.134] ([50.234.174.228])
+ by smtp.gmail.com with ESMTPSA id d6-v6sm6283852pgc.38.2018.05.31.01.50.22
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 31 May 2018 01:50:23 -0700 (PDT)
+Subject: Re: [PATCH net-next] net/ncsi: Avoid GFP_KERNEL in response handler
+To: Samuel Mendoza-Jonas <sam@mendozajonas.com>, netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <20180531070254.28878-1-sam@mendozajonas.com>
+From: Eric Dumazet <eric.dumazet@gmail.com>
+Message-ID: <69fcb143-00a2-2ddf-e2d4-c692b650f292@gmail.com>
+Date: Thu, 31 May 2018 04:50:21 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18053108-0012-0000-0000-0000165BA251
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009101; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000264; SDB=6.01040218; UDB=6.00532463; IPR=6.00819347; 
- MB=3.00021391; MTD=3.00000008; XFM=3.00000015; UTC=2018-05-31 08:38:27
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18053108-0013-0000-0000-0000530E5A70
-Message-Id: <87efhs43uo.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-05-31_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=878 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1805220000 definitions=main-1805310097
+In-Reply-To: <20180531070254.28878-1-sam@mendozajonas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 31 May 2018 21:01:39 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -79,23 +75,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 08:38:32 -0000
+X-List-Received-Date: Thu, 31 May 2018 08:50:31 -0000
 
-Nancy Yuen <yuenn@google.com> writes:
-> The OpenBMC Security Work Group kick off meeting is scheduled for Thurs May
-> 31, 9AM PDT.  This first meeting is by invite only.  Please email me if you
-> are interested in participating in this working group.
 
-Would topics like "security of the BMC from a hostile host" be part of
-this?
 
-A design of OpenPOWER systems is that the BMC and the Host don't have to
-trust each other, and this should extend to a host that's hostile
-towards the BMC.
+On 05/31/2018 03:02 AM, Samuel Mendoza-Jonas wrote:
+> ncsi_rsp_handler_gc() allocates the filter arrays using GFP_KERNEL in
+> softirq context, causing the below backtrace. This allocation is only a
+> few dozen bytes during probing so allocate with GFP_ATOMIC instead.
+> 
 
-I'd be surprised if we didn't find bugs in both mboxd and host ipmi if
-we started fuzzing those interfaces.
+Hi Samuel
 
--- 
-Stewart Smith
-OPAL Architect, IBM.
+You forgot to add
+
+Fixes: 062b3e1b6d4f ("net/ncsi: Refactor MAC, VLAN filters")
+
+size = (rsp->uc_cnt + rsp->mc_cnt + rsp->mixed_cnt) * ETH_ALEN;
+
+-> seems to be able to reach more than few dozen bytes...
+
+Also, what prevents ncsi_rsp_handler_gc() to be called multiples times ?
+
+nc->mac_filter.addrs & nc->vlan_filter.vids would be re-allocated and memory would leak.
