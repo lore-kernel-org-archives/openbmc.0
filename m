@@ -1,58 +1,63 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <raj.khem@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400d:c0d::230; helo=mail-qt0-x230.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
+ envelope-from=raj.khem@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Slrf8n6K"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="UfEgGfZW"; 
  dkim-atps=neutral
-Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
- [IPv6:2607:f8b0:400d:c0d::230])
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xkRN0NY8zDrZD
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 09:38:04 +1000 (AEST)
-Received: by mail-qt0-x230.google.com with SMTP id h5-v6so22032136qtm.13
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 16:38:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MF+hwh/HikChp72XKCAvXfbsciGSTyL+ZvhKtY1N19s=;
- b=Slrf8n6KOsmYeLqbdQFcRnGc+SCjiQSeRicddDXrEHkeoZ4q0tIc/z6iMd3Psd1kSM
- QFV1lqAkLh9FHecTh7xwx1QdxEAn8BdwvT5nVVXJAAYUW35vpjeGVn9f/rGARbI3P4Lv
- fSgvqGsA8tNZCfP8eOKIDR66ktQwcdHbpiomrO1PujHO2bna4eCFPiu/rJRXJSaSJPoO
- bdMJqMy8fdzS4afIpHRNkxZiMDPH2vtgt7F3K8VZ74xQDQwJTCiqLohdiwAmaqxtiZgq
- uYVHbmecRhbsuuNOZeWykO2ZwZbrj44KRHm61/3OGbvM2/n3JsDVMsdXlJg6N5q1cEHk
- uQnw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xYMT557GzDrbk
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 02:49:09 +1000 (AEST)
+Received: by mail-qk0-x243.google.com with SMTP id 185-v6so17684208qkk.11
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 09:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=CqdohSjM9HX5Y9r/aOTpiauKVkv5Yt7bJ0QFCbBh0OY=;
+ b=UfEgGfZWnSdwugYtrzQFBqQns+cfufMWiUk1Puw4XDfFc0nB9I0qAODwDkAq2gkKd0
+ 5kCbJ+4T6juv1cfK5kfAAZWPKpoPO/u+xU1TORTxAMuWc0AKB3CLRjEOF0Z6FSvPzO4j
+ H4uHnM2FwgF+p6pwJkf5Pa1/eoLmYzge9Ui5icAr7awlGIVKCmTQZTWqhK+qkwDSueHt
+ fjemvDrz3YxSp9aPNzF5PoS3z4wooTGWr9epldbdHb7V76p6bphDpkcmM8yXmpQEfXmk
+ hIhxL3ZI3QWWWDh9Zx7Z98F67FPhhoZFZSiv/eI1WaoczDKUjKhHBWV2+GdPq5ieBK8a
+ Z6Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=MF+hwh/HikChp72XKCAvXfbsciGSTyL+ZvhKtY1N19s=;
- b=jpOxeGLIxJyC+3ueAYYIdJFqX/qul1fEWv1TBjhzbUM3cQ+HglJ2RnIv96a7lwSXcb
- +ytCXpZhAphCSAvOQ3f1jhHH3Tj1JQ4PZ+SGb8BWXHnELbPK4Nk9tpPPhlaJIQJNihSq
- DPDVjTmva14KK6a4DU0JWy54vc8kiW52xTjXLipIVat7q4ca4vOjYuElhVy4mTGRE6X8
- k/Bbzena1iPMzNsl3Y+O//fEBDm0Q6Fq9GMqs+4QeHed5v96mw1IDAvwtpPPSj4VUGyJ
- RY3CZCW9/LJmJRhwkxc328CPsnmUaMCfHmL8DNqRfkijyu2lbbJZUChCtRu/0jdbdhq6
- rGdA==
-X-Gm-Message-State: APt69E0geaWA059o+FrhZp9RLxqsWekcfh2Ni2jVAjg7JF3zsDSZRcPi
- sLspTTsF0ccYDZ/elxT0Ylt0PaiBmm8DgjdT/cX/9w==
-X-Google-Smtp-Source: ADUXVKLPim5Qw1G71PH52eVg4RP/CNQLPHVqihJ98OYJ9093Ud73qKzg4MiNZ9mQhG3gm3Zmd8ld7+VxS0m/L6QAFAQ=
-X-Received: by 2002:aed:3c7a:: with SMTP id
- u55-v6mr8485214qte.391.1527809881406; 
- Thu, 31 May 2018 16:38:01 -0700 (PDT)
+ bh=CqdohSjM9HX5Y9r/aOTpiauKVkv5Yt7bJ0QFCbBh0OY=;
+ b=A4Pa7L0sKlkS3dhQTsvo6kmnGJ+3x3Jzdnyr3KMau1Mt5+/EHajLjHzpGhcDfjCXre
+ pEMeQ+qBGY0XMTLhLUpnFJVXHYDC8x7p6BtiQrnfnQ6SJ7zzkCe5FW1QadE4ehKWMeRC
+ 7v3iDSW4wAd8iNin2PlBqlLD1Ms35zsngR1I8xKEEXLMTaJgfGqMUA5AWpfWkca0uQ9u
+ Idcm++0I77SmSFubOjYZuoQA3yrzDoabbctD7Fr9fKzcoM3+ezj/mxRQExWCSdnvEbXT
+ gSK411Fnu8HQH3lu4rF4QekCOnxiV0m9aLkR3ojrwu8Mg97OKKcbhN04Z0IKfGzXeSMO
+ 5Yjg==
+X-Gm-Message-State: APt69E02mPEkcpIghyzRn9s3omNS8DpNJrm0hkDgYVNhaPl3fWiK8Sd+
+ hgOX+U5WkFtmVxaRtD9IkkRcqcztaR++6NoGcYQ=
+X-Google-Smtp-Source: ADUXVKIxJfGWgik6GT2D6O/wosLR7+11wRmZB+A29PgnliHJ7nfkW+I3mNoLJEWmMPPoA/1NV09cQykWjajt+gciBdo=
+X-Received: by 2002:a37:b8c4:: with SMTP id
+ i187-v6mr7024022qkf.412.1527785346080; 
+ Thu, 31 May 2018 09:49:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <1526953427.458876.1380098832.53C3F9C7@webmail.messagingengine.com>
-In-Reply-To: <1526953427.458876.1380098832.53C3F9C7@webmail.messagingengine.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Thu, 31 May 2018 16:37:47 -0700
-Message-ID: <CAJoAoZmd+RJepSkFE+VUapmrY_rYdftKX0LnSrjUXSqv_bGy2w@mail.gmail.com>
-Subject: Re: obmc-gerrit: A tool for automagically adding reviewers to your
- patches
+Received: by 2002:a0c:e486:0:0:0:0:0 with HTTP; Thu, 31 May 2018 09:48:35
+ -0700 (PDT)
+In-Reply-To: <1527594494.687641.1388974752.4113AC8F@webmail.messagingengine.com>
+References: <20180510063718.16913-1-andrew@aj.id.au>
+ <1527594494.687641.1388974752.4113AC8F@webmail.messagingengine.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 31 May 2018 09:48:35 -0700
+Message-ID: <CAMKF1spm=GQQq90gu58BdrNtqPQx_fxnA01ar9Jmr4PbQnmttQ@mail.gmail.com>
+Subject: Re: [oe] [meta-python][PATCH v2 1/3] meta-python: Add python-pyflame
+ recipe
 To: Andrew Jeffery <andrew@aj.id.au>
-Cc: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com
-Content-Type: multipart/alternative; boundary="00000000000044d0d2056d88f5e3"
+Cc: openembeded-devel <openembedded-devel@lists.openembedded.org>,
+ openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 01 Jun 2018 10:33:23 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -64,74 +69,94 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 23:38:09 -0000
+X-List-Received-Date: Thu, 31 May 2018 16:49:10 -0000
 
---00000000000044d0d2056d88f5e3
-Content-Type: text/plain; charset="UTF-8"
+fails to build on qemumips
 
-Excellent! Thanks Andrew!!!!!
+| ../../git/src/ptrace.cc: In function 'user_regs_struct
+pyflame::PtraceGetRegs(pid_t)':
+| ../../git/src/ptrace.cc:125:41: error: return type 'user_regs_struct
+{aka struct user_regs_struct}' is incomplete
+|  user_regs_struct PtraceGetRegs(pid_t pid) {
+|                                          ^
+| ../../git/src/ptrace.cc:125:18: error: ambiguating new declaration
+of 'void pyflame::PtraceGetRegs(pid_t)'
+|  user_regs_struct PtraceGetRegs(pid_t pid) {
+|                   ^~~~~~~~~~~~~
+| In file included from ../../git/src/ptrace.cc:15:0:
+| ../../git/src/./ptrace.h:48:18: note: old declaration
+'user_regs_struct pyflame::PtraceGetRegs(pid_t)'
+|  user_regs_struct PtraceGetRegs(pid_t pid);
+|                   ^~~~~~~~~~~~~
+| ../../git/src/ptrace.cc:126:20: error: aggregate 'user_regs_struct
+regs' has incomplete type and cannot be defined
+|    user_regs_struct regs;
+|                     ^~~~
+| ../../git/src/ptrace.cc: In function 'void
+pyflame::PtraceSetRegs(pid_t, user_regs_struct)':
+| ../../git/src/ptrace.cc:135:48: error: 'regs' has incomplete type
+|  void PtraceSetRegs(pid_t pid, user_regs_struct regs) {
+|                                                 ^~~~
+| In file included from ../../git/src/ptrace.cc:15:0:
+| ../../git/src/./ptrace.h:29:16: note: forward declaration of
+'user_regs_struct {aka struct user_regs_struct}'
+|  typedef struct user_regs_struct user_regs_struct;
+|                 ^~~~~~~~~~~~~~~~
+| make[2]: *** [ptrace.o] Error 1
+| make[2]: *** Waiting for unfinished jobs....
+| make[2]: Leaving directory
+`/mnt/jenkins/workspace/OpenEmbedded/build/tmp/work/mips32r2-bec-linux/python-pyflame/1.6.6-r0/build/src'
 
-On Mon, May 21, 2018 at 6:45 PM Andrew Jeffery <andrew@aj.id.au> wrote:
-
-> Hello,
+On Tue, May 29, 2018 at 4:48 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Thu, 10 May 2018, at 16:07, Andrew Jeffery wrote:
+>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 >
-> I've created a helper script that automatically adds reviewers to your
-> patches when you push them to Gerrit:
->
->
-> https://github.com/openbmc/openbmc-tools/tree/master/amboar/obmc-scripts/maintainers
->
-> Why do you care? I'm hoping that it reduces the time it takes for your
-> patches to get attention *and* relieves you from the tedium of adding the
-> reviewers yourself.
->
-> The script is a wrapper for `git push` that also parses the MAINTAINERS
-> file in the root of the repository. I recently sent a flood of patches
-> adding a MAINTAINERS file to each repo maintained by the OpenBMC
-> organisation, so obmc-gerrit should be generally useful in the very near
-> future.
->
-> I'm always open to feedback, so make sure to reply here or ping me on IRC
-> if you have opinions.
+> Ping - is there anything I need to revise for this patch or the following two?
 >
 > Cheers,
 >
 > Andrew
 >
-
---00000000000044d0d2056d88f5e3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Excellent! Thanks Andrew!!!!!</div><br><div class=3D"gmail=
-_quote"><div dir=3D"ltr">On Mon, May 21, 2018 at 6:45 PM Andrew Jeffery &lt=
-;<a href=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br></div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
-px #ccc solid;padding-left:1ex">Hello,<br>
-<br>
-I&#39;ve created a helper script that automatically adds reviewers to your =
-patches when you push them to Gerrit:<br>
-<br>
-<a href=3D"https://github.com/openbmc/openbmc-tools/tree/master/amboar/obmc=
--scripts/maintainers" rel=3D"noreferrer" target=3D"_blank">https://github.c=
-om/openbmc/openbmc-tools/tree/master/amboar/obmc-scripts/maintainers</a><br=
->
-<br>
-Why do you care? I&#39;m hoping that it reduces the time it takes for your =
-patches to get attention *and* relieves you from the tedium of adding the r=
-eviewers yourself.<br>
-<br>
-The script is a wrapper for `git push` that also parses the MAINTAINERS fil=
-e in the root of the repository. I recently sent a flood of patches adding =
-a MAINTAINERS file to each repo maintained by the OpenBMC organisation, so =
-obmc-gerrit should be generally useful in the very near future.<br>
-<br>
-I&#39;m always open to feedback, so make sure to reply here or ping me on I=
-RC if you have opinions.<br>
-<br>
-Cheers,<br>
-<br>
-Andrew<br>
-</blockquote></div>
-
---00000000000044d0d2056d88f5e3--
+>> ---
+>>  meta-python/recipes-devtools/python/python-pyflame.inc      | 12 ++++++++++++
+>>  meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb |  1 +
+>>  2 files changed, 13 insertions(+)
+>>  create mode 100644 meta-python/recipes-devtools/python/python-pyflame.inc
+>>  create mode 100644 meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+>>
+>> diff --git a/meta-python/recipes-devtools/python/python-pyflame.inc b/
+>> meta-python/recipes-devtools/python/python-pyflame.inc
+>> new file mode 100644
+>> index 000000000000..3b84a7e8f8e3
+>> --- /dev/null
+>> +++ b/meta-python/recipes-devtools/python/python-pyflame.inc
+>> @@ -0,0 +1,12 @@
+>> +SUMMARY = "Pyflame: A Ptracing Profiler For Python"
+>> +HOMEPAGE = "https://github.com/uber/pyflame"
+>> +SECTION = "devel/python"
+>> +LICENSE = "Apache-2.0"
+>> +LIC_FILES_CHKSUM = "file://${S}/
+>> LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
+>> +DEPENDS = "python"
+>> +
+>> +SRC_URI = "git://github.com/uber/pyflame.git;protocol=https;tag=v${PV}"
+>> +S = "${WORKDIR}/git"
+>> +
+>> +inherit pkgconfig autotools
+>> +
+>> diff --git a/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+>> b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+>> new file mode 100644
+>> index 000000000000..96f03305f883
+>> --- /dev/null
+>> +++ b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+>> @@ -0,0 +1 @@
+>> +require python-pyflame.inc
+>> --
+>> 2.14.1
+>>
+> --
+> _______________________________________________
+> Openembedded-devel mailing list
+> Openembedded-devel@lists.openembedded.org
+> http://lists.openembedded.org/mailman/listinfo/openembedded-devel
