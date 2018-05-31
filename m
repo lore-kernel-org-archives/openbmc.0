@@ -1,55 +1,63 @@
-Return-Path: <yuenn@google.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c06::22b; helo=mail-io0-x22b.google.com;
- envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="prH2VJ8m"; 
- dkim-atps=neutral
-Received: from mail-io0-x22b.google.com (mail-io0-x22b.google.com
- [IPv6:2607:f8b0:4001:c06::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="pOs5VxV6"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="fo4bY4tI"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40x3531SJnzDrWZ
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 07:04:53 +1000 (AEST)
-Received: by mail-io0-x22b.google.com with SMTP id o185-v6so23318988iod.0
- for <openbmc@lists.ozlabs.org>; Wed, 30 May 2018 14:04:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=ZI5tqdJ4sJT5H8OcjrjeOV0Yv2mynOIp1PKyQNiQZNY=;
- b=prH2VJ8m/CX5S+60SBhMEjSgVC9bAGR3qkX85szJ9UbCCsWGwBCWf/HjX8tLhADHUh
- jM4epjnNwSSXu09P4CfW4XiVcvqOvk+dtWU2DvP4/VdJbNNuRqlqvnCGK/VIy8/EHWJI
- HQ35ab35rFjxZ2EvQsf5Rip6BGu8rc5eFt4eji+6k9KmIZ4dGmCiy8VR6RS2ehhElhff
- tva6ZUE3n2/35vqJx9ib2d/vDmHZc0eMKPHmP88OnCyQzaB1gY8jZtjamh14G2tiEgZp
- XAxd3Emh0E72qGzZ3tzPHWrf+PCd0Pu3Lw2vjE2YZLTiZSXMj8TDnVfhXyUaCkSB+U6f
- gubQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=ZI5tqdJ4sJT5H8OcjrjeOV0Yv2mynOIp1PKyQNiQZNY=;
- b=lemGDhEBTgZN53hiCQv75DVu3A2INtiI/MNZ3Iu3POXoiSmKDrhaqCaEH1awfuCQ4s
- 9JRWjGn34FyxFEsPtC5jfMZl4C+FkSLMb+qN6/Mnr5LaVfSiknsJuz8rZ1y3Tea/S6pI
- 1WhDXHaqQovmmqbk4iHrj3jX+wAMVfP4Qw8IRI+EyPcucBCQAVdP5pAdAgUagt634eaU
- ezezuZZy0E8SuStRU1SqWAOTNBd6LZ6WMMUD6fo9eHrBDnt8yyKi9sE3DviUNU8eqDPp
- jvhmEPvqoCpp0bAQ+5pzxdkXQWhVwbCzVk7EJJAR82g0iJiKA+eu8NAFwS175RqJcuMw
- 21RQ==
-X-Gm-Message-State: APt69E0NSlogl4c0lqj6F2fC1pGLllq585mk+s+4ysYVfO69EFEyftmS
- 3B3PuJc7bzYUrZk+ALwJ66+KRJeNxePQqTAZnheSfGcD
-X-Google-Smtp-Source: ADUXVKJcrJzCM7BOxwuQ/LCplF3//uDqH8ALn74UYb9xBhpyiRBubPTsznkl5uEsiA1ZtxuqAAxdxkyLNj/V3A1obfA=
-X-Received: by 2002:a6b:e215:: with SMTP id
- z21-v6mr3662788ioc.280.1527714290731; 
- Wed, 30 May 2018 14:04:50 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a5e:c90c:0:0:0:0:0 with HTTP; Wed, 30 May 2018 14:04:10
- -0700 (PDT)
-From: Nancy Yuen <yuenn@google.com>
-Date: Wed, 30 May 2018 14:04:10 -0700
-Message-ID: <CADfYTpFTzVbnSpZn+J74fHNCDZ0QAKKyNLXMzbPKT2JK3fTefQ@mail.gmail.com>
-Subject: OpenBMC Security Working Group Kick Off
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000009ecc28056d72b397"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xDXC2cYHzDr30
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 14:10:34 +1000 (AEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id C659C21DFF;
+ Thu, 31 May 2018 00:10:31 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 31 May 2018 00:10:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=uMK59nIQahPbdrv+S
+ 3eUAuOwDvTvDMtySJ7e8UsAtaA=; b=pOs5VxV69AeS0BltRbS8Z5O72oaiGDsx8
+ 8SHjNRpAlfG0jRJX4d86OeChULaIX2YfoykGqHqFKPP9aexMB4t0SuMHX61o1d5r
+ Lw/VILgfIRPvtskWU5j1YFwTJ358YwdtuG53HQMCUyqGPzEgK2hTYLSqzkDR7+xV
+ twVc3xIj6KcW6BHZxbXidKn/iFe28sq5EVeQPYO5nlAjZGemkVHH7HsbAdf9dmoo
+ k50LHILcXGqOjQyVdTeXsREF856C9q08uuMOcZ2BeHVRocWBZlhP42LB7aA/fNbP
+ 9Z1dGJHuC2ukJqdweoU7jZQ+9zNgDoEjg/lVw2IOvhMsF1TR3ujXg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=uMK59nIQahPbdrv+S
+ 3eUAuOwDvTvDMtySJ7e8UsAtaA=; b=fo4bY4tIGeUyznCmyRhwULSb6ubjVAEe3
+ JLgpnMBbuEa4zzCrVsB785tZC5VRWzmNnZ8BFEWldi1sfEM727fOYi+3uJE3v3zu
+ lptcoiDxGuc4Eu8C+IU085F8jVTFcvCASzB6utRB99iLrc9DOyLNCQ1KBST8Ucqn
+ a8OtA+Z8RoionOfxWbMNnmj//Z2s8r3dKp3GAZDRydOLF0K4B1U6eXa2qdDkyV99
+ VOz6qrApnLnHSmm8PxILZ8N1/A2L6ZlrZ2MURNHv5xhlvOZdVmgAAFGDtx94YXnt
+ WoPZZj4p/BRDr99kDhdy7jnn+Wbk4rAphvdyBC8yJe6JyiPc5jSmQ==
+X-ME-Proxy: <xmx:t3UPW75x6Z5Zyx32_1rWZhNyzLrmSsI-lIO6mfYA_OhRqEpOqfP9uA>
+X-ME-Proxy: <xmx:t3UPW70VbE6BIr4tzTRwOahMB_YMtNfc-qe7gO1j9ptHdIuIoqpr6Q>
+X-ME-Proxy: <xmx:t3UPWxbgjlF3JTIHSiNS09YuEm6EBnMIkRgq_dszdWykU4j06ty9nQ>
+X-ME-Proxy: <xmx:t3UPWwnqIJpvBsOB7A8Y_d8r76ZpoNGM7zILbA3t1PqDo86ntiszXQ>
+X-ME-Proxy: <xmx:t3UPW52qM9bW-24B_EhDfq8piJQXgf-U9lQWCcLFvrSp8a_ezYtcDA>
+X-ME-Proxy: <xmx:t3UPW6XtvvtTRKhX0QQWgLjF-pKhMHFVpRUq-mOnhUCyvqNEu04g3w>
+X-ME-Sender: <xms:t3UPWybzy2QSDsXz7xRROcfq9kOag0o7V18D6YWG37lGicMTi9TVzw>
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7811F1025D;
+ Thu, 31 May 2018 00:10:29 -0400 (EDT)
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: netdev@vger.kernel.org
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH net] net/ncsi: Fix array size in dumpit handler
+Date: Thu, 31 May 2018 14:10:04 +1000
+Message-Id: <20180531041004.20172-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.17.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -61,64 +69,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 21:04:56 -0000
+X-List-Received-Date: Thu, 31 May 2018 04:10:37 -0000
 
---0000000000009ecc28056d72b397
-Content-Type: text/plain; charset="UTF-8"
+With CONFIG_CC_STACKPROTECTOR enabled the kernel panics as below when
+parsing a NCSI_CMD_PKG_INFO command:
 
-The OpenBMC Security Work Group kick off meeting is scheduled for Thurs May
-31, 9AM PDT.  This first meeting is by invite only.  Please email me if you
-are interested in participating in this working group.
+[  150.149711] Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: 805cff08
+[  150.149711]
+[  150.159919] CPU: 0 PID: 1301 Comm: ncsi-netlink Not tainted 4.13.16-468cbec6d2c91239332cb91b1f0a73aafcb6f0c6 #1
+[  150.170004] Hardware name: Generic DT based system
+[  150.174852] [<80109930>] (unwind_backtrace) from [<80106bc4>] (show_stack+0x20/0x24)
+[  150.182641] [<80106bc4>] (show_stack) from [<805d36e4>] (dump_stack+0x20/0x28)
+[  150.189888] [<805d36e4>] (dump_stack) from [<801163ac>] (panic+0xdc/0x278)
+[  150.196780] [<801163ac>] (panic) from [<801162cc>] (__stack_chk_fail+0x20/0x24)
+[  150.204111] [<801162cc>] (__stack_chk_fail) from [<805cff08>] (ncsi_pkg_info_all_nl+0x244/0x258)
+[  150.212912] [<805cff08>] (ncsi_pkg_info_all_nl) from [<804f939c>] (genl_lock_dumpit+0x3c/0x54)
+[  150.221535] [<804f939c>] (genl_lock_dumpit) from [<804f873c>] (netlink_dump+0xf8/0x284)
+[  150.229550] [<804f873c>] (netlink_dump) from [<804f8d44>] (__netlink_dump_start+0x124/0x17c)
+[  150.237992] [<804f8d44>] (__netlink_dump_start) from [<804f9880>] (genl_rcv_msg+0x1c8/0x3d4)
+[  150.246440] [<804f9880>] (genl_rcv_msg) from [<804f9174>] (netlink_rcv_skb+0xd8/0x134)
+[  150.254361] [<804f9174>] (netlink_rcv_skb) from [<804f96a4>] (genl_rcv+0x30/0x44)
+[  150.261850] [<804f96a4>] (genl_rcv) from [<804f7790>] (netlink_unicast+0x198/0x234)
+[  150.269511] [<804f7790>] (netlink_unicast) from [<804f7ffc>] (netlink_sendmsg+0x368/0x3b0)
+[  150.277783] [<804f7ffc>] (netlink_sendmsg) from [<804abea4>] (sock_sendmsg+0x24/0x34)
+[  150.285625] [<804abea4>] (sock_sendmsg) from [<804ac1dc>] (___sys_sendmsg+0x244/0x260)
+[  150.293556] [<804ac1dc>] (___sys_sendmsg) from [<804ad98c>] (__sys_sendmsg+0x5c/0x9c)
+[  150.301400] [<804ad98c>] (__sys_sendmsg) from [<804ad9e4>] (SyS_sendmsg+0x18/0x1c)
+[  150.308984] [<804ad9e4>] (SyS_sendmsg) from [<80102640>] (ret_fast_syscall+0x0/0x3c)
+[  150.316743] ---[ end Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: 805cff08
 
-In the future we will have public meetings open to the community.  But the
-nature of security is such that some more restricted meetings will be
-necessary.
+This turns out to be because the attrs array in ncsi_pkg_info_all_nl()
+is initialised to a length of NCSI_ATTR_MAX which is the maximum
+attribute number, not the number of attributes.
 
-The current agenda is below.  The group will send an update with meeting
-notes after the meeting tomorrow.
+Fixes: 955dc68cb9b2 ("net/ncsi: Add generic netlink family")
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+ net/ncsi/ncsi-netlink.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Current agenda <https://goo.gl/forms/QS8j4j6mnWGYYNDj2>:
-
-   - Introduction round table: what you're interested in and why
-   - Joseph Reynolds: OpenBMC security documentation project
-   https://gerrit.openbmc-project.xyz/#/c/10443/
-   <https://gerrit.openbmc-project.xyz/#/c/10443/>
-   - Ben Stoltz: CC as it applies to design and implementation phases.
-   Separation of policy and mechanism in BMC lifecycle, including product
-   lifecycle manufacture, provisioning, deployment, operations and
-   maintenance, recovery, and disposition. E.g. repairs: {Low-/Med-/High-
-   touch} x {manual-/automated-self-/automated-assisted- repair}
-
-
-----------
-Nancy
-
---0000000000009ecc28056d72b397
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><font size=3D"4">The OpenBMC Security Work Group kick off =
-meeting is scheduled for Thurs May 31, 9AM PDT.=C2=A0 This first meeting is=
- by invite only.=C2=A0 Please email me if you are interested in participati=
-ng in this working group.</font><div><font size=3D"4"><br></font></div><div=
-><font size=3D"4">In the future we will have public meetings open to the co=
-mmunity.=C2=A0 But the nature of security is such that some more restricted=
- meetings will be necessary.</font><div><font size=3D"4"><br></font></div><=
-div><font size=3D"4">The current agenda is below.=C2=A0 The group will send=
- an update with meeting notes after the meeting tomorrow.</font></div><div>=
-<div><div><font size=3D"4"><br></font></div><div><font size=3D"4">Current <=
-a href=3D"https://goo.gl/forms/QS8j4j6mnWGYYNDj2" target=3D"_blank">agenda<=
-/a>:</font></div><div><font size=3D"4"><div><ul><li>Introduction round tabl=
-e: what you&#39;re interested in and why<br></li><li>Joseph Reynolds: OpenB=
-MC security documentation project <a href=3D"https://gerrit.openbmc-project=
-.xyz/#/c/10443/" target=3D"_blank">https://gerrit.openbmc-<wbr>project.xyz/=
-#/c/10443/</a></li><li>Ben Stoltz: CC as it applies to design and implement=
-ation phases. Separation of policy and mechanism in BMC lifecycle, includin=
-g product lifecycle manufacture, provisioning, deployment, operations and m=
-aintenance, recovery, and disposition. E.g. repairs: {Low-/Med-/High- touch=
-} x {manual-/automated-self-/<wbr>automated-assisted- repair}</li></ul></di=
-v></font></div><div><br></div><div><div><div class=3D"m_4899249966545124773=
-gmail_signature"><font size=3D"4">----------<br>Nancy</font></div></div>
-</div></div></div></div></div>
-
---0000000000009ecc28056d72b397--
+diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
+index 8d7e849d4825..41cede4041d3 100644
+--- a/net/ncsi/ncsi-netlink.c
++++ b/net/ncsi/ncsi-netlink.c
+@@ -215,7 +215,7 @@ static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
+ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
+ 				struct netlink_callback *cb)
+ {
+-	struct nlattr *attrs[NCSI_ATTR_MAX];
++	struct nlattr *attrs[NCSI_ATTR_MAX + 1];
+ 	struct ncsi_package *np, *package;
+ 	struct ncsi_dev_priv *ndp;
+ 	unsigned int package_id;
+-- 
+2.17.0
