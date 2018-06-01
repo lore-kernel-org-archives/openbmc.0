@@ -1,41 +1,53 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=68.114.190.31; helo=mtaout006-public.msg.strl.va.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-Received: from mtaout006-public.msg.strl.va.charter.net
- (mtaout006-public.msg.strl.va.charter.net [68.114.190.31])
- by lists.ozlabs.org (Postfix) with ESMTP id 40yNxY06QDzDrvG
- for <openbmc@lists.ozlabs.org>; Sat,  2 Jun 2018 11:33:03 +1000 (AEST)
-Received: from impout002 ([68.114.189.17]) by mtaout006.msg.strl.va.charter.net
- (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
- id <20180602013301.UIND7358.mtaout006.msg.strl.va.charter.net@impout002>
- for <openbmc@lists.ozlabs.org>; Fri, 1 Jun 2018 20:33:01 -0500
-Received: from [192.168.2.15] ([97.86.254.207]) by impout002 with charter.net
- id tdZ11x00K4VFKzV01dZ1y2; Fri, 01 Jun 2018 20:33:01 -0500
-X-Authority-Analysis: v=2.2 cv=C6eZ8UH+ c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=voM4FWlXAAAA:8 a=-c9VzbpeAAAA:8
- a=dpRSjrXKAAAA:8 a=Pk3kgetQdWdxlwS88nwA:9 a=QEXdDO2ut3YA:10 a=-FEs8UIgK8oA:10
- a=NWVoK91CQyQA:10 a=EbfdsJ-0U3WKF7qJKekA:9 a=wR2-UI4rW09ZbfnK:21
- a=_W_S_7VecoQA:10 a=IC2XNlieTeVoXbcui8wp:22 a=WAq88MDkwfy8HpmZFCM0:22
- a=xkwab4zIHtOjTkBAMNFX:22
-X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
-Subject: Re: Logging user actions - with an AAA service
-To: openbmc@lists.ozlabs.org
-References: <mailman.121.1527510407.18429.openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Message-ID: <c09c5499-d622-a797-5788-774aac17b7ea@charter.net>
-Date: Fri, 1 Jun 2018 20:32:40 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
-MIME-Version: 1.0
-In-Reply-To: <mailman.121.1527510407.18429.openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative;
- boundary="------------AAFF0B08B14E0AEAEF872933"
-Content-Language: en-US
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40yCM341B0zDrph;
+ Sat,  2 Jun 2018 04:21:00 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2018 11:20:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,467,1520924400"; d="scan'208";a="45725373"
+Received: from maru.jf.intel.com ([10.54.51.80])
+ by orsmga007.jf.intel.com with ESMTP; 01 Jun 2018 11:20:53 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+To: Alan Cox <alan@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Andrew Lunn <andrew@lunn.ch>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Fengguang Wu <fengguang.wu@intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>,
+ Haiyue Wang <haiyue.wang@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
+ Julia Cartwright <juliac@eso.teric.us>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Milton Miller II <miltonm@us.ibm.com>, Pavel Machek <pavel@ucw.cz>,
+ Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh+dt@kernel.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ Stef van Os <stef.van.os@prodrive-technologies.com>,
+ Sumeet R Pawnikar <sumeet.r.pawnikar@intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH linux-next v5 00/13] PECI device driver introduction
+Date: Fri,  1 Jun 2018 11:20:46 -0700
+Message-Id: <20180601182046.23587-1-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.17.0
+X-Mailman-Approved-At: Sun, 03 Jun 2018 11:24:28 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -47,164 +59,248 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 02 Jun 2018 01:33:06 -0000
+X-List-Received-Date: Fri, 01 Jun 2018 18:21:04 -0000
 
-This is a multi-part message in MIME format.
---------------AAFF0B08B14E0AEAEF872933
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Introduction of the Platform Environment Control Interface (PECI) bus
+device driver. PECI is a one-wire bus interface that provides a
+communication channel between an Intel processor and chipset components to
+external monitoring or control devices. PECI is designed to support the
+following sideband functions:
 
-On 5/28/2018 7:26 AM, openbmc-request@lists.ozlabs.org wrote:
-> Message: 2
-> Date: Mon, 28 May 2018 15:00:06 +0300
-> From: Alexander Amelkin<a.amelkin@yadro.com>
-> To:<openbmc@lists.ozlabs.org>
-> Subject: Logging user actions
-> Message-ID:<c0569989-b52d-745e-06fb-e92cbb1234c8@yadro.com>
-> Content-Type: text/plain; charset="utf-8"
->
-> Hi all!
->
-> Customers ask us for extensive user action logging. That is, they want
-> to log everything that a user may change in the system. They want to
-> know who, how (via which interface) and when changed what. That includes
-> but is not limited to network configuration, host power on/off, reboots,
-> power restoration policy changing, firmware updates, user
-> addition/deletion and password changing, et al.
->
-> We could listen for dbus signals and log most of that, but that way we
-> wouldn't know whether a user made a change or that was some internal
-> work. Additionally, that would yield an enormous amount of data logged
-> if we just log every property change. We could limit logging to a
-> predefined subset of properties, but when later the community adds a new
-> crucial property, we could miss it in our logs.
->
-> We could log requests at each user interface (thankfully, we don't allow
-> shell access for users), but that would mean having copies of the same
-> logic in different subsystems, which is error prone, plus those copies
-> will definitely diverge with time.
->
-> Does anyone have any idea on how to best implement such a requirement?
->
-> Alexander Amelkin
-> YADRO
-Yes.  This topic came up in yesterday's OpenBMC security working group 
-meeting.  My impression of the main idea is to enhance OpenBMC with an 
-AAA (authentication, authorization, and accountability/auditing) 
-management interface.  When enabled, all external security-related 
-requests would use the AAA service to authenticate, authorize, and audit 
-the function.  That is, they would pass in the user's credentials 
-(userid&password, certificate, etc) along with a request to perform an 
-operation (example operations: read host server part inventory, reboot 
-the host) and get a yes/no answer from the AAA service.  Then either 
-deny the request or perform it.
+* Processor and DRAM thermal management
+  - Processor fan speed control is managed by comparing Digital Thermal
+    Sensor (DTS) thermal readings acquired via PECI against the
+    processor-specific fan speed control reference point, or TCONTROL. Both
+    TCONTROL and DTS thermal readings are accessible via the processor PECI
+    client. These variables are referenced to a common temperature, the TCC
+    activation point, and are both defined as negative offsets from that
+    reference.
+  - PECI based access to the processor package configuration space provides
+    a means for Baseboard Management Controllers (BMC) or other platform
+    management devices to actively manage the processor and memory power
+    and thermal features.
 
-A very basic AAA service would be to use the Linux username/password 
-checker (/etc/passwd, PAM, LDAP), allow all operations, and write no 
-audit records.  A more advanced AAA service provider might contact a 
-separate AAA server to perform this function.  The advantages with the 
-remote server approach is that user credentials would not have to be 
-stored on the BMC, and audit records would not take up space on the BMC.
+* Platform Manageability
+  - Platform manageability functions including thermal, power, and error
+    monitoring. Note that platform 'power' management includes monitoring
+    and control for both the processor and DRAM subsystem to assist with
+    data center power limiting.
+  - PECI allows read access to certain error registers in the processor MSR
+    space and status monitoring registers in the PCI configuration space
+    within the processor and downstream devices.
+  - PECI permits writes to certain registers in the processor PCI
+    configuration space.
 
-To make this work, OpenBMC would have to:
-1. Create an AAA interface (from an open source project?) and create a 
-very basic AAA service provider.
-2. Define the operations the the AAA service recognizes and the external 
-interfaces use.
-3. Change all external interfaces (REST APIs, IPMI, etc.) to invoke the 
-AAA service
+* Processor Interface Tuning and Diagnostics
+  - Processor interface tuning and diagnostics capabilities
+    (Intel Interconnect BIST). The processors Intel Interconnect Built In
+    Self Test (Intel IBIST) allows for infield diagnostic capabilities in
+    the Intel UPI and memory controller interfaces. PECI provides a port to
+    execute these diagnostics via its PCI Configuration read and write
+    capabilities.
 
-I've started to outline some of the security considerations for this 
-approach in the security docs, current being reviewed in 
-https://gerrit.openbmc-project.xyz/#/c/10443/ in file 
-obmc-protection-profile-modules section named "AAA Management service".
+* Failure Analysis
+  - Output the state of the processor after a failure for analysis via
+    Crashdump.
 
-- Joseph Reynolds
+PECI uses a single wire for self-clocking and data transfer. The bus
+requires no additional control lines. The physical layer is a self-clocked
+one-wire bus that begins each bit with a driven, rising edge from an idle
+level near zero volts. The duration of the signal driven high depends on
+whether the bit value is a logic '0' or logic '1'. PECI also includes
+variable data transfer rate established with every message. In this way, it
+is highly flexible even though underlying logic is simple.
 
---------------AAFF0B08B14E0AEAEF872933
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+The interface design was optimized for interfacing between an Intel
+processor and chipset components in both single processor and multiple
+processor environments. The single wire interface provides low board
+routing overhead for the multiple load connections in the congested routing
+area near the processor and chipset components. Bus speed, error checking,
+and low protocol overhead provides adequate link bandwidth and reliability
+to transfer critical device operating conditions and configuration
+information.
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 5/28/2018 7:26 AM,
-      <a class="moz-txt-link-abbreviated" href="mailto:openbmc-request@lists.ozlabs.org">openbmc-request@lists.ozlabs.org</a> wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:mailman.121.1527510407.18429.openbmc@lists.ozlabs.org">
-      <pre wrap="">Message: 2
-Date: Mon, 28 May 2018 15:00:06 +0300
-From: Alexander Amelkin <a class="moz-txt-link-rfc2396E" href="mailto:a.amelkin@yadro.com" moz-do-not-send="true">&lt;a.amelkin@yadro.com&gt;</a>
-To: <a class="moz-txt-link-rfc2396E" href="mailto:openbmc@lists.ozlabs.org" moz-do-not-send="true">&lt;openbmc@lists.ozlabs.org&gt;</a>
-Subject: Logging user actions
-Message-ID: <a class="moz-txt-link-rfc2396E" href="mailto:c0569989-b52d-745e-06fb-e92cbb1234c8@yadro.com" moz-do-not-send="true">&lt;c0569989-b52d-745e-06fb-e92cbb1234c8@yadro.com&gt;</a>
-Content-Type: text/plain; charset="utf-8"
+This implementation provides the basic framework to add PECI extensions to
+the Linux bus and device models. A hardware specific 'Adapter' driver can
+be attached to the PECI bus to provide sideband functions described above.
+It is also possible to access all devices on an adapter from userspace
+through the /dev interface. A device specific 'Client' driver also can be
+attached to the PECI bus so each processor client's features can be
+supported by the 'Client' driver through an adapter connection in the bus.
+This patch set includes Aspeed 24xx/25xx PECI driver and PECI
+cputemp/dimmtemp drivers as the first implementation for both adapter and
+client drivers on the PECI bus framework.
 
-Hi all!
+Please review.
 
-Customers ask us for extensive user action logging. That is, they want
-to log everything that a user may change in the system. They want to
-know who, how (via which interface) and when changed what. That includes
-but is not limited to network configuration, host power on/off, reboots,
-power restoration policy changing, firmware updates, user
-addition/deletion and password changing, et al. 
+Thanks,
 
-We could listen for dbus signals and log most of that, but that way we
-wouldn't know whether a user made a change or that was some internal
-work. Additionally, that would yield an enormous amount of data logged
-if we just log every property change. We could limit logging to a
-predefined subset of properties, but when later the community adds a new
-crucial property, we could miss it in our logs.
+-Jae
 
-We could log requests at each user interface (thankfully, we don't allow
-shell access for users), but that would mean having copies of the same
-logic in different subsystems, which is error prone, plus those copies
-will definitely diverge with time.
+Changes since v4:
+* Fixed an incorrect endianness handling in peci-aspeed.
+* Added a comment to explain about the asm/intel-family.h inclusion.
+* Added an MFD module to support multi-function PECI client devices.
 
-Does anyone have any idea on how to best implement such a requirement?
+Changes since v3:
+* Made code more simple and compact.
+* Removed unused header file inclusion.
+* Fixed incorrect error return values and messages.
+* Removed DTS margin temperature from the peci-cputemp.
+* Made some magic numbers use defines.
+* Moved peci_get_cpu_id() into peci-core as a common function.
+* Replaced the cancel_delayed_work() call with a cancel_delayed_work_sync().
+* Replaced AST and Aspeed uses with ASPEED.
+* Simplified peci command timeout checking logic using
+  regmap_read_poll_timeout().
+* Simplified endian swap codes using endian handling macros.
+* Dropped regmap read/write error checking except for the first access.
+* Added a PECI reset setting in the device tree node.
+* Removed unnecessary sleep from the probe context.
+* Removed IRQF_SHARED flag from irq request code in the ASPEED PECI driver.
+* Fixed typos in documents.
+* Combined peci-bus.txt, peci-adapter.txt and peci-client.txt into peci.txt.
+* Fixed and swept documents to drop some incorrect or unnecessary
+  descriptions.
+* Fixed device tree to make unit-address format use reg contents.
+* Simplified bit manipulations using <linux/bitfield.h>.
+* Made client CPU model checking use <asm/intel-family.h> if available.
+* Modified adapter heap allocation method to use kobject reference count
+  based.
+* Added the low-level PECI xfer IOCTL again to support the Redfish
+  requirement.
+* Added PM domain attach/detach code.
+* Added logic for device instantiation through sysfs.
+* Fix a bug of interrupt status checking code in peci-aspeed driver.
 
-Alexander Amelkin
-YADRO</pre>
-    </blockquote>
-    Yes.  This topic came up in yesterday's OpenBMC security working
-    group meeting.  My impression of the main idea is to enhance OpenBMC
-    with an AAA (authentication, authorization, and
-    accountability/auditing) management interface.  When enabled, all
-    external security-related requests would use the AAA service to
-    authenticate, authorize, and audit the function.  That is, they
-    would pass in the user's credentials (userid&amp;password,
-    certificate, etc) along with a request to perform an operation
-    (example operations: read host server part inventory, reboot the
-    host) and get a yes/no answer from the AAA service.  Then either
-    deny the request or perform it.<br>
-    <br>
-    A very basic AAA service would be to use the Linux username/password
-    checker (/etc/passwd, PAM, LDAP), allow all operations, and write no
-    audit records.  A more advanced AAA service provider might contact a
-    separate AAA server to perform this function.  The advantages with
-    the remote server approach is that user credentials would not have
-    to be stored on the BMC, and audit records would not take up space
-    on the BMC.<br>
-    <br>
-    To make this work, OpenBMC would have to:<br>
-    1. Create an AAA interface (from an open source project?) and create
-    a very basic AAA service provider.<br>
-    2. Define the operations the the AAA service recognizes and the
-    external interfaces use.<br>
-    3. Change all external interfaces (REST APIs, IPMI, etc.) to invoke
-    the AAA service<br>
-    <br>
-    I've started to outline some of the security considerations for this
-    approach in the security docs, current being reviewed in
-    <a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/#/c/10443/">https://gerrit.openbmc-project.xyz/#/c/10443/</a> in file
-    obmc-protection-profile-modules section named "AAA Management
-    service".<br>
-    <br>
-    - Joseph Reynolds<br>
-  </body>
-</html>
+Changes since v2:
+* Divided peci-hwmon driver into two drivers, peci-cputemp and
+  peci-dimmtemp.
+* Added generic dt binding documents for PECI bus, adapter and client.
+* Removed in_atomic() call from the PECI core driver.
+* Improved PECI commands masking logic.
+* Added permission check logic for PECI ioctls.
+* Removed unnecessary type casts.
+* Fixed some invalid error return codes.
+* Added the mark_updated() function to improve update interval checking
+  logic.
+* Fixed a bug in populated DIMM checking function.
+* Fixed some typo, grammar and style issues in documents.
+* Rewrote hwmon drivers to use devm_hwmon_device_register_with_info API.
+* Made peci_match_id() function as a static.
+* Replaced a deprecated create_singlethread_workqueue() call with an
+  alloc_ordered_workqueue() call.
+* Reordered local variable definitions in reversed xmas tree notation.
+* Listed up client CPUs that can be supported by peci-cputemp and
+  peci-dimmtemp hwmon drivers.
+* Added CPU generation detection logic which checks CPUID signature through
+  PECI connection.
+* Improved interrupt handling logic in the Aspeed PECI adapter driver.
+* Fixed SPDX license identifier style in header files.
+* Changed some macros in peci.h to static inline functions.
+* Dropped sleepable context checking code in peci-core.
+* Adjusted rt_mutex protection scope in peci-core.
+* Moved adapter->xfer() checking code into peci_register_adapter().
+* Improved PECI command retry checking logic.
+* Changed ioctl base from 'P' to 0xb6 to avoid confiliction and updated
+  ioctl-number.txt to reflect the ioctl number of PECI subsystem.
+* Added a comment to describe PECI retry action.
+* Simplified return code handling of peci_ioctl_ping().
+* Changed type of peci_ioctl_fn[] to static const.
+* Fixed range checking code for valid PECI commands.
+* Fixed the error return code on invalid PECI commands.
+* Fixed incorrect definitions of PECI ioctl and its handling logic.
 
---------------AAFF0B08B14E0AEAEF872933--
+Changes since v1:
+* Additionally implemented a core driver to support PECI linux bus driver
+  model.
+* Modified Aspeed PECI driver to make that to be an adapter driver in PECI
+  bus.
+* Modified PECI hwmon driver to make that to be a client driver in PECI
+  bus.
+* Simplified hwmon driver attribute labels and removed redundant strings.
+* Removed core_nums from device tree setting of hwmon driver and modified
+  core number detection logic to check the resolved_core register in client
+  CPU's local PCI configuration area.
+* Removed dimm_nums from device tree setting of hwmon driver and added
+  populated DIMM detection logic to support dynamic creation.
+* Removed indexing gap on core temperature and DIMM temperature attributes.
+* Improved hwmon registration and dynamic attribute creation logic.
+* Fixed structure definitions in PECI uapi header to make that use __u8,
+  __u16 and etc.
+* Modified wait_for_completion_interruptible_timeout error handling logic
+  in Aspeed PECI driver to deliver errors correctly.
+* Removed low-level xfer command from ioctl and kept only high-level PECI
+  command suite as ioctls.
+* Fixed I/O timeout logic in Aspeed PECI driver using ktime.
+* Added a function into hwmon driver to simplify update delay checking.
+* Added a function into hwmon driver to convert 10.6 to millidegree.
+* Dropped non-standard attributes in hwmon driver.
+* Fixed OF table for hwmon to make it indicate as a PECI client of Intel
+  CPU target.
+* Added a maintainer of PECI subsystem into MAINTAINERS document.
+
+Jae Hyun Yoo (13):
+  dt-bindings: Add a document of PECI subsystem
+  Documentation: ioctl: Add ioctl numbers for PECI subsystem
+  drivers/peci: Add support for PECI bus driver core
+  dt-bindings: Add a document of PECI adapter driver for ASPEED
+    AST24xx/25xx SoCs
+  ARM: dts: aspeed: peci: Add PECI node
+  drivers/peci: Add a PECI adapter driver for Aspeed AST24xx/AST25xx
+  dt-bindings: mfd: Add a document for PECI client mfd
+  drivers/mfd: Add PECI client mfd driver
+  dt-bindings: hwmon: Add documents for PECI hwmon client drivers
+  Documentation: hwmon: Add documents for PECI hwmon client drivers
+  drivers/hwmon: Add PECI cputemp driver
+  drivers/hwmon: Add PECI dimmtemp driver
+  Add maintainers for the PECI subsystem
+
+ .../bindings/hwmon/peci-cputemp.txt           |   11 +
+ .../bindings/hwmon/peci-dimmtemp.txt          |   13 +
+ .../devicetree/bindings/mfd/peci-client.txt   |   23 +
+ .../devicetree/bindings/peci/peci-aspeed.txt  |   57 +
+ .../devicetree/bindings/peci/peci.txt         |   59 +
+ Documentation/hwmon/peci-cputemp              |   78 +
+ Documentation/hwmon/peci-dimmtemp             |   50 +
+ Documentation/ioctl/ioctl-number.txt          |    2 +
+ MAINTAINERS                                   |   12 +
+ arch/arm/boot/dts/aspeed-g4.dtsi              |   26 +
+ arch/arm/boot/dts/aspeed-g5.dtsi              |   26 +
+ drivers/Kconfig                               |    2 +
+ drivers/Makefile                              |    1 +
+ drivers/hwmon/Kconfig                         |   28 +
+ drivers/hwmon/Makefile                        |    2 +
+ drivers/hwmon/peci-cputemp.c                  |  401 +++++
+ drivers/hwmon/peci-dimmtemp.c                 |  295 ++++
+ drivers/mfd/Kconfig                           |   11 +
+ drivers/mfd/Makefile                          |    1 +
+ drivers/mfd/peci-client.c                     |  205 +++
+ drivers/peci/Kconfig                          |   40 +
+ drivers/peci/Makefile                         |    9 +
+ drivers/peci/peci-aspeed.c                    |  498 ++++++
+ drivers/peci/peci-core.c                      | 1439 +++++++++++++++++
+ include/linux/mfd/peci-client.h               |   60 +
+ include/linux/peci.h                          |  104 ++
+ include/uapi/linux/peci-ioctl.h               |  265 +++
+ 27 files changed, 3718 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/peci-cputemp.txt
+ create mode 100644 Documentation/devicetree/bindings/hwmon/peci-dimmtemp.txt
+ create mode 100644 Documentation/devicetree/bindings/mfd/peci-client.txt
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.txt
+ create mode 100644 Documentation/devicetree/bindings/peci/peci.txt
+ create mode 100644 Documentation/hwmon/peci-cputemp
+ create mode 100644 Documentation/hwmon/peci-dimmtemp
+ create mode 100644 drivers/hwmon/peci-cputemp.c
+ create mode 100644 drivers/hwmon/peci-dimmtemp.c
+ create mode 100644 drivers/mfd/peci-client.c
+ create mode 100644 drivers/peci/Kconfig
+ create mode 100644 drivers/peci/Makefile
+ create mode 100644 drivers/peci/peci-aspeed.c
+ create mode 100644 drivers/peci/peci-core.c
+ create mode 100644 include/linux/mfd/peci-client.h
+ create mode 100644 include/linux/peci.h
+ create mode 100644 include/uapi/linux/peci-ioctl.h
+
+-- 
+2.17.0
