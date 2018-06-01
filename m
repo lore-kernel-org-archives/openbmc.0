@@ -1,81 +1,72 @@
-Return-Path: <sergei.shtylyov@cogentembedded.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=cogentembedded.com
- (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
- envelope-from=sergei.shtylyov@cogentembedded.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=cogentembedded.com
+ header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=cogentembedded-com.20150623.gappssmtp.com
- header.i=@cogentembedded-com.20150623.gappssmtp.com header.b="AfGEnnpA"; 
- dkim-atps=neutral
-Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
- [IPv6:2a00:1450:4010:c07::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="V7/QDhnY"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="LDvYXKWE"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xYNM2ylDzDrbk
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 02:49:50 +1000 (AEST)
-Received: by mail-lf0-x244.google.com with SMTP id r2-v6so10719192lff.4
- for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 09:49:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cogentembedded-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:organization:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=VIWQumJdaH9xT8NL9rDT+D19tw+EjhW0g0iFToN9fJI=;
- b=AfGEnnpAbUfea95aRj37FPGaMsgXzJsW3m/4mnX+HcTYhJ7GpxfiuXQKaZ2eWAud8k
- gVe94arwlVZaoEH411l6WAtgIkC2MjLYOx9AWGMsBMgeGqTD8HdEF+woBDuv27X/xP27
- u121qSZ8twt3w6KjY1KN1yj7+EOtLSlVcxm8TuQLU6qWGByVvlLDKL6q9eDFuptm8o4e
- KrQH/g6hfoURUzChVhC0l5upOwr8xc+PgMEv5hHgkxjD+baetbambjyDLpxXnRvwxNcQ
- +iyvJ/+l472kacgy6jOiz6Gl3VvWlSd3ytU5cPgsEnx824efgce72yoLyDmX8z+T5Obr
- F3+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:organization
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=VIWQumJdaH9xT8NL9rDT+D19tw+EjhW0g0iFToN9fJI=;
- b=iwhmdSVeITKCh7WX3satfmC+oqTSr5UhpW7GyQxqLNSIIjiptfune+HiZngBPgTUf8
- DZ3lGGhoE13iPKlgL69KJYW5U7Ziq8VPCV9ivEFfVdKv53JIfbkOdHXuHGx4SZsnM8KB
- gIGoLn1xAuvdsqJ9xjlRuOTpwrUncX6NiYOVhPGZruTH31dZkDHIsjz+0KsZhHLCLWkt
- SXzvNbrqYNoyMnhxWoJwE2NIRMK3RBozIqnxI7ubnX/2+qUg647pDT8cRXfEa709niLg
- 8RAgQJ77qWFoLJ7ctEyMPK4D+f+X8wr0WPprKY1Qhjc1bgs7Mt8rXHUrafAhOl/wwe1s
- K77A==
-X-Gm-Message-State: ALKqPwcn8z3SUG3HzzOMzeKFaMf+TJfYdvPmUA0OzB6Vd4n7KNQSIEhp
- QzNgU9bqFGSFKTTZrBw5u073Cg==
-X-Google-Smtp-Source: ADUXVKJmJA9oOIV6rfF5+TJvox0+IU5n+iUbmN+z2q74oEIRY8NthlODQgWf9XTaZBJlHyxbEPCDpw==
-X-Received: by 2002:a2e:8350:: with SMTP id
- l16-v6mr5702217ljh.28.1527785387124; 
- Thu, 31 May 2018 09:49:47 -0700 (PDT)
-Received: from wasted.cogentembedded.com ([31.173.82.221])
- by smtp.gmail.com with ESMTPSA id z7-v6sm866491lfa.73.2018.05.31.09.49.44
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 31 May 2018 09:49:46 -0700 (PDT)
-Subject: Re: [PATCH v2 2/3] USB: DT probing support to ehci-npcm7xx
-To: avifishman70@gmail.com, gregkh@linuxfoundation.org,
- stern@rowland.harvard.edu
-Cc: tmaimon77@gmail.com, venture@google.com, yuenn@google.com,
- brendanhiggins@google.com, mathias.nyman@linux.intel.com,
- bjorn.andersson@linaro.org, jhogan@kernel.org, albeu@free.fr,
- chunfeng.yun@mediatek.com, tony@atomide.com, baolu.lu@linux.intel.com,
- elder@linaro.org, digetx@gmail.com, kstewart@linuxfoundation.org,
- hdegoede@redhat.com, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, openbmc@lists.ozlabs.org, robh+dt@kernel.org,
- mark.rutland@arm.com, devicetree@vger.kernel.org
-References: <1527774046-7952-1-git-send-email-avifishman70@gmail.com>
- <1527774046-7952-3-git-send-email-avifishman70@gmail.com>
-From: Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
-Organization: Cogent Embedded
-Message-ID: <9fe0ca4a-c244-e909-ec27-07c3db89f941@cogentembedded.com>
-Date: Thu, 31 May 2018 19:49:43 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
-MIME-Version: 1.0
-In-Reply-To: <1527774046-7952-3-git-send-email-avifishman70@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-MW
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40xlgP12KbzF0S0
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 10:33:36 +1000 (AEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6D37F21C1E;
+ Thu, 31 May 2018 20:33:34 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 31 May 2018 20:33:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=dWbENW
+ JwqWsBPeg95XR6n2ST8nptUnfLGGu4jg1I+BE=; b=V7/QDhnYoOVRmPILLAr5Ku
+ 1Zr+JUXj57RMODQ91c01HRNw72DfWcAAC844N4JgN63a/bem735hEntcbJNf8NPX
+ cIGx9ZAN4RfFitzkfTAQ6jKUOT/a6v8RzW2yDM83MkF9k0Q0dR0x5hY3qHroWyiN
+ 5inSPDy9QDfeEzqQgpu4ucNo6Lak4R49qz6rHG8QCmGYyXBDOznMGipp11TGzYZH
+ lSyUhGlJP7g8z+t9Lq6NiKCYks1Z78lvOqIaOE8SampmSsVgnyGc59nqhSzZampJ
+ OdAoK8Avx4qRBDP44Pb8aAy3MJv5DxA8C9VYdUUfUD+C15QKrJg2z9OyN+q6DaGA
+ ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=dWbENW
+ JwqWsBPeg95XR6n2ST8nptUnfLGGu4jg1I+BE=; b=LDvYXKWEchwwb6BRa/MojV
+ W0DlTF8x2WgmnRrq1A2YfnMxrxI+OWpYu61ETbBTmAFFjeSDG+jpqkyQNHdGHz0q
+ tKVvo6Ml0Bdhwn8oix9JheiSZCWpNgVTf8/RF10ybcwjJ+4x9GQbMQVOjG7u1Mt8
+ tQYtH8aaKYI8UKsWZNKRUCtBl2a5p37JEbeFM9AcYI6sGOl8SDopqXymrUsaHa/H
+ V+FalTTsipo1ohBh7NDRxmPu58AWFgvr0ye373o2r98t1pkfQVS04OQELnAGHnM6
+ u8G2IQiMuQPdYdnrPgDoYm6FhE9RwQEPMlZcEzUbJuzfIUQMNAgHXgX6pBF+ECYg
+ ==
+X-ME-Proxy: <xmx:XpQQW_GEux3gGwZmM7hjz7yVKGq77Fws39jr9GK_due0sc84EqQVeg>
+X-ME-Proxy: <xmx:XpQQW4wfp-3G97IA7TbZiKgVGNyHEDG3YkjPgBhw0xY1hruw9gXcIg>
+X-ME-Proxy: <xmx:XpQQW46-Noyw7RwLqi4XndTmQWKXGjNu5Kvx4zhbIFswjAuUyWM3vA>
+X-ME-Proxy: <xmx:XpQQW98QsP2wyUr0LSMyj4fQ77eT7adEEIHQfPJikFl9Om-aDMUCRA>
+X-ME-Proxy: <xmx:XpQQW8ofs1KtZrPKqLLzZr5wpcbCMBLF9Z0dRxPKqy_ZZpJPsfzhAg>
+X-ME-Proxy: <xmx:XpQQW1mpnTpKgJNVn3kNSEGygf7YRPCOx27zeQOspf5t_mAT-4H_bg>
+X-ME-Sender: <xms:XpQQWzls2OmqRBrXbtxtFRML8dcgSLJ_37SUzrFJ4Lk5Ir6pbENeUQ>
+Received: from v4 (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0FCDC10262;
+ Thu, 31 May 2018 20:33:31 -0400 (EDT)
+Message-ID: <c8013f0894299c6aedfbcd5e35f5fa33b858d915.camel@mendozajonas.com>
+Subject: Re: [PATCH net-next] net/ncsi: Avoid GFP_KERNEL in response handler
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Eric Dumazet <eric.dumazet@gmail.com>, netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org
+Date: Fri, 01 Jun 2018 10:33:27 +1000
+In-Reply-To: <69fcb143-00a2-2ddf-e2d4-c692b650f292@gmail.com>
+References: <20180531070254.28878-1-sam@mendozajonas.com>
+ <69fcb143-00a2-2ddf-e2d4-c692b650f292@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.2 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 01 Jun 2018 10:33:23 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -87,45 +78,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 May 2018 16:49:56 -0000
+X-List-Received-Date: Fri, 01 Jun 2018 00:33:38 -0000
 
-Hello!
-
-On 05/31/2018 04:40 PM, avifishman70@gmail.com wrote:
-
-> From: Avi Fishman <AviFishman70@gmail.com>
+On Thu, 2018-05-31 at 04:50 -0400, Eric Dumazet wrote:
 > 
-> Device Tree documentation for Nuvoton npcm7xx EHCI.
+> On 05/31/2018 03:02 AM, Samuel Mendoza-Jonas wrote:
+> > ncsi_rsp_handler_gc() allocates the filter arrays using GFP_KERNEL in
+> > softirq context, causing the below backtrace. This allocation is only a
+> > few dozen bytes during probing so allocate with GFP_ATOMIC instead.
+> > 
 > 
-> Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
-> ---
->  Documentation/devicetree/bindings/usb/npcm7xx-usb.txt | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+> Hi Samuel
 > 
-> diff --git a/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-> new file mode 100644
-> index 000000000000..dec67d4d4c30
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-> @@ -0,0 +1,17 @@
-> +Nuvoton NPCM7XX SoC USB controllers:
-> +-----------------------------
-> +
-> +EHCI:
-> +-----
-> +
-> +Required properties:
-> +- compatible: "nuvoton,npcm750-ehci"
-> +- interrupts: Should contain the EHCI interrupt
-> +
-> +Example:
-> +
-> +	ehci@e1800000 {
+> You forgot to add
+> 
+> Fixes: 062b3e1b6d4f ("net/ncsi: Refactor MAC, VLAN filters")
+> 
+> size = (rsp->uc_cnt + rsp->mc_cnt + rsp->mixed_cnt) * ETH_ALEN;
+> 
+> -> seems to be able to reach more than few dozen bytes...
 
-  The node should be named "usb@e1800000" as the DT spec. requires the generic
-node names.
+Hi Eric,
 
-[...]
+The NCSI spec (at least in the v1.1.0 version I'm looking at) sets the
+total number of MAC address filters at 8, so we would be looking at a
+maximum of 8 * ETH_ALEN = 48 bytes.
+That said it shouldn't be too arduous to move the allocation to later in
+the probe/configure cycle so if needed we could do that.
 
-MBR, Sergei
+> 
+> Also, what prevents ncsi_rsp_handler_gc() to be called multiples times ?
+> 
+> nc->mac_filter.addrs & nc->vlan_filter.vids would be re-allocated and memory would leak.
+> 
+
+Good point, we should put a check there just in case to see if it's
+allocated. We should be safe though as ncsi_rsp_handler_gc() should only
+be called via ncsi_probe_channel() which only happens through
+ncsi_start_dev(), and addrs/vids is cleaned up in ncsi_remove_channel().
+Rogue packets shouldn't hit the ncsi_rsp_handler_gc() handler without an
+outstanding request.. but it probably is safer to check regardless.
+
+Regards,
+Sam
