@@ -1,70 +1,40 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <joseph-reynolds@charter.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=charter.net
+ (client-ip=68.114.190.31; helo=mtaout006-public.msg.strl.va.charter.net;
+ envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NjHXIhgg"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Ce4XGNYV"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40xm9w2cYjzDrbS
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 10:56:36 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BB15521C1B;
- Thu, 31 May 2018 20:56:33 -0400 (EDT)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Thu, 31 May 2018 20:56:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=OjUmo6FKiHxpsS/ommP1a8dINr6Ls
- kAPufSA9Kd5Lms=; b=NjHXIhggJMTWnymDOEZOWqtnLk+vn93BEBZaSu+/d0BZQ
- zwUv77+DmsH6eeYTePu/m/4t5iLYJsZMnsQnmarEt927b5OEWUHO3ozmAWkXBLcv
- PchcOs1cM6QMvAyxtW5z5Cg0vNudNekaB1KxWQ8zSYIHsPqWnw4/I8O/ipiMF9es
- PXpbtSEEk0d5rYKkjLGh6LlA3jsKEfYPKSn3gMlSPgpDUki5RZKLT/5lM7+FKIsB
- 4dwE4NRJbCDDpD1AO2++QHj9M9SYrOU8aHzl4zScXvVzfzcSgISrEd/Luv1WXigL
- zDOhT8WSjoTskrSOw/T8RJJtVrYXjcEaoFEFAQrKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=OjUmo6
- FKiHxpsS/ommP1a8dINr6LskAPufSA9Kd5Lms=; b=Ce4XGNYVJUeBmkC/5l2ZD5
- 4VxuyTPatSxLskChnk8g9YmkPH5e7P9+lXrvGThuK0r6hioMPFpZnA6EBEGHKifg
- voDw9JjNPpu81qO4es+WqoBZchwpjSl6Do8UwVtXta9FIGGyA/qsJV6VtY8C1tgl
- pwHwqGpPJ6uhu86lvpy4rI65uBrcblnUfshHjgHqAcidtNHfCLJoPhRs8BcaCadG
- B40edksWaVTk+aGrxXOHCczslaHwekkWI51/mQP0MjQQyZrZpjOoCjzZ2FclW3eh
- qFr/Y3F0HKVH1VIRyg7AbVaBAdAILDidC8wBjGKRZg6jaS/neGnK84expcKBmqVA
- ==
-X-ME-Proxy: <xmx:wZkQW3uxF9L303jWvWLa9VzjIGuKSPyQfxHWLlUaWbbil1507ZHHDA>
-X-ME-Proxy: <xmx:wZkQWwezYubg9PPysXwvsqrG0Cc-oZaeNYCpNuT_VcaZBF5Uo35R6Q>
-X-ME-Proxy: <xmx:wZkQW7ZZDxP3eXZO0KrPsC8CkYh46nyBMQZUyKu6EbqYmap5a7pOTw>
-X-ME-Proxy: <xmx:wZkQW1zp1wxlfqnAyKUi6P6fVR-yhUbRmHG6dJifq4Bkv7vU8Cpk_A>
-X-ME-Proxy: <xmx:wZkQW7sGz2vwoiC4SND-8SKNShRUDx9GiAcXa461bjTgULve6HthaQ>
-X-ME-Proxy: <xmx:wZkQW4X2_Jie6qy2cf58WIko15nYA1d6ztTy5Se4SM8v3w2VxAHUpg>
-X-ME-Sender: <xms:wZkQW3_jEze8vSnzS6pieOA2DQ-hg5feZvLaMJjMZqNAsAFGMEIM9A>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 885D3BA780; Thu, 31 May 2018 20:56:33 -0400 (EDT)
-Message-Id: <1527814593.468836.1392470512.06FD33AE@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Emily Shaffer <emilyshaffer@google.com>
-Cc: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com
+ dmarc=none (p=none dis=none) header.from=charter.net
+Received: from mtaout006-public.msg.strl.va.charter.net
+ (mtaout006-public.msg.strl.va.charter.net [68.114.190.31])
+ by lists.ozlabs.org (Postfix) with ESMTP id 40xnYs3YJ0zDrbW
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jun 2018 11:58:55 +1000 (AEST)
+Received: from impout006 ([68.114.189.21]) by mtaout006.msg.strl.va.charter.net
+ (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
+ id <20180601015853.JIKB7358.mtaout006.msg.strl.va.charter.net@impout006>
+ for <openbmc@lists.ozlabs.org>; Thu, 31 May 2018 20:58:53 -0500
+Received: from [192.168.2.15] ([97.86.254.207]) by impout006 with charter.net
+ id tDys1x0094VFKzV01DytU8; Thu, 31 May 2018 20:58:53 -0500
+X-Authority-Analysis: v=2.2 cv=TP81cxta c=1 sm=1 tr=0
+ a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
+ a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=voM4FWlXAAAA:8 a=VnNF1IyMAAAA:8
+ a=1XWaLZrsAAAA:8 a=tFCOJjRmDwOHEBbo2RsA:9 a=QEXdDO2ut3YA:10
+ a=MmkeA0CdJi5wE5q-hHQA:9 a=uNJ4cue0cMR-9zXK:21 a=_W_S_7VecoQA:10
+ a=IC2XNlieTeVoXbcui8wp:22
+X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
+Subject: OpenBMC Security Working Group Kick Off - from a hostile host
+To: openbmc@lists.ozlabs.org
+References: <mailman.378.1527772501.18429.openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <joseph-reynolds@charter.net>
+Message-ID: <40f49d16-f6fc-97ed-8184-7159f7e4d0e8@charter.net>
+Date: Thu, 31 May 2018 20:58:33 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-397f98d6
-References: <1526953427.458876.1380098832.53C3F9C7@webmail.messagingengine.com>
- <CAJoAoZmd+RJepSkFE+VUapmrY_rYdftKX0LnSrjUXSqv_bGy2w@mail.gmail.com>
-Date: Fri, 01 Jun 2018 10:26:33 +0930
-Subject: Re: obmc-gerrit: A tool for automagically adding reviewers to your
- patches
-In-Reply-To: <CAJoAoZmd+RJepSkFE+VUapmrY_rYdftKX0LnSrjUXSqv_bGy2w@mail.gmail.com>
+In-Reply-To: <mailman.378.1527772501.18429.openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative;
+ boundary="------------4E41ADC287B056075E17CCDF"
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,15 +46,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jun 2018 00:56:36 -0000
+X-List-Received-Date: Fri, 01 Jun 2018 01:58:58 -0000
 
-On Fri, 1 Jun 2018, at 09:07, Emily Shaffer wrote:
-> Excellent! Thanks Andrew!!!!!
+This is a multi-part message in MIME format.
+--------------4E41ADC287B056075E17CCDF
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-No worries.
+On 5/31/2018 8:15 AM, openbmc-request@lists.ozlabs.org wrote:
+> Message: 1
+> Date: Thu, 31 May 2018 18:38:23 +1000
+> From: Stewart Smith<stewart@linux.ibm.com>
+> To: Nancy Yuen<yuenn@google.com>, OpenBMC Maillist
+> 	<openbmc@lists.ozlabs.org>
+> Subject: Re: OpenBMC Security Working Group Kick Off
+> Message-ID:<87efhs43uo.fsf@linux.vnet.ibm.com>
+> Content-Type: text/plain
+>
+> Nancy Yuen<yuenn@google.com>  writes:
+>> The OpenBMC Security Work Group kick off meeting is scheduled for Thurs May
+>> 31, 9AM PDT.  This first meeting is by invite only.  Please email me if you
+>> are interested in participating in this working group.
+> Would topics like "security of the BMC from a hostile host" be part of
+> this?
+>
+> A design of OpenPOWER systems is that the BMC and the Host don't have to
+> trust each other, and this should extend to a host that's hostile
+> towards the BMC.
 
-I'm wondering whether I should also add support for parsing 'Cc:' tags out of the commit messages and further mangling the refspec based on that...
+Yes!  The BMC security boundary ends at the pins that connect to the 
+host, so that is treated an attack surface.  I may have been a bit fuzzy 
+on this when I sketched out the initial security docs...so I'll update 
+the OpenBMC security docs to talk about risks from host ipmi and mbox 
+and explain the security risks, then grab an expert to explore further.
 
-Thoughts?
+- Joseph
+> I'd be surprised if we didn't find bugs in both mboxd and host ipmi if
+> we started fuzzing those interfaces.
+>
+> -- Stewart Smith OPAL Architect, IBM.
 
-Andrew
+
+--------------4E41ADC287B056075E17CCDF
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 5/31/2018 8:15 AM,
+      <a class="moz-txt-link-abbreviated" href="mailto:openbmc-request@lists.ozlabs.org">openbmc-request@lists.ozlabs.org</a> wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:mailman.378.1527772501.18429.openbmc@lists.ozlabs.org">
+      <pre wrap="">Message: 1
+Date: Thu, 31 May 2018 18:38:23 +1000
+From: Stewart Smith <a class="moz-txt-link-rfc2396E" href="mailto:stewart@linux.ibm.com" moz-do-not-send="true">&lt;stewart@linux.ibm.com&gt;</a>
+To: Nancy Yuen <a class="moz-txt-link-rfc2396E" href="mailto:yuenn@google.com" moz-do-not-send="true">&lt;yuenn@google.com&gt;</a>, OpenBMC Maillist
+	<a class="moz-txt-link-rfc2396E" href="mailto:openbmc@lists.ozlabs.org" moz-do-not-send="true">&lt;openbmc@lists.ozlabs.org&gt;</a>
+Subject: Re: OpenBMC Security Working Group Kick Off
+Message-ID: <a class="moz-txt-link-rfc2396E" href="mailto:87efhs43uo.fsf@linux.vnet.ibm.com" moz-do-not-send="true">&lt;87efhs43uo.fsf@linux.vnet.ibm.com&gt;</a>
+Content-Type: text/plain
+
+Nancy Yuen <a class="moz-txt-link-rfc2396E" href="mailto:yuenn@google.com" moz-do-not-send="true">&lt;yuenn@google.com&gt;</a> writes:
+</pre>
+      <blockquote type="cite" style="color: #000000;">
+        <pre wrap="">The OpenBMC Security Work Group kick off meeting is scheduled for Thurs May
+31, 9AM PDT.  This first meeting is by invite only.  Please email me if you
+are interested in participating in this working group.
+</pre>
+      </blockquote>
+      <pre wrap="">Would topics like "security of the BMC from a hostile host" be part of
+this?
+
+A design of OpenPOWER systems is that the BMC and the Host don't have to
+trust each other, and this should extend to a host that's hostile
+towards the BMC.
+</pre>
+    </blockquote>
+    <p>Yes!  The BMC security boundary ends at the pins that connect to
+      the host, so that is treated an attack surface.  I may have been a
+      bit fuzzy on this when I sketched out the initial security
+      docs...so I'll update the OpenBMC security docs to talk about
+      risks from host ipmi and mbox and explain the security risks, then
+      grab an expert to explore further.<br>
+    </p>
+    - Joseph<br>
+    <blockquote type="cite"
+      cite="mid:mailman.378.1527772501.18429.openbmc@lists.ozlabs.org">
+      <pre wrap="">
+I'd be surprised if we didn't find bugs in both mboxd and host ipmi if
+we started fuzzing those interfaces.
+
+<div class="moz-txt-sig">-- 
+Stewart Smith
+OPAL Architect, IBM.</div></pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------4E41ADC287B056075E17CCDF--
