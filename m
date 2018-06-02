@@ -1,71 +1,41 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <joseph-reynolds@charter.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=roeck-us.net
- (client-ip=208.91.199.152; helo=bh-25.webhostbox.net;
- envelope-from=linux@roeck-us.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=charter.net
+ (client-ip=68.114.190.31; helo=mtaout006-public.msg.strl.va.charter.net;
+ envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="U2IOe78J";
- dkim-atps=neutral
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40yD5m2km8zF0wQ
- for <openbmc@lists.ozlabs.org>; Sat,  2 Jun 2018 04:54:36 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
- :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=LFtz9a3lmU0ZVZw+Q8MC8xaoZZdBcxjZOHtSBIJcKk0=; b=U2IOe78JUw5g+0d4w9XE0hm5bF
- DKq0UjWAqC2zciqXUZwxpL+QZwXk1egu0cKKMRkJALdcqGfom6mdN4VdFGpmXBWeOZQTZPJQhsXW0
- APjCLZ/ESBebdF2Onp5xTunKNtu5XZ6otMS6FJToF34JRRrL+Oye/cjhUM870MPhTYdxdGvVEIcde
- VjKeg5D4xgOjw7R2/Hdvzf+WLKzRKwEMDoj4YxeqWn+Yd5WaCxn0olq1jCFMFalGcGMa1ue+/+D2O
- Oc09loWQby6m3Ic8utCbR5xFUJaIVuPS2oBFidsIqDUeqdnkucwv1HXPCOIeBjV4zVoqNZp5beHC+
- q5kwTlUQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:37360 helo=localhost)
- by bh-25.webhostbox.net with esmtpa (Exim 4.89)
- (envelope-from <linux@roeck-us.net>)
- id 1fOpC5-001tRI-5q; Fri, 01 Jun 2018 18:54:34 +0000
-Date: Fri, 1 Jun 2018 11:54:32 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Jean Delvare <jdelvare@suse.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- openbmc@lists.ozlabs.org, Alan Cox <alan@linux.intel.com>,
- Andrew Jeffery <andrew@aj.id.au>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Arnd Bergmann <arnd@arndb.de>, Joel Stanley <joel@jms.id.au>,
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>,
- Stef van Os <stef.van.os@prodrive-technologies.com>
-Subject: Re: [PATCH linux-next v5 12/13] drivers/hwmon: Add PECI dimmtemp
- driver
-Message-ID: <20180601185432.GC27795@roeck-us.net>
-References: <20180601182303.24117-1-jae.hyun.yoo@linux.intel.com>
+ dmarc=none (p=none dis=none) header.from=charter.net
+Received: from mtaout006-public.msg.strl.va.charter.net
+ (mtaout006-public.msg.strl.va.charter.net [68.114.190.31])
+ by lists.ozlabs.org (Postfix) with ESMTP id 40yNxY06QDzDrvG
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Jun 2018 11:33:03 +1000 (AEST)
+Received: from impout002 ([68.114.189.17]) by mtaout006.msg.strl.va.charter.net
+ (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
+ id <20180602013301.UIND7358.mtaout006.msg.strl.va.charter.net@impout002>
+ for <openbmc@lists.ozlabs.org>; Fri, 1 Jun 2018 20:33:01 -0500
+Received: from [192.168.2.15] ([97.86.254.207]) by impout002 with charter.net
+ id tdZ11x00K4VFKzV01dZ1y2; Fri, 01 Jun 2018 20:33:01 -0500
+X-Authority-Analysis: v=2.2 cv=C6eZ8UH+ c=1 sm=1 tr=0
+ a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
+ a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=voM4FWlXAAAA:8 a=-c9VzbpeAAAA:8
+ a=dpRSjrXKAAAA:8 a=Pk3kgetQdWdxlwS88nwA:9 a=QEXdDO2ut3YA:10 a=-FEs8UIgK8oA:10
+ a=NWVoK91CQyQA:10 a=EbfdsJ-0U3WKF7qJKekA:9 a=wR2-UI4rW09ZbfnK:21
+ a=_W_S_7VecoQA:10 a=IC2XNlieTeVoXbcui8wp:22 a=WAq88MDkwfy8HpmZFCM0:22
+ a=xkwab4zIHtOjTkBAMNFX:22
+X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
+Subject: Re: Logging user actions - with an AAA service
+To: openbmc@lists.ozlabs.org
+References: <mailman.121.1527510407.18429.openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <joseph-reynolds@charter.net>
+Message-ID: <c09c5499-d622-a797-5788-774aac17b7ea@charter.net>
+Date: Fri, 1 Jun 2018 20:32:40 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180601182303.24117-1-jae.hyun.yoo@linux.intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+In-Reply-To: <mailman.121.1527510407.18429.openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative;
+ boundary="------------AAFF0B08B14E0AEAEF872933"
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,372 +47,164 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jun 2018 18:54:37 -0000
+X-List-Received-Date: Sat, 02 Jun 2018 01:33:06 -0000
 
-On Fri, Jun 01, 2018 at 11:23:03AM -0700, Jae Hyun Yoo wrote:
-> This commit adds PECI dimmtemp hwmon driver.
-> 
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
-> Reviewed-by: James Feist <james.feist@linux.intel.com>
-> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
-> Cc: Alan Cox <alan@linux.intel.com>
-> Cc: Andrew Jeffery <andrew@aj.id.au>
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: Arnd Bergmann <arnd@arndb.de>
-> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
-> Cc: Joel Stanley <joel@jms.id.au>
-> Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-> Cc: Andrew Lunn <andrew@lunn.ch>
-> Cc: Stef van Os <stef.van.os@prodrive-technologies.com>
+This is a multi-part message in MIME format.
+--------------AAFF0B08B14E0AEAEF872933
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+On 5/28/2018 7:26 AM, openbmc-request@lists.ozlabs.org wrote:
+> Message: 2
+> Date: Mon, 28 May 2018 15:00:06 +0300
+> From: Alexander Amelkin<a.amelkin@yadro.com>
+> To:<openbmc@lists.ozlabs.org>
+> Subject: Logging user actions
+> Message-ID:<c0569989-b52d-745e-06fb-e92cbb1234c8@yadro.com>
+> Content-Type: text/plain; charset="utf-8"
+>
+> Hi all!
+>
+> Customers ask us for extensive user action logging. That is, they want
+> to log everything that a user may change in the system. They want to
+> know who, how (via which interface) and when changed what. That includes
+> but is not limited to network configuration, host power on/off, reboots,
+> power restoration policy changing, firmware updates, user
+> addition/deletion and password changing, et al.
+>
+> We could listen for dbus signals and log most of that, but that way we
+> wouldn't know whether a user made a change or that was some internal
+> work. Additionally, that would yield an enormous amount of data logged
+> if we just log every property change. We could limit logging to a
+> predefined subset of properties, but when later the community adds a new
+> crucial property, we could miss it in our logs.
+>
+> We could log requests at each user interface (thankfully, we don't allow
+> shell access for users), but that would mean having copies of the same
+> logic in different subsystems, which is error prone, plus those copies
+> will definitely diverge with time.
+>
+> Does anyone have any idea on how to best implement such a requirement?
+>
+> Alexander Amelkin
+> YADRO
+Yes.  This topic came up in yesterday's OpenBMC security working group 
+meeting.  My impression of the main idea is to enhance OpenBMC with an 
+AAA (authentication, authorization, and accountability/auditing) 
+management interface.  When enabled, all external security-related 
+requests would use the AAA service to authenticate, authorize, and audit 
+the function.  That is, they would pass in the user's credentials 
+(userid&password, certificate, etc) along with a request to perform an 
+operation (example operations: read host server part inventory, reboot 
+the host) and get a yes/no answer from the AAA service.  Then either 
+deny the request or perform it.
 
-> ---
->  drivers/hwmon/Kconfig         |  14 ++
->  drivers/hwmon/Makefile        |   1 +
->  drivers/hwmon/peci-dimmtemp.c | 295 ++++++++++++++++++++++++++++++++++
->  3 files changed, 310 insertions(+)
->  create mode 100644 drivers/hwmon/peci-dimmtemp.c
-> 
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index e5d2d0b44c14..6a376054d43c 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -1270,6 +1270,20 @@ config SENSORS_PECI_CPUTEMP
->  	  This driver can also be built as a module.  If so, the module
->  	  will be called peci-cputemp.
->  
-> +config SENSORS_PECI_DIMMTEMP
-> +	tristate "PECI DIMM temperature monitoring support"
-> +	depends on PECI
-> +	select MFD_PECI_CLIENT
-> +	help
-> +	  If you say yes here you get support for the generic Intel PECI hwmon
-> +	  driver which provides Digital Thermal Sensor (DTS) thermal readings of
-> +	  DIMM components that are accessible using the PECI Client Command
-> +	  Suite via the processor PECI client.
-> +	  Check Documentation/hwmon/peci-dimmtemp for details.
-> +
-> +	  This driver can also be built as a module.  If so, the module
-> +	  will be called peci-dimmtemp.
-> +
->  config SENSORS_NSA320
->  	tristate "ZyXEL NSA320 and compatible fan speed and temperature sensors"
->  	depends on GPIOLIB && OF
-> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-> index 3cd603cd66a7..48d9598fcd3a 100644
-> --- a/drivers/hwmon/Makefile
-> +++ b/drivers/hwmon/Makefile
-> @@ -137,6 +137,7 @@ obj-$(CONFIG_SENSORS_NCT7904)	+= nct7904.o
->  obj-$(CONFIG_SENSORS_NSA320)	+= nsa320-hwmon.o
->  obj-$(CONFIG_SENSORS_NTC_THERMISTOR)	+= ntc_thermistor.o
->  obj-$(CONFIG_SENSORS_PECI_CPUTEMP)	+= peci-cputemp.o
-> +obj-$(CONFIG_SENSORS_PECI_DIMMTEMP)	+= peci-dimmtemp.o
->  obj-$(CONFIG_SENSORS_PC87360)	+= pc87360.o
->  obj-$(CONFIG_SENSORS_PC87427)	+= pc87427.o
->  obj-$(CONFIG_SENSORS_PCF8591)	+= pcf8591.o
-> diff --git a/drivers/hwmon/peci-dimmtemp.c b/drivers/hwmon/peci-dimmtemp.c
-> new file mode 100644
-> index 000000000000..44f258249f14
-> --- /dev/null
-> +++ b/drivers/hwmon/peci-dimmtemp.c
-> @@ -0,0 +1,295 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2018 Intel Corporation
-> +
-> +#include <linux/hwmon.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/mfd/peci-client.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/workqueue.h>
-> +
-> +#define DIMM_MASK_CHECK_DELAY_JIFFIES msecs_to_jiffies(5000)
-> +#define DIMM_MASK_CHECK_RETRY_MAX     60 /* 60 x 5 secs = 5 minutes */
-> +
-> +struct peci_dimmtemp {
-> +	struct peci_mfd *mfd;
-> +	struct device *dev;
-> +	char name[PECI_NAME_SIZE];
-> +	u8 addr;
-> +	const struct cpu_gen_info *gen_info;
-> +	struct workqueue_struct *work_queue;
-> +	struct delayed_work work_handler;
-> +	struct temp_data temp[DIMM_NUMS_MAX];
-> +	u32 dimm_mask;
-> +	int retry_count;
-> +	u32 temp_config[DIMM_NUMS_MAX + 1];
-> +	struct hwmon_channel_info temp_info;
-> +	const struct hwmon_channel_info *info[2];
-> +	struct hwmon_chip_info chip;
-> +};
-> +
-> +static const char *dimmtemp_label[CHAN_RANK_MAX][DIMM_IDX_MAX] = {
-> +	{ "DIMM A0", "DIMM A1", "DIMM A2" },
-> +	{ "DIMM B0", "DIMM B1", "DIMM B2" },
-> +	{ "DIMM C0", "DIMM C1", "DIMM C2" },
-> +	{ "DIMM D0", "DIMM D1", "DIMM D2" },
-> +	{ "DIMM E0", "DIMM E1", "DIMM E2" },
-> +	{ "DIMM F0", "DIMM F1", "DIMM F2" },
-> +	{ "DIMM G0", "DIMM G1", "DIMM G2" },
-> +	{ "DIMM H0", "DIMM H1", "DIMM H2" },
-> +};
-> +
-> +static int get_dimm_temp(struct peci_dimmtemp *priv, int dimm_no)
-> +{
-> +	int dimm_order = dimm_no % priv->gen_info->dimm_idx_max;
-> +	int chan_rank = dimm_no / priv->gen_info->dimm_idx_max;
-> +	u8  cfg_data[4];
-> +	int rc;
-> +
-> +	if (!peci_temp_need_update(&priv->temp[dimm_no]))
-> +		return 0;
-> +
-> +	rc = peci_client_rd_pkg_cfg_cmd(priv->mfd, MBX_INDEX_DDR_DIMM_TEMP,
-> +					chan_rank, cfg_data);
-> +	if (rc)
-> +		return rc;
-> +
-> +	priv->temp[dimm_no].value = cfg_data[dimm_order] * 1000;
-> +
-> +	peci_temp_mark_updated(&priv->temp[dimm_no]);
-> +
-> +	return 0;
-> +}
-> +
-> +static int dimmtemp_read_string(struct device *dev,
-> +				enum hwmon_sensor_types type,
-> +				u32 attr, int channel, const char **str)
-> +{
-> +	struct peci_dimmtemp *priv = dev_get_drvdata(dev);
-> +	u32 dimm_idx_max = priv->gen_info->dimm_idx_max;
-> +	int chan_rank, dimm_idx;
-> +
-> +	if (attr != hwmon_temp_label)
-> +		return -EOPNOTSUPP;
-> +
-> +	chan_rank = channel / dimm_idx_max;
-> +	dimm_idx = channel % dimm_idx_max;
-> +	*str = dimmtemp_label[chan_rank][dimm_idx];
-> +	return 0;
-> +}
-> +
-> +static int dimmtemp_read(struct device *dev, enum hwmon_sensor_types type,
-> +			 u32 attr, int channel, long *val)
-> +{
-> +	struct peci_dimmtemp *priv = dev_get_drvdata(dev);
-> +	int rc;
-> +
-> +	if (attr != hwmon_temp_input)
-> +		return -EOPNOTSUPP;
-> +
-> +	rc = get_dimm_temp(priv, channel);
-> +	if (rc)
-> +		return rc;
-> +
-> +	*val = priv->temp[channel].value;
-> +	return 0;
-> +}
-> +
-> +static umode_t dimmtemp_is_visible(const void *data,
-> +				   enum hwmon_sensor_types type,
-> +				   u32 attr, int channel)
-> +{
-> +	const struct peci_dimmtemp *priv = data;
-> +
-> +	if (priv->temp_config[channel] & BIT(attr) &&
-> +	    priv->dimm_mask & BIT(channel))
-> +		return 0444;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct hwmon_ops dimmtemp_ops = {
-> +	.is_visible = dimmtemp_is_visible,
-> +	.read_string = dimmtemp_read_string,
-> +	.read = dimmtemp_read,
-> +};
-> +
-> +static int check_populated_dimms(struct peci_dimmtemp *priv)
-> +{
-> +	u32 chan_rank_max = priv->gen_info->chan_rank_max;
-> +	u32 dimm_idx_max = priv->gen_info->dimm_idx_max;
-> +	int chan_rank, dimm_idx, rc;
-> +	u8  cfg_data[4];
-> +
-> +	for (chan_rank = 0; chan_rank < chan_rank_max; chan_rank++) {
-> +		rc = peci_client_rd_pkg_cfg_cmd(priv->mfd,
-> +						MBX_INDEX_DDR_DIMM_TEMP,
-> +						chan_rank, cfg_data);
-> +		if (rc) {
-> +			priv->dimm_mask = 0;
-> +			return rc;
-> +		}
-> +
-> +		for (dimm_idx = 0; dimm_idx < dimm_idx_max; dimm_idx++)
-> +			if (cfg_data[dimm_idx])
-> +				priv->dimm_mask |= BIT(chan_rank *
-> +						       chan_rank_max +
-> +						       dimm_idx);
-> +	}
-> +
-> +	if (!priv->dimm_mask)
-> +		return -EAGAIN;
-> +
-> +	dev_dbg(priv->dev, "Scanned populated DIMMs: 0x%x\n", priv->dimm_mask);
-> +	return 0;
-> +}
-> +
-> +static int create_dimm_temp_info(struct peci_dimmtemp *priv)
-> +{
-> +	int rc, i, config_idx, channels;
-> +	struct device *hwmon_dev;
-> +
-> +	rc = check_populated_dimms(priv);
-> +	if (rc) {
-> +		if (rc == -EAGAIN) {
-> +			if (priv->retry_count < DIMM_MASK_CHECK_RETRY_MAX) {
-> +				queue_delayed_work(priv->work_queue,
-> +						   &priv->work_handler,
-> +						 DIMM_MASK_CHECK_DELAY_JIFFIES);
-> +				priv->retry_count++;
-> +				dev_dbg(priv->dev,
-> +					"Deferred DIMM temp info creation\n");
-> +			} else {
-> +				dev_err(priv->dev,
-> +					"Timeout DIMM temp info creation\n");
-> +				rc = -ETIMEDOUT;
-> +			}
-> +		}
-> +
-> +		return rc;
-> +	}
-> +
-> +	channels = priv->gen_info->chan_rank_max *
-> +		   priv->gen_info->dimm_idx_max;
-> +	for (i = 0, config_idx = 0; i < channels; i++)
-> +		if (priv->dimm_mask & BIT(i))
-> +			while (i >= config_idx)
-> +				priv->temp_config[config_idx++] =
-> +					HWMON_T_LABEL | HWMON_T_INPUT;
-> +
-> +	priv->chip.ops = &dimmtemp_ops;
-> +	priv->chip.info = priv->info;
-> +
-> +	priv->info[0] = &priv->temp_info;
-> +
-> +	priv->temp_info.type = hwmon_temp;
-> +	priv->temp_info.config = priv->temp_config;
-> +
-> +	hwmon_dev = devm_hwmon_device_register_with_info(priv->dev,
-> +							 priv->name,
-> +							 priv,
-> +							 &priv->chip,
-> +							 NULL);
-> +	rc = PTR_ERR_OR_ZERO(hwmon_dev);
-> +	if (!rc)
-> +		dev_dbg(priv->dev, "%s: sensor '%s'\n",
-> +			dev_name(hwmon_dev), priv->name);
-> +
-> +	return rc;
-> +}
-> +
-> +static void create_dimm_temp_info_delayed(struct work_struct *work)
-> +{
-> +	struct delayed_work *dwork = to_delayed_work(work);
-> +	struct peci_dimmtemp *priv = container_of(dwork, struct peci_dimmtemp,
-> +						  work_handler);
-> +	int rc;
-> +
-> +	rc = create_dimm_temp_info(priv);
-> +	if (rc && rc != -EAGAIN)
-> +		dev_dbg(priv->dev, "Failed to create DIMM temp info\n");
-> +}
-> +
-> +static int peci_dimmtemp_probe(struct platform_device *pdev)
-> +{
-> +	struct peci_mfd *mfd = dev_get_drvdata(pdev->dev.parent);
-> +	struct device *dev = &pdev->dev;
-> +	struct peci_dimmtemp *priv;
-> +	int rc;
-> +
-> +	if ((mfd->adapter->cmd_mask &
-> +	    (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG))) !=
-> +	    (BIT(PECI_CMD_GET_TEMP) | BIT(PECI_CMD_RD_PKG_CFG)))
-> +		return -ENODEV;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	dev_set_drvdata(dev, priv);
-> +	priv->mfd = mfd;
-> +	priv->dev = dev;
-> +	priv->addr = mfd->addr;
-> +	priv->gen_info = mfd->gen_info;
-> +
-> +	snprintf(priv->name, PECI_NAME_SIZE, "peci_dimmtemp.cpu%d",
-> +		 priv->mfd->cpu_no);
-> +
-> +	priv->work_queue = alloc_ordered_workqueue(priv->name, 0);
-> +	if (!priv->work_queue)
-> +		return -ENOMEM;
-> +
-> +	INIT_DELAYED_WORK(&priv->work_handler, create_dimm_temp_info_delayed);
-> +
-> +	rc = create_dimm_temp_info(priv);
-> +	if (rc && rc != -EAGAIN) {
-> +		dev_err(dev, "Failed to create DIMM temp info\n");
-> +		goto err_free_wq;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_free_wq:
-> +	destroy_workqueue(priv->work_queue);
-> +	return rc;
-> +}
-> +
-> +static int peci_dimmtemp_remove(struct platform_device *pdev)
-> +{
-> +	struct peci_dimmtemp *priv = dev_get_drvdata(&pdev->dev);
-> +
-> +	cancel_delayed_work_sync(&priv->work_handler);
-> +	destroy_workqueue(priv->work_queue);
-> +
-> +	return 0;
-> +}
-> +
-> +#if IS_ENABLED(CONFIG_OF)
-> +static const struct of_device_id peci_dimmtemp_of_table[] = {
-> +	{ .compatible = "intel,peci-dimmtemp" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, peci_dimmtemp_of_table);
-> +#endif
-> +
-> +static const struct platform_device_id peci_dimmtemp_ids[] = {
-> +	{ .name = "peci-dimmtemp", .driver_data = 0 },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(platform, peci_dimmtemp_ids);
-> +
-> +static struct platform_driver peci_dimmtemp_driver = {
-> +	.probe    = peci_dimmtemp_probe,
-> +	.remove   = peci_dimmtemp_remove,
-> +	.id_table = peci_dimmtemp_ids,
-> +	.driver   = {
-> +			.name           = "peci-dimmtemp",
-> +			.of_match_table = of_match_ptr(peci_dimmtemp_of_table),
-> +	},
-> +};
-> +module_platform_driver(peci_dimmtemp_driver);
-> +
-> +MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
-> +MODULE_DESCRIPTION("PECI dimmtemp driver");
-> +MODULE_LICENSE("GPL v2");
-> -- 
-> 2.17.0
-> 
+A very basic AAA service would be to use the Linux username/password 
+checker (/etc/passwd, PAM, LDAP), allow all operations, and write no 
+audit records.  A more advanced AAA service provider might contact a 
+separate AAA server to perform this function.  The advantages with the 
+remote server approach is that user credentials would not have to be 
+stored on the BMC, and audit records would not take up space on the BMC.
+
+To make this work, OpenBMC would have to:
+1. Create an AAA interface (from an open source project?) and create a 
+very basic AAA service provider.
+2. Define the operations the the AAA service recognizes and the external 
+interfaces use.
+3. Change all external interfaces (REST APIs, IPMI, etc.) to invoke the 
+AAA service
+
+I've started to outline some of the security considerations for this 
+approach in the security docs, current being reviewed in 
+https://gerrit.openbmc-project.xyz/#/c/10443/ in file 
+obmc-protection-profile-modules section named "AAA Management service".
+
+- Joseph Reynolds
+
+--------------AAFF0B08B14E0AEAEF872933
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 5/28/2018 7:26 AM,
+      <a class="moz-txt-link-abbreviated" href="mailto:openbmc-request@lists.ozlabs.org">openbmc-request@lists.ozlabs.org</a> wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:mailman.121.1527510407.18429.openbmc@lists.ozlabs.org">
+      <pre wrap="">Message: 2
+Date: Mon, 28 May 2018 15:00:06 +0300
+From: Alexander Amelkin <a class="moz-txt-link-rfc2396E" href="mailto:a.amelkin@yadro.com" moz-do-not-send="true">&lt;a.amelkin@yadro.com&gt;</a>
+To: <a class="moz-txt-link-rfc2396E" href="mailto:openbmc@lists.ozlabs.org" moz-do-not-send="true">&lt;openbmc@lists.ozlabs.org&gt;</a>
+Subject: Logging user actions
+Message-ID: <a class="moz-txt-link-rfc2396E" href="mailto:c0569989-b52d-745e-06fb-e92cbb1234c8@yadro.com" moz-do-not-send="true">&lt;c0569989-b52d-745e-06fb-e92cbb1234c8@yadro.com&gt;</a>
+Content-Type: text/plain; charset="utf-8"
+
+Hi all!
+
+Customers ask us for extensive user action logging. That is, they want
+to log everything that a user may change in the system. They want to
+know who, how (via which interface) and when changed what. That includes
+but is not limited to network configuration, host power on/off, reboots,
+power restoration policy changing, firmware updates, user
+addition/deletion and password changing, et al. 
+
+We could listen for dbus signals and log most of that, but that way we
+wouldn't know whether a user made a change or that was some internal
+work. Additionally, that would yield an enormous amount of data logged
+if we just log every property change. We could limit logging to a
+predefined subset of properties, but when later the community adds a new
+crucial property, we could miss it in our logs.
+
+We could log requests at each user interface (thankfully, we don't allow
+shell access for users), but that would mean having copies of the same
+logic in different subsystems, which is error prone, plus those copies
+will definitely diverge with time.
+
+Does anyone have any idea on how to best implement such a requirement?
+
+Alexander Amelkin
+YADRO</pre>
+    </blockquote>
+    Yes.  This topic came up in yesterday's OpenBMC security working
+    group meeting.  My impression of the main idea is to enhance OpenBMC
+    with an AAA (authentication, authorization, and
+    accountability/auditing) management interface.  When enabled, all
+    external security-related requests would use the AAA service to
+    authenticate, authorize, and audit the function.  That is, they
+    would pass in the user's credentials (userid&amp;password,
+    certificate, etc) along with a request to perform an operation
+    (example operations: read host server part inventory, reboot the
+    host) and get a yes/no answer from the AAA service.  Then either
+    deny the request or perform it.<br>
+    <br>
+    A very basic AAA service would be to use the Linux username/password
+    checker (/etc/passwd, PAM, LDAP), allow all operations, and write no
+    audit records.  A more advanced AAA service provider might contact a
+    separate AAA server to perform this function.  The advantages with
+    the remote server approach is that user credentials would not have
+    to be stored on the BMC, and audit records would not take up space
+    on the BMC.<br>
+    <br>
+    To make this work, OpenBMC would have to:<br>
+    1. Create an AAA interface (from an open source project?) and create
+    a very basic AAA service provider.<br>
+    2. Define the operations the the AAA service recognizes and the
+    external interfaces use.<br>
+    3. Change all external interfaces (REST APIs, IPMI, etc.) to invoke
+    the AAA service<br>
+    <br>
+    I've started to outline some of the security considerations for this
+    approach in the security docs, current being reviewed in
+    <a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/#/c/10443/">https://gerrit.openbmc-project.xyz/#/c/10443/</a> in file
+    obmc-protection-profile-modules section named "AAA Management
+    service".<br>
+    <br>
+    - Joseph Reynolds<br>
+  </body>
+</html>
+
+--------------AAFF0B08B14E0AEAEF872933--
