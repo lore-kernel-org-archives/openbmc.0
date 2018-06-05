@@ -1,52 +1,72 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::22e; helo=mail-qt0-x22e.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FXqYDgrf"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="EBn0HB9F"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x22e.google.com (mail-qt0-x22e.google.com
+ [IPv6:2607:f8b0:400d:c0d::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 40zxB06qrrzF11V
- for <openbmc@lists.ozlabs.org>; Mon,  4 Jun 2018 23:49:09 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2018 06:49:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,476,1520924400"; d="scan'208";a="61630053"
-Received: from orsmsx103.amr.corp.intel.com ([10.22.225.130])
- by orsmga001.jf.intel.com with ESMTP; 04 Jun 2018 06:49:07 -0700
-Received: from orsmsx156.amr.corp.intel.com (10.22.240.22) by
- ORSMSX103.amr.corp.intel.com (10.22.225.130) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Mon, 4 Jun 2018 06:49:06 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.118]) by
- ORSMSX156.amr.corp.intel.com ([169.254.8.16]) with mapi id 14.03.0319.002;
- Mon, 4 Jun 2018 06:49:06 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Brad Chou <chou.brad@gmail.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: IPMI and Redfish support in openbmc Linux
-Thread-Topic: IPMI and Redfish support in openbmc Linux
-Thread-Index: AQHT+8ZF4LXYlSBvmE6ly+mZldteZaRQHMWg
-Date: Mon, 4 Jun 2018 13:49:06 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169933BDDEB33@ORSMSX114.amr.corp.intel.com>
-References: <mailman.479.1527871603.18429.openbmc@lists.ozlabs.org>
- <C98DD0A2-E79C-47D9-843D-D6012DA22A6C@gmail.com>
-In-Reply-To: <C98DD0A2-E79C-47D9-843D-D6012DA22A6C@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.200.100
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 410L0n2qbxzDrpC
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Jun 2018 15:27:36 +1000 (AEST)
+Received: by mail-qt0-x22e.google.com with SMTP id p23-v6so1169900qtn.6
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Jun 2018 22:27:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=qOelKugoP76zB2MbVLF0FEI3BuZuRWFkYtoxZCm0yB0=;
+ b=FXqYDgrfQCN4k0/hbG3G8iBkZ4GtMDoa3sSKSuEX0lVjF6Lcxb1zi4Vo/04G8bYlmf
+ MdP25368jtRmPrJ8sFPPlZuremdFUu0L68LYvl+wwV/KvuGnlCRW/l6ZjrSxb7ilXG68
+ 3SE0U262zYW3S73jPd8+QGpMcaiu7QQp/hDAL4SrZz14KuugxCtoWJcQ39XNe54ri+EY
+ Flv7XnnvmWLbFQXl6Ke3QizXpnhWcp7RumNsvi8iJfkEXBsckhZ195LpVy6RRGz0GJqd
+ oam4eY+yLUC1+aqOi3C/yy+mkKcTbRDo+6KSEbG/Ga0W7iB2RctzWbUEFXqJksiG2bkN
+ wZHw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=qOelKugoP76zB2MbVLF0FEI3BuZuRWFkYtoxZCm0yB0=;
+ b=EBn0HB9F7zwv3fTkkbbMKiBEn5lZ7NsiLN3ZmsiMqW64pJuMp/doaxmB8ydYHGUj6b
+ 0kEurb0RRhzdFQQVCa0N3LuT0+dloGkYIh6PzAYOqARJrEZEcf99CEULT4tJ+pVkfVSA
+ obs0D0v00pw5exgUAQv/A/a7gb0yHmjbWbttM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=qOelKugoP76zB2MbVLF0FEI3BuZuRWFkYtoxZCm0yB0=;
+ b=qOsnldY6hMCYUtFDh4eA5jEZ9T71j6/tEaqjSRkdkmuszQkdjt3Cgd0vDLYCNqUxs+
+ Brt18y6Iw+rTvCvChRRj8DCHAVHvFDAPTqW5O2ukeobO6fCon71COr9HkgknS8vWySnW
+ miKY+ax3lOf+wZV4iIYSbvnM86SEwn1ZtZUfZRcuskVnfQ6qpy6AX1QZtdQQetz5rERO
+ 58ou6AS5MqohwiV4DFVIF3eoI7IRlTSiKmvU42wwqOmzkvrjB3imZTnkaugSqdNHxTv4
+ RKYSARTlb71CFdrL7t9GztVMqMbLJAyIe4aPbC7u5pV9uaxr4Mu3W1bkGPeQH3FXFkzP
+ X/bg==
+X-Gm-Message-State: APt69E1WA1bqs9h/WTO4ZoExKLJakxAQtBD1Vd9KrB/cblit3BZd6Caq
+ AwasR+S6StgztWwITZbPtPVXYi8/FEWXzyPC768=
+X-Google-Smtp-Source: ADUXVKLqZG/gOk5lo+VUVEFDxB7qgNqDz0vB2c605Jsz2gaYKkqEXkgK34CsiJbwD7fDagY3/s9uE8+QTT15SN4N6O4=
+X-Received: by 2002:a0c:f24e:: with SMTP id
+ z14-v6mr22380944qvl.208.1528176453247; 
+ Mon, 04 Jun 2018 22:27:33 -0700 (PDT)
 MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP;
+ Mon, 4 Jun 2018 22:27:12 -0700 (PDT)
+In-Reply-To: <C599FC839619124CAC44E062ABB7DFE2D6FA04AD@ORSMSX101.amr.corp.intel.com>
+References: <C599FC839619124CAC44E062ABB7DFE2D6FA04AD@ORSMSX101.amr.corp.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 5 Jun 2018 14:57:12 +0930
+X-Google-Sender-Auth: 8Xbkt-jCl-Gk_RsM5wwOOMjb2Ik
+Message-ID: <CACPK8Xdd2O+JsR+jDg-2tAjZH_ksdnPr0spkk8ZOLrRq1ZFTCg@mail.gmail.com>
+Subject: Re: Hackathon - Sept 18th - 20th, 2018
+To: "Mihm, James" <james.mihm@intel.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -58,66 +78,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Jun 2018 13:49:14 -0000
+X-List-Received-Date: Tue, 05 Jun 2018 05:27:38 -0000
 
-There is no KCS bridge merged with master yet, although I submitted one for=
- code review last week.   Your best bet at making it available on master wo=
-uld be to provide review feedback to the Gerrit reviews below, which should=
- help get it merged quickly.
+Hi James,
 
-https://gerrit.openbmc-project.xyz/#/c/10946/
-https://gerrit.openbmc-project.xyz/#/c/10951/
+On 1 June 2018 at 08:53, Mihm, James <james.mihm@intel.com> wrote:
+> Event:  OpenBMC Hackathon hosted by Intel
+>
+> Date:  September 18th =E2=80=93 20th, 2018
 
-Alternately, you can simply pull in those commits and add the phosphor-ipmi=
--kcs component to your build while it's in code review.  I already have a f=
-ew reports of people having used it successfully.=20
+Thanks for organising this.
 
--Ed
+To everyone: Is there any interest in discussing kernel and u-boot
+related topics with me at this workshop?
 
+Cheers,
 
-From: openbmc [mailto:openbmc-bounces+ed.tanous=3Dintel.com@lists.ozlabs.or=
-g] On Behalf Of Brad Chou
-Sent: Sunday, June 3, 2018 10:39 PM
-To: openbmc@lists.ozlabs.org
-Subject: RE: IPMI and Redfish support in openbmc Linux
-
-Hi Ed,
-May I know how to use kcs with host ipmi ?
-Any recipe need to be changed ?
-
-Thanks.
-
-
-On Jun 2, 2018, at 00:46, openbmc-request@lists.ozlabs.org wrote:
-
-A subset of Ipmi 2.0 is provided by the Ipmi daemons here:
-https://github.com/openbmc/phosphor-host-ipmid
-https://github.com/openbmc/phosphor-net-ipmid
-
-Net IPMI supports the out of band ipmi over network. =A0Host ipmi supports =
-in band ipmi over kcs or block transfer.
-
-There are several servers that support Redfish, and we have a working group=
- that meets weekly to talk through technical issues each week, which you're=
- welcome to attend. =A0The only one checked into the upstream project is bm=
-cweb. =A0If you need help getting it started, I'm happy to help.
-https://github.com/openbmc/bmcweb
-
-Yes, ipmitool works compiles for the target, and includes an extra transpor=
-t to be able to connect directly to dbus and do ipmi transactions from ther=
-e.
-
--Ed
-
-From: openbmc [mailto:openbmc-bounces+ed.tanous=3Dintel.com@lists.ozlabs.or=
-g] On Behalf Of AKASH G J
-Sent: Friday, June 1, 2018 2:23 AM
-To:=A0openbmc@lists.ozlabs.org
-Subject: IPMI and Redfish support in openbmc Linux
-
-Hi Team,
-
-I build the Linux image using the steps given in=A0https://github.com/openb=
-mc/openbmc, target machine as Zaius. Whether support is available for IPMI =
-2.0 and Redfish interface? Is it possible to use ipmitool in the cross comp=
-iled Linux?
+Joel
