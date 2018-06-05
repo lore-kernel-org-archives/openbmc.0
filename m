@@ -1,60 +1,63 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <james.mihm@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.161.194; helo=mail-yw0-f194.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4002:c05::22d; helo=mail-yw0-x22d.google.com;
+ envelope-from=james.mihm@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-yw0-f194.google.com (mail-yw0-f194.google.com
- [209.85.161.194])
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ej3TK/2/"; 
+ dkim-atps=neutral
+Received: from mail-yw0-x22d.google.com (mail-yw0-x22d.google.com
+ [IPv6:2607:f8b0:4002:c05::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 410jNz0sPGzF1wr
- for <openbmc@lists.ozlabs.org>; Wed,  6 Jun 2018 06:01:21 +1000 (AEST)
-Received: by mail-yw0-f194.google.com with SMTP id s201-v6so1144542ywg.8
- for <openbmc@lists.ozlabs.org>; Tue, 05 Jun 2018 13:01:21 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 410n796tBGzF1xV
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Jun 2018 08:49:41 +1000 (AEST)
+Received: by mail-yw0-x22d.google.com with SMTP id v190-v6so1285432ywa.12
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Jun 2018 15:49:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=BAZe70JlrI0+/S4YtjfY6vEUTpp2PZqL1th3PnQO/P0=;
+ b=Ej3TK/2/jEsjDJqBSs6L8dXxq6EnbOynp+2sP4sR9OcVT4hEdOhpBJDjvMyrbWj7GX
+ xAb0IPONeXJdgcvBtLnndBF8dX1SPyGVIXcLtxGPGWCp6fYtjDHdLDtBDndNMYN12Emr
+ UzAxZ27vzvM2F9pAI4sge0PSSpsjsJL7HEop4Nooz1aKL4JSpxii/BpdnTzjd5C/cjqv
+ TmTDqpg2x0+meT5ICnjZWX/pwDLCTxYhYzo9+A5ZmJLOD8q3xnsU3ByzVZJZhKoUMBD2
+ YNGKTV8aou9bdiq9/b2P/AWZ8Q4AjrRqxPMSUSc7ZiCjP8LqLhtDihEb/ngeJfaZz+B/
+ 9wxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=yhccSuGNlO4Nb486fzI5Hp5TbXTUQgxg88S+9R4DZ9Y=;
- b=WpWmxfzIja2DXIdoyUIYNRZcscJuWfc0VzIN66sjZC/66yeaHKVsthLSBBKYpaTy4w
- eb9rx8mIgoQqjuyqYiBC0LJZI6D5CiDI5l+AUtp1kKVtHCaToEKLK/C0Jp0cv1NaqM9S
- u53QAcmF2frqlhqc5Kb2wwvMQeqoG9IZFMxlA1CgE2sU3MTnFw/faoOfLakQZgiJz7P3
- /9N2LKox852DUjT3t9CkPjP5XNfSwhG/uwm1b+C7Ztv1VALqSMHYvwz21d0HBCUCNlpW
- Wt6HUKUJ8eVjrEL3KGlNklc8NgAjrLSnkJjhPXDQW3KI6TKJeCWJltvLq9uCwU0jInDF
- lQSg==
-X-Gm-Message-State: APt69E1yCH//VjSmEWP7rouINAvBtQemmHSCClFCj3AjcwrFt2h8Vaot
- f1kC3ods810PBKhdM0/teA==
-X-Google-Smtp-Source: ADUXVKIhV3GbfMK61lXvQwEmTDPmLWTuoHbz32OfaaZqEEy7dFDuIMywHBiBLOdjlY1RqTKkLYGY0w==
-X-Received: by 2002:a81:6f57:: with SMTP id k84-v6mr38668ywc.170.1528228877846; 
- Tue, 05 Jun 2018 13:01:17 -0700 (PDT)
-Received: from localhost (24-223-123-72.static.usa-companies.net.
- [24.223.123.72])
- by smtp.gmail.com with ESMTPSA id a127-v6sm11629401ywc.29.2018.06.05.13.01.16
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 05 Jun 2018 13:01:17 -0700 (PDT)
-Date: Tue, 5 Jun 2018 14:01:15 -0600
-From: Rob Herring <robh@kernel.org>
-To: avifishman70@gmail.com
-Cc: gregkh@linuxfoundation.org, stern@rowland.harvard.edu,
- tmaimon77@gmail.com, venture@google.com, yuenn@google.com,
- brendanhiggins@google.com, mathias.nyman@linux.intel.com,
- bjorn.andersson@linaro.org, jhogan@kernel.org, albeu@free.fr,
- chunfeng.yun@mediatek.com, tony@atomide.com,
- baolu.lu@linux.intel.com, elder@linaro.org, digetx@gmail.com,
- kstewart@linuxfoundation.org, hdegoede@redhat.com,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- openbmc@lists.ozlabs.org, mark.rutland@arm.com, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] USB: DT probing support to ehci-npcm7xx
-Message-ID: <20180605200115.GA20061@rob-hp-laptop>
-References: <1527788430-12494-1-git-send-email-avifishman70@gmail.com>
- <1527788430-12494-3-git-send-email-avifishman70@gmail.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=BAZe70JlrI0+/S4YtjfY6vEUTpp2PZqL1th3PnQO/P0=;
+ b=PKDuX+IUtxW8eKPwK5xFbO7WbdJz9XmDxVX0HcpeaxLBHT6gsZDuBPPNYABhv0k1pC
+ rMgXcJilcMizHdO0SeuW/aRGRlG9I0r4zOm83kgbdY15hlQPiMkawc7I0qCJAPM7lT8U
+ sGMG0Ptmt63qq8GaWqVY2sXj54g3HienwkIediRVG11xScRQfKXOGD/PpQw/7OJQD1kW
+ yfVwCNqjVUwBv+rMQ+ahcVecifw2ESRB8aeDaNNjcMzA2Ad1Ic5Db+c+TjBVuh5Uj1mQ
+ NhurxAJEOrh9Mq/DVjbS4ny2nNRsVo/QImO93mNWkLa51a32Rdi5xTwOOkrttgTc1RFB
+ /7tw==
+X-Gm-Message-State: APt69E1sd++Rlx5E/i9zh9ZkyCP7szQn26NyZogY3W89dKnmh9o/jmCM
+ +2wSmnsI4tFhNgHNcqGOniShhPFAj7PIIZm93BY=
+X-Google-Smtp-Source: ADUXVKK7p3Ix0o7vA+4fj/oBOIx8szSJVAmu5yO413u/JwXNz6ZJuaX0judRK9mkpMDwyQ/QHkSi7219Zo5RyyYXSz4=
+X-Received: by 2002:a0d:c447:: with SMTP id
+ g68-v6mr291244ywd.205.1528238979007; 
+ Tue, 05 Jun 2018 15:49:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1527788430-12494-3-git-send-email-avifishman70@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Received: by 2002:a25:2d4b:0:0:0:0:0 with HTTP;
+ Tue, 5 Jun 2018 15:48:58 -0700 (PDT)
+In-Reply-To: <CACPK8Xdd2O+JsR+jDg-2tAjZH_ksdnPr0spkk8ZOLrRq1ZFTCg@mail.gmail.com>
+References: <C599FC839619124CAC44E062ABB7DFE2D6FA04AD@ORSMSX101.amr.corp.intel.com>
+ <CACPK8Xdd2O+JsR+jDg-2tAjZH_ksdnPr0spkk8ZOLrRq1ZFTCg@mail.gmail.com>
+From: James Mihm <james.mihm@gmail.com>
+Date: Tue, 5 Jun 2018 15:48:58 -0700
+Message-ID: <CADy_Pt3ETopFNbDZ-46Ax9ow+_=wLK2d7XvDJcY=YgDq1+BKpQ@mail.gmail.com>
+Subject: Re: Hackathon - Sept 18th - 20th, 2018
+To: Joel Stanley <joel@jms.id.au>
+Cc: "Mihm, James" <james.mihm@intel.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,22 +69,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Jun 2018 20:01:24 -0000
+X-List-Received-Date: Tue, 05 Jun 2018 22:49:42 -0000
 
-On Thu, May 31, 2018 at 08:40:29PM +0300, avifishman70@gmail.com wrote:
-> From: Avi Fishman <AviFishman70@gmail.com>
+Thank you Joel!
 
-The subject sounds like a driver change, not a binding doc. To start 
-with, the subject prefix should be "dt-bindings: usb: ..."
+This is meant to be a community-driven event. Please share your ideas
+for topics of discussion or work sessions.
 
-> Device Tree documentation for Nuvoton npcm7xx EHCI.
-> 
-> Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
-> ---
->  Documentation/devicetree/bindings/usb/npcm7xx-usb.txt | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+Here are some additional ideas I'd like to share and get community input on=
+.
 
-Otherwise,
+Opening
+    state of the project
+    working group updates
+    roadmaps
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Onboarding (?)
+
+Developer Knowledge Sharing (training?)
+     Dbus - how to use bindings and libraries, pros & cons,
+alternatives, sensor and event database
+
+Security
+    Static analysis tools (intro/use?), threat analysis, assets, mitigation=
+s,
+    TPMs and the BMC, project cerberus and beyond
+    Threat landscape (freight train to hell and back!)
+
+Penetration Testing
+    Tools; burpsuite, lynis, cminer, appscan, postman,...
+
+Redfish
+
+Validation
+    Test cases, tools, and their usage
+
+Community Networking after 5pm
+     Pub-n-grub
+     Brainstorming sessions
+
+Closing
+     Next steps, calls to action
+
+James.
+
+On Mon, Jun 4, 2018 at 10:27 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hi James,
+>
+> On 1 June 2018 at 08:53, Mihm, James <james.mihm@intel.com> wrote:
+>> Event:  OpenBMC Hackathon hosted by Intel
+>>
+>> Date:  September 18th =E2=80=93 20th, 2018
+>
+> Thanks for organising this.
+>
+> To everyone: Is there any interest in discussing kernel and u-boot
+> related topics with me at this workshop?
+>
+> Cheers,
+>
+> Joel
