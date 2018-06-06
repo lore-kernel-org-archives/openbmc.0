@@ -1,54 +1,68 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::236; helo=mail-qt0-x236.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="bzULQJIz"; 
- dkim-atps=neutral
-Received: from mail-qt0-x236.google.com (mail-qt0-x236.google.com
- [IPv6:2607:f8b0:400d:c0d::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="UshSP56b"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="cKXmI+jg"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 410sM62dT3zF1yF
- for <openbmc@lists.ozlabs.org>; Wed,  6 Jun 2018 12:00:17 +1000 (AEST)
-Received: by mail-qt0-x236.google.com with SMTP id x34-v6so4786838qtk.5
- for <openbmc@lists.ozlabs.org>; Tue, 05 Jun 2018 19:00:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=Q3wYDWch1fhtm0grBtA7jF17HluMMX1RnIHCqeX/ZYs=;
- b=bzULQJIzXccql8wxjPcCwvCUC5LgCabJemlaHmQQxJckCDDuq+L/nP+FqIHVI2bOJ5
- 74v2n1NmBFY9iBIqP9paF3WQxdR2WFkp5S83QP+/FHs7RI1RrZ+gFF8/0T3JOtJZE2dM
- 0W4xn8NdX24irqrhj8BIdFZ1e1Fr9eUSbS2NF+WutrzmQkKWzObkXh4YI/ZOHqkKrEnN
- /KGznEBzngKyL3vY2cK6fO4CdJmX1DWF+uLiVDyU5QHLby/IihMEQZ+ZUHAWa2qcfwaJ
- g01biDR7DdxQAAkNjNpI/3Sf+mpJNI6LDJqfNXAGzEMhq73haAWXu0rY0YBsnowoTkSm
- 8wNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=Q3wYDWch1fhtm0grBtA7jF17HluMMX1RnIHCqeX/ZYs=;
- b=YrgZDidhNpXtspcWQnHQjxSh68S45UdzUiLLXJOEPORnhLO3Vu4IkWGJRY6lDWagcV
- NCsotWvcFJW43HPNqDP3gAcJ7nVZEQltvzdd3uBwC9yHCXq0R0XJgn0OgXPrHftNf83G
- OUGu+/B1JPgRHAXEgehiLRgm0VDDTbEYntjeBujVUrJ21rs0WkJLMJ4FGayUScJzjz+N
- 2/GP+YhO0EbIn0INzLFgB4Ov6Gp86Y/4aAjk9qV9vTVtNMBF4Q8S6BzuLiJgIVFG+ZpA
- SS2cou/7t/ay+Q3moucLwEPslphgg/dM8VZIGgJjbv1d+w7FPO5ViX6aZKASSA2Cuels
- PBwA==
-X-Gm-Message-State: APt69E0qC7LoDDxfEPx5G6imSMHBKVcHSObTaoN3CuaHIpPMXIeFD+6M
- BbBK9bnBepTvSfVlDMvQfXwRg3NmNB8dsx7UafLGUA==
-X-Google-Smtp-Source: ADUXVKI4oWM9OqnP0r+cpNcbT566H4k/i1ZkBroI7etPrSH2iEFxlnwiqbs1fWMWS5xILsEa+Sq8otqKnibTNQZ6+Hw=
-X-Received: by 2002:a0c:87c1:: with SMTP id 1-v6mr981639qvk.141.1528250414887; 
- Tue, 05 Jun 2018 19:00:14 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 410t8x6GwkzF1xl
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Jun 2018 12:36:32 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 29B9521C53;
+ Tue,  5 Jun 2018 22:36:26 -0400 (EDT)
+Received: from web2 ([10.202.2.212])
+ by compute4.internal (MEProxy); Tue, 05 Jun 2018 22:36:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=vXpZbvzPwuZjXgIyo0LW3lf0lLnmA
+ rept6pacUabQdw=; b=UshSP56bmrKYb16qB1M8j+oaYdtCYur/6vfqbx8EAVIQX
+ xoc7ZfHA3mm2+JGpXU3qvGyZZci0l9dsDUpQ2mJCVRE3RBLFYXoB8wAWnoXJZzeW
+ +XNpuBczc4N1ZfssTUfPZJ4GZAqwEuh28dpa7T8/+zHaRxAhS0hq2VcAy+0PUKNl
+ igBKKQ8ub5B14d6G2woOdwVCD9mr7orKmOC8GrFy0Ko1g8jVwNO44CJAW+pJedUB
+ LSaZlAag0HM/8RD51/aWJWL/a2bLL3dsStRkvI0++7aWUnrwymjQPLht/muP3IKn
+ PaifU1jHW0SUDTTk17ZyWu350+FoAuszQhCqb3Lyg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=vXpZbv
+ zPwuZjXgIyo0LW3lf0lLnmArept6pacUabQdw=; b=cKXmI+jg2PdUIlLnFruDvD
+ 1JPTzZsXhvsfH15pS8DNlB7duh5ZLF7AXTe5U4lKwzU55SHBelhMF5drTAGORRLB
+ 2+uQs/7HK1mOerkTY9zyYeEBaR8gsuAtAAnYLOfrv9bZBJITyCW4RZAymudhWL7r
+ Ro7b1vmH3Klh/pbz9EWsmnQbVg9bkOCp+GupNQYPyXTDcskeggOVafXRnTKYb+PD
+ HCNBk8+roQF8Wx0TwIUCWjjT7ySOPpzYwkXjT6WPhsEmfhjBflgAPm3MITqnbJm4
+ rQCJcRPlf4X+cvTbaUGOojZpHKa3W59/dbtEyw8wrjNMCzrznyIzPPT0RMbXVjxw
+ ==
+X-ME-Proxy: <xmx:qkgXW_SVf6qLV-SqbRd6qal4aoUBX4XgqLNDr10BFaKvkVDwmhYGZA>
+X-ME-Proxy: <xmx:qkgXW9dcphtLJQ7jYe68TIrUUkD9rrEtH0B-v59-UtBGkH1MnDAqwA>
+X-ME-Proxy: <xmx:qkgXW4uUYL9JY5fVfFiAqgOJ0OwH41EdT2L70SmZ2gMAca92-f5vzg>
+X-ME-Proxy: <xmx:qkgXW5IUflktyDvYwe2-aNcqdTn4pV00MAoOjWn-VtXxUkxzLaNtNA>
+X-ME-Proxy: <xmx:qkgXW8Y7ObtOX576SH3pv1WiZdpKqHiQc8OMklP1sSBudcVs6uJ7TA>
+X-ME-Proxy: <xmx:qkgXW2KI9-nndmjisxGGdLioUS2-FggUcQPs3ei_AcsDgB-QXgZSVg>
+X-ME-Sender: <xms:qkgXW7asqaxpYR8kLCHaOgulb-4UOzgCbflfcwovT91ofG7ACilg_Q>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id D9A1E621DC; Tue,  5 Jun 2018 22:36:25 -0400 (EDT)
+Message-Id: <1528252585.1372887.1397896680.27123F8A@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Henbin Chang <henbinchang@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 MIME-Version: 1.0
-Received: by 2002:aed:2965:0:0:0:0:0 with HTTP;
- Tue, 5 Jun 2018 19:00:14 -0700 (PDT)
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Wed, 6 Jun 2018 10:00:14 +0800
-Message-ID: <CAG9c7cA1Zz_z=Rz1E+i3U_HD4JNOxisQQn27gOgAV9RBs7AdiA@mail.gmail.com>
-Subject: How to configure Clock Stop Control Register
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000001b7917056def871d"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-fb4a77ea
+Subject: Re: How to configure Clock Stop Control Register
+References: <CAG9c7cA1Zz_z=Rz1E+i3U_HD4JNOxisQQn27gOgAV9RBs7AdiA@mail.gmail.com>
+In-Reply-To: <CAG9c7cA1Zz_z=Rz1E+i3U_HD4JNOxisQQn27gOgAV9RBs7AdiA@mail.gmail.com>
+Date: Wed, 06 Jun 2018 12:06:25 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -60,30 +74,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Jun 2018 02:00:19 -0000
+X-List-Received-Date: Wed, 06 Jun 2018 02:36:35 -0000
 
---0000000000001b7917056def871d
-Content-Type: text/plain; charset="UTF-8"
+Hi Henbin,
 
-Hi,
+On Wed, 6 Jun 2018, at 11:30, Henbin Chang wrote:
+> Hi,
+> 
+> I found 'SCU0C[8] Stop LCLK' was set after boot into Kernel.
+> 
+> Could anyone share how/where I should configure the Clock Stop Control
+> Register?
 
-I found 'SCU0C[8] Stop LCLK' was set after boot into Kernel.
+What kernel tree are you building/booting? Can you provide a link?
 
-Could anyone share how/where I should configure the Clock Stop Control
-Register?
+Currently we've tied the LCLK to enabling LPC2AHB bridge:
 
-Thanks your help.
+https://github.com/openbmc/linux/blob/dev-4.13/arch/arm/boot/dts/aspeed-g5.dtsi#L302
 
--Henbin
+You may need to add the following to your dts if you've developed your own:
 
---0000000000001b7917056def871d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+```
+&lpc_ctrl {
+        status = "okay";
+};
+```
 
-<div dir=3D"ltr">Hi,=C2=A0<div><br></div><div>I found &#39;SCU0C[8] Stop LC=
-LK&#39; was set after boot into Kernel.</div><div><br></div><div>Could anyo=
-ne share how/where I should configure the Clock Stop Control Register?</div=
-><div><br></div><div>Thanks your help.</div><div><br></div><div>-Henbin</di=
-v></div>
-
---0000000000001b7917056def871d--
+Andrew
