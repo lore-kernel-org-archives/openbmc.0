@@ -1,75 +1,72 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::232; helo=mail-qt0-x232.google.com;
+ (client-ip=2607:f8b0:400d:c09::22a; helo=mail-qk0-x22a.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ramtkX5G"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ttfxbFIr"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="RITOXshX"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="hKsvwLBF"; 
  dkim-atps=neutral
-Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
- [IPv6:2607:f8b0:400d:c0d::232])
+Received: from mail-qk0-x22a.google.com (mail-qk0-x22a.google.com
+ [IPv6:2607:f8b0:400d:c09::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4112sc3p1MzF2vj
- for <openbmc@lists.ozlabs.org>; Wed,  6 Jun 2018 19:08:52 +1000 (AEST)
-Received: by mail-qt0-x232.google.com with SMTP id d3-v6so5595283qto.1
- for <openbmc@lists.ozlabs.org>; Wed, 06 Jun 2018 02:08:52 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4112zm5Kv4zF2vj
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Jun 2018 19:14:12 +1000 (AEST)
+Received: by mail-qk0-x22a.google.com with SMTP id d130-v6so3479000qkc.2
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Jun 2018 02:14:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=0vSCtS6cvgu2nQBmX8TjOpEA2weVYl0D08dZh4IosEQ=;
- b=ramtkX5GA5zTBm0Y2ONus6c0O5cSrDZetlUhFvpV4i64PWfrkPmuXHyQGRxEeg05pC
- iDlOoVB0XDxiyGoYMAUpK8gua/0MWWNMWKzMJZN7DqcQqlZmPpA0ZLZoZZ/ofWGD5tM3
- GTFEQz7eQGHfq6WGHWrOIrY7iCnGDAifIYSmc1nneU5bMEGosdquM5BCMIbuGMuKmaW/
- q+6UD1hlTZst4mgCXq3genD7ZL4m8GQF/MQx2YfIDGMX+KDSw9qwwLinPEIwUjvd4O4b
- fRSkr0ANpvL5a/tv2gycdRYRGTNGspst0AIhcNkAvd4CYIAGler7oUCP4x92fvHPAn9b
- OKWg==
+ bh=gdqjI+9LNKIzpfFDvzXFDe5DGZ6NPPsYtjVT6ylPBaQ=;
+ b=ttfxbFIruLioqFEkvt0KXNcKanlYm7CO18jjhX/IbW+x5meypasqVCEILtseG7KM6b
+ V0QsYEnvVgswQNJh0CxEvVFi68sVruELv2Dc75pyuXghoTsIkHx+MvrQkXD4f88KWqlS
+ ufQOBV8fXmIduTzjBoW+V2QcHuKtgWxrfPAmsKHkLcsHMcgzUKOv7oBVYKqEeEutGRXO
+ X3SrF1TFxxFPriRWa8vEIW57xhzWzC8EhjVrg6cCmJDXXgljb5wwJMo7O/CJP6e+0n2q
+ N1b2rmunn6/XtKxy9cKnrfTUz71TU4XZsXOc3ErfuglUFIOtaKkIsHD8mAsODAkyY6cq
+ EzCw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=0vSCtS6cvgu2nQBmX8TjOpEA2weVYl0D08dZh4IosEQ=;
- b=RITOXshXh/WKohEREGAm3/E/SaYhEUTjz490IYFSQc19bQlz7vCg1jV7yOVSYgv6EL
- vuBv1PWj2UrHR1fSAgvJRsI8RS8d0XWbjp10Xpx6TDQ4uo58iooP7dulOAuJaX3vhQpm
- RytSANjLxL85x0/TnAI+GWgzGnTbMypgGn6cs=
+ bh=gdqjI+9LNKIzpfFDvzXFDe5DGZ6NPPsYtjVT6ylPBaQ=;
+ b=hKsvwLBF5jIerzZJ12R4Z9MHZpzIXrUlfW/slH2FXo9E8eYF0ywun75bGavjx9t6bQ
+ yar00kniXb3OAmnlbrC4C3kalA6Xv5tGhPXxxasAnTjFAtHSw79zS8g4QIBBjBwEiRkW
+ qo2UN0JUt8cupskCE2jjGV4dLzzA5kzDnZHA8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=0vSCtS6cvgu2nQBmX8TjOpEA2weVYl0D08dZh4IosEQ=;
- b=q4znuoDZ5BbytjqY0SU0QmWcCerEE1ZkHioyATYcaGObXV78GiD8OcOgBUjcT1LU62
- N75RgIyspocKKLittMsKOuz8Mv1zB5aJ5fLotU3So0qGaO8eJrTcQ/qcQJh6Uftcen3k
- FOzWHkSLVDKIUIgu3/jL0FH5F1ZxWtL7C7uC7BzyK2Zb4Poj7LFbO/3/n4MG9uPXr37U
- 2dx/9zxJr+LayJMUpoQPZhqn2jR2ksnfAgcfOz8sYkP6L0juwdFtGmXF1gzkiB4TWBOk
- iQpaeZ4E8x08J76IfZ1fGU1Zo7lxLT20ME0RnidFh+DiQYKSIh0+liD0IAbvcmVYDgyw
- PBCw==
-X-Gm-Message-State: APt69E3J4rH7JXnZqPT1dhlGGumTzMsXtUEpvXkyZqBod+Hm0eWfBxnc
- RV88VwrbWAVzx03oR59L9jSlqbUnlZ9v6Y6HXJA=
-X-Google-Smtp-Source: ADUXVKJeFco+uKZqiRRgLsnaGUghy9C76sUVbT6n8jmj+vrKG2QYVk5DBVKo0EtpxMZ/XIiKMKb0gsYhVNc9crJclzs=
-X-Received: by 2002:ac8:3b49:: with SMTP id
- r9-v6mr1985256qtf.368.1528276130143; 
- Wed, 06 Jun 2018 02:08:50 -0700 (PDT)
+ bh=gdqjI+9LNKIzpfFDvzXFDe5DGZ6NPPsYtjVT6ylPBaQ=;
+ b=QQURh5/e9i20Q9EMl7Zc0ZPcKu+MRDJ3fBLBXQrPee8XZhCMgGDr82y/UBodJBRWle
+ W4gcxRnOkT3flsBLfkWUyGhyFsEbWAdWmhcjPuo1tYQme7bPRfFqhZjUMCjFhXhjT9Sx
+ Ss5z3Y07Q3l2hPvmUIthNGWL42otMJ8OH59RELk1Qu1Kp92XDWad1pjCAkmkGW+LAfBY
+ 3uqZqaQQmoBE78IaRdk8JxfRBVT/+LTUXi0miYEJB2pfXrBeuk4/euWmiYJNLj0vTqAl
+ uNO6JPijLMAhT6z6ttxjbURurKqNndZChNt6qv8AfDs3lLNd3jrMmscHbJZr58X4Sak5
+ hnkg==
+X-Gm-Message-State: APt69E2M4P97kRqGK/5Q3+lEsXrlBOM1xGY7SA7IWS+IZJVpVqxdgJ5B
+ FFn8J3k80kdJD6SCNg/Em2Zt2WldL2StlKBF1vI=
+X-Google-Smtp-Source: ADUXVKLGyq25Ho9a1S72Ol00XQcdkNRm8R/UfXC6HZ7Y+Rlp3nkmFzB9H2J4rkwchlEJBcGWya3j6mpxTB8prCUJakk=
+X-Received: by 2002:a37:1286:: with SMTP id 6-v6mr1720714qks.158.1528276449350; 
+ Wed, 06 Jun 2018 02:14:09 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
 Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP;
- Wed, 6 Jun 2018 02:08:29 -0700 (PDT)
-In-Reply-To: <CAJoAoZk_uf8MCyp_x-RwKh44YSHPhk1eGAO_R54WuAO52qbJAQ@mail.gmail.com>
+ Wed, 6 Jun 2018 02:13:48 -0700 (PDT)
+In-Reply-To: <CADy_Pt3ETopFNbDZ-46Ax9ow+_=wLK2d7XvDJcY=YgDq1+BKpQ@mail.gmail.com>
 References: <C599FC839619124CAC44E062ABB7DFE2D6FA04AD@ORSMSX101.amr.corp.intel.com>
  <CACPK8Xdd2O+JsR+jDg-2tAjZH_ksdnPr0spkk8ZOLrRq1ZFTCg@mail.gmail.com>
  <CADy_Pt3ETopFNbDZ-46Ax9ow+_=wLK2d7XvDJcY=YgDq1+BKpQ@mail.gmail.com>
- <CAJoAoZk_uf8MCyp_x-RwKh44YSHPhk1eGAO_R54WuAO52qbJAQ@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 6 Jun 2018 18:38:29 +0930
-X-Google-Sender-Auth: ww7vaAo0_iMWEgCg0kU3DQE0ZeI
-Message-ID: <CACPK8XfUS5q5f-Ezg7nfyr0fh9m=56CSeYpC=Vzsxz=i6LCssQ@mail.gmail.com>
+Date: Wed, 6 Jun 2018 18:43:48 +0930
+X-Google-Sender-Auth: Lm8VaeMLPdjEMYHK3qukvB_3X_U
+Message-ID: <CACPK8XcWry4PK56xsuvocD=9B9Y+YR6ObKeaSNDrQXA8iAar_A@mail.gmail.com>
 Subject: Re: Hackathon - Sept 18th - 20th, 2018
-To: Emily Shaffer <emilyshaffer@google.com>, Andrew Jeffery <andrew@aj.id.au>
-Cc: James Mihm <james.mihm@gmail.com>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Mihm,
- James" <james.mihm@intel.com>
+To: James Mihm <james.mihm@gmail.com>
+Cc: "Mihm, James" <james.mihm@intel.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -82,21 +79,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Jun 2018 09:08:53 -0000
+X-List-Received-Date: Wed, 06 Jun 2018 09:14:13 -0000
 
-On 6 June 2018 at 08:25, Emily Shaffer <emilyshaffer@google.com> wrote:
-> I'd like to prepare an entry-level talk on various types of testing and
-> tenets for writing good tests, if there's enough interest, considering that
-> there's an overall push for more testing in OpenBMC and some confusion on
-> which kinds of tests we want, and why.  If nobody else is planning to cover,
-> I can also try to dig into what kind of test tooling is available on
-> OpenBMC.
+On 6 June 2018 at 08:18, James Mihm <james.mihm@gmail.com> wrote:
+> Thank you Joel!
+>
+> This is meant to be a community-driven event. Please share your ideas
+> for topics of discussion or work sessions.
+>
+> Here are some additional ideas I'd like to share and get community input on.
 
-Andrew J gave some IBMers a presentation on testing recently. From
-what I hear it went well.
+Sure. Last time we met I gave an overview of the Linux work. I could
+give a status update, as we have made good progress since January.
 
-Andrew, would you like to present that one at the summit? I think it
-would complement Emily's ideas.
+ * Linux kernel status update
+
+Here's one that I would like to see progress on:
+
+ * Common update tooling
+
+>
+> Community Networking after 5pm
+>      Pub-n-grub
+>      Brainstorming sessions
+
+I look forward to these sessions.
 
 Cheers,
 
