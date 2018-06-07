@@ -9,13 +9,13 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 411pbT0f0VzF34F
- for <openbmc@lists.ozlabs.org>; Fri,  8 Jun 2018 00:59:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 411pcX5QPpzF34D
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Jun 2018 01:00:12 +1000 (AEST)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w57EwNCV019460;
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w57EwN84019459;
  Thu, 7 Jun 2018 17:58:24 +0300
 Received: by taln60.nuvoton.co.il (Postfix, from userid 8441)
- id B12C762FF3; Thu,  7 Jun 2018 17:58:23 +0300 (IDT)
+ id A892562FF2; Thu,  7 Jun 2018 17:58:23 +0300 (IDT)
 From: avifishman70@gmail.com
 To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu
 Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
@@ -27,9 +27,9 @@ Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
  linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
  openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
  devicetree@vger.kernel.org, Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v4 3/3] MAINTAINERS: add subfolders for nuvoton *npcm*
-Date: Thu,  7 Jun 2018 17:58:21 +0300
-Message-Id: <20180607145821.322979-4-avifishman70@gmail.com>
+Subject: [PATCH v4 2/3] dt-bindings: usb: new ehci-npcm7xx dt
+Date: Thu,  7 Jun 2018 17:58:20 +0300
+Message-Id: <20180607145821.322979-3-avifishman70@gmail.com>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20180607145821.322979-1-avifishman70@gmail.com>
 References: <20180607145821.322979-1-avifishman70@gmail.com>
@@ -44,29 +44,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jun 2018 14:59:17 -0000
+X-List-Received-Date: Thu, 07 Jun 2018 15:00:14 -0000
 
 From: Avi Fishman <AviFishman70@gmail.com>
 
+Device Tree documentation for Nuvoton npcm7xx EHCI.
+
 Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
 ---
- MAINTAINERS | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/devicetree/bindings/usb/npcm7xx-usb.txt | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e0ce3c5f32e5..23c450adad44 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1727,7 +1727,10 @@ F:	arch/arm/mach-npcm/
- F:	arch/arm/boot/dts/nuvoton-npcm*
- F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
- F:	drivers/*/*npcm*
-+F:	drivers/*/*/*npcm*
- F:	Documentation/*/*npcm*
-+F:	Documentation/*/*/*npcm*
-+F:	Documentation/*/*/*/*npcm*
- 
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
+diff --git a/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+new file mode 100644
+index 000000000000..b682bec103f9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+@@ -0,0 +1,17 @@
++Nuvoton NPCM7XX SoC USB controllers:
++-----------------------------
++
++EHCI:
++-----
++
++Required properties:
++- compatible: "nuvoton,npcm750-ehci"
++- interrupts: Should contain the EHCI interrupt
++
++Example:
++
++	ehci1: usb@f0806000 {
++		compatible = "nuvoton,npcm750-ehci";
++		reg = <0xf0806000 0x1000>;
++		interrupts = <0 61 4>;
++	};
 -- 
 2.14.1
