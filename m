@@ -9,13 +9,13 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 414P454SQfzF3dV
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jun 2018 05:59:30 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 414P461KF2zF3dQ
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jun 2018 05:59:33 +1000 (AEST)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w5BJwg7v007864;
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w5BJwgF5007861;
  Mon, 11 Jun 2018 22:58:43 +0300
 Received: by taln60.nuvoton.co.il (Postfix, from userid 8441)
- id AE1FC62E55; Mon, 11 Jun 2018 22:58:42 +0300 (IDT)
+ id A1FD962E53; Mon, 11 Jun 2018 22:58:42 +0300 (IDT)
 From: avifishman70@gmail.com
 To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu
 Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
@@ -26,13 +26,11 @@ Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
  digetx@gmail.com, kstewart@linuxfoundation.org, hdegoede@redhat.com,
  linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
  openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
- devicetree@vger.kernel.org, Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v5 3/3] MAINTAINERS: add subfolders for nuvoton *npcm*
-Date: Mon, 11 Jun 2018 22:58:37 +0300
-Message-Id: <20180611195837.251551-4-avifishman70@gmail.com>
+ devicetree@vger.kernel.org
+Subject: [PATCH v5 0/3] USB host: Add USB ehci support for nuvoton npcm7xx
+Date: Mon, 11 Jun 2018 22:58:34 +0300
+Message-Id: <20180611195837.251551-1-avifishman70@gmail.com>
 X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180611195837.251551-1-avifishman70@gmail.com>
-References: <20180611195837.251551-1-avifishman70@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -44,29 +42,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jun 2018 19:59:34 -0000
+X-List-Received-Date: Mon, 11 Jun 2018 19:59:35 -0000
 
-From: Avi Fishman <AviFishman70@gmail.com>
+From: Avi Fishman <avifishman70@gmail.com>
 
-Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
----
- MAINTAINERS | 3 +++
- 1 file changed, 3 insertions(+)
+Changes since version 4:
+- dt-bindings reviewed by Rob Herring
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e0ce3c5f32e5..23c450adad44 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1727,7 +1727,10 @@ F:	arch/arm/mach-npcm/
- F:	arch/arm/boot/dts/nuvoton-npcm*
- F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
- F:	drivers/*/*npcm*
-+F:	drivers/*/*/*npcm*
- F:	Documentation/*/*npcm*
-+F:	Documentation/*/*/*npcm*
-+F:	Documentation/*/*/*/*npcm*
- 
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
+Changes since version 3:
+- Follow Rob Herring comments to change dt-bindings commit subject
+
+Changes since version 2:
+- Follow Sergei Shtylyov comments to rename the node name in in device tree 
+  documentation
+
+Changes since version 1:
+- Follow Rob Herring comments in device tree documentation
+- minor log error fix in ehci-npcm7xx.c
+   
+This patch adds support for ehci controller for the Nuvoton npcm7xx platform.
+Most of the code was taken from ehci-spear.c + specific initialization code
+
+Avi Fishman (3):
+  USB host: Add USB ehci support for nuvoton npcm7xx platform
+  dt-bindings: usb: new ehci-npcm7xx dt
+  MAINTAINERS: add subfolders for nuvoton *npcm*
+
+ .../devicetree/bindings/usb/npcm7xx-usb.txt        |  17 ++
+ MAINTAINERS                                        |   3 +
+ drivers/usb/host/Kconfig                           |   8 +
+ drivers/usb/host/Makefile                          |   1 +
+ drivers/usb/host/ehci-npcm7xx.c                    | 212 +++++++++++++++++++++
+ 5 files changed, 241 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+ create mode 100644 drivers/usb/host/ehci-npcm7xx.c
+
 -- 
 2.14.1
