@@ -8,20 +8,20 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 414dVg4P3KzF4Fc
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jun 2018 15:19:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 414dVm6GG5zF4FW
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jun 2018 15:20:00 +1000 (AEST)
 Received: from pasglop.ozlabs.ibm.com (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5C5JDa3008698;
- Tue, 12 Jun 2018 00:19:17 -0500
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5C5JDa5008698;
+ Tue, 12 Jun 2018 00:19:22 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: openbmc@lists.ozlabs.org
 Cc: linux-kernel@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Subject: [RFC PATCH 1/5] fsi/scom: Add mutex around FSI2PIB accesses
-Date: Tue, 12 Jun 2018 15:19:07 +1000
-Message-Id: <20180612051911.20690-2-benh@kernel.crashing.org>
+Subject: [RFC PATCH 3/5] fsi/scom: Fixup endian annotations
+Date: Tue, 12 Jun 2018 15:19:09 +1000
+Message-Id: <20180612051911.20690-4-benh@kernel.crashing.org>
 X-Mailer: git-send-email 2.17.0
 In-Reply-To: <20180612051911.20690-1-benh@kernel.crashing.org>
 References: <20180612051911.20690-1-benh@kernel.crashing.org>
@@ -36,102 +36,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2018 05:19:56 -0000
+X-List-Received-Date: Tue, 12 Jun 2018 05:20:02 -0000
+X-List-Received-Date: Tue, 12 Jun 2018 05:20:02 -0000
 
-Otherwise, multiple clients can open the driver and attempt
-to access the PIB at the same time, thus clobbering each other
-in the process.
+Use the proper annotated type __be32 and fixup the
+accessor used for get_scom()
 
 Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 ---
- drivers/fsi/fsi-scom.c | 25 ++++++++++++++++++-------
- 1 file changed, 18 insertions(+), 7 deletions(-)
+ drivers/fsi/fsi-scom.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-index c8eb5e5b94a7..3cba0eb645e1 100644
+index 8a608db0aa07..6ddfb6021420 100644
 --- a/drivers/fsi/fsi-scom.c
 +++ b/drivers/fsi/fsi-scom.c
-@@ -37,6 +37,7 @@ struct scom_device {
- 	struct list_head link;
- 	struct fsi_device *fsi_dev;
- 	struct miscdevice mdev;
-+	struct mutex lock;
- 	char	name[32];
- 	int idx;
- };
-@@ -53,21 +54,26 @@ static int put_scom(struct scom_device *scom_dev, uint64_t value,
+@@ -51,8 +51,8 @@ static DEFINE_IDA(scom_ida);
+ static int put_scom(struct scom_device *scom_dev, uint64_t value,
+ 		    uint32_t addr)
+ {
++	__be32 data;
  	int rc;
- 	uint32_t data;
+-	uint32_t data;
  
-+	mutex_lock(&scom_dev->lock);
-+
- 	data = cpu_to_be32((value >> 32) & 0xffffffff);
- 	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA0_REG, &data,
- 				sizeof(uint32_t));
- 	if (rc)
--		return rc;
-+		goto bail;
+ 	mutex_lock(&scom_dev->lock);
  
- 	data = cpu_to_be32(value & 0xffffffff);
- 	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA1_REG, &data,
- 				sizeof(uint32_t));
- 	if (rc)
--		return rc;
-+		goto bail;
- 
- 	data = cpu_to_be32(SCOM_WRITE_CMD | addr);
--	return fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
-+	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
- 				sizeof(uint32_t));
-+ bail:
-+	mutex_unlock(&scom_dev->lock);
-+	return rc;
- }
- 
+@@ -79,7 +79,7 @@ static int put_scom(struct scom_device *scom_dev, uint64_t value,
  static int get_scom(struct scom_device *scom_dev, uint64_t *value,
-@@ -76,27 +82,31 @@ static int get_scom(struct scom_device *scom_dev, uint64_t *value,
- 	uint32_t result, data;
+ 		    uint32_t addr)
+ {
+-	uint32_t result, data;
++	__be32 result, data;
  	int rc;
  
-+
-+	mutex_lock(&scom_dev->lock);
- 	*value = 0ULL;
- 	data = cpu_to_be32(addr);
- 	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
- 				sizeof(uint32_t));
- 	if (rc)
--		return rc;
-+		goto bail;
  
- 	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA0_REG, &result,
- 				sizeof(uint32_t));
+@@ -96,14 +96,13 @@ static int get_scom(struct scom_device *scom_dev, uint64_t *value,
  	if (rc)
--		return rc;
-+		goto bail;
+ 		goto bail;
  
- 	*value |= (uint64_t)cpu_to_be32(result) << 32;
+-	*value |= (uint64_t)cpu_to_be32(result) << 32;
++	*value |= (uint64_t)be32_to_cpu(result) << 32;
  	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA1_REG, &result,
  				sizeof(uint32_t));
  	if (rc)
--		return rc;
-+		goto bail;
+ 		goto bail;
  
- 	*value |= cpu_to_be32(result);
- 
--	return 0;
-+ bail:
-+	mutex_unlock(&scom_dev->lock);
-+	return rc;
- }
- 
- static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
-@@ -183,6 +193,7 @@ static int scom_probe(struct device *dev)
- 	if (!scom)
- 		return -ENOMEM;
- 
-+	mutex_init(&scom->lock);
- 	scom->idx = ida_simple_get(&scom_ida, 1, INT_MAX, GFP_KERNEL);
- 	snprintf(scom->name, sizeof(scom->name), "scom%d", scom->idx);
- 	scom->fsi_dev = fsi_dev;
+-	*value |= cpu_to_be32(result);
+-
++	*value |= be32_to_cpu(result);
+  bail:
+ 	mutex_unlock(&scom_dev->lock);
+ 	return rc;
 -- 
 2.17.0
