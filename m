@@ -1,38 +1,29 @@
-Return-Path: <Avi.Fishman@nuvoton.com>
-Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 414P6P2VSzzF3cJ
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jun 2018 06:01:32 +1000 (AEST)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w5BJwgmt007862;
- Mon, 11 Jun 2018 22:58:43 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 8441)
- id A948E62E50; Mon, 11 Jun 2018 22:58:42 +0300 (IDT)
-From: avifishman70@gmail.com
-To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu
-Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
- yuenn@google.com, brendanhiggins@google.com,
- mathias.nyman@linux.intel.com, bjorn.andersson@linaro.org,
- jhogan@kernel.org, albeu@free.fr, chunfeng.yun@mediatek.com,
- tony@atomide.com, baolu.lu@linux.intel.com, elder@linaro.org,
- digetx@gmail.com, kstewart@linuxfoundation.org, hdegoede@redhat.com,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
- devicetree@vger.kernel.org, Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v5 2/3] dt-bindings: usb: new ehci-npcm7xx dt
-Date: Mon, 11 Jun 2018 22:58:36 +0300
-Message-Id: <20180611195837.251551-3-avifishman70@gmail.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180611195837.251551-1-avifishman70@gmail.com>
-References: <20180611195837.251551-1-avifishman70@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 414c3L67sMzF48f
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jun 2018 14:14:38 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5C4EPZE005211;
+ Mon, 11 Jun 2018 23:14:26 -0500
+Message-ID: <7c268f5bb58cb45a2868020b3c5b8f48ac6844ea.camel@kernel.crashing.org>
+Subject: [GIT PULL]  FSI updates
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ openbmc@lists.ozlabs.org
+Date: Tue, 12 Jun 2018 14:14:25 +1000
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -44,41 +35,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jun 2018 20:01:34 -0000
+X-List-Received-Date: Tue, 12 Jun 2018 04:14:39 -0000
 
-From: Avi Fishman <AviFishman70@gmail.com>
+Hi Greg !
 
-Device Tree documentation for Nuvoton npcm7xx EHCI.
+There are a first round of updates of the FSI stack, aiming at reducing/removing
+the gap with the OpenBMC tree and a first step in getting dependent drivers
+upstream.
 
-Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
-Reviewed-by:   Rob Herring <robh@kernel.org>
----
- Documentation/devicetree/bindings/usb/npcm7xx-usb.txt | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+These changes significantly improve the FSI bitbanging driver performance
+and reliability, and add the new "sbefifo" driver for communicating with
+the POWER9 Self Boot Engine (which will be needed for some upcoming
+additional drivers).
 
-diff --git a/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-new file mode 100644
-index 000000000000..b682bec103f9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-@@ -0,0 +1,17 @@
-+Nuvoton NPCM7XX SoC USB controllers:
-+-----------------------------
-+
-+EHCI:
-+-----
-+
-+Required properties:
-+- compatible: "nuvoton,npcm750-ehci"
-+- interrupts: Should contain the EHCI interrupt
-+
-+Example:
-+
-+	ehci1: usb@f0806000 {
-+		compatible = "nuvoton,npcm750-ehci";
-+		reg = <0xf0806000 0x1000>;
-+		interrupts = <0 61 4>;
-+	};
--- 
-2.14.1
+[ Apologies if I got part of the process wrong, I haven't
+  sent a pull request in years ;-) ]
+
+Cheers,
+Ben.
+
+The following changes since commit 8efcf34a263965e471e3999904f94d1f6799d42a:
+
+  Merge tag 'armsoc-late' of git://git.kernel.org/pub/scm/linux/kernel/git/arm/arm-soc (2018-06-11 18:19:45 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/benh/linux-fsi.git 
+
+for you to fetch changes up to 9f4a8a2d7f9d71093f41c4bb0ef8707e8145bad3:
+
+  fsi/sbefifo: Add driver for the SBE FIFO (2018-06-12 14:05:39 +1000)
+
+----------------------------------------------------------------
+Andrew Jeffery (2):
+      fsi: gpio: Trace busy count
+      fsi: gpio: Remove unused 'id' variable
+
+Benjamin Herrenschmidt (8):
+      fsi/fsi-master-gpio: Sample input data on different clock phase
+      fsi/fsi-master-gpio: Add "no-gpio-delays" option
+      fsi/fsi-master-gpio: Reduce turnaround clocks
+      fsi/fsi-master-gpio: Reduce dpoll clocks
+      fsi/fsi-master-gpio: Delay sampling of FSI data input
+      fsi/fsi-master-gpio: Implement CRC error recovery
+      fsi/fsi-master-gpio: More error handling cleanup
+      fsi/sbefifo: Add driver for the SBE FIFO
+
+Eddie James (1):
+      fsi: scom: Remove PIB reset during probe
+
+Jeremy Kerr (4):
+      fsi: gpio: Use a mutex to protect transfers
+      fsi/gpio: Include command build in locked section
+      fsi/gpio: Use relative-addressing commands
+      fsi/master-gpio: Replace bit_bit lock with IRQ disable/enable
+
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     |    1 +
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |    1 +
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       |    1 +
+ drivers/fsi/Kconfig                              |    7 +
+ drivers/fsi/Makefile                             |    1 +
+ drivers/fsi/fsi-master-gpio.c                    |  349 +++++++++++++++++++++++++++--------
+ drivers/fsi/fsi-sbefifo.c                        | 1005 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/fsi/fsi-scom.c                           |    8 -
+ include/linux/fsi-sbefifo.h                      |   33 ++++
+ include/trace/events/fsi_master_gpio.h           |   43 +++++
+ 10 files changed, 1362 insertions(+), 87 deletions(-)
+ create mode 100644 drivers/fsi/fsi-sbefifo.c
+ create mode 100644 include/linux/fsi-sbefifo.h
