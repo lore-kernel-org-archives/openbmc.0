@@ -1,68 +1,82 @@
-Return-Path: <lee.jones@linaro.org>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:400c:c0c::241; helo=mail-wr0-x241.google.com;
- envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="GIrakcj6"; 
- dkim-atps=neutral
-Received: from mail-wr0-x241.google.com (mail-wr0-x241.google.com
- [IPv6:2a00:1450:400c:c0c::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 415H1w3db0zDrph
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 16:30:44 +1000 (AEST)
-Received: by mail-wr0-x241.google.com with SMTP id a12-v6so1415243wro.1
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jun 2018 23:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=Hirn7IwdLYZ0T28lfRWyTA/Z5oZ9GTImCDvihAiNGxE=;
- b=GIrakcj6Pllw9u0x/38DgeRDNpa3v0bYmhwGehAsBCVU88bCLjoWM77+2rlvOm1ovf
- XMiCfVyk4Nz611uwLmRgo5x4kYAoQlu7xBU2DNFAYWFkk/dnKehnba2e/ymStVN9TJJN
- +PFKmfkWxNUcHfjHwCJEx1mP1zMQWLHNQ97kM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=Hirn7IwdLYZ0T28lfRWyTA/Z5oZ9GTImCDvihAiNGxE=;
- b=OaQKVoGguYtTBlhPOr2oq9Q1ig5oDkrRYljEvQ8KPhHQhoD9XBxR8IY5lP/Te4qBaj
- cvfG0pgvj2YFOY3ddiOYxUy57P07wtWKy59TVn0xME0i96IYr/XO3tNEo6OJ3kmh7u55
- nrmesRTNlFB5Whh68FSXzUU7lyx1Lo9zqSoSXHX+2+gkbed3glsRU0Aagm3CqvwRrQJv
- h6JBlNB6XSOBe2hZeyZU8wxm6x4E0UgGHtFyK2hlY/lJCyHkKhU1bBdW63YxwiMuPOXk
- QCjE+o98zvp2qor4DIRjeL4qA6eaWcyXqLpvm/2RCDN6UbKK3bO6Ed8DjK3ZcXbrtjt3
- Ojew==
-X-Gm-Message-State: APt69E06XPOsyvTGt7CHQrrda0oC17Zlhj0HrM9zQyUwJuI+3ll4sCJA
- jg4iDeV8dl4kHCMbmroS3uc9RA==
-X-Google-Smtp-Source: ADUXVKLIRtYaYZJNooGOGwglXmJou+hUBdbSpXJ0Zw+vvfGcS42XRAYnfwpa9uvpLYtWi7gDWxM8vQ==
-X-Received: by 2002:adf:f482:: with SMTP id
- l2-v6mr3081550wro.259.1528871440354; 
- Tue, 12 Jun 2018 23:30:40 -0700 (PDT)
-Received: from dell ([95.149.160.78])
- by smtp.gmail.com with ESMTPSA id k82-v6sm3409482wmg.10.2018.06.12.23.30.39
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 12 Jun 2018 23:30:39 -0700 (PDT)
-Date: Wed, 13 Jun 2018 07:30:38 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Joel Stanley <joel@jms.id.au>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH linux-next v5 08/13] drivers/mfd: Add PECI client mfd
- driver
-Message-ID: <20180613063038.GJ5278@dell>
-References: <20180601182227.23938-1-jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 415VGL1mrkzDrph
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 00:57:13 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w5DEtHTL019622
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:57:11 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2jk3dy6v9w-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:57:10 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 13 Jun 2018 08:57:10 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 13 Jun 2018 08:57:07 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w5DEv6fa6750484
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 13 Jun 2018 07:57:06 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5AD956E050;
+ Wed, 13 Jun 2018 08:57:06 -0600 (MDT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C79786E04E;
+ Wed, 13 Jun 2018 08:57:05 -0600 (MDT)
+Received: from [9.41.102.69] (unknown [9.41.102.69])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed, 13 Jun 2018 08:57:05 -0600 (MDT)
+Subject: Re: [RFC PATCH 5/5] fsi/scom: Major overhaul
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org
+References: <20180612051911.20690-1-benh@kernel.crashing.org>
+ <20180612051911.20690-6-benh@kernel.crashing.org>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Wed, 13 Jun 2018 09:57:05 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20180601182227.23938-1-jae.hyun.yoo@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20180612051911.20690-6-benh@kernel.crashing.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18061314-0020-0000-0000-00000E2D056D
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009183; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000265; SDB=6.01046401; UDB=6.00535906; IPR=6.00825376; 
+ MB=3.00021625; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-13 14:57:09
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18061314-0021-0000-0000-000061EC37E3
+Message-Id: <4581896b-3e24-a5ad-b37a-a0fbf61f99c9@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-06-13_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1805220000 definitions=main-1806130160
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,379 +88,165 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Jun 2018 06:30:45 -0000
+X-List-Received-Date: Wed, 13 Jun 2018 14:57:15 -0000
 
-On Fri, 01 Jun 2018, Jae Hyun Yoo wrote:
 
-> This commit adds PECI client mfd driver.
-> 
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Cc: Andrew Jeffery <andrew@aj.id.au>
-> Cc: James Feist <james.feist@linux.intel.com>
-> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
-> Cc: Joel Stanley <joel@jms.id.au>
-> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
+
+On 06/12/2018 12:19 AM, Benjamin Herrenschmidt wrote:
+> This was too hard to split ... this adds a number of features
+> to the SCOM user interface:
+>
+>   - Support for indirect SCOMs
+>
+>   - read()/write() interface now handle errors and retries
+>
+>   - New ioctl() "raw" interface for use by debuggers
+>
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 > ---
->  drivers/mfd/Kconfig             |  11 ++
->  drivers/mfd/Makefile            |   1 +
->  drivers/mfd/peci-client.c       | 205 ++++++++++++++++++++++++++++++++
->  include/linux/mfd/peci-client.h |  60 ++++++++++
->  4 files changed, 277 insertions(+)
->  create mode 100644 drivers/mfd/peci-client.c
->  create mode 100644 include/linux/mfd/peci-client.h
+>   drivers/fsi/fsi-scom.c   | 424 ++++++++++++++++++++++++++++++++++++---
+>   include/uapi/linux/fsi.h |  56 ++++++
+>   2 files changed, 450 insertions(+), 30 deletions(-)
+>   create mode 100644 include/uapi/linux/fsi.h
+>
+> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
+> index e98573ecdae1..39c74351f1bf 100644
+> --- a/drivers/fsi/fsi-scom.c
+> +++ b/drivers/fsi/fsi-scom.c
+> @@ -24,6 +24,8 @@
+>   #include <linux/list.h>
+>   #include <linux/idr.h>
 
-When you send your next version, please ensure it's sent 'threaded'.
-
-If sets are sent un-threaded they end up spread out all over inboxes.
-
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index b860eb5aa194..4068a2cdf777 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -885,6 +885,17 @@ config UCB1400_CORE
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called ucb1400_core.
->  
-> +config MFD_PECI_CLIENT
-> +	bool "PECI client multi-function device driver"
-
-There's no such thing as a "multi-function device".  What is a PECI
-client?  Please look at other examples in drivers/mfd/Kconfig to see
-how they describe their drivers.
-
-> +	depends on (PECI || COMPILE_TEST)
-> +	select MFD_CORE
-> +	help
-> +	  If you say yes to this option, support will be included for the
-> +	  the PECI client multi-function devices.
-
-Please expand on what this device is.
-
-> +	  Additional drivers must be enabled in order to use the functionality
-> +	  of the device.
 > +
->  config MFD_PM8XXX
->  	tristate "Qualcomm PM8xxx PMIC chips driver"
->  	depends on (ARM || HEXAGON || COMPILE_TEST)
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index e9fd20dba18d..d352599c8dfd 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -178,6 +178,7 @@ obj-$(CONFIG_MFD_SI476X_CORE)	+= si476x-core.o
->  
->  obj-$(CONFIG_MFD_CS5535)	+= cs5535-mfd.o
->  obj-$(CONFIG_MFD_OMAP_USB_HOST)	+= omap-usb-host.o omap-usb-tll.o
-> +obj-$(CONFIG_MFD_PECI_CLIENT)	+= peci-client.o
-
-Maybe intel-peci-client.o?
-
->  obj-$(CONFIG_MFD_PM8XXX) 	+= qcom-pm8xxx.o ssbi.o
->  obj-$(CONFIG_MFD_QCOM_RPM)	+= qcom_rpm.o
->  obj-$(CONFIG_MFD_SPMI_PMIC)	+= qcom-spmi-pmic.o
-> diff --git a/drivers/mfd/peci-client.c b/drivers/mfd/peci-client.c
-> new file mode 100644
-> index 000000000000..02f8ef5fc606
-> --- /dev/null
-> +++ b/drivers/mfd/peci-client.c
-
-I thought you defined this device as a simple-mfd?
-
-This leaves me wondering why you have a driver as well?
-
-> @@ -0,0 +1,205 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2018 Intel Corporation
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/mfd/core.h>
-> +#include <linux/mfd/peci-client.h>
-> +#include <linux/module.h>
-> +#include <linux/peci.h>
-> +#include <linux/of_device.h>
-> +
-> +#if IS_ENABLED(CONFIG_X86)
-> +#include <asm/intel-family.h>
-> +#else
-
-No #ifery please in C files please.
-
-> +/**
-> + * Architectures other than x86 cannot include the header file so define these
-> + * at here. These are needed for detecting type of client x86 CPUs behind a PECI
-> + * connection.
-> + */
-> +#define INTEL_FAM6_HASWELL_X   0x3F
-> +#define INTEL_FAM6_BROADWELL_X 0x4F
-> +#define INTEL_FAM6_SKYLAKE_X   0x55
-> +#endif
-> +
-> +#define LOWER_NIBBLE_MASK      GENMASK(3, 0)
-> +#define UPPER_NIBBLE_MASK      GENMASK(7, 4)
-> +
-> +#define CPU_ID_MODEL_MASK      GENMASK(7, 4)
-> +#define CPU_ID_FAMILY_MASK     GENMASK(11, 8)
-> +#define CPU_ID_EXT_MODEL_MASK  GENMASK(19, 16)
-> +#define CPU_ID_EXT_FAMILY_MASK GENMASK(27, 20)
-
-In the case of X86 based devices, are these being redefined?
-
-> +enum cpu_gens {
-> +	CPU_GEN_HSX = 0, /* Haswell Xeon */
-> +	CPU_GEN_BRX,     /* Broadwell Xeon */
-> +	CPU_GEN_SKX,     /* Skylake Xeon */
-> +};
-> +
-> +static struct mfd_cell peci_functions[] = {
-> +	{
-> +		.name = "peci-cputemp",
-> +		.of_compatible = "intel,peci-cputemp",
-> +	},
-> +	{
-> +		.name = "peci-dimmtemp",
-> +		.of_compatible = "intel,peci-dimmtemp",
-> +	},
-> +};
-
-A couple of temp sensors?  This isn't looking very MFD-like.
-
-What makes this an MFD?
-
-> +static const struct cpu_gen_info cpu_gen_info_table[] = {
-> +	[CPU_GEN_HSX] = {
-> +		.family        = 6, /* Family code */
-> +		.model         = INTEL_FAM6_HASWELL_X,
-> +		.core_max      = CORE_MAX_ON_HSX,
-> +		.chan_rank_max = CHAN_RANK_MAX_ON_HSX,
-> +		.dimm_idx_max  = DIMM_IDX_MAX_ON_HSX },
-> +	[CPU_GEN_BRX] = {
-> +		.family        = 6, /* Family code */
-> +		.model         = INTEL_FAM6_BROADWELL_X,
-> +		.core_max      = CORE_MAX_ON_BDX,
-> +		.chan_rank_max = CHAN_RANK_MAX_ON_BDX,
-> +		.dimm_idx_max  = DIMM_IDX_MAX_ON_BDX },
-> +	[CPU_GEN_SKX] = {
-> +		.family        = 6, /* Family code */
-> +		.model         = INTEL_FAM6_SKYLAKE_X,
-> +		.core_max      = CORE_MAX_ON_SKX,
-> +		.chan_rank_max = CHAN_RANK_MAX_ON_SKX,
-> +		.dimm_idx_max  = DIMM_IDX_MAX_ON_SKX },
-> +};
-> +
-> +static int peci_client_get_cpu_gen_info(struct peci_mfd *priv)
+> +static int scom_reset(struct scom_device *scom, void __user *argp)
 > +{
-> +	u32 cpu_id;
-> +	int i, rc;
+> +	uint32_t flags, dummy = -1;
+> +	int rc = 0;
 > +
-> +	rc = peci_get_cpu_id(priv->adapter, priv->addr, &cpu_id);
-> +	if (rc)
-> +		return rc;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(cpu_gen_info_table); i++) {
-> +		if (FIELD_GET(CPU_ID_FAMILY_MASK, cpu_id) +
-> +			FIELD_GET(CPU_ID_EXT_FAMILY_MASK, cpu_id) ==
-> +				cpu_gen_info_table[i].family &&
-> +		    FIELD_GET(CPU_ID_MODEL_MASK, cpu_id) ==
-> +			FIELD_GET(LOWER_NIBBLE_MASK,
-> +				  cpu_gen_info_table[i].model) &&
-> +		    FIELD_GET(CPU_ID_EXT_MODEL_MASK, cpu_id) ==
-> +			FIELD_GET(UPPER_NIBBLE_MASK,
-> +				  cpu_gen_info_table[i].model)) {
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (i >= ARRAY_SIZE(cpu_gen_info_table))
-> +		return -ENODEV;
-> +
-> +	priv->gen_info = &cpu_gen_info_table[i];
-> +
-> +	return 0;
-> +}
-> +
-> +bool peci_temp_need_update(struct temp_data *temp)
-> +{
-> +	if (temp->valid &&
-> +	    time_before(jiffies, temp->last_updated + UPDATE_INTERVAL))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +EXPORT_SYMBOL_GPL(peci_temp_need_update);
-> +
-> +void peci_temp_mark_updated(struct temp_data *temp)
-> +{
-> +	temp->valid = 1;
-> +	temp->last_updated = jiffies;
-> +}
-> +EXPORT_SYMBOL_GPL(peci_temp_mark_updated);
-> +
-> +int peci_client_command(struct peci_mfd *priv, enum peci_cmd cmd, void *vmsg)
-> +{
-> +	return peci_command(priv->adapter, cmd, vmsg);
-> +}
-> +EXPORT_SYMBOL_GPL(peci_client_command);
-> +
-> +int peci_client_rd_pkg_cfg_cmd(struct peci_mfd *priv, u8 mbx_idx,
-> +			       u16 param, u8 *data)
-> +{
-> +	struct peci_rd_pkg_cfg_msg msg;
-> +	int rc;
-> +
-> +	msg.addr = priv->addr;
-> +	msg.index = mbx_idx;
-> +	msg.param = param;
-> +	msg.rx_len = 4;
-> +
-> +	rc = peci_command(priv->adapter, PECI_CMD_RD_PKG_CFG, &msg);
-> +	if (!rc)
-> +		memcpy(data, msg.pkg_config, 4);
-> +
+> +	if (get_user(flags, (__u32 __user *)argp))
+> +		return -EFAULT;
+> +	if (flags & SCOM_RESET_PIB)
+> +		rc = fsi_device_write(scom->fsi_dev, SCOM_PIB_RESET_REG, &dummy,
+> +				      sizeof(uint32_t));
+
+I realize this is a user requested flag but I believe the BMC is never 
+supposed to issue this type of reset, due to the possibility of breaking 
+stuff on the host side. Not sure if it should even be available?
+
+Otherwise, looks good!
+Thanks,
+Eddie
+
+> +	if (!rc && (flags & (SCOM_RESET_PIB | SCOM_RESET_INTF)))
+> +		rc = fsi_device_write(scom->fsi_dev, SCOM_FSI2PIB_RESET_REG, &dummy,
+> +				      sizeof(uint32_t));
 > +	return rc;
 > +}
-> +EXPORT_SYMBOL_GPL(peci_client_rd_pkg_cfg_cmd);
 > +
-> +static int peci_client_probe(struct peci_client *client)
-
-peci_client?
-
-What kind of device is this?  Is it 'real'?
-
+> +static int scom_check(struct scom_device *scom, void __user *argp)
 > +{
-> +	struct device *dev = &client->dev;
-> +	struct peci_mfd *priv;
-> +	int rc;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	dev_set_drvdata(dev, priv);
-> +	priv->client = client;
-> +	priv->dev = dev;
-> +	priv->adapter = client->adapter;
-> +	priv->addr = client->addr;
-> +	priv->cpu_no = client->addr - PECI_BASE_ADDR;
-> +
-> +	snprintf(priv->name, PECI_NAME_SIZE, "peci_client.cpu%d", priv->cpu_no);
-> +
-> +	rc = peci_client_get_cpu_gen_info(priv);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = devm_mfd_add_devices(priv->dev, priv->cpu_no, peci_functions,
-> +				  ARRAY_SIZE(peci_functions), NULL, 0, NULL);
-> +	if (rc < 0) {
-> +		dev_err(priv->dev, "mfd_add_devices failed: %d\n", rc);
-> +		return rc;
-> +	}
-> +
-> +	dev_dbg(dev, "'%s' at 0x%02x\n", priv->name, priv->addr);
-
-Please remove this kind of debug.
-
-> +	return 0;
+> +	/* Still need to find out how to get "protected" */
+> +	return put_user(SCOM_CHECK_SUPPORTED, (__u32 __user *)argp);
 > +}
 > +
-> +#ifdef CONFIG_OF
-> +static const struct of_device_id peci_client_of_table[] = {
-> +	{ .compatible = "intel,peci-client" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, peci_client_of_table);
-> +#endif
+> +static long scom_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+> +{
+> +	struct miscdevice *mdev = file->private_data;
+> +	struct scom_device *scom = to_scom_dev(mdev);
+> +	void __user *argp = (void __user *)arg;
+> +	int rc = -ENOTTY;
 > +
-> +static const struct peci_device_id peci_client_ids[] = {
-> +	{ .name = "peci-client", .driver_data = 0 },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(peci, peci_client_ids);
+> +	mutex_lock(&scom->lock);
+> +	switch(cmd) {
+> +	case FSI_SCOM_CHECK:
+> +		rc = scom_check(scom, argp);
+> +		break;
+> +	case FSI_SCOM_READ:
+> +		rc = scom_raw_read(scom, argp);
+> +		break;
+> +	case FSI_SCOM_WRITE:
+> +		rc = scom_raw_write(scom, argp);
+> +		break;
+> +	case FSI_SCOM_RESET:
+> +		rc = scom_reset(scom, argp);
+> +		break;
+> +	}
+> +	mutex_unlock(&scom->lock);
+> +	return rc;
+> +}
 > +
-> +static struct peci_driver peci_client_driver = {
-
-I'm pretty sure this will be NAKED by the platform Maintainer.
-
-> +	.probe    = peci_client_probe,
-> +	.id_table = peci_client_ids,
-> +	.driver   = {
-> +			.name           = "peci-client",
-> +			.of_match_table =
-> +				of_match_ptr(peci_client_of_table),
-> +	},
-> +};
-> +module_peci_driver(peci_client_driver);
-> +
-> +MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
-> +MODULE_DESCRIPTION("PECI client multi-function driver");
-> +MODULE_LICENSE("GPL v2");
-> diff --git a/include/linux/mfd/peci-client.h b/include/linux/mfd/peci-client.h
+>   static const struct file_operations scom_fops = {
+> -	.owner	= THIS_MODULE,
+> -	.llseek	= scom_llseek,
+> -	.read	= scom_read,
+> -	.write	= scom_write,
+> +	.owner		= THIS_MODULE,
+> +	.llseek		= scom_llseek,
+> +	.read		= scom_read,
+> +	.write		= scom_write,
+> +	.unlocked_ioctl	= scom_ioctl,
+>   };
+>
+>   static int scom_probe(struct device *dev)
+> diff --git a/include/uapi/linux/fsi.h b/include/uapi/linux/fsi.h
 > new file mode 100644
-> index 000000000000..b06e37355632
+> index 000000000000..6008d93f2e48
 > --- /dev/null
-> +++ b/include/linux/mfd/peci-client.h
-> @@ -0,0 +1,60 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/* Copyright (c) 2018 Intel Corporation */
+> +++ b/include/uapi/linux/fsi.h
+> @@ -0,0 +1,56 @@
+> +#ifndef _UAPI_LINUX_FSI_H
+> +#define _UAPI_LINUX_FSI_H
 > +
-> +#ifndef __LINUX_MFD_PECI_CLIENT_H
-> +#define __LINUX_MFD_PECI_CLIENT_H
+> +#include <linux/ioctl.h>
 > +
-> +#include <linux/peci.h>
+> +/*
+> + * /dev/scom "raw" ioctl interface
+> + *
+> + * The driver supports a high level "read/write" interface which
+> + * handles retries and converts the status to Linux error codes,
+> + * however low level tools an debugger need to access the "raw"
+> + * HW status information and interpret it themselves, so this
+> + * ioctl interface is also provided for their use case.
+> + */
 > +
-> +#define TEMP_TYPE_PECI         6 /* Sensor type 6: Intel PECI */
-> +
-> +#define UPDATE_INTERVAL        HZ
-> +
-> +struct temp_data {
-> +	uint  valid;
-> +	s32   value;
-> +	ulong last_updated;
+> +/* Structure for SCOM read/write */
+> +struct scom_access {
+> +	__u64	addr;		/* SCOM address, supports indirect */
+> +	__u64	data;		/* SCOM data (in for write, out for read) */
+> +	__u64	mask;		/* Data mask for writes */
+> +	__u32	intf_errors;	/* Interface error flags */
+> +#define SCOM_INTF_ERR_PARITY		0x00000001 /* Parity error */
+> +#define SCOM_INTF_ERR_PROTECTION	0x00000002 /* Blocked by secure boot */
+> +#define SCOM_INTF_ERR_ABORT		0x00000004 /* PIB reset during access */
+> +#define SCOM_INTF_ERR_UNKNOWN		0x80000000 /* Unknown error */
+> +	/*
+> +	 * Note: Any other bit set in intf_errors need to be considered as an
+> +	 * error. Future implementations may define new error conditions. The
+> +	 * pib_status below is only valid if intf_errors is 0.
+> +	 */
+> +	__u8	pib_status;	/* 3-bit PIB status */
+> +#define SCOM_PIB_SUCCESS	0	/* Access successful */
+> +#define SCOM_PIB_BLOCKED	1	/* PIB blocked, pls retry */
+> +#define SCOM_PIB_OFFLINE	2	/* Chiplet offline */
+> +#define SCOM_PIB_PARTIAL	3	/* Partial good */
+> +#define SCOM_PIB_BAD_ADDR	4	/* Invalid address */
+> +#define SCOM_PIB_CLK_ERR	5	/* Clock error */
+> +#define SCOM_PIB_PARITY_ERR	6	/* Parity error on the PIB bus */
+> +#define SCOM_PIB_TIMEOUT	7	/* Bus timeout */
+> +	__u8	pad;
 > +};
 > +
-> +struct cpu_gen_info {
-> +	u16  family;
-> +	u8   model;
-> +	uint core_max;
-> +	uint chan_rank_max;
-> +	uint dimm_idx_max;
-> +};
+> +/* Flags for SCOM check */
+> +#define SCOM_CHECK_SUPPORTED	0x00000001	/* Interface supported */
+> +#define SCOM_CHECK_PROTECTED	0x00000002	/* Interface blocked by secure boot */
 > +
-> +struct peci_mfd {
-> +	struct peci_client *client;
-> +	struct device *dev;
-> +	struct peci_adapter *adapter;
-> +	char name[PECI_NAME_SIZE];
-> +	u8 addr;
-> +	uint cpu_no;
-> +	const struct cpu_gen_info *gen_info;
-> +};
+> +/* Flags for SCOM reset */
+> +#define SCOM_RESET_INTF		0x00000001	/* Reset interface */
+> +#define SCOM_RESET_PIB		0x00000002	/* Reset PIB */
 > +
-> +#define CORE_MAX_ON_HSX        18 /* Max number of cores on Haswell */
-> +#define CHAN_RANK_MAX_ON_HSX   8  /* Max number of channel ranks on Haswell */
-> +#define DIMM_IDX_MAX_ON_HSX    3  /* Max DIMM index per channel on Haswell */
+> +#define FSI_SCOM_CHECK	_IOR('s', 0x00, __u32)
+> +#define FSI_SCOM_READ	_IOWR('s', 0x01, struct scom_access)
+> +#define FSI_SCOM_WRITE	_IOWR('s', 0x02, struct scom_access)
+> +#define FSI_SCOM_RESET	_IOW('s', 0x03, __u32)
 > +
-> +#define CORE_MAX_ON_BDX        24 /* Max number of cores on Broadwell */
-> +#define CHAN_RANK_MAX_ON_BDX   4  /* Max number of channel ranks on Broadwell */
-> +#define DIMM_IDX_MAX_ON_BDX    3  /* Max DIMM index per channel on Broadwell */
-> +
-> +#define CORE_MAX_ON_SKX        28 /* Max number of cores on Skylake */
-> +#define CHAN_RANK_MAX_ON_SKX   6  /* Max number of channel ranks on Skylake */
-> +#define DIMM_IDX_MAX_ON_SKX    2  /* Max DIMM index per channel on Skylake */
-> +
-> +#define CORE_NUMS_MAX          CORE_MAX_ON_SKX
-> +#define CHAN_RANK_MAX          CHAN_RANK_MAX_ON_HSX
-> +#define DIMM_IDX_MAX           DIMM_IDX_MAX_ON_HSX
-> +#define DIMM_NUMS_MAX          (CHAN_RANK_MAX * DIMM_IDX_MAX)
-> +
-> +bool peci_temp_need_update(struct temp_data *temp);
-> +void peci_temp_mark_updated(struct temp_data *temp);
-> +int  peci_client_command(struct peci_mfd *mfd, enum peci_cmd cmd, void *vmsg);
-> +int  peci_client_rd_pkg_cfg_cmd(struct peci_mfd *mfd, u8 mbx_idx,
-> +				u16 param, u8 *data);
-> +
-> +#endif /* __LINUX_MFD_PECI_CLIENT_H */
-
--- 
-Lee Jones [李琼斯]
-Linaro Services Technical Lead
-Linaro.org │ Open source software for ARM SoCs
-Follow Linaro: Facebook | Twitter | Blog
+> +#endif /* _UAPI_LINUX_FSI_H */
