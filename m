@@ -1,82 +1,74 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="SdUvj0ma"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="N1UHXFQT"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 415VJY4yjmzF0gL
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 00:59:09 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w5DEsBnJ060405
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:59:07 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2jk3dx71bt-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:59:06 -0400
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 13 Jun 2018 08:59:06 -0600
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 13 Jun 2018 08:59:03 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w5DEx2lR52822228
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 13 Jun 2018 07:59:02 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9AFEE6E056;
- Wed, 13 Jun 2018 08:59:02 -0600 (MDT)
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 22D196E050;
- Wed, 13 Jun 2018 08:59:02 -0600 (MDT)
-Received: from [9.41.102.69] (unknown [9.41.102.69])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 13 Jun 2018 08:59:02 -0600 (MDT)
-Subject: Re: [RFC PATCH 1/5] fsi/scom: Add mutex around FSI2PIB accesses
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org
-References: <20180612051911.20690-1-benh@kernel.crashing.org>
- <20180612051911.20690-2-benh@kernel.crashing.org>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Wed, 13 Jun 2018 09:59:01 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 415VLS0xzHzF0f5
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 01:00:47 +1000 (AEST)
+Received: by mail-qt0-x243.google.com with SMTP id y31-v6so2629795qty.9
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 08:00:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=ggPsWCgBGNP7sQazIyQtB4wt7nRMtd+mYba2iWsOVWk=;
+ b=SdUvj0ma8lzkc/eKxAIgpSwaM+qWYXdUwR0eFC58vdHPMGQ95DTy9j1JUrJ/o3d4Wg
+ 8WrH5HmRjm9iYpHyr6KCYYVyyKsLNT5zpRWUsGr6/17kNZurjS0vSsw9nHvkq67TlgMW
+ 50Ty+7VsF1ZvzbU6M0pvzv+yw4Hu924sTvZhYKF9bKt2aexs2AugAM1TNsjU94L9DwkV
+ 8w77mMPKg05Q4VHHrov31rjJV/v8z/mSCoxM2GbfgeaIhQKXm/4am1oNJwS9RPW1gR2C
+ KuTYrVmZ2sQYPHjCXSnU/E8FFL/iVKhonjz77XyXoYw7cQiTfGVnz88OnxLjbLUuIji4
+ nZjQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=ggPsWCgBGNP7sQazIyQtB4wt7nRMtd+mYba2iWsOVWk=;
+ b=N1UHXFQTHdUnXf0Vjo+Owv0pUsGsL9/QcVztGQeKyLIBGboA+wK1rLipMv91QPpBem
+ BQfwHXkbb2jPoO+Er+wfYxi/LcMi2q5Bp6tDjlrjhBXgYErflrOiuR3jyTYgmx15O4ji
+ 9M2TttgSbpVL2OkX/D7VblQ9PaQ5MMnxs1PTU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=ggPsWCgBGNP7sQazIyQtB4wt7nRMtd+mYba2iWsOVWk=;
+ b=jQOKqmSHGZADWy3ugL1mPpQZNl+d3EP8YV5TklRFJj9FXJhIvenWByRXKN8Ljgfalg
+ 0C32bEN8NomWonGLSZLcwju0k0P/V7aRsKZagrQVfyD1GnmyDVRnXnA6HDLOZrfHUGqZ
+ c5QzfD7f2T/cmlLBB4D/xe1YJUoUqc+kUZAsvh1zL4bFAJ3qa/BRMtZdjN7M3C+QdrVD
+ Y0fe3tG9oVTZOzeGST5ReoutEvZjSXYwBF6EP7+vTDB9goIFQrXsXkRd1NVpmIndgoAg
+ vOW4Zl43JLqRB64Bmp66zbpIpXwVVMtSTkAwXPMgJKDWNBHg0YhLzfn1TC7pv8m5lGAz
+ 78sQ==
+X-Gm-Message-State: APt69E2n5OPwo0UTq2Xk2VYfC0zxoVmKCWmiVDzC3FpiXrdMqWHib1Xi
+ p6NPJrJmQZSfbo43bwssnOBGKeCKULNkCnpcNQnBDA==
+X-Google-Smtp-Source: ADUXVKKGJ7YwEqz0GoRFzGGe//kj6fYiPNnsPXUoDrc/8Y7jkXavoW7jUp4Q+fO6uhz/jB0gmAlmG2uBgNibNL8WP+A=
+X-Received: by 2002:ac8:65d1:: with SMTP id
+ t17-v6mr4991056qto.347.1528902045362; 
+ Wed, 13 Jun 2018 08:00:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180612051911.20690-2-benh@kernel.crashing.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18061314-0020-0000-0000-00000E2D0601
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009183; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000265; SDB=6.01046401; UDB=6.00535906; IPR=6.00825376; 
- MB=3.00021625; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-13 14:59:05
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18061314-0021-0000-0000-000061EC392E
-Message-Id: <3f347b72-7be0-11a5-67ec-dc773ed96a46@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-06-13_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1805220000 definitions=main-1806130160
+Sender: joel.stan@gmail.com
+Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP; Wed, 13 Jun 2018 08:00:24
+ -0700 (PDT)
+In-Reply-To: <20180608130000.22627-1-clg@kaod.org>
+References: <20180608130000.22627-1-clg@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 14 Jun 2018 00:30:24 +0930
+X-Google-Sender-Auth: Xq8JZ0Tk5LfC72IHTjWX6S47ZCg
+Message-ID: <CACPK8XfM3B6FbukwTMtbi4FVU8SGxpFF-ox3MiDkMS8f3CASQQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] mtd: spi-nor: aspeed: introduce a "spi-max-frequency"
+ property
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -88,106 +80,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Jun 2018 14:59:10 -0000
+X-List-Received-Date: Wed, 13 Jun 2018 15:00:50 -0000
 
+Hi Cedric,
 
+On 8 June 2018 at 22:29, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
+> Hello,
+>
+> The property protects some optimistic settings of optimize read algo
+> on certain chips (old ones). It also makes the read access to the
+> alternate FMC chip 3 times faster.
 
-On 06/12/2018 12:19 AM, Benjamin Herrenschmidt wrote:
-> Otherwise, multiple clients can open the driver and attempt
-> to access the PIB at the same time, thus clobbering each other
-> in the process.
->
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+The changes look okay to me. Do you plan to submit them for upstream inclus=
+ion?
 
-Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
+I'd feel happier if we had some review on them before merging device
+tree changes.
 
-> ---
->   drivers/fsi/fsi-scom.c | 25 ++++++++++++++++++-------
->   1 file changed, 18 insertions(+), 7 deletions(-)
+Cheers,
+
+Joel
+
 >
-> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-> index c8eb5e5b94a7..3cba0eb645e1 100644
-> --- a/drivers/fsi/fsi-scom.c
-> +++ b/drivers/fsi/fsi-scom.c
-> @@ -37,6 +37,7 @@ struct scom_device {
->   	struct list_head link;
->   	struct fsi_device *fsi_dev;
->   	struct miscdevice mdev;
-> +	struct mutex lock;
->   	char	name[32];
->   	int idx;
->   };
-> @@ -53,21 +54,26 @@ static int put_scom(struct scom_device *scom_dev, uint64_t value,
->   	int rc;
->   	uint32_t data;
+> Thanks,
 >
-> +	mutex_lock(&scom_dev->lock);
-> +
->   	data = cpu_to_be32((value >> 32) & 0xffffffff);
->   	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA0_REG, &data,
->   				sizeof(uint32_t));
->   	if (rc)
-> -		return rc;
-> +		goto bail;
+> C.
 >
->   	data = cpu_to_be32(value & 0xffffffff);
->   	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA1_REG, &data,
->   				sizeof(uint32_t));
->   	if (rc)
-> -		return rc;
-> +		goto bail;
+> C=C3=A9dric Le Goater (2):
+>   ARM: dts: aspeed: Add "spi-max-frequency" property
+>   mtd: spi-nor: aspeed: limit the maximum SPI frequency
 >
->   	data = cpu_to_be32(SCOM_WRITE_CMD | addr);
-> -	return fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
-> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
->   				sizeof(uint32_t));
-> + bail:
-> +	mutex_unlock(&scom_dev->lock);
-> +	return rc;
->   }
+>  drivers/mtd/spi-nor/aspeed-smc.c                 | 18 ++++++++++++++----
+>  arch/arm/boot/dts/aspeed-ast2500-evb.dts         |  2 ++
+>  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    |  2 ++
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     |  2 ++
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  3 +++
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       |  2 ++
+>  arch/arm/boot/dts/aspeed-g4.dtsi                 |  2 ++
+>  arch/arm/boot/dts/aspeed-g5.dtsi                 |  7 +++++++
+>  8 files changed, 34 insertions(+), 4 deletions(-)
 >
->   static int get_scom(struct scom_device *scom_dev, uint64_t *value,
-> @@ -76,27 +82,31 @@ static int get_scom(struct scom_device *scom_dev, uint64_t *value,
->   	uint32_t result, data;
->   	int rc;
+> --
+> 2.13.6
 >
-> +
-> +	mutex_lock(&scom_dev->lock);
->   	*value = 0ULL;
->   	data = cpu_to_be32(addr);
->   	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
->   				sizeof(uint32_t));
->   	if (rc)
-> -		return rc;
-> +		goto bail;
->
->   	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA0_REG, &result,
->   				sizeof(uint32_t));
->   	if (rc)
-> -		return rc;
-> +		goto bail;
->
->   	*value |= (uint64_t)cpu_to_be32(result) << 32;
->   	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA1_REG, &result,
->   				sizeof(uint32_t));
->   	if (rc)
-> -		return rc;
-> +		goto bail;
->
->   	*value |= cpu_to_be32(result);
->
-> -	return 0;
-> + bail:
-> +	mutex_unlock(&scom_dev->lock);
-> +	return rc;
->   }
->
->   static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
-> @@ -183,6 +193,7 @@ static int scom_probe(struct device *dev)
->   	if (!scom)
->   		return -ENOMEM;
->
-> +	mutex_init(&scom->lock);
->   	scom->idx = ida_simple_get(&scom_ida, 1, INT_MAX, GFP_KERNEL);
->   	snprintf(scom->name, sizeof(scom->name), "scom%d", scom->idx);
->   	scom->fsi_dev = fsi_dev;
