@@ -1,74 +1,74 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 415VGL1mrkzDrph
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 00:57:13 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w5DEtHTL019622
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:57:11 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2jk3dy6v9w-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 415VH32wDdzF0gL
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 00:57:51 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w5DEuOM7008106
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:57:48 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2jk2skg6j8-1
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:57:10 -0400
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 10:57:48 -0400
 Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 13 Jun 2018 08:57:10 -0600
+ Wed, 13 Jun 2018 08:57:47 -0600
 Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 13 Jun 2018 08:57:07 -0600
+ Wed, 13 Jun 2018 08:57:44 -0600
 Received: from b03ledav001.gho.boulder.ibm.com
  (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
  by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w5DEv6fa6750484
+ w5DEvhOE3932562
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 13 Jun 2018 07:57:06 -0700
+ Wed, 13 Jun 2018 07:57:43 -0700
 Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5AD956E050;
- Wed, 13 Jun 2018 08:57:06 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 8C9786E050;
+ Wed, 13 Jun 2018 08:57:43 -0600 (MDT)
 Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C79786E04E;
- Wed, 13 Jun 2018 08:57:05 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 268556E04E;
+ Wed, 13 Jun 2018 08:57:43 -0600 (MDT)
 Received: from [9.41.102.69] (unknown [9.41.102.69])
  by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 13 Jun 2018 08:57:05 -0600 (MDT)
-Subject: Re: [RFC PATCH 5/5] fsi/scom: Major overhaul
+ Wed, 13 Jun 2018 08:57:43 -0600 (MDT)
+Subject: Re: [RFC PATCH 4/5] fsi/scom: Add register definitions
 To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  linux-kernel@vger.kernel.org
 References: <20180612051911.20690-1-benh@kernel.crashing.org>
- <20180612051911.20690-6-benh@kernel.crashing.org>
+ <20180612051911.20690-5-benh@kernel.crashing.org>
 From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Wed, 13 Jun 2018 09:57:05 -0500
+Date: Wed, 13 Jun 2018 09:57:42 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.8.0
 MIME-Version: 1.0
-In-Reply-To: <20180612051911.20690-6-benh@kernel.crashing.org>
+In-Reply-To: <20180612051911.20690-5-benh@kernel.crashing.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 X-TM-AS-GCONF: 00
-x-cbid: 18061314-0020-0000-0000-00000E2D056D
+x-cbid: 18061314-0004-0000-0000-000014528995
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00009183; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000265; SDB=6.01046401; UDB=6.00535906; IPR=6.00825376; 
- MB=3.00021625; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-13 14:57:09
+ MB=3.00021625; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-13 14:57:46
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18061314-0021-0000-0000-000061EC37E3
-Message-Id: <4581896b-3e24-a5ad-b37a-a0fbf61f99c9@linux.vnet.ibm.com>
+x-cbparentid: 18061314-0005-0000-0000-000087BA0198
+Message-Id: <4bbb38ae-2d34-b63f-ed67-d55d31673af3@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-06-13_06:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -88,165 +88,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Jun 2018 14:57:15 -0000
+X-List-Received-Date: Wed, 13 Jun 2018 14:57:52 -0000
 
 
 
 On 06/12/2018 12:19 AM, Benjamin Herrenschmidt wrote:
-> This was too hard to split ... this adds a number of features
-> to the SCOM user interface:
->
->   - Support for indirect SCOMs
->
->   - read()/write() interface now handle errors and retries
->
->   - New ioctl() "raw" interface for use by debuggers
+> Add a few more register and bit definitions, also define and use
+> SCOM_READ_CMD (which is 0 but it makes the code clearer)
 >
 > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+
+Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
+
 > ---
->   drivers/fsi/fsi-scom.c   | 424 ++++++++++++++++++++++++++++++++++++---
->   include/uapi/linux/fsi.h |  56 ++++++
->   2 files changed, 450 insertions(+), 30 deletions(-)
->   create mode 100644 include/uapi/linux/fsi.h
+>   drivers/fsi/fsi-scom.c | 19 ++++++++++++++++++-
+>   1 file changed, 18 insertions(+), 1 deletion(-)
 >
 > diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-> index e98573ecdae1..39c74351f1bf 100644
+> index 6ddfb6021420..e98573ecdae1 100644
 > --- a/drivers/fsi/fsi-scom.c
 > +++ b/drivers/fsi/fsi-scom.c
-> @@ -24,6 +24,8 @@
->   #include <linux/list.h>
->   #include <linux/idr.h>
-
-> +
-> +static int scom_reset(struct scom_device *scom, void __user *argp)
-> +{
-> +	uint32_t flags, dummy = -1;
-> +	int rc = 0;
-> +
-> +	if (get_user(flags, (__u32 __user *)argp))
-> +		return -EFAULT;
-> +	if (flags & SCOM_RESET_PIB)
-> +		rc = fsi_device_write(scom->fsi_dev, SCOM_PIB_RESET_REG, &dummy,
-> +				      sizeof(uint32_t));
-
-I realize this is a user requested flag but I believe the BMC is never 
-supposed to issue this type of reset, due to the possibility of breaking 
-stuff on the host side. Not sure if it should even be available?
-
-Otherwise, looks good!
-Thanks,
-Eddie
-
-> +	if (!rc && (flags & (SCOM_RESET_PIB | SCOM_RESET_INTF)))
-> +		rc = fsi_device_write(scom->fsi_dev, SCOM_FSI2PIB_RESET_REG, &dummy,
-> +				      sizeof(uint32_t));
-> +	return rc;
-> +}
-> +
-> +static int scom_check(struct scom_device *scom, void __user *argp)
-> +{
-> +	/* Still need to find out how to get "protected" */
-> +	return put_user(SCOM_CHECK_SUPPORTED, (__u32 __user *)argp);
-> +}
-> +
-> +static long scom_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-> +{
-> +	struct miscdevice *mdev = file->private_data;
-> +	struct scom_device *scom = to_scom_dev(mdev);
-> +	void __user *argp = (void __user *)arg;
-> +	int rc = -ENOTTY;
-> +
-> +	mutex_lock(&scom->lock);
-> +	switch(cmd) {
-> +	case FSI_SCOM_CHECK:
-> +		rc = scom_check(scom, argp);
-> +		break;
-> +	case FSI_SCOM_READ:
-> +		rc = scom_raw_read(scom, argp);
-> +		break;
-> +	case FSI_SCOM_WRITE:
-> +		rc = scom_raw_write(scom, argp);
-> +		break;
-> +	case FSI_SCOM_RESET:
-> +		rc = scom_reset(scom, argp);
-> +		break;
-> +	}
-> +	mutex_unlock(&scom->lock);
-> +	return rc;
-> +}
-> +
->   static const struct file_operations scom_fops = {
-> -	.owner	= THIS_MODULE,
-> -	.llseek	= scom_llseek,
-> -	.read	= scom_read,
-> -	.write	= scom_write,
-> +	.owner		= THIS_MODULE,
-> +	.llseek		= scom_llseek,
-> +	.read		= scom_read,
-> +	.write		= scom_write,
-> +	.unlocked_ioctl	= scom_ioctl,
->   };
+> @@ -30,8 +30,25 @@
+>   #define SCOM_DATA0_REG		0x00
+>   #define SCOM_DATA1_REG		0x04
+>   #define SCOM_CMD_REG		0x08
+> +#define SCOM_FSI2PIB_RESET_REG	0x18
+> +#define SCOM_STATUS_REG		0x1C /* Read */
+> +#define SCOM_PIB_RESET_REG	0x1C /* Write */
 >
->   static int scom_probe(struct device *dev)
-> diff --git a/include/uapi/linux/fsi.h b/include/uapi/linux/fsi.h
-> new file mode 100644
-> index 000000000000..6008d93f2e48
-> --- /dev/null
-> +++ b/include/uapi/linux/fsi.h
-> @@ -0,0 +1,56 @@
-> +#ifndef _UAPI_LINUX_FSI_H
-> +#define _UAPI_LINUX_FSI_H
+> +/* Command register */
+>   #define SCOM_WRITE_CMD		0x80000000
+> +#define SCOM_READ_CMD		0x00000000
 > +
-> +#include <linux/ioctl.h>
+> +/* Status register bits */
+> +#define SCOM_STATUS_ERR_SUMMARY		0x80000000
+> +#define SCOM_STATUS_PROTECTION		0x01000000
+> +#define SCOM_STATUS_PIB_ABORT		0x00100000
+> +#define SCOM_STATUS_PIB_RESP_MASK	0x00007000
+> +#define SCOM_STATUS_PIB_RESP_SHIFT	12
 > +
-> +/*
-> + * /dev/scom "raw" ioctl interface
-> + *
-> + * The driver supports a high level "read/write" interface which
-> + * handles retries and converts the status to Linux error codes,
-> + * however low level tools an debugger need to access the "raw"
-> + * HW status information and interpret it themselves, so this
-> + * ioctl interface is also provided for their use case.
-> + */
-> +
-> +/* Structure for SCOM read/write */
-> +struct scom_access {
-> +	__u64	addr;		/* SCOM address, supports indirect */
-> +	__u64	data;		/* SCOM data (in for write, out for read) */
-> +	__u64	mask;		/* Data mask for writes */
-> +	__u32	intf_errors;	/* Interface error flags */
-> +#define SCOM_INTF_ERR_PARITY		0x00000001 /* Parity error */
-> +#define SCOM_INTF_ERR_PROTECTION	0x00000002 /* Blocked by secure boot */
-> +#define SCOM_INTF_ERR_ABORT		0x00000004 /* PIB reset during access */
-> +#define SCOM_INTF_ERR_UNKNOWN		0x80000000 /* Unknown error */
-> +	/*
-> +	 * Note: Any other bit set in intf_errors need to be considered as an
-> +	 * error. Future implementations may define new error conditions. The
-> +	 * pib_status below is only valid if intf_errors is 0.
-> +	 */
-> +	__u8	pib_status;	/* 3-bit PIB status */
-> +#define SCOM_PIB_SUCCESS	0	/* Access successful */
-> +#define SCOM_PIB_BLOCKED	1	/* PIB blocked, pls retry */
-> +#define SCOM_PIB_OFFLINE	2	/* Chiplet offline */
-> +#define SCOM_PIB_PARTIAL	3	/* Partial good */
-> +#define SCOM_PIB_BAD_ADDR	4	/* Invalid address */
-> +#define SCOM_PIB_CLK_ERR	5	/* Clock error */
-> +#define SCOM_PIB_PARITY_ERR	6	/* Parity error on the PIB bus */
-> +#define SCOM_PIB_TIMEOUT	7	/* Bus timeout */
-> +	__u8	pad;
-> +};
-> +
-> +/* Flags for SCOM check */
-> +#define SCOM_CHECK_SUPPORTED	0x00000001	/* Interface supported */
-> +#define SCOM_CHECK_PROTECTED	0x00000002	/* Interface blocked by secure boot */
-> +
-> +/* Flags for SCOM reset */
-> +#define SCOM_RESET_INTF		0x00000001	/* Reset interface */
-> +#define SCOM_RESET_PIB		0x00000002	/* Reset PIB */
-> +
-> +#define FSI_SCOM_CHECK	_IOR('s', 0x00, __u32)
-> +#define FSI_SCOM_READ	_IOWR('s', 0x01, struct scom_access)
-> +#define FSI_SCOM_WRITE	_IOWR('s', 0x02, struct scom_access)
-> +#define FSI_SCOM_RESET	_IOW('s', 0x03, __u32)
-> +
-> +#endif /* _UAPI_LINUX_FSI_H */
+> +#define SCOM_STATUS_ANY_ERR		(SCOM_STATUS_ERR_SUMMARY | \
+> +					 SCOM_STATUS_PROTECTION | \
+> +					 SCOM_STATUS_PIB_ABORT | \
+> +					 SCOM_STATUS_PIB_RESP_MASK)
+>
+>   struct scom_device {
+>   	struct list_head link;
+> @@ -85,7 +102,7 @@ static int get_scom(struct scom_device *scom_dev, uint64_t *value,
+>
+>   	mutex_lock(&scom_dev->lock);
+>   	*value = 0ULL;
+> -	data = cpu_to_be32(addr);
+> +	data = cpu_to_be32(SCOM_READ_CMD | addr);
+>   	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
+>   				sizeof(uint32_t));
+>   	if (rc)
