@@ -1,75 +1,48 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=178.33.251.80; helo=2.mo69.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpOt77X7"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="U/PoRZYj"; 
- dkim-atps=neutral
-Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
- [IPv6:2607:f8b0:400d:c09::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 1343 seconds by postgrey-1.36 at bilbo;
+ Thu, 14 Jun 2018 16:01:36 AEST
+Received: from 2.mo69.mail-out.ovh.net (2.mo69.mail-out.ovh.net
+ [178.33.251.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 415t3H2qGGzDrpC
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 15:48:58 +1000 (AEST)
-Received: by mail-qk0-x241.google.com with SMTP id y4-v6so2990373qka.5
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jun 2018 22:48:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=RW6Yqqu0mn3mtYikHHWiz8fnQgy0TiPbD6eBRI9uIb0=;
- b=kpOt77X7MN866O8E5aHlAjd8hPn/mUSHF3LCDAC6jN5rCe3fKX1NMgjD2NxYldp5Rl
- /ETVmPh9/lKrKI8zZKOmBPCgjEu7M8Z4F6t8ku3p1qkUs8vBbBKr0BJJGWwyRhUb1bNF
- XJ4JltinvcDa4oKlEU1gWmkZ7ElE4/LXpyshs3S8iQGilE0wTBCH7P0IsrRWozgWJ8Dt
- f9b0Udo8SdZsgStJBv1Wc4qHIdPzYPK679igVua2oELBqF/dfUH+eMT+PmLH7cOqdy53
- 5qQV5/KZo8fWonPVxvDJGPkJ63VbtBgVZJ3/bSft/vygRIB4YIkv9GbXod41yzX2w7Mc
- ipmw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=RW6Yqqu0mn3mtYikHHWiz8fnQgy0TiPbD6eBRI9uIb0=;
- b=U/PoRZYjV+xkl8QNSRlyMrdbgOQU8EshisPEFqbQeNMP3p7W9b00q1j3iPBhTzY5G+
- NqHqvKWZAU035A+oo4pcNLbRb4OKSqTtnnJpZ02TIWbL/EBZ871jxL9k0nAHbEugco71
- Bb0hJJZ012TRzxhkmcZhxyM5D3VI+cwr3vcdg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=RW6Yqqu0mn3mtYikHHWiz8fnQgy0TiPbD6eBRI9uIb0=;
- b=YnBXG8/A8ikSvm1gWrYLEI6uh+5tJhR2hn7tVt/ESPfvxWDNEVgNNP4xADCPk90d9I
- yh44Cpq3xxnrkc+0OrBMmre0qPMp8w1V1HTuyailtWjEp/mcgb53/vf/1cirJeyGtgTL
- DoRGUXGqpZieZ+/GdSA+OeiONiLdBHKZ/akP6x6p6We3cBu/82Ppb1ezbfNCs/oAkGXw
- JAEsJQ0Go44dO973yC79GakhK7qpgi01LNlllrzFXZ+/UIIbImTOTbZnknZmj/FGAaR7
- 8+bD4eGkA/LGQ+Hb/mCc+5pOoLX4ZK+8lpyRV9WXX2+fKUemPLwc3SpWCL6oqO+Qjz+p
- Njyg==
-X-Gm-Message-State: APt69E0sU1I3nu9dSLECqVs+07h/gx3nzAoT9ubyR/8CjYsISZIhWrqN
- p7vkflqMfP8SMbZ3kqEU8QAiReRhR4vFnahl0II=
-X-Google-Smtp-Source: ADUXVKKiqllMfbND14BjpNMR9Z1EeOusT2Ku827cBQEiqv0nZkH8ykPfHCUxftptXWkVr/YSQTdLTLM2DdJRKB2xecY=
-X-Received: by 2002:a37:1904:: with SMTP id k4-v6mr895549qkh.370.1528955336233; 
- Wed, 13 Jun 2018 22:48:56 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP; Wed, 13 Jun 2018 22:48:35
- -0700 (PDT)
-In-Reply-To: <134b1525-1d3b-dc57-71b0-e298a3d9fa24@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 415tKr2wW3zDrnp
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 16:01:36 +1000 (AEST)
+Received: from player729.ha.ovh.net (unknown [10.109.105.35])
+ by mo69.mail-out.ovh.net (Postfix) with ESMTP id F16F715765
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 07:56:25 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-TOU-1-49-10.w86-201.abo.wanadoo.fr
+ [86.201.141.10]) (Authenticated sender: postmaster@kaod.org)
+ by player729.ha.ovh.net (Postfix) with ESMTPSA id 189855E008F;
+ Thu, 14 Jun 2018 07:56:20 +0200 (CEST)
+Subject: Re: [PATCH 0/2] mtd: spi-nor: aspeed: introduce a "spi-max-frequency"
+ property
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
 References: <20180608130000.22627-1-clg@kaod.org>
  <CACPK8XfM3B6FbukwTMtbi4FVU8SGxpFF-ox3MiDkMS8f3CASQQ@mail.gmail.com>
  <134b1525-1d3b-dc57-71b0-e298a3d9fa24@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 14 Jun 2018 15:18:35 +0930
-X-Google-Sender-Auth: AuvdIfomXymmbLr5BsvRfjTvs4c
-Message-ID: <CACPK8XeEL+Er5KzKtFwpuDkbrsy1-yubSrbXSuhRJCeB8L3S9Q@mail.gmail.com>
-Subject: Re: [PATCH 0/2] mtd: spi-nor: aspeed: introduce a "spi-max-frequency"
- property
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CACPK8XeEL+Er5KzKtFwpuDkbrsy1-yubSrbXSuhRJCeB8L3S9Q@mail.gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <91505bfe-5ef9-6598-9e98-3c05beab2115@kaod.org>
+Date: Thu, 14 Jun 2018 07:56:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.2
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XeEL+Er5KzKtFwpuDkbrsy1-yubSrbXSuhRJCeB8L3S9Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 254734854986238891
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedthedrledvgdellecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -81,27 +54,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jun 2018 05:49:00 -0000
+X-List-Received-Date: Thu, 14 Jun 2018 06:01:36 -0000
 
-On 14 June 2018 at 14:52, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
-> On 06/13/2018 05:00 PM, Joel Stanley wrote:
->> Hi Cedric,
->>
->> On 8 June 2018 at 22:29, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
->>> Hello,
+On 06/14/2018 07:48 AM, Joel Stanley wrote:
+> On 14 June 2018 at 14:52, Cédric Le Goater <clg@kaod.org> wrote:
+>> On 06/13/2018 05:00 PM, Joel Stanley wrote:
+>>> Hi Cedric,
 >>>
->>> The property protects some optimistic settings of optimize read algo
->>> on certain chips (old ones). It also makes the read access to the
->>> alternate FMC chip 3 times faster.
+>>> On 8 June 2018 at 22:29, Cédric Le Goater <clg@kaod.org> wrote:
+>>>> Hello,
+>>>>
+>>>> The property protects some optimistic settings of optimize read algo
+>>>> on certain chips (old ones). It also makes the read access to the
+>>>> alternate FMC chip 3 times faster.
+>>>
+>>> The changes look okay to me. Do you plan to submit them for upstream inclusion?
 >>
->> The changes look okay to me. Do you plan to submit them for upstream inc=
-lusion?
->
-> yes. I would like to have some testing first and also make sure
-> it fits OpenBMC needs.
+>> yes. I would like to have some testing first and also make sure
+>> it fits OpenBMC needs.
+> 
+> Okay.
+> 
+> I suggest we wait until openbmc has moved to the new 4.17 tree
+> (probably next week), and once we've verified there are no
+> regressions, we can add your patches in.
+> 
 
-Okay.
+Good. Being on a 4.17 tree would be even better.
 
-I suggest we wait until openbmc has moved to the new 4.17 tree
-(probably next week), and once we've verified there are no
-regressions, we can add your patches in.
+Thanks,
+
+C. 
