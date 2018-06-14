@@ -1,48 +1,56 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.33.251.80; helo=2.mo69.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::22c; helo=mail-it0-x22c.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 1343 seconds by postgrey-1.36 at bilbo;
- Thu, 14 Jun 2018 16:01:36 AEST
-Received: from 2.mo69.mail-out.ovh.net (2.mo69.mail-out.ovh.net
- [178.33.251.80])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QBVBr4zW"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
+ [IPv6:2607:f8b0:4001:c0b::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 415tKr2wW3zDrnp
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 16:01:36 +1000 (AEST)
-Received: from player729.ha.ovh.net (unknown [10.109.105.35])
- by mo69.mail-out.ovh.net (Postfix) with ESMTP id F16F715765
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 07:56:25 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-TOU-1-49-10.w86-201.abo.wanadoo.fr
- [86.201.141.10]) (Authenticated sender: postmaster@kaod.org)
- by player729.ha.ovh.net (Postfix) with ESMTPSA id 189855E008F;
- Thu, 14 Jun 2018 07:56:20 +0200 (CEST)
-Subject: Re: [PATCH 0/2] mtd: spi-nor: aspeed: introduce a "spi-max-frequency"
- property
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-References: <20180608130000.22627-1-clg@kaod.org>
- <CACPK8XfM3B6FbukwTMtbi4FVU8SGxpFF-ox3MiDkMS8f3CASQQ@mail.gmail.com>
- <134b1525-1d3b-dc57-71b0-e298a3d9fa24@kaod.org>
- <CACPK8XeEL+Er5KzKtFwpuDkbrsy1-yubSrbXSuhRJCeB8L3S9Q@mail.gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <91505bfe-5ef9-6598-9e98-3c05beab2115@kaod.org>
-Date: Thu, 14 Jun 2018 07:56:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 415w9T0zzPzDrph
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 17:24:28 +1000 (AEST)
+Received: by mail-it0-x22c.google.com with SMTP id p185-v6so7348006itp.4
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 00:24:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=carhoCNZZFocKfv886vyoDEwGC3RHAnLeAhTsQ0r7I8=;
+ b=QBVBr4zWCHP6oiRn4+MUYdviKeCkeVGj+Ug3jFat3kTXvCgoOrSTJcQGnsGCohG9nJ
+ 0RNe8nRXdwalEtf0ZWebwkVtKtXqB+OUDTtKB9vaaq9aemHY4i1BmIXKpAQoGzYNTNut
+ DPV71DEudhaSNge5lwduvk++5UZQLHEIEKSiXOKJL/92RP4j3oGc+zYKYPX6aAwTD5yR
+ eg539uMavn53GD4OcmyqgISR07IjieBcnjRVVeFvuixB2R5EmbEco3wJbcYucQ4zhdR+
+ 1GFfXXHywFC0sj/GpePrvVwUE7/4bgp0oCCrYDEUm3zlTZ52VxD+5IkmnReAJ96qfqYH
+ 720A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=carhoCNZZFocKfv886vyoDEwGC3RHAnLeAhTsQ0r7I8=;
+ b=P119nTECG3WBInNjV6ItZyUDNBg2C78VaiPeW2w7uEySFUVql5gYSAH6UB4DpjKIse
+ fzUjelAKpRio+2/UioOLwBEZ2/sh0OZGpfY0iImln1f8wJwoMDNBqk4RxyMfaT2pvffq
+ x/zoFTY+bPcgx6b7jaMNJRBYkZvdUduSOGfgUZZdUgaTbxFQf4UzC5pRXFO/AIxLrDi1
+ YfkMhc/epKYffPsdNYAzFJoM8GQ4TNLv5Vt8u7pALpJtrDKNZCr1Ui2xk504ymt+mNAO
+ 6tYQyrleGdRfyuBYYffLDD/CE+SYumzlvAupTFOSUxx7judUxs+R0UB23JZ/G+fkFObE
+ CAsA==
+X-Gm-Message-State: APt69E2SM0VLKKSW5c+ACvkCauugN+DXacrOhMlEn32mxTnEgUt9kZKs
+ g3YHCWNKsERQH9HNzvwh7H+VrDiMtM/eDebFYqGEHMbz
+X-Google-Smtp-Source: ADUXVKJIIOwl4w8ZGrSuOQKXhjNjoRHo9hyAGH6xtTRvqpzyx9v0eEGt1dJya+W2ckNhwfrcyRYQVPrKZMXVwHQHt+o=
+X-Received: by 2002:a24:ac4a:: with SMTP id
+ m10-v6mr1210826iti.14.1528961066151; 
+ Thu, 14 Jun 2018 00:24:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XeEL+Er5KzKtFwpuDkbrsy1-yubSrbXSuhRJCeB8L3S9Q@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 254734854986238891
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedthedrledvgdellecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Received: by 2002:a4f:5385:0:0:0:0:0 with HTTP; Thu, 14 Jun 2018 00:24:25
+ -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+Date: Thu, 14 Jun 2018 15:24:25 +0800
+Message-ID: <CAARXrt=XaO=t=UuSDjcgZ=Nkh9J7vTQJPEAMG5=_Ca7ukRVekA@mail.gmail.com>
+Subject: Feature request in phosphor-pid-control
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Patrick Venture <venture@google.com>
+Content-Type: multipart/alternative; boundary="000000000000393af3056e94fd52"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,34 +62,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jun 2018 06:01:36 -0000
+X-List-Received-Date: Thu, 14 Jun 2018 07:24:30 -0000
 
-On 06/14/2018 07:48 AM, Joel Stanley wrote:
-> On 14 June 2018 at 14:52, Cédric Le Goater <clg@kaod.org> wrote:
->> On 06/13/2018 05:00 PM, Joel Stanley wrote:
->>> Hi Cedric,
->>>
->>> On 8 June 2018 at 22:29, Cédric Le Goater <clg@kaod.org> wrote:
->>>> Hello,
->>>>
->>>> The property protects some optimistic settings of optimize read algo
->>>> on certain chips (old ones). It also makes the read access to the
->>>> alternate FMC chip 3 times faster.
->>>
->>> The changes look okay to me. Do you plan to submit them for upstream inclusion?
->>
->> yes. I would like to have some testing first and also make sure
->> it fits OpenBMC needs.
-> 
-> Okay.
-> 
-> I suggest we wait until openbmc has moved to the new 4.17 tree
-> (probably next week), and once we've verified there are no
-> regressions, we can add your patches in.
-> 
+--000000000000393af3056e94fd52
+Content-Type: text/plain; charset="UTF-8"
 
-Good. Being on a 4.17 tree would be even better.
+This email is about a feature request in phosphor-pid-control, that to
+support
+optional sensors.
+It is mentioned in comment of https://gerrit.openbmc-project.xyz/#/c/11003/
 
-Thanks,
+Background:
+Current phosphor-pid-control checks the temperature sensors and calculate
+the
+expected fan speed.
+It assumes the temperature sensors are always available. And if the sensor
+is
+not there, the service throws exceptions.
 
-C. 
+The feature request:
+I would like phosphor-pid-control to support "optional" sensors, that it may
+be unavailable when system is running.
+Such sensor is counted when it is available, and is ignored when it is
+missing.
+
+An use case:
+I want to adjust fan speed based on cpu core or dimm temperature.
+For a typical OpenPOWER P9 system, there could be at most 48 cores, but they
+can be missing depending on the CPU, e.g. if a system is plugged CPUs with
+22
+cores, 4 cores temperature will be missing. And in run time, a core may be
+garded if it has problem it will be missing as well.
+The same for dimms, for a system with at most 16 dimms, it depends on how
+many
+dimms are attached.
+In such case, the config will specify all the temperatures for cpu cores and
+dimms, and phosphor-pid-control shall ignore the missing temperatures.
+
+Patrick, what do you think about such case?
+
+Thanks!
+
+--000000000000393af3056e94fd52
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>This email is about a feature request in phosphor-pid=
+-control, that to support</div><div>optional sensors.</div><div>It is menti=
+oned in comment of <a href=3D"https://gerrit.openbmc-project.xyz/#/c/11003/=
+">https://gerrit.openbmc-project.xyz/#/c/11003/</a></div><div><br></div><di=
+v>Background:</div><div>Current phosphor-pid-control checks the temperature=
+ sensors and calculate the</div><div>expected fan speed.</div><div>It assum=
+es the temperature sensors are always available. And if the sensor is</div>=
+<div>not there, the service throws exceptions.</div><div><br></div><div>The=
+ feature request:</div><div>I would like phosphor-pid-control to support &q=
+uot;optional&quot; sensors, that it may</div><div>be unavailable when syste=
+m is running.</div><div>Such sensor is counted when it is available, and is=
+ ignored when it is</div><div>missing.</div><div><br></div><div>An use case=
+:</div><div>I want to adjust fan speed based on cpu core or dimm temperatur=
+e.</div><div>For a typical OpenPOWER P9 system, there could be at most 48 c=
+ores, but they</div><div>can be missing depending on the CPU, e.g. if a sys=
+tem is plugged CPUs with 22</div><div>cores, 4 cores temperature will be mi=
+ssing. And in run time, a core may be</div><div>garded if it has problem it=
+ will be missing as well.</div><div>The same for dimms, for a system with a=
+t most 16 dimms, it depends on how many</div><div>dimms are attached.</div>=
+<div>In such case, the config will specify all the temperatures for cpu cor=
+es and</div><div>dimms, and phosphor-pid-control shall ignore the missing t=
+emperatures.</div><div><br></div><div>Patrick, what do you think about such=
+ case?</div><div><br></div><div>Thanks!</div></div>
+
+--000000000000393af3056e94fd52--
