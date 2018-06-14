@@ -8,22 +8,17 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 415hzx53qHzDrpC
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 09:00:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 415qBw4BN0zDrnp
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 13:40:24 +1000 (AEST)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5DN0ENC010500;
- Wed, 13 Jun 2018 18:00:15 -0500
-Message-ID: <a82fdc0cbb03daa09f459f576dc4510b27d495ac.camel@kernel.crashing.org>
-Subject: Re: [RFC PATCH 5/5] fsi/scom: Major overhaul
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5E3eF9R024016;
+ Wed, 13 Jun 2018 22:40:16 -0500
+Message-ID: <6b32b34cf3940c9095e2fb232cf0b327eafdcf55.camel@kernel.crashing.org>
+Subject: [PATCH linux dev-4.13] fsi: occ: Rework and simplify driver
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org
-Date: Thu, 14 Jun 2018 09:00:13 +1000
-In-Reply-To: <4581896b-3e24-a5ad-b37a-a0fbf61f99c9@linux.vnet.ibm.com>
-References: <20180612051911.20690-1-benh@kernel.crashing.org>
- <20180612051911.20690-6-benh@kernel.crashing.org>
- <4581896b-3e24-a5ad-b37a-a0fbf61f99c9@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Thu, 14 Jun 2018 13:40:14 +1000
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.1 (3.28.1-2.fc28) 
 Mime-Version: 1.0
@@ -39,169 +34,996 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Jun 2018 23:00:30 -0000
+X-List-Received-Date: Thu, 14 Jun 2018 03:40:26 -0000
 
-On Wed, 2018-06-13 at 09:57 -0500, Eddie James wrote:
-> 
-> On 06/12/2018 12:19 AM, Benjamin Herrenschmidt wrote:
-> > This was too hard to split ... this adds a number of features
-> > to the SCOM user interface:
-> > 
-> >   - Support for indirect SCOMs
-> > 
-> >   - read()/write() interface now handle errors and retries
-> > 
-> >   - New ioctl() "raw" interface for use by debuggers
-> > 
-> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> > ---
-> >   drivers/fsi/fsi-scom.c   | 424 ++++++++++++++++++++++++++++++++++++---
-> >   include/uapi/linux/fsi.h |  56 ++++++
-> >   2 files changed, 450 insertions(+), 30 deletions(-)
-> >   create mode 100644 include/uapi/linux/fsi.h
-> > 
-> > diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-> > index e98573ecdae1..39c74351f1bf 100644
-> > --- a/drivers/fsi/fsi-scom.c
-> > +++ b/drivers/fsi/fsi-scom.c
-> > @@ -24,6 +24,8 @@
-> >   #include <linux/list.h>
-> >   #include <linux/idr.h>
-> > +
-> > +static int scom_reset(struct scom_device *scom, void __user *argp)
-> > +{
-> > +	uint32_t flags, dummy = -1;
-> > +	int rc = 0;
-> > +
-> > +	if (get_user(flags, (__u32 __user *)argp))
-> > +		return -EFAULT;
-> > +	if (flags & SCOM_RESET_PIB)
-> > +		rc = fsi_device_write(scom->fsi_dev, SCOM_PIB_RESET_REG, &dummy,
-> > +				      sizeof(uint32_t));
-> 
-> I realize this is a user requested flag but I believe the BMC is never 
-> supposed to issue this type of reset, due to the possibility of breaking 
-> stuff on the host side. Not sure if it should even be available?
+This gets rid of the struct xfer and workqueue, and provides
+a much simpler synchronous API for use in-kernel. The user
+API remains the same, though it loses the non-blocking
+facility which wasn't particularly useful.
 
-It's for use by cronus or similar low level system debuggers.
+The tracepoints are gone as they were rather specific to the
+complex queuing mechanism that is now gone.179
 
-Cheers,
-Ben.
+Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+---
 
-> Otherwise, looks good!
-> Thanks,
-> Eddie
-> 
-> > +	if (!rc && (flags & (SCOM_RESET_PIB | SCOM_RESET_INTF)))
-> > +		rc = fsi_device_write(scom->fsi_dev, SCOM_FSI2PIB_RESET_REG, &dummy,
-> > +				      sizeof(uint32_t));
-> > +	return rc;
-> > +}
-> > +
-> > +static int scom_check(struct scom_device *scom, void __user *argp)
-> > +{
-> > +	/* Still need to find out how to get "protected" */
-> > +	return put_user(SCOM_CHECK_SUPPORTED, (__u32 __user *)argp);
-> > +}
-> > +
-> > +static long scom_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-> > +{
-> > +	struct miscdevice *mdev = file->private_data;
-> > +	struct scom_device *scom = to_scom_dev(mdev);
-> > +	void __user *argp = (void __user *)arg;
-> > +	int rc = -ENOTTY;
-> > +
-> > +	mutex_lock(&scom->lock);
-> > +	switch(cmd) {
-> > +	case FSI_SCOM_CHECK:
-> > +		rc = scom_check(scom, argp);
-> > +		break;
-> > +	case FSI_SCOM_READ:
-> > +		rc = scom_raw_read(scom, argp);
-> > +		break;
-> > +	case FSI_SCOM_WRITE:
-> > +		rc = scom_raw_write(scom, argp);
-> > +		break;
-> > +	case FSI_SCOM_RESET:
-> > +		rc = scom_reset(scom, argp);
-> > +		break;
-> > +	}
-> > +	mutex_unlock(&scom->lock);
-> > +	return rc;
-> > +}
-> > +
-> >   static const struct file_operations scom_fops = {
-> > -	.owner	= THIS_MODULE,
-> > -	.llseek	= scom_llseek,
-> > -	.read	= scom_read,
-> > -	.write	= scom_write,
-> > +	.owner		= THIS_MODULE,
-> > +	.llseek		= scom_llseek,
-> > +	.read		= scom_read,
-> > +	.write		= scom_write,
-> > +	.unlocked_ioctl	= scom_ioctl,
-> >   };
-> > 
-> >   static int scom_probe(struct device *dev)
-> > diff --git a/include/uapi/linux/fsi.h b/include/uapi/linux/fsi.h
-> > new file mode 100644
-> > index 000000000000..6008d93f2e48
-> > --- /dev/null
-> > +++ b/include/uapi/linux/fsi.h
-> > @@ -0,0 +1,56 @@
-> > +#ifndef _UAPI_LINUX_FSI_H
-> > +#define _UAPI_LINUX_FSI_H
-> > +
-> > +#include <linux/ioctl.h>
-> > +
-> > +/*
-> > + * /dev/scom "raw" ioctl interface
-> > + *
-> > + * The driver supports a high level "read/write" interface which
-> > + * handles retries and converts the status to Linux error codes,
-> > + * however low level tools an debugger need to access the "raw"
-> > + * HW status information and interpret it themselves, so this
-> > + * ioctl interface is also provided for their use case.
-> > + */
-> > +
-> > +/* Structure for SCOM read/write */
-> > +struct scom_access {
-> > +	__u64	addr;		/* SCOM address, supports indirect */
-> > +	__u64	data;		/* SCOM data (in for write, out for read) */
-> > +	__u64	mask;		/* Data mask for writes */
-> > +	__u32	intf_errors;	/* Interface error flags */
-> > +#define SCOM_INTF_ERR_PARITY		0x00000001 /* Parity error */
-> > +#define SCOM_INTF_ERR_PROTECTION	0x00000002 /* Blocked by secure boot */
-> > +#define SCOM_INTF_ERR_ABORT		0x00000004 /* PIB reset during access */
-> > +#define SCOM_INTF_ERR_UNKNOWN		0x80000000 /* Unknown error */
-> > +	/*
-> > +	 * Note: Any other bit set in intf_errors need to be considered as an
-> > +	 * error. Future implementations may define new error conditions. The
-> > +	 * pib_status below is only valid if intf_errors is 0.
-> > +	 */
-> > +	__u8	pib_status;	/* 3-bit PIB status */
-> > +#define SCOM_PIB_SUCCESS	0	/* Access successful */
-> > +#define SCOM_PIB_BLOCKED	1	/* PIB blocked, pls retry */
-> > +#define SCOM_PIB_OFFLINE	2	/* Chiplet offline */
-> > +#define SCOM_PIB_PARTIAL	3	/* Partial good */
-> > +#define SCOM_PIB_BAD_ADDR	4	/* Invalid address */
-> > +#define SCOM_PIB_CLK_ERR	5	/* Clock error */
-> > +#define SCOM_PIB_PARITY_ERR	6	/* Parity error on the PIB bus */
-> > +#define SCOM_PIB_TIMEOUT	7	/* Bus timeout */
-> > +	__u8	pad;
-> > +};
-> > +
-> > +/* Flags for SCOM check */
-> > +#define SCOM_CHECK_SUPPORTED	0x00000001	/* Interface supported */
-> > +#define SCOM_CHECK_PROTECTED	0x00000002	/* Interface blocked by secure boot */
-> > +
-> > +/* Flags for SCOM reset */
-> > +#define SCOM_RESET_INTF		0x00000001	/* Reset interface */
-> > +#define SCOM_RESET_PIB		0x00000002	/* Reset PIB */
-> > +
-> > +#define FSI_SCOM_CHECK	_IOR('s', 0x00, __u32)
-> > +#define FSI_SCOM_READ	_IOWR('s', 0x01, struct scom_access)
-> > +#define FSI_SCOM_WRITE	_IOWR('s', 0x02, struct scom_access)
-> > +#define FSI_SCOM_RESET	_IOW('s', 0x03, __u32)
-> > +
-> > +#endif /* _UAPI_LINUX_FSI_H */
+This driver isn't upstream yet, so this is an update that
+could/should be "folded" into the final upstream submission.
+
+ drivers/fsi/fsi-occ.c          | 515 +++++++--------------------------
+ drivers/hwmon/occ/common.c     |   2 +
+ drivers/hwmon/occ/p9_sbe.c     |  56 +---
+ include/linux/fsi-occ.h        |   9 +-
+ include/trace/events/fsi_occ.h |  86 ------
+ 5 files changed, 119 insertions(+), 549 deletions(-)
+ delete mode 100644 include/trace/events/fsi_occ.h
+
+diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
+index 15f41f45fb31..e4ebda646453 100644
+--- a/drivers/fsi/fsi-occ.c
++++ b/drivers/fsi/fsi-occ.c
+@@ -29,33 +29,30 @@
+ #include <linux/wait.h>
+ #include <linux/workqueue.h>
+ 
+-#define CREATE_TRACE_POINTS
+-#include <trace/events/fsi_occ.h>
+-
+ #define OCC_SRAM_BYTES		4096
+ #define OCC_CMD_DATA_BYTES	4090
+ #define OCC_RESP_DATA_BYTES	4089
+ 
++#define OCC_SRAM_CMD_ADDR	0xFFFBE000
++#define OCC_SRAM_RSP_ADDR	0xFFFBF000
++
+ /*
+- * Assume we don't have FFDC, if we do we'll overflow and
++ * Assume we don't have much FFDC, if we do we'll overflow and
+  * fail the command. This needs to be big enough for simple
+  * commands as well.
+  */
+-#define OCC_SBE_STATUS_WORDS	16
++#define OCC_SBE_STATUS_WORDS	32
+ 
+ #define OCC_TIMEOUT_MS		1000
+ #define OCC_CMD_IN_PRG_WAIT_MS	50
+ 
+ struct occ {
++	struct device *dev;
+ 	struct device *sbefifo;
+ 	char name[32];
+ 	int idx;
+ 	struct miscdevice mdev;
+-	struct list_head xfrs;
+-	spinlock_t list_lock;		/* lock access to the xfrs list */
+-	struct mutex occ_lock;		/* lock access to the hardware */
+-	struct work_struct work;
+-	bool cancel;
++	struct mutex occ_lock;
+ };
+ 
+ #define to_occ(x)	container_of((x), struct occ, mdev)
+@@ -68,247 +65,82 @@ struct occ_response {
+ 	u8 data[OCC_RESP_DATA_BYTES + 2];	/* two bytes checksum */
+ } __packed;
+ 
+-/*
+- * transfer flags are NOT mutually exclusive
+- *
+- * Initial flags are none; transfer is created and queued from write(). All
+- *  flags are cleared when the transfer is completed by closing the file or
+- *  reading all of the available response data.
+- * XFR_IN_PROGRESS is set when a transfer is started from occ_worker_putsram,
+- *  and cleared if the transfer fails or occ_worker_getsram completes.
+- * XFR_COMPLETE is set when a transfer fails or finishes occ_worker_getsram.
+- * XFR_CANCELED is set when the transfer's client is released.
+- */
+-enum {
+-	XFR_IN_PROGRESS,
+-	XFR_COMPLETE,
+-	XFR_CANCELED,
+-};
+-
+-struct occ_xfr {
+-	struct list_head link;
+-	int rc;
+-	u8 buf[OCC_SRAM_BYTES];
+-	size_t cmd_data_length;
+-	size_t resp_data_length;
+-	unsigned long flags;
+-};
+-
+-/*
+- * client flags
+- *
+- * CLIENT_NONBLOCKING is set during open() if the file was opened with the
+- *  O_NONBLOCK flag.
+- * CLIENT_XFR_PENDING is set during write() and cleared when all data has been
+- *  read.
+- */
+-enum {
+-	CLIENT_NONBLOCKING,
+-	CLIENT_XFR_PENDING,
+-};
+-
+ struct occ_client {
+-	struct kref kref;
+ 	struct occ *occ;
+-	struct occ_xfr xfr;
+-	spinlock_t lock;		/* lock access to the client state */
+-	wait_queue_head_t wait;
++	struct mutex lock;
++	size_t data_size;
+ 	size_t read_offset;
+-	unsigned long flags;
++	u8 *buffer;
+ };
+ 
+ #define to_client(x)	container_of((x), struct occ_client, xfr)
+ 
+-static struct workqueue_struct *occ_wq;
+-
+ static DEFINE_IDA(occ_ida);
+ 
+-static int occ_enqueue_xfr(struct occ_xfr *xfr)
+-{
+-	int empty;
+-	unsigned long flags;
+-	struct occ_client *client = to_client(xfr);
+-	struct occ *occ = client->occ;
+-
+-	if (occ->cancel)
+-		return -ENODEV;
+-
+-	spin_lock_irqsave(&occ->list_lock, flags);
+-
+-	empty = list_empty(&occ->xfrs);
+-	list_add_tail(&xfr->link, &occ->xfrs);
+-
+-	spin_unlock_irqrestore(&occ->list_lock, flags);
+-
+-	trace_occ_enq_xfer(client, xfr);
+-
+-	if (empty)
+-		queue_work(occ_wq, &occ->work);
+-
+-	return 0;
+-}
+-
+-static void occ_get_client(struct occ_client *client)
+-{
+-	kref_get(&client->kref);
+-}
+-
+-static void occ_client_release(struct kref *kref)
+-{
+-	struct occ_client *client = container_of(kref, struct occ_client,
+-						 kref);
+-
+-	kfree(client);
+-}
+-
+-static void occ_put_client(struct occ_client *client)
+-{
+-	kref_put(&client->kref, occ_client_release);
+-}
+-
+-static struct occ_client *occ_open_common(struct occ *occ, unsigned long flags)
+-{
+-	struct occ_client *client = kzalloc(sizeof(*client), GFP_KERNEL);
+-
+-	if (!client)
+-		return NULL;
+-
+-	client->occ = occ;
+-	kref_init(&client->kref);
+-	spin_lock_init(&client->lock);
+-	init_waitqueue_head(&client->wait);
+-
+-	if (flags & O_NONBLOCK)
+-		set_bit(CLIENT_NONBLOCKING, &client->flags);
+-
+-	return client;
+-}
+-
+ static int occ_open(struct inode *inode, struct file *file)
+ {
+-	struct occ_client *client;
++	struct occ_client *client = kzalloc(sizeof(*client), GFP_KERNEL);
+ 	struct miscdevice *mdev = file->private_data;
+ 	struct occ *occ = to_occ(mdev);
+ 
+-	client = occ_open_common(occ, file->f_flags);
+ 	if (!client)
+ 		return -ENOMEM;
+-
++	client->buffer = (u8 *)__get_free_page(GFP_KERNEL);
++	if (!client->buffer) {
++		kfree(client);
++		return -ENOMEM;
++	}
++	client->occ = occ;
++	mutex_init(&client->lock);
+ 	file->private_data = client;
+ 
+-	return 0;
+-}
++	/* We allocate a 1-page buffer, make sure it all fits */
++	BUILD_BUG_ON((OCC_CMD_DATA_BYTES + 3) > PAGE_SIZE);
++	BUILD_BUG_ON((OCC_RESP_DATA_BYTES + 7) > PAGE_SIZE);
+ 
+-static inline bool occ_read_ready(struct occ_xfr *xfr, struct occ *occ)
+-{
+-	return test_bit(XFR_COMPLETE, &xfr->flags) ||
+-		test_bit(XFR_CANCELED, &xfr->flags) || occ->cancel;
++	return 0;
+ }
+ 
+-static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
+-			       char *kbuf, size_t len)
++static ssize_t occ_read(struct file *file, char __user *buf, size_t len,
++			loff_t *offset)
+ {
+-	int rc;
+-	unsigned long flags;
+-	size_t bytes;
+-	struct occ_xfr *xfr;
+-	struct occ *occ;
++	struct occ_client *client = file->private_data;
++	ssize_t rc = 0;
+ 
+ 	if (!client)
+ 		return -ENODEV;
+-
+ 	if (len > OCC_SRAM_BYTES)
+ 		return -EINVAL;
+ 
+-	occ_get_client(client);
+-	xfr = &client->xfr;
+-	occ = client->occ;
+-
+-	spin_lock_irqsave(&client->lock, flags);
+-
+-	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+-		/* we just finished reading all data, return 0 */
+-		if (client->read_offset) {
+-			rc = 0;
+-			client->read_offset = 0;
+-		} else {
+-			rc = -ENOMSG;
+-		}
+-
+-		goto done;
+-	}
+-
+-	if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
+-		if (test_bit(CLIENT_NONBLOCKING, &client->flags)) {
+-			rc = -EAGAIN;
+-			goto done;
+-		}
+-
+-		spin_unlock_irqrestore(&client->lock, flags);
+-
+-		rc = wait_event_interruptible(client->wait,
+-					      occ_read_ready(xfr, occ));
+-
+-		spin_lock_irqsave(&client->lock, flags);
+-
+-		if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
+-			if (occ->cancel || test_bit(XFR_CANCELED, &xfr->flags))
+-				rc = -ENODEV;
+-			else
+-				rc = -EINTR;
+-
+-			goto done;
+-		}
+-	}
++	mutex_lock(&client->lock);
+ 
+-	if (xfr->rc) {
+-		rc = xfr->rc;
++	/* This should not be possible ... */
++	if (WARN_ON_ONCE(client->read_offset > client->data_size)) {
++		rc = -EIO;
+ 		goto done;
+ 	}
+ 
+-	bytes = min(len, xfr->resp_data_length - client->read_offset);
+-	if (ubuf) {
+-		if (copy_to_user(ubuf, &xfr->buf[client->read_offset],
+-				 bytes)) {
+-			rc = -EFAULT;
+-			goto done;
+-		}
+-	} else {
+-		memcpy(kbuf, &xfr->buf[client->read_offset], bytes);
+-	}
+-
+-	client->read_offset += bytes;
+-
+-	/* xfr done */
+-	if (client->read_offset == xfr->resp_data_length)
+-		clear_bit(CLIENT_XFR_PENDING, &client->flags);
++	/* Grab how much data we have to read */
++	rc = min(len, client->data_size - client->read_offset);
+ 
+-	rc = bytes;
++	if (copy_to_user(buf, client->buffer + client->read_offset, rc))
++		rc = -EFAULT;
++	else
++		client->read_offset += rc;
++ done:
++	mutex_unlock(&client->lock);
+ 
+-done:
+-	spin_unlock_irqrestore(&client->lock, flags);
+-	trace_occ_read_complete(client, xfr);
+-	occ_put_client(client);
+ 	return rc;
+ }
+ 
+-static ssize_t occ_read(struct file *file, char __user *buf, size_t len,
+-			loff_t *offset)
++static ssize_t occ_write(struct file *file, const char __user *buf,
++			 size_t len, loff_t *offset)
+ {
+ 	struct occ_client *client = file->private_data;
+-
+-	return occ_read_common(client, buf, NULL, len);
+-}
+-
+-static ssize_t occ_write_common(struct occ_client *client,
+-				const char __user *ubuf, const char *kbuf,
+-				size_t len)
+-{
+-	int rc;
+-	unsigned long flags;
+-	unsigned int i;
+-	u16 data_length, checksum = 0;
+-	struct occ_xfr *xfr;
++	size_t rlen, data_length;
++	u16 checksum = 0;
++	ssize_t rc, i;
++	u8 *cmd;
+ 
+ 	if (!client)
+ 		return -ENODEV;
+@@ -316,115 +148,66 @@ static ssize_t occ_write_common(struct occ_client *client,
+ 	if (len > (OCC_CMD_DATA_BYTES + 3) || len < 3)
+ 		return -EINVAL;
+ 
+-	occ_get_client(client);
+-	xfr = &client->xfr;
+-
+-	trace_occ_write_begin(client, xfr);
+-	spin_lock_irqsave(&client->lock, flags);
++	mutex_lock(&client->lock);
+ 
+-	if (test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+-		rc = -EBUSY;
+-		goto done;
+-	}
++	/* Construct the command */
++	cmd = client->buffer;
+ 
+-	memset(xfr, 0, sizeof(*xfr));	/* clear out the transfer */
+-	xfr->buf[0] = 1;		/* occ sequence number */
++	/* Sequence number (we could increment it and compare with the response) */
++	cmd[0] = 1;
+ 
+ 	/*
+-	 * Assume user data follows the occ command format.
+-	 * byte 0: command type
++	 * Copy the user command (assume user data follows the occ command format)
++	 *  byte 0  : command type
+ 	 * bytes 1-2: data length (msb first)
+ 	 * bytes 3-n: data
+ 	 */
+-	if (ubuf) {
+-		if (copy_from_user(&xfr->buf[1], ubuf, len)) {
+-			rc = -EFAULT;
+-			goto done;
+-		}
+-	} else {
+-		memcpy(&xfr->buf[1], kbuf, len);
++	if (copy_from_user(&cmd[1], buf, len)) {
++		rc = -EFAULT;
++		goto done;
+ 	}
+ 
+-	data_length = (xfr->buf[2] << 8) + xfr->buf[3];
++	/* Extract data length */
++	data_length = (cmd[2] << 8) + cmd[3];
+ 	if (data_length > OCC_CMD_DATA_BYTES) {
+ 		rc = -EINVAL;
+ 		goto done;
+ 	}
+ 
++	/* Calculate checksum */
+ 	for (i = 0; i < data_length + 4; ++i)
+-		checksum += xfr->buf[i];
+-
+-	xfr->buf[data_length + 4] = checksum >> 8;
+-	xfr->buf[data_length + 5] = checksum & 0xFF;
++		checksum += cmd[i];
++	cmd[data_length + 4] = checksum >> 8;
++	cmd[data_length + 5] = checksum & 0xFF;
+ 
+-	xfr->cmd_data_length = data_length + 6;
+-	client->read_offset = 0;
+-
+-	rc = occ_enqueue_xfr(xfr);
++	/* Submit command */
++	rlen = PAGE_SIZE;
++	rc = fsi_occ_submit(client->occ->dev, cmd, data_length + 6, cmd, &rlen);
+ 	if (rc)
+ 		goto done;
+ 
+-	set_bit(CLIENT_XFR_PENDING, &client->flags);
++	/* Set read tracking data */
++	client->data_size = rlen;
++	client->read_offset = 0;
++
++	/* Done */
+ 	rc = len;
++ done:
++	mutex_unlock(&client->lock);
+ 
+-done:
+-	spin_unlock_irqrestore(&client->lock, flags);
+-	occ_put_client(client);
+ 	return rc;
+ }
+ 
+-static ssize_t occ_write(struct file *file, const char __user *buf,
+-			 size_t len, loff_t *offset)
++static int occ_release(struct inode *inode, struct file *file)
+ {
+ 	struct occ_client *client = file->private_data;
+ 
+-	return occ_write_common(client, buf, NULL, len);
+-}
+-
+-static int occ_release_common(struct occ_client *client)
+-{
+-	unsigned long flags;
+-	struct occ *occ;
+-	struct occ_xfr *xfr;
+-
+-	if (!client)
+-		return -ENODEV;
+-
+-	xfr = &client->xfr;
+-	occ = client->occ;
+-
+-	spin_lock_irqsave(&client->lock, flags);
+-
+-	set_bit(XFR_CANCELED, &xfr->flags);
+-	if (!test_bit(CLIENT_XFR_PENDING, &client->flags))
+-		goto done;
+-
+-	spin_lock(&occ->list_lock);
+-
+-	if (!test_bit(XFR_IN_PROGRESS, &xfr->flags)) {
+-		/* already deleted from list if complete */
+-		if (!test_bit(XFR_COMPLETE, &xfr->flags))
+-			list_del(&xfr->link);
+-	}
+-
+-	spin_unlock(&occ->list_lock);
+-
+-	wake_up_all(&client->wait);
+-
+-done:
+-	spin_unlock_irqrestore(&client->lock, flags);
++	free_page((unsigned long)client->buffer);
++	kfree(client);
+ 
+-	occ_put_client(client);
+ 	return 0;
+ }
+ 
+-static int occ_release(struct inode *inode, struct file *file)
+-{
+-	struct occ_client *client = file->private_data;
+-
+-	return occ_release_common(client);
+-}
+-
+ static const struct file_operations occ_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = occ_open,
+@@ -435,10 +218,10 @@ static const struct file_operations occ_fops = {
+ 
+ static int occ_verify_checksum(struct occ_response *resp, u16 data_length)
+ {
+-	u16 i;
+ 	u16 checksum;
+ 	/* Fetch the two bytes after the data for the checksum. */
+ 	u16 checksum_resp = get_unaligned_be16(&resp->data[data_length]);
++	u16 i;
+ 
+ 	checksum = resp->seq_no;
+ 	checksum += resp->cmd_type;
+@@ -454,7 +237,7 @@ static int occ_verify_checksum(struct occ_response *resp, u16 data_length)
+ 	return 0;
+ }
+ 
+-static int occ_getsram(struct device *sbefifo, u32 address, u8 *data,
++static int occ_getsram(struct device *sbefifo, u32 address, void *data,
+ 		       ssize_t len)
+ {
+ 	u32 data_len = ((len + 7) / 8) * 8;	/* must be multiples of 8 B */
+@@ -504,7 +287,7 @@ static int occ_getsram(struct device *sbefifo, u32 address, u8 *data,
+ 	return rc;
+ }
+ 
+-static int occ_putsram(struct device *sbefifo, u32 address, u8 *data,
++static int occ_putsram(struct device *sbefifo, u32 address, const void *data,
+ 		       ssize_t len)
+ {
+ 	size_t cmd_len, buf_len, resp_len, resp_data_len;
+@@ -613,46 +396,28 @@ static int occ_trigger_attn(struct device *sbefifo)
+ 	return rc;
+ }
+ 
+-static void occ_worker(struct work_struct *work)
++int fsi_occ_submit(struct device *dev, const void *request, size_t req_len,
++		   void *response, size_t *resp_len)
+ {
+-	int rc = 0, empty;
+-	u16 resp_data_length;
+-	unsigned long flags;
+-	unsigned long start;
+ 	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
+-	const long int wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
+-	struct occ_xfr *xfr;
+-	struct occ_response *resp;
+-	struct occ_client *client;
+-	struct occ *occ = container_of(work, struct occ, work);
++	const unsigned long wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
++	struct occ *occ = dev_get_drvdata(dev);
++	struct occ_response *resp = response;
+ 	struct device *sbefifo = occ->sbefifo;
++	u16 resp_data_length;
++	unsigned long start;
++	int rc;
+ 
+-again:
+-	if (occ->cancel)
+-		return;
+-
+-	spin_lock_irqsave(&occ->list_lock, flags);
+-
+-	xfr = list_first_entry_or_null(&occ->xfrs, struct occ_xfr, link);
+-	if (!xfr) {
+-		spin_unlock_irqrestore(&occ->list_lock, flags);
+-		return;
++	if (!occ)
++		return -ENODEV;
++	if (*resp_len < 7) {
++		dev_dbg(dev, "Bad resplen %d\n", *resp_len);
++		return -EINVAL;
+ 	}
+ 
+-	client = to_client(xfr);
+-	occ_get_client(client);
+-	resp = (struct occ_response *)xfr->buf;
+-	set_bit(XFR_IN_PROGRESS, &xfr->flags);
+-
+-	spin_unlock_irqrestore(&occ->list_lock, flags);
+-	trace_occ_worker_xfer_begin(client, xfr);
+ 	mutex_lock(&occ->occ_lock);
+ 
+-	start = jiffies;
+-
+-	/* write occ command */
+-	rc = occ_putsram(sbefifo, 0xFFFBE000, xfr->buf,
+-			 xfr->cmd_data_length);
++	rc = occ_putsram(sbefifo, OCC_SRAM_CMD_ADDR, request, req_len);
+ 	if (rc)
+ 		goto done;
+ 
+@@ -660,91 +425,54 @@ static void occ_worker(struct work_struct *work)
+ 	if (rc)
+ 		goto done;
+ 
+-	/* read occ response */
++	/* Read occ response header */
++	start = jiffies;
+ 	do {
+-		rc = occ_getsram(sbefifo, 0xFFFBF000, xfr->buf, 8);
++		rc = occ_getsram(sbefifo, OCC_SRAM_RSP_ADDR, resp, 8);
+ 		if (rc)
+ 			goto done;
+ 
+ 		if (resp->return_status == OCC_RESP_CMD_IN_PRG) {
+-			rc = -EALREADY;
++			rc = -ETIMEDOUT;
+ 
+ 			if (time_after(jiffies, start + timeout))
+ 				break;
+ 
+-			set_current_state(TASK_INTERRUPTIBLE);
++			set_current_state(TASK_UNINTERRUPTIBLE);
+ 			schedule_timeout(wait_time);
+ 		}
+ 	} while (rc);
+ 
++	/* Extract size of response data */
+ 	resp_data_length = get_unaligned_be16(&resp->data_length);
+-	if (resp_data_length > OCC_RESP_DATA_BYTES) {
++
++	/* Message size is data length + 5 bytes header + 2 bytes checksum */
++	if ((resp_data_length + 7) > *resp_len) {
+ 		rc = -EMSGSIZE;
+ 		goto done;
+ 	}
+ 
++	dev_dbg(dev, "resp_status=%02x resp_data_len=%d\n",
++		resp->return_status, resp_data_length);
++
++	/* Grab the rest */
+ 	if (resp_data_length > 1) {
+ 		/* already got 3 bytes resp, also need 2 bytes checksum */
+-		rc = occ_getsram(sbefifo, 0xFFFBF008, &xfr->buf[8],
+-				 resp_data_length - 1);
++		rc = occ_getsram(sbefifo, OCC_SRAM_RSP_ADDR + 8,
++				 &resp->data[3], resp_data_length - 1);
+ 		if (rc)
+ 			goto done;
+ 	}
+ 
+-	xfr->resp_data_length = resp_data_length + 7;
++	*resp_len = resp_data_length + 7;
+ 
+ 	rc = occ_verify_checksum(resp, resp_data_length);
+-
+-done:
++ done:
+ 	mutex_unlock(&occ->occ_lock);
+ 
+-	xfr->rc = rc;
+-	set_bit(XFR_COMPLETE, &xfr->flags);
+-
+-	spin_lock_irqsave(&occ->list_lock, flags);
+-
+-	clear_bit(XFR_IN_PROGRESS, &xfr->flags);
+-	list_del(&xfr->link);
+-	empty = list_empty(&occ->xfrs);
+-
+-	spin_unlock_irqrestore(&occ->list_lock, flags);
+-
+-	wake_up_interruptible(&client->wait);
+-	trace_occ_worker_xfer_complete(client, xfr);
+-	occ_put_client(client);
+-
+-	if (!empty)
+-		goto again;
+-}
+-
+-struct occ_client *occ_drv_open(struct device *dev, unsigned long flags)
+-{
+-	struct occ *occ = dev_get_drvdata(dev);
+-
+-	if (!occ)
+-		return NULL;
+-
+-	return occ_open_common(occ, flags);
+-}
+-EXPORT_SYMBOL_GPL(occ_drv_open);
+-
+-int occ_drv_read(struct occ_client *client, char *buf, size_t len)
+-{
+-	return occ_read_common(client, NULL, buf, len);
+-}
+-EXPORT_SYMBOL_GPL(occ_drv_read);
+-
+-int occ_drv_write(struct occ_client *client, const char *buf, size_t len)
+-{
+-	return occ_write_common(client, NULL, buf, len);
+-}
+-EXPORT_SYMBOL_GPL(occ_drv_write);
+-
+-void occ_drv_release(struct occ_client *client)
+-{
+-	occ_release_common(client);
++	return rc;
+ }
+-EXPORT_SYMBOL_GPL(occ_drv_release);
++EXPORT_SYMBOL_GPL(fsi_occ_submit);
+ 
+ static int occ_unregister_child(struct device *dev, void *data)
+ {
+@@ -771,11 +499,9 @@ static int occ_probe(struct platform_device *pdev)
+ 	if (!occ)
+ 		return -ENOMEM;
+ 
++	occ->dev = dev;
+ 	occ->sbefifo = dev->parent;
+-	INIT_LIST_HEAD(&occ->xfrs);
+-	spin_lock_init(&occ->list_lock);
+ 	mutex_init(&occ->occ_lock);
+-	INIT_WORK(&occ->work, occ_worker);
+ 
+ 	if (dev->of_node) {
+ 		rc = of_property_read_u32(dev->of_node, "reg", &reg);
+@@ -819,24 +545,11 @@ static int occ_probe(struct platform_device *pdev)
+ 
+ static int occ_remove(struct platform_device *pdev)
+ {
+-	unsigned long flags;
+ 	struct occ *occ = platform_get_drvdata(pdev);
+-	struct occ_xfr *xfr;
+-	struct occ_client *client;
+-
+-	occ->cancel = true;
+-
+-	spin_lock_irqsave(&occ->list_lock, flags);
+-	list_for_each_entry(xfr, &occ->xfrs, link) {
+-		client = to_client(xfr);
+-		wake_up_all(&client->wait);
+-	}
+-	spin_unlock_irqrestore(&occ->list_lock, flags);
+ 
+ 	misc_deregister(&occ->mdev);
+-	device_for_each_child(&pdev->dev, NULL, occ_unregister_child);
+ 
+-	cancel_work_sync(&occ->work);
++	device_for_each_child(&pdev->dev, NULL, occ_unregister_child);
+ 
+ 	ida_simple_remove(&occ_ida, occ->idx);
+ 
+@@ -859,17 +572,11 @@ static struct platform_driver occ_driver = {
+ 
+ static int occ_init(void)
+ {
+-	occ_wq = create_singlethread_workqueue("occ");
+-	if (!occ_wq)
+-		return -ENOMEM;
+-
+ 	return platform_driver_register(&occ_driver);
+ }
+ 
+ static void occ_exit(void)
+ {
+-	destroy_workqueue(occ_wq);
+-
+ 	platform_driver_unregister(&occ_driver);
+ 
+ 	ida_destroy(&occ_ida);
+diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+index c1bccf53b425..d7e6a4de8d85 100644
+--- a/drivers/hwmon/occ/common.c
++++ b/drivers/hwmon/occ/common.c
+@@ -7,6 +7,8 @@
+  * (at your option) any later version.
+  */
+ 
++#define DEBUG
++
+ #include <linux/device.h>
+ #include <linux/hwmon.h>
+ #include <linux/hwmon-sysfs.h>
+diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+index 9a1d3ae56d69..34fe4d3bc247 100644
+--- a/drivers/hwmon/occ/p9_sbe.c
++++ b/drivers/hwmon/occ/p9_sbe.c
+@@ -12,69 +12,26 @@
+ #include <linux/fsi-occ.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+-#include <linux/spinlock.h>
+ 
+ #include "common.h"
+ 
+-/* Satisfy lockdep's need for static keys */
+-static struct lock_class_key p9_sbe_occ_client_lock_key;
+-
+ struct p9_sbe_occ {
+ 	struct occ occ;
+ 	struct device *sbe;
+-
+-	/*
+-	 * Pointer to occ device client. We store this so that we can cancel
+-	 * the client operations in remove() if necessary. We only need one
+-	 * pointer since we do one OCC operation (open, write, read, close) at
+-	 * a time (access to p9_sbe_occ_send_cmd is locked in the common code
+-	 * with occ.lock).
+-	 */
+-	struct occ_client *client;
+-
+-	/*
+-	 * This lock controls access to the client pointer and ensures atomic
+-	 * open, close and NULL assignment. This prevents simultaneous opening
+-	 * and closing of the client, or closing multiple times.
+-	 */
+-	struct mutex client_lock;
+ };
+ 
+ #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
+ 
+-static void p9_sbe_occ_close_client(struct p9_sbe_occ *ctx)
+-{
+-	struct occ_client *tmp_client;
+-
+-	mutex_lock(&ctx->client_lock);
+-	tmp_client = ctx->client;
+-	ctx->client = NULL;
+-	occ_drv_release(tmp_client);
+-	mutex_unlock(&ctx->client_lock);
+-}
+-
+ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ {
+-	int rc;
+ 	struct occ_response *resp = &occ->resp;
+ 	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
++	size_t resp_len = sizeof(*resp);
++	int rc;
+ 
+-	mutex_lock(&ctx->client_lock);
+-	if (ctx->sbe)
+-		ctx->client = occ_drv_open(ctx->sbe, 0);
+-	mutex_unlock(&ctx->client_lock);
+-
+-	if (!ctx->client)
+-		return -ENODEV;
+-
+-	/* skip first byte (sequence number), OCC driver handles it */
+-	rc = occ_drv_write(ctx->client, (const char *)&cmd[1], 7);
+-	if (rc < 0)
+-		goto err;
+-
+-	rc = occ_drv_read(ctx->client, (char *)resp, sizeof(*resp));
++	rc = fsi_occ_submit(ctx->sbe, cmd, 8, resp, &resp_len);
+ 	if (rc < 0)
+-		goto err;
++		return rc;
+ 
+ 	switch (resp->return_status) {
+ 	case OCC_RESP_CMD_IN_PRG:
+@@ -102,8 +59,6 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ 		rc = -EPROTO;
+ 	}
+ 
+-err:
+-	p9_sbe_occ_close_client(ctx);
+ 	return rc;
+ }
+ 
+@@ -117,8 +72,6 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
+ 	if (!ctx)
+ 		return -ENOMEM;
+ 
+-	mutex_init(&ctx->client_lock);
+-	lockdep_set_class(&ctx->client_lock, &p9_sbe_occ_client_lock_key);
+ 	ctx->sbe = pdev->dev.parent;
+ 	occ = &ctx->occ;
+ 	occ->bus_dev = &pdev->dev;
+@@ -141,7 +94,6 @@ static int p9_sbe_occ_remove(struct platform_device *pdev)
+ 	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
+ 
+ 	ctx->sbe = NULL;
+-	p9_sbe_occ_close_client(ctx);
+ 
+ 	occ_shutdown(occ);
+ 
+diff --git a/include/linux/fsi-occ.h b/include/linux/fsi-occ.h
+index 0a4a54a08be3..4810368d4fb2 100644
+--- a/include/linux/fsi-occ.h
++++ b/include/linux/fsi-occ.h
+@@ -15,7 +15,6 @@
+ #define LINUX_FSI_OCC_H
+ 
+ struct device;
+-struct occ_client;
+ 
+ #define OCC_RESP_CMD_IN_PRG		0xFF
+ #define OCC_RESP_SUCCESS		0
+@@ -31,11 +30,7 @@ struct occ_client;
+ #define OCC_RESP_CRIT_OCB		0xE3
+ #define OCC_RESP_CRIT_HW		0xE4
+ 
+-extern struct occ_client *occ_drv_open(struct device *dev,
+-				       unsigned long flags);
+-extern int occ_drv_read(struct occ_client *client, char *buf, size_t len);
+-extern int occ_drv_write(struct occ_client *client, const char *buf,
+-			 size_t len);
+-extern void occ_drv_release(struct occ_client *client);
++extern int fsi_occ_submit(struct device *dev, const void *request, size_t req_len,
++			  void *response, size_t *resp_len);
+ 
+ #endif /* LINUX_FSI_OCC_H */
+diff --git a/include/trace/events/fsi_occ.h b/include/trace/events/fsi_occ.h
+deleted file mode 100644
+index 89562436de86..000000000000
+--- a/include/trace/events/fsi_occ.h
++++ /dev/null
+@@ -1,86 +0,0 @@
+-#undef TRACE_SYSTEM
+-#define TRACE_SYSTEM fsi_occ
+-
+-#if !defined(_TRACE_TIMER_H) || defined(TRACE_HEADER_MULTI_READ)
+-#define _TRACE_OCC_H
+-
+-#include <linux/tracepoint.h>
+-#include <linux/fsi-occ.h>
+-
+-TRACE_EVENT(occ_enq_xfer,
+-	TP_PROTO(const void *client, const void *xfer),
+-	TP_ARGS(client, xfer),
+-	TP_STRUCT__entry(
+-		__field(const void *, client)
+-		__field(const void *, xfer)
+-	),
+-	TP_fast_assign(
+-		__entry->client = client;
+-		__entry->xfer = xfer;
+-	),
+-	TP_printk("Client %p enqueued xfer %p", __entry->client, __entry->xfer)
+-);
+-
+-TRACE_EVENT(occ_read_complete,
+-	TP_PROTO(const void *client, const void *xfer),
+-	TP_ARGS(client, xfer),
+-	TP_STRUCT__entry(
+-		__field(const void *, client)
+-		__field(const void *, xfer)
+-	),
+-	TP_fast_assign(
+-		__entry->client = client;
+-		__entry->xfer = xfer;
+-	),
+-	TP_printk("Client %p completed read for xfer %p",
+-		__entry->client, __entry->xfer)
+-);
+-
+-TRACE_EVENT(occ_write_begin,
+-	TP_PROTO(const void *client, const void *xfer),
+-	TP_ARGS(client, xfer),
+-	TP_STRUCT__entry(
+-		__field(const void *, client)
+-		__field(const void *, xfer)
+-	),
+-	TP_fast_assign(
+-		__entry->client = client;
+-		__entry->xfer = xfer;
+-	),
+-	TP_printk("Client %p began write for xfer %p",
+-		__entry->client, __entry->xfer)
+-);
+-
+-TRACE_EVENT(occ_worker_xfer_begin,
+-	TP_PROTO(const void *client, const void *xfer),
+-	TP_ARGS(client, xfer),
+-	TP_STRUCT__entry(
+-		__field(const void *, client)
+-		__field(const void *, xfer)
+-	),
+-	TP_fast_assign(
+-		__entry->client = client;
+-		__entry->xfer = xfer;
+-	),
+-	TP_printk("OCC worker began client %p xfer %p",
+-		__entry->client, __entry->xfer)
+-);
+-
+-TRACE_EVENT(occ_worker_xfer_complete,
+-	TP_PROTO(const void *client, const void *xfer),
+-	TP_ARGS(client, xfer),
+-	TP_STRUCT__entry(
+-		__field(const void *, client)
+-		__field(const void *, xfer)
+-	),
+-	TP_fast_assign(
+-		__entry->client = client;
+-		__entry->xfer = xfer;
+-	),
+-	TP_printk("OCC worker completed client %p xfer %p",
+-		__entry->client, __entry->xfer)
+-);
+-
+-#endif
+-
+-#include <trace/define_trace.h>
