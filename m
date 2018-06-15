@@ -1,51 +1,57 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.136; helo=mga12.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::235; helo=mail-it0-x235.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nsBeqt4D"; 
+ dkim-atps=neutral
+Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
+ [IPv6:2607:f8b0:4001:c0b::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 416CFx4pJhzF09q
- for <openbmc@lists.ozlabs.org>; Fri, 15 Jun 2018 04:44:16 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2018 11:44:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,224,1526367600"; d="scan'208";a="67050770"
-Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
- by orsmga002.jf.intel.com with ESMTP; 14 Jun 2018 11:44:12 -0700
-Received: from orsmsx113.amr.corp.intel.com ([169.254.9.88]) by
- ORSMSX106.amr.corp.intel.com ([169.254.1.45]) with mapi id 14.03.0319.002;
- Thu, 14 Jun 2018 11:44:12 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: Lei YU <mine260309@gmail.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, Patrick Venture <venture@google.com>
-Subject: RE: Feature request in phosphor-pid-control
-Thread-Topic: Feature request in phosphor-pid-control
-Thread-Index: AQHUA7Dr/5UDbPiPHkKlpxBjeYcNkKRf/g3ggACNFgD//4uqgA==
-Date: Thu, 14 Jun 2018 18:44:11 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E8216993457F640A@ORSMSX113.amr.corp.intel.com>
-References: <CAARXrt=XaO=t=UuSDjcgZ=Nkh9J7vTQJPEAMG5=_Ca7ukRVekA@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E8216993457F637B@ORSMSX113.amr.corp.intel.com>
- <417F1A7A-09A0-4EF4-AF57-0D90D3135DEB@fuzziesquirrel.com>
-In-Reply-To: <417F1A7A-09A0-4EF4-AF57-0D90D3135DEB@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.200.100
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 416PNx18L9zF0dl
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jun 2018 12:21:04 +1000 (AEST)
+Received: by mail-it0-x235.google.com with SMTP id 16-v6so882182itl.5
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jun 2018 19:21:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=wE99flZg7wf31XXiHqL1Qm7HFsqX1GwsGAt9DgURAw8=;
+ b=nsBeqt4DBSHqSi7te58VIc1b3PwvT5ZPHgGJtOl6t5FgnlK4FjlFKjIlPT5fUJNst3
+ FTQjjJGDc9t76QH+aHhOh3wc/A3dgGSIjXuANL57x4LzS6W4QcHpoGozvSa1lLnd9LAa
+ 000kd4HFlF7sR8CfYvnaKeQQ9RtDSsZexLIc6kaNIB1SMLmQZOT6V4SAgVhK5HY9Pa+8
+ iazMUydpesYX646fdsP0IlC9EjqFjrUYChFkie9unZPgDqzZrLxDpZNN24gCOvvBQPXa
+ ++q22ok5IKVoukC0cTtGuVCeL5A4ms8OwR6Aip1SgsVOWNX6b5b2oVX8pEwkW4wH7PlD
+ 0hKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=wE99flZg7wf31XXiHqL1Qm7HFsqX1GwsGAt9DgURAw8=;
+ b=W0BLIql3E1zRIhbeIhzzNora2WJOzPDcfSbMLWwShqcKxfyRgsMxuhTrQGRPAqZyGU
+ DX9zglZJca/Gg+9NvWjFT1GzDX5QrqRKfyb9SWPVM2hUkRXJrXcVrj8/b/aTUcCBMNbR
+ eFZxywQz5rDDHu0Id3q8Q7xnw4+AqiCr+Y8/FTDDMKGo57wYXJG6iEce3N7FoUN+rM9R
+ fzLbgYYDpbS34D1fNBE+RwDKWnuxoxaoAFMmds/IvWpT+TGwRDElkUCA0gQSdieBnPyg
+ 036w61quAZEtQ3ZImy9xHByEv8L3VK1ZoJXHht8tcQ5aIfpF0Ipl39D4FCSONHe8gRZw
+ MyAQ==
+X-Gm-Message-State: APt69E2S+kjAmNfmhuOPEcQ9R6eluya/QWd1frRrktZMr71lC25wFt1l
+ zuhntmCsiHAaVrz3RQHXxgnjVS3V0qwdey40JGE=
+X-Google-Smtp-Source: ADUXVKKE40ZAiZ53jcrexhauain9nK+myTku1PiNgBJD3K3IpRJjlfX6LkiqD1cTuvo+RrOjiaXJz4ZBLn54sLNQaLE=
+X-Received: by 2002:a24:ac4a:: with SMTP id m10-v6mr131518iti.14.1529029262155; 
+ Thu, 14 Jun 2018 19:21:02 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAARXrt=XaO=t=UuSDjcgZ=Nkh9J7vTQJPEAMG5=_Ca7ukRVekA@mail.gmail.com>
+ <CAO=notxjAAF0w70yrmFffNQchEmdcexWjAt9xftiwaRw6-aM7Q@mail.gmail.com>
+In-Reply-To: <CAO=notxjAAF0w70yrmFffNQchEmdcexWjAt9xftiwaRw6-aM7Q@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 15 Jun 2018 10:20:43 +0800
+Message-ID: <CAARXrt=fojNyiYiZn2qC+8O9nw9AvjT7ux4vtFP9cf4m7GM0Qw@mail.gmail.com>
+Subject: Re: Feature request in phosphor-pid-control
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -57,15 +63,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jun 2018 18:44:22 -0000
+X-List-Received-Date: Fri, 15 Jun 2018 02:21:05 -0000
 
-PiANCj4gSeKAmW0gcHJldHR5IHN1cmUgTWF0dCBCYXJ0aCBhZGRlZCBzdXBwb3J0IGZvcg0KPiB4
-eXoub3BlbmJtY19wcm9qZWN0LlN0YXRlLkRlY29yYXRvci5PcGVyYXRpb25hbFN0YXR1cw0KPiB0
-byBwaG9zcGhvci1od21vbiBhbHJlYWR5LiAgSXQgY2VydGFpbmx5IGRvZXNu4oCZdCBjb3ZlciBz
-b21ldGhpbmcgbGlrZQ0KPiBtYXBwZXIgdGltZW91dHMgdGhvdWdoIChub3Igc2hvdWxkIGl0LCBJ
-TU8pLg0KPiANCg0KSW50ZXJlc3RpbmcuLi4uLiAgSSBoYWQgbm8gaWRlYS4gIFRoYXQgSSB0aGlu
-ayB0aGF0IHNvbHZlcyBoYWxmIG9mIHRoZSBpc3N1ZSAob3BlcmF0aW9uYWwgdmVyc3VzIG5vdCks
-IGJ1dCBzdGlsbCBzZWVtcyB0byBtaXNzIHRoZSBkaXN0aW5jdGlvbiBiZXR3ZWVuIHVuYXZhaWxh
-YmxlIGFuZCBlcnJvci4NCg0KV2l0aCB0aGF0IHNhaWQsIGl0IHNvdW5kcyBsaWtlIGl0IG1pZ2h0
-IHNvbHZlIHRoZSBpc3N1ZSBpbiB0aGUgY29udGV4dCBvZiB0aGlzIGRpc2N1c3Npb24sIHNvIHRo
-YXQncyBwcmV0dHkgY29vbC4NCg0KLUVkDQo=
+> So, this change really is just, "don't fail if you can't find the
+> sensor during start-up, and keep trying until it shows up"
+>
+> Does that follow?
+
+Pretty much close.
+More like "in any case, don't fail if you can't find the the sensor, and keep
+trying".
+Note this is applicable to sensors that are unavailable.
+
+For sensors that are expected to be treated as fault, it should trigger
+failsafe, and this is discussed in Ed's mail.
+
+Putting it together, the feature request is splitted:
+1. For sensors without operation status, we can config them as optional, so
+   they do not trigger failsafe;
+2. For sensors with operation status, do not trigger failsafe if it is
+   unavailable; trigger failsafe if it is fault.
