@@ -1,62 +1,75 @@
-Return-Path: <venture@google.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22c; helo=mail-ua0-x22c.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="E5y19uTW"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="S3AE/Rsv"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="Lf3/JTlA"; 
  dkim-atps=neutral
-Received: from mail-ua0-x22c.google.com (mail-ua0-x22c.google.com
- [IPv6:2607:f8b0:400c:c08::22c])
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 416qsK3ybNzF09q
- for <openbmc@lists.ozlabs.org>; Sat, 16 Jun 2018 05:13:41 +1000 (AEST)
-Received: by mail-ua0-x22c.google.com with SMTP id z16-v6so7071408uaz.10
- for <openbmc@lists.ozlabs.org>; Fri, 15 Jun 2018 12:13:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=J9N1Jc5FjvIWIXP5r0EVh3ryNWNI/GOVmLNSRviQEWw=;
- b=E5y19uTWYMA0FpV8HAkbXorUgSXrs8xaCfTp1sCeDHKwjwpPElZRNPw44BKaz/2mhW
- lDZ3oTyfRlMVMOtWhjKdJYzJGv1H84MOD9tgzPXlMRgI2SfKrW1c3/Lom5jfc2oCD8nf
- Pw6zp2wTv1FbtoD/JkBWzPWkWC+bWw3TL3RIxVXWVueIFPfnM//oIm5Z4723WcKF63lw
- S6MFYgpDeOwYqb6CTOnRIUdLCWEnDveBZSjJDA11Ehf1+M3H5jv1VxmN8rcJ3Bz+9G8g
- c+TN40CQTyb3/t7BIyLbooLNKaMLyYwht6TUKAjntEiP4f7efq4/32evtd/rpFhPfFfc
- IaEg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4174zC07T4zF0Rs
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Jun 2018 15:04:38 +1000 (AEST)
+Received: by mail-qk0-x241.google.com with SMTP id a195-v6so6830471qkg.3
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jun 2018 22:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=LtkncO6ICCujrX1d2Cbs7dsIf9AHKQGWi3jLxRLv5Kc=;
+ b=S3AE/RsvjeB4RBlg+0KqC1Etxcv6vLldWnBOW8PHDRViquy7m37ZDtRYDqUBO60oyO
+ C6JXedAsD1g1+8xDpNsdpHJvtnsuPxx/1pFgEZtGcZrqiemC3vf7K9muULfkvPiAQnwq
+ XQ2DzmEBE4d2NlQcK1q58G+uT97QwnWTxJDyy7xZQzSo9/s6qs8BwkcL4J0P9nIAb+cX
+ zn+OP2tDzYWdBinw7vRKzZWafABBWcfSJJ7nGj3LubLnV/Y7eY5EjV56tUKy578a/XpN
+ DC90wAL7drynRt/HbwZUw93uZ7Z15hTHIsH3v5+fCtEI/qXjdz9p2Zx7dg8heN/fuWjg
+ KyNg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=LtkncO6ICCujrX1d2Cbs7dsIf9AHKQGWi3jLxRLv5Kc=;
+ b=Lf3/JTlAKP4EuznfSIFamAI5EDWvKEe4y++Vf3oPJ3JX9udbDndmgUKSCshx5f37Fd
+ LvUCZxo2ZSfNoLbTBP0Z5RZEH74VnTg945k8rvXq2QBGqx2e3Fc70js8xcLzE5gqCGa5
+ S9LwnE/HCvZSDbCjF9B5uCYpPSmgIJkXhXwzk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=J9N1Jc5FjvIWIXP5r0EVh3ryNWNI/GOVmLNSRviQEWw=;
- b=OB1hxow+JLkhGvVIB3Btx0n3Jw1CGT2+dv9qz3dMMdIDYzrj1ui8iGLZRHBPWm0nAw
- d+1XiTBLBtgzQuF6gVJGwgA0Gbaw1d1Noc4kAmOjKWN6GO/XImMI1KK+teXgg+R/RBkR
- visZy2oqp0L/R5h5cZtVpTPujWiJqYonzHQBVlcN9Pi06MHaNtjevPdJQZPhZMPNepg2
- 7a+HJYXltDBLkijvrIqvS/YpByY0kf2jQhtykbXziEtXt8G9HQYhM97oBLJRuUpMLUBJ
- KYlsz25jI067wTOr7jz+qk+SUPK/avYMUuRi0zuljdvtMAjatrL5eWKqyjwuXbWkRbzu
- UB2w==
-X-Gm-Message-State: APt69E3d6zeDTCUb3GmGzdTkG4mkDmmI2UM0xB3jfl1NJK/rZqnHm7Oy
- V+aejj0ATYMTQzJWGKEf/ueH0kzH0MKO2rGuMCERsg==
-X-Google-Smtp-Source: ADUXVKIjwTSB14EiXrj7oJAzUmBTjMuZpo4UtQ5LP9neBN+uOvGZNj/KRwzmIkrvdSpsMe/HlnABeVYrs+gbfWuCoIA=
-X-Received: by 2002:a9f:2266:: with SMTP id
- 93-v6mr1968555uad.142.1529090018249; 
- Fri, 15 Jun 2018 12:13:38 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=LtkncO6ICCujrX1d2Cbs7dsIf9AHKQGWi3jLxRLv5Kc=;
+ b=EF371KpKD1ASoyo9w1C+2nyWV2p77jvantEM8mF6FtH5XEeSy5wqCHsBVRTN0gsbvG
+ 97a1v17s6/tjoQKMUbUizfem+lbmPiPE2qLkfsLEJJ3WLDQaPvDZ8va1qVv2vzoDenpp
+ /ds8yIxijhlE907//EBpjZqNVspDf4iqOHGIflvbwuT2mnmplgwa4gGrNWXZNw++J+bz
+ XqT338IzIulUXcSKf9tJiUa4871I0J6glw0NLsxHjpAfcdYv4KgoO94CRmZiPxu3S5Fv
+ VovTLBhLNC1LW9MtVlNAekD78Py5lJ20J+jlXYKs8NeXNmSbmeVpYs7IdoOGhcB6CPv7
+ bpxA==
+X-Gm-Message-State: APt69E2+8so3Y/iIl+7/TDfRxpiJA/57CCMsyvC/qIz0CaP6WEVuAvVL
+ uu4qMMW/edzys5NPsK8TYkWs9XP9klKGoUGTfiU=
+X-Google-Smtp-Source: ADUXVKJW9onEuTYqrFZ8x8csIVVmT9wb5XXShB3OggEGAF6Rjt6DAVQEX08gKwDAOCzG/016+Z0UmrZUZIE0d/IK5ic=
+X-Received: by 2002:a37:6983:: with SMTP id
+ e125-v6mr3672198qkc.352.1529125473860; 
+ Fri, 15 Jun 2018 22:04:33 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a1f:bd94:0:0:0:0:0 with HTTP; Fri, 15 Jun 2018 12:13:17
+Sender: joel.stan@gmail.com
+Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP; Fri, 15 Jun 2018 22:04:13
  -0700 (PDT)
-In-Reply-To: <7E9441B1E5EFFD4681F54958E8216993457F6D79@ORSMSX113.amr.corp.intel.com>
-References: <CAO=notwpFu4WwDBKfSt7-C8VuP6CusZGg3hThsAcdRwSD0yXZQ@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E8216993457F6D79@ORSMSX113.amr.corp.intel.com>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 15 Jun 2018 12:13:17 -0700
-Message-ID: <CAO=notz_JiCumj+90MOoojRaXcxaO+JkxpLQ0SqXg19PVX-oOg@mail.gmail.com>
-Subject: Re: New Feature Request in phosphor-pid-control
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: Lei YU <mine260309@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+In-Reply-To: <20180612051911.20690-6-benh@kernel.crashing.org>
+References: <20180612051911.20690-1-benh@kernel.crashing.org>
+ <20180612051911.20690-6-benh@kernel.crashing.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Sat, 16 Jun 2018 14:34:13 +0930
+X-Google-Sender-Auth: QJB4BN8AuqrPdoRVyWH9gVqYpa0
+Message-ID: <CACPK8Xcp4gEVOrNdcZhbDx9LU1K6d=tV0vmJ9nLut4Fjwp0Xpg@mail.gmail.com>
+Subject: Re: [RFC PATCH 5/5] fsi/scom: Major overhaul
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Andrew Jeffery <andrew@aj.id.au>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,79 +81,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jun 2018 19:13:42 -0000
+X-List-Received-Date: Sat, 16 Jun 2018 05:04:40 -0000
 
-On Fri, Jun 15, 2018 at 10:36 AM, Tanous, Ed <ed.tanous@intel.com> wrote:
-> This seems like a bit of a corner case in the thermal realm.  Are you rea=
-lly sure that you want the same PID tuning values for the margin sensor as =
-the absolute sensors?
+On 12 June 2018 at 14:49, Benjamin Herrenschmidt
+<benh@kernel.crashing.org> wrote:
+> This was too hard to split ... this adds a number of features
+> to the SCOM user interface:
+>
+>  - Support for indirect SCOMs
+>
+>  - read()/write() interface now handle errors and retries
+>
+>  - New ioctl() "raw" interface for use by debuggers
+>
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
-We use margin values, so this use case isn't going away :D.
+Looks okay to me. I will put it in the openbmc tree with Eddie's ack
+for more testing.
 
->
-> Me and my team are actually trying to get away from margin sensors altoge=
-ther.  Customers don't seem to like them, and question the fact that they'r=
-e negative numbers.  It's  mostly a psychology thing, and usually after exp=
-laining it to them, they understand and can live with it, but it's a pain p=
-oint all the same.  In lieu of margin sensors, we're trying an approach now=
- where all sensors are absolute, but we dynamically adjust the thresholds b=
-ased on what we find at runtime.  Most of the components expose their own t=
-emperature goal values through some kind of interface.  In the case of Inte=
-l processors, we would set our thresholds based on the information we read =
-over PECI about the CPUs thermal characteristics, and report the absolute v=
-alue back, then take our thermal limits as a percentage of the goal values.
->
-> Back to your proposal, I'm not really clear on what the issue is with the=
- existing solution.  If the "goal" is to hunt down for a temperature, doesn=
-'t that just mean that the proportional and integral components of the loop=
- would have a negative coefficient in the tuning parameters?  It doesn't re=
-ally matter what the sign is on the error calculation if you can simply rev=
-erse it in the PID values.
->
-> I fully support adding multiple sensors to a single PID loop.  This was o=
-ne of the things that we were planning on adding as soon as we got more tim=
-e for fan control (hopefully next quarter) but I'm not really following the=
- addition of a new parameter.
+I got a warning from the 0day infra, I made comments below.
 
-In order to choose whether to maximize or minimize the value, a goal
-that varies based on the inputs, we need a method for specifying this.
-The code won't care if it's a margin sensor input or absolute
-temperature sensor input, but the human can control the behavior by
-specifying the correct PID coefficients, as you said, but with
-multiple inputs -- the code needs to know what to choose.
+We should get Alistair review the ioctl interface to ensure we have
+everything that pdbg might need.
 
+> +++ b/include/uapi/linux/fsi.h
+> @@ -0,0 +1,56 @@
+> +#ifndef _UAPI_LINUX_FSI_H
+> +#define _UAPI_LINUX_FSI_H
+> +
+> +#include <linux/ioctl.h>
+
+This needs to include <linux/types.h> for the __u64 etc types.
+
+We should also put a licence in the header. Probably:
+
+/* SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note */
+
+
+Cheers,
+
+Joel
+
+> +
+> +/*
+> + * /dev/scom "raw" ioctl interface
+> + *
+> + * The driver supports a high level "read/write" interface which
+> + * handles retries and converts the status to Linux error codes,
+> + * however low level tools an debugger need to access the "raw"
+> + * HW status information and interpret it themselves, so this
+> + * ioctl interface is also provided for their use case.
+> + */
+> +
+> +/* Structure for SCOM read/write */
+> +struct scom_access {
+> +       __u64   addr;           /* SCOM address, supports indirect */
+> +       __u64   data;           /* SCOM data (in for write, out for read) */
+> +       __u64   mask;           /* Data mask for writes */
+> +       __u32   intf_errors;    /* Interface error flags */
+> +#define SCOM_INTF_ERR_PARITY           0x00000001 /* Parity error */
+> +#define SCOM_INTF_ERR_PROTECTION       0x00000002 /* Blocked by secure boot */
+> +#define SCOM_INTF_ERR_ABORT            0x00000004 /* PIB reset during access */
+> +#define SCOM_INTF_ERR_UNKNOWN          0x80000000 /* Unknown error */
+> +       /*
+> +        * Note: Any other bit set in intf_errors need to be considered as an
+> +        * error. Future implementations may define new error conditions. The
+> +        * pib_status below is only valid if intf_errors is 0.
+> +        */
+> +       __u8    pib_status;     /* 3-bit PIB status */
+> +#define SCOM_PIB_SUCCESS       0       /* Access successful */
+> +#define SCOM_PIB_BLOCKED       1       /* PIB blocked, pls retry */
+> +#define SCOM_PIB_OFFLINE       2       /* Chiplet offline */
+> +#define SCOM_PIB_PARTIAL       3       /* Partial good */
+> +#define SCOM_PIB_BAD_ADDR      4       /* Invalid address */
+> +#define SCOM_PIB_CLK_ERR       5       /* Clock error */
+> +#define SCOM_PIB_PARITY_ERR    6       /* Parity error on the PIB bus */
+> +#define SCOM_PIB_TIMEOUT       7       /* Bus timeout */
+> +       __u8    pad;
+> +};
+> +
+> +/* Flags for SCOM check */
+> +#define SCOM_CHECK_SUPPORTED   0x00000001      /* Interface supported */
+> +#define SCOM_CHECK_PROTECTED   0x00000002      /* Interface blocked by secure boot */
+> +
+> +/* Flags for SCOM reset */
+> +#define SCOM_RESET_INTF                0x00000001      /* Reset interface */
+> +#define SCOM_RESET_PIB         0x00000002      /* Reset PIB */
+> +
+> +#define FSI_SCOM_CHECK _IOR('s', 0x00, __u32)
+> +#define FSI_SCOM_READ  _IOWR('s', 0x01, struct scom_access)
+> +#define FSI_SCOM_WRITE _IOWR('s', 0x02, struct scom_access)
+> +#define FSI_SCOM_RESET _IOW('s', 0x03, __u32)
+> +
+> +#endif /* _UAPI_LINUX_FSI_H */
+> --
+> 2.17.0
 >
-> -Ed
->
->> -----Original Message-----
->> From: openbmc [mailto:openbmc-
->> bounces+ed.tanous=3Dintel.com@lists.ozlabs.org] On Behalf Of Patrick
->> Venture
->> Sent: Friday, June 15, 2018 8:39 AM
->> To: Lei YU <mine260309@gmail.com>
->> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
->> Subject: New Feature Request in phosphor-pid-control
->>
->> The thermal pid controller object only supports one input.  The PID
->> parameters determine whether its goal is to increase or decrease the fan
->> speed given a set-point.  My primary usecase was to have the value as a
->> margin, if the sensor value is 15C, and the setpoint is 10C, then we're =
-fine
->> because 15 > 10.  However, if it's an absolute temperature your goal wou=
-ld
->> be the opposite, to speed the fans up until 15 went down to 10.  Because=
- of
->> these opposite use-cases it wasn't clear what behavior would be taken wi=
-th
->> multiple inputs.  We have another program take dozens of inputs and make
->> one margin value given a configuration, and that's what is passed down t=
-o
->> phosphor-pid-control.
->>
->> My proposal is to support multiple inputs to the thermal controller and =
-there
->> will be a new field in the configuration "min" "max" that will decide th=
-e
->> behavior.
->>
->> Patrick
