@@ -1,72 +1,72 @@
-Return-Path: <lee.jones@linaro.org>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:400c:c09::243; helo=mail-wm0-x243.google.com;
- envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::234; helo=mail-qt0-x234.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="AyvmNVa1"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EHq0I0dO"; 
+ dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="HxKX7cFv"; 
  dkim-atps=neutral
-Received: from mail-wm0-x243.google.com (mail-wm0-x243.google.com
- [IPv6:2a00:1450:400c:c09::243])
+Received: from mail-qt0-x234.google.com (mail-qt0-x234.google.com
+ [IPv6:2607:f8b0:400d:c0d::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418L9r1j7hzF09q
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 16:03:12 +1000 (AEST)
-Received: by mail-wm0-x243.google.com with SMTP id v16-v6so11945566wmh.5
- for <openbmc@lists.ozlabs.org>; Sun, 17 Jun 2018 23:03:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=k6bnrIqU2WNDnd0azggyasmPkNN2l3o9lOrxHseHY1I=;
- b=AyvmNVa1V0e1ubyrhHZohwFHp6F9oW/Ji9HeRBcmG1QVq4MDQvcp8HXIg92yjPrKb1
- uGm0V28/h/tb+ZnfO03OAvWlEJk4kKELxWQVqoNAbaDCyxARjlsIwS7DIGsZwFQQM2Bz
- 5fEIINC/cEXaH2wuvEX/hHQASybwFMrYSMxTw=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418Tzs64xVzF0dj
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 21:55:04 +1000 (AEST)
+Received: by mail-qt0-x234.google.com with SMTP id x34-v6so14784731qtk.5
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 04:55:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=YtcI4nSi95V61km8WEUn8hkdYpKoPhkEYyTVNsMUYYE=;
+ b=EHq0I0dOpZwUMEk31VEE8Mb25CnW4v87mjDay6JdGkH529aOPG1KWPmmossz3/+FI2
+ gGB4fv0jKvt2ZQvxyjKmimemfy+ThC/0+C3NjIaVZKt8wT5TdoTMpJdCm4vI31ePoZwy
+ 8qiOJcwEZMXvdWDqvOyy/IGgI1q4t4tIA66t0/Y5t4Hpxd0UewF4UKmUGp+ocmgvj3xz
+ RvbayezwuqYG2PNcrjCwGAXD+VZK4DmkPbuonXuJ55r1//c337wMMx/rKizc1TadhpYo
+ 3CzBOe1Mb8/l20lqhx6ALpVqdMg6gz4iXZnE2PrSQ02VFYd139JqdYTOStK2NgnZw3wI
+ /qLw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=YtcI4nSi95V61km8WEUn8hkdYpKoPhkEYyTVNsMUYYE=;
+ b=HxKX7cFvUv65aQpCEAHvMEEy4yiq+V7TJeV1wt2U9m2Vy2hzzZWAyGHqsvJ7elY3uC
+ UBopKDg4PDhVz/uw8XHtRo1zdPpYlquoj2MYcHoUKyJEtqtnh3mJvj4/06rC8ai91+DQ
+ Gvtbo54iAX0WxU5ncpPuQO8OAjZzEhjhfMR7g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=k6bnrIqU2WNDnd0azggyasmPkNN2l3o9lOrxHseHY1I=;
- b=V2QTLBYC62+GQiPxgJ9UiBlFMUpg/Au19ny+29pkUP7IXQbgz+1RcPZyMEJru26jgI
- eCjbGgaOoz6F6zMKlJw2xQuAFnS9cu7OStRmZC9ZYYL2df35Ex7kQtfdTBYevpDxdsrn
- LecPYcXPMxVJizLcUkczK39828MSozQXBa7woLe5YVzFvYS8Ua4DVpguUQ3nEUyHpLnC
- 0t3d05/6xv4j/y0uEKpy6Kd8fYIWejWKxwM56nKfhDHy4gmRoUPZkGCeB6BUuf0sDvSV
- 3/+Yos/FwWx5Ew4UoDEt6t/HO9NWasXPkO9p+oXNEcCUjtXbe66c7F1ewh9BOJ1dLabb
- /CBA==
-X-Gm-Message-State: APt69E1lBUBllID+xhvpBn6djEwo44jaVVT38T0hQ5AS5hR1jLoP5RXG
- B7DZEJOUZTKQyHJMh5WR4QN2Nw==
-X-Google-Smtp-Source: ADUXVKK/2XoWVeLeUnp/dM0NDZQXEvwtEM7YVe3JmrNNl+crqnRJnkaLs2S79oZV+PVgrEYqT+Iydw==
-X-Received: by 2002:a1c:8ec1:: with SMTP id
- q184-v6mr7064435wmd.48.1529301788633; 
- Sun, 17 Jun 2018 23:03:08 -0700 (PDT)
-Received: from dell ([95.149.160.78])
- by smtp.gmail.com with ESMTPSA id q17-v6sm15008059wrr.7.2018.06.17.23.03.07
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 17 Jun 2018 23:03:07 -0700 (PDT)
-Date: Mon, 18 Jun 2018 07:03:06 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Joel Stanley <joel@jms.id.au>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH linux-next v5 07/13] dt-bindings: mfd: Add a document for
- PECI client mfd
-Message-ID: <20180618060306.GD31141@dell>
-References: <20180601182216.23894-1-jae.hyun.yoo@linux.intel.com>
- <20180613061637.GI5278@dell>
- <2b5bbf01-8c9c-bb06-4559-00dae61d95de@linux.intel.com>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=YtcI4nSi95V61km8WEUn8hkdYpKoPhkEYyTVNsMUYYE=;
+ b=q0Dh/QDjWlZmjGNRVzkFN5dNKbo0lyXo+ckPzJroA3QouJe4DgqQXBKgPfOCFEEgDo
+ pgtPwL4VTjIYrUkLG15t2FXCh6W/qJMujMOmQ7Jz3VgvtE93e2s/ja177Oea6QUwJc8L
+ CjoZHtaUWiCdnNVtJoEvxPypa5672M2w0Ei5PJUJtRDUbaTyoVQoKtOOhSwAc3cxH/Ow
+ q+S0vbnGZIhDcJjkyzKfiyQRxWvhzAgZmGVSuhO4gV8cQf36C7T/uuSsqoj/n4vZs090
+ VJoK/PfEvsfzZ656jAzvB0lz0NLYzXer4Nl/s+ASe5E6L8SAFqNlVYLkilcLqKt88tID
+ RNtQ==
+X-Gm-Message-State: APt69E1jlF5sAIPRyeQUjZYca6I/90Dp4XxxF+qQc90kh1GWftYudnZ6
+ mxAkIGPDg3sO3d5yjkcnVlBeJacd+XANw23P+o8=
+X-Google-Smtp-Source: ADUXVKLvcYyAB0uV4fZ8JupEcitWXX6YNFQ2+7EHcvvxbPMryFeFklA34C942d+/OexJeZkNhip9dM6VGflFg2EjJS8=
+X-Received: by 2002:a0c:f24e:: with SMTP id
+ z14-v6mr10238823qvl.208.1529322901618; 
+ Mon, 18 Jun 2018 04:55:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2b5bbf01-8c9c-bb06-4559-00dae61d95de@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Sender: joel.stan@gmail.com
+Received: by 2002:ac8:184d:0:0:0:0:0 with HTTP; Mon, 18 Jun 2018 04:54:41
+ -0700 (PDT)
+In-Reply-To: <0BBFBB96-82ED-4623-A820-EC08A819BFFA@fb.com>
+References: <0BBFBB96-82ED-4623-A820-EC08A819BFFA@fb.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 18 Jun 2018 21:24:41 +0930
+X-Google-Sender-Auth: _OwCQnRnmOhNn8ZVhgUHuAi81Ks
+Message-ID: <CACPK8Xej43LHYgoG1jmdLMLe9ThkDAEEm82-Pn3u0+Yk+SAyHA@mail.gmail.com>
+Subject: Re: move to 4.17-based kernel?
+To: Tao Ren <taoren@fb.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -78,71 +78,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jun 2018 06:03:12 -0000
+X-List-Received-Date: Mon, 18 Jun 2018 11:55:07 -0000
 
-On Thu, 14 Jun 2018, Jae Hyun Yoo wrote:
+Hi Tao,
 
-[...]
+On 18 June 2018 at 21:21, Tao Ren <taoren@fb.com> wrote:
+> Not sure if I missed anything during communication, but I just want to kn=
+ow
+> if we have already moved to 4.17-based kernel or we are still working on =
+it?
+> I checked github.com:openbmc/linux.git and didn=E2=80=99t find 4.17 branc=
+h, and
+> that=E2=80=99s why I=E2=80=99m asking.
 
-> > > +Example:
-> > > +	peci-bus@0 {
-> > 
-> > 0?
-> > 
-> 
-> Because the actual reg value of the peci bus is reg = <0x0 0x60> but
-> anyway it's an example.
-> 
-> > > +		#address-cells = <1>;
-> > > +		#size-cells = <0>;
-> > 
-> > No 'reg' property?
+It's not published yet, but testing has gone well and I intend to
+publish it in the next day or two. I'll send an announcement to the
+list when I do so.
 
-0 is fine, but you really should have a 'reg' property.
+Cheers,
 
-> This is the actual peci bus node which is a parent of this MFD node:
-> 	peci0: peci-bus@0 {
-> 		compatible = "aspeed,ast2500-peci";
-> 		reg = <0x0 0x60>;
-> 		#address-cells = <1>;
-> 		#size-cells = <0>;
-> 		interrupts = <15>;
-> 		clocks = <&syscon ASPEED_CLK_GATE_REFCLK>;
-> 		resets = <&syscon ASPEED_RESET_PECI>;
-> 		clock-frequency = <24000000>;
-> 		msg-timing = <1>;
-> 		addr-timing = <1>;
-> 		rd-sampling-point = <8>;
-> 		cmd-timeout-ms = <1000>;
-> 	};
-> 
-> > > +		< more properties >
-> > 
-> > Remove this.
-> 
-> I dropped all other properties into < more properties > because I want
-> to show the #address-cells and #size-cells to state its sub-nodes
-> should have a single unique reg value. Should I remove this line or the
-> whole parent node?
-
-Just drop the properties which are unimportant for the example.  You
-do not need to replace them with anything, especially with a non-DT
-compliant string.
-
-> > > +		peci-client@30 {
-> > > +			compatible = "intel,peci-client", "simple-mfd";
-> > > +			reg = <0x30>;
-> > > +		};
-> > > +
-> > > +		peci-client@31 {
-> > > +			compatible = "intel,peci-client", "simple-mfd";
-> > > +			reg = <0x31>;
-> > > +		};
-> > > +	};
-> > 
-
--- 
-Lee Jones [李琼斯]
-Linaro Services Technical Lead
-Linaro.org │ Open source software for ARM SoCs
-Follow Linaro: Facebook | Twitter | Blog
+Joel
