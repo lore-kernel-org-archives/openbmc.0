@@ -1,109 +1,46 @@
-Return-Path: <prvs=970797624d=taoren@fb.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=970797624d=taoren@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="ZjyOD85r"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="ZAETveFF"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418WpW4Wm5zF0Pd
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 23:17:06 +1000 (AEST)
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
- by m0089730.ppops.net (8.16.0.22/8.16.0.22) with SMTP id w5IBs51H017339;
- Mon, 18 Jun 2018 04:56:18 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=BfVWl5BTNOpfaPHM+qAFTq/JTuCGftZgp1aeWJt1VmI=;
- b=ZjyOD85rnBm+mHyapG0ruso/GF4fBBibdu0pqe0NwyWmP9zHaBYYI8y8kfcFfQGwvcXj
- 8+d5cSXtqbdYhKi4qYH/+O/YbR75dQ4bsoltQWJx8LLBwI5RrrO5mkANoLEv/Kg8mXim
- Yne9RpUB+UKDBnrBfJdTsxSAK0nt4TeEuWs= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by m0089730.ppops.net with ESMTP id 2jp9a70bbm-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 18 Jun 2018 04:56:18 -0700
-Received: from NAM03-BY2-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.26) with Microsoft SMTP
- Server (TLS) id 14.3.361.1; Mon, 18 Jun 2018 07:56:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BfVWl5BTNOpfaPHM+qAFTq/JTuCGftZgp1aeWJt1VmI=;
- b=ZAETveFFVcwvujLgR2DeHEJTjUzEahnlKtqdhpMeIKdnUMdfejhC+BlhI4n4cxZDt6NjZColZOIXQsjRiI9XOW7GjbDxghioZ50fkTceg1NKI0LylHf+cic7HQAfFED83M7/51Ao/qG8hcoO/y+pt4aj0YYAs7D/aGcPxy79H5E=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1568.namprd15.prod.outlook.com (10.173.235.141) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.863.19; Mon, 18 Jun 2018 11:56:15 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::ed33:380d:2f64:d615]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::ed33:380d:2f64:d615%3]) with mapi id 15.20.0863.016; Mon, 18 Jun 2018
- 11:56:15 +0000
-From: Tao Ren <taoren@fb.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: move to 4.17-based kernel?
-Thread-Topic: move to 4.17-based kernel?
-Thread-Index: AQHUBvrCZvKKqprHIEeZ54ztAAztjaRl6FKA//+LFgA=
-Date: Mon, 18 Jun 2018 11:56:15 +0000
-Message-ID: <7265DFF0-B28C-4582-8AC6-F4A82A56688F@fb.com>
-References: <0BBFBB96-82ED-4623-A820-EC08A819BFFA@fb.com>
- <CACPK8Xej43LHYgoG1jmdLMLe9ThkDAEEm82-Pn3u0+Yk+SAyHA@mail.gmail.com>
-In-Reply-To: <CACPK8Xej43LHYgoG1jmdLMLe9ThkDAEEm82-Pn3u0+Yk+SAyHA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:180::1:560c]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1568;
- 7:clZ+QuSmhW85aA1AIqA2U1ilF2rVemf6ktM2/igXJ3NrSp8S2JKC+lFN3RtZ3x1rajGYqKI6Vo9l4UEY2iH7ijzMYRkgvmbI83eOzfc2e74BQwCJWrAkY7VGI2mgkkZQoV8UQTvoy4Y5P7F5mP9ixsgmHabGh0SpzZNk5TwyNmI9u4lRXtEL24pAWoRdYVADMS/fWPpuNopJFm+9Ogx8f/u0hQH/027uRgvjJJkOpytOKRHMvXY83/SUwjVH6lwj;
- 20:lOo3LVjr+R3xQgJWG/I+cHFcnBAUreHBjhf253bXQsCej6/NhUYOXaAWNj3mivRjgr7kFg4bBRVEzwbkvoSHc9DaVgB3v0yttcQkWWcq1cSKZCVPwCIdpG+WP9qeZPuo+4HtWgDe3pNrqZ+YgA8i+uL9d0GXg2jbaVl5BM95yMM=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 61b4a6b8-5a0b-426a-f7ac-08d5d5127eb8
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(7020095)(4652020)(4534165)(4627221)(201703031133081)(201702281549075)(5600026)(711020)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1568; 
-x-ms-traffictypediagnostic: MWHPR15MB1568:
-x-microsoft-antispam-prvs: <MWHPR15MB1568DBCFCFE35EBCEB9F68FAB2710@MWHPR15MB1568.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(166708455590820)(85827821059158)(67672495146484); 
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(3002001)(93006095)(93001095)(3231254)(11241501184)(944501410)(52105095)(149027)(150027)(6041310)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(20161123562045)(20161123558120)(6072148)(201708071742011)(7699016);
- SRVR:MWHPR15MB1568; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1568; 
-x-forefront-prvs: 0707248B64
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(39380400002)(39860400002)(376002)(346002)(366004)(396003)(189003)(199004)(102836004)(486006)(3280700002)(2616005)(6506007)(105586002)(8676002)(81156014)(81166006)(68736007)(3660700001)(6116002)(25786009)(11346002)(186003)(478600001)(14454004)(36756003)(46003)(53546011)(86362001)(476003)(82746002)(446003)(106356001)(2900100001)(316002)(2906002)(97736004)(99286004)(6512007)(53936002)(33656002)(6486002)(76176011)(305945005)(5250100002)(229853002)(345774005)(5660300001)(4326008)(83716003)(6246003)(8936002)(6916009)(7736002)(6436002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1568;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: O1Jd71lg0h5We8tDkd1zwoECNNYZb8OIGlAkRI4EqWSM5UPPhRJmsbhHmCeDGQ+K8App2BzusgiuEYCQpVpKIUrOVX/+wWx24svqLcnC/G4MqI/VM/y3nj18JIUVmLg8wpgFh5VyLUIZM9aXepThqiWef8Cp9Y9t4WViqe1k0GKxvgXS3HMeuOiynCiRyl9DtOSRpCwpQTUwi6BCfQxufus0I8SI8aJTM+dYsNcbQVLfMeGSVdas+YXMxGkhp9G+sc+Zkf2GDIq0GlAmy1gCt+MrtZHrll1xh9+3oLysoKFZ5xb4chQRQS5XJP9l3VLBe+hOvFApatOntRAFfWPDjQ==
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BA41323F7AC36344A64D57F9130B56AD@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418cyT4c7BzF0pl
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 03:09:20 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2018 10:09:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,240,1526367600"; d="scan'208";a="50853191"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga006.jf.intel.com with ESMTP; 18 Jun 2018 10:09:18 -0700
+Subject: Re: [PATCH linux-next v5 08/13] drivers/mfd: Add PECI client mfd
+ driver
+To: Lee Jones <lee.jones@linaro.org>
+Cc: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
+ James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>, Joel Stanley
+ <joel@jms.id.au>, Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20180601182227.23938-1-jae.hyun.yoo@linux.intel.com>
+ <20180613063038.GJ5278@dell>
+ <6663376b-2671-0c7e-93df-558728c92184@linux.intel.com>
+ <20180618055941.GC31141@dell>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <e387da06-1b73-a497-be59-9c25df9bb7f9@linux.intel.com>
+Date: Mon, 18 Jun 2018 10:09:17 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61b4a6b8-5a0b-426a-f7ac-08d5d5127eb8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2018 11:56:15.3190 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1568
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-06-18_04:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+In-Reply-To: <20180618055941.GC31141@dell>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -115,19 +52,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jun 2018 13:17:08 -0000
+X-List-Received-Date: Mon, 18 Jun 2018 17:09:22 -0000
 
-R290IGl0LCBKb2VsLiBUaGFuayB5b3UgZm9yIHRoZSBxdWljayByZXNwb25zZSENCg0KDQpCZXN0
-IHJlZ2FyZHMsDQoNClRhbw0KDQrvu79PbiA2LzE4LzE4LCA0OjU1IEFNLCAiam9lbC5zdGFuQGdt
-YWlsLmNvbSBvbiBiZWhhbGYgb2YgSm9lbCBTdGFubGV5IiA8am9lbC5zdGFuQGdtYWlsLmNvbSBv
-biBiZWhhbGYgb2Ygam9lbEBqbXMuaWQuYXU+IHdyb3RlOg0KDQogICAgSGkgVGFvLA0KICAgIA0K
-ICAgIE9uIDE4IEp1bmUgMjAxOCBhdCAyMToyMSwgVGFvIFJlbiA8dGFvcmVuQGZiLmNvbT4gd3Jv
-dGU6DQogICAgPiBOb3Qgc3VyZSBpZiBJIG1pc3NlZCBhbnl0aGluZyBkdXJpbmcgY29tbXVuaWNh
-dGlvbiwgYnV0IEkganVzdCB3YW50IHRvIGtub3cNCiAgICA+IGlmIHdlIGhhdmUgYWxyZWFkeSBt
-b3ZlZCB0byA0LjE3LWJhc2VkIGtlcm5lbCBvciB3ZSBhcmUgc3RpbGwgd29ya2luZyBvbiBpdD8N
-CiAgICA+IEkgY2hlY2tlZCBnaXRodWIuY29tOm9wZW5ibWMvbGludXguZ2l0IGFuZCBkaWRu4oCZ
-dCBmaW5kIDQuMTcgYnJhbmNoLCBhbmQNCiAgICA+IHRoYXTigJlzIHdoeSBJ4oCZbSBhc2tpbmcu
-DQogICAgDQogICAgSXQncyBub3QgcHVibGlzaGVkIHlldCwgYnV0IHRlc3RpbmcgaGFzIGdvbmUg
-d2VsbCBhbmQgSSBpbnRlbmQgdG8NCiAgICBwdWJsaXNoIGl0IGluIHRoZSBuZXh0IGRheSBvciB0
-d28uIEknbGwgc2VuZCBhbiBhbm5vdW5jZW1lbnQgdG8gdGhlDQogICAgbGlzdCB3aGVuIEkgZG8g
-c28uDQogICAgDQogICAgQ2hlZXJzLA0KICAgIA0KICAgIEpvZWwNCiAgICANCg0K
+On 6/17/2018 10:59 PM, Lee Jones wrote:
+> On Thu, 14 Jun 2018, Jae Hyun Yoo wrote:
+> 
+>> Thanks for the review. Please see my inline answers.
+>>
+>> On 6/12/2018 11:30 PM, Lee Jones wrote:
+>>> On Fri, 01 Jun 2018, Jae Hyun Yoo wrote:
+>>>
+>>>> This commit adds PECI client mfd driver.
+>>>>
+>>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>>>> Cc: Andrew Jeffery <andrew@aj.id.au>
+>>>> Cc: James Feist <james.feist@linux.intel.com>
+>>>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+>>>> Cc: Joel Stanley <joel@jms.id.au>
+>>>> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
+>>>> ---
+>>>>    drivers/mfd/Kconfig             |  11 ++
+>>>>    drivers/mfd/Makefile            |   1 +
+>>>>    drivers/mfd/peci-client.c       | 205 ++++++++++++++++++++++++++++++++
+>>>>    include/linux/mfd/peci-client.h |  60 ++++++++++
+>>>>    4 files changed, 277 insertions(+)
+>>>>    create mode 100644 drivers/mfd/peci-client.c
+>>>>    create mode 100644 include/linux/mfd/peci-client.h
+> 
+> [...]
+> 
+>>> I thought you defined this device as a simple-mfd?
+>>>
+>>> This leaves me wondering why you have a driver as well?
+>>
+>> Then what is proper setting for it instead of a simple-mfd?
+> 
+> Drivers described as "simple-mfd" have a special function.  If you
+> don't know what that function is, I suggest that you do not need
+> it. :)
+> 
+> "simple-mfd" devices do not usually have drivers.
+> 
+> [...]
+> 
+
+Got it. I'll remove the "simple-mfd" from this DT setting.
+
+>>>> +/**
+>>>> + * Architectures other than x86 cannot include the header file so define these
+>>>> + * at here. These are needed for detecting type of client x86 CPUs behind a PECI
+>>>> + * connection.
+>>>> + */
+>>>> +#define INTEL_FAM6_HASWELL_X   0x3F
+>>>> +#define INTEL_FAM6_BROADWELL_X 0x4F
+>>>> +#define INTEL_FAM6_SKYLAKE_X   0x55
+>>>> +#endif
+>>>> +
+>>>> +#define LOWER_NIBBLE_MASK      GENMASK(3, 0)
+>>>> +#define UPPER_NIBBLE_MASK      GENMASK(7, 4)
+>>>> +
+>>>> +#define CPU_ID_MODEL_MASK      GENMASK(7, 4)
+>>>> +#define CPU_ID_FAMILY_MASK     GENMASK(11, 8)
+>>>> +#define CPU_ID_EXT_MODEL_MASK  GENMASK(19, 16)
+>>>> +#define CPU_ID_EXT_FAMILY_MASK GENMASK(27, 20)
+>>>
+>>> In the case of X86 based devices, are these being redefined?
+>>>
+>>
+>> No define even in x86 arch build. These masks just for PECI use cases.
+>> Also, the CPUs in this implementation is not for local CPUs, but for
+>> remote CPUs which are connected through PECI interface. It also means
+>> that this code can be running on non-x86 kernel too.
+> 
+> This is starting to sound like a 'remoteproc' driver, no?
+> 
+
+This is driver for remote Intel CPUs that are behind in PECI connection.
+
+>>>> +enum cpu_gens {
+>>>> +	CPU_GEN_HSX = 0, /* Haswell Xeon */
+>>>> +	CPU_GEN_BRX,     /* Broadwell Xeon */
+>>>> +	CPU_GEN_SKX,     /* Skylake Xeon */
+>>>> +};
+>>>> +
+>>>> +static struct mfd_cell peci_functions[] = {
+>>>> +	{
+>>>> +		.name = "peci-cputemp",
+>>>> +		.of_compatible = "intel,peci-cputemp",
+>>>> +	},
+>>>> +	{
+>>>> +		.name = "peci-dimmtemp",
+>>>> +		.of_compatible = "intel,peci-dimmtemp",
+>>>> +	},
+>>>> +};
+>>>
+>>> A couple of temp sensors?  This isn't looking very MFD-like.
+>>>
+>>> What makes this an MFD?
+>>>
+>>
+>> Currently it has only a couple of temp sensors but it's just one of
+>> PECI function. Other PECI functions will be added later so it's the
+>> reason why it should be an MFD. Please see the following PECI sideband
+>> functions that I introduced in the cover letter of this patch set.
+>>
+>> * Processor and DRAM thermal management
+>> * Platform Manageability
+>> * Processor Interface Tuning and Diagnostics
+>> * Failure Analysis
+> 
+> Are these all devices in their own right?
+> 
+> Will they each have drivers associated with them?
+> 
+> Is there a datasheet for this PECI device?
+> 
+
+Temperature monitoring driver which I'm trying to upstream should be
+added into hwmon subsystem, but other function drivers should be added
+as a platform driver or as a something else, so it is the reason why I
+made this MFD driver because these function drivers are separated but
+use the same device - the remote CPU - actually. Datasheet is available
+through http://www.intel.com/design/literature.htm with an NDA process.
+Intel is providing the datasheet to HW vendors.
+
+> [...]
+> 
+>>>> +static struct peci_driver peci_client_driver = {
+>>>
+>>> I'm pretty sure this will be NAKED by the platform Maintainer.
+>>
+>> Does it have problems? Can you please give me a hint?
+> 
+> New bus types are usually only added for well defined, heavily used
+> buses which AFAIK all have their own subsystems.  Why can't you use
+> one of the existing bus types?  Platform is the most frequently used.
+>
+
+I implemented this PECI drivers as a simple platform drivers in V1 but
+I had to change it to follow other maintainers' suggestions. I believe
+driver core maintainers are reviewing the PECI subsystem implementation
+code in this patch set as well.
+
+>>>> +	.probe    = peci_client_probe,
+>>>> +	.id_table = peci_client_ids,
+>>>> +	.driver   = {
+>>>> +			.name           = "peci-client",
+>>>> +			.of_match_table =
+>>>> +				of_match_ptr(peci_client_of_table),
+>>>> +	},
+>>>> +};
+>>>> +module_peci_driver(peci_client_driver);
+> 
