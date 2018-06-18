@@ -1,55 +1,56 @@
-Return-Path: <yuenn@google.com>
+Return-Path: <3tUYoWwoJB8Irium0.uqpuouiqt.kwuwxmvjuktq010.w7tij0.wzo@trix.bounces.google.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=trix.bounces.google.com (client-ip=2607:f8b0:4001:c06::245;
+ helo=mail-io0-x245.google.com;
+ envelope-from=3tuyowwojb8irium0.uqpuouiqt.kwuwxmvjuktq010.w7tij0.wzo@trix.bounces.google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::244; helo=mail-it0-x244.google.com;
- envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="E47uLc+n"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EUINQzpu"; 
  dkim-atps=neutral
-Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
- [IPv6:2607:f8b0:4001:c0b::244])
+Received: from mail-io0-x245.google.com (mail-io0-x245.google.com
+ [IPv6:2607:f8b0:4001:c06::245])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418fVt61ZwzF0hg
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 04:19:02 +1000 (AEST)
-Received: by mail-it0-x244.google.com with SMTP id y127-v6so12393776itd.1
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 11:19:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=2IdLKry0HrN5VU0QtLTsrQvuGo0F/y0E4kmAQndhvL8=;
- b=E47uLc+naZ+axJtKvcbUNVuA23bTJJ0Ma17VVEHx6vqMgwDDO0Y9YX/I0CntMBVgNw
- 9KcTFGa6tkrOGVOuBfytX3774rsFROZJL49V6A7Br1xhf2NU0ad5f0eFHXe2d2W3NSXG
- khg2eRu/EKJ4hTGxQa/mHfIAvr/T43NddMwtEC0hckkCDr2YYjTTrH5ycGeEIdqAuB2I
- 0sV50RvMdT8+9/90VCDjCtuU7V8ZogCctdD2KnigUSBKc0vxkWJSrMlglHb08rVX31Hm
- 9qJyqy0HVGvDTqSe8SfWFewOWnzkBB1cM0RxWA0CQO7PBtrwZTL0zMO9ObCfp6M3uyGw
- JH0g==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418p0Z6s9GzDrcd
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 09:56:39 +1000 (AEST)
+Received: by mail-io0-x245.google.com with SMTP id 140-v6so14718944iou.14
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 16:56:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:reply-to:message-id:date:subject:from:to;
+ bh=h2UKY0p7BI1LJ2bDU+AH/P2ZrMFadP1nwhJPvwUx0rc=;
+ b=EUINQzpurrKs49RvGiBTOoucxH0yAWa2RLpFtQWgRBRlx7o73A8D46f1dC2ZO+2P4E
+ CdyqCtwtUuPMF2gKxkQjkj4bkrFZRW5/lImFT9QPVrG1sKqfSQPbU2kkzsSnkImj7Vj9
+ /Dbepa5Z5L1owFC+wiNUaprXTlENZDzlXekCcQ2c6xM4Evg7hQ9OeKqZu8FCTOj2sgo9
+ mqBJfXLlJrTRYo5NEDVxTH/CGL/N0mRSpz4rPGEpJV5oqHJfrA01MxbEl96jwd2Jhwck
+ qCo7/InD1GYOgIAgFok3pyKbCm52vVlY5y01aEGDd+azVsMtc50BKeeBHEaUU91m9/VQ
+ vAmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=2IdLKry0HrN5VU0QtLTsrQvuGo0F/y0E4kmAQndhvL8=;
- b=cDP04kwCa0xgkkgoBsJAlV9yLrdr8FXUVjZny5iiWUd9zNf6OPEGZ0dyft3QdS1OlP
- HgDOfgHwGWc8aCT24sfq/5cKp+FiRfSz+7KaitjxbFwGVgvmm/GHfnP1pKnYUOYgLSJf
- o/HT6BQCJ7dlVvTpO0Y/a2u2byxnqbPt9uZCLySPh3uafM482K2j+zc/Q/unDcSJfDri
- PFLkAQK9Ehj4KU2z28FDAs5Sii/fXUZm1zkeJYsOMa7bdXdZD9xZQht+V/XxQr4QMLrq
- 3ZeFEMjuFtnZ1CAqavtk51tic70EO+2+8zD7Jedb95R9Avq5ii3IqIg3O7rJHMjSz5lW
- i8Lw==
-X-Gm-Message-State: APt69E3EA0WP/I56VLAV85l4KdtzLvSe6k4X9OZaI8YKwJhRSVdoW2gt
- O/2WTe1lG5QEDL29PRXLGwNz8tniV9ZMaI6XSPm1UJ6up94=
-X-Google-Smtp-Source: ADUXVKLmLX1cUpxgP+RrKJqRfkHkhQrJPoXot1jtufapl9oLOnWDYpVc1zalp9PUFTBgCTqy2vNNe67MzhxTBXdyB6I=
-X-Received: by 2002:a24:1d0e:: with SMTP id
- 14-v6mr10295016itj.50.1529345938001; 
- Mon, 18 Jun 2018 11:18:58 -0700 (PDT)
+ h=x-gm-message-state:mime-version:reply-to:message-id:date:subject
+ :from:to;
+ bh=h2UKY0p7BI1LJ2bDU+AH/P2ZrMFadP1nwhJPvwUx0rc=;
+ b=kvZrW37sU1z2WU1sS+/IDZVQFNjcQ+TTEWzU+C1jhFN99hRDkfS5QU66Y7To4TKppr
+ 0qcIOxmS9SO7TuESXB/sYz3JNu1ucbDWRYznaNxJ8MgGakPjnwNMSXYBvnpJzG4ZkGK7
+ RcWS56sAJkgfqVvK2n+wQkn1W7oZfGVJ/xqrM9yR1jiFaUBqcx6yd5McvR6f8+q7NH4F
+ 02JthM0rHuc5vzcFNCnlD20+jisWpn67JpUEx7YFyNPNYTnuIIFiCplInCq229Q3xe7F
+ kUGPif0V0JoBM9NazmYJxlh5ZYB9GjCfyrKRa01pdsFARBuVjFcONviBY4Bm3eb+5tdY
+ FR4w==
+X-Gm-Message-State: APt69E3AftJe0g76xjYCZi5m6E85AxwRWr6dhZ0pPpe/L6VabLaNLQPi
+ QvmOGaVKYEroD3xMOMr4zONqxEyTPEpmbAIIZZLa
+X-Google-Smtp-Source: ADUXVKJM00BlM03JLBydnNKtnnv2DC+ERqpqOj/Pr6l668eQQygzQN44J+sFsbVEhLpwRhZwHYQNuurpETmwHHOgW26c
 MIME-Version: 1.0
-Received: by 2002:a6b:5003:0:0:0:0:0 with HTTP; Mon, 18 Jun 2018 11:18:16
- -0700 (PDT)
-From: Nancy Yuen <yuenn@google.com>
-Date: Mon, 18 Jun 2018 11:18:16 -0700
-Message-ID: <CADfYTpEZ3f3PQPd43Grm5rdSx+2f3thYQ5ONqvKV8gFtqzqR+A@mail.gmail.com>
-Subject: 6/11 Meeting Notes for OpenBMC Security Working Group
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000602ffb056eee993a"
+X-Received: by 2002:a02:8cc1:: with SMTP id n1-v6mr6467994jal.12.1529366197285; 
+ Mon, 18 Jun 2018 16:56:37 -0700 (PDT)
+Reply-To: james.mihm@gmail.com
+X-No-Auto-Attachment: 1
+Message-ID: <000000000000ebc0ca056ef350df@google.com>
+Date: Mon, 18 Jun 2018 23:56:37 +0000
+Subject: Poll - Fall 2018 OpenBMC Hackathon 
+From: james.mihm@gmail.com
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000ebc0b3056ef350dc"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -61,438 +62,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jun 2018 18:19:04 -0000
+X-List-Received-Date: Mon, 18 Jun 2018 23:56:47 -0000
 
---000000000000602ffb056eee993a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--000000000000ebc0b3056ef350dc
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-Meeting notes and agendas are recorded in this document
-<https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDU=
-WmAOI/edit?usp=3Dsharing>
-.
+I've invited you to fill out the following form:
+OpenBMC Hackathon
 
-*2018.06.11*
-*Attendees: James Mihm, Joseph Reynolds, Brad Bishop, Ed Tanous, Sub,
-Christopher Engel, Jayanth, Supreeth Venkatesh*
+To fill it out, visit:
+https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=0&amp;w=1&amp;usp=mail_form_link
 
+I&#39;ve invited you to fill out a form:
 
+Google Forms: Create and analyze surveys.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*1. The group needs an online forum for agendas, meeting notes, and
-discussion. - Use #openbmc_security IRC chat and git/gerrit for threaded
-topic conversations  Joseph: ...and use google docs (this document) to add
-agenda items and meeting minutes.2. The "meeting in secret" topic came up
-several times. - cve.mitre.org <http://cve.mitre.org>- Some secrets, if
-there=E2=80=99s a vulnerability that doesn=E2=80=99t have a mitigation, kee=
-p it secret
-until there=E2=80=99s a fix- Need to provide a process that allows external
-reporting of vulnerabilities- Difference between vulnerabilities in
-deployment and in development- AI: read up on cve.mitre.org
-<http://cve.mitre.org> processes   Joseph: Where in this website does it
-describe how a project like OpenBMC should set up a process for its users
-to report vulnerabilities?  The closest things I found was:
-https://cve.mitre.org/compatible/guidelines.html
-<https://cve.mitre.org/compatible/guidelines.html> x3. I think OpenBMC may
-need multiple security frameworks to address different concerns. - Need
-different frameworks for different things- Joseph: We need stories for
-functional security, product lifecycle, functional security requirements
-implemented by development team- Ben: agreed, but CC isn=E2=80=99t the righ=
-t
-approach- Joseph: Backing off CC.  Joseph: 6/14/2018- I=E2=80=99ve written =
-the
-OpenBMC lifecycle security story and pushed it for review at
-https://gerrit.openbmc-project.xyz/#/c/11120/
-<https://gerrit.openbmc-project.xyz/#/c/11120/>.  Please add yourself as a
-reviewer if interested.  I plan to abandon the previous security review
-(but refactor the material -- thanks for your comments!).4. Protection
-Profiles. - Joseph: Not the right person to work on protection profiles-
-Ensuring OpenBMC is following the requirements to enable certification is
-important, not everyone is getting certifications though- OpenBMC
-protection profile could be a piece of a larger certification- James: will
-upload Intel security architecture document- Joseph: No need to publish the
-CC work since it=E2=80=99s covered by James=E2=80=99 effort, but will still=
- pursue it5.
-Authentication, Authorization, and Auditing - Joseph: Is there a way to put
-in a AAA server that could be used by an enterprise datacenter?- It=E2=80=
-=99s being
-worked on=E2=80=A6- Who and what=E2=80=99s the solution like?- There=E2=80=
-=99s a mailing list post
-on user management, Richard (from Intel?)- Brad: There isn=E2=80=99t any co=
-de in
-OpenBMC, we need something- Ed: dBus wrapper around PAM, - Brad: dBus
-allows you to make a data model, proposal for data model for AAA (user
-management)- Look for things by Richard in gerrit- How do we get people to
-review things?- Cc ppl on reviews directly, could use a mailing list-
-AndrewJ maintains the tools repo but there=E2=80=99s no group for general O=
-penBMC
-tools (gerrit for auto adding reviews)- AndrewJ wrote a tool, wrapper
-around doing git pushes that will automatically cc people in maintainers
-file.- Ben: the tool promotes best practices- Gerrit support running this
-automatically, just needs to scripted- Brad: ok but no one is volunteering-
-AndrewG is the person to talk to about getting admin privileges for anyone
-who wants to tackle itLet=E2=80=99s meet weekly, some day 10AM PTSub: Trust=
-ed
-Computing Group (TCG) and OCP Security Group, what do we want to see being
-discussed.  Maybe check out their minutes or get someone from these groups
-to come to our meeting*
-
-----------
-Nancy
-
---000000000000602ffb056eee993a
+--000000000000ebc0b3056ef350dc
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Meeting notes and agendas are recorded in this <a href=3D"=
-https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUW=
-mAOI/edit?usp=3Dsharing">document</a>.<div><br></div><div><b style=3D"font-=
-weight:normal" id=3D"gmail-docs-internal-guid-f58f00b5-141c-fc8a-814f-6e3a8=
-e9e8ab1"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bot=
-tom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);background-color=
-:transparent;font-weight:700;font-style:normal;font-variant:normal;text-dec=
-oration:none;vertical-align:baseline;white-space:pre-wrap">2018.06.11</span=
-></p></b><div><b style=3D"font-weight:normal" id=3D"gmail-docs-internal-gui=
-d-baa9a417-141c-dd83-22f5-f9669a049c8a"><span style=3D"font-family:Arial;co=
-lor:rgb(0,0,0);background-color:transparent;font-weight:700;font-style:norm=
-al;font-variant:normal;text-decoration:none;vertical-align:baseline;white-s=
-pace:pre-wrap">Attendees: </span><span style=3D"font-family:Arial;color:rgb=
-(0,0,0);background-color:transparent;font-weight:400;font-style:normal;font=
--variant:normal;text-decoration:none;vertical-align:baseline;white-space:pr=
-e-wrap">James Mihm, Joseph Reynolds, Brad Bishop, Ed Tanous, Sub, Christoph=
-er Engel, Jayanth, Supreeth Venkatesh</span></b><br></div><div><b style=3D"=
-font-weight:normal"><span style=3D"font-family:Arial;color:rgb(0,0,0);backg=
-round-color:transparent;font-weight:400;font-style:normal;font-variant:norm=
-al;text-decoration:none;vertical-align:baseline;white-space:pre-wrap"><br><=
-/span></b></div><div><b style=3D"font-weight:normal" id=3D"gmail-docs-inter=
-nal-guid-4a7458a9-141b-f151-180c-b5d2d4f680a4"><p dir=3D"ltr" style=3D"line=
--height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-family:A=
-rial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-sty=
-le:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;=
-white-space:pre-wrap">1. The group needs an online forum for agendas, meeti=
-ng notes, and discussion.</span></p><ul style=3D"margin-top:0pt;margin-bott=
-om:0pt"><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;col=
-or:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:norma=
-l;font-variant:normal;text-decoration:none;vertical-align:baseline;white-sp=
-ace:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bot=
-tom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);background-color=
-:transparent;font-weight:400;font-style:normal;font-variant:normal;text-dec=
-oration:none;vertical-align:baseline;white-space:pre-wrap">Use #openbmc_sec=
-urity IRC chat and git/gerrit for threaded topic conversations =C2=A0</span=
-><span style=3D"font-family:Arial;color:rgb(17,85,204);background-color:tra=
-nsparent;font-weight:400;font-style:normal;font-variant:normal;text-decorat=
-ion:none;vertical-align:baseline;white-space:pre-wrap">Joseph: ...and use g=
-oogle docs (this document) to add agenda items and meeting minutes.</span><=
-/p></li></ul><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;ma=
-rgin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);backgrou=
-nd-color:transparent;font-weight:400;font-style:normal;font-variant:normal;=
-text-decoration:none;vertical-align:baseline;white-space:pre-wrap">2. The &=
-quot;meeting in secret&quot; topic came up several times. </span></p><ul st=
-yle=3D"margin-top:0pt;margin-bottom:0pt"><li dir=3D"ltr" style=3D"list-styl=
-e-type:disc;font-family:Arial;color:rgb(0,0,0);background-color:transparent=
-;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none=
-;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-heig=
-ht:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;=
-color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:no=
-rmal;font-variant:normal;text-decoration:none;vertical-align:baseline;white=
--space:pre-wrap"><a href=3D"http://cve.mitre.org">cve.mitre.org</a></span><=
-/p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;col=
-or:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:norma=
-l;font-variant:normal;text-decoration:none;vertical-align:baseline;white-sp=
-ace:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bot=
-tom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);background-color=
-:transparent;font-weight:400;font-style:normal;font-variant:normal;text-dec=
-oration:none;vertical-align:baseline;white-space:pre-wrap">Some secrets, if=
- there=E2=80=99s a vulnerability that doesn=E2=80=99t have a mitigation, ke=
-ep it secret until there=E2=80=99s a fix</span></p></li><li dir=3D"ltr" sty=
-le=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,0);background-co=
-lor:transparent;font-weight:400;font-style:normal;font-variant:normal;text-=
-decoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" sty=
-le=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"fon=
-t-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:40=
-0;font-style:normal;font-variant:normal;text-decoration:none;vertical-align=
-:baseline;white-space:pre-wrap">Need to provide a process that allows exter=
-nal reporting of vulnerabilities</span></p></li><li dir=3D"ltr" style=3D"li=
-st-style-type:disc;font-family:Arial;color:rgb(0,0,0);background-color:tran=
-sparent;font-weight:400;font-style:normal;font-variant:normal;text-decorati=
-on:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"li=
-ne-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-family=
-:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-s=
-tyle:normal;font-variant:normal;text-decoration:none;vertical-align:baselin=
-e;white-space:pre-wrap">Difference between vulnerabilities in deployment an=
-d in development</span></p></li><li dir=3D"ltr" style=3D"list-style-type:di=
-sc;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-wei=
-ght:400;font-style:normal;font-variant:normal;text-decoration:none;vertical=
--align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;m=
-argin-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb=
-(0,0,0);background-color:transparent;font-weight:400;font-style:normal;font=
--variant:normal;text-decoration:none;vertical-align:baseline;white-space:pr=
-e-wrap">AI: read up on <a href=3D"http://cve.mitre.org">cve.mitre.org</a> p=
-rocesses =C2=A0=C2=A0</span><span style=3D"font-family:Arial;color:rgb(17,8=
-5,204);background-color:transparent;font-weight:400;font-style:normal;font-=
-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre=
--wrap">Joseph: Where in this website does it describe how a project like Op=
-enBMC should set up a process for its users to report vulnerabilities?=C2=
-=A0 The closest things I found was: </span><a href=3D"https://cve.mitre.org=
-/compatible/guidelines.html" style=3D"text-decoration:none"><span style=3D"=
-font-family:Arial;color:rgb(17,85,204);background-color:transparent;font-we=
-ight:400;font-style:normal;font-variant:normal;text-decoration:underline;ve=
-rtical-align:baseline;white-space:pre-wrap">https://cve.mitre.org/compatibl=
-e/guidelines.html</span></a><span style=3D"font-family:Arial;color:rgb(17,8=
-5,204);background-color:transparent;font-weight:400;font-style:normal;font-=
-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre=
--wrap"> x</span></p></li></ul><br><p dir=3D"ltr" style=3D"line-height:1.38;=
-margin-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rg=
-b(0,0,0);background-color:transparent;font-weight:400;font-style:normal;fon=
-t-variant:normal;text-decoration:none;vertical-align:baseline;white-space:p=
-re-wrap">3. I think OpenBMC may need multiple security frameworks to addres=
-s different concerns. </span></p><ul style=3D"margin-top:0pt;margin-bottom:=
-0pt"><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;color:=
-rgb(0,0,0);background-color:transparent;font-weight:400;font-style:normal;f=
-ont-variant:normal;text-decoration:none;vertical-align:baseline;white-space=
-:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom=
-:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);background-color:tr=
-ansparent;font-weight:400;font-style:normal;font-variant:normal;text-decora=
-tion:none;vertical-align:baseline;white-space:pre-wrap">Need different fram=
-eworks for different things</span></p></li><li dir=3D"ltr" style=3D"list-st=
-yle-type:disc;font-family:Arial;color:rgb(0,0,0);background-color:transpare=
-nt;font-weight:400;font-style:normal;font-variant:normal;text-decoration:no=
-ne;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-he=
-ight:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Aria=
-l;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:=
-normal;font-variant:normal;text-decoration:none;vertical-align:baseline;whi=
-te-space:pre-wrap">Joseph: We need stories for functional security, product=
- lifecycle, functional security requirements implemented by development tea=
-m</span></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:=
-Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-st=
-yle:normal;font-variant:normal;text-decoration:none;vertical-align:baseline=
-;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;m=
-argin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);backgro=
-und-color:transparent;font-weight:400;font-style:normal;font-variant:normal=
-;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">Ben: ag=
-reed, but CC isn=E2=80=99t the right approach</span></p></li><li dir=3D"ltr=
-" style=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,0);backgrou=
-nd-color:transparent;font-weight:400;font-style:normal;font-variant:normal;=
-text-decoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr=
-" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=
-=3D"font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-we=
-ight:400;font-style:normal;font-variant:normal;text-decoration:none;vertica=
-l-align:baseline;white-space:pre-wrap">Joseph: Backing off CC. =C2=A0</span=
-><span style=3D"font-family:Arial;color:rgb(17,85,204);background-color:tra=
-nsparent;font-weight:400;font-style:normal;font-variant:normal;text-decorat=
-ion:none;vertical-align:baseline;white-space:pre-wrap">Joseph: 6/14/2018- I=
-=E2=80=99ve written the OpenBMC lifecycle security story and pushed it for =
-review at </span><a href=3D"https://gerrit.openbmc-project.xyz/#/c/11120/" =
-style=3D"text-decoration:none"><span style=3D"font-family:Arial;color:rgb(1=
-7,85,204);background-color:transparent;font-weight:400;font-style:normal;fo=
-nt-variant:normal;text-decoration:underline;vertical-align:baseline;white-s=
-pace:pre-wrap">https://gerrit.openbmc-project.xyz/#/c/11120/</span></a><spa=
-n style=3D"font-family:Arial;color:rgb(17,85,204);background-color:transpar=
-ent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:n=
-one;vertical-align:baseline;white-space:pre-wrap">.=C2=A0 Please add yourse=
-lf as a reviewer if interested.=C2=A0 I plan to abandon the previous securi=
-ty review (but refactor the material -- thanks for your comments!).</span><=
-/p></li></ul><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;ma=
-rgin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);backgrou=
-nd-color:transparent;font-weight:400;font-style:normal;font-variant:normal;=
-text-decoration:none;vertical-align:baseline;white-space:pre-wrap">4. Prote=
-ction Profiles.</span></p><ul style=3D"margin-top:0pt;margin-bottom:0pt"><l=
-i dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0=
-,0);background-color:transparent;font-weight:400;font-style:normal;font-var=
-iant:normal;text-decoration:none;vertical-align:baseline;white-space:pre"><=
-p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><=
-span style=3D"font-family:Arial;color:rgb(0,0,0);background-color:transpare=
-nt;font-weight:400;font-style:normal;font-variant:normal;text-decoration:no=
-ne;vertical-align:baseline;white-space:pre-wrap">Joseph: Not the right pers=
-on to work on protection profiles</span></p></li><li dir=3D"ltr" style=3D"l=
-ist-style-type:disc;font-family:Arial;color:rgb(0,0,0);background-color:tra=
-nsparent;font-weight:400;font-style:normal;font-variant:normal;text-decorat=
-ion:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"l=
-ine-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-famil=
-y:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-=
-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseli=
-ne;white-space:pre-wrap">Ensuring OpenBMC is following the requirements to =
-enable certification is important, not everyone is getting certifications t=
-hough</span></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-fam=
-ily:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;fon=
-t-style:normal;font-variant:normal;text-decoration:none;vertical-align:base=
-line;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0=
-pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);bac=
-kground-color:transparent;font-weight:400;font-style:normal;font-variant:no=
-rmal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">Ope=
-nBMC protection profile could be a piece of a larger certification</span></=
-p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;colo=
-r:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:normal=
-;font-variant:normal;text-decoration:none;vertical-align:baseline;white-spa=
-ce:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bott=
-om:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);background-color:=
-transparent;font-weight:400;font-style:normal;font-variant:normal;text-deco=
-ration:none;vertical-align:baseline;white-space:pre-wrap">James: will uploa=
-d Intel security architecture document</span></p></li><li dir=3D"ltr" style=
-=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,0);background-colo=
-r:transparent;font-weight:400;font-style:normal;font-variant:normal;text-de=
-coration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=
-=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-=
-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;=
-font-style:normal;font-variant:normal;text-decoration:none;vertical-align:b=
-aseline;white-space:pre-wrap">Joseph: No need to publish the CC work since =
-it=E2=80=99s covered by James=E2=80=99 effort, but will still pursue it</sp=
-an></p></li></ul><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0p=
-t;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);back=
-ground-color:transparent;font-weight:400;font-style:normal;font-variant:nor=
-mal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">5. A=
-uthentication, Authorization, and Auditing</span></p><ul style=3D"margin-to=
-p:0pt;margin-bottom:0pt"><li dir=3D"ltr" style=3D"list-style-type:disc;font=
--family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400=
-;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:=
-baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-t=
-op:0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0)=
-;background-color:transparent;font-weight:400;font-style:normal;font-varian=
-t:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap"=
->Joseph: Is there a way to put in a AAA server that could be used by an ent=
-erprise datacenter?</span></p></li><li dir=3D"ltr" style=3D"list-style-type=
-:disc;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-=
-weight:400;font-style:normal;font-variant:normal;text-decoration:none;verti=
-cal-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.3=
-8;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:=
-rgb(0,0,0);background-color:transparent;font-weight:400;font-style:normal;f=
-ont-variant:normal;text-decoration:none;vertical-align:baseline;white-space=
-:pre-wrap">It=E2=80=99s being worked on=E2=80=A6</span></p></li><li dir=3D"=
-ltr" style=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,0);backg=
-round-color:transparent;font-weight:400;font-style:normal;font-variant:norm=
-al;text-decoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"=
-ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span styl=
-e=3D"font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-w=
-eight:400;font-style:normal;font-variant:normal;text-decoration:none;vertic=
-al-align:baseline;white-space:pre-wrap">Who and what=E2=80=99s the solution=
- like?</span></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-fa=
-mily:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;fo=
-nt-style:normal;font-variant:normal;text-decoration:none;vertical-align:bas=
-eline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:=
-0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);ba=
-ckground-color:transparent;font-weight:400;font-style:normal;font-variant:n=
-ormal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">Th=
-ere=E2=80=99s a mailing list post on user management, Richard (from Intel?)=
-</span></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:A=
-rial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-sty=
-le:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;=
-white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;ma=
-rgin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);backgrou=
-nd-color:transparent;font-weight:400;font-style:normal;font-variant:normal;=
-text-decoration:none;vertical-align:baseline;white-space:pre-wrap">Brad: Th=
-ere isn=E2=80=99t any code in OpenBMC, we need something</span></p></li><li=
- dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,=
-0);background-color:transparent;font-weight:400;font-style:normal;font-vari=
-ant:normal;text-decoration:none;vertical-align:baseline;white-space:pre"><p=
- dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><s=
-pan style=3D"font-family:Arial;color:rgb(0,0,0);background-color:transparen=
-t;font-weight:400;font-style:normal;font-variant:normal;text-decoration:non=
-e;vertical-align:baseline;white-space:pre-wrap">Ed: dBus wrapper around PAM=
-, </span></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-family=
-:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-s=
-tyle:normal;font-variant:normal;text-decoration:none;vertical-align:baselin=
-e;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;=
-margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);backgr=
-ound-color:transparent;font-weight:400;font-style:normal;font-variant:norma=
-l;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">Brad: =
-dBus allows you to make a data model, proposal for data model for AAA (user=
- management)</span></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;f=
-ont-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:=
-400;font-style:normal;font-variant:normal;text-decoration:none;vertical-ali=
-gn:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margi=
-n-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0=
-,0);background-color:transparent;font-weight:400;font-style:normal;font-var=
-iant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wr=
-ap">Look for things by Richard in gerrit</span></p></li><li dir=3D"ltr" sty=
-le=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,0);background-co=
-lor:transparent;font-weight:400;font-style:normal;font-variant:normal;text-=
-decoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" sty=
-le=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"fon=
-t-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:40=
-0;font-style:normal;font-variant:normal;text-decoration:none;vertical-align=
-:baseline;white-space:pre-wrap">How do we get people to review things?</spa=
-n></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;=
-color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:no=
-rmal;font-variant:normal;text-decoration:none;vertical-align:baseline;white=
--space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-=
-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);background-co=
-lor:transparent;font-weight:400;font-style:normal;font-variant:normal;text-=
-decoration:none;vertical-align:baseline;white-space:pre-wrap">Cc ppl on rev=
-iews directly, could use a mailing list</span></p></li><li dir=3D"ltr" styl=
-e=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,0);background-col=
-or:transparent;font-weight:400;font-style:normal;font-variant:normal;text-d=
-ecoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" styl=
-e=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font=
--family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400=
-;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:=
-baseline;white-space:pre-wrap">AndrewJ maintains the tools repo but there=
-=E2=80=99s no group for general OpenBMC tools (gerrit for auto adding revie=
-ws)</span></p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-famil=
-y:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-=
-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseli=
-ne;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt=
-;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);backg=
-round-color:transparent;font-weight:400;font-style:normal;font-variant:norm=
-al;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">Andre=
-wJ wrote a tool, wrapper around doing git pushes that will automatically cc=
- people in maintainers file.</span></p></li><li dir=3D"ltr" style=3D"list-s=
-tyle-type:disc;font-family:Arial;color:rgb(0,0,0);background-color:transpar=
-ent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:n=
-one;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-h=
-eight:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Ari=
-al;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style=
-:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;wh=
-ite-space:pre-wrap">Ben: the tool promotes best practices</span></p></li><l=
-i dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0=
-,0);background-color:transparent;font-weight:400;font-style:normal;font-var=
-iant:normal;text-decoration:none;vertical-align:baseline;white-space:pre"><=
-p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><=
-span style=3D"font-family:Arial;color:rgb(0,0,0);background-color:transpare=
-nt;font-weight:400;font-style:normal;font-variant:normal;text-decoration:no=
-ne;vertical-align:baseline;white-space:pre-wrap">Gerrit support running thi=
-s automatically, just needs to scripted</span></p></li><li dir=3D"ltr" styl=
-e=3D"list-style-type:disc;font-family:Arial;color:rgb(0,0,0);background-col=
-or:transparent;font-weight:400;font-style:normal;font-variant:normal;text-d=
-ecoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" styl=
-e=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font=
--family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400=
-;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:=
-baseline;white-space:pre-wrap">Brad: ok but no one is volunteering</span></=
-p></li><li dir=3D"ltr" style=3D"list-style-type:disc;font-family:Arial;colo=
-r:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:normal=
-;font-variant:normal;text-decoration:none;vertical-align:baseline;white-spa=
-ce:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bott=
-om:0pt"><span style=3D"font-family:Arial;color:rgb(0,0,0);background-color:=
-transparent;font-weight:400;font-style:normal;font-variant:normal;text-deco=
-ration:none;vertical-align:baseline;white-space:pre-wrap">AndrewG is the pe=
-rson to talk to about getting admin privileges for anyone who wants to tack=
-le it</span></p></li></ul><br><p dir=3D"ltr" style=3D"line-height:1.38;marg=
-in-top:0pt;margin-bottom:0pt"><span style=3D"font-family:Arial;color:rgb(0,=
-0,0);background-color:transparent;font-weight:400;font-style:normal;font-va=
-riant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-w=
-rap">Let=E2=80=99s meet weekly, some day 10AM PT</span></p><br><p dir=3D"lt=
-r" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=
-=3D"font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-we=
-ight:400;font-style:normal;font-variant:normal;text-decoration:none;vertica=
-l-align:baseline;white-space:pre-wrap">Sub: Trusted Computing Group (TCG) a=
-nd OCP Security Group, what do we want to see being discussed.=C2=A0 Maybe =
-check out their minutes or get someone from these groups to come to our mee=
-ting</span></p></b><br class=3D"gmail-Apple-interchange-newline"><br clear=
-=3D"all"><div><div class=3D"gmail_signature" data-smartmail=3D"gmail_signat=
-ure">----------<br>Nancy</div></div>
-</div></div></div>
+<html><body style=3D"font-family: Roboto,Helvetica,Arial,sans-serif; margin=
+: 0; padding: 0; height: 100%; width: 100%;"><table border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" style=3D"background-color:rgb(103,58,183);" width=
+=3D"100%" role=3D"presentation"><tbody><tr height=3D"64px"><td style=3D"pad=
+ding-left: 24px"><img alt=3D"Google Forms" height=3D"26px" style=3D"display=
+: inline-block; margin: 0; vertical-align: middle;" width=3D"143px" src=3D"=
+https://www.gstatic.com/docs/forms/google_forms_logo_lockup_white_2x.png"><=
+/td></tr></tbody></table><div style=3D"padding: 24px; background-color:rgb(=
+237,231,246)"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellsp=
+acing=3D"0" style=3D"max-width: 672px; min-width: 154px;" width=3D"100%" ro=
+le=3D"presentation"><tbody><tr><td style=3D"font-size: 13px; line-height: 1=
+8px; color: #424242; font-weight: 700">Having trouble viewing or submitting=
+ this form?</td></tr><tr height=3D"8px"><td></td></tr><tr><td><table border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%"><tbody><tr><td><a=
+ href=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_J=
+VU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_form_link"=
+ style=3D"border-radius: 3px; box-sizing: border-box; display: inline-block=
+; font-size: 13px; font-weight: 700; height: 40px; line-height: 40px; paddi=
+ng: 0 24px; text-align: center; text-decoration: none; text-transform: uppe=
+rcase; vertical-align: middle; color: #fff; background-color: rgb(103,58,18=
+3);" target=3D"_blank" rel=3D"noopener">Fill out in Google Forms</a></td></=
+tr></tbody></table></td></tr><tr height=3D"24px"><td></td></tr></tbody></ta=
+ble><div align=3D"center" style=3D"background-color: #fff; border-bottom: 1=
+px solid #e0e0e0; margin: 0 auto; max-width: 624px; min-width: 154px; paddi=
+ng: 0 24px;"><table align=3D"center" cellpadding=3D"0" cellspacing=3D"0" st=
+yle=3D"background-color: #fff;" width=3D"100%" role=3D"presentation"><tbody=
+><tr height=3D"24px"><td></td></tr><tr><td><span style=3D"display: table-ce=
+ll; vertical-align: top; font-size: 13px; line-height: 18px; color: #424242=
+;" dir=3D"auto">I&#39;ve invited you to fill out a form:</span></td></tr><t=
+r height=3D"20px"><td></tr><tr style=3D"font-size: 20px; line-height: 24px;=
+"><td dir=3D"auto"><a href=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn=
+5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;=
+usp=3Dmail_form_link" style=3D"color: rgb(103,58,183); text-decoration: non=
+e; vertical-align: middle; font-weight: 500">OpenBMC Hackathon</a><div item=
+prop=3D"action" itemscope itemtype=3D"http://schema.org/ViewAction"><meta i=
+temprop=3D"url" content=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4=
+Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=
+=3Dmail_goto_form"><meta itemprop=3D"name" content=3D"Fill out form"></div>=
+</td></tr><tr height=3D"16px"></tr><tr><td style=3D"display: table-cell; ve=
+rtical-align: top; font-size: 13px; line-height: 18px; color: #424242;" dir=
+=3D"auto">A proposal was made to move the date of the Hackathon from Septem=
+ber to October.<br><br>Soliciting input from the community for dates for th=
+e Fall 2018 Hackathon sponsored by Intel in Hillsboro, Oregon, USA.<br><br>=
+The response deadline is Thursday, June  21st, 2018 at 5pm (PST).</td></tr>=
+<tr height=3D"24px"></tr><tr><td><div class=3D"ss-form" style=3D""><form ac=
+tion=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsI=
+r_JVU5YCjLXufuXxdT9Qy6sz42Q/formResponse" method=3D"POST" id=3D"ss-form" ta=
+rget=3D"_self" style=3D""><ol role=3D"list" class=3D"ss-question-list" styl=
+e=3D"padding-left: 0;list-style-type:none;">
 
---000000000000602ffb056eee993a--
+<div class=3D"ss-form-question errorbox-good" role=3D"listitem" style=3D"">
+<div dir=3D"auto" class=3D"ss-item  ss-radio" style=3D"margin:12px 0;"><div=
+ class=3D"ss-form-entry" style=3D"margin-bottom:1.5em;vertical-align:middle=
+;margin-left:0;margin-top:0;max-width:100%;">
+<label class=3D"ss-q-item-label" for=3D"entry_1602138391" style=3D""><div c=
+lass=3D"ss-q-title" style=3D"display:block;font-weight:bold;margin-top:.83e=
+m;margin-bottom:.83em;">Select preferred date for the Fall Hackathon
+</div>
+<div class=3D"ss-q-help ss-secondary-text" dir=3D"auto" style=3D"display:bl=
+ock;margin:.1em 0 .25em 0;color:#666;"></div></label>
+
+
+<ul class=3D"ss-choices" role=3D"radiogroup" aria-label=3D"Select preferred=
+ date for the Fall Hackathon  " style=3D"list-style:none;padding:0;margin:.=
+5em 0 0;"><li class=3D"ss-choice-item" style=3D"margin:0;line-height:1.3em;=
+padding-bottom:.5em;">
+<label><span class=3D"ss-choice-item-control goog-inline-block" style=3D"po=
+sition:relative;display:inline-block;"><input type=3D"radio" name=3D"entry.=
+55965231" value=3D"Sept 18th - 20th, 2018" id=3D"group_55965231_1" role=3D"=
+radio" class=3D"ss-q-radio" aria-label=3D"Sept 18th - 20th, 2018" style=3D"=
+"></span>
+<span class=3D"ss-choice-label" style=3D"">Sept 18th - 20th, 2018</span>
+</label></li> <li class=3D"ss-choice-item" style=3D"margin:0;line-height:1.=
+3em;padding-bottom:.5em;">
+<label><span class=3D"ss-choice-item-control goog-inline-block" style=3D"po=
+sition:relative;display:inline-block;"><input type=3D"radio" name=3D"entry.=
+55965231" value=3D"October 8th - 11th, 2018" id=3D"group_55965231_2" role=
+=3D"radio" class=3D"ss-q-radio" aria-label=3D"October 8th - 11th, 2018" sty=
+le=3D""></span>
+<span class=3D"ss-choice-label" style=3D"">October 8th - 11th, 2018</span>
+</label></li></ul>
+
+</div></div></div>
+<input type=3D"hidden" name=3D"draftResponse" value=3D"[null,null,&quot;-67=
+72237110067792330&quot;]
+" style=3D"">
+<input type=3D"hidden" name=3D"pageHistory" value=3D"0" style=3D"">
+
+<input type=3D"hidden" name=3D"usp" value=3D"mail_form_submit" style=3D"">
+
+<input type=3D"hidden" name=3D"fbzx" value=3D"-6772237110067792330" style=
+=3D"">
+<div class=3D"ss-send-email-receipt" style=3D"margin-bottom: 4px;" dir=3D"l=
+tr"><label for=3D"emailReceipt" style=3D"display:inline;"></label></div>
+<div class=3D"ss-item ss-navigate" style=3D"margin:12px 0;"><table id=3D"na=
+vigation-table" style=3D""><tbody><tr><td class=3D"ss-form-entry goog-inlin=
+e-block" id=3D"navigation-buttons" dir=3D"ltr" style=3D"margin-bottom:1.5em=
+;vertical-align:middle;margin-left:0;margin-top:0;max-width:100%;position:r=
+elative;display:inline-block;">
+<input type=3D"submit" name=3D"submit" value=3D"Submit" id=3D"ss-submit" cl=
+ass=3D"jfk-button jfk-button-action " style=3D"">
+</td>
+</tr></tbody></table></div></ol></form></div>
+<div class=3D"ss-footer" style=3D""><div class=3D"ss-attribution" style=3D"=
+"></div>
+<div class=3D"ss-legal" style=3D""><div class=3D"disclaimer-separator" styl=
+e=3D""></div>
+<div class=3D"disclaimer" dir=3D"ltr" style=3D""><div class=3D"powered-by-l=
+ogo" style=3D"margin-top:2em;"><span class=3D"powered-by-text" style=3D"">P=
+owered by</span>
+<a href=3D"https://www.google.com/forms/about/?utm_source=3Dproduct&amp;utm=
+_medium=3Dforms_logo&amp;utm_campaign=3Dforms" style=3D""><div class=3D"ss-=
+logo-container" style=3D""><img src=3D"https://ssl.gstatic.com/docs/forms/f=
+orms_logo_2_small_dark_2x.png" height=3D"21px" width=3D"108px" alt=3D"Googl=
+e Forms" style=3D""></div></a></div>
+<div class=3D"ss-terms" style=3D"color:#777;font-size:11px;margin-top:1.5em=
+;"><span class=3D"disclaimer-msg" style=3D"">This content is neither create=
+d nor endorsed by Google.</span>
+<br>
+<a href=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3=
+YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/reportabuse?source=3Dhttps://docs.google.com=
+/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewfor=
+m?sid%3Db22550cf7bb617b%26c%3D0%26w%3D1%26token%3Dfdt8FWQBAAA.7VcZNXAYxRSxq=
+O04T7dvHg.WrfU1fSSMtuqHtsulT1asg" style=3D"">Report Abuse</a>
+-
+<a href=3D"http://www.google.com/accounts/TOS" style=3D"">Terms of Service<=
+/a>
+-
+<a href=3D"http://www.google.com/google-d-s/terms.html" style=3D"">Addition=
+al Terms</a></div></div></div></div>
+</td></tr><tr height=3D"24px"></tr></tbody></table></div><table align=3D"ce=
+nter" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width: 672px; min-wi=
+dth: 154px;" width=3D"100%" role=3D"presentation"><tbody><tr height=3D"24px=
+"><td></td></tr><tr><td><a href=3D"https://docs.google.com/forms?usp=3Dmail=
+_form_link" style=3D"color: #424242; font-size: 13px;">Create your own Goog=
+le Form</a></td></tr></tbody></table></div></body></html>
+--000000000000ebc0b3056ef350dc--
