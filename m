@@ -1,69 +1,66 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::244; helo=mail-pg0-x244.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FmyGPpAU"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="BU0j5wsH"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="I5QHNF4R"; 
+ dkim-atps=neutral
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418Gyg1307zF0XQ
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 13:38:18 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0DF9020F01;
- Sun, 17 Jun 2018 23:38:16 -0400 (EDT)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Sun, 17 Jun 2018 23:38:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=iQruUCzJpnrAuAqWuAPlUBQuouoiy
- 3jfWNoWuAe6gDg=; b=FmyGPpAUIOPPwHMPQU89P0rV0KnxDuZ9/xn5u+YMF0O/6
- SOKbxd0AvL3hn438guSrhyvQtcpTMvlriKs6OWV8kOT55Y3OLbw//s5wFjRw6Z9H
- LJsCN5uFVkYSLC/HZ1N0e+1t3Y2d44KI637Dm0y8JvaHe6ny5uw1tmSb6bhO3mZ4
- XcuU+6pXkOU3bzoiewuwanpznNFGpPVmpN4HhezAqc6/c0ieCcQPjyNJVIqLjvTW
- FyXYfOhQZRY9lAQRxopETWcm3sp45lBubgg616yZOFKx69mq27Xq3Vv90BFQmsAF
- y2DZFB0T7oht1CE4OI+Hkw8gESHMU1dn3ffHnNZxg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=iQruUC
- zJpnrAuAqWuAPlUBQuouoiy3jfWNoWuAe6gDg=; b=BU0j5wsHdEp5MxH60yA8je
- mrwCqqhC0SGtDQnBJmj5AUVo4Est79WqH2dCQaadeuKYT79Iy3f3dVdS+2IV1xTq
- ixBxq1Ry9tY1ojXtRxetJSgjy1Fy53cZCjofOOgHMZ936Z9J023mSubaX/wWaXC8
- JGrfBJxbPilLf8yuqF19aqpH6gxFzQTSUJmPeNmv9xL5cXk+7mk7K/OmN+j8r8bS
- GBsmvzpVN2Yn/tHnPQ0UV6jpwHJG7Ndgru2V9x9br4IVPQhEcHKr1iTShoN2lIPe
- 247IOaPdnh0lVtJ+KC9JvY+uY+/2yOZt6PYh/7+hcKvaO9+vuV238Rjt5B6uLZfw
- ==
-X-ME-Proxy: <xmx:JyknWxjFNpxq5lb9jYWixyhPCck4PwFzwIrZuqF-eAtKMpXHN-nX3w>
- <xmx:JyknW9bxjUih2XOY0e5bZRNFZm1aJ622RO1YAIwgb2bKtlW0mCagRg>
- <xmx:JyknW2pAzO-mb93sxgSk9BakQbS6Var4209I6TLWoaVjkVm4lpyIUQ>
- <xmx:JyknWyOF0tQpbkQ5DHp8IAFH5nnw763H2C-bwVOw2j6OWROiJMsW2g>
- <xmx:JyknWxqQM2ZdU4w2JMxq7h-KczKfhm8QgMW_RkDu1gzyl7oLnKcyzA>
- <xmx:KCknWwaUSlEAV4os4Jigto6fNuA4vGZFkga005MUC5cvgOO0o5qsOA>
-X-ME-Sender: <xms:JyknWw2BCdmZMxHwfWxR6nOdT_mgpjkHN60ct9mhHgJMEOhnLPgurw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 87DCEBA43D; Sun, 17 Jun 2018 23:38:15 -0400 (EDT)
-Message-Id: <1529293095.2204606.1411267976.3E89DDC7@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?utf-8?Q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
- openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418H4z37mdzDrcd
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 13:43:47 +1000 (AEST)
+Received: by mail-pg0-x244.google.com with SMTP id w8-v6so3850951pgp.7
+ for <openbmc@lists.ozlabs.org>; Sun, 17 Jun 2018 20:43:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vW8hSGqoPhF3gV/V/CNgNC3w3PhnFtWOtpGzGgm32dg=;
+ b=I5QHNF4RB/YAqcD1hIP8O7yWrUqwgbTqEUtfNM+eypqhL9aGwo71KQdJt3RCOJP/8T
+ OY+4PCuy1X5oubFL2EJq9PGZ214+iTIXnh+SwETacqj7Uy4SQUZZqDK0zSTWlqN/Ynfe
+ yMmquvNtoJ/hbGHyy7nsWJMo/2Wc/Uf/57cOzBU5nsvPgh0ulXDdALI92k48IzSLmw94
+ m5YTtvxUxuL9M0G5ii9pWBCgMFWx56vZvOrNYMN10yVFQKrDCmCQMY0/rquJjW1Xh/iO
+ gRiw35hLhDtHTHx7r8E0aQLhd9Uf4p9J0uZiVnr2fcHn/A5MsZ3dr5+7Bk88Mb73nmnc
+ JEdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=vW8hSGqoPhF3gV/V/CNgNC3w3PhnFtWOtpGzGgm32dg=;
+ b=k91Gu8kAZABmkDcJSkIkpvmac2JQ06hom3CArqNPQI1G5KhxOlbTPyCfiHkSGXDOB/
+ /NS6Sk510cJlSMoag88u1qusgrh9pmsjz4phgFvxl+o57debOhhyCRCYVvYfmibCCt1k
+ zuvvJauubROK+PsLRrovM0/WASJmQD1y25MeMGuRIJ/45PvAX2CbqoFXOCPySChC0geU
+ lgKa/HPvvokf3lyn9AkKI8X6OrOPeQCwYH7JvnNDPofEczIO3lM/guy8s15adVjAbgxr
+ hrJH4pIqxG2T8s7b6TpyW4q983kfESjPYWZl6SbMFdOu+JLTXBG20vSsnzzvRXWGuEuT
+ SZoQ==
+X-Gm-Message-State: APt69E2x1gNQYB+pxTcjLxSTracHZoDVZMYqE0NkIJZFF0sY21iEHhZL
+ KvOEQgI54RlnVQxSVxxrqVOAOuxr
+X-Google-Smtp-Source: ADUXVKLlp6997rv2w/Mz5UvAu9OHWxolRWZYfGCzp1hCEpl1krrP5zGD6jF9U8EPqNxz1CJYYYCX+A==
+X-Received: by 2002:a63:7b51:: with SMTP id
+ k17-v6mr9538820pgn.55.1529293424610; 
+ Sun, 17 Jun 2018 20:43:44 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id j8-v6sm4327639pfe.84.2018.06.17.20.43.41
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 17 Jun 2018 20:43:43 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Mon, 18 Jun 2018 13:13:38 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH 0/5] FSI warning fixes
+Date: Mon, 18 Jun 2018 13:13:30 +0930
+Message-Id: <20180618034335.9732-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-498d70f2
-References: <20180608130000.22627-1-clg@kaod.org>
- <20180608130000.22627-3-clg@kaod.org>
-Subject: Re: [PATCH 2/2] mtd: spi-nor: aspeed: limit the maximum SPI frequency
-Date: Mon, 18 Jun 2018 13:08:15 +0930
-In-Reply-To: <20180608130000.22627-3-clg@kaod.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,96 +72,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jun 2018 03:38:21 -0000
+X-List-Received-Date: Mon, 18 Jun 2018 03:43:48 -0000
 
-On Fri, 8 Jun 2018, at 22:30, C=C3=A9dric Le Goater wrote:
-> The optimize read algo can choose a 100MHz SPI frequency which might
-> be a bit too high for dual output IO on some chips, for the W25Q256 on
-> palmetto for instance. The MX66L1G45G on witherspoon should be fine
-> though. Also, the second chip of the FMC controller does not get any
-> optimize settings for reads. Only the first is configured by U-Boot.
->=20
-> To fix these two issues, we introduce a "spi-max-frequency" property
-> in the device tree which will be used to cap the optimize read
-> algorithm and we run the algo on the FMC controller chips as well.
+Hi Eddie and Ben,
 
-Might be a silly question, but why didn't you add support for optimized rea=
-ds for the AST2400 FMC given we can limit the speed through the devicetree =
-property?
+I've fixed a bunch of printf warnings (that only occur when the kernel
+is being built for a 64 bit machine) and sparse warnings.
 
->=20
-> By default, the frequency setting is 50MHz.
->=20
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> ---
->  drivers/mtd/spi-nor/aspeed-smc.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspee=
-d-smc.c
-> index a301895d1f06..e4a0123b12b3 100644
-> --- a/drivers/mtd/spi-nor/aspeed-smc.c
-> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-> @@ -83,6 +83,7 @@ static const struct aspeed_smc_info fmc_2500_info =3D {
->  	.ctl0 =3D 0x10,
->  	.timing =3D 0x94,
->  	.set_4b =3D aspeed_smc_chip_set_4b,
-> +	.optimize_read =3D aspeed_smc_optimize_read,
+Where appropraite please fold these fixes into your work in progress
+code.
 
-i.e. here you add the support for the 2500 FMC, but the 2400 FMC info struc=
-t is unchanged.
+(This is with the work in progress 4.17 tree, which contains all of the
+posted fixes, plus a mega-patch that I created with all of the OCC HWMON
+work).
 
->  };
->=20=20
->  static const struct aspeed_smc_info spi_2500_info =3D {
-> @@ -114,6 +115,7 @@ struct aspeed_smc_chip {
->  	u32 ctl_val[smc_max];			/* control settings */
->  	enum aspeed_smc_flash_type type;	/* what type of flash */
->  	struct spi_nor nor;
-> +	u32 clk_rate;
->  };
->=20=20
->  struct aspeed_smc_controller {
-> @@ -130,6 +132,8 @@ struct aspeed_smc_controller {
->  	struct aspeed_smc_chip *chips[0];	/* pointers to attached chips */
->  };
->=20=20
-> +#define ASPEED_SPI_DEFAULT_FREQ		50000000
-> +
->  /*
->   * SPI Flash Configuration Register (AST2500 SPI)
->   *     or
-> @@ -993,11 +997,10 @@ static int aspeed_smc_chip_setup_finish(struct=20
-> aspeed_smc_chip *chip)
->  	dev_info(controller->dev, "read control register: %08x\n",
->  		chip->ctl_val[smc_read]);
->=20=20
-> -	/*
-> -	 * TODO: get max freq from chip
-> -	 */
-> +
->  	if (optimize_read && info->optimize_read)
-> -		info->optimize_read(chip, 104000000);
-> +		info->optimize_read(chip, chip->clk_rate);
-> +
->  	return 0;
->  }
->=20=20
-> @@ -1051,6 +1054,13 @@ static int aspeed_smc_setup_flash(struct=20
-> aspeed_smc_controller *controller,
->  			break;
->  		}
->=20=20
-> +		if (of_property_read_u32(child, "spi-max-frequency",
-> +					 &chip->clk_rate)) {
-> +			chip->clk_rate =3D ASPEED_SPI_DEFAULT_FREQ;
-> +		}
-> +		dev_info(dev, "Using %d MHz SPI frequency\n",
-> +			 chip->clk_rate / 1000000);
-> +
->  		chip->controller =3D controller;
->  		chip->ctl =3D controller->regs + info->ctl0 + cs * 4;
->  		chip->cs =3D cs;
-> --=20
-> 2.13.6
->=20
+Joel Stanley (5):
+  fsi-occ: Fix size_t printf
+  hwmon (occ): Fix printf warning
+  fsi: sbefifo: Fix sparse warnings
+  fsi: master-hub: Fix sparse warnings
+  fsi: core: Fix sparse warnings
+
+ drivers/fsi/fsi-core.c       | 23 +++++++++++++----------
+ drivers/fsi/fsi-master-hub.c |  5 +++--
+ drivers/fsi/fsi-occ.c        |  2 +-
+ drivers/fsi/fsi-sbefifo.c    |  5 +++--
+ drivers/hwmon/occ/common.c   |  2 +-
+ 5 files changed, 21 insertions(+), 16 deletions(-)
+
+-- 
+2.17.1
