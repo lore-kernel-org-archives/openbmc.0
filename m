@@ -1,56 +1,82 @@
-Return-Path: <3oEcoWwoJB68YPbTh.bXWbVbPXa.RdbdeTcQbRaXhih.doaPQh.dgV@trix.bounces.google.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
- smtp.mailfrom=trix.bounces.google.com (client-ip=2607:f8b0:4001:c06::247;
- helo=mail-io0-x247.google.com;
- envelope-from=3oecowwojb68ypbth.bxwbvbpxa.rdbdetcqbraxhih.doapqh.dgv@trix.bounces.google.com;
- receiver=<UNKNOWN>)
+Return-Path: <aaron_ppus@fmad.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="HSsOAkYv"; 
+ spf=neutral (mailfrom) smtp.mailfrom=fmad.com
+ (client-ip=74.220.202.212; helo=outbound-ss-348.hostmonster.com;
+ envelope-from=aaron_ppus@fmad.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=fmad.com
+Authentication-Results: lists.ozlabs.org;
+ dkim=policy reason="signing key too small" (768-bit key;
+ unprotected) header.d=fmad.com header.i=@fmad.com header.b="pz08mRkq"; 
  dkim-atps=neutral
-Received: from mail-io0-x247.google.com (mail-io0-x247.google.com
- [IPv6:2607:f8b0:4001:c06::247])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Greylist: delayed 2311 seconds by postgrey-1.36 at bilbo;
+ Mon, 18 Jun 2018 15:21:52 AEST
+Received: from outbound-ss-348.hostmonster.com
+ (outbound-ss-348.hostmonster.com [74.220.202.212])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418p552HfgzF0WP
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 10:00:34 +1000 (AEST)
-Received: by mail-io0-x247.google.com with SMTP id v4-v6so14500538iol.8
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 17:00:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:reply-to:message-id:date:subject:from:to;
- bh=zsaj0t+6TDM/qHBKv+tvX+UKJucil4CPEXIGzi8pov0=;
- b=HSsOAkYvWTIG5vMgMCxfxzDYmsqUqcXKe15hRa3RxSYmBHCwNJztY4OW6YIpAmZUR0
- rEyHM6A487Z9WqMYYJqbdl0WVPPxd2FyokhUYtwgWxXgm+E7TQYfD50vjdjam5F90cqL
- 4Q8BFJzFXgDANTcTqZss38AFRBMulWVYdrfCIGPVPz2zJmtOx8AWN2n53UHFyROpq5af
- dxiCNjEfkyfnogsMjb89xxI40I3FPh6z3+eCvV46XjO/dkxSFcir2NBs1QX8rcrAURGW
- nX7HnCuFPbLYznqoHyLHAihf6hUjezVrKfeX2rF0GeiIyhFyFx9LLfatg3AlTBUNYxpU
- m/1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:reply-to:message-id:date:subject
- :from:to;
- bh=zsaj0t+6TDM/qHBKv+tvX+UKJucil4CPEXIGzi8pov0=;
- b=S/fziGuwhBMU6VcaPePREOMYjmSi4Bb7V/H/0wS5upcZC2o1DFyzgv1IlrlILcnu/P
- 9d45lUEdBi9LZQsQokPP+Iekr82wJ7FD49LYx7N0NtVRMRr7xm4HOr1eMy1JlDw8j9Qc
- jrqy8v3/n60fa0uAryOdEGA7I3quf3qT2oWD13RVDn0k7a/dJTaYsrD4kYu4aZtY8hLq
- 03aNIfHgjRkeclLTAm8aL8bsVDY/fiASOJbnSDTIVQzz2U1pT4nZwhs1eI8BQ8p6oRN3
- 3XV45K4SbimDFUd77P8UKqbIQc42F6zBf2l8I2ZYtNyGug7XvdPazJ7yZqXunLx5TEG2
- kDgQ==
-X-Gm-Message-State: APt69E2rWwL4DpZQk/7aHlO5yoTZ0ucldip/ZuLN1f1y++ISj++CyaXW
- 3WFm6ra2dXPxWdmYqZxxqftnkccHhjrqc7ciExxR
-X-Google-Smtp-Source: ADUXVKJ7kGQohiLY71rO92SThLoIKGd60jNGE5ZZRmWo86U7Yuz5Rmsmh31BSfjCM0YycE6L5w32/Qw0qGdK5yiDQ084
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418KG80ZvDzF0Pd
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 15:21:50 +1000 (AEST)
+Received: from cmgw13.unifiedlayer.com (unknown [10.9.0.13])
+ by gproxy6.mail.unifiedlayer.com (Postfix) with ESMTP id C5FBF1E0624
+ for <openbmc@lists.ozlabs.org>; Sun, 17 Jun 2018 22:43:14 -0600 (MDT)
+Received: from box313.bluehost.com ([69.89.31.113]) by cmsmtp with ESMTP
+ id Um06fWDgl6v4yUm06fVV0T; Sun, 17 Jun 2018 22:42:46 -0600
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=fmad.com;
+ s=default; h=Content-Type:Cc:To:Subject:Message-ID:Date:From:References:
+ In-Reply-To:MIME-Version:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=VWEF+OVaWFksWv7UcmXJZUS6+A42Kpx+ZeeqLPquCeo=; b=pz08mRkqC/UAcwoNRd//YpMyJb
+ aMboD4X+cII0xuWuLFB5wVMn6vr5+4A0zgbRK5SR4W2arRLjUql8/SYDD++mnIWKCvZ2uw0GNknP4
+ oDcxg8IQvYHvIIzi6MKeG8njB;
+Received: from mail-oi0-f49.google.com ([209.85.218.49]:45302)
+ by box313.bluehost.com with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89_1) (envelope-from <aaron_ppus@fmad.com>)
+ id 1fUm0Y-002TKp-6W
+ for openbmc@lists.ozlabs.org; Sun, 17 Jun 2018 22:43:14 -0600
+Received: by mail-oi0-f49.google.com with SMTP id 188-v6so13627348oid.12
+ for <openbmc@lists.ozlabs.org>; Sun, 17 Jun 2018 21:43:14 -0700 (PDT)
+X-Gm-Message-State: APt69E0nmZNSBi34y3M0uXh22D9yGX0kxtd+ZF68qbMwVP9edgcMCsWy
+ HAwSFXi+H817oJNHnw2/BQKIXT55Ja0XGJn6BQ==
+X-Google-Smtp-Source: ADUXVKKukb/J8aEPkVXAHmoq4/2MWOrLDHIhwXKjdh3PKUk8KmMqRUPQaRObaA22vCjHOdGV6FEqEMpKgKBNQblaUzY=
+X-Received: by 2002:aca:a686:: with SMTP id t6-v6mr6378766oij.48.1529296993570; 
+ Sun, 17 Jun 2018 21:43:13 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 2002:a02:c5:: with SMTP id 188-v6mr6486059jaa.15.1529366432770; 
- Mon, 18 Jun 2018 17:00:32 -0700 (PDT)
-Reply-To: james.mihm@gmail.com
-X-No-Auto-Attachment: 1
-Message-ID: <000000000000f4f3d0056ef35e6f@google.com>
-Date: Tue, 19 Jun 2018 00:00:32 +0000
-Subject: OpenBMC Hackathon
-From: james.mihm@gmail.com
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000f4f3c1056ef35e6c"
+Received: by 2002:aca:7591:0:0:0:0:0 with HTTP; Sun, 17 Jun 2018 21:43:12
+ -0700 (PDT)
+In-Reply-To: <1529294903.2213646.1411287368.3EEC4528@webmail.messagingengine.com>
+References: <CABq4n+T4aZ+iPerYDOrh8KJ09rxyUC96h-Qhvvznjz0AQuQ7Rg@mail.gmail.com>
+ <1529294903.2213646.1411287368.3EEC4528@webmail.messagingengine.com>
+From: Aaron <aaron_ppus@fmad.com>
+Date: Mon, 18 Jun 2018 13:43:12 +0900
+X-Gmail-Original-Message-ID: <CABq4n+R+DLn3ham7YfsxEBPLALPma8YEmWAuckt+-gzBHT5aSg@mail.gmail.com>
+Message-ID: <CABq4n+R+DLn3ham7YfsxEBPLALPma8YEmWAuckt+-gzBHT5aSg@mail.gmail.com>
+Subject: Re: Netboot full image loading AST2400
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000000ed60c056ee33471"
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box313.bluehost.com
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - fmad.com
+X-BWhitelist: no
+X-Source-IP: 209.85.218.49
+X-Source-L: No
+X-Exim-ID: 1fUm0Y-002TKp-6W
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: mail-oi0-f49.google.com [209.85.218.49]:45302
+X-Source-Auth: aaron_ppus@fmad.com
+X-Email-Count: 3
+X-Source-Cap: Zm1hZGNvbTtmbWFkY29tO2JveDMxMy5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-Mailman-Approved-At: Tue, 19 Jun 2018 10:02:54 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -62,162 +88,496 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jun 2018 00:00:44 -0000
+X-List-Received-Date: Mon, 18 Jun 2018 05:21:53 -0000
 
---000000000000f4f3c1056ef35e6c
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+--0000000000000ed60c056ee33471
+Content-Type: text/plain; charset="UTF-8"
 
-I've invited you to fill out the following form:
-OpenBMC Hackathon
+Thanks! will give that a try.
 
-To fill it out, visit:
-https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=0&amp;w=1&amp;usp=mail_form_link
+Aaron
 
-Corrected the date for October to 9th - 11th.
+On 18 June 2018 at 13:08, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-I&#39;ve invited you to fill out a form:
+> Hi Aaron,
+>
+> On Fri, 15 Jun 2018, at 22:58, Aaron wrote:
+> > Hi,
+> >
+> > It seems like there would an easy way to do this for development/bringup,
+> > asking instead of hacking on the code for a change.
+> >
+> > Im bringing up a system by loading an image via u-boot across the network
+> > into the upper section of ram, then booting from there. It relocates
+> itself
+> > to the reset vector and generally works well.
+> >
+> > U-Boot 2016.07 (Jun 15 2018 - 20:42:28 +0900)
+> >
+> > DRAM:  240 MiB
+> > WARNING: Caches not enabled
+> > Flash: 32 MiB
+> > *** Warning - bad CRC, using default environment
+> >
+> > In:    serial
+> > Out:   serial
+> > Err:   serial
+> > Net:   aspeednic#0
+> > Error: aspeednic#0 address not set.
+> >
+> > Hit any key to stop autoboot:  0
+> > ast# nv
+> > Unknown command 'nv' - try 'help'
+> > ast# env print
+> > baudrate=115200
+> > bootargs=console=ttyS4,115200n8 root=/dev/ram rw
+> > bootcmd=bootm 20080000
+> > bootdelay=2
+> > ethact=aspeednic#0
+> > spi_dma=yes
+> > stderr=serial
+> > stdin=serial
+> > stdout=serial
+> > verify=yes
+> >
+> > Environment size: 204/65531 bytes
+> > ast#
+> >
+> >
+> > The initial stages are good, but 2nd stage loader assume files on MTD
+> > instead of whats in RAM, thus crashes out / uses stale data. Wasted about
+> > half a day wondering why my changes were having little to no effect.
+> >
+> > Is there a best practices on this?
+> >
+> > Thanks
+> > Aaron
+> >
+> >
+> >
+> > ast# bootd
+> > FTGMAC100#0: link up, 1000bps full-duplex
+> > Using FTGMAC100#0 device
+> > TFTP from server 192.168.2.136; our IP address is 192.168.2.143
+> > Filename 'image-current'.
+> > Load address: 0x40a00000
+> > Loading: ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> > .
+> > .
+> > .
+> > .
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          ############################################################
+> #####
+> >          #######################################################
+> >          2.5 MiB/s
+> > done
+> > Bytes transferred = 33554432 (2000000 hex)
+> > ## Loading kernel from FIT Image at 40a80000 ...
+> >    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
+> >    Trying 'kernel@1' kernel subimage
+> >      Description:  Linux kernel
+> >      Type:         Kernel Image
+> >      Compression:  uncompressed
+> >      Data Start:   0x40a8012c
+> >      Data Size:    2331736 Bytes = 2.2 MiB
+> >      Architecture: ARM
+> >      OS:           Linux
+> >      Load Address: 0x40008000
+> >      Entry Point:  0x40008000
+> >      Hash algo:    sha1
+> >      Hash value:   6a7b891f8d5fed2d358b2ceb06034496979dcae8
+> >    Verifying Hash Integrity ... sha1+ OK
+> > ## Loading ramdisk from FIT Image at 40a80000 ...
+> >    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
+> >    Trying 'ramdisk@1' ramdisk subimage
+> >      Description:  obmc-phosphor-initramfs
+> >      Type:         RAMDisk Image
+> >      Compression:  lzma compressed
+> >      Data Start:   0x40cbfa80
+> >      Data Size:    1874095 Bytes = 1.8 MiB
+> >      Architecture: ARM
+> >      OS:           Linux
+> >      Load Address: unavailable
+> >      Entry Point:  unavailable
+> >      Hash algo:    sha1
+> >      Hash value:   788a33bc41ecf5667b87ee2e264c679ed2a42e51
+> >    Verifying Hash Integrity ... sha1+ OK
+> > ## Loading fdt from FIT Image at 40a80000 ...
+> >    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
+> >    Trying 'fdt@aspeed-bmc-quanta-q71l.dtb' fdt subimage
+> >      Description:  Flattened Device Tree blob
+> >      Type:         Flat Device Tree
+> >      Compression:  uncompressed
+> >      Data Start:   0x40cb9690
+> >      Data Size:    25390 Bytes = 24.8 KiB
+> >      Architecture: ARM
+> >      Hash algo:    sha1
+> >      Hash value:   84ed7efe6232738984546b3ef27397ab251c3396
+> >    Verifying Hash Integrity ... sha1+ OK
+> >    Booting using the fdt blob at 0x40cb9690
+> >    Loading Kernel Image ... OK
+> >    Loading Ramdisk to 4e9d1000, end 4eb9a8af ... OK
+> >    Loading Device Tree to 4e9c7000, end 4e9d032d ... OK
+> >
+> > Starting kernel ...
+> >
+> >
+> > [    0.000000] Booting Linux on physical CPU 0x0
+> > [    0.000000] random: get_random_bytes called from
+> start_kernel+0x3c/0x3f0
+> > with crng_init=0
+> > [    0.000000] Linux version
+> > 4.13.16-aca92be80c008bceeb6fb62fd1d450b5be5d0a4f (oe-user@oe-host) (gcc
+> > version 7.3.0 (GCC)) #10 Fri Jun 15 20:59:12 JST 2018
+> > [    0.000000] CPU: ARM926EJ-S [41069265] revision 5 (ARMv5TEJ),
+> cr=0005317f
+> > [    0.000000] CPU: VIVT data cache, VIVT instruction cache
+> > [    0.000000] OF: fdt: Machine model: Quanta Q71L BMC
+> > [    0.000000] Memory policy: Data cache writeback
+> > [    0.000000] Built 1 zonelists in Zone order, mobility grouping on.
+> > Total pages: 58912
+> > [    0.000000] Kernel command line: console=ttyS4,115200n8 root=/dev/ram
+> rw
+> > [    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+> > [    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072
+> > bytes)
+> > [    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536
+> bytes)
+> > [    0.000000] Memory: 224832K/237568K available (5120K kernel code, 330K
+> > rwdata, 1276K rodata, 1024K init, 109K bss, 12736K reserved, 0K
+> > cma-reserved)
+> > [    0.000000] Virtual kernel memory layout:
+> > [    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+> > [    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)
+> > [    0.000000]     vmalloc : 0x8f800000 - 0xff800000   (1792 MB)
+> > .
+> > .
+> > <snip>
+> > .
+> > .
+> >
+> > [    4.641015] Segment Routing with IPv6
+> > [    4.643890] ip6_tables: (C) 2000-2006 Netfilter Core Team
+> > [    4.648315] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+> > [    4.654435] NET: Registered protocol family 17
+> > [    4.657830] 8021q: 802.1Q VLAN Support v1.8
+> > [    4.672023] hctosys: unable to open rtc device (rtc0)
+> > [    4.682642] Freeing unused kernel memory: 1024K
+> > rofs = mtd4 squashfs rwfs = mtd5 jffs2
+> > mount: mounting /dev/mtdblock4 on run/initramfs/ro failed: Invalid
+> argument
+> > [    7.296855] jffs2: notice: (453) jffs2_build_xattr_subsystem: complete
+> > building xattr subsystem, 53 of xdatum (40 unchecked, 13 orphan) and 189
+> of
+> > xref (8 dead, 47 orphan) foun.
+> > [    7.336463] overlayfs: upper fs does not support tmpfile.
+> > chroot: can't execute '/bin/sh': No such file or directory
+> >
+> > Unable to confirm /sbin/init is an executable non-empty file
+> > in merged file system mounted at /root.
+> >
+> > Change Root test failed!  Invoking emergency shell.
+> > Enter password to try to manually fix.
+> > After fixing run exit to continue this script, or reboot -f to retry, or
+> > touch /takeover and exit to become PID 1 allowing editing of this script.
+> > Give root password for maintenance
+> > (or press Control-D to continue):
+> >
+> >
+> > ... and tries to load from MTD which has been purposely erased, and thus
+> > complains.
+>
+> Have you tried building a netboot image? I think this commit is relevant:
+>
+> https://gerrit.openbmc-project.xyz/#/c/1957/
+>
+> Cheers,
+>
+> Andrew
+>
 
-Google Forms: Create and analyze surveys.
-
---000000000000f4f3c1056ef35e6c
+--0000000000000ed60c056ee33471
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html><body style=3D"font-family: Roboto,Helvetica,Arial,sans-serif; margin=
-: 0; padding: 0; height: 100%; width: 100%;"><table border=3D"0" cellpaddin=
-g=3D"0" cellspacing=3D"0" style=3D"background-color:rgb(103,58,183);" width=
-=3D"100%" role=3D"presentation"><tbody><tr height=3D"64px"><td style=3D"pad=
-ding-left: 24px"><img alt=3D"Google Forms" height=3D"26px" style=3D"display=
-: inline-block; margin: 0; vertical-align: middle;" width=3D"143px" src=3D"=
-https://www.gstatic.com/docs/forms/google_forms_logo_lockup_white_2x.png"><=
-/td></tr></tbody></table><div style=3D"padding: 24px; background-color:rgb(=
-237,231,246)"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellsp=
-acing=3D"0" style=3D"max-width: 672px; min-width: 154px;" width=3D"100%" ro=
-le=3D"presentation"><tbody><tr><td style=3D"font-size: 13px; line-height: 1=
-8px; color: #424242; font-weight: 700">Having trouble viewing or submitting=
- this form?</td></tr><tr height=3D"8px"><td></td></tr><tr><td><table border=
-=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%"><tbody><tr><td><a=
- href=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_J=
-VU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_form_link"=
- style=3D"border-radius: 3px; box-sizing: border-box; display: inline-block=
-; font-size: 13px; font-weight: 700; height: 40px; line-height: 40px; paddi=
-ng: 0 24px; text-align: center; text-decoration: none; text-transform: uppe=
-rcase; vertical-align: middle; color: #fff; background-color: rgb(103,58,18=
-3);" target=3D"_blank" rel=3D"noopener">Fill out in Google Forms</a></td></=
-tr></tbody></table></td></tr><tr height=3D"24px"><td></td></tr></tbody></ta=
-ble><div align=3D"center" style=3D"background-color: #fff; border-bottom: 1=
-px solid #e0e0e0; margin: 0 auto; max-width: 624px; min-width: 154px; paddi=
-ng: 0 24px;"><table align=3D"center" cellpadding=3D"0" cellspacing=3D"0" st=
-yle=3D"background-color: #fff;" width=3D"100%" role=3D"presentation"><tbody=
-><tr height=3D"24px"><td></td></tr><tr><td><span style=3D"display: table-ce=
-ll; vertical-align: top; font-size: 13px; line-height: 18px; color: #424242=
-;" dir=3D"auto">Corrected the date for October to 9th - 11th.<br><br>I&#39;=
-ve invited you to fill out a form:</span></td></tr><tr height=3D"20px"><td>=
-</tr><tr style=3D"font-size: 20px; line-height: 24px;"><td dir=3D"auto"><a =
-href=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JV=
-U5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_form_link" =
-style=3D"color: rgb(103,58,183); text-decoration: none; vertical-align: mid=
-dle; font-weight: 500">OpenBMC Hackathon</a><div itemprop=3D"action" itemsc=
-ope itemtype=3D"http://schema.org/ViewAction"><meta itemprop=3D"url" conten=
-t=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5Y=
-CjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_goto_form"><me=
-ta itemprop=3D"name" content=3D"Fill out form"></div></td></tr><tr height=
-=3D"16px"></tr><tr><td style=3D"display: table-cell; vertical-align: top; f=
-ont-size: 13px; line-height: 18px; color: #424242;" dir=3D"auto">A proposal=
- was made to move the date of the Hackathon from September to October.<br><=
-br>Soliciting input from the community for dates for the Fall 2018 Hackatho=
-n sponsored by Intel in Hillsboro, Oregon, USA.<br><br>The response deadlin=
-e is Thursday, June  21st, 2018 at 5pm (PST).</td></tr><tr height=3D"24px">=
-</tr><tr><td><div class=3D"ss-form" style=3D""><form action=3D"https://docs=
-.google.com/forms/u/0/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Q=
-y6sz42Q/formResponse" method=3D"POST" id=3D"ss-form" target=3D"_self" style=
-=3D""><ol role=3D"list" class=3D"ss-question-list" style=3D"padding-left: 0=
-;list-style-type:none;">
-
-<div class=3D"ss-form-question errorbox-good" role=3D"listitem" style=3D"">
-<div dir=3D"auto" class=3D"ss-item  ss-radio" style=3D"margin:12px 0;"><div=
- class=3D"ss-form-entry" style=3D"margin-bottom:1.5em;vertical-align:middle=
-;margin-left:0;margin-top:0;max-width:100%;">
-<label class=3D"ss-q-item-label" for=3D"entry_1602138391" style=3D""><div c=
-lass=3D"ss-q-title" style=3D"display:block;font-weight:bold;margin-top:.83e=
-m;margin-bottom:.83em;">Select preferred date for the Fall Hackathon
-</div>
-<div class=3D"ss-q-help ss-secondary-text" dir=3D"auto" style=3D"display:bl=
-ock;margin:.1em 0 .25em 0;color:#666;"></div></label>
-
-
-<ul class=3D"ss-choices" role=3D"radiogroup" aria-label=3D"Select preferred=
- date for the Fall Hackathon  " style=3D"list-style:none;padding:0;margin:.=
-5em 0 0;"><li class=3D"ss-choice-item" style=3D"margin:0;line-height:1.3em;=
-padding-bottom:.5em;">
-<label><span class=3D"ss-choice-item-control goog-inline-block" style=3D"po=
-sition:relative;display:inline-block;"><input type=3D"radio" name=3D"entry.=
-55965231" value=3D"Sept 18th - 20th, 2018" id=3D"group_55965231_1" role=3D"=
-radio" class=3D"ss-q-radio" aria-label=3D"Sept 18th - 20th, 2018" style=3D"=
-"></span>
-<span class=3D"ss-choice-label" style=3D"">Sept 18th - 20th, 2018</span>
-</label></li> <li class=3D"ss-choice-item" style=3D"margin:0;line-height:1.=
-3em;padding-bottom:.5em;">
-<label><span class=3D"ss-choice-item-control goog-inline-block" style=3D"po=
-sition:relative;display:inline-block;"><input type=3D"radio" name=3D"entry.=
-55965231" value=3D"October 9th - 11th, 2018" id=3D"group_55965231_2" role=
-=3D"radio" class=3D"ss-q-radio" aria-label=3D"October 9th - 11th, 2018" sty=
-le=3D""></span>
-<span class=3D"ss-choice-label" style=3D"">October 9th - 11th, 2018</span>
-</label></li></ul>
-
-</div></div></div>
-<input type=3D"hidden" name=3D"draftResponse" value=3D"[null,null,&quot;136=
-612974799437793&quot;]
-" style=3D"">
-<input type=3D"hidden" name=3D"pageHistory" value=3D"0" style=3D"">
-
-<input type=3D"hidden" name=3D"usp" value=3D"mail_form_submit" style=3D"">
-
-<input type=3D"hidden" name=3D"fbzx" value=3D"136612974799437793" style=3D"=
-">
-<div class=3D"ss-send-email-receipt" style=3D"margin-bottom: 4px;" dir=3D"l=
-tr"><label for=3D"emailReceipt" style=3D"display:inline;"></label></div>
-<div class=3D"ss-item ss-navigate" style=3D"margin:12px 0;"><table id=3D"na=
-vigation-table" style=3D""><tbody><tr><td class=3D"ss-form-entry goog-inlin=
-e-block" id=3D"navigation-buttons" dir=3D"ltr" style=3D"margin-bottom:1.5em=
-;vertical-align:middle;margin-left:0;margin-top:0;max-width:100%;position:r=
-elative;display:inline-block;">
-<input type=3D"submit" name=3D"submit" value=3D"Submit" id=3D"ss-submit" cl=
-ass=3D"jfk-button jfk-button-action " style=3D"">
-</td>
-</tr></tbody></table></div></ol></form></div>
-<div class=3D"ss-footer" style=3D""><div class=3D"ss-attribution" style=3D"=
-"></div>
-<div class=3D"ss-legal" style=3D""><div class=3D"disclaimer-separator" styl=
-e=3D""></div>
-<div class=3D"disclaimer" dir=3D"ltr" style=3D""><div class=3D"powered-by-l=
-ogo" style=3D"margin-top:2em;"><span class=3D"powered-by-text" style=3D"">P=
-owered by</span>
-<a href=3D"https://www.google.com/forms/about/?utm_source=3Dproduct&amp;utm=
-_medium=3Dforms_logo&amp;utm_campaign=3Dforms" style=3D""><div class=3D"ss-=
-logo-container" style=3D""><img src=3D"https://ssl.gstatic.com/docs/forms/f=
-orms_logo_2_small_dark_2x.png" height=3D"21px" width=3D"108px" alt=3D"Googl=
-e Forms" style=3D""></div></a></div>
-<div class=3D"ss-terms" style=3D"color:#777;font-size:11px;margin-top:1.5em=
-;"><span class=3D"disclaimer-msg" style=3D"">This content is neither create=
-d nor endorsed by Google.</span>
+<div dir=3D"ltr">Thanks! will give that a try.<div><br></div><div>Aaron</di=
+v></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On 18 Jun=
+e 2018 at 13:08, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=3D"mailto:and=
+rew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span> wrote:<br><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px =
+#ccc solid;padding-left:1ex">Hi Aaron,<br>
+<div><div class=3D"h5"><br>
+On Fri, 15 Jun 2018, at 22:58, Aaron wrote:<br>
+&gt; Hi,<br>
+&gt; <br>
+&gt; It seems like there would an easy way to do this for development/bring=
+up,<br>
+&gt; asking instead of hacking on the code for a change.<br>
+&gt; <br>
+&gt; Im bringing up a system by loading an image via u-boot across the netw=
+ork<br>
+&gt; into the upper section of ram, then booting from there. It relocates i=
+tself<br>
+&gt; to the reset vector and generally works well.<br>
+&gt; <br>
+&gt; U-Boot 2016.07 (Jun 15 2018 - 20:42:28 +0900)<br>
+&gt; <br>
+&gt; DRAM:=C2=A0 240 MiB<br>
+&gt; WARNING: Caches not enabled<br>
+&gt; Flash: 32 MiB<br>
+&gt; *** Warning - bad CRC, using default environment<br>
+&gt; <br>
+&gt; In:=C2=A0 =C2=A0 serial<br>
+&gt; Out:=C2=A0 =C2=A0serial<br>
+&gt; Err:=C2=A0 =C2=A0serial<br>
+&gt; Net:=C2=A0 =C2=A0aspeednic#0<br>
+&gt; Error: aspeednic#0 address not set.<br>
+&gt; <br>
+&gt; Hit any key to stop autoboot:=C2=A0 0<br>
+&gt; ast# nv<br>
+&gt; Unknown command &#39;nv&#39; - try &#39;help&#39;<br>
+&gt; ast# env print<br>
+&gt; baudrate=3D115200<br>
+&gt; bootargs=3Dconsole=3DttyS4,<wbr>115200n8 root=3D/dev/ram rw<br>
+&gt; bootcmd=3Dbootm 20080000<br>
+&gt; bootdelay=3D2<br>
+&gt; ethact=3Daspeednic#0<br>
+&gt; spi_dma=3Dyes<br>
+&gt; stderr=3Dserial<br>
+&gt; stdin=3Dserial<br>
+&gt; stdout=3Dserial<br>
+&gt; verify=3Dyes<br>
+&gt; <br>
+&gt; Environment size: 204/65531 bytes<br>
+&gt; ast#<br>
+&gt; <br>
+&gt; <br>
+&gt; The initial stages are good, but 2nd stage loader assume files on MTD<=
+br>
+&gt; instead of whats in RAM, thus crashes out / uses stale data. Wasted ab=
+out<br>
+&gt; half a day wondering why my changes were having little to no effect.<b=
+r>
+&gt; <br>
+&gt; Is there a best practices on this?<br>
+&gt; <br>
+&gt; Thanks<br>
+&gt; Aaron<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; ast# bootd<br>
+&gt; FTGMAC100#0: link up, 1000bps full-duplex<br>
+&gt; Using FTGMAC100#0 device<br>
+&gt; TFTP from server 192.168.2.136; our IP address is 192.168.2.143<br>
+&gt; Filename &#39;image-current&#39;.<br>
+&gt; Load address: 0x40a00000<br>
+&gt; Loading: ##############################<wbr>##########################=
+####<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt; .<br>
+&gt; .<br>
+&gt; .<br>
+&gt; .<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+#############################<wbr>#####<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ##############################<wbr>#=
+########################<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2.5 MiB/s<br>
+&gt; done<br>
+&gt; Bytes transferred =3D 33554432 (2000000 hex)<br>
+&gt; ## Loading kernel from FIT Image at 40a80000 ...<br>
+&gt;=C2=A0 =C2=A0 Using &#39;conf@aspeed-bmc-quanta-q71l.<wbr>dtb&#39; conf=
+iguration<br>
+&gt;=C2=A0 =C2=A0 Trying &#39;kernel@1&#39; kernel subimage<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Description:=C2=A0 Linux kernel<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Type:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Kernel Imag=
+e<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Compression:=C2=A0 uncompressed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Data Start:=C2=A0 =C2=A00x40a8012c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Data Size:=C2=A0 =C2=A0 2331736 Bytes =3D 2.2 MiB<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Architecture: ARM<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 OS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Linux<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Load Address: 0x40008000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Entry Point:=C2=A0 0x40008000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Hash algo:=C2=A0 =C2=A0 sha1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Hash value:=C2=A0 =C2=A06a7b891f8d5fed2d358b2ceb06=
+0344<wbr>96979dcae8<br>
+&gt;=C2=A0 =C2=A0 Verifying Hash Integrity ... sha1+ OK<br>
+&gt; ## Loading ramdisk from FIT Image at 40a80000 ...<br>
+&gt;=C2=A0 =C2=A0 Using &#39;conf@aspeed-bmc-quanta-q71l.<wbr>dtb&#39; conf=
+iguration<br>
+&gt;=C2=A0 =C2=A0 Trying &#39;ramdisk@1&#39; ramdisk subimage<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Description:=C2=A0 obmc-phosphor-initramfs<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Type:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RAMDisk Ima=
+ge<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Compression:=C2=A0 lzma compressed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Data Start:=C2=A0 =C2=A00x40cbfa80<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Data Size:=C2=A0 =C2=A0 1874095 Bytes =3D 1.8 MiB<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Architecture: ARM<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 OS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Linux<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Load Address: unavailable<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Entry Point:=C2=A0 unavailable<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Hash algo:=C2=A0 =C2=A0 sha1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Hash value:=C2=A0 =C2=A0788a33bc41ecf5667b87ee2e26=
+4c67<wbr>9ed2a42e51<br>
+&gt;=C2=A0 =C2=A0 Verifying Hash Integrity ... sha1+ OK<br>
+&gt; ## Loading fdt from FIT Image at 40a80000 ...<br>
+&gt;=C2=A0 =C2=A0 Using &#39;conf@aspeed-bmc-quanta-q71l.<wbr>dtb&#39; conf=
+iguration<br>
+&gt;=C2=A0 =C2=A0 Trying &#39;fdt@aspeed-bmc-quanta-q71l.<wbr>dtb&#39; fdt =
+subimage<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Description:=C2=A0 Flattened Device Tree blob<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Type:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Flat Device=
+ Tree<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Compression:=C2=A0 uncompressed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Data Start:=C2=A0 =C2=A00x40cb9690<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Data Size:=C2=A0 =C2=A0 25390 Bytes =3D 24.8 KiB<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 Architecture: ARM<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Hash algo:=C2=A0 =C2=A0 sha1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 Hash value:=C2=A0 =C2=A084ed7efe6232738984546b3ef2=
+7397<wbr>ab251c3396<br>
+&gt;=C2=A0 =C2=A0 Verifying Hash Integrity ... sha1+ OK<br>
+&gt;=C2=A0 =C2=A0 Booting using the fdt blob at 0x40cb9690<br>
+&gt;=C2=A0 =C2=A0 Loading Kernel Image ... OK<br>
+&gt;=C2=A0 =C2=A0 Loading Ramdisk to 4e9d1000, end 4eb9a8af ... OK<br>
+&gt;=C2=A0 =C2=A0 Loading Device Tree to 4e9c7000, end 4e9d032d ... OK<br>
+&gt; <br>
+&gt; Starting kernel ...<br>
+&gt; <br>
+&gt; <br>
+&gt; [=C2=A0 =C2=A0 0.000000] Booting Linux on physical CPU 0x0<br>
+&gt; [=C2=A0 =C2=A0 0.000000] random: get_random_bytes called from start_ke=
+rnel+0x3c/0x3f0<br>
+&gt; with crng_init=3D0<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Linux version<br>
+&gt; 4.13.16-<wbr>aca92be80c008bceeb6fb62fd1d450<wbr>b5be5d0a4f (oe-user@oe=
+-host) (gcc<br>
+&gt; version 7.3.0 (GCC)) #10 Fri Jun 15 20:59:12 JST 2018<br>
+&gt; [=C2=A0 =C2=A0 0.000000] CPU: ARM926EJ-S [41069265] revision 5 (ARMv5T=
+EJ), cr=3D0005317f<br>
+&gt; [=C2=A0 =C2=A0 0.000000] CPU: VIVT data cache, VIVT instruction cache<=
+br>
+&gt; [=C2=A0 =C2=A0 0.000000] OF: fdt: Machine model: Quanta Q71L BMC<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Memory policy: Data cache writeback<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Built 1 zonelists in Zone order, mobility gro=
+uping on.<br>
+&gt; Total pages: 58912<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Kernel command line: console=3DttyS4,115200n8=
+ root=3D/dev/ram rw<br>
+&gt; [=C2=A0 =C2=A0 0.000000] PID hash table entries: 1024 (order: 0, 4096 =
+bytes)<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Dentry cache hash table entries: 32768 (order=
+: 5, 131072<br>
+&gt; bytes)<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Inode-cache hash table entries: 16384 (order:=
+ 4, 65536 bytes)<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Memory: 224832K/237568K available (5120K kern=
+el code, 330K<br>
+&gt; rwdata, 1276K rodata, 1024K init, 109K bss, 12736K reserved, 0K<br>
+&gt; cma-reserved)<br>
+&gt; [=C2=A0 =C2=A0 0.000000] Virtual kernel memory layout:<br>
+&gt; [=C2=A0 =C2=A0 0.000000]=C2=A0 =C2=A0 =C2=A0vector=C2=A0 : 0xffff0000 =
+- 0xffff1000=C2=A0 =C2=A0(=C2=A0 =C2=A04 kB)<br>
+&gt; [=C2=A0 =C2=A0 0.000000]=C2=A0 =C2=A0 =C2=A0fixmap=C2=A0 : 0xffc00000 =
+- 0xfff00000=C2=A0 =C2=A0(3072 kB)<br>
+&gt; [=C2=A0 =C2=A0 0.000000]=C2=A0 =C2=A0 =C2=A0vmalloc : 0x8f800000 - 0xf=
+f800000=C2=A0 =C2=A0(1792 MB)<br>
+&gt; .<br>
+&gt; .<br>
+&gt; &lt;snip&gt;<br>
+&gt; .<br>
+&gt; .<br>
+&gt; <br>
+&gt; [=C2=A0 =C2=A0 4.641015] Segment Routing with IPv6<br>
+&gt; [=C2=A0 =C2=A0 4.643890] ip6_tables: (C) 2000-2006 Netfilter Core Team=
 <br>
-<a href=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3=
-YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/reportabuse?source=3Dhttps://docs.google.com=
-/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewfor=
-m?sid%3Db22550cf7bb617b%26c%3D0%26w%3D1%26token%3Dfdt8FWQBAAA.7VcZNXAYxRSxq=
-O04T7dvHg.WrfU1fSSMtuqHtsulT1asg" style=3D"">Report Abuse</a>
--
-<a href=3D"http://www.google.com/accounts/TOS" style=3D"">Terms of Service<=
-/a>
--
-<a href=3D"http://www.google.com/google-d-s/terms.html" style=3D"">Addition=
-al Terms</a></div></div></div></div>
-</td></tr><tr height=3D"24px"></tr></tbody></table></div><table align=3D"ce=
-nter" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width: 672px; min-wi=
-dth: 154px;" width=3D"100%" role=3D"presentation"><tbody><tr height=3D"24px=
-"><td></td></tr><tr><td><a href=3D"https://docs.google.com/forms?usp=3Dmail=
-_form_link" style=3D"color: #424242; font-size: 13px;">Create your own Goog=
-le Form</a></td></tr></tbody></table></div></body></html>
---000000000000f4f3c1056ef35e6c--
+&gt; [=C2=A0 =C2=A0 4.648315] sit: IPv6, IPv4 and MPLS over IPv4 tunneling =
+driver<br>
+&gt; [=C2=A0 =C2=A0 4.654435] NET: Registered protocol family 17<br>
+&gt; [=C2=A0 =C2=A0 4.657830] 8021q: 802.1Q VLAN Support v1.8<br>
+&gt; [=C2=A0 =C2=A0 4.672023] hctosys: unable to open rtc device (rtc0)<br>
+&gt; [=C2=A0 =C2=A0 4.682642] Freeing unused kernel memory: 1024K<br>
+&gt; rofs =3D mtd4 squashfs rwfs =3D mtd5 jffs2<br>
+&gt; mount: mounting /dev/mtdblock4 on run/initramfs/ro failed: Invalid arg=
+ument<br>
+&gt; [=C2=A0 =C2=A0 7.296855] jffs2: notice: (453) jffs2_build_xattr_subsys=
+tem: complete<br>
+&gt; building xattr subsystem, 53 of xdatum (40 unchecked, 13 orphan) and 1=
+89 of<br>
+&gt; xref (8 dead, 47 orphan) foun.<br>
+&gt; [=C2=A0 =C2=A0 7.336463] overlayfs: upper fs does not support tmpfile.=
+<br>
+&gt; chroot: can&#39;t execute &#39;/bin/sh&#39;: No such file or directory=
+<br>
+&gt; <br>
+&gt; Unable to confirm /sbin/init is an executable non-empty file<br>
+&gt; in merged file system mounted at /root.<br>
+&gt; <br>
+&gt; Change Root test failed!=C2=A0 Invoking emergency shell.<br>
+&gt; Enter password to try to manually fix.<br>
+&gt; After fixing run exit to continue this script, or reboot -f to retry, =
+or<br>
+&gt; touch /takeover and exit to become PID 1 allowing editing of this scri=
+pt.<br>
+&gt; Give root password for maintenance<br>
+&gt; (or press Control-D to continue):<br>
+&gt; <br>
+&gt; <br>
+&gt; ... and tries to load from MTD which has been purposely erased, and th=
+us<br>
+&gt; complains.<br>
+<br>
+</div></div>Have you tried building a netboot image? I think this commit is=
+ relevant:<br>
+<br>
+<a href=3D"https://gerrit.openbmc-">https://gerrit.openbmc-</a><wbr><a href=
+=3D"http://project.xyz/#/c/1957/">project.xyz/#/c/1957/</a><br>
+<br>
+Cheers,<br>
+<br>
+Andrew<br>
+</blockquote></div><br></div>
+
+--0000000000000ed60c056ee33471--
