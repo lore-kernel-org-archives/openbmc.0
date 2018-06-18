@@ -1,43 +1,45 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418cyT4c7BzF0pl
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 03:09:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418d1d3B3dzF0Pd
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 03:12:04 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2018 10:09:18 -0700
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2018 10:11:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,240,1526367600"; d="scan'208";a="50853191"
+X-IronPort-AV: E=Sophos;i="5.51,240,1526367600"; d="scan'208";a="50853753"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
  ([10.7.153.143])
- by orsmga006.jf.intel.com with ESMTP; 18 Jun 2018 10:09:18 -0700
-Subject: Re: [PATCH linux-next v5 08/13] drivers/mfd: Add PECI client mfd
- driver
+ by orsmga006.jf.intel.com with ESMTP; 18 Jun 2018 10:11:59 -0700
+Subject: Re: [PATCH linux-next v5 07/13] dt-bindings: mfd: Add a document for
+ PECI client mfd
 To: Lee Jones <lee.jones@linaro.org>
-Cc: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
+Cc: Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
  James Feist <james.feist@linux.intel.com>,
  Jason M Biils <jason.m.bills@linux.intel.com>, Joel Stanley
  <joel@jms.id.au>, Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180601182227.23938-1-jae.hyun.yoo@linux.intel.com>
- <20180613063038.GJ5278@dell>
- <6663376b-2671-0c7e-93df-558728c92184@linux.intel.com>
- <20180618055941.GC31141@dell>
+References: <20180601182216.23894-1-jae.hyun.yoo@linux.intel.com>
+ <20180613061637.GI5278@dell>
+ <2b5bbf01-8c9c-bb06-4559-00dae61d95de@linux.intel.com>
+ <20180618060306.GD31141@dell>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <e387da06-1b73-a497-be59-9c25df9bb7f9@linux.intel.com>
-Date: Mon, 18 Jun 2018 10:09:17 -0700
+Message-ID: <fa5a5714-f363-93df-4314-a140eb85747a@linux.intel.com>
+Date: Mon, 18 Jun 2018 10:11:58 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <20180618055941.GC31141@dell>
+In-Reply-To: <20180618060306.GD31141@dell>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -52,155 +54,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jun 2018 17:09:22 -0000
+X-List-Received-Date: Mon, 18 Jun 2018 17:12:06 -0000
 
-On 6/17/2018 10:59 PM, Lee Jones wrote:
+On 6/17/2018 11:03 PM, Lee Jones wrote:
 > On Thu, 14 Jun 2018, Jae Hyun Yoo wrote:
 > 
->> Thanks for the review. Please see my inline answers.
->>
->> On 6/12/2018 11:30 PM, Lee Jones wrote:
->>> On Fri, 01 Jun 2018, Jae Hyun Yoo wrote:
->>>
->>>> This commit adds PECI client mfd driver.
->>>>
->>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->>>> Cc: Andrew Jeffery <andrew@aj.id.au>
->>>> Cc: James Feist <james.feist@linux.intel.com>
->>>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->>>> Cc: Joel Stanley <joel@jms.id.au>
->>>> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
->>>> ---
->>>>    drivers/mfd/Kconfig             |  11 ++
->>>>    drivers/mfd/Makefile            |   1 +
->>>>    drivers/mfd/peci-client.c       | 205 ++++++++++++++++++++++++++++++++
->>>>    include/linux/mfd/peci-client.h |  60 ++++++++++
->>>>    4 files changed, 277 insertions(+)
->>>>    create mode 100644 drivers/mfd/peci-client.c
->>>>    create mode 100644 include/linux/mfd/peci-client.h
-> 
 > [...]
 > 
->>> I thought you defined this device as a simple-mfd?
+>>>> +Example:
+>>>> +	peci-bus@0 {
 >>>
->>> This leaves me wondering why you have a driver as well?
+>>> 0?
+>>>
 >>
->> Then what is proper setting for it instead of a simple-mfd?
+>> Because the actual reg value of the peci bus is reg = <0x0 0x60> but
+>> anyway it's an example.
+>>
+>>>> +		#address-cells = <1>;
+>>>> +		#size-cells = <0>;
+>>>
+>>> No 'reg' property?
 > 
-> Drivers described as "simple-mfd" have a special function.  If you
-> don't know what that function is, I suggest that you do not need
-> it. :)
-> 
-> "simple-mfd" devices do not usually have drivers.
-> 
-> [...]
+> 0 is fine, but you really should have a 'reg' property.
 > 
 
-Got it. I'll remove the "simple-mfd" from this DT setting.
+Okay, I'll add reg setting example.
 
->>>> +/**
->>>> + * Architectures other than x86 cannot include the header file so define these
->>>> + * at here. These are needed for detecting type of client x86 CPUs behind a PECI
->>>> + * connection.
->>>> + */
->>>> +#define INTEL_FAM6_HASWELL_X   0x3F
->>>> +#define INTEL_FAM6_BROADWELL_X 0x4F
->>>> +#define INTEL_FAM6_SKYLAKE_X   0x55
->>>> +#endif
+>> This is the actual peci bus node which is a parent of this MFD node:
+>> 	peci0: peci-bus@0 {
+>> 		compatible = "aspeed,ast2500-peci";
+>> 		reg = <0x0 0x60>;
+>> 		#address-cells = <1>;
+>> 		#size-cells = <0>;
+>> 		interrupts = <15>;
+>> 		clocks = <&syscon ASPEED_CLK_GATE_REFCLK>;
+>> 		resets = <&syscon ASPEED_RESET_PECI>;
+>> 		clock-frequency = <24000000>;
+>> 		msg-timing = <1>;
+>> 		addr-timing = <1>;
+>> 		rd-sampling-point = <8>;
+>> 		cmd-timeout-ms = <1000>;
+>> 	};
+>>
+>>>> +		< more properties >
+>>>
+>>> Remove this.
+>>
+>> I dropped all other properties into < more properties > because I want
+>> to show the #address-cells and #size-cells to state its sub-nodes
+>> should have a single unique reg value. Should I remove this line or the
+>> whole parent node?
+> 
+> Just drop the properties which are unimportant for the example.  You
+> do not need to replace them with anything, especially with a non-DT
+> compliant string.
+> 
+
+Okay, I'll fix it. Thanks a lot!
+
+>>>> +		peci-client@30 {
+>>>> +			compatible = "intel,peci-client", "simple-mfd";
+>>>> +			reg = <0x30>;
+>>>> +		};
 >>>> +
->>>> +#define LOWER_NIBBLE_MASK      GENMASK(3, 0)
->>>> +#define UPPER_NIBBLE_MASK      GENMASK(7, 4)
->>>> +
->>>> +#define CPU_ID_MODEL_MASK      GENMASK(7, 4)
->>>> +#define CPU_ID_FAMILY_MASK     GENMASK(11, 8)
->>>> +#define CPU_ID_EXT_MODEL_MASK  GENMASK(19, 16)
->>>> +#define CPU_ID_EXT_FAMILY_MASK GENMASK(27, 20)
+>>>> +		peci-client@31 {
+>>>> +			compatible = "intel,peci-client", "simple-mfd";
+>>>> +			reg = <0x31>;
+>>>> +		};
+>>>> +	};
 >>>
->>> In the case of X86 based devices, are these being redefined?
->>>
->>
->> No define even in x86 arch build. These masks just for PECI use cases.
->> Also, the CPUs in this implementation is not for local CPUs, but for
->> remote CPUs which are connected through PECI interface. It also means
->> that this code can be running on non-x86 kernel too.
-> 
-> This is starting to sound like a 'remoteproc' driver, no?
-> 
-
-This is driver for remote Intel CPUs that are behind in PECI connection.
-
->>>> +enum cpu_gens {
->>>> +	CPU_GEN_HSX = 0, /* Haswell Xeon */
->>>> +	CPU_GEN_BRX,     /* Broadwell Xeon */
->>>> +	CPU_GEN_SKX,     /* Skylake Xeon */
->>>> +};
->>>> +
->>>> +static struct mfd_cell peci_functions[] = {
->>>> +	{
->>>> +		.name = "peci-cputemp",
->>>> +		.of_compatible = "intel,peci-cputemp",
->>>> +	},
->>>> +	{
->>>> +		.name = "peci-dimmtemp",
->>>> +		.of_compatible = "intel,peci-dimmtemp",
->>>> +	},
->>>> +};
->>>
->>> A couple of temp sensors?  This isn't looking very MFD-like.
->>>
->>> What makes this an MFD?
->>>
->>
->> Currently it has only a couple of temp sensors but it's just one of
->> PECI function. Other PECI functions will be added later so it's the
->> reason why it should be an MFD. Please see the following PECI sideband
->> functions that I introduced in the cover letter of this patch set.
->>
->> * Processor and DRAM thermal management
->> * Platform Manageability
->> * Processor Interface Tuning and Diagnostics
->> * Failure Analysis
-> 
-> Are these all devices in their own right?
-> 
-> Will they each have drivers associated with them?
-> 
-> Is there a datasheet for this PECI device?
-> 
-
-Temperature monitoring driver which I'm trying to upstream should be
-added into hwmon subsystem, but other function drivers should be added
-as a platform driver or as a something else, so it is the reason why I
-made this MFD driver because these function drivers are separated but
-use the same device - the remote CPU - actually. Datasheet is available
-through http://www.intel.com/design/literature.htm with an NDA process.
-Intel is providing the datasheet to HW vendors.
-
-> [...]
-> 
->>>> +static struct peci_driver peci_client_driver = {
->>>
->>> I'm pretty sure this will be NAKED by the platform Maintainer.
->>
->> Does it have problems? Can you please give me a hint?
-> 
-> New bus types are usually only added for well defined, heavily used
-> buses which AFAIK all have their own subsystems.  Why can't you use
-> one of the existing bus types?  Platform is the most frequently used.
->
-
-I implemented this PECI drivers as a simple platform drivers in V1 but
-I had to change it to follow other maintainers' suggestions. I believe
-driver core maintainers are reviewing the PECI subsystem implementation
-code in this patch set as well.
-
->>>> +	.probe    = peci_client_probe,
->>>> +	.id_table = peci_client_ids,
->>>> +	.driver   = {
->>>> +			.name           = "peci-client",
->>>> +			.of_match_table =
->>>> +				of_match_ptr(peci_client_of_table),
->>>> +	},
->>>> +};
->>>> +module_peci_driver(peci_client_driver);
 > 
