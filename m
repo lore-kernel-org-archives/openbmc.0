@@ -1,56 +1,56 @@
-Return-Path: <3tUYoWwoJB8Irium0.uqpuouiqt.kwuwxmvjuktq010.w7tij0.wzo@trix.bounces.google.com>
+Return-Path: <3oEcoWwoJB68YPbTh.bXWbVbPXa.RdbdeTcQbRaXhih.doaPQh.dgV@trix.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
- smtp.mailfrom=trix.bounces.google.com (client-ip=2607:f8b0:4001:c06::245;
- helo=mail-io0-x245.google.com;
- envelope-from=3tuyowwojb8irium0.uqpuouiqt.kwuwxmvjuktq010.w7tij0.wzo@trix.bounces.google.com;
+ smtp.mailfrom=trix.bounces.google.com (client-ip=2607:f8b0:4001:c06::247;
+ helo=mail-io0-x247.google.com;
+ envelope-from=3oecowwojb68ypbth.bxwbvbpxa.rdbdetcqbraxhih.doapqh.dgv@trix.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="EUINQzpu"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="HSsOAkYv"; 
  dkim-atps=neutral
-Received: from mail-io0-x245.google.com (mail-io0-x245.google.com
- [IPv6:2607:f8b0:4001:c06::245])
+Received: from mail-io0-x247.google.com (mail-io0-x247.google.com
+ [IPv6:2607:f8b0:4001:c06::247])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418p0Z6s9GzDrcd
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 09:56:39 +1000 (AEST)
-Received: by mail-io0-x245.google.com with SMTP id 140-v6so14718944iou.14
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 16:56:39 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418p552HfgzF0WP
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 10:00:34 +1000 (AEST)
+Received: by mail-io0-x247.google.com with SMTP id v4-v6so14500538iol.8
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 17:00:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:reply-to:message-id:date:subject:from:to;
- bh=h2UKY0p7BI1LJ2bDU+AH/P2ZrMFadP1nwhJPvwUx0rc=;
- b=EUINQzpurrKs49RvGiBTOoucxH0yAWa2RLpFtQWgRBRlx7o73A8D46f1dC2ZO+2P4E
- CdyqCtwtUuPMF2gKxkQjkj4bkrFZRW5/lImFT9QPVrG1sKqfSQPbU2kkzsSnkImj7Vj9
- /Dbepa5Z5L1owFC+wiNUaprXTlENZDzlXekCcQ2c6xM4Evg7hQ9OeKqZu8FCTOj2sgo9
- mqBJfXLlJrTRYo5NEDVxTH/CGL/N0mRSpz4rPGEpJV5oqHJfrA01MxbEl96jwd2Jhwck
- qCo7/InD1GYOgIAgFok3pyKbCm52vVlY5y01aEGDd+azVsMtc50BKeeBHEaUU91m9/VQ
- vAmg==
+ bh=zsaj0t+6TDM/qHBKv+tvX+UKJucil4CPEXIGzi8pov0=;
+ b=HSsOAkYvWTIG5vMgMCxfxzDYmsqUqcXKe15hRa3RxSYmBHCwNJztY4OW6YIpAmZUR0
+ rEyHM6A487Z9WqMYYJqbdl0WVPPxd2FyokhUYtwgWxXgm+E7TQYfD50vjdjam5F90cqL
+ 4Q8BFJzFXgDANTcTqZss38AFRBMulWVYdrfCIGPVPz2zJmtOx8AWN2n53UHFyROpq5af
+ dxiCNjEfkyfnogsMjb89xxI40I3FPh6z3+eCvV46XjO/dkxSFcir2NBs1QX8rcrAURGW
+ nX7HnCuFPbLYznqoHyLHAihf6hUjezVrKfeX2rF0GeiIyhFyFx9LLfatg3AlTBUNYxpU
+ m/1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:reply-to:message-id:date:subject
  :from:to;
- bh=h2UKY0p7BI1LJ2bDU+AH/P2ZrMFadP1nwhJPvwUx0rc=;
- b=kvZrW37sU1z2WU1sS+/IDZVQFNjcQ+TTEWzU+C1jhFN99hRDkfS5QU66Y7To4TKppr
- 0qcIOxmS9SO7TuESXB/sYz3JNu1ucbDWRYznaNxJ8MgGakPjnwNMSXYBvnpJzG4ZkGK7
- RcWS56sAJkgfqVvK2n+wQkn1W7oZfGVJ/xqrM9yR1jiFaUBqcx6yd5McvR6f8+q7NH4F
- 02JthM0rHuc5vzcFNCnlD20+jisWpn67JpUEx7YFyNPNYTnuIIFiCplInCq229Q3xe7F
- kUGPif0V0JoBM9NazmYJxlh5ZYB9GjCfyrKRa01pdsFARBuVjFcONviBY4Bm3eb+5tdY
- FR4w==
-X-Gm-Message-State: APt69E3AftJe0g76xjYCZi5m6E85AxwRWr6dhZ0pPpe/L6VabLaNLQPi
- QvmOGaVKYEroD3xMOMr4zONqxEyTPEpmbAIIZZLa
-X-Google-Smtp-Source: ADUXVKJM00BlM03JLBydnNKtnnv2DC+ERqpqOj/Pr6l668eQQygzQN44J+sFsbVEhLpwRhZwHYQNuurpETmwHHOgW26c
+ bh=zsaj0t+6TDM/qHBKv+tvX+UKJucil4CPEXIGzi8pov0=;
+ b=S/fziGuwhBMU6VcaPePREOMYjmSi4Bb7V/H/0wS5upcZC2o1DFyzgv1IlrlILcnu/P
+ 9d45lUEdBi9LZQsQokPP+Iekr82wJ7FD49LYx7N0NtVRMRr7xm4HOr1eMy1JlDw8j9Qc
+ jrqy8v3/n60fa0uAryOdEGA7I3quf3qT2oWD13RVDn0k7a/dJTaYsrD4kYu4aZtY8hLq
+ 03aNIfHgjRkeclLTAm8aL8bsVDY/fiASOJbnSDTIVQzz2U1pT4nZwhs1eI8BQ8p6oRN3
+ 3XV45K4SbimDFUd77P8UKqbIQc42F6zBf2l8I2ZYtNyGug7XvdPazJ7yZqXunLx5TEG2
+ kDgQ==
+X-Gm-Message-State: APt69E2rWwL4DpZQk/7aHlO5yoTZ0ucldip/ZuLN1f1y++ISj++CyaXW
+ 3WFm6ra2dXPxWdmYqZxxqftnkccHhjrqc7ciExxR
+X-Google-Smtp-Source: ADUXVKJ7kGQohiLY71rO92SThLoIKGd60jNGE5ZZRmWo86U7Yuz5Rmsmh31BSfjCM0YycE6L5w32/Qw0qGdK5yiDQ084
 MIME-Version: 1.0
-X-Received: by 2002:a02:8cc1:: with SMTP id n1-v6mr6467994jal.12.1529366197285; 
- Mon, 18 Jun 2018 16:56:37 -0700 (PDT)
+X-Received: by 2002:a02:c5:: with SMTP id 188-v6mr6486059jaa.15.1529366432770; 
+ Mon, 18 Jun 2018 17:00:32 -0700 (PDT)
 Reply-To: james.mihm@gmail.com
 X-No-Auto-Attachment: 1
-Message-ID: <000000000000ebc0ca056ef350df@google.com>
-Date: Mon, 18 Jun 2018 23:56:37 +0000
-Subject: Poll - Fall 2018 OpenBMC Hackathon 
+Message-ID: <000000000000f4f3d0056ef35e6f@google.com>
+Date: Tue, 19 Jun 2018 00:00:32 +0000
+Subject: OpenBMC Hackathon
 From: james.mihm@gmail.com
 To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000ebc0b3056ef350dc"
+Content-Type: multipart/alternative; boundary="000000000000f4f3c1056ef35e6c"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -62,9 +62,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jun 2018 23:56:47 -0000
+X-List-Received-Date: Tue, 19 Jun 2018 00:00:44 -0000
 
---000000000000ebc0b3056ef350dc
+--000000000000f4f3c1056ef35e6c
 Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
 I've invited you to fill out the following form:
@@ -73,11 +73,13 @@ OpenBMC Hackathon
 To fill it out, visit:
 https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=0&amp;w=1&amp;usp=mail_form_link
 
+Corrected the date for October to 9th - 11th.
+
 I&#39;ve invited you to fill out a form:
 
 Google Forms: Create and analyze surveys.
 
---000000000000ebc0b3056ef350dc
+--000000000000f4f3c1056ef35e6c
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -109,27 +111,28 @@ ng: 0 24px;"><table align=3D"center" cellpadding=3D"0" cellspacing=3D"0" st=
 yle=3D"background-color: #fff;" width=3D"100%" role=3D"presentation"><tbody=
 ><tr height=3D"24px"><td></td></tr><tr><td><span style=3D"display: table-ce=
 ll; vertical-align: top; font-size: 13px; line-height: 18px; color: #424242=
-;" dir=3D"auto">I&#39;ve invited you to fill out a form:</span></td></tr><t=
-r height=3D"20px"><td></tr><tr style=3D"font-size: 20px; line-height: 24px;=
-"><td dir=3D"auto"><a href=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn=
-5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;=
-usp=3Dmail_form_link" style=3D"color: rgb(103,58,183); text-decoration: non=
-e; vertical-align: middle; font-weight: 500">OpenBMC Hackathon</a><div item=
-prop=3D"action" itemscope itemtype=3D"http://schema.org/ViewAction"><meta i=
-temprop=3D"url" content=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4=
-Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=
-=3Dmail_goto_form"><meta itemprop=3D"name" content=3D"Fill out form"></div>=
-</td></tr><tr height=3D"16px"></tr><tr><td style=3D"display: table-cell; ve=
-rtical-align: top; font-size: 13px; line-height: 18px; color: #424242;" dir=
-=3D"auto">A proposal was made to move the date of the Hackathon from Septem=
-ber to October.<br><br>Soliciting input from the community for dates for th=
-e Fall 2018 Hackathon sponsored by Intel in Hillsboro, Oregon, USA.<br><br>=
-The response deadline is Thursday, June  21st, 2018 at 5pm (PST).</td></tr>=
-<tr height=3D"24px"></tr><tr><td><div class=3D"ss-form" style=3D""><form ac=
-tion=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsI=
-r_JVU5YCjLXufuXxdT9Qy6sz42Q/formResponse" method=3D"POST" id=3D"ss-form" ta=
-rget=3D"_self" style=3D""><ol role=3D"list" class=3D"ss-question-list" styl=
-e=3D"padding-left: 0;list-style-type:none;">
+;" dir=3D"auto">Corrected the date for October to 9th - 11th.<br><br>I&#39;=
+ve invited you to fill out a form:</span></td></tr><tr height=3D"20px"><td>=
+</tr><tr style=3D"font-size: 20px; line-height: 24px;"><td dir=3D"auto"><a =
+href=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JV=
+U5YCjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_form_link" =
+style=3D"color: rgb(103,58,183); text-decoration: none; vertical-align: mid=
+dle; font-weight: 500">OpenBMC Hackathon</a><div itemprop=3D"action" itemsc=
+ope itemtype=3D"http://schema.org/ViewAction"><meta itemprop=3D"url" conten=
+t=3D"https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5Y=
+CjLXufuXxdT9Qy6sz42Q/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_goto_form"><me=
+ta itemprop=3D"name" content=3D"Fill out form"></div></td></tr><tr height=
+=3D"16px"></tr><tr><td style=3D"display: table-cell; vertical-align: top; f=
+ont-size: 13px; line-height: 18px; color: #424242;" dir=3D"auto">A proposal=
+ was made to move the date of the Hackathon from September to October.<br><=
+br>Soliciting input from the community for dates for the Fall 2018 Hackatho=
+n sponsored by Intel in Hillsboro, Oregon, USA.<br><br>The response deadlin=
+e is Thursday, June  21st, 2018 at 5pm (PST).</td></tr><tr height=3D"24px">=
+</tr><tr><td><div class=3D"ss-form" style=3D""><form action=3D"https://docs=
+.google.com/forms/u/0/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Q=
+y6sz42Q/formResponse" method=3D"POST" id=3D"ss-form" target=3D"_self" style=
+=3D""><ol role=3D"list" class=3D"ss-question-list" style=3D"padding-left: 0=
+;list-style-type:none;">
 
 <div class=3D"ss-form-question errorbox-good" role=3D"listitem" style=3D"">
 <div dir=3D"auto" class=3D"ss-item  ss-radio" style=3D"margin:12px 0;"><div=
@@ -157,22 +160,22 @@ radio" class=3D"ss-q-radio" aria-label=3D"Sept 18th - 20th, 2018" style=3D"=
 3em;padding-bottom:.5em;">
 <label><span class=3D"ss-choice-item-control goog-inline-block" style=3D"po=
 sition:relative;display:inline-block;"><input type=3D"radio" name=3D"entry.=
-55965231" value=3D"October 8th - 11th, 2018" id=3D"group_55965231_2" role=
-=3D"radio" class=3D"ss-q-radio" aria-label=3D"October 8th - 11th, 2018" sty=
+55965231" value=3D"October 9th - 11th, 2018" id=3D"group_55965231_2" role=
+=3D"radio" class=3D"ss-q-radio" aria-label=3D"October 9th - 11th, 2018" sty=
 le=3D""></span>
-<span class=3D"ss-choice-label" style=3D"">October 8th - 11th, 2018</span>
+<span class=3D"ss-choice-label" style=3D"">October 9th - 11th, 2018</span>
 </label></li></ul>
 
 </div></div></div>
-<input type=3D"hidden" name=3D"draftResponse" value=3D"[null,null,&quot;-67=
-72237110067792330&quot;]
+<input type=3D"hidden" name=3D"draftResponse" value=3D"[null,null,&quot;136=
+612974799437793&quot;]
 " style=3D"">
 <input type=3D"hidden" name=3D"pageHistory" value=3D"0" style=3D"">
 
 <input type=3D"hidden" name=3D"usp" value=3D"mail_form_submit" style=3D"">
 
-<input type=3D"hidden" name=3D"fbzx" value=3D"-6772237110067792330" style=
-=3D"">
+<input type=3D"hidden" name=3D"fbzx" value=3D"136612974799437793" style=3D"=
+">
 <div class=3D"ss-send-email-receipt" style=3D"margin-bottom: 4px;" dir=3D"l=
 tr"><label for=3D"emailReceipt" style=3D"display:inline;"></label></div>
 <div class=3D"ss-item ss-navigate" style=3D"margin:12px 0;"><table id=3D"na=
@@ -217,4 +220,4 @@ dth: 154px;" width=3D"100%" role=3D"presentation"><tbody><tr height=3D"24px=
 "><td></td></tr><tr><td><a href=3D"https://docs.google.com/forms?usp=3Dmail=
 _form_link" style=3D"color: #424242; font-size: 13px;">Create your own Goog=
 le Form</a></td></tr></tbody></table></div></body></html>
---000000000000ebc0b3056ef350dc--
+--000000000000f4f3c1056ef35e6c--
