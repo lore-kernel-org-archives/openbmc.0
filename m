@@ -1,54 +1,35 @@
-Return-Path: <luke_chen@aspeedtech.com>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
- (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
- envelope-from=luke_chen@aspeedtech.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=aspeedtech.com
-X-Greylist: delayed 1823 seconds by postgrey-1.36 at bilbo;
- Tue, 19 Jun 2018 16:39:13 AEST
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418ywx2tt8zF0Tn
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 16:39:13 +1000 (AEST)
-Received: from twspam01.aspeedtech.com (localhost [127.0.0.2])
- by twspam01.aspeedtech.com with ESMTP id w5J6AGl2081772
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 14:10:16 +0800 (CST)
- (envelope-from luke_chen@aspeedtech.com)
-Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id w5J69seg081560;
- Tue, 19 Jun 2018 14:09:54 +0800 (CST)
- (envelope-from luke_chen@aspeedtech.com)
-Received: from TWMBX02.aspeed.com (192.168.0.24) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Tue, 19 Jun
- 2018 14:08:54 +0800
-Received: from TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7]) by
- TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7%12]) with mapi id
- 15.00.0620.020; Tue, 19 Jun 2018 14:08:53 +0800
-From: Luke Chen <luke_chen@aspeedtech.com>
-To: James Mihm <james.mihm@gmail.com>, "andrew@aj.id.au" <andrew@aj.id.au>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: Poll - Fall 2018 OpenBMC Hackathon
-Thread-Topic: Poll - Fall 2018 OpenBMC Hackathon
-Thread-Index: AQHUB5Kk8ACGpOCSaUiHpWiPMe4dEqRnGDcg
-Date: Tue, 19 Jun 2018 06:08:52 +0000
-Message-ID: <c7333926d7df413ba2bb8c21e3987552@TWMBX02.aspeed.com>
-References: <000000000000ebc0ca056ef350df@google.com>
- <1529384519.3876096.1412667488.17D5361D@webmail.messagingengine.com>
- <CADy_Pt2rWNu7NuTfQWfP5T+mzfVW3FCbc_8j_Ss+zOwiy68sRA@mail.gmail.com>
-In-Reply-To: <CADy_Pt2rWNu7NuTfQWfP5T+mzfVW3FCbc_8j_Ss+zOwiy68sRA@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [114.42.65.238]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-DKIM-Results: twmbx02.aspeed.com; dkim=none;
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com w5J69seg081560
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4194bS1tDRzF0kx
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 20:54:23 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w5JArtUw021328;
+ Tue, 19 Jun 2018 13:53:55 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id 5B15062FF9; Tue, 19 Jun 2018 13:53:55 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: robh+dt@kernel.org, mark.rutland@arm.com, jdelvare@suse.com,
+ linux@roeck-us.net, avifishman70@gmail.com, yuenn@google.com,
+ brendanhiggins@google.com, venture@google.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v2 1/2] dt-binding: hwmon: Add NPCM7xx PWM and Fan controller
+ documentation
+Date: Tue, 19 Jun 2018 13:53:51 +0300
+Message-Id: <20180619105352.97181-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180619105352.97181-1-tmaimon77@gmail.com>
+References: <20180619105352.97181-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -60,26 +41,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jun 2018 06:39:23 -0000
+X-List-Received-Date: Tue, 19 Jun 2018 10:54:29 -0000
 
-RGVhciBKYW1lcw0KDQpUaGFuayB5b3UgZm9yIHNlbmRpbmcgbWUgdGhlIGVtYWlsLCBJIGFscmVh
-ZHkgZmlsbGVkIG91dCB0aGUgZm9ybS4NCkFuZCBJIGFsc28gc3Vic2NyaWJlZCBvbiBPcGVuQk1D
-IGZvciB0aGUgbWFpbGluZyBsaXN0IGp1c3Qgbm93Lg0KDQoNCkJlc3Qgd2lzaGVzDQoNCkx1a2Ug
-Q2hlbg0KKE8pIDogKzg4Ni0zLTU3ODk1NjgNCihNKSA6ICs4ODYtOTM1LTU5Mi04OTINCg0KDQot
-LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogb3BlbmJtYyA8b3BlbmJtYy1ib3VuY2Vz
-K2x1a2VfY2hlbj1hc3BlZWR0ZWNoLmNvbUBsaXN0cy5vemxhYnMub3JnPiBPbiBCZWhhbGYgT2Yg
-SmFtZXMgTWlobQ0KU2VudDogVHVlc2RheSwgSnVuZSAxOSwgMjAxOCAxOjU3IFBNDQpUbzogYW5k
-cmV3QGFqLmlkLmF1DQpDYzogb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnDQpTdWJqZWN0OiBSZTog
-UG9sbCAtIEZhbGwgMjAxOCBPcGVuQk1DIEhhY2thdGhvbg0KDQpBbmRyZXcsIEdyZWF0IGlkZWEu
-Li5qdXN0IGFkZGVkIGVpdGhlciBhbmQgbmVpdGhlci4NCg0KSmFtZXMuDQpPbiBNb24sIEp1biAx
-OCwgMjAxOCBhdCAxMDowMiBQTSBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1PiB3cm90
-ZToNCj4NCj4gT24gVHVlLCAxOSBKdW4gMjAxOCwgYXQgMDk6MjYsIGphbWVzLm1paG1AZ21haWwu
-Y29tIHdyb3RlOg0KPiA+IEkndmUgaW52aXRlZCB5b3UgdG8gZmlsbCBvdXQgdGhlIGZvbGxvd2lu
-ZyBmb3JtOg0KPiA+IE9wZW5CTUMgSGFja2F0aG9uDQo+ID4NCj4gPiBUbyBmaWxsIGl0IG91dCwg
-dmlzaXQ6DQo+ID4gaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZm9ybXMvZC9lLzFGQUlwUUxTZUdu
-NXg0WS02dmd1M19BeVkzWXNJcl9KVlU1WUNqTFh1ZnVYeGRUOVF5NnN6NDJRL3ZpZXdmb3JtP2M9
-MCZhbXA7dz0xJmFtcDt1c3A9bWFpbF9mb3JtX2xpbmsNCj4gPg0KPiA+IEkmIzM5O3ZlIGludml0
-ZWQgeW91IHRvIGZpbGwgb3V0IGEgZm9ybToNCj4gPg0KPiA+IEdvb2dsZSBGb3JtczogQ3JlYXRl
-IGFuZCBhbmFseXplIHN1cnZleXMuDQo+DQo+IE1heWJlIHdlIHNob3VsZCBhZGQgJ2VpdGhlcicg
-YW5kICduZWl0aGVyJyBvcHRpb25zIHNvIHBlb3BsZSBjYW4gcmVnaXN0ZXIgdGhlaXIgaW50ZXJl
-c3QgYXBwcm9wcmlhdGVseT8NCj4NCj4gQ2hlZXJzLA0KPg0KPiBBbmRyZXcNCg==
+Added device tree binding documentation for Nuvoton BMC
+NPCM7xx Pulse Width Modulation (PWM)  and Fan tach controller.
+The PWM controller can support upto 8 PWM output ports.
+The Fan tach controller can support upto 16 tachometer inputs.
+
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../devicetree/bindings/hwmon/npcm750-pwm-fan.txt  | 84 ++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+
+diff --git a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+new file mode 100644
+index 000000000000..a9eacda34f92
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+@@ -0,0 +1,84 @@
++Nuvoton NPCM7xx PWM and Fan Tacho controller device driver
++
++The NPCM7xx has two identical Pulse-width modulation (PWM) controller modules,
++Each PWM module has four PWM controller outputs, Totally 8 PWM controller outputs.
++
++The NPCM7xx has eight identical Fan tachometer controller modules,
++Each Fan module has two Fan controller inputs, Totally 16 Fan controller inputs.
++
++Required properties for pwm-fan node:
++- compatible	: "nuvoton,npcm750-pwm-fan" for Poleg NPCM7XX.
++- reg 			: specifies physical base address and size of the registers.
++- reg-names 	: must contain:
++					* "pwm-base" for the PWM registers.
++ 					* "fan-base" for the Fan registers.
++- clocks		: phandle of reference clocks.
++- clock-names	: must contain
++					* "clk_apb3" for clock of PWM controller.
++ 					* "clk_apb4" for clock of Fan controller.
++- interrupts	: contain the Fan interrupts with flags for falling edge.
++- pinctrl-names	: a pinctrl state named "default" must be defined.
++- pinctrl-0 	: phandle referencing pin configuration of the PWM and Fan
++					controller ports.
++
++pwm subnode format:
++===================
++Under pwm subnode can be upto 8 child nodes, each child node representing a PWM channel.
++Each pwm subnode must have one PWM channel and atleast one Fan tach channel.
++
++For PWM channel can be configured cooling-levels to create cooling device.
++Cooling device could be bound to a thermal zone for the thermal control.
++
++Required properties for each child node:
++- pwm-ch : specify the PWM output channel.
++			integer value in the range 0 through 7, that represent
++			the PWM channel number that used.
++
++- fan-ch : specify the Fan input channel.
++			integer value in the range 0 through 15, that represent
++			the Fan channel number that used.
++
++			At least one Fan tach input channel is required
++
++Optional property for each child node:
++- cooling-levels: PWM duty cycle values in a range from 0 to 255
++                  which correspond to thermal cooling states.
++
++Examples:
++
++pwm_fan:pwm_fan_controller@103000 {
++	compatible = "nuvoton,npcm750-pwm-fan";
++	reg = <0x103000 0x2000>,
++		<0x180000 0x8000>;
++	reg-names = "pwm_base", "fan_base";
++	clocks = <&clk NPCM7XX_CLK_APB3>,
++		<&clk NPCM7XX_CLK_APB4>;
++	clock-names = "clk_apb3","clk_apb4";
++	interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm0_pins &pwm1_pins &pwm2_pins
++			&fanin0_pins &fanin1_pins &fanin2_pins
++			&fanin3_pins &fanin4_pins>;
++
++			pwm@0 {
++				pwm-ch = /bits/ 8 <0x00>;
++				fan-ch = /bits/ 8 <0x00 0x01>;
++				cooling-levels = <127 255>;
++				};
++			pwm@1 {
++				pwm-ch = /bits/ 8 <0x01>;
++				fan-ch = /bits/ 8 <0x02 0x03>;
++				};
++			pwm@2 {
++				pwm-ch = /bits/ 8 <0x02>;
++				fan-ch = /bits/ 8 <0x04>;
++				};
++
++};
+\ No newline at end of file
+-- 
+2.14.1
