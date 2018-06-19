@@ -1,76 +1,58 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <james.mihm@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4002:c05::236; helo=mail-yw0-x236.google.com;
+ envelope-from=james.mihm@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QIER3H6H"; 
+ dkim-atps=neutral
+Received: from mail-yw0-x236.google.com (mail-yw0-x236.google.com
+ [IPv6:2607:f8b0:4002:c05::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 418wyk2NC4zF0wM
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 15:10:38 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w5J59M8b087398
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 01:10:35 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2jppm4hf05-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 01:10:35 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Tue, 19 Jun 2018 01:10:34 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 19 Jun 2018 01:10:33 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w5J5AWu68782342
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 19 Jun 2018 05:10:32 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C3E3F12405B;
- Tue, 19 Jun 2018 02:12:16 -0400 (EDT)
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8D00B12405A;
- Tue, 19 Jun 2018 02:12:16 -0400 (EDT)
-Received: from birb.localdomain (unknown [9.185.142.115])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue, 19 Jun 2018 02:12:16 -0400 (EDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id A84974EC648; Tue, 19 Jun 2018 15:10:26 +1000 (AEST)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: 4.17 kernel published
-In-Reply-To: <CACPK8Xd_cV+u880CSWEOXHicWEM5xsusjq=5ngsxwY7XLZiaNQ@mail.gmail.com>
-References: <CACPK8Xd_cV+u880CSWEOXHicWEM5xsusjq=5ngsxwY7XLZiaNQ@mail.gmail.com>
-Date: Tue, 19 Jun 2018 15:10:26 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 418y144fyyzF0WP
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 15:57:44 +1000 (AEST)
+Received: by mail-yw0-x236.google.com with SMTP id t184-v6so1908944ywg.9
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jun 2018 22:57:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=o/3fWDawDU7LAyNVKyNYH1p4zPQp/FeSVVmmGosqVuM=;
+ b=QIER3H6Hi5G8fgvFPOWUD+/pTsWW8c0348Zh9Y/mzdX3y64rzjRIAqnBWT4k3pu3pe
+ SfSqvvw8d8CejthFhFbK6rlYYDHzeaL4SJIsf00/iC1ZotjU5a7BUTehx7Q3oe+A41bV
+ 33/40zeTQEj61dut/NLG5bE2xSIX3qhy2tBPluLCpfyA2kCQ/T/GQ5TZsB/dYYnChlFi
+ 5obXBNt3gx2x6kgIgkfvRN/rGEdPHrbH7zIiriz/peZLyChwbVh5h/l97e0Uc2vqv1W2
+ inEiDOaaDmxJLorB4OmHyDl/+RE9QYGbGVgJRS0KLDDQgmM5pFrlE4+xfvXtkIF9UIS+
+ haKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=o/3fWDawDU7LAyNVKyNYH1p4zPQp/FeSVVmmGosqVuM=;
+ b=kGa1ST2d5iwnmZ0CuWortfSvum2SpbNnmzzzVSOKq6QuCwmw06HCXfSezLo5Z7albB
+ 1nSopi0eSaEqhVj4lpfLLL5hJ98Tug9vEJMmZdEy+es0hBRRcWrnmdy5mI+pMWo7ZmXg
+ gx4fDF53fBQDOPynHPS5ti/Sv2U9liA8PoEc2rQSGTFDXgq6xFB7HIl1lt8GxUbqJU0B
+ nJqAr4M6KzuavdQ3awDifaF5Ra7eeKfzx6GhGYy0ncN1c2FRz9QW6wdE+M5oSxGoHxT8
+ j/eKoO/QbZuVTdhL4zW05807W8tNmrSISWQj0KmPSXIaWx9IOikxmwRaRT9xH3sQ0ei0
+ s3Kw==
+X-Gm-Message-State: APt69E24qROL+YvQ9pfIBIsYaRVgHk8UAgdZmTNqoqgtYce9vq8dwtml
+ 9UqgKHbDOUjNfyItITnLuM8B6qgzKyyzxWtPS9OIdA==
+X-Google-Smtp-Source: ADUXVKIWfM9qnRL0JoOyfehJpr8MZhe5QTDeDT5hwUcpMOZ652o6DWcyGAW4QSjURKfgeDC/ZiMIT0j/1ttJiopiT8A=
+X-Received: by 2002:a0d:c447:: with SMTP id
+ g68-v6mr7717793ywd.205.1529387861213; 
+ Mon, 18 Jun 2018 22:57:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 18061905-0060-0000-0000-0000027F6208
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009217; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000265; SDB=6.01049085; UDB=6.00537517; IPR=6.00828058; 
- MB=3.00021731; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-19 05:10:34
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18061905-0061-0000-0000-000045803848
-Message-Id: <87po0nicot.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-06-19_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=839 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1805220000 definitions=main-1806190059
+References: <000000000000ebc0ca056ef350df@google.com>
+ <1529384519.3876096.1412667488.17D5361D@webmail.messagingengine.com>
+In-Reply-To: <1529384519.3876096.1412667488.17D5361D@webmail.messagingengine.com>
+From: James Mihm <james.mihm@gmail.com>
+Date: Mon, 18 Jun 2018 22:57:05 -0700
+Message-ID: <CADy_Pt2rWNu7NuTfQWfP5T+mzfVW3FCbc_8j_Ss+zOwiy68sRA@mail.gmail.com>
+Subject: Re: Poll - Fall 2018 OpenBMC Hackathon
+To: andrew@aj.id.au
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -82,28 +64,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jun 2018 05:10:38 -0000
+X-List-Received-Date: Tue, 19 Jun 2018 05:57:45 -0000
 
-Joel Stanley <joel@jms.id.au> writes:
-> The 4.17 based kernel has been pushed to the openbmc Linux repository.
-> From gerrit:
->
->     kernel: Move to 4.17
->
->     This brings the dev-4.13 development cycle to a close. By the end of the
->     cycle the 4.13 tree contained 236 patches.
->
->     This moves all of the 4.13 based functionality on top of a 4.17 base. We
->     currently have 97 patches in the tree. The reduction of 139 is mostly
->     due to code landing in Linus' tree, with a handful of fixes being merged
->     into the base patch.
->
->     The configuration is updated with newly landed drivers. In addition new
->     upstream security features are enabled, and legacy ATAG DTB support and
->     /dev/mem are removed.
+Andrew, Great idea...just added either and neither.
 
-No /dev/mem? WOOHOO!
-
--- 
-Stewart Smith
-OPAL Architect, IBM.
+James.
+On Mon, Jun 18, 2018 at 10:02 PM Andrew Jeffery <andrew@aj.id.au> wrote:
+>
+> On Tue, 19 Jun 2018, at 09:26, james.mihm@gmail.com wrote:
+> > I've invited you to fill out the following form:
+> > OpenBMC Hackathon
+> >
+> > To fill it out, visit:
+> > https://docs.google.com/forms/d/e/1FAIpQLSeGn5x4Y-6vgu3_AyY3YsIr_JVU5YCjLXufuXxdT9Qy6sz42Q/viewform?c=0&amp;w=1&amp;usp=mail_form_link
+> >
+> > I&#39;ve invited you to fill out a form:
+> >
+> > Google Forms: Create and analyze surveys.
+>
+> Maybe we should add 'either' and 'neither' options so people can register their interest appropriately?
+>
+> Cheers,
+>
+> Andrew
