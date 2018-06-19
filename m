@@ -1,71 +1,80 @@
-Return-Path: <avifishman70@gmail.com>
+Return-Path: <aaron_ppus@fmad.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::243; helo=mail-it0-x243.google.com;
- envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
+ spf=neutral (mailfrom) smtp.mailfrom=fmad.com
+ (client-ip=69.89.23.142; helo=gproxy4-pub.mail.unifiedlayer.com;
+ envelope-from=aaron_ppus@fmad.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="aZbSp0k9"; 
+ dmarc=none (p=none dis=none) header.from=fmad.com
+Authentication-Results: lists.ozlabs.org;
+ dkim=policy reason="signing key too small" (768-bit key;
+ unprotected) header.d=fmad.com header.i=@fmad.com header.b="T4clK/RN"; 
  dkim-atps=neutral
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gproxy4-pub.mail.unifiedlayer.com
+ (gproxy4-pub.mail.unifiedlayer.com [69.89.23.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 419Fmm206YzF0fX
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jun 2018 03:48:07 +1000 (AEST)
-Received: by mail-it0-x243.google.com with SMTP id v83-v6so1633460itc.3
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 10:48:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/P9s6tEMq5A1RGD5V7J/uSUpIswvKu6OhO5YchdPGKY=;
- b=aZbSp0k9hOLiuutJy2q6AfMCgYp4QxwBDqlxBWvWyX4hiycvKCZZFjLOi4N8r/B0X+
- iEjZqnzxsZY0Ojsg42QIk3+cjMMg1qiQYPgPUDn2ZdG3XZBVe2GZvMG9TQ/J0UAbIXKb
- nnJTB6nni+3ZtTyVGRMdbLFtbNGZa3Q+Dcs4mmM6E5Z23mhKq1X+UkDw3yxAAHUZUbRS
- tpFqeUOyA9wqrX2ioEBG1RSvBZjw1nYpUmstc1t4hudltKptH6iya8Wy8bR4rhkC8rJM
- 44CEAyZt/1aoVF0w1ZH+q2HoQTLLxk+6lCmeHhMmIc4Kzlu6S7oTqjtP+BxFxgL5ag2Z
- Czaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/P9s6tEMq5A1RGD5V7J/uSUpIswvKu6OhO5YchdPGKY=;
- b=gLqCyQTFa755XLvdouLvWf2ixhj01ADlYpRye2JOX9+//mFuKMOjpBc+aVdqOUqWCS
- PR2SnfDw/Zt242QM9sP0L82Vmo+InlwIoS8PL/7jHK9PU4njb+tld64N/9BkGOgmx5he
- GJq9c3oQPmiR8Q+hDjoGmMJY/e19WoYWy7bwCnYjugE8ONan+TWDi3X5hTrcL86HedFB
- 6x56TMpgb1SYlR2q6pnocOegn0u9lmbzZ5JmR6n2CEWrODyO78/v7xRdSNQLFQ4W/KQp
- 93IkcCZGEEzf4fS7151iftKNecBDzlbkmj62f9fQX2FMwDSsGF+TzZYPCAXZVhVeqIz9
- 1Xuw==
-X-Gm-Message-State: APt69E3nZgOLf87D5eL54UVMqGgSWY46WLgKa2hCCQB0cbn3ZInCmufc
- XTXCNrkW5tqt7IknDu/zMc3fpGKEP7uagkWI+A==
-X-Google-Smtp-Source: ADUXVKL0a8ZVwQTWVO7Mf9dtRYzmHv1ZuEzPI8EMDWBnZutrBpRhraPwC9wFJS8HP6rhtGE1TAFP+QvfFSyejWK3QL0=
-X-Received: by 2002:a02:6065:: with SMTP id
- d37-v6mr14782764jaf.106.1529430486034; 
- Tue, 19 Jun 2018 10:48:06 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 419H2C6TH8zF0fX
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jun 2018 04:44:51 +1000 (AEST)
+Received: from cmgw10.unifiedlayer.com (unknown [10.9.0.10])
+ by gproxy4.mail.unifiedlayer.com (Postfix) with ESMTP id 298581763D5
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 12:44:47 -0600 (MDT)
+Received: from box313.bluehost.com ([69.89.31.113]) by cmsmtp with ESMTP
+ id VLcVfO0lqSrODVLcVfpiRb; Tue, 19 Jun 2018 12:44:47 -0600
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=fmad.com;
+ s=default; h=Content-Type:Cc:To:Subject:Message-ID:Date:From:References:
+ In-Reply-To:MIME-Version:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=oTVpb30IDwlMnwK0A2rXVhRD5+hQN4HsgjBnDfLiR2I=; b=T4clK/RNSnrva+CiVY48urNALJ
+ dUIfR98fXL8xtfPIy9l3EMdCDiPlALzm3OadRe9Apn6usYLUaamj9UArilXpOCACj0/l6QkoZN+gk
+ +Mc9dNoDmbrwiE7NuNoW9ht1Y;
+Received: from mail-ot0-f178.google.com ([74.125.82.178]:34089)
+ by box313.bluehost.com with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89_1) (envelope-from <aaron_ppus@fmad.com>)
+ id 1fVLcU-0049Xp-Up
+ for openbmc@lists.ozlabs.org; Tue, 19 Jun 2018 12:44:46 -0600
+Received: by mail-ot0-f178.google.com with SMTP id r18-v6so860658otk.1
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jun 2018 11:44:46 -0700 (PDT)
+X-Gm-Message-State: APt69E1iYT3fegsadiZiAdIbLG2QAasoSNus7sbwZg6X80i5BsNUzDeT
+ RgpM6tnekkiNRniAqHJ0UGnO0K2fdk2IxHUdIw==
+X-Google-Smtp-Source: ADUXVKIJizl2L8XROTqMqZufREjjgoQkHsYUhSgFHQpEinanWXda5lo+nb1314rgZS4MfrSmjYa7VIwKosi9NBBDOWs=
+X-Received: by 2002:a9d:538a:: with SMTP id
+ w10-v6mr10283346otg.30.1529433886484; 
+ Tue, 19 Jun 2018 11:44:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180619142246.104469-2-avifishman70@gmail.com>
- <Pine.LNX.4.44L0.1806191044530.1473-100000@iolanthe.rowland.org>
-In-Reply-To: <Pine.LNX.4.44L0.1806191044530.1473-100000@iolanthe.rowland.org>
-From: Avi Fishman <avifishman70@gmail.com>
-Date: Tue, 19 Jun 2018 20:47:54 +0300
-Message-ID: <CAKKbWA79=k-HEinMNNw7y8bCg2s2M+_S8uFDuR-sQz7A7zFSPg@mail.gmail.com>
-Subject: Re: [PATCH v6 1/3] USB host: Add USB ehci support for nuvoton npcm7xx
- platform
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Tomer Maimon <tmaimon77@gmail.com>, 
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>, mathias.nyman@linux.intel.com, 
- bjorn.andersson@linaro.org, jhogan@kernel.org, albeu@free.fr, 
- chunfeng.yun@mediatek.com, Tony Lindgren <tony@atomide.com>,
- baolu.lu@linux.intel.com, 
- Alex Elder <elder@linaro.org>, Dmitry Osipenko <digetx@gmail.com>, 
- Kate Stewart <kstewart@linuxfoundation.org>, hdegoede@redhat.com, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-usb@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, devicetree <devicetree@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: by 2002:aca:7591:0:0:0:0:0 with HTTP; Tue, 19 Jun 2018 11:44:46
+ -0700 (PDT)
+In-Reply-To: <CAARXrtmU-kfvyyWWbmM47AHoD5219bGnqgNTNY7O8JakvVt9XA@mail.gmail.com>
+References: <CABq4n+T4aZ+iPerYDOrh8KJ09rxyUC96h-Qhvvznjz0AQuQ7Rg@mail.gmail.com>
+ <CAARXrtmU-kfvyyWWbmM47AHoD5219bGnqgNTNY7O8JakvVt9XA@mail.gmail.com>
+From: Aaron <aaron_ppus@fmad.com>
+Date: Wed, 20 Jun 2018 03:44:46 +0900
+X-Gmail-Original-Message-ID: <CABq4n+SRBLfsp+_U14DzjkaC88tHEwJAxpnw2E-UAWXnur7QSg@mail.gmail.com>
+Message-ID: <CABq4n+SRBLfsp+_U14DzjkaC88tHEwJAxpnw2E-UAWXnur7QSg@mail.gmail.com>
+Subject: Re: Netboot full image loading AST2400
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="00000000000082f0a2056f031368"
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box313.bluehost.com
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - fmad.com
+X-BWhitelist: no
+X-Source-IP: 74.125.82.178
+X-Source-L: No
+X-Exim-ID: 1fVLcU-0049Xp-Up
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: mail-ot0-f178.google.com [74.125.82.178]:34089
+X-Source-Auth: aaron_ppus@fmad.com
+X-Email-Count: 6
+X-Source-Cap: Zm1hZGNvbTtmbWFkY29tO2JveDMxMy5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -77,50 +86,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jun 2018 17:48:09 -0000
+X-List-Received-Date: Tue, 19 Jun 2018 18:44:52 -0000
 
-On Tue, Jun 19, 2018 at 5:49 PM Alan Stern <stern@rowland.harvard.edu> wrote:
+--00000000000082f0a2056f031368
+Content-Type: text/plain; charset="UTF-8"
+
+Nice thanks. Kind of curious why alot of the AST2400 BMC images limit RAM
+to 210MB or so. Perhaps its so you can load the full image in the reserved
+ram?
+
+On 19 June 2018 at 11:17, Lei YU <mine260309@gmail.com> wrote:
+
+> > It seems like there would an easy way to do this for
+> development/bringup, asking instead of hacking on the code for a change.
+> >
+> > Im bringing up a system by loading an image via u-boot across the
+> network into the upper section of ram, then booting from there. It
+> relocates itself to the reset vector and generally works well.
 >
-> On Tue, 19 Jun 2018 avifishman70@gmail.com wrote:
->
-> > From: Avi Fishman <AviFishman70@gmail.com>
-> >
-> > This patch adds support for ehci controller for the Nuvoton
-> > npcm7xx platform.
-> > Most of the code was taken from ehci-spear.c + specific initialization
-> > code
-> >
-> > Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
-> > ---
-> >  drivers/usb/host/Kconfig        |   8 ++
-> >  drivers/usb/host/Makefile       |   1 +
-> >  drivers/usb/host/ehci-npcm7xx.c | 212 ++++++++++++++++++++++++++++++++++++++++
-> >  3 files changed, 221 insertions(+)
-> >  create mode 100644 drivers/usb/host/ehci-npcm7xx.c
-> >
-> > diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
-> > index 9f0aeb068acb..e3100b249f0f 100644
-> > --- a/drivers/usb/host/Kconfig
-> > +++ b/drivers/usb/host/Kconfig
-> > @@ -185,6 +185,14 @@ config USB_EHCI_MXC
-> >       ---help---
-> >         Variation of ARC USB block used in some Freescale chips.
-> >
-> > +config USB_EHCI_HCD_NPCM7XX
-> > +     tristate "Support for Nuvoton NPCM7XX on-chip EHCI USB controller"
-> > +     depends on (USB_EHCI_HCD && ARCH_NPCM7XX) || COMPILE_TEST
-> > +     default y
->
-> Are you sure this is what you want?  The value defaults to Y whenever
-> COMPILE_TEST is enabled?  Will that annoy people doing compile tests?
+> You could refer to
+> https://lists.ozlabs.org/pipermail/openbmc/2017-December/010264.html
+> for TFTP kernel + NFS rootfs boot.
 >
 
-Do you recomment to change to:
-default y if (USB_EHCI_HCD && ARCH_NPCM7XX)
+--00000000000082f0a2056f031368
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Aside from that one issue,
->
-> Acked-by: Alan Stern <stern@rowland.harvard.edu>
->
-> Alan Stern
->
+<div dir=3D"ltr">Nice thanks. Kind of curious why alot of the AST2400 BMC i=
+mages limit RAM to 210MB or so. Perhaps its so you can load the full image =
+in the reserved ram?</div><div class=3D"gmail_extra"><br><div class=3D"gmai=
+l_quote">On 19 June 2018 at 11:17, Lei YU <span dir=3D"ltr">&lt;<a href=3D"=
+mailto:mine260309@gmail.com" target=3D"_blank">mine260309@gmail.com</a>&gt;=
+</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">&gt; It s=
+eems like there would an easy way to do this for development/bringup, askin=
+g instead of hacking on the code for a change.<br>
+&gt;<br>
+&gt; Im bringing up a system by loading an image via u-boot across the netw=
+ork into the upper section of ram, then booting from there. It relocates it=
+self to the reset vector and generally works well.<br>
+<br>
+</span>You could refer to<br>
+<a href=3D"https://lists.ozlabs.org/">https://lists.ozlabs.org/</a><wbr>pip=
+ermail/openbmc/2017-<wbr>December/010264.html<br>
+for TFTP kernel + NFS rootfs boot.<br>
+</blockquote></div><br></div>
+
+--00000000000082f0a2056f031368--
