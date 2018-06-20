@@ -1,70 +1,78 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=roeck-us.net
- (client-ip=208.91.199.152; helo=bh-25.webhostbox.net;
- envelope-from=linux@roeck-us.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="HrubzEDC";
- dkim-atps=neutral
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 419w9K5kq9zF0vb
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 05:38:13 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
- :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=V/F5xqzvXYUEvHdSufLvvlWjihh/F/D8QvOf3gpqB3k=; b=HrubzEDCwf2Tv9zwItosI4EiU+
- DMcrDJrtcdijjxd8RNcnSVDFrqaXQTVMeoazF9Hxm3k5JaXitl2i8S3/6HtulJFpzpTB88YvBJHjb
- NithF0QO/n4GpJqRmnv560+LvUNEKhNj48MuAnfvlfV+V85upj0OO87dnpsTQsKFbVZ8LMkt7uI7f
- DXOmAsMFxMzOsiq5jXmM2kwsO+BxCv3HeeBpVPM+9wt4EMJV/qpOcK9Vdsk6XviP7twAuJYRtutE3
- 11hStToDd0z90o0jakeZXgFedo6lQokWcDS54EZNLo7edCl2p+JQhquXKqLYmQwn7fdHIfYjMhbaK
- R42xZj7g==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:56050 helo=localhost)
- by bh-25.webhostbox.net with esmtpa (Exim 4.89)
- (envelope-from <linux@roeck-us.net>)
- id 1fVivf-00HCCS-75; Wed, 20 Jun 2018 19:38:07 +0000
-Date: Wed, 20 Jun 2018 12:38:06 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Joe Perches <joe@perches.com>
-Cc: Tomer Maimon <tmaimon77@gmail.com>, Julia Lawall <julia.lawall@lip6.fr>,
- cocci <cocci@systeme.lip6.fr>, robh+dt@kernel.org,
- mark.rutland@arm.com, jdelvare@suse.com, avifishman70@gmail.com,
- yuenn@google.com, brendanhiggins@google.com, venture@google.com,
- joel@jms.id.au, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2 2/2] hwmon: npcm750: add NPCM7xx PWM and Fan driver
-Message-ID: <20180620193806.GA2054@roeck-us.net>
-References: <20180619105352.97181-1-tmaimon77@gmail.com>
- <20180619105352.97181-3-tmaimon77@gmail.com>
- <20180620164853.GA3459@roeck-us.net>
- <a6a5a21236c37cfc63329e54248d941bf6d49e3c.camel@perches.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 419yGp5cTRzF0wb
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 07:13:06 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w5KKs8iu141715
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jun 2018 17:13:03 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2jqvrjc4j2-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jun 2018 17:13:03 -0400
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 20 Jun 2018 17:13:02 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 20 Jun 2018 17:12:59 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w5KLCwdW9437458
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 20 Jun 2018 21:12:58 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3B9B7AC062;
+ Wed, 20 Jun 2018 17:14:14 -0400 (EDT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9C0E6AC059;
+ Wed, 20 Jun 2018 17:14:13 -0400 (EDT)
+Received: from [9.41.102.69] (unknown [9.41.102.69])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed, 20 Jun 2018 17:14:13 -0400 (EDT)
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, ed.tanous@intel.com,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ Jeremy Kerr <jk@ozlabs.org>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [RFC] IKVM prototype with only video
+Date: Wed, 20 Jun 2018 16:12:57 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a6a5a21236c37cfc63329e54248d941bf6d49e3c.camel@perches.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18062021-2213-0000-0000-000002BCD828
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009229; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000265; SDB=6.01049879; UDB=6.00537992; IPR=6.00828852; 
+ MB=3.00021765; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-20 21:13:02
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18062021-2214-0000-0000-00005A8CABB6
+Message-Id: <ce8413d8-da27-99de-ad3b-8a353c4aa652@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-06-20_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=839 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1805220000 definitions=main-1806200227
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,118 +84,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Jun 2018 19:38:14 -0000
+X-List-Received-Date: Wed, 20 Jun 2018 21:13:07 -0000
 
-On Wed, Jun 20, 2018 at 11:25:08AM -0700, Joe Perches wrote:
-> (adding Julia Lawall and cocci mailing list)
-> 
-> On Wed, 2018-06-20 at 09:48 -0700, Guenter Roeck wrote:
-> []
-> > > +static inline void npcm7xx_fan_start_capture(struct npcm7xx_pwm_fan_data *data,
-> > > +						 u8 fan, u8 cmp)
-> > > +{
-> > > +	u8 fan_id = 0;
-> > > +	u8 reg_mode = 0;
-> > > +	u8 reg_int = 0;
-> > > +	unsigned long flags;
-> > > +
-> > > +	fan_id = NPCM7XX_FAN_INPUT(fan, cmp);
-> > > +
-> > > +	/* to check whether any fan tach is enable */
-> > > +	if (data->npcm7xx_fan[fan_id].FanStFlag != FAN_DISABLE) {
-> > > +		/* reset status */
-> > > +		spin_lock_irqsave(&data->npcm7xx_fan_lock[fan], flags);
-> > > +
-> > > +		data->npcm7xx_fan[fan_id].FanStFlag = FAN_INIT;
-> > > +		reg_int = ioread8(NPCM7XX_FAN_REG_TIEN(data->fan_base, fan));
-> > > +
-> > > +		if (cmp == NPCM7XX_FAN_CMPA) {
-> > > +			/* enable interrupt */
-> > > +			iowrite8((u8) (reg_int | (NPCM7XX_FAN_TIEN_TAIEN |
-> > > +						  NPCM7XX_FAN_TIEN_TEIEN)),
-> > 
-> > Is the (u8) typecast really necessary ? Seems unlikely.
-> 
-> The cast is not really necessary here as there would
-> be an implicit cast already.
-> 
-> Some might complain about loss of type safety and
-> "make W=123" would probably emit something here.
-> 
-I spent (wasted) some time browsing through the kernel.
-Similar typecasts are only used if there is a real type change.
-A warning here would not make sense unless NPCM7XX_FAN_TIEN_TAIEN
-or NPCM7XX_FAN_TIEN_TEIEN would be outside the u8 range, and then
-there would be one anyway.
+Hi all,
 
-So, no, I am not going to accept those typecasts. They just make the code
-more difficult to read. For example, the code here could have been
-simplified to something like
+I've been working on IKVM for OpenBMC and thought I would share my 
+progress for any feedback. I have a working driver for the AST2500 video 
+engine, and a functional view-only vnc server that runs on the BMC. This 
+can be used to view the host graphics output (though it's not very 
+interesting, just a login screen since I don't have any input working 
+yet). I have it running at 24 fps, using ~2.8 Mbps network (the jpegs 
+are about 15KB, x24 -> 380KB/s).
 
-	reg_int = ioread8(NPCM7XX_FAN_REG_TIEN(data->fan_base, fan));
-	reg_mode = ioread8(NPCM7XX_FAN_REG_TCKC(data->fan_base, fan));
-	if (cmp == NPCM7XX_FAN_CMPA) {
-		reg_int |= NPCM7XX_FAN_TIEN_TAIEN | NPCM7XX_FAN_TIEN_TEIEN;
-		reg_mode |= NPCM7XX_FAN_TCKC_CLK1_APB;
-	} else {
-		reg_int |= NPCM7XX_FAN_TIEN_TBIEN | NPCM7XX_FAN_TIEN_TFIEN;
-		reg_mode |= NPCM7XX_FAN_TCKC_CLK2_APB;
-	}
-	iowrite8(reg_int, NPCM7XX_FAN_REG_TIEN(data->fan_base, fan);
-	iowrite8(reg_mode, NPCM7XX_FAN_REG_TCKC(data->fan_base, fan);
+Here's the gerrit entry with everything: 
+https://gerrit.openbmc-project.xyz/#/c/11206/
 
-This, in turn, leads to the question if it is really not necessary
-to _clear_ those mask bits in the same context.
+Here's my linux tree with the driver, in a pretty messy state. I wasn't 
+able to get the streaming interface working with video4linux2, due to 
+complications with how AST2500 engine handles the buffers, but 
+performance isn't bad with basic read calls. The engine stays running 
+and read() just grabs the latest frame. 
+https://github.com/eddiejames/linux/commit/94b4c9b76d9ec58c5cc08527ca203741f17929c9
 
-Guenter
+And here's the vnc server, which does require a small extension to 
+libvncserver in order to transfer raw jpegs, and of course all the vnc 
+code to only transfer changed blocks isn't used at all. 
+https://github.com/eddiejames/obmc-ikvm
 
-> But casts to the same type are not necessary.
-> 
-> A possible coccinelle script to find casts to the
-> same type is below, but there are some false positives
-> for things like __force and __user casts
-> 
-> Also, spatch (1.0.4) seems to have a defect for this
-> when the type is used in operations that change a
-> smaller type to int or unsigned int.
-> 
-> i.e.: (offset is u16, but offset * 2 is int)
-> 
-> While running the cocci script below:
-> 
-> HANDLING: drivers/net/ethernet/intel/igb/e1000_nvm.c
-> diff = 
-> diff -u -p a/drivers/net/drivers/net/ethernet/intel/igb/e1000_nvm.c b/drivers/net/ethernet/intel/igb/e1000_nvm.c
-> --- a/drivers/net/ethernet/intel/igb/e1000_nvm.c
-> +++ b/drivers/net/ethernet/intel/igb/e1000_nvm.c
-> @@ -335,7 +335,7 @@ s32 igb_read_nvm_spi(struct e1000_hw *hw
->  
->  	/* Send the READ command (opcode + addr) */
->  	igb_shift_out_eec_bits(hw, read_opcode, nvm->opcode_bits);
-> -	igb_shift_out_eec_bits(hw, (u16)(offset*2), nvm->address_bits);
-> +	igb_shift_out_eec_bits(hw, (offset * 2), nvm->address_bits);
->  
->  	/* Read the data.  SPI NVMs increment the address with each byte
->  	 * read and will roll over if reading beyond the end.  This allows
-> 
-> ---
-> 
-> Anyway, here's the cocci script:
-> 
-> $ cat same_typecast.cocci
-> @@
-> type T;
-> T foo;
-> @@
-> 
-> -	(T *)&foo
-> +	&foo
-> 
-> @@
-> type T;
-> T foo;
-> @@
-> 
-> -	(T)foo
-> +	foo
-> 
+Let me know if anyone has any thoughts! Will work on getting input 
+working next.
+
+Thanks,
+
+Eddie
