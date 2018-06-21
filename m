@@ -1,78 +1,61 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c00::244; helo=mail-pf0-x244.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="U1/byN1B"; 
+ dkim-atps=neutral
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 419yGp5cTRzF0wb
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 07:13:06 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w5KKs8iu141715
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jun 2018 17:13:03 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2jqvrjc4j2-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jun 2018 17:13:03 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 20 Jun 2018 17:13:02 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 20 Jun 2018 17:12:59 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w5KLCwdW9437458
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 20 Jun 2018 21:12:58 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3B9B7AC062;
- Wed, 20 Jun 2018 17:14:14 -0400 (EDT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9C0E6AC059;
- Wed, 20 Jun 2018 17:14:13 -0400 (EDT)
-Received: from [9.41.102.69] (unknown [9.41.102.69])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Wed, 20 Jun 2018 17:14:13 -0400 (EDT)
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, ed.tanous@intel.com,
- Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- Jeremy Kerr <jk@ozlabs.org>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [RFC] IKVM prototype with only video
-Date: Wed, 20 Jun 2018 16:12:57 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18062021-2213-0000-0000-000002BCD828
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009229; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000265; SDB=6.01049879; UDB=6.00537992; IPR=6.00828852; 
- MB=3.00021765; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-20 21:13:02
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18062021-2214-0000-0000-00005A8CABB6
-Message-Id: <ce8413d8-da27-99de-ad3b-8a353c4aa652@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-06-20_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=839 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1805220000 definitions=main-1806200227
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BCFv0dDwzF0mQ
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 16:58:10 +1000 (AEST)
+Received: by mail-pf0-x244.google.com with SMTP id z24-v6so1041796pfe.7
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jun 2018 23:58:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=MHiSETwzuPTdordPKGbxY7eJko/dok9Cb1tDdoZJrMs=;
+ b=U1/byN1BpW6FFZhfdbXjJwFGg+ruPbI+9SL7S5/FO7heNF4BQhmWFFwstCgeBwTLfS
+ n4kj7Qdwg9/Pt90pHThnHz4CPw/d8QAe4MUJmy3sAuCjbao5bCTQt9EQu9IjSOcz6Ch0
+ v5UgS74AQiG7eyFkzpxqxnfqvRPKHquP+ch2pYup3MeNygNI234f76r4g4/z9LYXOzv7
+ luq+f1jXf03b1bVQZfcnc2Lkbphl6lUKUtJhlpn/p1k3KLTzneeb03KJWnXUNN730ufw
+ 2p1TnKkGWqPyguTLWbf4YBJPRuYazIBxc0io1/6zx+lbDe9fmkCILLkJdM61BL4C/H/a
+ Wi0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=MHiSETwzuPTdordPKGbxY7eJko/dok9Cb1tDdoZJrMs=;
+ b=P0sS374cDDrP2UYBdP0XTtVlR1XE4Jezz9q2kSVYf59wHtGebJwJfy9MphKcTz7urq
+ Rd0cszOUeJOvKAvMIgrra/NuabLG/mPDz/2+0BFGpQ99IfLDWReMg6xlT7Zbpq+y1mTQ
+ UWyh7hfg5zjWZFdiPbNG3uuLDPlbYDD7M2e7Rb2/LhC6LYo41Ro6rBKNvQUEWdKPuPtd
+ 2fzGGCJjrr+PPo8YuZfv98MjZlZayHlnkm5t0+EtT/YcEX6z0bihvTqjsQfU50e+cBdA
+ iAVofv6imBhQeztR/q4dq9AHo1I5TPpFnlLXS9Qe2H6XRpYRCBxv7jABHRcwHlCONmXm
+ 6IKA==
+X-Gm-Message-State: APt69E3mpqSkg6zAo1mJ0R1VtdKJU0Bq04fonCLSYMMaAdYoiznGX5+m
+ 8RZTUUA2Sw/YKZfJPHJRDpcJfNnH
+X-Google-Smtp-Source: ADUXVKIjTkTmwixUX5K5f+oyuL/jHz95fFe0t4x4mbraK5RGxmMHFSXhmYamqzkGrIaxLDoV6+kX3A==
+X-Received: by 2002:a63:9d8e:: with SMTP id
+ i136-v6mr572890pgd.395.1529564287493; 
+ Wed, 20 Jun 2018 23:58:07 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id b74-v6sm8782025pfl.138.2018.06.20.23.58.04
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 20 Jun 2018 23:58:06 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Thu, 21 Jun 2018 16:28:01 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>
+Subject: [PATCH linux dev-4.17] clk: aspeed: Support HPLL strapping on ast2400
+Date: Thu, 21 Jun 2018 16:27:59 +0930
+Message-Id: <20180621065759.21109-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -84,36 +67,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Jun 2018 21:13:07 -0000
+X-List-Received-Date: Thu, 21 Jun 2018 06:58:11 -0000
 
-Hi all,
+The HPLL can be configured through a register (SCU24), however most
+some platforms chose to configure it through the strapping settings and
+do not use the register. This was not noticed as the logic for bit 18 in
+SCU24 was confused: set means programmed, but the driver read it as set
+means strapped.
 
-I've been working on IKVM for OpenBMC and thought I would share my 
-progress for any feedback. I have a working driver for the AST2500 video 
-engine, and a functional view-only vnc server that runs on the BMC. This 
-can be used to view the host graphics output (though it's not very 
-interesting, just a login screen since I don't have any input working 
-yet). I have it running at 24 fps, using ~2.8 Mbps network (the jpegs 
-are about 15KB, x24 -> 380KB/s).
+This gives us the correct HPLL value on Palmetto systems, from which
+most of the peripheral clocks are generated.
 
-Here's the gerrit entry with everything: 
-https://gerrit.openbmc-project.xyz/#/c/11206/
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/clk/clk-aspeed.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-Here's my linux tree with the driver, in a pretty messy state. I wasn't 
-able to get the streaming interface working with video4linux2, due to 
-complications with how AST2500 engine handles the buffers, but 
-performance isn't bad with basic read calls. The engine stays running 
-and read() just grabs the latest frame. 
-https://github.com/eddiejames/linux/commit/94b4c9b76d9ec58c5cc08527ca203741f17929c9
-
-And here's the vnc server, which does require a small extension to 
-libvncserver in order to transfer raw jpegs, and of course all the vnc 
-code to only transfer changed blocks isn't used at all. 
-https://github.com/eddiejames/obmc-ikvm
-
-Let me know if anyone has any thoughts! Will work on getting input 
-working next.
-
-Thanks,
-
-Eddie
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index c17032bc853a..c4770cbb6f32 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -24,7 +24,7 @@
+ #define ASPEED_MPLL_PARAM	0x20
+ #define ASPEED_HPLL_PARAM	0x24
+ #define  AST2500_HPLL_BYPASS_EN	BIT(20)
+-#define  AST2400_HPLL_STRAPPED	BIT(18)
++#define  AST2400_HPLL_PROGRAMMED BIT(18)
+ #define  AST2400_HPLL_BYPASS_EN	BIT(17)
+ #define ASPEED_MISC_CTRL	0x2c
+ #define  UART_DIV13_EN		BIT(12)
+@@ -586,8 +586,24 @@ static void __init aspeed_ast2400_cc(struct regmap *map)
+ 	 * and we assume that it is enabled
+ 	 */
+ 	regmap_read(map, ASPEED_HPLL_PARAM, &val);
+-	WARN(val & AST2400_HPLL_STRAPPED, "hpll is strapped not configured");
+-	aspeed_clk_data->hws[ASPEED_CLK_HPLL] = aspeed_ast2400_calc_pll("hpll", val);
++	if (val & AST2400_HPLL_PROGRAMMED) {
++		/* hpll is configured by the strap register */
++		aspeed_clk_data->hws[ASPEED_CLK_HPLL] = aspeed_ast2400_calc_pll("hpll", val);
++	} else {
++		/* hpll is configured by the strap register */
++		regmap_read(map, ASPEED_STRAP, &val);
++		val = (val >> 8) & 0x3;
++		if (val == 0x00)
++			freq = 384000000;
++		else if (val == 0x01)
++			freq = 360000000;
++		else if (val == 0x02)
++			freq = 336000000;
++		else if (val == 0x03)
++			freq = 408000000;
++		aspeed_clk_data->hws[ASPEED_CLK_HPLL] =
++			clk_hw_register_fixed_rate(NULL, "hpll", "clkin", 0, freq);
++	}
+ 
+ 	/*
+ 	 * Strap bits 11:10 define the CPU/AHB clock frequency ratio (aka HCLK)
+-- 
+2.17.1
