@@ -1,40 +1,35 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BXCH17KpzF10W
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 05:42:02 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2018 12:42:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,253,1526367600"; d="scan'208";a="51222151"
-Received: from maru.jf.intel.com ([10.54.51.80])
- by orsmga008.jf.intel.com with ESMTP; 21 Jun 2018 12:42:00 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>
-Subject: [PATCH linux-next v6 13/13] Add maintainers for the PECI subsystem
-Date: Thu, 21 Jun 2018 12:41:59 -0700
-Message-Id: <20180621194159.21160-1-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
-References: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BbVm361hzDrcd
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 08:10:36 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w5LMAC2k024325;
+ Fri, 22 Jun 2018 01:10:12 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id E854D62FF9; Fri, 22 Jun 2018 01:10:11 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: robh+dt@kernel.org, mark.rutland@arm.com, jdelvare@suse.com,
+ linux@roeck-us.net, avifishman70@gmail.com, yuenn@google.com,
+ brendanhiggins@google.com, venture@google.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v3 1/2] dt-binding: hwmon: Add NPCM7xx PWM and Fan controller
+ documentation
+Date: Fri, 22 Jun 2018 01:09:56 +0300
+Message-Id: <20180621220957.206638-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180621220957.206638-1-tmaimon77@gmail.com>
+References: <20180621220957.206638-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -46,41 +41,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 19:42:03 -0000
+X-List-Received-Date: Thu, 21 Jun 2018 22:10:41 -0000
 
-This commit adds maintainer information for the PECI subsystem.
+Added device tree binding documentation for Nuvoton BMC
+NPCM7xx Pulse Width Modulation (PWM)  and Fan tach controller.
+The PWM controller can support upto 8 PWM output ports.
+The Fan tach controller can support upto 16 tachometer inputs.
 
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
-Reviewed-by: James Feist <james.feist@linux.intel.com>
-Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
-Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- MAINTAINERS | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ .../devicetree/bindings/hwmon/npcm750-pwm-fan.txt  | 84 ++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9fd5e8808208..12005d7aed8a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11137,6 +11137,18 @@ L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- F:	drivers/platform/x86/peaq-wmi.c
- 
-+PECI SUBSYSTEM
-+M:	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-+M:	Jason M Biils <jason.m.bills@linux.intel.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/peci/
-+F:	drivers/mfd/intel-peci-client.c
-+F:	drivers/peci/
-+F:	drivers/hwmon/peci-*.c
-+F:	include/linux/mfd/intel-peci-client.h
-+F:	include/linux/peci.h
-+F:	include/uapi/linux/peci-ioctl.h
+diff --git a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+new file mode 100644
+index 000000000000..a9eacda34f92
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+@@ -0,0 +1,84 @@
++Nuvoton NPCM7xx PWM and Fan Tacho controller device driver
 +
- PER-CPU MEMORY ALLOCATOR
- M:	Tejun Heo <tj@kernel.org>
- M:	Christoph Lameter <cl@linux.com>
++The NPCM7xx has two identical Pulse-width modulation (PWM) controller modules,
++Each PWM module has four PWM controller outputs, Totally 8 PWM controller outputs.
++
++The NPCM7xx has eight identical Fan tachometer controller modules,
++Each Fan module has two Fan controller inputs, Totally 16 Fan controller inputs.
++
++Required properties for pwm-fan node:
++- compatible	: "nuvoton,npcm750-pwm-fan" for Poleg NPCM7XX.
++- reg 			: specifies physical base address and size of the registers.
++- reg-names 	: must contain:
++					* "pwm-base" for the PWM registers.
++ 					* "fan-base" for the Fan registers.
++- clocks		: phandle of reference clocks.
++- clock-names	: must contain
++					* "clk_apb3" for clock of PWM controller.
++ 					* "clk_apb4" for clock of Fan controller.
++- interrupts	: contain the Fan interrupts with flags for falling edge.
++- pinctrl-names	: a pinctrl state named "default" must be defined.
++- pinctrl-0 	: phandle referencing pin configuration of the PWM and Fan
++					controller ports.
++
++pwm subnode format:
++===================
++Under pwm subnode can be upto 8 child nodes, each child node representing a PWM channel.
++Each pwm subnode must have one PWM channel and atleast one Fan tach channel.
++
++For PWM channel can be configured cooling-levels to create cooling device.
++Cooling device could be bound to a thermal zone for the thermal control.
++
++Required properties for each child node:
++- pwm-ch : specify the PWM output channel.
++			integer value in the range 0 through 7, that represent
++			the PWM channel number that used.
++
++- fan-ch : specify the Fan input channel.
++			integer value in the range 0 through 15, that represent
++			the Fan channel number that used.
++
++			At least one Fan tach input channel is required
++
++Optional property for each child node:
++- cooling-levels: PWM duty cycle values in a range from 0 to 255
++                  which correspond to thermal cooling states.
++
++Examples:
++
++pwm_fan:pwm_fan_controller@103000 {
++	compatible = "nuvoton,npcm750-pwm-fan";
++	reg = <0x103000 0x2000>,
++		<0x180000 0x8000>;
++	reg-names = "pwm_base", "fan_base";
++	clocks = <&clk NPCM7XX_CLK_APB3>,
++		<&clk NPCM7XX_CLK_APB4>;
++	clock-names = "clk_apb3","clk_apb4";
++	interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm0_pins &pwm1_pins &pwm2_pins
++			&fanin0_pins &fanin1_pins &fanin2_pins
++			&fanin3_pins &fanin4_pins>;
++
++			pwm@0 {
++				pwm-ch = /bits/ 8 <0x00>;
++				fan-ch = /bits/ 8 <0x00 0x01>;
++				cooling-levels = <127 255>;
++				};
++			pwm@1 {
++				pwm-ch = /bits/ 8 <0x01>;
++				fan-ch = /bits/ 8 <0x02 0x03>;
++				};
++			pwm@2 {
++				pwm-ch = /bits/ 8 <0x02>;
++				fan-ch = /bits/ 8 <0x04>;
++				};
++
++};
+\ No newline at end of file
 -- 
-2.17.1
+2.14.1
