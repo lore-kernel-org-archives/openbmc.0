@@ -1,56 +1,65 @@
-Return-Path: <joe@perches.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=perches.com
- (client-ip=216.40.44.244; helo=smtprelay.hostedemail.com;
- envelope-from=joe@perches.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::232; helo=mail-qt0-x232.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=perches.com
-Received: from smtprelay.hostedemail.com (smtprelay0244.hostedemail.com
- [216.40.44.244])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="RuFyJwxa"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
+ [IPv6:2607:f8b0:400d:c0d::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BPhw2sXdzF0mQ
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 00:48:47 +1000 (AEST)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay04.hostedemail.com (Postfix) with ESMTP id CA489180F737D;
- Thu, 21 Jun 2018 14:48:42 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50, 0, 0, , d41d8cd98f00b204, joe@perches.com,
- :::::::::::::::::::::::::::::::,
- RULES_HIT:41:355:379:541:599:967:973:988:989:1260:1263:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1541:1593:1594:1711:1730:1747:1777:1792:2393:2525:2553:2560:2563:2682:2685:2828:2859:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3353:3622:3865:3866:3867:3868:3870:3871:3873:3874:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4321:5007:6117:6120:6742:7557:7901:8599:8603:8700:8985:9025:9389:10004:10400:10848:11232:11658:11854:11914:12043:12219:12740:12760:12776:12895:13069:13161:13229:13311:13357:13439:14096:14097:14181:14651:14659:14721:21080:21433:21451:21627:30054:30070:30074:30090:30091,
- 0,
- RBL:47.151.150.235:@perches.com:.lbl8.mailshell.net-62.14.0.100 64.201.201.201,
- CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none, DomainCache:0,
- MSF:not bulk, SPF:fn, MSBL:0, DNSBL:neutral, Custom_rules:0:0:0, LFtime:25,
- LUA_SUMMARY:none
-X-HE-Tag: rule72_4baf34171461e
-X-Filterd-Recvd-Size: 2495
-Received: from XPS-9350.home (unknown [47.151.150.235])
- (Authenticated sender: joe@perches.com)
- by omf03.hostedemail.com (Postfix) with ESMTPA;
- Thu, 21 Jun 2018 14:48:39 +0000 (UTC)
-Message-ID: <8f9c37fd13abe2596521afb5d2779f644c214a93.camel@perches.com>
-Subject: Re: [PATCH v2 2/2] hwmon: npcm750: add NPCM7xx PWM and Fan driver
-From: Joe Perches <joe@perches.com>
-To: Julia Lawall <julia.lawall@lip6.fr>
-Cc: Guenter Roeck <linux@roeck-us.net>, Tomer Maimon <tmaimon77@gmail.com>, 
- cocci <cocci@systeme.lip6.fr>, robh+dt@kernel.org, mark.rutland@arm.com,
- jdelvare@suse.com,  avifishman70@gmail.com, yuenn@google.com,
- brendanhiggins@google.com,  venture@google.com, joel@jms.id.au,
- devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org,  openbmc@lists.ozlabs.org
-Date: Thu, 21 Jun 2018 07:48:38 -0700
-In-Reply-To: <alpine.DEB.2.20.1806211515060.3774@hadrien>
-References: <20180619105352.97181-1-tmaimon77@gmail.com>
- <20180619105352.97181-3-tmaimon77@gmail.com>
- <20180620164853.GA3459@roeck-us.net>
- <a6a5a21236c37cfc63329e54248d941bf6d49e3c.camel@perches.com>
- <alpine.DEB.2.20.1806211515060.3774@hadrien>
-Content-Type: text/plain; charset="ISO-8859-1"
-X-Mailer: Evolution 3.28.1-2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BWS14h2nzF0Pd
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 05:08:00 +1000 (AEST)
+Received: by mail-qt0-x232.google.com with SMTP id a18-v6so3858828qtj.4
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 12:08:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:subject:to:cc:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=NJDB5Z3bGW2zBiF5eUID+VMwJ8Q4Own+0OnRPihL6rs=;
+ b=RuFyJwxavflWmkT/KnLtgwsWDXyAsY2J6uMZRytqYYZiRoRtJB/bbrMTX11LnJaFr2
+ 6O4Ovljj9L+bPYV6Z/M50I/NxIASoiNHHe8xmb/CN0lDSiUlcgCiwL+kE0r2OoYxnrW1
+ LW7nBp+bjIQIzebht29vhh9eSYVNJAcFDdf2saWGfLdBQW16VB8dEL3khomDR4J01RqB
+ 0YAfemsGr3yAGNaJBHStB5ExSj3jib9MZhY11KxjkLa54NQtU6MXwgtSl7+SqsFPlK8x
+ Dz44hypJCN6o6qM5HqSA3jjIaQo1JTjZ/lszKcAYvorvSO/YpgO2fiwkgeaUUl/z7GQ3
+ THHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=NJDB5Z3bGW2zBiF5eUID+VMwJ8Q4Own+0OnRPihL6rs=;
+ b=DOCvMxhKxhQ7P5UmO03el1PqsbJnUhaZT5KyGh6pFUg0xjLz1a4/NMdoSWBF3OBqfq
+ JWgcBeyy/+b4f3q8fzEqkPCsdDylLX3Ufg+bivkbic6Vyv/PaNCNALBtEAhTF29F5dBJ
+ ci7bmTYC66GYWOb9PTMC3WhFFXew5GSmro5NXuzhJK5neL3ju3l2eIQVt7u4TTGjdana
+ Ug6nJLu+gP5lIG2oWDlLfNHCJQkBxQYT2iNpYWqyEqxy03bUrxweiVXuxj7uVEc+ujbJ
+ QPoeN/RQmWfGL72orij3cCHut+wdmkeC/eFi+CIxDjqmpIJWDVmfHmTXrk3k7gVvLcwI
+ QLWQ==
+X-Gm-Message-State: APt69E3dexIeeUo9hc8kuVQJzrObGL9QirsG7inz9h+f6nR6fDz8zBNX
+ yXz2P8h9NiRJgUCXUXivojw=
+X-Google-Smtp-Source: AAOMgperuWyMOdD7bejb/JG6I0d7cpLP0/oT7eUdKeYvYPePaNG/b5SjWMbWNEfozjBB5M4xaZ0Mlg==
+X-Received: by 2002:ac8:33e9:: with SMTP id
+ d38-v6mr3835045qtb.184.1529608077946; 
+ Thu, 21 Jun 2018 12:07:57 -0700 (PDT)
+Received: from krtaylors-mbp.austin.ibm.com ([32.97.110.51])
+ by smtp.gmail.com with ESMTPSA id s128-v6sm3455767qkh.2.2018.06.21.12.07.56
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 21 Jun 2018 12:07:57 -0700 (PDT)
+From: krtaylor <kurt.r.taylor@gmail.com>
+Subject: OpenBMC Release Planning Working Group
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: james.mihm@intel.com, sdasari@fb.com, alirhas@microsoft.com,
+ yuenn@google.com, bradleyb@fuzziesquirrel.com
+Message-ID: <f86c688b-b237-bdd5-12a0-385f96902581@gmail.com>
+Date: Thu, 21 Jun 2018 14:07:55 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.8.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -62,35 +71,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 14:48:48 -0000
+X-List-Received-Date: Thu, 21 Jun 2018 19:08:03 -0000
 
-On Thu, 2018-06-21 at 15:17 +0200, Julia Lawall wrote:
-> On Wed, 20 Jun 2018, Joe Perches wrote:
-> > Also, spatch (1.0.4) seems to have a defect for this
-> > when the type is used in operations that change a
-> > smaller type to int or unsigned int.
-> > 
-> > i.e.: (offset is u16, but offset * 2 is int)
-> 
-> Ah.  The rule is that the result type is always the larger one?
+Hi all,
 
-Yes, but not quite, no.
+The long anticipated OpenBMC Release Planning working group is now 
+forming and will have its first meeting next week. I would like to keep 
+the meeting small at first so that we can move quickly, but I do need 
+complete representation. Please let me know if you'd like to participate 
+and what day a meeting would work best for you. Those on copy should 
+plan on attending or at least make sure someone is covering for your 
+organization.
 
-The c90 rules are called "integer promotions" and are
-detailed in section 6.3 Conversions
+Let me know if you have any questions.
 
-Basically, if any type is smaller than int, all operations
-are done as int if possible, or unsigned int if necessary.
-If any type is larger than int, then the larger type is used.
+Regards, Kurt Taylor (krtaylor)
 
-If you don't have the c90 standard, this one is close enough.
-http://c0x.coding-guidelines.com/6.3.html
-(use the next button several times to read the whole section)
 
-Also, section 6.5 details "expressions" where the operands 
-of things like bit operations use integer promotions.
+Proposed times:
 
-> Unfortunately, Coccinelle doesn't know the size of any type.  I could add
-> some special cases, but that may be more confusing than helpful.
+1) Tuesdays, 2:00pm Central US (1900 UTC)
 
-Maybe, but when I saw the suggested removal, I was surprised.
+2) Thursdays, 8:00am Central US (1300 UTC)
+
+3) Thursdays, 3:00pm Central US (2000 UTC)
+
+
+Initial Agenda:
+
+1) Agree on the release process and set an initial release date in 
+November (see email from May 21)
+
+2) Set design and freeze milestones
+
+3) "Must" deliver items for November release
+
+4) How to open the design and development for a needed feature
