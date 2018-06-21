@@ -1,42 +1,55 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.33.251.175; helo=3.mo179.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c0f::22c; helo=mail-ot0-x22c.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-Received: from 3.mo179.mail-out.ovh.net (3.mo179.mail-out.ovh.net
- [178.33.251.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="I9Na/4/N"; 
+ dkim-atps=neutral
+Received: from mail-ot0-x22c.google.com (mail-ot0-x22c.google.com
+ [IPv6:2607:f8b0:4003:c0f::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BGTb1tnwzF0wq
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 19:23:30 +1000 (AEST)
-Received: from player688.ha.ovh.net (unknown [10.109.120.26])
- by mo179.mail-out.ovh.net (Postfix) with ESMTP id 3C1A3D3D17
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 11:23:26 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-TOU-1-49-10.w86-201.abo.wanadoo.fr
- [86.201.141.10]) (Authenticated sender: postmaster@kaod.org)
- by player688.ha.ovh.net (Postfix) with ESMTPSA id A2A39200BF;
- Thu, 21 Jun 2018 11:23:21 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.17 v3] clk: aspeed: Support HPLL strapping on
- ast2400
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>
-References: <20180621084310.13688-1-joel@jms.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <9a630af7-d2e9-7166-1d40-66e4764f1fed@kaod.org>
-Date: Thu, 21 Jun 2018 11:23:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BHld594TzF12M
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 20:20:45 +1000 (AEST)
+Received: by mail-ot0-x22c.google.com with SMTP id p95-v6so2973507ota.5
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 03:20:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=FGrKavXtJJ4yuiwGB69avYYWDGxYlcsUlyaASMsIqzo=;
+ b=I9Na/4/NDyF3dRV3sYVYsmF9EwDYi0nFydr2h6CvwvwKJ+iiVznnUI/YZfgu99k1IR
+ pzzM4HexxaIkmqzgTox6ubHL+a0tRmVzt9QTDzvd66J3sHBJFuC5X8QbMN1JMnUoBKsA
+ IdStYyXV4b6MI+7UyFtN9QgmUXP4X/h7yY6aQbyLOz5lsDRD/RK9//ksuk5fjv1Riqbm
+ LXd6nmp9CJxarA+OI5htmhJlDdS83H4C3G18BZCvOsQ28/HIY4uH2ZwIqyY5UJ4gSpuA
+ LCELTas0QzQ+bP7YYtD8bV+7M/ACQXcjvoWrW1UYJFYMziM1LsgE819aN0i3ZAjvypIg
+ PHkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=FGrKavXtJJ4yuiwGB69avYYWDGxYlcsUlyaASMsIqzo=;
+ b=F0BCXLYRhQ3Jfz7RCVAn1unWh8Rcj7XD4CytIN+phaFBkMaOOJCFMiAyVdc07FjDgE
+ Enn5vD/clQD9I9ILyx3nixEcZx3i3g0lEWgB7zHvYuP/w+roBZnG22lKmgItHfYz1dUM
+ t5cBt7aebRoIsXXzLlrBb6xz1FAMiyqzfy+wiY/9Ib1W8CzOTe7KZywZb4HEo7tVQ0x4
+ 2ru7BvOyX6cdPXeYAFpyjsnbkAQ1YXmAQn0ME2rWSU3aZL9n26MRBfwHzZS5iu6l0qf7
+ PP2VxxVdg3VKCklcdVTnVynmS2IvCv02BYKi009BzbDvDZ3Tm+KhQvH64Rl1IdN5ZKDL
+ F98A==
+X-Gm-Message-State: APt69E0dvJMmeJFjOmxezv90Lv3YCd3EeZeAVS6vAV+rsItlfMArCIEu
+ gFDkAU+4DJBxIBeQA2WRPl20WWP0ITW5/vkburKdYiFd
+X-Google-Smtp-Source: ADUXVKIdQn4+FAX13aUGEr19ZHPB2uYzPYfbyMFaJFprVdJUsmuUzTYAevZE2GvWThi/+QHZh69dpWE0w/0H3MY83k8=
+X-Received: by 2002:a9d:2487:: with SMTP id
+ z7-v6mr15987974ota.230.1529576442940; 
+ Thu, 21 Jun 2018 03:20:42 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180621084310.13688-1-joel@jms.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 7966304791529229227
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtiedrtdeggdduhecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Received: by 2002:a4a:b05:0:0:0:0:0 with HTTP;
+ Thu, 21 Jun 2018 03:20:42 -0700 (PDT)
+From: AKASH G J <akashgj91@gmail.com>
+Date: Thu, 21 Jun 2018 15:50:42 +0530
+Message-ID: <CAE33tLHe9TnUaphWhBv6THyExHZJrr_aS+wQJnHowE7gKxdfCw@mail.gmail.com>
+Subject: Unable to use ipmitool in OpenBMC Linux
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="00000000000089cfd4056f24442d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -48,101 +61,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 09:23:31 -0000
+X-List-Received-Date: Thu, 21 Jun 2018 10:20:46 -0000
 
-On 06/21/2018 10:43 AM, Joel Stanley wrote:
-> The HPLL can be configured through a register (SCU24), however some
-> platforms chose to configure it through the strapping settings and do
-> not use the register. This was not noticed as the logic for bit 18 in
-> SCU24 was confused: set means programmed, but the driver read it as set
-> means strapped.
-> 
-> This gives us the correct HPLL value on Palmetto systems, from which
-> most of the peripheral clocks are generated.
-> 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+--00000000000089cfd4056f24442d
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
+Hi Team,
+<https://github.com/openbmc/openbmc/issues/3267#issue-334338630>
 
-Thanks,
+I added ipmitool into the root file system of OpenBMC Linux and booted it.
+When I tried to execute ipmi tool(inside OpenBMC Linux), it is showing the
+following error.
 
-C.
+root@zaius:# ipmitool sdr elist full
+*Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev/0. No
+such file or directory.*
 
-> ---
-> v2: Fix comment and commit message
-> v3: Support 25MHz clkin by changing the way the calculations
-> ---
->  drivers/clk/clk-aspeed.c | 45 +++++++++++++++++++++++++---------------
->  1 file changed, 28 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-> index c17032bc853a..5deb246c0184 100644
-> --- a/drivers/clk/clk-aspeed.c
-> +++ b/drivers/clk/clk-aspeed.c
-> @@ -24,7 +24,7 @@
->  #define ASPEED_MPLL_PARAM	0x20
->  #define ASPEED_HPLL_PARAM	0x24
->  #define  AST2500_HPLL_BYPASS_EN	BIT(20)
-> -#define  AST2400_HPLL_STRAPPED	BIT(18)
-> +#define  AST2400_HPLL_PROGRAMMED BIT(18)
->  #define  AST2400_HPLL_BYPASS_EN	BIT(17)
->  #define ASPEED_MISC_CTRL	0x2c
->  #define  UART_DIV13_EN		BIT(12)
-> @@ -565,29 +565,40 @@ builtin_platform_driver(aspeed_clk_driver);
->  static void __init aspeed_ast2400_cc(struct regmap *map)
->  {
->  	struct clk_hw *hw;
-> -	u32 val, freq, div;
-> +	u32 val, reg, div, clkin, hpll;
-> +	const u16 hpll_rates[][4] = {
-> +		{384, 360, 336, 408},
-> +		{400, 375, 350, 425},
-> +	};
-> +	int rate;
->  
->  	/*
->  	 * CLKIN is the crystal oscillator, 24, 48 or 25MHz selected by
->  	 * strapping
->  	 */
-> -	regmap_read(map, ASPEED_STRAP, &val);
-> -	if (val & CLKIN_25MHZ_EN)
-> -		freq = 25000000;
-> -	else if (val & AST2400_CLK_SOURCE_SEL)
-> -		freq = 48000000;
-> +	regmap_read(map, ASPEED_STRAP, &reg);
-> +	rate = (reg >> 8) & 3;
-> +	if (reg & CLKIN_25MHZ_EN) {
-> +		clkin = 25000000;
-> +		hpll = hpll_rates[1][rate];
-> +	} else if (reg & AST2400_CLK_SOURCE_SEL) {
-> +		clkin = 48000000;
-> +		hpll = hpll_rates[0][rate];
-> +	} else {
-> +		clkin = 24000000;
-> +		hpll = hpll_rates[0][rate];
-> +	}
-> +	hw = clk_hw_register_fixed_rate(NULL, "clkin", NULL, 0, clkin);
-> +	pr_debug("clkin @%u MHz\n", clkin / 1000000);
-> +
-> +	regmap_read(map, ASPEED_HPLL_PARAM, &reg);
-> +	if (reg & AST2400_HPLL_PROGRAMMED)
-> +		hw = aspeed_ast2400_calc_pll("hpll", val);
->  	else
-> -		freq = 24000000;
-> -	hw = clk_hw_register_fixed_rate(NULL, "clkin", NULL, 0, freq);
-> -	pr_debug("clkin @%u MHz\n", freq / 1000000);
-> +		hw = clk_hw_register_fixed_rate(NULL, "hpll", "clkin", 0,
-> +				hpll * 1000000);
->  
-> -	/*
-> -	 * High-speed PLL clock derived from the crystal. This the CPU clock,
-> -	 * and we assume that it is enabled
-> -	 */
-> -	regmap_read(map, ASPEED_HPLL_PARAM, &val);
-> -	WARN(val & AST2400_HPLL_STRAPPED, "hpll is strapped not configured");
-> -	aspeed_clk_data->hws[ASPEED_CLK_HPLL] = aspeed_ast2400_calc_pll("hpll", val);
-> +	aspeed_clk_data->hws[ASPEED_CLK_HPLL] = hw;
->  
->  	/*
->  	 * Strap bits 11:10 define the CPU/AHB clock frequency ratio (aka HCLK)
-> 
+Please someone help to resolve this.
+
+--00000000000089cfd4056f24442d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Team,</div><div><div class=3D"gmail-timeline-comme=
+nt-header gmail-clearfix"><h3 class=3D"gmail-timeline-comment-header-text g=
+mail-f5 gmail-text-normal"><a href=3D"https://github.com/openbmc/openbmc/is=
+sues/3267#issue-334338630" class=3D"gmail-timestamp"><span datetime=3D"2018=
+-06-21T04:59:02Z" title=3D"Jun 21, 2018, 10:29 AM GMT+5:30"></span></a>
+
+
+    <span class=3D"gmail-js-comment-fragment">
+      <span class=3D"gmail-js-comment-edit-history gmail-d-inline">
+      </span>
+    </span>
+  </h3>
+</div>
+
+
+    <div class=3D"edit-comment-hide">
+
+     =20
+<span>
+<table class=3D"gmail-d-block">
+  <tbody class=3D"gmail-d-block">
+    <tr class=3D"gmail-d-block">
+      <td class=3D"gmail-d-block gmail-comment-body gmail-markdown-body gma=
+il-js-comment-body">
+
+          <p>I added ipmitool into the root file system of OpenBMC Linux
+ and booted it. When I tried to execute ipmi tool(inside OpenBMC Linux),
+ it is showing the following error.</p>
+<p>root@zaius:# ipmitool sdr elist full<br>
+<strong>Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev/=
+0. No such file or directory.</strong></p>
+<p>Please someone help to resolve this.</p></td></tr></tbody></table></span=
+></div></div></div>
+
+--00000000000089cfd4056f24442d--
