@@ -1,55 +1,67 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <Luis.A.Silva@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::22c; helo=mail-ot0-x22c.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
+ envelope-from=luis.a.silva@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="I9Na/4/N"; 
+ dmarc=pass (p=none dis=none) header.from=dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="xZnZ6k+D"; 
  dkim-atps=neutral
-Received: from mail-ot0-x22c.google.com (mail-ot0-x22c.google.com
- [IPv6:2607:f8b0:4003:c0f::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Greylist: delayed 662 seconds by postgrey-1.36 at bilbo;
+ Thu, 21 Jun 2018 23:10:37 AEST
+Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
+ [68.232.149.214])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BHld594TzF12M
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 20:20:45 +1000 (AEST)
-Received: by mail-ot0-x22c.google.com with SMTP id p95-v6so2973507ota.5
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 03:20:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=FGrKavXtJJ4yuiwGB69avYYWDGxYlcsUlyaASMsIqzo=;
- b=I9Na/4/NDyF3dRV3sYVYsmF9EwDYi0nFydr2h6CvwvwKJ+iiVznnUI/YZfgu99k1IR
- pzzM4HexxaIkmqzgTox6ubHL+a0tRmVzt9QTDzvd66J3sHBJFuC5X8QbMN1JMnUoBKsA
- IdStYyXV4b6MI+7UyFtN9QgmUXP4X/h7yY6aQbyLOz5lsDRD/RK9//ksuk5fjv1Riqbm
- LXd6nmp9CJxarA+OI5htmhJlDdS83H4C3G18BZCvOsQ28/HIY4uH2ZwIqyY5UJ4gSpuA
- LCELTas0QzQ+bP7YYtD8bV+7M/ACQXcjvoWrW1UYJFYMziM1LsgE819aN0i3ZAjvypIg
- PHkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=FGrKavXtJJ4yuiwGB69avYYWDGxYlcsUlyaASMsIqzo=;
- b=F0BCXLYRhQ3Jfz7RCVAn1unWh8Rcj7XD4CytIN+phaFBkMaOOJCFMiAyVdc07FjDgE
- Enn5vD/clQD9I9ILyx3nixEcZx3i3g0lEWgB7zHvYuP/w+roBZnG22lKmgItHfYz1dUM
- t5cBt7aebRoIsXXzLlrBb6xz1FAMiyqzfy+wiY/9Ib1W8CzOTe7KZywZb4HEo7tVQ0x4
- 2ru7BvOyX6cdPXeYAFpyjsnbkAQ1YXmAQn0ME2rWSU3aZL9n26MRBfwHzZS5iu6l0qf7
- PP2VxxVdg3VKCklcdVTnVynmS2IvCv02BYKi009BzbDvDZ3Tm+KhQvH64Rl1IdN5ZKDL
- F98A==
-X-Gm-Message-State: APt69E0dvJMmeJFjOmxezv90Lv3YCd3EeZeAVS6vAV+rsItlfMArCIEu
- gFDkAU+4DJBxIBeQA2WRPl20WWP0ITW5/vkburKdYiFd
-X-Google-Smtp-Source: ADUXVKIdQn4+FAX13aUGEr19ZHPB2uYzPYfbyMFaJFprVdJUsmuUzTYAevZE2GvWThi/+QHZh69dpWE0w/0H3MY83k8=
-X-Received: by 2002:a9d:2487:: with SMTP id
- z7-v6mr15987974ota.230.1529576442940; 
- Thu, 21 Jun 2018 03:20:42 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BMWd6QZczF0mR
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 23:10:36 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1529586638; x=1561122638;
+ h=subject:to:references:from:message-id:date:mime-version:
+ in-reply-to:content-transfer-encoding;
+ bh=mAOjIXk3YP5qbbcrS2q3AyQ6q42HrNewNvEagpLTzGM=;
+ b=xZnZ6k+DPctapJQCRWAkMH8HSdCOaLnoDB9CjtUAtoMCQY6DRKLeGR1F
+ YlcPfcplyb1k0D6Wi6Bb11bTFJQKuSq0SagW7ClHeQEKcLQqN+7vwZ0jL
+ Pmw20Oqz4jhqs7NDSvw2cFvjacvw6EBLRt2VV0T7BWavJMRh856qrsdEQ U=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2GsCAB6oCtbmGKa6ERbHAEBAQQBAQoBA?=
+ =?us-ascii?q?YQrgTGDb5RCJoE1KpY+OwsjC4N4RgKCfCE4FAECAQEBAQEBAgEBAhABAQEBAQg?=
+ =?us-ascii?q?LCwYpIwyCNQwMFwRLLDABAQEBAQEBAQEBAQEBAQEaAg1kAQUjZgsYAgImAgJHE?=
+ =?us-ascii?q?AYNCAEBgyEBgX8PqXWCHIRbg2xoBQkBgQGHSYITgTaCOi6DGAICgiuCNIJVAod?=
+ =?us-ascii?q?8hS6LfAcChX2JDQaBMQ6EAYgBih2BfoVFgViBdDMaI4M4EoIcg06KcI9jgRoBA?=
+ =?us-ascii?q?Q?=
+X-IPAS-Result: =?us-ascii?q?A2GsCAB6oCtbmGKa6ERbHAEBAQQBAQoBAYQrgTGDb5RCJoE?=
+ =?us-ascii?q?1KpY+OwsjC4N4RgKCfCE4FAECAQEBAQEBAgEBAhABAQEBAQgLCwYpIwyCNQwMF?=
+ =?us-ascii?q?wRLLDABAQEBAQEBAQEBAQEBAQEaAg1kAQUjZgsYAgImAgJHEAYNCAEBgyEBgX8?=
+ =?us-ascii?q?PqXWCHIRbg2xoBQkBgQGHSYITgTaCOi6DGAICgiuCNIJVAod8hS6LfAcChX2JD?=
+ =?us-ascii?q?QaBMQ6EAYgBih2BfoVFgViBdDMaI4M4EoIcg06KcI9jgRoBAQ?=
+Received: from esa4.dell-outbound2.iphmx.com ([68.232.154.98])
+ by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2018 07:59:27 -0500
+Received: from ausc60ps301.us.dell.com ([143.166.148.206])
+ by esa4.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2018 18:59:27 +0600
+X-LoopCount0: from 10.166.136.216
+X-IronPort-AV: E=Sophos;i="5.51,251,1526360400"; d="scan'208";a="1174174188"
+X-DLP: DLP_GlobalPCIDSS
+Subject: Re: Unable to use ipmitool in OpenBMC Linux
+To: <openbmc@lists.ozlabs.org>
+References: <CAE33tLHe9TnUaphWhBv6THyExHZJrr_aS+wQJnHowE7gKxdfCw@mail.gmail.com>
+From: Luis Silva <luis.a.silva@dell.com>
+Message-ID: <67c4aeb8-9a4f-2b7f-880d-94ec6a9a8aff@dell.com>
+Date: Thu, 21 Jun 2018 07:59:26 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.7.0
 MIME-Version: 1.0
-Received: by 2002:a4a:b05:0:0:0:0:0 with HTTP;
- Thu, 21 Jun 2018 03:20:42 -0700 (PDT)
-From: AKASH G J <akashgj91@gmail.com>
-Date: Thu, 21 Jun 2018 15:50:42 +0530
-Message-ID: <CAE33tLHe9TnUaphWhBv6THyExHZJrr_aS+wQJnHowE7gKxdfCw@mail.gmail.com>
-Subject: Unable to use ipmitool in OpenBMC Linux
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000089cfd4056f24442d"
+In-Reply-To: <CAE33tLHe9TnUaphWhBv6THyExHZJrr_aS+wQJnHowE7gKxdfCw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.30.186.183]
+X-ClientProxiedBy: ausx13mps340.AMER.DELL.COM (10.166.136.217) To
+ ausx13mps339.AMER.DELL.COM (10.166.136.216)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -61,60 +73,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 10:20:46 -0000
+X-List-Received-Date: Thu, 21 Jun 2018 13:10:40 -0000
 
---00000000000089cfd4056f24442d
-Content-Type: text/plain; charset="UTF-8"
+On 6/21/2018 5:20 AM, AKASH G J wrote:
+> Hi Team,
+> 
+> 
+>       <https://github.com/openbmc/openbmc/issues/3267#issue-334338630>
+> 
+> I added ipmitool into the root file system of OpenBMC Linux and booted
+> it. When I tried to execute ipmi tool(inside OpenBMC Linux), it is
+> showing the following error.
+> 
+> root@zaius:# ipmitool sdr elist full
+> *Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev/0.
+> No such file or directory.*
+> 
+> Please someone help to resolve this.
+> 
 
-Hi Team,
-<https://github.com/openbmc/openbmc/issues/3267#issue-334338630>
+Hi Akash, try this:
 
-I added ipmitool into the root file system of OpenBMC Linux and booted it.
-When I tried to execute ipmi tool(inside OpenBMC Linux), it is showing the
-following error.
+ipmitool -I dbus sdr elist full
 
-root@zaius:# ipmitool sdr elist full
-*Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev/0. No
-such file or directory.*
-
-Please someone help to resolve this.
-
---00000000000089cfd4056f24442d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi Team,</div><div><div class=3D"gmail-timeline-comme=
-nt-header gmail-clearfix"><h3 class=3D"gmail-timeline-comment-header-text g=
-mail-f5 gmail-text-normal"><a href=3D"https://github.com/openbmc/openbmc/is=
-sues/3267#issue-334338630" class=3D"gmail-timestamp"><span datetime=3D"2018=
--06-21T04:59:02Z" title=3D"Jun 21, 2018, 10:29 AM GMT+5:30"></span></a>
-
-
-    <span class=3D"gmail-js-comment-fragment">
-      <span class=3D"gmail-js-comment-edit-history gmail-d-inline">
-      </span>
-    </span>
-  </h3>
-</div>
-
-
-    <div class=3D"edit-comment-hide">
-
-     =20
-<span>
-<table class=3D"gmail-d-block">
-  <tbody class=3D"gmail-d-block">
-    <tr class=3D"gmail-d-block">
-      <td class=3D"gmail-d-block gmail-comment-body gmail-markdown-body gma=
-il-js-comment-body">
-
-          <p>I added ipmitool into the root file system of OpenBMC Linux
- and booted it. When I tried to execute ipmi tool(inside OpenBMC Linux),
- it is showing the following error.</p>
-<p>root@zaius:# ipmitool sdr elist full<br>
-<strong>Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev/=
-0. No such file or directory.</strong></p>
-<p>Please someone help to resolve this.</p></td></tr></tbody></table></span=
-></div></div></div>
-
---00000000000089cfd4056f24442d--
+Silva.
