@@ -1,65 +1,37 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::232; helo=mail-qt0-x232.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="RuFyJwxa"; 
- dkim-atps=neutral
-Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
- [IPv6:2607:f8b0:400d:c0d::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BWS14h2nzF0Pd
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 05:08:00 +1000 (AEST)
-Received: by mail-qt0-x232.google.com with SMTP id a18-v6so3858828qtj.4
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jun 2018 12:08:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:subject:to:cc:message-id:date:user-agent:mime-version
- :content-transfer-encoding:content-language;
- bh=NJDB5Z3bGW2zBiF5eUID+VMwJ8Q4Own+0OnRPihL6rs=;
- b=RuFyJwxavflWmkT/KnLtgwsWDXyAsY2J6uMZRytqYYZiRoRtJB/bbrMTX11LnJaFr2
- 6O4Ovljj9L+bPYV6Z/M50I/NxIASoiNHHe8xmb/CN0lDSiUlcgCiwL+kE0r2OoYxnrW1
- LW7nBp+bjIQIzebht29vhh9eSYVNJAcFDdf2saWGfLdBQW16VB8dEL3khomDR4J01RqB
- 0YAfemsGr3yAGNaJBHStB5ExSj3jib9MZhY11KxjkLa54NQtU6MXwgtSl7+SqsFPlK8x
- Dz44hypJCN6o6qM5HqSA3jjIaQo1JTjZ/lszKcAYvorvSO/YpgO2fiwkgeaUUl/z7GQ3
- THHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
- :mime-version:content-transfer-encoding:content-language;
- bh=NJDB5Z3bGW2zBiF5eUID+VMwJ8Q4Own+0OnRPihL6rs=;
- b=DOCvMxhKxhQ7P5UmO03el1PqsbJnUhaZT5KyGh6pFUg0xjLz1a4/NMdoSWBF3OBqfq
- JWgcBeyy/+b4f3q8fzEqkPCsdDylLX3Ufg+bivkbic6Vyv/PaNCNALBtEAhTF29F5dBJ
- ci7bmTYC66GYWOb9PTMC3WhFFXew5GSmro5NXuzhJK5neL3ju3l2eIQVt7u4TTGjdana
- Ug6nJLu+gP5lIG2oWDlLfNHCJQkBxQYT2iNpYWqyEqxy03bUrxweiVXuxj7uVEc+ujbJ
- QPoeN/RQmWfGL72orij3cCHut+wdmkeC/eFi+CIxDjqmpIJWDVmfHmTXrk3k7gVvLcwI
- QLWQ==
-X-Gm-Message-State: APt69E3dexIeeUo9hc8kuVQJzrObGL9QirsG7inz9h+f6nR6fDz8zBNX
- yXz2P8h9NiRJgUCXUXivojw=
-X-Google-Smtp-Source: AAOMgperuWyMOdD7bejb/JG6I0d7cpLP0/oT7eUdKeYvYPePaNG/b5SjWMbWNEfozjBB5M4xaZ0Mlg==
-X-Received: by 2002:ac8:33e9:: with SMTP id
- d38-v6mr3835045qtb.184.1529608077946; 
- Thu, 21 Jun 2018 12:07:57 -0700 (PDT)
-Received: from krtaylors-mbp.austin.ibm.com ([32.97.110.51])
- by smtp.gmail.com with ESMTPSA id s128-v6sm3455767qkh.2.2018.06.21.12.07.56
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 Jun 2018 12:07:57 -0700 (PDT)
-From: krtaylor <kurt.r.taylor@gmail.com>
-Subject: OpenBMC Release Planning Working Group
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Cc: james.mihm@intel.com, sdasari@fb.com, alirhas@microsoft.com,
- yuenn@google.com, bradleyb@fuzziesquirrel.com
-Message-ID: <f86c688b-b237-bdd5-12a0-385f96902581@gmail.com>
-Date: Thu, 21 Jun 2018 14:07:55 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.8.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BX8s1GZnzF13G
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 05:39:56 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2018 12:39:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,253,1526367600"; d="scan'208";a="59887863"
+Received: from maru.jf.intel.com ([10.54.51.80])
+ by fmsmga002.fm.intel.com with ESMTP; 21 Jun 2018 12:39:54 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+Subject: [PATCH linux-next v6 01/13] dt-bindings: Add a document of PECI
+ subsystem
+Date: Thu, 21 Jun 2018 12:39:47 -0700
+Message-Id: <20180621193947.20645-1-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
+References: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,39 +43,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 19:08:03 -0000
+X-List-Received-Date: Thu, 21 Jun 2018 19:39:57 -0000
 
-Hi all,
+This commit adds a document of generic PECI bus, adapter and client
+driver.
 
-The long anticipated OpenBMC Release Planning working group is now 
-forming and will have its first meeting next week. I would like to keep 
-the meeting small at first so that we can move quickly, but I do need 
-complete representation. Please let me know if you'd like to participate 
-and what day a meeting would work best for you. Those on copy should 
-plan on attending or at least make sure someone is covering for your 
-organization.
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+Reviewed-by: James Feist <james.feist@linux.intel.com>
+Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>
+---
+ .../devicetree/bindings/peci/peci.txt         | 60 +++++++++++++++++++
+ 1 file changed, 60 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/peci/peci.txt
 
-Let me know if you have any questions.
-
-Regards, Kurt Taylor (krtaylor)
-
-
-Proposed times:
-
-1) Tuesdays, 2:00pm Central US (1900 UTC)
-
-2) Thursdays, 8:00am Central US (1300 UTC)
-
-3) Thursdays, 3:00pm Central US (2000 UTC)
-
-
-Initial Agenda:
-
-1) Agree on the release process and set an initial release date in 
-November (see email from May 21)
-
-2) Set design and freeze milestones
-
-3) "Must" deliver items for November release
-
-4) How to open the design and development for a needed feature
+diff --git a/Documentation/devicetree/bindings/peci/peci.txt b/Documentation/devicetree/bindings/peci/peci.txt
+new file mode 100644
+index 000000000000..5583aa80b78a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/peci/peci.txt
+@@ -0,0 +1,60 @@
++Generic device tree configuration for PECI buses
++================================================
++
++Required properties:
++- compatible     : Should be "simple-bus".
++- #address-cells : Should be present if the device has sub-nodes.
++- #size-cells    : Should be present if the device has sub-nodes.
++- ranges         : Should contain PECI controller registers ranges.
++
++Example:
++	peci: peci@10000000 {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0x0 0x10000000 0x1000>;
++	};
++
++Generic device tree configuration for PECI adapters
++===================================================
++
++Required properties:
++- #address-cells : Should be <1>. Read more about client addresses below.
++- #size-cells    : Should be <0>. Read more about client addresses below.
++
++The cells properties above define that an address of CPU clients of a PECI bus
++are described by a single value.
++
++Example:
++	peci0: peci-bus@0 {
++		compatible = "vendor,soc-peci";
++		reg = <0x0 0x1000>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++	};
++
++Generic device tree configuration for PECI clients
++==================================================
++
++Required properties:
++- compatible : Should contain name of PECI client.
++- reg        : Should contain address of a client CPU. Address range of CPU
++	       clients starts from 0x30 based on PECI specification.
++
++Example:
++	peci-bus@0 {
++		compatible = "vendor,soc-peci";
++		reg = <0x0 0x1000>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		peci-client@30 {
++			compatible = "vendor,peci-client";
++			reg = <0x30>;
++		};
++
++		peci-client@31 {
++			compatible = "vendor,peci-client";
++			reg = <0x31>;
++		};
++	};
+-- 
+2.17.1
