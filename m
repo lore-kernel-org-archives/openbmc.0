@@ -1,76 +1,56 @@
-Return-Path: <tcminyard@gmail.com>
+Return-Path: <james.mihm@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::241; helo=mail-ot0-x241.google.com;
- envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4002:c05::22b; helo=mail-yw0-x22b.google.com;
+ envelope-from=james.mihm@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=acm.org
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="EQOxaQRw"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="etNJKhlJ"; 
  dkim-atps=neutral
-Received: from mail-ot0-x241.google.com (mail-ot0-x241.google.com
- [IPv6:2607:f8b0:4003:c0f::241])
+Received: from mail-yw0-x22b.google.com (mail-yw0-x22b.google.com
+ [IPv6:2607:f8b0:4002:c05::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BytS3kxMzF0Vt
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 22:43:59 +1000 (AEST)
-Received: by mail-ot0-x241.google.com with SMTP id d19-v6so7333377oti.8
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 05:43:59 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41C9Xf5DjJzF132
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Jun 2018 06:44:18 +1000 (AEST)
+Received: by mail-yw0-x22b.google.com with SMTP id u124-v6so2842944ywg.0
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 13:44:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:reply-to:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=irfI0nFo1KeCKUAOKhXnoWL8wtmwKWrGjZ6K61EWv0A=;
- b=EQOxaQRwKBGNsgWycJ+918Qe9i98UMIpMoLA2SzSjShVdbrLtMeHptKovGTdWh8TSB
- mjhCbZiwSTxhHm16+s2XR6uUWjGcHnwAVy3Q19pzsxefFI8LFpZAIqxaSSXJ/tW8DMEE
- /wO9PCjBdyPF0j+s6GxTcje1Rz35Ss7HJfKR5u0pbw28B8LdNJVXP+eajwjjXl753LEd
- /1UoHoSds/xHMQS1Ll6Dhm8cngr03e8MqH5nTjJrjJNTWUwq3Yz0WftV0gtNN2PvFFxp
- Q0ToGxIr4qmzgjo/igXgEXyBrGjnUat8FRjwIZ0s1CLkN+/yevo14WZ7I1bVD9pupuLG
- sCzA==
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=w5ZTXc82HTMX5jOsm04ikZbbhcwMmJ8u66R8KlYN9Ms=;
+ b=etNJKhlJWQK9uWC5vi0D+bJ+KkD0LO7yH9uWkGIBlgwI5QKnGsm/jnRh2yAMTiz6z4
+ iuyymXEsJlMMfgwNdOFuLtfcEygpoZJJC2UyR/vgmqryDXaNw7V8FJikCwAu5BTcmn1p
+ nX1gXp9fvOJuvjiqYtfUW/OnazcjiujQ/nb1ObdvovSimqelr/8ianNSkunfSuDTrmUV
+ zf84NvqOM1nXSury42qekNQvXMAxY1KvrIMyE7fbY5IJmSXK4bcGnrJdurApbhoWdpI7
+ sI1gOPT+hW72Esl4xPB3Emi/w6/wNYIHw+BAHNay8rvGRUWei+4xF5GTMj7mtDnWQRw0
+ U77Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=irfI0nFo1KeCKUAOKhXnoWL8wtmwKWrGjZ6K61EWv0A=;
- b=FSft8M27KialSvkrnl3C3eUqo9DF7UgUw/jxf6ME3N4SZ7zGO3LcpbGY7QpABonJTG
- 1M139Q+FbsA0KgYsTx2xVJcEhO4t1O6IojeTJlGBiekov+Jk4pK7jdPbFa8sLtJEY3Ps
- FhwKYjrDGfCMq82xmc338lYrEIWUDEzEH1Pi/t9bgo3qIab4aci3qPDXCZyKn4O7ovdu
- afPhH6wo4Pmqeq/fn4W1BCYopTzx0y+HM4nN+yxg5ihvOiAnf9cQflFGM9hLAl3U0P+T
- wvF7FGF5AvZ5KwcEWiq6jkb3yotM86+Cyss3rYnMkVq+6pxFE0m3Rti6jINaFP/i3V2g
- p/KQ==
-X-Gm-Message-State: APt69E3AFISbgikjSxLMacBewCYSPG2Y4poYIPSz/F8X8C+DMasrB75N
- zIAZ4JSlf3oTljZdWV/PiA==
-X-Google-Smtp-Source: ADUXVKJqeRTV9L+9EKeYma0aIJRkatKcE+ej41EeF1mZjREdVtuj8ZmFC6jHH/SNQMOEXS9kCY9tKQ==
-X-Received: by 2002:a9d:17ce:: with SMTP id
- j72-v6mr905099otj.244.1529671436490; 
- Fri, 22 Jun 2018 05:43:56 -0700 (PDT)
-Received: from serve.minyard.net (serve.minyard.net. [2001:470:b8f6:1b::1])
- by smtp.gmail.com with ESMTPSA id b63-v6sm3446054oia.4.2018.06.22.05.43.54
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 22 Jun 2018 05:43:55 -0700 (PDT)
-Sender: Corey Minyard <tcminyard@gmail.com>
-Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
- by serve.minyard.net (Postfix) with ESMTPSA id 8E961675;
- Fri, 22 Jun 2018 07:43:53 -0500 (CDT)
-Reply-To: minyard@acm.org
-Subject: Re: [PATCH ] ipmi: kcs_bmc: fix IRQ exception if the channel is not
- open
-To: Haiyue Wang <haiyue.wang@linux.intel.com>, arnd@arndb.de,
- gregkh@linuxfoundation.org, openipmi-developer@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Cc: luis.a.silva@dell.com, avi.fishman@nuvoton.com, openbmc@lists.ozlabs.org
-References: <1529636218-280096-1-git-send-email-haiyue.wang@linux.intel.com>
-From: Corey Minyard <minyard@acm.org>
-Message-ID: <ea0a4cd3-2973-7ac8-c4a1-26379d9066cc@acm.org>
-Date: Fri, 22 Jun 2018 07:43:52 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=w5ZTXc82HTMX5jOsm04ikZbbhcwMmJ8u66R8KlYN9Ms=;
+ b=mxPcza9y0fQk3j9xRB/EftDaXniAtifdTwF+Pg8cE3uQutI87ZYF2JdIPWh/hArjPI
+ rzPOKxniLREoWq9bH0SM26dMDDWW5nbUsuJUXGrfO3oY8nmo948FF8Bum92lGHwRjKSL
+ vcIS7MbklOAiE1tztmEQykUcFM4Kh/rZr7NOCWkbBSrc5t0kzCSdxS+giUerUuzpHi1F
+ nRTlkPmsuR4yVO0wEeXS1Dlr6tc7MFtFbh07+Do5F/I9oWAhcypEaQeAVUKoPGUAKHV6
+ ikuR64yBVkpyzpFpLBW/ZHqXI4IePRHdYgRFL0qIiWdlgqgeU7qypa/FISac8HqAXFP8
+ qn7w==
+X-Gm-Message-State: APt69E3702NBqqaCC1S+4yAqPFDgkAWx5dlmTHGk1ndC2D2Qyvg2Y+KP
+ 8sXwETZDV1/mPbXbwcqE/3e1EHlxUo6UepEq6d/upOWV
+X-Google-Smtp-Source: ADUXVKJjmsS+I4lz3MQjb6LVCTookv0VvxBbjo+R3jle8YnvpoJmQaSlGM3fsIgkL8FxtzPo39HeGIJxQnF8GaYYRek=
+X-Received: by 2002:a81:910a:: with SMTP id
+ i10-v6mr1545980ywg.369.1529700255647; 
+ Fri, 22 Jun 2018 13:44:15 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1529636218-280096-1-git-send-email-haiyue.wang@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
+From: James Mihm <james.mihm@gmail.com>
+Date: Fri, 22 Jun 2018 13:43:39 -0700
+Message-ID: <CADy_Pt3bCA=_6dKg5CNpPaYcBkW00_fVjUurD3=rg=mfEjRWVQ@mail.gmail.com>
+Subject: Hackathon Date Change to October 9th - 11th, 2018
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -82,147 +62,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2018 12:44:01 -0000
+X-List-Received-Date: Fri, 22 Jun 2018 20:44:19 -0000
 
-On 06/21/2018 09:56 PM, Haiyue Wang wrote:
-> The original core KCS IRQ handling function 'kcs_bmc_handle_event' had
-> a wrong logical desgin, it should force abort the KCS transaction only
-> if the IBF flag is set, because multiple KCS channels share the same
-> handle function; and it should return 0, which indicates that event of
-> current channel is handled. An negative value -ENODATA will cause the
-> IRQ handler of BMC KCS controller return IRQ_NONE, then IRQ moudle will
-> treat this IRQ 'nobody cared', it will trigger IRQ exception.
->
->     irq 30: nobody cared (try booting with the "irqpoll" option)
->     CPU: 0 PID: 0 Comm: swapper/0 Not tainted 4.10.15-npcm750 #1
->     Hardware name: NPCMX50 Chip family
->     [<c010b264>] (unwind_backtrace) from [<c0106930>] (show_stack+0x20/0x24)
->     [<c0106930>] (show_stack) from [<c03dad38>] (dump_stack+0x8c/0xa0)
->     [<c03dad38>] (dump_stack) from [<c0168810>] (__report_bad_irq+0x3c/0xdc)
->     [<c0168810>] (__report_bad_irq) from [<c0168c34>] (note_interrupt+0x29c/0x2ec)
->     [<c0168c34>] (note_interrupt) from [<c0165c80>] (handle_irq_event_percpu+0x5c/0x68)
->     [<c0165c80>] (handle_irq_event_percpu) from [<c0165cd4>] (handle_irq_event+0x48/0x6c)
->     [<c0165cd4>] (handle_irq_event) from [<c0169664>] (handle_fasteoi_irq+0xc8/0x198)
->     [<c0169664>] (handle_fasteoi_irq) from [<c016529c>] (__handle_domain_irq+0x90/0xe8)
->     [<c016529c>] (__handle_domain_irq) from [<c01014bc>] (gic_handle_irq+0x58/0x9c)
->     [<c01014bc>] (gic_handle_irq) from [<c010752c>] (__irq_svc+0x6c/0x90)
->     Exception stack(0xc0a01de8 to 0xc0a01e30)
->     1de0:                   00002080 c0a6fbc0 00000000 00000000 00000000 c096d294
->     1e00: 00000000 00000001 dc406400 f03ff100 00000082 c0a01e94 c0a6fbc0 c0a01e38
->     1e20: 00200102 c01015bc 60000113 ffffffff
->     [<c010752c>] (__irq_svc) from [<c01015bc>] (__do_softirq+0xbc/0x358)
->     [<c01015bc>] (__do_softirq) from [<c011c798>] (irq_exit+0xb8/0xec)
->     [<c011c798>] (irq_exit) from [<c01652a0>] (__handle_domain_irq+0x94/0xe8)
->     [<c01652a0>] (__handle_domain_irq) from [<c01014bc>] (gic_handle_irq+0x58/0x9c)
->     [<c01014bc>] (gic_handle_irq) from [<c010752c>] (__irq_svc+0x6c/0x90)
->     Exception stack(0xc0a01ef8 to 0xc0a01f40)
->     1ee0:                                                       00000000 000003ae
->     1f00: dcc0f338 c0111060 c0a00000 c0a0cc44 c0a0cbe4 c0a1c22b c07bc218 00000001
->     1f20: dcffca40 c0a01f54 c0a01f58 c0a01f48 c0103524 c0103528 60000013 ffffffff
->     [<c010752c>] (__irq_svc) from [<c0103528>] (arch_cpu_idle+0x48/0x4c)
->     [<c0103528>] (arch_cpu_idle) from [<c0681390>] (default_idle_call+0x30/0x3c)
->     [<c0681390>] (default_idle_call) from [<c0156f24>] (do_idle+0xc8/0x134)
->     [<c0156f24>] (do_idle) from [<c015722c>] (cpu_startup_entry+0x28/0x2c)
->     [<c015722c>] (cpu_startup_entry) from [<c067ad74>] (rest_init+0x84/0x88)
->     [<c067ad74>] (rest_init) from [<c0900d44>] (start_kernel+0x388/0x394)
->     [<c0900d44>] (start_kernel) from [<0000807c>] (0x807c)
->     handlers:
->     [<c041c5dc>] npcm7xx_kcs_irq
->     Disabling IRQ #30
->
-> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
-> ---
-> Hi Corey,
->
-> This patch looks introducing BIG modification, it should be easily
-> understandable, and makes code clean & fix an error design, which
-> is introduced by misunderstanding the IRQ return value.
+The voting is in, and the winning date is October 9th.
 
-I'm having a little trouble understanding your text above, so let me try 
-to repeat
-back to you what I'm thinking you are saying...
+Event:  OpenBMC Hackathon hosted by Intel
 
-You have two (or more) devices using the same interrupt, and at least 
-one is an
-IPMI KCS device.  And interrupt comes in to the other device when the 
-IPMI KCS
-device is not running.  The original code issues an abort when that happens,
-which is obviously incorrect.  It then returns -ENODATA, .
+NEW Date:  October 9th =E2=80=93 11th, 2018
 
-When the interrupt comes in for the abort handling, the driver will then 
-issue
-another abort, and again returns -ENODATA.  This time neither driver handles
-the interrupt, resulting in the logs.
+Location:  Intel Corporation
+                 Jones Farm Campus =E2=80=93 Building 5   (JF5)
+                 2111 NE 25th Ave,
+                 Hillsboro, Oregon  97124
 
-In general, I think the change you have here is good.  You don't want to
-issue an abort in this case.  But...
+                 Entrance to JF5:  NE Jones Farm Parkway and NE 15th
+Ave., Hillsboro, Oregon, 97124
 
-If I am right, this fix doesn't completely solve the problem.  It does 
-solve this
-immediate problem, but what if there is an OS on the other end of the
-KCS interface that sets the IBF flag?  The same situation will occur.  
-In fact
-it will occur even if there is only one handler for the interrupt.
+Please join us for the second OpenBMC Hackathon at Intel in Hillsboro,
+Oregon, USA.
 
-Maybe it's best to have the interrupt disabled unless the device is open.
-You have to handle the interrupt disable race on a close, but with the
-sync functions that shouldn't be too hard.
+This is an opportunity for the OpenBMC community to meet the awesome
+engineers from the openbmc community, network, work on code,
+brainstorm, and solve problems.
 
--corey
-
->
-> BR,
-> Haiyue
-> ---
->   drivers/char/ipmi/kcs_bmc.c | 31 ++++++++++---------------------
->   1 file changed, 10 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
-> index fbfc05e..bb882ab1 100644
-> --- a/drivers/char/ipmi/kcs_bmc.c
-> +++ b/drivers/char/ipmi/kcs_bmc.c
-> @@ -210,34 +210,23 @@ static void kcs_bmc_handle_cmd(struct kcs_bmc *kcs_bmc)
->   int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc)
->   {
->   	unsigned long flags;
-> -	int ret = 0;
-> +	int ret = -ENODATA;
->   	u8 status;
->   
->   	spin_lock_irqsave(&kcs_bmc->lock, flags);
->   
-> -	if (!kcs_bmc->running) {
-> -		kcs_force_abort(kcs_bmc);
-> -		ret = -ENODEV;
-> -		goto out_unlock;
-> -	}
-> -
-> -	status = read_status(kcs_bmc) & (KCS_STATUS_IBF | KCS_STATUS_CMD_DAT);
-> -
-> -	switch (status) {
-> -	case KCS_STATUS_IBF | KCS_STATUS_CMD_DAT:
-> -		kcs_bmc_handle_cmd(kcs_bmc);
-> -		break;
-> -
-> -	case KCS_STATUS_IBF:
-> -		kcs_bmc_handle_data(kcs_bmc);
-> -		break;
-> +	status = read_status(kcs_bmc);
-> +	if (status & KCS_STATUS_IBF) {
-> +		if (!kcs_bmc->running)
-> +			kcs_force_abort(kcs_bmc);
-> +		else if (status & KCS_STATUS_CMD_DAT)
-> +			kcs_bmc_handle_cmd(kcs_bmc);
-> +		else
-> +			kcs_bmc_handle_data(kcs_bmc);
->   
-> -	default:
-> -		ret = -ENODATA;
-> -		break;
-> +		ret = 0;
->   	}
->   
-> -out_unlock:
->   	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
->   
->   	return ret;
+Watch for an eInvite and registration page. Register early as there
+will be limited seating due to space constraints.
