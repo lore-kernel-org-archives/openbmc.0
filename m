@@ -1,43 +1,59 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=87.98.184.158; helo=11.mo3.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c0f::22f; helo=mail-ot0-x22f.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 2319 seconds by postgrey-1.36 at bilbo;
- Fri, 22 Jun 2018 17:48:47 AEST
-Received: from 11.mo3.mail-out.ovh.net (11.mo3.mail-out.ovh.net
- [87.98.184.158])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="lRMVRslC"; 
+ dkim-atps=neutral
+Received: from mail-ot0-x22f.google.com (mail-ot0-x22f.google.com
+ [IPv6:2607:f8b0:4003:c0f::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BrKq0ngrzF0Vt
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 17:48:44 +1000 (AEST)
-Received: from player738.ha.ovh.net (unknown [10.109.122.11])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id BD14E1BEABC
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 09:10:04 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-TOU-1-49-10.w86-201.abo.wanadoo.fr
- [86.201.141.10]) (Authenticated sender: clg@kaod.org)
- by player738.ha.ovh.net (Postfix) with ESMTPSA id 87867A80;
- Fri, 22 Jun 2018 09:10:00 +0200 (CEST)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.17 v2 2/2] mtd: spi-nor: aspeed: limit the maximum
- SPI frequency
-Date: Fri, 22 Jun 2018 09:09:37 +0200
-Message-Id: <20180622070937.21498-3-clg@kaod.org>
-X-Mailer: git-send-email 2.13.6
-In-Reply-To: <20180622070937.21498-1-clg@kaod.org>
-References: <20180622070937.21498-1-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Bsl475CxzF0Vt
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 18:52:16 +1000 (AEST)
+Received: by mail-ot0-x22f.google.com with SMTP id p95-v6so6703602ota.5
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 01:52:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=gYW62+L20QCZN0hufnQeN975XyR8QvAQbfDEyKGwrT4=;
+ b=lRMVRslCUSzDukwuvWN+u01TcGPR99bcIcsSoi+p2UhCyDpuCOQ8W2sbtZYuJFBaba
+ B2sPWvBCiZdIGJSrTYZNBij5OX1YBUkkU7G/ism78Ms1JQmOInCbntyfKf5BAknG+GWd
+ rxouL3Q/cam+7lXYx1ox7zEFYrszgN8m26vCop0vpnwJOWLbYlEe7qXkNG9EoITa4HiU
+ HwwadYLR7HGAugPOFV67f8JjxfP/TrE9lcjauKsPMH1Z+k/OPCfb88TBTYHHJySoHmxx
+ zneJogVQ4zKAenwvI79054rUmI8BhZ6I8gCP8LUpnjVtOvSbaYuyJRDB0iXZ7e3yPe67
+ k2pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=gYW62+L20QCZN0hufnQeN975XyR8QvAQbfDEyKGwrT4=;
+ b=raBtLyJ1l3YvzmY6/nV6aSPtXpAqzTzTBvBzaDbwxzX0DJsva3R6B5mVgQX7vR7g/5
+ +pbyHdVT2bVs8QTSgpSHFZ/k6NbE7B10SdZvxCf9JG8ktXFF3J7kUiQprUmrqeBAyLko
+ LiD3X9xd2IQp0YFIHYY5S6AOZ21hSQ07CsoPojUIpMB2B7pbwsxeLYXK9lryDP/tN1Io
+ muGzBPL8MKqrGjf9lLECdJs9ariOkhz7y0BOgTgvVBYxPoVsm+RYVCkV5f1+uuDBZevt
+ j8EeI6YVp+p0wKsnqT8QDaxYBQOxa115MdONB7ZCHIU57RD6aIE6FokCiNGvA5w5Umyi
+ niLg==
+X-Gm-Message-State: APt69E3tud/JHXZhAOaRSNDtOJeXN7fhXnWwixf89eFurOLrDM1pR7Ro
+ fB0XHtkJEDdJFRTBZI8xOqQlmrLJV8Tma1TNzjY=
+X-Google-Smtp-Source: ADUXVKKrpWUBPp+A4OMaDPovD3mbUTpjI4l1ObenekOXVvSr0e/Ly34UndYGjlFyIU+6VPxy/gR5hLReu+0LGTDz0XY=
+X-Received: by 2002:a9d:2487:: with SMTP id z7-v6mr414301ota.230.1529657534237; 
+ Fri, 22 Jun 2018 01:52:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 11586635943073254146
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtiedrtdehgdduudehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Received: by 2002:a4a:2cce:0:0:0:0:0 with HTTP; Fri, 22 Jun 2018 01:52:13
+ -0700 (PDT)
+In-Reply-To: <d7dd04fed035470097a5f47483e5a9d4@BLRX13MDC413.AMER.DELL.COM>
+References: <CAE33tLHe9TnUaphWhBv6THyExHZJrr_aS+wQJnHowE7gKxdfCw@mail.gmail.com>
+ <d7dd04fed035470097a5f47483e5a9d4@BLRX13MDC413.AMER.DELL.COM>
+From: AKASH G J <akashgj91@gmail.com>
+Date: Fri, 22 Jun 2018 14:22:13 +0530
+Message-ID: <CAE33tLEr1=iGdRNW6TRkPB-MMRLAWLkiBYMJstc-exQmyD5LDw@mail.gmail.com>
+Subject: Re: Unable to use ipmitool in OpenBMC Linux
+To: B.B.Singh@dell.com
+Cc: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000f4d018056f3725ff"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -49,88 +65,128 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2018 07:48:47 -0000
+X-List-Received-Date: Fri, 22 Jun 2018 08:52:18 -0000
 
-The optimize read algo can choose a 100MHz SPI frequency which might
-be a bit too high for dual output IO on some chips, for the W25Q256 on
-palmetto for instance. The MX66L1G45G on witherspoon should be fine
-though. Also, the second chip of the FMC controller does not get any
-optimize settings for reads. Only the first is configured by U-Boot.
+--000000000000f4d018056f3725ff
+Content-Type: text/plain; charset="UTF-8"
 
-To fix these two issues, we introduce a "spi-max-frequency" property
-in the device tree which will be used to cap the optimize read
-algorithm and we run the algo on the FMC controller chips as well.
+ I tried command  ipmitool  *-I dbus* sdr elist full.
 
-By default, the frequency setting is 50MHz.
+but it is showing the error *Error loading interface dbus*
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- drivers/mtd/spi-nor/aspeed-smc.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index a301895d1f06..c9cd20f199d9 100644
---- a/drivers/mtd/spi-nor/aspeed-smc.c
-+++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -62,6 +62,7 @@ static const struct aspeed_smc_info fmc_2400_info = {
- 	.ctl0 = 0x10,
- 	.timing = 0x94,
- 	.set_4b = aspeed_smc_chip_set_4b,
-+	.optimize_read = aspeed_smc_optimize_read,
- };
- 
- static const struct aspeed_smc_info spi_2400_info = {
-@@ -83,6 +84,7 @@ static const struct aspeed_smc_info fmc_2500_info = {
- 	.ctl0 = 0x10,
- 	.timing = 0x94,
- 	.set_4b = aspeed_smc_chip_set_4b,
-+	.optimize_read = aspeed_smc_optimize_read,
- };
- 
- static const struct aspeed_smc_info spi_2500_info = {
-@@ -114,6 +116,7 @@ struct aspeed_smc_chip {
- 	u32 ctl_val[smc_max];			/* control settings */
- 	enum aspeed_smc_flash_type type;	/* what type of flash */
- 	struct spi_nor nor;
-+	u32 clk_rate;
- };
- 
- struct aspeed_smc_controller {
-@@ -130,6 +133,8 @@ struct aspeed_smc_controller {
- 	struct aspeed_smc_chip *chips[0];	/* pointers to attached chips */
- };
- 
-+#define ASPEED_SPI_DEFAULT_FREQ		50000000
-+
- /*
-  * SPI Flash Configuration Register (AST2500 SPI)
-  *     or
-@@ -993,11 +998,8 @@ static int aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
- 	dev_info(controller->dev, "read control register: %08x\n",
- 		chip->ctl_val[smc_read]);
- 
--	/*
--	 * TODO: get max freq from chip
--	 */
- 	if (optimize_read && info->optimize_read)
--		info->optimize_read(chip, 104000000);
-+		info->optimize_read(chip, chip->clk_rate);
- 	return 0;
- }
- 
-@@ -1051,6 +1053,13 @@ static int aspeed_smc_setup_flash(struct aspeed_smc_controller *controller,
- 			break;
- 		}
- 
-+		if (of_property_read_u32(child, "spi-max-frequency",
-+					 &chip->clk_rate)) {
-+			chip->clk_rate = ASPEED_SPI_DEFAULT_FREQ;
-+		}
-+		dev_info(dev, "Using %d MHz SPI frequency\n",
-+			 chip->clk_rate / 1000000);
-+
- 		chip->controller = controller;
- 		chip->ctl = controller->regs + info->ctl0 + cs * 4;
- 		chip->cs = cs;
--- 
-2.13.6
+Thanks and Regards,
+
+Akash
+
+
+
+On Thu, Jun 21, 2018 at 4:38 PM, <B.B.Singh@dell.com> wrote:
+
+>
+> Hello Akash,
+>
+> Please use dbus interface while using the ipmitool in OpenBMC.
+>
+> ipmitool -I dbus sdr elist full
+>
+> Regards
+> Balaji Singh
+>
+>
+> >>From: openbmc [mailto:openbmc-bounces+b_b_singh=dell.com@lists.ozlabs.
+> org] On Behalf Of AKASH G J
+> >>Sent: Thursday, June 21, 2018 3:51 PM
+> >>To: openbmc@lists.ozlabs.org
+> >>Subject: Unable to use ipmitool in OpenBMC Linux
+>
+> >>  Hi Team,
+> >> I added ipmitool into the root file system of OpenBMC Linux and booted
+> it. When I tried to execute ipmi tool(inside OpenBMC Linux), it is showing
+> the following error.
+> >> root@zaius:# ipmitool sdr elist full
+> >> Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev/0.
+> No such file or directory.
+> >> Please someone help to resolve this.
+>
+>
+>
+
+--000000000000f4d018056f3725ff
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">
+
+<span style=3D"font-size:small;text-decoration-style:initial;text-decoratio=
+n-color:initial;float:none;display:inline">I tried command=C2=A0<span>=C2=
+=A0</span></span><span style=3D"font-size:small;text-decoration-style:initi=
+al;text-decoration-color:initial;font-family:sans-serif;float:none;display:=
+inline">ipmitool =C2=A0</span><b style=3D"font-size:small;text-decoration-s=
+tyle:initial;text-decoration-color:initial;font-family:sans-serif">-I dbus<=
+/b><span style=3D"font-size:small;text-decoration-style:initial;text-decora=
+tion-color:initial;font-family:sans-serif;float:none;display:inline"><span>=
+=C2=A0</span>sdr elist full.</span><div style=3D"font-size:small;text-decor=
+ation-style:initial;text-decoration-color:initial"><span style=3D"font-fami=
+ly:sans-serif;font-size:small;text-decoration-style:initial;text-decoration=
+-color:initial;float:none;display:inline"><br></span></div><div style=3D"fo=
+nt-size:small;text-decoration-style:initial;text-decoration-color:initial">=
+<span style=3D"font-family:sans-serif;font-size:small;text-decoration-style=
+:initial;text-decoration-color:initial;float:none;display:inline">but it is=
+ showing the error=C2=A0<b>Error loading interface dbus</b></span></div><di=
+v style=3D"font-size:small;text-decoration-style:initial;text-decoration-co=
+lor:initial"><span style=3D"font-family:sans-serif;font-size:small;text-dec=
+oration-style:initial;text-decoration-color:initial;float:none;display:inli=
+ne"><b><br></b></span></div><div style=3D"font-size:small;text-decoration-s=
+tyle:initial;text-decoration-color:initial"><span style=3D"font-family:sans=
+-serif;font-size:small;text-decoration-style:initial;text-decoration-color:=
+initial;float:none;display:inline"><b><br></b></span></div><div style=3D"fo=
+nt-size:small;text-decoration-style:initial;text-decoration-color:initial">=
+<span style=3D"font-family:sans-serif;font-size:small;text-decoration-style=
+:initial;text-decoration-color:initial;float:none;display:inline">Thanks an=
+d Regards,</span></div><div style=3D"font-size:small;text-decoration-style:=
+initial;text-decoration-color:initial"><span style=3D"font-family:sans-seri=
+f;font-size:small;text-decoration-style:initial;text-decoration-color:initi=
+al;float:none;display:inline"><br></span></div><div style=3D"font-size:smal=
+l;text-decoration-style:initial;text-decoration-color:initial"><span style=
+=3D"font-family:sans-serif;font-size:small;text-decoration-style:initial;te=
+xt-decoration-color:initial;float:none;display:inline">Akash</span></div><b=
+r class=3D"gmail-Apple-interchange-newline">
+
+<br></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu,=
+ Jun 21, 2018 at 4:38 PM,  <span dir=3D"ltr">&lt;<a href=3D"mailto:B.B.Sing=
+h@dell.com" target=3D"_blank">B.B.Singh@dell.com</a>&gt;</span> wrote:<br><=
+blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
+ #ccc solid;padding-left:1ex"><br>
+Hello Akash,<br>
+<br>
+Please use dbus interface while using the ipmitool in OpenBMC.<br>
+<span class=3D"im HOEnZb"><br>
+ipmitool -I dbus sdr elist full<br>
+<br>
+</span><span class=3D"im HOEnZb">Regards<br>
+Balaji Singh<br>
+<br>
+<br>
+&gt;&gt;From: openbmc [mailto:<a href=3D"mailto:openbmc-bounces%2Bb_b_singh=
+">openbmc-bounces+b_b_<wbr>singh</a>=3D<a href=3D"mailto:dell.com@lists.ozl=
+abs.org">dell.com@lists.ozlabs.<wbr>org</a>] On Behalf Of AKASH G J<br>
+&gt;&gt;Sent: Thursday, June 21, 2018 3:51 PM<br>
+&gt;&gt;To: <a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlab=
+s.org</a><br>
+</span><span class=3D"im HOEnZb">&gt;&gt;Subject: Unable to use ipmitool in=
+ OpenBMC Linux<br>
+<br>
+</span><div class=3D"HOEnZb"><div class=3D"h5">&gt;&gt;=C2=A0 Hi Team,<br>
+&gt;&gt; I added ipmitool into the root file system of OpenBMC Linux and bo=
+oted it. When I tried to execute ipmi tool(inside OpenBMC Linux), it is sho=
+wing the following error.<br>
+&gt;&gt; root@zaius:# ipmitool sdr elist full<br>
+&gt;&gt; Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev=
+/0. No such file or directory.<br>
+&gt;&gt; Please someone help to resolve this.<br>
+<br>
+<br>
+</div></div></blockquote></div><br></div>
+
+--000000000000f4d018056f3725ff--
