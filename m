@@ -1,61 +1,57 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <james.mihm@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400c:c08::241; helo=mail-ua0-x241.google.com;
- envelope-from=raj.khem@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4002:c09::229; helo=mail-yb0-x229.google.com;
+ envelope-from=james.mihm@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gt7170q9"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ceqO7CVh"; 
  dkim-atps=neutral
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
+Received: from mail-yb0-x229.google.com (mail-yb0-x229.google.com
+ [IPv6:2607:f8b0:4002:c09::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41CBFk4qMGzF132
- for <openbmc@lists.ozlabs.org>; Sat, 23 Jun 2018 07:16:26 +1000 (AEST)
-Received: by mail-ua0-x241.google.com with SMTP id f30-v6so5136563uab.11
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 14:16:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41CF6b2X57zF13F
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Jun 2018 09:25:27 +1000 (AEST)
+Received: by mail-yb0-x229.google.com with SMTP id x128-v6so3139105ybg.3
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 16:25:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9v62dUuXa4uwSpPvaSOMu5ihSXRE9IRfF1oEKT/mJTY=;
- b=gt7170q97mqhe8Fe75tvHpffQ4cu95Fe+6kqyvqSsewulq/PE/HFEHWpqTFU6vOYz1
- wNlb45H0ofkpLn92MIPVbqTJUYe8EIKKdW7cZYL150sQR/GkzHKnwWhgOS0i25IZbWp5
- 3DPKh5+2Awn/39tenMmMSmRHk/t2HcLYkgpbYmq2bljszBIaDUeDnflGD2okUJaL2jTm
- gsLVRMbeWgOXLTFE18ojgkMYIbYdKOuFfTpiVr8fTddjz9RYyghxmPbIeJFoeD3b1GrH
- jNBeG6PeT+YuYsiNLD3+zIOcVZXBkvllBw3vgM01k3vwg3W+6KjmzC+RL7nyNMKQFFLe
- iRMQ==
+ :cc; bh=QtpRzekf0Sm0iGdvwkAENzJlzXr8B9D3y0BdR5dbxO8=;
+ b=ceqO7CVhpVJEft7RdutFJ9EqCfipvb5A/23Q/s2kKgRSAwKBSctDNb6ln0WxCryjaU
+ epxgrJZhqGwnSa2hPpJDMeFVzPc/bhz2M1LQF36IiRdHDgzpnIqxK9YEMrBO0lc6KwgO
+ zMuKoa9C0tLKQ84dC+3pWuDSbH3BOZkrmVNcS5fNzztMzACq8NbahtwvkvaY6YIeJ4y9
+ fNFzWnqzvQCXyhM+uEMd1rY/e/D631en3wogSFCTpjgg+DWbPZYlKKDOoh1X/uampTin
+ JqjH2bOtx2xynGbUsmMvvXLbOoR6OEtst4EkR46UUp3xlGxJYByCWK32oLc3lqUuGw1/
+ tCzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=9v62dUuXa4uwSpPvaSOMu5ihSXRE9IRfF1oEKT/mJTY=;
- b=hGAsrP0vzOARPXBH/H22leYxsY2ZEMN46TTXvN5rlq09FyGeAjNt1Xh0FagJbqy9C0
- ZkVJFqh4aIPgaeMVaL2TIHGnPK9E0Ae6eYdfciw68fTnlTu5XMzqL6cbDMsdNmMyYTwl
- vIaCckCZ8hcxHE+RlBQfE52nNw9eMdC7juglihzCxcY8PvFJEmF+3B6mryzjWeroBuzg
- OCSKg1smb51D3nBUbIDbQmf9DEHdxfnu7AMuEnK9gKe9oJPZBbUtFsYelemimTLbSESw
- UAbmrDPXO0zNhYOD/beCf8VQyoy4NNoOTPxWTmaaKme8o/dHgXM5fKKgT0SSHRG1GJSo
- Vv1g==
-X-Gm-Message-State: APt69E0SgkoyFMaaDwMCHabFE5ZyIj5pDNcOmOO3A2+XnF2pKeb4xCwr
- k6i2EbJrWN3zVclNVhBcWQZ81NBtQRve8nOhbyc=
-X-Google-Smtp-Source: ADUXVKIHOqXS/zNSNahokXccmL4oqPQwJuqIccqrX7cDpDcNVeEcTQW9XHfzDrO6sQXYSCFrbNwStBTso+O6O7LTULM=
-X-Received: by 2002:a9f:3b9b:: with SMTP id
- r27-v6mr2101699uah.191.1529702183575; 
- Fri, 22 Jun 2018 14:16:23 -0700 (PDT)
+ bh=QtpRzekf0Sm0iGdvwkAENzJlzXr8B9D3y0BdR5dbxO8=;
+ b=OD+9TZ5M+XT9M0w10xNzos2vgBUQ40uXULWlmFtc3U++m6xWj19eiJXegNSbdvkvWs
+ FEgDdfsW9CUmgI4Hx7xuEduvvanfQe3i/TLUzr8PyCb2CFpoe7QNR9YLJoAkzizSFLcF
+ fyTkoUgduSCNG7TFUSTZjQpPgPUINzRaE1A7+Na4k/N0jzN7jprKhiyn4ZcUVShIOApa
+ HBu7HbNgNcGYUhueu+iAfcePmYA+J+10C9M99htBcXMGcziH/+jLF9/iHmB294h2epOc
+ vnMDMeQzoLXeL1hln0EWBGUs4Ihz7PSQgDMDJ1G+5XeA+3GlmwhwdcsHx201iApIRKPC
+ +/Hw==
+X-Gm-Message-State: APt69E12fDJ+n0MGpgbvj/yRU2DG6B38pcYa16i4M9MP4YaPPQW4BlAr
+ aVJfUsVSqwKvbdibw0LL+yU4LA7GliphofNKKN8=
+X-Google-Smtp-Source: ADUXVKIUKYwfI93GHx+jmTTw1ztSbv6a4z7eFhglMUnwdQ8oUfl62sRvUPjKegJ3sOfX9L5XObwZ/NUY7ERBYkyWUL0=
+X-Received: by 2002:a25:8211:: with SMTP id
+ q17-v6mr1898754ybk.414.1529709924608; 
+ Fri, 22 Jun 2018 16:25:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180504070916.11024-1-andrew@aj.id.au>
- <ab208a40-d4eb-4807-8f38-824738aff34b@intel.com>
- <1525420516.2510070.1360549248.0F065DEC@webmail.messagingengine.com>
-In-Reply-To: <1525420516.2510070.1360549248.0F065DEC@webmail.messagingengine.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 22 Jun 2018 14:16:08 -0700
-Message-ID: <CAMKF1sr9TbKeDPZq96mpNujYct-ONcr7rjsWm7Cb_sB1Po8m4A@mail.gmail.com>
-Subject: Re: [oe] [RESEND][meta-python][PATCH 1/3] meta-python: Add
- python-pyflame recipe
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Anuj Mittal <anuj.mittal@intel.com>, 
- openembeded-devel <openembedded-devel@lists.openembedded.org>,
- openbmc@lists.ozlabs.org
+References: <f86c688b-b237-bdd5-12a0-385f96902581@gmail.com>
+In-Reply-To: <f86c688b-b237-bdd5-12a0-385f96902581@gmail.com>
+From: James Mihm <james.mihm@gmail.com>
+Date: Fri, 22 Jun 2018 16:24:48 -0700
+Message-ID: <CADy_Pt1f5Fom5H_TO-sgE_Lx=wu9KJLG0qR3pF81rrihkzKgSA@mail.gmail.com>
+Subject: Re: OpenBMC Release Planning Working Group
+To: krtaylor <kurt.r.taylor@gmail.com>
+Cc: openbmc@lists.ozlabs.org, alirhas@microsoft.com, 
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, "Mihm, James" <james.mihm@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -68,61 +64,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2018 21:16:27 -0000
+X-List-Received-Date: Fri, 22 Jun 2018 23:25:28 -0000
 
-On Fri, May 4, 2018 at 12:55 AM Andrew Jeffery <andrew@aj.id.au> wrote:
->
-> Hi Anuj,
->
-> Thanks for the quick review!
->
-> On Fri, 4 May 2018, at 17:20, Anuj Mittal wrote:
-> > On 05/04/2018 03:09 PM, Andrew Jeffery wrote:
-> > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > > ---
-> > >  meta-python/recipes-devtools/python/python-pyflame.inc      | 9 +++++++++
-> > >  meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb | 5 +++++
-> > >  2 files changed, 14 insertions(+)
-> > >  create mode 100644 meta-python/recipes-devtools/python/python-pyflame.inc
-> > >  create mode 100644 meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
-> > >
-> > > diff --git a/meta-python/recipes-devtools/python/python-pyflame.inc b/meta-python/recipes-devtools/python/python-pyflame.inc
-> > > new file mode 100644
-> > > index 000000000000..37ceab888533
-> > > --- /dev/null
-> > > +++ b/meta-python/recipes-devtools/python/python-pyflame.inc
-> > > @@ -0,0 +1,9 @@
-> > > +S = "${WORKDIR}/pyflame-${PV}"
-> > > +
-> > > +LICENSE = "Apache-2.0"
-> > > +LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
-> > > +
-> > > +DEPENDS = "python"
-> > > +
-> > > +inherit pkgconfig autotools
-> > > +
-> > > diff --git a/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
-> > > new file mode 100644
-> > > index 000000000000..c902e121231b
-> > > --- /dev/null
-> > > +++ b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
-> > > @@ -0,0 +1,5 @@
-> > > +require python-pyflame.inc
-> > > +
-> > > +SRC_URI = "https://github.com/uber/pyflame/archive/v${PV}.tar.gz"
-> >
-> > Archive tarball checksums are known to change. Perhaps you can consider
-> > using the release tarball instead?
-> >
-> > https://github.com/uber/pyflame/releases
->
-> What exact URL should I use? I got the URL used in the recipe through the releases page by copying the tar.gz link.
+My vote is for the 2pm or 3pm slots.
 
-here I think you need to use git fetcher instead of wget fetcher and
-point SRCREV = "sha of tag" something like below
-
-SRC_URI = "git://github.com/uber/pyflame"
-# v1.6.6
-SRCREV = "8a9d8c2acc3b3bb027475b738134f1e6fff14e6c"
-S = "${WORKDIR}/git"
-UPSTREAM_CHECK_URI = "https://github.com/uber/pyflame/releases"
+1) Tuesdays, 2:00pm Central US (1900 UTC)
+  - or -
+3) Thursdays, 3:00pm Central US (2000 UTC)
+On Thu, Jun 21, 2018 at 12:08 PM krtaylor <kurt.r.taylor@gmail.com> wrote:
+>
+> Hi all,
+>
+> The long anticipated OpenBMC Release Planning working group is now
+> forming and will have its first meeting next week. I would like to keep
+> the meeting small at first so that we can move quickly, but I do need
+> complete representation. Please let me know if you'd like to participate
+> and what day a meeting would work best for you. Those on copy should
+> plan on attending or at least make sure someone is covering for your
+> organization.
+>
+> Let me know if you have any questions.
+>
+> Regards, Kurt Taylor (krtaylor)
+>
+>
+> Proposed times:
+>
+> 1) Tuesdays, 2:00pm Central US (1900 UTC)
+>
+> 2) Thursdays, 8:00am Central US (1300 UTC)
+>
+> 3) Thursdays, 3:00pm Central US (2000 UTC)
+>
+>
+> Initial Agenda:
+>
+> 1) Agree on the release process and set an initial release date in
+> November (see email from May 21)
+>
+> 2) Set design and freeze milestones
+>
+> 3) "Must" deliver items for November release
+>
+> 4) How to open the design and development for a needed feature
+>
