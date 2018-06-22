@@ -1,38 +1,39 @@
 Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=188.165.38.119; helo=11.mo6.mail-out.ovh.net;
+ (client-ip=87.98.178.36; helo=5.mo3.mail-out.ovh.net;
  envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 384 seconds by postgrey-1.36 at bilbo;
- Fri, 22 Jun 2018 17:16:25 AEST
-Received: from 11.mo6.mail-out.ovh.net (11.mo6.mail-out.ovh.net
- [188.165.38.119])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41BqcT3cVnzF0x8
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 17:16:25 +1000 (AEST)
-Received: from player738.ha.ovh.net (unknown [10.109.122.32])
- by mo6.mail-out.ovh.net (Postfix) with ESMTP id AA486166030
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 09:09:56 +0200 (CEST)
+X-Greylist: delayed 1112 seconds by postgrey-1.36 at bilbo;
+ Fri, 22 Jun 2018 17:28:38 AEST
+Received: from 5.mo3.mail-out.ovh.net (5.mo3.mail-out.ovh.net [87.98.178.36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BqtZ3MY4zF0Vt
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 17:28:37 +1000 (AEST)
+Received: from player738.ha.ovh.net (unknown [10.109.120.50])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id D66171BEC68
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 09:10:00 +0200 (CEST)
 Received: from zorba.kaod.org (LFbn-TOU-1-49-10.w86-201.abo.wanadoo.fr
  [86.201.141.10]) (Authenticated sender: clg@kaod.org)
- by player738.ha.ovh.net (Postfix) with ESMTPSA id 2A00DA80;
- Fri, 22 Jun 2018 09:09:43 +0200 (CEST)
+ by player738.ha.ovh.net (Postfix) with ESMTPSA id 58318DE2;
+ Fri, 22 Jun 2018 09:09:56 +0200 (CEST)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.17 v2 0/2] mtd: spi-nor: aspeed: introduce a
+Subject: [PATCH linux dev-4.17 v2 1/2] ARM: dts: aspeed: Add
  "spi-max-frequency" property
-Date: Fri, 22 Jun 2018 09:09:35 +0200
-Message-Id: <20180622070937.21498-1-clg@kaod.org>
+Date: Fri, 22 Jun 2018 09:09:36 +0200
+Message-Id: <20180622070937.21498-2-clg@kaod.org>
 X-Mailer: git-send-email 2.13.6
+In-Reply-To: <20180622070937.21498-1-clg@kaod.org>
+References: <20180622070937.21498-1-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 11584384142072449794
+X-Ovh-Tracer-Id: 11585510043020331778
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtiedrtdehgdduudehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
@@ -47,37 +48,201 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2018 07:16:25 -0000
+X-List-Received-Date: Fri, 22 Jun 2018 07:28:38 -0000
 
-Hello,
+Keep the FMC controller chips at a safe 50 MHz rate and use 100 MHz
+for the PNOR on the machines using a AST2500 SoC.
 
-The "spi-max-frequency" property protects the driver from some
-optimistic settings of the optimize read algo for certain chips (old
-ones). It also makes the read access to the alternate FMC chip 3 times
-faster.
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ arch/arm/boot/dts/aspeed-ast2500-evb.dts         | 2 ++
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 2 ++
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 2 ++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 3 +++
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 2 ++
+ arch/arm/boot/dts/aspeed-g4.dtsi                 | 2 ++
+ arch/arm/boot/dts/aspeed-g5.dtsi                 | 7 +++++++
+ 7 files changed, 20 insertions(+)
 
-Thanks,
-
-C.
-
-Changes since v1:
-
- - moved to the dev-4.17 branch
- - introduced the optimize read algo on the AST2400 SoC FMC controller.
-
-Cédric Le Goater (2):
-  ARM: dts: aspeed: Add "spi-max-frequency" property
-  mtd: spi-nor: aspeed: limit the maximum SPI frequency
-
- drivers/mtd/spi-nor/aspeed-smc.c                 | 17 +++++++++++++----
- arch/arm/boot/dts/aspeed-ast2500-evb.dts         |  2 ++
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    |  2 ++
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     |  2 ++
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  3 +++
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       |  2 ++
- arch/arm/boot/dts/aspeed-g4.dtsi                 |  2 ++
- arch/arm/boot/dts/aspeed-g5.dtsi                 |  7 +++++++
- 8 files changed, 33 insertions(+), 4 deletions(-)
-
+diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+index c0a7f51e7eb6..6b78e40d3259 100644
+--- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
++++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+@@ -41,6 +41,7 @@
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bmc";
++		spi-max-frequency = <50000000>;
+ #include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+@@ -51,6 +52,7 @@
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "pnor";
++		spi-max-frequency = <100000000>;
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+index e6095f51ecf5..af41973a3882 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+@@ -66,6 +66,7 @@
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bmc";
++		spi-max-frequency = <50000000>;
+ #include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+@@ -78,6 +79,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
++		spi-max-frequency = <50000000>;
+ 		label = "pnor";
+ 	};
+ };
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 347938673c83..ffe0c991d985 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -93,6 +93,7 @@
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bmc";
++		spi-max-frequency = <50000000>;
+ #include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+@@ -106,6 +107,7 @@
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "pnor";
++		spi-max-frequency = <100000000>;
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index d05ace220a09..c51e3e8ece62 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -190,6 +190,7 @@
+ 		status = "okay";
+ 		label = "bmc";
+ 		m25p,fast-read;
++		spi-max-frequency = <50000000>;
+ #include "openbmc-flash-layout.dtsi"
+ 	};
+ 
+@@ -197,6 +198,7 @@
+ 		status = "okay";
+ 		label = "alt";
+ 		m25p,fast-read;
++		spi-max-frequency = <50000000>;
+ 	};
+ };
+ 
+@@ -209,6 +211,7 @@
+ 		status = "okay";
+ 		label = "pnor";
+ 		m25p,fast-read;
++		spi-max-frequency = <100000000>;
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index 80cc7cba163c..757d6b3eb041 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -124,6 +124,7 @@
+ 		status = "okay";
+ 		label = "bmc";
+ 		m25p,fast-read;
++		spi-max-frequency = <50000000>;
+ #include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+@@ -137,6 +138,7 @@
+ 		status = "okay";
+ 		label = "pnor";
+ 		m25p,fast-read;
++		spi-max-frequency = <100000000>;
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 79257bf415a8..e526f54f400e 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -65,6 +65,7 @@
+ 			flash@0 {
+ 				reg = < 0 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 		};
+@@ -80,6 +81,7 @@
+ 			flash@0 {
+ 				reg = < 0 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 		};
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 9cc50551c42e..afd33112c329 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -65,16 +65,19 @@
+ 			flash@0 {
+ 				reg = < 0 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 			flash@1 {
+ 				reg = < 1 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 			flash@2 {
+ 				reg = < 2 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 		};
+@@ -90,11 +93,13 @@
+ 			flash@0 {
+ 				reg = < 0 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 			flash@1 {
+ 				reg = < 1 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 		};
+@@ -110,11 +115,13 @@
+ 			flash@0 {
+ 				reg = < 0 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 			flash@1 {
+ 				reg = < 1 >;
+ 				compatible = "jedec,spi-nor";
++				spi-max-frequency = <50000000>;
+ 				status = "disabled";
+ 			};
+ 		};
 -- 
 2.13.6
