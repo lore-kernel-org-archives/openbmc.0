@@ -1,59 +1,76 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <tcminyard@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c0f::22f; helo=mail-ot0-x22f.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4003:c0f::241; helo=mail-ot0-x241.google.com;
+ envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=acm.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lRMVRslC"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EQOxaQRw"; 
  dkim-atps=neutral
-Received: from mail-ot0-x22f.google.com (mail-ot0-x22f.google.com
- [IPv6:2607:f8b0:4003:c0f::22f])
+Received: from mail-ot0-x241.google.com (mail-ot0-x241.google.com
+ [IPv6:2607:f8b0:4003:c0f::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Bsl475CxzF0Vt
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 18:52:16 +1000 (AEST)
-Received: by mail-ot0-x22f.google.com with SMTP id p95-v6so6703602ota.5
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 01:52:16 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41BytS3kxMzF0Vt
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 22:43:59 +1000 (AEST)
+Received: by mail-ot0-x241.google.com with SMTP id d19-v6so7333377oti.8
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jun 2018 05:43:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=gYW62+L20QCZN0hufnQeN975XyR8QvAQbfDEyKGwrT4=;
- b=lRMVRslCUSzDukwuvWN+u01TcGPR99bcIcsSoi+p2UhCyDpuCOQ8W2sbtZYuJFBaba
- B2sPWvBCiZdIGJSrTYZNBij5OX1YBUkkU7G/ism78Ms1JQmOInCbntyfKf5BAknG+GWd
- rxouL3Q/cam+7lXYx1ox7zEFYrszgN8m26vCop0vpnwJOWLbYlEe7qXkNG9EoITa4HiU
- HwwadYLR7HGAugPOFV67f8JjxfP/TrE9lcjauKsPMH1Z+k/OPCfb88TBTYHHJySoHmxx
- zneJogVQ4zKAenwvI79054rUmI8BhZ6I8gCP8LUpnjVtOvSbaYuyJRDB0iXZ7e3yPe67
- k2pA==
+ h=sender:reply-to:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=irfI0nFo1KeCKUAOKhXnoWL8wtmwKWrGjZ6K61EWv0A=;
+ b=EQOxaQRwKBGNsgWycJ+918Qe9i98UMIpMoLA2SzSjShVdbrLtMeHptKovGTdWh8TSB
+ mjhCbZiwSTxhHm16+s2XR6uUWjGcHnwAVy3Q19pzsxefFI8LFpZAIqxaSSXJ/tW8DMEE
+ /wO9PCjBdyPF0j+s6GxTcje1Rz35Ss7HJfKR5u0pbw28B8LdNJVXP+eajwjjXl753LEd
+ /1UoHoSds/xHMQS1Ll6Dhm8cngr03e8MqH5nTjJrjJNTWUwq3Yz0WftV0gtNN2PvFFxp
+ Q0ToGxIr4qmzgjo/igXgEXyBrGjnUat8FRjwIZ0s1CLkN+/yevo14WZ7I1bVD9pupuLG
+ sCzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=gYW62+L20QCZN0hufnQeN975XyR8QvAQbfDEyKGwrT4=;
- b=raBtLyJ1l3YvzmY6/nV6aSPtXpAqzTzTBvBzaDbwxzX0DJsva3R6B5mVgQX7vR7g/5
- +pbyHdVT2bVs8QTSgpSHFZ/k6NbE7B10SdZvxCf9JG8ktXFF3J7kUiQprUmrqeBAyLko
- LiD3X9xd2IQp0YFIHYY5S6AOZ21hSQ07CsoPojUIpMB2B7pbwsxeLYXK9lryDP/tN1Io
- muGzBPL8MKqrGjf9lLECdJs9ariOkhz7y0BOgTgvVBYxPoVsm+RYVCkV5f1+uuDBZevt
- j8EeI6YVp+p0wKsnqT8QDaxYBQOxa115MdONB7ZCHIU57RD6aIE6FokCiNGvA5w5Umyi
- niLg==
-X-Gm-Message-State: APt69E3tud/JHXZhAOaRSNDtOJeXN7fhXnWwixf89eFurOLrDM1pR7Ro
- fB0XHtkJEDdJFRTBZI8xOqQlmrLJV8Tma1TNzjY=
-X-Google-Smtp-Source: ADUXVKKrpWUBPp+A4OMaDPovD3mbUTpjI4l1ObenekOXVvSr0e/Ly34UndYGjlFyIU+6VPxy/gR5hLReu+0LGTDz0XY=
-X-Received: by 2002:a9d:2487:: with SMTP id z7-v6mr414301ota.230.1529657534237; 
- Fri, 22 Jun 2018 01:52:14 -0700 (PDT)
+ h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=irfI0nFo1KeCKUAOKhXnoWL8wtmwKWrGjZ6K61EWv0A=;
+ b=FSft8M27KialSvkrnl3C3eUqo9DF7UgUw/jxf6ME3N4SZ7zGO3LcpbGY7QpABonJTG
+ 1M139Q+FbsA0KgYsTx2xVJcEhO4t1O6IojeTJlGBiekov+Jk4pK7jdPbFa8sLtJEY3Ps
+ FhwKYjrDGfCMq82xmc338lYrEIWUDEzEH1Pi/t9bgo3qIab4aci3qPDXCZyKn4O7ovdu
+ afPhH6wo4Pmqeq/fn4W1BCYopTzx0y+HM4nN+yxg5ihvOiAnf9cQflFGM9hLAl3U0P+T
+ wvF7FGF5AvZ5KwcEWiq6jkb3yotM86+Cyss3rYnMkVq+6pxFE0m3Rti6jINaFP/i3V2g
+ p/KQ==
+X-Gm-Message-State: APt69E3AFISbgikjSxLMacBewCYSPG2Y4poYIPSz/F8X8C+DMasrB75N
+ zIAZ4JSlf3oTljZdWV/PiA==
+X-Google-Smtp-Source: ADUXVKJqeRTV9L+9EKeYma0aIJRkatKcE+ej41EeF1mZjREdVtuj8ZmFC6jHH/SNQMOEXS9kCY9tKQ==
+X-Received: by 2002:a9d:17ce:: with SMTP id
+ j72-v6mr905099otj.244.1529671436490; 
+ Fri, 22 Jun 2018 05:43:56 -0700 (PDT)
+Received: from serve.minyard.net (serve.minyard.net. [2001:470:b8f6:1b::1])
+ by smtp.gmail.com with ESMTPSA id b63-v6sm3446054oia.4.2018.06.22.05.43.54
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 22 Jun 2018 05:43:55 -0700 (PDT)
+Sender: Corey Minyard <tcminyard@gmail.com>
+Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
+ by serve.minyard.net (Postfix) with ESMTPSA id 8E961675;
+ Fri, 22 Jun 2018 07:43:53 -0500 (CDT)
+Reply-To: minyard@acm.org
+Subject: Re: [PATCH ] ipmi: kcs_bmc: fix IRQ exception if the channel is not
+ open
+To: Haiyue Wang <haiyue.wang@linux.intel.com>, arnd@arndb.de,
+ gregkh@linuxfoundation.org, openipmi-developer@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+Cc: luis.a.silva@dell.com, avi.fishman@nuvoton.com, openbmc@lists.ozlabs.org
+References: <1529636218-280096-1-git-send-email-haiyue.wang@linux.intel.com>
+From: Corey Minyard <minyard@acm.org>
+Message-ID: <ea0a4cd3-2973-7ac8-c4a1-26379d9066cc@acm.org>
+Date: Fri, 22 Jun 2018 07:43:52 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-Received: by 2002:a4a:2cce:0:0:0:0:0 with HTTP; Fri, 22 Jun 2018 01:52:13
- -0700 (PDT)
-In-Reply-To: <d7dd04fed035470097a5f47483e5a9d4@BLRX13MDC413.AMER.DELL.COM>
-References: <CAE33tLHe9TnUaphWhBv6THyExHZJrr_aS+wQJnHowE7gKxdfCw@mail.gmail.com>
- <d7dd04fed035470097a5f47483e5a9d4@BLRX13MDC413.AMER.DELL.COM>
-From: AKASH G J <akashgj91@gmail.com>
-Date: Fri, 22 Jun 2018 14:22:13 +0530
-Message-ID: <CAE33tLEr1=iGdRNW6TRkPB-MMRLAWLkiBYMJstc-exQmyD5LDw@mail.gmail.com>
-Subject: Re: Unable to use ipmitool in OpenBMC Linux
-To: B.B.Singh@dell.com
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000f4d018056f3725ff"
+In-Reply-To: <1529636218-280096-1-git-send-email-haiyue.wang@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,128 +82,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2018 08:52:18 -0000
+X-List-Received-Date: Fri, 22 Jun 2018 12:44:01 -0000
 
---000000000000f4d018056f3725ff
-Content-Type: text/plain; charset="UTF-8"
+On 06/21/2018 09:56 PM, Haiyue Wang wrote:
+> The original core KCS IRQ handling function 'kcs_bmc_handle_event' had
+> a wrong logical desgin, it should force abort the KCS transaction only
+> if the IBF flag is set, because multiple KCS channels share the same
+> handle function; and it should return 0, which indicates that event of
+> current channel is handled. An negative value -ENODATA will cause the
+> IRQ handler of BMC KCS controller return IRQ_NONE, then IRQ moudle will
+> treat this IRQ 'nobody cared', it will trigger IRQ exception.
+>
+>     irq 30: nobody cared (try booting with the "irqpoll" option)
+>     CPU: 0 PID: 0 Comm: swapper/0 Not tainted 4.10.15-npcm750 #1
+>     Hardware name: NPCMX50 Chip family
+>     [<c010b264>] (unwind_backtrace) from [<c0106930>] (show_stack+0x20/0x24)
+>     [<c0106930>] (show_stack) from [<c03dad38>] (dump_stack+0x8c/0xa0)
+>     [<c03dad38>] (dump_stack) from [<c0168810>] (__report_bad_irq+0x3c/0xdc)
+>     [<c0168810>] (__report_bad_irq) from [<c0168c34>] (note_interrupt+0x29c/0x2ec)
+>     [<c0168c34>] (note_interrupt) from [<c0165c80>] (handle_irq_event_percpu+0x5c/0x68)
+>     [<c0165c80>] (handle_irq_event_percpu) from [<c0165cd4>] (handle_irq_event+0x48/0x6c)
+>     [<c0165cd4>] (handle_irq_event) from [<c0169664>] (handle_fasteoi_irq+0xc8/0x198)
+>     [<c0169664>] (handle_fasteoi_irq) from [<c016529c>] (__handle_domain_irq+0x90/0xe8)
+>     [<c016529c>] (__handle_domain_irq) from [<c01014bc>] (gic_handle_irq+0x58/0x9c)
+>     [<c01014bc>] (gic_handle_irq) from [<c010752c>] (__irq_svc+0x6c/0x90)
+>     Exception stack(0xc0a01de8 to 0xc0a01e30)
+>     1de0:                   00002080 c0a6fbc0 00000000 00000000 00000000 c096d294
+>     1e00: 00000000 00000001 dc406400 f03ff100 00000082 c0a01e94 c0a6fbc0 c0a01e38
+>     1e20: 00200102 c01015bc 60000113 ffffffff
+>     [<c010752c>] (__irq_svc) from [<c01015bc>] (__do_softirq+0xbc/0x358)
+>     [<c01015bc>] (__do_softirq) from [<c011c798>] (irq_exit+0xb8/0xec)
+>     [<c011c798>] (irq_exit) from [<c01652a0>] (__handle_domain_irq+0x94/0xe8)
+>     [<c01652a0>] (__handle_domain_irq) from [<c01014bc>] (gic_handle_irq+0x58/0x9c)
+>     [<c01014bc>] (gic_handle_irq) from [<c010752c>] (__irq_svc+0x6c/0x90)
+>     Exception stack(0xc0a01ef8 to 0xc0a01f40)
+>     1ee0:                                                       00000000 000003ae
+>     1f00: dcc0f338 c0111060 c0a00000 c0a0cc44 c0a0cbe4 c0a1c22b c07bc218 00000001
+>     1f20: dcffca40 c0a01f54 c0a01f58 c0a01f48 c0103524 c0103528 60000013 ffffffff
+>     [<c010752c>] (__irq_svc) from [<c0103528>] (arch_cpu_idle+0x48/0x4c)
+>     [<c0103528>] (arch_cpu_idle) from [<c0681390>] (default_idle_call+0x30/0x3c)
+>     [<c0681390>] (default_idle_call) from [<c0156f24>] (do_idle+0xc8/0x134)
+>     [<c0156f24>] (do_idle) from [<c015722c>] (cpu_startup_entry+0x28/0x2c)
+>     [<c015722c>] (cpu_startup_entry) from [<c067ad74>] (rest_init+0x84/0x88)
+>     [<c067ad74>] (rest_init) from [<c0900d44>] (start_kernel+0x388/0x394)
+>     [<c0900d44>] (start_kernel) from [<0000807c>] (0x807c)
+>     handlers:
+>     [<c041c5dc>] npcm7xx_kcs_irq
+>     Disabling IRQ #30
+>
+> Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+> ---
+> Hi Corey,
+>
+> This patch looks introducing BIG modification, it should be easily
+> understandable, and makes code clean & fix an error design, which
+> is introduced by misunderstanding the IRQ return value.
 
- I tried command  ipmitool  *-I dbus* sdr elist full.
+I'm having a little trouble understanding your text above, so let me try 
+to repeat
+back to you what I'm thinking you are saying...
 
-but it is showing the error *Error loading interface dbus*
+You have two (or more) devices using the same interrupt, and at least 
+one is an
+IPMI KCS device.  And interrupt comes in to the other device when the 
+IPMI KCS
+device is not running.  The original code issues an abort when that happens,
+which is obviously incorrect.  It then returns -ENODATA, .
 
+When the interrupt comes in for the abort handling, the driver will then 
+issue
+another abort, and again returns -ENODATA.  This time neither driver handles
+the interrupt, resulting in the logs.
 
-Thanks and Regards,
+In general, I think the change you have here is good.  You don't want to
+issue an abort in this case.  But...
 
-Akash
+If I am right, this fix doesn't completely solve the problem.  It does 
+solve this
+immediate problem, but what if there is an OS on the other end of the
+KCS interface that sets the IBF flag?  The same situation will occur.  
+In fact
+it will occur even if there is only one handler for the interrupt.
 
+Maybe it's best to have the interrupt disabled unless the device is open.
+You have to handle the interrupt disable race on a close, but with the
+sync functions that shouldn't be too hard.
 
-
-On Thu, Jun 21, 2018 at 4:38 PM, <B.B.Singh@dell.com> wrote:
+-corey
 
 >
-> Hello Akash,
+> BR,
+> Haiyue
+> ---
+>   drivers/char/ipmi/kcs_bmc.c | 31 ++++++++++---------------------
+>   1 file changed, 10 insertions(+), 21 deletions(-)
 >
-> Please use dbus interface while using the ipmitool in OpenBMC.
->
-> ipmitool -I dbus sdr elist full
->
-> Regards
-> Balaji Singh
->
->
-> >>From: openbmc [mailto:openbmc-bounces+b_b_singh=dell.com@lists.ozlabs.
-> org] On Behalf Of AKASH G J
-> >>Sent: Thursday, June 21, 2018 3:51 PM
-> >>To: openbmc@lists.ozlabs.org
-> >>Subject: Unable to use ipmitool in OpenBMC Linux
->
-> >>  Hi Team,
-> >> I added ipmitool into the root file system of OpenBMC Linux and booted
-> it. When I tried to execute ipmi tool(inside OpenBMC Linux), it is showing
-> the following error.
-> >> root@zaius:# ipmitool sdr elist full
-> >> Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev/0.
-> No such file or directory.
-> >> Please someone help to resolve this.
->
->
->
-
---000000000000f4d018056f3725ff
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">
-
-<span style=3D"font-size:small;text-decoration-style:initial;text-decoratio=
-n-color:initial;float:none;display:inline">I tried command=C2=A0<span>=C2=
-=A0</span></span><span style=3D"font-size:small;text-decoration-style:initi=
-al;text-decoration-color:initial;font-family:sans-serif;float:none;display:=
-inline">ipmitool =C2=A0</span><b style=3D"font-size:small;text-decoration-s=
-tyle:initial;text-decoration-color:initial;font-family:sans-serif">-I dbus<=
-/b><span style=3D"font-size:small;text-decoration-style:initial;text-decora=
-tion-color:initial;font-family:sans-serif;float:none;display:inline"><span>=
-=C2=A0</span>sdr elist full.</span><div style=3D"font-size:small;text-decor=
-ation-style:initial;text-decoration-color:initial"><span style=3D"font-fami=
-ly:sans-serif;font-size:small;text-decoration-style:initial;text-decoration=
--color:initial;float:none;display:inline"><br></span></div><div style=3D"fo=
-nt-size:small;text-decoration-style:initial;text-decoration-color:initial">=
-<span style=3D"font-family:sans-serif;font-size:small;text-decoration-style=
-:initial;text-decoration-color:initial;float:none;display:inline">but it is=
- showing the error=C2=A0<b>Error loading interface dbus</b></span></div><di=
-v style=3D"font-size:small;text-decoration-style:initial;text-decoration-co=
-lor:initial"><span style=3D"font-family:sans-serif;font-size:small;text-dec=
-oration-style:initial;text-decoration-color:initial;float:none;display:inli=
-ne"><b><br></b></span></div><div style=3D"font-size:small;text-decoration-s=
-tyle:initial;text-decoration-color:initial"><span style=3D"font-family:sans=
--serif;font-size:small;text-decoration-style:initial;text-decoration-color:=
-initial;float:none;display:inline"><b><br></b></span></div><div style=3D"fo=
-nt-size:small;text-decoration-style:initial;text-decoration-color:initial">=
-<span style=3D"font-family:sans-serif;font-size:small;text-decoration-style=
-:initial;text-decoration-color:initial;float:none;display:inline">Thanks an=
-d Regards,</span></div><div style=3D"font-size:small;text-decoration-style:=
-initial;text-decoration-color:initial"><span style=3D"font-family:sans-seri=
-f;font-size:small;text-decoration-style:initial;text-decoration-color:initi=
-al;float:none;display:inline"><br></span></div><div style=3D"font-size:smal=
-l;text-decoration-style:initial;text-decoration-color:initial"><span style=
-=3D"font-family:sans-serif;font-size:small;text-decoration-style:initial;te=
-xt-decoration-color:initial;float:none;display:inline">Akash</span></div><b=
-r class=3D"gmail-Apple-interchange-newline">
-
-<br></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu,=
- Jun 21, 2018 at 4:38 PM,  <span dir=3D"ltr">&lt;<a href=3D"mailto:B.B.Sing=
-h@dell.com" target=3D"_blank">B.B.Singh@dell.com</a>&gt;</span> wrote:<br><=
-blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex"><br>
-Hello Akash,<br>
-<br>
-Please use dbus interface while using the ipmitool in OpenBMC.<br>
-<span class=3D"im HOEnZb"><br>
-ipmitool -I dbus sdr elist full<br>
-<br>
-</span><span class=3D"im HOEnZb">Regards<br>
-Balaji Singh<br>
-<br>
-<br>
-&gt;&gt;From: openbmc [mailto:<a href=3D"mailto:openbmc-bounces%2Bb_b_singh=
-">openbmc-bounces+b_b_<wbr>singh</a>=3D<a href=3D"mailto:dell.com@lists.ozl=
-abs.org">dell.com@lists.ozlabs.<wbr>org</a>] On Behalf Of AKASH G J<br>
-&gt;&gt;Sent: Thursday, June 21, 2018 3:51 PM<br>
-&gt;&gt;To: <a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlab=
-s.org</a><br>
-</span><span class=3D"im HOEnZb">&gt;&gt;Subject: Unable to use ipmitool in=
- OpenBMC Linux<br>
-<br>
-</span><div class=3D"HOEnZb"><div class=3D"h5">&gt;&gt;=C2=A0 Hi Team,<br>
-&gt;&gt; I added ipmitool into the root file system of OpenBMC Linux and bo=
-oted it. When I tried to execute ipmi tool(inside OpenBMC Linux), it is sho=
-wing the following error.<br>
-&gt;&gt; root@zaius:# ipmitool sdr elist full<br>
-&gt;&gt; Could not open device at /dev/ipmi0 or /dev/ipmi/0 or /dev/ipmidev=
-/0. No such file or directory.<br>
-&gt;&gt; Please someone help to resolve this.<br>
-<br>
-<br>
-</div></div></blockquote></div><br></div>
-
---000000000000f4d018056f3725ff--
+> diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
+> index fbfc05e..bb882ab1 100644
+> --- a/drivers/char/ipmi/kcs_bmc.c
+> +++ b/drivers/char/ipmi/kcs_bmc.c
+> @@ -210,34 +210,23 @@ static void kcs_bmc_handle_cmd(struct kcs_bmc *kcs_bmc)
+>   int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc)
+>   {
+>   	unsigned long flags;
+> -	int ret = 0;
+> +	int ret = -ENODATA;
+>   	u8 status;
+>   
+>   	spin_lock_irqsave(&kcs_bmc->lock, flags);
+>   
+> -	if (!kcs_bmc->running) {
+> -		kcs_force_abort(kcs_bmc);
+> -		ret = -ENODEV;
+> -		goto out_unlock;
+> -	}
+> -
+> -	status = read_status(kcs_bmc) & (KCS_STATUS_IBF | KCS_STATUS_CMD_DAT);
+> -
+> -	switch (status) {
+> -	case KCS_STATUS_IBF | KCS_STATUS_CMD_DAT:
+> -		kcs_bmc_handle_cmd(kcs_bmc);
+> -		break;
+> -
+> -	case KCS_STATUS_IBF:
+> -		kcs_bmc_handle_data(kcs_bmc);
+> -		break;
+> +	status = read_status(kcs_bmc);
+> +	if (status & KCS_STATUS_IBF) {
+> +		if (!kcs_bmc->running)
+> +			kcs_force_abort(kcs_bmc);
+> +		else if (status & KCS_STATUS_CMD_DAT)
+> +			kcs_bmc_handle_cmd(kcs_bmc);
+> +		else
+> +			kcs_bmc_handle_data(kcs_bmc);
+>   
+> -	default:
+> -		ret = -ENODATA;
+> -		break;
+> +		ret = 0;
+>   	}
+>   
+> -out_unlock:
+>   	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
+>   
+>   	return ret;
