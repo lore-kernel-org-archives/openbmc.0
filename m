@@ -1,67 +1,59 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=oracle.com
- (client-ip=141.146.126.79; helo=aserp2130.oracle.com;
- envelope-from=dan.carpenter@oracle.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::22a; helo=mail-pg0-x22a.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=oracle.com
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=oracle.com header.i=@oracle.com header.b="NTe4P2I6"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="giQ/xh8d"; 
  dkim-atps=neutral
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg0-x22a.google.com (mail-pg0-x22a.google.com
+ [IPv6:2607:f8b0:400e:c05::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41DplP6Bk7zF1Cq
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 22:44:17 +1000 (AEST)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.22/8.16.0.22) with SMTP id w5PChv6E074010;
- Mon, 25 Jun 2018 12:43:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type : in-reply-to;
- s=corp-2017-10-26; bh=M3jqy7cZwyxuJWNB3w7cVQL4dbAPtRqH8u03LsdQJWc=;
- b=NTe4P2I6ZqvTSc8LAiP9sYKJz2NGtlz256LA+L13Sp9H4J8BnoajzphceRFb1ya03s62
- 1t9LgTGJjAwhjNocrtcsOE3x9BTN1xB28/Fn7wXVjjllFEu7OD0s7kzvGNE+f424IHgn
- EVaXixVX8oW0beZnN8WVOAXZ9QPeziC0jAFpU/PFC8rPMTYOpqnQXSn9mRv3UQUOjpAi
- 2+HfliIAjuuFGKgloM7d/zY3yHQwPdmqkTyhqEJ0xL7BGFiDqw3kk+eOJBtAycaj8GSp
- QjwIneGeJbH1l+l6I58RXqYXUErwX2s2Vl6SXJsDXRK7CDw8taTPr297lfpgYy5Esiw+ IA== 
-Received: from aserv0021.oracle.com (aserv0021.oracle.com [141.146.126.233])
- by aserp2130.oracle.com with ESMTP id 2jt7natjm4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 25 Jun 2018 12:43:57 +0000
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserv0021.oracle.com (8.14.4/8.14.4) with ESMTP id w5PChttv026299
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 25 Jun 2018 12:43:55 GMT
-Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id w5PChrpc007477;
- Mon, 25 Jun 2018 12:43:53 GMT
-Received: from mwanda (/197.157.0.49) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 25 Jun 2018 05:43:52 -0700
-Date: Mon, 25 Jun 2018 15:43:32 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: kbuild@01.org, Tomer Maimon <tmaimon77@gmail.com>
-Cc: kbuild-all@01.org, robh+dt@kernel.org, mark.rutland@arm.com,
- jdelvare@suse.com, linux@roeck-us.net, avifishman70@gmail.com,
- yuenn@google.com, brendanhiggins@google.com, venture@google.com,
- joel@jms.id.au, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: Re: [PATCH v4 2/2] hwmon: npcm750: add NPCM7xx PWM and Fan driver
-Message-ID: <20180625124332.e7oyxezasn374w4b@mwanda>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180624124155.82412-3-tmaimon77@gmail.com>
-User-Agent: NeoMutt/20170609 (1.8.3)
-X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=8934
- signatures=668703
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1806210000 definitions=main-1806250149
-X-Mailman-Approved-At: Tue, 26 Jun 2018 09:35:16 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41F5St65sfzF1Gj
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 09:47:42 +1000 (AEST)
+Received: by mail-pg0-x22a.google.com with SMTP id b10-v6so3086491pgq.11
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 16:47:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=rYVn0gEao64PhOFyhG0pNZITmvh8yKv2CsmIOjRXE+Q=;
+ b=giQ/xh8dQD48NnsBbO3XhQnptDCmoIZ96oQRdCH8GAkwvaRCQwkFrT0EqzudZMqnvr
+ wRKGos3TNoDmZeRiluObozxfX/YICjCMO3RSln/LigpLTvOWbmpnzuZXBvyXb1ymoTXQ
+ ZQKTTgEmi1a5Nxg0ha64fGIvdMAk30fVddhiTMjMMHxokreWABVy2jo1DJIpUC8ixOE7
+ 6srFT9E4xROpz6J4XDzd89N7d6KomTl6j82RRRjUI2viPX7V+/HdKqy8tXE02VYr0hZe
+ N6V/vcKzZISR57xJCz54rPoVFuuH0WuL7OkHCS72THbIr6S1SWHmI9egpbI8f8QK/vUW
+ FuzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=rYVn0gEao64PhOFyhG0pNZITmvh8yKv2CsmIOjRXE+Q=;
+ b=E05slNxT5ogTSQuFcAgCCtMXH4x71Ofh16hWSHS1zZM8VphHB5s/XUi3oxeaW1ZHMB
+ X//n1HM+GjWS5SSLpFAGSVGCG2qVXisfyYThpnO7JTiVEFT43RuOsq9AW4xb5lmXVVFi
+ iUJgr9+gOwCM7M5WxUQH8RpGUPhkxs6oHZHfDgjNziTdNStuxkJkpa/MGj+8R2emB2F7
+ eO3ut4TCSHmV1WcbPBDZyRrVBuK1SAuLkkJVHUXZUlB/xvw6ESOOL+HgTGXLZY8Wlb3N
+ EwsGHNTJuYXsobZQZrxNvMxjxYPjzKyMsf7NSL6OSF2F61mkx3uXn5hAYyp4C60aPX5A
+ V5Yg==
+X-Gm-Message-State: APt69E2qi9pdz2/+D14HIwQ1zSsJIWFiWPy5ExtirpPzfrVNSEiXWgke
+ Ga8XzwuZIe55wZPRfAbZWKhPFJbi
+X-Google-Smtp-Source: ADUXVKLYYq5jZaLrcL5666EnsWbNy/6JRo0ajFZ6izjSX5KVrkSEsF4WZbpbtcee8eh0pX7X29bO9w==
+X-Received: by 2002:a65:448a:: with SMTP id
+ l10-v6mr7546651pgq.382.1529970460114; 
+ Mon, 25 Jun 2018 16:47:40 -0700 (PDT)
+Received: from aurora.jms.id.au ([45.124.203.19])
+ by smtp.gmail.com with ESMTPSA id w7-v6sm133701pgs.68.2018.06.25.16.47.37
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 25 Jun 2018 16:47:39 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Tue, 26 Jun 2018 09:17:31 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.17] ARM: configs: aspeed: Enable BLK_DEV_LOOP
+Date: Tue, 26 Jun 2018 09:17:31 +0930
+Message-Id: <20180625234731.6455-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -73,89 +65,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jun 2018 12:44:18 -0000
+X-List-Received-Date: Mon, 25 Jun 2018 23:47:43 -0000
 
-Hi Tomer,
+This is required for the updater mechanism used by OpenBMC.  Remove
+BLK_DEV_RAM from G4 to sync it with G5, as testing by Lei suggests that
+this is not required.
 
-I love your patch! Perhaps something to improve:
-
-[auto build test WARNING on hwmon/hwmon-next]
-[also build test WARNING on v4.18-rc2 next-20180622]
-[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
-
-url:    https://github.com/0day-ci/linux/commits/Tomer-Maimon/dt-binding-hwmon-Add-NPCM7xx-PWM-and-Fan-controller-documentation/20180624-205017
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-next
-
-New smatch warnings:
-drivers/hwmon/npcm750-pwm-fan.c:261 npcm7xx_pwm_config_set() warn: inconsistent returns 'mutex:&data->pwm_lock[module]'.
-  Locked on:   line 245
-  Unlocked on: line 261
-
-Old smatch warnings:
-drivers/hwmon/npcm750-pwm-fan.c:836 npcm7xx_pwm_cz_set_cur_state() warn: potential spectre issue 'cdev->cooling_levels'
-
-# https://github.com/0day-ci/linux/commit/5ef6a0a11de5f3f0711993a20b13820cc0884c7e
-git remote add linux-review https://github.com/0day-ci/linux
-git remote update linux-review
-git checkout 5ef6a0a11de5f3f0711993a20b13820cc0884c7e
-vim +261 drivers/hwmon/npcm750-pwm-fan.c
-
-5ef6a0a1 Tomer Maimon 2018-06-24  210  
-5ef6a0a1 Tomer Maimon 2018-06-24  211  static int npcm7xx_pwm_config_set(struct npcm7xx_pwm_fan_data *data,
-5ef6a0a1 Tomer Maimon 2018-06-24  212  				  int channel, u16 val)
-5ef6a0a1 Tomer Maimon 2018-06-24  213  {
-5ef6a0a1 Tomer Maimon 2018-06-24  214  	u32 pwm_ch = (channel % NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
-5ef6a0a1 Tomer Maimon 2018-06-24  215  	u32 module = (channel / NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
-5ef6a0a1 Tomer Maimon 2018-06-24  216  	u32 tmp_buf, ctrl_en_bit, env_bit;
-5ef6a0a1 Tomer Maimon 2018-06-24  217  
-5ef6a0a1 Tomer Maimon 2018-06-24  218  	/*
-5ef6a0a1 Tomer Maimon 2018-06-24  219  	 * Config PWM Comparator register for setting duty cycle
-5ef6a0a1 Tomer Maimon 2018-06-24  220  	 */
-5ef6a0a1 Tomer Maimon 2018-06-24  221  	mutex_lock(&data->pwm_lock[module]);
-5ef6a0a1 Tomer Maimon 2018-06-24  222  
-5ef6a0a1 Tomer Maimon 2018-06-24  223  	/* write new CMR value  */
-5ef6a0a1 Tomer Maimon 2018-06-24  224  	iowrite32(val, NPCM7XX_PWM_REG_CMRx(data->pwm_base, module, pwm_ch));
-5ef6a0a1 Tomer Maimon 2018-06-24  225  	tmp_buf = ioread32(NPCM7XX_PWM_REG_CR(data->pwm_base, module));
-5ef6a0a1 Tomer Maimon 2018-06-24  226  
-5ef6a0a1 Tomer Maimon 2018-06-24  227  	switch (pwm_ch) {
-5ef6a0a1 Tomer Maimon 2018-06-24  228  	case 0:
-5ef6a0a1 Tomer Maimon 2018-06-24  229  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH0_EN_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  230  		env_bit = NPCM7XX_PWM_CTRL_CH0_INV_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  231  		break;
-5ef6a0a1 Tomer Maimon 2018-06-24  232  	case 1:
-5ef6a0a1 Tomer Maimon 2018-06-24  233  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH1_EN_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  234  		env_bit = NPCM7XX_PWM_CTRL_CH1_INV_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  235  		break;
-5ef6a0a1 Tomer Maimon 2018-06-24  236  	case 2:
-5ef6a0a1 Tomer Maimon 2018-06-24  237  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH2_EN_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  238  		env_bit = NPCM7XX_PWM_CTRL_CH2_INV_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  239  		break;
-5ef6a0a1 Tomer Maimon 2018-06-24  240  	case 3:
-5ef6a0a1 Tomer Maimon 2018-06-24  241  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH3_EN_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  242  		env_bit = NPCM7XX_PWM_CTRL_CH3_INV_BIT;
-5ef6a0a1 Tomer Maimon 2018-06-24  243  		break;
-5ef6a0a1 Tomer Maimon 2018-06-24  244  	default:
-5ef6a0a1 Tomer Maimon 2018-06-24  245  		return -ENODEV;
-                                                ^^^^^^^^^^^^^^
-5ef6a0a1 Tomer Maimon 2018-06-24  246  	}
-5ef6a0a1 Tomer Maimon 2018-06-24  247  
-5ef6a0a1 Tomer Maimon 2018-06-24  248  	if (val == 0) {
-5ef6a0a1 Tomer Maimon 2018-06-24  249  		/* Disable PWM */
-5ef6a0a1 Tomer Maimon 2018-06-24  250  		tmp_buf &= ~ctrl_en_bit;
-5ef6a0a1 Tomer Maimon 2018-06-24  251  		tmp_buf |= env_bit;
-5ef6a0a1 Tomer Maimon 2018-06-24  252  	} else {
-5ef6a0a1 Tomer Maimon 2018-06-24  253  		/* Enable PWM */
-5ef6a0a1 Tomer Maimon 2018-06-24  254  		tmp_buf |= ctrl_en_bit;
-5ef6a0a1 Tomer Maimon 2018-06-24  255  		tmp_buf &= ~env_bit;
-5ef6a0a1 Tomer Maimon 2018-06-24  256  	}
-5ef6a0a1 Tomer Maimon 2018-06-24  257  
-5ef6a0a1 Tomer Maimon 2018-06-24  258  	iowrite32(tmp_buf, NPCM7XX_PWM_REG_CR(data->pwm_base, module));
-5ef6a0a1 Tomer Maimon 2018-06-24  259  	mutex_unlock(&data->pwm_lock[module]);
-5ef6a0a1 Tomer Maimon 2018-06-24  260  
-5ef6a0a1 Tomer Maimon 2018-06-24 @261  	return 0;
-5ef6a0a1 Tomer Maimon 2018-06-24  262  }
-5ef6a0a1 Tomer Maimon 2018-06-24  263  
-
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
-0-DAY kernel test infrastructure                Open Source Technology Center
-https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+ arch/arm/configs/aspeed_g4_defconfig | 2 +-
+ arch/arm/configs/aspeed_g5_defconfig | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
+index 6b3f897892fa..0f53291a33e8 100644
+--- a/arch/arm/configs/aspeed_g4_defconfig
++++ b/arch/arm/configs/aspeed_g4_defconfig
+@@ -79,7 +79,7 @@ CONFIG_SPI_ASPEED_SMC=y
+ CONFIG_MTD_UBI=y
+ CONFIG_MTD_UBI_FASTMAP=y
+ CONFIG_MTD_UBI_BLOCK=y
+-CONFIG_BLK_DEV_RAM=y
++CONFIG_BLK_DEV_LOOP=y
+ CONFIG_ASPEED_LPC_CTRL=y
+ CONFIG_ASPEED_LPC_SNOOP=y
+ CONFIG_ASPEED_LPC_MBOX=y
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index 73efa17cbeb1..a458c7eb32a0 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -79,6 +79,7 @@ CONFIG_SPI_ASPEED_SMC=y
+ CONFIG_MTD_UBI=y
+ CONFIG_MTD_UBI_FASTMAP=y
+ CONFIG_MTD_UBI_BLOCK=y
++CONFIG_BLK_DEV_LOOP=y
+ CONFIG_ASPEED_LPC_CTRL=y
+ CONFIG_ASPEED_LPC_SNOOP=y
+ CONFIG_ASPEED_LPC_MBOX=y
+-- 
+2.17.1
