@@ -1,69 +1,35 @@
-Return-Path: <gkeishin@in.ibm.com>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=gkeishin@in.ibm.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41DtYG3j8QzF0Pd
- for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 01:35:42 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w5PFYWU4018600
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 11:35:40 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.66])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2ju0vuqk5r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 11:35:40 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <gkeishin@in.ibm.com>;
- Mon, 25 Jun 2018 15:35:39 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.127) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 25 Jun 2018 15:35:32 -0000
-Received: from us1a3-mail113.a3.dal06.isc4sb.com ([10.146.6.4])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2018062515353190-752940 ;
- Mon, 25 Jun 2018 15:35:31 +0000 
-In-Reply-To: <f86c688b-b237-bdd5-12a0-385f96902581@gmail.com>
-To: krtaylor <kurt.r.taylor@gmail.com>
-Cc: alirhas@microsoft.com, bradleyb@fuzziesquirrel.com, james.mihm@intel.com, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "openbmc"<openbmc-bounces+gkeishin=in.ibm.com@lists.ozlabs.org>
-Subject: Re: OpenBMC Release Planning Working Group
-From: "George Keishing" <gkeishin@in.ibm.com>
-Date: Mon, 25 Jun 2018 21:05:31 +0530
-References: <f86c688b-b237-bdd5-12a0-385f96902581@gmail.com>
-MIME-Version: 1.0
-X-KeepSent: 271EFC9C:4E484BDD-002582B7:0055123F;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP10 SHF68 March 06, 2018
-X-LLNOutbound: False
-X-Disclaimed: 4599
-X-TNEFEvaluated: 1
-x-cbid: 18062515-6357-0000-0000-0000064207CD
-X-IBM-SpamModules-Scores: BY=0.261336; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.433748; ST=0; TS=0; UL=0; ISC=; MB=0.018098
-X-IBM-SpamModules-Versions: BY=3.00009253; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01052157; UDB=6.00539362; IPR=6.00830083; 
- BA=6.00006019; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00021850; XFM=3.00000015;
- UTC=2018-06-25 15:35:36
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-06-25 10:01:45 - 6.00008619
-x-cbparentid: 18062515-6358-0000-0000-0000EED82149
-Message-Id: <OF271EFC9C.4E484BDD-ON002582B7.0055123F-652582B7.0055A643@notes.na.collabserv.com>
-Content-Type: multipart/alternative;
- boundary="=_alternative 0055A073652582B7_="
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-06-25_07:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Dv0M2BT3zDrq6
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 01:55:45 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w5PFt5Pa001562;
+ Mon, 25 Jun 2018 18:55:06 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id D255862FF9; Mon, 25 Jun 2018 18:55:05 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: robh+dt@kernel.org, mark.rutland@arm.com, jdelvare@suse.com,
+ linux@roeck-us.net, avifishman70@gmail.com, yuenn@google.com,
+ brendanhiggins@google.com, venture@google.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v5 1/2] dt-binding: hwmon: Add NPCM7xx PWM and Fan controller
+ documentation
+Date: Mon, 25 Jun 2018 18:55:03 +0300
+Message-Id: <20180625155504.152079-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180625155504.152079-1-tmaimon77@gmail.com>
+References: <20180625155504.152079-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,125 +41,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jun 2018 15:35:47 -0000
+X-List-Received-Date: Mon, 25 Jun 2018 15:55:48 -0000
 
+Added device tree binding documentation for Nuvoton BMC
+NPCM7xx Pulse Width Modulation (PWM)  and Fan tach controller.
+The PWM controller can support upto 8 PWM output ports.
+The Fan tach controller can support upto 16 tachometer inputs.
 
---=_alternative 0055A073652582B7_=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../devicetree/bindings/hwmon/npcm750-pwm-fan.txt  | 84 ++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
 
-Hi Kurt,=20
-
-        I prefer the option 2) Thursdays, 8:00am Central US (1300 UTC)=20
-time. Please sign me up.  Thanks
-
-George Keishing
-=20
-
-
-
-From:   krtaylor <kurt.r.taylor@gmail.com>
-To:     "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Cc:     alirhas@microsoft.com, bradleyb@fuzziesquirrel.com,=20
-james.mihm@intel.com
-Date:   06/22/2018 12:38 AM
-Subject:        OpenBMC Release Planning Working Group
-Sent by:        "openbmc"=20
-<openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org>
-
-
-
-Hi all,
-
-The long anticipated OpenBMC Release Planning working group is now=20
-forming and will have its first meeting next week. I would like to keep=20
-the meeting small at first so that we can move quickly, but I do need=20
-complete representation. Please let me know if you'd like to participate=20
-and what day a meeting would work best for you. Those on copy should=20
-plan on attending or at least make sure someone is covering for your=20
-organization.
-
-Let me know if you have any questions.
-
-Regards, Kurt Taylor (krtaylor)
-
-
-Proposed times:
-
-1) Tuesdays, 2:00pm Central US (1900 UTC)
-
-2) Thursdays, 8:00am Central US (1300 UTC)
-
-3) Thursdays, 3:00pm Central US (2000 UTC)
-
-
-Initial Agenda:
-
-1) Agree on the release process and set an initial release date in=20
-November (see email from May 21)
-
-2) Set design and freeze milestones
-
-3) "Must" deliver items for November release
-
-4) How to open the design and development for a needed feature
-
-
-
-
-
-
---=_alternative 0055A073652582B7_=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset="US-ASCII"
-
-<span style=3D" font-size:10pt;font-family:sans-serif">Hi Kurt, &nbsp;</spa=
-n><br><br><span style=3D" font-size:10pt;font-family:sans-serif">&nbsp; &nb=
-sp;
-&nbsp; &nbsp; I prefer the option 2) Thursdays, 8:00am Central
-US (1300 UTC) time. Please sign me up. &nbsp;Thanks</span><br><br><span sty=
-le=3D" font-size:10pt;color:blue;font-family:sans-serif">George
-Keishing</span><br><span style=3D" font-size:10pt;color:blue;font-family:sa=
-ns-serif">&nbsp;
-&nbsp;</span><br><br><br><br><span style=3D" font-size:9pt;color:#5f5f5f;fo=
-nt-family:sans-serif">From:
-&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
-:sans-serif">krtaylor
-&lt;kurt.r.taylor@gmail.com&gt;</span><br><span style=3D" font-size:9pt;col=
-or:#5f5f5f;font-family:sans-serif">To:
-&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
-:sans-serif">&quot;openbmc@lists.ozlabs.org&quot;
-&lt;openbmc@lists.ozlabs.org&gt;</span><br><span style=3D" font-size:9pt;co=
-lor:#5f5f5f;font-family:sans-serif">Cc:
-&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
-:sans-serif">alirhas@microsoft.com,
-bradleyb@fuzziesquirrel.com, james.mihm@intel.com</span><br><span style=3D"=
- font-size:9pt;color:#5f5f5f;font-family:sans-serif">Date:
-&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
-:sans-serif">06/22/2018
-12:38 AM</span><br><span style=3D" font-size:9pt;color:#5f5f5f;font-family:=
-sans-serif">Subject:
-&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
-:sans-serif">OpenBMC
-Release Planning Working Group</span><br><span style=3D" font-size:9pt;colo=
-r:#5f5f5f;font-family:sans-serif">Sent
-by: &nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-fa=
-mily:sans-serif">&quot;openbmc&quot;
-&lt;openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org&gt;</span><br><h=
-r noshade><br><br><br><tt><span style=3D" font-size:10pt">Hi all,<br><br>Th=
-e long anticipated OpenBMC Release Planning working group is now <br>formin=
-g and will have its first meeting next week. I would like to keep
-<br>the meeting small at first so that we can move quickly, but I do need <=
-br>complete representation. Please let me know if you'd like to participate
-<br>and what day a meeting would work best for you. Those on copy should <b=
-r>plan on attending or at least make sure someone is covering for your <br>=
-organization.<br><br>Let me know if you have any questions.<br><br>Regards,=
- Kurt Taylor (krtaylor)<br><br><br>Proposed times:<br><br>1) Tuesdays, 2:00=
-pm Central US (1900 UTC)<br><br>2) Thursdays, 8:00am Central US (1300 UTC)<=
-br><br>3) Thursdays, 3:00pm Central US (2000 UTC)<br><br><br>Initial Agenda=
-:<br><br>1) Agree on the release process and set an initial release date in=
- <br>November (see email from May 21)<br><br>2) Set design and freeze miles=
-tones<br><br>3) &quot;Must&quot; deliver items for November release<br><br>=
-4) How to open the design and development for a needed feature<br><br></spa=
-n></tt><br><br><BR>
---=_alternative 0055A073652582B7_=--
+diff --git a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+new file mode 100644
+index 000000000000..a9eacda34f92
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+@@ -0,0 +1,84 @@
++Nuvoton NPCM7xx PWM and Fan Tacho controller device driver
++
++The NPCM7xx has two identical Pulse-width modulation (PWM) controller modules,
++Each PWM module has four PWM controller outputs, Totally 8 PWM controller outputs.
++
++The NPCM7xx has eight identical Fan tachometer controller modules,
++Each Fan module has two Fan controller inputs, Totally 16 Fan controller inputs.
++
++Required properties for pwm-fan node:
++- compatible	: "nuvoton,npcm750-pwm-fan" for Poleg NPCM7XX.
++- reg 			: specifies physical base address and size of the registers.
++- reg-names 	: must contain:
++					* "pwm-base" for the PWM registers.
++ 					* "fan-base" for the Fan registers.
++- clocks		: phandle of reference clocks.
++- clock-names	: must contain
++					* "clk_apb3" for clock of PWM controller.
++ 					* "clk_apb4" for clock of Fan controller.
++- interrupts	: contain the Fan interrupts with flags for falling edge.
++- pinctrl-names	: a pinctrl state named "default" must be defined.
++- pinctrl-0 	: phandle referencing pin configuration of the PWM and Fan
++					controller ports.
++
++pwm subnode format:
++===================
++Under pwm subnode can be upto 8 child nodes, each child node representing a PWM channel.
++Each pwm subnode must have one PWM channel and atleast one Fan tach channel.
++
++For PWM channel can be configured cooling-levels to create cooling device.
++Cooling device could be bound to a thermal zone for the thermal control.
++
++Required properties for each child node:
++- pwm-ch : specify the PWM output channel.
++			integer value in the range 0 through 7, that represent
++			the PWM channel number that used.
++
++- fan-ch : specify the Fan input channel.
++			integer value in the range 0 through 15, that represent
++			the Fan channel number that used.
++
++			At least one Fan tach input channel is required
++
++Optional property for each child node:
++- cooling-levels: PWM duty cycle values in a range from 0 to 255
++                  which correspond to thermal cooling states.
++
++Examples:
++
++pwm_fan:pwm_fan_controller@103000 {
++	compatible = "nuvoton,npcm750-pwm-fan";
++	reg = <0x103000 0x2000>,
++		<0x180000 0x8000>;
++	reg-names = "pwm_base", "fan_base";
++	clocks = <&clk NPCM7XX_CLK_APB3>,
++		<&clk NPCM7XX_CLK_APB4>;
++	clock-names = "clk_apb3","clk_apb4";
++	interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
++			<GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm0_pins &pwm1_pins &pwm2_pins
++			&fanin0_pins &fanin1_pins &fanin2_pins
++			&fanin3_pins &fanin4_pins>;
++
++			pwm@0 {
++				pwm-ch = /bits/ 8 <0x00>;
++				fan-ch = /bits/ 8 <0x00 0x01>;
++				cooling-levels = <127 255>;
++				};
++			pwm@1 {
++				pwm-ch = /bits/ 8 <0x01>;
++				fan-ch = /bits/ 8 <0x02 0x03>;
++				};
++			pwm@2 {
++				pwm-ch = /bits/ 8 <0x02>;
++				fan-ch = /bits/ 8 <0x04>;
++				};
++
++};
+\ No newline at end of file
+-- 
+2.14.1
