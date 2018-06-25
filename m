@@ -1,68 +1,67 @@
-Return-Path: <tmaimon77@gmail.com>
+Return-Path: <dan.carpenter@oracle.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::243; helo=mail-it0-x243.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=oracle.com
+ (client-ip=141.146.126.79; helo=aserp2130.oracle.com;
+ envelope-from=dan.carpenter@oracle.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=none dis=none) header.from=oracle.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gV99W/MJ"; 
+ unprotected) header.d=oracle.com header.i=@oracle.com header.b="NTe4P2I6"; 
  dkim-atps=neutral
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41F3Xk1xzfzF1Hl
- for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 08:20:53 +1000 (AEST)
-Received: by mail-it0-x243.google.com with SMTP id 128-v6so8793900itf.1
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 15:20:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=xufsZFmA+jmXVUP5td//831SyIYkjimQS9ljeqy+iyQ=;
- b=gV99W/MJuzV4z+Y5O0DtU6ZfuuPxbXUphCB4ILwPjGxKgkLKBl6ctV/5Y/tb81C4hW
- X8zBklVIdt5iMqoTKjXOYXl3wVgsrSvqctBmnXF7yBmHY4I69RsjervDZPrfQZLwV3+3
- qmFLB7mh42/ROqZHv4+uDlQ4geRUsJb/GbJnH1jUxZnWoDJjSE31/XikgLEaV+7FwFhD
- 9cIal8oD+TYDi4I0KiwNw0cP/RFMUAKFsfiXrJNXj4KqsMsFVe39jvtqdTJsaHPZwoWA
- uQfbS6uDlOfSWuhTPVfWxTa8Yjtmyoc5kAGlQZjMOpxcLCV0/r7rjL9mzdQ5Mge/Owu9
- PcQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=xufsZFmA+jmXVUP5td//831SyIYkjimQS9ljeqy+iyQ=;
- b=S6XLZmKq5x0ZJ1FPFpYor5v9ra6WGICSIkelFBLvzyhGHDLusgyGQcSbzMIuZUR+VE
- e11vmZ4UEtatyS8mPRNv+r+FiCaEiPfqTthashnBXuyd/t2WGvoDPsIKnvPeYs26gpiy
- //EcCbzuWvuJiPz74IPIrcO430VE+NhVKQIjix+PbAtOo3uw67hAPhKWeqdaXtzfm5dD
- lprYv3Xd40qXqtREtx953qyxllwo5kvXMySAUEDW5bQ4LQV4bKEb7QAxWiyID7fK/QLQ
- 9/6/HYE/Q93P+Gvkh8Vf6iDGfSwDJumfmnYOtccpTHHsQc1et6TnpGr2pQnh354Omrks
- +51g==
-X-Gm-Message-State: APt69E0Fm/t9CostrN9GMqKXpjzgKZYfq5LwndzApYIdJFozGySZhvKi
- QilVSPR5r7fvG/jCDRnkC6+Jy/jZQbholWo2G9s=
-X-Google-Smtp-Source: ADUXVKKUwDMUs/fqEZRASBkAF6SD4VMsLSSRw+/O7OUFs1F6Y6llipR+X6zIPqohdhsDhyK2ydg1k6hyyedWy7XR2TU=
-X-Received: by 2002:a02:5a06:: with SMTP id
- v6-v6mr11651321jaa.39.1529965250997; 
- Mon, 25 Jun 2018 15:20:50 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41DplP6Bk7zF1Cq
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 22:44:17 +1000 (AEST)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.22/8.16.0.22) with SMTP id w5PChv6E074010;
+ Mon, 25 Jun 2018 12:43:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type : in-reply-to;
+ s=corp-2017-10-26; bh=M3jqy7cZwyxuJWNB3w7cVQL4dbAPtRqH8u03LsdQJWc=;
+ b=NTe4P2I6ZqvTSc8LAiP9sYKJz2NGtlz256LA+L13Sp9H4J8BnoajzphceRFb1ya03s62
+ 1t9LgTGJjAwhjNocrtcsOE3x9BTN1xB28/Fn7wXVjjllFEu7OD0s7kzvGNE+f424IHgn
+ EVaXixVX8oW0beZnN8WVOAXZ9QPeziC0jAFpU/PFC8rPMTYOpqnQXSn9mRv3UQUOjpAi
+ 2+HfliIAjuuFGKgloM7d/zY3yHQwPdmqkTyhqEJ0xL7BGFiDqw3kk+eOJBtAycaj8GSp
+ QjwIneGeJbH1l+l6I58RXqYXUErwX2s2Vl6SXJsDXRK7CDw8taTPr297lfpgYy5Esiw+ IA== 
+Received: from aserv0021.oracle.com (aserv0021.oracle.com [141.146.126.233])
+ by aserp2130.oracle.com with ESMTP id 2jt7natjm4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 25 Jun 2018 12:43:57 +0000
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserv0021.oracle.com (8.14.4/8.14.4) with ESMTP id w5PChttv026299
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 25 Jun 2018 12:43:55 GMT
+Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id w5PChrpc007477;
+ Mon, 25 Jun 2018 12:43:53 GMT
+Received: from mwanda (/197.157.0.49) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 25 Jun 2018 05:43:52 -0700
+Date: Mon, 25 Jun 2018 15:43:32 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: kbuild@01.org, Tomer Maimon <tmaimon77@gmail.com>
+Cc: kbuild-all@01.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, linux@roeck-us.net, avifishman70@gmail.com,
+ yuenn@google.com, brendanhiggins@google.com, venture@google.com,
+ joel@jms.id.au, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
+Subject: Re: [PATCH v4 2/2] hwmon: npcm750: add NPCM7xx PWM and Fan driver
+Message-ID: <20180625124332.e7oyxezasn374w4b@mwanda>
 MIME-Version: 1.0
-Received: by 2002:a02:854a:0:0:0:0:0 with HTTP; Mon, 25 Jun 2018 15:20:50
- -0700 (PDT)
-In-Reply-To: <20180625171417.GA16379@rob-hp-laptop>
-References: <20180624124155.82412-1-tmaimon77@gmail.com>
- <20180624124155.82412-2-tmaimon77@gmail.com>
- <20180625171417.GA16379@rob-hp-laptop>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Tue, 26 Jun 2018 01:20:50 +0300
-Message-ID: <CAP6Zq1h-M6YDS67pkgHy-GMmiVk1D-RScLgDyG65JQM+S35rEQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-binding: hwmon: Add NPCM7xx PWM and Fan
- controller documentation
-To: Rob Herring <robh@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, jdelvare@suse.com, 
- Guenter Roeck <linux@roeck-us.net>, Avi Fishman <avifishman70@gmail.com>, 
- Nancy Yuen <yuenn@google.com>, Brendan Higgins <brendanhiggins@google.com>, 
- Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>, 
- devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000004dfa06056f7ecba6"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180624124155.82412-3-tmaimon77@gmail.com>
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=8934
+ signatures=668703
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1806210000 definitions=main-1806250149
+X-Mailman-Approved-At: Tue, 26 Jun 2018 09:35:16 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -74,430 +73,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jun 2018 22:20:55 -0000
+X-List-Received-Date: Mon, 25 Jun 2018 12:44:18 -0000
 
---0000000000004dfa06056f7ecba6
-Content-Type: text/plain; charset="UTF-8"
+Hi Tomer,
 
-Hi Rob,
+I love your patch! Perhaps something to improve:
 
+[auto build test WARNING on hwmon/hwmon-next]
+[also build test WARNING on v4.18-rc2 next-20180622]
+[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
 
-On 25 June 2018 at 20:14, Rob Herring <robh@kernel.org> wrote:
+url:    https://github.com/0day-ci/linux/commits/Tomer-Maimon/dt-binding-hwmon-Add-NPCM7xx-PWM-and-Fan-controller-documentation/20180624-205017
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-next
 
-> On Sun, Jun 24, 2018 at 03:41:54PM +0300, Tomer Maimon wrote:
-> > Added device tree binding documentation for Nuvoton BMC
-> > NPCM7xx Pulse Width Modulation (PWM)  and Fan tach controller.
-> > The PWM controller can support upto 8 PWM output ports.
-> > The Fan tach controller can support upto 16 tachometer inputs.
-> >
-> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> > ---
-> >  .../devicetree/bindings/hwmon/npcm750-pwm-fan.txt  | 84
-> ++++++++++++++++++++++
-> >  1 file changed, 84 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm750-pwm-
-> fan.txt
-> >
-> > diff --git a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
-> b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
-> > new file mode 100644
-> > index 000000000000..a9eacda34f92
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
-> > @@ -0,0 +1,84 @@
-> > +Nuvoton NPCM7xx PWM and Fan Tacho controller device driver
->
-> Bindings are for h/w, not drivers.
->
-> > +
-> > +The NPCM7xx has two identical Pulse-width modulation (PWM) controller
-> modules,
-> > +Each PWM module has four PWM controller outputs, Totally 8 PWM
-> controller outputs.
-> > +
-> > +The NPCM7xx has eight identical Fan tachometer controller modules,
-> > +Each Fan module has two Fan controller inputs, Totally 16 Fan
-> controller inputs.
->
-> Have you looked at other fan ctrlr bindings?f This looks like similar
-> h/w to ASpeed. Really, I'd like to see a common doc that describes the
->
+New smatch warnings:
+drivers/hwmon/npcm750-pwm-fan.c:261 npcm7xx_pwm_config_set() warn: inconsistent returns 'mutex:&data->pwm_lock[module]'.
+  Locked on:   line 245
+  Unlocked on: line 261
 
-We do not have the same H/W as Aspeed, I believe in the near future we will
-need to add
-more DT properties that will used only in the NPCM7xx module.
+Old smatch warnings:
+drivers/hwmon/npcm750-pwm-fan.c:836 npcm7xx_pwm_cz_set_cur_state() warn: potential spectre issue 'cdev->cooling_levels'
 
-structure and common properties.
->
+# https://github.com/0day-ci/linux/commit/5ef6a0a11de5f3f0711993a20b13820cc0884c7e
+git remote add linux-review https://github.com/0day-ci/linux
+git remote update linux-review
+git checkout 5ef6a0a11de5f3f0711993a20b13820cc0884c7e
+vim +261 drivers/hwmon/npcm750-pwm-fan.c
 
-what do you mean by common structure and common properties?
+5ef6a0a1 Tomer Maimon 2018-06-24  210  
+5ef6a0a1 Tomer Maimon 2018-06-24  211  static int npcm7xx_pwm_config_set(struct npcm7xx_pwm_fan_data *data,
+5ef6a0a1 Tomer Maimon 2018-06-24  212  				  int channel, u16 val)
+5ef6a0a1 Tomer Maimon 2018-06-24  213  {
+5ef6a0a1 Tomer Maimon 2018-06-24  214  	u32 pwm_ch = (channel % NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
+5ef6a0a1 Tomer Maimon 2018-06-24  215  	u32 module = (channel / NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE);
+5ef6a0a1 Tomer Maimon 2018-06-24  216  	u32 tmp_buf, ctrl_en_bit, env_bit;
+5ef6a0a1 Tomer Maimon 2018-06-24  217  
+5ef6a0a1 Tomer Maimon 2018-06-24  218  	/*
+5ef6a0a1 Tomer Maimon 2018-06-24  219  	 * Config PWM Comparator register for setting duty cycle
+5ef6a0a1 Tomer Maimon 2018-06-24  220  	 */
+5ef6a0a1 Tomer Maimon 2018-06-24  221  	mutex_lock(&data->pwm_lock[module]);
+5ef6a0a1 Tomer Maimon 2018-06-24  222  
+5ef6a0a1 Tomer Maimon 2018-06-24  223  	/* write new CMR value  */
+5ef6a0a1 Tomer Maimon 2018-06-24  224  	iowrite32(val, NPCM7XX_PWM_REG_CMRx(data->pwm_base, module, pwm_ch));
+5ef6a0a1 Tomer Maimon 2018-06-24  225  	tmp_buf = ioread32(NPCM7XX_PWM_REG_CR(data->pwm_base, module));
+5ef6a0a1 Tomer Maimon 2018-06-24  226  
+5ef6a0a1 Tomer Maimon 2018-06-24  227  	switch (pwm_ch) {
+5ef6a0a1 Tomer Maimon 2018-06-24  228  	case 0:
+5ef6a0a1 Tomer Maimon 2018-06-24  229  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH0_EN_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  230  		env_bit = NPCM7XX_PWM_CTRL_CH0_INV_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  231  		break;
+5ef6a0a1 Tomer Maimon 2018-06-24  232  	case 1:
+5ef6a0a1 Tomer Maimon 2018-06-24  233  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH1_EN_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  234  		env_bit = NPCM7XX_PWM_CTRL_CH1_INV_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  235  		break;
+5ef6a0a1 Tomer Maimon 2018-06-24  236  	case 2:
+5ef6a0a1 Tomer Maimon 2018-06-24  237  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH2_EN_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  238  		env_bit = NPCM7XX_PWM_CTRL_CH2_INV_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  239  		break;
+5ef6a0a1 Tomer Maimon 2018-06-24  240  	case 3:
+5ef6a0a1 Tomer Maimon 2018-06-24  241  		ctrl_en_bit = NPCM7XX_PWM_CTRL_CH3_EN_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  242  		env_bit = NPCM7XX_PWM_CTRL_CH3_INV_BIT;
+5ef6a0a1 Tomer Maimon 2018-06-24  243  		break;
+5ef6a0a1 Tomer Maimon 2018-06-24  244  	default:
+5ef6a0a1 Tomer Maimon 2018-06-24  245  		return -ENODEV;
+                                                ^^^^^^^^^^^^^^
+5ef6a0a1 Tomer Maimon 2018-06-24  246  	}
+5ef6a0a1 Tomer Maimon 2018-06-24  247  
+5ef6a0a1 Tomer Maimon 2018-06-24  248  	if (val == 0) {
+5ef6a0a1 Tomer Maimon 2018-06-24  249  		/* Disable PWM */
+5ef6a0a1 Tomer Maimon 2018-06-24  250  		tmp_buf &= ~ctrl_en_bit;
+5ef6a0a1 Tomer Maimon 2018-06-24  251  		tmp_buf |= env_bit;
+5ef6a0a1 Tomer Maimon 2018-06-24  252  	} else {
+5ef6a0a1 Tomer Maimon 2018-06-24  253  		/* Enable PWM */
+5ef6a0a1 Tomer Maimon 2018-06-24  254  		tmp_buf |= ctrl_en_bit;
+5ef6a0a1 Tomer Maimon 2018-06-24  255  		tmp_buf &= ~env_bit;
+5ef6a0a1 Tomer Maimon 2018-06-24  256  	}
+5ef6a0a1 Tomer Maimon 2018-06-24  257  
+5ef6a0a1 Tomer Maimon 2018-06-24  258  	iowrite32(tmp_buf, NPCM7XX_PWM_REG_CR(data->pwm_base, module));
+5ef6a0a1 Tomer Maimon 2018-06-24  259  	mutex_unlock(&data->pwm_lock[module]);
+5ef6a0a1 Tomer Maimon 2018-06-24  260  
+5ef6a0a1 Tomer Maimon 2018-06-24 @261  	return 0;
+5ef6a0a1 Tomer Maimon 2018-06-24  262  }
+5ef6a0a1 Tomer Maimon 2018-06-24  263  
 
-
-> > +
-> > +Required properties for pwm-fan node:
-> > +- compatible : "nuvoton,npcm750-pwm-fan" for Poleg NPCM7XX.
-> > +- reg                        : specifies physical base address and size
-> of the registers.
-> > +- reg-names  : must contain:
-> > +                                     * "pwm-base" for the PWM registers.
-> > +                                     * "fan-base" for the Fan registers.
->
-> '-base' is redundant. And your example doesn't match.
->
-> > +- clocks             : phandle of reference clocks.
-> > +- clock-names        : must contain
-> > +                                     * "clk_apb3" for clock of PWM
-> controller.
-> > +                                     * "clk_apb4" for clock of Fan
-> controller.
-> > +- interrupts : contain the Fan interrupts with flags for falling edge.
-> > +- pinctrl-names      : a pinctrl state named "default" must be defined.
-> > +- pinctrl-0  : phandle referencing pin configuration of the PWM and Fan
-> > +                                     controller ports.
-> > +
-> > +pwm subnode format:
-> > +===================
-> > +Under pwm subnode can be upto 8 child nodes, each child node
-> representing a PWM channel.
-> > +Each pwm subnode must have one PWM channel and atleast one Fan tach
-> channel.
-> > +
-> > +For PWM channel can be configured cooling-levels to create cooling
-> device.
-> > +Cooling device could be bound to a thermal zone for the thermal control.
-> > +
-> > +Required properties for each child node:
-> > +- pwm-ch : specify the PWM output channel.
-> > +                     integer value in the range 0 through 7, that
-> represent
-> > +                     the PWM channel number that used.
-> > +
-> > +- fan-ch : specify the Fan input channel.
-> > +                     integer value in the range 0 through 15, that
-> represent
-> > +                     the Fan channel number that used.
->
-> This is really the tach channel.
->
->
-> > +
-> > +                     At least one Fan tach input channel is required
-> > +
-> > +Optional property for each child node:
-> > +- cooling-levels: PWM duty cycle values in a range from 0 to 255
-> > +                  which correspond to thermal cooling states.
-> > +
-> > +Examples:
-> > +
-> > +pwm_fan:pwm_fan_controller@103000 {
->
-> fan-controller@...
->
-> > +     compatible = "nuvoton,npcm750-pwm-fan";
-> > +     reg = <0x103000 0x2000>,
-> > +             <0x180000 0x8000>;
-> > +     reg-names = "pwm_base", "fan_base";
-> > +     clocks = <&clk NPCM7XX_CLK_APB3>,
-> > +             <&clk NPCM7XX_CLK_APB4>;
-> > +     clock-names = "clk_apb3","clk_apb4";
-> > +     interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
-> > +                     <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
-> > +                     <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
-> > +                     <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
-> > +                     <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
-> > +                     <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
-> > +                     <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
-> > +                     <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-> > +     pinctrl-names = "default";
-> > +     pinctrl-0 = <&pwm0_pins &pwm1_pins &pwm2_pins
-> > +                     &fanin0_pins &fanin1_pins &fanin2_pins
-> > +                     &fanin3_pins &fanin4_pins>;
-> > +
-> > +                     pwm@0 {
->
-> The sub-nodes should be "fan" nodes.
->
-> A unit-address without reg property is not valid.
->
-> > +                             pwm-ch = /bits/ 8 <0x00>;
->
-> Use 'reg' like ASpeed binding.
->
-> > +                             fan-ch = /bits/ 8 <0x00 0x01>;
-> > +                             cooling-levels = <127 255>;
-> > +                             };
-> > +                     pwm@1 {
-> > +                             pwm-ch = /bits/ 8 <0x01>;
-> > +                             fan-ch = /bits/ 8 <0x02 0x03>;
-> > +                             };
-> > +                     pwm@2 {
-> > +                             pwm-ch = /bits/ 8 <0x02>;
-> > +                             fan-ch = /bits/ 8 <0x04>;
-> > +                             };
-> > +
-> > +};
-> > \ No newline at end of file
->
-> ^^^
->
-> > --
-> > 2.14.1
-> >
-> > --
-> > To unsubscribe from this list: send the line "unsubscribe devicetree" in
-> > the body of a message to majordomo@vger.kernel.org
-> > More majordomo info at  http://vger.kernel.org/majordomo-info.html
-
-
-Thanks!
-
-Tomer
-
---0000000000004dfa06056f7ecba6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Rob,<div><br></div><div><br></div><div class=3D"gmail_e=
-xtra"><div class=3D"gmail_quote">On 25 June 2018 at 20:14, Rob Herring <spa=
-n dir=3D"ltr">&lt;<a href=3D"mailto:robh@kernel.org" target=3D"_blank">robh=
-@kernel.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span c=
-lass=3D"">On Sun, Jun 24, 2018 at 03:41:54PM +0300, Tomer Maimon wrote:<br>
-&gt; Added device tree binding documentation for Nuvoton BMC<br>
-&gt; NPCM7xx Pulse Width Modulation (PWM)=C2=A0 and Fan tach controller.<br=
->
-&gt; The PWM controller can support upto 8 PWM output ports.<br>
-&gt; The Fan tach controller can support upto 16 tachometer inputs.<br>
-&gt; <br>
-&gt; Signed-off-by: Tomer Maimon &lt;<a href=3D"mailto:tmaimon77@gmail.com"=
->tmaimon77@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 .../devicetree/bindings/hwmon/<wbr>npcm750-pwm-fan.txt=C2=A0 | 8=
-4 ++++++++++++++++++++++<br>
-&gt;=C2=A0 1 file changed, 84 insertions(+)<br>
-&gt;=C2=A0 create mode 100644 Documentation/devicetree/<wbr>bindings/hwmon/=
-npcm750-pwm-<wbr>fan.txt<br>
-&gt; <br>
-&gt; diff --git a/Documentation/devicetree/<wbr>bindings/hwmon/npcm750-pwm-=
-<wbr>fan.txt b/Documentation/devicetree/<wbr>bindings/hwmon/npcm750-pwm-<wb=
-r>fan.txt<br>
-&gt; new file mode 100644<br>
-&gt; index 000000000000..a9eacda34f92<br>
-&gt; --- /dev/null<br>
-&gt; +++ b/Documentation/devicetree/<wbr>bindings/hwmon/npcm750-pwm-<wbr>fa=
-n.txt<br>
-&gt; @@ -0,0 +1,84 @@<br>
-&gt; +Nuvoton NPCM7xx PWM and Fan Tacho controller device driver<br>
-<br>
-</span>Bindings are for h/w, not drivers.<br>
-<span class=3D""><br>
-&gt; +<br>
-&gt; +The NPCM7xx has two identical Pulse-width modulation (PWM) controller=
- modules,<br>
-&gt; +Each PWM module has four PWM controller outputs, Totally 8 PWM contro=
-ller outputs.<br>
-&gt; +<br>
-&gt; +The NPCM7xx has eight identical Fan tachometer controller modules,<br=
->
-&gt; +Each Fan module has two Fan controller inputs, Totally 16 Fan control=
-ler inputs.<br>
-<br>
-</span>Have you looked at other fan ctrlr bindings?f This looks like simila=
-r <br>
-h/w to ASpeed. Really, I&#39;d like to see a common doc that describes the =
-<br></blockquote><div>=C2=A0</div><div>
-
-<div style=3D"font-size:small;background-color:rgb(255,255,255);text-decora=
-tion-style:initial;text-decoration-color:initial">We do not have the same H=
-/W as Aspeed, I believe in the near future we will need to add=C2=A0</div><=
-div style=3D"font-size:small;background-color:rgb(255,255,255);text-decorat=
-ion-style:initial;text-decoration-color:initial">more DT properties that wi=
-ll used only in the NPCM7xx module.=C2=A0=C2=A0</div><br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid=
-;padding-left:1ex">
-structure and common properties.<br></blockquote><div><br></div>
-
-<span style=3D"font-size:small;background-color:rgb(255,255,255);text-decor=
-ation-style:initial;text-decoration-color:initial;float:none;display:inline=
-">what do you mean by common=C2=A0</span><span style=3D"font-size:small;bac=
-kground-color:rgb(255,255,255);text-decoration-style:initial;text-decoratio=
-n-color:initial;float:none;display:inline">structure and common properties?=
-</span>
-
-<div><span style=3D"font-size:small;background-color:rgb(255,255,255);text-=
-decoration-style:initial;text-decoration-color:initial;float:none;display:i=
-nline"><br></span></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
- 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D""><br=
->
-&gt; +<br>
-&gt; +Required properties for pwm-fan node:<br>
-&gt; +- compatible : &quot;nuvoton,npcm750-pwm-fan&quot; for Poleg NPCM7XX.=
-<br>
-&gt; +- reg=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 : specifies physical base address and size of the regi=
-sters.<br>
-&gt; +- reg-names=C2=A0 : must contain:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* &quot;pwm-=
-base&quot; for the PWM registers.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* &quot;fan-=
-base&quot; for the Fan registers.<br>
-<br>
-</span>&#39;-base&#39; is redundant. And your example doesn&#39;t match.<br=
->
-<div><div class=3D"h5"><br>
-&gt; +- clocks=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: phandle of =
-reference clocks.<br>
-&gt; +- clock-names=C2=A0 =C2=A0 =C2=A0 =C2=A0 : must contain<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* &quot;clk_=
-apb3&quot; for clock of PWM controller.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* &quot;clk_=
-apb4&quot; for clock of Fan controller.<br>
-&gt; +- interrupts : contain the Fan interrupts with flags for falling edge=
-.<br>
-&gt; +- pinctrl-names=C2=A0 =C2=A0 =C2=A0 : a pinctrl state named &quot;def=
-ault&quot; must be defined.<br>
-&gt; +- pinctrl-0=C2=A0 : phandle referencing pin configuration of the PWM =
-and Fan<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0controller p=
-orts.<br>
-&gt; +<br>
-&gt; +pwm subnode format:<br>
-&gt; +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
-&gt; +Under pwm subnode can be upto 8 child nodes, each child node represen=
-ting a PWM channel.<br>
-&gt; +Each pwm subnode must have one PWM channel and atleast one Fan tach c=
-hannel.<br>
-&gt; +<br>
-&gt; +For PWM channel can be configured cooling-levels to create cooling de=
-vice.<br>
-&gt; +Cooling device could be bound to a thermal zone for the thermal contr=
-ol.<br>
-&gt; +<br>
-&gt; +Required properties for each child node:<br>
-&gt; +- pwm-ch : specify the PWM output channel.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0integer value in the range 0 through 7, that represent<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0the PWM channel number that used.<br>
-&gt; +<br>
-&gt; +- fan-ch : specify the Fan input channel.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0integer value in the range 0 through 15, that represent<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0the Fan channel number that used.<br>
-<br>
-</div></div>This is really the tach channel.<br>
-<span class=3D""><br>
-<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0At least one Fan tach input channel is required<br>
-&gt; +<br>
-&gt; +Optional property for each child node:<br>
-&gt; +- cooling-levels: PWM duty cycle values in a range from 0 to 255<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 which =
-correspond to thermal cooling states.<br>
-&gt; +<br>
-&gt; +Examples:<br>
-&gt; +<br>
-&gt; +pwm_fan:pwm_fan_controller@<wbr>103000 {<br>
-<br>
-</span>fan-controller@...<br>
-<span class=3D""><br>
-&gt; +=C2=A0 =C2=A0 =C2=A0compatible =3D &quot;nuvoton,npcm750-pwm-fan&quot=
-;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0reg =3D &lt;0x103000 0x2000&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;0x180000 0x8000&g=
-t;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0reg-names =3D &quot;pwm_base&quot;, &quot;fan_bas=
-e&quot;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0clocks =3D &lt;&amp;clk NPCM7XX_CLK_APB3&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;&amp;clk NPCM7XX_=
-CLK_APB4&gt;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0clock-names =3D &quot;clk_apb3&quot;,&quot;clk_ap=
-b4&quot;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0interrupts =3D &lt;GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH=
-&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&lt;GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&lt;GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&lt;GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&lt;GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&lt;GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&lt;GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH&gt;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&lt;GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH&gt;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0pinctrl-names =3D &quot;default&quot;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D &lt;&amp;pwm0_pins &amp;pwm1_pins &=
-amp;pwm2_pins<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&amp;fanin0_pins &amp;fanin1_pins &amp;fanin2_pins<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0&amp;fanin3_pins &amp;fanin4_pins&gt;;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0pwm@0 {<br>
-<br>
-</span>The sub-nodes should be &quot;fan&quot; nodes.<br>
-<br>
-A unit-address without reg property is not valid.<br>
-<span class=3D""><br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pwm-ch =3D /bits/ 8 &lt;0x00&gt;;<br>
-<br>
-</span>Use &#39;reg&#39; like ASpeed binding. <br>
-<span class=3D""><br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fan-ch =3D /bits/ 8 &lt;0x00 0x01&gt;;<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cooling-levels =3D &lt;127 255&gt;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0pwm@1 {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pwm-ch =3D /bits/ 8 &lt;0x01&gt;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fan-ch =3D /bits/ 8 &lt;0x02 0x03&gt;;<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0pwm@2 {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pwm-ch =3D /bits/ 8 &lt;0x02&gt;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fan-ch =3D /bits/ 8 &lt;0x04&gt;;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; +<br>
-&gt; +};<br>
-&gt; \ No newline at end of file<br>
-<br>
-</span>^^^<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
-&gt; -- <br>
-&gt; 2.14.1<br>
-&gt; <br>
-&gt; --<br>
-&gt; To unsubscribe from this list: send the line &quot;unsubscribe devicet=
-ree&quot; in<br>
-&gt; the body of a message to <a href=3D"mailto:majordomo@vger.kernel.org">=
-majordomo@vger.kernel.org</a><br>
-&gt; More majordomo info at=C2=A0 <a href=3D"http://vger.kernel.org/majordo=
-mo-info.html" rel=3D"noreferrer" target=3D"_blank">http://vger.kernel.org/<=
-wbr>majordomo-info.html</a></font></span></blockquote><div><br></div><div>T=
-hanks!</div><div><br></div><div>Tomer=C2=A0</div></div><br></div></div>
-
---0000000000004dfa06056f7ecba6--
+---
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
