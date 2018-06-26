@@ -1,59 +1,109 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <prvs=9715833f75=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22d; helo=mail-it0-x22d.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=9715833f75=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="e6ITXQB4"; 
- dkim-atps=neutral
-Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
- [IPv6:2607:f8b0:4001:c0b::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="gFlqz5eg"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="M7DC+PBq"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41FbcZ1bbmzF1DM
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 05:26:06 +1000 (AEST)
-Received: by mail-it0-x22d.google.com with SMTP id 76-v6so4007119itx.4
- for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 12:26:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=fqZwQAZiKyZiIBByuSOpZb4CY7Oy719RSuC+fkZb/rs=;
- b=e6ITXQB4zI1G8rx6ui3a8hv1nwY8jnlw9vC/PDSwWk3iNWuTYRTbCSCQ1taRhhnUdF
- +u+0/aX5tVGlaPnpMo1RbIhS4AWDYM4qlm5b4qgITrwBM4DewQ3FCsAkF0LdtbIplL9a
- a9ezuzMGsO83ZESkSD+8dICCKAMMc+Ptd2uBWp6JFmXY7QJyY/92q3OtNqrhG9nq3xCj
- 4yu+CpfULCj98FlXWB6QdmxS4NRDun33wKroQdtZx/t34tAXuxf0RAlyAU3+x7OXAbM/
- yhMMnwqTlIofFIgSow3D5CgOHDHkFCmXfnKlv95agj2yfLvWf/lklE3WFzUpwl5FOhC2
- Go4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=fqZwQAZiKyZiIBByuSOpZb4CY7Oy719RSuC+fkZb/rs=;
- b=afZxu6Mjw8NZXVWMLYDK/33+iwd3+mdufuvisSIQhCU52KtPu5XkHtoRTvZU7EKoUt
- HaZlqUB3v1eIvi+s82tv2yeHZs5evR5Gbia/d7ZsCHnnfg4sU2t+apmmb6xAKbc72SJW
- hDm1wFZLxeWF9pCX8ymIQWX8OQchzeQIVtt/WkVArvYGOWQwpU4/3TCABGCm4/Y3UBwx
- mp9i4GnhnNB08f6GuOeZER66A11Tyt9YTRR3lcvSBV4/hTaFu9tGg+a9Z/swRZ8fpFJb
- qgD7NFMoape2PxZ0fO8tAUoAiDm8myFifvfQri/NhVlQHQS7DPuYCjVUPfOuublJ/d8b
- rZQw==
-X-Gm-Message-State: APt69E1f8cL4tccye2BIZBtRDj1r2r1lbcF9JF9NKedPzXo8oxV+4AmR
- J5YNfam6eHb622IV+MllrnIOds6NGnHXzYPLjHVmOiO+
-X-Google-Smtp-Source: AAOMgpeYy9z8f6mQnNCpnbXSaZT+LQArZjA0QWD4/tYzqbDdcqCxbFAYaMV9B91EbaTB6B82fo/wW9ilMDnSIxI/Ayk=
-X-Received: by 2002:a24:8988:: with SMTP id
- s130-v6mr2550707itd.144.1530041163355; 
- Tue, 26 Jun 2018 12:26:03 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41FdlN67gkzF1Hj
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 07:01:59 +1000 (AEST)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w5QKvvps019624; Tue, 26 Jun 2018 14:01:47 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type :
+ mime-version; s=facebook; bh=8ISzGjreOEIwBvg/fVJEjDqpu7yLEwaXbmdzYcuodm8=;
+ b=gFlqz5egRZtmY8ZdXksFyg5jRiYAg1vgYCRafDQUcH3K9DvuQjgw8SxYhTnvC3xFZTUL
+ mzPVDaAe25J+ftpapYG13DJBTuv8Nc1sL3OKsAU7QzGHciat9iPOo7FwLbd8zayTxMyx
+ iW7mx99dq6GmXKWZyz5rTpNWAaHYEJPsYKw= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2juvkm82nm-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 26 Jun 2018 14:01:47 -0700
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.24) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Tue, 26 Jun 2018 14:01:45 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8ISzGjreOEIwBvg/fVJEjDqpu7yLEwaXbmdzYcuodm8=;
+ b=M7DC+PBqHIxyY7jD07ReWX9GgLmC4d1/DaUFlHMGXqOaXrmmlsjdDFcoX/Zdj1KarD+t+T8FDp2ZrGbD1M3IfIq/ywtGbPL1cd0INIT2z46+jf+hNp7L8KT3on6AbiA9MAORDhyUpUmL5GnqFHG6rUZ3PMf0wcfTetM+RUrWucI=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1565.namprd15.prod.outlook.com (10.173.235.138) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.884.23; Tue, 26 Jun 2018 21:01:43 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::f5d4:6f7e:e4ff:2099]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::f5d4:6f7e:e4ff:2099%2]) with mapi id 15.20.0884.024; Tue, 26 Jun 2018
+ 21:01:41 +0000
+From: Tao Ren <taoren@fb.com>
+To: Kurt Taylor <kurt.r.taylor@gmail.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, "Mihm, James" <james.mihm@intel.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Sai Dasari <sdasari@fb.com>, Ali Larijani <alirhas@microsoft.com>,
+ Nancy Yuen <yuenn@google.com>, Dick Wilkins <Dick_Wilkins@phoenix.com>
+Subject: Re: OpenBMC Release Planning WG Kickoff Meeting
+Thread-Topic: OpenBMC Release Planning WG Kickoff Meeting
+Thread-Index: AQHUDYOuQrMFGP23xEan9PPH+rnVzqRykWEA
+Date: Tue, 26 Jun 2018 21:01:41 +0000
+Message-ID: <0B42966A-AB48-4784-A840-A6AE58D9F170@fb.com>
+References: <CAG5OiwjQA41nZP1Usj-0kk4bTWvac0mbmK=VU4jhZ2uS7W+-Jw@mail.gmail.com>
+In-Reply-To: <CAG5OiwjQA41nZP1Usj-0kk4bTWvac0mbmK=VU4jhZ2uS7W+-Jw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::4:b559]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1565;
+ 7:5uASRCiya+dQjD/F3CSmwd4+mxK1lELUwlNGUyL/h+jCc5TtI/sdv5a1PlIzR/pJrRRO7Xd9iqNPs9XO1ezumVcffOGHQlmPbGXkEtiOdBn/dVCAw9hK0TV6/eY/GHXnCAI0Vq2W2A3SlDv/CZZ+sRHfwq0oFZBoRowSyOy0Soc+Q9tZ7rLBfYj5vIC5oxXOJMGfdviOIdwtdsZzfQHEGH/4+kzif1xa44uTERw3y7B33J8rk5c8DdnRl4HkfLml;
+ 20:h+Pf+7u/ExGFw/eFMasfC71DW1GlfP0Y/OsY3V/lTZao52ly5k1FubNrV+V2j2vKP9uwB83R7iJS+bLuuZIOl/wJJERTH9p9USe2Il249ftOocRgMdtGJQ+s9MwuvUu1W0pGOBwmfXpiuxsv03HsnF2AW6SSLsYgr5Qpecv4BHw=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
+x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
+ SFS:(10019020)(396003)(366004)(39860400002)(376002)(346002)(136003)(61684003)(189003)(199004)(5660300001)(105586002)(6246003)(53936002)(229853002)(99286004)(33656002)(45080400002)(966005)(486006)(6436002)(478600001)(14454004)(106356001)(446003)(476003)(86362001)(11346002)(1511001)(236005)(14444005)(6486002)(2616005)(53546011)(6116002)(6512007)(7736002)(2906002)(316002)(46003)(102836004)(97736004)(6506007)(82746002)(9326002)(81166006)(606006)(54896002)(39060400002)(186003)(68736007)(6306002)(83716003)(8936002)(2900100001)(5250100002)(110136005)(76176011)(256004)(8676002)(81156014)(25786009)(36756003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1565;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+x-ms-office365-filtering-correlation-id: 1e5604a7-614d-4add-4adc-08d5dba8048a
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(7020095)(4652020)(8989117)(4534165)(4627221)(201703031133081)(201702281549075)(8990107)(5600026)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1565; 
+x-ms-traffictypediagnostic: MWHPR15MB1565:
+x-microsoft-antispam-prvs: <MWHPR15MB1565A5A870B29F8B2F9DE90BB2490@MWHPR15MB1565.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(28532068793085)(89211679590171)(166708455590820)(65623756079841)(85827821059158)(67672495146484)(211936372134217)(153496737603132)(81227570615382)(21748063052155);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(3231254)(11241501184)(944501410)(52105095)(10201501046)(3002001)(149027)(150027)(6041310)(20161123558120)(20161123560045)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(6072148)(201708071742011)(7699016);
+ SRVR:MWHPR15MB1565; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1565; 
+x-forefront-prvs: 071518EF63
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: jWxEQZxmJ+NBVHvfhixwZcpZqNcOWDFaqQVqCMCEXseNRRkgbwiFawCfelUVwA6HQZ4SW/UfXYwkXn4oJtY7jtVPNsPeMdaiGHrebWdgpS/bXGw9ykVYTFxJUmUuNFRXhxrJWh3eh+ueXvE7ZtD3fg39AdLzAz0LjIPYPV2/Nby64XVzzIEgwqvIPi9xz5iB6Dnv01vrepnwQBBb+f4K6wtYWm6deGBzlH7gLUxiX4s0BQgB96MWBpNrC+AFvyUc6BaDqJJ4l43wU9a3cP6stsC9RSIKPqPBeM8fxsMVmAHa/q09KKESdJFuPPCvTfHMYdiJteOKE5oIJIV76YxTnHuH7MMfLwfeIiP1btTTIIg=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_0B42966AAB484784A840A6AE58D9F170fbcom_"
 MIME-Version: 1.0
-Received: by 2002:ac0:d481:0:0:0:0:0 with HTTP; Tue, 26 Jun 2018 12:26:02
- -0700 (PDT)
-From: Kurt Taylor <kurt.r.taylor@gmail.com>
-Date: Tue, 26 Jun 2018 14:26:02 -0500
-Message-ID: <CAG5OiwjQA41nZP1Usj-0kk4bTWvac0mbmK=VU4jhZ2uS7W+-Jw@mail.gmail.com>
-Subject: OpenBMC Release Planning WG Kickoff Meeting
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mihm,
- James" <james.mihm@intel.com>, 
- Brad Bishop <bradleyb@fuzziesquirrel.com>, sdasari@fb.com, 
- Ali Larijani <alirhas@microsoft.com>, Nancy Yuen <yuenn@google.com>, 
- Dick Wilkins <Dick_Wilkins@phoenix.com>
-Content-Type: multipart/alternative; boundary="000000000000089fd0056f90781e"
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e5604a7-614d-4add-4adc-08d5dba8048a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2018 21:01:41.7742 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1565
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-06-26_09:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,65 +115,156 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Jun 2018 19:26:06 -0000
+X-List-Received-Date: Tue, 26 Jun 2018 21:02:10 -0000
 
---000000000000089fd0056f90781e
-Content-Type: text/plain; charset="UTF-8"
+--_000_0B42966AAB484784A840A6AE58D9F170fbcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I still have not heard from Facebook or Microsoft, but the majority of
-responses were for Thursday at 3:00pm Central US (2000 UTC) so we will
-start there.
+SGkgS3VydCwNCg0KU29ycnkgZm9yIHRoZSBsYXRlIHJlc3BvbnNlLiBDb3VsZCB5b3UgcGxlYXNl
+IGluY2x1ZGUgbWUgaW4gdGhlIG1lZXRpbmc/IEkganVzdCByZWFsaXplZCBTYWkgd2FzIG91dCBv
+ZiBvZmZpY2UsIGFuZCBJIHdpbGwgZGlhbCBpbiBpZiBoZSBjYW5ub3QgbWFrZSBpdC4NCg0KDQpU
+aGFua3MsDQoNClRhbyAoZnJvbSBGYWNlYm9vaykNCg0KRnJvbTogb3BlbmJtYyA8b3BlbmJtYy1i
+b3VuY2VzK3Rhb3Jlbj1mYi5jb21AbGlzdHMub3psYWJzLm9yZz4gb24gYmVoYWxmIG9mIEt1cnQg
+VGF5bG9yIDxrdXJ0LnIudGF5bG9yQGdtYWlsLmNvbT4NCkRhdGU6IFR1ZXNkYXksIEp1bmUgMjYs
+IDIwMTggYXQgMTI6MjcgUE0NClRvOiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96
+bGFicy5vcmc+LCAiTWlobSwgSmFtZXMiIDxqYW1lcy5taWhtQGludGVsLmNvbT4sIEJyYWQgQmlz
+aG9wIDxicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb20+LCBTYWkgRGFzYXJpIDxzZGFzYXJpQGZi
+LmNvbT4sIEFsaSBMYXJpamFuaSA8YWxpcmhhc0BtaWNyb3NvZnQuY29tPiwgTmFuY3kgWXVlbiA8
+eXVlbm5AZ29vZ2xlLmNvbT4sIERpY2sgV2lsa2lucyA8RGlja19XaWxraW5zQHBob2VuaXguY29t
+Pg0KU3ViamVjdDogT3BlbkJNQyBSZWxlYXNlIFBsYW5uaW5nIFdHIEtpY2tvZmYgTWVldGluZw0K
+DQpJIHN0aWxsIGhhdmUgbm90IGhlYXJkIGZyb20gRmFjZWJvb2sgb3IgTWljcm9zb2Z0LCBidXQg
+dGhlIG1ham9yaXR5IG9mIHJlc3BvbnNlcyB3ZXJlIGZvciBUaHVyc2RheSBhdCAzOjAwcG0gQ2Vu
+dHJhbCBVUyAoMjAwMCBVVEMpIHNvIHdlIHdpbGwgc3RhcnQgdGhlcmUuDQpJIHdpbGwgc2VuZCBl
+bWFpbCB3aXRoIHRoZSBtZWV0aW5nIGluZm8gYnkgdG9tb3Jyb3cgZXZlbmluZy4gSSBhbSBzdGFs
+bGluZyBpbiBob3BlcyB0aGF0IG15IHdlYmV4IGFjY291bnQgd2lsbCBiZSByZWFjdGl2YXRlZCAo
+aXQgd2FzIGRpc2FibGVkIGR1ZSB0byBhIDIgd2VlayBpbmFjdGl2aXR5LCBzaWdoKS4gSWYgeW91
+IGhhdmUgbm90IHJlcGxpZWQsIHBsZWFzZSBkbyBhcyBJIHdpbGwgb25seSBpbnZpdGUgdGhvc2Ug
+dGhhdCByZXBseSAoY2FsbCBpbmZvIHdpbGwgbm90IGJlIG1hZGUgcHVibGljKS4NCkkgaGF2ZSBj
+cmVhdGVkIGEgd2lraSBwYWdlIGZvciB0aGUgYWdlbmRhIGp1c3QgYXMgd2UgaGF2ZSBmb3IgdGhl
+IGNvbW11bml0eSBjYWxsLCBhbmQgSSdsbCBrZWVwIG1lZXRpbmcgbWludXRlcyB0byBzZW5kIG91
+dCBvbiB0aGUgbGlzdCBmb2xsb3dpbmcgdGhlIG1lZXRpbmcuIFBsZWFzZSBhZGQgbmV3IGFnZW5k
+YSBpdGVtcyBpbiB0aGUgYmFja2xvZzoNCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5i
+bWMvd2lraS9SZWxlYXNlLVBsYW5uaW5nDQpUaGUgZ29hbCBpcyB0byBxdWlja2x5IHByb2R1Y2Ug
+YSBwcmlvcml0aXplZCBsaXN0IG9mIGRlbGl2ZXJhYmxlcyBmb3Igb3VyIGZpcnN0IHJlbGVhc2Ug
+dGhpcyBOb3ZlbWJlci4gU28sIGZvciB0aGlzIGtpY2tvZmYgbWVldGluZywgSSdkIGxpa2UgdG8g
+c2VlIHRoZSBmb2xsb3dpbmc6DQoxKSBSZWxlYXNlIHBsYW5uaW5nIHJlcHJlc2VudGF0aXZlcyAo
+cHJpbWFyeSBjb250YWN0KQ0KMikgQWdyZWVtZW50IG9uIHRoZSByZWxlYXNlIHdlZWsgaW4gTm92
+ZW1iZXIgKE5vdiAxMi0xNikNCjMpIEFncmVlbWVudCBvbiByZWxlYXNlIG51bWJlcmluZyAoT3Bl
+bkJNQyAzLjApDQo0KSBNaWxlc3RvbmVzLCBob3cgbWFueSBhbmQgd2hlbiAoZGVzaWduLCBjb2Rl
+IDEsIGNvZGUgZnJlZXplKQ0KNSkgVG9wIDMgIk11c3QgZGVsaXZlciIgaXRlbXMgZnJvbSBlYWNo
+IGNvbXBhbnkNClRoYXQgaXMgYSB2ZXJ5IGZ1bGwgYWdlbmRhIGZvciBhbiBob3VyLCBzbyBwbGVh
+c2UgYmUgcHVuY3R1YWwgYXMgd2Ugd2lsbCBkaXZlIHJpZ2h0IGluIGF0IDM6MDAuDQpSZWdhcmRz
+LA0KS3VydCBUYXlsb3IgKGtydGF5bG9yKQ0K
 
-I will send email with the meeting info by tomorrow evening. I am stalling
-in hopes that my webex account will be reactivated (it was disabled due to
-a 2 week inactivity, sigh). If you have not replied, please do as I will
-only invite those that reply (call info will not be made public).
+--_000_0B42966AAB484784A840A6AE58D9F170fbcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <CE363D67BCFAFC4A9F0303AE750C0B0C@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
-I have created a wiki page for the agenda just as we have for the community
-call, and I'll keep meeting minutes to send out on the list following the
-meeting. Please add new agenda items in the backlog:
-https://github.com/openbmc/openbmc/wiki/Release-Planning
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
+IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
+YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
+b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
+IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
+aW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQph
+OnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5
+Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnAubXNv
+bm9ybWFsMCwgbGkubXNvbm9ybWFsMCwgZGl2Lm1zb25vcm1hbDANCgl7bXNvLXN0eWxlLW5hbWU6
+bXNvbm9ybWFsOw0KCW1zby1tYXJnaW4tdG9wLWFsdDphdXRvOw0KCW1hcmdpbi1yaWdodDowaW47
+DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87DQoJbWFyZ2luLWxlZnQ6MGluOw0KCWZvbnQt
+c2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0Kc3Bhbi5F
+bWFpbFN0eWxlMTgNCgl7bXNvLXN0eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1p
+bHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6d2luZG93dGV4dDt9DQouTXNvQ2hwRGVm
+YXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsNCglmb250LXNpemU6MTAuMHB0O30N
+CkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4waW4g
+MS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9u
+MTt9DQotLT48L3N0eWxlPg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0iRU4tVVMiIGxpbms9ImJsdWUi
+IHZsaW5rPSJwdXJwbGUiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPkhpIEt1cnQsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlNvcnJ5IGZvciB0aGUg
+bGF0ZSByZXNwb25zZS4gQ291bGQgeW91IHBsZWFzZSBpbmNsdWRlIG1lIGluIHRoZSBtZWV0aW5n
+PyBJIGp1c3QgcmVhbGl6ZWQgU2FpIHdhcyBvdXQgb2Ygb2ZmaWNlLCBhbmQgSSB3aWxsIGRpYWwg
+aW4gaWYgaGUgY2Fubm90IG1ha2UgaXQuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5i
+c3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+VGhhbmtzLDxvOnA+PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj5UYW8gKGZyb20gRmFjZWJvb2spPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25l
+O2JvcmRlci10b3A6c29saWQgI0I1QzRERiAxLjBwdDtwYWRkaW5nOjMuMHB0IDBpbiAwaW4gMGlu
+Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTIuMHB0
+O2NvbG9yOmJsYWNrIj5Gcm9tOiA8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTIu
+MHB0O2NvbG9yOmJsYWNrIj5vcGVuYm1jICZsdDtvcGVuYm1jLWJvdW5jZXMmIzQzO3Rhb3Jlbj1m
+Yi5jb21AbGlzdHMub3psYWJzLm9yZyZndDsgb24gYmVoYWxmIG9mIEt1cnQgVGF5bG9yICZsdDtr
+dXJ0LnIudGF5bG9yQGdtYWlsLmNvbSZndDs8YnI+DQo8Yj5EYXRlOiA8L2I+VHVlc2RheSwgSnVu
+ZSAyNiwgMjAxOCBhdCAxMjoyNyBQTTxicj4NCjxiPlRvOiA8L2I+T3BlbkJNQyBNYWlsbGlzdCAm
+bHQ7b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnJmd0OywgJnF1b3Q7TWlobSwgSmFtZXMmcXVvdDsg
+Jmx0O2phbWVzLm1paG1AaW50ZWwuY29tJmd0OywgQnJhZCBCaXNob3AgJmx0O2JyYWRsZXliQGZ1
+enppZXNxdWlycmVsLmNvbSZndDssIFNhaSBEYXNhcmkgJmx0O3NkYXNhcmlAZmIuY29tJmd0Oywg
+QWxpIExhcmlqYW5pICZsdDthbGlyaGFzQG1pY3Jvc29mdC5jb20mZ3Q7LCBOYW5jeSBZdWVuICZs
+dDt5dWVubkBnb29nbGUuY29tJmd0OywgRGljayBXaWxraW5zICZsdDtEaWNrX1dpbGtpbnNAcGhv
+ZW5peC5jb20mZ3Q7PGJyPg0KPGI+U3ViamVjdDogPC9iPk9wZW5CTUMgUmVsZWFzZSBQbGFubmlu
+ZyBXRyBLaWNrb2ZmIE1lZXRpbmc8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
+dj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2
+Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRv
+bToxMi4wcHQiPjxhIG5hbWU9Il9NYWlsT3JpZ2luYWxCb2R5Ij5JIHN0aWxsIGhhdmUgbm90IGhl
+YXJkIGZyb20gRmFjZWJvb2sgb3IgTWljcm9zb2Z0LCBidXQgdGhlIG1ham9yaXR5IG9mIHJlc3Bv
+bnNlcyB3ZXJlIGZvciBUaHVyc2RheSBhdCAzOjAwcG0gQ2VudHJhbCBVUyAoMjAwMCBVVEMpIHNv
+IHdlIHdpbGwgc3RhcnQgdGhlcmUuPG86cD48L286cD48L2E+PC9wPg0KPC9kaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQiPjxzcGFuIHN0eWxlPSJt
+c28tYm9va21hcms6X01haWxPcmlnaW5hbEJvZHkiPkkgd2lsbCBzZW5kIGVtYWlsIHdpdGggdGhl
+IG1lZXRpbmcgaW5mbyBieSB0b21vcnJvdyBldmVuaW5nLiBJIGFtIHN0YWxsaW5nIGluIGhvcGVz
+IHRoYXQgbXkgd2ViZXggYWNjb3VudCB3aWxsIGJlIHJlYWN0aXZhdGVkIChpdCB3YXMgZGlzYWJs
+ZWQgZHVlIHRvIGEgMiB3ZWVrIGluYWN0aXZpdHksDQogc2lnaCkuIElmIHlvdSBoYXZlIG5vdCBy
+ZXBsaWVkLCBwbGVhc2UgZG8gYXMgSSB3aWxsIG9ubHkgaW52aXRlIHRob3NlIHRoYXQgcmVwbHkg
+KGNhbGwgaW5mbyB3aWxsIG5vdCBiZSBtYWRlIHB1YmxpYykuPG86cD48L286cD48L3NwYW4+PC9w
+Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4w
+cHQiPjxzcGFuIHN0eWxlPSJtc28tYm9va21hcms6X01haWxPcmlnaW5hbEJvZHkiPkkgaGF2ZSBj
+cmVhdGVkIGEgd2lraSBwYWdlIGZvciB0aGUgYWdlbmRhIGp1c3QgYXMgd2UgaGF2ZSBmb3IgdGhl
+IGNvbW11bml0eSBjYWxsLCBhbmQgSSdsbCBrZWVwIG1lZXRpbmcgbWludXRlcyB0byBzZW5kIG91
+dCBvbiB0aGUgbGlzdCBmb2xsb3dpbmcgdGhlIG1lZXRpbmcuIFBsZWFzZQ0KIGFkZCBuZXcgYWdl
+bmRhIGl0ZW1zIGluIHRoZSBiYWNrbG9nOjxicj4NCjwvc3Bhbj48YSBocmVmPSJodHRwczovL2dp
+dGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL3dpa2kvUmVsZWFzZS1QbGFubmluZyI+PHNwYW4gc3R5
+bGU9Im1zby1ib29rbWFyazpfTWFpbE9yaWdpbmFsQm9keSI+aHR0cHM6Ly9naXRodWIuY29tL29w
+ZW5ibWMvb3BlbmJtYy93aWtpL1JlbGVhc2UtUGxhbm5pbmc8L3NwYW4+PHNwYW4gc3R5bGU9Im1z
+by1ib29rbWFyazpfTWFpbE9yaWdpbmFsQm9keSI+PC9zcGFuPjwvYT48c3BhbiBzdHlsZT0ibXNv
+LWJvb2ttYXJrOl9NYWlsT3JpZ2luYWxCb2R5Ij48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rp
+dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tYm90dG9tOjEyLjBwdCI+PHNw
+YW4gc3R5bGU9Im1zby1ib29rbWFyazpfTWFpbE9yaWdpbmFsQm9keSI+VGhlIGdvYWwgaXMgdG8g
+cXVpY2tseSBwcm9kdWNlIGEgcHJpb3JpdGl6ZWQgbGlzdCBvZiBkZWxpdmVyYWJsZXMgZm9yIG91
+ciBmaXJzdCByZWxlYXNlIHRoaXMgTm92ZW1iZXIuIFNvLCBmb3IgdGhpcyBraWNrb2ZmIG1lZXRp
+bmcsIEknZCBsaWtlIHRvIHNlZSB0aGUgZm9sbG93aW5nOjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
+CjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9Im1zby1ib29rbWFyazpf
+TWFpbE9yaWdpbmFsQm9keSI+MSkgUmVsZWFzZSBwbGFubmluZyByZXByZXNlbnRhdGl2ZXMgKHBy
+aW1hcnkgY29udGFjdCk8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0ibXNvLWJvb2ttYXJrOl9NYWlsT3JpZ2luYWxC
+b2R5Ij4yKSBBZ3JlZW1lbnQgb24gdGhlIHJlbGVhc2Ugd2VlayBpbiBOb3ZlbWJlciAoTm92IDEy
+LTE2KTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gc3R5bGU9Im1zby1ib29rbWFyazpfTWFpbE9yaWdpbmFsQm9keSI+MykgQWdyZWVtZW50
+IG9uIHJlbGVhc2UgbnVtYmVyaW5nIChPcGVuQk1DIDMuMCk8bzpwPjwvbzpwPjwvc3Bhbj48L3A+
+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJtc28tYm9va21hcms6
+X01haWxPcmlnaW5hbEJvZHkiPjQpIE1pbGVzdG9uZXMsIGhvdyBtYW55IGFuZCB3aGVuIChkZXNp
+Z24sIGNvZGUgMSwgY29kZSBmcmVlemUpPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQiPjxzcGFuIHN0
+eWxlPSJtc28tYm9va21hcms6X01haWxPcmlnaW5hbEJvZHkiPjUpIFRvcCAzICZxdW90O011c3Qg
+ZGVsaXZlciZxdW90OyBpdGVtcyBmcm9tIGVhY2ggY29tcGFueTxvOnA+PC9vOnA+PC9zcGFuPjwv
+cD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1ib3R0b206MTIu
+MHB0Ij48c3BhbiBzdHlsZT0ibXNvLWJvb2ttYXJrOl9NYWlsT3JpZ2luYWxCb2R5Ij5UaGF0IGlz
+IGEgdmVyeSBmdWxsIGFnZW5kYSBmb3IgYW4gaG91ciwgc28gcGxlYXNlIGJlIHB1bmN0dWFsIGFz
+IHdlIHdpbGwgZGl2ZSByaWdodCBpbiBhdCAzOjAwLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwv
+ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9Im1zby1ib29rbWFyazpfTWFp
+bE9yaWdpbmFsQm9keSI+UmVnYXJkcyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJtc28tYm9va21hcms6X01haWxPcmlnaW5h
+bEJvZHkiPkt1cnQgVGF5bG9yIChrcnRheWxvcik8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rp
+dj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-The goal is to quickly produce a prioritized list of deliverables for our
-first release this November. So, for this kickoff meeting, I'd like to see
-the following:
-
-1) Release planning representatives (primary contact)
-2) Agreement on the release week in November (Nov 12-16)
-3) Agreement on release numbering (OpenBMC 3.0)
-4) Milestones, how many and when (design, code 1, code freeze)
-5) Top 3 "Must deliver" items from each company
-
-That is a very full agenda for an hour, so please be punctual as we will
-dive right in at 3:00.
-
-Regards,
-Kurt Taylor (krtaylor)
-
---000000000000089fd0056f90781e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div><div><div><div><div><div><div><div>I still =
-have not heard from Facebook or Microsoft, but the majority of responses we=
-re for Thursday at 3:00pm Central US (2000 UTC) so we will start there.<br>=
-<br></div>I will send email with the meeting info by tomorrow evening. I am=
- stalling in hopes that my webex account will be reactivated (it was disabl=
-ed due to a 2 week inactivity, sigh). If you have not replied, please do as=
- I will only invite those that reply (call info will not be made public).<b=
-r><br></div>I have created a wiki page for the agenda just as we have for t=
-he community call, and I&#39;ll keep meeting minutes to send out on the lis=
-t following the meeting. Please add new agenda items in the backlog:<br><a =
-href=3D"https://github.com/openbmc/openbmc/wiki/Release-Planning">https://g=
-ithub.com/openbmc/openbmc/wiki/Release-Planning</a><br><br></div>The goal i=
-s to quickly produce a prioritized list of deliverables for our first relea=
-se this November. So, for this kickoff meeting, I&#39;d like to see the fol=
-lowing:<br><br></div>1) Release planning representatives (primary contact)<=
-br></div><div>2) Agreement on the release week in November (Nov 12-16)<br><=
-/div>3) Agreement on release numbering (OpenBMC 3.0)<br></div>4) Milestones=
-, how many and when (design, code 1, code freeze)<br></div>5) Top 3 &quot;M=
-ust deliver&quot; items from each company<br><br></div>That is a very full =
-agenda for an hour, so please be punctual as we will dive right in at 3:00.=
-<br><br></div>Regards,<br></div>Kurt Taylor (krtaylor)<br></div>
-
---000000000000089fd0056f90781e--
+--_000_0B42966AAB484784A840A6AE58D9F170fbcom_--
