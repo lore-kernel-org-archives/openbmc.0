@@ -8,11 +8,11 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41FjLw42Y5zF158;
- Wed, 27 Jun 2018 09:44:39 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41FjZ62mZdzDrcd;
+ Wed, 27 Jun 2018 09:54:22 +1000 (AEST)
 Received: from pasglop.au.ibm.com (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5QNNMmr022709;
- Tue, 26 Jun 2018 18:23:54 -0500
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5QNQ6qb022979;
+ Tue, 26 Jun 2018 18:26:34 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: Joel Stanley <joel@jms.id.au>
 Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
@@ -20,11 +20,11 @@ Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
  linux-kernel@vger.kernel.org,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>
 Subject: [PATCH 04/14] fsi: master-gpio: Rename and adjust send delay
-Date: Wed, 27 Jun 2018 09:23:11 +1000
-Message-Id: <20180626232321.12372-5-benh@kernel.crashing.org>
+Date: Wed, 27 Jun 2018 09:25:55 +1000
+Message-Id: <20180626232605.13420-5-benh@kernel.crashing.org>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20180626232321.12372-1-benh@kernel.crashing.org>
-References: <20180626232321.12372-1-benh@kernel.crashing.org>
+In-Reply-To: <20180626232605.13420-1-benh@kernel.crashing.org>
+References: <20180626232605.13420-1-benh@kernel.crashing.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -36,7 +36,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Jun 2018 23:44:41 -0000
+X-List-Received-Date: Tue, 26 Jun 2018 23:54:23 -0000
 
 What the driver called "FSI_GPIO_PRIME_SLAVE_CLOCKS" is what
 the FSI spec calls tSendDelay and should be 16 clocks by
