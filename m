@@ -8,23 +8,23 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41FhyT3MsGzF1LY;
- Wed, 27 Jun 2018 09:26:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41FhyZ5fNLzF1LJ;
+ Wed, 27 Jun 2018 09:27:02 +1000 (AEST)
 Received: from pasglop.au.ibm.com (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5QNQ6qY022979;
- Tue, 26 Jun 2018 18:26:15 -0500
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5QNLC6B022529;
+ Tue, 26 Jun 2018 18:21:18 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: Joel Stanley <joel@jms.id.au>
 Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
  devicetree@vger.kernel.org, Andrew Jeffery <andrew@aj.id.au>,
- linux-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org-v2,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>
 Subject: [PATCH 01/14] devres: Add devm_of_iomap()
-Date: Wed, 27 Jun 2018 09:25:52 +1000
-Message-Id: <20180626232605.13420-2-benh@kernel.crashing.org>
+Date: Wed, 27 Jun 2018 09:20:56 +1000
+Message-Id: <20180626232109.10944-2-benh@kernel.crashing.org>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20180626232605.13420-1-benh@kernel.crashing.org>
-References: <20180626232605.13420-1-benh@kernel.crashing.org>
+In-Reply-To: <20180626232109.10944-1-benh@kernel.crashing.org>
+References: <20180626232109.10944-1-benh@kernel.crashing.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -36,7 +36,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Jun 2018 23:26:59 -0000
+X-List-Received-Date: Tue, 26 Jun 2018 23:27:04 -0000
 
 There are still quite a few cases where a device might want
 to get to a different node of the device-tree, obtain the
