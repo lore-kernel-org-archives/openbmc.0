@@ -1,59 +1,74 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <sjg@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::22a; helo=mail-pg0-x22a.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4003:c06::22b; helo=mail-oi0-x22b.google.com;
+ envelope-from=sjg@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="giQ/xh8d"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="rTtAcOFL"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="T1EGOaxc";
  dkim-atps=neutral
-Received: from mail-pg0-x22a.google.com (mail-pg0-x22a.google.com
- [IPv6:2607:f8b0:400e:c05::22a])
+Received: from mail-oi0-x22b.google.com (mail-oi0-x22b.google.com
+ [IPv6:2607:f8b0:4003:c06::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41F5St65sfzF1Gj
- for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 09:47:42 +1000 (AEST)
-Received: by mail-pg0-x22a.google.com with SMTP id b10-v6so3086491pgq.11
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 16:47:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=rYVn0gEao64PhOFyhG0pNZITmvh8yKv2CsmIOjRXE+Q=;
- b=giQ/xh8dQD48NnsBbO3XhQnptDCmoIZ96oQRdCH8GAkwvaRCQwkFrT0EqzudZMqnvr
- wRKGos3TNoDmZeRiluObozxfX/YICjCMO3RSln/LigpLTvOWbmpnzuZXBvyXb1ymoTXQ
- ZQKTTgEmi1a5Nxg0ha64fGIvdMAk30fVddhiTMjMMHxokreWABVy2jo1DJIpUC8ixOE7
- 6srFT9E4xROpz6J4XDzd89N7d6KomTl6j82RRRjUI2viPX7V+/HdKqy8tXE02VYr0hZe
- N6V/vcKzZISR57xJCz54rPoVFuuH0WuL7OkHCS72THbIr6S1SWHmI9egpbI8f8QK/vUW
- FuzQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41FC2j6tVBzF0wq
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 13:58:46 +1000 (AEST)
+Received: by mail-oi0-x22b.google.com with SMTP id 188-v6so14625491oid.12
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jun 2018 20:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=FHecOEhtSNWpf8KCZP/iuMv5yMTqNtHnNrGByc6c1Cw=;
+ b=rTtAcOFLVyXEZISlc9Rw8drSZBaJTrTvRzxRkJ8PwL/Jp6CjLePGvw0VA9MtC7jDCf
+ FYn2Mkxuz869TdW8GGDYX4Ow+QXJ7NhAXLZeGgQC8DGKrGv+8uuYZYAw6yeF2aPpE90g
+ zvE4bFFcTqJWFaqiEevpqeVNfvwpHaWpG4FVe9kNzH3bylZfy4+jX8LvgE0lxrAFDFCa
+ B99t6v83zARY1xov48fQGr1RppLI05D/Qu6xfOYnVW4yN8m66SjAK6k9Nwth7Ph6Fhi+
+ 6dFOBqcU95D9ok1Ed1DfmvDaFn5CymmGdZ/T+o0443BlG5YckVmNo/uCCdFhTW36sNmM
+ NFaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=FHecOEhtSNWpf8KCZP/iuMv5yMTqNtHnNrGByc6c1Cw=;
+ b=T1EGOaxcQbOoSwwuVg9iHR9O0fk/ahVaSc6YHgx2SnJGOTJmxI2gYJA5Bqps5LrnwK
+ 8jafqL8Zy6fGrKbmpWyjnZCGzHc6/HAX04XTKbNcxvm3GhR/myEZ/YrnNCUzQnUNl1H9
+ Gi3/0QoHo2MOZXYj05tNmrx3M+xDupk7g0WhA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=rYVn0gEao64PhOFyhG0pNZITmvh8yKv2CsmIOjRXE+Q=;
- b=E05slNxT5ogTSQuFcAgCCtMXH4x71Ofh16hWSHS1zZM8VphHB5s/XUi3oxeaW1ZHMB
- X//n1HM+GjWS5SSLpFAGSVGCG2qVXisfyYThpnO7JTiVEFT43RuOsq9AW4xb5lmXVVFi
- iUJgr9+gOwCM7M5WxUQH8RpGUPhkxs6oHZHfDgjNziTdNStuxkJkpa/MGj+8R2emB2F7
- eO3ut4TCSHmV1WcbPBDZyRrVBuK1SAuLkkJVHUXZUlB/xvw6ESOOL+HgTGXLZY8Wlb3N
- EwsGHNTJuYXsobZQZrxNvMxjxYPjzKyMsf7NSL6OSF2F61mkx3uXn5hAYyp4C60aPX5A
- V5Yg==
-X-Gm-Message-State: APt69E2qi9pdz2/+D14HIwQ1zSsJIWFiWPy5ExtirpPzfrVNSEiXWgke
- Ga8XzwuZIe55wZPRfAbZWKhPFJbi
-X-Google-Smtp-Source: ADUXVKLYYq5jZaLrcL5666EnsWbNy/6JRo0ajFZ6izjSX5KVrkSEsF4WZbpbtcee8eh0pX7X29bO9w==
-X-Received: by 2002:a65:448a:: with SMTP id
- l10-v6mr7546651pgq.382.1529970460114; 
- Mon, 25 Jun 2018 16:47:40 -0700 (PDT)
-Received: from aurora.jms.id.au ([45.124.203.19])
- by smtp.gmail.com with ESMTPSA id w7-v6sm133701pgs.68.2018.06.25.16.47.37
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 25 Jun 2018 16:47:39 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Tue, 26 Jun 2018 09:17:31 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.17] ARM: configs: aspeed: Enable BLK_DEV_LOOP
-Date: Tue, 26 Jun 2018 09:17:31 +0930
-Message-Id: <20180625234731.6455-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.17.1
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=FHecOEhtSNWpf8KCZP/iuMv5yMTqNtHnNrGByc6c1Cw=;
+ b=Z7ojftLx6f85XQoJqauc4V33Wr2o2hN/txXTbfR1Sqx+4DNBPPvJl5mK34ycIXwuCV
+ CQ2BiXFiHAhwICnjn3MPa6abBquai1tPKyQlKhgtEKyngaF5ez0pnJrdt62uAxdpj9Pz
+ KXsu3OqKJiIoyzTnCewb5gIt4kxzpuZ2uPnhB1VxuJe+VV5JMpsvBKKBnZQmPcZKmdR7
+ 5FxVKy8KwhDsZNjfX1PvhwmcQVVLC1CXGlWgkrexy81MlcxcKI72iDGUdjC8IrNb7IFk
+ NlY2tLDkpVIpFnG09uPaGiCsbIGQW2/ive3UhdD54YBlFaquE0BoKgyIuEzPA5Phl5fF
+ BoSQ==
+X-Gm-Message-State: APt69E1iQok0rISlGXSF+yN5sbEhCXkya8aUzt0FINFd9NX3+4LPFyiF
+ 3AkxhA/kXtxsQJKVN8fW+uxKo6ZhzGQWqMGRY+VNQQ==
+X-Google-Smtp-Source: ADUXVKIqcDN6wMDE8NY77Bh0VDGQHNhUtry/n/QaYgSkQun3Rchjmb0Gl82xKJWbTXDW0zq6JI5MOyPS0AbyTVWJna0=
+X-Received: by 2002:aca:8d3:: with SMTP id
+ 202-v6mr8909826oii.249.1529985523593; 
+ Mon, 25 Jun 2018 20:58:43 -0700 (PDT)
+MIME-Version: 1.0
+Sender: sjg@google.com
+Received: by 2002:ac9:1121:0:0:0:0:0 with HTTP; Mon, 25 Jun 2018 20:58:23
+ -0700 (PDT)
+In-Reply-To: <CAE33tLFRCpk70ZYpGxtuf0wwNhRf0+UR-WmJNP-+rRgUpR_D4Q@mail.gmail.com>
+References: <CAE33tLG3Fju=pvA6na5z=4dFhjX+LzutcbY8=g=psik68FYWLg@mail.gmail.com>
+ <ea56be8f-5010-ea78-12e5-3480d740e7bc@molgen.mpg.de>
+ <CAE33tLFRCpk70ZYpGxtuf0wwNhRf0+UR-WmJNP-+rRgUpR_D4Q@mail.gmail.com>
+From: Simon Glass <sjg@chromium.org>
+Date: Mon, 25 Jun 2018 21:58:23 -0600
+X-Google-Sender-Auth: YIqU0aQXYa4KPHMTMzrc6JaY87k
+Message-ID: <CAPnjgZ2-ik71knorYbiOHr=sDTP6QMXWx6mukXZ29ackV8+Okw@mail.gmail.com>
+Subject: Re: Unknown command gpio in u-boot
+To: AKASH G J <akashgj91@gmail.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,42 +80,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jun 2018 23:47:43 -0000
+X-List-Received-Date: Tue, 26 Jun 2018 03:58:54 -0000
 
-This is required for the updater mechanism used by OpenBMC.  Remove
-BLK_DEV_RAM from G4 to sync it with G5, as testing by Lei suggests that
-this is not required.
+Hi,
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/configs/aspeed_g4_defconfig | 2 +-
- arch/arm/configs/aspeed_g5_defconfig | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+On 25 June 2018 at 03:58, AKASH G J <akashgj91@gmail.com> wrote:
+> The BMC I used is Aspeed ast-2500 and GPIO I want to control is GPIOB0.
+>
+> On Mon, Jun 25, 2018 at 3:14 PM, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+>>
+>> Dear Akash,
+>>
+>>
+>> On 06/25/18 11:42, AKASH G J wrote:
+>>
+>> > I tried to reset one GPIO using 'gpio' command in u-boot 2016.07. But it
+>> > is
+>> > showing error "unknown command gpio". Please someone help, how to
+>> > control
+>> > GPIO through u-boot.
+>>
+>> Please tell us the board and the GPIO you tried to set with the exact
+>> command.
 
-diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
-index 6b3f897892fa..0f53291a33e8 100644
---- a/arch/arm/configs/aspeed_g4_defconfig
-+++ b/arch/arm/configs/aspeed_g4_defconfig
-@@ -79,7 +79,7 @@ CONFIG_SPI_ASPEED_SMC=y
- CONFIG_MTD_UBI=y
- CONFIG_MTD_UBI_FASTMAP=y
- CONFIG_MTD_UBI_BLOCK=y
--CONFIG_BLK_DEV_RAM=y
-+CONFIG_BLK_DEV_LOOP=y
- CONFIG_ASPEED_LPC_CTRL=y
- CONFIG_ASPEED_LPC_SNOOP=y
- CONFIG_ASPEED_LPC_MBOX=y
-diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
-index 73efa17cbeb1..a458c7eb32a0 100644
---- a/arch/arm/configs/aspeed_g5_defconfig
-+++ b/arch/arm/configs/aspeed_g5_defconfig
-@@ -79,6 +79,7 @@ CONFIG_SPI_ASPEED_SMC=y
- CONFIG_MTD_UBI=y
- CONFIG_MTD_UBI_FASTMAP=y
- CONFIG_MTD_UBI_BLOCK=y
-+CONFIG_BLK_DEV_LOOP=y
- CONFIG_ASPEED_LPC_CTRL=y
- CONFIG_ASPEED_LPC_SNOOP=y
- CONFIG_ASPEED_LPC_MBOX=y
--- 
-2.17.1
+# CONFIG_CMD_GPIO is not set
+
+This board does not appear to support GPIOs.
+
+Regards,
+Simon
