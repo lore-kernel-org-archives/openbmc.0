@@ -1,64 +1,63 @@
-Return-Path: <ngorugan@in.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ngorugan@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::243; helo=mail-ua0-x243.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="jwZiTC09"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
+ [IPv6:2607:f8b0:400c:c08::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41G4ws0H30zDrbK
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 00:26:50 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w5REQTCG121049
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 10:26:48 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.93])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2jvcbdr0bm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 10:26:48 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <ngorugan@in.ibm.com>;
- Wed, 27 Jun 2018 14:26:47 -0000
-Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
- by smtp.notes.na.collabserv.com (10.106.227.39) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 27 Jun 2018 14:26:44 -0000
-Received: from us1a3-mail129.a3.dal06.isc4sb.com ([10.146.45.217])
- by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2018062714264402-608286 ;
- Wed, 27 Jun 2018 14:26:44 +0000 
-To: openbmc@lists.ozlabs.org
-Subject: How to mock journal related methods
-From: "Nagaraju Goruganti" <ngorugan@in.ibm.com>
-Date: Wed, 27 Jun 2018 19:56:36 +0530
-X-KeepSent: EE0820A1:272DC24E-002582B9:004EC9E2;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1 October 14, 2013
-X-LLNOutbound: False
-X-Disclaimed: 25279
-X-TNEFEvaluated: 1
-x-cbid: 18062714-1799-0000-0000-0000072EB158
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.421684; ST=0; TS=0; UL=0; ISC=; MB=0.000089
-X-IBM-SpamModules-Versions: BY=3.00009264; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01053094; UDB=6.00539924; IPR=6.00831018; 
- BA=6.00006024; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00021878; XFM=3.00000015;
- UTC=2018-06-27 14:26:47
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-06-27 13:01:42 - 6.00008628
-x-cbparentid: 18062714-1800-0000-0000-000055FAC37D
-Message-Id: <OFEE0820A1.272DC24E-ON002582B9.004EC9E2-652582B9.004F578B@notes.na.collabserv.com>
-Content-Type: multipart/alternative;
- boundary="=_alternative 004F5599652582B9_="
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41G5CF6N1pzDrbK
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 00:39:21 +1000 (AEST)
+Received: by mail-ua0-x243.google.com with SMTP id c2-v6so1414727uae.4
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 07:39:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=yHKETCmyuAKYwrhTpr2N0/jOcVwcNUx4auChnJqN+qE=;
+ b=jwZiTC09/0RjJcdftcx9z50fcWrV65S/l1K4f29Ogudkot9yA28E+sMFtkFRJsjiHu
+ gbziTTDXEO4CarD2nH5jjacorGip5k6HHaGIfUY+xF6rcdKJry3hwzihl0UN2XgvqbOn
+ SHy2iyMNqRL3fKzVVZTm19CJq1MYobn7cV94VlN4P908HhJEy33qq6LFnbhGOi4CqNx+
+ f7mockS5mImMCtAbl/1sU6YlTwpVqlJhELGPZyrATTArkku9qXHdRRToi9VAIPU1AuuN
+ gmfS/1pRUyLXYQf6u+80sbeKz7wf/BgW0cb2pn0OapKdXQEv/T2aCN1ksV9xRAS7tsC+
+ uUOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=yHKETCmyuAKYwrhTpr2N0/jOcVwcNUx4auChnJqN+qE=;
+ b=svEobgjd+KfHzP1QAAAyQN9BEJlzcfm4Bb/roKPeL2Bcu8XRY/teYgCy5W3gL2Bmlf
+ E0n2NMKaemuazMg9c6kHEo3S3ogPfVkqyoYFt475PoRbB7ZLKIWyazRhy2/mGwkVNZT7
+ fRsJG9/27pT39wcrcz2lEB+tSzB069ft5D07hVRPI3Vzy5S+PmzOkVUSA7kA+ySiaRwl
+ by8fSTY0L8utcEY//gv4iYIxyV4Nm/wIDq/EcYg9ImM9ibp4ancKc6yILSsGm34H7TQh
+ 5R1m636RDBbBG6cQWID0tq/xOQcciewBdV6HveYxrDlZzEAkdCbq5OLUHdfXveOMmFsJ
+ 3pvQ==
+X-Gm-Message-State: APt69E1clKKuF6u9LpLs4jlkpeT73IJ278Azd7Nv/3m2NRNMRyWcvPR7
+ J1rnxbWgmay/36scO4OWvsIllxjEMCLcfihjuZjE4Yxl
+X-Google-Smtp-Source: AAOMgpcugZdB8KhucySg+DDSQL0pEYHmG10rYeliZOtcAIiz7TOuE2zyQm06IcWt+PUT6Tc6wivVCWuz8MycI1sJ/zA=
+X-Received: by 2002:ab0:1251:: with SMTP id
+ s17-v6mr3684910uac.37.1530110358543; 
+ Wed, 27 Jun 2018 07:39:18 -0700 (PDT)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-06-27_03:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Received: by 2002:a1f:9b90:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 07:38:58
+ -0700 (PDT)
+In-Reply-To: <1530061800.2502410.1421595168.7609B886@webmail.messagingengine.com>
+References: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
+ <1530061800.2502410.1421595168.7609B886@webmail.messagingengine.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 27 Jun 2018 07:38:58 -0700
+Message-ID: <CAO=notwv8DYt7aR=6rOVOFvyA_CkrGgT31XG4A+KrDqyF55shw@mail.gmail.com>
+Subject: Re: Merging up to OpenBMC v2.2 from v2.1 - boot problem, invalid
+ ramdisk format
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -70,77 +69,132 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jun 2018 14:26:53 -0000
+X-List-Received-Date: Wed, 27 Jun 2018 14:39:22 -0000
 
+On Tue, Jun 26, 2018 at 6:10 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Wed, 27 Jun 2018, at 01:49, Patrick Venture wrote:
+>> I assume this is just a recipe change such that I need to now specify
+>> something -- with OpenBMC v2.1 I see:
+>>
+>> """
+>> U-Boot 2016.07 (May 24 2018 - 12:55:55 -0700)
+>>
+>> DRAM:  120 MiB
+>> WARNING: Caches not enabled
+>> Flash: 64 MiB
+>> *** Warning - bad CRC, using default environment
+>>
+>> In:    serial
+>> Out:   serial
+>> Err:   serial
+>> Net:   aspeednic#0
+>> Error: aspeednic#0 address not set.
+>>
+>> Hit any key to stop autoboot:  0
+>> ## Loading kernel from FIT Image at 20080000 ...
+>>    Using 'conf@1' configuration
+>>    Trying 'kernel@1' kernel subimage
+>>      Description:  Linux kernel
+>>      Type:         Kernel Image
+>>      Compression:  uncompressed
+>>      Data Start:   0x20080128
+>>      Data Size:    1721352 Bytes =3D 1.6 MiB
+>>      Architecture: ARM
+>>      OS:           Linux
+>>      Load Address: 0x40008000
+>>      Entry Point:  0x40008000
+>>      Hash algo:    sha1
+>>      Hash value:   de140d9d803c22f731c4d99a4250979489383a81
+>>    Verifying Hash Integrity ... sha1+ OK
+>> ## Loading ramdisk from FIT Image at 20080000 ...
+>>    Using 'conf@1' configuration
+>>    Trying 'ramdisk@1' ramdisk subimage
+>>      Description:  obmc-phosphor-initramfs
+>>      Type:         RAMDisk Image
+>>      Compression:  lzma compressed
+>>      Data Start:   0x2022ad00
+>>      Data Size:    1592362 Bytes =3D 1.5 MiB
+>>      Architecture: ARM
+>>      OS:           Linux
+>>      Load Address: unavailable
+>>      Entry Point:  unavailable
+>>      Hash algo:    sha1
+>>      Hash value:   9f6f2feb110e27e07f81bb60bb372b4083672f19
+>>    Verifying Hash Integrity ... sha1+ OK
+>> ## Loading fdt from FIT Image at 20080000 ...
+>>    Using 'conf@1' configuration
+>>    Trying 'fdt@1' fdt subimage
+>>      Description:  Flattened Device Tree blob
+>>      Type:         Flat Device Tree
+>>      Compression:  uncompressed
+>>      Data Start:   0x20224624
+>>      Data Size:    26139 Bytes =3D 25.5 KiB
+>>      Architecture: ARM
+>>      Hash algo:    sha1
+>>      Hash value:   37864a4c4a608d5f4e370bbccf93ccbe3e77462d
+>>    Verifying Hash Integrity ... sha1+ OK
+>>    Booting using the fdt blob at 0x20224624
+>>    Loading Kernel Image ... OK
+>>    Loading Ramdisk to 47213000, end 47397c2a ... OK
+>>    Loading Device Tree to 47209000, end 4721261a ... OK
+>>
+>> Starting kernel ...
+>> """
+>>
+>> With v2.2 I see:
+>> """
+>> U-Boot 2016.07 (Jun 25 2018 - 10:07:57 -0700)
+>>
+>> DRAM:  120 MiB
+>> WARNING: Caches not enabled
+>> Flash: 64 MiB
+>> *** Warning - bad CRC, using default environment
+>>
+>> In:    serial
+>> Out:   serial
+>> Err:   serial
+>> Net:   aspeednic#0
+>> Error: aspeednic#0 address not set.
+>>
+>> Hit any key to stop autoboot:  0
+>> libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND
+>
+> From below it looks like u-boot finds the kernel in the FIT, but your ram=
+disk is "corrupt". The error above suggests something is missing from the F=
+IT. Can you check the initrd/ramdisk node in your FIT to make sure it is pr=
+esent and uses all the correct options and paths with respect to the initrd=
+ you intended to package?
 
---=_alternative 004F5599652582B9_=
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: Quoted-printable
+I'll take a look -- one thought I had last night is that now the
+kernel config bit above is using the dts -- and IIRC, there have been
+changes to the flash layout.  So, maybe my device tree being used here
+is out-of-date or doesn't match what it's expecting now.  I'm still on
+the 4.7.10 kernel as I haven't had a chance to get the host booted
+with 4.13 (although that's high on my todo list).
 
-Hi Team,
-
-I am writing unit test-cases to phospher-logging server.
-
-As it gets information form the journal log for event and logging=20
-creation,it needs to make calls to
-below given journal related methods:
-
-sd_journal_open(sd_journal**,int)(
-https://github.com/openbmc/phosphor-logging/blob/master/log_manager.cpp#L86
-)
-sd_journal_get_data(sd_journal*,const char *,const void **,size_t) (
-https://github.com/openbmc/phosphor-logging/blob/master/log_manager.cpp#L115
-)
-sd_journal_close(sd_journal *) (
-https://github.com/openbmc/phosphor-logging/blob/master/log_manager.cpp#L175
-)
-
-I am able make calls to these methods, without any issue, on host=20
-machine(inside x86 sandbox) where we don't have journal service is=20
-running.
-
-Is it the correct way(don't we need to mock these methods) ?=20
-
-If not, Please someone let me know how to mock these methods?
-
-
-
-Thanks and Regards,
-Nagaraju G
-
-
---=_alternative 004F5599652582B9_=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset="US-ASCII"
-
-<font size=3D2 face=3D"sans-serif">Hi Team,</font><br><br><font size=3D2 fa=
-ce=3D"sans-serif">I am writing unit test-cases to phospher-logging
-server.</font><br><br><font size=3D2 face=3D"sans-serif">As it gets informa=
-tion form the journal
-log for event and logging creation,it needs to make calls to</font><br><fon=
-t size=3D2 face=3D"sans-serif">below given journal related methods:</font><=
-br><br><font size=3D2 face=3D"sans-serif">sd=5Fjournal=5Fopen(sd=5Fjournal*=
-*,int)(</font><a href=3D"https://github.com/openbmc/phosphor-logging/blob/m=
-aster/log=5Fmanager.cpp#L86"><font size=3D2 color=3Dblue face=3D"sans-serif=
-">https://github.com/openbmc/phosphor-logging/blob/master/log=5Fmanager.cpp=
-#L86</font></a><font size=3D2 face=3D"sans-serif">)</font><br><font size=3D=
-2 face=3D"sans-serif">sd=5Fjournal=5Fget=5Fdata(sd=5Fjournal*,const
-char *,const void **,size=5Ft) (</font><a href=3D"https://github.com/openbm=
-c/phosphor-logging/blob/master/log=5Fmanager.cpp#L115"><font size=3D2 color=
-=3Dblue face=3D"sans-serif">https://github.com/openbmc/phosphor-logging/blo=
-b/master/log=5Fmanager.cpp#L115</font></a><font size=3D2 face=3D"sans-serif=
-">)</font><br><font size=3D2 face=3D"sans-serif">sd=5Fjournal=5Fclose(sd=5F=
-journal *) (</font><a href=3D"https://github.com/openbmc/phosphor-logging/b=
-lob/master/log=5Fmanager.cpp#L175"><font size=3D2 color=3Dblue face=3D"sans=
--serif">https://github.com/openbmc/phosphor-logging/blob/master/log=5Fmanag=
-er.cpp#L175</font></a><font size=3D2 face=3D"sans-serif">)</font><br><br><f=
-ont size=3D2 face=3D"sans-serif">I am able make calls to these methods,
-without any issue, on host machine(inside x86 sandbox) where we don't have
-journal service is running.</font><br><br><font size=3D2 face=3D"sans-serif=
-">Is it the correct way(don't we need
-to mock these methods) ? </font><br><br><font size=3D2 face=3D"sans-serif">=
-If not, Please someone let me know how
-to mock these methods?</font><br><br><br><br><font size=3D2 face=3D"sans-se=
-rif">Thanks and Regards,</font><br><font size=3D2 face=3D"sans-serif">Nagar=
-aju G</font><BR>
---=_alternative 004F5599652582B9_=--
+>
+> Might also be helpful to provide the content of the .its file.
+>
+>> ## Loading kernel from FIT Image at 20080000 ...
+>>    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
+>>    Trying 'kernel@1' kernel subimage
+>>      Description:  Linux kernel
+>>      Type:         Kernel Image
+>>      Compression:  uncompressed
+>>      Data Start:   0x20080124
+>>      Data Size:    1723192 Bytes =3D 1.6 MiB
+>>      Architecture: ARM
+>>      OS:           Linux
+>>      Load Address: 0x40008000
+>>      Entry Point:  0x40008000
+>>      Hash algo:    sha1
+>>      Hash value:   95ed76c9361d9f6f991a6a859a06eb7626af80df
+>>    Verifying Hash Integrity ... sha1+ OK
+>> Wrong Ramdisk Image Format
+>> Ramdisk image is corrupt or invalid
+>> """
+>>
+>> I figured I'd reach out first as I'm sure this will be familiar to someo=
+ne :D
+>>
+>> Patrick
