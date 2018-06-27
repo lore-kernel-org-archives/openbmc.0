@@ -1,31 +1,69 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ioxM4ToE"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="W9gDZ/Mc"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Fknb6x9tzF1D8;
- Wed, 27 Jun 2018 10:49:23 +1000 (AEST)
-Received: from pasglop.au.ibm.com (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w5QNNMmq022709;
- Tue, 26 Jun 2018 18:23:45 -0500
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Joel Stanley <joel@jms.id.au>
-Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, Andrew Jeffery <andrew@aj.id.au>,
- linux-kernel@vger.kernel.org,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Subject: [PATCH 03/14] fsi: Add mechanism to set the tSendDelay and tEchoDelay
- values
-Date: Wed, 27 Jun 2018 09:23:10 +1000
-Message-Id: <20180626232321.12372-4-benh@kernel.crashing.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20180626232321.12372-1-benh@kernel.crashing.org>
-References: <20180626232321.12372-1-benh@kernel.crashing.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41FlFV6TNRzF1DM
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 11:10:06 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id AE16E21E07;
+ Tue, 26 Jun 2018 21:10:00 -0400 (EDT)
+Received: from web4 ([10.202.2.214])
+ by compute4.internal (MEProxy); Tue, 26 Jun 2018 21:10:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=5I8EumWKwqgFn5AZ5Wi/SPtswg29D
+ eG4irawiID9pW8=; b=ioxM4ToEaXoUYwb0DOhniVnqvKkeuyQv8dW/d+VyryE+9
+ E3Dt/iMJx2eOzUYTo6qwNSS+Hb29jsP9h1I32VYNP4ysxZ7Dr1x5JWJ+F8py7Sro
+ uhlDQB6X509Sg2NFAiMZf2Hcj5IUEyfRAfuOi8nyX37HcNMFeXN5L/jNmNyZhNrT
+ 6EEw8sxchyH0ACCZejqPgYDXApwEkk7zDkYVAZoqQOSn+WgLnubGX0gz0kXW+UR1
+ LLhtut31PGLux1/mwvPkqhRoRBGEH35vjQK2vid/fq0yyDeTpkvXoIgVgqfDkWqX
+ rydv2Js34k+yD2flT+UN7Y/XZD/nbCjTz68JtgDhA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=5I8Eum
+ WKwqgFn5AZ5Wi/SPtswg29DeG4irawiID9pW8=; b=W9gDZ/McV/mcDbzsVPXlwP
+ Ut52dmpqh1cdQuxHj7peSt5V7FGSUpIqe2Ucr3G8uNF9LTBccHQMmFEbQuFTPy43
+ 1/c+D2ZE0zZoJ2bG5a9tJG+Y1f4vi8HbTkD75NiLHfGvCaMvAdcwg8Ug9NNqTdA+
+ H/ygvuhEYWxOq0XJ4BOqJ5IiupivpbEdjVxm3ZXjmfCYRDJZzOZvGWt3uP8blAcI
+ 0HhrcPNPGnkf6W794cJOo/cbv9DT+PCL2CYjScn+CYIFsRd6aKy7ueMkuJvmAQCb
+ zjfG5zVuV1+zL817LsGcH7cPcuEo1xfmn2Ffu773aJbGzqVwkRy2NAdgTY8xC1nw
+ ==
+X-ME-Proxy: <xmx:6OMyW40impza7KZKzZhngaw9KGALvguuwdjD2vUmBUMIndBusctR0A>
+ <xmx:6OMyW_FhXylrtAsNXoW4BrT7fIDfmJQaIO-hJAU7WqsUXPt7ELOFEw>
+ <xmx:6OMyWzGKihru9Yc-7rT-N9JxdClZfvkhZ3LL74zm2xDxUtUx9ONDTw>
+ <xmx:6OMyWy69BNu9uWB2g8Xv7OWZFZZBUJCf5qJPpQ1XVoRqqCCdJb5uag>
+ <xmx:6OMyW4y1gVTR1f0XjPuzUaIcALrf0yrT0RkDFPclmJ96SUjm5FcVYA>
+ <xmx:6OMyW2ReXto-HTq4k-ERibhoF82z8eKeTHl9rV3ampo3jhak0jZD0Q>
+X-ME-Sender: <xms:6OMyWw5mUmGvYX0eQR0x87GjZ9dGRN3lpA1H5X-mkXYFwuz0_ewydA>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 58F10BA4CF; Tue, 26 Jun 2018 21:10:00 -0400 (EDT)
+Message-Id: <1530061800.2502410.1421595168.7609B886@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-0d8ea36c
+In-Reply-To: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
+References: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
+Date: Wed, 27 Jun 2018 10:40:00 +0930
+Subject: Re: Merging up to OpenBMC v2.2 from v2.1 - boot problem,
+ invalid ramdisk format
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -37,239 +75,118 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jun 2018 00:49:25 -0000
+X-List-Received-Date: Wed, 27 Jun 2018 01:10:09 -0000
 
-Those values control the amount of "dummy" clocks between commands and
-between a command and its response.
+On Wed, 27 Jun 2018, at 01:49, Patrick Venture wrote:
+> I assume this is just a recipe change such that I need to now specify
+> something -- with OpenBMC v2.1 I see:
+> 
+> """
+> U-Boot 2016.07 (May 24 2018 - 12:55:55 -0700)
+> 
+> DRAM:  120 MiB
+> WARNING: Caches not enabled
+> Flash: 64 MiB
+> *** Warning - bad CRC, using default environment
+> 
+> In:    serial
+> Out:   serial
+> Err:   serial
+> Net:   aspeednic#0
+> Error: aspeednic#0 address not set.
+> 
+> Hit any key to stop autoboot:  0
+> ## Loading kernel from FIT Image at 20080000 ...
+>    Using 'conf@1' configuration
+>    Trying 'kernel@1' kernel subimage
+>      Description:  Linux kernel
+>      Type:         Kernel Image
+>      Compression:  uncompressed
+>      Data Start:   0x20080128
+>      Data Size:    1721352 Bytes = 1.6 MiB
+>      Architecture: ARM
+>      OS:           Linux
+>      Load Address: 0x40008000
+>      Entry Point:  0x40008000
+>      Hash algo:    sha1
+>      Hash value:   de140d9d803c22f731c4d99a4250979489383a81
+>    Verifying Hash Integrity ... sha1+ OK
+> ## Loading ramdisk from FIT Image at 20080000 ...
+>    Using 'conf@1' configuration
+>    Trying 'ramdisk@1' ramdisk subimage
+>      Description:  obmc-phosphor-initramfs
+>      Type:         RAMDisk Image
+>      Compression:  lzma compressed
+>      Data Start:   0x2022ad00
+>      Data Size:    1592362 Bytes = 1.5 MiB
+>      Architecture: ARM
+>      OS:           Linux
+>      Load Address: unavailable
+>      Entry Point:  unavailable
+>      Hash algo:    sha1
+>      Hash value:   9f6f2feb110e27e07f81bb60bb372b4083672f19
+>    Verifying Hash Integrity ... sha1+ OK
+> ## Loading fdt from FIT Image at 20080000 ...
+>    Using 'conf@1' configuration
+>    Trying 'fdt@1' fdt subimage
+>      Description:  Flattened Device Tree blob
+>      Type:         Flat Device Tree
+>      Compression:  uncompressed
+>      Data Start:   0x20224624
+>      Data Size:    26139 Bytes = 25.5 KiB
+>      Architecture: ARM
+>      Hash algo:    sha1
+>      Hash value:   37864a4c4a608d5f4e370bbccf93ccbe3e77462d
+>    Verifying Hash Integrity ... sha1+ OK
+>    Booting using the fdt blob at 0x20224624
+>    Loading Kernel Image ... OK
+>    Loading Ramdisk to 47213000, end 47397c2a ... OK
+>    Loading Device Tree to 47209000, end 4721261a ... OK
+> 
+> Starting kernel ...
+> """
+> 
+> With v2.2 I see:
+> """
+> U-Boot 2016.07 (Jun 25 2018 - 10:07:57 -0700)
+> 
+> DRAM:  120 MiB
+> WARNING: Caches not enabled
+> Flash: 64 MiB
+> *** Warning - bad CRC, using default environment
+> 
+> In:    serial
+> Out:   serial
+> Err:   serial
+> Net:   aspeednic#0
+> Error: aspeednic#0 address not set.
+> 
+> Hit any key to stop autoboot:  0
+> libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND
 
-This adds a way to configure them from sysfs (to be later extended to
-defaults in the device-tree). The default remains 16 (the HW default).
+From below it looks like u-boot finds the kernel in the FIT, but your ramdisk is "corrupt". The error above suggests something is missing from the FIT. Can you check the initrd/ramdisk node in your FIT to make sure it is present and uses all the correct options and paths with respect to the initrd you intended to package?
 
-This is only supported if the backend supports the new link_config()
-callback to configure the generation of those delays.
+Might also be helpful to provide the content of the .its file.
 
-Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
----
----
- drivers/fsi/fsi-core.c   | 109 ++++++++++++++++++++++++++++++++-------
- drivers/fsi/fsi-master.h |   2 +
- 2 files changed, 93 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 2f6f9b8c75e4..1ae5be31b4bf 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -81,6 +81,8 @@ struct fsi_slave {
- 	int			id;
- 	int			link;
- 	uint32_t		size;	/* size of slave address space */
-+	u8			t_send_delay;
-+	u8			t_echo_delay;
- };
- 
- #define to_fsi_master(d) container_of(d, struct fsi_master, dev)
-@@ -239,15 +241,15 @@ static inline uint32_t fsi_smode_sid(int x)
- 	return (x & FSI_SMODE_SID_MASK) << FSI_SMODE_SID_SHIFT;
- }
- 
--static uint32_t fsi_slave_smode(int id)
-+static uint32_t fsi_slave_smode(int id, u8 t_senddly, u8 t_echodly)
- {
- 	return FSI_SMODE_WSC | FSI_SMODE_ECRC
- 		| fsi_smode_sid(id)
--		| fsi_smode_echodly(0xf) | fsi_smode_senddly(0xf)
-+		| fsi_smode_echodly(t_echodly - 1) | fsi_smode_senddly(t_senddly - 1)
- 		| fsi_smode_lbcrr(0x8);
- }
- 
--static int fsi_slave_set_smode(struct fsi_master *master, int link, int id)
-+static int fsi_slave_set_smode(struct fsi_slave *slave)
- {
- 	uint32_t smode;
- 	__be32 data;
-@@ -255,11 +257,12 @@ static int fsi_slave_set_smode(struct fsi_master *master, int link, int id)
- 	/* set our smode register with the slave ID field to 0; this enables
- 	 * extended slave addressing
- 	 */
--	smode = fsi_slave_smode(id);
-+	smode = fsi_slave_smode(slave->id, slave->t_send_delay, slave->t_echo_delay);
- 	data = cpu_to_be32(smode);
- 
--	return fsi_master_write(master, link, id, FSI_SLAVE_BASE + FSI_SMODE,
--			&data, sizeof(data));
-+	return fsi_master_write(slave->master, slave->link, slave->id,
-+				FSI_SLAVE_BASE + FSI_SMODE,
-+				&data, sizeof(data));
- }
- 
- static int fsi_slave_handle_error(struct fsi_slave *slave, bool write,
-@@ -268,7 +271,7 @@ static int fsi_slave_handle_error(struct fsi_slave *slave, bool write,
- 	struct fsi_master *master = slave->master;
- 	int rc, link;
- 	uint32_t reg;
--	uint8_t id;
-+	uint8_t id, send_delay, echo_delay;
- 
- 	if (discard_errors)
- 		return -1;
-@@ -299,15 +302,26 @@ static int fsi_slave_handle_error(struct fsi_slave *slave, bool write,
- 		}
- 	}
- 
-+	send_delay = slave->t_send_delay;
-+	echo_delay = slave->t_echo_delay;
-+
- 	/* getting serious, reset the slave via BREAK */
- 	rc = fsi_master_break(master, link);
- 	if (rc)
- 		return rc;
- 
--	rc = fsi_slave_set_smode(master, link, id);
-+	slave->t_send_delay = send_delay;
-+	slave->t_echo_delay = echo_delay;
-+
-+	rc = fsi_slave_set_smode(slave);
- 	if (rc)
- 		return rc;
- 
-+	if (master->link_config)
-+		master->link_config(master, link,
-+				    slave->t_send_delay,
-+				    slave->t_echo_delay);
-+
- 	return fsi_slave_report_and_clear_errors(slave);
- }
- 
-@@ -665,6 +679,50 @@ static struct device_node *fsi_slave_find_of_node(struct fsi_master *master,
- 	return NULL;
- }
- 
-+static ssize_t slave_send_echo_show(struct device *dev,
-+				    struct device_attribute *attr,
-+				    char *buf)
-+{
-+	struct fsi_slave *slave = to_fsi_slave(dev);
-+
-+	return sprintf(buf, "%u\n", slave->t_send_delay);
-+}
-+
-+static ssize_t slave_send_echo_store(struct device *dev,
-+		struct device_attribute *attr, const char *buf, size_t count)
-+{
-+	struct fsi_slave *slave = to_fsi_slave(dev);
-+	struct fsi_master *master = slave->master;
-+	unsigned long val;
-+	int rc;
-+
-+	if (kstrtoul(buf, 0, &val) < 0)
-+		return -EINVAL;
-+
-+	if (val < 1 || val > 16)
-+		return -EINVAL;
-+
-+	if (!master->link_config)
-+		return -ENXIO;
-+
-+	/* Current HW mandates that send and echo delay are identical */
-+	slave->t_send_delay = val;
-+	slave->t_echo_delay = val;
-+
-+	rc = fsi_slave_set_smode(slave);
-+	if (rc < 0)
-+		return rc;
-+	if (master->link_config)
-+		master->link_config(master, slave->link,
-+				    slave->t_send_delay,
-+				    slave->t_echo_delay);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(send_echo_delays, 0600,
-+		   slave_send_echo_show, slave_send_echo_store);
-+
- static int fsi_slave_init(struct fsi_master *master, int link, uint8_t id)
- {
- 	uint32_t chip_id;
-@@ -697,14 +755,6 @@ static int fsi_slave_init(struct fsi_master *master, int link, uint8_t id)
- 	dev_dbg(&master->dev, "fsi: found chip %08x at %02x:%02x:%02x\n",
- 			chip_id, master->idx, link, id);
- 
--	rc = fsi_slave_set_smode(master, link, id);
--	if (rc) {
--		dev_warn(&master->dev,
--				"can't set smode on slave:%02x:%02x %d\n",
--				link, id, rc);
--		return -ENODEV;
--	}
--
- 	/* If we're behind a master that doesn't provide a self-running bus
- 	 * clock, put the slave into async mode
- 	 */
-@@ -733,6 +783,21 @@ static int fsi_slave_init(struct fsi_master *master, int link, uint8_t id)
- 	slave->link = link;
- 	slave->id = id;
- 	slave->size = FSI_SLAVE_SIZE_23b;
-+	slave->t_send_delay = 16;
-+	slave->t_echo_delay = 16;
-+
-+	rc = fsi_slave_set_smode(slave);
-+	if (rc) {
-+		dev_warn(&master->dev,
-+				"can't set smode on slave:%02x:%02x %d\n",
-+				link, id, rc);
-+		kfree(slave);
-+		return -ENODEV;
-+	}
-+	if (master->link_config)
-+		master->link_config(master, link,
-+				    slave->t_send_delay,
-+				    slave->t_echo_delay);
- 
- 	dev_set_name(&slave->dev, "slave@%02x:%02x", link, id);
- 	rc = device_register(&slave->dev);
-@@ -751,6 +816,10 @@ static int fsi_slave_init(struct fsi_master *master, int link, uint8_t id)
- 	if (rc)
- 		dev_warn(&slave->dev, "failed to create term attr: %d\n", rc);
- 
-+	rc = device_create_file(&slave->dev, &dev_attr_send_echo_delays);
-+	if (rc)
-+		dev_warn(&slave->dev, "failed to create delay attr: %d\n", rc);
-+
- 	rc = fsi_slave_scan(slave);
- 	if (rc)
- 		dev_dbg(&master->dev, "failed during slave scan with: %d\n",
-@@ -821,12 +890,16 @@ static int fsi_master_link_enable(struct fsi_master *master, int link)
-  */
- static int fsi_master_break(struct fsi_master *master, int link)
- {
-+	int rc = 0;
-+
- 	trace_fsi_master_break(master, link);
- 
- 	if (master->send_break)
--		return master->send_break(master, link);
-+		rc = master->send_break(master, link);
-+	if (master->link_config)
-+		master->link_config(master, link, 16, 16);
- 
--	return 0;
-+	return rc;
- }
- 
- static int fsi_master_scan(struct fsi_master *master)
-diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
-index ee0b46086026..7d619c68ab9b 100644
---- a/drivers/fsi/fsi-master.h
-+++ b/drivers/fsi/fsi-master.h
-@@ -33,6 +33,8 @@ struct fsi_master {
- 	int		(*term)(struct fsi_master *, int link, uint8_t id);
- 	int		(*send_break)(struct fsi_master *, int link);
- 	int		(*link_enable)(struct fsi_master *, int link);
-+	int		(*link_config)(struct fsi_master *, int link,
-+				       u8 t_send_delay, u8 t_echo_delay);
- };
- 
- #define dev_to_fsi_master(d) container_of(d, struct fsi_master, dev)
--- 
-2.17.1
+> ## Loading kernel from FIT Image at 20080000 ...
+>    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
+>    Trying 'kernel@1' kernel subimage
+>      Description:  Linux kernel
+>      Type:         Kernel Image
+>      Compression:  uncompressed
+>      Data Start:   0x20080124
+>      Data Size:    1723192 Bytes = 1.6 MiB
+>      Architecture: ARM
+>      OS:           Linux
+>      Load Address: 0x40008000
+>      Entry Point:  0x40008000
+>      Hash algo:    sha1
+>      Hash value:   95ed76c9361d9f6f991a6a859a06eb7626af80df
+>    Verifying Hash Integrity ... sha1+ OK
+> Wrong Ramdisk Image Format
+> Ramdisk image is corrupt or invalid
+> """
+> 
+> I figured I'd reach out first as I'm sure this will be familiar to someone :D
+> 
+> Patrick
