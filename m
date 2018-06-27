@@ -1,60 +1,67 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::244; helo=mail-it0-x244.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4003:c06::241; helo=mail-oi0-x241.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="k0MEeis7"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="d0TfORrl"; 
  dkim-atps=neutral
-Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
- [IPv6:2607:f8b0:4001:c0b::244])
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Flxh35p9zF1D5
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 11:41:27 +1000 (AEST)
-Received: by mail-it0-x244.google.com with SMTP id 128-v6so5176951itf.1
- for <openbmc@lists.ozlabs.org>; Tue, 26 Jun 2018 18:41:27 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Fvql0xShzF164
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 17:36:43 +1000 (AEST)
+Received: by mail-oi0-x241.google.com with SMTP id c2-v6so980191oic.1
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 00:36:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VTgF70Phlqr6GuW7HVB7gl+kLc1H0VwvHIDlSbVG5to=;
- b=k0MEeis7mz5+EV96ohnlDxOGyg/YBZ7d8pn4s18IOHG532aBgG2ML6ZSkP569NDaRb
- 1NqL6EZRMXIxRT1eEm3jIp0O6c4Xxg8+XcIEuh35BMocXjw48IvUDh0FnuFqoR23YH1I
- ANEXcBQHducdhV3pa9n3GZz+EqEEp5cTTZ0S7lt70eZdCGbSmzBdSvqdpOfyYuNATbBK
- LCW6REo7YA8yMA9znPsU+WuDkpDHG1VKKmUfwJLk+ZFiZq4CRzVN+fYtk61yA1GGQckb
- O+9vmjxwtoRgMHwkamuyXLkslQ5DDrSka13kpdFXPupwpeAqxACY6K3VmlQzz3Ufg0Ay
- 75Sg==
+ :cc; bh=PsMuLrJDumj75RThyQBdAZdwUqHcZgrSW9NbIurWvus=;
+ b=d0TfORrliQhBtXkkIA2Y8ZGlAkHPpBJs6Vs470V5sxp45cn0SWTT0trqpW5PJaFI20
+ AbblZAHd+RVoM0PGFbutgz0xYpwUIKgYHrWxgZNoT6E2mT9nq08iCdEhq9xTO1sOlxYe
+ aTlE0Y6NFHvZs3fAbWneP/bKJ6R4p3QpS49bSiy59Ni4u1/0/RuDKdSjziVLNeRunqBC
+ Wda6/c6op/Zgzdt0G4adCSWg8F4o10894k/wwwn8DlMz8c3b7yrbR2Bb2JkHDcYqvTyH
+ 0og51kV2bQGGYASNLhHCYbqil7XKuqXNaTYXFsKeeDfAeT+UGZ/RJfHXqbO4cAgxuuB+
+ VGng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VTgF70Phlqr6GuW7HVB7gl+kLc1H0VwvHIDlSbVG5to=;
- b=mk8jniiQYVVQtqOTAXqM4bseeivsWoZOOwTY5abQ+iHFxZ28CUZDcYH9dz4vICJNbe
- lM5NBbdNC5qTV9ZS2be9ITGKS2DfqIhZKCZyjxZowdxjw8eCzKRETnWfVOJVuEd2wm/8
- oUa8QUn1NqeevImVjnk/7TUHe0QkLpGCiKfdkW1KrMghs8T0cl8JJ5zrpU7J6ZGfqzcY
- wvkKWj68/i7U0xh5r8odIzVefkxIt/g9zypWqhNCMLL0FFnTKDw15Nfogfq9H0lb2fb9
- HSHhwRlVWMz+wABnNIkqOdrXWdM6fxcNXsacKZeGZYJK5e3H+CG+PW+6wAUMWjmi4ccD
- I0Kg==
-X-Gm-Message-State: APt69E3O7fokRsUOZPkRLk471ije/1iGGeRT7m5uUBjYAUvdRVRa3IJZ
- M9W4a3kcoJrWVPrNgWzWV0iwz29kOwFlOkA32F3CZA==
-X-Google-Smtp-Source: ADUXVKJSM6e2y2nagHWWNGOeKg8pUxpKv8MND+BNPkRRGIGoc2yEAyobWKltb1OAajRMGwBetWRTc5dYMzRb80dstrc=
-X-Received: by 2002:a24:c8c5:: with SMTP id
- w188-v6mr3557660itf.30.1530063685219; 
- Tue, 26 Jun 2018 18:41:25 -0700 (PDT)
+ bh=PsMuLrJDumj75RThyQBdAZdwUqHcZgrSW9NbIurWvus=;
+ b=a5RBmRbBy93qNjPrvbhXcgsCzSIH3TjxvuWnnNOqEuBUmaBBF3j3GoHKhPFvXMEekG
+ wqZZTPPn28pwLYNFifq6LnJmIA70N9ppLgGQh/BiaAXHtVH+pL9Fyf5+qfwkQrRWY4EN
+ TJk9XTF5LZExObAhr2/xgKatF/OC9cUuwM6O07kz4ihV2kySJcM858pDT6PQnCHEpjkc
+ /TFsAVbJsGeet1u9MPXEk4Or8Y7S5u8XPvcEsfG4OdrW5QF9DPXxTsfrlbtrNFHkbgQ9
+ 0/2B6V3/jhqEI6rkkrrwbtBLj7cbAVEy8rYkIpn2a2fSHJMXkuiJMRi3yhXHNowGdaR6
+ SXVA==
+X-Gm-Message-State: APt69E3ccM+vVrErFi6kXtrivX2g2kjs1apjvNrfIyE5e92zQlJ/nhQz
+ iSIp4+zbaEyVT8a+3OV/wUVJtlmQFemIbjfs+mys3Q==
+X-Google-Smtp-Source: AAOMgpf/InhsPfOmLxEtGCMGx3fE35s0Td8EiWJk3ZzDfAoneGndgo1uK+kndYB5Szj5gJBKk0T26WRtltR7sybpOkI=
+X-Received: by 2002:aca:a641:: with SMTP id
+ p62-v6mr2692013oie.151.1530085001196; 
+ Wed, 27 Jun 2018 00:36:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
- <1530061800.2502410.1421595168.7609B886@webmail.messagingengine.com>
-In-Reply-To: <1530061800.2502410.1421595168.7609B886@webmail.messagingengine.com>
-From: Kun Yi <kunyi@google.com>
-Date: Tue, 26 Jun 2018 18:40:59 -0700
-Message-ID: <CAGMNF6XczffusXaDCfYcC1MGh3HmHjabV8-MSWEMN0p6Fx_RXw@mail.gmail.com>
-Subject: Re: Merging up to OpenBMC v2.2 from v2.1 - boot problem, invalid
- ramdisk format
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000717788056f95b636"
+References: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 27 Jun 2018 00:36:29 -0700
+Message-ID: <CAFd5g45z--ucXf-So517tgrayZT6x2TGvaUvaDF7zeRNn7CPXw@mail.gmail.com>
+Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use
+ cases stably
+To: jae.hyun.yoo@linux.intel.com
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@aj.id.au>, linux-i2c@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ linux-aspeed@lists.ozlabs.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ james.feist@linux.intel.com, 
+ vernon.mauery@linux.intel.com, Benjamin Fair <benjaminfair@google.com>, 
+ Patrick Venture <venture@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,293 +73,477 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jun 2018 01:41:29 -0000
+X-List-Received-Date: Wed, 27 Jun 2018 07:36:52 -0000
 
---000000000000717788056f95b636
-Content-Type: text/plain; charset="UTF-8"
-
-libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND
-
-Might be caused a config change in U-boot?
-
-On Tue, Jun 26, 2018 at 6:10 PM Andrew Jeffery <andrew@aj.id.au> wrote:
-
-> On Wed, 27 Jun 2018, at 01:49, Patrick Venture wrote:
-> > I assume this is just a recipe change such that I need to now specify
-> > something -- with OpenBMC v2.1 I see:
-> >
-> > """
-> > U-Boot 2016.07 (May 24 2018 - 12:55:55 -0700)
-> >
-> > DRAM:  120 MiB
-> > WARNING: Caches not enabled
-> > Flash: 64 MiB
-> > *** Warning - bad CRC, using default environment
-> >
-> > In:    serial
-> > Out:   serial
-> > Err:   serial
-> > Net:   aspeednic#0
-> > Error: aspeednic#0 address not set.
-> >
-> > Hit any key to stop autoboot:  0
-> > ## Loading kernel from FIT Image at 20080000 ...
-> >    Using 'conf@1' configuration
-> >    Trying 'kernel@1' kernel subimage
-> >      Description:  Linux kernel
-> >      Type:         Kernel Image
-> >      Compression:  uncompressed
-> >      Data Start:   0x20080128
-> >      Data Size:    1721352 Bytes = 1.6 MiB
-> >      Architecture: ARM
-> >      OS:           Linux
-> >      Load Address: 0x40008000
-> >      Entry Point:  0x40008000
-> >      Hash algo:    sha1
-> >      Hash value:   de140d9d803c22f731c4d99a4250979489383a81
-> >    Verifying Hash Integrity ... sha1+ OK
-> > ## Loading ramdisk from FIT Image at 20080000 ...
-> >    Using 'conf@1' configuration
-> >    Trying 'ramdisk@1' ramdisk subimage
-> >      Description:  obmc-phosphor-initramfs
-> >      Type:         RAMDisk Image
-> >      Compression:  lzma compressed
-> >      Data Start:   0x2022ad00
-> >      Data Size:    1592362 Bytes = 1.5 MiB
-> >      Architecture: ARM
-> >      OS:           Linux
-> >      Load Address: unavailable
-> >      Entry Point:  unavailable
-> >      Hash algo:    sha1
-> >      Hash value:   9f6f2feb110e27e07f81bb60bb372b4083672f19
-> >    Verifying Hash Integrity ... sha1+ OK
-> > ## Loading fdt from FIT Image at 20080000 ...
-> >    Using 'conf@1' configuration
-> >    Trying 'fdt@1' fdt subimage
-> >      Description:  Flattened Device Tree blob
-> >      Type:         Flat Device Tree
-> >      Compression:  uncompressed
-> >      Data Start:   0x20224624
-> >      Data Size:    26139 Bytes = 25.5 KiB
-> >      Architecture: ARM
-> >      Hash algo:    sha1
-> >      Hash value:   37864a4c4a608d5f4e370bbccf93ccbe3e77462d
-> >    Verifying Hash Integrity ... sha1+ OK
-> >    Booting using the fdt blob at 0x20224624
-> >    Loading Kernel Image ... OK
-> >    Loading Ramdisk to 47213000, end 47397c2a ... OK
-> >    Loading Device Tree to 47209000, end 4721261a ... OK
-> >
-> > Starting kernel ...
-> > """
-> >
-> > With v2.2 I see:
-> > """
-> > U-Boot 2016.07 (Jun 25 2018 - 10:07:57 -0700)
-> >
-> > DRAM:  120 MiB
-> > WARNING: Caches not enabled
-> > Flash: 64 MiB
-> > *** Warning - bad CRC, using default environment
-> >
-> > In:    serial
-> > Out:   serial
-> > Err:   serial
-> > Net:   aspeednic#0
-> > Error: aspeednic#0 address not set.
-> >
-> > Hit any key to stop autoboot:  0
-> > libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND
+On Tue, Jun 26, 2018 at 9:58 AM Jae Hyun Yoo
+<jae.hyun.yoo@linux.intel.com> wrote:
 >
-> From below it looks like u-boot finds the kernel in the FIT, but your
-> ramdisk is "corrupt". The error above suggests something is missing from
-> the FIT. Can you check the initrd/ramdisk node in your FIT to make sure it
-> is present and uses all the correct options and paths with respect to the
-> initrd you intended to package?
+> BMC firmware should support some multi-master use cases such as multi-node,
+> IPMB, BMC-ME link and so on but the current ASPEED I2C driver is a bit
+> unstable for the multi-master use case. So this patch improves ASPEED I2C
+> driver to support the multi-master use case stably.
 >
-> Might also be helpful to provide the content of the .its file.
+> Changes:
+> * Added XFER_MODE status register checking logic into
+>   aspeed_i2c_master_xfer to improve the current bus busy checking logic.
+> * Changed the order of enum aspeed_i2c_master_state and
+>   enum aspeed_i2c_slave_state defines to make their initial values set to
+>   ASPEED_I2C_MASTER_INACTIVE and ASPEED_I2C_SLAVE_STOP respectively.
+>   In case of multi-master use with previous code, if a slave data comes
+>   ahead of the first master xfer, master_state starts from an invalid
+>   state. This change fixed the issue.
+> * Adjusted spin_lock scope to make it wrap the whole irq handler using
+>   a single lock and unlock pair covers both master and slave handlers.
+> * Added irq_status variable as a member of the struct aspeed_i2c_bus to
+>   collect handled interrupt bits throughout the master and the slave irq
+>   handlers.
+> * Added control logic to put an order on calling the master and the slave
+>   irq handlers based on their current states.
 >
-> > ## Loading kernel from FIT Image at 20080000 ...
-> >    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
-> >    Trying 'kernel@1' kernel subimage
-> >      Description:  Linux kernel
-> >      Type:         Kernel Image
-> >      Compression:  uncompressed
-> >      Data Start:   0x20080124
-> >      Data Size:    1723192 Bytes = 1.6 MiB
-> >      Architecture: ARM
-> >      OS:           Linux
-> >      Load Address: 0x40008000
-> >      Entry Point:  0x40008000
-> >      Hash algo:    sha1
-> >      Hash value:   95ed76c9361d9f6f991a6a859a06eb7626af80df
-> >    Verifying Hash Integrity ... sha1+ OK
-> > Wrong Ramdisk Image Format
-> > Ramdisk image is corrupt or invalid
-> > """
-> >
-> > I figured I'd reach out first as I'm sure this will be familiar to
-> someone :D
-> >
-> > Patrick
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> ---
+>  drivers/i2c/busses/i2c-aspeed.c | 200 +++++++++++++++++++-------------
+>  1 file changed, 118 insertions(+), 82 deletions(-)
 >
+> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+> index 60e4d0e939a3..ac3e17d9a365 100644
+> --- a/drivers/i2c/busses/i2c-aspeed.c
+> +++ b/drivers/i2c/busses/i2c-aspeed.c
+> @@ -4,6 +4,7 @@
+>   *  Copyright (C) 2012-2017 ASPEED Technology Inc.
+>   *  Copyright 2017 IBM Corporation
+>   *  Copyright 2017 Google, Inc.
+> + *  Copyright (c) 2018 Intel Corporation
+>   *
+>   *  This program is free software; you can redistribute it and/or modify
+>   *  it under the terms of the GNU General Public License version 2 as
+> @@ -12,6 +13,7 @@
+>
+>  #include <linux/clk.h>
+>  #include <linux/completion.h>
+> +#include <linux/delay.h>
+>  #include <linux/err.h>
+>  #include <linux/errno.h>
+>  #include <linux/i2c.h>
+> @@ -82,6 +84,11 @@
+>  #define ASPEED_I2CD_INTR_RX_DONE                       BIT(2)
+>  #define ASPEED_I2CD_INTR_TX_NAK                                BIT(1)
+>  #define ASPEED_I2CD_INTR_TX_ACK                                BIT(0)
+> +#define ASPEED_I2CD_INTR_ERRORS                                                       \
+> +               (ASPEED_I2CD_INTR_SDA_DL_TIMEOUT |                             \
+> +                ASPEED_I2CD_INTR_SCL_TIMEOUT |                                \
+> +                ASPEED_I2CD_INTR_ABNORMAL |                                   \
+> +                ASPEED_I2CD_INTR_ARBIT_LOSS)
+>  #define ASPEED_I2CD_INTR_ALL                                                  \
+>                 (ASPEED_I2CD_INTR_SDA_DL_TIMEOUT |                             \
+>                  ASPEED_I2CD_INTR_BUS_RECOVER_DONE |                           \
+> @@ -94,6 +101,7 @@
+>                  ASPEED_I2CD_INTR_TX_ACK)
+>
+>  /* 0x14 : I2CD Command/Status Register   */
+> +#define ASPEED_I2CD_XFER_MODE_STS_MASK                 GENMASK(22, 19)
+>  #define ASPEED_I2CD_SCL_LINE_STS                       BIT(18)
+>  #define ASPEED_I2CD_SDA_LINE_STS                       BIT(17)
+>  #define ASPEED_I2CD_BUS_BUSY_STS                       BIT(16)
+> @@ -110,23 +118,27 @@
+>  /* 0x18 : I2CD Slave Device Address Register   */
+>  #define ASPEED_I2CD_DEV_ADDR_MASK                      GENMASK(6, 0)
+>
+> +/* Timeout for bus busy checking */
+> +#define BUS_BUSY_CHECK_TIMEOUT                         250000 /* 250ms */
+> +#define BUS_BUSY_CHECK_INTERVAL                                10000  /* 10ms */
 
+Could you add a comment on where you got these values from?
 
--- 
-Regards,
-Kun
+Also, please use the same naming pattern as above.
 
---000000000000717788056f95b636
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> +
+>  enum aspeed_i2c_master_state {
+> +       ASPEED_I2C_MASTER_INACTIVE,
+>         ASPEED_I2C_MASTER_START,
+>         ASPEED_I2C_MASTER_TX_FIRST,
+>         ASPEED_I2C_MASTER_TX,
+>         ASPEED_I2C_MASTER_RX_FIRST,
+>         ASPEED_I2C_MASTER_RX,
+>         ASPEED_I2C_MASTER_STOP,
+> -       ASPEED_I2C_MASTER_INACTIVE,
+>  };
+>
+>  enum aspeed_i2c_slave_state {
+> +       ASPEED_I2C_SLAVE_STOP,
+>         ASPEED_I2C_SLAVE_START,
+>         ASPEED_I2C_SLAVE_READ_REQUESTED,
+>         ASPEED_I2C_SLAVE_READ_PROCESSED,
+>         ASPEED_I2C_SLAVE_WRITE_REQUESTED,
+>         ASPEED_I2C_SLAVE_WRITE_RECEIVED,
+> -       ASPEED_I2C_SLAVE_STOP,
+>  };
+>
+>  struct aspeed_i2c_bus {
+> @@ -150,6 +162,7 @@ struct aspeed_i2c_bus {
+>         int                             cmd_err;
+>         /* Protected only by i2c_lock_bus */
+>         int                             master_xfer_result;
+> +       u32                             irq_status;
+>  #if IS_ENABLED(CONFIG_I2C_SLAVE)
+>         struct i2c_client               *slave;
+>         enum aspeed_i2c_slave_state     slave_state;
+> @@ -229,37 +242,30 @@ static int aspeed_i2c_recover_bus(struct aspeed_i2c_bus *bus)
+>  #if IS_ENABLED(CONFIG_I2C_SLAVE)
+>  static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
+>  {
+> -       u32 command, irq_status, status_ack = 0;
+> +       u32 command, status_ack = 0;
+>         struct i2c_client *slave = bus->slave;
+> -       bool irq_handled = true;
+>         u8 value;
+>
+> -       spin_lock(&bus->lock);
+> -       if (!slave) {
+> -               irq_handled = false;
+> -               goto out;
+> -       }
+> +       if (!slave)
+> +               return false;
+>
+>         command = readl(bus->base + ASPEED_I2C_CMD_REG);
+> -       irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+>
+>         /* Slave was requested, restart state machine. */
+> -       if (irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH) {
+> +       if (bus->irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH) {
+>                 status_ack |= ASPEED_I2CD_INTR_SLAVE_MATCH;
+>                 bus->slave_state = ASPEED_I2C_SLAVE_START;
+>         }
+>
+>         /* Slave is not currently active, irq was for someone else. */
+> -       if (bus->slave_state == ASPEED_I2C_SLAVE_STOP) {
+> -               irq_handled = false;
+> -               goto out;
+> -       }
+> +       if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
+> +               return false;
+>
+>         dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
+> -               irq_status, command);
+> +               bus->irq_status, command);
+>
+>         /* Slave was sent something. */
+> -       if (irq_status & ASPEED_I2CD_INTR_RX_DONE) {
+> +       if (bus->irq_status & ASPEED_I2CD_INTR_RX_DONE) {
+>                 value = readl(bus->base + ASPEED_I2C_BYTE_BUF_REG) >> 8;
+>                 /* Handle address frame. */
+>                 if (bus->slave_state == ASPEED_I2C_SLAVE_START) {
+> @@ -274,28 +280,29 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
+>         }
+>
+>         /* Slave was asked to stop. */
+> -       if (irq_status & ASPEED_I2CD_INTR_NORMAL_STOP) {
+> +       if (bus->irq_status & ASPEED_I2CD_INTR_NORMAL_STOP) {
+>                 status_ack |= ASPEED_I2CD_INTR_NORMAL_STOP;
+>                 bus->slave_state = ASPEED_I2C_SLAVE_STOP;
+>         }
+> -       if (irq_status & ASPEED_I2CD_INTR_TX_NAK) {
+> +       if (bus->irq_status & ASPEED_I2CD_INTR_TX_NAK) {
+>                 status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>                 bus->slave_state = ASPEED_I2C_SLAVE_STOP;
+>         }
+> +       if (bus->irq_status & ASPEED_I2CD_INTR_TX_ACK) {
+> +               status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+> +       }
+>
+>         switch (bus->slave_state) {
+>         case ASPEED_I2C_SLAVE_READ_REQUESTED:
+> -               if (irq_status & ASPEED_I2CD_INTR_TX_ACK)
+> +               if (bus->irq_status & ASPEED_I2CD_INTR_TX_ACK)
+>                         dev_err(bus->dev, "Unexpected ACK on read request.\n");
+>                 bus->slave_state = ASPEED_I2C_SLAVE_READ_PROCESSED;
+> -
+>                 i2c_slave_event(slave, I2C_SLAVE_READ_REQUESTED, &value);
+>                 writel(value, bus->base + ASPEED_I2C_BYTE_BUF_REG);
+>                 writel(ASPEED_I2CD_S_TX_CMD, bus->base + ASPEED_I2C_CMD_REG);
+>                 break;
+>         case ASPEED_I2C_SLAVE_READ_PROCESSED:
+> -               status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+> -               if (!(irq_status & ASPEED_I2CD_INTR_TX_ACK))
+> +               if (!(bus->irq_status & ASPEED_I2CD_INTR_TX_ACK))
+>                         dev_err(bus->dev,
+>                                 "Expected ACK after processed read.\n");
+>                 i2c_slave_event(slave, I2C_SLAVE_READ_PROCESSED, &value);
+> @@ -318,15 +325,8 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
+>                 break;
+>         }
+>
+> -       if (status_ack != irq_status)
+> -               dev_err(bus->dev,
+> -                       "irq handled != irq. expected %x, but was %x\n",
+> -                       irq_status, status_ack);
+> -       writel(status_ack, bus->base + ASPEED_I2C_INTR_STS_REG);
+> -
+> -out:
+> -       spin_unlock(&bus->lock);
+> -       return irq_handled;
+> +       bus->irq_status ^= status_ack;
+> +       return !bus->irq_status;
+>  }
+>  #endif /* CONFIG_I2C_SLAVE */
+>
+> @@ -384,20 +384,19 @@ static int aspeed_i2c_is_irq_error(u32 irq_status)
+>
+>  static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>  {
+> -       u32 irq_status, status_ack = 0, command = 0;
+> +       u32 status_ack = 0, command = 0;
+>         struct i2c_msg *msg;
+>         u8 recv_byte;
+>         int ret;
+>
+> -       spin_lock(&bus->lock);
+> -       irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+> -       /* Ack all interrupt bits. */
+> -       writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
+> -
+> -       if (irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
+> +       if (bus->irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
+>                 bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>                 status_ack |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
+>                 goto out_complete;
+> +       } else {
+> +               /* Master is not currently active, irq was for someone else. */
+> +               if (bus->master_state == ASPEED_I2C_MASTER_INACTIVE)
+> +                       goto out_no_complete;
+>         }
+>
+>         /*
+> @@ -405,20 +404,23 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>          * should clear the command queue effectively taking us back to the
+>          * INACTIVE state.
+>          */
+> -       ret = aspeed_i2c_is_irq_error(irq_status);
+> -       if (ret < 0) {
+> -               dev_dbg(bus->dev, "received error interrupt: 0x%08x",
+> -                       irq_status);
+> +       ret = aspeed_i2c_is_irq_error(bus->irq_status);
+> +       if (ret) {
+> +               dev_dbg(bus->dev, "received error interrupt: 0x%08x\n",
+> +                       bus->irq_status);
+>                 bus->cmd_err = ret;
+>                 bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+> +               status_ack |= (bus->irq_status & ASPEED_I2CD_INTR_ERRORS);
+>                 goto out_complete;
+>         }
+>
+>         /* We are in an invalid state; reset bus to a known state. */
+>         if (!bus->msgs) {
+> -               dev_err(bus->dev, "bus in unknown state");
+> +               dev_err(bus->dev, "bus in unknown state irq_status: 0x%x\n",
+> +                       bus->irq_status);
+>                 bus->cmd_err = -EIO;
+> -               if (bus->master_state != ASPEED_I2C_MASTER_STOP)
+> +               if (bus->master_state != ASPEED_I2C_MASTER_STOP &&
+> +                   bus->master_state != ASPEED_I2C_MASTER_INACTIVE)
+>                         aspeed_i2c_do_stop(bus);
+>                 goto out_no_complete;
+>         }
+> @@ -430,7 +432,13 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>          * then update the state and handle the new state below.
+>          */
+>         if (bus->master_state == ASPEED_I2C_MASTER_START) {
+> -               if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+> +               if (unlikely(!(bus->irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+> +                       if (unlikely(!(bus->irq_status &
+> +                                    ASPEED_I2CD_INTR_TX_NAK))) {
+> +                               bus->cmd_err = -ENXIO;
+> +                               bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+> +                               goto out_complete;
+> +                       }
+>                         pr_devel("no slave present at %02x", msg->addr);
+>                         status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>                         bus->cmd_err = -ENXIO;
+> @@ -450,12 +458,13 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>
+>         switch (bus->master_state) {
+>         case ASPEED_I2C_MASTER_TX:
+> -               if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
+> -                       dev_dbg(bus->dev, "slave NACKed TX");
+> +               if (unlikely(bus->irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
+> +                       dev_dbg(bus->dev, "slave NACKed TX\n");
+>                         status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>                         goto error_and_stop;
+> -               } else if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+> -                       dev_err(bus->dev, "slave failed to ACK TX");
+> +               } else if (unlikely(!(bus->irq_status &
+> +                                     ASPEED_I2CD_INTR_TX_ACK))) {
+> +                       dev_err(bus->dev, "slave failed to ACK TX\n");
+>                         goto error_and_stop;
+>                 }
+>                 status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+> @@ -473,12 +482,12 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>                 goto out_no_complete;
+>         case ASPEED_I2C_MASTER_RX_FIRST:
+>                 /* RX may not have completed yet (only address cycle) */
+> -               if (!(irq_status & ASPEED_I2CD_INTR_RX_DONE))
+> +               if (!(bus->irq_status & ASPEED_I2CD_INTR_RX_DONE))
+>                         goto out_no_complete;
+>                 /* fallthrough intended */
+>         case ASPEED_I2C_MASTER_RX:
+> -               if (unlikely(!(irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
+> -                       dev_err(bus->dev, "master failed to RX");
+> +               if (unlikely(!(bus->irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
+> +                       dev_err(bus->dev, "master failed to RX\n");
+>                         goto error_and_stop;
+>                 }
+>                 status_ack |= ASPEED_I2CD_INTR_RX_DONE;
+> @@ -508,8 +517,11 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>                 }
+>                 goto out_no_complete;
+>         case ASPEED_I2C_MASTER_STOP:
+> -               if (unlikely(!(irq_status & ASPEED_I2CD_INTR_NORMAL_STOP))) {
+> -                       dev_err(bus->dev, "master failed to STOP");
+> +               if (unlikely(!(bus->irq_status &
+> +                              ASPEED_I2CD_INTR_NORMAL_STOP))) {
+> +                       dev_err(bus->dev,
+> +                               "master failed to STOP irq_status:0x%x\n",
+> +                               bus->irq_status);
+>                         bus->cmd_err = -EIO;
+>                         /* Do not STOP as we have already tried. */
+>                 } else {
+> @@ -520,8 +532,8 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>                 goto out_complete;
+>         case ASPEED_I2C_MASTER_INACTIVE:
+>                 dev_err(bus->dev,
+> -                       "master received interrupt 0x%08x, but is inactive",
+> -                       irq_status);
+> +                       "master received interrupt 0x%08x, but is inactive\n",
+> +                       bus->irq_status);
+>                 bus->cmd_err = -EIO;
+>                 /* Do not STOP as we should be inactive. */
+>                 goto out_complete;
+> @@ -543,26 +555,61 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>                 bus->master_xfer_result = bus->msgs_index + 1;
+>         complete(&bus->cmd_complete);
+>  out_no_complete:
+> -       if (irq_status != status_ack)
+> -               dev_err(bus->dev,
+> -                       "irq handled != irq. expected 0x%08x, but was 0x%08x\n",
+> -                       irq_status, status_ack);
+> -       spin_unlock(&bus->lock);
+> -       return !!irq_status;
+> +       bus->irq_status ^= status_ack;
+> +       return !bus->irq_status;
+>  }
+>
+>  static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
+>  {
+>         struct aspeed_i2c_bus *bus = dev_id;
+> +       u32 irq_received;
+> +
+> +       spin_lock(&bus->lock);
+> +       irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+> +       bus->irq_status = irq_received;
+>
+>  #if IS_ENABLED(CONFIG_I2C_SLAVE)
+> -       if (aspeed_i2c_slave_irq(bus)) {
+> -               dev_dbg(bus->dev, "irq handled by slave.\n");
+> -               return IRQ_HANDLED;
+> +       if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
+> +               if (!aspeed_i2c_master_irq(bus))
 
-<div dir=3D"ltr"><span style=3D"text-decoration-style:initial;text-decorati=
-on-color:initial;float:none;display:inline">libfdt fdt_path_offset() return=
-ed FDT_ERR_NOTFOUND</span><br><div><span style=3D"text-decoration-style:ini=
-tial;text-decoration-color:initial;float:none;display:inline"><br></span></=
-div><div><span style=3D"text-decoration-style:initial;text-decoration-color=
-:initial;float:none;display:inline">Might be caused a config change in U-bo=
-ot?</span></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Tu=
-e, Jun 26, 2018 at 6:10 PM Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.i=
-d.au">andrew@aj.id.au</a>&gt; wrote:<br></div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex=
-">On Wed, 27 Jun 2018, at 01:49, Patrick Venture wrote:<br>
-&gt; I assume this is just a recipe change such that I need to now specify<=
-br>
-&gt; something -- with OpenBMC v2.1 I see:<br>
-&gt; <br>
-&gt; &quot;&quot;&quot;<br>
-&gt; U-Boot 2016.07 (May 24 2018 - 12:55:55 -0700)<br>
-&gt; <br>
-&gt; DRAM:=C2=A0 120 MiB<br>
-&gt; WARNING: Caches not enabled<br>
-&gt; Flash: 64 MiB<br>
-&gt; *** Warning - bad CRC, using default environment<br>
-&gt; <br>
-&gt; In:=C2=A0 =C2=A0 serial<br>
-&gt; Out:=C2=A0 =C2=A0serial<br>
-&gt; Err:=C2=A0 =C2=A0serial<br>
-&gt; Net:=C2=A0 =C2=A0aspeednic#0<br>
-&gt; Error: aspeednic#0 address not set.<br>
-&gt; <br>
-&gt; Hit any key to stop autoboot:=C2=A0 0<br>
-&gt; ## Loading kernel from FIT Image at 20080000 ...<br>
-&gt;=C2=A0 =C2=A0 Using &#39;conf@1&#39; configuration<br>
-&gt;=C2=A0 =C2=A0 Trying &#39;kernel@1&#39; kernel subimage<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Description:=C2=A0 Linux kernel<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Type:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Kernel Imag=
-e<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Compression:=C2=A0 uncompressed<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Start:=C2=A0 =C2=A00x20080128<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Size:=C2=A0 =C2=A0 1721352 Bytes =3D 1.6 MiB<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Architecture: ARM<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 OS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Linux<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Load Address: 0x40008000<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Entry Point:=C2=A0 0x40008000<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash algo:=C2=A0 =C2=A0 sha1<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash value:=C2=A0 =C2=A0de140d9d803c22f731c4d99a42=
-50979489383a81<br>
-&gt;=C2=A0 =C2=A0 Verifying Hash Integrity ... sha1+ OK<br>
-&gt; ## Loading ramdisk from FIT Image at 20080000 ...<br>
-&gt;=C2=A0 =C2=A0 Using &#39;conf@1&#39; configuration<br>
-&gt;=C2=A0 =C2=A0 Trying &#39;ramdisk@1&#39; ramdisk subimage<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Description:=C2=A0 obmc-phosphor-initramfs<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Type:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RAMDisk Ima=
-ge<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Compression:=C2=A0 lzma compressed<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Start:=C2=A0 =C2=A00x2022ad00<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Size:=C2=A0 =C2=A0 1592362 Bytes =3D 1.5 MiB<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Architecture: ARM<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 OS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Linux<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Load Address: unavailable<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Entry Point:=C2=A0 unavailable<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash algo:=C2=A0 =C2=A0 sha1<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash value:=C2=A0 =C2=A09f6f2feb110e27e07f81bb60bb=
-372b4083672f19<br>
-&gt;=C2=A0 =C2=A0 Verifying Hash Integrity ... sha1+ OK<br>
-&gt; ## Loading fdt from FIT Image at 20080000 ...<br>
-&gt;=C2=A0 =C2=A0 Using &#39;conf@1&#39; configuration<br>
-&gt;=C2=A0 =C2=A0 Trying &#39;fdt@1&#39; fdt subimage<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Description:=C2=A0 Flattened Device Tree blob<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Type:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Flat Device=
- Tree<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Compression:=C2=A0 uncompressed<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Start:=C2=A0 =C2=A00x20224624<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Size:=C2=A0 =C2=A0 26139 Bytes =3D 25.5 KiB<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 Architecture: ARM<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash algo:=C2=A0 =C2=A0 sha1<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash value:=C2=A0 =C2=A037864a4c4a608d5f4e370bbccf=
-93ccbe3e77462d<br>
-&gt;=C2=A0 =C2=A0 Verifying Hash Integrity ... sha1+ OK<br>
-&gt;=C2=A0 =C2=A0 Booting using the fdt blob at 0x20224624<br>
-&gt;=C2=A0 =C2=A0 Loading Kernel Image ... OK<br>
-&gt;=C2=A0 =C2=A0 Loading Ramdisk to 47213000, end 47397c2a ... OK<br>
-&gt;=C2=A0 =C2=A0 Loading Device Tree to 47209000, end 4721261a ... OK<br>
-&gt; <br>
-&gt; Starting kernel ...<br>
-&gt; &quot;&quot;&quot;<br>
-&gt; <br>
-&gt; With v2.2 I see:<br>
-&gt; &quot;&quot;&quot;<br>
-&gt; U-Boot 2016.07 (Jun 25 2018 - 10:07:57 -0700)<br>
-&gt; <br>
-&gt; DRAM:=C2=A0 120 MiB<br>
-&gt; WARNING: Caches not enabled<br>
-&gt; Flash: 64 MiB<br>
-&gt; *** Warning - bad CRC, using default environment<br>
-&gt; <br>
-&gt; In:=C2=A0 =C2=A0 serial<br>
-&gt; Out:=C2=A0 =C2=A0serial<br>
-&gt; Err:=C2=A0 =C2=A0serial<br>
-&gt; Net:=C2=A0 =C2=A0aspeednic#0<br>
-&gt; Error: aspeednic#0 address not set.<br>
-&gt; <br>
-&gt; Hit any key to stop autoboot:=C2=A0 0<br>
-&gt; libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND<br>
-<br>
-From below it looks like u-boot finds the kernel in the FIT, but your ramdi=
-sk is &quot;corrupt&quot;. The error above suggests something is missing fr=
-om the FIT. Can you check the initrd/ramdisk node in your FIT to make sure =
-it is present and uses all the correct options and paths with respect to th=
-e initrd you intended to package?<br>
-<br>
-Might also be helpful to provide the content of the .its file.<br>
-<br>
-&gt; ## Loading kernel from FIT Image at 20080000 ...<br>
-&gt;=C2=A0 =C2=A0 Using &#39;conf@aspeed-bmc-quanta-q71l.dtb&#39; configura=
-tion<br>
-&gt;=C2=A0 =C2=A0 Trying &#39;kernel@1&#39; kernel subimage<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Description:=C2=A0 Linux kernel<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Type:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Kernel Imag=
-e<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Compression:=C2=A0 uncompressed<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Start:=C2=A0 =C2=A00x20080124<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Data Size:=C2=A0 =C2=A0 1723192 Bytes =3D 1.6 MiB<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Architecture: ARM<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 OS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Linux<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Load Address: 0x40008000<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Entry Point:=C2=A0 0x40008000<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash algo:=C2=A0 =C2=A0 sha1<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 Hash value:=C2=A0 =C2=A095ed76c9361d9f6f991a6a859a=
-06eb7626af80df<br>
-&gt;=C2=A0 =C2=A0 Verifying Hash Integrity ... sha1+ OK<br>
-&gt; Wrong Ramdisk Image Format<br>
-&gt; Ramdisk image is corrupt or invalid<br>
-&gt; &quot;&quot;&quot;<br>
-&gt; <br>
-&gt; I figured I&#39;d reach out first as I&#39;m sure this will be familia=
-r to someone :D<br>
-&gt; <br>
-&gt; Patrick<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"l=
-tr">Regards,<div>Kun</div></div></div>
+Why do you check the slave if master fails (or vice versa)? I
+understand that there are some status bits that have not been handled,
+but it doesn't seem reasonable to assume that there is state that the
+other should do something with; the only way this would happen is if
+the state that you think you are in does not match the status bits you
+have been given, but if this is the case, you are already hosed; I
+don't think trying the other handler is likely to make things better,
+unless there is something that I am missing.
 
---000000000000717788056f95b636--
+> +                       aspeed_i2c_slave_irq(bus);
+> +       } else {
+> +               if (!aspeed_i2c_slave_irq(bus))
+> +                       aspeed_i2c_master_irq(bus);
+>         }
+> +#else
+> +       aspeed_i2c_master_irq(bus);
+>  #endif /* CONFIG_I2C_SLAVE */
+>
+> -       return aspeed_i2c_master_irq(bus) ? IRQ_HANDLED : IRQ_NONE;
+> +       if (bus->irq_status)
+> +               dev_err(bus->dev,
+> +                       "irq handled != irq. expected 0x%08x, but was 0x%08x\n",
+> +                       irq_received, irq_received ^ bus->irq_status);
+> +
+> +       /* Ack all interrupt bits. */
+> +       writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
+> +       spin_unlock(&bus->lock);
+> +       return bus->irq_status ? IRQ_NONE : IRQ_HANDLED;
+> +}
+> +
+> +static int aspeed_i2c_check_bus_busy_timeout(struct aspeed_i2c_bus *bus)
+> +{
+> +       ktime_t timeout = ktime_add_us(ktime_get(), BUS_BUSY_CHECK_TIMEOUT);
+> +
+> +       might_sleep();
+> +
+> +       for (;;) {
+> +               if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+> +                     (ASPEED_I2CD_BUS_BUSY_STS |
+> +                      ASPEED_I2CD_XFER_MODE_STS_MASK)))
+
+Is using the Transfer Mode State Machine bits necessary? The
+documentation marks it as "for debugging purpose only," so relying on
+it makes me nervous.
+
+> +                       return 0;
+> +               if (ktime_compare(ktime_get(), timeout) > 0)
+> +                       break;
+> +               usleep_range((BUS_BUSY_CHECK_INTERVAL >> 2) + 1,
+
+Where did you get this minimum value?
+
+> +                            BUS_BUSY_CHECK_INTERVAL);
+> +       }
+> +
+> +       dev_err(bus->dev, "timeout waiting for idle. attempting recovery\n");
+> +       return aspeed_i2c_recover_bus(bus);
+>  }
+>
+>  static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+> @@ -570,22 +617,11 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+>  {
+>         struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
+>         unsigned long time_left, flags;
+> -       int ret = 0;
+> -
+> -       spin_lock_irqsave(&bus->lock, flags);
+> -       bus->cmd_err = 0;
+>
+> -       /* If bus is busy, attempt recovery. We assume a single master
+> -        * environment.
+> -        */
+> -       if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
+> -               spin_unlock_irqrestore(&bus->lock, flags);
+> -               ret = aspeed_i2c_recover_bus(bus);
+> -               if (ret)
+> -                       return ret;
+> -               spin_lock_irqsave(&bus->lock, flags);
+> -       }
+> +       if (aspeed_i2c_check_bus_busy_timeout(bus))
+> +               return -EAGAIN;
+>
+> +       spin_lock_irqsave(&bus->lock, flags);
+>         bus->cmd_err = 0;
+>         bus->msgs = msgs;
+>         bus->msgs_index = 0;
+> @@ -851,7 +887,7 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>         bus->rst = devm_reset_control_get_shared(&pdev->dev, NULL);
+>         if (IS_ERR(bus->rst)) {
+>                 dev_err(&pdev->dev,
+> -                       "missing or invalid reset controller device tree entry");
+> +                       "missing or invalid reset controller device tree entry\n");
+>                 return PTR_ERR(bus->rst);
+>         }
+>         reset_control_deassert(bus->rst);
+> --
+> 2.17.1
+>
