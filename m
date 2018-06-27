@@ -1,48 +1,65 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::241; helo=mail-ua0-x241.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="f5j8XujG"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
+ [IPv6:2607:f8b0:400c:c08::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41G9j04GZBzDrbK;
- Thu, 28 Jun 2018 04:01:56 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2018 11:01:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,280,1526367600"; d="scan'208";a="61936094"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.149])
- ([10.7.153.149])
- by fmsmga002.fm.intel.com with ESMTP; 27 Jun 2018 11:01:53 -0700
-Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use
- cases stably
-To: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Cc: James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
- <60d0dad1-b735-0650-47b4-40c57b1a5209@linux.intel.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <c1c361de-32a7-83b6-4d48-ad0750c6218b@linux.intel.com>
-Date: Wed, 27 Jun 2018 11:01:53 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41GG2l2HbVzF1Dg
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 07:17:34 +1000 (AEST)
+Received: by mail-ua0-x241.google.com with SMTP id v15-v6so2182335ual.11
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 14:17:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=H7yO915jIISVgzTkKUub9PvKTH51naOMvCwq17EX1cg=;
+ b=f5j8XujG6DlkIHKTE/CxZYyZp8/27t4xRSsXiQaE70btT/PSdzRQ0uvRUVkj9OoXES
+ RgI9PV/yVExCXZ0JBuSbGrdZrKy0RWdCHcaO7HktmQiHv9jHpyYFDiV4Ep22arbQotl7
+ GKo/4Pj5pHTO3XNK4tObMDhjimw2XyoVpRHsQYyLgjiQbxI1KIWfMok98rzSxuEUDq1+
+ YTG7AXx/NAE1Y18C7rAfpuOTZYswgnBoM3sOBJ61JIxJrJ4cUFSLxONfRUU0IE4LsR9h
+ GmmUuKX6H9WZ0sIF1uK56kqcvuZ7ezR9cyDe+10osJnI1VlN1X5KFDN1XtCM8s0w3x64
+ SbJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=H7yO915jIISVgzTkKUub9PvKTH51naOMvCwq17EX1cg=;
+ b=m7eXHVf1xoZwysOVDqr4LPidHVGbw+ggLmefwmTf7lLJ3ODrPEVBIqRSRvvxTt5PGD
+ 7sLwjQeoB/0gO1KUhQ4ZplA4xETrJVP6w7UkryX736fCLhy5IVCeepkL6dU491eqE0jh
+ zGNPMsjALguQhLmNPUU5r63C01QPgxOC/c0kTcRqFTkUkNjeeCQxvklLTaOCJVgPZUXH
+ KBq02MYb8wGgEG4Qs3qVks96OOkG7Xh263S4IVwqhdR0XU9psadlSqK7MYAxxogU5Bvr
+ drJOEhflcoY4ee9t4Ygx4HMwA9/+u+AyTHyGSCOQrWKREhVqxXiNtAoObli2ca3cJEN5
+ WqrA==
+X-Gm-Message-State: APt69E0I8RlO14PXzAhonIzh1abmHbMz1yBBQ25mlvLDNqoYXeasL+FX
+ W8OjA8R7k+8YIp50wqnP2ovfzDatxSxKXg6eLZlGAQ==
+X-Google-Smtp-Source: AAOMgpdgiy4a6mYhm5xpMSuFcD83DLmI28GtP1401IdeoTQb5zAhfdbKnmg362jZVKzpwkOCF1WHp1a8/Z7tiTeXxEU=
+X-Received: by 2002:ab0:1251:: with SMTP id
+ s17-v6mr4565819uac.37.1530134247258; 
+ Wed, 27 Jun 2018 14:17:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <60d0dad1-b735-0650-47b4-40c57b1a5209@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Received: by 2002:a1f:9b90:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 14:17:06
+ -0700 (PDT)
+In-Reply-To: <CAO=notz5Gjm2my0chpxmLbPGAJDftRB65VSYgQSRRaYbr8WRtg@mail.gmail.com>
+References: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
+ <1530061800.2502410.1421595168.7609B886@webmail.messagingengine.com>
+ <CAO=notwv8DYt7aR=6rOVOFvyA_CkrGgT31XG4A+KrDqyF55shw@mail.gmail.com>
+ <CAO=notz5Gjm2my0chpxmLbPGAJDftRB65VSYgQSRRaYbr8WRtg@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 27 Jun 2018 14:17:06 -0700
+Message-ID: <CAO=notwFtf7PDCix-Yqwe2hT7MoruR4eA2EGwxke90QeaO0y7Q@mail.gmail.com>
+Subject: Re: Merging up to OpenBMC v2.2 from v2.1 - boot problem, invalid
+ ramdisk format
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,61 +71,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jun 2018 18:01:57 -0000
+X-List-Received-Date: Wed, 27 Jun 2018 21:17:36 -0000
 
-Hi Jarkko,
-
-Thanks for the review. Please see my answer below.
-
-On 6/27/2018 12:48 AM, Jarkko Nikula wrote:
-> Hi
-> 
-> On 06/26/2018 07:58 PM, Jae Hyun Yoo wrote:
->> BMC firmware should support some multi-master use cases such as 
->> multi-node,
->> IPMB, BMC-ME link and so on but the current ASPEED I2C driver is a bit
->> unstable for the multi-master use case. So this patch improves ASPEED I2C
->> driver to support the multi-master use case stably.
+On Wed, Jun 27, 2018 at 8:39 AM, Patrick Venture <venture@google.com> wrote=
+:
+> On Wed, Jun 27, 2018 at 7:38 AM, Patrick Venture <venture@google.com> wro=
+te:
+>> On Tue, Jun 26, 2018 at 6:10 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>> On Wed, 27 Jun 2018, at 01:49, Patrick Venture wrote:
+>>>> I assume this is just a recipe change such that I need to now specify
+>>>> something -- with OpenBMC v2.1 I see:
+>>>>
+>>>> """
+>>>> U-Boot 2016.07 (May 24 2018 - 12:55:55 -0700)
+>>>>
+>>>> DRAM:  120 MiB
+>>>> WARNING: Caches not enabled
+>>>> Flash: 64 MiB
+>>>> *** Warning - bad CRC, using default environment
+>>>>
+>>>> In:    serial
+>>>> Out:   serial
+>>>> Err:   serial
+>>>> Net:   aspeednic#0
+>>>> Error: aspeednic#0 address not set.
+>>>>
+>>>> Hit any key to stop autoboot:  0
+>>>> ## Loading kernel from FIT Image at 20080000 ...
+>>>>    Using 'conf@1' configuration
+>>>>    Trying 'kernel@1' kernel subimage
+>>>>      Description:  Linux kernel
+>>>>      Type:         Kernel Image
+>>>>      Compression:  uncompressed
+>>>>      Data Start:   0x20080128
+>>>>      Data Size:    1721352 Bytes =3D 1.6 MiB
+>>>>      Architecture: ARM
+>>>>      OS:           Linux
+>>>>      Load Address: 0x40008000
+>>>>      Entry Point:  0x40008000
+>>>>      Hash algo:    sha1
+>>>>      Hash value:   de140d9d803c22f731c4d99a4250979489383a81
+>>>>    Verifying Hash Integrity ... sha1+ OK
+>>>> ## Loading ramdisk from FIT Image at 20080000 ...
+>>>>    Using 'conf@1' configuration
+>>>>    Trying 'ramdisk@1' ramdisk subimage
+>>>>      Description:  obmc-phosphor-initramfs
+>>>>      Type:         RAMDisk Image
+>>>>      Compression:  lzma compressed
+>>>>      Data Start:   0x2022ad00
+>>>>      Data Size:    1592362 Bytes =3D 1.5 MiB
+>>>>      Architecture: ARM
+>>>>      OS:           Linux
+>>>>      Load Address: unavailable
+>>>>      Entry Point:  unavailable
+>>>>      Hash algo:    sha1
+>>>>      Hash value:   9f6f2feb110e27e07f81bb60bb372b4083672f19
+>>>>    Verifying Hash Integrity ... sha1+ OK
+>>>> ## Loading fdt from FIT Image at 20080000 ...
+>>>>    Using 'conf@1' configuration
+>>>>    Trying 'fdt@1' fdt subimage
+>>>>      Description:  Flattened Device Tree blob
+>>>>      Type:         Flat Device Tree
+>>>>      Compression:  uncompressed
+>>>>      Data Start:   0x20224624
+>>>>      Data Size:    26139 Bytes =3D 25.5 KiB
+>>>>      Architecture: ARM
+>>>>      Hash algo:    sha1
+>>>>      Hash value:   37864a4c4a608d5f4e370bbccf93ccbe3e77462d
+>>>>    Verifying Hash Integrity ... sha1+ OK
+>>>>    Booting using the fdt blob at 0x20224624
+>>>>    Loading Kernel Image ... OK
+>>>>    Loading Ramdisk to 47213000, end 47397c2a ... OK
+>>>>    Loading Device Tree to 47209000, end 4721261a ... OK
+>>>>
+>>>> Starting kernel ...
+>>>> """
+>>>>
+>>>> With v2.2 I see:
+>>>> """
+>>>> U-Boot 2016.07 (Jun 25 2018 - 10:07:57 -0700)
+>>>>
+>>>> DRAM:  120 MiB
+>>>> WARNING: Caches not enabled
+>>>> Flash: 64 MiB
+>>>> *** Warning - bad CRC, using default environment
+>>>>
+>>>> In:    serial
+>>>> Out:   serial
+>>>> Err:   serial
+>>>> Net:   aspeednic#0
+>>>> Error: aspeednic#0 address not set.
+>>>>
+>>>> Hit any key to stop autoboot:  0
+>>>> libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND
+>>>
+>>> From below it looks like u-boot finds the kernel in the FIT, but your r=
+amdisk is "corrupt". The error above suggests something is missing from the=
+ FIT. Can you check the initrd/ramdisk node in your FIT to make sure it is =
+present and uses all the correct options and paths with respect to the init=
+rd you intended to package?
 >>
->> Changes:
->> * Added XFER_MODE status register checking logic into
->>    aspeed_i2c_master_xfer to improve the current bus busy checking logic.
->> * Changed the order of enum aspeed_i2c_master_state and
->>    enum aspeed_i2c_slave_state defines to make their initial values 
->> set to
->>    ASPEED_I2C_MASTER_INACTIVE and ASPEED_I2C_SLAVE_STOP respectively.
->>    In case of multi-master use with previous code, if a slave data comes
->>    ahead of the first master xfer, master_state starts from an invalid
->>    state. This change fixed the issue.
->> * Adjusted spin_lock scope to make it wrap the whole irq handler using
->>    a single lock and unlock pair covers both master and slave handlers.
->> * Added irq_status variable as a member of the struct aspeed_i2c_bus to
->>    collect handled interrupt bits throughout the master and the slave irq
->>    handlers.
->> * Added control logic to put an order on calling the master and the slave
->>    irq handlers based on their current states.
+>> I'll take a look -- one thought I had last night is that now the
+>> kernel config bit above is using the dts -- and IIRC, there have been
+>> changes to the flash layout.  So, maybe my device tree being used here
+>> is out-of-date or doesn't match what it's expecting now.  I'm still on
+>> the 4.7.10 kernel as I haven't had a chance to get the host booted
+>> with 4.13 (although that's high on my todo list).
+>
+> My layout idea didn't pan out -- I'm going to try 4.13 kernel with
+> v2.2 openbmc -- I had tried 4.13 with v2.0 and it worked (other than
+> the host wouldn't boot).  So, I'm going to give that a quick try so
+> I"m at least failing on something up-to-date.
+
+The BMC is able to boot using the 4.13 kernel.  So the issue must be
+something incompatible or unhappy.  As a reason to force cycles to get
+to 4.13, this will do the trick.
+
+>
 >>
-> This does many unrelated looking changes in one patch making it more 
-> vulnerable for potential multiple regressions. For instance busy 
-> checking goes from single read to loop with 250 ms timeout in this patch 
-> while changing also spin lock logic and interrupt handling.
-> 
-> Now if there is some regression it might be difficult to find what 
-> change in this patch is causing it and more over things goes more 
-> complicated if some other kind of regressions are found pointing into 
-> the same commit.
-> 
-> I suggest splitting this into multiple smaller patches. For instance 
-> having first simple conversions patches that are unlikely to cause a 
-> regression like one patch adding '\n' to error print, another moving 
-> irq_status variable into struct aspeed_i2c_bus and so on followed by 
-> patches that change logic like busy checking, spin lock change and then 
-> patch or more for multi-master support.
-> 
-
-Yes, that makes sense and I agree with you. I'll split out this patch
-into multiple smaller patches as you suggested.
-
-Thanks,
-
-Jae
+>>>
+>>> Might also be helpful to provide the content of the .its file.
+>>>
+>>>> ## Loading kernel from FIT Image at 20080000 ...
+>>>>    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
+>>>>    Trying 'kernel@1' kernel subimage
+>>>>      Description:  Linux kernel
+>>>>      Type:         Kernel Image
+>>>>      Compression:  uncompressed
+>>>>      Data Start:   0x20080124
+>>>>      Data Size:    1723192 Bytes =3D 1.6 MiB
+>>>>      Architecture: ARM
+>>>>      OS:           Linux
+>>>>      Load Address: 0x40008000
+>>>>      Entry Point:  0x40008000
+>>>>      Hash algo:    sha1
+>>>>      Hash value:   95ed76c9361d9f6f991a6a859a06eb7626af80df
+>>>>    Verifying Hash Integrity ... sha1+ OK
+>>>> Wrong Ramdisk Image Format
+>>>> Ramdisk image is corrupt or invalid
+>>>> """
+>>>>
+>>>> I figured I'd reach out first as I'm sure this will be familiar to som=
+eone :D
+>>>>
+>>>> Patrick
