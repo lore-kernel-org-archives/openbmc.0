@@ -1,71 +1,73 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::234; helo=mail-qt0-x234.google.com;
+ (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="vZDCEGtl"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NulQ6M2Q"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="ckdbIXAQ"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="gUaL1sm8"; 
  dkim-atps=neutral
-Received: from mail-qt0-x234.google.com (mail-qt0-x234.google.com
- [IPv6:2607:f8b0:400d:c0d::234])
+Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
+ [IPv6:2607:f8b0:400d:c0d::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41GMfS2PT9zF1Hf
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 11:30:23 +1000 (AEST)
-Received: by mail-qt0-x234.google.com with SMTP id s47-v6so3389465qth.7
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jun 2018 18:30:23 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41GRCf1xTMzF1LQ;
+ Thu, 28 Jun 2018 14:10:53 +1000 (AEST)
+Received: by mail-qt0-x244.google.com with SMTP id i18-v6so3602582qtp.12;
+ Wed, 27 Jun 2018 21:10:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=Cwy30a6UkOw36HJd8X0udwApsjX4Q1mU60T1GGfL2Ws=;
- b=vZDCEGtlTmkP893X8LMQHgHsYgLiV7XRPm5S3W8xl0hGte/Rumes+IrcjcdWuL7fpg
- g1tdh5kl9DaNNel8lAqOpWWKUvhJp8hKmE2JpT/YUfFaU7SpblRK+OSXnxs3QbSraz3c
- 5xfihJKIvrCxmp2xGWVufkgwMS8hYnLTtdJpp4CNW7imAGtkTlalGVA0WJwNE6ji5jja
- EYsklWHETozIKnG/y3Gz4g/bf081kka9e8Y7URzwHSKbC9vB193v+z9rhA3Nm7YkRpj8
- BlJ5pUwQQ6prIkVMeObBGNzQZnBi1NEdPiwmjKHpou7TqlKRAWPycZBSK3K0uW2PsWsh
- 7p7g==
+ bh=ddqzPl+2FdM/pYTJ5wcVoNklu71q5uAAoz8OEGTkthE=;
+ b=NulQ6M2Q+Pp6belU2OCV140gTMJ5egdaBSVZ16lNm62hFpmooX2x1I86rfh0vLuaCV
+ ZK1btxrL7sYvK7U7VU3aUlnm8doSc1vkjLoGRB+ozZKsOGlc/ZxpcZZqDUEQLux3ll+A
+ ay97XRi3I6h1gxMvuN2d9NaTUrRVs79AQi5rKKCLxDJ0zqgttDH7BfRl8iH/38lStBkt
+ OzQSBA4LjlIUBMAT+k9/WA2z8UdyYDgftXLp+HQLMw1eKsQKwy/PaYsGbk9dbXt4unNR
+ zbVETnodi3+c2H1bcEeUg76xvMs6QuPREkZvBPlpK1wZYK9jVzQGtZ1iQb/ah7WZVTXe
+ TlpQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=Cwy30a6UkOw36HJd8X0udwApsjX4Q1mU60T1GGfL2Ws=;
- b=ckdbIXAQnZiZnwi9k2UugpCz5N/b/QIJJFhmKMP/Aiow1tJfW48b6SBDTgIvakTvID
- WOUknyk7SOKSsqRoCHHTlsifdnmevAQaLOWWqVDbhNiDtkWdvmB3q1NDgvs37wsfzz1O
- bh1/33KdQEgI5TYrhE/70jxml9EUEjJqvz5GY=
+ bh=ddqzPl+2FdM/pYTJ5wcVoNklu71q5uAAoz8OEGTkthE=;
+ b=gUaL1sm8X4JpCggUAWRQO//5bSg4LVxLp2CJ0lBSDY4lBoEcHuGk1uxy7I3mXfQKHL
+ ar8ykNoMInL9MDv1K7PIQ+TRoNxIvPaLn9rcUP2ZoFe1wy8+YwqPus6G3+SKjTNZVqZ3
+ sqNfy/enMlB5fKB7UMSnhX9V4jQG5hcGafXl0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=Cwy30a6UkOw36HJd8X0udwApsjX4Q1mU60T1GGfL2Ws=;
- b=hIe3tKq6KA/puNk8Jn67naPcHZB5T6nBrdOkiVHU7Mu3f73eVJIAwoj74Bq17MTYMz
- ct8Y5ojLP1jiWTO/gWUWk/JVoEN8XCssceaZyyhjJpBTIUPz5BxbhS0y2y9vahUrGVSs
- yLtrEln6kNrIVgbPRARdqXwQ/spCzWYD/AN6HBmW87WIKiG9C/wvTqwuOmuylmPKDQY0
- jgY+bQIvuasFzgm5TbG6K8P5zqvhHcBlwYNtKEeC2FroBfLyAina4dWMjacr7QJm7Gwk
- 5+4fQqH0mJtCBSwtGSSE7hXiQJlMM+s+7oNmnR/sOSNlerRsbfuvJP2+LFW2h7ttaNuh
- Xukw==
-X-Gm-Message-State: APt69E1Gd/F57PCaBFar/uW+BkdfcLUxS+W5gQA7WVW61k4smTQnvHxr
- g838a6QVPGWeGu3qwUq/c98lWzAGR+OPZFalZwA=
-X-Google-Smtp-Source: AAOMgpcXZpG1ciKLAiFYTuc44QiW/ZIrkRCjfSEZoZDnOH6+koMByh13lrkhJhZNNWNte6W+DLqeEJYo0/p/+kThW/0=
-X-Received: by 2002:ac8:679a:: with SMTP id
- b26-v6mr590655qtp.347.1530149421418; 
- Wed, 27 Jun 2018 18:30:21 -0700 (PDT)
+ bh=ddqzPl+2FdM/pYTJ5wcVoNklu71q5uAAoz8OEGTkthE=;
+ b=DBvQ77U0AgyaUtBK/l6PGnTblSl47hLMT9JZoRsVu4P6rc+kBGMaTXcdHF/dWs3Q4C
+ /fV9jSOhloKeIEUURGUiwRNDTsVA2bcMOfpZMJSws+cr7QWFQofGznRlLLiENpkx2YYv
+ +Eu83milBo/RMy0q446EvwdQbApv44P0886jrqldZMcwDQNujOQ6q879Y/UqdElLndfm
+ Iq4okMFtXDQdHhHK7feQaeK255UR4JSeik6XTR3hONSS5Om656dABRGg61UlAuYCAb6T
+ JubVc+JjIZoRod27v0w4us5uZXaFQFG4GI4FSyyXZMTnuH9CZJ5s7Z/BzDLhcwf6DaMK
+ GAkA==
+X-Gm-Message-State: APt69E1u0L7wGDneZHHPH9/5g8Md8NBCCcCC06oCBqAiWrs7QIPJEbOO
+ UyJlj2m5jalYPGMT1XQnHK5RKz2+Zdt4bSzemCw=
+X-Google-Smtp-Source: AAOMgpdMHBBFK2tQ/TgLCSMJj30Zf9LGFzRiKs8yUgr52IO87ba5FCa1zKGNe+pWEyho5X8QPr1u4koiytHImqurGok=
+X-Received: by 2002:aed:24f0:: with SMTP id
+ u45-v6mr448065qtc.340.1530159051164; 
+ Wed, 27 Jun 2018 21:10:51 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 18:30:00
+Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 21:10:30
  -0700 (PDT)
-In-Reply-To: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
-References: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
+In-Reply-To: <20180626232109.10944-2-benh@kernel.crashing.org>
+References: <20180626232109.10944-1-benh@kernel.crashing.org>
+ <20180626232109.10944-2-benh@kernel.crashing.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 28 Jun 2018 11:00:00 +0930
-X-Google-Sender-Auth: 2MimWPkt48xI6LbYpjXy9cOjU-U
-Message-ID: <CACPK8XfhTdg8NCpvBbgGev1o9oa0f7+RYhYvXzSs5Mr_b7=AsA@mail.gmail.com>
-Subject: Re: Merging up to OpenBMC v2.2 from v2.1 - boot problem, invalid
- ramdisk format
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 28 Jun 2018 13:40:30 +0930
+X-Google-Sender-Auth: 4r2TP0yUQ8ArdqVnY_tVqgqFqjE
+Message-ID: <CACPK8XcoW6HCkpYYhFvyVkjzDrWYAzRLcXpnLVpaR+8wcjrhqA@mail.gmail.com>
+Subject: Re: [PATCH 01/14] devres: Add devm_of_iomap()
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ devicetree <devicetree@vger.kernel.org>, Andrew Jeffery <andrew@aj.id.au>, 
+ linux-kernel@vger.kernel.org-v2
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
@@ -78,36 +80,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jun 2018 01:30:26 -0000
+X-List-Received-Date: Thu, 28 Jun 2018 04:10:55 -0000
 
-On 27 June 2018 at 01:49, Patrick Venture <venture@google.com> wrote:
-
-> Hit any key to stop autoboot:  0
-> libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND
-> ## Loading kernel from FIT Image at 20080000 ...
->    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
->    Trying 'kernel@1' kernel subimage
->      Description:  Linux kernel
->      Type:         Kernel Image
->      Compression:  uncompressed
->      Data Start:   0x20080124
->      Data Size:    1723192 Bytes = 1.6 MiB
->      Architecture: ARM
->      OS:           Linux
->      Load Address: 0x40008000
->      Entry Point:  0x40008000
->      Hash algo:    sha1
->      Hash value:   95ed76c9361d9f6f991a6a859a06eb7626af80df
->    Verifying Hash Integrity ... sha1+ OK
-> Wrong Ramdisk Image Format
-> Ramdisk image is corrupt or invalid
-> """
+On 27 June 2018 at 08:50, Benjamin Herrenschmidt
+<benh@kernel.crashing.org> wrote:
+> There are still quite a few cases where a device might want
+> to get to a different node of the device-tree, obtain the
+> resources and map them.
 >
-> I figured I'd reach out first as I'm sure this will be familiar to someone :D
+> We have of_iomap() and of_io_request_and_map() but they both
+> have shortcomings, such as not returning the size of the
+> resource found (which can be useful) and not being "managed".
+>
+> This adds a devm_of_iomap() that provides all of these and
+> should probably replace uses of the above in most drivers.
+>
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
-This is due to a change Brad made to the u-boot setup. If you change
-your bootcmd to simply be 'bootm 20080000' you might be fine.
-
-Cheers,
-
-Joel
+Reviewed-by: Joel Stanley <joel@jms.id.au>
