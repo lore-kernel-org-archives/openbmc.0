@@ -1,69 +1,70 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::231; helo=mail-qt0-x231.google.com;
+ (client-ip=2607:f8b0:400d:c0d::232; helo=mail-qt0-x232.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="JADmYlH9"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nf/A81mj"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="Sd1+gB1X"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="cniQVoSJ"; 
  dkim-atps=neutral
-Received: from mail-qt0-x231.google.com (mail-qt0-x231.google.com
- [IPv6:2607:f8b0:400d:c0d::231])
+Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
+ [IPv6:2607:f8b0:400d:c0d::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41GRFS44PDzF1Nj;
- Thu, 28 Jun 2018 14:12:28 +1000 (AEST)
-Received: by mail-qt0-x231.google.com with SMTP id y20-v6so3610671qto.8;
- Wed, 27 Jun 2018 21:12:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41GRFb5fTVzF1Nj;
+ Thu, 28 Jun 2018 14:12:35 +1000 (AEST)
+Received: by mail-qt0-x232.google.com with SMTP id o9-v6so3627844qtp.3;
+ Wed, 27 Jun 2018 21:12:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=wBMyEArjaVNzZAe9wNYG3G97pFpmCcAlOcFVFn6bA7s=;
- b=JADmYlH9t8Ysj0QsKzwxF17aUKVG0CFPIynVPKWaXIE8aZ/fEz/Twr28LSb19uEeEX
- PwR+Cns9lJODknSuHF8tAaMIhY3Xj2D7oLF60EzzjVBSBUj2qobRUrw4XssNitIiqWOV
- zr7WnMW2HbtLrEotwIfZEaRdR36/82Cys2H2FiDRebCe0Ya5HghyDVWKI6p7zIHBmTcl
- thrayZpQdFR0N8QcEFeBf4c6m165obN3rk/uQ6H+r50IAAkGxxHp2amnPOTmpLA7Jf0C
- gvfknzH8qUSFFCb17vw0pbRi8wsv2tooM8pDB8taNGEuVI53Q1gDPUutoiPxtjlwfumz
- 2XCQ==
+ bh=FcyLcZW4/T6IGX7pMbswQ4WwGic9hwaq4a6s3YaMnv0=;
+ b=nf/A81mjZjmFt9CN00EA8OC5rQ10q9meENrB92ieziMfmtCD6/yJ0RGOQ/7NtEEIXD
+ w7wtywPdJhHtyJyGXHTo0jEUgw81TzfJs7PT/nrAzxzaZyjjGoqztUkBPNjgzplgxhee
+ M91YG4fgd4onq6I238hmVfKsYFFdbHvBagPWJF74oTEK4RH9u2M2wN50y/tHZstoHAIw
+ OUFGluDrXTGLGk7s8mmUVe+dKOO207VJpB/lN/eYiXLbFJp/IPOCTTO0A4h2uXBq01Aw
+ zKKAVrvWr3OOeZyNR72z0JYfBI8TjIwVUgPu6y0kYlEY454WYwtllTFcWeAGAE+nmlTs
+ UsJw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=wBMyEArjaVNzZAe9wNYG3G97pFpmCcAlOcFVFn6bA7s=;
- b=Sd1+gB1XsYktVkbt2wYPJZ5v287/swToyA2uZNtAaorDiNRXUQxerOyy94rvRLpAWS
- kN8R5OQ5ImzDzXqOWmqgKzrYS6NHUXa0kQMJxrEqGrHN05VpW9N5qOU7g+gSLlMla4tp
- +weUt2zTB3pMocPbRPqmrikYzBKCEzaWu0sws=
+ bh=FcyLcZW4/T6IGX7pMbswQ4WwGic9hwaq4a6s3YaMnv0=;
+ b=cniQVoSJwV1yuhBdmP8VySSdhsLCEfXmuF46NCZ/CJn5b58cHig4AxnQH0HTEHAagA
+ 42VzvDz2XsEUOTswxVKKuVdAqoCSflCR0x0+Cs5RFspgJQYR0VVrpgat3z7mDUnkC3/l
+ Td6QM2osbUFe7s4+QZ1NCpIjo4wSX/ypJlYqk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=wBMyEArjaVNzZAe9wNYG3G97pFpmCcAlOcFVFn6bA7s=;
- b=aTNH8TVN7cwYx1g8QDfnsN99mw5iIedS3MEiH4ylzINeI7M0sSsHFhcwAyu/LXq2Ts
- TsxZu0uypPrcqjcV0PT48xPB3aEPD9dUCQ4/aNc0+M9H8+pVu7MC+26J/y8h+bjMfRsh
- lOlVkSRwUlbUPkCqmj5tz66aS2EgDsxl5enTpNbKyrSzWWAz9iZmtpFpHoXQqWhiP4A4
- a6eSHYrjkiq8nUDqqdCxowpcIsvNuIqELfGY/+i65/T2YHDrwgkbmvz1VOtq9PX2relV
- OjtkHo4aOK4Sn+xsHjU0yg7kpD8wg6Hy7ypLRdgtuXf+zI2FSGcDUNYkc3DKBmVbc83M
- xixQ==
-X-Gm-Message-State: APt69E0KRmmK3GEaFX4uprzxGkGJQioP/l8BOqhUmHq0V+STNA1Wb8rV
- qah3jhAcF5ycN3e7nS6/B2OgHnrNI4QKaAsjLBU=
-X-Google-Smtp-Source: AAOMgpdL7QmRyCkIFLWY440UQKWF6FnmPn6JJnyt7zNimwWgruxfkpkSo9+SUwm1NLMxR+cXg0S1HowxaHiBhuQRI5w=
-X-Received: by 2002:a0c:a943:: with SMTP id
- z3-v6mr7766738qva.208.1530159146177; 
- Wed, 27 Jun 2018 21:12:26 -0700 (PDT)
+ bh=FcyLcZW4/T6IGX7pMbswQ4WwGic9hwaq4a6s3YaMnv0=;
+ b=fWyrgNymgG0dEivk1O1jb47i7orAQRJpLjL7wNW2TsPfGmvbBwjL8UKjwGcQsaU/Z3
+ 6VecUXN7KBuve266NiPavwRzNkrp3Zhmhsh8NtMWu8YHuaXv8A2xJ+4yy7dMg9RLygph
+ xxIYu0ataY+kC/eqOPukTitOmyKiCLhqHaZh33M4xwzUF6TPcH/oR9uJFsHTdUWCIzh9
+ 6+laB+1FL8kwkH33JBQJ4MTgqI/0IwpRxw/OlrJCkMPuL1z8htQ6TuUAgQvIXQYR6Kpg
+ JyC5lS0a5Z2ONSU7qe+8R/z68SJYnaaSztLXc5alx40gLvGkIYxwoTS9r6tyablkSRDz
+ QICw==
+X-Gm-Message-State: APt69E2SeCffflcqU7NtvpnivHpw8nP7y4kMbBbSfxAJ6tw3jNBxwmEF
+ MC5tls4dQaDzVvwh4eisrJqQEs4+HdEnFrkve/E=
+X-Google-Smtp-Source: AAOMgpe8BZ37LXT8LzMOtzBjrl+7sqAsgUZ7b2SBtzJbw5XIE2JoVEoVotbHbjVVfBUf2irQh3MRTBDlCDcPb6F94uk=
+X-Received: by 2002:a0c:9b93:: with SMTP id
+ o19-v6mr7873993qve.89.1530159153653; 
+ Wed, 27 Jun 2018 21:12:33 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 21:12:05
+Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 21:12:13
  -0700 (PDT)
-In-Reply-To: <20180626232605.13420-10-benh@kernel.crashing.org>
+In-Reply-To: <20180626232605.13420-11-benh@kernel.crashing.org>
 References: <20180626232605.13420-1-benh@kernel.crashing.org>
- <20180626232605.13420-10-benh@kernel.crashing.org>
+ <20180626232605.13420-11-benh@kernel.crashing.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 28 Jun 2018 13:42:05 +0930
-X-Google-Sender-Auth: XQY3RutJhIjSRLfSBJQsBlhc9ew
-Message-ID: <CACPK8Xf0AKAgwH7JBcRNg=2jbW4Q+5XgGOkn1AHBf4X-3ASZfA@mail.gmail.com>
-Subject: Re: [PATCH 09/14] fsi: master-gpio: Add missing release function
+Date: Thu, 28 Jun 2018 13:42:13 +0930
+X-Google-Sender-Auth: MekCtuqhv1P6kvLe-wfes2C_BKU
+Message-ID: <CACPK8XeAg8v-9-PX0wxP7tK5Eb3JrgdPUYaOpRPnzEwtW0BfXA@mail.gmail.com>
+Subject: Re: [PATCH 10/14] fsi: Move various master definitions to a common
+ header
 To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 Cc: linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  devicetree <devicetree@vger.kernel.org>, Andrew Jeffery <andrew@aj.id.au>, 
@@ -80,17 +81,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jun 2018 04:12:29 -0000
+X-List-Received-Date: Thu, 28 Jun 2018 04:12:36 -0000
 
 On 27 June 2018 at 08:56, Benjamin Herrenschmidt
 <benh@kernel.crashing.org> wrote:
-> The embedded struct device needs a release function to be
-> able to successfully remove the driver.
->
-> We remove the devm_gpiod_put() as they are unnecessary
-> (the resources will be released automatically) and because
-> fsi_master_unregister() will cause the master structure to
-> be freed.
+> This moves the definitions for various protocol details
+> (message & response codes, delays etc...) out of
+> fsi-master-gpio.c to fsi-master.h in order to share them
+> with other master implementations.
 >
 > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
