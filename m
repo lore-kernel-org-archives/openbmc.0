@@ -1,75 +1,71 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <tmaimon77@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::241; helo=mail-qk0-x241.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="bbzhei/t"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="U4gmHeAY"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vpgl2tTJ"; 
  dkim-atps=neutral
-Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
- [IPv6:2607:f8b0:400d:c09::241])
+Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
+ [IPv6:2607:f8b0:4001:c0b::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41GSNv48DbzF1Mm;
- Thu, 28 Jun 2018 15:03:58 +1000 (AEST)
-Received: by mail-qk0-x241.google.com with SMTP id a132-v6so2330331qkg.3;
- Wed, 27 Jun 2018 22:03:58 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41GcK26FMJzF1LS
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 21:01:10 +1000 (AEST)
+Received: by mail-it0-x242.google.com with SMTP id k17-v6so21173558ita.0
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 04:01:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=IvqXIzZi3p3meeJg1yvo7ES8eMFJzAPjo+3AMXixJus=;
- b=bbzhei/tO8RKLQHmWWETVFSfx7Ak+UFxuyuW1ej9ois2+/wzWZQYYsFzLQ4L9xAbr0
- MJs/hyWNzdpS3n7SCL1S/KZhQcai5pS8N4OOo60ypU/IXiaJlioNJvH+mTXfKAtGML0B
- UNoWY8cMrK7meWJA2ao0hPbzdjND68/EAnusp10jt4HWT6vqWsrOjemJ/XIEHb1NzsPD
- RhUpNeHY7JPW7EzWVhMoCdniVKf+4+0Ut8fj6TlAV4vw2Jvydz7ekmysXtebmRTLZHjt
- 26vEx+1ZH3snSwCEXgbiujI5VboI89LO/NrfsrduFzhac7jdp1hrMoYxg9sL8PTzCuxe
- Zv0w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=IvqXIzZi3p3meeJg1yvo7ES8eMFJzAPjo+3AMXixJus=;
- b=U4gmHeAY3Tz4NMtNLlI20Q/kFVQyrs735h7ZSbOtfCCh/LhvsFL4XkxMkk5ZXFHqfk
- 7C8457liAPIBu7lSG/MAlzuQM+hp6Lj3KO/N2WSNEwm6hhTdiMTRmAEC+uwi92pKH7tH
- SVvRzjMpRqCr16n+lxX24ytobW4uluoeVtzXo=
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=0ea1tdTc5Mhpd5nID+N5Y+/XCCQa6tLtj1rLibYOdQ8=;
+ b=Vpgl2tTJRgK+AKS0S2rLSfHaBe9GlGs+lPxMEF34daSoHBOKD3MiJqwSJWxuUfXnuy
+ 5va54JR5E63hi7BpQwhNP1th2eyo6z17uFPVlDjU9aspbGMmFP7Z/7hpy24fNkHhu20i
+ EZOdo4kms2turOK4I7PV0EIGH//Yk3k7k9a5R/LEEB7Lp+VOzQlwEL4x9+Ko0CeOcBQm
+ MEGA+ji//JRyviTfEa28pxa3G5F4c4h7D/Oo6HzwWcXWWsgqs6U9YeWzam9vdlVnwKSr
+ LrFNZ0w9fBd0vobh3Q5AvJkmFCSyDUZTfFJSddfs8JSmfPtIaz/1e/3gnGI4wuW3rah6
+ zgEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=IvqXIzZi3p3meeJg1yvo7ES8eMFJzAPjo+3AMXixJus=;
- b=o+0dsuk4aixBqb+48IGwG7Pr0XbpOWSklR6eVGnxOHG+iDE0m7iERjkpFKpYDG+dsp
- H6fj5DATKd8/SM8ufsM0dk4cgDB224YJ+y+ZbILbee8CiS9b2ciSm8NPmdCIxSq8PGr+
- REBOp7pfMSnc3OGtY3cwED+T4T3yg3g+/yX+5CNLQvrPXZIgq5IZ2C0Vt5UCBgHWmD8k
- opVKAiMnkORmTPDXedBBPWqv5uYuR8LXJFmF4RS6eVcNNM/S7ePglWNIBJepjrHIx36Y
- OmvdfxpjsEZd+a+0hziwgO2O83fRIiA3p0TAsylKBY7ONku7SRMFA5LZ29wcLolN9yOt
- eRkQ==
-X-Gm-Message-State: APt69E3deyHF6BFOyxZrrWuZrb8DpNt119DjuXGWCUGzNO9yGNIBDlkq
- WcV9mJZljFcB1bp46CUB5jQ6ubXQVlg2VqbzoQo=
-X-Google-Smtp-Source: AAOMgpcDFw+/UoGWPaItsNh6ru6g3MZk5gPgWpiMVSVLDaJ7EeCmIoX11kwjd0gUBJV8dWvVTUBNx/sd6W0brJv65aA=
-X-Received: by 2002:a37:dd4e:: with SMTP id
- n75-v6mr7251665qki.370.1530162236186; 
- Wed, 27 Jun 2018 22:03:56 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=0ea1tdTc5Mhpd5nID+N5Y+/XCCQa6tLtj1rLibYOdQ8=;
+ b=bBLcjvOqbykdKgMv1sYcVK5X7tCapQoYTECjg0sWAE3j09rTmQAF8hcW5euQOK6gFT
+ xjw4bXL10wjoDBBO8bQpe7OseSTX7KMDpxxD/TMaz8/nKPjlC+liThr+XQ0tEe0IYYPj
+ 5sc6yRz70Y+BEXXktM1GwM759HIJkX+vcBWU2NrEPmejtezZ4FC+PJnp31PFUINgBoYS
+ ceW3hQJXPaU6TswBLw+63mzGFzo3AKGoWhLTI08ksrMcc7TsUr2pPW7AElFhKXjuB6wj
+ SKytB222qOh0xIkHYUg/9Ahnyd6/3vWA62ZfPJHd6Pn6+Qgl45ALfANvdhi2rP/z9S2M
+ dqxA==
+X-Gm-Message-State: APt69E3phh2i3mtwAyv3W36Al/nIcuxM01TU4dbU9miId1d+Hhsk4wvN
+ WmLagiQ/G35TKC4XLeNsc93JEHXdG8WeIgbbHQU=
+X-Google-Smtp-Source: AAOMgpfG/BK4DaQS9mMu/yJ6ODWu/PkVx0pw0+XqeRLl+H1GJL0zqI7NnT6YiF43xJfqGVLf+e/5lltck1VkkOI/G7A=
+X-Received: by 2002:a24:9cc7:: with SMTP id
+ b190-v6mr2337288ite.118.1530183668268; 
+ Thu, 28 Jun 2018 04:01:08 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 22:03:35
+Received: by 2002:a02:854a:0:0:0:0:0 with HTTP; Thu, 28 Jun 2018 04:01:07
  -0700 (PDT)
-In-Reply-To: <20180626232605.13420-13-benh@kernel.crashing.org>
-References: <20180626232605.13420-1-benh@kernel.crashing.org>
- <20180626232605.13420-13-benh@kernel.crashing.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 28 Jun 2018 14:33:35 +0930
-X-Google-Sender-Auth: GgRuN2oz9WJvEOZZF7RG-7KTByY
-Message-ID: <CACPK8XfkxFZixL+5e5Spzo-=uJDXgojNMncn6k+upxJH+D=+eQ@mail.gmail.com>
-Subject: Re: [PATCH 12/14] fsi: master-ast-cf: Add new FSI master using Aspeed
- ColdFire
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- devicetree <devicetree@vger.kernel.org>, Andrew Jeffery <andrew@aj.id.au>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAL_JsqJCYPLw+jqx+7Cy=cXFFb-CNp=Ezew7FNT=cfAndqWe5A@mail.gmail.com>
+References: <20180624124155.82412-1-tmaimon77@gmail.com>
+ <20180624124155.82412-2-tmaimon77@gmail.com>
+ <20180625171417.GA16379@rob-hp-laptop>
+ <CAP6Zq1h-M6YDS67pkgHy-GMmiVk1D-RScLgDyG65JQM+S35rEQ@mail.gmail.com>
+ <CAL_JsqJCYPLw+jqx+7Cy=cXFFb-CNp=Ezew7FNT=cfAndqWe5A@mail.gmail.com>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Thu, 28 Jun 2018 14:01:07 +0300
+Message-ID: <CAP6Zq1iWcpfP5h9GT0BRhdo-DQ3B_rZCi3FP-8xFRVMCsU-y=w@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-binding: hwmon: Add NPCM7xx PWM and Fan
+ controller documentation
+To: Rob Herring <robh@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Jean Delvare <jdelvare@suse.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Avi Fishman <avifishman70@gmail.com>, 
+ Nancy Yuen <yuenn@google.com>, Brendan Higgins <brendanhiggins@google.com>, 
+ Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>, 
+ devicetree <devicetree@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ Linux HWMON List <linux-hwmon@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000fd04a9056fb1a57d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -81,312 +77,264 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jun 2018 05:04:02 -0000
+X-List-Received-Date: Thu, 28 Jun 2018 11:01:12 -0000
 
-Hi Ben,
+--000000000000fd04a9056fb1a57d
+Content-Type: text/plain; charset="UTF-8"
 
-On 27 June 2018 at 08:56, Benjamin Herrenschmidt
-<benh@kernel.crashing.org> wrote:
-> The Aspeed AST2x00 can contain a ColdFire v1 coprocessor which
-> is currently unused on OpenPower systems.
+Hi Rob,
+
+On 26 June 2018 at 18:03, Rob Herring <robh@kernel.org> wrote:
+
+> On Mon, Jun 25, 2018 at 4:20 PM Tomer Maimon <tmaimon77@gmail.com> wrote:
+> >
+> > Hi Rob,
+> >
+> >
+> > On 25 June 2018 at 20:14, Rob Herring <robh@kernel.org> wrote:
+> >>
+> >> On Sun, Jun 24, 2018 at 03:41:54PM +0300, Tomer Maimon wrote:
+> >> > Added device tree binding documentation for Nuvoton BMC
+> >> > NPCM7xx Pulse Width Modulation (PWM)  and Fan tach controller.
+> >> > The PWM controller can support upto 8 PWM output ports.
+> >> > The Fan tach controller can support upto 16 tachometer inputs.
+> >> >
+> >> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> >> > ---
+> >> >  .../devicetree/bindings/hwmon/npcm750-pwm-fan.txt  | 84
+> ++++++++++++++++++++++
+> >> >  1 file changed, 84 insertions(+)
+> >> >  create mode 100644 Documentation/devicetree/
+> bindings/hwmon/npcm750-pwm-fan.txt
+> >> >
+> >> > diff --git a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+> b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+> >> > new file mode 100644
+> >> > index 000000000000..a9eacda34f92
+> >> > --- /dev/null
+> >> > +++ b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+> >> > @@ -0,0 +1,84 @@
+> >> > +Nuvoton NPCM7xx PWM and Fan Tacho controller device driver
+> >>
+> >> Bindings are for h/w, not drivers.
+> >>
+> >> > +
+> >> > +The NPCM7xx has two identical Pulse-width modulation (PWM)
+> controller modules,
+> >> > +Each PWM module has four PWM controller outputs, Totally 8 PWM
+> controller outputs.
+> >> > +
+> >> > +The NPCM7xx has eight identical Fan tachometer controller modules,
+> >> > +Each Fan module has two Fan controller inputs, Totally 16 Fan
+> controller inputs.
+> >>
+> >> Have you looked at other fan ctrlr bindings?f This looks like similar
+> >> h/w to ASpeed. Really, I'd like to see a common doc that describes the
+> >
+> >
+> > We do not have the same H/W as Aspeed, I believe in the near future we
+> will need to add
+> > more DT properties that will used only in the NPCM7xx module.
 >
-> This adds an alternative to the fsi-master-gpio driver that
-> uses that coprocessor instead of bit banging from the ARM
-> core itself. The end result is about 4 times faster.
+> I didn't say it was the same. Both are multi-channel PWMs with tach
+> inputs. Presumably, they can attach to the same types of fans as there
+> are only a limited number of types of fans and none of them are
+> specific to any fan controller.
 >
-> The firmware for the coprocessor and its source code can be
-> found at https://github.com/ozbenh/cf-fsi and is system specific.
+> >> structure and common properties.
+> >
+> >
+> > what do you mean by common structure and common properties?
 >
-> Currently tested on Romulus and Palmetto systems.
+> When we have multiple bindings for the same class of device/hw, we
+> define all the common parts in a common binding doc. This often
+> doesn't happen at first, so we end up with a variety of bindings until
+> we see some commonality.
 >
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> In this case, for structure, having sub-nodes for fans. As fans are
+> not specific to the controllers, their node should not be defined by
+> the controller binding. It's also how you describe the fan type,
+> number of fans, the PWM connections, the tach connections, etc.
+>
+> Rob
+>
 
-Nice work. I gave this a spin on Romulus and it looked good.
+Thanks a lot for the clarification, indeed we can do a common binding doc.
+is it O.K. for now to stay with the same binding document (V5 - that  i
+will send toady),
+and later on we will work on creating common binding document for the
+fan-nodes.
 
-If you run it through sparse there are a bunch of things to fix. I've
-also got some comments below.
+also I will like to know how to represent the fan-nodes properties in
+the common
+binding document,
+the property name "aspeed,fan-tach-ch" is something related Aspeed.
 
-> --- /dev/null
-> +++ b/drivers/fsi/cf-fsi-fw.h
-> @@ -0,0 +1,131 @@
+Do I need to ask the Aspeed hwmon maintainer to modify his driver to
+use fan-tach-ch
+property?
+or to mention both fan-tach properties (NPCM and Aspeed) in the  common
+binding document ?
 
+Thanks,
 
-Copyright?
+Tomer
 
-> +#ifndef __CF_FSI_FW_H
-> +#define __CF_FSI_FW_H
-> +
-> +/*
-> + * uCode file layout
-> + *
-> + * 0000...03ff : m68k exception vectors
-> + * 0400...04ff : Header info & boot config block
-> + * 0500....... : Code & stack
-> + */
+--000000000000fd04a9056fb1a57d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/drivers/fsi/fsi-master-ast-cf.c b/drivers/fsi/fsi-master-ast-cf.c
-> new file mode 100644
-> index 000000000000..6b17f27c27f6
-> --- /dev/null
-> +++ b/drivers/fsi/fsi-master-ast-cf.c
-> @@ -0,0 +1,1376 @@
-> +// SPDX-License-Identifier: GPL-2.0
+<div dir=3D"ltr">Hi Rob,<div class=3D"gmail_extra"><br><div class=3D"gmail_=
+quote">On 26 June 2018 at 18:03, Rob Herring <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:robh@kernel.org" target=3D"_blank">robh@kernel.org</a>&gt;</span=
+> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><div class=3D"HOEnZb"><div class=
+=3D"h5">On Mon, Jun 25, 2018 at 4:20 PM Tomer Maimon &lt;<a href=3D"mailto:=
+tmaimon77@gmail.com">tmaimon77@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Hi Rob,<br>
+&gt;<br>
+&gt;<br>
+&gt; On 25 June 2018 at 20:14, Rob Herring &lt;<a href=3D"mailto:robh@kerne=
+l.org">robh@kernel.org</a>&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; On Sun, Jun 24, 2018 at 03:41:54PM +0300, Tomer Maimon wrote:<br>
+&gt;&gt; &gt; Added device tree binding documentation for Nuvoton BMC<br>
+&gt;&gt; &gt; NPCM7xx Pulse Width Modulation (PWM)=C2=A0 and Fan tach contr=
+oller.<br>
+&gt;&gt; &gt; The PWM controller can support upto 8 PWM output ports.<br>
+&gt;&gt; &gt; The Fan tach controller can support upto 16 tachometer inputs=
+.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Signed-off-by: Tomer Maimon &lt;<a href=3D"mailto:tmaimon77@g=
+mail.com">tmaimon77@gmail.com</a>&gt;<br>
+&gt;&gt; &gt; ---<br>
+&gt;&gt; &gt;=C2=A0 .../devicetree/bindings/hwmon/<wbr>npcm750-pwm-fan.txt=
+=C2=A0 | 84 ++++++++++++++++++++++<br>
+&gt;&gt; &gt;=C2=A0 1 file changed, 84 insertions(+)<br>
+&gt;&gt; &gt;=C2=A0 create mode 100644 Documentation/devicetree/<wbr>bindin=
+gs/hwmon/npcm750-pwm-<wbr>fan.txt<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; diff --git a/Documentation/devicetree/<wbr>bindings/hwmon/npc=
+m750-pwm-<wbr>fan.txt b/Documentation/devicetree/<wbr>bindings/hwmon/npcm75=
+0-pwm-<wbr>fan.txt<br>
+&gt;&gt; &gt; new file mode 100644<br>
+&gt;&gt; &gt; index 000000000000..a9eacda34f92<br>
+&gt;&gt; &gt; --- /dev/null<br>
+&gt;&gt; &gt; +++ b/Documentation/devicetree/<wbr>bindings/hwmon/npcm750-pw=
+m-<wbr>fan.txt<br>
+&gt;&gt; &gt; @@ -0,0 +1,84 @@<br>
+&gt;&gt; &gt; +Nuvoton NPCM7xx PWM and Fan Tacho controller device driver<b=
+r>
+&gt;&gt;<br>
+&gt;&gt; Bindings are for h/w, not drivers.<br>
+&gt;&gt;<br>
+&gt;&gt; &gt; +<br>
+&gt;&gt; &gt; +The NPCM7xx has two identical Pulse-width modulation (PWM) c=
+ontroller modules,<br>
+&gt;&gt; &gt; +Each PWM module has four PWM controller outputs, Totally 8 P=
+WM controller outputs.<br>
+&gt;&gt; &gt; +<br>
+&gt;&gt; &gt; +The NPCM7xx has eight identical Fan tachometer controller mo=
+dules,<br>
+&gt;&gt; &gt; +Each Fan module has two Fan controller inputs, Totally 16 Fa=
+n controller inputs.<br>
+&gt;&gt;<br>
+&gt;&gt; Have you looked at other fan ctrlr bindings?f This looks like simi=
+lar<br>
+&gt;&gt; h/w to ASpeed. Really, I&#39;d like to see a common doc that descr=
+ibes the<br>
+&gt;<br>
+&gt;<br>
+&gt; We do not have the same H/W as Aspeed, I believe in the near future we=
+ will need to add<br>
+&gt; more DT properties that will used only in the NPCM7xx module.<br>
+<br>
+</div></div>I didn&#39;t say it was the same. Both are multi-channel PWMs w=
+ith tach<br>
+inputs. Presumably, they can attach to the same types of fans as there<br>
+are only a limited number of types of fans and none of them are<br>
+specific to any fan controller.<br>
+<span class=3D""><br>
+&gt;&gt; structure and common properties.<br>
+&gt;<br>
+&gt;<br>
+&gt; what do you mean by common structure and common properties?<br>
+<br>
+</span>When we have multiple bindings for the same class of device/hw, we<b=
+r>
+define all the common parts in a common binding doc. This often<br>
+doesn&#39;t happen at first, so we end up with a variety of bindings until<=
+br>
+we see some commonality.<br>
+<br>
+In this case, for structure, having sub-nodes for fans. As fans are<br>
+not specific to the controllers, their node should not be defined by<br>
+the controller binding. It&#39;s also how you describe the fan type,<br>
+number of fans, the PWM connections, the tach connections, etc.<br>
+<span class=3D"HOEnZb"><font color=3D"#888888"><br>
+Rob<br></font></span></blockquote><div><br></div><div>Thanks a lot for the =
+clarification, indeed we can do a common binding doc.</div><div>is it O.K. =
+for now to stay with the same binding document (V5 - that=C2=A0 i will send=
+ toady),<br></div><div>and later on we will work on creating=C2=A0<span sty=
+le=3D"font-size:small;background-color:rgb(255,255,255);text-decoration-sty=
+le:initial;text-decoration-color:initial;float:none;display:inline">common =
+binding document for the fan-nodes.</span></div><div><span style=3D"font-si=
+ze:small;background-color:rgb(255,255,255);text-decoration-style:initial;te=
+xt-decoration-color:initial;float:none;display:inline"><br></span></div><di=
+v>also I will like to know how to represent the=C2=A0<span style=3D"font-si=
+ze:small;background-color:rgb(255,255,255);text-decoration-style:initial;te=
+xt-decoration-color:initial;float:none;display:inline">fan-nodes properties=
+ in the=C2=A0<span style=3D"text-decoration-style:initial;text-decoration-c=
+olor:initial;float:none;display:inline">common binding document,</span></sp=
+an></div><div>the property name &quot;<font color=3D"#000000"><span style=
+=3D"font-family:&quot;Ubuntu Mono&quot;,monospace;font-size:0.9em;white-spa=
+ce:pre">aspeed,fan-tach-ch&quot; </span><font face=3D"arial, helvetica, san=
+s-serif"><span style=3D"white-space:pre">is </span><span style=3D"white-spa=
+ce:pre">something </span><span style=3D"white-space:pre">related Aspeed.</s=
+pan></font></font></div><div><font color=3D"#000000" face=3D"Ubuntu Mono, m=
+onospace"><span style=3D"font-size:0.9em;white-space:pre"><br></span></font=
+></div><div><font color=3D"#000000"><font face=3D"arial, helvetica, sans-se=
+rif"><span style=3D"white-space:pre">Do I need to ask the Aspeed hwmon main=
+tainer to modify his driver to use  </span></font><span style=3D"background=
+-color:rgb(255,255,255);text-decoration-style:initial;text-decoration-color=
+:initial;float:none;display:inline"><span style=3D"font-family:&quot;Ubuntu=
+ Mono&quot;,monospace;font-size:11.7px;white-space:pre">fan-tach-ch </span>=
+<span style=3D"white-space:pre"><font face=3D"arial, helvetica, sans-serif"=
+>property?</font></span></span><font face=3D"arial, helvetica, sans-serif">=
+=C2=A0</font></font></div><div><font color=3D"#000000"><span style=3D"white=
+-space:pre"><font face=3D"arial, helvetica, sans-serif">or to mention both =
+fan-tach</font><font face=3D"Ubuntu Mono, monospace"><span style=3D"font-si=
+ze:11.7px"> </span></font></span><span style=3D"font-family:&quot;Ubuntu Mo=
+no&quot;,monospace;font-size:0.9em;white-space:pre"><span style=3D"color:rg=
+b(34,34,34);font-family:arial,sans-serif;font-size:small;white-space:normal=
+;background-color:rgb(255,255,255);text-decoration-style:initial;text-decor=
+ation-color:initial;float:none;display:inline">properties<span>=C2=A0(NPCM =
+and Aspeed) in the=C2=A0
 
-Normally 2+ for new IBM code? You also need something like this on the
-next line:
+<span style=3D"font-size:small;background-color:rgb(255,255,255);text-decor=
+ation-style:initial;text-decoration-color:initial;float:none;display:inline=
+">common binding document</span>=C2=A0?</span></span></span></font></div><d=
+iv><span style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-siz=
+e:small;white-space:normal;background-color:rgb(255,255,255);text-decoratio=
+n-style:initial;text-decoration-color:initial;float:none;display:inline"><s=
+pan></span></span>
 
-// Copyright 2018 IBM Corp
+</div><div><span style=3D"font-size:small;background-color:rgb(255,255,255)=
+;text-decoration-style:initial;text-decoration-color:initial;float:none;dis=
+play:inline"><br></span></div><div><span style=3D"font-size:small;backgroun=
+d-color:rgb(255,255,255);text-decoration-style:initial;text-decoration-colo=
+r:initial;float:none;display:inline">Thanks,</span></div><div><span style=
+=3D"font-size:small;background-color:rgb(255,255,255);text-decoration-style=
+:initial;text-decoration-color:initial;float:none;display:inline"><br></spa=
+n></div><div><span style=3D"font-size:small;background-color:rgb(255,255,25=
+5);text-decoration-style:initial;text-decoration-color:initial;float:none;d=
+isplay:inline">Tomer</span></div><div><span style=3D"font-size:small;backgr=
+ound-color:rgb(255,255,255);text-decoration-style:initial;text-decoration-c=
+olor:initial;float:none;display:inline"><span style=3D"font-size:12.8px;tex=
+t-decoration-style:initial;text-decoration-color:initial;float:none;display=
+:inline"><span>=C2=A0</span></span>
 
-> +static int read_copro_response(struct fsi_master_acf *master, uint8_t size,
-> +                              __be32 *response, u8 *tag)
-> +{
-> +       u8 rtag = readb(master->sram + STAT_RTAG);
-> +       u8 rcrc = readb(master->sram + STAT_RCRC);
-> +       __be32 rdata = 0;
-> +       u32 crc;
-> +       u8 ack;
-> +
-> +       *tag = ack = rtag & 3;
-> +
-> +       /* we have a whole message now; check CRC */
-> +       crc = crc4(0, 1, 1);
-> +       crc = crc4(crc, rtag, 4);
-> +       if (ack == FSI_RESP_ACK && size) {
-> +               rdata = readl(master->sram + RSP_DATA);
-> +               crc = crc4(crc, be32_to_cpu(rdata), 32);
-> +               if (response)
-> +                       *response = rdata;
-> +       }
-> +       crc = crc4(crc, rcrc, 4);
-> +
-> +       trace_fsi_master_acf_copro_response(master, rtag, rcrc, rdata, crc == 0);
-> +
-> +       if (crc) {
-> +               /*
-> +                * Check if it's all 1's or all 0's, that probably means
-> +                * the host is off
-> +                */
-> +               if ((rtag == 0xf && rcrc == 0xf) || (rtag == 0 && rcrc == 0))
-> +                       return -ENODEV;
-> +               dev_dbg(master->dev, "Bad response CRC !\n");
-> +               return -EAGAIN;
-> +       }
-> +       return 0;
-> +}
-> +
-> +static int send_term(struct fsi_master_acf *master, uint8_t slave)
-> +{
-> +       struct fsi_msg cmd;
-> +       uint8_t tag;
-> +       int rc;
-> +
-> +       build_term_command(&cmd, slave);
-> +
-> +       rc = send_request(master, &cmd, true);
-> +       if (rc) {
-> +               dev_warn(master->dev, "Error %d sending term\n", rc);
-> +               return rc;
-> +       }
-> +
-> +       rc = read_copro_response(master, 0, NULL, &tag);
-> +       if (rc < 0) {
-> +               dev_err(master->dev,
-> +                               "TERM failed; lost communication with slave\n");
-> +               return -EIO;
-> +       } else if (tag != FSI_RESP_ACK) {
-> +               dev_err(master->dev, "TERM failed; response %d\n", tag);
-> +               return -EIO;
-> +       }
-> +       return 0;
-> +}
-> +
-> +static void dump_trace(struct fsi_master_acf *master)
-> +{
-> +       char trbuf[52];
+</span></div></div><br></div></div>
 
-I was checking that this was big enough.
-
-52 = 16 * 3 + '\n' + \0' = 50?
-
-Looks to be okay.
-
-> +       char *p;
-> +       int i;
-> +
-> +       dev_dbg(master->dev,
-> +               "CMDSTAT:%08x RTAG=%02x RCRC=%02x RDATA=%02x #INT=%08x\n",
-> +              be32_to_cpu(readl(master->sram + CMD_STAT_REG)),
-> +              readb(master->sram + STAT_RTAG),
-> +              readb(master->sram + STAT_RCRC),
-> +              be32_to_cpu(readl(master->sram + RSP_DATA)),
-> +              be32_to_cpu(readl(master->sram + INT_CNT)));
-> +
-> +       for (i = 0; i < 512; i++) {
-> +               uint8_t v;
-> +               if ((i % 16) == 0)
-> +                       p = trbuf;
-> +               v = readb(master->sram + TRACEBUF + i);
-> +               p += sprintf(p, "%02x ", v);
-> +               if (((i % 16) == 15) || v == TR_END)
-> +                       dev_dbg(master->dev, "%s\n", trbuf);
-> +               if (v == TR_END)
-> +                       break;
-> +       }
-> +}
-> +
-> +static int handle_response(struct fsi_master_acf *master,
-> +                          uint8_t slave, uint8_t size, void *data)
-> +{
-> +       int busy_count = 0, rc;
-> +       int crc_err_retries = 0;
-> +       struct fsi_msg cmd;
-> +       __be32 response;
-> +       uint8_t tag;
-> +retry:
-> +       rc = read_copro_response(master, size, &response, &tag);
-> +
-> +       /* Handle retries on CRC errors */
-> +       if (rc == -EAGAIN) {
-> +               /* Too many retries ? */
-> +               if (crc_err_retries++ > FSI_CRC_ERR_RETRIES) {
-> +                       /*
-> +                        * Pass it up as a -EIO otherwise upper level will retry
-> +                        * the whole command which isn't what we want here.
-> +                        */
-> +                       rc = -EIO;
-> +                       goto bail;
-> +               }
-> +               trace_fsi_master_acf_crc_rsp_error(master, crc_err_retries);
-> +               if (master->trace_enabled)
-> +                       dump_trace(master);
-> +               rc = clock_zeros(master, FSI_MASTER_EPOLL_CLOCKS);
-> +               if (rc) {
-> +                       dev_warn(master->dev,
-> +                                "Error %d clocking zeros for E_POLL\n", rc);
-> +                       return rc;
-> +               }
-> +               build_epoll_command(&cmd, slave);
-> +               rc = send_request(master, &cmd, size == 0);
-> +               if (rc) {
-> +                       dev_warn(master->dev, "Error %d sending E_POLL\n", rc);
-> +                       return -EIO;
-> +               }
-> +               goto retry;
-> +       }
-> +       if (rc)
-> +               return rc;
-> +
-> +       switch (tag) {
-> +       case FSI_RESP_ACK:
-> +               if (size && data) {
-> +                       if (size == 4)
-> +                               *(__be32 *)data = response;
-> +                       else if (size == 2)
-> +                               *(__be16 *)data = response;
-> +                       else
-> +                               *(u8 *)data = response;
-
-Response is a u32, the idea here is to discard the top two or three byes?
-
-> +
-> +static int fsi_master_acf_setup(struct fsi_master_acf *master)
-> +{
-> +       int timeout, rc;
-> +       u32 val;
-> +
-
-> +
-> +       /* Wait for status register to indicate command completion
-> +        * which signals the initialization is complete
-> +        */
-> +       for (timeout = 0; timeout < 10; timeout++) {
-> +               val = readb(master->sram + CF_STARTED);
-> +               if (val)
-> +                       break;
-> +               msleep(1);
-> +       };
-
-drivers/fsi/fsi-master-ast-cf.c:920:2-3: Unneeded semicolon
-
-> +       if (!val) {
-> +               dev_err(master->dev, "Coprocessor startup timeout !\n");
-> +               rc = -ENODEV;
-> +               goto err;
-> +       }
-> +
-> +       /* Configure echo & send delay */
-> +       writeb(master->t_send_delay, master->sram + SEND_DLY_REG);
-> +       writeb(master->t_echo_delay, master->sram + ECHO_DLY_REG);
-> +
-> +       /* Enable SW interrupt to copro if any */
-> +       if (master->cvic) {
-> +               rc = copro_enable_sw_irq(master);
-> +               if (rc)
-> +                       goto err;
-> +       }
-> +       return 0;
-> + err:
-> +       /* An error occurred, don't leave the coprocessor running */
-> +       reset_cf(master);
-> +
-> +       /* Release the GPIOs */
-> +       release_copro_gpios(master);
-> +
-> +       return rc;
-> +}
-
-> +static int fsi_master_acf_gpio_request(void *data)
-> +{
-> +       struct fsi_master_acf *master = data;
-> +       int timeout;
-> +       u8 val;
-> +
-> +       /* Note: This doesn't require holding out mutex */
-> +
-> +       /* Write reqest */
-> +       writeb(ARB_ARM_REQ, master->sram + ARB_REG);
-> +
-> +       /* Read back to avoid ordering issue */
-> +       (void)readb(master->sram + ARB_REG);
-> +
-> +       /*
-> +        * There is a race (which does happen at boot time) when we get an
-> +        * arbitration request as we are either about to or just starting
-> +        * the coprocessor.
-> +        *
-> +        * To handle it, we first check if we are running. If not yet we
-> +        * check whether the copro is started in the SCU.
-> +        *
-> +        * If it's not started, we can basically just assume we have arbitration
-> +        * and return. Otherwise, we wait normally expecting for the arbitration
-> +        * to eventually complete.
-> +        */
-> +       if (readl(master->sram + CF_STARTED) == 0) {
-> +               unsigned int reg = 0;
-> +
-> +               regmap_read(master->scu, SCU_COPRO_CTRL, &reg);
-> +               if (!reg & SCU_COPRO_CLK_EN)
-
-Is this correct? Looks like it might be missing some ( )
-
-> +                       return 0;
-> +       }
-> +
-> +       /* Ring doorbell if any */
-> +       if (master->cvic)
-> +               writel(0x2, master->cvic + CVIC_TRIG_REG);
-> +
-> +       for (timeout = 0; timeout < 10000; timeout++) {
-> +               val = readb(master->sram + ARB_REG);
-> +               if (val != ARB_ARM_REQ)
-> +                       break;
-> +               udelay(1);
-> +       }
-> +
-> +       /* If it failed, override anyway */
-> +       if (val != ARB_ARM_ACK)
-> +               dev_warn(master->dev, "GPIO request arbitration timeout\n");
-> +
-> +       return 0;
-> +}
-> +
+--000000000000fd04a9056fb1a57d--
