@@ -1,69 +1,69 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
+ (client-ip=2607:f8b0:400d:c09::244; helo=mail-qk0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="saZqRdGU"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="C32q5scu"; 
  dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="BlTAjUA9"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="WZD6NMIU"; 
  dkim-atps=neutral
-Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
- [IPv6:2607:f8b0:400d:c0d::242])
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41GRGN1F5zzF1Nf;
- Thu, 28 Jun 2018 14:13:16 +1000 (AEST)
-Received: by mail-qt0-x242.google.com with SMTP id d23-v6so3638121qtp.1;
- Wed, 27 Jun 2018 21:13:15 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41GRGW3xh7zF1Nq;
+ Thu, 28 Jun 2018 14:13:23 +1000 (AEST)
+Received: by mail-qk0-x244.google.com with SMTP id z74-v6so2276602qkb.10;
+ Wed, 27 Jun 2018 21:13:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=xYdLdL5NOhOanKBmDogwIFVhN3D1iPAwaIm1IGp6c8Q=;
- b=saZqRdGUqTMT0RmnLQ99R0iOlLLTQW5l4wvJnshIPfccm3bLpwB/JXNYk8Zi9+/Xes
- w48uSqb4WJ8EIldPlTKwcMk84eZFL0pUZxBKQVfw/9EQt7BORE9Fefril5gw/zSGisQR
- 6MvL5rIeSJ1/944LXIjBM2b7eB7DIHuVO18lbffATWlBIuZBgFucSASxasqVI9a3/0T4
- tP5vzZbEft9gQdWw2TQkBU5rGSHEPLvJheT4E8ElnUEGonx7kC8TyOoSF4Ai9OMTSawL
- /io+IO1FwWGyRfh9+LQXdV4a+RG2u353saD6GjmhtNoT+90E1LFN0ImiIj1XEeAx2RMI
- 93jg==
+ bh=7VH7VPCh5cAI5Q6ik/KRRlbpR+d/qk29nNcRybPcwGQ=;
+ b=C32q5scupFNf253XL8aGFidnmp6zDbrIqoZVAgfzxg6fgP+IM0zOj07r9LLlbZgBdf
+ vJuG2DreB8H6ESX2eeAxzKPn0DJmlCvE93s61LYS1DEWQi2pbnw6cGIRkGidlj8PvnY+
+ seG4yfyI+jzfuzi5fm1K7yhPujtJa/vg1BUL5ECZhIZ1npn9D9/ABwVUUhGhZzVyg4V8
+ cHi42TXp/dR5USSeFYZCSspsuqD6gV7I/NNT/3/GJL0gSgYT7doh8nIi32+8BZFlW6ZD
+ W5U2Ajj3Vay/Ffyadrv820FD1BsTghgHdWI2kBcK7kg0FS0c9znXdphZRhsYYY8JswBs
+ OzVg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=xYdLdL5NOhOanKBmDogwIFVhN3D1iPAwaIm1IGp6c8Q=;
- b=BlTAjUA9j+k5ghjUrJo3WsAxkep5bBSeeTBy1Ou7EOOo0PkXWkl9HaB09gbe8okISb
- lXY/zIhJcEAxzYS0bHRTcraqkNiV9zQOil0T/+zMPbyVadKMdfSeWs0+/341FOXb4nzq
- m7fBoRA2ZrXgw3VpKYIBC0xuGXeXFt+ouBbwo=
+ bh=7VH7VPCh5cAI5Q6ik/KRRlbpR+d/qk29nNcRybPcwGQ=;
+ b=WZD6NMIUAYuYwg7Y8S0trvyZ2LN3PoxYpKUdnBkmyBpiOPict53ZxXsAupoYBkiilh
+ WNnw8FBBuhQyhtPmmVhzWmbtiFY32YflAl3HdcT9wX3W66d6Sb5TLOd/u9FUnDxwgUCA
+ klmXJEp/fIeape8PHWXq0Ts0W/ycCFSHRTsyY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=xYdLdL5NOhOanKBmDogwIFVhN3D1iPAwaIm1IGp6c8Q=;
- b=qGn6LCKdhMm5gFzLr/Jx11xbcy0jHbsH1ZJkGw6nXXia81kG+Yh6cYVHoMMB6pROjI
- XGwnv1mI5QnKzyRP+H+s1w5M4EsT5jmASqaoZCey92iYVm1qR6TUHYN1SsVggFcmP8Sl
- wWW6n+3LNY7erTXxm6fVyRae9apN6L9PVFBOEBAQgN6oF387ZcfyidZPtJrk6sZ6SrWE
- jbdyJFuYmG46oa+RciI/b/lNyUXsVo9Ak66zLSPPVQE4PXy8UxUVgSoLr+QU2xSif3nS
- tHqKynd5G9UiH/66lWZKESyfj6csTx8UXKWTty1y+2r7SkT6fK/oY3W5izW5nmIvoqSp
- leHg==
-X-Gm-Message-State: APt69E2+5OO+BVHrEyI5Fo4niTlcM5LRKHu0vMIp5G5/sHqvzQz/ThLZ
- PRmFpfxL6Lfff1vy3fsTDIlaftV/zUdG/yCKyKo=
-X-Google-Smtp-Source: AAOMgpe6TN7pLH/U9qXyfHQSGjKCvy9/mCDiQNWEW6azyUrbXAtbwi+SNBIvD+2WHlsmoDef/VUkOZyfFCHTSgqiMhE=
-X-Received: by 2002:aed:24f0:: with SMTP id
- u45-v6mr452399qtc.340.1530159193487; 
- Wed, 27 Jun 2018 21:13:13 -0700 (PDT)
+ bh=7VH7VPCh5cAI5Q6ik/KRRlbpR+d/qk29nNcRybPcwGQ=;
+ b=UMnaLzZrZS4NI4o6hKeTKjAlUo9H1HcE/EeRMsFR83vLPmc8s1Zt5sQbJmNitRGtzt
+ dTNbWqYa0qbb0sPtC7FlZmxKY/7aAHhW75jUprpdNOqMLltibBnQSBOAAoINK/QM2QEY
+ 6NfoIghXmgnA0u1pQtcAmhPEUv208hh/QRGn2/BpsmX0GPLuyqym8cXxJDPYBq/aArkB
+ iEEfUBUCAtJugoLpX2qP1TdzWJHDRn315HmrLJQ0B/FxaYD26uv3i9QE98eOlds+8zbr
+ O2+t8D4ySBECwrMN3Vag9UMMqicps6f7sAaGvxyDNAeWkuHuCgO2/BBuDoVUgluN9ZCI
+ 9GSg==
+X-Gm-Message-State: APt69E0saCMNsezMB+rnZktRbTxJvy4qSkzddvtOX6mCTWiqhBBg2zHK
+ HaPCM00Uvt2QQYxfPefbx+IuqqRmClrPVOWcNT8=
+X-Google-Smtp-Source: AAOMgpfGkMsXX1KhdHmVQOsOZ6FN4KpmiO2Kk7fzUUBNBZ4N+c9xW3tlsp68ZbVOcObBUYT3sjUx2d9QQjETAbd5UBs=
+X-Received: by 2002:a37:6983:: with SMTP id
+ e125-v6mr7370231qkc.352.1530159201171; 
+ Wed, 27 Jun 2018 21:13:21 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 21:12:53
+Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Wed, 27 Jun 2018 21:13:00
  -0700 (PDT)
-In-Reply-To: <20180626232605.13420-14-benh@kernel.crashing.org>
+In-Reply-To: <20180626232605.13420-15-benh@kernel.crashing.org>
 References: <20180626232605.13420-1-benh@kernel.crashing.org>
- <20180626232605.13420-14-benh@kernel.crashing.org>
+ <20180626232605.13420-15-benh@kernel.crashing.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 28 Jun 2018 13:42:53 +0930
-X-Google-Sender-Auth: djlhkPWpR4JqcdJAomm9pcMi_68
-Message-ID: <CACPK8XcyncbmU3kMVPVZV49Hnt+avbzgUOL=KMP+Ed12axWqRQ@mail.gmail.com>
-Subject: Re: [PATCH 13/14] arm: dts: OpenPower Romulus system can use
+Date: Thu, 28 Jun 2018 13:43:00 +0930
+X-Google-Sender-Auth: XDrBmHLEJNw2Ctut1Qg3JEBJp4o
+Message-ID: <CACPK8XeLs9URZCO1KnoMmZawSwr9URpCBxn=5gKxKZbJT-p3Uw@mail.gmail.com>
+Subject: Re: [PATCH 14/14] arm: dts: OpenPower Palmetto system can use
  coprocessor for FSI
 To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 Cc: linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
@@ -81,58 +81,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jun 2018 04:13:16 -0000
+X-List-Received-Date: Thu, 28 Jun 2018 04:13:24 -0000
 
 On 27 June 2018 at 08:56, Benjamin Herrenschmidt
 <benh@kernel.crashing.org> wrote:
+> This switches away from userspace bitbanging to kernel FSI
+> using the coprocessor.
+>
 > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
-I will take this through the ASPEED SoC tree once we've got acks on
-the bindings.
+
+As with the other patch, I will take this through the ASPEED SoC tree
+once we've got acks on the bindings.
 
 Cheers,
 
 Joel
-
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index 347938673c83..070b8f8f1d62 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -37,6 +37,11 @@
->                         compatible = "shared-dma-pool";
->                         reusable;
->                 };
-> +
-> +               coldfire_memory: codefire_memory@9ef00000 {
-> +                       reg = <0x9ef00000 0x00100000>;
-> +                       no-map;
-> +               };
->         };
->
->         leds {
-> @@ -56,10 +61,16 @@
->         };
->
->         fsi: gpio-fsi {
-> -               compatible = "fsi-master-gpio", "fsi-master";
-> +               compatible = "ibm,fsi-master-ast2500-cf", "fsi-master";
->                 #address-cells = <2>;
->                 #size-cells = <0>;
-> -               no-gpio-delays;
-> +
-> +               memory-region = <&coldfire_memory>;
-> +               sram = <&sram>;
-> +               cvic = <&cvic>;
-> +
-> +               fw-name = "romulus";
-> +               fw-platform-sig = <0x526d>;
->
->                 clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
->                 data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
-> --
-> 2.17.1
->
