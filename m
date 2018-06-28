@@ -1,61 +1,76 @@
-Return-Path: <venture@google.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::236; helo=mail-vk0-x236.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="qGqo5tzp"; 
- dkim-atps=neutral
-Received: from mail-vk0-x236.google.com (mail-vk0-x236.google.com
- [IPv6:2607:f8b0:400c:c05::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Gj2f3pwdzF1QG
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jun 2018 00:34:00 +1000 (AEST)
-Received: by mail-vk0-x236.google.com with SMTP id q135-v6so3421292vkh.1
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 07:34:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=auNMubXRqqdCang/gR7pPVl3LvAE495ts66cDnztz7Y=;
- b=qGqo5tzpl8Vl8HCzqfrAEyC7PHEwj/GRmK6K1frUP85OWEL9cS38mAwTqHnfT5MEAT
- DWPXJVTHXvKZsGz4XEuFO2m+zlr/js0P1Gg+LFRyTwAzlIkB/FowIfiIyGDUx8QxxYFa
- nK7cqQFwAFFFPDTk7lOD6+meNlp5b9QKGAMssn205mFPRFnrwjzbNqshL5LH3vcdKhvk
- 1c1tpuqaPXhWMHR+aPMymPR1QCN2RyG5+sB4kY45j7f0jz1cWkNcy8SCCpz8JH2FpnAM
- EDwJzhRt6vpLzLp0/v0ErMCdN/fKj48CZ2wKylYFE9uOKV6gFx8nqBxKgQjq8JqkNvdp
- PgZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=auNMubXRqqdCang/gR7pPVl3LvAE495ts66cDnztz7Y=;
- b=OPGLTIha9L/velpkEkHft041GTbf7iXZJ0QoAEgfidSne9imER7sOB2Ux0Qf4aMBl6
- FknRrcLxFr9NLn92B4O9AG0YW/CKI2WTVaVfUJZ6582i5D02v9i4Mi/fzQoCfYT6Vwgc
- VgSLfnQQALjuGqsoCxhvXEjx+u+XaIlzEBYxcFWwLZfr3N1dv8JrW/YK2nbfNUCSKAx6
- QxZmIO2ZFp4AhYzMfFrt6kJwRLwsLLrKMHLYVLQ/6EjM6Jau4PrgbLzWqDBOUQnbHXTQ
- Im+tKcTzCDHSjfFHaaL2dDU5ny+JAm7YHYRfU1fEMoX8S5X9p/4oVm4sBX5Cute7oBLh
- UK9g==
-X-Gm-Message-State: APt69E0EjiX3uRg7HRHqfXfx/DxTdIw6DgXCGb/A9XbZGpK5SMADJ9XD
- oAXby4wQeMwKNqyZ5soilt4ff+jR8YyRdBGQUcQSYVCV
-X-Google-Smtp-Source: AAOMgpd51Oyaq2G5Ip6UIE2fKWzy+/PhyNJebD234q8GWSRF8hbhkpwWL5ZXW//6tJpaAsL7xLVc6yD9txubEc09x+w=
-X-Received: by 2002:a1f:3089:: with SMTP id
- w131-v6mr6350223vkw.1.1530196438135; 
- Thu, 28 Jun 2018 07:33:58 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Gjf33mSpzF1JK
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jun 2018 01:01:09 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w5SExNUJ112153
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 11:01:06 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2jw08vwdme-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 11:01:05 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Thu, 28 Jun 2018 11:01:04 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 28 Jun 2018 11:01:02 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w5SF11ow5964120
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 15:01:01 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C31C428060
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 11:00:37 -0400 (EDT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9666628064
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 11:00:37 -0400 (EDT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jun 2018 11:00:37 -0400 (EDT)
 MIME-Version: 1.0
-Received: by 2002:a1f:9b90:0:0:0:0:0 with HTTP; Thu, 28 Jun 2018 07:33:37
- -0700 (PDT)
-In-Reply-To: <CACPK8XfhTdg8NCpvBbgGev1o9oa0f7+RYhYvXzSs5Mr_b7=AsA@mail.gmail.com>
-References: <CAO=notzW-7ffufai7uSQ8FtMvJrGT56F18TM5zm7L9+opFKb0Q@mail.gmail.com>
- <CACPK8XfhTdg8NCpvBbgGev1o9oa0f7+RYhYvXzSs5Mr_b7=AsA@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 28 Jun 2018 07:33:37 -0700
-Message-ID: <CAO=notyxfpzqQ0W2QOGWdtgoyC+Q3jQFA1=0sGmax43x-DQ--g@mail.gmail.com>
-Subject: Re: Merging up to OpenBMC v2.2 from v2.1 - boot problem, invalid
- ramdisk format
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 28 Jun 2018 10:06:07 -0500
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: Returning actual JSON booleans via REST (issue 3154)
+X-Sender: mspinler@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18062815-0040-0000-0000-000004468AF0
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009271; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01053586; UDB=6.00540219; IPR=6.00831508; 
+ MB=3.00021907; MTD=3.00000008; XFM=3.00000015; UTC=2018-06-28 15:01:02
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18062815-0041-0000-0000-0000084CA333
+Message-Id: <348f8850cb20c61f159a7d99a4d8b161@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-06-28_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=788 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1806280170
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,40 +82,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jun 2018 14:34:04 -0000
+X-List-Received-Date: Thu, 28 Jun 2018 15:01:16 -0000
 
-On Wed, Jun 27, 2018 at 6:30 PM, Joel Stanley <joel@jms.id.au> wrote:
-> On 27 June 2018 at 01:49, Patrick Venture <venture@google.com> wrote:
->
->> Hit any key to stop autoboot:  0
->> libfdt fdt_path_offset() returned FDT_ERR_NOTFOUND
->> ## Loading kernel from FIT Image at 20080000 ...
->>    Using 'conf@aspeed-bmc-quanta-q71l.dtb' configuration
->>    Trying 'kernel@1' kernel subimage
->>      Description:  Linux kernel
->>      Type:         Kernel Image
->>      Compression:  uncompressed
->>      Data Start:   0x20080124
->>      Data Size:    1723192 Bytes = 1.6 MiB
->>      Architecture: ARM
->>      OS:           Linux
->>      Load Address: 0x40008000
->>      Entry Point:  0x40008000
->>      Hash algo:    sha1
->>      Hash value:   95ed76c9361d9f6f991a6a859a06eb7626af80df
->>    Verifying Hash Integrity ... sha1+ OK
->> Wrong Ramdisk Image Format
->> Ramdisk image is corrupt or invalid
->> """
->>
->> I figured I'd reach out first as I'm sure this will be familiar to someone :D
->
-> This is due to a change Brad made to the u-boot setup. If you change
-> your bootcmd to simply be 'bootm 20080000' you might be fine.
+Hello,
 
-Thanks, I'll give that a try tomorrow morning!
+I have some code up for review, 
+https://gerrit.openbmc-project.xyz/#/c/11267, that
+will fix the behavior of booleans being represented in the REST response 
+JSON as a 1/0
+instead of the proper JSON true/false.
 
->
-> Cheers,
->
-> Joel
+While this does change behavior possibly after some systems have already 
+deployed,
+it was wrong before and I would propose it's better late to fix it than 
+never.
+
+But, I would like to know if anyone has any strong arguments for leaving 
+it how it is?
+Otherwise, I guess just be on the lookout for this commit going in if it 
+affects your tools.
