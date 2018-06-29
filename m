@@ -1,47 +1,59 @@
-Return-Path: <jarkko.nikula@linux.intel.com>
+Return-Path: <linus.walleij@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jarkko.nikula@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2607:f8b0:4001:c0b::244; helo=mail-it0-x244.google.com;
+ envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZfkNS8qR"; 
+ dkim-atps=neutral
+Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
+ [IPv6:2607:f8b0:4001:c0b::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Fw4R50fJzF0wq;
- Wed, 27 Jun 2018 17:47:47 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2018 00:47:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,278,1526367600"; d="scan'208";a="52597355"
-Received: from mylly.fi.intel.com (HELO [10.237.72.54]) ([10.237.72.54])
- by orsmga008.jf.intel.com with ESMTP; 27 Jun 2018 00:47:37 -0700
-Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use
- cases stably
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Cc: James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
-From: Jarkko Nikula <jarkko.nikula@linux.intel.com>
-Message-ID: <60d0dad1-b735-0650-47b4-40c57b1a5209@linux.intel.com>
-Date: Wed, 27 Jun 2018 10:48:19 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41H9w51yd8zF1f8
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jun 2018 19:15:00 +1000 (AEST)
+Received: by mail-it0-x244.google.com with SMTP id o5-v6so909196itc.1
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jun 2018 02:15:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=0u8pOeiXOTCrPjIEN0/G8B2FoRAzc7uON2Lb0bNng9c=;
+ b=ZfkNS8qRmel2kNInLI4kJPiTvG81DgElQKZYYyJCW685P/iQE8uJTBxt+F/ixpxszj
+ BwlMr6BVxGrhKz5iNqTzRYlmy9nSyHamDZUEbMxMm2Ir63svgtcFyCcEvRz9Ua7P+iey
+ gIfRwLyUz8TDe8SQn41rvV59tplucpBE8SEzc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=0u8pOeiXOTCrPjIEN0/G8B2FoRAzc7uON2Lb0bNng9c=;
+ b=uLcrlZHoyG2vpvqvCH1eYVNeRvdvrY+O9NtBdzYonUa/NeI5qX2XKjQ3piqpmgatBw
+ JkaRGPpqzNRgaL3RA6tJOvSNpua0pIPapj56MMsT1dRvYElAI6VwKwRFSLRh6wDAjalu
+ hlkq8QDdVCWoOS3nkifsBRFJNk5cFuFIhEXQegyic+gnG23zAfL42aqMj/p5DQiCVJhJ
+ WLUUGPA/ekB//h6Go7ls3qAbHnoT9Z1dILpXJRxRmEhJTe0xJnrdbelnhCsbxahYO82b
+ 3JMYGBzPVIakdj/St8LKfBrUPOgV28A4/ICLlIhyUY86EltPRCAyaBSxGGYQYrHYQGDO
+ dGiw==
+X-Gm-Message-State: APt69E0sW1ifB9xnHx9vryO4NSShQ4upgeQLZiZzvKsdeofGK34r118E
+ 2a79mlT7O+qNmKHrD0TBoiBWSFyUt0UWgiEQz769Yg==
+X-Google-Smtp-Source: AAOMgpdvK+fpb7wjBzP3043BNHZ+jhfQPXqT4NvXXeLY3i4LXvwcFYd3uDckbZxY4O+2Up12wMv7N4CVp6yKGCJiCvw=
+X-Received: by 2002:a02:597:: with SMTP id
+ 23-v6mr10870244jal.112.1530263698455; 
+ Fri, 29 Jun 2018 02:14:58 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 29 Jun 2018 09:28:40 +1000
+References: <20180622043134.18238-1-benh@kernel.crashing.org>
+ <20180622043134.18238-2-benh@kernel.crashing.org>
+In-Reply-To: <20180622043134.18238-2-benh@kernel.crashing.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 29 Jun 2018 11:14:47 +0200
+Message-ID: <CACRpkdbhxjahYaVnQN0xqD0NLPouO8VCW8w-GZD0sbLFtFtY5g@mail.gmail.com>
+Subject: Re: [RFC PATCH 01/14] devres: Add devm_of_iomap()
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -53,49 +65,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jun 2018 07:47:52 -0000
+X-List-Received-Date: Fri, 29 Jun 2018 09:15:02 -0000
 
-Hi
+On Fri, Jun 22, 2018 at 6:31 AM Benjamin Herrenschmidt
+<benh@kernel.crashing.org> wrote:
 
-On 06/26/2018 07:58 PM, Jae Hyun Yoo wrote:
-> BMC firmware should support some multi-master use cases such as multi-node,
-> IPMB, BMC-ME link and so on but the current ASPEED I2C driver is a bit
-> unstable for the multi-master use case. So this patch improves ASPEED I2C
-> driver to support the multi-master use case stably.
-> 
-> Changes:
-> * Added XFER_MODE status register checking logic into
->    aspeed_i2c_master_xfer to improve the current bus busy checking logic.
-> * Changed the order of enum aspeed_i2c_master_state and
->    enum aspeed_i2c_slave_state defines to make their initial values set to
->    ASPEED_I2C_MASTER_INACTIVE and ASPEED_I2C_SLAVE_STOP respectively.
->    In case of multi-master use with previous code, if a slave data comes
->    ahead of the first master xfer, master_state starts from an invalid
->    state. This change fixed the issue.
-> * Adjusted spin_lock scope to make it wrap the whole irq handler using
->    a single lock and unlock pair covers both master and slave handlers.
-> * Added irq_status variable as a member of the struct aspeed_i2c_bus to
->    collect handled interrupt bits throughout the master and the slave irq
->    handlers.
-> * Added control logic to put an order on calling the master and the slave
->    irq handlers based on their current states.
-> 
-This does many unrelated looking changes in one patch making it more 
-vulnerable for potential multiple regressions. For instance busy 
-checking goes from single read to loop with 250 ms timeout in this patch 
-while changing also spin lock logic and interrupt handling.
+> There are still quite a few cases where a device might want
+> to get to a different node of the device-tree, obtain the
+> resources and map them.
+>
+> We have of_iomap() and of_io_request_and_map() but they both
+> have shortcomings, such as not returning the size of the
+> resource found (which can be useful) and not being "managed".
+>
+> This adds a devm_of_iomap() that provides all of these and
+> should probably replace uses of the above in most drivers.
+>
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
-Now if there is some regression it might be difficult to find what 
-change in this patch is causing it and more over things goes more 
-complicated if some other kind of regressions are found pointing into 
-the same commit.
+Ugh I just feel I have seen homecooked solutions to this problem
+a few times :/
 
-I suggest splitting this into multiple smaller patches. For instance 
-having first simple conversions patches that are unlikely to cause a 
-regression like one patch adding '\n' to error print, another moving 
-irq_status variable into struct aspeed_i2c_bus and so on followed by 
-patches that change logic like busy checking, spin lock change and then 
-patch or more for multi-master support.
+I wonder if it is easy to find these cases and replace them with
+this neat function...
 
--- 
-Jarkko
+Thanks for doing this.
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+
+Yours,
+Linus Walleij
