@@ -1,34 +1,55 @@
-Return-Path: <Avi.Fishman@nuvoton.com>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::231; helo=mail-oi0-x231.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=nuvoton.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="G4Z+rAR0"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x231.google.com (mail-oi0-x231.google.com
+ [IPv6:2607:f8b0:4003:c06::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41JQC94bQjzF1D8
- for <openbmc@lists.ozlabs.org>; Sun,  1 Jul 2018 19:32:21 +1000 (AEST)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w619UW8w032430;
- Sun, 1 Jul 2018 12:30:33 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 8441)
- id 861E062E6F; Sun,  1 Jul 2018 12:30:32 +0300 (IDT)
-From: avi.fishman@nuvoton.com
-To: davem@davemloft.net, mchehab+samsung@kernel.org,
- gregkh@linuxfoundation.org, akpm@linux-foundation.org
-Cc: rdunlap@infradead.org, avifishman70@gmail.com, tmaimon77@gmail.com,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v2 1/1] MAINTAINERS: add subfolders for nuvoton *npcm*
-Date: Sun,  1 Jul 2018 12:30:28 +0300
-Message-Id: <20180701093028.10174-2-avi.fishman@nuvoton.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180701093028.10174-1-avi.fishman@nuvoton.com>
-References: <20180701093028.10174-1-avi.fishman@nuvoton.com>
-X-Mailman-Approved-At: Mon, 02 Jul 2018 11:30:02 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41JvHX31CyzF1LQ
+ for <openbmc@lists.ozlabs.org>; Mon,  2 Jul 2018 14:22:47 +1000 (AEST)
+Received: by mail-oi0-x231.google.com with SMTP id c6-v6so13913334oiy.0
+ for <openbmc@lists.ozlabs.org>; Sun, 01 Jul 2018 21:22:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=A+x2YE3De+rV1bLFTQ1FmnAsRI2C8+mwFkphnrFSIvU=;
+ b=G4Z+rAR0/WnyXh0z0ylaoxJ4ji45ao6sgoe+4XTummfpTR5XVL9yoetvB1sRbXKxks
+ 3mEU8ocQOcOYFYNSqP1XbdSvkHbPXD3DmB3LVtzjFRc31qX5gOAGD7JaaSITcWcMSkre
+ 2nvcvMUaOB+IQUH4CuSX5mMOKwbHP5qY6xPFAuMLHSnhZaKeaqHn0sUuiHKdEgGlFhXS
+ o5iwdPb5e1p1wBS+KcW0JPY9khs1IehGmIx/45rdqho0GrYBmsvp5RMza1THUm5us2GZ
+ uQQ+XsUXAsbW3rr60nAcX/nPEk1TaAIgb3qCpb2StlEKgAWlpDi9jNnDzBbBsOchJCaK
+ dLAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=A+x2YE3De+rV1bLFTQ1FmnAsRI2C8+mwFkphnrFSIvU=;
+ b=rJtGJ5uWGEeW4kRHyg6+yQm0WQeOEggUT/UBR4ygakXCquWMjahjhnXfFgYtN7AJ9k
+ Dd6CdJVnNn+oD8OMDHRJnkoYacl9VMEDXEYjTn9lz5wHwI6+f/ugmongTQi2sCpGRaWI
+ Ex/Y8KJE+o5tIP3Q95gURbfYOOtIFTQLQ8BlrBxOSHndLAgZ4GK1/Gi3ErMff57IU27/
+ bJqcKEEZVNRNjPPM+UQ4+YMJWRP70g7VEbvR8AVIuCh5c7OK0jLCWHDXBYn2yXYXeIZQ
+ pSvN1AMii9VXiH6PFKio1Y37kSVX02Y4lKZ2BBgLSejQkuAo21H197oPaVCtT2UlXAwD
+ IIqA==
+X-Gm-Message-State: APt69E0klrOWc6O3rXntcYGPYKGGiruLfbdSanvfSIWgX3XUPOmm5E3Q
+ zIDonAsGD9P6KmOrtFOTID+yQnhYp3Ss0z2ugSxdTmDI
+X-Google-Smtp-Source: AAOMgpcQu/by+JbsyA0scij+3hDjEMJnzmfcaaKyBnfBe2rJCg1MrEtEyuHF7pmo+0svC01bAIGZ3P4G9e+V5xEb9CM=
+X-Received: by 2002:aca:ba84:: with SMTP id
+ k126-v6mr12947125oif.96.1530505365524; 
+ Sun, 01 Jul 2018 21:22:45 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:a4a:2c87:0:0:0:0:0 with HTTP;
+ Sun, 1 Jul 2018 21:22:45 -0700 (PDT)
+From: AKASH G J <akashgj91@gmail.com>
+Date: Mon, 2 Jul 2018 09:52:45 +0530
+Message-ID: <CAE33tLET5QNui-zYtXvmShkBr4UJfdwMoUP7bRZk0br1803wzg@mail.gmail.com>
+Subject: Unable to execute IPMI commands
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000a395a0056ffc8c52"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -40,32 +61,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 01 Jul 2018 09:32:22 -0000
+X-List-Received-Date: Mon, 02 Jul 2018 04:22:49 -0000
 
-From: Avi Fishman <AviFishman70@gmail.com>
+--000000000000a395a0056ffc8c52
+Content-Type: text/plain; charset="UTF-8"
 
-Add several subfolders to look for *npcm* files under
-ARM/NUVOTON NPCM ARCHITECTURE
+Hi Team,
 
-Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
----
- MAINTAINERS | 3 +++
- 1 file changed, 3 insertions(+)
+I am new in BMC. We have one custom board that contains Aspeed AST-2500 BMC
+chip. I have installed openbmc Linux into the board and tried to execute
+IPMI commands using ipmitool. I tried with both open interface and dbus
+interface. But it is showing errors "*Could not open device at /dev/ipmi0
+or /dev/ipmi/0 or /dev/ipmidev/0*. No such file or directory" and "*error
+loading interface dbus*". Please someone help to resolve this.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e0ce3c5f32e5..23c450adad44 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1727,7 +1727,10 @@ F:	arch/arm/mach-npcm/
- F:	arch/arm/boot/dts/nuvoton-npcm*
- F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
- F:	drivers/*/*npcm*
-+F:	drivers/*/*/*npcm*
- F:	Documentation/*/*npcm*
-+F:	Documentation/*/*/*npcm*
-+F:	Documentation/*/*/*/*npcm*
- 
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
--- 
-2.14.1
+Whether any firmware required for running IPMI commands on the board, other
+than openbmc Linux image ?
+
+
+
+
+Thanks and regards,
+
+Akash G J
+
+--000000000000a395a0056ffc8c52
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Team,</div><div><br></div><div>I am new in BMC. We=
+ have one custom board that contains Aspeed AST-2500 BMC chip. I have insta=
+lled openbmc Linux into the board and tried to execute IPMI commands using =
+ipmitool. I tried with both open interface and dbus interface. But it is sh=
+owing errors &quot;<b>Could not open device at /dev/ipmi0 or /dev/ipmi/0 or=
+ /dev/ipmidev/0</b>. No such file or directory&quot; and &quot;<b>error loa=
+ding interface dbus</b>&quot;. Please someone help to resolve this.</div><d=
+iv><br></div><div>Whether any firmware required for running IPMI commands o=
+n the board, other than openbmc Linux image ?</div><div><br></div><div><br>=
+</div><div><br></div><div><br></div><div>Thanks and regards,</div><div><br>=
+</div><div>Akash G J<br></div></div>
+
+--000000000000a395a0056ffc8c52--
