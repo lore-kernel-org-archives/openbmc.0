@@ -1,39 +1,49 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <joe@perches.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=perches.com
+ (client-ip=216.40.44.205; helo=smtprelay.hostedemail.com;
+ envelope-from=joe@perches.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=perches.com
+Received: from smtprelay.hostedemail.com (smtprelay0205.hostedemail.com
+ [216.40.44.205])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41KLK73p3mzF1D8;
- Tue,  3 Jul 2018 07:40:42 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2018 14:40:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,300,1526367600"; d="scan'208";a="52149754"
-Received: from maru.jf.intel.com ([10.54.51.80])
- by fmsmga008.fm.intel.com with ESMTP; 02 Jul 2018 14:40:12 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH] i2c: aspeed: Adjust spinlock scope in the irq handler
-Date: Mon,  2 Jul 2018 14:40:11 -0700
-Message-Id: <20180702214011.16071-1-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41KLjG1FfhzF1LQ
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 07:58:09 +1000 (AEST)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+ [216.40.38.60])
+ by smtprelay08.hostedemail.com (Postfix) with ESMTP id AD4A0182CED34;
+ Mon,  2 Jul 2018 21:58:05 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com,
+ :::::::::::::::::::,
+ RULES_HIT:41:355:379:541:599:800:960:973:988:989:1260:1277:1311:1313:1314:1345:1359:1431:1437:1515:1516:1518:1534:1541:1593:1594:1711:1730:1747:1777:1792:2393:2553:2559:2562:2828:3138:3139:3140:3141:3142:3352:3622:3865:3867:4321:5007:6117:6119:7514:7576:7809:8957:9038:10004:10400:10848:10967:11232:11657:11658:11914:12043:12555:12679:12740:12760:12895:13069:13200:13229:13311:13357:13439:14096:14097:14181:14659:14721:21080:21451:21611:21627:30054:30090:30091,
+ 0, RBL:error, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
+ DomainCache:0, MSF:not bulk, SPF:fn, MSBL:0, DNSBL:neutral, Custom_rules:0:0:0,
+ LFtime:26, LUA_SUMMARY:none
+X-HE-Tag: rat62_63529679bfe5a
+X-Filterd-Recvd-Size: 2638
+Received: from XPS-9350 (unknown [172.58.94.179])
+ (Authenticated sender: joe@perches.com)
+ by omf07.hostedemail.com (Postfix) with ESMTPA;
+ Mon,  2 Jul 2018 21:58:02 +0000 (UTC)
+Message-ID: <578ce3d69b43c580d5e810741364b4d86174c3f0.camel@perches.com>
+Subject: Re: [PATCH v2 1/1] MAINTAINERS: add subfolders for nuvoton *npcm*
+From: Joe Perches <joe@perches.com>
+To: Andrew Morton <akpm@linux-foundation.org>, avi.fishman@nuvoton.com
+Cc: davem@davemloft.net, mchehab+samsung@kernel.org,
+ gregkh@linuxfoundation.org,  rdunlap@infradead.org, avifishman70@gmail.com,
+ tmaimon77@gmail.com,  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Date: Mon, 02 Jul 2018 14:58:00 -0700
+In-Reply-To: <20180702144514.18b45671a29cf5250aacb153@linux-foundation.org>
+References: <20180701093028.10174-1-avi.fishman@nuvoton.com>
+ <20180701093028.10174-2-avi.fishman@nuvoton.com>
+ <20180702144514.18b45671a29cf5250aacb153@linux-foundation.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+X-Mailer: Evolution 3.28.1-2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -45,77 +55,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Jul 2018 21:40:44 -0000
+X-List-Received-Date: Mon, 02 Jul 2018 21:58:10 -0000
 
-This patch adjusts spinlock scope to make it wrap the whole irq
-handler using a single lock/unlock which covers both master and
-slave handlers.
+On Mon, 2018-07-02 at 14:45 -0700, Andrew Morton wrote:
+> On Sun,  1 Jul 2018 12:30:28 +0300 avi.fishman@nuvoton.com wrote:
+> 
+> > From: Avi Fishman <AviFishman70@gmail.com>
+> > 
+> > Add several subfolders to look for *npcm* files under
+> > ARM/NUVOTON NPCM ARCHITECTURE
+> > 
+> > Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
+> > ---
+> >  MAINTAINERS | 3 +++
+> >  1 file changed, 3 insertions(+)
+> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index e0ce3c5f32e5..23c450adad44 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -1727,7 +1727,10 @@ F:	arch/arm/mach-npcm/
+> >  F:	arch/arm/boot/dts/nuvoton-npcm*
+> >  F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+> >  F:	drivers/*/*npcm*
+> > +F:	drivers/*/*/*npcm*
+> >  F:	Documentation/*/*npcm*
+> > +F:	Documentation/*/*/*npcm*
+> > +F:	Documentation/*/*/*/*npcm*
+> 
+> The Docuemntation/ pathnames have changed.  Please refresh to the
+> current Linus tree.
 
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
----
- drivers/i2c/busses/i2c-aspeed.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+$ git ls-files Documentation | grep npcm
+Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm750-smp
+Documentation/devicetree/bindings/arm/npcm/npcm.txt
+Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
+Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
+Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
+Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index 60e4d0e939a3..9f02aa959a3e 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -234,7 +234,6 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
- 	bool irq_handled = true;
- 	u8 value;
- 
--	spin_lock(&bus->lock);
- 	if (!slave) {
- 		irq_handled = false;
- 		goto out;
-@@ -325,7 +324,6 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
- 	writel(status_ack, bus->base + ASPEED_I2C_INTR_STS_REG);
- 
- out:
--	spin_unlock(&bus->lock);
- 	return irq_handled;
- }
- #endif /* CONFIG_I2C_SLAVE */
-@@ -389,7 +387,6 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 	u8 recv_byte;
- 	int ret;
- 
--	spin_lock(&bus->lock);
- 	irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
- 	/* Ack all interrupt bits. */
- 	writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
-@@ -547,22 +544,29 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 		dev_err(bus->dev,
- 			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
- 			irq_status, status_ack);
--	spin_unlock(&bus->lock);
- 	return !!irq_status;
- }
- 
- static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
- {
- 	struct aspeed_i2c_bus *bus = dev_id;
-+	bool ret;
-+
-+	spin_lock(&bus->lock);
- 
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- 	if (aspeed_i2c_slave_irq(bus)) {
- 		dev_dbg(bus->dev, "irq handled by slave.\n");
--		return IRQ_HANDLED;
-+		ret = true;
-+		goto out;
- 	}
- #endif /* CONFIG_I2C_SLAVE */
- 
--	return aspeed_i2c_master_irq(bus) ? IRQ_HANDLED : IRQ_NONE;
-+	ret = aspeed_i2c_master_irq(bus);
-+
-+out:
-+	spin_unlock(&bus->lock);
-+	return ret ? IRQ_HANDLED : IRQ_NONE;
- }
- 
- static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
--- 
-2.17.1
+So maybe:
+
+F:	Documentation/devicetree/bindings/*/*npcm*
+F:	Documentation/devicetree/bindings/*/*/*npcm*
