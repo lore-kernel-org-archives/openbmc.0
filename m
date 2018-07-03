@@ -1,60 +1,50 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.161.195; helo=mail-yw0-f195.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-yw0-f195.google.com (mail-yw0-f195.google.com
- [209.85.161.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Kr1D5dp5zF1Qt
- for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 02:58:40 +1000 (AEST)
-Received: by mail-yw0-f195.google.com with SMTP id l189-v6so936000ywb.10
- for <openbmc@lists.ozlabs.org>; Tue, 03 Jul 2018 09:58:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=QEXNpG/vDHGqfqStbO0/PXbKZ26mJWba5U5as7wGSis=;
- b=U8+2OD1NeaQESQwcmDHAY1igbFqNo+bNLu9bAWyNoqAIrnfVANPBV7TaWGzkSOUJ29
- cBZOVRy+9RJpBVAuRkNch1P6tTFSANoY7kexV9St1NjCjO5lXrtnW67M+EHgteKLWl7x
- kgwM6DTUu1uv/b+7CtbQCRzFuAMAc0myf00yWnVKHETd4BhhGwc8ZOureMCq1TtINQV5
- exJGd8S6gHT+pab3Xyu8gwY61a3jy5p7R+6/lXqgFrunfNCbzRzcutLsCs4nJvxZtz6T
- mS5StOUZaCNbEHgehqK39dJVCupogr/qTEjYzqprH8Y9RMLG+dNZrERAwBFqar9CUNm0
- ctBw==
-X-Gm-Message-State: APt69E07nxbkRqfIOtRNd9iMLgdM2/HdiV+YcNLY0PH6esMRuKuow75D
- K10hafrldhA4OeN53mOpMw==
-X-Google-Smtp-Source: AAOMgpdG5wDVXH1i91Kef7yh3QpAbuoqG+p5OQb7/gbOIl6tUw0jciXjZAZbsTON07Hye+1xIiNn8Q==
-X-Received: by 2002:a81:3a04:: with SMTP id
- h4-v6mr15156522ywa.60.1530637117757; 
- Tue, 03 Jul 2018 09:58:37 -0700 (PDT)
-Received: from localhost (24-223-123-72.static.usa-companies.net.
- [24.223.123.72])
- by smtp.gmail.com with ESMTPSA id j128-v6sm526307ywf.9.2018.07.03.09.58.36
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 03 Jul 2018 09:58:37 -0700 (PDT)
-Date: Tue, 3 Jul 2018 10:58:35 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Lee Jones <lee.jones@linaro.org>, Mark Rutland <mark.rutland@arm.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Joel Stanley <joel@jms.id.au>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH linux-next v6 07/13] dt-bindings: mfd: Add a document for
- PECI client MFD
-Message-ID: <20180703165835.GA18160@rob-hp-laptop>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Kr4y0vwCzF1MY;
+ Wed,  4 Jul 2018 03:01:53 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2018 10:01:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,304,1526367600"; d="scan'208";a="52356691"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by fmsmga008.fm.intel.com with ESMTP; 03 Jul 2018 10:01:50 -0700
+Subject: Re: [PATCH linux-next v6 04/13] dt-bindings: Add a document of PECI
+ adapter driver for ASPEED AST24xx/25xx SoCs
+To: Rob Herring <robh@kernel.org>
+Cc: Jason M Biils <jason.m.bills@linux.intel.com>,
+ Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Milton Miller II <miltonm@us.ibm.com>,
+ Pavel Machek <pavel@ucw.cz>, Robin Murphy <robin.murphy@arm.com>,
+ Ryan Chen <ryan_chen@aspeedtech.com>
 References: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
- <20180621194054.20897-1-jae.hyun.yoo@linux.intel.com>
+ <20180621194024.20771-1-jae.hyun.yoo@linux.intel.com>
+ <20180703165148.GA11628@rob-hp-laptop>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <7f7d1045-ca1f-6086-8fce-ceab53568bcd@linux.intel.com>
+Date: Tue, 3 Jul 2018 10:01:50 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180621194054.20897-1-jae.hyun.yoo@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20180703165148.GA11628@rob-hp-laptop>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,65 +56,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2018 16:58:41 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 17:01:55 -0000
 
-On Thu, Jun 21, 2018 at 12:40:54PM -0700, Jae Hyun Yoo wrote:
-> This commit adds a dt-bindings document for PECI client MFD.
+Hi Rob,
 
-This and the next patch still have the same issues I've outlined in at 
-least 2 prior versions.
- 
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Cc: Andrew Jeffery <andrew@aj.id.au>
-> Cc: James Feist <james.feist@linux.intel.com>
-> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
-> Cc: Joel Stanley <joel@jms.id.au>
-> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
-> ---
->  .../bindings/mfd/intel-peci-client.txt        | 34 +++++++++++++++++++
->  1 file changed, 34 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/mfd/intel-peci-client.txt
+Thanks a lot for the review. Please check my inline answer.
+
+On 7/3/2018 9:51 AM, Rob Herring wrote:
+> On Thu, Jun 21, 2018 at 12:40:24PM -0700, Jae Hyun Yoo wrote:
+>> This commit adds a dt-bindings document of PECI adapter driver for ASPEED
+>> AST24xx/25xx SoCs.
+>>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+>> Reviewed-by: James Feist <james.feist@linux.intel.com>
+>> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
+>> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+>> Cc: Greg KH <gregkh@linuxfoundation.org>
+>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+>> Cc: Milton Miller II <miltonm@us.ibm.com>
+>> Cc: Pavel Machek <pavel@ucw.cz>
+>> Cc: Robin Murphy <robin.murphy@arm.com>
+>> Cc: Ryan Chen <ryan_chen@aspeedtech.com>
+>> ---
+>>   .../devicetree/bindings/peci/peci-aspeed.txt  | 57 +++++++++++++++++++
+>>   1 file changed, 57 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.txt
+>>
+>> diff --git a/Documentation/devicetree/bindings/peci/peci-aspeed.txt b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+>> new file mode 100644
+>> index 000000000000..8c35f905589d
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/peci/peci-aspeed.txt
+>> @@ -0,0 +1,57 @@
+>> +Device tree configuration for PECI buses on the AST24XX and AST25XX SoCs.
+>> +
+>> +Required properties:
+>> +- compatible        : Should be "aspeed,ast2400-peci" or "aspeed,ast2500-peci"
+>> +		      - aspeed,ast2400-peci: ASPEED AST2400 family PECI
+>> +					     controller
+>> +		      - aspeed,ast2500-peci: ASPEED AST2500 family PECI
+>> +					     controller
 > 
-> diff --git a/Documentation/devicetree/bindings/mfd/intel-peci-client.txt b/Documentation/devicetree/bindings/mfd/intel-peci-client.txt
-> new file mode 100644
-> index 000000000000..cb341e363add
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/intel-peci-client.txt
-> @@ -0,0 +1,34 @@
-> +* Intel PECI client bindings
-> +
-> +PECI (Platform Environment Control Interface) is a one-wire bus interface that
-> +provides a communication channel from PECI clients in Intel processors and
-> +chipset components to external monitoring or control devices. PECI is designed
-> +to support the following sideband functions:
-> +
-> +- Processor and DRAM thermal management
-> +- Platform Manageability
-> +- Processor Interface Tuning and Diagnostics
-> +- Failure Analysis
-> +
-> +Required properties:
-> +- compatible : Should be "intel,peci-client".
-> +- reg        : Should contain address of a client CPU. Address range of CPU
-> +	       clients starts from 0x30 based on PECI specification.
-> +
-> +Example:
-> +	peci-bus@0 {
-> +		compatible = "vendor,soc-peci";
-> +		reg = <0x0 0x1000>;
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		peci-client@30 {
-> +			compatible = "intel,peci-client";
-> +			reg = <0x30>;
-> +		};
-> +
-> +		peci-client@31 {
-> +			compatible = "intel,peci-client";
-> +			reg = <0x31>;
-> +		};
-> +	};
-> -- 
-> 2.17.1
+> Just this is sufficient:
 > 
+> Should be one of:
+> 	"aspeed,ast2400-peci"
+> 	"aspeed,ast2500-peci"
+> 
+> With that,
+> 
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> 
+
+Thanks! I'll change it as you commented out.
+
+Jae
+
+>> +- reg               : Should contain PECI controller registers location and
+>> +		      length.
+>> +- #address-cells    : Should be <1> required to define a client address.
+>> +- #size-cells       : Should be <0> required to define a client address.
+>> +- interrupts        : Should contain PECI controller interrupt.
+>> +- clocks            : Should contain clock source for PECI controller. Should
+>> +		      reference the external oscillator clock in the second
+>> +		      cell.
+>> +- resets            : Should contain phandle to reset controller with the reset
+>> +		      number in the second cell.
+>> +- clock-frequency   : Should contain the operation frequency of PECI controller
+>> +		      in units of Hz.
+>> +		      187500 ~ 24000000
+>> +
+>> +Optional properties:
+>> +- msg-timing        : Message timing negotiation period. This value will
+>> +		      determine the period of message timing negotiation to be
+>> +		      issued by PECI controller. The unit of the programmed
+>> +		      value is four times of PECI clock period.
+>> +		      0 ~ 255 (default: 1)
+>> +- addr-timing       : Address timing negotiation period. This value will
+>> +		      determine the period of address timing negotiation to be
+>> +		      issued by PECI controller. The unit of the programmed
+>> +		      value is four times of PECI clock period.
+>> +		      0 ~ 255 (default: 1)
+>> +- rd-sampling-point : Read sampling point selection. The whole period of a bit
+>> +		      time will be divided into 16 time frames. This value will
+>> +		      determine the time frame in which the controller will
+>> +		      sample PECI signal for data read back. Usually in the
+>> +		      middle of a bit time is the best.
+>> +		      0 ~ 15 (default: 8)
+>> +- cmd-timeout-ms    : Command timeout in units of ms.
+>> +		      1 ~ 60000 (default: 1000)
+>> +
+>> +Example:
+>> +	peci0: peci-bus@0 {
+>> +		compatible = "aspeed,ast2500-peci";
+>> +		reg = <0x0 0x60>;
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +		interrupts = <15>;
+>> +		clocks = <&syscon ASPEED_CLK_GATE_REFCLK>;
+>> +		resets = <&syscon ASPEED_RESET_PECI>;
+>> +		clock-frequency = <24000000>;
+>> +		msg-timing = <1>;
+>> +		addr-timing = <1>;
+>> +		rd-sampling-point = <8>;
+>> +		cmd-timeout-ms = <1000>;
+>> +	};
+>> -- 
+>> 2.17.1
+>>
