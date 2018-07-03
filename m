@@ -9,13 +9,13 @@ Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
  [140.211.169.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41KbrQ5NnfzF1LM
- for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 17:50:14 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Kbrb5HVzzF1Nb
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 17:50:23 +1000 (AEST)
 Received: from localhost (LFbn-1-12247-202.w90-92.abo.wanadoo.fr
  [90.92.61.202])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id 1B1E2F03;
- Tue,  3 Jul 2018 07:50:12 +0000 (UTC)
-Date: Tue, 3 Jul 2018 09:50:09 +0200
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 833E4F05;
+ Tue,  3 Jul 2018 07:50:20 +0000 (UTC)
+Date: Tue, 3 Jul 2018 09:50:18 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Andrew Jeffery <andrew@aj.id.au>
 Cc: linux-kernel@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
@@ -23,15 +23,15 @@ Cc: linux-kernel@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
  stewart@linux.ibm.com, benh@kernel.crashing.org,
  openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [RFC PATCH 1/4] dts: misc: Add bindings documentation for
- bmc-misc-ctrl
-Message-ID: <20180703075009.GA27649@kroah.com>
+Subject: Re: [RFC PATCH 2/4] Documentation: ABI: Add sysfs-class-bmc
+ documentation to testing
+Message-ID: <20180703075018.GB27649@kroah.com>
 References: <20180703070413.28756-1-andrew@aj.id.au>
- <20180703070413.28756-2-andrew@aj.id.au>
+ <20180703070413.28756-3-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20180703070413.28756-2-andrew@aj.id.au>
+In-Reply-To: <20180703070413.28756-3-andrew@aj.id.au>
 User-Agent: Mutt/1.10.0 (2018-05-17)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -44,10 +44,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2018 07:50:15 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 07:50:24 -0000
 
-On Tue, Jul 03, 2018 at 05:04:10PM +1000, Andrew Jeffery wrote:
+On Tue, Jul 03, 2018 at 05:04:11PM +1000, Andrew Jeffery wrote:
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
 
-I can't take patches without any changelog text at all :(
+Same problem here :(
