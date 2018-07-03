@@ -1,55 +1,35 @@
-Return-Path: <henbinchang@gmail.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::235; helo=mail-qt0-x235.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ejIuN9QQ"; 
- dkim-atps=neutral
-Received: from mail-qt0-x235.google.com (mail-qt0-x235.google.com
- [IPv6:2607:f8b0:400d:c0d::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41KfTC20dhzF1PD
- for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 19:48:46 +1000 (AEST)
-Received: by mail-qt0-x235.google.com with SMTP id y5-v6so968725qti.12
- for <openbmc@lists.ozlabs.org>; Tue, 03 Jul 2018 02:48:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=/fNd0mI3fL36WDAWplXPq+kEWoyKrh6dtjlt9PCCyPQ=;
- b=ejIuN9QQ+aJsVDnb1YjDwlMW3vpF9SV6Zbf1D0Cvm8a5DGvmCtYatIRgB7sWjyTcDQ
- R59ejVdSGUiJTjpbg14FCNSAF15xsPGuYajg9tag5DO/48WjuzqRzw4V/pn/8/yQM1AZ
- VmD4XmNh1HFxpayH65dj8sK4IqiSuZitKo8KzpUh1P/UuA3kQlTubqGNl4Y9Te7/PNZA
- 8ukujJHfXzklXkF0zo4c3ghrXCEAaHL4APsKBJ7nRZhcyYMZ4MWVTdulD/RJgbDHmx1r
- u+APpq8f/24XbL+5uI21DYnI8arU12pep3fJDAPx66sOyUTEJHeDPJv97r8WQ/KkgCsh
- GGrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=/fNd0mI3fL36WDAWplXPq+kEWoyKrh6dtjlt9PCCyPQ=;
- b=Bs2BxV02+nX9Elw7RanbrnxRRAjYh5OtT+VCn4VNFE6fmPYAAmCEgx70/FpWmmINg6
- A7w19e+bOcgsqF5Wyp2sOJjX0id5o0bHifkCwPbniprHyvb9ow0P2qB1jjmsrniFrhMF
- fUOVtjjKYdcv+jSPYLNbNb47Hf+p90PBiGcGRk4YvbxJOkHnSMWc57tF1O1ap4hE5yS5
- KCih2zyWkBXXNdSDij6gSakFCRtcXArA0Uae1BMTjeI2zPvPNr/tmgD2R0I1nsnsGKRk
- MNzHhIRMGfAonyFt5tpLm4KRTVliIbSWxp78tnbd9l9v7b5LhEnisM4GTl1jtlWDrlXz
- +xEA==
-X-Gm-Message-State: APt69E21kWUibxaor6zYdn7cXTCOi+2/XCgiRs+A9pdqPYNRnDQwA0qy
- l/aURnc58AHp2w6RsYyNu+NLgojUO6Q1EGljMSHELA==
-X-Google-Smtp-Source: AAOMgpdHdZb91XBJdzV5b65EHvrTtQ9xgl4YV1ZHKnjrlJMXyI0SfY+NYTn0WrBq0Ly3F/E4U96p2ibH5zBSQHJMW+8=
-X-Received: by 2002:ac8:709:: with SMTP id
- g9-v6mr16709132qth.110.1530611324228; 
- Tue, 03 Jul 2018 02:48:44 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP;
- Tue, 3 Jul 2018 02:48:43 -0700 (PDT)
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Tue, 3 Jul 2018 17:48:43 +0800
-Message-ID: <CAG9c7cCPZFFg65e-1iOSkLqgb26-2t1SqH_AZ4JjB5-TigNqzw@mail.gmail.com>
-Subject: How to override default Kernel config
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000004518f9057015386d"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41KmRN4N5PzF1MY
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 00:17:36 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w63EGnD7031782;
+ Tue, 3 Jul 2018 09:16:50 -0500
+Message-ID: <a1c3ecd4fed28e2b33c95a476452318dba58cd7e.camel@kernel.crashing.org>
+Subject: Re: [RFC PATCH 1/4] dts: misc: Add bindings documentation for
+ bmc-misc-ctrl
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Greg KH <gregkh@linuxfoundation.org>, Andrew Jeffery <andrew@aj.id.au>
+Cc: linux-kernel@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ joel@jms.id.au, Eugene.Cho@dell.com, a.amelkin@yadro.com,
+ stewart@linux.ibm.com, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Date: Wed, 04 Jul 2018 00:16:49 +1000
+In-Reply-To: <20180703075009.GA27649@kroah.com>
+References: <20180703070413.28756-1-andrew@aj.id.au>
+ <20180703070413.28756-2-andrew@aj.id.au> <20180703075009.GA27649@kroah.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -61,30 +41,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2018 09:48:48 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 14:17:37 -0000
 
---0000000000004518f9057015386d
-Content-Type: text/plain; charset="UTF-8"
+On Tue, 2018-07-03 at 09:50 +0200, Greg KH wrote:
+> On Tue, Jul 03, 2018 at 05:04:10PM +1000, Andrew Jeffery wrote:
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> 
+> I can't take patches without any changelog text at all :(
 
-Hi,
-I would like to enable a specific Kernel config in my machine.
-I don't want to modify the 'defconfig'
+Greg (and replying to your other comments as well)...
 
-Could anyone tell me how to do?
+This is an RFC series, it's not meant for you to take at this point,
+it's about discussing the overall approach to exposing BMC random
+"tunables" as explained in patch 0 of the series.
 
-Thanks.
-BRs,
-Henbin.
+Yes the individual patches aren't yet at the level of polish for a
+formal submission, we (naively ?) thought that's what the whole RFC tag
+is about :-)
 
---0000000000004518f9057015386d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,=C2=A0<div>I would like to enable a specific Kernel con=
-fig in my machine.</div><div>I don&#39;t want to modify the &#39;<span styl=
-e=3D"font-size:small;background-color:rgb(255,255,255);text-decoration-styl=
-e:initial;text-decoration-color:initial;float:none;display:inline">defconfi=
-g&#39;</span></div><div><br></div><div>Could anyone tell me how to do?</div=
-><div><br></div><div>Thanks.</div><div>BRs,</div><div>Henbin.</div></div>
-
---0000000000004518f9057015386d--
+Cheers,
+Ben.
