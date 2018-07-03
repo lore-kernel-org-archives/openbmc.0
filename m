@@ -6,49 +6,50 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="VfYV17mr"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="eQ64X/vF"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="LDy+p2iY"; dkim-atps=neutral
+ header.b="TCfNU3o6"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41KZqp4M66zF1QL
- for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 17:04:38 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41KZqs6m10zF1Qp
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 17:04:41 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B5F0B218B4;
- Tue,  3 Jul 2018 03:04:35 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 85EE621947;
+ Tue,  3 Jul 2018 03:04:39 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 03 Jul 2018 03:04:35 -0400
+ by compute4.internal (MEProxy); Tue, 03 Jul 2018 03:04:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=eb55P6e+P9E44e7hvt2CocvScxT2pp5aaSC7xlOo5
- vs=; b=VfYV17mrv4YTWDaF/vx75pveuL053QeNWOxn8SwLjdgwuwU/70ioIv7xq
- BoDtf0YsbjOeowzkVk1ApOMmp9A+4Lal4dxZ0AvqEdgSANkBEYKKgWF1YkWYn9Hy
- qKPJ2Gp8mb37IakyWEy1fzHEEh4QMptVpIikplfcLVxXKLF1zQ2zkQR7C5pyXzUb
- JuRc0OItyfDRqMdtoXhl4rh/8z3oZAmKZsoai7VDLdN1RTwGkuCNGMNy2Pp8j0do
- tu6q9LkNYxquKOES6unZcaNIGzd6bMIzBqRlul3GhCCbKrNK1RL0bPFf7nUY5xDF
- QQkhJ9ms4evu8Nwxop16PwugO9N5Q==
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=6qVCw7E0oetDPTfUw
+ s9GVMXyGTOvb/YYzziES5qsg74=; b=eQ64X/vFWcs5XX2Go3idKH7vBjs+chgpf
+ eSXaOCYsq/rAGdC3hPxVors+Sx8gnDzvBHQLjhXNXsz6xann7ed4vFj0EPOva7Nh
+ YkTBBDHmIlJk3lYjpYbMfEAtb/HFbMenOQhvxlHjlBtME98PHvyJVUrfIu/1dlWc
+ lTKqbEK6HW2fV/B2yPwbH4VjSXCUQe1Wash2RNWHL0HK/j97ECRbYclT8sthqJYw
+ 9je9BKrhxJLDzfo3F6F7b04G8G02s7VG03ePbCk+QcSD5BOkX6YUttWYakJaDTwv
+ dE01eYrBDL0srO4UUvzbWDDb3iJFYVU+T1uwSS/JMVdO3oV0AlrNw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=eb55P6e+P9E44e7hv
- t2CocvScxT2pp5aaSC7xlOo5vs=; b=LDy+p2iYyyq3AOgbR0y2RcZe7mx18/iSr
- AdoPXpR63hj7kI51gNn8K8GTkQVATfDZjA1FQY5Kk02Ha6eqnvhXzKx7VJWdZ92C
- Fdr+UMLChbd9lgn9NWpOWvQgfh7E2OIDVTpPxku0p40WobiaLVBb4czZim+/AtJi
- Dssr7dFId4aFPxD6idTk6vQkDN+DYKaY+4NmVXQNK2KXyeuJaDyZWqVjd3J9pNdy
- ip1OpqTxdosahj56eKr7FS+3gjd3eEcUDuO+DNewrHnXaqp2Eldqav52cTjgQNKe
- wMmK1S1Ixmg31jUB8jOuBoNCTYe+cSZ012a/Oa/KWWpS1U3+ZJBIA==
-X-ME-Proxy: <xmx:AiA7WxkJz1CQhwX_kXTwA4n8dhyUEpHWCyaYpJbWQZm4_-_FaS8tbQ>
- <xmx:AiA7Wzim3yoL2MrAlAA1t8i2uH6Of0YVGtMa6W6tyz1Tl5-UtFGiow>
- <xmx:AiA7Wx3k-328lZvUga1q7Zvf9eMJxlCUU5F4Gv0If0zL-EoUKUbxzw>
- <xmx:AiA7WyNM83prNP5UTYgfQazZmy-IdvGYf-rweAIgOSW-lyg8VXfUGA>
- <xmx:AiA7WzlmHE6wnFZXKgRxj5QgUvM1ja3XCx0n7j5-jPIZggWI1j2oCQ>
- <xmx:AyA7WwK0WsgSQITO1sEjWeJWIqJ6oi3fCnnz954uHym0y_yC9g92sg>
-X-ME-Sender: <xms:AiA7W-lfSWnb5g5D2Fa298J3hLp_5ZBs64G9StOyoC7qBUIszXJUdg>
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=6qVCw7E0oetDPTfUws9GVMXyGTOvb/YYzziES5qsg74=; b=TCfNU3o6
+ zi8B8aHf7TMr5m16i7GiavkdEj+/uuY+61zitI/pxWUtK0ytRf+lnn49Y5OG4fn/
+ KYbyZt2GWwsE781NsIj0El1fbLCHHOVZIGjOOISye0zsdIM8cgprb3/zekSU4Css
+ K/AudIW4CwqiodiTOikOeYKgy03FxV70wFKfPYsptBybgAm35Bo8JaBkmrUU/5T+
+ mVC54LKrN4zetD5eF1epNipKh6Oz1sP3ur7026rSXITgRxjwdazcU1353vbnuP1Y
+ 4TcAiIWVaLsitRSgohvN1FLigxolvwbGuyQmmjBHb+VjvD/ZRCFsdgZ/4WMYqq7M
+ jSgV4hQCvy7c2Q==
+X-ME-Proxy: <xmx:ByA7W3ymUgGUO5NTWj1rV4qq3xQcZIUx0apk9aYaRqChS9G5LYnIHQ>
+ <xmx:ByA7WzbtCY4zocqhX8Mrj0lGiOgy_u4EZnrmB2PD9fj7auZElgQqgQ>
+ <xmx:ByA7W-VCZTCvHjLNEua4jHIUJCmChL2s27wLmZaHYcYYmthHc-G5iQ>
+ <xmx:ByA7W8HVNJlAnENqp83BILeOHsqkhaRf_MhbdX3H6FYBhvdZ3QAw2A>
+ <xmx:ByA7WwBCHEJcorqeg2Gz_D50ZCKRoIwPQnf4ZDLEJ4srDtpG33Ywyw>
+ <xmx:ByA7W03rc6iesvt9J7A0qOA1ddjOXVNfGHGpJXPthFFxq-5untOJog>
+X-ME-Sender: <xms:ByA7WzIsqgObRLznVMxLTRSPtcr_TyrNNGffjs550fa61DcxdvKeIQ>
 Received: from dave.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
- by mail.messagingengine.com (Postfix) with ESMTPA id A672F1032F;
- Tue,  3 Jul 2018 03:04:29 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id C19151032B;
+ Tue,  3 Jul 2018 03:04:34 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: linux-kernel@vger.kernel.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, robh+dt@kernel.org, mark.rutland@arm.com,
@@ -56,11 +57,13 @@ Cc: Andrew Jeffery <andrew@aj.id.au>, robh+dt@kernel.org, mark.rutland@arm.com,
  a.amelkin@yadro.com, stewart@linux.ibm.com, benh@kernel.crashing.org,
  openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [RFC PATCH 0/4] sysfs interface to miscellaneous BMC controls and
- fields
-Date: Tue,  3 Jul 2018 17:04:09 +1000
-Message-Id: <20180703070413.28756-1-andrew@aj.id.au>
+Subject: [RFC PATCH 1/4] dts: misc: Add bindings documentation for
+ bmc-misc-ctrl
+Date: Tue,  3 Jul 2018 17:04:10 +1000
+Message-Id: <20180703070413.28756-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20180703070413.28756-1-andrew@aj.id.au>
+References: <20180703070413.28756-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -73,71 +76,288 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 03 Jul 2018 07:04:42 -0000
-X-List-Received-Date: Tue, 03 Jul 2018 07:04:42 -0000
 
-*Dons firefighting gear*
-
-Hello,
-
-This series introduces a bmc-misc-ctrl driver for exposing hardware interfaces
-provided by the BMC (Baseboard Management Controller) for scratch register
-communication between the host and the BMC, and other miscellaneous switches
-controlling BMC hardware features that can be exposed to the host.
-
-Previously Ben Herrenschmidt sent mail wanting to get some consensus on a good
-way forward:
-
-https://lkml.org/lkml/2018/4/10/222
-
-To summarise Ben's points:
-
-We have found that the controls we need to expose do not fit well into existing
-driver models for several reasons:
-
-1. Not exposing the fields to userspace would instead mean encoding policy
-   affecting the host system into the BMC kernel (typically scratch registers)
-2. Some controls are so unique as to defy integration into other drivers
-3. Exposing specific, well-constrained fields feels less evil than falling back
-   to devmem.
-
-This series is one implementation of what we had in mind. My motivation is with
-respect to ASPEED BMC hardware but Dell have also indicated they would also
-make use of something similar for Nuvoton BMCs.
-
-To those ends, the implementation of bmc-misc-ctrl introduced here:
-
-1. Uses devicetree to describe the miscellaneous fields and switches
-2. Exposes the fields in sysfs via value/mask/set/clear attributes
-3. Adds a 'bmc' class for the fields to aid discovery in userspace
-
-Now, the intent is bmc-misc-ctrl is used as a last resort. If features can
-sanely be exposed in more appropriate drivers, then that should (obviously) be
-done instead.
-
-I'm sending this out as an RFC as I'm sure people will have feedback. I hope it
-will be more constructive than 'NAK'.
-
-Thanks,
-
-Andrew
-
-Andrew Jeffery (4):
-  dts: misc: Add bindings documentation for bmc-misc-ctrl
-  Documentation: ABI: Add sysfs-class-bmc documentation to testing
-  misc: Add bmc-misc-ctrl
-  dts: aspeed-g5: Add bmc-misc-ctrl nodes to devicetree
-
- Documentation/ABI/testing/sysfs-class-bmc     |  62 +++
- .../bindings/misc/bmc-misc-ctrl.txt           | 252 ++++++++++++
- MAINTAINERS                                   |   7 +
- arch/arm/boot/dts/aspeed-g5.dtsi              | 192 +++++++++
- drivers/misc/Kconfig                          |   8 +
- drivers/misc/Makefile                         |   1 +
- drivers/misc/bmc-misc-ctrl.c                  | 363 ++++++++++++++++++
- 7 files changed, 885 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-class-bmc
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ .../bindings/misc/bmc-misc-ctrl.txt           | 252 ++++++++++++++++++
+ MAINTAINERS                                   |   6 +
+ 2 files changed, 258 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
- create mode 100644 drivers/misc/bmc-misc-ctrl.c
 
+diff --git a/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt b/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
+new file mode 100644
+index 000000000000..4661926030e4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
+@@ -0,0 +1,252 @@
++BMC Miscellaneous Control Interfaces
++====================================
++
++Baseboard Management Controllers (BMCs) often have an array of hardware
++features that need to be described but are awkward to sensibly expose.
++
++This bindings document provides a generic mechanism for describing such
++features, covering read-only (RO), read-modify-write (RMW) and
++write-1-set/write-1-clear (W1SC) semantics.
++
++All uses of bmc-misc-ctrl must be documented under Valid Uses below.
++
++The bindings are similar in nature to register-bit-led.
++
++Required Properties
++-------------------
++
++compatible: 	Must be "bmc-misc-ctrl"
++offset:		A one or three cell property describing the registers
++		associated with the field.
++
++		If the optional property 'set-clear' is not present then the
++		node describes a register with read-modify-write semantics. The
++		offset property has one cell describing the register of
++		interest.
++
++		If the optional property 'set-clear' is present then the node
++		describes a register set that together implement read,
++		write-1-set and write-1-clear semantics. The offset property
++		must be three cells, the first is the address of the register
++		to read from, the second the write-1-set register and the third
++		write-1-clear.
++
++mask: 		A mask whose set bits represent the bits of the field.
++label:		The name of the field
++
++Optional Properties
++-------------------
++
++read-only:	Define a read-only field (RMW/W1SC irrelevant).
++set-clear:	Define whether the field exists in a RMW or W1SC register set
++default-value:	Single cell applicable to RMW. The field will be updated to the
++		cell's value.
++default-set:	For W1SC, set all bits in the field
++default-clear:	For W1SC, clear all bits in the field
++
++Valid Uses
++----------
++
++Description:	Control bit for switching the video display DAC mux between
++		host VGA and BMC CRT mode
++Machines:	aspeed,ast2500
++Parent:		compatible = "aspeed,ast2500-scu", "syscon", "simple-mfd";
++Node:
++		field@2c.16 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x2c>;
++			mask = <0x00030000>;
++			label = "dac-mux";
++		};
++
++Description:	Host VGA scratch registers
++Machines:	aspeed,ast2500
++Parent:		compatible = "aspeed,ast2500-scu", "syscon", "simple-mfd";
++Node:
++		field@50.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x50>;
++			mask = <0xffffffff>;
++			label = "vga0";
++			read-only;
++		};
++
++		field@54.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x54>;
++			mask = <0xffffffff>;
++			label = "vga1";
++			read-only;
++		};
++
++		field@58.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x58>;
++			mask = <0xffffffff>;
++			label = "vga2";
++			read-only;
++		};
++
++		field@5c.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x5c>;
++			mask = <0xffffffff>;
++			label = "vga3";
++			read-only;
++		};
++
++		field@60.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x60>;
++			mask = <0xffffffff>;
++			label = "vga4";
++			read-only;
++		};
++
++		field@64.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x64>;
++			mask = <0xffffffff>;
++			label = "vga5";
++			read-only;
++		};
++
++		field@68.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x68>;
++			mask = <0xffffffff>;
++			label = "vga6";
++			read-only;
++		};
++
++		field@6c.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0x6c>;
++			mask = <0xffffffff>;
++			label = "vga7";
++			read-only;
++		};
++
++Description:	Super I/O device scratch registers for host/BMC communication
++Machines:	aspeed,ast2500
++Parent:		compatible = "aspeed,ast2500-lpc-host", "simple-mfd", "syscon";
++		field@f0.24 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf0 24 8>;
++			mask = <0xff000000>;
++			label = "sio-2b";
++		};
++
++		field@f0.16 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf0>;
++			mask = <0x00ff0000>;
++			label = "sio-2a";
++		};
++
++		field@f0.8 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf0>;
++			mask = <0x0000ff00>;
++			bit-shift = <8>;
++			label = "sio-29";
++		};
++
++		field@f0.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf0>;
++			mask = <0x000000ff>;
++			label = "sio-28";
++		};
++
++		field@f4.24 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf4>;
++			mask = <0xff000000>;
++			label = "sio-2f";
++		};
++
++		field@f4.16 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf4>;
++			mask = <0x00ff0000>;
++			label = "sio-2e";
++		};
++
++		field@f4.8 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf4>;
++			mask = <0x0000ff00>;
++			label = "sio-2d";
++		};
++
++		field@f4.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf4>;
++			mask = <0x000000ff>;
++			label = "sio-2c";
++		};
++
++		field@f8.24 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf8>;
++			mask = <0xff000000>;
++			read-only;
++			label = "sio-23";
++		};
++
++		field@f8.16 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf8>;
++			mask = <0x00ff0000>;
++			read-only;
++			label = "sio-22";
++		};
++
++		field@f8.8 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf8>;
++			mask = <0x0000ff00>;
++			read-only;
++			label = "sio-21";
++		};
++
++		field@f8.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xf8>;
++			mask = <0x000000ff>;
++			read-only;
++			label = "sio-20";
++		};
++
++		field@fc.24 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xfc>;
++			mask = <0xff000000>;
++			read-only;
++			label = "sio-27";
++		};
++
++		field@fc.16 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xfc>;
++			mask = <0x00ff0000>;
++			read-only;
++			label = "sio-26";
++		};
++
++		field@fc.8 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xfc>;
++			mask = <0x0000ff00>;
++			read-only;
++			label = "sio-25";
++		};
++
++		field@fc.0 {
++			compatible = "bmc-misc-ctrl";
++			offset = <0xfc>;
++			mask = <0x000000ff>;
++			read-only;
++			label = "sio-24";
++		};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 07d1576fc766..9766d7832d8b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2736,6 +2736,12 @@ S:	Supported
+ F:	drivers/net/bonding/
+ F:	include/uapi/linux/if_bonding.h
+ 
++BMC MISCELLANEOUS CONTROL
++R:	Andrew Jeffery <andrew@aj.id.au>
++L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
++S:	Supported
++F:	Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
++
+ BPF (Safe dynamic programs and tools)
+ M:	Alexei Starovoitov <ast@kernel.org>
+ M:	Daniel Borkmann <daniel@iogearbox.net>
 -- 
 2.17.1
