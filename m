@@ -1,73 +1,56 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.213.195; helo=mail-yb0-f195.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-yb0-f195.google.com (mail-yb0-f195.google.com
+ [209.85.213.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Kxrh5m6xzF1Pn
- for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 07:21:39 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w63LJDSU013580
- for <openbmc@lists.ozlabs.org>; Tue, 3 Jul 2018 17:21:36 -0400
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2k0dpc74ux-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 03 Jul 2018 17:21:36 -0400
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 3 Jul 2018 17:21:35 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 3 Jul 2018 17:21:32 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w63LLVhi10420832
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 3 Jul 2018 21:21:31 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6D769AE05C;
- Tue,  3 Jul 2018 17:21:14 -0400 (EDT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E15D9AE060;
- Tue,  3 Jul 2018 17:21:13 -0400 (EDT)
-Received: from talon7.ibm.com (unknown [9.85.150.253])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue,  3 Jul 2018 17:21:13 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: linux-kernel@vger.kernel.org
-Cc: openbmc@lists.ozlabs.org, joel@jms.id.au, benh@kernel.crashing.org,
- Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH] fsi: sbefifo: Add missing mutex_unlock
-Date: Tue,  3 Jul 2018 16:21:29 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 18070321-0068-0000-0000-00000312B079
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009303; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01056113; UDB=6.00541735; IPR=6.00834035; 
- MB=3.00021980; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-03 21:21:34
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18070321-0069-0000-0000-000044E724F9
-Message-Id: <1530652889-26497-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-07-03_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=944 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1806210000 definitions=main-1807030240
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41KzNW6yB2zF1Ld;
+ Wed,  4 Jul 2018 08:30:51 +1000 (AEST)
+Received: by mail-yb0-f195.google.com with SMTP id e9-v6so1344919ybq.1;
+ Tue, 03 Jul 2018 15:30:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=gcawMRGgyn5yqqgB9JZ4UOoqIdafSX7kmok1KkgLQOQ=;
+ b=taz3/XZ9/eFGfp1m9cKrC1VhUMGsVVJKPtd0eg22WoUbFZ7lPMUBklcww6m+lWcZzd
+ YcFfJK2cw6v8G6pCzZ5GzPQM4qVDkeHH1RXjdYmB7VYcfB7S0Y6YnR4CqwHxUN6ewSLi
+ 15ODPy0oP1G2IfCAKWSVV/J7txSEiDVhOkUPooAOehyLI+dubUXj3KMPhy6+GA6hHzY6
+ sgVXlKggSgs7DPCA9n5HKCUXg1cwChYJZQkHUEQ/ZII9uwMAOGVnnRG4CAFXFHsR6fg1
+ RstTPcS1VTno+iAmiOJSbEKLHgs8+32bfOHFeIN2P/9u9ZgN77uVlkBAtVTzHzpli02o
+ 1Rtg==
+X-Gm-Message-State: APt69E0lMYqErSPOIMg8OSdj2JXsgyL+HLSQj9Lno8oTT8/YSNsIECAg
+ 3Me7+E42F2DuXN/0XgT3eQ==
+X-Google-Smtp-Source: AAOMgpc54UvaTpqr6h4rHJEc3y2LfSwS4B+M9BD+k9hbv0tF5FEesWR68WJGIgJNm+xd7NPCMxQMZQ==
+X-Received: by 2002:a25:d894:: with SMTP id
+ p142-v6mr7256409ybg.227.1530657049056; 
+ Tue, 03 Jul 2018 15:30:49 -0700 (PDT)
+Received: from localhost (24-223-123-72.static.usa-companies.net.
+ [24.223.123.72])
+ by smtp.gmail.com with ESMTPSA id g83-v6sm779705ywa.106.2018.07.03.15.30.47
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 03 Jul 2018 15:30:48 -0700 (PDT)
+Date: Tue, 3 Jul 2018 16:30:46 -0600
+From: Rob Herring <robh@kernel.org>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
+ Andrew Jeffery <andrew@aj.id.au>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 11/14] dt-bindings: fsi: Document binding for the
+ fsi-master-ast-cf "device"
+Message-ID: <20180703223046.GA20184@rob-hp-laptop>
+References: <20180626232605.13420-1-benh@kernel.crashing.org>
+ <20180626232605.13420-12-benh@kernel.crashing.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180626232605.13420-12-benh@kernel.crashing.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -79,27 +62,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2018 21:21:41 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 22:30:52 -0000
 
-There was no unlock of the FFDC mutex.
+On Wed, Jun 27, 2018 at 09:26:02AM +1000, Benjamin Herrenschmidt wrote:
+> This isn't per-se a real device, it's a pseudo-device that
+> represents the use of the Aspeed built-in ColdFire to
+> implement the FSI protocol by bitbanging the GPIOs instead
+> of doing it from the ARM core.
+> 
+> Thus it's a drop-in replacement for the existing
+> fsi-master-gpio pseudo-device for use on systems for which
+> a corresponding firmware file exists. It has most of the
+> same properties, plus some more needed to operate the
+> coprocessor.
+> 
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> ---
+>  .../bindings/fsi/fsi-master-ast-cf.txt        | 36 +++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
+> new file mode 100644
+> index 000000000000..50913ae685cc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
+> @@ -0,0 +1,36 @@
+> +Device-tree bindings for ColdFire offloaded gpio-based FSI master driver
+> +------------------------------------------------------------------------
+> +
+> +Required properties:
+> + - compatible =
+> +   	      "fsi-master-ast-2400-cf" for an AST2400 based system
+> +	    or
+> +	      "fsi-master-ast-2500-cf" for an AST2500 based system
 
-Fixes: 9f4a8a2d7f9d ("fsi/sbefifo: Add driver for the SBE FIFO")
-Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
----
- drivers/fsi/fsi-sbefifo.c | 1 +
- 1 file changed, 1 insertion(+)
+<vendor>,<soc>-<block>
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index 4f076fd..a34ff99 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -194,6 +194,7 @@ static void sbefifo_dump_ffdc(struct device *dev, const __be32 *ffdc,
- 		}
- 		dev_warn(dev, "+-------------------------------------------+\n");
- 	}
-+	mutex_unlock(&sbefifo_ffdc_mutex);
- }
- 
- int sbefifo_parse_status(struct device *dev, u16 cmd, __be32 *response,
--- 
-1.8.3.1
+> +
+> + - clock-gpios = <gpio-descriptor>;	: GPIO for FSI clock
+> + - data-gpios = <gpio-descriptor>;	: GPIO for FSI data signal
+> + - enable-gpios = <gpio-descriptor>;	: GPIO for enable signal
+> + - trans-gpios = <gpio-descriptor>;	: GPIO for voltage translator enable
+> + - mux-gpios = <gpio-descriptor>;	: GPIO for pin multiplexing with other
+
+So the gpio info is pased to the CF? Otherwise, what's the point of 
+having these in DT?
+
+> +                                          functions (eg, external FSI masters)
+> + - memory-region = <phandle>;		: Reference to the reserved memory for
+> +                                          the ColdFire. Must be 2M aligned on
+> +					  AST2400 and 1M aligned on AST2500
+
+> + - sram = <phandle>;			: Reference to the SRAM node.
+> + - cvic = <phandle>;			: Reference to the CVIC node.
+
+Vendor prefixes.
+
+> + - fw-name = <string>;			: The name used to construct the firmware
+> +   	     				  file name (cf-fsi-<name>.bin)
+
+firmware-name is used in some other places (and is the full filename).
+
+> + - fw-platform-sig = <value>;		: A signature value that must match the one
+> +   		     			  contained in the firmware image. Known
+> +					  values are listed in the firmware interface
+> +					  file cf-fsi-fw.h
+
+Vendor prefix unless you think this could be common.
+
+> +Examples:
+> +
+> +    fsi-master {
+> +        compatible = "fsi-master-gpio", "fsi-master";
+
+Forget to update the example?
+
+> +        clock-gpios = <&gpio 0>;
+> +        data-gpios = <&gpio 1>;
+> +        enable-gpios = <&gpio 2>;
+> +        trans-gpios = <&gpio 3>;
+> +        mux-gpios = <&gpio 4>;
+> +    }
+> -- 
+> 2.17.1
+> 
+> --
+> To unsubscribe from this list: send the line "unsubscribe devicetree" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
