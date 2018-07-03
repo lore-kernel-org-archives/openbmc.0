@@ -1,49 +1,66 @@
-Return-Path: <joe@perches.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=perches.com
- (client-ip=216.40.44.205; helo=smtprelay.hostedemail.com;
- envelope-from=joe@perches.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=perches.com
-Received: from smtprelay.hostedemail.com (smtprelay0205.hostedemail.com
- [216.40.44.205])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="VfYV17mr"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="LDy+p2iY"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41KLjG1FfhzF1LQ
- for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 07:58:09 +1000 (AEST)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay08.hostedemail.com (Postfix) with ESMTP id AD4A0182CED34;
- Mon,  2 Jul 2018 21:58:05 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com,
- :::::::::::::::::::,
- RULES_HIT:41:355:379:541:599:800:960:973:988:989:1260:1277:1311:1313:1314:1345:1359:1431:1437:1515:1516:1518:1534:1541:1593:1594:1711:1730:1747:1777:1792:2393:2553:2559:2562:2828:3138:3139:3140:3141:3142:3352:3622:3865:3867:4321:5007:6117:6119:7514:7576:7809:8957:9038:10004:10400:10848:10967:11232:11657:11658:11914:12043:12555:12679:12740:12760:12895:13069:13200:13229:13311:13357:13439:14096:14097:14181:14659:14721:21080:21451:21611:21627:30054:30090:30091,
- 0, RBL:error, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
- DomainCache:0, MSF:not bulk, SPF:fn, MSBL:0, DNSBL:neutral, Custom_rules:0:0:0,
- LFtime:26, LUA_SUMMARY:none
-X-HE-Tag: rat62_63529679bfe5a
-X-Filterd-Recvd-Size: 2638
-Received: from XPS-9350 (unknown [172.58.94.179])
- (Authenticated sender: joe@perches.com)
- by omf07.hostedemail.com (Postfix) with ESMTPA;
- Mon,  2 Jul 2018 21:58:02 +0000 (UTC)
-Message-ID: <578ce3d69b43c580d5e810741364b4d86174c3f0.camel@perches.com>
-Subject: Re: [PATCH v2 1/1] MAINTAINERS: add subfolders for nuvoton *npcm*
-From: Joe Perches <joe@perches.com>
-To: Andrew Morton <akpm@linux-foundation.org>, avi.fishman@nuvoton.com
-Cc: davem@davemloft.net, mchehab+samsung@kernel.org,
- gregkh@linuxfoundation.org,  rdunlap@infradead.org, avifishman70@gmail.com,
- tmaimon77@gmail.com,  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Date: Mon, 02 Jul 2018 14:58:00 -0700
-In-Reply-To: <20180702144514.18b45671a29cf5250aacb153@linux-foundation.org>
-References: <20180701093028.10174-1-avi.fishman@nuvoton.com>
- <20180701093028.10174-2-avi.fishman@nuvoton.com>
- <20180702144514.18b45671a29cf5250aacb153@linux-foundation.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-X-Mailer: Evolution 3.28.1-2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41KZqp4M66zF1QL
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Jul 2018 17:04:38 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B5F0B218B4;
+ Tue,  3 Jul 2018 03:04:35 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Tue, 03 Jul 2018 03:04:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; bh=eb55P6e+P9E44e7hvt2CocvScxT2pp5aaSC7xlOo5
+ vs=; b=VfYV17mrv4YTWDaF/vx75pveuL053QeNWOxn8SwLjdgwuwU/70ioIv7xq
+ BoDtf0YsbjOeowzkVk1ApOMmp9A+4Lal4dxZ0AvqEdgSANkBEYKKgWF1YkWYn9Hy
+ qKPJ2Gp8mb37IakyWEy1fzHEEh4QMptVpIikplfcLVxXKLF1zQ2zkQR7C5pyXzUb
+ JuRc0OItyfDRqMdtoXhl4rh/8z3oZAmKZsoai7VDLdN1RTwGkuCNGMNy2Pp8j0do
+ tu6q9LkNYxquKOES6unZcaNIGzd6bMIzBqRlul3GhCCbKrNK1RL0bPFf7nUY5xDF
+ QQkhJ9ms4evu8Nwxop16PwugO9N5Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=eb55P6e+P9E44e7hv
+ t2CocvScxT2pp5aaSC7xlOo5vs=; b=LDy+p2iYyyq3AOgbR0y2RcZe7mx18/iSr
+ AdoPXpR63hj7kI51gNn8K8GTkQVATfDZjA1FQY5Kk02Ha6eqnvhXzKx7VJWdZ92C
+ Fdr+UMLChbd9lgn9NWpOWvQgfh7E2OIDVTpPxku0p40WobiaLVBb4czZim+/AtJi
+ Dssr7dFId4aFPxD6idTk6vQkDN+DYKaY+4NmVXQNK2KXyeuJaDyZWqVjd3J9pNdy
+ ip1OpqTxdosahj56eKr7FS+3gjd3eEcUDuO+DNewrHnXaqp2Eldqav52cTjgQNKe
+ wMmK1S1Ixmg31jUB8jOuBoNCTYe+cSZ012a/Oa/KWWpS1U3+ZJBIA==
+X-ME-Proxy: <xmx:AiA7WxkJz1CQhwX_kXTwA4n8dhyUEpHWCyaYpJbWQZm4_-_FaS8tbQ>
+ <xmx:AiA7Wzim3yoL2MrAlAA1t8i2uH6Of0YVGtMa6W6tyz1Tl5-UtFGiow>
+ <xmx:AiA7Wx3k-328lZvUga1q7Zvf9eMJxlCUU5F4Gv0If0zL-EoUKUbxzw>
+ <xmx:AiA7WyNM83prNP5UTYgfQazZmy-IdvGYf-rweAIgOSW-lyg8VXfUGA>
+ <xmx:AiA7WzlmHE6wnFZXKgRxj5QgUvM1ja3XCx0n7j5-jPIZggWI1j2oCQ>
+ <xmx:AyA7WwK0WsgSQITO1sEjWeJWIqJ6oi3fCnnz954uHym0y_yC9g92sg>
+X-ME-Sender: <xms:AiA7W-lfSWnb5g5D2Fa298J3hLp_5ZBs64G9StOyoC7qBUIszXJUdg>
+Received: from dave.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A672F1032F;
+ Tue,  3 Jul 2018 03:04:29 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux-kernel@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, robh+dt@kernel.org, mark.rutland@arm.com,
+ joel@jms.id.au, gregkh@linuxfoundation.org, Eugene.Cho@dell.com,
+ a.amelkin@yadro.com, stewart@linux.ibm.com, benh@kernel.crashing.org,
+ openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [RFC PATCH 0/4] sysfs interface to miscellaneous BMC controls and
+ fields
+Date: Tue,  3 Jul 2018 17:04:09 +1000
+Message-Id: <20180703070413.28756-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -55,47 +72,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Jul 2018 21:58:10 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 07:04:42 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 07:04:42 -0000
 
-On Mon, 2018-07-02 at 14:45 -0700, Andrew Morton wrote:
-> On Sun,  1 Jul 2018 12:30:28 +0300 avi.fishman@nuvoton.com wrote:
-> 
-> > From: Avi Fishman <AviFishman70@gmail.com>
-> > 
-> > Add several subfolders to look for *npcm* files under
-> > ARM/NUVOTON NPCM ARCHITECTURE
-> > 
-> > Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
-> > ---
-> >  MAINTAINERS | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index e0ce3c5f32e5..23c450adad44 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -1727,7 +1727,10 @@ F:	arch/arm/mach-npcm/
-> >  F:	arch/arm/boot/dts/nuvoton-npcm*
-> >  F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-> >  F:	drivers/*/*npcm*
-> > +F:	drivers/*/*/*npcm*
-> >  F:	Documentation/*/*npcm*
-> > +F:	Documentation/*/*/*npcm*
-> > +F:	Documentation/*/*/*/*npcm*
-> 
-> The Docuemntation/ pathnames have changed.  Please refresh to the
-> current Linus tree.
+*Dons firefighting gear*
 
-$ git ls-files Documentation | grep npcm
-Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm750-smp
-Documentation/devicetree/bindings/arm/npcm/npcm.txt
-Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.txt
-Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
-Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
+Hello,
 
-So maybe:
+This series introduces a bmc-misc-ctrl driver for exposing hardware interfaces
+provided by the BMC (Baseboard Management Controller) for scratch register
+communication between the host and the BMC, and other miscellaneous switches
+controlling BMC hardware features that can be exposed to the host.
 
-F:	Documentation/devicetree/bindings/*/*npcm*
-F:	Documentation/devicetree/bindings/*/*/*npcm*
+Previously Ben Herrenschmidt sent mail wanting to get some consensus on a good
+way forward:
+
+https://lkml.org/lkml/2018/4/10/222
+
+To summarise Ben's points:
+
+We have found that the controls we need to expose do not fit well into existing
+driver models for several reasons:
+
+1. Not exposing the fields to userspace would instead mean encoding policy
+   affecting the host system into the BMC kernel (typically scratch registers)
+2. Some controls are so unique as to defy integration into other drivers
+3. Exposing specific, well-constrained fields feels less evil than falling back
+   to devmem.
+
+This series is one implementation of what we had in mind. My motivation is with
+respect to ASPEED BMC hardware but Dell have also indicated they would also
+make use of something similar for Nuvoton BMCs.
+
+To those ends, the implementation of bmc-misc-ctrl introduced here:
+
+1. Uses devicetree to describe the miscellaneous fields and switches
+2. Exposes the fields in sysfs via value/mask/set/clear attributes
+3. Adds a 'bmc' class for the fields to aid discovery in userspace
+
+Now, the intent is bmc-misc-ctrl is used as a last resort. If features can
+sanely be exposed in more appropriate drivers, then that should (obviously) be
+done instead.
+
+I'm sending this out as an RFC as I'm sure people will have feedback. I hope it
+will be more constructive than 'NAK'.
+
+Thanks,
+
+Andrew
+
+Andrew Jeffery (4):
+  dts: misc: Add bindings documentation for bmc-misc-ctrl
+  Documentation: ABI: Add sysfs-class-bmc documentation to testing
+  misc: Add bmc-misc-ctrl
+  dts: aspeed-g5: Add bmc-misc-ctrl nodes to devicetree
+
+ Documentation/ABI/testing/sysfs-class-bmc     |  62 +++
+ .../bindings/misc/bmc-misc-ctrl.txt           | 252 ++++++++++++
+ MAINTAINERS                                   |   7 +
+ arch/arm/boot/dts/aspeed-g5.dtsi              | 192 +++++++++
+ drivers/misc/Kconfig                          |   8 +
+ drivers/misc/Makefile                         |   1 +
+ drivers/misc/bmc-misc-ctrl.c                  | 363 ++++++++++++++++++
+ 7 files changed, 885 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-class-bmc
+ create mode 100644 Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
+ create mode 100644 drivers/misc/bmc-misc-ctrl.c
+
+-- 
+2.17.1
