@@ -1,47 +1,54 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.213.195; helo=mail-yb0-f195.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-yb0-f195.google.com (mail-yb0-f195.google.com
+ [209.85.213.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41KrXN24NTzF1LZ
- for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 03:22:09 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2018 10:22:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,304,1526367600"; d="scan'208";a="213138491"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga004.jf.intel.com with ESMTP; 03 Jul 2018 10:21:58 -0700
-Subject: Re: [PATCH linux-next v6 07/13] dt-bindings: mfd: Add a document for
- PECI client MFD
-To: Rob Herring <robh@kernel.org>
-Cc: Lee Jones <lee.jones@linaro.org>, Mark Rutland <mark.rutland@arm.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>, Joel Stanley
- <joel@jms.id.au>, Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
- <20180621194054.20897-1-jae.hyun.yoo@linux.intel.com>
- <20180703165835.GA18160@rob-hp-laptop>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <88cab816-3bc1-5e0b-7282-4ca05f458a9a@linux.intel.com>
-Date: Tue, 3 Jul 2018 10:21:58 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41KvNG5Z9LzF1Pn;
+ Wed,  4 Jul 2018 05:30:22 +1000 (AEST)
+Received: by mail-yb0-f195.google.com with SMTP id s1-v6so1175684ybk.3;
+ Tue, 03 Jul 2018 12:30:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=govFaCUAkXDHcAEjqP1ViIrA+6B34oGffj+jrOOt/80=;
+ b=Gah3Ke6xk0JIrx4uGuKpFcCPVetM8P1NxU4EXkPYj0aGX1A9No3ePX5CBc7ccYBHZD
+ scR5bUd2zodxBjfxXZemPW/HlWen8Gy0SaVXe9HppgFS8x3hbQo5ktdQTgbJZOaC1Gqj
+ QGVY18mPBufhCMS+PrSVPA3Do4e6YiSwVMxCNTSP+DBV2K56VHMCgptYdMCHOdjaWbk3
+ 8HHv78m18WCYVuUsEYw9VXzwmjmTUDagacRj8d6RNvfByXNMg4z2hVohsB5H5TOdEjmm
+ 3x6hXSWCTGDzewYdGTB21pMQ9Wh7ch21auLP7HoOZA5L4o4mfRG+7H3tHYr1HaDh1BBV
+ GIag==
+X-Gm-Message-State: APt69E16JFnBQ8ShiEglH/yhj7nHvWY8TVYB0OMIXjxJ5ZFP5/NTfPyN
+ cFSeWr5SHnpz0M2+CfTxYJdasD8=
+X-Google-Smtp-Source: AAOMgpfSm8zsvyjJrLnHlrGWvlWEo8q9NV3wecQ869Y8dqn523zwdEZqQOXdiAl+7n9EO9zBHG58CA==
+X-Received: by 2002:a25:fc01:: with SMTP id
+ v1-v6mr3865659ybd.406.1530646219857; 
+ Tue, 03 Jul 2018 12:30:19 -0700 (PDT)
+Received: from localhost (24-223-123-72.static.usa-companies.net.
+ [24.223.123.72])
+ by smtp.gmail.com with ESMTPSA id u126-v6sm607845ywa.99.2018.07.03.12.30.18
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 03 Jul 2018 12:30:18 -0700 (PDT)
+Date: Tue, 3 Jul 2018 13:30:17 -0600
+From: Rob Herring <robh@kernel.org>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
+ devicetree@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>
+Subject: Re: [PATCH 1/2] dt-bindings: fsi: Add optional chip-id to CFAMs
+Message-ID: <20180703193017.GA23230@rob-hp-laptop>
+References: <20180622043756.21158-1-benh@kernel.crashing.org>
 MIME-Version: 1.0
-In-Reply-To: <20180703165835.GA18160@rob-hp-laptop>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180622043756.21158-1-benh@kernel.crashing.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -53,77 +60,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2018 17:22:13 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 19:30:23 -0000
 
-Hi Rob,
+On Fri, Jun 22, 2018 at 02:37:55PM +1000, Benjamin Herrenschmidt wrote:
+> This represents a physical chip in the system and allows
+> a stable numbering scheme to be passed to udev for userspace
+> to recognize which chip is which.
 
-Thanks for the review. Please see my inline answer.
+I'm sure you're aware, stable numbers is generally not something the 
+kernel guarantees...
 
-On 7/3/2018 9:58 AM, Rob Herring wrote:
-> On Thu, Jun 21, 2018 at 12:40:54PM -0700, Jae Hyun Yoo wrote:
->> This commit adds a dt-bindings document for PECI client MFD.
+In the cases where we do have them, we've used aliases.
+
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> ---
+>  Documentation/devicetree/bindings/fsi/fsi.txt | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> This and the next patch still have the same issues I've outlined in at
-> least 2 prior versions.
->   
-
-Okay. I think the next patch (9/13) for hwmon dt-bindings document
-is not needed anymore because those were already added in MFD driver
-implementation in the patch 8/13. Please correct me if it's not
-you pointed.
-
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Cc: Andrew Jeffery <andrew@aj.id.au>
->> Cc: James Feist <james.feist@linux.intel.com>
->> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->> Cc: Joel Stanley <joel@jms.id.au>
->> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
->> ---
->>   .../bindings/mfd/intel-peci-client.txt        | 34 +++++++++++++++++++
->>   1 file changed, 34 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/mfd/intel-peci-client.txt
->>
->> diff --git a/Documentation/devicetree/bindings/mfd/intel-peci-client.txt b/Documentation/devicetree/bindings/mfd/intel-peci-client.txt
->> new file mode 100644
->> index 000000000000..cb341e363add
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/mfd/intel-peci-client.txt
->> @@ -0,0 +1,34 @@
->> +* Intel PECI client bindings
->> +
->> +PECI (Platform Environment Control Interface) is a one-wire bus interface that
->> +provides a communication channel from PECI clients in Intel processors and
->> +chipset components to external monitoring or control devices. PECI is designed
->> +to support the following sideband functions:
->> +
->> +- Processor and DRAM thermal management
->> +- Platform Manageability
->> +- Processor Interface Tuning and Diagnostics
->> +- Failure Analysis
->> +
->> +Required properties:
->> +- compatible : Should be "intel,peci-client".
->> +- reg        : Should contain address of a client CPU. Address range of CPU
->> +	       clients starts from 0x30 based on PECI specification.
->> +
->> +Example:
->> +	peci-bus@0 {
->> +		compatible = "vendor,soc-peci";
->> +		reg = <0x0 0x1000>;
->> +		#address-cells = <1>;
->> +		#size-cells = <0>;
->> +
->> +		peci-client@30 {
->> +			compatible = "intel,peci-client";
->> +			reg = <0x30>;
->> +		};
->> +
->> +		peci-client@31 {
->> +			compatible = "intel,peci-client";
->> +			reg = <0x31>;
->> +		};
->> +	};
->> -- 
->> 2.17.1
->>
+> diff --git a/Documentation/devicetree/bindings/fsi/fsi.txt b/Documentation/devicetree/bindings/fsi/fsi.txt
+> index ab516c673a4b..afb4eccab131 100644
+> --- a/Documentation/devicetree/bindings/fsi/fsi.txt
+> +++ b/Documentation/devicetree/bindings/fsi/fsi.txt
+> @@ -83,6 +83,10 @@ addresses and sizes in the slave address space:
+>      #address-cells = <1>;
+>      #size-cells = <1>;
+>  
+> +Optionally, a slave can provide a global unique chip ID which is used to
+> +identify the physical location of the chip in a system specific way
+> +
+> +    chip-id = <0>;
+>  
+>  FSI engines (devices)
+>  ---------------------
+> @@ -125,6 +129,7 @@ device tree if no extra platform information is required.
+>              reg = <0 0>;
+>              #address-cells = <1>;
+>              #size-cells = <1>;
+> +	    chip-id = <0>;
+>  
+>              /* FSI engine at 0xc00, using a single page. In this example,
+>               * it's an I2C master controller, so subnodes describe the
+> -- 
+> 2.17.1
 > 
+> --
+> To unsubscribe from this list: send the line "unsubscribe devicetree" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
