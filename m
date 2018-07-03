@@ -1,54 +1,73 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.213.195; helo=mail-yb0-f195.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-yb0-f195.google.com (mail-yb0-f195.google.com
- [209.85.213.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41KvNG5Z9LzF1Pn;
- Wed,  4 Jul 2018 05:30:22 +1000 (AEST)
-Received: by mail-yb0-f195.google.com with SMTP id s1-v6so1175684ybk.3;
- Tue, 03 Jul 2018 12:30:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=govFaCUAkXDHcAEjqP1ViIrA+6B34oGffj+jrOOt/80=;
- b=Gah3Ke6xk0JIrx4uGuKpFcCPVetM8P1NxU4EXkPYj0aGX1A9No3ePX5CBc7ccYBHZD
- scR5bUd2zodxBjfxXZemPW/HlWen8Gy0SaVXe9HppgFS8x3hbQo5ktdQTgbJZOaC1Gqj
- QGVY18mPBufhCMS+PrSVPA3Do4e6YiSwVMxCNTSP+DBV2K56VHMCgptYdMCHOdjaWbk3
- 8HHv78m18WCYVuUsEYw9VXzwmjmTUDagacRj8d6RNvfByXNMg4z2hVohsB5H5TOdEjmm
- 3x6hXSWCTGDzewYdGTB21pMQ9Wh7ch21auLP7HoOZA5L4o4mfRG+7H3tHYr1HaDh1BBV
- GIag==
-X-Gm-Message-State: APt69E16JFnBQ8ShiEglH/yhj7nHvWY8TVYB0OMIXjxJ5ZFP5/NTfPyN
- cFSeWr5SHnpz0M2+CfTxYJdasD8=
-X-Google-Smtp-Source: AAOMgpfSm8zsvyjJrLnHlrGWvlWEo8q9NV3wecQ869Y8dqn523zwdEZqQOXdiAl+7n9EO9zBHG58CA==
-X-Received: by 2002:a25:fc01:: with SMTP id
- v1-v6mr3865659ybd.406.1530646219857; 
- Tue, 03 Jul 2018 12:30:19 -0700 (PDT)
-Received: from localhost (24-223-123-72.static.usa-companies.net.
- [24.223.123.72])
- by smtp.gmail.com with ESMTPSA id u126-v6sm607845ywa.99.2018.07.03.12.30.18
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 03 Jul 2018 12:30:18 -0700 (PDT)
-Date: Tue, 3 Jul 2018 13:30:17 -0600
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
- devicetree@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>
-Subject: Re: [PATCH 1/2] dt-bindings: fsi: Add optional chip-id to CFAMs
-Message-ID: <20180703193017.GA23230@rob-hp-laptop>
-References: <20180622043756.21158-1-benh@kernel.crashing.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180622043756.21158-1-benh@kernel.crashing.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Kxrh5m6xzF1Pn
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 07:21:39 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w63LJDSU013580
+ for <openbmc@lists.ozlabs.org>; Tue, 3 Jul 2018 17:21:36 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2k0dpc74ux-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 03 Jul 2018 17:21:36 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 3 Jul 2018 17:21:35 -0400
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 3 Jul 2018 17:21:32 -0400
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w63LLVhi10420832
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 3 Jul 2018 21:21:31 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6D769AE05C;
+ Tue,  3 Jul 2018 17:21:14 -0400 (EDT)
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E15D9AE060;
+ Tue,  3 Jul 2018 17:21:13 -0400 (EDT)
+Received: from talon7.ibm.com (unknown [9.85.150.253])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue,  3 Jul 2018 17:21:13 -0400 (EDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: linux-kernel@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org, joel@jms.id.au, benh@kernel.crashing.org,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH] fsi: sbefifo: Add missing mutex_unlock
+Date: Tue,  3 Jul 2018 16:21:29 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18070321-0068-0000-0000-00000312B079
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009303; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01056113; UDB=6.00541735; IPR=6.00834035; 
+ MB=3.00021980; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-03 21:21:34
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18070321-0069-0000-0000-000044E724F9
+Message-Id: <1530652889-26497-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-03_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=944 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807030240
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -60,50 +79,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2018 19:30:23 -0000
+X-List-Received-Date: Tue, 03 Jul 2018 21:21:41 -0000
 
-On Fri, Jun 22, 2018 at 02:37:55PM +1000, Benjamin Herrenschmidt wrote:
-> This represents a physical chip in the system and allows
-> a stable numbering scheme to be passed to udev for userspace
-> to recognize which chip is which.
+There was no unlock of the FFDC mutex.
 
-I'm sure you're aware, stable numbers is generally not something the 
-kernel guarantees...
+Fixes: 9f4a8a2d7f9d ("fsi/sbefifo: Add driver for the SBE FIFO")
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+---
+ drivers/fsi/fsi-sbefifo.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-In the cases where we do have them, we've used aliases.
-
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> ---
->  Documentation/devicetree/bindings/fsi/fsi.txt | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/fsi/fsi.txt b/Documentation/devicetree/bindings/fsi/fsi.txt
-> index ab516c673a4b..afb4eccab131 100644
-> --- a/Documentation/devicetree/bindings/fsi/fsi.txt
-> +++ b/Documentation/devicetree/bindings/fsi/fsi.txt
-> @@ -83,6 +83,10 @@ addresses and sizes in the slave address space:
->      #address-cells = <1>;
->      #size-cells = <1>;
->  
-> +Optionally, a slave can provide a global unique chip ID which is used to
-> +identify the physical location of the chip in a system specific way
-> +
-> +    chip-id = <0>;
->  
->  FSI engines (devices)
->  ---------------------
-> @@ -125,6 +129,7 @@ device tree if no extra platform information is required.
->              reg = <0 0>;
->              #address-cells = <1>;
->              #size-cells = <1>;
-> +	    chip-id = <0>;
->  
->              /* FSI engine at 0xc00, using a single page. In this example,
->               * it's an I2C master controller, so subnodes describe the
-> -- 
-> 2.17.1
-> 
-> --
-> To unsubscribe from this list: send the line "unsubscribe devicetree" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+index 4f076fd..a34ff99 100644
+--- a/drivers/fsi/fsi-sbefifo.c
++++ b/drivers/fsi/fsi-sbefifo.c
+@@ -194,6 +194,7 @@ static void sbefifo_dump_ffdc(struct device *dev, const __be32 *ffdc,
+ 		}
+ 		dev_warn(dev, "+-------------------------------------------+\n");
+ 	}
++	mutex_unlock(&sbefifo_ffdc_mutex);
+ }
+ 
+ int sbefifo_parse_status(struct device *dev, u16 cmd, __be32 *response,
+-- 
+1.8.3.1
