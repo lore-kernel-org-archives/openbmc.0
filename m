@@ -8,22 +8,19 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41L2ry1WHtzF1Pn;
- Wed,  4 Jul 2018 11:07:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41L2xW5kS1zF1Pn
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 11:11:11 +1000 (AEST)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6416qun012401;
- Tue, 3 Jul 2018 20:06:54 -0500
-Message-ID: <23be30ebb2c661ef304c78a85cff591c515ba65b.camel@kernel.crashing.org>
-Subject: Re: [PATCH 1/2] dt-bindings: fsi: Add optional chip-id to CFAMs
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w641B0iZ012630;
+ Tue, 3 Jul 2018 20:11:02 -0500
+Message-ID: <cdaa71efbb25d96c1d5e0018880bf3554ce243c1.camel@kernel.crashing.org>
+Subject: Re: [PATCH] fsi: sbefifo: Add missing mutex_unlock
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Rob Herring <robh@kernel.org>
-Cc: openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
- devicetree@vger.kernel.org, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
- <andrew@aj.id.au>
-Date: Wed, 04 Jul 2018 11:06:51 +1000
-In-Reply-To: <20180703193017.GA23230@rob-hp-laptop>
-References: <20180622043756.21158-1-benh@kernel.crashing.org>
- <20180703193017.GA23230@rob-hp-laptop>
+To: Eddie James <eajames@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org, joel@jms.id.au
+Date: Wed, 04 Jul 2018 11:11:00 +1000
+In-Reply-To: <1530652889-26497-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1530652889-26497-1-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
 Mime-Version: 1.0
@@ -39,85 +36,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jul 2018 01:07:14 -0000
+X-List-Received-Date: Wed, 04 Jul 2018 01:11:12 -0000
 
-On Tue, 2018-07-03 at 13:30 -0600, Rob Herring wrote:
-> On Fri, Jun 22, 2018 at 02:37:55PM +1000, Benjamin Herrenschmidt wrote:
-> > This represents a physical chip in the system and allows
-> > a stable numbering scheme to be passed to udev for userspace
-> > to recognize which chip is which.
+On Tue, 2018-07-03 at 16:21 -0500, Eddie James wrote:
+> There was no unlock of the FFDC mutex.
 > 
-> I'm sure you're aware, stable numbers is generally not something the 
-> kernel guarantees...
+> Fixes: 9f4a8a2d7f9d ("fsi/sbefifo: Add driver for the SBE FIFO")
+> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 
-This has nothing to do with any kernel guarantee. Not sure what you are
-mixing up here :-)
-
-The IDs will get exposed via sysfs in order to allow udev rules to
-create appropriate symlinks such as by-id or by-path as is traditional
-(we haven't completely decided some of the udev side details yet)
-
-> In the cases where we do have them, we've used aliases.
-
-This is necessary, though Aliases may do the job too. This is the
-device-tree that represents the "host" system that the BMC is managing.
-
-We need to be able to identify using a stable numbering scheme the
-processors on the FSI topology otherwise we would do "interesting"
-things such as turn the fan for CPU 1 when CPU 0 gets hot :-)
-
-(This is just a silly example, there are plenty of other reasons why we
-need to understand the HW topology of a given system, including
-debuggers using FSI as a backend etc...)
-
-Traditionally POWER has used ibm,chip-id properties for the host side,
-so I just did something similar here for the BMC side, but I can look
-into using aliases if you prefer.
-
-Note: I'm not sure what you have against DT provided names or IDs, this
-has been a rather standard way of doing things even before we did the
-FDT. For example that's what slot-names properties are for, or location
-codes etc... Yes we invented that alias trick later on but it's not
-necessarily the best approach (in fact I don't really like it to be
-honest).
+Thanks. 
 
 Cheers,
 Ben.
 
-
+> ---
+>  drivers/fsi/fsi-sbefifo.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> > ---
-> >  Documentation/devicetree/bindings/fsi/fsi.txt | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/fsi/fsi.txt b/Documentation/devicetree/bindings/fsi/fsi.txt
-> > index ab516c673a4b..afb4eccab131 100644
-> > --- a/Documentation/devicetree/bindings/fsi/fsi.txt
-> > +++ b/Documentation/devicetree/bindings/fsi/fsi.txt
-> > @@ -83,6 +83,10 @@ addresses and sizes in the slave address space:
-> >      #address-cells = <1>;
-> >      #size-cells = <1>;
-> >  
-> > +Optionally, a slave can provide a global unique chip ID which is used to
-> > +identify the physical location of the chip in a system specific way
-> > +
-> > +    chip-id = <0>;
-> >  
-> >  FSI engines (devices)
-> >  ---------------------
-> > @@ -125,6 +129,7 @@ device tree if no extra platform information is required.
-> >              reg = <0 0>;
-> >              #address-cells = <1>;
-> >              #size-cells = <1>;
-> > +	    chip-id = <0>;
-> >  
-> >              /* FSI engine at 0xc00, using a single page. In this example,
-> >               * it's an I2C master controller, so subnodes describe the
-> > -- 
-> > 2.17.1
-> > 
-> > --
-> > To unsubscribe from this list: send the line "unsubscribe devicetree" in
-> > the body of a message to majordomo@vger.kernel.org
-> > More majordomo info at  http://vger.kernel.org/majordomo-info.html
+> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+> index 4f076fd..a34ff99 100644
+> --- a/drivers/fsi/fsi-sbefifo.c
+> +++ b/drivers/fsi/fsi-sbefifo.c
+> @@ -194,6 +194,7 @@ static void sbefifo_dump_ffdc(struct device *dev, const __be32 *ffdc,
+>  		}
+>  		dev_warn(dev, "+-------------------------------------------+\n");
+>  	}
+> +	mutex_unlock(&sbefifo_ffdc_mutex);
+>  }
+>  
+>  int sbefifo_parse_status(struct device *dev, u16 cmd, __be32 *response,
