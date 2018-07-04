@@ -6,52 +6,52 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ByTyZ9f9"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="V6OfZtGF"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="muOXfRcm"; dkim-atps=neutral
+ header.b="gi926LKg"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41LB0J45BszF1PF
- for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 16:29:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41LB0l3kMszF1QS
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 16:29:27 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0154A21EF0;
- Wed,  4 Jul 2018 02:29:02 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id E9C3C21990;
+ Wed,  4 Jul 2018 02:29:24 -0400 (EDT)
 Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Wed, 04 Jul 2018 02:29:02 -0400
+ by compute4.internal (MEProxy); Wed, 04 Jul 2018 02:29:24 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=z9uqWfECnptBOoeJInuOyVvl/P9l4
- MwQYg/S0qNwDpw=; b=ByTyZ9f9HGbFoCuza4J3MVK+YfaYK7AXwVsqEbnNzBsy3
- cNWgpFOtU9BxE7XdAFmVsGgoaz+mpeFqkemiJLxFmcxjjHKYHRtmk30e5R09CZr2
- aAKF0YyD0GJbOZ4fq3yZEUAOBzAx1Gj0QPifrlK5MoLWh2cOxe+i1KTUJyVjoyTP
- 7ApkoY6FcrgdgLas65aI+xE/R4lYDcNC9xLA2lIXBtGRIxd6vcbc8TH+C1KK08KO
- 125Y4ChUuQBcuWdlfhZgRSUCV3H3aXaPDhpXSQ74duZYQjHxnbwEjqEVS3KOPTTB
- 0ILzn3BKsMgCA8mzeJHruLhUBD17FcUSdYfmoxLAw==
+ :x-me-sender:x-sasl-enc; s=fm3; bh=c1fdkL1TdGyuyNLpjnli/9Pr0kqAK
+ lGspU5VhH0O7CY=; b=V6OfZtGFrugwxvAH4WOkzS8Csq3Bu6esBI9BjmqIYNDk3
+ Q7VnQkmpOb81AYJtXpNZbHQqmIL/wvi/7+5NCHS7ht0io2UgKQdzn7PnevA4/724
+ 3hybyQdKPum4JObB3Qdz6ebC9P+t/MaWW2qvFE7J9Y2kvXHUS3T1rpT7lQ4tkjR3
+ 7iZ1hE2PBKn/8TsYOiGfzISEAjMTwMDTdZedCISUBVqjYrmkF/hti7iFX2CHBORO
+ 4Y1PKrGi+6bJC8/SfF46XvHOKFveHwsiVABv+HxOxXH/hy2JkDhBOmpNuD9tVlQi
+ 2TZsQlSqU8IswLTfj3slJKvmL2CMPv19Na9QWIXEQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=z9uqWf
- ECnptBOoeJInuOyVvl/P9l4MwQYg/S0qNwDpw=; b=muOXfRcmZ3/b7at2MlQ9hR
- +6PTiWBvMhgF7ekJ7dOEHBvqY1ECd+Y9pJ9BZ50ni2EnZhyLqmbxVP+CFO8KsRbW
- JETgZt7ngdRcvSXvuXPJUPZNDUrbhVLR6qjO49yh2qtEzrUTirKz6d3uRYX5UUEa
- vXPWvMKIFDboSyVFiBiyM0/wq6Zw6+ioWSo7HZ6nM5/4PPyvY0N3RMMIENfDCk0y
- cfT3Thwq+UuvYBTVvv5uEa0IHyhvYQtJL/ls7dj4/eDReXZsIwqFeaHRRY1b2oMP
- +dZpCdOa/Q8Uy1AELww5d+odGbaiM8A4QP+Qok2z8ul7TNynYATlKg2C9l9LYn/A
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=c1fdkL
+ 1TdGyuyNLpjnli/9Pr0kqAKlGspU5VhH0O7CY=; b=gi926LKgOKxTNssvchzkQ3
+ xPkuBXXIdM4xxAhc+truyXMOF0/LQX+RsRFkz1s1cz5YyXP0bGfkBBqJC8+cljwR
+ L7zvxeYwdgKPMoOtYX0BsSh4XZ25LWvbsyMxQ8OwS7FIJp1BZdNz6x79iqvIsvil
+ Xngagb5G0fjf7D94iMwhXl3kt72tNNndjcDGntG5bRVRE//af57IeKx+lz05syjw
+ gpVG3yCupaFTIh8mVjZlD0XtAZ8cf5vwS9EOPDDeudSBbBBcbtp4+zi+027eEeZe
+ SdBuKVQbRjNXfcvuoSMP2D6hZsjwfMcG5ZXuFYm2sZ+0ogg7PU4kNezeIcQgq/JA
  ==
-X-ME-Proxy: <xmx:LWk8WzhfvlLJeXrv3cr2AF4qohFUQPmN-M2f1NWwbZcVLIeDtpqq3Q>
- <xmx:LWk8W3mqzPLku5zpNbrZnJ1ygOec2uUGz3aqnTsYjVEEyNiRARgjgg>
- <xmx:LWk8WytWhHJdAe-buLa9VvbwpFHO2-nq_SrMr2E2Cd6-C6hTkW62yg>
- <xmx:LWk8W9CxGhWvcP7VoKiy8H00tFQvIL96RTBkOZaHNNv1pBDy4QqRXg>
- <xmx:LWk8W3UdMFjc8mVmszyHCqjpqV5429DBNV6AjRaQ-zyI1abVkJ3C7g>
- <xmx:LWk8W-Tc_z_LZChEyk7AjCraqEneKB_4VArowRsXjy9MdJXFgiT20A>
-X-ME-Sender: <xms:LWk8WxkvrHnHJ2dpH2OfjvmTPVb0YpQ0zEaFIXHbXjUY0dxnpypyWQ>
+X-ME-Proxy: <xmx:RGk8Wx9vCDDL7EcKxIdXgqb2Ku1RITvOFjmRKwtihKMz-mYwaUQTGg>
+ <xmx:RGk8WyQRzdG8iuDjRU5iH1o1T6u7JEPAi4mazJJJ4XZ3VARlj2fTZA>
+ <xmx:RGk8WzfdjArPsjhZIrRA1ZKSWRfPQ4KHee29g16XaChmZelEdVNtMQ>
+ <xmx:RGk8W8Sb4t3DHcgd9_p5IKKrZLgUiVcM1Z6yFHRVCa3d0LO-pdAswA>
+ <xmx:RGk8W3JCPP6B3q3AmTEgaM3Wo2yrz_ovru3R_cdUMfv1YH0Rvs0HyQ>
+ <xmx:RGk8W6v_J5bo0QDmXj0vs5zWvAIEkMNc6Rcq7XlJjXcKh5uAe4qIvg>
+X-ME-Sender: <xms:RGk8WzZvffP3xLy6XQyiBVQKaSeHAs3qVwazBk72mwAYWk_6TJC1Qw>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id C65139E48F; Wed,  4 Jul 2018 02:29:01 -0400 (EDT)
-Message-Id: <1530685741.3894652.1429464440.6E988BDD@webmail.messagingengine.com>
+ id B4BFA9E48F; Wed,  4 Jul 2018 02:29:24 -0400 (EDT)
+Message-Id: <1530685764.3894654.1429464640.1DF76135@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Greg KH <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
@@ -63,13 +63,13 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-0d8ea36c
-In-Reply-To: <20180703075018.GB27649@kroah.com>
+Subject: Re: [RFC PATCH 4/4] dts: aspeed-g5: Add bmc-misc-ctrl nodes to
+ devicetree
+Date: Wed, 04 Jul 2018 15:59:24 +0930
+In-Reply-To: <20180703075434.GD27649@kroah.com>
 References: <20180703070413.28756-1-andrew@aj.id.au>
- <20180703070413.28756-3-andrew@aj.id.au>
- <20180703075018.GB27649@kroah.com>
-Subject: Re: [RFC PATCH 2/4] Documentation: ABI: Add sysfs-class-bmc
- documentation to testing
-Date: Wed, 04 Jul 2018 15:59:01 +0930
+ <20180703070413.28756-5-andrew@aj.id.au>
+ <20180703075434.GD27649@kroah.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -81,12 +81,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jul 2018 06:29:05 -0000
+X-List-Received-Date: Wed, 04 Jul 2018 06:29:28 -0000
 
-On Tue, 3 Jul 2018, at 17:20, Greg KH wrote:
-> On Tue, Jul 03, 2018 at 05:04:11PM +1000, Andrew Jeffery wrote:
+On Tue, 3 Jul 2018, at 17:24, Greg KH wrote:
+> On Tue, Jul 03, 2018 at 05:04:13PM +1000, Andrew Jeffery wrote:
 > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> >  arch/arm/boot/dts/aspeed-g5.dtsi | 192 +++++++++++++++++++++++++++++++
+> >  1 file changed, 192 insertions(+)
 > 
-> Same problem here :(
+> No changelog :(
 
 Will fix.
