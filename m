@@ -6,52 +6,52 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="EBIlXPrS"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ByTyZ9f9"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="cOjC2B5Z"; dkim-atps=neutral
+ header.b="muOXfRcm"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41L9zm6kPMzF1PM
- for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 16:28:36 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41LB0J45BszF1PF
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 16:29:04 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4F0E221EF0;
- Wed,  4 Jul 2018 02:28:33 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 0154A21EF0;
+ Wed,  4 Jul 2018 02:29:02 -0400 (EDT)
 Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Wed, 04 Jul 2018 02:28:33 -0400
+ by compute4.internal (MEProxy); Wed, 04 Jul 2018 02:29:02 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=o804IhJpAAaDyoYg0erTFtPTcX/OD
- 484+sOHWFcefH4=; b=EBIlXPrSZJoBsVBeflQkA00oxLftdyY5aEo15C+TR6oB3
- 971pQVbfwGamemqINpxHkbuqC+0FQ2G2FIiW5K1cExz5oQJ/H/YmgPJUnQj0sLIn
- DjTdtLsCvEfcObznVHtqCLwfdh9K7Z2vybMyN4fmirz71XjhP1MOth4/a3f/I+fz
- IJez+sN7cptbzAd+O7utgMkxhDQ/BzJ0V1ynb/c+ouHpBLKfGiYckCD5cUEqMYRj
- Za7GkS9uq0nMCs9iNpqkLyy+oi3ZLrwQHXYOdt8dJZI1zFyNBRZ9c6CgqjUNziK8
- N+IepJPJVuo/U+W4IjqMiL9wLjtpdanNuOKPBsipA==
+ :x-me-sender:x-sasl-enc; s=fm3; bh=z9uqWfECnptBOoeJInuOyVvl/P9l4
+ MwQYg/S0qNwDpw=; b=ByTyZ9f9HGbFoCuza4J3MVK+YfaYK7AXwVsqEbnNzBsy3
+ cNWgpFOtU9BxE7XdAFmVsGgoaz+mpeFqkemiJLxFmcxjjHKYHRtmk30e5R09CZr2
+ aAKF0YyD0GJbOZ4fq3yZEUAOBzAx1Gj0QPifrlK5MoLWh2cOxe+i1KTUJyVjoyTP
+ 7ApkoY6FcrgdgLas65aI+xE/R4lYDcNC9xLA2lIXBtGRIxd6vcbc8TH+C1KK08KO
+ 125Y4ChUuQBcuWdlfhZgRSUCV3H3aXaPDhpXSQ74duZYQjHxnbwEjqEVS3KOPTTB
+ 0ILzn3BKsMgCA8mzeJHruLhUBD17FcUSdYfmoxLAw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=o804Ih
- JpAAaDyoYg0erTFtPTcX/OD484+sOHWFcefH4=; b=cOjC2B5Z2AXJQAk3nY6m2L
- 7PTQBjLR2JRRWC90yOpHRHU00WydI4f8NYBqNxOgV9Uh/Kl2YCoHBcyiZtF+sb6V
- 5otTv/8AlNQw8PUdq/Fa4prqt4LFLQucYojx4Tm5XUY5iBvFFqda/u27IGeNUxVa
- vR79gy1DF25ZOTJbnHsNreUGaJtIEwDWslN4VGqqEb3YEGp4OUAXS+wKTyZ2pyjH
- 6BezOfrY86feK/vX8T1tuhPd8Vi0GD9MekMOrZ8nw7R8w0RaeA3ymZ5wK9/e2Q6q
- kZTxoXKDYTe88p98KK2e8YuHFf7WcdCrSnjyk5LV2BdcPclUI6EX+hxhJZ4VN79Q
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=z9uqWf
+ ECnptBOoeJInuOyVvl/P9l4MwQYg/S0qNwDpw=; b=muOXfRcmZ3/b7at2MlQ9hR
+ +6PTiWBvMhgF7ekJ7dOEHBvqY1ECd+Y9pJ9BZ50ni2EnZhyLqmbxVP+CFO8KsRbW
+ JETgZt7ngdRcvSXvuXPJUPZNDUrbhVLR6qjO49yh2qtEzrUTirKz6d3uRYX5UUEa
+ vXPWvMKIFDboSyVFiBiyM0/wq6Zw6+ioWSo7HZ6nM5/4PPyvY0N3RMMIENfDCk0y
+ cfT3Thwq+UuvYBTVvv5uEa0IHyhvYQtJL/ls7dj4/eDReXZsIwqFeaHRRY1b2oMP
+ +dZpCdOa/Q8Uy1AELww5d+odGbaiM8A4QP+Qok2z8ul7TNynYATlKg2C9l9LYn/A
  ==
-X-ME-Proxy: <xmx:D2k8W-CjpCAw94b4F4iBHu9NzjI_5izFguQwOZP6IJVtfiiWReLVwQ>
- <xmx:D2k8Ww6fGY7eHIaaepVwH3KGfbmSxaEJNdhIfqVD4hVhxX6iurnCdQ>
- <xmx:D2k8Wzyle3WZNoO6IzJFEZ5KraPQXcee4Du2NFVq97GB_aA5iEFWYQ>
- <xmx:D2k8W0l0x2hk1cR67Q6GxbOOFFI4G_dRvvM-nUS5E_gnxxbBalTVbQ>
- <xmx:D2k8W1WCg5rQBos6CJv-JvwHmrSOgmoptaUm_nnpCZ5taOQnA1BH8g>
- <xmx:EWk8W6fB8UlVAKJ5XeuJ4ItJFiQtTZC2tZLH4NrwyRBYSTF80UVeAg>
-X-ME-Sender: <xms:D2k8WwCIX5--YSZC1rfJTeSCMarHEWnm54kaiaZpBRTfsVrqmsaZhA>
+X-ME-Proxy: <xmx:LWk8WzhfvlLJeXrv3cr2AF4qohFUQPmN-M2f1NWwbZcVLIeDtpqq3Q>
+ <xmx:LWk8W3mqzPLku5zpNbrZnJ1ygOec2uUGz3aqnTsYjVEEyNiRARgjgg>
+ <xmx:LWk8WytWhHJdAe-buLa9VvbwpFHO2-nq_SrMr2E2Cd6-C6hTkW62yg>
+ <xmx:LWk8W9CxGhWvcP7VoKiy8H00tFQvIL96RTBkOZaHNNv1pBDy4QqRXg>
+ <xmx:LWk8W3UdMFjc8mVmszyHCqjpqV5429DBNV6AjRaQ-zyI1abVkJ3C7g>
+ <xmx:LWk8W-Tc_z_LZChEyk7AjCraqEneKB_4VArowRsXjy9MdJXFgiT20A>
+X-ME-Sender: <xms:LWk8WxkvrHnHJ2dpH2OfjvmTPVb0YpQ0zEaFIXHbXjUY0dxnpypyWQ>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 982689E48F; Wed,  4 Jul 2018 02:28:31 -0400 (EDT)
-Message-Id: <1530685711.3894608.1429457792.4DE9E784@webmail.messagingengine.com>
+ id C65139E48F; Wed,  4 Jul 2018 02:29:01 -0400 (EDT)
+Message-Id: <1530685741.3894652.1429464440.6E988BDD@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Greg KH <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
@@ -63,13 +63,13 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-0d8ea36c
-In-Reply-To: <20180703075009.GA27649@kroah.com>
+In-Reply-To: <20180703075018.GB27649@kroah.com>
 References: <20180703070413.28756-1-andrew@aj.id.au>
- <20180703070413.28756-2-andrew@aj.id.au>
- <20180703075009.GA27649@kroah.com>
-Subject: Re: [RFC PATCH 1/4] dts: misc: Add bindings documentation for
- bmc-misc-ctrl
-Date: Wed, 04 Jul 2018 15:58:31 +0930
+ <20180703070413.28756-3-andrew@aj.id.au>
+ <20180703075018.GB27649@kroah.com>
+Subject: Re: [RFC PATCH 2/4] Documentation: ABI: Add sysfs-class-bmc
+ documentation to testing
+Date: Wed, 04 Jul 2018 15:59:01 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -81,20 +81,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jul 2018 06:28:39 -0000
-
-Hi Greg,
+X-List-Received-Date: Wed, 04 Jul 2018 06:29:05 -0000
 
 On Tue, 3 Jul 2018, at 17:20, Greg KH wrote:
-> On Tue, Jul 03, 2018 at 05:04:10PM +1000, Andrew Jeffery wrote:
+> On Tue, Jul 03, 2018 at 05:04:11PM +1000, Andrew Jeffery wrote:
 > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
 > 
-> I can't take patches without any changelog text at all :(
-> 
+> Same problem here :(
 
-I wasn't expecting you to put them into your tree - the general concept/implementation is still too immature for that, let alone the commit messages :) However, I'll address this before sending another spin of the patches.
-
-Sorry for the noise and thanks for the quick response.
-
-Andrew
+Will fix.
