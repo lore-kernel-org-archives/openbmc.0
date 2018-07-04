@@ -1,35 +1,56 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::22d; helo=mail-it0-x22d.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="br+8aw2t"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c0b::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41L33X74kMzF1Pn;
- Wed,  4 Jul 2018 11:16:24 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w641GAWf012835;
- Tue, 3 Jul 2018 20:16:12 -0500
-Message-ID: <77039070d470d5d408e750218ddbccf9cb33a78e.camel@kernel.crashing.org>
-Subject: Re: [PATCH 11/14] dt-bindings: fsi: Document binding for the
- fsi-master-ast-cf "device"
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, devicetree@vger.kernel.org, Andrew Jeffery
- <andrew@aj.id.au>, linux-kernel@vger.kernel.org
-Date: Wed, 04 Jul 2018 11:16:10 +1000
-In-Reply-To: <20180703223046.GA20184@rob-hp-laptop>
-References: <20180626232605.13420-1-benh@kernel.crashing.org>
- <20180626232605.13420-12-benh@kernel.crashing.org>
- <20180703223046.GA20184@rob-hp-laptop>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41L3Z128XtzF1QL
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 11:39:20 +1000 (AEST)
+Received: by mail-it0-x22d.google.com with SMTP id v83-v6so5835045itc.3
+ for <openbmc@lists.ozlabs.org>; Tue, 03 Jul 2018 18:39:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Qhx7/6rcOFX3iSgaSdAyzhy5/cSqikSktvU4XJDHGDw=;
+ b=br+8aw2tI/6xG1K0MUZjoUdjdD83iHlHQOid6PTCNLio2rt2H3R5c+nCZdjY/95Cxg
+ wpF2iWodTuMv87XUNvl9Szh7+d8J4EV3JHJM1tU7oKrM9xzhIYV8x/jg/oesgoWrpZUF
+ gORrJwq+Mnf/bkzGSTsW2JJNiYgiSpDmyp+skPdyiNxzpNsj30VTnUZPlaqslIvVsrdT
+ ZEqul4vCbLqML0H8J0vz/nRYk5HcUWu+bwxcOP153FMzwIWxNr9N8AWMX3ABbmw0PrON
+ YoIJJrBh/tC6FD6QA1N3z1hvtpEbReez7/I0VPE6LyqMmh64Wbc2HlYj7JiODE66Vv0F
+ LHKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Qhx7/6rcOFX3iSgaSdAyzhy5/cSqikSktvU4XJDHGDw=;
+ b=Ao+iIll/o6qnFRUrUrZ+nUA43SLSs9py1/bWSWNc8nBY9kQ9sBYM6F3junPVLKSB+s
+ nbMfr2q8keaOukbMWDWZGKStMj51aPyhrPHMh9Kpj4jOPGA+Wjx/NNaqSn+7vrHdyR2d
+ smlGdVRMxGTNedViNJSKKndQX9BiWpzRdS6y1eKqfmeDL/1t66uvk/wGASoXgxzIueoW
+ 93SA7hskUUcn7bE9M1cvB4aQHeXBuia+weKY1pHdy3z55z8P1SSpMb+5bfWU59OPEbW2
+ 5b++LKJ8/Rb9drJw5zBfP/KglOqsSp3jAwFc82TSQsDtOjOew8XjbJ+Ro3I3j8rn7AgO
+ +vYA==
+X-Gm-Message-State: APt69E1TPsJh3DhXVtCWs1CuQ+07j63SI43YRbblkWjH/iHUXy3se+R5
+ gE0Jv7hshXTtH+1gQqNXzFc+N3dmppzi4Pc3fMI=
+X-Google-Smtp-Source: AAOMgpeKYreGK3LBcWgpQJfSRCvY6qhSqqR4cSfBD5fgyqJCAR7KAYl+tCcywej3idOYGby+NBIoiADaJV/UNX/X+dU=
+X-Received: by 2002:a24:e34d:: with SMTP id d74-v6mr337552ith.22.1530668358289; 
+ Tue, 03 Jul 2018 18:39:18 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAG9c7cCPZFFg65e-1iOSkLqgb26-2t1SqH_AZ4JjB5-TigNqzw@mail.gmail.com>
+In-Reply-To: <CAG9c7cCPZFFg65e-1iOSkLqgb26-2t1SqH_AZ4JjB5-TigNqzw@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Wed, 4 Jul 2018 09:39:02 +0800
+Message-ID: <CAARXrtm1ELUMV_Hh9VNF21fMXeKnn3RpOhABLfaWRPk05Gd=RA@mail.gmail.com>
+Subject: Re: How to override default Kernel config
+To: =?UTF-8?B?5by15ryi5b2s?= <henbinchang@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -41,121 +62,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jul 2018 01:16:25 -0000
+X-List-Received-Date: Wed, 04 Jul 2018 01:39:22 -0000
 
-On Tue, 2018-07-03 at 16:30 -0600, Rob Herring wrote:
-> On Wed, Jun 27, 2018 at 09:26:02AM +1000, Benjamin Herrenschmidt wrote:
-> > This isn't per-se a real device, it's a pseudo-device that
-> > represents the use of the Aspeed built-in ColdFire to
-> > implement the FSI protocol by bitbanging the GPIOs instead
-> > of doing it from the ARM core.
-> > 
-> > Thus it's a drop-in replacement for the existing
-> > fsi-master-gpio pseudo-device for use on systems for which
-> > a corresponding firmware file exists. It has most of the
-> > same properties, plus some more needed to operate the
-> > coprocessor.
-> > 
-> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> > ---
-> >  .../bindings/fsi/fsi-master-ast-cf.txt        | 36 +++++++++++++++++++
-> >  1 file changed, 36 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > 
-> > diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > new file mode 100644
-> > index 000000000000..50913ae685cc
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > @@ -0,0 +1,36 @@
-> > +Device-tree bindings for ColdFire offloaded gpio-based FSI master driver
-> > +------------------------------------------------------------------------
-> > +
-> > +Required properties:
-> > + - compatible =
-> > +   	      "fsi-master-ast-2400-cf" for an AST2400 based system
-> > +	    or
-> > +	      "fsi-master-ast-2500-cf" for an AST2500 based system
-> 
-> <vendor>,<soc>-<block>
+> I would like to enable a specific Kernel config in my machine.
+> I don't want to modify the 'defconfig'
+>
+> Could anyone tell me how to do?
 
-It's not really a SOC block from a vendor, it's a pseudo-device in a
-way. The current one that doesn't use the coldfire offload is just
-compatible "fsi-master-gpio".
-
-I can add a vendor but what should it be ? aspeed because it runs on
-the aspeed SoCs only ? ibm because we wrote it and FSI is an IBM
-protocol ?
-
-<soc>-<block> doesn't make sense here though.
-
-> > +
-> > + - clock-gpios = <gpio-descriptor>;	: GPIO for FSI clock
-> > + - data-gpios = <gpio-descriptor>;	: GPIO for FSI data signal
-> > + - enable-gpios = <gpio-descriptor>;	: GPIO for enable signal
-> > + - trans-gpios = <gpio-descriptor>;	: GPIO for voltage translator enable
-> > + - mux-gpios = <gpio-descriptor>;	: GPIO for pin multiplexing with other
-> 
-> So the gpio info is pased to the CF? Otherwise, what's the point of 
-> having these in DT?
-
-In the original version you are looking at, they are not passed to the
-CF per-se but the driver does use aspeed GPIO specific APIs to
-configure them to be owned by the CF, so we need the references.
-
-However, I've just reworked the ucode with a few tricks to avoid losing
-singificant performance, so that we can indeed pass them to the CF,
-thus avoiding the need for a per-system image, so the above are here to
-stay.
-
-> > +                                          functions (eg, external FSI masters)
-> > + - memory-region = <phandle>;		: Reference to the reserved memory for
-> > +                                          the ColdFire. Must be 2M aligned on
-> > +					  AST2400 and 1M aligned on AST2500
-> > + - sram = <phandle>;			: Reference to the SRAM node.
-> > + - cvic = <phandle>;			: Reference to the CVIC node.
-> 
-> Vendor prefixes.
-
-On what ? Why would an "sram" pointer have a vendor prefix ? Or a
-memory region pointer ?
-
-> > + - fw-name = <string>;			: The name used to construct the firmware
-> > +   	     				  file name (cf-fsi-<name>.bin)
-> 
-> firmware-name is used in some other places (and is the full filename).
-
-It's gone in the latest version as there's a single FW file now for all
-systems.
-> 
-> > + - fw-platform-sig = <value>;		: A signature value that must match the one
-> > +   		     			  contained in the firmware image. Known
-> > +					  values are listed in the firmware interface
-> > +					  file cf-fsi-fw.h
-> 
-> Vendor prefix unless you think this could be common.
-
-It's going away.
-
-> > +Examples:
-> > +
-> > +    fsi-master {
-> > +        compatible = "fsi-master-gpio", "fsi-master";
-> 
-> Forget to update the example?
-
-Indeed :)
-
-> > +        clock-gpios = <&gpio 0>;
-> > +        data-gpios = <&gpio 1>;
-> > +        enable-gpios = <&gpio 2>;
-> > +        trans-gpios = <&gpio 3>;
-> > +        mux-gpios = <&gpio 4>;
-> > +    }
-> > -- 
-> > 2.17.1
-> > 
-> > --
-> > To unsubscribe from this list: send the line "unsubscribe devicetree" in
-> > the body of a message to majordomo@vger.kernel.org
-> > More majordomo info at  http://vger.kernel.org/majordomo-info.html
+Please refer to machine-layer recipes, e.g. meta-romulus' linux recipe:
+https://github.com/openbmc/openbmc/tree/master/meta-openbmc-machines/meta-openpower/meta-ibm/meta-romulus/recipes-kernel/linux
