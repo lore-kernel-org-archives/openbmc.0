@@ -9,13 +9,13 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41LFgm4j6SzF1SC
- for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 19:14:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41LFgr4WM5zF1Sn
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Jul 2018 19:15:04 +1000 (AEST)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w649ESbZ017180;
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w649ESjK017181;
  Wed, 4 Jul 2018 12:14:28 +0300
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 5EAD36307B; Wed,  4 Jul 2018 12:14:28 +0300 (IDT)
+ id E3B0C6307C; Wed,  4 Jul 2018 12:14:28 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: robh+dt@kernel.org, mark.rutland@arm.com, arnd@arnd.de,
  gregkh@linuxfoundation.org, avifishman70@gmail.com, yuenn@google.com,
@@ -23,10 +23,12 @@ To: robh+dt@kernel.org, mark.rutland@arm.com, arnd@arnd.de,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
  Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 0/2] misc: Add NPCM7xx LPC BPC driver support
-Date: Wed,  4 Jul 2018 12:14:25 +0300
-Message-Id: <20180704091427.409971-1-tmaimon77@gmail.com>
+Subject: [PATCH v1 1/2] dt-binding: bmc: Add NPCM7xx LPC BPC documentation
+Date: Wed,  4 Jul 2018 12:14:26 +0300
+Message-Id: <20180704091427.409971-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180704091427.409971-1-tmaimon77@gmail.com>
+References: <20180704091427.409971-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -38,34 +40,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jul 2018 09:15:01 -0000
+X-List-Received-Date: Wed, 04 Jul 2018 09:15:05 -0000
 
-This patch set adds BIOS Post code (BPC) support for the
-Nuvoton NPCM7xx Baseboard Management Controller (BMC).
+Added device tree binding documentation for Nuvoton BMC
+NPCM7xx BIOS Post Code (BPC).
+The NPCM7xx BPC monitoring two configurable I/O addresses
+written by the host on Low Pin Count (LPC) bus.
 
-Nuvoton BMC NPCM7xx BIOS Post Code (BPC) monitoring two
-configurable I/O addresses written by the host on the
-Low Pin Count (LPC) bus, the capure data stored in 128-word FIFO.
-
-NPCM7xx BPC can support capture double words.
-
-I have created new folder (bmc) in the documentation/devicetree/binding
-for BMC miscellaneous modules that are not represented in the
-binding folder.
-
-The NPCM7xx BPC driver tested on NPCM750 evaluation board.
-
-Tomer Maimon (2):
-  dt-binding: bmc: Add NPCM7xx LPC BPC documentation
-  misc: npcm7xx: add NPCM7xx LPC BPC driver
-
- .../devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt    |  26 ++
- drivers/misc/Kconfig                               |   8 +
- drivers/misc/Makefile                              |   1 +
- drivers/misc/npcm7xx-lpc-bpc.c                     | 348 +++++++++++++++++++++
- 4 files changed, 383 insertions(+)
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt    | 26 ++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
- create mode 100644 drivers/misc/npcm7xx-lpc-bpc.c
 
+diff --git a/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
+new file mode 100644
+index 000000000000..0832c9cbea32
+--- /dev/null
++++ b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
+@@ -0,0 +1,26 @@
++Nuvoton NPCM7xx LPC BPC interface
++
++Nuvoton BMC NPCM7xx BIOS Post Code (BPC) monitoring two
++configurable I/O addresses written by the host on the
++Low Pin Count (LPC) bus, the capure data stored in 128-word FIFO.
++
++NPCM7xx BPC supports capture double words, when using capture
++double word only I/O address 1 is monitored.
++
++Required properties for lpc_bpc node
++- compatible	: "nuvoton,npcm750-lpc-bpc" for Poleg NPCM7XX.
++- reg 			: specifies physical base address and size of the registers.
++- interrupts	: contain the LPC BPC with flags for falling edge.
++- monitor-ports : contain monitor I/O addresses, at least one monitor I/O
++				  address required
++
++Optional property for lpc_bpc node
++- bpc-en-dwcapture : enable capture double words support.
++
++Example:
++	lpc_bpc: lpc-bpc@f0007040 {
++		compatible = "nuvoton,npcm7xx-lpc-bpc";
++		reg = <0xf0007040 0x14>;
++		monitor-ports = <0x80>;
++		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
++	};
 -- 
 2.14.1
