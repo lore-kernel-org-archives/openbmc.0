@@ -1,25 +1,25 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41M3MT68R1zF26T
- for <openbmc@lists.ozlabs.org>; Fri,  6 Jul 2018 02:33:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41M3Tv0HvpzF2WZ
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Jul 2018 02:39:14 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2018 09:33:32 -0700
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2018 09:39:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,313,1526367600"; d="scan'208";a="213688233"
+X-IronPort-AV: E=Sophos;i="5.51,313,1526367600"; d="scan'208";a="213690027"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
  ([10.7.153.143])
- by orsmga004.jf.intel.com with ESMTP; 05 Jul 2018 09:33:32 -0700
+ by orsmga004.jf.intel.com with ESMTP; 05 Jul 2018 09:39:12 -0700
 Subject: Re: [PATCH linux-next v5 08/13] drivers/mfd: Add PECI client mfd
  driver
 To: Lee Jones <lee.jones@linaro.org>
@@ -32,14 +32,14 @@ References: <20180601182227.23938-1-jae.hyun.yoo@linux.intel.com>
  <6663376b-2671-0c7e-93df-558728c92184@linux.intel.com>
  <20180618055941.GC31141@dell>
  <e387da06-1b73-a497-be59-9c25df9bb7f9@linux.intel.com>
- <20180704064130.GB20176@dell>
+ <20180704064230.GC20176@dell>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <7fecc267-eef2-e4ad-bb74-14c3e8e5877b@linux.intel.com>
-Date: Thu, 5 Jul 2018 09:33:29 -0700
+Message-ID: <9588aeb6-0290-56b1-9a80-287c028c19fd@linux.intel.com>
+Date: Thu, 5 Jul 2018 09:39:12 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <20180704064130.GB20176@dell>
+In-Reply-To: <20180704064230.GC20176@dell>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -54,15 +54,10 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jul 2018 16:33:42 -0000
+X-List-Received-Date: Thu, 05 Jul 2018 16:39:15 -0000
 
-Hi Lee,
-
-Thanks for your review. Please see my inline answers.
-
-On 7/3/2018 11:41 PM, Lee Jones wrote:
+On 7/3/2018 11:42 PM, Lee Jones wrote:
 > On Mon, 18 Jun 2018, Jae Hyun Yoo wrote:
-> 
 >> On 6/17/2018 10:59 PM, Lee Jones wrote:
 >>> On Thu, 14 Jun 2018, Jae Hyun Yoo wrote:
 >>>
@@ -87,102 +82,57 @@ On 7/3/2018 11:41 PM, Lee Jones wrote:
 >>>>>>     4 files changed, 277 insertions(+)
 >>>>>>     create mode 100644 drivers/mfd/peci-client.c
 >>>>>>     create mode 100644 include/linux/mfd/peci-client.h
-> 
-> [...]
-> 
->>>>>> +/**
->>>>>> + * Architectures other than x86 cannot include the header file so define these
->>>>>> + * at here. These are needed for detecting type of client x86 CPUs behind a PECI
->>>>>> + * connection.
->>>>>> + */
->>>>>> +#define INTEL_FAM6_HASWELL_X   0x3F
->>>>>> +#define INTEL_FAM6_BROADWELL_X 0x4F
->>>>>> +#define INTEL_FAM6_SKYLAKE_X   0x55
->>>>>> +#endif
->>>>>> +
->>>>>> +#define LOWER_NIBBLE_MASK      GENMASK(3, 0)
->>>>>> +#define UPPER_NIBBLE_MASK      GENMASK(7, 4)
->>>>>> +
->>>>>> +#define CPU_ID_MODEL_MASK      GENMASK(7, 4)
->>>>>> +#define CPU_ID_FAMILY_MASK     GENMASK(11, 8)
->>>>>> +#define CPU_ID_EXT_MODEL_MASK  GENMASK(19, 16)
->>>>>> +#define CPU_ID_EXT_FAMILY_MASK GENMASK(27, 20)
->>>>>
->>>>> In the case of X86 based devices, are these being redefined?
->>>>>
->>>>
->>>> No define even in x86 arch build. These masks just for PECI use cases.
->>>> Also, the CPUs in this implementation is not for local CPUs, but for
->>>> remote CPUs which are connected through PECI interface. It also means
->>>> that this code can be running on non-x86 kernel too.
->>>
->>> This is starting to sound like a 'remoteproc' driver, no?
 >>
->> This is driver for remote Intel CPUs that are behind in PECI connection.
-> 
-> Sounds like 'remoteproc' to me.
-> 
-
-No. It's not a remoteproc. The remote Intel CPUs means host server CPUs
-that are running a completely separated OS. This implementation is for
-BMC (Board Management Controllers) kernel for monitoring host server
-machine's Intel CPU, not for multiprocessing.
-
->>>>>> +enum cpu_gens {
->>>>>> +	CPU_GEN_HSX = 0, /* Haswell Xeon */
->>>>>> +	CPU_GEN_BRX,     /* Broadwell Xeon */
->>>>>> +	CPU_GEN_SKX,     /* Skylake Xeon */
->>>>>> +};
->>>>>> +
->>>>>> +static struct mfd_cell peci_functions[] = {
->>>>>> +	{
->>>>>> +		.name = "peci-cputemp",
->>>>>> +		.of_compatible = "intel,peci-cputemp",
->>>>>> +	},
->>>>>> +	{
->>>>>> +		.name = "peci-dimmtemp",
->>>>>> +		.of_compatible = "intel,peci-dimmtemp",
->>>>>> +	},
->>>>>> +};
+>>> [...]
+>>>
+>>>>>> +static struct peci_driver peci_client_driver = {
 >>>>>
->>>>> A couple of temp sensors?  This isn't looking very MFD-like.
->>>>>
->>>>> What makes this an MFD?
->>>>>
+>>>>> I'm pretty sure this will be NAKED by the platform Maintainer.
 >>>>
->>>> Currently it has only a couple of temp sensors but it's just one of
->>>> PECI function. Other PECI functions will be added later so it's the
->>>> reason why it should be an MFD. Please see the following PECI sideband
->>>> functions that I introduced in the cover letter of this patch set.
->>>>
->>>> * Processor and DRAM thermal management
->>>> * Platform Manageability
->>>> * Processor Interface Tuning and Diagnostics
->>>> * Failure Analysis
+>>>> Does it have problems? Can you please give me a hint?
 >>>
->>> Are these all devices in their own right?
->>>
->>> Will they each have drivers associated with them?
->>>
->>> Is there a datasheet for this PECI device?
+>>> New bus types are usually only added for well defined, heavily used
+>>> buses which AFAIK all have their own subsystems.  Why can't you use
+>>> one of the existing bus types?  Platform is the most frequently used.
 >>>
 >>
->> Temperature monitoring driver which I'm trying to upstream should be
->> added into hwmon subsystem, but other function drivers should be added
->> as a platform driver or as a something else, so it is the reason why I
->> made this MFD driver because these function drivers are separated but
->> use the same device - the remote CPU - actually. Datasheet is available
->> through http://www.intel.com/design/literature.htm with an NDA process.
->> Intel is providing the datasheet to HW vendors.
+>> I implemented this PECI drivers as a simple platform drivers in V1 but
+>> I had to change it to follow other maintainers' suggestions. I believe
+>> driver core maintainers are reviewing the PECI subsystem implementation
+>> code in this patch set as well.
 > 
-> I logged in an searched for "PECI".  These were my results:
-> 
->    https://i.imgur.com/y86S96I.png
+> I don't see this discussion.  How is it progressing?
 > 
 
-You may need a CNDA:
+v1:
+https://lkml.org/lkml/2018/1/9/1088
 
-https://www.intel.com/content/www/us/en/forms/design/registration-privileged.html
+v2:
+https://lkml.org/lkml/2018/2/21/983
+
+v3:
+https://lkml.org/lkml/2018/4/10/750
+
+v4:
+https://lkml.org/lkml/2018/5/21/717
+
+v5:
+https://lkml.org/lkml/2018/6/1/732
+https://lkml.org/lkml/2018/6/1/733
+https://lkml.org/lkml/2018/6/1/734
+https://lkml.org/lkml/2018/6/1/736
+https://lkml.org/lkml/2018/6/1/737
+https://lkml.org/lkml/2018/6/1/738
+https://lkml.org/lkml/2018/6/1/740
+https://lkml.org/lkml/2018/6/1/742
+https://lkml.org/lkml/2018/6/1/743
+https://lkml.org/lkml/2018/6/1/744
+https://lkml.org/lkml/2018/6/1/745
+https://lkml.org/lkml/2018/6/1/746
+https://lkml.org/lkml/2018/6/1/747
+
+v6:
+https://lkml.org/lkml/2018/6/21/596
 
 Thanks,
 
