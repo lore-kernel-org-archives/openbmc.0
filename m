@@ -1,56 +1,48 @@
-Return-Path: <robh@kernel.org>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=robh@kernel.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="YdRAG0Hq"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.120; helo=mga04.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41M2pR3VKYzF1wr;
- Fri,  6 Jul 2018 02:08:31 +1000 (AEST)
-Received: from mail-it0-f47.google.com (mail-it0-f47.google.com
- [209.85.214.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2BD9F2403A;
- Thu,  5 Jul 2018 16:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1530806909;
- bh=U+S4KVq7SFUN+KFU1BeV5Vv/LW3j3Qxmu5sOdrqFpp4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=YdRAG0Hq/M16aoxMpn301I2/JF5L5o/HEMcgp0Qlw/ErMySrvlNNWwlgPKs1Gy5Xz
- 0vwrM1Xb1IJDao8s76NqTDXDI251WWp3sTUChtgngDYCgf3X5+be1zBmfXoqjeC0Nv
- adavIXW7Ym5hYaYmciJVFWqtKwh6R9r/ltLIhqNM=
-Received: by mail-it0-f47.google.com with SMTP id 188-v6so13093528ita.5;
- Thu, 05 Jul 2018 09:08:29 -0700 (PDT)
-X-Gm-Message-State: APt69E2k34c1P19PBq/+m+kmxjzumEAW46JIDilaCjBIHC2oCy2PU2ti
- 6ZfwApM0hcQeonXYLrG+wMtg0Vj+cd3PIq3PhQ==
-X-Google-Smtp-Source: AAOMgpcDDRPvGh5lgHAlDW+PDq5WJz4X9cCACeAYyJbdIMp1BCO/7e1C8pfK5rY5PpzaLfipbCxJioJXQmaKMsEyD5c=
-X-Received: by 2002:a02:8509:: with SMTP id g9-v6mr5582158jai.54.1530806908574; 
- Thu, 05 Jul 2018 09:08:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41M3MT68R1zF26T
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Jul 2018 02:33:35 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2018 09:33:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,313,1526367600"; d="scan'208";a="213688233"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga004.jf.intel.com with ESMTP; 05 Jul 2018 09:33:32 -0700
+Subject: Re: [PATCH linux-next v5 08/13] drivers/mfd: Add PECI client mfd
+ driver
+To: Lee Jones <lee.jones@linaro.org>
+Cc: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
+ James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>, Joel Stanley
+ <joel@jms.id.au>, Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20180601182227.23938-1-jae.hyun.yoo@linux.intel.com>
+ <20180613063038.GJ5278@dell>
+ <6663376b-2671-0c7e-93df-558728c92184@linux.intel.com>
+ <20180618055941.GC31141@dell>
+ <e387da06-1b73-a497-be59-9c25df9bb7f9@linux.intel.com>
+ <20180704064130.GB20176@dell>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <7fecc267-eef2-e4ad-bb74-14c3e8e5877b@linux.intel.com>
+Date: Thu, 5 Jul 2018 09:33:29 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-References: <20180626232605.13420-1-benh@kernel.crashing.org>
- <20180626232605.13420-12-benh@kernel.crashing.org>
- <20180703223046.GA20184@rob-hp-laptop>
- <77039070d470d5d408e750218ddbccf9cb33a78e.camel@kernel.crashing.org>
-In-Reply-To: <77039070d470d5d408e750218ddbccf9cb33a78e.camel@kernel.crashing.org>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 5 Jul 2018 10:08:16 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLfg+7pUXgXecpObqfUTVvp4QAR150LsMho2EkKtkqgFg@mail.gmail.com>
-Message-ID: <CAL_JsqLfg+7pUXgXecpObqfUTVvp4QAR150LsMho2EkKtkqgFg@mail.gmail.com>
-Subject: Re: [PATCH 11/14] dt-bindings: fsi: Document binding for the
- fsi-master-ast-cf "device"
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, devicetree@vger.kernel.org, 
- Andrew Jeffery <andrew@aj.id.au>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20180704064130.GB20176@dell>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -62,101 +54,136 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jul 2018 16:08:32 -0000
+X-List-Received-Date: Thu, 05 Jul 2018 16:33:42 -0000
 
-On Tue, Jul 3, 2018 at 7:16 PM Benjamin Herrenschmidt
-<benh@kernel.crashing.org> wrote:
->
-> On Tue, 2018-07-03 at 16:30 -0600, Rob Herring wrote:
-> > On Wed, Jun 27, 2018 at 09:26:02AM +1000, Benjamin Herrenschmidt wrote:
-> > > This isn't per-se a real device, it's a pseudo-device that
-> > > represents the use of the Aspeed built-in ColdFire to
-> > > implement the FSI protocol by bitbanging the GPIOs instead
-> > > of doing it from the ARM core.
-> > >
-> > > Thus it's a drop-in replacement for the existing
-> > > fsi-master-gpio pseudo-device for use on systems for which
-> > > a corresponding firmware file exists. It has most of the
-> > > same properties, plus some more needed to operate the
-> > > coprocessor.
-> > >
-> > > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> > > ---
-> > >  .../bindings/fsi/fsi-master-ast-cf.txt        | 36 +++++++++++++++++++
-> > >  1 file changed, 36 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > > new file mode 100644
-> > > index 000000000000..50913ae685cc
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > > @@ -0,0 +1,36 @@
-> > > +Device-tree bindings for ColdFire offloaded gpio-based FSI master driver
-> > > +------------------------------------------------------------------------
-> > > +
-> > > +Required properties:
-> > > + - compatible =
-> > > +                 "fsi-master-ast-2400-cf" for an AST2400 based system
-> > > +       or
-> > > +         "fsi-master-ast-2500-cf" for an AST2500 based system
-> >
-> > <vendor>,<soc>-<block>
->
-> It's not really a SOC block from a vendor, it's a pseudo-device in a
-> way. The current one that doesn't use the coldfire offload is just
-> compatible "fsi-master-gpio".
->
-> I can add a vendor but what should it be ? aspeed because it runs on
-> the aspeed SoCs only ? ibm because we wrote it and FSI is an IBM
-> protocol ?
+Hi Lee,
 
-I would say aspeed as it is tied to their chip.
+Thanks for your review. Please see my inline answers.
 
->
-> <soc>-<block> doesn't make sense here though.
+On 7/3/2018 11:41 PM, Lee Jones wrote:
+> On Mon, 18 Jun 2018, Jae Hyun Yoo wrote:
+> 
+>> On 6/17/2018 10:59 PM, Lee Jones wrote:
+>>> On Thu, 14 Jun 2018, Jae Hyun Yoo wrote:
+>>>
+>>>> Thanks for the review. Please see my inline answers.
+>>>>
+>>>> On 6/12/2018 11:30 PM, Lee Jones wrote:
+>>>>> On Fri, 01 Jun 2018, Jae Hyun Yoo wrote:
+>>>>>
+>>>>>> This commit adds PECI client mfd driver.
+>>>>>>
+>>>>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>>>>>> Cc: Andrew Jeffery <andrew@aj.id.au>
+>>>>>> Cc: James Feist <james.feist@linux.intel.com>
+>>>>>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+>>>>>> Cc: Joel Stanley <joel@jms.id.au>
+>>>>>> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
+>>>>>> ---
+>>>>>>     drivers/mfd/Kconfig             |  11 ++
+>>>>>>     drivers/mfd/Makefile            |   1 +
+>>>>>>     drivers/mfd/peci-client.c       | 205 ++++++++++++++++++++++++++++++++
+>>>>>>     include/linux/mfd/peci-client.h |  60 ++++++++++
+>>>>>>     4 files changed, 277 insertions(+)
+>>>>>>     create mode 100644 drivers/mfd/peci-client.c
+>>>>>>     create mode 100644 include/linux/mfd/peci-client.h
+> 
+> [...]
+> 
+>>>>>> +/**
+>>>>>> + * Architectures other than x86 cannot include the header file so define these
+>>>>>> + * at here. These are needed for detecting type of client x86 CPUs behind a PECI
+>>>>>> + * connection.
+>>>>>> + */
+>>>>>> +#define INTEL_FAM6_HASWELL_X   0x3F
+>>>>>> +#define INTEL_FAM6_BROADWELL_X 0x4F
+>>>>>> +#define INTEL_FAM6_SKYLAKE_X   0x55
+>>>>>> +#endif
+>>>>>> +
+>>>>>> +#define LOWER_NIBBLE_MASK      GENMASK(3, 0)
+>>>>>> +#define UPPER_NIBBLE_MASK      GENMASK(7, 4)
+>>>>>> +
+>>>>>> +#define CPU_ID_MODEL_MASK      GENMASK(7, 4)
+>>>>>> +#define CPU_ID_FAMILY_MASK     GENMASK(11, 8)
+>>>>>> +#define CPU_ID_EXT_MODEL_MASK  GENMASK(19, 16)
+>>>>>> +#define CPU_ID_EXT_FAMILY_MASK GENMASK(27, 20)
+>>>>>
+>>>>> In the case of X86 based devices, are these being redefined?
+>>>>>
+>>>>
+>>>> No define even in x86 arch build. These masks just for PECI use cases.
+>>>> Also, the CPUs in this implementation is not for local CPUs, but for
+>>>> remote CPUs which are connected through PECI interface. It also means
+>>>> that this code can be running on non-x86 kernel too.
+>>>
+>>> This is starting to sound like a 'remoteproc' driver, no?
+>>
+>> This is driver for remote Intel CPUs that are behind in PECI connection.
+> 
+> Sounds like 'remoteproc' to me.
+> 
 
-But you do already have <soc> in the compatible, but in a slightly
-different form and position. And "cf" is the block.
+No. It's not a remoteproc. The remote Intel CPUs means host server CPUs
+that are running a completely separated OS. This implementation is for
+BMC (Board Management Controllers) kernel for monitoring host server
+machine's Intel CPU, not for multiprocessing.
 
-So I'd propose: aspeed,ast2500-cf-fsi-master
+>>>>>> +enum cpu_gens {
+>>>>>> +	CPU_GEN_HSX = 0, /* Haswell Xeon */
+>>>>>> +	CPU_GEN_BRX,     /* Broadwell Xeon */
+>>>>>> +	CPU_GEN_SKX,     /* Skylake Xeon */
+>>>>>> +};
+>>>>>> +
+>>>>>> +static struct mfd_cell peci_functions[] = {
+>>>>>> +	{
+>>>>>> +		.name = "peci-cputemp",
+>>>>>> +		.of_compatible = "intel,peci-cputemp",
+>>>>>> +	},
+>>>>>> +	{
+>>>>>> +		.name = "peci-dimmtemp",
+>>>>>> +		.of_compatible = "intel,peci-dimmtemp",
+>>>>>> +	},
+>>>>>> +};
+>>>>>
+>>>>> A couple of temp sensors?  This isn't looking very MFD-like.
+>>>>>
+>>>>> What makes this an MFD?
+>>>>>
+>>>>
+>>>> Currently it has only a couple of temp sensors but it's just one of
+>>>> PECI function. Other PECI functions will be added later so it's the
+>>>> reason why it should be an MFD. Please see the following PECI sideband
+>>>> functions that I introduced in the cover letter of this patch set.
+>>>>
+>>>> * Processor and DRAM thermal management
+>>>> * Platform Manageability
+>>>> * Processor Interface Tuning and Diagnostics
+>>>> * Failure Analysis
+>>>
+>>> Are these all devices in their own right?
+>>>
+>>> Will they each have drivers associated with them?
+>>>
+>>> Is there a datasheet for this PECI device?
+>>>
+>>
+>> Temperature monitoring driver which I'm trying to upstream should be
+>> added into hwmon subsystem, but other function drivers should be added
+>> as a platform driver or as a something else, so it is the reason why I
+>> made this MFD driver because these function drivers are separated but
+>> use the same device - the remote CPU - actually. Datasheet is available
+>> through http://www.intel.com/design/literature.htm with an NDA process.
+>> Intel is providing the datasheet to HW vendors.
+> 
+> I logged in an searched for "PECI".  These were my results:
+> 
+>    https://i.imgur.com/y86S96I.png
+> 
 
->
-> > > +
-> > > + - clock-gpios = <gpio-descriptor>;        : GPIO for FSI clock
-> > > + - data-gpios = <gpio-descriptor>; : GPIO for FSI data signal
-> > > + - enable-gpios = <gpio-descriptor>;       : GPIO for enable signal
-> > > + - trans-gpios = <gpio-descriptor>;        : GPIO for voltage translator enable
-> > > + - mux-gpios = <gpio-descriptor>;  : GPIO for pin multiplexing with other
-> >
-> > So the gpio info is pased to the CF? Otherwise, what's the point of
-> > having these in DT?
->
-> In the original version you are looking at, they are not passed to the
-> CF per-se but the driver does use aspeed GPIO specific APIs to
-> configure them to be owned by the CF, so we need the references.
+You may need a CNDA:
 
-Okay.
+https://www.intel.com/content/www/us/en/forms/design/registration-privileged.html
 
-> However, I've just reworked the ucode with a few tricks to avoid losing
-> singificant performance, so that we can indeed pass them to the CF,
-> thus avoiding the need for a per-system image, so the above are here to
-> stay.
->
-> > > +                                          functions (eg, external FSI masters)
-> > > + - memory-region = <phandle>;              : Reference to the reserved memory for
-> > > +                                          the ColdFire. Must be 2M aligned on
-> > > +                                     AST2400 and 1M aligned on AST2500
-> > > + - sram = <phandle>;                       : Reference to the SRAM node.
-> > > + - cvic = <phandle>;                       : Reference to the CVIC node.
-> >
-> > Vendor prefixes.
->
-> On what ? Why would an "sram" pointer have a vendor prefix ? Or a
-> memory region pointer ?
+Thanks,
 
-memory-region is a standard property. sram and cvic are not, so should
-have vendor prefixes. However, perhaps we should add a common "sram"
-property to sram/sram.txt.
-
-Rob
+Jae
