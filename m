@@ -1,33 +1,56 @@
-Return-Path: <Avi.Fishman@nuvoton.com>
+Return-Path: <robh@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=robh@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="YdRAG0Hq"; 
+ dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41LwdC39rwzF1mt
- for <openbmc@lists.ozlabs.org>; Thu,  5 Jul 2018 21:30:04 +1000 (AEST)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w65BRqIS013586;
- Thu, 5 Jul 2018 14:27:52 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 8441)
- id 59F5562E17; Thu,  5 Jul 2018 14:27:52 +0300 (IDT)
-From: avifishman70@gmail.com
-To: davem@davemloft.net, mchehab+samsung@kernel.org,
- gregkh@linuxfoundation.org, akpm@linux-foundation.org
-Cc: rdunlap@infradead.org, avifishman70@gmail.com, tmaimon77@gmail.com,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- Avi Fishman <AviFishman70@gmail.com>
-Subject: [PATCH v3 1/1] MAINTAINERS: add subfolders for nuvoton *npcm*
-Date: Thu,  5 Jul 2018 14:27:50 +0300
-Message-Id: <20180705112750.197458-2-avifishman70@gmail.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20180705112750.197458-1-avifishman70@gmail.com>
-References: <20180705112750.197458-1-avifishman70@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41M2pR3VKYzF1wr;
+ Fri,  6 Jul 2018 02:08:31 +1000 (AEST)
+Received: from mail-it0-f47.google.com (mail-it0-f47.google.com
+ [209.85.214.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2BD9F2403A;
+ Thu,  5 Jul 2018 16:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1530806909;
+ bh=U+S4KVq7SFUN+KFU1BeV5Vv/LW3j3Qxmu5sOdrqFpp4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=YdRAG0Hq/M16aoxMpn301I2/JF5L5o/HEMcgp0Qlw/ErMySrvlNNWwlgPKs1Gy5Xz
+ 0vwrM1Xb1IJDao8s76NqTDXDI251WWp3sTUChtgngDYCgf3X5+be1zBmfXoqjeC0Nv
+ adavIXW7Ym5hYaYmciJVFWqtKwh6R9r/ltLIhqNM=
+Received: by mail-it0-f47.google.com with SMTP id 188-v6so13093528ita.5;
+ Thu, 05 Jul 2018 09:08:29 -0700 (PDT)
+X-Gm-Message-State: APt69E2k34c1P19PBq/+m+kmxjzumEAW46JIDilaCjBIHC2oCy2PU2ti
+ 6ZfwApM0hcQeonXYLrG+wMtg0Vj+cd3PIq3PhQ==
+X-Google-Smtp-Source: AAOMgpcDDRPvGh5lgHAlDW+PDq5WJz4X9cCACeAYyJbdIMp1BCO/7e1C8pfK5rY5PpzaLfipbCxJioJXQmaKMsEyD5c=
+X-Received: by 2002:a02:8509:: with SMTP id g9-v6mr5582158jai.54.1530806908574; 
+ Thu, 05 Jul 2018 09:08:28 -0700 (PDT)
+MIME-Version: 1.0
+References: <20180626232605.13420-1-benh@kernel.crashing.org>
+ <20180626232605.13420-12-benh@kernel.crashing.org>
+ <20180703223046.GA20184@rob-hp-laptop>
+ <77039070d470d5d408e750218ddbccf9cb33a78e.camel@kernel.crashing.org>
+In-Reply-To: <77039070d470d5d408e750218ddbccf9cb33a78e.camel@kernel.crashing.org>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 5 Jul 2018 10:08:16 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqLfg+7pUXgXecpObqfUTVvp4QAR150LsMho2EkKtkqgFg@mail.gmail.com>
+Message-ID: <CAL_JsqLfg+7pUXgXecpObqfUTVvp4QAR150LsMho2EkKtkqgFg@mail.gmail.com>
+Subject: Re: [PATCH 11/14] dt-bindings: fsi: Document binding for the
+ fsi-master-ast-cf "device"
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, devicetree@vger.kernel.org, 
+ Andrew Jeffery <andrew@aj.id.au>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -39,32 +62,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jul 2018 11:30:08 -0000
+X-List-Received-Date: Thu, 05 Jul 2018 16:08:32 -0000
 
-From: Avi Fishman <AviFishman70@gmail.com>
+On Tue, Jul 3, 2018 at 7:16 PM Benjamin Herrenschmidt
+<benh@kernel.crashing.org> wrote:
+>
+> On Tue, 2018-07-03 at 16:30 -0600, Rob Herring wrote:
+> > On Wed, Jun 27, 2018 at 09:26:02AM +1000, Benjamin Herrenschmidt wrote:
+> > > This isn't per-se a real device, it's a pseudo-device that
+> > > represents the use of the Aspeed built-in ColdFire to
+> > > implement the FSI protocol by bitbanging the GPIOs instead
+> > > of doing it from the ARM core.
+> > >
+> > > Thus it's a drop-in replacement for the existing
+> > > fsi-master-gpio pseudo-device for use on systems for which
+> > > a corresponding firmware file exists. It has most of the
+> > > same properties, plus some more needed to operate the
+> > > coprocessor.
+> > >
+> > > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> > > ---
+> > >  .../bindings/fsi/fsi-master-ast-cf.txt        | 36 +++++++++++++++++++
+> > >  1 file changed, 36 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
+> > > new file mode 100644
+> > > index 000000000000..50913ae685cc
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
+> > > @@ -0,0 +1,36 @@
+> > > +Device-tree bindings for ColdFire offloaded gpio-based FSI master driver
+> > > +------------------------------------------------------------------------
+> > > +
+> > > +Required properties:
+> > > + - compatible =
+> > > +                 "fsi-master-ast-2400-cf" for an AST2400 based system
+> > > +       or
+> > > +         "fsi-master-ast-2500-cf" for an AST2500 based system
+> >
+> > <vendor>,<soc>-<block>
+>
+> It's not really a SOC block from a vendor, it's a pseudo-device in a
+> way. The current one that doesn't use the coldfire offload is just
+> compatible "fsi-master-gpio".
+>
+> I can add a vendor but what should it be ? aspeed because it runs on
+> the aspeed SoCs only ? ibm because we wrote it and FSI is an IBM
+> protocol ?
 
-Add several subfolders to look for *npcm* files under
-ARM/NUVOTON NPCM ARCHITECTURE
+I would say aspeed as it is tied to their chip.
 
-Signed-off-by: Avi Fishman <AviFishman70@gmail.com>
----
- MAINTAINERS | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> <soc>-<block> doesn't make sense here though.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e0ce3c5f32e5..dbe3ce376dfb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1727,7 +1727,9 @@ F:	arch/arm/mach-npcm/
- F:	arch/arm/boot/dts/nuvoton-npcm*
- F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
- F:	drivers/*/*npcm*
--F:	Documentation/*/*npcm*
-+F:	drivers/*/*/*npcm*
-+F:	Documentation/devicetree/bindings/*/*npcm*
-+F:	Documentation/devicetree/bindings/*/*/*npcm*
- 
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
--- 
-2.14.1
+But you do already have <soc> in the compatible, but in a slightly
+different form and position. And "cf" is the block.
+
+So I'd propose: aspeed,ast2500-cf-fsi-master
+
+>
+> > > +
+> > > + - clock-gpios = <gpio-descriptor>;        : GPIO for FSI clock
+> > > + - data-gpios = <gpio-descriptor>; : GPIO for FSI data signal
+> > > + - enable-gpios = <gpio-descriptor>;       : GPIO for enable signal
+> > > + - trans-gpios = <gpio-descriptor>;        : GPIO for voltage translator enable
+> > > + - mux-gpios = <gpio-descriptor>;  : GPIO for pin multiplexing with other
+> >
+> > So the gpio info is pased to the CF? Otherwise, what's the point of
+> > having these in DT?
+>
+> In the original version you are looking at, they are not passed to the
+> CF per-se but the driver does use aspeed GPIO specific APIs to
+> configure them to be owned by the CF, so we need the references.
+
+Okay.
+
+> However, I've just reworked the ucode with a few tricks to avoid losing
+> singificant performance, so that we can indeed pass them to the CF,
+> thus avoiding the need for a per-system image, so the above are here to
+> stay.
+>
+> > > +                                          functions (eg, external FSI masters)
+> > > + - memory-region = <phandle>;              : Reference to the reserved memory for
+> > > +                                          the ColdFire. Must be 2M aligned on
+> > > +                                     AST2400 and 1M aligned on AST2500
+> > > + - sram = <phandle>;                       : Reference to the SRAM node.
+> > > + - cvic = <phandle>;                       : Reference to the CVIC node.
+> >
+> > Vendor prefixes.
+>
+> On what ? Why would an "sram" pointer have a vendor prefix ? Or a
+> memory region pointer ?
+
+memory-region is a standard property. sram and cvic are not, so should
+have vendor prefixes. However, perhaps we should add a common "sram"
+property to sram/sram.txt.
+
+Rob
