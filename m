@@ -1,58 +1,35 @@
-Return-Path: <robherring2@gmail.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.218.65; helo=mail-oi0-f65.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
- [209.85.218.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41M8vr4nSzzF265
- for <openbmc@lists.ozlabs.org>; Fri,  6 Jul 2018 06:43:36 +1000 (AEST)
-Received: by mail-oi0-f65.google.com with SMTP id n84-v6so19400401oib.9
- for <openbmc@lists.ozlabs.org>; Thu, 05 Jul 2018 13:43:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=pLFS+R0zSvo9gC9QGZAfaWvPZOnXVSSf2fa72qbMKGU=;
- b=tf5ArRCcIEBL+DcUjpdtkr7CSITLxV1zrhcKiO7npfR1ZKpIiJmJ6gF0mbk5UmrhKl
- Xi16ByvX6QBNqpInPag8M8p856nvRXm1ltwEQetUsX+cbBjgX2B3ImXyCLSdYbDLnZQJ
- JxnKScMTehgMAKbk1u0lp/ztipiFGoMPJOr4YjR0ZQS0guLA6k5k/evNoM97bRyJAFc+
- QkmUZGwEALr6T7JbzQhwnmwk0LRdclZRUC7x8fR7BBThbgzX+Eq0egNrCRqAxj0ir3Lr
- SeoxbHC5TXXFapQztJTbAzZXjhGuwF+2v4TyQLw5J53Acq3dfc5DSamv+/qM2SBawGBT
- yhiQ==
-X-Gm-Message-State: APt69E2w9XPHpKTJUJIDhlXcQttU4TZQB0sq1gHm+0mwlCUfCTvhlX3W
- B6O5i08a3RBII7gm3yFI2g==
-X-Google-Smtp-Source: AAOMgpfOnVauGtuQ5v09vxAN9e/99ptafWG9WD/nrDEDsrrgTqDotoRf4sb/nBX0rIEPizya9jWRlA==
-X-Received: by 2002:aca:e3c8:: with SMTP id
- a191-v6mr9069650oih.4.1530823413174; 
- Thu, 05 Jul 2018 13:43:33 -0700 (PDT)
-Received: from localhost (24-223-123-72.static.usa-companies.net.
- [24.223.123.72])
- by smtp.gmail.com with ESMTPSA id r187-v6sm1731425oib.2.2018.07.05.13.43.32
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 05 Jul 2018 13:43:32 -0700 (PDT)
-Date: Thu, 5 Jul 2018 14:43:31 -0600
-From: Rob Herring <robh@kernel.org>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: mark.rutland@arm.com, jdelvare@suse.com, linux@roeck-us.net,
- avifishman70@gmail.com, yuenn@google.com, brendanhiggins@google.com,
- venture@google.com, joel@jms.id.au, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v8 1/2] dt-binding: hwmon: Add NPCM7xx PWM and Fan
- controller documentation
-Message-ID: <20180705204331.GA1778@rob-hp-laptop>
-References: <20180703232326.355718-1-tmaimon77@gmail.com>
- <20180703232326.355718-2-tmaimon77@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180703232326.355718-2-tmaimon77@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41MHh51B09zF2Wc;
+ Fri,  6 Jul 2018 11:48:52 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w661maI4010108;
+ Thu, 5 Jul 2018 20:48:38 -0500
+Message-ID: <a6331cdbababea893bcde5f8ca9529dd89dafd67.camel@kernel.crashing.org>
+Subject: Re: [PATCH 1/2] dt-bindings: fsi: Add optional chip-id to CFAMs
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Rob Herring <robh@kernel.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org,
+ devicetree@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>
+Date: Fri, 06 Jul 2018 11:48:36 +1000
+In-Reply-To: <CAL_JsqKZunLyRJQJgQrcBvv2s=HEd=E2ZG1ZgkgwTQkzJ88mcA@mail.gmail.com>
+References: <20180622043756.21158-1-benh@kernel.crashing.org>
+ <20180703193017.GA23230@rob-hp-laptop>
+ <23be30ebb2c661ef304c78a85cff591c515ba65b.camel@kernel.crashing.org>
+ <CAL_JsqKZunLyRJQJgQrcBvv2s=HEd=E2ZG1ZgkgwTQkzJ88mcA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -64,18 +41,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jul 2018 20:43:37 -0000
+X-List-Received-Date: Fri, 06 Jul 2018 01:48:53 -0000
 
-On Wed, Jul 04, 2018 at 02:23:25AM +0300, Tomer Maimon wrote:
-> Added device tree binding documentation for Nuvoton BMC
-> NPCM7xx Pulse Width Modulation (PWM)  and Fan tach controller.
-> The Nuvoton BMC NPCM7XX supports 8 PWM controller outputs
-> and 16 Fan tachometer controller inputs.
+On Thu, 2018-07-05 at 12:49 -0600, Rob Herring wrote:
+> On Tue, Jul 3, 2018 at 7:07 PM Benjamin Herrenschmidt
+> <benh@kernel.crashing.org> wrote:
+> > 
+> > On Tue, 2018-07-03 at 13:30 -0600, Rob Herring wrote:
+> > > On Fri, Jun 22, 2018 at 02:37:55PM +1000, Benjamin Herrenschmidt wrote:
+> > > > This represents a physical chip in the system and allows
+> > > > a stable numbering scheme to be passed to udev for userspace
+> > > > to recognize which chip is which.
+> > > 
+> > > I'm sure you're aware, stable numbers is generally not something the
+> > > kernel guarantees...
+> > 
+> > This has nothing to do with any kernel guarantee. Not sure what you are
+> > mixing up here :-)
 > 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  .../devicetree/bindings/hwmon/npcm750-pwm-fan.txt  | 84 ++++++++++++++++++++++
->  1 file changed, 84 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+> I was referring to /dev node names like sda/sdb/sdc or ttyS0/ttyS1.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Ah yes. I do have code to make those "somewhat stable" using the chip
+ID by default (unless overriden) as a backward compat thing for small
+systems but the long term goal is indeed to not rely on this.
+
+> > The IDs will get exposed via sysfs in order to allow udev rules to
+> > create appropriate symlinks such as by-id or by-path as is traditional
+> > (we haven't completely decided some of the udev side details yet)
+> 
+> Yeah, that's a bit different.
+
+Yup, that's the right way actually :-)
+
+> > > In the cases where we do have them, we've used aliases.
+> > 
+> > This is necessary, though Aliases may do the job too. This is the
+> > device-tree that represents the "host" system that the BMC is managing.
+> > 
+> > We need to be able to identify using a stable numbering scheme the
+> > processors on the FSI topology otherwise we would do "interesting"
+> > things such as turn the fan for CPU 1 when CPU 0 gets hot :-)
+> > 
+> > (This is just a silly example, there are plenty of other reasons why we
+> > need to understand the HW topology of a given system, including
+> > debuggers using FSI as a backend etc...)
+> > 
+> > Traditionally POWER has used ibm,chip-id properties for the host side,
+> > so I just did something similar here for the BMC side, but I can look
+> > into using aliases if you prefer.
+> 
+> That is specifically for CPUs though, right?
+
+No, it's for host "chips".
+
+IE, this is the device-tree of the BMC, consumed by the BMC. So we are
+in the context of Linux running on the BMC ARM SoC.
+
+That BMC is connected to the "Host" POWER9 chips via a service
+interface called FSI (think as a kind of PECI or JTAG on steroids),
+which it uses to crank them up or do various monitoring/management
+tasks.
+
+So while they are CPUs they are actually "Devices" in the context of
+the consumer here.
+
+Additionally, on some systems, there can be other type of chips
+connected to FSI, such as memory buffer chips etc... all get a "chip
+ID" assigned.
+
+>  Is the same true here? If
+> so, I guess this is fine. A set of indexes for any device on a bus
+> would be more concerning.
+
+There can be multiple FSI links connecting to the same chips, some are
+accessed via cascaded FSI masters etc... so it's not about indices on
+the bus. It's really about identifying a physical package on the
+motherboard.
+
+> > Note: I'm not sure what you have against DT provided names or IDs, this
+> > has been a rather standard way of doing things even before we did the
+> > FDT. For example that's what slot-names properties are for, or location
+> > codes etc... Yes we invented that alias trick later on but it's not
+> > necessarily the best approach (in fact I don't really like it to be
+> > honest).
+> 
+> I'm no fan of aliases either, but just trying to keep some consistency
+> in how we deal with various problems. My main concern is folks trying
+> to create some made-up index numbering of devices. Often it's not
+> really needed as there are other ways to address or identify devices.
+> In many cases we end up using 'reg' if there's no other means of
+> addressing a device.
+> 
+> We've generally standardized around "label" for things like slots,
+> ports, connectors, etc. that need to be physically identified.
+
+Yes, label would be an option too, probably a better one that aliases.
+
+> "slot-names" it seems hasn't gotten used for FDT. Since there aren't
+> DT's published for OF based systems nor any documentation, newbies
+> like me (that only have 8 years of DT experience) don't have any
+> insight into how things used to be done.
+
+In a pretty much ad-hoc way :-) In this case, though, chip-id is a
+simple solution and works well (and I have the code already written and
+tested :-)
+
+Cheers,
+Ben.
+
+
+> Rob
