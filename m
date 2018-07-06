@@ -1,35 +1,83 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <lee.jones@linaro.org>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:400c:c09::244; helo=mail-wm0-x244.google.com;
+ envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="XfLrZ6S4"; 
+ dkim-atps=neutral
+Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
+ [IPv6:2a00:1450:400c:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41MHh51B09zF2Wc;
- Fri,  6 Jul 2018 11:48:52 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w661maI4010108;
- Thu, 5 Jul 2018 20:48:38 -0500
-Message-ID: <a6331cdbababea893bcde5f8ca9529dd89dafd67.camel@kernel.crashing.org>
-Subject: Re: [PATCH 1/2] dt-bindings: fsi: Add optional chip-id to CFAMs
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Rob Herring <robh@kernel.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org,
- devicetree@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>
-Date: Fri, 06 Jul 2018 11:48:36 +1000
-In-Reply-To: <CAL_JsqKZunLyRJQJgQrcBvv2s=HEd=E2ZG1ZgkgwTQkzJ88mcA@mail.gmail.com>
-References: <20180622043756.21158-1-benh@kernel.crashing.org>
- <20180703193017.GA23230@rob-hp-laptop>
- <23be30ebb2c661ef304c78a85cff591c515ba65b.camel@kernel.crashing.org>
- <CAL_JsqKZunLyRJQJgQrcBvv2s=HEd=E2ZG1ZgkgwTQkzJ88mcA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41MQgK2HMCzDqFG
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Jul 2018 17:03:40 +1000 (AEST)
+Received: by mail-wm0-x244.google.com with SMTP id 69-v6so13353177wmf.3
+ for <openbmc@lists.ozlabs.org>; Fri, 06 Jul 2018 00:03:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=5bm8o7brhtSVC/LhoKUd4JeWYd/MlVlmybLqKOAtBzg=;
+ b=XfLrZ6S4JcVCoXCKx3OIUgfp/GrTzUZY0vesfPiHpD2O7aWkt3gWDzs5WrBwi6VdV3
+ tiFdOrYypUOvmU42p2Bswzq6OpsoM0unWItlleAcA3BwZKpWQWQOPTOwBLQeJ91PCGqv
+ BF97L8ia+r1UX8HGfa0w1YSPUIfgmv9w/cQrs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=5bm8o7brhtSVC/LhoKUd4JeWYd/MlVlmybLqKOAtBzg=;
+ b=kh8rCZqVYh5qAkQSs/EWw9/0lXk9JnkFmDraDOUB1gra5tqd8Pt4VjKkWhvG9ny0rO
+ cvarOvQHOJdQy+RHL/jygXfF0iCXwcGzwkzHYhbksG25MPQmgLvH1z1lIRX69Qhsn1F5
+ vyMd/hIZe5AMOqyAlLsf9eQO8h2LTgL/xOcBIKFaARhqlJnsWgAO6V+dGhKK8y1ms5bE
+ wnzFJck/WWyjH0EIRUdZYd2eGQlVYbcgFP5NqYVs14tvb57QUgH17ZZQaGapoEFdBDal
+ j1zaWdjaodHWC0cOa0iwMu7Vi+anqqiX4vv99AiuFej0WyfG/ISHp883TMSo8nseDjp3
+ gyWg==
+X-Gm-Message-State: APt69E1MwVGo5286tf7ak98WwM4+rJueVgtcG0q3phyu/bRTufWhTE/8
+ AVOpBH6v7uJeANyzNMRBXbjTQw==
+X-Google-Smtp-Source: AAOMgpehIL1zuSRR4mpvp9Euc+5PfFinqw/nVwhXe/PIpv/Zuen7C61QSd573Idph8GXGJ8y5Hx/wg==
+X-Received: by 2002:a1c:7d47:: with SMTP id
+ y68-v6mr5369152wmc.62.1530860615815; 
+ Fri, 06 Jul 2018 00:03:35 -0700 (PDT)
+Received: from dell ([2.27.167.87])
+ by smtp.gmail.com with ESMTPSA id 185-v6sm15338893wmw.23.2018.07.06.00.03.33
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 06 Jul 2018 00:03:34 -0700 (PDT)
+Date: Fri, 6 Jul 2018 08:03:32 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Jason M Biils <jason.m.bills@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Philippe Ombredanne <pombredanne@nexb.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ Peter Rosin <peda@axentia.se>, David Kershner <david.kershner@unisys.com>,
+ Sagar Dharia <sdharia@codeaurora.org>,
+ Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
+ Randy Dunlap <rdunlap@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Cyrille Pitchen <cyrille.pitchen@free-electrons.com>,
+ Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Fengguang Wu <fengguang.wu@intel.com>,
+ Alan Cox <alan@linux.intel.com>, Andrew Lunn <andrew@lunn.ch>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Julia Cartwright <juliac@eso.teric.us>
+Subject: Re: [PATCH linux-next v6 03/13] peci: Add support for PECI bus
+ driver core
+Message-ID: <20180706070332.GV496@dell>
+References: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
+ <20180621194014.20729-1-jae.hyun.yoo@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20180621194014.20729-1-jae.hyun.yoo@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -41,113 +89,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Jul 2018 01:48:53 -0000
+X-List-Received-Date: Fri, 06 Jul 2018 07:03:42 -0000
 
-On Thu, 2018-07-05 at 12:49 -0600, Rob Herring wrote:
-> On Tue, Jul 3, 2018 at 7:07 PM Benjamin Herrenschmidt
-> <benh@kernel.crashing.org> wrote:
-> > 
-> > On Tue, 2018-07-03 at 13:30 -0600, Rob Herring wrote:
-> > > On Fri, Jun 22, 2018 at 02:37:55PM +1000, Benjamin Herrenschmidt wrote:
-> > > > This represents a physical chip in the system and allows
-> > > > a stable numbering scheme to be passed to udev for userspace
-> > > > to recognize which chip is which.
-> > > 
-> > > I'm sure you're aware, stable numbers is generally not something the
-> > > kernel guarantees...
-> > 
-> > This has nothing to do with any kernel guarantee. Not sure what you are
-> > mixing up here :-)
+On Thu, 21 Jun 2018, Jae Hyun Yoo wrote:
+
+> This commit adds driver implementation for PECI bus core into linux
+> driver framework.
 > 
-> I was referring to /dev node names like sda/sdb/sdc or ttyS0/ttyS1.
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Signed-off-by: Fengguang Wu <fengguang.wu@intel.com>
+> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+> Reviewed-by: James Feist <james.feist@linux.intel.com>
+> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
+> Cc: Alan Cox <alan@linux.intel.com>
+> Cc: Andrew Lunn <andrew@lunn.ch>
+> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> Cc: Fengguang Wu <fengguang.wu@intel.com>
+> Cc: Greg KH <gregkh@linuxfoundation.org>
+> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+> Cc: Julia Cartwright <juliac@eso.teric.us>
+> ---
+>  drivers/Kconfig                 |    2 +
+>  drivers/Makefile                |    1 +
+>  drivers/peci/Kconfig            |   12 +
+>  drivers/peci/Makefile           |    6 +
+>  drivers/peci/peci-core.c        | 1438 +++++++++++++++++++++++++++++++
+>  include/linux/peci.h            |  104 +++
+>  include/uapi/linux/peci-ioctl.h |  265 ++++++
+>  7 files changed, 1828 insertions(+)
+>  create mode 100644 drivers/peci/Kconfig
+>  create mode 100644 drivers/peci/Makefile
+>  create mode 100644 drivers/peci/peci-core.c
+>  create mode 100644 include/linux/peci.h
+>  create mode 100644 include/uapi/linux/peci-ioctl.h
 
-Ah yes. I do have code to make those "somewhat stable" using the chip
-ID by default (unless overriden) as a backward compat thing for small
-systems but the long term goal is indeed to not rely on this.
+I'm struggling to see the justification for adding an entirely new
+subsystem for what looks like a bespoke, and perhaps more damning,
+*proprietary* 1-wire interface.  Especially one which has such
+limited use.  Between yourself and the other silicon chip vendors
+there must be 100s of these knocking about.  What makes this one
+special?  Or even useful?  Will there ever be more than a single
+source file in this directory?
 
-> > The IDs will get exposed via sysfs in order to allow udev rules to
-> > create appropriate symlinks such as by-id or by-path as is traditional
-> > (we haven't completely decided some of the udev side details yet)
-> 
-> Yeah, that's a bit different.
+Don't get me wrong, I'm all for upstreaming code, but to create a new
+subsystem and bus for this kind of device seems very over the top.
 
-Yup, that's the right way actually :-)
+Since PECI's main purpose in life is Thermal Management, perhaps the
+whole thing should live in drivers/thermal or drivers/hwmon.  I've
+also seen you reference this as a kind of BMC too, so maybe
+drivers/platform/x86 would also be a nice place for it to reside.
 
-> > > In the cases where we do have them, we've used aliases.
-> > 
-> > This is necessary, though Aliases may do the job too. This is the
-> > device-tree that represents the "host" system that the BMC is managing.
-> > 
-> > We need to be able to identify using a stable numbering scheme the
-> > processors on the FSI topology otherwise we would do "interesting"
-> > things such as turn the fan for CPU 1 when CPU 0 gets hot :-)
-> > 
-> > (This is just a silly example, there are plenty of other reasons why we
-> > need to understand the HW topology of a given system, including
-> > debuggers using FSI as a backend etc...)
-> > 
-> > Traditionally POWER has used ibm,chip-id properties for the host side,
-> > so I just did something similar here for the BMC side, but I can look
-> > into using aliases if you prefer.
-> 
-> That is specifically for CPUs though, right?
-
-No, it's for host "chips".
-
-IE, this is the device-tree of the BMC, consumed by the BMC. So we are
-in the context of Linux running on the BMC ARM SoC.
-
-That BMC is connected to the "Host" POWER9 chips via a service
-interface called FSI (think as a kind of PECI or JTAG on steroids),
-which it uses to crank them up or do various monitoring/management
-tasks.
-
-So while they are CPUs they are actually "Devices" in the context of
-the consumer here.
-
-Additionally, on some systems, there can be other type of chips
-connected to FSI, such as memory buffer chips etc... all get a "chip
-ID" assigned.
-
->  Is the same true here? If
-> so, I guess this is fine. A set of indexes for any device on a bus
-> would be more concerning.
-
-There can be multiple FSI links connecting to the same chips, some are
-accessed via cascaded FSI masters etc... so it's not about indices on
-the bus. It's really about identifying a physical package on the
-motherboard.
-
-> > Note: I'm not sure what you have against DT provided names or IDs, this
-> > has been a rather standard way of doing things even before we did the
-> > FDT. For example that's what slot-names properties are for, or location
-> > codes etc... Yes we invented that alias trick later on but it's not
-> > necessarily the best approach (in fact I don't really like it to be
-> > honest).
-> 
-> I'm no fan of aliases either, but just trying to keep some consistency
-> in how we deal with various problems. My main concern is folks trying
-> to create some made-up index numbering of devices. Often it's not
-> really needed as there are other ways to address or identify devices.
-> In many cases we end up using 'reg' if there's no other means of
-> addressing a device.
-> 
-> We've generally standardized around "label" for things like slots,
-> ports, connectors, etc. that need to be physically identified.
-
-Yes, label would be an option too, probably a better one that aliases.
-
-> "slot-names" it seems hasn't gotten used for FDT. Since there aren't
-> DT's published for OF based systems nor any documentation, newbies
-> like me (that only have 8 years of DT experience) don't have any
-> insight into how things used to be done.
-
-In a pretty much ad-hoc way :-) In this case, though, chip-id is a
-simple solution and works well (and I have the code already written and
-tested :-)
-
-Cheers,
-Ben.
-
-
-> Rob
+-- 
+Lee Jones [李琼斯]
+Linaro Services Technical Lead
+Linaro.org │ Open source software for ARM SoCs
+Follow Linaro: Facebook | Twitter | Blog
