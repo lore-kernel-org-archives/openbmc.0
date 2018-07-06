@@ -1,59 +1,59 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <3QLI_WwwKB4Miluqhtpumhpynvvnsl.jvtvwluitjspz0z.v6shiz.vyn@flex--benjaminfair.bounces.google.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=flex--benjaminfair.bounces.google.com
+ (client-ip=2607:f8b0:400d:c09::24a; helo=mail-qk0-x24a.google.com;
+ envelope-from=3qli_wwwkb4miluqhtpumhpynvvnsl.jvtvwluitjspz0z.v6shiz.vyn@flex--benjaminfair.bounces.google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="es1lKXse"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x24a.google.com (mail-qk0-x24a.google.com
+ [IPv6:2607:f8b0:400d:c09::24a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41MhlL1wVkzDqHx
- for <openbmc@lists.ozlabs.org>; Sat,  7 Jul 2018 03:38:05 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2018 10:38:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,317,1526367600"; d="scan'208";a="55650576"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga006.jf.intel.com with ESMTP; 06 Jul 2018 10:38:02 -0700
-Subject: Re: [PATCH linux-next v6 03/13] peci: Add support for PECI bus driver
- core
-To: Lee Jones <lee.jones@linaro.org>
-Cc: Jason M Biils <jason.m.bills@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Philippe Ombredanne <pombredanne@nexb.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Takashi Iwai <tiwai@suse.de>, Peter Rosin <peda@axentia.se>,
- David Kershner <david.kershner@unisys.com>,
- Sagar Dharia <sdharia@codeaurora.org>,
- Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
- Randy Dunlap <rdunlap@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, Sanyog Kale
- <sanyog.r.kale@intel.com>,
- Cyrille Pitchen <cyrille.pitchen@free-electrons.com>,
- Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Fengguang Wu <fengguang.wu@intel.com>,
- Alan Cox <alan@linux.intel.com>, Andrew Lunn <andrew@lunn.ch>,
- Andy Shevchenko <andriy.shevchenko@intel.com>, Arnd Bergmann
- <arnd@arndb.de>, Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Julia Cartwright <juliac@eso.teric.us>
-References: <20180621193721.20588-1-jae.hyun.yoo@linux.intel.com>
- <20180621194014.20729-1-jae.hyun.yoo@linux.intel.com>
- <20180706070332.GV496@dell>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <926ac149-5ff4-a345-0e0e-95f3f994e353@linux.intel.com>
-Date: Fri, 6 Jul 2018 10:38:01 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Mjd31lSczDqHx
+ for <openbmc@lists.ozlabs.org>; Sat,  7 Jul 2018 04:17:38 +1000 (AEST)
+Received: by mail-qk0-x24a.google.com with SMTP id f132-v6so13583502qkb.12
+ for <openbmc@lists.ozlabs.org>; Fri, 06 Jul 2018 11:17:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:date:message-id:subject:from:to:cc;
+ bh=+aFA2TdFy3WZX5mPwAxavTvkiAMb0exwhMOXrhYp58I=;
+ b=es1lKXsefbhP7Nqmyg2xAttjugZQe5pJtRIc/Pykdkjm4qX7cXdWfQOkuPRILwBdSq
+ NPG+afsa6visddDczvLx9tO2nlomS/YZSeuYsoh0qognM3A4fEuI8dFKBcJu90LKoYGK
+ WuZWE39q9Zp4i/VGCG1WwKeNdLNL6nty5rrxL4AT6zmLrtyh/zAT5CL0kfba2HhPWiL1
+ /Sl9JhRgrREExvbOsrv8xmmD26EbD1iMw+xnbecljte8gRfL2tRQkHPlGZALyX2WTAPl
+ JyGj2C0Ss+Euz6KFNWJTdLNw6FP/T0irBKThBQRzigeeZWUkZ7hmp/Kpwvgo458xYfk+
+ N92Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to:cc;
+ bh=+aFA2TdFy3WZX5mPwAxavTvkiAMb0exwhMOXrhYp58I=;
+ b=nwxz0051+f9AcFDSwWSaFvPRmkt5gnuIkqse+lc/MasDLquvxKvnqjUMdaigveudiB
+ tTDXM0zd+AS5nIuvs1NDzgXjinBYKnJYOJ4yJuEL9RoTDrTGrM5lfm6MPh9BDneJ4Bcn
+ ulbblfmsSrJzHWUSakj4kpTGFgrwCu1YTZldgfQMJjGceeth13oRDX3lVw5JQYWSy9GC
+ Qf9E8VKZPFZESvRfM96zncu/4RpV+oZH1e7WZY0nIJbShYdvNLFrSCOlLKyNKZFQrTgh
+ DSdWxPxUndTuMgXtAh7GvzbJaEmfYap4UxhUTzBEYzzsWfCVQoF1rfdhJMraaAvlB8qH
+ rISA==
+X-Gm-Message-State: APt69E35mUfKLxHNvkwtX85NMuUmNYGs0GRe+dL0oJ65D+5BG30V6GLa
+ Mu9b4sNxusKwwRBVj/5KPGKFHfk2LF2Yn/rVH5s=
+X-Google-Smtp-Source: AAOMgpci0Ty/DBTVPdRjFVWJmM+pfTfrlLLdL+9oFtk8gEeg5wrvVlCDnwJyAMorYtKrpbRGC4hPwb+0iQyWlcXNQt0=
 MIME-Version: 1.0
-In-Reply-To: <20180706070332.GV496@dell>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a0c:9ac8:: with SMTP id k8-v6mr6125368qvf.45.1530901056225; 
+ Fri, 06 Jul 2018 11:17:36 -0700 (PDT)
+Date: Fri,  6 Jul 2018 11:16:03 -0700
+Message-Id: <20180706181601.134913-1-benjaminfair@google.com>
+X-Mailer: git-send-email 2.18.0.203.gfac676dfb9-goog
+Subject: [PATCH] ipmi: kcs_bmc: don't change device name
+From: Benjamin Fair <benjaminfair@google.com>
+To: Corey Minyard <minyard@acm.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ openipmi-developer@lists.sourceforge.net, 
+ joel@jms.id.au, openbmc@lists.ozlabs.org
+Cc: AviFishman70@gmail.com, tmaimon77@gmail.com, haiyue.wang@linux.intel.com, 
+ tali.perry1@gmail.com, Benjamin Fair <benjaminfair@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -65,80 +65,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Jul 2018 17:38:07 -0000
+X-List-Received-Date: Fri, 06 Jul 2018 18:17:44 -0000
 
-On 7/6/2018 12:03 AM, Lee Jones wrote:
-> On Thu, 21 Jun 2018, Jae Hyun Yoo wrote:
-> 
->> This commit adds driver implementation for PECI bus core into linux
->> driver framework.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Signed-off-by: Fengguang Wu <fengguang.wu@intel.com>
->> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
->> Reviewed-by: James Feist <james.feist@linux.intel.com>
->> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
->> Cc: Alan Cox <alan@linux.intel.com>
->> Cc: Andrew Lunn <andrew@lunn.ch>
->> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
->> Cc: Arnd Bergmann <arnd@arndb.de>
->> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
->> Cc: Fengguang Wu <fengguang.wu@intel.com>
->> Cc: Greg KH <gregkh@linuxfoundation.org>
->> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->> Cc: Julia Cartwright <juliac@eso.teric.us>
->> ---
->>   drivers/Kconfig                 |    2 +
->>   drivers/Makefile                |    1 +
->>   drivers/peci/Kconfig            |   12 +
->>   drivers/peci/Makefile           |    6 +
->>   drivers/peci/peci-core.c        | 1438 +++++++++++++++++++++++++++++++
->>   include/linux/peci.h            |  104 +++
->>   include/uapi/linux/peci-ioctl.h |  265 ++++++
->>   7 files changed, 1828 insertions(+)
->>   create mode 100644 drivers/peci/Kconfig
->>   create mode 100644 drivers/peci/Makefile
->>   create mode 100644 drivers/peci/peci-core.c
->>   create mode 100644 include/linux/peci.h
->>   create mode 100644 include/uapi/linux/peci-ioctl.h
-> 
-> I'm struggling to see the justification for adding an entirely new
-> subsystem for what looks like a bespoke, and perhaps more damning,
-> *proprietary* 1-wire interface.  Especially one which has such
-> limited use.  Between yourself and the other silicon chip vendors
-> there must be 100s of these knocking about.  What makes this one
-> special?  Or even useful?  Will there ever be more than a single
-> source file in this directory?
-> 
-> Don't get me wrong, I'm all for upstreaming code, but to create a new
-> subsystem and bus for this kind of device seems very over the top.
-> 
-> Since PECI's main purpose in life is Thermal Management, perhaps the
-> whole thing should live in drivers/thermal or drivers/hwmon.  I've
-> also seen you reference this as a kind of BMC too, so maybe
-> drivers/platform/x86 would also be a nice place for it to reside.
-> 
+kcs_bmc_alloc(...) calls dev_set_name(...) which is incorrect as most
+bus driver frameworks, platform_driver in particular, assume that they
+are able to set the device name themselves.
 
-I think, I already discussed about it with other reviewers but I have to
-explain it again. Yes, PECI is yet not a popular interface but plays a
-vital role in BMC system, so most of BMC chip vendors provide PECI
-interface in their BMC chipsets, and it is the reason why the PECI
-subsystem is added by this implementation because we should provide a
-generic bus system for those BMC chipsets from multiple vendors so
-that they can add their chip set specific driver to support that through
-the generic interface. At this moment, the folder has only PECI core and
-ASPEED PECI adapter drivers but other vendors' (i.e. Nuvoton) driver
-could be added into the folder.
+Signed-off-by: Benjamin Fair <benjaminfair@google.com>
+---
+ drivers/char/ipmi/kcs_bmc.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-As you said, PECI's main purpose is Thermal Management but it's not
-limited on that. As I already said in another thread and the cover
-letter, PECI also can provide other sideband functions such as Platform
-Manageability, Processor Tuning and Diagnostics and Failure Analysis.
-
-AFAIK, only ARM core based BMC chipsets are rolled out so this
-PECI implementation will be running on an ARM kernel at this moment.
-It's not an x86 limited implementation.
-
-Thanks,
-
-Jae
+diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
+index fbfc05e3f3d1..cd75118bb0ac 100644
+--- a/drivers/char/ipmi/kcs_bmc.c
++++ b/drivers/char/ipmi/kcs_bmc.c
+@@ -16,6 +16,8 @@
+ 
+ #include "kcs_bmc.h"
+ 
++#define DEVICE_NAME "ipmi-kcs"
++
+ #define KCS_MSG_BUFSIZ    1000
+ 
+ #define KCS_ZERO_DATA     0
+@@ -440,8 +442,6 @@ struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv, u32 channel)
+ 	if (!kcs_bmc)
+ 		return NULL;
+ 
+-	dev_set_name(dev, "ipmi-kcs%u", channel);
+-
+ 	spin_lock_init(&kcs_bmc->lock);
+ 	kcs_bmc->channel = channel;
+ 
+@@ -455,7 +455,8 @@ struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv, u32 channel)
+ 		return NULL;
+ 
+ 	kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
+-	kcs_bmc->miscdev.name = dev_name(dev);
++	kcs_bmc->miscdev.name = devm_kasprintf(dev, GFP_KERNEL, "%s%u",
++					       DEVICE_NAME, channel);
+ 	kcs_bmc->miscdev.fops = &kcs_bmc_fops;
+ 
+ 	return kcs_bmc;
+-- 
+2.18.0.203.gfac676dfb9-goog
