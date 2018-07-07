@@ -1,38 +1,33 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
+Return-Path: <gregkh@linuxfoundation.org>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
+ (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
+ envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ header.from=linuxfoundation.org
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41MvgP21tbzDqBm;
- Sat,  7 Jul 2018 11:50:24 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w671oBp3015088;
- Fri, 6 Jul 2018 20:50:12 -0500
-Message-ID: <88292b993583020fc28bf0d23177cbd06732d7fc.camel@kernel.crashing.org>
-Subject: Re: [PATCH 11/14] dt-bindings: fsi: Document binding for the
- fsi-master-ast-cf "device"
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org, OpenBMC
- Maillist <openbmc@lists.ozlabs.org>, devicetree@vger.kernel.org, Andrew
- Jeffery <andrew@aj.id.au>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Date: Sat, 07 Jul 2018 11:50:11 +1000
-In-Reply-To: <CAL_JsqLfg+7pUXgXecpObqfUTVvp4QAR150LsMho2EkKtkqgFg@mail.gmail.com>
-References: <20180626232605.13420-1-benh@kernel.crashing.org>
- <20180626232605.13420-12-benh@kernel.crashing.org>
- <20180703223046.GA20184@rob-hp-laptop>
- <77039070d470d5d408e750218ddbccf9cb33a78e.camel@kernel.crashing.org>
- <CAL_JsqLfg+7pUXgXecpObqfUTVvp4QAR150LsMho2EkKtkqgFg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41NFHT02zvzDqv6
+ for <openbmc@lists.ozlabs.org>; Sun,  8 Jul 2018 01:04:20 +1000 (AEST)
+Received: from localhost (unknown [37.168.185.56])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 2F9D9DB3;
+ Sat,  7 Jul 2018 15:04:17 +0000 (UTC)
+Date: Sat, 7 Jul 2018 17:03:12 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ openbmc@lists.ozlabs.org
+Subject: Re: [GIT PULL v2]  FSI updates for 4.17
+Message-ID: <20180707150312.GA410@kroah.com>
+References: <7c268f5bb58cb45a2868020b3c5b8f48ac6844ea.camel@kernel.crashing.org>
+ <5c7f9044fefed8bc0e4ca5688801ffa379f38f62.camel@kernel.crashing.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5c7f9044fefed8bc0e4ca5688801ffa379f38f62.camel@kernel.crashing.org>
+User-Agent: Mutt/1.10.0 (2018-05-17)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -44,75 +39,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 07 Jul 2018 01:50:25 -0000
+X-List-Received-Date: Sat, 07 Jul 2018 15:04:21 -0000
 
-On Thu, 2018-07-05 at 10:08 -0600, Rob Herring wrote:
+On Tue, Jun 12, 2018 at 08:54:39PM +1000, Benjamin Herrenschmidt wrote:
+> Hi Greg !
 > 
-> > It's not really a SOC block from a vendor, it's a pseudo-device in a
-> > way. The current one that doesn't use the coldfire offload is just
-> > compatible "fsi-master-gpio".
-> > 
-> > I can add a vendor but what should it be ? aspeed because it runs on
-> > the aspeed SoCs only ? ibm because we wrote it and FSI is an IBM
-> > protocol ?
+> There are a first round of updates of the FSI stack, aiming at reducing/removing
+> he gap with the OpenBMC tree and a first step in getting dependent drivers
+> upstream.
 > 
-> I would say aspeed as it is tied to their chip.
+> These changes significantly improve the FSI bitbanging driver performance
+> and reliability, and add the new "sbefifo" driver for communicating with
+> the POWER9 Self Boot Engine (which will be needed for some upcoming
+> additional drivers).
 > 
-> > 
-> > <soc>-<block> doesn't make sense here though.
+> These were posted to the list as patches a couple of weeks ago and were
+> prior to that tested in the OpenBMC tree and CI. Some subsequent driver
+> work depends on some of these, so merging early is probably the best.
 > 
-> But you do already have <soc> in the compatible, but in a slightly
-> different form and position. And "cf" is the block.
->
-> So I'd propose: aspeed,ast2500-cf-fsi-master
+> The following changes since commit 8efcf34a263965e471e3999904f94d1f6799d42a:
+> 
+>   Merge tag 'armsoc-late' of git://git.kernel.org/pub/scm/linux/kernel/git/arm/arm-soc (2018-06-11 18:19:45 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/benh/linux-fsi.git tags/fsi-updates-2018-06-12
 
-Ok, I'll do that.
+Sorry for the delay, now merged.
 
-> > 
-> > > > +
-> > > > + - clock-gpios = <gpio-descriptor>;        : GPIO for FSI clock
-> > > > + - data-gpios = <gpio-descriptor>; : GPIO for FSI data signal
-> > > > + - enable-gpios = <gpio-descriptor>;       : GPIO for enable signal
-> > > > + - trans-gpios = <gpio-descriptor>;        : GPIO for voltage translator enable
-> > > > + - mux-gpios = <gpio-descriptor>;  : GPIO for pin multiplexing with other
-> > > 
-> > > So the gpio info is pased to the CF? Otherwise, what's the point of
-> > > having these in DT?
-> > 
-> > In the original version you are looking at, they are not passed to the
-> > CF per-se but the driver does use aspeed GPIO specific APIs to
-> > configure them to be owned by the CF, so we need the references.
-> 
-> Okay.
-> 
-> > However, I've just reworked the ucode with a few tricks to avoid losing
-> > singificant performance, so that we can indeed pass them to the CF,
-> > thus avoiding the need for a per-system image, so the above are here to
-> > stay.
-> > 
-> > > > +                                          functions (eg, external FSI masters)
-> > > > + - memory-region = <phandle>;              : Reference to the reserved memory for
-> > > > +                                          the ColdFire. Must be 2M aligned on
-> > > > +                                     AST2400 and 1M aligned on AST2500
-> > > > + - sram = <phandle>;                       : Reference to the SRAM node.
-> > > > + - cvic = <phandle>;                       : Reference to the CVIC node.
-> > > 
-> > > Vendor prefixes.
-> > 
-> > On what ? Why would an "sram" pointer have a vendor prefix ? Or a
-> > memory region pointer ?
-> 
-> memory-region is a standard property. sram and cvic are not, so should
-> have vendor prefixes. However, perhaps we should add a common "sram"
-> property to sram/sram.txt.
-
-Hrm... originally vendor prefix on properties were for things that
-didn't have a binding afaik. IE a way for an f-code driver to stash
-things in the DT that were vendor specific and retrieve them from the
-OS driver for example.
-
-Here with well defined bindings it's rather bloaty don't you think ? I
-don't strongly object to doing it, it's just a bit ... odd.
-
-Cheers,
-Ben.
+greg k-h
