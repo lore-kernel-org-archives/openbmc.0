@@ -1,33 +1,60 @@
-Return-Path: <gregkh@linuxfoundation.org>
+Return-Path: <avifishman70@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
- (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
- envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linuxfoundation.org
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::243; helo=mail-it0-x243.google.com;
+ envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gz/fSdrI"; 
+ dkim-atps=neutral
+Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
+ [IPv6:2607:f8b0:4001:c0b::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41NFHT02zvzDqv6
- for <openbmc@lists.ozlabs.org>; Sun,  8 Jul 2018 01:04:20 +1000 (AEST)
-Received: from localhost (unknown [37.168.185.56])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id 2F9D9DB3;
- Sat,  7 Jul 2018 15:04:17 +0000 (UTC)
-Date: Sat, 7 Jul 2018 17:03:12 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- openbmc@lists.ozlabs.org
-Subject: Re: [GIT PULL v2]  FSI updates for 4.17
-Message-ID: <20180707150312.GA410@kroah.com>
-References: <7c268f5bb58cb45a2868020b3c5b8f48ac6844ea.camel@kernel.crashing.org>
- <5c7f9044fefed8bc0e4ca5688801ffa379f38f62.camel@kernel.crashing.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Nf2Q1kn2zDqvV
+ for <openbmc@lists.ozlabs.org>; Sun,  8 Jul 2018 16:39:25 +1000 (AEST)
+Received: by mail-it0-x243.google.com with SMTP id 188-v6so22433969ita.5
+ for <openbmc@lists.ozlabs.org>; Sat, 07 Jul 2018 23:39:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=MZ6rtUxQ6IDMNWvBqWYYYZ9KIKaJxOj+mpgovKHhIpY=;
+ b=gz/fSdrIfm62AThzkI5zkDA8aWaBix7VkySilJ1YAper4ByNx3uNg8ieOjJR41Qjzp
+ Ooe77Xom9hYytmTurQYIqFpti6OdIQ11lGbGFEAAB2Yo3M7mA1woxXYWgf/TtSud0J02
+ Q+vEqi1trxh+eWFlba79k9kk79U2hB1e53nLq2ZdW0k3hH7L4/6oC3jW42WLiaUEdItD
+ jbd+QazYOnScvHa00nyZRV9FI1cuRb9c94HwQRrVpTqrw6MkI/DG13sJt/dF4Q380pRd
+ L0MrXq7opOl4mApfR0vE4kd2dTz5focdfqd6f8ClMZORhzs30XA8T8Vd3fb9rqJTF66N
+ PJtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=MZ6rtUxQ6IDMNWvBqWYYYZ9KIKaJxOj+mpgovKHhIpY=;
+ b=rxRIrCJlZok4aQ1Eg9SD7sJqZD1j37dei/Wl6Bu8rgzyg3ucgw9bykJLNT0F3WkxWT
+ 4k+sbqV84TUnNniTAB0QbS3cZ22WemMIAaozBewanK3Xh4mP7JxyVAmu+LpzFLAbb+hv
+ uBIvrc5JPk4WaTGVucEDim6IwLUblWRgT1yvTAGJg1UqHrKDT0qATr9X1kZJoizxykda
+ KbghUBfqPumpyo++jrJHe8DaUF0dvHiOsc3xCuwzA0lEweRrZorFnAyRQHH5AavXsV6A
+ fsu5zPqq72vZmInsP19yLIgX0gaeWTun05FY7WVEfgJv2q1wsYsyB2M3or3CNopu6xqC
+ +Ddw==
+X-Gm-Message-State: APt69E18BFS0FFaAU6ChN0jBPdW319xPotc8IvTidyLNwnNmyQgMno7u
+ 6HmRFoxUnwHcLeEuh9t+z9zL7NCgzTSkW6zvMQ==
+X-Google-Smtp-Source: AAOMgpdzriGoUT2SaL2OZh0g37f1avIvVDaE0ppZcwxw8b5voHjxWt9JT5VUzl4MQgAAaw8Qf9UmdqUu0Atxelnz/dU=
+X-Received: by 2002:a24:5d4a:: with SMTP id
+ w71-v6mr6615893ita.118.1531031963154; 
+ Sat, 07 Jul 2018 23:39:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5c7f9044fefed8bc0e4ca5688801ffa379f38f62.camel@kernel.crashing.org>
-User-Agent: Mutt/1.10.0 (2018-05-17)
+References: <ce8413d8-da27-99de-ad3b-8a353c4aa652@linux.vnet.ibm.com>
+In-Reply-To: <ce8413d8-da27-99de-ad3b-8a353c4aa652@linux.vnet.ibm.com>
+From: Avi Fishman <avifishman70@gmail.com>
+Date: Sun, 8 Jul 2018 09:39:12 +0300
+Message-ID: <CAKKbWA64T6BFEK3A6nC+NEyF8Bq+gVCUAkZLtFmZmg89pogfCA@mail.gmail.com>
+Subject: Re: [RFC] IKVM prototype with only video
+To: eajames@linux.vnet.ibm.com, Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: andrew@aj.id.au, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Ed Tanous <ed.tanous@intel.com>, uri.trichter@nuvoton.com,
+ eyal.cohen@nuvoton.com, 
+ CTCCHIEN@nuvoton.com, KWLIU@nuvoton.com, LCCHEN@nuvoton.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -39,32 +66,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 07 Jul 2018 15:04:21 -0000
+X-List-Received-Date: Sun, 08 Jul 2018 06:39:28 -0000
 
-On Tue, Jun 12, 2018 at 08:54:39PM +1000, Benjamin Herrenschmidt wrote:
-> Hi Greg !
-> 
-> There are a first round of updates of the FSI stack, aiming at reducing/removing
-> he gap with the OpenBMC tree and a first step in getting dependent drivers
-> upstream.
-> 
-> These changes significantly improve the FSI bitbanging driver performance
-> and reliability, and add the new "sbefifo" driver for communicating with
-> the POWER9 Self Boot Engine (which will be needed for some upcoming
-> additional drivers).
-> 
-> These were posted to the list as patches a couple of weeks ago and were
-> prior to that tested in the OpenBMC tree and CI. Some subsequent driver
-> work depends on some of these, so merging early is probably the best.
-> 
-> The following changes since commit 8efcf34a263965e471e3999904f94d1f6799d42a:
-> 
->   Merge tag 'armsoc-late' of git://git.kernel.org/pub/scm/linux/kernel/git/arm/arm-soc (2018-06-11 18:19:45 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/benh/linux-fsi.git tags/fsi-updates-2018-06-12
+Hi all,
 
-Sorry for the delay, now merged.
+Nuvoton NPCM7xx has a standard VNC server application that can be used
+by any VNC client, it can support any SW based compression but has HW
+compression engine for hextile encoding which achives a very high
+performance.
+Can it be used by OpenBMC?
+Should we support V4L2 regardless of our own solution?
 
-greg k-h
+Thanks,
+Avi
+On Thu, Jun 21, 2018 at 12:13 AM Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>
+> Hi all,
+>
+> I've been working on IKVM for OpenBMC and thought I would share my
+> progress for any feedback. I have a working driver for the AST2500 video
+> engine, and a functional view-only vnc server that runs on the BMC. This
+> can be used to view the host graphics output (though it's not very
+> interesting, just a login screen since I don't have any input working
+> yet). I have it running at 24 fps, using ~2.8 Mbps network (the jpegs
+> are about 15KB, x24 -> 380KB/s).
+>
+> Here's the gerrit entry with everything:
+> https://gerrit.openbmc-project.xyz/#/c/11206/
+>
+> Here's my linux tree with the driver, in a pretty messy state. I wasn't
+> able to get the streaming interface working with video4linux2, due to
+> complications with how AST2500 engine handles the buffers, but
+> performance isn't bad with basic read calls. The engine stays running
+> and read() just grabs the latest frame.
+> https://github.com/eddiejames/linux/commit/94b4c9b76d9ec58c5cc08527ca203741f17929c9
+>
+> And here's the vnc server, which does require a small extension to
+> libvncserver in order to transfer raw jpegs, and of course all the vnc
+> code to only transfer changed blocks isn't used at all.
+> https://github.com/eddiejames/obmc-ikvm
+>
+> Let me know if anyone has any thoughts! Will work on getting input
+> working next.
+>
+> Thanks,
+>
+> Eddie
+>
