@@ -1,52 +1,72 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <tomjose@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::229; helo=mail-oi0-x229.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="O2kWGcF2"; 
- dkim-atps=neutral
-Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
- [IPv6:2607:f8b0:4003:c06::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41PVMd5gHFzDr2J
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 01:57:16 +1000 (AEST)
-Received: by mail-oi0-x229.google.com with SMTP id w126-v6so36797784oie.7
- for <openbmc@lists.ozlabs.org>; Mon, 09 Jul 2018 08:57:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=8nV1f182rmPf337e6r+Emmzr9WEmvGvm+4W+ZOb3pGk=;
- b=O2kWGcF2Ybb6z3G+FJmtOG7WEvAH6KQwA+ZLr2nG03ZEyecVsjhlmP71eS4L2yf2j2
- 0tXtO7TB2uVKHHZLUJ9fQ8AP4Cnedcn0qV84h24czR4O4QU/VITY6ze0ZbEfd/8bMc2M
- lwpmtwKDOo1HCIc3MZq+qP9Iqrkv/IloBWo8gL0S9Rd7YE2HS4GyJejX/lRwgMBNTRyk
- DextxX35CcejioN4vIwEZ3Ku+yGK7SeOniK0JMf8J4y/QN6H+Pn9gw0hm4jlqQw/KyqL
- rhIeSGXc4VZYAWleJPr0jEJqXOsE28tYQrQnBvEmhgJ7X82qvfxjygVsEQL0GrN9oq5S
- tbMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=8nV1f182rmPf337e6r+Emmzr9WEmvGvm+4W+ZOb3pGk=;
- b=EAhF6TCSjkb3EbeBCl31ZXaMfkogNMVq8VobgIpt44iv/de8e24zRsWOHYmSAOtSA2
- TLp27MLoiYroU21iTAQRUIpaavGxTFiuSRAGSCV1xspYtj5hmvwHBppvzUgAKG3hwtCe
- wVGAq6mdvstbm4tbNS9NKzPlah15+HKQo+uh1p8M5VLaZonekSCq53wO+NHCKRfhZhTk
- JWSCijhSNmAbZmDPuJY0Gkl03s4Pby0QeFz925Cj2zrId2bLe5vWQr7Ukvmdm+oL9mkq
- hBmmbgAWiB/FKk+wkW1j69U6hWGxxRpBVCbbpyJiigodichC0mjLIEYBSmip2bx515dT
- J29g==
-X-Gm-Message-State: APt69E0TVotRHAASI4sQRBdFKwy7EcQjKCpIWiJwR+cSTnAEAtdJswZG
- BgyBc/pYbBsTdZJh+V3WMi9ovjiNE5vvXzdVGuI=
-X-Google-Smtp-Source: AAOMgpd90boFEVgmoYkqGAB80i9Qasq3IKpQS4fu1IkOdki4N3oMEBnxRTaougEYfWMWxSyrO6jwubJq+aegUdFBiW8=
-X-Received: by 2002:aca:401:: with SMTP id 1-v6mr1886169oie.28.1531151834489; 
- Mon, 09 Jul 2018 08:57:14 -0700 (PDT)
-MIME-Version: 1.0
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Mon, 9 Jul 2018 10:57:03 -0500
-Message-ID: <CALLMt=qhN6eF8_+MdM9Mkvvq8FN1c9qTC2vikQe8iUO+K2-_AQ@mail.gmail.com>
-Subject: v2.3 tag end of week - 7/13
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41PZl80jbTzDr02
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 05:14:24 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w69JEADr114781
+ for <openbmc@lists.ozlabs.org>; Mon, 9 Jul 2018 15:14:21 -0400
+Received: from e06smtp02.uk.ibm.com (e06smtp02.uk.ibm.com [195.75.94.98])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2k4d941j6g-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 09 Jul 2018 15:14:20 -0400
+Received: from localhost
+ by e06smtp02.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Mon, 9 Jul 2018 20:14:19 +0100
+Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
+ by e06smtp02.uk.ibm.com (192.168.101.132) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 9 Jul 2018 20:14:17 +0100
+Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
+ [9.149.105.58])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w69JEG4a22937758
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Mon, 9 Jul 2018 19:14:16 GMT
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 171F34C04E
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Jul 2018 22:14:39 +0100 (BST)
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8BA9B4C046
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Jul 2018 22:14:38 +0100 (BST)
+Received: from [9.77.197.8] (unknown [9.77.197.8])
+ by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Jul 2018 22:14:38 +0100 (BST)
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+Subject: IPMI user account with LDAP/Active Directory
+Date: Tue, 10 Jul 2018 00:44:13 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18070919-0008-0000-0000-0000025143D4
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18070919-0009-0000-0000-000021B76EB5
+Message-Id: <dd593784-d650-0393-0e44-3f6a5bcbdfec@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-09_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=829 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807090217
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -58,19 +78,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Jul 2018 15:57:19 -0000
+X-List-Received-Date: Mon, 09 Jul 2018 19:14:28 -0000
 
-Per community call, we've got a lot of cool new function in since our
-last tag so we'd like to get a 2.3 out at the end of this week.
+Hello,
 
-Our tags still don't mean a whole lot other then a snapshot in time
-where things were "fairly" stable.
+I came across the user guide of MegaRAC, SuperMicro etc mentioning about 
+the LDAP/Active directory settings.
+(Example: 
+https://argonsys.com/learn-microsoft-cloud/articles/supermicro-ipmi-active-directory-integration/)
 
-Please get whatever you'd like in by this Wednesday, we'll lock down
-merges into openbmc/openbmc Thursday/Friday for the tag.
+As IPMI requires clear text password my understanding is that LDAP/AD is 
+not suitable for IPMI user account management.
+Is the purpose of LDAP/AD to support authentication from UI along with 
+IPMI user accounts on the BMC?
+Also LDAP/AD cannot be used for IPMI session setup as passwords are 
+stored as one-way hash and cannot be retrieved.
 
-Please also do regression testing on your systems and report any
-issues via github issues and IRC.
+Any thoughts?
 
-Thanks,
-Andrew
+Regards,
+Tom
