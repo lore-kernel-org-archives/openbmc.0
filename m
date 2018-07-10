@@ -1,53 +1,59 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <benjaminfair@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::443; helo=mail-wr1-x443.google.com;
+ envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="kimpqIS4"; 
+ dkim-atps=neutral
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Q50M0xX9zDr0d
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 00:57:35 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2018 07:57:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,335,1526367600"; d="scan'208";a="71130955"
-Received: from orsmsx109.amr.corp.intel.com ([10.22.240.7])
- by fmsmga001.fm.intel.com with ESMTP; 10 Jul 2018 07:57:15 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.242]) by
- ORSMSX109.amr.corp.intel.com ([169.254.11.113]) with mapi id 14.03.0319.002;
- Tue, 10 Jul 2018 07:57:14 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Hariharasubramanian Ramasubramanian <hramasub@in.ibm.com>, Ratan Gupta
- <ratagupt@linux.vnet.ibm.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: IPMI and Redfish support in openbmc Linux
-Thread-Topic: IPMI and Redfish support in openbmc Linux
-Thread-Index: AQHUGAfNUJbKLHM0W02PGYXZ3mzYtaSIlwOAgAAM6YD//+a88A==
-Date: Tue, 10 Jul 2018 14:57:14 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E821699345810FF6@ORSMSX114.amr.corp.intel.com>
-References: <CAG9c7cAqGU5gBkjOG7=Q+bdNDqqd3ALFi+GZwgWpGPN6YHn4dA@mail.gmail.com>
- <57babd9a-22fd-093f-3edd-214642e0a016@linux.vnet.ibm.com>
- <OFCA608E26.3D7FF9BB-ON652582C6.00327BAF-652582C6.00335CBE@notes.na.collabserv.com>
-In-Reply-To: <OFCA608E26.3D7FF9BB-ON652582C6.00327BAF-652582C6.00335CBE@notes.na.collabserv.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZjg3NTkxMTAtYjU3MC00ODM1LWJiZGUtOWFlZTc3OTEwMjVlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicjBUU0dybmpIclhvYjdwZFBNZDV6VVNjclRkZk1MNjRhcEROQWZ5OWNxcjJ3SG1FNmdxcWJPXC9HWUlXVFBBODgifQ==
-dlp-product: dlpe-windows
-dlp-version: 11.0.200.100
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Q9KP3kL4zDr0d
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 04:12:34 +1000 (AEST)
+Received: by mail-wr1-x443.google.com with SMTP id a3-v6so6345795wrt.2
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 11:12:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6FZ0oa31xNPFdlfDzVX74AMF76iUKkeEncwtNfDoMwQ=;
+ b=kimpqIS4gOPn7oIY+cKTQrCP8SFXP7Miv+41b5ZP3LWsb12XMtFKxG5AxRfHisFFG+
+ KO+5xTfS+kqeGOQYRvkslerCfGOn86ig5KSzS5K+SAqTPXhAOCiC8tL52Ycq2KuXUYz1
+ hWAK7SYXCDrPdK6ET73Br5Ov6Bu1Vv8FVbSROVJgmKFd9CU6bNAXWSYSP9pEWesficBs
+ 2jx1RmgCwpP2ZG/8VxOPW7sWMnZmbINh71PmJqZYBGkJhBBx/Dx1DPaKd0SUBD+0FstK
+ 4S0c6BuQYEfkoJlKPAabJyyKebuk+V08AHD27E92Vu2+7tElJ1BuAhgMnHQ2fXMlRvUE
+ A2fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6FZ0oa31xNPFdlfDzVX74AMF76iUKkeEncwtNfDoMwQ=;
+ b=bKvrovKy/NE9rkxlNkvbGb2hWbgtc+QaWahApVyd/untOdLV6ovdiAwpUh9qQxrZHY
+ uQAY1ClXCNXxga1iK/t02tRftkcjLcWnJuXQ886bGqNGDfC9cXpORfQK+jRpBZEBVvX+
+ JRyXPKkX8NNjudFhZc61jOrLQ1EiPfxRRNNEPleuKPdkuiIYwOmy3gn/ULcuCuZvlU5V
+ MIaRWPufpuK2eizWNLor/Yr9TH61qzYm3Qa2fb8Sl+JjMG2UOK+RcZSZYnyFLg446AQN
+ iApuGBdbN9a1fPbgxGhcaInJFPWTEFVnH/lrs76MysxO+JE2fYvzdumLlv4pctAYXd7y
+ 2g7A==
+X-Gm-Message-State: AOUpUlGXRKsNa36oHpYVY7ETgapHp16ZKkAhWTd5zKQ160kw/krO811g
+ 3PhFXe9BqNZpI4apZIyjoji9Q5xMiUAT4uxgT/9fnw==
+X-Google-Smtp-Source: AAOMgpemIqd3m4664cM8V2280MDesXS3LXKFahYHPJvojmwHjDSacAelZlZVNXviOJpQA8hpM8oQl6q9XeFUTjFBG6g=
+X-Received: by 2002:adf:9183:: with SMTP id 3-v6mr5214098wri.122.1531246351535; 
+ Tue, 10 Jul 2018 11:12:31 -0700 (PDT)
 MIME-Version: 1.0
+References: <20180706182531.137362-1-benjaminfair@google.com>
+ <20180709075233.GF13479@kroah.com>
+In-Reply-To: <20180709075233.GF13479@kroah.com>
+From: Benjamin Fair <benjaminfair@google.com>
+Date: Tue, 10 Jul 2018 11:11:55 -0700
+Message-ID: <CADKL2t5vaRPYDr0FqpYdZF_7z+Uc1HAxPdZGjK7JcaYyu=tLSg@mail.gmail.com>
+Subject: Re: [PATCH] drivers/misc: Aspeed LPC snoop output using misc chardev
+To: gregkh@linuxfoundation.org
+Cc: arnd@arndb.de, joel@jms.id.au, andrew@aj.id.au, openbmc@lists.ozlabs.org, 
+ linux-aspeed@lists.ozlabs.org, Robert Lippert <rlippert@google.com>, 
+ Patrick Venture <venture@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -59,49 +65,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jul 2018 14:57:39 -0000
+X-List-Received-Date: Tue, 10 Jul 2018 18:12:43 -0000
 
-Bmcweb will launch under one of two ports.  If launched manually, it will l=
-aunch under port 18080.  If launched via systemd, it will use socket activa=
-tion to launch under port 883 (to avoid conflicting with the existing phosp=
-hor-rest server).
+On Mon, Jul 9, 2018 at 12:52 AM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Fri, Jul 06, 2018 at 11:25:32AM -0700, Benjamin Fair wrote:
+> > From: Robert Lippert <rlippert@google.com>
+> >
+> > Provides the data bytes snooped over the LPC snoop bus to userspace
+> > as a (blocking) misc character device.
+>
+> If this is a debugging thing, why not just use debugfs instead of a char
+> device?  That should make this code simpler overall, and you can do
+> whatever you want with debugfs.
+>
+> thanks,
+>
+> greg k-h
 
-Another thing to recognize is that there is a debug html interface built in=
-to the redfish interface, so the easiest way to test is to use a web browse=
-r, and you will get the graphical interface with clickable links.  Try poin=
-ting a web browser at https://10.99.241.79:18080/redfish/v1 and see if that=
- works.
+This interface will primarily be used by a userspace daemon which will poll the
+file for changes. The debugging usage in the commit message is for verifying
+that the driver is working properly.
 
-PS, the trailing backslash is unimportant.  Bmcweb is designed to strip the=
- trailing backslash for you in either case, so redfish/v1 is the same as re=
-dfish/v1/
+I'll update the commit message to make this more clear.
 
--Ed
-
-
-
-From: openbmc [mailto:openbmc-bounces+ed.tanous=3Dintel.com@lists.ozlabs.or=
-g] On Behalf Of Hariharasubramanian Ramasubramanian
-Sent: Tuesday, July 10, 2018 2:21 AM
-To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: IPMI and Redfish support in openbmc Linux
-
-
-"openbmc" <openbmc-bounces+hramasub=3Din.ibm.com@lists.ozlabs.org> wrote on=
- 07/10/2018 02:04:49 PM:
-
-
->=20
-> But I couldn't access Redfish API through the below command.
-> curl -b cjar -k https://10.99.241.79/redvish/v1/
->=20
-
-1) Looks like you have a typo in the URI : It must be redfish and not redvi=
-sh ?
-2) Also try removing the trailing forward slash : redfish/v1 instead of red=
-fish/v1/
-3) Is the service running in the standard 443 port ? If not append the port=
- number to the IP in the URI.
-
--Hari !
+Thanks,
+Benjamin
