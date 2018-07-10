@@ -1,72 +1,40 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
+Return-Path: <joseph-reynolds@charter.net>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41PZl80jbTzDr02
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 05:14:24 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w69JEADr114781
- for <openbmc@lists.ozlabs.org>; Mon, 9 Jul 2018 15:14:21 -0400
-Received: from e06smtp02.uk.ibm.com (e06smtp02.uk.ibm.com [195.75.94.98])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2k4d941j6g-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 09 Jul 2018 15:14:20 -0400
-Received: from localhost
- by e06smtp02.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Mon, 9 Jul 2018 20:14:19 +0100
-Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
- by e06smtp02.uk.ibm.com (192.168.101.132) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 9 Jul 2018 20:14:17 +0100
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w69JEG4a22937758
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Mon, 9 Jul 2018 19:14:16 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 171F34C04E
- for <openbmc@lists.ozlabs.org>; Mon,  9 Jul 2018 22:14:39 +0100 (BST)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8BA9B4C046
- for <openbmc@lists.ozlabs.org>; Mon,  9 Jul 2018 22:14:38 +0100 (BST)
-Received: from [9.77.197.8] (unknown [9.77.197.8])
- by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Mon,  9 Jul 2018 22:14:38 +0100 (BST)
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Subject: IPMI user account with LDAP/Active Directory
-Date: Tue, 10 Jul 2018 00:44:13 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ spf=pass (mailfrom) smtp.mailfrom=charter.net
+ (client-ip=68.114.190.40; helo=que003-public.msg.strl.va.charter.net;
+ envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=charter.net
+X-Greylist: delayed 833 seconds by postgrey-1.36 at bilbo;
+ Tue, 10 Jul 2018 12:34:06 AEST
+Received: from que003-public.msg.strl.va.charter.net
+ (que003-public.msg.strl.va.charter.net [68.114.190.40])
+ by lists.ozlabs.org (Postfix) with ESMTP id 41PmVQ4v0ZzDr0d
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 12:34:05 +1000 (AEST)
+Received: from impout002 ([68.114.189.17]) by mtaout002.msg.strl.va.charter.net
+ (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
+ id <20180710022007.YART7360.mtaout002.msg.strl.va.charter.net@impout002>
+ for <openbmc@lists.ozlabs.org>; Mon, 9 Jul 2018 21:20:07 -0500
+Received: from [192.168.2.14] ([97.86.254.207]) by impout002 with charter.net
+ id 8qL61y0084VFKzV01qL6rE; Mon, 09 Jul 2018 21:20:06 -0500
+X-Authority-Analysis: v=2.2 cv=C6eZ8UH+ c=1 sm=1 tr=0
+ a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
+ a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=dpRSjrXKAAAA:8 a=B6KMzFptAAAA:20
+ a=pidFw_JJ1cJ0Pb_JJu8A:9 a=QEXdDO2ut3YA:10 a=-FEs8UIgK8oA:10
+ a=NWVoK91CQyQA:10 a=xmQ3RezXRdh6fXheQSoA:9 a=_W_S_7VecoQA:10
+ a=xkwab4zIHtOjTkBAMNFX:22
+X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
+To: openbmc@lists.ozlabs.org
+From: Joseph Reynolds <joseph-reynolds@charter.net>
+Subject: OpenBMC security workgroup status
+Message-ID: <56a8460a-543e-fe0f-9c1b-881f088f39c7@charter.net>
+Date: Mon, 9 Jul 2018 21:20:03 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative;
+ boundary="------------0A30C53C14D82143C922D1A1"
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18070919-0008-0000-0000-0000025143D4
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18070919-0009-0000-0000-000021B76EB5
-Message-Id: <dd593784-d650-0393-0e44-3f6a5bcbdfec@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-07-09_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=829 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1806210000 definitions=main-1807090217
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -78,23 +46,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Jul 2018 19:14:28 -0000
+X-List-Received-Date: Tue, 10 Jul 2018 02:34:08 -0000
 
-Hello,
+This is a multi-part message in MIME format.
+--------------0A30C53C14D82143C922D1A1
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-I came across the user guide of MegaRAC, SuperMicro etc mentioning about 
-the LDAP/Active directory settings.
-(Example: 
-https://argonsys.com/learn-microsoft-cloud/articles/supermicro-ipmi-active-directory-integration/)
+Here is the OpenBMC security work group status.
 
-As IPMI requires clear text password my understanding is that LDAP/AD is 
-not suitable for IPMI user account management.
-Is the purpose of LDAP/AD to support authentication from UI along with 
-IPMI user accounts on the BMC?
-Also LDAP/AD cannot be used for IPMI session setup as passwords are 
-stored as one-way hash and cannot be retrieved.
+The OpenBMC security work has been partitioned into four areas: 
+hardware, firmware (Linux, phosphor, etc.), OpenBMC development 
+activity, and downstream development.  Reviews are out for three areas; 
+see https://gerrit.openbmc-project.xyz/#/c/11120/ and 11164.  Work to 
+sketch out firmware security topics is beginning.  We are also beginning 
+to look at topics such as release planning and how to handle security 
+flaws.  For more details, see the group’s agenda and minutes at 
+https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI.
 
-Any thoughts?
+- Joseph Reynolds
 
-Regards,
-Tom
+--------------0A30C53C14D82143C922D1A1
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><span class="mx_MTextBody mx_EventTile_content"><span
+          class="mx_EventTile_body" dir="auto">Here is the OpenBMC
+          security work group status.</span></span></p>
+    <p><span class="mx_MTextBody mx_EventTile_content"><span
+          class="mx_EventTile_body" dir="auto">The OpenBMC security work
+          has been partitioned into four areas: hardware, firmware
+          (Linux, phosphor, etc.), OpenBMC development activity, and
+          downstream development.  Reviews are out for three areas; see
+          <a href="https://gerrit.openbmc-project.xyz/#/c/11120/"
+            class="linkified" target="_blank" rel="noopener">https://gerrit.openbmc-project.xyz/#/c/11120/</a>
+          and 11164.  Work to sketch out firmware security topics is
+          beginning.  We are also beginning to look at topics such as
+          release planning and how to handle security flaws.  For more
+          details, see the group’s agenda and minutes at <a
+href="https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI"
+            class="linkified" target="_blank" rel="noopener">https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI</a>.</span></span></p>
+    <div class="moz-signature">- Joseph Reynolds</div>
+  </body>
+</html>
+
+--------------0A30C53C14D82143C922D1A1--
