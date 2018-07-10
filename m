@@ -1,58 +1,52 @@
-Return-Path: <benjaminfair@google.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::443; helo=mail-wr1-x443.google.com;
- envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::236; helo=mail-oi0-x236.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="kimpqIS4"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ueHt6csk"; 
  dkim-atps=neutral
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+Received: from mail-oi0-x236.google.com (mail-oi0-x236.google.com
+ [IPv6:2607:f8b0:4003:c06::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Q9KP3kL4zDr0d
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 04:12:34 +1000 (AEST)
-Received: by mail-wr1-x443.google.com with SMTP id a3-v6so6345795wrt.2
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 11:12:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6FZ0oa31xNPFdlfDzVX74AMF76iUKkeEncwtNfDoMwQ=;
- b=kimpqIS4gOPn7oIY+cKTQrCP8SFXP7Miv+41b5ZP3LWsb12XMtFKxG5AxRfHisFFG+
- KO+5xTfS+kqeGOQYRvkslerCfGOn86ig5KSzS5K+SAqTPXhAOCiC8tL52Ycq2KuXUYz1
- hWAK7SYXCDrPdK6ET73Br5Ov6Bu1Vv8FVbSROVJgmKFd9CU6bNAXWSYSP9pEWesficBs
- 2jx1RmgCwpP2ZG/8VxOPW7sWMnZmbINh71PmJqZYBGkJhBBx/Dx1DPaKd0SUBD+0FstK
- 4S0c6BuQYEfkoJlKPAabJyyKebuk+V08AHD27E92Vu2+7tElJ1BuAhgMnHQ2fXMlRvUE
- A2fw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41QD0q431fzDr0d
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 06:13:31 +1000 (AEST)
+Received: by mail-oi0-x236.google.com with SMTP id s198-v6so45065367oih.11
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 13:13:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=yr9Scm4jjYtw6V6N3CXrV3j95rr1gGoyJy7ZlHtTsz4=;
+ b=ueHt6cskrQXGjX/tr3fPW0BYZ0XxsffeLCMNsYONRS9VzicEB72Krisr0FeY+oiNgn
+ ET07Jb5uRbmjZEoEwsZhwA/2jygFHvXleCE1k9QbLGCxhfaBgtjDcanqAFiaoYH70Yl2
+ Uq2RRk3izoDsQ/CpvLf2IPscB0YlCu3PPUv3qL2efKOqssAgHNJfoGQqOSs8vEAzRJLO
+ er0ZZGxKFhG3c5ePt5lWAuEWTqpdKWRqaTkxdDBYC+tRVsAeDg4fn8/k3Tvhb7DI3o5G
+ m39Pryyit+/WmN6A3jBeahULV3hX8CQYctLaKuM5+jTSDWCbmVOQEII8Ux7HQChd6FPw
+ 9dkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6FZ0oa31xNPFdlfDzVX74AMF76iUKkeEncwtNfDoMwQ=;
- b=bKvrovKy/NE9rkxlNkvbGb2hWbgtc+QaWahApVyd/untOdLV6ovdiAwpUh9qQxrZHY
- uQAY1ClXCNXxga1iK/t02tRftkcjLcWnJuXQ886bGqNGDfC9cXpORfQK+jRpBZEBVvX+
- JRyXPKkX8NNjudFhZc61jOrLQ1EiPfxRRNNEPleuKPdkuiIYwOmy3gn/ULcuCuZvlU5V
- MIaRWPufpuK2eizWNLor/Yr9TH61qzYm3Qa2fb8Sl+JjMG2UOK+RcZSZYnyFLg446AQN
- iApuGBdbN9a1fPbgxGhcaInJFPWTEFVnH/lrs76MysxO+JE2fYvzdumLlv4pctAYXd7y
- 2g7A==
-X-Gm-Message-State: AOUpUlGXRKsNa36oHpYVY7ETgapHp16ZKkAhWTd5zKQ160kw/krO811g
- 3PhFXe9BqNZpI4apZIyjoji9Q5xMiUAT4uxgT/9fnw==
-X-Google-Smtp-Source: AAOMgpemIqd3m4664cM8V2280MDesXS3LXKFahYHPJvojmwHjDSacAelZlZVNXviOJpQA8hpM8oQl6q9XeFUTjFBG6g=
-X-Received: by 2002:adf:9183:: with SMTP id 3-v6mr5214098wri.122.1531246351535; 
- Tue, 10 Jul 2018 11:12:31 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=yr9Scm4jjYtw6V6N3CXrV3j95rr1gGoyJy7ZlHtTsz4=;
+ b=dXfbmKiyx/TsI8j4iIod+R0fP4H91aum1clalHoWhi2mQddlvT0cllGWFUCEfFjNH0
+ 9rSmzleO5HgpHuWZ8Lxz2fe9bfyfnxtRyXyyc/cIeuBc/5P78YHBUWShamlmk5h8Welp
+ n8MsZ0kCh6Q3FCZ+ULM8BASp8Rxi1YIYJYk2rqa0ff8yVFQZOXGZH5gY2ZMnmkL1aZ7Y
+ r8GxTminsEGkvkQOqMg8IasGwzOLFbs/e3yAS0TEVXVQdBIHB+L7sGdRjGErLRmTjy3q
+ ljh7YoskFn0zDEUwAEIR3tbxmyHqciUClDCwVMHsRjNGwNsFXdK6E8nEALgOMOM0v0++
+ x1/w==
+X-Gm-Message-State: APt69E1VQl+zMilX9/9PKbVwfXIhD0VVBEVdSBU/X6FlFXnA1PeGbNaP
+ cypJwQHiHZVou/IXo04P0SSMrRT7kSs5v3kvaMs=
+X-Google-Smtp-Source: AAOMgpd4KkDw21S6O5FKLQut5N04TNc9fwnGjQZRi2NLvtZn87V3jaNevE76F8H412Nwd0WlE0GF9nxixuHc9+JmOBg=
+X-Received: by 2002:aca:b909:: with SMTP id
+ j9-v6mr18128584oif.257.1531253609176; 
+ Tue, 10 Jul 2018 13:13:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180706182531.137362-1-benjaminfair@google.com>
- <20180709075233.GF13479@kroah.com>
-In-Reply-To: <20180709075233.GF13479@kroah.com>
-From: Benjamin Fair <benjaminfair@google.com>
-Date: Tue, 10 Jul 2018 11:11:55 -0700
-Message-ID: <CADKL2t5vaRPYDr0FqpYdZF_7z+Uc1HAxPdZGjK7JcaYyu=tLSg@mail.gmail.com>
-Subject: Re: [PATCH] drivers/misc: Aspeed LPC snoop output using misc chardev
-To: gregkh@linuxfoundation.org
-Cc: arnd@arndb.de, joel@jms.id.au, andrew@aj.id.au, openbmc@lists.ozlabs.org, 
- linux-aspeed@lists.ozlabs.org, Robert Lippert <rlippert@google.com>, 
- Patrick Venture <venture@google.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 10 Jul 2018 15:13:18 -0500
+Message-ID: <CALLMt=o8yNPgjuvC_gDhqVR5TrrdA5pszi+vMmAmATGmZC1w6Q@mail.gmail.com>
+Subject: gerrit server update coming - 2.15.2
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -65,30 +59,10 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jul 2018 18:12:43 -0000
+X-List-Received-Date: Tue, 10 Jul 2018 20:13:32 -0000
 
-On Mon, Jul 9, 2018 at 12:52 AM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Fri, Jul 06, 2018 at 11:25:32AM -0700, Benjamin Fair wrote:
-> > From: Robert Lippert <rlippert@google.com>
-> >
-> > Provides the data bytes snooped over the LPC snoop bus to userspace
-> > as a (blocking) misc character device.
->
-> If this is a debugging thing, why not just use debugfs instead of a char
-> device?  That should make this code simpler overall, and you can do
-> whatever you want with debugfs.
->
-> thanks,
->
-> greg k-h
+I'm planning a gerrit update in the near future (this Saturday
+maybe?).  Anyone have any issues with an update (or know of any issues
+with the 2.15 release)?
 
-This interface will primarily be used by a userspace daemon which will poll the
-file for changes. The debugging usage in the commit message is for verifying
-that the driver is working properly.
-
-I'll update the commit message to make this more clear.
-
-Thanks,
-Benjamin
+Andrew
