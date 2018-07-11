@@ -1,60 +1,68 @@
-Return-Path: <benjaminfair@google.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:400c:c09::22f; helo=mail-wm0-x22f.google.com;
- envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="PqrkUfbK"; 
- dkim-atps=neutral
-Received: from mail-wm0-x22f.google.com (mail-wm0-x22f.google.com
- [IPv6:2a00:1450:400c:c09::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="C0eUpman"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="aEs/RYBk"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41QGfw54gVzDr02
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 08:13:12 +1000 (AEST)
-Received: by mail-wm0-x22f.google.com with SMTP id w16-v6so505866wmc.2
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jul 2018 15:13:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FE2jbcFqb/ykw7JaCiWFXAXteprTrzYKzdacnD/MrN0=;
- b=PqrkUfbK5OO/QnuAoXpbXNEKhSMK6asLr6MRS59u7zQB9UqGDYhsCAZv5mKgJlP6Ty
- ApjjCOn7aPG26oNNnsN8NQ69t6x0Yv/ZjIuAmlpz55FKIHP1jCxyk1rLPCFT5bSzZoed
- QOEX6OAXVpJJP8Eh3dttEjoc4WO50pHPsDgO7ivvCfv71dqA2VsMYJxynIHfuMOWimJH
- /3+4nd6vnKM7FWFFURhQuvgohkMR2A9nAiCsd7ztyiD1JSuFFLmoNMN/ka0saoDfX3sW
- 7/zeKCeCGFpU5PlrkhUfg4cW98oUe94ipfi9OLz/KVzrmdZVfKX2PUCkL8Xv4E9S20xq
- ExlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FE2jbcFqb/ykw7JaCiWFXAXteprTrzYKzdacnD/MrN0=;
- b=HgY/a5km2Gwa2qAqoTNptFtecu24EMX29wsI7vWxlguU7ANHm2xNPi/ynaceDUFzl0
- fhUezqbf+ZyaXCaqvXMOihKQv14kAicuxdv0LdMAmlfob/bxWWon2hKaM0l8mdSwoE9w
- cdALv0pjCk2osthiTxDNx3/1kZ2I+g27rgN1DiR0g8XmTKpimiywMtQNFSa+QQNAsAMI
- v0wFxH7awm2jCc8Y9/bI/30F/grmzIQ2zQJ18sJfU5BCHUdsPxEtWAwtQ/BYssY7lc8C
- CnwjRxrI0q0VoCDq4i/F9GyEk3IDuUrraJd6wAHUS123nqeji7D7KDuxqxczwabnOv4a
- FcSQ==
-X-Gm-Message-State: APt69E0XDVAcBs/XHrL7Sp9YJVkC0zCVAaYqtRuuQ4jfTmoPxLx17JPp
- s6B1t1VLz9++78Z0MTg5+r7+OWEbKTJiSqPQXo8obg==
-X-Google-Smtp-Source: AAOMgpeOHtbt5JxHKh0BaUxzRGi3VKGS/dsF+1Pd9SbrDVVxHk++rUxULJQj6l63QX0DFaofAu5zJn6I0RSD17b+mvA=
-X-Received: by 2002:a1c:b286:: with SMTP id
- b128-v6mr14690826wmf.121.1531260787747; 
- Tue, 10 Jul 2018 15:13:07 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41QPSX71JNzDqyp
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 13:19:40 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id CA0E421B1F;
+ Tue, 10 Jul 2018 23:19:37 -0400 (EDT)
+Received: from web5 ([10.202.2.215])
+ by compute4.internal (MEProxy); Tue, 10 Jul 2018 23:19:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=lo7N75bK5lV9cJg2DZ0hEJzZ6aWrP
+ T5twahwBCdgdaU=; b=C0eUpman6288eGOQ9R5jwplEB/hY/JbQyHFRHiEJNvggE
+ 5tWSAu5KNn7pVcsAuFaIUYckSJAstOzRWB4/0UtFMdmkHUl0JIEc20h23rTbYgld
+ QMtVMjVhYFb5PHxsnv/w8vluQck/rt8cVV6AfiXQQuIX6PPnXdlk3U17jrdFnLHe
+ S8WBvut5v7QnPsYUMxLSiHVdvqTNFBJKT0lf4iN0iDSNNqQE+Ie7d5UjYW+XVLXi
+ KKRpMASxHRBpFTwloWa01ZN0pdtCvigBBrYLEIOX/3qXmViXGqDeVmUkhJxNf3jh
+ mOGY6vs1QMehWSby65QkD8Q2BEVqtc9bpowJhNsuA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=lo7N75
+ bK5lV9cJg2DZ0hEJzZ6aWrPT5twahwBCdgdaU=; b=aEs/RYBk3/Sq4Gd0hPCSmA
+ tEq1yI7UVUNYhtqZIhZWjhQnueLLzaa6KpgRrENXY3/FaYFTfvN+Nw8Xa4cSkawS
+ KAcuuuR5d8/tFFYXYkNz45/aDHyS4GVOf339T1XbDHY7HnYfUhgZaXx29CIJQOaK
+ j4uPpcipi1JF+boSSnqshWAfJ0Jt5efI8+5OO+T0N8Y3s+LWMaY3dnBeWj+3UKiL
+ wmIRNxyUFbnwTxkaqWvJHiK1ne+CXSnr1pTUIN3Pq7Ng5Uqq6y4/s4RoGZp33qI7
+ 1KtO6av/dQGxMvSEmD+qD17zFl9Jduzx7n5/ZYf4azEhCFMHULRyoXjlIpWWEgeA
+ ==
+X-ME-Proxy: <xmx:SHdFW9Ndo7JDWUDuZeqlWMgUY2Im5Bl6e8opfLKMMuqNldOrHFCI6A>
+ <xmx:SHdFW3qb_0BtjuXYQ2Tv7-sZZ097qena8eC05r_IIQpTgpU_Qd3x_w>
+ <xmx:SHdFW-feqtVHPOWyy-XUlTVeb0kEX8WHLZ0lQwC1wA3pJ82lRdr5ig>
+ <xmx:SHdFW4b3oRXocGTEKSggQXk3f1QNMQPiMq3iCPRq-fJRAqND8o30ZQ>
+ <xmx:SHdFW5AxgEqFDLeaJvdSQ2i3ydaVot_CFLIVTU72eqYsaiCayRdhwg>
+ <xmx:SXdFW0F7u9yYal0H_IwzaUxFmWpeZOl6OsewY1xFJO8gUXyqZoiZxA>
+X-ME-Sender: <xms:SHdFW4QvhgrbimzSiza2yee7_1eUh7XVBo08eyeDjJIi9F2JSS6xeQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 7DE819E10C; Tue, 10 Jul 2018 23:19:36 -0400 (EDT)
+Message-Id: <1531279176.3103610.1436766272.6E940CAB@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joseph Reynolds <joseph-reynolds@charter.net>, openbmc@lists.ozlabs.org
+Cc: James Mihm <james.mihm@intel.com>, bradleyb@fuzziesquirrel.com
 MIME-Version: 1.0
-References: <CABq4n+T4aZ+iPerYDOrh8KJ09rxyUC96h-Qhvvznjz0AQuQ7Rg@mail.gmail.com>
- <CAARXrtmU-kfvyyWWbmM47AHoD5219bGnqgNTNY7O8JakvVt9XA@mail.gmail.com>
- <CABq4n+SRBLfsp+_U14DzjkaC88tHEwJAxpnw2E-UAWXnur7QSg@mail.gmail.com>
- <CABq4n+TD_L07cbhYe34zsQMgEbKY5o4+XTJuEnZ3NJFe9i6fUw@mail.gmail.com>
-In-Reply-To: <CABq4n+TD_L07cbhYe34zsQMgEbKY5o4+XTJuEnZ3NJFe9i6fUw@mail.gmail.com>
-From: Benjamin Fair <benjaminfair@google.com>
-Date: Tue, 10 Jul 2018 15:12:31 -0700
-Message-ID: <CADKL2t6Vh7Mnxcn_k7eoJtCNjUkRgBu0Qu+mHsLopzoKqNE3oQ@mail.gmail.com>
-Subject: Re: Netboot full image loading AST2400
-To: aaron_ppus@fmad.com
-Cc: mine260309@gmail.com, openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
+References: <56a8460a-543e-fe0f-9c1b-881f088f39c7@charter.net>
+Date: Wed, 11 Jul 2018 12:49:36 +0930
+In-Reply-To: <56a8460a-543e-fe0f-9c1b-881f088f39c7@charter.net>
+Subject: Re: OpenBMC security workgroup status
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,16 +74,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jul 2018 22:13:14 -0000
+X-List-Received-Date: Wed, 11 Jul 2018 03:19:44 -0000
 
-On Thu, Jul 5, 2018 at 2:02 AM Aaron <aaron_ppus@fmad.com> wrote:
->
-> What I cant work out is how to get the eth0 IP set before init runs, so hacked it into obmc-init for now.
->
-> Aaron
->
+On Tue, 10 Jul 2018, at 11:50, Joseph Reynolds wrote:
+> Here is the OpenBMC security work group status.
+>=20
+> The OpenBMC security work has been partitioned into four areas:=20
+> hardware, firmware (Linux, phosphor, etc.), OpenBMC development=20
+> activity, and downstream development.=C2=A0 Reviews are out for three are=
+as;=20
+> see https://gerrit.openbmc-project.xyz/#/c/11120/ and 11164.=C2=A0 Work t=
+o=20
+> sketch out firmware security topics is beginning.=C2=A0 We are also begin=
+ning=20
+> to look at topics such as release planning and how to handle security=20
+> flaws.=C2=A0 For more details, see the group=E2=80=99s agenda and minutes=
+ at=20
+> https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsD=
+UWmAOI.
 
-You can try setting the ip=<address> kernel commandline option.
-
-The full usage is documented here:
-https://www.kernel.org/doc/Documentation/filesystems/nfs/nfsroot.txt
+What's the short-term strategy for handling vulnerability reports received =
+in the gap between now and getting some formal process in place?
