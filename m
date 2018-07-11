@@ -1,32 +1,58 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::22d; helo=mail-oi0-x22d.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mYoIF5tG"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x22d.google.com (mail-oi0-x22d.google.com
+ [IPv6:2607:f8b0:4003:c06::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41QSnk4R8pzF37B
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 15:49:46 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6B5nOu1030907;
- Wed, 11 Jul 2018 00:49:31 -0500
-Message-ID: <fe96007894fc49711dd63cec665e947200abbaae.camel@kernel.crashing.org>
-Subject: Re: [PATCH linux dev-4.17 2/7] clk: Aspeed: Add sdhci reset and clock
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Ryan Chen <ryanchen.aspeed@gmail.com>, openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, ryan_chen@aspeedtech.com,
- mine260309@gmail.com
-Date: Wed, 11 Jul 2018 15:49:24 +1000
-In-Reply-To: <1531286230-28453-3-git-send-email-ryanchen.aspeed@gmail.com>
-References: <1531286230-28453-1-git-send-email-ryanchen.aspeed@gmail.com>
- <1531286230-28453-3-git-send-email-ryanchen.aspeed@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41QdFF5PNDzDqx6
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 22:10:41 +1000 (AEST)
+Received: by mail-oi0-x22d.google.com with SMTP id k81-v6so48775675oib.4
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 05:10:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2FT1WQZ3K2UDza/usWQzCChWlVYMSlOQPwtrcbnfo+s=;
+ b=mYoIF5tGol1W7KD/OKK9TQpx0KxOswRXvKPQNd24njfd0hUonrc0RZBjcknVgJtksb
+ c26KMhlby20M317fB+uKIFEh3rYJZGmnLpUPB537L3jCJ37BwboQB441TTicrh2BzFm2
+ daa2oD8KU8K3Z4nADrAfTsY8C8fn1idppZj51nmm1ixuCWbSI8EojL3RX4PjkrR9hC+U
+ KmILO/KBVC8t946MvgjLyNXTEIecZkTo+ti3WUWL+qQOf47VRYdPOjG7TfvMOxVcy3ua
+ NAUR7YUZlwtvV03q7eP/xaDY1XReOsA+2YiHu0vJ8U+w+z2wJjVrQNFsAngaUkoE89Be
+ bh9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2FT1WQZ3K2UDza/usWQzCChWlVYMSlOQPwtrcbnfo+s=;
+ b=pCIbMeezjRwVvD1bIWyY5P8jysatUhHM3r5eLVEH37NAHesj7E4d/Z2+lQxSVTVCYG
+ 9hrtkI7+7DgZGRbWHIIGb8J1zhhuM/XOH+9ofi0ChMTfDnIZcfAOvvo8Swkw5TfY8C82
+ YLHOQrbi/ejYFxB5F5C+KCibG2XiIV9TcMWBu3BOYtlZfOrjfpg7e+7Ohwp1lO5pzW14
+ MfY28jPeafCiTEwDbJsNir+LAnlDO2yQhRT7Nuh1A6I3d0AFcT+ad+DrVY1J3UknSjJp
+ cMYcfGO3nWBwScZ6/Pk+zptcV2Y4RZHz4yZb/tCPu8Vwy16nZODUSJXI6JQw4iwDfaNZ
+ UGng==
+X-Gm-Message-State: APt69E0r+mAI8AdUvHgwpK8ojLuBIWsgQxiGFk22ASDgS9ewK1WHKdTd
+ Eb4K8/z1XQ5g1TmhMrmlG3iimqFBVf/4oSBag5w=
+X-Google-Smtp-Source: AAOMgpdbi+n02u5FiXyils/UoYYEad3Qh/HAg9DeL4aFYYrjgNkeXLai4S5ZRsPueJrc82HVN7LYKUhIGRR2My1f/hw=
+X-Received: by 2002:aca:c585:: with SMTP id
+ v127-v6mr35067530oif.348.1531311039441; 
+ Wed, 11 Jul 2018 05:10:39 -0700 (PDT)
+MIME-Version: 1.0
+References: <CALLMt=o8yNPgjuvC_gDhqVR5TrrdA5pszi+vMmAmATGmZC1w6Q@mail.gmail.com>
+ <b562920a-329f-d5c4-28af-555e4bb3bc33@gmail.com>
+In-Reply-To: <b562920a-329f-d5c4-28af-555e4bb3bc33@gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 11 Jul 2018 07:10:28 -0500
+Message-ID: <CALLMt=oO7x9MtCNrmFzrXCrmYEiVys31cLJJat31N1y89nSZEQ@mail.gmail.com>
+Subject: Re: gerrit server update coming - 2.15.2
+To: Kurt Taylor <kurt.r.taylor@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -38,64 +64,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jul 2018 05:49:47 -0000
+X-List-Received-Date: Wed, 11 Jul 2018 12:10:42 -0000
 
-On Wed, 2018-07-11 at 13:17 +0800, Ryan Chen wrote:
-> 1.Add Aspeed sdhci reset for SCU04 bit 16
-> 2.Aspeed sdhci have two clock one is for controller clock,
-> another is for SD card clock. so when enable sdhci need enable
-> both.
+On Tue, Jul 10, 2018 at 4:33 PM krtaylor <kurt.r.taylor@gmail.com> wrote:
+>
+> On 7/10/18 3:13 PM, Andrew Geissler wrote:
+>
+> I'm planning a gerrit update in the near future (this Saturday
+> maybe?).  Anyone have any issues with an update (or know of any issues
+> with the 2.15 release)?
+>
+> OpenStack is still on 2.13.9+ (we're at 2.14.7), is there a problem we need fixed? No issues, just curious.
 
-You should expose this as two different clocks instead of
-putting a hack inside aspeed_clk_enable().
+A few months ago someone asked when I was doing the next update since
+they wanted some of the new user interface features in gerrit, I said
+"a few months" and put a calendar reminder to do an upgrade.   So no
+big reasons, I think updating periodically is a nice way to avoid any
+security issues, and (knock on wood) it should only take about 15
+minutes if everything goes smooth.
 
-> Signed-off-by: Ryan Chen <ryanchen.aspeed@gmail.com>
-> ---
->  drivers/clk/clk-aspeed.c                 | 8 +++++++-
->  include/dt-bindings/clock/aspeed-clock.h | 2 +-
->  2 files changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-> index 9e55743..cd1f3b2 100644
-> --- a/drivers/clk/clk-aspeed.c
-> +++ b/drivers/clk/clk-aspeed.c
-> @@ -20,6 +20,7 @@
->  
->  #define ASPEED_RESET_CTRL	0x04
->  #define ASPEED_CLK_SELECTION	0x08
-> +#define  ASPEED_SDIO_CLK_EN BIT(15)
->  #define ASPEED_CLK_STOP_CTRL	0x0c
->  #define ASPEED_MPLL_PARAM	0x20
->  #define ASPEED_HPLL_PARAM	0x24
-> @@ -260,6 +261,11 @@ static int aspeed_clk_enable(struct clk_hw *hw)
->  	enval = (gate->flags & CLK_GATE_SET_TO_DISABLE) ? 0 : clk;
->  	regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, enval);
->  
-> +	/* sd ext clk */
-> +	if (gate->reset_idx == 16) {
-> +		regmap_update_bits(gate->map, ASPEED_CLK_SELECTION, ASPEED_SDIO_CLK_EN, ASPEED_SDIO_CLK_EN);
-> +	}
-> +
->  	if (gate->reset_idx >= 0) {
->  		/* A delay of 10ms is specified by the ASPEED docs */
->  		mdelay(10);
-> @@ -317,7 +323,7 @@ static const u8 aspeed_resets[] = {
->  	[ASPEED_RESET_PECI]	= 10,
->  	[ASPEED_RESET_I2C]	=  2,
->  	[ASPEED_RESET_AHB]	=  1,
-> -
-> +	[ASPEED_RESET_SDHCI]	= 16,
->  	/*
->  	 * SCUD4 resets start at an offset to separate them from
->  	 * the SCU04 resets.
-> diff --git a/include/dt-bindings/clock/aspeed-clock.h b/include/dt-bindings/clock/aspeed-clock.h
-> index 4476184..088553f 100644
-> --- a/include/dt-bindings/clock/aspeed-clock.h
-> +++ b/include/dt-bindings/clock/aspeed-clock.h
-> @@ -50,5 +50,5 @@
->  #define ASPEED_RESET_I2C		7
->  #define ASPEED_RESET_AHB		8
->  #define ASPEED_RESET_CRT1		9
-> -
-> +#define ASPEED_RESET_SDHCI		10
->  #endif
+>
+> Kurt Taylor (krtaylor)
