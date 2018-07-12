@@ -1,75 +1,77 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <aaron_ppus@fmad.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=neutral (mailfrom) smtp.mailfrom=fmad.com
+ (client-ip=67.222.38.55; helo=gproxy5-pub.mail.unifiedlayer.com;
+ envelope-from=aaron_ppus@fmad.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fFtdW8tX"; 
- dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="ZcYNmrV1"; 
+ dmarc=none (p=none dis=none) header.from=fmad.com
+Authentication-Results: lists.ozlabs.org;
+ dkim=policy reason="signing key too small" (768-bit key;
+ unprotected) header.d=fmad.com header.i=@fmad.com header.b="e3O2/4xj"; 
  dkim-atps=neutral
-Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
- [IPv6:2607:f8b0:400d:c0d::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Greylist: delayed 1526 seconds by postgrey-1.36 at bilbo;
+ Thu, 12 Jul 2018 18:12:39 AEST
+Received: from gproxy5-pub.mail.unifiedlayer.com
+ (gproxy5-pub.mail.unifiedlayer.com [67.222.38.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41R7VD6s2kzDr10;
- Thu, 12 Jul 2018 17:53:40 +1000 (AEST)
-Received: by mail-qt0-x242.google.com with SMTP id c15-v6so3018361qtp.0;
- Thu, 12 Jul 2018 00:53:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=umaRSsomfK1AGA5JYxVGzEcUVXcPqgUkiVNVUFEAPX0=;
- b=fFtdW8tXnsSyBq5shO4Re2H2nvaWzixQLxxuc3Az21W3+LnbWAaGwQ8xSyHhMVcirn
- 7jT00i2B2ER8CW0FCOdEBuar/8qQNArGczcBMPbuLm8qaysXXaeNTtqgjwZoXFmtSkWB
- CmerVRjwXnLl28aC3lae0cYSeJ8lsUHxVOGZHm5zfHz/U8EPuSuEapV8CBn6aCcVMesc
- 6zn3wbcVN8fczNWC3arEuMeBrKYcd64dN6lZznNUaNu9bJwbF+dS0vOTCqt9G4q9LfnQ
- 6vOED7KvWeFEoR22dROv1NGf+ks4vJlMCM0nabihbvpch3tCx13E/XN/DYxT522NSBbB
- 7gsQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=umaRSsomfK1AGA5JYxVGzEcUVXcPqgUkiVNVUFEAPX0=;
- b=ZcYNmrV1ZMCAIhvVXeq+kSSFqG0ynUT5CIGjU/ZA6rfR5p/vErzRyawJ6cqL/XI4s4
- WXp58ridlc8eXYdzXbh7QdIw1IZ/HLRPWiwdcxxSvZV4fUKuzA0fQasDzXVc14XCt7dL
- ek2p3cKlhali+MxRZqe4dvv4n6l0+lOnFsD+M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=umaRSsomfK1AGA5JYxVGzEcUVXcPqgUkiVNVUFEAPX0=;
- b=ZAEXZ/c8TCeat5q8Y57+OhazYpWHPOyBzm+1MKMzPcRISQt//Q+oNSfDXNs97thhIe
- yAkm/oZYSzFr/2hoJTMdrX7cZ9QV/wWvVRBI4t49/z2m9LWbu9ODgGBTwuZJAmIMloEQ
- oA4zzfw9TufEzYezCkxwojYZhx6aPRnwBT7DoVZqNeTpzmVQCfI3AN/CIR+c72N45CU9
- YD5bgw9F2nQO5cLKYzh7U9OXBukL4dpNwpmIZd6GzBzfT0cSvoYfulb69h6VO5iIjsHO
- WM2e5DNOYYsHLAq7k1sOM6qY5xwPM9IyUeXHO9tvTOv2Ml7Bt2ZGq9JxZyUxnF6xKgDN
- f21w==
-X-Gm-Message-State: AOUpUlFq/CNX+tNO6spg2oW2ZRtOHqj9PhRsOvmEXAFYC9DB0wBgBjCL
- 1ew7WKdidNPJJeYqQj5P91BNihZsIoR+56jFofM=
-X-Google-Smtp-Source: AAOMgpcenqW6JfXzYejz22drDTzxF+UCd/z65v0rH9d5/T275LnY1c5SuS5M8cCTk4VlD2qemb7SlyKN5IcTSeBj7OE=
-X-Received: by 2002:ac8:322:: with SMTP id q34-v6mr913548qtg.342.1531382017803; 
- Thu, 12 Jul 2018 00:53:37 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41R7w71Hp1zF35b
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 18:12:36 +1000 (AEST)
+Received: from cmgw11.unifiedlayer.com (unknown [10.9.0.11])
+ by gproxy5.mail.unifiedlayer.com (Postfix) with ESMTP id 6DDDE140552
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 01:47:06 -0600 (MDT)
+Received: from box313.bluehost.com ([69.89.31.113]) by cmsmtp with ESMTP
+ id dWJefuWvzd20TdWJefpXZA; Thu, 12 Jul 2018 01:47:06 -0600
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=fmad.com;
+ s=default; h=Content-Type:To:Subject:Message-ID:Date:From:MIME-Version:
+ Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=daRY1bD5ucqW+4WY5e2qVPVhKxeC3gkIfldBl83HBXk=; b=e3O2/4xjV375PZ+0hkQN+TcYUZ
+ uYIKE0kFyLKGshJvEYSyh4UH2T/jF1jMFvF79DEobh2zirRpUKgna4/9BAhElGnVr34BrQ+j403bs
+ jp0WJDODgCw3Ig3NMxLaDnZ5K;
+Received: from mail-oi0-f43.google.com ([209.85.218.43]:35740)
+ by box313.bluehost.com with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.91) (envelope-from <aaron_ppus@fmad.com>) id 1fdWJe-002B8w-4O
+ for openbmc@lists.ozlabs.org; Thu, 12 Jul 2018 01:47:06 -0600
+Received: by mail-oi0-f43.google.com with SMTP id i12-v6so54128492oik.2
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 00:47:06 -0700 (PDT)
+X-Gm-Message-State: AOUpUlGiq/EP42pAEk3fcx4VP6kWKyiM3qvo95wVRh1v2iOEF3r+kLIZ
+ MZbqfH3ncpesn8XZ2tJ52BEO8AwxYm96hYxuug==
+X-Google-Smtp-Source: AAOMgpdHUApZVPfKQLSLgObfUePFwwkjQblVWO+ZE+cg96bQstDv/t1JNB62HaARqNYF7gQJPT/eWHFV+Q09ARVfAOE=
+X-Received: by 2002:aca:df42:: with SMTP id
+ w63-v6mr1088593oig.295.1531381625555; 
+ Thu, 12 Jul 2018 00:47:05 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 2002:ac8:169d:0:0:0:0:0 with HTTP; Thu, 12 Jul 2018 00:53:17
+Received: by 2002:aca:ce05:0:0:0:0:0 with HTTP; Thu, 12 Jul 2018 00:47:05
  -0700 (PDT)
-In-Reply-To: <20180712034847.12878-4-benh@kernel.crashing.org>
-References: <20180712034847.12878-1-benh@kernel.crashing.org>
- <20180712034847.12878-4-benh@kernel.crashing.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 12 Jul 2018 17:53:17 +1000
-X-Google-Sender-Auth: _jN1OIqmHZD8kuuJsta4l61bVgE
-Message-ID: <CACPK8XdZKbh2NLQaiZOx66FAo+3csS_D9-BXjJKeppKm8aEM6w@mail.gmail.com>
-Subject: Re: [PATCH v3 3/5] fsi: master-ast-cf: Add new FSI master using
- Aspeed ColdFire
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: linux-aspeed@lists.ozlabs.org, devicetree <devicetree@vger.kernel.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>, 
- Rob Herring <robh@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+From: Aaron <aaron_ppus@fmad.com>
+Date: Thu, 12 Jul 2018 16:47:05 +0900
+X-Gmail-Original-Message-ID: <CABq4n+RwYT8UN4EO75DkhMr2zKnPQW-PEbKtYB+Tb1yA_JYawQ@mail.gmail.com>
+Message-ID: <CABq4n+RwYT8UN4EO75DkhMr2zKnPQW-PEbKtYB+Tb1yA_JYawQ@mail.gmail.com>
+Subject: AST2400 x86 bringup LPC problems
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000ce90e30570c891a2"
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box313.bluehost.com
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - fmad.com
+X-BWhitelist: no
+X-Source-IP: 209.85.218.43
+X-Source-L: No
+X-Exim-ID: 1fdWJe-002B8w-4O
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: mail-oi0-f43.google.com [209.85.218.43]:35740
+X-Source-Auth: aaron_ppus@fmad.com
+X-Email-Count: 1
+X-Source-Cap: Zm1hZGNvbTtmbWFkY29tO2JveDMxMy5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -81,51 +83,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jul 2018 07:53:42 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 08:12:40 -0000
 
-On 12 July 2018 at 13:48, Benjamin Herrenschmidt
-<benh@kernel.crashing.org> wrote:
-> The Aspeed AST2x00 can contain a ColdFire v1 coprocessor which
-> is currently unused on OpenPower systems.
->
-> This adds an alternative to the fsi-master-gpio driver that
-> uses that coprocessor instead of bit banging from the ARM
-> core itself. The end result is about 4 times faster.
->
-> The firmware for the coprocessor and its source code can be
-> found at https://github.com/ozbenh/cf-fsi and is system specific.
->
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> ---
->  drivers/fsi/Kconfig                      |    9 +
->  drivers/fsi/Makefile                     |    1 +
->  drivers/fsi/cf-fsi-fw.h                  |  157 +++
->  drivers/fsi/fsi-master-ast-cf.c          | 1438 ++++++++++++++++++++++
->  include/trace/events/fsi_master_ast_cf.h |  150 +++
->  5 files changed, 1755 insertions(+)
->  create mode 100644 drivers/fsi/cf-fsi-fw.h
->  create mode 100644 drivers/fsi/fsi-master-ast-cf.c
->  create mode 100644 include/trace/events/fsi_master_ast_cf.h
->
-> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-> index 322cec393cf2..e0220d1e1357 100644
-> --- a/drivers/fsi/Kconfig
-> +++ b/drivers/fsi/Kconfig
-> @@ -27,6 +27,15 @@ config FSI_MASTER_HUB
->         allow chaining of FSI links to an arbitrary depth.  This allows for
->         a high target device fanout.
->
-> +config FSI_MASTER_AST_CF
-> +       tristate "FSI master based on Aspeed ColdFire coprocessor"
-> +       depends on GPIOLIB
-> +       depends on GPIO_ASPEED
-> +       ---help---
-> +       This option enables a FSI master using the AST2400 and AST2500 GPIO
-> +       lines driven by the internal ColdFire coprocessor. This requires
-> +       the corresponding machine specific ColdFire firmware to be available.
+--000000000000ce90e30570c891a2
+Content-Type: text/plain; charset="UTF-8"
 
-The "machine specific" part isn't true anymore, is it?
+Hi,
 
-I gave this a spin on a palmetto and it appeared to work fine for me.
+Currently stuck bringup an x86 server board with the AST2400 and looking
+for advice.
 
-Tested-by: Joel Stanley <joel@jms.id.au>
+Have based the code on the Quanta machine, theres a bunch of dst changes
+and different gpio / i2c etc mappings. Most things work now, power control,
+can control, gpios are good etc however the LPC is broken.
+
+What I cant working out is why the LPC interface is completely dead.
+
+Symptoms are:
+- LPC post code sniffer caches nothing
+- Host UART is completely missing
+- Host IO port range reading returns 0xff`s
+
+Its as if the LPC block is not being reset or theres no clock or being
+muxed out or something. Been a few days now and still cant work it out.
+
+Originally thought it was because Strap[14] = 1  (LPC reset not connected
+to PCI reset) but on the board they physically routed PERST to the to the
+pin, so it should be ok.
+
+Any suggestions or advice ?
+
+Thanks
+Aaron
+
+--000000000000ce90e30570c891a2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>Currently stuck bringup an x86 serv=
+er board with the AST2400 and looking for advice.</div><div><br></div><div>=
+Have based the code on the Quanta machine, theres a bunch of dst changes an=
+d different gpio / i2c etc mappings. Most things work now, power control, c=
+an control, gpios are good etc however the LPC is broken.</div><div><br></d=
+iv><div>What I cant working out is why the LPC interface is completely dead=
+.</div><div><br></div><div>Symptoms are:</div><div>- LPC post code sniffer =
+caches nothing</div><div>- Host UART is completely missing</div><div>- Host=
+ IO port range reading returns 0xff`s=C2=A0</div><div><br></div><div>Its as=
+ if the LPC block is not being reset or theres no clock or being muxed out =
+or something. Been a few days now and still cant work it out.</div><div><br=
+></div><div>Originally thought it was because Strap[14] =3D 1=C2=A0 (LPC re=
+set not connected to PCI reset) but on the board they physically routed PER=
+ST to the to the pin, so it should be ok.</div><div><br></div><div>Any sugg=
+estions or advice ?</div><div><br></div><div>Thanks</div><div>Aaron</div><d=
+iv><br></div><div><br></div></div>
+
+--000000000000ce90e30570c891a2--
