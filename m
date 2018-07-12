@@ -1,59 +1,36 @@
-Return-Path: <henbinchang@gmail.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::229; helo=mail-qt0-x229.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="PnK+59YH"; 
- dkim-atps=neutral
-Received: from mail-qt0-x229.google.com (mail-qt0-x229.google.com
- [IPv6:2607:f8b0:400d:c0d::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Qx6Z6HNBzF35Y
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 10:05:58 +1000 (AEST)
-Received: by mail-qt0-x229.google.com with SMTP id z8-v6so14184150qto.9
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 17:05:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=D+9mK8qcfReP27RpCaS2t3t45Y5VeztV/QXwuOadVAc=;
- b=PnK+59YHTDArj1T8yY8ebHf3yZIXMVfO7TYYQZ8uuOPu9Yd0qZGCqAWKMxc0A6PSNP
- 1mGe7fMvXaeVKHvfVGy33a7TNl9K1iH40BCSOXSxpu4mEhZSqR7QldeoNbNnps1YGyds
- qdw3Tstj/2dRQ5fBXdNB/3OaXTojL3NAHMhWExLz8vSAYQHfv9Nq6eupkV1F0SMx83Hh
- qzt5KckdEwFQEgxE79u3NJx9JcoZlvbdNuOvUQ/if7idUsKLmsXzJ6tdmPtNh3SyLW0H
- FBqs4UaLvVokoOtlZ4PYfWzGTjE05b7pUpOYt4f0rJHvwSgsMgnBBbT4HK98JJXJyqTc
- pndA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=D+9mK8qcfReP27RpCaS2t3t45Y5VeztV/QXwuOadVAc=;
- b=oHxbYOD0TNGrPM8oaEhYL3lT30pEhXHG7QjEeB842uTKCbCdVJRrrCDOEkr9TbAgLk
- xzoAxmTM7yOOdkyvXDy2qycvYY7Kvzrz0fz3goJF5JOlGVtHTuyZCWHh3D48HYPb7S+p
- vEw9PgjGSSRgC+mlUBSuiGd6CM6T3gMoazQnWJGG7asv9tRBA0O5gQ2Tz/IuNgBUA4FT
- F2HU+5ryDJPJzzVuKTYiIMg77OhO7D9I908YPlP2UZuzYMBye3DvjgdxLL77F10xxjf3
- sWZwXDlpUjDEuLCqI2Uzq+iQkUWs3J0c+uqa5p+pGaqAo0wUFGCdK8RSKXgYp90TkvUy
- aM3A==
-X-Gm-Message-State: AOUpUlHDuGGI9WTPHajRa0/Po4htIlO3wZ7swThAeiSLMuB874BiBsN1
- PSr9lFR8ZGtW7BPwX625MoAcNiW9EjfTwPCXfdw0OQ==
-X-Google-Smtp-Source: AAOMgpc1oeEf0+h6VJ1DmK79uVdVgudnn9irr/7i8jzGptNsgC1NELWBI/iZTPaiWBWgZr8qHgpBWi37vDnXQGDqrdo=
-X-Received: by 2002:a0c:b3d4:: with SMTP id
- b20-v6mr824789qvf.141.1531353954842; 
- Wed, 11 Jul 2018 17:05:54 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP; Wed, 11 Jul 2018 17:05:54
- -0700 (PDT)
-In-Reply-To: <ab6d15cb-f965-3211-fbaa-6a734bf6eb70@linux.vnet.ibm.com>
-References: <CAG9c7cAqGU5gBkjOG7=Q+bdNDqqd3ALFi+GZwgWpGPN6YHn4dA@mail.gmail.com>
- <ab6d15cb-f965-3211-fbaa-6a734bf6eb70@linux.vnet.ibm.com>
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Thu, 12 Jul 2018 08:05:54 +0800
-Message-ID: <CAG9c7cARHXbG2tByEjOONxmhy+wqsTLs-PuYk08qn-aFRN1fdw@mail.gmail.com>
-Subject: Re: IPMI and Redfish support in openbmc Linux
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="00000000000080fae90570c2204d"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41QxKH0ZlZzF35Z
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 10:15:14 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6C0E9hN011140;
+ Wed, 11 Jul 2018 19:14:11 -0500
+Message-ID: <2f479f747daa5cee15d250e3a6a4853e3dc1c4a0.camel@kernel.crashing.org>
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc.
+ BMC control fields
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Rob Herring <robh@kernel.org>, Andrew Jeffery <andrew@aj.id.au>
+Cc: linux-kernel@vger.kernel.org, mark.rutland@arm.com, joel@jms.id.au,
+ gregkh@linuxfoundation.org, Eugene.Cho@dell.com, a.amelkin@yadro.com,
+ stewart@linux.ibm.com, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Date: Thu, 12 Jul 2018 10:14:09 +1000
+In-Reply-To: <20180711200450.GB17291@rob-hp-laptop>
+References: <20180711053122.30773-1-andrew@aj.id.au>
+ <20180711053122.30773-2-andrew@aj.id.au>
+ <20180711200450.GB17291@rob-hp-laptop>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -65,194 +42,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jul 2018 00:06:00 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 00:15:16 -0000
 
---00000000000080fae90570c2204d
-Content-Type: text/plain; charset="UTF-8"
+On Wed, 2018-07-11 at 14:04 -0600, Rob Herring wrote:
+> On Wed, Jul 11, 2018 at 03:01:19PM +0930, Andrew Jeffery wrote:
+> > Baseboard Management Controllers (BMCs) are embedded SoCs that exist to
+> > provide remote management of (primarily) server platforms. BMCs are
+> > often tightly coupled to the platform in terms of behaviour and provide
+> > many hardware features integral to booting and running the host system.
+> > 
+> > Some of these hardware features are simple, for example scratch
+> > registers provided by the BMC that are exposed to both the host and the
+> > BMC. In other cases there's a single bit switch to enable or disable
+> > some of the provided functionality.
+> > 
+> > The documentation defines bindings for fields in registers that do not
+> > integrate well into other driver models yet must be described to allow
+> > the BMC kernel to assume control of these features.
+> 
+> So we'll get a new binding when that happens? That will break 
+> compatibility.
 
-Thank your support.
+What do you mean ? The binding provides a way to describe arbitrary
+register fields and expose them to userspace. I'm not sure what you
+mean by backward compatibility.
 
-It did work after I used the default port 18080.
-curl -k https://10.99.241.79:18080/redfish/v1
+There is simply no way these things can be "abstracted" via some kind
+of nice layered Linux subsystem of some sort. It's just a whole bunch
+of knobs that control various things integral to the operation of the
+host system. Andrew can provide a more precise list if you need to.
 
-I had to indicate the account/password if I would like to access other node.
-curl -k https://root:0penBmc@10.99.241.79:18080/redfish/v1/Managers/
+> 
+> > 
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> > 
+> > Since RFC v1:
+> > 
+> > * Add a commit message
+> > * Minor changes to documented labels
+> > 
+> >  .../bindings/misc/bmc-misc-ctrl.txt           | 252 ++++++++++++++++++
+> >  MAINTAINERS                                   |   6 +
+> >  2 files changed, 258 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
+> > 
+> > diff --git a/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt b/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
+> > new file mode 100644
+> > index 000000000000..2c869fcc7ef2
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
+> > @@ -0,0 +1,252 @@
+> > +BMC Miscellaneous Control Interfaces
+> > +====================================
+> > +
+> > +Baseboard Management Controllers (BMCs) often have an array of hardware
+> > +features that need to be described but are awkward to sensibly expose.
+> > +
+> > +This bindings document provides a generic mechanism for describing such
+> > +features, covering read-only (RO), read-modify-write (RMW) and
+> > +write-1-set/write-1-clear (W1SC) semantics.
+> 
+> If we wanted a generic mechanism for single register bits/fields in DT, 
+> we'd have one already. A node per register bit doesn't scale.
 
-Bmcweb will launch under one of two ports. If launched manually, it will
-> launch under port 18080. If launched via systemd, it will use socket
-> activation to launch under port 883 (to avoid conflicting with the existing
-> phosphor-rest server). Another thing to recognize is that there is a debug
-> html interface built into the redfish interface, so the easiest way to test
-> is to use a web browser, and you will get the graphical interface with
-> clickable links. Try pointing a web browser at
-> https://10.99.241.79:18080/redfish/v1 and see if that works. PS, the
-> trailing backslash is unimportant. Bmcweb is designed to strip the trailing
-> backslash for you in either case, so redfish/v1 is the same as redfish/v1/
-> -Ed
+Register *field*. I think you are looking at this from the wrong angle.
+This isn't about exposing 236821643 SoC registers in an embedded
+product. This is about exposing a dozen or so tunables that don't
+control the SoC from the perspective of the OS running on it, but
+controls how various features of the SoC are exposed to the *host*
+system. Examples could be which of the SoC internal PCIe devices
+exposed to the host is enabled (the SoC can appear as a GPU, a BMC misc
+device or both or neither, it can have a DMA controller or not,
+etc...). Other examples are scratch registers that need to be set to
+system specific values by userspace, which the BIOS of the host will
+read to determine some configuration information. That sort of thing.
 
+There isn't that many, scalability isn't a problem. Both the list of
+registers of interest and what needs to go in them is very much
+system/vendor specific. This is a way for the kernel to act as a
+"conduit" that doesn't need to know the specifics of a given
+system/vendor/BIOS combination.
 
+Your response smells like yet another case of trying to apply one of
+those general "blanket" rules to something where it's completely
+unapplicable.
 
-2018-07-10 16:39 GMT+08:00 Ratan Gupta <ratagupt@linux.vnet.ibm.com>:
+> Maybe this should be modelled using GPIO binding? There's a line there 
+> too as whether the signals are "general purpose" or not.
 
-> Hi Henbin,
->
-> Can you try "curl -b cjar -k https://<ip>:18080/redfish/v1"?
->
-> Seems default port is 18080
->
-> https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L24
->
-> Regards
->
-> Ratan Gupta
->
->
->
-> On Tuesday 10 July 2018 10:06 AM, Henbin Chang wrote:
->
-> H Ed,
-> I built bmcweb into my machine, and check the 'bmcweb' daemon was started
-> up.
->
-> ps aux | grep bmcweb
->   919 root       0:00 /usr/bin/bmcweb
->  8662 root       0:00 grep bmcweb
->
-> But I couldn't access Redfish API through the below command.
-> curl -b cjar -k https://10.99.241.79/redvish/v1/
->
-> Could you help provide the suggestion?
->
-> Thanks.
-> -Henbin.
->
-> There are several servers that support Redfish, and we have a working
->> group that meets weekly to talk through technical issues each week, which
->> you're welcome to attend. The only one checked into the upstream project is
->> bmcweb. If you need help getting it started, I'm happy to help.
->> https://github.com/openbmc/bmcweb
->
->
->
->
+GPIOs are binary values right ? These are arbitrary fields. We want
+arbitrary fields. This is really needed Rob, otherwise we'll NEVER have
+BMC support upstream. 
 
---00000000000080fae90570c2204d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The other option will be a dozen random ad-hoc char-devs that would
+have to be updated every time a new bit needs to be added or changed.
 
-<div dir=3D"ltr">Thank your support.<div><br></div><div>It did work after I=
- used the default port 18080.</div><div>curl -k <a href=3D"https://10.99.24=
-1.79:18080/redfish/v1">https://10.99.241.79:18080/redfish/v1</a><br></div><=
-div><br></div><div>I had to indicate the account/password if I would like t=
-o access other node.</div><div>
-
-<span style=3D"font-size:small;background-color:rgb(255,255,255);text-decor=
-ation-style:initial;text-decoration-color:initial;float:none;display:inline=
-">curl -k <a href=3D"https://root:0penBmc@10.99.241.79:18080/redfish/v1/Man=
-agers/">https://root:0penBmc@10.99.241.79:18080/redfish/v1/Managers/</a></s=
-pan><br></div><div><br></div><div>
-
-<blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
-,204,204);padding-left:1ex" class=3D"gmail_quote">Bmcweb will launch under =
-one of two ports.  If launched manually, it will launch under port 18080.  =
-If launched via systemd, it will use socket activation to launch under port=
- 883 (to avoid conflicting with the existing phosphor-rest server).
-Another thing to recognize is that there is a debug html interface built in=
-to the redfish interface, so the easiest way to test is to use a web browse=
-r, and you will get the graphical interface with clickable links.  Try poin=
-ting a web browser at <a href=3D"https://10.99.241.79:18080/redfish/v1">htt=
-ps://10.99.241.79:18080/redfish/v1</a> and see if that works.
-PS, the trailing backslash is unimportant.  Bmcweb is designed to strip the=
- trailing backslash for you in either case, so redfish/v1 is the same as re=
-dfish/v1/
--Ed</blockquote>
-
-<br></div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">2=
-018-07-10 16:39 GMT+08:00 Ratan Gupta <span dir=3D"ltr">&lt;<a href=3D"mail=
-to:ratagupt@linux.vnet.ibm.com" target=3D"_blank">ratagupt@linux.vnet.ibm.c=
-om</a>&gt;</span>:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
- 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <p>Hi Henbin,</p>
-    <p>Can you try <span style=3D"color:rgb(69,69,69);font-family:&quot;Ope=
-n Sans&quot;,Arial,Helvetica,sans-serif;font-size:14px;font-style:normal;fo=
-nt-variant-ligatures:normal;font-variant-caps:normal;font-weight:normal;let=
-ter-spacing:normal;text-align:left;text-indent:0px;text-transform:none;whit=
-e-space:normal;word-spacing:0px;background-color:rgb(255,255,255);text-deco=
-ration-style:initial;text-decoration-color:initial;display:inline!important=
-;float:none">&quot;curl -b cjar -k
-        <a class=3D"m_208777804762112596moz-txt-link-freetext">https://</a>=
-&lt;ip&gt;:18080/redfish/v1&quot;<wbr>?</span></p>
-    <p><span>Seems default port is 18080</span></p>
-    <p><span><a class=3D"m_208777804762112596moz-txt-link-freetext" href=3D=
-"https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L24" =
-target=3D"_blank">https://github.com/openbmc/<wbr>bmcweb/blob/master/src/<w=
-br>webserver_main.cpp#L24</a><br>
-      </span></p>
-    <p><span>Regards</span></p><span class=3D"HOEnZb"><font color=3D"#88888=
-8">
-    <p><span>Ratan Gupta<br>
-      </span></p></font></span><div><div class=3D"h5">
-    <p><br>
-    </p>
-    <br>
-    <div class=3D"m_208777804762112596moz-cite-prefix">On Tuesday 10 July 2=
-018 10:06 AM,
-      Henbin Chang wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">H Ed,
-        <div>I built bmcweb into my machine, and check the &#39;bmcweb&#39;
-          daemon was started up.</div>
-        <div><br>
-        </div>
-        <div>
-          <div>ps aux | grep bmcweb</div>
-          <div>=C2=A0 919 root=C2=A0 =C2=A0 =C2=A0 =C2=A00:00 /usr/bin/bmcw=
-eb</div>
-          <div>=C2=A08662 root=C2=A0 =C2=A0 =C2=A0 =C2=A00:00 grep bmcweb</=
-div>
-        </div>
-        <div><br>
-        </div>
-        <div>But I couldn&#39;t access Redfish API through the below
-          command.</div>
-        <div>curl -b cjar -k <a href=3D"https://10.99.241.79/redvish/v1/" t=
-arget=3D"_blank">https://10.99.241.79/redvish/<wbr>v1/</a><br>
-        </div>
-        <div><br>
-        </div>
-        <div>Could you help provide the suggestion?</div>
-        <div><br>
-        </div>
-        <div>Thanks.</div>
-        <div>-Henbin.</div>
-        <div>
-          <div><br>
-          </div>
-          <div>
-            <blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex" class=3D"gmail_quote">There are sev=
-eral servers that support
-              Redfish, and we have a working group that meets weekly to
-              talk through technical issues each week, which you&#39;re
-              welcome to attend. The only one checked into the upstream
-              project is bmcweb. If you need help getting it started,
-              I&#39;m happy to help.<br>
-              <a href=3D"https://github.com/openbmc/bmcweb" target=3D"_blan=
-k">https://github.com/openbmc/<wbr>bmcweb</a></blockquote>
-            <br>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </div></div></div>
-
-</blockquote></div><br></div>
-
---00000000000080fae90570c2204d--
+Ben.
