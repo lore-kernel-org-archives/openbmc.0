@@ -8,22 +8,20 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41R13r3Bm4zF36P
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 13:03:51 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6C33iDd018485;
- Wed, 11 Jul 2018 22:03:45 -0500
-Message-ID: <6b3728c37095b54666827d61d0540dddf0187a80.camel@kernel.crashing.org>
-Subject: [GIT PULL] FSI updates round 2 for 4.19
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41R2422tLMzF35P;
+ Thu, 12 Jul 2018 13:49:05 +1000 (AEST)
+Received: from pasglop.ozlabs.ibm.com (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6C3mnNS020207;
+ Wed, 11 Jul 2018 22:48:50 -0500
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- openbmc@lists.ozlabs.org
-Date: Thu, 12 Jul 2018 13:03:44 +1000
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+To: linux-aspeed@lists.ozlabs.org
+Cc: devicetree@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] fsi: Coldfire coprocessor offload
+Date: Thu, 12 Jul 2018 13:48:42 +1000
+Message-Id: <20180712034847.12878-1-benh@kernel.crashing.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -35,81 +33,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jul 2018 03:03:53 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 03:49:07 -0000
 
-Hi Greg !
+This series implements support for offloading the FSI protocol bitbanging
+to the ColdFire secondary core of the Aspeed SoCs. The result increases
+FSI performance by a factor of 4, and on systems that don't support async
+FSI clock, provide much more regular and continuous clocking which helps
+reliability.
 
-This is the second round of updates of the FSI stack.
+This series is much smaller than the previous submissions as I already
+merged all the "preparatory" work into the FSI tree. This is now strictly
+the coldfire support and is now only waiting for ack of the DT bindings
+(and whatever other review comments might come my way) before I put it
+into the FSI tree and sends it to Greg.
 
-These comprise of:
+There are two dependencies to be able to build/use this. The above
+prep work:
 
- - Some build fixes detected with COMPILE_TEST when
-used on "other" archs
+      https://git.kernel.org/pub/scm/linux/kernel/git/benh/linux-fsi.git/log/
 
- - Sparse warning fixes
+And the Aspeed GPIO driver changes for handling with GPIO lines ownership and
+handshaking. The patches have been merged into the GPIO tree and a dedicated
+immutable topic branch and can be found here:
 
- - Some object lifetime fixes
+      https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-gpio.git/log/?h=ib-aspeed
 
- - A new feature to control some of the protocol delays
+Finally, the driver needs a machine specific firmware file. The firwmare
+is open source and available at:
 
- - Overheaul of the "SCOM" driver used to access the POWER
-processor internal SCOM bus.
+	https://github.com/ozbenh/cf-fsi
 
- - Preparatory work for the new ColdFire coprocessor based FSI master
-work which, along some other newer work is still going through the last
-few rounds of polish and DT bindings reviews.
+I will submit it to linux-firmware if there's enough popular demand ;-)
 
-The following changes since commit 9f4a8a2d7f9d71093f41c4bb0ef8707e8145bad3:
+v2. Fix misuse of devm_kzalloc for objects containing a struct device
+    in fsi-master-gpio and fsi-master-ast-cf (similar fixes for the
+    various FSI drivers will come later a part of rework to move away
+    from misc devs).
 
-  fsi/sbefifo: Add driver for the SBE FIFO (2018-06-12 14:05:39 +1000)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/benh/linux-fsi.git tags/fsi-updates-2018-07-12
-
-for you to fetch changes up to fea9cf321c916e9372874e6f2af1bf0b5beb89fb:
-
-  fsi: Move various master definitions to a common header (2018-07-12 12:06:02 +1000)
-
-----------------------------------------------------------------
-Benjamin Herrenschmidt (17):
-      fsi: sbefifo: Remove unneeded semicolon
-      fsi: scom: Add mutex around FSI2PIB accesses
-      fsi: scom: Whitespace fixes
-      fsi: scom: Fixup endian annotations
-      fsi: scom: Add register definitions
-      fsi: scom: Major overhaul
-      fsi: sbefifo: Fix checker warning about late NULL check
-      fsi: Move code around to avoid forward declaration
-      fsi: Add mechanism to set the tSendDelay and tEchoDelay values
-      fsi: master-gpio: Rename and adjust send delay
-      fsi: master-gpio: Add support for link_config
-      fsi: master-gpio: Add more tracepoints
-      fsi: master-gpio: Remove unused definitions
-      fsi: master-gpio: Remove "GPIO" prefix on some definitions
-      fsi: Don't use device_unregister() in fsi_master_register()
-      fsi: master-gpio: Add missing release function
-      fsi: Move various master definitions to a common header
-
-Eddie James (1):
-      fsi: sbefifo: Add missing mutex_unlock
-
-Guenter Roeck (1):
-      fsi/sbefifo: Add dependency on OF_ADDRESS
-
-Joel Stanley (3):
-      fsi: sbefifo: Fix sparse warnings
-      fsi: master-hub: Fix sparse warnings
-      fsi: core: Fix sparse warnings
-
- drivers/fsi/Kconfig                    |   1 +
- drivers/fsi/fsi-core.c                 | 215 +++++++++++++++++++----------
- drivers/fsi/fsi-master-gpio.c          | 170 ++++++++++++-----------
- drivers/fsi/fsi-master-hub.c           |   5 +-
- drivers/fsi/fsi-master.h               |  35 +++++
- drivers/fsi/fsi-sbefifo.c              |  15 +-
- drivers/fsi/fsi-scom.c                 | 433 +++++++++++++++++++++++++++++++++++++++++++++++++++++++---
- include/trace/events/fsi_master_gpio.h |  59 ++++++++
- include/uapi/linux/fsi.h               |  58 ++++++++
- 9 files changed, 813 insertions(+), 178 deletions(-)
- create mode 100644 include/uapi/linux/fsi.h
+v3. Sparse fix and updated DT bindings as per Rob's comments.
