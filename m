@@ -1,61 +1,51 @@
-Return-Path: <peter.maydell@linaro.org>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4003:c06::242; helo=mail-oi0-x242.google.com;
- envelope-from=peter.maydell@linaro.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="KtG9dxPY"; 
- dkim-atps=neutral
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41RLjK6pBTzDr0X
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 02:18:59 +1000 (AEST)
-Received: by mail-oi0-x242.google.com with SMTP id y207-v6so56845571oie.13
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 09:18:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=4xpRK9vUfvVfinjgiqVxJ9D7PGneHr4aCDPSSoLVXZs=;
- b=KtG9dxPY2JwZNj93VGIb+ZiXv/HcxwEEj1sz1059/j2ZtgXwnGj7tKtrzi7BdK9y61
- Wvit8OxQNANMD+YCULPcM0wPRqx+20opX6zlKN6QyEkvYMITD7Dr5elrv3p2vVXuqX4Y
- nId3ds6bT6I9a/jAhMeCSluH7L88CY5oZ22LA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=4xpRK9vUfvVfinjgiqVxJ9D7PGneHr4aCDPSSoLVXZs=;
- b=qOiHMZA3GfHIewI8FBbFVOSuXXxeyM+2pCgyPAWI6ON75dOKU04l13qXWYFtQxi2l/
- gbang28zjo9FuH1P9BWormC3LFDJknHh8/LHel5dxn5bwhQYSTVHNZ/YcoPEtH8P9Eyr
- aPAz8dIZT0FEdSnllALRSemnNxfUuh5yJoD4kOVtvt4iIdX/pol5W/e0TwCTLUWQaKKs
- X/qiRXgdX44HeiH7sg0lajcYRTAt0i2pF5yuq+LtVnKhWKctWcoNY8K0gdanB4gnoyv6
- DJjmSDxMsabS3kCUxAClH5ydb0TYVQNAH1qePbnkJ1EJxHgyfT5grAoIAaxH01vZcmf7
- BufA==
-X-Gm-Message-State: AOUpUlGA6LXrn27qiwA5rD8WB7dm8fGvGB1oDIP7REckD44aGf6gBqqz
- hRxhBLxh5IcbOrCdM4llQXSeDpMctLh4w2HVbidzGA==
-X-Google-Smtp-Source: AAOMgpdb4hIBQ7zWcXfkVvGHxe3w1x3foY3+se6MXinaV7THxJByWJwN6nb2X1aR834h7iThEfhDSsaOxDM4pV34ZwI=
-X-Received: by 2002:aca:a982:: with SMTP id
- s124-v6mr3200300oie.80.1531412337871; 
- Thu, 12 Jul 2018 09:18:57 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41RMs01LwMzF35P;
+ Fri, 13 Jul 2018 03:10:39 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2018 10:10:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,344,1526367600"; d="scan'208";a="64234634"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by FMSMGA003.fm.intel.com with ESMTP; 12 Jul 2018 10:10:33 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH] i2c: aspeed: Add newline characters into message
+ printings.
+To: Brendan Higgins <brendanhiggins@google.com>, joe@perches.com
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ linux-aspeed@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, james.feist@linux.intel.com,
+ vernon.mauery@linux.intel.com
+References: <20180702211359.30585-1-jae.hyun.yoo@linux.intel.com>
+ <CAFd5g443wTQJ+0hrprOV949Sr_nRnBGpNo3Wd01xFN4GW4K2Ng@mail.gmail.com>
+ <2d2f2b2b-394a-506f-c870-33520335250b@linux.intel.com>
+ <c13fc12e859f7bdb300f08ad805cdf6d7ec09f52.camel@perches.com>
+ <CAFd5g47-Bq_wUkL4vP93si+urDs-A0j26ukZ+Riy24HWi5AuuA@mail.gmail.com>
+Message-ID: <41770e0f-c0ab-5fb7-6c8f-6cf4f80f01f0@linux.intel.com>
+Date: Thu, 12 Jul 2018 10:10:29 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Received: by 2002:a9d:5c8a:0:0:0:0:0 with HTTP; Thu, 12 Jul 2018 09:18:37
- -0700 (PDT)
-In-Reply-To: <1531411830.3639858.1438698880.654F54F0@webmail.messagingengine.com>
-References: <20180709143524.17480-1-andrew@aj.id.au>
- <CAFEAcA9GHFwscBzRGRbqAN+nWWYYbSZB-M0Kt+r=fFFG3xfm8w@mail.gmail.com>
- <1531411830.3639858.1438698880.654F54F0@webmail.messagingengine.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Thu, 12 Jul 2018 17:18:37 +0100
-Message-ID: <CAFEAcA9Ri8DANtFHtC=H83Vr2zotGRSWOY=QK37MN-TParmETQ@mail.gmail.com>
-Subject: Re: [PATCH] aspeed: Implement write-1-{set,
- clear} for AST2500 strapping
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: QEMU Developers <qemu-devel@nongnu.org>, Joel Stanley <joel@jms.id.au>, 
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- qemu-arm <qemu-arm@nongnu.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAFd5g47-Bq_wUkL4vP93si+urDs-A0j26ukZ+Riy24HWi5AuuA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -67,27 +57,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jul 2018 16:19:03 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 17:10:45 -0000
 
-On 12 July 2018 at 17:10, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Fri, 13 Jul 2018, at 01:28, Peter Maydell wrote:
->> On 9 July 2018 at 15:35, Andrew Jeffery <andrew@aj.id.au> wrote:
->> > The AST2500 SoC family changes the runtime behaviour of the hardware
->> > strapping register (SCU70) to write-1-set/write-1-clear, with
->> > write-1-clear implemented on the "read-only" SoC revision register
->> > (SCU7C). For the the AST2400, the hardware strapping is
->> > runtime-configured with read-modify-write semantics.
->> >
->> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->> > ---
+On 7/12/2018 1:38 AM, Brendan Higgins wrote:
+> On Wed, Jul 11, 2018 at 10:10 AM Joe Perches <joe@perches.com> wrote:
 >>
->> Hi -- is this a bugfix suitable for 3.0, or something you'd
->> like to wait until 3.1 ? The commit message sounds like a bugfix...
->
-> If we could get it into 3.0 that would be great. I ran into a case where the distinction was important so it would be good to have it resolved sooner rather than later.
+>> On Wed, 2018-07-11 at 09:53 -0700, Jae Hyun Yoo wrote:
+>>> On 7/10/2018 10:42 PM, Brendan Higgins wrote:
+>>>> On Mon, Jul 2, 2018 at 2:14 PM Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>>>>> There are some log printing without a newline character. This
+>>>>> patch adds the missing newline characters.
+>> []
+>>>>> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+>> []
+>>>>> @@ -431,7 +431,7 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>>>>            */
+>>>>>           if (bus->master_state == ASPEED_I2C_MASTER_START) {
+>>>>>                   if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+>>>>> -                       pr_devel("no slave present at %02x", msg->addr);
+>>>>> +                       pr_devel("no slave present at %02x\n", msg->addr);
+>>>>
+>>>> Unless something changed in the last couple versions of the kernel, this is the
+>>>> only line that actually changes anything. dev_* inserts a newline for every
+>>>> call.
+>>
+>> Not true.
+>>
+>> Any printk without KERN_CONT inserts a newline
+>> if the last character
+>> emitted is not a newline.
+>>
+>> dev_<level> uses can also be followed by pr_cont.
+>>
+>> So this patch does reduce the possibility of
+>> interleaved messages from multiple processes.
+> 
+> My mistake. Thanks for pointing that out.
+> 
+> Jae, forget what I said earlier. This looks good to me.
+> 
 
-No problem -- applied to target-arm.next for 3.0 (should go
-in before rc1).
+Okay. I'll keep this patch as is.
+Thanks Joe for your clarification!
+Thanks Brendan for your 'Reviewed-by' tag!
 
-thanks
--- PMM
+Jae
