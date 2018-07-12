@@ -1,77 +1,34 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AIcqAb8T"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="pUEW8aFC"; dkim-atps=neutral
-X-Greylist: delayed 435 seconds by postgrey-1.36 at bilbo;
- Thu, 12 Jul 2018 11:01:11 AEST
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41QyLH6czdzF35b
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 11:01:11 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3873421A1E;
- Wed, 11 Jul 2018 20:53:51 -0400 (EDT)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Wed, 11 Jul 2018 20:53:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=uLn9GHxnZtd1o4rJizfytLDFt1Uim
- dVN+4xholBSImo=; b=AIcqAb8TyM6hr9jjgmepB7jC+DGCd/FLQ6IXfnS9fJnO/
- j7OZjCeHMeVRcFz/6aLxgPaOBy18xjRIkijBG3u9dHYFhE7WhKyN8M61hZrGIOaT
- TgOUTGFjcHQBGgRC6HvkSDG+WmpTjOtFI9wrqIvYaMOEFH+6eOvbSX8a30iPpVOc
- a93LcFXTVh8shVARxWnBaq+OhBlJpDEbcPw6DHDgZhbWIqvuT28iWWEFga3MNxVl
- XbWJ52wEIupkELatAkiAOBRf/8qUP1uigg27BVS5766ovC7+Ot4Md6DDyAgwppAL
- xBrHnVmdR7n+Id5EzwZCE8vU5ebOwXdKWINJj0L2w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=uLn9GH
- xnZtd1o4rJizfytLDFt1UimdVN+4xholBSImo=; b=pUEW8aFC5ULFaN4MxgbB42
- ziDbTPskfezXY2pG719u2cpKEEq8apWJ336pMhmtDLC8B9fzbzaRYeGwykMyitMr
- OwcO1LVCOGnG6jKvtIpR7bvHavWCDDgNtr3mzdPQMxkPsrrjA+/mTNh09oCHEs6A
- L4Zd0Purh0uZabVfDs6hRMOfrjNqxIbvGwfzWbK/8TJZfE5z87S1eQS25c5dgVNa
- HvuSoPuT4lMLvhl4/XquY+/pjz8LZc/FIBkee3D9yaLWQU/Hk0GiNB8TPcZVl5KT
- S3rKv+D/TcFVRuR7a6RpoaoQtnqs2OK0Cv+9OKI6bBi50vKLZTYm6w/SAhqVCFtQ
- ==
-X-ME-Proxy: <xmx:nqZGW92m-EpXjkABQDJXhXvzYBSEvfhTK4Qg-zwL2Pklq8o5vrF28g>
- <xmx:nqZGW5EACYGcSTKyXfObgqfUjBFrgax62ceVSNiV0OdvYRtefq9aAw>
- <xmx:nqZGWzR8ygn3qCI4i_TSaZk056frhix3rmq3ttJLBXxwWCaq6NMYww>
- <xmx:nqZGW39ONijfRW12S9TZqJBVhkxI-r-5feoB6kYZfd_1Wa2n1JhFzg>
- <xmx:nqZGW1EkwSzOkKzG88W2Wwh7B9vC2LdSnotfT4t9LZMkDv7vh4Sc5g>
- <xmx:n6ZGW8HgalA9l-CJoRnw2f2mcx0h8kVMlWW1nhyfhj-tiT4bzYolcg>
-X-ME-Sender: <xms:nqZGW6j4e-GhbncSfhUEE21awLbsFs8FtL2FIfo-2-h-7ASTeW6u4Q>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 2B934BA4CF; Wed, 11 Jul 2018 20:53:50 -0400 (EDT)
-Message-Id: <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Rob Herring <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, mark.rutland@arm.com, joel@jms.id.au,
- gregkh@linuxfoundation.org, Eugene.Cho@dell.com, a.amelkin@yadro.com,
- stewart@linux.ibm.com, benh@kernel.crashing.org,
- openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Qzh81FB1zF364;
+ Thu, 12 Jul 2018 12:01:43 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6C21Tmq015528;
+ Wed, 11 Jul 2018 21:01:32 -0500
+Message-ID: <e25f7a0b1d529b57a2994681101a3633849cdc1b.camel@kernel.crashing.org>
+Subject: Re: [PATCH 06/14] fsi: master-gpio: Add more tracepoints
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Joel Stanley <joel@jms.id.au>
+Cc: linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ devicetree <devicetree@vger.kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Date: Thu, 12 Jul 2018 12:01:29 +1000
+In-Reply-To: <CACPK8XfZPCiCPeNL5-TpPMcHrA_fyiLu=5pArSxBXd6wT8jkFA@mail.gmail.com>
+References: <20180626232605.13420-1-benh@kernel.crashing.org>
+ <20180626232605.13420-7-benh@kernel.crashing.org>
+ <CACPK8XfZPCiCPeNL5-TpPMcHrA_fyiLu=5pArSxBXd6wT8jkFA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
-In-Reply-To: <20180711200450.GB17291@rob-hp-laptop>
-References: <20180711053122.30773-1-andrew@aj.id.au>
- <20180711053122.30773-2-andrew@aj.id.au>
- <20180711200450.GB17291@rob-hp-laptop>
-Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
- control fields
-Date: Thu, 12 Jul 2018 10:23:50 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -83,98 +40,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jul 2018 01:01:16 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 02:01:44 -0000
 
-Hi Rob,
-
-Thanks for the response.
-
-On Thu, 12 Jul 2018, at 05:34, Rob Herring wrote:
-> On Wed, Jul 11, 2018 at 03:01:19PM +0930, Andrew Jeffery wrote:
-> > Baseboard Management Controllers (BMCs) are embedded SoCs that exist to
-> > provide remote management of (primarily) server platforms. BMCs are
-> > often tightly coupled to the platform in terms of behaviour and provide
-> > many hardware features integral to booting and running the host system.
+On Thu, 2018-06-28 at 13:41 +0930, Joel Stanley wrote:
+> On 27 June 2018 at 08:55, Benjamin Herrenschmidt
+> <benh@kernel.crashing.org> wrote:
+> > This adds a few more tracepoints that have proven useful when
+> > debugging issues with the FSI bus.
 > > 
-> > Some of these hardware features are simple, for example scratch
-> > registers provided by the BMC that are exposed to both the host and the
-> > BMC. In other cases there's a single bit switch to enable or disable
-> > some of the provided functionality.
-> > 
-> > The documentation defines bindings for fields in registers that do not
-> > integrate well into other driver models yet must be described to allow
-> > the BMC kernel to assume control of these features.
+> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 > 
-> So we'll get a new binding when that happens? That will break 
-> compatibility.
-
-Can you please expand on this? I'm not following.
-
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
 > 
-> > 
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > > ---
+> >  drivers/fsi/fsi-master-gpio.c          | 16 ++++---
+> >  include/trace/events/fsi_master_gpio.h | 59 ++++++++++++++++++++++++++
+> >  2 files changed, 69 insertions(+), 6 deletions(-)
 > > 
-> > Since RFC v1:
+> > diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> > index 48e0e65b2982..a00a85aa6d56 100644
+> > --- a/drivers/fsi/fsi-master-gpio.c
+> > +++ b/drivers/fsi/fsi-master-gpio.c
+> > @@ -130,10 +130,17 @@ static void set_sda_output(struct fsi_master_gpio *master, int value)
 > > 
-> > * Add a commit message
-> > * Minor changes to documented labels
+> >  static void clock_zeros(struct fsi_master_gpio *master, int count)
+> >  {
+> > +       trace_fsi_master_gpio_clock_zeros(master, count);
+> >         set_sda_output(master, 1);
+> >         clock_toggle(master, count);
+> >  }
 > > 
-> >  .../bindings/misc/bmc-misc-ctrl.txt           | 252 ++++++++++++++++++
-> >  MAINTAINERS                                   |   6 +
-> >  2 files changed, 258 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
-> > 
-> > diff --git a/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt b/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
-> > new file mode 100644
-> > index 000000000000..2c869fcc7ef2
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/misc/bmc-misc-ctrl.txt
-> > @@ -0,0 +1,252 @@
-> > +BMC Miscellaneous Control Interfaces
-> > +====================================
-> > +
-> > +Baseboard Management Controllers (BMCs) often have an array of hardware
-> > +features that need to be described but are awkward to sensibly expose.
-> > +
-> > +This bindings document provides a generic mechanism for describing such
-> > +features, covering read-only (RO), read-modify-write (RMW) and
-> > +write-1-set/write-1-clear (W1SC) semantics.
+> > +static void echo_delay(struct fsi_master_gpio *master)
+> > +{
+> > +       clock_zeros(master, master->t_echo_delay);
+> > +}
 > 
-> If we wanted a generic mechanism for single register bits/fields in DT, 
-> we'd have one already.
-
-I feel like this is an argument of tradition. Maybe people have been dissuaded from doing so when they don't have a reasonable use-case? I'm not saying that what I'm proposing is unquestionably reasonable, but I don't want to dismiss it out of hand.
-
-> A node per register bit doesn't scale.
-
-It isn't meant to scale in terms of a single system. Using it extensively is very likely wrong. Separately, register-bit-led does pretty much the same thing. Doesn't the scale argument apply there? Who is to stop me from attaching an insane number of LEDs to a system?
-
-Obviously if there are lots of systems using it sparingly and legitimately then maybe there's a scale issue, but isn't that just a reality of different hardware designs? Whoever is implementing support for the system is going to have to describe the hardware one way or another.
-
+> This doesn't look like it belongs in this patch.
 > 
-> Maybe this should be modelled using GPIO binding? There's a line there 
-> too as whether the signals are "general purpose" or not.
+> You've just moved it up. Not worth a re-spin.
 
-I don't think so, mainly because some of the things it is intended to be used for are not GPIOs. For instance, take the DAC mux I've described in the patch. It doesn't directly influence anything external to the SoC (i.e. it's certainly not a traditional GPIO in any sense). However, it does *indirectly* influence the SoC's behaviour by muxing the DAC internally between:
-
-0. VGA device exposed on the host PCIe bus
-1. The "Graphics CRT" controller 
-2. VGA port A
-3. VGA port B
-
-Maybe this could be modelled by pinmux, but then we still need some way to expose the mux functions to userspace for selection (userspace needs to transition arbitrarily between at least options 0 and 1 at runtime), at which point we haven't achieved much beyond adding a whole heap of infrastructure in the chain.
-
-Given 0 and 1, maybe exposing attributes in relevant drivers would be reasonable, except 0 isn't exposed on the SoC's internal bus so there is no driver on the BMC-side to do so. Taking into account 2 and 3 are also purely hardware paths further dashes the idea, as the configuration doesn't really "belong" to the Graphics CRT device more than it belongs anywhere else, except for the fact that there isn't anywhere else to expose it.
-
-Further, the BMC's kernel can't make the decision as to when to switch the mux as it knows nothing of the host's state. The BMC userspace is controlling the host's boot state and so *does* know when to flip the switch. Finally, the mux is in separate IP to the CRT or VGA blocks: It lives in the System Control Unit.
-
-My current point of view is the DAC mux field is effectively its own device, and we need to control it from userspace, so we need some way to describe it (i.e. not ignore it) in order for its capability to be exposed.
-
-I'm fully aware what I'm proposing isn't awesome as it's not providing any real abstraction, but the problem(s) at hand also seem to defy abstraction, and in order to avoid a plethora of bespoke bindings I thought it was reasonable to define something generic.
-
-All-in-all I appreciate the suggestion, but assuming you agree with my reasoning above do you have thoughts on other alternatives?
-
-Cheers,
-
-Andrew
+I've done more, I made it use clock_zeros() instead of open coding it
+in order to share the tracepoint.
+> 
+> > +
+> > +
+> >  static void serial_in(struct fsi_master_gpio *master, struct fsi_gpio_msg *msg,
+> >                         uint8_t num_bits)
+> >  {
+> > @@ -279,16 +286,19 @@ static void build_ar_command(struct fsi_master_gpio *master,
+> >                 addr_bits = 2;
+> >                 opcode_bits = 2;
+> >                 opcode = FSI_GPIO_CMD_SAME_AR;
+> > +               trace_fsi_master_gpio_cmd_same_addr(master);
+> > 
+> >         } else if (check_relative_address(master, id, addr, &rel_addr)) {
+> >                 /* 8 bits plus sign */
+> >                 addr_bits = 9;
+> >                 addr = rel_addr;
+> >                 opcode = FSI_GPIO_CMD_REL_AR;
+> > +               trace_fsi_master_gpio_cmd_rel_addr(master, rel_addr);
+> > 
+> >         } else {
+> >                 addr_bits = 21;
+> >                 opcode = FSI_GPIO_CMD_ABS_AR;
+> > +               trace_fsi_master_gpio_cmd_abs_addr(master, addr);
+> >         }
+> > 
+> >         /*
+> > @@ -337,12 +347,6 @@ static void build_epoll_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
+> >         msg_push_crc(cmd);
+> >  }
+> > 
+> > -static void echo_delay(struct fsi_master_gpio *master)
+> > -{
+> > -       set_sda_output(master, 1);
+> > -       clock_toggle(master, master->t_echo_delay);
+> > -}
+> > -
+> >  static void build_term_command(struct fsi_gpio_msg *cmd, uint8_t slave_id)
+> >  {
+> >         cmd->bits = 0;
