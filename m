@@ -1,29 +1,106 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <prvs=0731dcaaec=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=0731dcaaec=taoren@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="kXkyJxfO"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="K99qPHST"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41RN1R184lzF35S
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 03:18:02 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 79A2FFA10C
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 13:17:56 -0400 (EDT)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: OpenBMC v2.3
-Message-Id: <415A6CFF-EAA4-4812-9F4C-7D27012225D5@fuzziesquirrel.com>
-Date: Thu, 12 Jul 2018 13:17:56 -0400
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41RNF038BXzF35c
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 03:28:00 +1000 (AEST)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6CHOvCS030338; Thu, 12 Jul 2018 10:27:47 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type :
+ mime-version; s=facebook; bh=SCEcYvx6Y6Dm/xxx8Flr7DOCFbTvsuHIRjAHjcjAaUM=;
+ b=kXkyJxfOc0JtqEExxh01T3gjjWaW5p/L8LpW7QjU2TB9ayGdMks7svge9rRtetEiaAZc
+ 69+f50zcUN8j+XGv3d4DV2lYRB2BfphMyKLuWEspZZN+PqrByG55EKiRS6JkR5aPUyTl
+ B3Cqw9eg8Xe207+gQd5+2hiNMb95w5UByrw= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2k68uerkrr-12
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Thu, 12 Jul 2018 10:27:47 -0700
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.13) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Thu, 12 Jul 2018 10:26:51 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SCEcYvx6Y6Dm/xxx8Flr7DOCFbTvsuHIRjAHjcjAaUM=;
+ b=K99qPHSTynLsqyX2Jdli0l2teI4z06Ik+VdsWA0JIGSGxgkzDtsnsXWSzFYXGb1yvPe4rDFElb1k74SNLJEnBReFYvU9r+ag/qraobHsxE81Zv/gBnM7SX95Zql6/sqqYrU5Rq5sAfELgDOMfNztoZZMXiifv3cZGZQz3U+Vz6s=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1199.namprd15.prod.outlook.com (10.175.2.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.952.17; Thu, 12 Jul 2018 17:26:49 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::f5d4:6f7e:e4ff:2099]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::f5d4:6f7e:e4ff:2099%2]) with mapi id 15.20.0930.022; Thu, 12 Jul 2018
+ 17:26:49 +0000
+From: Tao Ren <taoren@fb.com>
+To: Aaron <aaron_ppus@fmad.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: AST2400 x86 bringup LPC problems
+Thread-Topic: AST2400 x86 bringup LPC problems
+Thread-Index: AQHUGbhNxijDsXyX4ECYA6n8cRuss6SLpDCA//++DQA=
+Date: Thu, 12 Jul 2018 17:26:49 +0000
+Message-ID: <41CF8000-5798-4EB4-BACA-C072BFA00F9D@fb.com>
+References: <CABq4n+RwYT8UN4EO75DkhMr2zKnPQW-PEbKtYB+Tb1yA_JYawQ@mail.gmail.com>
+ <CABq4n+Qw_vq1QZpYdgiB9LofUp0MZchkzXXOqiUC+vyqCKR-KQ@mail.gmail.com>
+In-Reply-To: <CABq4n+Qw_vq1QZpYdgiB9LofUp0MZchkzXXOqiUC+vyqCKR-KQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::6:1415]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1199;
+ 7:TGviqZ5/UNsEYIoduDz4pOzjpvX+kUEqOUXwfdISPJEHiFizO8VUz5sc7rc1pDyKX8vWS9+1hFw/1whcAIrMPED0mJ8w9lwf8T4Edy10AlpcwewznpxIr+a5RevPW8aO4RmyHZUzlKsCr8pSSSOPnsyFzEPNucCt5BElyrv6VJyhhzSPACzUjjiyoUqF2qwXddIzboTgxt5cnXo+FmiQmsijjIivxAV/wdsxhxhBwVE0Y/Xhpc0F68HtHqXr+2zS;
+ 20:MXRaQN2MySmD1JYfJOjEDJHw5u7QUjPrui8Q5niiHGbScyZRohydSSdqLPttTSaIsqL0xvgPm/2MZyNe9JhKdrq3eRIJxc0SfwDhyEdQOraJ6+aekq8iHXLKomYF4E5hu1sCX16AQNSP12htyAebK/qetoGhXWa6URf7wmvjDNg=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: f80da7e3-7e60-4183-b1b3-08d5e81ca6aa
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989117)(5600053)(711020)(4534165)(4627221)(201703031133081)(201702281549075)(8990107)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1199; 
+x-ms-traffictypediagnostic: MWHPR15MB1199:
+x-microsoft-antispam-prvs: <MWHPR15MB1199B75EB95F92FF874BA3E0B2590@MWHPR15MB1199.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(28532068793085)(158342451672863)(65623756079841)(21748063052155); 
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(3002001)(10201501046)(3231311)(11241501184)(944501410)(52105095)(149027)(150027)(6041310)(20161123562045)(20161123560045)(20161123564045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(6072148)(201708071742011)(7699016);
+ SRVR:MWHPR15MB1199; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1199; 
+x-forefront-prvs: 0731AA2DE6
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(396003)(376002)(346002)(136003)(366004)(39860400002)(199004)(189003)(97736004)(54896002)(6436002)(68736007)(81166006)(8676002)(81156014)(486006)(105586002)(256004)(76176011)(229853002)(106356001)(6116002)(102836004)(7736002)(33656002)(46003)(14444005)(8936002)(6506007)(5660300001)(53546011)(6486002)(606006)(2900100001)(186003)(83716003)(99286004)(6512007)(6246003)(86362001)(53936002)(11346002)(476003)(5250100002)(6306002)(36756003)(14454004)(2616005)(316002)(446003)(25786009)(966005)(110136005)(82746002)(478600001)(2906002)(236005);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1199;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: geljr9Mc6YrXfcsDBcYDADMiVCjV93uSGRjLJebv9qED1AFfcJl7dKeSQFhwK3HHVEPZ2TykHdrvEBIpRrPNJUp0GcCuVMxgZnmmQVU2TE0VMaNWVmsQsLxlS1sI9HDpeEDCW3OaTrJYoby2Gr2tQF4QAnWh5UMHYO+vHo3OvmCYVKQrtMZIVfiWbp85XBZM+tiU1oHo+O3oV7qT7wEeGWlw644t8pjG9M/okBB6V8aUvSqYGDs1vCjqXIooDgDRJ2yZfK0ITYjKjlSVbZfxFyFHQr4E2Uvx/lByfYCUyoV37sLrklCssZOm36hCBS3Gm6SAynjZxRQbX1o6EdFaUOD7tP+cDzT0q6O23ATjd2I=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_41CF800057984EB4BACAC072BFA00F9Dfbcom_"
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: f80da7e3-7e60-4183-b1b3-08d5e81ca6aa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jul 2018 17:26:49.4535 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1199
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-12_07:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -35,443 +112,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jul 2018 17:18:04 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 17:28:06 -0000
 
-We=E2=80=99ve moved to Yocto 2.5.  We have Linux 4.17.  Tag time!
+--_000_41CF800057984EB4BACAC072BFA00F9Dfbcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-It wouldn=E2=80=99t be an OpenBMC release note without a warning about =
-an upcoming
-change to our branching strategy.  So like before, stay tuned to the =
-list
-for news on that front.  With the formation of the OpenBMC planning =
-workgroup
-led by Kurt Taylor we may actually start to see some progress on that.
+TG9va3MgbGlrZSB5b3UgYXJlIGZhY2luZyB0aGUgc2FtZS9zaW1pbGFyIGlzc3VlIG1lbnRpb25l
+ZCBpbiBiZWxvdyBwYWdlPw0KDQpodHRwczovL3d3dy5hbmFuZHRlY2guY29tL3Nob3cvMTExMTAv
+c2VtaS1jcml0aWNhbC1pbnRlbC1hdG9tLWMyMDAwLWZsYXctZGlzY292ZXJlZA0KDQoNCi0gVGFv
+DQoNCkZyb206IG9wZW5ibWMgPG9wZW5ibWMtYm91bmNlcyt0YW9yZW49ZmIuY29tQGxpc3RzLm96
+bGFicy5vcmc+IG9uIGJlaGFsZiBvZiBBYXJvbiA8YWFyb25fcHB1c0BmbWFkLmNvbT4NCkRhdGU6
+IFRodXJzZGF5LCBKdWx5IDEyLCAyMDE4IGF0IDc6MzUgQU0NClRvOiBPcGVuQk1DIE1haWxsaXN0
+IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQpTdWJqZWN0OiBSZTogQVNUMjQwMCB4ODYgYnJp
+bmd1cCBMUEMgcHJvYmxlbXMNCg0KUGVyIHVzdWFsIGZvdW5kIHRoZSBpc3N1ZSBhZnRlciBzcGFt
+bWluZyB0aGUgbGlzdC4gVGhlIExDTEsgd2FzIGRpc2FibGVkIGJlY2F1c2UgbHBjX2N0cmwgd2Fz
+IG5vdCBzZXR1cCBjb3JyZWN0bHkgYW5kIGVycm9yYGVkIG91dCB3aGljaCBjbGVhbnMgdXAgYW5k
+IGRpc2FibGVzIHRoZSBsY2xrIGVudGlyZWx5Li4uIGRvaC4NCg0KQWFyb24NCg0KT24gMTIgSnVs
+eSAyMDE4IGF0IDE2OjQ3LCBBYXJvbiA8YWFyb25fcHB1c0BmbWFkLmNvbTxtYWlsdG86YWFyb25f
+cHB1c0BmbWFkLmNvbT4+IHdyb3RlOg0KSGksDQoNCkN1cnJlbnRseSBzdHVjayBicmluZ3VwIGFu
+IHg4NiBzZXJ2ZXIgYm9hcmQgd2l0aCB0aGUgQVNUMjQwMCBhbmQgbG9va2luZyBmb3IgYWR2aWNl
+Lg0KDQpIYXZlIGJhc2VkIHRoZSBjb2RlIG9uIHRoZSBRdWFudGEgbWFjaGluZSwgdGhlcmVzIGEg
+YnVuY2ggb2YgZHN0IGNoYW5nZXMgYW5kIGRpZmZlcmVudCBncGlvIC8gaTJjIGV0YyBtYXBwaW5n
+cy4gTW9zdCB0aGluZ3Mgd29yayBub3csIHBvd2VyIGNvbnRyb2wsIGNhbiBjb250cm9sLCBncGlv
+cyBhcmUgZ29vZCBldGMgaG93ZXZlciB0aGUgTFBDIGlzIGJyb2tlbi4NCg0KV2hhdCBJIGNhbnQg
+d29ya2luZyBvdXQgaXMgd2h5IHRoZSBMUEMgaW50ZXJmYWNlIGlzIGNvbXBsZXRlbHkgZGVhZC4N
+Cg0KU3ltcHRvbXMgYXJlOg0KLSBMUEMgcG9zdCBjb2RlIHNuaWZmZXIgY2FjaGVzIG5vdGhpbmcN
+Ci0gSG9zdCBVQVJUIGlzIGNvbXBsZXRlbHkgbWlzc2luZw0KLSBIb3N0IElPIHBvcnQgcmFuZ2Ug
+cmVhZGluZyByZXR1cm5zIDB4ZmZgcw0KDQpJdHMgYXMgaWYgdGhlIExQQyBibG9jayBpcyBub3Qg
+YmVpbmcgcmVzZXQgb3IgdGhlcmVzIG5vIGNsb2NrIG9yIGJlaW5nIG11eGVkIG91dCBvciBzb21l
+dGhpbmcuIEJlZW4gYSBmZXcgZGF5cyBub3cgYW5kIHN0aWxsIGNhbnQgd29yayBpdCBvdXQuDQoN
+Ck9yaWdpbmFsbHkgdGhvdWdodCBpdCB3YXMgYmVjYXVzZSBTdHJhcFsxNF0gPSAxICAoTFBDIHJl
+c2V0IG5vdCBjb25uZWN0ZWQgdG8gUENJIHJlc2V0KSBidXQgb24gdGhlIGJvYXJkIHRoZXkgcGh5
+c2ljYWxseSByb3V0ZWQgUEVSU1QgdG8gdGhlIHRvIHRoZSBwaW4sIHNvIGl0IHNob3VsZCBiZSBv
+ay4NCg0KQW55IHN1Z2dlc3Rpb25zIG9yIGFkdmljZSA/DQoNClRoYW5rcw0KQWFyb24NCg0KDQoN
+Cg==
 
-Enjoy!
+--_000_41CF800057984EB4BACAC072BFA00F9Dfbcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <1DC409E8CF057B4CAE6B3869B9346E67@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
--brad
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
+IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
+YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
+b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
+IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
+aW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQph
+OnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5
+Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnAubXNv
+bm9ybWFsMCwgbGkubXNvbm9ybWFsMCwgZGl2Lm1zb25vcm1hbDANCgl7bXNvLXN0eWxlLW5hbWU6
+bXNvbm9ybWFsOw0KCW1zby1tYXJnaW4tdG9wLWFsdDphdXRvOw0KCW1hcmdpbi1yaWdodDowaW47
+DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87DQoJbWFyZ2luLWxlZnQ6MGluOw0KCWZvbnQt
+c2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0Kc3Bhbi5o
+b2VuemINCgl7bXNvLXN0eWxlLW5hbWU6aG9lbnpiO30NCnNwYW4uRW1haWxTdHlsZTE5DQoJe21z
+by1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5z
+LXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxl
+LXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1zaXplOjEwLjBwdDt9DQpAcGFnZSBXb3JkU2VjdGlv
+bjENCgl7c2l6ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEuMGluIDEuMGluIDEuMGluIDEuMGlu
+O30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT4N
+CjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4N
+CjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5Mb29rcyBs
+aWtlIHlvdSBhcmUgZmFjaW5nIHRoZSBzYW1lL3NpbWlsYXIgaXNzdWUgbWVudGlvbmVkIGluIGJl
+bG93IHBhZ2U/PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNw
+OzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxhIGhyZWY9Imh0dHBzOi8vd3d3LmFu
+YW5kdGVjaC5jb20vc2hvdy8xMTExMC9zZW1pLWNyaXRpY2FsLWludGVsLWF0b20tYzIwMDAtZmxh
+dy1kaXNjb3ZlcmVkIj5odHRwczovL3d3dy5hbmFuZHRlY2guY29tL3Nob3cvMTExMTAvc2VtaS1j
+cml0aWNhbC1pbnRlbC1hdG9tLWMyMDAwLWZsYXctZGlzY292ZXJlZDwvYT4NCjxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+Pi0gVGFvPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwv
+bzpwPjwvcD4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0I1QzRE
+RiAxLjBwdDtwYWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTIuMHB0O2NvbG9yOmJsYWNrIj5Gcm9tOiA8L3Nw
+YW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTIuMHB0O2NvbG9yOmJsYWNrIj5vcGVuYm1j
+ICZsdDtvcGVuYm1jLWJvdW5jZXMmIzQzO3Rhb3Jlbj1mYi5jb21AbGlzdHMub3psYWJzLm9yZyZn
+dDsgb24gYmVoYWxmIG9mIEFhcm9uICZsdDthYXJvbl9wcHVzQGZtYWQuY29tJmd0Ozxicj4NCjxi
+PkRhdGU6IDwvYj5UaHVyc2RheSwgSnVseSAxMiwgMjAxOCBhdCA3OjM1IEFNPGJyPg0KPGI+VG86
+IDwvYj5PcGVuQk1DIE1haWxsaXN0ICZsdDtvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcmZ3Q7PGJy
+Pg0KPGI+U3ViamVjdDogPC9iPlJlOiBBU1QyNDAwIHg4NiBicmluZ3VwIExQQyBwcm9ibGVtczxv
+OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+UGVyIHVzdWFsIGZvdW5kIHRoZSBpc3N1ZSBhZnRlciBzcGFtbWluZyB0aGUgbGlzdC4gVGhl
+IExDTEsgd2FzIGRpc2FibGVkIGJlY2F1c2UgbHBjX2N0cmwgd2FzIG5vdCBzZXR1cCBjb3JyZWN0
+bHkgYW5kIGVycm9yYGVkIG91dCB3aGljaCBjbGVhbnMgdXAgYW5kIGRpc2FibGVzIHRoZSBsY2xr
+IGVudGlyZWx5Li4uIGRvaC4NCjxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+QWFyb248bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+T24gMTIgSnVseSAyMDE4IGF0IDE2OjQ3LCBBYXJvbiAmbHQ7PGEgaHJlZj0i
+bWFpbHRvOmFhcm9uX3BwdXNAZm1hZC5jb20iIHRhcmdldD0iX2JsYW5rIj5hYXJvbl9wcHVzQGZt
+YWQuY29tPC9hPiZndDsgd3JvdGU6PG86cD48L286cD48L3A+DQo8YmxvY2txdW90ZSBzdHlsZT0i
+Ym9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAw
+aW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4iPg0KPGRpdj4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiPkhpLCA8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPkN1cnJlbnRseSBzdHVjayBicmluZ3VwIGFuIHg4NiBzZXJ2ZXIgYm9h
+cmQgd2l0aCB0aGUgQVNUMjQwMCBhbmQgbG9va2luZyBmb3IgYWR2aWNlLjxvOnA+PC9vOnA+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48
+L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5IYXZlIGJhc2VkIHRoZSBj
+b2RlIG9uIHRoZSBRdWFudGEgbWFjaGluZSwgdGhlcmVzIGEgYnVuY2ggb2YgZHN0IGNoYW5nZXMg
+YW5kIGRpZmZlcmVudCBncGlvIC8gaTJjIGV0YyBtYXBwaW5ncy4gTW9zdCB0aGluZ3Mgd29yayBu
+b3csIHBvd2VyIGNvbnRyb2wsIGNhbiBjb250cm9sLCBncGlvcyBhcmUgZ29vZCBldGMgaG93ZXZl
+ciB0aGUgTFBDIGlzIGJyb2tlbi48bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+V2hhdCBJIGNhbnQgd29ya2luZyBvdXQgaXMgd2h5IHRoZSBMUEMg
+aW50ZXJmYWNlIGlzIGNvbXBsZXRlbHkgZGVhZC48bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
+dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8
+ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+U3ltcHRvbXMgYXJlOjxvOnA+PC9vOnA+PC9wPg0K
+PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+LSBMUEMgcG9zdCBjb2RlIHNuaWZm
+ZXIgY2FjaGVzIG5vdGhpbmc8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPi0gSG9zdCBVQVJUIGlzIGNvbXBsZXRlbHkgbWlzc2luZzxvOnA+PC9vOnA+
+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+LSBIb3N0IElPIHBvcnQg
+cmFuZ2UgcmVhZGluZyByZXR1cm5zIDB4ZmZgcyZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5JdHMgYXMgaWYgdGhlIExQQyBibG9jayBp
+cyBub3QgYmVpbmcgcmVzZXQgb3IgdGhlcmVzIG5vIGNsb2NrIG9yIGJlaW5nIG11eGVkIG91dCBv
+ciBzb21ldGhpbmcuIEJlZW4gYSBmZXcgZGF5cyBub3cgYW5kIHN0aWxsIGNhbnQgd29yayBpdCBv
+dXQuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+Pk9yaWdpbmFsbHkgdGhvdWdodCBpdCB3YXMgYmVjYXVzZSBTdHJhcFsxNF0gPSAxJm5ic3A7IChM
+UEMgcmVzZXQgbm90IGNvbm5lY3RlZCB0byBQQ0kgcmVzZXQpIGJ1dCBvbiB0aGUgYm9hcmQgdGhl
+eSBwaHlzaWNhbGx5IHJvdXRlZCBQRVJTVCB0byB0aGUgdG8gdGhlIHBpbiwgc28gaXQgc2hvdWxk
+IGJlIG9rLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj5Bbnkgc3VnZ2VzdGlvbnMgb3IgYWR2aWNlID88bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0K
+PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+VGhhbmtzPG86cD48L286cD48L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iY29sb3I6Izg4ODg4
+OCI+QWFyb248bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iY29sb3I6Izg4ODg4OCI+PG86cD4mbmJzcDs8L286cD48
+L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5
+bGU9ImNvbG9yOiM4ODg4ODgiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0K
+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+
+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-Adriana Kobylak (10):
-      systemd: Remove journald sync patches
-      obmc-flash-bmc: Add set_wdt2bite
-      openpower-software-manager: Add verify_pnor_signature
-      Witherspoon: Set default value of TPMEnable to true
-      obmc-flash-bmc: Mount alt rwfs
-      Witherspoon: Enable PNOR signature verification
-      Witherspoon: Add sync manager
-      phosphor-software-manager: Add synclist
-      obmc-flash-bmc: DeleteAll cleanup fixes for alt BMC
-      obmc-flash-bmc: Check alt rwfs volume exists
-
-Alexander Amelkin (1):
-      Refix 68a967d: setup: Fix subshell spawning
-
-Andrew Geissler (196):
-      phosphor-ipmi-host.inc: bump version
-      phosphor-logging.bb: bump version
-      Change over-current warning value on witherspoon
-      phosphor-gpio-monitor.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-hwmon.bb: bump version
-      bmcweb.bb: bump version
-      openpower-occ-control.inc: bump version
-      openpower-ipmi-oem.inc: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-gpio-monitor.bb: bump version
-      phosphor-hwmon.bb: bump version
-      ibm-logging.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-led-manager.inc: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-webui.bb: bump version
-      phosphor-settings-manager.inc: bump version
-      openpower-software-manager.bb: bump version
-      sdbusplus.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      Change the StartLimitIntervalSec to 30s
-      phosphor-rest.inc: bump version
-      phosphor-webui.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-ipmi-net.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-webui.bb: bump version
-      Allow web socket over nginx https connection
-      phosphor-software-manager.bb: bump version
-      phosphor-webui.bb: bump version
-      boost-dbus.bb: bump version
-      phosphor-logging.bb: bump version
-      phosphor-ipmi-net.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-fan.inc: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      mboxd.bb: bump version
-      openpower-fru-vpd.inc: bump version
-      phosphor-fan.inc: bump version
-      phosphor-state-manager.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-webui.bb: bump version
-      pyphosphor.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-hwmon.bb: bump version
-      bmcweb.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      pyphosphor.bb: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-fan.inc: bump version
-      pyphosphor.bb: bump version
-      ibm-logging.bb: bump version
-      phosphor-webui.bb: bump version
-      ffdc.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      phosphor-inventory-manager.inc: bump version
-      phosphor-fan.inc: bump version
-      Increase nginx timeouts from 10s to 30s
-      phosphor-ipmi-fru.inc: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-ipmi-net.bb: bump version
-      phosphor-webui.bb: bump version
-      bmcweb.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-host-postd.inc: bump version
-      phosphor-webui.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-software-manager.bb: bump version
-      ibm-logging.bb: bump version
-      phosphor-logging.bb: bump version
-      obmc-console.bb: bump version
-      inventory-upload.bb: bump version
-      phosphor-ipmi-bt.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-fan.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      ffdc.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      phosphor-logging.bb: bump version
-      mboxd.bb: bump version
-      bmcweb.bb: bump version
-      ibm-dbus-interfaces.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-rest.inc: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-state-manager.bb: bump version
-      openpower-debug-collector.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-time-manager.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-rest.inc: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-webui.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      slpd-lite.bb: bump version
-      openpower-dbus-interfaces.bb: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      ffdc.bb: bump version
-      phosphor-dbus-monitor.bb: bump version
-      phosphor-user-manager.bb: bump version
-      phosphor-inventory-manager.inc: bump version
-      openpower-fru-vpd.inc: bump version
-      phosphor-gpio-monitor.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      phosphor-led-manager.inc: bump version
-      phosphor-rest.inc: bump version
-      openpower-ipmi-oem.inc: bump version
-      phosphor-fan.inc: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      openpower-ipmi-oem.inc: bump version
-      phosphor-gpio-monitor.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-state-manager.bb: bump version
-      phosphor-hwmon.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      Move nginx ciphers to mozilla guidelines
-      phosphor-rest.inc: bump version
-      phosphor-mapper.bb: bump version
-      ibm-logging.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-dbus-monitor.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      rest-dbus.bb: bump version
-      skeleton-rev.bbclass: bump version
-      pyphosphor.bb: bump version
-      phosphor-mapper.bb: bump version
-      openpower-occ-control.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-webui.bb: bump version
-      obmc-console.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-dbus-monitor.bb: bump version
-      phosphor-user-manager.bb: bump version
-      sdbusplus.bb: bump version
-      phosphor-watchdog.bb: bump version
-      phosphor-host-postd.inc: bump version
-      sdbusplus.bb: bump version
-      op-proc-control.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-time-manager.bb: bump version
-      phosphor-hwmon.bb: bump version
-      bmcweb.bb: bump version
-      boost-dbus.bb: bump version
-      phosphor-webui.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      ffdc.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-dbus-monitor.bb: bump version
-      phosphor-mapper.bb: bump version
-      inarp.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-hwmon.bb: bump version
-      bmcweb.bb: bump version
-      phosphor-settings-manager.inc: bump version
-      phosphor-led-manager.inc: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-webui.bb: bump version
-      phosphor-mapper.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      slpd-lite.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-ipmi-fru.inc: bump version
-      phosphor-logging.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-webui.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-webui.bb: bump version
-      phosphor-state-manager.bb: bump version
-      bmcweb.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-dbus-monitor.bb: bump version
-
-Andrew Jeffery (7):
-      phosphor: u-boot: Switch sides on failure to boot
-      kernel: Add phosphor-wdt-on-panic KERNEL_FEATURE
-      witherspoon: Enable phosphor-wdt-on-panic KERNEL_FEATURE
-      phosphor: systemd: Cleanup unused patches
-      phosphor-ipmi-host: Move configuration to phosphor-ipmi-config
-      obmc-mgr-system: Fix 'Phoshpor' typo in service file
-      Add MAINTAINERS file
-
-Benjamin Fair (1):
-      obmc-phosphor-fand.bb: inherit pkgconfig
-
-Brad Bishop (45):
-      aspeed: move MTD partition rules
-      gpio-monitor: Favor ALLOW_EMPTY
-      cereal: Favor ALLOW_EMPTY
-      image_types_phosphor: Add UBOOT_SUFFIX default
-      phosphor-fan: Favor ALLOW_EMPTY
-      state-manager: Favor ALLOW_EMPTY
-      fw-utils:  Apply Aspeed patches
-      debug-collector: Favor ALLOW_EMPTY
-      software-manager: Favor ALLOW_EMPTY
-      leds: Favor ALLOW_EMPTY
-      cereal: set PV
-      aspeed: cleanup u-boot-fw-utils config
-      Use BB collections for Aspeed tree patches
-      aspeed: Rename u-boot recipes
-      Revert "Adding patch to remove GNOME compiler warning(deprecated)"
-      Rename and move kernel recipe
-      aspeed: Move remaining config to common base layer
-      aspeed: Move README.md to common base layer
-      machines: Drop ast2400/ast2500 layers
-      aspeed: Remove SOC specific layers
-      aspeed: remove common directory
-      obmc-bsp-common.inc: Remove a number of vars
-      phosphor-time-manager: Rename recipe
-      obmc-console: Rename recipe
-      Drop phosphor-rocket
-      Revert "Add workaround to avoid disabling serial console"
-      Fix dbus.Byte JSON encoding
-      Revert "python-dbus dbus.Byte.__str__ produces broken utf8"
-      bottle: pull in vanilla python email modules
-      python: Drop unused python-email-utils package
-      Remove use of mapper call
-      systemd: Use systemd_unitdir
-      witherspoon: Move systemd to recipes-core
-      witherspoon: Use systemd_unitdir
-      flash: Move image manager tmpfile config
-      drop latencytop
-      Remove udev-hwdb differently for sumo
-      Add meta-aspeed subtree maintainers file
-      Add meta-openpower subtree maintainers file
-      Add meta-phosphor subtree maintainers file
-      remove oe-init-build-memres
-      Yocto 2.5
-      zaius: Rename u-boot bbappend to u-boot-aspeed
-      phosphor: Set LAYERSERIES_COMPAT
-      aspeed: Set LAYERSERIES_COMPAT
-
-Brendan Higgins (1):
-      npcm750-evb: added support for npcm750-evb
-
-Brian Yang (3):
-      Add meta-inventec and meta-lanyang
-      meta-lanyang: Mirror host console to UART1
-      meta-phosphor: Add Mailbox Daemon
-
-Chris Austen (2):
-      Enable use of meta-webserver layer
-      Move phosphor-gevent to http and enable nginx on 443
-
-Ed Tanous (1):
-      Update bmcweb to latest
-
-Eddie James (2):
-      U-Boot mirroring: remove check_is_alt()
-      Add CONFIG_WATCHDOG_SYSFS to kernel config
-
-Gunnar Mills (1):
-      Spelling fixes
-
-Ivan Mikhaylov (1):
-      add kernel-uimage class for fsp2
-
-James Feist (1):
-      Remove bt from intel images
-
-Jeremy Kerr (4):
-      openpower/witherspoon: add fbterm package for UART rendering
-      openpower/witherspoon: add a monospace-only liberation font =
-package
-      openpower/witherspoon: add uart-render-controller package
-      openpower/witherspoon: configure video-related packages into build
-
-Joel Stanley (31):
-      kernel: Add Nuvoton NPCM (Poleg), ncsi and romulus fixes
-      kernel: DRM update, ASPEED misc registers, AST2500 clk fix
-      kernel: Add ASPEED AST2500 DRM driver
-      kernel: Add Neptune and Lanyang, clk and OCC bug fixes, GFX for =
-Romulus
-      meta-phosphor: Add host UART over VGA packages
-      witherspoon: Remove machine specific host UART over VGA packages
-      romulus: Enable host UART VGA output
-      kenrel: OCC fixes and rng dts fix
-      kernel: Add SIO registers fix
-      meta-openpower: Add hb_settings tool
-      meta-openpower: Add hostboot-boot-settings unit
-      meta-openpower: Add hostboot-settings packaging
-      openbmc-machines: Enable hostboot-settings for all machines
-      kernel: GPIO and soft FSI stability and speed improvements
-      kernel: Poleg pinctrl, clk fixes, KCS driver, pmbus fix
-      kernel: FSI improvements, hwrng fix
-      skiboot: Remove PREFIX patch
-      skiboot: bump to v6.0.4
-      meta-openbmc-machines: Remove Garrison from tree
-      meta-openbmc-machines: Remove Firestone from tree
-      openbmc-machines: Remove unncessary CONFIG_HWMON
-      pdbg: bump version
-      kernel: Move to 4.17
-      linux: Merge 4.17.2 stable release
-      kernel: GPIO features, device tree fixes, quieten NCSI
-      kernel: Move to 4.17.3, aspeed clk fix
-      aspeed: Add cf-fsi firmware
-      openpower: Remove fsi-bind service
-      kernel: FSI, ASPEED SPI NOR, ASPEED GFX
-      kernel: SBE, ASPEED USB VHUB, ASPEED clk, GPIO
-      kernel: 4.17.4 stable release
-
-Lei YU (10):
-      meta-romulus: Add id-button.bb
-      phosphor-gpio-monitor: Add EXTRA_ARGS in service
-      Add RDEPENDS to mtd-utils-ubifs in phosphor-software-manager
-      meta-romulus: Add ipmi-fru-read-inventory config
-      op-start-host: Fix reboot for P8
-      nginx.conf: increase client_max_body_size
-      meta-romulus: Add webui recipe
-      linux-aspeed: Add loop device support in defconfig
-      meta-romulus: Add callouts yaml config
-      meta-romulus: Add ipmi inventory sel config
-
-Matt Spinler (24):
-      Add the IBM log manager recipe and service
-      Install the Witherspoon error policy table
-      Add optional do_report task for ibm-logging
-      Witherspoon: Change hwmon GPU power labels
-      wspoon: Make cooling-type service a oneshot
-      wspoon: Script to help start MAX31785 hwmon daemon
-      wspoon: Add service to help start MAX31785 hwmon
-      wspoon: Start hwmon differently for the MAX31785
-      wspoon: Add critical thresholds for fan speeds
-      wspoon: Fixup watchdog monitor config on fan apps
-      wspoon: Find OCC power labels using function IDs
-      openpower: Read the BMC VPD from the OPFR record
-      Witherspoon v1.7.1 RAS policy table
-      wspoon: Copy in the MAX31785 hwmon config file
-      wspoon: Rename GPU power sensors in IPMI YAML
-      wspoon: Remove GPU power sensors
-      wspoon: Retry on VRM bind fails
-      wspoon: Change ir35221-on-bind.service dependency
-      wspoon: Improve fan error resolving rules
-      Remove the meta-stonewither layer
-      Fix openpower-ipmi-oem error yaml installation
-      openpower: Fix typo in enable-clearvolatile
-      Fix typos in some targets
-      Fix dependency in fsi-enable.service
-
-Matthew Barth (5):
-      wspoon: Enable use of InterfacesRemoved
-      wspoon: Handle faulted OCC temp sensors
-      wspoon: Only create/monitor fan1 on air cooled
-      wspoon: Move faulted OCC sensor events
-      wspoon: Revert increase fan fail shutdown delay
-
-Michael Tritz (1):
-      Clear volatile PNOR partitions when required
-
-Nagaraju Goruganti (3):
-      Providing infra for FRUs which are accessible through host but =
-host is not sending the details for those FRUs
-      witherspoon: Add support for GPU FRUS
-      Add witherspoon specific channel.yaml
-
-Patrick Venture (2):
-      recipes-phosphor: host: phosphor-host-postd recipe
-      meta-x86: quanta--q71l: drop ipmi-fru-properties
-
-Ratan Gupta (2):
-      Avahi: Don't start the avahi-daemon if dot local domain is there
-      Revert "Avahi: Don't start the avahi-daemon if dot local domain is =
-there"
-
-Tom Joseph (2):
-      Add cipher list json to the Witherspoon image
-      Add the default cipher list for all platforms
-
-Tomer Maimon (1):
-      Add Nuvoton NPCM7XX BSP support
-
-William A. Kennington III (5):
-      phosphor-dbus-interfaces.bb + phosphor-watchdog.bb: Bump versions
-      phosphor-watchdog: Continue after performing action
-      sdbusplus: Bump version
-      kernel: specify dependencies for compilation for config tasks
-      phosphor-mapper: oneshots should restart on failure
-
-Yong Li (1):
-      Linux-aspeed: Restore kernel crypto related items needed by =
-systemd
-
-causten (1):
-      Add Nginx as a external facing reverse proxy
+--_000_41CF800057984EB4BACAC072BFA00F9Dfbcom_--
