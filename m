@@ -1,61 +1,74 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::543; helo=mail-pg1-x543.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="XADTsFqr"; 
- dkim-atps=neutral
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41R5Mv4qGyzF35b
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 16:18:03 +1000 (AEST)
-Received: by mail-pg1-x543.google.com with SMTP id k3-v6so3595406pgq.5
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 23:18:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=Lp5TUje1SqkMOyy+p4CN5UzbsyiWB34SA8VlrETgQzY=;
- b=XADTsFqrVbaFNjA9MwwlMWqrVdlH2SFRjYLWg0MmOgCz5TCehyhzzV7Pq5niOrCYJT
- SJdimVqZzJtS/IL8vAK+9FVOjO2mafc6+DRb4YZhqvu3cuQgviChRbq5qJkUCkSkzpad
- g8gyNTEHfx1JEpKjByj7yk/jgyYL5JMNQzsg/NGKRA3jPowWd0LFsmD25+cehrvbE4df
- ytT0CHzpCeTgiNuGi3sOoSoTil7Lg99k+2MQH+6d4rp0eP93R0LxbNZwKBidl/RTDCqk
- jF6S4UmdN+daajg2s9eJR+HRQfvOjLwWcD+nlpetiDoda1NZmUg0ND7J2TXuk5p1NP9X
- uVcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=Lp5TUje1SqkMOyy+p4CN5UzbsyiWB34SA8VlrETgQzY=;
- b=j3uB2b9gQBRKQnh/iE8APSgezvKJyHG6WiUabsOS14K1z/qKgtD46vpP51t815TS+x
- 7bfI1lvET/KdmeOJqY9Q1lQQsEAhfPlumHcFmeGgXdmlbr05FOG6nQ+sS2JxEpO5dQss
- +GASOdjGjOmHkF6mIhtRi2IAxdKeUxqYLDBg0QnXtdelWMjirAgreiJNfuovvf9VUydY
- sr5tk7Zd8j428XH76R267gQ9d3rH1d9qjXqt2os9degF4FSAiuO8Lk2V/+pQ/WRXNkto
- 1z+kn1QDWWfN5V36gIGRvy2Ao7yDxGgKT072tR6lqrwZEWXi7uaIqJQNdKcm4q8Th9BZ
- RxwQ==
-X-Gm-Message-State: AOUpUlGW5ZUxEebB3YhjuWiV4yHf18KdFpNFrfkOCB1anXcndrcqP9zu
- PaDCeRo9qj7q89gw3PgjnPwr7IJC
-X-Google-Smtp-Source: AAOMgpdlnKtESiXPuHnVflODi4wSiz+E5gjQ62pu5bnvHkUbYnvT0pjpzWu2ieD+xWB7WFsVeI1ohg==
-X-Received: by 2002:a63:ab4c:: with SMTP id
- k12-v6mr878544pgp.386.1531376280676; 
- Wed, 11 Jul 2018 23:18:00 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id v82-v6sm31690960pfd.64.2018.07.11.23.17.57
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 11 Jul 2018 23:18:00 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 12 Jul 2018 15:47:53 +0930
-From: Joel Stanley <joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41R5P749R5zF35b
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 16:19:07 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6C6J29S037888
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 02:19:04 -0400
+Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2k5w6jhbdv-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 02:19:04 -0400
+Received: from localhost
+ by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Thu, 12 Jul 2018 07:18:59 +0100
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 12 Jul 2018 07:18:58 +0100
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w6C6IvQ928573718
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 06:18:57 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C55FEA405F
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 09:19:18 +0100 (BST)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 70201A4057
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 09:19:18 +0100 (BST)
+Received: from [9.202.13.177] (unknown [9.202.13.177])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 09:19:18 +0100 (BST)
+Subject: Re: IPMI user account with LDAP/Active Directory
 To: openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-4.17] ARM: dts: aspeed-g4: Expose SuperIO scratch
- registers
-Date: Thu, 12 Jul 2018 15:47:42 +0930
-Message-Id: <20180712061742.10283-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.17.1
+References: <dd593784-d650-0393-0e44-3f6a5bcbdfec@linux.vnet.ibm.com>
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Date: Thu, 12 Jul 2018 11:48:56 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.0
+MIME-Version: 1.0
+In-Reply-To: <dd593784-d650-0393-0e44-3f6a5bcbdfec@linux.vnet.ibm.com>
+Content-Type: multipart/alternative;
+ boundary="------------0D5325A3226B389719F1B411"
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18071206-0020-0000-0000-000002A5A0F9
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18071206-0021-0000-0000-000020F1EB46
+Message-Id: <b50089f7-52be-fff7-7c53-9e11dc7c5baa@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-12_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807120066
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -67,114 +80,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jul 2018 06:18:04 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 06:19:08 -0000
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-g4.dtsi | 87 ++++++++++++++++++++++++++++++++
- 1 file changed, 87 insertions(+)
+This is a multi-part message in MIME format.
+--------------0D5325A3226B389719F1B411
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index e86fa80712e5..6af12872ee74 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -316,6 +316,10 @@
- 						interrupts = <8>;
- 					};
- 
-+					sio_regs: regs {
-+						compatible = "aspeed,bmc-misc";
-+					};
-+
- 					mbox: mbox@180 {
- 						compatible = "aspeed,ast2400-mbox";
- 						reg = <0x180 0x5c>;
-@@ -1366,3 +1370,86 @@
- 		groups = "WDTRST2";
- 	};
- };
-+
-+&sio_regs {
-+	sio_2b {
-+		offset = <0xf0>;
-+		bit-mask = <0xff>;
-+		bit-shift = <24>;
-+	};
-+	sio_2a {
-+		offset = <0xf0>;
-+		bit-mask = <0xff>;
-+		bit-shift = <16>;
-+	};
-+	sio_29 {
-+		offset = <0xf0>;
-+		bit-mask = <0xff>;
-+		bit-shift = <8>;
-+	};
-+	sio_28 {
-+		offset = <0xf0>;
-+		bit-mask = <0xff>;
-+		bit-shift = <0>;
-+	};
-+	sio_2f {
-+		offset = <0xf4>;
-+		bit-mask = <0xff>;
-+		bit-shift = <24>;
-+	};
-+	sio_2e {
-+		offset = <0xf4>;
-+		bit-mask = <0xff>;
-+		bit-shift = <16>;
-+	};
-+	sio_2d {
-+		offset = <0xf4>;
-+		bit-mask = <0xff>;
-+		bit-shift = <8>;
-+	};
-+	sio_2c {
-+		offset = <0xf4>;
-+		bit-mask = <0xff>;
-+		bit-shift = <0>;
-+	};
-+	sio_23 {
-+		offset = <0xf8>;
-+		bit-mask = <0xff>;
-+		bit-shift = <24>;
-+	};
-+	sio_22 {
-+		offset = <0xf8>;
-+		bit-mask = <0xff>;
-+		bit-shift = <16>;
-+	};
-+	sio_21 {
-+		offset = <0xf8>;
-+		bit-mask = <0xff>;
-+		bit-shift = <8>;
-+	};
-+	sio_20 {
-+		offset = <0xf8>;
-+		bit-mask = <0xff>;
-+		bit-shift = <0>;
-+	};
-+	sio_27 {
-+		offset = <0xfc>;
-+		bit-mask = <0xff>;
-+		bit-shift = <24>;
-+	};
-+	sio_26 {
-+		offset = <0xfc>;
-+		bit-mask = <0xff>;
-+		bit-shift = <16>;
-+	};
-+	sio_25 {
-+		offset = <0xfc>;
-+		bit-mask = <0xff>;
-+		bit-shift = <8>;
-+	};
-+	sio_24 {
-+		offset = <0xfc>;
-+		bit-mask = <0xff>;
-+		bit-shift = <0>;
-+	};
-+};
--- 
-2.17.1
+Hi Tom.
+
+ > As IPMI requires clear text password my understanding is that LDAP/AD 
+is not suitable for IPMI user account management.
+Is the purpose of LDAP/AD to support authentication from UI along with 
+IPMI user accounts on the BMC?
+Also LDAP/AD cannot be used for IPMI session setup as passwords are 
+stored as one-way hash and cannot be retrieved.
+
+Seems ldap gets the way through which we can access the password.
+
+e.g.
+
+|sudo ldapsearch -H ldapi:// -LLL -Q -Y EXTERNAL -b "cn=config" 
+"(olcRootDN=*)" dn olcRootDN olcRootPW Regards Ratan Gupta |
+
+
+
+On Tuesday 10 July 2018 12:44 AM, Tom Joseph wrote:
+> Hello,
+>
+> I came across the user guide of MegaRAC, SuperMicro etc mentioning 
+> about the LDAP/Active directory settings.
+> (Example: 
+> https://argonsys.com/learn-microsoft-cloud/articles/supermicro-ipmi-active-directory-integration/)
+>
+> As IPMI requires clear text password my understanding is that LDAP/AD 
+> is not suitable for IPMI user account management.
+> Is the purpose of LDAP/AD to support authentication from UI along with 
+> IPMI user accounts on the BMC?
+> Also LDAP/AD cannot be used for IPMI session setup as passwords are 
+> stored as one-way hash and cannot be retrieved.
+>
+> Any thoughts?
+>
+> Regards,
+> Tom
+>
+
+
+--------------0D5325A3226B389719F1B411
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi Tom.</p>
+    <p>&gt; As IPMI requires clear text password my understanding is
+      that LDAP/AD is not suitable for IPMI user account management.
+      <br>
+      Is the purpose of LDAP/AD to support authentication from UI along
+      with IPMI user accounts on the BMC?
+      <br>
+      Also LDAP/AD cannot be used for IPMI session setup as passwords
+      are stored as one-way hash and cannot be retrieved. <br>
+    </p>
+    <p>Seems ldap gets the way through which we can access the password.</p>
+    <p>e.g.</p>
+    <pre class="code-pre command"><code>sudo ldapsearch -H ldapi:// -LLL -Q -Y EXTERNAL -b "cn=config" "(olcRootDN=*)" dn olcRootDN olcRootPW
+
+Regards
+Ratan Gupta 
+</code></pre>
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On Tuesday 10 July 2018 12:44 AM, Tom
+      Joseph wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:dd593784-d650-0393-0e44-3f6a5bcbdfec@linux.vnet.ibm.com">Hello,
+      <br>
+      <br>
+      I came across the user guide of MegaRAC, SuperMicro etc mentioning
+      about the LDAP/Active directory settings.
+      <br>
+      (Example:
+<a class="moz-txt-link-freetext" href="https://argonsys.com/learn-microsoft-cloud/articles/supermicro-ipmi-active-directory-integration/">https://argonsys.com/learn-microsoft-cloud/articles/supermicro-ipmi-active-directory-integration/</a>)<br>
+      <br>
+      As IPMI requires clear text password my understanding is that
+      LDAP/AD is not suitable for IPMI user account management.
+      <br>
+      Is the purpose of LDAP/AD to support authentication from UI along
+      with IPMI user accounts on the BMC?
+      <br>
+      Also LDAP/AD cannot be used for IPMI session setup as passwords
+      are stored as one-way hash and cannot be retrieved.
+      <br>
+      <br>
+      Any thoughts?
+      <br>
+      <br>
+      Regards,
+      <br>
+      Tom
+      <br>
+      <br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------0D5325A3226B389719F1B411--
