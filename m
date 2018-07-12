@@ -1,79 +1,59 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::229; helo=mail-qt0-x229.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="PnK+59YH"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x229.google.com (mail-qt0-x229.google.com
+ [IPv6:2607:f8b0:400d:c0d::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Qs2R68KwzF35R
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 07:02:07 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w6BL1mGq059776
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 17:02:06 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2k5sex00sc-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 17:02:05 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 11 Jul 2018 15:02:05 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 11 Jul 2018 15:02:00 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w6BL1x8Y20185472
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 11 Jul 2018 14:01:59 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C63026E05D;
- Wed, 11 Jul 2018 15:01:59 -0600 (MDT)
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E48F06E050;
- Wed, 11 Jul 2018 15:01:58 -0600 (MDT)
-Received: from talon7.ibm.com (unknown [9.41.102.69])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Jul 2018 15:01:58 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org, gregkh@linuxfoundation.org,
- benh@kernel.crashing.org, linux@roeck-us.net, jdelvare@suse.com,
- mark.rutland@arm.com, openbmc@lists.ozlabs.org, robh+dt@kernel.org,
- joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH v4 9/9] hwmon (occ): Add sysfs attributes for additional OCC
- data
-Date: Wed, 11 Jul 2018 16:01:38 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1531342898-15790-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1531342898-15790-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 18071121-0036-0000-0000-00000A0DD7E3
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009352; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01059946; UDB=6.00544035; IPR=6.00837866; 
- MB=3.00022107; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-11 21:02:04
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18071121-0037-0000-0000-0000481101D8
-Message-Id: <1531342898-15790-10-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-07-11_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1806210000 definitions=main-1807110221
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Qx6Z6HNBzF35Y
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 10:05:58 +1000 (AEST)
+Received: by mail-qt0-x229.google.com with SMTP id z8-v6so14184150qto.9
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jul 2018 17:05:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
+ bh=D+9mK8qcfReP27RpCaS2t3t45Y5VeztV/QXwuOadVAc=;
+ b=PnK+59YHTDArj1T8yY8ebHf3yZIXMVfO7TYYQZ8uuOPu9Yd0qZGCqAWKMxc0A6PSNP
+ 1mGe7fMvXaeVKHvfVGy33a7TNl9K1iH40BCSOXSxpu4mEhZSqR7QldeoNbNnps1YGyds
+ qdw3Tstj/2dRQ5fBXdNB/3OaXTojL3NAHMhWExLz8vSAYQHfv9Nq6eupkV1F0SMx83Hh
+ qzt5KckdEwFQEgxE79u3NJx9JcoZlvbdNuOvUQ/if7idUsKLmsXzJ6tdmPtNh3SyLW0H
+ FBqs4UaLvVokoOtlZ4PYfWzGTjE05b7pUpOYt4f0rJHvwSgsMgnBBbT4HK98JJXJyqTc
+ pndA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to;
+ bh=D+9mK8qcfReP27RpCaS2t3t45Y5VeztV/QXwuOadVAc=;
+ b=oHxbYOD0TNGrPM8oaEhYL3lT30pEhXHG7QjEeB842uTKCbCdVJRrrCDOEkr9TbAgLk
+ xzoAxmTM7yOOdkyvXDy2qycvYY7Kvzrz0fz3goJF5JOlGVtHTuyZCWHh3D48HYPb7S+p
+ vEw9PgjGSSRgC+mlUBSuiGd6CM6T3gMoazQnWJGG7asv9tRBA0O5gQ2Tz/IuNgBUA4FT
+ F2HU+5ryDJPJzzVuKTYiIMg77OhO7D9I908YPlP2UZuzYMBye3DvjgdxLL77F10xxjf3
+ sWZwXDlpUjDEuLCqI2Uzq+iQkUWs3J0c+uqa5p+pGaqAo0wUFGCdK8RSKXgYp90TkvUy
+ aM3A==
+X-Gm-Message-State: AOUpUlHDuGGI9WTPHajRa0/Po4htIlO3wZ7swThAeiSLMuB874BiBsN1
+ PSr9lFR8ZGtW7BPwX625MoAcNiW9EjfTwPCXfdw0OQ==
+X-Google-Smtp-Source: AAOMgpc1oeEf0+h6VJ1DmK79uVdVgudnn9irr/7i8jzGptNsgC1NELWBI/iZTPaiWBWgZr8qHgpBWi37vDnXQGDqrdo=
+X-Received: by 2002:a0c:b3d4:: with SMTP id
+ b20-v6mr824789qvf.141.1531353954842; 
+ Wed, 11 Jul 2018 17:05:54 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP; Wed, 11 Jul 2018 17:05:54
+ -0700 (PDT)
+In-Reply-To: <ab6d15cb-f965-3211-fbaa-6a734bf6eb70@linux.vnet.ibm.com>
+References: <CAG9c7cAqGU5gBkjOG7=Q+bdNDqqd3ALFi+GZwgWpGPN6YHn4dA@mail.gmail.com>
+ <ab6d15cb-f965-3211-fbaa-6a734bf6eb70@linux.vnet.ibm.com>
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Thu, 12 Jul 2018 08:05:54 +0800
+Message-ID: <CAG9c7cARHXbG2tByEjOONxmhy+wqsTLs-PuYk08qn-aFRN1fdw@mail.gmail.com>
+Subject: Re: IPMI and Redfish support in openbmc Linux
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="00000000000080fae90570c2204d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -85,383 +65,194 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jul 2018 21:02:08 -0000
+X-List-Received-Date: Thu, 12 Jul 2018 00:06:00 -0000
 
-The OCC provides a variety of additional information about the state of
-the host processor, such as throttling, error conditions, and the number
-of OCCs detected in the system. This information is essential to service
-processor applications such as fan control and host management.
-Therefore, export this data in the form of sysfs attributes attached to
-the platform device (to which the hwmon device is also attached).
+--00000000000080fae90570c2204d
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
----
- drivers/hwmon/occ/Makefile |   2 +-
- drivers/hwmon/occ/common.c |  45 ++++++++++-
- drivers/hwmon/occ/common.h |  17 ++++
- drivers/hwmon/occ/p8_i2c.c |  10 +++
- drivers/hwmon/occ/p9_sbe.c |   1 +
- drivers/hwmon/occ/sysfs.c  | 188 +++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 259 insertions(+), 4 deletions(-)
- create mode 100644 drivers/hwmon/occ/sysfs.c
+Thank your support.
 
-diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
-index ab5c3e9..46a8636 100644
---- a/drivers/hwmon/occ/Makefile
-+++ b/drivers/hwmon/occ/Makefile
-@@ -1,4 +1,4 @@
--occ-hwmon-objs := common.o
-+occ-hwmon-objs := common.o sysfs.o
- 
- ifeq ($(CONFIG_SENSORS_OCC_P9_SBE), y)
- occ-hwmon-objs += p9_sbe.o
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index da55919..7bc52af 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -21,6 +21,11 @@
- 
- #include "common.h"
- 
-+#define OCC_ERROR_COUNT_THRESHOLD	2	/* required by OCC spec */
-+
-+#define OCC_STATE_SAFE			4
-+#define OCC_SAFE_TIMEOUT		msecs_to_jiffies(60000) /* 1 min */
-+
- #define OCC_UPDATE_FREQUENCY		msecs_to_jiffies(1000)
- 
- #define OCC_TEMP_SENSOR_FAULT		0xFF
-@@ -128,8 +133,10 @@ struct extended_sensor {
- 
- static int occ_poll(struct occ *occ)
- {
-+	int rc;
- 	u16 checksum = occ->poll_cmd_data + 1;
- 	u8 cmd[8];
-+	struct occ_poll_response_header *header;
- 
- 	/* big endian */
- 	cmd[0] = 0;			/* sequence number */
-@@ -142,7 +149,35 @@ static int occ_poll(struct occ *occ)
- 	cmd[7] = 0;
- 
- 	/* mutex should already be locked if necessary */
--	return occ->send_cmd(occ, cmd);
-+	rc = occ->send_cmd(occ, cmd);
-+	if (rc) {
-+		if (occ->error_count++ > OCC_ERROR_COUNT_THRESHOLD)
-+			occ->error = rc;
-+
-+		goto done;
-+	}
-+
-+	/* clear error since communication was successful */
-+	occ->error_count = 0;
-+	occ->error = 0;
-+
-+	/* check for safe state */
-+	header = (struct occ_poll_response_header *)occ->resp.data;
-+	if (header->occ_state == OCC_STATE_SAFE) {
-+		if (occ->last_safe) {
-+			if (time_after(jiffies,
-+				       occ->last_safe + OCC_SAFE_TIMEOUT))
-+				occ->error = -EHOSTDOWN;
-+		} else {
-+			occ->last_safe = jiffies;
-+		}
-+	} else {
-+		occ->last_safe = 0;
-+	}
-+
-+done:
-+	occ_sysfs_poll_done(occ);
-+	return rc;
- }
- 
- static int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
-@@ -174,7 +209,7 @@ static int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
- 	return rc;
- }
- 
--static int occ_update_response(struct occ *occ)
-+int occ_update_response(struct occ *occ)
- {
- 	int rc = mutex_lock_interruptible(&occ->lock);
- 
-@@ -1207,5 +1242,9 @@ int occ_setup(struct occ *occ, const char *name)
- 		return rc;
- 	}
- 
--	return 0;
-+	rc = occ_setup_sysfs(occ);
-+	if (rc)
-+		dev_err(occ->bus_dev, "failed to setup sysfs: %d\n", rc);
-+
-+	return rc;
- }
-diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-index 2c1c06e..7bacbb6 100644
---- a/drivers/hwmon/occ/common.h
-+++ b/drivers/hwmon/occ/common.h
-@@ -112,8 +112,25 @@ struct occ {
- 	struct occ_attribute *attrs;
- 	struct attribute_group group;
- 	const struct attribute_group *groups[2];
-+
-+	int error;                      /* latest transfer error */
-+	unsigned int error_count;       /* number of xfr errors observed */
-+	unsigned long last_safe;        /* time OCC entered "safe" state */
-+
-+	/*
-+	 * Store the previous state data for comparison in order to notify
-+	 * sysfs readers of state changes.
-+	 */
-+	int prev_error;
-+	u8 prev_stat;
-+	u8 prev_ext_stat;
-+	u8 prev_occs_present;
- };
- 
- int occ_setup(struct occ *occ, const char *name);
-+int occ_setup_sysfs(struct occ *occ);
-+void occ_shutdown(struct occ *occ);
-+void occ_sysfs_poll_done(struct occ *occ);
-+int occ_update_response(struct occ *occ);
- 
- #endif /* OCC_COMMON_H */
-diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-index 9a920db..63f3db8 100644
---- a/drivers/hwmon/occ/p8_i2c.c
-+++ b/drivers/hwmon/occ/p8_i2c.c
-@@ -232,6 +232,15 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
- 	return occ_setup(occ, "p8_occ");
- }
- 
-+static int p8_i2c_occ_remove(struct i2c_client *client)
-+{
-+	struct occ *occ = dev_get_drvdata(&client->dev);
-+
-+	occ_shutdown(occ);
-+
-+	return 0;
-+}
-+
- static const struct of_device_id p8_i2c_occ_of_match[] = {
- 	{ .compatible = "ibm,p8-occ-hwmon" },
- 	{}
-@@ -245,6 +254,7 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
- 		.of_match_table = p8_i2c_occ_of_match,
- 	},
- 	.probe = p8_i2c_occ_probe,
-+	.remove = p8_i2c_occ_remove,
- };
- 
- module_i2c_driver(p8_i2c_occ_driver);
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index fb32788..e379b05 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -95,6 +95,7 @@ static int p9_sbe_occ_remove(struct platform_device *pdev)
- 	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
- 
- 	ctx->sbe = NULL;
-+	occ_shutdown(occ);
- 
- 	return 0;
- }
-diff --git a/drivers/hwmon/occ/sysfs.c b/drivers/hwmon/occ/sysfs.c
-new file mode 100644
-index 0000000..743b26ec
---- /dev/null
-+++ b/drivers/hwmon/occ/sysfs.c
-@@ -0,0 +1,188 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * OCC hwmon driver sysfs interface
-+ *
-+ * Copyright (C) IBM Corporation 2018
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/device.h>
-+#include <linux/hwmon-sysfs.h>
-+#include <linux/kernel.h>
-+#include <linux/sysfs.h>
-+
-+#include "common.h"
-+
-+/* OCC status register */
-+#define OCC_STAT_MASTER			BIT(7)
-+#define OCC_STAT_ACTIVE			BIT(0)
-+
-+/* OCC extended status register */
-+#define OCC_EXT_STAT_DVFS_OT		BIT(7)
-+#define OCC_EXT_STAT_DVFS_POWER		BIT(6)
-+#define OCC_EXT_STAT_MEM_THROTTLE	BIT(5)
-+#define OCC_EXT_STAT_QUICK_DROP		BIT(4)
-+
-+static ssize_t occ_sysfs_show(struct device *dev,
-+			      struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	int val = 0;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_poll_response_header *header;
-+	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	header = (struct occ_poll_response_header *)occ->resp.data;
-+
-+	switch (sattr->index) {
-+	case 0:
-+		val = !!(header->status & OCC_STAT_MASTER);
-+		break;
-+	case 1:
-+		val = !!(header->status & OCC_STAT_ACTIVE);
-+		break;
-+	case 2:
-+		val = !!(header->status & OCC_EXT_STAT_DVFS_OT);
-+		break;
-+	case 3:
-+		val = !!(header->status & OCC_EXT_STAT_DVFS_POWER);
-+		break;
-+	case 4:
-+		val = !!(header->status & OCC_EXT_STAT_MEM_THROTTLE);
-+		break;
-+	case 5:
-+		val = !!(header->status & OCC_EXT_STAT_QUICK_DROP);
-+		break;
-+	case 6:
-+		val = header->occ_state;
-+		break;
-+	case 7:
-+		if (header->status & OCC_STAT_MASTER)
-+			val = hweight8(header->occs_present);
-+		else
-+			val = 1;
-+		break;
-+	case 8:
-+		val = occ->error;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static SENSOR_DEVICE_ATTR(occ_master, 0444, occ_sysfs_show, NULL, 0);
-+static SENSOR_DEVICE_ATTR(occ_active, 0444, occ_sysfs_show, NULL, 1);
-+static SENSOR_DEVICE_ATTR(occ_dvfs_overtemp, 0444, occ_sysfs_show, NULL, 2);
-+static SENSOR_DEVICE_ATTR(occ_dvfs_power, 0444, occ_sysfs_show, NULL, 3);
-+static SENSOR_DEVICE_ATTR(occ_mem_throttle, 0444, occ_sysfs_show, NULL, 4);
-+static SENSOR_DEVICE_ATTR(occ_quick_pwr_drop, 0444, occ_sysfs_show, NULL, 5);
-+static SENSOR_DEVICE_ATTR(occ_state, 0444, occ_sysfs_show, NULL, 6);
-+static SENSOR_DEVICE_ATTR(occs_present, 0444, occ_sysfs_show, NULL, 7);
-+static SENSOR_DEVICE_ATTR(occ_error, 0444, occ_sysfs_show, NULL, 8);
-+
-+static struct attribute *occ_attributes[] = {
-+	&sensor_dev_attr_occ_master.dev_attr.attr,
-+	&sensor_dev_attr_occ_active.dev_attr.attr,
-+	&sensor_dev_attr_occ_dvfs_overtemp.dev_attr.attr,
-+	&sensor_dev_attr_occ_dvfs_power.dev_attr.attr,
-+	&sensor_dev_attr_occ_mem_throttle.dev_attr.attr,
-+	&sensor_dev_attr_occ_quick_pwr_drop.dev_attr.attr,
-+	&sensor_dev_attr_occ_state.dev_attr.attr,
-+	&sensor_dev_attr_occs_present.dev_attr.attr,
-+	&sensor_dev_attr_occ_error.dev_attr.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group occ_sysfs = {
-+	.attrs = occ_attributes,
-+};
-+
-+void occ_sysfs_poll_done(struct occ *occ)
-+{
-+	const char *name;
-+	struct occ_poll_response_header *header =
-+		(struct occ_poll_response_header *)occ->resp.data;
-+
-+	/*
-+	 * On the first poll response, we haven't yet created the sysfs
-+	 * attributes, so don't make any notify calls.
-+	 */
-+	if (!occ->hwmon)
-+		goto done;
-+
-+	if ((header->status & OCC_STAT_MASTER) !=
-+	    (occ->prev_stat & OCC_STAT_MASTER)) {
-+		name = sensor_dev_attr_occ_master.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->status & OCC_STAT_ACTIVE) !=
-+	    (occ->prev_stat & OCC_STAT_ACTIVE)) {
-+		name = sensor_dev_attr_occ_active.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_DVFS_OT) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_DVFS_OT)) {
-+		name = sensor_dev_attr_occ_dvfs_overtemp.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_DVFS_POWER) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_DVFS_POWER)) {
-+		name = sensor_dev_attr_occ_dvfs_power.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_MEM_THROTTLE) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_MEM_THROTTLE)) {
-+		name = sensor_dev_attr_occ_mem_throttle.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_QUICK_DROP) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_QUICK_DROP)) {
-+		name = sensor_dev_attr_occ_quick_pwr_drop.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->status & OCC_STAT_MASTER) &&
-+	    header->occs_present != occ->prev_occs_present) {
-+		name = sensor_dev_attr_occs_present.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if (occ->error && occ->error != occ->prev_error) {
-+		name = sensor_dev_attr_occ_error.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	/* no notifications for OCC state; doesn't indicate error condition */
-+
-+done:
-+	occ->prev_error = occ->error;
-+	occ->prev_stat = header->status;
-+	occ->prev_ext_stat = header->ext_status;
-+	occ->prev_occs_present = header->occs_present;
-+}
-+
-+int occ_setup_sysfs(struct occ *occ)
-+{
-+	return sysfs_create_group(&occ->bus_dev->kobj, &occ_sysfs);
-+}
-+
-+void occ_shutdown(struct occ *occ)
-+{
-+	sysfs_remove_group(&occ->bus_dev->kobj, &occ_sysfs);
-+}
--- 
-1.8.3.1
+It did work after I used the default port 18080.
+curl -k https://10.99.241.79:18080/redfish/v1
+
+I had to indicate the account/password if I would like to access other node.
+curl -k https://root:0penBmc@10.99.241.79:18080/redfish/v1/Managers/
+
+Bmcweb will launch under one of two ports. If launched manually, it will
+> launch under port 18080. If launched via systemd, it will use socket
+> activation to launch under port 883 (to avoid conflicting with the existing
+> phosphor-rest server). Another thing to recognize is that there is a debug
+> html interface built into the redfish interface, so the easiest way to test
+> is to use a web browser, and you will get the graphical interface with
+> clickable links. Try pointing a web browser at
+> https://10.99.241.79:18080/redfish/v1 and see if that works. PS, the
+> trailing backslash is unimportant. Bmcweb is designed to strip the trailing
+> backslash for you in either case, so redfish/v1 is the same as redfish/v1/
+> -Ed
+
+
+
+2018-07-10 16:39 GMT+08:00 Ratan Gupta <ratagupt@linux.vnet.ibm.com>:
+
+> Hi Henbin,
+>
+> Can you try "curl -b cjar -k https://<ip>:18080/redfish/v1"?
+>
+> Seems default port is 18080
+>
+> https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L24
+>
+> Regards
+>
+> Ratan Gupta
+>
+>
+>
+> On Tuesday 10 July 2018 10:06 AM, Henbin Chang wrote:
+>
+> H Ed,
+> I built bmcweb into my machine, and check the 'bmcweb' daemon was started
+> up.
+>
+> ps aux | grep bmcweb
+>   919 root       0:00 /usr/bin/bmcweb
+>  8662 root       0:00 grep bmcweb
+>
+> But I couldn't access Redfish API through the below command.
+> curl -b cjar -k https://10.99.241.79/redvish/v1/
+>
+> Could you help provide the suggestion?
+>
+> Thanks.
+> -Henbin.
+>
+> There are several servers that support Redfish, and we have a working
+>> group that meets weekly to talk through technical issues each week, which
+>> you're welcome to attend. The only one checked into the upstream project is
+>> bmcweb. If you need help getting it started, I'm happy to help.
+>> https://github.com/openbmc/bmcweb
+>
+>
+>
+>
+
+--00000000000080fae90570c2204d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thank your support.<div><br></div><div>It did work after I=
+ used the default port 18080.</div><div>curl -k <a href=3D"https://10.99.24=
+1.79:18080/redfish/v1">https://10.99.241.79:18080/redfish/v1</a><br></div><=
+div><br></div><div>I had to indicate the account/password if I would like t=
+o access other node.</div><div>
+
+<span style=3D"font-size:small;background-color:rgb(255,255,255);text-decor=
+ation-style:initial;text-decoration-color:initial;float:none;display:inline=
+">curl -k <a href=3D"https://root:0penBmc@10.99.241.79:18080/redfish/v1/Man=
+agers/">https://root:0penBmc@10.99.241.79:18080/redfish/v1/Managers/</a></s=
+pan><br></div><div><br></div><div>
+
+<blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex" class=3D"gmail_quote">Bmcweb will launch under =
+one of two ports.  If launched manually, it will launch under port 18080.  =
+If launched via systemd, it will use socket activation to launch under port=
+ 883 (to avoid conflicting with the existing phosphor-rest server).
+Another thing to recognize is that there is a debug html interface built in=
+to the redfish interface, so the easiest way to test is to use a web browse=
+r, and you will get the graphical interface with clickable links.  Try poin=
+ting a web browser at <a href=3D"https://10.99.241.79:18080/redfish/v1">htt=
+ps://10.99.241.79:18080/redfish/v1</a> and see if that works.
+PS, the trailing backslash is unimportant.  Bmcweb is designed to strip the=
+ trailing backslash for you in either case, so redfish/v1 is the same as re=
+dfish/v1/
+-Ed</blockquote>
+
+<br></div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">2=
+018-07-10 16:39 GMT+08:00 Ratan Gupta <span dir=3D"ltr">&lt;<a href=3D"mail=
+to:ratagupt@linux.vnet.ibm.com" target=3D"_blank">ratagupt@linux.vnet.ibm.c=
+om</a>&gt;</span>:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
+ 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+ =20
+   =20
+ =20
+  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <p>Hi Henbin,</p>
+    <p>Can you try <span style=3D"color:rgb(69,69,69);font-family:&quot;Ope=
+n Sans&quot;,Arial,Helvetica,sans-serif;font-size:14px;font-style:normal;fo=
+nt-variant-ligatures:normal;font-variant-caps:normal;font-weight:normal;let=
+ter-spacing:normal;text-align:left;text-indent:0px;text-transform:none;whit=
+e-space:normal;word-spacing:0px;background-color:rgb(255,255,255);text-deco=
+ration-style:initial;text-decoration-color:initial;display:inline!important=
+;float:none">&quot;curl -b cjar -k
+        <a class=3D"m_208777804762112596moz-txt-link-freetext">https://</a>=
+&lt;ip&gt;:18080/redfish/v1&quot;<wbr>?</span></p>
+    <p><span>Seems default port is 18080</span></p>
+    <p><span><a class=3D"m_208777804762112596moz-txt-link-freetext" href=3D=
+"https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L24" =
+target=3D"_blank">https://github.com/openbmc/<wbr>bmcweb/blob/master/src/<w=
+br>webserver_main.cpp#L24</a><br>
+      </span></p>
+    <p><span>Regards</span></p><span class=3D"HOEnZb"><font color=3D"#88888=
+8">
+    <p><span>Ratan Gupta<br>
+      </span></p></font></span><div><div class=3D"h5">
+    <p><br>
+    </p>
+    <br>
+    <div class=3D"m_208777804762112596moz-cite-prefix">On Tuesday 10 July 2=
+018 10:06 AM,
+      Henbin Chang wrote:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">H Ed,
+        <div>I built bmcweb into my machine, and check the &#39;bmcweb&#39;
+          daemon was started up.</div>
+        <div><br>
+        </div>
+        <div>
+          <div>ps aux | grep bmcweb</div>
+          <div>=C2=A0 919 root=C2=A0 =C2=A0 =C2=A0 =C2=A00:00 /usr/bin/bmcw=
+eb</div>
+          <div>=C2=A08662 root=C2=A0 =C2=A0 =C2=A0 =C2=A00:00 grep bmcweb</=
+div>
+        </div>
+        <div><br>
+        </div>
+        <div>But I couldn&#39;t access Redfish API through the below
+          command.</div>
+        <div>curl -b cjar -k <a href=3D"https://10.99.241.79/redvish/v1/" t=
+arget=3D"_blank">https://10.99.241.79/redvish/<wbr>v1/</a><br>
+        </div>
+        <div><br>
+        </div>
+        <div>Could you help provide the suggestion?</div>
+        <div><br>
+        </div>
+        <div>Thanks.</div>
+        <div>-Henbin.</div>
+        <div>
+          <div><br>
+          </div>
+          <div>
+            <blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
+olid rgb(204,204,204);padding-left:1ex" class=3D"gmail_quote">There are sev=
+eral servers that support
+              Redfish, and we have a working group that meets weekly to
+              talk through technical issues each week, which you&#39;re
+              welcome to attend. The only one checked into the upstream
+              project is bmcweb. If you need help getting it started,
+              I&#39;m happy to help.<br>
+              <a href=3D"https://github.com/openbmc/bmcweb" target=3D"_blan=
+k">https://github.com/openbmc/<wbr>bmcweb</a></blockquote>
+            <br>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </div></div></div>
+
+</blockquote></div><br></div>
+
+--00000000000080fae90570c2204d--
