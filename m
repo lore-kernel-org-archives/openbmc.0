@@ -1,62 +1,81 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::22f; helo=mail-qt0-x22f.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="iAFBJqC4"; 
- dkim-atps=neutral
-Received: from mail-qt0-x22f.google.com (mail-qt0-x22f.google.com
- [IPv6:2607:f8b0:400d:c0d::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AwZXBVgl"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="CvoQztjB"; dkim-atps=neutral
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41RhNt5m1BzF35t
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 15:35:57 +1000 (AEST)
-Received: by mail-qt0-x22f.google.com with SMTP id d4-v6so10678112qtn.13
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 22:35:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=OfvjHHSfI47m2Nyu5DLHfUfp5OUCH1x4u/4GeyQC35w=;
- b=iAFBJqC4DHSWvbNKht1rvdXmT3eHkT4D0Yf5ENXYGMLLbEF3Q14qk/r5L06vAF3pmu
- N17f3Yv49mas2XgkHbVfD6lg8d6pqkoOaBogz9OY0wiMSnyNCttyHYznFJGTsJceBTmS
- b2q2z2qRNKXPcZPc5wBhKHt9yTbSyfDzMIudJUqrd9IY9QjEGjHrzhIUcygSlDKL6svI
- OZApNzHrxwWDIYdJ7aFQPyu/nK/Eu0ZfJtlHE62m/n85gy6Gcl3A3wjwgsmZXVt+nUSj
- kwKNIsxP0io469GBUuh1XOJrkNNuEKjab4NxoXnGXr4n8PYiRB3z+HQDkAAmYcRnIQZw
- iYSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=OfvjHHSfI47m2Nyu5DLHfUfp5OUCH1x4u/4GeyQC35w=;
- b=HOTMn0MB1WSRr+t7bGgbp/M/J0BuSXSza7+m/xf7U8OorskjnOw8LcHu/0+LCOcXpg
- b/Cu63xfAmJBd3EdL1CSGHHKaITWaiIUFkxExo7QHcWZGMdq2AKMTWgGrilFKZWzTaj3
- yNs678Rmp200PAlpQErVLgikIdPWnyavblP7dZghSydaE51pnWZNunU22D5iYlEH/ILY
- LISA8EJZBpYm4wFOM+NIpf/ZHlfPkjN1Q6+eaykJM6yHGObs13VAOPFd8ErdAQnIapiC
- O9kHp2E71BTytsGrlXzDejH0YhqgDOsM+svG72nbfC/e1G75GHj9QyF0GPozuVdqJjrG
- 6r/w==
-X-Gm-Message-State: AOUpUlFYxwrdtweZ7YjoHzoGM+ctrww+ebyRRtUItyHnosJWfH9u+8TR
- TX2JJXd8D8zNF6zVLJ++T+uby/nmVcRbBvIDlC4=
-X-Google-Smtp-Source: AAOMgpe+8wa/paRkJwGvwhL3hi9znv62H09a4nwDStmU8HhC2Qgpb+RuVnEeeaSPCD6zU46qrAGOnRzACGDU4hQhWV0=
-X-Received: by 2002:ac8:709:: with SMTP id g9-v6mr4565816qth.110.1531460155193; 
- Thu, 12 Jul 2018 22:35:55 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Rjd415P2zF35V
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 16:31:35 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9B2D821AF5;
+ Fri, 13 Jul 2018 02:31:30 -0400 (EDT)
+Received: from web4 ([10.202.2.214])
+ by compute4.internal (MEProxy); Fri, 13 Jul 2018 02:31:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=N7v/yOCQTV4AhtQmPj8jZl0f9B+Ws
+ ZEynpcAqPTwZs4=; b=AwZXBVglEMqTevCtW6w8lkmRJyaDkX8D7mHO4GhxvzWba
+ YQ5AVGfSvBU7KZpUov5h80hNjiXM/D09QZ13HxKAzmGF/sflJ1aoHvkQv2gZ93BL
+ 7Yd+Mw2ZNn0zYy/ZdiRSS4P/+0Do2nSkORSQT/7MQISQiDxe8/CTg4NFXr5rkbC9
+ OSxejbjbWQgAX1gnTvpI0jZD46c0Ey+dQpqwI3kw1CUzEOqhWltOEiL6dowVVvw6
+ jxbOGRxTMle/Pl8GkbrdlnNseQNPQee3E0loWypR/1ZrpplfWnBfOF6FrGjwkl+i
+ nE0bzBLTX6GgScn2Bf8cCg0McvaYsuWxdg4XWZv/Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=N7v/yO
+ CQTV4AhtQmPj8jZl0f9B+WsZEynpcAqPTwZs4=; b=CvoQztjBZl2yq8xqZtXl35
+ NsJZCNQET7JxNtqBxa69JPCQX0grMzNxmn9hMaLe8cBEhz/kM+uK68p5QMAc15L1
+ dsd+XkURcEVXSbXfloJKBcCrEHSNvjgCF98FJ0f0yqFDRyNdLzymIyjE5TGN8XKX
+ iNaD7+c4wER/Ob6z2uC+vHIKtIdYqpNIKEiqR8kHXvI0X+AWLXYKqsg4efPaQ/vF
+ X36kAGjoFUGmeD244EY8w+iF0a3ft07A0FgvSoOMaIkVyvUM0tw0zc2CvZjb1267
+ H0mS5Sv64CetOXnKSar9O1mmOZ8KQjn6jtsYIYT3vfmxXyinH8/orlAGPns+tAXg
+ ==
+X-ME-Proxy: <xmx:QUdIW59oN0btTNT-bkwySASReTMNaVaPCwTt0MDM6hvsI0zlenM11Q>
+ <xmx:QUdIW5m0Ld5zePTb6zKXl1s19ovuOKzBzKj5V6l2iPNBe8yHG1xDcg>
+ <xmx:QUdIWyhC1921tDDUSdMuCTTCh2vJ9p4U1Xvcd5JWZvtjre2D6iT3yA>
+ <xmx:QUdIWxYFatpV-ZuoJ5sBACyW5CEeSNTlfbJBgRG04mALYC6Q_HfS9g>
+ <xmx:QUdIW2GnaX-W44Hak4zBjmAzfo_NDRp6z_MCcpgmcbn_rGWIccyUIg>
+ <xmx:QkdIW5eUpRccDY4c2M-P-HBzMX2K_oFQxYoY8nKFRFV-vynJF0877w>
+X-ME-Sender: <xms:QUdIW5fGUX-CsZxWW4-ZT6Xi5N0XwZefI6PW-zTBINYlKuu69EE64w>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 6F326BA4CF; Fri, 13 Jul 2018 02:31:29 -0400 (EDT)
+Message-Id: <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com,
+ a.amelkin@yadro.com, linux-kernel@vger.kernel.org,
+ Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 MIME-Version: 1.0
-Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP; Thu, 12 Jul 2018 22:35:54
- -0700 (PDT)
-In-Reply-To: <7E9441B1E5EFFD4681F54958E821699345811F51@ORSMSX114.amr.corp.intel.com>
-References: <CAG9c7cAqGU5gBkjOG7=Q+bdNDqqd3ALFi+GZwgWpGPN6YHn4dA@mail.gmail.com>
- <ab6d15cb-f965-3211-fbaa-6a734bf6eb70@linux.vnet.ibm.com>
- <CAG9c7cARHXbG2tByEjOONxmhy+wqsTLs-PuYk08qn-aFRN1fdw@mail.gmail.com>
- <CAG9c7cBVWo=SAS7-_gLbhGwcRxy3Gi=nFQWTMqW0B_YpH1QR9A@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E821699345811F51@ORSMSX114.amr.corp.intel.com>
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Fri, 13 Jul 2018 13:35:54 +0800
-Message-ID: <CAG9c7cBZFSEGaD+Ab3oKoq9_B6f08k6ENEj9eQt5FkOmtc_pEg@mail.gmail.com>
-Subject: Re: IPMI and Redfish support in openbmc Linux
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="00000000000089bd850570dada35"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
+In-Reply-To: <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
+References: <20180711053122.30773-1-andrew@aj.id.au>
+ <20180711053122.30773-2-andrew@aj.id.au>
+ <20180711200450.GB17291@rob-hp-laptop>
+ <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
+ <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
+ <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
+Date: Fri, 13 Jul 2018 16:01:29 +0930
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
+ control fields
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -68,610 +87,245 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jul 2018 05:36:00 -0000
+X-List-Received-Date: Fri, 13 Jul 2018 06:31:42 -0000
 
---00000000000089bd850570dada35
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Rob, Ben,
 
- Understood.
+I've replied to you both inline below, hopefully it's clear enough from the context.
 
-Thanks Ed's response.
+On Fri, 13 Jul 2018, at 10:25, Benjamin Herrenschmidt wrote:
+> On Thu, 2018-07-12 at 09:11 -0600, Rob Herring wrote:
+> > On Wed, Jul 11, 2018 at 6:54 PM Andrew Jeffery <andrew@aj.id.au> wrote:
+> > > 
+> > > Hi Rob,
+> > > 
+> > > Thanks for the response.
+> > > 
+> > > On Thu, 12 Jul 2018, at 05:34, Rob Herring wrote:
+> > > > On Wed, Jul 11, 2018 at 03:01:19PM +0930, Andrew Jeffery wrote:
+> > > > > Baseboard Management Controllers (BMCs) are embedded SoCs that exist to
+> > > > > provide remote management of (primarily) server platforms. BMCs are
+> > > > > often tightly coupled to the platform in terms of behaviour and provide
+> > > > > many hardware features integral to booting and running the host system.
+> > > > > 
+> > > > > Some of these hardware features are simple, for example scratch
+> > > > > registers provided by the BMC that are exposed to both the host and the
+> > > > > BMC. In other cases there's a single bit switch to enable or disable
+> > > > > some of the provided functionality.
+> > > > > 
+> > > > > The documentation defines bindings for fields in registers that do not
+> > > > > integrate well into other driver models yet must be described to allow
+> > > > > the BMC kernel to assume control of these features.
+> > > > 
+> > > > So we'll get a new binding when that happens? That will break
+> > > > compatibility.
+> > > 
+> > > Can you please expand on this? I'm not following.
+> > 
+> > If we have a subsystem in the future, then there would likely be an
+> > associated binding which would be different. So if you update the DT,
+> > then old kernels won't work with it.
+> 
+> What kind of "subsystem" ? There is almost no way there could be one
+> for that sort of BMC tunables. We've look at several BMC chips out
+> there and requirements from several vendors, BIOS and system
+> manufacturers and it's all over the place.
 
-2018-07-13 1:57 GMT+08:00 Tanous, Ed <ed.tanous@intel.com>:
+Right - This is the fundamental principle backing these patches: There will never be a coherent subsystem catering to any of what we want to describe with these bindings.
 
-> There have been quite a few changes to bmcweb in the last month, and some
-> of the dependencies didn=E2=80=99t get synchronized like we expected them=
- to.
->
->
->
-> The good news is that we=E2=80=99ve merged quite a few patches, including=
- a number
-> of new Redfish schemas, as well as the patch that moves bmcweb over to
-> sdbusplus and beast.  Moving forward, we are going to deprecate boost-dbu=
-s,
-> as sdbusplus now has a superset of functionality at this point in time.
-> The error you=E2=80=99re seeing is caused by boost-dbus not being updated=
- to the
-> interfaces used in boost 1.66, which was merged with the last yocto patch=
-.
->
->
->
-> The bad news is that some of the sdbusplus patches for adding unit tests
-> and fixing bugs has caused product regressions, and are holding up the
-> merge of the recipe bump.  Because of the order in which the recipes got
-> merged into upstream, bmcweb builds require the below recipe bump for the
-> moment.
->
->
->
-> https://gerrit.openbmc-project.xyz/#/c/11456/
->
->
->
-> Checking out that patchset should let you build bmcweb against tip, and
-> we=E2=80=99ll work on getting the regression squashed and fixes merged in=
-to
-> mainline, hopefully shortly.
->
->
->
-> -Ed
->
->
->
-> *From:* Henbin Chang [mailto:henbinchang@gmail.com]
-> *Sent:* Wednesday, July 11, 2018 10:55 PM
-> *To:* OpenBMC Maillist <openbmc@lists.ozlabs.org>; Tanous, Ed <
-> ed.tanous@intel.com>
-> *Subject:* Re: IPMI and Redfish support in openbmc Linux
->
->
->
-> Hi Ed,
->
->
->
-> I upgraded my openbmc REPO with the Github and used the latest bmcweb
-> (commit id: 7885954af734ae61a2e1358740f84ad39248f18d.)
->
->
->
-> But I got the below error for compiling.
->
-> ...
->
-> 6: error: 'async_result_init' is not a member of 'boost::asio::detail'
->
->      boost::asio::detail::async_result_init<
->
->                           ^~~~~~~~~~~~~~~~~
->
-> /common/code_ref/s2600wf_openbmc/openbmc/build/tmp/
-> work/armv6-openbmc-linux-gnueabi/boost-dbus/1.0+
-> gitAUTOINC+2ec8037525-r0/git/include/dbus/connection_service.hpp:84:26:
-> note: suggested alternative: 'async_result_helper'
->
->      boost::asio::detail::async_result_init<
->
->                           ^~~~~~~~~~~~~~~~~
->
->                           async_result_helper
->
-> /common/code_ref/s2600wf_openbmc/openbmc/build/tmp/
-> work/armv6-openbmc-linux-gnueabi/boost-dbus/1.0+
-> gitAUTOINC+2ec8037525-r0/git/include/dbus/connection_service.hpp:85:23:
-> error: expected primary-expression before ',' token
->
->          MessageHandler, void(boost::system::error_code, message)>
->
->                        ^
->
-> /common/code_ref/s2600wf_openbmc/openbmc/build/tmp/
-> work/armv6-openbmc-linux-gnueabi/boost-dbus/1.0+
-> gitAUTOINC+2ec8037525-r0/git/include/dbus/connection_service.hpp:85:25:
-> error: expected primary-expression before 'void'
->
->          MessageHandler, void(boost::system::error_code, message)>
->
-> ...
->
->
->
-> Suppose this is because the boost-dbus is too old.
->
->
->
-> Do you any suggestion?
->
->
->
-> Thanks.
->
->
->
->
->
-> 2018-07-12 8:05 GMT+08:00 Henbin Chang <henbinchang@gmail.com>:
->
-> Thank your support.
->
->
->
-> It did work after I used the default port 18080.
->
-> curl -k https://10.99.241.79:18080/redfish/v1
->
->
->
-> I had to indicate the account/password if I would like to access other
-> node.
->
-> curl -k https://root:0penBmc@10.99.241.79:18080/redfish/v1/Managers/
->
->
->
-> Bmcweb will launch under one of two ports. If launched manually, it will
-> launch under port 18080. If launched via systemd, it will use socket
-> activation to launch under port 883 (to avoid conflicting with the existi=
-ng
-> phosphor-rest server). Another thing to recognize is that there is a debu=
-g
-> html interface built into the redfish interface, so the easiest way to te=
-st
-> is to use a web browser, and you will get the graphical interface with
-> clickable links. Try pointing a web browser at https://10.99.241.79:18080=
-/
-> redfish/v1 and see if that works. PS, the trailing backslash is
-> unimportant. Bmcweb is designed to strip the trailing backslash for you i=
-n
-> either case, so redfish/v1 is the same as redfish/v1/ -Ed
->
->
->
->
->
-> 2018-07-10 16:39 GMT+08:00 Ratan Gupta <ratagupt@linux.vnet.ibm.com>:
->
-> Hi Henbin,
->
-> Can you try "curl -b cjar -k https://<ip>:18080/redfish/v1"?
->
-> Seems default port is 18080
->
-> https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L24
->
-> Regards
->
-> Ratan Gupta
->
->
->
->
->
-> On Tuesday 10 July 2018 10:06 AM, Henbin Chang wrote:
->
-> H Ed,
->
-> I built bmcweb into my machine, and check the 'bmcweb' daemon was started
-> up.
->
->
->
-> ps aux | grep bmcweb
->
->   919 root       0:00 /usr/bin/bmcweb
->
->  8662 root       0:00 grep bmcweb
->
->
->
-> But I couldn't access Redfish API through the below command.
->
-> curl -b cjar -k https://10.99.241.79/redvish/v1/
->
->
->
-> Could you help provide the suggestion?
->
->
->
-> Thanks.
->
-> -Henbin.
->
->
->
-> There are several servers that support Redfish, and we have a working
-> group that meets weekly to talk through technical issues each week, which
-> you're welcome to attend. The only one checked into the upstream project =
-is
-> bmcweb. If you need help getting it started, I'm happy to help.
-> https://github.com/openbmc/bmcweb
->
->
->
->
->
->
->
->
->
+> 
+> > > I feel like this is an argument of tradition. Maybe people have
+> > > been dissuaded from doing so when they don't have a reasonable use-
+> > > case? I'm not saying that what I'm proposing is unquestionably
+> > > reasonable, but I don't want to dismiss it out of hand.
+> > 
+...
+> > 
+> > It comes up with system controller type blocks too that just have a
+> > bunch of random registers. 
 
---00000000000089bd850570dada35
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This matches the situation at hand.
 
-<div dir=3D"ltr">
+> > Those change in every SoC and not in any
+> > controlled or ordered way that would make describing the individual
+> > sub-functions in DT worthwhile.
 
-<div style=3D"font-size:small;text-decoration-style:initial;text-decoration=
--color:initial">Understood.</div><div style=3D"font-size:small;text-decorat=
-ion-style:initial;text-decoration-color:initial"><br></div><span style=3D"f=
-ont-size:small;text-decoration-style:initial;text-decoration-color:initial;=
-float:none;display:inline">Thanks Ed&#39;s response.</span>=C2=A0</div><div=
- class=3D"gmail_extra"><br><div class=3D"gmail_quote">2018-07-13 1:57 GMT+0=
-8:00 Tanous, Ed <span dir=3D"ltr">&lt;<a href=3D"mailto:ed.tanous@intel.com=
-" target=3D"_blank">ed.tanous@intel.com</a>&gt;</span>:<br><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
-ding-left:1ex">
+"Not worthwhile" is what I'm pushing back against for our use cases. I think they are narrow and limited enough to make it worthwhile.
 
+Obviously we want to avoid describing these things *badly* - you mentioned the clock bindings - so I'm happy to hash out what the right representation should be. But I struggle to think the solution is not describing some of our hardware features at all.
 
+> 
+> So what's the alternative ? Because without something like what we
+> propose, what's going to happen is /dev/mem ... that's what people do
+> today.
 
+Yep. And I've outlined in the cover letter what I think are the advantages of what I'm proposing over /dev/mem. It's not an incredible gain, but has several of nice-to-have properties.
 
+> 
+> > > > A node per register bit doesn't scale.
+> > > 
+> > > It isn't meant to scale in terms of a single system. Using it
+> > > extensively is very likely wrong. Separately, register-bit-led does
+> > > pretty much the same thing. Doesn't the scale argument apply there?
+> > > Who is to stop me from attaching an insane number of LEDs to a
+> > > system?
+> > 
+> > Review.
+> > 
+> > If you look, register-bit-led is rarely used outside of some ARM, Ltd.
+> > boards. It's simply quite rare to have MMIO register bits that have a
+> > fixed function of LED control.
+> 
+> Well, same here, we hope to review what goes upstream to make it
+> reasonable. Otherwise it doens't matter. If a random vendor, let's say
+> IBM, chose to chip a system where they put an insane amount of cruft in
+> there, it will only affect those systems's BMC and the userspace stack
+> on it.
+> 
+> Thankfully that stack is OpenBMC and IBM is aiming at having their
+> device-tree's upstream, thus reviewed, thus it won't happen.
+> 
+> *Anything* can be abused. The point here is that we have a number,
+> thankfully rather small, maybe a dozen or two, of tunables that are
+> quite specific to a combination (system vendor, bmc vendor, system
+> model) which control a few HW features that essentially do *NOT* fit in
+> a subsystem.
 
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">There have been quite a few changes t=
-o bmcweb in the last month, and some of the dependencies didn=E2=80=99t get=
- synchronized like we expected them to.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">The good news is that we=E2=80=99ve m=
-erged quite a few patches, including a number of new Redfish schemas, as we=
-ll as the patch that moves bmcweb over to sdbusplus and
- beast.=C2=A0 Moving forward, we are going to deprecate boost-dbus, as sdbu=
-splus now has a superset of functionality at this point in time.=C2=A0 The =
-error you=E2=80=99re seeing is caused by boost-dbus not being updated to th=
-e interfaces used in boost 1.66, which was merged
- with the last yocto patch.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">The bad news is that some of the sdbu=
-splus patches for adding unit tests and fixing bugs has caused product regr=
-essions, and are holding up the merge of the recipe
- bump.=C2=A0 Because of the order in which the recipes got merged into upst=
-ream, bmcweb builds require the below recipe bump for the moment.<u></u><u>=
-</u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><a href=3D"https://gerrit.openbmc-pro=
-ject.xyz/#/c/11456/" target=3D"_blank">https://gerrit.openbmc-<wbr>project.=
-xyz/#/c/11456/</a><u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">Checking out that patchset should let=
- you build bmcweb against tip, and we=E2=80=99ll work on getting the regres=
-sion squashed and fixes merged into mainline, hopefully
- shortly.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">-Ed<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #e1e1e1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Henbin Chang [mailto:<a href=
-=3D"mailto:henbinchang@gmail.com" target=3D"_blank">henbinchang@gmail.com</=
-a>]
-<br>
-<b>Sent:</b> Wednesday, July 11, 2018 10:55 PM<br>
-<b>To:</b> OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org"=
- target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;; Tanous, Ed &lt;<a href=
-=3D"mailto:ed.tanous@intel.com" target=3D"_blank">ed.tanous@intel.com</a>&g=
-t;<br>
-<b>Subject:</b> Re: IPMI and Redfish support in openbmc Linux<u></u><u></u>=
-</span></p>
-</div>
-</div><div><div class=3D"h5">
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">Hi Ed,<u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">I upgraded my openbmc REPO with the Github and used =
-the latest bmcweb (commit id:
-<span style=3D"font-size:9.0pt;font-family:Consolas;color:#444d56;backgroun=
-d:white">
-7885954af734ae61a2e1358740f84a<wbr>d39248f18d.</span>)<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">But I got the below error for compiling.<u></u><u></=
-u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">...<u></u><u></u></p>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">6: error: &#39;async_result_init&#39; is not a membe=
-r of &#39;boost::asio::detail&#39;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0boost::asio::detail::async_<wbr>=
-result_init&lt;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^~~~~~~~~~~~~~~~~<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">/common/code_ref/s2600wf_<wbr>openbmc/openbmc/build/=
-tmp/<wbr>work/armv6-openbmc-linux-<wbr>gnueabi/boost-dbus/1.0+<wbr>gitAUTOI=
-NC+2ec8037525-r0/git/<wbr>include/dbus/connection_<wbr>service.hpp:84:26: n=
-ote: suggested alternative: &#39;async_result_helper&#39;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0boost::asio::detail::async_<wbr>=
-result_init&lt;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^~~~~~~~~~~~~~~~~<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 async_result_helper<u></u><u></u></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal">/common/code_ref/s2600wf_<wbr>openbmc/openbmc/build/=
-tmp/<wbr>work/armv6-openbmc-linux-<wbr>gnueabi/boost-dbus/1.0+<wbr>gitAUTOI=
-NC+2ec8037525-r0/git/<wbr>include/dbus/connection_<wbr>service.hpp:85:23: e=
-rror: expected primary-expression before &#39;,&#39; token<u></u><u></u></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MessageHandler, vo=
-id(boost::system::error_<wbr>code, message)&gt;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">/common/code_ref/s2600wf_<wbr>openbmc/openbmc/build/=
-tmp/<wbr>work/armv6-openbmc-linux-<wbr>gnueabi/boost-dbus/1.0+<wbr>gitAUTOI=
-NC+2ec8037525-r0/git/<wbr>include/dbus/connection_<wbr>service.hpp:85:25: e=
-rror: expected primary-expression before &#39;void&#39;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MessageHandler, vo=
-id(boost::system::error_<wbr>code, message)&gt;<u></u><u></u></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal">...<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Suppose this is because the boost-dbus is too old.<u=
-></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Do you any suggestion?<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">2018-07-12 8:05 GMT+08:00 Henbin Chang &lt;<a href=
-=3D"mailto:henbinchang@gmail.com" target=3D"_blank">henbinchang@gmail.com</=
-a>&gt;:<u></u><u></u></p>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
-<div>
-<p class=3D"MsoNormal">Thank your support.<u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">It did work after I used the default port 18080.<u><=
-/u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">curl -k <a href=3D"https://10.99.241.79:18080/redfis=
-h/v1" target=3D"_blank">
-https://10.99.241.79:18080/<wbr>redfish/v1</a><u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">I had to indicate the account/password if I would li=
-ke to access other node.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"background:white">curl -k <a href=3D"=
-https://root:0penBmc@10.99.241.79:18080/redfish/v1/Managers/" target=3D"_bl=
-ank">
-https://root:0penBmc@10.99.<wbr>241.79:18080/redfish/v1/<wbr>Managers/</a><=
-/span><u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
-<p class=3D"MsoNormal">Bmcweb will launch under one of two ports. If launch=
-ed manually, it will launch under port 18080. If launched via systemd, it w=
-ill use socket activation to launch under port 883 (to avoid conflicting wi=
-th the existing phosphor-rest server).
- Another thing to recognize is that there is a debug html interface built i=
-nto the redfish interface, so the easiest way to test is to use a web brows=
-er, and you will get the graphical interface with clickable links. Try poin=
-ting a web browser at
-<a href=3D"https://10.99.241.79:18080/redfish/v1" target=3D"_blank">https:/=
-/10.99.241.79:18080/<wbr>redfish/v1</a> and see if that works. PS, the trai=
-ling backslash is unimportant. Bmcweb is designed to strip the trailing bac=
-kslash for you in either case, so redfish/v1
- is the same as redfish/v1/ -Ed<u></u><u></u></p>
-</blockquote>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div>
-<div>
-<div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">2018-07-10 16:39 GMT+08:00 Ratan Gupta &lt;<a href=
-=3D"mailto:ratagupt@linux.vnet.ibm.com" target=3D"_blank">ratagupt@linux.vn=
-et.ibm.com</a>&gt;:<u></u><u></u></p>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
-<div>
-<p>Hi Henbin,<u></u><u></u></p>
-<p>Can you try <span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot=
-;,sans-serif;color:#454545;background:white">
-&quot;curl -b cjar -k <a href=3D"https://%3cip%3e:18080/redfish/v1" target=
-=3D"_blank">https://&lt;ip&gt;:18080/redfish/v1</a>&quot;<wbr>?</span><u></=
-u><u></u></p>
-<p>Seems default port is 18080<u></u><u></u></p>
-<p><a href=3D"https://github.com/openbmc/bmcweb/blob/master/src/webserver_m=
-ain.cpp#L24" target=3D"_blank">https://github.com/openbmc/<wbr>bmcweb/blob/=
-master/src/<wbr>webserver_main.cpp#L24</a><u></u><u></u></p>
-<p>Regards<u></u><u></u></p>
-<p><span style=3D"color:#888888">Ratan Gupta<u></u><u></u></span></p>
-<div>
-<div>
-<p><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">On Tuesday 10 July 2018 10:06 AM, Henbin Chang wrote=
-:<u></u><u></u></p>
-</div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<div>
-<p class=3D"MsoNormal">H Ed, <u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal">I built bmcweb into my machine, and check the &#39;b=
-mcweb&#39; daemon was started up.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">ps aux | grep bmcweb<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 919 root=C2=A0 =C2=A0 =C2=A0 =C2=A00:00 /usr/=
-bin/bmcweb<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A08662 root=C2=A0 =C2=A0 =C2=A0 =C2=A00:00 grep =
-bmcweb<u></u><u></u></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">But I couldn&#39;t access Redfish API through the be=
-low command.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">curl -b cjar -k <a href=3D"https://10.99.241.79/redv=
-ish/v1/" target=3D"_blank">
-https://10.99.241.79/redvish/<wbr>v1/</a><u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Could you help provide the suggestion?<u></u><u></u>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">-Henbin.<u></u><u></u></p>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
-<p class=3D"MsoNormal">There are several servers that support Redfish, and =
-we have a working group that meets weekly to talk through technical issues =
-each week, which you&#39;re welcome to attend. The only one checked into th=
-e upstream project is bmcweb. If you need
- help getting it started, I&#39;m happy to help.<br>
-<a href=3D"https://github.com/openbmc/bmcweb" target=3D"_blank">https://git=
-hub.com/openbmc/<wbr>bmcweb</a><u></u><u></u></p>
-</blockquote>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div>
-</div>
-</blockquote>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div></div></div>
-</div>
-</div>
+Exactly. I tried to head off the abuse vector by requiring that uses be listed in the bindings document, and thus enforce some level of review. It might not be the most effective approach at the end of the day, but at least it is something.
 
-</blockquote></div><br></div>
+> 
+> For everything that does, we have created proper drivers (and are doing
+> more).
+> 
+> 
+> > > Obviously if there are lots of systems using it sparingly and
+> > > legitimately then maybe there's a scale issue, but isn't that just
+> > > a reality of different hardware designs? Whoever is implementing
+> > > support for the system is going to have to describe the hardware
+> > > one way or another.
+> > > 
+> > > > 
+> > > > Maybe this should be modelled using GPIO binding? There's a line there
+> > > > too as whether the signals are "general purpose" or not.
+> > > 
+> > > I don't think so, mainly because some of the things it is intended to be used for are not GPIOs. For instance, take the DAC mux I've described in the patch. It doesn't directly influence anything external to the SoC (i.e. it's certainly not a traditional GPIO in any sense). However, it does *indirectly* influence the SoC's behaviour by muxing the DAC internally between:
+> > > 
+> > > 0. VGA device exposed on the host PCIe bus
+> > > 1. The "Graphics CRT" controller
+> > > 2. VGA port A
+> > > 3. VGA port B
+> > 
+> > And this mux control is fixed in the SoC design?
+> 
+> This specific family of SoC (Aspeed) support those 4 configurations.
+> How they need to be configured at runtime depends on the combination of
+> system vendor and system model, along with in some cases the need to
+> switch it at runtime.
+> 
+> This is just one example. Another one is the handful of scratch
+> registers that need to be populated with the "right" values for the
+> host system BIOS, VGA BIOS and VGA driver. (The host bits access them
+> via LPC IO space).
+> 
+> The host system BIOS will read some basic config info there before its
+> IPMI stack is up (and some BIOSes already rely on that). The VGA BIOS
+> will get some strapping info and panel info. The VGA driver (which is
+> already upstream, has been for a long time) will look for other things
+> in some of these guys, such as connector configuration.
+> 
+> Andrew, if it helps, we could put together a list of what we typically
+> need on an OpenPower system today. That would give people like Rob a
+> better idea of what this is all about.
 
---00000000000089bd850570dada35--
+It's primarily what I've outlined at the bottom of the bindings document, though the use cases aren't provided there as they are a bit out-of-scope. So the SuperIO and VGA scratch registers, plus the DAC mux. A bunch of tunable things.
+
+OpenPOWER platforms make use of the SuperIO scratch registers to convey configuration information from the BMC to the host. Information provided includes low-level control of the host firmware initialisation process, UART and logging configuration, and the strategy for handling errors (crash vs log). This is all an "arbitrary" contract between the BMC userspace and the host firmware, i.e. different platforms/firmware could lay out the same information in different ways or communicate entirely different information altogether. The BMC kernel shouldn't care about any of it, other than provide sensible access to the hardware.
+
+Again on OpenPOWER systems using the ASPEED BMC SoCs running OpenBMC, the BMC uses the VGA scratch registers to sense initialisation of the host graphics driver in the host's boot process. When the BMC userspace detects the host VGA driver is up we switch the DAC mux from the BMC CRT device to the host VGA device so that the host is now driving the VGA output. Non-OpenPOWER OpenBMC configurations may do something entirely different, or not do anything at all with the hardware, so as above, it's not really the job of the BMC kernel to be involved in any of this, other than to provide sensible access to userspace.
+
+There are a number of other switches that control the availability of ASPEED BMC hardware features to the host system that also don't fit any particular subsystem and so will use these bindings, but our (OpenPOWER/OpenBMC) current uses are what's described above.
+
+Dell also suggested they had some use-cases that aligned with the intent of the bindings, but I don't know what they had in mind. Eugene (on Cc) can elaborate.
+
+> 
+> > > 
+> > > Maybe this could be modelled by pinmux, but then we still need some
+> > > way to expose the mux functions to userspace for selection
+> > > (userspace needs to transition arbitrarily between at least options
+> > > 0 and 1 at runtime), at which point we haven't achieved much beyond
+> > > adding a whole heap of infrastructure in the chain.
+> > > 
+> > > Given 0 and 1, maybe exposing attributes in relevant drivers would
+> > > be reasonable, except 0 isn't exposed on the SoC's internal bus so
+> > > there is no driver on the BMC-side to do so. Taking into account 2
+> > > and 3 are also purely hardware paths further dashes the idea, as
+> > > the configuration doesn't really "belong" to the Graphics CRT
+> > > device more than it belongs anywhere else, except for the fact that
+> > > there isn't anywhere else to expose it.
+> > > 
+> > > Further, the BMC's kernel can't make the decision as to when to
+> > > switch the mux as it knows nothing of the host's state. The BMC
+> > > userspace is controlling the host's boot state and so *does* know
+> > > when to flip the switch. Finally, the mux is in separate IP to the
+> > > CRT or VGA blocks: It lives in the System Control Unit.
+> > > 
+> > > My current point of view is the DAC mux field is effectively its
+> > > own device, and we need to control it from userspace, so we need
+> > > some way to describe it (i.e. not ignore it) in order for its
+> > > capability to be exposed.
+> > > 
+> > > I'm fully aware what I'm proposing isn't awesome as it's not
+> > > providing any real abstraction, but the problem(s) at hand also
+> > > seem to defy abstraction, and in order to avoid a plethora of
+> > > bespoke bindings I thought it was reasonable to define something
+> > > generic.
+> > > 
+> > > All-in-all I appreciate the suggestion, but assuming you agree with
+> > > my reasoning above do you have thoughts on other alternatives?
+> > 
+> > Seems the controls are more fixed than I first thought. All the data
+> > you have here could simply be within a driver. 
+
+Rob: A driver for what though? One unique to this particular mux? That feels overly specific when we can generalise the concept to cover a wider range of use-cases.
+
+> > Help me understand what
+> > functions are fixed (in the SoC) and which ones vary by board. Only
+> > what's changing per board really needs to go into DT.
+
+I think this last sentence identifies a difference in our starting points, so I'd like to explore that. Blocks of functionality might move around inside the SoC as well, so don't we need a way to describe those functions appropriately? And from there describe how the SoC integrates the functions, and then describe how a board integrates the SoC? This all composes, and the problem at the end of the day comes down to what we want to view as a point of abstraction, right?
+
+It seems ideal to me that the metadata about hardware features resides in the description of the relevant system (DT, for a function, a SoC or a board), otherwise don't we wind up with crazy, unfocused, monolithic drivers for things like system controllers? (There's MFD/syscon, but having used it previously I'm still grappling with the benefit over some of the weirdness it injects into devicetree - maybe I did it wrong.) Or alternatively, a generic driver that's choc full of platform-specific data covering the platforms that require it? The driver that implements the behaviour of the bindings described here turns out quite focused (even if the first attempt was a bit of a basket case, hopefully the second is better (sorry Greg)).
+
+> 
+> Most of these things is specific to a given board or may even need to
+> be changed at runtime.
+
+*snip*...
+
+> 
+> Talking of which: Andrew, did you put "default values" in your binding
+> ? That would be a nice way to deal with system specific immutables, so
+> that userspace doesn't even have to care.
+
+Yes, I described a `default-value`property for RW fields, and `default-set` and `default-clear`properties for write-1-set/write-1-clear fields for exactly this purpose.
+
+> 
+> So to clarify once and for all, *anything* that fits in a subsystem,
+> we're putting in one. All the random board control is all GPIOs and
+> that's fine as well. For some things that require a bit of fiddly usage
+> like the "MBOX" logic between BIOS and BMC we are also doing a
+> dedicated driver.
+
+(As an aside, the "MBOX" functionality is slightly different from the scratch registers in that it has configurable interrupts each way (BMC-to-Host and Host-to-BMC) - as such it can be used to implement a dynamic protocol and so deserves its own driver. This is in contrast to the dumb scratch registers we're describing with these bindings which have no such interrupts.)
+
+> 
+> But there's a few stragglers here, and they tend to be so
+> board/system/BIOS specific that it's not sustainable to create/change
+> random drivers all the time just for exposing those few tunables.
+> 
+
+Yes, this is my feeling too.
+
+Cheers,
+
+Andrew
