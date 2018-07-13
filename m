@@ -1,68 +1,64 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <linus.walleij@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2607:f8b0:4001:c0b::243; helo=mail-it0-x243.google.com;
+ envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fJxH2FE9"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Tlqp1zkm"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="SAsvmTa6"; 
+ dkim-atps=neutral
+Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
+ [IPv6:2607:f8b0:4001:c0b::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41RkB1048nzDr10
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 16:56:40 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id F1ED321C1B;
- Fri, 13 Jul 2018 02:56:37 -0400 (EDT)
-Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Fri, 13 Jul 2018 02:56:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=8HVcYImpj+y8yNdV1ftfDtg5hTRkQ
- DyykUnifnGA7xo=; b=fJxH2FE9m6qkxb8G4bc/o8AGoJ7EKY5cD0rIVx/4Eanu4
- 0mvBnR5sgqdb55CHwVlIb8hCmvke600i+A9QPPy/PzqesrM/GbjTfEt6jtbs9M8i
- e6x73pG8uDG4F6CkYjCeHlNmrbS3xna47PqEaHFkDD/2P6yCrmNtBS+aHzR3GFXr
- 1mYDe+B5lXV4EjcXYNLE6TYHyB6hpOAkGDxGmbFQd0Yms8nDjCv0RacGSzz6FcVg
- NSx3NQx68bgU3cLpn2IQNlC/Kaa8S95NK48Wb5Z3jSP/975/z3IFX2DyGOOBaeRc
- gmvCc8ZImwy4vJ1n0nUkxuGMl7w4d/Mi5HZj8zLbA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=8HVcYI
- mpj+y8yNdV1ftfDtg5hTRkQDyykUnifnGA7xo=; b=Tlqp1zkm8TzNIKujAl8YWw
- JoZao3EBPqyT1E8SKRYyOGCRPt0R0j+BlXCto9/aIwK9PQEugFTPe7ZcGltHs/o4
- EL48WBjRaQIpZHYvVHwzxUwiih7OkYLLeWlvEXAHyPjGhLfAA6EQOlgvdDoW2jLa
- Z6aaOneU3YzqKyINnvaObSW+SA+ZGe1jb2Lknf7Unk6d6959FauJoPMcPXujF5gV
- pcXn2MmziDBOv7ZMo3rO+1Eh10TIQhYoFzRPn3usXlSsrFvS7uZns5K08Lw1EgbR
- whuh+OZq+BG4JMI358RrcIOGqprlaDnz9Run33kLOQMHfDIIkpyPpxnfZFGQv8sw
- ==
-X-ME-Proxy: <xmx:JU1IW4L8RUubLYGkjPbgcarM0ZSUiNo_-NlmI3PmN9VYO9pa0UoepA>
- <xmx:JU1IW0EOxroGZxieVNIsehf8cXNkbDHNht9hD38hYdZlnCNjqNjLHQ>
- <xmx:JU1IW-0T8Lt7w9rmaNL68U3bTctvQuSDRGFvKNaavphIuhzS6R_oKA>
- <xmx:JU1IW7xCQb6KtMKyKnxWroTUTNl6D3MGLNLekl98QmR1eWgAeC9aRA>
- <xmx:JU1IW9gEzj2CWVWTcffgitdbbufc4bJ90NJEV5TjMxq5B4yAv2qhIg>
- <xmx:JU1IWz0WwP2Y6lucU4ZmfN9WmKnyMCLg8WLFwjYwtudZc0ZrGFCUBg>
-X-ME-Sender: <xms:JU1IW7Htu54tSQOQC_s72z-FhFuV4rwdtXWbDjD-T_0wu47FiOOA6w>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 4AA4DBA50C; Fri, 13 Jul 2018 02:56:37 -0400 (EDT)
-Message-Id: <1531464997.759540.1439362504.21B25D92@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Rml20mw0zDr02
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 18:51:54 +1000 (AEST)
+Received: by mail-it0-x243.google.com with SMTP id s7-v6so10553279itb.4
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 01:51:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=l9bQGNGjZ9snMtQTKSUQq93DqyHGC+ZiXyK/eDhhorU=;
+ b=SAsvmTa6Az7uZ2qr568rBw3yq/9gMA8IsJb6d8Q6JYk6zyKbvXEU1Jjc+IAr3O1H2z
+ Le7+xL/4ld36U+P85sVasurAdPhUDIb4CyYZBmE/9gBzTDFggSaFRPc1X3YNZE+uvTlG
+ IbkI5qyOGivlruw4AL1wfs7xd0oEcLxko/Pw4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=l9bQGNGjZ9snMtQTKSUQq93DqyHGC+ZiXyK/eDhhorU=;
+ b=D64aMI9hS0WWj9d9Ew/XKbRy3LskGuj3InUouwHvHc/DrIAvtXI5OX7koMPqoSu6SI
+ r11/0Q91kfdHV2TG8zyWeqKf4X4AzQzjhOufUbBNbuAX/Tmh2x+hHgEYofNQQRugMSDE
+ Cw8u8uzqeUEqkSqHxnZHQlsyfamw6jed8+9Fque5Kodx4RrOhb9gyv6i6e21qGDHK9Ck
+ 4M05jdlAWK3xiK7qKDyF6grmBZneYQWBWSXB1ZJ9hGEvK8FuMT/z6r3FUUQtutw1GC6F
+ XEWaJMlUR1KSzjIDWXLMyYTTiDCpqfg61hwRtm892s7Hl3KWv+rJaZJm5ys4JpfgiPM/
+ fmlw==
+X-Gm-Message-State: AOUpUlGi+RNKb56jWjBbWrADudYCLFxI6F5xoLTqZUfKl5kG0EQWiGSl
+ Md1WGm/Sj/WJg6+c0uFadRL5FdQwHacf1J3tX/QkMA==
+X-Google-Smtp-Source: AAOMgpeYaTk9QIVJ/YBlGZOIqJEP7WK+xD55MUsMqtODmXB0jPXUiKz51fy/ictlP/tE2MHvmRNBWb2T3PzF3FbXKss=
+X-Received: by 2002:a24:2c49:: with SMTP id
+ i70-v6mr4110066iti.135.1531471912355; 
+ Fri, 13 Jul 2018 01:51:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
-Date: Fri, 13 Jul 2018 16:26:37 +0930
-Subject: Re: How to handle security vulnerabilities (was: OpenBMC security
- workgroup status)
-References: <OFE1ABED0B.13DF2F69-ON002582C8.007A50D4-002582C8.007AA270@notes.na.collabserv.com>
-In-Reply-To: <OFE1ABED0B.13DF2F69-ON002582C8.007A50D4-002582C8.007AA270@notes.na.collabserv.com>
+References: <20180712214203.114844-1-tmaimon77@gmail.com>
+ <20180712214203.114844-3-tmaimon77@gmail.com>
+In-Reply-To: <20180712214203.114844-3-tmaimon77@gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 13 Jul 2018 10:51:40 +0200
+Message-ID: <CACRpkdYOQMkA6BHtY3-NSXhyhoG7KzDg8SkqL2B6M8GQrvXgMA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] pinctrl: nuvoton: add NPCM7xx pinctrl and GPIO
+ driver
+To: tmaimon77@gmail.com
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ avifishman70@gmail.com, 
+ yuenn@google.com, brendanhiggins@google.com, venture@google.com, 
+ Joel Stanley <joel@jms.id.au>, 
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -74,56 +70,250 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jul 2018 06:56:41 -0000
+X-List-Received-Date: Fri, 13 Jul 2018 08:51:59 -0000
 
-On Fri, 13 Jul 2018, at 07:49, Joseph Reynolds wrote:
-> > What's the short-term strategy for handling [security] vulnerability
-> > reports received in the gap between now and getting some formal
-> > process in place?=20
-> We don't have a strategy.  Let's discuss it here.
->=20=20
-> Officially (https://github.com/openbmc/openbmc/ section "Bug Reporting")
-> issues are managed on GitHub.=20
+On Thu, Jul 12, 2018 at 11:42 PM Tomer Maimon <tmaimon77@gmail.com> wrote:
+
+> Add Nuvoton BMC NPCM750/730/715/705 Pinmux and
+> GPIO controller driver.
 >
-> Unofficially, Brad volunteered to accept one batch of security
-> vulnerability reports and distribute them, presumably to the OpenBMC TSC
-> members (https://github.com/openbmc/docs section "Technical Steering
-> Committee ") or their delegates.  I assume they would privately contact
-> a trusted OpenBMC contributor who could address the problem.=20
->
-> We could adapt the Linux model
-> (https://www.kernel.org/doc/html/v4.16/admin-guide/security-bugs.html),
-> although I am still looking for information on what the Linux security
-> team does with the bug report.  For example, how security group members
-> track and discuss problems among themselves, how they pull in additional
-> resources to fix or mitigate the problem, and how they inform downstream
-> distros before announcing the problem, etc.=20
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 
-I thought the documention described most of this? security@kernel.org is a =
-private list, so discussions can happen there freely. With respect to infor=
-ming downstream distros, as mentioned that's done via the linux-distros@vs.=
-openwall.org list. As for how they pull in additional resources to fix or m=
-itigate the problem, that's going to depend on the affected parties. No-one=
- can order anyone to fix a particular problem, but the developers/maintaine=
-rs/vendors involved have skin in the game so should be motivated to fix the=
- issue.
+(...)
+> +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+> @@ -0,0 +1,2089 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2016-2018 Nuvoton Technology corporation.
+> +// Copyright (c) 2016, Dell Inc
+> +
+> +#include <linux/device.h>
+> +#include <linux/gpio.h>
 
->
-> I think the first step for the OpenBMC team is to establish an email
-> address (like security@openbmc.org), subscribe only trusted people to
-> that email list, and update the docs to explain that you should email
-> the security team for security questions, and use issues for everything
-> else.=20
+As this is a driver you should only include <linux/gpio/driver.h>
 
-Sounds good to me. Who can sort out security@? Brad? I'm sure we could sort=
- out list hosting on ozlabs.org if necessary (like we use for this list).
+> +#include <linux/interrupt.h>
+> +#include <linux/irq.h>
+> +#include <linux/mfd/syscon.h>
 
-> Presumably, the security team would communicate privately among
-> themselves and the submitter to assess the situation, and contact
-> OpenBMC community members privately to address the problem.=20
-> This would be an easy step to take, and would move the team in the right
-> direction.=C2=A0 What do you think?
+If you need syscon then the driver should select or depend
+on MFD_SYSCON in Kconfig.
 
-Sounds good enough for the moment!
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_irq.h>
 
-Andrew
+Do you really need this include?
+
+> +/* Structure for register banks */
+> +struct NPCM7XX_GPIO {
+
+Can we have this lowercase? Please?
+
+> +       void __iomem            *base;
+> +       struct gpio_chip        gc;
+> +       int                     irqbase;
+> +       int                     irq;
+> +       spinlock_t              lock;
+> +       void                    *priv;
+> +       struct irq_chip         irq_chip;
+> +       u32                     pinctrl_id;
+> +};
+
+So each GPIO bank has its own gpio chip and register
+base, that is NICE! Because then it looks like you can
+select GPIO_GENERIC and use the MMIO GPIO helper
+library to handle the registers. Let's look into that
+option!
+
+> +struct NPCM7xx_pinctrl {
+> +       struct pinctrl_dev      *pctldev;
+> +       struct device           *dev;
+> +       struct NPCM7XX_GPIO     gpio_bank[NPCM7XX_GPIO_BANK_NUM];
+> +       struct irq_domain       *domain;
+
+I wonder why the pin controller needs and IRQ domain but
+I keep reading the code and I might find out...
+
+> +enum operand {
+> +       op_set,
+> +       op_getbit,
+> +       op_setbit,
+> +       op_clrbit,
+> +};
+
+This looks complicated. I suspect you can use GPIO_GENERIC
+to set/get and clear bits in the register(s).
+
+> +/* Perform locked bit operations on GPIO registers */
+> +static int gpio_bitop(struct NPCM7XX_GPIO *bank, int op, unsigned int offset,
+> +                     int reg)
+> +{
+> +       unsigned long flags;
+> +       u32 mask, val;
+> +
+> +       mask = (1L << offset);
+> +       spin_lock_irqsave(&bank->lock, flags);
+> +       switch (op) {
+> +       case op_set:
+> +               iowrite32(mask, bank->base + reg);
+> +               break;
+> +       case op_getbit:
+> +               mask &= ioread32(bank->base + reg);
+> +               break;
+> +       case op_setbit:
+> +               val = ioread32(bank->base + reg);
+> +               iowrite32(val | mask, bank->base + reg);
+> +               break;
+> +       case op_clrbit:
+> +               val = ioread32(bank->base + reg);
+> +               iowrite32(val & (~mask), bank->base + reg);
+> +               break;
+> +       }
+> +       spin_unlock_irqrestore(&bank->lock, flags);
+> +       return !!mask;
+> +}
+
+This is essentially a reimplementation of drivers/gpio/gpio-mmio.c
+(GPIO_GENERIC, also using a spinlock to protect the registers)
+so let's use that instead :)
+
+There are drivers already that reuse the spinlock inside the
+generic GPIO chip to protect their other registers like for
+IRQ registers.
+
+> +static int npcmgpio_get_direction(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +       struct NPCM7XX_GPIO *bank = gpiochip_get_data(chip);
+> +       u32 oe, ie;
+> +
+> +       /* Get Input & Output state */
+> +       ie = gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_IEM);
+> +       oe = gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_OE);
+> +       if (ie && !oe)
+> +               return GPIOF_DIR_IN;
+> +       else if (oe && !ie)
+> +               return GPIOF_DIR_OUT;
+
+These are consumer flags and should not be used in drivers.
+Use plain 0/1 instead.
+
+Anyways the problem goes away with GPIO_GENERIC.
+
+> +static int npcmgpio_direction_input(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +       return pinctrl_gpio_direction_input(offset + chip->base);
+> +}
+
+It's a bit tricksy to get this to work with GPIO_GENERIC.
+
+After calling bgpio_init() you need to overwrite the assigned
+.direction_input handler with this and then direct back to the
+one assigned by GPIO_GENERIC.
+
+Something like this:
+
+1. Add two indirection pointers to the npcm7xx_gpio state container:
+
+struct npcm7xx_gpio {
+     (...)
+      int (*direction_input)(struct gpio_chip *chip, unsigned offset);
+      int (*direction_output)(struct gpio_chip *chip, unsigned offset,
+int value);
+     (...)
+};
+
+2. Save the pointers
+
+struct npcm7xx_gpio *npcm;
+
+bgpio_init( ... register setup ...)
+npcm->direction_input = npcm->gc.direction_input;
+npcm->direction_output = npcm->gc.direction_output;
+npcm->gc.direction_input = npcmgpio_direction_input;
+npcm->gc.direction_output = npcmgpio_direction_output;
+
+3. Modify the functions like that:
+
+static int npcmgpio_direction_input(struct gpio_chip *chip, unsigned int offset)
+{
+    struct npcm7xx_gpio *npcm = gpiochip_get_data(chip);
+    int ret;
+
+    ret = pinctrl_gpio_direction_input(offset + chip->base);
+    if (ret)
+        return ret;
+    return npcm->direction_input(chip);
+}
+
+I'm sure you get the idea... if you think we can modify gpio-mmio
+to be more helpful with this, suggestions are welcome!
+
+> +/* Set GPIO to Output with initial value */
+> +static int npcmgpio_direction_output(struct gpio_chip *chip,
+> +                                    unsigned int offset, int value)
+> +{
+> +       struct NPCM7XX_GPIO *bank = gpiochip_get_data(chip);
+> +
+> +       dev_dbg(chip->parent, "gpio_direction_output: offset%d = %x\n", offset,
+> +               value);
+> +
+> +       /* Check if we're enabled as an interrupt.. */
+> +       if (gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_EVEN) &&
+> +           gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_IEM)) {
+> +               dev_dbg(chip->parent,
+> +                       "gpio_direction_output: IRQ enabled on offset%d\n",
+> +                       offset);
+> +               return -EINVAL;
+> +       }
+
+This should not be necessary as you are using GPIOLIB_IRQCHIP,
+which locks the GPIO for interrupt and disallows this to happen.
+
+> +static int npcmgpio_gpio_request(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +       dev_dbg(chip->parent, "gpio_request: offset%d\n", offset);
+> +       return pinctrl_gpio_request(offset + chip->base);
+> +}
+> +
+> +static void npcmgpio_gpio_free(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +       dev_dbg(chip->parent, "gpio_free: offset%d\n", offset);
+> +       pinctrl_gpio_free(offset + chip->base);
+> +}
+
+This needs the same pattern as the direction functions above, then
+you can use GPIO_GENERIC (mmio).
+
+> +static unsigned int npcmgpio_irq_startup(struct irq_data *d)
+> +{
+> +       struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+> +       unsigned int gpio = d->hwirq;
+> +
+> +       /* active-high, input, clear interrupt, enable interrupt */
+> +       dev_dbg(d->chip->parent_device, "startup: %u.%u\n", gpio, d->irq);
+> +       npcmgpio_direction_output(gc, gpio, 1);
+> +       npcmgpio_direction_input(gc, gpio);
+
+Interesting dance. So it is required to set the line to
+1 and then switch to input?
+
+> +static struct irq_chip npcmgpio_irqchip = {
+> +       .name = "NPCM7XX-GPIO-IRQ",
+> +       .irq_ack = npcmgpio_irq_ack,
+> +       .irq_unmask = npcmgpio_irq_unmask,
+> +       .irq_mask = npcmgpio_irq_mask,
+> +       .irq_set_type = npcmgpio_set_irq_type,
+> +       .irq_startup = npcmgpio_irq_startup,
+> +};
+
+This code is looking good BTW.
+
+The patch in my inbox just ends in the middle of everything, I wonder
+why :( suspect the new gmail interface I'm using.
+
+Anyways: the pointers above should keep you busy for the next
+iteration of the patch, the pin control part seems pretty straight-forward.
+
+Yours,
+Linus Walleij
