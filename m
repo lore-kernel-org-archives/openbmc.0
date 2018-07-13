@@ -1,53 +1,70 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4003:c06::241; helo=mail-oi0-x241.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Vz9YPbef"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41S03q3WB7zDr55;
- Sat, 14 Jul 2018 03:22:12 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2018 10:22:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,348,1526367600"; d="scan'208";a="245501544"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by fmsmga006.fm.intel.com with ESMTP; 13 Jul 2018 10:21:37 -0700
-Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use
- cases stably
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-aspeed@lists.ozlabs.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- james.feist@linux.intel.com, vernon.mauery@linux.intel.com,
- Benjamin Fair <benjaminfair@google.com>, Patrick Venture
- <venture@google.com>, Gary Hsu <gary_hsu@aspeedtech.com>,
- Ryan Chen <ryan_chen@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41S0yP4w1pzF35b
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Jul 2018 04:02:36 +1000 (AEST)
+Received: by mail-oi0-x241.google.com with SMTP id n84-v6so63769799oib.9
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 11:02:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=P2Rivx6BRAyKw/8Y4Go8vJXDxIAjHkpmftKFvkoB0yU=;
+ b=Vz9YPbefyMUEh20MnEqiRzWIxDmlImE04VHG6jG0b08QX/xZ6wRN1j71iJP8k4fS7t
+ tScHOsvRc97OvQwKy4p/WcQBLxGc/uEGJtowm7ymmPBaaBCBonOYjFM+rStAte16eDpO
+ 8isFHsVy8TM6bYiXMjrWvhKi1AZbkc0icgXZU7FUy6vatEETBCLmbWtSrIypDzoVQtmh
+ IGtgorrUkfI1WHnlS95iLavAROjGvRId26ldoSh3W79QFeebho5X4lPf/633jVrxjX7H
+ cpVFbO2XSbH9Cm8XnZBfkOzQWXbB76ePzCXvpfczjLFLVr5FUhA+F+U/fAflX8pFJdev
+ Oofw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=P2Rivx6BRAyKw/8Y4Go8vJXDxIAjHkpmftKFvkoB0yU=;
+ b=rceimRFVoM1mRAN4YNU9sIvCxXp8DZttmMj8XpiTgnThh22zFX+e1013bbmjU4h5WZ
+ /odpiLN/av5Or6ukdySs0noAP6QJExHaG/irb+xwE5GKLLa+KjTVxI81AdJYEAY1lEmQ
+ uxa9ewRM4d0dnoyekkIE1UA5hvc3Y3IMblhyj3r1rS5jJmpn9cGFQNeu4w93wrD0glHM
+ fEBrVn8MzBZ66ZXrZcKoXqh97ozgbWzu4m/yvkqeeMu2xnjfcGFlGOHx5KuYwdwI30EY
+ z64Fa7M94Vyvjzj6TF94x1DiBnwYpJvPqCjGVaavRjVx29tykm3Bub3y1imvZdXwvmDt
+ X+2Q==
+X-Gm-Message-State: AOUpUlEEU2xBhtV7s9n3S4xM4l/xVj7DVJnf0sDVQMx5Vu8kFXTdIqMy
+ mUw6y2r6BrQED9CnrzdUUqXt0/TObeGBwAXVwuJUxw==
+X-Google-Smtp-Source: AAOMgpfKYdBeqlHOf+cbjyUg65/R5vU0/mtS380Ar02ZRAEqCeEWqFtQv4e1rll0hvd/bxK6wZjX9asoOM/mftPRb9w=
+X-Received: by 2002:aca:7c2:: with SMTP id 185-v6mr8219950oih.31.1531504953928; 
+ Fri, 13 Jul 2018 11:02:33 -0700 (PDT)
+MIME-Version: 1.0
 References: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
  <CAFd5g45z--ucXf-So517tgrayZT6x2TGvaUvaDF7zeRNn7CPXw@mail.gmail.com>
  <e51471e6-0f8a-bffc-34c8-1e74239fdbcf@linux.intel.com>
  <CAFd5g47j_h4ZrT8Eg1FZ8sAj5ekCUH20jUVub75ozdkg8_YW7Q@mail.gmail.com>
  <921b1ab7-9c9f-0aeb-da89-5a1a27d009f0@linux.intel.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <d3f10fc1-635b-3a5d-a967-2816eac005fc@linux.intel.com>
-Date: Fri, 13 Jul 2018 10:21:37 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
 In-Reply-To: <921b1ab7-9c9f-0aeb-da89-5a1a27d009f0@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Fri, 13 Jul 2018 11:02:22 -0700
+Message-ID: <CAFd5g47gOs-eVmnwoPuSiZaMmkgKKOdZd_6EFCVBHbmVmqADQA@mail.gmail.com>
+Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use
+ cases stably
+To: jae.hyun.yoo@linux.intel.com
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@aj.id.au>, linux-i2c@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ linux-aspeed@lists.ozlabs.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ james.feist@linux.intel.com, 
+ vernon.mauery@linux.intel.com, Benjamin Fair <benjaminfair@google.com>, 
+ Patrick Venture <venture@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -59,48 +76,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jul 2018 17:22:16 -0000
+X-List-Received-Date: Fri, 13 Jul 2018 18:02:39 -0000
 
-On 7/12/2018 11:21 AM, Jae Hyun Yoo wrote:
+On Thu, Jul 12, 2018 at 11:21 AM Jae Hyun Yoo
+<jae.hyun.yoo@linux.intel.com> wrote:
+>
 > On 7/12/2018 2:33 AM, Brendan Higgins wrote:
->> On Wed, Jun 27, 2018 at 10:55 AM Jae Hyun Yoo
->> <jae.hyun.yoo@linux.intel.com> wrote:
->>>
->> <snip>
->>>>> +/* Timeout for bus busy checking */
->>>>> +#define BUS_BUSY_CHECK_TIMEOUT                         250000 /* 
->>>>> 250ms */
->>>>> +#define BUS_BUSY_CHECK_INTERVAL                                
->>>>> 10000  /* 10ms */
->>>>
->>>> Could you add a comment on where you got these values from?
->>>>
->>>
->>> These are coming from ASPEED SDK code. Actually, they use 100ms for
->>> timeout and 10ms for interval but I increased the timeout value to
->>> 250ms so that it covers a various range of bus speed. I think, it
->>> should be computed at run time based on the current bus speed, or
->>> we could add these as device tree settings. How do you think about it?
->>>
->>
->> This should definitely be a device tree setting. If one of the busses 
->> is being
->> used as a regular I2C bus, it could hold the bus for an unlimited 
->> amount of
->> time before sending a STOP. As for a default, 100ms is probably fine 
->> given
->> that, a) the limit will only apply to multi-master mode, and b) 
->> multi-master
->> mode will probably almost always be used with IPMB, or MCTP (MCTP 
->> actually
->> recommends a 100ms timeout for this purpose, see
->> https://www.dmtf.org/sites/default/files/standards/documents/DSP0237_1.1.0.pdf, 
->>
->> symbol PT2a). That being said, if you actually want to implement IPMB, 
->> or MCTP
->> arbitration logic, it is much more complicated.
->>
-> 
+> > On Wed, Jun 27, 2018 at 10:55 AM Jae Hyun Yoo
+> > <jae.hyun.yoo@linux.intel.com> wrote:
+> >>
+> > <snip>
+> >>>> +/* Timeout for bus busy checking */
+> >>>> +#define BUS_BUSY_CHECK_TIMEOUT                         250000 /* 250ms */
+> >>>> +#define BUS_BUSY_CHECK_INTERVAL                                10000  /* 10ms */
+> >>>
+> >>> Could you add a comment on where you got these values from?
+> >>>
+> >>
+> >> These are coming from ASPEED SDK code. Actually, they use 100ms for
+> >> timeout and 10ms for interval but I increased the timeout value to
+> >> 250ms so that it covers a various range of bus speed. I think, it
+> >> should be computed at run time based on the current bus speed, or
+> >> we could add these as device tree settings. How do you think about it?
+> >>
+> >
+> > This should definitely be a device tree setting. If one of the busses is being
+> > used as a regular I2C bus, it could hold the bus for an unlimited amount of
+> > time before sending a STOP. As for a default, 100ms is probably fine given
+> > that, a) the limit will only apply to multi-master mode, and b) multi-master
+> > mode will probably almost always be used with IPMB, or MCTP (MCTP actually
+> > recommends a 100ms timeout for this purpose, see
+> > https://www.dmtf.org/sites/default/files/standards/documents/DSP0237_1.1.0.pdf,
+> > symbol PT2a). That being said, if you actually want to implement IPMB, or MCTP
+> > arbitration logic, it is much more complicated.
+> >
+>
 > Okay then, I think, we can fix the timeout value to 100ms and enable the
 > bus busy checking logic only when 'multi-master' is set in device tree.
 > My thought is, no additional arbitration logic is needed because
@@ -108,135 +118,307 @@ On 7/12/2018 11:21 AM, Jae Hyun Yoo wrote:
 > ASPEED_I2CD_INTR_ARBIT_LOSS when it fails acquiring a bus. The
 > ARBIT_LOSS event is already being handled well by this driver code you
 > implemented.
-> 
->>>   >
->> <snip>
->>>>>    #if IS_ENABLED(CONFIG_I2C_SLAVE)
->>>>> -       if (aspeed_i2c_slave_irq(bus)) {
->>>>> -               dev_dbg(bus->dev, "irq handled by slave.\n");
->>>>> -               return IRQ_HANDLED;
->>>>> +       if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
->>>>> +               if (!aspeed_i2c_master_irq(bus))
->>>>
->>>> Why do you check the slave if master fails (or vice versa)? I
->>>> understand that there are some status bits that have not been handled,
->>>> but it doesn't seem reasonable to assume that there is state that the
->>>> other should do something with; the only way this would happen is if
->>>> the state that you think you are in does not match the status bits you
->>>> have been given, but if this is the case, you are already hosed; I
->>>> don't think trying the other handler is likely to make things better,
->>>> unless there is something that I am missing.
->>>>
->>>
->>> In most of cases, interrupt bits are set one by one but there are also a
->>> lot of other cases that ASPEED I2C H/W sends multiple interrupt bits
->>> with combining master and slave events using a single interrupt call. It
->>> happens much in multi-master environment than single-master. For
->>> example, when master is waiting for a NORMAL_STOP interrupt in its
->>> MASTER_STOP state, SLAVE_MATCH and RX_DONE interrupts could come along
->>> with the NORMAL_STOP in case of an another master immediately sends data
->>> just after acquiring the bus - it happens a lot in BMC-ME connection
->>> practically. In this case, the NORMAL_STOP interrupt should be handled
->>> by master_irq and the SLAVE_MATCH and RX_DONE interrupts should be
->>> handled by slave_irq so it's the reason why this code is added.
->>
->> That sucks. Well, it sounds like there are only a handful of cases in 
->> which
->> this can happen. Maybe enumerate these cases and error out or at least 
->> warn if
->> it is not one of them?
->>
-> 
+
+I still think it would be best to provide an option to specify the timeout value
+it in the device tree regardless of master mode or not. Also, I am talking about
+fairness arbitration not the physical level arbitration provided by the I2C
+spec. The physical arbitration that Aspeed provides just allows multiple masters
+to operate on the same bus according to the specification; this bus arbitration
+does not guarantee forward progress or even guarentee that the actual message
+will be sent, which is what you are trying to do here.
+
+Since you are planning on implementing IPMB, you will probably need to implement
+fairness arbitration. I am not familiar with your BMC-ME channel. It sounds like
+it pre-dates MCTP, so it must implement its own fairness arbitration on top of
+the IPMB layer (more like you bake in some assumptions about what the possible
+state is at anytime that guarentee fairness).
+
+Are you using the Aspeed BMC on both sides of the connection? If so, you might
+be further ahead to implement MCTP fairness arbitration which can be used in
+conjunction with IPMB. This will require a bit of work to do, but everyone will
+be much happier in the long term (assuming MCTP does eventually become a thing).
+
+>
+> >>   >
+> > <snip>
+> >>>>    #if IS_ENABLED(CONFIG_I2C_SLAVE)
+> >>>> -       if (aspeed_i2c_slave_irq(bus)) {
+> >>>> -               dev_dbg(bus->dev, "irq handled by slave.\n");
+> >>>> -               return IRQ_HANDLED;
+> >>>> +       if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
+> >>>> +               if (!aspeed_i2c_master_irq(bus))
+> >>>
+> >>> Why do you check the slave if master fails (or vice versa)? I
+> >>> understand that there are some status bits that have not been handled,
+> >>> but it doesn't seem reasonable to assume that there is state that the
+> >>> other should do something with; the only way this would happen is if
+> >>> the state that you think you are in does not match the status bits you
+> >>> have been given, but if this is the case, you are already hosed; I
+> >>> don't think trying the other handler is likely to make things better,
+> >>> unless there is something that I am missing.
+> >>>
+> >>
+> >> In most of cases, interrupt bits are set one by one but there are also a
+> >> lot of other cases that ASPEED I2C H/W sends multiple interrupt bits
+> >> with combining master and slave events using a single interrupt call. It
+> >> happens much in multi-master environment than single-master. For
+> >> example, when master is waiting for a NORMAL_STOP interrupt in its
+> >> MASTER_STOP state, SLAVE_MATCH and RX_DONE interrupts could come along
+> >> with the NORMAL_STOP in case of an another master immediately sends data
+> >> just after acquiring the bus - it happens a lot in BMC-ME connection
+> >> practically. In this case, the NORMAL_STOP interrupt should be handled
+> >> by master_irq and the SLAVE_MATCH and RX_DONE interrupts should be
+> >> handled by slave_irq so it's the reason why this code is added.
+> >
+> > That sucks. Well, it sounds like there are only a handful of cases in which
+> > this can happen. Maybe enumerate these cases and error out or at least warn if
+> > it is not one of them?
+> >
+>
 > Yes, that sucks but that is Aspeed's I2C IP behavior and that's the
 > reason why they implemented some combination bits handling code in
 > their SDK. Actually, the cases are happening somewhat frequently
 > but that would not be a problem if we handle the cases properly instead
 > of making error out or warn.
-> 
->>>
->> <snip>
->>>>> +       for (;;) {
->>>>> +               if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
->>>>> +                     (ASPEED_I2CD_BUS_BUSY_STS |
->>>>> +                      ASPEED_I2CD_XFER_MODE_STS_MASK)))
->>>>
->>>> Is using the Transfer Mode State Machine bits necessary? The
->>>> documentation marks it as "for debugging purpose only," so relying on
->>>> it makes me nervous.
->>>>
->>>
->>> As you said, the documentation marks it as "for debugging purpose only."
->>> but ASPEED also uses this way in their SDK code because it's the best
->>> way for checking bus busy status which can cover both single and
->>> multi-master use cases.
->>>
->>
->> Well, it would also be really nice to have access to this bit if 
->> someone wants
->> to implement MCTP. Could we maybe check with Aspeed what them meant by 
->> "for
->> debugging purposes only" and document it here? It makes me nervous to 
->> rely on
->> debugging functionality for normal usage.
->>
-> 
+>
+> >>
+> > <snip>
+> >>>> +       for (;;) {
+> >>>> +               if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+> >>>> +                     (ASPEED_I2CD_BUS_BUSY_STS |
+> >>>> +                      ASPEED_I2CD_XFER_MODE_STS_MASK)))
+> >>>
+> >>> Is using the Transfer Mode State Machine bits necessary? The
+> >>> documentation marks it as "for debugging purpose only," so relying on
+> >>> it makes me nervous.
+> >>>
+> >>
+> >> As you said, the documentation marks it as "for debugging purpose only."
+> >> but ASPEED also uses this way in their SDK code because it's the best
+> >> way for checking bus busy status which can cover both single and
+> >> multi-master use cases.
+> >>
+> >
+> > Well, it would also be really nice to have access to this bit if someone wants
+> > to implement MCTP. Could we maybe check with Aspeed what them meant by "for
+> > debugging purposes only" and document it here? It makes me nervous to rely on
+> > debugging functionality for normal usage.
+> >
+>
 > Okay, I'll check it with Aspeed. Will let you know their response.
-> 
 
-I've checked it with Gary Hsu <gary_hsu@aspeedtech.com> and he confirmed
-that the bits reflect real information and good to be used in practical
-code.
+Sounds good.
 
-I'll add a comment like below:
-
-/*
-  * This is marked as 'for debugging purpose only' in datasheet but
-  * ASPEED confirmed that this reflects real information and good
-  * to be used in practical code.
-  */
-
-Is it acceptable then?
-
->>>>> +                       return 0;
->>>>> +               if (ktime_compare(ktime_get(), timeout) > 0)
->>>>> +                       break;
->>>>> +               usleep_range((BUS_BUSY_CHECK_INTERVAL >> 2) + 1,
->>>>
->>>> Where did you get this minimum value?
->>>>
->>>
->>> No source for the minimum value. ASPEED uses mdelay(10) in their SDK
->>> but I changed that code using usleep_range and the range value was set
->>> with considering time stretching of usleep_range.
->>> regmap_read_poll_timeout was a reference for this code.
->>
->> What protocol are you trying to implement on top of this? You 
->> mentioned BMC-ME
->> above; that's IPMB, right? For most use cases, this should work, but 
->> if you
->> need arbitration, you will need to do quite a bit more work.
->>
-> 
+>
+> >>>> +                       return 0;
+> >>>> +               if (ktime_compare(ktime_get(), timeout) > 0)
+> >>>> +                       break;
+> >>>> +               usleep_range((BUS_BUSY_CHECK_INTERVAL >> 2) + 1,
+> >>>
+> >>> Where did you get this minimum value?
+> >>>
+> >>
+> >> No source for the minimum value. ASPEED uses mdelay(10) in their SDK
+> >> but I changed that code using usleep_range and the range value was set
+> >> with considering time stretching of usleep_range.
+> >> regmap_read_poll_timeout was a reference for this code.
+> >
+> > What protocol are you trying to implement on top of this? You mentioned BMC-ME
+> > above; that's IPMB, right? For most use cases, this should work, but if you
+> > need arbitration, you will need to do quite a bit more work.
+> >
+>
 > Yes, I'm implementing IPMB for a BMC-ME channel. As I said above,
 > arbitration will be performed in H/W level and it's already been handled
 > well by your code. This bus busy checking logic is for checking whether
 > any slave operation is currently ongoing or not at the timing of
 > master_xfer is called. It's not for arbitration but for preventing state
 > conflicts between master and slave operations.
-> 
+
+Discussed above.
+
+>
 > FYI, I broke down this patch into smaller patches you reviewed
 > Today. Thanks for sharing your time for reviewing the patches.
 > I'll send remaining patches after completing review on those
 > patches because the remaining patches have dependency on them.
-> 
+
+Sounds good.
+
+>
 > Thanks!
-> 
->>>
->>> Thanks,
->>>
->>> Jae
->> <snip>
->>
->> Cheers
->>
-> 
+>
+
+Cheers
+On Thu, Jul 12, 2018 at 11:21 AM Jae Hyun Yoo
+<jae.hyun.yoo@linux.intel.com> wrote:
+>
+> On 7/12/2018 2:33 AM, Brendan Higgins wrote:
+> > On Wed, Jun 27, 2018 at 10:55 AM Jae Hyun Yoo
+> > <jae.hyun.yoo@linux.intel.com> wrote:
+> >>
+> > <snip>
+> >>>> +/* Timeout for bus busy checking */
+> >>>> +#define BUS_BUSY_CHECK_TIMEOUT                         250000 /* 250ms */
+> >>>> +#define BUS_BUSY_CHECK_INTERVAL                                10000  /* 10ms */
+> >>>
+> >>> Could you add a comment on where you got these values from?
+> >>>
+> >>
+> >> These are coming from ASPEED SDK code. Actually, they use 100ms for
+> >> timeout and 10ms for interval but I increased the timeout value to
+> >> 250ms so that it covers a various range of bus speed. I think, it
+> >> should be computed at run time based on the current bus speed, or
+> >> we could add these as device tree settings. How do you think about it?
+> >>
+> >
+> > This should definitely be a device tree setting. If one of the busses is being
+> > used as a regular I2C bus, it could hold the bus for an unlimited amount of
+> > time before sending a STOP. As for a default, 100ms is probably fine given
+> > that, a) the limit will only apply to multi-master mode, and b) multi-master
+> > mode will probably almost always be used with IPMB, or MCTP (MCTP actually
+> > recommends a 100ms timeout for this purpose, see
+> > https://www.dmtf.org/sites/default/files/standards/documents/DSP0237_1.1.0.pdf,
+> > symbol PT2a). That being said, if you actually want to implement IPMB, or MCTP
+> > arbitration logic, it is much more complicated.
+> >
+>
+> Okay then, I think, we can fix the timeout value to 100ms and enable the
+> bus busy checking logic only when 'multi-master' is set in device tree.
+> My thought is, no additional arbitration logic is needed because
+> arbitration is performed in H/W level and H/W reports
+> ASPEED_I2CD_INTR_ARBIT_LOSS when it fails acquiring a bus. The
+> ARBIT_LOSS event is already being handled well by this driver code you
+> implemented.
+
+I still think it would be best to provide an option to specify the timeout value
+it in the device tree regardless of master mode or not. Also, I am talking about
+fairness arbitration not the physical level arbitration provided by the I2C
+spec. The physical arbitration that Aspeed provides just allows multiple masters
+to operate on the same bus according to the specification; this bus arbitration
+does not guarantee forward progress or even guarentee that the actual message
+will be sent, which is what you are trying to do here.
+
+Since you are planning on implementing IPMB, you will probably need to implement
+fairness arbitration. I am not familiar with your BMC-ME channel. It sounds like
+it pre-dates MCTP, so it must implement its own fairness arbitration on top of
+the IPMB layer (more like you bake in some assumptions about what the possible
+state is at anytime that guarentee fairness).
+
+Are you using the Aspeed BMC on both sides of the connection? If so, you might
+be further ahead to implement MCTP fairness arbitration which can be used in
+conjunction with IPMB. This will require a bit of work to do, but everyone will
+be much happier in the long term (assuming MCTP does eventually become a thing).
+
+>
+> >>   >
+> > <snip>
+> >>>>    #if IS_ENABLED(CONFIG_I2C_SLAVE)
+> >>>> -       if (aspeed_i2c_slave_irq(bus)) {
+> >>>> -               dev_dbg(bus->dev, "irq handled by slave.\n");
+> >>>> -               return IRQ_HANDLED;
+> >>>> +       if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
+> >>>> +               if (!aspeed_i2c_master_irq(bus))
+> >>>
+> >>> Why do you check the slave if master fails (or vice versa)? I
+> >>> understand that there are some status bits that have not been handled,
+> >>> but it doesn't seem reasonable to assume that there is state that the
+> >>> other should do something with; the only way this would happen is if
+> >>> the state that you think you are in does not match the status bits you
+> >>> have been given, but if this is the case, you are already hosed; I
+> >>> don't think trying the other handler is likely to make things better,
+> >>> unless there is something that I am missing.
+> >>>
+> >>
+> >> In most of cases, interrupt bits are set one by one but there are also a
+> >> lot of other cases that ASPEED I2C H/W sends multiple interrupt bits
+> >> with combining master and slave events using a single interrupt call. It
+> >> happens much in multi-master environment than single-master. For
+> >> example, when master is waiting for a NORMAL_STOP interrupt in its
+> >> MASTER_STOP state, SLAVE_MATCH and RX_DONE interrupts could come along
+> >> with the NORMAL_STOP in case of an another master immediately sends data
+> >> just after acquiring the bus - it happens a lot in BMC-ME connection
+> >> practically. In this case, the NORMAL_STOP interrupt should be handled
+> >> by master_irq and the SLAVE_MATCH and RX_DONE interrupts should be
+> >> handled by slave_irq so it's the reason why this code is added.
+> >
+> > That sucks. Well, it sounds like there are only a handful of cases in which
+> > this can happen. Maybe enumerate these cases and error out or at least warn if
+> > it is not one of them?
+> >
+>
+> Yes, that sucks but that is Aspeed's I2C IP behavior and that's the
+> reason why they implemented some combination bits handling code in
+> their SDK. Actually, the cases are happening somewhat frequently
+> but that would not be a problem if we handle the cases properly instead
+> of making error out or warn.
+>
+> >>
+> > <snip>
+> >>>> +       for (;;) {
+> >>>> +               if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+> >>>> +                     (ASPEED_I2CD_BUS_BUSY_STS |
+> >>>> +                      ASPEED_I2CD_XFER_MODE_STS_MASK)))
+> >>>
+> >>> Is using the Transfer Mode State Machine bits necessary? The
+> >>> documentation marks it as "for debugging purpose only," so relying on
+> >>> it makes me nervous.
+> >>>
+> >>
+> >> As you said, the documentation marks it as "for debugging purpose only."
+> >> but ASPEED also uses this way in their SDK code because it's the best
+> >> way for checking bus busy status which can cover both single and
+> >> multi-master use cases.
+> >>
+> >
+> > Well, it would also be really nice to have access to this bit if someone wants
+> > to implement MCTP. Could we maybe check with Aspeed what them meant by "for
+> > debugging purposes only" and document it here? It makes me nervous to rely on
+> > debugging functionality for normal usage.
+> >
+>
+> Okay, I'll check it with Aspeed. Will let you know their response.
+
+Sounds good.
+
+>
+> >>>> +                       return 0;
+> >>>> +               if (ktime_compare(ktime_get(), timeout) > 0)
+> >>>> +                       break;
+> >>>> +               usleep_range((BUS_BUSY_CHECK_INTERVAL >> 2) + 1,
+> >>>
+> >>> Where did you get this minimum value?
+> >>>
+> >>
+> >> No source for the minimum value. ASPEED uses mdelay(10) in their SDK
+> >> but I changed that code using usleep_range and the range value was set
+> >> with considering time stretching of usleep_range.
+> >> regmap_read_poll_timeout was a reference for this code.
+> >
+> > What protocol are you trying to implement on top of this? You mentioned BMC-ME
+> > above; that's IPMB, right? For most use cases, this should work, but if you
+> > need arbitration, you will need to do quite a bit more work.
+> >
+>
+> Yes, I'm implementing IPMB for a BMC-ME channel. As I said above,
+> arbitration will be performed in H/W level and it's already been handled
+> well by your code. This bus busy checking logic is for checking whether
+> any slave operation is currently ongoing or not at the timing of
+> master_xfer is called. It's not for arbitration but for preventing state
+> conflicts between master and slave operations.
+
+Discussed above.
+
+>
+> FYI, I broke down this patch into smaller patches you reviewed
+> Today. Thanks for sharing your time for reviewing the patches.
+> I'll send remaining patches after completing review on those
+> patches because the remaining patches have dependency on them.
+
+Sounds good.
+
+>
+> Thanks!
+>
+
+Cheers
