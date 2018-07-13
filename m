@@ -1,80 +1,42 @@
-Return-Path: <aaron_ppus@fmad.com>
-Authentication-Results: lists.ozlabs.org;
- spf=neutral (mailfrom) smtp.mailfrom=fmad.com
- (client-ip=67.222.38.55; helo=gproxy5-pub.mail.unifiedlayer.com;
- envelope-from=aaron_ppus@fmad.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=fmad.com
-Authentication-Results: lists.ozlabs.org;
- dkim=policy reason="signing key too small" (768-bit key;
- unprotected) header.d=fmad.com header.i=@fmad.com header.b="KuDK/61t"; 
- dkim-atps=neutral
-Received: from gproxy5-pub.mail.unifiedlayer.com
- (gproxy5-pub.mail.unifiedlayer.com [67.222.38.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41RY6q2PHBzF35Q
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 10:08:18 +1000 (AEST)
-Received: from cmgw15.unifiedlayer.com (unknown [10.9.0.15])
- by gproxy5.mail.unifiedlayer.com (Postfix) with ESMTP id 7AFA8140450
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 18:08:14 -0600 (MDT)
-Received: from box313.bluehost.com ([69.89.31.113]) by cmsmtp with ESMTP
- id dld8fg9J6j0sodld8fWIJL; Thu, 12 Jul 2018 18:08:14 -0600
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=fmad.com;
- s=default; h=Content-Type:Cc:To:Subject:Message-ID:Date:From:References:
- In-Reply-To:MIME-Version:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=yS33YuSQTgJK/QnbJzbCwK8glwDr2sXmBEIfJTTHw3c=; b=KuDK/61tRrP2I5etDGhQABbNPj
- chu/ymTj+SZuUG1QTZmnrxzxfCCPttHoQT/lu+PXVLZ90aQqONQYtiGMdH5x8JU5jXOrQH10Z5EEd
- p0TvSmTzB27Ey56JRvVid6wu3;
-Received: from mail-oi0-f53.google.com ([209.85.218.53]:37896)
- by box313.bluehost.com with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (Exim 4.91) (envelope-from <aaron_ppus@fmad.com>) id 1fdld7-002Itg-V0
- for openbmc@lists.ozlabs.org; Thu, 12 Jul 2018 18:08:13 -0600
-Received: by mail-oi0-f53.google.com with SMTP id v8-v6so59121394oie.5
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jul 2018 17:08:13 -0700 (PDT)
-X-Gm-Message-State: AOUpUlEHNc3YlFvFMOwyZSTCfWcMq5SO6j9YggjV5F12FSaJixiumQdt
- z1bGDi0hfl+fRm3XSdPjYLnpulzt1uJhweN4YQ==
-X-Google-Smtp-Source: AAOMgpdpdlFXp44ERdwjLBmHlAsz/SyPmXdD4iptF7sVUfxMq58PFmD4JrtHTLRwU8GfGOObLCFL/C+QJc6YG3acTkw=
-X-Received: by 2002:aca:df42:: with SMTP id
- w63-v6mr4374894oig.295.1531440493474; 
- Thu, 12 Jul 2018 17:08:13 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:aca:ce05:0:0:0:0:0 with HTTP; Thu, 12 Jul 2018 17:08:12
- -0700 (PDT)
-In-Reply-To: <41CF8000-5798-4EB4-BACA-C072BFA00F9D@fb.com>
-References: <CABq4n+RwYT8UN4EO75DkhMr2zKnPQW-PEbKtYB+Tb1yA_JYawQ@mail.gmail.com>
- <CABq4n+Qw_vq1QZpYdgiB9LofUp0MZchkzXXOqiUC+vyqCKR-KQ@mail.gmail.com>
- <41CF8000-5798-4EB4-BACA-C072BFA00F9D@fb.com>
-From: Aaron <aaron_ppus@fmad.com>
-Date: Fri, 13 Jul 2018 09:08:12 +0900
-X-Gmail-Original-Message-ID: <CABq4n+Q3_=2JEq+F0xJzrnoVndwBsYWS05od97YtvdE=+J4wzQ@mail.gmail.com>
-Message-ID: <CABq4n+Q3_=2JEq+F0xJzrnoVndwBsYWS05od97YtvdE=+J4wzQ@mail.gmail.com>
-Subject: Re: AST2400 x86 bringup LPC problems
-To: Tao Ren <taoren@fb.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000009bc2020570d646eb"
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box313.bluehost.com
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - fmad.com
-X-BWhitelist: no
-X-Source-IP: 209.85.218.53
-X-Source-L: No
-X-Exim-ID: 1fdld7-002Itg-V0
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: mail-oi0-f53.google.com [209.85.218.53]:37896
-X-Source-Auth: aaron_ppus@fmad.com
-X-Email-Count: 1
-X-Source-Cap: Zm1hZGNvbTtmbWFkY29tO2JveDMxMy5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41RZ9g4YGbzF35b
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 10:55:51 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6D0t2rO004186;
+ Thu, 12 Jul 2018 19:55:04 -0500
+Message-ID: <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc.
+ BMC control fields
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Rob Herring <robh@kernel.org>, Andrew Jeffery <andrew@aj.id.au>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com,
+ a.amelkin@yadro.com, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,
+ Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Date: Fri, 13 Jul 2018 10:55:02 +1000
+In-Reply-To: <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
+References: <20180711053122.30773-1-andrew@aj.id.au>
+ <20180711053122.30773-2-andrew@aj.id.au>
+ <20180711200450.GB17291@rob-hp-laptop>
+ <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
+ <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -86,266 +48,216 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jul 2018 00:08:20 -0000
+X-List-Received-Date: Fri, 13 Jul 2018 00:55:52 -0000
 
---0000000000009bc2020570d646eb
-Content-Type: text/plain; charset="UTF-8"
+On Thu, 2018-07-12 at 09:11 -0600, Rob Herring wrote:
+> On Wed, Jul 11, 2018 at 6:54 PM Andrew Jeffery <andrew@aj.id.au> wrote:
+> > 
+> > Hi Rob,
+> > 
+> > Thanks for the response.
+> > 
+> > On Thu, 12 Jul 2018, at 05:34, Rob Herring wrote:
+> > > On Wed, Jul 11, 2018 at 03:01:19PM +0930, Andrew Jeffery wrote:
+> > > > Baseboard Management Controllers (BMCs) are embedded SoCs that exist to
+> > > > provide remote management of (primarily) server platforms. BMCs are
+> > > > often tightly coupled to the platform in terms of behaviour and provide
+> > > > many hardware features integral to booting and running the host system.
+> > > > 
+> > > > Some of these hardware features are simple, for example scratch
+> > > > registers provided by the BMC that are exposed to both the host and the
+> > > > BMC. In other cases there's a single bit switch to enable or disable
+> > > > some of the provided functionality.
+> > > > 
+> > > > The documentation defines bindings for fields in registers that do not
+> > > > integrate well into other driver models yet must be described to allow
+> > > > the BMC kernel to assume control of these features.
+> > > 
+> > > So we'll get a new binding when that happens? That will break
+> > > compatibility.
+> > 
+> > Can you please expand on this? I'm not following.
+> 
+> If we have a subsystem in the future, then there would likely be an
+> associated binding which would be different. So if you update the DT,
+> then old kernels won't work with it.
 
-Thanks thats an interesting read and good to know. Was just a dts config
-problem, we`re using dual Xeon sockets which boot over SPI.
+What kind of "subsystem" ? There is almost no way there could be one
+for that sort of BMC tunables. We've look at several BMC chips out
+there and requirements from several vendors, BIOS and system
+manufacturers and it's all over the place.
 
-Cheers
-Aaron
+> > I feel like this is an argument of tradition. Maybe people have
+> > been dissuaded from doing so when they don't have a reasonable use-
+> > case? I'm not saying that what I'm proposing is unquestionably
+> > reasonable, but I don't want to dismiss it out of hand.
+> 
+> One of experience. The one that stands out is clock bindings.
+> Initially we were doing a node per clock modelling which could end up
+> being 100s of nodes and is difficult to get right (with DT being an
+> ABI).
+> 
+> It comes up with system controller type blocks too that just have a
+> bunch of random registers. Those change in every SoC and not in any
+> controlled or ordered way that would make describing the individual
+> sub-functions in DT worthwhile.
 
-On 13 July 2018 at 02:26, Tao Ren <taoren@fb.com> wrote:
+So what's the alternative ? Because without something like what we
+propose, what's going to happen is /dev/mem ... that's what people do
+today.
 
-> Looks like you are facing the same/similar issue mentioned in below page?
->
->
->
-> https://www.anandtech.com/show/11110/semi-critical-intel-atom-c2000-flaw-
-> discovered
->
->
->
->
->
-> - Tao
->
->
->
-> *From: *openbmc <openbmc-bounces+taoren=fb.com@lists.ozlabs.org> on
-> behalf of Aaron <aaron_ppus@fmad.com>
-> *Date: *Thursday, July 12, 2018 at 7:35 AM
-> *To: *OpenBMC Maillist <openbmc@lists.ozlabs.org>
-> *Subject: *Re: AST2400 x86 bringup LPC problems
->
->
->
-> Per usual found the issue after spamming the list. The LCLK was disabled
-> because lpc_ctrl was not setup correctly and error`ed out which cleans up
-> and disables the lclk entirely... doh.
->
->
->
-> Aaron
->
->
->
-> On 12 July 2018 at 16:47, Aaron <aaron_ppus@fmad.com> wrote:
->
-> Hi,
->
->
->
-> Currently stuck bringup an x86 server board with the AST2400 and looking
-> for advice.
->
->
->
-> Have based the code on the Quanta machine, theres a bunch of dst changes
-> and different gpio / i2c etc mappings. Most things work now, power control,
-> can control, gpios are good etc however the LPC is broken.
->
->
->
-> What I cant working out is why the LPC interface is completely dead.
->
->
->
-> Symptoms are:
->
-> - LPC post code sniffer caches nothing
->
-> - Host UART is completely missing
->
-> - Host IO port range reading returns 0xff`s
->
->
->
-> Its as if the LPC block is not being reset or theres no clock or being
-> muxed out or something. Been a few days now and still cant work it out.
->
->
->
-> Originally thought it was because Strap[14] = 1  (LPC reset not connected
-> to PCI reset) but on the board they physically routed PERST to the to the
-> pin, so it should be ok.
->
->
->
-> Any suggestions or advice ?
->
->
->
-> Thanks
->
-> Aaron
->
->
->
->
->
->
->
+> > > A node per register bit doesn't scale.
+> > 
+> > It isn't meant to scale in terms of a single system. Using it
+> > extensively is very likely wrong. Separately, register-bit-led does
+> > pretty much the same thing. Doesn't the scale argument apply there?
+> > Who is to stop me from attaching an insane number of LEDs to a
+> > system?
+> 
+> Review.
+> 
+> If you look, register-bit-led is rarely used outside of some ARM, Ltd.
+> boards. It's simply quite rare to have MMIO register bits that have a
+> fixed function of LED control.
 
---0000000000009bc2020570d646eb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Well, same here, we hope to review what goes upstream to make it
+reasonable. Otherwise it doens't matter. If a random vendor, let's say
+IBM, chose to chip a system where they put an insane amount of cruft in
+there, it will only affect those systems's BMC and the userspace stack
+on it.
 
-<div dir=3D"ltr">Thanks thats an interesting read and good to know. Was jus=
-t a dts config problem, we`re using dual Xeon sockets which boot over SPI.<=
-div><br></div><div>Cheers</div><div>Aaron</div></div><div class=3D"gmail_ex=
-tra"><br><div class=3D"gmail_quote">On 13 July 2018 at 02:26, Tao Ren <span=
- dir=3D"ltr">&lt;<a href=3D"mailto:taoren@fb.com" target=3D"_blank">taoren@=
-fb.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"=
-margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+Thankfully that stack is OpenBMC and IBM is aiming at having their
+device-tree's upstream, thus reviewed, thus it won't happen.
+
+*Anything* can be abused. The point here is that we have a number,
+thankfully rather small, maybe a dozen or two, of tunables that are
+quite specific to a combination (system vendor, bmc vendor, system
+model) which control a few HW features that essentially do *NOT* fit in
+a subsystem.
+
+For everything that does, we have created proper drivers (and are doing
+more).
 
 
+> > Obviously if there are lots of systems using it sparingly and
+> > legitimately then maybe there's a scale issue, but isn't that just
+> > a reality of different hardware designs? Whoever is implementing
+> > support for the system is going to have to describe the hardware
+> > one way or another.
+> > 
+> > > 
+> > > Maybe this should be modelled using GPIO binding? There's a line there
+> > > too as whether the signals are "general purpose" or not.
+> > 
+> > I don't think so, mainly because some of the things it is intended to be used for are not GPIOs. For instance, take the DAC mux I've described in the patch. It doesn't directly influence anything external to the SoC (i.e. it's certainly not a traditional GPIO in any sense). However, it does *indirectly* influence the SoC's behaviour by muxing the DAC internally between:
+> > 
+> > 0. VGA device exposed on the host PCIe bus
+> > 1. The "Graphics CRT" controller
+> > 2. VGA port A
+> > 3. VGA port B
+> 
+> And this mux control is fixed in the SoC design?
 
+This specific family of SoC (Aspeed) support those 4 configurations.
+How they need to be configured at runtime depends on the combination of
+system vendor and system model, along with in some cases the need to
+switch it at runtime.
 
+This is just one example. Another one is the handful of scratch
+registers that need to be populated with the "right" values for the
+host system BIOS, VGA BIOS and VGA driver. (The host bits access them
+via LPC IO space).
 
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"m_8337887526448798311WordSection1">
-<p class=3D"MsoNormal">Looks like you are facing the same/similar issue men=
-tioned in below page?<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><a href=3D"https://www.anandtech.com/show/11110/semi=
--critical-intel-atom-c2000-flaw-discovered" target=3D"_blank">https://www.a=
-nandtech.com/<wbr>show/11110/semi-critical-<wbr>intel-atom-c2000-flaw-<wbr>=
-discovered</a>
-<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">- Tao<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:12.0pt;color:black">From=
-: </span></b><span style=3D"font-size:12.0pt;color:black">openbmc &lt;openb=
-mc-bounces+taoren=3D<a href=3D"mailto:fb.com@lists.ozlabs.org" target=3D"_b=
-lank">fb.<wbr>com@lists.ozlabs.org</a>&gt; on behalf of Aaron &lt;<a href=
-=3D"mailto:aaron_ppus@fmad.com" target=3D"_blank">aaron_ppus@fmad.com</a>&g=
-t;<br>
-<b>Date: </b>Thursday, July 12, 2018 at 7:35 AM<br>
-<b>To: </b>OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org"=
- target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;<br>
-<b>Subject: </b>Re: AST2400 x86 bringup LPC problems<u></u><u></u></span></=
-p>
-</div><div><div class=3D"h5">
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Per usual found the issue after spamming the list. T=
-he LCLK was disabled because lpc_ctrl was not setup correctly and error`ed =
-out which cleans up and disables the lclk entirely... doh.
-<u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Aaron<u></u><u></u></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">On 12 July 2018 at 16:47, Aaron &lt;<a href=3D"mailt=
-o:aaron_ppus@fmad.com" target=3D"_blank">aaron_ppus@fmad.com</a>&gt; wrote:=
-<u></u><u></u></p>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
-<div>
-<p class=3D"MsoNormal">Hi, <u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Currently stuck bringup an x86 server board with the=
- AST2400 and looking for advice.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Have based the code on the Quanta machine, theres a =
-bunch of dst changes and different gpio / i2c etc mappings. Most things wor=
-k now, power control, can control, gpios are good etc however the LPC is br=
-oken.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">What I cant working out is why the LPC interface is =
-completely dead.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Symptoms are:<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">- LPC post code sniffer caches nothing<u></u><u></u>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal">- Host UART is completely missing<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">- Host IO port range reading returns 0xff`s=C2=A0<u>=
-</u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Its as if the LPC block is not being reset or theres=
- no clock or being muxed out or something. Been a few days now and still ca=
-nt work it out.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Originally thought it was because Strap[14] =3D 1=C2=
-=A0 (LPC reset not connected to PCI reset) but on the board they physically=
- routed PERST to the to the pin, so it should be ok.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Any suggestions or advice ?<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#888888">Aaron<u></u><u></u></s=
-pan></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#888888"><u></u>=C2=A0<u></u></=
-span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:#888888"><u></u>=C2=A0<u></u></=
-span></p>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div></div></div>
-</div>
+The host system BIOS will read some basic config info there before its
+IPMI stack is up (and some BIOSes already rely on that). The VGA BIOS
+will get some strapping info and panel info. The VGA driver (which is
+already upstream, has been for a long time) will look for other things
+in some of these guys, such as connector configuration.
 
-</blockquote></div><br></div>
+Andrew, if it helps, we could put together a list of what we typically
+need on an OpenPower system today. That would give people like Rob a
+better idea of what this is all about.
 
---0000000000009bc2020570d646eb--
+> > 
+> > Maybe this could be modelled by pinmux, but then we still need some
+> > way to expose the mux functions to userspace for selection
+> > (userspace needs to transition arbitrarily between at least options
+> > 0 and 1 at runtime), at which point we haven't achieved much beyond
+> > adding a whole heap of infrastructure in the chain.
+> > 
+> > Given 0 and 1, maybe exposing attributes in relevant drivers would
+> > be reasonable, except 0 isn't exposed on the SoC's internal bus so
+> > there is no driver on the BMC-side to do so. Taking into account 2
+> > and 3 are also purely hardware paths further dashes the idea, as
+> > the configuration doesn't really "belong" to the Graphics CRT
+> > device more than it belongs anywhere else, except for the fact that
+> > there isn't anywhere else to expose it.
+> > 
+> > Further, the BMC's kernel can't make the decision as to when to
+> > switch the mux as it knows nothing of the host's state. The BMC
+> > userspace is controlling the host's boot state and so *does* know
+> > when to flip the switch. Finally, the mux is in separate IP to the
+> > CRT or VGA blocks: It lives in the System Control Unit.
+> > 
+> > My current point of view is the DAC mux field is effectively its
+> > own device, and we need to control it from userspace, so we need
+> > some way to describe it (i.e. not ignore it) in order for its
+> > capability to be exposed.
+> > 
+> > I'm fully aware what I'm proposing isn't awesome as it's not
+> > providing any real abstraction, but the problem(s) at hand also
+> > seem to defy abstraction, and in order to avoid a plethora of
+> > bespoke bindings I thought it was reasonable to define something
+> > generic.
+> > 
+> > All-in-all I appreciate the suggestion, but assuming you agree with
+> > my reasoning above do you have thoughts on other alternatives?
+> 
+> Seems the controls are more fixed than I first thought. All the data
+> you have here could simply be within a driver. Help me understand what
+> functions are fixed (in the SoC) and which ones vary by board. Only
+> what's changing per board really needs to go into DT.
+
+Most of these things is specific to a given board or may even need to
+be changed at runtime.
+
+For example the VGA mux is system specific, *and* will change at
+runtime on some systems. For example, on IBM systems, the BMC will
+route its internal CRT display controller to the VGA port in order to
+display early boot progress information when the host hasn't
+initialized its graphics driver yet, and route the host VGA to the VGA
+port when the host has.
+
+(To clarify, the BMC has 2 display controllers: one for use by the SoC
+ARM itself, and one exposed to the host via PCIe, this routes which one
+gets to output to the VGA port).
+
+The scratch registers are similar. Their content tend to be specific to
+a specific BIOS vendor/system manufacturer. It might need to change
+from boot to boot based configuration changes the user might do via the
+BMC IPMI or web interface.
+
+Another example is that the SoC can expose a couple of PCIe devices to
+the host, a given vendor will want to control whether to do that and
+which ones to expose. This can be fixed or tunable. Some vendors want
+the user to be able to control (via IPMI or web UI or some other
+mechanism) whether the SoC internal VGA shows up or not depending on
+whether they chose to use a separate discrete GPU, as some OSes get
+confused when in the presence of multiple different graphic adapters.
+
+Talking of which: Andrew, did you put "default values" in your binding
+? That would be a nice way to deal with system specific immutables, so
+that userspace doesn't even have to care.
+
+So to clarify once and for all, *anything* that fits in a subsystem,
+we're putting in one. All the random board control is all GPIOs and
+that's fine as well. For some things that require a bit of fiddly usage
+like the "MBOX" logic between BIOS and BMC we are also doing a
+dedicated driver.
+
+But there's a few stragglers here, and they tend to be so
+board/system/BIOS specific that it's not sustainable to create/change
+random drivers all the time just for exposing those few tunables.
+
+Cheers,
+Ben.
