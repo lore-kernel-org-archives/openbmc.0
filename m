@@ -1,64 +1,35 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <oleksandrs@mellanox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4001:c0b::243; helo=mail-it0-x243.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="SAsvmTa6"; 
- dkim-atps=neutral
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Rml20mw0zDr02
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 18:51:54 +1000 (AEST)
-Received: by mail-it0-x243.google.com with SMTP id s7-v6so10553279itb.4
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 01:51:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=l9bQGNGjZ9snMtQTKSUQq93DqyHGC+ZiXyK/eDhhorU=;
- b=SAsvmTa6Az7uZ2qr568rBw3yq/9gMA8IsJb6d8Q6JYk6zyKbvXEU1Jjc+IAr3O1H2z
- Le7+xL/4ld36U+P85sVasurAdPhUDIb4CyYZBmE/9gBzTDFggSaFRPc1X3YNZE+uvTlG
- IbkI5qyOGivlruw4AL1wfs7xd0oEcLxko/Pw4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=l9bQGNGjZ9snMtQTKSUQq93DqyHGC+ZiXyK/eDhhorU=;
- b=D64aMI9hS0WWj9d9Ew/XKbRy3LskGuj3InUouwHvHc/DrIAvtXI5OX7koMPqoSu6SI
- r11/0Q91kfdHV2TG8zyWeqKf4X4AzQzjhOufUbBNbuAX/Tmh2x+hHgEYofNQQRugMSDE
- Cw8u8uzqeUEqkSqHxnZHQlsyfamw6jed8+9Fque5Kodx4RrOhb9gyv6i6e21qGDHK9Ck
- 4M05jdlAWK3xiK7qKDyF6grmBZneYQWBWSXB1ZJ9hGEvK8FuMT/z6r3FUUQtutw1GC6F
- XEWaJMlUR1KSzjIDWXLMyYTTiDCpqfg61hwRtm892s7Hl3KWv+rJaZJm5ys4JpfgiPM/
- fmlw==
-X-Gm-Message-State: AOUpUlGi+RNKb56jWjBbWrADudYCLFxI6F5xoLTqZUfKl5kG0EQWiGSl
- Md1WGm/Sj/WJg6+c0uFadRL5FdQwHacf1J3tX/QkMA==
-X-Google-Smtp-Source: AAOMgpeYaTk9QIVJ/YBlGZOIqJEP7WK+xD55MUsMqtODmXB0jPXUiKz51fy/ictlP/tE2MHvmRNBWb2T3PzF3FbXKss=
-X-Received: by 2002:a24:2c49:: with SMTP id
- i70-v6mr4110066iti.135.1531471912355; 
- Fri, 13 Jul 2018 01:51:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20180712214203.114844-1-tmaimon77@gmail.com>
- <20180712214203.114844-3-tmaimon77@gmail.com>
-In-Reply-To: <20180712214203.114844-3-tmaimon77@gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 13 Jul 2018 10:51:40 +0200
-Message-ID: <CACRpkdYOQMkA6BHtY3-NSXhyhoG7KzDg8SkqL2B6M8GQrvXgMA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] pinctrl: nuvoton: add NPCM7xx pinctrl and GPIO
- driver
-To: tmaimon77@gmail.com
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- avifishman70@gmail.com, 
- yuenn@google.com, brendanhiggins@google.com, venture@google.com, 
- Joel Stanley <joel@jms.id.au>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 41RsQd1BXlzF35T
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jul 2018 22:23:03 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 13 Jul 2018 15:25:56 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id w6DCMtan022630;
+ Fri, 13 Jul 2018 15:22:55 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v27 3/4] Documentation: jtag: Add bindings for Aspeed SoC 24xx
+ and 25xx families JTAG master driver
+Date: Fri, 13 Jul 2018 15:22:53 +0300
+Message-Id: <1531484574-9422-4-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
+In-Reply-To: <1531484574-9422-1-git-send-email-oleksandrs@mellanox.com>
+References: <1531484574-9422-1-git-send-email-oleksandrs@mellanox.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -70,250 +41,103 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jul 2018 08:51:59 -0000
+X-List-Received-Date: Fri, 13 Jul 2018 12:23:06 -0000
 
-On Thu, Jul 12, 2018 at 11:42 PM Tomer Maimon <tmaimon77@gmail.com> wrote:
+It has been tested on Mellanox system with BMC equipped with
+Aspeed 2520 SoC for programming CPLD devices.
 
-> Add Nuvoton BMC NPCM750/730/715/705 Pinmux and
-> GPIO controller driver.
->
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
+Signed-off-by: Jiri Pirko <jiri@mellanox.com>
+Acked-by: Rob Herring <robh@kernel.org>
+---
+v21->v22
+v20->v21
+v19->v20
+v18->v19
 
-(...)
-> +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-> @@ -0,0 +1,2089 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2016-2018 Nuvoton Technology corporation.
-> +// Copyright (c) 2016, Dell Inc
-> +
-> +#include <linux/device.h>
-> +#include <linux/gpio.h>
+v17->v18
+v16->v17
+v15->v16
+Comments pointed by Joel Stanley <joel.stan@gmail.com>
+- change clocks = <&clk_apb> to proper clocks = <&syscon ASPEED_CLK_APB>
+- add reset descriptions in bndings file
 
-As this is a driver you should only include <linux/gpio/driver.h>
+v14->v15
+v13->v14
+v12->v13
+v11->v12
+v10->v11
+v9->v10
+v8->v9
+v7->v8
+Comments pointed by pointed by Joel Stanley <joel.stan@gmail.com>
+- Change compatible string to ast2400 and ast2000
 
-> +#include <linux/interrupt.h>
-> +#include <linux/irq.h>
-> +#include <linux/mfd/syscon.h>
+V6->v7
+Comments pointed by Tobias Klauser <tklauser@distanz.ch>
+ - Fix spell "Doccumentation" -> "Documentation"
 
-If you need syscon then the driver should select or depend
-on MFD_SYSCON in Kconfig.
+v5->v6
+Comments pointed by Tobias Klauser <tklauser@distanz.ch>
+- Small nit: s/documentation/Documentation/
 
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_irq.h>
+v4->v5
 
-Do you really need this include?
+V3->v4
+Comments pointed by Rob Herring <robh@kernel.org>
+- delete unnecessary "status" and "reg-shift" descriptions in
+  bndings file
 
-> +/* Structure for register banks */
-> +struct NPCM7XX_GPIO {
+v2->v3
+Comments pointed by Rob Herring <robh@kernel.org>
+- split Aspeed jtag driver and binding to sepatrate patches
+- delete unnecessary "status" and "reg-shift" descriptions in
+  bndings file
+---
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   22 ++++++++++++++++++++
+ MAINTAINERS                                        |    1 +
+ 2 files changed, 23 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
 
-Can we have this lowercase? Please?
-
-> +       void __iomem            *base;
-> +       struct gpio_chip        gc;
-> +       int                     irqbase;
-> +       int                     irq;
-> +       spinlock_t              lock;
-> +       void                    *priv;
-> +       struct irq_chip         irq_chip;
-> +       u32                     pinctrl_id;
-> +};
-
-So each GPIO bank has its own gpio chip and register
-base, that is NICE! Because then it looks like you can
-select GPIO_GENERIC and use the MMIO GPIO helper
-library to handle the registers. Let's look into that
-option!
-
-> +struct NPCM7xx_pinctrl {
-> +       struct pinctrl_dev      *pctldev;
-> +       struct device           *dev;
-> +       struct NPCM7XX_GPIO     gpio_bank[NPCM7XX_GPIO_BANK_NUM];
-> +       struct irq_domain       *domain;
-
-I wonder why the pin controller needs and IRQ domain but
-I keep reading the code and I might find out...
-
-> +enum operand {
-> +       op_set,
-> +       op_getbit,
-> +       op_setbit,
-> +       op_clrbit,
-> +};
-
-This looks complicated. I suspect you can use GPIO_GENERIC
-to set/get and clear bits in the register(s).
-
-> +/* Perform locked bit operations on GPIO registers */
-> +static int gpio_bitop(struct NPCM7XX_GPIO *bank, int op, unsigned int offset,
-> +                     int reg)
-> +{
-> +       unsigned long flags;
-> +       u32 mask, val;
-> +
-> +       mask = (1L << offset);
-> +       spin_lock_irqsave(&bank->lock, flags);
-> +       switch (op) {
-> +       case op_set:
-> +               iowrite32(mask, bank->base + reg);
-> +               break;
-> +       case op_getbit:
-> +               mask &= ioread32(bank->base + reg);
-> +               break;
-> +       case op_setbit:
-> +               val = ioread32(bank->base + reg);
-> +               iowrite32(val | mask, bank->base + reg);
-> +               break;
-> +       case op_clrbit:
-> +               val = ioread32(bank->base + reg);
-> +               iowrite32(val & (~mask), bank->base + reg);
-> +               break;
-> +       }
-> +       spin_unlock_irqrestore(&bank->lock, flags);
-> +       return !!mask;
-> +}
-
-This is essentially a reimplementation of drivers/gpio/gpio-mmio.c
-(GPIO_GENERIC, also using a spinlock to protect the registers)
-so let's use that instead :)
-
-There are drivers already that reuse the spinlock inside the
-generic GPIO chip to protect their other registers like for
-IRQ registers.
-
-> +static int npcmgpio_get_direction(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +       struct NPCM7XX_GPIO *bank = gpiochip_get_data(chip);
-> +       u32 oe, ie;
-> +
-> +       /* Get Input & Output state */
-> +       ie = gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_IEM);
-> +       oe = gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_OE);
-> +       if (ie && !oe)
-> +               return GPIOF_DIR_IN;
-> +       else if (oe && !ie)
-> +               return GPIOF_DIR_OUT;
-
-These are consumer flags and should not be used in drivers.
-Use plain 0/1 instead.
-
-Anyways the problem goes away with GPIO_GENERIC.
-
-> +static int npcmgpio_direction_input(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +       return pinctrl_gpio_direction_input(offset + chip->base);
-> +}
-
-It's a bit tricksy to get this to work with GPIO_GENERIC.
-
-After calling bgpio_init() you need to overwrite the assigned
-.direction_input handler with this and then direct back to the
-one assigned by GPIO_GENERIC.
-
-Something like this:
-
-1. Add two indirection pointers to the npcm7xx_gpio state container:
-
-struct npcm7xx_gpio {
-     (...)
-      int (*direction_input)(struct gpio_chip *chip, unsigned offset);
-      int (*direction_output)(struct gpio_chip *chip, unsigned offset,
-int value);
-     (...)
-};
-
-2. Save the pointers
-
-struct npcm7xx_gpio *npcm;
-
-bgpio_init( ... register setup ...)
-npcm->direction_input = npcm->gc.direction_input;
-npcm->direction_output = npcm->gc.direction_output;
-npcm->gc.direction_input = npcmgpio_direction_input;
-npcm->gc.direction_output = npcmgpio_direction_output;
-
-3. Modify the functions like that:
-
-static int npcmgpio_direction_input(struct gpio_chip *chip, unsigned int offset)
-{
-    struct npcm7xx_gpio *npcm = gpiochip_get_data(chip);
-    int ret;
-
-    ret = pinctrl_gpio_direction_input(offset + chip->base);
-    if (ret)
-        return ret;
-    return npcm->direction_input(chip);
-}
-
-I'm sure you get the idea... if you think we can modify gpio-mmio
-to be more helpful with this, suggestions are welcome!
-
-> +/* Set GPIO to Output with initial value */
-> +static int npcmgpio_direction_output(struct gpio_chip *chip,
-> +                                    unsigned int offset, int value)
-> +{
-> +       struct NPCM7XX_GPIO *bank = gpiochip_get_data(chip);
-> +
-> +       dev_dbg(chip->parent, "gpio_direction_output: offset%d = %x\n", offset,
-> +               value);
-> +
-> +       /* Check if we're enabled as an interrupt.. */
-> +       if (gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_EVEN) &&
-> +           gpio_bitop(bank, op_getbit, offset, NPCM7XX_GP_N_IEM)) {
-> +               dev_dbg(chip->parent,
-> +                       "gpio_direction_output: IRQ enabled on offset%d\n",
-> +                       offset);
-> +               return -EINVAL;
-> +       }
-
-This should not be necessary as you are using GPIOLIB_IRQCHIP,
-which locks the GPIO for interrupt and disallows this to happen.
-
-> +static int npcmgpio_gpio_request(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +       dev_dbg(chip->parent, "gpio_request: offset%d\n", offset);
-> +       return pinctrl_gpio_request(offset + chip->base);
-> +}
-> +
-> +static void npcmgpio_gpio_free(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +       dev_dbg(chip->parent, "gpio_free: offset%d\n", offset);
-> +       pinctrl_gpio_free(offset + chip->base);
-> +}
-
-This needs the same pattern as the direction functions above, then
-you can use GPIO_GENERIC (mmio).
-
-> +static unsigned int npcmgpio_irq_startup(struct irq_data *d)
-> +{
-> +       struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-> +       unsigned int gpio = d->hwirq;
-> +
-> +       /* active-high, input, clear interrupt, enable interrupt */
-> +       dev_dbg(d->chip->parent_device, "startup: %u.%u\n", gpio, d->irq);
-> +       npcmgpio_direction_output(gc, gpio, 1);
-> +       npcmgpio_direction_input(gc, gpio);
-
-Interesting dance. So it is required to set the line to
-1 and then switch to input?
-
-> +static struct irq_chip npcmgpio_irqchip = {
-> +       .name = "NPCM7XX-GPIO-IRQ",
-> +       .irq_ack = npcmgpio_irq_ack,
-> +       .irq_unmask = npcmgpio_irq_unmask,
-> +       .irq_mask = npcmgpio_irq_mask,
-> +       .irq_set_type = npcmgpio_set_irq_type,
-> +       .irq_startup = npcmgpio_irq_startup,
-> +};
-
-This code is looking good BTW.
-
-The patch in my inbox just ends in the middle of everything, I wonder
-why :( suspect the new gmail interface I'm using.
-
-Anyways: the pointers above should keep you busy for the next
-iteration of the patch, the pin control part seems pretty straight-forward.
-
-Yours,
-Linus Walleij
+diff --git a/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+new file mode 100644
+index 0000000..7c36eb6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+@@ -0,0 +1,22 @@
++Aspeed JTAG driver for ast2400 and ast2500 SoC
++
++Required properties:
++- compatible:		Should be one of
++      - "aspeed,ast2400-jtag"
++      - "aspeed,ast2500-jtag"
++- reg			contains the offset and length of the JTAG memory
++			region
++- clocks		root clock of bus, should reference the APB
++			clock in the second cell
++- resets		phandle to reset controller with the reset number in
++			the second cell
++- interrupts		should contain JTAG controller interrupt
++
++Example:
++jtag: jtag@1e6e4000 {
++	compatible = "aspeed,ast2500-jtag";
++	reg = <0x1e6e4000 0x1c>;
++	clocks = <&syscon ASPEED_CLK_APB>;
++	resets = <&syscon ASPEED_RESET_JTAG_MASTER>;
++	interrupts = <43>;
++};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b70c6af..169de71 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7697,6 +7697,7 @@ S:	Maintained
+ F:	include/linux/jtag.h
+ F:	include/uapi/linux/jtag.h
+ F:	drivers/jtag/
++F:	Documentation/devicetree/bindings/jtag/
+ 
+ K10TEMP HARDWARE MONITORING DRIVER
+ M:	Clemens Ladisch <clemens@ladisch.de>
+-- 
+1.7.1
