@@ -1,57 +1,82 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.218.66; helo=mail-oi0-f66.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-oi0-f66.google.com (mail-oi0-f66.google.com
- [209.85.218.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41TnVc0bStzDr55;
- Tue, 17 Jul 2018 01:33:11 +1000 (AEST)
-Received: by mail-oi0-f66.google.com with SMTP id b15-v6so75517165oib.10;
- Mon, 16 Jul 2018 08:33:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Wl/hkASMuDEBUuX098udBNXtuOBN46mXEXqJr6BW3bQ=;
- b=GSJ+z3Ysa6PNhJCcHkKtF39d8IDfYt9x7op3coE9/LEMK1IhJAH2FGoceSheOvoc9l
- 56EY+emmM+CyJqAHlBO79bS4DE0MS4i5+9gvxPNNpCCenNuCGNHoQAcX2GhSUqGer10t
- ofO2EDxjd1a5Jl5vJowF6Mk4zoAmRgVGBXtUUsQyZSIA7vnOo4S+/OF6yybw7OS6ONMw
- g5UCMbLTzJ5nbyb0Ai8KWT01colg860G5GInn86F74yqjJgwQBIawkAvRFRpC9ua0kDb
- 1ckBRLp2Rzz1JvE2KrVezhN8tI8eu6cVr6soNjl3hZnsV1d1d2vo1ydFNxcMBXt6pPUR
- zHJg==
-X-Gm-Message-State: AOUpUlFUM3ZbvGtO6TYT5GUw0lmb08AFL8VWUcPlowwxEZsa3Ui73d2q
- oIkwSKFxuEbQm1Nx97V/aw==
-X-Google-Smtp-Source: AAOMgpeX9nxGgWhAiSjZbtvfUwVfJsYh4py/l/8EBFQBqB74MgZP6AnBG9Xz1L9ftu9UBlgn3y4UiQ==
-X-Received: by 2002:aca:5583:: with SMTP id
- j125-v6mr19786056oib.2.1531755189761; 
- Mon, 16 Jul 2018 08:33:09 -0700 (PDT)
-Received: from localhost (24-223-123-72.static.usa-companies.net.
- [24.223.123.72])
- by smtp.gmail.com with ESMTPSA id i204-v6sm24189743oia.41.2018.07.16.08.33.08
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 16 Jul 2018 08:33:09 -0700 (PDT)
-Date: Mon, 16 Jul 2018 09:33:08 -0600
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: fsi: Document binding for the
- fsi-master-ast-cf "device"
-Message-ID: <20180716153308.GA13044@rob-hp-laptop>
-References: <20180712034847.12878-1-benh@kernel.crashing.org>
- <20180712034847.12878-2-benh@kernel.crashing.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Tndm2gqGzDr55
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 01:39:23 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6GFdFuj044402
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 11:39:21 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2k8uvxeu3j-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 11:39:21 -0400
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 16 Jul 2018 11:39:20 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 16 Jul 2018 11:39:18 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w6GFdHXE1245448
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 16 Jul 2018 15:39:17 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 180F42805C;
+ Mon, 16 Jul 2018 11:38:34 -0400 (EDT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5837D28059;
+ Mon, 16 Jul 2018 11:38:31 -0400 (EDT)
+Received: from oc6728276242.ibm.com (unknown [9.85.164.128])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
+ Mon, 16 Jul 2018 11:38:31 -0400 (EDT)
+Subject: Re: KVM Support?
+To: Avi Fishman <avifishman70@gmail.com>
+Cc: akashgj91@gmail.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ uri.trichter@nuvoton.com, eyal.cohen@nuvoton.com
+References: <CAE33tLHVuuMgcEQw1xkGP+H1h_Gxq1Vf0Re2SKjVbPhiAgkxNQ@mail.gmail.com>
+ <8df2b64e-b903-caa8-f439-96128f3c9b19@linux.vnet.ibm.com>
+ <CAKKbWA7i884rXOd2nKnMKRoOB-sbzwK7YQENGYWiGze-qbN9WA@mail.gmail.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Mon, 16 Jul 2018 10:39:13 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180712034847.12878-2-benh@kernel.crashing.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <CAKKbWA7i884rXOd2nKnMKRoOB-sbzwK7YQENGYWiGze-qbN9WA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18071615-0064-0000-0000-0000032B1D49
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009375; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01061681; UDB=6.00545067; IPR=6.00839586; 
+ MB=3.00022159; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-16 15:39:19
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18071615-0065-0000-0000-000039F5DFA5
+Message-Id: <0b9a54bd-8a52-b24f-fc21-e38940c01e31@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-16_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=719 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807160182
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -63,67 +88,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jul 2018 15:33:12 -0000
+X-List-Received-Date: Mon, 16 Jul 2018 15:39:24 -0000
 
-On Thu, Jul 12, 2018 at 01:48:43PM +1000, Benjamin Herrenschmidt wrote:
-> This isn't per-se a real device, it's a pseudo-device that
-> represents the use of the Aspeed built-in ColdFire to
-> implement the FSI protocol by bitbanging the GPIOs instead
-> of doing it from the ARM core.
-> 
-> Thus it's a drop-in replacement for the existing
-> fsi-master-gpio pseudo-device for use on systems based
-> on the Aspeed chips. It has most of the same properties,
-> plus some more needed to operate the coprocessor.
-> 
-> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> ---
->  .../bindings/fsi/fsi-master-ast-cf.txt        | 36 +++++++++++++++++++
->  1 file changed, 36 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> new file mode 100644
-> index 000000000000..431bf8a423ce
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> @@ -0,0 +1,36 @@
-> +Device-tree bindings for ColdFire offloaded gpio-based FSI master driver
-> +------------------------------------------------------------------------
-> +
-> +Required properties:
-> + - compatible =
-> +	"aspeed,ast2400-cf-fsi-master" for an AST2400 based system
-> +   or
-> +	"aspeed,ast2500-cf-fsi-master" for an AST2500 based system
-> +
-> + - clock-gpios = <gpio-descriptor>;	: GPIO for FSI clock
-> + - data-gpios = <gpio-descriptor>;	: GPIO for FSI data signal
-> + - enable-gpios = <gpio-descriptor>;	: GPIO for enable signal
-> + - trans-gpios = <gpio-descriptor>;	: GPIO for voltage translator enable
-> + - mux-gpios = <gpio-descriptor>;	: GPIO for pin multiplexing with other
-> +                                          functions (eg, external FSI masters)
-> + - memory-region = <phandle>;		: Reference to the reserved memory for
-> +                                          the ColdFire. Must be 2M aligned on
-> +					  AST2400 and 1M aligned on AST2500
-> + - aspeed,sram = <phandle>;		: Reference to the SRAM node.
-> + - aspeed,cvic = <phandle>;		: Reference to the CVIC node.
-> +
-> +Examples:
-> +
-> +    fsi-master {
-> +        compatible = "aspeed,ast2500-cf-fsi-master", "fsi-master";
-> +
-> +	clock-gpios = <&gpio 0>;
-> +        data-gpios = <&gpio 1>;
-> +        enable-gpios = <&gpio 2>;
-> +        trans-gpios = <&gpio 3>;
-> +        mux-gpios = <&gpio 4>;
-> +
-> +	memory-region = <&coldfire_memory>;
-> +	sram = <&sram>;
-> +	cvic = <&cvic>;
 
-Need to update the example. With that,
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+On 07/16/2018 10:01 AM, Avi Fishman wrote:
+> Hi Eddie,
+>
+> Is it based on V4L or also VNC?
+> Does it have HW compression or SW only?
+
+Hi,
+
+The driver interface is V4L2, though I am just using read() calls rather 
+than the streaming interface.
+The network interface is VNC, directly sending JPEGs to the clients 
+rather than using the normal VNC framebuffer update methods.
+
+Compression is done in HW, and then decompression at the client. So CPU 
+usage on the BMC is kept low, though bandwidth usage is pretty high 
+because it sends the whole frame every time. Seems to work with any VNC 
+client that supports JPEG compression.
+
+I'm currently working through some input latency problems; seems the 
+bandwidth usage for the frames causes huge delays for sending the input 
+events from the client to the server. Other than that it's working well.
+
+Thanks,
+Eddie
+
+>
+> Thanks,
+> Avi
+> On Mon, Jul 16, 2018 at 5:03 PM Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>>
+>>
+>> On 07/16/2018 01:34 AM, AKASH G J wrote:
+>>> Hi Team,
+>>>
+>>> Please someone share whether Keyboard Video Mouse (KVM) over IP
+>>> implementation available in OpenBMC ?
+>> Hi Akash,
+>>
+>> It's in development... If you want to help, let me know! I'll be
+>> updating the mailing list with drivers, etc, when it's more functional.
+>>
+>> Thanks,
+>> Eddie
+>>
+>>>
+>>>
+>>> Thanks and Regards,
+>>>
+>>> Akash
