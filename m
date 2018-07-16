@@ -1,83 +1,76 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <gary_hsu@aspeedtech.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="PnuP8Zap"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="MWjUj07l"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
+ (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
+ envelope-from=gary_hsu@aspeedtech.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=aspeedtech.com
+X-Greylist: delayed 1814 seconds by postgrey-1.36 at bilbo;
+ Mon, 16 Jul 2018 13:36:49 AEST
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41V29x2RgGzF35s
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 11:04:36 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BD35121D22;
- Mon, 16 Jul 2018 21:04:31 -0400 (EDT)
-Received: from web5 ([10.202.2.215])
- by compute4.internal (MEProxy); Mon, 16 Jul 2018 21:04:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=PTbRfd6sR87qUDKTTg4pC6QkxogtB
- T3HcauQ1KDMBqs=; b=PnuP8ZapHZUMtE1EuZnfVJK8svGpRBoQnEnH0y6+TG+fD
- gE0gU/X3x9AvJM4MrKqtvoeZiRFuzGs70anTek/VxmKOdFIqpbuVRaXZofVBCxD7
- aeMXPwEXfEzSYnpqyVJqTC3YLt8Zyur8REcGW52097HS+zdXlZIUZJgIkPub6TXA
- NSJTYT2DGAzr80uJC9uYtEA31kTor3ecyOh7QbudvcKsQp4XTfW/kcAxVUExJReR
- e0qF5f+rpUoJDgg74VEvGjHIIVSmFCd1+735r3w7igvToeFDm9uHG9lSOYJM6daV
- lTYHKjBlizut535zX2ypFDtP6mJF1o9JPYXRQ3eHg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=PTbRfd
- 6sR87qUDKTTg4pC6QkxogtBT3HcauQ1KDMBqs=; b=MWjUj07lF2eX+XFcs/ddZe
- z4kXGHjJZdabwfCnd9HqXdXuodweshNH7Wh6VAJgexHHtf2txn5u2wrayspWtCmH
- YhQL2eJ/1/CslPKnTXaijkaWL2911nCNdPwZnDJlDPsR8RJ0bmqTvQfDxg4fdk4e
- ximB1RDc2G5904hXjC6EjLTBclVFDKvG+ckCBved1dbrLjeNbiBsyPVXPXYldAdf
- icpQSK5AmeJccYVe0GhCUZDkPCXTTshcLqaUPidcb0xEp4prTominXCo9ObidibY
- R1rTt1vdvHXc6jiBDuwQQhA/EB4Mz1yjWDVdrFo5hcjr4b3ioMbcpN9Bjy1mSwYw
- ==
-X-ME-Proxy: <xmx:nkBNW11y_sbiDSc65uBcr0aUhz8TKkZvuT2Cz6FY44CxQK9_HetO8Q>
- <xmx:nkBNW9o72TEpZBPKK_TC2tr6Y3Nel684wI3WwZ8f7s9sySpLfQD99A>
- <xmx:nkBNW8M-CBY3RAdXnq_NwSu2i_st6PzHZuc7VCW0m_8avWapoqr3HA>
- <xmx:nkBNW-ojUDNXfrC3B8XMlA3FKdt6VLCpZsgOSyVQTzET5BDVbb7dQg>
- <xmx:nkBNW_uHkBH71JSCVSqeoq8tirex64sl5-nsjVlixKY-4bgEgUsbTQ>
- <xmx:n0BNWyu4AC9XWaY55pOoJcYjpeq-DLSjTEYN-RVepGp71G6lJvkO6g>
-X-ME-Sender: <xms:nkBNW5dzbBt9i5-N01tf1N2OhPy03x4_G5Eo8OEL3GFpGEm2otu3QA>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id C24749E10A; Mon, 16 Jul 2018 21:04:30 -0400 (EDT)
-Message-Id: <1531789470.3129371.1442980448.3B48B4EC@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Rob Herring <robh@kernel.org>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com,
- a.amelkin@yadro.com, linux-kernel@vger.kernel.org,
- Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41TTc13HxkzF36f;
+ Mon, 16 Jul 2018 13:36:49 +1000 (AEST)
+Received: from twspam01.aspeedtech.com (localhost [127.0.0.2])
+ by twspam01.aspeedtech.com with ESMTP id w6G37cPN092539;
+ Mon, 16 Jul 2018 11:07:38 +0800 (CST)
+ (envelope-from gary_hsu@aspeedtech.com)
+Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id w6G36SFB092436;
+ Mon, 16 Jul 2018 11:06:28 +0800 (CST)
+ (envelope-from gary_hsu@aspeedtech.com)
+Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Mon, 16 Jul
+ 2018 11:05:26 +0800
+Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX01.aspeed.com
+ (192.168.0.23) with Microsoft SMTP Server (TLS) id 15.0.620.29; Mon, 16 Jul
+ 2018 11:05:51 +0800
+Received: from TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb]) by
+ TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb%12]) with mapi id
+ 15.00.0620.020; Mon, 16 Jul 2018 11:05:51 +0800
+From: Gary Hsu <gary_hsu@aspeedtech.com>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Brendan Higgins
+ <brendanhiggins@google.com>
+CC: Benjamin Herrenschmidt <benh@kernel.crashing.org>, Joel Stanley
+ <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, "Linux
+ Kernel Mailing List" <linux-kernel@vger.kernel.org>,
+ "james.feist@linux.intel.com" <james.feist@linux.intel.com>,
+ "vernon.mauery@linux.intel.com" <vernon.mauery@linux.intel.com>, "Benjamin
+ Fair" <benjaminfair@google.com>, Patrick Venture <venture@google.com>,
+ "Ryan Chen" <ryan_chen@aspeedtech.com>
+Subject: RE: [PATCH] i2c: aspeed: Improve driver to support multi-master use
+ cases stably
+Thread-Topic: [PATCH] i2c: aspeed: Improve driver to support multi-master
+ use cases stably
+Thread-Index: AQHUGs4pYZmTV0v6jUONZuXHvtz+7qSM7oWAgAALlwCABDPtcA==
+Date: Mon, 16 Jul 2018 03:05:50 +0000
+Message-ID: <a84da5d076924f40b1c836fe8b9d0844@TWMBX01.aspeed.com>
+References: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
+ <CAFd5g45z--ucXf-So517tgrayZT6x2TGvaUvaDF7zeRNn7CPXw@mail.gmail.com>
+ <e51471e6-0f8a-bffc-34c8-1e74239fdbcf@linux.intel.com>
+ <CAFd5g47j_h4ZrT8Eg1FZ8sAj5ekCUH20jUVub75ozdkg8_YW7Q@mail.gmail.com>
+ <921b1ab7-9c9f-0aeb-da89-5a1a27d009f0@linux.intel.com>
+ <d3f10fc1-635b-3a5d-a967-2816eac005fc@linux.intel.com>
+ <CAFd5g47zdPdqqjVJtNHtFk+jKgciKbMcEH9M-W9rL4DgLM5hkg@mail.gmail.com>
+ <b8232faa-58f5-f3a5-d12a-3f326cf1d03d@linux.intel.com>
+In-Reply-To: <b8232faa-58f5-f3a5-d12a-3f326cf1d03d@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.0.80]
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
-References: <20180711053122.30773-1-andrew@aj.id.au>
- <20180711053122.30773-2-andrew@aj.id.au>
- <20180711200450.GB17291@rob-hp-laptop>
- <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
- <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
- <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
- <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
- <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
-In-Reply-To: <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
-Date: Tue, 17 Jul 2018 10:34:30 +0930
-Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
- control fields
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-DKIM-Results: twmbx02.aspeed.com; dkim=none;
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com w6G36SFB092436
+X-Mailman-Approved-At: Tue, 17 Jul 2018 11:06:45 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -89,138 +82,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jul 2018 01:04:41 -0000
+X-List-Received-Date: Mon, 16 Jul 2018 03:36:50 -0000
 
-On Mon, 16 Jul 2018, at 23:25, Rob Herring wrote:
-> On Fri, Jul 13, 2018 at 12:31 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-> >
-> > Hi Rob, Ben,
-> >
-> > I've replied to you both inline below, hopefully it's clear enough from the context.
-> >
-> > On Fri, 13 Jul 2018, at 10:25, Benjamin Herrenschmidt wrote:
-> > > On Thu, 2018-07-12 at 09:11 -0600, Rob Herring wrote:
-> > > > On Wed, Jul 11, 2018 at 6:54 PM Andrew Jeffery <andrew@aj.id.au> wrote:
-> > > > >
-> > > > > Hi Rob,
-> > > > >
-> > > > > Thanks for the response.
-> > > > >
-> > > > > On Thu, 12 Jul 2018, at 05:34, Rob Herring wrote:
-> > > > > > On Wed, Jul 11, 2018 at 03:01:19PM +0930, Andrew Jeffery wrote:
-> > > > > > > Baseboard Management Controllers (BMCs) are embedded SoCs that exist to
-> > > > > > > provide remote management of (primarily) server platforms. BMCs are
-> > > > > > > often tightly coupled to the platform in terms of behaviour and provide
-> > > > > > > many hardware features integral to booting and running the host system.
-> > > > > > >
-> > > > > > > Some of these hardware features are simple, for example scratch
-> > > > > > > registers provided by the BMC that are exposed to both the host and the
-> > > > > > > BMC. In other cases there's a single bit switch to enable or disable
-> > > > > > > some of the provided functionality.
-> > > > > > >
-> > > > > > > The documentation defines bindings for fields in registers that do not
-> > > > > > > integrate well into other driver models yet must be described to allow
-> > > > > > > the BMC kernel to assume control of these features.
-> > > > > >
-> > > > > > So we'll get a new binding when that happens? That will break
-> > > > > > compatibility.
-> > > > >
-> > > > > Can you please expand on this? I'm not following.
-> > > >
-> > > > If we have a subsystem in the future, then there would likely be an
-> > > > associated binding which would be different. So if you update the DT,
-> > > > then old kernels won't work with it.
-> > >
-> > > What kind of "subsystem" ? There is almost no way there could be one
-> > > for that sort of BMC tunables. We've look at several BMC chips out
-> > > there and requirements from several vendors, BIOS and system
-> > > manufacturers and it's all over the place.
-> >
-> > Right - This is the fundamental principle backing these patches: There will never be a coherent subsystem catering to any of what we want to describe with these bindings.
-> 
-> I never said they would. Saying "do not integrate well into other
-> driver models YET" implies at some point they will. No point in
-> beating this any further, just remove "yet"...
-
-Right, there should have been a comma before 'yet'. Sorry for the confusion.
-
-*snip*
-
-> > > > >
-> > > > > Maybe this could be modelled by pinmux, but then we still need some
-> > > > > way to expose the mux functions to userspace for selection
-> > > > > (userspace needs to transition arbitrarily between at least options
-> > > > > 0 and 1 at runtime), at which point we haven't achieved much beyond
-> > > > > adding a whole heap of infrastructure in the chain.
-> > > > >
-> > > > > Given 0 and 1, maybe exposing attributes in relevant drivers would
-> > > > > be reasonable, except 0 isn't exposed on the SoC's internal bus so
-> > > > > there is no driver on the BMC-side to do so. Taking into account 2
-> > > > > and 3 are also purely hardware paths further dashes the idea, as
-> > > > > the configuration doesn't really "belong" to the Graphics CRT
-> > > > > device more than it belongs anywhere else, except for the fact that
-> > > > > there isn't anywhere else to expose it.
-> > > > >
-> > > > > Further, the BMC's kernel can't make the decision as to when to
-> > > > > switch the mux as it knows nothing of the host's state. The BMC
-> > > > > userspace is controlling the host's boot state and so *does* know
-> > > > > when to flip the switch. Finally, the mux is in separate IP to the
-> > > > > CRT or VGA blocks: It lives in the System Control Unit.
-> > > > >
-> > > > > My current point of view is the DAC mux field is effectively its
-> > > > > own device, and we need to control it from userspace, so we need
-> > > > > some way to describe it (i.e. not ignore it) in order for its
-> > > > > capability to be exposed.
-> > > > >
-> > > > > I'm fully aware what I'm proposing isn't awesome as it's not
-> > > > > providing any real abstraction, but the problem(s) at hand also
-> > > > > seem to defy abstraction, and in order to avoid a plethora of
-> > > > > bespoke bindings I thought it was reasonable to define something
-> > > > > generic.
-> > > > >
-> > > > > All-in-all I appreciate the suggestion, but assuming you agree with
-> > > > > my reasoning above do you have thoughts on other alternatives?
-> > > >
-> > > > Seems the controls are more fixed than I first thought. All the data
-> > > > you have here could simply be within a driver.
-> >
-> > Rob: A driver for what though? One unique to this particular mux? That feels overly specific when we can generalise the concept to cover a wider range of use-cases.
-> 
-> Not unique. Just instead of populating the structs you have in the
-> driver from DT, define them in the driver and attach them to
-> match->data ptr.
-
-Okay, I'll prototype it.
-
-> 
-> > > > Help me understand what
-> > > > functions are fixed (in the SoC) and which ones vary by board. Only
-> > > > what's changing per board really needs to go into DT.
-> >
-> > I think this last sentence identifies a difference in our starting points, so I'd like to explore that. Blocks of functionality might move around inside the SoC as well, so don't we need a way to describe those functions appropriately?
-> 
-> Yes, if the blocks have well defined boundaries and functions. Blocks
-> like a UART for example do. Various pieces dumped into system
-> controllers generally don't IME.
-> 
-> > And from there describe how the SoC integrates the functions, and then describe how a board integrates the SoC? This all composes, and the problem at the end of the day comes down to what we want to view as a point of abstraction, right?
-> 
-> Yes. It's a judgement call as to how much we try to describe in DT. To
-> use clocks again, a clock divider, mux, or gate all seem like well
-> defined functions which could be (and were) described in DT, but we
-> learned that doesn't really work. We're still converting platforms
-> that did it that way...
-> 
-> > It seems ideal to me that the metadata about hardware features resides in the description of the relevant system (DT, for a function, a SoC or a board), otherwise don't we wind up with crazy, unfocused, monolithic drivers for things like system controllers? (There's MFD/syscon, but having used it previously I'm still grappling with the benefit over some of the weirdness it injects into devicetree - maybe I did it wrong.) Or alternatively, a generic driver that's choc full of platform-specific data covering the platforms that require it?
-> 
-> If that data is one set per SoC, then i'm not that concerned having
-> platform-specific data in the driver. That doesn't mean the driver is
-> not "generic". It's still not clear to me in this thread, how much of
-> this is board specific, but given that you've placed all the data in
-> an SoC dtsi file it seems to be all per SoC.
-
-Right, the features we want to expose are part of the SoC, not the board it sits on. The distinction was that different boards (or even different software payloads on the same board) could use them in vastly different ways, though that mainly affects how they're treated inside the kernel and at the kernel/userspace interface rather than at the devicetree level.
-
-Cheers,
-
-Andrew
+SGkgSmFlLA0KDQpJbiBvcmlnaW5hbGx5LCB3ZSByZXNlcnZlZCB0aGVzZSByZWdpc3RlciBiaXRz
+IGZvciBkZWJ1ZyBwdXJwb3NlLiBCdXQgZm9yIHNvbWUgZXJyb3IgaGFuZGxpbmcgY2FzZSwgd2Ug
+Zm91bmQgaXQgaXMgYWxzbyB1c2VmdWwgdG8gaGVscCB0byBjbGFyaWZ5IHNvbWUgZXJyb3IgY29u
+ZGl0aW9ucy4gU28gZHJpdmVyIGFsc28gY2FuIHVzZSB0aGVzZSBmaWVsZHMgaW5mb3JtYXRpb24g
+dG8gY2hlY2sgc29tZXRoaW5nLg0KQXMgZm9yIGhvdyBkcml2ZXIgdXNlIHRoZXNlIGluZm9ybWF0
+aW9uIGluIHRoZWlyIGNvZGUsIEkgaGF2ZSBubyBjb21tZW50LiBJIGRvbuKAmXQgdW5kZXJzdGFu
+ZCB0aGUgZHJpdmVyLiBCdXQgdGhlc2UgaW5mb3JtYXRpb24gaXMgdGhlIHJlYWwgY29udHJvbGxl
+ciBzdGF0ZSwgaXQgaGFkIG5vIHByb2JsZW0gdG8gdXNlIGluZm9ybWF0aW9uLg0KDQpCZXN0IFJl
+Z2FyZHMsDQoNCuiosemmpeeWhyBHYXJ5IEhzdQ0KDQrkv6HpqYrnp5HmioDogqHku73mnInpmZDl
+hazlj7gNCkFTUEVFRCBUZWNobm9sb2d5IEluYy4NCg0KMkYsTm8uMTUsSW5kdXN0cnkgRWFzdCBS
+b2FkIDQuLEhzaW5jaHUgU2NpZW5jZSBQYXJrLCBIc2luY2h1IENpdHkgMzAwNzcsIFRhaXdhbg0K
+5paw56u556eR5a245ZyS5Y2A5bel5qWt5p2x5Zub6LevIDE1IOiZnyAyRg0KDQpUZWwgOiA4ODYt
+My01Nzg5NTY4IGV4dDo4MDcNCkZheCA6IDg4Ni0zLTU3ODk1ODYNCldlYiA6IGh0dHA6Ly93d3cu
+YXNwZWVkdGVjaC5jb20NCg0KKioqKioqKioqKioqKiBFbWFpbCBDb25maWRlbnRpYWxpdHkgTm90
+aWNlICoqKioqKioqKioqKioqKioqKioqDQrlhY3osqzogbLmmI46DQrlm6Dmh4nlgIvkurros4fm
+lpnkv53orbfms5Xmlr3ooYws5pys5L+h5Lu2KOaIluWFtumZhOS7tinlj6/og73ljIXlkKvmqZ/l
+r4bos4foqIrvvIzkuKblj5fms5Xlvovkv53orbfjgILlpoIg5Y+w56uv6Z2e5oyH5a6a5LmL5pS2
+5Lu26ICF77yM6KuL5Lul6Zu75a2Q6YO15Lu26YCa55+l5pys6Zu75a2Q6YO15Lu25LmL55m86YCB
+6ICFLCDkuKboq4vnq4vljbPliKrpmaTmnKzpm7vlrZDpg7Xku7blj4rlhbbpmYTku7blkozpirfm
+r4DmiYDmnInopIfljbDku7bjgILorJ3orJ3mgqjnmoTlkIjkvZwhDQoNCkRJU0NMQUlNRVI6DQpU
+aGlzIG1lc3NhZ2UgKGFuZCBhbnkgYXR0YWNobWVudHMpIG1heSBjb250YWluIGxlZ2FsbHkgcHJp
+dmlsZWdlZCBhbmQvb3Igb3RoZXIgY29uZmlkZW50aWFsIGluZm9ybWF0aW9uLiBJZiB5b3UgaGF2
+ZSByZWNlaXZlZCBpdCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHJlcGx5
+IGUtbWFpbCBhbmQgaW1tZWRpYXRlbHkgZGVsZXRlIHRoZSBlLW1haWwgYW5kIGFueSBhdHRhY2ht
+ZW50cyB3aXRob3V0IGNvcHlpbmcgb3IgZGlzY2xvc2luZyB0aGUgY29udGVudHMuIFRoYW5rIHlv
+dS4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEphZSBIeXVuIFlvbyBbbWFp
+bHRvOmphZS5oeXVuLnlvb0BsaW51eC5pbnRlbC5jb21dIA0KU2VudDogU2F0dXJkYXksIEp1bHkg
+MTQsIDIwMTggMjo1NCBBTQ0KVG86IEJyZW5kYW4gSGlnZ2lucyA8YnJlbmRhbmhpZ2dpbnNAZ29v
+Z2xlLmNvbT4NCkNjOiBCZW5qYW1pbiBIZXJyZW5zY2htaWR0IDxiZW5oQGtlcm5lbC5jcmFzaGlu
+Zy5vcmc+OyBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1PjsgQW5kcmV3IEplZmZlcnkgPGFu
+ZHJld0Bhai5pZC5hdT47IGxpbnV4LWkyY0B2Z2VyLmtlcm5lbC5vcmc7IE9wZW5CTUMgTWFpbGxp
+c3QgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz47IExpbnV4IEFSTSA8bGludXgtYXJtLWtlcm5l
+bEBsaXN0cy5pbmZyYWRlYWQub3JnPjsgbGludXgtYXNwZWVkQGxpc3RzLm96bGFicy5vcmc7IExp
+bnV4IEtlcm5lbCBNYWlsaW5nIExpc3QgPGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+OyBq
+YW1lcy5mZWlzdEBsaW51eC5pbnRlbC5jb207IHZlcm5vbi5tYXVlcnlAbGludXguaW50ZWwuY29t
+OyBCZW5qYW1pbiBGYWlyIDxiZW5qYW1pbmZhaXJAZ29vZ2xlLmNvbT47IFBhdHJpY2sgVmVudHVy
+ZSA8dmVudHVyZUBnb29nbGUuY29tPjsgR2FyeSBIc3UgPGdhcnlfaHN1QGFzcGVlZHRlY2guY29t
+PjsgUnlhbiBDaGVuIDxyeWFuX2NoZW5AYXNwZWVkdGVjaC5jb20+DQpTdWJqZWN0OiBSZTogW1BB
+VENIXSBpMmM6IGFzcGVlZDogSW1wcm92ZSBkcml2ZXIgdG8gc3VwcG9ydCBtdWx0aS1tYXN0ZXIg
+dXNlIGNhc2VzIHN0YWJseQ0KDQpPbiA3LzEzLzIwMTggMTE6MTIgQU0sIEJyZW5kYW4gSGlnZ2lu
+cyB3cm90ZToNCj4gT24gRnJpLCBKdWwgMTMsIDIwMTggYXQgMTA6MjIgQU0gSmFlIEh5dW4gWW9v
+IA0KPiA8amFlLmh5dW4ueW9vQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6DQo+Pg0KPj4gT24gNy8x
+Mi8yMDE4IDExOjIxIEFNLCBKYWUgSHl1biBZb28gd3JvdGU6DQo+Pj4gT24gNy8xMi8yMDE4IDI6
+MzMgQU0sIEJyZW5kYW4gSGlnZ2lucyB3cm90ZToNCj4+Pj4gT24gV2VkLCBKdW4gMjcsIDIwMTgg
+YXQgMTA6NTUgQU0gSmFlIEh5dW4gWW9vIA0KPj4+PiA8amFlLmh5dW4ueW9vQGxpbnV4LmludGVs
+LmNvbT4gd3JvdGU6DQo+IDxzbmlwPg0KPj4+PiA8c25pcD4NCj4+Pj4+Pj4gKyAgICAgICBmb3Ig
+KDs7KSB7DQo+Pj4+Pj4+ICsgICAgICAgICAgICAgICBpZiAoIShyZWFkbChidXMtPmJhc2UgKyBB
+U1BFRURfSTJDX0NNRF9SRUcpICYNCj4+Pj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgIChBU1BF
+RURfSTJDRF9CVVNfQlVTWV9TVFMgfA0KPj4+Pj4+PiArICAgICAgICAgICAgICAgICAgICAgIEFT
+UEVFRF9JMkNEX1hGRVJfTU9ERV9TVFNfTUFTSykpKQ0KPj4+Pj4+DQo+Pj4+Pj4gSXMgdXNpbmcg
+dGhlIFRyYW5zZmVyIE1vZGUgU3RhdGUgTWFjaGluZSBiaXRzIG5lY2Vzc2FyeT8gVGhlIA0KPj4+
+Pj4+IGRvY3VtZW50YXRpb24gbWFya3MgaXQgYXMgImZvciBkZWJ1Z2dpbmcgcHVycG9zZSBvbmx5
+LCIgc28gDQo+Pj4+Pj4gcmVseWluZyBvbiBpdCBtYWtlcyBtZSBuZXJ2b3VzLg0KPj4+Pj4+DQo+
+Pj4+Pg0KPj4+Pj4gQXMgeW91IHNhaWQsIHRoZSBkb2N1bWVudGF0aW9uIG1hcmtzIGl0IGFzICJm
+b3IgZGVidWdnaW5nIHB1cnBvc2Ugb25seS4iDQo+Pj4+PiBidXQgQVNQRUVEIGFsc28gdXNlcyB0
+aGlzIHdheSBpbiB0aGVpciBTREsgY29kZSBiZWNhdXNlIGl0J3MgdGhlIA0KPj4+Pj4gYmVzdCB3
+YXkgZm9yIGNoZWNraW5nIGJ1cyBidXN5IHN0YXR1cyB3aGljaCBjYW4gY292ZXIgYm90aCBzaW5n
+bGUgDQo+Pj4+PiBhbmQgbXVsdGktbWFzdGVyIHVzZSBjYXNlcy4NCj4+Pj4+DQo+Pj4+DQo+Pj4+
+IFdlbGwsIGl0IHdvdWxkIGFsc28gYmUgcmVhbGx5IG5pY2UgdG8gaGF2ZSBhY2Nlc3MgdG8gdGhp
+cyBiaXQgaWYgDQo+Pj4+IHNvbWVvbmUgd2FudHMgdG8gaW1wbGVtZW50IE1DVFAuIENvdWxkIHdl
+IG1heWJlIGNoZWNrIHdpdGggQXNwZWVkIA0KPj4+PiB3aGF0IHRoZW0gbWVhbnQgYnkgImZvciBk
+ZWJ1Z2dpbmcgcHVycG9zZXMgb25seSIgYW5kIGRvY3VtZW50IGl0IA0KPj4+PiBoZXJlPyBJdCBt
+YWtlcyBtZSBuZXJ2b3VzIHRvIHJlbHkgb24gZGVidWdnaW5nIGZ1bmN0aW9uYWxpdHkgZm9yIA0K
+Pj4+PiBub3JtYWwgdXNhZ2UuDQo+Pj4+DQo+Pj4NCj4+PiBPa2F5LCBJJ2xsIGNoZWNrIGl0IHdp
+dGggQXNwZWVkLiBXaWxsIGxldCB5b3Uga25vdyB0aGVpciByZXNwb25zZS4NCj4+Pg0KPj4NCj4+
+IEkndmUgY2hlY2tlZCBpdCB3aXRoIEdhcnkgSHN1IDxnYXJ5X2hzdUBhc3BlZWR0ZWNoLmNvbT4g
+YW5kIGhlIA0KPj4gY29uZmlybWVkIHRoYXQgdGhlIGJpdHMgcmVmbGVjdCByZWFsIGluZm9ybWF0
+aW9uIGFuZCBnb29kIHRvIGJlIHVzZWQgDQo+PiBpbiBwcmFjdGljYWwgY29kZS4NCj4gDQo+IEh1
+aC4gRm9yIG15IG93biBlZGlmaWNhdGlvbiwgY291bGQgeW91IGFzayB0aGVtIHdoeSB0aGV5IHNh
+aWQgImZvciANCj4gZGVidWdnaW5nIHB1cnBvc2Ugb25seSIgaW4gdGhlIGRvY3VtZW50YXRpb24/
+IEkgYW0ganVzdCByZWFsbHkgY3VyaW91cyANCj4gd2hhdCB0aGV5IG1lYW50IGJ5IHRoYXQuIEkg
+d291bGQgYmUgc2F0aXNmaWVkIGlmIHlvdSBqdXN0IENDJ2VkIG1lIG9uIA0KPiB5b3VyIGVtYWls
+IHRocmVhZCB3aXRoIEdhcnksIGFuZCBJIGNhbiBhc2sgaGltIG15c2VsZi4NCj4gDQoNCkkndmUg
+YWxyZWFkeSBDQydlZCBHYXJ5IGFuZCBSeWFuIGluIHRoaXMgdGhyZWFkLg0KDQpIaSBHYXJ5LA0K
+DQpDYW4geW91IGV4cGxhaW4gd2h5IHRoZSBkb2N1bWVudGF0aW9uIHNheXMgdGhhdCB0aGUgYml0
+IGZpZWxkIGlzICdmb3IgZGVidWdnaW5nIHB1cnBvc2Ugb25seSc/IEFueSBwbGFuIHRvIGNoYW5n
+ZSB0aGUgZGVzY3JpcHRpb24/DQoNClRoYW5rcywNCg0KSmFlDQoNCj4+DQo+PiBJJ2xsIGFkZCBh
+IGNvbW1lbnQgbGlrZSBiZWxvdzoNCj4+DQo+PiAvKg0KPj4gICAgKiBUaGlzIGlzIG1hcmtlZCBh
+cyAnZm9yIGRlYnVnZ2luZyBwdXJwb3NlIG9ubHknIGluIGRhdGFzaGVldCBidXQNCj4+ICAgICog
+QVNQRUVEIGNvbmZpcm1lZCB0aGF0IHRoaXMgcmVmbGVjdHMgcmVhbCBpbmZvcm1hdGlvbiBhbmQg
+Z29vZA0KPj4gICAgKiB0byBiZSB1c2VkIGluIHByYWN0aWNhbCBjb2RlLg0KPj4gICAgKi8NCj4+
+DQo+PiBJcyBpdCBhY2NlcHRhYmxlIHRoZW4/DQo+IA0KPiBZZWFoLCB0aGF0J3MgZmluZS4NCj4g
+DQo+IDxzbmlwPg0KPiANCj4gQ2hlZXJzDQo+IA0K
