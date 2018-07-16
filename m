@@ -1,34 +1,74 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ixvRTK7h"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ckyVHmX0"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41TRjS6PzCzF36W
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 12:11:24 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id B0584134F34;
- Sun, 15 Jul 2018 22:11:18 -0400 (EDT)
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: How to handle security vulnerabilities (was: OpenBMC security
- workgroup status)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1531464997.759540.1439362504.21B25D92@webmail.messagingengine.com>
-Date: Sun, 15 Jul 2018 22:11:18 -0400
-Cc: openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <AC6EEF0D-8D17-4936-A6DD-4059CB459EBC@fuzziesquirrel.com>
-References: <OFE1ABED0B.13DF2F69-ON002582C8.007A50D4-002582C8.007AA270@notes.na.collabserv.com>
- <1531464997.759540.1439362504.21B25D92@webmail.messagingengine.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41TSb52tvmzF36W
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 12:50:56 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 132F721B82;
+ Sun, 15 Jul 2018 22:50:54 -0400 (EDT)
+Received: from web5 ([10.202.2.215])
+ by compute4.internal (MEProxy); Sun, 15 Jul 2018 22:50:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=Zzl7/sHSNh+IyPQWupkGHIFiP4/yf
+ QZ+hKPwMIwSg88=; b=ixvRTK7hFWNCX7jVankQK53KlBrEZnr287ulbWGM1D6ZZ
+ YxMF4Jk5eAKNJMSycMbwTue3rkA5R6Ujyz+oOva+APfWDqdcxGVuuKejiWEL8M8z
+ WTInibBGM+RrJWa5ndKFyL8B4lz3jhtlwrVS1Fb47vdpwj0nitn0NjJc2teWZmn2
+ D1vgWULf+njJw8HZwu4rGVPhn4jOjE6DE2DgNnqO2emIRafQBXEnz0hbBYvHp8GX
+ TnZ8E3H7apixX1Aryd7Lxsp8OY/+RXvzEFu0AEFHZZs0IN8/hDxTeIxolZnJ2XjF
+ UDpsTaDvQya/BMyp5DLPnZzpySF+10URhElBjzSLA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Zzl7/s
+ HSNh+IyPQWupkGHIFiP4/yfQZ+hKPwMIwSg88=; b=ckyVHmX03SmfMlOVkWqmh1
+ +Tq5AQKi3H+2jlzV+Ebk8rgN+TcFqu0wQDFJo8BusC298LRgPmiFV2SmzJL51DBL
+ cw/kidPbk9yig6uN4+Lw30iMmJwFjeU4gqwGtpWFVAjF/wj/z7qv843Vfy/xztOa
+ gcBV25GpO2pzq7HkqVD59BpLkqrLo5d3dv0jXnWzHQPTQnb/bOTctj22dJQgqH8A
+ dhhBe+m0l8JzZayIqgyQqfSvhin7c3wTuaRNaAeXkiMaJRODhjNT6aXZo+HEFbWI
+ WBNOy3vsFedMPefNV6I9lTk82Zhl+IpFlpvn4E4uTJYAOyWS+CMMvZ5dzuPb3IEg
+ ==
+X-ME-Proxy: <xmx:DQhMW8KXNZBIEY-RocbjG3bfc-EcDbfB4vpknJo9gY16tiVvGT-y-A>
+ <xmx:DQhMW0Gg-LNHyH1lTG_bHtaReW1QakHa9QBuDlY_NvrHtCGqsB7UDg>
+ <xmx:DQhMWz6raDA0EZlhI6cYnnsGKXmPat9w_yVVsAx_uRohBkYGBVm6vQ>
+ <xmx:DQhMW_36dVxfLUKYMVSTJ6UGuuRtq8Xg4gze7jJyuSAyxfzwLqLgZg>
+ <xmx:DQhMW_h95tb9tnaueVSpPRt0-_yIz3IQ3gyZ9AL6pScGmrd3yjxEtg>
+ <xmx:DghMW6T9I9TgaUNw-c514H_8hcyWH4vupebE5MEnc5kCmPghTYzr6Q>
+X-ME-Sender: <xms:DQhMWyHsFBiEc-FEkxcug-ogyHj-skjQR-iDsrG6gP3kT58bDUyTkw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id F016B9E0F5; Sun, 15 Jul 2018 22:50:52 -0400 (EDT)
+Message-Id: <1531709452.1037890.1441737864.7E216D02@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Rob Herring <robh@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: mark.rutland@arm.com, arnd@arnd.de, gregkh@linuxfoundation.org,
+ avifishman70@gmail.com, yuenn@google.com, brendanhiggins@google.com,
+ venture@google.com, joel@jms.id.au, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
+In-Reply-To: <20180711202107.GA29980@rob-hp-laptop>
+Subject: Re: [PATCH v1 1/2] dt-binding: bmc: Add NPCM7xx LPC BPC documentation
+Date: Mon, 16 Jul 2018 12:20:52 +0930
+References: <20180704091427.409971-1-tmaimon77@gmail.com>
+ <20180704091427.409971-2-tmaimon77@gmail.com>
+ <20180711202107.GA29980@rob-hp-laptop>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -40,75 +80,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jul 2018 02:11:25 -0000
+X-List-Received-Date: Mon, 16 Jul 2018 02:51:01 -0000
 
+On Thu, 12 Jul 2018, at 05:51, Rob Herring wrote:
+> On Wed, Jul 04, 2018 at 12:14:26PM +0300, Tomer Maimon wrote:
+> > Added device tree binding documentation for Nuvoton BMC
+> > NPCM7xx BIOS Post Code (BPC).
+> > The NPCM7xx BPC monitoring two configurable I/O addresses
+> > written by the host on Low Pin Count (LPC) bus.
+> > 
+> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> > ---
+> >  .../devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt    | 26 ++++++++++++++++++++++
+> >  1 file changed, 26 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
+> > 
+> > diff --git a/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
+> > new file mode 100644
+> > index 000000000000..0832c9cbea32
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
+> > @@ -0,0 +1,26 @@
+> > +Nuvoton NPCM7xx LPC BPC interface
+> > +
+> > +Nuvoton BMC NPCM7xx BIOS Post Code (BPC) monitoring two
+> > +configurable I/O addresses written by the host on the
+> > +Low Pin Count (LPC) bus, the capure data stored in 128-word FIFO.
+> 
+> s/capure/capture/
+> 
+> Otherwise,
+> 
+> Reviewed-by: Rob Herring <robh@kernel.org>
 
-> On Jul 13, 2018, at 2:56 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->=20
-> On Fri, 13 Jul 2018, at 07:49, Joseph Reynolds wrote:
->>> What's the short-term strategy for handling [security] vulnerability
->>> reports received in the gap between now and getting some formal
->>> process in place?=20
->> We don't have a strategy.  Let's discuss it here.
->>=20
->> Officially (https://github.com/openbmc/openbmc/ section "Bug =
-Reporting")
->> issues are managed on GitHub.=20
->>=20
->> Unofficially, Brad volunteered to accept one batch of security
->> vulnerability reports and distribute them, presumably to the OpenBMC =
-TSC
->> members (https://github.com/openbmc/docs section "Technical Steering
->> Committee ") or their delegates.  I assume they would privately =
-contact
->> a trusted OpenBMC contributor who could address the problem.=20
->>=20
->> We could adapt the Linux model
->> =
-(https://www.kernel.org/doc/html/v4.16/admin-guide/security-bugs.html),
->> although I am still looking for information on what the Linux =
-security
->> team does with the bug report.  For example, how security group =
-members
->> track and discuss problems among themselves, how they pull in =
-additional
->> resources to fix or mitigate the problem, and how they inform =
-downstream
->> distros before announcing the problem, etc.=20
->=20
-> I thought the documention described most of this? security@kernel.org =
-is a private list, so discussions can happen there freely. With respect =
-to informing downstream distros, as mentioned that's done via the =
-linux-distros@vs.openwall.org list. As for how they pull in additional =
-resources to fix or mitigate the problem, that's going to depend on the =
-affected parties. No-one can order anyone to fix a particular problem, =
-but the developers/maintainers/vendors involved have skin in the game so =
-should be motivated to fix the issue.
->=20
->>=20
->> I think the first step for the OpenBMC team is to establish an email
->> address (like security@openbmc.org), subscribe only trusted people to
->> that email list, and update the docs to explain that you should email
->> the security team for security questions, and use issues for =
-everything
->> else.=20
->=20
-> Sounds good to me. Who can sort out security@? Brad? I'm sure we could =
-sort out list hosting on ozlabs.org if necessary (like we use for this =
-list).
+So uncovering a bit of a dirty secret here, we should probably consider this in the context of the ASPEED snoop function. A driver snuck into the misc tree without an associated bindings document:
 
-Unless someone replies in the negative in the next couple days, lets =
-just
-do another list on ozlabs.org, if ozlabs.org is ok with that :-)
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/misc/aspeed-lpc-snoop.c
 
->=20
->> Presumably, the security team would communicate privately among
->> themselves and the submitter to assess the situation, and contact
->> OpenBMC community members privately to address the problem.=20
->> This would be an easy step to take, and would move the team in the =
-right
->> direction.  What do you think?
->=20
-> Sounds good enough for the moment!
->=20
-> Andrew
+(it wasn't me, I'm happy to discuss my proposed bindings, please don't shoot the messenger :))
+
+The devicetree node looks something like:
+
+					lpc_snoop: lpc-snoop@0 {
+						compatible = "aspeed,ast2500-lpc-snoop";
+						reg = <0x0 0x80>;
+						interrupts = <8>;
+						status = "disabled";
+					};
+
+and also has a required "snoop-ports" property with at least one and up to two cells that describe the channels to snoop. Channel values are either 0 or 1. It's feasible that the double-word capture could also be supported as both supported channels have their data captured in different fields of the same register.
+
+Do we go with what's already in the tree in supporting 'snoop-ports' or keep 'monitor-ports' as proposed by Tomer?
+
+Andrew
+
+> 
+> 
+> > +
+> > +NPCM7xx BPC supports capture double words, when using capture
+> > +double word only I/O address 1 is monitored.
+> > +
+> > +Required properties for lpc_bpc node
+> > +- compatible	: "nuvoton,npcm750-lpc-bpc" for Poleg NPCM7XX.
+> > +- reg 			: specifies physical base address and size of the registers.
+> > +- interrupts	: contain the LPC BPC with flags for falling edge.
+> > +- monitor-ports : contain monitor I/O addresses, at least one monitor I/O
+> > +				  address required
+> > +
+> > +Optional property for lpc_bpc node
+> > +- bpc-en-dwcapture : enable capture double words support.
+> > +
+> > +Example:
+> > +	lpc_bpc: lpc-bpc@f0007040 {
+> > +		compatible = "nuvoton,npcm7xx-lpc-bpc";
+> > +		reg = <0xf0007040 0x14>;
+> > +		monitor-ports = <0x80>;
+> > +		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
+> > +	};
+> > -- 
+> > 2.14.1
+> > 
+> --
+> To unsubscribe from this list: send the line "unsubscribe linux-hwmon" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
