@@ -1,74 +1,55 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::241; helo=mail-oi0-x241.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ixvRTK7h"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ckyVHmX0"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="leieP4OW"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41TSb52tvmzF36W
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 12:50:56 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 132F721B82;
- Sun, 15 Jul 2018 22:50:54 -0400 (EDT)
-Received: from web5 ([10.202.2.215])
- by compute4.internal (MEProxy); Sun, 15 Jul 2018 22:50:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=Zzl7/sHSNh+IyPQWupkGHIFiP4/yf
- QZ+hKPwMIwSg88=; b=ixvRTK7hFWNCX7jVankQK53KlBrEZnr287ulbWGM1D6ZZ
- YxMF4Jk5eAKNJMSycMbwTue3rkA5R6Ujyz+oOva+APfWDqdcxGVuuKejiWEL8M8z
- WTInibBGM+RrJWa5ndKFyL8B4lz3jhtlwrVS1Fb47vdpwj0nitn0NjJc2teWZmn2
- D1vgWULf+njJw8HZwu4rGVPhn4jOjE6DE2DgNnqO2emIRafQBXEnz0hbBYvHp8GX
- TnZ8E3H7apixX1Aryd7Lxsp8OY/+RXvzEFu0AEFHZZs0IN8/hDxTeIxolZnJ2XjF
- UDpsTaDvQya/BMyp5DLPnZzpySF+10URhElBjzSLA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Zzl7/s
- HSNh+IyPQWupkGHIFiP4/yfQZ+hKPwMIwSg88=; b=ckyVHmX03SmfMlOVkWqmh1
- +Tq5AQKi3H+2jlzV+Ebk8rgN+TcFqu0wQDFJo8BusC298LRgPmiFV2SmzJL51DBL
- cw/kidPbk9yig6uN4+Lw30iMmJwFjeU4gqwGtpWFVAjF/wj/z7qv843Vfy/xztOa
- gcBV25GpO2pzq7HkqVD59BpLkqrLo5d3dv0jXnWzHQPTQnb/bOTctj22dJQgqH8A
- dhhBe+m0l8JzZayIqgyQqfSvhin7c3wTuaRNaAeXkiMaJRODhjNT6aXZo+HEFbWI
- WBNOy3vsFedMPefNV6I9lTk82Zhl+IpFlpvn4E4uTJYAOyWS+CMMvZ5dzuPb3IEg
- ==
-X-ME-Proxy: <xmx:DQhMW8KXNZBIEY-RocbjG3bfc-EcDbfB4vpknJo9gY16tiVvGT-y-A>
- <xmx:DQhMW0Gg-LNHyH1lTG_bHtaReW1QakHa9QBuDlY_NvrHtCGqsB7UDg>
- <xmx:DQhMWz6raDA0EZlhI6cYnnsGKXmPat9w_yVVsAx_uRohBkYGBVm6vQ>
- <xmx:DQhMW_36dVxfLUKYMVSTJ6UGuuRtq8Xg4gze7jJyuSAyxfzwLqLgZg>
- <xmx:DQhMW_h95tb9tnaueVSpPRt0-_yIz3IQ3gyZ9AL6pScGmrd3yjxEtg>
- <xmx:DghMW6T9I9TgaUNw-c514H_8hcyWH4vupebE5MEnc5kCmPghTYzr6Q>
-X-ME-Sender: <xms:DQhMWyHsFBiEc-FEkxcug-ogyHj-skjQR-iDsrG6gP3kT58bDUyTkw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id F016B9E0F5; Sun, 15 Jul 2018 22:50:52 -0400 (EDT)
-Message-Id: <1531709452.1037890.1441737864.7E216D02@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Rob Herring <robh@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>
-Cc: mark.rutland@arm.com, arnd@arnd.de, gregkh@linuxfoundation.org,
- avifishman70@gmail.com, yuenn@google.com, brendanhiggins@google.com,
- venture@google.com, joel@jms.id.au, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41TYYh6DXyzF35s
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 16:35:04 +1000 (AEST)
+Received: by mail-oi0-x241.google.com with SMTP id i12-v6so72742202oik.2
+ for <openbmc@lists.ozlabs.org>; Sun, 15 Jul 2018 23:35:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=j8ckDZ0MbQpiFKW50vd0kUBvSPevMKnQSfrXHkdrxe4=;
+ b=leieP4OWK00iBWpq6BO7fw9QnZDK5O56Z5oNCohDew4HD18JZoNBNKOXnA0yiuSwMz
+ rTBifA9F8WvKa2sS/Aw1BL3svM/kvmxspQnvXyhH3jLihMmcOfiKoMWqLvJM25a11CY9
+ +/tdxe0cHAmg/tpOPJ4BOhVNtBTaP4nnEf0DaGTFwnHt4G2JyjNJV5NumLZVcvznam9M
+ TZ0hXNJZE639ROYWGtRRd0kQKHsO6aywGJjVt7Vd5Zd5xnJ16or5Y0dpHhMEEYrQ35xW
+ Qews1io43BIsLhRr0uf51+/S4bWSQMRj9TGehSBq7wRHxP28N1gNmK2u3b4w3BJkI8HO
+ yajw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=j8ckDZ0MbQpiFKW50vd0kUBvSPevMKnQSfrXHkdrxe4=;
+ b=eyfpxS00DzPd/kFqsjMCg115y+s4BRiUgrYrIxFM7oazjNEGLFnvaiCUWvWdUyRc4c
+ Y0sUb3KHbOWvmqhN6pgBj2uW5C5+wq7TBU+KWh/q9hbSXpybl52HFwjAG8sQv3Kwq6Ul
+ 3fDH3dpSL3R6aHsCmqrOx5HvJTgcfykEY1X6eCPFTsxKIfWae6AcrnB464XW4CckDd8g
+ Fjmrw0ebMz2vuKd7jUlB1EY/Ou8pYOhlksF+sFp3tZPMlF/PejFl+MUuFoL3eA7RPSgm
+ pwkSWPQ/Eq/3hTyQ+/OEi+cJ6vB1RHJ6sJMsM6m59IVwTtbLsudgHZ7GTXChKNdoj4/B
+ GaWw==
+X-Gm-Message-State: AOUpUlEBXiR5G4/EklNvoZP8D3L8nMM/ktkt3RWaprzp8/mFLWtRK/Mj
+ /CMTQJqqS8zswKB2NuhfUnXxTBdMUHnMyqXBywE=
+X-Google-Smtp-Source: AAOMgpcpjMD+BJYn15KiNXCOBme5oFPtt4m6EjVeB5HIfE5OLOT5GNr36rHirhbi/IfNPUvHPPR8Z/kBTfR420IBJYg=
+X-Received: by 2002:aca:e6cd:: with SMTP id
+ d196-v6mr16193568oih.94.1531722899913; 
+ Sun, 15 Jul 2018 23:34:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
-In-Reply-To: <20180711202107.GA29980@rob-hp-laptop>
-Subject: Re: [PATCH v1 1/2] dt-binding: bmc: Add NPCM7xx LPC BPC documentation
-Date: Mon, 16 Jul 2018 12:20:52 +0930
-References: <20180704091427.409971-1-tmaimon77@gmail.com>
- <20180704091427.409971-2-tmaimon77@gmail.com>
- <20180711202107.GA29980@rob-hp-laptop>
+Received: by 2002:a4a:2c87:0:0:0:0:0 with HTTP; Sun, 15 Jul 2018 23:34:59
+ -0700 (PDT)
+From: AKASH G J <akashgj91@gmail.com>
+Date: Mon, 16 Jul 2018 12:04:59 +0530
+Message-ID: <CAE33tLHVuuMgcEQw1xkGP+H1h_Gxq1Vf0Re2SKjVbPhiAgkxNQ@mail.gmail.com>
+Subject: KVM Support?
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="00000000000058008805711807fd"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -80,87 +61,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jul 2018 02:51:01 -0000
+X-List-Received-Date: Mon, 16 Jul 2018 06:35:06 -0000
 
-On Thu, 12 Jul 2018, at 05:51, Rob Herring wrote:
-> On Wed, Jul 04, 2018 at 12:14:26PM +0300, Tomer Maimon wrote:
-> > Added device tree binding documentation for Nuvoton BMC
-> > NPCM7xx BIOS Post Code (BPC).
-> > The NPCM7xx BPC monitoring two configurable I/O addresses
-> > written by the host on Low Pin Count (LPC) bus.
-> > 
-> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> > ---
-> >  .../devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt    | 26 ++++++++++++++++++++++
-> >  1 file changed, 26 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
-> > 
-> > diff --git a/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
-> > new file mode 100644
-> > index 000000000000..0832c9cbea32
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
-> > @@ -0,0 +1,26 @@
-> > +Nuvoton NPCM7xx LPC BPC interface
-> > +
-> > +Nuvoton BMC NPCM7xx BIOS Post Code (BPC) monitoring two
-> > +configurable I/O addresses written by the host on the
-> > +Low Pin Count (LPC) bus, the capure data stored in 128-word FIFO.
-> 
-> s/capure/capture/
-> 
-> Otherwise,
-> 
-> Reviewed-by: Rob Herring <robh@kernel.org>
+--00000000000058008805711807fd
+Content-Type: text/plain; charset="UTF-8"
 
-So uncovering a bit of a dirty secret here, we should probably consider this in the context of the ASPEED snoop function. A driver snuck into the misc tree without an associated bindings document:
+Hi Team,
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/misc/aspeed-lpc-snoop.c
+Please someone share whether Keyboard Video Mouse (KVM) over IP
+implementation available in OpenBMC ?
 
-(it wasn't me, I'm happy to discuss my proposed bindings, please don't shoot the messenger :))
 
-The devicetree node looks something like:
 
-					lpc_snoop: lpc-snoop@0 {
-						compatible = "aspeed,ast2500-lpc-snoop";
-						reg = <0x0 0x80>;
-						interrupts = <8>;
-						status = "disabled";
-					};
+Thanks and Regards,
 
-and also has a required "snoop-ports" property with at least one and up to two cells that describe the channels to snoop. Channel values are either 0 or 1. It's feasible that the double-word capture could also be supported as both supported channels have their data captured in different fields of the same register.
+Akash
 
-Do we go with what's already in the tree in supporting 'snoop-ports' or keep 'monitor-ports' as proposed by Tomer?
+--00000000000058008805711807fd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Andrew
+<div dir=3D"ltr"><div>Hi Team,</div><div><br></div><div>Please someone shar=
+e whether Keyboard Video Mouse (KVM) over IP implementation available in Op=
+enBMC ?</div><div><br></div><div><br></div><div><br></div><div>Thanks and R=
+egards,</div><div><br></div><div>Akash<br></div></div>
 
-> 
-> 
-> > +
-> > +NPCM7xx BPC supports capture double words, when using capture
-> > +double word only I/O address 1 is monitored.
-> > +
-> > +Required properties for lpc_bpc node
-> > +- compatible	: "nuvoton,npcm750-lpc-bpc" for Poleg NPCM7XX.
-> > +- reg 			: specifies physical base address and size of the registers.
-> > +- interrupts	: contain the LPC BPC with flags for falling edge.
-> > +- monitor-ports : contain monitor I/O addresses, at least one monitor I/O
-> > +				  address required
-> > +
-> > +Optional property for lpc_bpc node
-> > +- bpc-en-dwcapture : enable capture double words support.
-> > +
-> > +Example:
-> > +	lpc_bpc: lpc-bpc@f0007040 {
-> > +		compatible = "nuvoton,npcm7xx-lpc-bpc";
-> > +		reg = <0xf0007040 0x14>;
-> > +		monitor-ports = <0x80>;
-> > +		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
-> > +	};
-> > -- 
-> > 2.14.1
-> > 
-> --
-> To unsubscribe from this list: send the line "unsubscribe linux-hwmon" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+--00000000000058008805711807fd--
