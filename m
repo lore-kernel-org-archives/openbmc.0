@@ -1,58 +1,37 @@
-Return-Path: <avifishman70@gmail.com>
+Return-Path: <gregkh@linuxfoundation.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::241; helo=mail-it0-x241.google.com;
- envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pj2nHNZS"; 
- dkim-atps=neutral
-Received: from mail-it0-x241.google.com (mail-it0-x241.google.com
- [IPv6:2607:f8b0:4001:c0b::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
+ (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
+ envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linuxfoundation.org
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41TgnX0L8bzDr55
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 21:15:42 +1000 (AEST)
-Received: by mail-it0-x241.google.com with SMTP id h2-v6so18460945itj.1
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 04:15:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SCs2oro0BIKbFWE5LfLLVC7ONps5ENLe2Xwsf+OVL/k=;
- b=pj2nHNZSDhBW8d27FTzPw7wJvAC9bmtvNKfw+fArlqQpqTGJVF6OZw9YfyGB8efKyh
- D18uD5IrmUo91EU4kUBrx3jHJGNv8yEcZQYWcyLhv7RlAn08IvmoQpOOCxHOReQ3ZpwO
- ohiaofr+XzwpY4MIjZRWbU+/9lqmoQibYoQa6cxeAYgR0JTHrDyBT8uybHGEa60skhmZ
- LOBnMGDT6cvJgGQ7zPzDtfl71V8FfytvrtjBVuWu/LaLiK9UYg18gRqXb5j9tSH2r4mR
- zdOMD+Fz+vX2N1paL0pTFwOtJ7f5QsPQN743H6nHakCKXGffIK4dgSqUrnQmMzV9Rkkl
- osUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SCs2oro0BIKbFWE5LfLLVC7ONps5ENLe2Xwsf+OVL/k=;
- b=twioVPd1+m6YNcJfMnIxk9QsrCheD46ML8Cm9x2K14iJs7B5WXWcvgjPVUbQ/eu/lu
- 37iFAQ8s9drgFh034NkxMMcKHDO+f2g2eydmfAswO1OkJN8JBjHTzm73UnoRL5Kxhlvx
- wsgbDu5bvJsMH1va1bAHiss1I1MWYtYiYPh9vFbD+VD/VGhAnrPh18a1gbRmDv+CYvWB
- kls5IXIlseiPJVwsEtlgPTwEJVfBEOoQ35EdCJ0C7vVFCob8ljFc+7CfRps5DvakYM4R
- tmRf4dJrIosa2vgIndbJ0giFAl4JQ8UamGakAI55F0GK7mKPKptsSL6LNboCW6JtbEXp
- j1NQ==
-X-Gm-Message-State: AOUpUlF09jk0F0cS10jqbemFmc4LH2uDLrxgck74snfwpklGBnG+MJ4M
- shYEczQ5X7CDeAB4KmikTvNb/qsGySwNyYyp6A==
-X-Google-Smtp-Source: AAOMgpcCdZ+7y/4lFVT18wX+f4KAXBAnuaBafrDUKMl9KGEu/Dgg6i4TaE0ek2wB74iJVapG4iQ5EGWVrMIS2mx21do=
-X-Received: by 2002:a02:b4a4:: with SMTP id
- k33-v6mr13204023jaj.53.1531739739390; 
- Mon, 16 Jul 2018 04:15:39 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41ThBg5QWqzDr55
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 21:34:02 +1000 (AEST)
+Received: from localhost (LFbn-1-12247-202.w90-92.abo.wanadoo.fr
+ [90.92.61.202])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 84458C03;
+ Mon, 16 Jul 2018 11:33:59 +0000 (UTC)
+Date: Mon, 16 Jul 2018 13:33:57 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: robh+dt@kernel.org, mark.rutland@arm.com, arnd@arnd.de,
+ avifishman70@gmail.com, yuenn@google.com, brendanhiggins@google.com,
+ venture@google.com, joel@jms.id.au, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v1 2/2] misc: npcm7xx: add NPCM7xx LPC BPC driver
+Message-ID: <20180716113357.GA30937@kroah.com>
+References: <20180704091427.409971-1-tmaimon77@gmail.com>
+ <20180704091427.409971-3-tmaimon77@gmail.com>
 MIME-Version: 1.0
-References: <CAE33tLHVuuMgcEQw1xkGP+H1h_Gxq1Vf0Re2SKjVbPhiAgkxNQ@mail.gmail.com>
-In-Reply-To: <CAE33tLHVuuMgcEQw1xkGP+H1h_Gxq1Vf0Re2SKjVbPhiAgkxNQ@mail.gmail.com>
-From: Avi Fishman <avifishman70@gmail.com>
-Date: Mon, 16 Jul 2018 14:15:28 +0300
-Message-ID: <CAKKbWA7JEMjsJm4W7eY=HaLtsTrh2h1M3YfdH82Fov_G1q37ew@mail.gmail.com>
-Subject: Re: KVM Support?
-To: akashgj91@gmail.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, uri.trichter@nuvoton.com, 
- eyal.cohen@nuvoton.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180704091427.409971-3-tmaimon77@gmail.com>
+User-Agent: Mutt/1.10.0 (2018-05-17)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -64,24 +43,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jul 2018 11:15:45 -0000
+X-List-Received-Date: Mon, 16 Jul 2018 11:34:04 -0000
 
-Hi Akash,
+On Wed, Jul 04, 2018 at 12:14:27PM +0300, Tomer Maimon wrote:
+> Add Nuvoton BMC NPCM7xx BIOS post code (BPC) driver.
+> 
+> The NPCM7xx BPC monitoring two I/O address written by
+> the host on the Low Pin Count (LPC) bus, the capure
+> data stored in 128-word FIFO.
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 
-We have for Nuvoton a KVM for our npcm750 chip, it is a vncserver
-working under VNC RFB protocol.
-We didn't yet put it in OpenBMC, but we are going to do so.
+It would be great to get someone else who knows that this hardware is
+supposed to be doing to ack or sign-off on this patch, as I don't know
+if this really is providing the correct api for it or not.
 
-Regards,
-Avi Fishman
-On Mon, Jul 16, 2018 at 9:35 AM AKASH G J <akashgj91@gmail.com> wrote:
->
-> Hi Team,
->
-> Please someone share whether Keyboard Video Mouse (KVM) over IP implementation available in OpenBMC ?
->
->
->
-> Thanks and Regards,
->
-> Akash
+Right now it's just reading data from the hardware, what good is that?
+Who uses this?  What userspace tools connect up to it?
+
+thanks,
+
+greg k-h
