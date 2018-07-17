@@ -1,45 +1,55 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=68.114.190.28; helo=mtaout003-public.msg.strl.va.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-Received: from mtaout003-public.msg.strl.va.charter.net
- (mtaout003-public.msg.strl.va.charter.net [68.114.190.28])
- by lists.ozlabs.org (Postfix) with ESMTP id 41V4Cr2bjCzF35g
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 12:36:22 +1000 (AEST)
-Received: from impout002 ([68.114.189.17]) by mtaout003.msg.strl.va.charter.net
- (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
- id <20180717023620.DTQN7355.mtaout003.msg.strl.va.charter.net@impout002>
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 21:36:20 -0500
-Received: from [192.168.2.8] ([97.86.254.207]) by impout002 with charter.net
- id BecK1y00P4VFKzV01ecLr7; Mon, 16 Jul 2018 21:36:20 -0500
-X-Authority-Analysis: v=2.2 cv=C6eZ8UH+ c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=voM4FWlXAAAA:8 a=tcme9c7lAAAA:8
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=yyJhbDGUAAAA:8 a=e-GSelqVAAAA:8
- a=dpRSjrXKAAAA:8 a=RmK5OVKQQaUxjxo7yGIA:9 a=A_AnVfsupRrzAZWs:21
- a=n1741RazztEWj3N6:21 a=QEXdDO2ut3YA:10 a=KkmPwhAMVVwA:10 a=ESXXJOcZ9k8A:10
- a=U3n7YvTwqyMA:10 a=-FEs8UIgK8oA:10 a=NWVoK91CQyQA:10
- a=_At2OnMFCR_fn8a4XFEA:9 a=bYALXymi7-CtfB0T:21 a=gTUmpoAx1vmtLFVY:21
- a=LMvmRNkLxRYvlcLW:21 a=_W_S_7VecoQA:10 a=IC2XNlieTeVoXbcui8wp:22
- a=cJsI3S3cdgERF2JXxJch:22 a=AjGcO6oz07-iQ99wixmX:22 a=N1KAkYT4l1eb6tGI3RYA:22
- a=VTQqQez33RekakbJVocy:22 a=xkwab4zIHtOjTkBAMNFX:22
-X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
-Subject: Re: How to handle security vulnerabilities
-To: openbmc@lists.ozlabs.org
-References: <mailman.985.1531736364.32318.openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Message-ID: <a6b0fe6f-52d3-d0a0-a6db-24e223af6c99@charter.net>
-Date: Mon, 16 Jul 2018 21:36:15 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EiYncAf5"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41V4d62kk8zF35Y
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 12:54:48 +1000 (AEST)
+Received: by mail-qt0-x241.google.com with SMTP id f18-v6so34761964qtp.10
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jul 2018 19:54:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=BFwEl/sd92aTgeI9N1/ZjCueSAUjTcVcWeeZ39hwptA=;
+ b=EiYncAf5yi9EmZn6hhAKnLxPguF1HpVO1RJfFfZ8nhyezURaZs5wkOHcqHCOCrquUi
+ zvByh0IGXrKeW5K+YfFJ34DDNIqxonEvI8s8sy0Bv8/ClD84opSRht4lNvSiv7TQmEE9
+ Y6iiEgXQeS8UXS1P5tSvPzvacdWgv9RUkRCT089L2pcQz7yNj76EsGm+HEThbWwqwO5O
+ lryHDGKslZCoISZj6xHiKPcmfWCAd98HHwlqKG1r0AHhyIywMpvXrsTQXQrJwUadVkTM
+ aux9NdiRDSYksgeu6EmkjsBHimf7xNqzTkzJRH4c4/6zwWXL+ajt+anGcmpfWIMACt9U
+ iN1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=BFwEl/sd92aTgeI9N1/ZjCueSAUjTcVcWeeZ39hwptA=;
+ b=iEf/1JCTkR+FWfOGvvUA3lOq0w6YrxiWUXGEu/1A43k7y5Ot+MLP4Kky22iBD43aAQ
+ Llj/5vpL/hqkcCFX5vyEAk2N7IBdqC2zSGBSfz0NW592zJuC5wq7VbObWCKarHIjMudY
+ AYN3azvFsJEHynDMr1OgbOy87Lg/IEZp9c87I6Adr5th4MJMUvDsCGGPuYtkz26NvcOX
+ JFnFOYv05QD0gqo19RMHKZrESC4PeIJUC8TxstoPwstftPXz/jhjWGYgGI359z+UNBtq
+ 6O3yO/ydxHxPSljJVpsMUC4MDN6PvQ7NnwCm9P6t6z9aESISzvxwuzrFxiueKQlR8zvT
+ jv5A==
+X-Gm-Message-State: AOUpUlGEjxHqSHhSrW501j6s4Pm4JTGlLzmjYMCoWzq7501Mo2eIyOL6
+ v8G6dzEgqqFYZffJq/9kRsafIgwYLiZ17RWZMRMBog==
+X-Google-Smtp-Source: AAOMgpcpBZimp48lpqI49MfQ2SJX+M7hMNLT7GCCtQyCkstefKLepsJUm8rEqyRkMjIHg5BFJOWIf9fNCd8lBTEMfrE=
+X-Received: by 2002:a0c:aa81:: with SMTP id
+ f1-v6mr21037421qvb.80.1531796085902; 
+ Mon, 16 Jul 2018 19:54:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <mailman.985.1531736364.32318.openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative;
- boundary="------------A544C6E3EF3D4F5B496173B4"
-Content-Language: en-US
+Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP; Mon, 16 Jul 2018 19:54:45
+ -0700 (PDT)
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Tue, 17 Jul 2018 10:54:45 +0800
+Message-ID: <CAG9c7cCrNso3WHmGpF+6aPYd=hVXthKDZyXJVAB0uUcT0nh9Bw@mail.gmail.com>
+Subject: Re: [patch v27 0/4] JTAG driver introduction
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, oleksandrs@mellanox.com
+Content-Type: multipart/alternative; boundary="00000000000091924d0571291146"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -51,167 +61,205 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jul 2018 02:36:25 -0000
+X-List-Received-Date: Tue, 17 Jul 2018 02:54:51 -0000
 
-This is a multi-part message in MIME format.
---------------A544C6E3EF3D4F5B496173B4
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+--00000000000091924d0571291146
+Content-Type: text/plain; charset="UTF-8"
 
-On 7/16/2018 5:19 AM, openbmc-request@lists.ozlabs.org wrote:
-> Message: 1
-> Date: Sun, 15 Jul 2018 22:11:18 -0400
-> From: Brad Bishop<bradleyb@fuzziesquirrel.com>
-> To: Andrew Jeffery<andrew@aj.id.au>
-> Cc:openbmc@lists.ozlabs.org
-> Subject: Re: How to handle security vulnerabilities (was: OpenBMC
-> 	security workgroup status)
-> Message-ID:<AC6EEF0D-8D17-4936-A6DD-4059CB459EBC@fuzziesquirrel.com>
-> Content-Type: text/plain; charset=us-ascii
+ Hi Oleksandr,
+
+Sorry to bother you.
+May I know how do you verify the JTAG driver workable?
+
+Thanks.
+BRs,
+Henbin
+
+
+> When a need raise up to use JTAG interface for system's devices
+> programming or CPU debugging, usually the user layer
+> application implements jtag protocol by bit-bang or using a
+> proprietary connection to vendor hardware.
+> This method can be slow and not generic.
 >
+> We propose to implement general JTAG interface and infrastructure
+> to communicate with user layer application. In such way, we can
+> have the standard JTAG interface core part and separation from
+> specific HW implementation.
+> This allow new capability to debug the CPU or program system's
+> device via BMC without additional devices nor cost. This patch purpose is
+> to add JTAG master core infrastructure by
+> defining new JTAG class and provide generic JTAG interface
+> to allow hardware specific drivers to connect this interface.
+> This will enable all JTAG drivers to use the common interface
+> part and will have separate for hardware implementation. The JTAG (Joint
+> Test Action Group) core driver provides minimal generic
+> JTAG interface, which can be used by hardware specific JTAG master
+> controllers. By providing common interface for the JTAG controllers,
+> user space device programing is hardware independent.
 >
->> On Jul 13, 2018, at 2:56 AM, Andrew Jeffery<andrew@aj.id.au>  wrote:
->>
->> On Fri, 13 Jul 2018, at 07:49, Joseph Reynolds wrote:
->>>> What's the short-term strategy for handling [security] vulnerability
->>>> reports received in the gap between now and getting some formal
->>>> process in place?
->>> We don't have a strategy.  Let's discuss it here.
->>>
->>> Officially (https://github.com/openbmc/openbmc/  section "Bug Reporting")
->>> issues are managed on GitHub.
->>>
->>> Unofficially, Brad volunteered to accept one batch of security
->>> vulnerability reports and distribute them, presumably to the OpenBMC TSC
->>> members (https://github.com/openbmc/docs  section "Technical Steering
->>> Committee ") or their delegates.  I assume they would privately contact
->>> a trusted OpenBMC contributor who could address the problem.
->>>
->>> We could adapt the Linux model
->>> (https://www.kernel.org/doc/html/v4.16/admin-guide/security-bugs.html),
->>> although I am still looking for information on what the Linux security
->>> team does with the bug report.  For example, how security group members
->>> track and discuss problems among themselves, how they pull in additional
->>> resources to fix or mitigate the problem, and how they inform downstream
->>> distros before announcing the problem, etc.
->> I thought the documention described most of this?security@kernel.org  is a private list, so discussions can happen there freely. With respect to informing downstream distros, as mentioned that's done via thelinux-distros@vs.openwall.org  list. As for how they pull in additional resources to fix or mitigate the problem, that's going to depend on the affected parties. No-one can order anyone to fix a particular problem, but the developers/maintainers/vendors involved have skin in the game so should be motivated to fix the issue.
->>
->>> I think the first step for the OpenBMC team is to establish an email
->>> address (likesecurity@openbmc.org), subscribe only trusted people to
->>> that email list, and update the docs to explain that you should email
->>> the security team for security questions, and use issues for everything
->>> else.
->> Sounds good to me. Who can sort out security@? Brad? I'm sure we could sort out list hosting on ozlabs.org if necessary (like we use for this list).
-> Unless someone replies in the negative in the next couple days, lets just
-> do another list on ozlabs.org, if ozlabs.org is ok with that:-)
+> Modern SoC which in use for embedded system' equipped with
+> internal JTAG master interface.
+> This interface is used for programming and debugging system's
+> hardware components, like CPLD, FPGA, CPU, voltage and
+> industrial controllers.
+> Firmware for such devices can be upgraded through JTAG interface during
+> Runtime. The JTAG standard support for multiple devices programming,
+> is in case their lines are daisy-chained together. For example, systems
+> which equipped with host CPU, BMC SoC or/and
+> number of programmable devices are capable to connect a pin and
+> select system components dynamically for programming and debugging,
+> This is using by the BMC which is equipped with internal SoC master
+> controller.
+> For example: BMC JTAG master --> pin selected to CPLDs chain for
+> programming (filed
+> upgrade, production)
+> BMC JTAG master --> pin selected to voltage monitors for programming
+> (field upgrade, production)
+> BMC JTAG master --> pin selected to host CPU (on-site debugging
+> and developers debugging) For example, we can have application in user
+> space which using calls
+> to JTAG driver executes CPLD programming directly from SVF file
 >
->>> Presumably, the security team would communicate privately among
->>> themselves and the submitter to assess the situation, and contact
->>> OpenBMC community members privately to address the problem.
->>> This would be an easy step to take, and would move the team in the right
->>> direction.  What do you think?
->> Sounds good enough for the moment!
->>
->> Andrew
-The description of the OpenBMC security vulnerability reporting program 
-we agreed to during the community call is now in review: 
-https://gerrit.openbmc-project.xyz/#/c/11511, so please review it.
+> The JTAG standard (IEEE 1149.1) defines the next connector pins:
+> - TDI (Test Data In);
+> - TDO (Test Data Out);
+> - TCK (Test Clock);
+> - TMS (Test Mode Select);
+> - TRST (Test Reset) (Optional); The SoC equipped with JTAG master
+> controller, performs
+> device programming on command or vector level. For example
+> a file in a standard SVF (Serial Vector Format) that contains
+> boundary scan vectors, can be used by sending each vector
+> to the JTAG interface and the JTAG controller will execute
+> the programming. Initial version provides the system calls set for:
+> - SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
+> - SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
+> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+> number of clocks. SoC which are not equipped with JTAG master interface,
+> can be built
+> on top of JTAG core driver infrastructure, by applying bit-banging of
+> TDI, TDO, TCK and TMS pins within the hardware specific driver. Oleksandr
+> Shamray (4):
+> drivers: jtag: Add JTAG core driver
+> drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
+> driver
+> Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
+> families JTAG master driver
+> Documentation: jtag: Add ABI documentation
+> Documentation/ABI/testing/jtag-dev | 23 +
+> .../devicetree/bindings/jtag/aspeed-jtag.txt | 22 +
+> Documentation/ioctl/ioctl-number.txt | 2 +
+> Documentation/jtag/overview | 27 +
+> Documentation/jtag/transactions | 109 +++
+> MAINTAINERS | 10 +
+> drivers/Kconfig | 2 +
+> drivers/Makefile | 1 +
+> drivers/jtag/Kconfig | 31 +
+> drivers/jtag/Makefile | 2 +
+> drivers/jtag/jtag-aspeed.c | 747 ++++++++++++++++++++
+> drivers/jtag/jtag.c | 274 +++++++
+> include/linux/jtag.h | 41 ++
+> include/uapi/linux/jtag.h | 109 +++
+> 14 files changed, 1400 insertions(+), 0 deletions(-)
+> create mode 100644 Documentation/ABI/testing/jtag-dev
+> create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+> create mode 100644 Documentation/jtag/overview
+> create mode 100644 Documentation/jtag/transactions
+> create mode 100644 drivers/jtag/Kconfig
+> create mode 100644 drivers/jtag/Makefile
+> create mode 100644 drivers/jtag/jtag-aspeed.c
+> create mode 100644 drivers/jtag/jtag.c
+> create mode 100644 include/linux/jtag.h
+> create mode 100644 include/uapi/linux/jtag.h
 
+--00000000000091924d0571291146
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---------------A544C6E3EF3D4F5B496173B4
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
+<div dir=3D"ltr">
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    On 7/16/2018 5:19 AM, <a class="moz-txt-link-abbreviated" href="mailto:openbmc-request@lists.ozlabs.org">openbmc-request@lists.ozlabs.org</a> wrote:<br>
-    <blockquote type="cite"
-      cite="mid:mailman.985.1531736364.32318.openbmc@lists.ozlabs.org">
-      <pre wrap="">Message: 1
-Date: Sun, 15 Jul 2018 22:11:18 -0400
-From: Brad Bishop <a class="moz-txt-link-rfc2396E" href="mailto:bradleyb@fuzziesquirrel.com" moz-do-not-send="true">&lt;bradleyb@fuzziesquirrel.com&gt;</a>
-To: Andrew Jeffery <a class="moz-txt-link-rfc2396E" href="mailto:andrew@aj.id.au" moz-do-not-send="true">&lt;andrew@aj.id.au&gt;</a>
-Cc: <a class="moz-txt-link-abbreviated" href="mailto:openbmc@lists.ozlabs.org" moz-do-not-send="true">openbmc@lists.ozlabs.org</a>
-Subject: Re: How to handle security vulnerabilities (was: OpenBMC
-	security workgroup status)
-Message-ID: <a class="moz-txt-link-rfc2396E" href="mailto:AC6EEF0D-8D17-4936-A6DD-4059CB459EBC@fuzziesquirrel.com" moz-do-not-send="true">&lt;AC6EEF0D-8D17-4936-A6DD-4059CB459EBC@fuzziesquirrel.com&gt;</a>
-Content-Type: text/plain; charset=us-ascii
+<div>Hi=C2=A0Oleksandr,</div><div><br></div><div>Sorry to bother you.</div>=
+<div>May I know how do you verify the JTAG driver workable?</div><div><br><=
+/div><div>Thanks.</div><div>BRs,</div><div>Henbin</div><div>=C2=A0</div><bl=
+ockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex" class=3D"gmail_quote">When a need raise up to use =
+JTAG interface for system&#39;s devices<br>programming or CPU debugging, us=
+ually the user layer<br>application implements jtag protocol by bit-bang or=
+ using a <br>proprietary connection to vendor hardware.<br>This method can =
+be slow and not generic.<br> <br>We propose to implement general JTAG inter=
+face and infrastructure<br>to communicate with user layer application. In s=
+uch way, we can<br>have the standard JTAG interface core part and separatio=
+n from<br>specific HW implementation.<br>This allow new capability to debug=
+ the CPU or program system&#39;s <br>device via BMC without additional devi=
+ces nor cost.=20
+This patch purpose is to add JTAG master core infrastructure by <br>definin=
+g new JTAG class and provide generic JTAG interface<br>to allow hardware sp=
+ecific drivers to connect this interface.<br>This will enable all JTAG driv=
+ers to use the common interface<br>part and will have separate for hardware=
+ implementation.
+The JTAG (Joint Test Action Group) core driver provides minimal generic<br>=
+JTAG interface, which can be used by hardware specific JTAG master<br>contr=
+ollers. By providing common interface for the JTAG controllers,<br>user spa=
+ce device programing is hardware independent.<br> <br>Modern SoC which in u=
+se for embedded system&#39; equipped with<br>internal JTAG master interface=
+.<br>This interface is used for programming and debugging system&#39;s<br>h=
+ardware components, like CPLD, FPGA, CPU, voltage and<br>industrial control=
+lers.<br>Firmware for such devices can be upgraded through JTAG interface d=
+uring<br>Runtime. The JTAG standard support for multiple devices programmin=
+g,<br>is in case their lines are daisy-chained together.
+For example, systems which equipped with host CPU, BMC SoC or/and <br>numbe=
+r of programmable devices are capable to connect a pin and<br>select system=
+ components dynamically for programming and debugging,<br>This is using by =
+the BMC which is equipped with internal SoC master<br>controller.<br>For ex=
+ample:
+BMC JTAG master --&gt; pin selected to CPLDs chain for programming (filed<b=
+r>upgrade, production) <br>BMC JTAG master --&gt; pin selected to voltage m=
+onitors for programming <br>(field upgrade, production) <br>BMC JTAG master=
+ --&gt; pin selected to host CPU (on-site debugging <br>and developers debu=
+gging)
+For example, we can have application in user space which using calls<br>to =
+JTAG driver executes CPLD programming directly from SVF file<br> <br>The JT=
+AG standard (IEEE 1149.1) defines the next connector pins:<br>- TDI (Test D=
+ata In);<br>- TDO (Test Data Out);<br>- TCK (Test Clock);<br>- TMS (Test Mo=
+de Select);<br>- TRST (Test Reset) (Optional);
+The SoC equipped with JTAG master controller, performs<br>device programmin=
+g on command or vector level. For example<br>a file in a standard SVF (Seri=
+al Vector Format) that contains<br>boundary scan vectors, can be used by se=
+nding each vector<br>to the JTAG interface and the JTAG controller will exe=
+cute<br>the programming.
+Initial version provides the system calls set for:<br>- SIR (Scan Instructi=
+on Register, IEEE 1149.1 Instruction Register scan);<br>- SDR (Scan Data Re=
+gister, IEEE 1149.1 Data Register scan);<br>- RUNTEST (Forces the IEEE 1149=
+.1 bus to a run state for a specified<br>  number of clocks.
+SoC which are not equipped with JTAG master interface, can be built<br>on t=
+op of JTAG core driver infrastructure, by applying bit-banging of<br>TDI, T=
+DO, TCK and TMS pins within the hardware specific driver.
+Oleksandr Shamray (4):<br>  drivers: jtag: Add JTAG core driver<br>  driver=
+s: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master<br>    driver<br=
+>  Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx<br>    fa=
+milies     JTAG master driver<br>  Documentation: jtag: Add ABI documentati=
+on
+ Documentation/ABI/testing/jtag-dev                 |   23 +<br> .../device=
+tree/bindings/jtag/aspeed-jtag.txt       |   22 +<br> Documentation/ioctl/i=
+octl-number.txt               |    2 +<br> Documentation/jtag/overview     =
+                   |   27 +<br> Documentation/jtag/transactions            =
+        |  109 +++<br> MAINTAINERS                                        |=
+   10 +<br> drivers/Kconfig                                    |    2 +<br>=
+ drivers/Makefile                                   |    1 +<br> drivers/jt=
+ag/Kconfig                               |   31 +<br> drivers/jtag/Makefile=
+                              |    2 +<br> drivers/jtag/jtag-aspeed.c      =
+                   |  747 ++++++++++++++++++++<br> drivers/jtag/jtag.c     =
+                           |  274 +++++++<br> include/linux/jtag.h         =
+                      |   41 ++<br> include/uapi/linux/jtag.h              =
+            |  109 +++<br> 14 files changed, 1400 insertions(+), 0 deletion=
+s(-)<br> create mode 100644 Documentation/ABI/testing/jtag-dev<br> create m=
+ode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt<br> creat=
+e mode 100644 Documentation/jtag/overview<br> create mode 100644 Documentat=
+ion/jtag/transactions<br> create mode 100644 drivers/jtag/Kconfig<br> creat=
+e mode 100644 drivers/jtag/Makefile<br> create mode 100644 drivers/jtag/jta=
+g-aspeed.c<br> create mode 100644 drivers/jtag/jtag.c<br> create mode 10064=
+4 include/linux/jtag.h<br> create mode 100644 include/uapi/linux/jtag.h</bl=
+ockquote></div>
 
-
-</pre>
-      <blockquote type="cite" style="color: #000000;">
-        <pre wrap="">On Jul 13, 2018, at 2:56 AM, Andrew Jeffery <a class="moz-txt-link-rfc2396E" href="mailto:andrew@aj.id.au" moz-do-not-send="true">&lt;andrew@aj.id.au&gt;</a> wrote:
-
-On Fri, 13 Jul 2018, at 07:49, Joseph Reynolds wrote:
-</pre>
-        <blockquote type="cite" style="color: #000000;">
-          <blockquote type="cite" style="color: #000000;">
-            <pre wrap="">What's the short-term strategy for handling [security] vulnerability
-reports received in the gap between now and getting some formal
-process in place? 
-</pre>
-          </blockquote>
-          <pre wrap="">We don't have a strategy.  Let's discuss it here.
-
-Officially (<a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/" moz-do-not-send="true">https://github.com/openbmc/openbmc/</a> section "Bug Reporting")
-issues are managed on GitHub. 
-
-Unofficially, Brad volunteered to accept one batch of security
-vulnerability reports and distribute them, presumably to the OpenBMC TSC
-members (<a class="moz-txt-link-freetext" href="https://github.com/openbmc/docs" moz-do-not-send="true">https://github.com/openbmc/docs</a> section "Technical Steering
-Committee ") or their delegates.  I assume they would privately contact
-a trusted OpenBMC contributor who could address the problem. 
-
-We could adapt the Linux model
-(<a class="moz-txt-link-freetext" href="https://www.kernel.org/doc/html/v4.16/admin-guide/security-bugs.html" moz-do-not-send="true">https://www.kernel.org/doc/html/v4.16/admin-guide/security-bugs.html</a>),
-although I am still looking for information on what the Linux security
-team does with the bug report.  For example, how security group members
-track and discuss problems among themselves, how they pull in additional
-resources to fix or mitigate the problem, and how they inform downstream
-distros before announcing the problem, etc. 
-</pre>
-        </blockquote>
-        <pre wrap="">I thought the documention described most of this? <a class="moz-txt-link-abbreviated" href="mailto:security@kernel.org" moz-do-not-send="true">security@kernel.org</a> is a private list, so discussions can happen there freely. With respect to informing downstream distros, as mentioned that's done via the <a class="moz-txt-link-abbreviated" href="mailto:linux-distros@vs.openwall.org" moz-do-not-send="true">linux-distros@vs.openwall.org</a> list. As for how they pull in additional resources to fix or mitigate the problem, that's going to depend on the affected parties. No-one can order anyone to fix a particular problem, but the developers/maintainers/vendors involved have skin in the game so should be motivated to fix the issue.
-
-</pre>
-        <blockquote type="cite" style="color: #000000;">
-          <pre wrap="">I think the first step for the OpenBMC team is to establish an email
-address (like <a class="moz-txt-link-abbreviated" href="mailto:security@openbmc.org" moz-do-not-send="true">security@openbmc.org</a>), subscribe only trusted people to
-that email list, and update the docs to explain that you should email
-the security team for security questions, and use issues for everything
-else. 
-</pre>
-        </blockquote>
-        <pre wrap="">Sounds good to me. Who can sort out security@? Brad? I'm sure we could sort out list hosting on ozlabs.org if necessary (like we use for this list).
-</pre>
-      </blockquote>
-      <pre wrap="">Unless someone replies in the negative in the next couple days, lets just
-do another list on ozlabs.org, if ozlabs.org is ok with that <span class="moz-smiley-s1" title=":-)"><span>:-)</span></span>
-
-</pre>
-      <blockquote type="cite" style="color: #000000;">
-        <blockquote type="cite" style="color: #000000;">
-          <pre wrap="">Presumably, the security team would communicate privately among
-themselves and the submitter to assess the situation, and contact
-OpenBMC community members privately to address the problem. 
-This would be an easy step to take, and would move the team in the right
-direction.  What do you think?
-</pre>
-        </blockquote>
-        <pre wrap="">Sounds good enough for the moment!
-
-Andrew
-</pre>
-      </blockquote>
-    </blockquote>
-    The description of the OpenBMC security vulnerability reporting
-    program we agreed to during the community call is now in review:
-    <a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/#/c/11511">https://gerrit.openbmc-project.xyz/#/c/11511</a>, so please review it.<br>
-    <br>
-  </body>
-</html>
-
---------------A544C6E3EF3D4F5B496173B4--
+--00000000000091924d0571291146--
