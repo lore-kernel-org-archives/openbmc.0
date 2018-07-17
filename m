@@ -1,60 +1,60 @@
 Return-Path: <ryanchen.aspeed@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::241; helo=mail-pf0-x241.google.com;
+ (client-ip=2607:f8b0:400e:c00::242; helo=mail-pf0-x242.google.com;
  envelope-from=ryanchen.aspeed@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="MmiP+xQr"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="RgQsjoRF"; 
  dkim-atps=neutral
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
+ [IPv6:2607:f8b0:400e:c00::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41VBhq1FJPzF3Hx
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 17:28:27 +1000 (AEST)
-Received: by mail-pf0-x241.google.com with SMTP id k19-v6so83429pfi.1
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 00:28:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41VBht0fVyzF3Hh
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 17:28:29 +1000 (AEST)
+Received: by mail-pf0-x242.google.com with SMTP id l9-v6so71664pff.9
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 00:28:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=XELpOjgit+nCfSwRRXIApCcpQveodg30tP3Suiy8k5k=;
- b=MmiP+xQrTuXT3vH775o17lMX5091qM6kwdrDyQb5MwRZyB9LCZ7XmhPK4fP5yIoFPx
- 4/AGAW1yL5/F6tD36WBoHpXsAF/u25s6Mfr88wI3hdkKACM3mUXSxFV9he1pFCV6zKBo
- ohPleSH6CmrI8iaAwp5ANPkkFirEahiKMb9NCvs8VE5zixJblkFKFAKGyMtXmj3d2LxE
- hviUsHPBeji92Lk3WG85qFV9jJ84o29u0Km9z12FyqVdP66MKNdccNczZnP+vbKmwAfQ
- TWGwh+a3LcH6HoedKSFmwYxpzj8gAsIIPRwwktTZXCsRGMkVT7Fzb55BspyAJrt6Jsr9
- QSAQ==
+ bh=ZrXMLoLUk12UkJbWHlJbGIZleI5oAcCLDD19DpfzhDA=;
+ b=RgQsjoRF/zWmBnUgLtWUtw7oprYawtQ4L/oglQiK97YRdf/h4wfJV9zZi/LjC1ISPx
+ x9uZiwBqTP9tQKJm8EKOY3g/1vg0KYZDKOX3TLcfOka0f4uecwfldsw3AUJN6LQ7d/16
+ P7J7jq7TX+K9WwUZkznscRDl64N82ZmuiYl11Ei4i/Fy1tPKA0iI7vw9ZbmaqFEyBPnB
+ EP8SZZG5Cto2PMAo1UPK7V+9ccUuCZaNisWIUmRZZd2xgqCwagMKqG1ydvf2PMZUfL0y
+ L/XKvlHQyA6Cs5jxXAXAdwTVjPC69r+4PY805YVfOViYpsRvYF+QeobZaBQTDPqR4Cr7
+ g7Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=XELpOjgit+nCfSwRRXIApCcpQveodg30tP3Suiy8k5k=;
- b=j3gNkfEpBhJi7anQEm0aNBVJzkk9OWij15wzpVVWnJyE83b6nVtQB9cQOg/HwQyRsn
- D6Mr0DEbmaCCygy6uJmu15ZKcWdb4x1sYvnG3zl0kwMwdey6frm3DhaG5ouZSmZz3aRh
- 8ASR4Y8ndo4jRKtU31jWMvt28n5JA5wx7YYBtYzgsIXQPZFBkTJpJavY9hbm+hgOUKVI
- 1kFagixvYExrj1+zWt0bE/6VBEONaa3rxlMbqe6Onn35qWxR0vmxzr6ScPXonTsvsUcq
- 0zJ1Lg90aKCxv+E7Rx5t8LcDEM3uGxE6noccVRPL2rSxXQ0rKELjp/xTLc0wScjWQXmL
- f/nA==
-X-Gm-Message-State: AOUpUlHP9pjXiYJWolche4EZadk5efkLH1veXzuTARRboB6jV5yzJ7y6
- 8fi/kU1eWqHCyfUgjXxZlGqoRg==
-X-Google-Smtp-Source: AAOMgpfSSje32mquPk6HXvaQ8GTQDF5JyRFpb3ADN1XQcv8qhpVRPZ397rPvYyg8a+Ua9dttxBBgAA==
-X-Received: by 2002:a62:45d2:: with SMTP id
- n79-v6mr515631pfi.137.1531812505065; 
- Tue, 17 Jul 2018 00:28:25 -0700 (PDT)
+ bh=ZrXMLoLUk12UkJbWHlJbGIZleI5oAcCLDD19DpfzhDA=;
+ b=l58pFDjjEMZEr0HxOgYiLtcVuVfMdlY74xWHPBWQwnoIpdqhervXoh1zhj2HOxswhB
+ SX6mzp0BwnpxDmB5oeLPSZ6bLbfhZFljS4fn5h7TQXAZnfrQUQAN52JUchJBy05SLmZJ
+ YmvRTY18a5RiJE0LrecE29Xp7npJ/8XuUcupVTXUjlilH8kFHXRYOBV1ioE0UXpQ2DV9
+ 8aEuEBxal4mdnP4oy3oay7NFjO/CG4j2R594hUT1XQN+SApQSLdt5Iaw5eisu24JwcI9
+ K//EAnFps/QVdmRJJXbGjzTjsyNuIEZM+1z0C8CAbECMLWqEhuZdFzjbIrOMB8CK96cE
+ FKMg==
+X-Gm-Message-State: AOUpUlHacReNibp24Hr+nvsAYqtkspUQPYbT8t621QTU30Q0vjqqSEiA
+ WDH1X34ZPdGHhhvyg27AXS/65Q==
+X-Google-Smtp-Source: AAOMgpez7XRdESwRNE2cjJiibeUG88yODRcOC4TBr+jdYOQPuksyxfE2RpNjayi0mpgj5TL+6XBHpw==
+X-Received: by 2002:a62:41d6:: with SMTP id
+ g83-v6mr505798pfd.219.1531812507780; 
+ Tue, 17 Jul 2018 00:28:27 -0700 (PDT)
 Received: from ryan-ubuntu.aspeedtech.com (211-20-114-70.HINET-IP.hinet.net.
  [211.20.114.70])
- by smtp.gmail.com with ESMTPSA id f6-v6sm578647pgp.13.2018.07.17.00.28.22
+ by smtp.gmail.com with ESMTPSA id f6-v6sm578647pgp.13.2018.07.17.00.28.25
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 17 Jul 2018 00:28:24 -0700 (PDT)
+ Tue, 17 Jul 2018 00:28:26 -0700 (PDT)
 From: Ryan Chen <ryanchen.aspeed@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: Ryan Chen <ryanchen.aspeed@gmail.com>, joel@jms.id.au, andrew@aj.id.au,
  ryan_chen@aspeedtech.com, benh@kernel.crashing.org, mine260309@gmail.com
-Subject: [PATCH linux dev-4.17 6/7] Documentation: mmc: add aspeed sdhci
- binding document
-Date: Tue, 17 Jul 2018 15:26:17 +0800
-Message-Id: <1531812378-14316-7-git-send-email-ryanchen.aspeed@gmail.com>
+Subject: [PATCH linux dev-4.17 7/7] configs: Aspeed: enable mmc host in
+ defconfig
+Date: Tue, 17 Jul 2018 15:26:18 +0800
+Message-Id: <1531812378-14316-8-git-send-email-ryanchen.aspeed@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
 References: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
@@ -69,78 +69,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jul 2018 07:28:28 -0000
+X-List-Received-Date: Tue, 17 Jul 2018 07:28:30 -0000
 
-add aspeed sdhci binding document
-
-V0->V1
-add independent patch for binding document
+Enable mmc host in aspeed_g5_defconfig
 
 Signed-off-by: Ryan Chen <ryanchen.aspeed@gmail.com>
 ---
- .../bindings/mmc/aspeed,aspeed-sdhci.txt           | 54 ++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mmc/aspeed,aspeed-sdhci.txt
+ arch/arm/configs/aspeed_g5_defconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/aspeed,aspeed-sdhci.txt b/Documentation/devicetree/bindings/mmc/aspeed,aspeed-sdhci.txt
-new file mode 100644
-index 0000000..6ad30e5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mmc/aspeed,aspeed-sdhci.txt
-@@ -0,0 +1,54 @@
-+Device Tree Bindings for the Aspeed SoC SDHCI Controller
-+
-+This file documents differences between the core properties in mmc.txt
-+and the properties present in the Aspeed SDHCI
-+Aspeed SD/SDIO Host controller have have general information in front of controller.
-+In ast25xx/ast24xx have two slots, and each slot have own register.
-+
-+Required properties:
-+- compatible : should be "aspeed,ast2500-sdhci" or "aspeed,ast2400-sdhci"
-+- clocks : phandle + clock specifier pair of the external clock
-+- interrupts : interrupt number
-+- interrupt-parent : interrupt controller for bus, should reference a
-+                     aspeed,aspeed-sdhci-ic interrupt controller
-+
-+Example:
-+
-+sdhci {
-+	compatible = "simple-bus";
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	ranges = <0 0x1e740000 0x1000>;
-+
-+	sdhci_ic: interrupt-controller@0 {
-+		#interrupt-cells = <1>;
-+		compatible = "aspeed,aspeed-sdhci-irq";
-+		reg = <0x0 0x100>;
-+		interrupts = <26>;
-+		interrupt-controller;
-+		clocks = <&syscon ASPEED_CLK_GATE_SDCLKCLK>;
-+	};
-+
-+	sdhci_slot0: sdhci_slot0@100 {
-+		compatible = "aspeed,sdhci-ast2500";
-+		reg = <0x100 0x100>;
-+		interrupts = <0>;
-+		interrupt-parent = <&sdhci_ic>;
-+		slot = <0>;
-+		sdhci,auto-cmd12;
-+		clocks = <&syscon ASPEED_CLK_SDIO>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_sd1_default>;
-+	};
-+
-+	sdhci_slot1: sdhci_slot1@200 {
-+		compatible = "aspeed,sdhci-ast2500";
-+		reg = <0x200 0x100>;
-+		interrupts = <1>;
-+		interrupt-parent = <&sdhci_ic>;
-+		sdhci,auto-cmd12;
-+		clocks = <&syscon ASPEED_CLK_SDIO>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_sd2_default>;
-+	};
-+};
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index b7f8fa1..7b99aa9 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -197,6 +197,12 @@ CONFIG_USB_CONFIGFS_F_LB_SS=y
+ CONFIG_USB_CONFIGFS_F_FS=y
+ CONFIG_USB_CONFIGFS_F_HID=y
+ CONFIG_USB_CONFIGFS_F_PRINTER=y
++CONFIG_MMC=y
++CONFIG_MMC_BLOCK=y
++CONFIG_MMC_BLOCK_MINORS=8
++CONFIG_MMC_SDHCI=y
++CONFIG_MMC_SDHCI_PLTFM=y
++CONFIG_MMC_SDHCI_OF_ASPEED=y
+ CONFIG_NEW_LEDS=y
+ CONFIG_LEDS_CLASS=y
+ CONFIG_LEDS_CLASS_FLASH=y
 -- 
 2.7.4
