@@ -8,24 +8,34 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41V6Lm0LsYzF3Hb;
- Tue, 17 Jul 2018 14:12:31 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41V7LF4QL8zF3HZ
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 14:57:09 +1000 (AEST)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6H4CF3K015654;
- Mon, 16 Jul 2018 23:12:17 -0500
-Message-ID: <7125cc74b640b941ea6f86e1f719cc25eeae9f78.camel@kernel.crashing.org>
-Subject: Re: [PATCH v3 1/5] dt-bindings: fsi: Document binding for the
- fsi-master-ast-cf "device"
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6H4uLKh017502;
+ Mon, 16 Jul 2018 23:56:22 -0500
+Message-ID: <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc.
+ BMC control fields
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Rob Herring <robh@kernel.org>
-Cc: linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org, OpenBMC
- Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>, Joel
- Stanley <joel@jms.id.au>, linux-kernel@vger.kernel.org
-Date: Tue, 17 Jul 2018 14:12:15 +1000
-In-Reply-To: <20180716153308.GA13044@rob-hp-laptop>
-References: <20180712034847.12878-1-benh@kernel.crashing.org>
- <20180712034847.12878-2-benh@kernel.crashing.org>
- <20180716153308.GA13044@rob-hp-laptop>
+To: Rob Herring <robh@kernel.org>, Andrew Jeffery <andrew@aj.id.au>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com,
+ a.amelkin@yadro.com, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,
+ Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Date: Tue, 17 Jul 2018 14:56:21 +1000
+In-Reply-To: <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
+References: <20180711053122.30773-1-andrew@aj.id.au>
+ <20180711053122.30773-2-andrew@aj.id.au>
+ <20180711200450.GB17291@rob-hp-laptop>
+ <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
+ <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
+ <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
+ <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
+ <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
 Mime-Version: 1.0
@@ -41,71 +51,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jul 2018 04:12:32 -0000
+X-List-Received-Date: Tue, 17 Jul 2018 04:57:10 -0000
 
-On Mon, 2018-07-16 at 09:33 -0600, Rob Herring wrote:
-> On Thu, Jul 12, 2018 at 01:48:43PM +1000, Benjamin Herrenschmidt wrote:
-> > This isn't per-se a real device, it's a pseudo-device that
-> > represents the use of the Aspeed built-in ColdFire to
-> > implement the FSI protocol by bitbanging the GPIOs instead
-> > of doing it from the ARM core.
-> > 
-> > Thus it's a drop-in replacement for the existing
-> > fsi-master-gpio pseudo-device for use on systems based
-> > on the Aspeed chips. It has most of the same properties,
-> > plus some more needed to operate the coprocessor.
-> > 
-> > Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> > ---
-> >  .../bindings/fsi/fsi-master-ast-cf.txt        | 36 +++++++++++++++++++
-> >  1 file changed, 36 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > 
-> > diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > new file mode 100644
-> > index 000000000000..431bf8a423ce
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/fsi/fsi-master-ast-cf.txt
-> > @@ -0,0 +1,36 @@
-> > +Device-tree bindings for ColdFire offloaded gpio-based FSI master driver
-> > +------------------------------------------------------------------------
-> > +
-> > +Required properties:
-> > + - compatible =
-> > +	"aspeed,ast2400-cf-fsi-master" for an AST2400 based system
-> > +   or
-> > +	"aspeed,ast2500-cf-fsi-master" for an AST2500 based system
-> > +
-> > + - clock-gpios = <gpio-descriptor>;	: GPIO for FSI clock
-> > + - data-gpios = <gpio-descriptor>;	: GPIO for FSI data signal
-> > + - enable-gpios = <gpio-descriptor>;	: GPIO for enable signal
-> > + - trans-gpios = <gpio-descriptor>;	: GPIO for voltage translator enable
-> > + - mux-gpios = <gpio-descriptor>;	: GPIO for pin multiplexing with other
-> > +                                          functions (eg, external FSI masters)
-> > + - memory-region = <phandle>;		: Reference to the reserved memory for
-> > +                                          the ColdFire. Must be 2M aligned on
-> > +					  AST2400 and 1M aligned on AST2500
-> > + - aspeed,sram = <phandle>;		: Reference to the SRAM node.
-> > + - aspeed,cvic = <phandle>;		: Reference to the CVIC node.
-> > +
-> > +Examples:
-> > +
-> > +    fsi-master {
-> > +        compatible = "aspeed,ast2500-cf-fsi-master", "fsi-master";
-> > +
-> > +	clock-gpios = <&gpio 0>;
-> > +        data-gpios = <&gpio 1>;
-> > +        enable-gpios = <&gpio 2>;
-> > +        trans-gpios = <&gpio 3>;
-> > +        mux-gpios = <&gpio 4>;
-> > +
-> > +	memory-region = <&coldfire_memory>;
-> > +	sram = <&sram>;
-> > +	cvic = <&cvic>;
-> 
-> Need to update the example. With that
+On Mon, 2018-07-16 at 07:55 -0600, Rob Herring wrote:
+> If that data is one set per SoC, then i'm not that concerned having
+> platform-specific data in the driver. That doesn't mean the driver is
+> not "generic". It's still not clear to me in this thread, how much of
+> this is board specific, but given that you've placed all the data in
+> an SoC dtsi file it seems to be all per SoC.
 
-Ah right, thanks. The next spin will have that fixed and will go into
-the fsi tree.
+So Rob, I think that's precisely where the disconnect is.
 
-> Reviewed-by: Rob Herring <robh@kernel.org>
+I think we all (well hopefully) agree that those few tunables don't fit
+in any existing subystem and aren't likely to ever do (famous last
+words...).
+
+Where we disagree is we want to make this parametrized via the DT, and
+you want us to hard wire the list in some kind of SoC driver for a
+given SoC family/version.
+
+The reason I think hard wiring the list in the driver is not a great
+solution is that that list in itself is prone to variations, possibly
+fairly often, between boards, vendors, versions of boards, etc...
+
+We can't know for sure every SoC tunable (out of the gazillions in
+those chips) are going to be needed for a given system. We know which
+ones we do use for ours, and that's a couple of handfuls, but it could
+be that Dell need a slightly different set, and so might Yadro, or so
+might our next board revision for that matter.
+
+Now, updating the device-tree in the board flash with whatever vendor
+specific information is needed is a LOT easier than getting the kernel
+driver constantly updated. The device-tree after all is there to
+reflect among other things system specific ways in which the SoC is
+wired and configured. This is rather close...
+
+Cheers,
+Ben.
