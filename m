@@ -1,84 +1,50 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <Avi.Fishman@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Z0gJXNsP"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="F1W2WKpt"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=nuvoton.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Vc0T3DwlzF35v
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 09:28:24 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 86E5521A21;
- Tue, 17 Jul 2018 19:28:19 -0400 (EDT)
-Received: from web5 ([10.202.2.215])
- by compute4.internal (MEProxy); Tue, 17 Jul 2018 19:28:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=fS8pziHKcKRm6V9XorgCUhq/d2mKA
- AiSs9IRoVrRo5o=; b=Z0gJXNsPspp4Ooi1BjOykWgZVPTZb5LXUIPYQ9QZh2Az6
- HBPAS5tIyxT0JJdMz0r6gVkLQH8PE/EOfyo2reTZsHhOKCqD8IWpo5jJCERqrWPE
- d05BJo2S4a+0r3dB5XscDR6NbwSdrShhtTup2u5KhE53GTpNNUWdWn4x0ByXVGNn
- Y+iCoy2AAC1Qx4WzoBZUxYbGZdlJWIkmJPclCAvPAPk/4cmYdnAZm3MtBSuuC3+e
- dLs9mSSDQuQdhwEu48nb5zL8Jz37dplcV0mtHhkGsYM6gOeRIxZ9mk9b2cn0kO1G
- IhezIFBhGjSD8R9/KnfFRA96BijBTP9LSm0dVf89g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=fS8pzi
- HKcKRm6V9XorgCUhq/d2mKAAiSs9IRoVrRo5o=; b=F1W2WKptIhpMX7OHMPKuyg
- 6G67YFpLiUP16QG08r1vxZfni3GW8QFEc1/vwYjLdAMcqC2klqZnaM+azca3CyG5
- gTM0/loRfwQxMR5HMkN5H6+52+OuSsbeflpY5I0OoRkiJo+OrKySzNAujGfZj//C
- qofe9uSxSsbZS0DNJkexADUVJnxOuZAYj3ffzdbItAGBSgOLcxBo0faHjrbahrW/
- btV9u/FymB0Yo6hfTj8HpvR1PUv5TBGPTLzsTnmkXzxvfQSJotMHl+0l7pYgy+VN
- rDrjkfZdgC4wcHX1ijYNcyU4VZYGFROLh3tjD+6Zuk/R0C4o/XQTw3hsEGaW+57Q
- ==
-X-ME-Proxy: <xmx:kntOWweAu55eQJb-m438r0QDVg8nx3au7I-UU-1aSM5dGJ0bXiKkZQ>
- <xmx:kntOWybDmFcfKaKkOFyowmtmMmdw3AQympzKX5YZfudtL_Qjmx2ghQ>
- <xmx:kntOWzWEQY4568jICGbBCc0Vz36naWExSFZgxi0-NqCEe5E1HjTWhQ>
- <xmx:kntOW0hmTy8cNSW4IK_oOQvg5tI8tJaTatVdIHnWs1NaNC-ZNrzZTQ>
- <xmx:kntOWxUoq9JOtgkd0WtmCJ9bHL68hMxhLrPZbkP_hCL3XSX3eNGQ0Q>
- <xmx:k3tOW_QeVkaPTJnXNoQjLadXfdmO565FxJ6S0r0XUgLlPjqjPUUwuQ>
-X-ME-Sender: <xms:kntOWwJM3SgvOv5LlalFQ5T7x6u2S9p8ZYDpM18C1B-dpWHR9rntVg>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 6FEF79E111; Tue, 17 Jul 2018 19:28:18 -0400 (EDT)
-Message-Id: <1531870098.3337969.1444201888.2476205D@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Rob Herring <robh@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com,
- a.amelkin@yadro.com, linux-kernel@vger.kernel.org,
- Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41VDfj4XGtzF3Hb
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 18:56:42 +1000 (AEST)
+Received: from NTILML02.nuvoton.com (212.199.177.21.static.012.net.il
+ [212.199.177.21])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w6H8QZNl029757
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 11:26:36 +0300
+Received: from NTILML02.nuvoton.com (10.190.1.47) by NTILML02.nuvoton.com
+ (10.190.1.47) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Tue, 17 Jul
+ 2018 11:56:34 +0300
+Received: from NTILML02.nuvoton.com ([::1]) by NTILML02.nuvoton.com ([::1])
+ with mapi id 15.00.1130.005; Tue, 17 Jul 2018 11:56:34 +0300
+From: <Avi.Fishman@nuvoton.com>
+To: <eajames@linux.vnet.ibm.com>, <avifishman70@gmail.com>
+CC: <akashgj91@gmail.com>, <openbmc@lists.ozlabs.org>,
+ <Uri.Trichter@nuvoton.com>, <Eyal.Cohen@nuvoton.com>,
+ <LCCHEN@nuvoton.com>, <KWLIU@nuvoton.com>
+Subject: RE: KVM Support?
+Thread-Topic: KVM Support?
+Thread-Index: AQHUHM8yXgqQr5aCaEuFETbhETC76qSRr26AgAAQWICAAAqbgIABT+0Q
+Date: Tue, 17 Jul 2018 08:56:34 +0000
+Message-ID: <161fc7e4e5e84892ae34d5e3979bc775@NTILML02.nuvoton.com>
+References: <CAE33tLHVuuMgcEQw1xkGP+H1h_Gxq1Vf0Re2SKjVbPhiAgkxNQ@mail.gmail.com>
+ <8df2b64e-b903-caa8-f439-96128f3c9b19@linux.vnet.ibm.com>
+ <CAKKbWA7i884rXOd2nKnMKRoOB-sbzwK7YQENGYWiGze-qbN9WA@mail.gmail.com>
+ <0b9a54bd-8a52-b24f-fc21-e38940c01e31@linux.vnet.ibm.com>
+In-Reply-To: <0b9a54bd-8a52-b24f-fc21-e38940c01e31@linux.vnet.ibm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.191.10.146]
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-957169fa
-In-Reply-To: <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
-Date: Wed, 18 Jul 2018 08:58:18 +0930
-Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
- control fields
-References: <20180711053122.30773-1-andrew@aj.id.au>
- <20180711053122.30773-2-andrew@aj.id.au>
- <20180711200450.GB17291@rob-hp-laptop>
- <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
- <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
- <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
- <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
- <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
- <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Mailman-Approved-At: Wed, 18 Jul 2018 15:02:10 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -90,46 +56,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jul 2018 23:28:28 -0000
+X-List-Received-Date: Tue, 17 Jul 2018 08:56:48 -0000
 
-On Tue, 17 Jul 2018, at 14:26, Benjamin Herrenschmidt wrote:
-> On Mon, 2018-07-16 at 07:55 -0600, Rob Herring wrote:
-> > If that data is one set per SoC, then i'm not that concerned having
-> > platform-specific data in the driver. That doesn't mean the driver is
-> > not "generic". It's still not clear to me in this thread, how much of
-> > this is board specific, but given that you've placed all the data in
-> > an SoC dtsi file it seems to be all per SoC.
-> 
-> So Rob, I think that's precisely where the disconnect is.
-> 
-> I think we all (well hopefully) agree that those few tunables don't fit
-> in any existing subystem and aren't likely to ever do (famous last
-> words...).
-> 
-> Where we disagree is we want to make this parametrized via the DT, and
-> you want us to hard wire the list in some kind of SoC driver for a
-> given SoC family/version.
-> 
-> The reason I think hard wiring the list in the driver is not a great
-> solution is that that list in itself is prone to variations, possibly
-> fairly often, between boards, vendors, versions of boards, etc...
-> 
-> We can't know for sure every SoC tunable (out of the gazillions in
-> those chips) are going to be needed for a given system. We know which
-> ones we do use for ours, and that's a couple of handfuls, but it could
-> be that Dell need a slightly different set, and so might Yadro, or so
-> might our next board revision for that matter.
-> 
-> Now, updating the device-tree in the board flash with whatever vendor
-> specific information is needed is a LOT easier than getting the kernel
-> driver constantly updated. The device-tree after all is there to
-> reflect among other things system specific ways in which the SoC is
-> wired and configured. This is rather close...
-
-Not sure this helps, but I feel that the proposal pretty closely matches what's described in Documentation/devicetree/bindings/mfd/mfd.txt. It's intended that nodes using the bindings I'm proposing are children of a 'compatible = "syscon", "simple-mfd"' node (this is the case with the features we're hoping to describe for our SoC). I should explicitly call that out.
-
-But to go on, "simple-mfd" is effectively an alias of "simple-bus", which means its intended to match child node compatibles to drivers provided by the kernel. If we shouldn't be describing minor features of a SoC in the devicetree, doesn't this invalidate the case for simple-mfd? What is the *correct* use of simple-mfd? When is it not used to expose minor features in set of "miscellaneous system registers"? Why doesn't this proposed case fit?
-
-Cheers,
-
-Andrew
+SGkgRWRkaWUsDQoNCjEuIFdoZXJlIGlzIHRoZSBKUEVHIEhXIGNvbXByZXNzaW9uIGlzIGRvbmU/
+DQphLiBJcyBpdCBpbiB0aGUgVjRMIGRyaXZlcjsgdGhlIFY0TCByZWFkcyB0aGUgZnJhbWUgYnVm
+ZmVyIGNvbXByZXNzIGl0IGFuZCBzZW5kIGl0IHZpYSByZWFkKCk/DQpiLiBPciB0aGUgVjRMIHJl
+YWRzIHRoZSBmcmFtZSBidWZmZXIgc2VuZCBpdCB2aWEgcmVhZCgpIGFuZCBhbm90aGVyIGRyaXZl
+ciBjb21wcmVzcyBpdCBmb3IgdGhlIFZOQyBzZXJ2ZXI/DQoyLiBTaW5jZSBWTkMgUkZCIHN1cHBv
+cnRzIGFsc28gb3RoZXIgY29tcHJlc3Npb24gcHJvdG9jb2xzLCBjYW4gd2UgdXNlIG90aGVyIHBy
+b3RvY29sIHRoYW4gSlBFRz8gSGV4dGlsZSBmb3IgZXhhbXBsZS4NCjMuIENhbiB3ZSBzZWUgdGhp
+cyBkcml2ZXIgYW5kIGFwcGxpY2F0aW9uIGNvZGUgc28gd2UgY2FuIGFkb3B0IHRvIG91ciBIVz8N
+Cg0KUmVnYXJkcywNCkF2aQ0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBF
+ZGRpZSBKYW1lcyBbbWFpbHRvOmVhamFtZXNAbGludXgudm5ldC5pYm0uY29tXQ0KU2VudDogTW9u
+ZGF5LCBKdWx5IDE2LCAyMDE4IDY6MzkgUE0NClRvOiBBdmkgRmlzaG1hbg0KQ2M6IGFrYXNoZ2o5
+MUBnbWFpbC5jb207IE9wZW5CTUMgTWFpbGxpc3Q7IElWMDAgVXJpIFRyaWNodGVyOyBJUzIwIEV5
+YWwgQ29oZW4NClN1YmplY3Q6IFJlOiBLVk0gU3VwcG9ydD8NCg0KDQoNCk9uIDA3LzE2LzIwMTgg
+MTA6MDEgQU0sIEF2aSBGaXNobWFuIHdyb3RlOg0KPiBIaSBFZGRpZSwNCj4NCj4gSXMgaXQgYmFz
+ZWQgb24gVjRMIG9yIGFsc28gVk5DPw0KPiBEb2VzIGl0IGhhdmUgSFcgY29tcHJlc3Npb24gb3Ig
+U1cgb25seT8NCg0KSGksDQoNClRoZSBkcml2ZXIgaW50ZXJmYWNlIGlzIFY0TDIsIHRob3VnaCBJ
+IGFtIGp1c3QgdXNpbmcgcmVhZCgpIGNhbGxzIHJhdGhlcg0KdGhhbiB0aGUgc3RyZWFtaW5nIGlu
+dGVyZmFjZS4NClRoZSBuZXR3b3JrIGludGVyZmFjZSBpcyBWTkMsIGRpcmVjdGx5IHNlbmRpbmcg
+SlBFR3MgdG8gdGhlIGNsaWVudHMNCnJhdGhlciB0aGFuIHVzaW5nIHRoZSBub3JtYWwgVk5DIGZy
+YW1lYnVmZmVyIHVwZGF0ZSBtZXRob2RzLg0KDQpDb21wcmVzc2lvbiBpcyBkb25lIGluIEhXLCBh
+bmQgdGhlbiBkZWNvbXByZXNzaW9uIGF0IHRoZSBjbGllbnQuIFNvIENQVQ0KdXNhZ2Ugb24gdGhl
+IEJNQyBpcyBrZXB0IGxvdywgdGhvdWdoIGJhbmR3aWR0aCB1c2FnZSBpcyBwcmV0dHkgaGlnaA0K
+YmVjYXVzZSBpdCBzZW5kcyB0aGUgd2hvbGUgZnJhbWUgZXZlcnkgdGltZS4gU2VlbXMgdG8gd29y
+ayB3aXRoIGFueSBWTkMNCmNsaWVudCB0aGF0IHN1cHBvcnRzIEpQRUcgY29tcHJlc3Npb24uDQoN
+CkknbSBjdXJyZW50bHkgd29ya2luZyB0aHJvdWdoIHNvbWUgaW5wdXQgbGF0ZW5jeSBwcm9ibGVt
+czsgc2VlbXMgdGhlDQpiYW5kd2lkdGggdXNhZ2UgZm9yIHRoZSBmcmFtZXMgY2F1c2VzIGh1Z2Ug
+ZGVsYXlzIGZvciBzZW5kaW5nIHRoZSBpbnB1dA0KZXZlbnRzIGZyb20gdGhlIGNsaWVudCB0byB0
+aGUgc2VydmVyLiBPdGhlciB0aGFuIHRoYXQgaXQncyB3b3JraW5nIHdlbGwuDQoNClRoYW5rcywN
+CkVkZGllDQoNCj4NCj4gVGhhbmtzLA0KPiBBdmkNCj4gT24gTW9uLCBKdWwgMTYsIDIwMTggYXQg
+NTowMyBQTSBFZGRpZSBKYW1lcyA8ZWFqYW1lc0BsaW51eC52bmV0LmlibS5jb20+IHdyb3RlOg0K
+Pj4NCj4+DQo+PiBPbiAwNy8xNi8yMDE4IDAxOjM0IEFNLCBBS0FTSCBHIEogd3JvdGU6DQo+Pj4g
+SGkgVGVhbSwNCj4+Pg0KPj4+IFBsZWFzZSBzb21lb25lIHNoYXJlIHdoZXRoZXIgS2V5Ym9hcmQg
+VmlkZW8gTW91c2UgKEtWTSkgb3ZlciBJUA0KPj4+IGltcGxlbWVudGF0aW9uIGF2YWlsYWJsZSBp
+biBPcGVuQk1DID8NCj4+IEhpIEFrYXNoLA0KPj4NCj4+IEl0J3MgaW4gZGV2ZWxvcG1lbnQuLi4g
+SWYgeW91IHdhbnQgdG8gaGVscCwgbGV0IG1lIGtub3chIEknbGwgYmUNCj4+IHVwZGF0aW5nIHRo
+ZSBtYWlsaW5nIGxpc3Qgd2l0aCBkcml2ZXJzLCBldGMsIHdoZW4gaXQncyBtb3JlIGZ1bmN0aW9u
+YWwuDQo+Pg0KPj4gVGhhbmtzLA0KPj4gRWRkaWUNCj4+DQo+Pj4NCj4+Pg0KPj4+IFRoYW5rcyBh
+bmQgUmVnYXJkcywNCj4+Pg0KPj4+IEFrYXNoDQoNCg0KDQo9PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09DQpUaGUgcHJpdmlsZWdlZCBjb25maWRlbnRpYWwgaW5mb3JtYXRpb24gY29u
+dGFpbmVkIGluIHRoaXMgZW1haWwgaXMgaW50ZW5kZWQgZm9yIHVzZSBvbmx5IGJ5IHRoZSBhZGRy
+ZXNzZWVzIGFzIGluZGljYXRlZCBieSB0aGUgb3JpZ2luYWwgc2VuZGVyIG9mIHRoaXMgZW1haWwu
+IElmIHlvdSBhcmUgbm90IHRoZSBhZGRyZXNzZWUgaW5kaWNhdGVkIGluIHRoaXMgZW1haWwgb3Ig
+YXJlIG5vdCByZXNwb25zaWJsZSBmb3IgZGVsaXZlcnkgb2YgdGhlIGVtYWlsIHRvIHN1Y2ggYSBw
+ZXJzb24sIHBsZWFzZSBraW5kbHkgcmVwbHkgdG8gdGhlIHNlbmRlciBpbmRpY2F0aW5nIHRoaXMg
+ZmFjdCBhbmQgZGVsZXRlIGFsbCBjb3BpZXMgb2YgaXQgZnJvbSB5b3VyIGNvbXB1dGVyIGFuZCBu
+ZXR3b3JrIHNlcnZlciBpbW1lZGlhdGVseS4gWW91ciBjb29wZXJhdGlvbiBpcyBoaWdobHkgYXBw
+cmVjaWF0ZWQuIEl0IGlzIGFkdmlzZWQgdGhhdCBhbnkgdW5hdXRob3JpemVkIHVzZSBvZiBjb25m
+aWRlbnRpYWwgaW5mb3JtYXRpb24gb2YgTnV2b3RvbiBpcyBzdHJpY3RseSBwcm9oaWJpdGVkOyBh
+bmQgYW55IGluZm9ybWF0aW9uIGluIHRoaXMgZW1haWwgaXJyZWxldmFudCB0byB0aGUgb2ZmaWNp
+YWwgYnVzaW5lc3Mgb2YgTnV2b3RvbiBzaGFsbCBiZSBkZWVtZWQgYXMgbmVpdGhlciBnaXZlbiBu
+b3IgZW5kb3JzZWQgYnkgTnV2b3Rvbi4NCg==
