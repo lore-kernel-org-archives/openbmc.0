@@ -1,60 +1,34 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <Tali.Perry@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tali.perry@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="N6Y5Depy"; 
- dkim-atps=neutral
-Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
- [IPv6:2607:f8b0:400d:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41VHKP5xzHzF3Hp
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 20:56:57 +1000 (AEST)
-Received: by mail-qk0-x243.google.com with SMTP id z74-v6so239422qkb.10
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 03:56:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Jm/SrQq71GuKuJzzpsbXjPFNsImZrhE9xCM+6nfOJhQ=;
- b=N6Y5Depy7AiCHVFJm20rFL/+GGWz42+FCYtkYplpe1vzrI+PRpFGPfRUst0RuSFhq/
- kibTqo7k9KvFDPOgIe7AGFSFutm85WRTHNdw0hXr7xFvXnk0WxbH0zmSIz/WeNnXZy5D
- T/ygx33FJi3YeiL2c37D7jIn0K6XRYF9PpRbW+Iiy6i29DhqebZzYxX+R7GfeBTAudcm
- GBI4LbUeGpkza1FxAmPD8Pr8JVfRUHx8+pcXuMBKymh2z7t3mrRPCMQ6jcaHWk7MSVTP
- yaeDEqTZDR0LlTBOHAVadnioug6accSbik6zO0kcQ0ApJAU6ENK4NBQBw56yqVMfyAmr
- 8oHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=Jm/SrQq71GuKuJzzpsbXjPFNsImZrhE9xCM+6nfOJhQ=;
- b=cDPFsuIuUYFeXOhbzirP90dfotPZ2GbG+/kwT/6f1zZdpGMIiu1i5s6dIHzejqXupP
- ioJfN+ym7TC0viXRgvFbfBxebUyAtDwRuRl9cCkup9pcmotRi/CR9n4pw5sl0oOtk5ui
- bniUBf31kl4CXbdgalOrHd/3sbQ2DevRq1Lm1mmHxcTAd4qSYm3uw53XkPEsobE/7gDb
- hv2tyeNpjd/Rz/xn1iHWkCOxjyb2JgkezBfE3rP0E32WgkAshKw69TdOD56IS6t5I3Yi
- kJ8eK9UCRqnb011efkWzazOgpW5clbt3PFnCydRNfjml8y7gZIZseLq1pxyQwcOTnVAC
- nVYA==
-X-Gm-Message-State: AOUpUlHds6Ra2R7R+OKOLgn/W2A9HuR3ja7urVfrqCTVuRFwonvntQmh
- jMhebrphTf28fJlfiLeik8yZp1IyreX0jvly/oc=
-X-Google-Smtp-Source: AAOMgpczmocgwJKX+NFo6w7TO7+oe/v00pkqFhw6j0rkzGLISBd/LpWUAlW+82GKrk+12HO9+GCNRqiBAYjuCgQvnNY=
-X-Received: by 2002:a37:3692:: with SMTP id
- d140-v6mr820846qka.385.1531825014828; 
- Tue, 17 Jul 2018 03:56:54 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP; Tue, 17 Jul 2018 03:56:54
- -0700 (PDT)
-In-Reply-To: <AM5PR0501MB244978A9EAA063FB2C393DDAB15C0@AM5PR0501MB2449.eurprd05.prod.outlook.com>
-References: <CAG9c7cCrNso3WHmGpF+6aPYd=hVXthKDZyXJVAB0uUcT0nh9Bw@mail.gmail.com>
- <AM5PR0501MB244978A9EAA063FB2C393DDAB15C0@AM5PR0501MB2449.eurprd05.prod.outlook.com>
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Tue, 17 Jul 2018 18:56:54 +0800
-Message-ID: <CAG9c7cCkEdp_G0VW9ntbfmGAyV9HLGUd6Eta56AKp3vOfisLVg@mail.gmail.com>
-Subject: Re: [patch v27 0/4] JTAG driver introduction
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000ddf5bf05712fcd79"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41VJ6l1yJYzF3Hs
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 21:32:45 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w6HB1YXg032667;
+ Tue, 17 Jul 2018 14:01:34 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 20088)
+ id 32DC6630CD; Tue, 17 Jul 2018 14:31:33 +0300 (IDT)
+From: Tali Perry <tali.perry1@gmail.com>
+To: sboyd@kernel.org, brendanhiggins@google.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, linux@armlinux.org.uk, weiyongjunl@huawei.com,
+ avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ Tali Perry <tali.perry1@gmail.com>, Wei Yongjun <weiyongjun1@huawei.com>
+Subject: [PATCH v1 1/1] clk: npcm7xx: get fixed clocks from DT
+Date: Tue, 17 Jul 2018 14:31:29 +0300
+Message-Id: <20180717113129.25033-2-tali.perry1@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180717113129.25033-1-tali.perry1@gmail.com>
+References: <20180717113129.25033-1-tali.perry1@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,391 +40,218 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jul 2018 10:56:59 -0000
+X-List-Received-Date: Tue, 17 Jul 2018 11:32:48 -0000
 
---000000000000ddf5bf05712fcd79
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Nuvoton NPCM7XX Clock Controller
+fix base address and of_clk_get_by_name error handling.
+    Also update error messages to be more informative.
+    
+    In case clk_base allocation is erronoeous the return value is null.
+    Also fix handling of of_clk_get_by_name returns an error. 
+    Print a better error message pointing to the dt-binding documention.
 
-Thanks  Oleksandr's  response.
-
-I just want to try the mlnx_cpldprog you mentioned.
-
-But the mlnx_cpldprog on the github is too old to compile with the JTAG
-driver (v27.)
-Could you share the revised mlnx_cpldprog ?
-
-Thanks.
-
-BRs,
-Henbin.
-
-2018-07-17 17:19 GMT+08:00 Oleksandr Shamray <oleksandrs@mellanox.com>:
-
-> Hi  Henbin.
->
->
->
-> > May I know how do you verify the JTAG driver workable?
->
->
->
-> I have ultility which progrm CPLD with using this JTAG driver.
->
->
->
-> You can see it on github:
->
-> https://github.com/sholeksandr/mellanox-bmc-tools/tree/jtag_class_drv/
-> mlnx_cpldprog
->
->
->
-> Best Regards,
->
-> Oleksandr Shamray
->
->
->
-> *From:* Henbin Chang [mailto:henbinchang@gmail.com]
-> *Sent:* 17 =D0=B8=D1=8E=D0=BB=D1=8F 2018 =D0=B3. 5:55
-> *To:* OpenBMC Maillist <openbmc@lists.ozlabs.org>; Oleksandr Shamray <
-> oleksandrs@mellanox.com>
-> *Subject:* Re: [patch v27 0/4] JTAG driver introduction
->
->
->
-> Hi Oleksandr,
->
->
->
-> Sorry to bother you.
->
-> May I know how do you verify the JTAG driver workable?
->
->
->
-> Thanks.
->
-> BRs,
->
-> Henbin
->
->
->
-> When a need raise up to use JTAG interface for system's devices
-> programming or CPU debugging, usually the user layer
-> application implements jtag protocol by bit-bang or using a
-> proprietary connection to vendor hardware.
-> This method can be slow and not generic.
->
-> We propose to implement general JTAG interface and infrastructure
-> to communicate with user layer application. In such way, we can
-> have the standard JTAG interface core part and separation from
-> specific HW implementation.
-> This allow new capability to debug the CPU or program system's
-> device via BMC without additional devices nor cost. This patch purpose is
-> to add JTAG master core infrastructure by
-> defining new JTAG class and provide generic JTAG interface
-> to allow hardware specific drivers to connect this interface.
-> This will enable all JTAG drivers to use the common interface
-> part and will have separate for hardware implementation. The JTAG (Joint
-> Test Action Group) core driver provides minimal generic
-> JTAG interface, which can be used by hardware specific JTAG master
-> controllers. By providing common interface for the JTAG controllers,
-> user space device programing is hardware independent.
->
-> Modern SoC which in use for embedded system' equipped with
-> internal JTAG master interface.
-> This interface is used for programming and debugging system's
-> hardware components, like CPLD, FPGA, CPU, voltage and
-> industrial controllers.
-> Firmware for such devices can be upgraded through JTAG interface during
-> Runtime. The JTAG standard support for multiple devices programming,
-> is in case their lines are daisy-chained together. For example, systems
-> which equipped with host CPU, BMC SoC or/and
-> number of programmable devices are capable to connect a pin and
-> select system components dynamically for programming and debugging,
-> This is using by the BMC which is equipped with internal SoC master
-> controller.
-> For example: BMC JTAG master --> pin selected to CPLDs chain for
-> programming (filed
-> upgrade, production)
-> BMC JTAG master --> pin selected to voltage monitors for programming
-> (field upgrade, production)
-> BMC JTAG master --> pin selected to host CPU (on-site debugging
-> and developers debugging) For example, we can have application in user
-> space which using calls
-> to JTAG driver executes CPLD programming directly from SVF file
->
-> The JTAG standard (IEEE 1149.1) defines the next connector pins:
-> - TDI (Test Data In);
-> - TDO (Test Data Out);
-> - TCK (Test Clock);
-> - TMS (Test Mode Select);
-> - TRST (Test Reset) (Optional); The SoC equipped with JTAG master
-> controller, performs
-> device programming on command or vector level. For example
-> a file in a standard SVF (Serial Vector Format) that contains
-> boundary scan vectors, can be used by sending each vector
-> to the JTAG interface and the JTAG controller will execute
-> the programming. Initial version provides the system calls set for:
-> - SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
-> - SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
-> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
-> number of clocks. SoC which are not equipped with JTAG master interface,
-> can be built
-> on top of JTAG core driver infrastructure, by applying bit-banging of
-> TDI, TDO, TCK and TMS pins within the hardware specific driver. Oleksandr
-> Shamray (4):
-> drivers: jtag: Add JTAG core driver
-> drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
-> driver
-> Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
-> families JTAG master driver
-> Documentation: jtag: Add ABI documentation Documentation/ABI/testing/jtag=
--dev
-> | 23 +
-> .../devicetree/bindings/jtag/aspeed-jtag.txt | 22 +
-> Documentation/ioctl/ioctl-number.txt | 2 +
-> Documentation/jtag/overview | 27 +
-> Documentation/jtag/transactions | 109 +++
-> MAINTAINERS | 10 +
-> drivers/Kconfig | 2 +
-> drivers/Makefile | 1 +
-> drivers/jtag/Kconfig | 31 +
-> drivers/jtag/Makefile | 2 +
-> drivers/jtag/jtag-aspeed.c | 747 ++++++++++++++++++++
-> drivers/jtag/jtag.c | 274 +++++++
-> include/linux/jtag.h | 41 ++
-> include/uapi/linux/jtag.h | 109 +++
-> 14 files changed, 1400 insertions(+), 0 deletions(-)
-> create mode 100644 Documentation/ABI/testing/jtag-dev
-> create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
-> create mode 100644 Documentation/jtag/overview
-> create mode 100644 Documentation/jtag/transactions
-> create mode 100644 drivers/jtag/Kconfig
-> create mode 100644 drivers/jtag/Makefile
-> create mode 100644 drivers/jtag/jtag-aspeed.c
-> create mode 100644 drivers/jtag/jtag.c
-> create mode 100644 include/linux/jtag.h
-> create mode 100644 include/uapi/linux/jtag.h
->
->
-
---000000000000ddf5bf05712fcd79
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks=C2=A0
-
-<span style=3D"font-size:14px;text-decoration-style:initial;text-decoration=
--color:initial;float:none;display:inline">Oleksandr<span>&#39;s=C2=A0 respo=
-nse.</span></span><div><br></div><div>I just want to try the=C2=A0mlnx_cpld=
-prog you mentioned.</div><div><br></div><div>But the mlnx_cpldprog on the g=
-ithub is too old to compile with the JTAG driver (v27.)</div><div>Could you=
- share the revised=C2=A0<span style=3D"font-size:small;background-color:rgb=
-(255,255,255);text-decoration-style:initial;text-decoration-color:initial;f=
-loat:none;display:inline">mlnx_cpldprog<span>=C2=A0?</span></span></div><di=
-v><br></div><div><span style=3D"font-size:small;background-color:rgb(255,25=
-5,255);text-decoration-style:initial;text-decoration-color:initial;float:no=
-ne;display:inline"><span>Thanks.</span></span></div><div><span style=3D"fon=
-t-size:small;background-color:rgb(255,255,255);text-decoration-style:initia=
-l;text-decoration-color:initial;float:none;display:inline"><span><br></span=
-></span></div><div>BRs,</div><div>Henbin.</div></div><div class=3D"gmail_ex=
-tra"><br><div class=3D"gmail_quote">2018-07-17 17:19 GMT+08:00 Oleksandr Sh=
-amray <span dir=3D"ltr">&lt;<a href=3D"mailto:oleksandrs@mellanox.com" targ=
-et=3D"_blank">oleksandrs@mellanox.com</a>&gt;</span>:<br><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">
+This patch is re-submitted since it was already pushed to main 
+(just the diff, without the full driver which is already in 
+master branch.)
 
 
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
 
+---
+ drivers/clk/clk-npcm7xx.c | 101 +++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 77 insertions(+), 24 deletions(-)
 
-
-<div lang=3D"RU" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"m_-5717745202511059914WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi </span>
-<span lang=3D"EN-US">=C2=A0Henbin.<u></u><u></u></span></p><span class=3D""=
->
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&gt;</span><span lang=3D"EN-US"=
-> May I know how do you verify the JTAG driver workable?<u></u><u></u></spa=
-n></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-</span><p class=3D"MsoNormal"><span lang=3D"EN-US">I have ultility which pr=
-ogrm CPLD with using this JTAG driver.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">You can see it on github:<u></u=
-><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><a href=3D"https://github.com/s=
-holeksandr/mellanox-bmc-tools/tree/jtag_class_drv/mlnx_cpldprog" target=3D"=
-_blank">https://github.com/<wbr>sholeksandr/mellanox-bmc-<wbr>tools/tree/jt=
-ag_class_drv/<wbr>mlnx_cpldprog</a><u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Best Regards,<u></u><u></u></sp=
-an></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Oleksandr Shamray<u></u><u></u>=
-</span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #e1e1e1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
-=3D"EN-US"> Henbin Chang [mailto:<a href=3D"mailto:henbinchang@gmail.com" t=
-arget=3D"_blank">henbinchang@gmail.com</a>]
-<br>
-<b>Sent:</b> 17 =D0=B8=D1=8E=D0=BB=D1=8F 2018 =D0=B3. 5:55<br>
-<b>To:</b> OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org"=
- target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;; Oleksandr Shamray &lt;=
-<a href=3D"mailto:oleksandrs@mellanox.com" target=3D"_blank">oleksandrs@mel=
-lanox.com</a>&gt;<br>
-<b>Subject:</b> Re: [patch v27 0/4] JTAG driver introduction<u></u><u></u><=
-/span></p>
-</div>
-</div><div><div class=3D"h5">
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">Hi=C2=A0Oleksandr,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Sorry to bother you.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">May I know how do you verify the JTAG driver workabl=
-e?<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">BRs,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Henbin<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
-</div>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0c=
-m 0cm 0cm 6.0pt;margin-left:4.8pt;margin-right:0cm">
-<p class=3D"MsoNormal">When a need raise up to use JTAG interface for syste=
-m&#39;s devices<br>
-programming or CPU debugging, usually the user layer<br>
-application implements jtag protocol by bit-bang or using a <br>
-proprietary connection to vendor hardware.<br>
-This method can be slow and not generic.<br>
-<br>
-We propose to implement general JTAG interface and infrastructure<br>
-to communicate with user layer application. In such way, we can<br>
-have the standard JTAG interface core part and separation from<br>
-specific HW implementation.<br>
-This allow new capability to debug the CPU or program system&#39;s <br>
-device via BMC without additional devices nor cost. This patch purpose is t=
-o add JTAG master core infrastructure by
-<br>
-defining new JTAG class and provide generic JTAG interface<br>
-to allow hardware specific drivers to connect this interface.<br>
-This will enable all JTAG drivers to use the common interface<br>
-part and will have separate for hardware implementation. The JTAG (Joint Te=
-st Action Group) core driver provides minimal generic<br>
-JTAG interface, which can be used by hardware specific JTAG master<br>
-controllers. By providing common interface for the JTAG controllers,<br>
-user space device programing is hardware independent.<br>
-<br>
-Modern SoC which in use for embedded system&#39; equipped with<br>
-internal JTAG master interface.<br>
-This interface is used for programming and debugging system&#39;s<br>
-hardware components, like CPLD, FPGA, CPU, voltage and<br>
-industrial controllers.<br>
-Firmware for such devices can be upgraded through JTAG interface during<br>
-Runtime. The JTAG standard support for multiple devices programming,<br>
-is in case their lines are daisy-chained together. For example, systems whi=
-ch equipped with host CPU, BMC SoC or/and
-<br>
-number of programmable devices are capable to connect a pin and<br>
-select system components dynamically for programming and debugging,<br>
-This is using by the BMC which is equipped with internal SoC master<br>
-controller.<br>
-For example: BMC JTAG master --&gt; pin selected to CPLDs chain for program=
-ming (filed<br>
-upgrade, production) <br>
-BMC JTAG master --&gt; pin selected to voltage monitors for programming <br=
->
-(field upgrade, production) <br>
-BMC JTAG master --&gt; pin selected to host CPU (on-site debugging <br>
-and developers debugging) For example, we can have application in user spac=
-e which using calls<br>
-to JTAG driver executes CPLD programming directly from SVF file<br>
-<br>
-The JTAG standard (IEEE 1149.1) defines the next connector pins:<br>
-- TDI (Test Data In);<br>
-- TDO (Test Data Out);<br>
-- TCK (Test Clock);<br>
-- TMS (Test Mode Select);<br>
-- TRST (Test Reset) (Optional); The SoC equipped with JTAG master controlle=
-r, performs<br>
-device programming on command or vector level. For example<br>
-a file in a standard SVF (Serial Vector Format) that contains<br>
-boundary scan vectors, can be used by sending each vector<br>
-to the JTAG interface and the JTAG controller will execute<br>
-the programming. Initial version provides the system calls set for:<br>
-- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);<b=
-r>
-- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);<br>
-- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified<br>
-number of clocks. SoC which are not equipped with JTAG master interface, ca=
-n be built<br>
-on top of JTAG core driver infrastructure, by applying bit-banging of<br>
-TDI, TDO, TCK and TMS pins within the hardware specific driver. Oleksandr S=
-hamray (4):<br>
-drivers: jtag: Add JTAG core driver<br>
-drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master<br>
-driver<br>
-Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx<br>
-families JTAG master driver<br>
-Documentation: jtag: Add ABI documentation Documentation/ABI/testing/<wbr>j=
-tag-dev | 23 +<br>
-.../devicetree/bindings/jtag/<wbr>aspeed-jtag.txt | 22 +<br>
-Documentation/ioctl/ioctl-<wbr>number.txt | 2 +<br>
-Documentation/jtag/overview | 27 +<br>
-Documentation/jtag/<wbr>transactions | 109 +++<br>
-MAINTAINERS | 10 +<br>
-drivers/Kconfig | 2 +<br>
-drivers/Makefile | 1 +<br>
-drivers/jtag/Kconfig | 31 +<br>
-drivers/jtag/Makefile | 2 +<br>
-drivers/jtag/jtag-aspeed.c | 747 ++++++++++++++++++++<br>
-drivers/jtag/jtag.c | 274 +++++++<br>
-include/linux/jtag.h | 41 ++<br>
-include/uapi/linux/jtag.h | 109 +++<br>
-14 files changed, 1400 insertions(+), 0 deletions(-)<br>
-create mode 100644 Documentation/ABI/testing/<wbr>jtag-dev<br>
-create mode 100644 Documentation/devicetree/<wbr>bindings/jtag/aspeed-jtag.=
-txt<br>
-create mode 100644 Documentation/jtag/overview<br>
-create mode 100644 Documentation/jtag/<wbr>transactions<br>
-create mode 100644 drivers/jtag/Kconfig<br>
-create mode 100644 drivers/jtag/Makefile<br>
-create mode 100644 drivers/jtag/jtag-aspeed.c<br>
-create mode 100644 drivers/jtag/jtag.c<br>
-create mode 100644 include/linux/jtag.h<br>
-create mode 100644 include/uapi/linux/jtag.h<u></u><u></u></p>
-</blockquote>
-</div>
-</div></div></div>
-</div>
-</div>
-
-</blockquote></div><br></div>
-
---000000000000ddf5bf05712fcd79--
+diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
+index 740af90a9508..a5206ee88f4c 100644
+--- a/drivers/clk/clk-npcm7xx.c
++++ b/drivers/clk/clk-npcm7xx.c
+@@ -7,17 +7,28 @@
+  * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
+  */
+ 
+-#include <linux/module.h>
+-#include <linux/clk-provider.h>
+-#include <linux/io.h>
+-#include <linux/kernel.h>
+-#include <linux/of.h>
+-#include <linux/of_address.h>
+-#include <linux/slab.h>
+-#include <linux/err.h>
+-#include <linux/bitfield.h>
+-
+-#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
++
++
++
++ #include <linux/module.h>
++ #include <linux/clk.h>
++ #include <linux/clk-provider.h>
++ #include <linux/device.h>
++ #include <linux/io.h>
++ #include <linux/kernel.h>
++ #include <linux/of.h>
++ #include <linux/of_device.h>
++ #include <linux/of_platform.h>
++ #include <linux/of_address.h>
++ #include <linux/platform_device.h>
++ #include <linux/slab.h>
++ #include <linux/err.h>
++ #include <linux/rational.h>
++ #include <linux/bitfield.h>
++ #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
++
++ #include <asm/cp15.h>
++
+ 
+ struct npcm7xx_clk_pll {
+ 	struct clk_hw	hw;
+@@ -27,6 +38,9 @@ struct npcm7xx_clk_pll {
+ 
+ #define to_npcm7xx_clk_pll(_hw) container_of(_hw, struct npcm7xx_clk_pll, hw)
+ 
++static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,
++	const char *name, const char *parent_name, unsigned long flags);
++
+ #define PLLCON_LOKI	BIT(31)
+ #define PLLCON_LOKS	BIT(30)
+ #define PLLCON_FBDV	GENMASK(27, 16)
+@@ -44,7 +58,8 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
+ 	u64 ret;
+ 
+ 	if (parent_rate == 0) {
+-		pr_err("%s: parent rate is zero", __func__);
++		pr_err("%s: parent rate is zero. reg=%x\n", __func__,
++			(u32)(pll->pllcon));
+ 		return 0;
+ 	}
+ 
+@@ -61,13 +76,12 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
+ 	return ret;
+ }
+ 
+-static const struct clk_ops npcm7xx_clk_pll_ops = {
++const struct clk_ops npcm7xx_clk_pll_ops = {
+ 	.recalc_rate = npcm7xx_clk_pll_recalc_rate,
+ };
+ 
+-static struct clk_hw *
+-npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
+-			 const char *parent_name, unsigned long flags)
++static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,
++		const char *name, const char *parent_name, unsigned long flags)
+ {
+ 	struct npcm7xx_clk_pll *pll;
+ 	struct clk_init_data init;
+@@ -78,7 +92,8 @@ npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
+ 	if (!pll)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	pr_debug("%s reg, name=%s, p=%s\n", __func__, name, parent_name);
++	pr_debug("%s reg, reg=0x%x, name=%s, p=%s\n",
++		__func__, (unsigned int)pllcon, name, parent_name);
+ 
+ 	init.name = name;
+ 	init.ops = &npcm7xx_clk_pll_ops;
+@@ -544,9 +559,11 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
+ 	void __iomem *clk_base;
+ 	struct resource res;
+ 	struct clk_hw *hw;
++	struct clk *clk;
+ 	int ret;
+ 	int i;
+ 
++	clk_base = NULL;
+ 	ret = of_address_to_resource(clk_np, 0, &res);
+ 	if (ret) {
+ 		pr_err("%s: failed to get resource, ret %d\n", clk_np->name,
+@@ -560,14 +577,44 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
+ 
+ 	npcm7xx_clk_data = kzalloc(sizeof(*npcm7xx_clk_data->hws) *
+ 		NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL);
+-	if (!npcm7xx_clk_data)
++
++	npcm7xx_clk_data->num = 0;
++
++	if (!npcm7xx_clk_data->hws) {
++		pr_err("Can't alloc npcm7xx_clk_data\n");
+ 		goto npcm7xx_init_np_err;
++	}
+ 
+ 	npcm7xx_clk_data->num = NPCM7XX_NUM_CLOCKS;
+ 
+ 	for (i = 0; i < NPCM7XX_NUM_CLOCKS; i++)
+ 		npcm7xx_clk_data->hws[i] = ERR_PTR(-EPROBE_DEFER);
+ 
++	/* Read fixed clocks. These 3 clocks must be defined in DT */
++	clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
++	if (IS_ERR(clk)) {
++		pr_err("failed to find external REFCLK on device tree, err=%ld\n",
++			PTR_ERR(clk));
++		clk_put(clk);
++		goto npcm7xx_init_fail_no_clk_on_dt;
++	}
++
++	clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
++	if (IS_ERR(clk)) {
++		pr_err("failed to find external SYSBYPCK on device tree, err=%ld\n",
++			PTR_ERR(clk));
++		clk_put(clk);
++		goto npcm7xx_init_fail_no_clk_on_dt;
++	}
++
++	clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
++	if (IS_ERR(clk)) {
++		pr_err("failed to find external MCBYPCK on device tree, err=%ld\n",
++			PTR_ERR(clk));
++		clk_put(clk);
++		goto npcm7xx_init_fail_no_clk_on_dt;
++	}
++
+ 	/* Register plls */
+ 	for (i = 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
+ 		const struct npcm7xx_clk_pll_data *pll_data = &npcm7xx_plls[i];
+@@ -584,16 +631,16 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
+ 	}
+ 
+ 	/* Register fixed dividers */
+-	hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
++	clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
+ 			NPCM7XX_CLK_S_PLL1, 0, 1, 2);
+-	if (IS_ERR(hw)) {
++	if (IS_ERR(clk)) {
+ 		pr_err("npcm7xx_clk: Can't register fixed div\n");
+ 		goto npcm7xx_init_fail;
+ 	}
+ 
+-	hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
++	clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
+ 			NPCM7XX_CLK_S_PLL2, 0, 1, 2);
+-	if (IS_ERR(hw)) {
++	if (IS_ERR(clk)) {
+ 		pr_err("npcm7xx_clk: Can't register div2\n");
+ 		goto npcm7xx_init_fail;
+ 	}
+@@ -646,11 +693,17 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
+ 
+ 	return;
+ 
++npcm7xx_init_fail_no_clk_on_dt:
++	pr_err("see Documentation/devicetree/bindings/clock/");
++	pr_err("nuvoton,npcm750-clk.txt  for details\n");
+ npcm7xx_init_fail:
+-	kfree(npcm7xx_clk_data->hws);
++	if (npcm7xx_clk_data->num)
++		kfree(npcm7xx_clk_data->hws);
+ npcm7xx_init_np_err:
+-	iounmap(clk_base);
++	if (clk_base != NULL)
++		iounmap(clk_base);
+ npcm7xx_init_error:
+ 	of_node_put(clk_np);
++	pr_err("clk setup fail\n");
+ }
+ CLK_OF_DECLARE(npcm7xx_clk_init, "nuvoton,npcm750-clk", npcm7xx_clk_init);
+-- 
+2.14.1
