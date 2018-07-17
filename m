@@ -1,84 +1,59 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.from=linux.intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41VMWx6SZczF3Hk
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 00:06:21 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w6HE5C4G038083
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 10:06:18 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2k9fjhe45g-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jul 2018 10:06:18 -0400
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 17 Jul 2018 08:06:17 -0600
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 17 Jul 2018 08:06:13 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w6HE6CJE13107594
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 17 Jul 2018 07:06:12 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0BD68BE058;
- Tue, 17 Jul 2018 08:06:12 -0600 (MDT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C064EBE051;
- Tue, 17 Jul 2018 08:06:10 -0600 (MDT)
-Received: from [9.85.150.94] (unknown [9.85.150.94])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Tue, 17 Jul 2018 08:06:10 -0600 (MDT)
-Subject: Re: KVM Support?
-To: Avi.Fishman@nuvoton.com, avifishman70@gmail.com
-Cc: akashgj91@gmail.com, openbmc@lists.ozlabs.org, Uri.Trichter@nuvoton.com,
- Eyal.Cohen@nuvoton.com, LCCHEN@nuvoton.com, KWLIU@nuvoton.com
-References: <CAE33tLHVuuMgcEQw1xkGP+H1h_Gxq1Vf0Re2SKjVbPhiAgkxNQ@mail.gmail.com>
- <8df2b64e-b903-caa8-f439-96128f3c9b19@linux.vnet.ibm.com>
- <CAKKbWA7i884rXOd2nKnMKRoOB-sbzwK7YQENGYWiGze-qbN9WA@mail.gmail.com>
- <0b9a54bd-8a52-b24f-fc21-e38940c01e31@linux.vnet.ibm.com>
- <161fc7e4e5e84892ae34d5e3979bc775@NTILML02.nuvoton.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Tue, 17 Jul 2018 09:06:09 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41VQSF5BcwzF3HZ;
+ Wed, 18 Jul 2018 02:18:20 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2018 09:18:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,366,1526367600"; d="scan'208";a="216739584"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.149])
+ ([10.7.153.149])
+ by orsmga004.jf.intel.com with ESMTP; 17 Jul 2018 09:18:17 -0700
+Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use
+ cases stably
+To: Gary Hsu <gary_hsu@aspeedtech.com>,
+ Brendan Higgins <brendanhiggins@google.com>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>,
+ Benjamin Fair <benjaminfair@google.com>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "james.feist@linux.intel.com" <james.feist@linux.intel.com>,
+ Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Patrick Venture <venture@google.com>,
+ "vernon.mauery@linux.intel.com" <vernon.mauery@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>
+References: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
+ <CAFd5g45z--ucXf-So517tgrayZT6x2TGvaUvaDF7zeRNn7CPXw@mail.gmail.com>
+ <e51471e6-0f8a-bffc-34c8-1e74239fdbcf@linux.intel.com>
+ <CAFd5g47j_h4ZrT8Eg1FZ8sAj5ekCUH20jUVub75ozdkg8_YW7Q@mail.gmail.com>
+ <921b1ab7-9c9f-0aeb-da89-5a1a27d009f0@linux.intel.com>
+ <d3f10fc1-635b-3a5d-a967-2816eac005fc@linux.intel.com>
+ <CAFd5g47zdPdqqjVJtNHtFk+jKgciKbMcEH9M-W9rL4DgLM5hkg@mail.gmail.com>
+ <b8232faa-58f5-f3a5-d12a-3f326cf1d03d@linux.intel.com>
+ <a84da5d076924f40b1c836fe8b9d0844@TWMBX01.aspeed.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <26400cb7-972e-7be9-81ba-8e08d42abd4e@linux.intel.com>
+Date: Tue, 17 Jul 2018 09:18:14 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <161fc7e4e5e84892ae34d5e3979bc775@NTILML02.nuvoton.com>
+In-Reply-To: <a84da5d076924f40b1c836fe8b9d0844@TWMBX01.aspeed.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18071714-0020-0000-0000-00000E3F2715
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009380; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01062116; UDB=6.00545300; IPR=6.00839974; 
- MB=3.00022171; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-17 14:06:15
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18071714-0021-0000-0000-000062504D6A
-Message-Id: <c322703c-518f-c93a-12c1-7221019c2132@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-07-17_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=583 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1806210000 definitions=main-1807170148
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -90,101 +65,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jul 2018 14:06:22 -0000
+X-List-Received-Date: Tue, 17 Jul 2018 16:18:22 -0000
 
 
+On 7/15/2018 8:05 PM, Gary Hsu wrote:
+> Hi Jae,
+> 
+> In originally, we reserved these register bits for debug purpose. But for some error handling case, we found it is also useful to help to clarify some error conditions. So driver also can use these fields information to check something.
+> As for how driver use these information in their code, I have no comment. I don’t understand the driver. But these information is the real controller state, it had no problem to use information.
+> 
 
-On 07/17/2018 03:56 AM, Avi.Fishman@nuvoton.com wrote:
-> Hi Eddie,
->
-> 1. Where is the JPEG HW compression is done?
+Thanks Gary!
 
-It is done in the AST2500 hardware, there is a video engine that 
-captures and compresses the video data from the host. The V4L2 
-application reads /dev/video0 (which is created by the driver for that 
-video engine) to grab the JPEG, and sends it after that.
-
-> a. Is it in the V4L driver; the V4L reads the frame buffer compress it and send it via read()?
-> b. Or the V4L reads the frame buffer send it via read() and another driver compress it for the VNC server?
-> 2. Since VNC RFB supports also other compression protocols, can we use other protocol than JPEG? Hextile for example.
-
-Yes, although I had to submit a patch to libvncserver project to be able 
-to send JPEGs directly (normally libvncserver can only take RGB 
-framebuffer, then compress, then send). It may require similar changes 
-to send already-compressed Hextile data.
-
-> 3. Can we see this driver and application code so we can adopt to our HW?
-
-Sure. Everything necessary is here: 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11500/ The 
-linux-aspeed and obmc-ikvm recipes point to the kernel driver additions 
-and application, respectively.
-
-I will be sending the driver for RFC to the list soon.
+Hi Brendan,
+Is it acceptable now if I add this as a comment like below?
 
 Thanks,
-Eddie
+Jae
 
->
-> Regards,
-> Avi
->
->
+> Best Regards,
+> 
+> 許馥疇 Gary Hsu
+> 
+> 信驊科技股份有限公司
+> ASPEED Technology Inc.
+> 
+> 2F,No.15,Industry East Road 4.,Hsinchu Science Park, Hsinchu City 30077, Taiwan
+> 新竹科學園區工業東四路 15 號 2F
+> 
+> Tel : 886-3-5789568 ext:807
+> Fax : 886-3-5789586
+> Web : http://www.aspeedtech.com
+> 
+> ************* Email Confidentiality Notice ********************
+> 免責聲明:
+> 因應個人資料保護法施行,本信件(或其附件)可能包含機密資訊，並受法律保護。如 台端非指定之收件者，請以電子郵件通知本電子郵件之發送者, 並請立即刪除本電子郵件及其附件和銷毀所有複印件。謝謝您的合作!
+> 
+> DISCLAIMER:
+> This message (and any attachments) may contain legally privileged and/or other confidential information. If you have received it in error, please notify the sender by reply e-mail and immediately delete the e-mail and any attachments without copying or disclosing the contents. Thank you.
+> 
 > -----Original Message-----
-> From: Eddie James [mailto:eajames@linux.vnet.ibm.com]
-> Sent: Monday, July 16, 2018 6:39 PM
-> To: Avi Fishman
-> Cc: akashgj91@gmail.com; OpenBMC Maillist; IV00 Uri Trichter; IS20 Eyal Cohen
-> Subject: Re: KVM Support?
->
->
->
-> On 07/16/2018 10:01 AM, Avi Fishman wrote:
->> Hi Eddie,
+> From: Jae Hyun Yoo [mailto:jae.hyun.yoo@linux.intel.com]
+> Sent: Saturday, July 14, 2018 2:54 AM
+> To: Brendan Higgins <brendanhiggins@google.com>
+> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>; Joel Stanley <joel@jms.id.au>; Andrew Jeffery <andrew@aj.id.au>; linux-i2c@vger.kernel.org; OpenBMC Maillist <openbmc@lists.ozlabs.org>; Linux ARM <linux-arm-kernel@lists.infradead.org>; linux-aspeed@lists.ozlabs.org; Linux Kernel Mailing List <linux-kernel@vger.kernel.org>; james.feist@linux.intel.com; vernon.mauery@linux.intel.com; Benjamin Fair <benjaminfair@google.com>; Patrick Venture <venture@google.com>; Gary Hsu <gary_hsu@aspeedtech.com>; Ryan Chen <ryan_chen@aspeedtech.com>
+> Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use cases stably
+> 
+> On 7/13/2018 11:12 AM, Brendan Higgins wrote:
+>> On Fri, Jul 13, 2018 at 10:22 AM Jae Hyun Yoo
+>> <jae.hyun.yoo@linux.intel.com> wrote:
+>>>
+>>> On 7/12/2018 11:21 AM, Jae Hyun Yoo wrote:
+>>>> On 7/12/2018 2:33 AM, Brendan Higgins wrote:
+>>>>> On Wed, Jun 27, 2018 at 10:55 AM Jae Hyun Yoo
+>>>>> <jae.hyun.yoo@linux.intel.com> wrote:
+>> <snip>
+>>>>> <snip>
+>>>>>>>> +       for (;;) {
+>>>>>>>> +               if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+>>>>>>>> +                     (ASPEED_I2CD_BUS_BUSY_STS |
+>>>>>>>> +                      ASPEED_I2CD_XFER_MODE_STS_MASK)))
+>>>>>>>
+>>>>>>> Is using the Transfer Mode State Machine bits necessary? The
+>>>>>>> documentation marks it as "for debugging purpose only," so
+>>>>>>> relying on it makes me nervous.
+>>>>>>>
+>>>>>>
+>>>>>> As you said, the documentation marks it as "for debugging purpose only."
+>>>>>> but ASPEED also uses this way in their SDK code because it's the
+>>>>>> best way for checking bus busy status which can cover both single
+>>>>>> and multi-master use cases.
+>>>>>>
+>>>>>
+>>>>> Well, it would also be really nice to have access to this bit if
+>>>>> someone wants to implement MCTP. Could we maybe check with Aspeed
+>>>>> what them meant by "for debugging purposes only" and document it
+>>>>> here? It makes me nervous to rely on debugging functionality for
+>>>>> normal usage.
+>>>>>
+>>>>
+>>>> Okay, I'll check it with Aspeed. Will let you know their response.
+>>>>
+>>>
+>>> I've checked it with Gary Hsu <gary_hsu@aspeedtech.com> and he
+>>> confirmed that the bits reflect real information and good to be used
+>>> in practical code.
 >>
->> Is it based on V4L or also VNC?
->> Does it have HW compression or SW only?
-> Hi,
->
-> The driver interface is V4L2, though I am just using read() calls rather
-> than the streaming interface.
-> The network interface is VNC, directly sending JPEGs to the clients
-> rather than using the normal VNC framebuffer update methods.
->
-> Compression is done in HW, and then decompression at the client. So CPU
-> usage on the BMC is kept low, though bandwidth usage is pretty high
-> because it sends the whole frame every time. Seems to work with any VNC
-> client that supports JPEG compression.
->
-> I'm currently working through some input latency problems; seems the
-> bandwidth usage for the frames causes huge delays for sending the input
-> events from the client to the server. Other than that it's working well.
->
+>> Huh. For my own edification, could you ask them why they said "for
+>> debugging purpose only" in the documentation? I am just really curious
+>> what they meant by that. I would be satisfied if you just CC'ed me on
+>> your email thread with Gary, and I can ask him myself.
+>>
+> 
+> I've already CC'ed Gary and Ryan in this thread.
+> 
+> Hi Gary,
+> 
+> Can you explain why the documentation says that the bit field is 'for debugging purpose only'? Any plan to change the description?
+> 
 > Thanks,
-> Eddie
->
->> Thanks,
->> Avi
->> On Mon, Jul 16, 2018 at 5:03 PM Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> 
+> Jae
+> 
 >>>
->>> On 07/16/2018 01:34 AM, AKASH G J wrote:
->>>> Hi Team,
->>>>
->>>> Please someone share whether Keyboard Video Mouse (KVM) over IP
->>>> implementation available in OpenBMC ?
->>> Hi Akash,
+>>> I'll add a comment like below:
 >>>
->>> It's in development... If you want to help, let me know! I'll be
->>> updating the mailing list with drivers, etc, when it's more functional.
+>>> /*
+>>>     * This is marked as 'for debugging purpose only' in datasheet but
+>>>     * ASPEED confirmed that this reflects real information and good
+>>>     * to be used in practical code.
+>>>     */
 >>>
->>> Thanks,
->>> Eddie
->>>
->>>>
->>>> Thanks and Regards,
->>>>
->>>> Akash
->
->
-> ===========================================================================================
-> The privileged confidential information contained in this email is intended for use only by the addressees as indicated by the original sender of this email. If you are not the addressee indicated in this email or are not responsible for delivery of the email to such a person, please kindly reply to the sender indicating this fact and delete all copies of it from your computer and network server immediately. Your cooperation is highly appreciated. It is advised that any unauthorized use of confidential information of Nuvoton is strictly prohibited; and any information in this email irrelevant to the official business of Nuvoton shall be deemed as neither given nor endorsed by Nuvoton.
+>>> Is it acceptable then?
+>>
+>> Yeah, that's fine.
+>>
+>> <snip>
+>>
+>> Cheers
+>>
