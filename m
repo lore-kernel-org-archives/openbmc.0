@@ -1,70 +1,72 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <vishwa@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::235; helo=mail-io0-x235.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KVbSPxo8"; 
- dkim-atps=neutral
-Received: from mail-io0-x235.google.com (mail-io0-x235.google.com
- [IPv6:2607:f8b0:4001:c06::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=vishwa@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Vr9C1yS4zF3Hb
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 18:36:46 +1000 (AEST)
-Received: by mail-io0-x235.google.com with SMTP id l7-v6so3381607ioj.1
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 01:36:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=PvTmYGsJ06fjoJ9fSvesBCYTlmKM6Ws8rLaVhkBKZuY=;
- b=KVbSPxo89VfdXfvqo2v3NFcF/YBkbB7Ydpj+kKEIzYx/jSMiNRL1CiL6v5Jv6V3IcV
- 9ypSGVDfyEhXSLUNG+U/5gdExdLzQHEJimPfVQMu26zc5nod/R+w5zsnkLrATHrK18JS
- EFOr7ZqQveRRB2eF8rzxo02CW2kBX5I0TT7PHdjB82RT3QTLOomayz09ZOOUeUh/xBHT
- M95Z3xAH+bknQyFbB2pnhZ/MlEwLe0RGfdC11ES15qR4w+3FHbAuBkguhGf1rwARzNpn
- MrGzpPCERR9Fm2xxCUVe2+GHeElI5BjRKfa86Kr462Qfp3iXQrBjr4y8g7+NHBDRCjVX
- UHPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=PvTmYGsJ06fjoJ9fSvesBCYTlmKM6Ws8rLaVhkBKZuY=;
- b=ZO1QVf66VrXDs60EoJvbDef4GDXXGgs3Xg6dES+dMzNNgC2iKU2O+7jSis2HhdOX3R
- 3jGyXSTO/KOjlnBMednNz4BHqecHPNTiG92JPHc01sAvIHXkSAgrsCVlctUgDQ/tqAty
- PcG5SVphT/CgkMXNn8c5eqL5QSuerUZwKQQEaCMdQPFdOWXp2C8wJ1dxAb86gYMtI+lz
- 6Vfeb7vTpZg8lqW4nB5gvRfpFQNzOG0FJMpEPaKyn0o9TE+SVu9sPQHhrmx7RTmhRXKF
- TXu7iuLIuOh1Hh+xh+YSyZp6mbsLvg6Op+z329DUX43cPNdzWCs9Rq0UYiYUz/05GlPq
- FbRw==
-X-Gm-Message-State: AOUpUlElRoWZqE3qhyRcIAaSb+ksGnQzSY2FyCPKCjQdlauqdTlzrlfB
- 692JIQpXT26IqRQgMOYtjCPvQ4iofWUFhczoHnk=
-X-Google-Smtp-Source: AA+uWPzt2ziQS+Yl3YALtXpKw4ioO4jpwkKUF51QaHdw288KV/T7N83OZDiquyL0c8UImSHa4qF+EC+znneUjB5/VRI=
-X-Received: by 2002:a5e:8404:: with SMTP id
- h4-v6mr4104027ioj.171.1531903004539; 
- Wed, 18 Jul 2018 01:36:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E82169932F66E12E@ORSMSX114.amr.corp.intel.com>
- <CAO=notwojtUMU920tTuG0-OyhTFGSZc0gAk21D+xSr=Kq1Tjiw@mail.gmail.com>
- <1522129666.717269.1317238976.0CC07922@webmail.messagingengine.com>
- <55311786-8102-56c1-4c95-a5ede5502277@linux.vnet.ibm.com>
- <CAO=notyvGn_nO1KgffBgukXy7hFt1VHnop26HpgJjJELeJMnow@mail.gmail.com>
- <ED94F738-2C50-416D-826B-82BE0D1B0E94@fuzziesquirrel.com>
- <CAO=notz7gk5oF9BSpviz+1VrDRCeBCU7t8+zQxTGZOCDYy=VmQ@mail.gmail.com>
- <1598514C-EBA7-4CF8-A7F8-04BD39498B12@fuzziesquirrel.com>
-In-Reply-To: <1598514C-EBA7-4CF8-A7F8-04BD39498B12@fuzziesquirrel.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 18 Jul 2018 16:36:29 +0800
-Message-ID: <CAARXrtk2EJCkqOzvNwfwBukN3BPCyKDzDhrH0WH_+GB8i6TtGA@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Vw6n3NYKzF35L
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 21:34:53 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6IBYlbx007359
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 07:34:50 -0400
+Received: from e06smtp07.uk.ibm.com (e06smtp07.uk.ibm.com [195.75.94.103])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2ka24aenyq-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 07:34:49 -0400
+Received: from localhost
+ by e06smtp07.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Wed, 18 Jul 2018 12:34:41 +0100
+Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
+ by e06smtp07.uk.ibm.com (192.168.101.137) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 18 Jul 2018 12:34:39 +0100
+Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
+ [9.149.105.232])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w6IBYc4G38535278
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 18 Jul 2018 11:34:38 GMT
+Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 058975204F;
+ Wed, 18 Jul 2018 14:34:56 +0100 (BST)
+Received: from [9.199.74.205] (unknown [9.199.74.205])
+ by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 424745204E;
+ Wed, 18 Jul 2018 14:34:55 +0100 (BST)
 Subject: Re: Sdbusplus-based Shared Library
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Patrick Venture <venture@google.com>, Andrew Jeffery <andrew@aj.id.au>, 
- Ratan K Gupta <ratagupt@in.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "Tanous, Ed" <ed.tanous@intel.com>, ratagupt@linux.vnet.ibm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: Patrick Venture <venture@google.com>, Ratan K Gupta <ratagupt@in.ibm.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Date: Wed, 18 Jul 2018 17:04:36 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
+MIME-Version: 1.0
+In-Reply-To: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18071811-0028-0000-0000-000002DD0F27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18071811-0029-0000-0000-00002394D7F8
+Message-Id: <0fd55229-6efd-7d7c-d0a2-bec8dbd79133@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-18_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=946 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807180132
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -76,46 +78,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jul 2018 08:36:48 -0000
+X-List-Received-Date: Wed, 18 Jul 2018 11:34:58 -0000
 
-> I thought you were talking about extending the concept that was applied
-> to sdbus (thin raii wrappers around sdbus) to sdevent.  I definitely thin=
-k
-> we need that.
->
-> I think C++ bindings around sdevent could also have general utility to so=
-meone
-> outside of OpenBMC so I=E2=80=99d again vote for not including OpenBMC-is=
-ms in a
-> library for something like that.
->
-> > My primary goal with pushing this
-> > line of thought it to reduce code duplication in openbmc.  So many
-> > daemons have the same methods that just talk to sdbusplus, etc.  So it
-> > makes sense to me to have a utility library for interfacing with
-> > sdbusplus for common tasks.  phosphor::util::getService(),
-> > phosphor::util::get... etc, so they can be maintained in one place.
->
-> I feel like a number of these are mapper related.  Could we add some
-> client bindings for the mapper that help here and put them in the
-> mapper repository?  Here is a possible example of how that could
-> look:
->
-> https://github.com/openbmc/phosphor-dbus-monitor/blob/master/src/sdbusplu=
-s.hpp
->
+Utility library for timers / watchdog was something that I initially 
+proposed during the early days and the argument back was that when we 
+have such a thing, then we need to keep augmenting the library to suit 
+needs of the consumers and we loose flexibility and end up putting hacks.
 
-I would like to bring this topic *again*, that a shared util library is
-*really* needed, either in a new repo, or in some existing repo.
-Because we see so many service are implementing the same functions like
-"getService" "getProperty", etc, which is so common, that it's preferred to
-have a common library provide the implementation, as well as the mock
-interfaces.
+!! Vishwa !!
 
-Then every service using such functions could easily call the library, and =
-the
-tests could easily use the mocked interface.
-
-Could we get some progress on this?
-
-Thanks!
+On 03/19/2018 10:41 PM, Patrick Venture wrote:
+> We have a lot of duplication across daemons using sdbusplus, and no
+> new utility library.  To avoid every daemon having their own timer
+> object, and their own this or that, I suggest we create this shared
+> library.
+>
+> Thoughts?  We can start simple, just have a timer object in there, and
+> then the new timers being introduced to phosphor-hwmon and
+> phosphor-host-ipmid can be the first customers.
+>
+> Patrick
+>
