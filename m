@@ -9,23 +9,23 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41VyW80qbWzF35L
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 23:22:42 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41VybB1c8QzF35L
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 23:26:13 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 190635C096;
- Wed, 18 Jul 2018 09:22:09 -0400 (EDT)
-Content-Type: text/plain; charset=utf-8
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id D92AB5C096;
+ Wed, 18 Jul 2018 09:26:09 -0400 (EDT)
+Content-Type: text/plain; charset=us-ascii
 Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: Help patching rest_dbus.py
+Subject: Re: CCLA from Ampere Computing LLC
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CAMNAJg33kMTbK-H=Aq--rxT=-K+7P1efGqR5XqV8ANy9spbwDw@mail.gmail.com>
-Date: Wed, 18 Jul 2018 09:22:08 -0400
-Cc: openbmc@lists.ozlabs.org
+In-Reply-To: <SN6PR0102MB35494AF52D9EF072B975142BB75D0@SN6PR0102MB3549.prod.exchangelabs.com>
+Date: Wed, 18 Jul 2018 09:26:09 -0400
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <A5B126A5-9C2D-41F0-9E01-D5E01AC96080@fuzziesquirrel.com>
-References: <CAMNAJg33kMTbK-H=Aq--rxT=-K+7P1efGqR5XqV8ANy9spbwDw@mail.gmail.com>
-To: guhan balasubramanian <guhan.sac@gmail.com>
+Message-Id: <1FF06831-9044-4BE8-8205-854B3ADAB9B2@fuzziesquirrel.com>
+References: <SN6PR0102MB35494AF52D9EF072B975142BB75D0@SN6PR0102MB3549.prod.exchangelabs.com>
+To: Hien V Pham <hpham@amperecomputing.com>
 X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -38,53 +38,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jul 2018 13:22:45 -0000
+X-List-Received-Date: Wed, 18 Jul 2018 13:26:14 -0000
 
 
-> On Jul 17, 2018, at 2:10 PM, guhan balasubramanian =
-<guhan.sac@gmail.com> wrote:
+> On Jul 16, 2018, at 4:09 AM, Hien V Pham <hpham@amperecomputing.com> =
+wrote:
 >=20
-> Hi,
+> Hi all,
 >=20
-> We are trying to make some custom changes to the phosphor web =
-application.
+> I'm Hien Pham from OpenBMC team of Ampere Computing LLC =
+(https://amperecomputing.com/).
 
-Can you describe what the custom changes are?  Maybe upstreaming your =
-changes
-is possible and you don=E2=80=99t need a bbappend at all.
+Hi Hien.  Your CLA has been accepted.  Thanks and welcome to the =
+community!
 
-> Since the web application is present in meta-phosphor, we were trying =
-to patch the web application from our own meta layer.=20
 >=20
-> =46rom the tmp/work/ directory, I was able to create a git patch for =
-the rest_dbus.py file in phosphor-gevent and phosphor-rest.=20
+> I would like to submit the Corporate CLA (attached), please help to =
+review and let me know if there is any issue.
 >=20
-> But since the source is not included directly, I get a quilt error =
-saying that there is no file to patch.=20
+> Thank and best regards,
 >=20
-> The web (bottle) application I see, is included through the following =
-variable:=20
-> SYSTEMD_ENVIRONMENT_FILE_${PN} +=3D "obmc/wsgi_app"
+> Hien Pham
+> Ampere Computing | Products for the Future of the Cloud ...
+> amperecomputing.com
+> Products for the Future of the Cloud and Data Center. Learn More. =
+Register for early release product information
 >=20
-> Can someone please help with what I am missing or the best way to go =
-about this?=20
->=20
-> -----
-> bash-4.2$ tree phosphor-rest/
-> phosphor-rest/
-> =E2=94=9C=E2=94=80=E2=94=80 phosphor-rest
-> =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 0001-rest-dbus-test.patch
-> =E2=94=94=E2=94=80=E2=94=80 phosphor-rest.bbappend
->=20
-> 1 directory, 2 files
-> bash-4.2$ cat phosphor-rest/phosphor-rest.bbappend=20
-> FILESEXTRAPATHS_prepend :=3D "${THISDIR}/phosphor-rest:"
-> SRC_URI +=3D " \
->      file://0001-rest-dbus-test.patch \
-> "
-> bash-4.2$=20
-> -------
->=20
->=20
-> Thanks,
-> Guhan
+> Attached is=20
+> <Ampere_Computing_OpenBMC.CCLA.pdf>
