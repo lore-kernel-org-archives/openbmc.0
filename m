@@ -1,72 +1,32 @@
-Return-Path: <vishwa@linux.vnet.ibm.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=vishwa@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Vw6n3NYKzF35L
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 21:34:53 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w6IBYlbx007359
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 07:34:50 -0400
-Received: from e06smtp07.uk.ibm.com (e06smtp07.uk.ibm.com [195.75.94.103])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ka24aenyq-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 07:34:49 -0400
-Received: from localhost
- by e06smtp07.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
- Wed, 18 Jul 2018 12:34:41 +0100
-Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
- by e06smtp07.uk.ibm.com (192.168.101.137) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 18 Jul 2018 12:34:39 +0100
-Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
- [9.149.105.232])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w6IBYc4G38535278
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 18 Jul 2018 11:34:38 GMT
-Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 058975204F;
- Wed, 18 Jul 2018 14:34:56 +0100 (BST)
-Received: from [9.199.74.205] (unknown [9.199.74.205])
- by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 424745204E;
- Wed, 18 Jul 2018 14:34:55 +0100 (BST)
-Subject: Re: Sdbusplus-based Shared Library
-To: Patrick Venture <venture@google.com>, Ratan K Gupta <ratagupt@in.ibm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
-From: vishwa <vishwa@linux.vnet.ibm.com>
-Date: Wed, 18 Jul 2018 17:04:36 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <CAO=notwXV+EaWJqV61qkZaDSA3mxMhpXbq3iWUqRp2Qg52wMGA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18071811-0028-0000-0000-000002DD0F27
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18071811-0029-0000-0000-00002394D7F8
-Message-Id: <0fd55229-6efd-7d7c-d0a2-bec8dbd79133@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-07-18_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=946 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1806210000 definitions=main-1807180132
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41VyW80qbWzF35L
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 23:22:42 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 190635C096;
+ Wed, 18 Jul 2018 09:22:09 -0400 (EDT)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: Help patching rest_dbus.py
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAMNAJg33kMTbK-H=Aq--rxT=-K+7P1efGqR5XqV8ANy9spbwDw@mail.gmail.com>
+Date: Wed, 18 Jul 2018 09:22:08 -0400
+Cc: openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A5B126A5-9C2D-41F0-9E01-D5E01AC96080@fuzziesquirrel.com>
+References: <CAMNAJg33kMTbK-H=Aq--rxT=-K+7P1efGqR5XqV8ANy9spbwDw@mail.gmail.com>
+To: guhan balasubramanian <guhan.sac@gmail.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -78,24 +38,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jul 2018 11:34:58 -0000
+X-List-Received-Date: Wed, 18 Jul 2018 13:22:45 -0000
 
-Utility library for timers / watchdog was something that I initially 
-proposed during the early days and the argument back was that when we 
-have such a thing, then we need to keep augmenting the library to suit 
-needs of the consumers and we loose flexibility and end up putting hacks.
 
-!! Vishwa !!
+> On Jul 17, 2018, at 2:10 PM, guhan balasubramanian =
+<guhan.sac@gmail.com> wrote:
+>=20
+> Hi,
+>=20
+> We are trying to make some custom changes to the phosphor web =
+application.
 
-On 03/19/2018 10:41 PM, Patrick Venture wrote:
-> We have a lot of duplication across daemons using sdbusplus, and no
-> new utility library.  To avoid every daemon having their own timer
-> object, and their own this or that, I suggest we create this shared
-> library.
->
-> Thoughts?  We can start simple, just have a timer object in there, and
-> then the new timers being introduced to phosphor-hwmon and
-> phosphor-host-ipmid can be the first customers.
->
-> Patrick
->
+Can you describe what the custom changes are?  Maybe upstreaming your =
+changes
+is possible and you don=E2=80=99t need a bbappend at all.
+
+> Since the web application is present in meta-phosphor, we were trying =
+to patch the web application from our own meta layer.=20
+>=20
+> =46rom the tmp/work/ directory, I was able to create a git patch for =
+the rest_dbus.py file in phosphor-gevent and phosphor-rest.=20
+>=20
+> But since the source is not included directly, I get a quilt error =
+saying that there is no file to patch.=20
+>=20
+> The web (bottle) application I see, is included through the following =
+variable:=20
+> SYSTEMD_ENVIRONMENT_FILE_${PN} +=3D "obmc/wsgi_app"
+>=20
+> Can someone please help with what I am missing or the best way to go =
+about this?=20
+>=20
+> -----
+> bash-4.2$ tree phosphor-rest/
+> phosphor-rest/
+> =E2=94=9C=E2=94=80=E2=94=80 phosphor-rest
+> =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 0001-rest-dbus-test.patch
+> =E2=94=94=E2=94=80=E2=94=80 phosphor-rest.bbappend
+>=20
+> 1 directory, 2 files
+> bash-4.2$ cat phosphor-rest/phosphor-rest.bbappend=20
+> FILESEXTRAPATHS_prepend :=3D "${THISDIR}/phosphor-rest:"
+> SRC_URI +=3D " \
+>      file://0001-rest-dbus-test.patch \
+> "
+> bash-4.2$=20
+> -------
+>=20
+>=20
+> Thanks,
+> Guhan
