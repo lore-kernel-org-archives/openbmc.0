@@ -1,67 +1,76 @@
-Return-Path: <robh@kernel.org>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=robh@kernel.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="hWfGvo+k"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41W77L32pHzF3Hb
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 05:51:10 +1000 (AEST)
-Received: from mail-it0-f43.google.com (mail-it0-f43.google.com
- [209.85.214.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2266920863
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 19:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1531943468;
- bh=oCPoTpXsK5RGCIs8IjRid6UXfiCYh9HhBvUvlDSZ1/A=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=hWfGvo+kiSDbktLAOA3M5OSk7r7jQM6GfPonqlKG235/dclGdTdksfNLgj8CGkPr0
- RIJufi6r3FJhPDJ5rq7LkYZzdLuj3iNKiRztv509A329ItwXN2u2GZSY0oLc8VFlY9
- 7vSUWqTRdDP1XP7bYidd7KPpVXfLFFhUSuR5kfd4=
-Received: by mail-it0-f43.google.com with SMTP id 188-v6so6016595ita.5
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 12:51:08 -0700 (PDT)
-X-Gm-Message-State: AOUpUlH3WdDdulOCpySoE3/4EQ0rVd9Nk+fP/BDDxHzSnedNYLXOwtaD
- SYpeEH/Bst5cD/xfODGpamvmh8GMiHmjiPKo2Q==
-X-Google-Smtp-Source: AAOMgpekTo7Za2sfYJO/ydPQIlFTgvE4WFL1g9QFxeI0NhKtSo//6oNFhP0brQ+Ej/Ugxm6DjI8DaswbYeaBY3pA++s=
-X-Received: by 2002:a02:9936:: with SMTP id
- r51-v6mr6839717jaj.46.1531943467490; 
- Wed, 18 Jul 2018 12:51:07 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41W9lg2w22zDqBy
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 07:49:18 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6ILmlkr002959
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 17:49:16 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2kacp927kw-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 17:49:16 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Wed, 18 Jul 2018 17:49:16 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 18 Jul 2018 17:49:13 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w6ILnCiK9306514
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 21:49:13 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DE538112063
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 17:49:00 -0400 (EDT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A8400112064
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 17:49:00 -0400 (EDT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 17:49:00 -0400 (EDT)
 MIME-Version: 1.0
-References: <20180711053122.30773-1-andrew@aj.id.au>
- <20180711053122.30773-2-andrew@aj.id.au>
- <20180711200450.GB17291@rob-hp-laptop>
- <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
- <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
- <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
- <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
- <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
- <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
-In-Reply-To: <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 18 Jul 2018 13:50:56 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqL_bMXLAA0091-g8PmhXR5g5Pf2y2=ey7Ss5ofHm46sWw@mail.gmail.com>
-Message-ID: <CAL_JsqL_bMXLAA0091-g8PmhXR5g5Pf2y2=ey7Ss5ofHm46sWw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
- control fields
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Mark Rutland <mark.rutland@arm.com>,
- devicetree@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com,
- a.amelkin@yadro.com, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 18 Jul 2018 16:55:12 -0500
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: Virtual Media
+X-Sender: mspinler@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18071821-0040-0000-0000-00000450D6C3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009388; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01062751; UDB=6.00545680; IPR=6.00840605; 
+ MB=3.00022192; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-18 21:49:14
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18071821-0041-0000-0000-0000085702CE
+Message-Id: <69abb9a05c7d01b71cd4a69f3e7c548e@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-18_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=291 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807180236
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -73,65 +82,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jul 2018 19:51:11 -0000
+X-List-Received-Date: Wed, 18 Jul 2018 21:49:20 -0000
 
-On Mon, Jul 16, 2018 at 10:56 PM Benjamin Herrenschmidt
-<benh@kernel.crashing.org> wrote:
->
-> On Mon, 2018-07-16 at 07:55 -0600, Rob Herring wrote:
-> > If that data is one set per SoC, then i'm not that concerned having
-> > platform-specific data in the driver. That doesn't mean the driver is
-> > not "generic". It's still not clear to me in this thread, how much of
-> > this is board specific, but given that you've placed all the data in
-> > an SoC dtsi file it seems to be all per SoC.
->
-> So Rob, I think that's precisely where the disconnect is.
->
-> I think we all (well hopefully) agree that those few tunables don't fit
-> in any existing subystem and aren't likely to ever do (famous last
-> words...).
->
-> Where we disagree is we want to make this parametrized via the DT, and
-> you want us to hard wire the list in some kind of SoC driver for a
-> given SoC family/version.
->
-> The reason I think hard wiring the list in the driver is not a great
-> solution is that that list in itself is prone to variations, possibly
-> fairly often, between boards, vendors, versions of boards, etc...
+Hi,
 
-Can we separate the list of what's enabled from the details of the
-registers?  Even if we put all this into DT, we may still want to have
-some separation for dts file structure. Some portion of this has to be
-SoC specific because you are simply exposing SoC registers.
+We are preparing to start working on virtual media, as in remote mass 
+storage.
 
-> We can't know for sure every SoC tunable (out of the gazillions in
-> those chips) are going to be needed for a given system. We know which
-> ones we do use for ours, and that's a couple of handfuls, but it could
-> be that Dell need a slightly different set, and so might Yadro, or so
-> might our next board revision for that matter.
+I saw there was a discussion about it at the hackathon,
+https://docs.google.com/document/d/1lvK2o4-mMHQ5R0rs1gaB71SKw0dCAlJjyxIqh5azm3k.
 
-That's very hand wavy. Do you have some concrete examples (i.e. dts
-files) showing the differences.
+Has anyone done any more work on this yet, or plan to?
 
-One problem I'm having with this is you are still going to need per
-board specifics in userspace. You may be moving some of details out,
-but moving to DT is not going to completely eliminate that. I agree
-that not using /dev/mem is a good thing, but there are several ways
-you could do that independent of any DT binding.
+I hope to send out a high level design for RFC soon, or people can chime 
+in now
+with any ideas they have for it.
 
-> Now, updating the device-tree in the board flash with whatever vendor
-> specific information is needed is a LOT easier than getting the kernel
-> driver constantly updated. The device-tree after all is there to
-> reflect among other things system specific ways in which the SoC is
-> wired and configured. This is rather close...
 
-Sadly, updating my kernel is easier than updating my PC firmware
-(though packaged firmware on my current laptop changes that). I can
-assure you that ARM boards are generally much worse in that regard.
-BTW, you may want to pay attention to EBBR[1][2]. Not sure how much
-you care for BMCs, but there may be some interest.
-
-Rob
-
-[1] https://github.com/ARM-software/ebbr
-[2] https://lists.linaro.org/pipermail/boot-architecture/
+Thanks!
+Matt
