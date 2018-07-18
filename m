@@ -1,57 +1,69 @@
-Return-Path: <guhan.sac@gmail.com>
+Return-Path: <robh@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::235; helo=mail-lf0-x235.google.com;
- envelope-from=guhan.sac@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=robh@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="In0m2V0p"; 
+ dmarc=pass (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="biAB1exQ"; 
  dkim-atps=neutral
-Received: from mail-lf0-x235.google.com (mail-lf0-x235.google.com
- [IPv6:2a00:1450:4010:c07::235])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41W69M5Fs8zF35L
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 05:07:51 +1000 (AEST)
+Received: from mail-io0-f172.google.com (mail-io0-f172.google.com
+ [209.85.223.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41W5x93zldzF35L
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 04:57:16 +1000 (AEST)
-Received: by mail-lf0-x235.google.com with SMTP id u14-v6so4213330lfu.0
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 11:57:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ta7AWj18eklzCov1wMyq4UQMJt4fPw9zyJHbXuIr/bc=;
- b=In0m2V0pFHBgB29svweAq10W+kxp40exZlHBtPHwTT0VAT+a6HwgQ4B5jKbiwViv1p
- 5MIMCQjQZWzJlzDVFF1BgAtuvQm6KBVZubMybrEyoQ51vsBISi3cPArwelL28TxbKaZc
- DQZI9iTe0gzlk5hvfK5Oz9zqup/gZuUxtBKxgWH6gGLCfr9+PwPdDXQeSvYCDBohG2Uf
- NdHmp5wWIR3+lodFkqNOs1h6b07YXMsfyPR1QEAyZGzcBYVzYc4fWP6ySGbGph4YA3Kh
- ZvrxMLW1US+5btPxwUQckCA6wUUqKK9XeUVWQMNSyvrLpxL+ajq8hL2U2zh+ZE2HuVKe
- 2tLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ta7AWj18eklzCov1wMyq4UQMJt4fPw9zyJHbXuIr/bc=;
- b=L2oP0ODKhXwhCTXWMFWoiKyrywn6ZY1O/fBEQIKlfiYkjZZK8BaBlyWqkmLmUha1sM
- 2flCPMscJC0FvsIcbk5qHaITa40GnULDtKeCRjr4OdWW70tq3BNOJ6S5Ik27V1tiQ+eJ
- DcWutohqoK1E1TH7Zr/AI1gc6Zc1/ez0ClAf2JDchKmG18kGTLq90JFLqJTiW+LOL6f0
- epnTS4MGHgbk27EJIjgrCyDeHzrfcdVaBHemRDu8B5965/fbQhhgSpzmS5PIcOxuEGnx
- xTBMgh3c9ZkVFExgFYo/MuuFlNO+g2gkG3d2FbFQNb3A3QokmWVf91Z8tFFxoROcGxwV
- mi0g==
-X-Gm-Message-State: AOUpUlF8fxY53tLGBPYt6+Jo8Gf6sgW7/T6AVtUKaRN9HCGJK8d2aVyr
- ERhvNjxHWXpD6RUBcQJt5mUQjFWAvyWJn7YpgSs=
-X-Google-Smtp-Source: AAOMgpdYkm6Ks7L9cNUwwCAcStJ7/2icdkmJbmxNYOjWOM8ADCBiWzZI68JeUQZN8P4Ksu5icNK7a5RiQxNWFv5fnrY=
-X-Received: by 2002:a19:1888:: with SMTP id 8-v6mr4534918lfy.121.1531940232560; 
- Wed, 18 Jul 2018 11:57:12 -0700 (PDT)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6EFE420864
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 19:07:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1531940869;
+ bh=y1tMQlwlBl2NKACtOQcj/0QE6EkhO4X8N4GANq0OXys=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=biAB1exQsgvuf9JHnO7GBLEW4sO+a2eDWAqbZ2A0sChfAC/CFRobWkxY7Hy8fXkgf
+ WBbto35e3snf8wNBZkIjvoWEBY/bOKwC7aiyD2a4jgCRnRjcoN6mT8vHp8b6jL0BHp
+ Zn1Dgqq9cexP8SIWuUmBDFeM6hKZf7xTVzYdm8Hs=
+Received: by mail-io0-f172.google.com with SMTP id v26-v6so5000441iog.5
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jul 2018 12:07:49 -0700 (PDT)
+X-Gm-Message-State: AOUpUlE2x3WPJk+lPA0NWMhxRnqA+WETrtiRHSgL4d+TshWlAf3niJBz
+ oqInE7et8mlyx5DeQwN/aUr6emDkXBBAKRW34w==
+X-Google-Smtp-Source: AA+uWPzEzZfHxX7vW+mkLp1vFNAcsWfuwihlKVeH8QhI1uMmSVeZYRegC/h7FgAvmbAZRawxGvUUHCNi3vfhzir2NVk=
+X-Received: by 2002:a5e:c90e:: with SMTP id
+ z14-v6mr6305101iol.268.1531940868777; 
+ Wed, 18 Jul 2018 12:07:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAMNAJg33kMTbK-H=Aq--rxT=-K+7P1efGqR5XqV8ANy9spbwDw@mail.gmail.com>
- <A5B126A5-9C2D-41F0-9E01-D5E01AC96080@fuzziesquirrel.com>
-In-Reply-To: <A5B126A5-9C2D-41F0-9E01-D5E01AC96080@fuzziesquirrel.com>
-From: guhan balasubramanian <guhan.sac@gmail.com>
-Date: Wed, 18 Jul 2018 11:57:01 -0700
-Message-ID: <CAMNAJg0NsB1XY6toDSMA-ramUOx-HozQ+ZVKjsvB2Ox7mfDDmg@mail.gmail.com>
-Subject: Re: Help patching rest_dbus.py
-To: bradleyb@fuzziesquirrel.com
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000061045405714aa168"
+References: <20180711053122.30773-1-andrew@aj.id.au>
+ <20180711053122.30773-2-andrew@aj.id.au>
+ <20180711200450.GB17291@rob-hp-laptop>
+ <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
+ <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
+ <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
+ <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
+ <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
+ <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
+ <1531870098.3337969.1444201888.2476205D@webmail.messagingengine.com>
+In-Reply-To: <1531870098.3337969.1444201888.2476205D@webmail.messagingengine.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 18 Jul 2018 13:07:37 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+YdcBe+VYBAZPvK-X9gwJyhzP4m6hAx59+2Nz0JzsKug@mail.gmail.com>
+Message-ID: <CAL_Jsq+YdcBe+VYBAZPvK-X9gwJyhzP4m6hAx59+2Nz0JzsKug@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
+ control fields
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Eugene.Cho@dell.com, a.amelkin@yadro.com, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -63,145 +75,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jul 2018 18:57:19 -0000
+X-List-Received-Date: Wed, 18 Jul 2018 19:07:52 -0000
 
---00000000000061045405714aa168
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Brad,
-
-Thanks for getting back.
-
-We were trying to prototype the use of the bottle web application to
-POST/PUT a text/diff file to BMC, apart from the image. This is similar to
-the octet-stream http request used for the image upload.
-
-Regarding upstreaming, not sure what would be the interest for this to the
-others.
-
-Thanks,
-Guhan
-
-On Wed, Jul 18, 2018 at 6:22 AM Brad Bishop <bradleyb@fuzziesquirrel.com>
-wrote:
-
+On Tue, Jul 17, 2018 at 5:28 PM Andrew Jeffery <andrew@aj.id.au> wrote:
 >
-> > On Jul 17, 2018, at 2:10 PM, guhan balasubramanian <guhan.sac@gmail.com=
+> On Tue, 17 Jul 2018, at 14:26, Benjamin Herrenschmidt wrote:
+> > On Mon, 2018-07-16 at 07:55 -0600, Rob Herring wrote:
+> > > If that data is one set per SoC, then i'm not that concerned having
+> > > platform-specific data in the driver. That doesn't mean the driver is
+> > > not "generic". It's still not clear to me in this thread, how much of
+> > > this is board specific, but given that you've placed all the data in
+> > > an SoC dtsi file it seems to be all per SoC.
+> >
+> > So Rob, I think that's precisely where the disconnect is.
+> >
+> > I think we all (well hopefully) agree that those few tunables don't fit
+> > in any existing subystem and aren't likely to ever do (famous last
+> > words...).
+> >
+> > Where we disagree is we want to make this parametrized via the DT, and
+> > you want us to hard wire the list in some kind of SoC driver for a
+> > given SoC family/version.
+> >
+> > The reason I think hard wiring the list in the driver is not a great
+> > solution is that that list in itself is prone to variations, possibly
+> > fairly often, between boards, vendors, versions of boards, etc...
+> >
+> > We can't know for sure every SoC tunable (out of the gazillions in
+> > those chips) are going to be needed for a given system. We know which
+> > ones we do use for ours, and that's a couple of handfuls, but it could
+> > be that Dell need a slightly different set, and so might Yadro, or so
+> > might our next board revision for that matter.
+> >
+> > Now, updating the device-tree in the board flash with whatever vendor
+> > specific information is needed is a LOT easier than getting the kernel
+> > driver constantly updated. The device-tree after all is there to
+> > reflect among other things system specific ways in which the SoC is
+> > wired and configured. This is rather close...
 >
-> wrote:
-> >
-> > Hi,
-> >
-> > We are trying to make some custom changes to the phosphor web
-> application.
->
-> Can you describe what the custom changes are?  Maybe upstreaming your
-> changes
-> is possible and you don=E2=80=99t need a bbappend at all.
->
-> > Since the web application is present in meta-phosphor, we were trying t=
-o
-> patch the web application from our own meta layer.
-> >
-> > From the tmp/work/ directory, I was able to create a git patch for the
-> rest_dbus.py file in phosphor-gevent and phosphor-rest.
-> >
-> > But since the source is not included directly, I get a quilt error
-> saying that there is no file to patch.
-> >
-> > The web (bottle) application I see, is included through the following
-> variable:
-> > SYSTEMD_ENVIRONMENT_FILE_${PN} +=3D "obmc/wsgi_app"
-> >
-> > Can someone please help with what I am missing or the best way to go
-> about this?
-> >
-> > -----
-> > bash-4.2$ tree phosphor-rest/
-> > phosphor-rest/
-> > =E2=94=9C=E2=94=80=E2=94=80 phosphor-rest
-> > =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 0001-rest-dbus-test.patch
-> > =E2=94=94=E2=94=80=E2=94=80 phosphor-rest.bbappend
-> >
-> > 1 directory, 2 files
-> > bash-4.2$ cat phosphor-rest/phosphor-rest.bbappend
-> > FILESEXTRAPATHS_prepend :=3D "${THISDIR}/phosphor-rest:"
-> > SRC_URI +=3D " \
-> >      file://0001-rest-dbus-test.patch \
-> > "
-> > bash-4.2$
-> > -------
-> >
-> >
-> > Thanks,
-> > Guhan
->
+> Not sure this helps, but I feel that the proposal pretty closely matches =
+what's described in Documentation/devicetree/bindings/mfd/mfd.txt. It's int=
+ended that nodes using the bindings I'm proposing are children of a 'compat=
+ible =3D "syscon", "simple-mfd"' node (this is the case with the features w=
+e're hoping to describe for our SoC). I should explicitly call that out.
 
---00000000000061045405714aa168
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+IMO, any binding that has only those compatibles is not correct and a
+specific compatible is needed. We should be able identify a specific
+h/w block.
 
-<div dir=3D"ltr">Hi Brad,<div><br></div><div>Thanks for getting back.</div>=
-<div><br></div><div>We were trying to prototype the use of the bottle web a=
-pplication to POST/PUT a text/diff file to BMC, apart from the image. This =
-is similar to the octet-stream http request used for the image upload.=C2=
-=A0</div><div><br></div><div>Regarding upstreaming, not sure what would be =
-the interest for this to the others.=C2=A0</div><div><br></div><div>Thanks,=
-</div><div>Guhan</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
->On Wed, Jul 18, 2018 at 6:22 AM Brad Bishop &lt;<a href=3D"mailto:bradleyb=
-@fuzziesquirrel.com" target=3D"_blank">bradleyb@fuzziesquirrel.com</a>&gt; =
-wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
-x;border-left:1px #ccc solid;padding-left:1ex"><br>
-&gt; On Jul 17, 2018, at 2:10 PM, guhan balasubramanian &lt;<a href=3D"mail=
-to:guhan.sac@gmail.com" target=3D"_blank">guhan.sac@gmail.com</a>&gt; wrote=
-:<br>
-&gt; <br>
-&gt; Hi,<br>
-&gt; <br>
-&gt; We are trying to make some custom changes to the phosphor web applicat=
-ion.<br>
-<br>
-Can you describe what the custom changes are?=C2=A0 Maybe upstreaming your =
-changes<br>
-is possible and you don=E2=80=99t need a bbappend at all.<br>
-<br>
-&gt; Since the web application is present in meta-phosphor, we were trying =
-to patch the web application from our own meta layer. <br>
-&gt; <br>
-&gt; From the tmp/work/ directory, I was able to create a git patch for the=
- rest_dbus.py file in phosphor-gevent and phosphor-rest. <br>
-&gt; <br>
-&gt; But since the source is not included directly, I get a quilt error say=
-ing that there is no file to patch. <br>
-&gt; <br>
-&gt; The web (bottle) application I see, is included through the following =
-variable: <br>
-&gt; SYSTEMD_ENVIRONMENT_FILE_${PN} +=3D &quot;obmc/wsgi_app&quot;<br>
-&gt; <br>
-&gt; Can someone please help with what I am missing or the best way to go a=
-bout this? <br>
-&gt; <br>
-&gt; -----<br>
-&gt; bash-4.2$ tree phosphor-rest/<br>
-&gt; phosphor-rest/<br>
-&gt; =E2=94=9C=E2=94=80=E2=94=80 phosphor-rest<br>
-&gt; =E2=94=82=C2=A0 =C2=A0=E2=94=94=E2=94=80=E2=94=80 0001-rest-dbus-test.=
-patch<br>
-&gt; =E2=94=94=E2=94=80=E2=94=80 phosphor-rest.bbappend<br>
-&gt; <br>
-&gt; 1 directory, 2 files<br>
-&gt; bash-4.2$ cat phosphor-rest/phosphor-rest.bbappend <br>
-&gt; FILESEXTRAPATHS_prepend :=3D &quot;${THISDIR}/phosphor-rest:&quot;<br>
-&gt; SRC_URI +=3D &quot; \<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 file://0001-rest-dbus-test.patch \<br>
-&gt; &quot;<br>
-&gt; bash-4.2$ <br>
-&gt; -------<br>
-&gt; <br>
-&gt; <br>
-&gt; Thanks,<br>
-&gt; Guhan<br>
-</blockquote></div>
+> But to go on, "simple-mfd" is effectively an alias of "simple-bus", which=
+ means its intended to match child node compatibles to drivers provided by =
+the kernel. If we shouldn't be describing minor features of a SoC in the de=
+vicetree, doesn't this invalidate the case for simple-mfd? What is the *cor=
+rect* use of simple-mfd? When is it not used to expose minor features in se=
+t of "miscellaneous system registers"? Why doesn't this proposed case fit?
 
---00000000000061045405714aa168--
+I'm no fan of simple-mfd either. I think it is abused and often a sign
+of bad binding design. The general problem with MFD bindings is people
+define child nodes based on what drivers they happen to have for some
+OS. DT is not the only way to instantiate drivers. Child nodes are
+really only needed when you have resources per child that need to be
+defined. For example, if the MFD has an interrupt controller and
+interrupts to sub-blocks or sub-blocks have their own clocks.
+"simple-mfd" was for when the parent node has no driver or the child
+nodes have no dependency on the parent.
+
+Rob
