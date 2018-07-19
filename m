@@ -1,78 +1,75 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4003:c06::243; helo=mail-oi0-x243.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="XZ+j9vXA"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
+ [IPv6:2607:f8b0:4003:c06::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41WbNh5Gg3zDqCD
- for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 00:04:20 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w6JDsPID031781
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 10:04:17 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2kau2xk6aj-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 10:04:17 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 19 Jul 2018 10:04:15 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 19 Jul 2018 10:04:13 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w6JE4Ctn19595566
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 19 Jul 2018 14:04:12 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 66572B2067;
- Thu, 19 Jul 2018 10:04:02 -0400 (EDT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 113C4B2064;
- Thu, 19 Jul 2018 10:04:01 -0400 (EDT)
-Received: from oc6728276242.ibm.com (unknown [9.80.217.217])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 19 Jul 2018 10:04:00 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.17] i2c: fsi: Sync with v12 upstream submission
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-References: <20180719044258.11706-1-joel@jms.id.au>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 19 Jul 2018 09:04:10 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41WgFL3dd5zDqCb
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 02:58:13 +1000 (AEST)
+Received: by mail-oi0-x243.google.com with SMTP id l10-v6so16255670oii.0
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 09:58:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=f/EGZWrw/5L1g+8904iz7K5t3cfl40L0fWSKattk5n8=;
+ b=XZ+j9vXAHcdAzGq1NIEMlHiNE4BKmuGtkp0613SSy0339oHwzWurcuFvhBvmQPSe6c
+ jvMAQeul44Gyd6yuIXRBZ+IADDp1Dy5ldFTHB0qHKHgKAmZaDYfOrKdg6QGBkRCiKn0k
+ echdMhjea9pdvi2EXs3m553+XkLnsC2SWXZGe7Za9MZF/DjmV0bReEKWmDmN23PBcSlA
+ Ku+y+/j2uf1DwCJXnPCgB/nms0J+E3x83cjQZNAtjHSs2GmQLUqN7mNnwP50aUwewqAd
+ 8boGvtILEOVnTyAiDSz+5EF7Ao1STuGlwN1NuATlhxWAAbuYTkiTipA27dVFXeszjA16
+ VnPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=f/EGZWrw/5L1g+8904iz7K5t3cfl40L0fWSKattk5n8=;
+ b=BdBgYl8amnz4gcejtu5bQ5NurBwZrIF81wJO+qwH2Kd8YSQRZtJlnooCIMhTosmUKM
+ FCc+JjJ8R4SkrOvMjGKnp3cgf6xGThLvJvhPbXigwTDP74gYZPKUDaz5Ys7gJcDNk24J
+ jOoIMNObkQDH9gfpJpVEKCBK3qlyWLtXBx+tWn8UX0epFXmmSZTIe5Tj5xW6ZVTZesdf
+ aCxjAPd7B9WTC1cSkkz0KECyMRMnNjpEw+z4vicKaUF0uf8kEknFEMZMs4klp2f7WGj8
+ RpBgcTOQwEj3NXfpqtxc4BJiIR+ZXJV/V8Zj5Dp6YkTUy1eoGLaHZl86XAsRZCar/wXH
+ EZww==
+X-Gm-Message-State: AOUpUlGsIt5clFQqqR55TzU5qgYeCOs+AD9xhmlLOk2noIkYVs5GmmJE
+ 7ipTgPAiSpdiI5LQHRu9Od1GkyQ5PsShIoXBQcuV1g==
+X-Google-Smtp-Source: AAOMgpe9TgaUlkPQgPO/Sj70/2a+oT8k+SNmjf5lyclXjI9F66EUg+nA7cEKOj870fltw1qGLrGo5GNZZzhYgdHdb1g=
+X-Received: by 2002:aca:c2c1:: with SMTP id
+ s184-v6mr12507277oif.117.1532019490933; 
+ Thu, 19 Jul 2018 09:58:10 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180719044258.11706-1-joel@jms.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18071914-2213-0000-0000-000002CD3D64
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009391; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01063073; UDB=6.00545876; IPR=6.00840925; 
- MB=3.00022202; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-19 14:04:15
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18071914-2214-0000-0000-00005AE4B642
-Message-Id: <c0da901d-f1ee-863d-13ef-9d9066f55105@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-07-19_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1806210000 definitions=main-1807190149
+References: <20180626165812.4141-1-jae.hyun.yoo@linux.intel.com>
+ <CAFd5g45z--ucXf-So517tgrayZT6x2TGvaUvaDF7zeRNn7CPXw@mail.gmail.com>
+ <e51471e6-0f8a-bffc-34c8-1e74239fdbcf@linux.intel.com>
+ <CAFd5g47j_h4ZrT8Eg1FZ8sAj5ekCUH20jUVub75ozdkg8_YW7Q@mail.gmail.com>
+ <921b1ab7-9c9f-0aeb-da89-5a1a27d009f0@linux.intel.com>
+ <d3f10fc1-635b-3a5d-a967-2816eac005fc@linux.intel.com>
+ <CAFd5g47zdPdqqjVJtNHtFk+jKgciKbMcEH9M-W9rL4DgLM5hkg@mail.gmail.com>
+ <b8232faa-58f5-f3a5-d12a-3f326cf1d03d@linux.intel.com>
+ <a84da5d076924f40b1c836fe8b9d0844@TWMBX01.aspeed.com>
+ <26400cb7-972e-7be9-81ba-8e08d42abd4e@linux.intel.com>
+In-Reply-To: <26400cb7-972e-7be9-81ba-8e08d42abd4e@linux.intel.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Thu, 19 Jul 2018 09:57:59 -0700
+Message-ID: <CAFd5g46=DhGKC59i+Tu3DNGupVvFh4buJPQ_0NWZZbgcpV=6NA@mail.gmail.com>
+Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-master use
+ cases stably
+To: jae.hyun.yoo@linux.intel.com
+Cc: gary_hsu@aspeedtech.com, Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Benjamin Fair <benjaminfair@google.com>, linux-aspeed@lists.ozlabs.org, 
+ james.feist@linux.intel.com, Andrew Jeffery <andrew@aj.id.au>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Patrick Venture <venture@google.com>, vernon.mauery@linux.intel.com, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-i2c@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -84,309 +81,160 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jul 2018 14:04:21 -0000
+X-List-Received-Date: Thu, 19 Jul 2018 16:58:15 -0000
 
+On Tue, Jul 17, 2018 at 9:18 AM Jae Hyun Yoo
+<jae.hyun.yoo@linux.intel.com> wrote:
+>
+>
+> On 7/15/2018 8:05 PM, Gary Hsu wrote:
+> > Hi Jae,
+> >
+> > In originally, we reserved these register bits for debug purpose. But f=
+or some error handling case, we found it is also useful to help to clarify =
+some error conditions. So driver also can use these fields information to c=
+heck something.
+> > As for how driver use these information in their code, I have no commen=
+t. I don=E2=80=99t understand the driver. But these information is the real=
+ controller state, it had no problem to use information.
+> >
+>
+> Thanks Gary!
+>
+> Hi Brendan,
+> Is it acceptable now if I add this as a comment like below?
 
-
-On 07/18/2018 11:42 PM, Joel Stanley wrote:
-> This incorporates the changes made with the recent cycles of review on
-> the linux-i2c mailing list.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> Eddie, I've used your latest submission to update the openbmc tree. I
-> think it makes sense to get it into the tree for testing as soon as
-> possible.
-
-Yep, agreed. Patch looks correct, thanks!
-
-Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
+Yep, that's fine. I didn't mean to hold you up. I was just curious.
 
 >
-> The patch was created bit removing the i2c-fsi changes, applying your
-> series, and then squishing it all into one patch.
+> Thanks,
+> Jae
 >
->   drivers/i2c/busses/i2c-fsi.c | 202 ++++++++++++++++++++---------------
->   1 file changed, 113 insertions(+), 89 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-> index ee219c7131a0..1e2be2219a60 100644
-> --- a/drivers/i2c/busses/i2c-fsi.c
-> +++ b/drivers/i2c/busses/i2c-fsi.c
-> @@ -247,7 +247,7 @@ static int fsi_i2c_start(struct fsi_i2c_port *port, struct i2c_msg *msg,
->   	if (stop || msg->flags & I2C_M_STOP)
->   		cmd |= I2C_CMD_WITH_STOP;
->
-> -	cmd |= FIELD_PREP(I2C_CMD_ADDR, msg->addr >> 1);
-> +	cmd |= FIELD_PREP(I2C_CMD_ADDR, msg->addr);
->   	cmd |= FIELD_PREP(I2C_CMD_LEN, msg->len);
->
->   	return fsi_i2c_write_reg(i2c->fsi, I2C_FSI_CMD, &cmd);
-> @@ -326,72 +326,119 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
->   	return 0;
->   }
->
-> -static int fsi_i2c_reset_bus(struct fsi_i2c_master *i2c)
-> +static int fsi_i2c_get_scl(struct i2c_adapter *adap)
->   {
-> -	int i, rc;
-> -	u32 mode, stat, ext, dummy = 0;
-> +	u32 stat = 0;
-> +	struct fsi_i2c_port *port = adap->algo_data;
-> +	struct fsi_i2c_master *i2c = port->master;
->
-> -	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> -	if (rc)
-> -		return rc;
-> +	fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
->
-> -	mode |= I2C_MODE_DIAG;
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> -	if (rc)
-> -		return rc;
-> +	return !!(stat & I2C_STAT_SCL_IN);
-> +}
->
-> -	for (i = 0; i < 9; i++) {
-> -		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-> -		if (rc)
-> -			return rc;
-> +static void fsi_i2c_set_scl(struct i2c_adapter *adap, int val)
-> +{
-> +	u32 dummy = 0;
-> +	struct fsi_i2c_port *port = adap->algo_data;
-> +	struct fsi_i2c_master *i2c = port->master;
->
-> -		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-> -		if (rc)
-> -			return rc;
-> -	}
-> +	if (val)
-> +		fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-> +	else
-> +		fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-> +}
->
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-> -	if (rc)
-> -		return rc;
-> +static int fsi_i2c_get_sda(struct i2c_adapter *adap)
-> +{
-> +	u32 stat = 0;
-> +	struct fsi_i2c_port *port = adap->algo_data;
-> +	struct fsi_i2c_master *i2c = port->master;
->
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
-> -	if (rc)
-> -		return rc;
-> +	fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
-> +
-> +	return !!(stat & I2C_STAT_SDA_IN);
-> +}
-> +
-> +static void fsi_i2c_set_sda(struct i2c_adapter *adap, int val)
-> +{
-> +	u32 dummy = 0;
-> +	struct fsi_i2c_port *port = adap->algo_data;
-> +	struct fsi_i2c_master *i2c = port->master;
-> +
-> +	if (val)
-> +		fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
-> +	else
-> +		fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
-> +}
-> +
-> +static void fsi_i2c_prepare_recovery(struct i2c_adapter *adap)
-> +{
-> +	int rc;
-> +	u32 mode;
-> +	struct fsi_i2c_port *port = adap->algo_data;
-> +	struct fsi_i2c_master *i2c = port->master;
->
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
->   	if (rc)
-> -		return rc;
-> +		return;
-> +
-> +	mode |= I2C_MODE_DIAG;
-> +	fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +}
->
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
-> +static void fsi_i2c_unprepare_recovery(struct i2c_adapter *adap)
-> +{
-> +	int rc;
-> +	u32 mode;
-> +	struct fsi_i2c_port *port = adap->algo_data;
-> +	struct fsi_i2c_master *i2c = port->master;
-> +
-> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
->   	if (rc)
-> -		return rc;
-> +		return;
->
->   	mode &= ~I2C_MODE_DIAG;
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +	fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +}
-> +
-> +static int fsi_i2c_reset_bus(struct fsi_i2c_master *i2c,
-> +			     struct fsi_i2c_port *port)
-> +{
-> +	int rc;
-> +	u32 stat, dummy = 0;
-> +
-> +	/* force bus reset, ignore errors */
-> +	i2c_recover_bus(&port->adapter);
-> +
-> +	/* reset errors */
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
->   	if (rc)
->   		return rc;
->
-> +	/* wait for command complete */
-> +	usleep_range(I2C_RESET_SLEEP_MIN_US, I2C_RESET_SLEEP_MAX_US);
-> +
->   	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
->   	if (rc)
->   		return rc;
->
-> -	/* check for hardware fault */
-> -	if (!(stat & I2C_STAT_SCL_IN) || !(stat & I2C_STAT_SDA_IN)) {
-> -		rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_ESTAT, &ext);
-> -		if (rc)
-> -			return rc;
-> +	if (stat & I2C_STAT_CMD_COMP)
-> +		return 0;
->
-> -		dev_err(&i2c->fsi->dev, "bus stuck status[%08X] ext[%08X]\n",
-> -			stat, ext);
-> -	}
-> +	/* failed to get command complete; reset engine again */
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-> +	if (rc)
-> +		return rc;
->
-> -	return 0;
-> +	/* re-init engine again */
-> +	return fsi_i2c_dev_init(i2c);
->   }
->
-> -static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
-> +static int fsi_i2c_reset_engine(struct fsi_i2c_master *i2c, u16 port)
->   {
->   	int rc;
-> -	u32 mode, stat, dummy = 0;
-> +	u32 mode, dummy = 0;
->
->   	/* reset engine */
->   	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-> @@ -422,34 +469,7 @@ static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
->   	if (rc)
->   		return rc;
->
-> -	/* force bus reset */
-> -	rc = fsi_i2c_reset_bus(i2c);
-> -	if (rc)
-> -		return rc;
-> -
-> -	/* reset errors */
-> -	dummy = 0;
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-> -	if (rc)
-> -		return rc;
-> -
-> -	/* wait for command complete */
-> -	usleep_range(I2C_RESET_SLEEP_MIN_US, I2C_RESET_SLEEP_MAX_US);
-> -
-> -	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
-> -	if (rc)
-> -		return rc;
-> -
-> -	if (stat & I2C_STAT_CMD_COMP)
-> -		return rc;
-> -
-> -	/* failed to get command complete; reset engine again */
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-> -	if (rc)
-> -		return rc;
-> -
-> -	/* re-init engine again */
-> -	return fsi_i2c_dev_init(i2c);
-> +	return 0;
->   }
->
->   static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
-> @@ -457,12 +477,25 @@ static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
->   	int rc;
->   	unsigned long start;
->   	u32 cmd = I2C_CMD_WITH_STOP;
-> -	struct fsi_device *fsi = port->master->fsi;
-> +	u32 stat;
-> +	struct fsi_i2c_master *i2c = port->master;
-> +	struct fsi_device *fsi = i2c->fsi;
-> +
-> +	rc = fsi_i2c_reset_engine(i2c, port->port);
-> +	if (rc)
-> +		return rc;
->
-> -	rc = fsi_i2c_reset(port->master, port->port);
-> +	rc = fsi_i2c_read_reg(fsi, I2C_FSI_STAT, &stat);
->   	if (rc)
->   		return rc;
->
-> +	/* if sda is low, peform full bus reset */
-> +	if (!(stat & I2C_STAT_SDA_IN)) {
-> +		rc = fsi_i2c_reset_bus(i2c, port);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
->   	/* skip final stop command for these errors */
->   	if (status & (I2C_STAT_PARITY | I2C_STAT_LOST_ARB | I2C_STAT_STOP_ERR))
->   		return 0;
-> @@ -607,26 +640,17 @@ static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
->   static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
->   {
->   	return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING |
-> -		I2C_FUNC_10BIT_ADDR | I2C_FUNC_SMBUS_EMUL |
-> -		I2C_FUNC_SMBUS_BLOCK_DATA;
-> -}
-> -
-> -static int fsi_i2c_recover_bus(struct i2c_adapter *adap)
-> -{
-> -	int rc;
-> -	struct fsi_i2c_port *port = adap->algo_data;
-> -	struct fsi_i2c_master *master = port->master;
-> -
-> -	mutex_lock(&master->lock);
-> -
-> -	rc = fsi_i2c_reset(master, port->port);
-> -
-> -	mutex_unlock(&master->lock);
-> -	return rc;
-> +		I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
->   }
->
->   static struct i2c_bus_recovery_info fsi_i2c_bus_recovery_info = {
-> -	.recover_bus = fsi_i2c_recover_bus,
-> +	.recover_bus = i2c_generic_scl_recovery,
-> +	.get_scl = fsi_i2c_get_scl,
-> +	.set_scl = fsi_i2c_set_scl,
-> +	.get_sda = fsi_i2c_get_sda,
-> +	.set_sda = fsi_i2c_set_sda,
-> +	.prepare_recovery = fsi_i2c_prepare_recovery,
-> +	.unprepare_recovery = fsi_i2c_unprepare_recovery,
->   };
->
->   static const struct i2c_algorithm fsi_i2c_algorithm = {
-> @@ -697,7 +721,7 @@ static int fsi_i2c_remove(struct device *dev)
->   	struct fsi_i2c_master *i2c = dev_get_drvdata(dev);
->   	struct fsi_i2c_port *port, *tmp;
->
-> -	list_for_each_entry_safe(port,tmp, &i2c->ports, list) {
-> +	list_for_each_entry_safe(port, tmp, &i2c->ports, list) {
->   		list_del(&port->list);
->   		i2c_del_adapter(&port->adapter);
->   		kfree(port);
+> > Best Regards,
+> >
+> > =E8=A8=B1=E9=A6=A5=E7=96=87 Gary Hsu
+> >
+> > =E4=BF=A1=E9=A9=8A=E7=A7=91=E6=8A=80=E8=82=A1=E4=BB=BD=E6=9C=89=E9=99=
+=90=E5=85=AC=E5=8F=B8
+> > ASPEED Technology Inc.
+> >
+> > 2F,No.15,Industry East Road 4.,Hsinchu Science Park, Hsinchu City 30077=
+, Taiwan
+> > =E6=96=B0=E7=AB=B9=E7=A7=91=E5=AD=B8=E5=9C=92=E5=8D=80=E5=B7=A5=E6=A5=
+=AD=E6=9D=B1=E5=9B=9B=E8=B7=AF 15 =E8=99=9F 2F
+> >
+> > Tel : 886-3-5789568 ext:807
+> > Fax : 886-3-5789586
+> > Web : http://www.aspeedtech.com
+> >
+> > ************* Email Confidentiality Notice ********************
+> > =E5=85=8D=E8=B2=AC=E8=81=B2=E6=98=8E:
+> > =E5=9B=A0=E6=87=89=E5=80=8B=E4=BA=BA=E8=B3=87=E6=96=99=E4=BF=9D=E8=AD=
+=B7=E6=B3=95=E6=96=BD=E8=A1=8C,=E6=9C=AC=E4=BF=A1=E4=BB=B6(=E6=88=96=E5=85=
+=B6=E9=99=84=E4=BB=B6)=E5=8F=AF=E8=83=BD=E5=8C=85=E5=90=AB=E6=A9=9F=E5=AF=
+=86=E8=B3=87=E8=A8=8A=EF=BC=8C=E4=B8=A6=E5=8F=97=E6=B3=95=E5=BE=8B=E4=BF=9D=
+=E8=AD=B7=E3=80=82=E5=A6=82 =E5=8F=B0=E7=AB=AF=E9=9D=9E=E6=8C=87=E5=AE=9A=
+=E4=B9=8B=E6=94=B6=E4=BB=B6=E8=80=85=EF=BC=8C=E8=AB=8B=E4=BB=A5=E9=9B=BB=E5=
+=AD=90=E9=83=B5=E4=BB=B6=E9=80=9A=E7=9F=A5=E6=9C=AC=E9=9B=BB=E5=AD=90=E9=83=
+=B5=E4=BB=B6=E4=B9=8B=E7=99=BC=E9=80=81=E8=80=85, =E4=B8=A6=E8=AB=8B=E7=AB=
+=8B=E5=8D=B3=E5=88=AA=E9=99=A4=E6=9C=AC=E9=9B=BB=E5=AD=90=E9=83=B5=E4=BB=B6=
+=E5=8F=8A=E5=85=B6=E9=99=84=E4=BB=B6=E5=92=8C=E9=8A=B7=E6=AF=80=E6=89=80=E6=
+=9C=89=E8=A4=87=E5=8D=B0=E4=BB=B6=E3=80=82=E8=AC=9D=E8=AC=9D=E6=82=A8=E7=9A=
+=84=E5=90=88=E4=BD=9C!
+> >
+> > DISCLAIMER:
+> > This message (and any attachments) may contain legally privileged and/o=
+r other confidential information. If you have received it in error, please =
+notify the sender by reply e-mail and immediately delete the e-mail and any=
+ attachments without copying or disclosing the contents. Thank you.
+> >
+> > -----Original Message-----
+> > From: Jae Hyun Yoo [mailto:jae.hyun.yoo@linux.intel.com]
+> > Sent: Saturday, July 14, 2018 2:54 AM
+> > To: Brendan Higgins <brendanhiggins@google.com>
+> > Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>; Joel Stanley <jo=
+el@jms.id.au>; Andrew Jeffery <andrew@aj.id.au>; linux-i2c@vger.kernel.org;=
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>; Linux ARM <linux-arm-kernel@l=
+ists.infradead.org>; linux-aspeed@lists.ozlabs.org; Linux Kernel Mailing Li=
+st <linux-kernel@vger.kernel.org>; james.feist@linux.intel.com; vernon.maue=
+ry@linux.intel.com; Benjamin Fair <benjaminfair@google.com>; Patrick Ventur=
+e <venture@google.com>; Gary Hsu <gary_hsu@aspeedtech.com>; Ryan Chen <ryan=
+_chen@aspeedtech.com>
+> > Subject: Re: [PATCH] i2c: aspeed: Improve driver to support multi-maste=
+r use cases stably
+> >
+> > On 7/13/2018 11:12 AM, Brendan Higgins wrote:
+> >> On Fri, Jul 13, 2018 at 10:22 AM Jae Hyun Yoo
+> >> <jae.hyun.yoo@linux.intel.com> wrote:
+> >>>
+> >>> On 7/12/2018 11:21 AM, Jae Hyun Yoo wrote:
+> >>>> On 7/12/2018 2:33 AM, Brendan Higgins wrote:
+> >>>>> On Wed, Jun 27, 2018 at 10:55 AM Jae Hyun Yoo
+> >>>>> <jae.hyun.yoo@linux.intel.com> wrote:
+> >> <snip>
+> >>>>> <snip>
+> >>>>>>>> +       for (;;) {
+> >>>>>>>> +               if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+> >>>>>>>> +                     (ASPEED_I2CD_BUS_BUSY_STS |
+> >>>>>>>> +                      ASPEED_I2CD_XFER_MODE_STS_MASK)))
+> >>>>>>>
+> >>>>>>> Is using the Transfer Mode State Machine bits necessary? The
+> >>>>>>> documentation marks it as "for debugging purpose only," so
+> >>>>>>> relying on it makes me nervous.
+> >>>>>>>
+> >>>>>>
+> >>>>>> As you said, the documentation marks it as "for debugging purpose =
+only."
+> >>>>>> but ASPEED also uses this way in their SDK code because it's the
+> >>>>>> best way for checking bus busy status which can cover both single
+> >>>>>> and multi-master use cases.
+> >>>>>>
+> >>>>>
+> >>>>> Well, it would also be really nice to have access to this bit if
+> >>>>> someone wants to implement MCTP. Could we maybe check with Aspeed
+> >>>>> what them meant by "for debugging purposes only" and document it
+> >>>>> here? It makes me nervous to rely on debugging functionality for
+> >>>>> normal usage.
+> >>>>>
+> >>>>
+> >>>> Okay, I'll check it with Aspeed. Will let you know their response.
+> >>>>
+> >>>
+> >>> I've checked it with Gary Hsu <gary_hsu@aspeedtech.com> and he
+> >>> confirmed that the bits reflect real information and good to be used
+> >>> in practical code.
+> >>
+> >> Huh. For my own edification, could you ask them why they said "for
+> >> debugging purpose only" in the documentation? I am just really curious
+> >> what they meant by that. I would be satisfied if you just CC'ed me on
+> >> your email thread with Gary, and I can ask him myself.
+> >>
+> >
+> > I've already CC'ed Gary and Ryan in this thread.
+> >
+> > Hi Gary,
+> >
+> > Can you explain why the documentation says that the bit field is 'for d=
+ebugging purpose only'? Any plan to change the description?
+> >
+> > Thanks,
+> >
+> > Jae
+> >
+> >>>
+> >>> I'll add a comment like below:
+> >>>
+> >>> /*
+> >>>     * This is marked as 'for debugging purpose only' in datasheet but
+> >>>     * ASPEED confirmed that this reflects real information and good
+> >>>     * to be used in practical code.
+> >>>     */
+> >>>
+> >>> Is it acceptable then?
+> >>
+> >> Yeah, that's fine.
+> >>
+> >> <snip>
+> >>
+> >> Cheers
+> >>
