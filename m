@@ -1,31 +1,75 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Qlln+qLY"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="BR0zGx/F"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41WDdl01F1zDqC8
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 09:59:22 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6INwIBG007176;
- Wed, 18 Jul 2018 18:58:20 -0500
-Message-ID: <c69d0e7c3a95d83da87b566a62619462671a233b.camel@kernel.crashing.org>
-Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc.
- BMC control fields
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41WHFt0VGxzDqC8
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 11:57:21 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id E6B5321AE8;
+ Wed, 18 Jul 2018 21:57:14 -0400 (EDT)
+Received: from web5 ([10.202.2.215])
+ by compute4.internal (MEProxy); Wed, 18 Jul 2018 21:57:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=FADGPYhbP+fHYI9EJbb3chU050AUT
+ CPuk5jUmbBl1X8=; b=Qlln+qLY8qUuWJuDzsnu9z29JmhIgNVBFkxcGfkoZnPVF
+ E7wshXQxbzj2Xz77zP5Say6gSTNBcw0b0NEcFWXDRcjNMFsMcE1Il6py+cfUAxLG
+ +w6TbeeP4Ujno7QIAmzQ58ni4sqhq9mIJshj86Z8fKgHFDF1abug5ytssfUA+cTC
+ lMLxkNS6kUvAsRmjO+2l18yDtVzmdl4eSok/Pjdupg55R4JjgH6TR9EO+BzATSrE
+ tVEyO6oRUAvY7gDMTsZxDQN91u3aUQjgYPb7mUoJgireR2cMymg70YQ2jgFwZZRp
+ JUvpZnezEV9F1BDNy07MbkqQZKCRqexhX+sUnC0iQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=FADGPY
+ hbP+fHYI9EJbb3chU050AUTCPuk5jUmbBl1X8=; b=BR0zGx/F6aaN7T/0ojXinG
+ V5uZEowE5h0CT6bn4y1QjR7+9ai3XW4zwb2OwQ6hjVb8j++cr3weXPKeMJFS226D
+ ESeK1yacIj8wzad+wSxQwlJWZasTDHQmiUvWmEaEZLiW8sm/73WCAYGZmIAT29yV
+ nE6m4wg1Z0msMbkMPA4H3aKUDogpxw2wYk/XiTizsw6PaHtgOJ54YWrlqmAJcZou
+ WRSQ8VMt1P0r0m1DolGllhpfGgkXFoS3dLgWIHgBkAxbxf3Z7B7ALy+mYQ/T/2Gt
+ glWu37lSuJFgldZB9GuvBa7gyQ/rW2L6eUho14II/KKYhUY+51d+skzbB9w4jQVw
+ ==
+X-ME-Proxy: <xmx:-e9PW-MdmrXqBzd9mwlwvn8CeABHE4i-aiTIEzHyGfyP4_3pkmO5rw>
+ <xmx:-e9PWxXlDflznnpLj66bUoPetsAcc8bpTX3k26z6k2wWIqa4Qf2bDQ>
+ <xmx:-e9PWzKlxR5FXUJIrr6jLeFxxSrgzM6YJwrEYqsmuwk0TLWrj-e1aQ>
+ <xmx:-e9PW8rYNJk6RDlHgXuM-7L9xmOBG4ZiLiPpveGikMFWX-HrygTYsQ>
+ <xmx:-e9PW6ybfOcqbPZrnXEWiZW0pPezwfmZZCtC6T2q4BZXk5apyJhS2w>
+ <xmx:-u9PW37NH3sQD7BFIIh1SHA34OQzFcYnK0zC58sD31m2ny6MKiUN-w>
+X-ME-Sender: <xms:-e9PW18er40v9KvylKUU7D0R3ONqUEzI5uX3HEv3fFfsWabfvw5oMw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 924159E0DC; Wed, 18 Jul 2018 21:57:13 -0400 (EDT)
+Message-Id: <1531965433.2133841.1445577960.5C709A63@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
 To: Rob Herring <robh@kernel.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Mark Rutland <mark.rutland@arm.com>,
- devicetree@vger.kernel.org, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com, a.amelkin@yadro.com,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Joel Stanley
- <joel@jms.id.au>, stewart@linux.ibm.com, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, linux-arm-kernel@lists.infradead.org
-Date: Thu, 19 Jul 2018 09:58:18 +1000
-In-Reply-To: <CAL_JsqL_bMXLAA0091-g8PmhXR5g5Pf2y2=ey7Ss5ofHm46sWw@mail.gmail.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, Eugene.Cho@dell.com,
+ a.amelkin@yadro.com, linux-kernel@vger.kernel.org,
+ Joel Stanley <joel@jms.id.au>, stewart@linux.ibm.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-e74bb3a0
+In-Reply-To: <CAL_Jsq+YdcBe+VYBAZPvK-X9gwJyhzP4m6hAx59+2Nz0JzsKug@mail.gmail.com>
+Date: Thu, 19 Jul 2018 11:27:13 +0930
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
+ control fields
 References: <20180711053122.30773-1-andrew@aj.id.au>
  <20180711053122.30773-2-andrew@aj.id.au>
  <20180711200450.GB17291@rob-hp-laptop>
@@ -35,11 +79,8 @@ References: <20180711053122.30773-1-andrew@aj.id.au>
  <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
  <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
  <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
- <CAL_JsqL_bMXLAA0091-g8PmhXR5g5Pf2y2=ey7Ss5ofHm46sWw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ <1531870098.3337969.1444201888.2476205D@webmail.messagingengine.com>
+ <CAL_Jsq+YdcBe+VYBAZPvK-X9gwJyhzP4m6hAx59+2Nz0JzsKug@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -51,138 +92,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jul 2018 23:59:23 -0000
+X-List-Received-Date: Thu, 19 Jul 2018 01:57:25 -0000
 
-On Wed, 2018-07-18 at 13:50 -0600, Rob Herring wrote:
+On Thu, 19 Jul 2018, at 04:37, Rob Herring wrote:
+> On Tue, Jul 17, 2018 at 5:28 PM Andrew Jeffery <andrew@aj.id.au> wrote:
+> >
+> > On Tue, 17 Jul 2018, at 14:26, Benjamin Herrenschmidt wrote:
+> > > On Mon, 2018-07-16 at 07:55 -0600, Rob Herring wrote:
+> > > > If that data is one set per SoC, then i'm not that concerned having
+> > > > platform-specific data in the driver. That doesn't mean the driver is
+> > > > not "generic". It's still not clear to me in this thread, how much of
+> > > > this is board specific, but given that you've placed all the data in
+> > > > an SoC dtsi file it seems to be all per SoC.
+> > >
+> > > So Rob, I think that's precisely where the disconnect is.
+> > >
+> > > I think we all (well hopefully) agree that those few tunables don't fit
+> > > in any existing subystem and aren't likely to ever do (famous last
+> > > words...).
+> > >
+> > > Where we disagree is we want to make this parametrized via the DT, and
+> > > you want us to hard wire the list in some kind of SoC driver for a
+> > > given SoC family/version.
+> > >
+> > > The reason I think hard wiring the list in the driver is not a great
+> > > solution is that that list in itself is prone to variations, possibly
+> > > fairly often, between boards, vendors, versions of boards, etc...
+> > >
+> > > We can't know for sure every SoC tunable (out of the gazillions in
+> > > those chips) are going to be needed for a given system. We know which
+> > > ones we do use for ours, and that's a couple of handfuls, but it could
+> > > be that Dell need a slightly different set, and so might Yadro, or so
+> > > might our next board revision for that matter.
+> > >
+> > > Now, updating the device-tree in the board flash with whatever vendor
+> > > specific information is needed is a LOT easier than getting the kernel
+> > > driver constantly updated. The device-tree after all is there to
+> > > reflect among other things system specific ways in which the SoC is
+> > > wired and configured. This is rather close...
+> >
+> > Not sure this helps, but I feel that the proposal pretty closely matches what's described in Documentation/devicetree/bindings/mfd/mfd.txt. It's intended that nodes using the bindings I'm proposing are children of a 'compatible = "syscon", "simple-mfd"' node (this is the case with the features we're hoping to describe for our SoC). I should explicitly call that out.
 > 
-> > So Rob, I think that's precisely where the disconnect is.
-> > 
-> > I think we all (well hopefully) agree that those few tunables don't fit
-> > in any existing subystem and aren't likely to ever do (famous last
-> > words...).
-> > 
-> > Where we disagree is we want to make this parametrized via the DT, and
-> > you want us to hard wire the list in some kind of SoC driver for a
-> > given SoC family/version.
-> > 
-> > The reason I think hard wiring the list in the driver is not a great
-> > solution is that that list in itself is prone to variations, possibly
-> > fairly often, between boards, vendors, versions of boards, etc...
+> IMO, any binding that has only those compatibles is not correct and a
+> specific compatible is needed. We should be able identify a specific
+> h/w block.
+
+I didn't intend for that to get interpreted quite as literally, so apologies for that. We do have h/w-block-specific compatibles in there too. The point was to demonstrate that we're dealing (at this point, only) with mfds/syscons.
+
 > 
-> Can we separate the list of what's enabled from the details of the
-> registers?  Even if we put all this into DT, we may still want to have
-> some separation for dts file structure. Some portion of this has to be
-> SoC specific because you are simply exposing SoC registers.
-
-Not sure I understand what you mean by "what's enabled".
-
-The goal here is to expose register "fields" (nor raw values, some
-registers need locking for RMW etc... the kernel would handle that via
-syscon locking I expect), so basically named "tunables" to userspace.
-
-Userspace is the one that knows the values for a given system.
-
-> > We can't know for sure every SoC tunable (out of the gazillions in
-> > those chips) are going to be needed for a given system. We know which
-> > ones we do use for ours, and that's a couple of handfuls, but it could
-> > be that Dell need a slightly different set, and so might Yadro, or so
-> > might our next board revision for that matter.
+> > But to go on, "simple-mfd" is effectively an alias of "simple-bus", which means its intended to match child node compatibles to drivers provided by the kernel. If we shouldn't be describing minor features of a SoC in the devicetree, doesn't this invalidate the case for simple-mfd? What is the *correct* use of simple-mfd? When is it not used to expose minor features in set of "miscellaneous system registers"? Why doesn't this proposed case fit?
 > 
-> That's very hand wavy. Do you have some concrete examples (i.e. dts
-> files) showing the differences.
+> I'm no fan of simple-mfd either. I think it is abused and often a sign
+> of bad binding design.
 
-We could list what we have on the pile for some of our IBM systems
-today, but we would need Dell and Yadro to chime in with what they
-need.
+Ah, yes, this is a familiar feeling when reflecting on things I've done in the past. Hence trying to understand how to use it right.
 
-I still, from experience with that stuff and gut feeling, am pretty
-sure it's going to be a moving list, and updating the kernel driver
-constantly isn't going to fly.
+> The general problem with MFD bindings is people
+> define child nodes based on what drivers they happen to have for some
+> OS. DT is not the only way to instantiate drivers. Child nodes are
+> really only needed when you have resources per child that need to be
+> defined. For example, if the MFD has an interrupt controller and
+> interrupts to sub-blocks or sub-blocks have their own clocks.
+> "simple-mfd" was for when the parent node has no driver or the child
+> nodes have no dependency on the parent.
 
-> One problem I'm having with this is you are still going to need per
-> board specifics in userspace.
+Thanks for the clarification, I'll keep that in mind going forward.
 
-Yes. Userspace is ultimately the one that knows what needs to be done
-on a given machine.
-
->  You may be moving some of details out,
-> but moving to DT is not going to completely eliminate that. 
-
-We aren't trying to either. We are trying to make sure we don't need to
-change the *kernel* all the time, in part bcs we are pushing hard for
-OpenBMC vendors to use upstream with, if possible, no vendor changes.
-
-So userspace has to know the board specific tunables anyways. Today in
-many systems, it does that by whacking /dev/mem. I guess you can
-understand why that is bad :-)
-
-> I agree
-> that not using /dev/mem is a good thing, but there are several ways
-> you could do that independent of any DT binding.
-
-Such as ? The only other option is to have one or more kernel drivers
-that have built-in the precise and complete list of those tunables that
-need to be exposed.
-
-It's not impossible, but I worry that it's not going to scale terribly
-well, and that vendors will constantly "fork" that driver to add
-different things to that list.
-
-I might be wrong here, so I'd like for Eugene (Dell) and Alexander
-(Yadro) to chime in, but experience with BMCs has shown that we
-regularily , as we add a feature or rewrite something, need to find
-another new magic SoC tunable the HW manufacturer hid somewhere that
-will make our stuff work.
-
-> > Now, updating the device-tree in the board flash with whatever vendor
-> > specific information is needed is a LOT easier than getting the kernel
-> > driver constantly updated. The device-tree after all is there to
-> > reflect among other things system specific ways in which the SoC is
-> > wired and configured. This is rather close...
-> 
-> Sadly, updating my kernel is easier than updating my PC firmware
-> (though packaged firmware on my current laptop changes that). I can
-> assure you that ARM boards are generally much worse in that regard.
-> BTW, you may want to pay attention to EBBR[1][2]. Not sure how much
-> you care for BMCs, but there may be some interest.
-
-You are conflating your host kernel and your BMC here. The BMC kernel
-is part of the "firmware", as is its DTS and the BMC userspace.
-
-(Again this isn't the host DTS, this is the BMC DTS).
-
-They get all updated together. My point isn't about the ease or
-difficulty for a *user* to udpate their BMC, in that case the solutions
-above are equivalent.
-
-The point is from a system vendor perspective. A system vendor using
-OpenBMC will *customize* their BMC build in various ways. Typically
-they *will* have a custom DT since this is what represents their
-specific system and they will have some specific userspace bits.
-
-However, we are trying very hard for them *not* to fork the kernel, and
-if possible move OpenBMC towards a fully upstream kernel (still working
-on getting all the SoC drivers cleaned up and pushed up but it's moving
-in the right direction).
-
-So from a vendor perspective, such as us IBM, we *alread* have custom
-DTs and customized userspace, that's part of the normal flow of
-deploying a BMC.
-
-However, we are trying *NOT* to have a custom kernel (and we don't, at
-the moment there is an OpenBMC kernel accross vendors, though it's not
-*yet* fully upstream).
-
-So if the solution proposed is prone to requiring frequent changes to a
-kernel driver, that solution makes the above a lot more difficult and
-will encourage vendors to keep forking kernels.
-
-This is what we are trying to avoid.
-
-Cheers,
-Ben.
-
-> Rob
-> 
-> [1] https://github.com/ARM-software/ebbr
-> [2] https://lists.linaro.org/pipermail/boot-architecture/
+Andrew
