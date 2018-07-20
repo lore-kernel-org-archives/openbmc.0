@@ -1,77 +1,60 @@
-Return-Path: <tcminyard@gmail.com>
+Return-Path: <benjaminfair@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::242; helo=mail-oi0-x242.google.com;
- envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::441; helo=mail-wr1-x441.google.com;
+ envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=acm.org
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="OTHmPQpw"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="DaQJS1qj"; 
  dkim-atps=neutral
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41WsmZ5wj0zDqCF
- for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 10:52:29 +1000 (AEST)
-Received: by mail-oi0-x242.google.com with SMTP id s198-v6so18360858oih.11
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 17:52:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:reply-to:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=wC6yuxBYZiA715IWa5FPyzX+zMHBgkT3F9ryZ6wetmE=;
- b=OTHmPQpwYIhbvMhE6NLYJC3/QmEowWxLPl6EYFHCl6tpPNrOkQcPDcAog0N44F5bmK
- QmMEguF44PQmqgHNt7HwDPmVVPI3kCbO+y6CcnSYFSGtVHXsov50LEYjXLeHOrCCDPlR
- Dg+kVl4PdWvb6mLOhqgudmjBfpc74G7NxZRQMKYrgq+WK6p5dfaWHujC4UWxLTk6C/v5
- o++run5XNXv1bWr6jP4OeUJJ3PSXXNmvfNZQr50f9XCKlgRweHPjN7qy4YRNt9hokc0m
- 31ImOY78UJvlr05dWMri0wpEsgSx5jmJtn0bl71zzqNLI1dp/jhpLvlo8kK1RseS6irk
- gDeQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41WtgD6MYzzDqCF
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 11:32:55 +1000 (AEST)
+Received: by mail-wr1-x441.google.com with SMTP id s11-v6so9723520wra.13
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 18:32:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7RSuM0rZ98HKTD9vYjFqOIZO7aGEIq0LBcYS6anh6l4=;
+ b=DaQJS1qj98RqfnM9XTh8vDpV3MQQSEBoCWhF0EnnBP9PMZ0yiHpqNImER49PmkJ48d
+ CFYVLzmlWsefEtLCqDxdvL2ndX7Lnzu7ddHOU9FsD2DQK5+9aSWgybINvKbcdKYhz6ir
+ 8zRRtxeCYhwXT8385q1r6WCAwd6/d9kf3br9hQSsMXVramm7C8ygNaGjqWYCpd+r6a7h
+ nF84lOU6oHHVbX56Kad6l1cmwhZRTQNdB/zxVhLwKJsg+VWBlBNl3y9mW+ctu41Uixb2
+ XmQ3slexBHCfprj7Co9qc/HICBz6xMmyEv9Vn7+N3Wbpj9u8csI9d/vSCsBvYWg0O6w1
+ 4E+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=wC6yuxBYZiA715IWa5FPyzX+zMHBgkT3F9ryZ6wetmE=;
- b=VUOnO1ItT3kww32F9jCVCiYri9Mw1AzykGuJccCV9wJojitp7qzdVE6GDnQPhTgqZx
- SJ1SaYxGoFBJJYplAEfCPbW6xAf0b3gb/GD9u1R8Wv2wyLQQmaFTjFc60hM+j/nVW0TE
- whyNinuKnbcU/wpb3vuQbIhSEMBVRMF7M5pdWnjrOBQHWBjESdFbhbFDqM6KNYfJPbMK
- 5gAOmqc+GsEU4WI3VCMitd8lYrooAVI9lCPFlftk+4aOrq9vbIiPfsO52Sxuapbf2m2m
- YXMuk/ac/Ms7Jt1Mnu4oraChHBWshdvfwJzNtQiAw9QXZ48+ULTTBza2G/9vkLTaDo80
- z0gg==
-X-Gm-Message-State: AOUpUlGhLWbqKRiRu9ai60rVMZebCshMrPOMhCaLPLnUFXkUjKs71CoT
- 3VnGWcNsI/NhSPQr92v7fg==
-X-Google-Smtp-Source: AAOMgpeu7gwFCFjpQFPXNSl86ZndfYms396cJWV7lxASQB5aYuFhZ0A5Uj3ymK0fFzaDKPLd2iM6iw==
-X-Received: by 2002:aca:758c:: with SMTP id
- q134-v6mr303121oic.334.1532047947853; 
- Thu, 19 Jul 2018 17:52:27 -0700 (PDT)
-Received: from serve.minyard.net ([47.184.170.59])
- by smtp.gmail.com with ESMTPSA id w204-v6sm1426864oif.2.2018.07.19.17.52.26
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 19 Jul 2018 17:52:26 -0700 (PDT)
-Sender: Corey Minyard <tcminyard@gmail.com>
-Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
- by serve.minyard.net (Postfix) with ESMTPSA id DACE884D;
- Thu, 19 Jul 2018 19:52:25 -0500 (CDT)
-Reply-To: minyard@acm.org
-Subject: Re: [PATCH] ipmi: kcs_bmc: don't change device name
-To: Benjamin Fair <benjaminfair@google.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- openipmi-developer@lists.sourceforge.net, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-Cc: AviFishman70@gmail.com, tmaimon77@gmail.com, haiyue.wang@linux.intel.com, 
- tali.perry1@gmail.com
-References: <20180706181601.134913-1-benjaminfair@google.com>
-From: Corey Minyard <minyard@acm.org>
-Message-ID: <caadb9ae-68ca-3086-26fc-e03cb7ce1d59@acm.org>
-Date: Thu, 19 Jul 2018 19:52:25 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7RSuM0rZ98HKTD9vYjFqOIZO7aGEIq0LBcYS6anh6l4=;
+ b=O7HmVKsCGjFG3WVIm1o0KO35wpdSko4qpE5R27vjbUSnLc4TPftVnmXz8R5BDEPIg2
+ DIA/Iq7W+wsgLLn2yp+xvHaNflJeEA9tQxc6Q4p4+iM7EcUHUWtHtoXOmjcX4vxsGbOc
+ vNbn4JBr6VxVkyNd0uh4szG0iJIkT0puaOlhZXjyAgHZrxJ86x/DcDLzPfZO157YqVIg
+ ckW0GxD3slBaWQeboPuddAXnhwzn8H7UIIDkhnWUQnz2wnXiCGwa5xbZsXSBcnybuC9d
+ svChlK9U0DxAWyj1lLyZMuD1L+9yRgDYfYh6mb3UBegYP3KInNY3u5IKSTkzqHW0jLRQ
+ 24CQ==
+X-Gm-Message-State: AOUpUlFkdIlEk9XYMwHFJxSDFlcSfZXRCJLaMQJFSFXO8VHed9eU9fYV
+ +wynXrkofSNBJBzryQfb7yZv8Lps64KFT0egTaepqw==
+X-Google-Smtp-Source: AAOMgpfLEoSetKNbGXlLmbr8T52oMCFwAEBinct654IpKZwBRiMFXsAsK+T5pbt7PenO5spV55Y3QG0n3ijcQv6aNmA=
+X-Received: by 2002:adf:9183:: with SMTP id 3-v6mr24935wri.122.1532050371460; 
+ Thu, 19 Jul 2018 18:32:51 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180706181601.134913-1-benjaminfair@google.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
+References: <20180706181601.134913-1-benjaminfair@google.com>
+ <caadb9ae-68ca-3086-26fc-e03cb7ce1d59@acm.org>
+In-Reply-To: <caadb9ae-68ca-3086-26fc-e03cb7ce1d59@acm.org>
+From: Benjamin Fair <benjaminfair@google.com>
+Date: Thu, 19 Jul 2018 18:32:15 -0700
+Message-ID: <CADKL2t6CUs95zJ6989LqSkq_GCor-duqYAn78XDRxpWOk2EA5w@mail.gmail.com>
+Subject: Re: [PATCH] ipmi: kcs_bmc: don't change device name
+To: minyard@acm.org
+Cc: Arnd Bergmann <arnd@arndb.de>, gregkh@linuxfoundation.org, 
+ openipmi-developer@lists.sourceforge.net, joel@jms.id.au, 
+ openbmc@lists.ozlabs.org, AviFishman70@gmail.com, tmaimon77@gmail.com, 
+ haiyue.wang@linux.intel.com, tali.perry1@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -83,53 +66,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jul 2018 00:52:32 -0000
+X-List-Received-Date: Fri, 20 Jul 2018 01:32:58 -0000
 
-On 07/06/2018 01:16 PM, Benjamin Fair wrote:
-> kcs_bmc_alloc(...) calls dev_set_name(...) which is incorrect as most
-> bus driver frameworks, platform_driver in particular, assume that they
-> are able to set the device name themselves.
-
-Sorry for the delay, I've been busy and on vacation.
-
-This is queued for the next release.
-
--corey
-
-> Signed-off-by: Benjamin Fair <benjaminfair@google.com>
-> ---
->   drivers/char/ipmi/kcs_bmc.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
+On Thu, Jul 19, 2018 at 5:52 PM Corey Minyard <minyard@acm.org> wrote:
 >
-> diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
-> index fbfc05e3f3d1..cd75118bb0ac 100644
-> --- a/drivers/char/ipmi/kcs_bmc.c
-> +++ b/drivers/char/ipmi/kcs_bmc.c
-> @@ -16,6 +16,8 @@
->   
->   #include "kcs_bmc.h"
->   
-> +#define DEVICE_NAME "ipmi-kcs"
-> +
->   #define KCS_MSG_BUFSIZ    1000
->   
->   #define KCS_ZERO_DATA     0
-> @@ -440,8 +442,6 @@ struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv, u32 channel)
->   	if (!kcs_bmc)
->   		return NULL;
->   
-> -	dev_set_name(dev, "ipmi-kcs%u", channel);
-> -
->   	spin_lock_init(&kcs_bmc->lock);
->   	kcs_bmc->channel = channel;
->   
-> @@ -455,7 +455,8 @@ struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv, u32 channel)
->   		return NULL;
->   
->   	kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
-> -	kcs_bmc->miscdev.name = dev_name(dev);
-> +	kcs_bmc->miscdev.name = devm_kasprintf(dev, GFP_KERNEL, "%s%u",
-> +					       DEVICE_NAME, channel);
->   	kcs_bmc->miscdev.fops = &kcs_bmc_fops;
->   
->   	return kcs_bmc;
+> On 07/06/2018 01:16 PM, Benjamin Fair wrote:
+> > kcs_bmc_alloc(...) calls dev_set_name(...) which is incorrect as most
+> > bus driver frameworks, platform_driver in particular, assume that they
+> > are able to set the device name themselves.
+>
+> Sorry for the delay, I've been busy and on vacation.
+>
+> This is queued for the next release.
+>
+> -corey
+
+Great! Thanks, Corey.
