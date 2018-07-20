@@ -1,60 +1,68 @@
-Return-Path: <benjaminfair@google.com>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::441; helo=mail-wr1-x441.google.com;
- envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="DaQJS1qj"; 
- dkim-atps=neutral
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41WtgD6MYzzDqCF
- for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 11:32:55 +1000 (AEST)
-Received: by mail-wr1-x441.google.com with SMTP id s11-v6so9723520wra.13
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 18:32:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7RSuM0rZ98HKTD9vYjFqOIZO7aGEIq0LBcYS6anh6l4=;
- b=DaQJS1qj98RqfnM9XTh8vDpV3MQQSEBoCWhF0EnnBP9PMZ0yiHpqNImER49PmkJ48d
- CFYVLzmlWsefEtLCqDxdvL2ndX7Lnzu7ddHOU9FsD2DQK5+9aSWgybINvKbcdKYhz6ir
- 8zRRtxeCYhwXT8385q1r6WCAwd6/d9kf3br9hQSsMXVramm7C8ygNaGjqWYCpd+r6a7h
- nF84lOU6oHHVbX56Kad6l1cmwhZRTQNdB/zxVhLwKJsg+VWBlBNl3y9mW+ctu41Uixb2
- XmQ3slexBHCfprj7Co9qc/HICBz6xMmyEv9Vn7+N3Wbpj9u8csI9d/vSCsBvYWg0O6w1
- 4E+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7RSuM0rZ98HKTD9vYjFqOIZO7aGEIq0LBcYS6anh6l4=;
- b=O7HmVKsCGjFG3WVIm1o0KO35wpdSko4qpE5R27vjbUSnLc4TPftVnmXz8R5BDEPIg2
- DIA/Iq7W+wsgLLn2yp+xvHaNflJeEA9tQxc6Q4p4+iM7EcUHUWtHtoXOmjcX4vxsGbOc
- vNbn4JBr6VxVkyNd0uh4szG0iJIkT0puaOlhZXjyAgHZrxJ86x/DcDLzPfZO157YqVIg
- ckW0GxD3slBaWQeboPuddAXnhwzn8H7UIIDkhnWUQnz2wnXiCGwa5xbZsXSBcnybuC9d
- svChlK9U0DxAWyj1lLyZMuD1L+9yRgDYfYh6mb3UBegYP3KInNY3u5IKSTkzqHW0jLRQ
- 24CQ==
-X-Gm-Message-State: AOUpUlFkdIlEk9XYMwHFJxSDFlcSfZXRCJLaMQJFSFXO8VHed9eU9fYV
- +wynXrkofSNBJBzryQfb7yZv8Lps64KFT0egTaepqw==
-X-Google-Smtp-Source: AAOMgpfLEoSetKNbGXlLmbr8T52oMCFwAEBinct654IpKZwBRiMFXsAsK+T5pbt7PenO5spV55Y3QG0n3ijcQv6aNmA=
-X-Received: by 2002:adf:9183:: with SMTP id 3-v6mr24935wri.122.1532050371460; 
- Thu, 19 Jul 2018 18:32:51 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41WxfP18GnzDqCF
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 13:47:24 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6K3jB6e143745
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 23:47:22 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.82])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2kb243u46s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 23:47:21 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Fri, 20 Jul 2018 03:47:21 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.95)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 20 Jul 2018 03:47:19 -0000
+Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2018072003471891-25793 ;
+ Fri, 20 Jul 2018 03:47:18 +0000 
+In-Reply-To: 
+Subject: openbmc test work group - wiki
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Fri, 20 Jul 2018 03:47:19 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-References: <20180706181601.134913-1-benjaminfair@google.com>
- <caadb9ae-68ca-3086-26fc-e03cb7ce1d59@acm.org>
-In-Reply-To: <caadb9ae-68ca-3086-26fc-e03cb7ce1d59@acm.org>
-From: Benjamin Fair <benjaminfair@google.com>
-Date: Thu, 19 Jul 2018 18:32:15 -0700
-Message-ID: <CADKL2t6CUs95zJ6989LqSkq_GCor-duqYAn78XDRxpWOk2EA5w@mail.gmail.com>
-Subject: Re: [PATCH] ipmi: kcs_bmc: don't change device name
-To: minyard@acm.org
-Cc: Arnd Bergmann <arnd@arndb.de>, gregkh@linuxfoundation.org, 
- openipmi-developer@lists.sourceforge.net, joel@jms.id.au, 
- openbmc@lists.ozlabs.org, AviFishman70@gmail.com, tmaimon77@gmail.com, 
- haiyue.wang@linux.intel.com, tali.perry1@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
+ SCN1812108_20180501T0841 May 01, 2018 at 08:41
+X-LLNOutbound: False
+X-Disclaimed: 919
+X-TNEFEvaluated: 1
+x-cbid: 18072003-5101-0000-0000-00000B845E82
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.416201; ST=0; TS=0; UL=0; ISC=; MB=0.000001
+X-IBM-SpamModules-Versions: BY=3.00009395; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01063348; UDB=6.00546040; IPR=6.00841199; 
+ BA=6.00006051; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00022216; XFM=3.00000015;
+ UTC=2018-07-20 03:47:20
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-07-20 02:37:36 - 6.00008723
+x-cbparentid: 18072003-5102-0000-0000-000034C06554
+Message-Id: <OFC1A0F558.EB78B1DD-ON002582D0.00149A34-002582D0.0014CFBF@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-20_01:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,19 +74,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jul 2018 01:32:58 -0000
+X-List-Received-Date: Fri, 20 Jul 2018 03:47:25 -0000
 
-On Thu, Jul 19, 2018 at 5:52 PM Corey Minyard <minyard@acm.org> wrote:
->
-> On 07/06/2018 01:16 PM, Benjamin Fair wrote:
-> > kcs_bmc_alloc(...) calls dev_set_name(...) which is incorrect as most
-> > bus driver frameworks, platform_driver in particular, assume that they
-> > are able to set the device name themselves.
->
-> Sorry for the delay, I've been busy and on vacation.
->
-> This is queued for the next release.
->
-> -corey
-
-Great! Thanks, Corey.
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Hi All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Have <a href=3D"https://github.com/openbmc/openbmc/wiki/T=
+est-work---group" >https://github.com/openbmc/openbmc/wiki/Test-work---grou=
+p</a>&nbsp; created this page in our</div>
+<div dir=3D"ltr" >wiki for upcoming test work group. Please review and prov=
+ide your inputs / raise questions if you need any clarification.</div>
+<div dir=3D"ltr" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"fo=
+nt-family:Arial;font-size:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D=
+"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div class=3D"socmailde=
+faultfont" dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div c=
+lass=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;font-siz=
+e:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-fami=
+ly:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"margin-top: 20px;" ><=
+div style=3D"font-size: 12pt; font-weight: bold; font-family: sans-serif; c=
+olor: #7C7C5F;" >Sivas R. S</div>
+<div style=3D"font-size: 8pt; font-family: sans-serif; margin-top: 10px;" >=
+<div><span style=3D"font-weight: bold; color: #336699;" >E-mail: </span><a =
+href=3D"mailto:sivas.srr@in.ibm.com" style=3D"color: #555" >sivas.srr@in.ib=
+m.com</a></div>
+<div>&nbsp;</div>
+<div>Automation is good, Identifying Defect earlier is better always</div>
+<div>9902233500</div>
+<div>08046678273</div></div></div></div></div></div></div></div></div></div=
+><BR>
