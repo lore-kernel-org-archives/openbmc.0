@@ -6,12 +6,12 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=the-dreams.de
 Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by lists.ozlabs.org (Postfix) with ESMTP id 41XWP452MHzDqC7;
- Sat, 21 Jul 2018 12:07:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 41XXr55c9jzDqC7;
+ Sat, 21 Jul 2018 13:12:53 +1000 (AEST)
 Received: from localhost (p54B33241.dip0.t-ipconnect.de [84.179.50.65])
- by pokefinder.org (Postfix) with ESMTPSA id 5731E5E2001;
- Sat, 21 Jul 2018 00:29:22 +0200 (CEST)
-Date: Sat, 21 Jul 2018 00:29:21 +0200
+ by pokefinder.org (Postfix) with ESMTPSA id D5EDA5E000F;
+ Sat, 21 Jul 2018 00:25:32 +0200 (CEST)
+Date: Sat, 21 Jul 2018 00:25:32 +0200
 From: Wolfram Sang <wsa@the-dreams.de>
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Cc: Brendan Higgins <brendanhiggins@google.com>,
@@ -23,14 +23,15 @@ Cc: Brendan Higgins <brendanhiggins@google.com>,
  Jarkko Nikula <jarkko.nikula@linux.intel.com>,
  James Feist <james.feist@linux.intel.com>,
  Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH] i2c: aspeed: Adjust spinlock scope in the irq handler
-Message-ID: <20180720222921.hvpk2zgr4rxnwoom@ninjato>
-References: <20180702214011.16071-1-jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH] i2c: aspeed: Add newline characters into message
+ printings.
+Message-ID: <20180720222532.o273zjv4lx7rkq7z@ninjato>
+References: <20180702211359.30585-1-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="rrduizyznuwusmgo"
+ protocol="application/pgp-signature"; boundary="wihqb6kqvskazihp"
 Content-Disposition: inline
-In-Reply-To: <20180702214011.16071-1-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20180702211359.30585-1-jae.hyun.yoo@linux.intel.com>
 User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -43,52 +44,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 21 Jul 2018 02:07:53 -0000
+X-List-Received-Date: Sat, 21 Jul 2018 03:12:54 -0000
 
 
---rrduizyznuwusmgo
+--wihqb6kqvskazihp
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 02, 2018 at 02:40:11PM -0700, Jae Hyun Yoo wrote:
-> This patch adjusts spinlock scope to make it wrap the whole irq
-> handler using a single lock/unlock which covers both master and
-> slave handlers.
+On Mon, Jul 02, 2018 at 02:13:59PM -0700, Jae Hyun Yoo wrote:
+> There are some log printing without a newline character. This
+> patch adds the missing newline characters.
 >=20
 > Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 
 Applied to for-next, thanks!
 
-Not related to these patches, but there is an issue found with sparse:
 
-drivers/i2c/busses/i2c-aspeed.c:875:38: warning: incorrect type in assignme=
-nt (different modifiers)
-drivers/i2c/busses/i2c-aspeed.c:875:38:    expected unsigned int ( *get_clk=
-_reg_val )( ... )
-drivers/i2c/busses/i2c-aspeed.c:875:38:    got void const *const data
-
-Maybe someone wants to have a go at this...
-
-
---rrduizyznuwusmgo
+--wihqb6kqvskazihp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAltSYkEACgkQFA3kzBSg
-Kbbo0w/8DKIYGiUZQuTX/Rp4PDOfP3xI7TfsaVo9kycwuHP3t60ECafEHibnQVug
-MRRDpZJXItcVI3zbq7UjCi+5HDpSggbWIU4czwgMTD59uGjnqUUJn2fjsaJGWZOi
-jr9LVNMEnH8sTbrnVb1PbUxey3gzZHIRx1006yjye0btyJ3Av16PjpZNXa+xn+Hd
-627gw5YFtiawPziF+fBrJtOfsxfX3Z7NKkbS9iKLiOrH0WEoatsXuQiwjOUbZMn8
-P9YgFLFcM653e5Lv0pbQ4h6jo+e50Q7HYykd1QCYScG1eaCNA7Ruj2T5t+gEHKxn
-7I95atjWHQ/njair88vgOgNmEG097AbZzAcnQ3SlSGh/4JAgj/Y4ZDRqYdGfyaT3
-2eSR05Tbp3h6ZLPxDITQNCAL7kimee6OLYodHRW7TL98coYuXCkC/YQHcxxwtXMw
-+sSEgpRsJMUsZTkyqRe/LOOdaS+R38nuzvhb6ULVby2Ayx//4MJZ4MNCgrnApCs0
-rbVBteTBLJDDTBGu0wngFyJHPt08hMKDMS5BVE4RhQKngbUARfSN2/h7Bu5ObZss
-DP34X3RcUeDNPh4SIW951ZU57MPRHagusKY+bWfcHhCYsMj/PLpv4MTBojx9WTPD
-u5zbWHCRBAkUTg09pVL4A7RxCmk8yaiQwUqBjs+weideQplVVq4=
-=mzTp
+iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAltSYVgACgkQFA3kzBSg
+KbYU5Q/8CHYKb4Oz94Wk9vwYE4D3uU0wJ2e48bajqBPX04l+RTqV1MtcpYsqzSai
+sF53/0+XEnP3T34bQPTG2LVvrVOlHqT9ufrSpBmujAoZAvlVZ+Vb34yszla18xZn
+BcTrkRQIWTnpi+STp59QaK7QQylnYDgNf72qpz1HtmC+Q2ZxLs2XJ/8JzI1e0kMA
+yGDA96X3KnSixgDDy0+gH+w99IBjto5pCXKkES7WC3/sweXFvDM0eyF2k21jEqrn
+nsP83c9FoeRKloBy7t17nTAUa9kv02vmi1yvjKxbbeGkGUpJOXBhGQO/rzKn2qzC
+gH30aMjM3KmzyCvOwVWtTxYMn1corxUnCvPBpll21dtG9TMM84Il6YWOnoT1W6ni
+SCm1YHLrUSh+nAxkZNiGMcqFCGo+9x+hesQnvbk5SSMkPH7NWWmRgHkA1X+refG7
+9UgHDs6LRrhMXyEvCogi6JP66SAA2UYFMk+ILi6jpFGerf20/MDqZQi+wJvg+DeF
+ZOdpmD9NveW34bfH0ocV/byM/QNthYiYqGyIbe33X4ivt6s9lqg4m/qJUkAcp2C7
+DOYPo3FuBFKyc6YTOxnOtkgP3I112wMjA3+1sh0oPmkbJS7aLqTg+h402GkbPZzW
+NwjLrHaL/PYuubKdypQb/h4W/L00I0KoV1lSOO4ChoJ8IcdV+gg=
+=EgKQ
 -----END PGP SIGNATURE-----
 
---rrduizyznuwusmgo--
+--wihqb6kqvskazihp--
