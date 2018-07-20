@@ -1,36 +1,86 @@
-Return-Path: <david.j.cobbley@linux.intel.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=david.j.cobbley@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fk2qS6gv"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Whx79zcG"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41WlSr2YC1zDq6t
- for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 06:08:24 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2018 13:08:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,375,1526367600"; d="scan'208";a="57884315"
-Received: from parzival.jf.intel.com (HELO [10.54.51.105]) ([10.54.51.105])
- by orsmga007.jf.intel.com with ESMTP; 19 Jul 2018 13:08:04 -0700
-From: Dave Cobbley <david.j.cobbley@linux.intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Managing openbmc with subtree
-Message-ID: <00e6e0a4-027d-7a9c-ad49-363290e62c68@linux.intel.com>
-Date: Thu, 19 Jul 2018 13:08:04 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41WrnF2l78zDqCF
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 10:08:00 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4D3942104C;
+ Thu, 19 Jul 2018 20:07:58 -0400 (EDT)
+Received: from web5 ([10.202.2.215])
+ by compute4.internal (MEProxy); Thu, 19 Jul 2018 20:07:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=eGMzywVPQ7r7zEjVlJrRyAzk9WT3C
+ BlsmFp2qjntQ/s=; b=fk2qS6gvH8KEUUWC9iUTbxAjowEmBZcIEg+uQYaqLxQai
+ pZpBIFMUB3MilccYDk8uf712IHR1v1UN0LzCQ7pvwuwDfnVmMnvRoUgKjDJ6ooW1
+ wgZ5AMT53EuijExCzgpnH1+f8rrUBhJfhrGdd52XNLRJsiYIPXIJfQgi4+Zs54zk
+ 48Nfd5pDOEzDeILWzKh/kdRjRqj80bOAZlT7DEJYFXgKz19ICD7Q+z0e9nvS+eT/
+ MbOjOQiWazJWBWWgNbQKRLZChyF9A+QSZIodJdurDW158qhJRdXWxedm5NdyBAjK
+ HnH7kk81nFyrAXbbMYwwpfqOKR5UOILdxRLQRBGmg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=eGMzyw
+ VPQ7r7zEjVlJrRyAzk9WT3CBlsmFp2qjntQ/s=; b=Whx79zcGjf+0m1p1dL/TIR
+ KPOZwqRPXoY/Ktp7EqBFrEzKqJJaISsa9xoGE2cWuvL9bNTXLkgooIRTBOy5fD5b
+ 4rmGJNw9UFWYXBo/9qTabEth+cXF0Ena4gzUFoHYUVofgOx6MloypSSWtTZVbBGF
+ 906Fcm+qOuNqbO00of9Qx9q+s07G/p0NnFyM4Rzfz/iShA5CrabhoVwUv5jXp9Cz
+ G6YgjQ2LwCyZL5U8meq7KFtNe6ALadgEGAbYcnrerHsXCNNb465uHj7tv4Oj/iQi
+ mgcVNKkq1bVTmfjrryzL6JKae6ft8pHatD69J8HrV/UJmF7F6oKqgX7gDgcMw/cw
+ ==
+X-ME-Proxy: <xmx:3CdRW7i9vpgP84_S-CDUjCgqqDBrkil23CXHttwhcRZMV1JEPm7zVQ>
+ <xmx:3CdRW8q4eFI3Qz0jAZ2wWMYtxPL5-WTbem3Bp-mMycdL-PuLj2UBmw>
+ <xmx:3CdRWzPBNNW11v0vh_Yj1gkbEmj6yhdUD2VCNXRoUk8_hVQam-_BYQ>
+ <xmx:3CdRWyYj69WOCcvCk54Ru70SX-J7-_dL6dIdnZyIRmm1N9Q9r6Ez9A>
+ <xmx:3CdRW9kv8408cIJYEmjxEHVaj6e373rnxVSZyQ6yOJ8qX7Gqj6EMFA>
+ <xmx:3idRW-mNP5EGedi_ki8Uw4A3BCS3GVmUqK0qgWS0rCg8u0naoXFcjw>
+X-ME-Sender: <xms:3CdRW0Rq3Q6klLQQkZaLU6aZqGv8JkqwapTGKChfd9islhRhCDJZAw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 9AE899E100; Thu, 19 Jul 2018 20:07:56 -0400 (EDT)
+Message-Id: <1532045276.1219110.1446722072.546C1F9D@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh@kernel.org>, Eugene.Cho@dell.com, a.amelkin@yadro.com
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
+ stewart@linux.ibm.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ linux-arm-kernel@lists.infradead.org
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-e74bb3a0
+References: <20180711053122.30773-1-andrew@aj.id.au>
+ <20180711053122.30773-2-andrew@aj.id.au>
+ <20180711200450.GB17291@rob-hp-laptop>
+ <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
+ <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
+ <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
+ <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
+ <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
+ <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
+ <CAL_JsqL_bMXLAA0091-g8PmhXR5g5Pf2y2=ey7Ss5ofHm46sWw@mail.gmail.com>
+ <c69d0e7c3a95d83da87b566a62619462671a233b.camel@kernel.crashing.org>
+ <1531967302.2140539.1445583600.0F5ED287@webmail.messagingengine.com>
+ <9787b471abc49c0b3db60e3471473a7a5b45ade7.camel@kernel.crashing.org>
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc. BMC
+ control fields
+Date: Fri, 20 Jul 2018 09:37:56 +0930
+In-Reply-To: <9787b471abc49c0b3db60e3471473a7a5b45ade7.camel@kernel.crashing.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -42,74 +92,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jul 2018 20:08:29 -0000
+X-List-Received-Date: Fri, 20 Jul 2018 00:08:05 -0000
 
-Brad,
-Trying to identify the appropriate work-flowfor using git subtree to 
-maintain all the meta-data under openbmc.
-I'm imagining something like:
+> 
+> Andrew, can you start with a list that shows what you expect us to need
+> on our systems ?
+> 
 
-17 subtrees
-** indicates an actual folder, not subtree.
-meta-openembedded/
-meta-raspberrypi/
-meta-virtualization/
-poky/
-**meta-openbmc-machines/
-** meta-arm
-    ├── common
-    └── meta-qualcomm
-**meta-evb
-    ├── meta-evb-aspeed
-    ├── meta-evb-nuvoton
-    ├── meta-evb-raspberrypi
-**meta-openpower
-    ├── meta-ibm
-    ├── meta-ingrasys
-    ├── meta-inventec
-    ├── meta-rackspace
-**meta-x86
-     ├── meta-intel
-     ├── meta-mellanox
-     ├── meta-portwell
-     └── meta-quanta
-**meta-openbmc-bsp/
-     ├── meta-aspeed
-     ├── meta-ibm
-     ├── meta-nuvoton
-meta-phosphor/
+Okay, our Witherspoon and Romulus platforms containing the ASPEED AST2500 currently need the following tuneables exposed:
 
+From the SCU:
+- Debug UART enable
+- VGA DAC mux
+- VGA scratch registers 0-7
+- LPC SuperIO decode enable
+- VGA MMIO decode enable
 
-I began working on the workflows that a typical dev would do to check 
-code in and have Jenkins automatically update the top level repo with 
-the new additions, but run into troublewith a merge commit.
+From the LPC controller:
+- iLPC2AHB enable
+- SuperIO scratch registers 0x20-0x2f
 
-1. git clone openbmc-openbmc
-2. #make changes
-3. git add
-4. git commit...
-5. git subtree push --prefix=path/to/local/subtree 
-ssh://openbmc.gerrit/openbmc/<subtree_name> HEAD:refs/for/master
+(The LPC controller is just as much of a collection of random bits as the SCU)
 
-At this point, the build CI would run it's normal operations and code 
-review would take place.
-Following a +2 and submit, Jenkins would:
+Lastly, our Palmetto platform uses an AST2400 which has fewer features compared to the AST2500. Its tuneable list is the same as the above with the exception of "Debug UART enable".
 
-1. cd openbmc-openbmc
-2. git pull
-3. git subtree pull --prefix=path/to/subtree --squash <remote> master 
-#For all given subtrees
+Tuneables that we may need to expose in the future include:
 
-However at this point, I end up with two commits in the parent repo, one 
-with the squashed changes, and a merge commit.
-I don't know how to do this operation without ending up with a merge 
-commit, do you have any advice here?
+From the SCU:
+- PCI VID/DID for the BMC PCIe device
+- VGA device enable (may need to be disabled if the platform contains a discrete graphics processor)
 
-I could be totally overthinking the whole strategy, so any advice and 
-direction is much appreciated!
-Along those same lines, is subtree still the correct tool? I hear repo 
-works for a lot of projects, Yocto uses 
-https://wiki.yoctoproject.org/wiki/Combo-layer.
+From the LPC controller:
+- UART mux
 
-Thanks,
--Dave
+Alexander, Eugene, can you chime in with your platforms' needs?
+
+Cheers,
+
+Andrew
