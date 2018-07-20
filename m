@@ -1,68 +1,49 @@
-Return-Path: <sivas.srr@in.ibm.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41WxfP18GnzDqCF
- for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 13:47:24 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w6K3jB6e143745
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 23:47:22 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.82])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2kb243u46s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jul 2018 23:47:21 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Fri, 20 Jul 2018 03:47:21 -0000
-Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.95)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 20 Jul 2018 03:47:19 -0000
-Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
- by us1a3-smtp01.a3.dal06.isc4sb.com
- with ESMTP id 2018072003471891-25793 ;
- Fri, 20 Jul 2018 03:47:18 +0000 
-In-Reply-To: 
-Subject: openbmc test work group - wiki
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Fri, 20 Jul 2018 03:47:19 +0000
-Sensitivity: 
-References: 
-MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
- SCN1812108_20180501T0841 May 01, 2018 at 08:41
-X-LLNOutbound: False
-X-Disclaimed: 919
-X-TNEFEvaluated: 1
-x-cbid: 18072003-5101-0000-0000-00000B845E82
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.416201; ST=0; TS=0; UL=0; ISC=; MB=0.000001
-X-IBM-SpamModules-Versions: BY=3.00009395; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01063348; UDB=6.00546040; IPR=6.00841199; 
- BA=6.00006051; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00022216; XFM=3.00000015;
- UTC=2018-07-20 03:47:20
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-07-20 02:37:36 - 6.00008723
-x-cbparentid: 18072003-5102-0000-0000-000034C06554
-Message-Id: <OFC1A0F558.EB78B1DD-ON002582D0.00149A34-002582D0.0014CFBF@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-07-20_01:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41WzBf0YKXzDqC8
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Jul 2018 14:56:57 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6K4uDrj014252;
+ Thu, 19 Jul 2018 23:56:15 -0500
+Message-ID: <483b76bac7cb8043d9d780d5ffa5e43438279887.camel@kernel.crashing.org>
+Subject: Re: [RFC PATCH v2 1/4] dt-bindings: misc: Add bindings for misc.
+ BMC control fields
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Andrew Jeffery <andrew@aj.id.au>, Rob Herring <robh@kernel.org>,
+ Eugene.Cho@dell.com, a.amelkin@yadro.com
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
+ stewart@linux.ibm.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ linux-arm-kernel@lists.infradead.org
+Date: Fri, 20 Jul 2018 14:56:13 +1000
+In-Reply-To: <1532045276.1219110.1446722072.546C1F9D@webmail.messagingengine.com>
+References: <20180711053122.30773-1-andrew@aj.id.au>
+ <20180711053122.30773-2-andrew@aj.id.au>
+ <20180711200450.GB17291@rob-hp-laptop>
+ <1531356830.3551458.1437853280.551CA8C5@webmail.messagingengine.com>
+ <CAL_JsqKpXxR4t_-3BOy-0mFePXkaSck_4PfHRD=OZQ-_-T5P=w@mail.gmail.com>
+ <b6ced4cad4d7ff78330181b2c893855c23103953.camel@kernel.crashing.org>
+ <1531463489.747186.1439263128.075AECE1@webmail.messagingengine.com>
+ <CAL_JsqLZo-=7UkuvvUFYdCR4asBBiWyC=Q1ryH=-HLU6vzf9tA@mail.gmail.com>
+ <ece91112ecfdc7218184c4c4519e455cf9397e11.camel@kernel.crashing.org>
+ <CAL_JsqL_bMXLAA0091-g8PmhXR5g5Pf2y2=ey7Ss5ofHm46sWw@mail.gmail.com>
+ <c69d0e7c3a95d83da87b566a62619462671a233b.camel@kernel.crashing.org>
+ <1531967302.2140539.1445583600.0F5ED287@webmail.messagingengine.com>
+ <9787b471abc49c0b3db60e3471473a7a5b45ade7.camel@kernel.crashing.org>
+ <1532045276.1219110.1446722072.546C1F9D@webmail.messagingengine.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.3 (3.28.3-1.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -74,32 +55,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jul 2018 03:47:25 -0000
+X-List-Received-Date: Fri, 20 Jul 2018 04:56:58 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Hi All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Have <a href=3D"https://github.com/openbmc/openbmc/wiki/T=
-est-work---group" >https://github.com/openbmc/openbmc/wiki/Test-work---grou=
-p</a>&nbsp; created this page in our</div>
-<div dir=3D"ltr" >wiki for upcoming test work group. Please review and prov=
-ide your inputs / raise questions if you need any clarification.</div>
-<div dir=3D"ltr" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"fo=
-nt-family:Arial;font-size:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D=
-"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div class=3D"socmailde=
-faultfont" dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div c=
-lass=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;font-siz=
-e:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-fami=
-ly:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"margin-top: 20px;" ><=
-div style=3D"font-size: 12pt; font-weight: bold; font-family: sans-serif; c=
-olor: #7C7C5F;" >Sivas R. S</div>
-<div style=3D"font-size: 8pt; font-family: sans-serif; margin-top: 10px;" >=
-<div><span style=3D"font-weight: bold; color: #336699;" >E-mail: </span><a =
-href=3D"mailto:sivas.srr@in.ibm.com" style=3D"color: #555" >sivas.srr@in.ib=
-m.com</a></div>
-<div>&nbsp;</div>
-<div>Automation is good, Identifying Defect earlier is better always</div>
-<div>9902233500</div>
-<div>08046678273</div></div></div></div></div></div></div></div></div></div=
-><BR>
+On Fri, 2018-07-20 at 09:37 +0930, Andrew Jeffery wrote:
+> > 
+> > Andrew, can you start with a list that shows what you expect us to need
+> > on our systems ?
+> > 
+> 
+> Okay, our Witherspoon and Romulus platforms containing the ASPEED AST2500 currently need the following tuneables exposed:
+> 
+> > From the SCU:
+> 
+> - Debug UART enable
+> - VGA DAC mux
+> - VGA scratch registers 0-7
+> - LPC SuperIO decode enable
+> - VGA MMIO decode enable
+> 
+> > From the LPC controller:
+> 
+> - iLPC2AHB enable
+> - SuperIO scratch registers 0x20-0x2f
+> 
+> (The LPC controller is just as much of a collection of random bits as the SCU)
+> 
+> Lastly, our Palmetto platform uses an AST2400 which has fewer features compared to the AST2500. Its tuneable list is the same as the above with the exception of "Debug UART enable".
+> 
+> Tuneables that we may need to expose in the future include:
+> 
+> > From the SCU:
+> 
+> - PCI VID/DID for the BMC PCIe device
+> - VGA device enable (may need to be disabled if the platform contains a discrete graphics processor)
+
+Additionally there's a bunch of resigters controlling the mapping of
+various MMIO regions of the BMC PCIe device to portions of the BMC
+address space. I'm not sure what's the best way to handle that.
+
+This specific set might require a dedicated device as a subnode of
+the SCU in the DT that contains all the mappings as properties... 
+
+That or we consider them static enough and just whack it in u-boot.
+
+> > From the LPC controller:
+> 
+> - UART mux
+> 
+> Alexander, Eugene, can you chime in with your platforms' needs?
+> 
+> Cheers,
+> 
+> Andrew
