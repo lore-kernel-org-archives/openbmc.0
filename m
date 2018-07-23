@@ -6,58 +6,59 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FWRZn6+t"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="e8x/jC55"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="IlkTQMwh"; dkim-atps=neutral
+ header.b="NHhizLww"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Z4Pw1yHSzDqnM
- for <openbmc@lists.ozlabs.org>; Tue, 24 Jul 2018 00:59:00 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Z4Py1DPFzDqmj
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Jul 2018 00:59:01 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id AD1B121BD5;
- Mon, 23 Jul 2018 10:58:57 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id A0A1721B31;
+ Mon, 23 Jul 2018 10:58:59 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 23 Jul 2018 10:58:57 -0400
+ by compute4.internal (MEProxy); Mon, 23 Jul 2018 10:58:59 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/Rlx6+ZloAwi8DsSR
- Fg665BVeVIjXQotFc9ZLOzBeRI=; b=FWRZn6+txmDpCp0gvyfZl44wbhHaLvQae
- sej8ifGZtGuP63pTuHZZgciTh8s2B7PnBaDzDM+bNOKY77Th83KU/Z/9rz44k/uz
- 0YBhVuHaLaIvpNHHg6rUCYM6RszmAmA/aZlq4NTLHgOrl+FCD36wZOgxRgqouXbw
- npSTPXzYGQ0umRuX9qrmXivZAbQAZKHA/fXeXhHO3MqATnZXtzk1yWONEkoO5+Am
- j2xv6Zv57ryvS6mWKhig0mEUr1fV2j8q0Gv80ue9rFvYvvJINAvtlQ9zV9hMQh+m
- /iQenT6+gZG3/4VT4GFRpDResba48OVv1PRGJ9WpnRHyneVhsJc7Q==
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Azv8XTNXyxGiTlBfJ
+ XdrMWOX1ECnPE9bjWKCUM17NHM=; b=e8x/jC55rstLOWnxVdEuGq9HAiGXiWjiY
+ bWkheARCUPYSYH7gKG+aGn8ZFjrpqkIo51O4CsYp9EyLIe1MKjCK1O5CYDT/JJoX
+ nwC0c8GGxPlFObSP0RkmMHdDPCCwO8iaGY6JbLvdLcKjypdXMScmjUo6E3cLPDnx
+ 5ud+SBmYsUDdBmaT5TvmlbZH2tkgKFWmMikMAtj5kPq3PjsVHIbFt91C9kjxe0Ti
+ NF9QdKJRngDLUun9S1BgKFr/dK7agQzEnxK/UyC/pXQ8LuPqY/A2B99nUSbZn+AE
+ 6rb1faVJSiov6APrz+X+cNU/ymL1a66TGSIppZVfDnraMB3DcuIXQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=/Rlx6+ZloAwi8DsSRFg665BVeVIjXQotFc9ZLOzBeRI=; b=IlkTQMwh
- peEk6GZ8NJQj6AcQb/+FSTlftMqf49b5JwjiKp27pN2S7gFA6FaNEbUg4sfVmtqY
- EbABBGZruCYOg/WjP4NM+IHBBWT20isJ7JQxkBTA7oowIcPV/36JqB7maXqS59Rn
- 7u+G+I5LPf4Nb0sIch5wlk3yugPZxM3eleG0D5DagEKkp6JzCwydaY7v/FcmG1sH
- pNlVYR+XP6eqr1uK+nE8sMFmQUW4oZoezMHEV2LHhU26CCtgNIMuXu+sSN8PmttQ
- BJ8qIWNIPyM95WqrA8Wu/XwLmAh+OYLQLUY0jljyN2UqdfU52iat6H/TRSt1OnP7
- 0ANPnJyqHjCjqA==
-X-ME-Proxy: <xmx:Me1VWz1Zo2j8CX0J4vMpXz966XB0IBh3wu1RQ6N1LuB7rnbTee0a-w>
- <xmx:Me1VW_yFYfUlnkzD0dKYmxHqPMePgCB7mEeU8b-oQRRlyuuBaKS6Hg>
- <xmx:Me1VW-UKkuXnYNaSQtH5EXzbDC8Kejea87928s_DHQTecLwdZcEICQ>
- <xmx:Me1VWxCD3p934O-gKLx4NAF7sRC-SbnOmic2ZEy9k9Gny7AiUu0fcQ>
- <xmx:Me1VW_7hTHi8H2lF6YyBzZZM7pASrXpTrsmmfS-BvlIkLNgrb_9S9g>
- <xmx:Me1VW45TbK78N7d-LpNgotNXIiiCMMctGomYOEuDRjbX9HYoaxjfFQ>
-X-ME-Sender: <xms:Me1VW14bSJZLUd-SX-5msW2Ul_7_LfM_cEKTqic0jCw16n4AS5I5Zw>
+ fm3; bh=Azv8XTNXyxGiTlBfJXdrMWOX1ECnPE9bjWKCUM17NHM=; b=NHhizLww
+ g35HITpuiDCHRJuy9+z5jWPbEKE2DCv1mlqCcRzD4lN4x+Y2onOxCfiaue/xIAUJ
+ HnFuQISC3+Rjgyi6Rgxh6s23hdAKDsrr9mxu66OJOLd0sBQH3fyK+CEJLG+2XYn/
+ 3JcdZNSN3xnSDPpNGtRIm6rUW42a3DGm6hUqf0LNW3rcnouKgkzhgsdarGVE25o3
+ MpCYYehh57NX6jCa9enKUjCxPFHQpQahhCJHTSA9f2/zHpPZdpNS3DyafLGxQgRm
+ sZk7n753RE1b5ruxCcSQDxrvyRGvLWRgz1FxGXljPjGlKNUc2QXIhWtzLBr6qgoh
+ RFBFcMlZtu7V3w==
+X-ME-Proxy: <xmx:M-1VW1tACXZpNkWjS6p42LBSmOzSQtTRVS_5bzor60HMWx9DkjVx3Q>
+ <xmx:M-1VWz6-PqDysup7oR7XcYQOlPD3_KBdtzf65qaRzOktcPAYDSpvgg>
+ <xmx:M-1VW9jT0ZEhu7RFeiUpInOby6TjRS4O8MAwH81JFLRsKtj4AeD0Yw>
+ <xmx:M-1VW9KrPnpGKZygUPDbRDJSE2vMJXAe7CtPYfTZxWujFzV1PCIFag>
+ <xmx:M-1VWzd7U28W3K3KxSkJVACWWak9cAZmxIlVKjTrqGQLVOAAApJYcg>
+ <xmx:M-1VW6AISLGWYTkjBtWtgkV5DpdTpmuz7fYs_H24v4wLj1kcbx-cHA>
+X-ME-Sender: <xms:M-1VW5zEySTVK_mF5angmb6esP-ogL2Tbe5OM2SX_ryFD9uvhkvl_A>
 Received: from localhost.localdomain
  (ppp118-210-173-37.bras2.adl6.internode.on.net [118.210.173.37])
- by mail.messagingengine.com (Postfix) with ESMTPA id E0143E435C;
- Mon, 23 Jul 2018 10:58:55 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id EB146E435C;
+ Mon, 23 Jul 2018 10:58:57 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: Andrew Jeffery <andrew@aj.id.au>,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot 2/4] ast-g4: Fix typo in board_init() comment
-Date: Tue, 24 Jul 2018 00:28:38 +0930
-Message-Id: <20180723145840.17856-3-andrew@aj.id.au>
+Subject: [PATCH u-boot 3/4] arch-aspeed: Make AHBC and SDMC header guards
+ unique
+Date: Tue, 24 Jul 2018 00:28:39 +0930
+Message-Id: <20180723145840.17856-4-andrew@aj.id.au>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20180723145840.17856-1-andrew@aj.id.au>
 References: <20180723145840.17856-1-andrew@aj.id.au>
@@ -72,25 +73,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Jul 2018 14:59:01 -0000
+X-List-Received-Date: Mon, 23 Jul 2018 14:59:02 -0000
+
+Otherwise we get mysterious missing symbols if we include both those and
+the ast-{ahbc,sdmc}.h files.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- board/aspeed/ast-g4/ast-g4.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/include/asm/arch-aspeed/regs-ahbc.h | 4 ++--
+ arch/arm/include/asm/arch-aspeed/regs-sdmc.h | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/board/aspeed/ast-g4/ast-g4.c b/board/aspeed/ast-g4/ast-g4.c
-index cc26a78529bc..656495307b03 100644
---- a/board/aspeed/ast-g4/ast-g4.c
-+++ b/board/aspeed/ast-g4/ast-g4.c
-@@ -19,7 +19,7 @@ DECLARE_GLOBAL_DATA_PTR;
+diff --git a/arch/arm/include/asm/arch-aspeed/regs-ahbc.h b/arch/arm/include/asm/arch-aspeed/regs-ahbc.h
+index 66e29839e8f1..4f403c45d3a5 100644
+--- a/arch/arm/include/asm/arch-aspeed/regs-ahbc.h
++++ b/arch/arm/include/asm/arch-aspeed/regs-ahbc.h
+@@ -10,8 +10,8 @@
+  *    1. 2012/12/29 Ryan Chen Create
+  *
+  ******************************************************************************/
+-#ifndef __AST_AHBC_H
+-#define __AST_AHBC_H
++#ifndef __AST_REGS_AHBC_H
++#define __AST_REGS_AHBC_H
  
- int board_init(void)
- {
--	/* adress of boot parameters */
-+	/* address of boot parameters */
- 	gd->bd->bi_boot_params = CONFIG_SYS_SDRAM_BASE + 0x100;
- 	gd->flags = 0;
- 	return 0;
+ #include <asm/arch/aspeed.h>
+ 
+diff --git a/arch/arm/include/asm/arch-aspeed/regs-sdmc.h b/arch/arm/include/asm/arch-aspeed/regs-sdmc.h
+index 2861f3b2c947..2cc26d29aa9e 100644
+--- a/arch/arm/include/asm/arch-aspeed/regs-sdmc.h
++++ b/arch/arm/include/asm/arch-aspeed/regs-sdmc.h
+@@ -10,8 +10,8 @@
+  *    1. 2012/12/29 Ryan Chen Create
+  *
+  ******************************************************************************/
+-#ifndef __AST_SDMC_H
+-#define __AST_SDMC_H
++#ifndef __AST_REGS_SDMC_H
++#define __AST_REGS_SDMC_H
+ 
+ /*
+  *  Register for SDMC
 -- 
 2.17.1
