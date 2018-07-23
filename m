@@ -1,62 +1,71 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::232; helo=mail-qk0-x232.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hd/JgFEy"; 
- dkim-atps=neutral
-Received: from mail-qk0-x232.google.com (mail-qk0-x232.google.com
- [IPv6:2607:f8b0:400d:c09::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Yrh12jMkzDqnK
- for <openbmc@lists.ozlabs.org>; Mon, 23 Jul 2018 16:10:25 +1000 (AEST)
-Received: by mail-qk0-x232.google.com with SMTP id v17-v6so9498987qkb.11
- for <openbmc@lists.ozlabs.org>; Sun, 22 Jul 2018 23:10:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=OxW70M1AN0lO+g2nRwTVJrkisALa1UV8w2nuqhObNXY=;
- b=hd/JgFEyCHQiOrMQnk4uAnAi0/9KJI0hC9NsoL2HJAEJ2WWgWQ0IY/vTlOmbM7/txD
- RAlaVw+zCpYsK0RTGhS27+PwUZnN+YS8UWZ9rN9VaMGJJUA6nckP4jak1jQQ9hH7+2JN
- CasYwwpg91sits1nV7oqA4AP5IuKUwyNW/z3IdOylz3XG/jqDeTifoUwuXJK6xmmRh8z
- iezg+arhOmWLbAaD68i0UWC6KSmmyV4WS7ynkMzkJ//a71kxV5p/113Lek8fbw0IWFK3
- AI+QlLiGCL5xONrT5AX6CnHj3QVv1qI4jyxV743xP3MnSykXoYUQ6bcM5F4d4M3GzEon
- snYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=OxW70M1AN0lO+g2nRwTVJrkisALa1UV8w2nuqhObNXY=;
- b=a1u4RIYqLPp0rKU3jgVqgJMGUx4+ZST1l3K54UfriT8nyymahG7TAajKtf46jgOZPd
- DTiVUPrTN+Swc0larpGU/ooHQ6LP0h5f2c/oMmri3+A8Xlpr43og8zQdkuIiFIb8mtWT
- QwfEpXTYJVsSe8uM2uNfzUdNYxCLN+0FQ1OgSSptpCqgMWdUMizeOJ8DvGCNgGq43MTz
- BFSsj+vm5j5RJvQiZDaOaj+irofXpCqY04IJQRCTwxEL2/nmTdSLnks7AgBVsy1xw4s4
- iqaPsnI1Xvii4VxabPAX7+jJeVReulfbg8Su4+gnJYyHIeoxx6apwavcDShP2blQmSYf
- Cozw==
-X-Gm-Message-State: AOUpUlFnrkuaV8JcsZxVpyuCjoY4Whanyl2yf8UX5wkpWAx6NI+ETLiz
- Xl6U78uC0ikb6jpo4arFDKFY0JWBxa8+1jNMHDw=
-X-Google-Smtp-Source: AAOMgpfNzsmV7rHRuRCyZf3pf3NNLAggZdeGLb1KuB4OatEiCOJ7SXS5m1C2VZQ5cWYrlU9LFRdM9fpcW6t7JsI1TEA=
-X-Received: by 2002:a37:3692:: with SMTP id
- d140-v6mr9961292qka.385.1532326222410; 
- Sun, 22 Jul 2018 23:10:22 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Z2vn07jbzDqmj
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Jul 2018 23:51:16 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6NDoUft074292
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Jul 2018 09:51:13 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.82])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2kdectwqyh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Jul 2018 09:51:13 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Mon, 23 Jul 2018 13:51:13 -0000
+Received: from us1a3-smtp07.a3.dal06.isc4sb.com (10.146.103.14)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Mon, 23 Jul 2018 13:51:10 -0000
+Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
+ by us1a3-smtp07.a3.dal06.isc4sb.com
+ with ESMTP id 2018072313510972-580899 ;
+ Mon, 23 Jul 2018 13:51:09 +0000 
+Subject: Re: openbmc test work group - wiki
+In-Reply-To: <CALLMt=qUzt55cL47j3+vKOKaqFQpKXiMps0FVJHVwd8jJeF-aQ@mail.gmail.com>
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
+To: geissonator@gmail.com
+Cc: kurt.r.taylor@gmail.com, openbmc@lists.ozlabs.org
+Date: Mon, 23 Jul 2018 13:51:09 +0000
+Sensitivity: 
+References: <CALLMt=qUzt55cL47j3+vKOKaqFQpKXiMps0FVJHVwd8jJeF-aQ@mail.gmail.com>,
+ <OFC1A0F558.EB78B1DD-ON002582D0.00149A34-002582D0.0014CFBF@notes.na.collabserv.com>
+ <d8ebd772-7566-cd23-28f8-b2e98982f2c7@gmail.com>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
+ SCN1812108_20180501T0841 May 01, 2018 at 08:41
+X-LLNOutbound: False
+X-Disclaimed: 19543
+X-TNEFEvaluated: 1
+x-cbid: 18072313-5101-0000-0000-00000B8D9624
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.410169; ST=0; TS=0; UL=0; ISC=; MB=0.000151
+X-IBM-SpamModules-Versions: BY=3.00009417; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01064981; UDB=6.00547025; IPR=6.00842839; 
+ BA=6.00006054; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00022279; XFM=3.00000015;
+ UTC=2018-07-23 13:51:12
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-07-23 09:38:47 - 6.00008739
+x-cbparentid: 18072313-5102-0000-0000-000034CDA3A6
+Message-Id: <OFBC71A75E.C9C8F28D-ON002582D3.004AAE2A-002582D3.004C186B@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: Quoted-printable
 MIME-Version: 1.0
-Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP; Sun, 22 Jul 2018 23:10:21
- -0700 (PDT)
-In-Reply-To: <AM5PR0501MB24497A59951BF691FD6B0D5DB1510@AM5PR0501MB2449.eurprd05.prod.outlook.com>
-References: <CAG9c7cCrNso3WHmGpF+6aPYd=hVXthKDZyXJVAB0uUcT0nh9Bw@mail.gmail.com>
- <AM5PR0501MB244978A9EAA063FB2C393DDAB15C0@AM5PR0501MB2449.eurprd05.prod.outlook.com>
- <CAG9c7cCkEdp_G0VW9ntbfmGAyV9HLGUd6Eta56AKp3vOfisLVg@mail.gmail.com>
- <AM5PR0501MB24497A59951BF691FD6B0D5DB1510@AM5PR0501MB2449.eurprd05.prod.outlook.com>
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Mon, 23 Jul 2018 14:10:21 +0800
-Message-ID: <CAG9c7cB109_oyZYRk3P9J5sGepVxR9YQYCaCnAwPcbBXsqqY7g@mail.gmail.com>
-Subject: Re: [patch v27 0/4] JTAG driver introduction
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000002ab7a70571a48012"
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-23_02:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -68,541 +77,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Jul 2018 06:10:26 -0000
+X-List-Received-Date: Mon, 23 Jul 2018 13:51:17 -0000
 
---0000000000002ab7a70571a48012
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-HI  Oleksandr,
-Sorry I used the mlnx_cpldprog in the master branch previously.
-I could build it successfully after I switched to jtag_class_drv branch.
-
-Thanks.
-BRs,
-Henbin.
-
-2018-07-20 20:38 GMT+08:00 Oleksandr Shamray <oleksandrs@mellanox.com>:
-
-> Hi Henbin.
->
->
->
-> https://github.com/sholeksandr/mellanox-bmc-tools/tree/jtag_class_drv
->
->
->
-> Today I did small changes in mlnx_cpldprog. But why you think that it is
-> too old?
->
->
->
-> Best Regards,
->
-> Oleksandr Shamray
->
->
->
-> *From:* Henbin Chang [mailto:henbinchang@gmail.com]
-> *Sent:* 17 =D0=B8=D1=8E=D0=BB=D1=8F 2018 =D0=B3. 13:57
-> *To:* Oleksandr Shamray <oleksandrs@mellanox.com>
-> *Cc:* OpenBMC Maillist <openbmc@lists.ozlabs.org>
->
-> *Subject:* Re: [patch v27 0/4] JTAG driver introduction
->
->
->
-> Thanks  Oleksandr's  response.
->
->
->
-> I just want to try the mlnx_cpldprog you mentioned.
->
->
->
-> But the mlnx_cpldprog on the github is too old to compile with the JTAG
-> driver (v27.)
->
-> Could you share the revised mlnx_cpldprog ?
->
->
->
-> Thanks.
->
->
->
-> BRs,
->
-> Henbin.
->
->
->
-> 2018-07-17 17:19 GMT+08:00 Oleksandr Shamray <oleksandrs@mellanox.com>:
->
-> Hi  Henbin.
->
->
->
-> > May I know how do you verify the JTAG driver workable?
->
->
->
-> I have ultility which progrm CPLD with using this JTAG driver.
->
->
->
-> You can see it on github:
->
-> https://github.com/sholeksandr/mellanox-bmc-tools/tree/jtag_class_drv/
-> mlnx_cpldprog
->
->
->
-> Best Regards,
->
-> Oleksandr Shamray
->
->
->
-> *From:* Henbin Chang [mailto:henbinchang@gmail.com]
-> *Sent:* 17 =D0=B8=D1=8E=D0=BB=D1=8F 2018 =D0=B3. 5:55
-> *To:* OpenBMC Maillist <openbmc@lists.ozlabs.org>; Oleksandr Shamray <
-> oleksandrs@mellanox.com>
-> *Subject:* Re: [patch v27 0/4] JTAG driver introduction
->
->
->
-> Hi Oleksandr,
->
->
->
-> Sorry to bother you.
->
-> May I know how do you verify the JTAG driver workable?
->
->
->
-> Thanks.
->
-> BRs,
->
-> Henbin
->
->
->
-> When a need raise up to use JTAG interface for system's devices
-> programming or CPU debugging, usually the user layer
-> application implements jtag protocol by bit-bang or using a
-> proprietary connection to vendor hardware.
-> This method can be slow and not generic.
->
-> We propose to implement general JTAG interface and infrastructure
-> to communicate with user layer application. In such way, we can
-> have the standard JTAG interface core part and separation from
-> specific HW implementation.
-> This allow new capability to debug the CPU or program system's
-> device via BMC without additional devices nor cost. This patch purpose is
-> to add JTAG master core infrastructure by
-> defining new JTAG class and provide generic JTAG interface
-> to allow hardware specific drivers to connect this interface.
-> This will enable all JTAG drivers to use the common interface
-> part and will have separate for hardware implementation. The JTAG (Joint
-> Test Action Group) core driver provides minimal generic
-> JTAG interface, which can be used by hardware specific JTAG master
-> controllers. By providing common interface for the JTAG controllers,
-> user space device programing is hardware independent.
->
-> Modern SoC which in use for embedded system' equipped with
-> internal JTAG master interface.
-> This interface is used for programming and debugging system's
-> hardware components, like CPLD, FPGA, CPU, voltage and
-> industrial controllers.
-> Firmware for such devices can be upgraded through JTAG interface during
-> Runtime. The JTAG standard support for multiple devices programming,
-> is in case their lines are daisy-chained together. For example, systems
-> which equipped with host CPU, BMC SoC or/and
-> number of programmable devices are capable to connect a pin and
-> select system components dynamically for programming and debugging,
-> This is using by the BMC which is equipped with internal SoC master
-> controller.
-> For example: BMC JTAG master --> pin selected to CPLDs chain for
-> programming (filed
-> upgrade, production)
-> BMC JTAG master --> pin selected to voltage monitors for programming
-> (field upgrade, production)
-> BMC JTAG master --> pin selected to host CPU (on-site debugging
-> and developers debugging) For example, we can have application in user
-> space which using calls
-> to JTAG driver executes CPLD programming directly from SVF file
->
-> The JTAG standard (IEEE 1149.1) defines the next connector pins:
-> - TDI (Test Data In);
-> - TDO (Test Data Out);
-> - TCK (Test Clock);
-> - TMS (Test Mode Select);
-> - TRST (Test Reset) (Optional); The SoC equipped with JTAG master
-> controller, performs
-> device programming on command or vector level. For example
-> a file in a standard SVF (Serial Vector Format) that contains
-> boundary scan vectors, can be used by sending each vector
-> to the JTAG interface and the JTAG controller will execute
-> the programming. Initial version provides the system calls set for:
-> - SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);
-> - SDR (Scan Data Register, IEEE 1149.1 Data Register scan);
-> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
-> number of clocks. SoC which are not equipped with JTAG master interface,
-> can be built
-> on top of JTAG core driver infrastructure, by applying bit-banging of
-> TDI, TDO, TCK and TMS pins within the hardware specific driver. Oleksandr
-> Shamray (4):
-> drivers: jtag: Add JTAG core driver
-> drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
-> driver
-> Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
-> families JTAG master driver
-> Documentation: jtag: Add ABI documentation Documentation/ABI/testing/jtag=
--dev
-> | 23 +
-> .../devicetree/bindings/jtag/aspeed-jtag.txt | 22 +
-> Documentation/ioctl/ioctl-number.txt | 2 +
-> Documentation/jtag/overview | 27 +
-> Documentation/jtag/transactions | 109 +++
-> MAINTAINERS | 10 +
-> drivers/Kconfig | 2 +
-> drivers/Makefile | 1 +
-> drivers/jtag/Kconfig | 31 +
-> drivers/jtag/Makefile | 2 +
-> drivers/jtag/jtag-aspeed.c | 747 ++++++++++++++++++++
-> drivers/jtag/jtag.c | 274 +++++++
-> include/linux/jtag.h | 41 ++
-> include/uapi/linux/jtag.h | 109 +++
-> 14 files changed, 1400 insertions(+), 0 deletions(-)
-> create mode 100644 Documentation/ABI/testing/jtag-dev
-> create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
-> create mode 100644 Documentation/jtag/overview
-> create mode 100644 Documentation/jtag/transactions
-> create mode 100644 drivers/jtag/Kconfig
-> create mode 100644 drivers/jtag/Makefile
-> create mode 100644 drivers/jtag/jtag-aspeed.c
-> create mode 100644 drivers/jtag/jtag.c
-> create mode 100644 include/linux/jtag.h
-> create mode 100644 include/uapi/linux/jtag.h
->
->
->
-
---0000000000002ab7a70571a48012
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">HI=C2=A0
-
-<span style=3D"font-size:14px;text-decoration-style:initial;text-decoration=
--color:initial;float:none;display:inline">Oleksandr,</span><div><span style=
-=3D"font-size:14px;text-decoration-style:initial;text-decoration-color:init=
-ial;float:none;display:inline">Sorry I used the mlnx_cpldprog in the master=
- branch previously.</span></div><div><span style=3D"font-size:14px;text-dec=
-oration-style:initial;text-decoration-color:initial;float:none;display:inli=
-ne">I could build it successfully after I switched to=C2=A0</span><span sty=
-le=3D"white-space:pre-wrap;font-size:14px">jtag_class_drv branch.</span></d=
-iv><div><span style=3D"white-space:pre-wrap;font-size:14px"><br></span></di=
-v><div><span style=3D"white-space:pre-wrap;font-size:14px">Thanks.</span></=
-div><div><span style=3D"white-space:pre-wrap;font-size:14px">BRs,</span></d=
-iv><div><span style=3D"white-space:pre-wrap;font-size:14px">Henbin.</span><=
-/div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">2018-0=
-7-20 20:38 GMT+08:00 Oleksandr Shamray <span dir=3D"ltr">&lt;<a href=3D"mai=
-lto:oleksandrs@mellanox.com" target=3D"_blank">oleksandrs@mellanox.com</a>&=
-gt;</span>:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex=
-;border-left:1px #ccc solid;padding-left:1ex">
-
-
-
-
-
-<div lang=3D"RU" link=3D"blue" vlink=3D"purple">
-<div class=3D"m_-341526297433959713WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi </span>
-Henbin<span lang=3D"EN-US">.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><a href=3D"https://github.com/s=
-holeksandr/mellanox-bmc-tools/tree/jtag_class_drv" target=3D"_blank">https:=
-//github.com/<wbr>sholeksandr/mellanox-bmc-<wbr>tools/tree/jtag_class_drv</=
-a><u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-<wbr>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Today I did small changes in
-</span><span lang=3D"EN-US" style=3D"font-size:12.0pt;background:white">mln=
-x_cpldprog. But why you think that it is too old?
-</span><span lang=3D"EN-US"><u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Best Regards,<u></u><u></u></sp=
-an></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Oleksandr Shamray<u></u><u></u>=
-</span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #e1e1e1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
-=3D"EN-US"> Henbin Chang [mailto:<a href=3D"mailto:henbinchang@gmail.com" t=
-arget=3D"_blank">henbinchang@gmail.com</a>]
-<br>
-<b>Sent:</b> 17 =D0=B8=D1=8E=D0=BB=D1=8F 2018 =D0=B3. 13:57<br>
-<b>To:</b> Oleksandr Shamray &lt;<a href=3D"mailto:oleksandrs@mellanox.com"=
- target=3D"_blank">oleksandrs@mellanox.com</a>&gt;<br>
-<b>Cc:</b> OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org"=
- target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;</span></p><div><div cla=
-ss=3D"h5"><br>
-<b>Subject:</b> Re: [patch v27 0/4] JTAG driver introduction<u></u><u></u><=
-/div></div><p></p>
-</div>
-</div><div><div class=3D"h5">
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">Thanks=C2=A0 <span style=3D"font-size:10.5pt">Oleksa=
-ndr&#39;s=C2=A0 response.</span><u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">I just want to try the=C2=A0mlnx_cpldprog you mentio=
-ned.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">But the mlnx_cpldprog on the github is too old to co=
-mpile with the JTAG driver (v27.)<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Could you share the revised=C2=A0<span style=3D"font=
--size:12.0pt;background:white">mlnx_cpldprog=C2=A0?</span><u></u><u></u></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;background:white">Th=
-anks.</span><u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">BRs,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Henbin.<u></u><u></u></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">2018-07-17 17:19 GMT+08:00 Oleksandr Shamray &lt;<a =
-href=3D"mailto:oleksandrs@mellanox.com" target=3D"_blank">oleksandrs@mellan=
-ox.com</a>&gt;:<u></u><u></u></p>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0c=
-m 0cm 0cm 6.0pt;margin-left:4.8pt;margin-right:0cm">
-<div>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi =C2=A0Henbin.</span><u></u><=
-u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">=C2=A0</span><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&gt; May I know how do you veri=
-fy the JTAG driver workable?</span><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">=C2=A0</span><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I have ultility which progrm CP=
-LD with using this JTAG driver.</span><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">=C2=A0</span><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">You can see it on github:</span=
-><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><a href=3D"https://github.com/s=
-holeksandr/mellanox-bmc-tools/tree/jtag_class_drv/mlnx_cpldprog" target=3D"=
-_blank">https://github.com/<wbr>sholeksandr/mellanox-bmc-<wbr>tools/tree/jt=
-ag_class_drv/<wbr>mlnx_cpldprog</a></span><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">=C2=A0</span><u></u><u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Best Regards,</span><u></u><u><=
-/u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Oleksandr Shamray</span><u></u>=
-<u></u></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">=C2=A0</span><u></u><u></u></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #e1e1e1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
-=3D"EN-US"> Henbin Chang [mailto:<a href=3D"mailto:henbinchang@gmail.com" t=
-arget=3D"_blank">henbinchang@gmail.com</a>]
-<br>
-<b>Sent:</b> 17 =D0=B8=D1=8E=D0=BB=D1=8F 2018 =D0=B3. 5:55<br>
-<b>To:</b> OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org"=
- target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;; Oleksandr Shamray &lt;=
-<a href=3D"mailto:oleksandrs@mellanox.com" target=3D"_blank">oleksandrs@mel=
-lanox.com</a>&gt;<br>
-<b>Subject:</b> Re: [patch v27 0/4] JTAG driver introduction</span><u></u><=
-u></u></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">Hi=C2=A0Oleksandr,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Sorry to bother you.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">May I know how do you verify the JTAG driver workabl=
-e?<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">BRs,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Henbin<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
-</div>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0c=
-m 0cm 0cm 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0cm;margin-=
-bottom:5.0pt">
-<p class=3D"MsoNormal">When a need raise up to use JTAG interface for syste=
-m&#39;s devices<br>
-programming or CPU debugging, usually the user layer<br>
-application implements jtag protocol by bit-bang or using a <br>
-proprietary connection to vendor hardware.<br>
-This method can be slow and not generic.<br>
-<br>
-We propose to implement general JTAG interface and infrastructure<br>
-to communicate with user layer application. In such way, we can<br>
-have the standard JTAG interface core part and separation from<br>
-specific HW implementation.<br>
-This allow new capability to debug the CPU or program system&#39;s <br>
-device via BMC without additional devices nor cost. This patch purpose is t=
-o add JTAG master core infrastructure by
-<br>
-defining new JTAG class and provide generic JTAG interface<br>
-to allow hardware specific drivers to connect this interface.<br>
-This will enable all JTAG drivers to use the common interface<br>
-part and will have separate for hardware implementation. The JTAG (Joint Te=
-st Action Group) core driver provides minimal generic<br>
-JTAG interface, which can be used by hardware specific JTAG master<br>
-controllers. By providing common interface for the JTAG controllers,<br>
-user space device programing is hardware independent.<br>
-<br>
-Modern SoC which in use for embedded system&#39; equipped with<br>
-internal JTAG master interface.<br>
-This interface is used for programming and debugging system&#39;s<br>
-hardware components, like CPLD, FPGA, CPU, voltage and<br>
-industrial controllers.<br>
-Firmware for such devices can be upgraded through JTAG interface during<br>
-Runtime. The JTAG standard support for multiple devices programming,<br>
-is in case their lines are daisy-chained together. For example, systems whi=
-ch equipped with host CPU, BMC SoC or/and
-<br>
-number of programmable devices are capable to connect a pin and<br>
-select system components dynamically for programming and debugging,<br>
-This is using by the BMC which is equipped with internal SoC master<br>
-controller.<br>
-For example: BMC JTAG master --&gt; pin selected to CPLDs chain for program=
-ming (filed<br>
-upgrade, production) <br>
-BMC JTAG master --&gt; pin selected to voltage monitors for programming <br=
->
-(field upgrade, production) <br>
-BMC JTAG master --&gt; pin selected to host CPU (on-site debugging <br>
-and developers debugging) For example, we can have application in user spac=
-e which using calls<br>
-to JTAG driver executes CPLD programming directly from SVF file<br>
-<br>
-The JTAG standard (IEEE 1149.1) defines the next connector pins:<br>
-- TDI (Test Data In);<br>
-- TDO (Test Data Out);<br>
-- TCK (Test Clock);<br>
-- TMS (Test Mode Select);<br>
-- TRST (Test Reset) (Optional); The SoC equipped with JTAG master controlle=
-r, performs<br>
-device programming on command or vector level. For example<br>
-a file in a standard SVF (Serial Vector Format) that contains<br>
-boundary scan vectors, can be used by sending each vector<br>
-to the JTAG interface and the JTAG controller will execute<br>
-the programming. Initial version provides the system calls set for:<br>
-- SIR (Scan Instruction Register, IEEE 1149.1 Instruction Register scan);<b=
-r>
-- SDR (Scan Data Register, IEEE 1149.1 Data Register scan);<br>
-- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified<br>
-number of clocks. SoC which are not equipped with JTAG master interface, ca=
-n be built<br>
-on top of JTAG core driver infrastructure, by applying bit-banging of<br>
-TDI, TDO, TCK and TMS pins within the hardware specific driver. Oleksandr S=
-hamray (4):<br>
-drivers: jtag: Add JTAG core driver<br>
-drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master<br>
-driver<br>
-Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx<br>
-families JTAG master driver<br>
-Documentation: jtag: Add ABI documentation Documentation/ABI/testing/<wbr>j=
-tag-dev | 23 +<br>
-.../devicetree/bindings/jtag/<wbr>aspeed-jtag.txt | 22 +<br>
-Documentation/ioctl/ioctl-<wbr>number.txt | 2 +<br>
-Documentation/jtag/overview | 27 +<br>
-Documentation/jtag/<wbr>transactions | 109 +++<br>
-MAINTAINERS | 10 +<br>
-drivers/Kconfig | 2 +<br>
-drivers/Makefile | 1 +<br>
-drivers/jtag/Kconfig | 31 +<br>
-drivers/jtag/Makefile | 2 +<br>
-drivers/jtag/jtag-aspeed.c | 747 ++++++++++++++++++++<br>
-drivers/jtag/jtag.c | 274 +++++++<br>
-include/linux/jtag.h | 41 ++<br>
-include/uapi/linux/jtag.h | 109 +++<br>
-14 files changed, 1400 insertions(+), 0 deletions(-)<br>
-create mode 100644 Documentation/ABI/testing/<wbr>jtag-dev<br>
-create mode 100644 Documentation/devicetree/<wbr>bindings/jtag/aspeed-jtag.=
-txt<br>
-create mode 100644 Documentation/jtag/overview<br>
-create mode 100644 Documentation/jtag/<wbr>transactions<br>
-create mode 100644 drivers/jtag/Kconfig<br>
-create mode 100644 drivers/jtag/Makefile<br>
-create mode 100644 drivers/jtag/jtag-aspeed.c<br>
-create mode 100644 drivers/jtag/jtag.c<br>
-create mode 100644 include/linux/jtag.h<br>
-create mode 100644 include/uapi/linux/jtag.h<u></u><u></u></p>
-</blockquote>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div></div></div>
-</div>
-</div>
-
-</blockquote></div><br></div>
-
---0000000000002ab7a70571a48012--
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Thank you Brad Bi=
+shop (For offline review),&nbsp; Kurt Taylor and Andrew Geissler for your k=
+ind support.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Yes CI can be included.</div>
+<div dir=3D"ltr" >( In my opinion, If we want to do good CI, we may have to=
+ do more left shift from CT bucket</div>
+<div dir=3D"ltr" >as well). Dynamic CI, It should be. If major code drop as=
+sociate with a feature/Area,</div>
+<div dir=3D"ltr" >then test bucket of that CT bucket should be executed as =
+part of CI. We can discuss on this.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >For eg. IPMI user management features getting enabled the=
+n entire IPMI bucket can be run part of CI.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Test work group meeting:</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >As test based on release planning, Would like to have thi=
+s meeting&nbsp; either on the same day after the release plan meeting or a =
+day after the release plan meeting.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Currently release plan meeting happens on Thursday 3 PM C=
+ST.</div>
+<div dir=3D"ltr" >Proposal to have test work group meeting is either on Thu=
+rsday evening 7 or 8 PM CST.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Thank you again for all your inputs.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"fo=
+nt-family:Arial;font-size:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D=
+"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div class=3D"socmailde=
+faultfont" dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div c=
+lass=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;font-siz=
+e:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-fami=
+ly:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"margin-top: 20px;" ><=
+div style=3D"font-size: 12pt; font-weight: bold; font-family: sans-serif; c=
+olor: #7C7C5F;" >Sivas R. S</div>
+<div style=3D"font-size: 8pt; font-family: sans-serif; margin-top: 10px;" >=
+<div><span style=3D"font-weight: bold; color: #336699;" >E-mail: </span><a =
+href=3D"mailto:sivas.srr@in.ibm.com" style=3D"color: #555">sivas.srr@in.ibm=
+.com</a></div>
+<div>E2E FSP Test Architecture, OpenBMC Test Lead, Lab Management</div>
+<div>Automation is good, Identifying Defect earlier is better always</div>
+<div>9902233500</div>
+<div>08046678273</div></div></div></div></div></div></div></div></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
+-left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
+margin-right:0px" >----- Original message -----<br>From: Andrew Geissler &l=
+t;geissonator@gmail.com&gt;<br>Sent by: "openbmc" &lt;openbmc-bounces+sivas=
+.srr=3Din.ibm.com@lists.ozlabs.org&gt;<br>To: Kurt Taylor &lt;kurt.r.taylor=
+@gmail.com&gt;<br>Cc: OpenBMC Maillist &lt;openbmc@lists.ozlabs.org&gt;<br>=
+Subject: Re: openbmc test work group - wiki<br>Date: Fri, Jul 20, 2018 11:1=
+2 PM<br>&nbsp;<br><tt><font size=3D"3" face=3D"" >On Fri, Jul 20, 2018 at 1=
+0:58 AM krtaylor &lt;kurt.r.taylor@gmail.com&gt; wrote:</font></tt><br><tt>=
+<font size=3D"3" face=3D"" >&gt;</font></tt><br><tt><font size=3D"3" face=
+=3D"" >&gt;&nbsp;On 7/19/18 10:47 PM, Sivas Srr wrote:</font></tt><br><tt><=
+font size=3D"3" face=3D"" >&gt;</font></tt><br><tt><font size=3D"3" face=3D=
+"" >&gt;</font></tt><br><tt><font size=3D"3" face=3D"" >&gt;&nbsp;Hi All,</=
+font></tt><br><tt><font size=3D"3" face=3D"" >&gt;</font></tt><br><tt><font=
+ size=3D"3" face=3D"" >&gt;&nbsp;Have <a href=3D"https://github.com/openbmc=
+/openbmc/wiki/Test-work---group" target=3D"_blank">https://github.com/openb=
+mc/openbmc/wiki/Test-work---group</a> &nbsp;created this page in our</font>=
+</tt><br><tt><font size=3D"3" face=3D"" >&gt;&nbsp;wiki for upcoming test w=
+ork group. Please review and provide your inputs / raise questions if you n=
+eed any clarification.</font></tt><br><tt><font size=3D"3" face=3D"" >&gt;<=
+/font></tt><br><tt><font size=3D"3" face=3D"" >&gt;</font></tt><br><tt><fon=
+t size=3D"3" face=3D"" >&gt;&nbsp;Thanks Sivas! I'll join and help however =
+I can. When would be a good time for a kickoff meeting?</font></tt><br><tt>=
+<font size=3D"3" face=3D"" >&gt;</font></tt><br><tt><font size=3D"3" face=
+=3D"" >&gt;&nbsp;It looks like the initial list is a good summary, where do=
+ we start, what is the most painful thing to fix? Also, is there room for r=
+emote (third-party) CI testing in this WG?</font></tt><br><br><tt><font siz=
+e=3D"3" face=3D"" >Second this one, Brad and I were just chatting a bit on =
+this the other</font></tt><br><tt><font size=3D"3" face=3D"" >day, how coul=
+d we scale the HW CI testing with third parties. &nbsp;Would</font></tt><br=
+><tt><font size=3D"3" face=3D"" >def like it if we could discuss within thi=
+s WG (and any other</font></tt><br><tt><font size=3D"3" face=3D"" >improvem=
+ents to our CI process)</font></tt><br><br><tt><font size=3D"3" face=3D"" >=
+&gt;</font></tt><br><tt><font size=3D"3" face=3D"" >&gt;&nbsp;Kurt Taylor (=
+krtaylor)</font></tt><br><tt><font size=3D"3" face=3D"" >&gt;</font></tt><b=
+r><tt><font size=3D"3" face=3D"" >&gt;&nbsp;Sivas R. S</font></tt><br><tt><=
+font size=3D"3" face=3D"" >&gt;&nbsp;E-mail: sivas.srr@in.ibm.com</font></t=
+t><br><tt><font size=3D"3" face=3D"" >&gt;</font></tt><br><tt><font size=3D=
+"3" face=3D"" >&gt;&nbsp;Automation is good, Identifying Defect earlier is =
+better always</font></tt><br><tt><font size=3D"3" face=3D"" >&gt;&nbsp;9902=
+233500</font></tt><br><tt><font size=3D"3" face=3D"" >&gt;&nbsp;08046678273=
+</font></tt><br><tt><font size=3D"3" face=3D"" >&gt;</font></tt><br><tt><fo=
+nt size=3D"3" face=3D"" >&gt;</font></tt></blockquote>
+<div dir=3D"ltr" >&nbsp;</div></div><BR>
