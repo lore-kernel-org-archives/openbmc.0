@@ -6,58 +6,61 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="f1/LWnPq"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FWRZn6+t"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="nsiZMspj"; dkim-atps=neutral
+ header.b="IlkTQMwh"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Z4Ps59PtzDqmj
- for <openbmc@lists.ozlabs.org>; Tue, 24 Jul 2018 00:58:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Z4Pw1yHSzDqnM
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Jul 2018 00:59:00 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C6B3221751;
- Mon, 23 Jul 2018 10:58:53 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id AD1B121BD5;
+ Mon, 23 Jul 2018 10:58:57 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 23 Jul 2018 10:58:53 -0400
+ by compute4.internal (MEProxy); Mon, 23 Jul 2018 10:58:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=PI1+/Ga5URs1iKNiPqApuidaTFcumPBXP8a0LkCqU
- qM=; b=f1/LWnPqQZfMvaSHLWRdCT4OMWBkGROx8aLH3MAqSzLt/sjrwLugrbnMl
- L9bk4XVIxsgyiwzds4hzx2hB3ITec01vK1JDXY9zrwY2fx5KLVQPXyak+eoIzpwl
- l2O+MLrir8ayalY1/8ZJVBIvG8/m9zHc1JaQYHTLopnSat6q4S2BPG2ikrI8R8q6
- S3IAgcVWOC/3woY1Wag2NrKDPYB7hhjM9ERDWbvSLzUrIjo07bPBErNq22swUE28
- jP5rjL+1uzxSU8nixAbTKfQCbWpW2EFxzDBEWcVgkHzcpt1qG0JQS3SG/KOZ3A0w
- QZnHBhIGWJoUqai74SterBa/hlijg==
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/Rlx6+ZloAwi8DsSR
+ Fg665BVeVIjXQotFc9ZLOzBeRI=; b=FWRZn6+txmDpCp0gvyfZl44wbhHaLvQae
+ sej8ifGZtGuP63pTuHZZgciTh8s2B7PnBaDzDM+bNOKY77Th83KU/Z/9rz44k/uz
+ 0YBhVuHaLaIvpNHHg6rUCYM6RszmAmA/aZlq4NTLHgOrl+FCD36wZOgxRgqouXbw
+ npSTPXzYGQ0umRuX9qrmXivZAbQAZKHA/fXeXhHO3MqATnZXtzk1yWONEkoO5+Am
+ j2xv6Zv57ryvS6mWKhig0mEUr1fV2j8q0Gv80ue9rFvYvvJINAvtlQ9zV9hMQh+m
+ /iQenT6+gZG3/4VT4GFRpDResba48OVv1PRGJ9WpnRHyneVhsJc7Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=PI1+/Ga5URs1iKNiP
- qApuidaTFcumPBXP8a0LkCqUqM=; b=nsiZMspjs9N1NDrt+IIlqLt67wes/R24N
- i3t6hOT8sub8mRbAsxn6L9dT3hYhrkvO45qKMjF7wFNOxOUUuxYDWu0oD9TCFzuq
- P48cOakSOxFzRbIfO6y7FlzuzEEbuGHcISil1pQiHhhd+6ncVA7KhwyPWUswdDVl
- QU24zdzSwXtuOj5YHX5Hvm7x1BSfnlmg1O6ZD2dwqrT3LoGyfuzex2LWX9EEIumO
- WtLDvW8AJuJeBJu5NwYzt/xrA0bERHOmurG+1E3EzrgK7zne8bCHN7wefMflvZfX
- bacg2SgCgXL0+/085ltJqZscD1m42bO3hzRQg11tAzNCDG5rF6Gjw==
-X-ME-Proxy: <xmx:Le1VW7wUbMUzudlk8YJc9yYI4bkt80QAZjNxoE0oktipVMYtl9ljVw>
- <xmx:Le1VW035o4EE4Cw_Zico3Q6NSIcHKFT3XC7vh4Z3KS5xQnwhdFXLwQ>
- <xmx:Le1VW0nqUmRuBsrAnWGARMvkOyyCuTFuwqADIzyRp5H3m_GyketCjQ>
- <xmx:Le1VW78oFqpIhLrxSRsqNODxyjdCudeq1gwfNqIzDhpS9JDjxfmAxA>
- <xmx:Le1VWyIBuE8NORCETeR3WaKHxBzdL4P9SDGx5Ul5TB0TJA61WyLGxA>
- <xmx:Le1VW66e0j6LFqGdb-d2Fd_HhTS6mpGS99ptqKcbppurJMwwhkhBfQ>
-X-ME-Sender: <xms:Le1VW1wfC1NIH2swEUB03d_lMVG5wUQQ-j4-80IYv_diBCnY0gueLg>
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=/Rlx6+ZloAwi8DsSRFg665BVeVIjXQotFc9ZLOzBeRI=; b=IlkTQMwh
+ peEk6GZ8NJQj6AcQb/+FSTlftMqf49b5JwjiKp27pN2S7gFA6FaNEbUg4sfVmtqY
+ EbABBGZruCYOg/WjP4NM+IHBBWT20isJ7JQxkBTA7oowIcPV/36JqB7maXqS59Rn
+ 7u+G+I5LPf4Nb0sIch5wlk3yugPZxM3eleG0D5DagEKkp6JzCwydaY7v/FcmG1sH
+ pNlVYR+XP6eqr1uK+nE8sMFmQUW4oZoezMHEV2LHhU26CCtgNIMuXu+sSN8PmttQ
+ BJ8qIWNIPyM95WqrA8Wu/XwLmAh+OYLQLUY0jljyN2UqdfU52iat6H/TRSt1OnP7
+ 0ANPnJyqHjCjqA==
+X-ME-Proxy: <xmx:Me1VWz1Zo2j8CX0J4vMpXz966XB0IBh3wu1RQ6N1LuB7rnbTee0a-w>
+ <xmx:Me1VW_yFYfUlnkzD0dKYmxHqPMePgCB7mEeU8b-oQRRlyuuBaKS6Hg>
+ <xmx:Me1VW-UKkuXnYNaSQtH5EXzbDC8Kejea87928s_DHQTecLwdZcEICQ>
+ <xmx:Me1VWxCD3p934O-gKLx4NAF7sRC-SbnOmic2ZEy9k9Gny7AiUu0fcQ>
+ <xmx:Me1VW_7hTHi8H2lF6YyBzZZM7pASrXpTrsmmfS-BvlIkLNgrb_9S9g>
+ <xmx:Me1VW45TbK78N7d-LpNgotNXIiiCMMctGomYOEuDRjbX9HYoaxjfFQ>
+X-ME-Sender: <xms:Me1VW14bSJZLUd-SX-5msW2Ul_7_LfM_cEKTqic0jCw16n4AS5I5Zw>
 Received: from localhost.localdomain
  (ppp118-210-173-37.bras2.adl6.internode.on.net [118.210.173.37])
- by mail.messagingengine.com (Postfix) with ESMTPA id F0ED5E4314;
- Mon, 23 Jul 2018 10:58:51 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id E0143E435C;
+ Mon, 23 Jul 2018 10:58:55 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: Andrew Jeffery <andrew@aj.id.au>,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot 0/4] Cleanups and disable unnecessary features
-Date: Tue, 24 Jul 2018 00:28:36 +0930
-Message-Id: <20180723145840.17856-1-andrew@aj.id.au>
+Subject: [PATCH u-boot 2/4] ast-g4: Fix typo in board_init() comment
+Date: Tue, 24 Jul 2018 00:28:38 +0930
+Message-Id: <20180723145840.17856-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20180723145840.17856-1-andrew@aj.id.au>
+References: <20180723145840.17856-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -71,33 +74,23 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 23 Jul 2018 14:59:01 -0000
 
-Hello,
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ board/aspeed/ast-g4/ast-g4.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This series is a mishmash of cleanups with an added dash of disabling value-add
-features that we don't require during normal BMC operation. It has been tested
-on OpenPOWER Palmetto (AST2400) and Witherspoon (AST2500) platforms.
-
-Please review!
-
-Cheers,
-
-Andrew
-
-Andrew Jeffery (4):
-  checkpatch: Fix unescaped brace warning
-  ast-g4: Fix typo in board_init() comment
-  arch-aspeed: Make AHBC and SDMC header guards unique
-  aspeed: Disable unnecessary features
-
- arch/arm/include/asm/arch-aspeed/regs-ahbc.h |  4 +-
- arch/arm/include/asm/arch-aspeed/regs-lpc.h  | 29 +++++++++++++++
- arch/arm/include/asm/arch-aspeed/regs-scu.h  |  8 +++-
- arch/arm/include/asm/arch-aspeed/regs-sdmc.h |  8 +++-
- board/aspeed/ast-g4/ast-g4.c                 | 35 +++++++++++++++++-
- board/aspeed/ast-g5/ast-g5.c                 | 39 +++++++++++++++++++-
- scripts/checkpatch.pl                        |  2 +-
- 7 files changed, 116 insertions(+), 9 deletions(-)
- create mode 100644 arch/arm/include/asm/arch-aspeed/regs-lpc.h
-
+diff --git a/board/aspeed/ast-g4/ast-g4.c b/board/aspeed/ast-g4/ast-g4.c
+index cc26a78529bc..656495307b03 100644
+--- a/board/aspeed/ast-g4/ast-g4.c
++++ b/board/aspeed/ast-g4/ast-g4.c
+@@ -19,7 +19,7 @@ DECLARE_GLOBAL_DATA_PTR;
+ 
+ int board_init(void)
+ {
+-	/* adress of boot parameters */
++	/* address of boot parameters */
+ 	gd->bd->bi_boot_params = CONFIG_SYS_SDRAM_BASE + 0x100;
+ 	gd->flags = 0;
+ 	return 0;
 -- 
 2.17.1
