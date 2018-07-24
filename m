@@ -1,40 +1,83 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Zlm04DKTzDq6t;
- Wed, 25 Jul 2018 03:31:58 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2018 10:31:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,398,1526367600"; d="scan'208";a="57537502"
-Received: from maru.jf.intel.com ([10.54.51.80])
- by fmsmga008.fm.intel.com with ESMTP; 24 Jul 2018 10:31:33 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH v2] i2c: aspeed: Handle master/slave combined irq events
- properly
-Date: Tue, 24 Jul 2018 10:31:23 -0700
-Message-Id: <20180724173123.4377-1-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.18.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Zqlg6JHHzDrH0
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Jul 2018 06:31:59 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6OKTYO9023511
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Jul 2018 16:31:57 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ke7nhh58q-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Jul 2018 16:31:56 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Tue, 24 Jul 2018 16:31:55 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 24 Jul 2018 16:31:52 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w6OKVp7Z17105308
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 24 Jul 2018 20:31:51 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6D2EE112066;
+ Tue, 24 Jul 2018 16:31:37 -0400 (EDT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DD372112061;
+ Tue, 24 Jul 2018 16:31:36 -0400 (EDT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 24 Jul 2018 16:31:36 -0400 (EDT)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 24 Jul 2018 15:38:05 -0500
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: Sai Dasari <sdasari@fb.com>
+Cc: Vernon Mauery <vernon.mauery@linux.intel.com>, Patrick Venture
+ <venture@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, openbmc
+ <openbmc-bounces+mspinler=linux.vnet.ibm.com@lists.ozlabs.org>
+Subject: Re: In-Band Firmware Update
+In-Reply-To: <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
+References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
+ <20180723221837.GI105329@mauery>
+ <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
+X-Sender: mspinler@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18072420-0068-0000-0000-0000031CDDF7
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009424; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01065595; UDB=6.00547393; IPR=6.00843453; 
+ MB=3.00022306; MTD=3.00000008; XFM=3.00000015; UTC=2018-07-24 20:31:54
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18072420-0069-0000-0000-000045258A5F
+Message-Id: <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-24_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807240216
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -46,328 +89,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Jul 2018 17:32:01 -0000
+X-List-Received-Date: Tue, 24 Jul 2018 20:32:00 -0000
 
-In most of cases, interrupt bits are set one by one but there are
-also a lot of other cases that Aspeed I2C IP sends multiple
-interrupt bits with combining master and slave events using a
-single interrupt call. It happens much more in multi-master
-environment than single-master. For an example, when master is
-waiting for a NORMAL_STOP interrupt in its MASTER_STOP state,
-SLAVE_MATCH and RX_DONE interrupts could come along with the
-NORMAL_STOP in case of an another master immediately sends data
-just after acquiring the bus. In this case, the NORMAL_STOP
-interrupt should be handled by master_irq and the SLAVE_MATCH and
-RX_DONE interrupts should be handled by slave_irq. This commit
-modifies irq hadling logic to handle the master/slave combined
-events properly.
+On 2018-07-23 19:13, Sai Dasari wrote:
 
-Changes since v1:
-- Fixed a grammer issue in commit message.
-- Added a missing line feed character into a message printing.
+> Any thoughts on reusing/leveraging the PICMG's hpm spec @
+> https://www.picmg.org/openstandards/hardware-platform-management/ .
+> One of the benefit would be the standard 'ipmitool' has native support
+> for the update and changes are limited to BMC f/w.
+> On a downside, the firmware binary has to be repackaged as .hpm format
+> for this protocol to do some preparation steps as it support multiple
+> f/w components in a single package.
 
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
----
- drivers/i2c/busses/i2c-aspeed.c | 135 ++++++++++++++++++--------------
- 1 file changed, 75 insertions(+), 60 deletions(-)
+This was brought up a few months ago and decided against:
+https://lists.ozlabs.org/pipermail/openbmc/2017-November/009938.html
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index efb89422d496..75431e305073 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -82,6 +82,11 @@
- #define ASPEED_I2CD_INTR_RX_DONE			BIT(2)
- #define ASPEED_I2CD_INTR_TX_NAK				BIT(1)
- #define ASPEED_I2CD_INTR_TX_ACK				BIT(0)
-+#define ASPEED_I2CD_INTR_ERRORS						       \
-+		(ASPEED_I2CD_INTR_SDA_DL_TIMEOUT |			       \
-+		 ASPEED_I2CD_INTR_SCL_TIMEOUT |				       \
-+		 ASPEED_I2CD_INTR_ABNORMAL |				       \
-+		 ASPEED_I2CD_INTR_ARBIT_LOSS)
- #define ASPEED_I2CD_INTR_ALL						       \
- 		(ASPEED_I2CD_INTR_SDA_DL_TIMEOUT |			       \
- 		 ASPEED_I2CD_INTR_BUS_RECOVER_DONE |			       \
-@@ -150,6 +155,7 @@ struct aspeed_i2c_bus {
- 	int				cmd_err;
- 	/* Protected only by i2c_lock_bus */
- 	int				master_xfer_result;
-+	u32				irq_status;
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- 	struct i2c_client		*slave;
- 	enum aspeed_i2c_slave_state	slave_state;
-@@ -229,36 +235,30 @@ static int aspeed_i2c_recover_bus(struct aspeed_i2c_bus *bus)
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
- {
--	u32 command, irq_status, status_ack = 0;
-+	u32 command, status_ack = 0;
- 	struct i2c_client *slave = bus->slave;
--	bool irq_handled = true;
- 	u8 value;
- 
--	if (!slave) {
--		irq_handled = false;
--		goto out;
--	}
-+	if (!slave)
-+		return false;
- 
- 	command = readl(bus->base + ASPEED_I2C_CMD_REG);
--	irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
- 
- 	/* Slave was requested, restart state machine. */
--	if (irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH) {
-+	if (bus->irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH) {
- 		status_ack |= ASPEED_I2CD_INTR_SLAVE_MATCH;
- 		bus->slave_state = ASPEED_I2C_SLAVE_START;
- 	}
- 
- 	/* Slave is not currently active, irq was for someone else. */
--	if (bus->slave_state == ASPEED_I2C_SLAVE_STOP) {
--		irq_handled = false;
--		goto out;
--	}
-+	if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
-+		return false;
- 
- 	dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
--		irq_status, command);
-+		bus->irq_status, command);
- 
- 	/* Slave was sent something. */
--	if (irq_status & ASPEED_I2CD_INTR_RX_DONE) {
-+	if (bus->irq_status & ASPEED_I2CD_INTR_RX_DONE) {
- 		value = readl(bus->base + ASPEED_I2C_BYTE_BUF_REG) >> 8;
- 		/* Handle address frame. */
- 		if (bus->slave_state == ASPEED_I2C_SLAVE_START) {
-@@ -273,28 +273,29 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
- 	}
- 
- 	/* Slave was asked to stop. */
--	if (irq_status & ASPEED_I2CD_INTR_NORMAL_STOP) {
-+	if (bus->irq_status & ASPEED_I2CD_INTR_NORMAL_STOP) {
- 		status_ack |= ASPEED_I2CD_INTR_NORMAL_STOP;
- 		bus->slave_state = ASPEED_I2C_SLAVE_STOP;
- 	}
--	if (irq_status & ASPEED_I2CD_INTR_TX_NAK) {
-+	if (bus->irq_status & ASPEED_I2CD_INTR_TX_NAK) {
- 		status_ack |= ASPEED_I2CD_INTR_TX_NAK;
- 		bus->slave_state = ASPEED_I2C_SLAVE_STOP;
- 	}
-+	if (bus->irq_status & ASPEED_I2CD_INTR_TX_ACK) {
-+		status_ack |= ASPEED_I2CD_INTR_TX_ACK;
-+	}
- 
- 	switch (bus->slave_state) {
- 	case ASPEED_I2C_SLAVE_READ_REQUESTED:
--		if (irq_status & ASPEED_I2CD_INTR_TX_ACK)
-+		if (bus->irq_status & ASPEED_I2CD_INTR_TX_ACK)
- 			dev_err(bus->dev, "Unexpected ACK on read request.\n");
- 		bus->slave_state = ASPEED_I2C_SLAVE_READ_PROCESSED;
--
- 		i2c_slave_event(slave, I2C_SLAVE_READ_REQUESTED, &value);
- 		writel(value, bus->base + ASPEED_I2C_BYTE_BUF_REG);
- 		writel(ASPEED_I2CD_S_TX_CMD, bus->base + ASPEED_I2C_CMD_REG);
- 		break;
- 	case ASPEED_I2C_SLAVE_READ_PROCESSED:
--		status_ack |= ASPEED_I2CD_INTR_TX_ACK;
--		if (!(irq_status & ASPEED_I2CD_INTR_TX_ACK))
-+		if (!(bus->irq_status & ASPEED_I2CD_INTR_TX_ACK))
- 			dev_err(bus->dev,
- 				"Expected ACK after processed read.\n");
- 		i2c_slave_event(slave, I2C_SLAVE_READ_PROCESSED, &value);
-@@ -317,14 +318,8 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
- 		break;
- 	}
- 
--	if (status_ack != irq_status)
--		dev_err(bus->dev,
--			"irq handled != irq. expected %x, but was %x\n",
--			irq_status, status_ack);
--	writel(status_ack, bus->base + ASPEED_I2C_INTR_STS_REG);
--
--out:
--	return irq_handled;
-+	bus->irq_status ^= status_ack;
-+	return !bus->irq_status;
- }
- #endif /* CONFIG_I2C_SLAVE */
- 
-@@ -382,19 +377,19 @@ static int aspeed_i2c_is_irq_error(u32 irq_status)
- 
- static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- {
--	u32 irq_status, status_ack = 0, command = 0;
-+	u32 status_ack = 0, command = 0;
- 	struct i2c_msg *msg;
- 	u8 recv_byte;
- 	int ret;
- 
--	irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
--	/* Ack all interrupt bits. */
--	writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
--
--	if (irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
-+	if (bus->irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
- 		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
- 		status_ack |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
- 		goto out_complete;
-+	} else {
-+		/* Master is not currently active, irq was for someone else. */
-+		if (bus->master_state == ASPEED_I2C_MASTER_INACTIVE)
-+			goto out_no_complete;
- 	}
- 
- 	/*
-@@ -402,20 +397,23 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 	 * should clear the command queue effectively taking us back to the
- 	 * INACTIVE state.
- 	 */
--	ret = aspeed_i2c_is_irq_error(irq_status);
--	if (ret < 0) {
-+	ret = aspeed_i2c_is_irq_error(bus->irq_status);
-+	if (ret) {
- 		dev_dbg(bus->dev, "received error interrupt: 0x%08x\n",
--			irq_status);
-+			bus->irq_status);
- 		bus->cmd_err = ret;
- 		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
-+		status_ack |= (bus->irq_status & ASPEED_I2CD_INTR_ERRORS);
- 		goto out_complete;
- 	}
- 
- 	/* We are in an invalid state; reset bus to a known state. */
- 	if (!bus->msgs) {
--		dev_err(bus->dev, "bus in unknown state\n");
-+		dev_err(bus->dev, "bus in unknown state irq_status: 0x%x\n",
-+			bus->irq_status);
- 		bus->cmd_err = -EIO;
--		if (bus->master_state != ASPEED_I2C_MASTER_STOP)
-+		if (bus->master_state != ASPEED_I2C_MASTER_STOP &&
-+		    bus->master_state != ASPEED_I2C_MASTER_INACTIVE)
- 			aspeed_i2c_do_stop(bus);
- 		goto out_no_complete;
- 	}
-@@ -427,7 +425,13 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 	 * then update the state and handle the new state below.
- 	 */
- 	if (bus->master_state == ASPEED_I2C_MASTER_START) {
--		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
-+		if (unlikely(!(bus->irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
-+			if (unlikely(!(bus->irq_status &
-+				     ASPEED_I2CD_INTR_TX_NAK))) {
-+				bus->cmd_err = -ENXIO;
-+				bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
-+				goto out_complete;
-+			}
- 			pr_devel("no slave present at %02x\n", msg->addr);
- 			status_ack |= ASPEED_I2CD_INTR_TX_NAK;
- 			bus->cmd_err = -ENXIO;
-@@ -447,11 +451,12 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 
- 	switch (bus->master_state) {
- 	case ASPEED_I2C_MASTER_TX:
--		if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
-+		if (unlikely(bus->irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
- 			dev_dbg(bus->dev, "slave NACKed TX\n");
- 			status_ack |= ASPEED_I2CD_INTR_TX_NAK;
- 			goto error_and_stop;
--		} else if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
-+		} else if (unlikely(!(bus->irq_status &
-+				      ASPEED_I2CD_INTR_TX_ACK))) {
- 			dev_err(bus->dev, "slave failed to ACK TX\n");
- 			goto error_and_stop;
- 		}
-@@ -470,11 +475,11 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 		goto out_no_complete;
- 	case ASPEED_I2C_MASTER_RX_FIRST:
- 		/* RX may not have completed yet (only address cycle) */
--		if (!(irq_status & ASPEED_I2CD_INTR_RX_DONE))
-+		if (!(bus->irq_status & ASPEED_I2CD_INTR_RX_DONE))
- 			goto out_no_complete;
- 		/* fallthrough intended */
- 	case ASPEED_I2C_MASTER_RX:
--		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
-+		if (unlikely(!(bus->irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
- 			dev_err(bus->dev, "master failed to RX\n");
- 			goto error_and_stop;
- 		}
-@@ -505,8 +510,11 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 		}
- 		goto out_no_complete;
- 	case ASPEED_I2C_MASTER_STOP:
--		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_NORMAL_STOP))) {
--			dev_err(bus->dev, "master failed to STOP\n");
-+		if (unlikely(!(bus->irq_status &
-+			       ASPEED_I2CD_INTR_NORMAL_STOP))) {
-+			dev_err(bus->dev,
-+				"master failed to STOP irq_status:0x%x\n",
-+				bus->irq_status);
- 			bus->cmd_err = -EIO;
- 			/* Do not STOP as we have already tried. */
- 		} else {
-@@ -518,7 +526,7 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 	case ASPEED_I2C_MASTER_INACTIVE:
- 		dev_err(bus->dev,
- 			"master received interrupt 0x%08x, but is inactive\n",
--			irq_status);
-+			bus->irq_status);
- 		bus->cmd_err = -EIO;
- 		/* Do not STOP as we should be inactive. */
- 		goto out_complete;
-@@ -540,33 +548,40 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
- 		bus->master_xfer_result = bus->msgs_index + 1;
- 	complete(&bus->cmd_complete);
- out_no_complete:
--	if (irq_status != status_ack)
--		dev_err(bus->dev,
--			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
--			irq_status, status_ack);
--	return !!irq_status;
-+	bus->irq_status ^= status_ack;
-+	return !bus->irq_status;
- }
- 
- static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
- {
- 	struct aspeed_i2c_bus *bus = dev_id;
--	bool ret;
-+	u32 irq_received;
- 
- 	spin_lock(&bus->lock);
-+	irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
-+	bus->irq_status = irq_received;
- 
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
--	if (aspeed_i2c_slave_irq(bus)) {
--		dev_dbg(bus->dev, "irq handled by slave.\n");
--		ret = true;
--		goto out;
-+	if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
-+		if (!aspeed_i2c_master_irq(bus))
-+			aspeed_i2c_slave_irq(bus);
-+	} else {
-+		if (!aspeed_i2c_slave_irq(bus))
-+			aspeed_i2c_master_irq(bus);
- 	}
-+#else
-+	aspeed_i2c_master_irq(bus);
- #endif /* CONFIG_I2C_SLAVE */
- 
--	ret = aspeed_i2c_master_irq(bus);
-+	if (bus->irq_status)
-+		dev_err(bus->dev,
-+			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
-+			irq_received, irq_received ^ bus->irq_status);
- 
--out:
-+	/* Ack all interrupt bits. */
-+	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
- 	spin_unlock(&bus->lock);
--	return ret ? IRQ_HANDLED : IRQ_NONE;
-+	return bus->irq_status ? IRQ_NONE : IRQ_HANDLED;
- }
- 
- static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
--- 
-2.18.0
+We are going to investigate using the DFU protocol, as that
+also has host side tools already available.
+
+
+> 
+>     --Vernon
