@@ -1,71 +1,71 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <Sachit.Bakshi@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.95; helo=esa5.dell-outbound.iphmx.com;
+ envelope-from=sachit.bakshi@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="0KPxqTf9"; 
+ dkim-atps=neutral
+X-Greylist: delayed 742 seconds by postgrey-1.36 at bilbo;
+ Wed, 25 Jul 2018 05:15:28 AEST
+Received: from esa5.dell-outbound.iphmx.com (esa5.dell-outbound.iphmx.com
+ [68.232.153.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41ZGZf6Qr4zDqyZ;
- Tue, 24 Jul 2018 08:37:13 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2018 15:37:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,394,1526367600"; d="scan'208";a="58866153"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.149])
- ([10.7.153.149])
- by orsmga007.jf.intel.com with ESMTP; 23 Jul 2018 15:37:01 -0700
-Subject: Re: [PATCH v7 08/12] mfd: intel-peci-client: Add PECI client MFD
- driver
-To: Randy Dunlap <rdunlap@infradead.org>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Lee Jones <lee.jones@linaro.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- "Darrick J . Wong" <darrick.wong@oracle.com>,
- Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
- "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
- Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
- Stephen Boyd <sboyd@codeaurora.org>,
- David Kershner <david.kershner@unisys.com>,
- Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
- Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
- openbmc@lists.ozlabs.org, James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180723214751.1733-1-jae.hyun.yoo@linux.intel.com>
- <20180723214751.1733-9-jae.hyun.yoo@linux.intel.com>
- <c1abe3ec-fc26-d8b0-c769-e9295577ac05@infradead.org>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <98051293-6b30-af31-a5c6-56b0e1ac964a@linux.intel.com>
-Date: Mon, 23 Jul 2018 15:36:58 -0700
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41Zp3N2yBBzDrGC
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Jul 2018 05:15:27 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1532459311; x=1563995311;
+ h=from:subject:to:cc:references:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=mSH7C+/5grG5n4GF1Y4vcX/6TZafiQACqe3gVyIr9zM=;
+ b=0KPxqTf9ONTzaV0wUBSiyzOQKlgPpSz3feLxz1ygsD9yZ83Hr4wbiR3X
+ sEZAsNCn+CUANxF52JH+n+s+inTyQ2e/ch4lmuvnC6Fkp9VVKZIiaMAhA
+ DjJLChAcS/aT7B45q4JPu5qGgpBC7nXl+DawN6dCfTocY75/yuAj9wh6s 0=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FqAAC4dldbh8uZ6ERcGQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQcBAQEBAYQwgScKg3SUQIFgLIM6lAULGAuESQKCTiE4FAECAQECAQECAQE?=
+ =?us-ascii?q?CEAEBAQoLCQgpIwyCNSQBgUIsCE4BARgBAQEBAgEBIg8BLBoFCwsOCgICJgICK?=
+ =?us-ascii?q?B8QBgEJAwEFAgEBgxwBgXcID68igS6KUwUJAYEBh3eBWD6BESeCaoMbBIE3gyi?=
+ =?us-ascii?q?CVQKNSIQzh3UDBAICi0ODaAaBRYQTiByIBIRKgkeDDoFYgXRwgzmCM4hihVxRA?=
+ =?us-ascii?q?Yt0gS6BGwEB?=
+X-IPAS-Result: =?us-ascii?q?A2FqAAC4dldbh8uZ6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
+ =?us-ascii?q?wgScKg3SUQIFgLIM6lAULGAuESQKCTiE4FAECAQECAQECAQECEAEBAQoLCQgpI?=
+ =?us-ascii?q?wyCNSQBgUIsCE4BARgBAQEBAgEBIg8BLBoFCwsOCgICJgICKB8QBgEJAwEFAgE?=
+ =?us-ascii?q?BgxwBgXcID68igS6KUwUJAYEBh3eBWD6BESeCaoMbBIE3gyiCVQKNSIQzh3UDB?=
+ =?us-ascii?q?AICi0ODaAaBRYQTiByIBIRKgkeDDoFYgXRwgzmCM4hihVxRAYt0gS6BGwEB?=
+Received: from esa5.dell-outbound2.iphmx.com ([68.232.153.203])
+ by esa5.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2018 13:57:56 -0500
+From: "Bakshi, Sachit" <Sachit.Bakshi@dell.com>
+Received: from ausxipps310.us.dell.com ([143.166.148.211])
+ by esa5.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2018 00:57:29 +0600
+X-LoopCount0: from 10.166.132.128
+X-IronPort-AV: E=Sophos;i="5.51,398,1526360400"; d="scan'208";a="211946428"
+Subject: Re: In-Band Firmware Update
+To: Sai Dasari <sdasari@fb.com>, Vernon Mauery
+ <vernon.mauery@linux.intel.com>, Patrick Venture <venture@google.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
+ <20180723221837.GI105329@mauery>
+ <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
+Message-ID: <88504c68-822b-49bc-ae77-9f00242ee1dc@dell.com>
+Date: Tue, 24 Jul 2018 14:02:27 -0500
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <c1abe3ec-fc26-d8b0-c769-e9295577ac05@infradead.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 25 Jul 2018 10:05:21 +1000
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.137.144.16]
+X-ClientProxiedBy: AUSX13MPC102.AMER.DELL.COM (10.166.132.128) To
+ AUSX13MPC102.AMER.DELL.COM (10.166.132.128)
+X-Mailman-Approved-At: Wed, 25 Jul 2018 10:11:12 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -77,65 +77,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Jul 2018 22:37:15 -0000
+X-List-Received-Date: Tue, 24 Jul 2018 19:15:30 -0000
 
-Hi Randy,
-
-On 7/23/2018 3:21 PM, Randy Dunlap wrote:
-> On 07/23/2018 02:47 PM, Jae Hyun Yoo wrote:
->> This commit adds PECI client MFD driver.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Cc: Lee Jones <lee.jones@linaro.org>
->> Cc: Rob Herring <robh+dt@kernel.org>
->> Cc: Andrew Jeffery <andrew@aj.id.au>
->> Cc: James Feist <james.feist@linux.intel.com>
->> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->> Cc: Joel Stanley <joel@jms.id.au>
->> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
->> ---
->>   drivers/mfd/Kconfig                   |  14 ++
->>   drivers/mfd/Makefile                  |   1 +
->>   drivers/mfd/intel-peci-client.c       | 182 ++++++++++++++++++++++++++
->>   include/linux/mfd/intel-peci-client.h |  81 ++++++++++++
->>   4 files changed, 278 insertions(+)
->>   create mode 100644 drivers/mfd/intel-peci-client.c
->>   create mode 100644 include/linux/mfd/intel-peci-client.h
->>
->> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
->> index f3fa516011ec..e38b591479d4 100644
->> --- a/drivers/mfd/Kconfig
->> +++ b/drivers/mfd/Kconfig
->> @@ -595,6 +595,20 @@ config MFD_INTEL_MSIC
->>   	  Passage) chip. This chip embeds audio, battery, GPIO, etc.
->>   	  devices used in Intel Medfield platforms.
->>   
->> +config MFD_INTEL_PECI_CLIENT
->> +	bool "Intel PECI client"
->> +	depends on (PECI || COMPILE_TEST)
->> +	select MFD_CORE
->> +	help
->> +	  If you say yes to this option, support will be included for the
->> +	  multi-funtional Intel PECI (Platform Environment Control Interface)
 > 
-> 	  multi-functional
 > 
+> ﻿On 7/23/18, 3:19 PM, "openbmc on behalf of Vernon Mauery" <openbmc-bounces+sdasari=fb.com@lists.ozlabs.org on behalf of vernon.mauery@linux.intel.com> wrote:
+> 
+>     On 23-Jul-2018 11:13 AM, Patrick Venture wrote:
+>     >I've started to implement the host-tool outside of google3, and
+>     >started splitting up the OEM handler that corresponds with it.
+>     >However, firstly, I've submitted the design for the protocol for
+>     >review, please let me know if you're interested and I'll add you to
+>     >the review.  IIRC, there was at least one interested party outside of
+>     >us.
+>     
+>     I am interested in coming up with a common (OpenBMC OEM level) set of 
+>     Firmware NetFn commands that will allow all users of OpenBMC to be able 
+>     to use common, open-source utilities to do firmware updates. If they are 
+>     IPMI commands, this would include in-band (with KCS/BT for 
+>     command/control and USB for transfer) or out-of-band (over RMCP+).
 
-Thanks for your pointing it out. Will fix it.
+This sounds good. I'd advocate for some agreement around commands we
+support. Our BMC updates components besides itself, and we support
+multiple transport protocols. Therefore we have commands defined to
+initiate an update, transfer the image, check the status, get errors,
+start the update, etc.
+
+I'm sure others have similar support in their implementations.
+
+>     
+>     Rather than use the OEM NetFn, for firmware updates, we should be using 
+>     the Firmware NetFn.  The entire Firmware NetFn is considered to be OEM 
+>     per the IPMI spec. I would propose that we simply provide a common 
+>     implementation for OpenBMC (as a provider library, of course, so it 
+>     could be replaced if a downstream OEM doesn't want it).
+
+Agreed.
+
+> Any thoughts on reusing/leveraging the PICMG's hpm spec @ https://www.picmg.org/openstandards/hardware-platform-management/ . 
+
+Thanks for sharing this, I was not familiar with it. I'll look into it,
+but I know we sign our images to secure our system, not sure if HPM
+format will work for things like that, just something to consider.
+
+> One of the benefit would be the standard 'ipmitool' has native support for the update and changes are limited to BMC f/w. 
+> On a downside, the firmware binary has to be repackaged as .hpm format for this protocol to do some preparation steps as it support multiple f/w components in a single package. 
+>     
+>     --Vernon
+>     
+> 
 
 Thanks,
-
-Jae
-
->> +	  client. PECI is a one-wire bus interface that provides a communication
->> +	  channel from PECI clients in Intel processors and chipset components
->> +	  to external monitoring or control devices.
->> +
->> +	  Additional drivers must be enabled in order to use the functionality
->> +	  of the device.
->> +
->>   config MFD_IPAQ_MICRO
->>   	bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
->>   	depends on SA1100_H3100 || SA1100_H3600
-> 
-> 
+Sachit
