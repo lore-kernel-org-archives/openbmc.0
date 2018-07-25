@@ -1,55 +1,35 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=183.60.61.201; helo=smtpbg8.qq.com; envelope-from=1450335857@qq.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="m4ROSClp"; 
- dkim-atps=neutral
-X-Greylist: delayed 436 seconds by postgrey-1.36 at bilbo;
- Wed, 25 Jul 2018 19:20:09 AEST
-Received: from smtpbg8.qq.com (SMTPBG8.QQ.COM [183.60.61.201])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41b8p14d21zDrHF
- for <openbmc@lists.ozlabs.org>; Wed, 25 Jul 2018 19:20:09 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1532509937; bh=JKiq/PJGgmuCP44HU73OM7aKdEzIOCV6xBb/0jhEsxg=;
- h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=m4ROSClpSdL56syh755+ozqvxFoN++UkjwmgFV8UUHqX53TxNtafS8Id5k1zrzw8F
- 5v823hqbI2NaX7zLryJN2EGSZZWwjY2Bd7T9lqvCRSMxDGJ/Etl/U43+KTf9L3AhfP
- AEwNdiS5Z0lLHd480HiJjxpLQa+93fk90gQ3wYD8=
-X-QQ-SSF: 000000000000004000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.157.87
-In-Reply-To: <20180725085640.GA10849@bbwork.lan>
-References: <tencent_7C15837BAB91A131A31142D54EE9723ED405@qq.com>
- <20180725085640.GA10849@bbwork.lan>
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1532509935t304752
-From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?ISO-8859-1?B?QWxleGFuZGVyIEEuIEZpbGlwcG92?=" <a.filippov@yadro.com>,
- "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
-Subject: Re:  KVM Support?
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41bB1Q0yfhzDrHN
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Jul 2018 20:15:04 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Message-ID: <1532513696.11932.8.camel@fuzziesquirrel.com>
+Subject: Re: Need create a repo for chassis implementation.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: "Wang, Kuiying" <kuiying.wang@intel.com>, "'openbmc@lists.ozlabs.org'"
+ <openbmc@lists.ozlabs.org>
+Cc: "'geissonator@yahoo.com'" <geissonator@yahoo.com>, "Tanous, Ed"
+ <ed.tanous@intel.com>, "'yong.b.li@linux.intel.com'"
+ <yong.b.li@linux.intel.com>,  "'richard.marian.thomaiyar@linux.intel.com'"
+ <richard.marian.thomaiyar@linux.intel.com>, "'tomjoseph@in.ibm.com'"
+ <tomjoseph@in.ibm.com>, "'openbmc-ci-admin@ozlabs.org'"
+ <openbmc-ci-admin@ozlabs.org>, "'adamliyi@msn.com'" <adamliyi@msn.com>
+Date: Wed, 25 Jul 2018 06:14:56 -0400
+In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E77249DD28C6@SHSMSX101.ccr.corp.intel.com>
+References: <959CAFA1E282D14FB901BE9A7BF4E77249DD28C6@SHSMSX101.ccr.corp.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5B583EEF_0A3B36D0_41A3E5A8"
-Content-Transfer-Encoding: 8Bit
-Date: Wed, 25 Jul 2018 17:12:15 +0800
-X-Priority: 3
-Message-ID: <tencent_01DA600A4D73482F3D18B41C@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-ReplyHash: 2997784643
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Wed, 25 Jul 2018 17:12:16 +0800 (CST)
-Feedback-ID: webenglish:qq.com:bgforeign:bgforeign1
-X-QQ-Bgrelay: 1
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -61,120 +41,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Jul 2018 09:20:13 -0000
+X-List-Received-Date: Wed, 25 Jul 2018 10:15:06 -0000
 
-This is a multi-part message in MIME format.
+On Wed, 2018-07-18 at 02:46 +0000, Wang, Kuiying wrote:
+> Hi Brad/Andrew,
+> =20
+> As we discussed, I will upgrade Chassis based on C++ & sdbusplus by 3
+> steps.
+> Now, the step 1 is almost ready (Patch got two +1), so we can move on
+> the step 2 =E2=80=9Cupstream the chassis implementation=E2=80=9D.
+> Can you help create a repo =E2=80=9Cchassis-manager=E2=80=9D for chassi=
+s
+> implementation?
 
-------=_NextPart_5B583EEF_0A3B36D0_41A3E5A8
-Content-Type: text/plain;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+Hi Kuiying
 
-SGkgQWxleGFuZGVyLA0KICBUaGUgZml0SW1hZ2Utb3BlbmJtYy1waG9zcGhvci1pbml0cmFt
-ZnMtKi5iaW4gZGlkIGV4Y2VlZCB0aGUgNDQ1NjQ0OCAoMHg0NDAwMDApIGJ5dGVzLCBJIHdp
-bGwgdHJ5IHRvIGRlY3JlYXNlIGtlcm5lbCBzaXplLg0KVGhhbmtzLg0KeGl1emhpDQoNCg0K
-DQoNCi0tLS0tLS0tLS0tLS0tLS0tLSBPcmlnaW5hbCAtLS0tLS0tLS0tLS0tLS0tLS0NCkZy
-b206ICAiQWxleGFuZGVyIEEuIEZpbGlwcG92Ijs8YS5maWxpcHBvdkB5YWRyby5jb20+Ow0K
-U2VuZCB0aW1lOiBXZWRuZXNkYXksIEp1bCAyNSwgMjAxOCA0OjU2IFBNDQpUbzogIm9wZW5i
-bWMiPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz47ICJ4aXV6aGkiPDE0NTAzMzU4NTdAcXEu
-Y29tPjsgDQoNClN1YmplY3Q6ICBSZTogS1ZNIFN1cHBvcnQ/DQoNCg0KDQpIZWxsbyBldmVy
-eWJvZHksDQoNCkNvdWxkIHlvdSBjaGVjayB0aGUgc2l6ZSBvZiBgYnVpbGQvdG1wL2RlcGxv
-eS9pbWFnZS88cGxhdGZvcm1uYW1lPi9maXRJbWFnZS1vcGVuYm1jLXBob3NwaG9yLWluaXRy
-YW1mcy0qLmJpbmA/DQpJZiBpdCBleGNlZWRzIDQ0NTY0NDggKDB4NDQwMDAwKSBieXRlcywg
-dGhpcyBpcyB0aGUgcHJvYmxlbSBkZXNjcmliZWQgYXQgaHR0cHM6Ly9naXRodWIuY29tL29w
-ZW5ibWMvb3BlbmJtYy9pc3N1ZXMvMzMxNA0KDQoNCkluIHRoaXMgY2FzZSB5b3Ugc2hvdWxk
-IG1vZGlmeSBmbGFzaCBwYXJ0aXRpb25zIGxheW91dCBvciB0cnlpbmcgdG8gZGVjcmVhc2Ug
-a2VybmVsIHNpemUuDQoNCi0tDQpBbGV4YW5kZXINCg0KT24gV2VkLCBKdWwgMjUsIDIwMTgg
-YXQgMDM6NDg6MDRQTSArMDgwMCwgeGl1emhpIHdyb3RlOg0KPiBIaSBFZGRpZSwNCj4gDQo+
-IA0KPiAgIEkgcmVhZCB5b3VyIEtWTSBTdXBwb3J0IGVtYWlsIG9uIG1haWxpbmdsaXN0Lg0K
-PiANCj4gDQo+IEkgYW0gZ29pbmcgdG8gcG9ydCB0aGUgQk1DIGt2bSB0byBhc3QyNDAwIC4g
-VGhlIHUtYm9vdCBjYW4gbm90IGxvYWQga2VybmVsICx0aGUgZXJyb3IgbWVzc2FnZSByZWFk
-Og0KPiANCj4gDQo+ICIiVS1Cb290IDIwMTYuMDcgKEp1bCAyMyAyMDE4IC0gMTE6MTE6NTAg
-KzAwMDApDQo+IA0KPiANCj4gRFJBTTogIDI0MCBNaUINCj4gV0FSTklORzogQ2FjaGVzIG5v
-dCBlbmFibGVkDQo+IEZsYXNoOiAzMiBNaUINCj4gKioqIFdhcm5pbmcgLSBiYWQgQ1JDLCB1
-c2luZyBkZWZhdWx0IGVudmlyb25tZW50DQo+IA0KPiANCj4gSW46ICAgIHNlcmlhbA0KPiBP
-dXQ6ICAgc2VyaWFsDQo+IEVycjogICBzZXJpYWwNCj4gTmV0OiAgIGFzcGVlZG5pYyMwDQo+
-IEVycm9yOiBhc3BlZWRuaWMjMCBhZGRyZXNzIG5vdCBzZXQuDQo+IA0KPiANCj4gSGl0IGFu
-eSBrZXkgdG8gc3RvcCBhdXRvYm9vdDogIDANCj4gIyMgTG9hZGluZyBrZXJuZWwgZnJvbSBG
-SVQgSW1hZ2UgYXQgMjAwODAwMDAgLi4uDQo+IEJhZCBGSVQga2VybmVsIGltYWdlIGZvcm1h
-dCENCj4gRVJST1I6IGNhbid0IGdldCBrZXJuZWwgaW1hZ2UhDQo+IGFzdCMNCj4gDQo+IA0K
-PiBJIGFkZGVkICBjb25maWcgb3B0aW9ucyB0byBkZWZjb25maWcgb2YgYXN0MjQwMCBhcyBm
-b2xsb3dzOg0KPiANCj4gDQo+IENPTkZJR19NRURJQV9TVVBQT1JUPXkNCj4gQ09ORklHX01F
-RElBX0NBTUVSQV9TVVBQT1JUPXkNCj4gQ09ORklHX01FRElBX1NVUFBPUlQ9eQ0KPiBDT05G
-SUdfTUVESUFfQ0FNRVJBX1NVUFBPUlQ9eQ0KPiAjIENPTkZJR19NRURJQV9BTkFMT0dfVFZf
-U1VQUE9SVCBpcyBub3Qgc2V0DQo+ICMgQ09ORklHX01FRElBX0RJR0lUQUxfVFZfU1VQUE9S
-VCBpcyBub3Qgc2V0DQo+ICMgQ09ORklHX01FRElBX1JBRElPX1NVUFBPUlQgaXMgbm90IHNl
-dA0KPiAjIENPTkZJR19NRURJQV9TRFJfU1VQUE9SVCBpcyBub3Qgc2V0DQo+ICMgQ09ORklH
-X01FRElBX0NFQ19TVVBQT1JUIGlzIG5vdCBzZXQNCj4gIyBDT05GSUdfTUVESUFfQ09OVFJP
-TExFUiBpcyBub3Qgc2V0DQo+IENPTkZJR19SQVRJT05BTD15DQo+IENPTkZJR19WSURFT19E
-RVY9eQ0KPiBDT05GSUdfVklERU9fVjRMMj15DQo+IENPTkZJR19WNExfUExBVEZPUk1fRFJJ
-VkVSUz15DQo+IENPTkZJR19WSURFT19BU1BFRUQ9eQ0KPiBDT05GSUdfTUVESUFfU1VCRFJW
-X0FVVE9TRUxFQ1Q9eQ0KPiANCj4gDQo+IE5lZWQgSSBtb2RpZnkgdGhlIGFzcGVlZC1ibWMt
-b3BwLXBhbG1ldHRvLmR0cyBhbmQgYXNwZWVkLWc0LmR0c2k/DQo+IA0KPiANCj4gQ2FuIHlv
-dSBnaXZlIG1lIHRoZSBmaWxlIGxpc3QgbmVlZCB0byBtb2RpZnk/DQo+IA0KPiANCj4gVGhh
-bmtzLA0KPiANCj4gDQo+IHhpdXpoaQ==
+Andrew tried to reply to your note but it was bounced by the list for
+being too big.  In the future please don't send pictures or attachments
+to the list.  I'll insert Andrew's reply here.
 
-------=_NextPart_5B583EEF_0A3B36D0_41A3E5A8
-Content-Type: text/html;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+thx - brad
 
-PGRpdj5IaSBBbGV4YW5kZXIsPC9kaXY+PGRpdj4mbmJzcDsgVGhlJm5ic3A7Zml0SW1hZ2Ut
-b3BlbmJtYy1waG9zcGhvci1pbml0cmFtZnMtKi5iaW4gZGlkIGV4Y2VlZCB0aGUmbmJzcDs0
-NDU2NDQ4ICgweDQ0MDAwMCkgYnl0ZXMsIEkgd2lsbCB0cnkgdG8gZGVjcmVhc2Uga2VybmVs
-IHNpemUuPC9kaXY+PGRpdj5UaGFua3MuPC9kaXY+PGRpdj54aXV6aGk8L2Rpdj48ZGl2Pjxk
-aXY+PGJyPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMTJw
-eDtmb250LWZhbWlseTogQXJpYWwgTmFycm93O3BhZGRpbmc6MnB4IDAgMnB4IDA7Ij4tLS0t
-LS0tLS0tLS0tLS0tLS0mbmJzcDtPcmlnaW5hbCZuYnNwOy0tLS0tLS0tLS0tLS0tLS0tLTwv
-ZGl2PjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMTJweDtiYWNrZ3JvdW5kOiNlZmVmZWY7cGFk
-ZGluZzo4cHg7Ij48ZGl2PjxiPkZyb206IDwvYj4mbmJzcDsiQWxleGFuZGVyIEEuIEZpbGlw
-cG92IjsmbHQ7YS5maWxpcHBvdkB5YWRyby5jb20mZ3Q7OzwvZGl2PjxkaXY+PGI+U2VuZCB0
-aW1lOjwvYj4mbmJzcDtXZWRuZXNkYXksIEp1bCAyNSwgMjAxOCA0OjU2IFBNPC9kaXY+PGRp
-dj48Yj5Ubzo8L2I+Jm5ic3A7Im9wZW5ibWMiJmx0O29wZW5ibWNAbGlzdHMub3psYWJzLm9y
-ZyZndDs7ICJ4aXV6aGkiJmx0OzE0NTAzMzU4NTdAcXEuY29tJmd0OzsgPHdicj48L2Rpdj48
-ZGl2PjwvZGl2PjxkaXY+PGI+U3ViamVjdDogPC9iPiZuYnNwO1JlOiBLVk0gU3VwcG9ydD88
-L2Rpdj48L2Rpdj48ZGl2Pjxicj48L2Rpdj5IZWxsbyBldmVyeWJvZHksPGJyPjxicj5Db3Vs
-ZCB5b3UgY2hlY2sgdGhlIHNpemUgb2YgYGJ1aWxkL3RtcC9kZXBsb3kvaW1hZ2UvJmx0O3Bs
-YXRmb3JtbmFtZSZndDsvZml0SW1hZ2Utb3BlbmJtYy1waG9zcGhvci1pbml0cmFtZnMtKi5i
-aW5gPzxicj5JZiBpdCBleGNlZWRzIDQ0NTY0NDggKDB4NDQwMDAwKSBieXRlcywgdGhpcyBp
-cyB0aGUgcHJvYmxlbSBkZXNjcmliZWQgYXQgaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMv
-b3BlbmJtYy9pc3N1ZXMvMzMxNDxicj48YnI+PGJyPkluIHRoaXMgY2FzZSB5b3Ugc2hvdWxk
-IG1vZGlmeSBmbGFzaCBwYXJ0aXRpb25zIGxheW91dCBvciB0cnlpbmcgdG8gZGVjcmVhc2Ug
-a2VybmVsIHNpemUuPGJyPjxicj4tLTxicj5BbGV4YW5kZXI8YnI+PGJyPk9uIFdlZCwgSnVs
-IDI1LCAyMDE4IGF0IDAzOjQ4OjA0UE0gKzA4MDAsIHhpdXpoaSB3cm90ZTo8YnI+Jmd0OyBI
-aSBFZGRpZSw8YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyZuYnNwOyZuYnNwOyBJIHJlYWQg
-eW91ciBLVk0gU3VwcG9ydCBlbWFpbCBvbiBtYWlsaW5nbGlzdC48YnI+Jmd0OyA8YnI+Jmd0
-OyA8YnI+Jmd0OyBJIGFtIGdvaW5nIHRvIHBvcnQgdGhlIEJNQyBrdm0gdG8gYXN0MjQwMCAu
-IFRoZSB1LWJvb3QgY2FuIG5vdCBsb2FkIGtlcm5lbCAsdGhlIGVycm9yIG1lc3NhZ2UgcmVh
-ZDo8YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyAiIlUtQm9vdCAyMDE2LjA3IChKdWwgMjMg
-MjAxOCAtIDExOjExOjUwICswMDAwKTxicj4mZ3Q7IDxicj4mZ3Q7IDxicj4mZ3Q7IERSQU06
-Jm5ic3A7IDI0MCBNaUI8YnI+Jmd0OyBXQVJOSU5HOiBDYWNoZXMgbm90IGVuYWJsZWQ8YnI+
-Jmd0OyBGbGFzaDogMzIgTWlCPGJyPiZndDsgKioqIFdhcm5pbmcgLSBiYWQgQ1JDLCB1c2lu
-ZyBkZWZhdWx0IGVudmlyb25tZW50PGJyPiZndDsgPGJyPiZndDsgPGJyPiZndDsgSW46Jm5i
-c3A7Jm5ic3A7Jm5ic3A7IHNlcmlhbDxicj4mZ3Q7IE91dDombmJzcDsmbmJzcDsgc2VyaWFs
-PGJyPiZndDsgRXJyOiZuYnNwOyZuYnNwOyBzZXJpYWw8YnI+Jmd0OyBOZXQ6Jm5ic3A7Jm5i
-c3A7IGFzcGVlZG5pYyMwPGJyPiZndDsgRXJyb3I6IGFzcGVlZG5pYyMwIGFkZHJlc3Mgbm90
-IHNldC48YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBIaXQgYW55IGtleSB0byBzdG9wIGF1
-dG9ib290OiZuYnNwOyAwPGJyPiZndDsgIyMgTG9hZGluZyBrZXJuZWwgZnJvbSBGSVQgSW1h
-Z2UgYXQgMjAwODAwMDAgLi4uPGJyPiZndDsgQmFkIEZJVCBrZXJuZWwgaW1hZ2UgZm9ybWF0
-ITxicj4mZ3Q7IEVSUk9SOiBjYW4ndCBnZXQga2VybmVsIGltYWdlITxicj4mZ3Q7IGFzdCM8
-YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBJIGFkZGVkJm5ic3A7IGNvbmZpZyBvcHRpb25z
-IHRvIGRlZmNvbmZpZyBvZiBhc3QyNDAwIGFzIGZvbGxvd3M6PGJyPiZndDsgPGJyPiZndDsg
-PGJyPiZndDsgQ09ORklHX01FRElBX1NVUFBPUlQ9eTxicj4mZ3Q7IENPTkZJR19NRURJQV9D
-QU1FUkFfU1VQUE9SVD15PGJyPiZndDsgQ09ORklHX01FRElBX1NVUFBPUlQ9eTxicj4mZ3Q7
-IENPTkZJR19NRURJQV9DQU1FUkFfU1VQUE9SVD15PGJyPiZndDsgIyBDT05GSUdfTUVESUFf
-QU5BTE9HX1RWX1NVUFBPUlQgaXMgbm90IHNldDxicj4mZ3Q7ICMgQ09ORklHX01FRElBX0RJ
-R0lUQUxfVFZfU1VQUE9SVCBpcyBub3Qgc2V0PGJyPiZndDsgIyBDT05GSUdfTUVESUFfUkFE
-SU9fU1VQUE9SVCBpcyBub3Qgc2V0PGJyPiZndDsgIyBDT05GSUdfTUVESUFfU0RSX1NVUFBP
-UlQgaXMgbm90IHNldDxicj4mZ3Q7ICMgQ09ORklHX01FRElBX0NFQ19TVVBQT1JUIGlzIG5v
-dCBzZXQ8YnI+Jmd0OyAjIENPTkZJR19NRURJQV9DT05UUk9MTEVSIGlzIG5vdCBzZXQ8YnI+
-Jmd0OyBDT05GSUdfUkFUSU9OQUw9eTxicj4mZ3Q7IENPTkZJR19WSURFT19ERVY9eTxicj4m
-Z3Q7IENPTkZJR19WSURFT19WNEwyPXk8YnI+Jmd0OyBDT05GSUdfVjRMX1BMQVRGT1JNX0RS
-SVZFUlM9eTxicj4mZ3Q7IENPTkZJR19WSURFT19BU1BFRUQ9eTxicj4mZ3Q7IENPTkZJR19N
-RURJQV9TVUJEUlZfQVVUT1NFTEVDVD15PGJyPiZndDsgPGJyPiZndDsgPGJyPiZndDsgTmVl
-ZCBJIG1vZGlmeSB0aGUgYXNwZWVkLWJtYy1vcHAtcGFsbWV0dG8uZHRzIGFuZCBhc3BlZWQt
-ZzQuZHRzaT88YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBDYW4geW91IGdpdmUgbWUgdGhl
-IGZpbGUgbGlzdCBuZWVkIHRvIG1vZGlmeT88YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBU
-aGFua3MsPGJyPiZndDsgPGJyPiZndDsgPGJyPiZndDsgeGl1emhpPGJyPjwvZGl2Pg==
+Hi Kuiying, thanks for refactoring these skeleton repositories. Within
+openbmc, we try to have smaller, more specific repositories. So I'm
+wondering if instead we should create a repo specifically for handling
+buttons on openbmc machines:
+phosphor-buttons
 
-------=_NextPart_5B583EEF_0A3B36D0_41A3E5A8--
+The pychassisctl function has all been deprecated by phosphor-state-
+manager interfaces (except the button event monitoring).  I'd vote we
+just put the button actions in the new phosphor-button repo (i.e.
+calling the appropriate systemd targets)
+
+The power control function is a bit more complicated.  It could be
+specific to a machine, specific to a company, or specific to the type
+of hardware.  The design there is to have a common dbus API and then a
+repo for different implementations.  The code in skeleton/op-
+pwrctl/power_control_obj.c was I believe attempted to be written in a
+generic way but based on your info below, seems like for now we need
+two new repositories?
+
+openpower-power-control
+x86-power-control =20
+
+Andrew
+
+> =20
+> More info attached:
+>=20
+> =20
+>       =20
+> Thanks,
+> Kuiying.
