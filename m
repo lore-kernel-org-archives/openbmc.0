@@ -1,71 +1,55 @@
-Return-Path: <Sachit.Bakshi@dell.com>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.95; helo=esa5.dell-outbound.iphmx.com;
- envelope-from=sachit.bakshi@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=14.17.44.32; helo=smtpbg337.qq.com; envelope-from=1450335857@qq.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=dell.com
+ dmarc=pass (p=none dis=none) header.from=qq.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="0KPxqTf9"; 
+ unprotected) header.d=qq.com header.i=@qq.com header.b="MbvxgNLt"; 
  dkim-atps=neutral
-X-Greylist: delayed 742 seconds by postgrey-1.36 at bilbo;
- Wed, 25 Jul 2018 05:15:28 AEST
-Received: from esa5.dell-outbound.iphmx.com (esa5.dell-outbound.iphmx.com
- [68.232.153.95])
+X-Greylist: delayed 434 seconds by postgrey-1.36 at bilbo;
+ Wed, 25 Jul 2018 17:56:37 AEST
+Received: from smtpbg337.qq.com (smtpbg337.qq.com [14.17.44.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41Zp3N2yBBzDrGC
- for <openbmc@lists.ozlabs.org>; Wed, 25 Jul 2018 05:15:27 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1532459311; x=1563995311;
- h=from:subject:to:cc:references:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=mSH7C+/5grG5n4GF1Y4vcX/6TZafiQACqe3gVyIr9zM=;
- b=0KPxqTf9ONTzaV0wUBSiyzOQKlgPpSz3feLxz1ygsD9yZ83Hr4wbiR3X
- sEZAsNCn+CUANxF52JH+n+s+inTyQ2e/ch4lmuvnC6Fkp9VVKZIiaMAhA
- DjJLChAcS/aT7B45q4JPu5qGgpBC7nXl+DawN6dCfTocY75/yuAj9wh6s 0=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FqAAC4dldbh8uZ6ERcGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYQwgScKg3SUQIFgLIM6lAULGAuESQKCTiE4FAECAQECAQECAQE?=
- =?us-ascii?q?CEAEBAQoLCQgpIwyCNSQBgUIsCE4BARgBAQEBAgEBIg8BLBoFCwsOCgICJgICK?=
- =?us-ascii?q?B8QBgEJAwEFAgEBgxwBgXcID68igS6KUwUJAYEBh3eBWD6BESeCaoMbBIE3gyi?=
- =?us-ascii?q?CVQKNSIQzh3UDBAICi0ODaAaBRYQTiByIBIRKgkeDDoFYgXRwgzmCM4hihVxRA?=
- =?us-ascii?q?Yt0gS6BGwEB?=
-X-IPAS-Result: =?us-ascii?q?A2FqAAC4dldbh8uZ6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYQ?=
- =?us-ascii?q?wgScKg3SUQIFgLIM6lAULGAuESQKCTiE4FAECAQECAQECAQECEAEBAQoLCQgpI?=
- =?us-ascii?q?wyCNSQBgUIsCE4BARgBAQEBAgEBIg8BLBoFCwsOCgICJgICKB8QBgEJAwEFAgE?=
- =?us-ascii?q?BgxwBgXcID68igS6KUwUJAYEBh3eBWD6BESeCaoMbBIE3gyiCVQKNSIQzh3UDB?=
- =?us-ascii?q?AICi0ODaAaBRYQTiByIBIRKgkeDDoFYgXRwgzmCM4hihVxRAYt0gS6BGwEB?=
-Received: from esa5.dell-outbound2.iphmx.com ([68.232.153.203])
- by esa5.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2018 13:57:56 -0500
-From: "Bakshi, Sachit" <Sachit.Bakshi@dell.com>
-Received: from ausxipps310.us.dell.com ([143.166.148.211])
- by esa5.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2018 00:57:29 +0600
-X-LoopCount0: from 10.166.132.128
-X-IronPort-AV: E=Sophos;i="5.51,398,1526360400"; d="scan'208";a="211946428"
-Subject: Re: In-Band Firmware Update
-To: Sai Dasari <sdasari@fb.com>, Vernon Mauery
- <vernon.mauery@linux.intel.com>, Patrick Venture <venture@google.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
- <20180723221837.GI105329@mauery>
- <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
-Message-ID: <88504c68-822b-49bc-ae77-9f00242ee1dc@dell.com>
-Date: Tue, 24 Jul 2018 14:02:27 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.6.0
-MIME-Version: 1.0
-In-Reply-To: <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.137.144.16]
-X-ClientProxiedBy: AUSX13MPC102.AMER.DELL.COM (10.166.132.128) To
- AUSX13MPC102.AMER.DELL.COM (10.166.132.128)
-X-Mailman-Approved-At: Wed, 25 Jul 2018 10:11:12 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41b6xd2LJtzDrHF
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Jul 2018 17:56:36 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1532504886; bh=+k80aSXS4qBYgorHnSsY2/MjEcoQQAPbl+rQcwQcQgI=;
+ h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=MbvxgNLt6q4PEEHCR0moUCBKM4brxhCdtfBNP2//qiyxXyRLKFTXsPolVOgm+b6B1
+ Dgb/WsfUgpH8SAG2KG5Ihd4LAXkZWEcNlRVpLPOymlAqt864yYGUarJ6SO42n4e5zR
+ rTnZsC0Psc7rYGh33VKslPLAlz3fDrQ2t/WfqKAI=
+X-QQ-FEAT: 0+vGDqNMe+Rmy0ol06Dd3PR8SftPGpXHa15mDWZ/YUzlTcAI7PJCK3fwLbEMB
+ lO2klOwDMu/ZD+R/O3D6kqSU+0mJoxo9nzpHE5sZScnIl+gJyDFGVKeJmFEGVXS3Aez3Lg1
+ X1se9r9Fdpo7tf4uOnGyMVbLaBbZW4sJLEoqra4D6WJYwnQ1EeVvQKZaajnR4dfrEMoKd+i
+ +NvgHuzoJNsRKW7Eg8DeGGSfa8G/+2VAqGB2vTNODHDxNa+rAW/2ft6EHZsqH+AOQkF1UqP
+ hv5LFsO3FtzXcSOXREljpUWGk=
+X-QQ-SSF: 000000000000004000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.157.87
+X-QQ-STYLE: 
+X-QQ-mid: webmail500t1532504884t5259815
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
+Subject: Re: KVM Support?
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5B582B34_0B5211C0_37D5677C"
+Content-Transfer-Encoding: 8Bit
+Date: Wed, 25 Jul 2018 15:48:04 +0800
+X-Priority: 3
+Message-ID: <tencent_7C15837BAB91A131A31142D54EE9723ED405@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Wed, 25 Jul 2018 15:48:06 +0800 (CST)
+Feedback-ID: webmail:qq.com:bgforeign:bgforeign3
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -77,55 +61,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Jul 2018 19:15:30 -0000
+X-List-Received-Date: Wed, 25 Jul 2018 07:56:39 -0000
 
-> 
-> 
-> ﻿On 7/23/18, 3:19 PM, "openbmc on behalf of Vernon Mauery" <openbmc-bounces+sdasari=fb.com@lists.ozlabs.org on behalf of vernon.mauery@linux.intel.com> wrote:
-> 
->     On 23-Jul-2018 11:13 AM, Patrick Venture wrote:
->     >I've started to implement the host-tool outside of google3, and
->     >started splitting up the OEM handler that corresponds with it.
->     >However, firstly, I've submitted the design for the protocol for
->     >review, please let me know if you're interested and I'll add you to
->     >the review.  IIRC, there was at least one interested party outside of
->     >us.
->     
->     I am interested in coming up with a common (OpenBMC OEM level) set of 
->     Firmware NetFn commands that will allow all users of OpenBMC to be able 
->     to use common, open-source utilities to do firmware updates. If they are 
->     IPMI commands, this would include in-band (with KCS/BT for 
->     command/control and USB for transfer) or out-of-band (over RMCP+).
+This is a multi-part message in MIME format.
 
-This sounds good. I'd advocate for some agreement around commands we
-support. Our BMC updates components besides itself, and we support
-multiple transport protocols. Therefore we have commands defined to
-initiate an update, transfer the image, check the status, get errors,
-start the update, etc.
+------=_NextPart_5B582B34_0B5211C0_37D5677C
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-I'm sure others have similar support in their implementations.
+SGkgRWRkaWUsDQoNCg0KICBJIHJlYWQgeW91ciBLVk0gU3VwcG9ydCBlbWFpbCBvbiBtYWls
+aW5nbGlzdC4NCg0KDQpJIGFtIGdvaW5nIHRvIHBvcnQgdGhlIEJNQyBrdm0gdG8gYXN0MjQw
+MCAuIFRoZSB1LWJvb3QgY2FuIG5vdCBsb2FkIGtlcm5lbCAsdGhlIGVycm9yIG1lc3NhZ2Ug
+cmVhZDoNCg0KDQoiIlUtQm9vdCAyMDE2LjA3IChKdWwgMjMgMjAxOCAtIDExOjExOjUwICsw
+MDAwKQ0KDQoNCkRSQU06ICAyNDAgTWlCDQpXQVJOSU5HOiBDYWNoZXMgbm90IGVuYWJsZWQN
+CkZsYXNoOiAzMiBNaUINCioqKiBXYXJuaW5nIC0gYmFkIENSQywgdXNpbmcgZGVmYXVsdCBl
+bnZpcm9ubWVudA0KDQoNCkluOiAgICBzZXJpYWwNCk91dDogICBzZXJpYWwNCkVycjogICBz
+ZXJpYWwNCk5ldDogICBhc3BlZWRuaWMjMA0KRXJyb3I6IGFzcGVlZG5pYyMwIGFkZHJlc3Mg
+bm90IHNldC4NCg0KDQpIaXQgYW55IGtleSB0byBzdG9wIGF1dG9ib290OiAgMA0KIyMgTG9h
+ZGluZyBrZXJuZWwgZnJvbSBGSVQgSW1hZ2UgYXQgMjAwODAwMDAgLi4uDQpCYWQgRklUIGtl
+cm5lbCBpbWFnZSBmb3JtYXQhDQpFUlJPUjogY2FuJ3QgZ2V0IGtlcm5lbCBpbWFnZSENCmFz
+dCMNCg0KDQpJIGFkZGVkICBjb25maWcgb3B0aW9ucyB0byBkZWZjb25maWcgb2YgYXN0MjQw
+MCBhcyBmb2xsb3dzOg0KDQoNCkNPTkZJR19NRURJQV9TVVBQT1JUPXkNCkNPTkZJR19NRURJ
+QV9DQU1FUkFfU1VQUE9SVD15DQpDT05GSUdfTUVESUFfU1VQUE9SVD15DQpDT05GSUdfTUVE
+SUFfQ0FNRVJBX1NVUFBPUlQ9eQ0KIyBDT05GSUdfTUVESUFfQU5BTE9HX1RWX1NVUFBPUlQg
+aXMgbm90IHNldA0KIyBDT05GSUdfTUVESUFfRElHSVRBTF9UVl9TVVBQT1JUIGlzIG5vdCBz
+ZXQNCiMgQ09ORklHX01FRElBX1JBRElPX1NVUFBPUlQgaXMgbm90IHNldA0KIyBDT05GSUdf
+TUVESUFfU0RSX1NVUFBPUlQgaXMgbm90IHNldA0KIyBDT05GSUdfTUVESUFfQ0VDX1NVUFBP
+UlQgaXMgbm90IHNldA0KIyBDT05GSUdfTUVESUFfQ09OVFJPTExFUiBpcyBub3Qgc2V0DQpD
+T05GSUdfUkFUSU9OQUw9eQ0KQ09ORklHX1ZJREVPX0RFVj15DQpDT05GSUdfVklERU9fVjRM
+Mj15DQpDT05GSUdfVjRMX1BMQVRGT1JNX0RSSVZFUlM9eQ0KQ09ORklHX1ZJREVPX0FTUEVF
+RD15DQpDT05GSUdfTUVESUFfU1VCRFJWX0FVVE9TRUxFQ1Q9eQ0KDQoNCk5lZWQgSSBtb2Rp
+ZnkgdGhlIGFzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0cyBhbmQgYXNwZWVkLWc0LmR0c2k/
+DQoNCg0KQ2FuIHlvdSBnaXZlIG1lIHRoZSBmaWxlIGxpc3QgbmVlZCB0byBtb2RpZnk/DQoN
+Cg0KVGhhbmtzLA0KDQoNCnhpdXpoaQ==
 
->     
->     Rather than use the OEM NetFn, for firmware updates, we should be using 
->     the Firmware NetFn.  The entire Firmware NetFn is considered to be OEM 
->     per the IPMI spec. I would propose that we simply provide a common 
->     implementation for OpenBMC (as a provider library, of course, so it 
->     could be replaced if a downstream OEM doesn't want it).
+------=_NextPart_5B582B34_0B5211C0_37D5677C
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-Agreed.
+PGRpdj48ZGl2PkhpIEVkZGllLDwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+Jm5ic3A7IEkg
+cmVhZCB5b3VyIEtWTSBTdXBwb3J0IGVtYWlsIG9uIG1haWxpbmdsaXN0LjwvZGl2PjxkaXY+
+PGJyPjwvZGl2PjxkaXY+SSBhbSBnb2luZyB0byBwb3J0IHRoZSBCTUMga3ZtIHRvIGFzdDI0
+MDAgLiBUaGUgdS1ib290IGNhbiBub3QgbG9hZCBrZXJuZWwgLHRoZSBlcnJvciBtZXNzYWdl
+IHJlYWQ6PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj4iIlUtQm9vdCAyMDE2LjA3IChKdWwg
+MjMgMjAxOCAtIDExOjExOjUwICswMDAwKTwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+RFJB
+TTombmJzcDsgMjQwIE1pQjwvZGl2PjxkaXY+V0FSTklORzogQ2FjaGVzIG5vdCBlbmFibGVk
+PC9kaXY+PGRpdj5GbGFzaDogMzIgTWlCPC9kaXY+PGRpdj4qKiogV2FybmluZyAtIGJhZCBD
+UkMsIHVzaW5nIGRlZmF1bHQgZW52aXJvbm1lbnQ8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2
+PkluOiZuYnNwOyAmbmJzcDsgc2VyaWFsPC9kaXY+PGRpdj5PdXQ6Jm5ic3A7ICZuYnNwO3Nl
+cmlhbDwvZGl2PjxkaXY+RXJyOiZuYnNwOyAmbmJzcDtzZXJpYWw8L2Rpdj48ZGl2Pk5ldDom
+bmJzcDsgJm5ic3A7YXNwZWVkbmljIzA8L2Rpdj48ZGl2PkVycm9yOiBhc3BlZWRuaWMjMCBh
+ZGRyZXNzIG5vdCBzZXQuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5IaXQgYW55IGtleSB0
+byBzdG9wIGF1dG9ib290OiZuYnNwOyAwPC9kaXY+PGRpdj4jIyBMb2FkaW5nIGtlcm5lbCBm
+cm9tIEZJVCBJbWFnZSBhdCAyMDA4MDAwMCAuLi48L2Rpdj48ZGl2PkJhZCBGSVQga2VybmVs
+IGltYWdlIGZvcm1hdCE8L2Rpdj48ZGl2PkVSUk9SOiBjYW4ndCBnZXQga2VybmVsIGltYWdl
+ITwvZGl2PjxkaXY+YXN0IzwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+SSBhZGRlZCZuYnNw
+OyBjb25maWcgb3B0aW9ucyB0byBkZWZjb25maWcgb2YgYXN0MjQwMCBhcyBmb2xsb3dzOjwv
+ZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+Q09ORklHX01FRElBX1NVUFBPUlQ9eTwvZGl2Pjxk
+aXY+Q09ORklHX01FRElBX0NBTUVSQV9TVVBQT1JUPXk8L2Rpdj48ZGl2PkNPTkZJR19NRURJ
+QV9TVVBQT1JUPXk8L2Rpdj48ZGl2PkNPTkZJR19NRURJQV9DQU1FUkFfU1VQUE9SVD15PC9k
+aXY+PGRpdj4jIENPTkZJR19NRURJQV9BTkFMT0dfVFZfU1VQUE9SVCBpcyBub3Qgc2V0PC9k
+aXY+PGRpdj4jIENPTkZJR19NRURJQV9ESUdJVEFMX1RWX1NVUFBPUlQgaXMgbm90IHNldDwv
+ZGl2PjxkaXY+IyBDT05GSUdfTUVESUFfUkFESU9fU1VQUE9SVCBpcyBub3Qgc2V0PC9kaXY+
+PGRpdj4jIENPTkZJR19NRURJQV9TRFJfU1VQUE9SVCBpcyBub3Qgc2V0PC9kaXY+PGRpdj4j
+IENPTkZJR19NRURJQV9DRUNfU1VQUE9SVCBpcyBub3Qgc2V0PC9kaXY+PGRpdj4jIENPTkZJ
+R19NRURJQV9DT05UUk9MTEVSIGlzIG5vdCBzZXQ8L2Rpdj48ZGl2PkNPTkZJR19SQVRJT05B
+TD15PC9kaXY+PGRpdj5DT05GSUdfVklERU9fREVWPXk8L2Rpdj48ZGl2PkNPTkZJR19WSURF
+T19WNEwyPXk8L2Rpdj48ZGl2PkNPTkZJR19WNExfUExBVEZPUk1fRFJJVkVSUz15PC9kaXY+
+PGRpdj5DT05GSUdfVklERU9fQVNQRUVEPXk8L2Rpdj48ZGl2PkNPTkZJR19NRURJQV9TVUJE
+UlZfQVVUT1NFTEVDVD15PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5OZWVkIEkgbW9kaWZ5
+IHRoZSBhc3BlZWQtYm1jLW9wcC1wYWxtZXR0by5kdHMgYW5kIGFzcGVlZC1nNC5kdHNpPzwv
+ZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+Q2FuIHlvdSBnaXZlIG1lIHRoZSBmaWxlIGxpc3Qg
+bmVlZCB0byBtb2RpZnk/PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5UaGFua3MsPC9kaXY+
+PGRpdj48YnI+PC9kaXY+PGRpdj54aXV6aGk8L2Rpdj48L2Rpdj4=
 
-> Any thoughts on reusing/leveraging the PICMG's hpm spec @ https://www.picmg.org/openstandards/hardware-platform-management/ . 
-
-Thanks for sharing this, I was not familiar with it. I'll look into it,
-but I know we sign our images to secure our system, not sure if HPM
-format will work for things like that, just something to consider.
-
-> One of the benefit would be the standard 'ipmitool' has native support for the update and changes are limited to BMC f/w. 
-> On a downside, the firmware binary has to be repackaged as .hpm format for this protocol to do some preparation steps as it support multiple f/w components in a single package. 
->     
->     --Vernon
->     
-> 
-
-Thanks,
-Sachit
+------=_NextPart_5B582B34_0B5211C0_37D5677C--
