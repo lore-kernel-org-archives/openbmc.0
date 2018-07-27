@@ -1,63 +1,54 @@
-Return-Path: <venture@google.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22d; helo=mail-ua0-x22d.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::231; helo=mail-io0-x231.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="oa0mbwB2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="W5nDzWUL"; 
  dkim-atps=neutral
-Received: from mail-ua0-x22d.google.com (mail-ua0-x22d.google.com
- [IPv6:2607:f8b0:400c:c08::22d])
+Received: from mail-io0-x231.google.com (mail-io0-x231.google.com
+ [IPv6:2607:f8b0:4001:c06::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41cdcN5lhdzF0jn
- for <openbmc@lists.ozlabs.org>; Sat, 28 Jul 2018 05:01:55 +1000 (AEST)
-Received: by mail-ua0-x22d.google.com with SMTP id q12-v6so4015053ual.2
- for <openbmc@lists.ozlabs.org>; Fri, 27 Jul 2018 12:01:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=ewHum4mq6gy9ZoMC2+N2Spujoim2QGMZk4f5zR6eCC8=;
- b=oa0mbwB2ZG4wDU0yvirnJ23Xa2k5KPFpmgJyKat2om+JLKX7CYHdPn9rMdzdC6jJyr
- oNFiKUtFjirjx/PItYAa3kyG8D1lWrcD6VfmCNVnBv34A+wCEX8okGYVoJVDdLEM0FQg
- VZcIOTq61zwY1ZAFKG73IchkbmZfkQAM2b8CXZnojwh7PqFjVx3kwecblhnPURu6NmgF
- L+EOnTd0MUEc/CLQJ1sx1Ss/TJl1YxzF5bpkl9ffPP1gqPBzaIFKwFSV8hNNA1+SB24/
- 3UEpMa4c79Sr730hIBNYVTZQrM7QjLyeLkzbV2ONvXgozkjokHy+YhOSYL5XkjBdKmyy
- wqTg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41cdvT1KD8zF0jn
+ for <openbmc@lists.ozlabs.org>; Sat, 28 Jul 2018 05:15:00 +1000 (AEST)
+Received: by mail-io0-x231.google.com with SMTP id z19-v6so4994684ioh.4
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Jul 2018 12:15:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=yscd750CEJEHbOfT+rZnYoiobWgJ2LjzTmDrKYO+ZJc=;
+ b=W5nDzWULdKjDhYXuyDtTmWYtvbMC3E7PkLl7JO6XvA8uvuh/0H9OjJsEXpBc9yXm2i
+ KwJQRGQA25MgX7oqXYYyi+JxKMnavKY/w6GlpwfJIdyCQxA5bLZ54PjHinq9T3rkYcNg
+ qbyA9jP3J7PQ5Mkpb7XshwrHM5qxR9/jp3Sy3fgszz+h4Uh0a4b1PpCjCLZu0u17QAmR
+ mtYaRCBPotgzMXQeTCj/b16FV5pjpgNZf+5/ZjjsvR5Ne5fFz8f1Z+itIW5DL4YDlFx0
+ lit5CP5py3+F03D8Xj5Oe8rCYMP3bbzfOi/9yhXwb8++eXhsFmbSuult07GritvYWO/F
+ qAqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=ewHum4mq6gy9ZoMC2+N2Spujoim2QGMZk4f5zR6eCC8=;
- b=M9Oc2xzMNVjdiz1x/AkfsiWqq1FtYzqnQhb7gIolGrODDcfYWyZPVrlp2B6EijK0+F
- ClHKND15i0c+I31soeLQTHLhOwVCa6Psm6jKqlGh6LrNH/wJ+Pa9tZj4M5nNqc21d1Z2
- D5wkWFEdBLikj4wt7FYLyMP46pxjkoCdp5Hkxmv8VS9YE49JplJwst8QCthSdpozWpq6
- DzwT2pW9fAgilpTofwlh86NltrWrjexCkbXzOPQ/AJtIvBoeSMz0q06Ii7N64r4Vpo99
- WDJngtkzmq06sEntV5SamhbTS+jgf2ICc5JBRC88vFUZX3vu/TIMwMSGmD9FI99vpbSY
- WogA==
-X-Gm-Message-State: AOUpUlHvB6es4xditYMHTSqnGC4UYhj56rowFo6mB1/6awW/eqeLgj0w
- a4QUB2AmizuNQWZrIq2NX4p3hastYWyiMYSaaY4QfQ==
-X-Google-Smtp-Source: AAOMgpe6Wr8woygrux9UN1D6ZIZ8zRP+6XqAbZfSZQYy3uUO0aKDhwcRwqwhLg/2bgsX29wFPPSc7XdXnjTL6iZ+i9s=
-X-Received: by 2002:ab0:6214:: with SMTP id
- m20-v6mr5380153uao.147.1532718112353; 
- Fri, 27 Jul 2018 12:01:52 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=yscd750CEJEHbOfT+rZnYoiobWgJ2LjzTmDrKYO+ZJc=;
+ b=kArNU+quDKz1m87DM9/z4xfEjzMAEJBRtwuaooji9kTlIVJcizRE44jAn738aIPDx/
+ fll/kE3Zc2xYVza6uUDO1fmnuIRLjpD16Bb3FTmbR/wdhz5BRNmvT177473Wy2vjZkV/
+ A2P6Z8f5llCyIkndGaFVBXh+qDDbd+ypCDTDogNNZoS0r1SCxRQSNiWYj57Q0F499FC8
+ 81LOhK9pwlrqI9LuIjpN7ohViUTSVg9AmizWk4sPuAIew+hlEeTVLTwbp0wOplk6NIkF
+ GnMvWBI2drxYHSAZLE+lVN4chnGoQT3ja8vyUhemNj1f5TFFvpEBvsoG0YSy4FQ4sZwY
+ qHGg==
+X-Gm-Message-State: AOUpUlH/xor8NEtifxGnX8cPBV3lqsOV0/utMrgFebPSrRNqPtdO1U76
+ n6Ov7Ge5GQ1CeVIVOXiJHGdY3jrkhpNbJScDzutnnrNF
+X-Google-Smtp-Source: AAOMgpdVf75jQ9yejlBMs9HzRLozNZuD5BjSs8tvoLXrjdtdnH/RCClHmx+xPlkSMLHF/hUNRYjwigNhV4RRt03Aoq4=
+X-Received: by 2002:a6b:35f:: with SMTP id 92-v6mr6240632iod.63.1532718898029; 
+ Fri, 27 Jul 2018 12:14:58 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a1f:9752:0:0:0:0:0 with HTTP; Fri, 27 Jul 2018 12:01:31
+Received: by 2002:ac0:d481:0:0:0:0:0 with HTTP; Fri, 27 Jul 2018 12:14:57
  -0700 (PDT)
-In-Reply-To: <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
-References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
- <20180723221837.GI105329@mauery> <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
- <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 27 Jul 2018 12:01:31 -0700
-Message-ID: <CAO=notyMmcQQ=vmJ6G77EcsJfX6LRV-a7HEMdpr+SiWA4WpRZQ@mail.gmail.com>
-Subject: Re: In-Band Firmware Update
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: Sai Dasari <sdasari@fb.com>, Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- openbmc <openbmc-bounces+mspinler=linux.vnet.ibm.com@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+From: Kurt Taylor <kurt.r.taylor@gmail.com>
+Date: Fri, 27 Jul 2018 14:14:57 -0500
+Message-ID: <CAG5OiwjMSneV+G773drMyb1XVdDbWUe+ASQT-EYDUOhX8M7aqg@mail.gmail.com>
+Subject: 7/26 OpenBMC Release Planning WG Meeting Minutes
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000007529b40571ffedb5"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -69,38 +60,365 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Jul 2018 19:01:57 -0000
+X-List-Received-Date: Fri, 27 Jul 2018 19:15:02 -0000
 
-Sorry, I haven't been on this email label recently -- accidentally fell behind.
+--0000000000007529b40571ffedb5
+Content-Type: text/plain; charset="UTF-8"
 
-In parallel to these efforts, I've started upstreaming a design:
-https://gerrit.openbmc-project.xyz/11588 -- feel free to make
-comments.  I'm going to implement the design (it's already
-implemented, but now I'm expanding it to address incoming comments).
+Hi everyone, thanks for another very productive meeting and for helping to
+fill in the spreadsheet.
 
-Patrick
+Meeting Minutes:
+https://docs.google.com/document/d/1yo9lZp56jkwDM1eXJRE8p__
+FqlAjq7qcdIi1W7hAD5Y/edit?usp=sharing
 
-On Tue, Jul 24, 2018 at 1:38 PM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
-> On 2018-07-23 19:13, Sai Dasari wrote:
->
->> Any thoughts on reusing/leveraging the PICMG's hpm spec @
->> https://www.picmg.org/openstandards/hardware-platform-management/ .
->> One of the benefit would be the standard 'ipmitool' has native support
->> for the update and changes are limited to BMC f/w.
->> On a downside, the firmware binary has to be repackaged as .hpm format
->> for this protocol to do some preparation steps as it support multiple
->> f/w components in a single package.
->
->
-> This was brought up a few months ago and decided against:
-> https://lists.ozlabs.org/pipermail/openbmc/2017-November/009938.html
->
-> We are going to investigate using the DFU protocol, as that
-> also has host side tools already available.
->
->
->>
->>     --Vernon
->
->
+Agenda backlog for next week:
+https://github.com/openbmc/openbmc/wiki/Release-Planning
+
+Regards,
+Kurt Taylor (krtaylor)
+
+7/26/18
+
+   -
+
+   Note: call in numbers and info may change frequently for the next few
+   weeks, please check your email before assuming the number is the same as
+   last week
+   -
+
+   Attended (*) Primary company contact
+   -
+
+      Kurt Taylor, IBM (WG lead)
+      -
+
+      Brad Bishop, IBM
+      -
+
+      Kun Yi, Google
+      -
+
+      Maury Zipse, IBM
+      -
+
+      *Nancy Yuen, Google
+      -
+
+      *Sai Dasari, Facebook
+      -
+
+      *James Mihm, Intel
+      -
+
+      *Dick Wilkins, Phoenix
+      -
+
+   Not Attending
+   -
+
+      Tao Ren, Facebook
+      -
+
+      *Andrew Geissler, IBM
+      -
+
+      *Ali Larijani, Microsoft
+      -
+
+      Yugi Mani, Microsoft
+      -
+
+   Review of Agreements from previous meeting (see previous meeting minutes)
+   -
+
+   Milestones:
+   -
+
+      Design: End of August
+      -
+
+      Code1: End of September
+      -
+
+      Code2: Mid November
+      -
+
+      Feature freeze: January 7, 2019
+      -
+
+      Release: February 4-7, 2019
+      -
+
+      Agreement on Feature freeze and Release date shift to past the first
+      of the year as proposed, July to shift to maintain 6 month (August 5-10th)
+      -
+
+      Agreement on August 31st as the Design milestone date - workgroup
+      formed and high-level design complete
+      -
+
+   Work items spreadsheet discussion - duplicate topics? WG leads?
+   -
+
+      Walked through most of the work items, clarification on description,
+      current state
+      -
+
+      Resume discussion next week with row 30 SSIF
+      -
+
+   Need to move the meeting time - Monday or Wednesday? Same time?
+
+--0000000000007529b40571ffedb5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div><div><div><div><br></div>Hi everyone, thanks for=
+ another very productive meeting and for helping to fill in the spreadsheet=
+.<br><br></div>Meeting Minutes:<br><a class=3D"gmail-m_6774135261892209841g=
+mail-moz-txt-link-freetext" href=3D"https://docs.google.com/document/d/1yo9=
+lZp56jkwDM1eXJRE8p__FqlAjq7qcdIi1W7hAD5Y/edit?usp=3Dsharing" target=3D"_bla=
+nk">https://docs.google.com/<wbr>document/d/<wbr>1yo9lZp56jkwDM1eXJRE8p__<w=
+br>FqlAjq7qcdIi1W7hAD5Y/edit?usp=3D<wbr>sharing</a><br><br></div>Agenda bac=
+klog for next week:<br><a class=3D"gmail-m_6774135261892209841gmail-moz-txt=
+-link-freetext" href=3D"https://github.com/openbmc/openbmc/wiki/Release-Pla=
+nning" target=3D"_blank">https://github.com/openbmc/<wbr>openbmc/wiki/Relea=
+se-Planning</a><br><br></div>Regards,<br></div>Kurt Taylor (krtaylor)<br><b=
+r><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt=
+" id=3D"gmail-docs-internal-guid-d3934192-dd22-7bba-3715-0a16257f2486"><spa=
+n style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-col=
+or:transparent;font-weight:700;font-style:normal;font-variant:normal;text-d=
+ecoration:underline;vertical-align:baseline;white-space:pre-wrap">7/26/18</=
+span></p><ul style=3D"margin-top:0pt;margin-bottom:0pt"><li dir=3D"ltr" sty=
+le=3D"list-style-type:disc;font-size:11pt;font-family:Arial;color:rgb(0,0,0=
+);background-color:transparent;font-weight:400;font-style:normal;font-varia=
+nt:normal;text-decoration:none;vertical-align:baseline;white-space:pre"><p =
+dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><sp=
+an style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-co=
+lor:transparent;font-weight:400;font-style:normal;font-variant:normal;text-=
+decoration:none;vertical-align:baseline;white-space:pre-wrap">Note: call in=
+ numbers and info may change frequently for the next few weeks, please chec=
+k your email before assuming the number is the same as last week</span></p>=
+</li><li dir=3D"ltr" style=3D"list-style-type:disc;font-size:11pt;font-fami=
+ly:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font=
+-style:normal;font-variant:normal;text-decoration:none;vertical-align:basel=
+ine;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0p=
+t;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:=
+rgb(0,0,0);background-color:transparent;font-weight:400;font-style:normal;f=
+ont-variant:normal;text-decoration:none;vertical-align:baseline;white-space=
+:pre-wrap">Attended (*) Primary company contact </span></p></li><ul style=
+=3D"margin-top:0pt;margin-bottom:0pt"><li dir=3D"ltr" style=3D"list-style-t=
+ype:circle;font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-col=
+or:transparent;font-weight:400;font-style:normal;font-variant:normal;text-d=
+ecoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" styl=
+e=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font=
+-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;=
+font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;=
+vertical-align:baseline;white-space:pre-wrap">Kurt Taylor, IBM (WG lead)</s=
+pan></p></li><li dir=3D"ltr" style=3D"list-style-type:circle;font-size:11pt=
+;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weigh=
+t:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-a=
+lign:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;mar=
+gin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Ar=
+ial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-styl=
+e:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;w=
+hite-space:pre-wrap">Brad Bishop, IBM</span></p></li><li dir=3D"ltr" style=
+=3D"list-style-type:circle;font-size:11pt;font-family:Arial;color:rgb(0,0,0=
+);background-color:transparent;font-weight:400;font-style:normal;font-varia=
+nt:normal;text-decoration:none;vertical-align:baseline;white-space:pre"><p =
+dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><sp=
+an style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-co=
+lor:transparent;font-weight:400;font-style:normal;font-variant:normal;text-=
+decoration:none;vertical-align:baseline;white-space:pre-wrap">Kun Yi, Googl=
+e</span></p></li><li dir=3D"ltr" style=3D"list-style-type:circle;font-size:=
+11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-w=
+eight:400;font-style:normal;font-variant:normal;text-decoration:none;vertic=
+al-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38=
+;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-famil=
+y:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-=
+style:normal;font-variant:normal;text-decoration:none;vertical-align:baseli=
+ne;white-space:pre-wrap">Maury Zipse, IBM</span></p></li><li dir=3D"ltr" st=
+yle=3D"list-style-type:circle;font-size:11pt;font-family:Arial;color:rgb(0,=
+0,0);background-color:transparent;font-weight:400;font-style:normal;font-va=
+riant:normal;text-decoration:none;vertical-align:baseline;white-space:pre">=
+<p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt">=
+<span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background=
+-color:transparent;font-weight:400;font-style:normal;font-variant:normal;te=
+xt-decoration:none;vertical-align:baseline;white-space:pre-wrap">*Nancy Yue=
+n, Google</span></p></li><li dir=3D"ltr" style=3D"list-style-type:circle;fo=
+nt-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparen=
+t;font-weight:400;font-style:normal;font-variant:normal;text-decoration:non=
+e;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-hei=
+ght:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;fo=
+nt-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:4=
+00;font-style:normal;font-variant:normal;text-decoration:none;vertical-alig=
+n:baseline;white-space:pre-wrap">*Sai Dasari, Facebook</span></p></li><li d=
+ir=3D"ltr" style=3D"list-style-type:circle;font-size:11pt;font-family:Arial=
+;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:n=
+ormal;font-variant:normal;text-decoration:none;vertical-align:baseline;whit=
+e-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin=
+-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,=
+0);background-color:transparent;font-weight:400;font-style:normal;font-vari=
+ant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wra=
+p">*James Mihm, Intel</span></p></li><li dir=3D"ltr" style=3D"list-style-ty=
+pe:circle;font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-colo=
+r:transparent;font-weight:400;font-style:normal;font-variant:normal;text-de=
+coration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=
+=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-=
+size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;f=
+ont-weight:400;font-style:normal;font-variant:normal;text-decoration:none;v=
+ertical-align:baseline;white-space:pre-wrap">*Dick Wilkins, Phoenix</span><=
+/p></li></ul><li dir=3D"ltr" style=3D"list-style-type:disc;font-size:11pt;f=
+ont-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:=
+400;font-style:normal;font-variant:normal;text-decoration:none;vertical-ali=
+gn:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margi=
+n-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Aria=
+l;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:=
+normal;font-variant:normal;text-decoration:none;vertical-align:baseline;whi=
+te-space:pre-wrap">Not Attending</span></p></li><ul style=3D"margin-top:0pt=
+;margin-bottom:0pt"><li dir=3D"ltr" style=3D"list-style-type:circle;font-si=
+ze:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;fon=
+t-weight:400;font-style:normal;font-variant:normal;text-decoration:none;ver=
+tical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1=
+.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-fa=
+mily:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;fo=
+nt-style:normal;font-variant:normal;text-decoration:none;vertical-align:bas=
+eline;white-space:pre-wrap">Tao Ren, Facebook</span></p></li><li dir=3D"ltr=
+" style=3D"list-style-type:circle;font-size:11pt;font-family:Arial;color:rg=
+b(0,0,0);background-color:transparent;font-weight:400;font-style:normal;fon=
+t-variant:normal;text-decoration:none;vertical-align:baseline;white-space:p=
+re"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0=
+pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);backgr=
+ound-color:transparent;font-weight:400;font-style:normal;font-variant:norma=
+l;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">*Andre=
+w Geissler, IBM</span></p></li><li dir=3D"ltr" style=3D"list-style-type:cir=
+cle;font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:tran=
+sparent;font-weight:400;font-style:normal;font-variant:normal;text-decorati=
+on:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"li=
+ne-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:1=
+1pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-we=
+ight:400;font-style:normal;font-variant:normal;text-decoration:none;vertica=
+l-align:baseline;white-space:pre-wrap">*Ali Larijani, Microsoft</span></p><=
+/li><li dir=3D"ltr" style=3D"list-style-type:circle;font-size:11pt;font-fam=
+ily:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;fon=
+t-style:normal;font-variant:normal;text-decoration:none;vertical-align:base=
+line;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0=
+pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color=
+:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:normal;=
+font-variant:normal;text-decoration:none;vertical-align:baseline;white-spac=
+e:pre-wrap">Yugi Mani, Microsoft</span></p></li></ul><li dir=3D"ltr" style=
+=3D"list-style-type:disc;font-size:11pt;font-family:Arial;color:rgb(0,0,0);=
+background-color:transparent;font-weight:400;font-style:normal;font-variant=
+:normal;text-decoration:none;vertical-align:baseline;white-space:pre"><p di=
+r=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span=
+ style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-colo=
+r:transparent;font-weight:400;font-style:normal;font-variant:normal;text-de=
+coration:none;vertical-align:baseline;white-space:pre-wrap">Review of Agree=
+ments from previous meeting (see previous meeting minutes)</span></p></li><=
+li dir=3D"ltr" style=3D"list-style-type:disc;font-size:11pt;font-family:Ari=
+al;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style=
+:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;wh=
+ite-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;marg=
+in-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,=
+0,0);background-color:transparent;font-weight:400;font-style:normal;font-va=
+riant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-w=
+rap">Milestones:</span></p></li><ul style=3D"margin-top:0pt;margin-bottom:0=
+pt"><li dir=3D"ltr" style=3D"list-style-type:circle;font-size:11pt;font-fam=
+ily:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;fon=
+t-style:normal;font-variant:normal;text-decoration:none;vertical-align:base=
+line;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0=
+pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color=
+:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:normal;=
+font-variant:normal;text-decoration:none;vertical-align:baseline;white-spac=
+e:pre-wrap">Design: End of August</span></p></li><li dir=3D"ltr" style=3D"l=
+ist-style-type:circle;font-size:11pt;font-family:Arial;color:rgb(0,0,0);bac=
+kground-color:transparent;font-weight:400;font-style:normal;font-variant:no=
+rmal;text-decoration:none;vertical-align:baseline;white-space:pre"><p dir=
+=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span =
+style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color=
+:transparent;font-weight:400;font-style:normal;font-variant:normal;text-dec=
+oration:none;vertical-align:baseline;white-space:pre-wrap">Code1: End of Se=
+ptember</span></p></li><li dir=3D"ltr" style=3D"list-style-type:circle;font=
+-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;=
+font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;=
+vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-heigh=
+t:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font=
+-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400=
+;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:=
+baseline;white-space:pre-wrap">Code2: Mid November</span></p></li><li dir=
+=3D"ltr" style=3D"list-style-type:circle;font-size:11pt;font-family:Arial;c=
+olor:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:nor=
+mal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-=
+space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-b=
+ottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0)=
+;background-color:transparent;font-weight:400;font-style:normal;font-varian=
+t:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap"=
+>Feature freeze: January 7, 2019</span></p></li><li dir=3D"ltr" style=3D"li=
+st-style-type:circle;font-size:11pt;font-family:Arial;color:rgb(0,0,0);back=
+ground-color:transparent;font-weight:400;font-style:normal;font-variant:nor=
+mal;text-decoration:none;vertical-align:baseline;white-space:pre"><p dir=3D=
+"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span sty=
+le=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:tr=
+ansparent;font-weight:400;font-style:normal;font-variant:normal;text-decora=
+tion:none;vertical-align:baseline;white-space:pre-wrap">Release: February 4=
+-7, 2019</span></p></li><li dir=3D"ltr" style=3D"list-style-type:circle;fon=
+t-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent=
+;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none=
+;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-heig=
+ht:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;fon=
+t-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:70=
+0;font-style:normal;font-variant:normal;text-decoration:none;vertical-align=
+:baseline;white-space:pre-wrap">Agreement</span><span style=3D"font-size:11=
+pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-wei=
+ght:400;font-style:normal;font-variant:normal;text-decoration:none;vertical=
+-align:baseline;white-space:pre-wrap"> on Feature freeze and Release date s=
+hift to past the first of the year as proposed, July to shift to maintain 6=
+ month (August 5-10th)</span></p></li><li dir=3D"ltr" style=3D"list-style-t=
+ype:circle;font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-col=
+or:transparent;font-weight:400;font-style:normal;font-variant:normal;text-d=
+ecoration:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" styl=
+e=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font=
+-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;=
+font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;=
+vertical-align:baseline;white-space:pre-wrap">Agreement</span><span style=
+=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:tran=
+sparent;font-weight:400;font-style:normal;font-variant:normal;text-decorati=
+on:none;vertical-align:baseline;white-space:pre-wrap"> on August 31st as th=
+e Design milestone date - workgroup formed and high-level design complete</=
+span></p></li></ul><li dir=3D"ltr" style=3D"list-style-type:disc;font-size:=
+11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-w=
+eight:400;font-style:normal;font-variant:normal;text-decoration:none;vertic=
+al-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38=
+;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-famil=
+y:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-=
+style:normal;font-variant:normal;text-decoration:none;vertical-align:baseli=
+ne;white-space:pre-wrap">Work items spreadsheet discussion - duplicate topi=
+cs? WG leads?</span></p></li><ul style=3D"margin-top:0pt;margin-bottom:0pt"=
+><li dir=3D"ltr" style=3D"list-style-type:circle;font-size:11pt;font-family=
+:Arial;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-s=
+tyle:normal;font-variant:normal;text-decoration:none;vertical-align:baselin=
+e;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;=
+margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rg=
+b(0,0,0);background-color:transparent;font-weight:400;font-style:normal;fon=
+t-variant:normal;text-decoration:none;vertical-align:baseline;white-space:p=
+re-wrap">Walked through most of the work items, clarification on descriptio=
+n, current state</span></p></li><li dir=3D"ltr" style=3D"list-style-type:ci=
+rcle;font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:tra=
+nsparent;font-weight:400;font-style:normal;font-variant:normal;text-decorat=
+ion:none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"l=
+ine-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:=
+11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-w=
+eight:400;font-style:normal;font-variant:normal;text-decoration:none;vertic=
+al-align:baseline;white-space:pre-wrap">Resume discussion next week with ro=
+w 30 SSIF</span></p></li></ul><li dir=3D"ltr" style=3D"list-style-type:disc=
+;font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transpa=
+rent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:=
+none;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-=
+height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt=
+;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-weigh=
+t:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-a=
+lign:baseline;white-space:pre-wrap">Need to move the meeting time - Monday =
+or Wednesday? Same time?</span></p></li></ul><br></div>
+
+--0000000000007529b40571ffedb5--
