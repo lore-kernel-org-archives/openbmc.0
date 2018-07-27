@@ -1,29 +1,57 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c01::243; helo=mail-pl0-x243.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="hHPpge0M"; 
+ dkim-atps=neutral
+Received: from mail-pl0-x243.google.com (mail-pl0-x243.google.com
+ [IPv6:2607:f8b0:400e:c01::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41c8Wb5nXjzF0wQ
- for <openbmc@lists.ozlabs.org>; Fri, 27 Jul 2018 10:11:07 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w6R0AvN0007351;
- Thu, 26 Jul 2018 19:10:58 -0500
-Message-ID: <81553544b2004efd42f256147d0d9f45df01df25.camel@kernel.crashing.org>
-Subject: [GIT PULL] FSI updates round 4 (last) for 4.19
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>
-Date: Fri, 27 Jul 2018 10:10:57 +1000
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.4 (3.28.4-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41cHbb47ckzDqk8
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Jul 2018 15:30:02 +1000 (AEST)
+Received: by mail-pl0-x243.google.com with SMTP id f6-v6so1829695plo.1
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Jul 2018 22:30:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=iG9z+r69zGkg/nBQp5+TDujWUkhRfdl9IRPpXRU/8LA=;
+ b=hHPpge0MLXzaZ7rB7m/YfSwT1Z652XgVqs0P9BmRC7Aj4xW5mh88+JmgOi7LTbMrfI
+ HUOPgBfy4lPXn2BF2Ouqe61DFHEfHC817BSweyIfBiKtfdpNmuVgs32aSVbH946RS76x
+ mNd94QqUcqeRoyLQ/MqAnTwSyOGPUpPO5we9QGHZ8KAEsLxH1wEhLMb8Y07zFZBXmUt6
+ B5D5QAEGzar5s6X4furGAF8FgHBP3FKi9PtsRm6jRYB2I6WwOmByTpziO72d+ZUdjplx
+ yqfAfhliy+QoKIJ5rGaU57S6DGX+UVpII6wCFvg8k5dyKpCHe3pj12VltCTQ58bKw4uy
+ 4Erg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=iG9z+r69zGkg/nBQp5+TDujWUkhRfdl9IRPpXRU/8LA=;
+ b=PipS5wYs3mw+RPyKmjR9Dj3O781choADnX333uv6qXuAlP0Btsm8M8PxBxF2Yu4QiN
+ zqjUBpXXbXaLslZ3Ib/fyNKX+bIjqqpsBLxmSEXUlLm6B+V73f37+/rYEUYoSmlQHekR
+ MCAZfuZMieMJ5q0l9MC8Y+S15Sr5a8BgnvrgoOvxlcLPR8IVpbPLAJ0iJJANmiK/6koO
+ Cdet3w1BXYNEndtFFUidejPVs+Dd4E8QSzk9O34AZHPnu8+v06X32PDu2dMwNqsnMw4J
+ HEpC47EIul6gbr0snVj2njgXHTV2yI4CYV2lrn+65eiTuZgQeFrLOMh7Tc2CtfMxJLgP
+ RSDg==
+X-Gm-Message-State: AOUpUlEdLmYEt+Aa/SBnduOQJnXdkbqM3J4lQGvWocFIrof/8+vQDp7Z
+ jZJG5Z31YIv5itWK1n09H7F1ZHyE
+X-Google-Smtp-Source: AAOMgpdQ/mawlqL0jBYcuEkbhdb46AZfUZwdWRwM72QYOO+fDBT7G4gwN2oOnuaKqAg5LIOeTWoasw==
+X-Received: by 2002:a17:902:1:: with SMTP id
+ 1-v6mr4687159pla.167.1532669400274; 
+ Thu, 26 Jul 2018 22:30:00 -0700 (PDT)
+Received: from localhost (45.62.100.246.16clouds.com. [45.62.100.246])
+ by smtp.gmail.com with ESMTPSA id j71-v6sm4498310pgd.23.2018.07.26.22.29.58
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 26 Jul 2018 22:29:59 -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.17] ARM: dts: aspeed: romulus: Enable
+ iio-hwmon-battery
+Date: Fri, 27 Jul 2018 13:29:45 +0800
+Message-Id: <1532669385-45493-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -35,62 +63,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Jul 2018 00:11:08 -0000
+X-List-Received-Date: Fri, 27 Jul 2018 05:30:05 -0000
 
-Hi Greg !
+Add iio-hwmon-battery using adc channel 12;
+Pull GPIOR3 high to enable RTC_ADC;
+Enable adc to make adc running.
 
-This adds a few fixes for things reported since the last merge,
-and the latch batch of changes pending for FSI for 4.19.
+Signed-off-by: Lei YU <mine260309@gmail.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-That batch is a rather mechanical conversion of the misc devices
-into proper char devices.
-
-The misc devices were ill suited, the minor space for them is
-limited and we can have a lot of chips in a system creating FSI
-devices.
-
-This also allows us to better control (and fix) object lifetime
-getting rid of the bad devm_kzalloc() of the structures containing
-the devices etc...
-
-Finally, we add a chardev to the core FSI that provides raw CFAM
-access to FSI slaves as a replacement for the current "raw" binary
-sysfs file which will be ultimately deprecated and removed.
-
-Thanks !
-Ben.
-
-The following changes since commit 0a213777d1dd879092225a7aa847b6e9b3a1c267:
-
-  fsi: Add support for device-tree provided chip IDs (2018-07-23 16:27:32 +1000)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/benh/linux-fsi.git tags/fsi-updates-2018-07-27
-
-for you to fetch changes up to 9840fcd8cc43bfba486a53b4461044f1a1189cdc:
-
-  fsi: Prevent multiple concurrent rescans (2018-07-27 09:58:12 +1000)
-
-----------------------------------------------------------------
-Benjamin Herrenschmidt (8):
-      fsi: master-ast-cf: Fix build warnings on 64-bit platforms
-      fsi: master-ast-cf: Mask unused bits in RTAG/RCRC
-      fsi: master-ast-cf: Rename dump_trace() to avoid name collision
-      fsi: Add new central chardev support
-      fsi: sbefifo: Convert to use the new chardev
-      fsi: scom: Convert to use the new chardev
-      fsi: Add cfam char devices
-      fsi: Prevent multiple concurrent rescans
-
-Gustavo A. R. Silva (1):
-      fsi: master-ast-cf: Fix memory leak
-
- drivers/fsi/Kconfig             |  15 +++
- drivers/fsi/fsi-core.c          | 375 +++++++++++++++++++++++++++++++++++++++++++++++++++++++----------
- drivers/fsi/fsi-master-ast-cf.c |  24 +++--
- drivers/fsi/fsi-master.h        |   2 +
- drivers/fsi/fsi-sbefifo.c       |  84 ++++++++++-----
- drivers/fsi/fsi-scom.c          | 130 ++++++++++++++---------
- include/linux/fsi.h             |  12 ++-
- 7 files changed, 496 insertions(+), 146 deletions(-)
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 852b552..461564c 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -83,6 +83,11 @@
+ 			linux,code = <ASPEED_GPIO(Q, 7)>;
+ 		};
+ 	};
++
++	iio-hwmon-battery {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 12>;
++	};
+ };
+ 
+ #include "ibm-power9-cfam.dtsi"
+@@ -236,6 +241,12 @@
+ 		output-low;
+ 		line-name = "seq_cont";
+ 	};
++	rtc_adc_en {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "rtc_adc_en";
++	};
+ };
+ 
+ &vuart {
+@@ -304,3 +315,7 @@
+ 	status = "okay";
+ };
+ 
++&adc {
++	status = "okay";
++};
++
+-- 
+2.7.4
