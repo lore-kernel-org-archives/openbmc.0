@@ -1,71 +1,41 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <Tali.Perry@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tali.perry@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41cbjb49V4zF0h9;
- Sat, 28 Jul 2018 03:36:18 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2018 10:36:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,410,1526367600"; d="scan'208";a="219675878"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.149])
- ([10.7.153.149])
- by orsmga004.jf.intel.com with ESMTP; 27 Jul 2018 10:36:16 -0700
-Subject: Re: [PATCH v7 08/12] mfd: intel-peci-client: Add PECI client MFD
- driver
-To: Lee Jones <lee.jones@linaro.org>
-Cc: Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- "Darrick J . Wong" <darrick.wong@oracle.com>,
- Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
- "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
- Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
- Stephen Boyd <sboyd@codeaurora.org>,
- David Kershner <david.kershner@unisys.com>,
- Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
- Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180723214751.1733-1-jae.hyun.yoo@linux.intel.com>
- <20180723214751.1733-9-jae.hyun.yoo@linux.intel.com>
- <20180727082611.GE4628@dell>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <acffdfef-cb20-4208-5297-d94bac5ecb1b@linux.intel.com>
-Date: Fri, 27 Jul 2018 10:36:15 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <20180727082611.GE4628@dell>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41dcWy70JLzF10h
+ for <openbmc@lists.ozlabs.org>; Sun, 29 Jul 2018 19:16:27 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w6T8jC9q010351;
+ Sun, 29 Jul 2018 11:45:12 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 20088)
+ id 629666312A; Sun, 29 Jul 2018 12:15:11 +0300 (IDT)
+From: Tali Perry <tali.perry1@gmail.com>
+To: tali.perry1@gmail.com, avifishman70@gmail.com, tmaimon77@gmail.com,
+ venture@google.com, yuenn@google.com, brendanhiggins@google.com,
+ robh+dt@kernel.org, mark.rutland@arm.com, davem@davemloft.net,
+ mchehab+samsung@kernel.org, gregkh@linuxfoundation.org,
+ akpm@linux-foundation.org, arnd@arndb.de, wsa@the-dreams.de,
+ andriy.shevchenko@linux.intel.com, pierre-yves.mordret@st.com,
+ cedric.madianga@gmail.com, baolin.wang@spreadtrum.com,
+ jarkko.nikula@linux.intel.com, hdegoede@redhat.com,
+ rmk+kernel@armlinux.org.uk, ard.biesheuvel@linaro.org,
+ thor.thayer@linux.intel.com, geert@linux-m68k.org,
+ heikki.krogerus@linux.intel.com, tglx@linutronix.de
+Cc: linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v1 1/2] dt-binding: i2c: npcm7xx: add binding for i2c
+Date: Sun, 29 Jul 2018 12:14:48 +0300
+Message-Id: <20180729091449.385951-2-tali.perry1@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180729091449.385951-1-tali.perry1@gmail.com>
+References: <20180729091449.385951-1-tali.perry1@gmail.com>
 X-Mailman-Approved-At: Tue, 31 Jul 2018 10:00:13 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -78,110 +48,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Jul 2018 17:36:20 -0000
+X-List-Received-Date: Sun, 29 Jul 2018 09:16:31 -0000
 
-Hi Lee,
+Nuvoton NPCM7XX I2C Controller
+NPCM7xx includes 16 I2C contollers. This driver operates the controller.
+This module also includes a slave mode, which will be submitted later on.
 
-On 7/27/2018 1:26 AM, Lee Jones wrote:
-> On Mon, 23 Jul 2018, Jae Hyun Yoo wrote:
-> 
->> This commit adds PECI client MFD driver.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Cc: Lee Jones <lee.jones@linaro.org>
->> Cc: Rob Herring <robh+dt@kernel.org>
->> Cc: Andrew Jeffery <andrew@aj.id.au>
->> Cc: James Feist <james.feist@linux.intel.com>
->> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->> Cc: Joel Stanley <joel@jms.id.au>
->> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
->> ---
->>   drivers/mfd/Kconfig                   |  14 ++
->>   drivers/mfd/Makefile                  |   1 +
->>   drivers/mfd/intel-peci-client.c       | 182 ++++++++++++++++++++++++++
->>   include/linux/mfd/intel-peci-client.h |  81 ++++++++++++
->>   4 files changed, 278 insertions(+)
->>   create mode 100644 drivers/mfd/intel-peci-client.c
->>   create mode 100644 include/linux/mfd/intel-peci-client.h
->>
->> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
->> index f3fa516011ec..e38b591479d4 100644
->> --- a/drivers/mfd/Kconfig
->> +++ b/drivers/mfd/Kconfig
->> @@ -595,6 +595,20 @@ config MFD_INTEL_MSIC
->>   	  Passage) chip. This chip embeds audio, battery, GPIO, etc.
->>   	  devices used in Intel Medfield platforms.
->>   
->> +config MFD_INTEL_PECI_CLIENT
->> +	bool "Intel PECI client"
->> +	depends on (PECI || COMPILE_TEST)
->> +	select MFD_CORE
->> +	help
->> +	  If you say yes to this option, support will be included for the
->> +	  multi-funtional Intel PECI (Platform Environment Control Interface)
->> +	  client. PECI is a one-wire bus interface that provides a communication
->> +	  channel from PECI clients in Intel processors and chipset components
->> +	  to external monitoring or control devices.
->> +
->> +	  Additional drivers must be enabled in order to use the functionality
->> +	  of the device.
->> +
->>   config MFD_IPAQ_MICRO
->>   	bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
->>   	depends on SA1100_H3100 || SA1100_H3600
->> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
->> index 2852a6042ecf..29e2cacc58bd 100644
->> --- a/drivers/mfd/Makefile
->> +++ b/drivers/mfd/Makefile
->> @@ -203,6 +203,7 @@ obj-$(CONFIG_MFD_INTEL_LPSS)	+= intel-lpss.o
->>   obj-$(CONFIG_MFD_INTEL_LPSS_PCI)	+= intel-lpss-pci.o
->>   obj-$(CONFIG_MFD_INTEL_LPSS_ACPI)	+= intel-lpss-acpi.o
->>   obj-$(CONFIG_MFD_INTEL_MSIC)	+= intel_msic.o
->> +obj-$(CONFIG_MFD_INTEL_PECI_CLIENT)	+= intel-peci-client.o
->>   obj-$(CONFIG_MFD_PALMAS)	+= palmas.o
->>   obj-$(CONFIG_MFD_VIPERBOARD)    += viperboard.o
->>   obj-$(CONFIG_MFD_RC5T583)	+= rc5t583.o rc5t583-irq.o
->> diff --git a/drivers/mfd/intel-peci-client.c b/drivers/mfd/intel-peci-client.c
->> new file mode 100644
->> index 000000000000..d7702cf1ea50
->> --- /dev/null
->> +++ b/drivers/mfd/intel-peci-client.c
->> @@ -0,0 +1,182 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +// Copyright (c) 2018 Intel Corporation
->> +
->> +#include <linux/bitfield.h>
->> +#include <linux/mfd/core.h>
->> +#include <linux/mfd/intel-peci-client.h>
->> +#include <linux/module.h>
->> +#include <linux/peci.h>
->> +#include <linux/of_device.h>
->> +
->> +enum cpu_gens {
->> +	CPU_GEN_HSX = 0, /* Haswell Xeon */
->> +	CPU_GEN_BRX,     /* Broadwell Xeon */
->> +	CPU_GEN_SKX,     /* Skylake Xeon */
->> +};
->> +
->> +static struct mfd_cell peci_functions[] = {
->> +	{
->> +		.name = "peci-cputemp",
->> +		.of_compatible = "intel,peci-cputemp",
->> +	},
->> +	{
->> +		.name = "peci-dimmtemp",
->> +		.of_compatible = "intel,peci-dimmtemp",
->> +	},
->> +};
-> 
-> The more I look at this driver, the less I think it fits into MFD.
-> 
-> What's stopping you from registering these devices directly from DT?
-> 
+Any feedback would be appreciated.  
 
-Because DT doesn't allow 2 nodes at the same address so Rob suggested
-MFD for this case.
 
-Thanks,
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
 
-Jae
+---
+ .../devicetree/bindings/i2c/i2c-npcm7xx.txt        | 27 ++++++++++++++++++++++
+ MAINTAINERS                                        |  9 ++++++++
+ 2 files changed, 36 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
+
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
+new file mode 100644
+index 000000000000..e2ee45d7a41e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
+@@ -0,0 +1,27 @@
++Nuvoton NPCM7XX I2C bus
++
++The NPCM750x includes sixteen I2C busses
++
++Required properties:
++- compatible      : must be "nuvoton,npcm750-i2c-bus"
++- reg             : Offset and length of the register set for the device.
++- interrupts      : Contain the I2C interrupt with flags for falling edge.
++- clocks          : phandle of I2C reference clock.
++
++Optional:
++- bus-frequency   : Contain the I2C bus frequency,
++			the default I2C bus frequency is 100000.
++- pinctrl-0       : must be <&smbX_pins>, X is module number
++			(on NPCM7XX it's 0 to 15)
++- pinctrl-names   : should be set to "default"
++Example:
++
++	i2c0: i2c-bus@80000 {
++		compatible = "nuvoton,npcm750-i2c-bus";
++		reg = <0x80000 0x1000>;
++		clocks = <&clk NPCM7XX_CLK_APB2>;
++		bus-frequency = <100000>;
++		interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&smb0_pins>;
++	};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 192d7f73fd01..a28edc9daabb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1735,6 +1735,15 @@ F:	drivers/*/*npcm*
+ F:	Documentation/devicetree/bindings/*/*npcm*
+ F:	Documentation/devicetree/bindings/*/*/*npcm*
+ 
++ARM/NUVOTON I2C DRIVER
++M:	Tali Perry <tali.perry1@gmail.com>
++M:	Avi Fishman <avifishman70@gmail.com>
++L:	linux-i2c@vger.kernel.org
++L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
++S:	Supported
++F:	drivers/i2c/busses/i2c-npcm7xx.c
++F:	Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
++
+ ARM/NUVOTON W90X900 ARM ARCHITECTURE
+ M:	Wan ZongShun <mcuos.com@gmail.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+-- 
+2.14.1
