@@ -1,73 +1,60 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=59.36.132.50; helo=qq.com; envelope-from=1450335857@qq.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="C7FI/nyR"; 
+ dkim-atps=neutral
+X-Greylist: delayed 434 seconds by postgrey-1.36 at bilbo;
+ Tue, 31 Jul 2018 17:00:02 AEST
+Received: from qq.com (smtpbg467.qq.com [59.36.132.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41fb5w71GSzF10S;
- Tue, 31 Jul 2018 09:15:48 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2018 16:15:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,425,1526367600"; d="scan'208";a="60751514"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.149])
- ([10.7.153.149])
- by orsmga007.jf.intel.com with ESMTP; 30 Jul 2018 16:15:45 -0700
-Subject: Re: [PATCH v7 08/12] mfd: intel-peci-client: Add PECI client MFD
- driver
-To: Rob Herring <robh+dt@kernel.org>
-Cc: Lee Jones <lee.jones@linaro.org>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, darrick.wong@oracle.com,
- sandeen@redhat.com, Arnd Bergmann <arnd@arndb.de>, Wu Hao
- <hao.wu@intel.com>, kusumi.tomohiro@gmail.com, bryantly@linux.vnet.ibm.com,
- fbarrat@linux.vnet.ibm.com, David Miller <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>, Vinod <vkoul@kernel.org>,
- Stephen Boyd <sboyd@codeaurora.org>, david.kershner@unisys.com,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, jgross@suse.com,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
- Linux HWMON List <linux-hwmon@vger.kernel.org>, devicetree@vger.kernel.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180723214751.1733-1-jae.hyun.yoo@linux.intel.com>
- <20180723214751.1733-9-jae.hyun.yoo@linux.intel.com>
- <20180727082611.GE4628@dell>
- <acffdfef-cb20-4208-5297-d94bac5ecb1b@linux.intel.com>
- <CAL_JsqL7WkDOaegwmBDqLkRh0JfCo7O2krONVstjWMUsLiJMrg@mail.gmail.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <7ab43253-1154-6e2f-b216-69b0d44b470a@linux.intel.com>
-Date: Mon, 30 Jul 2018 16:15:45 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <CAL_JsqL7WkDOaegwmBDqLkRh0JfCo7O2krONVstjWMUsLiJMrg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 31 Jul 2018 10:00:13 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41fnPZ1FjGzF14l
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 17:00:01 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1533019947; bh=upz55dVoVZpQqDpFCfQHcPfTOlbfT0uuEnpt6A02yeU=;
+ h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=C7FI/nyRM3epofQEADDkkXDvlg6HpXSJ6S9rpZQB+BaZfwP4XPv01mvR9tjdA3C18
+ aYD+3MwPSmhWXH4IqeQYXiZqdARC9abRr8j0VWpJ9ZmOj4Px4C07bSw9EVnHbWcPsb
+ sL1YneLOasy5jlb6p9s6Y1TQxCyu5R2U+0ur+lGg=
+X-QQ-FEAT: y/Yfw/TLgL6tAARXFzDgwoyuDdY3pCpgi1InEdaoPQq6NlVuqLYSOkY5wYJ/f
+ GSjKVU3OcVZtTJnNZm5IoEvixY3GT4jwnIIa11d2oXPq3PLTNpQSCnSeX0Pr/kCiToj7Ufn
+ EAatCTL0gzqNR0+eAcAC4De22jFANniKlMpmVTj5R0jeWnmppac96kVMiYZQc3tixSjhSo3
+ cXqCQlL5qzcTLd9dBtrAeIXfTzuPMJCUl8EAlP7FcjZ1bWXiT2RDLI1X8Q/OU/z1A+NGe+H
+ mQi8KNiRRmHiEk5YCp2u+F3lc8V8EAvwpHMwyWJtg2QKvw
+X-QQ-SSF: 000000000000005000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.64.100
+In-Reply-To: <20180725085640.GA10849@bbwork.lan>
+References: <tencent_7C15837BAB91A131A31142D54EE9723ED405@qq.com>
+ <20180725085640.GA10849@bbwork.lan>
+X-QQ-STYLE: 
+X-QQ-mid: webmail500t1533019945t6190827
+From: "=?gb18030?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?gb18030?B?QWxleGFuZGVyIEEuIEZpbGlwcG92?=" <a.filippov@yadro.com>,
+ "=?gb18030?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
+Subject: =?gb18030?B?u9i4tKO6IEtWTSBTdXBwb3J0Pw==?=
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5B600729_0BEBFBF8_184D4A23"
+Content-Transfer-Encoding: 8Bit
+Date: Tue, 31 Jul 2018 14:52:25 +0800
+X-Priority: 3
+Message-ID: <tencent_E51A85548B940EE6A95D61B89D1B8D1ACF09@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-ReplyHash: 2997784643
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Tue, 31 Jul 2018 14:52:27 +0800 (CST)
+Feedback-ID: webmail:qq.com:bgforeign:bgforeign1
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -79,138 +66,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Jul 2018 23:15:49 -0000
+X-List-Received-Date: Tue, 31 Jul 2018 07:00:04 -0000
 
-Hi Rob,
+This is a multi-part message in MIME format.
 
-On 7/30/2018 3:10 PM, Rob Herring wrote:
-> On Fri, Jul 27, 2018 at 11:36 AM Jae Hyun Yoo
-> <jae.hyun.yoo@linux.intel.com> wrote:
->>
->> Hi Lee,
->>
->> On 7/27/2018 1:26 AM, Lee Jones wrote:
->>> On Mon, 23 Jul 2018, Jae Hyun Yoo wrote:
->>>
->>>> This commit adds PECI client MFD driver.
->>>>
->>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->>>> Cc: Lee Jones <lee.jones@linaro.org>
->>>> Cc: Rob Herring <robh+dt@kernel.org>
->>>> Cc: Andrew Jeffery <andrew@aj.id.au>
->>>> Cc: James Feist <james.feist@linux.intel.com>
->>>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->>>> Cc: Joel Stanley <joel@jms.id.au>
->>>> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
->>>> ---
->>>>    drivers/mfd/Kconfig                   |  14 ++
->>>>    drivers/mfd/Makefile                  |   1 +
->>>>    drivers/mfd/intel-peci-client.c       | 182 ++++++++++++++++++++++++++
->>>>    include/linux/mfd/intel-peci-client.h |  81 ++++++++++++
->>>>    4 files changed, 278 insertions(+)
->>>>    create mode 100644 drivers/mfd/intel-peci-client.c
->>>>    create mode 100644 include/linux/mfd/intel-peci-client.h
->>>>
->>>> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
->>>> index f3fa516011ec..e38b591479d4 100644
->>>> --- a/drivers/mfd/Kconfig
->>>> +++ b/drivers/mfd/Kconfig
->>>> @@ -595,6 +595,20 @@ config MFD_INTEL_MSIC
->>>>         Passage) chip. This chip embeds audio, battery, GPIO, etc.
->>>>         devices used in Intel Medfield platforms.
->>>>
->>>> +config MFD_INTEL_PECI_CLIENT
->>>> +    bool "Intel PECI client"
->>>> +    depends on (PECI || COMPILE_TEST)
->>>> +    select MFD_CORE
->>>> +    help
->>>> +      If you say yes to this option, support will be included for the
->>>> +      multi-funtional Intel PECI (Platform Environment Control Interface)
->>>> +      client. PECI is a one-wire bus interface that provides a communication
->>>> +      channel from PECI clients in Intel processors and chipset components
->>>> +      to external monitoring or control devices.
->>>> +
->>>> +      Additional drivers must be enabled in order to use the functionality
->>>> +      of the device.
->>>> +
->>>>    config MFD_IPAQ_MICRO
->>>>       bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
->>>>       depends on SA1100_H3100 || SA1100_H3600
->>>> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
->>>> index 2852a6042ecf..29e2cacc58bd 100644
->>>> --- a/drivers/mfd/Makefile
->>>> +++ b/drivers/mfd/Makefile
->>>> @@ -203,6 +203,7 @@ obj-$(CONFIG_MFD_INTEL_LPSS)     += intel-lpss.o
->>>>    obj-$(CONFIG_MFD_INTEL_LPSS_PCI)   += intel-lpss-pci.o
->>>>    obj-$(CONFIG_MFD_INTEL_LPSS_ACPI)  += intel-lpss-acpi.o
->>>>    obj-$(CONFIG_MFD_INTEL_MSIC)       += intel_msic.o
->>>> +obj-$(CONFIG_MFD_INTEL_PECI_CLIENT) += intel-peci-client.o
->>>>    obj-$(CONFIG_MFD_PALMAS)   += palmas.o
->>>>    obj-$(CONFIG_MFD_VIPERBOARD)    += viperboard.o
->>>>    obj-$(CONFIG_MFD_RC5T583)  += rc5t583.o rc5t583-irq.o
->>>> diff --git a/drivers/mfd/intel-peci-client.c b/drivers/mfd/intel-peci-client.c
->>>> new file mode 100644
->>>> index 000000000000..d7702cf1ea50
->>>> --- /dev/null
->>>> +++ b/drivers/mfd/intel-peci-client.c
->>>> @@ -0,0 +1,182 @@
->>>> +// SPDX-License-Identifier: GPL-2.0
->>>> +// Copyright (c) 2018 Intel Corporation
->>>> +
->>>> +#include <linux/bitfield.h>
->>>> +#include <linux/mfd/core.h>
->>>> +#include <linux/mfd/intel-peci-client.h>
->>>> +#include <linux/module.h>
->>>> +#include <linux/peci.h>
->>>> +#include <linux/of_device.h>
->>>> +
->>>> +enum cpu_gens {
->>>> +    CPU_GEN_HSX = 0, /* Haswell Xeon */
->>>> +    CPU_GEN_BRX,     /* Broadwell Xeon */
->>>> +    CPU_GEN_SKX,     /* Skylake Xeon */
->>>> +};
->>>> +
->>>> +static struct mfd_cell peci_functions[] = {
->>>> +    {
->>>> +            .name = "peci-cputemp",
->>>> +            .of_compatible = "intel,peci-cputemp",
->>>> +    },
->>>> +    {
->>>> +            .name = "peci-dimmtemp",
->>>> +            .of_compatible = "intel,peci-dimmtemp",
->>>> +    },
->>>> +};
->>>
->>> The more I look at this driver, the less I think it fits into MFD.
->>>
->>> What's stopping you from registering these devices directly from DT?
->>>
->>
->> Because DT doesn't allow 2 nodes at the same address so Rob suggested
->> MFD for this case.
-> 
-> Only after I first suggested you create cpu and dimm sensors from a
-> single hwmon driver. Perhaps you should figure out how to fix the
-> problem with delayed registration. Perhaps you can register the
-> sensor, but just delay returning actual data until it is ready.
-> 
+------=_NextPart_5B600729_0BEBFBF8_184D4A23
+Content-Type: text/plain;
+	charset="gb18030"
+Content-Transfer-Encoding: base64
 
-The actual reason why I divided the single hwmon driver into two is for
-using recommended hwmon API set which doesn't allow incremental
-creation of sysfs attributes at run time - using of
-'devm_hwmon_device_register_with_info' is suggested by Guenter instead
-of using other deprecated APIs.
+SGkgQWxleGFuZGVyICxFZGRpZSwNCiAgSSBtZXJnZWQgdGhlIHNvdXJjZSBmcm9tIGh0dHBz
+Oi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovIy9jL29wZW5ibWMvb3BlbmJtYy8rLzEx
+NTAwLyxhbmQga2VybmVsIGJyYW5jaCB2aWRlby1kZXYuDQpIb3cgdG8gdGVzdCB0aGUgdmlk
+ZW8ga3ZtIGZlYXR1cmUgYnkgcGhvc3Bob3Itd2VidWkgb3IgY29tbWFuZCBsaW5lPw0KQmVz
+dCwNCnhpdXpoaQ0KDQoNCg0KDQotLS0tLS0tLS0tLS0tLS0tLS0g1K3KvNPKvP4gLS0tLS0t
+LS0tLS0tLS0tLS0tDQq3orz+yMs6ICJBbGV4YW5kZXIgQS4gRmlsaXBwb3YiPGEuZmlsaXBw
+b3ZAeWFkcm8uY29tPjsNCreiy83KsbzkOiAyMDE4xOo31MIyNcjVKNDHxtrI/Skgz8LO5zQ6
+NTYNCsrVvP7IyzogIm9wZW5ibWMiPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz47InhpdXpo
+aSI8MTQ1MDMzNTg1N0BxcS5jb20+Ow0KDQrW98ziOiBSZTogS1ZNIFN1cHBvcnQ/DQoNCg0K
+DQpIZWxsbyBldmVyeWJvZHksDQoNCkNvdWxkIHlvdSBjaGVjayB0aGUgc2l6ZSBvZiBgYnVp
+bGQvdG1wL2RlcGxveS9pbWFnZS88cGxhdGZvcm1uYW1lPi9maXRJbWFnZS1vcGVuYm1jLXBo
+b3NwaG9yLWluaXRyYW1mcy0qLmJpbmA/DQpJZiBpdCBleGNlZWRzIDQ0NTY0NDggKDB4NDQw
+MDAwKSBieXRlcywgdGhpcyBpcyB0aGUgcHJvYmxlbSBkZXNjcmliZWQgYXQgaHR0cHM6Ly9n
+aXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvMzMxNA0KDQoNCkluIHRoaXMgY2Fz
+ZSB5b3Ugc2hvdWxkIG1vZGlmeSBmbGFzaCBwYXJ0aXRpb25zIGxheW91dCBvciB0cnlpbmcg
+dG8gZGVjcmVhc2Uga2VybmVsIHNpemUuDQoNCi0tDQpBbGV4YW5kZXINCg0KT24gV2VkLCBK
+dWwgMjUsIDIwMTggYXQgMDM6NDg6MDRQTSArMDgwMCwgeGl1emhpIHdyb3RlOg0KPiBIaSBF
+ZGRpZSwNCj4gDQo+IA0KPiAgIEkgcmVhZCB5b3VyIEtWTSBTdXBwb3J0IGVtYWlsIG9uIG1h
+aWxpbmdsaXN0Lg0KPiANCj4gDQo+IEkgYW0gZ29pbmcgdG8gcG9ydCB0aGUgQk1DIGt2bSB0
+byBhc3QyNDAwIC4gVGhlIHUtYm9vdCBjYW4gbm90IGxvYWQga2VybmVsICx0aGUgZXJyb3Ig
+bWVzc2FnZSByZWFkOg0KPiANCj4gDQo+ICIiVS1Cb290IDIwMTYuMDcgKEp1bCAyMyAyMDE4
+IC0gMTE6MTE6NTAgKzAwMDApDQo+IA0KPiANCj4gRFJBTTogIDI0MCBNaUINCj4gV0FSTklO
+RzogQ2FjaGVzIG5vdCBlbmFibGVkDQo+IEZsYXNoOiAzMiBNaUINCj4gKioqIFdhcm5pbmcg
+LSBiYWQgQ1JDLCB1c2luZyBkZWZhdWx0IGVudmlyb25tZW50DQo+IA0KPiANCj4gSW46ICAg
+IHNlcmlhbA0KPiBPdXQ6ICAgc2VyaWFsDQo+IEVycjogICBzZXJpYWwNCj4gTmV0OiAgIGFz
+cGVlZG5pYyMwDQo+IEVycm9yOiBhc3BlZWRuaWMjMCBhZGRyZXNzIG5vdCBzZXQuDQo+IA0K
+PiANCj4gSGl0IGFueSBrZXkgdG8gc3RvcCBhdXRvYm9vdDogIDANCj4gIyMgTG9hZGluZyBr
+ZXJuZWwgZnJvbSBGSVQgSW1hZ2UgYXQgMjAwODAwMDAgLi4uDQo+IEJhZCBGSVQga2VybmVs
+IGltYWdlIGZvcm1hdCENCj4gRVJST1I6IGNhbid0IGdldCBrZXJuZWwgaW1hZ2UhDQo+IGFz
+dCMNCj4gDQo+IA0KPiBJIGFkZGVkICBjb25maWcgb3B0aW9ucyB0byBkZWZjb25maWcgb2Yg
+YXN0MjQwMCBhcyBmb2xsb3dzOg0KPiANCj4gDQo+IENPTkZJR19NRURJQV9TVVBQT1JUPXkN
+Cj4gQ09ORklHX01FRElBX0NBTUVSQV9TVVBQT1JUPXkNCj4gQ09ORklHX01FRElBX1NVUFBP
+UlQ9eQ0KPiBDT05GSUdfTUVESUFfQ0FNRVJBX1NVUFBPUlQ9eQ0KPiAjIENPTkZJR19NRURJ
+QV9BTkFMT0dfVFZfU1VQUE9SVCBpcyBub3Qgc2V0DQo+ICMgQ09ORklHX01FRElBX0RJR0lU
+QUxfVFZfU1VQUE9SVCBpcyBub3Qgc2V0DQo+ICMgQ09ORklHX01FRElBX1JBRElPX1NVUFBP
+UlQgaXMgbm90IHNldA0KPiAjIENPTkZJR19NRURJQV9TRFJfU1VQUE9SVCBpcyBub3Qgc2V0
+DQo+ICMgQ09ORklHX01FRElBX0NFQ19TVVBQT1JUIGlzIG5vdCBzZXQNCj4gIyBDT05GSUdf
+TUVESUFfQ09OVFJPTExFUiBpcyBub3Qgc2V0DQo+IENPTkZJR19SQVRJT05BTD15DQo+IENP
+TkZJR19WSURFT19ERVY9eQ0KPiBDT05GSUdfVklERU9fVjRMMj15DQo+IENPTkZJR19WNExf
+UExBVEZPUk1fRFJJVkVSUz15DQo+IENPTkZJR19WSURFT19BU1BFRUQ9eQ0KPiBDT05GSUdf
+TUVESUFfU1VCRFJWX0FVVE9TRUxFQ1Q9eQ0KPiANCj4gDQo+IE5lZWQgSSBtb2RpZnkgdGhl
+IGFzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0cyBhbmQgYXNwZWVkLWc0LmR0c2k/DQo+IA0K
+PiANCj4gQ2FuIHlvdSBnaXZlIG1lIHRoZSBmaWxlIGxpc3QgbmVlZCB0byBtb2RpZnk/DQo+
+IA0KPiANCj4gVGhhbmtzLA0KPiANCj4gDQo+IHhpdXpoaQ==
 
-The reason why the delayed registration is needed is, BMC kernel cannot
-know how many DIMM are installed in remote machine before the machine
-completing memory training and testing in POST. So dimm temp driver
-cannot create hwmon attributes in advance.
+------=_NextPart_5B600729_0BEBFBF8_184D4A23
+Content-Type: text/html;
+	charset="gb18030"
+Content-Transfer-Encoding: base64
 
-My thought is, this way is the best to address these requirements.
+SGkgQWxleGFuZGVyICxFZGRpZSw8YnI+Jm5ic3A7IEkgbWVyZ2VkIHRoZSBzb3VyY2UgZnJv
+bSBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy9vcGVuYm1jL29wZW5i
+bWMvKy8xMTUwMC8sYW5kIGtlcm5lbCBicmFuY2ggdmlkZW8tZGV2Ljxicj5Ib3cgdG8gdGVz
+dCB0aGUgdmlkZW8ga3ZtIGZlYXR1cmUgYnkgcGhvc3Bob3Itd2VidWkgb3IgY29tbWFuZCBs
+aW5lPzxicj5CZXN0LDxicj54aXV6aGk8YnI+PGRpdj48ZGl2Pjxicj48L2Rpdj48ZGl2Pjxi
+cj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LXNpemU6IDEycHg7Zm9udC1mYW1pbHk6IEFyaWFs
+IE5hcnJvdztwYWRkaW5nOjJweCAwIDJweCAwOyI+LS0tLS0tLS0tLS0tLS0tLS0tJm5ic3A7
+1K3KvNPKvP4mbmJzcDstLS0tLS0tLS0tLS0tLS0tLS08L2Rpdj48ZGl2IHN0eWxlPSJmb250
+LXNpemU6IDEycHg7YmFja2dyb3VuZDojZWZlZmVmO3BhZGRpbmc6OHB4OyI+PGRpdj48Yj63
+orz+yMs6PC9iPiZuYnNwOyJBbGV4YW5kZXIgQS4gRmlsaXBwb3YiJmx0O2EuZmlsaXBwb3ZA
+eWFkcm8uY29tJmd0Ozs8L2Rpdj48ZGl2PjxiPreiy83KsbzkOjwvYj4mbmJzcDsyMDE4xOo3
+1MIyNcjVKNDHxtrI/Skgz8LO5zQ6NTY8L2Rpdj48ZGl2PjxiPsrVvP7Iyzo8L2I+Jm5ic3A7
+Im9wZW5ibWMiJmx0O29wZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs7InhpdXpoaSImbHQ7
+MTQ1MDMzNTg1N0BxcS5jb20mZ3Q7Ozx3YnI+PC9kaXY+PGRpdj48L2Rpdj48ZGl2PjxiPtb3
+zOI6PC9iPiZuYnNwO1JlOiBLVk0gU3VwcG9ydD88L2Rpdj48L2Rpdj48ZGl2Pjxicj48L2Rp
+dj5IZWxsbyBldmVyeWJvZHksPGJyPjxicj5Db3VsZCB5b3UgY2hlY2sgdGhlIHNpemUgb2Yg
+YGJ1aWxkL3RtcC9kZXBsb3kvaW1hZ2UvJmx0O3BsYXRmb3JtbmFtZSZndDsvZml0SW1hZ2Ut
+b3BlbmJtYy1waG9zcGhvci1pbml0cmFtZnMtKi5iaW5gPzxicj5JZiBpdCBleGNlZWRzIDQ0
+NTY0NDggKDB4NDQwMDAwKSBieXRlcywgdGhpcyBpcyB0aGUgcHJvYmxlbSBkZXNjcmliZWQg
+YXQgaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvMzMxNDxicj48
+YnI+PGJyPkluIHRoaXMgY2FzZSB5b3Ugc2hvdWxkIG1vZGlmeSBmbGFzaCBwYXJ0aXRpb25z
+IGxheW91dCBvciB0cnlpbmcgdG8gZGVjcmVhc2Uga2VybmVsIHNpemUuPGJyPjxicj4tLTxi
+cj5BbGV4YW5kZXI8YnI+PGJyPk9uIFdlZCwgSnVsIDI1LCAyMDE4IGF0IDAzOjQ4OjA0UE0g
+KzA4MDAsIHhpdXpoaSB3cm90ZTo8YnI+Jmd0OyBIaSBFZGRpZSw8YnI+Jmd0OyA8YnI+Jmd0
+OyA8YnI+Jmd0OyZuYnNwOyZuYnNwOyBJIHJlYWQgeW91ciBLVk0gU3VwcG9ydCBlbWFpbCBv
+biBtYWlsaW5nbGlzdC48YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBJIGFtIGdvaW5nIHRv
+IHBvcnQgdGhlIEJNQyBrdm0gdG8gYXN0MjQwMCAuIFRoZSB1LWJvb3QgY2FuIG5vdCBsb2Fk
+IGtlcm5lbCAsdGhlIGVycm9yIG1lc3NhZ2UgcmVhZDo8YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+
+Jmd0OyAiIlUtQm9vdCAyMDE2LjA3IChKdWwgMjMgMjAxOCAtIDExOjExOjUwICswMDAwKTxi
+cj4mZ3Q7IDxicj4mZ3Q7IDxicj4mZ3Q7IERSQU06Jm5ic3A7IDI0MCBNaUI8YnI+Jmd0OyBX
+QVJOSU5HOiBDYWNoZXMgbm90IGVuYWJsZWQ8YnI+Jmd0OyBGbGFzaDogMzIgTWlCPGJyPiZn
+dDsgKioqIFdhcm5pbmcgLSBiYWQgQ1JDLCB1c2luZyBkZWZhdWx0IGVudmlyb25tZW50PGJy
+PiZndDsgPGJyPiZndDsgPGJyPiZndDsgSW46Jm5ic3A7Jm5ic3A7Jm5ic3A7IHNlcmlhbDxi
+cj4mZ3Q7IE91dDombmJzcDsmbmJzcDsgc2VyaWFsPGJyPiZndDsgRXJyOiZuYnNwOyZuYnNw
+OyBzZXJpYWw8YnI+Jmd0OyBOZXQ6Jm5ic3A7Jm5ic3A7IGFzcGVlZG5pYyMwPGJyPiZndDsg
+RXJyb3I6IGFzcGVlZG5pYyMwIGFkZHJlc3Mgbm90IHNldC48YnI+Jmd0OyA8YnI+Jmd0OyA8
+YnI+Jmd0OyBIaXQgYW55IGtleSB0byBzdG9wIGF1dG9ib290OiZuYnNwOyAwPGJyPiZndDsg
+IyMgTG9hZGluZyBrZXJuZWwgZnJvbSBGSVQgSW1hZ2UgYXQgMjAwODAwMDAgLi4uPGJyPiZn
+dDsgQmFkIEZJVCBrZXJuZWwgaW1hZ2UgZm9ybWF0ITxicj4mZ3Q7IEVSUk9SOiBjYW4ndCBn
+ZXQga2VybmVsIGltYWdlITxicj4mZ3Q7IGFzdCM8YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0
+OyBJIGFkZGVkJm5ic3A7IGNvbmZpZyBvcHRpb25zIHRvIGRlZmNvbmZpZyBvZiBhc3QyNDAw
+IGFzIGZvbGxvd3M6PGJyPiZndDsgPGJyPiZndDsgPGJyPiZndDsgQ09ORklHX01FRElBX1NV
+UFBPUlQ9eTxicj4mZ3Q7IENPTkZJR19NRURJQV9DQU1FUkFfU1VQUE9SVD15PGJyPiZndDsg
+Q09ORklHX01FRElBX1NVUFBPUlQ9eTxicj4mZ3Q7IENPTkZJR19NRURJQV9DQU1FUkFfU1VQ
+UE9SVD15PGJyPiZndDsgIyBDT05GSUdfTUVESUFfQU5BTE9HX1RWX1NVUFBPUlQgaXMgbm90
+IHNldDxicj4mZ3Q7ICMgQ09ORklHX01FRElBX0RJR0lUQUxfVFZfU1VQUE9SVCBpcyBub3Qg
+c2V0PGJyPiZndDsgIyBDT05GSUdfTUVESUFfUkFESU9fU1VQUE9SVCBpcyBub3Qgc2V0PGJy
+PiZndDsgIyBDT05GSUdfTUVESUFfU0RSX1NVUFBPUlQgaXMgbm90IHNldDxicj4mZ3Q7ICMg
+Q09ORklHX01FRElBX0NFQ19TVVBQT1JUIGlzIG5vdCBzZXQ8YnI+Jmd0OyAjIENPTkZJR19N
+RURJQV9DT05UUk9MTEVSIGlzIG5vdCBzZXQ8YnI+Jmd0OyBDT05GSUdfUkFUSU9OQUw9eTxi
+cj4mZ3Q7IENPTkZJR19WSURFT19ERVY9eTxicj4mZ3Q7IENPTkZJR19WSURFT19WNEwyPXk8
+YnI+Jmd0OyBDT05GSUdfVjRMX1BMQVRGT1JNX0RSSVZFUlM9eTxicj4mZ3Q7IENPTkZJR19W
+SURFT19BU1BFRUQ9eTxicj4mZ3Q7IENPTkZJR19NRURJQV9TVUJEUlZfQVVUT1NFTEVDVD15
+PGJyPiZndDsgPGJyPiZndDsgPGJyPiZndDsgTmVlZCBJIG1vZGlmeSB0aGUgYXNwZWVkLWJt
+Yy1vcHAtcGFsbWV0dG8uZHRzIGFuZCBhc3BlZWQtZzQuZHRzaT88YnI+Jmd0OyA8YnI+Jmd0
+OyA8YnI+Jmd0OyBDYW4geW91IGdpdmUgbWUgdGhlIGZpbGUgbGlzdCBuZWVkIHRvIG1vZGlm
+eT88YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBUaGFua3MsPGJyPiZndDsgPGJyPiZndDsg
+PGJyPiZndDsgeGl1emhpPGJyPjwvZGl2Pg==
 
-Thanks,
-
-Jae
-
-> Rob
-> 
+------=_NextPart_5B600729_0BEBFBF8_184D4A23--
