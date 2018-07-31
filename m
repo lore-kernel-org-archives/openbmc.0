@@ -1,38 +1,100 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <lee.jones@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:400c:c09::244; helo=mail-wm0-x244.google.com;
+ envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="RqlcJKrm"; 
+ dkim-atps=neutral
+Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
+ [IPv6:2a00:1450:400c:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41g46Y3RB2zF14l
- for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 04:03:00 +1000 (AEST)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2018 11:02:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,428,1526367600"; d="scan'208";a="244879718"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.73])
- by orsmga005.jf.intel.com with ESMTP; 31 Jul 2018 11:02:57 -0700
-Date: Tue, 31 Jul 2018 11:02:57 -0700
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: Re: Virtual Media
-Message-ID: <20180731180257.GJ105329@mauery>
-References: <69abb9a05c7d01b71cd4a69f3e7c548e@linux.vnet.ibm.com>
- <eb74222a-737f-92cb-66a3-8d023b5962dc@ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41fnR90RTczF1F0
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 17:01:24 +1000 (AEST)
+Received: by mail-wm0-x244.google.com with SMTP id o11-v6so1803936wmh.2
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 00:01:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=UNQctpEO9zEsfTCw2pV1Hyu9BvLz31x+cCDytQ/Dc4k=;
+ b=RqlcJKrmkgel/3KOoljSYnkH0LSsajM89V2Rc8kk/FKqFTPvg0TQvwQKvHzAjYAW63
+ Pqa+4mdkDm9SRekUpZZv55jOygEBm2sNE+vB4+jweY8HsqsXVNVEOy+6oKG+I7SWZWTL
+ 8IuPksFDuF/2RYuhQBWRmWYMbsSeszCx4t06Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=UNQctpEO9zEsfTCw2pV1Hyu9BvLz31x+cCDytQ/Dc4k=;
+ b=CD/OjVfR3T34CEdQqsTshcOhTNGsZBSpl/6iblsafVSeqwvaeEV9L4vVfEriW+sbJ9
+ JA/N8q2o93qN4lmd2svuGjBvNpvvXLEM/n7j409F3SN0lOpgkt2MiyvlDaaSTghoZR/g
+ 2oBT/cnJM2pHm2KxCch1FfYfCTIxBDIFcqb1IEC+916x+rKTq/QkuFl3pYiCU/5u0M28
+ PwuHwHPxvQsGGVOVKTr4o+cdHJEYwqAE2nLSIfk1ifwJDCOWk7AX4jYWmIBcPEwlPtLN
+ RjG/7pXElm7BYNtdADfST5jx9jTD1Irm5QKHfFJqx094rQXIhgh8unbk1hApE0LIzPFF
+ bsKQ==
+X-Gm-Message-State: AOUpUlHrL4OobAEqx6mqp8yeFDi/22PEz1BE7mTNJbYzcyvB2v2+pgsd
+ ZsRPD3O561imEjBPU1yJz2R7tw==
+X-Google-Smtp-Source: AAOMgpc7xJWMXNsD+pF7fOiWBjaPuY/WmMLKvh72/GFKROWyCN+KAXWRZ8EdbHSeAp/TU4wj3TpSsQ==
+X-Received: by 2002:a1c:32c4:: with SMTP id
+ y187-v6mr1319248wmy.31.1533020480964; 
+ Tue, 31 Jul 2018 00:01:20 -0700 (PDT)
+Received: from dell ([95.149.160.4])
+ by smtp.gmail.com with ESMTPSA id r140-v6sm3393588wmd.7.2018.07.31.00.01.18
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 31 Jul 2018 00:01:20 -0700 (PDT)
+Date: Tue, 31 Jul 2018 08:01:17 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ darrick.wong@oracle.com, sandeen@redhat.com,
+ Arnd Bergmann <arnd@arndb.de>, Wu Hao <hao.wu@intel.com>,
+ kusumi.tomohiro@gmail.com, bryantly@linux.vnet.ibm.com,
+ fbarrat@linux.vnet.ibm.com, David Miller <davem@davemloft.net>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Philippe Ombredanne <pombredanne@nexb.com>,
+ Vinod <vkoul@kernel.org>, Stephen Boyd <sboyd@codeaurora.org>,
+ david.kershner@unisys.com,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, jgross@suse.com,
+ Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
+ Linux HWMON List <linux-hwmon@vger.kernel.org>, devicetree@vger.kernel.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Subject: Re: [PATCH v7 08/12] mfd: intel-peci-client: Add PECI client MFD
+ driver
+Message-ID: <20180731070117.GE4662@dell>
+References: <20180723214751.1733-1-jae.hyun.yoo@linux.intel.com>
+ <20180723214751.1733-9-jae.hyun.yoo@linux.intel.com>
+ <20180727082611.GE4628@dell>
+ <acffdfef-cb20-4208-5297-d94bac5ecb1b@linux.intel.com>
+ <CAL_JsqL7WkDOaegwmBDqLkRh0JfCo7O2krONVstjWMUsLiJMrg@mail.gmail.com>
+ <7ab43253-1154-6e2f-b216-69b0d44b470a@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <eb74222a-737f-92cb-66a3-8d023b5962dc@ozlabs.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7ab43253-1154-6e2f-b216-69b0d44b470a@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Wed, 01 Aug 2018 10:12:55 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -44,82 +106,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jul 2018 18:03:02 -0000
+X-List-Received-Date: Tue, 31 Jul 2018 07:01:26 -0000
 
-On 27-Jul-2018 05:06 PM, Jeremy Kerr wrote:
->Hi Matt & all,
->
->>I hope to send out a high level design for RFC soon, or people can
->>chime in now with any ideas they have for it.
+On Mon, 30 Jul 2018, Jae Hyun Yoo wrote:
 
-In past BMC implementations, we offered up to four virtual devices to be 
-mounted remotely. I can't remember if this included the one used for 
-firmware updates or not. But we will probably need more than one.
+> Hi Rob,
+> 
+> On 7/30/2018 3:10 PM, Rob Herring wrote:
+> > On Fri, Jul 27, 2018 at 11:36 AM Jae Hyun Yoo
+> > <jae.hyun.yoo@linux.intel.com> wrote:
+> > > 
+> > > Hi Lee,
+> > > 
+> > > On 7/27/2018 1:26 AM, Lee Jones wrote:
+> > > > On Mon, 23 Jul 2018, Jae Hyun Yoo wrote:
+> > > > 
+> > > > > This commit adds PECI client MFD driver.
+> > > > > 
+> > > > > Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> > > > > Cc: Lee Jones <lee.jones@linaro.org>
+> > > > > Cc: Rob Herring <robh+dt@kernel.org>
+> > > > > Cc: Andrew Jeffery <andrew@aj.id.au>
+> > > > > Cc: James Feist <james.feist@linux.intel.com>
+> > > > > Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+> > > > > Cc: Joel Stanley <joel@jms.id.au>
+> > > > > Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
+> > > > > ---
+> > > > >    drivers/mfd/Kconfig                   |  14 ++
+> > > > >    drivers/mfd/Makefile                  |   1 +
+> > > > >    drivers/mfd/intel-peci-client.c       | 182 ++++++++++++++++++++++++++
+> > > > >    include/linux/mfd/intel-peci-client.h |  81 ++++++++++++
+> > > > >    4 files changed, 278 insertions(+)
+> > > > >    create mode 100644 drivers/mfd/intel-peci-client.c
+> > > > >    create mode 100644 include/linux/mfd/intel-peci-client.h
+> > > > > 
+> > > > > diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> > > > > index f3fa516011ec..e38b591479d4 100644
+> > > > > --- a/drivers/mfd/Kconfig
+> > > > > +++ b/drivers/mfd/Kconfig
+> > > > > @@ -595,6 +595,20 @@ config MFD_INTEL_MSIC
+> > > > >         Passage) chip. This chip embeds audio, battery, GPIO, etc.
+> > > > >         devices used in Intel Medfield platforms.
+> > > > > 
+> > > > > +config MFD_INTEL_PECI_CLIENT
+> > > > > +    bool "Intel PECI client"
+> > > > > +    depends on (PECI || COMPILE_TEST)
+> > > > > +    select MFD_CORE
+> > > > > +    help
+> > > > > +      If you say yes to this option, support will be included for the
+> > > > > +      multi-funtional Intel PECI (Platform Environment Control Interface)
+> > > > > +      client. PECI is a one-wire bus interface that provides a communication
+> > > > > +      channel from PECI clients in Intel processors and chipset components
+> > > > > +      to external monitoring or control devices.
+> > > > > +
+> > > > > +      Additional drivers must be enabled in order to use the functionality
+> > > > > +      of the device.
+> > > > > +
+> > > > >    config MFD_IPAQ_MICRO
+> > > > >       bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
+> > > > >       depends on SA1100_H3100 || SA1100_H3600
+> > > > > diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+> > > > > index 2852a6042ecf..29e2cacc58bd 100644
+> > > > > --- a/drivers/mfd/Makefile
+> > > > > +++ b/drivers/mfd/Makefile
+> > > > > @@ -203,6 +203,7 @@ obj-$(CONFIG_MFD_INTEL_LPSS)     += intel-lpss.o
+> > > > >    obj-$(CONFIG_MFD_INTEL_LPSS_PCI)   += intel-lpss-pci.o
+> > > > >    obj-$(CONFIG_MFD_INTEL_LPSS_ACPI)  += intel-lpss-acpi.o
+> > > > >    obj-$(CONFIG_MFD_INTEL_MSIC)       += intel_msic.o
+> > > > > +obj-$(CONFIG_MFD_INTEL_PECI_CLIENT) += intel-peci-client.o
+> > > > >    obj-$(CONFIG_MFD_PALMAS)   += palmas.o
+> > > > >    obj-$(CONFIG_MFD_VIPERBOARD)    += viperboard.o
+> > > > >    obj-$(CONFIG_MFD_RC5T583)  += rc5t583.o rc5t583-irq.o
+> > > > > diff --git a/drivers/mfd/intel-peci-client.c b/drivers/mfd/intel-peci-client.c
+> > > > > new file mode 100644
+> > > > > index 000000000000..d7702cf1ea50
+> > > > > --- /dev/null
+> > > > > +++ b/drivers/mfd/intel-peci-client.c
+> > > > > @@ -0,0 +1,182 @@
+> > > > > +// SPDX-License-Identifier: GPL-2.0
+> > > > > +// Copyright (c) 2018 Intel Corporation
+> > > > > +
+> > > > > +#include <linux/bitfield.h>
+> > > > > +#include <linux/mfd/core.h>
+> > > > > +#include <linux/mfd/intel-peci-client.h>
+> > > > > +#include <linux/module.h>
+> > > > > +#include <linux/peci.h>
+> > > > > +#include <linux/of_device.h>
+> > > > > +
+> > > > > +enum cpu_gens {
+> > > > > +    CPU_GEN_HSX = 0, /* Haswell Xeon */
+> > > > > +    CPU_GEN_BRX,     /* Broadwell Xeon */
+> > > > > +    CPU_GEN_SKX,     /* Skylake Xeon */
+> > > > > +};
+> > > > > +
+> > > > > +static struct mfd_cell peci_functions[] = {
+> > > > > +    {
+> > > > > +            .name = "peci-cputemp",
+> > > > > +            .of_compatible = "intel,peci-cputemp",
+> > > > > +    },
+> > > > > +    {
+> > > > > +            .name = "peci-dimmtemp",
+> > > > > +            .of_compatible = "intel,peci-dimmtemp",
+> > > > > +    },
+> > > > > +};
+> > > > 
+> > > > The more I look at this driver, the less I think it fits into MFD.
+> > > > 
+> > > > What's stopping you from registering these devices directly from DT?
+> > > > 
+> > > 
+> > > Because DT doesn't allow 2 nodes at the same address so Rob suggested
+> > > MFD for this case.
+> > 
+> > Only after I first suggested you create cpu and dimm sensors from a
+> > single hwmon driver. Perhaps you should figure out how to fix the
+> > problem with delayed registration. Perhaps you can register the
+> > sensor, but just delay returning actual data until it is ready.
+> > 
+> 
+> The actual reason why I divided the single hwmon driver into two is for
+> using recommended hwmon API set which doesn't allow incremental
+> creation of sysfs attributes at run time - using of
+> 'devm_hwmon_device_register_with_info' is suggested by Guenter instead
+> of using other deprecated APIs.
+> 
+> The reason why the delayed registration is needed is, BMC kernel cannot
+> know how many DIMM are installed in remote machine before the machine
+> completing memory training and testing in POST. So dimm temp driver
+> cannot create hwmon attributes in advance.
+> 
+> My thought is, this way is the best to address these requirements.
 
->So, as part of working on that design, I've been doing some prototyping
->with the virtual media code, and just got some experiments working
->yesterday, that expose a file from my local browser to the host machine
->(as a USB mass-storage device).
->
->The overall architecture looks like this:
->
-> - the BMC kernel has a network block device (nbd) driver; this
->   provides a block device, where read & write operations on the block
->   device end up being sent as requests over a socket interface.
->
-> - the nbd infrastructure allows us to use a unix domain socket (rather
->   than a network socket) for that interface.
->
-> - so, I wrote a little proxy that does a some setup and then just
->   forwards data between that unix domain socket and stdin/stdout.
->
-> - Using a websocket proxy, we can connect that process' stdio to a
->   websocket.
->
-> - I wrote a little javascript nbd server to connect to that websocket
->   from a browser session, and serve nbd read requests by reading from
->   a local file. This gives us a block device on the BMC, that's backed
->   by a file accessed by the browser.
->
-> - On the BMC, we create a USB mass-storage gadget (using the ASPEED
->   UDC device), that uses the nbd device as the underlying storage.
+As I've previously explained, I do not think this is a good fit for
+MFD.  Since this whole PECI piece is a bit, let's say 'niche', perhaps
+it's better to contain the client within the PECI subsystem too.  You
+can then use the platform_device_add() API to register devices as and
+when required.
 
-That sounds pretty good from a high level. Nice job using off-the-self 
-parts.
-
->Using that, I was able to forward an .iso image from my webbrowser on
->one side of the country to a machine in our lab on the other. Speed
->wasn't fantastic, but should be fine for most cases.
->
->Let me know what you think. The main caveat of this is that this method
->isn't able to serve writeable images, as sensible browsers won't allow
->served javascript code to modify files.
-
-RO files should really be the biggest use case for this -- host OS 
-installs and such. I really don't know how much people will complain if 
-we take their RW files away. We are also not requiring them to install 
-Java, so they win one and lose one.
-
---Vernon
-
->If you're curious, here's the prototype code for the nbd channel (proxy
->+ javascript server):
->
->  https://github.com/jk-ozlabs/jsnbd
->
->This isn't necessarily the code that we'll want to run on OpenBMC, more
->a proof-of-concept to make sure that all the parts work.
->
->In order to implement this on OpenBMC, we'd still need a few things:
->
-> - integrating the nbd-proxy into the proper http server framework
->
-> - integration into the actual OpenBMC web UI
->
-> - adding hooks to automatically start/stop the USB mass-storage gadget
->   on nbd session setup
->
->Cheers,
->
->
->Jeremy
+-- 
+Lee Jones [李琼斯]
+Linaro Services Technical Lead
+Linaro.org │ Open source software for ARM SoCs
+Follow Linaro: Facebook | Twitter | Blog
