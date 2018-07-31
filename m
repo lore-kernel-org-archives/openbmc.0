@@ -1,60 +1,75 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <tomjose@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=59.36.132.50; helo=qq.com; envelope-from=1450335857@qq.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="C7FI/nyR"; 
- dkim-atps=neutral
-X-Greylist: delayed 434 seconds by postgrey-1.36 at bilbo;
- Tue, 31 Jul 2018 17:00:02 AEST
-Received: from qq.com (smtpbg467.qq.com [59.36.132.50])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41fnPZ1FjGzF14l
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 17:00:01 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1533019947; bh=upz55dVoVZpQqDpFCfQHcPfTOlbfT0uuEnpt6A02yeU=;
- h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=C7FI/nyRM3epofQEADDkkXDvlg6HpXSJ6S9rpZQB+BaZfwP4XPv01mvR9tjdA3C18
- aYD+3MwPSmhWXH4IqeQYXiZqdARC9abRr8j0VWpJ9ZmOj4Px4C07bSw9EVnHbWcPsb
- sL1YneLOasy5jlb6p9s6Y1TQxCyu5R2U+0ur+lGg=
-X-QQ-FEAT: y/Yfw/TLgL6tAARXFzDgwoyuDdY3pCpgi1InEdaoPQq6NlVuqLYSOkY5wYJ/f
- GSjKVU3OcVZtTJnNZm5IoEvixY3GT4jwnIIa11d2oXPq3PLTNpQSCnSeX0Pr/kCiToj7Ufn
- EAatCTL0gzqNR0+eAcAC4De22jFANniKlMpmVTj5R0jeWnmppac96kVMiYZQc3tixSjhSo3
- cXqCQlL5qzcTLd9dBtrAeIXfTzuPMJCUl8EAlP7FcjZ1bWXiT2RDLI1X8Q/OU/z1A+NGe+H
- mQi8KNiRRmHiEk5YCp2u+F3lc8V8EAvwpHMwyWJtg2QKvw
-X-QQ-SSF: 000000000000005000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.64.100
-In-Reply-To: <20180725085640.GA10849@bbwork.lan>
-References: <tencent_7C15837BAB91A131A31142D54EE9723ED405@qq.com>
- <20180725085640.GA10849@bbwork.lan>
-X-QQ-STYLE: 
-X-QQ-mid: webmail500t1533019945t6190827
-From: "=?gb18030?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?gb18030?B?QWxleGFuZGVyIEEuIEZpbGlwcG92?=" <a.filippov@yadro.com>,
- "=?gb18030?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
-Subject: =?gb18030?B?u9i4tKO6IEtWTSBTdXBwb3J0Pw==?=
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5B600729_0BEBFBF8_184D4A23"
-Content-Transfer-Encoding: 8Bit
-Date: Tue, 31 Jul 2018 14:52:25 +0800
-X-Priority: 3
-Message-ID: <tencent_E51A85548B940EE6A95D61B89D1B8D1ACF09@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-ReplyHash: 2997784643
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Tue, 31 Jul 2018 14:52:27 +0800 (CST)
-Feedback-ID: webmail:qq.com:bgforeign:bgforeign1
-X-QQ-Bgrelay: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41fz933F2zzF1Rb
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 00:19:50 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w6VE8v4E121636
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 10:19:49 -0400
+Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2kjqybcewv-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 10:19:48 -0400
+Received: from localhost
+ by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Tue, 31 Jul 2018 15:19:46 +0100
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 31 Jul 2018 15:19:44 +0100
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w6VEJhkK42270858
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 31 Jul 2018 14:19:44 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 01432A4040;
+ Tue, 31 Jul 2018 17:19:55 +0100 (BST)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 07DAAA4057;
+ Tue, 31 Jul 2018 17:19:54 +0100 (BST)
+Received: from [9.193.103.216] (unknown [9.193.103.216])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Tue, 31 Jul 2018 17:19:53 +0100 (BST)
+Subject: Re: [Maintainers] Call for maintenance
+To: openbmc@lists.ozlabs.org
+References: <1F65CF12-B31E-409C-BD72-D1CF3D0CFBFC@fuzziesquirrel.com>
+Cc: wak@google.com, Bradley W Bishop <bradleyb@us.ibm.com>
+From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+Date: Tue, 31 Jul 2018 19:49:41 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <1F65CF12-B31E-409C-BD72-D1CF3D0CFBFC@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18073114-0012-0000-0000-00000291A00B
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18073114-0013-0000-0000-000020C3A472
+Message-Id: <ab15c434-61ee-394a-fe89-d211018b8f3e@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-07-31_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=512 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1807310137
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,122 +81,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jul 2018 07:00:04 -0000
+X-List-Received-Date: Tue, 31 Jul 2018 14:19:51 -0000
 
-This is a multi-part message in MIME format.
+Hello,
 
-------=_NextPart_5B600729_0BEBFBF8_184D4A23
-Content-Type: text/plain;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+I am scrubbing the phosphor-host-ipmid to handle the SdBusError exception.
 
-SGkgQWxleGFuZGVyICxFZGRpZSwNCiAgSSBtZXJnZWQgdGhlIHNvdXJjZSBmcm9tIGh0dHBz
-Oi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovIy9jL29wZW5ibWMvb3BlbmJtYy8rLzEx
-NTAwLyxhbmQga2VybmVsIGJyYW5jaCB2aWRlby1kZXYuDQpIb3cgdG8gdGVzdCB0aGUgdmlk
-ZW8ga3ZtIGZlYXR1cmUgYnkgcGhvc3Bob3Itd2VidWkgb3IgY29tbWFuZCBsaW5lPw0KQmVz
-dCwNCnhpdXpoaQ0KDQoNCg0KDQotLS0tLS0tLS0tLS0tLS0tLS0g1K3KvNPKvP4gLS0tLS0t
-LS0tLS0tLS0tLS0tDQq3orz+yMs6ICJBbGV4YW5kZXIgQS4gRmlsaXBwb3YiPGEuZmlsaXBw
-b3ZAeWFkcm8uY29tPjsNCreiy83KsbzkOiAyMDE4xOo31MIyNcjVKNDHxtrI/Skgz8LO5zQ6
-NTYNCsrVvP7IyzogIm9wZW5ibWMiPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz47InhpdXpo
-aSI8MTQ1MDMzNTg1N0BxcS5jb20+Ow0KDQrW98ziOiBSZTogS1ZNIFN1cHBvcnQ/DQoNCg0K
-DQpIZWxsbyBldmVyeWJvZHksDQoNCkNvdWxkIHlvdSBjaGVjayB0aGUgc2l6ZSBvZiBgYnVp
-bGQvdG1wL2RlcGxveS9pbWFnZS88cGxhdGZvcm1uYW1lPi9maXRJbWFnZS1vcGVuYm1jLXBo
-b3NwaG9yLWluaXRyYW1mcy0qLmJpbmA/DQpJZiBpdCBleGNlZWRzIDQ0NTY0NDggKDB4NDQw
-MDAwKSBieXRlcywgdGhpcyBpcyB0aGUgcHJvYmxlbSBkZXNjcmliZWQgYXQgaHR0cHM6Ly9n
-aXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvMzMxNA0KDQoNCkluIHRoaXMgY2Fz
-ZSB5b3Ugc2hvdWxkIG1vZGlmeSBmbGFzaCBwYXJ0aXRpb25zIGxheW91dCBvciB0cnlpbmcg
-dG8gZGVjcmVhc2Uga2VybmVsIHNpemUuDQoNCi0tDQpBbGV4YW5kZXINCg0KT24gV2VkLCBK
-dWwgMjUsIDIwMTggYXQgMDM6NDg6MDRQTSArMDgwMCwgeGl1emhpIHdyb3RlOg0KPiBIaSBF
-ZGRpZSwNCj4gDQo+IA0KPiAgIEkgcmVhZCB5b3VyIEtWTSBTdXBwb3J0IGVtYWlsIG9uIG1h
-aWxpbmdsaXN0Lg0KPiANCj4gDQo+IEkgYW0gZ29pbmcgdG8gcG9ydCB0aGUgQk1DIGt2bSB0
-byBhc3QyNDAwIC4gVGhlIHUtYm9vdCBjYW4gbm90IGxvYWQga2VybmVsICx0aGUgZXJyb3Ig
-bWVzc2FnZSByZWFkOg0KPiANCj4gDQo+ICIiVS1Cb290IDIwMTYuMDcgKEp1bCAyMyAyMDE4
-IC0gMTE6MTE6NTAgKzAwMDApDQo+IA0KPiANCj4gRFJBTTogIDI0MCBNaUINCj4gV0FSTklO
-RzogQ2FjaGVzIG5vdCBlbmFibGVkDQo+IEZsYXNoOiAzMiBNaUINCj4gKioqIFdhcm5pbmcg
-LSBiYWQgQ1JDLCB1c2luZyBkZWZhdWx0IGVudmlyb25tZW50DQo+IA0KPiANCj4gSW46ICAg
-IHNlcmlhbA0KPiBPdXQ6ICAgc2VyaWFsDQo+IEVycjogICBzZXJpYWwNCj4gTmV0OiAgIGFz
-cGVlZG5pYyMwDQo+IEVycm9yOiBhc3BlZWRuaWMjMCBhZGRyZXNzIG5vdCBzZXQuDQo+IA0K
-PiANCj4gSGl0IGFueSBrZXkgdG8gc3RvcCBhdXRvYm9vdDogIDANCj4gIyMgTG9hZGluZyBr
-ZXJuZWwgZnJvbSBGSVQgSW1hZ2UgYXQgMjAwODAwMDAgLi4uDQo+IEJhZCBGSVQga2VybmVs
-IGltYWdlIGZvcm1hdCENCj4gRVJST1I6IGNhbid0IGdldCBrZXJuZWwgaW1hZ2UhDQo+IGFz
-dCMNCj4gDQo+IA0KPiBJIGFkZGVkICBjb25maWcgb3B0aW9ucyB0byBkZWZjb25maWcgb2Yg
-YXN0MjQwMCBhcyBmb2xsb3dzOg0KPiANCj4gDQo+IENPTkZJR19NRURJQV9TVVBQT1JUPXkN
-Cj4gQ09ORklHX01FRElBX0NBTUVSQV9TVVBQT1JUPXkNCj4gQ09ORklHX01FRElBX1NVUFBP
-UlQ9eQ0KPiBDT05GSUdfTUVESUFfQ0FNRVJBX1NVUFBPUlQ9eQ0KPiAjIENPTkZJR19NRURJ
-QV9BTkFMT0dfVFZfU1VQUE9SVCBpcyBub3Qgc2V0DQo+ICMgQ09ORklHX01FRElBX0RJR0lU
-QUxfVFZfU1VQUE9SVCBpcyBub3Qgc2V0DQo+ICMgQ09ORklHX01FRElBX1JBRElPX1NVUFBP
-UlQgaXMgbm90IHNldA0KPiAjIENPTkZJR19NRURJQV9TRFJfU1VQUE9SVCBpcyBub3Qgc2V0
-DQo+ICMgQ09ORklHX01FRElBX0NFQ19TVVBQT1JUIGlzIG5vdCBzZXQNCj4gIyBDT05GSUdf
-TUVESUFfQ09OVFJPTExFUiBpcyBub3Qgc2V0DQo+IENPTkZJR19SQVRJT05BTD15DQo+IENP
-TkZJR19WSURFT19ERVY9eQ0KPiBDT05GSUdfVklERU9fVjRMMj15DQo+IENPTkZJR19WNExf
-UExBVEZPUk1fRFJJVkVSUz15DQo+IENPTkZJR19WSURFT19BU1BFRUQ9eQ0KPiBDT05GSUdf
-TUVESUFfU1VCRFJWX0FVVE9TRUxFQ1Q9eQ0KPiANCj4gDQo+IE5lZWQgSSBtb2RpZnkgdGhl
-IGFzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0cyBhbmQgYXNwZWVkLWc0LmR0c2k/DQo+IA0K
-PiANCj4gQ2FuIHlvdSBnaXZlIG1lIHRoZSBmaWxlIGxpc3QgbmVlZCB0byBtb2RpZnk/DQo+
-IA0KPiANCj4gVGhhbmtzLA0KPiANCj4gDQo+IHhpdXpoaQ==
+Even though sdbusplus::exception::SdBusError is inherited from 
+std::exception,
+my observation is that catch statement of std::exception does not catch
+sdbusplus::exception::SdBusError exception.
 
-------=_NextPart_5B600729_0BEBFBF8_184D4A23
-Content-Type: text/html;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+try
+{
+     // Statement throwing sdbusplus::exception::SdBusError exception.
+}
+catch (const std::exception& e) // Does not catch 
+sdbusplus::exception::SdBusError
+{
 
-SGkgQWxleGFuZGVyICxFZGRpZSw8YnI+Jm5ic3A7IEkgbWVyZ2VkIHRoZSBzb3VyY2UgZnJv
-bSBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy9vcGVuYm1jL29wZW5i
-bWMvKy8xMTUwMC8sYW5kIGtlcm5lbCBicmFuY2ggdmlkZW8tZGV2Ljxicj5Ib3cgdG8gdGVz
-dCB0aGUgdmlkZW8ga3ZtIGZlYXR1cmUgYnkgcGhvc3Bob3Itd2VidWkgb3IgY29tbWFuZCBs
-aW5lPzxicj5CZXN0LDxicj54aXV6aGk8YnI+PGRpdj48ZGl2Pjxicj48L2Rpdj48ZGl2Pjxi
-cj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LXNpemU6IDEycHg7Zm9udC1mYW1pbHk6IEFyaWFs
-IE5hcnJvdztwYWRkaW5nOjJweCAwIDJweCAwOyI+LS0tLS0tLS0tLS0tLS0tLS0tJm5ic3A7
-1K3KvNPKvP4mbmJzcDstLS0tLS0tLS0tLS0tLS0tLS08L2Rpdj48ZGl2IHN0eWxlPSJmb250
-LXNpemU6IDEycHg7YmFja2dyb3VuZDojZWZlZmVmO3BhZGRpbmc6OHB4OyI+PGRpdj48Yj63
-orz+yMs6PC9iPiZuYnNwOyJBbGV4YW5kZXIgQS4gRmlsaXBwb3YiJmx0O2EuZmlsaXBwb3ZA
-eWFkcm8uY29tJmd0Ozs8L2Rpdj48ZGl2PjxiPreiy83KsbzkOjwvYj4mbmJzcDsyMDE4xOo3
-1MIyNcjVKNDHxtrI/Skgz8LO5zQ6NTY8L2Rpdj48ZGl2PjxiPsrVvP7Iyzo8L2I+Jm5ic3A7
-Im9wZW5ibWMiJmx0O29wZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs7InhpdXpoaSImbHQ7
-MTQ1MDMzNTg1N0BxcS5jb20mZ3Q7Ozx3YnI+PC9kaXY+PGRpdj48L2Rpdj48ZGl2PjxiPtb3
-zOI6PC9iPiZuYnNwO1JlOiBLVk0gU3VwcG9ydD88L2Rpdj48L2Rpdj48ZGl2Pjxicj48L2Rp
-dj5IZWxsbyBldmVyeWJvZHksPGJyPjxicj5Db3VsZCB5b3UgY2hlY2sgdGhlIHNpemUgb2Yg
-YGJ1aWxkL3RtcC9kZXBsb3kvaW1hZ2UvJmx0O3BsYXRmb3JtbmFtZSZndDsvZml0SW1hZ2Ut
-b3BlbmJtYy1waG9zcGhvci1pbml0cmFtZnMtKi5iaW5gPzxicj5JZiBpdCBleGNlZWRzIDQ0
-NTY0NDggKDB4NDQwMDAwKSBieXRlcywgdGhpcyBpcyB0aGUgcHJvYmxlbSBkZXNjcmliZWQg
-YXQgaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvMzMxNDxicj48
-YnI+PGJyPkluIHRoaXMgY2FzZSB5b3Ugc2hvdWxkIG1vZGlmeSBmbGFzaCBwYXJ0aXRpb25z
-IGxheW91dCBvciB0cnlpbmcgdG8gZGVjcmVhc2Uga2VybmVsIHNpemUuPGJyPjxicj4tLTxi
-cj5BbGV4YW5kZXI8YnI+PGJyPk9uIFdlZCwgSnVsIDI1LCAyMDE4IGF0IDAzOjQ4OjA0UE0g
-KzA4MDAsIHhpdXpoaSB3cm90ZTo8YnI+Jmd0OyBIaSBFZGRpZSw8YnI+Jmd0OyA8YnI+Jmd0
-OyA8YnI+Jmd0OyZuYnNwOyZuYnNwOyBJIHJlYWQgeW91ciBLVk0gU3VwcG9ydCBlbWFpbCBv
-biBtYWlsaW5nbGlzdC48YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBJIGFtIGdvaW5nIHRv
-IHBvcnQgdGhlIEJNQyBrdm0gdG8gYXN0MjQwMCAuIFRoZSB1LWJvb3QgY2FuIG5vdCBsb2Fk
-IGtlcm5lbCAsdGhlIGVycm9yIG1lc3NhZ2UgcmVhZDo8YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+
-Jmd0OyAiIlUtQm9vdCAyMDE2LjA3IChKdWwgMjMgMjAxOCAtIDExOjExOjUwICswMDAwKTxi
-cj4mZ3Q7IDxicj4mZ3Q7IDxicj4mZ3Q7IERSQU06Jm5ic3A7IDI0MCBNaUI8YnI+Jmd0OyBX
-QVJOSU5HOiBDYWNoZXMgbm90IGVuYWJsZWQ8YnI+Jmd0OyBGbGFzaDogMzIgTWlCPGJyPiZn
-dDsgKioqIFdhcm5pbmcgLSBiYWQgQ1JDLCB1c2luZyBkZWZhdWx0IGVudmlyb25tZW50PGJy
-PiZndDsgPGJyPiZndDsgPGJyPiZndDsgSW46Jm5ic3A7Jm5ic3A7Jm5ic3A7IHNlcmlhbDxi
-cj4mZ3Q7IE91dDombmJzcDsmbmJzcDsgc2VyaWFsPGJyPiZndDsgRXJyOiZuYnNwOyZuYnNw
-OyBzZXJpYWw8YnI+Jmd0OyBOZXQ6Jm5ic3A7Jm5ic3A7IGFzcGVlZG5pYyMwPGJyPiZndDsg
-RXJyb3I6IGFzcGVlZG5pYyMwIGFkZHJlc3Mgbm90IHNldC48YnI+Jmd0OyA8YnI+Jmd0OyA8
-YnI+Jmd0OyBIaXQgYW55IGtleSB0byBzdG9wIGF1dG9ib290OiZuYnNwOyAwPGJyPiZndDsg
-IyMgTG9hZGluZyBrZXJuZWwgZnJvbSBGSVQgSW1hZ2UgYXQgMjAwODAwMDAgLi4uPGJyPiZn
-dDsgQmFkIEZJVCBrZXJuZWwgaW1hZ2UgZm9ybWF0ITxicj4mZ3Q7IEVSUk9SOiBjYW4ndCBn
-ZXQga2VybmVsIGltYWdlITxicj4mZ3Q7IGFzdCM8YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0
-OyBJIGFkZGVkJm5ic3A7IGNvbmZpZyBvcHRpb25zIHRvIGRlZmNvbmZpZyBvZiBhc3QyNDAw
-IGFzIGZvbGxvd3M6PGJyPiZndDsgPGJyPiZndDsgPGJyPiZndDsgQ09ORklHX01FRElBX1NV
-UFBPUlQ9eTxicj4mZ3Q7IENPTkZJR19NRURJQV9DQU1FUkFfU1VQUE9SVD15PGJyPiZndDsg
-Q09ORklHX01FRElBX1NVUFBPUlQ9eTxicj4mZ3Q7IENPTkZJR19NRURJQV9DQU1FUkFfU1VQ
-UE9SVD15PGJyPiZndDsgIyBDT05GSUdfTUVESUFfQU5BTE9HX1RWX1NVUFBPUlQgaXMgbm90
-IHNldDxicj4mZ3Q7ICMgQ09ORklHX01FRElBX0RJR0lUQUxfVFZfU1VQUE9SVCBpcyBub3Qg
-c2V0PGJyPiZndDsgIyBDT05GSUdfTUVESUFfUkFESU9fU1VQUE9SVCBpcyBub3Qgc2V0PGJy
-PiZndDsgIyBDT05GSUdfTUVESUFfU0RSX1NVUFBPUlQgaXMgbm90IHNldDxicj4mZ3Q7ICMg
-Q09ORklHX01FRElBX0NFQ19TVVBQT1JUIGlzIG5vdCBzZXQ8YnI+Jmd0OyAjIENPTkZJR19N
-RURJQV9DT05UUk9MTEVSIGlzIG5vdCBzZXQ8YnI+Jmd0OyBDT05GSUdfUkFUSU9OQUw9eTxi
-cj4mZ3Q7IENPTkZJR19WSURFT19ERVY9eTxicj4mZ3Q7IENPTkZJR19WSURFT19WNEwyPXk8
-YnI+Jmd0OyBDT05GSUdfVjRMX1BMQVRGT1JNX0RSSVZFUlM9eTxicj4mZ3Q7IENPTkZJR19W
-SURFT19BU1BFRUQ9eTxicj4mZ3Q7IENPTkZJR19NRURJQV9TVUJEUlZfQVVUT1NFTEVDVD15
-PGJyPiZndDsgPGJyPiZndDsgPGJyPiZndDsgTmVlZCBJIG1vZGlmeSB0aGUgYXNwZWVkLWJt
-Yy1vcHAtcGFsbWV0dG8uZHRzIGFuZCBhc3BlZWQtZzQuZHRzaT88YnI+Jmd0OyA8YnI+Jmd0
-OyA8YnI+Jmd0OyBDYW4geW91IGdpdmUgbWUgdGhlIGZpbGUgbGlzdCBuZWVkIHRvIG1vZGlm
-eT88YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBUaGFua3MsPGJyPiZndDsgPGJyPiZndDsg
-PGJyPiZndDsgeGl1emhpPGJyPjwvZGl2Pg==
+}
 
-------=_NextPart_5B600729_0BEBFBF8_184D4A23--
+I think the multiple inheritance from std::exception is causing this.
+
+Regards,
+Tom
+
+On Thursday 12 July 2018 11:22 PM, Brad Bishop wrote:
+> I wanted to highlight a recent sdbusplus patch:
+>
+> https://gerrit.openbmc-project.xyz/#/c/10566/
+>
+> The nutshell is proper error handling of errors from libsystemd's
+> sd_bus_call has been added and sdbusplus::bus::call may now throw
+> SdBusError.
+>
+> This note is an open call to all maintainers to scrub your applications
+> for use of sdbusplus::bus::call and handle SdBusError as appropriate.
+>
+> I want to point out that catching SdBusError in your wrapper function
+> around sdbusplus::bus::call and simply eating it (or logging it, tracing
+> it, etc) is not really “handling” this new exception.  Nor is wrapping
+> your entire program in a try block “handling” it either.  Instead,
+> traverse the stack until you find the code with the logic that knows
+> whether or not the error is anticipated or not, and handle it there.
+>
+> For example:
+>
+> https://gerrit.openbmc-project.xyz/#/c/11423/3/src/propertywatchimpl.hpp
+>
+> thx - brad
