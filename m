@@ -1,72 +1,45 @@
-Return-Path: <lee.jones@linaro.org>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:400c:c09::244; helo=mail-wm0-x244.google.com;
- envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="RqlcJKrm"; 
- dkim-atps=neutral
-Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
- [IPv6:2a00:1450:400c:c09::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41fnR90RTczF1F0
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 17:01:24 +1000 (AEST)
-Received: by mail-wm0-x244.google.com with SMTP id o11-v6so1803936wmh.2
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 00:01:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=UNQctpEO9zEsfTCw2pV1Hyu9BvLz31x+cCDytQ/Dc4k=;
- b=RqlcJKrmkgel/3KOoljSYnkH0LSsajM89V2Rc8kk/FKqFTPvg0TQvwQKvHzAjYAW63
- Pqa+4mdkDm9SRekUpZZv55jOygEBm2sNE+vB4+jweY8HsqsXVNVEOy+6oKG+I7SWZWTL
- 8IuPksFDuF/2RYuhQBWRmWYMbsSeszCx4t06Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=UNQctpEO9zEsfTCw2pV1Hyu9BvLz31x+cCDytQ/Dc4k=;
- b=CD/OjVfR3T34CEdQqsTshcOhTNGsZBSpl/6iblsafVSeqwvaeEV9L4vVfEriW+sbJ9
- JA/N8q2o93qN4lmd2svuGjBvNpvvXLEM/n7j409F3SN0lOpgkt2MiyvlDaaSTghoZR/g
- 2oBT/cnJM2pHm2KxCch1FfYfCTIxBDIFcqb1IEC+916x+rKTq/QkuFl3pYiCU/5u0M28
- PwuHwHPxvQsGGVOVKTr4o+cdHJEYwqAE2nLSIfk1ifwJDCOWk7AX4jYWmIBcPEwlPtLN
- RjG/7pXElm7BYNtdADfST5jx9jTD1Irm5QKHfFJqx094rQXIhgh8unbk1hApE0LIzPFF
- bsKQ==
-X-Gm-Message-State: AOUpUlHrL4OobAEqx6mqp8yeFDi/22PEz1BE7mTNJbYzcyvB2v2+pgsd
- ZsRPD3O561imEjBPU1yJz2R7tw==
-X-Google-Smtp-Source: AAOMgpc7xJWMXNsD+pF7fOiWBjaPuY/WmMLKvh72/GFKROWyCN+KAXWRZ8EdbHSeAp/TU4wj3TpSsQ==
-X-Received: by 2002:a1c:32c4:: with SMTP id
- y187-v6mr1319248wmy.31.1533020480964; 
- Tue, 31 Jul 2018 00:01:20 -0700 (PDT)
-Received: from dell ([95.149.160.4])
- by smtp.gmail.com with ESMTPSA id r140-v6sm3393588wmd.7.2018.07.31.00.01.18
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 31 Jul 2018 00:01:20 -0700 (PDT)
-Date: Tue, 31 Jul 2018 08:01:17 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41g5J35728zF15Z;
+ Wed,  1 Aug 2018 04:56:17 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2018 11:56:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,428,1526367600"; d="scan'208";a="59388072"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.149])
+ ([10.7.153.149])
+ by fmsmga008.fm.intel.com with ESMTP; 31 Jul 2018 11:56:09 -0700
+Subject: Re: [PATCH v7 08/12] mfd: intel-peci-client: Add PECI client MFD
+ driver
+To: Lee Jones <lee.jones@linaro.org>
 Cc: Rob Herring <robh+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>,
- Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Jonathan Corbet <corbet@lwn.net>,
+ Guenter Roeck <linux@roeck-us.net>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
  Kishon Vijay Abraham I <kishon@ti.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- darrick.wong@oracle.com, sandeen@redhat.com,
- Arnd Bergmann <arnd@arndb.de>, Wu Hao <hao.wu@intel.com>,
- kusumi.tomohiro@gmail.com, bryantly@linux.vnet.ibm.com,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, darrick.wong@oracle.com,
+ sandeen@redhat.com, Arnd Bergmann <arnd@arndb.de>, Wu Hao
+ <hao.wu@intel.com>, kusumi.tomohiro@gmail.com, bryantly@linux.vnet.ibm.com,
  fbarrat@linux.vnet.ibm.com, David Miller <davem@davemloft.net>,
  Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>,
- Vinod <vkoul@kernel.org>, Stephen Boyd <sboyd@codeaurora.org>,
- david.kershner@unisys.com,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Philippe Ombredanne <pombredanne@nexb.com>, Vinod <vkoul@kernel.org>,
+ Stephen Boyd <sboyd@codeaurora.org>, david.kershner@unisys.com,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
  Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>, jgross@suse.com,
  Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
@@ -79,21 +52,23 @@ Cc: Rob Herring <robh+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>,
  James Feist <james.feist@linux.intel.com>,
  Jason M Biils <jason.m.bills@linux.intel.com>,
  Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH v7 08/12] mfd: intel-peci-client: Add PECI client MFD
- driver
-Message-ID: <20180731070117.GE4662@dell>
 References: <20180723214751.1733-1-jae.hyun.yoo@linux.intel.com>
  <20180723214751.1733-9-jae.hyun.yoo@linux.intel.com>
  <20180727082611.GE4628@dell>
  <acffdfef-cb20-4208-5297-d94bac5ecb1b@linux.intel.com>
  <CAL_JsqL7WkDOaegwmBDqLkRh0JfCo7O2krONVstjWMUsLiJMrg@mail.gmail.com>
  <7ab43253-1154-6e2f-b216-69b0d44b470a@linux.intel.com>
+ <20180731070117.GE4662@dell>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <52b5342d-e31a-f4a2-f269-a159d3f58252@linux.intel.com>
+Date: Tue, 31 Jul 2018 11:56:09 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7ab43253-1154-6e2f-b216-69b0d44b470a@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20180731070117.GE4662@dell>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 01 Aug 2018 10:12:55 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -106,145 +81,157 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jul 2018 07:01:26 -0000
+X-List-Received-Date: Tue, 31 Jul 2018 18:56:20 -0000
 
-On Mon, 30 Jul 2018, Jae Hyun Yoo wrote:
+Hi Lee,
 
-> Hi Rob,
+On 7/31/2018 12:01 AM, Lee Jones wrote:
+> On Mon, 30 Jul 2018, Jae Hyun Yoo wrote:
 > 
-> On 7/30/2018 3:10 PM, Rob Herring wrote:
-> > On Fri, Jul 27, 2018 at 11:36 AM Jae Hyun Yoo
-> > <jae.hyun.yoo@linux.intel.com> wrote:
-> > > 
-> > > Hi Lee,
-> > > 
-> > > On 7/27/2018 1:26 AM, Lee Jones wrote:
-> > > > On Mon, 23 Jul 2018, Jae Hyun Yoo wrote:
-> > > > 
-> > > > > This commit adds PECI client MFD driver.
-> > > > > 
-> > > > > Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> > > > > Cc: Lee Jones <lee.jones@linaro.org>
-> > > > > Cc: Rob Herring <robh+dt@kernel.org>
-> > > > > Cc: Andrew Jeffery <andrew@aj.id.au>
-> > > > > Cc: James Feist <james.feist@linux.intel.com>
-> > > > > Cc: Jason M Biils <jason.m.bills@linux.intel.com>
-> > > > > Cc: Joel Stanley <joel@jms.id.au>
-> > > > > Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
-> > > > > ---
-> > > > >    drivers/mfd/Kconfig                   |  14 ++
-> > > > >    drivers/mfd/Makefile                  |   1 +
-> > > > >    drivers/mfd/intel-peci-client.c       | 182 ++++++++++++++++++++++++++
-> > > > >    include/linux/mfd/intel-peci-client.h |  81 ++++++++++++
-> > > > >    4 files changed, 278 insertions(+)
-> > > > >    create mode 100644 drivers/mfd/intel-peci-client.c
-> > > > >    create mode 100644 include/linux/mfd/intel-peci-client.h
-> > > > > 
-> > > > > diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> > > > > index f3fa516011ec..e38b591479d4 100644
-> > > > > --- a/drivers/mfd/Kconfig
-> > > > > +++ b/drivers/mfd/Kconfig
-> > > > > @@ -595,6 +595,20 @@ config MFD_INTEL_MSIC
-> > > > >         Passage) chip. This chip embeds audio, battery, GPIO, etc.
-> > > > >         devices used in Intel Medfield platforms.
-> > > > > 
-> > > > > +config MFD_INTEL_PECI_CLIENT
-> > > > > +    bool "Intel PECI client"
-> > > > > +    depends on (PECI || COMPILE_TEST)
-> > > > > +    select MFD_CORE
-> > > > > +    help
-> > > > > +      If you say yes to this option, support will be included for the
-> > > > > +      multi-funtional Intel PECI (Platform Environment Control Interface)
-> > > > > +      client. PECI is a one-wire bus interface that provides a communication
-> > > > > +      channel from PECI clients in Intel processors and chipset components
-> > > > > +      to external monitoring or control devices.
-> > > > > +
-> > > > > +      Additional drivers must be enabled in order to use the functionality
-> > > > > +      of the device.
-> > > > > +
-> > > > >    config MFD_IPAQ_MICRO
-> > > > >       bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
-> > > > >       depends on SA1100_H3100 || SA1100_H3600
-> > > > > diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> > > > > index 2852a6042ecf..29e2cacc58bd 100644
-> > > > > --- a/drivers/mfd/Makefile
-> > > > > +++ b/drivers/mfd/Makefile
-> > > > > @@ -203,6 +203,7 @@ obj-$(CONFIG_MFD_INTEL_LPSS)     += intel-lpss.o
-> > > > >    obj-$(CONFIG_MFD_INTEL_LPSS_PCI)   += intel-lpss-pci.o
-> > > > >    obj-$(CONFIG_MFD_INTEL_LPSS_ACPI)  += intel-lpss-acpi.o
-> > > > >    obj-$(CONFIG_MFD_INTEL_MSIC)       += intel_msic.o
-> > > > > +obj-$(CONFIG_MFD_INTEL_PECI_CLIENT) += intel-peci-client.o
-> > > > >    obj-$(CONFIG_MFD_PALMAS)   += palmas.o
-> > > > >    obj-$(CONFIG_MFD_VIPERBOARD)    += viperboard.o
-> > > > >    obj-$(CONFIG_MFD_RC5T583)  += rc5t583.o rc5t583-irq.o
-> > > > > diff --git a/drivers/mfd/intel-peci-client.c b/drivers/mfd/intel-peci-client.c
-> > > > > new file mode 100644
-> > > > > index 000000000000..d7702cf1ea50
-> > > > > --- /dev/null
-> > > > > +++ b/drivers/mfd/intel-peci-client.c
-> > > > > @@ -0,0 +1,182 @@
-> > > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > > +// Copyright (c) 2018 Intel Corporation
-> > > > > +
-> > > > > +#include <linux/bitfield.h>
-> > > > > +#include <linux/mfd/core.h>
-> > > > > +#include <linux/mfd/intel-peci-client.h>
-> > > > > +#include <linux/module.h>
-> > > > > +#include <linux/peci.h>
-> > > > > +#include <linux/of_device.h>
-> > > > > +
-> > > > > +enum cpu_gens {
-> > > > > +    CPU_GEN_HSX = 0, /* Haswell Xeon */
-> > > > > +    CPU_GEN_BRX,     /* Broadwell Xeon */
-> > > > > +    CPU_GEN_SKX,     /* Skylake Xeon */
-> > > > > +};
-> > > > > +
-> > > > > +static struct mfd_cell peci_functions[] = {
-> > > > > +    {
-> > > > > +            .name = "peci-cputemp",
-> > > > > +            .of_compatible = "intel,peci-cputemp",
-> > > > > +    },
-> > > > > +    {
-> > > > > +            .name = "peci-dimmtemp",
-> > > > > +            .of_compatible = "intel,peci-dimmtemp",
-> > > > > +    },
-> > > > > +};
-> > > > 
-> > > > The more I look at this driver, the less I think it fits into MFD.
-> > > > 
-> > > > What's stopping you from registering these devices directly from DT?
-> > > > 
-> > > 
-> > > Because DT doesn't allow 2 nodes at the same address so Rob suggested
-> > > MFD for this case.
-> > 
-> > Only after I first suggested you create cpu and dimm sensors from a
-> > single hwmon driver. Perhaps you should figure out how to fix the
-> > problem with delayed registration. Perhaps you can register the
-> > sensor, but just delay returning actual data until it is ready.
-> > 
+>> Hi Rob,
+>>
+>> On 7/30/2018 3:10 PM, Rob Herring wrote:
+>>> On Fri, Jul 27, 2018 at 11:36 AM Jae Hyun Yoo
+>>> <jae.hyun.yoo@linux.intel.com> wrote:
+>>>>
+>>>> Hi Lee,
+>>>>
+>>>> On 7/27/2018 1:26 AM, Lee Jones wrote:
+>>>>> On Mon, 23 Jul 2018, Jae Hyun Yoo wrote:
+>>>>>
+>>>>>> This commit adds PECI client MFD driver.
+>>>>>>
+>>>>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>>>>>> Cc: Lee Jones <lee.jones@linaro.org>
+>>>>>> Cc: Rob Herring <robh+dt@kernel.org>
+>>>>>> Cc: Andrew Jeffery <andrew@aj.id.au>
+>>>>>> Cc: James Feist <james.feist@linux.intel.com>
+>>>>>> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+>>>>>> Cc: Joel Stanley <joel@jms.id.au>
+>>>>>> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
+>>>>>> ---
+>>>>>>     drivers/mfd/Kconfig                   |  14 ++
+>>>>>>     drivers/mfd/Makefile                  |   1 +
+>>>>>>     drivers/mfd/intel-peci-client.c       | 182 ++++++++++++++++++++++++++
+>>>>>>     include/linux/mfd/intel-peci-client.h |  81 ++++++++++++
+>>>>>>     4 files changed, 278 insertions(+)
+>>>>>>     create mode 100644 drivers/mfd/intel-peci-client.c
+>>>>>>     create mode 100644 include/linux/mfd/intel-peci-client.h
+>>>>>>
+>>>>>> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+>>>>>> index f3fa516011ec..e38b591479d4 100644
+>>>>>> --- a/drivers/mfd/Kconfig
+>>>>>> +++ b/drivers/mfd/Kconfig
+>>>>>> @@ -595,6 +595,20 @@ config MFD_INTEL_MSIC
+>>>>>>          Passage) chip. This chip embeds audio, battery, GPIO, etc.
+>>>>>>          devices used in Intel Medfield platforms.
+>>>>>>
+>>>>>> +config MFD_INTEL_PECI_CLIENT
+>>>>>> +    bool "Intel PECI client"
+>>>>>> +    depends on (PECI || COMPILE_TEST)
+>>>>>> +    select MFD_CORE
+>>>>>> +    help
+>>>>>> +      If you say yes to this option, support will be included for the
+>>>>>> +      multi-funtional Intel PECI (Platform Environment Control Interface)
+>>>>>> +      client. PECI is a one-wire bus interface that provides a communication
+>>>>>> +      channel from PECI clients in Intel processors and chipset components
+>>>>>> +      to external monitoring or control devices.
+>>>>>> +
+>>>>>> +      Additional drivers must be enabled in order to use the functionality
+>>>>>> +      of the device.
+>>>>>> +
+>>>>>>     config MFD_IPAQ_MICRO
+>>>>>>        bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
+>>>>>>        depends on SA1100_H3100 || SA1100_H3600
+>>>>>> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+>>>>>> index 2852a6042ecf..29e2cacc58bd 100644
+>>>>>> --- a/drivers/mfd/Makefile
+>>>>>> +++ b/drivers/mfd/Makefile
+>>>>>> @@ -203,6 +203,7 @@ obj-$(CONFIG_MFD_INTEL_LPSS)     += intel-lpss.o
+>>>>>>     obj-$(CONFIG_MFD_INTEL_LPSS_PCI)   += intel-lpss-pci.o
+>>>>>>     obj-$(CONFIG_MFD_INTEL_LPSS_ACPI)  += intel-lpss-acpi.o
+>>>>>>     obj-$(CONFIG_MFD_INTEL_MSIC)       += intel_msic.o
+>>>>>> +obj-$(CONFIG_MFD_INTEL_PECI_CLIENT) += intel-peci-client.o
+>>>>>>     obj-$(CONFIG_MFD_PALMAS)   += palmas.o
+>>>>>>     obj-$(CONFIG_MFD_VIPERBOARD)    += viperboard.o
+>>>>>>     obj-$(CONFIG_MFD_RC5T583)  += rc5t583.o rc5t583-irq.o
+>>>>>> diff --git a/drivers/mfd/intel-peci-client.c b/drivers/mfd/intel-peci-client.c
+>>>>>> new file mode 100644
+>>>>>> index 000000000000..d7702cf1ea50
+>>>>>> --- /dev/null
+>>>>>> +++ b/drivers/mfd/intel-peci-client.c
+>>>>>> @@ -0,0 +1,182 @@
+>>>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>>>> +// Copyright (c) 2018 Intel Corporation
+>>>>>> +
+>>>>>> +#include <linux/bitfield.h>
+>>>>>> +#include <linux/mfd/core.h>
+>>>>>> +#include <linux/mfd/intel-peci-client.h>
+>>>>>> +#include <linux/module.h>
+>>>>>> +#include <linux/peci.h>
+>>>>>> +#include <linux/of_device.h>
+>>>>>> +
+>>>>>> +enum cpu_gens {
+>>>>>> +    CPU_GEN_HSX = 0, /* Haswell Xeon */
+>>>>>> +    CPU_GEN_BRX,     /* Broadwell Xeon */
+>>>>>> +    CPU_GEN_SKX,     /* Skylake Xeon */
+>>>>>> +};
+>>>>>> +
+>>>>>> +static struct mfd_cell peci_functions[] = {
+>>>>>> +    {
+>>>>>> +            .name = "peci-cputemp",
+>>>>>> +            .of_compatible = "intel,peci-cputemp",
+>>>>>> +    },
+>>>>>> +    {
+>>>>>> +            .name = "peci-dimmtemp",
+>>>>>> +            .of_compatible = "intel,peci-dimmtemp",
+>>>>>> +    },
+>>>>>> +};
+>>>>>
+>>>>> The more I look at this driver, the less I think it fits into MFD.
+>>>>>
+>>>>> What's stopping you from registering these devices directly from DT?
+>>>>>
+>>>>
+>>>> Because DT doesn't allow 2 nodes at the same address so Rob suggested
+>>>> MFD for this case.
+>>>
+>>> Only after I first suggested you create cpu and dimm sensors from a
+>>> single hwmon driver. Perhaps you should figure out how to fix the
+>>> problem with delayed registration. Perhaps you can register the
+>>> sensor, but just delay returning actual data until it is ready.
+>>>
+>>
+>> The actual reason why I divided the single hwmon driver into two is for
+>> using recommended hwmon API set which doesn't allow incremental
+>> creation of sysfs attributes at run time - using of
+>> 'devm_hwmon_device_register_with_info' is suggested by Guenter instead
+>> of using other deprecated APIs.
+>>
+>> The reason why the delayed registration is needed is, BMC kernel cannot
+>> know how many DIMM are installed in remote machine before the machine
+>> completing memory training and testing in POST. So dimm temp driver
+>> cannot create hwmon attributes in advance.
+>>
+>> My thought is, this way is the best to address these requirements.
 > 
-> The actual reason why I divided the single hwmon driver into two is for
-> using recommended hwmon API set which doesn't allow incremental
-> creation of sysfs attributes at run time - using of
-> 'devm_hwmon_device_register_with_info' is suggested by Guenter instead
-> of using other deprecated APIs.
+> As I've previously explained, I do not think this is a good fit for
+> MFD.  Since this whole PECI piece is a bit, let's say 'niche', perhaps
+> it's better to contain the client within the PECI subsystem too.  You
+> can then use the platform_device_add() API to register devices as and
+> when required.
 > 
-> The reason why the delayed registration is needed is, BMC kernel cannot
-> know how many DIMM are installed in remote machine before the machine
-> completing memory training and testing in POST. So dimm temp driver
-> cannot create hwmon attributes in advance.
-> 
-> My thought is, this way is the best to address these requirements.
 
-As I've previously explained, I do not think this is a good fit for
-MFD.  Since this whole PECI piece is a bit, let's say 'niche', perhaps
-it's better to contain the client within the PECI subsystem too.  You
-can then use the platform_device_add() API to register devices as and
-when required.
+If I do like that, I would face the 'DT doesn't allow 2 nodes at the
+same address' issue again. Also, as I previously explained, additional
+PECI sideband function drivers should be added later through this MFD
+driver. For an example, remote CPU crash dump driver which would be an
+misc char type driver that are sharing the same unit address also needs
+to be added later, and it's definitely not an additional hwmon subsystem
+driver. I'm still thinking that an MFD driver is more suitable to
+support these mixed-type function drivers that are sharing a single
+device unit.
 
--- 
-Lee Jones [李琼斯]
-Linaro Services Technical Lead
-Linaro.org │ Open source software for ARM SoCs
-Follow Linaro: Facebook | Twitter | Blog
+Thanks,
+
+Jae
