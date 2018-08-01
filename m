@@ -1,58 +1,40 @@
-Return-Path: <osk@google.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:400c:c09::232; helo=mail-wm0-x232.google.com;
- envelope-from=osk@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="lkgpoOUc"; 
- dkim-atps=neutral
-Received: from mail-wm0-x232.google.com (mail-wm0-x232.google.com
- [IPv6:2a00:1450:400c:c09::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41gdjj4l4GzF10S
- for <openbmc@lists.ozlabs.org>; Thu,  2 Aug 2018 02:16:50 +1000 (AEST)
-Received: by mail-wm0-x232.google.com with SMTP id q8-v6so2638047wmq.4
- for <openbmc@lists.ozlabs.org>; Wed, 01 Aug 2018 09:16:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nMe9UkEPKeJWMR6QJQQEoRKjOd6hk9hnf5Nrb8a9QKw=;
- b=lkgpoOUcND9uGg79Fqsi+xFpnOJ07CA2ZFzj55txXc0UV24PCSHVI4MlW8ru49Ielw
- YqyHD2sRaFanJMUXr7zBlzwNo/PTYBp5Ut6r8tYN7l4NSK0yplqAxvuX29pCmrPaxq/o
- mhc6p2WJJ3RWmPH0yWc9ndpjxXCZkVVNjgTUKwxre/JsDDhGMeB0SwCdOs4URH26zr19
- 9+wAf3B/kB6+YpSChPiPNwJGvjVG1Uv+FxdVLtCcDeS3EXo/VRdOaVllZFXpa/yrejdd
- Pho2HeUMggAxJOBgRMg0BOUKLwALo7Yf6FO0tEmRg6Gv5L2AAvGgyOBzIBsyp3BGzcAo
- DTzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nMe9UkEPKeJWMR6QJQQEoRKjOd6hk9hnf5Nrb8a9QKw=;
- b=jdd30SZHFPWwtTDAV3HHyKc6u57QZ/PgUwFFeaVnxXAUS22hd31lIG3Qq1VzXeYELw
- xeUPhORqccb3uF6xulkgnMtyYrSxy/1SE54mjQonTLNjuwBhXOsLzOb/Z13S+g69Ru5M
- 1Bzk5ilX7fpQ7SwA/DUyfU+SkbsCGw9MrV0sHGBIgonp0aS1Of+9mfEeSu+JSC8JSnxK
- 0+qdHwK0YJQskiqpLFHzfJhHPCQrzSOmt2cShUg8zcnPW9RadDct38cy3sqSWlmW+IX/
- lwUR6bX0yvOdRUn/oNKA2v940MtwAUHt0U4MjZ21zoF1xG7lNuhc/dzgSsvmqPEc4OBi
- 0+sA==
-X-Gm-Message-State: AOUpUlGW6ZTI6sVh4i8oY1xY+RDB/aVFDmUyrBnv8NHYLTLCyceuozhD
- vnF3nlZe+eC6ChzO3lAsyY8ZpNWZ0w/N1nSihDJ5yoM4oGQ/Gg==
-X-Google-Smtp-Source: AAOMgpfOlFf2WYDpg5buN9PCnzFufIx0WzxqAUSPapOK8WBEg1fMhRqUHWlL4yCpaKNHK7NYBIpkEB4CSsN9hz/cJMc=
-X-Received: by 2002:a1c:3743:: with SMTP id
- e64-v6mr3152935wma.63.1533140206294; 
- Wed, 01 Aug 2018 09:16:46 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41gfNX6PvvzF10S
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Aug 2018 02:47:04 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2018 09:47:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,432,1526367600"; d="scan'208";a="59652856"
+Received: from hades.jf.intel.com (HELO [10.54.51.77]) ([10.54.51.77])
+ by fmsmga008.fm.intel.com with ESMTP; 01 Aug 2018 09:47:00 -0700
+Subject: Re: SSL Certificate management proposal.
+To: Jayanth Othayoth <ojayanth@gmail.com>
+Cc: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com
+References: <CACkAXSrxyf819dQc+LEOfwahpcrK2QRH1AkXump-D9Ae+yaKBQ@mail.gmail.com>
+ <1d63a4ec-1902-c9d3-13d8-94ef7e437425@intel.com>
+ <CACkAXSrj1X+EkuUwbOQb3C+OCe_kSaN8zfvWdL32s0=_Ji248g@mail.gmail.com>
+From: Ed Tanous <ed.tanous@intel.com>
+Message-ID: <013a368e-8dfb-6ad2-2e3e-76b356051499@intel.com>
+Date: Wed, 1 Aug 2018 09:48:27 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAG9c7cAwMWMXQ=SOJ0Vjxzx0jUv3M8KLF8_fXam-z_4CuMJcvg@mail.gmail.com>
- <CAO=notxVZowBBB4DSVYZv5MdC+H1CZ01r+DCPbZeYAJdqjAcug@mail.gmail.com>
-In-Reply-To: <CAO=notxVZowBBB4DSVYZv5MdC+H1CZ01r+DCPbZeYAJdqjAcug@mail.gmail.com>
-From: Oskar Senft <osk@google.com>
-Date: Wed, 1 Aug 2018 12:16:35 -0400
-Message-ID: <CABoTLcRjsOonjmPMMiijX8CvJ_jM9KJcz12AxntdzW8vCxpSFg@mail.gmail.com>
-Subject: Re: UART Route setting
-To: openbmc@lists.ozlabs.org
-Cc: henbinchang@gmail.com
-Content-Type: multipart/alternative; boundary="00000000000063d9f80572620512"
+In-Reply-To: <CACkAXSrj1X+EkuUwbOQb3C+OCe_kSaN8zfvWdL32s0=_Ji248g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -64,88 +46,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Aug 2018 16:16:59 -0000
+X-List-Received-Date: Wed, 01 Aug 2018 16:47:09 -0000
 
---00000000000063d9f80572620512
-Content-Type: text/plain; charset="UTF-8"
+>  >
+> Agree with your concern, but from the security standpoint transmitting 
+> private key over network is not recommended.  Additionally a simplified 
+> method also can be provided for customers who wants that.
+I'm happy with both, and I understand the desire to not transmit private 
+keys over the network, but this is how a lot of organizations are set up 
+today.  In general, the private key is sent over TLS, during an initial 
+provisioning phase, on an isolated subnet to reduce the risk.  I'm not 
+saying the CSR approach isn't an improvement, but I think we will need 
+to support both approaches, and I don't know of any BMC that supports 
+the CSR approach, although I'm not very familiar with some of the high 
+end enterprise BMCs feature set.  It might be supported.
 
-Hi Henbin
+>  >
+>  > What does this mean exactly?  Encrypted disk backed by hardware
+>  > security?  Is it just implying file system permissions?
+> Storage method can be varied based on the implementation. Curenlty 
+> looking at file system permissions.
+Got it.
 
-It's funny that you ask, since I had just started to look into the same
-problem.
+>  >
+>  > >   * Activate process shall validate the new certificate against the
+>  > >     private key and information in the CSR.
+>  > You don't really define what the "activate process" is in this context.
+>  > I suspect you're talking about a process designed for cert upload, but
+>  > I'm not really sure given the context.
+>  >
+> Upload process just save the Signed certificate in a  BMC location and 
+> "activation" will replace the curently used certificate in the secured 
+> location and restart all the impacted services.
+Why have these as two steps?  Why not just upload the key and apply it 
+in one atomic action?  It seems like it would simplify the code quite a 
+bit, and reduce the possibility of issues.
 
-I'd like to change the UART routing on an AST2500 when a client connects to
-the obmc-console-server. The use case is to dynamically connect the host's
-UART to a UART owned by the BMC.
+>  >
+> As mentioned earlier  curently used certificate will be replaced only 
+> after the successful activation. So there wont be any downtime during 
+> CSR creation process.
+If I'm following correctly, the CSR gets replaced, but not the 
+certificate?  If so, I misunderstood your initial requirement.  This 
+should be fine.
 
-I was thinking of writing a kernel driver that would expose the config
-options from the HICRA register on AST2500 as /sys files. Each file
-represents the target UART1..5 and IO1..5. The file value represents the
-source UART1..5 and IO1..5. Not all combinations are supported by the
-Aspeed, so I'd add the necessary checks and error reporting into the code.
-
-An alternative would be to just use /dev/mem to do that, but my
-understanding is that default support for that is going away or has gone
-away.
-
-Oskar.
+>  >
+> User privilege level need to be discussed more.
+Agreed.
 
 
----------- Forwarded message ----------
-> From: Henbin Chang <henbinchang@gmail.com>
-> Date: Wed, Aug 1, 2018 at 12:11 AM
-> Subject: UART Route setting
-> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
->
->
-> Hi,
->
-> Could anyone know how to modify UART Route setting through dts, driver
-> or other mechanism?
->
-> Or I have to find a point to modify it e.g. board_init() in the u-boot.
->
-> Thanks.
->
 
---00000000000063d9f80572620512
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Henbin<div><br></div><div>It&#39;s funny that you ask, =
-since I had just started to look into the same problem.</div><div><br></div=
-><div>I&#39;d like to change the UART routing on an AST2500 when a client c=
-onnects to the obmc-console-server. The use case is to dynamically connect =
-the host&#39;s UART to a UART owned by the BMC.</div><div><br></div><div><s=
-pan style=3D"font-size:small;background-color:rgb(255,255,255);text-decorat=
-ion-style:initial;text-decoration-color:initial;float:none;display:inline">=
-I was thinking of writing a kernel driver that would expose the config opti=
-ons from the HICRA register on AST2500 as /sys files. Each file represents =
-the target UART1..5 and IO1..5. The file value represents the source UART1.=
-.5 and IO1..5. Not all combinations are supported by the Aspeed, so I&#39;d=
- add the necessary checks and error reporting into the code.</span></div><d=
-iv><br></div><div>An alternative would be to just use /dev/mem to do that, =
-but my understanding is that default support for that is going away or has =
-gone away.</div><div><br></div><div>Oskar.</div><div><br><div class=3D"gmai=
-l_quote"><div dir=3D"ltr"><br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">---------- Forwarded message ----------<br>
-From: Henbin Chang &lt;<a href=3D"mailto:henbinchang@gmail.com" target=3D"_=
-blank">henbinchang@gmail.com</a>&gt;<br>
-Date: Wed, Aug 1, 2018 at 12:11 AM<br>
-Subject: UART Route setting<br>
-To: OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org" target=
-=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;<br>
-<br>
-<br>
-Hi,<br>
-<br>
-Could anyone know how to modify UART Route setting through dts, driver<br>
-or other mechanism?<br>
-<br>
-Or I have to find a point to modify it e.g. board_init() in the u-boot.<br>
-<br>
-Thanks.<br>
-</blockquote></div></div></div>
-
---00000000000063d9f80572620512--
+All in all, sounds like a good start to me.
