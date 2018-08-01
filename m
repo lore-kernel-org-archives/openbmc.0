@@ -1,79 +1,58 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <osk@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:400c:c09::232; helo=mail-wm0-x232.google.com;
+ envelope-from=osk@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="lkgpoOUc"; 
+ dkim-atps=neutral
+Received: from mail-wm0-x232.google.com (mail-wm0-x232.google.com
+ [IPv6:2a00:1450:400c:c09::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41gZKG3VnVzF18f
- for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 23:44:01 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w71Dhwj9087763
- for <openbmc@lists.ozlabs.org>; Wed, 1 Aug 2018 09:43:58 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2kkdr38s2n-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 01 Aug 2018 09:43:57 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 1 Aug 2018 09:43:38 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 1 Aug 2018 09:43:35 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w71DhYRc18481414
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 1 Aug 2018 13:43:34 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0F80EAC05E;
- Wed,  1 Aug 2018 09:44:13 -0400 (EDT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7CC70AC060;
- Wed,  1 Aug 2018 09:44:11 -0400 (EDT)
-Received: from oc6728276242.ibm.com (unknown [9.80.222.249])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Wed,  1 Aug 2018 09:44:11 -0400 (EDT)
-Subject: =?UTF-8?B?UmU6IOWbnuWkje+8miDlm57lpI3vvJogS1ZNIFN1cHBvcnQ/?=
-To: xiuzhi <1450335857@qq.com>, "Alexander A. Filippov" <a.filippov@yadro.com>,
- openbmc <openbmc@lists.ozlabs.org>
-References: <tencent_1C95811BB151A831B6F144F54B696D9EC305@qq.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Wed, 1 Aug 2018 08:43:31 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41gdjj4l4GzF10S
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Aug 2018 02:16:50 +1000 (AEST)
+Received: by mail-wm0-x232.google.com with SMTP id q8-v6so2638047wmq.4
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Aug 2018 09:16:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nMe9UkEPKeJWMR6QJQQEoRKjOd6hk9hnf5Nrb8a9QKw=;
+ b=lkgpoOUcND9uGg79Fqsi+xFpnOJ07CA2ZFzj55txXc0UV24PCSHVI4MlW8ru49Ielw
+ YqyHD2sRaFanJMUXr7zBlzwNo/PTYBp5Ut6r8tYN7l4NSK0yplqAxvuX29pCmrPaxq/o
+ mhc6p2WJJ3RWmPH0yWc9ndpjxXCZkVVNjgTUKwxre/JsDDhGMeB0SwCdOs4URH26zr19
+ 9+wAf3B/kB6+YpSChPiPNwJGvjVG1Uv+FxdVLtCcDeS3EXo/VRdOaVllZFXpa/yrejdd
+ Pho2HeUMggAxJOBgRMg0BOUKLwALo7Yf6FO0tEmRg6Gv5L2AAvGgyOBzIBsyp3BGzcAo
+ DTzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nMe9UkEPKeJWMR6QJQQEoRKjOd6hk9hnf5Nrb8a9QKw=;
+ b=jdd30SZHFPWwtTDAV3HHyKc6u57QZ/PgUwFFeaVnxXAUS22hd31lIG3Qq1VzXeYELw
+ xeUPhORqccb3uF6xulkgnMtyYrSxy/1SE54mjQonTLNjuwBhXOsLzOb/Z13S+g69Ru5M
+ 1Bzk5ilX7fpQ7SwA/DUyfU+SkbsCGw9MrV0sHGBIgonp0aS1Of+9mfEeSu+JSC8JSnxK
+ 0+qdHwK0YJQskiqpLFHzfJhHPCQrzSOmt2cShUg8zcnPW9RadDct38cy3sqSWlmW+IX/
+ lwUR6bX0yvOdRUn/oNKA2v940MtwAUHt0U4MjZ21zoF1xG7lNuhc/dzgSsvmqPEc4OBi
+ 0+sA==
+X-Gm-Message-State: AOUpUlGW6ZTI6sVh4i8oY1xY+RDB/aVFDmUyrBnv8NHYLTLCyceuozhD
+ vnF3nlZe+eC6ChzO3lAsyY8ZpNWZ0w/N1nSihDJ5yoM4oGQ/Gg==
+X-Google-Smtp-Source: AAOMgpfOlFf2WYDpg5buN9PCnzFufIx0WzxqAUSPapOK8WBEg1fMhRqUHWlL4yCpaKNHK7NYBIpkEB4CSsN9hz/cJMc=
+X-Received: by 2002:a1c:3743:: with SMTP id
+ e64-v6mr3152935wma.63.1533140206294; 
+ Wed, 01 Aug 2018 09:16:46 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <tencent_1C95811BB151A831B6F144F54B696D9EC305@qq.com>
-Content-Type: text/plain; charset=gb18030; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18080113-0040-0000-0000-00000456B570
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009467; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01068832; UDB=6.00549514; IPR=6.00847140; 
- MB=3.00022440; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-01 13:43:37
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18080113-0041-0000-0000-0000085CF150
-Message-Id: <17beaf19-846e-5b3c-d651-7b5f52f422d7@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-01_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1806210000 definitions=main-1808010143
+References: <CAG9c7cAwMWMXQ=SOJ0Vjxzx0jUv3M8KLF8_fXam-z_4CuMJcvg@mail.gmail.com>
+ <CAO=notxVZowBBB4DSVYZv5MdC+H1CZ01r+DCPbZeYAJdqjAcug@mail.gmail.com>
+In-Reply-To: <CAO=notxVZowBBB4DSVYZv5MdC+H1CZ01r+DCPbZeYAJdqjAcug@mail.gmail.com>
+From: Oskar Senft <osk@google.com>
+Date: Wed, 1 Aug 2018 12:16:35 -0400
+Message-ID: <CABoTLcRjsOonjmPMMiijX8CvJ_jM9KJcz12AxntdzW8vCxpSFg@mail.gmail.com>
+Subject: Re: UART Route setting
+To: openbmc@lists.ozlabs.org
+Cc: henbinchang@gmail.com
+Content-Type: multipart/alternative; boundary="00000000000063d9f80572620512"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -85,264 +64,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Aug 2018 13:44:03 -0000
+X-List-Received-Date: Wed, 01 Aug 2018 16:16:59 -0000
 
-Hi,
+--00000000000063d9f80572620512
+Content-Type: text/plain; charset="UTF-8"
 
-There are some differences with the video engine between the AST2400 and 
-AST2500 that I haven't addressed yet, so probably the driver is not 
-working correctly on the AST2400 yet. Some registers have different bit 
-mapping, and things like that. Sorry about that... thanks for trying it 
-out! I'll look at the changes needed for AST2400 next.
+Hi Henbin
 
-Thanks,
+It's funny that you ask, since I had just started to look into the same
+problem.
 
-Eddie
+I'd like to change the UART routing on an AST2500 when a client connects to
+the obmc-console-server. The use case is to dynamically connect the host's
+UART to a UART owned by the BMC.
+
+I was thinking of writing a kernel driver that would expose the config
+options from the HICRA register on AST2500 as /sys files. Each file
+represents the target UART1..5 and IO1..5. The file value represents the
+source UART1..5 and IO1..5. Not all combinations are supported by the
+Aspeed, so I'd add the necessary checks and error reporting into the code.
+
+An alternative would be to just use /dev/mem to do that, but my
+understanding is that default support for that is going away or has gone
+away.
+
+Oskar.
 
 
-On 08/01/2018 03:47 AM, xiuzhi wrote:
-> Hi Eddie,
->   Now It works, but the vncviewer can not connect the BMC server 
-> successful.
-> When I use vncviewer connect to the BMC the error read:
-> "RFB protocol error: bad desktop size 0x1"
-> "RFB protocol error: unknow rect encoding 7"
-> The information on BMC are :
-> root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
-> frame buffer size: 3145728
-> 19/07/2018 08:20:57 Listening for VNC connections on TCP port 5900
-> 19/07/2018 08:20:57 Listening for VNC connections on TCP6 port 5900
+---------- Forwarded message ----------
+> From: Henbin Chang <henbinchang@gmail.com>
+> Date: Wed, Aug 1, 2018 at 12:11 AM
+> Subject: UART Route setting
+> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 >
-> 19/07/2018 08:52:08 Got connection from client 192.168.120.58
-> 19/07/2018 08:52:08   other clients:
-> 19/07/2018 08:52:08 Normal socket connection
-> 19/07/2018 08:52:08 Client Protocol Version 3.8
-> 19/07/2018 08:52:08 Protocol version sent 3.8, using 3.8
-> 19/07/2018 08:52:08 rfbProcessClientSecurityType: executing handler 
-> for type 1
-> 19/07/2018 08:52:08 rfbProcessClientSecurityType: returning 
-> securityResult for client rfb version >= 3.8
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000018)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000016)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000015)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x0000000F)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0xFFFFFEC6)
-> 19/07/2018 08:52:08 Enabling full-color cursor updates for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 Using ZRLE encoding for client 192.168.120.58
-> 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
-> 19/07/2018 08:52:08   8 bpp, depth 6
-> 19/07/2018 08:52:08   true colour: max r 3 g 3 b 3, shift r 4 g 2 b 0
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000018)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000016)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000015)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x0000000F)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0xFFFFFEC6)
-> 19/07/2018 08:52:08 Enabling full-color cursor updates for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 Switching from ZRLE to raw Encoding for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000018)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000016)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x00000015)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0x0000000F)
-> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
-> unsupported encoding type Enc(0xFFFFFEC6)
-> 19/07/2018 08:52:08 Enabling full-color cursor updates for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 Switching from raw to ZRLE Encoding for client 
-> 192.168.120.58
-> 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
-> 19/07/2018 08:52:08   32 bpp, depth 24, little endian
-> 19/07/2018 08:52:08   true colour: max r 255 g 255 b 255, shift r 16 g 
-> 8 b 0
-> [ 6928.751385] aspeed-video 1e700000.video: disabling comp ready irq, 
-> seq_ctrl[000500a8]
-> 19/07/2018 08:52:09 rfbProcessClientNormalMessage: read: Connection 
-> reset by peer
-> 19/07/2018 08:52:09 Client 192.168.120.58 gone
-> 19/07/2018 08:52:09 Statistics             events    Transmit/ 
-> RawEquiv ( saved)
-> 19/07/2018 08:52:09  FramebufferUpdate   :      3 | 0/        0 (  0.0%)
-> 19/07/2018 08:52:09  tight               :      1 |     30991/ 3145740 
-> ( 99.0%)
-> 19/07/2018 08:52:09  raw                 :      1 |     16396/ 16396 
-> (  0.0%)
-> 19/07/2018 08:52:09  ZRLE                :      2 |        62/ 3932160 
-> (100.0%)
-> 19/07/2018 08:52:09  RichCursor          :      3 | 429/      429 (  0.0%)
-> 19/07/2018 08:52:09  TOTALS              :     10 |     47878/ 7094725 
-> ( 99.3%)
-> 19/07/2018 08:52:09 Statistics             events    Received/ 
-> RawEquiv ( saved)
-> 19/07/2018 08:52:09  FramebufferUpdate   :      4 | 40/       40 (  0.0%)
-> 19/07/2018 08:52:09  SetPixelFormat      :      2 | 40/       40 (  0.0%)
-> 19/07/2018 08:52:09  SetEncodings        :      3 | 168/      168 (  0.0%)
-> 19/07/2018 08:52:09  TOTALS              :      9 | 248/      248 (  0.0%)
->
-> What wrong with it?
-> BTW, vncview download from 
-> https://www.realvnc.com/en/connect/download/viewer/linux/
-> I also got the same error using Tightvnc viewer
-> Thanks,
-> xiuzhi
-> Hi Eddie,
->    My bmc is AST2400, I modified the aspeed-g4.dtsi(adding gfx: 
-> display@1e6e6000  and  video: video@1e700000)
->  and the aspeed-bmc-opp-xxx.dts (adding &video &vhub) .
-> An error occured when I executed the following instructions:
->
-> root@zhaoxinc:~# create_usbhid.sh
-> root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
-> [  125.586061] aspeed-video 1e700000.video: timed out on 1st mode detect
-> [  125.602732] aspeed-video 1e700000.video: Failed to start video engine
-> failed to open /dev/video0: 62 Timer expired
-> Need I modify drivers/media/platform/aspeed-video.c or any other files?
->
->  Thanks ,
-> Xiuzhi
-> On 07/31/2018 01:52 AM, xiuzhi wrote:
-> > Hi Alexander ,Eddie,
-> >   I merged the source from
-> > https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11500/,and
-> > kernel branch video-dev.
-> > How to test the video kvm feature by phosphor-webui or command line?
 >
 > Hi,
 >
-> You need to make sure the video device is enabled in your device-tree
-> for the machine you use... My kernel patch enabled it for our AST2500
-> witherspoon system. If you're using AST2500 as well, then you just need
-> something like:
+> Could anyone know how to modify UART Route setting through dts, driver
+> or other mechanism?
 >
-> &video {
->      status = "okay";
->      memory-region = <&gfx_memory>;
-> };
+> Or I have to find a point to modify it e.g. board_init() in the u-boot.
 >
-> And the virtual USB hub:
-> &vhub {
->      status = "okay";
-> };
+> Thanks.
 >
-> If you're not using AST2500, you'll need more changes to device-tree.
->
-> Then on the BMC command line:
-> create_usbhid.sh
-> obmc-ikvm -v /dev/video0 -i /dev/hidg0
-> And connect with any VNC client to port 0 of your BMC IP.
->
-> Thanks,
-> Eddie
->
-> > Best,
-> > xiuzhi
-> >
-> >
-> > ------------------ 原始邮件 ------------------
-> > *发件人:* "Alexander A. Filippov"<a.filippov@yadro.com>;
-> > *发送时间:* 2018年7月25日(星期三) 下午4:56
-> > *收件人:* 
-> "openbmc"<openbmc@lists.ozlabs.org>;"xiuzhi"<1450335857@qq.com>;
-> > *主题:* Re: KVM Support?
-> >
-> > Hello everybody,
-> >
-> > Could you check the size of
-> > 
-> `build/tmp/deploy/image/<platformname>/fitImage-openbmc-phosphor-initramfs-*.bin`?
-> > If it exceeds 4456448 (0x440000) bytes, this is the problem described
-> > at https://github.com/openbmc/openbmc/issues/3314
-> >
-> >
-> > In this case you should modify flash partitions layout or trying to
-> > decrease kernel size.
-> >
-> > --
-> > Alexander
-> >
-> > On Wed, Jul 25, 2018 at 03:48:04PM +0800, xiuzhi wrote:
-> > > Hi Eddie,
-> > >
-> > >
-> > >   I read your KVM Support email on mailinglist.
-> > >
-> > >
-> > > I am going to port the BMC kvm to ast2400 . The u-boot can not load
-> > kernel ,the error message read:
-> > >
-> > >
-> > > ""U-Boot 2016.07 (Jul 23 2018 - 11:11:50 +0000)
-> > >
-> > >
-> > > DRAM:  240 MiB
-> > > WARNING: Caches not enabled
-> > > Flash: 32 MiB
-> > > *** Warning - bad CRC, using default environment
-> > >
-> > >
-> > > In:    serial
-> > > Out:   serial
-> > > Err:   serial
-> > > Net:   aspeednic#0
-> > > Error: aspeednic#0 address not set.
-> > >
-> > >
-> > > Hit any key to stop autoboot:  0
-> > > ## Loading kernel from FIT Image at 20080000 ...
-> > > Bad FIT kernel image format!
-> > > ERROR: can't get kernel image!
-> > > ast#
-> > >
-> > >
-> > > I added  config options to defconfig of ast2400 as follows:
-> > >
-> > >
-> > > CONFIG_MEDIA_SUPPORT=y
-> > > CONFIG_MEDIA_CAMERA_SUPPORT=y
-> > > CONFIG_MEDIA_SUPPORT=y
-> > > CONFIG_MEDIA_CAMERA_SUPPORT=y
-> > > # CONFIG_MEDIA_ANALOG_TV_SUPPORT is not set
-> > > # CONFIG_MEDIA_DIGITAL_TV_SUPPORT is not set
-> > > # CONFIG_MEDIA_RADIO_SUPPORT is not set
-> > > # CONFIG_MEDIA_SDR_SUPPORT is not set
-> > > # CONFIG_MEDIA_CEC_SUPPORT is not set
-> > > # CONFIG_MEDIA_CONTROLLER is not set
-> > > CONFIG_RATIONAL=y
-> > > CONFIG_VIDEO_DEV=y
-> > > CONFIG_VIDEO_V4L2=y
-> > > CONFIG_V4L_PLATFORM_DRIVERS=y
-> > > CONFIG_VIDEO_ASPEED=y
-> > > CONFIG_MEDIA_SUBDRV_AUTOSELECT=y
-> > >
-> > >
-> > > Need I modify the aspeed-bmc-opp-palmetto.dts and aspeed-g4.dtsi?
-> > >
-> > >
-> > > Can you give me the file list need to modify?
-> > >
-> > >
-> > > Thanks,
-> > >
-> > >
-> > > xiuzhi
+
+--00000000000063d9f80572620512
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Henbin<div><br></div><div>It&#39;s funny that you ask, =
+since I had just started to look into the same problem.</div><div><br></div=
+><div>I&#39;d like to change the UART routing on an AST2500 when a client c=
+onnects to the obmc-console-server. The use case is to dynamically connect =
+the host&#39;s UART to a UART owned by the BMC.</div><div><br></div><div><s=
+pan style=3D"font-size:small;background-color:rgb(255,255,255);text-decorat=
+ion-style:initial;text-decoration-color:initial;float:none;display:inline">=
+I was thinking of writing a kernel driver that would expose the config opti=
+ons from the HICRA register on AST2500 as /sys files. Each file represents =
+the target UART1..5 and IO1..5. The file value represents the source UART1.=
+.5 and IO1..5. Not all combinations are supported by the Aspeed, so I&#39;d=
+ add the necessary checks and error reporting into the code.</span></div><d=
+iv><br></div><div>An alternative would be to just use /dev/mem to do that, =
+but my understanding is that default support for that is going away or has =
+gone away.</div><div><br></div><div>Oskar.</div><div><br><div class=3D"gmai=
+l_quote"><div dir=3D"ltr"><br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">---------- Forwarded message ----------<br>
+From: Henbin Chang &lt;<a href=3D"mailto:henbinchang@gmail.com" target=3D"_=
+blank">henbinchang@gmail.com</a>&gt;<br>
+Date: Wed, Aug 1, 2018 at 12:11 AM<br>
+Subject: UART Route setting<br>
+To: OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org" target=
+=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;<br>
+<br>
+<br>
+Hi,<br>
+<br>
+Could anyone know how to modify UART Route setting through dts, driver<br>
+or other mechanism?<br>
+<br>
+Or I have to find a point to modify it e.g. board_init() in the u-boot.<br>
+<br>
+Thanks.<br>
+</blockquote></div></div></div>
+
+--00000000000063d9f80572620512--
