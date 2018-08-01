@@ -1,42 +1,79 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=68.114.190.29; helo=mtaout004-public.msg.strl.va.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-Received: from mtaout004-public.msg.strl.va.charter.net
- (mtaout004-public.msg.strl.va.charter.net [68.114.190.29])
- by lists.ozlabs.org (Postfix) with ESMTP id 41gZFm5dVSzF10S
- for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 23:40:59 +1000 (AEST)
-Received: from impout002 ([68.114.189.17]) by mtaout004.msg.strl.va.charter.net
- (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
- id <20180801134057.AQG3685.mtaout004.msg.strl.va.charter.net@impout002>
- for <openbmc@lists.ozlabs.org>; Wed, 1 Aug 2018 08:40:57 -0500
-Received: from [192.168.2.6] ([97.86.254.207]) by impout002 with charter.net
- id Hpgw1y00F4VFKzV01pgw40; Wed, 01 Aug 2018 08:40:57 -0500
-X-Authority-Analysis: v=2.2 cv=C6eZ8UH+ c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=pGLkceISAAAA:8 a=voM4FWlXAAAA:8
- a=tcme9c7lAAAA:8 a=QyXUC8HyAAAA:8 a=CmcmwDZkHsnzOA0itmEA:9
- a=m-l6xdOEOEeLxD-J:21 a=IaDWHJMu3RXH-zQ6:21 a=QEXdDO2ut3YA:10
- a=jXvLrVMFqYS73pEZLKcA:9 a=Xdq1ro-6cCzpOw-Q:21 a=_Zx-MCLZG_tiU9V2:21
- a=1GojHl5rJC6sIRDL:21 a=_W_S_7VecoQA:10 a=IC2XNlieTeVoXbcui8wp:22
- a=cJsI3S3cdgERF2JXxJch:22
-X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
-Subject: Re: SSL Certificate management - proposed REST APIs
-To: openbmc@lists.ozlabs.org
-References: <mailman.863.1533082376.30117.openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Message-ID: <a38b7b7a-1947-bd45-49d2-31a6dc5113af@charter.net>
-Date: Wed, 1 Aug 2018 08:40:51 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41gZKG3VnVzF18f
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 23:44:01 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w71Dhwj9087763
+ for <openbmc@lists.ozlabs.org>; Wed, 1 Aug 2018 09:43:58 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2kkdr38s2n-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Aug 2018 09:43:57 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 1 Aug 2018 09:43:38 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 1 Aug 2018 09:43:35 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w71DhYRc18481414
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 1 Aug 2018 13:43:34 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0F80EAC05E;
+ Wed,  1 Aug 2018 09:44:13 -0400 (EDT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7CC70AC060;
+ Wed,  1 Aug 2018 09:44:11 -0400 (EDT)
+Received: from oc6728276242.ibm.com (unknown [9.80.222.249])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed,  1 Aug 2018 09:44:11 -0400 (EDT)
+Subject: =?UTF-8?B?UmU6IOWbnuWkje+8miDlm57lpI3vvJogS1ZNIFN1cHBvcnQ/?=
+To: xiuzhi <1450335857@qq.com>, "Alexander A. Filippov" <a.filippov@yadro.com>,
+ openbmc <openbmc@lists.ozlabs.org>
+References: <tencent_1C95811BB151A831B6F144F54B696D9EC305@qq.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Wed, 1 Aug 2018 08:43:31 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-In-Reply-To: <mailman.863.1533082376.30117.openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative;
- boundary="------------E0CF41C4066B1CC5B8A8D362"
+In-Reply-To: <tencent_1C95811BB151A831B6F144F54B696D9EC305@qq.com>
+Content-Type: text/plain; charset=gb18030; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18080113-0040-0000-0000-00000456B570
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009467; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01068832; UDB=6.00549514; IPR=6.00847140; 
+ MB=3.00022440; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-01 13:43:37
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18080113-0041-0000-0000-0000085CF150
+Message-Id: <17beaf19-846e-5b3c-d651-7b5f52f422d7@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-08-01_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1808010143
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -48,310 +85,264 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Aug 2018 13:41:02 -0000
+X-List-Received-Date: Wed, 01 Aug 2018 13:44:03 -0000
 
-This is a multi-part message in MIME format.
---------------E0CF41C4066B1CC5B8A8D362
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi,
 
-> Message: 4
-> Date: Tue, 31 Jul 2018 20:19:38 +0530
-> From: Jayanth Othayoth <ojayanth@gmail.com>
-> To: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com,
-> ed.tanous@intel.com
-> Subject: SSL Certificate management proposal.
-> Message-ID:
-> <CACkAXSrxyf819dQc+LEOfwahpcrK2QRH1AkXump-D9Ae+yaKBQ@mail.gmail.com>
-> Content-Type: text/plain; charset="utf-8"
+There are some differences with the video engine between the AST2400 and 
+AST2500 that I haven't addressed yet, so probably the driver is not 
+working correctly on the AST2400 yet. Some registers have different bit 
+mapping, and things like that. Sorry about that... thanks for trying it 
+out! I'll look at the changes needed for AST2400 next.
+
+Thanks,
+
+Eddie
+
+
+On 08/01/2018 03:47 AM, xiuzhi wrote:
+> Hi Eddie,
+>   Now It works, but the vncviewer can not connect the BMC server 
+> successful.
+> When I use vncviewer connect to the BMC the error read:
+> "RFB protocol error: bad desktop size 0x1"
+> "RFB protocol error: unknow rect encoding 7"
+> The information on BMC are :
+> root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> frame buffer size: 3145728
+> 19/07/2018 08:20:57 Listening for VNC connections on TCP port 5900
+> 19/07/2018 08:20:57 Listening for VNC connections on TCP6 port 5900
 >
-> This proposal provides a mechanism to replace the self signed certificate
-> with聽 CA signed certificate based on BMC generated CSR.
-> [...snip...]
+> 19/07/2018 08:52:08 Got connection from client 192.168.120.58
+> 19/07/2018 08:52:08   other clients:
+> 19/07/2018 08:52:08 Normal socket connection
+> 19/07/2018 08:52:08 Client Protocol Version 3.8
+> 19/07/2018 08:52:08 Protocol version sent 3.8, using 3.8
+> 19/07/2018 08:52:08 rfbProcessClientSecurityType: executing handler 
+> for type 1
+> 19/07/2018 08:52:08 rfbProcessClientSecurityType: returning 
+> securityResult for client rfb version >= 3.8
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000018)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000016)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000015)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x0000000F)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0xFFFFFEC6)
+> 19/07/2018 08:52:08 Enabling full-color cursor updates for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 Using ZRLE encoding for client 192.168.120.58
+> 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
+> 19/07/2018 08:52:08   8 bpp, depth 6
+> 19/07/2018 08:52:08   true colour: max r 3 g 3 b 3, shift r 4 g 2 b 0
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000018)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000016)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000015)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x0000000F)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0xFFFFFEC6)
+> 19/07/2018 08:52:08 Enabling full-color cursor updates for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 Switching from ZRLE to raw Encoding for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000018)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000016)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x00000015)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0x0000000F)
+> 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring 
+> unsupported encoding type Enc(0xFFFFFEC6)
+> 19/07/2018 08:52:08 Enabling full-color cursor updates for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 Switching from raw to ZRLE Encoding for client 
+> 192.168.120.58
+> 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
+> 19/07/2018 08:52:08   32 bpp, depth 24, little endian
+> 19/07/2018 08:52:08   true colour: max r 255 g 255 b 255, shift r 16 g 
+> 8 b 0
+> [ 6928.751385] aspeed-video 1e700000.video: disabling comp ready irq, 
+> seq_ctrl[000500a8]
+> 19/07/2018 08:52:09 rfbProcessClientNormalMessage: read: Connection 
+> reset by peer
+> 19/07/2018 08:52:09 Client 192.168.120.58 gone
+> 19/07/2018 08:52:09 Statistics             events    Transmit/ 
+> RawEquiv ( saved)
+> 19/07/2018 08:52:09  FramebufferUpdate   :      3 | 0/        0 (  0.0%)
+> 19/07/2018 08:52:09  tight               :      1 |     30991/ 3145740 
+> ( 99.0%)
+> 19/07/2018 08:52:09  raw                 :      1 |     16396/ 16396 
+> (  0.0%)
+> 19/07/2018 08:52:09  ZRLE                :      2 |        62/ 3932160 
+> (100.0%)
+> 19/07/2018 08:52:09  RichCursor          :      3 | 429/      429 (  0.0%)
+> 19/07/2018 08:52:09  TOTALS              :     10 |     47878/ 7094725 
+> ( 99.3%)
+> 19/07/2018 08:52:09 Statistics             events    Received/ 
+> RawEquiv ( saved)
+> 19/07/2018 08:52:09  FramebufferUpdate   :      4 | 40/       40 (  0.0%)
+> 19/07/2018 08:52:09  SetPixelFormat      :      2 | 40/       40 (  0.0%)
+> 19/07/2018 08:52:09  SetEncodings        :      3 | 168/      168 (  0.0%)
+> 19/07/2018 08:52:09  TOTALS              :      9 | 248/      248 (  0.0%)
 >
-> How to update a signed certificate on the BMC ?
-> [...snip...]
+> What wrong with it?
+> BTW, vncview download from 
+> https://www.realvnc.com/en/connect/download/viewer/linux/
+> I also got the same error using Tightvnc viewer
+> Thanks,
+> xiuzhi
+> Hi Eddie,
+>    My bmc is AST2400, I modified the aspeed-g4.dtsi(adding gfx: 
+> display@1e6e6000  and  video: video@1e700000)
+>  and the aspeed-bmc-opp-xxx.dts (adding &video &vhub) .
+> An error occured when I executed the following instructions:
 >
-> In order to support the above workflow, the BMC shall provide the 
-> following
-> REST APIs:
-> 聽聽聽 [...snip...]
-> 聽聽聽 - Upload digitally signed certificate.
-> 聽聽聽 - Activate digitally signed certificates
-> 聽聽聽 - Download digitally signed certificate
-> [...snip...]
+> root@zhaoxinc:~# create_usbhid.sh
+> root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> [  125.586061] aspeed-video 1e700000.video: timed out on 1st mode detect
+> [  125.602732] aspeed-video 1e700000.video: Failed to start video engine
+> failed to open /dev/video0: 62 Timer expired
+> Need I modify drivers/media/platform/aspeed-video.c or any other files?
 >
-> Note: REST/D-bus details not included here.
-
-Straw-man proposal for SSL certificate REST APIs
-
-URIs:
-/xyz/openbmc_project/certificates/ssl/{index}
- 聽聽聽 聽聽聽 Represents a SSL certificate
- 聽聽聽 聽聽聽 Supports GET, PUT, POST, DELETE
- 聽聽聽 聽聽聽 JSON { "certificate": "..." }
- 聽聽聽 /xyz/openbmc_project/certificates/ssl/active
- 聽聽聽 聽聽聽 Represents which certificate is used by SSL
- 聽聽聽 聽聽聽 Supports GET, PUT, DELETE
- 聽聽聽 聽聽聽 JSON { "data": "/xyz/openbmc_project/certificates/ssl/1" }
- 聽聽聽 聽聽聽 See the magic below.
-
-Notes:
- 聽- These represent a collection of SSL certificates and optionally an 
-active one.
- 聽- The number of certificates can be zero or more.
- 聽- The certificate numbering ({index}) must be stable across API 
-operations.
- 聽- The implementation can impose a maximum limit (16 is plenty?).
- 聽- Duplicate certificates are allowed and are not detected.
- 聽- Expired certificates are allowed and are not detected.
- 聽- Mal-formed certificates are detected? TODO
- 聽- The certificates and active certificate info persists across rebooting.
-
-Magic for the active SSL certificate:
- 聽- When SSL is started with no active certificate:
- 聽聽聽 + A certificate is created and used to sign itself.
- 聽聽聽 + The new certificate becomes the active certificate.
- 聽聽聽 + TODO: What if you already have the maximum number of certificates 
-allowed?
- 聽- When you attempt to delete the active certificate:
- 聽聽聽 + This is allowed.聽 TODO: Or maybe not allowed.
- 聽聽聽 + There will be no active certificate (see implementation note).
- 聽聽聽 + /xyz/openbmc_project/certificates/ssl/active is deleted.
- 聽聽聽 + The underlying certificate is not deleted.
- 聽- When you PUT (replace) the active certificate:
- 聽聽聽 + This is allowed.聽 TODO: Or maybe not allowed.
- 聽聽聽 + The newly put certificate becomes active (see implementation note).
- 聽聽聽 + /xyz/openbmc_project/certificates/ssl/active does not change.
-
-Implementation note: When you change the active certificate while SSL is 
-running, does the behavior of SSL change immediately, or only for new 
-connections?聽 How does this work?聽 TODO.
-
-Ideas to support future behaviors:
-
-1. To support future certificate types, the ssl element was used. Ideas:
- 聽聽聽 /xyz/openbmc_project/certificates/ssl
- 聽聽聽 /xyz/openbmc_project/certificates/host
- 聽聽聽 /xyz/openbmc_project/certificates/rootoftrust
-
-2. There are two options to articulate the content of each certificate 
-(such as an associated private key or certificate signing request): JSON 
-and URIs:
-JSON:
- 聽聽聽 { "certificate": "...", "privatekey": "...", "expiration": "DATE" }
-URIs:
- 聽聽聽 /xyz/openbmc_project/certificates/ssl/1/certificate
- 聽聽聽 /xyz/openbmc_project/certificates/ssl/1/privatekey
- 聽聽聽 /xyz/openbmc_project/certificates/ssl/1/csr
-The JSON approach seems way easier.
-
-3. The URIs for certificate signing requests (CSR) could be:
-/xyz/openbmc_project/certificates/csr/{index}
- 聽聽聽 /xyz/openbmc_project/certificates/ssl/csr
-/xyz/openbmc_project/certificates/ssl/csr/{index}
-depending on how many CSRs you wanted to support.聽 (But let's not debate 
-that now).
-
-
---------------E0CF41C4066B1CC5B8A8D362
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <blockquote type="cite" style="color: #000000;">Message: 4
-      <br>
-      Date: Tue, 31 Jul 2018 20:19:38 +0530
-      <br>
-      From: Jayanth Othayoth <a class="moz-txt-link-rfc2396E"
-        href="mailto:ojayanth@gmail.com">&lt;ojayanth@gmail.com&gt;</a>
-      <br>
-      To: <a class="moz-txt-link-abbreviated"
-        href="mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a>,
-      <a class="moz-txt-link-abbreviated"
-        href="mailto:bradleyb@fuzziesquirrel.com">bradleyb@fuzziesquirrel.com</a>,
-      <br>
-      聽聽聽聽<a class="moz-txt-link-abbreviated"
-        href="mailto:ed.tanous@intel.com">ed.tanous@intel.com</a>
-      <br>
-      Subject: SSL Certificate management proposal.
-      <br>
-      Message-ID:
-      <br>
-      聽聽聽聽<a class="moz-txt-link-rfc2396E"
-href="mailto:CACkAXSrxyf819dQc+LEOfwahpcrK2QRH1AkXump-D9Ae+yaKBQ@mail.gmail.com">&lt;CACkAXSrxyf819dQc+LEOfwahpcrK2QRH1AkXump-D9Ae+yaKBQ@mail.gmail.com&gt;</a>
-      <br>
-      Content-Type: text/plain; charset="utf-8"
-      <br>
-      <br>
-      This proposal provides a mechanism to replace the self signed
-      certificate
-      <br>
-      with聽 CA signed certificate based on BMC generated CSR.
-      <br>
-      [...snip...]
-      <br>
-      <br>
-      How to update a signed certificate on the BMC ?
-      <br>
-      [...snip...]
-      <br>
-      <br>
-      In order to support the above workflow, the BMC shall provide the
-      following
-      <br>
-      REST APIs:
-      <br>
-      聽聽聽 [...snip...]
-      <br>
-      聽聽聽 - Upload digitally signed certificate.
-      <br>
-      聽聽聽 - Activate digitally signed certificates
-      <br>
-      聽聽聽 - Download digitally signed certificate
-      <br>
-      [...snip...]
-      <br>
-      <br>
-      Note: REST/D-bus details not included here.
-      <br>
-    </blockquote>
-    <br>
-    Straw-man proposal for SSL certificate REST APIs
-    <br>
-    <br>
-    URIs:
-    <br>
-    聽聽聽 <i class="moz-txt-slash"><span class="moz-txt-tag">/</span>xyz/openbmc_project/certificates/ssl<span
-        class="moz-txt-tag">/</span></i>{index}
-    <br>
-    聽聽聽 聽聽聽 Represents a SSL certificate
-    <br>
-    聽聽聽 聽聽聽 Supports GET, PUT, POST, DELETE
-    <br>
-    聽聽聽 聽聽聽 JSON { "certificate": "..." }
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/ssl/active
-    <br>
-    聽聽聽 聽聽聽 Represents which certificate is used by SSL
-    <br>
-    聽聽聽 聽聽聽 Supports GET, PUT, DELETE
-    <br>
-    聽聽聽 聽聽聽 JSON { "data": "/xyz/openbmc_project/certificates/ssl/1" }
-    <br>
-    聽聽聽 聽聽聽 See the magic below.
-    <br>
-    <br>
-    Notes:
-    <br>
-    聽- These represent a collection of SSL certificates and optionally
-    an active one.
-    <br>
-    聽- The number of certificates can be zero or more.
-    <br>
-    聽- The certificate numbering ({index}) must be stable across API
-    operations.
-    <br>
-    聽- The implementation can impose a maximum limit (16 is plenty?).
-    <br>
-    聽- Duplicate certificates are allowed and are not detected.
-    <br>
-    聽- Expired certificates are allowed and are not detected.
-    <br>
-    聽- Mal-formed certificates are detected? TODO
-    <br>
-    聽- The certificates and active certificate info persists across
-    rebooting.
-    <br>
-    <br>
-    Magic for the active SSL certificate:
-    <br>
-    聽- When SSL is started with no active certificate:
-    <br>
-    聽聽聽 + A certificate is created and used to sign itself.
-    <br>
-    聽聽聽 + The new certificate becomes the active certificate.
-    <br>
-    聽聽聽 + TODO: What if you already have the maximum number of
-    certificates allowed?
-    <br>
-    聽- When you attempt to delete the active certificate:
-    <br>
-    聽聽聽 + This is allowed.聽 TODO: Or maybe not allowed.
-    <br>
-    聽聽聽 + There will be no active certificate (see implementation note).
-    <br>
-    聽聽聽 + /xyz/openbmc_project/certificates/ssl/active is deleted.
-    <br>
-    聽聽聽 + The underlying certificate is not deleted.
-    <br>
-    聽- When you PUT (replace) the active certificate:
-    <br>
-    聽聽聽 + This is allowed.聽 TODO: Or maybe not allowed.
-    <br>
-    聽聽聽 + The newly put certificate becomes active (see implementation
-    note).
-    <br>
-    聽聽聽 + /xyz/openbmc_project/certificates/ssl/active does not change.
-    <br>
-    <br>
-    Implementation note: When you change the active certificate while
-    SSL is running, does the behavior of SSL change immediately, or only
-    for new connections?聽 How does this work?聽 TODO.
-    <br>
-    <br>
-    Ideas to support future behaviors:
-    <br>
-    <br>
-    1. To support future certificate types, the ssl element was used.
-    Ideas:
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/ssl
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/host
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/rootoftrust
-    <br>
-    <br>
-    2. There are two options to articulate the content of each
-    certificate (such as an associated private key or certificate
-    signing request): JSON and URIs:
-    <br>
-    JSON:
-    <br>
-    聽聽聽 { "certificate": "...", "privatekey": "...", "expiration":
-    "DATE" }
-    <br>
-    URIs:
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/ssl/1/certificate
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/ssl/1/privatekey
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/ssl/1/csr
-    <br>
-    The JSON approach seems way easier.
-    <br>
-    <br>
-    3. The URIs for certificate signing requests (CSR) could be:
-    <br>
-    聽聽聽 <i class="moz-txt-slash"><span class="moz-txt-tag">/</span>xyz/openbmc_project/certificates/csr<span
-        class="moz-txt-tag">/</span></i>{index}
-    <br>
-    聽聽聽 /xyz/openbmc_project/certificates/ssl/csr
-    <br>
-    聽聽聽 <i class="moz-txt-slash"><span class="moz-txt-tag">/</span>xyz/openbmc_project/certificates/ssl/csr<span
-        class="moz-txt-tag">/</span></i>{index}
-    <br>
-    depending on how many CSRs you wanted to support.聽 (But let's not
-    debate that now).
-    <br>
-    <br>
-  </body>
-</html>
-
---------------E0CF41C4066B1CC5B8A8D362--
+>  Thanks ,
+> Xiuzhi
+> On 07/31/2018 01:52 AM, xiuzhi wrote:
+> > Hi Alexander ,Eddie,
+> >   I merged the source from
+> > https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11500/,and
+> > kernel branch video-dev.
+> > How to test the video kvm feature by phosphor-webui or command line?
+>
+> Hi,
+>
+> You need to make sure the video device is enabled in your device-tree
+> for the machine you use... My kernel patch enabled it for our AST2500
+> witherspoon system. If you're using AST2500 as well, then you just need
+> something like:
+>
+> &video {
+>      status = "okay";
+>      memory-region = <&gfx_memory>;
+> };
+>
+> And the virtual USB hub:
+> &vhub {
+>      status = "okay";
+> };
+>
+> If you're not using AST2500, you'll need more changes to device-tree.
+>
+> Then on the BMC command line:
+> create_usbhid.sh
+> obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> And connect with any VNC client to port 0 of your BMC IP.
+>
+> Thanks,
+> Eddie
+>
+> > Best,
+> > xiuzhi
+> >
+> >
+> > ------------------ 原始邮件 ------------------
+> > *发件人:* "Alexander A. Filippov"<a.filippov@yadro.com>;
+> > *发送时间:* 2018年7月25日(星期三) 下午4:56
+> > *收件人:* 
+> "openbmc"<openbmc@lists.ozlabs.org>;"xiuzhi"<1450335857@qq.com>;
+> > *主题:* Re: KVM Support?
+> >
+> > Hello everybody,
+> >
+> > Could you check the size of
+> > 
+> `build/tmp/deploy/image/<platformname>/fitImage-openbmc-phosphor-initramfs-*.bin`?
+> > If it exceeds 4456448 (0x440000) bytes, this is the problem described
+> > at https://github.com/openbmc/openbmc/issues/3314
+> >
+> >
+> > In this case you should modify flash partitions layout or trying to
+> > decrease kernel size.
+> >
+> > --
+> > Alexander
+> >
+> > On Wed, Jul 25, 2018 at 03:48:04PM +0800, xiuzhi wrote:
+> > > Hi Eddie,
+> > >
+> > >
+> > >   I read your KVM Support email on mailinglist.
+> > >
+> > >
+> > > I am going to port the BMC kvm to ast2400 . The u-boot can not load
+> > kernel ,the error message read:
+> > >
+> > >
+> > > ""U-Boot 2016.07 (Jul 23 2018 - 11:11:50 +0000)
+> > >
+> > >
+> > > DRAM:  240 MiB
+> > > WARNING: Caches not enabled
+> > > Flash: 32 MiB
+> > > *** Warning - bad CRC, using default environment
+> > >
+> > >
+> > > In:    serial
+> > > Out:   serial
+> > > Err:   serial
+> > > Net:   aspeednic#0
+> > > Error: aspeednic#0 address not set.
+> > >
+> > >
+> > > Hit any key to stop autoboot:  0
+> > > ## Loading kernel from FIT Image at 20080000 ...
+> > > Bad FIT kernel image format!
+> > > ERROR: can't get kernel image!
+> > > ast#
+> > >
+> > >
+> > > I added  config options to defconfig of ast2400 as follows:
+> > >
+> > >
+> > > CONFIG_MEDIA_SUPPORT=y
+> > > CONFIG_MEDIA_CAMERA_SUPPORT=y
+> > > CONFIG_MEDIA_SUPPORT=y
+> > > CONFIG_MEDIA_CAMERA_SUPPORT=y
+> > > # CONFIG_MEDIA_ANALOG_TV_SUPPORT is not set
+> > > # CONFIG_MEDIA_DIGITAL_TV_SUPPORT is not set
+> > > # CONFIG_MEDIA_RADIO_SUPPORT is not set
+> > > # CONFIG_MEDIA_SDR_SUPPORT is not set
+> > > # CONFIG_MEDIA_CEC_SUPPORT is not set
+> > > # CONFIG_MEDIA_CONTROLLER is not set
+> > > CONFIG_RATIONAL=y
+> > > CONFIG_VIDEO_DEV=y
+> > > CONFIG_VIDEO_V4L2=y
+> > > CONFIG_V4L_PLATFORM_DRIVERS=y
+> > > CONFIG_VIDEO_ASPEED=y
+> > > CONFIG_MEDIA_SUBDRV_AUTOSELECT=y
+> > >
+> > >
+> > > Need I modify the aspeed-bmc-opp-palmetto.dts and aspeed-g4.dtsi?
+> > >
+> > >
+> > > Can you give me the file list need to modify?
+> > >
+> > >
+> > > Thanks,
+> > >
+> > >
+> > > xiuzhi
