@@ -1,103 +1,46 @@
-Return-Path: <prvs=1751e5a6db=taoren@fb.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=1751e5a6db=taoren@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="FsXl90cI"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="Tif1Dhrl"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.120; helo=mga04.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41gfsR4YxlzDqDQ
- for <openbmc@lists.ozlabs.org>; Thu,  2 Aug 2018 03:08:38 +1000 (AEST)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w71H7v18003171
- for <openbmc@lists.ozlabs.org>; Wed, 1 Aug 2018 10:08:36 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : content-type : mime-version; s=facebook;
- bh=mKuS7vAF2nWf9q/7Ht9IN+CZtqmsr6rjnJPxEbVuJAg=;
- b=FsXl90cIhm88EJE2LsIZlcylP4aajJUagBoer+cfp5M8ch4QMZAs/3I5EIspslLtzrJS
- PEbkZR8ZBu2yyufE1/spFOdjLf8oHdKxqbL3OM0XOXFaSfjS7b4i3gRg7Cw+fNp3u2MG
- kY/XxHzCGhDqv+Ll6hmuRgPHu+yRVmGIicY= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2kkgjvg39k-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 01 Aug 2018 10:08:36 -0700
-Received: from NAM05-DM3-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.23) with Microsoft SMTP Server (TLS)
- id 14.3.361.1; Wed, 1 Aug 2018 10:08:35 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mKuS7vAF2nWf9q/7Ht9IN+CZtqmsr6rjnJPxEbVuJAg=;
- b=Tif1DhrlJ5iWpg6YjU6uQNP6acwnp6Uov/v51CwT8SIE9NzDT7nGKNz6RvDfUU8bnwH/U35L8KzEBKa8cAGebKH0iu3lR+pxJ9WVSvDh6sIB+cQ8hUSWFnolkMWgkUt/eXte69ilvd+UrIv6o8oIn14vwi+KizkMsyHgn9lG1Q8=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1184.namprd15.prod.outlook.com (10.175.2.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.995.17; Wed, 1 Aug 2018 17:08:33 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::690b:92ff:d1f3:2da]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::690b:92ff:d1f3:2da%12]) with mapi id 15.20.0995.020; Wed, 1 Aug 2018
- 17:08:33 +0000
-From: Tao Ren <taoren@fb.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: ast2500 reboot got stuck in timeriomem_rng_probe()
-Thread-Topic: ast2500 reboot got stuck in timeriomem_rng_probe()
-Thread-Index: AQHUKbpHnzGuT9ti0kGkvwXW4hGNOQ==
-Date: Wed, 1 Aug 2018 17:08:33 +0000
-Message-ID: <C04B2AA7-9D6E-4D23-AB86-E793E0A676BA@fb.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::7:c6f6]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1184;
- 20:y6ROC03k1Sq7wHCjjPN9PrKdmYst4X8Z0i8KU5lPlTbBlQsqHtb/zqnTMNa+rF3pvxiFscXSaujycLk9+wcHhpa4dYzR+qYea3kSAmE041OH7jSr+Oxdf5TpyazNCBhj6aUc4qPB94v7JjC9dfURKD0AqjABAr4RmYpfglv+cc0=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 9e8b7dc4-c0da-4ee4-2818-08d5f7d169ba
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989117)(5600074)(711020)(4534165)(4627221)(201703031133081)(201702281549075)(8990107)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1184; 
-x-ms-traffictypediagnostic: MWHPR15MB1184:
-x-microsoft-antispam-prvs: <MWHPR15MB1184AD09443D313C849F5F67B22D0@MWHPR15MB1184.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(28532068793085)(81227570615382)(21748063052155); 
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(3002001)(3231311)(11241501184)(944501410)(52105095)(93006095)(93001095)(149027)(150027)(6041310)(20161123558120)(20161123562045)(20161123560045)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(6072148)(201708071742011)(7699016);
- SRVR:MWHPR15MB1184; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1184; 
-x-forefront-prvs: 0751474A44
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(39860400002)(136003)(396003)(346002)(376002)(189003)(199004)(478600001)(105586002)(53936002)(5250100002)(5660300001)(2900100001)(83716003)(106356001)(9326002)(6486002)(256004)(86362001)(25786009)(14444005)(6116002)(97736004)(186003)(82746002)(486006)(33656002)(6506007)(102836004)(6916009)(99286004)(8676002)(476003)(2616005)(7736002)(316002)(14454004)(81166006)(81156014)(2906002)(6436002)(54896002)(46003)(36756003)(6512007)(68736007)(8936002)(558084003)(6306002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1184;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: BPdLd3VD87XaUNEbf6PVGqH7oP81QdgNGr3fj6uBka7dZjJIZbXEgytZ9ACkzJzQ/9Z88IaPyZe+i26HgcfLmSG6YDBgU7Du17UAk7Jd8F/dkd505BWqz63RQkTBGHmoN1pwAa2Tgs3PBcOnbWBTbd1bjkwSxWJ0j+4Umz1PM7SRg8WAWuvLDRm8H4vvRBEEHwXPDjWC42yGuWSXYSK/UB3Gtyqf729JU5PKP211W5qYI9iDFP2MW+dWiygySriWwsNNBURYWA06t9jWgMWcY3Gv+Yatjrljs0VqvBePU8s3z35rGMNO8JSLDpb4ovBK3MRh/v6SE0UStRASUGDQ/SdUKcpwRlG5jmnfqBccHhQ=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_C04B2AA79D6E4D23AB86E793E0A676BAfbcom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41ghBn1V6mzDqDQ;
+ Thu,  2 Aug 2018 04:08:48 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2018 11:08:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,432,1526367600"; d="scan'208";a="61595037"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.149])
+ ([10.7.153.149])
+ by orsmga008.jf.intel.com with ESMTP; 01 Aug 2018 11:08:44 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH v2] i2c: aspeed: Handle master/slave combined irq events
+ properly
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: linux-aspeed@lists.ozlabs.org, james.feist@linux.intel.com,
+ Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, vernon.mauery@linux.intel.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-i2c@vger.kernel.org
+References: <20180724173123.4377-1-jae.hyun.yoo@linux.intel.com>
+ <CAFd5g46VKJeggUSMdF9Lta42FrpF0qVfrSHi3Bz=gU2qnSrAPA@mail.gmail.com>
+Message-ID: <8e1d634a-b150-b00f-7f4a-f3620b271eff@linux.intel.com>
+Date: Wed, 1 Aug 2018 11:08:44 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e8b7dc4-c0da-4ee4-2818-08d5f7d169ba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Aug 2018 17:08:33.5034 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1184
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-01_06:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+In-Reply-To: <CAFd5g46VKJeggUSMdF9Lta42FrpF0qVfrSHi3Bz=gU2qnSrAPA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -109,63 +52,388 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Aug 2018 17:08:45 -0000
+X-List-Received-Date: Wed, 01 Aug 2018 18:08:50 -0000
 
---_000_C04B2AA79D6E4D23AB86E793E0A676BAfbcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Hi Brendan,
 
-SGksDQoNCknigJltIHVwZ3JhZGluZyBmYWNlYm9vayBjbW0tYm1jIChhc3QyNTAwKSBmcm9tIDQu
-MSB0byBvcGVuYm1jIGxpbnV4IDQuMTcuMiwgYW5kIHdoZW4gSSB0cmllZCB0byByZWJvb3QgbGlu
-dXggNC4xNywgc3lzdGVtIGdvdCBzdHVjayBpbiAgdGltZXJpb21lbV9ybmdfcHJvYmUoKSBmdW5j
-dGlvbiBkdXJpbmcgYm9vdCB1cC4gRGlkIGFueW9uZSBoaXQgdGhlIHNpbWlsYXIgaXNzdWUgYmVm
-b3JlPyBXaGF0IHdvdWxkIGJlIHRoZSByZWNvbW1lbmRlZCBzb2x1dGlvbj8NCg0KDQpUaGFua3Ms
-DQoNClRhbw0K
+Thanks a lot for the review. Please see my inline answers.
 
---_000_C04B2AA79D6E4D23AB86E793E0A676BAfbcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <C030EEB9A40B1E4C8C40E1D5C797C7C7@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+On 7/31/2018 11:44 PM, Brendan Higgins wrote:
+> On Tue, Jul 24, 2018 at 10:31 AM Jae Hyun Yoo
+> <jae.hyun.yoo@linux.intel.com> wrote:
+>>
+>> In most of cases, interrupt bits are set one by one but there are
+>> also a lot of other cases that Aspeed I2C IP sends multiple
+>> interrupt bits with combining master and slave events using a
+>> single interrupt call. It happens much more in multi-master
+>> environment than single-master. For an example, when master is
+>> waiting for a NORMAL_STOP interrupt in its MASTER_STOP state,
+>> SLAVE_MATCH and RX_DONE interrupts could come along with the
+>> NORMAL_STOP in case of an another master immediately sends data
+>> just after acquiring the bus. In this case, the NORMAL_STOP
+>> interrupt should be handled by master_irq and the SLAVE_MATCH and
+>> RX_DONE interrupts should be handled by slave_irq. This commit
+>> modifies irq hadling logic to handle the master/slave combined
+>> events properly.
+>>
+>> Changes since v1:
+>> - Fixed a grammer issue in commit message.
+>> - Added a missing line feed character into a message printing.
+> 
+> This should not go in the commit log. Please move this to the comment section.
+> 
 
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
-bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
-YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
-b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
-IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
-aW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
-DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9y
-aXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpz
-cGFuLkVtYWlsU3R5bGUxNw0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21wb3NlOw0KCWZv
-bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1z
-b0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7fQ0KQHBhZ2UgV29yZFNl
-Y3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAx
-LjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5
-bGU+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIgdmxpbms9IiM5
-NTRGNzIiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5IaSw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86
-cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5
-bGU9ImZvbnQtc2l6ZToxMS4wcHQiPknigJltIHVwZ3JhZGluZyBmYWNlYm9vayBjbW0tYm1jIChh
-c3QyNTAwKSBmcm9tIDQuMSB0byBvcGVuYm1jIGxpbnV4IDQuMTcuMiwgYW5kIHdoZW4gSSB0cmll
-ZCB0byByZWJvb3QgbGludXggNC4xNywgc3lzdGVtIGdvdCBzdHVjayBpbiAmbmJzcDt0aW1lcmlv
-bWVtX3JuZ19wcm9iZSgpIGZ1bmN0aW9uIGR1cmluZyBib290IHVwLiBEaWQgYW55b25lIGhpdCB0
-aGUgc2ltaWxhcg0KIGlzc3VlIGJlZm9yZT8gV2hhdCB3b3VsZCBiZSB0aGUgcmVjb21tZW5kZWQg
-c29sdXRpb24/PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNw
-YW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpw
-PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHls
-ZT0iZm9udC1zaXplOjExLjBwdCI+VGhhbmtzLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNs
-YXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNw
-OzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9u
-dC1zaXplOjExLjBwdCI+VGFvPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2JvZHk+
-DQo8L2h0bWw+DQo=
+Oops! I'll move it to the comment section. Thanks!
 
---_000_C04B2AA79D6E4D23AB86E793E0A676BAfbcom_--
+>>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> ---
+>>   drivers/i2c/busses/i2c-aspeed.c | 135 ++++++++++++++++++--------------
+>>   1 file changed, 75 insertions(+), 60 deletions(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+>> index efb89422d496..75431e305073 100644
+>> --- a/drivers/i2c/busses/i2c-aspeed.c
+>> +++ b/drivers/i2c/busses/i2c-aspeed.c
+>> @@ -82,6 +82,11 @@
+>>   #define ASPEED_I2CD_INTR_RX_DONE                       BIT(2)
+>>   #define ASPEED_I2CD_INTR_TX_NAK                                BIT(1)
+>>   #define ASPEED_I2CD_INTR_TX_ACK                                BIT(0)
+>> +#define ASPEED_I2CD_INTR_ERRORS                                                       \
+>> +               (ASPEED_I2CD_INTR_SDA_DL_TIMEOUT |                             \
+>> +                ASPEED_I2CD_INTR_SCL_TIMEOUT |                                \
+>> +                ASPEED_I2CD_INTR_ABNORMAL |                                   \
+>> +                ASPEED_I2CD_INTR_ARBIT_LOSS)
+>>   #define ASPEED_I2CD_INTR_ALL                                                  \
+>>                  (ASPEED_I2CD_INTR_SDA_DL_TIMEOUT |                             \
+>>                   ASPEED_I2CD_INTR_BUS_RECOVER_DONE |                           \
+>> @@ -150,6 +155,7 @@ struct aspeed_i2c_bus {
+>>          int                             cmd_err;
+>>          /* Protected only by i2c_lock_bus */
+>>          int                             master_xfer_result;
+>> +       u32                             irq_status;
+>>   #if IS_ENABLED(CONFIG_I2C_SLAVE)
+>>          struct i2c_client               *slave;
+>>          enum aspeed_i2c_slave_state     slave_state;
+>> @@ -229,36 +235,30 @@ static int aspeed_i2c_recover_bus(struct aspeed_i2c_bus *bus)
+>>   #if IS_ENABLED(CONFIG_I2C_SLAVE)
+>>   static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
+> 
+> I think it will be cleaner if both this and aspeed_i2c_master_irq return the
+> status_ack; that way you will not have to add the irq_status field to the
+> struct.
+> 
+
+Yes, that would be better. I'll make slave_irq and master_irq return the
+status_ack.
+
+>>   {
+>> -       u32 command, irq_status, status_ack = 0;
+>> +       u32 command, status_ack = 0;
+>>          struct i2c_client *slave = bus->slave;
+>> -       bool irq_handled = true;
+>>          u8 value;
+>>
+>> -       if (!slave) {
+>> -               irq_handled = false;
+>> -               goto out;
+>> -       }
+>> +       if (!slave)
+>> +               return false;
+>>
+>>          command = readl(bus->base + ASPEED_I2C_CMD_REG);
+>> -       irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+>>
+>>          /* Slave was requested, restart state machine. */
+>> -       if (irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH) {
+>> +       if (bus->irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH) {
+>>                  status_ack |= ASPEED_I2CD_INTR_SLAVE_MATCH;
+>>                  bus->slave_state = ASPEED_I2C_SLAVE_START;
+>>          }
+>>
+>>          /* Slave is not currently active, irq was for someone else. */
+>> -       if (bus->slave_state == ASPEED_I2C_SLAVE_STOP) {
+>> -               irq_handled = false;
+>> -               goto out;
+>> -       }
+>> +       if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
+>> +               return false;
+>>
+>>          dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
+>> -               irq_status, command);
+>> +               bus->irq_status, command);
+>>
+>>          /* Slave was sent something. */
+>> -       if (irq_status & ASPEED_I2CD_INTR_RX_DONE) {
+>> +       if (bus->irq_status & ASPEED_I2CD_INTR_RX_DONE) {
+>>                  value = readl(bus->base + ASPEED_I2C_BYTE_BUF_REG) >> 8;
+>>                  /* Handle address frame. */
+>>                  if (bus->slave_state == ASPEED_I2C_SLAVE_START) {
+>> @@ -273,28 +273,29 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
+>>          }
+>>
+>>          /* Slave was asked to stop. */
+>> -       if (irq_status & ASPEED_I2CD_INTR_NORMAL_STOP) {
+>> +       if (bus->irq_status & ASPEED_I2CD_INTR_NORMAL_STOP) {
+>>                  status_ack |= ASPEED_I2CD_INTR_NORMAL_STOP;
+>>                  bus->slave_state = ASPEED_I2C_SLAVE_STOP;
+>>          }
+>> -       if (irq_status & ASPEED_I2CD_INTR_TX_NAK) {
+>> +       if (bus->irq_status & ASPEED_I2CD_INTR_TX_NAK) {
+>>                  status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>>                  bus->slave_state = ASPEED_I2C_SLAVE_STOP;
+>>          }
+>> +       if (bus->irq_status & ASPEED_I2CD_INTR_TX_ACK) {
+>> +               status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+>> +       }
+>>
+>>          switch (bus->slave_state) {
+>>          case ASPEED_I2C_SLAVE_READ_REQUESTED:
+>> -               if (irq_status & ASPEED_I2CD_INTR_TX_ACK)
+>> +               if (bus->irq_status & ASPEED_I2CD_INTR_TX_ACK)
+>>                          dev_err(bus->dev, "Unexpected ACK on read request.\n");
+>>                  bus->slave_state = ASPEED_I2C_SLAVE_READ_PROCESSED;
+>> -
+>>                  i2c_slave_event(slave, I2C_SLAVE_READ_REQUESTED, &value);
+>>                  writel(value, bus->base + ASPEED_I2C_BYTE_BUF_REG);
+>>                  writel(ASPEED_I2CD_S_TX_CMD, bus->base + ASPEED_I2C_CMD_REG);
+>>                  break;
+>>          case ASPEED_I2C_SLAVE_READ_PROCESSED:
+>> -               status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+>> -               if (!(irq_status & ASPEED_I2CD_INTR_TX_ACK))
+>> +               if (!(bus->irq_status & ASPEED_I2CD_INTR_TX_ACK))
+>>                          dev_err(bus->dev,
+>>                                  "Expected ACK after processed read.\n");
+>>                  i2c_slave_event(slave, I2C_SLAVE_READ_PROCESSED, &value);
+>> @@ -317,14 +318,8 @@ static bool aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus)
+>>                  break;
+>>          }
+>>
+>> -       if (status_ack != irq_status)
+>> -               dev_err(bus->dev,
+>> -                       "irq handled != irq. expected %x, but was %x\n",
+>> -                       irq_status, status_ack);
+>> -       writel(status_ack, bus->base + ASPEED_I2C_INTR_STS_REG);
+>> -
+>> -out:
+>> -       return irq_handled;
+>> +       bus->irq_status ^= status_ack;
+> 
+> Here and elsewhere, you are trying to mask out the bits you handled, right?
+> Please use `&= ~status_ack;` instead.
+> 
+
+Right. I'll fix it as you suggested.
+
+>> +       return !bus->irq_status;
+>>   }
+>>   #endif /* CONFIG_I2C_SLAVE */
+>>
+>> @@ -382,19 +377,19 @@ static int aspeed_i2c_is_irq_error(u32 irq_status)
+>>
+>>   static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>   {
+>> -       u32 irq_status, status_ack = 0, command = 0;
+>> +       u32 status_ack = 0, command = 0;
+>>          struct i2c_msg *msg;
+>>          u8 recv_byte;
+>>          int ret;
+>>
+>> -       irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+>> -       /* Ack all interrupt bits. */
+>> -       writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
+>> -
+>> -       if (irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
+>> +       if (bus->irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
+>>                  bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>>                  status_ack |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
+>>                  goto out_complete;
+>> +       } else {
+>> +               /* Master is not currently active, irq was for someone else. */
+>> +               if (bus->master_state == ASPEED_I2C_MASTER_INACTIVE)
+>> +                       goto out_no_complete;
+>>          }
+>>
+>>          /*
+>> @@ -402,20 +397,23 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>           * should clear the command queue effectively taking us back to the
+>>           * INACTIVE state.
+>>           */
+>> -       ret = aspeed_i2c_is_irq_error(irq_status);
+>> -       if (ret < 0) {
+>> +       ret = aspeed_i2c_is_irq_error(bus->irq_status);
+>> +       if (ret) {
+>>                  dev_dbg(bus->dev, "received error interrupt: 0x%08x\n",
+>> -                       irq_status);
+>> +                       bus->irq_status);
+>>                  bus->cmd_err = ret;
+>>                  bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>> +               status_ack |= (bus->irq_status & ASPEED_I2CD_INTR_ERRORS);
+> 
+> ASPEED_I2CD_INTR_ERRORS only occur in master mode? Please make that more clear
+> in the name.
+> 
+
+Yes, that should be handled in master mode. If the errors detected in a 
+peer master operation, the peer master has a responsibility to recover
+bus. I'll change the name to ASPEED_I2CD_INTR_MASTER_ERRORS.
+
+Actually, Aspeed AST2500 I2C IP provides slave timeout error detection
+which can be enabled by setting a bit 15 of the Interrupt Control
+Register (I2CD0C), and we can check the error through Interrupt Status
+Register (I2CD10) bit 15, so that we can add an error handling logic
+into slave_irq. I'll submit an additional patch later for it.
+
+>>                  goto out_complete;
+>>          }
+>>
+>>          /* We are in an invalid state; reset bus to a known state. */
+>>          if (!bus->msgs) {
+>> -               dev_err(bus->dev, "bus in unknown state\n");
+>> +               dev_err(bus->dev, "bus in unknown state irq_status: 0x%x\n",
+>> +                       bus->irq_status);
+>>                  bus->cmd_err = -EIO;
+>> -               if (bus->master_state != ASPEED_I2C_MASTER_STOP)
+>> +               if (bus->master_state != ASPEED_I2C_MASTER_STOP &&
+>> +                   bus->master_state != ASPEED_I2C_MASTER_INACTIVE)
+>>                          aspeed_i2c_do_stop(bus);
+>>                  goto out_no_complete;
+>>          }
+>> @@ -427,7 +425,13 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>           * then update the state and handle the new state below.
+>>           */
+>>          if (bus->master_state == ASPEED_I2C_MASTER_START) {
+>> -               if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+>> +               if (unlikely(!(bus->irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+>> +                       if (unlikely(!(bus->irq_status &
+>> +                                    ASPEED_I2CD_INTR_TX_NAK))) {
+>> +                               bus->cmd_err = -ENXIO;
+>> +                               bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>> +                               goto out_complete;
+>> +                       }
+>>                          pr_devel("no slave present at %02x\n", msg->addr);
+>>                          status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>>                          bus->cmd_err = -ENXIO;
+>> @@ -447,11 +451,12 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>
+>>          switch (bus->master_state) {
+>>          case ASPEED_I2C_MASTER_TX:
+>> -               if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
+>> +               if (unlikely(bus->irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
+>>                          dev_dbg(bus->dev, "slave NACKed TX\n");
+>>                          status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>>                          goto error_and_stop;
+>> -               } else if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+>> +               } else if (unlikely(!(bus->irq_status &
+>> +                                     ASPEED_I2CD_INTR_TX_ACK))) {
+>>                          dev_err(bus->dev, "slave failed to ACK TX\n");
+>>                          goto error_and_stop;
+>>                  }
+>> @@ -470,11 +475,11 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>                  goto out_no_complete;
+>>          case ASPEED_I2C_MASTER_RX_FIRST:
+>>                  /* RX may not have completed yet (only address cycle) */
+>> -               if (!(irq_status & ASPEED_I2CD_INTR_RX_DONE))
+>> +               if (!(bus->irq_status & ASPEED_I2CD_INTR_RX_DONE))
+>>                          goto out_no_complete;
+>>                  /* fallthrough intended */
+>>          case ASPEED_I2C_MASTER_RX:
+>> -               if (unlikely(!(irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
+>> +               if (unlikely(!(bus->irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
+>>                          dev_err(bus->dev, "master failed to RX\n");
+>>                          goto error_and_stop;
+>>                  }
+>> @@ -505,8 +510,11 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>                  }
+>>                  goto out_no_complete;
+>>          case ASPEED_I2C_MASTER_STOP:
+>> -               if (unlikely(!(irq_status & ASPEED_I2CD_INTR_NORMAL_STOP))) {
+>> -                       dev_err(bus->dev, "master failed to STOP\n");
+>> +               if (unlikely(!(bus->irq_status &
+>> +                              ASPEED_I2CD_INTR_NORMAL_STOP))) {
+>> +                       dev_err(bus->dev,
+>> +                               "master failed to STOP irq_status:0x%x\n",
+>> +                               bus->irq_status);
+>>                          bus->cmd_err = -EIO;
+>>                          /* Do not STOP as we have already tried. */
+>>                  } else {
+>> @@ -518,7 +526,7 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>          case ASPEED_I2C_MASTER_INACTIVE:
+>>                  dev_err(bus->dev,
+>>                          "master received interrupt 0x%08x, but is inactive\n",
+>> -                       irq_status);
+>> +                       bus->irq_status);
+>>                  bus->cmd_err = -EIO;
+>>                  /* Do not STOP as we should be inactive. */
+>>                  goto out_complete;
+>> @@ -540,33 +548,40 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>>                  bus->master_xfer_result = bus->msgs_index + 1;
+>>          complete(&bus->cmd_complete);
+>>   out_no_complete:
+>> -       if (irq_status != status_ack)
+>> -               dev_err(bus->dev,
+>> -                       "irq handled != irq. expected 0x%08x, but was 0x%08x\n",
+>> -                       irq_status, status_ack);
+>> -       return !!irq_status;
+>> +       bus->irq_status ^= status_ack;
+>> +       return !bus->irq_status;
+>>   }
+>>
+>>   static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
+>>   {
+>>          struct aspeed_i2c_bus *bus = dev_id;
+>> -       bool ret;
+>> +       u32 irq_received;
+>>
+>>          spin_lock(&bus->lock);
+>> +       irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+>> +       bus->irq_status = irq_received;
+>>
+>>   #if IS_ENABLED(CONFIG_I2C_SLAVE)
+>> -       if (aspeed_i2c_slave_irq(bus)) {
+>> -               dev_dbg(bus->dev, "irq handled by slave.\n");
+>> -               ret = true;
+>> -               goto out;
+>> +       if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
+> 
+> It might be nice to have a comment here about why you might try both handlers.
+> 
+
+Okay. Will add a comment here.
+
+>> +               if (!aspeed_i2c_master_irq(bus))
+>> +                       aspeed_i2c_slave_irq(bus);
+>> +       } else {
+>> +               if (!aspeed_i2c_slave_irq(bus))
+>> +                       aspeed_i2c_master_irq(bus);
+>>          }
+>> +#else
+>> +       aspeed_i2c_master_irq(bus);
+>>   #endif /* CONFIG_I2C_SLAVE */
+>>
+>> -       ret = aspeed_i2c_master_irq(bus);
+>> +       if (bus->irq_status)
+>> +               dev_err(bus->dev,
+>> +                       "irq handled != irq. expected 0x%08x, but was 0x%08x\n",
+>> +                       irq_received, irq_received ^ bus->irq_status);
+>>
+>> -out:
+>> +       /* Ack all interrupt bits. */
+>> +       writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
+> 
+> You should probably ACK as soon as you read the bits.
+>
+
+In my experiments, doing ACK at the end of irq reduces the possibility
+of master/slave combining irq calls that I previously explained.
+
+>>          spin_unlock(&bus->lock);
+>> -       return ret ? IRQ_HANDLED : IRQ_NONE;
+>> +       return bus->irq_status ? IRQ_NONE : IRQ_HANDLED;
+>>   }
+>>
+>>   static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+>> --
+>> 2.18.0
+>>
+> 
