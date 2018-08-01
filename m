@@ -1,46 +1,59 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41gFJB6pR7zF18f
- for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 10:56:58 +1000 (AEST)
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::232; helo=mail-io0-x232.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="h6Lbq06Y"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="piebFT76"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Received: from mail-io0-x232.google.com (mail-io0-x232.google.com
+ [IPv6:2607:f8b0:4001:c06::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 41gFJ969ptz9s0R;
- Wed,  1 Aug 2018 10:56:57 +1000 (AEST)
-Authentication-Results: ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1533085018; bh=gYoqYf6MaMLLrWy30jYDZmQvakjZ7MMH327ZMYJf5nI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=h6Lbq06YB+WIXbC6OwyzRbgIsWXa7qw3jWUWcJgW/OB4EL2bGCmBFk+240eXiGZct
- GxPtRaqQOu5ec3Rxim8wDeHCA84J5RadB35qux0SYkXk3poAl/e2DMazZxNmDtWO3B
- zumSt7eHD/lfJwrBDnU0kY8C8jrxZ8oYnWyg+6rh35xwX8gGHvFAVfozHZQIvbD1jk
- vYAVz3SPcAD4PEjBssvlhlSCoCGm8nBm0wH9S6jQHKh24o4Vaj2GlcdEFs1tBew5Mz
- CquZOfO4CtIKzAbv2cCBIOdlcS8B4dO1L4+j74zaUQXU9IjkRPsvlcwkIcCK1pnKIN
- CIMG5zwrsiEuw==
-Subject: Re: Virtual Media
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
-Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <69abb9a05c7d01b71cd4a69f3e7c548e@linux.vnet.ibm.com>
- <eb74222a-737f-92cb-66a3-8d023b5962dc@ozlabs.org>
- <20180731180257.GJ105329@mauery>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <e1b784dc-3434-cfda-a07b-3a065458fef0@ozlabs.org>
-Date: Wed, 1 Aug 2018 08:56:56 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41gH123qCxzF19q
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 12:13:58 +1000 (AEST)
+Received: by mail-io0-x232.google.com with SMTP id l7-v6so14801541ioj.1
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 19:13:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BKzatoha9EI5q8/B4pdIaS6JlPzCejz+HAGYQaTuVB8=;
+ b=piebFT76xiIxcuWTR16W3TSZraaoxXsffIMU8ijjgmb8mxpfKqQfs1BLzst4I1fZND
+ m6OP/cbk2SjxXGXBs3lUAchWDZo+suQ+3COiEB47CqAipohpFeMtbLqsOoNqEkC2feKk
+ FTbifZ/MPsUPkQpzSApVGxMXiHHGg1krEbY/xFSjER7905kfBNfp1VUmyW60RzC1jUUE
+ f9xcXFQZaYNsVmrAmUHsK+kCKniN54cOoMWE7f8h/O65tu1pI3SgwKq7ytpmazFP5nzX
+ 3sWa7++Dji5xxWybINKo+EUyjZgMd4jQWmJGJVgcDpyxolZJAwcCNgrxZB1cteMuXv7h
+ z62g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BKzatoha9EI5q8/B4pdIaS6JlPzCejz+HAGYQaTuVB8=;
+ b=gp3b860OSWABjGOd3xSS3CAOyxbup6KaTaQdypyMaRe9gxw+OMoCUnZeNVPr+C7Are
+ JblECIlb2ukyMr2jJYJd/rhLHsAZl+udZBq9NWiBbkiEkdqGSsPwauo41S3wTnSixoUA
+ Gx6RQsYkcB/p5rz2fIt9QjnrQpweraoV2YBbT+Ln+4xlUZO6piHXG7gy56mkWvOSsNUz
+ QeNfsGjQnnS2AonVy7d/9Bmn4A/dE3+N0e/G7ncBngl9Nhc8Wn2M34ddESlCmDi5JrLa
+ trTolUVQ0nQcaVCVi50WjEpMTEMNMKKEsTETcBEmrPO9GsCjzqB44yYJASu+hjsDIl7X
+ KXqA==
+X-Gm-Message-State: AOUpUlHI6REw3PqPbch6hxohbf2HjJhGBKvHC4mNM4XLBOpNwY0/c8jE
+ nRlGbb9QdxnyEtsZKMgAvj7mogI3ZfL4/UVmP8c=
+X-Google-Smtp-Source: AAOMgperRNnHRPvGB/YqIn6JVCO3NlUUC0oPi+ohcx8kRMbmMmn3tRyUV0BBnMskMftxQhtrz/XGLiArajhhfcURhBs=
+X-Received: by 2002:a6b:889f:: with SMTP id
+ s31-v6mr1752135ioi.156.1533089636213; 
+ Tue, 31 Jul 2018 19:13:56 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180731180257.GJ105329@mauery>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <1F65CF12-B31E-409C-BD72-D1CF3D0CFBFC@fuzziesquirrel.com>
+ <ab15c434-61ee-394a-fe89-d211018b8f3e@linux.vnet.ibm.com>
+In-Reply-To: <ab15c434-61ee-394a-fe89-d211018b8f3e@linux.vnet.ibm.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Wed, 1 Aug 2018 10:13:40 +0800
+Message-ID: <CAARXrt=PXyNzC21UmjDVrv3m90O+TBrKuOsEeU5HOyx=Brzb=A@mail.gmail.com>
+Subject: Re: [Maintainers] Call for maintenance
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, bradleyb@us.ibm.com,
+ wak@google.com, tomjose@linux.vnet.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -52,50 +65,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Aug 2018 00:57:00 -0000
+X-List-Received-Date: Wed, 01 Aug 2018 02:13:58 -0000
 
-Hi Vernon,
+On Tue, Jul 31, 2018 at 10:21 PM Tom Joseph <tomjose@linux.vnet.ibm.com> wrote:
+>
+> Hello,
+>
+> I am scrubbing the phosphor-host-ipmid to handle the SdBusError exception.
+>
+> Even though sdbusplus::exception::SdBusError is inherited from
+> std::exception,
+> my observation is that catch statement of std::exception does not catch
+> sdbusplus::exception::SdBusError exception.
+>
+> try
+> {
+>      // Statement throwing sdbusplus::exception::SdBusError exception.
+> }
+> catch (const std::exception& e) // Does not catch
+> sdbusplus::exception::SdBusError
+> {
+>
+> }
+>
+> I think the multiple inheritance from std::exception is causing this.
+>
 
-> In past BMC implementations, we offered up to four virtual devices to be 
-> mounted remotely. I can't remember if this included the one used for 
-> firmware updates or not. But we will probably need more than one.
+Yup, I meet the same issue.
+The root cause is multiple inheritance of std::exception:
 
-That would definitely be possible with this design, we'd just need to
-parameterise the nbd device and USB endpoint.
+    struct exception : public std::exception;
+    struct internal_exception : public exception;
+    class SdBusError final : public internal_exception, public
+std::system_error;
 
-However, I've personally never encountered a need for more than one
-virtual media device. As you say, most of this will be for host OS
-installs.
+SdBusError inherits both internal_exception and std::system_error,
+which both inherit std::exception.
+We can not use virtual inheritance here because std::system_error
+already non-virtually inherits std::exception.
 
-But if we do have a compelling case to implement multiple devices, that
-shouldn't be a hassle.
-
-> That sounds pretty good from a high level. Nice job using off-the-self 
-> parts.
-
-Thanks! Was nice to find that we didn't need to implement custom
-protocols & kernel interfaces for this.
-
-> RO files should really be the biggest use case for this -- host OS 
-> installs and such. I really don't know how much people will complain if 
-> we take their RW files away.
-
-Yes, I'd agree there. As above, I'm not sure how much this would be
-used. The one use-case I can imagine is a small writeable filesystem for
-saving debug logs (in our case, from petitboot). However, we also have
-actual host network available at that point...
-
-It *could* be possible to do RW media in javascript by storing CoW data
-of modified blocks client-side (eg, in an IndexedDB). The UX isn't great
-for this though, as the user would need to explicitly "download" and
-save the modified file after use (and I guarantee that folks will forget
-to do that and lose data).
-
-> We are also not requiring them to install Java,
-
-Hooray! :)
-
-Cheers,
-
-
-Jeremy
+So probably we should not use diamond inheritance here...
