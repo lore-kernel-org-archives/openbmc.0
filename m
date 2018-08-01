@@ -1,59 +1,80 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <stewart@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::232; helo=mail-io0-x232.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="piebFT76"; 
- dkim-atps=neutral
-Received: from mail-io0-x232.google.com (mail-io0-x232.google.com
- [IPv6:2607:f8b0:4001:c06::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41gH123qCxzF19q
- for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 12:13:58 +1000 (AEST)
-Received: by mail-io0-x232.google.com with SMTP id l7-v6so14801541ioj.1
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jul 2018 19:13:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BKzatoha9EI5q8/B4pdIaS6JlPzCejz+HAGYQaTuVB8=;
- b=piebFT76xiIxcuWTR16W3TSZraaoxXsffIMU8ijjgmb8mxpfKqQfs1BLzst4I1fZND
- m6OP/cbk2SjxXGXBs3lUAchWDZo+suQ+3COiEB47CqAipohpFeMtbLqsOoNqEkC2feKk
- FTbifZ/MPsUPkQpzSApVGxMXiHHGg1krEbY/xFSjER7905kfBNfp1VUmyW60RzC1jUUE
- f9xcXFQZaYNsVmrAmUHsK+kCKniN54cOoMWE7f8h/O65tu1pI3SgwKq7ytpmazFP5nzX
- 3sWa7++Dji5xxWybINKo+EUyjZgMd4jQWmJGJVgcDpyxolZJAwcCNgrxZB1cteMuXv7h
- z62g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BKzatoha9EI5q8/B4pdIaS6JlPzCejz+HAGYQaTuVB8=;
- b=gp3b860OSWABjGOd3xSS3CAOyxbup6KaTaQdypyMaRe9gxw+OMoCUnZeNVPr+C7Are
- JblECIlb2ukyMr2jJYJd/rhLHsAZl+udZBq9NWiBbkiEkdqGSsPwauo41S3wTnSixoUA
- Gx6RQsYkcB/p5rz2fIt9QjnrQpweraoV2YBbT+Ln+4xlUZO6piHXG7gy56mkWvOSsNUz
- QeNfsGjQnnS2AonVy7d/9Bmn4A/dE3+N0e/G7ncBngl9Nhc8Wn2M34ddESlCmDi5JrLa
- trTolUVQ0nQcaVCVi50WjEpMTEMNMKKEsTETcBEmrPO9GsCjzqB44yYJASu+hjsDIl7X
- KXqA==
-X-Gm-Message-State: AOUpUlHI6REw3PqPbch6hxohbf2HjJhGBKvHC4mNM4XLBOpNwY0/c8jE
- nRlGbb9QdxnyEtsZKMgAvj7mogI3ZfL4/UVmP8c=
-X-Google-Smtp-Source: AAOMgperRNnHRPvGB/YqIn6JVCO3NlUUC0oPi+ohcx8kRMbmMmn3tRyUV0BBnMskMftxQhtrz/XGLiArajhhfcURhBs=
-X-Received: by 2002:a6b:889f:: with SMTP id
- s31-v6mr1752135ioi.156.1533089636213; 
- Tue, 31 Jul 2018 19:13:56 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41gKdV50zszF10S
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Aug 2018 14:12:14 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w7148c35031918
+ for <openbmc@lists.ozlabs.org>; Wed, 1 Aug 2018 00:12:11 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2kk5ggg7mb-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Aug 2018 00:12:11 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
+ Wed, 1 Aug 2018 00:12:10 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 1 Aug 2018 00:12:08 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w714C7OZ14942630
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 1 Aug 2018 04:12:07 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 100C328058;
+ Wed,  1 Aug 2018 00:11:05 -0400 (EDT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C30FD28059;
+ Wed,  1 Aug 2018 00:11:04 -0400 (EDT)
+Received: from birb.localdomain (unknown [9.185.142.68])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed,  1 Aug 2018 00:11:04 -0400 (EDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id B4B734EC629; Wed,  1 Aug 2018 14:12:05 +1000 (AEST)
+From: Stewart Smith <stewart@linux.ibm.com>
+To: Jeremy Kerr <jk@ozlabs.org>, Vernon Mauery <vernon.mauery@linux.intel.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Virtual Media
+In-Reply-To: <e1b784dc-3434-cfda-a07b-3a065458fef0@ozlabs.org>
+References: <69abb9a05c7d01b71cd4a69f3e7c548e@linux.vnet.ibm.com>
+ <eb74222a-737f-92cb-66a3-8d023b5962dc@ozlabs.org>
+ <20180731180257.GJ105329@mauery>
+ <e1b784dc-3434-cfda-a07b-3a065458fef0@ozlabs.org>
+Date: Wed, 01 Aug 2018 14:12:05 +1000
 MIME-Version: 1.0
-References: <1F65CF12-B31E-409C-BD72-D1CF3D0CFBFC@fuzziesquirrel.com>
- <ab15c434-61ee-394a-fe89-d211018b8f3e@linux.vnet.ibm.com>
-In-Reply-To: <ab15c434-61ee-394a-fe89-d211018b8f3e@linux.vnet.ibm.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 1 Aug 2018 10:13:40 +0800
-Message-ID: <CAARXrt=PXyNzC21UmjDVrv3m90O+TBrKuOsEeU5HOyx=Brzb=A@mail.gmail.com>
-Subject: Re: [Maintainers] Call for maintenance
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, bradleyb@us.ibm.com,
- wak@google.com, tomjose@linux.vnet.ibm.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 18080104-0068-0000-0000-00000320EC7D
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009465; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01068688; UDB=6.00549422; IPR=6.00846950; 
+ MB=3.00022432; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-01 04:12:09
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18080104-0069-0000-0000-0000453AC5B2
+Message-Id: <87wotag1yi.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-08-01_01:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=942 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1806210000 definitions=main-1808010044
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -65,43 +86,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Aug 2018 02:13:58 -0000
+X-List-Received-Date: Wed, 01 Aug 2018 04:12:15 -0000
 
-On Tue, Jul 31, 2018 at 10:21 PM Tom Joseph <tomjose@linux.vnet.ibm.com> wrote:
+Jeremy Kerr <jk@ozlabs.org> writes:
+>> RO files should really be the biggest use case for this -- host OS 
+>> installs and such. I really don't know how much people will complain if 
+>> we take their RW files away.
 >
-> Hello,
->
-> I am scrubbing the phosphor-host-ipmid to handle the SdBusError exception.
->
-> Even though sdbusplus::exception::SdBusError is inherited from
-> std::exception,
-> my observation is that catch statement of std::exception does not catch
-> sdbusplus::exception::SdBusError exception.
->
-> try
-> {
->      // Statement throwing sdbusplus::exception::SdBusError exception.
-> }
-> catch (const std::exception& e) // Does not catch
-> sdbusplus::exception::SdBusError
-> {
->
-> }
->
-> I think the multiple inheritance from std::exception is causing this.
->
+> Yes, I'd agree there. As above, I'm not sure how much this would be
+> used. The one use-case I can imagine is a small writeable filesystem for
+> saving debug logs (in our case, from petitboot). However, we also have
+> actual host network available at that point...
 
-Yup, I meet the same issue.
-The root cause is multiple inheritance of std::exception:
+zmodem over the terminal right to the browser!
 
-    struct exception : public std::exception;
-    struct internal_exception : public exception;
-    class SdBusError final : public internal_exception, public
-std::system_error;
+(only slightly not joking)
 
-SdBusError inherits both internal_exception and std::system_error,
-which both inherit std::exception.
-We can not use virtual inheritance here because std::system_error
-already non-virtually inherits std::exception.
-
-So probably we should not use diamond inheritance here...
+-- 
+Stewart Smith
+OPAL Architect, IBM.
