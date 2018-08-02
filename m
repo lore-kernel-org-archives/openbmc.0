@@ -1,40 +1,61 @@
-Return-Path: <david.j.cobbley@linux.intel.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=david.j.cobbley@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::236; helo=mail-qt0-x236.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NoRbwGUu"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x236.google.com (mail-qt0-x236.google.com
+ [IPv6:2607:f8b0:400d:c0d::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41gn9l2k7NzF21T
- for <openbmc@lists.ozlabs.org>; Thu,  2 Aug 2018 07:53:14 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2018 14:53:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,433,1526367600"; d="scan'208";a="76526997"
-Received: from parzival.jf.intel.com (HELO [10.54.51.105]) ([10.54.51.105])
- by fmsmga004.fm.intel.com with ESMTP; 01 Aug 2018 14:53:12 -0700
-Subject: Re: Managing openbmc with subtree
-To: openbmc@lists.ozlabs.org
-References: <00e6e0a4-027d-7a9c-ad49-363290e62c68@linux.intel.com>
- <A174348B-515D-48F9-8D41-DD8AD8260006@fuzziesquirrel.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
- Andrew Geissler <geissonator@gmail.com>
-From: Dave Cobbley <david.j.cobbley@linux.intel.com>
-Message-ID: <54643fe1-d382-3df7-8630-bb5e01ea2edb@linux.intel.com>
-Date: Wed, 1 Aug 2018 14:53:12 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41grgR4rQ6zF14j
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Aug 2018 10:30:43 +1000 (AEST)
+Received: by mail-qt0-x236.google.com with SMTP id f18-v6so466296qtp.10
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Aug 2018 17:30:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=Qv9i0mfWUNr0UNmmC5OJpvrAJhcAHByyRFey+Xh34uw=;
+ b=NoRbwGUugLzeqQU9ieGA36gkNxHPOLLyhmJksSBfIN5UOWSo18+M1sz4bTcUK2WMpv
+ te+Y6M3E7gpzQCR+26YZb9HFGgH+acGqpQ42UY3CS3RTH5agZdII4YwQ6MutUw2guho6
+ j/HqYrEMZYeWv9jM9tYbWfjambKlN6L8Mqz3iF7BpbACIVOkhX4jZNFoIbEfTs09BLct
+ xRo+FTVkYwkgTt33YA/QSimSy2gSav++W60EessSi62PmKolW3bsPpd++xPQFKJ28ZJy
+ ws5spZI2wCpfcaB1y0IxeTQ0WWz8Uz87sUqT/Bg7CBSbHt3xRZuhzyJKS7Rq34ZBcsxD
+ ogzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=Qv9i0mfWUNr0UNmmC5OJpvrAJhcAHByyRFey+Xh34uw=;
+ b=iX6kyOh5beXCbxkRII1YIYLNGoeBV03iFtHxXH/zaSQgzp0vwAxdyaa1QSBgkIrRxQ
+ u/2ZQoe6E0sukhGT5pblQWvM6LMMKK8zdALUI3cTapwjsiNkp1LXfnHvU7O+yijyjxvC
+ vP79EzfYuPEN40CVyhe0O/q/9i5Vwg5LDABmjiaE2207zbsTsW+6TlJyrJRfiJI4op4f
+ rSZ7/BCRsru0Jb4RmL2H/1jq0O1frwACrqtp14M0ya5PNKvh1+v3qZpe7nROe5CbZy30
+ FbQGXAo8Txhm9NxQRXsNCUI1RPzseT0uyyZqbx/h54fmO6Hx9EbL5iQqLJDzEQ+pHKVA
+ LchA==
+X-Gm-Message-State: AOUpUlED7nMDlSCZFUjvOB8o/r85Zk44Fjn284dnRUUakIzgEr1w9J26
+ fTKzqRIQ87ZN0tVLTrf0g02WB0nrultFY5swxL4=
+X-Google-Smtp-Source: AAOMgpcjohDhFHchZ35fc5fjbFOMYgbR1yKJnfH3UU/aXWexLGNa6r5Uxl0SOmP6six1GxsJIi67dWNtTplm/OG7kZE=
+X-Received: by 2002:a0c:d112:: with SMTP id
+ a18-v6mr578809qvh.200.1533169840457; 
+ Wed, 01 Aug 2018 17:30:40 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <A174348B-515D-48F9-8D41-DD8AD8260006@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Received: by 2002:aed:26a7:0:0:0:0:0 with HTTP;
+ Wed, 1 Aug 2018 17:30:39 -0700 (PDT)
+In-Reply-To: <CABoTLcRjsOonjmPMMiijX8CvJ_jM9KJcz12AxntdzW8vCxpSFg@mail.gmail.com>
+References: <CAG9c7cAwMWMXQ=SOJ0Vjxzx0jUv3M8KLF8_fXam-z_4CuMJcvg@mail.gmail.com>
+ <CAO=notxVZowBBB4DSVYZv5MdC+H1CZ01r+DCPbZeYAJdqjAcug@mail.gmail.com>
+ <CABoTLcRjsOonjmPMMiijX8CvJ_jM9KJcz12AxntdzW8vCxpSFg@mail.gmail.com>
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Thu, 2 Aug 2018 08:30:39 +0800
+Message-ID: <CAG9c7cBXxc-81YVWjVspUDAPt6Xt+5OqVE4A7EzXuegwdxx8tg@mail.gmail.com>
+Subject: Re: UART Route setting
+To: Oskar Senft <osk@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000b88dc2057268eb34"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -46,159 +67,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Aug 2018 21:53:16 -0000
+X-List-Received-Date: Thu, 02 Aug 2018 00:30:45 -0000
 
-I posted an initial draft of what permissions could look like in the top 
-level meta-data.
+--000000000000b88dc2057268eb34
+Content-Type: text/plain; charset="UTF-8"
 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11730/
+Hi Oskar,
 
-This will require additional people receive +2 permissions, but the 
-OWNERS plugin will ensure that a patch cannot get merged unless it has 
-+2 from the appropriate people.
+Thanks your response.
 
-Thanks,
--Dave
->> On Jul 19, 2018, at 4:08 PM, Dave Cobbley <david.j.cobbley@linux.intel.com> wrote:
+In my machine design, the host uses AST2500 UART2 to implement console
+redirection.
+To make openbmc host consle/ipmi SOL workable, I use the 'local-tty =
+ttyS2' setting and manually change the UART route (UART2<->UART3).
+
+I found  VUART be used for host console after I checked some openpower
+machines. Thus, they didn't meet this problem.
+
+I also tried to look for any related discussion but got nothing.
+To avoid any loss, I sent a mail to ask if any approach to change the UART
+route under openbmc framework.
+
+Currently, I add a hard code (modify HICRA regiser) in u-boot as the
+workaround.
+
+The suggestions you provided are good if the dynamic UART  route changing
+is needed.
+
+I may write a driver to handle the default UART route. It can be
+enabled/disabled and get the the default UART route setting from machine dts,
+and then modify the HICRA register.
+
+Thanks.
+Henbin.
+
+2018-08-02 0:16 GMT+08:00 Oskar Senft <osk@google.com>:
+
+> Hi Henbin
+>
+> It's funny that you ask, since I had just started to look into the same
+> problem.
+>
+> I'd like to change the UART routing on an AST2500 when a client connects
+> to the obmc-console-server. The use case is to dynamically connect the
+> host's UART to a UART owned by the BMC.
+>
+> I was thinking of writing a kernel driver that would expose the config
+> options from the HICRA register on AST2500 as /sys files. Each file
+> represents the target UART1..5 and IO1..5. The file value represents the
+> source UART1..5 and IO1..5. Not all combinations are supported by the
+> Aspeed, so I'd add the necessary checks and error reporting into the code.
+>
+> An alternative would be to just use /dev/mem to do that, but my
+> understanding is that default support for that is going away or has gone
+> away.
+>
+> Oskar.
+>
+>
+> ---------- Forwarded message ----------
+>> From: Henbin Chang <henbinchang@gmail.com>
+>> Date: Wed, Aug 1, 2018 at 12:11 AM
+>> Subject: UART Route setting
+>> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 >>
->> Brad,
->> Trying to identify the appropriate work-flowfor using git subtree to maintain all the meta-data under openbmc.
->> I'm imagining something like:
 >>
->> 17 subtrees
->> ** indicates an actual folder, not subtree.
->> meta-openembedded/
->> meta-raspberrypi/
->> meta-virtualization/
->> poky/
->> **meta-openbmc-machines/
->> ** meta-arm
->>     ├── common
->>     └── meta-qualcomm
->> **meta-evb
->>     ├── meta-evb-aspeed
->>     ├── meta-evb-nuvoton
->>     ├── meta-evb-raspberrypi
->> **meta-openpower
->>     ├── meta-ibm
->>     ├── meta-ingrasys
->>     ├── meta-inventec
->>     ├── meta-rackspace
->> **meta-x86
->>      ├── meta-intel
->>      ├── meta-mellanox
->>      ├── meta-portwell
->>      └── meta-quanta
->> **meta-openbmc-bsp/
->>      ├── meta-aspeed
->>      ├── meta-ibm
->>      ├── meta-nuvoton
->> meta-phosphor/
+>> Hi,
 >>
-> This is a great picture, thanks.  My longer-term vision is a bit more like this:
->
-> meta-openembedded/
-> meta-virtualization/
-> poky/
-> meta-arm/
-> meta-openpower/
-> meta-x86/
-> meta-phosphor/
->
-> Or even ditching Yocto and just using OE-Core/bitbake directly:
->
-> meta-openembedded/
-> meta-virtualization/
-> meta/
-> bitbake/
-> meta-arm/
-> meta-openpower/
-> meta-x86/
-> meta-phosphor/
->
-> I could understand a case for including the BSPs in the base distro:
->
-> meta-openembedded/
-> meta-virtualization/
-> meta/
-> bitbake/
-> meta-arm/
-> meta-openpower/
-> meta-x86/
-> meta-phosphor/
-> meta-aspeed/
-> meta-ibm/ -> for our SOCs only, not servers
-> meta-nuvoton/
-> meta-raspberrypi/
->
-> The main thing to notice with all of these is I’ve removed meta-foo from
-> meta-openpower, meta-x86 and meta-arm.  This lets people have arm, power
-> and x86 servers all in the same layer or repo if they want:
->
-> meta-xyzcorp/
->     |— meta-arm-server/
->     |- meta-x86-server/
->     |- meta-power-server/
->
-> Actually I’ve removed them from the repository completely.  I think we
-> need some kind of reference platform(s) just like Yocto.  Otherwise we are
-> going to wind up with too many server-layers in the distro.
->
-> Another idea is to scrap meta-openpower, meta-arm and meta-x86
-> and put all that content in meta-phosphor:
->
-> meta-openembedded/
-> meta-virtualization/
-> meta/
-> bitbake/
-> meta-phosphor/
->
-> What do you think of all this?  There is a lot of change here, so some
-> staging would be required.  Obviously all ideas are debatable.
->
->> I began working on the workflows that a typical dev would do to check code in and have Jenkins automatically update the top level repo with the new additions, but run into troublewith a merge commit.
+>> Could anyone know how to modify UART Route setting through dts, driver
+>> or other mechanism?
 >>
->> 1. git clone openbmc-openbmc
->> 2. #make changes
->> 3. git add
->> 4. git commit...
->> 5. git subtree push --prefix=path/to/local/subtree ssh://openbmc.gerrit/openbmc/<subtree_name> HEAD:refs/for/master
-> Looks good to me.  This should be pretty similar to the workflow
-> for OE-Core -> Poky right?
->
->> At this point, the build CI would run it's normal operations and code review would take place.
->> Following a +2 and submit, Jenkins would:
+>> Or I have to find a point to modify it e.g. board_init() in the u-boot.
 >>
->> 1. cd openbmc-openbmc
->> 2. git pull
->> 3. git subtree pull --prefix=path/to/subtree --squash <remote> master #For all given subtrees
-> I think I read somewhere that Poky has another verification and approval
-> step here, before merging OE-Core/bitbake patches into Poky.  Do we want
-> to be like Poky and require testing and/or maintainer approval here?
->
->> However at this point, I end up with two commits in the parent repo, one with the squashed changes, and a merge commit.
->> I don't know how to do this operation without ending up with a merge commit, do you have any advice here?
-> To avoid the merge you can skip the subtree pull (which does a merge) and
-> instead generate a patch:
->
-> git cherry-pick —strategy=subtree -Xsubtree=path/to/subtree <squash-commit>
->
->> I could be totally overthinking the whole strategy,
-> I don’t think so.  Its par for the course I think for an OE based distribution.
->
->> so any advice and direction is much appreciated!
->> Along those same lines, is subtree still the correct tool?
-> I think so.  I had a look at Combo-layer awhile back…it seems to do the
-> same thing as git cherry-pick, that is, generate patches and apply them
-> to the parent repository.  It does layer some features on top of that
-> but I haven’t missed those yet.  They are similar enough I feel we could
-> switch back and forth if need be.  I’m guessing Combo-layer was written
-> before subtrees had the support they do today in Git.
->
->> I hear repo works for a lot of projects, Yocto uses https://wiki.yoctoproject.org/wiki/Combo-layer.
+>> Thanks.
 >>
->> Thanks,
->> -Dave
-> Thanks for kicking off this conversation!
 >
-> -brad
+
+--000000000000b88dc2057268eb34
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Oskar,<div><br></div><div>Thanks your response.</div><d=
+iv><br></div><div>In my machine design, the host uses AST2500 UART2 to impl=
+ement console redirection.</div><div>To make openbmc host consle/ipmi SOL w=
+orkable, I use the &#39;local-tty =3D ttyS2&#39; setting and manually chang=
+e the UART route (UART2&lt;-&gt;UART3).</div><div><br></div><div>I found=C2=
+=A0 VUART be used for host console after I checked some openpower machines.=
+ Thus, they didn&#39;t meet this problem.</div><div><br></div><div>I also t=
+ried to look for any related discussion but got nothing.</div><div>To avoid=
+ any loss, I sent a mail to ask if any approach to change the UART route un=
+der openbmc framework.</div><div><br></div><div>Currently, I add a hard cod=
+e (modify HICRA regiser) in u-boot as the workaround.</div><div><br></div><=
+div>The suggestions you provided are good if the dynamic UART=C2=A0 route c=
+hanging is needed.</div><div><br></div><div>I may write a driver to handle =
+the default UART route. It can be enabled/disabled and get the the default =
+UART route setting from<span style=3D"font-size:small;background-color:rgb(=
+255,255,255);text-decoration-style:initial;text-decoration-color:initial;fl=
+oat:none;display:inline">=C2=A0machine dts</span>, and then modify the HICR=
+A register.</div><div><br></div><div>Thanks.</div><div>Henbin.</div><div><b=
+r></div><div class=3D"gmail_extra"><div class=3D"gmail_quote">2018-08-02 0:=
+16 GMT+08:00 Oskar Senft <span dir=3D"ltr">&lt;<a href=3D"mailto:osk@google=
+.com" target=3D"_blank">osk@google.com</a>&gt;</span>:<br><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex"><div dir=3D"ltr">Hi Henbin<div><br></div><div>It&#39;s funny =
+that you ask, since I had just started to look into the same problem.</div>=
+<div><br></div><div>I&#39;d like to change the UART routing on an AST2500 w=
+hen a client connects to the obmc-console-server. The use case is to dynami=
+cally connect the host&#39;s UART to a UART owned by the BMC.</div><div><br=
+></div><div><span style=3D"font-size:small;background-color:rgb(255,255,255=
+);text-decoration-style:initial;text-decoration-color:initial;float:none;di=
+splay:inline">I was thinking of writing a kernel driver that would expose t=
+he config options from the HICRA register on AST2500 as /sys files. Each fi=
+le represents the target UART1..5 and IO1..5. The file value represents the=
+ source UART1..5 and IO1..5. Not all combinations are supported by the Aspe=
+ed, so I&#39;d add the necessary checks and error reporting into the code.<=
+/span></div><div><br></div><div>An alternative would be to just use /dev/me=
+m to do that, but my understanding is that default support for that is goin=
+g away or has gone away.</div><span class=3D"HOEnZb"><font color=3D"#888888=
+"><div><br></div><div>Oskar.</div></font></span><div><div class=3D"h5"><div=
+><br><div class=3D"gmail_quote"><div dir=3D"ltr"><br></div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">---------- Forwarded message ----------<b=
+r>
+From: Henbin Chang &lt;<a href=3D"mailto:henbinchang@gmail.com" target=3D"_=
+blank">henbinchang@gmail.com</a>&gt;<br>
+Date: Wed, Aug 1, 2018 at 12:11 AM<br>
+Subject: UART Route setting<br>
+To: OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org" target=
+=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;<br>
+<br>
+<br>
+Hi,<br>
+<br>
+Could anyone know how to modify UART Route setting through dts, driver<br>
+or other mechanism?<br>
+<br>
+Or I have to find a point to modify it e.g. board_init() in the u-boot.<br>
+<br>
+Thanks.<br>
+</blockquote></div></div></div></div></div>
+</blockquote></div><br></div></div>
+
+--000000000000b88dc2057268eb34--
