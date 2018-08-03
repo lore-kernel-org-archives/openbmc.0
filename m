@@ -9,31 +9,33 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41hy7b3TlpzF2Db
- for <openbmc@lists.ozlabs.org>; Sat,  4 Aug 2018 05:40:26 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41hymH4n2RzF2DY
+ for <openbmc@lists.ozlabs.org>; Sat,  4 Aug 2018 06:08:47 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id E545B763;
- Fri,  3 Aug 2018 15:40:18 -0400 (EDT)
-Content-Type: text/plain; charset=us-ascii
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 862A415662;
+ Fri,  3 Aug 2018 16:08:12 -0400 (EDT)
+Content-Type: text/plain; charset=utf-8
 Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: openbmc test work group - wiki
+Subject: Re: Need create a repo for chassis implementation.
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-X-Priority: 3 (Normal)
-In-Reply-To: <OFCB332DD4.36F24D9C-ON002582DA.004CE92F-002582DA.004D171E@notes.na.collabserv.com>
-Date: Fri, 3 Aug 2018 15:40:18 -0400
-Cc: openbmc@lists.ozlabs.org,
- kurt.r.taylor@gmail.com
+In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E77249DD8381@SHSMSX101.ccr.corp.intel.com>
+Date: Fri, 3 Aug 2018 16:08:12 -0400
+Cc: "geissonator@yahoo.com" <geissonator@yahoo.com>,
+ "tomjoseph@in.ibm.com" <tomjoseph@in.ibm.com>,
+ "Tanous, Ed" <ed.tanous@intel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "yong.b.li@linux.intel.com" <yong.b.li@linux.intel.com>,
+ "Li, Yong B" <yong.b.li@intel.com>,
+ "openbmc-ci-admin@ozlabs.org" <openbmc-ci-admin@ozlabs.org>,
+ "richard.marian.thomaiyar@linux.intel.com"
+ <richard.marian.thomaiyar@linux.intel.com>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <57D09AA9-D265-485A-AC33-66A042EC030D@fuzziesquirrel.com>
-References: <OF458BA789.AF22BC1D-ON002582DA.001B42BC-002582DA.001B4B34@notes.na.collabserv.com>
- <CADfYTpEGA5tahs9dNMyCvUuc65SNd3jnE3A8MyVOHi5PXsYQFA@mail.gmail.com>
- <OFC1A0F558.EB78B1DD-ON002582D0.00149A34-002582D0.0014CFBF@notes.na.collabserv.com>
- <d8ebd772-7566-cd23-28f8-b2e98982f2c7@gmail.com>
- <CALLMt=qUzt55cL47j3+vKOKaqFQpKXiMps0FVJHVwd8jJeF-aQ@mail.gmail.com>
- <OFBC71A75E.C9C8F28D-ON002582D3.004AAE2A-002582D3.004C186B@notes.na.collabserv.com>
- <OFCB332DD4.36F24D9C-ON002582DA.004CE92F-002582DA.004D171E@notes.na.collabserv.com>
-To: Sivas Srr <sivas.srr@in.ibm.com>
+Message-Id: <9F1ED42F-FCC2-4536-8019-15019BD8D01D@fuzziesquirrel.com>
+References: <959CAFA1E282D14FB901BE9A7BF4E77249DD28C6@SHSMSX101.ccr.corp.intel.com>
+ <1532513696.11932.8.camel@fuzziesquirrel.com>
+ <959CAFA1E282D14FB901BE9A7BF4E77249DD8381@SHSMSX101.ccr.corp.intel.com>
+To: "Wang, Kuiying" <kuiying.wang@intel.com>
 X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -46,28 +48,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Aug 2018 19:40:28 -0000
+X-List-Received-Date: Fri, 03 Aug 2018 20:08:48 -0000
 
 
-> On Jul 30, 2018, at 10:02 AM, Sivas Srr <sivas.srr@in.ibm.com> wrote:
+> On Jul 25, 2018, at 10:33 PM, Wang, Kuiying <kuiying.wang@intel.com> =
+wrote:
 >=20
-> Hi Brad Bishop,
-> =20
-> Had sent a mail from google email account to our community  with the =
-google poll
-> link ( =
-https://docs.google.com/forms/d/e/1FAIpQLScYu8fPprtqF2EvxWkL-_cLVHHu_FBFBt=
-Q0dLtib3E68akv-A/viewform ) and it seems waiting for your approval.
-> =20
-> Have requested our team to check it and works fine.
-> =20
-> Could you pls approve the same.
+> Hi Andrew,
+> I agree w/ you on " smaller, more specific repositories", to create " =
+phosphor-buttons" for handling buttons and create different repo for =
+power control for specific machine/company/hardware like =
+"openpower-power-control" and " x86-power-control".
+>=20
+> In a word, we need create 3 repos as following:
+> phosphor-buttons
 
-Hi Sivas
+created.
 
-I filled out the poll.  Is that all you were looking for here?
+> openpower-power-control
 
-thx -brad
+I don=E2=80=99t know enough about the design to create this repository =
+yet.
+I=E2=80=99m assuming that is OK with Intel?
 
-> =20
-> Sivas R. S
+> x86-power-control =20
+
+created.  I apologize for the delay, but there is a general lack of
+information here that makes me uncomfortable, and thus the delay.
+
+For instance - is there a DBus API associated with this program?
+If so - what is it?  Have you already written this program and
+now you just want to host it on OpenBMC?  Or is it a new program?
+
+>=20
+> Brad,
+> I will not send pictures and attachments to the mail list in the =
+future.
+
+thanks!
+
+>=20
+> Thanks,
+> Kuiying.
