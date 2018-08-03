@@ -1,61 +1,54 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4001:c0b::243; helo=mail-it0-x243.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::22e; helo=mail-io0-x22e.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="aLXVahqn"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="cUNcK0eg"; 
  dkim-atps=neutral
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
+Received: from mail-io0-x22e.google.com (mail-io0-x22e.google.com
+ [IPv6:2607:f8b0:4001:c06::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41hS8H0hpHzF15Z
- for <openbmc@lists.ozlabs.org>; Fri,  3 Aug 2018 10:09:18 +1000 (AEST)
-Received: by mail-it0-x243.google.com with SMTP id e14-v6so6145432itf.1
- for <openbmc@lists.ozlabs.org>; Thu, 02 Aug 2018 17:09:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=whepv9ceqpKeQSobXWBzs/Amu/cZ+5W6duyabfxJS5I=;
- b=aLXVahqnkz9QDpDLJ8AQLKE2W7L1TLpvjIga7fwNbe7sUXz9FIkH0gKb5hYCpk8WM+
- 3c11zespD0cGxbg8/BfoWhGUtL7CjiHHVqu0DTMofkUG2k1v0bFYB0bQypfoZn2LvBw4
- wjtf1tZViA86DQAUim6matsVQ85/IpJ0j8LFY=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41hcGZ28zfzF2Dc
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Aug 2018 16:15:17 +1000 (AEST)
+Received: by mail-io0-x22e.google.com with SMTP id g11-v6so4093736ioq.9
+ for <openbmc@lists.ozlabs.org>; Thu, 02 Aug 2018 23:15:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=al/XI0QPfQ09ZMqFbgY5UPwji2LYL24SMv4fvX6CCWI=;
+ b=cUNcK0egK2pang97+oC6UdkVVEsI5Gq5Lv/WYJFp7cY4PwGw7/GZVd5gbmFMADixwb
+ tcet3npLENOBMWH3fVXVRsFrQfhRzo/1BibgXG+prAnFbC0mRSmD00UiCK55GM/a+TmC
+ zhJfZMGSYwvUcmeoHK7Jy/HF0unD+0moQ4Lc8SBSecqn7Oc4fPyxmh63vpOe7ffjFNWU
+ VeYCEVeKc+heSBljKskbuKagOdW+ie2Y/l0cjkgc4pJUFQXB4VD6Esu9sN9tKiK5rXne
+ /2i2Kp28eY7QI6xdtBY7Qs6a3wUBJtyim1wZNtJI/CPI+ZXvnZAUIYSlUYyUsaHDtXem
+ UOSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=whepv9ceqpKeQSobXWBzs/Amu/cZ+5W6duyabfxJS5I=;
- b=TgWbV8GT8HGFzvehb6L7JqsgIWWR8LnHUUNvIP7hqCDzCYNU/RBAf7Ht+wk2+j03C0
- eAlv9bNmw6OdywxZGrJhD+G6jmlm/VPJRqPtiDLoCv/Y9TGMolSHucwPPJS+4xPcY0HY
- xaQmezUG9M1zaXq+RRXLsqnW+vsZnQ2wKQus6pnQAO30Xe+Vk/0vX+tm+9tzVDaJu1is
- wbJudciu9rF10dp1xh7rY0ZvRhds/6cGDJSoij6WF2P7zN5xC2+lwONCMfL7JL+U79YJ
- Yxo1FfT5IK/pxuHfCv8L7NFmyEprdH9fnprIfih2OVOuLN3L+4n87uhR0gF3hOomwdiG
- KtIg==
-X-Gm-Message-State: AOUpUlE7M4JdM2pRrsCevijSsjd6PHtsdS0rcpBUyfh1KEP2lSy6SdIx
- dd/qmm0TrjAUz/NRBYRwE3aeOdMf4uvmz1JVDea+Fw==
-X-Google-Smtp-Source: AAOMgpfA7kGxe4+RmMHk6xkgilWzSkt5oVQTttrgZ/UHP7wRzP/cvXXCllKfuYqkC4nqJzVbs6vTuPyy0cQ7ub7pHNg=
-X-Received: by 2002:a24:5004:: with SMTP id m4-v6mr4457189itb.38.1533254956321; 
- Thu, 02 Aug 2018 17:09:16 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=al/XI0QPfQ09ZMqFbgY5UPwji2LYL24SMv4fvX6CCWI=;
+ b=icL/jXKae2b2IKYnb/Z5gVrtKSErr+k5UwRx8+Hw6seD8Dly15udLz433tdrlVX0fz
+ DdaqyFwMLZMFuXU/ZXTCB2RL2fNY7qZyRh6XjuQ8Hu5zicMHAie4jNtVuBRczsVq3MIa
+ 6G984oyc3dXODwJrntQ+edu2J0hopzxpVKnIiJxpprK++YbP5jWHzBDj6AB7SoLVzw2d
+ Atyc1kIUqBTeHAA1jlBqBdwy/KZojJS5ljSXw+MO0jKwAEO7O6qWtFeAdfuOugKKqP9I
+ ZjVD2YBJ+FcvAtEixdPEbXNsA4lW71VpkYlhSADq2Z7vInxNHVR4HlRrxFchQzJ0saYE
+ vSUQ==
+X-Gm-Message-State: AOUpUlEzipnLXQUn6HbgllxEljjJRJtu2F4fSV/UIy/c1madwS7YZumR
+ xA9qM/6vDHSMPcvLmAhFCgAuv6eyL/CFQbdV4nqZC5lg
+X-Google-Smtp-Source: AA+uWPxIhe4PMYTIRSOAPApn5M2zAFQ0BsJR6xhwCBHYEZfzeyqD42ZN1dlt+osUy7wQgC5pIPC+bQw8xzp8Oe++XuM=
+X-Received: by 2002:a6b:889f:: with SMTP id
+ s31-v6mr4869312ioi.156.1533276915328; 
+ Thu, 02 Aug 2018 23:15:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180730110406.132729-1-tmaimon77@gmail.com>
- <20180730110406.132729-3-tmaimon77@gmail.com>
-In-Reply-To: <20180730110406.132729-3-tmaimon77@gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 3 Aug 2018 02:09:04 +0200
-Message-ID: <CACRpkdaXxWWQZQhap51nGcFvZeGnJ0ZK5LuwVJvkWevxvj7JUw@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] pinctrl: nuvoton: add NPCM7xx pinctrl and GPIO
- driver
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>, avifishman70@gmail.com, 
- Joel Stanley <joel@jms.id.au>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 3 Aug 2018 14:14:54 +0800
+Message-ID: <CAARXrtm64qpSkDD31+m9HGa-Bw4k0jkRizHiS9fc73JZHMfmXQ@mail.gmail.com>
+Subject: What is the proper way to read RTC battery voltage
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Patrick Venture <venture@google.com>, spinler@us.ibm.com,
+ Joel Stanley <joel@jms.id.au>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -68,101 +61,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Aug 2018 00:09:20 -0000
+X-List-Received-Date: Fri, 03 Aug 2018 06:15:19 -0000
 
-Hi Tomer,
+This email is to ask about a proper way to read RTC battery voltage.
 
-this is starting to look really good!
+Background:
+* Usually RTC battery voltage could be read from an ADC channel.
+* Usually there is a GPIO to enable/disable the connection between battery
+   and ADC, e.g.
+   * When GPIO is pulled low, the channel is disconnected and reading is 0.
+   * When GPIO is pulled high, the channel is connected and the reading is OK.
+* So to read the voltage, the GPIO shall be pulled high.
+* When the GPIO is pulled high, it drains the battery.
 
-Please try this with my patch and drop the new DIR_INV flag that I think
-we do not need anymore after that.
+The problem: How to properly read the voltage, without affecting the battery
+life?
 
-Other small bits:
+1. If the GPIO is simply hogged high in device tree, the ADC channel always get
+   the correct reading, but it affects the battery life.
+2. We could leave the GPIO for user space to control, e.g. let phosphor-hwmon
+   to control the GPIO while reading a sensor, it resolves the problem.
+   This is done by Google and the patch for phosphor-hwmon is at
+   (https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-hwmon/+/11697/)
+3. We could use gpio-mux and io-channel-mux driver, that let kernel to
+   automatically pull the GPIO while reading the sensor. (See
+   https://github.com/mine260309/linux/commit/8e60647389e5400a85c705685ca2f6b875856c99
+   for example).
+   However, it requires some delay between GPIO pulled high and reading the ADC
+   channel, if the delay is too small, the ADC channel reading becomes
+   incorrect, e.g. it gets 0 or a lower value than expected.
 
-On Mon, Jul 30, 2018 at 1:04 PM Tomer Maimon <tmaimon77@gmail.com> wrote:
+In the above 3 ways:
+1 is not acceptable;
+2 is OK, but it is not as clean as handle the GPIO in kernel;
+3 is more preferred, but it requires a delay in kernel. To upstream this
+   change, the delay shall be put in a proper place, e.g. in iio-mux driver,
+   or in adc driver?
+   I do not think either place is proper for the delay...
 
-> +/* Structure for register banks */
-> +struct npcm7xx_gpio {
-> +       void __iomem            *base;
-> +       struct gpio_chip        gc;
-> +       int                     irqbase;
-> +       int                     irq;
-> +       void                    *priv;
-> +       struct irq_chip         irq_chip;
-> +       u32                     pinctrl_id;
-> +       int (*direction_input)(struct gpio_chip *chip, unsigned offset);
-> +       int (*direction_output)(struct gpio_chip *chip, unsigned offset,
-> +                               int value);
-> +       int (*request)(struct gpio_chip *chip, unsigned offset);
-> +       void (*free)(struct gpio_chip *chip, unsigned offset);
+So my question is, which is the proper way to handle the case, or is there any
+other way?
 
-Very nice! You sorted it out perfectly.
-
-> +/* GPIO handling in the pinctrl driver */
-> +static void npcm_gpio_set(struct gpio_chip *gc, void __iomem *reg,
-> +                         unsigned int pinmask)
-> +{
-> +       unsigned long flags;
-> +       unsigned long val;
-> +
-> +       spin_lock_irqsave(&gc->bgpio_lock, flags);
-> +
-> +       val = gc->read_reg(reg) | pinmask;
-> +       gc->write_reg(reg, val);
-
-I see some GPIO drivers do this but I don't think you need to use these indirect
-->read_reg() and ->write_reg() accessors, it just obscures things. If
-you need to
-access these registers I think it's fine to just use the base and
-read/write them.
-But it's your pick, I will not insist. Maybe it's a matter of taste.
-
-> +static int npcmgpio_direction_input(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +       struct npcm7xx_gpio *bank = gpiochip_get_data(chip);
-> +       int ret;
-> +
-> +       ret = pinctrl_gpio_direction_input(offset + chip->base);
-> +       if (ret)
-> +               return ret;
-> +
-> +       return bank->direction_input(chip, offset);
-> +}
-
-Exactly as I think it should work, sweet!
-
-This:
-
-> +                       pctrl->gpio_bank[id].pinctrl_id = pinspec.args[0];
-> +                       pctrl->gpio_bank[id].gc.base = pinspec.args[1];
-> +                       pctrl->gpio_bank[id].gc.ngpio = pinspec.args[2];
-> +                       pctrl->gpio_bank[id].gc.owner = THIS_MODULE;
-> +                       pctrl->gpio_bank[id].gc.label =
-> +                               devm_kasprintf(pctrl->dev, GFP_KERNEL, "%pOF",
-
-And this:
-
-> +       for (i = 0 ; i < pctrl->bank_num ; i++) {
-> +               ret = gpiochip_add_pin_range(&pctrl->gpio_bank[i].gc,
-> +                                            dev_name(pctrl->dev),
-> +                                            pctrl->gpio_bank[i].pinctrl_id,
-> +                                            pctrl->gpio_bank[i].gc.base,
-> +                                            pctrl->gpio_bank[i].gc.ngpio);
-> +               if (ret < 0) {
-> +                       dev_err(pctrl->dev, "Failed to add GPIO bank %u\n", i);
-> +                       gpiochip_remove(&pctrl->gpio_bank[i].gc);
-> +                       goto err_range;
-> +               }
-> +       }
-
-Worries me a bit. This seems to be like this because you register the
-GPIO before the pin controller.
-
-Normally we would register in the other order, and the code inside
-of_gpiochio_add() as part of [devm_]gpiochip_add() will parse the phandle
-and add the ranges when you add the GPIO chip.
-
-Is this impossible to solve this cleanly?
-
-Yours,
-Linus Walleij
+Thanks!
