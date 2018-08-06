@@ -1,69 +1,35 @@
-Return-Path: <venture@google.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ECjYft6n"; 
- dkim-atps=neutral
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41kmZR2dPnzF3HL
- for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 04:36:30 +1000 (AEST)
-Received: by mail-it0-x242.google.com with SMTP id 72-v6so18715172itw.3
- for <openbmc@lists.ozlabs.org>; Mon, 06 Aug 2018 11:36:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=n0Z7Ur8CO2PNrjjsXXNAjbGhxLCUA3HY0jM28CbQHmY=;
- b=ECjYft6nHG5C0/RzWm3O4MSweMkki89fXqx/XX7J6x8CUaILGBj5onzgIRsB/Q36Ev
- ds5GRu8/KW/6JgxXoCKoVy8WJ3EVgJ9vQU6pRvnvMk+ZKbCWlhNbV9U3o1/L6OgCGCX2
- r+JXYx+JY3TlXpas41wHycy99Qj6RibRB7+VsfJmP0e4nMPCk2usxm1F5RTzrKSJQwNl
- GVlyGpSnH1VMJhHTNdIqteljLE4GoMhT0YjveNdnLoaP2WarB4lx1fEI08+BFrDKe8AN
- lrj3VejCtRf/56I8V7D+/5ZJGxXX1HejhYUQJQSc4t3IqPhUPGV5qwHlMfVfWrf5WBPs
- 20ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=n0Z7Ur8CO2PNrjjsXXNAjbGhxLCUA3HY0jM28CbQHmY=;
- b=DhzO5GNYTKvs1wGeBtIjfL0hMVTmFbSrSZW+ZsYx7PbKMuNyuGqmMTbv1SKrI3zC2X
- mpXXeYaLBLgb4WLtCg0cT72nrdtewgAl8detAea26oNbO4aG3Blgj3CD59A7mvWk4j41
- Bwwg5BcFwuSgZIdupDax+I9itCo6vgK+TQ7im6hCEkwZBS5j0XZsCtUrlhshKF8ERSrk
- fORhVX5WeFrIdzCjieCDR/BKTolfyri+lA3eojiLiV7Wb2bH7Twtj64b/wVQdrA7EJPH
- MWy6jBTts/Oak8wRLVNmaj/qdgO8MaTdqY9xwB9I7J2xo/46ptHWtvp1G+E9PQzFU8+E
- wWSA==
-X-Gm-Message-State: AOUpUlHic8dKtpcyCkRq0dErLCroIC/2L8VbiPv/LJ/tkQohH6WfSqv2
- 81uiNzrlN7dPUr1UWwbHzTDzgbanzm4nXYV+rvthLQ==
-X-Google-Smtp-Source: AAOMgpcNScXsG6mgQKFFCQTm7U93I3kcOgKTwtfZ3lhRhUHo2fDiiZI+y1pf3pTJGFhUaHFJvJFqMqnXpQLJYKNwxXw=
-X-Received: by 2002:a24:7882:: with SMTP id
- p124-v6mr16129544itc.111.1533580587767; 
- Mon, 06 Aug 2018 11:36:27 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a6b:5c07:0:0:0:0:0 with HTTP;
- Mon, 6 Aug 2018 11:36:07 -0700 (PDT)
-In-Reply-To: <CAO=notyBLHJBtRF6POCvQejNkVSgsCSzCdb8vL41Q9uzJe-JFA@mail.gmail.com>
-References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
- <20180723221837.GI105329@mauery> <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
- <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
- <CAO=notyMmcQQ=vmJ6G77EcsJfX6LRV-a7HEMdpr+SiWA4WpRZQ@mail.gmail.com>
- <CAO=notxcDx8BY3R_UH8P_wJHFPiRuikmhT8MwkKmtVvk4QnGhg@mail.gmail.com>
- <CAO=notyBLHJBtRF6POCvQejNkVSgsCSzCdb8vL41Q9uzJe-JFA@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 6 Aug 2018 11:36:07 -0700
-Message-ID: <CAO=notz_FGnAe0_qJ4Zwh15Kr6_BqJiYNjA+feE2THYqRUQ4aw@mail.gmail.com>
-Subject: Re: In-Band Firmware Update
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>,
- Robert Lippert <rlippert@google.com>, 
- Brad Bishop <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>, 
- "Tanous, Ed" <ed.tanous@intel.com>
-Cc: Sai Dasari <sdasari@fb.com>, Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- openbmc <openbmc-bounces+mspinler=linux.vnet.ibm.com@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41kmrP3YMJzF3HL
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 04:48:36 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id E4744127717;
+ Mon,  6 Aug 2018 14:47:57 -0400 (EDT)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: Managing openbmc with subtree
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <54643fe1-d382-3df7-8630-bb5e01ea2edb@linux.intel.com>
+Date: Mon, 6 Aug 2018 14:47:57 -0400
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <8E5317F7-E0B1-4A2F-B047-52B77E1AD13F@fuzziesquirrel.com>
+References: <00e6e0a4-027d-7a9c-ad49-363290e62c68@linux.intel.com>
+ <A174348B-515D-48F9-8D41-DD8AD8260006@fuzziesquirrel.com>
+ <54643fe1-d382-3df7-8630-bb5e01ea2edb@linux.intel.com>
+To: Dave Cobbley <david.j.cobbley@linux.intel.com>, prashanth.giri@dell.com,
+ sachit_bakshi@dell.com
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -75,112 +41,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Aug 2018 18:36:32 -0000
+X-List-Received-Date: Mon, 06 Aug 2018 18:48:38 -0000
 
-+Ed
 
-On Mon, Aug 6, 2018 at 10:26 AM, Patrick Venture <venture@google.com> wrote:
-> We've been working on another interface lately that allows arbitrary
-> BLOB read and write over IPMI.  We're using it to talk to a driver on
-> a future software stack that's in the works.  It's a generic approach
-> to reading and writing bytes that could be tailored to any purpose.
-> One simply implements a handler in the interface.  It was suggested
-> that instead of sending the current in-band code upstream (albeit
-> rewritten for better testing) that I instead send this upstream and
-> then write the update mechanism into that interface.
->
-> The interface defines some primitives:
-> - BmcBlobGetCount: returns the number of blobs known presently
-> - BmcBlobEnumerate: returns the blob's name for an index into the
-> count (index 0 might return "/tmp/bmc-image" or something)
-> - BmcBlobOpen: opens the blob and returns a session for future actions
-> - BmcBlobRead: returns bytes
-> - BmcBlobWrite: writes bytes
-> - BmcBlocCommit: any action the handler wants that basically means, do thing.
-> - BmcBlobClose: closes the file
-> - BmcBlobDelete: deletes the blob, not always possible.
-> - BmcBlobStat: returns blob metadata
-> - BmcBlobSessionStat: returns metadata specific to the session
->
-> It doesn't immediately define actions such as "abort", however, "close
-> without commit" might be equivalent.  It also wasn't designed to
-> support OOB data, so it doesn't have a native packet that indicates
-> there are bytes for Write() but they live elsewhere, such as in a P2A
-> 64-KiB block or an LPC memory map region.
->
-> I could likely find a way to easily handle those cases, possibly by
-> passing information into the Open command, and reading back from the
-> Stat() command.  Open takes a path to open, and it asks each handler
-> if they recognize the path, so one could have
-> "/tmp/bmc-image/p2a/{addr}" or something similar as an easy method to
-> configure that session.  OR "/tmp/..tgz" to use the UBI handler...
->
-> I've only pushed ~14 patches for the upstream OEM IPMI handler, and I
-> could port those to route through the blob interface rather
-> straightforwardly since it's nearly a 1:1 match.
->
-> The BMC IPMI Blobs source was written by me following TDD as closely
-> as possible.  The design has been under review for its use case for a
-> while, and is stable.
->
-> Regardless if we want to use it for this, I'd also be willing to
-> upstream our ipmi-blobs handler infrastructure.  It has presently one
-> limitation, and that is that it doesn't support run-time loading of
-> handlers, how ipmid supports finding IPMI libraries.  It is fully
-> contained with the handlers, and they're enabled by configuration
-> flags in the build.  This limitation could be removed if desired.
->
-> Patrick
->
->
-> On Mon, Aug 6, 2018 at 9:51 AM, Patrick Venture <venture@google.com> wrote:
->> In an effort to do the OEM IPMI firmware update as full open source
->> and to enable testing more thoroughly, I'm writing it anew and staging
->> the patches upstream.
->> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-ipmi-flash/+/11772/
->> is the current top of the stack of patches, but that'll change a bit
->> this week as I implement more of the design.
->>
->> If you're very interested, and not on the patches, please let me know
->> and I will add you to future ones.  That said, other than next week,
->> when I'll be out-of-office, I'm hoping to keep the patches going in a
->> brisk pace, so rapid feedback is appreciated.  Once the block-transfer
->> interface portion is finished, I'll push up the host-side tool (which
->> I also get to write anew).
->>
->> Patrick
->>
->> On Fri, Jul 27, 2018 at 12:01 PM, Patrick Venture <venture@google.com> wrote:
->>> Sorry, I haven't been on this email label recently -- accidentally fell behind.
->>>
->>> In parallel to these efforts, I've started upstreaming a design:
->>> https://gerrit.openbmc-project.xyz/11588 -- feel free to make
->>> comments.  I'm going to implement the design (it's already
->>> implemented, but now I'm expanding it to address incoming comments).
->>>
->>> Patrick
->>>
->>> On Tue, Jul 24, 2018 at 1:38 PM, Matt Spinler
->>> <mspinler@linux.vnet.ibm.com> wrote:
->>>> On 2018-07-23 19:13, Sai Dasari wrote:
->>>>
->>>>> Any thoughts on reusing/leveraging the PICMG's hpm spec @
->>>>> https://www.picmg.org/openstandards/hardware-platform-management/ .
->>>>> One of the benefit would be the standard 'ipmitool' has native support
->>>>> for the update and changes are limited to BMC f/w.
->>>>> On a downside, the firmware binary has to be repackaged as .hpm format
->>>>> for this protocol to do some preparation steps as it support multiple
->>>>> f/w components in a single package.
->>>>
->>>>
->>>> This was brought up a few months ago and decided against:
->>>> https://lists.ozlabs.org/pipermail/openbmc/2017-November/009938.html
->>>>
->>>> We are going to investigate using the DFU protocol, as that
->>>> also has host side tools already available.
->>>>
->>>>
->>>>>
->>>>>     --Vernon
->>>>
->>>>
+> On Aug 1, 2018, at 5:53 PM, Dave Cobbley =
+<david.j.cobbley@linux.intel.com> wrote:
+>=20
+> I posted an initial draft of what permissions could look like in the =
+top level meta-data.
+>=20
+> https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11730/
+
+At first I was OK with this idea but instead of rushing to something
+I=E2=80=99d like to slow down for a sec and be sure we don=E2=80=99t =
+like the other
+options.
+
+My issue with 11730 is that we wind up with different workflows for
+updating the different subtrees - for example updating =
+meta-virtualization
+is different than updating meta-phosphor.
+
+If we go back to your original workflow where the developer pushes =
+directly
+to the subtree repository instead of openbmc/openbmc, recall we were =
+stuck
+on how to do it:
+
+>>> However at this point, I end up with two commits in the parent repo, =
+one with the squashed changes, and a merge commit.
+>>> I don't know how to do this operation without ending up with a merge =
+commit, do you have any advice here?
+>> To avoid the merge you can skip the subtree pull (which does a merge) =
+and
+>> instead generate a patch:
+>>=20
+>> git cherry-pick =E2=80=94strategy=3Dsubtree -Xsubtree=3Dpath/to/subtree=
+ <squash-commit>
+
+
+Elaborating on my suggestion from before - here is a possible workflow.
+
+Consider a repository with two remotes:
+
+$ cat ~/.ssh/config
+Host openbmc.gerrit
+        Hostname gerrit.openbmc-project.xyz
+        Port 29418
+        User user
+        IdentityFile ~/.ssh/my-gerrit-key
+
+$ git remote -v
+meta-phosphor-gerrit    ssh://openbmc.gerrit/openbmc/meta-phosphor =
+(fetch)
+meta-phosphor-gerrit    ssh://openbmc.gerrit/openbmc/meta-phosphor =
+(push)
+openbmc-gerrit  ssh://openbmc.gerrit/openbmc/openbmc (fetch)
+openbmc-gerrit  ssh://openbmc.gerrit/openbmc/openbmc (push)
+
+You can make and commit changes as usual.  When it comes time to push =
+for
+review:
+
+$ git checkout -b phosphor-master meta-phosphor-gerrit/master
+$ git cherry-pick =E2=80=94-strategy=3Dsubtree -Xsubtree=3Dmeta-phosphor =
+<openbmc/openbmc-sha>
+$ git push meta-phosphor-gerrit HEAD:refs/for/master
+
+This gives us the same process for all subtrees, whether or not they are
+openbmc hosted subtrees.  It also does not require people hacking on a
+subtree to clone OpenBMC when it doesn=E2=80=99t make sense for them to =
+do that,
+such as someone just using the Aspeed BSP layer.
+
+Granted it is a couple extra commands, but it seems like something that =
+could
+be scripted pretty easily.  Thoughts?
+
+-brad
+
+>=20
+> This will require additional people receive +2 permissions, but the =
+OWNERS plugin will ensure that a patch cannot get merged unless it has =
++2 from the appropriate people.
+>=20
+> Thanks,
+> -Dave
