@@ -1,58 +1,55 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22b; helo=mail-it0-x22b.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4003:c06::235; helo=mail-oi0-x235.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="J4Bzc5iq"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="e6wHnfdq"; 
  dkim-atps=neutral
-Received: from mail-it0-x22b.google.com (mail-it0-x22b.google.com
- [IPv6:2607:f8b0:4001:c0b::22b])
+Received: from mail-oi0-x235.google.com (mail-oi0-x235.google.com
+ [IPv6:2607:f8b0:4003:c06::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41kRbt5S1TzF3HG
- for <openbmc@lists.ozlabs.org>; Mon,  6 Aug 2018 15:51:37 +1000 (AEST)
-Received: by mail-it0-x22b.google.com with SMTP id d16-v6so11333557itj.0
- for <openbmc@lists.ozlabs.org>; Sun, 05 Aug 2018 22:51:37 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41kbkp6rQ6zF3HK
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Aug 2018 21:58:10 +1000 (AEST)
+Received: by mail-oi0-x235.google.com with SMTP id b15-v6so21619461oib.10
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Aug 2018 04:58:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SBSJw4tpbzQoU8SZIlf8f04+ZAF1X9O/Tke9XA5TxdQ=;
- b=J4Bzc5iqxuKbZCVM5RknbLIWEIxlxlOhN3ZNSTDiVjYLmly28wO541Wez8sVVt2vQa
- FTtu9NbCyPb3i+78tgKa1/FJeioMLYMFOzKVncEESPmZtkR9tDfzxKxGZg+nczx1fRuo
- 5zekfgI6UjpkoFnqX+LMuwAySCW8146XJjJ0/AXZ97XFHzlhnSm7/5LhLlKTDKjqrcOt
- 00Tg1m/LSBy3zubf/P+fKrg1o/tkaHNq8AX6kUGNFEdTwmjbFW2mynlnc9ygKHxZ+aOM
- TMxNzf2HRwgs8BkEcSQBE8cL1HdLoN5ycBdQVoyTS3gk+gRVxuRHsgK29bmzgs98wl69
- w78g==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=mmtbnHAflUZedpCq5200Ynw52CXqM9q94ZMXLXEvOVs=;
+ b=e6wHnfdqzLR7bqOXKxob9fzWEGQkhlHU1qSebSgSijBiUe+tqKstv02rOy28FwhVDk
+ sfdJ102CKX0skrP80Rnw7I9D5gdUK1aoEOj6qrnOuVW/M+Gr9vnZVvnYtZ+EXEnnMj4J
+ OOZftmTe+JP7hyijVgr1a5l49FG/ttvPqj9qkTkF88CcLXsBSRT/0eTaVVa8VZLSivny
+ lWsJIvuhwM6Nn4CLNzwSJBsHzQK4mjiNutQP9RG6N2ifzQFw1Zmx42MO1VrwJ8LjnRvu
+ jK2yS4iwTRK6UNrlzl+MMR0h6GMzU1szFcGXRMa8bFjKxEjSRMJej1VvB4jFhZX1N7Id
+ 8e4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SBSJw4tpbzQoU8SZIlf8f04+ZAF1X9O/Tke9XA5TxdQ=;
- b=AXP52Iul2PYw6UEZt05Jh0fAdumzGyyVB3WuqDj6QNmiay0+v2PNbHaqVpd4iwwz3M
- xZOas/hXYS7f2PTKKNXpbWXZKAZIw8NfuxO0hFE4KcDNhRZNpCkvya7luvs5+JgOIyoN
- fGH7HkokmKo9feqtbC8R/WHxNC7Hnvd3caiY5YdlziQk//wb59HzHQqvj3Srgq9xE7lQ
- mNpl2yY6SDLVt1K8GEgRlLquiEivk10ZIMfw2h4RfOyb+9LHr9reTvW4ADNJ7i/dl+wH
- xdBh7Ti3koI3mIxqKl4GdBqmU9rVVppLyk4eYWDXi7fQ++Qvw2M1egKmXtNPZI2oN77/
- xjtA==
-X-Gm-Message-State: AOUpUlEwPY2jxtSw0QykesZap6wpgMoPoAXiw5Cb4jM1H581X1ZRUnwc
- 9carZfBRTXPNq90fbM3EdIU6W8pccBPOE9CFxOM=
-X-Google-Smtp-Source: AAOMgpcc6cI+pLJCxq0jM9VYOu5HO82EvGcn+wYNrqmk99HsTeZzsynEtnnYOaqRTmK474i5iLWZmfDfywz90fe3Iio=
-X-Received: by 2002:a02:5e42:: with SMTP id
- h63-v6mr11550330jab.117.1533534695235; 
- Sun, 05 Aug 2018 22:51:35 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=mmtbnHAflUZedpCq5200Ynw52CXqM9q94ZMXLXEvOVs=;
+ b=luk5RcIo37tYSTSS/9E+E8jcQP7l1a4mJt8o3NaWqp08VR3FsgrBttquPXleodb8Rv
+ +NxxRAKC/Qg5T1dAuQGQvG8Z42sD8yD6p2VrnW0WQSnGDz/pCLInOHhKls+ejopJ+b0Q
+ nZZgqu5VCnbeCa1Mtspns0djWvzwT9hYj26OzNSovdXUUN23ZZiY9t9Fkxv+eHWm9823
+ 2OaNUDWicL5pm19BXyv+xO2IO1FBQESRGO0P27vbjaSFxJMKBoEY+ZlHkpYr/cLXSDK6
+ OGgoK/5ndsA7orT7vBt9PwcIZgwK8ASrUwO/eJ7Sh+yxsrWzrHNx39shJEYdQElEKBKA
+ ZMZQ==
+X-Gm-Message-State: AOUpUlFFNzk9UMk+5VcpN8KJUXlcYhm2vOUwnF+4IkrNyEz48obpfDX6
+ HuB5MjjnjH/4eCK3lanDy68Pew+LSjHTdlcN6CctaLZ5
+X-Google-Smtp-Source: AAOMgpcHyn0PHB3lzGKYLtlZaid5/6a0MSSAMNG2+GLdm+4ecZyv2LELTGAGz4YLMYPZ8EhcKbwlL89chE1ohOtqraY=
+X-Received: by 2002:aca:4d0a:: with SMTP id
+ a10-v6mr14976001oib.175.1533556688430; 
+ Mon, 06 Aug 2018 04:58:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAARXrtm64qpSkDD31+m9HGa-Bw4k0jkRizHiS9fc73JZHMfmXQ@mail.gmail.com>
- <fe3a6c3b-28cf-0af7-5c9d-5ac4dcaa3363@intel.com>
-In-Reply-To: <fe3a6c3b-28cf-0af7-5c9d-5ac4dcaa3363@intel.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Mon, 6 Aug 2018 13:51:23 +0800
-Message-ID: <CAARXrtkx00w-5D98nhooV+XB1OsaFWqVSdEn6ikHMAk753d=Kg@mail.gmail.com>
-Subject: Re: What is the proper way to read RTC battery voltage
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: by 2002:a4a:2c4a:0:0:0:0:0 with HTTP;
+ Mon, 6 Aug 2018 04:58:08 -0700 (PDT)
+From: AKASH G J <akashgj91@gmail.com>
+Date: Mon, 6 Aug 2018 17:28:08 +0530
+Message-ID: <CAE33tLFWffT5wd9La+zU-ATkbrqa4-aRH=C+t_OBnWgsSgwNdg@mail.gmail.com>
+Subject: Temperature Sensor and its Reading not Showing Up.
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000a829220572c2fd70"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -64,31 +61,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Aug 2018 05:51:39 -0000
+X-List-Received-Date: Mon, 06 Aug 2018 11:58:12 -0000
 
-> > 3. We could use gpio-mux and io-channel-mux driver, that let kernel to
-> >     automatically pull the GPIO while reading the sensor. (See
-> >     https://github.com/mine260309/linux/commit/8e60647389e5400a85c705685ca2f6b875856c99
-> >     for example).
-> >     However, it requires some delay between GPIO pulled high and reading the ADC
-> >     channel, if the delay is too small, the ADC channel reading becomes
-> >     incorrect, e.g. it gets 0 or a lower value than expected.
-> >
->
-> This sounds like a cleaner solution, but more difficult to execute in
-> practice.  I think either 2 or 3 would solve it.  Is there an easy way
-> to delay in the driver without blocking?  It doesn't need to be terribly
-> deterministic to work correctly.
+--000000000000a829220572c2fd70
+Content-Type: text/plain; charset="UTF-8"
 
-I did not know a way to delay without blocking, I was thinking:
-1. Is it reasonable to do udelay/mdelay in driver?
-2. If yes, which driver should use the delay? The io-channel-mux driver,
-   or adc driver?
+Hi Team,
 
-> Another thing to note is that even with this, your battery life is
-> affected by how often you poll the voltage, so in general we reduce the
-> scan rate of the battery voltage readings compared to other sensors to
-> keep the battery life more sustainable over the long term.
+I tried to list sensors and its reading using the command "ipmitool -I dbus
+sdr elist full". But temperature sensor and its reading is not displayed.
+Please someone help to resolve this problem.
 
-Yup, current phosphor-hwmon is able to config the sensor read interval, in
-practice we probably read the battery voltage once every day.
+
+
+Thanks and Regards,
+
+Akash
+
+--000000000000a829220572c2fd70
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Team,</div><div><br></div><div>I tried to list sen=
+sors and its reading using the command &quot;ipmitool -I dbus sdr elist ful=
+l&quot;. But temperature sensor and its reading is not displayed. Please so=
+meone help to resolve this problem.</div><div><br></div><div><br></div><div=
+><br></div><div>Thanks and Regards,</div><div><br></div><div>Akash<br></div=
+></div>
+
+--000000000000a829220572c2fd70--
