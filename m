@@ -1,38 +1,71 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <kunyi@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c0b::229; helo=mail-it0-x229.google.com;
+ envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="nyACTJGO"; 
+ dkim-atps=neutral
+Received: from mail-it0-x229.google.com (mail-it0-x229.google.com
+ [IPv6:2607:f8b0:4001:c0b::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41krYh2rRqzDq6t
- for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 07:36:06 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2018 14:36:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,452,1526367600"; d="scan'208";a="61091237"
-Received: from hades.jf.intel.com (HELO [10.54.51.77]) ([10.54.51.77])
- by fmsmga008.fm.intel.com with ESMTP; 06 Aug 2018 14:32:15 -0700
-Subject: Re: SSL Certificate management - proposed REST APIs
-To: openbmc@lists.ozlabs.org
-References: <mailman.863.1533082376.30117.openbmc@lists.ozlabs.org>
- <a38b7b7a-1947-bd45-49d2-31a6dc5113af@charter.net>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <920ea60a-3594-f410-09a0-b29ed45f584b@intel.com>
-Date: Mon, 6 Aug 2018 14:33:45 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41krn76ft7zDq6t
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 07:45:57 +1000 (AEST)
+Received: by mail-it0-x229.google.com with SMTP id h20-v6so20294895itf.2
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Aug 2018 14:45:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+C/UsU/SxCqy27t8ESmjyvYSOjXS/2ODXWaG477slug=;
+ b=nyACTJGO1Po6jRzZoAZ/wPj+Pkwr4eq/01FVOZxWnDgJUfLXEDUUJB5wUV/1X0XZlx
+ KvDPWJXBadV7ZcS5ZkUK7v29CaFzH0aSia1978OSDpzl5QsUKmmS1y9ARqfKX+MPeqK8
+ tTXbeTSYSPusXc6W+xNejvgxNWyyG2nqnRMfZ39iOktToNk4DVkhmP3GQRAOJ1y4aeyj
+ kMvLATm6DPk42KHwjSkhWjSllBZJoVhsSuyQJFH5YdHGfrDdvQfS+ZWN9A/3B22T/xGr
+ LJLqNLzMFWdV9sNzYQo+ZHmdA+dMzMmq1t5KAdqzEuV4AnVit6nWNTXNd+oM+VFeNRrP
+ P15w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+C/UsU/SxCqy27t8ESmjyvYSOjXS/2ODXWaG477slug=;
+ b=JdbJwg7pH6pM1BbkuLWxBruQK5dHPmMLce6BuWrt3bbRgvu7boVdIcIOC4o5fV4AB2
+ ienaMtPPBKkThG5pVMgMtNt8gWjUW2nfgX6Ys9mT7k+iV2xfm2Ble6HfZVHEPs5FjkiD
+ jzICs0EEUk6w+/kpn8pGkAjLLdZqV4KGVktfG2ErapX9hrd1+XsCd/Wf844RMYxk+R8M
+ Lcwevobg+vrZxTNFAVT2vbIJxCKjv8oAgn3xu5WoJpypg3QHEdVXLhJHqVD0rYKCXfTu
+ RsBPMTWb76XscTF+MVjgizaK9HAc4u/PplJm8yIO/oqH7+MUHEeKKLJCIjf/lnk7PiZV
+ WdLg==
+X-Gm-Message-State: AOUpUlHFRd06cOGNg4CgH3gwX3bMx7kZcJPQpgcmsI4Vke3LKDomRCkQ
+ MZBAoHRgRv6IXfxG+J/NYZwYLCbzM1MWoVarTJ0buQ==
+X-Google-Smtp-Source: AAOMgpcRyuAduEU4RoASdBD5l0V7XDm+c1kKyd0+SlgGfyNiAZjXuPnvIIH7iEIoOpvluw1upAzrEB+QuXdH/43WlTg=
+X-Received: by 2002:a24:800c:: with SMTP id
+ g12-v6mr16679109itd.146.1533591955226; 
+ Mon, 06 Aug 2018 14:45:55 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a38b7b7a-1947-bd45-49d2-31a6dc5113af@charter.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <CAG9c7cAwMWMXQ=SOJ0Vjxzx0jUv3M8KLF8_fXam-z_4CuMJcvg@mail.gmail.com>
+ <CAO=notxVZowBBB4DSVYZv5MdC+H1CZ01r+DCPbZeYAJdqjAcug@mail.gmail.com>
+ <CABoTLcRjsOonjmPMMiijX8CvJ_jM9KJcz12AxntdzW8vCxpSFg@mail.gmail.com>
+ <CAG9c7cBXxc-81YVWjVspUDAPt6Xt+5OqVE4A7EzXuegwdxx8tg@mail.gmail.com>
+ <CABoTLcS0M_TbGBb8XB99sBe_S7tqfrm8vE=Eb_94UGMeGW3gAQ@mail.gmail.com>
+ <1533172735.788524.1460630440.2817ADF0@webmail.messagingengine.com>
+ <CABoTLcTR3YFFPTJAeAecWqZxcZQEBO-TgfCjJ1Xb1sCJVfojbQ@mail.gmail.com>
+ <CAARXrtm1NMpzHOuKB45nWimT6m18EY7sWYWu9FoGJaDW+ZyD7A@mail.gmail.com>
+ <CABoTLcQn6s6TCV=Zf==-Mm_VSAuN8nD3caT7Z5UPoW46LthxqQ@mail.gmail.com>
+ <1533180811.827947.1460716960.2A06961A@webmail.messagingengine.com>
+ <CAO=noty1A+n+u8JsQyc0iDDze-D5aDMcweBQFvd3qONOg21Hxw@mail.gmail.com>
+ <1533333813.4174910.1462882280.737C2773@webmail.messagingengine.com>
+ <CAO=notw8Nb0LqqhYt29YYckNdzWC6AcaNtkxP3tq+jz=DzgaUQ@mail.gmail.com>
+In-Reply-To: <CAO=notw8Nb0LqqhYt29YYckNdzWC6AcaNtkxP3tq+jz=DzgaUQ@mail.gmail.com>
+From: Kun Yi <kunyi@google.com>
+Date: Mon, 6 Aug 2018 14:45:28 -0700
+Message-ID: <CAGMNF6U5uT-utRdbV2Tgg=77AMvpAo73Z1oH97rkrfOH9gDrOA@mail.gmail.com>
+Subject: Re: UART Route setting
+To: Patrick Venture <venture@google.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Oskar Senft <osk@google.com>, henbinchang@gmail.com, Kun Yi <kunyi@google.com>
+Content-Type: multipart/alternative; boundary="000000000000b943d30572cb336a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -44,173 +77,130 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Aug 2018 21:36:09 -0000
+X-List-Received-Date: Mon, 06 Aug 2018 21:46:05 -0000
 
-On 08/01/2018 06:40 AM, Joseph Reynolds wrote:
->> Message: 4
->> Date: Tue, 31 Jul 2018 20:19:38 +0530
->> From: Jayanth Othayoth <ojayanth@gmail.com>
->> To: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com,
->> ed.tanous@intel.com
->> Subject: SSL Certificate management proposal.
->> Message-ID:
->> <CACkAXSrxyf819dQc+LEOfwahpcrK2QRH1AkXump-D9Ae+yaKBQ@mail.gmail.com>
->> Content-Type: text/plain; charset="utf-8"
->>
->> This proposal provides a mechanism to replace the self signed certificate
->> with  CA signed certificate based on BMC generated CSR.
->> [...snip...]
->>
->> How to update a signed certificate on the BMC ?
->> [...snip...]
->>
->> In order to support the above workflow, the BMC shall provide the 
->> following
->> REST APIs:
->>     [...snip...]
->>     - Upload digitally signed certificate.
->>     - Activate digitally signed certificates
->>     - Download digitally signed certificate
->> [...snip...]
->>
->> Note: REST/D-bus details not included here.
-> 
-> Straw-man proposal for SSL certificate REST APIs
-> 
-> URIs:
-> /xyz/openbmc_project/certificates/ssl/{index}
->          Represents a SSL certificate
->          Supports GET, PUT, POST, DELETE
-This endpoint really shouldn't support POST, as that would be a creation 
-action.  You can't create an already created object, and we shouldn't 
-really support creation of new certificate types at runtime.  GET is 
-bad, because it implies that we allow download of the cert once it's on 
-the BMC, which we shouldn't do.  I suspect this API should support PUT 
-and possibly DELETE (to revert back to a self signed cert).
+--000000000000b943d30572cb336a
+Content-Type: text/plain; charset="UTF-8"
 
+Thanks Patrick. I was aware of the driver but haven't thoroughly checked
+the email thread. IMO it's a great idea and something I've hoped for. Will
+post some comments in the thread for support.
 
->          JSON { "certificate": "..." }
-This field exist in a GET response.  Once uploaded, I don't think we 
-should expose the key through any external interfaces.  You could do 
-something similar to the redfish AccountService schema, where it 
-specifies that that field (like password) will be nullptr on responses, 
-but I'm not sure what value it provides.  Alternatively you could return 
-some of the data fields that aren't considered secret (expiration date, 
-common name, ect), but again, I'm not really sure how useful that is.
+On Mon, Aug 6, 2018 at 9:48 AM Patrick Venture <venture@google.com> wrote:
 
->      /xyz/openbmc_project/certificates/ssl/active
->          Represents which certificate is used by SSL
->          Supports GET, PUT, DELETE
->          JSON { "data": "/xyz/openbmc_project/certificates/ssl/1" }
->          See the magic below.
-
-Why even support a collection and an activate?  Testing a REST 
-collection is much more difficult than testing a single endpoint that 
-allows uploading a key, and reduces the number of things you need to 
-specify.  For example, how many certificates should we allow storing? 
-Should we store them all in nonvolatile or temporal storage?  When a 
-delete is issued, how do we ensure the unique id (1 in the above case) 
-doesn't change?
-
-An API like below seems a lot easier to understand and use
-
-/xyz/openbmc_project/certificates/ssl
-Supports PUT, DELETE
-PUT JSON { "data": "<CERTIFICATE DATA>" }
-
-POST would upload the certificate, verify it, and restart the webserver.
-DELETE would remove the previously uploaded certificate and replace with 
-the "default" certificate.  In the case of ssl, it would replace it with 
-the self signed key.
-
-> 
-> Notes:
->   - These represent a collection of SSL certificates and optionally an 
-> active one.
->   - The number of certificates can be zero or more.
-Given some of the other requirements, should it ever be zero?  Shouldn't 
-we always at least have a self signed cert?  Baring that, does the 
-number of keys we support even change at runtime?  I suspect we can just 
-come up with a list of well known names (ssl, ldap, ect) at compile 
-time, and avoid the concept of uploading and naming certificates 
-alltogether.
-
->   - The certificate numbering ({index}) must be stable across API 
-> operations.
->   - The implementation can impose a maximum limit (16 is plenty?).
->   - Duplicate certificates are allowed and are not detected.
->   - Expired certificates are allowed and are not detected.
->   - Mal-formed certificates are detected? TODO
->   - The certificates and active certificate info persists across rebooting.
-> 
-If we removed the collection aspect, most of these requirements (and 
-associated test cases) go away, and the interface becomes much easier to 
-use.  I believe this is the path we should go down.
-
-> Magic for the active SSL certificate:
->   - When SSL is started with no active certificate:
->      + A certificate is created and used to sign itself.
->      + The new certificate becomes the active certificate.
->      + TODO: What if you already have the maximum number of certificates 
-> allowed?
->   - When you attempt to delete the active certificate:
->      + This is allowed.  TODO: Or maybe not allowed.
->      + There will be no active certificate (see implementation note).
->      + /xyz/openbmc_project/certificates/ssl/active is deleted.
->      + The underlying certificate is not deleted.
->   - When you PUT (replace) the active certificate:
->      + This is allowed.  TODO: Or maybe not allowed.
->      + The newly put certificate becomes active (see implementation note).
->      + /xyz/openbmc_project/certificates/ssl/active does not change.
-> 
-> Implementation note: When you change the active certificate while SSL is 
-> running, does the behavior of SSL change immediately, or only for new 
-> connections?  How does this work?  TODO.
-
-I don't know of a way to persist TLS sessions on a key change, without 
-keeping a second OpenSSL context around.  I suspect we need to complete 
-the TLS session with the existing key (to give the uploader the correct 
-response) then drain and close the connection pool, and restart the server.
-
-> 
-> Ideas to support future behaviors:
-> 
-> 1. To support future certificate types, the ssl element was used. Ideas:
->      /xyz/openbmc_project/certificates/ssl
->      /xyz/openbmc_project/certificates/host
->      /xyz/openbmc_project/certificates/rootoftrust
-
-I like this, as it makes it very explicit what keys are supported to a 
-user, although I suspect root of trust certificates will take a 
-different form.
-
-> 
-> 2. There are two options to articulate the content of each certificate 
-> (such as an associated private key or certificate signing request): JSON 
-> and URIs:
-> JSON:
->      { "certificate": "...", "privatekey": "...", "expiration": "DATE" }
-> URIs:
->      /xyz/openbmc_project/certificates/ssl/1/certificate
->      /xyz/openbmc_project/certificates/ssl/1/privatekey
->      /xyz/openbmc_project/certificates/ssl/1/csr
-Private key should never be hosted from an outbound interface.  Doing so 
-defeats the entire purpose of generating the CSR on the bmc in the first 
-case.  These APIs could be POST only, in which case it would be much 
-better, but in that case, you don't necessarily need CSR.
+> +kunyi@
+>
+> PTAL - I know we're looking for a way to move the hacks forward
+> properly, a driver or driver(s) is apparently already in the works,
+> albeit with upstream resistance.
+>
+> Patrick
+>
+> On Fri, Aug 3, 2018 at 3:03 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> >
+> >
+> > On Sat, 4 Aug 2018, at 00:29, Patrick Venture wrote:
+> >> On Wed, Aug 1, 2018 at 8:33 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> >> > On Thu, 2 Aug 2018, at 12:50, Oskar Senft wrote:
+> >> >> Interesting suggestion, that looks promising, thank you?
+> >> >>
+> >> >> What's the state of that driver? I.e. where do we expect it to land?
+> >> >
+> >> > If you think the bmc-misc-ctrl series is useful, please reply to the
+> >> > upstream thread to outline all of your use-cases. There's a lot of
+> push-
+> >> > back on using the devicetree to describe these features, and I haven't
+> >> > had a lot of feedback on the acceptability of the rest (driver itself,
+> >> > userspace ABI).
+> >> >
+> >> > The more evidence we have of this being necessary/useful the better.
+> >>
+> >> I just skimmed that message, and we're looking for a mechanism to set
+> >> in the kernel some bits in the hwstrapping and other hardware
+> >> registers to do things like restrict P2A ranges, disable lpc2ahb
+> >> stuff, etc.  Things we had hacked into the mach-aspeed.c (iirc), and I
+> >> wasn't sure it made sense to write a half dozen small drivers to
+> >> control these individual things -- would these kind of use cases fall
+> >> under this misc driver?
+> >
+> > Yes, everything you listed there was a strong motivation for the series.
+> >
+> > Cheers
+> >
+> > Andrew
+>
 
 
-> The JSON approach seems way easier.
-> 
-> 3. The URIs for certificate signing requests (CSR) could be:
-> /xyz/openbmc_project/certificates/csr/{index}
->      /xyz/openbmc_project/certificates/ssl/csr
-> /xyz/openbmc_project/certificates/ssl/csr/{index}
-> depending on how many CSRs you wanted to support.  (But let's not debate 
-> that now).
-> 
+-- 
+Regards,
+Kun
 
-:)  Can we debate 1 versus >1?  I don't know of any use cases that would 
-require multiple CSRs per interface, and single CSR, with persistence 
-until the next reboot is much easier to design and test than a multiple 
-certificate store kept persistently.
+--000000000000b943d30572cb336a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks Patrick. I was aware of the driver but haven&#39;t =
+thoroughly checked the email thread. IMO it&#39;s a great idea and somethin=
+g I&#39;ve hoped for. Will post some comments in the thread for support.</d=
+iv><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, Aug 6, 2018 at 9=
+:48 AM Patrick Venture &lt;<a href=3D"mailto:venture@google.com">venture@go=
+ogle.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">+kunyi@<br>
+<br>
+PTAL - I know we&#39;re looking for a way to move the hacks forward<br>
+properly, a driver or driver(s) is apparently already in the works,<br>
+albeit with upstream resistance.<br>
+<br>
+Patrick<br>
+<br>
+On Fri, Aug 3, 2018 at 3:03 PM, Andrew Jeffery &lt;<a href=3D"mailto:andrew=
+@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; wrote:<br>
+&gt;<br>
+&gt;<br>
+&gt; On Sat, 4 Aug 2018, at 00:29, Patrick Venture wrote:<br>
+&gt;&gt; On Wed, Aug 1, 2018 at 8:33 PM, Andrew Jeffery &lt;<a href=3D"mail=
+to:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; wrote:<br>
+&gt;&gt; &gt; On Thu, 2 Aug 2018, at 12:50, Oskar Senft wrote:<br>
+&gt;&gt; &gt;&gt; Interesting suggestion, that looks promising, thank you?<=
+br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; What&#39;s the state of that driver? I.e. where do we exp=
+ect it to land?<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; If you think the bmc-misc-ctrl series is useful, please reply=
+ to the<br>
+&gt;&gt; &gt; upstream thread to outline all of your use-cases. There&#39;s=
+ a lot of push-<br>
+&gt;&gt; &gt; back on using the devicetree to describe these features, and =
+I haven&#39;t<br>
+&gt;&gt; &gt; had a lot of feedback on the acceptability of the rest (drive=
+r itself,<br>
+&gt;&gt; &gt; userspace ABI).<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; The more evidence we have of this being necessary/useful the =
+better.<br>
+&gt;&gt;<br>
+&gt;&gt; I just skimmed that message, and we&#39;re looking for a mechanism=
+ to set<br>
+&gt;&gt; in the kernel some bits in the hwstrapping and other hardware<br>
+&gt;&gt; registers to do things like restrict P2A ranges, disable lpc2ahb<b=
+r>
+&gt;&gt; stuff, etc.=C2=A0 Things we had hacked into the mach-aspeed.c (iir=
+c), and I<br>
+&gt;&gt; wasn&#39;t sure it made sense to write a half dozen small drivers =
+to<br>
+&gt;&gt; control these individual things -- would these kind of use cases f=
+all<br>
+&gt;&gt; under this misc driver?<br>
+&gt;<br>
+&gt; Yes, everything you listed there was a strong motivation for the serie=
+s.<br>
+&gt;<br>
+&gt; Cheers<br>
+&gt;<br>
+&gt; Andrew<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"l=
+tr">Regards,<div>Kun</div></div></div>
+
+--000000000000b943d30572cb336a--
