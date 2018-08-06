@@ -1,71 +1,63 @@
 Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::22c; helo=mail-it0-x22c.google.com;
+ (client-ip=2607:f8b0:4001:c0b::230; helo=mail-it0-x230.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Cq2gG4A/"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="AU8O2GFS"; 
  dkim-atps=neutral
-Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
- [IPv6:2607:f8b0:4001:c0b::22c])
+Received: from mail-it0-x230.google.com (mail-it0-x230.google.com
+ [IPv6:2607:f8b0:4001:c0b::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41kk990lvQzF3HK
- for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 02:47:56 +1000 (AEST)
-Received: by mail-it0-x22c.google.com with SMTP id s7-v6so18291968itb.4
- for <openbmc@lists.ozlabs.org>; Mon, 06 Aug 2018 09:47:56 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41kkF95C0yzF3HK
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 02:51:25 +1000 (AEST)
+Received: by mail-it0-x230.google.com with SMTP id j81-v6so16543291ite.0
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Aug 2018 09:51:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=YCTcjSs+CToWsq9hcONqk6TwRLqfyF+CEOxqiM2iQbs=;
- b=Cq2gG4A/d2+qCx/s6Ap+Q9nD3gCCeqyUWWMt9WTYfg0YFgxUnAIXDgz/7oZcjNlMLW
- EKLx/nV559O060RKeTcOlvI81LfGu2sEccdhZZnNWmnjdfLoUUUEgKqmsG5naXTXgdEk
- 4PYBDeTCM40M83nD2D96pBjuatkmf42BFMslpxNO47ORuL/j7bitLWynKcZy6VrqkAJ/
- QVuqY5RGTZZogXU0sv10bfzdZsPp+5tTE71bW9VmSoUCJ6N12yVRuPcAIivyaboHHNwg
- YTBAfHgnbyV5WZm7gPK/9bUNnkarjknyXP+vAQdTqCebLB5gvv3QeOHHjuqdAq2e4kYl
- leEg==
+ :cc; bh=aKuGZb7ix2dc54s6ZKZMKvQ+z0SRRVaWD7y9JJibWfY=;
+ b=AU8O2GFS7lFTDKBgfbPdsem/0WtbJwY3MoEd5z79Cktb6+9bloQl6VldXTi2fUA147
+ VVjJuit/RYFYqmq6VHiYUcBeWlnQiSyesDYkg7J3NDeeNLqGXrGEh3BiL2Z6+z6I+2x+
+ QpWh82FMlfkcvQtm3NSdHsoR8nZ3Iaq9CiAmOik7bfTiKgtrvaJvg5jlZhtYXj4q8F16
+ dIhrNNsMaqqRQcx9bL5Xh4VAVjn9gobt0LL2rpbOaaWvewmrazW/d/3kbI4zD+Pt4aCL
+ gy3RxkFQltIIpxBjZG8DBjaGpw1qKw66O6xgL0slK7PMFANfz3XvDBcsFKq/3NHfUDzC
+ /ScA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=YCTcjSs+CToWsq9hcONqk6TwRLqfyF+CEOxqiM2iQbs=;
- b=iyjYhEyPz/AJuCqkOXxiyalcUEfmLrQwWnwIabet8hPntrF9+VmsmIz/ZrocqFTJ0e
- 8V5SmqaOdsSPPvx0FWRhnA7ucWiB2RkW2JvBwG3ZPYymi9WvmcH4oLgO68pbYUtZ5Isk
- tSTM1KBgTLHnWiegNsR7vK2gsQAz5dKIbCJaJtq9lFUx2ysIVuiWYLC8dM6ZXnPXxQ4P
- qAcWWdC4O6CSNFtbA1glY9aEO4VpBbccquGykI3BAEyL3VhrZBxxOxBoNb73srfk/vaW
- uXJkO8hCpQL9QWSMZZUKbQ54wmCJMrQngUhwxFyGGA4w8ozfEEuLfhHOyFyz6Ell9NWe
- GQaA==
-X-Gm-Message-State: AOUpUlE1at+zJASROgQOcV3c+8NRbPFCfI9n6vhQ+5ptpVNA8kksu29T
- c3WTadJOzgg4493dlkJ5S7p6wictmDbWKJPbH99vSw==
-X-Google-Smtp-Source: AAOMgpeV5KkqDfkxFpKmQZXO5cgAbCM7ojm0AEXZIGB7ERtm14fY+YIzJyZ3azpcg2BdeYT9X2snxiZYayAyVWkQBRU=
+ bh=aKuGZb7ix2dc54s6ZKZMKvQ+z0SRRVaWD7y9JJibWfY=;
+ b=hVFlVDsYGXioUHnneumMKCQARQ6O3vjvocLR/MGHCgK9HGK7U77kZbpkAODkY+WFIi
+ zaAUiXK0/z0KqC9prlgmsXewusjdRqVZgTvUI8Pnd/ymMgzNf2Dyr6qL8fnB5XVjfq9U
+ MlC48qBwiHUFlFCnl0+rYNZRJx6PjzxDfqLzsIQtv3sR2Z0g6GTmguNuq3efZUOe/tPS
+ 6Yz4Sx0hRmU8ruhPoCkFHwDIpss/7VqnDUNeQD73e38W9FB7FIqOXyq4IzkuAQYMpEQ1
+ Vc1I8dehC5SfNJTtSOKEcEckBRxa36oSTetVdWKfDXCtyjuPajVHCtL1mEwlqAnPs5S5
+ 7W8g==
+X-Gm-Message-State: AOUpUlFryvPrE10UqX3bM9770WSQcRDwjS9iCzaj4oS507can8hdMDVf
+ 0tRVuEbAe2kRnYeL6N9w1YeAsNahk+3FNK9YXM6Jgw==
+X-Google-Smtp-Source: AAOMgpfJP8P97nUmjIqyoNOQTVp+UC9PrLZVkH4awmfOFnZPY9EPXihtx1WibSqy4pbo2flCg2xW0lu/BT1sD3M5/qo=
 X-Received: by 2002:a02:9b54:: with SMTP id
- g20-v6mr13771742jal.33.1533574074284; 
- Mon, 06 Aug 2018 09:47:54 -0700 (PDT)
+ g20-v6mr13782123jal.33.1533574283627; 
+ Mon, 06 Aug 2018 09:51:23 -0700 (PDT)
 MIME-Version: 1.0
 Received: by 2002:a6b:5c07:0:0:0:0:0 with HTTP;
- Mon, 6 Aug 2018 09:47:33 -0700 (PDT)
-In-Reply-To: <1533333813.4174910.1462882280.737C2773@webmail.messagingengine.com>
-References: <CAG9c7cAwMWMXQ=SOJ0Vjxzx0jUv3M8KLF8_fXam-z_4CuMJcvg@mail.gmail.com>
- <CAO=notxVZowBBB4DSVYZv5MdC+H1CZ01r+DCPbZeYAJdqjAcug@mail.gmail.com>
- <CABoTLcRjsOonjmPMMiijX8CvJ_jM9KJcz12AxntdzW8vCxpSFg@mail.gmail.com>
- <CAG9c7cBXxc-81YVWjVspUDAPt6Xt+5OqVE4A7EzXuegwdxx8tg@mail.gmail.com>
- <CABoTLcS0M_TbGBb8XB99sBe_S7tqfrm8vE=Eb_94UGMeGW3gAQ@mail.gmail.com>
- <1533172735.788524.1460630440.2817ADF0@webmail.messagingengine.com>
- <CABoTLcTR3YFFPTJAeAecWqZxcZQEBO-TgfCjJ1Xb1sCJVfojbQ@mail.gmail.com>
- <CAARXrtm1NMpzHOuKB45nWimT6m18EY7sWYWu9FoGJaDW+ZyD7A@mail.gmail.com>
- <CABoTLcQn6s6TCV=Zf==-Mm_VSAuN8nD3caT7Z5UPoW46LthxqQ@mail.gmail.com>
- <1533180811.827947.1460716960.2A06961A@webmail.messagingengine.com>
- <CAO=noty1A+n+u8JsQyc0iDDze-D5aDMcweBQFvd3qONOg21Hxw@mail.gmail.com>
- <1533333813.4174910.1462882280.737C2773@webmail.messagingengine.com>
+ Mon, 6 Aug 2018 09:51:03 -0700 (PDT)
+In-Reply-To: <CAO=notyMmcQQ=vmJ6G77EcsJfX6LRV-a7HEMdpr+SiWA4WpRZQ@mail.gmail.com>
+References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
+ <20180723221837.GI105329@mauery> <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
+ <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
+ <CAO=notyMmcQQ=vmJ6G77EcsJfX6LRV-a7HEMdpr+SiWA4WpRZQ@mail.gmail.com>
 From: Patrick Venture <venture@google.com>
-Date: Mon, 6 Aug 2018 09:47:33 -0700
-Message-ID: <CAO=notw8Nb0LqqhYt29YYckNdzWC6AcaNtkxP3tq+jz=DzgaUQ@mail.gmail.com>
-Subject: Re: UART Route setting
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Oskar Senft <osk@google.com>, Lei YU <mine260309@gmail.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- =?UTF-8?B?5by15ryi5b2s?= <henbinchang@gmail.com>, kunyi731@gmail.com
+Date: Mon, 6 Aug 2018 09:51:03 -0700
+Message-ID: <CAO=notxcDx8BY3R_UH8P_wJHFPiRuikmhT8MwkKmtVvk4QnGhg@mail.gmail.com>
+Subject: Re: In-Band Firmware Update
+To: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Cc: Sai Dasari <sdasari@fb.com>, Vernon Mauery <vernon.mauery@linux.intel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ openbmc <openbmc-bounces+mspinler=linux.vnet.ibm.com@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -78,44 +70,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Aug 2018 16:47:58 -0000
+X-List-Received-Date: Mon, 06 Aug 2018 16:51:27 -0000
 
-+kunyi@
+In an effort to do the OEM IPMI firmware update as full open source
+and to enable testing more thoroughly, I'm writing it anew and staging
+the patches upstream.
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-ipmi-flash/+/11772/
+is the current top of the stack of patches, but that'll change a bit
+this week as I implement more of the design.
 
-PTAL - I know we're looking for a way to move the hacks forward
-properly, a driver or driver(s) is apparently already in the works,
-albeit with upstream resistance.
+If you're very interested, and not on the patches, please let me know
+and I will add you to future ones.  That said, other than next week,
+when I'll be out-of-office, I'm hoping to keep the patches going in a
+brisk pace, so rapid feedback is appreciated.  Once the block-transfer
+interface portion is finished, I'll push up the host-side tool (which
+I also get to write anew).
 
 Patrick
 
-On Fri, Aug 3, 2018 at 3:03 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+On Fri, Jul 27, 2018 at 12:01 PM, Patrick Venture <venture@google.com> wrote:
+> Sorry, I haven't been on this email label recently -- accidentally fell behind.
 >
+> In parallel to these efforts, I've started upstreaming a design:
+> https://gerrit.openbmc-project.xyz/11588 -- feel free to make
+> comments.  I'm going to implement the design (it's already
+> implemented, but now I'm expanding it to address incoming comments).
 >
-> On Sat, 4 Aug 2018, at 00:29, Patrick Venture wrote:
->> On Wed, Aug 1, 2018 at 8:33 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> > On Thu, 2 Aug 2018, at 12:50, Oskar Senft wrote:
->> >> Interesting suggestion, that looks promising, thank you?
->> >>
->> >> What's the state of that driver? I.e. where do we expect it to land?
->> >
->> > If you think the bmc-misc-ctrl series is useful, please reply to the
->> > upstream thread to outline all of your use-cases. There's a lot of push-
->> > back on using the devicetree to describe these features, and I haven't
->> > had a lot of feedback on the acceptability of the rest (driver itself,
->> > userspace ABI).
->> >
->> > The more evidence we have of this being necessary/useful the better.
+> Patrick
+>
+> On Tue, Jul 24, 2018 at 1:38 PM, Matt Spinler
+> <mspinler@linux.vnet.ibm.com> wrote:
+>> On 2018-07-23 19:13, Sai Dasari wrote:
 >>
->> I just skimmed that message, and we're looking for a mechanism to set
->> in the kernel some bits in the hwstrapping and other hardware
->> registers to do things like restrict P2A ranges, disable lpc2ahb
->> stuff, etc.  Things we had hacked into the mach-aspeed.c (iirc), and I
->> wasn't sure it made sense to write a half dozen small drivers to
->> control these individual things -- would these kind of use cases fall
->> under this misc driver?
->
-> Yes, everything you listed there was a strong motivation for the series.
->
-> Cheers
->
-> Andrew
+>>> Any thoughts on reusing/leveraging the PICMG's hpm spec @
+>>> https://www.picmg.org/openstandards/hardware-platform-management/ .
+>>> One of the benefit would be the standard 'ipmitool' has native support
+>>> for the update and changes are limited to BMC f/w.
+>>> On a downside, the firmware binary has to be repackaged as .hpm format
+>>> for this protocol to do some preparation steps as it support multiple
+>>> f/w components in a single package.
+>>
+>>
+>> This was brought up a few months ago and decided against:
+>> https://lists.ozlabs.org/pipermail/openbmc/2017-November/009938.html
+>>
+>> We are going to investigate using the DFU protocol, as that
+>> also has host side tools already available.
+>>
+>>
+>>>
+>>>     --Vernon
+>>
+>>
