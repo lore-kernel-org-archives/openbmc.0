@@ -1,71 +1,59 @@
-Return-Path: <venture@google.com>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::22a; helo=mail-it0-x22a.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c09::22b; helo=mail-qk0-x22b.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="c+hw5iy1"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="MuO/Fpmx"; 
  dkim-atps=neutral
-Received: from mail-it0-x22a.google.com (mail-it0-x22a.google.com
- [IPv6:2607:f8b0:4001:c0b::22a])
+Received: from mail-qk0-x22b.google.com (mail-qk0-x22b.google.com
+ [IPv6:2607:f8b0:400d:c09::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41lJ3d1d3lzDqBx
- for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 01:15:08 +1000 (AEST)
-Received: by mail-it0-x22a.google.com with SMTP id h20-v6so23435808itf.2
- for <openbmc@lists.ozlabs.org>; Tue, 07 Aug 2018 08:15:08 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41lJDZ1SjNzDqBx
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 01:22:52 +1000 (AEST)
+Received: by mail-qk0-x22b.google.com with SMTP id 126-v6so11680777qke.5
+ for <openbmc@lists.ozlabs.org>; Tue, 07 Aug 2018 08:22:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=HypbTicDkTJjRegag/Vn6iu6ZhYV33h3w9XPhxRXF2Q=;
- b=c+hw5iy1zFEyv2ZMqwAT8EnC6yh5wtTxXdaqLfk5+OHq3EKeF9Bpx0LB022dhEHqak
- NJCpELCb4wjdAatWvVZXnAzh6ynuilQuDaXsmsnRnMejAGU88HS2yXqLURh9vKGvkPGQ
- oQf0YDUeEoN2KOJqIwYHU5DRigovV1Y/Fdzzz0UvJu71mz7SgLlYJV/+T/EQz4yaWX38
- 9Fwl0Zgqs+U1hZkN0vxYHdnq+psZriEY16FZ4Z+hc5iJ7rWKPV6y66Sj5SxYpeUH0gwx
- wvvNPUrywbtI4e+ngy00BoWswUf7fgTtVrv0kJxFdUfWc7Wvzb2TJuKwcsgR8XZDbruD
- ln/g==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=lbLhoi+s2lNFMRmtXT4YR+HsZneCv2zgQzm+xrkl6s0=;
+ b=MuO/FpmxxV/WdQfRr18rT2z5eDEqAWCAKHHkVecZT9tUKUN0X6hsbpF2I1FRGeHWTp
+ sGnEDuUtgVAKZmHKImvCu/ZxfN6S4UI/Ftedcwb+FnP9CMtZZmqf2Y3vou98jIb6ZoTv
+ sNPyRGxyC1hCxTGXrhWM9xWRXT6EWB5KRYk/dVkN0UIl1V2QeOyeWzY3H/RQr995sEtc
+ D5sw6aXa6MpE3nX+WljFMDZ4DrIzDUi0nBjPWA4EoYh/crH/+kCwQpJSawa7udhPhYBz
+ y6tmkgeyDAdqVo214DaHm73nqLCPC1+thMDXAJcQQWMUWu2PV9swIy4BTIhZAPcBINhE
+ ntZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=HypbTicDkTJjRegag/Vn6iu6ZhYV33h3w9XPhxRXF2Q=;
- b=ghKSlgGHdm1SZUgycHI5xzzjRbO9wBuFC5zYsmGYlOa2XHVjkruB2bCUl5MhuFDjgy
- KaCdVz3e21cd8m548njnHJ8O9s3gOwgAdVL9aOWyzStE+cceTPegLG1Wce6HnNwfWz1q
- MZAF8WPZqHVUn+2b/rFgEOXvD7+hX1miv3VwhAGhw5fnTyesIml3xQf8u9osubxlPrwC
- fmZJ66c3aqHhoxXKWg1e5jizNvwWYSL7AwquaHi71143ST6hGCYOODbGcb1yjlxVDvyn
- v4RwtZqVlXuJpBkDt/0N2J+SGZVru2gooEdAZkjv0klp5n3oEmVQjt1/90IeILBU/Myv
- b46g==
-X-Gm-Message-State: AOUpUlHMK2ar1drGNvmIvgAVSGBBfjFlaTQ17iv99XM/vyFnQDv96reb
- Vxa/tffO55COx3o/ODyg199OmosoLgv4LIzOOzPAqw==
-X-Google-Smtp-Source: AA+uWPxhQLBo6D1dThcwgunRsI9lx9Hj6Po4TbHLrJo2+lqtrTPipQxy8F/VZ9j3qDiw8U+KkuWucWxNE70Ds6i7VBk=
-X-Received: by 2002:a24:8b82:: with SMTP id
- g124-v6mr2476520ite.70.1533654906897; 
- Tue, 07 Aug 2018 08:15:06 -0700 (PDT)
+ bh=lbLhoi+s2lNFMRmtXT4YR+HsZneCv2zgQzm+xrkl6s0=;
+ b=VKeJPtYId445oEMKlnzxwhek/9VUACDg/PNruqxMso40r9hb9Sys1AgItvgCn82gVW
+ tcKgfYtxjH3S9CXkWVUbtf+QuAlp0InaP0jKNW4On8qt7eVu82dhvDJntAaU1DUeKdvE
+ il+2aEwK4dBE8cskP17JSCiLi8I/xD1lotrusUra/PJ7VoAVNHVAqIeC3rxaLtqFs6AI
+ jHtJd28o5tkPks/4eqdkdCwSuTqbT7QcNKb0xSH0X4gHLAa6cwhgJRHzZbe7q6LpTp5G
+ Zsna4LQxv25FMVd8W0U8bz0aX3Dd0RaWwwrbtugabArcl6FyXrMNwSR60uR9JQ9NL9Xy
+ 6aCg==
+X-Gm-Message-State: AOUpUlGkoX2TALAwmnXbMUfPOGMIpQRTVOyy/5P+kwKKCuxvBaFTcvHu
+ ygy4pcsqj3AlSU+Zm5bhTkwHuBfG7Kp6D7yHwsAFsw==
+X-Google-Smtp-Source: AAOMgpcUyLOCSAzhkb/qCnkf0auR2qaazmffMQi2S4M4OsIGhBmotq1ltbogcXSZG4wrXaPiKyOGoFD1gpW8MTi2GRU=
+X-Received: by 2002:a37:f6a:: with SMTP id
+ z103-v6mr17968756qkg.427.1533655369772; 
+ Tue, 07 Aug 2018 08:22:49 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a6b:5c07:0:0:0:0:0 with HTTP;
- Tue, 7 Aug 2018 08:14:46 -0700 (PDT)
-In-Reply-To: <1533596643.2696676.1465549384.610418DC@webmail.messagingengine.com>
-References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
- <20180723221837.GI105329@mauery> <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
- <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
- <CAO=notyMmcQQ=vmJ6G77EcsJfX6LRV-a7HEMdpr+SiWA4WpRZQ@mail.gmail.com>
- <CAO=notxcDx8BY3R_UH8P_wJHFPiRuikmhT8MwkKmtVvk4QnGhg@mail.gmail.com>
- <CAO=notyBLHJBtRF6POCvQejNkVSgsCSzCdb8vL41Q9uzJe-JFA@mail.gmail.com>
- <CAO=notz_FGnAe0_qJ4Zwh15Kr6_BqJiYNjA+feE2THYqRUQ4aw@mail.gmail.com>
- <5627e085-571f-02ef-306d-07874eae5109@intel.com>
- <1533596643.2696676.1465549384.610418DC@webmail.messagingengine.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 7 Aug 2018 08:14:46 -0700
-Message-ID: <CAO=notxAHVWjQ_ZbFU=bOq41UWFFcg8zn0DTHwoUWW5UnAkU1w@mail.gmail.com>
-Subject: Re: In-Band Firmware Update
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Ed Tanous <ed.tanous@intel.com>, Matt Spinler <mspinler@linux.vnet.ibm.com>,
- Robert Lippert <rlippert@google.com>, Brad Bishop <bradleyb@fuzziesquirrel.com>,
- Nancy Yuen <yuenn@google.com>, Vernon Mauery <vernon.mauery@linux.intel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- openbmc <openbmc-bounces+mspinler=linux.vnet.ibm.com@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+References: <CAE33tLFWffT5wd9La+zU-ATkbrqa4-aRH=C+t_OBnWgsSgwNdg@mail.gmail.com>
+ <CAJoAoZ=VzAUp2Jg6nPy8UKBvqBw+s=xWwuMK4VG-p=t7QTwdkA@mail.gmail.com>
+ <CAE33tLGrrsCBjW3Hqpe1K8__WXLwmph5KWCTUVmoA2LUoBnSCw@mail.gmail.com>
+In-Reply-To: <CAE33tLGrrsCBjW3Hqpe1K8__WXLwmph5KWCTUVmoA2LUoBnSCw@mail.gmail.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Tue, 7 Aug 2018 08:22:38 -0700
+Message-ID: <CAJoAoZ=QxUvonb4b7CRq3YxQGLP9_F9KcPD5C7wi-rqCKfN=xQ@mail.gmail.com>
+Subject: Re: Temperature Sensor and its Reading not Showing Up.
+To: AKASH G J <akashgj91@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000008690440572d9f797"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -77,104 +65,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Aug 2018 15:15:10 -0000
+X-List-Received-Date: Tue, 07 Aug 2018 15:22:55 -0000
 
-On Mon, Aug 6, 2018 at 4:04 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> I'd be interested in separating out the "file like" nature from the
->> interface, and keep it as just a "block level" update, that may be a
->> file, or may be something else.
+--0000000000008690440572d9f797
+Content-Type: text/plain; charset="UTF-8"
+
+Akash,
+
+Check out this doc:
+https://github.com/openbmc/docs/blob/master/sensor-architecture.md
+
+Basically, you need your sensors to be available over DBus first, then
+configured to be available over IPMI. This doc should ideally give you some
+good step-by-step but you could also take a look at the Witherspoon or
+Zaius layers for an example.
+
+Emily
+
+On Mon, Aug 6, 2018, 8:49 PM AKASH G J <akashgj91@gmail.com> wrote:
+
+> Hi Emily,
+>
+> I did not configure the temperature sensors to report over dbus interface.
+> I am new in this area. Can you provide steps to configure the temperature
+> sensors to report over dbus?
+>
+>
+> Thanks and Regards,
+>
+> Akash
+>
+> On Mon, Aug 6, 2018 at 9:16 PM, Emily Shaffer <emilyshaffer@google.com>
+> wrote:
+>
+>> Hi Akash,
+>>
+>> Have you configured your temp sensors to report over dbus already?
+>>
+>> Emily
+>>
+>> On Mon, Aug 6, 2018 at 4:58 AM AKASH G J <akashgj91@gmail.com> wrote:
+>>
+>>> Hi Team,
+>>>
+>>> I tried to list sensors and its reading using the command "ipmitool -I
+>>> dbus sdr elist full". But temperature sensor and its reading is not
+>>> displayed. Please someone help to resolve this problem.
+>>>
+>>>
+>>>
+>>> Thanks and Regards,
+>>>
+>>> Akash
+>>>
 >>
 >
-> A slight tangent, but I think it's worth talking about here:
->
-> On OpenPOWER systems we developed a control protocol for the
-> host to manipulate the LPC FW mapping. v3 of the protocol included
-> support for mapping "arbitrary" stuff into the FW space with a
-> command to list what devices were available. It seems very similar to
-> what Patrick has outlined, though operates at the block level as Ed
-> mused about above.
 
-i'm somewhat familiar with the mailbox daemon and v3 protocols
-insomuch as we were using them on our openpower system before
-transitioning to phosphor-ipmi-flash (for consistency across
-platform).
+--0000000000008690440572d9f797
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->
-> Typically this mechanism is used for the host to access its firmware
-> which - again on OpenPOWER designs - sits on a flash device owned
-> by the BMC.
->
-> The control protocol was run over the LPC mailbox available on
-> ASPEED BMCs. However, I am currently developing a PoC IPMI
-> replacement for the mailbox interface, and intended to use much
-> the same command-set and argument layout as we have with the
-> mailbox. As mentioned above it aligns pretty well with what Patrick
-> is proposing.
->
-> So our use-case has less of an update focus, but at the end of the
-> day if you can perform arbitrary writes it roughly amounts to the
-> same thing. Should we expand the scope to cover my use-case here?
-> I'm fine if the answer is "no", but with the similarities it seemed
-> necessary to bring up.
+Akash,<div><br></div><div>Check out this doc:=C2=A0<a href=3D"https://githu=
+b.com/openbmc/docs/blob/master/sensor-architecture.md">https://github.com/o=
+penbmc/docs/blob/master/sensor-architecture.md</a></div><div><br></div><div=
+>Basically, you need your sensors to be available over DBus first, then con=
+figured to be available over IPMI. This doc should ideally give you some go=
+od step-by-step but you could also take a look at the Witherspoon or Zaius =
+layers for an example.</div><div><br></div><div>Emily<br><br><div class=3D"=
+gmail_quote"><div dir=3D"ltr">On Mon, Aug 6, 2018, 8:49 PM AKASH G J &lt;<a=
+ href=3D"mailto:akashgj91@gmail.com">akashgj91@gmail.com</a>&gt; wrote:<br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-l=
+eft:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>Hi Emily,</div><=
+div><br></div><div>I did not configure the temperature sensors to report ov=
+er dbus interface. I am new in this area. Can you provide steps to configur=
+e the temperature sensors to report over dbus?</div><div><br></div><div><br=
+></div><div>Thanks and Regards,</div><div><br></div><div>Akash<br></div></d=
+iv><div dir=3D"ltr"><div><div class=3D"gmail_extra"><br><div class=3D"gmail=
+_quote">On Mon, Aug 6, 2018 at 9:16 PM, Emily Shaffer <span dir=3D"ltr">&lt=
+;<a href=3D"mailto:emilyshaffer@google.com" target=3D"_blank">emilyshaffer@=
+google.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=
+=3D"ltr">Hi Akash,<div><br></div><div>Have you configured your temp sensors=
+ to report over dbus already?</div><span class=3D"m_2986422969281956581HOEn=
+Zb"><font color=3D"#888888"><div><br></div><div>Emily</div></font></span></=
+div><div class=3D"m_2986422969281956581HOEnZb"><div class=3D"m_298642296928=
+1956581h5"><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, Aug 6, 2=
+018 at 4:58 AM AKASH G J &lt;<a href=3D"mailto:akashgj91@gmail.com" target=
+=3D"_blank">akashgj91@gmail.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex"><div dir=3D"ltr"><div>Hi Team,</div><div><br></div><div>I tri=
+ed to list sensors and its reading using the command &quot;ipmitool -I dbus=
+ sdr elist full&quot;. But temperature sensor and its reading is not displa=
+yed. Please someone help to resolve this problem.</div><div><br></div><div>=
+<br></div><div><br></div><div>Thanks and Regards,</div><div><br></div><div>=
+Akash<br></div></div>
+</blockquote></div>
+</div></div></blockquote></div><br></div></div></div>
+</blockquote></div></div>
 
-The explicit out-of-band-data flow-control messages in
-phosphor-ipmi-flash fit the semantics to an extent.  We actually use
-one of the packets in the design
-https://github.com/openbmc/phosphor-ipmi-flash/blob/master/docs/flash_update.md#flashmapregionlpc-13
-to provide information used for the ioctl:
-
-bool LpcMapperAspeed::MapWindow(uint32_t *windowOffset, uint32_t *windowSize,
-        uint32_t address, uint32_t length)
-{
-    static const uint32_t MASK_64K = 0xFFFFU;
-    const uint32_t offset = address & MASK_64K;
-    if (offset + length > regionSize)
-    {
-        fprintf(stderr, "requested window size %" PRIu32 ", offset %#" PRIx32
-                " is too large for mem region at %#" PRIXPTR " of size %zu\n",
-                length, offset, physAddr, regionSize);
-        *windowSize = regionSize - offset;
-        return false;
-    }
-    *windowOffset = offset;
-    *windowSize = length;
-    struct aspeed_lpc_ctrl_mapping map =
-    {
-        .window_type = ASPEED_LPC_CTRL_WINDOW_MEMORY,
-        .window_id = 0,
-        .flags = 0,
-        .addr = address & ~MASK_64K,
-        .offset = 0,
-        .size = __ALIGN_KERNEL_MASK(offset + length, MASK_64K),
-    };
-    printf("requesting Aspeed LPC window at %#" PRIx32 " of size %" PRIu32 "\n",
-           map.addr, map.size);
-    static const char lpcControlPath[] = "/dev/aspeed-lpc-ctrl";
-    const auto lpcControlFd = open(lpcControlPath, O_RDWR);
-    if (FileClosed == lpcControlFd)
-    {
-        fprintf(stderr, "cannot open Aspeed LPC kernel control dev \"%s\"\n",
-                lpcControlPath);
-        return false;
-    }
-    if (ioctl(lpcControlFd, ASPEED_LPC_CTRL_IOCTL_MAP, &map) == -1)
-    {
-        fprintf(stderr, "Failed to ioctl Aspeed LPC map with error %s\n",
-                strerror(errno));
-        return false;
-    }
-    return true;
-}
-
-The above code is going into phosphor-ipmi-flash once I finish
-rewriting the IPMI BT interface support.
-
->
-> Cheers,
->
-> Andrew
->
-> PS: The bits -
-> Repository: https://github.com/openbmc/mboxbridge
-> Protocol documentation: https://github.com/openbmc/mboxbridge/blob/master/Documentation/mbox_protocol.md
-> Implementation notes: https://github.com/openbmc/mboxbridge/blob/master/Documentation/mboxd.md
+--0000000000008690440572d9f797--
