@@ -1,29 +1,59 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <akashgj91@gmail.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::22a; helo=mail-oi0-x22a.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="jD1tcn7o"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x22a.google.com (mail-oi0-x22a.google.com
+ [IPv6:2607:f8b0:4003:c06::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41kz4w4DrPzDqBx
- for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 12:30:08 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w772TtFv021428;
- Mon, 6 Aug 2018 21:29:56 -0500
-Message-ID: <cc45d5fe697afda6b77be859c163852aecefcbd4.camel@kernel.crashing.org>
-Subject: [PATCH] fsi: sbefifo: Bump max command length to 2MB
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@linux.vnet.ibm.com>, Andrew Jeffery
- <andrewrj@au1.ibm.com>, Joel Stanley <joel@jms.id.au>
-Date: Tue, 07 Aug 2018 12:29:55 +1000
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.4 (3.28.4-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41l0rB0mwmzDqCF
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 13:49:13 +1000 (AEST)
+Received: by mail-oi0-x22a.google.com with SMTP id v8-v6so26047670oie.5
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Aug 2018 20:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
+ bh=IOPpqBQFLBIV1q+8XDKU7oF4u26SXk64B9dRYooCCVI=;
+ b=jD1tcn7o+l/jyOC7bjtSclwmYTaSI+DyGsiWP3GEokKYNWMtJXL+Ksu7Px9koBsLCM
+ U+21dnC0oBcW+Trvbvp3V50szcDSpoZcN5j2mHCP+rJgLUUZtTUN2itDYq2NVdQTXUa7
+ 0Zu4SYrlOAMY+e6eVS/hzU4bfk4wh23FyHAHb/JVbapItiou3z+AVbo8d7vOPZKvrYFs
+ fdyhy2tPUE0CyfZ6NsInLiXIauVzEXVojs87zQANh3iNrbml+nLPmbce7iuk98eRPFql
+ KUqp0iiTUS+46ZEEHmVZFOuubFTD58to30LHEDr+oEJG4okTUojHBGE6yIMA1t2HVAI5
+ +VYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to;
+ bh=IOPpqBQFLBIV1q+8XDKU7oF4u26SXk64B9dRYooCCVI=;
+ b=ecTucBHP7+X6GtyCczqw8B3WdT1CiqNT+N7oTFk/b3Dw1BS79SRVYcMenJB51zZU3N
+ YT6JSQQB2BP7+iFhqbYmWG98eyg7DPwGY9SCb47DO/QlWlz0gxwvDkVkyshaZuehEMnT
+ CDg8dSx5hps2OlY+87zOVyNyZ/YzZDcVHQyv+FSUr6HTGGTPGyXLt3D2i9D/E48kWYzh
+ 9RIHph+ipxOMW2LNrl/xMixnRb4SY/BO3zNx5Wvo1LCc5/lddfDbvwMhG/QUutQDVuZw
+ mjEQefBHbaQiLUi225Ub3mwwbO4uGvvXgQ8PNkS0l7ShoKLeAspZw7dQNeeGmmXISo7b
+ FcSA==
+X-Gm-Message-State: AOUpUlE8gIT7cn3BNLM4qqgtcvFstO6KVOdcEty3g9WUTXiDWi8J9mFc
+ +ZCISzrsNlnshRyR/DfVID0KhmKupHdmW/OXVvs=
+X-Google-Smtp-Source: AAOMgpdtCUjcJ4BZewXRKXtLxfidbBCUjYNRM+7srum01qE9JyJLk8FRdmz25jew6RXL6Ph2JdNrVNdKXYDg9J+fMQk=
+X-Received: by 2002:aca:e6cd:: with SMTP id
+ d196-v6mr16650646oih.94.1533613751740; 
+ Mon, 06 Aug 2018 20:49:11 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:a4a:2c4a:0:0:0:0:0 with HTTP;
+ Mon, 6 Aug 2018 20:49:11 -0700 (PDT)
+In-Reply-To: <CAJoAoZ=VzAUp2Jg6nPy8UKBvqBw+s=xWwuMK4VG-p=t7QTwdkA@mail.gmail.com>
+References: <CAE33tLFWffT5wd9La+zU-ATkbrqa4-aRH=C+t_OBnWgsSgwNdg@mail.gmail.com>
+ <CAJoAoZ=VzAUp2Jg6nPy8UKBvqBw+s=xWwuMK4VG-p=t7QTwdkA@mail.gmail.com>
+From: AKASH G J <akashgj91@gmail.com>
+Date: Tue, 7 Aug 2018 09:19:11 +0530
+Message-ID: <CAE33tLGrrsCBjW3Hqpe1K8__WXLwmph5KWCTUVmoA2LUoBnSCw@mail.gmail.com>
+Subject: Re: Temperature Sensor and its Reading not Showing Up.
+To: Emily Shaffer <emilyshaffer@google.com>, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000e52ded0572d04620"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -35,126 +65,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Aug 2018 02:30:09 -0000
+X-List-Received-Date: Tue, 07 Aug 2018 03:49:15 -0000
 
-Otherwise cronus putmem fails istep and BML fails to upload skiboot
+--000000000000e52ded0572d04620
+Content-Type: text/plain; charset="UTF-8"
 
-To do that, we still use our one-page command buffer for small commands
-for speed, and for anything bigger, with a limit of 2MB, we vmalloc
-a temporary buffer.
+Hi Emily,
 
-Ideally, if/when cronus (or pdbg) learns to split putmem's into
-smaller chunks, we will be able to reduce the max size.
+I did not configure the temperature sensors to report over dbus interface.
+I am new in this area. Can you provide steps to configure the temperature
+sensors to report over dbus?
 
-Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
----
- drivers/fsi/fsi-sbefifo.c | 34 ++++++++++++++++++++++++++++------
- 1 file changed, 28 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index f97ec3e4ddea..8a2338c085a7 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -30,6 +30,7 @@
- #include <linux/delay.h>
- #include <linux/uio.h>
- #include <linux/vmalloc.h>
-+#include <linux/mm.h>
- 
- /*
-  * The SBEFIFO is a pipe-like FSI device for communicating with
-@@ -110,7 +111,7 @@ enum sbe_state
- #define SBEFIFO_TIMEOUT_IN_RSP		1000
- 
- /* Other constants */
--#define SBEFIFO_MAX_CMD_LEN		PAGE_SIZE
-+#define SBEFIFO_MAX_USER_CMD_LEN	0x200000
- #define SBEFIFO_RESET_MAGIC		0x52534554 /* "RSET" */
- #define SBEFIFO_BENCH_MAGIC		0x424E4348 /* "BNCH" */
- 
-@@ -129,6 +130,7 @@ struct sbefifo {
- struct sbefifo_user {
- 	struct sbefifo		*sbefifo;
- 	struct mutex		file_lock;
-+	void			*cmd_page;
- 	void			*pending_cmd;
- 	size_t			pending_len;
- };
-@@ -724,7 +726,7 @@ int sbefifo_submit(struct device *dev, const __be32 *command, size_t cmd_len,
- 		return -ENODEV;
- 	if (WARN_ON_ONCE(sbefifo->magic != SBEFIFO_MAGIC))
- 		return -ENODEV;
--	if (!resp_len || !command || !response || cmd_len > SBEFIFO_MAX_CMD_LEN)
-+	if (!resp_len || !command || !response)
- 		return -EINVAL;
- 
- 	/* Prepare iov iterator */
-@@ -760,8 +762,8 @@ static int sbefifo_user_open(struct inode *inode, struct file *file)
- 
- 	file->private_data = user;
- 	user->sbefifo = sbefifo;
--	user->pending_cmd = (void *)__get_free_page(GFP_KERNEL);
--	if (!user->pending_cmd) {
-+	user->cmd_page = (void *)__get_free_page(GFP_KERNEL);
-+	if (!user->cmd_page) {
- 		kfree(user);
- 		return -ENOMEM;
- 	}
-@@ -814,6 +816,9 @@ static ssize_t sbefifo_user_read(struct file *file, char __user *buf,
- 	/* Extract the response length */
- 	rc = len - iov_iter_count(&resp_iter);
-  bail:
-+	if (is_vmalloc_addr(user->pending_cmd)) 
-+		vfree(user->pending_cmd);
-+	user->pending_cmd = NULL;
- 	user->pending_len = 0;
- 	mutex_unlock(&user->file_lock);
- 	return rc;
-@@ -859,13 +864,23 @@ static ssize_t sbefifo_user_write(struct file *file, const char __user *buf,
- 	if (!user)
- 		return -EINVAL;
- 	sbefifo = user->sbefifo;
--	if (len > SBEFIFO_MAX_CMD_LEN)
-+	if (len > SBEFIFO_MAX_USER_CMD_LEN)
- 		return -EINVAL;
- 	if (len & 3)
- 		return -EINVAL;
- 
- 	mutex_lock(&user->file_lock);
- 
-+	/* Can we use the pre-allocate buffer ? If not, allocate */
-+	if (len <= PAGE_SIZE)
-+		user->pending_cmd = user->cmd_page;
-+	else
-+		user->pending_cmd = vmalloc(len);
-+	if (!user->pending_cmd) {
-+		rc = -ENOMEM;
-+		goto bail;
-+	}
-+
- 	/* Copy the command into the staging buffer */
- 	if (copy_from_user(user->pending_cmd, buf, len)) {
- 		rc = -EFAULT;
-@@ -906,6 +921,11 @@ static ssize_t sbefifo_user_write(struct file *file, const char __user *buf,
- 	/* Update the staging buffer size */
- 	user->pending_len = len;
-  bail:
-+	if (!user->pending_len) {
-+		if (is_vmalloc_addr(user->pending_cmd)) 
-+			vfree(user->pending_cmd);
-+		user->pending_cmd = NULL;
-+	}
- 	mutex_unlock(&user->file_lock);
- 
- 	/* And that's it, we'll issue the command on a read */
-@@ -919,7 +939,9 @@ static int sbefifo_user_release(struct inode *inode, struct file *file)
- 	if (!user)
- 		return -EINVAL;
- 
--	free_page((unsigned long)user->pending_cmd);
-+	if (is_vmalloc_addr(user->pending_cmd))
-+		vfree(user->pending_cmd);
-+	free_page((unsigned long)user->cmd_page);
- 	kfree(user);
- 
- 	return 0;
+Thanks and Regards,
+
+Akash
+
+On Mon, Aug 6, 2018 at 9:16 PM, Emily Shaffer <emilyshaffer@google.com>
+wrote:
+
+> Hi Akash,
+>
+> Have you configured your temp sensors to report over dbus already?
+>
+> Emily
+>
+> On Mon, Aug 6, 2018 at 4:58 AM AKASH G J <akashgj91@gmail.com> wrote:
+>
+>> Hi Team,
+>>
+>> I tried to list sensors and its reading using the command "ipmitool -I
+>> dbus sdr elist full". But temperature sensor and its reading is not
+>> displayed. Please someone help to resolve this problem.
+>>
+>>
+>>
+>> Thanks and Regards,
+>>
+>> Akash
+>>
+>
+
+--000000000000e52ded0572d04620
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Emily,</div><div><br></div><div>I did not configur=
+e the temperature sensors to report over dbus interface. I am new in this a=
+rea. Can you provide steps to configure the temperature sensors to report o=
+ver dbus?</div><div><br></div><div><br></div><div>Thanks and Regards,</div>=
+<div><br></div><div>Akash<br></div><div><div class=3D"gmail_extra"><br><div=
+ class=3D"gmail_quote">On Mon, Aug 6, 2018 at 9:16 PM, Emily Shaffer <span =
+dir=3D"ltr">&lt;<a href=3D"mailto:emilyshaffer@google.com" target=3D"_blank=
+">emilyshaffer@google.com</a>&gt;</span> wrote:<br><blockquote class=3D"gma=
+il_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-lef=
+t:1ex"><div dir=3D"ltr">Hi Akash,<div><br></div><div>Have you configured yo=
+ur temp sensors to report over dbus already?</div><span class=3D"HOEnZb"><f=
+ont color=3D"#888888"><div><br></div><div>Emily</div></font></span></div><d=
+iv class=3D"HOEnZb"><div class=3D"h5"><br><div class=3D"gmail_quote"><div d=
+ir=3D"ltr">On Mon, Aug 6, 2018 at 4:58 AM AKASH G J &lt;<a href=3D"mailto:a=
+kashgj91@gmail.com" target=3D"_blank">akashgj91@gmail.com</a>&gt; wrote:<br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-=
+left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>Hi Team,</div><=
+div><br></div><div>I tried to list sensors and its reading using the comman=
+d &quot;ipmitool -I dbus sdr elist full&quot;. But temperature sensor and i=
+ts reading is not displayed. Please someone help to resolve this problem.</=
+div><div><br></div><div><br></div><div><br></div><div>Thanks and Regards,</=
+div><div><br></div><div>Akash<br></div></div>
+</blockquote></div>
+</div></div></blockquote></div><br></div></div></div>
+
+--000000000000e52ded0572d04620--
