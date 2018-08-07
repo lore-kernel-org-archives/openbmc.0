@@ -1,41 +1,51 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=68.114.190.28; helo=mtaout003-public.msg.strl.va.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-Received: from mtaout003-public.msg.strl.va.charter.net
- (mtaout003-public.msg.strl.va.charter.net [68.114.190.28])
- by lists.ozlabs.org (Postfix) with ESMTP id 41lHDZ3VWnzDqD5
- for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 00:37:49 +1000 (AEST)
-Received: from impout001 ([68.114.189.16]) by mtaout003.msg.strl.va.charter.net
- (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
- id <20180807143747.RYMU7355.mtaout003.msg.strl.va.charter.net@impout001>
- for <openbmc@lists.ozlabs.org>; Tue, 7 Aug 2018 09:37:47 -0500
-Received: from [192.168.2.6] ([97.86.254.207]) by impout001 with charter.net
- id LEdn1y0014VFKzV01EdnNm; Tue, 07 Aug 2018 09:37:47 -0500
-X-Authority-Analysis: v=2.2 cv=ffHd8wYF c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=pGLkceISAAAA:8 a=QyXUC8HyAAAA:8
- a=voM4FWlXAAAA:8 a=pQs5aej7AAAA:8 a=StXR-1uFs5AySUSZK84A:9 a=QEXdDO2ut3YA:10
- a=6PdD7SHbsDhHzGl7WnwA:9 a=fhoq5J8wS2oldxXu:21 a=_W_S_7VecoQA:10
- a=IC2XNlieTeVoXbcui8wp:22
-X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
-Subject: Re:Re: Phosphor Web-ui: Server unreachable - cross origin request
- blocked
-To: openbmc@lists.ozlabs.org
-References: <mailman.438.1533636809.2968.openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Message-ID: <a9a4cf9d-bc13-8302-917c-6b6407d2d3a4@charter.net>
-Date: Tue, 7 Aug 2018 09:37:46 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <mailman.438.1533636809.2968.openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative;
- boundary="------------EDB36EEB7C8B99E46C06DCE8"
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41lHM61g1DzDqfr
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 00:43:28 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2018 07:43:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.51,455,1526367600"; d="scan'208";a="74450244"
+Received: from orsmsx109.amr.corp.intel.com ([10.22.240.7])
+ by fmsmga002.fm.intel.com with ESMTP; 07 Aug 2018 07:43:20 -0700
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
+ ORSMSX109.amr.corp.intel.com ([169.254.11.80]) with mapi id 14.03.0319.002;
+ Tue, 7 Aug 2018 07:43:19 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Joseph Reynolds <joseph-reynolds@charter.net>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: Re: SSL Certificate management - proposed REST APIs
+Thread-Topic: Re: SSL Certificate management - proposed REST APIs
+Thread-Index: AQHULhF+Wg6mG9IGMUyI55Kf09ttB6S0WO5g
+Date: Tue, 7 Aug 2018 14:43:19 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E821699345829A79@ORSMSX114.amr.corp.intel.com>
+References: <mailman.416.1533597083.2968.openbmc@lists.ozlabs.org>
+ <2405db7e-2b5f-a8c4-9b1a-c33433110d90@charter.net>
+In-Reply-To: <2405db7e-2b5f-a8c4-9b1a-c33433110d90@charter.net>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiN2Q1OWViMDgtNzAxOC00YzAxLThkMWEtZTU2NzA2MjI1YTg4IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiajFSZzFpRUY0dFNnb0JNS2ZPN0l0RVVjZ0ZFY1hzcGRBWlorRTlyVHk1VERaejBaSmhOeGNxQ1h0clFHMThaVyJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.140]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -47,135 +57,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Aug 2018 14:37:51 -0000
+X-List-Received-Date: Tue, 07 Aug 2018 14:43:30 -0000
 
-This is a multi-part message in MIME format.
---------------EDB36EEB7C8B99E46C06DCE8
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 8/7/2018 5:13 AM, AKASH wrote:
->
-> Message: 4
-> Date: Tue, 7 Aug 2018 15:43:21 +0530
-> From: AKASH G J <akashgj91@gmail.com>
-> To: Ed Tanous <ed.tanous@intel.com>
-> Cc: openbmc@lists.ozlabs.org
-> Subject: Re: Phosphor Web-ui: Server unreachable
-> Message-ID:
-> 	<CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com>
-> Content-Type: text/plain; charset="utf-8"
->
-> Hi Ed,
->
-> Sorry for the late reply. I was on leave for last week.
->
-> I am hosting phosphor-webui on a different machine and trying to connect
-> the BMC board using its IP address. I am using bmcweb platform. When I
-> tried to login, the following message appeared in browser console.
->
-> Cross-Origin Request Blocked: The Same Origin Policy disallows reading the
-> remote resource at https://<BMC-IP>/login. (Reason: CORS request did not
-> succeed).
-> <unavailable> activity-stream.bundle.js:3170:9
-> CSI/tbsd_ cb=gapi.loaded_0:458:127
-> CSI/_tbnd cb=gapi.loaded_0:458:127
-> CSI/tbsd_ cb=gapi.loaded_0:458:127
-> CSI/_tbnd cb=gapi.loaded_0:458:127
-See 
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin.
-I think the HTTP response header from phosphor-webui needs to include 
-"Cross-origin resource sharing" headers such as:
-Access-Control-Allow-Origin: <YOUR-WEB-HOSTING-MACHINE-IP>, 
-<original-ip>    <-- or use *
-   Access-Control-Allow-Credentials: true
-   Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE
-   Access-Control-Max-Age: 3600
-   Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With, 
-remember-me
-
-How would we enhance the phosphor-webui application to produce these 
-headers?
-
-> Thanks and Regards,
->
-> Akash
-> [...snip...]
-
-
---------------EDB36EEB7C8B99E46C06DCE8
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <div class="moz-cite-prefix">On 8/7/2018 5:13 AM, AKASH wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:mailman.438.1533636809.2968.openbmc@lists.ozlabs.org"><br>
-      <pre wrap="">Message: 4
-Date: Tue, 7 Aug 2018 15:43:21 +0530
-From: AKASH G J <a class="moz-txt-link-rfc2396E" href="mailto:akashgj91@gmail.com">&lt;akashgj91@gmail.com&gt;</a>
-To: Ed Tanous <a class="moz-txt-link-rfc2396E" href="mailto:ed.tanous@intel.com">&lt;ed.tanous@intel.com&gt;</a>
-Cc: <a class="moz-txt-link-abbreviated" href="mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a>
-Subject: Re: Phosphor Web-ui: Server unreachable
-Message-ID:
-	<a class="moz-txt-link-rfc2396E" href="mailto:CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com">&lt;CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com&gt;</a>
-Content-Type: text/plain; charset="utf-8"
-
-Hi Ed,
-
-Sorry for the late reply. I was on leave for last week.
-
-I am hosting phosphor-webui on a different machine and trying to connect
-the BMC board using its IP address. I am using bmcweb platform. When I
-tried to login, the following message appeared in browser console.
-
-Cross-Origin Request Blocked: The Same Origin Policy disallows reading the
-remote resource at <a class="moz-txt-link-freetext" href="https://">https://</a>&lt;BMC-IP&gt;/login. (Reason: CORS request did not
-succeed).
-&lt;unavailable&gt; activity-stream.bundle.js:3170:9
-CSI/tbsd_ cb=gapi.loaded_0:458:127
-CSI/_tbnd cb=gapi.loaded_0:458:127
-CSI/tbsd_ cb=gapi.loaded_0:458:127
-CSI/_tbnd cb=gapi.loaded_0:458:127
-</pre>
-    </blockquote>
-    See
-<a class="moz-txt-link-freetext" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin</a>.<br>
-    I think the HTTP response header from phosphor-webui needs to
-    include "Cross-origin resource sharing" headers such as:<br>
-      <span class="typ">Access</span><span class="pun">-</span><span
-      class="typ">Control</span><span class="pun">-</span><span
-      class="typ">Allow</span><span class="pun">-</span><span
-      class="typ">Origin</span><span class="pun"></span>:
-    &lt;YOUR-WEB-HOSTING-MACHINE-IP&gt;, &lt;original-ip&gt;    &lt;--
-    or use *<br>
-      Access-Control-Allow-Credentials: true<br>
-      Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE<br>
-      Access-Control-Max-Age: 3600<br>
-      Access-Control-Allow-Headers: Content-Type, Accept,
-    X-Requested-With, remember-me<br>
-    <br>
-    How would we enhance the phosphor-webui application to produce these
-    headers?<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:mailman.438.1533636809.2968.openbmc@lists.ozlabs.org">
-      <pre wrap="">
-Thanks and Regards,
-
-Akash
-[...snip...]
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------EDB36EEB7C8B99E46C06DCE8--
+PiBZZXMsIHRoZSBzcGVjIHNob3VsZCBhbGxvdyBmb3IgdGhlIGNlcnRpZmljYXRlIHRvIG5vdCBi
+ZSB0aGVyZS7CoCBDYW4gdGhpcw0KPiBoYXBwZW4gd2hlbiB0aGUgQk1DIGlzIGJlaW5nIHByb3Zp
+c2lvbmVkIG9yIGRlY29tbWlzc2lvbmVkLCBhZnRlciB0aGUNCj4gY2VydCBpcyBkZWxldGVkIGFu
+ZCBiZWZvcmUgaXQgZ2V0cyByZS1jcmVhdGVkIChpZiBTU0wgaXMgbm90IHJ1bm5pbmcgYnV0IFJF
+U1QNCj4gQVBJcyBhcmUgd29ya2luZyksIGFuZCBwb3NzaWJseSB3aGVuIHByb2Nlc3NpbmcgYSBj
+ZXJ0aWZpY2F0ZSBzaWduaW5nDQo+IHJlcXVlc3Q/DQpJZiBTU0wgaXMgbm90IHJ1bm5pbmcgYnV0
+IHRoZSByZXN0IEFQSXMgYXJlIHdvcmtpbmcgdGhhdCBpcyBhIGJ1ZywgYXMgd2Ugc2hvdWxkbid0
+IGJlIHRyYW5zZmVycmluZyBhbnl0aGluZyAoZXNwZWNpYWxseSBTU0wgY2VydGlmaWNhdGVzKSBv
+dmVyIGFuIHVuZW5jcnlwdGVkIGxpbmsuICBBbiBvdXRzdGFuZGluZyBDU1IgZG9lc24ndCByZXF1
+aXJlIHVzIHRvIGludmFsaWRhdGUgdGhlIG9sZCBjZXJ0aWZpY2F0ZSB0byBjcmVhdGUgaXQuICBJ
+ZiB0aGUgY2VydGlmaWNhdGUgaXNuJ3QgdGhlcmUsIHRoZW4gdGhlIFJFU1QgQVBJIGlzIGVmZmVj
+dGl2ZWx5IGRvd24sIGFzIHdlIGNhbid0IHNwaW4gdXAgVExTIHNlc3Npb25zIHRvIHVwbG9hZCBu
+ZXcga2V5IHNvIHdlJ3JlIGRlYWRsb2NrZWQuDQpJbiB5b3VyIG1pbmQsIGlmIEkgY2FsbCBERUxF
+VEUgb24gdGhlIC9zc2wgZW5kcG9pbnQsIHdoYXQgaGFwcGVucz8gIEluIG15IG1pbmQsIC9kZWxl
+dGUgY2F1c2VzIGEgcmVnZW5lcmF0aW9uIG9mIHRoZSBzZWxmIHNpZ25lZCBrZXksIHNvIHdlIGNh
+biBrZWVwIHRoZSBodHRwcyBpbnRlcmZhY2VzIGZ1bmN0aW9uYWwuDQoNCj4gDQo+IEl0IHNlZW1z
+IGxpa2UgdGhlcmUgYXJlIGluY3JlYXNpbmdseSBjb21wbGV4IHVzZSBjYXNlczoNCj4gMS4gQSBT
+ZWxmLXNpZ25lZCBTU0wgY2VydGlmaWNhdGUgaXMgY3JlYXRlZCB3aGVuIHRoZXJlIGlzIG5vIG90
+aGVyIGNlcnRpZmljYXRlIHRvDQo+IHVzZS7CoCBUaGlzIGlzIHRoZSBjdXJyZW50IGJlaGF2aW9y
+Lg0KPiAyLiBTb21lIG90aGVyIHNlcnZlciBjcmVhdGVzIGEgU1NMIGNlcnRpZmljYXRlIGFuZCBj
+YXVzZXMgaXQgdG8gYmUgc2lnbmVkDQo+IChlaXRoZXIgYnkgYSB3ZWxsIGtub3duIENlcnRpZmlj
+YXRlIEF1dGhvcml0eSBvciBieSBhY3RpbmcgYXMgYSBDQSksIHRoZW4gUFVUcw0KPiB0aGF0IFNT
+TCBjZXJ0aWZpY2F0ZSBvbnRvIHRoZSBCTUMuDQo+IDMuIEluZm9ybWF0aW9uIGZvciB0aGUgQ1NS
+IGlzIFBVVCBvbnRvIHRoZSBCTUMgd2hpY2ggdGhlbiBjaG9vc2VzIHByaXZhdGUNCj4ga2V5cywg
+Y3JlYXRlcyB0aGUgU1NMIENlcnRpZmljYXRlIFNpZ25pbmcgUmVxdWVzdCAoQ1NSKSwgYW5kIGNh
+dXNlcyB0aGUgU1NMDQo+IGNlcnRpZmljYXRlIHRvIGJlIHNpZ25lZC7CoCBXaGVuIHRoZSBzaWdu
+ZWQgU1NMIGNlcnRpZmljYXRlIHJldHVybnMsIHRoZSBCTUMNCj4gdXNlcyBpdC4NCiMzIHVzZSBj
+YXNlIHNlZW1zIGEgbGl0dGxlIG9kZCwgY2FuIHlvdSBleHBsYWluIGl0IGEgbGl0dGxlIG1vcmU/
+ICAgIkNhdXNlcyB0aGUgU1NMIGNlcnRpZmljYXRlIHRvIGJlIHNpZ25lZCIgc291bmRzIGEgbG90
+IGxpa2Ugc2VsZi1zaWduZWQgaW4gIzEsIGJ1dCB3aXRoIHVzZXIgcHJvdmlkZWQgaW5mb3JtYXRp
+b24gaW4gdGhlIENTUi4gIEknbSBub3QgcmVhbGx5IHN1cmUgd2hhdCB0aGlzIHdvdWxkIGRvIGZv
+ciBhIHVzZXIsIGFzIHRoZSBjZXJ0IGNoYWluIHN0aWxsIGlzbid0IHRyYWNlYWJsZS4gIFdvdWxk
+IHlvdSBtYWtlIGFuIEludGVybWVkaWF0ZSBDQSBhdmFpbGFibGUgZm9yIGRvd25sb2FkLCBzbyB0
+aGUgdXNlciBjb3VsZCBhZGQgaXQgdG8gdGhlaXIgcm9vdCBzdG9yZT8NCg0KPiBEb2VzIHRoZSBp
+bmZvcm1hdGlvbiBuZWVkZWQgZm9yIHRoZSBDU1IgbmVlZCB0byBiZSBrZXB0IGFyb3VuZCBmb3Ig
+cmUtDQo+IHVzZT/CoCBXb3VsZCB0aGUgQ1NSIGl0c2VsZiBldmVyIGJlIHJlLXVzZWQ/DQpJIGNh
+bid0IHRoaW5rIG9mIGFueSByZWFzb24gd2h5IGl0IHdvdWxkLiAgQWxsIG9mIHRoZSBpbmZvcm1h
+dGlvbiBpbiB0aGUgQ1NSIGlzIGVhc2lseSByZWNyZWF0ZWQuDQo=
