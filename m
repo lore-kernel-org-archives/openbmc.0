@@ -1,46 +1,43 @@
-Return-Path: <david.j.cobbley@linux.intel.com>
+Return-Path: <Tali.Perry@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=david.j.cobbley@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tali.perry@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41mmJl3jHmzDqww
- for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 10:31:34 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2018 17:31:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,217,1531810800"; d="scan'208";a="79061397"
-Received: from parzival.jf.intel.com (HELO [10.54.51.103]) ([10.54.51.103])
- by fmsmga004.fm.intel.com with ESMTP; 09 Aug 2018 17:31:30 -0700
-Subject: Re: Managing openbmc with subtree
-From: Dave Cobbley <david.j.cobbley@linux.intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: openbmc@lists.ozlabs.org, prashanth.giri@dell.com, sachit_bakshi@dell.com
-References: <00e6e0a4-027d-7a9c-ad49-363290e62c68@linux.intel.com>
- <A174348B-515D-48F9-8D41-DD8AD8260006@fuzziesquirrel.com>
- <54643fe1-d382-3df7-8630-bb5e01ea2edb@linux.intel.com>
- <8E5317F7-E0B1-4A2F-B047-52B77E1AD13F@fuzziesquirrel.com>
- <9b967642-9c97-c7e5-7114-c024ada10a4f@linux.intel.com>
- <7B99FD60-9493-4A17-ABF0-D1315D86B1CB@fuzziesquirrel.com>
- <8b4c11b3-d6d7-c586-5d10-9c028d3fefb2@linux.intel.com>
- <27F75378-E985-47F6-8516-086CF8197D85@fuzziesquirrel.com>
- <d20b9c39-38b1-dd91-4847-1a65479c0f51@linux.intel.com>
-Message-ID: <fe79284e-e3d6-a71f-f055-6bcbe899fbd5@linux.intel.com>
-Date: Thu, 9 Aug 2018 17:31:32 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <d20b9c39-38b1-dd91-4847-1a65479c0f51@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41lBZw6QVxzDqBx
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Aug 2018 21:08:24 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w77AbRe5002678;
+ Tue, 7 Aug 2018 13:37:27 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 20088)
+ id D0817630C7; Tue,  7 Aug 2018 14:07:26 +0300 (IDT)
+From: Tali Perry <tali.perry1@gmail.com>
+To: tali.perry1@gmail.com, avifishman70@gmail.com, tmaimon77@gmail.com,
+ venture@google.com, yuenn@google.com, brendanhiggins@google.com,
+ robh+dt@kernel.org, mark.rutland@arm.com, davem@davemloft.net,
+ mchehab+samsung@kernel.org, gregkh@linuxfoundation.org,
+ akpm@linux-foundation.org, arnd@arndb.de, wsa@the-dreams.de,
+ andriy.shevchenko@linux.intel.com, pierre-yves.mordret@st.com,
+ cedric.madianga@gmail.com, baolin.wang@spreadtrum.com,
+ jarkko.nikula@linux.intel.com, hdegoede@redhat.com,
+ rmk+kernel@armlinux.org.uk, ard.biesheuvel@linaro.org,
+ thor.thayer@linux.intel.com, geert@linux-m68k.org,
+ heikki.krogerus@linux.intel.com, tglx@linutronix.de
+Cc: linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] dt-binding: i2c: npcm7xx: add binding for i2c
+ controller
+Date: Tue,  7 Aug 2018 14:07:08 +0300
+Message-Id: <20180807110709.31847-2-tali.perry1@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180807110709.31847-1-tali.perry1@gmail.com>
+References: <20180807110709.31847-1-tali.perry1@gmail.com>
+X-Mailman-Approved-At: Fri, 10 Aug 2018 10:59:07 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -52,44 +49,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Aug 2018 00:31:36 -0000
+X-List-Received-Date: Tue, 07 Aug 2018 11:08:25 -0000
 
+Nuvoton NPCM7XX I2C Controller
+NPCM7xx includes 16 I2C contollers. THis driver operates the controller.
+This module also includes a slave mode, which will be submitted later on.
 
->> So to net these all out:
->>
->> *poky/
->>
->> *meta-openembedded/
->> *meta-virtualization/
->> *meta-security/
->> *meta-arm/
->> *meta-openpower/
->> *meta-x86/
->> *meta-phosphor/
->>
->> *meta-aspeed/
->> *meta-nuvoton/
->> *meta-raspberrypi/
->>
->> *meta-intel/
->> *meta-mellanox/
->> *meta-portwell/
->> *meta-quanta/
->> *meta-ibm/
->> *meta-ingrasys/
->> *meta-inventec/
->> *meta-rackspace/
->> *meta-qualcomm/
-> Just to clarify - *meta-intel would contain our machine specific 
-> configurations for particular intel platforms, while *meta-x86 would 
-> contain image-like things that are generic to all x86 server platforms?
-> Not sure I understand why meta-x86 exists if 
-> meta-intel/mellanox/portwell/quanta are all on the top level. Meta-x86 
-> was simply a folder in my proposal.
-Looking at this further, I believe I understand the difference:
-meta-intel is our actual baseboard products
-meta-x86 is all things that relate specifically to baseboards that 
-contain x86 processors.
+Any feedback would be appreciated.  
 
-Does that sound right?
-> -Dave
+v2 -> v1:
+	- run check patch in strict mode.
+	- use linux crc.
+	- define regs in constant offset without base.
+	- remove debug prints.
+	- no declerations for local functions.
+	
+v1: initial version
+
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+
+---
+ .../devicetree/bindings/i2c/i2c-npcm7xx.txt        | 27 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 +++++++
+ 2 files changed, 35 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
+
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
+new file mode 100644
+index 000000000000..e2ee45d7a41e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
+@@ -0,0 +1,27 @@
++Nuvoton NPCM7XX I2C bus
++
++The NPCM750x includes sixteen I2C busses
++
++Required properties:
++- compatible      : must be "nuvoton,npcm750-i2c-bus"
++- reg             : Offset and length of the register set for the device.
++- interrupts      : Contain the I2C interrupt with flags for falling edge.
++- clocks          : phandle of I2C reference clock.
++
++Optional:
++- bus-frequency   : Contain the I2C bus frequency,
++			the default I2C bus frequency is 100000.
++- pinctrl-0       : must be <&smbX_pins>, X is module number
++			(on NPCM7XX it's 0 to 15)
++- pinctrl-names   : should be set to "default"
++Example:
++
++	i2c0: i2c-bus@80000 {
++		compatible = "nuvoton,npcm750-i2c-bus";
++		reg = <0x80000 0x1000>;
++		clocks = <&clk NPCM7XX_CLK_APB2>;
++		bus-frequency = <100000>;
++		interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&smb0_pins>;
++	};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 192d7f73fd01..13bac916d21d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1244,6 +1244,14 @@ F:	drivers/i2c/busses/i2c-aspeed.c
+ F:	Documentation/devicetree/bindings/interrupt-controller/aspeed,ast2400-i2c-ic.txt
+ F:	Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+ 
++ARM/NUVOTON I2C DRIVER
++M:	Tali Perry <tali.perry1@gmail.com>
++L:	linux-i2c@vger.kernel.org
++L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
++S:	Maintained
++F:	drivers/i2c/busses/i2c-npcm7xx.c
++F:	Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
++
+ ARM/ASPEED MACHINE SUPPORT
+ M:	Joel Stanley <joel@jms.id.au>
+ R:	Andrew Jeffery <andrew@aj.id.au>
+-- 
+2.14.1
