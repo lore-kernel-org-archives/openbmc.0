@@ -1,52 +1,41 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <joseph-reynolds@charter.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=charter.net
+ (client-ip=68.114.190.28; helo=mtaout003-public.msg.strl.va.charter.net;
+ envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41lGxX6mJ1zDqZl
- for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 00:24:47 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2018 07:24:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.51,455,1526367600"; d="scan'208,217";a="60560910"
-Received: from orsmsx102.amr.corp.intel.com ([10.22.225.129])
- by fmsmga007.fm.intel.com with ESMTP; 07 Aug 2018 07:24:36 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
- ORSMSX102.amr.corp.intel.com ([169.254.3.148]) with mapi id 14.03.0319.002;
- Tue, 7 Aug 2018 07:24:35 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: AKASH G J <akashgj91@gmail.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: Phosphor Web-ui: Server unreachable
-Thread-Topic: Phosphor Web-ui: Server unreachable
-Thread-Index: AQHUJ/3xchYG9NdyykyMPKSS/0VfGKSoB5oAgAyMTID//8xCAA==
-Date: Tue, 7 Aug 2018 14:24:34 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E821699345827A58@ORSMSX114.amr.corp.intel.com>
-References: <CAE33tLFQ6v2n2tBavZVJmHdYK1cFmFFhKRb9_8RG3xS4xzr6ug@mail.gmail.com>
- <25bebbd3-7df8-f396-ef62-0b846e3435aa@intel.com>
- <CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com>
-In-Reply-To: <CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYjJkMzhlODItMTMwOS00ZDkwLWEzNzAtZGViYzExOGNlNmVhIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiQkxaY2FpWXUzelhMWEdDcHA3TERBcEJXbmh5aU1EbzNKSzBRY0R6S1JEQXRaTEhEMGFjZ0M3cDErbVBlQThqcyJ9
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.140]
-Content-Type: multipart/alternative;
- boundary="_000_7E9441B1E5EFFD4681F54958E821699345827A58ORSMSX114amrcor_"
+ dmarc=none (p=none dis=none) header.from=charter.net
+Received: from mtaout003-public.msg.strl.va.charter.net
+ (mtaout003-public.msg.strl.va.charter.net [68.114.190.28])
+ by lists.ozlabs.org (Postfix) with ESMTP id 41lHDZ3VWnzDqD5
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 00:37:49 +1000 (AEST)
+Received: from impout001 ([68.114.189.16]) by mtaout003.msg.strl.va.charter.net
+ (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
+ id <20180807143747.RYMU7355.mtaout003.msg.strl.va.charter.net@impout001>
+ for <openbmc@lists.ozlabs.org>; Tue, 7 Aug 2018 09:37:47 -0500
+Received: from [192.168.2.6] ([97.86.254.207]) by impout001 with charter.net
+ id LEdn1y0014VFKzV01EdnNm; Tue, 07 Aug 2018 09:37:47 -0500
+X-Authority-Analysis: v=2.2 cv=ffHd8wYF c=1 sm=1 tr=0
+ a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
+ a=x7bEGLp0ZPQA:10 a=r77TgQKjGQsHNAKrUKIA:9 a=pGLkceISAAAA:8 a=QyXUC8HyAAAA:8
+ a=voM4FWlXAAAA:8 a=pQs5aej7AAAA:8 a=StXR-1uFs5AySUSZK84A:9 a=QEXdDO2ut3YA:10
+ a=6PdD7SHbsDhHzGl7WnwA:9 a=fhoq5J8wS2oldxXu:21 a=_W_S_7VecoQA:10
+ a=IC2XNlieTeVoXbcui8wp:22
+X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
+Subject: Re:Re: Phosphor Web-ui: Server unreachable - cross origin request
+ blocked
+To: openbmc@lists.ozlabs.org
+References: <mailman.438.1533636809.2968.openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <joseph-reynolds@charter.net>
+Message-ID: <a9a4cf9d-bc13-8302-917c-6b6407d2d3a4@charter.net>
+Date: Tue, 7 Aug 2018 09:37:46 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
+In-Reply-To: <mailman.438.1533636809.2968.openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative;
+ boundary="------------EDB36EEB7C8B99E46C06DCE8"
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -58,245 +47,135 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Aug 2018 14:24:50 -0000
+X-List-Received-Date: Tue, 07 Aug 2018 14:37:51 -0000
 
---_000_7E9441B1E5EFFD4681F54958E821699345827A58ORSMSX114amrcor_
+This is a multi-part message in MIME format.
+--------------EDB36EEB7C8B99E46C06DCE8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 8/7/2018 5:13 AM, AKASH wrote:
+>
+> Message: 4
+> Date: Tue, 7 Aug 2018 15:43:21 +0530
+> From: AKASH G J <akashgj91@gmail.com>
+> To: Ed Tanous <ed.tanous@intel.com>
+> Cc: openbmc@lists.ozlabs.org
+> Subject: Re: Phosphor Web-ui: Server unreachable
+> Message-ID:
+> 	<CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com>
+> Content-Type: text/plain; charset="utf-8"
+>
+> Hi Ed,
+>
+> Sorry for the late reply. I was on leave for last week.
+>
+> I am hosting phosphor-webui on a different machine and trying to connect
+> the BMC board using its IP address. I am using bmcweb platform. When I
+> tried to login, the following message appeared in browser console.
+>
+> Cross-Origin Request Blocked: The Same Origin Policy disallows reading the
+> remote resource at https://<BMC-IP>/login. (Reason: CORS request did not
+> succeed).
+> <unavailable> activity-stream.bundle.js:3170:9
+> CSI/tbsd_ cb=gapi.loaded_0:458:127
+> CSI/_tbnd cb=gapi.loaded_0:458:127
+> CSI/tbsd_ cb=gapi.loaded_0:458:127
+> CSI/_tbnd cb=gapi.loaded_0:458:127
+See 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin.
+I think the HTTP response header from phosphor-webui needs to include 
+"Cross-origin resource sharing" headers such as:
+Access-Control-Allow-Origin: <YOUR-WEB-HOSTING-MACHINE-IP>, 
+<original-ip>    <-- or use *
+   Access-Control-Allow-Credentials: true
+   Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE
+   Access-Control-Max-Age: 3600
+   Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With, 
+remember-me
+
+How would we enhance the phosphor-webui application to produce these 
+headers?
+
+> Thanks and Regards,
+>
+> Akash
+> [...snip...]
+
+
+--------------EDB36EEB7C8B99E46C06DCE8
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <div class="moz-cite-prefix">On 8/7/2018 5:13 AM, AKASH wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:mailman.438.1533636809.2968.openbmc@lists.ozlabs.org"><br>
+      <pre wrap="">Message: 4
+Date: Tue, 7 Aug 2018 15:43:21 +0530
+From: AKASH G J <a class="moz-txt-link-rfc2396E" href="mailto:akashgj91@gmail.com">&lt;akashgj91@gmail.com&gt;</a>
+To: Ed Tanous <a class="moz-txt-link-rfc2396E" href="mailto:ed.tanous@intel.com">&lt;ed.tanous@intel.com&gt;</a>
+Cc: <a class="moz-txt-link-abbreviated" href="mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a>
+Subject: Re: Phosphor Web-ui: Server unreachable
+Message-ID:
+	<a class="moz-txt-link-rfc2396E" href="mailto:CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com">&lt;CAE33tLHsd5HwrCS9qLXO6Mo_gzka1Mrv7vs3Ofy0AF=YRJdT1w@mail.gmail.com&gt;</a>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 
-VGhpcyBhIHNlY3VyaXR5IG1lYXN1cmUgaW4gYm1jd2ViIHRvIHByZXZlbnQgY3Jvc3Mgc2l0ZSBz
-Y3JpcHRpbmcuICBJZiB5b3XigJlyZSBydW5uaW5nIHBob3NwaG9yLXdlYnVpIGZyb20gYW5vdGhl
-ciBtYWNoaW5lLCB5b3XigJlyZSBlc3NlbnRpYWxseSBydW5uaW5nIGNyb3NzIHNpdGUgc2NyaXB0
-aW5nIGFzIGEgZGV2ZWxvcG1lbnQgbWVhc3VyZSwgd2hpY2ggaXMgZXhhY3RseSB3aGF0IHRoZSBC
-TUMgc2VlcywgYW5kIHRoZSBicm93c2VyIHNxdWFzaGVzIHRoZSByZXF1ZXN0IGFzIGEgc3VzcGVj
-dGVkIFhTUyBhdHRhY2suDQoNClRoZSBlYXNpZXN0IHdheSB0byBtYWtlIHRoaXMgd29yayBmb3Ig
-dGVzdGluZyBpcyB0byBnbyB0byB0aGlzIGZpbGU6DQpodHRwczovL2dpdGh1Yi5jb20vb3BlbmJt
-Yy9ibWN3ZWIvYmxvYi9tYXN0ZXIvaW5jbHVkZS9zZWN1cml0eV9oZWFkZXJzX21pZGRsZXdhcmUu
-aHBwDQoNCmFuZCBjb21tZW50IG91dCBsaW5lcyA0Mi00NCwgd2hpY2ggc2V0IGhlYWRlcnMgdG8g
-cHJldmVudCB0aGUgYm1jIHNxdWFzaGluZyB0aGUgcmVxdWVzdC4NCg0KSXTigJlzIGJlZW4gYSB3
-aGlsZSBzaW5jZSBJ4oCZdmUgZGV2ZWxvcGVkIGxpa2UgdGhhdCwgYnV0IHlvdSBsaWtlbHkgYWxz
-byBuZWVkIHRvIGFkZCBhIGNvdXBsZSBoZWFkZXJzIGFzIHdlbGwNCnJlcS5hZGRIZWFkZXIo4oCc
-QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu4oCdLCDigJwq4oCdKTsNCnJlcS5hZGRIZWFkZXIo
-4oCcQWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kc+KAnSwg4oCcR0VULCBQT1NULCBQVVQsIFBB
-VENI4oCdKTsNCg0KSSBrbm93IHlvdeKAmXJlIG5vdCB0aGUgZmlyc3QgcGVyc29uIHRvIGhpdCB0
-aGlzIHVuZXhwZWN0ZWRseS4gIElmIHlvdSBnZXQgYSBoZWFkZXIgcmVjaXBlIHRoYXQgYWxsb3dz
-IGRldmVsb3BtZW50LCBpdCB3b3VsZCBiZSBncmVhdCBpZiB5b3UgY291bGQgY29kaWZ5IGl0IGlu
-dG8gYW4gb3B0aW9uIGNhbGxlZCBCTUNfSU5TRUNVUkVfQUxMT1dfWFNTLCBhZGQgaXQgdG8gdGhl
-IGJ1aWxkIGNvbmZpZ3VyYXRpb24sIGFuZCBwdXQgaXQgdXAgZm9yIGEgZ2Vycml0IHJldmlldzsg
-IEnigJltIGZhaXJseSBjZXJ0YWluIGl0IHdvdWxkIGhlbHAgb3RoZXJzLg0KDQotRWQNCg0KRnJv
-bTogQUtBU0ggRyBKIFttYWlsdG86YWthc2hnajkxQGdtYWlsLmNvbV0NClNlbnQ6IFR1ZXNkYXks
-IEF1Z3VzdCA3LCAyMDE4IDM6MTMgQU0NClRvOiBUYW5vdXMsIEVkIDxlZC50YW5vdXNAaW50ZWwu
-Y29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KU3ViamVjdDogUmU6IFBob3NwaG9y
-IFdlYi11aTogU2VydmVyIHVucmVhY2hhYmxlDQoNCkhpIEVkLA0KDQpTb3JyeSBmb3IgdGhlIGxh
-dGUgcmVwbHkuIEkgd2FzIG9uIGxlYXZlIGZvciBsYXN0IHdlZWsuDQoNCkkgYW0gaG9zdGluZyBw
-aG9zcGhvci13ZWJ1aSBvbiBhIGRpZmZlcmVudCBtYWNoaW5lIGFuZCB0cnlpbmcgdG8gY29ubmVj
-dCB0aGUgQk1DIGJvYXJkIHVzaW5nIGl0cyBJUCBhZGRyZXNzLiBJIGFtIHVzaW5nIGJtY3dlYiBw
-bGF0Zm9ybS4gV2hlbiBJIHRyaWVkIHRvIGxvZ2luLCB0aGUgZm9sbG93aW5nIG1lc3NhZ2UgYXBw
-ZWFyZWQgaW4gYnJvd3NlciBjb25zb2xlLg0KDQpDcm9zcy1PcmlnaW4gUmVxdWVzdCBCbG9ja2Vk
-OiBUaGUgU2FtZSBPcmlnaW4gUG9saWN5IGRpc2FsbG93cyByZWFkaW5nIHRoZSByZW1vdGUgcmVz
-b3VyY2UgYXQgaHR0cHM6Ly88Qk1DLUlQPi9sb2dpbjxodHRwczovLyUzY0JNQy1JUCUzZS9sb2dp
-bj4uIChSZWFzb246IENPUlMgcmVxdWVzdCBkaWQgbm90IHN1Y2NlZWQpLg0KPHVuYXZhaWxhYmxl
-PiBhY3Rpdml0eS1zdHJlYW0uYnVuZGxlLmpzOjMxNzA6OQ0KQ1NJL3Ric2RfIGNiPWdhcGkubG9h
-ZGVkXzA6NDU4OjEyNw0KQ1NJL190Ym5kIGNiPWdhcGkubG9hZGVkXzA6NDU4OjEyNw0KQ1NJL3Ri
-c2RfIGNiPWdhcGkubG9hZGVkXzA6NDU4OjEyNw0KQ1NJL190Ym5kIGNiPWdhcGkubG9hZGVkXzA6
-NDU4OjEyNw0KDQoNCg0KVGhhbmtzIGFuZCBSZWdhcmRzLA0KDQpBa2FzaA0KDQpPbiBNb24sIEp1
-bCAzMCwgMjAxOCBhdCAxMTowNiBQTSwgRWQgVGFub3VzIDxlZC50YW5vdXNAaW50ZWwuY29tPG1h
-aWx0bzplZC50YW5vdXNAaW50ZWwuY29tPj4gd3JvdGU6DQpPbiAwNy8zMC8yMDE4IDA1OjA0IEFN
-LCBBS0FTSCBHIEogd3JvdGU6DQpIaSBUZWFtLA0KDQpJIGFkZGVkIHBob3NwaG9yLXdlYnVpIGlu
-dG8gdGhlIExpbnV4IGltYWdlIGFuZCBzZXQgdXAgY2xpZW50IHNpZGUgb2YgdGhlIHdlYiBpbnRl
-cmZhY2UuIEluIHRoZSBjbGllbnQgc2lkZSBvZiB3ZWIgaW50ZXJmYWNlIEkgY291bGQgYWJsZSB0
-byBnaXZlIHRoZSBJUCBhZGRyZXNzLCB1c2VybmFtZSBhbmQgcGFzc3dvcmQuIEFmdGVyIGVudGVy
-aW5nIGFsbCB0aG9zZSBkZXRhaWxzLCBpdCBpcyBzaG93aW5nICJzZXJ2ZXIgdW5yZWFjaGFibGUi
-LiBCdXQgSSBjb3VsZCBhYmxlIHRvIHBpbmcgdGhlIHNlcnZlciBib2FyZCBhbmQgc3NoIGludG8g
-dGhlIHN5c3RlbS4gUGxlYXNlIHNvbWVvbmUgaGVscCB0byByZXNvbHZlIHRoZSBwcm9ibGVtLg0K
-DQoNCg0KVGhhbmtzIGFuZCBSZWdhcmRzLA0KDQpBa2FzaCBHIEoNCg0KV2UgbmVlZCBzb21lIGJh
-c2ljIGluZm9ybWF0aW9uIHRvIGhlbHAgeW91IHRyb3VibGVzaG9vdC4gIFlvdSBtaWdodCBhbHNv
-IGZpbmQgZmFzdGVyIHJlc3BvbnNlcyBvbiBpcmM7ICBNb3N0IG9mIHRoZSBwZW9wbGUgaW52b2x2
-ZWQgaW4gdGhlIHdlYiBpbmZyYXN0cnVjdHVyZSBhcmUgb25saW5lIHRoZXJlLg0KDQoxLiBXaGF0
-IHBsYXRmb3JtIGFyZSB5b3UgdXNpbmc/DQoyLiBJZiBub3Qgb25lIG9mIHRoZSB1cHN0cmVhbSBw
-bGF0Zm9ybXMsIHdoaWNoIHdlYiBzZXJ2ZXIgaXMgeW91ciBwbGF0Zm9ybSB1c2luZz8gIChwcm9i
-YWJseSBvbmUgb2YgcGhvc3Bob3ItcmVzdCwgYm1jd2ViLCBvciBwaG9zcGhvci1yZXN0K25naW54
-KQ0KMy4gV2hlbiB5b3Ugb3BlbiB1cCB0aGUgZGVidWdnZXIgd2luZG93IGluIHlvdXIgY2hvc2Vu
-IGJyb3dzZXIgKHVzdWFsbHkgdGhlIEYxMiBrZXkpIHRoZW4gZ28gdG8gdGhlIG5ldHdvcmsgdGFi
-IGFuZCBhdHRlbXB0IHRvIGxvZyBpbiwgd2hhdCBkbyB5b3Ugc2VlPyAgWW91IHNob3VsZCBzZWUg
-YW4gYXR0ZW1wdCB0byBnZXQgdG8gdGhlIC9sb2dpbiB1cmwsIHdpdGggc29tZSBraW5kIG9mIGVy
-cm9yIGNvZGUgKG1heWJlIDQwMSwgbWF5YmUgNTAwLCBtYXliZSBzb21ldGhpbmcgZWxzZSkuICBX
-ZSdsbCBuZWVkIHRoYXQgdG8gaGVscCB0cm91Ymxlc2hvb3QuDQo0LiBJcyB0aGVyZSBhbnl0aGlu
-ZyBlbHNlIHN0cmFuZ2UgYWJvdXQgeW91ciBzZXR1cCB0aGF0IHlvdSBtaWdodCB0aGluayB3b3Vs
-ZCBjb250cmlidXRlIHRvIHlvdXIgaXNzdWU/DQo1LiBBcmUgeW91IGhvc3RpbmcgcGhvc3Bob3It
-d2VidWkgZnJvbSBhIGRpZmZlcmVudCBtYWNoaW5lIGZyb20gdGhlIEJNQy4gIERlcGVuZGluZyBv
-biB3aGF0IHNlcnZlciB5b3UgYXJlIHVzaW5nLCB0aGVyZSBhcmUgbGlrZWx5IHNlY3VyaXR5IHNl
-dHRpbmdzIHByZXZlbnRpbmcgY3Jvc3Mgc2l0ZSBzY3JpcHRpbmcgdGhhdCBhcmUgYmxvY2tpbmcg
-eW91Lg0KDQo=
+Hi Ed,
 
---_000_7E9441B1E5EFFD4681F54958E821699345827A58ORSMSX114amrcor_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Sorry for the late reply. I was on leave for last week.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
-YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
-IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
-IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
-Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
-DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
-b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
-Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
-dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpzcGFuLkVtYWlsU3R5bGUxNw0K
-CXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIs
-c2Fucy1zZXJpZjsNCgljb2xvcjojMUY0OTdEO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHls
-ZS10eXBlOmV4cG9ydC1vbmx5O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDEx
-LjBpbjsNCgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9u
-MQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48
-eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwv
-eG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQg
-djpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hh
-cGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIg
-bGluaz0iYmx1ZSIgdmxpbms9InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1m
-YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPlRoaXMg
-YSBzZWN1cml0eSBtZWFzdXJlIGluIGJtY3dlYiB0byBwcmV2ZW50IGNyb3NzIHNpdGUgc2NyaXB0
-aW5nLiAmbmJzcDtJZiB5b3XigJlyZSBydW5uaW5nIHBob3NwaG9yLXdlYnVpIGZyb20gYW5vdGhl
-ciBtYWNoaW5lLCB5b3XigJlyZSBlc3NlbnRpYWxseSBydW5uaW5nIGNyb3NzIHNpdGUNCiBzY3Jp
-cHRpbmcgYXMgYSBkZXZlbG9wbWVudCBtZWFzdXJlLCB3aGljaCBpcyBleGFjdGx5IHdoYXQgdGhl
-IEJNQyBzZWVzLCBhbmQgdGhlIGJyb3dzZXIgc3F1YXNoZXMgdGhlIHJlcXVlc3QgYXMgYSBzdXNw
-ZWN0ZWQgWFNTIGF0dGFjay48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9y
-bWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxp
-YnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3Nw
-YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4w
-cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5
-N0QiPlRoZSBlYXNpZXN0IHdheSB0byBtYWtlIHRoaXMgd29yayBmb3IgdGVzdGluZyBpcyB0byBn
-byB0byB0aGlzIGZpbGU6PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJy
-aSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHVi
-LmNvbS9vcGVuYm1jL2JtY3dlYi9ibG9iL21hc3Rlci9pbmNsdWRlL3NlY3VyaXR5X2hlYWRlcnNf
-bWlkZGxld2FyZS5ocHAiPmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2JtY3dlYi9ibG9iL21h
-c3Rlci9pbmNsdWRlL3NlY3VyaXR5X2hlYWRlcnNfbWlkZGxld2FyZS5ocHA8L2E+PG86cD48L286
-cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
-ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9y
-OiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGli
-cmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj5hbmQgY29tbWVudCBvdXQgbGluZXMg
-NDItNDQsIHdoaWNoIHNldCBoZWFkZXJzIHRvIHByZXZlbnQgdGhlIGJtYyBzcXVhc2hpbmcgdGhl
-IHJlcXVlc3QuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNw
-YW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90
-OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQt
-ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj5JdOKA
-mXMgYmVlbiBhIHdoaWxlIHNpbmNlIEnigJl2ZSBkZXZlbG9wZWQgbGlrZSB0aGF0LCBidXQgeW91
-IGxpa2VseSBhbHNvIG5lZWQgdG8gYWRkIGEgY291cGxlIGhlYWRlcnMgYXMgd2VsbDxvOnA+PC9v
-OnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xv
-cjojMUY0OTdEIj5yZXEuYWRkSGVhZGVyKOKAnEFjY2Vzcy1Db250cm9sLUFsbG93LU9yaWdpbuKA
-nSwg4oCcKuKAnSk7PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZx
-dW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPnJlcS5hZGRIZWFkZXIo4oCcQWNjZXNzLUNv
-bnRyb2wtQWxsb3ctTWV0aG9kc+KAnSwg4oCcR0VULCBQT1NULCBQVVQsIFBBVENI4oCdKTs8bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9u
-dC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7
-Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7
-Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPkkga25vdyB5b3XigJlyZSBu
-b3QgdGhlIGZpcnN0IHBlcnNvbiB0byBoaXQgdGhpcyB1bmV4cGVjdGVkbHkuJm5ic3A7IElmIHlv
-dSBnZXQgYSBoZWFkZXIgcmVjaXBlIHRoYXQgYWxsb3dzIGRldmVsb3BtZW50LCBpdCB3b3VsZCBi
-ZSBncmVhdCBpZiB5b3UgY291bGQgY29kaWZ5IGl0IGludG8NCiBhbiBvcHRpb24gY2FsbGVkIEJN
-Q19JTlNFQ1VSRV9BTExPV19YU1MsIGFkZCBpdCB0byB0aGUgYnVpbGQgY29uZmlndXJhdGlvbiwg
-YW5kIHB1dCBpdCB1cCBmb3IgYSBnZXJyaXQgcmV2aWV3OyZuYnNwOyBJ4oCZbSBmYWlybHkgY2Vy
-dGFpbiBpdCB3b3VsZCBoZWxwIG90aGVycy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTom
-cXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8
-L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQt
-c2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2Nv
-bG9yOiMxRjQ5N0QiPi1FZDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxhIG5hbWU9Il9NYWlsRW5kQ29tcG9zZSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4w
-cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5
-N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvYT48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6
-bm9uZTtib3JkZXItbGVmdDpzb2xpZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4w
-cHQiPg0KPGRpdj4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0Ux
-RTFFMSAxLjBwdDtwYWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxhIG5hbWU9Il9fX19fcmVwbHlzZXBhcmF0b3IiPjwvYT48Yj48c3BhbiBzdHlsZT0iZm9u
-dC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYi
-PkZyb206PC9zcGFuPjwvYj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWls
-eTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPiBBS0FTSCBHIEogW21haWx0bzpha2Fz
-aGdqOTFAZ21haWwuY29tXQ0KPGJyPg0KPGI+U2VudDo8L2I+IFR1ZXNkYXksIEF1Z3VzdCA3LCAy
-MDE4IDM6MTMgQU08YnI+DQo8Yj5Ubzo8L2I+IFRhbm91cywgRWQgJmx0O2VkLnRhbm91c0BpbnRl
-bC5jb20mZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc8YnI+DQo8
-Yj5TdWJqZWN0OjwvYj4gUmU6IFBob3NwaG9yIFdlYi11aTogU2VydmVyIHVucmVhY2hhYmxlPG86
-cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij5IaSBFZCw8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCI+U29ycnkgZm9yIHRoZSBsYXRlIHJlcGx5LiBJIHdhcyBvbiBsZWF2ZSBmb3IgbGFzdCB3
-ZWVrLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij5JIGFtIGhvc3RpbmcgcGhvc3Bob3Itd2VidWkgb24gYSBkaWZmZXJlbnQgbWFjaGluZSBhbmQg
-dHJ5aW5nIHRvIGNvbm5lY3QgdGhlIEJNQyBib2FyZCB1c2luZyBpdHMgSVAgYWRkcmVzcy4gSSBh
-bSB1c2luZyBibWN3ZWIgcGxhdGZvcm0uIFdoZW4gSSB0cmllZCB0byBsb2dpbiwgdGhlIGZvbGxv
-d2luZyBtZXNzYWdlIGFwcGVhcmVkIGluIGJyb3dzZXIgY29uc29sZS48bzpwPjwvbzpwPjwvcD4N
-CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9w
-Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Q3Jvc3MtT3JpZ2luIFJlcXVl
-c3QgQmxvY2tlZDogVGhlIFNhbWUgT3JpZ2luIFBvbGljeSBkaXNhbGxvd3MgcmVhZGluZyB0aGUg
-cmVtb3RlIHJlc291cmNlIGF0DQo8YSBocmVmPSJodHRwczovLyUzY0JNQy1JUCUzZS9sb2dpbiI+
-aHR0cHM6Ly8mbHQ7Qk1DLUlQJmd0Oy9sb2dpbjwvYT4uIChSZWFzb246IENPUlMgcmVxdWVzdCBk
-aWQgbm90IHN1Y2NlZWQpLjxicj4NCiZsdDt1bmF2YWlsYWJsZSZndDsgYWN0aXZpdHktc3RyZWFt
-LmJ1bmRsZS5qczozMTcwOjk8YnI+DQpDU0kvdGJzZF8gY2I9Z2FwaS5sb2FkZWRfMDo0NTg6MTI3
-PGJyPg0KQ1NJL190Ym5kIGNiPWdhcGkubG9hZGVkXzA6NDU4OjEyNzxicj4NCkNTSS90YnNkXyBj
-Yj1nYXBpLmxvYWRlZF8wOjQ1ODoxMjc8YnI+DQpDU0kvX3RibmQgY2I9Z2FwaS5sb2FkZWRfMDo0
-NTg6MTI3PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj5UaGFua3MgYW5kIFJlZ2FyZHMsPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkFrYXNoPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwv
-ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0K
-PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9uIE1vbiwgSnVsIDMwLCAyMDE4IGF0IDExOjA2
-IFBNLCBFZCBUYW5vdXMgJmx0OzxhIGhyZWY9Im1haWx0bzplZC50YW5vdXNAaW50ZWwuY29tIiB0
-YXJnZXQ9Il9ibGFuayI+ZWQudGFub3VzQGludGVsLmNvbTwvYT4mZ3Q7IHdyb3RlOjxvOnA+PC9v
-OnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlk
-ICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0Ljhw
-dDttYXJnaW4tcmlnaHQ6MGluIj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-T24gMDcvMzAvMjAxOCAwNTowNCBBTSwgQUtBU0ggRyBKIHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0K
-PGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0Mg
-MS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4t
-cmlnaHQ6MGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkhpIFRlYW0sPGJyPg0KPGJyPg0KSSBh
-ZGRlZCBwaG9zcGhvci13ZWJ1aSBpbnRvIHRoZSBMaW51eCBpbWFnZSBhbmQgc2V0IHVwIGNsaWVu
-dCBzaWRlIG9mIHRoZSB3ZWIgaW50ZXJmYWNlLiBJbiB0aGUgY2xpZW50IHNpZGUgb2Ygd2ViIGlu
-dGVyZmFjZSBJIGNvdWxkIGFibGUgdG8gZ2l2ZSB0aGUgSVAgYWRkcmVzcywgdXNlcm5hbWUgYW5k
-IHBhc3N3b3JkLiBBZnRlciBlbnRlcmluZyBhbGwgdGhvc2UgZGV0YWlscywgaXQgaXMgc2hvd2lu
-ZyAmcXVvdDtzZXJ2ZXIgdW5yZWFjaGFibGUmcXVvdDsuIEJ1dA0KIEkgY291bGQgYWJsZSB0byBw
-aW5nIHRoZSBzZXJ2ZXIgYm9hcmQgYW5kIHNzaCBpbnRvIHRoZSBzeXN0ZW0uIFBsZWFzZSBzb21l
-b25lIGhlbHAgdG8gcmVzb2x2ZSB0aGUgcHJvYmxlbS48YnI+DQo8YnI+DQo8YnI+DQo8YnI+DQpU
-aGFua3MgYW5kIFJlZ2FyZHMsPGJyPg0KPGJyPg0KQWthc2ggRyBKPG86cD48L286cD48L3A+DQo8
-L2Jsb2NrcXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4N
-CjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5XZSBuZWVkIHNvbWUgYmFzaWMg
-aW5mb3JtYXRpb24gdG8gaGVscCB5b3UgdHJvdWJsZXNob290LiZuYnNwOyBZb3UgbWlnaHQgYWxz
-byBmaW5kIGZhc3RlciByZXNwb25zZXMgb24gaXJjOyZuYnNwOyBNb3N0IG9mIHRoZSBwZW9wbGUg
-aW52b2x2ZWQgaW4gdGhlIHdlYiBpbmZyYXN0cnVjdHVyZSBhcmUgb25saW5lIHRoZXJlLjxicj4N
-Cjxicj4NCjEuIFdoYXQgcGxhdGZvcm0gYXJlIHlvdSB1c2luZz88YnI+DQoyLiBJZiBub3Qgb25l
-IG9mIHRoZSB1cHN0cmVhbSBwbGF0Zm9ybXMsIHdoaWNoIHdlYiBzZXJ2ZXIgaXMgeW91ciBwbGF0
-Zm9ybSB1c2luZz8mbmJzcDsgKHByb2JhYmx5IG9uZSBvZiBwaG9zcGhvci1yZXN0LCBibWN3ZWIs
-IG9yIHBob3NwaG9yLXJlc3QmIzQzO25naW54KTxicj4NCjMuIFdoZW4geW91IG9wZW4gdXAgdGhl
-IGRlYnVnZ2VyIHdpbmRvdyBpbiB5b3VyIGNob3NlbiBicm93c2VyICh1c3VhbGx5IHRoZSBGMTIg
-a2V5KSB0aGVuIGdvIHRvIHRoZSBuZXR3b3JrIHRhYiBhbmQgYXR0ZW1wdCB0byBsb2cgaW4sIHdo
-YXQgZG8geW91IHNlZT8mbmJzcDsgWW91IHNob3VsZCBzZWUgYW4gYXR0ZW1wdCB0byBnZXQgdG8g
-dGhlIC9sb2dpbiB1cmwsIHdpdGggc29tZSBraW5kIG9mIGVycm9yIGNvZGUgKG1heWJlIDQwMSwg
-bWF5YmUgNTAwLA0KIG1heWJlIHNvbWV0aGluZyBlbHNlKS4mbmJzcDsgV2UnbGwgbmVlZCB0aGF0
-IHRvIGhlbHAgdHJvdWJsZXNob290Ljxicj4NCjQuIElzIHRoZXJlIGFueXRoaW5nIGVsc2Ugc3Ry
-YW5nZSBhYm91dCB5b3VyIHNldHVwIHRoYXQgeW91IG1pZ2h0IHRoaW5rIHdvdWxkIGNvbnRyaWJ1
-dGUgdG8geW91ciBpc3N1ZT88YnI+DQo1LiBBcmUgeW91IGhvc3RpbmcgcGhvc3Bob3Itd2VidWkg
-ZnJvbSBhIGRpZmZlcmVudCBtYWNoaW5lIGZyb20gdGhlIEJNQy4mbmJzcDsgRGVwZW5kaW5nIG9u
-IHdoYXQgc2VydmVyIHlvdSBhcmUgdXNpbmcsIHRoZXJlIGFyZSBsaWtlbHkgc2VjdXJpdHkgc2V0
-dGluZ3MgcHJldmVudGluZyBjcm9zcyBzaXRlIHNjcmlwdGluZyB0aGF0IGFyZSBibG9ja2luZyB5
-b3UuPG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9i
-b2R5Pg0KPC9odG1sPg0K
+I am hosting phosphor-webui on a different machine and trying to connect
+the BMC board using its IP address. I am using bmcweb platform. When I
+tried to login, the following message appeared in browser console.
 
---_000_7E9441B1E5EFFD4681F54958E821699345827A58ORSMSX114amrcor_--
+Cross-Origin Request Blocked: The Same Origin Policy disallows reading the
+remote resource at <a class="moz-txt-link-freetext" href="https://">https://</a>&lt;BMC-IP&gt;/login. (Reason: CORS request did not
+succeed).
+&lt;unavailable&gt; activity-stream.bundle.js:3170:9
+CSI/tbsd_ cb=gapi.loaded_0:458:127
+CSI/_tbnd cb=gapi.loaded_0:458:127
+CSI/tbsd_ cb=gapi.loaded_0:458:127
+CSI/_tbnd cb=gapi.loaded_0:458:127
+</pre>
+    </blockquote>
+    See
+<a class="moz-txt-link-freetext" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin</a>.<br>
+    I think the HTTP response header from phosphor-webui needs to
+    include "Cross-origin resource sharing" headers such as:<br>
+      <span class="typ">Access</span><span class="pun">-</span><span
+      class="typ">Control</span><span class="pun">-</span><span
+      class="typ">Allow</span><span class="pun">-</span><span
+      class="typ">Origin</span><span class="pun"></span>:
+    &lt;YOUR-WEB-HOSTING-MACHINE-IP&gt;, &lt;original-ip&gt;    &lt;--
+    or use *<br>
+      Access-Control-Allow-Credentials: true<br>
+      Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE<br>
+      Access-Control-Max-Age: 3600<br>
+      Access-Control-Allow-Headers: Content-Type, Accept,
+    X-Requested-With, remember-me<br>
+    <br>
+    How would we enhance the phosphor-webui application to produce these
+    headers?<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:mailman.438.1533636809.2968.openbmc@lists.ozlabs.org">
+      <pre wrap="">
+Thanks and Regards,
+
+Akash
+[...snip...]
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------EDB36EEB7C8B99E46C06DCE8--
