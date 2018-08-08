@@ -1,43 +1,54 @@
-Return-Path: <david.j.cobbley@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.136; helo=mga12.intel.com;
- envelope-from=david.j.cobbley@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c0b::22f; helo=mail-it0-x22f.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="R7NE97Kv"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22f.google.com (mail-it0-x22f.google.com
+ [IPv6:2607:f8b0:4001:c0b::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41m5KC0FSKzDrZC
- for <openbmc@lists.ozlabs.org>; Thu,  9 Aug 2018 08:14:37 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2018 15:14:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,212,1531810800"; d="scan'208";a="78702889"
-Received: from parzival.jf.intel.com (HELO [10.54.51.103]) ([10.54.51.103])
- by fmsmga004.fm.intel.com with ESMTP; 08 Aug 2018 15:14:34 -0700
-Subject: Re: Managing openbmc with subtree
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-References: <00e6e0a4-027d-7a9c-ad49-363290e62c68@linux.intel.com>
- <A174348B-515D-48F9-8D41-DD8AD8260006@fuzziesquirrel.com>
- <54643fe1-d382-3df7-8630-bb5e01ea2edb@linux.intel.com>
- <8E5317F7-E0B1-4A2F-B047-52B77E1AD13F@fuzziesquirrel.com>
- <9b967642-9c97-c7e5-7114-c024ada10a4f@linux.intel.com>
- <7B99FD60-9493-4A17-ABF0-D1315D86B1CB@fuzziesquirrel.com>
-Cc: openbmc@lists.ozlabs.org, prashanth.giri@dell.com, sachit_bakshi@dell.com
-From: Dave Cobbley <david.j.cobbley@linux.intel.com>
-Message-ID: <8b4c11b3-d6d7-c586-5d10-9c028d3fefb2@linux.intel.com>
-Date: Wed, 8 Aug 2018 15:14:35 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41m61k4zJ4zDrbB
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Aug 2018 08:46:18 +1000 (AEST)
+Received: by mail-it0-x22f.google.com with SMTP id p81-v6so77290itp.1
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Aug 2018 15:46:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=gUKn9NVJjvo7ukYcB3qP8rqtdijvoe8NlI7zpsnAdDg=;
+ b=R7NE97KvsPXmm5i7+enSnuMrQWiqlol4s+MUMATmnBHdCT7u6XZypM1R6/n2GPpIpx
+ uL2uBZmsKrYh6ckuv9WgJgf/0/X9Nxv/Oj+ARZnW6CpX5QCzrpLJc2/Kl4zcRbsAdRxA
+ gnCAx4sDEIM0kcrrFQdaBRQAryS+QgaaN0UYyq+feO+KGkLFBm9bRaj4FSLwhr9qwxfz
+ QZSNcbQQQDQ0fEtsIUWtwHocnyRViB8yoRRq5qm2bxK/KfQ9NAJCXVIGYhQfCj+4uWIy
+ UtFiWMyJyCil1Jx6XmMFdocHxVq8SHCNir4HTRNXHrZbHmTJG+Mledxao4WoqERDVdCg
+ XEiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=gUKn9NVJjvo7ukYcB3qP8rqtdijvoe8NlI7zpsnAdDg=;
+ b=hUfHEJ2CPqVLbaYRYjvq9KodUowxJprcwJo1jbEFi8RTIAPO/6TFG7PQyBcWx1hv6H
+ JAH68XLGD7m4iLDCTa7sP6TJWM1CBsnu+jDPZ468+Sz2CZOqatmGTtD3WHogAk0G0f16
+ tr+9NrflXuekmuu9sgdqBk5AZlhxhHhAQSv4SYLqebj1kMRDzf3RmxeA8AwPwxp7NLPN
+ p72amyssdR7Wgbc2w6/wWKim847RsSzj1tMicgno4p1HOOtP6IcXq0NdIYu7bmia8jGQ
+ YT0CPtb3MORGOA9crQrPSrp2wS2xve8breRQYG0WFHuOBxDy5DHXCLt9eF7O48dlIWwb
+ Pu3Q==
+X-Gm-Message-State: AOUpUlGhGo3NMx7IHAZ2Vg7fNBRHa5Xk4fc14vbJiEpDkx++ZE9pNqXC
+ 5VDkjjlFTVRQZSugwPu50UnyPJCHIWilXwXQzCeh/OVT
+X-Google-Smtp-Source: AA+uWPx+VML9vMP+qWYuXL+CpNvAxvI0CQjZjXkW0Sr+kJVIZwB6HWVAVPkhKLoo+APrvKO2nb/TpfZBC/IAYeviVjE=
+X-Received: by 2002:a24:83c3:: with SMTP id d186-v6mr53202ite.88.1533768375385; 
+ Wed, 08 Aug 2018 15:46:15 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <7B99FD60-9493-4A17-ABF0-D1315D86B1CB@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Received: by 2002:a6b:5c07:0:0:0:0:0 with HTTP;
+ Wed, 8 Aug 2018 15:45:54 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+Date: Wed, 8 Aug 2018 15:45:54 -0700
+Message-ID: <CAO=notzP1FWobbpUhqdf8ZrGRqsNZvZHBp=8cmXZjWOL0dcCrA@mail.gmail.com>
+Subject: Licensing Question
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -49,59 +60,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Aug 2018 22:14:39 -0000
+X-List-Received-Date: Wed, 08 Aug 2018 22:46:19 -0000
 
+So, I've spent the last hour trying to submodule my way to using
+ipmitool.  I've managed to get it compiling for just the one file I
+need (or want).  However, then I try to link it and then more failures
+for things that are missing, such as helper methods.  So, then I add
+the file that has those, and then it doesn't compile because that file
+doesn't compile.  This is of course, not compiling with the -Werror
+flag among other things with gcc.
 
->> On Aug 7, 2018, at 1:16 PM, Dave Cobbley <david.j.cobbley@linux.intel.com> wrote:
->>
->> I do agree that we can find a scriptable solution to this, however, I feel using the OWNERS plugin provides a much easier workflow for all developers, i.e. nothing changes from their perspective.
-> Hrm, while I agree that the OWNERS plugin preserves the existing workflow
-> I’m not convinced that is the best path forward.
-I suppose it does only give us one of the two goals, where as moving 
-straight to subtrees fulfills all of the goals.
->
->>> This gives us the same process for all subtrees, whether or not they are
->>> openbmc hosted subtrees.  It also does not require people hacking on a
->>> subtree to clone OpenBMC when it doesn’t make sense for them to do that,
->>> such as someone just using the Aspeed BSP layer.
->
-> I still have these concerns.
-I understand your concerns and agree - Here is what I would propose for 
-the subtree folder structure:
+So, I can keep battling this, or I can ask -- the license for the
+ipmitool just says I need to keep a copy of the license with the
+source if I reuse it.  So, I can do that, and I can hack it up to work
+-- but where I'm curious is -- how does that impact the license of
+phosphor-ipmi-flash?
 
-Splat * represents a subtree
+(Some of the things where gcc is complaining, I can go ahead and
+submit patches to fix.)
 
-Yocto & more:
-import-layers/
-     *meta-openembedded/
-     *meta-virtualization/
-     *poky/
-     *meta-security/
-
-BSP:
-meta-openbmc-bsp/
-    *meta-ibm/
-    *meta-aspeed/
-    *meta-nuvoton/
-    *meta-raspberrypi/
-
-MACHINES:
-meta-openbmc-machines/
-    meta-arm/
-        *meta-qualcomm/
-    meta-openpower/
-        * meta-ibm/
-        * meta-ingrasys/
-        * meta-inventec/
-        * meta-rackspace/
-    meta-x86/
-        *meta-intel/
-        *meta-mellanox/
-        *meta-portwell/
-        *meta-quanta/
-
-REFERENCE:
-meta-phosphor/
-
-
--Dave
+Patrick
