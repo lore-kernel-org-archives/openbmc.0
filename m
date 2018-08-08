@@ -1,102 +1,35 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="Sm6co0Ta"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41llwz08ggzDqgZ
- for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 19:10:58 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id BE7E641900;
- Wed,  8 Aug 2018 09:10:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:mime-version:user-agent:date:date
- :message-id:subject:subject:from:from:received:received
- :received; s=mta-01; t=1533719452; x=1535533853; bh=CaaGjtov1PA7
- ntAx2hhTKLy+rO9TIrrXdLRcRKx7gcU=; b=Sm6co0TaYVT5+L+BZ2+VfosoGsgy
- gnFEMZy26OdyJL3410DJG6xcCfoRsayYqXItP9smNBivyoxwOm6vEivqEedB9men
- KzToUmqyxcm9rRJ0+lANNapQ5/0zUUBh6iFkUJC1N2NGCexJAlOW1b3cP3POJ450
- fvjT5hRpdM0WVzQ=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id qa5jsXFFous6; Wed,  8 Aug 2018 12:10:52 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 77C3241203;
- Wed,  8 Aug 2018 12:10:52 +0300 (MSK)
-Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 8 Aug
- 2018 12:10:51 +0300
-To: <openbmc@lists.ozlabs.org>
-CC: Brad Bishop <bradleyb@fuzziesquirrel.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: phosphor-dbus-monitor: elog doesn't work for deferrable callbacks
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- xsFNBFj0jdkBEADhQF4vZuu9vFfzxchRQtU/ys62Z13HTaYK/VCQKzPnm2mf593Il61FP9WV
- 0Srt4t4yumiXK7NhHeqktN/YZjYDYVr9l+vZpNydOHpDjk7xjPgb0KkoFCo7bcQ2/e4AtLTQ
- XGoWIKv983vWlphPCG1Jof5jH3RA7mccCNXtGlzVYF0RYR0/qKGgsoBymkldNKPwgPf/3SXb
- QY5V3sJ5SHwDjmhg3MYnblV29OULdi72DKI9MkhTTHQFlA++CfYstx/cZ1BZwWmoMgi0umpj
- Pf+5mAkmTtlPW7U54EUgFpvTMfxRRS7yH+iTlvngduYW6jryt0zm6r7M2LGR+uWGSTmWBB7Y
- t06D0Xrm0Zwl4alQ5WDrlUTkzZcXDb0QqY7UkQSkghLmUjItEj4Z+ay7ynIsfjQe0OYdTofh
- dY0IUxMxNm9jeckOkRpSdgsQrTcKIOAt/8jI62jlzN1EXA6blhASv5xtt7I1WXCpDU+mpfKf
- ccUVJfmd0Q2nlG64L4Bv8o+iBI0Xu5+EX2NzDKQF5vSQIK8mwniAPT16hi80mZG9EQf0fJ1C
- p7xJGvwA6IiwXWsAqhNRhYbmNDfiR2MMxw5DFdQSeqoK3ONeeIwrJAPNdme+Z1DoT2+ZuZP0
- nfUa8e2QaMHkXwCz9e0cI2NUmAwFJ9Qg4L0eyhdZP4rQ1KCg/QARAQABzSxBbGV4YW5kZXIg
- QW1lbGtpbiA8YWxleGFuZGVyQGFtZWxraW4ubXNrLnJ1PsLBgAQTAQgAKgIbAwULCQgHAgYV
- CAkKCwIEFgIDAQIeAQIXgAIZAQUCWmWolAUJcjFDNwAKCRDok1h7W3QXjXyOEACUv6oDO7Vn
- KnDTUypYhyTVi8C+fjlHTH+AIDP4qk6nXjMIJeh0P7rQCHAOIOCW9osy/urYQ5at90eUolDV
- udMe5+sSvKRHYksu74O+4XedE2TDFJnntnz0JIeyuaH4FVRDX5i2hlK6wx2D06wTJj4JONlW
- c1aLULPKfrCbMbpNlD9s/+48RkCj77kl30nJ+56ThEMkSgomMIL9XMesNnQAa83Y55mJhx1f
- n3Gz7kH6nxLPPgLWgKXebAgM6ltJAjaCIWxZYlJK5dQmQC5N7PR0kXdnHttSx89ldgPacpX7
- V39dBMoURY/+YtMU7VKUNVW/IXkwXT7m42QoxO3H+HNHRVfDtELy2l6fBCf0ShXs4b3AF654
- aRJrwQX1Za3mg6OXTmAVDEerqOBht5XZl2Y/FyxV1Tka2SarkYrNVjD3YXODnmF3GfAuP8Jk
- F8uYvQyXpLMpThnUPjs+Vl1NC1exh2mrM+7kxGXPKhrFWxX7tduAJpULpdCk4mefO9/U7I8/
- Edf5giE1o9yhECZ71lzmA7p7bLDv54Qfu4WAVndUgHLHCH7uUsKf3cds/gLtpuTrHB83nvvh
- LKZ6+kYnn5pK89hkia0EbpOrTrqBqphMyxFb7WFapXip7kRaqUdMOqdRO+JHG3rFAhz7sl/0
- DPWSea7WGLe0TNySCQ4GdytKLs7BTQRY9I3ZARAAygmVNgjvxkqud75kP5fwhmwMVu13sLh8
- QnZxjMsA9Zelt1Hu+BVmjET7YL4xBhdJDZ4y3UI/MV8ZzOfJHUWSNr6POwKIrsQfGzdlgB0e
- w2k6Rm651Jp+aAsygB4GR7BopptJd9d/q5oCnZxpPgDpZOBCpl4DQ3fJIGSc8iQVmA84lHLS
- +mqIJ94PZ7uza4F0ly6Au+Hbkhowh/1q+BUd6Rn553WAmPAG7g0lAG/Obq1m77ovlR86yY5i
- C503QKlPJELSNYtzczuLQZetjDtaFkugke4QMlhzHyc7DjSsjyccdhepPtXWEm84jPCx1/KU
- 3m9jAWtPdARQ73su/fiitmXAifQXJBB2R9fmKuM2F3ClHcJxv/l0W1ruekD9vojOO75yvBEG
- 7fGlLc9hUgIIGgBJvI+Yb1/KhqWC9r53TS6kcuCi+z9kf+4MTBge2sU97DtivZGzul6yhrcr
- 3Ic5paWoaka2ClGqKBQo3A9o4F60q3rRq5FAcMdKQq7qJutCzcjkcCpVVik1im0u0+UGrK0s
- YQuAgTu45mJPOfINqz1xz+qwxSjYI/wjxJaYTZLO68CIdBiDj+zxIeo9o/mUJvS+DhnPzKhW
- KXToZl2D7VdjOlu8zZ0tIFYrULJYhuw2f/KwD1lwoehlKikEE0H0xkPygufjtiYo6jTb+BKa
- sG8AEQEAAcLBZQQYAQgADwIbDAUCWmWo6AUJcjFDNwAKCRDok1h7W3QXjc9vEADXse2POSaT
- M0uqR3KGTeF8XVKdyRqK9afWbMaxFzOWGp9pNtcmIvfmyE0M6LPLgUb33jek/Ngup/RN7CjZ
- NCjOc2HTID99uBkYyLEcOYb+bycAReswjrv3a49ZBmmGKJZ+aAm0t6Zo6ekTdUtvlIrVYvRs
- UWWj4HdCaD+BMvSqcDZgyQESLI9nfEGuWtVqdi2QlZZeQT7W+RH4lihHKTdzOsVC93o4h6og
- ZvgOJ/0g1SP3la88RWONejHxVbGzBOyNjkH71CFujnAfuVuuhkJaN8PY/CS56sKMREKJOy0L
- vouE7eSU4bp13GK1xsnbWcDQpyzTsCsP9taqQmeld8Hw1yuPamc6fdpKNyPHyN20vzh20f0C
- QUMAjh3Vym12aKhyRan08VNEaLOKiyya6+i9c3Z3LiWUEqTSzELCkesb68UQVtE6/CXPM2P/
- vs3EQuLFXBC/rD9lurT0kG99xElAbKjHLer5NSw2WA2vQXaFadGNDyHI32Yt2cAqWzZtVqmN
- ESE0npJ5eeAcVWPHjhCwL8phZCDtfxJMy2cqYS8QLIBGfQTIHMQAgqBbpq9FLXCn008tvaTr
- KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <1f449417-3f97-5baa-8a11-8e6b8d71bc36@yadro.com>
-Date: Wed, 8 Aug 2018 12:10:51 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="CeHXWomyVCrqpHZH6sYahwWkneaVO8qoO"
-X-Originating-IP: [172.17.14.168]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41lmGC0CZ5zDqgZ
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 19:25:52 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w788tS42032068;
+ Wed, 8 Aug 2018 11:55:28 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id E2426630C7; Wed,  8 Aug 2018 12:25:27 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: linus.walleij@linaro.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ yuenn@google.com, venture@google.com, brendanhiggins@google.com,
+ avifishman70@gmail.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v6 1/2] dt-binding: pinctrl: Add NPCM7xx pinctrl and GPIO
+ documentation
+Date: Wed,  8 Aug 2018 12:25:25 +0300
+Message-Id: <20180808092526.87405-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20180808092526.87405-1-tmaimon77@gmail.com>
+References: <20180808092526.87405-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -108,60 +41,240 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Aug 2018 09:11:00 -0000
+X-List-Received-Date: Wed, 08 Aug 2018 09:25:55 -0000
 
---CeHXWomyVCrqpHZH6sYahwWkneaVO8qoO
-Content-Type: multipart/mixed; boundary="b56cCAa6rQ4EjZE3t7BFO6pgALQn3qx9x";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Message-ID: <1f449417-3f97-5baa-8a11-8e6b8d71bc36@yadro.com>
-Subject: phosphor-dbus-monitor: elog doesn't work for deferrable callbacks
+Added device tree binding documentation for Nuvoton BMC
+NPCM750/730/715/705 pinmux and GPIO controller.
 
---b56cCAa6rQ4EjZE3t7BFO6pgALQn3qx9x
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
+ .../bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt   | 216 +++++++++++++++++++++
+ 1 file changed, 216 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt
 
-Hi Brad, all!
-
-Could you please take a look at
-https://github.com/openbmc/openbmc/issues/3352 ?
-
-It looks like a bug to us, but maybe we're doing something wrong.
-
-What do you think?
-
-Thank you.
-
-Alexander.
-
-
-
---b56cCAa6rQ4EjZE3t7BFO6pgALQn3qx9x--
-
---CeHXWomyVCrqpHZH6sYahwWkneaVO8qoO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJbarObAAoJEOiTWHtbdBeNFqsP/1pS1FYnrmxbMztoGcoZfc6R
-t0Zf18SDOq85iLSPC+D0BZ4SzMeb4sJaEzErwFaFe5LE277tl5pQF3bKubvrskiW
-fKb471Wfegg95ulYXLhKFbUXCwWSp1rzG3DWP2UKjaZhYTnwhc7aSQGMj6J3hODN
-V9KszkjxlvSSQb6WFTnrCTfvVOa80SFYeCyu9NvoJEazUGRYukfpd3eBZxzGM6ic
-UTp2YXigDQSri9vrjq71NkU9yZmyn4Z+vaC/1ozefCDc82RLcr/emaVtVLOddyVl
-+oYakVFPu1+jd+JndMrsx5LU5RkCd12AueJbW/qlLHmUZDWmOVmo0PMQ5amKUHj7
-xuADAznmjVpwNKlEMyI5tsVlOb3fYnBFHafM8J4mAvnj5I017eD4ul821u4V+Ac7
-epr3lo8jiWSdQJdskpVUENignRDO+vWIIEpYe6aKJrUayamg58E4EUOvRMTNBFPM
-jx3/HySEQO7jm5zvu9RrWKdSTTr+PFyHGQT+PYdlTQWBicN1xyYV/3a4x0edUxsy
-E34szC56cpIabkoHMwjLcZmO/WmRuGM1O7/JCvJ5AEdOO30tzNfcHLB1ueN0qQK8
-3DdpwxSCutp3ooNsTGYjaFWNrNbRiysA7NGBfWvhWKyOPake5RNJoOFNGLaeoU83
-XHHCa7mOuWHVicmTErdc
-=VWwI
------END PGP SIGNATURE-----
-
---CeHXWomyVCrqpHZH6sYahwWkneaVO8qoO--
+diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt
+new file mode 100644
+index 000000000000..83f4bbac94bb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt
+@@ -0,0 +1,216 @@
++Nuvoton NPCM7XX Pin Controllers
++
++The Nuvoton BMC NPCM7XX Pin Controller multi-function routed through
++the multiplexing block, Each pin supports GPIO functionality (GPIOx)
++and multiple functions that directly connect the pin to different
++hardware blocks.
++
++Required properties:
++- #address-cells : should be 1.
++- #size-cells	 : should be 1.
++- compatible	 : "nuvoton,npcm750-pinctrl" for Poleg NPCM7XX.
++- ranges	 : defines mapping ranges between pin controller node (parent)
++			to GPIO bank node (children).
++
++=== GPIO Bank Subnode ===
++
++The NPCM7XX has 8 GPIO Banks each GPIO bank supports 32 GPIO.
++
++Required GPIO Bank subnode-properties:
++- reg 			: specifies physical base address and size of the GPIO
++				bank registers.
++- gpio-controller	: Marks the device node as a GPIO controller.
++- #gpio-cells		: Must be <2>. The first cell is the gpio pin number
++				and the second cell is used for optional parameters.
++- interrupts		: contain the GPIO bank interrupt with flags for falling edge.
++- gpio-ranges		: defines the range of pins managed by the GPIO bank controller.
++
++For example, GPIO bank subnodes like the following:
++	gpio0: gpio@f0010000 {
++		gpio-controller;
++		#gpio-cells = <2>;
++		reg = <0x0 0x80>;
++		interrupts = <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>;
++		gpio-ranges = <&pinctrl 0 0 32>;
++	};
++
++=== Pin Mux Subnode ===
++
++- pin: A string containing the name of the pin
++	An array of strings, each string containing the name of a pin.
++	These pin are used for selecting pin configuration.
++
++The following are the list of pins available:
++	"GPIO0/IOX1DI", "GPIO1/IOX1LD",	"GPIO2/IOX1CK", "GPIO3/IOX1D0",
++	"GPIO4/IOX2DI/SMB1DSDA", "GPIO5/IOX2LD/SMB1DSCL", "GPIO6/IOX2CK/SMB2DSDA",
++	"GPIO7/IOX2D0/SMB2DSCL", "GPIO8/LKGPO1", "GPIO9/LKGPO2", "GPIO10/IOXHLD",
++	"GPIO11/IOXHCK", "GPIO12/GSPICK/SMB5BSCL", "GPIO13/GSPIDO/SMB5BSDA",
++	"GPIO14/GSPIDI/SMB5CSCL", "GPIO15/GSPICS/SMB5CSDA", "GPIO16/LKGPO0",
++	"GPIO17/PSPI2DI/SMB4DEN","GPIO18/PSPI2D0/SMB4BSDA", "GPIO19/PSPI2CK/SMB4BSCL",
++	"GPIO20/SMB4CSDA/SMB15SDA", "GPIO21/SMB4CSCL/SMB15SCL", "GPIO22/SMB4DSDA/SMB14SDA",
++	"GPIO23/SMB4DSCL/SMB14SCL", "GPIO24/IOXHDO", "GPIO25/IOXHDI", "GPIO26/SMB5SDA",
++	"GPIO27/SMB5SCL", "GPIO28/SMB4SDA", "GPIO29/SMB4SCL", "GPIO30/SMB3SDA",
++	"GPIO31/SMB3SCL", "GPIO32/nSPI0CS1","SPI0D2", "SPI0D3", "GPIO37/SMB3CSDA",
++	"GPIO38/SMB3CSCL", "GPIO39/SMB3BSDA", "GPIO40/SMB3BSCL", "GPIO41/BSPRXD",
++	"GPO42/BSPTXD/STRAP11", "GPIO43/RXD1/JTMS2/BU1RXD", "GPIO44/nCTS1/JTDI2/BU1CTS",
++	"GPIO45/nDCD1/JTDO2", "GPIO46/nDSR1/JTCK2", "GPIO47/nRI1/JCP_RDY2",
++	"GPIO48/TXD2/BSPTXD", "GPIO49/RXD2/BSPRXD", "GPIO50/nCTS2", "GPO51/nRTS2/STRAP2",
++	"GPIO52/nDCD2", "GPO53/nDTR2_BOUT2/STRAP1", "GPIO54/nDSR2", "GPIO55/nRI2",
++	"GPIO56/R1RXERR", "GPIO57/R1MDC", "GPIO58/R1MDIO", "GPIO59/SMB3DSDA",
++	"GPIO60/SMB3DSCL", "GPO61/nDTR1_BOUT1/STRAP6", "GPO62/nRTST1/STRAP5",
++	"GPO63/TXD1/STRAP4", "GPIO64/FANIN0", "GPIO65/FANIN1", "GPIO66/FANIN2",
++	"GPIO67/FANIN3", "GPIO68/FANIN4", "GPIO69/FANIN5", "GPIO70/FANIN6", "GPIO71/FANIN7",
++	"GPIO72/FANIN8", "GPIO73/FANIN9", "GPIO74/FANIN10", "GPIO75/FANIN11",
++	"GPIO76/FANIN12", "GPIO77/FANIN13","GPIO78/FANIN14", "GPIO79/FANIN15",
++	"GPIO80/PWM0", "GPIO81/PWM1", "GPIO82/PWM2", "GPIO83/PWM3", "GPIO84/R2TXD0",
++	"GPIO85/R2TXD1", "GPIO86/R2TXEN", "GPIO87/R2RXD0", "GPIO88/R2RXD1", "GPIO89/R2CRSDV",
++	"GPIO90/R2RXERR", "GPIO91/R2MDC", "GPIO92/R2MDIO", "GPIO93/GA20/SMB5DSCL",
++	"GPIO94/nKBRST/SMB5DSDA", "GPIO95/nLRESET/nESPIRST", "GPIO96/RG1TXD0",
++	"GPIO97/RG1TXD1", "GPIO98/RG1TXD2", "GPIO99/RG1TXD3","GPIO100/RG1TXC",
++	"GPIO101/RG1TXCTL", "GPIO102/RG1RXD0", "GPIO103/RG1RXD1", "GPIO104/RG1RXD2",
++	"GPIO105/RG1RXD3", "GPIO106/RG1RXC", "GPIO107/RG1RXCTL", "GPIO108/RG1MDC",
++	"GPIO109/RG1MDIO", "GPIO110/RG2TXD0/DDRV0", "GPIO111/RG2TXD1/DDRV1",
++	"GPIO112/RG2TXD2/DDRV2", "GPIO113/RG2TXD3/DDRV3", "GPIO114/SMB0SCL",
++	"GPIO115/SMB0SDA", "GPIO116/SMB1SCL", "GPIO117/SMB1SDA", "GPIO118/SMB2SCL",
++	"GPIO119/SMB2SDA", "GPIO120/SMB2CSDA", "GPIO121/SMB2CSCL", "GPIO122/SMB2BSDA",
++	"GPIO123/SMB2BSCL", "GPIO124/SMB1CSDA", "GPIO125/SMB1CSCL","GPIO126/SMB1BSDA",
++	"GPIO127/SMB1BSCL", "GPIO128/SMB8SCL", "GPIO129/SMB8SDA", "GPIO130/SMB9SCL",
++	"GPIO131/SMB9SDA", "GPIO132/SMB10SCL", "GPIO133/SMB10SDA","GPIO134/SMB11SCL",
++	"GPIO135/SMB11SDA", "GPIO136/SD1DT0", "GPIO137/SD1DT1", "GPIO138/SD1DT2",
++	"GPIO139/SD1DT3", "GPIO140/SD1CLK", "GPIO141/SD1WP", "GPIO142/SD1CMD",
++	"GPIO143/SD1CD/SD1PWR", "GPIO144/PWM4",	"GPIO145/PWM5",	"GPIO146/PWM6",
++	"GPIO147/PWM7",	"GPIO148/MMCDT4", "GPIO149/MMCDT5", "GPIO150/MMCDT6",
++	"GPIO151/MMCDT7", "GPIO152/MMCCLK", "GPIO153/MMCWP", "GPIO154/MMCCMD",
++	"GPIO155/nMMCCD/nMMCRST", "GPIO156/MMCDT0", "GPIO157/MMCDT1", "GPIO158/MMCDT2",
++	"GPIO159/MMCDT3", "GPIO160/CLKOUT/RNGOSCOUT", "GPIO161/nLFRAME/nESPICS",
++	"GPIO162/SERIRQ", "GPIO163/LCLK/ESPICLK", "GPIO164/LAD0/ESPI_IO0",
++	"GPIO165/LAD1/ESPI_IO1", "GPIO166/LAD2/ESPI_IO2", "GPIO167/LAD3/ESPI_IO3",
++	"GPIO168/nCLKRUN/nESPIALERT", "GPIO169/nSCIPME", "GPIO170/nSMI", "GPIO171/SMB6SCL",
++	"GPIO172/SMB6SDA", "GPIO173/SMB7SCL", "GPIO174/SMB7SDA", "GPIO175/PSPI1CK/FANIN19",
++	"GPIO176/PSPI1DO/FANIN18", "GPIO177/PSPI1DI/FANIN17", "GPIO178/R1TXD0",
++	"GPIO179/R1TXD1", "GPIO180/R1TXEN", "GPIO181/R1RXD0", "GPIO182/R1RXD1",
++	"GPIO183/SPI3CK", "GPO184/SPI3D0/STRAP9", "GPO185/SPI3D1/STRAP10",
++	"GPIO186/nSPI3CS0", "GPIO187/nSPI3CS1",	"GPIO188/SPI3D2/nSPI3CS2",
++	"GPIO189/SPI3D3/nSPI3CS3", "GPIO190/nPRD_SMI", "GPIO191", "GPIO192", "GPIO193/R1CRSDV",
++	"GPIO194/SMB0BSCL", "GPIO195/SMB0BSDA", "GPIO196/SMB0CSCL", "GPIO197/SMB0DEN",
++	"GPIO198/SMB0DSDA", "GPIO199/SMB0DSCL", "GPIO200/R2CK", "GPIO201/R1CK",
++	"GPIO202/SMB0CSDA", "GPIO203/FANIN16", "GPIO204/DDC2SCL", "GPIO205/DDC2SDA",
++	"GPIO206/HSYNC2", "GPIO207/VSYNC2", "GPIO208/RG2TXC/DVCK", "GPIO209/RG2TXCTL/DDRV4",
++	"GPIO210/RG2RXD0/DDRV5", "GPIO211/RG2RXD1/DDRV6", "GPIO212/RG2RXD2/DDRV7",
++	"GPIO213/RG2RXD3/DDRV8", "GPIO214/RG2RXC/DDRV9", "GPIO215/RG2RXCTL/DDRV10",
++	"GPIO216/RG2MDC/DDRV11", "GPIO217/RG2MDIO/DVHSYNC", "GPIO218/nWDO1",
++	"GPIO219/nWDO2", "GPIO220/SMB12SCL", "GPIO221/SMB12SDA", "GPIO222/SMB13SCL",
++	"GPIO223/SMB13SDA", "GPIO224/SPIXCK", "GPO225/SPIXD0/STRAP12", "GPO226/SPIXD1/STRAP13",
++	"GPIO227/nSPIXCS0", "GPIO228/nSPIXCS1",	"GPO229/SPIXD2/STRAP3", "GPIO230/SPIXD3",
++	"GPIO231/nCLKREQ", "GPI255/DACOSEL"
++
++Optional Properties:
++ bias-disable, bias-pull-down, bias-pull-up, input-enable,
++ input-disable, output-high, output-low, drive-push-pull,
++ drive-open-drain, input-debounce, slew-rate, drive-strength
++
++ slew-rate valid arguments are:
++				<0> - slow
++				<1> - fast
++ drive-strength valid arguments are:
++				<2> - 2mA
++				<4> - 4mA
++				<8> - 8mA
++				<12> - 12mA
++				<16> - 16mA
++				<24> - 24mA
++
++For example, pinctrl might have pinmux subnodes like the following:
++
++	gpio0_iox1d1_pin: gpio0-iox1d1-pin {
++		pins = "GPIO0/IOX1DI";
++		output-high;
++	};
++	gpio0_iox1ck_pin: gpio0-iox1ck-pin {
++		pins = "GPIO2/IOX1CK";
++		output_high;
++	};
++
++=== Pin Group Subnode ===
++
++Required pin group subnode-properties:
++- groups : A string containing the name of the group to mux.
++- function: A string containing the name of the function to mux to the
++  group.
++
++The following are the list of the available groups and functions :
++	smb0, smb0b, smb0c, smb0d, smb0den, smb1, smb1b, smb1c, smb1d,
++	smb2, smb2b, smb2c, smb2d, smb3, smb3b, smb3c, smb3d, smb4, smb4b,
++	smb4c, smb4d, smb4den, smb5, smb5b, smb5c, smb5d, ga20kbc, smb6,
++	smb7, smb8, smb9, smb10, smb11, smb12, smb13, smb14, smb15, fanin0,
++	fanin1, fanin2, fanin3, fanin4, fanin5, fanin6, fanin7, fanin8,
++	fanin9, fanin10, fanin11 fanin12 fanin13, fanin14, fanin15, faninx,
++	pwm0, pwm1, pwm2, pwm3, pwm4, pwm5, pwm6, pwm7, rg1, rg1mdio, rg2,
++	rg2mdio, ddr, uart1, uart2, bmcuart0a, bmcuart0b, bmcuart1, iox1,
++	iox2, ioxh, gspi, mmc, mmcwp, mmccd, mmcrst, mmc8, r1, r1err, r1md,
++	r2, r2err, r2md, sd1, sd1pwr, wdog1, wdog2, scipme, sci, serirq,
++	jtag2, spix, spixcs1, pspi1, pspi2, ddc, clkreq, clkout, spi3, spi3cs1,
++	spi3quad, spi3cs2, spi3cs3, spi0cs1, lpc, lpcclk, espi, lkgpo0, lkgpo1,
++	lkgpo2, nprd_smi
++
++For example, pinctrl might have group subnodes like the following:
++	r1err_pins: r1err-pins {
++		groups = "r1err";
++		function = "r1err";
++	};
++	r1md_pins: r1md-pins {
++		groups = "r1md";
++		function = "r1md";
++	};
++	r1_pins: r1-pins {
++		groups = "r1";
++		function = "r1";
++	};
++
++Examples
++========
++pinctrl: pinctrl@f0800000 {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	compatible = "nuvoton,npcm750-pinctrl";
++	ranges = <0 0xf0010000 0x8000>;
++
++	gpio0: gpio@f0010000 {
++		gpio-controller;
++		#gpio-cells = <2>;
++		reg = <0x0 0x80>;
++		interrupts = <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>;
++		gpio-ranges = <&pinctrl 0 0 32>;
++	};
++
++	....
++
++	gpio7: gpio@f0017000 {
++		gpio-controller;
++		#gpio-cells = <2>;
++		reg = <0x7000 0x80>;
++		interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
++		gpio-ranges = <&pinctrl 0 224 32>;
++	};
++
++	gpio0_iox1d1_pin: gpio0-iox1d1-pin {
++		pins = "GPIO0/IOX1DI";
++		output-high;
++	};
++
++	iox1_pins: iox1-pins {
++		groups = "iox1";
++		function = "iox1";
++	};
++	iox2_pins: iox2-pins {
++		groups = "iox2";
++		function = "iox2";
++	};
++
++	....
++
++	clkreq_pins: clkreq-pins {
++		groups = "clkreq";
++		function = "clkreq";
++	};
++};
+\ No newline at end of file
+-- 
+2.14.1
