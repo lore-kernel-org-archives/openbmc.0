@@ -1,30 +1,46 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41lYHC6Q9HzDqC8
- for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 11:11:03 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w781Ap0D032527;
- Tue, 7 Aug 2018 20:10:52 -0500
-Message-ID: <c42cf6ec2193814982d619a54cab2cae4e819357.camel@kernel.crashing.org>
-Subject: [PATCH v2] fsi: sbefifo: Bump max command length
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@linux.vnet.ibm.com>, Andrew Jeffery
- <andrewrj@au1.ibm.com>, Joel Stanley <joel@jms.id.au>
-Date: Wed, 08 Aug 2018 11:10:51 +1000
-In-Reply-To: <cc45d5fe697afda6b77be859c163852aecefcbd4.camel@kernel.crashing.org>
-References: <cc45d5fe697afda6b77be859c163852aecefcbd4.camel@kernel.crashing.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.4 (3.28.4-1.fc28) 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41lYmP1pQNzDqC8
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Aug 2018 11:32:53 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="QqlCdgWe"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 41lYmN1W7mz9s2g;
+ Wed,  8 Aug 2018 11:32:52 +1000 (AEST)
+Authentication-Results: ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1533691972; bh=6BHUmNp3ZGPSKCWIWemmFmVwC+6Ce9U/M6NfBWU/P2A=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=QqlCdgWe9TWpZw4st5j1mEfcRnuthFkcSjhMNDXiRwmH22QLArXNVOLYMYKciQ/AK
+ fa3pMmQnUBRpOn71xc5eMxvO7nK81eWM/1ItVdUvy0HFtIyLIrl9sNUOcud/Un5AEk
+ pD9zFRC7kxXPiXy+VemxC8yDP22EJtvbc1paC5tHLTGU5wQWdtIznwD14UMqnXYgCh
+ JmzhoYJLT5TXl06M5qm9jhWX79ntprqHIRnEX6DsUDF3jM4S+MudHlGkXy5pYwm+Ed
+ oCslSTMk0mBG0GYU+uqRZgCTd1zg/qkoPXzJKiZjpq/I+jGetsirp2gHPWpntwJJPr
+ 3nf3J2xZgY2vg==
+Subject: Re: In-Band Firmware Update
+To: Ed Tanous <ed.tanous@intel.com>, openbmc@lists.ozlabs.org
+References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
+ <20180723221837.GI105329@mauery>
+ <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
+ <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
+ <712b9342-6458-4cc4-8c59-aeb498ca5367@intel.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <8b3e02f3-92fc-678d-c580-18c76ee3692c@ozlabs.org>
+Date: Wed, 8 Aug 2018 09:32:51 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <712b9342-6458-4cc4-8c59-aeb498ca5367@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -37,131 +53,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Aug 2018 01:11:04 -0000
+X-List-Received-Date: Wed, 08 Aug 2018 01:32:54 -0000
 
-Otherwise cronus putmem fails istep and BML fails to upload skiboot
+Hi Ed,
 
-To do that, we still use our one-page command buffer for small commands
-for speed, and for anything bigger, with a limit of 1MB plus a page,
-we vmalloc a temporary buffer.
+>> We are going to investigate using the DFU protocol, as that
+>> also has host side tools already available.
+> 
+> DFU doesn't completely solve the issue though, does it?  Presumably for 
+> security reasons you can't have the DFU device exposed to the host all 
+> the time.  If you did, I'm sure the penetration testers would hit it 
+> hard.  Assuming that leaving it available all the time is a non-starter, 
+> don't you need some command to activate the interface to allow the upload?
 
-The limit was chosen because Cronus will break up any data transfer
-into 1M chunks (the extra page is for the command header).
+Yes, we'd have an endpoint exposed all the time (the run-time descriptor
+set). This changes into the DFU mode descriptor set at the start of the
+upgrade process, when the host-side tools issue a DFU_DETACH.
 
-Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
----
+Does hiding the descriptor get us anything, if it can be enabled from
+the host anyway? The run-time descriptor is super simple.
 
-v2. Reduce max to 1MB + PAGE_SIZE which is enough for Cronus as
-    it will break up transfers in 1MB chunks and we can make
-    sure pdbg does the same.
+> Assuming I'm not missing something there (I probably am) doesn't it make 
+> more sense to just expose a USB mass storage device when the "start" 
+> command is sent, as opposed to implementing the full DFU protocol?  It 
+> seems like that would require no utilities (aside from a simple nsh/bash 
+> script) and be very easy to replicate.
 
- drivers/fsi/fsi-sbefifo.c | 34 ++++++++++++++++++++++++++++------
- 1 file changed, 28 insertions(+), 6 deletions(-)
+Just that this requires more custom stuff host-side; raw IPMI commands
+for the start and stop (unless we can hook into a SCSI eject event for
+the stop perhaps). If we can use existing tools that already support
+DFU, that's less stuff that needs to be provided on the host side.
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index f97ec3e4ddea..fd3b10527b68 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -30,6 +30,7 @@
- #include <linux/delay.h>
- #include <linux/uio.h>
- #include <linux/vmalloc.h>
-+#include <linux/mm.h>
- 
- /*
-  * The SBEFIFO is a pipe-like FSI device for communicating with
-@@ -110,7 +111,7 @@ enum sbe_state
- #define SBEFIFO_TIMEOUT_IN_RSP		1000
- 
- /* Other constants */
--#define SBEFIFO_MAX_CMD_LEN		PAGE_SIZE
-+#define SBEFIFO_MAX_USER_CMD_LEN	(0x100000 + PAGE_SIZE)
- #define SBEFIFO_RESET_MAGIC		0x52534554 /* "RSET" */
- #define SBEFIFO_BENCH_MAGIC		0x424E4348 /* "BNCH" */
- 
-@@ -129,6 +130,7 @@ struct sbefifo {
- struct sbefifo_user {
- 	struct sbefifo		*sbefifo;
- 	struct mutex		file_lock;
-+	void			*cmd_page;
- 	void			*pending_cmd;
- 	size_t			pending_len;
- };
-@@ -724,7 +726,7 @@ int sbefifo_submit(struct device *dev, const __be32 *command, size_t cmd_len,
- 		return -ENODEV;
- 	if (WARN_ON_ONCE(sbefifo->magic != SBEFIFO_MAGIC))
- 		return -ENODEV;
--	if (!resp_len || !command || !response || cmd_len > SBEFIFO_MAX_CMD_LEN)
-+	if (!resp_len || !command || !response)
- 		return -EINVAL;
- 
- 	/* Prepare iov iterator */
-@@ -760,8 +762,8 @@ static int sbefifo_user_open(struct inode *inode, struct file *file)
- 
- 	file->private_data = user;
- 	user->sbefifo = sbefifo;
--	user->pending_cmd = (void *)__get_free_page(GFP_KERNEL);
--	if (!user->pending_cmd) {
-+	user->cmd_page = (void *)__get_free_page(GFP_KERNEL);
-+	if (!user->cmd_page) {
- 		kfree(user);
- 		return -ENOMEM;
- 	}
-@@ -814,6 +816,9 @@ static ssize_t sbefifo_user_read(struct file *file, char __user *buf,
- 	/* Extract the response length */
- 	rc = len - iov_iter_count(&resp_iter);
-  bail:
-+	if (is_vmalloc_addr(user->pending_cmd)) 
-+		vfree(user->pending_cmd);
-+	user->pending_cmd = NULL;
- 	user->pending_len = 0;
- 	mutex_unlock(&user->file_lock);
- 	return rc;
-@@ -859,13 +864,23 @@ static ssize_t sbefifo_user_write(struct file *file, const char __user *buf,
- 	if (!user)
- 		return -EINVAL;
- 	sbefifo = user->sbefifo;
--	if (len > SBEFIFO_MAX_CMD_LEN)
-+	if (len > SBEFIFO_MAX_USER_CMD_LEN)
- 		return -EINVAL;
- 	if (len & 3)
- 		return -EINVAL;
- 
- 	mutex_lock(&user->file_lock);
- 
-+	/* Can we use the pre-allocate buffer ? If not, allocate */
-+	if (len <= PAGE_SIZE)
-+		user->pending_cmd = user->cmd_page;
-+	else
-+		user->pending_cmd = vmalloc(len);
-+	if (!user->pending_cmd) {
-+		rc = -ENOMEM;
-+		goto bail;
-+	}
-+
- 	/* Copy the command into the staging buffer */
- 	if (copy_from_user(user->pending_cmd, buf, len)) {
- 		rc = -EFAULT;
-@@ -906,6 +921,11 @@ static ssize_t sbefifo_user_write(struct file *file, const char __user *buf,
- 	/* Update the staging buffer size */
- 	user->pending_len = len;
-  bail:
-+	if (!user->pending_len) {
-+		if (is_vmalloc_addr(user->pending_cmd)) 
-+			vfree(user->pending_cmd);
-+		user->pending_cmd = NULL;
-+	}
- 	mutex_unlock(&user->file_lock);
- 
- 	/* And that's it, we'll issue the command on a read */
-@@ -919,7 +939,9 @@ static int sbefifo_user_release(struct inode *inode, struct file *file)
- 	if (!user)
- 		return -EINVAL;
- 
--	free_page((unsigned long)user->pending_cmd);
-+	if (is_vmalloc_addr(user->pending_cmd))
-+		vfree(user->pending_cmd);
-+	free_page((unsigned long)user->cmd_page);
- 	kfree(user);
- 
- 	return 0;
+That said, it does look like the current DFU spec isn't going to allow
+fast enough transfers for a BMC firmware image in reasonable times, so
+we may have to modify those *anyway*, so most of the benefit there may
+be lost...
+
+A USB-mass-storage-based solution could be okay, as long as we have a
+solid specification for what gets written to the device (a filesystem
+containing the image? raw image on the device?), secure parsing for that
+data (particularly if the BMC is reading a filesystem) and a protocol
+between BMC and host so that we can implement proper handover. If we can
+use standard tools for that, it might be a good way to go.
+
+Cheers,
+
+
+Jeremy
