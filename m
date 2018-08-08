@@ -1,62 +1,41 @@
-Return-Path: <venture@google.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::229; helo=mail-it0-x229.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="AQ9fVuoc"; 
- dkim-atps=neutral
-Received: from mail-it0-x229.google.com (mail-it0-x229.google.com
- [IPv6:2607:f8b0:4001:c0b::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41m2xW6Y7tzDqk9
- for <openbmc@lists.ozlabs.org>; Thu,  9 Aug 2018 06:27:27 +1000 (AEST)
-Received: by mail-it0-x229.google.com with SMTP id j81-v6so5254522ite.0
- for <openbmc@lists.ozlabs.org>; Wed, 08 Aug 2018 13:27:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=daveIKPinz7zg7j5JPQqho/RWkZwz5Gxe3rjWVEHdes=;
- b=AQ9fVuocIClQCZ2YkztoBqtZ6degu9p4zxXpTKLTHNf0zT+xCEsSAKikGra98sG093
- +CFB8VXsiBXlCMZUit8bOmgVlxAazewhDfU6zgxg+VwTcDt7MGPXr+Bt7s87MHaHmh2r
- ZLWYcdAQ+93u6YVpDxlorc9pR9DHrYsMr/r2Y18HPVU7u7pHt3E28CZUQ6SSj3Vj/nzA
- fZpBwqzr9qC8tFtegNgVD4Hznvw+N9n7Ih/JXb+xG14AxJCRpB5VrWm2cKO2T/z8iTFq
- ncNWblQ/kDy2sbfRgYNh512iQ906OsiyM5IHp8wZR1Z91/L1To8ZoBhLTIHbYjsMWh7k
- k5IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=daveIKPinz7zg7j5JPQqho/RWkZwz5Gxe3rjWVEHdes=;
- b=T/SJ4CntmsfqcV4wZv7k24UyswMk7KarpmMkvcclV0m0WOMxLIR0iKIIsXMMdKA0jk
- 3hoc+L49EaLlWT24Vr/KbuKjwZrcOSNttCrn52NlHMkB4m7vOMu+ZH5V61Dts4hIJPAT
- IsiwrW4qa8bMNS3Vn8KKaSfC77EeQsyA2+xJ95ephGQ2kD303mA66U6vaoTbuK0XwwOe
- B47hE6puKC9C5nDQzUsFYSHxWJZ60W/90k2Uen211VTZQg7Hxqon4hbxbYqZ5qs81lNc
- LgD4oPrypyO7fDtTKXnwWKpZhBgGLBY5JpSAWHJCPl5xTtin2tQypJqrWULO8NPS8mUn
- FBMQ==
-X-Gm-Message-State: AOUpUlGwcg5pjz8KNyJ0tR/vQkeMkM0JOGbuU7dqj5C0i+LtZCVqdr6g
- VZVhjFsys46gOJF6ltrz3WbNn3COcpQhywsrO9cFkgmB
-X-Google-Smtp-Source: AA+uWPysu6TpPWwwjUpAzxHyuOjMIVLBatOsWKa8JjZ4/IVKzxT4MQblCwiqZuWqp9lXxaC9HihOaXVWVYsb0nY5Lwo=
-X-Received: by 2002:a02:45cd:: with SMTP id
- o74-v6mr3670122jad.43.1533760044925; 
- Wed, 08 Aug 2018 13:27:24 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41m4cD1QkyzDqkP
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Aug 2018 07:42:35 +1000 (AEST)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Aug 2018 14:42:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,212,1531810800"; d="scan'208";a="63645959"
+Received: from mauery.jf.intel.com ([10.7.150.157])
+ by orsmga008.jf.intel.com with ESMTP; 08 Aug 2018 14:42:31 -0700
+Date: Wed, 8 Aug 2018 14:42:31 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: Ed Tanous <ed.tanous@intel.com>, openbmc@lists.ozlabs.org
+Subject: Re: In-Band Firmware Update
+Message-ID: <20180808214231.GB33167@mauery.jf.intel.com>
+References: <CAO=notyCMVrJ9Ya+PaukB1k1M7KE07ZHnD5prt4CsA0gdfe+qw@mail.gmail.com>
+ <20180723221837.GI105329@mauery>
+ <7BB65E38-8F1D-4723-B1C5-74102D4D0B20@fb.com>
+ <6491f54b7b2da630cd3796c6bc3a5214@linux.vnet.ibm.com>
+ <712b9342-6458-4cc4-8c59-aeb498ca5367@intel.com>
+ <8b3e02f3-92fc-678d-c580-18c76ee3692c@ozlabs.org>
 MIME-Version: 1.0
-Received: by 2002:a6b:5c07:0:0:0:0:0 with HTTP;
- Wed, 8 Aug 2018 13:27:04 -0700 (PDT)
-In-Reply-To: <39b5cc92-0dfe-cfe0-c0ce-5e57e1c4295d@linux.ibm.com>
-References: <CAO=notx7qNDyNDA=Zd2amR1CyYT1YtO1v69YMb0kc9SCJTVfuQ@mail.gmail.com>
- <7129fe1c-73ac-0489-b34c-a44ce3490ad8@linux.ibm.com>
- <CAO=notwa+5gjMK6Egft+bvAHsNv6RfSipyinkt-5+0FOFW6xxA@mail.gmail.com>
- <39b5cc92-0dfe-cfe0-c0ce-5e57e1c4295d@linux.ibm.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 8 Aug 2018 13:27:04 -0700
-Message-ID: <CAO=notxfAL8GSGQT2PG85FsqAmusZC=cOoF2cD6MS1fV-f5r6g@mail.gmail.com>
-Subject: Re: bitbake do_configure failure: automake: command not found
-To: Matthew Barth <msbarth@linux.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <8b3e02f3-92fc-678d-c580-18c76ee3692c@ozlabs.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -68,175 +47,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Aug 2018 20:27:29 -0000
+X-List-Received-Date: Wed, 08 Aug 2018 21:42:36 -0000
 
-On Wed, Aug 8, 2018 at 9:31 AM, Matthew Barth <msbarth@linux.ibm.com> wrote:
+On 08-Aug-2018 09:32 AM, Jeremy Kerr wrote:
+>Hi Ed,
 >
+>>>We are going to investigate using the DFU protocol, as that
+>>>also has host side tools already available.
+>>
+>>DFU doesn't completely solve the issue though, does it?  Presumably 
+>>for security reasons you can't have the DFU device exposed to the 
+>>host all the time.  If you did, I'm sure the penetration testers 
+>>would hit it hard.  Assuming that leaving it available all the time 
+>>is a non-starter, don't you need some command to activate the 
+>>interface to allow the upload?
 >
-> On 08/08/2018 11:04 AM, Patrick Venture wrote:
->>
->> On Wed, Aug 8, 2018 at 8:56 AM, Matthew Barth <msbarth@linux.ibm.com>
->> wrote:
->>>
->>>
->>>
->>> On 08/08/2018 09:42 AM, Patrick Venture wrote:
->>>>
->>>>
->>>> I'm seeing the configure fail on a couple downstream recipes that
->>>> essentially just build ipmi libraries now that we're merged with v2.2
->>>> of OpenBMC.
->>>>
->>>> NOTE: recipe google-ipmi-ethstats-1.0-r0: task do_configure: Started
->>>> ERROR: google-ipmi-ethstats-1.0-r0 do_configure: Function failed:
->>>> do_configure (log file is located at
->>>>
->>>>
->>>> /tmpfs/gbmc-sm/gbmc/build/tmp/work/armv5e-openbmc-linux-gnueabi/google-ipmi-ethstats/1.0-r0/temp/log.do_configure.8938)
->>>> ERROR: Logfile of failure stored in:
->>>>
->>>>
->>>> /tmpfs/gbmc-sm/gbmc/build/tmp/work/armv5e-openbmc-linux-gnueabi/google-ipmi-ethstats/1.0-r0/temp/log.do_configure.8938
->>>> Log data follows:
->>>> | DEBUG: SITE files ['endian-little', 'bit-32', 'arm-common',
->>>> 'arm-32', 'common-linux', 'common-glibc', 'arm-linux',
->>>> 'arm-linux-gnueabi', 'common']
->>>> | DEBUG: Executing shell function autotools_preconfigure
->>>> | DEBUG: Shell function autotools_preconfigure finished
->>>> | DEBUG: Executing python function autotools_aclocals
->>>> | DEBUG: SITE files ['endian-little', 'bit-32', 'arm-common',
->>>> 'arm-32', 'common-linux', 'common-glibc', 'arm-linux',
->>>> 'arm-linux-gnueabi', 'common']
->>>> | DEBUG: Python function autotools_aclocals finished
->>>> | DEBUG: Executing shell function do_configure
->>>> |
->>>>
->>>> /tmpfs/gbmc-sm/gbmc/build/tmp/work/armv5e-openbmc-linux-gnueabi/google-ipmi-ethstats/1.0-r0/temp/run.do_configure.8938:
->>>> 1:
->>>>
->>>> /tmpfs/gbmc-sm/gbmc/build/tmp/work/armv5e-openbmc-linux-gnueabi/google-ipmi-ethstats/1.0-r0/temp/run.do_configure.8938:
->>>> automake: not found
->>>> |
->>>>
->>>> /tmpfs/gbmc-sm/gbmc/build/tmp/work/armv5e-openbmc-linux-gnueabi/google-ipmi-ethstats/1.0-r0/temp/run.do_configure.8938:
->>>> 146:
->>>>
->>>> /tmpfs/gbmc-sm/gbmc/build/tmp/work/armv5e-openbmc-linux-gnueabi/google-ipmi-ethstats/1.0-r0/temp/run.do_configure.8938:
->>>> automake: not found
->>>
->>>
->>>  From what's given, I'd check to see if the continuous build environment
->>> has
->>> the autotools installed since `automake` isnt found.
->>
->>
->> So, the environment has automake and autotools-dev installed.  I also
->> tried within a docker instance and made sure those were installed.
->> That said, with yocto 2.3 it's not supposed to rely on what's
->> installed in the host environment but rather rely on the native
->> packages that come as dependencies.  Or am I mistaken?
->>
-> Correct, yocto should include the dependencies. Is automake included within
-> openbmc/import-layers/yocto-poky/meta/recipes-devtools ?
+>Yes, we'd have an endpoint exposed all the time (the run-time descriptor
+>set). This changes into the DFU mode descriptor set at the start of the
+>upgrade process, when the host-side tools issue a DFU_DETACH.
+>
+>Does hiding the descriptor get us anything, if it can be enabled from
+>the host anyway? The run-time descriptor is super simple.
 
-It is.
+I am not saying security by obscurity is good, but there is a difference 
+between an unlocked door and an open one. I am sure our security team 
+would not want the firmware update descriptor present at all times.
 
+>>Assuming I'm not missing something there (I probably am) doesn't it 
+>>make more sense to just expose a USB mass storage device when the 
+>>"start" command is sent, as opposed to implementing the full DFU 
+>>protocol?  It seems like that would require no utilities (aside from 
+>>a simple nsh/bash script) and be very easy to replicate.
 >
+>Just that this requires more custom stuff host-side; raw IPMI commands
+>for the start and stop (unless we can hook into a SCSI eject event for
+>the stop perhaps). If we can use existing tools that already support
+>DFU, that's less stuff that needs to be provided on the host side.
 >
->>>
->>>
->>>> | WARNING: exit code 127 from a shell command.
->>>>
->>>> The configure.ac:
->>>>
->>>> # Initialization
->>>> AC_PREREQ([2.69])
->>>> AC_INIT([gsys-ipmi], [1.0], [https://www.google.com])
->>>> AC_LANG([C++])
->>>> AC_CONFIG_HEADERS([config.h])
->>>> AM_INIT_AUTOMAKE([subdir-objects -Wall -Werror foreign dist-xz])
->>>> AM_SILENT_RULES([yes])
->>>> # Checks for programs.
->>>> AC_PROG_CXX
->>>> AM_PROG_AR
->>>> AC_PROG_INSTALL
->>>> AC_PROG_MAKE_SET
->>>> # Checks for typedefs, structures, and compiler characteristics.
->>>> AX_CXX_COMPILE_STDCXX_14([noext])
->>>> AX_APPEND_COMPILE_FLAGS([-Wall -Werror], [CXXFLAGS])
->>>> # Checks for libraries.
->>>> PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 221], [],
->>>> [AC_MSG_ERROR(["systemd required and not found"])])
->>>> PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus], ,[AC_MSG_ERROR([The
->>>> openbmc/sdbusplus package is required])])
->>>> PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging],
->>>> ,[AC_MSG_ERROR([The openbmc/phosphor-logging package is required])])
->>>> PKG_CHECK_MODULES([PHOSPHOR_DBUS_INTERFACES],
->>>> [phosphor-dbus-interfaces], [],
->>>> [AC_MSG_ERROR(["phosphor-dbus-interfaces required and not found."])])
->>>> AC_CHECK_HEADER(experimental/any, ,[AC_MSG_ERROR([Could not find
->>>> experimental/any...libstdc++fs developement package required])])
->>>> # Checks for library functions.
->>>> LT_INIT # Required for systemd linking
->>>> # Create configured output
->>>> AC_CONFIG_FILES([Makefile])
->>>> AC_OUTPUT
->>>>
->>>> Which looks like all the others I've seen, more or less, nothing
->>>> special.
->>>>
->>>> The recipe:
->>>>
->>>> SUMMARY = "Ethernet Statistics OEM Command"
->>>> DESCRIPTION = "Ethernet Statistics OEM Command"
->>>> LICENSE = "CLOSED"
->>>> inherit autotools pkgconfig
->>>> inherit obmc-phosphor-ipmiprovider-symlink
->>>> S = "${WORKDIR}/"
->>>> SRC_URI = "file://Makefile.am \
->>>>    file://bootstrap.sh \
->>>>    file://configure.ac \
->>>>    file://main.cpp \
->>>> "
->>>> DEPENDS += "autoconf-archive-native"
->>>> DEPENDS += "sdbusplus"
->>>> DEPENDS += "phosphor-logging"
->>>> # We depend on this to be built first so we can build our providers.
->>>> DEPENDS += "phosphor-ipmi-host"
->>>> RDEPENDS_${PN} += "sdbusplus phosphor-dbus-interfaces"
->>>> FILES_${PN}_append = " ${libdir}/ipmid-providers/lib*${SOLIBS}"
->>>> FILES_${PN}_append = " ${libdir}/host-ipmid/lib*${SOLIBS}"
->>>> FILES_${PN}_append = " ${libdir}/net-ipmid/lib*${SOLIBS}"
->>>> FILES_${PN}-dev_append = " ${libdir}/ipmid-providers/lib*${SOLIBSDEV}
->>>> ${libdir}/ipmid-providers/*.la"
->>>> HOSTIPMI_PROVIDER_LIBRARY += "libethstatscmd.so"
->>>>
->>>> Any things to check or poke would be appreciated.  It doesn't break in
->>>> all build environments, oddly.  Presumably with the yocto 2.3
->>>> inclusion in OpenBMC v2.2, the host environment became less involved. >
->>>> But when I build an image on my desktop, it builds fine.  When I run
->>>> the same commands in our continuous build environment, it fails.
->>>
->>>
->>> When you build on your desktop are you in an SDK and/or have autotools
->>> installed in your environment already and maybe not in the continuous
->>> build
->>> environment? I'd start poking around for those differences.
->>
->>
->> I'm not in an SDK. I'm just building the obmc-phosphor-image from a
->> clean check-out of the meta layers.  The command I'm running locally
->> and the environment for the continuous build are the same in terms of
->> commands and configuration, but different in terms of locally
->> installed packages.  Which, per the above, I thought that was no
->> longer a factor.
->>
->>>
->>>>
->>>> Patrick
->>>>
->>>
->>> Matt
->>>
->>
->
+>That said, it does look like the current DFU spec isn't going to allow
+>fast enough transfers for a BMC firmware image in reasonable times, so
+>we may have to modify those *anyway*, so most of the benefit there may
+>be lost...
+
+Speed is a big thing. With firmware image sizes as big as they are, we 
+cannot afford slow transfers.
+
+>A USB-mass-storage-based solution could be okay, as long as we have a
+>solid specification for what gets written to the device (a filesystem
+>containing the image? raw image on the device?), secure parsing for that
+>data (particularly if the BMC is reading a filesystem) and a protocol
+>between BMC and host so that we can implement proper handover. If we can
+>use standard tools for that, it might be a good way to go.
+
+If the BMC exports an empty FAT filesystem, just about anything can read 
+that. It is easy to parse on the inbound and can easily be done with a 
+loop-mount. In this case though, it would be nice to have some sort of 
+control that tells the BMC when to "plug in" and "eject" the device 
+to/from the host for synchronization mechanisms. The BMC could then look 
+at the volume and attempt to use each file as a firmware volume to 
+prepare for activation.
+
+--Vernon
