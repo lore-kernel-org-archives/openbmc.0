@@ -1,71 +1,68 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::22e; helo=mail-oi0-x22e.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ucAHPCeU"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x22e.google.com (mail-oi0-x22e.google.com
+ [IPv6:2607:f8b0:4003:c06::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41mVWC3zC6zDrpW
- for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 00:09:42 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w79E9M4k055025
- for <openbmc@lists.ozlabs.org>; Thu, 9 Aug 2018 10:09:41 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.114])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2krnmjc9vd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 09 Aug 2018 10:09:40 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Thu, 9 Aug 2018 14:09:39 -0000
-Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
- by smtp.notes.na.collabserv.com (10.122.47.58) with
- smtp.notes.na.collabserv.com ESMTP; Thu, 9 Aug 2018 14:09:37 -0000
-Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
- by us1b3-smtp01.a3dr.sjc01.isc4sb.com
- with ESMTP id 2018080914093645-563789 ;
- Thu, 9 Aug 2018 14:09:36 +0000 
-Subject: Re: Test work group webex link https://ibm.webex.com/meet/sivas.srr
-In-Reply-To: <OFD3EFB74B.E022AD9D-ON002582E4.004DA942-002582E4.004DAE05@LocalDomain>
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41mXhW5dKvzDqCD
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 01:47:54 +1000 (AEST)
+Received: by mail-oi0-x22e.google.com with SMTP id n21-v6so10641747oig.3
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Aug 2018 08:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=MM6TQw/ECIJZhPeii2rf2WSpjjdcUsxLdXJuBT8dbTg=;
+ b=ucAHPCeUwRI0iCyItPU5wdxxgDYQnVywtn6fCVdBFzwVqUs9WN02Sa2ionwsBEOQSd
+ ATfL+7g0yjmJ71MwN6uKkswuLV8+E2Sex8HeMLZzalK1Eyw5uezcDUkQ3d1aB5BS23HU
+ mxkzrEi8/stYN1I0PBuxMJBLgR5pXUyYnb8PnreWzahwZCkRIzLsTZQs3IZ2afITkhxs
+ 1dKXRj/P3CHBT3y98k7GNfRX6qGYiJUmXPRAiUwCoJKsITzvE44xH+2dhzr+Ym2XIHUQ
+ FE4H3e/333wA9s/xQ29qpvEpZoTe6sxfQmPurp92FaasaJmFfSa4vDafBdMfhfGOTtkh
+ OsJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=MM6TQw/ECIJZhPeii2rf2WSpjjdcUsxLdXJuBT8dbTg=;
+ b=H6hCYDvKgFFE+qefrejgNQSS2RpTlWVxcw+pufITdbtcR7t5gFJC9IPBosj6NVG4kF
+ Z0fleCUQaODJ1+Z9fhu451jgOdC3nhRUvbdfBJHDD5RdwGoQFQ5LvU+KuwtBlifHK1l2
+ vrLHm+n4aVK2Blob2UTTXEsXiXNfa0Hd2HpRLeZXhDXAr8KYuiLiNvl/6RlBwFzPj8Vy
+ mAUcceMy5+YSAwceR2f5d5kPaMjx0kHMMrml58OblpxNz3R2bpFYmCS+Tnh/Dsbcb5YW
+ FM193zRPERqRvtBgFmBDNmfNQq7NMVI0Fq/YiMlJyz4tbhHaPSt7r8ql5lRrhYmEKznM
+ LOhg==
+X-Gm-Message-State: AOUpUlGSwrNU8FkxZcxs8ufsmr0KfExcge6K38UElGtXUmoigDPiSltQ
+ ou+lljyHRu2cHm8dyP4dSzwOPddU
+X-Google-Smtp-Source: AA+uWPw+hM6rhLjKPRRx1yfCtFFG2eIxFdc/SVCFj/9H3qqtERn0OmOCTvN0ElJ5zCCXunxQcx1/gg==
+X-Received: by 2002:aca:ef87:: with SMTP id
+ n129-v6mr2720775oih.161.1533829671797; 
+ Thu, 09 Aug 2018 08:47:51 -0700 (PDT)
+Received: from krtaylors-MacBook-Pro.local
+ (cpe-72-182-100-19.austin.res.rr.com. [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id r10-v6sm6599743oif.37.2018.08.09.08.47.50
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 09 Aug 2018 08:47:51 -0700 (PDT)
+Subject: Re: Licensing Question
 To: openbmc@lists.ozlabs.org
-Date: Thu, 9 Aug 2018 14:09:36 +0000
-Sensitivity: 
+References: <CAO=notzP1FWobbpUhqdf8ZrGRqsNZvZHBp=8cmXZjWOL0dcCrA@mail.gmail.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <4cda5582-7307-2418-e5f2-679cc051e66a@gmail.com>
+Date: Thu, 9 Aug 2018 10:47:50 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <OFD3EFB74B.E022AD9D-ON002582E4.004DA942-002582E4.004DAE05@LocalDomain>
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
- SCN1812108_20180501T0841 May 01, 2018 at 08:41
-X-KeepSent: 036ED67A:C69EBF5A-002582E4:004DC8C7;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 63423
-X-TNEFEvaluated: 1
-X-LLNXfer: False
-x-cbid: 18080914-9695-0000-0000-000003E27928
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.384396; ST=0; TS=0; UL=0; ISC=; MB=0.001595
-X-IBM-SpamModules-Versions: BY=3.00009514; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01071313; UDB=6.00551644; IPR=6.00850977; 
- BA=6.00006071; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00022612; XFM=3.00000015;
- UTC=2018-08-09 14:09:38
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-08-09 11:33:29 - 6.00008808
-x-cbparentid: 18080914-9696-0000-0000-0000E75A7A44
-Message-Id: <OF036ED67A.C69EBF5A-ON002582E4.004DC8C7-002582E4.004DC8CA@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-09_05:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <CAO=notzP1FWobbpUhqdf8ZrGRqsNZvZHBp=8cmXZjWOL0dcCrA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -77,56 +74,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Aug 2018 14:09:44 -0000
+X-List-Received-Date: Thu, 09 Aug 2018 15:47:57 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" ><a href=3D"https:=
-//ibm.webex.com/meet/sivas.srr" rel=3D"nofollow" >https://ibm.webex.com/mee=
-t/sivas.srr</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >It is updated in the test workgroup wiki.</div>
-<div dir=3D"ltr" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"fo=
-nt-family:Arial;font-size:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D=
-"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div class=3D"socmailde=
-faultfont" dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div c=
-lass=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;font-siz=
-e:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-fami=
-ly:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"margin-top: 20px;" ><=
-div style=3D"font-size: 12pt; font-weight: bold; font-family: sans-serif; c=
-olor: #7C7C5F;" >Sivas R. S</div>
-<div style=3D"font-size: 8pt; font-family: sans-serif; margin-top: 10px;" >=
-<div><span style=3D"font-weight: bold; color: #336699;" >E-mail: </span><a =
-href=3D"mailto:sivas.srr@in.ibm.com" style=3D"color: #555" >sivas.srr@in.ib=
-m.com</a></div>
-<div>E2E FSP Test Architecture, OpenBMC Test Lead, Lab Management</div>
-<div>Automation is good, Identifying Defect earlier is better always</div>
-<div>9902233500</div>
-<div>08046678273</div></div></div></div></div></div></div></div></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
--left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
-margin-right:0px" >----- Original message -----<br>From: Sivas Srr/India/IB=
-M<br>To: openbmc@lists.ozlabs.org<br>Cc:<br>Subject: Test work group webex =
-link https://github.com/openbmc/openbmc/wiki/Test-work---group<br>Date: Thu=
-, Aug 9, 2018 7:38 PM<br>&nbsp;
-<div dir=3D"ltr" style=3D"font-family:Arial, Helvetica, sans-serif;font-siz=
-e:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><div dir=3D"ltr" style=3D"font-family:Arial;font-size:10.=
-5pt" ><div dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div d=
-ir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div dir=3D"ltr" s=
-tyle=3D"font-family:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"font=
--family:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"margin-top: 20px=
-;" ><div style=3D"font-size: 12pt; font-weight: bold; font-family: sans-ser=
-if; color: #7C7C5F;" >Sivas R. S</div>
-<div style=3D"font-size: 8pt; font-family: sans-serif; margin-top: 10px;" >=
-<div><span style=3D"font-weight: bold; color: #336699;" >E-mail: </span><a =
-href=3D"mailto:sivas.srr@in.ibm.com" style=3D"color: #555" target=3D"=5Fbla=
-nk" >sivas.srr@in.ibm.com</a></div>
-<div>E2E FSP Test Architecture, OpenBMC Test Lead, Lab Management</div>
-<div>Automation is good, Identifying Defect earlier is better always</div>
-<div>9902233500</div>
-<div>08046678273</div></div></div></div></div></div></div></div></div></div=
-></blockquote>
-<div dir=3D"ltr" >&nbsp;</div></div><BR>
+On 8/8/18 5:45 PM, Patrick Venture wrote:
+> So, I've spent the last hour trying to submodule my way to using
+> ipmitool.  I've managed to get it compiling for just the one file I
+> need (or want).  However, then I try to link it and then more failures
+> for things that are missing, such as helper methods.  So, then I add
+> the file that has those, and then it doesn't compile because that file
+> doesn't compile.  This is of course, not compiling with the -Werror
+> flag among other things with gcc.
+> 
+> So, I can keep battling this, or I can ask -- the license for the
+> ipmitool just says I need to keep a copy of the license with the
+> source if I reuse it.  So, I can do that, and I can hack it up to work
+> -- but where I'm curious is -- how does that impact the license of
+> phosphor-ipmi-flash?
+
+Not a legal professional. That said, it depends on the license and 
+linking, packaging, etc.
+
+I am assuming phosphor-ipmi-flash is Apachev2, so linking to any GPL may 
+have viral effects. ipmitool looks to be bsd so it *should* be ok.
+
+Kurt Taylor (krtaylor)
