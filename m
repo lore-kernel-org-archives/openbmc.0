@@ -1,60 +1,54 @@
 Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::235; helo=mail-it0-x235.google.com;
+ (client-ip=2607:f8b0:4001:c0b::22d; helo=mail-it0-x22d.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="YEmbnS35"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="tKeR5KoB"; 
  dkim-atps=neutral
-Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
- [IPv6:2607:f8b0:4001:c0b::235])
+Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c0b::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41mYtH65XvzDqBy
- for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 02:41:27 +1000 (AEST)
-Received: by mail-it0-x235.google.com with SMTP id d9-v6so1114676itf.2
- for <openbmc@lists.ozlabs.org>; Thu, 09 Aug 2018 09:41:27 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41mZ151fjLzDqCD
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 02:47:20 +1000 (AEST)
+Received: by mail-it0-x22d.google.com with SMTP id g141-v6so1269768ita.4
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Aug 2018 09:47:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=8izssPpwmKCBc4WC3C3zDDBkVYq54WWlq/jDr0mjCMc=;
- b=YEmbnS354LcpJv4PFAJeQtDNVxvu3iee+FD9N/LiUVNAEWRGXtXDoonaHsVvsaFo08
- K/LROzTZKnXdX1YzPqvQZXK4+LPQwdDQLYqLaepkTgcXGSqIAncjKG5joaPkQhC0Vcp5
- VMoSPFvg5DbL4EStJNLjPxkP+ONAtdhAIwTWnF9cIBkS23L+bbai2O2u+dEACd0qTDsF
- DJJpgo0dwHF39w4rsWI/oxGLeeatIYCa6s9cP8SB6MV8lo+sye1DlKGb3Rr/1XDly3gX
- AWbnW3sn5EKw4S66v45tUDEFylXBOJsiLxmIxKcZl+VuJDOLUceLXUvcXHJvvjrFtvWN
- y0vg==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=YcIoHB4N4iwthFPP1xaWgVQTXTKJqwlwFhm5mUnJkTg=;
+ b=tKeR5KoB19gBAsqtd/BRk80sVDxUtS7jXG7sDb0plbLoAhOi9SBVwiTSZO4SFRruZ6
+ l/YfFEhYVbzMI0oIVfwyaRDdKIPYK11nc0yPzGp+C9T0DKO1ebPvoiQHZOzFnwuxFGcw
+ bZgPAdZH4cdEmAjzLx4tYCxRH+tVgkMSPKV2QO2Jk/O9IYhAVtwFBEs5B+oXIHqJzniJ
+ Lzrwuqll2niBHRzyCf0VG0Xzi1+KwfCvqcbuqTDCqw8o/uxhmW9oVBijIF6R/s5F6Amt
+ 6bvIVt9AWkK8Y2raTFd48ONwq6TySgO7QGrCRzplwlcDVpDkMhkKLgWFOMdWpJtPmTWN
+ SdeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=8izssPpwmKCBc4WC3C3zDDBkVYq54WWlq/jDr0mjCMc=;
- b=Hfb1fr2PlEwGpnSIYx0b8Ij255vHKpJA08lqv+UhvW80eSjfP1gtFQzJCziGNGQCVC
- UTrG/ArC+E2KDCTZQRkuDi5PB/9hLunjXuB2U6d/5HUMkrs4HjrPRCYBmWsBXq5+CpnC
- sKWa0e82Bf3AVgSV9tKQedDw02kEEgBdm4r00FwseYQALr6CDqqUCFqQ9KFFb3r4ri7v
- XlNnldXIVI9ju2BpJTGHI5zekqEI6IDNZ227RXOa1kK2Hyaxu6Xp9HfigG9EtJjfWBLR
- cGx7njiXlRcN1QjX963OyN70ENELWEEvCC0zDpDDz1stOzMZYLbbHcwnwiho1pc8KMYc
- ctWA==
-X-Gm-Message-State: AOUpUlFnWgh8X8S9LROcNubMinQHOAo3JPABJbXPwc4vzZ3y++ih5uGa
- BrDEMSKjryP38LLoeRDmx0FFvkPzdo1VzbFpL7Lf8WMdH/w=
-X-Google-Smtp-Source: AA+uWPxL/3tOziPyGelIL9EljeDSeGYBtb3XU8Za2NRwUvoW3wMmFUYalPj5XbcLVUGALJ+hCC3xHE1YKnmBUUdMUsc=
-X-Received: by 2002:a24:8b82:: with SMTP id
- g124-v6mr2801895ite.70.1533832885144; 
- Thu, 09 Aug 2018 09:41:25 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=YcIoHB4N4iwthFPP1xaWgVQTXTKJqwlwFhm5mUnJkTg=;
+ b=CCFyIel3Cu3yPJ3lwlRJGobkmnlLgDXsAH9owbdJmVFoqLM2PA0NMapzfzSXuH+zfE
+ 0t3fXVAvbvp7GoRhDIe/Zq6J7u9FRAl6+rLB8BJAFrGCvZpleGRHhUdveGlZaZnkaO0G
+ yeTtbetELzHWIaIC14WfIg0l/o1F0KjhMQv2bGaE4IJCTcYM18Twofg+GwIiKjyFxkXP
+ vfZPCv27SXUFqriH2Kq6JxlTJz5JnSZPGdyO07z6o48naPhV1OWf3akgFw1bD6pI3BOZ
+ GtFLXvvdQTyvAJ6+c/ps0gqABO0I3GLUzQNpnMvpN/0AMgdUYJyTNUKdSWTyzGb96K7r
+ Qyaw==
+X-Gm-Message-State: AOUpUlGk2OmtL7+QXERYPoBO2xMA/4hQ7t/Bf3LRMK1vmJaiF6UNXdYg
+ eDK8y9t5wiU/j4Jn/Rb0qGlE9uCrAbrpUu75Iu1u6aFRBWY=
+X-Google-Smtp-Source: AA+uWPwVyDbqtryovCleHOFzpL8JiNFG7pz5iBYPFmQX8hhCJnWJBGMV/afavrP5JCPDvityXLZ1GMTLDgK+PlBRMbo=
+X-Received: by 2002:a24:7882:: with SMTP id
+ p124-v6mr2578923itc.111.1533833238104; 
+ Thu, 09 Aug 2018 09:47:18 -0700 (PDT)
 MIME-Version: 1.0
 Received: by 2002:a6b:5c07:0:0:0:0:0 with HTTP;
- Thu, 9 Aug 2018 09:41:04 -0700 (PDT)
-In-Reply-To: <20180809163211.GA37965@mauery.jf.intel.com>
-References: <CAO=notzP1FWobbpUhqdf8ZrGRqsNZvZHBp=8cmXZjWOL0dcCrA@mail.gmail.com>
- <20180809163211.GA37965@mauery.jf.intel.com>
+ Thu, 9 Aug 2018 09:46:57 -0700 (PDT)
 From: Patrick Venture <venture@google.com>
-Date: Thu, 9 Aug 2018 09:41:04 -0700
-Message-ID: <CAO=notyXi0VLv=-eJHsODwJvukoMRMbMcC8qndzR9ncYkbsvww@mail.gmail.com>
-Subject: Re: Licensing Question
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Alexander Amelkin <a.amelkin@yadro.com>
+Date: Thu, 9 Aug 2018 09:46:57 -0700
+Message-ID: <CAO=notyPv2adUkvdB4xWLngFG5sqfSNQg4eJXM22Ub7ociKd_A@mail.gmail.com>
+Subject: phosphor-logging in testing
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -67,50 +61,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Aug 2018 16:41:28 -0000
+X-List-Received-Date: Thu, 09 Aug 2018 16:47:22 -0000
 
-On Thu, Aug 9, 2018 at 9:32 AM, Vernon Mauery
-<vernon.mauery@linux.intel.com> wrote:
-> On 08-Aug-2018 03:45 PM, Patrick Venture wrote:
->>
->> So, I've spent the last hour trying to submodule my way to using
->> ipmitool.  I've managed to get it compiling for just the one file I
->
->
-> Okay, I'll bite. What are you trying to use ipmitool for?
+So, phosphor-logging/log.hpp requires one to link in systemd, so
+technically I can already argue it isn't a header-only code-base.
+That said, I'm looking at how to enable testing such that we can
+easily validate error code paths.
 
-I'm trying to use the ipmitool source for speaking IPMI without
-duplicating the code to do so.  I can just open the file interface
-myself and handle it, but it seemed to reinvent the wheel on this one.
-Although I do need to push a bugfix to ipmitool where they don't check
-the msgId returned to see if it matches their expectation.  Unless
-someone else fixed it (still need to check).
+One approach is to move the code in the header such that it calls some
+code in the library itself that we can swap out with a "body double."
+Another approach is to have some global variable in that library that
+one can flip when they want such that the tests throw an exception or
+something useful to catch in a test.  Or just do nothing.
 
->
->> need (or want).  However, then I try to link it and then more failures
->> for things that are missing, such as helper methods.  So, then I add
->> the file that has those, and then it doesn't compile because that file
->> doesn't compile.  This is of course, not compiling with the -Werror
->> flag among other things with gcc.
->
->
-> I think Alexander is working on getting ipmitool to compile without warnings
-> upstream. That is quite the task though; he inherited a lot of warnings. :)
->
->> So, I can keep battling this, or I can ask -- the license for the
->> ipmitool just says I need to keep a copy of the license with the
->> source if I reuse it.  So, I can do that, and I can hack it up to work
->> -- but where I'm curious is -- how does that impact the license of
->> phosphor-ipmi-flash?
->
->
-> This is where the lawyers start to smile....
+Is there anyone already tackling this problem?
 
-The license is fairly permissive, just says I need to include it.
-
->
->
->> (Some of the things where gcc is complaining, I can go ahead and
->> submit patches to fix.)
->>
->> Patrick
+Patrick
