@@ -9,20 +9,23 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41mbVs550MzDqCF
- for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 03:54:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41mbsf4lhCzDqBy
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 04:11:02 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 164CB14D9C7
- for <openbmc@lists.ozlabs.org>; Thu,  9 Aug 2018 13:54:41 -0400 (EDT)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 3FE9D14D9C5;
+ Thu,  9 Aug 2018 14:10:59 -0400 (EDT)
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: meta-virtualization subtree removal
-Message-Id: <CA13B5A2-2419-4DBA-98F7-973A8F25BA57@fuzziesquirrel.com>
-Date: Thu, 9 Aug 2018 13:54:40 -0400
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: phosphor-logging in testing
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAO=notyPv2adUkvdB4xWLngFG5sqfSNQg4eJXM22Ub7ociKd_A@mail.gmail.com>
+Date: Thu, 9 Aug 2018 14:10:59 -0400
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <61E15CC6-3C64-47ED-B0F8-2880049733BA@fuzziesquirrel.com>
+References: <CAO=notyPv2adUkvdB4xWLngFG5sqfSNQg4eJXM22Ub7ociKd_A@mail.gmail.com>
+To: Patrick Venture <venture@google.com>
 X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -35,15 +38,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Aug 2018 17:54:46 -0000
+X-List-Received-Date: Thu, 09 Aug 2018 18:11:03 -0000
 
-I don=E2=80=99t think the meta-virtualization layer is used by anything =
-in-tree.  Therefore I=E2=80=99ve
-proposed its removal - please weigh in here:
 
-https://gerrit.openbmc-project.xyz/#/q/topic:drop-meta-virt =
-<https://gerrit.openbmc-project.xyz/#/q/topic:drop-meta-virt>
+> On Aug 9, 2018, at 12:46 PM, Patrick Venture <venture@google.com> =
+wrote:
+>=20
+> So, phosphor-logging/log.hpp requires one to link in systemd, so=20
+> technically I can already argue it isn't a header-only code-base.
 
-thx!
+This isn=E2=80=99t really what I think of when I think of header only.  =
+But maybe
+the distinction doesn=E2=80=99t matter anyway - this isn=E2=80=99t any =
+different than sdbusplus
+needing libsystemd.  Both phosphor-logging/log.hpp and the sdbusplus bus =
+and
+message APIs were intended to be C++ language bindings only.  So no =
+abstractions
+beyond what libsystemd already provides.  For the most part.  Now =
+elog.hpp is
+another story...
 
--brad=
+> That said, I'm looking at how to enable testing such that we can
+> easily validate error code paths.
+
+I suggest you do the same as what you did for sdbusplus.  Don=E2=80=99t =
+mock the
+language binding apis provided by log.hpp - mock the libsystemd =
+(journal)
+apis and set your expectations on those.
+
+>=20
+> One approach is to move the code in the header such that it calls some
+> code in the library itself that we can swap out with a "body double."
+> Another approach is to have some global variable in that library that
+> one can flip when they want such that the tests throw an exception or
+> something useful to catch in a test.  Or just do nothing.
+>=20
+> Is there anyone already tackling this problem?
+>=20
+> Patrick
