@@ -1,65 +1,82 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::22f; helo=mail-oi0-x22f.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q8Kdf808"; 
- dkim-atps=neutral
-Received: from mail-oi0-x22f.google.com (mail-oi0-x22f.google.com
- [IPv6:2607:f8b0:4003:c06::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41n6wY5p7LzDqrN
- for <openbmc@lists.ozlabs.org>; Sat, 11 Aug 2018 00:30:21 +1000 (AEST)
-Received: by mail-oi0-x22f.google.com with SMTP id 8-v6so16177688oip.0
- for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 07:30:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=3rKW0OYEwLMHlbvyn1wf3Gd+zAKbj47hnDRo7ptbfKg=;
- b=Q8Kdf808ZDDaeoWtocW86uDII0fe5DZpEgXVFWfOD9ZndBXT9kcwvAvxxd3Qnd40ce
- 9OTuCPIx0K+7lsCLY3+r9hv+8OdyYY/URJGopgy/7Ra5ma0KQY97Uz9/Np0oFIJqN3Pw
- qBZO18JtYlyDIC3sWRecWOsWTVQNl3tTP24iR1375vktB+YCsBuMz3NGqmsKK3w4yAoY
- k7H5CCfJ/cxVE7y//pJbP4oVXWxUo3vGnJVJtw+IOB4I72IINjltkT68b1QkdzuwzhqC
- wdx+Chp7CsqeFM94LA/uBXrBc/HwDVNyXsi2lbet3Iu35qSA/jDmxLs5fRJcQiKH74WF
- 7Acg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=3rKW0OYEwLMHlbvyn1wf3Gd+zAKbj47hnDRo7ptbfKg=;
- b=KvjDZfoSPIdDwsQ4N+UvJTw8iZuHXTkp3IUrxl0H82Ou/ftSvdtTObWSNnzw7tH8UY
- jAX39RgMZMXvFkm33IhCtocwA57xaviaAaOL+QBVn0TAB4fFmJ5wpQzgPInnJrFmv+z0
- yZ7gHcEvS14/RcKj2cCregqohhAdgkfzfSOKK9pbqNraVDY1HUpBFGjCnNINjdTwLEvN
- MxkfCbO4ZMco1gfhxViUGqPzFBCQm0jVccEINyVOmuCsmoolOz1h+iRjV8fU8BKEGweB
- 6LFYzxMGTrgVeSR8sPPl8hL9rFnufs7Tck2OTx04GR9rZZ0P1dHTfnGrXuqO5FgFVR7F
- PS+A==
-X-Gm-Message-State: AOUpUlGNuL1t11/1xTxDxZUn0wmBhrxuENkFqYcun6YmySEe87TQtxib
- gWhiCgzC4p2C77ra7rPU1J3ocM1Dgts=
-X-Google-Smtp-Source: AA+uWPwLPiURMvS76+A4ltteUoiBpaEqCtdAx0j39yxj0dLprITbH/VnUPxokie9vF35vaC9jgsUPg==
-X-Received: by 2002:aca:6206:: with SMTP id
- w6-v6mr6503178oib.201.1533911419054; 
- Fri, 10 Aug 2018 07:30:19 -0700 (PDT)
-Received: from krtaylors-MacBook-Pro.local
- (cpe-72-182-100-19.austin.res.rr.com. [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id f144-v6sm14544836oib.39.2018.08.10.07.30.17
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 Aug 2018 07:30:18 -0700 (PDT)
-From: krtaylor <kurt.r.taylor@gmail.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: 8/9 OpenBMC Release Planning WG Meeting Minutes
-Message-ID: <2bc4b415-1a44-8b8e-84be-e0fc7539e6ab@gmail.com>
-Date: Fri, 10 Aug 2018 09:30:17 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41n7bk4QQvzDqrN
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Aug 2018 01:00:50 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w7AF0DgO127780
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 11:00:48 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ksayjngb0-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 11:00:47 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 10 Aug 2018 09:00:46 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 10 Aug 2018 09:00:45 -0600
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7AF0iSQ60162132
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 10 Aug 2018 08:00:44 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 324936A04D;
+ Fri, 10 Aug 2018 09:00:44 -0600 (MDT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BDA4B6A05A;
+ Fri, 10 Aug 2018 09:00:43 -0600 (MDT)
+Received: from [9.41.179.222] (unknown [9.41.179.222])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Fri, 10 Aug 2018 09:00:43 -0600 (MDT)
+Subject: =?UTF-8?B?UmU6IOWbnuWkje+8miDlm57lpI3vvJog5Zue5aSN77yaIEtWTSBTdXBw?=
+ =?UTF-8?Q?ort=3f?=
+To: xiuzhi <1450335857@qq.com>, "Alexander A. Filippov" <a.filippov@yadro.com>,
+ openbmc <openbmc@lists.ozlabs.org>
+References: <tencent_1C95811BB151A831B6F144F54B696D9EC305@qq.com>
+ <17beaf19-846e-5b3c-d651-7b5f52f422d7@linux.vnet.ibm.com>
+ <tencent_19AEF964D76B6EF746A2C6A0C63B552E2507@qq.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Fri, 10 Aug 2018 10:00:43 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+In-Reply-To: <tencent_19AEF964D76B6EF746A2C6A0C63B552E2507@qq.com>
+Content-Type: text/plain; charset=gb18030; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18081015-0020-0000-0000-00000E4DD8B8
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009518; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01071680; UDB=6.00551937; IPR=6.00851467; 
+ MB=3.00022636; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-10 15:00:46
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18081015-0021-0000-0000-000062A15930
+Message-Id: <834a7d00-9f55-93ff-766d-f2630be83fec@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-08-10_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1808100163
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -71,78 +88,293 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Aug 2018 14:30:23 -0000
-
-Good meeting - getting formed around release delivery features and 
-producing high-level designs. Thanks all!
-
-Meeting Minutes:
-https://docs.google.com/document/d/1yo9lZp56jkwDM1eXJRE8p__FqlAjq7qcdIi1W7hAD5Y/edit?usp=sharing
-
-Agenda backlog for next week:
-https://github.com/openbmc/openbmc/wiki/Release-Planning
-
-Regards,
-Kurt Taylor (krtaylor)
+X-List-Received-Date: Fri, 10 Aug 2018 15:00:51 -0000
 
 
-8/9/18
-======
-Attended (*) Primary company contact
-------------------------------------
-    Kurt Taylor, IBM (WG lead)
-    Brad Bishop, IBM
-    *Sai Dasari, Facebook
-    *James Mihm, Intel
-    Kun Yi, Google
-    Maury Zipse, IBM
-    *Nancy Yuen, Google
-    *Andrew Geissler, IBM
 
-Not Attending
--------------
-    Tao Ren, Facebook
-    *Dick Wilkins, Phoenix
-    *Ali Larijani, Microsoft
-    Yugi Mani, Microsoft
+On 08/10/2018 06:14 AM, xiuzhi wrote:
+> Hi Eddie,
+>    I tested the new update source of video-dev on AST2400 and AST2500. 
+> It works on AST2500.
+>  On AST2400，the vncviewer can connect vncserver  sucessful, but its 
+> window was blank,  not shown any information of the host screen .
+> Would you like to give me some advice or instruments on how to   
+>  debug this issue?
 
-Review of Agreements from previous meeting
-------------------------------------------
-    None, brief recap of progress made
+Hi,
 
-Release Content (Design Milestone - Aug 31)
--------------------------------------------
-    Items we are completing (by company)
-    Company reps scrubbed the features, noting items they were working 
-on with 鈥�*鈥�
-    Some discussion on items that multiple parties were working on, need 
-for community communication - WG, IRC, maillist
-    If WG needs to form around a feature it needs to happen VERY quickly
-    Features 鈥淚nband Firmware Update鈥� and 鈥淪ecure Boot鈥� possible WG or 
-at least need for more collaboration
-     Some discussion on design process, agreed to look at the feature 
-鈥淪SL Certificate Upload鈥� as a good example of getting the design done in 
-the open
-    Goal is to have a better defined policy on having the design 
-complete before code drops (Design Milestone) and enforcing this
+You could try enabling the debug tracing, if dynamic debug is enabled on 
+your kernel. (CONFIG_DYNAMIC_DEBUG)
 
-Requirements for these items (design template)
-----------------------------------------------
-    Discussion on PEP vs OpenStack
-    Nancy to contribute Google鈥檚 design template
-    Kurt will push a design template proposal before the end of the week
+echo file aspeed-video.c +p > /sys/kernel/debug/dynamic_debug/control
 
-Designs
--------
-    Workgroups needed for design, work spanning multiple companies
-    Existing designs that can be shared are ok, final format not 
-critical at this point, new designs should follow design template
-    Agreement: Once WG or interested parties collaborate on a design, 
-the design should be pushed to gerrit - openbmc/docs/designs (will be 
-created as a part of the template merge)
+That should print every register access, as well as some other info.
 
-Need to move the meeting time
------------------------------
-    Agreement: Majority of participants agreed on Monday at 3:00PM 
-Central (2000 UTC) - this will start the week of the 27th of August - 
-refer to the agenda on the wiki
+Thanks,
+Eddie
+
+> Hi,
+>
+> There are some differences with the video engine between the AST2400 and
+> AST2500 that I haven't addressed yet, so probably the driver is not
+> working correctly on the AST2400 yet. Some registers have different bit
+> mapping, and things like that. Sorry about that... thanks for trying it
+> out! I'll look at the changes needed for AST2400 next.
+>
+> Thanks,
+>
+> Eddie
+>
+>
+> On 08/01/2018 03:47 AM, xiuzhi wrote:
+> > Hi Eddie,
+> >   Now It works, but the vncviewer can not connect the BMC server
+> > successful.
+> > When I use vncviewer connect to the BMC the error read:
+> > "RFB protocol error: bad desktop size 0x1"
+> > "RFB protocol error: unknow rect encoding 7"
+> > The information on BMC are :
+> > root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> > frame buffer size: 3145728
+> > 19/07/2018 08:20:57 Listening for VNC connections on TCP port 5900
+> > 19/07/2018 08:20:57 Listening for VNC connections on TCP6 port 5900
+> >
+> > 19/07/2018 08:52:08 Got connection from client 192.168.120.58
+> > 19/07/2018 08:52:08   other clients:
+> > 19/07/2018 08:52:08 Normal socket connection
+> > 19/07/2018 08:52:08 Client Protocol Version 3.8
+> > 19/07/2018 08:52:08 Protocol version sent 3.8, using 3.8
+> > 19/07/2018 08:52:08 rfbProcessClientSecurityType: executing handler
+> > for type 1
+> > 19/07/2018 08:52:08 rfbProcessClientSecurityType: returning
+> > securityResult for client rfb version >= 3.8
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000018)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000016)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000015)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x0000000F)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0xFFFFFEC6)
+> > 19/07/2018 08:52:08 Enabling full-color cursor updates for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 Using ZRLE encoding for client 192.168.120.58
+> > 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
+> > 19/07/2018 08:52:08   8 bpp, depth 6
+> > 19/07/2018 08:52:08   true colour: max r 3 g 3 b 3, shift r 4 g 2 b 0
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000018)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000016)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000015)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x0000000F)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0xFFFFFEC6)
+> > 19/07/2018 08:52:08 Enabling full-color cursor updates for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 Switching from ZRLE to raw Encoding for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000018)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000016)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x00000015)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0x0000000F)
+> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > unsupported encoding type Enc(0xFFFFFEC6)
+> > 19/07/2018 08:52:08 Enabling full-color cursor updates for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 Switching from raw to ZRLE Encoding for client
+> > 192.168.120.58
+> > 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
+> > 19/07/2018 08:52:08   32 bpp, depth 24, little endian
+> > 19/07/2018 08:52:08   true colour: max r 255 g 255 b 255, shift r 16 g
+> > 8 b 0
+> > [ 6928.751385] aspeed-video 1e700000.video: disabling comp ready irq,
+> > seq_ctrl[000500a8]
+> > 19/07/2018 08:52:09 rfbProcessClientNormalMessage: read: Connection
+> > reset by peer
+> > 19/07/2018 08:52:09 Client 192.168.120.58 gone
+> > 19/07/2018 08:52:09 Statistics             events Transmit/
+> > RawEquiv ( saved)
+> > 19/07/2018 08:52:09  FramebufferUpdate   :      3 | 0/        0 (  0.0%)
+> > 19/07/2018 08:52:09  tight               :      1 | 30991/ 3145740
+> > ( 99.0%)
+> > 19/07/2018 08:52:09  raw                 :      1 | 16396/ 16396
+> > (  0.0%)
+> > 19/07/2018 08:52:09  ZRLE                :      2 | 62/ 3932160
+> > (100.0%)
+> > 19/07/2018 08:52:09  RichCursor          :      3 | 429/      429 (  
+> 0.0%)
+> > 19/07/2018 08:52:09  TOTALS              :     10 | 47878/ 7094725
+> > ( 99.3%)
+> > 19/07/2018 08:52:09 Statistics             events Received/
+> > RawEquiv ( saved)
+> > 19/07/2018 08:52:09  FramebufferUpdate   :      4 | 40/       40 (  
+> 0.0%)
+> > 19/07/2018 08:52:09  SetPixelFormat      :      2 | 40/       40 (  
+> 0.0%)
+> > 19/07/2018 08:52:09  SetEncodings        :      3 | 168/      168 (  
+> 0.0%)
+> > 19/07/2018 08:52:09  TOTALS              :      9 | 248/      248 (  
+> 0.0%)
+> >
+> > What wrong with it?
+> > BTW, vncview download from
+> > https://www.realvnc.com/en/connect/download/viewer/linux/
+> > I also got the same error using Tightvnc viewer
+> > Thanks,
+> > xiuzhi
+> > Hi Eddie,
+> >    My bmc is AST2400, I modified the aspeed-g4.dtsi(adding gfx:
+> > display@1e6e6000  and  video: video@1e700000)
+> >  and the aspeed-bmc-opp-xxx.dts (adding &video &vhub) .
+> > An error occured when I executed the following instructions:
+> >
+> > root@zhaoxinc:~# create_usbhid.sh
+> > root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> > [  125.586061] aspeed-video 1e700000.video: timed out on 1st mode detect
+> > [  125.602732] aspeed-video 1e700000.video: Failed to start video engine
+> > failed to open /dev/video0: 62 Timer expired
+> > Need I modify drivers/media/platform/aspeed-video.c or any other files?
+> >
+> >  Thanks ,
+> > Xiuzhi
+> > On 07/31/2018 01:52 AM, xiuzhi wrote:
+> > > Hi Alexander ,Eddie,
+> > >   I merged the source from
+> > > https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11500/,and
+> > > kernel branch video-dev.
+> > > How to test the video kvm feature by phosphor-webui or command line?
+> >
+> > Hi,
+> >
+> > You need to make sure the video device is enabled in your device-tree
+> > for the machine you use... My kernel patch enabled it for our AST2500
+> > witherspoon system. If you're using AST2500 as well, then you just need
+> > something like:
+> >
+> > &video {
+> >      status = "okay";
+> >      memory-region = <&gfx_memory>;
+> > };
+> >
+> > And the virtual USB hub:
+> > &vhub {
+> >      status = "okay";
+> > };
+> >
+> > If you're not using AST2500, you'll need more changes to device-tree.
+> >
+> > Then on the BMC command line:
+> > create_usbhid.sh
+> > obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> > And connect with any VNC client to port 0 of your BMC IP.
+> >
+> > Thanks,
+> > Eddie
+> >
+> > > Best,
+> > > xiuzhi
+> > >
+> > >
+> > > ------------------ 原始邮件 ------------------
+> > > *发件人:* "Alexander A. Filippov"<a.filippov@yadro.com>;
+> > > *发送时间:* 2018年7月25日(星期三) 下午4:56
+> > > *收件人:*
+> > "openbmc"<openbmc@lists.ozlabs.org>;"xiuzhi"<1450335857@qq.com>;
+> > > *主题:* Re: KVM Support?
+> > >
+> > > Hello everybody,
+> > >
+> > > Could you check the size of
+> > >
+> > 
+> `build/tmp/deploy/image/<platformname>/fitImage-openbmc-phosphor-initramfs-*.bin`?
+> > > If it exceeds 4456448 (0x440000) bytes, this is the problem described
+> > > at https://github.com/openbmc/openbmc/issues/3314
+> > >
+> > >
+> > > In this case you should modify flash partitions layout or trying to
+> > > decrease kernel size.
+> > >
+> > > --
+> > > Alexander
+> > >
+> > > On Wed, Jul 25, 2018 at 03:48:04PM +0800, xiuzhi wrote:
+> > > > Hi Eddie,
+> > > >
+> > > >
+> > > >   I read your KVM Support email on mailinglist.
+> > > >
+> > > >
+> > > > I am going to port the BMC kvm to ast2400 . The u-boot can not load
+> > > kernel ,the error message read:
+> > > >
+> > > >
+> > > > ""U-Boot 2016.07 (Jul 23 2018 - 11:11:50 +0000)
+> > > >
+> > > >
+> > > > DRAM:  240 MiB
+> > > > WARNING: Caches not enabled
+> > > > Flash: 32 MiB
+> > > > *** Warning - bad CRC, using default environment
+> > > >
+> > > >
+> > > > In:    serial
+> > > > Out:   serial
+> > > > Err:   serial
+> > > > Net:   aspeednic#0
+> > > > Error: aspeednic#0 address not set.
+> > > >
+> > > >
+> > > > Hit any key to stop autoboot:  0
+> > > > ## Loading kernel from FIT Image at 20080000 ...
+> > > > Bad FIT kernel image format!
+> > > > ERROR: can't get kernel image!
+> > > > ast#
+> > > >
+> > > >
+> > > > I added  config options to defconfig of ast2400 as follows:
+> > > >
+> > > >
+> > > > CONFIG_MEDIA_SUPPORT=y
+> > > > CONFIG_MEDIA_CAMERA_SUPPORT=y
+> > > > CONFIG_MEDIA_SUPPORT=y
+> > > > CONFIG_MEDIA_CAMERA_SUPPORT=y
+> > > > # CONFIG_MEDIA_ANALOG_TV_SUPPORT is not set
+> > > > # CONFIG_MEDIA_DIGITAL_TV_SUPPORT is not set
+> > > > # CONFIG_MEDIA_RADIO_SUPPORT is not set
+> > > > # CONFIG_MEDIA_SDR_SUPPORT is not set
+> > > > # CONFIG_MEDIA_CEC_SUPPORT is not set
+> > > > # CONFIG_MEDIA_CONTROLLER is not set
+> > > > CONFIG_RATIONAL=y
+> > > > CONFIG_VIDEO_DEV=y
+> > > > CONFIG_VIDEO_V4L2=y
+> > > > CONFIG_V4L_PLATFORM_DRIVERS=y
+> > > > CONFIG_VIDEO_ASPEED=y
+> > > > CONFIG_MEDIA_SUBDRV_AUTOSELECT=y
+> > > >
+> > > >
+> > > > Need I modify the aspeed-bmc-opp-palmetto.dts and aspeed-g4.dtsi?
+> > > >
+> > > >
+> > > > Can you give me the file list need to modify?
+> > > >
+> > > >
+> > > > Thanks,
+> > > >
+> > > >
+> > > > xiuzhi
