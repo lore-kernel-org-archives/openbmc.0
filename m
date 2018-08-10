@@ -1,60 +1,59 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.214.66; helo=mail-it0-f66.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
- [209.85.214.66])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="TFJX83CD"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41mjsX3TKyzDqgF
- for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 08:41:20 +1000 (AEST)
-Received: by mail-it0-f66.google.com with SMTP id v71-v6so231133itb.3
- for <openbmc@lists.ozlabs.org>; Thu, 09 Aug 2018 15:41:20 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41mmzb0kVjzF0dS
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Aug 2018 11:01:46 +1000 (AEST)
+Received: by mail-qk0-x243.google.com with SMTP id 191-v6so5348134qki.13
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Aug 2018 18:01:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=OPCnc6zfy45qna0HaeFllPTypYQfp5ZlATU6c4pfVv0=;
+ b=TFJX83CDRPs+L4LgxAworGyh15mWtKnUFphmVO/GmZt6EooBw3Qiq8uprGi4OlkO26
+ rEBE0JWoHtdHhV5xDvuM5L0PWhGBuFkSZvXri+QZKYmoISZiKKweGlsKMkpmuqCtlZCD
+ Iy/UAUFJxixNfxBVHQ4dLV5xEDBJJInEcAeZI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:date:from:to:subject:references
- :in-reply-to:cc:cc:status:lines;
- bh=yxo9iveNN6kDZ8fDNtmg8eg2v8lFrmhciyFI/ZkLH+A=;
- b=jO4vcERTW1FesSMJhnmwWEDBApSNx7hq7xTfLOq5hpUmglrudD7eqe9xww0EKtmh+s
- vcplXI6b2ypUcwJz15zo3AWTr/hoSEpcZBQjGNC3WBqzQvrhldRILIcT6ydqyyxOW24j
- W4pfakwb6y/S5/zhAKbFEh4ih6tJ1/QkrSiNdgY/bx6h+/3htahKaMtsWJs1WacA1w9E
- OWIr3KcAfTZnWf0rH6Qr0imQrbxgjvArNLx2+uG+79hfiWODMEfDb/XSMmniCKW1OXlJ
- AbvM6HmIMw+GmIUD97Fln9SuTdQkdePkUh6MpIUqIaIN0ay6V858uhESZB9jN0Yemcpx
- udKw==
-X-Gm-Message-State: AOUpUlH8qdEgFBRpXAmdGjdhyZZRHt9ESoOdzDfYSQ03lxT9bGOLUsgu
- V713hxKGf7OY3RIo/Ja/tA==
-X-Google-Smtp-Source: AA+uWPz60G/XBGrNAjRIqzfkTwcIHBflNOTQlGeLg+vZbbI73orj6CCbHRYiJ+SDcuX97pltID9Ntw==
-X-Received: by 2002:a24:2f09:: with SMTP id j9-v6mr180511itj.86.1533854477946; 
- Thu, 09 Aug 2018 15:41:17 -0700 (PDT)
-Received: from localhost ([24.51.61.72])
- by smtp.gmail.com with ESMTPSA id i199-v6sm186866ita.11.2018.08.09.15.41.17
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 09 Aug 2018 15:41:17 -0700 (PDT)
-Message-ID: <5b6cc30d.1c69fb81.d8527.11e1@mx.google.com>
-Date: Thu, 09 Aug 2018 16:41:16 -0600
-From: Rob Herring <robh@kernel.org>
-To: tali.perry1@gmail.com
-Subject: Re: [PATCH v2 1/2] dt-binding: i2c: npcm7xx: add binding for i2c
- controller
-References: <20180807110709.31847-1-tali.perry1@gmail.com>
- <20180807110709.31847-2-tali.perry1@gmail.com>
-In-Reply-To: <20180807110709.31847-2-tali.perry1@gmail.com>
-Cc: tali.perry1@gmail.com, avifishman70@gmail.com, tmaimon77@gmail.com,
- venture@google.com, yuenn@google.com, brendanhiggins@google.com,
- robh+dt@kernel.org, mark.rutland@arm.com, davem@davemloft.net,
- mchehab+samsung@kernel.org, gregkh@linuxfoundation.org,
- akpm@linux-foundation.org, arnd@arndb.de, wsa@the-dreams.de,
- andriy.shevchenko@linux.intel.com, pierre-yves.mordret@st.com,
- cedric.madianga@gmail.com, baolin.wang@spreadtrum.com,
- jarkko.nikula@linux.intel.com, hdegoede@redhat.com, rmk+kernel@armlinux.org.uk,
- ard.biesheuvel@linaro.org, thor.thayer@linux.intel.com, geert@linux-m68k.org,
- heikki.krogerus@linux.intel.com, tglx@linutronix.de
-Cc: linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailman-Approved-At: Fri, 10 Aug 2018 10:59:07 +1000
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=OPCnc6zfy45qna0HaeFllPTypYQfp5ZlATU6c4pfVv0=;
+ b=G3qngPxm68Ls/YE8XqwlA2dxG7gE9d9nzu63hUl3Q2HKLSdYOBFJdgCeLQq1LIOCiE
+ aXuxW++wz50ZynlS7gglDE004gFqCYNqGq2WHVxhg160nq0SrY+9aPFakna+lM5MG8YY
+ qzoS+/f2+z6A8bhyIrljvKje6Zmwe0DBJxJfZLqWAArA1UvPmaRkfa3XUVvMXV7RvdNj
+ QK87rrDbF0MbtBq4CX7cpi/TsWbsaeq6qcCESyIXN5D/YQcOvehZyh83eRggadmVCdR1
+ smnAYTel9Q3igdTE2N26NOM6Q0nUoxemMKqeYDdJ9fXm0rBseV0O0lORa8oj2Q30vZXw
+ qeiA==
+X-Gm-Message-State: AOUpUlFzBQj0XuXQTfpHIoBE00y7SR/JkK8HEFP1EJrgFPhtF56W6/kg
+ ZX13zQSnwWjjqMCAs5T2MudOK8NKqc2rpv6PboM=
+X-Google-Smtp-Source: AA+uWPwXBWRKVjhwnTBNnNuIy314UIRJx+qbbvsharfZy7MEP6+zQkh/4BwLNUph8VwyxkkMNEz+AML/6KdCaOkXpjQ=
+X-Received: by 2002:a37:9187:: with SMTP id
+ t129-v6mr3962527qkd.112.1533862904437; 
+ Thu, 09 Aug 2018 18:01:44 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAG9c7cAk-B=cSwWz3373eywPud3mQdBKCBMwb_iwuCcAwX9Udw@mail.gmail.com>
+In-Reply-To: <CAG9c7cAk-B=cSwWz3373eywPud3mQdBKCBMwb_iwuCcAwX9Udw@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 10 Aug 2018 10:31:32 +0930
+Message-ID: <CACPK8Xf1bDR_vPSDF7p1qW1cGjmjmRXSe2qdei9YMjKtqRHL8Q@mail.gmail.com>
+Subject: Re: Patch files not apply while devtool modify linux-aspeed
+To: Henbin Chang <henbinchang@gmail.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ Eddie James <eajames.ibm@gmail.com>, Adriana Kobylak <anoo@linux.vnet.ibm.com>,
+ Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,35 +65,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Aug 2018 22:41:21 -0000
+X-List-Received-Date: Fri, 10 Aug 2018 01:01:48 -0000
 
-Hi, this is an automated email from Rob's (experimental) review bot. I
-found a couple of common problems with your patch. Please see below.
+Hello,
 
-On Tue,  7 Aug 2018 14:07:08 +0300, Tali Perry wrote:
-> Nuvoton NPCM7XX I2C Controller
-> NPCM7xx includes 16 I2C contollers. THis driver operates the controller.
-> This module also includes a slave mode, which will be submitted later on.
-> 
-> Any feedback would be appreciated.  
-> 
-> v2 -> v1:
-> 	- run check patch in strict mode.
-> 	- use linux crc.
-> 	- define regs in constant offset without base.
-> 	- remove debug prints.
-> 	- no declerations for local functions.
-> 	
-> v1: initial version
-> 
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> 
+On Tue, 7 Aug 2018 at 11:13, Henbin Chang <henbinchang@gmail.com> wrote:
+> We found the patch files would be applied while 'devtool modify linux-asp=
+eed' after upgrade to Yocto 2.5.
+> And show the below warning message.
+>
+> WARNING: SRC_URI is conditionally overridden in this recipe, thus several=
+ devtool-override-* branches have been created, one for each override that =
+makes changes to SRC_URI. It is recommended that you make changes to the de=
+vtool branch first, then checkout and rebase each devtool-override-* branch=
+ and update any unique patches there (duplicates on those branches will be =
+ignored by devtool finish/update-recipe)
 
-The preferred subject prefix is "dt-bindings: <binding dir>: ...".
+I do not use yocto when developing the kernel, so I can't help here. I
+have cc'd some other developers that my have encountered this issue.
 
-> ---
->  .../devicetree/bindings/i2c/i2c-npcm7xx.txt        | 27 ++++++++++++++++++++++
->  MAINTAINERS                                        |  8 +++++++
->  2 files changed, 35 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> 
+Cheers,
+
+Joel
