@@ -1,72 +1,107 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="ozOAz4mr"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41q1gM3mf6zDrYj
- for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 02:40:30 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7DGdAml104280
- for <openbmc@lists.ozlabs.org>; Mon, 13 Aug 2018 12:40:28 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.108])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2kucpsjsr9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 13 Aug 2018 12:40:28 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Mon, 13 Aug 2018 16:40:28 -0000
-Received: from us1b3-smtp06.a3dr.sjc01.isc4sb.com (10.122.203.184)
- by smtp.notes.na.collabserv.com (10.122.47.46) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 13 Aug 2018 16:40:24 -0000
-Received: from us1b3-mail64.a3dr.sjc01.isc4sb.com ([10.122.7.93])
- by us1b3-smtp06.a3dr.sjc01.isc4sb.com
- with ESMTP id 2018081316402393-690069 ;
- Mon, 13 Aug 2018 16:40:23 +0000 
-Subject: Re: openbmc bug management
-In-Reply-To: <CALLMt=pDF+AQWZT1hqe4XEedCkv5ypHd5rLmD5=-+FsBFwZ7xg@mail.gmail.com>
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: geissonator@gmail.com
-Cc: anoo@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-Date: Mon, 13 Aug 2018 16:40:23 +0000
-Sensitivity: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41q29G0l0czDrYj
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 03:02:57 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 3E49E418FF;
+ Mon, 13 Aug 2018 17:02:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1534179767; x=
+ 1535994168; bh=LVa22wnDRgL+NL6AC7WlVqCbsV1+gqwTqQ+cRg68vgE=; b=o
+ zOAz4mr99p5YOaiunSgYoEPrnMfu7bXGBX3aaIpNIVeU5Q75/fpxsZqF5OCXyCtQ
+ 8pj4iLYWvsi3hM/qrUv/SlcwVf0O1Vm+7I6MkFnLhCSTwVQHzKvV4dhcRchJDQWy
+ ugWbzxY8M5mRONNeDr20DMxFQH8YqHSFvVv15QjHe0=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id ql_hjRL2dckT; Mon, 13 Aug 2018 20:02:47 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id C69D8404CB;
+ Mon, 13 Aug 2018 20:02:47 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 13
+ Aug 2018 20:02:47 +0300
+Subject: Re: Licensing Question
+To: Patrick Venture <venture@google.com>, Vernon Mauery
+ <vernon.mauery@linux.intel.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CAO=notzP1FWobbpUhqdf8ZrGRqsNZvZHBp=8cmXZjWOL0dcCrA@mail.gmail.com>
+ <20180809163211.GA37965@mauery.jf.intel.com>
+ <CAO=notyXi0VLv=-eJHsODwJvukoMRMbMcC8qndzR9ncYkbsvww@mail.gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <4fdfac5d-c204-b0e9-3c19-8a2cbd7f191f@yadro.com>
+Date: Mon, 13 Aug 2018 20:02:46 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-References: <CALLMt=pDF+AQWZT1hqe4XEedCkv5ypHd5rLmD5=-+FsBFwZ7xg@mail.gmail.com>
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
- SCN1812108_20180501T0841 May 01, 2018 at 08:41
-X-KeepSent: 9ADB4CCA:9B5CDFD9-002582E8:0059FA91;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 40891
-X-TNEFEvaluated: 1
-X-LLNXfer: False
-x-cbid: 18081316-7845-0000-0000-00000466C820
-X-IBM-SpamModules-Scores: BY=0.031192; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.363559; ST=0; TS=0; UL=0; ISC=; MB=0.217549
-X-IBM-SpamModules-Versions: BY=3.00009536; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01072989; UDB=6.00552820; IPR=6.00852940; 
- BA=6.00006074; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00022693; XFM=3.00000015;
- UTC=2018-08-13 16:40:26
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-08-13 15:18:11 - 6.00008826
-x-cbparentid: 18081316-7846-0000-0000-000010C6C9F6
-Message-Id: <OF9ADB4CCA.9B5CDFD9-ON002582E8.0059FA91-002582E8.005B96C8@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-13_07:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <CAO=notyXi0VLv=-eJHsODwJvukoMRMbMcC8qndzR9ncYkbsvww@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="fbWCCTpNQJT6hGVytX0FfxjzGA2zorF58"
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -78,90 +113,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2018 16:40:32 -0000
+X-List-Received-Date: Mon, 13 Aug 2018 17:02:59 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Good discussion t=
-opic, Andrew.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >My thoughts:</div>
-<div dir=3D"ltr" >=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >First of all, bug should be associate with SLA/some kind =
-of metrics on how quickly it gets resolved.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Bug submitter is already started donating/contributing to=
- the community by pointing the issue in the code,</div>
-<div dir=3D"ltr" >when bug submitter opens an issue.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >It is the maintainer (other assigned person) responsibili=
-ty to accept (fix the bug) or prove it is not in their</div>
-<div dir=3D"ltr" >area and pointed out the issue/bug to the other repositor=
-y with details.&nbsp; (From the horse's mouth)</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >If the ownership of moving/closing bug to the submitter, =
-I feel the point of isolating the bug may not happen accurately.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Second point (back to SLA), If the submitter owns it then=
- SLA/Metrics may not be accurate. This will be totally different than what =
-normally industry follows, I guess.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Real Life Scenario:</div>
-<div dir=3D"ltr" >=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div dir=3D"ltr" >For eg. if person A points out issue/bug in person B shir=
-t, Can person A responsible to change person B shirt?</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"fo=
-nt-family:Arial;font-size:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D=
-"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div class=3D"socmailde=
-faultfont" dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div c=
-lass=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;font-siz=
-e:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-fami=
-ly:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"margin-top: 20px;" ><=
-div style=3D"font-size: 12pt; font-weight: bold; font-family: sans-serif; c=
-olor: #7C7C5F;" >Sivas R. S</div>
-<div style=3D"font-size: 8pt; font-family: sans-serif; margin-top: 10px;" >=
-<div><span style=3D"font-weight: bold; color: #336699;" >E-mail: </span><a =
-href=3D"mailto:sivas.srr@in.ibm.com" style=3D"color: #555" >sivas.srr@in.ib=
-m.com</a></div>
-<div>E2E FSP Test Architecture, OpenBMC Test Lead, Lab Management</div>
-<div>Automation is good, Identifying Defect earlier is better always</div>
-<div>9902233500</div>
-<div>08046678273</div></div></div></div></div></div></div></div></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
--left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
-margin-right:0px" >----- Original message -----<br>From: Andrew Geissler &l=
-t;geissonator@gmail.com&gt;<br>Sent by: "openbmc" &lt;openbmc-bounces+sivas=
-.srr=3Din.ibm.com@lists.ozlabs.org&gt;<br>To: Adriana Kobylak &lt;anoo@linu=
-x.vnet.ibm.com&gt;, OpenBMC Maillist &lt;openbmc@lists.ozlabs.org&gt;<br>Cc=
-:<br>Subject: openbmc bug management<br>Date: Mon, Aug 13, 2018 9:34 PM<br>=
-&nbsp;<br><tt><font size=3D"3" face=3D"" >Currently we mostly open bugs aga=
-inst openbmc/openbmc. &nbsp;This is nice</font></tt><br><tt><font size=3D"3=
-" face=3D"" >in that it provides a single location to search for all bugs r=
-elated</font></tt><br><tt><font size=3D"3" face=3D"" >to openbmc, but it do=
-esn't provide any clear ownership for someone to</font></tt><br><tt><font s=
-ize=3D"3" face=3D"" >drive the bug, and it becomes more and more unmanageab=
-le as the</font></tt><br><tt><font size=3D"3" face=3D"" >openbmc project co=
-ntinues to grow.</font></tt><br><br><tt><font size=3D"3" face=3D"" >Per the=
- community call topic today, we'd like to start having bugs</font></tt><br>=
-<tt><font size=3D"3" face=3D"" >assigned to the specific repo that will pro=
-vide the fix to the bug.</font></tt><br><tt><font size=3D"3" face=3D"" >The=
- main concern with this is that if someone is unsure on where the</font></t=
-t><br><tt><font size=3D"3" face=3D"" >bug should go and takes a best guess,=
- if the guess is wrong, how do we</font></tt><br><tt><font size=3D"3" face=
-=3D"" >ensure the bug gets routed correctly? &nbsp;The idea was that it's t=
-he</font></tt><br><tt><font size=3D"3" face=3D"" >responsibility of the cre=
-ator of the bug, so the repo owner says</font></tt><br><tt><font size=3D"3"=
- face=3D"" >something to the affect of "not my problem" (with some guidance=
- on</font></tt><br><tt><font size=3D"3" face=3D"" >who's it is if they know=
-) and the bug submitter will then use the</font></tt><br><tt><font size=3D"=
-3" face=3D"" >zenhub option "Move Issue" to close it in the current repo an=
-d copy it</font></tt><br><tt><font size=3D"3" face=3D"" >over to the new re=
-po.</font></tt><br><br><tt><font size=3D"3" face=3D"" >Thoughts or concerns=
-?</font></tt><br><tt><font size=3D"3" face=3D"" >Andrew</font></tt></blockq=
-uote>
-<div dir=3D"ltr" >&nbsp;</div></div><BR>
+--fbWCCTpNQJT6hGVytX0FfxjzGA2zorF58
+Content-Type: multipart/mixed; boundary="rBcbBHRxC1ZKlxrMzXZyKwqfVzcBXWLnH";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Patrick Venture <venture@google.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Message-ID: <4fdfac5d-c204-b0e9-3c19-8a2cbd7f191f@yadro.com>
+Subject: Re: Licensing Question
+References: <CAO=notzP1FWobbpUhqdf8ZrGRqsNZvZHBp=8cmXZjWOL0dcCrA@mail.gmail.com>
+ <20180809163211.GA37965@mauery.jf.intel.com>
+ <CAO=notyXi0VLv=-eJHsODwJvukoMRMbMcC8qndzR9ncYkbsvww@mail.gmail.com>
+In-Reply-To: <CAO=notyXi0VLv=-eJHsODwJvukoMRMbMcC8qndzR9ncYkbsvww@mail.gmail.com>
+
+--rBcbBHRxC1ZKlxrMzXZyKwqfVzcBXWLnH
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+
+09.08.2018 19:41, Patrick Venture wrote:
+> On Thu, Aug 9, 2018 at 9:32 AM, Vernon Mauery
+> <vernon.mauery@linux.intel.com> wrote:
+>> On 08-Aug-2018 03:45 PM, Patrick Venture wrote:
+>>> So, I've spent the last hour trying to submodule my way to using
+>>> ipmitool.  I've managed to get it compiling for just the one file I
+>>
+>> Okay, I'll bite. What are you trying to use ipmitool for?
+> I'm trying to use the ipmitool source for speaking IPMI without
+> duplicating the code to do so.  I can just open the file interface
+> myself and handle it, but it seemed to reinvent the wheel on this one.
+> Although I do need to push a bugfix to ipmitool where they don't check
+> the msgId returned to see if it matches their expectation.  Unless
+> someone else fixed it (still need to check).
+There are other options, you know. You could use libopenipmi or
+libfreeipmi libraries if you're trying to talk IPMI from a C++ code.
+ipmitool is only good for scripts.
+>> I think Alexander is working on getting ipmitool to compile without wa=
+rnings
+>> upstream. That is quite the task though; he inherited a lot of warning=
+s. :)
+I do. And it's really hell of a task. I've inherited not just a lot of
+warnings, but also a lot of magic numbers, copy-pasted or plain
+inefficient or useless code, etc. A good example of how broken things
+live for decades and even soak into parallel products is
+https://github.com/ipmitool/ipmitool/issues/25
+>>
+>>> So, I can keep battling this, or I can ask -- the license for the
+>>> ipmitool just says I need to keep a copy of the license with the
+>>> source if I reuse it.  So, I can do that, and I can hack it up to wor=
+k
+>>> -- but where I'm curious is -- how does that impact the license of
+>>> phosphor-ipmi-flash?
+What exactly are you trying to do? Create your own flavor of ipmitool
+with blackjack and... bugfixes? Better submit pull requests to upstream
+then.
+
+If you're trying to just borrow some portions of code, then... Well, you
+can do it as long as you keep the BSD license boilerplate with
+respective copyright info, but I'm feeling like it's not a good idea
+anyway.
+> The license is fairly permissive, just says I need to include it.
+Yup. It's just a standard BSD three-clause license.
+
+Alexander.
+
+
+--rBcbBHRxC1ZKlxrMzXZyKwqfVzcBXWLnH--
+
+--fbWCCTpNQJT6hGVytX0FfxjzGA2zorF58
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJbcbm2AAoJEOiTWHtbdBeNt1gQAJ/ROZ1im1usJtES7zlmCQi9
+SpFzmiiSvYG125PnYCDvHwSKSkMis/SgmCCUP09KIEfiTItZfsXC5bwoL6NXW+7z
+eO7R7ukmS5L35xi0ATcm98oq5OkHDVoQZ8GXG7S42Pmc3zYFZPl8J3/7z2k0EILP
+p1Yu7ZyznZ8k4xX2DGPseKza5bKIz1jmOdqfN7YgYjkKP4YC9kOPtdXiQ/iWjp/V
+rhgpjbmAjI9zOoVY1wlGuGfwcHRFc1RdGUqLMJJoIldU1TPL+2IjNUL2kVM8hDCP
+sjb1s2fTRDDUjcrPNwY0jXtkfe3F37Jnw2E2QNC1cRx6MWdcz9hCmu+CD70WVRl6
+bunt0o9l7W9arKq1fNi7n9qiUoAg7A8E0LUXbYrdxY790Dy9WJPt75sbp6CyKw//
+4PLJnq81mlBw5o3cXnqFrjESTsuGinSm9BMiexT9WuunCkkQIXQrOQxUSfFOg5h0
+OT7tAMC4a1In6gQP8j0TRXbYOFe1Z2OPsUPA6pLvzp6NEngVUVkutFCdUZjhSU96
+uufWMynspQMqLsBaedVjjc/ejQDG/enLucbcGHbBRtfxxfQad/2yXGYf6aFKl5yW
+NgMqHSgsk0Hvx9TMd7eThEnOHSb7nu+B3h+zQ1R9EFATyDrQQUrv5UvAe5V2vs38
+gJ3MainCKnWs7l467mTL
+=jAIr
+-----END PGP SIGNATURE-----
+
+--fbWCCTpNQJT6hGVytX0FfxjzGA2zorF58--
