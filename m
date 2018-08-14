@@ -1,65 +1,58 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.214.67; helo=mail-it0-f67.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c09::22f; helo=mail-qk0-x22f.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
- [209.85.214.67])
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="S0LsTfU+"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x22f.google.com (mail-qk0-x22f.google.com
+ [IPv6:2607:f8b0:400d:c09::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41q4kf4KnrzF0Vv
- for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 04:58:34 +1000 (AEST)
-Received: by mail-it0-f67.google.com with SMTP id g141-v6so15718882ita.4
- for <openbmc@lists.ozlabs.org>; Mon, 13 Aug 2018 11:58:34 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41qCW26kCszF0WK
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 10:03:57 +1000 (AEST)
+Received: by mail-qk0-x22f.google.com with SMTP id 191-v6so12250513qki.13
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Aug 2018 17:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=PEJWTcUqnNIez0Yt4kFCHfNy69AFpCu1HpAjwjZNPK0=;
+ b=S0LsTfU+vN9xEHsOLATyuKCdYGmkjOMU6xkS6df+WbSwnr6u5KW0kwZ8LFijNNKRPQ
+ YbMc5TjD6m83dAfF2cFgLp2oooyY3fBQMAhu7YdJw111wg30pJAcT04faTQRCiBsIn23
+ S5wb75v3q27qlq6bQbOof90vBynWMczXsCd4sUbByfu1a+ezhFqMPRVN01Ru7VAFGcpQ
+ CKdw/mvCUZnv0oN60hWhcuLDyPeTxLughsv5nantLU8bUGSH5oVuErmUiXcYTPrJrNGj
+ OeBTzuC2i6kX+mbnYDBZMKn/nLEXy4BPdZgTt5HW8h5/0SoNblfjxl9tLSlN019Hk2Bu
+ p8VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=kXFZPFsQxi2b90JOi4z4hcsFfMnZ/H6g/J1Zgk0O934=;
- b=jaJVVcqaMvBDzmFdiB8Bx9m8ISOuaD22Kd922xlZ3Co+72FRzF5Ri+kBYAKiCGNMAc
- 1S6tS3/R+SWoDksygb0xon8PkZT7qaajA2due45eEfVsi+9Pmi9JpjhyHF6xT/yN0qH4
- a/5p0mjaMROMqfeQM8zHaE7BMFbbGmFFZ3Ej7POY3R1fRrs8h2qku3DQq1mse3zQ0Vw7
- p9jI5Krg3H6lDPVucPci6LgqJsnhyrQgURu8/6fcPLYebNwmWI4TuZS8E6w7299GAp2H
- cZuag/a1pQnEv6SInKWXE0b12d51VZlqd00uUMPiugEhfrhZDzyqlG9MZouDvnOJ0/uX
- 5mtg==
-X-Gm-Message-State: AOUpUlEmAY3UxYp2s0BIQDNmbvJiJ55in+Wp85NqkRP4m+ZDzJrHwXUR
- CZQ7OwjwDn49SeBdNrI5UQ==
-X-Google-Smtp-Source: AA+uWPzAzIgi+EimhacLpyqlKzDjI6U0kcfS6CTg/AVtxCan3RZOWq2X830PmKJbL5UIZRybm7T3mg==
-X-Received: by 2002:a02:b4a4:: with SMTP id
- k33-v6mr15644308jaj.53.1534186712110; 
- Mon, 13 Aug 2018 11:58:32 -0700 (PDT)
-Received: from localhost ([24.51.61.72])
- by smtp.gmail.com with ESMTPSA id w64-v6sm2164032ita.7.2018.08.13.11.58.31
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 13 Aug 2018 11:58:31 -0700 (PDT)
-Date: Mon, 13 Aug 2018 12:58:30 -0600
-From: Rob Herring <robh@kernel.org>
-To: Tali Perry <tali.perry1@gmail.com>
-Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
- yuenn@google.com, brendanhiggins@google.com, mark.rutland@arm.com,
- davem@davemloft.net, mchehab+samsung@kernel.org,
- gregkh@linuxfoundation.org, akpm@linux-foundation.org,
- arnd@arndb.de, wsa@the-dreams.de, andriy.shevchenko@linux.intel.com,
- pierre-yves.mordret@st.com, cedric.madianga@gmail.com,
- baolin.wang@spreadtrum.com, jarkko.nikula@linux.intel.com,
- hdegoede@redhat.com, rmk+kernel@armlinux.org.uk,
- ard.biesheuvel@linaro.org, thor.thayer@linux.intel.com,
- geert@linux-m68k.org, heikki.krogerus@linux.intel.com,
- tglx@linutronix.de, linux-i2c@vger.kernel.org,
- openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-binding: i2c: npcm7xx: add binding for i2c
- controller
-Message-ID: <20180813185830.GA18453@rob-hp-laptop>
-References: <20180807110709.31847-1-tali.perry1@gmail.com>
- <20180807110709.31847-2-tali.perry1@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PEJWTcUqnNIez0Yt4kFCHfNy69AFpCu1HpAjwjZNPK0=;
+ b=ObTZ5BrMLdu1h77TsBbExRFcffPzD0EEY88dZ+IAnoTG00ctByv+Qo6X1ZlSTdhUrS
+ 34n9itky8yL23kU4Kxz3ayQ/rOMi91Tis6839MFllt+JK0cdZvFKR61j5dJZZYB1n2oB
+ J5EwHDPbLzsuGWO7byPR5+KrvE+v/z/j0gWQmfcJDkon50/T5Nmd8YuHt6R+d6VIBsLu
+ BYs1rVRa6xiy6PkiiUirKYg4myFxRmQjJiOu7MX/GG/Nhv2qFE5BUBd0XDVPcWYLqjPQ
+ 5mBVwmViXpY6WBlJS+Wbt9LS1DOZ3JhDNSnNxrSiQ9QDQZQRhKHRfxhLJKymJeXmnkio
+ O4Gw==
+X-Gm-Message-State: AOUpUlHCo35nMAvXzFYzOhvb9AFRxPqXMI3P75zXX4/GLpAXUXQMVE2A
+ z5aNp3Zdd4oFSylfWawc0bsMPdb6TS6RBxQYkovjVQ==
+X-Google-Smtp-Source: AA+uWPwOMJoZL+RuOTrXRGfcWE0WbuW08wD42RUWwQse3OOCfrzqWuGWQvYg+Z8keZrzUd0JSmxda+G3Q9zrC45fc7I=
+X-Received: by 2002:a37:c394:: with SMTP id
+ r20-v6mr17755404qkl.372.1534205034546; 
+ Mon, 13 Aug 2018 17:03:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180807110709.31847-2-tali.perry1@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+References: <6c913a75b11ae03ef9298085ead69afe@linux.vnet.ibm.com>
+ <0cf6b440-e3d0-c1f1-48e9-f0cd6d4eff4f@linux.intel.com>
+In-Reply-To: <0cf6b440-e3d0-c1f1-48e9-f0cd6d4eff4f@linux.intel.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Mon, 13 Aug 2018 17:03:42 -0700
+Message-ID: <CAJoAoZnnt8qfH0H81phTZQdgwFM5KOZQjrrV6dQprWrD3-VgrQ@mail.gmail.com>
+Subject: Re: Read-Only IPMI sensors
+To: James Feist <james.feist@linux.intel.com>
+Cc: Adriana Kobylak <anoo@linux.ibm.com>, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000001977da057359f2be"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -71,91 +64,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2018 18:58:35 -0000
+X-List-Received-Date: Tue, 14 Aug 2018 00:04:01 -0000
 
-On Tue, Aug 07, 2018 at 02:07:08PM +0300, Tali Perry wrote:
-> Nuvoton NPCM7XX I2C Controller
-> NPCM7xx includes 16 I2C contollers. THis driver operates the controller.
-> This module also includes a slave mode, which will be submitted later on.
-> 
-> Any feedback would be appreciated.  
-> 
-> v2 -> v1:
-> 	- run check patch in strict mode.
-> 	- use linux crc.
-> 	- define regs in constant offset without base.
-> 	- remove debug prints.
-> 	- no declerations for local functions.
-> 	
-> v1: initial version
-> 
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> 
-> ---
->  .../devicetree/bindings/i2c/i2c-npcm7xx.txt        | 27 ++++++++++++++++++++++
->  MAINTAINERS                                        |  8 +++++++
->  2 files changed, 35 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> new file mode 100644
-> index 000000000000..e2ee45d7a41e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> @@ -0,0 +1,27 @@
-> +Nuvoton NPCM7XX I2C bus
-> +
-> +The NPCM750x includes sixteen I2C busses
-> +
-> +Required properties:
-> +- compatible      : must be "nuvoton,npcm750-i2c-bus"
+--0000000000001977da057359f2be
+Content-Type: text/plain; charset="UTF-8"
 
-Is 'bus' how the datasheet calls it? If not, I'd drop the '-bus' part as 
-it is really a controller.
+host-ipmid also already supports read-only, in fact, adding writable
+support was a pretty big work item last year. When you say data-driven
+design do you mean the automatic discovery? I guess I'm a little confused
+as to what exactly is missing for you.
 
-> +- reg             : Offset and length of the register set for the device.
-> +- interrupts      : Contain the I2C interrupt with flags for falling edge.
-> +- clocks          : phandle of I2C reference clock.
-> +
-> +Optional:
-> +- bus-frequency   : Contain the I2C bus frequency,
-> +			the default I2C bus frequency is 100000.
-> +- pinctrl-0       : must be <&smbX_pins>, X is module number
-> +			(on NPCM7XX it's 0 to 15)
-> +- pinctrl-names   : should be set to "default"
-> +Example:
-> +
-> +	i2c0: i2c-bus@80000 {
+On Mon, Aug 13, 2018 at 11:32 AM James Feist <james.feist@linux.intel.com>
+wrote:
 
-Should be 'i2c@80000'
+> On 08/13/2018 11:33 AM, Adriana Kobylak wrote:
+> > There are a couple IPMI sensors that are not yet included in the
+> > data-driven design of IPMI because they're intended to be read-only
+> > (example: https://github.com/openbmc/openbmc/issues/2154).
+> >
+> > Some options to implement these:
+> >
+> > 1. Add support in sdbusplus for read-only properties and map these
+> > sensors to a read-only d-bus property.
+> >
+>
+> sdbusplus-asio already has support for read-only properties that you
+> might be interested in using / duplicating:
+>
+> https://github.com/openbmc/sdbusplus/blob/master/sdbusplus/asio/object_server.hpp#L123
+>
+>
+>
+> > 2. Have a (json?) file with the sensor settings and have IPMI and any
+> > other interested apps read the file directly to retrieve the sensor
+> values.
+> >
+> > 3. Add read-only sensors to a d-bus object and override the "setter"
+> > function to be a no-op to prevent the value from being modified.
+> >
+> > 4. Combination of above / other options.
+> >
+> > Thoughts?
+> >
+>
 
-> +		compatible = "nuvoton,npcm750-i2c-bus";
-> +		reg = <0x80000 0x1000>;
-> +		clocks = <&clk NPCM7XX_CLK_APB2>;
-> +		bus-frequency = <100000>;
-> +		interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&smb0_pins>;
-> +	};
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 192d7f73fd01..13bac916d21d 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1244,6 +1244,14 @@ F:	drivers/i2c/busses/i2c-aspeed.c
->  F:	Documentation/devicetree/bindings/interrupt-controller/aspeed,ast2400-i2c-ic.txt
->  F:	Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
->  
-> +ARM/NUVOTON I2C DRIVER
-> +M:	Tali Perry <tali.perry1@gmail.com>
-> +L:	linux-i2c@vger.kernel.org
-> +L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-> +S:	Maintained
-> +F:	drivers/i2c/busses/i2c-npcm7xx.c
-> +F:	Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> +
->  ARM/ASPEED MACHINE SUPPORT
->  M:	Joel Stanley <joel@jms.id.au>
->  R:	Andrew Jeffery <andrew@aj.id.au>
-> -- 
-> 2.14.1
-> 
+--0000000000001977da057359f2be
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">host-ipmid also already supports read-only, in fact, addin=
+g writable support was a pretty big work item last year. When you say data-=
+driven design do you mean the automatic discovery? I guess I&#39;m a little=
+ confused as to what exactly is missing for you.</div><br><div class=3D"gma=
+il_quote"><div dir=3D"ltr">On Mon, Aug 13, 2018 at 11:32 AM James Feist &lt=
+;<a href=3D"mailto:james.feist@linux.intel.com">james.feist@linux.intel.com=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 08/13/2018 11:33=
+ AM, Adriana Kobylak wrote:<br>
+&gt; There are a couple IPMI sensors that are not yet included in the <br>
+&gt; data-driven design of IPMI because they&#39;re intended to be read-onl=
+y <br>
+&gt; (example: <a href=3D"https://github.com/openbmc/openbmc/issues/2154" r=
+el=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/openbmc/issu=
+es/2154</a>).<br>
+&gt; <br>
+&gt; Some options to implement these:<br>
+&gt; <br>
+&gt; 1. Add support in sdbusplus for read-only properties and map these <br=
+>
+&gt; sensors to a read-only d-bus property.<br>
+&gt; <br>
+<br>
+sdbusplus-asio already has support for read-only properties that you <br>
+might be interested in using / duplicating: <br>
+<a href=3D"https://github.com/openbmc/sdbusplus/blob/master/sdbusplus/asio/=
+object_server.hpp#L123" rel=3D"noreferrer" target=3D"_blank">https://github=
+.com/openbmc/sdbusplus/blob/master/sdbusplus/asio/object_server.hpp#L123</a=
+> <br>
+<br>
+<br>
+<br>
+&gt; 2. Have a (json?) file with the sensor settings and have IPMI and any =
+<br>
+&gt; other interested apps read the file directly to retrieve the sensor va=
+lues.<br>
+&gt; <br>
+&gt; 3. Add read-only sensors to a d-bus object and override the &quot;sett=
+er&quot; <br>
+&gt; function to be a no-op to prevent the value from being modified.<br>
+&gt; <br>
+&gt; 4. Combination of above / other options.<br>
+&gt; <br>
+&gt; Thoughts?<br>
+&gt; <br>
+</blockquote></div>
+
+--0000000000001977da057359f2be--
