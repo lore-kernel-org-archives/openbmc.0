@@ -1,42 +1,52 @@
-Return-Path: <richard.marian.thomaiyar@linux.intel.com>
+Return-Path: <wak@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=richard.marian.thomaiyar@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::22c; helo=mail-lj1-x22c.google.com;
+ envelope-from=wak@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="cQuYkegX"; 
+ dkim-atps=neutral
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41qg8025DkzF1R0
- for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 03:49:03 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2018 10:48:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,239,1531810800"; d="scan'208";a="224616610"
-Received: from rthomaiy-mobl2.gar.corp.intel.com (HELO [10.252.91.155])
- ([10.252.91.155])
- by orsmga004.jf.intel.com with ESMTP; 14 Aug 2018 10:48:50 -0700
-Subject: Re: Disable Local Users Proposal
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>,
- Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-References: <47cb0391a568d16cbdc0345893eeb282@linux.vnet.ibm.com>
- <3f6ddc8e-17a9-41cb-9478-e3d4fc66b9af@linux.vnet.ibm.com>
- <1b46768ae45e718f5000801222996318@linux.vnet.ibm.com>
-From: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
-Message-ID: <dc6ce171-7750-5a44-c805-a64626e3c207@linux.intel.com>
-Date: Tue, 14 Aug 2018 23:18:46 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41qgN8650TzF15Q
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 03:59:30 +1000 (AEST)
+Received: by mail-lj1-x22c.google.com with SMTP id w16-v6so16065613ljh.12
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 10:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Q0aEBM5LBDm+uvBrkq2T4dd/J6bym1U86HCZ9KlnsCw=;
+ b=cQuYkegXjtsEJDh4F1MxtTAML2N1bsYEiB7h7HjW6cGDVsRoVvxL7Rr+u6FERJUu0W
+ TokXimC9jbMCydPjZHQagZ2WcCnw53E4guTPfb7AIQKBvgmb2n3H4YcpYydlmdtrjV38
+ CkrnRIdS2h9C0MWgjQ/V2uR8M84f2bCgMeA42bMA94JFwoH7xxXy+FOdI03tLX7X+l7/
+ gWVyBoMazEiVpN7zjAal8DXnkXSIRmmf4METnUnEfYJ8kb0xJJxIqWUlFqkWmVSlwlzx
+ RRQVaATDlCYsSfQp51FkejwxJO8XttAA7rEdXz0e3XavdV4328BAGrAl0yGEdzXd4Qr5
+ qpIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Q0aEBM5LBDm+uvBrkq2T4dd/J6bym1U86HCZ9KlnsCw=;
+ b=aCKJPj2nCZdfj9gjO8wuK2uFMm6ca5HYlJBYkI1KRxVlI2VIkz9QjAIAPX/1ppVwEE
+ BNuagk+f4AnwY3LfQ4fMWIQRLq1mDc0ommuooRi3FBzNSZmvYTQ35ApLOOvw83Cbe58A
+ RPXiW4Esugex+Un4ckFXZN5ClTJLJqkpYRIzUaFtjNPMe3C/njWAT++LrN6qIh8FTSB+
+ H6yej2rdgTkXJ9kdLcK82pzfkFIDbPtA5FPTgWRMGCvfWTSgqKUrMldUVk+WatGaNVm4
+ 4mayVVXMfuaIi5jkYoxI0RS4uoCRH8D7z59Y6dw0x79SM0yEgYlLWXyTj1Zyn6esCY1g
+ mqDA==
+X-Gm-Message-State: AOUpUlGpB7FCoVH30oWMiuX5COQHiZlHmM4J9bVjFjoaIe2YfCCzWgDJ
+ ZSP9WBYTqxxqPvu3F6WUn/+D2grcAFKrZkp6AyE4yILLGQM=
+X-Google-Smtp-Source: AA+uWPw4xIDB6hVO1a0Xtkux6octhjgQRVKlr0cxbOhDHJgiALfxlHvhTDCTwOCgFEQn9FMn6Ua5sgq9dAwexhTjNgQ=
+X-Received: by 2002:a2e:944:: with SMTP id 65-v6mr2393369ljj.30.1534269565411; 
+ Tue, 14 Aug 2018 10:59:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1b46768ae45e718f5000801222996318@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+From: William Kennington <wak@google.com>
+Date: Tue, 14 Aug 2018 10:59:13 -0700
+Message-ID: <CAPnigK=89ih9zLRcMCyGq9c+TgD40ZAyFmyG15YCp24_cV9Ndw@mail.gmail.com>
+Subject: Announcing sdeventplus
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -48,105 +58,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Aug 2018 17:49:05 -0000
+X-List-Received-Date: Tue, 14 Aug 2018 17:59:38 -0000
 
-Hi Matt,
+I'd like to make available a wrapper around the sd_event libsystemd
+infrastructure to all of the openbmc based projects. This project is
+intended to closely resemble the sdbusplus project and provide only
+minimal wrapping of the systemd constructs, mostly related to handle
+ownership and error handling. Currently this is lacking a proper
+tutorial but it should be fairly straightforward to map any c-based
+sd_event tutorial to sdeventplus. There are 2 example programs which
+use some of the functionality. Otherwise this should be a complete
+wrapper around sd_svent as of systemd v233. There are some newer
+functions added in v237+ which can be optionally added at a later
+time.
 
-I am not sure, whether you want to permanently disable local accounts or 
-only make it in a configurable way ?
+Please let me know what you think of the project which currently
+resides at https://github.com/wak-google/sdeventplus. This should find
+a new home at https://github.com/openbmc/sdeventplus if it receives
+good feedback.
 
-In order to disable the root user login, have you tried password expiry 
-logic (D-bus interface API provides option to disable the user, which 
-relies on this), which can be set in the /etc/shadow file during 
-compilation itself. Won't this fix your problem instead of removing the 
-pam modules ? In case if your requirement is to disable it permanently 
-to avoid user creation etc, then user D-Bus interfaces should not be 
-implemented(i.e it should never be exposed). (Also what about serial 
-port login ? by default it will land up  in shell or will be disabled 
-for local accounts here too ?).
-
-Related to the D-Bus interfaces to disable the local accounts (under 
-review), i am not sure, how it is going to be different than disabling 
-each user ? Because even this property can be set to TRUE and then users 
-can be created / configured right ?
-
-Regards,
-Richard
-
-On 8/14/2018 8:56 PM, Matt Spinler wrote:
-> On 2018-08-13 03:21, Ratan Gupta wrote:
->> Hi Matt,
->>
->> Please find my comments inline
->>
->> Ratan
->>
->>
->>
->> On Saturday 11 August 2018 02:57 AM, Matt Spinler wrote:
->>> Hi,
->>>
->>> We have a requirement to disable all local accounts on the BMC,
->>> including root, so the only logins allowed would be via LDAP 
->>> authenticated
->>> accounts.
->>>
->>> It was recommended that I do this by removing the pam_unix module from
->>> /etc/pam.d/common-auth and/or common-account(I think?), and also remove
->>> ~/.ssh/authorized_keys if present.
->> By removing the authorized_keys means if somebody have uploaded their
->> keys to enable the password
->> less login.
->> so by doing so we are removing that possibility.Is it correct or is
->> there some other intent?
->
-> It would disable them when the property is set, but then I guess other
-> users could add them again.  Not sure what else I could do here.
->
->>>
->>> I see that the upcoming user manager code in
->>> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-user-manager/+/10112/ 
->>> doesn't deal with system accounts, which we also need to disable, so 
->>> my proposal
->>> is to add an 'AllLocalAccountsDisabled' property to 
->>> xyz.openbmc_projects.Users.Manager
->>> to do the disable/reenable by modifying the PAM files.
->>>
->>> I'm thinking this would be independent of the UserEnabled property 
->>> in the
->>> Users.Attributes interface, though I could also do the 
->>> UserEnabled(false)
->>> on all existing users and disallow anyone from setting to true.
->> I agree with you on introducing other property
->> "AllLocalAccountsDisabled" but we should
->> be consistent that each individual user status should also show its
->> status as disabled.
->> it should not be that if admin does enumerate on the users namespace
->> then manager
->> interface shows that AllLocalAccountsDisabled is true but each
->> individual user property show the
->> userEnabled as true.
->
->
-> Yea, good point.  Will make them agree.
->
-> I put up the D-Bus interface at
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/11934/ 
->
->
->
->>>
->>> There seems to be a bug in the REST server right now that still 
->>> allows REST
->>> access with a root login with root disabled, so that would need to 
->>> be fixed,
->>> but eventually one could still use LDAP authenticated users to make 
->>> REST calls.
->>>
->>> This would not affect IPMI.
->>>
->>> Comments/ideas welcome
->>>
->>> Matt
->>>
->
+Thanks,
+William
