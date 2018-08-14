@@ -1,81 +1,80 @@
-Return-Path: <anoo@linux.ibm.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41qZDK5fzPzF15Q
- for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 00:07:29 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41qbqb2KdnzF15Q
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 01:19:39 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7EE6Pla093761
- for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 10:07:26 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2kuwybq6au-1
+ w7EFEFlw125493
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 11:19:36 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2kuxx1frg3-1
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 10:07:25 -0400
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 11:19:36 -0400
 Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
- Tue, 14 Aug 2018 08:07:24 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Tue, 14 Aug 2018 11:19:35 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 14 Aug 2018 08:07:20 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7EE7J0X19792262
+ Tue, 14 Aug 2018 11:19:33 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7EFJW9L63635522
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 14 Aug 2018 07:07:19 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9A92F136051;
- Tue, 14 Aug 2018 08:07:19 -0600 (MDT)
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7E949136053;
- Tue, 14 Aug 2018 08:07:19 -0600 (MDT)
+ Tue, 14 Aug 2018 15:19:32 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 43B82112062;
+ Tue, 14 Aug 2018 11:19:12 -0400 (EDT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E9D87112064;
+ Tue, 14 Aug 2018 11:19:11 -0400 (EDT)
 Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
- Tue, 14 Aug 2018 08:07:19 -0600 (MDT)
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 14 Aug 2018 11:19:11 -0400 (EDT)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Tue, 14 Aug 2018 09:14:26 -0500
-From: Adriana Kobylak <anoo@linux.ibm.com>
-To: Emily Shaffer <emilyshaffer@google.com>
-Cc: James Feist <james.feist@linux.intel.com>, openbmc@lists.ozlabs.org
-Subject: Re: Read-Only IPMI sensors
-In-Reply-To: <CAJoAoZnnt8qfH0H81phTZQdgwFM5KOZQjrrV6dQprWrD3-VgrQ@mail.gmail.com>
-References: <6c913a75b11ae03ef9298085ead69afe@linux.vnet.ibm.com>
- <0cf6b440-e3d0-c1f1-48e9-f0cd6d4eff4f@linux.intel.com>
- <CAJoAoZnnt8qfH0H81phTZQdgwFM5KOZQjrrV6dQprWrD3-VgrQ@mail.gmail.com>
-X-Sender: anoo@linux.ibm.com
+Date: Tue, 14 Aug 2018 10:26:38 -0500
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Disable Local Users Proposal
+In-Reply-To: <3f6ddc8e-17a9-41cb-9478-e3d4fc66b9af@linux.vnet.ibm.com>
+References: <47cb0391a568d16cbdc0345893eeb282@linux.vnet.ibm.com>
+ <3f6ddc8e-17a9-41cb-9478-e3d4fc66b9af@linux.vnet.ibm.com>
+X-Sender: mspinler@linux.vnet.ibm.com
 User-Agent: Roundcube Webmail/1.0.1
 X-TM-AS-GCONF: 00
-x-cbid: 18081414-0016-0000-0000-0000091A2C44
+x-cbid: 18081415-2213-0000-0000-000002DAC9D6
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00009543; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01073410; UDB=6.00553078; IPR=6.00853368; 
- MB=3.00022713; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-14 14:07:23
+ PH=3.00000004; SC=3.00000266; SDB=6.01073435; UDB=6.00553093; IPR=6.00853392; 
+ MB=3.00022713; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-14 15:19:34
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18081414-0017-0000-0000-00003FFECC97
-Message-Id: <14bcd1ed07cdff6e5cc2fb2c49852a81@linux.vnet.ibm.com>
+x-cbparentid: 18081415-2214-0000-0000-00005B32E445
+Message-Id: <1b46768ae45e718f5000801222996318@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-08-14_07:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
  malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
  clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1808140145
+ mlxlogscore=782 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1808140156
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -87,33 +86,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Aug 2018 14:07:30 -0000
+X-List-Received-Date: Tue, 14 Aug 2018 15:19:39 -0000
 
-On 2018-08-13 19:03, Emily Shaffer wrote:
-> host-ipmid also already supports read-only, in fact, adding writable
-> support was a pretty big work item last year. When you say data-driven
-> design do you mean the automatic discovery? I guess I'm a little
-> confused as to what exactly is missing for you.
+On 2018-08-13 03:21, Ratan Gupta wrote:
+> Hi Matt,
 > 
-
-Yeah, by data-driven I mean the 
-phosphor-ipmi-sensor-inventory%/config.yaml files in the openbmc repo 
-where a sensor is matched to a D-Bus object. For example if we create a 
-property under the Settings D-Bus object for the derating factor sensor, 
-and add this object to the ipmi config.yaml file, a Set Sensor would be 
-able to change its value, unless the host-ipmid read-only support 
-prevents this. What is the read-only support in ipmi?
-
-> On Mon, Aug 13, 2018 at 11:32 AM James Feist
-> <james.feist@linux.intel.com> wrote:
+> Please find my comments inline
 > 
->> sdbusplus-asio already has support for read-only properties that
->> you
->> might be interested in using / duplicating:
+> Ratan
+> 
+> 
+> 
+> On Saturday 11 August 2018 02:57 AM, Matt Spinler wrote:
+>> Hi,
 >> 
-> https://github.com/openbmc/sdbusplus/blob/master/sdbusplus/asio/object_server.hpp#L123
->> [2]
+>> We have a requirement to disable all local accounts on the BMC,
+>> including root, so the only logins allowed would be via LDAP 
+>> authenticated
+>> accounts.
 >> 
+>> It was recommended that I do this by removing the pam_unix module from
+>> /etc/pam.d/common-auth and/or common-account(I think?), and also 
+>> remove
+>> ~/.ssh/authorized_keys if present.
+> By removing the authorized_keys means if somebody have uploaded their
+> keys to enable the password
+> less login.
+> so by doing so we are removing that possibility.Is it correct or is
+> there some other intent?
 
-Thanks, will take a look, since we want read-only properties in 
-sdbusplus regardless if they'll be used by ipmi.
+It would disable them when the property is set, but then I guess other
+users could add them again.  Not sure what else I could do here.
+
+>> 
+>> I see that the upcoming user manager code in
+>> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-user-manager/+/10112/ 
+>> doesn't deal with system accounts, which we also need to disable, so 
+>> my proposal
+>> is to add an 'AllLocalAccountsDisabled' property to 
+>> xyz.openbmc_projects.Users.Manager
+>> to do the disable/reenable by modifying the PAM files.
+>> 
+>> I'm thinking this would be independent of the UserEnabled property in 
+>> the
+>> Users.Attributes interface, though I could also do the 
+>> UserEnabled(false)
+>> on all existing users and disallow anyone from setting to true.
+> I agree with you on introducing other property
+> "AllLocalAccountsDisabled" but we should
+> be consistent that each individual user status should also show its
+> status as disabled.
+> it should not be that if admin does enumerate on the users namespace
+> then manager
+> interface shows that AllLocalAccountsDisabled is true but each
+> individual user property show the
+> userEnabled as true.
+
+
+Yea, good point.  Will make them agree.
+
+I put up the D-Bus interface at
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/11934/
+
+
+>> 
+>> There seems to be a bug in the REST server right now that still allows 
+>> REST
+>> access with a root login with root disabled, so that would need to be 
+>> fixed,
+>> but eventually one could still use LDAP authenticated users to make 
+>> REST calls.
+>> 
+>> This would not affect IPMI.
+>> 
+>> Comments/ideas welcome
+>> 
+>> Matt
+>> 
