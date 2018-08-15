@@ -1,36 +1,59 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=68.114.190.30; helo=mtaout005-public.msg.strl.va.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::231; helo=mail-io0-x231.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-Received: from mtaout005-public.msg.strl.va.charter.net
- (mtaout005-public.msg.strl.va.charter.net [68.114.190.30])
- by lists.ozlabs.org (Postfix) with ESMTP id 41qsGL4VGgzF1RN
- for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 11:25:13 +1000 (AEST)
-Received: from impout004 ([68.114.189.19]) by mtaout005.msg.strl.va.charter.net
- (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
- id <20180815012511.RNRT7356.mtaout005.msg.strl.va.charter.net@impout004>
- for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 20:25:11 -0500
-Received: from [192.168.2.7] ([97.86.254.207]) by impout004 with charter.net
- id PDRB1y0054VFKzV01DRBLS; Tue, 14 Aug 2018 20:25:11 -0500
-X-Authority-Analysis: v=2.2 cv=Cat43Pjl c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=IkcTkHD0fZMA:10 a=x7bEGLp0ZPQA:10 a=NEAV23lmAAAA:8 a=SgL38s6MKrinSGu_DWQA:9
- a=QEXdDO2ut3YA:10 a=1urcsAcQ4Z0A:10 a=VlZU0XKO32wA:10
-X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Subject: Security Working Group - Wednesday meeting
-To: openbmc@lists.ozlabs.org
-Message-ID: <fe938a67-e582-be66-abdd-ea9be4f51fd0@charter.net>
-Date: Tue, 14 Aug 2018 20:25:05 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kSpHBZsx"; 
+ dkim-atps=neutral
+Received: from mail-io0-x231.google.com (mail-io0-x231.google.com
+ [IPv6:2607:f8b0:4001:c06::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41qtMk6YT8zF1RN
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 12:14:58 +1000 (AEST)
+Received: by mail-io0-x231.google.com with SMTP id m4-v6so19356488iop.3
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Aug 2018 19:14:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=x3wayOfxXXImUOEsHw2aKhnjzDIepfu/faNh6SlDk08=;
+ b=kSpHBZsxHAAL6hMod8I+WGIQbmAVYz2yeSZUXuvB8moXM7+uzLFXLdbI/GazzWvJOG
+ GajuEcT5oRlg4uUxaG1OhANWD7F1pQZs+1PRp3EUB1Di7LAe+TsFkUWfBWru/0q5wMg1
+ poX6WWpzPtGbcZ3a9gX/l5jBG8IGbS/ljczDEBgk7Q7IzcB76uShP+z20o1dimeWIWO/
+ V4CdYgg4GH+q8tGEaxYv9b2ylBbOkDxCxe+qLX9Hq20jaEZlqycm+CMymGPV+aPM/ydX
+ 45dYy25FlhOkeJX20EgNnECuU9XSE3Z0n3k7oGYpksIils7I1IlBGmmOWzyH8XqARBLC
+ 6WkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=x3wayOfxXXImUOEsHw2aKhnjzDIepfu/faNh6SlDk08=;
+ b=U+mMlghplQW7+w9Xan77YL+7fZLQF8FIDFUSZaq5D5Q6hChcvmNuOjux+CMoqYVWh+
+ 6b1mU9Kl18FLh7vCTw4Qp8d6zuL05kRggAu7ZpkKeayWwzUhrDQBRDadz9rtTElwn4/t
+ 1zFdIZnVu4kHl/aism0Dci6xGVieKYmk4Sbvt+0BFWrqSD7r261X7rdZgCRev7M+oaau
+ 6jrc02r1llW3toWHCgtygoS5uAdCeuyb86zt0WytInNxAhPid8GqT+5zHbAYTmK7CTfG
+ WWuXQhEp3FHJtV77rAkg1o62inWbHDng5EydpjqD4kLUFUXTP0s6Botdu8EBNX7VGpLQ
+ OQNw==
+X-Gm-Message-State: AOUpUlHL41X6xpne8MIofhoe8Hjinhn9a7giC3qLGnGTWXx34JTXkMnG
+ /86Bzw35bSfe5GMSKGiBKUylY54U/t4pWXpZmYI=
+X-Google-Smtp-Source: AA+uWPy/47mwNx/4gw9C+Sjef8PzK7KqE/8Aslb4ehg1Sr+Pjao1/xHSaAHfN9aov9GQlr+eDMj+Z+wHClG47ozaZcg=
+X-Received: by 2002:a5e:8414:: with SMTP id
+ h20-v6mr5871037ioj.171.1534299296346; 
+ Tue, 14 Aug 2018 19:14:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <11b98338b00640daa3cbeba50c6ef324@yadro.com>
+ <33ffdf42-0d9d-0331-0e14-2898cd1a1e73@yadro.com>
+In-Reply-To: <33ffdf42-0d9d-0331-0e14-2898cd1a1e73@yadro.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Wed, 15 Aug 2018 10:14:41 +0800
+Message-ID: <CAARXrtmmeixPcYx4U11Zy19fm0GnOLbvUD2MTpZOEp-ytQ9T2g@mail.gmail.com>
+Subject: Re: Version and Functional FRU fields for motherboard and membuf
+To: Sivas Srr <sivas.srr@in.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Alexander Amelkin <a.amelkin@yadro.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -42,12 +65,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Aug 2018 01:25:15 -0000
+X-List-Received-Date: Wed, 15 Aug 2018 02:14:59 -0000
 
-The OpenBMC Security Working Group is meeting this Wednesday at noon 
-CDT,  10am PDT.  See the wiki for access and agenda: 
-https://github.com/openbmc/openbmc/wiki/Security-working-group
+> It's actually "Verify FRU Properties" and it's a part of openbmc-test-automation test suite, see here:
+>
+> https://github.com/openbmc/openbmc-test-automation/blob/ac687c43ddc7f639a4607ad89dd5ae462dcf65c9/tests/test_inventory.robot#L184
+>
+> As I see, Palmetto's yaml config does not have Version or Functional property for motherboard and membuf, so I do not think they will have such properties.
+>
+> So, does the test case pass for Palmetto?
 
-Topics are light the week:
-- Test run of the vulnerability reporting process, see 
-https://github.com/openbmc/openbmc/issues/3359.
+@Sivas Srr Could you check this?
