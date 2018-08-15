@@ -6,40 +6,41 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="mxJtyMv+"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="E1f8YybE"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41rCfY28kQzF1RN
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 01:13:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41rCfx0hMwzF1Wr
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 01:14:16 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 3ECFE411FD;
- Wed, 15 Aug 2018 15:13:54 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id E7FAE411FF;
+ Wed, 15 Aug 2018 15:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:mime-version:user-agent:date:date
  :message-id:subject:subject:from:from:received:received
- :received; s=mta-01; t=1534346033; x=1536160434; bh=0nNswekLq+lR
- pjSTVf+Q0pCsDj2wEckFWE6WLo30xaU=; b=mxJtyMv+IxwY6H+pxqmvhKqhGNM/
- zdcTUgIVyH7ukKD7rSqiNdCVRELr9n45FjkcsKtPMiiOHvI0OpPGYwVb0d+vrz9E
- Rgxs+BT2WXvjHoLbM6PXrt3z9sbElke/FQMEIMy8lUfvrzkFznuNvAjzqoKhSTv8
- uAiJTJkdFx5mCyQ=
+ :received; s=mta-01; t=1534346053; x=1536160454; bh=txFHlnLBgOWo
+ hOtrzsJbN8u6DhpHAtbCHj35VEugzu8=; b=E1f8YybEtwM8hKgnf4tWsFUdfSl4
+ Vrw1anRG5LiPNG8P5n80NaeaZ2hc5c0WOJgX6XeNtOT7yU9yonnbWaqyDuJf+XcF
+ qeOiJPlvpOFj8FjlFVD4wK5tw21LDlyxbT4VRpLadiM26HPJkN1+JMNsL4q1ENIx
+ vQmEvFruWmL7rVM=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 4cCqgVtrZVWj; Wed, 15 Aug 2018 18:13:53 +0300 (MSK)
+ with ESMTP id U1RfMO-f_xc7; Wed, 15 Aug 2018 18:14:13 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 68986411FC;
- Wed, 15 Aug 2018 18:13:53 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 252A1411FD;
+ Wed, 15 Aug 2018 18:14:13 +0300 (MSK)
 Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 15
- Aug 2018 18:13:53 +0300
+ Aug 2018 18:14:12 +0300
 From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: [PATCH linux dev-4.7 1/2] mtd: spi-nor: fix options for mx66l51235f
+Subject: [PATCH linux dev-4.7 2/2] mtd: spi-nor: fix spi register address for
+ AST2400
 To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>
 CC: Alexander Soldatov <a.soldatov@yadro.com>
 Openpgp: preference=signencrypt
@@ -86,14 +87,14 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  ESE0npJ5eeAcVWPHjhCwL8phZCDtfxJMy2cqYS8QLIBGfQTIHMQAgqBbpq9FLXCn008tvaTr
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <03b3c32f-dcfd-54c1-b959-8067893c0758@yadro.com>
-Date: Wed, 15 Aug 2018 18:13:50 +0300
+Message-ID: <48463736-e6c5-05e2-8e64-cb11151542f7@yadro.com>
+Date: Wed, 15 Aug 2018 18:14:12 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.5.0
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="MzaukBvWdr3vHjDv0pV4bKGNT5tUAjStl"
+ boundary="eWlDA3lFvFqJwfiEIQrS86BaRlH3u3k7w"
 X-Originating-IP: [172.17.14.168]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -108,64 +109,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Aug 2018 15:13:58 -0000
+X-List-Received-Date: Wed, 15 Aug 2018 15:14:17 -0000
 
---MzaukBvWdr3vHjDv0pV4bKGNT5tUAjStl
-Content-Type: multipart/mixed; boundary="BTEn5QW883KCd86R0PTSwCt9BLtfZeOeN";
+--eWlDA3lFvFqJwfiEIQrS86BaRlH3u3k7w
+Content-Type: multipart/mixed; boundary="Izm0Y5cFnIpasTBzXLSKXXQZMzvrLYFbX";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
 To: openbmc@lists.ozlabs.org, joel@jms.id.au
 Cc: Alexander Soldatov <a.soldatov@yadro.com>
-Message-ID: <03b3c32f-dcfd-54c1-b959-8067893c0758@yadro.com>
-Subject: [PATCH linux dev-4.7 1/2] mtd: spi-nor: fix options for mx66l51235f
+Message-ID: <48463736-e6c5-05e2-8e64-cb11151542f7@yadro.com>
+Subject: [PATCH linux dev-4.7 2/2] mtd: spi-nor: fix spi register address for
+ AST2400
 
---BTEn5QW883KCd86R0PTSwCt9BLtfZeOeN
+--Izm0Y5cFnIpasTBzXLSKXXQZMzvrLYFbX
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
-Currently in driver spi-nor there is a line for mx66l51235l.
-According to Macronix site there is no such part number.
-The chip detected as such is actually mx66l51235f.
-
-According to the datasheet for mx66l51235f,
-"The device default is in 24-bit address mode" (section 9-10).
-Hence we removed SPI_NOR_4B_OPCODES option with this commit.
+According to AST2400 datasheet v1.4 the SPI Flash Read Timing
+Setting register is at offset 0x14. There is no register at
+offset 0x94 (unlike FMC controller and AST2500).
 
 Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
 ---
- drivers/mtd/spi-nor/spi-nor.c | 2 +-
+ drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/spi-nor/spi-nor.c b/drivers/mtd/spi-nor/spi-nor.=
-c
-index 5bfa36e..e9f4447 100644
---- a/drivers/mtd/spi-nor/spi-nor.c
-+++ b/drivers/mtd/spi-nor/spi-nor.c
-@@ -1068,7 +1068,7 @@ static const struct flash_info spi_nor_ids[] =3D {
- 	{ "mx25l25635e", INFO(0xc22019, 0, 64 * 1024, 512, SPI_NOR_DUAL_READ | =
-SPI_NOR_QUAD_READ) },
- 	{ "mx25u25635f", INFO(0xc22539, 0, 64 * 1024, 512, SECT_4K | SPI_NOR_4B=
-_OPCODES) },
- 	{ "mx25l25655e", INFO(0xc22619, 0, 64 * 1024, 512, 0) },
--	{ "mx66l51235l", INFO(0xc2201a, 0, 64 * 1024, 1024, SPI_NOR_DUAL_READ |=
- SPI_NOR_QUAD_READ | SPI_NOR_4B_OPCODES) },
-+	{ "mx66l51235f", INFO(0xc2201a, 0, 64 * 1024, 1024, SPI_NOR_DUAL_READ |=
- SPI_NOR_QUAD_READ) },
- 	{ "mx66u51235f", INFO(0xc2253a, 0, 64 * 1024, 1024, SECT_4K | SPI_NOR_D=
-UAL_READ | SPI_NOR_QUAD_READ | SPI_NOR_4B_OPCODES) },
- 	{ "mx66l1g45g",  INFO(0xc2201b, 0, 64 * 1024, 2048, SECT_4K | SPI_NOR_D=
-UAL_READ | SPI_NOR_QUAD_READ) },
- 	{ "mx66l1g55g",  INFO(0xc2261b, 0, 64 * 1024, 2048, SPI_NOR_QUAD_READ) =
-},
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspee=
+d-smc.c
+index c9cd20f..9ddf24b 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -71,7 +71,7 @@ static const struct aspeed_smc_info spi_2400_info =3D {=
+
+ 	.hastype =3D false,
+ 	.we0 =3D 0,
+ 	.ctl0 =3D 0x04,
+-	.timing =3D 0x94,
++	.timing =3D 0x14,
+ 	.set_4b =3D aspeed_smc_chip_set_4b_spi_2400,
+ 	.optimize_read =3D aspeed_smc_optimize_read,
+ };
 --=20
 2.7.4
 
 
 
---BTEn5QW883KCd86R0PTSwCt9BLtfZeOeN--
+--Izm0Y5cFnIpasTBzXLSKXXQZMzvrLYFbX--
 
---MzaukBvWdr3vHjDv0pV4bKGNT5tUAjStl
+--eWlDA3lFvFqJwfiEIQrS86BaRlH3u3k7w
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -173,19 +165,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJbdEMuAAoJEOiTWHtbdBeNZZwQAK5AUp0MkISeqXPFZQB634hR
-oMwYVXtFXsBb3MMXOt14sM8bPqKaRQYjlC288MYTe71qUYOViyV6bH4kXLfR7Q7R
-LKxKqSUJrhBUjXa0jBXng3U6ibB2gVc2cpvUHiL0sa5q6Nx7cQL8FQJsvrDluHYp
-Zzz9/SI5yIrXZSFBWFXy3KRbRc9xpH4GjT4TX9JuqZNDQeqf/eXmGaxDbFBu42Cr
-whhrc5TqRDaK6NCz3liUXU5ICQCV91Nz159GFhgMWAGQM4AZF/kRo2wsW84XdKHN
-e0pNprdB+WpyQRLpO3sU9Es5sru9/9wunO6I1vGxtwCaH5xEZu2MTrAt9QjDQ40k
-Ik5o4hUW6Fezupn8zGGtxWmF7bgQfNJ3YF9YKa0jYN/8w5bOX/9P7cxHjmRSLKQT
-DK+U4zR2w/WRJyNVQkhKqhHapODZQIenJuZToJyduwzavKDqTTH0Lhkd3thuPSGE
-Y4yHHTJxgQ5TWNgv45Jm/30YwPMnCqftpRw2yNAnAE/PDMf876ydT7OkdnMtYlkT
-rswlnCcx44ECX7iy1ybdh2qmKO7pjWHW1au4BDtvpdPQQjlJKZjDRh4/5tA/vRRu
-tpHN4fZ/F9+iL0JD+EMn6+ce49cS8CTqV4GO3q/KemN3AMTeInx0BD5P/KErG9eE
-yUhUH2sFS5/P6ZCAsjOB
-=SidV
+iQIcBAEBCAAGBQJbdENEAAoJEOiTWHtbdBeNR8QP/Rbk4Kkj3+heeivs9LI3WOJG
+e+AgiduGGIhy2W1xEc2CZpMB79I5Sd6MXpSM9v97gQGs2iIUXNPigCCod8aspbsB
+Fn/4W5t5D0e6dRbje330u0jquh2cKoU0xoUUZl83yoNDT+cY/q83LWMDgg5tuH4P
+DhE+doOxd80DwqeEbPMlOcYzpq8PWG+htkzeSHA8OULUkKTGce9/lOLB4dfDB4OZ
+iAj8uoxbcDKdBDZHWzZ0KyDUUvGCVzyHN1W8kwK/Zsm9z0TDfqmnW4sCICPvzpWp
+urRROq06fxVZ85PHqm/nB+As+wDdD6c139KwcGeb0sCOd/dS5gCzSHVQVaQYEdxk
+87G10ArvwERpn3K7TgY71DMwu9TE1G6Le5UdKVlotv6PyT+8KRB03fVp7WxSSUPf
+SAw0eTkB8vE3gwH5fqR6oWeMXu6q8HrawSuM8+8IP8thydMea57X/7C5xu+1hMy+
+iMVWC/ifNBS24lAla/Mz0K3hRucJfTWZ3c/LA9DJKR3G42S9oGxvT/dBlS4LvU++
+HQv0Kg9uDoSSpKuTMIJMRFD3WcK+3enEUCqP/nc+8UDV4g+49Ks5WhDRgBx7bAAR
+8eyXdQ/V5Bwl5s6QCrxEZmPAZxYRQXhYHqJzx1MTaZYLDY35V4xvEWKWDvYWD2gE
+0nded+q5b+ZJwgkgpr62
+=7xiJ
 -----END PGP SIGNATURE-----
 
---MzaukBvWdr3vHjDv0pV4bKGNT5tUAjStl--
+--eWlDA3lFvFqJwfiEIQrS86BaRlH3u3k7w--
