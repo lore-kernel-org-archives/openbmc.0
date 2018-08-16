@@ -1,82 +1,65 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::232; helo=mail-oi0-x232.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="E9MFE5ev"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x232.google.com (mail-oi0-x232.google.com
+ [IPv6:2607:f8b0:4003:c06::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41rzcX1NpwzDqnw
- for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 07:14:51 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7GL9L2U032204
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 17:14:49 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2kwgx9856n-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 17:14:49 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 16 Aug 2018 15:14:48 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 16 Aug 2018 15:14:46 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7GLEjOc61145096
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 16 Aug 2018 14:14:45 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6434B136053;
- Thu, 16 Aug 2018 15:14:45 -0600 (MDT)
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0FB9613605D;
- Thu, 16 Aug 2018 15:14:39 -0600 (MDT)
-Received: from oc6728276242.ibm.com (unknown [9.80.207.203])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 16 Aug 2018 15:14:39 -0600 (MDT)
-Subject: Re: [RFC 1/2] dt-bindings: media: Add Aspeed Video Engine binding
- documentation
-To: linux-kernel@vger.kernel.org
-Cc: linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org, 
- mchehab@kernel.org, linux-media@vger.kernel.org, robh@kernel.org
-References: <1534448601-74120-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1534448601-74120-2-git-send-email-eajames@linux.vnet.ibm.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 16 Aug 2018 16:14:37 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41s01W1xXkzDqp5
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 07:33:01 +1000 (AEST)
+Received: by mail-oi0-x232.google.com with SMTP id d189-v6so10672902oib.6
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 14:33:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:subject:to:message-id:date:user-agent:mime-version
+ :content-language:content-transfer-encoding;
+ bh=tGu5P14N+ZWceGg9v545MuZuUPwgBAUg5Q7+VTGVTRA=;
+ b=E9MFE5evW3DMOiuJRyonQ54fhdCCDUy1tNt2dYSpNeEY+dWgsVeQ397nwR/hunl5cr
+ MUOBWbW1TTJq04c0sd6d010GMD4giUI2tw6qHi0WP+KttN1jY4O6RV+AMMBK3UPfd8iZ
+ 4AMhafB/3mCRzG+MRjM5/pDtFTvY5nu4uiobCFbu4invbAP01LCFf2rssKS7m8MRiKaN
+ BBglhwlfiGa0CSPAFImiAKR7yeKEuQ+Fz2+/HF8ixBmX6PZsgDnifS/lBD37Qcs8Pd5r
+ mr43W/l4HLioTw9uPucCxE69Jz8LljSEx+Rx9GL6/x+iZkoigCkPn73P39eqvnI7iuzH
+ awFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:subject:to:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=tGu5P14N+ZWceGg9v545MuZuUPwgBAUg5Q7+VTGVTRA=;
+ b=S9n7niIwDu28CnhnfNMJVguHr/jz11ERJAU79nj17rl6kMCVhWyyfNGyH79eQpMbmx
+ dysiLzEtnJbTddLWpgfV1VZHeZ0Nk9rYC0JzG5dI4VX5qOGRMl+9d9rWr9yDDxilpvXz
+ ikrrUX7dU2QtUhsrJKfUasLdl9/2/HsLftTD/YK4GyjgIxCFLBRAX94E3gXNKq96OBbU
+ EsrGBiYliDqU/uOmJ+1cKLgi9PBwqsG1PiGadADZ0k1UahJ7A9uFyOt/wJxsj8Fl7rDl
+ eSxsmT/Dqblzs67YacmLEBuSp+/PW9M+9JXJqUkcAb7M5LMRZfg4se2HVigQeVbU4Ivn
+ PZMw==
+X-Gm-Message-State: AOUpUlFhVyNwE2kAbQMS89e0Rpjh40K6dGxIa0HRAcDE6Oex19X611+x
+ QMGqfmRfieLYQqh5wQ/K9G2Nq2Gt
+X-Google-Smtp-Source: AA+uWPz3QgOOf4Qz5CKpcLvnexiz46dSHGS3a5rck6XFsETFaatkFLafCJrkC8wdHU5cY+e4QKagUg==
+X-Received: by 2002:aca:4c81:: with SMTP id
+ z123-v6mr33857133oia.318.1534455179200; 
+ Thu, 16 Aug 2018 14:32:59 -0700 (PDT)
+Received: from krtaylors-MacBook-Pro.local
+ (cpe-72-182-100-19.austin.res.rr.com. [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id e205-v6sm765388oia.9.2018.08.16.14.32.58
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 16 Aug 2018 14:32:58 -0700 (PDT)
+From: krtaylor <kurt.r.taylor@gmail.com>
+Subject: 8/16 OpenBMC Release Planning WG Meeting Minutes
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Message-ID: <30973f41-db72-7564-17eb-9814ae5c00d5@gmail.com>
+Date: Thu, 16 Aug 2018 16:32:58 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <1534448601-74120-2-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18081621-0016-0000-0000-0000091BC9CA
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009557; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01074510; UDB=6.00553739; IPR=6.00854468; 
- MB=3.00022764; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-16 21:14:48
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18081621-0017-0000-0000-00004005D3A0
-Message-Id: <0072215a-9249-2ad3-3d66-2f1b605ad915@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-16_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1808160216
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -88,53 +71,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Aug 2018 21:14:52 -0000
+X-List-Received-Date: Thu, 16 Aug 2018 21:33:04 -0000
+
+Lightly attended, but good meeting nonetheless. Thanks everyone, see you 
+Monday the 27th!
+
+Meeting Minutes:
+https://docs.google.com/document/d/1yo9lZp56jkwDM1eXJRE8p__FqlAjq7qcdIi1W7hAD5Y/edit?usp=sharing
+
+Agenda backlog for next meeting:
+https://github.com/openbmc/openbmc/wiki/Release-Planning
+
+Regards,
+Kurt Taylor (krtaylor)
 
 
+8/16/18
+=======
+Attended (*) Primary company contact
+------------------------------------
+   Kurt Taylor, IBM (WG lead)
+   *Sai Dasari, Facebook
+   Kun Yi, Google
+   Maury Zipse, IBM
+   *Nancy Yuen, Google
+   Andrew Geissler, IBM
+   Tao Ren, Facebook
 
-On 08/16/2018 02:43 PM, Eddie James wrote:
-> Document the bindings.
->
-> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
-> ---
->   .../devicetree/bindings/media/aspeed-video.txt     | 25 ++++++++++++++++++++++
->   1 file changed, 25 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
->
-> diff --git a/Documentation/devicetree/bindings/media/aspeed-video.txt b/Documentation/devicetree/bindings/media/aspeed-video.txt
-> new file mode 100644
-> index 0000000..91a494e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/aspeed-video.txt
-> @@ -0,0 +1,25 @@
-> +* Device tree bindings for Aspeed Video Engine
-> +
-> +The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs can
-> +capture and compress video data from digital or analog sources.
-> +
-> +Required properties:
-> + - compatible:		"aspeed,ast2400-video" or "aspeed,ast2500-video"
-> + - reg:			contains the offset and length of the VE memory region
-> + - clocks:		pointers to the the "vclk" and "eclk" of the syscon
-> + - clock-names:		"vclk-gate", "eclk-gate"
-> + - resets:		pointer to the VE reset of the syscon
-> + - interrupts:		the interrupt associated with the VE on this platform
-> + - reg-scu:		pointer to the syscon itself
+Not Attending
+-------------
+   Brad Bishop, IBM
+   *James Mihm, Intel
+   *Dick Wilkins, Phoenix
+   *Ali Larijani, Microsoft
+   Yugi Mani, Microsoft
 
-Forgot to remove syscon reference in latest, it's not needed.
+Review of Agreements from previous meeting (see previous meeting minutes)
 
-Thanks,
-Eddie
+*** Reminder: This is the last meeting on Thursday, next meeting is 
+August 27th at 3:00pm Central Time (2000 UTC)
 
-> +
-> +Example:
-> +
-> +video: video@1e700000 {
-> +        compatible = "aspeed,ast2500-video";
-> +        reg = <0x1e700000 0x20000>;
-> +        clocks = <&syscon ASPEED_CLK_GATE_VCLK>, <&syscon ASPEED_CLK_GATE_ECLK>;
-> +        clock-names = "vclk-gate", "eclk-gate";
-> +        resets = <&syscon ASPEED_RESET_VIDEO>;
-> +        interrupts = <7>;
-> +        reg-scu = <&syscon>;
-> +};
+Release Content (Design Milestone - Aug 31)
+-------------------------------------------
+Requirements for these items? Designs in progress? Designs via email? 
+Workgroups needed for design?
+   Worked through the spreadsheet to try to close items with questions, 
+had to table most of them due to low attendance (mainly need Microsoft 
+to attend and describe the items they added)
+   Worked through the release functionality items with multiple 
+contributors, summarized the design state and the need for a design document
+   Action for next week are to re-engage design discussions that were in 
+email, get contributors together to consider filling in the design 
+template - maybe in a Google doc, until ready to push to gerrit in 
+docs/designs directory
+   Design template - still needs review, changed to Markdown to match 
+all other docs
+     https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/11906/
