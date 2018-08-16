@@ -1,59 +1,59 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pN4urOek"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="l1ud47Kx"; 
  dkim-atps=neutral
-Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
- [IPv6:2607:f8b0:4001:c06::241])
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41rX5z0DcZzDqmF
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 13:35:18 +1000 (AEST)
-Received: by mail-io0-x241.google.com with SMTP id q19-v6so2744855ioh.11
- for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 20:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41rdDN08nLzDqnw
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 17:26:11 +1000 (AEST)
+Received: by mail-qt0-x241.google.com with SMTP id r21-v6so4214410qtm.2
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 00:26:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xjC7DV7V+Mdc6Kjen9kp5S5s8w3fYF8tywNSjxmRhUQ=;
- b=pN4urOek6BlKeR3Il8fCPO8izR3JDOwXaZYKuMNpxvQlCdoh5Q8Pqu42AYfKTY9bVq
- K2rabYDp9AoPLImWd+kqURWi4khmf9jbV570NGKL9vDd/y/kHUsliVH9IN5yrJpAi/AM
- sBmuOb+0UHZPongwIOAqCRQ56Z3YbQ8EtF/4eJGSPQdS6uO1B+D+/n1J4OMqKHtNCnOw
- ogPeJaS6Ylzv8hbmO66agLojcnLJbfZFb1M8ZQDFOSr8i8zkXq5DAWYhpGxbHwl29Qjh
- C/+jh2DukrJ6Zv5NS3lblAm9V0jLQpVpOBdKEQAaA9xGfVveAfUexunO3nuoTgSOvn35
- HU9w==
+ :cc:content-transfer-encoding;
+ bh=FH2RO8IvsmIUT+VlUnG2l7++lp5YnEY5E6i1VcMS3HA=;
+ b=l1ud47KxtGndgJng7xPNhOtfm4mPK/+m5XYXick6AzTgVYInRf5hHk1YvTpqU3I9kP
+ 0Te3hxQTLU+8fQkKNE0O2wKWckl86lT/a/dLAx6dE7742dcpPr4kTzASGxSJZuAc4V6Z
+ GfhrWU19Y3/NGRkiLuLWEYlz3QvMD0q01a/h4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xjC7DV7V+Mdc6Kjen9kp5S5s8w3fYF8tywNSjxmRhUQ=;
- b=rPJuTzcCdojRNZghLKYYNXgm4zodk5VL0FOmTs81q4k+rvoVxPGVXZKz5fI6PxXi16
- +KRBH2zs9s1hr/wh0a5FE/mbvUHvJ60CY9L4xNgBo4I5y/zdMv7AiZqWyZLqkXuZzBc1
- vHX1STcs7pvfBrloXb2rCLD5QFZ8HCrDsH09mvvVNXmHzkpU8Ji6HTMYUnAc3jGcqwb3
- 3iuYeXa2xAvnzfB+PmDAWED/Zk7FbSsHSEES6vMLRpqu2PJ6rnsNu06gyGYx/5+OcmO5
- N6HkptgdWanMeYRgnaoONMZZ6L0NUmh2P0BcsSlbX1yXa/DsviIZVFI5fM01JLjscaWc
- H9Bg==
-X-Gm-Message-State: AOUpUlFpMcNYAldnqXWrWrkDJr7FVggV0AnObs3YU/14RKe5WBkCBqfq
- R3eREAJoLkgrMKeX3+mJggKATlNLmheAmEhaboWezKSA
-X-Google-Smtp-Source: AA+uWPxE1J1AXtX18EM7yJchI1ocs1O+1VNbyCd9FpfCUaRTvYAhfnMo1xDrSsjF6w/K9jBgL0bNkDajc+0+HkmuLJA=
-X-Received: by 2002:a6b:8dc2:: with SMTP id
- p185-v6mr24597313iod.98.1534390516380; 
- Wed, 15 Aug 2018 20:35:16 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=FH2RO8IvsmIUT+VlUnG2l7++lp5YnEY5E6i1VcMS3HA=;
+ b=j79WFFq447LCgY/5ihqlHJyWYoqvDogmhgExxBWHU2faYyvCDHmdUsV33Xjad1DSVw
+ 7oyKu+KdzXe8yCqLwwy60qfs3gYg37pBxrSHgjV+Q8tv37R3Cd/NK+ikpft8/OBS8hmE
+ jq2Ydij4Ew6C/zaxvUQoQzpIAE0N+5W8idpO9ilY2GzOXQgCiXS2KtbkBKRZ81TzvZC6
+ PHDrdHFQl+wj+RGYCJxLNIqxop/iOnXOmfroXvNpDtUso98ivhU85oZsDKQkxVl4DYaQ
+ lcKTE8EkBXP6uf0SrZ3zPolcF09R/enlbpIy8xcoQ6lBYIFi5TSq+/16ux1LeqmSooc2
+ BMuQ==
+X-Gm-Message-State: AOUpUlEcSfSiCeDBwey3X7RbpOGI723OXgolJvxPV5NrazcP4rMUi64n
+ qWpJMCprGBIv71yoaEoKigq2G9hJkEz6V5AzdP0=
+X-Google-Smtp-Source: AA+uWPx/LTmLrK/NQwvhmClgDEEW6C7ebZKoc3xl5ziI/VXuX85MH4A0LIcOT9I0lzjElgqOOHOYl1QuzqGwBF0bnBI=
+X-Received: by 2002:a0c:9b83:: with SMTP id
+ o3-v6mr25746392qve.21.1534404368235; 
+ Thu, 16 Aug 2018 00:26:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <48463736-e6c5-05e2-8e64-cb11151542f7@yadro.com>
-In-Reply-To: <48463736-e6c5-05e2-8e64-cb11151542f7@yadro.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Thu, 16 Aug 2018 11:34:59 +0800
-Message-ID: <CAARXrt=5=dgMzYZhLKwP62DDPMx=2QBL8g9+TjUmYUh-MAVdFQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 2/2] mtd: spi-nor: fix spi register address
- for AST2400
-To: Alexander Amelkin <a.amelkin@yadro.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- a.soldatov@yadro.com
+References: <03b3c32f-dcfd-54c1-b959-8067893c0758@yadro.com>
+ <bcb1cf44-798c-11fe-3190-2c62d7002ac0@kaod.org>
+In-Reply-To: <bcb1cf44-798c-11fe-3190-2c62d7002ac0@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 16 Aug 2018 16:55:56 +0930
+Message-ID: <CACPK8XfpKvNyfLsqsmxyxpZFSqKehtsZWmHafmGxgWgCqnrZHA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/2] mtd: spi-nor: fix options for
+ mx66l51235f
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Alexander Amelkin <a.amelkin@yadro.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, a.soldatov@yadro.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -65,36 +65,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Aug 2018 03:35:19 -0000
+X-List-Received-Date: Thu, 16 Aug 2018 07:26:13 -0000
 
-I think the mail subject should be patch linux dev-4.17, instead of dev-4.7.
+On Thu, 16 Aug 2018 at 04:27, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
+>
+> On 08/15/2018 05:13 PM, Alexander Amelkin wrote:
+> > Currently in driver spi-nor there is a line for mx66l51235l.
+> > According to Macronix site there is no such part number.
+> > The chip detected as such is actually mx66l51235f.
+> >
+> > According to the datasheet for mx66l51235f,
+> > "The device default is in 24-bit address mode" (section 9-10).
+> > Hence we removed SPI_NOR_4B_OPCODES option with this commit.
+> >
+> > Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
+>
+> It fixes commit d342b6a973af ("mtd: spi-nor: enable 4B opcodes for mx66l5=
+1235l")
+>
+> You should send this one to the linux-mtd@lists.infradead.org
+> mailing list.
+>
+>
+> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
-Tested-by: Lei YU <mine260309@gmail.com>
-On Wed, Aug 15, 2018 at 11:15 PM Alexander Amelkin <a.amelkin@yadro.com> wrote:
->
-> According to AST2400 datasheet v1.4 the SPI Flash Read Timing
-> Setting register is at offset 0x14. There is no register at
-> offset 0x94 (unlike FMC controller and AST2500).
->
-> Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
-> ---
->  drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-> index c9cd20f..9ddf24b 100644
-> --- a/drivers/mtd/spi-nor/aspeed-smc.c
-> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-> @@ -71,7 +71,7 @@ static const struct aspeed_smc_info spi_2400_info = {
->         .hastype = false,
->         .we0 = 0,
->         .ctl0 = 0x04,
-> -       .timing = 0x94,
-> +       .timing = 0x14,
->         .set_4b = aspeed_smc_chip_set_4b_spi_2400,
->         .optimize_read = aspeed_smc_optimize_read,
->  };
-> --
-> 2.7.4
->
->
+Agreed. Please send this one to the upstream list, with Cc: stable and
+Fixes: tags.
+
+Thanks for sending the patch out. I have applied this and the other
+one to dev-4.17 and pushed to github.
+
+We will get this merged into openbmc once the backlog of kernel bumps
+I have out there are merged.
+
+Cheers,
+
+Joel
