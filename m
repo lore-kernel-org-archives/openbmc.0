@@ -6,36 +6,34 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="fn6tK1B3"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="H+fGURbN"; 
  dkim-atps=neutral
-X-Greylist: delayed 582 seconds by postgrey-1.36 at bilbo;
- Thu, 16 Aug 2018 20:51:26 AEST
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41rjnB5BnszDqp5
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41rjnB58bPzDqnw
  for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 20:51:25 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id EC68C41904;
- Thu, 16 Aug 2018 10:41:37 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 90C75411F8;
+ Thu, 16 Aug 2018 10:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:mime-version:x-mailer:message-id:date
- :date:subject:subject:from:from:received:received:received; s=
- mta-01; t=1534416097; x=1536230498; bh=DxzWnylAdYYq6e6yR7M7vhJUt
- wCK4cUoNwY+zWrge00=; b=fn6tK1B3krTKrAQsN1j35qXzqUYvVthkvPgF4E8Q/
- 0r7p0/vg/lTa312Ef3bEjLASa3fgQ/x7eVGF/cMAhdF/C0HWI0P5rDaTnvJnELf0
- nAowXkyHm98Lao/Td51qQpJhRma/dDz9QYmc1f4HM7txpzfhtmgfX4DoU5sQh079
- vQ=
+ content-type:content-type:mime-version:references:in-reply-to
+ :x-mailer:message-id:date:date:subject:subject:from:from
+ :received:received:received; s=mta-01; t=1534416097; x=
+ 1536230498; bh=Ca1aGlm5fmu/fMImsgEBNCfjMJBKa7O5vj96IF8UDYg=; b=H
+ +fGURbN2f/ztvAZuIX7Et+LOWMeJ2QbolYucLGkVLdjsvhE1hmWoipZmRrlD0VQH
+ SOwaKjFUuZpDtHSedzvSRQ10jRQ/4djTDq2h3tyvtfBFJs65HoWHYtoPL3P/m7+6
+ 6IHqXtRdR9cvRb2QlL5LRZ2jtTfMZq0N/EM5TeFttY=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 3fox-a8YbqI1; Thu, 16 Aug 2018 13:41:37 +0300 (MSK)
+ with ESMTP id WYwwIWZkS0Q4; Thu, 16 Aug 2018 13:41:37 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 042C7411F8;
- Thu, 16 Aug 2018 13:41:36 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id C6E9E418F9;
+ Thu, 16 Aug 2018 13:41:37 +0300 (MSK)
 Received: from NB-207-Ubuntu.yadro.com (172.17.4.249) by
  T-EXCH-02.corp.yadro.com (172.17.10.102) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
@@ -44,10 +42,13 @@ From: Alexander Soldatov <a.soldatov@yadro.com>
 To: <linux-mtd@lists.infradead.org>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>
 CC: Alexander Soldatov <a.soldatov@yadro.com>, <stable@vger.kernel.org>
-Subject: [PATCH linux dev-4.17 1/2] mtd: spi-nor: fix options for mx66l51235f
-Date: Thu, 16 Aug 2018 13:40:54 +0300
-Message-ID: <1534416055-23939-1-git-send-email-a.soldatov@yadro.com>
+Subject: [PATCH linux dev-4.17 2/2] mtd: spi-nor: fix spi register address for
+ AST2400
+Date: Thu, 16 Aug 2018 13:40:55 +0300
+Message-ID: <1534416055-23939-2-git-send-email-a.soldatov@yadro.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1534416055-23939-1-git-send-email-a.soldatov@yadro.com>
+References: <1534416055-23939-1-git-send-email-a.soldatov@yadro.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [172.17.4.249]
@@ -67,33 +68,29 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 16 Aug 2018 10:51:27 -0000
 
-Currently in driver spi-nor there is a line for mx66l51235l.
-According to Macronix site there is no such part number.
-The chip detected as such is actually mx66l51235f.
-
-According to the datasheet for mx66l51235f,
-"The device default is in 24-bit address mode" (section 9-10).
-Hence we removed SPI_NOR_4B_OPCODES option with this commit.
+According to AST2400 datasheet v1.4 the SPI Flash Read Timing
+Setting register is at offset 0x14. There is no register at
+offset 0x94 (unlike FMC controller and AST2500).
 
 Cc: stable@vger.kernel.org
-Fixes: d342b6a973af ("mtd: spi-nor: enable 4B opcodes for mx66l51235l")
+Fixes: aad58eba7209 ("mtd: spi-nor: aspeed: optimize read mode")
 Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
 ---
- drivers/mtd/spi-nor/spi-nor.c | 2 +-
+ drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/spi-nor/spi-nor.c b/drivers/mtd/spi-nor/spi-nor.c
-index 5bfa36e95f35..e9f44475571a 100644
---- a/drivers/mtd/spi-nor/spi-nor.c
-+++ b/drivers/mtd/spi-nor/spi-nor.c
-@@ -1068,7 +1068,7 @@ static const struct flash_info spi_nor_ids[] = {
- 	{ "mx25l25635e", INFO(0xc22019, 0, 64 * 1024, 512, SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ) },
- 	{ "mx25u25635f", INFO(0xc22539, 0, 64 * 1024, 512, SECT_4K | SPI_NOR_4B_OPCODES) },
- 	{ "mx25l25655e", INFO(0xc22619, 0, 64 * 1024, 512, 0) },
--	{ "mx66l51235l", INFO(0xc2201a, 0, 64 * 1024, 1024, SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ | SPI_NOR_4B_OPCODES) },
-+	{ "mx66l51235f", INFO(0xc2201a, 0, 64 * 1024, 1024, SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ) },
- 	{ "mx66u51235f", INFO(0xc2253a, 0, 64 * 1024, 1024, SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ | SPI_NOR_4B_OPCODES) },
- 	{ "mx66l1g45g",  INFO(0xc2201b, 0, 64 * 1024, 2048, SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ) },
- 	{ "mx66l1g55g",  INFO(0xc2261b, 0, 64 * 1024, 2048, SPI_NOR_QUAD_READ) },
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+index c9cd20f199d9..9ddf24b042f1 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -71,7 +71,7 @@ static const struct aspeed_smc_info spi_2400_info = {
+ 	.hastype = false,
+ 	.we0 = 0,
+ 	.ctl0 = 0x04,
+-	.timing = 0x94,
++	.timing = 0x14,
+ 	.set_4b = aspeed_smc_chip_set_4b_spi_2400,
+ 	.optimize_read = aspeed_smc_optimize_read,
+ };
 -- 
 2.7.4
