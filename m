@@ -1,57 +1,76 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::229; helo=mail-oi0-x229.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tqwuBj1z"; 
- dkim-atps=neutral
-Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
- [IPv6:2607:f8b0:4003:c06::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41rmJM5SzRzDqp5
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 22:45:06 +1000 (AEST)
-Received: by mail-oi0-x229.google.com with SMTP id w126-v6so7729910oie.7
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 05:45:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=j7+5zzQ8R24xtms8C9xYKwES50Jmxr/+jhrdr51W6vU=;
- b=tqwuBj1z8ijZDP+udGauRTpRWfD7aGx4pnH2y6G5YDEFXfCkpWcsDmSa5d/pxF3tmR
- cXOnolr54YC9Hssgs2Ccc1e//gT+qXScQdKctoHm/JqKCL1tPKlaTTbaeqKk+/CA3OWg
- YTPFT474xD0AXgAKBuWv3zRLFyGHlWg/zWSsaIGMds6WlOMj1koJJGABYFRzGaB+DpN3
- 8gEl6mIoJ+tivyuzDFWNE32qiK0TWX8qRsZLJo+YRHORYwGOeemVdSBfGKFOBKzhGnwG
- KEVXG4gFhYQQSQWVNmaR6EU7fBCokzW0butZTagY/KPm44O8kb2qWfNWEQz6thSlV8f5
- IIcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=j7+5zzQ8R24xtms8C9xYKwES50Jmxr/+jhrdr51W6vU=;
- b=JzebfeCihh20qFQk7mHgHUjHHC541OlrwVM9kNKtA7CffjvBKJt5ggnubtU7fV44qt
- JNlR7vI1XG3dkr3cM8de3vPqOBRxbdYIXLBWXAhWbhUUDt8uFC8wHFUUkN7xLnpOecsF
- r2xuATCj0VK5akA5P6giuf2kDWGBjn/NtQFt3cupd/FYyqBYNKc83jslaPcrTiZWl01G
- v9JbM7c/p6fmtaZLc5up6WKP99WVdAYkaR9BFoOcxX7mvsAAYe0t2p/wznfqPdMxHxoC
- Gw2i8s+eRyAhyGW8qcKmtMGQOeJ7mGLSqdzk8Qm5xqtHM9yOr0sbx31hjTskmQfKvNdY
- M+tQ==
-X-Gm-Message-State: AOUpUlEuLrtctFoVty86L0nwsQt3juO2UkYZnrwz6ESxlON/hI1QtW4K
- 4JObIXt8Z4N1+a3mpXbiEUCVHhrmWFuasrBhsyc=
-X-Google-Smtp-Source: AA+uWPysJ9Nr6+1Dm1i8SdEHrEgqj75zeODikHR+F52Tqz3c8XpZWQ0LOL9h8nbg/rDNSip1j7c+dBwnHDsHS4zw45g=
-X-Received: by 2002:aca:b609:: with SMTP id
- g9-v6mr29500872oif.148.1534423503799; 
- Thu, 16 Aug 2018 05:45:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <1c87c6bc-0f3b-73f2-e2a5-4b6ad7180f99@linux.vnet.ibm.com>
-In-Reply-To: <1c87c6bc-0f3b-73f2-e2a5-4b6ad7180f99@linux.vnet.ibm.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 16 Aug 2018 07:44:52 -0500
-Message-ID: <CALLMt=rfppDj6vjmj09NGwd6zPFOoPo86i2LyOTCx2b+3UL98w@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41rnjk02MKzDqp5
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 23:48:40 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w7GDmTZB113929
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 09:48:37 -0400
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2kwa6nrrh0-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 09:48:34 -0400
+Received: from localhost
+ by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Thu, 16 Aug 2018 14:48:01 +0100
+Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
+ by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 16 Aug 2018 14:47:59 +0100
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7GDlw7o38207532
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 16 Aug 2018 13:47:58 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A2DC2AE04D;
+ Thu, 16 Aug 2018 16:47:42 +0100 (BST)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id F3E36AE045;
+ Thu, 16 Aug 2018 16:47:41 +0100 (BST)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.78.196.20])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Thu, 16 Aug 2018 16:47:41 +0100 (BST)
 Subject: Re: Streaming logs via rsyslog
-To: dkodihal@linux.vnet.ibm.com
+To: Andrew Geissler <geissonator@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+References: <1c87c6bc-0f3b-73f2-e2a5-4b6ad7180f99@linux.vnet.ibm.com>
+ <CALLMt=rfppDj6vjmj09NGwd6zPFOoPo86i2LyOTCx2b+3UL98w@mail.gmail.com>
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Thu, 16 Aug 2018 19:17:56 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <CALLMt=rfppDj6vjmj09NGwd6zPFOoPo86i2LyOTCx2b+3UL98w@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18081613-0016-0000-0000-000001F7B666
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18081613-0017-0000-0000-0000324DED36
+Message-Id: <18dc91fe-ee93-eecd-ef29-f076b88e35bc@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-08-16_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=724 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1808160144
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -63,65 +82,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Aug 2018 12:45:09 -0000
+X-List-Received-Date: Thu, 16 Aug 2018 13:48:42 -0000
 
-On Thu, Aug 16, 2018 at 5:21 AM Deepak Kodihalli
-<dkodihal@linux.vnet.ibm.com> wrote:
->
-> Hi,
->
-> We have a requirement to forward BMC logs (the systemd journal) to an
-> external logging server.
->
-> We're proposing doing this by making use of rsyslog. Here are notes
-> based on some initial investigation.
->
-> Forwarding the journal logs to a syslog daemon :
-> Journald has this feature of being able to write journal logs to a
-> socket which then can be read by a syslog daemon. I see that (on
-> Witherspoon at least) the syslog daemon running by default (busybox
-> syslogd) doesn't support reading logs forwarded by the journald to due
-> to this commit :
-> https://git.busybox.net/busybox/commit/?id=accd9eeb719916da974584b33b1aeced5f3bb346.
-> However, I could get the forwarding working with the rsyslog daemon. I
-> found an existing rsyslog recipe in the meta-oe layer.
->
-> rsyslog configuration :
-> rsyslog is configurable in various ways. For example, I can turn off
-> local logging altogether via a config file, if I'm interested only in
-> using rsyslog for streaming journal logs out. Various optional features
-> can be turned off at build time to save flash space.
->
-> rsyslog server provision :
-> The BMC would need to be made aware of the external rsyslog server. This
-> can just be an admin updating the rsyslog config file on the BMC, and
-> there could also be a REST API if need be. I think a small app can
-> implement the
-> https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Network/Client.interface.yaml
-> interface to update the rsyslog config.
+On 16/08/18 6:14 PM, Andrew Geissler wrote:
 
-Yeah, I'd tend to vote for a REST api, that would enable GUI support
-and cleaner scripting (vs. an scp command).
+> Seems reasonable to me.  Do you have a rough feel for what the bare
+> bones rsyslog package will take up in flash space?  That would be my
+> only concern at this point, we're getting a bit pressed for flash
+> space.
 
->
-> streaming :
-> rsyslog can be configured to make use of TCP, or UDP, and optionally
-> TLS. I think TCP is the default.
->
->
-> Thoughts on this proposal? If this sounds okay, I'm planning to get some
-> commits up in Gerrit for review. I can pull rsyslog in a phosphor layer
-> (I mean as the default choice of a syslog daemon, replacing busybox
-> syslog) if there's interest, as opposed to making it only a
-> meta-witherspoon package. Specific rsyslog package config and config
-> file overrides are possible in system specific layers.
+Roughly 300K. Plus, we might have some savings by removing the busybox 
+syslog package (wouldn't need both this and rsyslog).
 
-Seems reasonable to me.  Do you have a rough feel for what the bare
-bones rsyslog package will take up in flash space?  That would be my
-only concern at this point, we're getting a bit pressed for flash
-space.
-
->
-> Regards,
-> Deepak
->
+Regards,
+Deepak
