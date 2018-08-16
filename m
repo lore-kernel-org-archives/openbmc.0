@@ -1,60 +1,37 @@
-Return-Path: <a.soldatov@yadro.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.soldatov@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="H+fGURbN"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41rjnB58bPzDqnw
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 20:51:25 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 90C75411F8;
- Thu, 16 Aug 2018 10:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:mime-version:references:in-reply-to
- :x-mailer:message-id:date:date:subject:subject:from:from
- :received:received:received; s=mta-01; t=1534416097; x=
- 1536230498; bh=Ca1aGlm5fmu/fMImsgEBNCfjMJBKa7O5vj96IF8UDYg=; b=H
- +fGURbN2f/ztvAZuIX7Et+LOWMeJ2QbolYucLGkVLdjsvhE1hmWoipZmRrlD0VQH
- SOwaKjFUuZpDtHSedzvSRQ10jRQ/4djTDq2h3tyvtfBFJs65HoWHYtoPL3P/m7+6
- 6IHqXtRdR9cvRb2QlL5LRZ2jtTfMZq0N/EM5TeFttY=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id WYwwIWZkS0Q4; Thu, 16 Aug 2018 13:41:37 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id C6E9E418F9;
- Thu, 16 Aug 2018 13:41:37 +0300 (MSK)
-Received: from NB-207-Ubuntu.yadro.com (172.17.4.249) by
- T-EXCH-02.corp.yadro.com (172.17.10.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.669.32; Thu, 16 Aug 2018 13:41:36 +0300
-From: Alexander Soldatov <a.soldatov@yadro.com>
-To: <linux-mtd@lists.infradead.org>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-CC: Alexander Soldatov <a.soldatov@yadro.com>, <stable@vger.kernel.org>
-Subject: [PATCH linux dev-4.17 2/2] mtd: spi-nor: fix spi register address for
- AST2400
-Date: Thu, 16 Aug 2018 13:40:55 +0300
-Message-ID: <1534416055-23939-2-git-send-email-a.soldatov@yadro.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1534416055-23939-1-git-send-email-a.soldatov@yadro.com>
-References: <1534416055-23939-1-git-send-email-a.soldatov@yadro.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41rvR93GyPzDqp5
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 04:06:25 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2018 11:06:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,247,1531810800"; d="scan'208";a="63690271"
+Received: from hades.jf.intel.com (HELO [10.54.51.77]) ([10.54.51.77])
+ by fmsmga008.fm.intel.com with ESMTP; 16 Aug 2018 11:06:19 -0700
+Subject: Re: Streaming logs via rsyslog
+To: openbmc@lists.ozlabs.org
+References: <1c87c6bc-0f3b-73f2-e2a5-4b6ad7180f99@linux.vnet.ibm.com>
+From: Ed Tanous <ed.tanous@intel.com>
+Message-ID: <046e8fe9-1465-49ee-2170-0d06cd013218@intel.com>
+Date: Thu, 16 Aug 2018 11:07:54 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.17.4.249]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
-X-Mailman-Approved-At: Fri, 17 Aug 2018 00:59:51 +1000
+In-Reply-To: <1c87c6bc-0f3b-73f2-e2a5-4b6ad7180f99@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,31 +43,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Aug 2018 10:51:27 -0000
+X-List-Received-Date: Thu, 16 Aug 2018 18:06:30 -0000
 
-According to AST2400 datasheet v1.4 the SPI Flash Read Timing
-Setting register is at offset 0x14. There is no register at
-offset 0x94 (unlike FMC controller and AST2500).
+On 08/16/2018 03:21 AM, Deepak Kodihalli wrote:
+> Hi,
+> 
+> We have a requirement to forward BMC logs (the systemd journal) to an 
+> external logging server.
+> 
+> We're proposing doing this by making use of rsyslog. Here are notes 
+> based on some initial investigation.
+> 
 
-Cc: stable@vger.kernel.org
-Fixes: aad58eba7209 ("mtd: spi-nor: aspeed: optimize read mode")
-Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
----
- drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ From the rsyslog github page
 
-diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index c9cd20f199d9..9ddf24b042f1 100644
---- a/drivers/mtd/spi-nor/aspeed-smc.c
-+++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -71,7 +71,7 @@ static const struct aspeed_smc_info spi_2400_info = {
- 	.hastype = false,
- 	.we0 = 0,
- 	.ctl0 = 0x04,
--	.timing = 0x94,
-+	.timing = 0x14,
- 	.set_4b = aspeed_smc_chip_set_4b_spi_2400,
- 	.optimize_read = aspeed_smc_optimize_read,
- };
--- 
-2.7.4
+"""
+Rsyslog's main sponsor Adiscon tries to fund rsyslog by selling custom 
+development and support contracts. Adiscon does NOT license rsyslog 
+under a commercial license (this is simply impossible for anyone due to 
+rsyslog's license structure).
+"""
+
+I think this license makes rsyslog a non-starter for most of the people 
+in this project, but I'm not a license expert.  We've looked at it in 
+the past, and while nice to use in practice, we couldn't overcome the 
+license conflicts and legal implications.
+
+Oddly enough, my team did some prototype work in this area a couple 
+weeks ago that I've pushed to gerrit for comment.
+
+As part of an experiment we implemented a prototype Redfish endpoint 
+that exposed the journald log entries.  It seems to have worked 
+relatively well, and it's considerably faster than we thought it would 
+be.  1000 entries can be grabbed in about a second including all the TLS 
+overhead.
+
+An example from my system is here:
+https://imgur.com/a/vtlFvHB
+
+The thought was that at some point we would implement server-sent 
+events, which is part of the Redfish 1.5.0 specification, and would 
+allow the logs to be streamed off the system using a pretty well defined 
+protocol that's not specific to OpenBMC, as well as implement pretty 
+decent security.  It's not directly syslog, and I can still see the use 
+case for having a syslog compatible mechanism for streaming.
+
+https://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/12008/
