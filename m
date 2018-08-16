@@ -1,65 +1,59 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.223.194; helo=mail-io0-f194.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-io0-f194.google.com (mail-io0-f194.google.com
- [209.85.223.194])
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="dUV3kqZo"; 
+ dkim-atps=neutral
+Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
+ [IPv6:2607:f8b0:4001:c0b::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41rLgc0lkqzF1bR
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 06:30:18 +1000 (AEST)
-Received: by mail-io0-f194.google.com with SMTP id x5-v6so2036713iop.13
- for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 13:30:18 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41rX5B1f1TzDqgF
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 13:34:37 +1000 (AEST)
+Received: by mail-it0-x242.google.com with SMTP id e14-v6so4559441itf.1
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Aug 2018 20:34:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3l72yXOYt7KVv9MYU+6U9QNJJumSj9gv1zsRN/iI7yM=;
+ b=dUV3kqZoU4dm90YIKkmBU//wZSzX3yTp0YfGeyrqia4AhQGc85EiEtnZQw9SkoU1kT
+ qJMW8nibdCEJgwtyaBjQN7QXLvsZFyDGgl8do+A8o0aRdFdwyCMxtL0NhRr9a2LospyQ
+ VXesMXbiOGLcF6RjyhX29c2F3/sIZervWuBAq6jQcW0K/fGXQIay5cPKwVEgkDlQFzQA
+ sSonRDYLPTqhbVxe0Ow0VMSVzwMVyvpJpFwL82C5XLcTclkpbwNuwjThb2bfKJUNJhCe
+ hTxuWkpqLtEfQ7oaUwzKMsWd9BFx11XU77z/1nSTXtGJLVQyC6IR4bA6lASp1VxyRo7p
+ dPVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=5IgQSkBxQZonxJguAA3ZV7mOYCPTJgHNP53D7dCfU8w=;
- b=MzN6Uk3lkmTHa9wZnho4YVTECGLSfGTcFYC7k3IDHoUS/dXVJACutl6Tua58zuKGsl
- joHESf65aZ20QISDz7tyVB/XrPrPlllZ59fAJOtEo3Xrod5RR84A7V9XwtJwA7DcDqmb
- wA03M9rb4sv/HlQNotlZnUjciKha4xb07ayddQCo/R86nR0MNvfDtVC6xzKmnG7AyUdV
- BEClixoiCcsIWitLNuK2yKop/OH9izou1YU+Zg0CQyc7mJKTlLuqU3afz4Dw4mXtODqE
- WlrKTr/5GQRoqaXyBTatqManHvtr3J5oW/wUReOrg9b2xDZWX70+ogf1YAc4hkjTSnk9
- ZyZQ==
-X-Gm-Message-State: AOUpUlHx8Sr6ClbnhQQqCYk5Ysuivjnj8asskV/LjI9ykYhSRZk+MSL8
- KzqpA5Gck+tpz+TwIAn5Pg==
-X-Google-Smtp-Source: AA+uWPx9UOELM7aVqg/tu7YYr+Rf1r7NM1+HZUdtvo4H6NUjggPH9QiGHBoOe7MYr5/QIupHUzCdPw==
-X-Received: by 2002:a6b:9e91:: with SMTP id
- h139-v6mr23322317ioe.185.1534365016505; 
- Wed, 15 Aug 2018 13:30:16 -0700 (PDT)
-Received: from localhost ([24.51.61.72])
- by smtp.gmail.com with ESMTPSA id b129-v6sm18645481ioa.75.2018.08.15.13.30.15
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 15 Aug 2018 13:30:15 -0700 (PDT)
-Date: Wed, 15 Aug 2018 14:30:15 -0600
-From: Rob Herring <robh@kernel.org>
-To: Tali Perry <tali.perry1@gmail.com>
-Cc: avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
- yuenn@google.com, brendanhiggins@google.com, mark.rutland@arm.com,
- davem@davemloft.net, mchehab+samsung@kernel.org,
- gregkh@linuxfoundation.org, akpm@linux-foundation.org,
- arnd@arndb.de, wsa@the-dreams.de, andriy.shevchenko@linux.intel.com,
- pierre-yves.mordret@st.com, cedric.madianga@gmail.com,
- baolin.wang@spreadtrum.com, jarkko.nikula@linux.intel.com,
- hdegoede@redhat.com, rmk+kernel@armlinux.org.uk,
- ard.biesheuvel@linaro.org, thor.thayer@linux.intel.com,
- geert@linux-m68k.org, heikki.krogerus@linux.intel.com,
- tglx@linutronix.de, linux-i2c@vger.kernel.org,
- openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: i2c: npcm7xx: add binding for i2c
- controller
-Message-ID: <20180815203015.GA19242@rob-hp-laptop>
-References: <20180814182907.182139-1-tali.perry1@gmail.com>
- <20180814182907.182139-2-tali.perry1@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3l72yXOYt7KVv9MYU+6U9QNJJumSj9gv1zsRN/iI7yM=;
+ b=iDWQNgqe8umr0Q4L6SZI/Yocm7djjtNxnm1JJjeZn+tOs+g7Ao+UCLO2GRSQWFaOaC
+ 6bJoyPhEO+chELweBj9uhoZwLxf5MkPARBLjGAhwQLDZdzz0oyTkg/exMpyhXlCQInVr
+ zivYpjwNutfE5x5mOJD+9XLJbew4zns12tscAs4PmdUJoKZLDaoeNdbNToOfj7Nh6MWS
+ QWF1vODZG/CgbE/Ay+OJNAMo3G720HgvyilejaFDh/i1uyzkClXfvINdgb+RLOfmBcMn
+ jg02V2wkm3CzxBn/Dx2w1HtgXONKMHLkN64SgdzdUjNs/QYflD9aWBVKDpaoR5DiFdob
+ /LlQ==
+X-Gm-Message-State: AOUpUlGC/t5ENElGEjOB1dF698H6RiPFWsF+sagoPhEPQ8gQH9/ezXPw
+ keVoSVFgYT3HUoZU8HtC8Ii20Tv11+e8qSSQ3OY=
+X-Google-Smtp-Source: AA+uWPz35e69o70WxaAnn5sDfgdedDP/G2hx/pqgkkghtxlZF2gagzppDYgxX0LsfhNC7gFcj9hhyjV291T5jHpARAY=
+X-Received: by 2002:a24:2b86:: with SMTP id
+ h128-v6mr20281290ita.14.1534390474363; 
+ Wed, 15 Aug 2018 20:34:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180814182907.182139-2-tali.perry1@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+References: <03b3c32f-dcfd-54c1-b959-8067893c0758@yadro.com>
+In-Reply-To: <03b3c32f-dcfd-54c1-b959-8067893c0758@yadro.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Thu, 16 Aug 2018 11:34:16 +0800
+Message-ID: <CAARXrtnoc_63EY5rznk=GcdsqwX-3hfjjdXbsm1Z1fR-jdSBsg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/2] mtd: spi-nor: fix options for
+ mx66l51235f
+To: Alexander Amelkin <a.amelkin@yadro.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
+ a.soldatov@yadro.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -71,84 +65,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Aug 2018 20:30:21 -0000
+X-List-Received-Date: Thu, 16 Aug 2018 03:34:39 -0000
 
-On Tue, Aug 14, 2018 at 09:29:06PM +0300, Tali Perry wrote:
-> 
-> Nuvoton NPCM7XX I2C Controller
-> NPCM7xx includes 16 I2C contollers. This driver operates the controller.
+I think the mail subject should be patch linux dev-4.17, instead of dev-4.7.
+But anyway this is better to be submitted to upstream.
 
-s/contollers/controllers/
+Reviewed-by: Lei YU <mine260309@gmail.com>
 
-> This module also includes a slave mode, which will be submitted later on.
-> 
-> Any feedback would be appreciated.  
-> 
-> v3 -> v2:
-> 	- fix dt binding: compatible name: ommit "bus"
-> 
-> v2 -> v1:
-> 	- run check patch in strict mode.
-> 	- use linux crc.
-> 	- define regs in constant offset without base.
-> 	- remove debug prints.
-> 	- no declerations for local functions.
-> 	
-> v1: initial version
-
-The version info normally goes below the '---' so it is not part of the 
-commit msg.
-
-> 
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> 
+On Wed, Aug 15, 2018 at 11:14 PM Alexander Amelkin <a.amelkin@yadro.com> wrote:
+>
+> Currently in driver spi-nor there is a line for mx66l51235l.
+> According to Macronix site there is no such part number.
+> The chip detected as such is actually mx66l51235f.
+>
+> According to the datasheet for mx66l51235f,
+> "The device default is in 24-bit address mode" (section 9-10).
+> Hence we removed SPI_NOR_4B_OPCODES option with this commit.
+>
+> Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
 > ---
->  .../devicetree/bindings/i2c/i2c-npcm7xx.txt        | 29 ++++++++++++++++++++++
->  1 file changed, 29 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> new file mode 100644
-> index 000000000000..2a474a2a5b3f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
-> @@ -0,0 +1,29 @@
-> +Nuvoton NPCM7XX I2C bus
-> +
-> +The NPCM750x includes sixteen I2C bus controllers. All Conterollers support
-
-s/Conterollers/controllers/
-
-With those fixed,
-
-Reviewed-by: Rob Herring <robh@kernel.org>
-
-> +both master and slave mode. Each controller has two 16 byte HW FIFO for TX and
-> +RX.
-> +
-> +Required properties:
-> +- compatible      : must be "nuvoton,npcm750-i2c"
-> +- reg             : Offset and length of the register set for the device.
-> +- interrupts      : Contain the I2C interrupt with flags for falling edge.
-> +- clocks          : phandle of I2C reference clock.
-> +
-> +Optional:
-> +- bus-frequency   : Contain the I2C bus frequency,
-> +			the default I2C bus frequency is 100000.
-> +- pinctrl-0       : must be <&smbX_pins>, X is module number
-> +			(on NPCM7XX it's 0 to 15)
-> +- pinctrl-names   : should be set to "default"
-> +Example:
-> +
-> +	i2c0: i2c@80000 {
-> +		compatible = "nuvoton,npcm750-i2c";
-> +		reg = <0x80000 0x1000>;
-> +		clocks = <&clk NPCM7XX_CLK_APB2>;
-> +		bus-frequency = <100000>;
-> +		interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&smb0_pins>;
-> +	};
-> -- 
-> 2.14.1
-> 
+>  drivers/mtd/spi-nor/spi-nor.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/mtd/spi-nor/spi-nor.c b/drivers/mtd/spi-nor/spi-nor.c
+> index 5bfa36e..e9f4447 100644
+> --- a/drivers/mtd/spi-nor/spi-nor.c
+> +++ b/drivers/mtd/spi-nor/spi-nor.c
+> @@ -1068,7 +1068,7 @@ static const struct flash_info spi_nor_ids[] = {
+>         { "mx25l25635e", INFO(0xc22019, 0, 64 * 1024, 512, SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ) },
+>         { "mx25u25635f", INFO(0xc22539, 0, 64 * 1024, 512, SECT_4K | SPI_NOR_4B_OPCODES) },
+>         { "mx25l25655e", INFO(0xc22619, 0, 64 * 1024, 512, 0) },
+> -       { "mx66l51235l", INFO(0xc2201a, 0, 64 * 1024, 1024, SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ | SPI_NOR_4B_OPCODES) },
+> +       { "mx66l51235f", INFO(0xc2201a, 0, 64 * 1024, 1024, SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ) },
+>         { "mx66u51235f", INFO(0xc2253a, 0, 64 * 1024, 1024, SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ | SPI_NOR_4B_OPCODES) },
+>         { "mx66l1g45g",  INFO(0xc2201b, 0, 64 * 1024, 2048, SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ) },
+>         { "mx66l1g55g",  INFO(0xc2261b, 0, 64 * 1024, 2048, SPI_NOR_QUAD_READ) },
+> --
+> 2.7.4
+>
+>
