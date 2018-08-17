@@ -1,77 +1,56 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41sHjK580WzDqm6
- for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 19:20:04 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7H9IiF7092192
- for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 05:20:02 -0400
-Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2kwspuvded-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 05:20:02 -0400
-Received: from localhost
- by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Fri, 17 Aug 2018 10:20:00 +0100
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 17 Aug 2018 10:19:58 +0100
-Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
- [9.149.105.61])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7H9Jvun38666288
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 17 Aug 2018 09:19:58 GMT
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6B84511C050;
- Fri, 17 Aug 2018 12:20:00 +0100 (BST)
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2DCC611C04A;
- Fri, 17 Aug 2018 12:19:59 +0100 (BST)
-Received: from [9.78.193.43] (unknown [9.78.193.43])
- by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Fri, 17 Aug 2018 12:19:58 +0100 (BST)
-Subject: Re: Streaming logs via rsyslog
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41sRmw2zvVzDqm6
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Aug 2018 01:23:42 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2018 08:23:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,251,1531810800"; d="scan'208";a="66015338"
+Received: from orsmsx109.amr.corp.intel.com ([10.22.240.7])
+ by orsmga008.jf.intel.com with ESMTP; 17 Aug 2018 08:23:22 -0700
+Received: from orsmsx112.amr.corp.intel.com (10.22.240.13) by
+ ORSMSX109.amr.corp.intel.com (10.22.240.7) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Fri, 17 Aug 2018 08:23:21 -0700
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
+ ORSMSX112.amr.corp.intel.com ([169.254.3.2]) with mapi id 14.03.0319.002;
+ Fri, 17 Aug 2018 08:23:21 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Streaming logs via rsyslog
+Thread-Topic: Streaming logs via rsyslog
+Thread-Index: AQHUNUr9fBTXRF4uy0S7mMqGM/Z9uaTCrYUAgAFE0QCAAC9XAP//7sVA
+Date: Fri, 17 Aug 2018 15:23:21 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E821699345832152@ORSMSX114.amr.corp.intel.com>
 References: <1c87c6bc-0f3b-73f2-e2a5-4b6ad7180f99@linux.vnet.ibm.com>
  <046e8fe9-1465-49ee-2170-0d06cd013218@intel.com>
  <b5f05749-ee42-a53c-5da2-f2fe04eaafd9@linux.vnet.ibm.com>
-Date: Fri, 17 Aug 2018 14:49:54 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <b5f05749-ee42-a53c-5da2-f2fe04eaafd9@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ <066e4ef8-a411-16bf-548a-b7698188f189@linux.vnet.ibm.com>
+In-Reply-To: <066e4ef8-a411-16bf-548a-b7698188f189@linux.vnet.ibm.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 18081709-0012-0000-0000-0000029B13FC
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18081709-0013-0000-0000-000020CE4353
-Message-Id: <066e4ef8-a411-16bf-548a-b7698188f189@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-17_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=922 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1808170102
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZDcyNmQ3ODEtYTY0Ny00MDA1LTlmZDctZGEyZjcwZjUxMDg5IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiRWhXYkFQaE9hcWpjZWJSZVBlMUFVWXlkVmRENDNXUVZYWk5iTE03bVlcL2ZYeHBacG5OWWhRWnJTQXpMbHhFMncifQ==
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.138]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -83,41 +62,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Aug 2018 09:20:06 -0000
+X-List-Received-Date: Fri, 17 Aug 2018 15:23:45 -0000
 
-On 17/08/18 12:00 PM, Deepak Kodihalli wrote:
-> On 16/08/18 11:37 PM, Ed Tanous wrote:
->> On 08/16/2018 03:21 AM, Deepak Kodihalli wrote:
->>> Hi,
->>>
->>> We have a requirement to forward BMC logs (the systemd journal) to an 
->>> external logging server.
->>>
->>> We're proposing doing this by making use of rsyslog. Here are notes 
->>> based on some initial investigation.
->>>
->>
->>  From the rsyslog github page
->>
->> """
->> Rsyslog's main sponsor Adiscon tries to fund rsyslog by selling custom 
->> development and support contracts. Adiscon does NOT license rsyslog 
->> under a commercial license (this is simply impossible for anyone due 
->> to rsyslog's license structure).
->> """
->>
->> I think this license makes rsyslog a non-starter for most of the 
->> people in this project, but I'm not a license expert.  We've looked at 
->> it in the past, and while nice to use in practice, we couldn't 
->> overcome the license conflicts and legal implications.
-> 
-> I'm not sure if that's the case, but I'm no license expert either. It 
-> looks like rsyslog's license is GPLv3. Is it that GPLv3 packages can't 
-> be part of a project that has an Apache license? I'll try to find out 
-> more about this from license experts.
-
-I was just pointed out that Busybox itself is GPLv2, so rsyslog being 
-GPLv3 seems to be usable without any concern?
-
-Regards,
-Deepak
+PiANCj4gSSB3YXMganVzdCBwb2ludGVkIG91dCB0aGF0IEJ1c3lib3ggaXRzZWxmIGlzIEdQTHYy
+LCBzbyByc3lzbG9nIGJlaW5nDQo+IEdQTHYzIHNlZW1zIHRvIGJlIHVzYWJsZSB3aXRob3V0IGFu
+eSBjb25jZXJuPw0KPiANCg0KR1BMdjIgYW5kIEdQTHYzIGFyZSB2ZXJ5IGRpZmZlcmVudCBsaWNl
+bnNlcyBpbiBzb21lIHJlc3BlY3RzLiAgRm9yIGEgZGlmZmVyZW50IHByb2R1Y3QsIHdlIGp1c3Qg
+d2VudCB0aHJvdWdoIHRoaXMgZGlzY3Vzc2lvbiBhYm91dCB1c2luZyByc3lzbG9nIHNwZWNpZmlj
+YWxseSwgYW5kIHRoZSBjb25jbHVzaW9uIHdhcyB0aGF0IHdlIGNvdWxkbid0IHVzZSBpdCBnaXZl
+biB0aGUgbGljZW5zZSByZXN0cmljdGlvbnMsIGJ1dCBJIGRvbid0IGtub3cgdGhlIHNwZWNpZmlj
+IGRldGFpbHMuICBJZiB5b3UgZ3V5cyBmaW5kIGEgd2F5IGFyb3VuZCB0aG9zZSByZXN0cmljdGlv
+bnMsIGl0IHdvdWxkIGJlIGdvb2QgdG8ga25vdy4NCg0KVGhlIHRlYW0gdGhhdCBkaWQgdGhlIGFu
+YWx5c2lzIGlzIG91dCB0b2RheSwgYnV0IEkgY2FuIHRyeSB0byBmaW5kIG1vcmUgbmV4dCB3ZWVr
+Lg0KDQotRWQNCg==
