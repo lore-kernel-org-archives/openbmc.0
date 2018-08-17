@@ -1,65 +1,57 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::232; helo=mail-oi0-x232.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400e:c01::244; helo=mail-pl0-x244.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="E9MFE5ev"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FjZnxtNx"; 
  dkim-atps=neutral
-Received: from mail-oi0-x232.google.com (mail-oi0-x232.google.com
- [IPv6:2607:f8b0:4003:c06::232])
+Received: from mail-pl0-x244.google.com (mail-pl0-x244.google.com
+ [IPv6:2607:f8b0:400e:c01::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41s01W1xXkzDqp5
- for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 07:33:01 +1000 (AEST)
-Received: by mail-oi0-x232.google.com with SMTP id d189-v6so10672902oib.6
- for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 14:33:01 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41sCP1057yzDqm6
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Aug 2018 16:05:39 +1000 (AEST)
+Received: by mail-pl0-x244.google.com with SMTP id g23-v6so259552plq.9
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Aug 2018 23:05:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:subject:to:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=tGu5P14N+ZWceGg9v545MuZuUPwgBAUg5Q7+VTGVTRA=;
- b=E9MFE5evW3DMOiuJRyonQ54fhdCCDUy1tNt2dYSpNeEY+dWgsVeQ397nwR/hunl5cr
- MUOBWbW1TTJq04c0sd6d010GMD4giUI2tw6qHi0WP+KttN1jY4O6RV+AMMBK3UPfd8iZ
- 4AMhafB/3mCRzG+MRjM5/pDtFTvY5nu4uiobCFbu4invbAP01LCFf2rssKS7m8MRiKaN
- BBglhwlfiGa0CSPAFImiAKR7yeKEuQ+Fz2+/HF8ixBmX6PZsgDnifS/lBD37Qcs8Pd5r
- mr43W/l4HLioTw9uPucCxE69Jz8LljSEx+Rx9GL6/x+iZkoigCkPn73P39eqvnI7iuzH
- awFA==
+ h=from:to:cc:subject:date:message-id;
+ bh=MHL/UK/rRuToROVWRbnRWAdTrPOxc/IUE2aRKtJqA3w=;
+ b=FjZnxtNxKc6i040iazAUhiatV9+dXyomMtG042F0kBocHF2JsYV6KQxrWfZYun6pCr
+ vJ5GSWj4t1SFvirraBxhCGdXbhBN4Iu+lcP7mGwIhe5WRhEPknlKO9Hn4/CYPAR4uhvJ
+ sItTwoslTWcwfKAIi39KOSvWS0qHWpOzEsTna9sIki2w9Myd+QmhDuNMhTOQJxd/DAnr
+ Tw9K8lXtYnoXysq7vxoOraJBA+io5B+1xucdYoqZuA8wiGtXFWkzwz5Vz1eKKm3rGiok
+ 0QGVF1SDmNxjONtigjdxnelrXeSKT7BFrqg6qt7ph/FZBztO/+PFhwwJ8sXtWjUZi6Ei
+ LT8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=tGu5P14N+ZWceGg9v545MuZuUPwgBAUg5Q7+VTGVTRA=;
- b=S9n7niIwDu28CnhnfNMJVguHr/jz11ERJAU79nj17rl6kMCVhWyyfNGyH79eQpMbmx
- dysiLzEtnJbTddLWpgfV1VZHeZ0Nk9rYC0JzG5dI4VX5qOGRMl+9d9rWr9yDDxilpvXz
- ikrrUX7dU2QtUhsrJKfUasLdl9/2/HsLftTD/YK4GyjgIxCFLBRAX94E3gXNKq96OBbU
- EsrGBiYliDqU/uOmJ+1cKLgi9PBwqsG1PiGadADZ0k1UahJ7A9uFyOt/wJxsj8Fl7rDl
- eSxsmT/Dqblzs67YacmLEBuSp+/PW9M+9JXJqUkcAb7M5LMRZfg4se2HVigQeVbU4Ivn
- PZMw==
-X-Gm-Message-State: AOUpUlFhVyNwE2kAbQMS89e0Rpjh40K6dGxIa0HRAcDE6Oex19X611+x
- QMGqfmRfieLYQqh5wQ/K9G2Nq2Gt
-X-Google-Smtp-Source: AA+uWPz3QgOOf4Qz5CKpcLvnexiz46dSHGS3a5rck6XFsETFaatkFLafCJrkC8wdHU5cY+e4QKagUg==
-X-Received: by 2002:aca:4c81:: with SMTP id
- z123-v6mr33857133oia.318.1534455179200; 
- Thu, 16 Aug 2018 14:32:59 -0700 (PDT)
-Received: from krtaylors-MacBook-Pro.local
- (cpe-72-182-100-19.austin.res.rr.com. [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id e205-v6sm765388oia.9.2018.08.16.14.32.58
- for <openbmc@lists.ozlabs.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=MHL/UK/rRuToROVWRbnRWAdTrPOxc/IUE2aRKtJqA3w=;
+ b=mZC/1/aKB8yk1zpd1jVluRj2rNx3THnsbJOAYRIuZtBSMLwpTl9gRcMEnXTQIPB0TY
+ PDtAFxmMO4JoDgzykneDURrZ1GCk6d3ys9GBmadz38xa9wd2cUUou5oeiZAMuGpf8kxF
+ IUF5thdQkKQbfIjP1EoChDs84C++ZbWzv4cvWEuE1XLm0EjJDhBS4gDAhE7JAzZhb8xl
+ vVn2Tr5pA7VBspeIPbwcYD6OD21gTsPfvKtzjiCBUOpSAX8l4vrR9VXz76akNgOGty4g
+ t7v7gVyzb92caS5ZufgtMh3GE3EXqp2b2P2IrmvjTLyJdPmraKLNldVXVzsalRn+DqQG
+ C1xA==
+X-Gm-Message-State: AOUpUlGc0DHEYvii7ZMEU9yWVZ6+7ZqEvOZaK2nA9KtvbZqB6HHO37DH
+ Ymfv3VW4Bn2oxElHfPq4SFJ+cGJS
+X-Google-Smtp-Source: AA+uWPxtmohiLzJaIuYdwmml50kBK8JEd2ZOvKYDTpsrdC1fVC8ts8VfYn0TI+kTjKraRqHw6wKABA==
+X-Received: by 2002:a17:902:7088:: with SMTP id
+ z8-v6mr31729642plk.303.1534485937496; 
+ Thu, 16 Aug 2018 23:05:37 -0700 (PDT)
+Received: from localhost (45.62.100.246.16clouds.com. [45.62.100.246])
+ by smtp.gmail.com with ESMTPSA id j1-v6sm1459470pfk.125.2018.08.16.23.05.35
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 16 Aug 2018 14:32:58 -0700 (PDT)
-From: krtaylor <kurt.r.taylor@gmail.com>
-Subject: 8/16 OpenBMC Release Planning WG Meeting Minutes
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Message-ID: <30973f41-db72-7564-17eb-9814ae5c00d5@gmail.com>
-Date: Thu, 16 Aug 2018 16:32:58 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ Thu, 16 Aug 2018 23:05:36 -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.17 v2] ARM: dts: aspeed: romulus: Enable
+ iio-hwmon-battery
+Date: Fri, 17 Aug 2018 14:05:25 +0800
+Message-Id: <1534485925-63307-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -71,59 +63,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Aug 2018 21:33:04 -0000
+X-List-Received-Date: Fri, 17 Aug 2018 06:05:42 -0000
 
-Lightly attended, but good meeting nonetheless. Thanks everyone, see you 
-Monday the 27th!
+Add iio-hwmon-battery using adc channel 12;
+Enable adc to make adc running.
 
-Meeting Minutes:
-https://docs.google.com/document/d/1yo9lZp56jkwDM1eXJRE8p__FqlAjq7qcdIi1W7hAD5Y/edit?usp=sharing
+Note it requires GPIOR3 to be pulled high to read the voltage, and this
+is left for user space to toggle the GPIO to save the battery usage.
 
-Agenda backlog for next meeting:
-https://github.com/openbmc/openbmc/wiki/Release-Planning
+Signed-off-by: Lei YU <mine260309@gmail.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Regards,
-Kurt Taylor (krtaylor)
-
-
-8/16/18
-=======
-Attended (*) Primary company contact
-------------------------------------
-   Kurt Taylor, IBM (WG lead)
-   *Sai Dasari, Facebook
-   Kun Yi, Google
-   Maury Zipse, IBM
-   *Nancy Yuen, Google
-   Andrew Geissler, IBM
-   Tao Ren, Facebook
-
-Not Attending
--------------
-   Brad Bishop, IBM
-   *James Mihm, Intel
-   *Dick Wilkins, Phoenix
-   *Ali Larijani, Microsoft
-   Yugi Mani, Microsoft
-
-Review of Agreements from previous meeting (see previous meeting minutes)
-
-*** Reminder: This is the last meeting on Thursday, next meeting is 
-August 27th at 3:00pm Central Time (2000 UTC)
-
-Release Content (Design Milestone - Aug 31)
--------------------------------------------
-Requirements for these items? Designs in progress? Designs via email? 
-Workgroups needed for design?
-   Worked through the spreadsheet to try to close items with questions, 
-had to table most of them due to low attendance (mainly need Microsoft 
-to attend and describe the items they added)
-   Worked through the release functionality items with multiple 
-contributors, summarized the design state and the need for a design document
-   Action for next week are to re-engage design discussions that were in 
-email, get contributors together to consider filling in the design 
-template - maybe in a Google doc, until ready to push to gerrit in 
-docs/designs directory
-   Design template - still needs review, changed to Markdown to match 
-all other docs
-     https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/11906/
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 852b552..a910bc8 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -83,6 +83,11 @@
+ 			linux,code = <ASPEED_GPIO(Q, 7)>;
+ 		};
+ 	};
++
++	iio-hwmon-battery {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 12>;
++	};
+ };
+ 
+ #include "ibm-power9-cfam.dtsi"
+@@ -304,3 +309,6 @@
+ 	status = "okay";
+ };
+ 
++&adc {
++	status = "okay";
++};
+-- 
+2.7.4
