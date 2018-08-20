@@ -1,40 +1,56 @@
-Return-Path: <richard.marian.thomaiyar@linux.intel.com>
+Return-Path: <sharad.khetan@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=richard.marian.thomaiyar@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=sharad.khetan@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41vMgY1r8XzF0gv
- for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 04:25:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41vNnc6hBNzF0h9
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 05:15:58 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2018 11:25:42 -0700
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2018 12:15:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,266,1531810800"; d="scan'208";a="84902514"
-Received: from rthomaiy-mobl2.gar.corp.intel.com (HELO [10.252.91.5])
- ([10.252.91.5])
- by orsmga002.jf.intel.com with ESMTP; 20 Aug 2018 11:24:52 -0700
-Subject: Fwd: Reg libpam from yocto - destination folder
-References: <b924fad1-406b-9961-8f93-0915ae1c28f5@linux.intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, vernon.mauery@linux.intel.com, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
-X-Forwarded-Message-Id: <b924fad1-406b-9961-8f93-0915ae1c28f5@linux.intel.com>
-Message-ID: <a88ee822-6f69-534f-9f19-88b0ffeb5da9@linux.intel.com>
-Date: Mon, 20 Aug 2018 23:54:52 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <b924fad1-406b-9961-8f93-0915ae1c28f5@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-IronPort-AV: E=Sophos;i="5.53,266,1531810800"; d="scan'208";a="250466330"
+Received: from fmsmsx104.amr.corp.intel.com ([10.18.124.202])
+ by orsmga005.jf.intel.com with ESMTP; 20 Aug 2018 12:15:51 -0700
+Received: from fmsmsx119.amr.corp.intel.com (10.18.124.207) by
+ fmsmsx104.amr.corp.intel.com (10.18.124.202) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Mon, 20 Aug 2018 12:15:51 -0700
+Received: from fmsmsx118.amr.corp.intel.com ([169.254.1.229]) by
+ FMSMSX119.amr.corp.intel.com ([169.254.14.38]) with mapi id 14.03.0319.002;
+ Mon, 20 Aug 2018 12:15:50 -0700
+From: "Khetan, Sharad" <sharad.khetan@intel.com>
+To: 'Patrick Venture' <venture@google.com>, Sivas Srr <sivas.srr@in.ibm.com>
+CC: "anoo@linux.vnet.ibm.com" <anoo@linux.vnet.ibm.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: RE: openbmc bug management
+Thread-Topic: openbmc bug management
+Thread-Index: AQHUMx9hXb2L2WWetUCT/U0qcAtDyKS+V8KAgAsaqYD//4uhQA==
+Date: Mon, 20 Aug 2018 19:15:50 +0000
+Message-ID: <865C376D1B77624AAA570EFEF73CE52F9422FA4C@fmsmsx118.amr.corp.intel.com>
+References: <CALLMt=pDF+AQWZT1hqe4XEedCkv5ypHd5rLmD5=-+FsBFwZ7xg@mail.gmail.com>
+ <OF9ADB4CCA.9B5CDFD9-ON002582E8.0059FA91-002582E8.005B96C8@notes.na.collabserv.com>
+ <CAO=notyRJSzzc8GCXhs35k+mfEQ7kLCXzepwvRb481kevDGOBw@mail.gmail.com>
+In-Reply-To: <CAO=notyRJSzzc8GCXhs35k+mfEQ7kLCXzepwvRb481kevDGOBw@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiODg4NmJkMWUtNWE0MS00ZmI0LTlhN2EtZDBlMWIzYjcyNThkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiZWowYUpCM1dvTTZTZUg2WjV6dld5N21kZlJZMFJpdjhBUlZGYW9xTTVCSjZVXC9MTmg3dHBKYVpzbjRaV3ZITmoifQ==
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: request-justification,no-action
+x-originating-ip: [10.1.200.107]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -46,35 +62,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Aug 2018 18:25:46 -0000
+X-List-Received-Date: Mon, 20 Aug 2018 19:16:05 -0000
 
-
-Hi Brad / Vernon,
-
-Regarding
-https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11497/
-(extending from yocto to receipe-core (to add few more pam modules),
-which is why it is getting added by default in /lib/security, which is
-part of initramfs).
-
-Currently this breaks palmetto, zaius & romulus. Not sure, what should
-be direction in order to fix the build failure (whether to clean / steal
-from rw fs?).
-
-In today's call, there was a question about why it has to be in
-initramfs and not in rofs, and this are the following, and it can be
-changed in different way, if it is not required
-
-i.e If rofs is not mapped / any problem with it, we still need to allow
-the root user login, which require's pam_unix.so in initramfs itself
-i.e. under /lib/security
-
-if above requirement is not needed, then the the same can be pulled and
-installed under /usr/lib/security  (which will be in rofs instead of
-initramfs).
-
-Let me know your thoughts.
-
-regards,
-
-Richard
+TXkgMiBjZW50czoNCg0KSSBhbHNvIHRoaW5rIHRoZSBkZWZlY3RzIGhhdmUgdG8gYmUgZmlsZWQg
+b24gYSByZXBvc2l0b3J5IGJhc2lzLiBXaGlsZSBpdCBzaG91bGRu4oCZdCBiZSBuZWNlc3Nhcnkg
+Zm9yIHRoZSBzdWJtaXR0ZXIgdG8gYWxyZWFkeSBjb250cmlidXRlIHRvIGNvbW11bml0eSBiZWZv
+cmUgZmlsaW5nIGEgZGVmZWN0LCBpdCBpcyByZWFzb25hYmxlIHRvIGV4cGVjdCB0aGF0IHRoZSBz
+dWJtaXR0ZXIgaGFzIHRha2VuIHNvbWUgdGltZSB0byBmYW1pbGlhcml6ZSBoZXJzZWxmIHdpdGgg
+dGhlIG92ZXJhbGwgcmVwIG9yZ2FuaXphdGlvbiBhbmQgaGFzIGRvbmUgdGhlIGR1ZSBkaWxpZ2Vu
+Y2UgaW4gcGlja2luZyB0aGUgcmlnaHQgcmVwb3NpdG9yeS4gQWZ0ZXIgdGhhdCwgaXQgd2lsbCBy
+ZWFsbHkgYmUgdXAgdG8gbWFpbnRhaW5lcnMgb3Igb3RoZXIgYWN0aXZlIGRldmVsb3BlcnMgb24g
+dGhhdCByZXBvIHRvIHRha2UgYWN0aW9uIC0gYW5kIG1vdmUgYXMgbmVjZXNzYXJ5LiBXZSB3aWxs
+IG5lZWQgZ3VpZGVsaW5lcyBvbiBob3cgdG8gZmlsZSBkZWZlY3RzIHRoYXQgc3BhbiBtdWx0aXBs
+ZSByZXBvc2l0b3JpZXMuIEFuZCB3ZSB3aWxsIGxpa2VseSBzdGlsbCBuZWVkIGEgY2F0Y2hhbGwg
+bWlzY2VsbGFuZW91cyBkZWZlY3QgY2F0ZWdvcnkgZm9yIGRlZmVjdHMgdGhhdCBoYXZlIG5vIGNs
+ZWFyIHJlcG8gKG9yIHN1Ym1pdHRlciBjb3VsZCBub3QgcGljaywgb3IgbWFpbnRhaW5lcnMgY291
+bGQgbm90IGRlY2lkZS4uLikuIEhhdmluZyBhICJob3cgdG8gZmlsZSBkZWZlY3RzIiBkb2N1bWVu
+dCBhbmQgcHJvdmlkaW5nIGluaXRpYWwgZ3VpZGFuY2Ugd2lsbCBiZSB1c2VmdWwuIEkgdGhpbmsg
+aXQncyBlYXJseSB0byB0YWxrIGFib3V0IFNMQSBhbmQgbWV0cmljcyBhdCB0aGlzIHBvaW50LiBM
+ZXQncyBnZXQgdGhlIGZpbGluZyBtb3N0bHkgc29ydGVkIG91dCBmaXJzdC4NCg0KVGhhbmtzLA0K
+LVNoYXJhZA0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBvcGVuYm1jIFtt
+YWlsdG86b3BlbmJtYy1ib3VuY2VzK3NoYXJhZC5raGV0YW49aW50ZWwuY29tQGxpc3RzLm96bGFi
+cy5vcmddIE9uIEJlaGFsZiBPZiBQYXRyaWNrIFZlbnR1cmUNClNlbnQ6IE1vbmRheSwgQXVndXN0
+IDIwLCAyMDE4IDExOjE1IEFNDQpUbzogU2l2YXMgU3JyIDxzaXZhcy5zcnJAaW4uaWJtLmNvbT4N
+CkNjOiBhbm9vQGxpbnV4LnZuZXQuaWJtLmNvbTsgT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0Bs
+aXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IG9wZW5ibWMgYnVnIG1hbmFnZW1lbnQNCg0K
+T24gTW9uLCBBdWcgMTMsIDIwMTggYXQgOTo0MCBBTSBTaXZhcyBTcnIgPHNpdmFzLnNyckBpbi5p
+Ym0uY29tPiB3cm90ZToNCj4NCj4gR29vZCBkaXNjdXNzaW9uIHRvcGljLCBBbmRyZXcuDQo+DQo+
+IE15IHRob3VnaHRzOg0KPiA9PT09PT09PT09DQo+DQo+IEZpcnN0IG9mIGFsbCwgYnVnIHNob3Vs
+ZCBiZSBhc3NvY2lhdGUgd2l0aCBTTEEvc29tZSBraW5kIG9mIG1ldHJpY3Mgb24gaG93IHF1aWNr
+bHkgaXQgZ2V0cyByZXNvbHZlZC4NCj4NCj4gQnVnIHN1Ym1pdHRlciBpcyBhbHJlYWR5IHN0YXJ0
+ZWQgZG9uYXRpbmcvY29udHJpYnV0aW5nIHRvIHRoZSBjb21tdW5pdHkgYnkgcG9pbnRpbmcgdGhl
+IGlzc3VlIGluIHRoZSBjb2RlLA0KPiB3aGVuIGJ1ZyBzdWJtaXR0ZXIgb3BlbnMgYW4gaXNzdWUu
+DQo+DQo+IEl0IGlzIHRoZSBtYWludGFpbmVyIChvdGhlciBhc3NpZ25lZCBwZXJzb24pIHJlc3Bv
+bnNpYmlsaXR5IHRvIGFjY2VwdCAoZml4IHRoZSBidWcpIG9yIHByb3ZlIGl0IGlzIG5vdCBpbiB0
+aGVpcg0KPiBhcmVhIGFuZCBwb2ludGVkIG91dCB0aGUgaXNzdWUvYnVnIHRvIHRoZSBvdGhlciBy
+ZXBvc2l0b3J5IHdpdGggZGV0YWlscy4gIChGcm9tIHRoZSBob3JzZSdzIG1vdXRoKQ0KPg0KPiBJ
+ZiB0aGUgb3duZXJzaGlwIG9mIG1vdmluZy9jbG9zaW5nIGJ1ZyB0byB0aGUgc3VibWl0dGVyLCBJ
+IGZlZWwgdGhlIHBvaW50IG9mIGlzb2xhdGluZyB0aGUgYnVnIG1heSBub3QgaGFwcGVuIGFjY3Vy
+YXRlbHkuDQo+DQo+IFNlY29uZCBwb2ludCAoYmFjayB0byBTTEEpLCBJZiB0aGUgc3VibWl0dGVy
+IG93bnMgaXQgdGhlbiBTTEEvTWV0cmljcyBtYXkgbm90IGJlIGFjY3VyYXRlLiBUaGlzIHdpbGwg
+YmUgdG90YWxseSBkaWZmZXJlbnQgdGhhbiB3aGF0IG5vcm1hbGx5IGluZHVzdHJ5IGZvbGxvd3Ms
+IEkgZ3Vlc3MuDQo+DQo+IFJlYWwgTGlmZSBTY2VuYXJpbzoNCj4gPT09PT09PT09PT09PT09DQo+
+IEZvciBlZy4gaWYgcGVyc29uIEEgcG9pbnRzIG91dCBpc3N1ZS9idWcgaW4gcGVyc29uIEIgc2hp
+cnQsIENhbiBwZXJzb24gQSByZXNwb25zaWJsZSB0byBjaGFuZ2UgcGVyc29uIEIgc2hpcnQ/DQo+
+DQo+DQo+DQo+IFNpdmFzIFIuIFMNCj4gRS1tYWlsOiBzaXZhcy5zcnJAaW4uaWJtLmNvbQ0KPiBF
+MkUgRlNQIFRlc3QgQXJjaGl0ZWN0dXJlLCBPcGVuQk1DIFRlc3QgTGVhZCwgTGFiIE1hbmFnZW1l
+bnQNCj4gQXV0b21hdGlvbiBpcyBnb29kLCBJZGVudGlmeWluZyBEZWZlY3QgZWFybGllciBpcyBi
+ZXR0ZXIgYWx3YXlzDQo+IDk5MDIyMzM1MDANCj4gMDgwNDY2NzgyNzMNCj4NCj4NCj4NCj4gLS0t
+LS0gT3JpZ2luYWwgbWVzc2FnZSAtLS0tLQ0KPiBGcm9tOiBBbmRyZXcgR2Vpc3NsZXIgPGdlaXNz
+b25hdG9yQGdtYWlsLmNvbT4NCj4gU2VudCBieTogIm9wZW5ibWMiIDxvcGVuYm1jLWJvdW5jZXMr
+c2l2YXMuc3JyPWluLmlibS5jb21AbGlzdHMub3psYWJzLm9yZz4NCj4gVG86IEFkcmlhbmEgS29i
+eWxhayA8YW5vb0BsaW51eC52bmV0LmlibS5jb20+LCBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1j
+QGxpc3RzLm96bGFicy5vcmc+DQo+IENjOg0KPiBTdWJqZWN0OiBvcGVuYm1jIGJ1ZyBtYW5hZ2Vt
+ZW50DQo+IERhdGU6IE1vbiwgQXVnIDEzLCAyMDE4IDk6MzQgUE0NCj4NCj4gQ3VycmVudGx5IHdl
+IG1vc3RseSBvcGVuIGJ1Z3MgYWdhaW5zdCBvcGVuYm1jL29wZW5ibWMuICBUaGlzIGlzIG5pY2UN
+Cj4gaW4gdGhhdCBpdCBwcm92aWRlcyBhIHNpbmdsZSBsb2NhdGlvbiB0byBzZWFyY2ggZm9yIGFs
+bCBidWdzIHJlbGF0ZWQNCj4gdG8gb3BlbmJtYywgYnV0IGl0IGRvZXNuJ3QgcHJvdmlkZSBhbnkg
+Y2xlYXIgb3duZXJzaGlwIGZvciBzb21lb25lIHRvDQo+IGRyaXZlIHRoZSBidWcsIGFuZCBpdCBi
+ZWNvbWVzIG1vcmUgYW5kIG1vcmUgdW5tYW5hZ2VhYmxlIGFzIHRoZQ0KPiBvcGVuYm1jIHByb2pl
+Y3QgY29udGludWVzIHRvIGdyb3cuDQo+DQo+IFBlciB0aGUgY29tbXVuaXR5IGNhbGwgdG9waWMg
+dG9kYXksIHdlJ2QgbGlrZSB0byBzdGFydCBoYXZpbmcgYnVncw0KPiBhc3NpZ25lZCB0byB0aGUg
+c3BlY2lmaWMgcmVwbyB0aGF0IHdpbGwgcHJvdmlkZSB0aGUgZml4IHRvIHRoZSBidWcuDQo+IFRo
+ZSBtYWluIGNvbmNlcm4gd2l0aCB0aGlzIGlzIHRoYXQgaWYgc29tZW9uZSBpcyB1bnN1cmUgb24g
+d2hlcmUgdGhlDQo+IGJ1ZyBzaG91bGQgZ28gYW5kIHRha2VzIGEgYmVzdCBndWVzcywgaWYgdGhl
+IGd1ZXNzIGlzIHdyb25nLCBob3cgZG8gd2UNCj4gZW5zdXJlIHRoZSBidWcgZ2V0cyByb3V0ZWQg
+Y29ycmVjdGx5PyAgVGhlIGlkZWEgd2FzIHRoYXQgaXQncyB0aGUNCj4gcmVzcG9uc2liaWxpdHkg
+b2YgdGhlIGNyZWF0b3Igb2YgdGhlIGJ1Zywgc28gdGhlIHJlcG8gb3duZXIgc2F5cw0KPiBzb21l
+dGhpbmcgdG8gdGhlIGFmZmVjdCBvZiAibm90IG15IHByb2JsZW0iICh3aXRoIHNvbWUgZ3VpZGFu
+Y2Ugb24NCj4gd2hvJ3MgaXQgaXMgaWYgdGhleSBrbm93KSBhbmQgdGhlIGJ1ZyBzdWJtaXR0ZXIg
+d2lsbCB0aGVuIHVzZSB0aGUNCj4gemVuaHViIG9wdGlvbiAiTW92ZSBJc3N1ZSIgdG8gY2xvc2Ug
+aXQgaW4gdGhlIGN1cnJlbnQgcmVwbyBhbmQgY29weSBpdA0KPiBvdmVyIHRvIHRoZSBuZXcgcmVw
+by4NCj4NCj4gVGhvdWdodHMgb3IgY29uY2VybnM/DQoNCkkgdGhpbmsgaXQncyBjb21wbGV0ZWx5
+IHJlYXNvbmFibGUgdG8gZXhwZWN0IG1haW50YWluZXJzIHRvIHdhdGNoDQp0aGVpciBpbmNvbWlu
+ZyBidWdzIGFuZCByZWRpcmVjdCBhcyBuZWNlc3NhcnkuICBGdXJ0aGVybW9yZSwgSSB0aGluaw0K
+aXQgaXMgdG9vIG11Y2ggdG8gaGF2ZSBhbGwgdGhlIGJ1Z3MgZmlsZWQgaW50byBvbmUgcHJvamVj
+dC4gIEkga25vdw0KdGhhdCBJIG5ldmVyIGNoZWNrIGl0IGZvciBuZXcgYnVncyB0aGVyZSBiZWNh
+dXNlIG9mIHRoaXMuDQoNClRob3NlIGFyZSBteSAkMC4wMi4NCg0KPiBBbmRyZXcNCj4NCj4NCj4N
+Cg==
