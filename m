@@ -1,68 +1,72 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <tomjose@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
  (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
+ envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41vjsw1tjFzF0pD
- for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 18:05:55 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41vqNk4NkTzF0kx
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 22:14:29 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7L845PV029761
- for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 04:05:54 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.73])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2m0cm7ngnj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 04:05:53 -0400
+ w7LC4Bpw063912
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 08:14:27 -0400
+Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2m0f4dgcus-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 08:14:23 -0400
 Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Tue, 21 Aug 2018 08:05:51 -0000
-Received: from us1a3-smtp06.a3.dal06.isc4sb.com (10.146.103.243)
- by smtp.notes.na.collabserv.com (10.106.227.90) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 21 Aug 2018 08:05:49 -0000
-Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
- by us1a3-smtp06.a3.dal06.isc4sb.com
- with ESMTP id 2018082108054933-203094 ;
- Tue, 21 Aug 2018 08:05:49 +0000 
-In-Reply-To: 
-Subject: OpenBMC test work group meeting on Thursday (23 Aug) at 9PM IST
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 21 Aug 2018 08:05:48 +0000
-Sensitivity: 
-References: 
+ by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Tue, 21 Aug 2018 13:13:56 +0100
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 21 Aug 2018 13:13:54 +0100
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7LCDrtv38994132
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 12:13:53 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 846B5AE04D
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 15:13:32 +0100 (BST)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 30AE2AE045
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 15:13:32 +0100 (BST)
+Received: from [9.193.103.189] (unknown [9.193.103.189])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTPS
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 15:13:31 +0100 (BST)
+From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Mapping LDAP group to user roles
+Date: Tue, 21 Aug 2018 17:43:51 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
- SCN1812108_20180501T0841 May 01, 2018 at 08:41
-X-LLNOutbound: False
-X-Disclaimed: 12959
-X-TNEFEvaluated: 1
-x-cbid: 18082108-3107-0000-0000-000007C5CE10
-X-IBM-SpamModules-Scores: BY=0.000057; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.002150
-X-IBM-SpamModules-Versions: BY=3.00009583; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01076633; UDB=6.00555021; IPR=6.00856603; 
- BA=6.00006081; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00022842; XFM=3.00000015;
- UTC=2018-08-21 08:05:50
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-08-21 04:24:37 - 6.00008860
-x-cbparentid: 18082108-3108-0000-0000-0000B0191F87
-Message-Id: <OF69496ECF.51F903E5-ON002582F0.002C4471-002582F0.002C7A46@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18082112-0020-0000-0000-000002B9A288
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18082112-0021-0000-0000-00002106F36C
+Message-Id: <1b935f90-dba3-ba95-f6b1-d8d2ff186ee7@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-21_04:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ definitions=2018-08-21_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=891 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1808210129
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -74,30 +78,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2018 08:05:57 -0000
+X-List-Received-Date: Tue, 21 Aug 2018 12:14:31 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Dear Friends,</di=
-v>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >As Tomorrow is a local holiday here in India, Hence sendi=
-ng a reminder for</div>
-<div dir=3D"ltr" >our OpenBMC test work group meeting on Thursday (23 Aug),=
- at 9PM IST.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Please do join friends.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"fo=
-nt-family:Arial;font-size:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D=
-"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div class=3D"socmailde=
-faultfont" dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5pt" ><div c=
-lass=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;font-siz=
-e:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-fami=
-ly:Arial;font-size:10.5pt" ><div dir=3D"ltr" style=3D"margin-top: 20px;" ><=
-div style=3D"font-size: 12pt; font-weight: bold; font-family: sans-serif; c=
-olor: #7C7C5F;" >Sivas R. S</div>
-<div style=3D"font-size: 8pt; font-family: sans-serif; margin-top: 10px;" >=
-&nbsp;
-<div>9902233500</div>
-<div>&nbsp;</div></div></div></div></div></div></div></div></div></div><BR>
+Hello,
+
+We have a requirement to assign role to the LDAP users, so certain 
+operations can be restricted for users without admin permissions.
+
+The proposal is to assign role for the LDAP groups. The LDAP user will 
+inherit the role assigned to the LDAP group.
+To start off the plan is to have two roles, the admin role and the user 
+role. The role will be consumed by the
+phosphor-rest-server and screen the REST api based on HTTP verbs.The 
+user role will permit only REST API's with GET verb.
+The admin role will permit all the HTTP verbs.
+
+With this in background, i am proposing a D-Bus API to implement the 
+LDAP group to role mapping. The CreateGroupRole method
+can be used to create a mapping between the LDAP group and the role. 
+This will create the object with the group name like
+/xyx/openbmc_project/ldap/<group_name> which will implement the 
+GroupEntry interface that has the role attribute.
+
+Let me know the thoughts about this proposal.
+
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/12027/
+
+Regards,
+Tom
