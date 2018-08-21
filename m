@@ -1,57 +1,54 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22f; helo=mail-it0-x22f.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400d:c09::22a; helo=mail-qk0-x22a.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="p2OuOEWv"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="SH8+UKrE"; 
  dkim-atps=neutral
-Received: from mail-it0-x22f.google.com (mail-it0-x22f.google.com
- [IPv6:2607:f8b0:4001:c0b::22f])
+Received: from mail-qk0-x22a.google.com (mail-qk0-x22a.google.com
+ [IPv6:2607:f8b0:400d:c09::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41vb8c40mLzDqnw
- for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 13:03:12 +1000 (AEST)
-Received: by mail-it0-x22f.google.com with SMTP id d9-v6so2302744itf.2
- for <openbmc@lists.ozlabs.org>; Mon, 20 Aug 2018 20:03:12 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41vjnD6G4MzF0pD
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 18:01:52 +1000 (AEST)
+Received: by mail-qk0-x22a.google.com with SMTP id z78-v6so10461860qka.0
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 01:01:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Z53f0GHwGiu68rRGYYWpIdDg23BbZpw69cDcYxYMNPk=;
- b=p2OuOEWvvHycaM56nRLXScwbixT5S2utD3o8l3Lq435Gpj+Gc2zvdfRQ1en7jifXJB
- Pc8oEQC1O1MaCQnEyq2XRnZCi2RDVlKofLyfa0Z9dw585WQAQP1P2e29ICEKHPnNUg2r
- ePms5T1Kn7bqUax6LgiuzznmlE4P4j1S/3XIp3KYdP8hserLCv53OphztQgED2xRFqDn
- 7SQz/y9PTZcepKwaWueVBMrBk0GKTmjkUKrGJpCnYYiLXZ87HS1+keOs9YkJthFUfqfR
- aN9pqDKnCY7RmnHZh6gObEK+JJ9nym6MxPzU+Coix6uNGSN6imqy7QrtDRxuF7T3BEpa
- ax/g==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=QncO7o06gdOYIiXfuHXTDusAzpZGmOqhjf9OZ1XrbsY=;
+ b=SH8+UKrEgx/XZlkM8YjOMTp4/rJ38cTHwOlsEzYCoq3tEMvq7fWu5Xn2/NQ0E0ROlB
+ w1ZJUliRhQnBAlygBCrgr+o1JpETFMzzx+H+cc+fv7gnE8GReq0FULEFXcnaEtQhjVXE
+ IVY1nWAZKjiWufhuRRJFRJ+qmwHucba5DZKkRt1FH3nq+xsHFaQ6b9OwhlVFXTSjF0pi
+ QxtRR/G14mqQDTbIOeEZgW2b14F5lNRNkoVcKCqJ3B/GAn4kvr1K4Vh1Cf3I+SeqK9/e
+ vNZRAOTsEXY5CXtkPoZBrKYb6YVdPdmSC8Nf4jIsYKS7VoLglFsXBIxOe1paSlYHxg+g
+ rAvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Z53f0GHwGiu68rRGYYWpIdDg23BbZpw69cDcYxYMNPk=;
- b=mlJRzJ8fuiN7aSfCRcpAOKC8IA8KvJyJvWUbLD/aCpxDFTMBcaVSLIVaCwgwrsp0qK
- 2wYBBuDVjYPx/RGRT3KxJ95LiCD3kY2UQEe5fhcSz5ytXkDwrlexlOeEWkXiQ0bQye/p
- V/+P9rGGS+cP/m0C94fV8mGWJeTrJO0jq4xQCKP4oxxMWvCZfExD+aL0lLiJF6u3Znj9
- /2tjP1o1eZ+n1zu0zLNRa2SRhd5DPZAKDSBCFBJUkmoXPWgT2a0ANuq5tGmRn9O+IrdY
- iANS618TQjqNW+0/dPR8BXgoZkguew61fjn4s6K5nVl4wr4ZieOCo8Btvgs1HfAr1ZfQ
- Xhtw==
-X-Gm-Message-State: AOUpUlHdgT7z3J+eSfsHJNI4XLP0xfG0WSKYx4oUny3wSNrnxO9Qj2ZK
- CzUSqX/GrWz5KwsNwB3F3T2Ez5qfXauaciq5MWY=
-X-Google-Smtp-Source: AA+uWPzJyglqCyQksullA9S1WES+lYKoW0quJ0m/EsvVCkRQCLy2XtqSd6atHeCH+wB+j51g2pF+YnfLBQVtNfDXRSM=
-X-Received: by 2002:a24:14d8:: with SMTP id
- 207-v6mr14436087itg.41.1534820589550; 
- Mon, 20 Aug 2018 20:03:09 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=QncO7o06gdOYIiXfuHXTDusAzpZGmOqhjf9OZ1XrbsY=;
+ b=fhfxZq+QjXsMsklL4MFreCzOiUBL+0+eipxAhQlCI22RYb/UL0dTbpw84bbgtd7PfD
+ hr7X8ojLCYXw4cy70hq0YwoZQtQUuEqB62dSzyXK3xHuw4Ca/FB4S8PBU3wvj8rdBmYg
+ mrwsjKtsUYUKTvlfqcA+MRAOZJuSSjbn1vz6SKDPrv0q00ZdVcNi55pbt9pByZOy9o4Y
+ waOqN0Vh05YUDO8RgQ3sN/UDfDi932wK4pMwZewGTw/8F0BLQI6Niwi9YMgRycZ7NdM2
+ xvqlaZ6tUWMrbOUzyH/1tDJnwcfE68a4vDlk0xPJ79mh0hCX9Dr5qwQ31/B7GVVRNnIR
+ gjkw==
+X-Gm-Message-State: AOUpUlFIMwVRNLwwM0om8Q0mZOcuc79h0O1KlSOgZ7yjyTrbcUsqtJFB
+ 3KKKJOQnf4cSY/hpTHtg6/Q1tUaRZptmyfrXGKA=
+X-Google-Smtp-Source: AA+uWPwn8oHoo5cUrXcTtZVnN/Japi5DuoCnIbCSK8dtzNg3lS+VDLokFkZ+KdT3p/cnJ5esV5DRP9Vy+cj87/Z5CY0=
+X-Received: by 2002:a37:7ac5:: with SMTP id
+ v188-v6mr17438294qkc.262.1534838509751; 
+ Tue, 21 Aug 2018 01:01:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <CADKL2t4bP5VKSZ3x9wiq4c+O-6JM=nFQgQjtTTBL_2i0e7zfzw@mail.gmail.com>
-In-Reply-To: <CADKL2t4bP5VKSZ3x9wiq4c+O-6JM=nFQgQjtTTBL_2i0e7zfzw@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 21 Aug 2018 11:02:56 +0800
-Message-ID: <CAARXrtm4V-g6gH9iGKFHrE+LmOUvkG-thv+q9e7u335nQsYFqw@mail.gmail.com>
-Subject: Re: Sensor alarm logging in IPMI SEL
-To: benjaminfair@google.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Tue, 21 Aug 2018 16:01:38 +0800
+Message-ID: <CAG9c7cC25xbJZChsGEh1=yt5BnJjGufH2yEq5L-ws-2Y-H31gA@mail.gmail.com>
+Subject: UpdateService in Redfish
+To: "Tanous, Ed" <ed.tanous@intel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="00000000000029513f0573ed707c"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -63,31 +60,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2018 03:03:13 -0000
+X-List-Received-Date: Tue, 21 Aug 2018 08:01:54 -0000
 
-The existing phosphor-dbus-monitor should be able to do that.
-It requires a yaml config to define the watches and actions.
+--00000000000029513f0573ed707c
+Content-Type: text/plain; charset="UTF-8"
 
-See [witherspoon example][1], that watches the properties (ThrottleProcTemp,
-ThrottleProcPower, ThrottleMemTemp) on /org/open_power/control/occ0, and log
-the related events.
+Hi Ed,
+I search the below commit in the bmcweb REPO.
 
-1. https://github.com/openbmc/openbmc/blob/master/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/events/witherspoon-events-policy/config.yaml
+commit acb7cfb4b571bd2045b1d269625ba054806a466d
+Author: Jennifer Lee <jennifer1.lee@intel.com>
+Date:   Thu Jun 7 16:08:15 2018 -0700
 
-On Tue, Aug 21, 2018 at 3:53 AM Benjamin Fair <benjaminfair@google.com> wrote:
->
-> Hi all,
->
-> We are looking for a way to log and report sensor events such as
-> over-temperature alarms and voltage regulator failures using the BMC.
-> The IPMI SEL seems like a good approach, as it matches industry
-> standards. There is already existing infrastructure for SEL in
-> OpenBMC, so implementing this seems like it would only require
-> modifying a daemon like sensord from the lm-sensors project to report
-> alarms over dbus.
->
-> Does this sound reasonable? Has anyone else already started working on
-> something similar?
->
-> Thanks,
-> Benjamin
+    Implement POST for redfish UpdateService
+
+    - POST an image file to /redfish/v1/UpdateServer uri will upload the
+      image and activate it
+    - Modified SoftwareInventoryCollection to list items with
+      xyz.openbmc_project.Software.Activation/Activation property as
+    "xyz.openbmc_project.Software.Activation.Activations.Active"
+    - SoftwareInventory odata.id is identified with DBus generated uuid
+
+May I know if BMC FW can be updated through UpdateService in Redfish?
+If yes, could you share how to use it?
+
+Besides that, I add some debug message in
+the redfish-core/lib/update_service.hpp but output nothing
+
+Could you give some suggestion?
+...
+private:
+  void doGet(crow::Response &res, const crow::Request &req,
+             const std::vector<std::string> &params) override {
+    std::cout << "Henbin=" << __FILE__<< ": "<<__LINE__ << "\n";
+BMCWEB_LOG_INFO << "Henbin=" << __FILE__<< ": "<<__LINE__ << "\n";
+    res.jsonValue = Node::json;
+    res.end();
+  }
+...
+
+Thanks.
+
+BRs,
+Henbin.
+
+--00000000000029513f0573ed707c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Ed,<div>I search the below commit in the=C2=A0bmcweb=C2=
+=A0REPO.<br></div><div><div><br></div><div>commit acb7cfb4b571bd2045b1d2696=
+25ba054806a466d</div><div>Author: Jennifer Lee &lt;<a href=3D"mailto:jennif=
+er1.lee@intel.com">jennifer1.lee@intel.com</a>&gt;</div><div>Date:=C2=A0 =
+=C2=A0Thu Jun 7 16:08:15 2018 -0700</div><div><br></div><div>=C2=A0 =C2=A0 =
+Implement POST for redfish UpdateService</div><div><br></div><div>=C2=A0 =
+=C2=A0 - POST an image file to /redfish/v1/UpdateServer uri will upload the=
+</div><div>=C2=A0 =C2=A0 =C2=A0 image and activate it</div><div>=C2=A0 =C2=
+=A0 - Modified SoftwareInventoryCollection to list items with</div><div>=C2=
+=A0 =C2=A0 =C2=A0 xyz.openbmc_project.Software.Activation/Activation proper=
+ty as</div><div>=C2=A0 =C2=A0 &quot;xyz.openbmc_project.Software.Activation=
+.Activations.Active&quot;</div><div>=C2=A0 =C2=A0 - SoftwareInventory <a hr=
+ef=3D"http://odata.id">odata.id</a> is identified with DBus generated uuid<=
+/div></div><div><br></div><div>May I know if BMC FW can be updated through=
+=C2=A0UpdateService in Redfish?=C2=A0</div><div>If yes, could you share how=
+ to use it?</div><div><br></div><div>Besides that, I add some debug message=
+ in the=C2=A0redfish-core/lib/update_service.hpp=C2=A0but output nothing=C2=
+=A0</div><div><br></div><div>Could you give some suggestion?=C2=A0=C2=A0<br=
+></div><div>...</div><div><div>private:</div><div>=C2=A0 void doGet(crow::R=
+esponse &amp;res, const crow::Request &amp;req,</div><div>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const std::vector&lt;std::string&gt; &amp;pa=
+rams) override {</div><div>=C2=A0 =C2=A0 std::cout &lt;&lt; &quot;Henbin=3D=
+&quot; &lt;&lt; __FILE__&lt;&lt; &quot;: &quot;&lt;&lt;__LINE__ &lt;&lt; &q=
+uot;\n&quot;;</div><div><span style=3D"white-space:pre">	</span>BMCWEB_LOG_=
+INFO &lt;&lt; &quot;Henbin=3D&quot; &lt;&lt; __FILE__&lt;&lt; &quot;: &quot=
+;&lt;&lt;__LINE__ &lt;&lt; &quot;\n&quot;;</div><div>=C2=A0 =C2=A0 res.json=
+Value =3D Node::json;</div><div>=C2=A0 =C2=A0 res.end();</div><div>=C2=A0 }=
+</div></div><div>...</div><div><br></div><div>Thanks.<br></div><div><br></d=
+iv><div>BRs,</div><div>Henbin.</div></div>
+
+--00000000000029513f0573ed707c--
