@@ -1,53 +1,55 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4001:c0b::22f; helo=mail-it0-x22f.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="XCevJ5yy"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="p2OuOEWv"; 
  dkim-atps=neutral
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
+Received: from mail-it0-x22f.google.com (mail-it0-x22f.google.com
+ [IPv6:2607:f8b0:4001:c0b::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41vWt35pg2zDrWY
- for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 10:35:23 +1000 (AEST)
-Received: by mail-qt0-x244.google.com with SMTP id x7-v6so9091392qtk.5
- for <openbmc@lists.ozlabs.org>; Mon, 20 Aug 2018 17:35:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41vb8c40mLzDqnw
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 13:03:12 +1000 (AEST)
+Received: by mail-it0-x22f.google.com with SMTP id d9-v6so2302744itf.2
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Aug 2018 20:03:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ndCKVGflncI6j1GMBMibwl4onllui+nDT039H6XWo9o=;
- b=XCevJ5yywezmPgiJeMP4O9Pc9jcv5YEjLMpbLv88K4udsHB0O2CJotzotVc/2//GAB
- WU7tR8aHYkkSyHOsG9+qLjFm1HkvTeeVUBejZtgHm2L8/ktk0DLa50J8sfPQTDUkSLdJ
- HwJKqGSvK8BuXv6iInmizfCXXdkRRLR6sXXqM=
+ :cc; bh=Z53f0GHwGiu68rRGYYWpIdDg23BbZpw69cDcYxYMNPk=;
+ b=p2OuOEWvvHycaM56nRLXScwbixT5S2utD3o8l3Lq435Gpj+Gc2zvdfRQ1en7jifXJB
+ Pc8oEQC1O1MaCQnEyq2XRnZCi2RDVlKofLyfa0Z9dw585WQAQP1P2e29ICEKHPnNUg2r
+ ePms5T1Kn7bqUax6LgiuzznmlE4P4j1S/3XIp3KYdP8hserLCv53OphztQgED2xRFqDn
+ 7SQz/y9PTZcepKwaWueVBMrBk0GKTmjkUKrGJpCnYYiLXZ87HS1+keOs9YkJthFUfqfR
+ aN9pqDKnCY7RmnHZh6gObEK+JJ9nym6MxPzU+Coix6uNGSN6imqy7QrtDRxuF7T3BEpa
+ ax/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ndCKVGflncI6j1GMBMibwl4onllui+nDT039H6XWo9o=;
- b=a9Mv2Q6JJYt/dUnc5vjmR4eT1ZKdegHcDQqhMpvlareWyyYDteDDLaNsrmspL8/cFb
- tgWgZ8crWa2WRovmHL6gSoqeF9wP9x3kD9lfr1GeaXj7gknk4oEfqfguZu9SEtftvssM
- l1Jl/HzMMVLsG0aN4ODl1MTW1dbLRyLi+60ntz25UoiUh1pk8RXFfwjyyxnJ4nFNKaVR
- CPzfrL4+U8CxjYNZaZydkGhbnWy6jd91cl8tI0vO7ovl3FupKFBkFMOdISRPmPgCzzI8
- Bgmyg0DgIPqSuPDRwXHYULh3K3Dr3wX15UpCc5+NqSZ15ZZqebRoTwHfa7D48zW27ylZ
- GKdA==
-X-Gm-Message-State: AOUpUlGO72abGSNoab9H3wpZ/yYr+Q6NpI47iQDExL2KAkyyIIzbP5l6
- +ZAmqwOa9yvLVcw7OUA7tcXOLIOgc1mYiiI8TIE=
-X-Google-Smtp-Source: AA+uWPy5dYVDI/lWFK3u/qhxVgdUGbaHQb5IX18647NbioG9fjEVIcl80kpv4rjsuO1SsOIHNBDu4ho1OEa1zTPhQhI=
-X-Received: by 2002:a0c:d7c3:: with SMTP id
- g3-v6mr42886564qvj.85.1534811721104; 
- Mon, 20 Aug 2018 17:35:21 -0700 (PDT)
+ bh=Z53f0GHwGiu68rRGYYWpIdDg23BbZpw69cDcYxYMNPk=;
+ b=mlJRzJ8fuiN7aSfCRcpAOKC8IA8KvJyJvWUbLD/aCpxDFTMBcaVSLIVaCwgwrsp0qK
+ 2wYBBuDVjYPx/RGRT3KxJ95LiCD3kY2UQEe5fhcSz5ytXkDwrlexlOeEWkXiQ0bQye/p
+ V/+P9rGGS+cP/m0C94fV8mGWJeTrJO0jq4xQCKP4oxxMWvCZfExD+aL0lLiJF6u3Znj9
+ /2tjP1o1eZ+n1zu0zLNRa2SRhd5DPZAKDSBCFBJUkmoXPWgT2a0ANuq5tGmRn9O+IrdY
+ iANS618TQjqNW+0/dPR8BXgoZkguew61fjn4s6K5nVl4wr4ZieOCo8Btvgs1HfAr1ZfQ
+ Xhtw==
+X-Gm-Message-State: AOUpUlHdgT7z3J+eSfsHJNI4XLP0xfG0WSKYx4oUny3wSNrnxO9Qj2ZK
+ CzUSqX/GrWz5KwsNwB3F3T2Ez5qfXauaciq5MWY=
+X-Google-Smtp-Source: AA+uWPzJyglqCyQksullA9S1WES+lYKoW0quJ0m/EsvVCkRQCLy2XtqSd6atHeCH+wB+j51g2pF+YnfLBQVtNfDXRSM=
+X-Received: by 2002:a24:14d8:: with SMTP id
+ 207-v6mr14436087itg.41.1534820589550; 
+ Mon, 20 Aug 2018 20:03:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <1534485925-63307-1-git-send-email-mine260309@gmail.com>
-In-Reply-To: <1534485925-63307-1-git-send-email-mine260309@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 21 Aug 2018 10:05:09 +0930
-Message-ID: <CACPK8XfcvJiX8jPgMxtnijtt7jVGXM2SCe6fiYfpvqQuU2du2w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.17 v2] ARM: dts: aspeed: romulus: Enable
- iio-hwmon-battery
-To: Lei YU <mine260309@gmail.com>
+References: <CADKL2t4bP5VKSZ3x9wiq4c+O-6JM=nFQgQjtTTBL_2i0e7zfzw@mail.gmail.com>
+In-Reply-To: <CADKL2t4bP5VKSZ3x9wiq4c+O-6JM=nFQgQjtTTBL_2i0e7zfzw@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Tue, 21 Aug 2018 11:02:56 +0800
+Message-ID: <CAARXrtm4V-g6gH9iGKFHrE+LmOUvkG-thv+q9e7u335nQsYFqw@mail.gmail.com>
+Subject: Re: Sensor alarm logging in IPMI SEL
+To: benjaminfair@google.com
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -61,58 +63,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2018 00:35:24 -0000
+X-List-Received-Date: Tue, 21 Aug 2018 03:03:13 -0000
 
-Hi Lei,
+The existing phosphor-dbus-monitor should be able to do that.
+It requires a yaml config to define the watches and actions.
 
-On Fri, 17 Aug 2018 at 15:35, Lei YU <mine260309@gmail.com> wrote:
->
-> Add iio-hwmon-battery using adc channel 12;
-> Enable adc to make adc running.
+See [witherspoon example][1], that watches the properties (ThrottleProcTemp,
+ThrottleProcPower, ThrottleMemTemp) on /org/open_power/control/occ0, and log
+the related events.
 
-I assume we're doing this to read a battery voltage of some kind (was
-it the RTC)? The commit message should describe why the change is
-being made (as we can read the patch to see what is being done).
+1. https://github.com/openbmc/openbmc/blob/master/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/events/witherspoon-events-policy/config.yaml
 
-This patch does not apply to dev-4.17. Can you rebase and test on top
-of the latest?
-
-Cheers,
-
-Joel
-
+On Tue, Aug 21, 2018 at 3:53 AM Benjamin Fair <benjaminfair@google.com> wrote:
 >
-> Note it requires GPIOR3 to be pulled high to read the voltage, and this
-> is left for user space to toggle the GPIO to save the battery usage.
+> Hi all,
 >
-> Signed-off-by: Lei YU <mine260309@gmail.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> We are looking for a way to log and report sensor events such as
+> over-temperature alarms and voltage regulator failures using the BMC.
+> The IPMI SEL seems like a good approach, as it matches industry
+> standards. There is already existing infrastructure for SEL in
+> OpenBMC, so implementing this seems like it would only require
+> modifying a daemon like sensord from the lm-sensors project to report
+> alarms over dbus.
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index 852b552..a910bc8 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -83,6 +83,11 @@
->                         linux,code = <ASPEED_GPIO(Q, 7)>;
->                 };
->         };
-> +
-> +       iio-hwmon-battery {
-> +               compatible = "iio-hwmon";
-> +               io-channels = <&adc 12>;
-> +       };
->  };
+> Does this sound reasonable? Has anyone else already started working on
+> something similar?
 >
->  #include "ibm-power9-cfam.dtsi"
-> @@ -304,3 +309,6 @@
->         status = "okay";
->  };
->
-> +&adc {
-> +       status = "okay";
-> +};
-> --
-> 2.7.4
->
+> Thanks,
+> Benjamin
