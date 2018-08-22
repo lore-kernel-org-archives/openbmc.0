@@ -1,52 +1,66 @@
-Return-Path: <wak@google.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::232; helo=mail-lj1-x232.google.com;
- envelope-from=wak@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="BhaR4xJN"; 
- dkim-atps=neutral
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="aZrhQhcq"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="LLUarz/9"; dkim-atps=neutral
+X-Greylist: delayed 490 seconds by postgrey-1.36 at bilbo;
+ Wed, 22 Aug 2018 15:06:23 AEST
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41wCVW2qfHzF2FK
- for <openbmc@lists.ozlabs.org>; Wed, 22 Aug 2018 13:20:50 +1000 (AEST)
-Received: by mail-lj1-x232.google.com with SMTP id q127-v6so341059ljq.11
- for <openbmc@lists.ozlabs.org>; Tue, 21 Aug 2018 20:20:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=oJjShn71TGL3eSjGqauSUHmsUUQzK2/UbDS+sDTmGco=;
- b=BhaR4xJNHeHp/FQHIYNxqLR5MKaeZvuNiM7Tb9hvFHitfCVsUCQG1gnJm5dPLPbW0N
- yvJx4HI5Kwo0iFLoZDC+oLqP+cfPbV2b6DFSSvbGfILGhKVYms2G9YHqzkg0slKy/tdT
- +cl3AeG7ZlK4ex13lmDhuhq5d3dnB9TJQgfhEXGitGQQomcVTbTTCpnsz07tS1Rw4FvV
- VAEE6e+VaznjHxB3G5quUalVJ6Jo7BFg3aibZhlrSff+/YcuHK1DDiP+XUXzRx419p7e
- xOnD6mWA5lmjJULfquQhIt2May6YlDPajEa6KCVHb5sWqM5BmioPacIziAs+kb6swNf1
- yeNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=oJjShn71TGL3eSjGqauSUHmsUUQzK2/UbDS+sDTmGco=;
- b=LJHXXxE5jUofhtwJ/Lk+GxUEJ7tK4ssZDU1apXWTYhb1imGUl5qLMaoJJMiwvRVPA7
- LGnuG02ZFttZFM+ommbO9Y8FHQ1VKVHw/Xx66PS2W/av5M2bEua+jZHjTbTSi4xiYEql
- OuNlsZZAe0WsAG3iR5VEwZZX71GbznSezUPBzGBg1nmnTMywE1zjtZZ9b1U8peRhHH3y
- dd7nwaIzqwUH5OicSfmGkzWIAr2wnIH43cGJOE4Ou8dfeAANX6JhZNrcYG3eSPev/zc1
- W0WEHWXEH77N5+n03tPnmk9zJUZYLNmPTa/bBLfssjTFLcqWessgG4z96av27Um0gBng
- je7Q==
-X-Gm-Message-State: AOUpUlEYyM/k4we4pMLc4N0mqLgcV7gZnUCUjedi66I7BT01Ph36XFhR
- ZtqPI+fj0XVt67Qu3w7ucPunM+uWKi9o6gqjwxniVGoyuPk=
-X-Google-Smtp-Source: AA+uWPyUYf4R7kSc3mauuIY8zsTUlXMqw/HRAlQCQX7g4ga+cjUlO+D6rAfj3LvrfUyOA9lO4tfsiQBHasVRhZA0Fgc=
-X-Received: by 2002:a2e:8:: with SMTP id 8-v6mr35704333lja.112.1534908045910; 
- Tue, 21 Aug 2018 20:20:45 -0700 (PDT)
-MIME-Version: 1.0
-From: William Kennington <wak@google.com>
-Date: Tue, 21 Aug 2018 20:20:34 -0700
-Message-ID: <CAPnigKkG1C-80T-7c18oSAC_s5CpEN2XbaCOY2u9g1jqVv_fmg@mail.gmail.com>
-Subject: Announcing gpioplus
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41wFrH2VdpzDr4h
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Aug 2018 15:06:23 +1000 (AEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 92CD82F5;
+ Wed, 22 Aug 2018 00:58:08 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 22 Aug 2018 00:58:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=XqsnZC+aeLNUENOr5
+ youAetQsJiesBumxStsV4vmDpg=; b=aZrhQhcqiserYlFHz3BbzFvBoEUfaYDrN
+ lL60SxVi7R9wJK6BcxuwFgfP5yRCe9xGr1XOVZ4JRZxJuDPJzTOEe9AXlHWcd8du
+ P49xCvP+O+JDvX8WEZwfDl1hqLiPCBuy7qpNJokvETQ6tYjzvMRsa2uoymaE5yIm
+ 88bdL4OfRFwz+tCf33V2md13Ev9f0tdIZcpyRekBJKIZFBdniB5UDDSqsrbtycvV
+ lwTCwwL5xwaesfoVF2fsUIG2hUcX+Mfk3DdxCt1f1Sud+x10XT+2T7pNwvPkFM0x
+ vonkf9cBV6ii2mgKQZvsq4KdrkNTd+zPJRKlXHkRW36+ztYbyU/EQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=XqsnZC+aeLNUENOr5
+ youAetQsJiesBumxStsV4vmDpg=; b=LLUarz/99moY0e5Y8XVLhpr2WgaqzW3OX
+ BF+2HyiIslwg1IIqvMRXhhiIsaXoiu0+AxHbdgvp8VAPVqz+WDoDYDKdt34QMsJ8
+ Gg5Bz+RbLGGm1hAwWuk5ZU3MZwzp1gHzYy3nCQe+ULPzhEW4+ClY7zaCC+9Hvs+0
+ ljtB0cWcgcrR58cqhvZR/ZwPTO8GFGzG9qCwykm0+G4uC0OT3FVDD4xBOeDFYGKC
+ Va84c7JQd5UTFMztyWWxIpLlmuWo2pz3FNlqiNAC7GyagXCEGs660b+65pLGQ/ck
+ rXUclGaTpcOpyqpu0iD4ffTYxz9IuXz5RpYS97nGVL5UB1rUMDY+A==
+X-ME-Proxy: <xmx:X-18W5H7UetTYEtBsGjtEqn-1BTcivB_aUpEMfCCdj-r2UxpDoiW9g>
+ <xmx:X-18WxSBmZHIpU3vLptMmLfmh32jpjMvB2W3ggaoYvug3kVMFa8sMg>
+ <xmx:X-18WzVCjJtJpnzTCB5MPyA6CVPiFkUCkQNS9SUnkt70ailMnROUKA>
+ <xmx:X-18W95yCdrCzE53uLvDjSpX5rGqxFa2CmV3jTU9rcxKYZUreLQFhw>
+ <xmx:X-18W-G5tNghyYipboGdJTML9KEzoO6QGUD3lY-fuNOwm-p2dBNvSw>
+ <xmx:YO18W6aLpkyLcRtXRCQjVW-fOf-HfTBt_8gyN2QH6WHUeiNevp-sow>
+X-ME-Sender: <xms:X-18W0kSjAU8vntNG7EO5r3JhqADjY68DiZSibpSEdMIxd6r3aCgAQ>
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 77725E447F;
+ Wed, 22 Aug 2018 00:58:05 -0400 (EDT)
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: netdev@vger.kernel.org
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH net] net/ncsi: Fixup .dumpit message flags and ID check in
+ Netlink handler
+Date: Wed, 22 Aug 2018 14:57:44 +1000
+Message-Id: <20180822045744.9267-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.18.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -58,18 +72,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Aug 2018 03:20:53 -0000
+X-List-Received-Date: Wed, 22 Aug 2018 05:06:26 -0000
 
-Yet another c++ wrapper in a series of changes I've been working on to
-make ergonomic c++ abstractions for commonly used library functions.
-This project intends to provide a simple c++ interface around the
-existing linux userspace gpiolib syscalls. The functionality is
-complete and the tests cover the entire interface.
+The ncsi_pkg_info_all_nl() .dumpit handler is missing the NLM_F_MULTI
+flag, causing additional package information after the first to be lost.
+Also fixup a sanity check in ncsi_write_package_info() to reject out of
+range package IDs.
 
-As usual, please let me know what you think of the project. It currently
-resides at https://github.com/wak-google/gpioplus. This should find
-a new home at https://github.com/openbmc/gpioplus if it receives
-good feedback.
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+ net/ncsi/ncsi-netlink.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks,
-William
+diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
+index 82e6edf9c5d9..45f33d6dedf7 100644
+--- a/net/ncsi/ncsi-netlink.c
++++ b/net/ncsi/ncsi-netlink.c
+@@ -100,7 +100,7 @@ static int ncsi_write_package_info(struct sk_buff *skb,
+ 	bool found;
+ 	int rc;
+ 
+-	if (id > ndp->package_num) {
++	if (id > ndp->package_num - 1) {
+ 		netdev_info(ndp->ndev.dev, "NCSI: No package with id %u\n", id);
+ 		return -ENODEV;
+ 	}
+@@ -240,7 +240,7 @@ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
+ 		return 0; /* done */
+ 
+ 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
+-			  &ncsi_genl_family, 0,  NCSI_CMD_PKG_INFO);
++			  &ncsi_genl_family, NLM_F_MULTI,  NCSI_CMD_PKG_INFO);
+ 	if (!hdr) {
+ 		rc = -EMSGSIZE;
+ 		goto err;
+-- 
+2.18.0
