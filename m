@@ -1,55 +1,53 @@
-Return-Path: <venture@google.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::42d; helo=mail-pf1-x42d.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="VqS9nO+y"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="njjvPmch"; 
  dkim-atps=neutral
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41wTj36Nn4zF2QJ
- for <openbmc@lists.ozlabs.org>; Thu, 23 Aug 2018 00:00:55 +1000 (AEST)
-Received: by mail-pf1-x42d.google.com with SMTP id k19-v6so1035501pfi.1
- for <openbmc@lists.ozlabs.org>; Wed, 22 Aug 2018 07:00:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41wTn14X4SzDr4h
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Aug 2018 00:04:21 +1000 (AEST)
+Received: by mail-qt0-x243.google.com with SMTP id r37-v6so2175630qtc.0
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Aug 2018 07:04:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YPWWre/ebm3xtHIcWb8IyVlIIjNI0BRXeqduXDiUhUo=;
- b=VqS9nO+yZ5IpGtLichxvnpYFjCoiQHqmSh4YRwfUPjbsiYUPb7gFVpyP1/bHSwVSLO
- Ix2LiVGViyA7EqEKe3oW0fa+yZrRwTfGF5LXWJJF+b2fNiRzHzpQzYKOnJRg8nPhQDAj
- qE0ORjXEa6txK7EZ0vsyADTFoATw/LwUpouLGS7UJTHlLHU1sTwlwk7wDlRy3fZtTQHH
- xA0QWsliSoEHm+Z+vdtRP0T39zADMxzbF3rtlOdHwHOe7sGgzc6PDzBCl1QM9y0eZ6HM
- ueGKEjnFemTEf1KW5tmxveFeE/KE8CYTqX+NnieTsyNEEgN0ZTnyByD9FAZ7reMukyEO
- xtAA==
+ :cc; bh=cQjCaBguEXo8m4VYT/2cB4NR73nrgQmKCYuHdG8UlJ0=;
+ b=njjvPmch8q8E1hreS5ExRNoGV/AvJNMwh26FtmhxUhzX9DJd+Ioia+IJrQlnNs05l5
+ bnQjN+iQ7C7vmt0V2fmlnzfk2NKeCp7iXbfX7vw/5rPR8mDwYkkJBSj8hfjK9ZlKJ2si
+ 9NFkg2G7G/ttIDzYSNEsZMFTn36cCHa8TSNm8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=YPWWre/ebm3xtHIcWb8IyVlIIjNI0BRXeqduXDiUhUo=;
- b=JN1VUBiIvM7vPaaXoXUJxdJ0VMJQetvYKrpIv3BnHNeQ9WlGmc4Ui7JmsweuA4RylH
- TYQ/ndktbl9lqzG2QDv16Ge6Dhd6v7aEoq4q2SYIUdrGTFWfRhwuMtwtOuUma6ixHr7+
- +15PYA1fOKlJyrYdQgSyErhLKs37MptQ14U/F1ufXp7vamcxACEIPKwvSolVh1asfNxU
- vnh25xFu43VbyZ4LoDqqhI3UZGBV4AeB88Scfl80HtptZBiz/ODvml5+eZPXS/vxmBii
- F/fGwo1laXm2VQhpIgq46vOopEEdHMIRVq2qrr2b5GE2Upbcxvl8EzIkN3M5omDc/VvP
- vHPw==
-X-Gm-Message-State: AOUpUlF703s/liv6wvu8Idctpv7xIOMJX9OSFBdI6wlBx8DUpD3a8qvf
- a+IalHtvYduJnqrv4I8Zpva+Xpz3vsx4rJgw3VWOmw==
-X-Google-Smtp-Source: AA+uWPziPj5teYfbZ4IKlfKX9GXSXx3pSAxzOm/Ks8MO/1N4qbD+ngikCyDH/u5qqSaynKzGnz/gnpoev2DfG1OnvlU=
-X-Received: by 2002:a63:a5c:: with SMTP id
- z28-v6mr50850554pgk.209.1534946453511; 
- Wed, 22 Aug 2018 07:00:53 -0700 (PDT)
+ bh=cQjCaBguEXo8m4VYT/2cB4NR73nrgQmKCYuHdG8UlJ0=;
+ b=c9HJuQR9hTJ3xrlE35zv+hd8DJNJjesGfYBwvfJ+v3dbPS/N1EaWZqCrH+VLrx8Odz
+ Vg2xVDIAd0pQDw2eEgUOsdjnHiN1pU+ezQX5d0S5UVIXSXVPluZMzQQRKCdQbRzHh2vo
+ D8Xc2yMahxoJdMb91VClGj39IYk6u7fUAfGWEp04WcCYCZk0U33CVPI+GEkHaPfqo56a
+ dl6haXSKho5KThlKrLTDSP+cxQAqT7/zU5p7ECkmOa4+f0JFIeGp/rR+8fVZ90RmMKa9
+ oQhDvcFpmLVXo1C/Cv6mWr9vArbgCZDDw4u2xp+5n6o+/QpDybbzdfE+22YeGaR2IbQu
+ u0Mw==
+X-Gm-Message-State: AOUpUlFILGh/xUsMNJLhjhS+VrZXuhs2wX6BS2ReCxOUBt8XkosrAHHo
+ akdaXJNiJ+DZyM+QiMc+Acu5aFa4Hm8UxTZG3bk=
+X-Google-Smtp-Source: ANB0VdaQwzQhvn/SJP6NYCfG+RsX2uNfc+cavdtcY1bw1BcA17TvPXF83yoUO7B2qfz6cS2S0fzvwC7HqBAuoX5J3NI=
+X-Received: by 2002:ac8:4152:: with SMTP id
+ e18-v6mr15948816qtm.330.1534946658881; 
+ Wed, 22 Aug 2018 07:04:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAPnigKkG1C-80T-7c18oSAC_s5CpEN2XbaCOY2u9g1jqVv_fmg@mail.gmail.com>
-In-Reply-To: <CAPnigKkG1C-80T-7c18oSAC_s5CpEN2XbaCOY2u9g1jqVv_fmg@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 22 Aug 2018 07:00:42 -0700
-Message-ID: <CAO=notwK9fhqSTjHpMZYMmUrJZFKfNKW9m83KiT9Vun-rY3R3g@mail.gmail.com>
-Subject: Re: Announcing gpioplus
-To: William Kennington <wak@google.com>
+References: <CACPK8XeWPtw=5R0rBeT0-hSdFf+xKgM9RRzXmy2d5TMQLvH=Ww@mail.gmail.com>
+ <CAO=notx=_L9uAmGWk1qZvVgu1wyN5XUf2uvBibUytpBB+OMw8g@mail.gmail.com>
+In-Reply-To: <CAO=notx=_L9uAmGWk1qZvVgu1wyN5XUf2uvBibUytpBB+OMw8g@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 22 Aug 2018 23:34:07 +0930
+Message-ID: <CACPK8Xdg6F9N79-qvKNuc-DnjTubKPdgRmmW4+LyOMiifqTvbA@mail.gmail.com>
+Subject: Re: Tagging master
+To: Patrick Venture <venture@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -63,23 +61,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Aug 2018 14:00:56 -0000
+X-List-Received-Date: Wed, 22 Aug 2018 14:04:22 -0000
 
-On Tue, Aug 21, 2018 at 8:21 PM William Kennington <wak@google.com> wrote:
+On Wed, 22 Aug 2018 at 23:30, Patrick Venture <venture@google.com> wrote:
 >
-> Yet another c++ wrapper in a series of changes I've been working on to
-> make ergonomic c++ abstractions for commonly used library functions.
-> This project intends to provide a simple c++ interface around the
-> existing linux userspace gpiolib syscalls. The functionality is
-> complete and the tests cover the entire interface.
+> On Tue, Aug 21, 2018 at 6:09 PM Joel Stanley <joel@jms.id.au> wrote:
+> >
+> > Hello,
+> >
+> > I would like to propose we create a tag of master.
+> >
+> > The tags are useful for those who are working on openbmc, but also
+> > supporting fellow developers and testers who may be working on the
+> > host firmware, operating system or other tools like openstack. When
+> > they have issues, a glance at the tag give us a rough idea of how old
+> > their firmware is. As a developer, this gives me a rough idea of what
+> > kind of issues to expect, but also how far I should dig before
+> > suggesting "you need an update".
+> >
+> > I suggest we use tags as a lightweight epoch in our commit history.
+> > They don't need to carry any additional meaning beyond being easier to
+> > pronounce than 006d86903586b1dde915f5b0d90a68fd31935095. This means
+> > there's no garuntee that a tag contains new features, or has had any
+> > more testing than any other commit.
 >
-> As usual, please let me know what you think of the project. It currently
-> resides at https://github.com/wak-google/gpioplus. This should find
-> a new home at https://github.com/openbmc/gpioplus if it receives
-> good feedback.
+> So this would be a non-versioned tag?  I believe we already have
+> versions that are meant to track behind or with yocto (once the
+> release schedule hits).  Since these aren't tested, I'd suggest they
+> do have a naming scheme based on version, with may date in the tag and
+> some indication that it's not stable.
 
-+1 to this.
+I don't follow. I was proposing we continue with the existing scheme,
+so the tag for today would be v2.4.
 
->
-> Thanks,
-> William
+All of our builds are tested to some extent, what I meant by "not
+tested" was we would not have a freeze, release candidate, branching
+or similar. It would be a commit that passed CI.
