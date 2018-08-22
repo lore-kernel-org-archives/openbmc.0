@@ -1,43 +1,55 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.35.78; helo=19.mo5.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::22e; helo=mail-qk0-x22e.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 33594 seconds by postgrey-1.36 at bilbo;
- Thu, 23 Aug 2018 09:57:17 AEST
-Received: from 19.mo5.mail-out.ovh.net (19.mo5.mail-out.ovh.net [46.105.35.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="P8wo1Bhk"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x22e.google.com (mail-qk0-x22e.google.com
+ [IPv6:2607:f8b0:400d:c09::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41wkx94FhfzF0gv
- for <openbmc@lists.ozlabs.org>; Thu, 23 Aug 2018 09:57:15 +1000 (AEST)
-Received: from player773.ha.ovh.net (unknown [10.109.146.82])
- by mo5.mail-out.ovh.net (Postfix) with ESMTP id AAC831DA285
- for <openbmc@lists.ozlabs.org>; Wed, 22 Aug 2018 14:10:27 +0200 (CEST)
-Received: from zorba.kaod.org (ARennes-657-1-62-88.w90-32.abo.wanadoo.fr
- [90.32.249.88]) (Authenticated sender: postmaster@kaod.org)
- by player773.ha.ovh.net (Postfix) with ESMTPSA id CD72060008C;
- Wed, 22 Aug 2018 14:10:15 +0200 (CEST)
-Subject: Re: Linux kernel: Moving to 4.18
-To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Eddie James <eajames.ibm@gmail.com>,
- Tomer Maimon <tomer.maimon@nuvoton.com>
-References: <CACPK8XfCipieyTjP8BkZg4mmpVXWiEDDZbs4KxbS0i4DXLbUJg@mail.gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <e62f7437-102e-c493-6b12-a72af7f0c244@kaod.org>
-Date: Wed, 22 Aug 2018 14:10:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41wkyM6wsKzF0gv
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Aug 2018 09:58:19 +1000 (AEST)
+Received: by mail-qk0-x22e.google.com with SMTP id f17-v6so2496668qkh.4
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Aug 2018 16:58:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=toYsvrvdmd1mxh8op8yyESI78gq9rNtN2X1TntiE7Fo=;
+ b=P8wo1BhkSlenCZZcAzTX8eujQGJkhuwXFnGXxFdjgk3WCDeZxOKwxwXUBS6nqOhI41
+ 1TpPNSarl2ZZeUFyT8QtU4C8kCtvfx83UzQ1NG9YHOCuBhx/CfSmntbJ0LtYvMRCJVlX
+ SUiWdFOZ3N5Qm0Vf5qc0c+9SQdUDg0A/bRyFs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=toYsvrvdmd1mxh8op8yyESI78gq9rNtN2X1TntiE7Fo=;
+ b=NZ41d1zuZ2RMJSHSNZpok9NLu5iv8umNtCUtoLyZsNAbp5Mjd2TkJuwvtHbiu+Rthp
+ k3OKB2dv/ct4lZWsK5hj61KbfXK+WPNZ7z/3b/fg94pCnv/4R5mp2cLk0AEHoI1jxw+/
+ hwboBm/ML0CETpK07lXH6Jqz7Pxxjx0I6hy/kAgDkrsLGeRdrRjcvXxJHFNIK7uVeOM7
+ yG/kcFL5t31sgwRK3dZiKyzu4RMPiLRGRIsLtWBTDPlR8dfIo+dmtZJdfdLMQBXMvdLO
+ FrjYh01kcWR3LtpzgruGDMglLfsbFuQwCfkFNAv8DyL9UE4W1VV5qVUXWCUVgXZHcZxb
+ 1+VQ==
+X-Gm-Message-State: AOUpUlHGhK5gbvcawHghk50R4IikO+kf8ynWadrNeUdHAjR4UmzfuY9W
+ odBkHvc0GN+g6bOhBEb5XXDdb3tmquxW7p9cA+M=
+X-Google-Smtp-Source: AA+uWPwZFK8r2TFktY0rgl1gv/NFRZUiKV7Bi3THkpvdzwWqOvI0ivtAdO3vsVi2piqr1u8DQJMtFACy+yZw9E9YWjc=
+X-Received: by 2002:a37:bd02:: with SMTP id
+ n2-v6mr53813972qkf.336.1534982294923; 
+ Wed, 22 Aug 2018 16:58:14 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XfCipieyTjP8BkZg4mmpVXWiEDDZbs4KxbS0i4DXLbUJg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 5958825257704000348
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrfedugdeglecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
+In-Reply-To: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 23 Aug 2018 09:28:03 +0930
+Message-ID: <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
+Subject: Re: Proposals for commit log policy
+To: Alexander Amelkin <a.amelkin@yadro.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -49,28 +61,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Aug 2018 23:57:18 -0000
+X-List-Received-Date: Wed, 22 Aug 2018 23:58:21 -0000
 
-> Assuming everything that was in linux-next gets merged for 4.19, this
-> will leave us with about 36 out of tree patches. I've appended the
-> list of commits below. If you are the author it would be great to hear
-> your plans as a reply to this email.
+On Tue, 21 Aug 2018 at 22:01, Alexander Amelkin <a.amelkin@yadro.com> wrote:
 
-See below.
+> =================
+> some-package: bump version 62286ef3 to 4fa63380
+>
+> Author Name (2):
+>   commit 1 synopsis
+>   another commit synopsis
+>
+> Another Author (3):
+>   great commit
+>   yet another great commit
+>   fix previous not-so-great commit
+>
+> Change-Id: some-long-gerrit-hash
+> Signed-off-by: The Version Bumper <bumper@nowhere.net>
+> =================
 
-> Cédric Le Goater (6):
->       mtd: spi-nor: aspeed: use command mode for reads
->       mtd: spi-nor: aspeed: add support for SPI dual IO read mode
->       mtd: spi-nor: aspeed: link controller with the ahb clock
->       mtd: spi-nor: aspeed: optimize read mode
+> What do you think? Is this feasible? Any other ideas how we could simplify creating release notes suitable for end users?
 
-I will rework the read timing algo a little to match the U-Boot driver 
-I am working on and include the typo fix from Alexander. After some 
-tests in OpenBMC, I will send a v2 to mainline.  
+I think this is a great suggestion. I would also like to see this happen.
+
+Having the maintainers or authors of the packages submit their bumps
+would ensure this does not become a burden for the central repository
+maintainer.
+
+An advantage of the maintainers of individual packages submitting
+their changes is they know the best timing for integrating their
+changes, and know what relevant details should be added to the bump
+commit message.
 
 Cheers,
 
-C. 
-
->       mtd: spi-nor: aspeed: limit the maximum SPI frequency
->       ARM: dts: aspeed: Add "spi-max-frequency" property
+Joel
