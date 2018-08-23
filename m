@@ -6,43 +6,43 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="IvyO+7ZP"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="jausuvfa"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41wy8y5rJyzF2Py
- for <openbmc@lists.ozlabs.org>; Thu, 23 Aug 2018 18:23:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41wyf11NbqzF2vT
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Aug 2018 18:44:56 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 751F541900;
- Thu, 23 Aug 2018 08:23:09 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 859A841900;
+ Thu, 23 Aug 2018 08:44:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1535012588; x=
- 1536826989; bh=Zc/1Tasl9oJzTymiemGAm+vlO6b4mL2B0XozjS6YZ6o=; b=I
- vyO+7ZPLFbo5RhFqEvPl7r/eJNEEl5Iq2+VdQndED+xmdmWhPoAQjV2Nq/0saqmA
- CNr/wHNsUpuSfPjbWY23EomIgFSZ/JLQCng+1tKB3YeRJHp5GS9UJr/xPaFaDM2s
- zPp7r8WQEbyimcKAe/KNo1C0M8BYd7zZ1JB1Zlx7EY=
+ :received:received:received; s=mta-01; t=1535013891; x=
+ 1536828292; bh=YtFfSDFgawmprHi07TGsT1Ts8DYxOtSc2I+Y1Uy/WyQ=; b=j
+ ausuvfa8tQ1ZbiHTbGMy2MvUcbTMaTpfD036axeYqLZIoIjUsicuTgYqcHiSuEM0
+ ttkdjWBbinButVRfe+AyhSoA5bD+YLr98jH7L2FeWxdUZeCfZ/bdAWRI7NStHren
+ lbax85b7ZsVn3M+V9gVD+KjkLitUfVUw8+fRS+flvg=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id dsyZahxcqZrp; Thu, 23 Aug 2018 11:23:08 +0300 (MSK)
+ with ESMTP id Vv1KcYUpbxYm; Thu, 23 Aug 2018 11:44:51 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 3887A400FD;
- Thu, 23 Aug 2018 11:23:08 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id E5BD341185;
+ Thu, 23 Aug 2018 11:44:47 +0300 (MSK)
 Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 23
- Aug 2018 11:23:07 +0300
+ Aug 2018 11:44:47 +0300
 Subject: Re: Proposals for commit log policy
-To: Gunnar Mills <gmills@linux.vnet.ibm.com>, OpenBMC Maillist
+To: "Tanous, Ed" <ed.tanous@intel.com>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>, Brad Bishop <bradleyb@fuzziesquirrel.com>
 References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
- <89b9dac7-b4ae-6eb7-c364-f7788b86b59f@linux.vnet.ibm.com>
+ <7E9441B1E5EFFD4681F54958E82169934583385B@ORSMSX114.amr.corp.intel.com>
 From: Alexander Amelkin <a.amelkin@yadro.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
@@ -88,15 +88,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  ESE0npJ5eeAcVWPHjhCwL8phZCDtfxJMy2cqYS8QLIBGfQTIHMQAgqBbpq9FLXCn008tvaTr
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <a4d703a6-b725-eb3d-798c-b040b00c00a0@yadro.com>
-Date: Thu, 23 Aug 2018 11:23:07 +0300
+Message-ID: <ab12144e-3faf-2756-b7d7-16a294b2c7ee@yadro.com>
+Date: Thu, 23 Aug 2018 11:44:47 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.5.0
 MIME-Version: 1.0
-In-Reply-To: <89b9dac7-b4ae-6eb7-c364-f7788b86b59f@linux.vnet.ibm.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E82169934583385B@ORSMSX114.amr.corp.intel.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="EA5RYQ1hVL88Mj20q4RVOG7q3Fdq6kaOh"
+ boundary="kotQxCbvpeGjQ7A820Yw01ICHsb6dz0k1"
 X-Originating-IP: [172.17.14.168]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -111,68 +111,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Aug 2018 08:23:16 -0000
+X-List-Received-Date: Thu, 23 Aug 2018 08:44:58 -0000
 
---EA5RYQ1hVL88Mj20q4RVOG7q3Fdq6kaOh
-Content-Type: multipart/mixed; boundary="sumiNOUHf5WPum2O0Mv601FTyXmVrxSaB";
+--kotQxCbvpeGjQ7A820Yw01ICHsb6dz0k1
+Content-Type: multipart/mixed; boundary="QaQeOAToq3W9BE2ddqDzkpZxXI4ASfvGw";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Gunnar Mills <gmills@linux.vnet.ibm.com>,
+To: "Tanous, Ed" <ed.tanous@intel.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>
-Message-ID: <a4d703a6-b725-eb3d-798c-b040b00c00a0@yadro.com>
+Message-ID: <ab12144e-3faf-2756-b7d7-16a294b2c7ee@yadro.com>
 Subject: Re: Proposals for commit log policy
 References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
- <89b9dac7-b4ae-6eb7-c364-f7788b86b59f@linux.vnet.ibm.com>
-In-Reply-To: <89b9dac7-b4ae-6eb7-c364-f7788b86b59f@linux.vnet.ibm.com>
+ <7E9441B1E5EFFD4681F54958E82169934583385B@ORSMSX114.amr.corp.intel.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E82169934583385B@ORSMSX114.amr.corp.intel.com>
 
---sumiNOUHf5WPum2O0Mv601FTyXmVrxSaB
+--QaQeOAToq3W9BE2ddqDzkpZxXI4ASfvGw
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Content-Language: en-US
 
+22.08.2018 23:39, Tanous, Ed wrote:
+> I'm not really understanding the issue here.  Is the log information no=
+t available in the individual repositories?  Is it just hard to parse?  C=
+ould this be automated, either using a script, or a list of repositories?=
 
-22.08.2018 18:01, Gunnar Mills wrote:
-> Hi Alexander,
->
-> On 8/21/2018 7:29 AM, Alexander Amelkin wrote:
->> Thankfully, for linux-obmc version bumps Patrick Williams and Joel Sta=
-nley do a great job by including the 'git shortlog' output. Unfortunately=
-, not everyone is following this rule for bumps.
-> The autobump tool is here: https://github.com/openbmc/openbmc-tools/blo=
-b/master/infra/autobump.pl
-> Could you enhance to have the =E2=80=98git shortlog=E2=80=99 in the com=
-mit message?
-Thanks for pointing me to it. I will enhance.
+You're obviously not getting my point. There are logs. But they are purel=
+y developer-oriented. Nobody actually cares (except for developers) that,=
+ for instance, some commit "Resolves some build failures and updates the =
+bmcweb recipe to use the proper target names for image selection". That c=
+hange is TOTALLY invisible to end users and must not get into Release Not=
+es for a binary firmware release. Nobody actually wants to know that some=
+ changeset "replaces phosphor rest with bmcweb for the s2600wf target" or=
+ that "the handcoded harware sensor yaml file is merged with the final se=
+nsor yaml file". What end users want to know before they make a decision =
+to upgrade is how the system behavior (user experience, responses to comm=
+ands, etc.) has changed since the currently installed firmware. Writing e=
+nd-user-centric Release Notes for a binary release takes a lot of time, b=
+ecause it requires analyzing all those purely developer-oriented logs. An=
+d that's a job that is done on a regular
+basis by each vendor, I believe. And it takes, as I said, at least 3 full=
+ days contiguously of a qualified engineer. What I propose is ask each en=
+gineer who commits a change and knows his change, thus doesn't need to sp=
+end time analyzing it, to write a short description of end user impact. I=
+t will take like 5 extra minutes per commit.
 
->> Now for item 1, it would be great if we could have a mandatory "End-us=
-er-impact" line/section, like these added to the following real commits:
->>
-> I really oppose another field/section in each commit. We already have a=
- "tested" field. What happens when someone else wants a field for what sy=
-stems this commit effects? This might be a bad example but hopefully, you=
- see my point. :)
-I see your point, but I hope you feel my pain too. ;)
-Technical description for developers is great... for developers. But is t=
-otally useless for end users.
-What does an admin have to do with all those framework-related commits or=
- dbus optimizations?
-They want to know what has changed for them in the new release. And extra=
-cting that info from commit logs as they are now is painful and takes at =
-least a leading software engineer. In my experience it takes about 3-4 da=
-ys to "compile" the current commit logs between releases. That is, read t=
-hem, comprehend them, ditch pure technical commit messages, translate com=
-mit messages that actually change the user experience from programmer's l=
-anguage to admin's language, and as a result of all that produce a docume=
-nt useful for admin end users. IMO, that's a waste of time and a very bor=
-ing activity.
+> While I think there's value in the logs, I don't think maintainers time=
+ is best used by creating git logs manually all the time, especially when=
+ it should be easy enough to parse the git logs between the recipe bumps.=
+  I've had to do this before to do bisects before, and it's not too diffi=
+cult once you get the hang of it.
+For bumps the task is "automatable" indeed. It's not actually as easy wit=
+h Yocto as it may seem "to parse the git logs between the recipe bumps" (=
+have you tried?), but it can be automated. But the end user impact inform=
+ation is not. It's either written by the developer in the commit log, or =
+deduced (sometimes incorrectly or incompletely) by an engineer writing th=
+e Release Notes.
 
 Alexander.
 
 
---sumiNOUHf5WPum2O0Mv601FTyXmVrxSaB--
+--QaQeOAToq3W9BE2ddqDzkpZxXI4ASfvGw--
 
---EA5RYQ1hVL88Mj20q4RVOG7q3Fdq6kaOh
+--kotQxCbvpeGjQ7A820Yw01ICHsb6dz0k1
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -180,19 +181,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJbfm7rAAoJEOiTWHtbdBeNGEwQAKXPG1ds/1ouDW5nTAEMbDqs
-fQWPm0P5if2vHigH52MWGX+QT5drifkTvPr3jveCA5qMoRQdMdw9tPOqqQI3sprX
-EopVeEbN4y3f7Tsc427e+kw43SYcIbKDTl98ngM8yagy+vR/04ThLti1DZyigsVJ
-Yo4HU4mCj/OagsU52VUMoSZ+WEfowucKI+Y5aama9f6WadNWX68Iq3Oc7rFlrUYn
-eZz18JeMt3Fb4o4D21W7vBuwD4qIQ9R7UbPCxveO3Ze+7P9/57lZRjSV6w62C8YE
-LSNtHQBoo0Lfg5n1aqokEZacisfRIj/BuQ+nBfBn87PcGovPcAAHG/1KAJ2N44Yq
-vzsA++U2BhFQ/zLf5yTk+0vNbyKFxn42d4gDE2kFzaYBqex6xrLHGLX0OQh8q8IR
-zeB1YBeSTC1a1WI5ozclFDix6+/SDp6CW+QxOto8pE1a/ktqOqupwvee6zk8ON+q
-gVNFm/cCa9ZoiggmDSKXgBZpS4pHOYM6g1WXLAJp9ybnUkHGtjQs2v6phhGQggR1
-NmmYoVai+C+U2DQLbLFJjAuCTHraN+35Nm3Y3HWJgXXXA10kyLjgprpDP/JWh8Rp
-P3XdJNubkrowdG4Vd/1VRyhdKUefxbVlTRoJ1QA42/NDc3Zmh/Lmy9rMQoexhqJB
-9x4sdfgjtfff8cP4KUYE
-=VOXA
+iQIcBAEBCAAGBQJbfnP/AAoJEOiTWHtbdBeN1jMP/AnDRQX/7+sgK0uFc21VmAcS
+4naXmTpyY9b5zVYdOQD+UAOgzQ+DKN/AGdTve3miJgiMvT3+ToETyMOTwn8sq7Aj
+bJkdrjwCwZDiD0U5BU5MnAbKLt9NAqN3+hO9u8Pm15I0hJTA1aZGuWtxBMRviP3K
+8piJI8FjzGKW0c+CK9vDtNvN4lx16Fky8S1Xh0Acd83kiYO1vqRZ/VCKoUtGC+/y
+aTIKCW0iRF6R+C2SL3C5k+WT/IGuyG63EMBBpLBAFev+gcxPPhw1ccnJ3SgI0wVo
+NF0O25pDROcUZUf6+BAPWlCMkcmD7O5xXiX/kjVni+M+HlfXTOydj3wu3Vtl8krw
+KMb4uUCGwqosvKISC6JqNB4QCRmPg8m8TrMlUhuQ/iMAMRpZm1bQSa2zE86LnNwn
+OLv4kqW99dEyWgqAV5R2yNe3n/n7YGwtcZVVB/Mk2LIwU4ZbOfBo8ci6YB5tffgZ
+DKNy9DlnXyMQx8EGcM/FUfaiYWjVzbPiO/dBNmjMJTphG40rp5Syf7z0RUITsxpp
+stBq1R1PEfvhRwjqryr6C13Myw/keljnb71w7dXO4sHoSXzwGdu+8T5LAhwp7nIF
+0OdvUE7zzNvOGssn+wwC8yjiBZqVOkvLA004mP8qedNzVcBhVH4QOJ1loMGCDwEK
+NIAoGjUiBRP8NCD0iekO
+=gZ79
 -----END PGP SIGNATURE-----
 
---EA5RYQ1hVL88Mj20q4RVOG7q3Fdq6kaOh--
+--kotQxCbvpeGjQ7A820Yw01ICHsb6dz0k1--
