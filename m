@@ -1,47 +1,61 @@
-Return-Path: <KFTING@nuvoton.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=kfting@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::22b; helo=mail-it0-x22b.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=nuvoton.com
-X-Greylist: delayed 978 seconds by postgrey-1.36 at bilbo;
- Fri, 24 Aug 2018 16:19:21 AEST
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EjlJ9AAd"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22b.google.com (mail-it0-x22b.google.com
+ [IPv6:2607:f8b0:4001:c0b::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41xWMY5RS9zDqSL
- for <openbmc@lists.ozlabs.org>; Fri, 24 Aug 2018 16:19:21 +1000 (AEST)
-Received: from NTILML02.nuvoton.com (212.199.177.21.static.012.net.il
- [212.199.177.21])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w7O5WpGW022958
- for <openbmc@lists.ozlabs.org>; Fri, 24 Aug 2018 08:32:51 +0300
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML02.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Fri, 24 Aug
- 2018 09:02:49 +0300
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Fri, 24 Aug
- 2018 14:02:47 +0800
-Received: from NTHCML01A.nuvoton.com ([fe80::1170:e239:c9a9:e8b8]) by
- NTHCML01A.nuvoton.com ([fe80::1170:e239:c9a9:e8b8%13]) with mapi id
- 15.00.1130.005; Fri, 24 Aug 2018 14:02:47 +0800
-From: <KFTING@nuvoton.com>
-To: <openbmc@lists.ozlabs.org>
-Subject: [IPMBD] ipmbSend handling
-Thread-Topic: [IPMBD] ipmbSend handling
-Thread-Index: AdQ7bBJlB9GQFmgMREWcf8iZ/yaUkw==
-Date: Fri, 24 Aug 2018 06:02:47 +0000
-Message-ID: <4b1131fb4e684bca994c5456838c028d@NTHCML01A.nuvoton.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.4.42.63]
-Content-Type: multipart/alternative;
- boundary="_000_4b1131fb4e684bca994c5456838c028dNTHCML01Anuvotoncom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41xWVR0FxvzDqSL
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Aug 2018 16:25:18 +1000 (AEST)
+Received: by mail-it0-x22b.google.com with SMTP id l186-v6so761720itb.4
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Aug 2018 23:25:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=UUQGDN1NQ/ubBSGrOO9wTIlQdOWphR8gVdPhQwpBCkk=;
+ b=EjlJ9AAd6c4jpdUebyaSzHROjUPSxrGKTcYiCMkhKLyjVd4MHSzxh7Cfj4qYoe+WQV
+ D+N/s+wKg6IrarAB6am54Czcl3GVRyuXgMFTPYjsP5wWYOOxoKWiK164V9s9/hzTehC9
+ nYsA4TFmhUnHi9qR8DH8uPc4II8jKY6DMu0pAc81eOmX6Vj0lJ+E0dkhM+Z4t1BU1brS
+ 3JctH6gPGybOCDw6yNGaDcmj4eawo7cvGMQJl5axD8HJvfgAv3izmyB+/wBb0MFz4nSl
+ SPMTkk6pQN43A4paVWoGaGv0mgi1CPAK9Rl8kDIJgSOIbuvmuPN3SmHkFG6GxBNj53Li
+ FXcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=UUQGDN1NQ/ubBSGrOO9wTIlQdOWphR8gVdPhQwpBCkk=;
+ b=TrqkebwmWHZiQZk+3z0E1L0OIMYzvuzVnYYUggR2QSmr2W0zvUKRlwaOOPzz46cXnS
+ NKfJr5YxZ3eWaqSFkd5c15FD9sSmEC1VKF2LiiDNl/vezhvZ+wNpqdHa4VsJhS68eSN1
+ OBD4sbafw3VsrHoGL/UZVcaU/jY145pKY4CmoTgL8otGkeAkMtYS8ytRvfTXElUTb/if
+ RDebLsCd8ZdqqdxvbcXVSB2szoBHiQv5F09zEESYDzx2Nxf8q9KeOwSmCr9jl95bfA0o
+ SVI5P9XU7qKx70vZO/IzgfbCxek1Q2DFnXv+D9o86YXxQcZ8Y8LzzhgH98q5Vb9BSdSt
+ F7yQ==
+X-Gm-Message-State: APzg51AipGtlDY6Txr0lLlHWs05d0YSHYRAthg+8oJrV2B4zSqTUH0ZB
+ s8jX+/0wIwJ3oIZrX3kZw9cZb2DFEL7NGse54iA=
+X-Google-Smtp-Source: ANB0VdZlgwQ1091A+TI1LYI+8g37Ul9ZJPbq+kGdGaZkvE5eaCJEIoQVPRrHWqKDyjJdnYqgcVnRZJiWHGLEBgqAkCc=
+X-Received: by 2002:a24:85c6:: with SMTP id
+ r189-v6mr459649itd.83.1535091916440; 
+ Thu, 23 Aug 2018 23:25:16 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAO=notww5kS39b-OH2oAD=doMR_yUrunzFaAKK+=B=G42fc9KQ@mail.gmail.com>
+ <00000011-BD2E-4DC0-A1F2-534E0022AE2C@fuzziesquirrel.com>
+In-Reply-To: <00000011-BD2E-4DC0-A1F2-534E0022AE2C@fuzziesquirrel.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 24 Aug 2018 14:24:57 +0800
+Message-ID: <CAARXrtkcRsm690t-PTocaR9N8ojg=3iKmYhGr9+RZVNj+-cvug@mail.gmail.com>
+Subject: Re: Warnings from building at HEAD
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -53,193 +67,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Aug 2018 06:19:23 -0000
+X-List-Received-Date: Fri, 24 Aug 2018 06:25:19 -0000
 
---_000_4b1131fb4e684bca994c5456838c028dNTHCML01Anuvotoncom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+This warning message comes from `meta/lib/oe/patch.py`:
 
-Hi:
+    def runcmd(args, dir =3D None):
+        ...
+        if " fuzz " in output:
+            bb.warn("""...
 
-I check the ipmbd implementation from
-https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__gerrit.openbmc-2Dpro=
-ject.xyz_-23_c_openbmc_ipmbbridge_-2B_11130_&d=3DDwICAg&c=3Due8mO8zgC4VZ4q_=
-aNVKt8G9MC01UFDmisvMR1k-EoDM&r=3DkGibSCEQz-PilnW-r9KNT7_zWJXJNtnSK5aYZCe7SV=
-s&m=3D9vYrt5dE5uTcGZ0xJvXwlc2qHu9SzkgJbpR7h9W0jXE&s=3DxLAMWHrLSU8GJiEb4ObBm=
-fmlBhRwK26Z3t4-piFCe1c&e=3D and find out that the IPMB request or response =
-messages are passed down to the I2C slave device in the ipmbSend function.
+It checks "fuzz" in the patch output, which means the patch is applied but
+the context is different.
+I would think it is OK, it is just a warning to tell that the patch is
+out-of-date.
 
-The master device node is /dev/i2c-0 and the slave device node is /sys/bus/=
-i2c/devices/0-1010/slave-mqueue in the ipmbbridge implementation.
+To fix this, we need to update each patch that triggers the warning, and th=
+e
+patch itself may be out of openbmc's scope.
 
-The direction is always from the master device to the slave device.
-
-In normal IPMB usage case, an IPMB request is sent to the master device (sa=
-y /dev/i2c-3) and then the master device sends that IPMB request to the cli=
-ent device attached to the master device's bus.
-
-While an IPMB response returns from the client device, the client device us=
-es an I2C master-write transfer to send the response back to the request or=
-iginator, which is /dev/i2c-3, according to IPMB spec. So the request origi=
-nator becomes an I2C slave at this moment.
-
-It seems to me that ipmbSend behavior doesn't get aligned with the descript=
-ion of request/response protocol in IPMB spec.
-
-I might misunderstand the ipmbSend behavior and any comment is welcome.
-
-Thank you.
-
-Regards,
-Tyrone
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-The privileged confidential information contained in this email is intended=
- for use only by the addressees as indicated by the original sender of this=
- email. If you are not the addressee indicated in this email or are not res=
-ponsible for delivery of the email to such a person, please kindly reply to=
- the sender indicating this fact and delete all copies of it from your comp=
-uter and network server immediately. Your cooperation is highly appreciated=
-. It is advised that any unauthorized use of confidential information of Nu=
-voton is strictly prohibited; and any information in this email irrelevant =
-to the official business of Nuvoton shall be deemed as neither given nor en=
-dorsed by Nuvoton.
-
---_000_4b1131fb4e684bca994c5456838c028dNTHCML01Anuvotoncom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Fri, Aug 24, 2018 at 10:02 AM Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:PMingLiU;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:PMingLiU;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:PMingLiU;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri","sans-serif";}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-TW" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
-rim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I check the ipmbd implementatio=
-n from<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><a href=3D"https://urldefense.p=
-roofpoint.com/v2/url?u=3Dhttps-3A__gerrit.openbmc-2Dproject.xyz_-23_c_openb=
-mc_ipmbbridge_-2B_11130_&amp;d=3DDwICAg&amp;c=3Due8mO8zgC4VZ4q_aNVKt8G9MC01=
-UFDmisvMR1k-EoDM&amp;r=3DkGibSCEQz-PilnW-r9KNT7_zWJXJNtnSK5aYZCe7SVs&amp;m=
-=3D9vYrt5dE5uTcGZ0xJvXwlc2qHu9SzkgJbpR7h9W0jXE&amp;s=3DxLAMWHrLSU8GJiEb4ObB=
-mfmlBhRwK26Z3t4-piFCe1c&amp;e">https://urldefense.proofpoint.com/v2/url?u=
-=3Dhttps-3A__gerrit.openbmc-2Dproject.xyz_-23_c_openbmc_ipmbbridge_-2B_1113=
-0_&amp;d=3DDwICAg&amp;c=3Due8mO8zgC4VZ4q_aNVKt8G9MC01UFDmisvMR1k-EoDM&amp;r=
-=3DkGibSCEQz-PilnW-r9KNT7_zWJXJNtnSK5aYZCe7SVs&amp;m=3D9vYrt5dE5uTcGZ0xJvXw=
-lc2qHu9SzkgJbpR7h9W0jXE&amp;s=3DxLAMWHrLSU8GJiEb4ObBmfmlBhRwK26Z3t4-piFCe1c=
-&amp;e</a>=3D
- and find out that the IPMB request or response messages are passed down to=
- the I2C slave device in the ipmbSend function.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">The master device node is /dev/=
-i2c-0 and the slave device node is /sys/bus/i2c/devices/0-1010/slave-mqueue=
- in the ipmbbridge implementation.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">The direction is always from th=
-e master device to the slave device.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">In normal IPMB usage case, an I=
-PMB request is sent to the master device (say /dev/i2c-3) and then the mast=
-er device sends that IPMB request to the client device attached to the mast=
-er device&#8217;s bus.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">While an IPMB response returns =
-from the client device, the client device uses an I2C master-write transfer=
- to send the response back to the request originator, which is /dev/i2c-3, =
-according to IPMB spec. So the request
- originator becomes an I2C slave at this moment.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">It seems to me that ipmbSend be=
-havior doesn&#8217;t get aligned with the description of request/response p=
-rotocol in IPMB spec.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I might misunderstand the ipmbS=
-end behavior and any comment is welcome.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Thank you.<o:p></o:p></span></p=
 >
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Regards,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Tyrone<o:p></o:p></span></p>
-</div>
-<br>
-<font face=3D"Arial" color=3D"Black" size=3D"3"><br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
-The privileged confidential information contained in this email is intended=
- for use only by the addressees as indicated by the original sender of this=
- email. If you are not the addressee indicated in this email or are not res=
-ponsible for delivery of the email
- to such a person, please kindly reply to the sender indicating this fact a=
-nd delete all copies of it from your computer and network server immediatel=
-y. Your cooperation is highly appreciated. It is advised that any unauthori=
-zed use of confidential information
- of Nuvoton is strictly prohibited; and any information in this email irrel=
-evant to the official business of Nuvoton shall be deemed as neither given =
-nor endorsed by Nuvoton.<br>
-</font>
-</body>
-</html>
-
---_000_4b1131fb4e684bca994c5456838c028dNTHCML01Anuvotoncom_--
+> > On Aug 23, 2018, at 5:19 PM, Patrick Venture <venture@google.com> wrote=
+:
+> >
+> > I'm seeing these warnings, is anybody else?  (Building quanta-q71l as
+> > of a few minutes ago).
+> >
+> > WARNING: libgpg-error-native-1.27-r0 do_patch:
+> > Some of the context lines in patches were ignored. This can lead to
+> > incorrectly applied patches.
+> > The context lines in the patches can be updated with devtool:
+> >
+> >    devtool modify <recipe>
+> >    devtool finish --force-patch-refresh <recipe> <layer_path>
+> >
+> > Then the updated patches and the source tree (in devtool's workspace)
+> > should be reviewed to make sure the patches apply in the correct place
+> > and don't introduce duplicate lines (which can, and does happen
+> > when some of the context is ignored). Further information:
+> > http://lists.openembedded.org/pipermail/openembedded-core/2018-March/14=
+8675.html
+> > https://bugzilla.yoctoproject.org/show_bug.cgi?id=3D10450
+> > Details:
+> > Applying patch 0001-syscfg-Add-ppc64le-cross-build-support.patch
+> > patching file src/Makefile.am
+> > Hunk #1 succeeded at 61 with fuzz 2 (offset -3 lines).
+> > patching file src/syscfg/lock-obj-pub.ppc64le-unknown-linux-gnu.h
+> >
+> > Now at patch 0001-syscfg-Add-ppc64le-cross-build-support.patch
+> > WARNING: phosphor-ipmi-host-1.0-r1 do_unpack: noskeleton in
+> > MACHINE_FEATURES. Remove mapper-wait on host settings.
+> > WARNING: libgpg-error-1.27-r0 do_patch:
+> > Some of the context lines in patches were ignored. This can lead to
+> > incorrectly applied patches.
+> > The context lines in the patches can be updated with devtool:
+> >
+> >    devtool modify <recipe>
+> >    devtool finish --force-patch-refresh <recipe> <layer_path>
+> >
+> > Then the updated patches and the source tree (in devtool's workspace)
+> > should be reviewed to make sure the patches apply in the correct place
+> > and don't introduce duplicate lines (which can, and does happen
+> > when some of the context is ignored). Further information:
+> > http://lists.openembedded.org/pipermail/openembedded-core/2018-March/14=
+8675.html
+> > https://bugzilla.yoctoproject.org/show_bug.cgi?id=3D10450
+> > Details:
+> > Applying patch 0001-syscfg-Add-ppc64le-cross-build-support.patch
+> > patching file src/Makefile.am
+> > Hunk #1 succeeded at 61 with fuzz 2 (offset -3 lines).
+> > patching file src/syscfg/lock-obj-pub.ppc64le-unknown-linux-gnu.h
+> >
+> > Now at patch 0001-syscfg-Add-ppc64le-cross-build-support.patch
+> > Using an insecure image signing key!
+> > WARNING: python-pygobject-2.28.7-r0 do_patch:
+> > Some of the context lines in patches were ignored. This can lead to
+> > incorrectly applied patches.
+> > The context lines in the patches can be updated with devtool:
+> >
+> >    devtool modify <recipe>
+> >    devtool finish --force-patch-refresh <recipe> <layer_path>
+> >
+> > Then the updated patches and the source tree (in devtool's workspace)
+> > should be reviewed to make sure the patches apply in the correct place
+> > and don't introduce duplicate lines (which can, and does happen
+> > when some of the context is ignored). Further information:
+> > http://lists.openembedded.org/pipermail/openembedded-core/2018-March/14=
+8675.html
+> > https://bugzilla.yoctoproject.org/show_bug.cgi?id=3D10450
+> > Details:
+> > Applying patch obsolete_automake_macros.patch
+> > patching file configure.ac
+> > Hunk #2 succeeded at 82 with fuzz 1.
+> >
+> > Now at patch obsolete_automake_macros.patch
+>
+> Hi Patrick
+>
+> Yep, I=E2=80=99ve seen these.  In fact, it is my patch it is complaining =
+about - it started
+> with the bump to Yocto 2.5.  I haven=E2=80=99t had a chance to fix it up.
+>
+> -brad
