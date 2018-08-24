@@ -1,65 +1,54 @@
-Return-Path: <venture@google.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::535; helo=mail-pg1-x535.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="SJnWy/6C"; 
- dkim-atps=neutral
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41xq4n4XXyzDqk8
- for <openbmc@lists.ozlabs.org>; Sat, 25 Aug 2018 04:07:36 +1000 (AEST)
-Received: by mail-pg1-x535.google.com with SMTP id v66-v6so4626987pgb.10
- for <openbmc@lists.ozlabs.org>; Fri, 24 Aug 2018 11:07:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EZ8d75X6efNhuiSR+F9emyRufvOmWvK2+gL20IeWSe4=;
- b=SJnWy/6CI+LfmGRvihxc5V4A2ldgz7QaKmvfjEpUyaKM05dEvUugVR3p1MO9dlB6My
- x6sKdqcWI2M5MgvtFh5u44rgNTLHEO2OsAtsAWNryf4EYiF2kkON5Pltj5sgAOA12ATc
- BSM/gzEnPmpxNe8RtnXONv6lwK0aTgxMHqex/bSW/Fz1A5sjUQamemK0rVDTwrmoQYzu
- 5zUuPGeOxiH7hZuoNT+29nPbhJ9JJQcDPs5/xIQqU379l2fabAio0OQD3qe/etPSEuQ9
- 5UkFVYMxgNHBieOWdke70/PUQVpqyjAk/h7ckIcoPZdeZCFUjPkt/DevfKjsRi7n4wMX
- KrdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EZ8d75X6efNhuiSR+F9emyRufvOmWvK2+gL20IeWSe4=;
- b=GbDjWABMdlfxdi3MHUQT/OuNEeMrwwaUqvmJybZNmH4evZwNMURJ600NLrkwvXkOuv
- kzmcMoeRuYAvdGbphJyi+MvbAnAQudbRMiQ513omxTUb3BRRZZ7omq8dGuaaLrY5cglx
- aN9PlSMRSim6sew52eFi6qMO9V8u0FcTZSxMBt3jlSpW+ljQPN4YoinsEZ4tSX+uAyom
- R/YfCNXVjVA5mJfdEQYhyes3VvBmfZa+/HoCnc2PHrmByyFXn7nPtebQs+LJ2oBqymNQ
- MF2ROL+H8HG76odq38HyoeDLh6wsJgJzYrP9hpF6Pf/TLMC4tot0+rR4Ll+pBEUvsaTM
- 1kyg==
-X-Gm-Message-State: APzg51B8F59EIZ3h594EVBT280mzRCwzGODTlp9m8OeMIHAOh4d5CnHD
- FHKqL3RNuRvZiW8+w9IQ/PVEtX8j/GESKqK2UYO5FQ==
-X-Google-Smtp-Source: ANB0Vda5adfhtAC09cePRmWRWAyFiO9CxLCn+RxqYhgly7pq74X9tm3+mQH7x8rS2EkCZhM878YQiouDLhw/8TjWy1s=
-X-Received: by 2002:a63:5464:: with SMTP id
- e36-v6mr2648669pgm.449.1535134053332; 
- Fri, 24 Aug 2018 11:07:33 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41xrLP011lzDqrV
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Aug 2018 05:04:25 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2018 12:04:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,283,1531810800"; d="scan'208";a="86155142"
+Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
+ by orsmga002.jf.intel.com with ESMTP; 24 Aug 2018 12:04:09 -0700
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
+ ORSMSX106.amr.corp.intel.com ([169.254.1.57]) with mapi id 14.03.0319.002;
+ Fri, 24 Aug 2018 12:04:09 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Eddie James <eajames@linux.vnet.ibm.com>, xiuzhi <1450335857@qq.com>,
+ "Alexander A. Filippov" <a.filippov@yadro.com>, openbmc
+ <openbmc@lists.ozlabs.org>
+Subject: RE: KVM Support?
+Thread-Topic: KVM Support?
+Thread-Index: AQHUO7lUeASCSKYkH0Gc28tAnBmHq6TPOweA
+Date: Fri, 24 Aug 2018 19:04:08 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E821699345835528@ORSMSX114.amr.corp.intel.com>
+References: <tencent_5D1EDC1D8DB78D128D29AA554AADF300AE08@qq.com>
+ <004c4dee-ada1-61f8-6c6c-653be2b3e57f@linux.vnet.ibm.com>
+ <tencent_54C0BC7D36D43C257F35D6C9@qq.com>
+ <17c12028-a8c5-7b39-aa17-afa80b0ec0da@linux.vnet.ibm.com>
+In-Reply-To: <17c12028-a8c5-7b39-aa17-afa80b0ec0da@linux.vnet.ibm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMGM3NjlhZjEtYjlhYy00ZWViLTg5YjYtMGRkYmE0MmUzNDk2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiazBkYWJNWFo5M1MrdndXdnpzN0VoN0I0UG4yM3pwcEVQekxPaUlCaXlmUmhCb20yVWVlOFpnSm55eXl5RU5mRSJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.138]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <959CAFA1E282D14FB901BE9A7BF4E77249E020C3@shsmsx102.ccr.corp.intel.com>
- <7E9441B1E5EFFD4681F54958E8216993458353D7@ORSMSX114.amr.corp.intel.com>
-In-Reply-To: <7E9441B1E5EFFD4681F54958E8216993458353D7@ORSMSX114.amr.corp.intel.com>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 24 Aug 2018 11:07:21 -0700
-Message-ID: <CAO=notwzyahJ3onTynwoSff6y5NamoHRH_PtdwAyt2sgUNZh_A@mail.gmail.com>
-Subject: Re: Proposal for caching/buffering POST codes list for one boot
- process.
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: kuiying.wang@intel.com, kun.yi.731@gmail.com, 
- "Mihm, James" <james.mihm@intel.com>, hai.v.nguyen@intel.com,
- james.feist@intel.com, 
- chunhui.jia@intel.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- yong.b.li@intel.com, 
- cheng.c.yang@intel.com, Brad Bishop <bradleyb@fuzziesquirrel.com>,
- qiang.xu@intel.com, geissonator@yahoo.com
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -71,17 +60,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Aug 2018 18:07:39 -0000
+X-List-Received-Date: Fri, 24 Aug 2018 19:04:29 -0000
 
-On Fri, Aug 24, 2018 at 9:13 AM Tanous, Ed <ed.tanous@intel.com> wrote:
->
-> Would it make more sense to simply include multiple post code paths on dbus?
->
-> /xyz/openbmc_project/host/post/current
-> /xyz/openbmc_project/host/post/1
-> /xyz/openbmc_project/host/post/2
->
-> This would allow the interface itself to define an arbitrary number of post code collections, rather than just previous and current.  Initially, previous and current is likely all we need, but in the future, it might be good to store more.
+>=20
+> Well, the VNC server (and Video Engine driver) integration is targeted fo=
+r the
+> OpenBMC release in February 2019. Hopefully in master before then. There
+> is currently no plan or work being done to integrate a viewer into the BM=
+C
+> webui. But patches are certainly welcome in this area! It could be as sim=
+ple as
+> dropping in a noVNC html file... not sure.
+>=20
 
-I like this approach, but one would need to enumerate the tree to know
-how many there are cached available.  Albeit, maybe that's trivial :D
+Not to disagree with you, but there's some work here:
+
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/10268/
+
+The webui side of it was just a matter of dropping novnc into the webui and=
+ routing the websocket back to the BMC.  The BMC side of it, implementing a=
+ppropriate security on the websocket, and some other cleanup is on my back =
+burner.  I'm at a bit of a crossroads, and I have two thoughts on how to pr=
+oceed.
+
+1. Rejigger the existing VNC kvm websocket implementation here to update to=
+ the new driver API, and delete all the JPEG to bitmap decoding code.  This=
+ solution essentially runs a websocket-only VNC server inside bmcweb. https=
+://github.com/openbmc/bmcweb/blob/master/include/web_kvm.hpp
+Pros:
+A. Smaller overall binary size.  Libvncserver supports a lot of things that=
+ I suspect openbmc will never need to.  For example, the password authentic=
+ation mechanisms for VNC/RFB protocol are woefully out of date by modern st=
+andards, so I suspect there's no sense in having that code at all.
+B. Better security.  There is no VNC port that could be abused/ported to ge=
+t access to the KVM session.  The websocket authentication and authorizatio=
+n infrastructure uses the same mechanisms as the rest of the webserver, so =
+it reduces the attack surface.  Said another way, it's unlikely an attack o=
+n bmcweb would be able to target the VNC server specifically.
+C. Fewer framebuffer copies compared to a websocket proxy (at least in theo=
+ry).  It is one fewer trip of the large framebuffers through userspace, whi=
+ch should save us some copies.  At some point in the future if we got the L=
+inux TLS subsystem going, we could likely build a no-copy, or single copy f=
+ramebuffer solution, which should net us some performance by essentially ke=
+eping the buffers in the kernel.
+
+Cons:
+A. It needs to be written.  Hopefully the changes should be mostly deletes,=
+ and regiggering to pull framebuffers from the driver.  Keyboard and mouse =
+would need to be hooked up to the gadget driver using the example from obmc=
+-kvm.
+B. It is a specific solution for openbmc, so it's unlikely to have much uti=
+lity outside of the project.  Contributing to libvncserver "gives back" mor=
+e to the open source community.
+
+2. Use bmcweb as a websocket proxy to obmc-kvm server in a very similar way=
+ to how we proxy to obmc-console.
+Pros:
+A. Gives us full compatibility with standard socket VNC, which could be use=
+ful for debugging purposes.  I wouldn't recommend enabling it in practice w=
+ithout some other kind of authentication and encryption pipeline ahead of i=
+t.
+B. The work to do this should be relatively minimal.  It should be essentia=
+lly a copy-paste of the obmc-console socket code, a little debugging, and i=
+t should be mostly good to go.
+
+Cons:
+A. Larger binary size.  I need to get more exact numbers here, but adding a=
+ relatively large library (libvncserver) and another application (obmc-kvm)=
+ seems unlikely to be good for our flash usage.  As is, we're already pushi=
+ng the limits of a 32MB flash.
+b. Extra framebuffer copies.  Driver -> obmc-kvm -> bmcweb(with TLS)  -> br=
+owser  in theory is at least one extra copy.  It would be interesting to se=
+t up both in practice.
+=09
+3. Some other option that I'm missing?
+
+I'm very interested in what the community thinks here.  Is there a use case=
+ for having the standalone vncserver?
+
+-Ed
