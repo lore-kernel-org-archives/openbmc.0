@@ -1,54 +1,54 @@
-Return-Path: <KWLIU@nuvoton.com>
+Return-Path: <chunhui.jia@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=kwliu@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=nuvoton.com
-X-Greylist: delayed 600 seconds by postgrey-1.36 at bilbo;
- Mon, 27 Aug 2018 17:19:21 AEST
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=chunhui.jia@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41zNYP1cgMzDqSL
- for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 17:19:20 +1000 (AEST)
-Received: from NTILML02.nuvoton.com (212.199.177.21.static.012.net.il
- [212.199.177.21])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w7R6d71d014721
- for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 09:39:08 +0300
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML02.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Mon, 27 Aug
- 2018 10:09:05 +0300
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Mon, 27 Aug
- 2018 15:09:03 +0800
-Received: from NTHCML01A.nuvoton.com ([fe80::1170:e239:c9a9:e8b8]) by
- NTHCML01A.nuvoton.com ([fe80::1170:e239:c9a9:e8b8%13]) with mapi id
- 15.00.1130.005; Mon, 27 Aug 2018 15:09:03 +0800
-From: <KWLIU@nuvoton.com>
-To: <ed.tanous@intel.com>, <eajames@linux.vnet.ibm.com>,
- <openbmc@lists.ozlabs.org>
-Subject: RE: KVM Support?
-Thread-Topic: KVM Support?
-Thread-Index: AQHUO7lSdzDpnDbMxEmWF++8FZWSqaTOvOgAgAQtl7A=
-Date: Mon, 27 Aug 2018 07:09:03 +0000
-Message-ID: <3d92122e8c42452caee0ece1769ee147@NTHCML01A.nuvoton.com>
-References: <tencent_5D1EDC1D8DB78D128D29AA554AADF300AE08@qq.com>
- <004c4dee-ada1-61f8-6c6c-653be2b3e57f@linux.vnet.ibm.com>
- <tencent_54C0BC7D36D43C257F35D6C9@qq.com>
- <17c12028-a8c5-7b39-aa17-afa80b0ec0da@linux.vnet.ibm.com>
- <7E9441B1E5EFFD4681F54958E821699345835528@ORSMSX114.amr.corp.intel.com>
-In-Reply-To: <7E9441B1E5EFFD4681F54958E821699345835528@ORSMSX114.amr.corp.intel.com>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [110.28.101.63]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41zPRz08FRzDqSL
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 17:59:39 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2018 00:59:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,294,1531810800"; d="scan'208,217";a="85221674"
+Received: from shwde9518.ccr.corp.intel.com (HELO SHWDE9518) ([10.239.15.8])
+ by orsmga001.jf.intel.com with ESMTP; 27 Aug 2018 00:59:34 -0700
+Date: Mon, 27 Aug 2018 15:59:34 +0800
+From: chunhui.jia <chunhui.jia@linux.intel.com>
+To: =?UTF-8?B?VGFub3VzLCBFZA==?= <ed.tanous@intel.com>, 
+ "Patrick Venture" <venture@google.com>
+Cc: kuiying.wang <kuiying.wang@intel.com>, 
+ =?UTF-8?B?TWlobSwgSmFtZXM=?= <james.mihm@intel.com>, 
+ =?UTF-8?B?Tmd1eWVuLCBIYWkgVg==?= <hai.v.nguyen@intel.com>, 
+ =?UTF-8?B?RmVpc3QsIEphbWVz?= <james.feist@intel.com>, 
+ =?UTF-8?B?SmlhLCBDaHVuaHVp?= <chunhui.jia@intel.com>, 
+ "OpenBMC Maillist" <openbmc@lists.ozlabs.org>, 
+ =?UTF-8?B?TGksIFlvbmcgQg==?= <yong.b.li@intel.com>, 
+ =?UTF-8?B?WWFuZywgQ2hlbmcgQw==?= <cheng.c.yang@intel.com>, 
+ "Brad Bishop" <bradleyb@fuzziesquirrel.com>, 
+ =?UTF-8?B?WHUsIFFpYW5n?= <qiang.xu@intel.com>, 
+ "kun.yi.731@gmail.com" <kun.yi.731@gmail.com>, 
+ "geissonator@yahoo.com" <geissonator@yahoo.com>
+Subject: Re: RE: Proposal for caching/buffering POST codes list for one boot
+ process.
+References: <959CAFA1E282D14FB901BE9A7BF4E77249E020C3@shsmsx102.ccr.corp.intel.com>, 
+ <7E9441B1E5EFFD4681F54958E8216993458353D7@ORSMSX114.amr.corp.intel.com>, 
+ <CAO=notwzyahJ3onTynwoSff6y5NamoHRH_PtdwAyt2sgUNZh_A@mail.gmail.com>, 
+ <7E9441B1E5EFFD4681F54958E8216993458355BC@ORSMSX114.amr.corp.intel.com>
+X-Priority: 3
+X-GUID: F5741F23-0C89-41D7-BFA9-D8FD3881344C
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.9.116[cn]
+Mime-Version: 1.0
+Message-ID: <2018082715593358738018@linux.intel.com>
+Content-Type: multipart/alternative;
+ boundary="----=_001_NextPart481731337687_=----"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -60,143 +60,160 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Aug 2018 07:19:23 -0000
+X-List-Received-Date: Mon, 27 Aug 2018 07:59:43 -0000
 
-Hi Eddie & Ed:
+This is a multi-part message in MIME format.
 
-Do you have any plan to support non-jpeg video stream in obmc-iKVM?
-It is possible some platforms don't have hardware JPEG engine, instead have=
- the RGB video stream.
-If possible to support RGB video stream, I think it would be better if you =
-can add the video frame differentiation in obmc-iKVM because we don't need =
-to send the full screen to VNC client on every request, it can reduce the b=
-uffer size at least. (libvncserver already has the video frame differentiat=
-ion)
+------=_001_NextPart481731337687_=----
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Also, I have implemented a KVM application for our platform(nuvoton evb-npc=
-m750) which has hardware video frame differentiation and hardware hextile e=
-ngine.
-https://github.com/Nuvoton-Israel/obmc-ikvm
-https://github.com/Nuvoton-Israel/linux/commit/7e90f572323e56e9425b85aafe86=
-dfa5a35c4e7d
+RWQsIFZlbnR1cmUsIA0KDQpDb3VsZCB5b3UgY29uZmlybSBpZiB0aGUgIi94eXovb3BlbmJtY19w
+cm9qZWN0L2hvc3QvcG9zdC8xIiB0aGF0IHdlIHRhbGtlZCBoZXJlIGNvbnRhaW5zIGEgbGlzdCBv
+ZiBwb3N0IGNvZGUgZm9yIG9uZSBjeWNsZT8gDQoNCkZyb20gbXkgdW5kZXJzdGFuZGluZywgaXQg
+c2hvdWxkIGJlIGxpa2U6DQoveHl6L29wZW5ibWNfcHJvamVjdC9ob3N0L3Bvc3QvY3VycmVudCAo
+b2JqcGF0aCkNCi0+eHl6Lm9wZW5ibWNfcHJvamVjdC5Ib3N0LlN0YXRlLkJvb3QuUmF3IChpbnRm
+KQ0KLS0tLT5WYWx1ZSAoYSBsaXN0IG9mIFBPU1QgY29kZSBmb3IgY3VycmVudCBQT1NUKSAocHJv
+cGVydHkpDQoveHl6L29wZW5ibWNfcHJvamVjdC9ob3N0L3Bvc3QvMQ0KLT54eXoub3BlbmJtY19w
+cm9qZWN0Lkhvc3QuU3RhdGUuQm9vdC5SYXcNCi0tLS0+VmFsdWUgKGEgbGlzdCBvZiBQT1NUIGNv
+ZGUgZm9yIHByZXZpb3VzIFBPU1QpDQoveHl6L29wZW5ibWNfcHJvamVjdC9ob3N0L3Bvc3QvMg0K
+LT54eXoub3BlbmJtY19wcm9qZWN0Lkhvc3QuU3RhdGUuQm9vdC5SYXcNCi0tLS0+VmFsdWUgKGEg
+bGlzdCBvZiBQT1NUIGNvZGUgZm9yIHRoZSB0aW1lIGJlZm9yZSBwcmV2aW91cykNCg0KSXMgdGhh
+dCBjb3JyZWN0Pw0KDQpUaGUgcmVhc29uIEkgYW0gYXNraW5nIGlzIHRoYXQgdGhlIG9yZ2luYWwg
+cG9zdCBjb2RlIGludGVyZmFjZSBvbmx5IGtlZXAgKm9uZSogcG9zdCBjb2RlLiBFdmVuIGlmIG9u
+ZSBEQyBjeWNsZSBjb3VsZCBnZW5lcmF0ZSAzMH40MCBwb3N0IGNvZGUsIGl0IGp1c3Qga2VlcCBs
+YXRlc3QgYW5kIHByZXZpb3VzIG9uZS4gDQpJIGFzc3VtZSB0aGUgb2JqcGF0aCAveHl6L29wZW5i
+bWNfcHJvamVjdC9ob3N0L3Bvc3QvMSBjb250YWlucyBhIGxpc3QuICAgT3RoZXJ3aXNlLCBpdCB3
+aWxsIGp1c3QgcmVwcmVzZW50IG9uZSBwb3N0IGNvZGUgaW4gb25lIGN5Y2xlLiAgSW4gdGhlIGxh
+dHRlciBjYXNlLCB3ZSB3aWxsIGhhdmUgL3h5ei9vcGVuYm1jX3Byb2plY3QvaG9zdC9wb3N0L1sw
+fjQwXSBvYmplY3RzIGZvciBvbmUgY3ljbGUgYW5kIGl0IGxvb2tzIHVnbHkuIA0KDQoNCg0KY2h1
+bmh1aS5qaWENCiANCkZyb206IFRhbm91cywgRWQNCkRhdGU6IDIwMTgtMDgtMjUgMDM6MzMNClRv
+OiBQYXRyaWNrIFZlbnR1cmUNCkNDOiBXYW5nLCBLdWl5aW5nOyBNaWhtLCBKYW1lczsgTmd1eWVu
+LCBIYWkgVjsgRmVpc3QsIEphbWVzOyBKaWEsIENodW5odWk7IE9wZW5CTUMgTWFpbGxpc3Q7IExp
+LCBZb25nIEI7IFlhbmcsIENoZW5nIEM7IEJyYWQgQmlzaG9wOyBYdSwgUWlhbmc7IGt1bi55aS43
+MzFAZ21haWwuY29tOyBnZWlzc29uYXRvckB5YWhvby5jb20NClN1YmplY3Q6IFJFOiBQcm9wb3Nh
+bCBmb3IgY2FjaGluZy9idWZmZXJpbmcgUE9TVCBjb2RlcyBsaXN0IGZvciBvbmUgYm9vdCBwcm9j
+ZXNzLg0KPiANCj4gSSBsaWtlIHRoaXMgYXBwcm9hY2gsIGJ1dCBvbmUgd291bGQgbmVlZCB0byBl
+bnVtZXJhdGUgdGhlIHRyZWUgdG8ga25vdyBob3cNCj4gbWFueSB0aGVyZSBhcmUgY2FjaGVkIGF2
+YWlsYWJsZS4gIEFsYmVpdCwgbWF5YmUgdGhhdCdzIHRyaXZpYWwgOkQNCiANCkEgREJ1cyBjYWxs
+IHRvIE9iamVjdG1hcHBlciAgd291bGQgdGVsbCB5b3UgaG93IG1hbnkgb2JqZWN0cyB5b3UgaGF2
+ZS4NCkdldFN1YnRyZWUgIHBhdGg6L3h5ei9vcGVuYm1jX3Byb2plY3QvaG9zdC9wb3N0IGRlcHRo
+OiAwIGludGVyZmFjZXMgWyJ4eXoub3BlbmJtY19wcm9qZWN0Lkhvc3QuU3RhdGUuQm9vdC5SYXci
+XSB3b3VsZCBnZXQgeW91IGEgbGlzdCBvZiBhbGwgUG9zdCBjb2RlIGludGVyZmFjZXMNCkRlcGVu
+ZGluZyBvbiB0aGUgY29udGV4dCB5b3UgbWlnaHQgYWxzbyBiZSBhYmxlIHRvIGdldCBhd2F5IHdp
+dGgganVzdCBHZXRTdWJ0cmVlUGF0aHMuDQogDQpJIHdvdWxkbid0IGNhbGwgaXQgdHJpdmlhbCwg
+YnV0IGl0IGZhbGxzIGluIHRoZSBjYXRlZ29yeSBvZiBkb2FibGUuDQogDQpBbHRlcm5hdGl2ZWx5
+LCBpZiB5b3Uga25vdyB5b3UgbmVlZCBhbGwgb2YgdGhlbSBmb3Igd2hhdGV2ZXIgcmVzcG9uc2Ug
+eW91J3JlIGJ1aWxkaW5nLCBHZXRNYW5hZ2VkT2JqZWN0cyB0byB0aGUgUG9zdCBjb2RlIGRhZW1v
+biBkaXJlY3RseSB3b3VsZCBzYXZlIHlvdSBhIHJvdW5kIHRyaXAgdGhyb3VnaCBEQnVzLg0KIA0K
+IA0K
 
-I also enabled ED's KVM webui and added kvmws proxy in python web server.
-https://github.com/Nuvoton-Israel/meta-openbmc-nuvoton-addon/commit/140771b=
-7e898dd5ca8f0364290cce669609088ac
+------=_001_NextPart481731337687_=----
+Content-Type: text/html;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If you can spare a few minutes to review my implementation is my pleasure.
-
-Currently, my video driver is not v4l2, so I am going to redesign it to fit=
- v4l2 and your obmc-iKVM, then I will try to add the RGB format support in =
-your obmc-ikvm.
-
-Regarding the larger binary size, I think we need to review all configurati=
-ons of libvncserver and check which functions should be disabled.
-
-Thanks,
-Joseph Liu.
------Original Message-----
-From: openbmc [mailto:openbmc-bounces+kwliu=3Dnuvoton.com@lists.ozlabs.org]=
- On Behalf Of Tanous, Ed
-Sent: Saturday, August 25, 2018 3:04 AM
-To: Eddie James; xiuzhi; Alexander A. Filippov; openbmc
-Subject: RE: KVM Support?
-
->
-> Well, the VNC server (and Video Engine driver) integration is targeted
-> for the OpenBMC release in February 2019. Hopefully in master before
-> then. There is currently no plan or work being done to integrate a
-> viewer into the BMC webui. But patches are certainly welcome in this
-> area! It could be as simple as dropping in a noVNC html file... not sure.
->
-
-Not to disagree with you, but there's some work here:
-
-https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__gerrit.openbmc-2Dpro=
-ject.xyz_-23_c_openbmc_phosphor-2Dwebui_-2B_10268_&d=3DDwIFAg&c=3Due8mO8zgC=
-4VZ4q_aNVKt8G9MC01UFDmisvMR1k-EoDM&r=3D7g2D1XDc1ET3CnY1ySnaWQXPxPxfpLww1MiD=
-bLW4v8Q&m=3DuAK69sfPRejBDLMlDDz55S4bZYC4CDdn36duJicj1Ng&s=3DD17B6-0jST399fi=
-aUbHLhWtx-Igita5vNYzRA-bGBmA&e=3D
-
-The webui side of it was just a matter of dropping novnc into the webui and=
- routing the websocket back to the BMC.  The BMC side of it, implementing a=
-ppropriate security on the websocket, and some other cleanup is on my back =
-burner.  I'm at a bit of a crossroads, and I have two thoughts on how to pr=
-oceed.
-
-1. Rejigger the existing VNC kvm websocket implementation here to update to=
- the new driver API, and delete all the JPEG to bitmap decoding code.  This=
- solution essentially runs a websocket-only VNC server inside bmcweb. https=
-://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__github.com_openbmc_bmcweb=
-_blob_master_include_web-5Fkvm.hpp&d=3DDwIFAg&c=3Due8mO8zgC4VZ4q_aNVKt8G9MC=
-01UFDmisvMR1k-EoDM&r=3D7g2D1XDc1ET3CnY1ySnaWQXPxPxfpLww1MiDbLW4v8Q&m=3DuAK6=
-9sfPRejBDLMlDDz55S4bZYC4CDdn36duJicj1Ng&s=3DxlRipubKg7lXeC_KC_BlSZlCzxEljFo=
-G1AL8mGRzQig&e=3D
-Pros:
-A. Smaller overall binary size.  Libvncserver supports a lot of things that=
- I suspect openbmc will never need to.  For example, the password authentic=
-ation mechanisms for VNC/RFB protocol are woefully out of date by modern st=
-andards, so I suspect there's no sense in having that code at all.
-B. Better security.  There is no VNC port that could be abused/ported to ge=
-t access to the KVM session.  The websocket authentication and authorizatio=
-n infrastructure uses the same mechanisms as the rest of the webserver, so =
-it reduces the attack surface.  Said another way, it's unlikely an attack o=
-n bmcweb would be able to target the VNC server specifically.
-C. Fewer framebuffer copies compared to a websocket proxy (at least in theo=
-ry).  It is one fewer trip of the large framebuffers through userspace, whi=
-ch should save us some copies.  At some point in the future if we got the L=
-inux TLS subsystem going, we could likely build a no-copy, or single copy f=
-ramebuffer solution, which should net us some performance by essentially ke=
-eping the buffers in the kernel.
-
-Cons:
-A. It needs to be written.  Hopefully the changes should be mostly deletes,=
- and regiggering to pull framebuffers from the driver.  Keyboard and mouse =
-would need to be hooked up to the gadget driver using the example from obmc=
--kvm.
-B. It is a specific solution for openbmc, so it's unlikely to have much uti=
-lity outside of the project.  Contributing to libvncserver "gives back" mor=
-e to the open source community.
-
-2. Use bmcweb as a websocket proxy to obmc-kvm server in a very similar way=
- to how we proxy to obmc-console.
-Pros:
-A. Gives us full compatibility with standard socket VNC, which could be use=
-ful for debugging purposes.  I wouldn't recommend enabling it in practice w=
-ithout some other kind of authentication and encryption pipeline ahead of i=
-t.
-B. The work to do this should be relatively minimal.  It should be essentia=
-lly a copy-paste of the obmc-console socket code, a little debugging, and i=
-t should be mostly good to go.
-
-Cons:
-A. Larger binary size.  I need to get more exact numbers here, but adding a=
- relatively large library (libvncserver) and another application (obmc-kvm)=
- seems unlikely to be good for our flash usage.  As is, we're already pushi=
-ng the limits of a 32MB flash.
-b. Extra framebuffer copies.  Driver -> obmc-kvm -> bmcweb(with TLS)  -> br=
-owser  in theory is at least one extra copy.  It would be interesting to se=
-t up both in practice.
-
-3. Some other option that I'm missing?
-
-I'm very interested in what the community thinks here.  Is there a use case=
- for having the standalone vncserver?
-
--Ed
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-The privileged confidential information contained in this email is intended=
- for use only by the addressees as indicated by the original sender of this=
- email. If you are not the addressee indicated in this email or are not res=
-ponsible for delivery of the email to such a person, please kindly reply to=
- the sender indicating this fact and delete all copies of it from your comp=
-uter and network server immediately. Your cooperation is highly appreciated=
-. It is advised that any unauthorized use of confidential information of Nu=
-voton is strictly prohibited; and any information in this email irrelevant =
-to the official business of Nuvoton shall be deemed as neither given nor en=
-dorsed by Nuvoton.
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
+t=3DUTF-8"><style>body { line-height: 1.5; }blockquote { margin-top: 0px; =
+margin-bottom: 0px; margin-left: 0.5em; }body { font-size: 10.5pt; font-fa=
+mily: 'Segoe UI'; color: rgb(0, 0, 0); line-height: 1.5; }</style></head><=
+body>=0A<div><span></span><div>Ed, Venture,&nbsp;</div><div><br></div><div=
+>Could you confirm if the "<span style=3D"font-family: 'Segoe UI', Tahoma;=
+ line-height: normal; font-size: 10.5pt; background-color: transparent;">/=
+xyz/openbmc_project/host/post/1" that we talked here contains a list of po=
+st code for one cycle?&nbsp;</span></div><div><br></div><div>From my under=
+standing, it should be like:</div><div><div><div style=3D"font-family: 'Se=
+goe UI', Tahoma; line-height: normal;">/xyz/openbmc_project/host/post/curr=
+ent (objpath)</div><div style=3D"font-family: 'Segoe UI', Tahoma; line-hei=
+ght: normal;">-&gt;<span style=3D"font-size: 10.5pt; background-color: tra=
+nsparent;">xyz.openbmc_project.Host.State.Boot.Raw (intf)</span></div><div=
+ style=3D"font-family: 'Segoe UI', Tahoma; line-height: normal;"><span sty=
+le=3D"font-size: 10.5pt; background-color: transparent;">----&gt;</span><s=
+pan style=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas,=
+ 'Liberation Mono', Menlo, Courier, monospace; font-size: 12px; line-heigh=
+t: 20px; white-space: pre; background-color: transparent;">Value (a list o=
+f POST code for current POST) (property)</span></div><div style=3D"font-fa=
+mily: 'Segoe UI', Tahoma; line-height: normal;">/xyz/openbmc_project/host/=
+post/1</div><div style=3D"font-family: 'Segoe UI', Tahoma; line-height: no=
+rmal;">-&gt;<span style=3D"font-size: 10.5pt; background-color: transparen=
+t;">xyz.openbmc_project.Host.State.Boot.Raw</span></div><div style=3D"font=
+-family: 'Segoe UI', Tahoma; line-height: normal;"><span style=3D"font-siz=
+e: 10.5pt; background-color: transparent;">----&gt;</span><span style=3D"c=
+olor: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas, 'Liberation M=
+ono', Menlo, Courier, monospace; font-size: 12px; line-height: 20px; white=
+-space: pre; background-color: transparent;">Value </span><span style=3D"c=
+olor: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas, 'Liberation M=
+ono', Menlo, Courier, monospace; font-size: 12px; line-height: 20px; white=
+-space: pre; background-color: transparent;">(a list of POST code for prev=
+ious POST)</span></div><div style=3D"font-family: 'Segoe UI', Tahoma; line=
+-height: normal;">/xyz/openbmc_project/host/post/2</div></div><div style=
+=3D"font-family: 'Segoe UI', Tahoma; line-height: normal;">-&gt;<span styl=
+e=3D"font-size: 10.5pt; background-color: transparent;">xyz.openbmc_projec=
+t.Host.State.Boot.Raw</span></div><div style=3D"font-family: 'Segoe UI', T=
+ahoma; line-height: normal;"><span style=3D"font-size: 10.5pt; background-=
+color: transparent;">----&gt;</span><span style=3D"color: rgb(3, 47, 98); =
+font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, =
+monospace; font-size: 12px; line-height: 20px; white-space: pre; backgroun=
+d-color: transparent;">Value </span><span style=3D"color: rgb(3, 47, 98); =
+font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, =
+monospace; font-size: 12px; line-height: 20px; white-space: pre; backgroun=
+d-color: transparent;">(a list of POST code for the time before previous)<=
+/span></div></div><div><br></div><div>Is that correct?</div><div><br></div=
+><div><span style=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, C=
+onsolas, 'Liberation Mono', Menlo, Courier, monospace; line-height: 20px; =
+white-space: pre; background-color: transparent;">The reason I am asking i=
+s that the orginal post code interface only keep *one* post code. </span><=
+span style=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas=
+, 'Liberation Mono', Menlo, Courier, monospace; line-height: 20px; white-s=
+pace: pre; background-color: transparent;">Even if one DC cycle could gene=
+rate 30~40 post code, it just keep latest and previous one. </span><span s=
+tyle=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas, 'Lib=
+eration Mono', Menlo, Courier, monospace; line-height: 20px; white-space: =
+pre; background-color: transparent;"> </span></div><div>I assume the objpa=
+th&nbsp;<span style=3D"font-family: 'Segoe UI', Tahoma; line-height: norma=
+l; font-size: 10.5pt; background-color: transparent;">/xyz/openbmc_project=
+/host/post/1 contains a list. &nbsp; Otherwise, it will just represent one=
+ post code in one cycle. &nbsp;In the latter case, we will have&nbsp;</spa=
+n><span style=3D"font-family: 'Segoe UI', Tahoma; line-height: normal; fon=
+t-size: 10.5pt; background-color: transparent;">/xyz/openbmc_project/host/=
+post/[0~40] objects for one cycle and it looks&nbsp;</span><span style=3D"=
+font-family: 'Segoe UI', Tahoma; font-size: 10.5pt; line-height: normal; b=
+ackground-color: transparent;">ugly.&nbsp;</span></div></div>=0A<div><br><=
+/div><hr style=3D"width: 210px; height: 1px;" color=3D"#b5c4df" size=3D"1"=
+ align=3D"left">=0A<div><span><div style=3D"MARGIN: 10px; FONT-FAMILY: ver=
+dana; FONT-SIZE: 10pt"><div>chunhui.jia</div></div></span></div>=0A<blockq=
+uote style=3D"margin-Top: 0px; margin-Bottom: 0px; margin-Left: 0.5em"><di=
+v>&nbsp;</div><div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;pad=
+ding:3.0pt 0cm 0cm 0cm"><div style=3D"PADDING-RIGHT: 8px; PADDING-LEFT: 8p=
+x; FONT-SIZE: 12px;FONT-FAMILY:tahoma;COLOR:#000000; BACKGROUND: #efefef; =
+PADDING-BOTTOM: 8px; PADDING-TOP: 8px"><div><b>From:</b>&nbsp;<a href=3D"m=
+ailto:ed.tanous@intel.com">Tanous, Ed</a></div><div><b>Date:</b>&nbsp;2018=
+-08-25&nbsp;03:33</div><div><b>To:</b>&nbsp;<a href=3D"mailto:venture@goog=
+le.com">Patrick Venture</a></div><div><b>CC:</b>&nbsp;<a href=3D"mailto:ku=
+iying.wang@intel.com">Wang, Kuiying</a>; <a href=3D"mailto:james.mihm@inte=
+l.com">Mihm, James</a>; <a href=3D"mailto:hai.v.nguyen@intel.com">Nguyen, =
+Hai V</a>; <a href=3D"mailto:james.feist@intel.com">Feist, James</a>; <a h=
+ref=3D"mailto:chunhui.jia@intel.com">Jia, Chunhui</a>; <a href=3D"mailto:o=
+penbmc@lists.ozlabs.org">OpenBMC Maillist</a>; <a href=3D"mailto:yong.b.li=
+@intel.com">Li, Yong B</a>; <a href=3D"mailto:cheng.c.yang@intel.com">Yang=
+, Cheng C</a>; <a href=3D"mailto:bradleyb@fuzziesquirrel.com">Brad Bishop<=
+/a>; <a href=3D"mailto:qiang.xu@intel.com">Xu, Qiang</a>; <a href=3D"mailt=
+o:kun.yi.731@gmail.com">kun.yi.731@gmail.com</a>; <a href=3D"mailto:geisso=
+nator@yahoo.com">geissonator@yahoo.com</a></div><div><b>Subject:</b>&nbsp;=
+RE: Proposal for caching/buffering POST codes list for one boot process.</=
+div></div></div><div><div>&gt; </div>=0A<div>&gt; I like this approach, bu=
+t one would need to enumerate the tree to know how</div>=0A<div>&gt; many =
+there are cached available.&nbsp; Albeit, maybe that's trivial :D</div>=0A=
+<div>&nbsp;</div>=0A<div>A DBus call to Objectmapper&nbsp; would tell you =
+how many objects you have.</div>=0A<div>GetSubtree&nbsp; path:/xyz/openbmc=
+_project/host/post depth: 0 interfaces ["xyz.openbmc_project.Host.State.Bo=
+ot.Raw"] would get you a list of all Post code interfaces</div>=0A<div>Dep=
+ending on the context you might also be able to get away with just GetSubt=
+reePaths.</div>=0A<div>&nbsp;</div>=0A<div>I wouldn't call it trivial, but=
+ it falls in the category of doable.</div>=0A<div>&nbsp;</div>=0A<div>Alte=
+rnatively, if you know you need all of them for whatever response you're b=
+uilding, GetManagedObjects to the Post code daemon directly would save you=
+ a round trip through DBus.</div>=0A<div>&nbsp;</div>=0A<div>&nbsp;</div>=
+=0A</div></blockquote>=0A</body></html>
+------=_001_NextPart481731337687_=------
