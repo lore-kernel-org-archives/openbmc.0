@@ -1,54 +1,58 @@
-Return-Path: <chunhui.jia@linux.intel.com>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=chunhui.jia@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=59.36.132.88; helo=qq.com; envelope-from=1450335857@qq.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="DV5xdNM1"; 
+ dkim-atps=neutral
+Received: from qq.com (smtpbg477.qq.com [59.36.132.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41zPRz08FRzDqSL
- for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 17:59:39 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2018 00:59:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,294,1531810800"; d="scan'208,217";a="85221674"
-Received: from shwde9518.ccr.corp.intel.com (HELO SHWDE9518) ([10.239.15.8])
- by orsmga001.jf.intel.com with ESMTP; 27 Aug 2018 00:59:34 -0700
-Date: Mon, 27 Aug 2018 15:59:34 +0800
-From: chunhui.jia <chunhui.jia@linux.intel.com>
-To: =?UTF-8?B?VGFub3VzLCBFZA==?= <ed.tanous@intel.com>, 
- "Patrick Venture" <venture@google.com>
-Cc: kuiying.wang <kuiying.wang@intel.com>, 
- =?UTF-8?B?TWlobSwgSmFtZXM=?= <james.mihm@intel.com>, 
- =?UTF-8?B?Tmd1eWVuLCBIYWkgVg==?= <hai.v.nguyen@intel.com>, 
- =?UTF-8?B?RmVpc3QsIEphbWVz?= <james.feist@intel.com>, 
- =?UTF-8?B?SmlhLCBDaHVuaHVp?= <chunhui.jia@intel.com>, 
- "OpenBMC Maillist" <openbmc@lists.ozlabs.org>, 
- =?UTF-8?B?TGksIFlvbmcgQg==?= <yong.b.li@intel.com>, 
- =?UTF-8?B?WWFuZywgQ2hlbmcgQw==?= <cheng.c.yang@intel.com>, 
- "Brad Bishop" <bradleyb@fuzziesquirrel.com>, 
- =?UTF-8?B?WHUsIFFpYW5n?= <qiang.xu@intel.com>, 
- "kun.yi.731@gmail.com" <kun.yi.731@gmail.com>, 
- "geissonator@yahoo.com" <geissonator@yahoo.com>
-Subject: Re: RE: Proposal for caching/buffering POST codes list for one boot
- process.
-References: <959CAFA1E282D14FB901BE9A7BF4E77249E020C3@shsmsx102.ccr.corp.intel.com>, 
- <7E9441B1E5EFFD4681F54958E8216993458353D7@ORSMSX114.amr.corp.intel.com>, 
- <CAO=notwzyahJ3onTynwoSff6y5NamoHRH_PtdwAyt2sgUNZh_A@mail.gmail.com>, 
- <7E9441B1E5EFFD4681F54958E8216993458355BC@ORSMSX114.amr.corp.intel.com>
-X-Priority: 3
-X-GUID: F5741F23-0C89-41D7-BFA9-D8FD3881344C
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.9.116[cn]
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41zS8c64f9zDqSL
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 20:01:36 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1535364078; bh=KyVtTlVQq1wsypoJ/OiwOJYrZ+DOOk1XsAqk4ki5/50=;
+ h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=DV5xdNM1zK2G160hE2h1tesvdxXSLu0TDaNBsfnpX6jOhYr9pzau7uimHAu0PTikd
+ HaSS9rvlsMfwmQ5kgBK9oam/BcNJQWk0QOCIFpFBlI2pemovRCvhdVfHcHkChxbvVr
+ jq4Qut+C0k23efboNrWkFFDz1bRNujsVGxJbmYW4=
+X-QQ-SSF: 000000000000008000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.64.100
+In-Reply-To: <7E9441B1E5EFFD4681F54958E821699345835528@ORSMSX114.amr.corp.intel.com>
+References: <tencent_5D1EDC1D8DB78D128D29AA554AADF300AE08@qq.com>
+ <004c4dee-ada1-61f8-6c6c-653be2b3e57f@linux.vnet.ibm.com>
+ <tencent_54C0BC7D36D43C257F35D6C9@qq.com>
+ <17c12028-a8c5-7b39-aa17-afa80b0ec0da@linux.vnet.ibm.com>
+ <7E9441B1E5EFFD4681F54958E821699345835528@ORSMSX114.amr.corp.intel.com>
+X-QQ-STYLE: 
+X-QQ-mid: webenglish1t1535364076t341925
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?VGFub3VzLCBFZA==?=" <ed.tanous@intel.com>,
+ "=?ISO-8859-1?B?RWRkaWUgSmFtZXM=?=" <eajames@linux.vnet.ibm.com>,
+ "=?ISO-8859-1?B?QWxleGFuZGVyIEEuIEZpbGlwcG92?=" <a.filippov@yadro.com>,
+ "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
+Subject: Re:RE: KVM Support?
 Mime-Version: 1.0
-Message-ID: <2018082715593358738018@linux.intel.com>
 Content-Type: multipart/alternative;
- boundary="----=_001_NextPart481731337687_=----"
+ boundary="----=_NextPart_5B83CBEC_0FBDD4F0_6B68252C"
+Content-Transfer-Encoding: 8Bit
+Date: Mon, 27 Aug 2018 18:01:16 +0800
+X-Priority: 3
+Message-ID: <tencent_4567EF110E44C8B12656F95C@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-ReplyHash: 691774099
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Mon, 27 Aug 2018 18:01:17 +0800 (CST)
+Feedback-ID: webenglish:qq.com:bgforeign:bgforeign2
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -60,160 +64,190 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Aug 2018 07:59:43 -0000
+X-List-Received-Date: Mon, 27 Aug 2018 10:01:39 -0000
 
 This is a multi-part message in MIME format.
 
-------=_001_NextPart481731337687_=----
+------=_NextPart_5B83CBEC_0FBDD4F0_6B68252C
 Content-Type: text/plain;
-	charset="UTF-8"
+	charset="ISO-8859-1"
 Content-Transfer-Encoding: base64
 
-RWQsIFZlbnR1cmUsIA0KDQpDb3VsZCB5b3UgY29uZmlybSBpZiB0aGUgIi94eXovb3BlbmJtY19w
-cm9qZWN0L2hvc3QvcG9zdC8xIiB0aGF0IHdlIHRhbGtlZCBoZXJlIGNvbnRhaW5zIGEgbGlzdCBv
-ZiBwb3N0IGNvZGUgZm9yIG9uZSBjeWNsZT8gDQoNCkZyb20gbXkgdW5kZXJzdGFuZGluZywgaXQg
-c2hvdWxkIGJlIGxpa2U6DQoveHl6L29wZW5ibWNfcHJvamVjdC9ob3N0L3Bvc3QvY3VycmVudCAo
-b2JqcGF0aCkNCi0+eHl6Lm9wZW5ibWNfcHJvamVjdC5Ib3N0LlN0YXRlLkJvb3QuUmF3IChpbnRm
-KQ0KLS0tLT5WYWx1ZSAoYSBsaXN0IG9mIFBPU1QgY29kZSBmb3IgY3VycmVudCBQT1NUKSAocHJv
-cGVydHkpDQoveHl6L29wZW5ibWNfcHJvamVjdC9ob3N0L3Bvc3QvMQ0KLT54eXoub3BlbmJtY19w
-cm9qZWN0Lkhvc3QuU3RhdGUuQm9vdC5SYXcNCi0tLS0+VmFsdWUgKGEgbGlzdCBvZiBQT1NUIGNv
-ZGUgZm9yIHByZXZpb3VzIFBPU1QpDQoveHl6L29wZW5ibWNfcHJvamVjdC9ob3N0L3Bvc3QvMg0K
-LT54eXoub3BlbmJtY19wcm9qZWN0Lkhvc3QuU3RhdGUuQm9vdC5SYXcNCi0tLS0+VmFsdWUgKGEg
-bGlzdCBvZiBQT1NUIGNvZGUgZm9yIHRoZSB0aW1lIGJlZm9yZSBwcmV2aW91cykNCg0KSXMgdGhh
-dCBjb3JyZWN0Pw0KDQpUaGUgcmVhc29uIEkgYW0gYXNraW5nIGlzIHRoYXQgdGhlIG9yZ2luYWwg
-cG9zdCBjb2RlIGludGVyZmFjZSBvbmx5IGtlZXAgKm9uZSogcG9zdCBjb2RlLiBFdmVuIGlmIG9u
-ZSBEQyBjeWNsZSBjb3VsZCBnZW5lcmF0ZSAzMH40MCBwb3N0IGNvZGUsIGl0IGp1c3Qga2VlcCBs
-YXRlc3QgYW5kIHByZXZpb3VzIG9uZS4gDQpJIGFzc3VtZSB0aGUgb2JqcGF0aCAveHl6L29wZW5i
-bWNfcHJvamVjdC9ob3N0L3Bvc3QvMSBjb250YWlucyBhIGxpc3QuICAgT3RoZXJ3aXNlLCBpdCB3
-aWxsIGp1c3QgcmVwcmVzZW50IG9uZSBwb3N0IGNvZGUgaW4gb25lIGN5Y2xlLiAgSW4gdGhlIGxh
-dHRlciBjYXNlLCB3ZSB3aWxsIGhhdmUgL3h5ei9vcGVuYm1jX3Byb2plY3QvaG9zdC9wb3N0L1sw
-fjQwXSBvYmplY3RzIGZvciBvbmUgY3ljbGUgYW5kIGl0IGxvb2tzIHVnbHkuIA0KDQoNCg0KY2h1
-bmh1aS5qaWENCiANCkZyb206IFRhbm91cywgRWQNCkRhdGU6IDIwMTgtMDgtMjUgMDM6MzMNClRv
-OiBQYXRyaWNrIFZlbnR1cmUNCkNDOiBXYW5nLCBLdWl5aW5nOyBNaWhtLCBKYW1lczsgTmd1eWVu
-LCBIYWkgVjsgRmVpc3QsIEphbWVzOyBKaWEsIENodW5odWk7IE9wZW5CTUMgTWFpbGxpc3Q7IExp
-LCBZb25nIEI7IFlhbmcsIENoZW5nIEM7IEJyYWQgQmlzaG9wOyBYdSwgUWlhbmc7IGt1bi55aS43
-MzFAZ21haWwuY29tOyBnZWlzc29uYXRvckB5YWhvby5jb20NClN1YmplY3Q6IFJFOiBQcm9wb3Nh
-bCBmb3IgY2FjaGluZy9idWZmZXJpbmcgUE9TVCBjb2RlcyBsaXN0IGZvciBvbmUgYm9vdCBwcm9j
-ZXNzLg0KPiANCj4gSSBsaWtlIHRoaXMgYXBwcm9hY2gsIGJ1dCBvbmUgd291bGQgbmVlZCB0byBl
-bnVtZXJhdGUgdGhlIHRyZWUgdG8ga25vdyBob3cNCj4gbWFueSB0aGVyZSBhcmUgY2FjaGVkIGF2
-YWlsYWJsZS4gIEFsYmVpdCwgbWF5YmUgdGhhdCdzIHRyaXZpYWwgOkQNCiANCkEgREJ1cyBjYWxs
-IHRvIE9iamVjdG1hcHBlciAgd291bGQgdGVsbCB5b3UgaG93IG1hbnkgb2JqZWN0cyB5b3UgaGF2
-ZS4NCkdldFN1YnRyZWUgIHBhdGg6L3h5ei9vcGVuYm1jX3Byb2plY3QvaG9zdC9wb3N0IGRlcHRo
-OiAwIGludGVyZmFjZXMgWyJ4eXoub3BlbmJtY19wcm9qZWN0Lkhvc3QuU3RhdGUuQm9vdC5SYXci
-XSB3b3VsZCBnZXQgeW91IGEgbGlzdCBvZiBhbGwgUG9zdCBjb2RlIGludGVyZmFjZXMNCkRlcGVu
-ZGluZyBvbiB0aGUgY29udGV4dCB5b3UgbWlnaHQgYWxzbyBiZSBhYmxlIHRvIGdldCBhd2F5IHdp
-dGgganVzdCBHZXRTdWJ0cmVlUGF0aHMuDQogDQpJIHdvdWxkbid0IGNhbGwgaXQgdHJpdmlhbCwg
-YnV0IGl0IGZhbGxzIGluIHRoZSBjYXRlZ29yeSBvZiBkb2FibGUuDQogDQpBbHRlcm5hdGl2ZWx5
-LCBpZiB5b3Uga25vdyB5b3UgbmVlZCBhbGwgb2YgdGhlbSBmb3Igd2hhdGV2ZXIgcmVzcG9uc2Ug
-eW91J3JlIGJ1aWxkaW5nLCBHZXRNYW5hZ2VkT2JqZWN0cyB0byB0aGUgUG9zdCBjb2RlIGRhZW1v
-biBkaXJlY3RseSB3b3VsZCBzYXZlIHlvdSBhIHJvdW5kIHRyaXAgdGhyb3VnaCBEQnVzLg0KIA0K
-IA0K
+SGkgRWQsDQogICBJIHVwZGF0ZWQgdGhlIHNvdXJjZSBmcm9tIA0KaHR0cHM6Ly9nZXJyaXQu
+b3BlbmJtYy1wcm9qZWN0Lnh5ei8jL2Mvb3BlbmJtYy9waG9zcGhvci13ZWJ1aS8rLzEwMjY4
+Lw0KDQpnaXQgcHVsbCBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6L29wZW5i
+bWMvcGhvc3Bob3Itd2VidWkgcmVmcy9jaGFuZ2VzLzY4LzEwMjY4LzYNCiAgDQpBbmQgaW5z
+dGFsbGVkIG5vdm5jIGJ5ICJucG0gaW5zdGFsbCBAbm92bmMvbm92bmMiIC4NCkFuIGVycm9y
+IG9jY3VyZWQgd2hlbiBJIHR5cGVkIGh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC8gIG9uIHdlYnBh
+Z2U6DQoiDQoNCkVycm9yOiBbJGluamVjdG9yOm1vZHVsZXJyXSBGYWlsZWQgdG8gaW5zdGFu
+dGlhdGUgbW9kdWxlIGFwcCBkdWUgdG86DQpbJGluamVjdG9yOm1vZHVsZXJyXSBGYWlsZWQg
+dG8gaW5zdGFudGlhdGUgbW9kdWxlIGFwcC5rdm0gZHVlIHRvOg0KWyRpbmplY3Rvcjptb2R1
+bGVycl0gRmFpbGVkIHRvIGluc3RhbnRpYXRlIG1vZHVsZSBhcHAuY29uc3RhbnRzIGR1ZSB0
+bzoNClskaW5qZWN0b3I6bm9tb2RdIE1vZHVsZSAnYXBwLmNvbnN0YW50cycgaXMgbm90IGF2
+YWlsYWJsZSEtRWQNCg0KIg0KSXMgdGhlcmUgYW55IG90aGVyICBzb3VyY2UgdGhhdCBuZWVk
+cyB0byBiZSB1cGRhdGVkPw0KQmVzdCwNClhpdXpoaQ0KPiANCj4gV2VsbCwgdGhlIFZOQyBz
+ZXJ2ZXIgKGFuZCBWaWRlbyBFbmdpbmUgZHJpdmVyKSBpbnRlZ3JhdGlvbiBpcyB0YXJnZXRl
+ZCBmb3IgdGhlDQo+IE9wZW5CTUMgcmVsZWFzZSBpbiBGZWJydWFyeSAyMDE5LiBIb3BlZnVs
+bHkgaW4gbWFzdGVyIGJlZm9yZSB0aGVuLiBUaGVyZQ0KPiBpcyBjdXJyZW50bHkgbm8gcGxh
+biBvciB3b3JrIGJlaW5nIGRvbmUgdG8gaW50ZWdyYXRlIGEgdmlld2VyIGludG8gdGhlIEJN
+Qw0KPiB3ZWJ1aS4gQnV0IHBhdGNoZXMgYXJlIGNlcnRhaW5seSB3ZWxjb21lIGluIHRoaXMg
+YXJlYSEgSXQgY291bGQgYmUgYXMgc2ltcGxlIGFzDQo+IGRyb3BwaW5nIGluIGEgbm9WTkMg
+aHRtbCBmaWxlLi4uIG5vdCBzdXJlLg0KPiANCg0KTm90IHRvIGRpc2FncmVlIHdpdGggeW91
+LCBidXQgdGhlcmUncyBzb21lIHdvcmsgaGVyZToNCg0KaHR0cHM6Ly9nZXJyaXQub3BlbmJt
+Yy1wcm9qZWN0Lnh5ei8jL2Mvb3BlbmJtYy9waG9zcGhvci13ZWJ1aS8rLzEwMjY4Lw0KDQpU
+aGUgd2VidWkgc2lkZSBvZiBpdCB3YXMganVzdCBhIG1hdHRlciBvZiBkcm9wcGluZyBub3Zu
+YyBpbnRvIHRoZSB3ZWJ1aSBhbmQgcm91dGluZyB0aGUgd2Vic29ja2V0IGJhY2sgdG8gdGhl
+IEJNQy4gIFRoZSBCTUMgc2lkZSBvZiBpdCwgaW1wbGVtZW50aW5nIGFwcHJvcHJpYXRlIHNl
+Y3VyaXR5IG9uIHRoZSB3ZWJzb2NrZXQsIGFuZCBzb21lIG90aGVyIGNsZWFudXAgaXMgb24g
+bXkgYmFjayBidXJuZXIuICBJJ20gYXQgYSBiaXQgb2YgYSBjcm9zc3JvYWRzLCBhbmQgSSBo
+YXZlIHR3byB0aG91Z2h0cyBvbiBob3cgdG8gcHJvY2VlZC4NCg0KMS4gUmVqaWdnZXIgdGhl
+IGV4aXN0aW5nIFZOQyBrdm0gd2Vic29ja2V0IGltcGxlbWVudGF0aW9uIGhlcmUgdG8gdXBk
+YXRlIHRvIHRoZSBuZXcgZHJpdmVyIEFQSSwgYW5kIGRlbGV0ZSBhbGwgdGhlIEpQRUcgdG8g
+Yml0bWFwIGRlY29kaW5nIGNvZGUuICBUaGlzIHNvbHV0aW9uIGVzc2VudGlhbGx5IHJ1bnMg
+YSB3ZWJzb2NrZXQtb25seSBWTkMgc2VydmVyIGluc2lkZSBibWN3ZWIuIGh0dHBzOi8vZ2l0
+aHViLmNvbS9vcGVuYm1jL2JtY3dlYi9ibG9iL21hc3Rlci9pbmNsdWRlL3dlYl9rdm0uaHBw
+DQpQcm9zOg0KQS4gU21hbGxlciBvdmVyYWxsIGJpbmFyeSBzaXplLiAgTGlidm5jc2VydmVy
+IHN1cHBvcnRzIGEgbG90IG9mIHRoaW5ncyB0aGF0IEkgc3VzcGVjdCBvcGVuYm1jIHdpbGwg
+bmV2ZXIgbmVlZCB0by4gIEZvciBleGFtcGxlLCB0aGUgcGFzc3dvcmQgYXV0aGVudGljYXRp
+b24gbWVjaGFuaXNtcyBmb3IgVk5DL1JGQiBwcm90b2NvbCBhcmUgd29lZnVsbHkgb3V0IG9m
+IGRhdGUgYnkgbW9kZXJuIHN0YW5kYXJkcywgc28gSSBzdXNwZWN0IHRoZXJlJ3Mgbm8gc2Vu
+c2UgaW4gaGF2aW5nIHRoYXQgY29kZSBhdCBhbGwuDQpCLiBCZXR0ZXIgc2VjdXJpdHkuICBU
+aGVyZSBpcyBubyBWTkMgcG9ydCB0aGF0IGNvdWxkIGJlIGFidXNlZC9wb3J0ZWQgdG8gZ2V0
+IGFjY2VzcyB0byB0aGUgS1ZNIHNlc3Npb24uICBUaGUgd2Vic29ja2V0IGF1dGhlbnRpY2F0
+aW9uIGFuZCBhdXRob3JpemF0aW9uIGluZnJhc3RydWN0dXJlIHVzZXMgdGhlIHNhbWUgbWVj
+aGFuaXNtcyBhcyB0aGUgcmVzdCBvZiB0aGUgd2Vic2VydmVyLCBzbyBpdCByZWR1Y2VzIHRo
+ZSBhdHRhY2sgc3VyZmFjZS4gIFNhaWQgYW5vdGhlciB3YXksIGl0J3MgdW5saWtlbHkgYW4g
+YXR0YWNrIG9uIGJtY3dlYiB3b3VsZCBiZSBhYmxlIHRvIHRhcmdldCB0aGUgVk5DIHNlcnZl
+ciBzcGVjaWZpY2FsbHkuDQpDLiBGZXdlciBmcmFtZWJ1ZmZlciBjb3BpZXMgY29tcGFyZWQg
+dG8gYSB3ZWJzb2NrZXQgcHJveHkgKGF0IGxlYXN0IGluIHRoZW9yeSkuICBJdCBpcyBvbmUg
+ZmV3ZXIgdHJpcCBvZiB0aGUgbGFyZ2UgZnJhbWVidWZmZXJzIHRocm91Z2ggdXNlcnNwYWNl
+LCB3aGljaCBzaG91bGQgc2F2ZSB1cyBzb21lIGNvcGllcy4gIEF0IHNvbWUgcG9pbnQgaW4g
+dGhlIGZ1dHVyZSBpZiB3ZSBnb3QgdGhlIExpbnV4IFRMUyBzdWJzeXN0ZW0gZ29pbmcsIHdl
+IGNvdWxkIGxpa2VseSBidWlsZCBhIG5vLWNvcHksIG9yIHNpbmdsZSBjb3B5IGZyYW1lYnVm
+ZmVyIHNvbHV0aW9uLCB3aGljaCBzaG91bGQgbmV0IHVzIHNvbWUgcGVyZm9ybWFuY2UgYnkg
+ZXNzZW50aWFsbHkga2VlcGluZyB0aGUgYnVmZmVycyBpbiB0aGUga2VybmVsLg0KDQpDb25z
+Og0KQS4gSXQgbmVlZHMgdG8gYmUgd3JpdHRlbi4gIEhvcGVmdWxseSB0aGUgY2hhbmdlcyBz
+aG91bGQgYmUgbW9zdGx5IGRlbGV0ZXMsIGFuZCByZWdpZ2dlcmluZyB0byBwdWxsIGZyYW1l
+YnVmZmVycyBmcm9tIHRoZSBkcml2ZXIuICBLZXlib2FyZCBhbmQgbW91c2Ugd291bGQgbmVl
+ZCB0byBiZSBob29rZWQgdXAgdG8gdGhlIGdhZGdldCBkcml2ZXIgdXNpbmcgdGhlIGV4YW1w
+bGUgZnJvbSBvYm1jLWt2bS4NCkIuIEl0IGlzIGEgc3BlY2lmaWMgc29sdXRpb24gZm9yIG9w
+ZW5ibWMsIHNvIGl0J3MgdW5saWtlbHkgdG8gaGF2ZSBtdWNoIHV0aWxpdHkgb3V0c2lkZSBv
+ZiB0aGUgcHJvamVjdC4gIENvbnRyaWJ1dGluZyB0byBsaWJ2bmNzZXJ2ZXIgImdpdmVzIGJh
+Y2siIG1vcmUgdG8gdGhlIG9wZW4gc291cmNlIGNvbW11bml0eS4NCg0KMi4gVXNlIGJtY3dl
+YiBhcyBhIHdlYnNvY2tldCBwcm94eSB0byBvYm1jLWt2bSBzZXJ2ZXIgaW4gYSB2ZXJ5IHNp
+bWlsYXIgd2F5IHRvIGhvdyB3ZSBwcm94eSB0byBvYm1jLWNvbnNvbGUuDQpQcm9zOg0KQS4g
+R2l2ZXMgdXMgZnVsbCBjb21wYXRpYmlsaXR5IHdpdGggc3RhbmRhcmQgc29ja2V0IFZOQywg
+d2hpY2ggY291bGQgYmUgdXNlZnVsIGZvciBkZWJ1Z2dpbmcgcHVycG9zZXMuICBJIHdvdWxk
+bid0IHJlY29tbWVuZCBlbmFibGluZyBpdCBpbiBwcmFjdGljZSB3aXRob3V0IHNvbWUgb3Ro
+ZXIga2luZCBvZiBhdXRoZW50aWNhdGlvbiBhbmQgZW5jcnlwdGlvbiBwaXBlbGluZSBhaGVh
+ZCBvZiBpdC4NCkIuIFRoZSB3b3JrIHRvIGRvIHRoaXMgc2hvdWxkIGJlIHJlbGF0aXZlbHkg
+bWluaW1hbC4gIEl0IHNob3VsZCBiZSBlc3NlbnRpYWxseSBhIGNvcHktcGFzdGUgb2YgdGhl
+IG9ibWMtY29uc29sZSBzb2NrZXQgY29kZSwgYSBsaXR0bGUgZGVidWdnaW5nLCBhbmQgaXQg
+c2hvdWxkIGJlIG1vc3RseSBnb29kIHRvIGdvLg0KDQpDb25zOg0KQS4gTGFyZ2VyIGJpbmFy
+eSBzaXplLiAgSSBuZWVkIHRvIGdldCBtb3JlIGV4YWN0IG51bWJlcnMgaGVyZSwgYnV0IGFk
+ZGluZyBhIHJlbGF0aXZlbHkgbGFyZ2UgbGlicmFyeSAobGlidm5jc2VydmVyKSBhbmQgYW5v
+dGhlciBhcHBsaWNhdGlvbiAob2JtYy1rdm0pIHNlZW1zIHVubGlrZWx5IHRvIGJlIGdvb2Qg
+Zm9yIG91ciBmbGFzaCB1c2FnZS4gIEFzIGlzLCB3ZSdyZSBhbHJlYWR5IHB1c2hpbmcgdGhl
+IGxpbWl0cyBvZiBhIDMyTUIgZmxhc2guDQpiLiBFeHRyYSBmcmFtZWJ1ZmZlciBjb3BpZXMu
+ICBEcml2ZXIgLT4gb2JtYy1rdm0gLT4gYm1jd2ViKHdpdGggVExTKSAgLT4gYnJvd3NlciAg
+aW4gdGhlb3J5IGlzIGF0IGxlYXN0IG9uZSBleHRyYSBjb3B5LiAgSXQgd291bGQgYmUgaW50
+ZXJlc3RpbmcgdG8gc2V0IHVwIGJvdGggaW4gcHJhY3RpY2UuDQoJDQozLiBTb21lIG90aGVy
+IG9wdGlvbiB0aGF0IEknbSBtaXNzaW5nPw0KDQpJJ20gdmVyeSBpbnRlcmVzdGVkIGluIHdo
+YXQgdGhlIGNvbW11bml0eSB0aGlua3MgaGVyZS4gIElzIHRoZXJlIGEgdXNlIGNhc2UgZm9y
+IGhhdmluZyB0aGUgc3RhbmRhbG9uZSB2bmNzZXJ2ZXI/
 
-------=_001_NextPart481731337687_=----
+------=_NextPart_5B83CBEC_0FBDD4F0_6B68252C
 Content-Type: text/html;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
-t=3DUTF-8"><style>body { line-height: 1.5; }blockquote { margin-top: 0px; =
-margin-bottom: 0px; margin-left: 0.5em; }body { font-size: 10.5pt; font-fa=
-mily: 'Segoe UI'; color: rgb(0, 0, 0); line-height: 1.5; }</style></head><=
-body>=0A<div><span></span><div>Ed, Venture,&nbsp;</div><div><br></div><div=
->Could you confirm if the "<span style=3D"font-family: 'Segoe UI', Tahoma;=
- line-height: normal; font-size: 10.5pt; background-color: transparent;">/=
-xyz/openbmc_project/host/post/1" that we talked here contains a list of po=
-st code for one cycle?&nbsp;</span></div><div><br></div><div>From my under=
-standing, it should be like:</div><div><div><div style=3D"font-family: 'Se=
-goe UI', Tahoma; line-height: normal;">/xyz/openbmc_project/host/post/curr=
-ent (objpath)</div><div style=3D"font-family: 'Segoe UI', Tahoma; line-hei=
-ght: normal;">-&gt;<span style=3D"font-size: 10.5pt; background-color: tra=
-nsparent;">xyz.openbmc_project.Host.State.Boot.Raw (intf)</span></div><div=
- style=3D"font-family: 'Segoe UI', Tahoma; line-height: normal;"><span sty=
-le=3D"font-size: 10.5pt; background-color: transparent;">----&gt;</span><s=
-pan style=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas,=
- 'Liberation Mono', Menlo, Courier, monospace; font-size: 12px; line-heigh=
-t: 20px; white-space: pre; background-color: transparent;">Value (a list o=
-f POST code for current POST) (property)</span></div><div style=3D"font-fa=
-mily: 'Segoe UI', Tahoma; line-height: normal;">/xyz/openbmc_project/host/=
-post/1</div><div style=3D"font-family: 'Segoe UI', Tahoma; line-height: no=
-rmal;">-&gt;<span style=3D"font-size: 10.5pt; background-color: transparen=
-t;">xyz.openbmc_project.Host.State.Boot.Raw</span></div><div style=3D"font=
--family: 'Segoe UI', Tahoma; line-height: normal;"><span style=3D"font-siz=
-e: 10.5pt; background-color: transparent;">----&gt;</span><span style=3D"c=
-olor: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas, 'Liberation M=
-ono', Menlo, Courier, monospace; font-size: 12px; line-height: 20px; white=
--space: pre; background-color: transparent;">Value </span><span style=3D"c=
-olor: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas, 'Liberation M=
-ono', Menlo, Courier, monospace; font-size: 12px; line-height: 20px; white=
--space: pre; background-color: transparent;">(a list of POST code for prev=
-ious POST)</span></div><div style=3D"font-family: 'Segoe UI', Tahoma; line=
--height: normal;">/xyz/openbmc_project/host/post/2</div></div><div style=
-=3D"font-family: 'Segoe UI', Tahoma; line-height: normal;">-&gt;<span styl=
-e=3D"font-size: 10.5pt; background-color: transparent;">xyz.openbmc_projec=
-t.Host.State.Boot.Raw</span></div><div style=3D"font-family: 'Segoe UI', T=
-ahoma; line-height: normal;"><span style=3D"font-size: 10.5pt; background-=
-color: transparent;">----&gt;</span><span style=3D"color: rgb(3, 47, 98); =
-font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, =
-monospace; font-size: 12px; line-height: 20px; white-space: pre; backgroun=
-d-color: transparent;">Value </span><span style=3D"color: rgb(3, 47, 98); =
-font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, =
-monospace; font-size: 12px; line-height: 20px; white-space: pre; backgroun=
-d-color: transparent;">(a list of POST code for the time before previous)<=
-/span></div></div><div><br></div><div>Is that correct?</div><div><br></div=
-><div><span style=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, C=
-onsolas, 'Liberation Mono', Menlo, Courier, monospace; line-height: 20px; =
-white-space: pre; background-color: transparent;">The reason I am asking i=
-s that the orginal post code interface only keep *one* post code. </span><=
-span style=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas=
-, 'Liberation Mono', Menlo, Courier, monospace; line-height: 20px; white-s=
-pace: pre; background-color: transparent;">Even if one DC cycle could gene=
-rate 30~40 post code, it just keep latest and previous one. </span><span s=
-tyle=3D"color: rgb(3, 47, 98); font-family: SFMono-Regular, Consolas, 'Lib=
-eration Mono', Menlo, Courier, monospace; line-height: 20px; white-space: =
-pre; background-color: transparent;"> </span></div><div>I assume the objpa=
-th&nbsp;<span style=3D"font-family: 'Segoe UI', Tahoma; line-height: norma=
-l; font-size: 10.5pt; background-color: transparent;">/xyz/openbmc_project=
-/host/post/1 contains a list. &nbsp; Otherwise, it will just represent one=
- post code in one cycle. &nbsp;In the latter case, we will have&nbsp;</spa=
-n><span style=3D"font-family: 'Segoe UI', Tahoma; line-height: normal; fon=
-t-size: 10.5pt; background-color: transparent;">/xyz/openbmc_project/host/=
-post/[0~40] objects for one cycle and it looks&nbsp;</span><span style=3D"=
-font-family: 'Segoe UI', Tahoma; font-size: 10.5pt; line-height: normal; b=
-ackground-color: transparent;">ugly.&nbsp;</span></div></div>=0A<div><br><=
-/div><hr style=3D"width: 210px; height: 1px;" color=3D"#b5c4df" size=3D"1"=
- align=3D"left">=0A<div><span><div style=3D"MARGIN: 10px; FONT-FAMILY: ver=
-dana; FONT-SIZE: 10pt"><div>chunhui.jia</div></div></span></div>=0A<blockq=
-uote style=3D"margin-Top: 0px; margin-Bottom: 0px; margin-Left: 0.5em"><di=
-v>&nbsp;</div><div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;pad=
-ding:3.0pt 0cm 0cm 0cm"><div style=3D"PADDING-RIGHT: 8px; PADDING-LEFT: 8p=
-x; FONT-SIZE: 12px;FONT-FAMILY:tahoma;COLOR:#000000; BACKGROUND: #efefef; =
-PADDING-BOTTOM: 8px; PADDING-TOP: 8px"><div><b>From:</b>&nbsp;<a href=3D"m=
-ailto:ed.tanous@intel.com">Tanous, Ed</a></div><div><b>Date:</b>&nbsp;2018=
--08-25&nbsp;03:33</div><div><b>To:</b>&nbsp;<a href=3D"mailto:venture@goog=
-le.com">Patrick Venture</a></div><div><b>CC:</b>&nbsp;<a href=3D"mailto:ku=
-iying.wang@intel.com">Wang, Kuiying</a>; <a href=3D"mailto:james.mihm@inte=
-l.com">Mihm, James</a>; <a href=3D"mailto:hai.v.nguyen@intel.com">Nguyen, =
-Hai V</a>; <a href=3D"mailto:james.feist@intel.com">Feist, James</a>; <a h=
-ref=3D"mailto:chunhui.jia@intel.com">Jia, Chunhui</a>; <a href=3D"mailto:o=
-penbmc@lists.ozlabs.org">OpenBMC Maillist</a>; <a href=3D"mailto:yong.b.li=
-@intel.com">Li, Yong B</a>; <a href=3D"mailto:cheng.c.yang@intel.com">Yang=
-, Cheng C</a>; <a href=3D"mailto:bradleyb@fuzziesquirrel.com">Brad Bishop<=
-/a>; <a href=3D"mailto:qiang.xu@intel.com">Xu, Qiang</a>; <a href=3D"mailt=
-o:kun.yi.731@gmail.com">kun.yi.731@gmail.com</a>; <a href=3D"mailto:geisso=
-nator@yahoo.com">geissonator@yahoo.com</a></div><div><b>Subject:</b>&nbsp;=
-RE: Proposal for caching/buffering POST codes list for one boot process.</=
-div></div></div><div><div>&gt; </div>=0A<div>&gt; I like this approach, bu=
-t one would need to enumerate the tree to know how</div>=0A<div>&gt; many =
-there are cached available.&nbsp; Albeit, maybe that's trivial :D</div>=0A=
-<div>&nbsp;</div>=0A<div>A DBus call to Objectmapper&nbsp; would tell you =
-how many objects you have.</div>=0A<div>GetSubtree&nbsp; path:/xyz/openbmc=
-_project/host/post depth: 0 interfaces ["xyz.openbmc_project.Host.State.Bo=
-ot.Raw"] would get you a list of all Post code interfaces</div>=0A<div>Dep=
-ending on the context you might also be able to get away with just GetSubt=
-reePaths.</div>=0A<div>&nbsp;</div>=0A<div>I wouldn't call it trivial, but=
- it falls in the category of doable.</div>=0A<div>&nbsp;</div>=0A<div>Alte=
-rnatively, if you know you need all of them for whatever response you're b=
-uilding, GetManagedObjects to the Post code daemon directly would save you=
- a round trip through DBus.</div>=0A<div>&nbsp;</div>=0A<div>&nbsp;</div>=
-=0A</div></blockquote>=0A</body></html>
-------=_001_NextPart481731337687_=------
+SGkgRWQsPGJyPiZuYnNwOyZuYnNwOyBJIHVwZGF0ZWQgdGhlIHNvdXJjZSBmcm9tIDxicj5o
+dHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy9vcGVuYm1jL3Bob3NwaG9y
+LXdlYnVpLysvMTAyNjgvPGJyPjxicj5naXQgcHVsbCBodHRwczovL2dlcnJpdC5vcGVuYm1j
+LXByb2plY3QueHl6L29wZW5ibWMvcGhvc3Bob3Itd2VidWkgcmVmcy9jaGFuZ2VzLzY4LzEw
+MjY4LzY8YnI+Jm5ic3A7IDxicj5BbmQgaW5zdGFsbGVkIG5vdm5jIGJ5ICJucG0gaW5zdGFs
+bCBAbm92bmMvbm92bmMiIC48YnI+PGRpdj48ZGl2PkFuIGVycm9yIG9jY3VyZWQgd2hlbiBJ
+IHR5cGVkIGh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC8mbmJzcDsgb24gd2VicGFnZTo8YnI+Ijxi
+cj48L2Rpdj48ZGl2PkVycm9yOiBbJGluamVjdG9yOm1vZHVsZXJyXSBGYWlsZWQgdG8gaW5z
+dGFudGlhdGUgbW9kdWxlIGFwcCBkdWUgdG86PGJyPlskaW5qZWN0b3I6bW9kdWxlcnJdIEZh
+aWxlZCB0byBpbnN0YW50aWF0ZSBtb2R1bGUgYXBwLmt2bSBkdWUgdG86PGJyPlskaW5qZWN0
+b3I6bW9kdWxlcnJdIEZhaWxlZCB0byBpbnN0YW50aWF0ZSBtb2R1bGUgYXBwLmNvbnN0YW50
+cyBkdWUgdG86PGJyPlskaW5qZWN0b3I6bm9tb2RdIE1vZHVsZSAnYXBwLmNvbnN0YW50cycg
+aXMgbm90IGF2YWlsYWJsZSEtRWQ8YnI+PC9kaXY+Ijxicj5JcyB0aGVyZSBhbnkgb3RoZXIm
+bmJzcDsgc291cmNlIHRoYXQgbmVlZHMgdDxzcGFuIGNsYXNzPSJoaWdoLWxpZ2h0LWJnIj48
+L3NwYW4+byBiZSB1cGRhdGVkPzxicj5CZXN0LDxicj5YaXV6aGk8YnI+Jmd0OyA8YnI+Jmd0
+OyBXZWxsLCB0aGUgVk5DIHNlcnZlciAoYW5kIFZpZGVvIEVuZ2luZSBkcml2ZXIpIGludGVn
+cmF0aW9uIGlzIHRhcmdldGVkIGZvciB0aGU8YnI+Jmd0OyBPcGVuQk1DIHJlbGVhc2UgaW4g
+RmVicnVhcnkgMjAxOS4gSG9wZWZ1bGx5IGluIG1hc3RlciBiZWZvcmUgdGhlbi4gVGhlcmU8
+YnI+Jmd0OyBpcyBjdXJyZW50bHkgbm8gcGxhbiBvciB3b3JrIGJlaW5nIGRvbmUgdG8gaW50
+ZWdyYXRlIGEgdmlld2VyIGludG8gdGhlIEJNQzxicj4mZ3Q7IHdlYnVpLiBCdXQgcGF0Y2hl
+cyBhcmUgY2VydGFpbmx5IHdlbGNvbWUgaW4gdGhpcyBhcmVhISBJdCBjb3VsZCBiZSBhcyBz
+aW1wbGUgYXM8YnI+Jmd0OyBkcm9wcGluZyBpbiBhIG5vVk5DIGh0bWwgZmlsZS4uLiBub3Qg
+c3VyZS48YnI+Jmd0OyA8YnI+PGJyPk5vdCB0byBkaXNhZ3JlZSB3aXRoIHlvdSwgYnV0IHRo
+ZXJlJ3Mgc29tZSB3b3JrIGhlcmU6PGJyPjxicj5odHRwczovL2dlcnJpdC5vcGVuYm1jLXBy
+b2plY3QueHl6LyMvYy9vcGVuYm1jL3Bob3NwaG9yLXdlYnVpLysvMTAyNjgvPGJyPjxicj5U
+aGUgd2VidWkgc2lkZSBvZiBpdCB3YXMganVzdCBhIG1hdHRlciBvZiBkcm9wcGluZyBub3Zu
+YyBpbnRvIHRoZSB3ZWJ1aSBhbmQgcm91dGluZyB0aGUgd2Vic29ja2V0IGJhY2sgdG8gdGhl
+IEJNQy4mbmJzcDsgVGhlIEJNQyBzaWRlIG9mIGl0LCBpbXBsZW1lbnRpbmcgYXBwcm9wcmlh
+dGUgc2VjdXJpdHkgb24gdGhlIHdlYnNvY2tldCwgYW5kIHNvbWUgb3RoZXIgY2xlYW51cCBp
+cyBvbiBteSBiYWNrIGJ1cm5lci4mbmJzcDsgSSdtIGF0IGEgYml0IG9mIGEgY3Jvc3Nyb2Fk
+cywgYW5kIEkgaGF2ZSB0d28gdGhvdWdodHMgb24gaG93IHRvIHByb2NlZWQuPGJyPjxicj4x
+LiBSZWppZ2dlciB0aGUgZXhpc3RpbmcgVk5DIGt2bSB3ZWJzb2NrZXQgaW1wbGVtZW50YXRp
+b24gaGVyZSB0byB1cGRhdGUgdG8gdGhlIG5ldyBkcml2ZXIgQVBJLCBhbmQgZGVsZXRlIGFs
+bCB0aGUgSlBFRyB0byBiaXRtYXAgZGVjb2RpbmcgY29kZS4mbmJzcDsgVGhpcyBzb2x1dGlv
+biBlc3NlbnRpYWxseSBydW5zIGEgd2Vic29ja2V0LW9ubHkgVk5DIHNlcnZlciBpbnNpZGUg
+Ym1jd2ViLiBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9ibWN3ZWIvYmxvYi9tYXN0ZXIv
+aW5jbHVkZS93ZWJfa3ZtLmhwcDxicj5Qcm9zOjxicj5BLiBTbWFsbGVyIG92ZXJhbGwgYmlu
+YXJ5IHNpemUuJm5ic3A7IExpYnZuY3NlcnZlciBzdXBwb3J0cyBhIGxvdCBvZiB0aGluZ3Mg
+dGhhdCBJIHN1c3BlY3Qgb3BlbmJtYyB3aWxsIG5ldmVyIG5lZWQgdG8uJm5ic3A7IEZvciBl
+eGFtcGxlLCB0aGUgcGFzc3dvcmQgYXV0aGVudGljYXRpb24gbWVjaGFuaXNtcyBmb3IgVk5D
+L1JGQiBwcm90b2NvbCBhcmUgd29lZnVsbHkgb3V0IG9mIGRhdGUgYnkgbW9kZXJuIHN0YW5k
+YXJkcywgc28gSSBzdXNwZWN0IHRoZXJlJ3Mgbm8gc2Vuc2UgaW4gaGF2aW5nIHRoYXQgY29k
+ZSBhdCBhbGwuPGJyPkIuIEJldHRlciBzZWN1cml0eS4mbmJzcDsgVGhlcmUgaXMgbm8gVk5D
+IHBvcnQgdGhhdCBjb3VsZCBiZSBhYnVzZWQvcG9ydGVkIHRvIGdldCBhY2Nlc3MgdG8gdGhl
+IEtWTSBzZXNzaW9uLiZuYnNwOyBUaGUgd2Vic29ja2V0IGF1dGhlbnRpY2F0aW9uIGFuZCBh
+dXRob3JpemF0aW9uIGluZnJhc3RydWN0dXJlIHVzZXMgdGhlIHNhbWUgbWVjaGFuaXNtcyBh
+cyB0aGUgcmVzdCBvZiB0aGUgd2Vic2VydmVyLCBzbyBpdCByZWR1Y2VzIHRoZSBhdHRhY2sg
+c3VyZmFjZS4mbmJzcDsgU2FpZCBhbm90aGVyIHdheSwgaXQncyB1bmxpa2VseSBhbiBhdHRh
+Y2sgb24gYm1jd2ViIHdvdWxkIGJlIGFibGUgdG8gdGFyZ2V0IHRoZSBWTkMgc2VydmVyIHNw
+ZWNpZmljYWxseS48YnI+Qy4gRmV3ZXIgZnJhbWVidWZmZXIgY29waWVzIGNvbXBhcmVkIHRv
+IGEgd2Vic29ja2V0IHByb3h5IChhdCBsZWFzdCBpbiB0aGVvcnkpLiZuYnNwOyBJdCBpcyBv
+bmUgZmV3ZXIgdHJpcCBvZiB0aGUgbGFyZ2UgZnJhbWVidWZmZXJzIHRocm91Z2ggdXNlcnNw
+YWNlLCB3aGljaCBzaG91bGQgc2F2ZSB1cyBzb21lIGNvcGllcy4mbmJzcDsgQXQgc29tZSBw
+b2ludCBpbiB0aGUgZnV0dXJlIGlmIHdlIGdvdCB0aGUgTGludXggVExTIHN1YnN5c3RlbSBn
+b2luZywgd2UgY291bGQgbGlrZWx5IGJ1aWxkIGEgbm8tY29weSwgb3Igc2luZ2xlIGNvcHkg
+ZnJhbWVidWZmZXIgc29sdXRpb24sIHdoaWNoIHNob3VsZCBuZXQgdXMgc29tZSBwZXJmb3Jt
+YW5jZSBieSBlc3NlbnRpYWxseSBrZWVwaW5nIHRoZSBidWZmZXJzIGluIHRoZSBrZXJuZWwu
+PGJyPjxicj5Db25zOjxicj5BLiBJdCBuZWVkcyB0byBiZSB3cml0dGVuLiZuYnNwOyBIb3Bl
+ZnVsbHkgdGhlIGNoYW5nZXMgc2hvdWxkIGJlIG1vc3RseSBkZWxldGVzLCBhbmQgcmVnaWdn
+ZXJpbmcgdG8gcHVsbCBmcmFtZWJ1ZmZlcnMgZnJvbSB0aGUgZHJpdmVyLiZuYnNwOyBLZXli
+b2FyZCBhbmQgbW91c2Ugd291bGQgbmVlZCB0byBiZSBob29rZWQgdXAgdG8gdGhlIGdhZGdl
+dCBkcml2ZXIgdXNpbmcgdGhlIGV4YW1wbGUgZnJvbSBvYm1jLWt2bS48YnI+Qi4gSXQgaXMg
+YSBzcGVjaWZpYyBzb2x1dGlvbiBmb3Igb3BlbmJtYywgc28gaXQncyB1bmxpa2VseSB0byBo
+YXZlIG11Y2ggdXRpbGl0eSBvdXRzaWRlIG9mIHRoZSBwcm9qZWN0LiZuYnNwOyBDb250cmli
+dXRpbmcgdG8gbGlidm5jc2VydmVyICJnaXZlcyBiYWNrIiBtb3JlIHRvIHRoZSBvcGVuIHNv
+dXJjZSBjb21tdW5pdHkuPGJyPjxicj4yLiBVc2UgYm1jd2ViIGFzIGEgd2Vic29ja2V0IHBy
+b3h5IHRvIG9ibWMta3ZtIHNlcnZlciBpbiBhIHZlcnkgc2ltaWxhciB3YXkgdG8gaG93IHdl
+IHByb3h5IHRvIG9ibWMtY29uc29sZS48YnI+UHJvczo8YnI+QS4gR2l2ZXMgdXMgZnVsbCBj
+b21wYXRpYmlsaXR5IHdpdGggc3RhbmRhcmQgc29ja2V0IFZOQywgd2hpY2ggY291bGQgYmUg
+dXNlZnVsIGZvciBkZWJ1Z2dpbmcgcHVycG9zZXMuJm5ic3A7IEkgd291bGRuJ3QgcmVjb21t
+ZW5kIGVuYWJsaW5nIGl0IGluIHByYWN0aWNlIHdpdGhvdXQgc29tZSBvdGhlciBraW5kIG9m
+IGF1dGhlbnRpY2F0aW9uIGFuZCBlbmNyeXB0aW9uIHBpcGVsaW5lIGFoZWFkIG9mIGl0Ljxi
+cj5CLiBUaGUgd29yayB0byBkbyB0aGlzIHNob3VsZCBiZSByZWxhdGl2ZWx5IG1pbmltYWwu
+Jm5ic3A7IEl0IHNob3VsZCBiZSBlc3NlbnRpYWxseSBhIGNvcHktcGFzdGUgb2YgdGhlIG9i
+bWMtY29uc29sZSBzb2NrZXQgY29kZSwgYSBsaXR0bGUgZGVidWdnaW5nLCBhbmQgaXQgc2hv
+dWxkIGJlIG1vc3RseSBnb29kIHRvIGdvLjxicj48YnI+Q29uczo8YnI+QS4gTGFyZ2VyIGJp
+bmFyeSBzaXplLiZuYnNwOyBJIG5lZWQgdG8gZ2V0IG1vcmUgZXhhY3QgbnVtYmVycyBoZXJl
+LCBidXQgYWRkaW5nIGEgcmVsYXRpdmVseSBsYXJnZSBsaWJyYXJ5IChsaWJ2bmNzZXJ2ZXIp
+IGFuZCBhbm90aGVyIGFwcGxpY2F0aW9uIChvYm1jLWt2bSkgc2VlbXMgdW5saWtlbHkgdG8g
+YmUgZ29vZCBmb3Igb3VyIGZsYXNoIHVzYWdlLiZuYnNwOyBBcyBpcywgd2UncmUgYWxyZWFk
+eSBwdXNoaW5nIHRoZSBsaW1pdHMgb2YgYSAzMk1CIGZsYXNoLjxicj5iLiBFeHRyYSBmcmFt
+ZWJ1ZmZlciBjb3BpZXMuJm5ic3A7IERyaXZlciAtJmd0OyBvYm1jLWt2bSAtJmd0OyBibWN3
+ZWIod2l0aCBUTFMpJm5ic3A7IC0mZ3Q7IGJyb3dzZXImbmJzcDsgaW4gdGhlb3J5IGlzIGF0
+IGxlYXN0IG9uZSBleHRyYSBjb3B5LiZuYnNwOyBJdCB3b3VsZCBiZSBpbnRlcmVzdGluZyB0
+byBzZXQgdXAgYm90aCBpbiBwcmFjdGljZS48YnI+CTxicj4zLiBTb21lIG90aGVyIG9wdGlv
+biB0aGF0IEknbSBtaXNzaW5nPzxicj48YnI+SSdtIHZlcnkgaW50ZXJlc3RlZCBpbiB3aGF0
+IHRoZSBjb21tdW5pdHkgdGhpbmtzIGhlcmUuJm5ic3A7IElzIHRoZXJlIGEgdXNlIGNhc2Ug
+Zm9yIGhhdmluZyB0aGUgc3RhbmRhbG9uZSB2bmNzZXJ2ZXI/PGJyPjxicj48L2Rpdj4=
+
+------=_NextPart_5B83CBEC_0FBDD4F0_6B68252C--
