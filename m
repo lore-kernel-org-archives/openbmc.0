@@ -1,58 +1,48 @@
-Return-Path: <beccabroek@gmail.com>
+Return-Path: <sboyd@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::c29; helo=mail-yw1-xc29.google.com;
- envelope-from=beccabroek@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZR4xnIE"; 
+ dmarc=pass (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="sHsaa3kc"; 
  dkim-atps=neutral
-Received: from mail-yw1-xc29.google.com (mail-yw1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420M4g2RyMzF0dp
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 07:16:18 +1000 (AEST)
-Received: by mail-yw1-xc29.google.com with SMTP id x67-v6so1181228ywg.0
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 14:16:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mQ4pNIZm9ezHT6pISwlMSqL4y0kIzERwy8an4Tntm5A=;
- b=OZR4xnIEhHQ7uwD0Hrn9+toSbbCjrTtDZZ3zotnayLmjv2nQz+QnK2Y0Ek9oFL/fkR
- 58r/4CTbdu+yOL/kv7AEVz1cqfM801FTbRgCzx0gEM10Ovwdc1UfCF5ZAdUipfYSAz2c
- gi8kwufVs7mZjZp6asepfKa1W+kKR//hQdNTcHaU4QF2eI0KtKLbWwT+JQaWJXa2bnGn
- pnKu9mXiLyrDODahBylruf/7OT3KX9vVIVq+34Wx2nQAtjLMF/CpOrq3OfwjhJe/aRK+
- 5JYrIboKNloujmbX4H+TqOPz1Dm5gwSIXUdw+EbzNrp/Pqwf5J9QXCHmhWZeW/Dau2U0
- cjfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mQ4pNIZm9ezHT6pISwlMSqL4y0kIzERwy8an4Tntm5A=;
- b=IoLB+uHNac53Az3MOhmAa/jn7cf8pjgEcTWolk02svhTG6k5fcTOjcpFx7qpHOLd1X
- lmwKqqpaN4hafdzp50q/EBK3Y7LTjMbe8JB7Pntyy8YK4ovUw6r4z65G/xoMRGPCTVPr
- LKqrnfz7Z7q9AWHdy8/04YtybsL5oTWNdlY8B5xcrPuemud/7WfoqzCw40OvFmxqxGC9
- U7MGBwDXgU7n9UOkUoGmkqttUSddQrSbT+7HBmyV1XlajSQyFGLIxpv8Ge0oZ+20ogca
- ylbiGB9/WflsymjD8AzLMuw2lT6iscaJBrAsGZjICbkU5BWknfZE4AsTpdmc7/k2767W
- Z/JA==
-X-Gm-Message-State: APzg51DKLZbsg2qoStDLYdVhZIkrUT1x+ucAD9Ja0dILooki1EA9dGfr
- mC1Nj7BCSNlhNO+WA3wfFn0E2L6KFbXOojNtdvI=
-X-Google-Smtp-Source: ANB0VdapVmpLT9mXH7t6b6bHL8xN7Vp0O7u9S3bxuFa3s6hIeJD8JDS4tfLg2Uih3xcdwpj1z4zoL5apeSu5RQTcKhA=
-X-Received: by 2002:a0d:c705:: with SMTP id
- j5-v6mr1859694ywd.466.1535490976472; 
- Tue, 28 Aug 2018 14:16:16 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420NLk6tMszDrdf
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 08:13:30 +1000 (AEST)
+Received: from localhost (unknown [104.132.0.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 849AD2083B;
+ Tue, 28 Aug 2018 22:13:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1535494408;
+ bh=a/BSTxajlUOVRse+IpRQwwZyRaBWi8907g0RiNv0Yo0=;
+ h=To:From:In-Reply-To:Cc:References:Subject:Date:From;
+ b=sHsaa3kchp47VukBewo57ihQqyLi1Hl61vklV4UiKGs1hAHParA2LjVc5Dk6psLoC
+ 2V2NnSv3sjB18E8OD3es9df7Sc+TX/B53eZvxM/ytRpcv+Es+rgH8yxlWPCeVRyNpC
+ XcRpFMcflf2zKmwlsRyHQ0wnoVuE1vmQnTPDctP4=
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <7E9441B1E5EFFD4681F54958E821699345835738@ORSMSX114.amr.corp.intel.com>
- <d94fd642-a114-1ed8-aa89-e2951848adbb@ozlabs.org>
-In-Reply-To: <d94fd642-a114-1ed8-aa89-e2951848adbb@ozlabs.org>
-From: Rebecca Broekhuis <beccabroek@gmail.com>
-Date: Tue, 28 Aug 2018 16:16:04 -0500
-Message-ID: <CABzWfrk0XZy0SibsaUqqBDWzXa9uXSsioeF7z1HWXOts=M3y=g@mail.gmail.com>
-Subject: Re: SOL Logging
-To: jk@ozlabs.org
-Cc: ed.tanous@intel.com, openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000003564820574855a8c"
+Content-Transfer-Encoding: quoted-printable
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ Avi Fishman <avifishman70@gmail.com>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Michael Turquette <mturquette@baylibre.com>, Nancy Yuen <yuenn@google.com>,
+ Patrick Venture <venture@google.com>, Tomer Maimon <tmaimon77@gmail.com>
+From: Stephen Boyd <sboyd@kernel.org>
+In-Reply-To: <20180823230654.GA11576@embeddedor.com>
+Cc: openbmc@lists.ozlabs.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+References: <20180823230654.GA11576@embeddedor.com>
+Message-ID: <153549440786.129321.7169734992268309360@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.7
+Subject: Re: [PATCH] clk: npcm7xx: fix memory allocation
+Date: Tue, 28 Aug 2018 15:13:27 -0700
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -64,102 +54,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 21:16:20 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 22:13:35 -0000
 
---0000000000003564820574855a8c
-Content-Type: text/plain; charset="UTF-8"
+Quoting Gustavo A. R. Silva (2018-08-23 16:06:54)
+> One of the more common cases of allocation size calculations is finding
+> the size of a structure that has a zero-sized array at the end, along
+> with memory for some number of elements for that array. For example:
+> =
 
-Hi Jeremy,
+> struct foo {
+>         int stuff;
+>         void *entry[];
+> };
+> =
 
-You mentioned the possibility of pre-populating the scrollback buffer of
-the console interface. I am wondering if you have any more information about
-how difficult this would be to implement. Our concern when thinking about
-doing this was how complex it might get to fetch the file and populate the
-console
-while at the same time receiving messages by websocket without missing any
-messages. Any insight on this?
+> instance =3D kzalloc(sizeof(struct foo) + sizeof(void *) * count,
+> GFP_KERNEL);
+> =
 
-Thanks!
-Becca
+> Instead of leaving these open-coded and prone to type mistakes, we can
+> now use the new struct_size() helper:
+> =
 
-On Mon, Aug 27, 2018 at 12:00 PM Jeremy Kerr <jk@ozlabs.org> wrote:
+> instance =3D kzalloc(struct_size(instance, entry, count), GFP_KERNEL);
+> =
 
-> Hi Ed,
->
-> > Instead, other BMCs implement it as a circular buffer inside the BMC
-> > itself, which allows SOL to log data all the time, not just while the
-> > user is logged in.
->
-> The obmc-console infrastructure does exactly that; the circular buffer
-> is available under /var/log/obmc-console.log (by default), and the
-> maximum size is configurable.
->
-> We may want to augment that with some other bits, like:
->
->   - making this file available over the web UI (including
->     transparently pre-populating the scrollback buffer of the
->     console interface);
->
->     and/or
->
->   - archiving the log on certain events (like specific host state
->     changes; checkstop on OpenPOWER implementeations)
->
-> If there's anything that I can change in obmc-console to make things
-> work with your plans, let me know.
->
-> Cheers,
->
->
-> Jeremy
->
+> Notice that, currently, there is a bug during the allocation:
+>         =
 
---0000000000003564820574855a8c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> sizeof(npcm7xx_clk_data) should be sizeof(*npcm7xx_clk_data)
+> =
 
-<div dir=3D"ltr">Hi Jeremy,<div><br></div><div>You mentioned the possibilit=
-y of pre-populating the scrollback buffer of the console interface. I am wo=
-ndering if you have any more information about<br></div><div>how difficult =
-this would be to implement. Our concern when thinking about doing this was =
-how complex it might get to fetch the file and populate the console</div><d=
-iv>while at the same time receiving messages by websocket without missing a=
-ny messages. Any insight on this?</div><div><br></div><div>Thanks!</div><di=
-v>Becca</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, =
-Aug 27, 2018 at 12:00 PM Jeremy Kerr &lt;<a href=3D"mailto:jk@ozlabs.org">j=
-k@ozlabs.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Ed,<=
-br>
-<br>
-&gt; Instead, other BMCs implement it as a circular buffer inside the BMC <=
-br>
-&gt; itself, which allows SOL to log data all the time, not just while the =
-<br>
-&gt; user is logged in.<br>
-<br>
-The obmc-console infrastructure does exactly that; the circular buffer <br>
-is available under /var/log/obmc-console.log (by default), and the <br>
-maximum size is configurable.<br>
-<br>
-We may want to augment that with some other bits, like:<br>
-<br>
-=C2=A0 - making this file available over the web UI (including<br>
-=C2=A0 =C2=A0 transparently pre-populating the scrollback buffer of the<br>
-=C2=A0 =C2=A0 console interface);<br>
-<br>
-=C2=A0 =C2=A0 and/or<br>
-<br>
-=C2=A0 - archiving the log on certain events (like specific host state<br>
-=C2=A0 =C2=A0 changes; checkstop on OpenPOWER implementeations)<br>
-<br>
-If there&#39;s anything that I can change in obmc-console to make things <b=
-r>
-work with your plans, let me know.<br>
-<br>
-Cheers,<br>
-<br>
-<br>
-Jeremy<br>
-</blockquote></div>
+> Fix this bug by using struct_size() in kzalloc()
+> =
 
---0000000000003564820574855a8c--
+> This issue was detected with the help of Coccinelle.
+> =
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+> ---
+
+Applied to clk-fixes
