@@ -1,59 +1,59 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c06::22d; helo=mail-io0-x22d.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::22b; helo=mail-qt0-x22b.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Rmyyf67k"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mMZbNIZ7"; 
  dkim-atps=neutral
-Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
- [IPv6:2607:f8b0:4001:c06::22d])
+Received: from mail-qt0-x22b.google.com (mail-qt0-x22b.google.com
+ [IPv6:2607:f8b0:400d:c0d::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41zm4g6V2VzDrJ7
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 07:59:14 +1000 (AEST)
-Received: by mail-io0-x22d.google.com with SMTP id 75-v6so402957iou.11
- for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 14:59:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41zsLJ1wR7zDrq8
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 11:56:24 +1000 (AEST)
+Received: by mail-qt0-x22b.google.com with SMTP id j7-v6so27407qtp.2
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 18:56:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IOcGvNiuFMEabvFDZOJgQkBZZUHSSJlXipDxJswO0Sk=;
- b=Rmyyf67k3dQoiehHYIfsYpMiL3w4QM2U+PxrYR8bD07jMhNveCdsYnqUdIHu7e3u0Y
- jnp0Hdsig50nT2/RGJNG4KBNJGEQD2o5URUrlhG+1PnK+mLYq4bWrJYaSBy623zftxc3
- eD3fh5j5P8tuwP0ExPFR25qbKkW31VpDS7HudTEubX3tJghKtX7xL7P0FazdoLgaepS9
- qw+OYlGWlcHOAaV+eSIYkTKRLZ2t5ydNpIMNLDLq5DhnkfH633zHBThEjv9u81kxUmZH
- gQ0oI4JiTOV8Y7/WM7z4L1au5YpOSz8i25tJlB71Wnnxl8Y6teHdO8/YJ/gJHGKPErn+
- AzPg==
+ :cc; bh=clafFdgmV3r3Bi/u3yV2ZRGVgrKYsLt0I07DPTMTA5g=;
+ b=mMZbNIZ716q3sip3OFm32Otlih0AAhlL2oWZ4vc3QtTIswTi1W/pXhJ5nlnefMZWhl
+ iiMWqxTN/lDU6ZQ5RqULTeiReV7mQSSMZm/nwcEOCJ3I0BF9bmuTrylU4PnVekHa6M6d
+ JIBxoaGhPUAd096BMmhIECWKO1KJdf4ZQ5WfqaHginwwhVMn0fw/SmJTDjy1zRNiOStx
+ Pkb0HpWDthdBFG76AUNdJG1zrWVOChg5mY72GPOb68MdQ3R6PR7vsotkoArbOqOWDIQS
+ 9ud1qscxm72pPFd5yILAe5CgtExZV8ML6GEJo9iapL0ph8LDkc23LWSSO/pghJpo0Pmc
+ doRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=IOcGvNiuFMEabvFDZOJgQkBZZUHSSJlXipDxJswO0Sk=;
- b=J/zpf5ZRaFGLIkDNwTWfk5EAQKEgt0dvjfGjEpIYVBaV5iNApyz4BJ4JEUbcuC9oUF
- 2cwipFGCPtVH3Q4HV2CUotMyWfn5Gn6xY4G9q6nEh4UpaiXpOS5/gFdkkafQZh6OAwEO
- fG3QyynVpzdDmhtcX9y29BjvOivsiMep8D8WyROjK/MK8CydW+5Cxg0odlTQee5ji8gZ
- FSIekjXfnVRuG4IVz0Xl39NNqj2C5NndPFUhLvvFz2OfWDNTNLOO9xbwUdJw+zoOSqXp
- lfVOQuJKPH8uozzatHc5tAjK0m57Whe04FDXhZR2J9HXz2cSE+8fU+VBk7xfaDoUt7RX
- JHCQ==
-X-Gm-Message-State: APzg51AbIX5Q2OBoCQWipYEzUOgAFKShLWoZwNj3rIXTO/cvvNIQB45e
- ylWPC0brPVm8Wwzs9z1HyxlxgAGb15aEW+DBs8dcuQ==
-X-Google-Smtp-Source: ANB0VdY3U+Rmy3Av/FUcy3QopoGjZQ0dinrLjc9dEySmZTt7NmSCvVWjz/69bma4CPyTlRpukkUOZFCjgqnZ0nf+s1M=
-X-Received: by 2002:a6b:c8ce:: with SMTP id
- y197-v6mr11869861iof.295.1535407149472; 
- Mon, 27 Aug 2018 14:59:09 -0700 (PDT)
+ bh=clafFdgmV3r3Bi/u3yV2ZRGVgrKYsLt0I07DPTMTA5g=;
+ b=jmtNLMbzKbHrco0cV9dCZqHMpnCf7CsUzmjRMiI1eOTIvnyGWFUhl/yPSS1y95AsgY
+ nSMMj1VU/N7G6+sHHTnuvK3yBeFaA5xeJazHqX7Ke3ixUAlVEoAMsNt1hEVF4I5agO44
+ fMAQLd2nYzvORPO8KwF4zLEQRnyM1BZGTdA7YV2nyN7lT6I18tkalc70UIFiopEOQIUV
+ N1oTnl1yKLpBKXnY0KY178fxaJFtu+DGlABVMVlYHIwgZ2AxpBEZYnkwWKt49V+Sb1hv
+ HEYE/Pl+wQjTtkzioqBvZm7nwO5AlouhtQy4okwmtS9Zx4ml9NAI9Lsa2GMv/sxwJwH0
+ SCGg==
+X-Gm-Message-State: APzg51AbnO5fd4wdy7prj/JSKEZeVQSOrkynKrH/kib342iDxC26GAE4
+ rUPkzj6IiN1Zfz3l8NGC+TVuzxU9XPidDTJN2Hc=
+X-Google-Smtp-Source: ANB0VdagcgPCwr0xKtKF05OZgII2VcD7o87SYqDREG5t5++VB91zcuNDc3KpPXAjdA6+R8CxjEzHj3sVO1/cSfJ778A=
+X-Received: by 2002:ac8:3525:: with SMTP id
+ y34-v6mr17615631qtb.151.1535421381098; 
+ Mon, 27 Aug 2018 18:56:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAPnigKkG1C-80T-7c18oSAC_s5CpEN2XbaCOY2u9g1jqVv_fmg@mail.gmail.com>
- <CAO=notwK9fhqSTjHpMZYMmUrJZFKfNKW9m83KiT9Vun-rY3R3g@mail.gmail.com>
-In-Reply-To: <CAO=notwK9fhqSTjHpMZYMmUrJZFKfNKW9m83KiT9Vun-rY3R3g@mail.gmail.com>
-From: Kun Yi <kunyi@google.com>
-Date: Mon, 27 Aug 2018 14:58:43 -0700
-Message-ID: <CAGMNF6UdPH89t=eyqG=O0bOh63DtXbfkxLqRWSOhXeXuikLv3g@mail.gmail.com>
-Subject: Re: Announcing gpioplus
-To: Patrick Venture <venture@google.com>
-Cc: William Kennington <wak@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000bb5fd9057471d5ce"
+References: <CAG9c7cC25xbJZChsGEh1=yt5BnJjGufH2yEq5L-ws-2Y-H31gA@mail.gmail.com>
+ <7E9441B1E5EFFD4681F54958E821699345832E11@ORSMSX114.amr.corp.intel.com>
+ <CAG9c7cD0CO59CiU8czWORY8ZMCf8xeemvp-bEA21Qv4QaNZ+eA@mail.gmail.com>
+In-Reply-To: <CAG9c7cD0CO59CiU8czWORY8ZMCf8xeemvp-bEA21Qv4QaNZ+eA@mail.gmail.com>
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Tue, 28 Aug 2018 09:56:09 +0800
+Message-ID: <CAG9c7cAbc1REEQtUW3uxar27zzuoj2q_CHNJZDXohb1xPdoS9Q@mail.gmail.com>
+Subject: Re: UpdateService in Redfish
+To: "Tanous, Ed" <ed.tanous@intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000000041220574752658"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -65,86 +65,390 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Aug 2018 21:59:17 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 01:56:25 -0000
 
---000000000000bb5fd9057471d5ce
+--0000000000000041220574752658
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Great effort! I think it would be more effective to remind people to
-convert to these new libraries during code reviews. The recently under
-review x86 control daemon would be such an example:
-*https://gerrit.openbmc-project.xyz/c/openbmc/x86-power-control/+/11746/
-<https://gerrit.openbmc-project.xyz/c/openbmc/x86-power-control/+/11746/>*
+Hi Ed,
+Could you share the correct usage for UpdateService?
+Or please tell me where I can find the answer.
 
-On Wed, Aug 22, 2018 at 7:02 AM Patrick Venture <venture@google.com> wrote:
+Thanks for your support.
 
-> On Tue, Aug 21, 2018 at 8:21 PM William Kennington <wak@google.com> wrote:
-> >
-> > Yet another c++ wrapper in a series of changes I've been working on to
-> > make ergonomic c++ abstractions for commonly used library functions.
-> > This project intends to provide a simple c++ interface around the
-> > existing linux userspace gpiolib syscalls. The functionality is
-> > complete and the tests cover the entire interface.
-> >
-> > As usual, please let me know what you think of the project. It currently
-> > resides at https://github.com/wak-google/gpioplus. This should find
-> > a new home at https://github.com/openbmc/gpioplus if it receives
-> > good feedback.
+BRs,
+Henbin.
+
+
+Henbin Chang <henbinchang@gmail.com> =E6=96=BC 2018=E5=B9=B48=E6=9C=8822=E6=
+=97=A5 =E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=8810:30=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+
+> Hi Ed,
+> Thanks for your response.
 >
-> +1 to this.
+> I tried to send POST request but got "Method Not Allowed".
 >
-> >
-> > Thanks,
-> > William
+> curl -k -H "Content-Type: application/json" -X POST -d '{"data":
+> ["10.99.240.105", "s2600wf-20180118092748.all.tar"]}'
+> https://root:0penBmc@10.99.241.36:883/redfish/v1/UpdateService
+>
+> Please help correct if any typo.
+>
+> Thanks.
+>
+> BRs,
+> Henbin.
+>
+> Tanous, Ed <ed.tanous@intel.com> =E6=96=BC 2018=E5=B9=B48=E6=9C=8821=E6=
+=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=8811:07=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+>
+>> Yes, it should work, although it=E2=80=99s relatively new, so it=E2=80=
+=99s possible there
+>> are bugs or corner cases we haven=E2=80=99t hit yet.  If you find new is=
+sues, it
+>> would be great if you could file them against the bmcweb project.
+>>
+>>
+>>
+>> To use the endpoint, it should just be a matter of sending a POST reques=
+t
+>> to the update URL containing the tarred image with the manifest in the
+>> body.  It works very similarly to the existing update endpoints, it just
+>> meets the Redfish specifications.
+>>
+>>
+>>
+>> One thing to watch out for is payload size.  Bmcweb imposes appropriate
+>> payload limits, but if you=E2=80=99re reverse proxying the server behind=
+ nginx, you
+>> might have nginx payload limits imposed and that=E2=80=99ll need to be u=
+pdated.
+>>
+>>
+>>
+>> -Ed
+>>
+>>
+>>
+>> *From:* Henbin Chang [mailto:henbinchang@gmail.com]
+>> *Sent:* Tuesday, August 21, 2018 1:02 AM
+>> *To:* Tanous, Ed <ed.tanous@intel.com>; OpenBMC Maillist <
+>> openbmc@lists.ozlabs.org>
+>> *Subject:* UpdateService in Redfish
+>>
+>>
+>>
+>> Hi Ed,
+>>
+>> I search the below commit in the bmcweb REPO.
+>>
+>>
+>>
+>> commit acb7cfb4b571bd2045b1d269625ba054806a466d
+>>
+>> Author: Jennifer Lee <jennifer1.lee@intel.com>
+>>
+>> Date:   Thu Jun 7 16:08:15 2018 -0700
+>>
+>>
+>>
+>>     Implement POST for redfish UpdateService
+>>
+>>
+>>
+>>     - POST an image file to /redfish/v1/UpdateServer uri will upload the
+>>
+>>       image and activate it
+>>
+>>     - Modified SoftwareInventoryCollection to list items with
+>>
+>>       xyz.openbmc_project.Software.Activation/Activation property as
+>>
+>>     "xyz.openbmc_project.Software.Activation.Activations.Active"
+>>
+>>     - SoftwareInventory odata.id is identified with DBus generated uuid
+>>
+>>
+>>
+>> May I know if BMC FW can be updated through UpdateService in Redfish?
+>>
+>> If yes, could you share how to use it?
+>>
+>>
+>>
+>> Besides that, I add some debug message in
+>> the redfish-core/lib/update_service.hpp but output nothing
+>>
+>>
+>>
+>> Could you give some suggestion?
+>>
+>> ...
+>>
+>> private:
+>>
+>>   void doGet(crow::Response &res, const crow::Request &req,
+>>
+>>              const std::vector<std::string> &params) override {
+>>
+>>     std::cout << "Henbin=3D" << __FILE__<< ": "<<__LINE__ << "\n";
+>>
+>>           BMCWEB_LOG_INFO << "Henbin=3D" << __FILE__<< ": "<<__LINE__ <<
+>> "\n";
+>>
+>>     res.jsonValue =3D Node::json;
+>>
+>>     res.end();
+>>
+>>   }
+>>
+>> ...
+>>
+>>
+>>
+>> Thanks.
+>>
+>>
+>>
+>> BRs,
+>>
+>> Henbin.
+>>
 >
 
-
--- 
-Regards,
-Kun
-
---000000000000bb5fd9057471d5ce
+--0000000000000041220574752658
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Great effort! I think it would be more effective to remind=
- people to convert to these new libraries during code reviews. The recently=
- under review x86 control daemon would be such an example: <font color=3D"#=
-1155cc"><u><a href=3D"https://gerrit.openbmc-project.xyz/c/openbmc/x86-powe=
-r-control/+/11746/">https://gerrit.openbmc-project.xyz/c/openbmc/x86-power-=
-control/+/11746/</a></u></font></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr">On Wed, Aug 22, 2018 at 7:02 AM Patrick Venture &lt;<a href=3D"ma=
-ilto:venture@google.com" target=3D"_blank">venture@google.com</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
-der-left:1px #ccc solid;padding-left:1ex">On Tue, Aug 21, 2018 at 8:21 PM W=
-illiam Kennington &lt;<a href=3D"mailto:wak@google.com" target=3D"_blank">w=
-ak@google.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Yet another c++ wrapper in a series of changes I&#39;ve been working o=
-n to<br>
-&gt; make ergonomic c++ abstractions for commonly used library functions.<b=
-r>
-&gt; This project intends to provide a simple c++ interface around the<br>
-&gt; existing linux userspace gpiolib syscalls. The functionality is<br>
-&gt; complete and the tests cover the entire interface.<br>
-&gt;<br>
-&gt; As usual, please let me know what you think of the project. It current=
-ly<br>
-&gt; resides at <a href=3D"https://github.com/wak-google/gpioplus" rel=3D"n=
-oreferrer" target=3D"_blank">https://github.com/wak-google/gpioplus</a>. Th=
-is should find<br>
-&gt; a new home at <a href=3D"https://github.com/openbmc/gpioplus" rel=3D"n=
-oreferrer" target=3D"_blank">https://github.com/openbmc/gpioplus</a> if it =
-receives<br>
-&gt; good feedback.<br>
-<br>
-+1 to this.<br>
-<br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt; William<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"m_7027219626207293915gmail_signature" data-smartmail=3D"gmail_sig=
-nature"><div dir=3D"ltr">Regards,<div>Kun</div></div></div>
+<div dir=3D"ltr">Hi Ed,<div>Could you share the correct usage for UpdateSer=
+vice?</div><div>Or please tell me where I can find the answer.</div><div><b=
+r></div><div>Thanks for your support.</div><div><br></div><div>BRs,</div><d=
+iv>Henbin.</div><div><br></div></div><br><div class=3D"gmail_quote"><div di=
+r=3D"ltr">Henbin Chang &lt;<a href=3D"mailto:henbinchang@gmail.com">henbinc=
+hang@gmail.com</a>&gt; =E6=96=BC 2018=E5=B9=B48=E6=9C=8822=E6=97=A5 =E9=80=
+=B1=E4=B8=89 =E4=B8=8A=E5=8D=8810:30=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px =
+#ccc solid;padding-left:1ex"><div dir=3D"ltr">Hi Ed,<div>Thanks for your re=
+sponse.</div><div><br></div><div>I tried to send POST request but got=C2=A0=
+&quot;Method Not Allowed&quot;.</div><div><br></div><div>curl -k -H &quot;C=
+ontent-Type: application/json&quot; -X POST -d &#39;{&quot;data&quot;: [&qu=
+ot;10.99.240.105&quot;, &quot;s2600wf-20180118092748.all.tar&quot;]}&#39; <=
+a href=3D"https://root:0penBmc@10.99.241.36:883/redfish/v1/UpdateService" t=
+arget=3D"_blank">https://root:0penBmc@10.99.241.36:883/redfish/v1/UpdateSer=
+vice</a><br></div><div><br></div><div>Please help=C2=A0correct if any typo.=
+</div><div><br></div><div>Thanks.</div><div><br></div><div>BRs,</div><div>H=
+enbin.</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">Tanous, Ed &lt;=
+<a href=3D"mailto:ed.tanous@intel.com" target=3D"_blank">ed.tanous@intel.co=
+m</a>&gt; =E6=96=BC 2018=E5=B9=B48=E6=9C=8821=E6=97=A5 =E9=80=B1=E4=BA=8C =
+=E4=B8=8B=E5=8D=8811:07=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pa=
+dding-left:1ex">
 
---000000000000bb5fd9057471d5ce--
+
+
+
+
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"m_-7926038133573238008m_1672218689135872985WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1f497d">Yes, it should work, although it=E2=
+=80=99s relatively new, so it=E2=80=99s possible there are bugs or corner c=
+ases we haven=E2=80=99t hit yet.=C2=A0 If you find new issues, it would be =
+great
+ if you could file them against the bmcweb project.<u></u><u></u></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1f497d">To use the endpoint, it should just b=
+e a matter of sending a POST request to the update URL containing the tarre=
+d image with the manifest in the body.=C2=A0 It works
+ very similarly to the existing update endpoints, it just meets the Redfish=
+ specifications.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1f497d">One thing to watch out for is payload=
+ size.=C2=A0 Bmcweb imposes appropriate payload limits, but if you=E2=80=99=
+re reverse proxying the server behind nginx, you might have
+ nginx payload limits imposed and that=E2=80=99ll need to be updated.<u></u=
+><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1f497d">-Ed<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><a name=3D"m_-7926038133573238008_m_1672218689135872=
+985__MailEndCompose"><span style=3D"font-size:11.0pt;font-family:&quot;Cali=
+bri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></a></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #e1e1e1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><a name=3D"m_-7926038133573238008_m_1672218689135872=
+985______replyseparator"></a><b><span style=3D"font-size:11.0pt;font-family=
+:&quot;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:1=
+1.0pt;font-family:&quot;Calibri&quot;,sans-serif"> Henbin Chang [mailto:<a =
+href=3D"mailto:henbinchang@gmail.com" target=3D"_blank">henbinchang@gmail.c=
+om</a>]
+<br>
+<b>Sent:</b> Tuesday, August 21, 2018 1:02 AM<br>
+<b>To:</b> Tanous, Ed &lt;<a href=3D"mailto:ed.tanous@intel.com" target=3D"=
+_blank">ed.tanous@intel.com</a>&gt;; OpenBMC Maillist &lt;<a href=3D"mailto=
+:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a>&g=
+t;<br>
+<b>Subject:</b> UpdateService in Redfish<u></u><u></u></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">Hi Ed,<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">I search the below commit in the=C2=A0bmcweb=C2=A0RE=
+PO.<u></u><u></u></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">commit acb7cfb4b571bd2045b1d269625ba054806a466d<u></=
+u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Author: Jennifer Lee &lt;<a href=3D"mailto:jennifer1=
+.lee@intel.com" target=3D"_blank">jennifer1.lee@intel.com</a>&gt;<u></u><u>=
+</u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Date:=C2=A0 =C2=A0Thu Jun 7 16:08:15 2018 -0700<u></=
+u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 Implement POST for redfish UpdateServi=
+ce<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 - POST an image file to /redfish/v1/Up=
+dateServer uri will upload the<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 image and activate it<u></u><u>=
+</u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 - Modified SoftwareInventoryCollection=
+ to list items with<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 xyz.openbmc_project.Software.Ac=
+tivation/Activation property as<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 &quot;xyz.openbmc_project.Software.Act=
+ivation.Activations.Active&quot;<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 - SoftwareInventory <a href=3D"http://=
+odata.id" target=3D"_blank">odata.id</a> is identified with DBus generated =
+uuid<u></u><u></u></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">May I know if BMC FW can be updated through=C2=A0Upd=
+ateService in Redfish?=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">If yes, could you share how to use it?<u></u><u></u>=
+</p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Besides that, I add some debug message in the=C2=A0r=
+edfish-core/lib/update_service.hpp=C2=A0but output nothing=C2=A0<u></u><u><=
+/u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Could you give some suggestion?=C2=A0=C2=A0<u></u><u=
+></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">...<u></u><u></u></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">private:<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 void doGet(crow::Response &amp;res, const cro=
+w::Request &amp;req,<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cons=
+t std::vector&lt;std::string&gt; &amp;params) override {<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 std::cout &lt;&lt; &quot;Henbin=3D&quo=
+t; &lt;&lt; __FILE__&lt;&lt; &quot;: &quot;&lt;&lt;__LINE__ &lt;&lt; &quot;=
+\n&quot;;<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 BMCWEB_LOG_INFO &lt;&lt; &quot;Henbin=3D&quot; &lt;&lt; __FILE__&lt;&lt=
+; &quot;: &quot;&lt;&lt;__LINE__ &lt;&lt; &quot;\n&quot;;<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 res.jsonValue =3D Node::json;<u></u><u=
+></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 res.end();<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 }<u></u><u></u></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">...<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">BRs,<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Henbin.<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</blockquote></div></div>
+</blockquote></div>
+
+--0000000000000041220574752658--
