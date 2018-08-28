@@ -1,55 +1,64 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <kunyi@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c0b::231; helo=mail-it0-x231.google.com;
+ envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="PSqNo6Wk"; 
+ dkim-atps=neutral
+Received: from mail-it0-x231.google.com (mail-it0-x231.google.com
+ [IPv6:2607:f8b0:4001:c0b::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420Nxn2k5YzF0QC
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 08:40:28 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2018 15:40:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="252696113"
-Received: from orsmsx107.amr.corp.intel.com ([10.22.240.5])
- by orsmga005.jf.intel.com with ESMTP; 28 Aug 2018 15:40:25 -0700
-Received: from orsmsx156.amr.corp.intel.com (10.22.240.22) by
- ORSMSX107.amr.corp.intel.com (10.22.240.5) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Tue, 28 Aug 2018 15:40:25 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
- ORSMSX156.amr.corp.intel.com ([169.254.8.73]) with mapi id 14.03.0319.002;
- Tue, 28 Aug 2018 15:40:25 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Alexander Amelkin <a.amelkin@yadro.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: RE: Proposals for commit log policy
-Thread-Topic: Proposals for commit log policy
-Thread-Index: AQHUOUrQ7cGpSvgvDECTKY+pPFOBmKTKVDUggAMppYCACErRIA==
-Date: Tue, 28 Aug 2018 22:40:25 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E821699345836D67@ORSMSX114.amr.corp.intel.com>
-References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
- <7E9441B1E5EFFD4681F54958E82169934583385B@ORSMSX114.amr.corp.intel.com>
- <ab12144e-3faf-2756-b7d7-16a294b2c7ee@yadro.com>
-In-Reply-To: <ab12144e-3faf-2756-b7d7-16a294b2c7ee@yadro.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNmNlNjBhYTUtMTg5YS00OGNkLWJlZDctY2M4YzU0ZDk5MjQzIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiMHh1QnBERVRHZjg0amVka24yYlc1QzRrSlJxWUlyNFN5YlVPV3pqRXZMa0QyWVZPd1FZTFpNSm9rUzg5ZjhvKyJ9
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.138]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420P2864KzzF0QC
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 08:44:15 +1000 (AEST)
+Received: by mail-it0-x231.google.com with SMTP id h3-v6so5018769ita.2
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 15:44:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=OmbH60ykW5+OavXwHD/kUcBny4i4fqkZ2DK//1NP6/Q=;
+ b=PSqNo6Wk5jkEPw4EarWBJ/hemXSFlLf5omgeb6Q/RH7ILtFkWtknrdngVnkOi5Tr9c
+ tAH2IW/qW4+RGM6goTiPzVgLSm2gVAs07E5VSIES89pMC1mVLlHFcOxe14sO9S/fP1Vw
+ o2cb/+hEJr37eSWry1uKadm1POou/lHlJavJj8Gi7PxQhxDV+/JWMV0wAuSr0WkrKhDt
+ mKFebGV779Y3IDPoMCpZEfIYXA1Ylz3HZCuGy5fEGnF1YloMubgY5hVf0jl0lSn1vIl1
+ hfnWnJ9HZK939mgNZ88fD7gI9Xxn33Y/GMfwqdDtriK4ycd7y+KREbqPs4bxRxxulbgj
+ Hlww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=OmbH60ykW5+OavXwHD/kUcBny4i4fqkZ2DK//1NP6/Q=;
+ b=HzGtk9To97Txx46lXMrvn4UfkI5c8ILYZm8onIyAoOFkPG9LfjWN7HONLCr8yw35Dg
+ UbVXhAKEYyvkmehKp5OVYRJ9o5I5OMSDnjlP23+yffMaLSl1QJJxr6b5spemXyAspflg
+ dFvqq2nZTImHSoYHnsnCWHTvb5f89TlCFWDch926TC7r9GfTDNE03AzQFLXc0Hpoga4a
+ AaCXmlk7Xga+ZXnm9dFfZUT3AZoIcRkFkYjgIAj5aflS+sLhLF+7D1PKHckCGMziK0Ye
+ gHzzwBFs9h/Qzo+CNmpkqqeUh5x+2n5XzT1ImjGsFmb1gOUKlwq3fysbT7l0Ye6Q6EOv
+ VAyg==
+X-Gm-Message-State: APzg51A3AQ6fvdKYcr2l8GJ0cf6swhhVZ2u4GwBB1Ltmw82D84ZtpgMo
+ H5nQh9Imy4C73dZCSvxUyaUirL4BwAsc2Ra0Z9APkw==
+X-Google-Smtp-Source: ANB0VdbuM/m2VRu7ZcmfB+WJXkg6M7FypZof2yGmnxJGhiYa0P11T/c6RtUyvzoxjd9Kxf1UkMxy5PJrNdsRsJDQ9zE=
+X-Received: by 2002:a24:eec7:: with SMTP id
+ b190-v6mr3252172iti.32.1535496253142; 
+ Tue, 28 Aug 2018 15:44:13 -0700 (PDT)
 MIME-Version: 1.0
+References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
+ <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
+ <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
+ <CALLMt=rGmZ9-29xWMymUvdCAgVnFzQ+gyZDn3zXnWeR4imSYPA@mail.gmail.com>
+ <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
+ <7E9441B1E5EFFD4681F54958E821699345836D0F@ORSMSX114.amr.corp.intel.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E821699345836D0F@ORSMSX114.amr.corp.intel.com>
+From: Kun Yi <kunyi@google.com>
+Date: Tue, 28 Aug 2018 15:43:46 -0700
+Message-ID: <CAGMNF6WZA_LKQ3ks+M2hG6Jp0E-T6taXF9NozRqWWkm5qMJnYQ@mail.gmail.com>
+Subject: Re: Proposals for commit log policy
+To: ed.tanous@intel.com
+Cc: gmills@linux.vnet.ibm.com, geissonator@gmail.com, 
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, a.amelkin@yadro.com
+Content-Type: multipart/alternative; boundary="000000000000b99f37057486941a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -61,39 +70,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 22:40:30 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 22:44:17 -0000
 
-RG8geW91IGhhdmUgYW4gZXhhbXBsZSBvZiB0aGUgdmVyc2lvbiB0byB2ZXJzaW9uIGxvZ3MgdGhh
-dCBhcmUgdGhlIHJlc3VsdCBvZiB0aGUgIjMgZnVsbCBkYXlzIGNvbnRpZ3VvdXNseSBvZiBhIHF1
-YWxpZmllZCBlbmdpbmVlciIgdGhhdCB5b3UncmUgYXNraW5nIHRoZSBjb21tdW5pdHkgdG8gaGVs
-cCB5b3UgY3JlYXRlPyAgSSBzdXNwZWN0IGlmIHRoZXkgd2VyZSBwdWJsaXNoZWQgKGZvcmdpdmUg
-bWUgaWYgdGhleSBhbHJlYWR5IGFyZSBhbmQgSSd2ZSBqdXN0IG1pc3NlZCB0aGVtKSBiYWNrIHRv
-IHRoZSBwcm9qZWN0IHNvbWV3aGVyZSwgYW5kIHBlb3BsZSBmb3VuZCB2YWx1ZSwgaXQgbWlnaHQg
-aGVscCB0aGUgdmFsdWUgcHJvcG9zaXRpb24gZm9yIGRldmVsb3BlcnMgYSBsb3QgbW9yZS4gIFJp
-Z2h0IG5vdyBJJ20gc2VlaW5nIHRoYXQgaXMgd291bGQgYmUgYSBsb3Qgb2Ygd29yayBvbiB0aGUg
-cGFydCBvZiBjb2RlIHJldmlld3MsIGZvciBvbmx5IGEgbWlub3IgZ2Fpbi4gIFRoaXMgaXMgY29t
-aW5nIGZyb20gc29tZW9uZSB3aG8gaGFzIHdyaXR0ZW4gcmVsZWFzZSBub3RlcyBhIGxvdC4gIEkg
-ZmluZCB0aGUgbW9zdCB2YWx1ZSBpbiByZWxlYXNlIG5vdGVzIHRvIGJlIGEgY29uc2lzdGVudCB0
-b25lLCBsYW5ndWFnZSwgYW5kIGZpbHRlcmluZywgd2l0aCBhIGxldmVsIG9mIGFic3RyYWN0aW9u
-IHRoYXQgaXMgaGlnaCBlbm91Z2ggdG8gYmUgdXNlZnVsLiAgSSdkIGJlIHN1cnByaXNlZCBpZiB3
-ZSB3ZXJlIGFibGUgdG8gZ2V0IHRoYXQga2luZCBvZiBjb25zaXN0ZW5jeSBmcm9tIGFsbCB0aGUg
-cGVvcGxlIG9uIHRoZSBwcm9qZWN0IG9mIHZhcnlpbmcgYmFja2dyb3VuZHMuDQoNCkFub3RoZXIg
-dGhpbmcgdG8gY29uc2lkZXIgaXMgdGhhdCB0aGVyZSBhcmUgYSBsb3Qgb2Ygbm9uLW5hdGl2ZSBF
-bmdsaXNoIHNwZWFrZXJzIGluIHRoZSBjb21tdW5pdHksIGFuZCB3aGlsZSBJIHdvdWxkIGxvdmUg
-aXQgaWYgZXZlcnlvbmUgaGFkIGEgcGVyZmVjdCBncmFzcCBvZiB0aGUgRW5nbGlzaCBsYW5ndWFn
-ZSwgSSB3b3VsZCBfbXVjaF8gcmF0aGVyIHRoYXQgdGhleSBrbm93IGhvdyB0byBkZXNpZ24sIGJ1
-aWxkLCBhbmQgdGVzdCBlbWJlZGRlZCBmaXJtd2FyZSwgd2hpbGUgbGVhdmluZyB0aGUgZG9jdW1l
-bnRhdGlvbiB0byB0aGUgcGVvcGxlIHRoYXQgZXhjZWwgYXQgaXQuDQoNCg0KPiBGb3IgYnVtcHMg
-dGhlIHRhc2sgaXMgImF1dG9tYXRhYmxlIiBpbmRlZWQuIEl0J3Mgbm90IGFjdHVhbGx5IGFzIGVh
-c3kgd2l0aA0KPiBZb2N0byBhcyBpdCBtYXkgc2VlbSAidG8gcGFyc2UgdGhlIGdpdCBsb2dzIGJl
-dHdlZW4gdGhlIHJlY2lwZSBidW1wcyIgKGhhdmUNCj4geW91IHRyaWVkPyksIGJ1dCBpdCBjYW4g
-YmUgYXV0b21hdGVkLg0KDQpXZSBkb24ndCBkdW1wIHRoZSBnaXQgbG9ncywgYnV0IG15IHRlYW0g
-ZG9lcyB0cmFjayB0aGUgU0hBcyBvZiB0aGUgb3BlbmJtYyBjb21wb25lbnRzIGluIGVhY2ggcmV2
-aXNpb24gd2UgYnVpbGQgZm9yIGF1ZGl0IGFuZCByZXByb2R1Y2liaWxpdHkgbmVlZHMuICBJdCdz
-IHBvc3NpYmxlIEknbSBtaXNzaW5nIHNvbWV0aGluZyBoZXJlLCBidXQgaXQgZmVlbHMgbGlrZSBk
-dW1waW5nIHRoZSBsb2dzIHdvdWxkIGJlIGEgbWlub3IgYWRkaXRpb24gdG8gdGhlIDwyMCBsaW5l
-IHB5dGhvbiBzY3JpcHQuICBPdXIgZXhpc3Rpbmcgb25lIGp1c3Qgc2VhcmNoZXMgYSBnbG9iIG9m
-ICouYmIgYW5kICouYmJhcHBlbmQgZmlsZXMsIGdyZXBzIGZvciBTSEExIGNoYW5nZXMsIGFuZCBm
-ZXRjaGVzIHRoZSByZWxldmFudCByZXBvcy4gIFdoZW4gSSBnZXQgYSBtb21lbnQsIEknbGwgdGFr
-ZSBhIGxvb2sgYW5kIHNlZSBpZiBpdCBjYW4gYmUgZWFzaWx5IGdlbmVyYWxpemVkIHRvIGR1bXAg
-bG9ncyBmb3IgeW91IGlmIHRoYXQgaGVscHMgc29tZS4NCg0KLUVkDQo=
+--000000000000b99f37057486941a
+Content-Type: text/plain; charset="UTF-8"
+
+My take is that we should keep the easy things easy. i.e. keep auto-bumping
+most of the repos.
+
+Would people be interested in something like an auto-bump configuration?
+For example a optional configuration file that specifies the git log
+format, or some option to 'turn auto-bump off for this repo'.
+
+On Tue, Aug 28, 2018 at 3:21 PM Tanous, Ed <ed.tanous@intel.com> wrote:
+
+> >
+> > I object too. I don't think the benefit of manual bumps is worth the
+> effort.
+> >
+>
+> Another vote for "I don't think it's worth the effort".
+>
+> Automatic bumps keep us up to date and make breakages happen and get fixed
+> faster.  I would actually prefer that every gerrit review creates a manual
+> bump to make sure the complete system builds with their given component
+> change, but I realize this is hard to do.
+>
+> -Ed
+>
+
+
+-- 
+Regards,
+Kun
+
+--000000000000b99f37057486941a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">My take is that we should keep the easy things easy. i.e. =
+keep auto-bumping most of the repos.<div><br><div>Would people be intereste=
+d in something like an auto-bump configuration? For=C2=A0example a optional=
+ configuration file that specifies the git log format, or some option to &#=
+39;turn auto-bump off for this repo&#39;.</div></div><br><div class=3D"gmai=
+l_quote"><div dir=3D"ltr">On Tue, Aug 28, 2018 at 3:21 PM Tanous, Ed &lt;<a=
+ href=3D"mailto:ed.tanous@intel.com">ed.tanous@intel.com</a>&gt; wrote:<br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-l=
+eft:1px #ccc solid;padding-left:1ex">&gt; <br>
+&gt; I object too. I don&#39;t think the benefit of manual bumps is worth t=
+he effort.<br>
+&gt; <br>
+<br>
+Another vote for &quot;I don&#39;t think it&#39;s worth the effort&quot;.<b=
+r>
+<br>
+Automatic bumps keep us up to date and make breakages happen and get fixed =
+faster.=C2=A0 I would actually prefer that every gerrit review creates a ma=
+nual bump to make sure the complete system builds with their given componen=
+t change, but I realize this is hard to do.<br>
+<br>
+-Ed<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"l=
+tr">Regards,<div>Kun</div></div></div></div>
+
+--000000000000b99f37057486941a--
