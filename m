@@ -1,33 +1,49 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <jason.m.bills@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=jason.m.bills@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420G5q6w8rzDrdf
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:31:58 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id B0E85E9DC6;
- Tue, 28 Aug 2018 13:31:55 -0400 (EDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Subject: Re: meta-google subtree repo
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CAO=notyOhkCDeTOJ57edK8z61_6HKDtWahahx-U_fk8JukBctw@mail.gmail.com>
-Date: Tue, 28 Aug 2018 13:31:55 -0400
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420G8q1bwXzDrb6
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:34:28 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2018 10:34:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="257951444"
+Received: from orsmsx108.amr.corp.intel.com ([10.22.240.6])
+ by fmsmga005.fm.intel.com with ESMTP; 28 Aug 2018 10:34:26 -0700
+Received: from orsmsx163.amr.corp.intel.com (10.22.240.88) by
+ ORSMSX108.amr.corp.intel.com (10.22.240.6) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Tue, 28 Aug 2018 10:34:26 -0700
+Received: from orsmsx115.amr.corp.intel.com ([169.254.4.230]) by
+ ORSMSX163.amr.corp.intel.com ([169.254.9.30]) with mapi id 14.03.0319.002;
+ Tue, 28 Aug 2018 10:34:26 -0700
+From: "Bills, Jason M" <jason.m.bills@intel.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: 
+Thread-Index: AdQ+9VxtajyD/IcCQmKiG0tbrUk3/Q==
+Date: Tue, 28 Aug 2018 17:34:26 +0000
+Message-ID: <CBC60E0B5DD8E642ACEAB425D566671AAFEAFCEC@ORSMSX115.amr.corp.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiN2RjYjI0YzgtOTQwYi00NTRhLTljNWMtZGEwNGE1NzFkYmFiIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicWx4Nnhoa0dlbDRuY1M3UkpzTUNGaHFoT2E4S1ZUOGZsR2VUUGZMSlo5VEJSSTl0RmRTU3ZYNklwY1pMZ3BxUSJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.139]
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <6F027861-92AD-46AC-83AE-61D7C7E0A794@fuzziesquirrel.com>
-References: <CAO=notyOhkCDeTOJ57edK8z61_6HKDtWahahx-U_fk8JukBctw@mail.gmail.com>
-To: Patrick Venture <venture@google.com>
-X-Mailer: Apple Mail (2.3445.9.1)
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -39,27 +55,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 17:32:00 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 17:34:36 -0000
 
+I just added a comment to a github discussion about the IPMI SEL and though=
+t I should share it here as well:
 
+I have been working on a proof-of-concept to move the IPMI SEL entries out =
+of D-Bus into journald instead.
 
-> On Aug 28, 2018, at 12:19 PM, Patrick Venture <venture@google.com> =
-wrote:
->=20
-> Brad,
->=20
-> I'm looking to send some more OEM IPMI code upstream, and since we're
-> using subtrees, perhaps it makes sense to have their recipes live
-> under meta-google under openbmc/openbmc instead of meta-phosphor.
->=20
-> If you think sure, then please create a meta-google layer repository.
->=20
+Since journald allows custom metadata for log entries, I've thought of havi=
+ng the SEL message logged to the journal and using metadata to store the ne=
+cessary IPMI info associated with the entry. Here is an example of logging =
+a type 0x02 system event entry to journald:
 
-Done.  Once you have merged an initial patch please let me know and =
-I=E2=80=99ll
-add it to the combo-layer config I have setup for assembling =
-openbmc/openbmc.
+sd_journal_send("MESSAGE=3D%s", message.c_str(),
+                            "PRIORITY=3D%i", selPriority,
+                            "MESSAGE_ID=3D%s", selMessageId,
+                            "IPMI_SEL_RECORD_ID=3D%d", recordId,
+                            "IPMI_SEL_RECORD_TYPE=3D%x", selSystemType,
+                            "IPMI_SEL_GENERATOR_ID=3D%x", genId,
+                            "IPMI_SEL_SENSOR_PATH=3D%s", path.c_str(),
+                            "IPMI_SEL_EVENT_DIR=3D%x", assert,
+                            "IPMI_SEL_DATA=3D%s", selDataStr,
+                            NULL);
+Using journald should allow for scaling to more SEL entries which should al=
+so enable us to support more generic IPMI behavior such as the Add SEL comm=
+and.
 
--brad
-
-> Patrick
+-Jason
