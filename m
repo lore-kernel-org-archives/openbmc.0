@@ -1,52 +1,60 @@
 Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::42d; helo=mail-pf1-x42d.google.com;
+ (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="FNVEYmzG"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="aTQWS50T"; 
  dkim-atps=neutral
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420GBg5XhtzF08L
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:36:11 +1000 (AEST)
-Received: by mail-pf1-x42d.google.com with SMTP id h69-v6so1033232pfd.4
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 10:36:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420GFg0y9TzDrM8
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:38:46 +1000 (AEST)
+Received: by mail-pl1-x636.google.com with SMTP id j8-v6so1019876pll.12
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 10:38:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=8stl9web5fShPgQXpFw+BYi2og7hrCWBcKzxhHfeXxU=;
- b=FNVEYmzGaCi4lUW7BehWddxR2NLuSD5J0pW10avCDSsZc58nHpqU16BSL7gKX45+ri
- 0rp1Bwv5prgUxAeOugQQYmBekcIB9TOwGSA0NqyJLoA/oakneCtt5G3A0wJxXV/kE5Ls
- hXSH7znq9goZjc97hL282RcRxl+dq2evptfm43MBBCft6sBTnI7fkLtGVcUHFnyp4jFV
- 9ILuqt+juxeyjj+gjKcXwGI6Ba0EL28GlzIjXg6+CTmEIrLNGB6kxOU/S+Z2L3uzWc37
- Kq1oODw80Nm36yY5si/QhUA37ztRHM17CTSnhrwLzZFwvnR7pHQetxfXNrgv34jbBvyd
- YYaw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=RPcJqZ88PNoADUpXisr7pmZRC/rMsu/9kiyGllqrmsQ=;
+ b=aTQWS50T05oys3BijLE6AjJFFmdeUlMNoujnrkSIE1BM/5GY/VfYG4yNFwyb75zQIk
+ 6/xg1GYTacEMyHiufeMNvnWEiIytC1irRH2gxbRyhODT7WG4wT0prCDRXXErWGmDQjCV
+ 5n4n6PM25Rd4seS2hSdjaBk2GxmFLs6bVMcpwWAS+S+Yl74coB+It6vmv+ghLcRMKPC5
+ wK58GLwK9ZZBU5Eb7E37Ag+g/c3zYTPEIpOzHEc/0NK9T0cWuC/IFR7NJcUhXn0UjVkc
+ +sXKIWrqFrYd39ZrjF7Eq5Abr71seotsZbRPug0S5fh6u/B8PZZdPEkaRoey2xDbzqaE
+ mQ1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=8stl9web5fShPgQXpFw+BYi2og7hrCWBcKzxhHfeXxU=;
- b=Cg8acXxEpvkW1N8l5PXeVuJy5z1bYvmOIRfhrpFKDKY62TsvfqPSsfOIgSS8GNRbtj
- 6bc3zEvQm5LAlyETw9hwGEcO5FdNbtln1Gk4oSXKOT1paZYxtWQLra0sqFq6XaIjIaXV
- 40vRwa/YURW+pbPdJ15fmOtdN+sKMq8DsSQiRx+Mn9BfTgfUOGapnpwWmuJMwOyT+e4m
- 7nyJxvW34qTLGYFZTuLSOnXqhujjFiUCxfVFwZoHqQEDRqqHzRSBfjI2YHcQkV9CRUP6
- 5bs/nUVftUOmgiiZRk3stsqEERniJUAc0fYl0OHO8S+NfTFA6slNI1pDsTpLYN+IpmUC
- oKHQ==
-X-Gm-Message-State: APzg51AgII2WYNiX4mGcONBzVXBPD6ye1zT5FORKji6XUqgtlivPy2fc
- vXlhGQJysxQCuFIIcbYwj51PaLRyWUW+yczUgF2ff/S6820u3A==
-X-Google-Smtp-Source: ANB0VdYmkg+8S1D25dIYCXi7vhqZIbDuM58Vrvvo4W/BAMpRCERTTGMS5aSylmhw5IxC65Aur59KpuwDxTwJiLZ7SgM=
-X-Received: by 2002:a63:a309:: with SMTP id s9-v6mr2400550pge.90.1535477768671; 
- Tue, 28 Aug 2018 10:36:08 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=RPcJqZ88PNoADUpXisr7pmZRC/rMsu/9kiyGllqrmsQ=;
+ b=pDIkPrgMuUHP1FlMaKDQDCTEzAZozJ8wiB2OGuPk7YTR7GbnVLJWxGtLxiRZlvgNix
+ Vpws75ozjEdoBq+hTefZpMO5WqU+vme9CDBUH2h/yA0RDgOZ+WRf88zw0i9WUSHGtMrw
+ tn+RAyYZ6zzEBZpVfNSCzz96K+a9aLjzl670SnYCoeyTf/fz8dHjv4y6ML+veee1U2PA
+ cLA9Mi11o+a3mKI/L8U68mSz61Cm4eGqPFqShQ3SFjOm11VnNwYZBFn3WZ0O3DbN+G6W
+ XisR9VgoHdLIXhWS6Eyx/zHPYrIKACX0R8TVpmAXI/Gv7POTPWsPe9IbSlsJfmQ2/1oO
+ XAYg==
+X-Gm-Message-State: APzg51A+jQJ9VrAawNCFjLUI9GWssDG1+irc+jWVojLtIKtJXS7nGr6U
+ KWdLOftHuhHYMfVwWxiA13xO6lKluJPcT2Lt2UfpXA==
+X-Google-Smtp-Source: ANB0Vda3CevZ1COAFQCBUCS6X1Y8UsUi6lNTMpINL4Nc8l9kIKTUQucx2vhAX5hs2fAwIUKfoxLre4/p4pnCQOgZ9Ns=
+X-Received: by 2002:a17:902:28eb:: with SMTP id
+ f98-v6mr2454618plb.149.1535477924430; 
+ Tue, 28 Aug 2018 10:38:44 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAO=notyOhkCDeTOJ57edK8z61_6HKDtWahahx-U_fk8JukBctw@mail.gmail.com>
+ <6F027861-92AD-46AC-83AE-61D7C7E0A794@fuzziesquirrel.com>
+In-Reply-To: <6F027861-92AD-46AC-83AE-61D7C7E0A794@fuzziesquirrel.com>
 From: Patrick Venture <venture@google.com>
-Date: Tue, 28 Aug 2018 10:35:57 -0700
-Message-ID: <CAO=notzut2sd4GZvA3gMzoB+J7g48nXnXKONhnwNfJC8jPWPAg@mail.gmail.com>
-Subject: Header inclusion ordering style addition
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 28 Aug 2018 10:38:32 -0700
+Message-ID: <CAO=notyyr9Z3qBL=zYKu8-2q=69FYsc31HBpBqsV0k4t5bMzMg@mail.gmail.com>
+Subject: Re: meta-google subtree repo
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -58,26 +66,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 17:36:13 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 17:38:48 -0000
 
-Each file in each daemon attempts to order the headers in a consistent
-way.  Typically, alphabetically.  However, I propose here a more
-explicit ordering:
+On Tue, Aug 28, 2018 at 10:31 AM Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
+>
+>
+>
+> > On Aug 28, 2018, at 12:19 PM, Patrick Venture <venture@google.com> wrot=
+e:
+> >
+> > Brad,
+> >
+> > I'm looking to send some more OEM IPMI code upstream, and since we're
+> > using subtrees, perhaps it makes sense to have their recipes live
+> > under meta-google under openbmc/openbmc instead of meta-phosphor.
+> >
+> > If you think sure, then please create a meta-google layer repository.
+> >
+>
+> Done.  Once you have merged an initial patch please let me know and I=E2=
+=80=99ll
+> add it to the combo-layer config I have setup for assembling openbmc/open=
+bmc.
 
-https://gerrit.openbmc-project.xyz/12180
+Thanks. I'm going to work with Nancy shortly to determine what to send
+up first and get this train going.
 
-As an example of the ordering:
-
-https://gerrit.openbmc-project.xyz/11421
-
-I feel that having a consistent ordering that deals with the various
-types of header files included provides a couple benefits:
-* header files are included where you expect to find them
-* easily can see that there are c-headers included in a clean group
-* defines that the phosphor library headers are treated as normal cpp
-libraries and included in that grouping making the headers come across
-as system libraries and not something different.
-
-Please take a look.
-
-Patrick
+>
+> -brad
+>
+> > Patrick
