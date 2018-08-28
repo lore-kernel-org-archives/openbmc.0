@@ -1,110 +1,75 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <marek.vasut@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:400c:c09::242; helo=mail-wm0-x242.google.com;
+ envelope-from=marek.vasut@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="K9GDKL36"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="dWXCn7B9"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm0-x242.google.com (mail-wm0-x242.google.com
+ [IPv6:2a00:1450:400c:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420Cx73PZzzDrTP
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 01:54:19 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id ED2DF418F9;
- Tue, 28 Aug 2018 15:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:in-reply-to:mime-version:user-agent
- :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1535471654; x=
- 1537286055; bh=0cm863UWPYo2+aq80l0rXJ1cT0v68cNWJcS8t0KXRuY=; b=K
- 9GDKL361s8lvR4tV4UoAEtnafDCa+9DWmEN+7DUnbhXb4hElpZrlT95FxTuVL9O0
- zW422dsDfd09BAzD9dsnmQUfNgAFTNQrki/DqrR3el5nyWso7JTtgCzrX8ZpZ4e4
- WyefMEVr5Zpl/qoDg70cI22l+t1tvol8tpXbvzwqbQ=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id GxUjEIj6UWwV; Tue, 28 Aug 2018 18:54:14 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id A27B840311;
- Tue, 28 Aug 2018 18:54:13 +0300 (MSK)
-Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 28
- Aug 2018 18:54:13 +0300
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420D8P3M9QzDrVP
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 02:04:03 +1000 (AEST)
+Received: by mail-wm0-x242.google.com with SMTP id b19-v6so2478386wme.3
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 09:04:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=LTFryXqVND7F0Y3VRc8KYjyvT0Ez7FzU3MlzeDBaXEA=;
+ b=dWXCn7B99Wal6W5hFpkIdEUaPnAXZhQXyuGKFlEo0MH/tLtlOwezXYZc+w5oxnrvBd
+ SafRfNY5e0Jt+Z6OWZ98LNitYZEUzDBGE7JI2gCYekbPsxPnlvwINspaxwm0vqgkQnx6
+ xYhHNftlkyBpV5l4z3XffyZextg4t1qOBWPgi4j1evnZ3kPAKflh/Wz1abzX2058sHch
+ idRjl87YNP5NXWMr8DXhaPwLXW+E9hcTwJK795Y5IlmIJ9Xh8CDFzr/PhJ6lHDfFQP/l
+ mnKvKQKGmIknMxpAhspvZgijgTh6ealJvUxP9QKzpfSy4KT6wr7T9oVlG06rXufMp28I
+ 3n4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=LTFryXqVND7F0Y3VRc8KYjyvT0Ez7FzU3MlzeDBaXEA=;
+ b=lXc93erbBzBrBncL96qgnYmn+ZjJQY3mXvZfMPBMrHwpZmNR3mvn65aAoSIaA0NMc4
+ GdhBMm5tqdxnQsxlwDNqIb/qWyko/NHe2KLGuIqvUFubhgyJ0IzaXsCqzXQ7wCEd3EF8
+ X1CD1Xm9xCmPFi8KzQj7nGu3gm3uuqbK5zMkBXWqa4BpdA2qE09PLrC1mx6eOPtIEa6G
+ ehd7m53Afg/FRAIS7gTfEJxgxDH/jNQ9xz+GE3LkFfQM6BeQsuwNvZjcsGyesyO1LgmJ
+ WHwgjYNH3ZqEK/cRdOcQ2HK8En0HgrYk8pyCf1C81arMFV/1NGSUaRkjvaI2nAaxINVR
+ 8xQw==
+X-Gm-Message-State: APzg51DUOwqui6iG2GZbLXf7z2edFAztqHD6m2ye0TdRWRtto9y7JRIQ
+ FCy18UPtkoIOvTYIr5aLq64=
+X-Google-Smtp-Source: ANB0VdbIWOfWf7X/m93WG0ru+4fS1Lnxp59iCq7zQ3cqqhBbcSL1Iv4myHp9YBcdUimgX2klvdTViA==
+X-Received: by 2002:a1c:b441:: with SMTP id
+ d62-v6mr1803758wmf.17.1535472240653; 
+ Tue, 28 Aug 2018 09:04:00 -0700 (PDT)
+Received: from [192.168.1.4] (ip-86-49-107-50.net.upcbroadband.cz.
+ [86.49.107.50])
+ by smtp.gmail.com with ESMTPSA id w204-v6sm2408282wmw.5.2018.08.28.09.03.59
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 Aug 2018 09:03:59 -0700 (PDT)
 Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
-To: Marek Vasut <marek.vasut@gmail.com>, <linux-mtd@lists.infradead.org>
-CC: <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, <leroi.lists@gmail.com>
+To: Alexander Amelkin <a.amelkin@yadro.com>, linux-mtd@lists.infradead.org
+Cc: openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>,
+ =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, leroi.lists@gmail.com
 References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
  <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
  <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
  <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
  <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
  <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- xsFNBFj0jdkBEADhQF4vZuu9vFfzxchRQtU/ys62Z13HTaYK/VCQKzPnm2mf593Il61FP9WV
- 0Srt4t4yumiXK7NhHeqktN/YZjYDYVr9l+vZpNydOHpDjk7xjPgb0KkoFCo7bcQ2/e4AtLTQ
- XGoWIKv983vWlphPCG1Jof5jH3RA7mccCNXtGlzVYF0RYR0/qKGgsoBymkldNKPwgPf/3SXb
- QY5V3sJ5SHwDjmhg3MYnblV29OULdi72DKI9MkhTTHQFlA++CfYstx/cZ1BZwWmoMgi0umpj
- Pf+5mAkmTtlPW7U54EUgFpvTMfxRRS7yH+iTlvngduYW6jryt0zm6r7M2LGR+uWGSTmWBB7Y
- t06D0Xrm0Zwl4alQ5WDrlUTkzZcXDb0QqY7UkQSkghLmUjItEj4Z+ay7ynIsfjQe0OYdTofh
- dY0IUxMxNm9jeckOkRpSdgsQrTcKIOAt/8jI62jlzN1EXA6blhASv5xtt7I1WXCpDU+mpfKf
- ccUVJfmd0Q2nlG64L4Bv8o+iBI0Xu5+EX2NzDKQF5vSQIK8mwniAPT16hi80mZG9EQf0fJ1C
- p7xJGvwA6IiwXWsAqhNRhYbmNDfiR2MMxw5DFdQSeqoK3ONeeIwrJAPNdme+Z1DoT2+ZuZP0
- nfUa8e2QaMHkXwCz9e0cI2NUmAwFJ9Qg4L0eyhdZP4rQ1KCg/QARAQABzSxBbGV4YW5kZXIg
- QW1lbGtpbiA8YWxleGFuZGVyQGFtZWxraW4ubXNrLnJ1PsLBgAQTAQgAKgIbAwULCQgHAgYV
- CAkKCwIEFgIDAQIeAQIXgAIZAQUCWmWolAUJcjFDNwAKCRDok1h7W3QXjXyOEACUv6oDO7Vn
- KnDTUypYhyTVi8C+fjlHTH+AIDP4qk6nXjMIJeh0P7rQCHAOIOCW9osy/urYQ5at90eUolDV
- udMe5+sSvKRHYksu74O+4XedE2TDFJnntnz0JIeyuaH4FVRDX5i2hlK6wx2D06wTJj4JONlW
- c1aLULPKfrCbMbpNlD9s/+48RkCj77kl30nJ+56ThEMkSgomMIL9XMesNnQAa83Y55mJhx1f
- n3Gz7kH6nxLPPgLWgKXebAgM6ltJAjaCIWxZYlJK5dQmQC5N7PR0kXdnHttSx89ldgPacpX7
- V39dBMoURY/+YtMU7VKUNVW/IXkwXT7m42QoxO3H+HNHRVfDtELy2l6fBCf0ShXs4b3AF654
- aRJrwQX1Za3mg6OXTmAVDEerqOBht5XZl2Y/FyxV1Tka2SarkYrNVjD3YXODnmF3GfAuP8Jk
- F8uYvQyXpLMpThnUPjs+Vl1NC1exh2mrM+7kxGXPKhrFWxX7tduAJpULpdCk4mefO9/U7I8/
- Edf5giE1o9yhECZ71lzmA7p7bLDv54Qfu4WAVndUgHLHCH7uUsKf3cds/gLtpuTrHB83nvvh
- LKZ6+kYnn5pK89hkia0EbpOrTrqBqphMyxFb7WFapXip7kRaqUdMOqdRO+JHG3rFAhz7sl/0
- DPWSea7WGLe0TNySCQ4GdytKLs7BTQRY9I3ZARAAygmVNgjvxkqud75kP5fwhmwMVu13sLh8
- QnZxjMsA9Zelt1Hu+BVmjET7YL4xBhdJDZ4y3UI/MV8ZzOfJHUWSNr6POwKIrsQfGzdlgB0e
- w2k6Rm651Jp+aAsygB4GR7BopptJd9d/q5oCnZxpPgDpZOBCpl4DQ3fJIGSc8iQVmA84lHLS
- +mqIJ94PZ7uza4F0ly6Au+Hbkhowh/1q+BUd6Rn553WAmPAG7g0lAG/Obq1m77ovlR86yY5i
- C503QKlPJELSNYtzczuLQZetjDtaFkugke4QMlhzHyc7DjSsjyccdhepPtXWEm84jPCx1/KU
- 3m9jAWtPdARQ73su/fiitmXAifQXJBB2R9fmKuM2F3ClHcJxv/l0W1ruekD9vojOO75yvBEG
- 7fGlLc9hUgIIGgBJvI+Yb1/KhqWC9r53TS6kcuCi+z9kf+4MTBge2sU97DtivZGzul6yhrcr
- 3Ic5paWoaka2ClGqKBQo3A9o4F60q3rRq5FAcMdKQq7qJutCzcjkcCpVVik1im0u0+UGrK0s
- YQuAgTu45mJPOfINqz1xz+qwxSjYI/wjxJaYTZLO68CIdBiDj+zxIeo9o/mUJvS+DhnPzKhW
- KXToZl2D7VdjOlu8zZ0tIFYrULJYhuw2f/KwD1lwoehlKikEE0H0xkPygufjtiYo6jTb+BKa
- sG8AEQEAAcLBZQQYAQgADwIbDAUCWmWo6AUJcjFDNwAKCRDok1h7W3QXjc9vEADXse2POSaT
- M0uqR3KGTeF8XVKdyRqK9afWbMaxFzOWGp9pNtcmIvfmyE0M6LPLgUb33jek/Ngup/RN7CjZ
- NCjOc2HTID99uBkYyLEcOYb+bycAReswjrv3a49ZBmmGKJZ+aAm0t6Zo6ekTdUtvlIrVYvRs
- UWWj4HdCaD+BMvSqcDZgyQESLI9nfEGuWtVqdi2QlZZeQT7W+RH4lihHKTdzOsVC93o4h6og
- ZvgOJ/0g1SP3la88RWONejHxVbGzBOyNjkH71CFujnAfuVuuhkJaN8PY/CS56sKMREKJOy0L
- vouE7eSU4bp13GK1xsnbWcDQpyzTsCsP9taqQmeld8Hw1yuPamc6fdpKNyPHyN20vzh20f0C
- QUMAjh3Vym12aKhyRan08VNEaLOKiyya6+i9c3Z3LiWUEqTSzELCkesb68UQVtE6/CXPM2P/
- vs3EQuLFXBC/rD9lurT0kG99xElAbKjHLer5NSw2WA2vQXaFadGNDyHI32Yt2cAqWzZtVqmN
- ESE0npJ5eeAcVWPHjhCwL8phZCDtfxJMy2cqYS8QLIBGfQTIHMQAgqBbpq9FLXCn008tvaTr
- KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
-Date: Tue, 28 Aug 2018 18:54:12 +0300
+ <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
+From: Marek Vasut <marek.vasut@gmail.com>
+Message-ID: <c146b739-6ab8-7b2f-9923-588beff7b9d6@gmail.com>
+Date: Tue, 28 Aug 2018 18:03:58 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ Thunderbird/52.8.0
 MIME-Version: 1.0
-In-Reply-To: <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="l3KNYY5DlcH6d32dNT2hg9s9nFvOPIMTA"
-X-Originating-IP: [172.17.14.168]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+In-Reply-To: <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -116,135 +81,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 15:54:20 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 16:04:06 -0000
 
---l3KNYY5DlcH6d32dNT2hg9s9nFvOPIMTA
-Content-Type: multipart/mixed; boundary="ALkjwjbNc57cJBtg7hkTsBFngvlNDmJPp";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Marek Vasut <marek.vasut@gmail.com>, linux-mtd@lists.infradead.org
-Cc: openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, leroi.lists@gmail.com
-Message-ID: <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
-Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
-References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
- <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
- <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
- <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
- <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
- <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
-In-Reply-To: <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
+On 08/28/2018 05:54 PM, Alexander Amelkin wrote:
+> 28.08.2018 14:43, Marek Vasut wrote:
+>> On 08/28/2018 01:29 PM, Alexander Amelkin wrote:
+>>> 27.08.2018 14:34, Marek Vasut wrote:
+>>>>>>> According to the datasheet for mx66l51235f, "The device
+>>>>>>> default is in 24-bit address mode" (section 9-10). Having
+>>>>>>> option SPI_NOR_4B_OPCODES makes the code act as if the
+>>>>>>> device was already in 4B mode and didn't need the EN4B
+>>>>>>> command. That prevents this chip from functioning on 
+>>>>>>> systems where the boot loader left the chip in 3B mode
+>>>>>>> (e.g. if the chip wasn't used during the boot process).
+>>>>>>> 
+>>>>>>> Hence, this commit removes the SPI_NOR_4B_OPCODES option
+>>>>>>> for mx66l51235f (added previously by commit
+>>>>>>> d342b6a973af).
+>>>>>> Could it be there are two variants of the chip, one which
+>>>>>> supports the 4B opcodes and one which does not ? Wouldn't
+>>>>>> be the first time I saw this. If this chip supports the
+>>>>>> SFDP tables, you can check those.
+>>>>> I was unable to find another variant of the chip. There is
+>>>>> only one specified in the datasheet: 
+>>>>> http://www.macronix.com/Lists/Datasheet/Attachments/7401/MX66L51235F,%203V,%20512Mb,%20v1.1.pdf
+>>>>>
+>>>>> 
+and it says that the device supports both 3B and 4B modes, but defaults
+to 3B (24-bit) mode.
+>>>> So keep the 4B part in. Linux will just not reconfigure the
+>>>> device to 4B mode using register write, but will instead issue
+>>>> the 4B opcode directly, without any stateful change.
+>>> Marek, thank you for asking all these questions. They made me
+>>> conduct a deeper investigation than just finding the commit that
+>>> broke it and reverting it. It appears that OpenPOWER P8's SBE
+>>> code (the thing that P8 CPU runs first from its built-in memory)
+>>> expects the PNOR flash chip to be in EN4B mode. It reads the rest
+>>> of OpenPOWER Firmware using a usual READ (0x03) command with 4
+>>> bytes of address. Always. That's why, I believe, Roman's commit
+>>> broke host booting for us.
+>> Uh oh, I seem to remember some flashes had this weird quirk where
+>> they were in EN4B mode by default, and if U-Boot/Linux reset the
+>> flash into "sane default" state (3B addressing etc), some systems
+>> failed to boot. Furthermore, this EN4B is non-volatile bit on this
+>> flash, right ? That means it is retained across power-cycles, which
+>> sucks even more.
+> No, EN4B is volatile. It doesn't survive power cycling. A quote from
+> datasheet:
+>>>> The 4BYTE bit may be cleared by power-off or writing EX4B
+>>>> instruction to reset the state to be "0".
 
---ALkjwjbNc57cJBtg7hkTsBFngvlNDmJPp
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
+OK, that's good. I probably thought of different flash.
 
-28.08.2018 14:43, Marek Vasut wrote:
-> On 08/28/2018 01:29 PM, Alexander Amelkin wrote:
->> 27.08.2018 14:34, Marek Vasut wrote:
->>>>>> According to the datasheet for mx66l51235f, "The device default is=
- in
->>>>>> 24-bit address mode" (section 9-10). Having option SPI_NOR_4B_OPCO=
-DES
->>>>>> makes the code act as if the device was already in 4B mode and did=
-n't
->>>>>> need the EN4B command. That prevents this chip from functioning on=
-
->>>>>> systems where the boot loader left the chip in 3B mode (e.g. if th=
-e
->>>>>> chip wasn't used during the boot process).
->>>>>>
->>>>>> Hence, this commit removes the SPI_NOR_4B_OPCODES option for
->>>>>> mx66l51235f (added previously by commit d342b6a973af).
->>>>> Could it be there are two variants of the chip, one which supports =
-the
->>>>> 4B opcodes and one which does not ? Wouldn't be the first time I sa=
-w
->>>>> this. If this chip supports the SFDP tables, you can check those.
->>>> I was unable to find another variant of the chip. There is only one =
-specified in the datasheet:
->>>> http://www.macronix.com/Lists/Datasheet/Attachments/7401/MX66L51235F=
-,%203V,%20512Mb,%20v1.1.pdf
->>>> and it says that the device supports both 3B and 4B modes, but defau=
-lts to 3B (24-bit) mode.
->>> So keep the 4B part in. Linux will just not reconfigure the device to=
- 4B
->>> mode using register write, but will instead issue the 4B opcode
->>> directly, without any stateful change.
->> Marek, thank you for asking all these questions. They made me conduct =
-a deeper investigation than just finding the commit that broke it and rev=
-erting it. It appears that OpenPOWER P8's SBE code (the thing that P8 CPU=
- runs first from its built-in memory) expects the PNOR flash chip to be i=
-n EN4B mode. It reads the rest of OpenPOWER Firmware using a usual READ (=
-0x03) command with 4 bytes of address. Always. That's why, I believe, Rom=
-an's commit broke host booting for us.
-> Uh oh, I seem to remember some flashes had this weird quirk where they
-> were in EN4B mode by default, and if U-Boot/Linux reset the flash into
-> "sane default" state (3B addressing etc), some systems failed to boot.
-> Furthermore, this EN4B is non-volatile bit on this flash, right ? That
-> means it is retained across power-cycles, which sucks even more.
-No, EN4B is volatile. It doesn't survive power cycling. A quote from data=
-sheet:
->>> The 4BYTE bit may be cleared by power-off or writing EX4B instruction=
- to reset the state to be "0".
+>>> Probably it would be best not to merge this patch into Linux
+>>> kernel. I'll discuss it with colleagues from OpenPOWER community
+>>> and we'll probably fix it on SBE side.
+>> Can you fix the firmware ? If so, that'd be amazing.
 >
->> Probably it would be best not to merge this patch into Linux kernel. I=
-'ll discuss it with colleagues from OpenPOWER community and we'll probabl=
-y fix it on SBE side.
-> Can you fix the firmware ? If so, that'd be amazing.
-It turns out that it is impossible to fix that on firmware side mainly be=
-cause the firmware does not send any opcodes over SPI at all. It relies o=
-n the SPI flash controller to do the address mapping so the firmware acce=
-sses the chip as a usual memory address range. The flash controller is lo=
-cated in our case inside Aspeed AST2400 BMC SoC and does not support 4B o=
-pcodes. It expects the chip to respond to generic READ and WRITE opcodes =
-with (configurable) either 3 or 4 address byte cycles. So the only way to=
- make it work is put the chip in EN4B mode when BMC boots. As this is qui=
-te a specific case, I guess you won't be willing to remove the SPI_NOR_4B=
-_OPCODES option globally. We'll have to keep the patch local to openbmc p=
-roject
-> But still, there can be a software which does rogue transmission on the=
+> It turns out that it is impossible to fix that on firmware side
+> mainly because the firmware does not send any opcodes over SPI at
+> all. It relies on the SPI flash controller to do the address mapping
+> so the firmware accesses the chip as a usual memory address range.
+> The flash controller is located in our case inside Aspeed AST2400 BMC
+> SoC and does not support 4B opcodes. It expects the chip to respond
+> to generic READ and WRITE opcodes with (configurable) either 3 or 4
+> address byte cycles. So the only way to make it work is put the chip
+> in EN4B mode when BMC boots.
 
-> SPI bus and flips the flash into 3B mode before reset, so the system
-> will not boot anyway. Do you have a way to deal with that somehow ?
-Sure. As I said, there is no way to turn on the host without BMC knowing/=
-controlling it.
-The BMC ensures the chip is in the right mode. That's actually the reason=
- why this patch appeared in the first place.
-Also, there is no rogue software on BMC.
->> As for renaming the chip, I can provide a patch just for that. Or we c=
-an leave it as is.
-> A patch would be nice, yes.
-Will do a bit later.
+And who does that ? Or is the EN4B set by default and U-Boot/Linux
+_clears_ it , thus making the board unbootable ?
 
+Doesn't it simply mean your board is missing SPI NOR hardware reset line?
+
+> As this is quite a specific case, I
+> guess you won't be willing to remove the SPI_NOR_4B_OPCODES option
+> globally. We'll have to keep the patch local to openbmc project
+
+I am more worried about this being actually unfixable in reliable way.
+
+>> But still, there can be a software which does rogue transmission on
+>> the SPI bus and flips the flash into 3B mode before reset, so the
+>> system will not boot anyway. Do you have a way to deal with that
+>> somehow ?
+>
+> Sure. As I said, there is no way to turn on the host without BMC
+> knowing/controlling it. The BMC ensures the chip is in the right
+> mode. That's actually the reason why this patch appeared in the first
+> place. Also, there is no rogue software on BMC.
+
+OK, but if the BMC puts the chip in a defined state, how come the system
+will refuse to (re)boot if Linux interferes with the chip's volatile
+register settings ?
+
+-- 
 Best regards,
-Alexander.
-
-
---ALkjwjbNc57cJBtg7hkTsBFngvlNDmJPp--
-
---l3KNYY5DlcH6d32dNT2hg9s9nFvOPIMTA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJbhXAkAAoJEOiTWHtbdBeNXrgP/0Q1ZmcEWZIST3a9BGlhabxE
-xftiFnfNsybsfve1QKemwFxQCgKA0CCiwAJspoy2mAJZc9aGpjNf106alaHKhijU
-7lriqCVNB1uLtAP2s7+CBGcOfMdIHIti+l6WiVboDUbbImpqZGSdIP7C6PE6zpb7
-vHoDaYeoJOjKNXH6C/iE0k7pChRH97CSLMCZ1hOX2E7FM/iV0v0Gxi6ZNB7UciEU
-aOrjZMvH7vI2Qcdc+GCChECxqUN/ydELTfnrQ0rPKsWNl77/tWEedZ2+Gf/KKHOE
-fBdYzOyNbEfdGqZw6++wPFidR77M0FXTaWB9LkIyDwYpE6F0+r5DDJlSSpLCO/yy
-Z42oDnLj2+RhiBB68BUvg8gR9XpSQFEvYT8mm94wYbnwCFMpgFAmdMgqBYuh9fIc
-ZiHvspMBN35ylNK+b3LVsjEabJAbokMk7VwMJ22xftWtVeyYJLfd804njDk1yZLQ
-Ed0yUQ6LdgUhHaT9XGY7a/Rou6XsJj4jisBVKqyiY1Js1q/7EBX62Use+tXnWlfu
-6Uyt7Blpt775985HXRG6hXPYvXHeQc0GV8s8UzBmwGw2h/Kz8MCxmqZqGmkrVOYB
-mgUsRHLj1odCfBY7xWSyazTbBE4r5YDVZEaUccEI1QVRPmtTyQ56San5AvY35ocB
-eWtgP/Z+ngINq6dvUkb3
-=jiWi
------END PGP SIGNATURE-----
-
---l3KNYY5DlcH6d32dNT2hg9s9nFvOPIMTA--
+Marek Vasut
