@@ -1,49 +1,52 @@
-Return-Path: <jason.m.bills@intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=jason.m.bills@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::42d; helo=mail-pf1-x42d.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="FNVEYmzG"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420G8q1bwXzDrb6
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:34:28 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2018 10:34:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="257951444"
-Received: from orsmsx108.amr.corp.intel.com ([10.22.240.6])
- by fmsmga005.fm.intel.com with ESMTP; 28 Aug 2018 10:34:26 -0700
-Received: from orsmsx163.amr.corp.intel.com (10.22.240.88) by
- ORSMSX108.amr.corp.intel.com (10.22.240.6) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Tue, 28 Aug 2018 10:34:26 -0700
-Received: from orsmsx115.amr.corp.intel.com ([169.254.4.230]) by
- ORSMSX163.amr.corp.intel.com ([169.254.9.30]) with mapi id 14.03.0319.002;
- Tue, 28 Aug 2018 10:34:26 -0700
-From: "Bills, Jason M" <jason.m.bills@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: 
-Thread-Index: AdQ+9VxtajyD/IcCQmKiG0tbrUk3/Q==
-Date: Tue, 28 Aug 2018 17:34:26 +0000
-Message-ID: <CBC60E0B5DD8E642ACEAB425D566671AAFEAFCEC@ORSMSX115.amr.corp.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiN2RjYjI0YzgtOTQwYi00NTRhLTljNWMtZGEwNGE1NzFkYmFiIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicWx4Nnhoa0dlbDRuY1M3UkpzTUNGaHFoT2E4S1ZUOGZsR2VUUGZMSlo5VEJSSTl0RmRTU3ZYNklwY1pMZ3BxUSJ9
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420GBg5XhtzF08L
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:36:11 +1000 (AEST)
+Received: by mail-pf1-x42d.google.com with SMTP id h69-v6so1033232pfd.4
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 10:36:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=8stl9web5fShPgQXpFw+BYi2og7hrCWBcKzxhHfeXxU=;
+ b=FNVEYmzGaCi4lUW7BehWddxR2NLuSD5J0pW10avCDSsZc58nHpqU16BSL7gKX45+ri
+ 0rp1Bwv5prgUxAeOugQQYmBekcIB9TOwGSA0NqyJLoA/oakneCtt5G3A0wJxXV/kE5Ls
+ hXSH7znq9goZjc97hL282RcRxl+dq2evptfm43MBBCft6sBTnI7fkLtGVcUHFnyp4jFV
+ 9ILuqt+juxeyjj+gjKcXwGI6Ba0EL28GlzIjXg6+CTmEIrLNGB6kxOU/S+Z2L3uzWc37
+ Kq1oODw80Nm36yY5si/QhUA37ztRHM17CTSnhrwLzZFwvnR7pHQetxfXNrgv34jbBvyd
+ YYaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=8stl9web5fShPgQXpFw+BYi2og7hrCWBcKzxhHfeXxU=;
+ b=Cg8acXxEpvkW1N8l5PXeVuJy5z1bYvmOIRfhrpFKDKY62TsvfqPSsfOIgSS8GNRbtj
+ 6bc3zEvQm5LAlyETw9hwGEcO5FdNbtln1Gk4oSXKOT1paZYxtWQLra0sqFq6XaIjIaXV
+ 40vRwa/YURW+pbPdJ15fmOtdN+sKMq8DsSQiRx+Mn9BfTgfUOGapnpwWmuJMwOyT+e4m
+ 7nyJxvW34qTLGYFZTuLSOnXqhujjFiUCxfVFwZoHqQEDRqqHzRSBfjI2YHcQkV9CRUP6
+ 5bs/nUVftUOmgiiZRk3stsqEERniJUAc0fYl0OHO8S+NfTFA6slNI1pDsTpLYN+IpmUC
+ oKHQ==
+X-Gm-Message-State: APzg51AgII2WYNiX4mGcONBzVXBPD6ye1zT5FORKji6XUqgtlivPy2fc
+ vXlhGQJysxQCuFIIcbYwj51PaLRyWUW+yczUgF2ff/S6820u3A==
+X-Google-Smtp-Source: ANB0VdYmkg+8S1D25dIYCXi7vhqZIbDuM58Vrvvo4W/BAMpRCERTTGMS5aSylmhw5IxC65Aur59KpuwDxTwJiLZ7SgM=
+X-Received: by 2002:a63:a309:: with SMTP id s9-v6mr2400550pge.90.1535477768671; 
+ Tue, 28 Aug 2018 10:36:08 -0700 (PDT)
 MIME-Version: 1.0
+From: Patrick Venture <venture@google.com>
+Date: Tue, 28 Aug 2018 10:35:57 -0700
+Message-ID: <CAO=notzut2sd4GZvA3gMzoB+J7g48nXnXKONhnwNfJC8jPWPAg@mail.gmail.com>
+Subject: Header inclusion ordering style addition
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -55,31 +58,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 17:34:36 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 17:36:13 -0000
 
-I just added a comment to a github discussion about the IPMI SEL and though=
-t I should share it here as well:
+Each file in each daemon attempts to order the headers in a consistent
+way.  Typically, alphabetically.  However, I propose here a more
+explicit ordering:
 
-I have been working on a proof-of-concept to move the IPMI SEL entries out =
-of D-Bus into journald instead.
+https://gerrit.openbmc-project.xyz/12180
 
-Since journald allows custom metadata for log entries, I've thought of havi=
-ng the SEL message logged to the journal and using metadata to store the ne=
-cessary IPMI info associated with the entry. Here is an example of logging =
-a type 0x02 system event entry to journald:
+As an example of the ordering:
 
-sd_journal_send("MESSAGE=3D%s", message.c_str(),
-                            "PRIORITY=3D%i", selPriority,
-                            "MESSAGE_ID=3D%s", selMessageId,
-                            "IPMI_SEL_RECORD_ID=3D%d", recordId,
-                            "IPMI_SEL_RECORD_TYPE=3D%x", selSystemType,
-                            "IPMI_SEL_GENERATOR_ID=3D%x", genId,
-                            "IPMI_SEL_SENSOR_PATH=3D%s", path.c_str(),
-                            "IPMI_SEL_EVENT_DIR=3D%x", assert,
-                            "IPMI_SEL_DATA=3D%s", selDataStr,
-                            NULL);
-Using journald should allow for scaling to more SEL entries which should al=
-so enable us to support more generic IPMI behavior such as the Add SEL comm=
-and.
+https://gerrit.openbmc-project.xyz/11421
 
--Jason
+I feel that having a consistent ordering that deals with the various
+types of header files included provides a couple benefits:
+* header files are included where you expect to find them
+* easily can see that there are c-headers included in a clean group
+* defines that the phosphor library headers are treated as normal cpp
+libraries and included in that grouping making the headers come across
+as system libraries and not something different.
+
+Please take a look.
+
+Patrick
