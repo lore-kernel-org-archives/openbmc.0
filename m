@@ -1,54 +1,48 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <KFTING@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::229; helo=mail-qk0-x229.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=kfting@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="DV9O/4N6"; 
- dkim-atps=neutral
-Received: from mail-qk0-x229.google.com (mail-qk0-x229.google.com
- [IPv6:2607:f8b0:400d:c09::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=nuvoton.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 41zsSp0Hj4zDrTP
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 12:02:01 +1000 (AEST)
-Received: by mail-qk0-x229.google.com with SMTP id d131-v6so1085qke.11
- for <openbmc@lists.ozlabs.org>; Mon, 27 Aug 2018 19:02:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=uhJLRo5PS7vk7YXVpqu0/fy0tOE2HKsD8pPMNgjg+wI=;
- b=DV9O/4N6ettiJqtEPlD/j+J9YWvRTtp2h96uR1TxT9u0mkz1ur4WYGqUD0muekq/5u
- +NXR09DQB7XaLKZ9cI2jdu8p4tdk8hijDnwygNL2U+T6L7iwisCZr/cjOgwIKp7WhDWE
- h+oEuO6cIqa04I3dN96A3dovJa6ImO1brF3kr4n6+fvnlstLQy2gLT6hI3zcZkAY1eCa
- RZqOI1BSjas1eXevwGVRCsL39IyL/3uJSYd5boUKcYU2aukoQ55XCaDrk6WYYN2NcNNq
- izaPXW4Bx2UohuNj1ifUOHjxiV5J952V5Rmr0JVyRxsPDsfyqqtl+X35TcJO/kPvX1YN
- F+Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=uhJLRo5PS7vk7YXVpqu0/fy0tOE2HKsD8pPMNgjg+wI=;
- b=HFKoVEPH+FDns6nDoH6Cr2abh58tvcY+3H1oxlVE+cGCvCtfIWgLDXTTQZCmjAJEDi
- tHPb6bt/2WT1mN+KfsYdWLOmtg5r59hJk1/3gGXBv6Tr+0cyt6kd7AWP1zHrs71dmmK/
- BlFXYXCVzetaxP16CkP8FpZSLoHwU6RBbngwSzTm+4N3vFLAkKetZQdsQnZvG8/Y39IW
- nWPjfkreWqXbNykRFum05RQtmuICxAPRpWg/LA2nak761uuZNXvQfsd44oyI/BzJR6+W
- O406L4dYgZ15Bt0soNGF0Cd1vnKIH8Oo0bCheq4A8fmgfZQh7T9OyCMg89snnPiQOvLJ
- +E6Q==
-X-Gm-Message-State: APzg51CbzgFmEhHmQascXQ9TULBKyr7Y55H8pGwrAWp1DcQKCf+8TjAP
- P45UWbkXn13g65e6et6174bRwLvBwat+sWJCh3c=
-X-Google-Smtp-Source: ANB0Vdbok2B3Tt2mM3fLaDhKSqyd3+fha+YkpbuB+2VDvZ2f1B65EsK5duGVIRssFDt7xbliPY4eilsES6QDr9T79Ws=
-X-Received: by 2002:a37:31d5:: with SMTP id
- x204-v6mr6341705qkx.289.1535421718872; 
- Mon, 27 Aug 2018 19:01:58 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 41zsln6kfXzDqC3
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 12:15:00 +1000 (AEST)
+Received: from NTILML02.nuvoton.com (212.199.177.21.static.012.net.il
+ [212.199.177.21])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id w7S1iqXY004030
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 04:44:53 +0300
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML02.nuvoton.com
+ (10.190.1.47) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Tue, 28 Aug
+ 2018 05:14:51 +0300
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Tue, 28 Aug
+ 2018 10:14:48 +0800
+Received: from NTHCML01A.nuvoton.com ([fe80::1170:e239:c9a9:e8b8]) by
+ NTHCML01A.nuvoton.com ([fe80::1170:e239:c9a9:e8b8%13]) with mapi id
+ 15.00.1130.005; Tue, 28 Aug 2018 10:14:48 +0800
+From: <KFTING@nuvoton.com>
+To: <ed.tanous@intel.com>, <openbmc@lists.ozlabs.org>
+Subject: RE: [IPMBD] ipmbSend handling
+Thread-Topic: [IPMBD] ipmbSend handling
+Thread-Index: AdQ7bBJlB9GQFmgMREWcf8iZ/yaUkwAV2hnwAKvQbKA=
+Date: Tue, 28 Aug 2018 02:14:48 +0000
+Message-ID: <8c76f8bd57ae4ad2afb21959f1c01ac8@NTHCML01A.nuvoton.com>
+References: <4b1131fb4e684bca994c5456838c028d@NTHCML01A.nuvoton.com>
+ <7E9441B1E5EFFD4681F54958E8216993458353AD@ORSMSX114.amr.corp.intel.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E8216993458353AD@ORSMSX114.amr.corp.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.4.42.63]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Tue, 28 Aug 2018 10:01:47 +0800
-Message-ID: <CAG9c7cDKzx7VpmsrbeBuTQdVfQ7z3AYzGagWP0dKhSib7QkaZg@mail.gmail.com>
-Subject: [IPMBD] ipmbSend handling
-To: "Tanous, Ed" <ed.tanous@intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="00000000000022499d0574753a36"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -60,40 +54,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 02:02:03 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 02:15:03 -0000
 
---00000000000022499d0574753a36
-Content-Type: text/plain; charset="UTF-8"
+Hi Ed:
 
-Hi Ed,
+> Not true in either the spec or the implementation.
 
-I tried to build ipmbbridge but got the below error.
+Thank you for your description of the ipmbbridge design.
 
-Could you please share where I should get 'linux/i2c-dev-user.h'?
+Now I get a better picture of it.
 
-|....
-| ../ipmbbridged.cpp:24:10: fatal error: linux/i2c-dev-user.h: No such file
-or directory
-|  #include <linux/i2c-dev-user.h>
-|           ^~~~~~~~~~~~~~~~~~~~~~
-| compilation terminated.
-| ...
+> It would help a lot if you could add your comments to the code in the ger=
+rit review.  It might help track down where you think the issues are.
 
-Thanks.
-BRs,
-Henbin
+Sure, I'll do that.
 
---00000000000022499d0574753a36
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Regards,
+Tyrone
+-----Original Message-----
+From: Tanous, Ed [mailto:ed.tanous@intel.com]
+Sent: Saturday, August 25, 2018 12:08 AM
+To: CS00 KFTing; openbmc@lists.ozlabs.org
+Subject: RE: [IPMBD] ipmbSend handling
 
-<div dir=3D"ltr">Hi Ed,<div><br></div><div>I tried to build ipmbbridge but =
-got the below error.</div><div><br></div><div>Could you please share where =
-I should get &#39;linux/i2c-dev-user.h&#39;?</div><div><br></div><div>|....=
-</div><div><div>| ../ipmbbridged.cpp:24:10: fatal error: linux/i2c-dev-user=
-.h: No such file or directory</div><div>|=C2=A0 #include &lt;linux/i2c-dev-=
-user.h&gt;</div><div>|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~=
-~~~~~~~~~~</div><div>| compilation terminated.</div></div><div>| ...</div><=
-div><br></div><div>Thanks.</div><div>BRs,</div><div>Henbin</div></div>
+>
+> The direction is always from the master device to the slave device.
+>
+Not true in either the spec or the implementation.  The IPMB bridge was des=
+igned to operate two ways.  First, requests could be made from external ent=
+ities, like an IPMB header on the board, or the Management Engine (On x86 p=
+latforms).  These requests first require the BMC to be a slave for the requ=
+est, and a master for the response.  Second, the BMC could initiate a reque=
+st (Probably to the management engine).  In that case, it would be an maste=
+r for the request, then a slave for the response.  In theory, both scenario=
+s are supported by the daemon, but only the first case might be enabled at =
+this point.
 
---00000000000022499d0574753a36--
+>
+> It seems to me that ipmbSend behavior doesn't get aligned with the descri=
+ption of request/response protocol in IPMB spec.
+>
+
+What do you refer to as ipmbSend here?
+
+It would help a lot if you could add your comments to the code in the gerri=
+t review.  It might help track down where you think the issues are.
+
+-Ed
+
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+The privileged confidential information contained in this email is intended=
+ for use only by the addressees as indicated by the original sender of this=
+ email. If you are not the addressee indicated in this email or are not res=
+ponsible for delivery of the email to such a person, please kindly reply to=
+ the sender indicating this fact and delete all copies of it from your comp=
+uter and network server immediately. Your cooperation is highly appreciated=
+. It is advised that any unauthorized use of confidential information of Nu=
+voton is strictly prohibited; and any information in this email irrelevant =
+to the official business of Nuvoton shall be deemed as neither given nor en=
+dorsed by Nuvoton.
