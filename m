@@ -1,54 +1,53 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::230; helo=mail-qt0-x230.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="YmRdG95G"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="iejxZ03N"; 
  dkim-atps=neutral
-Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
- [IPv6:2607:f8b0:400d:c0d::230])
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420JkN4HcQzDrdf
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 05:30:19 +1000 (AEST)
-Received: by mail-qt0-x230.google.com with SMTP id r37-v6so3112052qtc.0
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 12:30:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2fyQj5hvbU90Luh99PKlc39a9bqAc6vcjIRCamXv6vw=;
- b=YmRdG95Gw9gr34WDIJo4sxrSZtz0+p8sWeRfMZr2rAOz13e438t+AKTzuD8ylUBuah
- Nc/LX4sgBYD0kgM1ShjYYN8qYDMK37J9DOwuHN0+aju2naRnmowNclvK1PSAhJfHCCMC
- 4rJvB13hAkzQ0HoYV1rEf6oNPB/Y1sn1kgQSQ=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420LVz5TRSzF0Pd
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 06:50:35 +1000 (AEST)
+Received: by mail-pg1-x52e.google.com with SMTP id e2-v6so1282788pgv.5
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 13:50:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=v8jCtFZ2Varmwsplb9a4tljgZcLuO6KLmrld90mTz/4=;
+ b=iejxZ03N/7N2MkatnXyIg6GKMVc+TafBS9//aq1NZamD71hMlZw8f7pKB+eVhTFHdg
+ kCq7Dg9rb4QEXBb772lKWv292riXnhvS3ELW2rURirPe2S4PIbsxrEgoRCln+DlNK5Am
+ Cq9IyKFaZ8Q7c69yhTRXh9dsFQHZRZ6FNX7OjmPd/et8aPqgcvZTmpLO0G25AipeyOXF
+ SgIUH/qUnzl/g3fS01/LI2mTZM03U/y40GmKr1whk0s9ZofQoSPzJ2kw8EiK4r5tnts1
+ ukufM61AsPd74pKqBY4Cavh8ASiMNSNyBBBwweENndPSsjE6pUgxWPFAZX7oaQXZVZHK
+ TcAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2fyQj5hvbU90Luh99PKlc39a9bqAc6vcjIRCamXv6vw=;
- b=GzfJTSjJI6VJuRJ0UOxLaxUHaQGswP0x0LYivK3ExtdTNoZ50GbIj/39uqB7LQBq+g
- SsXsfl0WDzID0CUoIf41Rzhp+uOuJwg4O0s4aZlNgtA1MhYDPfAaFjbQjlb2EsPLp9Sm
- NIgYKlSSTSb1/xXwJSYX2lmlU405nchIdCFHkWka7XznIJjJLggv96GoHVyHLOMqqc7k
- UjM47/vCIOfzDPI4FHRkkQwTsJ8FYL2NCIftJ/0LF5TpO2YK0wtEYLLtnO+eE0+lQ9Y3
- 9dV91gSLzihCFmO+UivPoCZRIrFKWb57zzh0rqyDmi81rjBJoLFkT+qLkJ+VF9GDnnIP
- j7Lw==
-X-Gm-Message-State: APzg51Cm4QMeEj1aJiEwEzDze+wh/HtbKlxhcG+Pbk7X60F7+d0yBwgb
- O618EGGFgF+p5l1VskbFge/vsOWz2+CihtJsXhELsCmO
-X-Google-Smtp-Source: ANB0Vda3sASsQ86XhD9pRcIN4SBQYaSNn451uVwuEVMKhic0jkhRKu30Su+zkdTAsOjf7Ow/RYHsrx7FNPE3rZ9W1Ho=
-X-Received: by 2002:a0c:d7c3:: with SMTP id g3-v6mr3169383qvj.85.1535484617520; 
- Tue, 28 Aug 2018 12:30:17 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=v8jCtFZ2Varmwsplb9a4tljgZcLuO6KLmrld90mTz/4=;
+ b=CGaE1mZIVqU8eIxeZNRo3/GndJn4wcg7yDsSGKGd0Vvj89KaziJGFn2mVxOrIActPZ
+ rxhwqNDkExMP2wkYV13hL6dmuni7y0qSuIN3mPDZqgdO+63oUw/URtRJbGFLOlIQspXb
+ pTCy4CEvuF/N5wJVS0ySl7/ugfbkKjexed5EzJSqfw1kFjIyEIn6MIsB2/3Mia9AE774
+ CfGJitZe76OEUDeThmwt4T+Ywc7mcCCKlOoTF9HD3HAtIrfoG2gH2EZrQBMOa8uX1ujj
+ iXt2ZqS+kDcR0wmPbXuTDHsJdasXNgCLhRE1yu9Tk5zne99nszxtcRj3ekUNVhpyY3lN
+ dKSQ==
+X-Gm-Message-State: APzg51Db39PFuU0c5Vvm8NCUngOFFk2R3Fk/cSCp51mRwWY5QlCidEo5
+ HaXEqQu3liftCPpvDx/zJHb6i6EIhqAHJa3uI33log==
+X-Google-Smtp-Source: ANB0VdajoUlcz8ud0sbRifQQBTApIiLwDs/JzVhKcJhx5yC2xSdsvczGIs9MohELIg6/ANBcoxpS1Fc4YVCFxGwmUSA=
+X-Received: by 2002:a62:9101:: with SMTP id
+ l1-v6mr3041063pfe.226.1535489432751; 
+ Tue, 28 Aug 2018 13:50:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <CACPK8XfCipieyTjP8BkZg4mmpVXWiEDDZbs4KxbS0i4DXLbUJg@mail.gmail.com>
-In-Reply-To: <CACPK8XfCipieyTjP8BkZg4mmpVXWiEDDZbs4KxbS0i4DXLbUJg@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 28 Aug 2018 12:30:06 -0700
-Message-ID: <CACPK8XdnZLoLhLLX5jKEd7StWLFdE8ujXdQMFb2w0N7asnY7=w@mail.gmail.com>
-Subject: Re: Linux kernel: Moving to 4.18
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Eddie James <eajames.ibm@gmail.com>, Tomer Maimon <tomer.maimon@nuvoton.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 28 Aug 2018 13:50:21 -0700
+Message-ID: <CAO=notx7e+sfKm3t07-kg3pjrk2H3E5p=jQsZsW=Ekosd7=yyw@mail.gmail.com>
+Subject: Two Google-Origin Daemons
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -61,22 +60,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 19:30:22 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 20:50:36 -0000
 
-On Tue, 21 Aug 2018 at 18:21, Joel Stanley <joel@jms.id.au> wrote:
-> With the expected release of 4.19-rc1 this coming weekend a lot of our
-> recent kernel work will have hit the mainline tree. I will use this as
-> the trigger to create a 4.18 based tree (creatively named "dev-4.18").
+Brad;
 
-The dev-4.18 branch has been pushed to openbmc/linux. I have boot
-tested Palmetto and Romulus (representing ast2400 and ast2500
-respectively), and all appears well. Here are the bumps in Gerrit:
+We have two daemons (to start with) that we'd like to send up.  So my
+question is, should we put these to live under
+openbmc/google-{reponame} or google/{reponame} and point the recipe in
+meta-google to google/ or openbmc/ ?
 
- https://gerrit.openbmc-project.xyz/c/openbmc/meta-nuvoton/+/12189
- https://gerrit.openbmc-project.xyz/c/openbmc/meta-aspeed/+/12183
+I'm inclined to say the code can live under openbmc/ so that others
+can see it, and because it uses openbmc stuff.
 
-I would appreciate input from the Nuvoton crew.
-
-Cheers,
-
-Joel
+Patrick
