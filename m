@@ -9,26 +9,23 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4204l05FGNzDqC3
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 20:30:02 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4204x34dVxzDqC3
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 20:38:47 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id CD19EE9F40;
- Tue, 28 Aug 2018 06:29:55 -0400 (EDT)
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 45B59E9F40
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 06:38:44 -0400 (EDT)
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 Content-Type: text/plain;
 	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Subject: Re: Proposals for commit log policy
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
-Date: Tue, 28 Aug 2018 06:29:55 -0400
-Cc: Alexander Amelkin <a.amelkin@yadro.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
-References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
- <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
-To: Joel Stanley <joel@jms.id.au>
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Subject: Re: openbmc repository restructuring
+Date: Tue, 28 Aug 2018 06:38:44 -0400
+References: <8BD97EC3-91CE-45DD-AD6D-678BA4BC2A89@fuzziesquirrel.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+In-Reply-To: <8BD97EC3-91CE-45DD-AD6D-678BA4BC2A89@fuzziesquirrel.com>
+Message-Id: <B69EC35B-9BB0-437C-9835-FE59759B1FB0@fuzziesquirrel.com>
 X-Mailer: Apple Mail (2.3445.9.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -41,68 +38,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 10:30:05 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 10:38:48 -0000
 
 
-> On Aug 22, 2018, at 7:58 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Aug 23, 2018, at 10:20 PM, Brad Bishop =
+<bradleyb@fuzziesquirrel.com> wrote:
 >=20
-> On Tue, 21 Aug 2018 at 22:01, Alexander Amelkin <a.amelkin@yadro.com> =
-wrote:
+> There is a pretty significant refactor of the openbmc repository going
+> through the pipe right now.
 >=20
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> some-package: bump version 62286ef3 to 4fa63380
->>=20
->> Author Name (2):
->>  commit 1 synopsis
->>  another commit synopsis
->>=20
->> Another Author (3):
->>  great commit
->>  yet another great commit
->>  fix previous not-so-great commit
->>=20
->> Change-Id: some-long-gerrit-hash
->> Signed-off-by: The Version Bumper <bumper@nowhere.net>
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> This has been discussed here:
+> https://gerrit.openbmc-project.xyz/#/q/topic:subtrees
 >=20
->> What do you think? Is this feasible? Any other ideas how we could =
-simplify creating release notes suitable for end users?
+> and here:
+> https://lists.ozlabs.org/pipermail/openbmc/2018-August/012707.html
 >=20
-> I think this is a great suggestion. I would also like to see this =
-happen.
+> and here:
+> https://lists.ozlabs.org/pipermail/openbmc/2018-July/012558.html
 >=20
-> Having the maintainers or authors of the packages submit their bumps
-> would ensure this does not become a burden for the central repository
-> maintainer.
+> You will likely have some impact to your bitbake development workflow;
+> you may have to rebase or resubmit your unmerged bitbake changes; and,
+> you might see odd Jenkins CI failures periodically.
 >=20
-> An advantage of the maintainers of individual packages submitting
-> their changes is they know the best timing for integrating their
-> changes, and know what relevant details should be added to the bump
-> commit message.
+> Please bear with it for the next couple of days while this transition =
+is
+> completed.  Feel free to find me on IRC if there are any questions.
+>=20
+> I will follow up with another note when the transition is complete =
+with
+> additional instructions.
 
-I also would like to see this.  To be clear I mean the commit msg text =
-above,
-and not a =E2=80=98Impact=E2=80=99 token. =20
+The transition is mostly complete.  There are still a couple things to
+do on the backend but that should be transparent to everyone but me.
 
-The autobump script was deployed at a time in the project when _every_ =
-repository
-had the same maintainer, so it made some sense back then.  Today we have =
-a much
-more distributed set of maintainers.
-
-I=E2=80=99ve actually disabled the cron job that runs the script, =
-because it needed
-some rework to handle the new openbmc/openbmc repository layout.
-
-I plan on simply _not_ turning it back on, and let maintainers do their =
-own
-bumps like Joel has been doing for the kernel moving forward (Thanks =
-Joel).
-Unless there are major objections.
-
-thx - brad
+At this point I am slowly making my way through the open pull requests
+against openbmc/openbmc and re-opening them on the correct repository.
+You can either wait for me to do it, or go ahead and do that yourself
+(the latter will probably happen a bit faster).  Instructions for
+generating patches against subtrees can be found in docs/subtree.md.
+One nuance not covered in the instructions is that you must regenerate
+the Change-Id=E2=80=A6Gerrit will not allow you to use the same =
+change-id in
+different projects.
 
 >=20
-> Cheers,
->=20
-> Joel
+> thx - brad
