@@ -1,51 +1,108 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=103.7.28.233; helo=smtpbg65.qq.com; envelope-from=1450335857@qq.com;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
+ dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="uD34ZHuJ"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="Va+8TNMu"; 
  dkim-atps=neutral
-Received: from smtpbg65.qq.com (smtpbg65.qq.com [103.7.28.233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4205LP2mVhzDqC3
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 20:57:15 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1535453833; bh=xN27ssF9jawZosJThwPT7uuUwuh/j6Wv3iRG+POD5rc=;
- h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=uD34ZHuJhpWpL9xJkZWv1G4J6z7V/64dq/0Eufqv2ty+h9/ZIgBpX3xKPDcjBHI/U
- pX+NrV5OcZnpRmNnt6dMFXfsT9U+lPelr4F0zqRaH/Q/8nt9/5tODnPr+AS6v02qiV
- WroRVh8BtEN5F/zeCKQMEmN/QvpLnWLR+PA1kARI=
-X-QQ-SSF: 000000000000009000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.64.100
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1535453831t152880
-From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?ISO-8859-1?B?RWRkaWUgSmFtZXM=?=" <eajames@linux.vnet.ibm.com>,
- "=?ISO-8859-1?B?VGFub3VzLCBFZA==?=" <ed.tanous@intel.com>,
- "=?ISO-8859-1?B?S1dMSVVAbnV2b3Rvbi5jb20=?=" <KWLIU@nuvoton.com>,
- "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
-Subject: Re:RE: KVM Support?
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5B852A86_0E5D1500_4CC1B4DF"
-Content-Transfer-Encoding: 8Bit
-Date: Tue, 28 Aug 2018 18:57:10 +0800
-X-Priority: 3
-Message-ID: <tencent_761BDA1B135050F033DFE337@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Tue, 28 Aug 2018 18:57:12 +0800 (CST)
-Feedback-ID: webenglish:qq.com:bgforeign:bgforeign4
-X-QQ-Bgrelay: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42063N25p1zDrTP
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 21:29:20 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id A4047418F9;
+ Tue, 28 Aug 2018 11:29:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1535455755; x=
+ 1537270156; bh=MBMyYRomsT+9cNCokvKTr7lYY0Gqbj+/KjzmYOwAI0g=; b=V
+ a+8TNMuMug4EMfQgWxPT0C0Au3xYxZlM3Qb3MbzbxhaYgYbkyCB0ZWeIUjRslwcH
+ Q7d1RBt3Y8i51c3spcYcNnLtl4vNZWaic94pGGyyOb6DUbvo+KI5ZDcxEetdZ6q1
+ vA9nQugLHW/bJtcWwX/cANvmoRBGsPoDPSA7pl/LRk=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 2t-RDHutMRXV; Tue, 28 Aug 2018 14:29:15 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 858E340311;
+ Tue, 28 Aug 2018 14:29:14 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 28
+ Aug 2018 14:29:14 +0300
+Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
+To: Marek Vasut <marek.vasut@gmail.com>, <linux-mtd@lists.infradead.org>
+CC: <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
+ =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, <leroi.lists@gmail.com>
+References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
+ <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
+ <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
+ <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
+Date: Tue, 28 Aug 2018 14:29:13 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
+MIME-Version: 1.0
+In-Reply-To: <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="edwsZEWiItwOrGIwvy7UIgGroPCrTKWvL"
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -57,167 +114,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 10:57:18 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 11:29:21 -0000
 
-This is a multi-part message in MIME format.
+--edwsZEWiItwOrGIwvy7UIgGroPCrTKWvL
+Content-Type: multipart/mixed; boundary="jQOfru3eRU35r0q2jiiT6lgs3M430vKeZ";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Marek Vasut <marek.vasut@gmail.com>, linux-mtd@lists.infradead.org
+Cc: openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>,
+ =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, leroi.lists@gmail.com
+Message-ID: <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
+Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
+References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
+ <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
+ <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
+ <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
+In-Reply-To: <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
 
-------=_NextPart_5B852A86_0E5D1500_4CC1B4DF
-Content-Type: text/plain;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+--jQOfru3eRU35r0q2jiiT6lgs3M430vKeZ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-SGkgSm9zZXBoLCBFZCwNCiAgIFRoZXJlIHdhcyBhbiBlcnJvciB3aGVuIEkgIHVwZGF0ZWQg
-dGhlIHBhdGNoZXMgaHR0cHM6Ly9naXRodWIuY29tL051dm90b24tSXNyYWVsL21ldGEtb3Bl
-bmJtYy1udXZvdG9uLWFkZG9uL2NvbW1pdC8xNDA3NzFiN2U4OThkZDVjYThmMDM2NDI5MGNj
-ZTY2OTYwOTA4OGFjDQpXb3VsZCB5b3UgbGlrZSB0byBnaXZlIG1lIHNvbWUgc3VnZ2VzdGlv
-bnMgdG8gZGVidWcgaXQ/DQogV2hlbiBJIGxvZ2dlZCBpbiBodHRwczovLzxibWNfaXA+LyMv
-a3ZtLCBUaGUgZXJyb3JzIHJlYWQ6DQoiDQpXZWJTb2NrZXQgb24tY2xvc2UgZXZlbnQgIGFw
-cC44OWVhYTBiNmU1ZTk0MTdjYjYwMi5qczozODo2NzU5MTUNCkZhaWxlZCB3aGVuIGNvbm5l
-Y3Rpbmc6IENvbm5lY3Rpb24gY2xvc2VkIChjb2RlOiAxMDA1KSAgYXBwLjg5ZWFhMGI2ZTVl
-OTQxN2NiNjAyLmpzOjM4OjY4NTU4NA0KCVJGQi5wcm90b3R5cGUuX2ZhaWwgaHR0cHM6Ly8x
-OTIuMTY4LjEyMC4xMzIvYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpzOjM4OjY4NTU4NA0K
-CVJGQi88IGh0dHBzOi8vMTkyLjE2OC4xMjAuMTMyL2FwcC44OWVhYTBiNmU1ZTk0MTdjYjYw
-Mi5qczozODo2NzYxMzgNCglXZWJzb2NrLnByb3RvdHlwZS5vcGVuL3RoaXMuX3dlYnNvY2tl
-dC5vbmNsb3NlPCBodHRwczovLzE5Mi4xNjguMTIwLjEzMi9hcHAuODllYWEwYjZlNWU5NDE3
-Y2I2MDIuanM6Mzg6Nzc4MTU5DQpOZXcgc3RhdGUgJ2Rpc2Nvbm5lY3RpbmcnLCB3YXMgJ2Nv
-bm5lY3RpbmcnLiAgYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpzOjM4OjY4NDMwMQ0KPj4g
-UkZCLmRpc2Nvbm5lY3QgIGFwcC44OWVhYTBiNmU1ZTk0MTdjYjYwMi5qczozODo2ODA0OTUN
-Cj4+IEtleWJvYXJkLmFsbEtleXNVcCAgYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpzOjM4
-OjczOTY1OQ0KPDwgS2V5Ym9hcmQuYWxsS2V5c1VwICBhcHAuODllYWEwYjZlNWU5NDE3Y2I2
-MDIuanM6Mzg6NzM5ODI4DQoiDQpUaGUgbGluZSAzOCBvZiBhcHAuODllYWEwYjZlNWU5NDE3
-Y2I2MDIuanMgaXMgOg0Kdm9pZCAwIT09bW9kdWxlJiZ2b2lkIDAhPT1leHBvcnRzJiZtb2R1
-bGUuZXhwb3J0cz09PWV4cG9ydHMmJihtb2R1bGUuZXhwb3J0cz0idWkucm91dGVyIiksZnVu
-Y3Rpb24od2luZG93LGFuZ3VsYXIsdW5kZWZpbmVkKXsidXNlIHN0cmljdCI7dmFyICQkVU1G
-UCxpc0RlZmluZWQ9YW5ndWxhci5pc0RlZmluZWQsaXNGdW5jdGlvbj1hbmd1bGFyLmlzRnVu
-Y3Rpb24saXNTdHJpbmc9YW5ndWxhci5pc1N0cmluZyxpc09iamVjdD1hbmd1bGFyLmlzT2Jq
-ZWN0LGlzQXJyYXk9YW5ndWxhci5pc0FycmF5LGZvckVhY2g9YW5ndWxhci5mb3JFYWNoLGV4
-dGVuZD1hbmd1bGFyLmV4dGVuZCxjb3B5PWFuZ3VsYXIuY29weSx0b0pzb249YW5ndWxhci50
-b0pzb247ZnVuY3Rpb24gaW5oZXJpdChwYXJlbnQsZXh0cmEpe3JldHVybiBleHRlbmQobmV3
-KGV4dGVuZChmdW5jdGlvbigpe30se3Byb3RvdHlwZTpwYXJlbnR9KSksZXh0cmEpfWZ1bmN0
-aW9uIG1lcmdlKGRzdCl7cmV0dXJuIGZvckVhY2goYXJndW1lbnRzLGZ1bmN0aW9uKG9iail7
-b2JqIT09ZHN0JiZmb3JFYWNoKG9iaixmdW5jdGlvbih2YWx1ZSxrZXkpe2RzdC5oYXNPd25Q
-cm9wZXJ0eShrZXkpfHwoZHN0W2tleV09dmFsdWUpfSl9KSxkc3R9ZnVuY3Rpb24gb2JqZWN0
-S2V5cyhvYmplY3Qpe2lmKE9iamVjdC5rZXlzKXJldHVybiBPYmplY3Qua2V5cyhvYmplY3Qp
-O3ZhciByZXN1bHQ9W107cmV0dXJuIGZvckVhY2gob2JqZWN0LGZ1bmN0aW9uKHZhbCxrZXkp
-e3Jlc3VsdC5wdXNoKGtleSl9KSxyZXN1bHR9ZnVuY3Rpb24gaW5kZXhPZihhcnJheSx2YWx1
-ZSl7aWYoQXJyYXkucHJvdG90eXBlLmluZGV4T2YpcmV0dXJuIGFycmF5LmluZGV4T2YodmFs
-dWUsTnVtYmVyKGFyZ3VtZW50c1syXSl8fDApO3ZhciBsZW49YXJyYXkubGVuZ3RoPj4+MCxm
-cm9tPU51bWJlcihhcmd1bWVudHNbMl0pfHwwO2ZvcigoZnJvbT1mcm9tPDA/TWF0aC5jZWls
-KGZyb20pOk1hdGguZmxvb3IoZnJvbSkpPDAmJihmcm9tKz1sZW4pO2Zyb208bGVuO2Zyb20r
-KylpZihmcm9tIGluIGFycmF5JiZhcnJheVtmcm9tXT09PXZhbHVlKXJldHVybiBmcm9tO3Jl
-dHVybi0xfWZ1bmN0aW9uIGluaGVyaXRQYXJhbXMoY3VycmVudFBhcmFtcyxuZXdQYXJhbXMs
-JGN1cnJlbnQsJHRvKSAuLi4gLi4uDQoNCkJlc3QsDQpYaXV6aGkNCj5IaSBFZGRpZSAmIEVk
-OiA+RG8geW91IGhhdmUgYW55IHBsYW4gdG8gc3VwcG9ydCBub24tanBlZyB2aWRlbyBzdHJl
-YW0gaW4gb2JtYy1pS1ZNPyA+SXQgaXMgcG9zc2libGUgc29tZSBwbGF0Zm9ybXMgZG9uJ3Qg
-aGF2ZSBoYXJkd2FyZSBKUEVHIGVuZ2luZSwgaW5zdGVhZCBoYXZlIHRoZSBSR0IgdmlkZW8g
-c3RyZWFtLiA+SWYgcG9zc2libGUgdG8gc3VwcG9ydCBSR0IgdmlkZW8gc3RyZWFtLCBJIHRo
-aW5rIGl0IHdvdWxkIGJlIGJldHRlciBpZiB5b3UgY2FuIGFkZCB0aGUgdmlkZW8gZnJhbWUg
-ZGlmZmVyZW50aWF0aW9uIGluIG9ibWMtaUtWTSBiZWNhdXNlIHdlIGRvbid0IG5lZWQgdG8g
-c2VuZCB0aGUgZnVsbCBzY3JlZW4gPnRvIFZOQyBjbGllbnQgb24gZXZlcnkgcmVxdWVzdCwg
-aXQgY2FuIHJlZHVjZSB0aGUgYnVmZmVyIHNpemUgYXQgbGVhc3QuIChsaWJ2bmNzZXJ2ZXIg
-YWxyZWFkeSBoYXMgdGhlIHZpZGVvIGZyYW1lIGRpZmZlcmVudGlhdGlvbikgPkFsc28sIEkg
-aGF2ZSBpbXBsZW1lbnRlZCBhIEtWTSBhcHBsaWNhdGlvbiBmb3Igb3VyIHBsYXRmb3JtKG51
-dm90b24gZXZiLW5wY203NTApIHdoaWNoIGhhcyBoYXJkd2FyZSB2aWRlbyBmcmFtZSBkaWZm
-ZXJlbnRpYXRpb24gYW5kIGhhcmR3YXJlIGhleHRpbGUgZW5naW5lLiBodHRwczovL2dpdGh1
-Yi5jb20vTnV2b3Rvbi1Jc3JhZWwvb2JtYy1pa3ZtIGh0dHBzOi8vZ2l0aHViLmNvbS9OdXZv
-dG9uLUlzcmFlbC9saW51eC9jb21taXQvN2U5MGY1NzIzMjNlNTZlOTQyNWI4NWFhZmU4NmRm
-YTVhMzVjNGU3ZCA+SSBhbHNvIGVuYWJsZWQgRUQncyBLVk0gd2VidWkgYW5kIGFkZGVkIGt2
-bXdzIHByb3h5IGluIHB5dGhvbiB3ZWIgc2VydmVyLiBodHRwczovL2dpdGh1Yi5jb20vTnV2
-b3Rvbi1Jc3JhZWwvbWV0YS1vcGVuYm1jLW51dm90b24tYWRkb24vY29tbWl0LzE0MDc3MWI3
-ZTg5OGRkNWNhOGYwMzY0MjkwY2NlNjY5NjA5MDg4YWMgPklmIHlvdSBjYW4gc3BhcmUgYSBm
-ZXcgbWludXRlcyB0byByZXZpZXcgbXkgaW1wbGVtZW50YXRpb24gaXMgbXkgcGxlYXN1cmUu
-ID5DdXJyZW50bHksIG15IHZpZGVvIGRyaXZlciBpcyBub3QgdjRsMiwgc28gSSBhbSBnb2lu
-ZyB0byByZWRlc2lnbiBpdCB0byBmaXQgdjRsMiBhbmQgeW91ciBvYm1jLWlLVk0sIHRoZW4g
-SSB3aWxsIHRyeSB0byBhZGQgdGhlIFJHQiBmb3JtYXQgc3VwcG9ydCBpbiB5b3VyIG9ibWMt
-aWt2bS4gPlJlZ2FyZGluZyB0aGUgbGFyZ2VyIGJpbmFyeSBzaXplLCBJIHRoaW5rIHdlIG5l
-ZWQgdG8gcmV2aWV3IGFsbCBjb25maWd1cmF0aW9ucyBvZiBsaWJ2bmNzZXJ2ZXIgYW5kIGNo
-ZWNrIHdoaWNoIGZ1bmN0aW9ucyBzaG91bGQgYmUgZGlzYWJsZWQuID5UaGFua3MsID5Kb3Nl
-cGggTGl1Lg==
+27.08.2018 14:34, Marek Vasut wrote:
+>
+>>>> According to the datasheet for mx66l51235f, "The device default is i=
+n
+>>>> 24-bit address mode" (section 9-10). Having option SPI_NOR_4B_OPCODE=
+S
+>>>> makes the code act as if the device was already in 4B mode and didn'=
+t
+>>>> need the EN4B command. That prevents this chip from functioning on
+>>>> systems where the boot loader left the chip in 3B mode (e.g. if the
+>>>> chip wasn't used during the boot process).
+>>>>
+>>>> Hence, this commit removes the SPI_NOR_4B_OPCODES option for
+>>>> mx66l51235f (added previously by commit d342b6a973af).
+>>> Could it be there are two variants of the chip, one which supports th=
+e
+>>> 4B opcodes and one which does not ? Wouldn't be the first time I saw
+>>> this. If this chip supports the SFDP tables, you can check those.
+>> I was unable to find another variant of the chip. There is only one sp=
+ecified in the datasheet:
+>> http://www.macronix.com/Lists/Datasheet/Attachments/7401/MX66L51235F,%=
+203V,%20512Mb,%20v1.1.pdf
+>> and it says that the device supports both 3B and 4B modes, but default=
+s to 3B (24-bit) mode.
+> So keep the 4B part in. Linux will just not reconfigure the device to 4=
+B
+> mode using register write, but will instead issue the 4B opcode
+> directly, without any stateful change.
+Marek, thank you for asking all these questions. They made me conduct a d=
+eeper investigation than just finding the commit that broke it and revert=
+ing it. It appears that OpenPOWER P8's SBE code (the thing that P8 CPU ru=
+ns first from its built-in memory) expects the PNOR flash chip to be in E=
+N4B mode. It reads the rest of OpenPOWER Firmware using a usual READ (0x0=
+3) command with 4 bytes of address. Always. That's why, I believe, Roman'=
+s commit broke host booting for us.
 
-------=_NextPart_5B852A86_0E5D1500_4CC1B4DF
-Content-Type: text/html;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+Probably it would be best not to merge this patch into Linux kernel. I'll=
+ discuss it with colleagues from OpenPOWER community and we'll probably f=
+ix it on SBE side.
 
-SGkgSm9zZXBoLCBFZCw8YnI+Jm5ic3A7Jm5ic3A7IFRoZXJlIHdhcyBhbiBlcnJvciB3aGVu
-IEkmbmJzcDsgdXBkYXRlZCB0aGUgcGF0Y2hlcyA8YSBocmVmPSJodHRwczovL2dpdGh1Yi5j
-b20vTnV2b3Rvbi1Jc3JhZWwvbWV0YS1vcGVuYm1jLW51dm90b24tYWRkb24vY29tbWl0LzE0
-MDc3MWI3ZTg5OGRkNWNhOGYwMzY0MjkwY2NlNjY5NjA5MDg4YWMiPmh0dHBzOi8vZ2l0aHVi
-LmNvbS9OdXZvdG9uLUlzcmFlbC9tZXRhLW9wZW5ibWMtbnV2b3Rvbi1hZGRvbi9jb21taXQv
-MTQwNzcxYjdlODk4ZGQ1Y2E4ZjAzNjQyOTBjY2U2Njk2MDkwODhhYzwvYT48c3BhbiBzdHls
-ZT0iY29sb3I6IHJnYigwLCAwLCAyMzgpOyI+PHNwYW4gc3R5bGU9InRleHQtZGVjb3JhdGlv
-bjogdW5kZXJsaW5lOyI+PGJyPjwvc3Bhbj48L3NwYW4+PHByZT5Xb3VsZCB5b3UgbGlrZSB0
-byBnaXZlIG1lIHNvbWUgc3VnZ2VzdGlvbnMgdG8gZGVidWcgaXQ/PGJyPiZuYnNwO1doZW4g
-SSBsb2dnZWQgaW4gaHR0cHM6Ly8mbHQ7Ym1jX2lwJmd0Oy8jL2t2bSwgVGhlIGVycm9ycyBy
-ZWFkOjxicj4iPGJyPldlYlNvY2tldCBvbi1jbG9zZSBldmVudCAgYXBwLjg5ZWFhMGI2ZTVl
-OTQxN2NiNjAyLmpzOjM4OjY3NTkxNTxicj5GYWlsZWQgd2hlbiBjb25uZWN0aW5nOiBDb25u
-ZWN0aW9uIGNsb3NlZCAoY29kZTogMTAwNSkgIGFwcC44OWVhYTBiNmU1ZTk0MTdjYjYwMi5q
-czozODo2ODU1ODQ8YnI+CVJGQi5wcm90b3R5cGUuX2ZhaWwgaHR0cHM6Ly8xOTIuMTY4LjEy
-MC4xMzIvYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpzOjM4OjY4NTU4NDxicj4JUkZCLyZs
-dDsgaHR0cHM6Ly8xOTIuMTY4LjEyMC4xMzIvYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpz
-OjM4OjY3NjEzODxicj4JV2Vic29jay5wcm90b3R5cGUub3Blbi90aGlzLl93ZWJzb2NrZXQu
-b25jbG9zZSZsdDsgaHR0cHM6Ly8xOTIuMTY4LjEyMC4xMzIvYXBwLjg5ZWFhMGI2ZTVlOTQx
-N2NiNjAyLmpzOjM4Ojc3ODE1OTxicj5OZXcgc3RhdGUgJ2Rpc2Nvbm5lY3RpbmcnLCB3YXMg
-J2Nvbm5lY3RpbmcnLiAgYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpzOjM4OjY4NDMwMTxi
-cj4mZ3Q7Jmd0OyBSRkIuZGlzY29ubmVjdCAgYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpz
-OjM4OjY4MDQ5NTxicj4mZ3Q7Jmd0OyBLZXlib2FyZC5hbGxLZXlzVXAgIGFwcC44OWVhYTBi
-NmU1ZTk0MTdjYjYwMi5qczozODo3Mzk2NTk8YnI+Jmx0OyZsdDsgS2V5Ym9hcmQuYWxsS2V5
-c1VwICBhcHAuODllYWEwYjZlNWU5NDE3Y2I2MDIuanM6Mzg6NzM5ODI4PGJyPiI8YnI+VGhl
-IGxpbmUgMzggb2YgYXBwLjg5ZWFhMGI2ZTVlOTQxN2NiNjAyLmpzIGlzIDo8YnI+dm9pZCAw
-IT09bW9kdWxlJmFtcDsmYW1wO3ZvaWQgMCE9PWV4cG9ydHMmYW1wOyZhbXA7bW9kdWxlLmV4
-cG9ydHM9PT1leHBvcnRzJmFtcDsmYW1wOyhtb2R1bGUuZXhwb3J0cz0idWkucm91dGVyIiks
-ZnVuY3Rpb24od2luZG93LGFuZ3VsYXIsdW5kZWZpbmVkKXsidXNlIHN0cmljdCI7dmFyICQk
-VU1GUCxpc0RlZmluZWQ9YW5ndWxhci5pc0RlZmluZWQsaXNGdW5jdGlvbj1hbmd1bGFyLmlz
-RnVuY3Rpb24saXNTdHJpbmc9YW5ndWxhci5pc1N0cmluZyxpc09iamVjdD1hbmd1bGFyLmlz
-T2JqZWN0LGlzQXJyYXk9YW5ndWxhci5pc0FycmF5LGZvckVhY2g9YW5ndWxhci5mb3JFYWNo
-LGV4dGVuZD1hbmd1bGFyLmV4dGVuZCxjb3B5PWFuZ3VsYXIuY29weSx0b0pzb249YW5ndWxh
-ci50b0pzb247ZnVuY3Rpb24gaW5oZXJpdChwYXJlbnQsZXh0cmEpe3JldHVybiBleHRlbmQo
-bmV3KGV4dGVuZChmdW5jdGlvbigpe30se3Byb3RvdHlwZTpwYXJlbnR9KSksZXh0cmEpfWZ1
-bmN0aW9uIG1lcmdlKGRzdCl7cmV0dXJuIGZvckVhY2goYXJndW1lbnRzLGZ1bmN0aW9uKG9i
-ail7b2JqIT09ZHN0JmFtcDsmYW1wO2ZvckVhY2gob2JqLGZ1bmN0aW9uKHZhbHVlLGtleSl7
-ZHN0Lmhhc093blByb3BlcnR5KGtleSl8fChkc3Rba2V5XT12YWx1ZSl9KX0pLGRzdH1mdW5j
-dGlvbiBvYmplY3RLZXlzKG9iamVjdCl7aWYoT2JqZWN0LmtleXMpcmV0dXJuIE9iamVjdC5r
-ZXlzKG9iamVjdCk7dmFyIHJlc3VsdD1bXTtyZXR1cm4gZm9yRWFjaChvYmplY3QsZnVuY3Rp
-b24odmFsLGtleSl7cmVzdWx0LnB1c2goa2V5KX0pLHJlc3VsdH1mdW5jdGlvbiBpbmRleE9m
-KGFycmF5LHZhbHVlKXtpZihBcnJheS5wcm90b3R5cGUuaW5kZXhPZilyZXR1cm4gYXJyYXku
-aW5kZXhPZih2YWx1ZSxOdW1iZXIoYXJndW1lbnRzWzJdKXx8MCk7dmFyIGxlbj1hcnJheS5s
-ZW5ndGgmZ3Q7Jmd0OyZndDswLGZyb209TnVtYmVyKGFyZ3VtZW50c1syXSl8fDA7Zm9yKChm
-cm9tPWZyb20mbHQ7MD9NYXRoLmNlaWwoZnJvbSk6TWF0aC5mbG9vcihmcm9tKSkmbHQ7MCZh
-bXA7JmFtcDsoZnJvbSs9bGVuKTtmcm9tJmx0O2xlbjtmcm9tKyspaWYoZnJvbSBpbiBhcnJh
-eSZhbXA7JmFtcDthcnJheVtmcm9tXT09PXZhbHVlKXJldHVybiBmcm9tO3JldHVybi0xfWZ1
-bmN0aW9uIGluaGVyaXRQYXJhbXMoY3VycmVudFBhcmFtcyxuZXdQYXJhbXMsJGN1cnJlbnQs
-JHRvKSAuLi4gLi4uPGJyPjxicj5CZXN0LDxicj5YaXV6aGk8YnI+Jmd0O0hpIEVkZGllICZh
-bXA7IEVkOgoKJmd0O0RvIHlvdSBoYXZlIGFueSBwbGFuIHRvIHN1cHBvcnQgbm9uLWpwZWcg
-dmlkZW8gc3RyZWFtIGluIG9ibWMtaUtWTT8KJmd0O0l0IGlzIHBvc3NpYmxlIHNvbWUgcGxh
-dGZvcm1zIGRvbid0IGhhdmUgaGFyZHdhcmUgSlBFRyBlbmdpbmUsIGluc3RlYWQgaGF2ZSB0
-aGUgUkdCIHZpZGVvIHN0cmVhbS4KJmd0O0lmIHBvc3NpYmxlIHRvIHN1cHBvcnQgUkdCIHZp
-ZGVvIHN0cmVhbSwgSSB0aGluayBpdCB3b3VsZCBiZSBiZXR0ZXIgaWYgeW91IGNhbiBhZGQg
-dGhlIHZpZGVvIGZyYW1lIGRpZmZlcmVudGlhdGlvbiBpbiBvYm1jLWlLVk0gYmVjYXVzZSB3
-ZSBkb24ndCBuZWVkIHRvIHNlbmQgdGhlIGZ1bGwgc2NyZWVuICZndDt0byBWTkMgY2xpZW50
-IG9uIGV2ZXJ5IHJlcXVlc3QsIGl0IGNhbiByZWR1Y2UgdGhlIGJ1ZmZlciBzaXplIGF0IGxl
-YXN0LiAobGlidm5jc2VydmVyIGFscmVhZHkgaGFzIHRoZSB2aWRlbyBmcmFtZSBkaWZmZXJl
-bnRpYXRpb24pCgomZ3Q7QWxzbywgSSBoYXZlIGltcGxlbWVudGVkIGEgS1ZNIGFwcGxpY2F0
-aW9uIGZvciBvdXIgcGxhdGZvcm0obnV2b3RvbiBldmItbnBjbTc1MCkgd2hpY2ggaGFzIGhh
-cmR3YXJlIHZpZGVvIGZyYW1lIGRpZmZlcmVudGlhdGlvbiBhbmQgaGFyZHdhcmUgaGV4dGls
-ZSBlbmdpbmUuCjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9OdXZvdG9uLUlzcmFlbC9v
-Ym1jLWlrdm0iPmh0dHBzOi8vZ2l0aHViLmNvbS9OdXZvdG9uLUlzcmFlbC9vYm1jLWlrdm08
-L2E+CjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9OdXZvdG9uLUlzcmFlbC9saW51eC9j
-b21taXQvN2U5MGY1NzIzMjNlNTZlOTQyNWI4NWFhZmU4NmRmYTVhMzVjNGU3ZCI+aHR0cHM6
-Ly9naXRodWIuY29tL051dm90b24tSXNyYWVsL2xpbnV4L2NvbW1pdC83ZTkwZjU3MjMyM2U1
-NmU5NDI1Yjg1YWFmZTg2ZGZhNWEzNWM0ZTdkPC9hPgoKJmd0O0kgYWxzbyBlbmFibGVkIEVE
-J3MgS1ZNIHdlYnVpIGFuZCBhZGRlZCBrdm13cyBwcm94eSBpbiBweXRob24gd2ViIHNlcnZl
-ci4KPGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL051dm90b24tSXNyYWVsL21ldGEtb3Bl
-bmJtYy1udXZvdG9uLWFkZG9uL2NvbW1pdC8xNDA3NzFiN2U4OThkZDVjYThmMDM2NDI5MGNj
-ZTY2OTYwOTA4OGFjIj5odHRwczovL2dpdGh1Yi5jb20vTnV2b3Rvbi1Jc3JhZWwvbWV0YS1v
-cGVuYm1jLW51dm90b24tYWRkb24vY29tbWl0LzE0MDc3MWI3ZTg5OGRkNWNhOGYwMzY0Mjkw
-Y2NlNjY5NjA5MDg4YWM8L2E+CgomZ3Q7SWYgeW91IGNhbiBzcGFyZSBhIGZldyBtaW51dGVz
-IHRvIHJldmlldyBteSBpbXBsZW1lbnRhdGlvbiBpcyBteSBwbGVhc3VyZS4KCiZndDtDdXJy
-ZW50bHksIG15IHZpZGVvIGRyaXZlciBpcyBub3QgdjRsMiwgc28gSSBhbSBnb2luZyB0byBy
-ZWRlc2lnbiBpdCB0byBmaXQgdjRsMiBhbmQgeW91ciBvYm1jLWlLVk0sIHRoZW4gSSB3aWxs
-IHRyeSB0byBhZGQgdGhlIFJHQiBmb3JtYXQgc3VwcG9ydCBpbiB5b3VyIG9ibWMtaWt2bS4K
-CiZndDtSZWdhcmRpbmcgdGhlIGxhcmdlciBiaW5hcnkgc2l6ZSwgSSB0aGluayB3ZSBuZWVk
-IHRvIHJldmlldyBhbGwgY29uZmlndXJhdGlvbnMgb2YgbGlidm5jc2VydmVyIGFuZCBjaGVj
-ayB3aGljaCBmdW5jdGlvbnMgc2hvdWxkIGJlIGRpc2FibGVkLgoKJmd0O1RoYW5rcywKJmd0
-O0pvc2VwaCBMaXUuPC9wcmU+
+As for renaming the chip, I can provide a patch just for that. Or we can =
+leave it as is.
 
-------=_NextPart_5B852A86_0E5D1500_4CC1B4DF--
+Thanks.
+Alexander.
+
+
+--jQOfru3eRU35r0q2jiiT6lgs3M430vKeZ--
+
+--edwsZEWiItwOrGIwvy7UIgGroPCrTKWvL
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJbhTIJAAoJEOiTWHtbdBeNS5AP/jdCr+dd5cCcaeXOsL1iO5vQ
+VogAcesACMlFUD7EqBS1SoBLRFGsFXcWR+lUfi7PzN8VKv7QY97H4JR1dPQD8MH5
+wrPi993Lbe2kfNo88Q2uHod/gSqamZQsBhVQeK5guo4iCOpF6E7Q8wlYQ6FdA13o
+2rwh8wxx8RC21LJEgYeNgyY1iUskvh/Wk5ltH3KTzjfouviP3ZnRAoxwqEph3ZYw
+C9GHjBxnF/eB1lozyVejI4BTDs18TUvVmOS/YNAK2p+nBPl0JvKkDXJzfh4wrybQ
+XDI6Q5l1VewBDFB3rQQEnjGEydRivKMLCxaxUh+gf59gtpDbDWfb3T1cR4xVjCwy
+KuanKJPIFn/02xWMzC7vZj5ibpFiJj58Z+6P0+ThcQihrGcLkcn3IGfBNJpmBVq+
+fPzmAGTCQ1yEOCiH/2IRXSFZzLZcLakImIXI+D2MhNOabw+G0EyExdNgJIUS0dEF
+INtx/hMtQ0d/pQDFK/ANjYZWBRSNstQvqy2y7oFujIzfga/hPJKxqjbBVf9n17ui
+AyhjrYYygwYhCyXBM6+nNwo/WANYF60sLgTFtZa0VYWr6KxaBZGLqt4oP6/mpsUK
+5qYbcIO+g4r39Uds+LtMjio3Uzv/nSf9gh04EsR1XkSHaYK3D3Fufl4I8ECXT0b5
+NEjEv2YxsZvJ1eu9NUto
+=bI+O
+-----END PGP SIGNATURE-----
+
+--edwsZEWiItwOrGIwvy7UIgGroPCrTKWvL--
