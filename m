@@ -1,73 +1,35 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4203xj24j9zDrRN
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 19:54:16 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7S9sAT6162754
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 05:54:13 -0400
-Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2m53pmh5x7-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 05:54:13 -0400
-Received: from localhost
- by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
- Tue, 28 Aug 2018 10:53:53 +0100
-Received: from b06cxnps3074.portsmouth.uk.ibm.com (9.149.109.194)
- by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 28 Aug 2018 10:53:51 +0100
-Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
- [9.149.105.61])
- by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7S9roUc38731908
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 28 Aug 2018 09:53:50 GMT
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B376A11C050;
- Tue, 28 Aug 2018 12:53:46 +0100 (BST)
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6A08311C04C;
- Tue, 28 Aug 2018 12:53:45 +0100 (BST)
-Received: from [9.195.44.148] (unknown [9.195.44.148])
- by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Tue, 28 Aug 2018 12:53:45 +0100 (BST)
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- richard.marian.thomaiyar@linux.intel.com
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Subject: Enabling LDAP for Dropbear
-Date: Tue, 28 Aug 2018 15:23:46 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18082809-0016-0000-0000-000001FCBF85
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18082809-0017-0000-0000-000032532F80
-Message-Id: <dd28c1e6-bb95-178f-09e2-dbc8ab516773@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-28_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1808280103
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4204l05FGNzDqC3
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 20:30:02 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id CD19EE9F40;
+ Tue, 28 Aug 2018 06:29:55 -0400 (EDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Subject: Re: Proposals for commit log policy
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
+Date: Tue, 28 Aug 2018 06:29:55 -0400
+Cc: Alexander Amelkin <a.amelkin@yadro.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
+References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
+ <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
+To: Joel Stanley <joel@jms.id.au>
+X-Mailer: Apple Mail (2.3445.9.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -79,40 +41,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 09:54:17 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 10:30:05 -0000
 
-Hi All,
 
-As part of enable LDAP on the BMC,We are enabling the LDAP on the 
-dropbear(ssh server) through pam configuration,I am facing a problem 
-when the ssh client trying to connect the bmc through ssh.
+> On Aug 22, 2018, at 7:58 PM, Joel Stanley <joel@jms.id.au> wrote:
+>=20
+> On Tue, 21 Aug 2018 at 22:01, Alexander Amelkin <a.amelkin@yadro.com> =
+wrote:
+>=20
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> some-package: bump version 62286ef3 to 4fa63380
+>>=20
+>> Author Name (2):
+>>  commit 1 synopsis
+>>  another commit synopsis
+>>=20
+>> Another Author (3):
+>>  great commit
+>>  yet another great commit
+>>  fix previous not-so-great commit
+>>=20
+>> Change-Id: some-long-gerrit-hash
+>> Signed-off-by: The Version Bumper <bumper@nowhere.net>
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+>> What do you think? Is this feasible? Any other ideas how we could =
+simplify creating release notes suitable for end users?
+>=20
+> I think this is a great suggestion. I would also like to see this =
+happen.
+>=20
+> Having the maintainers or authors of the packages submit their bumps
+> would ensure this does not become a burden for the central repository
+> maintainer.
+>=20
+> An advantage of the maintainers of individual packages submitting
+> their changes is they know the best timing for integrating their
+> changes, and know what relevant details should be added to the bump
+> commit message.
 
-There are two steps involved when ssh client connect to the ssh server.
-1) Authentication
-2) Open the shell
+I also would like to see this.  To be clear I mean the commit msg text =
+above,
+and not a =E2=80=98Impact=E2=80=99 token. =20
 
-I could have seen that authentication gets success but opening the shell 
-got failed since the home directory should be existing for the ldap user.
+The autobump script was deployed at a time in the project when _every_ =
+repository
+had the same maintainer, so it made some sense back then.  Today we have =
+a much
+more distributed set of maintainers.
 
-To solve this I tried to make the following changes in the pam config file.
+I=E2=80=99ve actually disabled the cron job that runs the script, =
+because it needed
+some rework to handle the new openbmc/openbmc repository layout.
 
-session required /lib/security/pam_mkhomedir.so skel=/etc/skel/ 
-umask=0077 debug >>> pam_mkhomedir should have been created the directory.
-session sufficient      pam_unix.so debug
-session sufficient /lib/security/pam_ldap.so debug
+I plan on simply _not_ turning it back on, and let maintainers do their =
+own
+bumps like Joel has been doing for the kernel moving forward (Thanks =
+Joel).
+Unless there are major objections.
 
-Even after making the above changes I don't see that the home directory 
-was created.
+thx - brad
 
-NOTE:- If I create the directory in advance then I am not facing this 
-problem.
-
-We have other option to solve this is to mount directories over network 
-with the use of autofs service
-
-https://help.ubuntu.com/community/AutofsLDAP
-
-Can some body help me what could be other option to create the home 
-directories and which one is used industry wise?
-
-Ratan
+>=20
+> Cheers,
+>=20
+> Joel
