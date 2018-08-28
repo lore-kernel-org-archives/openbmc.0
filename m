@@ -1,37 +1,33 @@
-Return-Path: <james.feist@linux.intel.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420GZq4Mq2zDrb6
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:53:38 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2018 10:53:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="85229770"
-Received: from skyhawk.jf.intel.com (HELO [10.54.51.81]) ([10.54.51.81])
- by fmsmga001.fm.intel.com with ESMTP; 28 Aug 2018 10:53:36 -0700
-Subject: Re: Header inclusion ordering style addition
-To: openbmc@lists.ozlabs.org
-References: <CAO=notzut2sd4GZvA3gMzoB+J7g48nXnXKONhnwNfJC8jPWPAg@mail.gmail.com>
-From: James Feist <james.feist@linux.intel.com>
-Message-ID: <c3d8f4e3-86e2-8fae-5c6e-49632262b8a9@linux.intel.com>
-Date: Tue, 28 Aug 2018 10:53:29 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <CAO=notzut2sd4GZvA3gMzoB+J7g48nXnXKONhnwNfJC8jPWPAg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420GjS553vzDqC3
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:59:24 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 867ACEA050;
+ Tue, 28 Aug 2018 13:59:21 -0400 (EDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Subject: Re: 
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CBC60E0B5DD8E642ACEAB425D566671AAFEAFCEC@ORSMSX115.amr.corp.intel.com>
+Date: Tue, 28 Aug 2018 13:59:21 -0400
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <01AB2862-40A3-4299-928E-9F39C701DD26@fuzziesquirrel.com>
+References: <CBC60E0B5DD8E642ACEAB425D566671AAFEAFCEC@ORSMSX115.amr.corp.intel.com>
+To: "Bills, Jason M" <jason.m.bills@intel.com>
+X-Mailer: Apple Mail (2.3445.9.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -43,33 +39,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 17:53:40 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 17:59:25 -0000
 
-On 08/28/2018 10:35 AM, Patrick Venture wrote:
-> Each file in each daemon attempts to order the headers in a consistent
-> way.  Typically, alphabetically.  However, I propose here a more
-> explicit ordering:
-> 
-> https://gerrit.openbmc-project.xyz/12180
-> 
-> As an example of the ordering:
-> 
-> https://gerrit.openbmc-project.xyz/11421
-> 
 
-This can be enforced in clang-format with SortIncludes
-https://clang.llvm.org/docs/ClangFormatStyleOptions.html and
-IncludeCategories regex for specific ordering.
 
-> I feel that having a consistent ordering that deals with the various
-> types of header files included provides a couple benefits:
-> * header files are included where you expect to find them
-> * easily can see that there are c-headers included in a clean group
-> * defines that the phosphor library headers are treated as normal cpp
-> libraries and included in that grouping making the headers come across
-> as system libraries and not something different.
-> 
-> Please take a look.
-> 
-> Patrick
-> 
+> On Aug 28, 2018, at 1:34 PM, Bills, Jason M <jason.m.bills@intel.com> =
+wrote:
+>=20
+> I just added a comment to a github discussion about the IPMI SEL and =
+thought I should share it here as well:
+
+Can you send a link to the issue?
+
+>=20
+> I have been working on a proof-of-concept to move the IPMI SEL entries =
+out of D-Bus into journald instead.
+>=20
+> Since journald allows custom metadata for log entries, I've thought of =
+having the SEL message logged to the journal and using metadata to store =
+the necessary IPMI info associated with the entry. Here is an example of =
+logging a type 0x02 system event entry to journald:
+>=20
+> sd_journal_send("MESSAGE=3D%s", message.c_str(),
+>                            "PRIORITY=3D%i", selPriority,
+>                            "MESSAGE_ID=3D%s", selMessageId,
+>                            "IPMI_SEL_RECORD_ID=3D%d", recordId,
+>                            "IPMI_SEL_RECORD_TYPE=3D%x", selSystemType,
+>                            "IPMI_SEL_GENERATOR_ID=3D%x", genId,
+>                            "IPMI_SEL_SENSOR_PATH=3D%s", path.c_str(),
+>                            "IPMI_SEL_EVENT_DIR=3D%x", assert,
+>                            "IPMI_SEL_DATA=3D%s", selDataStr,
+>                            NULL);
+> Using journald should allow for scaling to more SEL entries which =
+should also enable us to support more generic IPMI behavior such as the =
+Add SEL command.
+
+A design point of OpenBMC from day one was to not design it around IPMI.
+At a glance this feels counter to that goal.
+
+I=E2=80=99m not immediately opposed to moving our error logs out of =
+DBus, but can you provide
+an extendible abstraction?  Not everyone uses SEL, or IPMI even.  At a =
+minimum please
+drop the letters =E2=80=98ipmi=E2=80=99 and =E2=80=98sel=E2=80=99 :-) =
+from the base design, and save those for something
+that translates to IPMI-speak.
+
+As some background, our systems tend towards fewer =E2=80=98error =
+logs=E2=80=99 with much more data per
+log (4-16k), and yes I admit the current design is biased towards that =
+and does not scale
+when we approach 1000s of small SEL entries.
+
+thx - brad
+
+>=20
+> -Jason
