@@ -1,60 +1,84 @@
-Return-Path: <venture@google.com>
+Return-Path: <gmills@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="aTQWS50T"; 
- dkim-atps=neutral
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=gmills@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420GFg0y9TzDrM8
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:38:46 +1000 (AEST)
-Received: by mail-pl1-x636.google.com with SMTP id j8-v6so1019876pll.12
- for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 10:38:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=RPcJqZ88PNoADUpXisr7pmZRC/rMsu/9kiyGllqrmsQ=;
- b=aTQWS50T05oys3BijLE6AjJFFmdeUlMNoujnrkSIE1BM/5GY/VfYG4yNFwyb75zQIk
- 6/xg1GYTacEMyHiufeMNvnWEiIytC1irRH2gxbRyhODT7WG4wT0prCDRXXErWGmDQjCV
- 5n4n6PM25Rd4seS2hSdjaBk2GxmFLs6bVMcpwWAS+S+Yl74coB+It6vmv+ghLcRMKPC5
- wK58GLwK9ZZBU5Eb7E37Ag+g/c3zYTPEIpOzHEc/0NK9T0cWuC/IFR7NJcUhXn0UjVkc
- +sXKIWrqFrYd39ZrjF7Eq5Abr71seotsZbRPug0S5fh6u/B8PZZdPEkaRoey2xDbzqaE
- mQ1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=RPcJqZ88PNoADUpXisr7pmZRC/rMsu/9kiyGllqrmsQ=;
- b=pDIkPrgMuUHP1FlMaKDQDCTEzAZozJ8wiB2OGuPk7YTR7GbnVLJWxGtLxiRZlvgNix
- Vpws75ozjEdoBq+hTefZpMO5WqU+vme9CDBUH2h/yA0RDgOZ+WRf88zw0i9WUSHGtMrw
- tn+RAyYZ6zzEBZpVfNSCzz96K+a9aLjzl670SnYCoeyTf/fz8dHjv4y6ML+veee1U2PA
- cLA9Mi11o+a3mKI/L8U68mSz61Cm4eGqPFqShQ3SFjOm11VnNwYZBFn3WZ0O3DbN+G6W
- XisR9VgoHdLIXhWS6Eyx/zHPYrIKACX0R8TVpmAXI/Gv7POTPWsPe9IbSlsJfmQ2/1oO
- XAYg==
-X-Gm-Message-State: APzg51A+jQJ9VrAawNCFjLUI9GWssDG1+irc+jWVojLtIKtJXS7nGr6U
- KWdLOftHuhHYMfVwWxiA13xO6lKluJPcT2Lt2UfpXA==
-X-Google-Smtp-Source: ANB0Vda3CevZ1COAFQCBUCS6X1Y8UsUi6lNTMpINL4Nc8l9kIKTUQucx2vhAX5hs2fAwIUKfoxLre4/p4pnCQOgZ9Ns=
-X-Received: by 2002:a17:902:28eb:: with SMTP id
- f98-v6mr2454618plb.149.1535477924430; 
- Tue, 28 Aug 2018 10:38:44 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420GNH6dj2zDrtm
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 03:44:31 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w7SHdOYJ054437
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 13:44:29 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2m586xqn1y-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Aug 2018 13:44:29 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gmills@linux.vnet.ibm.com>;
+ Tue, 28 Aug 2018 13:44:28 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 28 Aug 2018 13:44:25 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7SHiPJN47251560
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 28 Aug 2018 17:44:25 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9CC96AC05E;
+ Tue, 28 Aug 2018 13:44:28 -0400 (EDT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 641CFAC05B;
+ Tue, 28 Aug 2018 13:44:28 -0400 (EDT)
+Received: from [9.10.100.197] (unknown [9.10.100.197])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 28 Aug 2018 13:44:28 -0400 (EDT)
+Subject: Re: Proposals for commit log policy
+To: Andrew Geissler <geissonator@gmail.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Alexander Amelkin <a.amelkin@yadro.com>
+References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
+ <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
+ <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
+ <CALLMt=rGmZ9-29xWMymUvdCAgVnFzQ+gyZDn3zXnWeR4imSYPA@mail.gmail.com>
+From: Gunnar Mills <gmills@linux.vnet.ibm.com>
+Date: Tue, 28 Aug 2018 12:44:25 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAO=notyOhkCDeTOJ57edK8z61_6HKDtWahahx-U_fk8JukBctw@mail.gmail.com>
- <6F027861-92AD-46AC-83AE-61D7C7E0A794@fuzziesquirrel.com>
-In-Reply-To: <6F027861-92AD-46AC-83AE-61D7C7E0A794@fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 28 Aug 2018 10:38:32 -0700
-Message-ID: <CAO=notyyr9Z3qBL=zYKu8-2q=69FYsc31HBpBqsV0k4t5bMzMg@mail.gmail.com>
-Subject: Re: meta-google subtree repo
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CALLMt=rGmZ9-29xWMymUvdCAgVnFzQ+gyZDn3zXnWeR4imSYPA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18082817-0060-0000-0000-000002A59A65
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009628; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01080167; UDB=6.00557150; IPR=6.00860151; 
+ MB=3.00022981; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-28 17:44:27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18082817-0061-0000-0000-00004652246B
+Message-Id: <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-08-28_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=881 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1808280175
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,34 +90,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 17:38:48 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 17:44:32 -0000
 
-On Tue, Aug 28, 2018 at 10:31 AM Brad Bishop
-<bradleyb@fuzziesquirrel.com> wrote:
->
->
->
-> > On Aug 28, 2018, at 12:19 PM, Patrick Venture <venture@google.com> wrot=
-e:
-> >
-> > Brad,
-> >
-> > I'm looking to send some more OEM IPMI code upstream, and since we're
-> > using subtrees, perhaps it makes sense to have their recipes live
-> > under meta-google under openbmc/openbmc instead of meta-phosphor.
-> >
-> > If you think sure, then please create a meta-google layer repository.
-> >
->
-> Done.  Once you have merged an initial patch please let me know and I=E2=
-=80=99ll
-> add it to the combo-layer config I have setup for assembling openbmc/open=
-bmc.
+On 8/28/2018 10:43 AM, Andrew Geissler wrote:
 
-Thanks. I'm going to work with Nancy shortly to determine what to send
-up first and get this train going.
+> On Tue, Aug 28, 2018 at 5:30 AM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
+>> I plan on simply _not_ turning it back on, and let maintainers do their own
+>> bumps like Joel has been doing for the kernel moving forward (Thanks Joel).
+>> Unless there are major objections.
+> I object!  At least 90% of the auto bumps today go through without
+> issue.  This keeps our openbmc/openbmc master consistently up to date
+> which I think is a big benefit to our community.  We're able to
+> quickly find regressions with our automated tests which are constantly
+> running against the new content coming in. I feel like we're adding
+> more work with minimal benefit here.
 
->
-> -brad
->
-> > Patrick
+I object too. I don't think the benefit of manual bumps is worth the effort.
+
+Thanks,
+Gunnar
