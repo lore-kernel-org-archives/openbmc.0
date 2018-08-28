@@ -1,48 +1,59 @@
-Return-Path: <sboyd@kernel.org>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="sHsaa3kc"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420NLk6tMszDrdf
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 08:13:30 +1000 (AEST)
-Received: from localhost (unknown [104.132.0.94])
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 849AD2083B;
- Tue, 28 Aug 2018 22:13:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1535494408;
- bh=a/BSTxajlUOVRse+IpRQwwZyRaBWi8907g0RiNv0Yo0=;
- h=To:From:In-Reply-To:Cc:References:Subject:Date:From;
- b=sHsaa3kchp47VukBewo57ihQqyLi1Hl61vklV4UiKGs1hAHParA2LjVc5Dk6psLoC
- 2V2NnSv3sjB18E8OD3es9df7Sc+TX/B53eZvxM/ytRpcv+Es+rgH8yxlWPCeVRyNpC
- XcRpFMcflf2zKmwlsRyHQ0wnoVuE1vmQnTPDctP4=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420NWJ1KP7zF09x
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 08:20:58 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2018 15:20:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="68595348"
+Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
+ by orsmga007.jf.intel.com with ESMTP; 28 Aug 2018 15:20:56 -0700
+Received: from orsmsx113.amr.corp.intel.com (10.22.240.9) by
+ ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Tue, 28 Aug 2018 15:20:55 -0700
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
+ ORSMSX113.amr.corp.intel.com ([169.254.9.72]) with mapi id 14.03.0319.002;
+ Tue, 28 Aug 2018 15:20:55 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Gunnar Mills <gmills@linux.vnet.ibm.com>, Andrew Geissler
+ <geissonator@gmail.com>, Brad Bishop <bradleyb@fuzziesquirrel.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Alexander Amelkin
+ <a.amelkin@yadro.com>
+Subject: RE: Proposals for commit log policy
+Thread-Topic: Proposals for commit log policy
+Thread-Index: AQHUOUrQ7cGpSvgvDECTKY+pPFOBmKTM6q+AgAiMM4CAAFd8AIAAIeqA///XVkA=
+Date: Tue, 28 Aug 2018 22:20:54 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E821699345836D0F@ORSMSX114.amr.corp.intel.com>
+References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
+ <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
+ <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
+ <CALLMt=rGmZ9-29xWMymUvdCAgVnFzQ+gyZDn3zXnWeR4imSYPA@mail.gmail.com>
+ <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
+In-Reply-To: <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMWQ1YmJkZWMtZGI2Ny00OTllLWI2NmItNGUxOTNkN2Y1MjcwIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiQjJ6bW4yaGx6bzNwcVFhcWV6OVlKMStFSjZlQnV3ODZ2ZUlheXJjb2FCSDRxUmh6MTlQWWpmMXFuMCs3Nm5CQyJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.138]
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- Avi Fishman <avifishman70@gmail.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- Michael Turquette <mturquette@baylibre.com>, Nancy Yuen <yuenn@google.com>,
- Patrick Venture <venture@google.com>, Tomer Maimon <tmaimon77@gmail.com>
-From: Stephen Boyd <sboyd@kernel.org>
-In-Reply-To: <20180823230654.GA11576@embeddedor.com>
-Cc: openbmc@lists.ozlabs.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-References: <20180823230654.GA11576@embeddedor.com>
-Message-ID: <153549440786.129321.7169734992268309360@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.7
-Subject: Re: [PATCH] clk: npcm7xx: fix memory allocation
-Date: Tue, 28 Aug 2018 15:13:27 -0700
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -54,45 +65,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 22:13:35 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 22:21:01 -0000
 
-Quoting Gustavo A. R. Silva (2018-08-23 16:06:54)
-> One of the more common cases of allocation size calculations is finding
-> the size of a structure that has a zero-sized array at the end, along
-> with memory for some number of elements for that array. For example:
-> =
-
-> struct foo {
->         int stuff;
->         void *entry[];
-> };
-> =
-
-> instance =3D kzalloc(sizeof(struct foo) + sizeof(void *) * count,
-> GFP_KERNEL);
-> =
-
-> Instead of leaving these open-coded and prone to type mistakes, we can
-> now use the new struct_size() helper:
-> =
-
-> instance =3D kzalloc(struct_size(instance, entry, count), GFP_KERNEL);
-> =
-
-> Notice that, currently, there is a bug during the allocation:
->         =
-
-> sizeof(npcm7xx_clk_data) should be sizeof(*npcm7xx_clk_data)
-> =
-
-> Fix this bug by using struct_size() in kzalloc()
-> =
-
-> This issue was detected with the help of Coccinelle.
-> =
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
-> ---
-
-Applied to clk-fixes
+PiANCj4gSSBvYmplY3QgdG9vLiBJIGRvbid0IHRoaW5rIHRoZSBiZW5lZml0IG9mIG1hbnVhbCBi
+dW1wcyBpcyB3b3J0aCB0aGUgZWZmb3J0Lg0KPiANCg0KQW5vdGhlciB2b3RlIGZvciAiSSBkb24n
+dCB0aGluayBpdCdzIHdvcnRoIHRoZSBlZmZvcnQiLg0KDQpBdXRvbWF0aWMgYnVtcHMga2VlcCB1
+cyB1cCB0byBkYXRlIGFuZCBtYWtlIGJyZWFrYWdlcyBoYXBwZW4gYW5kIGdldCBmaXhlZCBmYXN0
+ZXIuICBJIHdvdWxkIGFjdHVhbGx5IHByZWZlciB0aGF0IGV2ZXJ5IGdlcnJpdCByZXZpZXcgY3Jl
+YXRlcyBhIG1hbnVhbCBidW1wIHRvIG1ha2Ugc3VyZSB0aGUgY29tcGxldGUgc3lzdGVtIGJ1aWxk
+cyB3aXRoIHRoZWlyIGdpdmVuIGNvbXBvbmVudCBjaGFuZ2UsIGJ1dCBJIHJlYWxpemUgdGhpcyBp
+cyBoYXJkIHRvIGRvLg0KDQotRWQNCg==
