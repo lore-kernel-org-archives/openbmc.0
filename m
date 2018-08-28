@@ -1,52 +1,48 @@
 Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
  envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420NWJ1KP7zF09x
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 08:20:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420Nxn2k5YzF0QC
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 08:40:28 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2018 15:20:56 -0700
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2018 15:40:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="68595348"
-Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
- by orsmga007.jf.intel.com with ESMTP; 28 Aug 2018 15:20:56 -0700
-Received: from orsmsx113.amr.corp.intel.com (10.22.240.9) by
- ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Tue, 28 Aug 2018 15:20:55 -0700
+X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="252696113"
+Received: from orsmsx107.amr.corp.intel.com ([10.22.240.5])
+ by orsmga005.jf.intel.com with ESMTP; 28 Aug 2018 15:40:25 -0700
+Received: from orsmsx156.amr.corp.intel.com (10.22.240.22) by
+ ORSMSX107.amr.corp.intel.com (10.22.240.5) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Tue, 28 Aug 2018 15:40:25 -0700
 Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
- ORSMSX113.amr.corp.intel.com ([169.254.9.72]) with mapi id 14.03.0319.002;
- Tue, 28 Aug 2018 15:20:55 -0700
+ ORSMSX156.amr.corp.intel.com ([169.254.8.73]) with mapi id 14.03.0319.002;
+ Tue, 28 Aug 2018 15:40:25 -0700
 From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Gunnar Mills <gmills@linux.vnet.ibm.com>, Andrew Geissler
- <geissonator@gmail.com>, Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Alexander Amelkin
- <a.amelkin@yadro.com>
+To: Alexander Amelkin <a.amelkin@yadro.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, Brad Bishop <bradleyb@fuzziesquirrel.com>
 Subject: RE: Proposals for commit log policy
 Thread-Topic: Proposals for commit log policy
-Thread-Index: AQHUOUrQ7cGpSvgvDECTKY+pPFOBmKTM6q+AgAiMM4CAAFd8AIAAIeqA///XVkA=
-Date: Tue, 28 Aug 2018 22:20:54 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E821699345836D0F@ORSMSX114.amr.corp.intel.com>
+Thread-Index: AQHUOUrQ7cGpSvgvDECTKY+pPFOBmKTKVDUggAMppYCACErRIA==
+Date: Tue, 28 Aug 2018 22:40:25 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E821699345836D67@ORSMSX114.amr.corp.intel.com>
 References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
- <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
- <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
- <CALLMt=rGmZ9-29xWMymUvdCAgVnFzQ+gyZDn3zXnWeR4imSYPA@mail.gmail.com>
- <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
-In-Reply-To: <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
+ <7E9441B1E5EFFD4681F54958E82169934583385B@ORSMSX114.amr.corp.intel.com>
+ <ab12144e-3faf-2756-b7d7-16a294b2c7ee@yadro.com>
+In-Reply-To: <ab12144e-3faf-2756-b7d7-16a294b2c7ee@yadro.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMWQ1YmJkZWMtZGI2Ny00OTllLWI2NmItNGUxOTNkN2Y1MjcwIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiQjJ6bW4yaGx6bzNwcVFhcWV6OVlKMStFSjZlQnV3ODZ2ZUlheXJjb2FCSDRxUmh6MTlQWWpmMXFuMCs3Nm5CQyJ9
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNmNlNjBhYTUtMTg5YS00OGNkLWJlZDctY2M4YzU0ZDk5MjQzIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiMHh1QnBERVRHZjg0amVka24yYlc1QzRrSlJxWUlyNFN5YlVPV3pqRXZMa0QyWVZPd1FZTFpNSm9rUzg5ZjhvKyJ9
 dlp-product: dlpe-windows
 dlp-version: 11.0.400.15
 dlp-reaction: no-action
@@ -65,13 +61,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 22:21:01 -0000
+X-List-Received-Date: Tue, 28 Aug 2018 22:40:30 -0000
 
-PiANCj4gSSBvYmplY3QgdG9vLiBJIGRvbid0IHRoaW5rIHRoZSBiZW5lZml0IG9mIG1hbnVhbCBi
-dW1wcyBpcyB3b3J0aCB0aGUgZWZmb3J0Lg0KPiANCg0KQW5vdGhlciB2b3RlIGZvciAiSSBkb24n
-dCB0aGluayBpdCdzIHdvcnRoIHRoZSBlZmZvcnQiLg0KDQpBdXRvbWF0aWMgYnVtcHMga2VlcCB1
-cyB1cCB0byBkYXRlIGFuZCBtYWtlIGJyZWFrYWdlcyBoYXBwZW4gYW5kIGdldCBmaXhlZCBmYXN0
-ZXIuICBJIHdvdWxkIGFjdHVhbGx5IHByZWZlciB0aGF0IGV2ZXJ5IGdlcnJpdCByZXZpZXcgY3Jl
-YXRlcyBhIG1hbnVhbCBidW1wIHRvIG1ha2Ugc3VyZSB0aGUgY29tcGxldGUgc3lzdGVtIGJ1aWxk
-cyB3aXRoIHRoZWlyIGdpdmVuIGNvbXBvbmVudCBjaGFuZ2UsIGJ1dCBJIHJlYWxpemUgdGhpcyBp
-cyBoYXJkIHRvIGRvLg0KDQotRWQNCg==
+RG8geW91IGhhdmUgYW4gZXhhbXBsZSBvZiB0aGUgdmVyc2lvbiB0byB2ZXJzaW9uIGxvZ3MgdGhh
+dCBhcmUgdGhlIHJlc3VsdCBvZiB0aGUgIjMgZnVsbCBkYXlzIGNvbnRpZ3VvdXNseSBvZiBhIHF1
+YWxpZmllZCBlbmdpbmVlciIgdGhhdCB5b3UncmUgYXNraW5nIHRoZSBjb21tdW5pdHkgdG8gaGVs
+cCB5b3UgY3JlYXRlPyAgSSBzdXNwZWN0IGlmIHRoZXkgd2VyZSBwdWJsaXNoZWQgKGZvcmdpdmUg
+bWUgaWYgdGhleSBhbHJlYWR5IGFyZSBhbmQgSSd2ZSBqdXN0IG1pc3NlZCB0aGVtKSBiYWNrIHRv
+IHRoZSBwcm9qZWN0IHNvbWV3aGVyZSwgYW5kIHBlb3BsZSBmb3VuZCB2YWx1ZSwgaXQgbWlnaHQg
+aGVscCB0aGUgdmFsdWUgcHJvcG9zaXRpb24gZm9yIGRldmVsb3BlcnMgYSBsb3QgbW9yZS4gIFJp
+Z2h0IG5vdyBJJ20gc2VlaW5nIHRoYXQgaXMgd291bGQgYmUgYSBsb3Qgb2Ygd29yayBvbiB0aGUg
+cGFydCBvZiBjb2RlIHJldmlld3MsIGZvciBvbmx5IGEgbWlub3IgZ2Fpbi4gIFRoaXMgaXMgY29t
+aW5nIGZyb20gc29tZW9uZSB3aG8gaGFzIHdyaXR0ZW4gcmVsZWFzZSBub3RlcyBhIGxvdC4gIEkg
+ZmluZCB0aGUgbW9zdCB2YWx1ZSBpbiByZWxlYXNlIG5vdGVzIHRvIGJlIGEgY29uc2lzdGVudCB0
+b25lLCBsYW5ndWFnZSwgYW5kIGZpbHRlcmluZywgd2l0aCBhIGxldmVsIG9mIGFic3RyYWN0aW9u
+IHRoYXQgaXMgaGlnaCBlbm91Z2ggdG8gYmUgdXNlZnVsLiAgSSdkIGJlIHN1cnByaXNlZCBpZiB3
+ZSB3ZXJlIGFibGUgdG8gZ2V0IHRoYXQga2luZCBvZiBjb25zaXN0ZW5jeSBmcm9tIGFsbCB0aGUg
+cGVvcGxlIG9uIHRoZSBwcm9qZWN0IG9mIHZhcnlpbmcgYmFja2dyb3VuZHMuDQoNCkFub3RoZXIg
+dGhpbmcgdG8gY29uc2lkZXIgaXMgdGhhdCB0aGVyZSBhcmUgYSBsb3Qgb2Ygbm9uLW5hdGl2ZSBF
+bmdsaXNoIHNwZWFrZXJzIGluIHRoZSBjb21tdW5pdHksIGFuZCB3aGlsZSBJIHdvdWxkIGxvdmUg
+aXQgaWYgZXZlcnlvbmUgaGFkIGEgcGVyZmVjdCBncmFzcCBvZiB0aGUgRW5nbGlzaCBsYW5ndWFn
+ZSwgSSB3b3VsZCBfbXVjaF8gcmF0aGVyIHRoYXQgdGhleSBrbm93IGhvdyB0byBkZXNpZ24sIGJ1
+aWxkLCBhbmQgdGVzdCBlbWJlZGRlZCBmaXJtd2FyZSwgd2hpbGUgbGVhdmluZyB0aGUgZG9jdW1l
+bnRhdGlvbiB0byB0aGUgcGVvcGxlIHRoYXQgZXhjZWwgYXQgaXQuDQoNCg0KPiBGb3IgYnVtcHMg
+dGhlIHRhc2sgaXMgImF1dG9tYXRhYmxlIiBpbmRlZWQuIEl0J3Mgbm90IGFjdHVhbGx5IGFzIGVh
+c3kgd2l0aA0KPiBZb2N0byBhcyBpdCBtYXkgc2VlbSAidG8gcGFyc2UgdGhlIGdpdCBsb2dzIGJl
+dHdlZW4gdGhlIHJlY2lwZSBidW1wcyIgKGhhdmUNCj4geW91IHRyaWVkPyksIGJ1dCBpdCBjYW4g
+YmUgYXV0b21hdGVkLg0KDQpXZSBkb24ndCBkdW1wIHRoZSBnaXQgbG9ncywgYnV0IG15IHRlYW0g
+ZG9lcyB0cmFjayB0aGUgU0hBcyBvZiB0aGUgb3BlbmJtYyBjb21wb25lbnRzIGluIGVhY2ggcmV2
+aXNpb24gd2UgYnVpbGQgZm9yIGF1ZGl0IGFuZCByZXByb2R1Y2liaWxpdHkgbmVlZHMuICBJdCdz
+IHBvc3NpYmxlIEknbSBtaXNzaW5nIHNvbWV0aGluZyBoZXJlLCBidXQgaXQgZmVlbHMgbGlrZSBk
+dW1waW5nIHRoZSBsb2dzIHdvdWxkIGJlIGEgbWlub3IgYWRkaXRpb24gdG8gdGhlIDwyMCBsaW5l
+IHB5dGhvbiBzY3JpcHQuICBPdXIgZXhpc3Rpbmcgb25lIGp1c3Qgc2VhcmNoZXMgYSBnbG9iIG9m
+ICouYmIgYW5kICouYmJhcHBlbmQgZmlsZXMsIGdyZXBzIGZvciBTSEExIGNoYW5nZXMsIGFuZCBm
+ZXRjaGVzIHRoZSByZWxldmFudCByZXBvcy4gIFdoZW4gSSBnZXQgYSBtb21lbnQsIEknbGwgdGFr
+ZSBhIGxvb2sgYW5kIHNlZSBpZiBpdCBjYW4gYmUgZWFzaWx5IGdlbmVyYWxpemVkIHRvIGR1bXAg
+bG9ncyBmb3IgeW91IGlmIHRoYXQgaGVscHMgc29tZS4NCg0KLUVkDQo=
