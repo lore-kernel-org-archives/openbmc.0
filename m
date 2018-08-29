@@ -1,59 +1,40 @@
-Return-Path: <venture@google.com>
+Return-Path: <richard.marian.thomaiyar@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::532; helo=mail-pg1-x532.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="RcPhoUDA"; 
- dkim-atps=neutral
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.120; helo=mga04.intel.com;
+ envelope-from=richard.marian.thomaiyar@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420sN06WnnzF322
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 03:01:19 +1000 (AEST)
-Received: by mail-pg1-x532.google.com with SMTP id d19-v6so2599742pgv.1
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 10:01:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Sy1d7c5vl0RIE20nmKitfVxw3/mI53zGayMBF52cfcI=;
- b=RcPhoUDAFEYAIIVMh0IrKkye7RlsqXdmEHkrxQJ7NZQtl75XC+t/crrq63KuSFwb4i
- Di2bKuf05AZpwB43KFHr58xmMMHFvySt9q8PqnEzmNcezlVskaWDvZ7fkk2dnPu/0ANd
- hmFd+ZT/y0rsljN3+603qsMPQg6i5p3L27viScs+0oXlFHJ3kJADXkkgLlG3JBUrmNu7
- GEwfad5XKXUWNw/C/8FuYy0MYicWO/rl5AEmebvs9orthxgFUrRfg+8zHUMOFUbsD1yw
- I6KWqeEkMrkv00cm5sIyigvTpBmCk1+es2bTi0KlThCyFmms78XCyAcbmraWFiAPr8Fc
- wTjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Sy1d7c5vl0RIE20nmKitfVxw3/mI53zGayMBF52cfcI=;
- b=E5oELXYiynqPc+4lPVk0r3pJ6VNEU9bQ9y5KcFwY1fabf3HbKr2O9Ex5mQgJR27WwC
- wt4cVCcuNeypRy/COPeQi8IQw+JlzPrFeBGox8d5V92lq6UQXyMMvz/D/5tpD875WpGl
- bFg3iNggk78QaqYglfAtGDH0s1XggsslIFZYAGGwHXmp2nUvADGgqrenfMp1xvmZUT8I
- zZSlRbtIJRyIG2JLNkgIpP3NJremHVKqwG3K6OeIH6lXqEdJxY4gluttcTQaJpvfuq90
- I878o6yOxajZO2Rir1MmLqGzL8jKoWZbXbpoDzJDkA01qxHxUr8hKgjCy07aNFM0GUkG
- qWuw==
-X-Gm-Message-State: APzg51Dmo1oLI5SzTGOduipXNpmKmwzfpkl57Q73edB+wi65/FCOHbUQ
- CgwqKkTWj9BAyJ7G2R3tA0N/+tC+Hw3kt8w71+S4D+BdAdY=
-X-Google-Smtp-Source: ANB0VdZ9qjdX9+28o4CR83NLmDwu01Wj8G54YQl3cN8xNrfYxEffKsUBmhUTnkC2KKelAlM+ze/aR2EyEbSVit3+2io=
-X-Received: by 2002:a63:a309:: with SMTP id s9-v6mr6271687pge.90.1535562077553; 
- Wed, 29 Aug 2018 10:01:17 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420sRQ2fjVzF322
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 03:04:17 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2018 10:04:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,303,1531810800"; d="scan'208";a="70075955"
+Received: from rthomaiy-mobl2.gar.corp.intel.com (HELO [10.252.76.226])
+ ([10.252.76.226])
+ by orsmga006.jf.intel.com with ESMTP; 29 Aug 2018 10:04:13 -0700
+Subject: Re: Fwd: Reg libpam from yocto - destination folder
+From: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, vernon.mauery@linux.intel.com, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <b924fad1-406b-9961-8f93-0915ae1c28f5@linux.intel.com>
+ <a88ee822-6f69-534f-9f19-88b0ffeb5da9@linux.intel.com>
+Message-ID: <96588000-8587-3b6d-3b6c-c02a8382c82b@linux.intel.com>
+Date: Wed, 29 Aug 2018 22:34:12 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAO=notxjhD7u8Gfa-D5zdJysuqzFMNqQM4fsfa3RmN5geudgrw@mail.gmail.com>
- <0DEA9298-A196-44BC-AEDA-A72BCCE93D77@fuzziesquirrel.com>
-In-Reply-To: <0DEA9298-A196-44BC-AEDA-A72BCCE93D77@fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 29 Aug 2018 10:01:06 -0700
-Message-ID: <CAO=notxhB1dGiUwO0GiYQvJ0kxXu59C0hdc+MaFtittB58dwew@mail.gmail.com>
-Subject: Re: Single-Source
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <a88ee822-6f69-534f-9f19-88b0ffeb5da9@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -65,53 +46,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Aug 2018 17:01:22 -0000
+X-List-Received-Date: Wed, 29 Aug 2018 17:04:19 -0000
 
-On Wed, Aug 29, 2018 at 9:55 AM Brad Bishop <bradleyb@fuzziesquirrel.com> w=
-rote:
->
->
->
-> > On Aug 29, 2018, at 11:53 AM, Patrick Venture <venture@google.com> wrot=
-e:
-> >
-> > Brad;
-> >
-> > While working on updating the documentation, which holds a
-> > clang-format example in it, within the markdown, I was curious if
-> > there was a single-source of truth w.r.t configurations of this
-> > nature?  I imagine it hasn't been an issue yet, but I'm going to
-> > update clang-format files to use the header inclusion, once we settle
-> > on the exact pattern, and it'd be useful to have a single-source file
-> > where I could make the change, and copy that file out into places --
-> > since I'm not sure of a reasonable automated approach.
-> >
-> > Any suggestions or thoughts would be appreciated.
->
-> Honestly I don=E2=80=99t think we should be telling maintainers how to st=
-yle
-> the code they maintain.  Just that they have one and and provide a way
-> for contributors to adhere to it.
+After further investigation, i am aligning with this implementation, and 
+want to make sure that community is OK with this approach. Let me know 
+community comments, else will go ahead and make changes for the same.
 
-I'm 50/50 on that one.  I think if you have a standard against which
-all the code in a project follows, it's easier to work with -- the
-sort of classic answer.  If we say, maintainers can do what they want
-as long as contributors can adhere to it, then what's to say they
-should follow the openbmc style?  I am sure most engineers have
-differences with the openbmc style, so if they all end up with their
-own variations of clang-format -- at least it's automated, but it's
-still different to read every repo.  Of course, the clang-format
-doesn't do variables names (right?), the style guide still dictates
-that... I don't know, it seems like if everything under openbmc/ has
-the same style it has increased coherency.
+1. We can move all the pam modules from /lib/security to 
+/usr/lib/security (i.e. from initramfs to rofs). This way, the size 
+issue is going to be resolved (Hope that rofs is having some space to 
+include these).
 
->
-> But I think I am in the minority with that viewpoint so I guess you
-> could put a clang-format in the docs repo?  Does that work?
+2. Catch will be, if rofs can't be mounted, then user account 
+authentication can't be performed, as all pam authentication modules is 
+in rofs. (In production systems this should be fine, at-least from 
+security point of it), but want to make sure that we are ok with Debug 
+images too (or has to update pam configuration files accordingly and 
+reload).
 
-That would work for me, so I can just copy that into my repo(s).
+Note: Today we enable OpenBMC as password in initramfs /etc/passwd file 
+itself (instead of rwfs i.e. obmc-phosphor-image), i feel that this is 
+wrong, as this can be used as a hack to corrupt rwfs, and login to linux 
+shell and recover the same by using OpenBMC as password   (Even though 
+user has updated this root password to different one, as the update 
+happens in rwfs and not in initramfs). Will roll out a fix to add root 
+password only to obmc-phosphor-image (/etc/shadow) and not in 
+initramfs(etc/shadow). Let me know if it is not needed.
 
+Regards,
+
+Richard
+
+
+On 8/20/2018 11:54 PM, Thomaiyar, Richard Marian wrote:
 >
+> Hi Brad / Vernon,
 >
-> >
-> > Patrick
+> Regarding
+> https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11497/
+> (extending from yocto to receipe-core (to add few more pam modules),
+> which is why it is getting added by default in /lib/security, which is
+> part of initramfs).
+>
+> Currently this breaks palmetto, zaius & romulus. Not sure, what should
+> be direction in order to fix the build failure (whether to clean / steal
+> from rw fs?).
+>
+> In today's call, there was a question about why it has to be in
+> initramfs and not in rofs, and this are the following, and it can be
+> changed in different way, if it is not required
+>
+> i.e If rofs is not mapped / any problem with it, we still need to allow
+> the root user login, which require's pam_unix.so in initramfs itself
+> i.e. under /lib/security
+>
+> if above requirement is not needed, then the the same can be pulled and
+> installed under /usr/lib/security  (which will be in rofs instead of
+> initramfs).
+>
+> Let me know your thoughts.
+>
+> regards,
+>
+> Richard
+>
