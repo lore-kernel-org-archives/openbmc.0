@@ -1,79 +1,62 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <leroi.lists@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:400c:c09::242; helo=mail-wm0-x242.google.com;
+ envelope-from=leroi.lists@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NFHpjygr"; 
+ dkim-atps=neutral
+Received: from mail-wm0-x242.google.com (mail-wm0-x242.google.com
+ [IPv6:2a00:1450:400c:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 421bMF0MMnzF37N
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 07:33:12 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7ULTUXu089954
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:33:11 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2m6q22kkp7-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:33:11 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 30 Aug 2018 17:33:09 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 30 Aug 2018 17:33:06 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7ULX5XG13959420
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 30 Aug 2018 21:33:05 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2E96B124058;
- Thu, 30 Aug 2018 18:33:42 -0400 (EDT)
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 41DAD124054;
- Thu, 30 Aug 2018 18:33:41 -0400 (EDT)
-Received: from oc6728276242.ibm.com (unknown [9.85.221.248])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 30 Aug 2018 18:33:41 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, jdelvare@suse.com,
- linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
- robh+dt@kernel.org, gregkh@linuxfoundation.org, mark.rutland@arm.com,
- linux@roeck-us.net, joel@jms.id.au, benh@kernel.crashing.org,
- Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH v5 10/10] hwmon (occ): Add sysfs attributes for additional OCC
- data
-Date: Thu, 30 Aug 2018 16:32:41 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 18083021-0060-0000-0000-000002A717F3
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009640; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01081201; UDB=6.00557772; IPR=6.00861186; 
- MB=3.00023023; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-30 21:33:09
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18083021-0061-0000-0000-000046589649
-Message-Id: <1535664761-86018-11-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-30_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1808300216
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420z3J36vlzF35S
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 07:17:12 +1000 (AEST)
+Received: by mail-wm0-x242.google.com with SMTP id 207-v6so6849472wme.5
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 14:17:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=E+WhmDnPyDpkbgpLKixicczk4wLz+yZSoyzBBSF5MQQ=;
+ b=NFHpjygrE3z5MtCw2aXNcAvOam6LFUzBdb9+rRyuFY25RKNMuLw5ZSDEhscrqMpfi2
+ lWrCA5Mm0BboTtDevVv3myJ3a/B4vTjyzeZGOioZortwXPdgy8MelTrXE6NKC9svw5AZ
+ VKDrZEQ0voVX+w3iRUP2M+PZlskKsk00ll3UUV+dKPtaARMMezL+QL6v7avYkaAurq2L
+ ueg3RkSesAqTm95vvG2VWne3tnbkqqy9XVLYKq51LHKU0dSEIn2rtq31XBX6KIDewN76
+ 34Sle0h7Tro3rWHF7SX23FLEGQtJpq/hzE7ekFCyL9HlAD/tqq0E0/WiS/VjUM/aV1bS
+ G93Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=E+WhmDnPyDpkbgpLKixicczk4wLz+yZSoyzBBSF5MQQ=;
+ b=tg2PyRL11N+O+BRYVMpGjT/DriUIaEVSK0oqdR0MXBWGesRzsb6KuVv5+XRc6L5ol9
+ tH8A0HCJAnL6or0pKkwirriFhGTJd0J1culolmYpqoftvaSSMRyKxD7uw7h0CJf0A04o
+ QGf01IZUARZRErG00IfFcSviIQbnp48l0h/1krXpiiIRsEsMGFenmGlxlBFE4VnIi03a
+ nL31hQ7xven5AsUqLjcVWw0PyFCJBDeON48MCzMpp2VXvk8FeJ8Yppv2dVWBC7InrFyh
+ 6Kyg7CT4mvaO8HVQcjpUwQ8a6uC5LyUS6C2WS+4VkcT6/w6hZlNJIa/rqKDRun+A3uQD
+ CxOQ==
+X-Gm-Message-State: APzg51DaZi/WyQldVhpjHmEmB80hjAqiH729LUwUDX8Q4O9HcrKGWhri
+ emc7vImej7UskkwpD4NZxRI0G0DRkx0OoRbovpk=
+X-Google-Smtp-Source: ANB0VdYRj9nH5GykDQ5ZEZ6C8b+gTUlH/LUGTyHI/KONdA+9QSNtMQZIicAHz0fZiyqnQ+WBPhk++kwXXVj7MUsaMdw=
+X-Received: by 2002:a1c:9e89:: with SMTP id
+ h131-v6mr5054865wme.13.1535577429043; 
+ Wed, 29 Aug 2018 14:17:09 -0700 (PDT)
+MIME-Version: 1.0
+References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
+ <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
+ <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
+ <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
+In-Reply-To: <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
+From: Roman Yeryomin <leroi.lists@gmail.com>
+Date: Thu, 30 Aug 2018 00:16:57 +0300
+Message-ID: <CACiydb+3DJabMS9zQ9mc0i+BdSEG0zMDvT66bauCwJ4WZan9Kg@mail.gmail.com>
+Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
+To: marek.vasut@gmail.com
+Cc: a.amelkin@yadro.com, linux-mtd <linux-mtd@lists.infradead.org>, 
+ openbmc@lists.ozlabs.org, joel@jms.id.au, clg@kaod.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 31 Aug 2018 08:45:00 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -85,383 +68,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2018 21:33:14 -0000
+X-List-Received-Date: Wed, 29 Aug 2018 21:17:17 -0000
 
-The OCC provides a variety of additional information about the state of
-the host processor, such as throttling, error conditions, and the number
-of OCCs detected in the system. This information is essential to service
-processor applications such as fan control and host management.
-Therefore, export this data in the form of sysfs attributes attached to
-the platform device (to which the hwmon device is also attached).
+On Mon, 27 Aug 2018 at 14:35, Marek Vasut <marek.vasut@gmail.com> wrote:
+>
+> On 08/27/2018 01:24 PM, Alexander Amelkin wrote:
+> > 27.08.2018 13:33, Marek Vasut wrote:
+> >> On 08/20/2018 12:26 PM, Alexander Amelkin wrote:
+> >>> Currently in spi-nor driver there is a line for mx66l51235l.
+> >>> According to Macronix site, there is no such part number. The chip
+> >>> detected as such is actually mx66l51235f. Hence, this commit renames
+> >>> the chip.
+> >> I wonder if this could pose a problem, since this might interfere with
+> >> the DT being an ABI. But I guess fixing the name is OK.
+> > Well, as far as I understand, in the DT you'll only have "compatible=jedec,spi-nor" for most cases.
+> > Anyway, I did `grep -r mx66l41235 arch/*/boot/dts` and found nothing, so I guess it's safe to rename.
+>
+> The argument can go in the direction of out-of-tree DTs . I think it's
+> OK to fix it too though.
+>
+> >>> According to the datasheet for mx66l51235f, "The device default is in
+> >>> 24-bit address mode" (section 9-10). Having option SPI_NOR_4B_OPCODES
+> >>> makes the code act as if the device was already in 4B mode and didn't
+> >>> need the EN4B command. That prevents this chip from functioning on
+> >>> systems where the boot loader left the chip in 3B mode (e.g. if the
+> >>> chip wasn't used during the boot process).
+> >>>
+> >>> Hence, this commit removes the SPI_NOR_4B_OPCODES option for
+> >>> mx66l51235f (added previously by commit d342b6a973af).
+> >> Could it be there are two variants of the chip, one which supports the
+> >> 4B opcodes and one which does not ? Wouldn't be the first time I saw
+> >> this. If this chip supports the SFDP tables, you can check those.
+> > I was unable to find another variant of the chip. There is only one specified in the datasheet:
+> > http://www.macronix.com/Lists/Datasheet/Attachments/7401/MX66L51235F,%203V,%20512Mb,%20v1.1.pdf
+> > and it says that the device supports both 3B and 4B modes, but defaults to 3B (24-bit) mode.
+>
+> So keep the 4B part in. Linux will just not reconfigure the device to 4B
+> mode using register write, but will instead issue the 4B opcode
+> directly, without any stateful change.
+>
+> > Most probably, Roman Yeryomin, the author of commit d342b6a973af, was fighting post-effects of u-boot or some other boot loader that set his chip to 4B mode before jumping to Linux kernel.
+>
+> It's the other way around, U-Boot keeps the flash in 3B mode.
 
-Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
----
- drivers/hwmon/occ/Makefile |   2 +-
- drivers/hwmon/occ/common.c |  45 ++++++++++-
- drivers/hwmon/occ/common.h |  17 ++++
- drivers/hwmon/occ/p8_i2c.c |  10 +++
- drivers/hwmon/occ/p9_sbe.c |   1 +
- drivers/hwmon/occ/sysfs.c  | 188 +++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 259 insertions(+), 4 deletions(-)
- create mode 100644 drivers/hwmon/occ/sysfs.c
+Yep, usually (well I've never seen it doing differently) u-boot
+doesn't alter access mode for the flash, since Linux kernel usually is
+close to beginning and reachable using 3B mode.
 
-diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
-index ab5c3e9..46a8636 100644
---- a/drivers/hwmon/occ/Makefile
-+++ b/drivers/hwmon/occ/Makefile
-@@ -1,4 +1,4 @@
--occ-hwmon-objs := common.o
-+occ-hwmon-objs := common.o sysfs.o
- 
- ifeq ($(CONFIG_SENSORS_OCC_P9_SBE), y)
- occ-hwmon-objs += p9_sbe.o
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index c6c8161..423903f 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -14,6 +14,11 @@
- 
- #define EXTN_FLAG_SENSOR_ID		BIT(7)
- 
-+#define OCC_ERROR_COUNT_THRESHOLD	2	/* required by OCC spec */
-+
-+#define OCC_STATE_SAFE			4
-+#define OCC_SAFE_TIMEOUT		msecs_to_jiffies(60000) /* 1 min */
-+
- #define OCC_UPDATE_FREQUENCY		msecs_to_jiffies(1000)
- 
- #define OCC_TEMP_SENSOR_FAULT		0xFF
-@@ -115,8 +120,10 @@ struct extended_sensor {
- 
- static int occ_poll(struct occ *occ)
- {
-+	int rc;
- 	u16 checksum = occ->poll_cmd_data + 1;
- 	u8 cmd[8];
-+	struct occ_poll_response_header *header;
- 
- 	/* big endian */
- 	cmd[0] = 0;			/* sequence number */
-@@ -129,7 +136,35 @@ static int occ_poll(struct occ *occ)
- 	cmd[7] = 0;
- 
- 	/* mutex should already be locked if necessary */
--	return occ->send_cmd(occ, cmd);
-+	rc = occ->send_cmd(occ, cmd);
-+	if (rc) {
-+		if (occ->error_count++ > OCC_ERROR_COUNT_THRESHOLD)
-+			occ->error = rc;
-+
-+		goto done;
-+	}
-+
-+	/* clear error since communication was successful */
-+	occ->error_count = 0;
-+	occ->error = 0;
-+
-+	/* check for safe state */
-+	header = (struct occ_poll_response_header *)occ->resp.data;
-+	if (header->occ_state == OCC_STATE_SAFE) {
-+		if (occ->last_safe) {
-+			if (time_after(jiffies,
-+				       occ->last_safe + OCC_SAFE_TIMEOUT))
-+				occ->error = -EHOSTDOWN;
-+		} else {
-+			occ->last_safe = jiffies;
-+		}
-+	} else {
-+		occ->last_safe = 0;
-+	}
-+
-+done:
-+	occ_sysfs_poll_done(occ);
-+	return rc;
- }
- 
- static int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
-@@ -161,7 +196,7 @@ static int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
- 	return rc;
- }
- 
--static int occ_update_response(struct occ *occ)
-+int occ_update_response(struct occ *occ)
- {
- 	int rc = mutex_lock_interruptible(&occ->lock);
- 
-@@ -1055,5 +1090,9 @@ int occ_setup(struct occ *occ, const char *name)
- 		return rc;
- 	}
- 
--	return 0;
-+	rc = occ_setup_sysfs(occ);
-+	if (rc)
-+		dev_err(occ->bus_dev, "failed to setup sysfs: %d\n", rc);
-+
-+	return rc;
- }
-diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-index 00ac101..da80e65 100644
---- a/drivers/hwmon/occ/common.h
-+++ b/drivers/hwmon/occ/common.h
-@@ -104,8 +104,25 @@ struct occ {
- 	struct occ_attribute *attrs;
- 	struct attribute_group group;
- 	const struct attribute_group *groups[2];
-+
-+	int error;                      /* latest transfer error */
-+	unsigned int error_count;       /* number of xfr errors observed */
-+	unsigned long last_safe;        /* time OCC entered "safe" state */
-+
-+	/*
-+	 * Store the previous state data for comparison in order to notify
-+	 * sysfs readers of state changes.
-+	 */
-+	int prev_error;
-+	u8 prev_stat;
-+	u8 prev_ext_stat;
-+	u8 prev_occs_present;
- };
- 
- int occ_setup(struct occ *occ, const char *name);
-+int occ_setup_sysfs(struct occ *occ);
-+void occ_shutdown(struct occ *occ);
-+void occ_sysfs_poll_done(struct occ *occ);
-+int occ_update_response(struct occ *occ);
- 
- #endif /* OCC_COMMON_H */
-diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-index a736220..0dc7fa3 100644
---- a/drivers/hwmon/occ/p8_i2c.c
-+++ b/drivers/hwmon/occ/p8_i2c.c
-@@ -223,6 +223,15 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
- 	return occ_setup(occ, "p8_occ");
- }
- 
-+static int p8_i2c_occ_remove(struct i2c_client *client)
-+{
-+	struct occ *occ = dev_get_drvdata(&client->dev);
-+
-+	occ_shutdown(occ);
-+
-+	return 0;
-+}
-+
- static const struct of_device_id p8_i2c_occ_of_match[] = {
- 	{ .compatible = "ibm,p8-occ-hwmon" },
- 	{}
-@@ -236,6 +245,7 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
- 		.of_match_table = p8_i2c_occ_of_match,
- 	},
- 	.probe = p8_i2c_occ_probe,
-+	.remove = p8_i2c_occ_remove,
- };
- 
- module_i2c_driver(p8_i2c_occ_driver);
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index d32f266..311bc59 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -86,6 +86,7 @@ static int p9_sbe_occ_remove(struct platform_device *pdev)
- 	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
- 
- 	ctx->sbe = NULL;
-+	occ_shutdown(occ);
- 
- 	return 0;
- }
-diff --git a/drivers/hwmon/occ/sysfs.c b/drivers/hwmon/occ/sysfs.c
-new file mode 100644
-index 0000000..743b26ec
---- /dev/null
-+++ b/drivers/hwmon/occ/sysfs.c
-@@ -0,0 +1,188 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * OCC hwmon driver sysfs interface
-+ *
-+ * Copyright (C) IBM Corporation 2018
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/device.h>
-+#include <linux/hwmon-sysfs.h>
-+#include <linux/kernel.h>
-+#include <linux/sysfs.h>
-+
-+#include "common.h"
-+
-+/* OCC status register */
-+#define OCC_STAT_MASTER			BIT(7)
-+#define OCC_STAT_ACTIVE			BIT(0)
-+
-+/* OCC extended status register */
-+#define OCC_EXT_STAT_DVFS_OT		BIT(7)
-+#define OCC_EXT_STAT_DVFS_POWER		BIT(6)
-+#define OCC_EXT_STAT_MEM_THROTTLE	BIT(5)
-+#define OCC_EXT_STAT_QUICK_DROP		BIT(4)
-+
-+static ssize_t occ_sysfs_show(struct device *dev,
-+			      struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	int val = 0;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_poll_response_header *header;
-+	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	header = (struct occ_poll_response_header *)occ->resp.data;
-+
-+	switch (sattr->index) {
-+	case 0:
-+		val = !!(header->status & OCC_STAT_MASTER);
-+		break;
-+	case 1:
-+		val = !!(header->status & OCC_STAT_ACTIVE);
-+		break;
-+	case 2:
-+		val = !!(header->status & OCC_EXT_STAT_DVFS_OT);
-+		break;
-+	case 3:
-+		val = !!(header->status & OCC_EXT_STAT_DVFS_POWER);
-+		break;
-+	case 4:
-+		val = !!(header->status & OCC_EXT_STAT_MEM_THROTTLE);
-+		break;
-+	case 5:
-+		val = !!(header->status & OCC_EXT_STAT_QUICK_DROP);
-+		break;
-+	case 6:
-+		val = header->occ_state;
-+		break;
-+	case 7:
-+		if (header->status & OCC_STAT_MASTER)
-+			val = hweight8(header->occs_present);
-+		else
-+			val = 1;
-+		break;
-+	case 8:
-+		val = occ->error;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static SENSOR_DEVICE_ATTR(occ_master, 0444, occ_sysfs_show, NULL, 0);
-+static SENSOR_DEVICE_ATTR(occ_active, 0444, occ_sysfs_show, NULL, 1);
-+static SENSOR_DEVICE_ATTR(occ_dvfs_overtemp, 0444, occ_sysfs_show, NULL, 2);
-+static SENSOR_DEVICE_ATTR(occ_dvfs_power, 0444, occ_sysfs_show, NULL, 3);
-+static SENSOR_DEVICE_ATTR(occ_mem_throttle, 0444, occ_sysfs_show, NULL, 4);
-+static SENSOR_DEVICE_ATTR(occ_quick_pwr_drop, 0444, occ_sysfs_show, NULL, 5);
-+static SENSOR_DEVICE_ATTR(occ_state, 0444, occ_sysfs_show, NULL, 6);
-+static SENSOR_DEVICE_ATTR(occs_present, 0444, occ_sysfs_show, NULL, 7);
-+static SENSOR_DEVICE_ATTR(occ_error, 0444, occ_sysfs_show, NULL, 8);
-+
-+static struct attribute *occ_attributes[] = {
-+	&sensor_dev_attr_occ_master.dev_attr.attr,
-+	&sensor_dev_attr_occ_active.dev_attr.attr,
-+	&sensor_dev_attr_occ_dvfs_overtemp.dev_attr.attr,
-+	&sensor_dev_attr_occ_dvfs_power.dev_attr.attr,
-+	&sensor_dev_attr_occ_mem_throttle.dev_attr.attr,
-+	&sensor_dev_attr_occ_quick_pwr_drop.dev_attr.attr,
-+	&sensor_dev_attr_occ_state.dev_attr.attr,
-+	&sensor_dev_attr_occs_present.dev_attr.attr,
-+	&sensor_dev_attr_occ_error.dev_attr.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group occ_sysfs = {
-+	.attrs = occ_attributes,
-+};
-+
-+void occ_sysfs_poll_done(struct occ *occ)
-+{
-+	const char *name;
-+	struct occ_poll_response_header *header =
-+		(struct occ_poll_response_header *)occ->resp.data;
-+
-+	/*
-+	 * On the first poll response, we haven't yet created the sysfs
-+	 * attributes, so don't make any notify calls.
-+	 */
-+	if (!occ->hwmon)
-+		goto done;
-+
-+	if ((header->status & OCC_STAT_MASTER) !=
-+	    (occ->prev_stat & OCC_STAT_MASTER)) {
-+		name = sensor_dev_attr_occ_master.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->status & OCC_STAT_ACTIVE) !=
-+	    (occ->prev_stat & OCC_STAT_ACTIVE)) {
-+		name = sensor_dev_attr_occ_active.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_DVFS_OT) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_DVFS_OT)) {
-+		name = sensor_dev_attr_occ_dvfs_overtemp.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_DVFS_POWER) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_DVFS_POWER)) {
-+		name = sensor_dev_attr_occ_dvfs_power.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_MEM_THROTTLE) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_MEM_THROTTLE)) {
-+		name = sensor_dev_attr_occ_mem_throttle.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->ext_status & OCC_EXT_STAT_QUICK_DROP) !=
-+	    (occ->prev_ext_stat & OCC_EXT_STAT_QUICK_DROP)) {
-+		name = sensor_dev_attr_occ_quick_pwr_drop.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if ((header->status & OCC_STAT_MASTER) &&
-+	    header->occs_present != occ->prev_occs_present) {
-+		name = sensor_dev_attr_occs_present.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	if (occ->error && occ->error != occ->prev_error) {
-+		name = sensor_dev_attr_occ_error.dev_attr.attr.name;
-+		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
-+	}
-+
-+	/* no notifications for OCC state; doesn't indicate error condition */
-+
-+done:
-+	occ->prev_error = occ->error;
-+	occ->prev_stat = header->status;
-+	occ->prev_ext_stat = header->ext_status;
-+	occ->prev_occs_present = header->occs_present;
-+}
-+
-+int occ_setup_sysfs(struct occ *occ)
-+{
-+	return sysfs_create_group(&occ->bus_dev->kobj, &occ_sysfs);
-+}
-+
-+void occ_shutdown(struct occ *occ)
-+{
-+	sysfs_remove_group(&occ->bus_dev->kobj, &occ_sysfs);
-+}
--- 
-1.8.3.1
+> > It is hard to say for sure, though, as neither his patch itself, nor his post to the mailing list contained any rationale for the change.
+> >
+> > It is for sure though that for OpenPOWER systems using this chip as PNOR (BIOS flash in x86 terms), commit d342b6a973af broke host booting.
+>
+> I CCed him, so maybe he can clarify.
+>
+> But this is weird. If you reboot the system, isn't the SPI NOR
+> power-cycled and reset into defined default state ? If not, your
+> hardware is severely broken and you should fix your reset routing.
+
+I guess it was clarified below already but will say it again: EN4B is
+not reset on soft reboot, there is no power cycle. So the system won't
+boot.
+There was a quirk for shutdown, which would EX4B. But it was clumsy
+and probably never sent upstream. SPI_NOR_4B_OPCODES is much more
+elegant.
+Sorry for not clarifying this in commit message.
+
+Regards,
+Roman
