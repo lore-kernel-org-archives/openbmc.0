@@ -1,53 +1,46 @@
-Return-Path: <jason.m.bills@intel.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=jason.m.bills@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420Pzb1VlVzF0QC
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 09:27:04 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2018 16:27:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,300,1531810800"; d="scan'208";a="76327547"
-Received: from orsmsx110.amr.corp.intel.com ([10.22.240.8])
- by FMSMGA003.fm.intel.com with ESMTP; 28 Aug 2018 16:26:59 -0700
-Received: from orsmsx158.amr.corp.intel.com (10.22.240.20) by
- ORSMSX110.amr.corp.intel.com (10.22.240.8) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Tue, 28 Aug 2018 16:26:59 -0700
-Received: from orsmsx115.amr.corp.intel.com ([169.254.4.230]) by
- ORSMSX158.amr.corp.intel.com ([169.254.10.59]) with mapi id 14.03.0319.002;
- Tue, 28 Aug 2018 16:26:58 -0700
-From: "Bills, Jason M" <jason.m.bills@intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: 
-Thread-Index: AdQ+9VxtajyD/IcCQmKiG0tbrUk3/QAPiiyAAA6WxeA=
-Date: Tue, 28 Aug 2018 23:26:58 +0000
-Message-ID: <CBC60E0B5DD8E642ACEAB425D566671AAFEAFE8D@ORSMSX115.amr.corp.intel.com>
-References: <CBC60E0B5DD8E642ACEAB425D566671AAFEAFCEC@ORSMSX115.amr.corp.intel.com>
- <01AB2862-40A3-4299-928E-9F39C701DD26@fuzziesquirrel.com>
-In-Reply-To: <01AB2862-40A3-4299-928E-9F39C701DD26@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiODYwOWI1ODMtNWE5ZS00YjBlLTk5MjYtYjMyNzE3NGM5MDhlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiTzdNZnVRd2RMMW5Db1RPTDUrY0I1NDBqRFltXC9KY21JMXQ5MnpJcVVFd25OeHVXU3BRVkRhUFJNbjYyNml0c0cifQ==
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420Tgf21cbzF0kx
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 12:13:34 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="d7LazJL6"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 420Tgd13fvz9s1x;
+ Wed, 29 Aug 2018 12:13:33 +1000 (AEST)
+Authentication-Results: ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1535508814; bh=wnnFdblqwj72yTOdKKK2fi9wHN4cn9cx0d/blPzwHXU=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=d7LazJL63mkHm2G+SknKIssa29I8gt/ohkyYznTL8fVUAbmhdTR0kGahUqjlPElMU
+ E52BjM+gO0NDX7UAn9fk3Px5l8qZkms0JauuikHz9HV29im/CZhaUS3UZwmCdSIkPh
+ GO7gMznWz0FPjSg2CzEI5B6DEXUgl84q8gXWeTk1aKMLyNVljphKmmbKJLZF9VQA1p
+ aKKk42gVXJ+rHqs33D81T5nyoYbeFlZ/hGhKMwJBarqnFqOqYvyygHDLR4/1W92a/U
+ JHBBCsqQyd1/qLJq59T2wu7FyxQSDq4jjCYB2Dp7YuJFVY2CqPy1WMKTj130HTdSXb
+ J+nutqmB96amQ==
+Subject: Re: SOL Logging
+To: Rebecca Broekhuis <beccabroek@gmail.com>
+Cc: ed.tanous@intel.com, openbmc@lists.ozlabs.org
+References: <7E9441B1E5EFFD4681F54958E821699345835738@ORSMSX114.amr.corp.intel.com>
+ <d94fd642-a114-1ed8-aa89-e2951848adbb@ozlabs.org>
+ <CABzWfrk0XZy0SibsaUqqBDWzXa9uXSsioeF7z1HWXOts=M3y=g@mail.gmail.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <e5ada65d-d977-4777-06d4-ec41add29b72@ozlabs.org>
+Date: Wed, 29 Aug 2018 10:13:31 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
+In-Reply-To: <CABzWfrk0XZy0SibsaUqqBDWzXa9uXSsioeF7z1HWXOts=M3y=g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-AU
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -59,71 +52,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Aug 2018 23:27:08 -0000
+X-List-Received-Date: Wed, 29 Aug 2018 02:13:34 -0000
 
-SGVyZSBpcyBhIGxpbmsgdG8gdGhlIGlzc3VlOiBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9v
-cGVuYm1jL2lzc3Vlcy8zMjgzI2lzc3VlY29tbWVudC00MTQzNjEzMjUuDQoNClRoZSBtYWluIHRo
-aW5ncyB0aGF0IHN0YXJ0ZWQgdGhpcyBwcm9vZi1vZi1jb25jZXB0IGFyZSB0aGF0IHdlIGhhdmUg
-cmVxdWlyZW1lbnRzIHRvIGJlIGZ1bGx5IElQTUkgY29tcGxpYW50IGFuZCB0byBzdXBwb3J0IDQw
-MDArIFNFTCBlbnRyaWVzLiAgT3VyIGF0dGVtcHRzIHRvIHNjYWxlIHRoZSBELUJ1cyBsb2dzIHRv
-IHRoYXQgbGV2ZWwgd2VyZSBub3Qgc3VjY2Vzc2Z1bCwgc28gd2Ugc3RhcnRlZCBjb25zaWRlcmlu
-ZyBkaXJlY3RseSBhY2Nlc3Npbmcgam91cm5hbGQgYXMgYW4gYWx0ZXJuYXRpdmUuDQoNClNvIGZh
-ciwgSSd2ZSBiZWVuIGZvY3VzZWQgb25seSBvbiBJUE1JIFNFTCwgc28gSSBoYWRuJ3QgY29uc2lk
-ZXJlZCBleHRlbmRpbmcgdGhlIGNoYW5nZSB0byBub24tSVBNSSBlcnJvciBsb2dzOyBob3dldmVy
-LCB0aGVzZSBJUE1JIFNFTCBlbnRyaWVzIHNob3VsZCBzdGlsbCBmaXQgaW4gd2VsbCBhcyBhIHN1
-YnNldCBvZiBhbGwgb3RoZXIgZXJyb3IgbG9ncyB3aGljaCBjb3VsZCBhbHNvIGJlIG1vdmVkIHRv
-IHRoZSBqb3VybmFsLg0KDQpNeSBnb2FsIGlzIHRvIGFsaWduIHdpdGggdGhlIE9wZW5CTUMgZGVz
-aWduIGFuZCBrZWVwIGFueXRoaW5nIElQTUktcmVsYXRlZCBpc29sYXRlZCBvbmx5IHRvIHRoaW5n
-cyB0aGF0IGNhcmUgYWJvdXQgSVBNSS4gIE15IHRoaW5raW5nIHdhcyB0aGF0IHRoZSBtZXRhZGF0
-YSBpcyBhIGJpdCBsaWtlIGJhY2tncm91bmQgaW5mbywgc28gaXQgaXMgYSBnb29kIHBsYWNlIHRv
-IGhpZGUgZGF0YSB0aGF0IG9ubHkgbWF0dGVycyB0byB0aGUgbWlub3JpdHksIHN1Y2ggYXMgdGhl
-IElQTUktc3BlY2lmaWMgZGF0YS4gIFdpdGggdGhpcywgdGhlIElQTUkgU0VMIGxvZ3MgY2FuIGJl
-IGluY2x1ZGVkIGFtb25nIGFsbCB0aGUgZXhpc3RpbmcgZXJyb3IgbG9ncyBidXQgc3RpbGwgaGF2
-ZSB0aGUgbWV0YWRhdGEgZm9yIGFkZGl0aW9uYWwgSVBNSSBzdHVmZiB0aGF0IGRvZXNuJ3QgbWF0
-dGVyIGZvciBhbnlvbmUgZWxzZS4NCg0KU28sIGZvciB3cml0aW5nIGxvZ3M6DQpBLiBub24tSVBN
-SSBlcnJvciBsb2dzIGNhbiBiZSB3cml0dGVuIGFzIG5vcm1hbA0KQi4gSVBNSSBTRUwgZW50cmll
-cyBhcmUgd3JpdHRlbiB3aXRoIHRoZSBJUE1JLXNwZWNpZmljIG1ldGFkYXRhIHBvcHVsYXRlZA0K
-DQpGb3IgcmVhZGluZyBsb2dzOg0KQS4gbm9uLUlQTUkgcmVhZGVycyBzZWUgSVBNSSBTRUwgZW50
-cmllcyBhcyBub3JtYWwgdGV4dCBsb2dzDQpCLiBJUE1JIHJlYWRlcnMgZHVtcCBqdXN0IHRoZSBJ
-UE1JIFNFTCBlbnRyaWVzIGFuZCBnZXQgdGhlIGFzc29jaWF0ZWQgSVBNSS1zcGVjaWZpYyBpbmZv
-IGZyb20gdGhlIG1ldGFkYXRhDQoNClRoYW5rcywNCi1KYXNvbg0KDQotLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQ0KRnJvbTogQnJhZCBCaXNob3AgPGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNv
-bT4gDQpTZW50OiBUdWVzZGF5LCBBdWd1c3QgMjgsIDIwMTggMTA6NTkgQU0NClRvOiBCaWxscywg
-SmFzb24gTSA8amFzb24ubS5iaWxsc0BpbnRlbC5jb20+DQpDYzogb3BlbmJtY0BsaXN0cy5vemxh
-YnMub3JnDQpTdWJqZWN0OiBSZTogDQoNCg0KDQo+IE9uIEF1ZyAyOCwgMjAxOCwgYXQgMTozNCBQ
-TSwgQmlsbHMsIEphc29uIE0gPGphc29uLm0uYmlsbHNAaW50ZWwuY29tPiB3cm90ZToNCj4gDQo+
-IEkganVzdCBhZGRlZCBhIGNvbW1lbnQgdG8gYSBnaXRodWIgZGlzY3Vzc2lvbiBhYm91dCB0aGUg
-SVBNSSBTRUwgYW5kIHRob3VnaHQgSSBzaG91bGQgc2hhcmUgaXQgaGVyZSBhcyB3ZWxsOg0KDQpD
-YW4geW91IHNlbmQgYSBsaW5rIHRvIHRoZSBpc3N1ZT8NCg0KPiANCj4gSSBoYXZlIGJlZW4gd29y
-a2luZyBvbiBhIHByb29mLW9mLWNvbmNlcHQgdG8gbW92ZSB0aGUgSVBNSSBTRUwgZW50cmllcyBv
-dXQgb2YgRC1CdXMgaW50byBqb3VybmFsZCBpbnN0ZWFkLg0KPiANCj4gU2luY2Ugam91cm5hbGQg
-YWxsb3dzIGN1c3RvbSBtZXRhZGF0YSBmb3IgbG9nIGVudHJpZXMsIEkndmUgdGhvdWdodCBvZiBo
-YXZpbmcgdGhlIFNFTCBtZXNzYWdlIGxvZ2dlZCB0byB0aGUgam91cm5hbCBhbmQgdXNpbmcgbWV0
-YWRhdGEgdG8gc3RvcmUgdGhlIG5lY2Vzc2FyeSBJUE1JIGluZm8gYXNzb2NpYXRlZCB3aXRoIHRo
-ZSBlbnRyeS4gSGVyZSBpcyBhbiBleGFtcGxlIG9mIGxvZ2dpbmcgYSB0eXBlIDB4MDIgc3lzdGVt
-IGV2ZW50IGVudHJ5IHRvIGpvdXJuYWxkOg0KPiANCj4gc2Rfam91cm5hbF9zZW5kKCJNRVNTQUdF
-PSVzIiwgbWVzc2FnZS5jX3N0cigpLA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAiUFJJ
-T1JJVFk9JWkiLCBzZWxQcmlvcml0eSwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIk1F
-U1NBR0VfSUQ9JXMiLCBzZWxNZXNzYWdlSWQsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICJJUE1JX1NFTF9SRUNPUkRfSUQ9JWQiLCByZWNvcmRJZCwNCj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIklQTUlfU0VMX1JFQ09SRF9UWVBFPSV4Iiwgc2VsU3lzdGVtVHlwZSwNCj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIklQTUlfU0VMX0dFTkVSQVRPUl9JRD0leCIsIGdlbklk
-LA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAiSVBNSV9TRUxfU0VOU09SX1BBVEg9JXMi
-LCBwYXRoLmNfc3RyKCksDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICJJUE1JX1NFTF9F
-VkVOVF9ESVI9JXgiLCBhc3NlcnQsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICJJUE1J
-X1NFTF9EQVRBPSVzIiwgc2VsRGF0YVN0ciwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-TlVMTCk7DQo+IFVzaW5nIGpvdXJuYWxkIHNob3VsZCBhbGxvdyBmb3Igc2NhbGluZyB0byBtb3Jl
-IFNFTCBlbnRyaWVzIHdoaWNoIHNob3VsZCBhbHNvIGVuYWJsZSB1cyB0byBzdXBwb3J0IG1vcmUg
-Z2VuZXJpYyBJUE1JIGJlaGF2aW9yIHN1Y2ggYXMgdGhlIEFkZCBTRUwgY29tbWFuZC4NCg0KQSBk
-ZXNpZ24gcG9pbnQgb2YgT3BlbkJNQyBmcm9tIGRheSBvbmUgd2FzIHRvIG5vdCBkZXNpZ24gaXQg
-YXJvdW5kIElQTUkuDQpBdCBhIGdsYW5jZSB0aGlzIGZlZWxzIGNvdW50ZXIgdG8gdGhhdCBnb2Fs
-Lg0KDQpJ4oCZbSBub3QgaW1tZWRpYXRlbHkgb3Bwb3NlZCB0byBtb3Zpbmcgb3VyIGVycm9yIGxv
-Z3Mgb3V0IG9mIERCdXMsIGJ1dCBjYW4geW91IHByb3ZpZGUgYW4gZXh0ZW5kaWJsZSBhYnN0cmFj
-dGlvbj8gIE5vdCBldmVyeW9uZSB1c2VzIFNFTCwgb3IgSVBNSSBldmVuLiAgQXQgYSBtaW5pbXVt
-IHBsZWFzZSBkcm9wIHRoZSBsZXR0ZXJzIOKAmGlwbWnigJkgYW5kIOKAmHNlbOKAmSA6LSkgZnJv
-bSB0aGUgYmFzZSBkZXNpZ24sIGFuZCBzYXZlIHRob3NlIGZvciBzb21ldGhpbmcgdGhhdCB0cmFu
-c2xhdGVzIHRvIElQTUktc3BlYWsuDQoNCkFzIHNvbWUgYmFja2dyb3VuZCwgb3VyIHN5c3RlbXMg
-dGVuZCB0b3dhcmRzIGZld2VyIOKAmGVycm9yIGxvZ3PigJkgd2l0aCBtdWNoIG1vcmUgZGF0YSBw
-ZXIgbG9nICg0LTE2ayksIGFuZCB5ZXMgSSBhZG1pdCB0aGUgY3VycmVudCBkZXNpZ24gaXMgYmlh
-c2VkIHRvd2FyZHMgdGhhdCBhbmQgZG9lcyBub3Qgc2NhbGUgd2hlbiB3ZSBhcHByb2FjaCAxMDAw
-cyBvZiBzbWFsbCBTRUwgZW50cmllcy4NCg0KdGh4IC0gYnJhZA0KDQo+IA0KPiAtSmFzb24NCg==
+Hi Rebecca,
+
+> You mentioned the possibility of pre-populating the scrollback buffer of 
+> the console interface. I am wondering if you have any more information about
+> how difficult this would be to implement.
+
+It's easy to do, but difficult to do *correctly*.
+
+A trivial implementation would just:
+  1) serve the backlog at a specific static URL
+  2) when the client established the live console connection, prepend
+     the data from (1) into the session
+
+However, getting the synchronisation between those two (as independent
+channels of data) is difficult, and getting that wrong means either
+missing or duplicated console data. We'd also need to handle the case
+where the backlog has been rotated during the connection.
+
+The logical fix for that would be to combine both channels into the one
+stream (and further up the stack): when any client session connects to
+the obmc-console server, the server replays the backlog before
+outputting live data from the host. Because it's implemented
+console-server-side, it would affect both web UI endpoint and the ssh
+console endpoint.
+
+The downside of that is the large amount of backlog to be transferred at
+the start of the console session, which is typically when you need the
+current data the most. In most cases, this could just be stale data from
+a previous boot. Because of this, I think it'll be a net *loss* in
+usability.
+
+The alternative is just to make the backlog available as a separate
+view, and not try to prepopulate the live console.
+
+The console infrastructure really needs to be simple and correct; we use
+it in low-level debugging, and complications in those situations can
+cause major headaches. Because of this, I've tried to do no alteration
+of the console data, keep the things simple, and treat the console
+channel as opaque between host and client terminal.
+
+Cheers,
+
+
+Jeremy
