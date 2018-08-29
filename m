@@ -1,33 +1,54 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=87.98.165.232; helo=10.mo3.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 1805 seconds by postgrey-1.36 at bilbo;
+ Wed, 29 Aug 2018 22:52:11 AEST
+Received: from 10.mo3.mail-out.ovh.net (10.mo3.mail-out.ovh.net
+ [87.98.165.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420lhF1r5kzF31Q
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 22:45:00 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 096B9EA09B;
- Wed, 29 Aug 2018 08:44:58 -0400 (EDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Subject: Re: Two Google-Origin Daemons
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CAO=notx7e+sfKm3t07-kg3pjrk2H3E5p=jQsZsW=Ekosd7=yyw@mail.gmail.com>
-Date: Wed, 29 Aug 2018 08:44:57 -0400
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420lrW39VrzF31P
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 22:52:09 +1000 (AEST)
+Received: from player718.ha.ovh.net (unknown [10.109.159.132])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 89C881CB1CD
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 14:12:38 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10605-110.w90-89.abo.wanadoo.fr
+ [90.89.196.110]) (Authenticated sender: postmaster@kaod.org)
+ by player718.ha.ovh.net (Postfix) with ESMTPSA id 0C6AC4E00AB;
+ Wed, 29 Aug 2018 14:12:32 +0200 (CEST)
+Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
+To: Marek Vasut <marek.vasut@gmail.com>,
+ Alexander Amelkin <a.amelkin@yadro.com>, linux-mtd@lists.infradead.org
+Cc: openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>,
+ leroi.lists@gmail.com
+References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
+ <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
+ <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
+ <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
+ <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
+ <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
+ <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
+ <c146b739-6ab8-7b2f-9923-588beff7b9d6@gmail.com>
+ <8bc767cd-0000-7e6b-aa1f-0e2a71841f82@yadro.com>
+ <5678bf9c-6d9d-294d-3029-710988108bc3@gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <c8b2b68f-b5fe-00ce-df53-f1d32400460b@kaod.org>
+Date: Wed, 29 Aug 2018 14:12:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <5678bf9c-6d9d-294d-3029-710988108bc3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Message-Id: <56709AAD-BB1E-4611-83E9-4440FAF81541@fuzziesquirrel.com>
-References: <CAO=notx7e+sfKm3t07-kg3pjrk2H3E5p=jQsZsW=Ekosd7=yyw@mail.gmail.com>
-To: Patrick Venture <venture@google.com>
-X-Mailer: Apple Mail (2.3445.9.1)
+X-Ovh-Tracer-Id: 10211349206547598255
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrgeeigdegkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -39,28 +60,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Aug 2018 12:45:01 -0000
+X-List-Received-Date: Wed, 29 Aug 2018 12:52:11 -0000
 
+[ ... ] 
 
+> Ah, so the whole problem is, the ASpeed 2400 SPI NOR controller does
+> memory-mapped read from the flash and that has some limitations when the
+> flash is over 16 MiB in size -- it sends 3 byte standard opcodes with 4
+> byte address ?
 
-> On Aug 28, 2018, at 4:50 PM, Patrick Venture <venture@google.com> wrote:
+yes.
+
+[ ... ]
+
+> To simplify the situation, if the ASpeed 2400 SPI NOR controller tried
+> reading the SPI flash past 16 MiB, it would also require that the flash
+> is in EN4B mode, yes ?
+
+yes.
+
+[ ... ]
+
+>> I start thinking about maybe adding an option to "jedec,spi-nor" DTS
+>> binding like "enable-4byte-mode", so that we could get rid of our
+>> local patch and just specify that option in the devicetree. The
+>> option would force EN4B on the chip if it supports that mode. What do
+>> you think? How do I do it if you approve? Send patches separately in
+>> here and in the devicetree mailing list or cross-post both patches to
+>> both lists?
 > 
-> Brad;
-> 
-> We have two daemons (to start with) that we'd like to send up.  So my
-> question is, should we put these to live under
-> openbmc/google-{reponame} or google/{reponame} and point the recipe in
-> meta-google to google/ or openbmc/ ?
-> 
-> I'm inclined to say the code can live under openbmc/ so that others
-> can see it, and because it uses openbmc stuff.
+> That's an option. But what I think this is really about is a fact that
+> we completely lack any way to negotiate limitations between the SPI NOR
+> and the controller.
 
-This is fine by me.  It would be nice to know what they do.  I may have
-an opinion on what they are called (the repositories).
+what about the hwcaps in spi_nor_scan() ? 
 
-This highlights a concern I have.  The project could use some formal
-criteria for hosting code on openbmc.  Then we could evaluate new
-repository requests based on those criteria.  Open to thoughts on that...
+Thanks,
 
-> 
-> Patrick
+C.
