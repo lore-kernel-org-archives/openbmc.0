@@ -6,50 +6,42 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="Yv+VoMVc"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="nfn15MRb"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420jN375HgzDrJ5
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 21:00:51 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420kB652p0zF31M
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 21:37:18 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 02DF44120E;
- Wed, 29 Aug 2018 11:00:47 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 57BD84120E
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 11:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1535540442; x=
- 1537354843; bh=3HGUknazP/XhHfAHLn8Vj8TsKI5XKsr+tkJ7fARLA8g=; b=Y
- v+VoMVciyN5q1clAyLfOD/sdHAJj12EFtUhufJd9jbRoaLditsQUyS4iTfJyOueW
- +wP2BQXQ9dqF0jkofig1iUgXjA5UDdEuxjaDPnWhHgGABofRLlubBRz53o3bf7ys
- 4Y+sXj5mau2KIMhG/CLLlzArXVNWeQTrg+HeF6Q6QU=
+ :received:received:received; s=mta-01; t=1535542634; x=
+ 1537357035; bh=BYSQ9fG7iu5xItL2uhd6PeVAVjw+YDQ4IeSkdei8abY=; b=n
+ fn15MRbpneIkl7UCSYRcDvwtKUsBViAzyYHDv4GkjasH0dqyfCed4FVkypPXegBy
+ zUGRpvOo2i+iEu8CzfhAgZO8NUh6jLVpMy2ObPzQuZHphK0yfd1HUk0pmPgvW8jB
+ qd9y6xkk7FY+ZrD4LgV+243cIzmEpDTySPTVSClkgg=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id AxfNOwNaXaHw; Wed, 29 Aug 2018 14:00:42 +0300 (MSK)
+ with ESMTP id 5l-fsyhx7cRK for <openbmc@lists.ozlabs.org>;
+ Wed, 29 Aug 2018 14:37:14 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id EE0F541185;
- Wed, 29 Aug 2018 14:00:39 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 011F541185
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 14:37:14 +0300 (MSK)
 Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 29
- Aug 2018 14:00:39 +0300
-Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
-To: Marek Vasut <marek.vasut@gmail.com>, <linux-mtd@lists.infradead.org>
-CC: <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, <leroi.lists@gmail.com>
-References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
- <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
- <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
- <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
- <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
- <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
- <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
- <c146b739-6ab8-7b2f-9923-588beff7b9d6@gmail.com>
+ Aug 2018 14:37:13 +0300
+Subject: Re: SOL Logging
+To: <openbmc@lists.ozlabs.org>, Artem Senichev <a.senichev@yadro.com>
+References: <7E9441B1E5EFFD4681F54958E821699345835738@ORSMSX114.amr.corp.intel.com>
 From: Alexander Amelkin <a.amelkin@yadro.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
@@ -95,15 +87,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  ESE0npJ5eeAcVWPHjhCwL8phZCDtfxJMy2cqYS8QLIBGfQTIHMQAgqBbpq9FLXCn008tvaTr
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <8bc767cd-0000-7e6b-aa1f-0e2a71841f82@yadro.com>
-Date: Wed, 29 Aug 2018 14:00:39 +0300
+Message-ID: <8ec90e03-10ed-a052-7a0b-328d7c6cde64@yadro.com>
+Date: Wed, 29 Aug 2018 14:37:13 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.5.0
 MIME-Version: 1.0
-In-Reply-To: <c146b739-6ab8-7b2f-9923-588beff7b9d6@gmail.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E821699345835738@ORSMSX114.amr.corp.intel.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="At7y39sDnhi00MsXtcxoW3LajFCSkO3nT"
+ boundary="AH1Rb3UVwnw8NCXr9zejardw4qKPr760a"
 X-Originating-IP: [172.17.14.168]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -118,128 +110,199 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Aug 2018 11:00:52 -0000
+X-List-Received-Date: Wed, 29 Aug 2018 11:37:20 -0000
 
---At7y39sDnhi00MsXtcxoW3LajFCSkO3nT
-Content-Type: multipart/mixed; boundary="5qRWUbdHHKRmuDxxwWLgIwP4uIKHBGkee";
+--AH1Rb3UVwnw8NCXr9zejardw4qKPr760a
+Content-Type: multipart/mixed; boundary="NzGsJfHpp1LuHDASenPnypcJpwuss6AmI";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Marek Vasut <marek.vasut@gmail.com>, linux-mtd@lists.infradead.org
-Cc: openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, leroi.lists@gmail.com
-Message-ID: <8bc767cd-0000-7e6b-aa1f-0e2a71841f82@yadro.com>
-Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
-References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
- <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
- <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
- <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
- <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
- <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
- <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
- <c146b739-6ab8-7b2f-9923-588beff7b9d6@gmail.com>
-In-Reply-To: <c146b739-6ab8-7b2f-9923-588beff7b9d6@gmail.com>
+To: openbmc@lists.ozlabs.org, Artem Senichev <a.senichev@yadro.com>
+Message-ID: <8ec90e03-10ed-a052-7a0b-328d7c6cde64@yadro.com>
+Subject: Re: SOL Logging
+References: <7E9441B1E5EFFD4681F54958E821699345835738@ORSMSX114.amr.corp.intel.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E821699345835738@ORSMSX114.amr.corp.intel.com>
 
---5qRWUbdHHKRmuDxxwWLgIwP4uIKHBGkee
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+--NzGsJfHpp1LuHDASenPnypcJpwuss6AmI
+Content-Type: multipart/alternative;
+ boundary="------------8B98422BC85B271D56FB6B16"
 Content-Language: en-US
 
+This is a multi-part message in MIME format.
+--------------8B98422BC85B271D56FB6B16
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
 
-28.08.2018 19:03, Marek Vasut wrote:
+
+25.08.2018 00:02, Tanous, Ed wrote:
 >
->>>> Probably it would be best not to merge this patch into Linux
->>>> kernel. I'll discuss it with colleagues from OpenPOWER community
->>>> and we'll probably fix it on SBE side.
->>> Can you fix the firmware ? If so, that'd be amazing.
->> It turns out that it is impossible to fix that on firmware side
->> mainly because the firmware does not send any opcodes over SPI at
->> all. It relies on the SPI flash controller to do the address mapping
->> so the firmware accesses the chip as a usual memory address range.
->> The flash controller is located in our case inside Aspeed AST2400 BMC
->> SoC and does not support 4B opcodes. It expects the chip to respond
->> to generic READ and WRITE opcodes with (configurable) either 3 or 4
->> address byte cycles. So the only way to make it work is put the chip
->> in EN4B mode when BMC boots.
-> And who does that ? Or is the EN4B set by default and U-Boot/Linux
-> _clears_ it , thus making the board unbootable ?
+> I would like to start a discussion around the feature of SOL logging, a=
+nd how to best implement it.
 >
-> Doesn't it simply mean your board is missing SPI NOR hardware reset lin=
-e?
-No, you're probably just missing it. In servers the BMC is always on when=
- PSUs are connected to mains.
-The flash chip in question is the one used to boot the host (OpenPOWER P8=
-), not the BMC (ASpeed AST2400).
-U-boot on AST2400 has nothing to do with the chip. When BMC boots, it loa=
-ds a driver for the host's chip (because it is connected to the BMC SoC f=
-or the BMC to be able to upgrade the host's firmware), and the driver ini=
-tializes the chip to the right mode. The BMC reads host firmware version =
-info, etc. from the chip. It may also update the firmware or parts of it.=
- Then it powers up the host and the host reads the chip via the memory wi=
-ndow mapped on LPC bus by the BMC.
-The BMC hardware (AST2400 in our case) translates memory transactions int=
-o SPI Flash commands.
-Unfortunately for us, AST2400 (unlike newer models) only supports generic=
- 3-byte commands (READ, READ FAST, PP, etc.), but has a 'hack' that allow=
-s for using 4-byte addresses with those commands. Thus if an over-16MB fl=
-ash chip is connected (and the firmware image itself is over 16MB), and t=
-hus AST2400 is configured in 4-byte address cycle mode, it is crucial tha=
-t the flash chip is in EN4B mode as well. That's what was provided by the=
- spi-nor driver before Roman Yeryomin's commit and by this patch that rev=
-erts that commit. When OpenBMC project upgraded from kernel 4.13 to 4.17,=
- it sucked in the commit made in version 4.15 and thus broke the mechanis=
-m I described above.
-
-The flash chip in question does have a hardware reset line, but it does n=
-ot matter in this case at all. Resetting the chip will bring it into EX4B=
- (3-byte) mode, and that's not what is needed. Basically, that's exactly =
-what is happening now (without this patch).
-
-By the way, the newer AST2500 BMC chip has support for 4-byte commands an=
-d most probably does not have this problem.
-
+> =A0
 >
->> As this is quite a specific case, I
->> guess you won't be willing to remove the SPI_NOR_4B_OPCODES option
->> globally. We'll have to keep the patch local to openbmc project
-> I am more worried about this being actually unfixable in reliable way.
-Well, configuring the chip for EN4B mode before powering on the host is q=
-uite reliable.
-There is no-one to interfere with this setup in-between and even after th=
-e host is booted, as there is no driver in Linux for AST2400-based SPI co=
-ntroller on LPC bus (as seen from the host). There is only driver for tha=
-t peripheral as seen from BMC.
-
+> There is a proposal here https://gerrit.openbmc-project.xyz/#/c/openbmc=
+/phosphor-webui/+/12063/ that proposes dumping the SOL console text buffe=
+r from Javascript into a file, and presenting it to the user as a downloa=
+d.=A0 On its face, it seems to work as designed.=A0 This has some pretty =
+severe limitations, in that you can only dump the console log from your s=
+ession, and your session is essentially destroyed when you switch pages i=
+n the webui, or hit refresh.=A0 I think this is overly limiting, and of t=
+he production BMC stacks that I know of, none of them implement SOL loggi=
+ng in this way.
 >
->>> But still, there can be a software which does rogue transmission on
->>> the SPI bus and flips the flash into 3B mode before reset, so the
->>> system will not boot anyway. Do you have a way to deal with that
->>> somehow ?
->> Sure. As I said, there is no way to turn on the host without BMC
->> knowing/controlling it. The BMC ensures the chip is in the right
->> mode. That's actually the reason why this patch appeared in the first
->> place. Also, there is no rogue software on BMC.
-> OK, but if the BMC puts the chip in a defined state, how come the syste=
-m
-> will refuse to (re)boot if Linux interferes with the chip's volatile
-> register settings ?
-Because it was BMC's Linux that got broken, not host's.
-The commit fetched into BMC's linux while upgrading 4.13 to 4.17 resulted=
- in putting the chip in a wrong state.
+> =A0
+>
+> Instead, other BMCs implement it as a circular buffer inside the BMC it=
+self, which allows SOL to log data all the time, not just while the user =
+is logged in.=A0 I think architecting it this way would be much more usef=
+ul for admins consuming OpenBMC, and make us more useful as a solution.=A0=
+ Doing it this way also can make the SOL log available to IPMI and Redfis=
+h, as well as a file download, which improves the usability quite a bit.=A0=
+ Most places I see the SOL logging requested is for audit type purposes, =
+which the javascript based version can=92t do.
+>
+> =A0
+>
+> I=92m looking for feedback from the community here.=A0 As written, I do=
+n=92t think the javascript console export is a useful feature given its l=
+imitations.=A0 Do others agree?=A0 Am I off base?=A0 Are there use models=
+ where having a log of only the current session is useful?=A0 Should we d=
+ocument the limitations so we can respond to bugs in the future?
+>
+> =A0
+>
+That's exactly what we have implemented in our BMC for YADRO VESNIN.
+We have a circular buffer that constantly logs host console output and al=
+so preserves the first several pages of each host boot. That way we alway=
+s have the last host boot "dmesg" as well as the very last few pages befo=
+re the host dies (or the logs were gathered).
 
-I start thinking about maybe adding an option to "jedec,spi-nor" DTS bind=
-ing like "enable-4byte-mode", so that we could get rid of our local patch=
- and just specify that option in the devicetree. The option would force E=
-N4B on the chip if it supports that mode. What do you think? How do I do =
-it if you approve? Send patches separately in here and in the devicetree =
-mailing list or cross-post both patches to both lists?
-
-Best regards,
 Alexander.
 
+--------------8B98422BC85B271D56FB6B16
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
 
---5qRWUbdHHKRmuDxxwWLgIwP4uIKHBGkee--
+<html>
+  <head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html;
+      charset=3Dwindows-1252">
+  </head>
+  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <br>
+    <div class=3D"moz-cite-prefix">25.08.2018 00:02, Tanous, Ed wrote:<br=
+>
+    </div>
+    <blockquote type=3D"cite"
+cite=3D"mid:7E9441B1E5EFFD4681F54958E821699345835738@ORSMSX114.amr.corp.i=
+ntel.com">
+      <meta http-equiv=3D"Content-Type" content=3D"text/html;
+        charset=3Dwindows-1252">
+      <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+=2EMsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+      <div class=3D"WordSection1">
+        <p class=3D"MsoNormal">I would like to start a discussion around
+          the feature of SOL logging, and how to best implement it.<o:p><=
+/o:p></p>
+        <p class=3D"MsoNormal"><o:p>=A0</o:p></p>
+        <p class=3D"MsoNormal">There is a proposal here <a
+href=3D"https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/1=
+2063/"
+            moz-do-not-send=3D"true">
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/12063/</a=
+>
+          that proposes dumping the SOL console text buffer from
+          Javascript into a file, and presenting it to the user as a
+          download.=A0 On its face, it seems to work as designed.=A0 This=
 
---At7y39sDnhi00MsXtcxoW3LajFCSkO3nT
+          has some pretty severe limitations, in that you can only dump
+          the console log from your session, and your session is
+          essentially destroyed when you switch pages in the webui, or
+          hit refresh.=A0 I think this is overly limiting, and of the
+          production BMC stacks that I know of, none of them implement
+          SOL logging in this way.<o:p></o:p></p>
+        <p class=3D"MsoNormal"><o:p>=A0</o:p></p>
+        <p class=3D"MsoNormal">Instead, other BMCs implement it as a
+          circular buffer inside the BMC itself, which allows SOL to log
+          data all the time, not just while the user is logged in.=A0 I
+          think architecting it this way would be much more useful for
+          admins consuming OpenBMC, and make us more useful as a
+          solution.=A0 Doing it this way also can make the SOL log
+          available to IPMI and Redfish, as well as a file download,
+          which improves the usability quite a bit.=A0 Most places I see
+          the SOL logging requested is for audit type purposes, which
+          the javascript based version can=92t do.<o:p></o:p></p>
+        <p class=3D"MsoNormal"><o:p>=A0</o:p></p>
+        <p class=3D"MsoNormal">I=92m looking for feedback from the commun=
+ity
+          here.=A0 As written, I don=92t think the javascript console exp=
+ort
+          is a useful feature given its limitations.=A0 Do others agree?=A0=
+
+          Am I off base?=A0 Are there use models where having a log of
+          only the current session is useful?=A0 Should we document the
+          limitations so we can respond to bugs in the future?<o:p></o:p>=
+</p>
+        <p class=3D"MsoNormal"><o:p>=A0</o:p><br>
+        </p>
+      </div>
+    </blockquote>
+    That's exactly what we have implemented in our BMC for YADRO VESNIN.<=
+br>
+    We have a circular buffer that constantly logs host console output
+    and also preserves the first several pages of each host boot. That
+    way we always have the last host boot "dmesg" as well as the very
+    last few pages before the host dies (or the logs were gathered).<br>
+    <br>
+    Alexander.<br>
+  </body>
+</html>
+
+--------------8B98422BC85B271D56FB6B16--
+
+--NzGsJfHpp1LuHDASenPnypcJpwuss6AmI--
+
+--AH1Rb3UVwnw8NCXr9zejardw4qKPr760a
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -247,19 +310,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJbhnzXAAoJEOiTWHtbdBeNlGYQAN7NYp94zgc2TWPVMi6WqpxG
-bECXTSCih8BSwMdJ3tdiQop90jU1ChfxFKm023mTGAB4C8rj3ISMvvu9EON5qSNq
-1ZYopHy1SsBHuoLr7yUoraHf92mPR2zPp3Otxl9ZJqtjBWbznbWIqeG84vFXj2Zp
-kE6MsZOaNZoCbrtcUqczcvxGjS7qVyaqD6SgUkXtm1EnUJxA5ByT5zA0PidCXYyD
-nfXGe1i3X9f2/hH/TDLEqqXEj3m3vS5FK+J0I+PsX+T9FmGF5Sr4DM50UH9NO2KC
-ioV5LQUzjDyrkLpAqQai9XnK03y92FjfwD2y7LcsafsRGGgNTI6Yvoeq3CUmLMuh
-Kw/d3/PJ1z5vFxFJlXsgvlPcTm5fw/9/+5pjWeF79zPLreN3b6IfCSixsjJUKQ8Y
-5Rxlp5CR3ZdqgDzw5yoJmt5k0w/LD1S0Kh56ULzmhOor3dF5/MduJ7riPcFk0DO0
-l/BK/5gMcktBdFOdeuuuBTG1UszupY8oDTuNY4MsVTXkNtnycHHdAs7VBQ+RRADg
-aAn7Uo5NwZ+7peBEKRRSJIl+UJOIt647y+ayAhGRNpIXaIutBa4+rb1x4gP9MJqz
-g5SM3kmpcHYEWgGMd3oMp2YGS8hMY4a7T+DrcD0QVHBQvZHEJEnLOA4xDsw147UJ
-OdqKw93/rxWf8WYFHs+0
-=Qrob
+iQIcBAEBCAAGBQJbhoVpAAoJEOiTWHtbdBeN0PIQAIEVHlfNl4lfvUOiT2tIibVY
+pR/ZofPX8m6zVYi+v5lyI+wPqNEc9yieyTodvybcHPkXTjkMQhTkLQCLSG+q5CTq
+Fglokc+J0cqlH477SRpWIV8ApHy9Mrbitep7+zbHZy0tY/qe3ZE2pc/E1LmKJEPf
+K3801ACkOhoJ54DUHaFRlosmCC0dqUPErS/hgwcxOIsm4hZLLCdch8vBgiOLYOWE
+uITt0pGaxaEqqtCEOm+Bjgsb/bwddOCqEQdotmbUL20Y/rBlmJEBYTcydeEYcAcO
+n/gv8iP/E1xCSy+KGmOc29OHt5WA/zimfpVi7uj7ZDTitNel1zrfnAngwSunw3vP
+yYaJwnFWRJ8AZVWxr+BQ92xKHP6A7kFVPbAYwjJIChV28x/BbQxgSQKTYGXTRblO
+GjmimelNewRQc4c8TeATErYHbZID3vyxUM9cnMdFkYXIE6WTbt0jJ/6pdoGcVOfM
+B8rlB4NkWkgJ3AbwZuZRnV5yNf3uc7jL719hTLWMpLlDg37l6qhtU9akNmTHhlvF
+NzXOxWjx6HYr6NH5XXvRUYIImljJt2cINFHlcdNV1NbenwiPkNflBzK9w1GWmNjq
+dxmbBpYUOlD0+qSoGSKiqsytpHxWrqlPn7lP09C+BKiJLlYC4fyZ0qZtBHCimtEY
+fQY7OrHFCJsvkQsOuV4K
+=yJwU
 -----END PGP SIGNATURE-----
 
---At7y39sDnhi00MsXtcxoW3LajFCSkO3nT--
+--AH1Rb3UVwnw8NCXr9zejardw4qKPr760a--
