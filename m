@@ -9,41 +9,41 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 420yth0J3PzF35S
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 07:09:47 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7TL8q0k059036
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 17:09:45 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2m60r15w0q-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 420yth640gzF35S
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 07:09:48 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w7TL8nTW055888
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 17:09:46 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2m61jbuqg6-1
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 17:09:45 -0400
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Aug 2018 17:09:46 -0400
 Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 29 Aug 2018 17:09:43 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Wed, 29 Aug 2018 17:09:45 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 29 Aug 2018 17:09:39 -0400
+ Wed, 29 Aug 2018 17:09:41 -0400
 Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
  [9.57.199.107])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7TL9cxC41615532
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7TL9egB25297046
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 29 Aug 2018 21:09:38 GMT
+ Wed, 29 Aug 2018 21:09:40 GMT
 Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 98345124055;
- Wed, 29 Aug 2018 18:10:16 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id EF316124054;
+ Wed, 29 Aug 2018 18:10:18 -0400 (EDT)
 Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7C015124053;
- Wed, 29 Aug 2018 18:10:15 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id C77D2124052;
+ Wed, 29 Aug 2018 18:10:17 -0400 (EDT)
 Received: from talon7.ibm.com (unknown [9.41.179.222])
  by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Wed, 29 Aug 2018 18:10:15 -0400 (EDT)
+ Wed, 29 Aug 2018 18:10:17 -0400 (EDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: linux-kernel@vger.kernel.org
 Cc: linux-media@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
@@ -53,27 +53,27 @@ Cc: linux-media@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  mturquette@baylibre.com, sboyd@kernel.org,
  linux-arm-kernel@lists.infradead.org,
  Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH 1/4] clock: aspeed: Add VIDEO reset index definition
-Date: Wed, 29 Aug 2018 16:09:30 -0500
+Subject: [PATCH 2/4] clock: aspeed: Setup video engine clocking
+Date: Wed, 29 Aug 2018 16:09:31 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 18082921-0072-0000-0000-000003996080
+x-cbid: 18082921-0064-0000-0000-00000343F7D4
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00009636; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01080715; UDB=6.00557479; IPR=6.00860699; 
- MB=3.00023001; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-29 21:09:42
+ PH=3.00000004; SC=3.00000266; SDB=6.01080714; UDB=6.00557479; IPR=6.00860700; 
+ MB=3.00023001; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-29 21:09:45
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18082921-0073-0000-0000-0000493E894E
-Message-Id: <1535576973-8067-2-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 18082921-0065-0000-0000-00003A781DA4
+Message-Id: <1535576973-8067-3-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-08-29_04:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
  malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
  clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ mlxlogscore=979 adultscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.0.1-1807170000 definitions=main-1808290206
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -86,26 +86,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Aug 2018 21:09:48 -0000
+X-List-Received-Date: Wed, 29 Aug 2018 21:09:49 -0000
 
-Add an index into the array of resets kept in the Aspeed clock driver.
-This isn't a HW bit definition.
+Add the video engine reset bit. Add eclk mux and clock divider table.
 
 Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 ---
- include/dt-bindings/clock/aspeed-clock.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/clk/clk-aspeed.c | 41 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 2 deletions(-)
 
-diff --git a/include/dt-bindings/clock/aspeed-clock.h b/include/dt-bindings/clock/aspeed-clock.h
-index f437386..15a9059 100644
---- a/include/dt-bindings/clock/aspeed-clock.h
-+++ b/include/dt-bindings/clock/aspeed-clock.h
-@@ -50,5 +50,6 @@
- #define ASPEED_RESET_I2C		7
- #define ASPEED_RESET_AHB		8
- #define ASPEED_RESET_CRT1		9
-+#define ASPEED_RESET_VIDEO		10
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index 5961367..f16ce7d 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -87,7 +87,7 @@ struct aspeed_clk_gate {
+ /* TODO: ask Aspeed about the actual parent data */
+ static const struct aspeed_gate_data aspeed_gates[] = {
+ 	/*				 clk rst   name			parent	flags */
+-	[ASPEED_CLK_GATE_ECLK] =	{  0, -1, "eclk-gate",		"eclk",	0 }, /* Video Engine */
++	[ASPEED_CLK_GATE_ECLK] =	{  0,  6, "eclk-gate",		"eclk",	0 }, /* Video Engine */
+ 	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
+ 	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	CLK_IS_CRITICAL }, /* SDRAM */
+ 	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video Capture */
+@@ -113,6 +113,24 @@ struct aspeed_clk_gate {
+ 	[ASPEED_CLK_GATE_LHCCLK] =	{ 28, -1, "lhclk-gate",		"lhclk", 0 }, /* LPC master/LPC+ */
+ };
  
- #endif
++static const char * const eclk_parent_names[] = {
++	"mpll",
++	"hpll",
++	"dpll",
++};
++
++static const struct clk_div_table ast2500_eclk_div_table[] = {
++	{ 0x0, 2 },
++	{ 0x1, 2 },
++	{ 0x2, 3 },
++	{ 0x3, 4 },
++	{ 0x4, 5 },
++	{ 0x5, 6 },
++	{ 0x6, 7 },
++	{ 0x7, 8 },
++	{ 0 }
++};
++
+ static const struct clk_div_table ast2500_mac_div_table[] = {
+ 	{ 0x0, 4 }, /* Yep, really. Aspeed confirmed this is correct */
+ 	{ 0x1, 4 },
+@@ -192,18 +210,21 @@ static struct clk_hw *aspeed_ast2500_calc_pll(const char *name, u32 val)
+ 
+ struct aspeed_clk_soc_data {
+ 	const struct clk_div_table *div_table;
++	const struct clk_div_table *eclk_div_table;
+ 	const struct clk_div_table *mac_div_table;
+ 	struct clk_hw *(*calc_pll)(const char *name, u32 val);
+ };
+ 
+ static const struct aspeed_clk_soc_data ast2500_data = {
+ 	.div_table = ast2500_div_table,
++	.eclk_div_table = ast2500_eclk_div_table,
+ 	.mac_div_table = ast2500_mac_div_table,
+ 	.calc_pll = aspeed_ast2500_calc_pll,
+ };
+ 
+ static const struct aspeed_clk_soc_data ast2400_data = {
+ 	.div_table = ast2400_div_table,
++	.eclk_div_table = ast2400_div_table,
+ 	.mac_div_table = ast2400_div_table,
+ 	.calc_pll = aspeed_ast2400_calc_pll,
+ };
+@@ -317,6 +338,7 @@ struct aspeed_reset {
+ 	[ASPEED_RESET_PECI]	= 10,
+ 	[ASPEED_RESET_I2C]	=  2,
+ 	[ASPEED_RESET_AHB]	=  1,
++	[ASPEED_RESET_VIDEO]	=  6,
+ 
+ 	/*
+ 	 * SCUD4 resets start at an offset to separate them from
+@@ -522,6 +544,22 @@ static int aspeed_clk_probe(struct platform_device *pdev)
+ 		return PTR_ERR(hw);
+ 	aspeed_clk_data->hws[ASPEED_CLK_24M] = hw;
+ 
++	hw = clk_hw_register_mux(dev, "eclk-mux", eclk_parent_names,
++				 ARRAY_SIZE(eclk_parent_names), 0,
++				 scu_base + ASPEED_CLK_SELECTION, 2, 0x3, 0,
++				 &aspeed_clk_lock);
++	if (IS_ERR(hw))
++		return PTR_ERR(hw);
++	aspeed_clk_data->hws[ASPEED_CLK_ECLK_MUX] = hw;
++
++	hw = clk_hw_register_divider_table(dev, "eclk", "eclk-mux", 0,
++					   scu_base + ASPEED_CLK_SELECTION, 28,
++					   3, 0, soc_data->eclk_div_table,
++					   &aspeed_clk_lock);
++	if (IS_ERR(hw))
++		return PTR_ERR(hw);
++	aspeed_clk_data->hws[ASPEED_CLK_ECLK] = hw;
++
+ 	/*
+ 	 * TODO: There are a number of clocks that not included in this driver
+ 	 * as more information is required:
+@@ -531,7 +569,6 @@ static int aspeed_clk_probe(struct platform_device *pdev)
+ 	 *   RGMII
+ 	 *   RMII
+ 	 *   UART[1..5] clock source mux
+-	 *   Video Engine (ECLK) mux and clock divider
+ 	 */
+ 
+ 	for (i = 0; i < ARRAY_SIZE(aspeed_gates); i++) {
 -- 
 1.8.3.1
