@@ -1,49 +1,49 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 421bM7183PzF37M
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 07:33:06 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 421bM804d5zF37M
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 07:33:07 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7ULTSev118373
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:33:04 -0400
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2m6r5tgwu1-1
+ w7ULTg6a073836
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:33:05 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2m6nm46xd5-1
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
  for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:33:04 -0400
 Received: from localhost
- by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 30 Aug 2018 17:33:02 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 30 Aug 2018 17:33:04 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 30 Aug 2018 17:32:57 -0400
+ Thu, 30 Aug 2018 17:32:59 -0400
 Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
  [9.57.199.107])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7ULWuLU46137356
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7ULWw8n42270764
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 30 Aug 2018 21:32:56 GMT
+ Thu, 30 Aug 2018 21:32:58 GMT
 Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 01F01124053;
- Thu, 30 Aug 2018 18:33:34 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id 0515B124053;
+ Thu, 30 Aug 2018 18:33:36 -0400 (EDT)
 Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 16B15124054;
- Thu, 30 Aug 2018 18:33:33 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id 21514124055;
+ Thu, 30 Aug 2018 18:33:35 -0400 (EDT)
 Received: from oc6728276242.ibm.com (unknown [9.85.221.248])
  by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 30 Aug 2018 18:33:32 -0400 (EDT)
+ Thu, 30 Aug 2018 18:33:35 -0400 (EDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: linux-kernel@vger.kernel.org
 Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, jdelvare@suse.com,
@@ -51,21 +51,20 @@ Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, jdelvare@suse.com,
  robh+dt@kernel.org, gregkh@linuxfoundation.org, mark.rutland@arm.com,
  linux@roeck-us.net, joel@jms.id.au, benh@kernel.crashing.org,
  Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH v5 06/10] hwmon (occ): Add command transport method for P8 and
- P9
-Date: Thu, 30 Aug 2018 16:32:37 -0500
+Subject: [PATCH v5 07/10] hwmon (occ): Parse OCC poll response
+Date: Thu, 30 Aug 2018 16:32:38 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 18083021-0064-0000-0000-00000344B698
+x-cbid: 18083021-0068-0000-0000-0000033270C6
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00009641; HX=3.00000242; KW=3.00000007;
  PH=3.00000004; SC=3.00000266; SDB=6.01081201; UDB=6.00557772; IPR=6.00861186; 
  MB=3.00023023; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-30 21:33:02
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18083021-0065-0000-0000-00003A7B290E
-Message-Id: <1535664761-86018-7-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 18083021-0069-0000-0000-00004591F9DC
+Message-Id: <1535664761-86018-8-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-08-30_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -85,285 +84,175 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2018 21:33:07 -0000
+X-List-Received-Date: Thu, 30 Aug 2018 21:33:08 -0000
 
-For the P8 OCC, add the procedure to send a command to the OCC over I2C
-bus. This involves writing the OCC command registers with serial
-communication operations (SCOMs) interpreted by the I2C slave. For the
-P9 OCC, add a procedure to use the OCC in-kernel API to send a command
-to the OCC through the SBE.
+Add method to parse the response from the OCC poll command. This only
+needs to be done during probe(), since the OCC shouldn't change the
+number or format of sensors while it's running. The parsed response
+allows quick access to sensor data, as well as information on the
+number and version of sensors, which we need to instantiate hwmon
+attributes.
 
 Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 ---
- drivers/hwmon/occ/p8_i2c.c | 185 ++++++++++++++++++++++++++++++++++++++++++++-
- drivers/hwmon/occ/p9_sbe.c |  38 +++++++++-
- 2 files changed, 221 insertions(+), 2 deletions(-)
+ drivers/hwmon/occ/common.c | 61 ++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/hwmon/occ/common.h | 55 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 116 insertions(+)
 
-diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-index 85e051d..3e34579 100644
---- a/drivers/hwmon/occ/p8_i2c.c
-+++ b/drivers/hwmon/occ/p8_i2c.c
-@@ -2,11 +2,29 @@
+diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+index 81acd4b..a066509 100644
+--- a/drivers/hwmon/occ/common.c
++++ b/drivers/hwmon/occ/common.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
  
  #include <linux/device.h>
- #include <linux/errno.h>
-+#include <linux/fsi-occ.h>
- #include <linux/i2c.h>
-+#include <linux/jiffies.h>
- #include <linux/module.h>
-+#include <linux/sched.h>
-+#include <asm/unaligned.h>
++#include <linux/kernel.h>
  
  #include "common.h"
  
-+#define OCC_TIMEOUT_MS			1000
-+#define OCC_CMD_IN_PRG_WAIT_MS		50
-+
-+/* OCB (on-chip control bridge - interface to OCC) registers */
-+#define OCB_DATA1			0x6B035
-+#define OCB_ADDR			0x6B070
-+#define OCB_DATA3			0x6B075
-+
-+/* OCC SRAM address space */
-+#define OCC_SRAM_ADDR_CMD		0xFFFF6000
-+#define OCC_SRAM_ADDR_RESP		0xFFFF7000
-+
-+#define OCC_DATA_ATTN			0x20010000
-+
- struct p8_i2c_occ {
- 	struct occ occ;
- 	struct i2c_client *client;
-@@ -14,9 +32,174 @@ struct p8_i2c_occ {
+@@ -22,6 +23,64 @@ static int occ_poll(struct occ *occ)
+ 	return occ->send_cmd(occ, cmd);
+ }
  
- #define to_p8_i2c_occ(x)	container_of((x), struct p8_i2c_occ, occ)
- 
-+static int p8_i2c_occ_getscom(struct i2c_client *client, u32 address, u8 *data)
++/* only need to do this once at startup, as OCC won't change sensors on us */
++static void occ_parse_poll_response(struct occ *occ)
 +{
-+	ssize_t rc;
-+	__be64 buf;
-+	struct i2c_msg msgs[2];
-+
-+	/* p8 i2c slave requires shift */
-+	address <<= 1;
-+
-+	msgs[0].addr = client->addr;
-+	msgs[0].flags = client->flags & I2C_M_TEN;
-+	msgs[0].len = sizeof(u32);
-+	/* address is a scom address; bus-endian */
-+	msgs[0].buf = (char *)&address;
-+
-+	/* data from OCC is big-endian */
-+	msgs[1].addr = client->addr;
-+	msgs[1].flags = (client->flags & I2C_M_TEN) | I2C_M_RD;
-+	msgs[1].len = sizeof(u64);
-+	msgs[1].buf = (char *)&buf;
-+
-+	rc = i2c_transfer(client->adapter, msgs, 2);
-+	if (rc < 0)
-+		return rc;
-+
-+	*(u64 *)data = be64_to_cpu(buf);
-+
-+	return 0;
-+}
-+
-+static int p8_i2c_occ_putscom(struct i2c_client *client, u32 address, u8 *data)
-+{
-+	u32 buf[3];
-+	ssize_t rc;
-+
-+	/* p8 i2c slave requires shift */
-+	address <<= 1;
-+
-+	/* address is bus-endian; data passed through from user as-is */
-+	buf[0] = address;
-+	memcpy(&buf[1], &data[4], sizeof(u32));
-+	memcpy(&buf[2], data, sizeof(u32));
-+
-+	rc = i2c_master_send(client, (const char *)buf, sizeof(buf));
-+	if (rc < 0)
-+		return rc;
-+	else if (rc != sizeof(buf))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+static int p8_i2c_occ_putscom_u32(struct i2c_client *client, u32 address,
-+				  u32 data0, u32 data1)
-+{
-+	u8 buf[8];
-+
-+	memcpy(buf, &data0, 4);
-+	memcpy(buf + 4, &data1, 4);
-+
-+	return p8_i2c_occ_putscom(client, address, buf);
-+}
-+
-+static int p8_i2c_occ_putscom_be(struct i2c_client *client, u32 address,
-+				 u8 *data)
-+{
-+	__be32 data0, data1;
-+
-+	memcpy(&data0, data, 4);
-+	memcpy(&data1, data + 4, 4);
-+
-+	return p8_i2c_occ_putscom_u32(client, address, be32_to_cpu(data0),
-+				      be32_to_cpu(data1));
-+}
-+
- static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
- {
--	return -EOPNOTSUPP;
-+	int i, rc;
-+	unsigned long start;
-+	u16 data_length;
-+	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
-+	const long wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
-+	struct p8_i2c_occ *ctx = to_p8_i2c_occ(occ);
-+	struct i2c_client *client = ctx->client;
++	unsigned int i, old_offset, offset = 0, size = 0;
++	struct occ_sensor *sensor;
++	struct occ_sensors *sensors = &occ->sensors;
 +	struct occ_response *resp = &occ->resp;
++	struct occ_poll_response *poll =
++		(struct occ_poll_response *)&resp->data[0];
++	struct occ_poll_response_header *header = &poll->header;
++	struct occ_sensor_data_block *block = &poll->block;
 +
-+	start = jiffies;
++	dev_info(occ->bus_dev, "OCC found, code level: %.16s\n",
++		 header->occ_code_level);
 +
-+	/* set sram address for command */
-+	rc = p8_i2c_occ_putscom_u32(client, OCB_ADDR, OCC_SRAM_ADDR_CMD, 0);
-+	if (rc)
-+		return rc;
++	for (i = 0; i < header->num_sensor_data_blocks; ++i) {
++		block = (struct occ_sensor_data_block *)((u8 *)block + offset);
++		old_offset = offset;
++		offset = (block->header.num_sensors *
++			  block->header.sensor_length) + sizeof(block->header);
++		size += offset;
 +
-+	/* write command (expected to already be BE), we need bus-endian... */
-+	rc = p8_i2c_occ_putscom_be(client, OCB_DATA3, cmd);
-+	if (rc)
-+		return rc;
-+
-+	/* trigger OCC attention */
-+	rc = p8_i2c_occ_putscom_u32(client, OCB_DATA1, OCC_DATA_ATTN, 0);
-+	if (rc)
-+		return rc;
-+
-+	do {
-+		/* set sram address for response */
-+		rc = p8_i2c_occ_putscom_u32(client, OCB_ADDR,
-+					    OCC_SRAM_ADDR_RESP, 0);
-+		if (rc)
-+			return rc;
-+
-+		rc = p8_i2c_occ_getscom(client, OCB_DATA3, (u8 *)resp);
-+		if (rc)
-+			return rc;
-+
-+		/* wait for OCC */
-+		if (resp->return_status == OCC_RESP_CMD_IN_PRG) {
-+			rc = -EALREADY;
-+
-+			if (time_after(jiffies, start + timeout))
-+				break;
-+
-+			set_current_state(TASK_INTERRUPTIBLE);
-+			schedule_timeout(wait_time);
++		/* validate all the length/size fields */
++		if ((size + sizeof(*header)) >= OCC_RESP_DATA_BYTES) {
++			dev_warn(occ->bus_dev, "exceeded response buffer\n");
++			return;
 +		}
-+	} while (rc);
 +
-+	/* check the OCC response */
-+	switch (resp->return_status) {
-+	case OCC_RESP_CMD_IN_PRG:
-+		rc = -ETIMEDOUT;
-+		break;
-+	case OCC_RESP_SUCCESS:
-+		rc = 0;
-+		break;
-+	case OCC_RESP_CMD_INVAL:
-+	case OCC_RESP_CMD_LEN_INVAL:
-+	case OCC_RESP_DATA_INVAL:
-+	case OCC_RESP_CHKSUM_ERR:
-+		rc = -EINVAL;
-+		break;
-+	case OCC_RESP_INT_ERR:
-+	case OCC_RESP_BAD_STATE:
-+	case OCC_RESP_CRIT_EXCEPT:
-+	case OCC_RESP_CRIT_INIT:
-+	case OCC_RESP_CRIT_WATCHDOG:
-+	case OCC_RESP_CRIT_OCB:
-+	case OCC_RESP_CRIT_HW:
-+		rc = -EREMOTEIO;
-+		break;
-+	default:
-+		rc = -EPROTO;
++		dev_dbg(occ->bus_dev, " %04x..%04x: %.4s (%d sensors)\n",
++			old_offset, offset - 1, block->header.eye_catcher,
++			block->header.num_sensors);
++
++		/* match sensor block type */
++		if (strncmp(block->header.eye_catcher, "TEMP", 4) == 0)
++			sensor = &sensors->temp;
++		else if (strncmp(block->header.eye_catcher, "FREQ", 4) == 0)
++			sensor = &sensors->freq;
++		else if (strncmp(block->header.eye_catcher, "POWR", 4) == 0)
++			sensor = &sensors->power;
++		else if (strncmp(block->header.eye_catcher, "CAPS", 4) == 0)
++			sensor = &sensors->caps;
++		else if (strncmp(block->header.eye_catcher, "EXTN", 4) == 0)
++			sensor = &sensors->extended;
++		else {
++			dev_warn(occ->bus_dev, "sensor not supported %.4s\n",
++				 block->header.eye_catcher);
++			continue;
++		}
++
++		sensor->num_sensors = block->header.num_sensors;
++		sensor->version = block->header.sensor_format;
++		sensor->data = &block->data;
 +	}
 +
-+	if (rc < 0)
-+		return rc;
++	dev_dbg(occ->bus_dev, "Max resp size: %u+%zd=%zd\n", size,
++		sizeof(*header), size + sizeof(*header));
++}
 +
-+	data_length = get_unaligned_be16(&resp->data_length);
-+	if (data_length > OCC_RESP_DATA_BYTES)
-+		return -EMSGSIZE;
-+
-+	/* fetch the rest of the response data */
-+	for (i = 8; i < data_length + 7; i += 8) {
-+		rc = p8_i2c_occ_getscom(client, OCB_DATA3, ((u8 *)resp) + i);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	return 0;
- }
- 
- static int p8_i2c_occ_probe(struct i2c_client *client,
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index b965e74..377c806 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -2,6 +2,7 @@
- 
- #include <linux/device.h>
- #include <linux/errno.h>
-+#include <linux/fsi-occ.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- 
-@@ -16,7 +17,42 @@ struct p9_sbe_occ {
- 
- static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ int occ_setup(struct occ *occ, const char *name)
  {
--	return -EOPNOTSUPP;
-+	struct occ_response *resp = &occ->resp;
-+	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
-+	size_t resp_len = sizeof(*resp);
-+	int rc;
-+
-+	rc = fsi_occ_submit(ctx->sbe, cmd, 8, resp, &resp_len);
-+	if (rc < 0)
-+		return rc;
-+
-+	switch (resp->return_status) {
-+	case OCC_RESP_CMD_IN_PRG:
-+		rc = -ETIMEDOUT;
-+		break;
-+	case OCC_RESP_SUCCESS:
-+		rc = 0;
-+		break;
-+	case OCC_RESP_CMD_INVAL:
-+	case OCC_RESP_CMD_LEN_INVAL:
-+	case OCC_RESP_DATA_INVAL:
-+	case OCC_RESP_CHKSUM_ERR:
-+		rc = -EINVAL;
-+		break;
-+	case OCC_RESP_INT_ERR:
-+	case OCC_RESP_BAD_STATE:
-+	case OCC_RESP_CRIT_EXCEPT:
-+	case OCC_RESP_CRIT_INIT:
-+	case OCC_RESP_CRIT_WATCHDOG:
-+	case OCC_RESP_CRIT_OCB:
-+	case OCC_RESP_CRIT_HW:
-+		rc = -EREMOTEIO;
-+		break;
-+	default:
-+		rc = -EPROTO;
-+	}
-+
-+	return rc;
- }
+ 	int rc;
+@@ -36,5 +95,7 @@ int occ_setup(struct occ *occ, const char *name)
+ 		return rc;
+ 	}
  
- static int p9_sbe_occ_probe(struct platform_device *pdev)
++	occ_parse_poll_response(occ);
++
+ 	return 0;
+ }
+diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
+index b44fee2..0a7a107 100644
+--- a/drivers/hwmon/occ/common.h
++++ b/drivers/hwmon/occ/common.h
+@@ -20,10 +20,65 @@ struct occ_response {
+ 	__be16 checksum;
+ } __packed;
+ 
++struct occ_sensor_data_block_header {
++	u8 eye_catcher[4];
++	u8 reserved;
++	u8 sensor_format;
++	u8 sensor_length;
++	u8 num_sensors;
++} __packed;
++
++struct occ_sensor_data_block {
++	struct occ_sensor_data_block_header header;
++	u32 data;
++} __packed;
++
++struct occ_poll_response_header {
++	u8 status;
++	u8 ext_status;
++	u8 occs_present;
++	u8 config_data;
++	u8 occ_state;
++	u8 mode;
++	u8 ips_status;
++	u8 error_log_id;
++	__be32 error_log_start_address;
++	__be16 error_log_length;
++	u16 reserved;
++	u8 occ_code_level[16];
++	u8 eye_catcher[6];
++	u8 num_sensor_data_blocks;
++	u8 sensor_data_block_header_version;
++} __packed;
++
++struct occ_poll_response {
++	struct occ_poll_response_header header;
++	struct occ_sensor_data_block block;
++} __packed;
++
++struct occ_sensor {
++	u8 num_sensors;
++	u8 version;
++	void *data;	/* pointer to sensor data start within response */
++};
++
++/*
++ * OCC only provides one sensor data block of each type, but any number of
++ * sensors within that block.
++ */
++struct occ_sensors {
++	struct occ_sensor temp;
++	struct occ_sensor freq;
++	struct occ_sensor power;
++	struct occ_sensor caps;
++	struct occ_sensor extended;
++};
++
+ struct occ {
+ 	struct device *bus_dev;
+ 
+ 	struct occ_response resp;
++	struct occ_sensors sensors;
+ 
+ 	u8 poll_cmd_data;		/* to perform OCC poll command */
+ 	int (*send_cmd)(struct occ *occ, u8 *cmd);
 -- 
 1.8.3.1
