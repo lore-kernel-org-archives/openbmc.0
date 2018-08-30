@@ -1,60 +1,37 @@
-Return-Path: <venture@google.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::62f; helo=mail-pl1-x62f.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Ngf43e/y"; 
- dkim-atps=neutral
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 421Ysh68m0zF2vT
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 06:26:00 +1000 (AEST)
-Received: by mail-pl1-x62f.google.com with SMTP id b12-v6so4340035plr.8
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 13:26:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sGqZnUrtXb5iSdMxmltFXzoFPX1D3IG8telGMNzN5QE=;
- b=Ngf43e/yFhB3HIOMJ7Z5s4HzMppNx2Hvj9w8ZK9WuLhIm545JUJjcgDn/O0b5jK1Rx
- xqAMBFM1tnDyVb/cShr4yRd7iPueeD40330lF39QfaYd0NhZx42e0+tLO/GVpihW7D2Y
- wIHbp1Mu7Kvf7HTkTSBvCgbhILThr/XK7i+DcfhMwjya+oFM87P3WeII4csf4Ygo2wTB
- 7rHRP3lSWPrl3gzK9+i/qxG7VEPwHfGo9Ea/iZrb/Pl1gqK8PQ1+kJ0v+SVj5DVXElEJ
- gJDstUuduj3XFlWN7eIYJI1e648bi4SeaDtEKfSb1yMhMTg+w6aeXUJhfvncVtba+wOw
- 9seQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sGqZnUrtXb5iSdMxmltFXzoFPX1D3IG8telGMNzN5QE=;
- b=rZ34qTNfSFQgVQjNPKUBoPbE2Vk0+rDdQMDwhNcnopHpVgkWKsY3JiUTE5nJznkpID
- jLDWyQ4g5gAdJwwkO07TZmtA0l5Vlyrl/j21roy8Z4Y94jSme0sy8RQe9hnDyQ/jyJy5
- t/aZoZVdrypXVWQkoC8lyu+gOwvAgLVnBpMWrdGS0PFl/eEBpREnSArYdIPWA2oHxgLL
- bIeq6buF2UXz4lLzDrQxY1OdTAF1mlLc5rm8rJkmILGvcCurWBJt+QjP3YBeyjhKn5IN
- BMUGemtssIbVdbN2WUgNlZn58+B5Ke0e72MwD2rwdGAs5fZptUCW9b50aXrhVf5Pqul0
- Fpcg==
-X-Gm-Message-State: APzg51DF1FePT+ctogkV/iPm2qe33HrQbGxsNpJdGGULzhS1RhFlhJ+l
- 1G20yZ1snT4ToFE2BiP5c36U/FZgs4Pgo9EQ3VXBzm8H+8c=
-X-Google-Smtp-Source: ANB0VdZ3jVLBMGuUXy5QaM0NRIaAC6jeBUoaUsTm5q0/s6Ut87gVL065rk4dRrwqYgIdlKYkZnuoLfpPtnYp36KJuGk=
-X-Received: by 2002:a17:902:9a06:: with SMTP id
- v6-v6mr11831442plp.316.1535660758677; 
- Thu, 30 Aug 2018 13:25:58 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 421Zrn0TqtzF37J
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 07:10:15 +1000 (AEST)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2018 14:10:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,308,1531810800"; d="scan'208";a="81671938"
+Received: from mauery.jf.intel.com ([10.54.51.74])
+ by fmsmga002.fm.intel.com with ESMTP; 30 Aug 2018 14:10:13 -0700
+Date: Thu, 30 Aug 2018 14:09:58 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Adriana Kobylak <anoo@linux.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Factory Reset for Configuration Settings
+Message-ID: <20180830210958.GA44886@mauery.jf.intel.com>
+References: <6cd1be38c05156b9b6d116fa643224db@linux.vnet.ibm.com>
 MIME-Version: 1.0
-References: <CAARXrt=XaO=t=UuSDjcgZ=Nkh9J7vTQJPEAMG5=_Ca7ukRVekA@mail.gmail.com>
- <CAO=notxjAAF0w70yrmFffNQchEmdcexWjAt9xftiwaRw6-aM7Q@mail.gmail.com>
- <CAARXrt=fojNyiYiZn2qC+8O9nw9AvjT7ux4vtFP9cf4m7GM0Qw@mail.gmail.com>
- <CAO=notzau4N3HLTyGy0YpUBNXy8UvV+8DBN4xQN_yEJ_5wFT=A@mail.gmail.com>
-In-Reply-To: <CAO=notzau4N3HLTyGy0YpUBNXy8UvV+8DBN4xQN_yEJ_5wFT=A@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 30 Aug 2018 13:25:47 -0700
-Message-ID: <CAO=notyKPdWUmo+rmaqEF8UgWOdr9q1nidQugxaS2xFt5DpnXA@mail.gmail.com>
-Subject: Re: Feature request in phosphor-pid-control
-To: Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <6cd1be38c05156b9b6d116fa643224db@linux.vnet.ibm.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -66,35 +43,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2018 20:26:02 -0000
+X-List-Received-Date: Thu, 30 Aug 2018 21:10:18 -0000
 
-On Thu, Aug 30, 2018 at 1:17 PM Patrick Venture <venture@google.com> wrote:
+On 30-Aug-2018 01:33 PM, Adriana Kobylak wrote:
+>This note is to propose a new Factory Reset implementation to clear 
+>out configuration settings and restore them to default. The following 
+>applies for both static and ubi filesystem layouts.
 >
-> On Thu, Jun 14, 2018 at 7:21 PM Lei YU <mine260309@gmail.com> wrote:
-> >
-> > > So, this change really is just, "don't fail if you can't find the
-> > > sensor during start-up, and keep trying until it shows up"
-> > >
-> > > Does that follow?
-> >
-> > Pretty much close.
-> > More like "in any case, don't fail if you can't find the the sensor, and keep
-> > trying".
-> > Note this is applicable to sensors that are unavailable.
-> >
-> > For sensors that are expected to be treated as fault, it should trigger
-> > failsafe, and this is discussed in Ed's mail.
-> >
-> > Putting it together, the feature request is splitted:
-> > 1. For sensors without operation status, we can config them as optional, so
-> >    they do not trigger failsafe;
-> > 2. For sensors with operation status, do not trigger failsafe if it is
-> >    unavailable; trigger failsafe if it is fault.
->
-> Just bumping this back to the top of my list.  I don't know that I'll
-> have to time to restructure the initialization of sensors until a few
-> weeks from now.  However, I'm bumping this now because I'm doing some
-> phosphor-pid-control work again and it's a good time to think about
-> these features -- since I'm already cracking it open.
+>The current Software implementation of the Factory Reset clears the 
+>whole read-write filesystem[1].
+>The reset can be problematic for example if it's issued when the host 
+>is on, since the inventory gets deleted and the fan controller has no 
+>knowledge if the system has working fans, leading to shutting off the 
+>host.
+>This can be unexpected if the user just wants to reset the 
+>configuration data, like user passwords or LDAP settings.
 
-https://github.com/openbmc/phosphor-pid-control/issues/2
+This seems like a very system-specific sort of thing. I can imagine some 
+systems not having any trouble with this, while others might need 
+interaction from the host to behave correctly.
+
+>The /etc dir is intended to contain the configuration files[2], so we 
+>can implement the configuration reset by clearing out the data in /etc 
+>and putting back the defaults. The /etc dir is an overlay, so this can 
+>be accomplished by clearing the overlay's upper dir.
+>
+>Proposal:
+>* Move any configuration file that is currently created in /var to 
+>/etc, like the Time Owner and Reboot Policy (most are currently under 
+>the Settings interface).
+>* Have the init script which mounts the overlay, clear the etc upper 
+>dir before mounting if a u-boot environment variable is set.
+>* Implement a new Reset method under the path 
+>/xyz/openbmc_project/settings/ or configuration/ or 
+>settings/configuration/ or other.
+
+Our BMCs support multiple levels of 'factory reset' with each level 
+removing more and more user data. In addition to my point above, it 
+might be a data-driven reset. /usr/share/system-reset/level-1 contains 
+information to perform a level-1 reset, .../level-2 contains a level-2 
+reset, etc. Where each system may have a different number of levels of 
+resets and each system may have a different list of resets that is could 
+do. Clearly the nuclear option is to just reformat the NV partition and 
+start from ground zero, but what level that is may depend on the system.
+
+The reset manager or settings manager (wherever this lives) can 
+determine the number of levels of reset from the config files and then 
+on the next reboot, the init script can consume the config files to 
+perform the correct operation.
+
+These files can then be stored in platform layers and installed on the 
+appropriate targets.
+
+--Vernon
