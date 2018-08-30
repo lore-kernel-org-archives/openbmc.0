@@ -1,82 +1,89 @@
-Return-Path: <marek.vasut@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::442; helo=mail-wr1-x442.google.com;
- envelope-from=marek.vasut@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="mxqldyP/"; 
- dkim-atps=neutral
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 421PhF716czF374
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 00:17:17 +1000 (AEST)
-Received: by mail-wr1-x442.google.com with SMTP id k5-v6so8222790wre.10
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 07:17:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=s1Xls8e/QGsCTYgN56JvdBiEFb611BHe1LnmSzTEiXc=;
- b=mxqldyP/Aw4A5Ob5mBHHNvft6unE0igdSBMmoVqhCj4+FhwbQAIgcuY8FiSH36Po97
- zrSFXvWcZlUsI9vBPEXAmkGAVoDdmq+AwHdOd6Nk1Infc9FLbV2SOe1ouzhixgosRJl0
- ZCb3iovPBLoy3dyCV2i/DjMdYjGvZOee1PpsSktwbrt7slKrcXLOc0NfczSP/Kt7AMih
- 2Ga1q3A/say1zZvN6xy+rsKdEXdaOr+IH+VU6hr1PyAwA2ECHUS/B9MD/7nauAM6UTTT
- q6LiaWKJJ2G3d5jMSzSEfXU2WW0b4cM8qG5Hz9+LcLiKkqtvNcOxYZbUxCagZuInVFbB
- 60dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=s1Xls8e/QGsCTYgN56JvdBiEFb611BHe1LnmSzTEiXc=;
- b=ZywFUVmbdebc8IZtE79G5fKeGreATMQlBk4Bk0nI1hqn/+6mqV3hueLRpVMMg7bQUB
- mZqbgIJRgmQUZifFtgBNyiRiCrMy+3CUiCu0gIo1dKUE1FW0tAtz3v7FYx253QkRbUHQ
- Jg9F8SJp7XHQNPuURCPjeKQuaoiWrr1THphIJ2ARTGZSnMOmjLxSN58GLezGmonTaeC+
- BOGi1vuqGllY2HRc2gI2CwwuoabBismarNqq4u1B0YnGKOkMTKCb20KQaNRbBLlUuTBx
- VshFCFG5moHbCx4nTXl+7aWQrsm9yPSt7JBZhZMk0R3eFV7Ku2zDovUyDQQIns1LpozX
- ni8A==
-X-Gm-Message-State: APzg51BPw2jO0BoNWSercNKaL9T/hkevt1YcGctIjNbr4XANPsBBBeZd
- mty7x+imJ26cAG2zAu8ChxY=
-X-Google-Smtp-Source: ANB0VdZkTctElKAPagkluUg7PHI/9m9Xhfzng9PoSzDGoEjKLumpdWLoDhNOXwi6l2BnPHt0Sh7CzQ==
-X-Received: by 2002:adf:8167:: with SMTP id
- 94-v6mr7930214wrm.127.1535638634479; 
- Thu, 30 Aug 2018 07:17:14 -0700 (PDT)
-Received: from [192.168.1.4] (ip-86-49-107-50.net.upcbroadband.cz.
- [86.49.107.50])
- by smtp.gmail.com with ESMTPSA id z14-v6sm2094038wma.18.2018.08.30.07.17.13
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Aug 2018 07:17:13 -0700 (PDT)
-Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
-To: Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Alexander Amelkin <a.amelkin@yadro.com>, linux-mtd@lists.infradead.org
-Cc: leroi.lists@gmail.com, openbmc@lists.ozlabs.org,
- Joel Stanley <joel@jms.id.au>
-References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
- <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
- <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
- <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
- <286877dc-22fe-9f49-458a-6a6a0ce0b1c0@yadro.com>
- <c02dc76b-adc7-4c6f-f3c1-3131ce86e0b0@gmail.com>
- <a5ae1f53-b7ae-4054-f11e-d8c44b5931cb@yadro.com>
- <c146b739-6ab8-7b2f-9923-588beff7b9d6@gmail.com>
- <8bc767cd-0000-7e6b-aa1f-0e2a71841f82@yadro.com>
- <5678bf9c-6d9d-294d-3029-710988108bc3@gmail.com>
- <c8b2b68f-b5fe-00ce-df53-f1d32400460b@kaod.org>
- <4c99e942-6641-97ca-bbac-040b05a308cb@wedev4u.fr>
-From: Marek Vasut <marek.vasut@gmail.com>
-Message-ID: <259aa37f-9837-ad38-43e3-4fa71e721a9d@gmail.com>
-Date: Thu, 30 Aug 2018 16:17:12 +0200
+ by lists.ozlabs.org (Postfix) with ESMTPS id 421RXT3q4hzF374
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 01:40:41 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w7UFdXbP076319
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 11:40:38 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2m6hgp60nb-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 11:40:38 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Thu, 30 Aug 2018 09:40:35 -0600
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 30 Aug 2018 09:40:31 -0600
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7UFeU1524707316
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 30 Aug 2018 08:40:30 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 50FD06A06D;
+ Thu, 30 Aug 2018 09:40:30 -0600 (MDT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CDA216A047;
+ Thu, 30 Aug 2018 09:40:22 -0600 (MDT)
+Received: from oc6728276242.ibm.com (unknown [9.85.221.248])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 30 Aug 2018 09:40:22 -0600 (MDT)
+Subject: Re: [PATCH 4/4] media: platform: Add Aspeed Video Engine driver
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-media <linux-media@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ andrew@aj.id.au, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ joel@jms.id.au, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1535576973-8067-5-git-send-email-eajames@linux.vnet.ibm.com>
+ <CAAEAJfBpmFPLTMAr+Azc-53JXHPkCU4bjtwqE6nDWUvm=J_x-A@mail.gmail.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Thu, 30 Aug 2018 10:40:21 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <4c99e942-6641-97ca-bbac-040b05a308cb@wedev4u.fr>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <CAAEAJfBpmFPLTMAr+Azc-53JXHPkCU4bjtwqE6nDWUvm=J_x-A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+x-cbid: 18083015-0020-0000-0000-00000E5B5E22
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009639; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01081084; UDB=6.00557701; IPR=6.00861068; 
+ MB=3.00023018; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-30 15:40:35
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18083015-0021-0000-0000-000062DBB5E7
+Message-Id: <7cb0c2f0-cc12-81a6-a858-40776ec5904c@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-08-30_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1808300162
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -88,55 +95,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2018 14:17:19 -0000
+X-List-Received-Date: Thu, 30 Aug 2018 15:40:42 -0000
 
-On 08/30/2018 04:16 PM, Cyrille Pitchen wrote:
-> Hi all,
-> 
-> Le 29/08/2018 à 14:12, Cédric Le Goater a écrit :
->> [ ... ] 
->>
->>> Ah, so the whole problem is, the ASpeed 2400 SPI NOR controller does
->>> memory-mapped read from the flash and that has some limitations when the
->>> flash is over 16 MiB in size -- it sends 3 byte standard opcodes with 4
->>> byte address ?
->>
->> yes.
->>
->> [ ... ]
->>
->>> To simplify the situation, if the ASpeed 2400 SPI NOR controller tried
->>> reading the SPI flash past 16 MiB, it would also require that the flash
->>> is in EN4B mode, yes ?
->>
->> yes.
->>
->> [ ... ]
->>
->>>> I start thinking about maybe adding an option to "jedec,spi-nor" DTS
->>>> binding like "enable-4byte-mode", so that we could get rid of our
->>>> local patch and just specify that option in the devicetree. The
->>>> option would force EN4B on the chip if it supports that mode. What do
->>>> you think? How do I do it if you approve? Send patches separately in
->>>> here and in the devicetree mailing list or cross-post both patches to
->>>> both lists?
->>>
->>> That's an option. But what I think this is really about is a fact that
->>> we completely lack any way to negotiate limitations between the SPI NOR
->>> and the controller.
->>
->> what about the hwcaps in spi_nor_scan() ? 
->>
-> 
-> Maybe only a matter of taste but I agree with Cedric: a new hwcaps sounds
-> better than a new DT property. There are already different "compatible"
-> strings to make the difference between AST2400 and AST2500, so we can
-> add the new hwcap only to AST2400 entries. Then no need to update any
-> existing device trees, at least in this case.
-> 
 
-Good idea :)
 
--- 
-Best regards,
-Marek Vasut
+On 08/29/2018 07:52 PM, Ezequiel Garcia wrote:
+> Hi Eddie,
+>
+> On 29 August 2018 at 18:09, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+>> can capture and compress video data from digital or analog sources. With
+>> the Aspeed chip acting a service processor, the Video Engine can capture
+>> the host processor graphics output.
+>>
+>> Add a V4L2 driver to capture video data and compress it to JPEG images,
+>> making the data available through a standard read interface.
+>>
+>> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+>> ---
+>>   drivers/media/platform/Kconfig        |    8 +
+>>   drivers/media/platform/Makefile       |    1 +
+>>   drivers/media/platform/aspeed-video.c | 1307 +++++++++++++++++++++++++++++++++
+>>   3 files changed, 1316 insertions(+)
+>>   create mode 100644 drivers/media/platform/aspeed-video.c
+>>
+>> diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
+>> index 94c1fe0..e599245 100644
+>> --- a/drivers/media/platform/Kconfig
+>> +++ b/drivers/media/platform/Kconfig
+>> @@ -32,6 +32,14 @@ source "drivers/media/platform/davinci/Kconfig"
+>>
+>>   source "drivers/media/platform/omap/Kconfig"
+>>
+>> +config VIDEO_ASPEED
+>> +       tristate "Aspeed AST2400 and AST2500 Video Engine driver"
+>> +       depends on VIDEO_V4L2
+> It seems you are not using videobuf2. I think it should simplify the read
+> I/O part and at the same time expose the other capture methods.
+
+Hi,
+
+Well I'm not sure it would simplify the read interface; it's quite 
+simple as it is, both in the driver and to set up in user-space.
+
+I did get streaming I/O working but found the performance significantly 
+worse than simple read calls, and therefore not worth the additional 
+complexity.
+
+Is it required that I support streaming?
+
+Thanks,
+Eddie
+
+>
+> There are plenty of examples to follow.
+>
+> Regards,
+> Eze
+>
