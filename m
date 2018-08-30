@@ -1,72 +1,68 @@
-Return-Path: <kuiying.wang@intel.com>
+Return-Path: <avifishman70@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::244; helo=mail-io0-x244.google.com;
+ envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="YoE/+KGo"; 
+ dkim-atps=neutral
+Received: from mail-io0-x244.google.com (mail-io0-x244.google.com
+ [IPv6:2607:f8b0:4001:c06::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 421DWD2XnzzF31t
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:23:49 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2018 00:23:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,306,1531810800"; d="scan'208";a="85715752"
-Received: from fmsmsx108.amr.corp.intel.com ([10.18.124.206])
- by fmsmga001.fm.intel.com with ESMTP; 30 Aug 2018 00:23:43 -0700
-Received: from fmsmsx157.amr.corp.intel.com (10.18.116.73) by
- FMSMSX108.amr.corp.intel.com (10.18.124.206) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 30 Aug 2018 00:23:44 -0700
-Received: from shsmsx104.ccr.corp.intel.com (10.239.4.70) by
- FMSMSX157.amr.corp.intel.com (10.18.116.73) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 30 Aug 2018 00:23:43 -0700
-Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.226]) by
- SHSMSX104.ccr.corp.intel.com ([169.254.5.143]) with mapi id 14.03.0319.002;
- Thu, 30 Aug 2018 15:23:42 +0800
-From: "Wang, Kuiying" <kuiying.wang@intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: "Tanous, Ed" <ed.tanous@intel.com>, "kunyi731@gmail.com"
- <kunyi731@gmail.com>, "Xu, Qiang" <qiang.xu@intel.com>, "Mihm, James"
- <james.mihm@intel.com>, "Nguyen, Hai V" <hai.v.nguyen@intel.com>, "Feist,
- James" <james.feist@intel.com>, "Jia, Chunhui" <chunhui.jia@intel.com>,
- "venture@google.com" <venture@google.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>, "chunhui.jia@linux.intel.com"
- <chunhui.jia@linux.intel.com>, "Yang, Cheng C" <cheng.c.yang@intel.com>,
- "Li, Yong B" <yong.b.li@intel.com>, "geissonator@yahoo.com"
- <geissonator@yahoo.com>
-Subject: RE: Proposal for caching/buffering POST codes list for one boot
- process.
-Thread-Topic: Proposal for caching/buffering POST codes list for one boot
- process.
-Thread-Index: AQHUP5Kq6+mGqU8Tnkacphv/PMfofaTX4bnA
-Date: Thu, 30 Aug 2018 07:23:40 +0000
-Message-ID: <959CAFA1E282D14FB901BE9A7BF4E77249E068BE@shsmsx102.ccr.corp.intel.com>
-References: <959CAFA1E282D14FB901BE9A7BF4E77249E020C3@shsmsx102.ccr.corp.intel.com>
- <7E9441B1E5EFFD4681F54958E8216993458353D7@ORSMSX114.amr.corp.intel.com>
- <CAO=notwzyahJ3onTynwoSff6y5NamoHRH_PtdwAyt2sgUNZh_A@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E8216993458355BC@ORSMSX114.amr.corp.intel.com>
- <2018082715593358738018@linux.intel.com>
- <7E9441B1E5EFFD4681F54958E821699345835CCF@ORSMSX114.amr.corp.intel.com>
- <CADNDqJzNhd_ApA83F8BubFUaGfrc2+W8TPw6_9PZCPwUvxH-+Q@mail.gmail.com>
- <CADNDqJwvMaGXCiFGO+3iEgNG=S=BLA=CVgZ8N2-e8m==KMGwbw@mail.gmail.com>
- <CADNDqJw8hnOGP3YEW0eS5CN7BLJ6Gu6tTxSugcJFrzrwYS7EJA@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E821699345836607@ORSMSX114.amr.corp.intel.com>
- <959CAFA1E282D14FB901BE9A7BF4E77249E05E02@shsmsx102.ccr.corp.intel.com>
- <2F9169B5-BA73-4157-BEA4-2F80B8051757@fuzziesquirrel.com>
-In-Reply-To: <2F9169B5-BA73-4157-BEA4-2F80B8051757@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 421KJx0WpwzF37n
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 21:00:16 +1000 (AEST)
+Received: by mail-io0-x244.google.com with SMTP id w11-v6so7175505iob.2
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 04:00:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=iYIA8ZN6LOFahXMhBhxrS1NMXaQGnRPdZt/fk8kV9vI=;
+ b=YoE/+KGoecwIlg4NSeiyyJpsMd51H6MuAyU3QtJ9JUvJrEeMP2g2kvYitUyd6uOuhG
+ a0ALHrqHOTeHun9/5Q5RIc9+8MvYqMTFZhYEkGllbL7jmCU5Wa+1568ZD/TgIYDJs1Ez
+ nDdfd+3SCSoGuD/MIdBFObtoxx9lNDT/PnX0GYlP2/Q/AZ90+DgPDLO4ltuuYuv+ErEz
+ 7v3k5XA4pVQ4Oy4/uptaatxQPPjev2YIuwW6rt/qxBSnYF9FrxXkrX2lVh0r+hOXsRnr
+ oI5xej+kP83CVqs6VwMcURhf342dfJ76nOqL4g3hFuvxQjLbBHmwquwCAJagCnpb7q77
+ 2hzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=iYIA8ZN6LOFahXMhBhxrS1NMXaQGnRPdZt/fk8kV9vI=;
+ b=qEfuz2/uQgpOH26MtgI97VeVrc2FbiN3klC8Qz5vsE43MAkoMb9C2wSWR5YwwAbfi3
+ SaFHah+M96sj4/dGhdBjioqDidQbUUFGvoagjFb9H4gy8Dl3UBSU0w4axSAVgV3QJ+9i
+ SbGC+pPyGvZcOgD/O1DVRXx3GJY23LLf0chFsYkyA3J3xBCszQklcfzHFmYOtSjN74TO
+ 6SoTLLwnYd8nsXmmwjDJhd8Ekezwj7ATpeKufTajcnzfMX7f5VVwsDzumkhAttbSsVUg
+ /JJuQLiQ5gFypCNi3hBUsH33wBCjra/0PJq52YQcRlYJduwZX8JWo7UZYWjqGkkDFikR
+ ijbQ==
+X-Gm-Message-State: APzg51Dk2vRUQ5H3J5PYW9Q20Mk5iSyRVq08Fi2AGc3Ma0NmWgHz/8gp
+ nEfaulcfkKAnYChrBa+AcH95WNKGEpS10PLC/w==
+X-Google-Smtp-Source: ANB0VdYlkVAImeBoN+wCEdHOslzvfqyMwB39x9L/G0uJ0Kd3BOtKOZ9lf9INDn0cPspSeTlziLPz7smZLba6UxNYPiQ=
+X-Received: by 2002:a6b:3451:: with SMTP id
+ b78-v6mr8492155ioa.214.1535626814752; 
+ Thu, 30 Aug 2018 04:00:14 -0700 (PDT)
 MIME-Version: 1.0
+References: <tencent_5D1EDC1D8DB78D128D29AA554AADF300AE08@qq.com>
+ <004c4dee-ada1-61f8-6c6c-653be2b3e57f@linux.vnet.ibm.com>
+ <tencent_54C0BC7D36D43C257F35D6C9@qq.com>
+ <17c12028-a8c5-7b39-aa17-afa80b0ec0da@linux.vnet.ibm.com>
+ <7E9441B1E5EFFD4681F54958E821699345835528@ORSMSX114.amr.corp.intel.com>
+ <3d92122e8c42452caee0ece1769ee147@NTHCML01A.nuvoton.com>
+ <7E9441B1E5EFFD4681F54958E821699345835D1C@ORSMSX114.amr.corp.intel.com>
+ <b5c3a139-b2a4-6a35-9ff8-b5b43ade5086@linux.vnet.ibm.com>
+In-Reply-To: <b5c3a139-b2a4-6a35-9ff8-b5b43ade5086@linux.vnet.ibm.com>
+From: Avi Fishman <avifishman70@gmail.com>
+Date: Thu, 30 Aug 2018 13:59:56 +0300
+Message-ID: <CAKKbWA41mE22yQg0u40aTSo2ck__CeVXTcWmzi0wyZk+wr==jA@mail.gmail.com>
+Subject: Re: KVM Support?
+To: eajames@linux.vnet.ibm.com
+Cc: Ed Tanous <ed.tanous@intel.com>, KWLIU@nuvoton.com, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, uri.trichter@nuvoton.com,
+ eyal.cohen@nuvoton.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -78,111 +74,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2018 07:23:53 -0000
+X-List-Received-Date: Thu, 30 Aug 2018 11:00:18 -0000
 
-SGkgQnJhZCwNCjEuIEFjY2VwdCB5b3VyIHN1Z2dlc3Rpb24uDQogICAgIERlZmluZSBhbiBpbnRl
-cmZhY2UgUG9zdENvZGVMaXN0LnlhbWwgdW5kZXIgIi94eXovb3BlbmJtY19wcm9qZWN0L1N0YXRl
-L0Jvb3QgIg0KMi4gQWNjZXB0IHlvdXIgc3VnZ2VzdGlvbg0KICAgIERlZmluZSBhIHByb3BlcnR5
-ICJMaXN0IiB3LyB0eXBlICJhcnJheVt1aW50NjRdIg0KMy4gIEFjY2VwdCB5b3VyIHN1Z2dlc3Rp
-b24NCiAgICBUbyBjcmVhdGUgYSBuZXcgZGJ1cyBvYmplY3QgZm9yIGRpZmZlcmVudCBib290IGN5
-Y2xlIGJ1dCBub3QgdXNpbmcgZW5kIGZsYWcNCjQuIGNvbXBhcmUgdy8gInBob3NwaG9yLWhvc3Qt
-cG9zdGQiLCBpdCBpcyBzdWl0YWJsZSBmb3IgY2xpZW50LiBCdXQgZm9yIG90aGVyIG1vZHVsZSBs
-aWtlIElQTUkgY29tbWFuZCB0b29sLCBpdCBpcyBraW5kIG9mIHNlcnZlci4NCiAgICBIb3cgYWJv
-dXQgInBob3NwaG9yLXBvc3QtY29kZS1tYW5hZ2VyIj8gZG8geW91IHRoaW5rIGl0IGlzIG9rPw0K
-DQoNClRoYW5rcywNCkt1aXlpbmcuDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZy
-b206IEJyYWQgQmlzaG9wIFttYWlsdG86YnJhZGxleWJAZnV6emllc3F1aXJyZWwuY29tXSANClNl
-bnQ6IFdlZG5lc2RheSwgQXVndXN0IDI5LCAyMDE4IDg6MjAgUE0NClRvOiBXYW5nLCBLdWl5aW5n
-IDxrdWl5aW5nLndhbmdAaW50ZWwuY29tPg0KQ2M6IFRhbm91cywgRWQgPGVkLnRhbm91c0BpbnRl
-bC5jb20+OyBrdW55aTczMUBnbWFpbC5jb207IFh1LCBRaWFuZyA8cWlhbmcueHVAaW50ZWwuY29t
-PjsgTWlobSwgSmFtZXMgPGphbWVzLm1paG1AaW50ZWwuY29tPjsgTmd1eWVuLCBIYWkgViA8aGFp
-LnYubmd1eWVuQGludGVsLmNvbT47IEZlaXN0LCBKYW1lcyA8amFtZXMuZmVpc3RAaW50ZWwuY29t
-PjsgSmlhLCBDaHVuaHVpIDxjaHVuaHVpLmppYUBpbnRlbC5jb20+OyB2ZW50dXJlQGdvb2dsZS5j
-b207IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzsgY2h1bmh1aS5qaWFAbGludXguaW50ZWwuY29t
-OyBZYW5nLCBDaGVuZyBDIDxjaGVuZy5jLnlhbmdAaW50ZWwuY29tPjsgTGksIFlvbmcgQiA8eW9u
-Zy5iLmxpQGludGVsLmNvbT47IGdlaXNzb25hdG9yQHlhaG9vLmNvbQ0KU3ViamVjdDogUmU6IFBy
-b3Bvc2FsIGZvciBjYWNoaW5nL2J1ZmZlcmluZyBQT1NUIGNvZGVzIGxpc3QgZm9yIG9uZSBib290
-IHByb2Nlc3MuDQoNCg0KDQo+IE9uIEF1ZyAyOSwgMjAxOCwgYXQgMTI6NDQgQU0sIFdhbmcsIEt1
-aXlpbmcgPGt1aXlpbmcud2FuZ0BpbnRlbC5jb20+IHdyb3RlOg0KPiANCj4gVGhhbmtzIGEgbG90
-IGZvciB5b3UgYWxsIGNvbW1lbnRzIGFuZCBzdWdnZXN0aW9ucy4NCj4gTGV0IG1lIHN1bW1hcnkg
-YW5kIHVwZGF0ZSBteSBzb2x1dGlvbiBub3cuDQo+IDEuIERlZmluZSBhbiBpbnRlcmZhY2UgdG8g
-cG9zdCBjb2RlIGxpc3QgIkNvZGVMaXN0LnlhbWwiIGluICIgcGhvc3Bob3ItZGJ1cy1pbnRlcmZh
-Y2VzIiByZXBvLg0KPiAgICAgVW5kZXIgZm9sZGVyICIgeHl6L29wZW5ibWNfcHJvamVjdC9Qb3N0
-IC/igJwNCg0KSSBzdWdnZXN0IC94eXovb3BlbmJtY19wcm9qZWN0L1N0YXRlL0Jvb3QNCg0KVGhp
-cyBpcyB3aGVyZSBQYXRyaWNrIHB1dCB0aGUgZXhpc3RpbmcgcG9zdCBjb2RlIGludGVyZmFjZSAo
-UmF3KS4NCg0KPiAyLiBEZWZpbmUgYSBwcm9wZXJ0eSAiUG9zdENvZGVMaXN0IiB3LyB0eXBlICJh
-cnJheVt1aW50NjRdIiANCj4gKHN0ZDo6dmVjdG9yPHVpbnQ2NF90PikNCg0KSG93IGFib3V0IGp1
-c3QgTGlzdD8gIG9yIEhpc3Rvcnk/ICBTb21ldGhpbmcgd2l0aG91dCDigJxQb3N04oCdIGluIGl0
-IHBsZWFzZS4NCldlIGhhdmUgYSBzaW1pbGFyIGNvbmNlcHQgb24gUE9XRVIgYW5kIEkgY2FuIGlt
-cGxlbWVudCB0aGlzIGludGVyZmFjZSBidXQgd2UgZG9u4oCZdCBjYWxsIHRoZW0gcG9zdCBjb2Rl
-cy4NCg0KPiAzLiBEZXZlbG9waW5nIGEgcG9zdCBjb2RlIGNsaWVudCB0byBtb25pdG9yIGFuZCBj
-b2xsZWN0IGFsbCB0aGUgcG9zdCBjb2Rlcy4NCj4gICAgICAgIGEpLiBkZWZpbmUgYSAiTUFYX0JP
-T1RfQ1lDTEVfTlVNIiB0byBsaW1pdCBob3cgbWFueSBib290IGN5Y2xlIHBvc3QgY29kZXMgY2Fu
-IGJlIGJ1ZmZlcmVkLg0KPiAgICAgICAgYikuIHdoZW4gYSBwb3N0IGNvZGUgY29tZXMsIHB1c2gg
-YmFjayB0byB0aGUgZW5kIG9mIENvZGVMaXN0IGFycmF5Lg0KPiAgICAgICAgYykuIHdoZW4gYSBi
-b290IGN5Y2xlIGVuZHMsIHB1c2ggZW5kIGZsYWcgbGlrZSAiMHhmZmZmICoqKiBmZmZmICIgdG8g
-dGhlIGVuZCBvZiBDb2RlTGlzdCBhcnJheS4NCg0KQ2FuIHdlIGp1c3QgY3JlYXRlIGEgbmV3IGRi
-dXMgb2JqZWN0IGluIHRoaXMgc2l0dWF0aW9uPyAgUmF0aGVyIHRoYW4gc2hvdmluZyBtdWx0aXBs
-ZSBib290cyBpbnRvIGEgc2luZ2xlIG9iamVjdCB3aXRoIGZmZmYgZGVsaW1ldGVycz8NCg0KPiAg
-ICAgICAgZCkuIHdoZW4gaGl0IHRvIG1heCBib290IGN5Y2xlIG51bWJlciwgZGVsZXRlIG9uZSBj
-eWNsZSBwb3N0IGNvZGUgc2V0IGF0IHRoZSBiZWdpbm5pbmcgb2YgQ29kZUxpc3QgYXJyYXkuDQo+
-ICAgICAgICBlKS4gc2F2ZSBDb2RlTGlzdCBwcm9wZXJ0eSBpbnRvIGZpbGUgc3lzdGVtICIgL3Zh
-ci9saWIvcGhvc3Bob3Itc3RhdGUtbWFuYWdlci9wb3N0Q29kZUxpc3TigJ0NCg0KVGhpcyB3b3Vs
-ZCBiZSB3aGF0ZXZlciB3ZSBjYWxsIHRoaXMgbmV3IGFwcGxpY2F0aW9uLiAgL3Zhci9saWIvcGhv
-c3Bob3Itc3RhdGUtbWFuYWdlciBpcyBmb3IgdGhlIHBob3NwaG9yLXN0YXRlLW1hbmFnZXIgcHJv
-Z3JhbSdzIHN0YXRlIGRhdGEuDQoNCj4gNC4gY3JlYXRlIGEgbmV3IHJlcG8gZm9yIHBvc3QgY29k
-ZSBjbGllbnQgIiBwaG9zcGhvci1ob3N0LXBvc3QtY29kZS1jbGllbnTigJ0uDQoNCldoeSBpcyBp
-dCBhIGNsaWVudD8gIElzIGl0IGFsc28gYSBzZXJ2ZXI/DQoNCj4gDQo+IFRoYW5rcywNCj4gS3Vp
-eWluZy4NCg0KVGhhbmsgeW91IQ0KDQo+IA0KPiANCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdl4oCU
-4oCUDQoNClRoaXMgaXMgY2FsbGVkIHRvcCBwb3N0aW5nLCBwbGVhc2UgdHJ5IHRvIGF2b2lkIHdo
-ZW4gdXNpbmcgdGhlIG1haWwtbGlzdC4NCkl0IG1ha2VzIHRocmVhZGVkIGNvbnZlcnNhdGlvbiBo
-YXJkIHRvIGZvbGxvdyBhbmQgcmVzcG9uZCB0by4gIHRoeC4NCg0KPiBGcm9tOiBUYW5vdXMsIEVk
-DQo+IFNlbnQ6IFR1ZXNkYXksIEF1Z3VzdCAyOCwgMjAxOCAyOjEwIFBNDQo+IFRvOiBrdW55aTcz
-MUBnbWFpbC5jb20NCj4gQ2M6IGNodW5odWkuamlhQGxpbnV4LmludGVsLmNvbTsgdmVudHVyZUBn
-b29nbGUuY29tOyBXYW5nLCBLdWl5aW5nIA0KPiA8a3VpeWluZy53YW5nQGludGVsLmNvbT47IE1p
-aG0sIEphbWVzIDxqYW1lcy5taWhtQGludGVsLmNvbT47IE5ndXllbiwgDQo+IEhhaSBWIDxoYWku
-di5uZ3V5ZW5AaW50ZWwuY29tPjsgRmVpc3QsIEphbWVzIDxqYW1lcy5mZWlzdEBpbnRlbC5jb20+
-OyANCj4gSmlhLCBDaHVuaHVpIDxjaHVuaHVpLmppYUBpbnRlbC5jb20+OyBvcGVuYm1jQGxpc3Rz
-Lm96bGFicy5vcmc7IExpLCANCj4gWW9uZyBCIDx5b25nLmIubGlAaW50ZWwuY29tPjsgWWFuZywg
-Q2hlbmcgQyA8Y2hlbmcuYy55YW5nQGludGVsLmNvbT47IA0KPiBicmFkbGV5YkBmdXp6aWVzcXVp
-cnJlbC5jb207IFh1LCBRaWFuZyA8cWlhbmcueHVAaW50ZWwuY29tPjsgDQo+IGdlaXNzb25hdG9y
-QHlhaG9vLmNvbTsgS3VuIFlpIDxrdW55aUBnb29nbGUuY29tPg0KPiBTdWJqZWN0OiBSRTogUkU6
-IFByb3Bvc2FsIGZvciBjYWNoaW5nL2J1ZmZlcmluZyBQT1NUIGNvZGVzIGxpc3QgZm9yIG9uZSBi
-b290IHByb2Nlc3MuDQo+IA0KPj4gT2J2aW91cyBhbm90aGVyIHRoaW5nIHdlIHdvdWxkIG5lZWQg
-dG8gY29uc2lkZXIgaXMgcGVyZm9ybWFuY2UuIEEgDQo+PiBob3N0IGJvb3Rpbmcgc2Vzc2lvbiBj
-b3VsZCBwcm9kdWNlIGRvemVucyBvciBodW5kcmVkcyBvZiBQT1NUIGNvZGVzIGRlcGVuZGluZyBv
-biBob3cgdmVyYm9zZSB0aGUgQklPUyBpcywgYW5kIHdlIHNob3VsZCBiZSBjYXJlZnVsIG5vdCB0
-byBkZXNpZ24gc29tZXRoaW5nIHRoYXQgY3JlYXRlcyB0b28gbXVjaCBEQnVzIHRyYWZmaWMuIFRo
-ZXNlIGVtYmVkZGVkIHByb2Nlc3NvcnMgYXJlIG5vdCBwZXJmb3JtYW5jZSA/DQo+PiBiZWFzdHMg
-YnkgYW55IG1lYW5zLg0KPiANCj4gSSB3b3VsZCBiZSByZWFsbHkgc3VycHJpc2VkIGlmIFBPU1Qg
-Y29kZXMgd2VyZSBldmVyIGEgcGVyZm9ybWFuY2UgYm90dGxlbmVjayBldmVuIGluIHdpdGggdGhl
-IHdvcnN0IGltcGxlbWVudGF0aW9uIHBvc3NpYmxlLiAgSHVuZHJlZHMgb2YgcG9zdCBjb2RlcyBp
-biBhIG1pbnV0ZSBpcyBzdGlsbCBvcmRlcnMgb2YgbWFnbml0dWRlIGxlc3MgZGF0YSB0aGFuIHRo
-ZSBzZW5zb3JzIGFyZSBhbHJlYWR5IHB1c2hpbmcgb3ZlciBEQnVzLg0KPiANCj4+IE9uIE1vbiwg
-QXVnIDI3LCAyMDE4IGF0IDQ6NTIgUE0gS3VuIFlpIDxrdW4ueWkuNzMxQGdtYWlsLmNvbT4gd3Jv
-dGU6DQo+PiBJIHRoaW5rIHRoZSBjaG9pY2Ugb2YgKndoZXJlKiB0byBwdXQgc3VjaCBidWZmZXJp
-bmcgd2FycmFudHMgc29tZSB0aG91Z2h0cyBhbmQgZGVzaWduLiBHb2luZyB0aHJvdWdoIHdoYXQg
-SSBoYXZlIHRob3VnaHQ6DQo+IA0KPj4gMS4gSXQncyBwb3NzaWJsZSB0byBpbXBsZW1lbnQgaG9z
-dCBzdGF0ZSBkZXRlY3Rpb24gYW5kIGhvc3QgUE9TVCBjb2RlIA0KPj4gYnVmZmVyaW5nIGFsbCBp
-biBhIGNsaWVudCBkYWVtb24sIHdoaWNoIGlzIGEgbG9uZy1saXZlZCBwcm9jZXNzIHRoYXQNCj4+
-IC0ga2VlcHMgbGlzdGVuaW5nIHRvIFBPU1QgY29kZXMgcHVibGlzaGVkDQo+PiAtIGtlZXBzIHBv
-bGxpbmcgaG9zdCBzdGF0ZQ0KPj4gLSB3aGVuIGhvc3QgcG93ZXIgc3RhdGUgdG9nZ2xlZCwgd3Jp
-dGUgdGhlIFBPU1QgY29kZXMgcmVjZWl2ZWQgdG8gYSANCj4+IGZpbGUgb24gZGlzaw0KPiBUaGlz
-IHdvdWxkIG1lYW4gdGhhdCBwYXJ0aWFsIGJvb3RzLCBvciBib290cyB0aGF0IGhhdmUgb3ZlciBj
-dXJyZW50IGlzc3VlcyB3b3VsZG4ndCBiZSBwZXJzaXN0ZWQgYXQgYWxsLiAgSXQncyBhIGJpdCBv
-ZiBhbiBpbXBsZW1lbnRhdGlvbiBkZXRhaWwgYXQgdGhpcyBwb2ludCwgYnV0IEkgc3VzcGVjdCB3
-ZSdyZSBnb2luZyB0byB3YW50IHRvIHBlcnNpc3QgcG9zdCBjb2RlcyBtb3JlIG9mdGVuIHRoYW4g
-anVzdCBldmVyeSBib290Lg0KPiANCj4+IFByb3Mgb2YgdGhpcyBhcHByb2FjaCBpcyB0aGF0IHNl
-cnZlciBkYWVtb25zIGFyZSBrZXB0IHNpbXBsZS4gUE9TVCBjb2RlIHNlcnZlciBkb2Vzbid0IG5l
-ZWQgdG8gdGFsayB0byBob3N0IHN0YXRlIGRhZW1vbiBvciBldmVuIGFzc3VtZSBpdHMgZXhpc3Rl
-bmNlLg0KPj4gUHJvcyBvZiBidWZmZXJpbmcgb24gc2VydmVyIHNpZGU6IHBvdGVudGlhbGx5IHRo
-ZXJlIHdpbGwgYmUgbW9yZSB0aGFuIA0KPj4gb25lIGlkZW50aXRpZXMgbmVlZGluZyB0aGUgbGlz
-dCBvZiBQT1NUIGNvZGVzLiBJUE1JPyBMb2dnaW5nPyBJdCB3b3VsZCByZWFsbHkgaGVscCBpZiB3
-ZSBjYW4gaWRlbnRpZnkgc29tZSBjb25jcmV0ZSB1c2UgY2FzZXMuDQo+IEkgdGhpbmsgd2UgYWxz
-byBuZWVkIHRvIGNvbnNpZGVyIHRoYXQgdGhlIFBPU1QgY29kZSBzYXZpbmcgbWVjaGFuaXNtIHNo
-b3VsZCBiZSB1cCBhcyBzb29uIGFzIHBvc3NpYmxlIGFmdGVyIGJvb3QgdG8gbWFrZSBzdXJlIHRo
-YXQgaW4gdGhlIGNhc2Ugd2hlcmUgcG93ZXIgcmVzdG9yZSBwb2xpY3kgaXMgc2V0IHRvIE9OLCB3
-ZSBjYW4gY2FwdHVyZSBhcyBtYW55IHBvc3QgY29kZXMgYXMgcG9zc2libGUgZnJvbSB0aGUgaG9z
-dCBib290aW5nLiAgSW4gcHJldmlvdXMgaW1wbGVtZW50YXRpb25zLCB0aGlzIG1lYW50IGJ1ZmZl
-cmluZyBpbiB0aGUga2VybmVsIGRyaXZlciwgYW5kIG1ha2luZyB0aGUgYXBwbGljYXRpb24gYSBs
-aWdodHdlaWdodCBzeXN0ZW0gZm9yIHBlcnNpc3RpbmcgUE9TVCBjb2RlcywgcmF0aGVyIHRoYW4g
-YWN0dWFsbHkgY2FwdHVyZSB0aGVtIGl0c2VsZi4NCj4gDQo=
+On Mon, Aug 27, 2018 at 7:24 PM Eddie James <eajames@linux.vnet.ibm.com> wr=
+ote:
+>
+>
+>
+> On 08/27/2018 10:59 AM, Tanous, Ed wrote:
+> >> Do you have any plan to support non-jpeg video stream in obmc-iKVM?
+> > I'm not sure about Eddie, but I don't think we have  a need for non-jpe=
+g kvm.  With that said, everything is just running RFB underneath, so basic=
+ally anything should be possible that's possible over VNC.
+>
+> Right, we also don't have any need for non-jpeg at the moment.
+
+note that Nuvoton HW support Hextile compression so this should stay
+on the table.
+
+>
+> >
+> >> It is possible some platforms don't have hardware JPEG engine, instead=
+ have
+> >> the RGB video stream.
+> >> If possible to support RGB video stream, I think it would be better if=
+ you can
+> >> add the video frame differentiation in obmc-iKVM because we don't need=
+ to
+> >> send the full screen to VNC client on every request, it can reduce the=
+ buffer
+> >> size at least. (libvncserver already has the video frame differentiati=
+on)
+> > While I agree it would be nice, I don't think it's a priority 1 for imp=
+lementation (at least for us).  Our current AST2500 products send full buff=
+er updates for every frame, and while in theory it's less efficient, we hav=
+en't really gotten any complaints.  With that said, if differential mode is=
+ available and works well, I'm sure we'd use it.
+>
+> The problem with differential compression is that you have to do that
+> decoding work on the BMC so that you update the right part of the
+> framebuffer. I didn't get that working but might be some performance
+> concerns there... So same for us, it's not a priority right now.
+>
+Nuvoton chip does support tiles differerential by HW so for us it
+doesn't have a performance effect nor high CPU utilization, so again
+this should option should remain.
+
+> >
+> >> Also, I have implemented a KVM application for our platform(nuvoton ev=
+b-
+> >> npcm750) which has hardware video frame differentiation and hardware
+> >> hextile engine.
+> >> https://github.com/Nuvoton-Israel/obmc-ikvm
+> >> https://github.com/Nuvoton-
+> >> Israel/linux/commit/7e90f572323e56e9425b85aafe86dfa5a35c4e7d
+> >>
+> > Cool.
+> >
+> >> I also enabled ED's KVM webui and added kvmws proxy in python web
+> >> server.
+> >> https://github.com/Nuvoton-Israel/meta-openbmc-nuvoton-
+> >> addon/commit/140771b7e898dd5ca8f0364290cce669609088ac
+> >>
+> > I've got patches for bmcweb as well that I can get posted today.  I was=
+ really hoping to have a discussion around how we want to implement the web=
+ portion beforehand, but it looks like you've already done a lot of work, w=
+hich is great.
+> >
+> >> Regarding the larger binary size, I think we need to review all config=
+urations
+> >> of libvncserver and check which functions should be disabled.
+> >>
+> > I think the most important question here is how small of a binary we ca=
+n get out of libvncserver, and whether or not we can afford to have an unau=
+thenticated socket open with full control of the host system.
+>
+> All good points. These aspects haven't been a priority for me yet, and
+> I'm really not an expert with security or bmcweb, but definitely worth
+> some discussion.
+
+From our point of view it is OK to remove some libvncserver features
+like security or so as long as the hextile compression and frames
+differential for video stays to be used by our HW acceleration.
+
+>
+> Thanks!
+> Eddie
+>
+> >
+>
+
+
+--=20
+Regards,
+Avi
