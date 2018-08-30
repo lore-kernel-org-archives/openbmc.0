@@ -1,54 +1,84 @@
-Return-Path: <venture@google.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ICbpxQpq"; 
- dkim-atps=neutral
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 421Zyb3yJQzF37C
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 07:15:18 +1000 (AEST)
-Received: by mail-pl1-x635.google.com with SMTP id d12-v6so4396989pls.4
- for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 14:15:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=9CD+UXo/PIm8r0HsnqbzeeDFOUcIIUREd4hJjXQwot8=;
- b=ICbpxQpqdmVO/6yKG2GpaXrb2vIsuHPJVIkWtnOuhc8deXUsw1LczGncsgFQ32Fwqk
- IdbKELQyyKYmO1g+iWt2tRmjyhrU4UF50Tb/umbAo+2JGP/jnIARPRGDyuYqVIEay7xN
- kCFE502hOnIyqGuazCNXbmgd5UCN1FXXqboDIZ2XY3y5TJYnlO+rbvV9GfNjK2Ah7YVd
- 9fmKkan2OjSseqx1pKddnzyHN1gqEXvUhc/v+2y/CgX5xGEC7+DtxFMmBoCJLLOVwGfi
- x2f48hwraW1BVoP0eNOsf2c9aGKMdusoOxmrbDC2ipurja7iQvOhGCcgM9CJ4RMzs5d1
- 80AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=9CD+UXo/PIm8r0HsnqbzeeDFOUcIIUREd4hJjXQwot8=;
- b=rPMiNd2+nT+pQPkEuWTFqNHj0nyD0fR/e9MK/VM7P6WKOcFijxjDXmYXoYh613bUqp
- dERKGY0wVO+ZVgdhH0VgPzavndyR59Tqicp0qeMQbLbw1BIVT9prJPX8rurF0jc7uIy3
- ZT5DQvlqOEleDtL9B3R+FviK9ivXK01j3pmOtszZ3G7s6lOI8khPJLjRi5+OBAMjZ7Jm
- excv16337MDmjUVJiR07JcQ6onpUv8VgRAM2NGESR6FWr4KSZevmh1pupEYIi7QkdCiQ
- wtp1/HyBsVldAaC/RhwgvQQYwEYJ2NUgWh0Y3AHa1CTnFmo+vzF6J1EwEZr4QFmFbvgQ
- FGaA==
-X-Gm-Message-State: APzg51AZt0qHzYWTl2fYX6kGoVb51FP1Ih+0Ro5g3LLVchB8qwAokDUE
- 7UlvN+RBU7Njugz2J772ndCjHA0ZvtXdTVNqDRkD3Dcklv0=
-X-Google-Smtp-Source: ANB0VdYyalX2/+fpvMzy/Yiv3R00ACHpgAzCQW0/dG/5rIvTIfrz9iGB1dsQLI2ZAy8lLkduhXq6G4AIvg+YiYj9I+c=
-X-Received: by 2002:a17:902:6681:: with SMTP id
- e1-v6mr12046493plk.109.1535663715833; 
- Thu, 30 Aug 2018 14:15:15 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 421bHM3d00zF37D
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 07:29:50 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w7ULTh7W073925
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:29:48 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2m6nm46tyn-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Aug 2018 17:29:46 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Thu, 30 Aug 2018 15:29:23 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 30 Aug 2018 15:29:18 -0600
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w7ULTHk163635512
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 30 Aug 2018 14:29:17 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6A5AC6A047;
+ Thu, 30 Aug 2018 15:29:17 -0600 (MDT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8F9936A058;
+ Thu, 30 Aug 2018 15:29:11 -0600 (MDT)
+Received: from oc6728276242.ibm.com (unknown [9.85.221.248])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 30 Aug 2018 15:29:11 -0600 (MDT)
+Subject: Re: [PATCH v4 2/9] Documentation: hwmon: Add OCC documentation
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, jdelvare@suse.com,
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ gregkh@linuxfoundation.org, mark.rutland@arm.com
+References: <1531342898-15790-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1531342898-15790-3-git-send-email-eajames@linux.vnet.ibm.com>
+ <20180725163604.GA21332@roeck-us.net>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Thu, 30 Aug 2018 16:29:09 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Thu, 30 Aug 2018 14:15:04 -0700
-Message-ID: <CAO=notzR73b_oZjAiH1x+KjL-i_WKpHUp=xEdRfq5H76u0FmSQ@mail.gmail.com>
-Subject: OEM IPMI EthStats
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20180725163604.GA21332@roeck-us.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18083021-0036-0000-0000-00000A2E10C4
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009640; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01081200; UDB=6.00557771; IPR=6.00861185; 
+ MB=3.00023023; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-30 21:29:21
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18083021-0037-0000-0000-000048C5747D
+Message-Id: <aa1d5818-6b64-2088-ec59-dbe09d6a3902@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-08-30_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1808300216
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -60,71 +90,158 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2018 21:15:20 -0000
+X-List-Received-Date: Thu, 30 Aug 2018 21:29:52 -0000
 
-Out of a desire to export link health information, we implemented an
-OEM IPMI command that lets one grab ethernet statistics from a named
-ethernet device on the BMC.  (The NCSI statistics IPMI commands were a
-bit clunky and didn't do what we needed).
 
-The OEM IPMI commands spec is pretty short on this one:
 
-### Ethernet Statistics Command (0x30) {#ethernet-statistics-command-0x30}
+On 07/25/2018 11:36 AM, Guenter Roeck wrote:
+> On Wed, Jul 11, 2018 at 04:01:31PM -0500, Eddie James wrote:
+>> Document the hwmon interface for the OCC.
+>>
+>> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+>> ---
+>>   Documentation/hwmon/occ | 73 +++++++++++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 73 insertions(+)
+>>   create mode 100644 Documentation/hwmon/occ
+>>
+>> diff --git a/Documentation/hwmon/occ b/Documentation/hwmon/occ
+>> new file mode 100644
+>> index 0000000..465fa1a
+>> --- /dev/null
+>> +++ b/Documentation/hwmon/occ
+>> @@ -0,0 +1,73 @@
+>> +Kernel driver occ-hwmon
+>> +=======================
+>> +
+>> +Supported chips:
+>> +  * POWER8
+>> +  * POWER9
+>> +
+>> +Author: Eddie James <eajames@linux.vnet.ibm.com>
+>> +
+>> +Description
+>> +-----------
+>> +
+>> +This driver supports hardware monitoring for the On-Chip Controller (OCC)
+>> +embedded on POWER processors. The OCC is a device that collects and aggregates
+>> +sensor data from the processor and the system. The OCC can provide the raw
+>> +sensor data as well as perform thermal and power management on the system.
+>> +
+>> +The P8 version of this driver is a client driver of I2C. It may be probed
+>> +manually if an "ibm,p8-occ-hwmon" compatible device is found under the
+>> +appropriate I2C bus node in the device-tree.
+>> +
+>> +The P9 version of this driver is a client driver of the FSI-based OCC driver.
+>> +It will be probed automatically by the FSI-based OCC driver.
+>> +
+>> +Sysfs entries
+>> +-------------
+>> +
+>> +The following attributes are supported. All attributes are read-only unless
+>> +specified.
+>> +
+>> +temp[1-n]_label		OCC sensor id.
+>> +temp[1-n]_input		Measured temperature in millidegrees C.
+>> +[with temperature sensor version 2+]
+>> +    temp[1-n]_fru_type		Given FRU (Field Replaceable Unit) type.
+> What is this ? An integer ? A string ?
+>
+>> +    temp[1-n]_fault		Temperature sensor fault.
+>> +
+>> +freq[1-n]_label		OCC sensor id.
+>> +freq[1-n]_input		Measured frequency.
+> What does that have to do with hardware monitoring, and what exactly does it
+> measure ? AC voltage frequency ? Frequency of rainstorms in the surrounding
+> area ?
+>
+>> +
+>> +power[1-n]_label	OCC sensor id.
+>> +power[1-n]_input	Measured power in microwatts.
+>> +power[1-n]_update_tag	Number of 250us samples represented in accumulator.
+> update_tag to represent number of samples ? Odd choice for
+> an attribute name. Why not "_samples" ? Also, if each sample
+> represents a specific amount of time, why not report a time ?
+>
+>> +power[1-n]_accumulator	Accumulation of 250us power readings.
+> There is no explanation of "accumulation". Is this the energy ?
+> If so, why not use energy attributes ? And what is the unit of
+> this measurement ?
+>
+>> +[with power sensor version 2+]
+>> +    power[1-n]_function_id	Identifies what the power reading is for.
+> String ? Number ? Slot index ?  Bitmap ? And why isn't that reported
+> in the label ? After all, that is what the label is supposed to be
+> used for.
+>
+>> +    power[1-n]_apss_channel	Indicates APSS channel.
+>> +
+> Does that provide any value to the user ?
+>
+>> +[power version 0xa0 only]
+>> +power1_id			OCC sensor id.
+> This is inconsistent with the other attributes and even with itself.
+>
+>> +power[1-n]_label		Sensor type, "system", "proc", "vdd", or "vdn".
+>> +power[1-n]_input		Most recent power reading in microwatts.
+> Overall I am left with no idea what
+> 	_id
+> 	_label
+> 	_function_id
+> 	_apps_channel
+> are and how they relate to each other, except that it all looks quite
+> inconsistent. You might want to consider merging all those attributes into
+> the label in some consistent way.
+>
+>> +power[1-n]_update_tag		Number of samples in the accumulator.
+>> +power[1-n]_accumulator		Accumulation of power readings.
+> Same as above.
+>
+>> +[with sensor type "system" and "proc" only]
+>> +    power[1-n]_update_time	Time in us that the power value is read.
+>> +
+>> +caps1_current		Current OCC power cap in watts.
+>> +caps1_reading		Current system output power in watts.
+>> +caps1_norm		Power cap without redundant power.
+>> +caps1_max		Maximum power cap.
+> Why do those have to be non-standard attributes ? Please explain why you can not
+> use power[1-n]_cap attributes.
+>
+>> +[caps version 1 and 2 only]
+>> +    caps1_min		Minimum power cap.
+>> +[caps version 3+]
+>> +    caps1_min_hard		Hard minimum cap that can be set and held.
+>> +    caps1_min_soft		Soft minimum cap below hard, not guaranteed.
+>> +caps1_user		The powercap specified by the user. Will be 0 if no
+>> +			user powercap exists. This attribute is read-write.
+>> +[caps version 1+]
+>> +    caps1_user_source	Indicates how the user power limit was set.
+>> +
+>> +extn[1-n]_label		ASCII id or sensor id.
+>> +extn[1-n]_flags		Indicates type of label attribute.
+>> +extn[1-n]_input		Data.
+> Great non-explanation.
+>
+> Not reviewing the series further. I am sure I asked that each non-standard
+> attribute is explained. There is neither an explanation why the attributes
+> are needed nor, in many cases, why non-standard attributes were chosen
+> instead of standard ones. On top of that, the non-standard attributes are
+> not even documented properly, leaving the reader wondering not only why
+> they are needed, but what they are used for in the first place.
 
-There is the need to read a specific ethernet-level statistic value
-from the BMC.  This is driven primarily to detect link errors that
-require hardware swaps during manufacturing.
+Hi,
 
-This command will be well structured such that there is a request and
-response which mirror to some extent.
+Thanks for the feedback Guenter. I am about to put up a new patch set 
+with fixes for many of the issues you indicated and better descriptions. 
+Now all the attributes except two should conform to standard hwmon 
+attributes. The exceptions are for the user power cap and user power cap 
+source. These are needed in order to make decisions about power 
+management while controlling the system. Please look at their 
+documentation to see if they're acceptable.
 
-The request will specify the ethernet interface by name, as a
-length-prepended string, and the field they're requesting by
-identifier (an unsigned byte).
+Let me know what you think!
+Thanks,
+Eddie
 
-If the command is not supported, the IPMI OEM handler will respond
-accordingly, however, if the field is not supported or not recognized,
-the command will return 0xcc (invalid field).
-
-The current ethernet statistics available (all future additions must append):
-
-|Identifier |Human Readable Name
-|-----------|--------------------
-|0          |rx_bytes
-|1          |rx_compressed
-|2          |rx_crc_errors
-|3          |rx_dropped
-|4          |rx_errors
-|5          |rx_fifo_errors
-|6          |rx_frame_errors
-|7          |rx_length_errors
-|8          |rx_missed_errors
-|9          |rx_nohandler
-|10         |rx_over_errors
-|11         |rx_packets
-|12         |tx_aborted_errors
-|13         |tx_bytes
-|14         |tx_carrier_errors
-|15         |tx_compressed
-|16         |tx_dropped
-|17         |tx_errors
-|18         |tx_fifo_errors
-|19         |tx_heartbeat_errors
-|20         |tx_packets
-|21         |tx_window_errors
-
-Request
-
-|Byte(s) |Value |Data
-|--------|------|----
-|0x00    |Statistic ID |The identifier of the desired statistic
-|0x01    |Length       |Where you expect the cable, eth0 or eth1, etc
-|0x02..  |The name     |The string, not null-terminated
-
-Response
-
-|Byte(s) |Value  |Data
-|--------|-------|----
-|0x00    |Stat ID|The identifier of the desired statistic
-|0x01....|Uint64 |The value.  Because these are counters we don't
-anticipate negative values, and we don't expect overflow.
+>
+> Guenter
+>
