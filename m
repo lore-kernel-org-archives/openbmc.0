@@ -1,58 +1,62 @@
-Return-Path: <venture@google.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::62c; helo=mail-pl1-x62c.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::243; helo=mail-qt0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Av/KGD3W"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="muUwCBq8"; 
  dkim-atps=neutral
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 422BMB2Nw6zF39P
- for <openbmc@lists.ozlabs.org>; Sat,  1 Sep 2018 06:50:12 +1000 (AEST)
-Received: by mail-pl1-x62c.google.com with SMTP id u11-v6so5976075plq.5
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 13:50:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 422CKC46hczF39R;
+ Sat,  1 Sep 2018 07:33:35 +1000 (AEST)
+Received: by mail-qt0-x243.google.com with SMTP id o15-v6so16132441qtk.6;
+ Fri, 31 Aug 2018 14:33:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mTKP/O+utSLeJ7+0sJi1DHw9VrvPnuDKukfYsJyxx/E=;
- b=Av/KGD3WKhLG1USpZrgD/B6T7c5WtLclimC+VTlbCGxu9I22TU5Y70Qiq7XzWiF7rv
- aYcovHljgD3ozc1zxVJdiYptzGw/vZW96z66cn3u5BKf1US2vjeZujS4rZFEYMMAMAQ/
- 97AN2ojtHWE0jqZIJzu2Ytjj0qmUtwLpl/egXWa2cZMqwMB3Y1L6xWzhixIwT5RubxPe
- feBkH38Rq5Z+SPx/hTQhn6dWHJTewWm8nvXJQ/nyjRqDDx3HvHBi83KOe3DaxjS2LNsv
- n7rPG7gFZ8Kx8fPLhgoWVk+wj65CKfQyxdmnhbQRcsYeBS6jxyS9mNtlg50NGxy8TFAd
- FMAg==
+ :cc; bh=flIUvzKgAYFDlFX98R4KQ1waPzIR6o3ReWiHYfKtiCE=;
+ b=muUwCBq8YjMbeHDt7yY4oVzLYCowyj/gUsYzYrBtnJVknT8Wmm97SzH6H4tnWFz98j
+ KHnb52JHf1ElTSnvEwE+HOO+Aro3pX2PKB1Njcy67cfF0i3B90zzBHBTOV2SxADKf+PG
+ UMMzIUQ5tSi0zbKpBHqrFQRn8WHl8aTw4/3wo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=mTKP/O+utSLeJ7+0sJi1DHw9VrvPnuDKukfYsJyxx/E=;
- b=sFICAQ/ISjQZP6nna6V6MQQVGFhxtWG9t007IfEAeyrDQnb7/J66QlU/VrHSKj1WnV
- alhXLrIgpsYotB63Ein9jeid2N07TSl2Ky7w0rqv9SjqO/CMib/XibVj0Tu/MW5FRaqS
- X3aMkSIhhTMsJgy2I4oaIMNf240iGpys3f2WB4/fnG99IKD5E08wbJ/oW8QPxUN3NxNN
- XHNl+lB2M1n3jdEj8WATqZ//KX/PErkXrgrsLW78bDqOGJd71LpKjdwF4KPsgoAxG4i+
- h2CkUhERsuSYKAmL0GtDFQjICLXBXQtv1uOJ2EHCAtppMLjajaxgKJGBLFN4ciEy5qYj
- 6EEg==
-X-Gm-Message-State: APzg51ASzKDmcjsV2W/UsmWeaqVnl0dZbEXL3KcdK7Trxb1IFYoZtddy
- vtKb2FmhsL0JYyOKza7apTotQDxWzZW9edZ/JlGIKg==
-X-Google-Smtp-Source: ANB0VdYD6FtkKfmd+KTI0Sv5ExaPjxsOsGGmPtjHkjP0zwfpXCtC2M0VpgPqLk8u+0no4/h9vpKYq2Cm6lXn+u+s7qA=
-X-Received: by 2002:a17:902:b70f:: with SMTP id
- d15-v6mr17627524pls.53.1535748609778; 
- Fri, 31 Aug 2018 13:50:09 -0700 (PDT)
+ bh=flIUvzKgAYFDlFX98R4KQ1waPzIR6o3ReWiHYfKtiCE=;
+ b=YPscb0ZuEshcEwf+vigFdOHQGUdcbnapxs1RNSCGrWca/5PRXeXQ+l0tvvDpb4tB8F
+ JtWKAeSFtTkqPT3sfpvv9ynRFk27rl1FlOM50FDsnutVTjTP0KI8yDWw5KRu9ZjjIFud
+ I7bUuEta4Aei8888xoFcXDvMXcXUhZTJnjYLKVqZw1byTpMYEYQT3xZdf5F37uUOJrY4
+ neWzNQh7d99eSuJ/6g/Othwmt9H5mLQxvyTtVQUR3c/lhlnngLycvkZPDy7N4uO8KOh9
+ 778WsqAyd6GZIXZi3Jw19Vmze7eeAJ3Oi8rSfP3lpoRkFAjleEqOQYy2+k+V5vlY8jb8
+ emfg==
+X-Gm-Message-State: APzg51ApEnv2flU92JbfgwBwwh0fw+yubN4JqTquNi4eGOBUoRo8wwCU
+ i/fxPVxWMbu/U9p7jKPbQ7XUfg7m3wRwc4Fulsg=
+X-Google-Smtp-Source: ANB0VdaD3S5t3/k/DE8bF4EkOCz91aLzkP7p0h8bGr/v5rHvZnyQtERl/qQ1swLB1htshsvU2jBtoKwrNbFVasBB1CQ=
+X-Received: by 2002:a0c:eac3:: with SMTP id
+ y3-v6mr16753036qvp.89.1535751213363; 
+ Fri, 31 Aug 2018 14:33:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAO=notzR73b_oZjAiH1x+KjL-i_WKpHUp=xEdRfq5H76u0FmSQ@mail.gmail.com>
- <20180831193919.GB44886@mauery.jf.intel.com>
-In-Reply-To: <20180831193919.GB44886@mauery.jf.intel.com>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 31 Aug 2018 13:49:57 -0700
-Message-ID: <CAO=notxGLHB1P7cHg5dK0rixNupgQxrwhk=hjZm9G_9f34kpyg@mail.gmail.com>
-Subject: Re: OEM IPMI EthStats
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>
+References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1535576973-8067-3-git-send-email-eajames@linux.vnet.ibm.com>
+In-Reply-To: <1535576973-8067-3-git-send-email-eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 31 Aug 2018 14:33:22 -0700
+Message-ID: <CACPK8Xe+aSgFvysXFJaGdSMjG4CsEL6-iy5d79ou1+VFTV_aQw@mail.gmail.com>
+Subject: Re: [PATCH 2/4] clock: aspeed: Setup video engine clocking
+To: eajames <eajames@linux.vnet.ibm.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-media@vger.kernel.org, 
+ linux-aspeed@lists.ozlabs.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Andrew Jeffery <andrew@aj.id.au>, mchehab@kernel.org,
+ Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, devicetree <devicetree@vger.kernel.org>, 
+ linux-clk@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -65,92 +69,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Aug 2018 20:50:15 -0000
+X-List-Received-Date: Fri, 31 Aug 2018 21:33:36 -0000
 
-On Fri, Aug 31, 2018 at 12:39 PM Vernon Mauery
-<vernon.mauery@linux.intel.com> wrote:
+On Wed, 29 Aug 2018 at 14:09, Eddie James <eajames@linux.vnet.ibm.com> wrote:
 >
-> On 30-Aug-2018 02:15 PM, Patrick Venture wrote:
-> >Out of a desire to export link health information, we implemented an
-> >OEM IPMI command that lets one grab ethernet statistics from a named
-> >ethernet device on the BMC.  (The NCSI statistics IPMI commands were a
-> >bit clunky and didn't do what we needed).
-> >
-> >The OEM IPMI commands spec is pretty short on this one:
-> >
-> >### Ethernet Statistics Command (0x30) {#ethernet-statistics-command-0x30}
+> Add the video engine reset bit. Add eclk mux and clock divider table.
 >
-> I would say that this command could be useful to the entire OpenBMC
-> community, so registering it under the OpenBMC OEM table would be good.
->
-> >There is the need to read a specific ethernet-level statistic value
-> >from the BMC.  This is driven primarily to detect link errors that
-> >require hardware swaps during manufacturing.
-> >
-> >This command will be well structured such that there is a request and
-> >response which mirror to some extent.
-> >
-> >The request will specify the ethernet interface by name, as a
-> >length-prepended string, and the field they're requesting by
-> >identifier (an unsigned byte).
-> >
-> >If the command is not supported, the IPMI OEM handler will respond
-> >accordingly, however, if the field is not supported or not recognized,
-> >the command will return 0xcc (invalid field).
-> >
-> >The current ethernet statistics available (all future additions must append):
-> >
-> >|Identifier |Human Readable Name
-> >|-----------|--------------------
-> >|0          |rx_bytes
-> >|1          |rx_compressed
-> >|2          |rx_crc_errors
-> >|3          |rx_dropped
-> >|4          |rx_errors
-> >|5          |rx_fifo_errors
-> >|6          |rx_frame_errors
-> >|7          |rx_length_errors
-> >|8          |rx_missed_errors
-> >|9          |rx_nohandler
-> >|10         |rx_over_errors
-> >|11         |rx_packets
-> >|12         |tx_aborted_errors
-> >|13         |tx_bytes
-> >|14         |tx_carrier_errors
-> >|15         |tx_compressed
-> >|16         |tx_dropped
-> >|17         |tx_errors
-> >|18         |tx_fifo_errors
-> >|19         |tx_heartbeat_errors
-> >|20         |tx_packets
-> >|21         |tx_window_errors
-> >
-> >Request
-> >
-> >|Byte(s) |Value |Data
-> >|--------|------|----
-> >|0x00    |Statistic ID |The identifier of the desired statistic
-> >|0x01    |Length       |Where you expect the cable, eth0 or eth1, etc
-> >|0x02..  |The name     |The string, not null-terminated
->
-> Rather than using actual ethernet device names, it might be better to
-> use IPMI channel numbers or 0..N-1 for the Nth ethernet device. Other
-> than that, the interface looks good to me.
+> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 
-Sure, because this code doesn't go through the normal IPMI channel
-configuration it didn't natively have accept to that information.
-Certainly follow-on work could enable that as an option.  Depending on
-some magic string checks, as is often how things like this are done.
+I'm travelling this week, so I'll be able to take a closer look next week.
 
+At a glance it looks okay.
+
+Cheers,
+
+Joel
+
+> ---
+>  drivers/clk/clk-aspeed.c | 41 +++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 39 insertions(+), 2 deletions(-)
 >
-> --Vernon
+> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+> index 5961367..f16ce7d 100644
+> --- a/drivers/clk/clk-aspeed.c
+> +++ b/drivers/clk/clk-aspeed.c
+> @@ -87,7 +87,7 @@ struct aspeed_clk_gate {
+>  /* TODO: ask Aspeed about the actual parent data */
+>  static const struct aspeed_gate_data aspeed_gates[] = {
+>         /*                               clk rst   name                 parent  flags */
+> -       [ASPEED_CLK_GATE_ECLK] =        {  0, -1, "eclk-gate",          "eclk", 0 }, /* Video Engine */
+> +       [ASPEED_CLK_GATE_ECLK] =        {  0,  6, "eclk-gate",          "eclk", 0 }, /* Video Engine */
+>         [ASPEED_CLK_GATE_GCLK] =        {  1,  7, "gclk-gate",          NULL,   0 }, /* 2D engine */
+>         [ASPEED_CLK_GATE_MCLK] =        {  2, -1, "mclk-gate",          "mpll", CLK_IS_CRITICAL }, /* SDRAM */
+>         [ASPEED_CLK_GATE_VCLK] =        {  3,  6, "vclk-gate",          NULL,   0 }, /* Video Capture */
+> @@ -113,6 +113,24 @@ struct aspeed_clk_gate {
+>         [ASPEED_CLK_GATE_LHCCLK] =      { 28, -1, "lhclk-gate",         "lhclk", 0 }, /* LPC master/LPC+ */
+>  };
 >
-> >Response
-> >
-> >|Byte(s) |Value  |Data
-> >|--------|-------|----
-> >|0x00    |Stat ID|The identifier of the desired statistic
-> >|0x01....|Uint64 |The value.  Because these are counters we don't
-> >anticipate negative values, and we don't expect overflow.
+> +static const char * const eclk_parent_names[] = {
+> +       "mpll",
+> +       "hpll",
+> +       "dpll",
+> +};
+> +
+> +static const struct clk_div_table ast2500_eclk_div_table[] = {
+> +       { 0x0, 2 },
+> +       { 0x1, 2 },
+> +       { 0x2, 3 },
+> +       { 0x3, 4 },
+> +       { 0x4, 5 },
+> +       { 0x5, 6 },
+> +       { 0x6, 7 },
+> +       { 0x7, 8 },
+> +       { 0 }
+> +};
+> +
+>  static const struct clk_div_table ast2500_mac_div_table[] = {
+>         { 0x0, 4 }, /* Yep, really. Aspeed confirmed this is correct */
+>         { 0x1, 4 },
+> @@ -192,18 +210,21 @@ static struct clk_hw *aspeed_ast2500_calc_pll(const char *name, u32 val)
 >
+>  struct aspeed_clk_soc_data {
+>         const struct clk_div_table *div_table;
+> +       const struct clk_div_table *eclk_div_table;
+>         const struct clk_div_table *mac_div_table;
+>         struct clk_hw *(*calc_pll)(const char *name, u32 val);
+>  };
+>
+>  static const struct aspeed_clk_soc_data ast2500_data = {
+>         .div_table = ast2500_div_table,
+> +       .eclk_div_table = ast2500_eclk_div_table,
+>         .mac_div_table = ast2500_mac_div_table,
+>         .calc_pll = aspeed_ast2500_calc_pll,
+>  };
+>
+>  static const struct aspeed_clk_soc_data ast2400_data = {
+>         .div_table = ast2400_div_table,
+> +       .eclk_div_table = ast2400_div_table,
+>         .mac_div_table = ast2400_div_table,
+>         .calc_pll = aspeed_ast2400_calc_pll,
+>  };
+> @@ -317,6 +338,7 @@ struct aspeed_reset {
+>         [ASPEED_RESET_PECI]     = 10,
+>         [ASPEED_RESET_I2C]      =  2,
+>         [ASPEED_RESET_AHB]      =  1,
+> +       [ASPEED_RESET_VIDEO]    =  6,
+>
+>         /*
+>          * SCUD4 resets start at an offset to separate them from
+> @@ -522,6 +544,22 @@ static int aspeed_clk_probe(struct platform_device *pdev)
+>                 return PTR_ERR(hw);
+>         aspeed_clk_data->hws[ASPEED_CLK_24M] = hw;
+>
+> +       hw = clk_hw_register_mux(dev, "eclk-mux", eclk_parent_names,
+> +                                ARRAY_SIZE(eclk_parent_names), 0,
+> +                                scu_base + ASPEED_CLK_SELECTION, 2, 0x3, 0,
+> +                                &aspeed_clk_lock);
+> +       if (IS_ERR(hw))
+> +               return PTR_ERR(hw);
+> +       aspeed_clk_data->hws[ASPEED_CLK_ECLK_MUX] = hw;
+> +
+> +       hw = clk_hw_register_divider_table(dev, "eclk", "eclk-mux", 0,
+> +                                          scu_base + ASPEED_CLK_SELECTION, 28,
+> +                                          3, 0, soc_data->eclk_div_table,
+> +                                          &aspeed_clk_lock);
+> +       if (IS_ERR(hw))
+> +               return PTR_ERR(hw);
+> +       aspeed_clk_data->hws[ASPEED_CLK_ECLK] = hw;
+> +
+>         /*
+>          * TODO: There are a number of clocks that not included in this driver
+>          * as more information is required:
+> @@ -531,7 +569,6 @@ static int aspeed_clk_probe(struct platform_device *pdev)
+>          *   RGMII
+>          *   RMII
+>          *   UART[1..5] clock source mux
+> -        *   Video Engine (ECLK) mux and clock divider
+>          */
+>
+>         for (i = 0; i < ARRAY_SIZE(aspeed_gates); i++) {
+> --
+> 1.8.3.1
 >
