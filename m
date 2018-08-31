@@ -1,84 +1,37 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.from=linux.intel.com
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4228Zy34gjzF37T
- for <openbmc@lists.ozlabs.org>; Sat,  1 Sep 2018 05:30:18 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w7VJT4CH059839
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 15:30:16 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2m79wy4b0p-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 15:30:15 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 31 Aug 2018 15:30:11 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 31 Aug 2018 15:30:06 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w7VJU4wn28639314
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 31 Aug 2018 19:30:04 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DC291B206B;
- Fri, 31 Aug 2018 15:28:57 -0400 (EDT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9D697B2067;
- Fri, 31 Aug 2018 15:28:56 -0400 (EDT)
-Received: from [9.41.179.222] (unknown [9.41.179.222])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri, 31 Aug 2018 15:28:56 -0400 (EDT)
-Subject: Re: [PATCH 0/4] media: platform: Add Aspeed Video Engine driver
-To: Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org
-Cc: linux-media@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, andrew@aj.id.au, mchehab@kernel.org,
- joel@jms.id.au, robh+dt@kernel.org, mark.rutland@arm.com,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- mturquette@baylibre.com, linux-arm-kernel@lists.infradead.org
-References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
- <153573819126.93865.1884182656081956202@swboyd.mtv.corp.google.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Fri, 31 Aug 2018 14:30:02 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4228nn1hjQzF387
+ for <openbmc@lists.ozlabs.org>; Sat,  1 Sep 2018 05:39:39 +1000 (AEST)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2018 12:39:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,313,1531810800"; d="scan'208";a="86194194"
+Received: from mauery.jf.intel.com ([10.54.51.74])
+ by fmsmga001.fm.intel.com with ESMTP; 31 Aug 2018 12:39:34 -0700
+Date: Fri, 31 Aug 2018 12:39:19 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>
+Subject: Re: OEM IPMI EthStats
+Message-ID: <20180831193919.GB44886@mauery.jf.intel.com>
+References: <CAO=notzR73b_oZjAiH1x+KjL-i_WKpHUp=xEdRfq5H76u0FmSQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <153573819126.93865.1884182656081956202@swboyd.mtv.corp.google.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18083119-2213-0000-0000-000002E64037
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009646; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01081639; UDB=6.00558036; IPR=6.00861625; 
- MB=3.00023040; MTD=3.00000008; XFM=3.00000015; UTC=2018-08-31 19:30:10
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18083119-2214-0000-0000-00005B65A1E9
-Message-Id: <a959a032-6817-dcb4-2c5f-b4bd17fc1c8b@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-08-31_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1808310196
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CAO=notzR73b_oZjAiH1x+KjL-i_WKpHUp=xEdRfq5H76u0FmSQ@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -90,43 +43,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Aug 2018 19:30:18 -0000
+X-List-Received-Date: Fri, 31 Aug 2018 19:39:42 -0000
 
-
-
-On 08/31/2018 12:56 PM, Stephen Boyd wrote:
-> Quoting Eddie James (2018-08-29 14:09:29)
->> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
->> can capture and compress video data from digital or analog sources. With
->> the Aspeed chip acting as a service processor, the Video Engine can
->> capture the host processor graphics output.
->>
->> This series adds a V4L2 driver for the VE, providing a read() interface
->> only. The driver triggers the hardware to capture the host graphics output
->> and compress it to JPEG format.
->>
->> Testing on an AST2500 determined that the videobuf/streaming/mmap interface
->> was significantly slower than the simple read() interface, so I have not
->> included the streaming part.
->>
->> It's also possible to use an automatic mode for the VE such that
->> re-triggering the HW every frame isn't necessary. However this wasn't
->> reliable on the AST2400, and probably used more CPU anyway due to excessive
->> interrupts. It was approximately 15% faster.
->>
->> The series also adds the necessary parent clock definitions to the Aspeed
->> clock driver, with both a mux and clock divider.
-> Please let me know your merge strategy here. I can ack the clk patches
-> because they look fine from high-level clk driver perspective (maybe
-> Joel can take a closer look) or I can merge the patches into clk-next
-> and get them into next release while the video driver gets reviewed.
-
-Thanks for taking a look! Probably preferable to get the clk patches 
-into clk-next first (though Joel reviewing would be great). I just put 
-everything in the same set for the sake of explaining the necessity of 
-the clk changes.
-
-Thanks,
-Eddie
-
+On 30-Aug-2018 02:15 PM, Patrick Venture wrote:
+>Out of a desire to export link health information, we implemented an
+>OEM IPMI command that lets one grab ethernet statistics from a named
+>ethernet device on the BMC.  (The NCSI statistics IPMI commands were a
+>bit clunky and didn't do what we needed).
 >
+>The OEM IPMI commands spec is pretty short on this one:
+>
+>### Ethernet Statistics Command (0x30) {#ethernet-statistics-command-0x30}
+
+I would say that this command could be useful to the entire OpenBMC 
+community, so registering it under the OpenBMC OEM table would be good.
+
+>There is the need to read a specific ethernet-level statistic value
+>from the BMC.  This is driven primarily to detect link errors that
+>require hardware swaps during manufacturing.
+>
+>This command will be well structured such that there is a request and
+>response which mirror to some extent.
+>
+>The request will specify the ethernet interface by name, as a
+>length-prepended string, and the field they're requesting by
+>identifier (an unsigned byte).
+>
+>If the command is not supported, the IPMI OEM handler will respond
+>accordingly, however, if the field is not supported or not recognized,
+>the command will return 0xcc (invalid field).
+>
+>The current ethernet statistics available (all future additions must append):
+>
+>|Identifier |Human Readable Name
+>|-----------|--------------------
+>|0          |rx_bytes
+>|1          |rx_compressed
+>|2          |rx_crc_errors
+>|3          |rx_dropped
+>|4          |rx_errors
+>|5          |rx_fifo_errors
+>|6          |rx_frame_errors
+>|7          |rx_length_errors
+>|8          |rx_missed_errors
+>|9          |rx_nohandler
+>|10         |rx_over_errors
+>|11         |rx_packets
+>|12         |tx_aborted_errors
+>|13         |tx_bytes
+>|14         |tx_carrier_errors
+>|15         |tx_compressed
+>|16         |tx_dropped
+>|17         |tx_errors
+>|18         |tx_fifo_errors
+>|19         |tx_heartbeat_errors
+>|20         |tx_packets
+>|21         |tx_window_errors
+>
+>Request
+>
+>|Byte(s) |Value |Data
+>|--------|------|----
+>|0x00    |Statistic ID |The identifier of the desired statistic
+>|0x01    |Length       |Where you expect the cable, eth0 or eth1, etc
+>|0x02..  |The name     |The string, not null-terminated
+
+Rather than using actual ethernet device names, it might be better to 
+use IPMI channel numbers or 0..N-1 for the Nth ethernet device. Other 
+than that, the interface looks good to me.
+
+--Vernon
+
+>Response
+>
+>|Byte(s) |Value  |Data
+>|--------|-------|----
+>|0x00    |Stat ID|The identifier of the desired statistic
+>|0x01....|Uint64 |The value.  Because these are counters we don't
+>anticipate negative values, and we don't expect overflow.
