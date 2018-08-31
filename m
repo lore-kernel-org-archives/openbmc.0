@@ -1,49 +1,47 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <sboyd@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=87.98.172.162; helo=18.mo3.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 156751 seconds by postgrey-1.36 at bilbo;
- Fri, 31 Aug 2018 18:04:38 AEST
-Received: from 18.mo3.mail-out.ovh.net (18.mo3.mail-out.ovh.net
- [87.98.172.162])
+ dmarc=pass (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="o/fx3Dzu"; 
+ dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4226Vp2zB3zF39P;
+ Sat,  1 Sep 2018 03:56:34 +1000 (AEST)
+Received: from localhost (unknown [104.132.0.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 421sMp1C3YzF37Q
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 18:04:35 +1000 (AEST)
-Received: from player697.ha.ovh.net (unknown [10.109.143.220])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 7FBC41CF025
- for <openbmc@lists.ozlabs.org>; Fri, 31 Aug 2018 10:04:31 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10605-110.w90-89.abo.wanadoo.fr
- [90.89.196.110]) (Authenticated sender: postmaster@kaod.org)
- by player697.ha.ovh.net (Postfix) with ESMTPSA id 857224800B8;
- Fri, 31 Aug 2018 10:04:21 +0200 (CEST)
-Subject: Re: [PATCH] mtd: spi-nor: fix options for mx66l51235f
-To: Roman Yeryomin <leroi.lists@gmail.com>, marek.vasut@gmail.com
-Cc: a.amelkin@yadro.com, linux-mtd <linux-mtd@lists.infradead.org>,
- openbmc@lists.ozlabs.org, joel@jms.id.au,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>
-References: <c27b9cb1-33a1-221d-abd8-30050fe2b23b@yadro.com>
- <b2ff17cc-96ca-3acb-6dc2-f7a8688a0742@gmail.com>
- <65072cc4-601b-250b-f797-604368776c3c@yadro.com>
- <f21bc842-47c8-eefd-1af5-3811c2bd25b0@gmail.com>
- <CACiydb+3DJabMS9zQ9mc0i+BdSEG0zMDvT66bauCwJ4WZan9Kg@mail.gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <cd10d5c6-1983-1725-a559-1b1f00c08aa0@kaod.org>
-Date: Fri, 31 Aug 2018 10:04:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by mail.kernel.org (Postfix) with ESMTPSA id E6E5C2083A;
+ Fri, 31 Aug 2018 17:56:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1535738192;
+ bh=KG/3ythGtcjo33PlyAHYtmrvADEPn7PWnFoiFtJ0yLA=;
+ h=To:From:In-Reply-To:Cc:References:Subject:Date:From;
+ b=o/fx3Dzu3V4NriwOyhgAY9l7+jOHQgqky0YgQ5sBNYZHlQMqjv/wOQzZvima31JfR
+ +d15FqGaL5yTzV4kesIgHkgXXuUkfsK7rmeJurIRGoV8kWWmO6EcCGGkf2HdLt4YzG
+ LbPLVkKEKT2whareylqNSdZEM88/NmLt26JVx0dk=
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <CACiydb+3DJabMS9zQ9mc0i+BdSEG0zMDvT66bauCwJ4WZan9Kg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 17766137582392413015
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrgeelgdduvdelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Content-Transfer-Encoding: quoted-printable
+To: Eddie James <eajames@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org
+From: Stephen Boyd <sboyd@kernel.org>
+In-Reply-To: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
+Cc: linux-media@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, andrew@aj.id.au, mchehab@kernel.org,
+ joel@jms.id.au, robh+dt@kernel.org, mark.rutland@arm.com,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ mturquette@baylibre.com, linux-arm-kernel@lists.infradead.org,
+ Eddie James <eajames@linux.vnet.ibm.com>
+References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
+Message-ID: <153573819126.93865.1884182656081956202@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.7
+Subject: Re: [PATCH 0/4] media: platform: Add Aspeed Video Engine driver
+Date: Fri, 31 Aug 2018 10:56:31 -0700
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -55,44 +53,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Aug 2018 08:04:39 -0000
+X-List-Received-Date: Fri, 31 Aug 2018 17:56:35 -0000
 
-[ ... ] 
+Quoting Eddie James (2018-08-29 14:09:29)
+> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+> can capture and compress video data from digital or analog sources. With
+> the Aspeed chip acting as a service processor, the Video Engine can
+> capture the host processor graphics output.
+> =
 
->> I CCed him, so maybe he can clarify.
->>
->> But this is weird. If you reboot the system, isn't the SPI NOR
->> power-cycled and reset into defined default state ? If not, your
->> hardware is severely broken and you should fix your reset routing.
-> 
-> I guess it was clarified below already but will say it again: EN4B is
-> not reset on soft reboot, there is no power cycle. So the system won't
-> boot.
+> This series adds a V4L2 driver for the VE, providing a read() interface
+> only. The driver triggers the hardware to capture the host graphics output
+> and compress it to JPEG format.
+> =
 
-I am working on an Aspeed SoC SPI driver for U-Boot and I am seeing the 
-exact same problem with a W25Q256 when Linux reboots. These chips are 
-even more perfidious because they have a non-volatile bit making the 
-chip operate in 4Byte address mode at power-up. 
+> Testing on an AST2500 determined that the videobuf/streaming/mmap interfa=
+ce
+> was significantly slower than the simple read() interface, so I have not
+> included the streaming part.
+> =
 
-> There was a quirk for shutdown, which would EX4B. But it was clumsy
-> and probably never sent upstream. 
+> It's also possible to use an automatic mode for the VE such that
+> re-triggering the HW every frame isn't necessary. However this wasn't
+> reliable on the AST2400, and probably used more CPU anyway due to excessi=
+ve
+> interrupts. It was approximately 15% faster.
+> =
 
-But the problem is supporting older Linux versions not using the  
-4B_OPCODES. So adding an initial EX4B in the U-Boot SPI layer seems 
-quite safe and not that ugly. Or add 4Byte support. 
+> The series also adds the necessary parent clock definitions to the Aspeed
+> clock driver, with both a mux and clock divider.
 
-This is a discussion for U-Boot.
-
-> SPI_NOR_4B_OPCODES is much more elegant.
-I agree that the SPI_NOR_4B_OPCODES are a good practice because they 
-don't alter the chip state and let software do the appropriate 
-configuration. 
-
-Is removing EN4B/EX4B part of the long-term plan for the Linux SPI-NOR 
-layer ? 
-
-> Sorry for not clarifying this in commit message.
-
-Thanks,
-
-C.
+Please let me know your merge strategy here. I can ack the clk patches
+because they look fine from high-level clk driver perspective (maybe
+Joel can take a closer look) or I can merge the patches into clk-next
+and get them into next release while the video driver gets reviewed.
