@@ -1,57 +1,41 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <yong.b.li@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22d; helo=mail-it0-x22d.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pW+qXSDt"; 
- dkim-atps=neutral
-Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
- [IPv6:2607:f8b0:4001:c0b::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 423fvJ6kHQzF399
- for <openbmc@lists.ozlabs.org>; Mon,  3 Sep 2018 16:19:39 +1000 (AEST)
-Received: by mail-it0-x22d.google.com with SMTP id u13-v6so14158222iti.1
- for <openbmc@lists.ozlabs.org>; Sun, 02 Sep 2018 23:19:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oHuSHJY9oNTb+7CCHH/av7IoRqLvD75KCwglm3HHP+M=;
- b=pW+qXSDtPacrToG74H+23QAr2vbL3Td1beAVxxDINEnZ6k7WAR2G3/rXa2VUMvbfPg
- zbUcRWDOyVcbQx32ExtnsWXOFShwl6aoMxGwHLC/ZBRsFDOauXn1dRmf7iIRvgcWJXAd
- wQMtaTlpK0FU7pvC1NK3vjBSHjxDhvBtAbE/c1acyTDkgNWNDWwwJCaMIgRscQCQBZ4F
- JK4iNWFscGnUZ51vsGE3CUxO1hE5eOnAMPDAz2XKQMNkhEFg4Y7Mgq87/5ZHq4GQ0B1z
- niuzmolSUN2oultp2DTgI8n8LgmrGte6zL4D44kdJDkwACVO46ne3RViy1/R46SM9CYd
- C4SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oHuSHJY9oNTb+7CCHH/av7IoRqLvD75KCwglm3HHP+M=;
- b=V2GiRpzwOWL0eWvvF/Utr80OfExMrrDPBlIBrHihxkXojNVhhxVy0MgSMZd1N0eAKk
- 7HG+PJ0qnJUuCjkwsWbTkUukntiSMSoASTjRke6/gdKpttyzvhVe9D0tanalBeFcU60y
- Ou196a9Nvc+kCHlx1WlmZgEFtAYEGu0ZD/KhfvnNLUAoDkTHcYUfYUQ50v0nlADQoyeb
- 1e9Eyev2c4SMa0tLlZLioNze6hqeEnn2L3eOmUDpC/ry9m7uRBvG2KH4kUexvd5ognCj
- hWTCAKScHzxFFz4IMqZ/W05nY5HLfy6yK3aSIVIp6HsOuW33PmBAL1fLXAl/Tc1syo+y
- b//w==
-X-Gm-Message-State: APzg51AokztJX/F/SraOtgH8wqxim9uvN+sWyu4fNzhSU8aY7yiUCUWJ
- i79lG5kFDcRg9B1DGiPxZgRvK63+ULAGTMmFPuY=
-X-Google-Smtp-Source: ANB0VdZQRiNnQit012MYZu3+jbdez05QARcBFxJ9LYhZ18zgAOLhfSZ2hv9h1xfQ3tDglKNDPxzFDipNyrd1ZKA5fyE=
-X-Received: by 2002:a24:14d8:: with SMTP id
- 207-v6mr3887264itg.41.1535955577498; 
- Sun, 02 Sep 2018 23:19:37 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 423hpX2ShLzF38x
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Sep 2018 17:45:38 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2018 00:45:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,324,1531810800"; d="scan'208,217";a="82511333"
+Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
+ ([10.239.196.71])
+ by fmsmga002.fm.intel.com with ESMTP; 03 Sep 2018 00:45:35 -0700
+From: "Yong Li" <yong.b.li@linux.intel.com>
+To: <openbmc@lists.ozlabs.org>
+Subject: watchdog error during host power on
+Date: Mon, 3 Sep 2018 15:45:34 +0800
+Message-ID: <000001d4435a$19767be0$4c6373a0$@linux.intel.com>
 MIME-Version: 1.0
-References: <CAE33tLG+MZOg8-O76kXruUYeC=c=pLUEU4UuV8+bO4sqhegTJA@mail.gmail.com>
-In-Reply-To: <CAE33tLG+MZOg8-O76kXruUYeC=c=pLUEU4UuV8+bO4sqhegTJA@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Mon, 3 Sep 2018 14:19:26 +0800
-Message-ID: <CAARXrtk9YPLQJ9NUwjaFYLhaz9K4+hU44HwBtt4WuUTxhtksCw@mail.gmail.com>
-Subject: Re: Temperature Sensor not showing up.
-To: akashgj91@gmail.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_000_0001_01D4439D.279A7F30"
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdRDWf2YcVWItDVMQwOY2Dxcz8YGHA==
+Content-Language: en-us
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZTYxNDYxOTItYTBiMy00YzI1LTllMWUtODA2OWJlOTkxZjA0IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiVzVUZHNyd3V3dG5CeU1Gd0VHSW5ySTFGXC82NW5rNjhwVU5oXC9JVndoRVVQaWpOczFOTVpDU0UxSjZHUVRDbnl6In0=
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -63,31 +47,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Sep 2018 06:19:42 -0000
+X-List-Received-Date: Mon, 03 Sep 2018 07:45:41 -0000
 
-Hi Akash,
+This is a multipart message in MIME format.
 
-The sensors need to be configured at build time.
-Please refer to:
-https://github.com/openbmc/docs/blob/master/sensor-architecture.md
-or
-https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide.md#hwmon-sensors
+------=_NextPart_000_0001_01D4439D.279A7F30
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Thanks!
+Hi All,
 
-On Mon, Sep 3, 2018 at 2:03 PM AKASH G J <akashgj91@gmail.com> wrote:
->
-> Hi Team,
->
-> I built OpenBMC Linux using Zaius configuration and booted on BMC Aspeed AST-2500. The board we are using have a temperature sensor in I2C interface.
->
-> When I am executing the command curl -b jcar -k http://root:0penBmc@169.254.8.221:18080/xyz/openbmc_project/sensors/temperature it is giving reply as curl: (52) Empty reply from server
->
-> Ipmitool command: ipmitool -I dbus sdr elist full also not showing the temperature sensor and its reading
->
-> Please someone help to resolve the problem.
->
->
-> Thanks and Regards,
->
-> Akash
+ 
+
+I received the below error message during host power on, and the watchdog
+service does not started:
+
+obmc-enable-host-watchdog[1956]: Error finding
+'/xyz/openbmc_project/watchdog/host0' service: No such file or directory
+
+ 
+
+It seems that the below services need to be serialized. 
+
+obmc-enable-host-watchdog@0.service
+
+phosphor-watchdog@poweron.service
+
+ 
+
+phosphor-watchdog@poweron.service <mailto:phosphor-watchdog@poweron.service>
+needs to be start firstly, then obmc-enable-host-watchdog@0.service.
+
+ 
+
+I found below items in obmc-enable-host-watchdog@0.service
+<mailto:obmc-enable-host-watchdog@0.service> , but they cannot fix the issue
+
+Wants=mapper-wait@-xyz-openbmc_project-watchdog-host%i.service
+
+After=mapper-wait@-xyz-openbmc_project-watchdog-host%i.service
+<mailto:After=mapper-wait@-xyz-openbmc_project-watchdog-host%25i.service> 
+
+ 
+
+Any suggestions/comments?
+
+ 
+
+Thanks,
+
+Yong 
+
+
+------=_NextPart_000_0001_01D4439D.279A7F30
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US =
+link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
+class=3DMsoNormal>Hi All,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I received =
+the below error message during host power on, and the watchdog service =
+does not started:<o:p></o:p></p><p =
+class=3DMsoNormal>obmc-enable-host-watchdog[1956]: Error finding =
+'/xyz/openbmc_project/watchdog/host0' service: No such file or =
+directory<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>It seems that the below services need to be =
+serialized. <o:p></o:p></p><p =
+class=3DMsoNormal>obmc-enable-host-watchdog@0.service<o:p></o:p></p><p =
+class=3DMsoNormal>phosphor-watchdog@poweron.service<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal><a =
+href=3D"mailto:phosphor-watchdog@poweron.service">phosphor-watchdog@power=
+on.service</a> needs to be start firstly, then =
+obmc-enable-host-watchdog@0.service.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I found =
+below items in <a =
+href=3D"mailto:obmc-enable-host-watchdog@0.service">obmc-enable-host-watc=
+hdog@0.service</a>, but they cannot fix the issue<o:p></o:p></p><p =
+class=3DMsoNormal>Wants=3Dmapper-wait@-xyz-openbmc_project-watchdog-host%=
+i.service<o:p></o:p></p><p class=3DMsoNormal><a =
+href=3D"mailto:After=3Dmapper-wait@-xyz-openbmc_project-watchdog-host%25i=
+.service">After=3Dmapper-wait@-xyz-openbmc_project-watchdog-host%i.servic=
+e</a><o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Any suggestions/comments?<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Thanks,<o:p></o:p></p><p class=3DMsoNormal>Yong =
+<o:p></o:p></p></div></body></html>
+------=_NextPart_000_0001_01D4439D.279A7F30--
