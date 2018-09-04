@@ -9,46 +9,52 @@ Received: from mail-oi0-f68.google.com (mail-oi0-f68.google.com
  [209.85.218.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 424SY13DsqzF3MP;
- Tue,  4 Sep 2018 23:36:36 +1000 (AEST)
-Received: by mail-oi0-f68.google.com with SMTP id m11-v6so6740181oic.2;
- Tue, 04 Sep 2018 06:36:36 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 424SY21YHzzF3Qm;
+ Tue,  4 Sep 2018 23:36:37 +1000 (AEST)
+Received: by mail-oi0-f68.google.com with SMTP id p84-v6so6718091oic.4;
+ Tue, 04 Sep 2018 06:36:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:date:from:subject:references
- :in-reply-to:cc:cc:to:status:lines;
- bh=YlFbnsToxsnpc3NjnngPfpOYy7SJWqr5vXFP23sEd6A=;
- b=RERckqACBzhI/LtPrChCVyJ43p+qDJ3lHPAbm5aBWO22qvSgXf61KmGO0CV/m8bgUg
- 3yFF3WBsQhrYx0fg1Kdd75JuZubsfvtiPU/OqAXzwaZaT9q2eyHqlazrjCsfsM7CS7da
- OFb7v3uJ4V60vazmdoWGxFy0sTONZ8dGEQXCATDVeOQcNFeRy3zVpl9EHWm74K4OMCXW
- cxU4ta1dK39SvdjPtnZW/2oW9UhUl7+SIWCPKDMZpM58VgfCikLz1SamE7O401iyMiCi
- Fk9L/WE9bslO9jClycY4zqOfl6DNYovDpjdJEmJwqnRdFUi5qsAlGbWoxw/ghUdjKRo6
- OpTQ==
-X-Gm-Message-State: APzg51Brxn82woQT9uW1j6YZENHBbCl2a68HB68dYqcAktH0yb99DNpe
- /7N5l0TS/sdXvdo0hSe+Yg==
-X-Google-Smtp-Source: ANB0VdbEc8By2fChLJ5rGmeh9p5+H565YqHXOZv+e/2nnZPmJZDYziJNr9Gfqh1APRQhbKfgCRBjew==
-X-Received: by 2002:aca:e6cd:: with SMTP id
- d196-v6mr23701051oih.94.1536068194895; 
- Tue, 04 Sep 2018 06:36:34 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:date:status:lines;
+ bh=KM5oqrFfgUO/Zdaz5dYqjCS5NW0u4AaxvKo9TB6UIKg=;
+ b=k42sxJIF3SGLBr35wUk3qeqYgBoD/b9/AJsxduI6O7zjw+gDoEqvgw726v8/WTvv8d
+ un9cncBKPolID+/Hwr4mnPqA7hM+Nz8smUCNxBbRaWS8ITaw4/3PSNDtit2s2igcT/Q5
+ X//UbxK/AjkH2mBTkaxfxCWCT16NNu8nnmpxUQ0JDVaMselC2iOUoEOKi/Bmd8MoPIFJ
+ 1bkKI7xdw0+yIf9gRzjIC6RH2Xn2n/HLwcuKHxbl+ezn77MrRl1NxL8ag1df5XXSbKTx
+ /xWNo/mo6MBOcLI4T0Px4mZmTGjktFyIx2sGuyqleDwmeX7/XbXADjCWw4p35E8j+pfq
+ hwuA==
+X-Gm-Message-State: APzg51Bn+GtTwWpblPDqhz3I2OGxeWDW6BIMC8kAB6vvUqQg0Eix8fL6
+ 96WRN1YHY6ZqNbq+Dlg3JA==
+X-Google-Smtp-Source: ANB0Vdaejk1D5yTudyKkWwxBGb+fJ4aVsMPgszGc5z8HgEtKuY6tpU7w6kEmfiPycGWbR3XWVnic+w==
+X-Received: by 2002:aca:afcc:: with SMTP id
+ y195-v6mr25413223oie.322.1536068196053; 
+ Tue, 04 Sep 2018 06:36:36 -0700 (PDT)
 Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id t3-v6sm12493498oie.52.2018.09.04.06.36.34
+ by smtp.gmail.com with ESMTPSA id c9-v6sm25315057oia.1.2018.09.04.06.36.35
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 04 Sep 2018 06:36:34 -0700 (PDT)
-Message-ID: <5b8e8a62.1c69fb81.6801.2c0d@mx.google.com>
-Date: Tue, 04 Sep 2018 08:36:33 -0500
+ Tue, 04 Sep 2018 06:36:35 -0700 (PDT)
 From: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH 1/4] clock: aspeed: Add VIDEO reset index definition
-References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1535576973-8067-2-git-send-email-eajames@linux.vnet.ibm.com>
-In-Reply-To: <1535576973-8067-2-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-media@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, andrew@aj.id.au, mchehab@kernel.org, joel@jms.id.au,
- robh+dt@kernel.org, mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, mturquette@baylibre.com, sboyd@kernel.org,
- linux-arm-kernel@lists.infradead.org, Eddie James <eajames@linux.vnet.ibm.com>
 To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ andrew@aj.id.au, mchehab@kernel.org, joel@jms.id.au,
+ mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, mturquette@baylibre.com,
+ sboyd@kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 3/4] dt-bindings: media: Add Aspeed Video Engine binding
+ documentation
+Message-ID: <20180904005015.GA5214@bogus>
+References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1535576973-8067-4-git-send-email-eajames@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1535576973-8067-4-git-send-email-eajames@linux.vnet.ibm.com>
+X-Mutt-References: <1535576973-8067-4-git-send-email-eajames@linux.vnet.ibm.com>
+X-Mutt-Fcc: ~/sent
+Date: Mon, 3 Sep 2018 19:50:18 -0500
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -62,14 +68,58 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 04 Sep 2018 13:36:38 -0000
 
-On Wed, 29 Aug 2018 16:09:30 -0500, Eddie James wrote:
-> Add an index into the array of resets kept in the Aspeed clock driver.
-> This isn't a HW bit definition.
+On Wed, Aug 29, 2018 at 04:09:32PM -0500, Eddie James wrote:
+> Document the bindings.
 > 
 > Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
 > ---
->  include/dt-bindings/clock/aspeed-clock.h | 1 +
->  1 file changed, 1 insertion(+)
+>  .../devicetree/bindings/media/aspeed-video.txt     | 23 ++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
 > 
+> diff --git a/Documentation/devicetree/bindings/media/aspeed-video.txt b/Documentation/devicetree/bindings/media/aspeed-video.txt
+> new file mode 100644
+> index 0000000..58c056a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/aspeed-video.txt
+> @@ -0,0 +1,23 @@
+> +* Device tree bindings for Aspeed Video Engine
+> +
+> +The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs can
+> +capture and compress video data from digital or analog sources.
+> +
+> +Required properties:
+> + - compatible:		"aspeed,ast2400-video" or "aspeed,ast2500-video"
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Maybe "video-engine" or "ve" would be more specific than just "video". 
+Use what is closest to the name of the block.
+
+> + - reg:			contains the offset and length of the VE memory region
+> + - clocks:		pointers to the the "vclk" and "eclk" of the syscon
+
+No pointers in DT. "Clock specifier"
+
+> + - clock-names:		"vclk-gate", "eclk-gate"
+
+Is that the name at or in the module? The fact that it is gated is 
+really outside the block and a property of the clock controller.
+
+> + - resets:		pointer to the VE reset of the syscon
+> + - interrupts:		the interrupt associated with the VE on this platform
+> +
+> +Example:
+> +
+> +video: video@1e700000 {
+
+video-codec@...
+
+> +    compatible = "aspeed,ast2500-video";
+> +    reg = <0x1e700000 0x20000>;
+> +    clocks = <&syscon ASPEED_CLK_GATE_VCLK>, <&syscon ASPEED_CLK_GATE_ECLK>;
+> +    clock-names = "vclk-gate", "eclk-gate";
+> +    resets = <&syscon ASPEED_RESET_VIDEO>;
+> +    interrupts = <7>;
+> +};
+> -- 
+> 1.8.3.1
+> 
