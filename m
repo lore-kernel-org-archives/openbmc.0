@@ -1,44 +1,61 @@
-Return-Path: <hverkuil@xs4all.nl>
+Return-Path: <martin.jansa@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=xs4all.nl
- (client-ip=194.109.24.25; helo=lb2-smtp-cloud8.xs4all.net;
- envelope-from=hverkuil@xs4all.nl; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.221.54; helo=mail-wr1-f54.google.com;
+ envelope-from=martin.jansa@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=xs4all.nl
-Received: from lb2-smtp-cloud8.xs4all.net (lb2-smtp-cloud8.xs4all.net
- [194.109.24.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tZ9hV2ZA"; 
+ dkim-atps=neutral
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 423pQl1KHZzF37s;
- Mon,  3 Sep 2018 21:58:54 +1000 (AEST)
-Received: from [192.168.2.10] ([212.251.195.8])
- by smtp-cloud8.xs4all.net with ESMTPA
- id wnUIflUQVxO9BwnULfqYMK; Mon, 03 Sep 2018 13:57:50 +0200
-Subject: Re: [PATCH 0/4] media: platform: Add Aspeed Video Engine driver
-To: Eddie James <eajames@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org
-Cc: linux-media@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, andrew@aj.id.au, mchehab@kernel.org,
- joel@jms.id.au, robh+dt@kernel.org, mark.rutland@arm.com,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- mturquette@baylibre.com, sboyd@kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <364c2565-fdb0-dd31-5852-6358066810a5@xs4all.nl>
-Date: Mon, 3 Sep 2018 13:57:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 424MXS1YsqzF3Lq
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Sep 2018 19:50:43 +1000 (AEST)
+Received: by mail-wr1-f54.google.com with SMTP id u12-v6so3253131wrr.4
+ for <openbmc@lists.ozlabs.org>; Tue, 04 Sep 2018 02:50:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nj2/h1IWIXXUPqWEr1TkxcADekTRwWueunQf4+25lcY=;
+ b=tZ9hV2ZAJd/BIsN+tT91pJqM5IWY2rbqQgYkpdIC9pKu6B1dO7djXWKkJww2wHLony
+ za60DcQ0zYCvLW4rwx7PsoR7p9u07DllU0YHtoiMij/k9jZTOrqgk4103krxwTH9juoO
+ lgQ4r5vl+Iuh4JDtw5aj1t1sR1vGidX1Ivlro++qaspiq/ItIGDX4fu189Db7UBdrgrr
+ 0ev+9UuNFE3lI86BolQHPTU5yuu+8q+keb1X8pBJdq4PCz4cT8aW/xVWnpHyUbZyAOtB
+ smM4DfcR43WRXSiD21lnd+/nZK/59WlX4wA2ThaTMZQbPrqbx62O16K5ONMvm+Ut4WQO
+ U1IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nj2/h1IWIXXUPqWEr1TkxcADekTRwWueunQf4+25lcY=;
+ b=OuG0OMiaglu6hbcyV0gVjEtiAeqRbCRMnIJG5OTjLpjrgMYTBJMC84olzcUgOHf1/h
+ P8nINPvPUHHG1UjaKGRe+nBVaM3E45VywC8ssApnLvi5pNen4cxKbnPhbOKfsJHqpu8H
+ 0eP4SRxxfsVBR4+lrzhaeYNTGBbAdsYeepFQ+7Hb1XZ4ZKxD6Mvb1rhYkIh6FUayvbrm
+ QUWfn/AkNjxijtGQCCW0XkhQSuHtzGImBaCgO2AYli6kFYf05ngRLgZW+6t/Q94L2pfM
+ qdlPLSO4xXFjap4k6wSmBh0k40aecfsy+4r6vk6KmmZ4HxWbLmrMId+5d6tuIS0imYJ+
+ CUdA==
+X-Gm-Message-State: APzg51CFk53NE+fzrIAvRPcUjzKoZXr16cW6hyrTrnxhMr50OwqW5pHt
+ 7iBqVXc3jWU0wc/VkR6FkdAO9HhyzBqea2hIPhXsjli4
+X-Google-Smtp-Source: ANB0VdbP9idcS9bpkPT7BmEaNLzJWqx2h/0vwstgrExz4o+bF3kyphtFnnbAie4KvuJnIWIvamXTkKauOMGaAdby/2M=
+X-Received: by 2002:adf:bd90:: with SMTP id
+ l16-v6mr22854767wrh.250.1536053903430; 
+ Tue, 04 Sep 2018 02:38:23 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfCdQHA7n+nK8xU0LtFlxm6Ac7gJJ1zP74WLQXPNPvWiYo5+mEJOSHTItsodx8AhWEqhAiTV0EPytrULAINPWtPMe5iU38F0L7Vn2I3HC2rLJqZsD/djR
- kvyUsxFMV0bfvi9BwruPp/+D3VZx3rHtWndgASvVL+RuxFj8RG4R7kS3EO+X9jyMqCg/MD6Y4YcDVTTW9E6bSpj4HOySNo8NwFNU04CDMi7aCIW7JHoSxCUo
- nwY56ASXzGD+TG+Z1g5VJVLWJSMr623YLrXczB2cV3uL6md8gn5avvvmqtM/4smoCw/lKAxnWNsVtirQbzbAsiPrwM/1+4m3n4DU3T8i/E4i0ptCoIGsESMD
- 9uP0VZp9z1RyFJCrX884Wza3wFQN/hsgOaMlNgWyOsTaUa1jnoV7/6KF6Kz6/f7FUJPG3TyGoArCxt1dZpVJ9JllP6yuPX5JBpGWXdhEqu1ZZh/ACezyqogv
- 351mMfnEkPakUK4NVqLqdO7W9KvjsjLnZ2LY9sU9my1KTAleEr9DQSQ5ASurTEusz7wr1eutCgJfi7U3fak/A1Q2QOQP5LEm6Xvv5xohxe7xuZGMEP+9bhug
- xQyoRasxLWwfaaA/L7VqeMOkNP9X3tqL2vrgx+7rc0RzRp+ukpEJl5n55oOa8v/PgWg6ii9eOhY9ncodKrPwAwM0
+References: <20180510063718.16913-1-andrew@aj.id.au>
+ <1527594494.687641.1388974752.4113AC8F@webmail.messagingengine.com>
+ <CAMKF1spm=GQQq90gu58BdrNtqPQx_fxnA01ar9Jmr4PbQnmttQ@mail.gmail.com>
+In-Reply-To: <CAMKF1spm=GQQq90gu58BdrNtqPQx_fxnA01ar9Jmr4PbQnmttQ@mail.gmail.com>
+From: Martin Jansa <martin.jansa@gmail.com>
+Date: Tue, 4 Sep 2018 11:38:12 +0200
+Message-ID: <CA+chaQcY0TXd5ZpsaV-pOn-zO+kMQ8=_2hK3OOKbOEF-CFWEBg@mail.gmail.com>
+Subject: Re: [oe] [meta-python][PATCH v2 1/3] meta-python: Add python-pyflame
+ recipe
+To: Khem Raj <raj.khem@gmail.com>
+Cc: andrew@aj.id.au, openbmc@lists.ozlabs.org, 
+ openembedded-devel <openembedded-devel@lists.openembedded.org>
+Content-Type: multipart/alternative; boundary="00000000000045188e0575086b78"
 X-Mailman-Approved-At: Mon, 10 Sep 2018 10:12:06 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -51,91 +68,315 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Sep 2018 11:58:56 -0000
+X-List-Received-Date: Tue, 04 Sep 2018 09:50:50 -0000
 
-Hi Eddie,
+--00000000000045188e0575086b78
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your work on this. Interesting to see support for this SoC :-)
+Hi,
 
-On 08/29/2018 11:09 PM, Eddie James wrote:
-> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
-> can capture and compress video data from digital or analog sources. With
-> the Aspeed chip acting as a service processor, the Video Engine can
-> capture the host processor graphics output.
-> 
-> This series adds a V4L2 driver for the VE, providing a read() interface
-> only. The driver triggers the hardware to capture the host graphics output
-> and compress it to JPEG format.
-> 
-> Testing on an AST2500 determined that the videobuf/streaming/mmap interface
-> was significantly slower than the simple read() interface, so I have not
-> included the streaming part.
+it also fails for aarch64:
 
-Do you know why? It should be equal or faster, not slower.
+| ../../git/src/ptrace.cc: In function 'user_regs_struct
+pyflame::PtraceGetRegs(pid_t)':
+| ../../git/src/ptrace.cc:127:14: error: 'PTRACE_GETREGS' was not declared
+in this scope
+|    if (ptrace(PTRACE_GETREGS, pid, 0, &regs)) {
+|               ^~~~~~~~~~~~~~
+| ../../git/src/ptrace.cc:127:14: note: suggested alternative:
+'PTRACE_GETREGSET'
+|    if (ptrace(PTRACE_GETREGS, pid, 0, &regs)) {
+|               ^~~~~~~~~~~~~~
+|               PTRACE_GETREGSET
+| ../../git/src/ptrace.cc: In function 'void pyflame::PtraceSetRegs(pid_t,
+user_regs_struct)':
+| ../../git/src/ptrace.cc:136:14: error: 'PTRACE_SETREGS' was not declared
+in this scope
+|    if (ptrace(PTRACE_SETREGS, pid, 0, &regs)) {
+|               ^~~~~~~~~~~~~~
+| ../../git/src/ptrace.cc:136:14: note: suggested alternative:
+'PTRACE_SETREGSET'
+|    if (ptrace(PTRACE_SETREGS, pid, 0, &regs)) {
+|               ^~~~~~~~~~~~~~
+|               PTRACE_SETREGSET
+| Makefile:524: recipe for target 'ptrace.o' failed
+| make[2]: *** [ptrace.o] Error 1
 
-I reviewed about half of the driver, but then I stopped since there were too
-many things missing.
+I don't plan to use it, so I'm ok with aarch64 removal from compatible
+archs if the fix turns to be complicated.
 
-First of all, you need to test your driver with v4l2-compliance (available here:
-https://git.linuxtv.org/v4l-utils.git/). Always compile from the git repo since
-the versions from distros tend to be too old.
+Cheers,
 
-Just run 'v4l2-compliance -d /dev/videoX' and fix all issues. Then run
-'v4l2-compliance -s -d /dev/videoX' to test streaming.
+On Thu, May 31, 2018 at 6:49 PM Khem Raj <raj.khem@gmail.com> wrote:
 
-This utility checks if the driver follows the V4L2 API correctly, implements
-all ioctls that it should and fills in all the fields that it should.
+> fails to build on qemumips
+>
+> | ../../git/src/ptrace.cc: In function 'user_regs_struct
+> pyflame::PtraceGetRegs(pid_t)':
+> | ../../git/src/ptrace.cc:125:41: error: return type 'user_regs_struct
+> {aka struct user_regs_struct}' is incomplete
+> |  user_regs_struct PtraceGetRegs(pid_t pid) {
+> |                                          ^
+> | ../../git/src/ptrace.cc:125:18: error: ambiguating new declaration
+> of 'void pyflame::PtraceGetRegs(pid_t)'
+> |  user_regs_struct PtraceGetRegs(pid_t pid) {
+> |                   ^~~~~~~~~~~~~
+> | In file included from ../../git/src/ptrace.cc:15:0:
+> | ../../git/src/./ptrace.h:48:18: note: old declaration
+> 'user_regs_struct pyflame::PtraceGetRegs(pid_t)'
+> |  user_regs_struct PtraceGetRegs(pid_t pid);
+> |                   ^~~~~~~~~~~~~
+> | ../../git/src/ptrace.cc:126:20: error: aggregate 'user_regs_struct
+> regs' has incomplete type and cannot be defined
+> |    user_regs_struct regs;
+> |                     ^~~~
+> | ../../git/src/ptrace.cc: In function 'void
+> pyflame::PtraceSetRegs(pid_t, user_regs_struct)':
+> | ../../git/src/ptrace.cc:135:48: error: 'regs' has incomplete type
+> |  void PtraceSetRegs(pid_t pid, user_regs_struct regs) {
+> |                                                 ^~~~
+> | In file included from ../../git/src/ptrace.cc:15:0:
+> | ../../git/src/./ptrace.h:29:16: note: forward declaration of
+> 'user_regs_struct {aka struct user_regs_struct}'
+> |  typedef struct user_regs_struct user_regs_struct;
+> |                 ^~~~~~~~~~~~~~~~
+> | make[2]: *** [ptrace.o] Error 1
+> | make[2]: *** Waiting for unfinished jobs....
+> | make[2]: Leaving directory
+>
+> `/mnt/jenkins/workspace/OpenEmbedded/build/tmp/work/mips32r2-bec-linux/python-pyflame/1.6.6-r0/build/src'
+>
+> On Tue, May 29, 2018 at 4:48 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> > On Thu, 10 May 2018, at 16:07, Andrew Jeffery wrote:
+> >> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> >
+> > Ping - is there anything I need to revise for this patch or the
+> following two?
+> >
+> > Cheers,
+> >
+> > Andrew
+> >
+> >> ---
+> >>  meta-python/recipes-devtools/python/python-pyflame.inc      | 12
+> ++++++++++++
+> >>  meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb |  1 +
+> >>  2 files changed, 13 insertions(+)
+> >>  create mode 100644
+> meta-python/recipes-devtools/python/python-pyflame.inc
+> >>  create mode 100644 meta-python/recipes-devtools/python/
+> python-pyflame_1.6.6.bb
+> >>
+> >> diff --git a/meta-python/recipes-devtools/python/python-pyflame.inc b/
+> >> meta-python/recipes-devtools/python/python-pyflame.inc
+> >> new file mode 100644
+> >> index 000000000000..3b84a7e8f8e3
+> >> --- /dev/null
+> >> +++ b/meta-python/recipes-devtools/python/python-pyflame.inc
+> >> @@ -0,0 +1,12 @@
+> >> +SUMMARY = "Pyflame: A Ptracing Profiler For Python"
+> >> +HOMEPAGE = "https://github.com/uber/pyflame"
+> >> +SECTION = "devel/python"
+> >> +LICENSE = "Apache-2.0"
+> >> +LIC_FILES_CHKSUM = "file://${S}/
+> >> LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
+> >> +DEPENDS = "python"
+> >> +
+> >> +SRC_URI = "git://github.com/uber/pyflame.git;protocol=https;tag=v${PV}
+> <http://github.com/uber/pyflame.git;protocol=https;tag=v$%7BPV%7D>"
+> >> +S = "${WORKDIR}/git"
+> >> +
+> >> +inherit pkgconfig autotools
+> >> +
+> >> diff --git a/meta-python/recipes-devtools/python/
+> python-pyflame_1.6.6.bb
+> >> b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+> >> new file mode 100644
+> >> index 000000000000..96f03305f883
+> >> --- /dev/null
+> >> +++ b/meta-python/recipes-devtools/python/python-pyflame_1.6.6.bb
+> >> @@ -0,0 +1 @@
+> >> +require python-pyflame.inc
+> >> --
+> >> 2.14.1
+> >>
+> > --
+> > _______________________________________________
+> > Openembedded-devel mailing list
+> > Openembedded-devel@lists.openembedded.org
+> > http://lists.openembedded.org/mailman/listinfo/openembedded-devel
+> --
+> _______________________________________________
+> Openembedded-devel mailing list
+> Openembedded-devel@lists.openembedded.org
+> http://lists.openembedded.org/mailman/listinfo/openembedded-devel
+>
 
-Please add the output of 'v4l2-compliance -s' to future versions of this patch
-series: I don't accept V4L2 drivers without a clean report of this utility.
+--00000000000045188e0575086b78
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If you have any questions, then mail me or (usually quicker) ask on the #v4l
-freenode irc channel (I'm in the CET timezone).
+<div dir=3D"ltr"><div dir=3D"ltr">Hi,<div><br></div><div>it also fails for =
+aarch64:</div><div><br></div><div><div>| ../../git/src/ptrace.cc: In functi=
+on &#39;user_regs_struct pyflame::PtraceGetRegs(pid_t)&#39;:</div><div>| ..=
+/../git/src/ptrace.cc:127:14: error: &#39;PTRACE_GETREGS&#39; was not decla=
+red in this scope</div><div>|=C2=A0 =C2=A0 if (ptrace(PTRACE_GETREGS, pid, =
+0, &amp;regs)) {</div><div>|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0^~~~~~~~~~~~~~</div><div>| ../../git/src/ptrace.cc:127:14: note: =
+suggested alternative: &#39;PTRACE_GETREGSET&#39;</div><div>|=C2=A0 =C2=A0 =
+if (ptrace(PTRACE_GETREGS, pid, 0, &amp;regs)) {</div><div>|=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~~</div><div>|=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PTRACE_GETREGSET</div><div>=
+| ../../git/src/ptrace.cc: In function &#39;void pyflame::PtraceSetRegs(pid=
+_t, user_regs_struct)&#39;:</div><div>| ../../git/src/ptrace.cc:136:14: err=
+or: &#39;PTRACE_SETREGS&#39; was not declared in this scope</div><div>|=C2=
+=A0 =C2=A0 if (ptrace(PTRACE_SETREGS, pid, 0, &amp;regs)) {</div><div>|=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~~</div><di=
+v>| ../../git/src/ptrace.cc:136:14: note: suggested alternative: &#39;PTRAC=
+E_SETREGSET&#39;</div><div>|=C2=A0 =C2=A0 if (ptrace(PTRACE_SETREGS, pid, 0=
+, &amp;regs)) {</div><div>|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0^~~~~~~~~~~~~~</div><div>|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0PTRACE_SETREGSET</div><div>| Makefile:524: recipe for target &=
+#39;ptrace.o&#39; failed</div><div>| make[2]: *** [ptrace.o] Error 1</div><=
+/div><div><br></div><div>I don&#39;t plan to use it, so I&#39;m ok with aar=
+ch64 removal from compatible archs if the fix turns to be complicated.</div=
+><div><br></div><div>Cheers,</div></div></div><br><div class=3D"gmail_quote=
+"><div dir=3D"ltr">On Thu, May 31, 2018 at 6:49 PM Khem Raj &lt;<a href=3D"=
+mailto:raj.khem@gmail.com">raj.khem@gmail.com</a>&gt; wrote:<br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #cc=
+c solid;padding-left:1ex">fails to build on qemumips<br>
+<br>
+| ../../git/src/ptrace.cc: In function &#39;user_regs_struct<br>
+pyflame::PtraceGetRegs(pid_t)&#39;:<br>
+| ../../git/src/ptrace.cc:125:41: error: return type &#39;user_regs_struct<=
+br>
+{aka struct user_regs_struct}&#39; is incomplete<br>
+|=C2=A0 user_regs_struct PtraceGetRegs(pid_t pid) {<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^=
+<br>
+| ../../git/src/ptrace.cc:125:18: error: ambiguating new declaration<br>
+of &#39;void pyflame::PtraceGetRegs(pid_t)&#39;<br>
+|=C2=A0 user_regs_struct PtraceGetRegs(pid_t pid) {<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~=
+~~~~~~~~<br>
+| In file included from ../../git/src/ptrace.cc:15:0:<br>
+| ../../git/src/./ptrace.h:48:18: note: old declaration<br>
+&#39;user_regs_struct pyflame::PtraceGetRegs(pid_t)&#39;<br>
+|=C2=A0 user_regs_struct PtraceGetRegs(pid_t pid);<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~=
+~~~~~~~~<br>
+| ../../git/src/ptrace.cc:126:20: error: aggregate &#39;user_regs_struct<br=
+>
+regs&#39; has incomplete type and cannot be defined<br>
+|=C2=A0 =C2=A0 user_regs_struct regs;<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0^~~~<br>
+| ../../git/src/ptrace.cc: In function &#39;void<br>
+pyflame::PtraceSetRegs(pid_t, user_regs_struct)&#39;:<br>
+| ../../git/src/ptrace.cc:135:48: error: &#39;regs&#39; has incomplete type=
+<br>
+|=C2=A0 void PtraceSetRegs(pid_t pid, user_regs_struct regs) {<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~<br>
+| In file included from ../../git/src/ptrace.cc:15:0:<br>
+| ../../git/src/./ptrace.h:29:16: note: forward declaration of<br>
+&#39;user_regs_struct {aka struct user_regs_struct}&#39;<br>
+|=C2=A0 typedef struct user_regs_struct user_regs_struct;<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~=
+~~~~<br>
+| make[2]: *** [ptrace.o] Error 1<br>
+| make[2]: *** Waiting for unfinished jobs....<br>
+| make[2]: Leaving directory<br>
+`/mnt/jenkins/workspace/OpenEmbedded/build/tmp/work/mips32r2-bec-linux/pyth=
+on-pyflame/1.6.6-r0/build/src&#39;<br>
+<br>
+On Tue, May 29, 2018 at 4:48 AM, Andrew Jeffery &lt;<a href=3D"mailto:andre=
+w@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; wrote:<br>
+&gt; On Thu, 10 May 2018, at 16:07, Andrew Jeffery wrote:<br>
+&gt;&gt; Signed-off-by: Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.a=
+u" target=3D"_blank">andrew@aj.id.au</a>&gt;<br>
+&gt;<br>
+&gt; Ping - is there anything I need to revise for this patch or the follow=
+ing two?<br>
+&gt;<br>
+&gt; Cheers,<br>
+&gt;<br>
+&gt; Andrew<br>
+&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt;=C2=A0 meta-python/recipes-devtools/python/python-pyflame.inc=C2=A0=
+ =C2=A0 =C2=A0 | 12 ++++++++++++<br>
+&gt;&gt;=C2=A0 meta-python/recipes-devtools/python/<a href=3D"http://python=
+-pyflame_1.6.6.bb" rel=3D"noreferrer" target=3D"_blank">python-pyflame_1.6.=
+6.bb</a> |=C2=A0 1 +<br>
+&gt;&gt;=C2=A0 2 files changed, 13 insertions(+)<br>
+&gt;&gt;=C2=A0 create mode 100644 meta-python/recipes-devtools/python/pytho=
+n-pyflame.inc<br>
+&gt;&gt;=C2=A0 create mode 100644 meta-python/recipes-devtools/python/<a hr=
+ef=3D"http://python-pyflame_1.6.6.bb" rel=3D"noreferrer" target=3D"_blank">=
+python-pyflame_1.6.6.bb</a><br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/meta-python/recipes-devtools/python/python-pyflame.in=
+c b/<br>
+&gt;&gt; meta-python/recipes-devtools/python/python-pyflame.inc<br>
+&gt;&gt; new file mode 100644<br>
+&gt;&gt; index 000000000000..3b84a7e8f8e3<br>
+&gt;&gt; --- /dev/null<br>
+&gt;&gt; +++ b/meta-python/recipes-devtools/python/python-pyflame.inc<br>
+&gt;&gt; @@ -0,0 +1,12 @@<br>
+&gt;&gt; +SUMMARY =3D &quot;Pyflame: A Ptracing Profiler For Python&quot;<b=
+r>
+&gt;&gt; +HOMEPAGE =3D &quot;<a href=3D"https://github.com/uber/pyflame" re=
+l=3D"noreferrer" target=3D"_blank">https://github.com/uber/pyflame</a>&quot=
+;<br>
+&gt;&gt; +SECTION =3D &quot;devel/python&quot;<br>
+&gt;&gt; +LICENSE =3D &quot;Apache-2.0&quot;<br>
+&gt;&gt; +LIC_FILES_CHKSUM =3D &quot;file://${S}/<br>
+&gt;&gt; LICENSE;md5=3D2ee41112a44fe7014dce33e26468ba93&quot;<br>
+&gt;&gt; +DEPENDS =3D &quot;python&quot;<br>
+&gt;&gt; +<br>
+&gt;&gt; +SRC_URI =3D &quot;git://<a href=3D"http://github.com/uber/pyflame=
+.git;protocol=3Dhttps;tag=3Dv$%7BPV%7D" rel=3D"noreferrer" target=3D"_blank=
+">github.com/uber/pyflame.git;protocol=3Dhttps;tag=3Dv${PV}</a>&quot;<br>
+&gt;&gt; +S =3D &quot;${WORKDIR}/git&quot;<br>
+&gt;&gt; +<br>
+&gt;&gt; +inherit pkgconfig autotools<br>
+&gt;&gt; +<br>
+&gt;&gt; diff --git a/meta-python/recipes-devtools/python/<a href=3D"http:/=
+/python-pyflame_1.6.6.bb" rel=3D"noreferrer" target=3D"_blank">python-pyfla=
+me_1.6.6.bb</a><br>
+&gt;&gt; b/meta-python/recipes-devtools/python/<a href=3D"http://python-pyf=
+lame_1.6.6.bb" rel=3D"noreferrer" target=3D"_blank">python-pyflame_1.6.6.bb=
+</a><br>
+&gt;&gt; new file mode 100644<br>
+&gt;&gt; index 000000000000..96f03305f883<br>
+&gt;&gt; --- /dev/null<br>
+&gt;&gt; +++ b/meta-python/recipes-devtools/python/<a href=3D"http://python=
+-pyflame_1.6.6.bb" rel=3D"noreferrer" target=3D"_blank">python-pyflame_1.6.=
+6.bb</a><br>
+&gt;&gt; @@ -0,0 +1 @@<br>
+&gt;&gt; +require python-pyflame.inc<br>
+&gt;&gt; --<br>
+&gt;&gt; 2.14.1<br>
+&gt;&gt;<br>
+&gt; --<br>
+&gt; _______________________________________________<br>
+&gt; Openembedded-devel mailing list<br>
+&gt; <a href=3D"mailto:Openembedded-devel@lists.openembedded.org" target=3D=
+"_blank">Openembedded-devel@lists.openembedded.org</a><br>
+&gt; <a href=3D"http://lists.openembedded.org/mailman/listinfo/openembedded=
+-devel" rel=3D"noreferrer" target=3D"_blank">http://lists.openembedded.org/=
+mailman/listinfo/openembedded-devel</a><br>
+-- <br>
+_______________________________________________<br>
+Openembedded-devel mailing list<br>
+<a href=3D"mailto:Openembedded-devel@lists.openembedded.org" target=3D"_bla=
+nk">Openembedded-devel@lists.openembedded.org</a><br>
+<a href=3D"http://lists.openembedded.org/mailman/listinfo/openembedded-deve=
+l" rel=3D"noreferrer" target=3D"_blank">http://lists.openembedded.org/mailm=
+an/listinfo/openembedded-devel</a><br>
+</blockquote></div>
 
-One thing that needs more explanation: from what I could tell from the driver
-the VIDIOC_G_FMT ioctl returns the detected format instead of the current
-format. This is wrong. Instead you should implement the VIDIOC_*_DV_TIMINGS
-ioctls and the V4L2_EVENT_SOURCE_CHANGE event.
-
-The normal sequence is that userspace queries the current timings with
-VIDIOC_QUERY_DV_TIMINGS, if it finds valid timings, then it sets these
-timings with _S_DV_TIMINGS. Now it can call G/S_FMT. If the timings
-change, then the driver should detect that and send a V4L2_EVENT_SOURCE_CHANGE
-event.
-
-When the application receives this event it can take action, such as
-increasing the size of the buffer for the jpeg data that it reads into.
-
-The reason for this sequence of events is that you can't just change the
-format/resolution mid-stream without giving userspace the chance to
-reconfigure.
-
-Regards,
-
-	Hans
-
-> 
-> It's also possible to use an automatic mode for the VE such that
-> re-triggering the HW every frame isn't necessary. However this wasn't
-> reliable on the AST2400, and probably used more CPU anyway due to excessive
-> interrupts. It was approximately 15% faster.
-> 
-> The series also adds the necessary parent clock definitions to the Aspeed
-> clock driver, with both a mux and clock divider.
-> 
-> Eddie James (4):
->   clock: aspeed: Add VIDEO reset index definition
->   clock: aspeed: Setup video engine clocking
->   dt-bindings: media: Add Aspeed Video Engine binding documentation
->   media: platform: Add Aspeed Video Engine driver
-> 
->  .../devicetree/bindings/media/aspeed-video.txt     |   23 +
->  drivers/clk/clk-aspeed.c                           |   41 +-
->  drivers/media/platform/Kconfig                     |    8 +
->  drivers/media/platform/Makefile                    |    1 +
->  drivers/media/platform/aspeed-video.c              | 1307 ++++++++++++++++++++
->  include/dt-bindings/clock/aspeed-clock.h           |    1 +
->  6 files changed, 1379 insertions(+), 2 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
->  create mode 100644 drivers/media/platform/aspeed-video.c
-> 
+--00000000000045188e0575086b78--
