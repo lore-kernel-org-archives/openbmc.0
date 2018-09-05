@@ -1,57 +1,64 @@
-Return-Path: <a.filippov@yadro.com>
+Return-Path: <jrey@us.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.filippov@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@us.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="i9s4VSfC"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=us.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4257wq2tWJzF2QK
- for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 02:11:07 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 58BEC411FB;
- Wed,  5 Sep 2018 16:11:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:mime-version:x-mailer:message-id:date
- :date:subject:subject:from:from:received:received:received; s=
- mta-01; t=1536163863; x=1537978264; bh=5e2V8/THO44N8QjlvUcMkpQ2G
- jVcfNvCLU9txSzW9Dk=; b=i9s4VSfCOjg159//3KM2BwAyvyaTRmrbh2Z3D6N9K
- dDbRBKTDfb75G8VDCOl/RQqOzjiZ0cAkIeFhionp8w+2pdgidzC5T7Sc5K4BCDY2
- sP/he+kwiwy2s94n4o681Lu6Fw6MDkEbfu/MwQYhVOYpz5lf29n8kP1bVWU/QZMS
- Ag=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id nV-7HakpgxeR; Wed,  5 Sep 2018 19:11:03 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 6A54E404D1;
- Wed,  5 Sep 2018 19:11:03 +0300 (MSK)
-Received: from bbwork.com (172.17.15.155) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 5 Sep
- 2018 19:11:03 +0300
-From: Alexander Filippov <a.filippov@yadro.com>
-To: <openembedded-devel@lists.openembedded.org>, Joe MacDonald
- <joe_macdonald@mentor.com>
-CC: <openbmc@lists.ozlabs.org>, Alexander Filippov <a.filippov@yadro.com>
-Subject: [sumo][meta-networking][PATCH] split net-snmp-libs into smaller
- packages
-Date: Wed, 5 Sep 2018 19:10:49 +0300
-Message-ID: <20180905161049.13809-1-a.filippov@yadro.com>
-X-Mailer: git-send-email 2.14.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4258Wl0YdfzF35x
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 02:37:54 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w85GOjta111906
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Sep 2018 12:37:52 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.74])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2majgjrwc7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Sep 2018 12:37:52 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <jrey@us.ibm.com>;
+ Wed, 5 Sep 2018 16:37:50 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.95)
+ by smtp.notes.na.collabserv.com (10.106.227.92) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 5 Sep 2018 16:37:04 -0000
+Received: from us1a3-mail269.a3.dal06.isc4sb.com ([10.146.127.27])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2018090516370334-926453 ;
+ Wed, 5 Sep 2018 16:37:03 +0000 
+To: openbmc@lists.ozlabs.org
+Subject: Security Work Group meeting
+From: "Joseph Reynolds" <jrey@us.ibm.com>
+Date: Wed, 5 Sep 2018 11:37:03 -0500
+X-KeepSent: 5275607C:6F29B8DF-002582FF:005A55FC;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP10 SHF68 March 06, 2018
+X-LLNOutbound: False
+X-Disclaimed: 43011
+X-TNEFEvaluated: 1
+x-cbid: 18090516-7581-0000-0000-000008ED6C33
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.394815; ST=0; TS=0; UL=0; ISC=; MB=0.000000
+X-IBM-SpamModules-Versions: BY=3.00009676; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01083966; UDB=6.00559438; IPR=6.00863966; 
+ BA=6.00006093; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00023130; XFM=3.00000015;
+ UTC=2018-09-05 16:37:50
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-09-05 15:27:44 - 6.00008928
+x-cbparentid: 18090516-7582-0000-0000-00001EDB8C28
+Message-Id: <OF5275607C.6F29B8DF-ON002582FF.005A55FC-862582FF.005B48C9@notes.na.collabserv.com>
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: Quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.17.15.155]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-09-05_09:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -63,76 +70,10 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Sep 2018 16:11:08 -0000
+X-List-Received-Date: Wed, 05 Sep 2018 16:37:55 -0000
 
-By default `net-snmp-libs` contains all compiled libs.
-This commit splits `net-snmp-libs` into subpackages for each library.
-
-This allows for smaller resulting image due to finer packaging.
-
-Signed-off-by: Alexander Filippov <a.filippov@yadro.com>
----
- .../recipes-protocols/net-snmp/net-snmp_5.7.3.bb   | 23 ++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
-
-diff --git a/meta-networking/recipes-protocols/net-snmp/net-snmp_5.7.3.bb b/meta-networking/recipes-protocols/net-snmp/net-snmp_5.7.3.bb
-index faf73a563..4ea0a5915 100644
---- a/meta-networking/recipes-protocols/net-snmp/net-snmp_5.7.3.bb
-+++ b/meta-networking/recipes-protocols/net-snmp/net-snmp_5.7.3.bb
-@@ -173,17 +173,21 @@ net_snmp_sysroot_preprocess () {
-     fi
- }
- 
--PACKAGES += "${PN}-libs ${PN}-mibs ${PN}-server ${PN}-client ${PN}-server-snmpd ${PN}-server-snmptrapd"
-+PACKAGES += "${PN}-libs ${PN}-mibs ${PN}-server ${PN}-client \
-+             ${PN}-server-snmpd ${PN}-server-snmptrapd \
-+             ${PN}-lib-netsnmp ${PN}-lib-agent ${PN}-lib-helpers \
-+             ${PN}-lib-mibs ${PN}-lib-trapd"
- 
- # perl module
- PACKAGES += "${@bb.utils.contains('PACKAGECONFIG', 'perl', '${PN}-perl-modules', '', d)}"
- 
- ALLOW_EMPTY_${PN} = "1"
- ALLOW_EMPTY_${PN}-server = "1"
-+ALLOW_EMPTY_${PN}-libs = "1"
- 
- FILES_${PN}-perl-modules = "${libdir}/perl/*"
- 
--FILES_${PN}-libs = "${libdir}/lib*${SOLIBS}"
-+FILES_${PN}-libs = ""
- FILES_${PN}-mibs = "${datadir}/snmp/mibs"
- FILES_${PN}-server-snmpd = "${sbindir}/snmpd \
-                             ${sysconfdir}/snmp/snmpd.conf \
-@@ -196,6 +200,12 @@ FILES_${PN}-server-snmptrapd = "${sbindir}/snmptrapd \
-                                 ${systemd_unitdir}/system/snmptrapd.service \
- "
- 
-+FILES_${PN}-lib-netsnmp = "${libdir}/libnetsnmp${SOLIBS}"
-+FILES_${PN}-lib-agent = "${libdir}/libnetsnmpagent${SOLIBS}"
-+FILES_${PN}-lib-helpers = "${libdir}/libnetsnmphelpers${SOLIBS}"
-+FILES_${PN}-lib-mibs = "${libdir}/libnetsnmpmibs${SOLIBS}"
-+FILES_${PN}-lib-trapd = "${libdir}/libnetsnmptrapd${SOLIBS}"
-+
- FILES_${PN} = ""
- FILES_${PN}-client = "${bindir}/* ${datadir}/snmp/"
- FILES_${PN}-dbg += "${libdir}/.debug/ ${sbindir}/.debug/ ${bindir}/.debug/"
-@@ -219,10 +229,15 @@ SYSTEMD_SERVICE_${PN}-server-snmptrapd =  "snmptrapd.service"
- RDEPENDS_${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'perl', 'net-snmp-perl-modules', '', d)}"
- RDEPENDS_${PN} += "net-snmp-client"
- RDEPENDS_${PN}-server-snmpd += "net-snmp-mibs"
--RDEPENDS_${PN}-server-snmptrapd += "net-snmp-server-snmpd"
-+RDEPENDS_${PN}-server-snmptrapd += "net-snmp-server-snmpd ${PN}-lib-trapd"
- RDEPENDS_${PN}-server += "net-snmp-server-snmpd net-snmp-server-snmptrapd"
- RDEPENDS_${PN}-client += "net-snmp-mibs net-snmp-libs"
--RDEPENDS_${PN}-libs += "libpci"
-+RDEPENDS_${PN}-libs += "libpci \
-+                        ${PN}-lib-netsnmp \
-+                        ${PN}-lib-agent \
-+                        ${PN}-lib-helpers \
-+                        ${PN}-lib-mibs \
-+"
- RDEPENDS_${PN}-ptest += "perl \
-                          perl-module-test \
-                          perl-module-file-basename \
--- 
-2.14.4
+The OpenBMC Security Workgroup meets Wednesdays at 10am PDT (noon CST).
+The agenda, access information, and minutes are here:=20
+https://github.com/openbmc/openbmc/wiki/Security-working-group
+Recent topics are: how to implement best practices from selected upstream=20
+projects, and how to get started with static code analysis.
