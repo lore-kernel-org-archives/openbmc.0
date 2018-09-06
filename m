@@ -1,57 +1,64 @@
-Return-Path: <kuiying.wang@intel.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.218.44; helo=mail-oi0-f44.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mCvnpK+T"; 
+ dkim-atps=neutral
+Received: from mail-oi0-f44.google.com (mail-oi0-f44.google.com
+ [209.85.218.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 425XKB03k6zF09c
- for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 17:30:04 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2018 00:30:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,337,1531810800"; d="scan'208";a="72023311"
-Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
- by orsmga006.jf.intel.com with ESMTP; 06 Sep 2018 00:29:59 -0700
-Received: from fmsmsx117.amr.corp.intel.com (10.18.116.17) by
- FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 6 Sep 2018 00:29:59 -0700
-Received: from shsmsx151.ccr.corp.intel.com (10.239.6.50) by
- fmsmsx117.amr.corp.intel.com (10.18.116.17) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 6 Sep 2018 00:29:58 -0700
-Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.226]) by
- SHSMSX151.ccr.corp.intel.com ([169.254.3.16]) with mapi id 14.03.0319.002;
- Thu, 6 Sep 2018 15:29:56 +0800
-From: "Wang, Kuiying" <kuiying.wang@intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, "geissonator@yahoo.com"
- <geissonator@yahoo.com>
-CC: "kunyi731@gmail.com" <kunyi731@gmail.com>, "Mihm, James"
- <james.mihm@intel.com>, "Tanous, Ed" <ed.tanous@intel.com>, "Li, Yong B"
- <yong.b.li@intel.com>, "Feist, James" <james.feist@intel.com>, "Jia, Chunhui"
- <chunhui.jia@intel.com>, "venture@google.com" <venture@google.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Xu, Qiang"
- <qiang.xu@intel.com>, "Yang, Cheng C" <cheng.c.yang@intel.com>,
- "chunhui.jia@linux.intel.com" <chunhui.jia@linux.intel.com>, "Nguyen, Hai V"
- <hai.v.nguyen@intel.com>
-Subject: About new gpio API in linux/gpio.h adopted by kernel 4.8
-Thread-Topic: About new gpio API in linux/gpio.h adopted by kernel 4.8
-Thread-Index: AdRFsoAZzxmWWfOISWukV16CyY/HkQ==
-Date: Thu, 6 Sep 2018 07:29:55 +0000
-Message-ID: <959CAFA1E282D14FB901BE9A7BF4E77249E0C0B0@shsmsx102.ccr.corp.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 425gM646S7zF3RP
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 22:47:14 +1000 (AEST)
+Received: by mail-oi0-f44.google.com with SMTP id p84-v6so20216287oic.4
+ for <openbmc@lists.ozlabs.org>; Thu, 06 Sep 2018 05:47:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=AxwRFnRuA8eS3hinatKsxtDiG92ZzaSAhC7MQ82fiQY=;
+ b=mCvnpK+T6dgokr4GdvcvyG3oVkqAvMdyty6oJOEfnLI51c/nfN0RScukuFYzkjwrXi
+ SYIxuLxnrX6CEcoL6A+xne7mwWrdhtrsOgIZCq58O0V4BCEQPnn+NiVe/wPiMm7TWhP7
+ P5ODXlG/671elq3UPKVzdzz1I4Ghug1h1Lji/ug346gnaEmG9boLBIfm+F6Bq0oNDqHk
+ OquEvqCfpmEuq1RasNe/Ax3Qgfw7p2urv9A5YRIN4LNQ9wCktTlj66bD44+nOY2D8m4/
+ pIAlMdSuIStA+zpSvopkrwnZ8tX8f9p+Q5eJaLlkNzkUXzz/LzIGXZKrCe8mva1TnAih
+ QPAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=AxwRFnRuA8eS3hinatKsxtDiG92ZzaSAhC7MQ82fiQY=;
+ b=RveUGMo/qxJ7Jl1oz9dd0h2MU9YpB92AQWf2q6I1Sep9sv7KyhO5eQfHkqLX6GIexe
+ 8NvSrEVcT8ISq56xTLuYhag+EqD0L131fgfrTqclCerTK1u9eWF5kkiGJZ9EJmAXQ/QX
+ ntJsfgT8OyLG+3LDUr38rqFDk4WitzpiAf2ax+24UoqJZiskenU5TsMKrTCjG+XGf8yO
+ 0c7fQpmRu86NMpcKZmdU18BrMN5W/rkwCjAQKkx7WSOVH9+LMduvWgpkVeHUuoEIjWzq
+ TWPJYTCXL1Bf8P9RcD0mu0qug2Fe2q9/7VIiPj2oYO5HcabEgdZlUyet7qXv8uGL1K+9
+ rJig==
+X-Gm-Message-State: APzg51Aie+kS6EHJnbHutzD0Yo3GuOIyFeggc+DhGDojnxldQu7Q+SSm
+ 3peDQneaBSb8OzaaWAndjDafTf6ATKq/tusgLrg=
+X-Google-Smtp-Source: ANB0VdZDew5kzmlj3GsZ6wYWm36oVduV+6EEZw7Mnq47Dn9N1hu3PVVqypjQ/WFTnWuKorahywgrklCi2No1VJkBB18=
+X-Received: by 2002:aca:5dc5:: with SMTP id
+ r188-v6mr2847250oib.320.1536238032004; 
+ Thu, 06 Sep 2018 05:47:12 -0700 (PDT)
 MIME-Version: 1.0
+References: <959CAFA1E282D14FB901BE9A7BF4E77249E0C0B0@shsmsx102.ccr.corp.intel.com>
+In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E77249E0C0B0@shsmsx102.ccr.corp.intel.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 6 Sep 2018 07:47:01 -0500
+Message-ID: <CALLMt=p=tmhvNfcfc50tXEGu7nuHS1huTgm3v3y-r-DuAu=zEw@mail.gmail.com>
+Subject: Re: About new gpio API in linux/gpio.h adopted by kernel 4.8
+To: kuiying.wang@intel.com
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Andrew Geissler <geissonator@yahoo.com>, 
+ chunhui.jia@linux.intel.com, kunyi731@gmail.com, james.mihm@intel.com, 
+ ed.tanous@intel.com, james.feist@intel.com, chunhui.jia@intel.com, 
+ Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, yong.b.li@intel.com, 
+ cheng.c.yang@intel.com, qiang.xu@intel.com, hai.v.nguyen@intel.com, 
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -63,50 +70,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Sep 2018 07:30:07 -0000
+X-List-Received-Date: Thu, 06 Sep 2018 12:47:15 -0000
 
-SGkgQnJhZC9BbmRyZXcsDQpJIGZvdW5kIHRoZSBuZXcgZ3BpbyBBUEkgYWRvcHRlZCBieSBrZXJu
-ZWwgNC44LCBpcyBub3QgZnVsbHkgcmVhZHksIGFsbCB0aGUgbGluZXMgYXJlICJ1bm5hbWVkIi4N
-CklmIHRoYXQgd2UgY2Fubm90IHN3aXRjaCB0byBpdCBub3cuIA0KT3IgdGhlcmUgaXMgc3BlY2lh
-bCBrZXJuZWwgYmFzZWQgY29uZmlndXJhdGlvbiBJIGhhdmUgdG8gZG8/DQoNCnJvb3RAd29sZnBh
-c3M6L3RtcCMgLi9ncGlvZGV0ZWN0DQpncGlvY2hpcDAgW1NHUElPQV0gKDggbGluZXMpDQpncGlv
-Y2hpcDEgW1NHUElPQl0gKDggbGluZXMpDQpncGlvY2hpcDEwIFsxZTc4MDAwMC5ncGlvXSAoMjMy
-IGxpbmVzKQ0KZ3Bpb2NoaXAyIFtTR1BJT0NdICg4IGxpbmVzKQ0KZ3Bpb2NoaXAzIFtTR1BJT0Rd
-ICg4IGxpbmVzKQ0KZ3Bpb2NoaXA0IFtTR1BJT0VdICg4IGxpbmVzKQ0KZ3Bpb2NoaXA1IFtTR1BJ
-T0ZdICg4IGxpbmVzKQ0KZ3Bpb2NoaXA2IFtTR1BJT0ddICg4IGxpbmVzKQ0KZ3Bpb2NoaXA3IFtT
-R1BJT0hdICg4IGxpbmVzKQ0KZ3Bpb2NoaXA4IFtTR1BJT0ldICg4IGxpbmVzKQ0KZ3Bpb2NoaXA5
-IFtTR1BJT0pdICg4IGxpbmVzKQ0Kcm9vdEB3b2xmcGFzczovdG1wIyAuL2dwaW9pbmZvIC9kZXYv
-Z3Bpb2NoaXAxDQpncGlvY2hpcDEgLSA4IGxpbmVzOg0KICAgICAgICBsaW5lICAgMDogICAgICB1
-bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAg
-MTogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAg
-ICBsaW5lICAgMjogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGln
-aA0KICAgICAgICBsaW5lICAgMzogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBh
-Y3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNDogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAg
-b3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNTogICAgICB1bm5hbWVkICAgICAg
-IHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNjogICAgICB1bm5h
-bWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNzog
-ICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0Kcm9vdEB3b2xm
-cGFzczovdG1wIyAuL2dwaW9pbmZvIC9kZXYvZ3Bpb2NoaXAxMA0KZ3Bpb2NoaXAxMCAtIDIzMiBs
-aW5lczoNCiAgICAgICAgbGluZSAgIDA6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1
-dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDE6ICAgICAgdW5uYW1lZCAgICAgICB1bnVz
-ZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDI6ICAgICAgdW5uYW1lZCAg
-ICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDM6ICAgICAg
-dW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAg
-IDQ6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAg
-ICAgbGluZSAgIDU6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhp
-Z2gNCiAgICAgICAgbGluZSAgIDY6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAg
-YWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDc6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQg
-ICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDg6ICAgICAgdW5uYW1lZCAgICAg
-ICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDk6ICAgICAgdW5u
-YW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTA6
-ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAg
-bGluZSAgMTE6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gN
-CiAgICAgICAgbGluZSAgMTI6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0
-aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTM6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBp
-bnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTQ6ICAgICAgdW5uYW1lZCAgICAgICB1
-bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTU6ICAgICAgdW5uYW1l
-ZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTY6ICAg
-ICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCnJvb3RAd29sZnBh
-c3M6L3RtcCMgLi9ncGlvZ2V0IC9kZXYvZ3Bpb2NoaXAxMCAyMTkNCi4vZ3Bpb2dldDogZXJyb3Ig
-cmVhZGluZyBHUElPIHZhbHVlczogRGV2aWNlIG9yIHJlc291cmNlIGJ1c3kNCg0KVGhhbmtzLA0K
-S3VpeWluZy4NCg==
+Hey Kuiying, this seems like more of a 4.18 kernel question for
+Joel/AndrewJ. Put them on cc.
+On Thu, Sep 6, 2018 at 2:30 AM Wang, Kuiying <kuiying.wang@intel.com> wrote:
+>
+> Hi Brad/Andrew,
+> I found the new gpio API adopted by kernel 4.8, is not fully ready, all the lines are "unnamed".
+> If that we cannot switch to it now.
+> Or there is special kernel based configuration I have to do?
+>
+> root@wolfpass:/tmp# ./gpiodetect
+> gpiochip0 [SGPIOA] (8 lines)
+> gpiochip1 [SGPIOB] (8 lines)
+> gpiochip10 [1e780000.gpio] (232 lines)
+> gpiochip2 [SGPIOC] (8 lines)
+> gpiochip3 [SGPIOD] (8 lines)
+> gpiochip4 [SGPIOE] (8 lines)
+> gpiochip5 [SGPIOF] (8 lines)
+> gpiochip6 [SGPIOG] (8 lines)
+> gpiochip7 [SGPIOH] (8 lines)
+> gpiochip8 [SGPIOI] (8 lines)
+> gpiochip9 [SGPIOJ] (8 lines)
+> root@wolfpass:/tmp# ./gpioinfo /dev/gpiochip1
+> gpiochip1 - 8 lines:
+>         line   0:      unnamed       unused  output  active-high
+>         line   1:      unnamed       unused  output  active-high
+>         line   2:      unnamed       unused  output  active-high
+>         line   3:      unnamed       unused  output  active-high
+>         line   4:      unnamed       unused  output  active-high
+>         line   5:      unnamed       unused  output  active-high
+>         line   6:      unnamed       unused  output  active-high
+>         line   7:      unnamed       unused  output  active-high
+> root@wolfpass:/tmp# ./gpioinfo /dev/gpiochip10
+> gpiochip10 - 232 lines:
+>         line   0:      unnamed       unused   input  active-high
+>         line   1:      unnamed       unused   input  active-high
+>         line   2:      unnamed       unused   input  active-high
+>         line   3:      unnamed       unused   input  active-high
+>         line   4:      unnamed       unused   input  active-high
+>         line   5:      unnamed       unused   input  active-high
+>         line   6:      unnamed       unused   input  active-high
+>         line   7:      unnamed       unused   input  active-high
+>         line   8:      unnamed       unused   input  active-high
+>         line   9:      unnamed       unused   input  active-high
+>         line  10:      unnamed       unused   input  active-high
+>         line  11:      unnamed       unused   input  active-high
+>         line  12:      unnamed       unused   input  active-high
+>         line  13:      unnamed       unused   input  active-high
+>         line  14:      unnamed       unused   input  active-high
+>         line  15:      unnamed       unused   input  active-high
+>         line  16:      unnamed       unused   input  active-high
+> root@wolfpass:/tmp# ./gpioget /dev/gpiochip10 219
+> ./gpioget: error reading GPIO values: Device or resource busy
+>
+> Thanks,
+> Kuiying.
