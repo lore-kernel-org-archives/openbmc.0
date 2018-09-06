@@ -1,113 +1,76 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="ujIrXAiW"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oFIf9B4O"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="OdJnv7ag"; dkim-atps=neutral
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 425gx06dlvzF39Y
- for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 23:13:08 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id B9494411F9;
- Thu,  6 Sep 2018 13:13:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:in-reply-to:mime-version:user-agent
- :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1536239584; x=
- 1538053985; bh=8eyaoORZp/fYJEC2Oih54/FZ7txyYqIqol7xVQrbpOY=; b=u
- jIrXAiWm3giGlWdxrEB5qujfBv9FTY3xyc0ubG++NRoSgrLYWDYIWWqrDI5ocYTm
- T69HxQ3mBiQZoGKpf+m3Xc4gwV4Mve9U9BC1fCpZ59Nc6GMyYmAtB7fHm49LrytO
- cfMhJrQHP79Iijng/qnXdkPrLT5eGMUbIYQ6iPG8KM=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id urO0Cp8kMA-W; Thu,  6 Sep 2018 16:13:04 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 6FCC641185;
- Thu,  6 Sep 2018 16:13:04 +0300 (MSK)
-Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 6 Sep
- 2018 16:13:04 +0300
-Subject: Re: Proposals for commit log policy
-To: Patrick Venture <venture@google.com>, Brad Bishop
- <bradleyb@fuzziesquirrel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, <gmills@linux.vnet.ibm.com>, 
- "Tanous, Ed" <ed.tanous@intel.com>
-References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
- <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
- <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
- <CALLMt=rGmZ9-29xWMymUvdCAgVnFzQ+gyZDn3zXnWeR4imSYPA@mail.gmail.com>
- <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
- <7E9441B1E5EFFD4681F54958E821699345836D0F@ORSMSX114.amr.corp.intel.com>
- <5755FBD3-3D78-4E3A-8F50-D4976EE3B2B2@fuzziesquirrel.com>
- <CAO=notzk_+Q_Pg4xcxzDL=Ux3gyMb2iE0pfSgygDw32wzBHB=w@mail.gmail.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- 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
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <47adccd0-a3dc-419f-de07-803a38f6fb6b@yadro.com>
-Date: Thu, 6 Sep 2018 16:13:03 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 425hJR4zMmzF09h
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 23:29:59 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id D180F3E9;
+ Thu,  6 Sep 2018 09:29:55 -0400 (EDT)
+Received: from web2 ([10.202.2.212])
+ by compute4.internal (MEProxy); Thu, 06 Sep 2018 09:29:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=fqJolgjwHmChR2NulPZdd9QlsfO7H
+ p7KHlIaOh70JI0=; b=oFIf9B4O2hRZE23j4Bqb8DGzTefNSirD4DLM/LBr1Nztd
+ 5w2UofbUxK8p77IYolht7WPhleC3RBXdsHmK5VHOhaMuCINaFPbw6blanFK2ZPRD
+ x+d3ZSps4Y8Kcox8MNLJUqWXtfRLpgJLzo0A6LOgwd5kMgiUvACLYr8fY8//I4Aj
+ 02ktVaSQJqIQDakmh82jKcyj/JHzBSJ8JId1vATluRjdmkarmPcCLDvGhzwskV8f
+ yPya5BzHvOkq8RUaJ1J90tWuKQqYoczd2+u3HedL/qyqtw+Lc3Pw1QL6JjDZPELh
+ N7DZMNGnNhCmjUPDpictVzqcAhh1426Ad60iX4SoQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=fqJolg
+ jwHmChR2NulPZdd9QlsfO7Hp7KHlIaOh70JI0=; b=OdJnv7aga7lHOtXlbVPKOY
+ OSCDf5lGNY/7eN1Tj1h8uKOvED06GN2VQZsMKKTL8eyfVt30nlCtbAwSHoa9nSMA
+ +XMubzF/3rTZ4HkX2u+LNzSiVGUt/csQc+f4haDwyYaJDvAovupdzvS3Of+rzDbg
+ OEAiWS8r7qkw0Pwm0gmMJGQ3RaxHnlrjsBAg8MdY3wZZuH0KvVzmvkT2br2iEks0
+ Dd5JCSQ+B96xrf6l+O0mfs4q3gB0p2QpUe1994PWIaYVNBP/89v+nJq03kO4h0FU
+ XAlhPgxe8McP8rueOVTwX2eYtj/SQUGqp5XTCZGHFKCPAETTE6vZZrWjDAjzyysQ
+ ==
+X-ME-Proxy: <xmx:0SuRWx4_Tl_aRLTuTqZIk84ZnnBVVDqpLry_8-rMUVqKs1wbFWAtbA>
+ <xmx:0SuRW0LnisubM0kQbhNUwi6pbSNb1Wb57p_W9f3JM00zlHqiYCV_gw>
+ <xmx:0SuRW7ESDgfZFDAhy1NoZ1Xr_jUzsVWlh29lKgvfEwT-KNYSG0aDvw>
+ <xmx:0SuRW50XvCDQKuis9jPTanHb97WATD9Qi9TuFzuZ-Annm8rzqajdkw>
+ <xmx:0SuRW1yqIY3h8aG4_1ABvdhVa5GwJeF_Qx3MB48AYxZr3JUMy4jE5A>
+ <xmx:0yuRW5KoiHLUdvR6L3NnRWRPW99xbJvGfF9se4xBvaZx1Rj2l0GAxQ>
+X-ME-Sender: <xms:0SuRW1xhZRPur9yFAKjAeaSLc1UT0zbuOFRk0--h9EB7Ii1McrLj2g>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id A62C162673; Thu,  6 Sep 2018 09:29:53 -0400 (EDT)
+Message-Id: <1536240593.3745516.1498902568.44FB0FD8@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Andrew Geissler <geissonator@gmail.com>, kuiying.wang@intel.com
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Andrew Geissler <geissonator@yahoo.com>, chunhui.jia@linux.intel.com,
+ kunyi731@gmail.com, james.mihm@intel.com, ed.tanous@intel.com,
+ james.feist@intel.com, chunhui.jia@intel.com,
+ Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, yong.b.li@intel.com,
+ cheng.c.yang@intel.com, qiang.xu@intel.com, hai.v.nguyen@intel.com,
+ Joel Stanley <joel@jms.id.au>
 MIME-Version: 1.0
-In-Reply-To: <CAO=notzk_+Q_Pg4xcxzDL=Ux3gyMb2iE0pfSgygDw32wzBHB=w@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="7ZKWWqX0ES1IaUPmPPRuKxLtUQgklcc8W"
-X-Originating-IP: [172.17.14.168]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-1234af23
+In-Reply-To: <CALLMt=p=tmhvNfcfc50tXEGu7nuHS1huTgm3v3y-r-DuAu=zEw@mail.gmail.com>
+Subject: Re: About new gpio API in linux/gpio.h adopted by kernel 4.8
+Date: Thu, 06 Sep 2018 22:59:53 +0930
+References: <959CAFA1E282D14FB901BE9A7BF4E77249E0C0B0@shsmsx102.ccr.corp.intel.com>
+ <CALLMt=p=tmhvNfcfc50tXEGu7nuHS1huTgm3v3y-r-DuAu=zEw@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -119,70 +82,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Sep 2018 13:13:09 -0000
+X-List-Received-Date: Thu, 06 Sep 2018 13:30:03 -0000
 
---7ZKWWqX0ES1IaUPmPPRuKxLtUQgklcc8W
-Content-Type: multipart/mixed; boundary="J8XR3wVRXROtGvoqewsVeU26Ho2UGCnip";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Patrick Venture <venture@google.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, gmills@linux.vnet.ibm.com,
- "Tanous, Ed" <ed.tanous@intel.com>
-Message-ID: <47adccd0-a3dc-419f-de07-803a38f6fb6b@yadro.com>
-Subject: Re: Proposals for commit log policy
-References: <0ef9181f-eb70-552b-3411-da2bc9676be1@yadro.com>
- <CACPK8XdtitrjvDpuiPiz_ew03m972ueGRXAhd4kM_z6YSVtL3A@mail.gmail.com>
- <0E782585-1B8A-4BF7-9454-443061BA9C32@fuzziesquirrel.com>
- <CALLMt=rGmZ9-29xWMymUvdCAgVnFzQ+gyZDn3zXnWeR4imSYPA@mail.gmail.com>
- <359bcf51-5732-a65b-4b7e-dba2df0dd375@linux.vnet.ibm.com>
- <7E9441B1E5EFFD4681F54958E821699345836D0F@ORSMSX114.amr.corp.intel.com>
- <5755FBD3-3D78-4E3A-8F50-D4976EE3B2B2@fuzziesquirrel.com>
- <CAO=notzk_+Q_Pg4xcxzDL=Ux3gyMb2iE0pfSgygDw32wzBHB=w@mail.gmail.com>
-In-Reply-To: <CAO=notzk_+Q_Pg4xcxzDL=Ux3gyMb2iE0pfSgygDw32wzBHB=w@mail.gmail.com>
+On Thu, 6 Sep 2018, at 22:17, Andrew Geissler wrote:
+> Hey Kuiying, this seems like more of a 4.18 kernel question for
+> Joel/AndrewJ. Put them on cc.
+> On Thu, Sep 6, 2018 at 2:30 AM Wang, Kuiying <kuiying.wang@intel.com> wrote:
+> >
+> > Hi Brad/Andrew,
+> > I found the new gpio API adopted by kernel 4.8, is not fully ready, all the lines are "unnamed".
 
---J8XR3wVRXROtGvoqewsVeU26Ho2UGCnip
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
+I expect this is because no-one has given them an name in your devicetree. For example, here's some output from a system I have handy:
 
-05.09.2018 02:38, Patrick Venture wrote:
->
->> I fixed it up (by re-writing it in python=E2=80=A6it was in Perl) and =
-re-deployed, given
->> all the objections.
-> Yay.  No more perl!
-Argh! Why do you guys love this ugly python so much? Perl is so much more=
- beautiful and comfortable and kludge-less (like has non-ugly regexps bui=
-lt in)... No semicolons? Indentation defining code block limits? Oh my...=
- Nonetheless, ugly technologies tend to win, it seems.
+root@witherspoon:/tmp# gpioinfo /dev/gpiochip3
+gpiochip3 - 16 lines:
+        line   0: "PS_SMBUS_RESET_N" unused input active-high 
+        line   1: "APSS_RESET_N" unused input active-high 
+        line   2: "GPU0_TH_OVERT_N_BUFF" unused input active-high 
+        line   3: "GPU1_TH_OVERT_N_BUFF" unused input active-high 
+        line   4: "GPU2_TH_OVERT_N_BUFF" unused input active-high 
+        line   5: "GPU3_TH_OVERT_N_BUFF" unused input active-high 
+        line   6: "GPU4_TH_OVERT_N_BUFF" unused input active-high 
+        line   7: "GPU5_TH_OVERT_N_BUFF" unused input active-high 
+        line   8: "GPU0_PWR_GOOD_BUFF" unused input active-high 
+        line   9: "GPU1_PWR_GOOD_BUFF" unused input active-high 
+        line  10: "GPU2_PWR_GOOD_BUFF" unused input active-high 
+        line  11: "GPU3_PWR_GOOD_BUFF" unused input active-high 
+        line  12: "GPU4_PWR_GOOD_BUFF" unused input active-high 
+        line  13: "GPU5_PWR_GOOD_BUFF" unused input active-high 
+        line  14: "12V_BREAKER_FLT_N" unused input active-high 
+        line  15: "THROTTLE_UNLATCHED_N" unused input active-high
 
-No need to reply. Just my old-timer's muttering...
+Which corresponds to:
 
+https://github.com/openbmc/linux/blob/dev-4.18/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts#L501
 
---J8XR3wVRXROtGvoqewsVeU26Ho2UGCnip--
+> > If that we cannot switch to it now.
+> > Or there is special kernel based configuration I have to do?
+> >
+> > root@wolfpass:/tmp# ./gpiodetect
+> > gpiochip0 [SGPIOA] (8 lines)
+> > gpiochip1 [SGPIOB] (8 lines)
+> > gpiochip10 [1e780000.gpio] (232 lines)
+> > gpiochip2 [SGPIOC] (8 lines)
+> > gpiochip3 [SGPIOD] (8 lines)
+> > gpiochip4 [SGPIOE] (8 lines)
+> > gpiochip5 [SGPIOF] (8 lines)
+> > gpiochip6 [SGPIOG] (8 lines)
+> > gpiochip7 [SGPIOH] (8 lines)
+> > gpiochip8 [SGPIOI] (8 lines)
+> > gpiochip9 [SGPIOJ] (8 lines)
+> > root@wolfpass:/tmp# ./gpioinfo /dev/gpiochip1
+> > gpiochip1 - 8 lines:
+> >         line   0:      unnamed       unused  output  active-high
+> >         line   1:      unnamed       unused  output  active-high
+> >         line   2:      unnamed       unused  output  active-high
+> >         line   3:      unnamed       unused  output  active-high
+> >         line   4:      unnamed       unused  output  active-high
+> >         line   5:      unnamed       unused  output  active-high
+> >         line   6:      unnamed       unused  output  active-high
+> >         line   7:      unnamed       unused  output  active-high
+> > root@wolfpass:/tmp# ./gpioinfo /dev/gpiochip10
+> > gpiochip10 - 232 lines:
+> >         line   0:      unnamed       unused   input  active-high
+> >         line   1:      unnamed       unused   input  active-high
+> >         line   2:      unnamed       unused   input  active-high
+> >         line   3:      unnamed       unused   input  active-high
+> >         line   4:      unnamed       unused   input  active-high
+> >         line   5:      unnamed       unused   input  active-high
+> >         line   6:      unnamed       unused   input  active-high
+> >         line   7:      unnamed       unused   input  active-high
+> >         line   8:      unnamed       unused   input  active-high
+> >         line   9:      unnamed       unused   input  active-high
+> >         line  10:      unnamed       unused   input  active-high
+> >         line  11:      unnamed       unused   input  active-high
+> >         line  12:      unnamed       unused   input  active-high
+> >         line  13:      unnamed       unused   input  active-high
+> >         line  14:      unnamed       unused   input  active-high
+> >         line  15:      unnamed       unused   input  active-high
+> >         line  16:      unnamed       unused   input  active-high
+> > root@wolfpass:/tmp# ./gpioget /dev/gpiochip10 219
+> > ./gpioget: error reading GPIO values: Device or resource busy
+> >
 
---7ZKWWqX0ES1IaUPmPPRuKxLtUQgklcc8W
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+This all works fine for me. Busy is because the GPIO has been exported through some other means, for example the sysfs interface:
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+root@witherspoon:/tmp# ls /sys/class/gpio
+export       gpio305      gpio347      gpio417      gpiochip238  gpiochip280
+gpio281      gpio306      gpio353      gpiochip222  gpiochip254  unexport
+root@witherspoon:/tmp# gpioget /dev/gpiochip0 $((305 - 280))
+gpioget: error reading GPIO values: Device or resource busy
 
-iQIcBAEBCAAGBQJbkSffAAoJEOiTWHtbdBeNb/8QANxC5CtvmNASsvZmOMSy03b9
-fB1SQV065is7Ja0c8SyuWcMvqUXwdf8lqUbQ/UWybKCu1g+sqmX8ZG2BQiR2aUzr
-njjwAlNqVWdUuV80fShB0YcJOs855PoJN1085fX1LCQGdnnQL0BTkXluSrjqLhRB
-kS0419fU/6lMux4/UaC0WxPz3BQy06Xz3TxEnSDtxrhKGLkhbKBBSA4DFCktTyFj
-GtiORUCVCuPWEvyaIdftXxWFLXCTTOAknyJDh5gqdiYOVtK3LtzVjVk12RPVSuZi
-JbTQkSM15DsUsnHo3mwbi+RpKD9IoV9XFzivUvQMEYdd0uWnLSapCaJ0Y7GP5toi
-M4vOQ/qo+fkbd/0ZnnSq5UMPzrgQbOxCJi+PCKZU1OadHC2teQGxY/mzftl93HRC
-KSyyA72j4f8yWoLyyRoo6k84DTtxZNYECEKnjnccdFZ1hun8gxoix5iOIqiRum/k
-k/FkVMQRXPHRrNTeB4ON2prEqvGFlCYmFmD2PRQPjCMm/t8OAFvwA8O2Tc5/rPrm
-4/3VdmBVbWOYVUtn19h/JAGkV4mkIA6NWIbDHLTpU5pGXkEzBuD617EgAcSrR5Ii
-/43lS9zPn2A+a2vgGr993+RHm5NBbaSBNLB38q5NL72FoxidNd7yH46Y9xgGW5TE
-7i/6GWHgFc10aSfg7DWh
-=nw0t
------END PGP SIGNATURE-----
+Hope that helps.
 
---7ZKWWqX0ES1IaUPmPPRuKxLtUQgklcc8W--
+Andrew
