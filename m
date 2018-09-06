@@ -1,50 +1,56 @@
-Return-Path: <james.mihm@intel.com>
+Return-Path: <kuiying.wang@intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=james.mihm@intel.com; receiver=<UNKNOWN>)
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 425Nmw5vPWzF3CC
- for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 11:50:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 425XKB03k6zF09c
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Sep 2018 17:30:04 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2018 18:49:58 -0700
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2018 00:30:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,334,1531810800"; 
- d="scan'208,217";a="261103357"
-Received: from orsmsx110.amr.corp.intel.com ([10.22.240.8])
- by fmsmga006.fm.intel.com with ESMTP; 05 Sep 2018 18:49:55 -0700
-Received: from orsmsx114.amr.corp.intel.com (10.22.240.10) by
- ORSMSX110.amr.corp.intel.com (10.22.240.8) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Wed, 5 Sep 2018 18:49:55 -0700
-Received: from orsmsx101.amr.corp.intel.com ([169.254.8.46]) by
- ORSMSX114.amr.corp.intel.com ([169.254.8.8]) with mapi id 14.03.0319.002;
- Wed, 5 Sep 2018 18:49:55 -0700
-From: "Mihm, James" <james.mihm@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: OpenBMC Hackathon October 9th - 11th Proposed Agenda
-Thread-Topic: OpenBMC Hackathon October 9th - 11th Proposed Agenda
-Thread-Index: AdRFf0s0Sm847uazRLCTX4LZoh6IEQ==
-Date: Thu, 6 Sep 2018 01:49:54 +0000
-Message-ID: <C599FC839619124CAC44E062ABB7DFE2D6FF2DFD@ORSMSX101.amr.corp.intel.com>
+X-IronPort-AV: E=Sophos;i="5.53,337,1531810800"; d="scan'208";a="72023311"
+Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
+ by orsmga006.jf.intel.com with ESMTP; 06 Sep 2018 00:29:59 -0700
+Received: from fmsmsx117.amr.corp.intel.com (10.18.116.17) by
+ FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Thu, 6 Sep 2018 00:29:59 -0700
+Received: from shsmsx151.ccr.corp.intel.com (10.239.6.50) by
+ fmsmsx117.amr.corp.intel.com (10.18.116.17) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Thu, 6 Sep 2018 00:29:58 -0700
+Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.226]) by
+ SHSMSX151.ccr.corp.intel.com ([169.254.3.16]) with mapi id 14.03.0319.002;
+ Thu, 6 Sep 2018 15:29:56 +0800
+From: "Wang, Kuiying" <kuiying.wang@intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, "geissonator@yahoo.com"
+ <geissonator@yahoo.com>
+CC: "kunyi731@gmail.com" <kunyi731@gmail.com>, "Mihm, James"
+ <james.mihm@intel.com>, "Tanous, Ed" <ed.tanous@intel.com>, "Li, Yong B"
+ <yong.b.li@intel.com>, "Feist, James" <james.feist@intel.com>, "Jia, Chunhui"
+ <chunhui.jia@intel.com>, "venture@google.com" <venture@google.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Xu, Qiang"
+ <qiang.xu@intel.com>, "Yang, Cheng C" <cheng.c.yang@intel.com>,
+ "chunhui.jia@linux.intel.com" <chunhui.jia@linux.intel.com>, "Nguyen, Hai V"
+ <hai.v.nguyen@intel.com>
+Subject: About new gpio API in linux/gpio.h adopted by kernel 4.8
+Thread-Topic: About new gpio API in linux/gpio.h adopted by kernel 4.8
+Thread-Index: AdRFsoAZzxmWWfOISWukV16CyY/HkQ==
+Date: Thu, 6 Sep 2018 07:29:55 +0000
+Message-ID: <959CAFA1E282D14FB901BE9A7BF4E77249E0C0B0@shsmsx102.ccr.corp.intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZGE1NTBlZWMtM2MyZS00MTM1LTkwNzktOTk2YTlkYzZkODNlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiVGFmSjhBRkd1eVUzM0hTVU5UXC9VR2s5alhcL3A0K3FMNitUNVBFaDJDZTVxUGVJRVUwQnppMXZDdnBhSklwY250In0=
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.138]
-Content-Type: multipart/alternative;
- boundary="_000_C599FC839619124CAC44E062ABB7DFE2D6FF2DFDORSMSX101amrcor_"
+x-originating-ip: [10.239.127.40]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -57,243 +63,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Sep 2018 01:50:09 -0000
+X-List-Received-Date: Thu, 06 Sep 2018 07:30:07 -0000
 
---_000_C599FC839619124CAC44E062ABB7DFE2D6FF2DFDORSMSX101amrcor_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-There are still openings available. Please register soon if you're planning=
- to attend the event.
-
-To register for the event, please visit:
-https://docs.google.com/forms/d/e/1FAIpQLSdhtVwaX3a4LjkwrQkb3dJLAxEReCDLar8=
-LqJAxnryMsmkRTQ/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_form_link
-
-Below is my proposed list of the agenda for the OpenBMC Hackathon being hel=
-d at Intel on October 9th - 11th.
-This is a collection of the input that I received from those that registere=
-d for the event.
-
-I'm soliciting input from the community for discussion topics and ideas for=
- the event.
-Please let me know if there is any topic that you would like to include, or=
- input regarding format.
-
-There will be several rooms where community members/developers can break in=
-to different workgroups.
-I'm planning on having two tracks. Where track 1 will be focused on discuss=
-ions/presentations, and track 2 will be focused on working groups.
-
-Breakfast and lunch will be provided by Intel.
-
-Breakfast: 8:15am
-Start time:  9am
-Lunch:  12-1pm
-End time: 5pm
-
-No-Host Dinner/Networking: I'm working on a list of restaurants in the area=
-. This will be an organic activity and self-organizing.
-
-
-Tuesday (Day 1)
-Track 1 - Tech Talks
-        Kick-Off and Introductions
-        Keynote
-        Best practices for the OpenBMC community
-        User Management - progress report, new use cases
-        Linux Drivers - development best practices, the good/bad/ugly
-        Redfish - schema support, OCP compliance, testing, plugfest updates=
-, RSD support, next steps
-        Platform configuration - porting to new hardware, sensor configurat=
-ion
-        Demonstrations of hardware & firmware that is, or will be, availabl=
-e in the open source repository
-
-Track 2 - Hacking
-        On Boarding / Training
-        Writing and Debugging Code
-        Documentation - work on improving the content
-
-Wednesday (Day 2)
-Track 1 - Tech Talks
-        Hardware requirements/guidelines - security, sensor support
-        IPMI - compliance vs. non-compliance, security impacts, BIOS OEM co=
-mmands
-        BMC device enablement - BSP, future requirements (e.g., i3c support=
-, crypto, fuses)
-        Logging and debug mechanisms, telemetry and alerts.
-        Security - threat model, incident response, ARM TrustZone, process =
-isolation, key storage, crypto guidelines
-        Bootloader - flash memory layout, SPI flash (boot rom vs. operation=
-al image)
-        Secure Boot - Cerberus, Titan, PFR, Poor-Mans-Security-Implementati=
-on
-        Engagement with OCP
-
-Track 2 - Hacking
-        continuation from day 1
-        Security Scanning
-        Penetration Testing
-
-
-Thursday (Day 3)
-Track 1 - Tech Talks
-        Validation - test plans, Jenkins support
-        WebUI Design - Customization
-        KVM & Virtual Media
-        Feature Development
-        Release Planning
-
-Track 2 - Hacking
-        continuation from day 2
-        Free-form demonstration of work accomplished during hackathon
-
-Thanks,
-James Mihm
-Intel - Intel DCG BMC Core Firmware
-
-
-
-
---_000_C599FC839619124CAC44E062ABB7DFE2D6FF2DFDORSMSX101amrcor_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from rtf -->
-<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
- #800000 2px solid; } --></style>
-</head>
-<body>
-<font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">
-<div>There are still openings available. Please register soon if you&#8217;=
-re planning to attend the event.</div>
-<div>&nbsp;</div>
-<div>To register for the event, please visit:</div>
-<div><a href=3D"https://docs.google.com/forms/d/e/1FAIpQLSdhtVwaX3a4LjkwrQk=
-b3dJLAxEReCDLar8LqJAxnryMsmkRTQ/viewform?c=3D0&amp;amp;w=3D1&amp;amp;usp=3D=
-mail_form_link"><font color=3D"#0563C1"><u>https://docs.google.com/forms/d/=
-e/1FAIpQLSdhtVwaX3a4LjkwrQkb3dJLAxEReCDLar8LqJAxnryMsmkRTQ/viewform?c=3D0&a=
-mp;amp;w=3D1&amp;amp;usp=3Dmail_form_link</u></font></a></div>
-<div>&nbsp;</div>
-<div>Below is my proposed list of the agenda for the OpenBMC Hackathon bein=
-g held at Intel on October 9th - 11<font size=3D"1"><span style=3D"font-siz=
-e:7.3pt;"><sup>th</sup></span></font>.</div>
-<div>This is a collection of the input that I received from those that regi=
-stered for the event.</div>
-<div>&nbsp;</div>
-<div>I&#8217;m soliciting input from the community for discussion topics an=
-d ideas for the event. </div>
-<div>Please let me know if there is any topic that you would like to includ=
-e, or input regarding format.</div>
-<div>&nbsp;</div>
-<div>There will be several rooms where community members/developers can bre=
-ak into different workgroups.</div>
-<div>I&#8217;m planning on having two tracks. Where track 1 will be focused=
- on discussions/presentations, and track 2 will be focused on working group=
-s.</div>
-<div>&nbsp;</div>
-<div>Breakfast and lunch will be provided by Intel.</div>
-<div>&nbsp;</div>
-<div>Breakfast: 8:15am</div>
-<div>Start time:&nbsp; 9am</div>
-<div>Lunch:&nbsp; 12-1pm</div>
-<div>End time: 5pm</div>
-<div>&nbsp;</div>
-<div>No-Host Dinner/Networking: I&#8217;m working on a list of restaurants =
-in the area. This will be an organic activity and self-organizing.</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>Tuesday (Day 1) </div>
-<div>Track 1 - Tech Talks</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kick-Off and Introductions<=
-/div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Keynote</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Best practices for the Open=
-BMC community</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User Management - progress =
-report, new use cases</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Linux Drivers - development=
- best practices, the good/bad/ugly</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Redfish - schema support, O=
-CP compliance, testing, plugfest updates, RSD support, next steps</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Platform configuration - po=
-rting to new hardware, sensor configuration</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Demonstrations of hardware =
-&amp; firmware that is, or will be, available in the open source repository=
-</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
-<div>Track 2 - Hacking</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On Boarding / Training</div=
->
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Writing and Debugging Code<=
-/div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Documentation - work on imp=
-roving the content</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
-<div>Wednesday (Day 2)</div>
-<div>Track 1 - Tech Talks</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hardware requirements/guide=
-lines - security, sensor support</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IPMI - compliance vs. non-c=
-ompliance, security impacts, BIOS OEM commands</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BMC device enablement - BSP=
-, future requirements (e.g., i3c support, crypto, fuses)</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Logging and debug mechanism=
-s, telemetry and alerts.</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Security - threat model, in=
-cident response, ARM TrustZone, process isolation, key storage, crypto guid=
-elines</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bootloader - flash memory l=
-ayout, SPI flash (boot rom vs. operational image)</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Secure Boot - Cerberus, Tit=
-an, PFR, Poor-Mans-Security-Implementation</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Engagement with OCP</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
-<div>Track 2 - Hacking</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continuation from day 1</di=
-v>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Security Scanning</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Penetration Testing</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>Thursday (Day 3)</div>
-<div>Track 1 - Tech Talks</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Validation - test plans, Je=
-nkins support</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WebUI Design - Customizatio=
-n</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KVM &amp; Virtual Media</di=
-v>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Feature Development</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Release Planning</div>
-<div>&nbsp;</div>
-<div>Track 2 - Hacking</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continuation from day 2</di=
-v>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Free-form demonstration of =
-work accomplished during hackathon</div>
-<div>&nbsp;</div>
-<div>Thanks,</div>
-<div><font face=3D"Comic Sans MS" size=3D"2" color=3D"navy"><span style=3D"=
-font-size:10pt;">James Mihm<font face=3D"Arial" size=3D"2" color=3D"black">=
-<span style=3D"font-size:11pt;">
-<br>
-
-</span></font><font size=3D"2"><span style=3D"font-size:11pt;">Intel - </sp=
-an></font>Intel <font size=3D"2"><span style=3D"font-size:11pt;">DCG BMC Co=
-re Firmware<br>
-
-</span></font></span></font></div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-</span></font>
-</body>
-</html>
-
---_000_C599FC839619124CAC44E062ABB7DFE2D6FF2DFDORSMSX101amrcor_--
+SGkgQnJhZC9BbmRyZXcsDQpJIGZvdW5kIHRoZSBuZXcgZ3BpbyBBUEkgYWRvcHRlZCBieSBrZXJu
+ZWwgNC44LCBpcyBub3QgZnVsbHkgcmVhZHksIGFsbCB0aGUgbGluZXMgYXJlICJ1bm5hbWVkIi4N
+CklmIHRoYXQgd2UgY2Fubm90IHN3aXRjaCB0byBpdCBub3cuIA0KT3IgdGhlcmUgaXMgc3BlY2lh
+bCBrZXJuZWwgYmFzZWQgY29uZmlndXJhdGlvbiBJIGhhdmUgdG8gZG8/DQoNCnJvb3RAd29sZnBh
+c3M6L3RtcCMgLi9ncGlvZGV0ZWN0DQpncGlvY2hpcDAgW1NHUElPQV0gKDggbGluZXMpDQpncGlv
+Y2hpcDEgW1NHUElPQl0gKDggbGluZXMpDQpncGlvY2hpcDEwIFsxZTc4MDAwMC5ncGlvXSAoMjMy
+IGxpbmVzKQ0KZ3Bpb2NoaXAyIFtTR1BJT0NdICg4IGxpbmVzKQ0KZ3Bpb2NoaXAzIFtTR1BJT0Rd
+ICg4IGxpbmVzKQ0KZ3Bpb2NoaXA0IFtTR1BJT0VdICg4IGxpbmVzKQ0KZ3Bpb2NoaXA1IFtTR1BJ
+T0ZdICg4IGxpbmVzKQ0KZ3Bpb2NoaXA2IFtTR1BJT0ddICg4IGxpbmVzKQ0KZ3Bpb2NoaXA3IFtT
+R1BJT0hdICg4IGxpbmVzKQ0KZ3Bpb2NoaXA4IFtTR1BJT0ldICg4IGxpbmVzKQ0KZ3Bpb2NoaXA5
+IFtTR1BJT0pdICg4IGxpbmVzKQ0Kcm9vdEB3b2xmcGFzczovdG1wIyAuL2dwaW9pbmZvIC9kZXYv
+Z3Bpb2NoaXAxDQpncGlvY2hpcDEgLSA4IGxpbmVzOg0KICAgICAgICBsaW5lICAgMDogICAgICB1
+bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAg
+MTogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAg
+ICBsaW5lICAgMjogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGln
+aA0KICAgICAgICBsaW5lICAgMzogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBh
+Y3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNDogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAg
+b3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNTogICAgICB1bm5hbWVkICAgICAg
+IHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNjogICAgICB1bm5h
+bWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KICAgICAgICBsaW5lICAgNzog
+ICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0Kcm9vdEB3b2xm
+cGFzczovdG1wIyAuL2dwaW9pbmZvIC9kZXYvZ3Bpb2NoaXAxMA0KZ3Bpb2NoaXAxMCAtIDIzMiBs
+aW5lczoNCiAgICAgICAgbGluZSAgIDA6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1
+dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDE6ICAgICAgdW5uYW1lZCAgICAgICB1bnVz
+ZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDI6ICAgICAgdW5uYW1lZCAg
+ICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDM6ICAgICAg
+dW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAg
+IDQ6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAg
+ICAgbGluZSAgIDU6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhp
+Z2gNCiAgICAgICAgbGluZSAgIDY6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAg
+YWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDc6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQg
+ICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDg6ICAgICAgdW5uYW1lZCAgICAg
+ICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgIDk6ICAgICAgdW5u
+YW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTA6
+ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAg
+bGluZSAgMTE6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gN
+CiAgICAgICAgbGluZSAgMTI6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0
+aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTM6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBp
+bnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTQ6ICAgICAgdW5uYW1lZCAgICAgICB1
+bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTU6ICAgICAgdW5uYW1l
+ZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCiAgICAgICAgbGluZSAgMTY6ICAg
+ICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCnJvb3RAd29sZnBh
+c3M6L3RtcCMgLi9ncGlvZ2V0IC9kZXYvZ3Bpb2NoaXAxMCAyMTkNCi4vZ3Bpb2dldDogZXJyb3Ig
+cmVhZGluZyBHUElPIHZhbHVlczogRGV2aWNlIG9yIHJlc291cmNlIGJ1c3kNCg0KVGhhbmtzLA0K
+S3VpeWluZy4NCg==
