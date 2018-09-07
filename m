@@ -1,72 +1,53 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 426D3n1JMlzF3Sf
- for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 20:20:52 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w87AKmi8038397
- for <openbmc@lists.ozlabs.org>; Fri, 7 Sep 2018 06:20:50 -0400
-Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2mbmyx64t0-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 07 Sep 2018 06:20:50 -0400
-Received: from localhost
- by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Fri, 7 Sep 2018 11:15:59 +0100
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 7 Sep 2018 11:15:56 +0100
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w87AFtc561800686
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Fri, 7 Sep 2018 10:15:55 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 29D8BAE053
- for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 13:15:16 +0100 (BST)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B7AB5AE055
- for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 13:15:15 +0100 (BST)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.77.83.250])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 13:15:15 +0100 (BST)
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Subject: D-Bus interface to update multiple properties in one shot
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 7 Sep 2018 15:45:54 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 426Kwr2Z7lzF3MP
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Sep 2018 00:45:12 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2018 07:45:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,342,1531810800"; d="scan'208";a="86863186"
+Received: from orsmsx102.amr.corp.intel.com ([10.22.225.129])
+ by fmsmga004.fm.intel.com with ESMTP; 07 Sep 2018 07:45:00 -0700
+Received: from orsmsx154.amr.corp.intel.com (10.22.226.12) by
+ ORSMSX102.amr.corp.intel.com (10.22.225.129) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Fri, 7 Sep 2018 07:45:00 -0700
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
+ ORSMSX154.amr.corp.intel.com ([169.254.11.155]) with mapi id 14.03.0319.002;
+ Fri, 7 Sep 2018 07:45:00 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: RE: D-Bus interface to update multiple properties in one shot
+Thread-Topic: D-Bus interface to update multiple properties in one shot
+Thread-Index: AQHURpSDl1a7iCQ3sE2uh9IVdMGkRKTk4nPw
+Date: Fri, 7 Sep 2018 14:44:59 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169934583C68C@ORSMSX114.amr.corp.intel.com>
+References: <c917aa9a-98ff-d9b7-be60-6000b439742e@linux.vnet.ibm.com>
+In-Reply-To: <c917aa9a-98ff-d9b7-be60-6000b439742e@linux.vnet.ibm.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18090710-0016-0000-0000-00000201B820
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18090710-0017-0000-0000-00003258680A
-Message-Id: <c917aa9a-98ff-d9b7-be60-6000b439742e@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-07_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=819 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1809070107
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNTkxMGU4NGEtMjQ0YS00ZTEyLThiM2QtNTZkZmQ5ZGFjNDNlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoid1wvXC94Q3RTRjNtbnY1cmFVczg0ZTd2RXBUK3dVSk1MbFBBUE1XS0JHMWNNQ1wvSmRGTVpFNkp4ZTdzWVRcL2ZzdVoifQ==
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.140]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -78,39 +59,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Sep 2018 10:20:53 -0000
+X-List-Received-Date: Fri, 07 Sep 2018 14:45:17 -0000
 
-Hi,
-
-I've come across openbmc apps that implement D-Bus interfaces comprised 
-of more than one D-Bus property (phosphor-networkd is a good example), 
-and they need to react only after all the properties or a specific set 
-of properties have been set, and not after every individual property is 
-set. This can be due to functional or performance reasons. For instance 
-in the case of phosphor-networkd, it has to restart a networkd systemd 
-unit when a property changes. Multiple restarts can actually cause 
-systemd to prevent the unit from further restarts. Multiple restarts is 
-also not desirable in terms of the app's performance. What 
-phosphor-networkd does today is to start a 5 (or 10) second timer when a 
-property is set, and restart the networkd unit after the timeout, so as 
-to accumulate other properties being set in this time. I believe other 
-daemons are doing this as well.
-
-One solution is to design these APIs as D-Bus methods as opposed to a 
-set of D-Bus properties. We've avoided this in general because you'd 
-then need to define separate getters and setters, and like mentioned 
-earlier, a caller may want to set only a subset of all the properties in 
-the interface.
-
-A proposal we discussed in a meet recently is to implement a new 
-xyz.openbmc_project.Object.Properties D-Bus interface with a method 
-called 'Update', which accepts a dictionary of property-value pairs. A 
-D-Bus object may implement this interface to be able to set multiple 
-properties in one go. The type of the value would need to be a variant 
-of all native D-Bus data types. Supporting container data types is 
-probably going to be hard, so this may have to be restricted to 
-non-container data types. The key would be a string - the property name. 
-Thoughts on this proposal?
-
-Thanks,
-Deepak
+PiANCj4gQSBwcm9wb3NhbCB3ZSBkaXNjdXNzZWQgaW4gYSBtZWV0IHJlY2VudGx5IGlzIHRvIGlt
+cGxlbWVudCBhIG5ldw0KPiB4eXoub3BlbmJtY19wcm9qZWN0Lk9iamVjdC5Qcm9wZXJ0aWVzIEQt
+QnVzIGludGVyZmFjZSB3aXRoIGEgbWV0aG9kDQo+IGNhbGxlZCAnVXBkYXRlJywgd2hpY2ggYWNj
+ZXB0cyBhIGRpY3Rpb25hcnkgb2YgcHJvcGVydHktdmFsdWUgcGFpcnMuDQoNCkknbSBub3QgcmVh
+bGx5IGZvbGxvd2luZyB3aGF0IHByb2JsZW0gdGhpcyBpcyB0cnlpbmcgdG8gc29sdmUuICBEb2Vz
+IHRoZSB0aW1lciBpbiBuZXR3b3JrZCBub3Qgd29yayBhcyBkZXNpZ25lZD8gIEFyZSB3ZSB0cnlp
+bmcgdG8gcmVtb3ZlIGl0PyAgSW4gd2hpY2ggdXNlIGNhc2VzIGFyZSB3ZSBzZWVpbmcgcGVyZm9y
+bWFuY2UgcHJvYmxlbXMgd2l0aCBtdWx0aXBsZSBzZXQgY2FsbHM/ICBIYXZlIHdlIG1lYXN1cmVk
+IHRoZXNlIHBlcmZvcm1hbmNlIGltcGFjdHM/DQoNCldoYXQgd29ycmllcyBtZSBhYm91dCB0aGUg
+cHJvcG9zZWQgaW50ZXJmYWNlIGlzIGNvbnNpc3RlbmN5LiAgV2lsbCB3ZSBiZSBhZGRpbmcgdGhl
+IHh5ei5vcGVuYm1jX3Byb2plY3QuT2JqZWN0LlByb3BlcnRpZXMgaW50ZXJmYWNlIGFzIGEgc3Bl
+Y2lmaWNhdGlvbiB0byBjZXJ0YWluIHBhdGhzIGluIHBob3NwaG9yPyBhbGwgcGF0aHM/IEFsbCBv
+YmplY3QgbWFuYWdlciBwYXRocz8NCkhvdyB3aWxsIG9uZSBrbm93IHdoaWNoIHBhdGhzIHJlcXVp
+cmUgdXNlIG9mIHRoZSBvcmcuZnJlZWRlc2t0b3AuREJ1cy5Qcm9wZXJ0aWVzIGludGVyZmFjZSwg
+YW5kIHdoaWNoIGNhbiB1c2UgdGhlIGludGVyZmFjZSB5b3UndmUgcHJvcG9zZWQ/ICBZZXMsIHdl
+IGNvdWxkIGRvIGEgbWFwcGVyIGNhbGwgdG8gZmluZCBvdXQsIGJ1dCBJJ20gZ29pbmcgdG8gbmVn
+YXRlIGFueSBwZXJmb3JtYW5jZSBpbXByb3ZlbWVudCB3ZSd2ZSBnYWluZWQuDQpXaGVuIGNhbGxp
+bmcgdGhlIHVwZGF0ZSBtZXRob2QsIGlmIG9uZSBvZiB0aGUgcHJvcGVydHkgdXBkYXRlIGZhaWxz
+LCB3aGF0IHRoZW4/ICBEb2VzIHRoZSBwcm9wZXJ0eSB1cGRhdGUgZ2V0IHBhcnRpYWxseSBhcHBs
+aWVkLCBkb2VzIGl0IHJvbGwgYmFjayB0byB0aGUgb2xkIHZhbHVlcz8gIEkgZG9uJ3QgdGhpbmsg
+dGhlcmUgYXJlIGFueSBnb29kIGNhdGNoYWxsIGFuc3dlcnMgaGVyZS4NCg0KVGhpcyBpZGVhIGlu
+dHJpZ3VlcyBtZSwgYnV0IEkgdGhpbmsgaW4gbWFueSBvZiB0aGVzZSBjYXNlcywgY29uc2lzdGVu
+Y3kgaXMgbW9yZSBpbXBvcnRhbnQgdGhhbiBwZXJmb3JtYW5jZS4gIElmIHRoZXJlJ3MgYSB3YXkg
+dG8ga2VlcCBjb25zaXN0ZW5jeSB3aXRoIHRoZSBwcm9wb3NlZCBpbnRlcmZhY2UgX2FuZF8gZ2V0
+IHBlcmZvcm1hbmNlLCB0aGVuIEkgdGhpbmsgdGhhdCB0aGlzIGNvdWxkIGJlIHdvcmthYmxlLCBJ
+J20ganVzdCBub3Qgc3VyZSBob3cgdG8gYWNjb21wbGlzaCBib3RoLg0KDQotRWQNCg==
