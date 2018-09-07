@@ -1,53 +1,53 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <jaghu@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4003:c06::236; helo=mail-oi0-x236.google.com;
+ envelope-from=jaghu@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="oLRV9VK0"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x236.google.com (mail-oi0-x236.google.com
+ [IPv6:2607:f8b0:4003:c06::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 426Kwr2Z7lzF3MP
- for <openbmc@lists.ozlabs.org>; Sat,  8 Sep 2018 00:45:12 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2018 07:45:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,342,1531810800"; d="scan'208";a="86863186"
-Received: from orsmsx102.amr.corp.intel.com ([10.22.225.129])
- by fmsmga004.fm.intel.com with ESMTP; 07 Sep 2018 07:45:00 -0700
-Received: from orsmsx154.amr.corp.intel.com (10.22.226.12) by
- ORSMSX102.amr.corp.intel.com (10.22.225.129) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Fri, 7 Sep 2018 07:45:00 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.8]) by
- ORSMSX154.amr.corp.intel.com ([169.254.11.155]) with mapi id 14.03.0319.002;
- Fri, 7 Sep 2018 07:45:00 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: RE: D-Bus interface to update multiple properties in one shot
-Thread-Topic: D-Bus interface to update multiple properties in one shot
-Thread-Index: AQHURpSDl1a7iCQ3sE2uh9IVdMGkRKTk4nPw
-Date: Fri, 7 Sep 2018 14:44:59 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169934583C68C@ORSMSX114.amr.corp.intel.com>
-References: <c917aa9a-98ff-d9b7-be60-6000b439742e@linux.vnet.ibm.com>
-In-Reply-To: <c917aa9a-98ff-d9b7-be60-6000b439742e@linux.vnet.ibm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNTkxMGU4NGEtMjQ0YS00ZTEyLThiM2QtNTZkZmQ5ZGFjNDNlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoid1wvXC94Q3RTRjNtbnY1cmFVczg0ZTd2RXBUK3dVSk1MbFBBUE1XS0JHMWNNQ1wvSmRGTVpFNkp4ZTdzWVRcL2ZzdVoifQ==
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.140]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 426QYz53Q8zF3TG
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Sep 2018 04:14:14 +1000 (AEST)
+Received: by mail-oi0-x236.google.com with SMTP id b15-v6so28853644oib.10
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Sep 2018 11:14:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=/PuPtPkzSrtc6wyQOg5y63x1ViJY2PKX3IP9iRNeXgI=;
+ b=oLRV9VK0GpM8fd1mtQ+Tae1P5RRZCwIfvu5R1VtKOYNKf5uNSOJapzS93i0GLasNdf
+ fJnP11FkmO/7eBGg8YXv+deCC7Dm5kNmAxc4QxMRlXMtjQLtmKaWtPtIvCn1voGk7m6U
+ JE3+oQ5gkXJQjpEzRu1fO1aoWlqx1FvVH2u/ruhlyjG5UlE4QAROKbmbs6DlnNNuf4sM
+ V3Gk1oMEH2oNDaNxG4fjk7dxg8QyMh+Ju7HV/+W8wDGM3f5RpV2thjkq9+vr/gekZrnA
+ aXbpHbzAG5TnrTazDpGjEwuU8Cstqj/k53hx9x5ztPUiaAXWhsVm58mSN53pMC5xuAt7
+ h4tQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=/PuPtPkzSrtc6wyQOg5y63x1ViJY2PKX3IP9iRNeXgI=;
+ b=kUaNrTe48giQFGz+COlZrwr/H0dk3/J3Tytd1n0PHLaXptD9jxsOXJM8lBpLdAzkeh
+ Ia2joo3fvNqzUZtNtCz2+fMXF7n/BIhalTmAFW7/4ZygEgjmQlWYN9sJon+8kww6w/mE
+ 5Hv4Z7xyjE8o3YH9MIUFTbVGYtJ74sDDD1nwfm2i8EaIjW/gJ+xM48zMb2Aa4uZGJMPu
+ OA0tRgHDC5gSTxbZvJhStanBji1CZsOZwZI+rz0VfomclgAUK799ZND8kme1JG+frLyF
+ mWAxsg0M6Q660aDBvkU5Qqoe1ZKwycDzblxFf3uvr92EANOBliFAyBXYm318IICaUipa
+ 6Ybg==
+X-Gm-Message-State: APzg51CY2n6g8pu7F98FYtbWULCJ1Y+miSXoONlNbX9sYmR9JhLOBt0f
+ mQvPUbumcXHsu/5jjj/7Z9NghP3ZAqPjAn09pyHqha8r9l8=
+X-Google-Smtp-Source: ANB0VdZABM6dSeeItMUEps629qgbdmv/W4jX8SOb+2Ma0EghubRt76ofMDCaQTUpvXkKF31VgWBaIMPsIvmKLButXB4=
+X-Received: by 2002:aca:32d5:: with SMTP id
+ y204-v6mr9622568oiy.85.1536344052297; 
+ Fri, 07 Sep 2018 11:14:12 -0700 (PDT)
 MIME-Version: 1.0
+From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Date: Fri, 7 Sep 2018 11:14:01 -0700
+Message-ID: <CANsWYUXTy6b_gpw7z7DWT=DoHBZThtqHJyM5cs-BCBhKFH_tow@mail.gmail.com>
+Subject: Question about IPMI OEM command to expose PCIe slot-i2c mapping.
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000007df9a705754bf9db"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -59,31 +59,111 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Sep 2018 14:45:17 -0000
+X-List-Received-Date: Fri, 07 Sep 2018 18:14:17 -0000
 
-PiANCj4gQSBwcm9wb3NhbCB3ZSBkaXNjdXNzZWQgaW4gYSBtZWV0IHJlY2VudGx5IGlzIHRvIGlt
-cGxlbWVudCBhIG5ldw0KPiB4eXoub3BlbmJtY19wcm9qZWN0Lk9iamVjdC5Qcm9wZXJ0aWVzIEQt
-QnVzIGludGVyZmFjZSB3aXRoIGEgbWV0aG9kDQo+IGNhbGxlZCAnVXBkYXRlJywgd2hpY2ggYWNj
-ZXB0cyBhIGRpY3Rpb25hcnkgb2YgcHJvcGVydHktdmFsdWUgcGFpcnMuDQoNCkknbSBub3QgcmVh
-bGx5IGZvbGxvd2luZyB3aGF0IHByb2JsZW0gdGhpcyBpcyB0cnlpbmcgdG8gc29sdmUuICBEb2Vz
-IHRoZSB0aW1lciBpbiBuZXR3b3JrZCBub3Qgd29yayBhcyBkZXNpZ25lZD8gIEFyZSB3ZSB0cnlp
-bmcgdG8gcmVtb3ZlIGl0PyAgSW4gd2hpY2ggdXNlIGNhc2VzIGFyZSB3ZSBzZWVpbmcgcGVyZm9y
-bWFuY2UgcHJvYmxlbXMgd2l0aCBtdWx0aXBsZSBzZXQgY2FsbHM/ICBIYXZlIHdlIG1lYXN1cmVk
-IHRoZXNlIHBlcmZvcm1hbmNlIGltcGFjdHM/DQoNCldoYXQgd29ycmllcyBtZSBhYm91dCB0aGUg
-cHJvcG9zZWQgaW50ZXJmYWNlIGlzIGNvbnNpc3RlbmN5LiAgV2lsbCB3ZSBiZSBhZGRpbmcgdGhl
-IHh5ei5vcGVuYm1jX3Byb2plY3QuT2JqZWN0LlByb3BlcnRpZXMgaW50ZXJmYWNlIGFzIGEgc3Bl
-Y2lmaWNhdGlvbiB0byBjZXJ0YWluIHBhdGhzIGluIHBob3NwaG9yPyBhbGwgcGF0aHM/IEFsbCBv
-YmplY3QgbWFuYWdlciBwYXRocz8NCkhvdyB3aWxsIG9uZSBrbm93IHdoaWNoIHBhdGhzIHJlcXVp
-cmUgdXNlIG9mIHRoZSBvcmcuZnJlZWRlc2t0b3AuREJ1cy5Qcm9wZXJ0aWVzIGludGVyZmFjZSwg
-YW5kIHdoaWNoIGNhbiB1c2UgdGhlIGludGVyZmFjZSB5b3UndmUgcHJvcG9zZWQ/ICBZZXMsIHdl
-IGNvdWxkIGRvIGEgbWFwcGVyIGNhbGwgdG8gZmluZCBvdXQsIGJ1dCBJJ20gZ29pbmcgdG8gbmVn
-YXRlIGFueSBwZXJmb3JtYW5jZSBpbXByb3ZlbWVudCB3ZSd2ZSBnYWluZWQuDQpXaGVuIGNhbGxp
-bmcgdGhlIHVwZGF0ZSBtZXRob2QsIGlmIG9uZSBvZiB0aGUgcHJvcGVydHkgdXBkYXRlIGZhaWxz
-LCB3aGF0IHRoZW4/ICBEb2VzIHRoZSBwcm9wZXJ0eSB1cGRhdGUgZ2V0IHBhcnRpYWxseSBhcHBs
-aWVkLCBkb2VzIGl0IHJvbGwgYmFjayB0byB0aGUgb2xkIHZhbHVlcz8gIEkgZG9uJ3QgdGhpbmsg
-dGhlcmUgYXJlIGFueSBnb29kIGNhdGNoYWxsIGFuc3dlcnMgaGVyZS4NCg0KVGhpcyBpZGVhIGlu
-dHJpZ3VlcyBtZSwgYnV0IEkgdGhpbmsgaW4gbWFueSBvZiB0aGVzZSBjYXNlcywgY29uc2lzdGVu
-Y3kgaXMgbW9yZSBpbXBvcnRhbnQgdGhhbiBwZXJmb3JtYW5jZS4gIElmIHRoZXJlJ3MgYSB3YXkg
-dG8ga2VlcCBjb25zaXN0ZW5jeSB3aXRoIHRoZSBwcm9wb3NlZCBpbnRlcmZhY2UgX2FuZF8gZ2V0
-IHBlcmZvcm1hbmNlLCB0aGVuIEkgdGhpbmsgdGhhdCB0aGlzIGNvdWxkIGJlIHdvcmthYmxlLCBJ
-J20ganVzdCBub3Qgc3VyZSBob3cgdG8gYWNjb21wbGlzaCBib3RoLg0KDQotRWQNCg==
+--0000000000007df9a705754bf9db
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+BMC has information in the device tree about which I2C bus goes to which
+PCIe slot. I would like the host to get this information from the BMC
+firmware by sending a IPMI OEM command.
+
+How I want to do this:
+(for example in arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts file, I
+want to add an extra attribute "slot" for each I2C bus, which
+indicates which i2c bus goes to which PCIe slot )
+&i2c2 {
+status = "okay";
+
+/* 0: PCIe Slot 2,
+*    Slot 3,
+*    Slot 6,
+*    Slot 7
+*/i2c-switch at 74 <https://lists.ozlabs.org/listinfo/openbmc> {
+compatible = "nxp,pca9546";
+reg = <0x74>;
+#address-cells = <1>;
+#size-cells = <0>;
+i2c-mux-idle-disconnect;  /* may use mux at 77
+<https://lists.ozlabs.org/listinfo/openbmc> next. */
+
+i2c_pcie2: i2c at 0 <https://lists.ozlabs.org/listinfo/openbmc> {
+#address-cells = <1>;
+#size-cells = <0>;
+reg = <0>;
+
+----->slot = "PE2";<-----
+
+};
+
+i2c_pcie3: i2c at 1 <https://lists.ozlabs.org/listinfo/openbmc> {
+#address-cells = <1>; #size-cells = <0>; reg = <1>;
+
+----->slot = "PE2";<-----
+
+}; } Whenever the host sends the IPMI OEM command to get the I2C bus/PCIe
+slot mapping info, the BMC can parse through all the i2c devices under
+/sys/bus/i2c/ and find all the i2c devices which have a property called
+slot under of_node. The BMC firmware can then send the I2C bus number and
+the slot name for all the i2c devices found above, as part of the IPMI
+command response. Does anyone have any ideas/suggestions about this ?
+
+--0000000000007df9a705754bf9db
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><pre style=3D"white-space:pre-wrap;color:rgb(0,0,0)">Hello=
+,
+
+BMC has information in the device tree about which I2C bus goes to which
+PCIe slot. I would like the host to get this information from the BMC firmw=
+are by sending a IPMI OEM command.<br></pre><pre style=3D"white-space:pre-w=
+rap;color:rgb(0,0,0)">How I want to do this:
+(for example in arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts file, I want t=
+o add an extra attribute &quot;slot&quot; for each I2C bus, which indicates=
+ which i2c bus goes to which PCIe slot )
+&amp;i2c2 {
+status =3D &quot;okay&quot;;
+
+/* 0: PCIe Slot 2,
+*    Slot 3,
+*    Slot 6,
+*    Slot 7
+*/
+<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" target=3D"_blank">i2c=
+-switch at 74</a> {
+compatible =3D &quot;nxp,pca9546&quot;;
+reg =3D &lt;0x74&gt;;
+#address-cells =3D &lt;1&gt;;
+#size-cells =3D &lt;0&gt;;
+i2c-mux-idle-disconnect;  /* may use <a href=3D"https://lists.ozlabs.org/li=
+stinfo/openbmc" target=3D"_blank">mux at 77</a> next. */
+
+i2c_pcie2: <a href=3D"https://lists.ozlabs.org/listinfo/openbmc" target=3D"=
+_blank">i2c at 0</a> {
+#address-cells =3D &lt;1&gt;;
+#size-cells =3D &lt;0&gt;;
+reg =3D &lt;0&gt;;</pre><pre style=3D"white-space:pre-wrap;color:rgb(0,0,0)=
+">-----&gt;slot =3D &quot;PE2&quot;;&lt;-----</pre><pre style=3D"white-spac=
+e:pre-wrap;color:rgb(0,0,0)"><pre style=3D"white-space:pre-wrap">};</pre>
+i2c_pcie3: <a href=3D"https://lists.ozlabs.org/listinfo/openbmc" target=3D"=
+_blank">i2c at 1</a> {
+#address-cells =3D &lt;1&gt;;
+#size-cells =3D &lt;0&gt;;
+reg =3D &lt;1&gt;;</pre><pre style=3D"white-space:pre-wrap;color:rgb(0,0,0)=
+"><pre style=3D"white-space:pre-wrap">-----&gt;slot =3D &quot;PE2&quot;;&lt=
+;-----</pre>};
+
+}
+
+Whenever the host sends the IPMI OEM command to get the I2C bus/PCIe slot
+mapping info, the BMC can parse through all the i2c devices under /sys/bus/=
+i2c/ and find all the i2c devices which have a property called slot under o=
+f_node. The BMC firmware can then send the I2C bus number and the slot name=
+ for all the i2c devices found above, as part of the IPMI command response.
+
+Does anyone have any ideas/suggestions about this ?</pre></div>
+
+--0000000000007df9a705754bf9db--
