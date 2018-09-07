@@ -1,61 +1,72 @@
-Return-Path: <kuiying.wang@intel.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 426CrW0nt4zF3SX
- for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 20:11:04 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2018 03:11:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,342,1531810800"; d="scan'208";a="260646859"
-Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
- by fmsmga005.fm.intel.com with ESMTP; 07 Sep 2018 03:11:01 -0700
-Received: from fmsmsx101.amr.corp.intel.com (10.18.124.199) by
- FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Fri, 7 Sep 2018 03:11:01 -0700
-Received: from shsmsx104.ccr.corp.intel.com (10.239.4.70) by
- fmsmsx101.amr.corp.intel.com (10.18.124.199) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Fri, 7 Sep 2018 03:11:00 -0700
-Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.226]) by
- SHSMSX104.ccr.corp.intel.com ([169.254.5.143]) with mapi id 14.03.0319.002;
- Fri, 7 Sep 2018 18:10:57 +0800
-From: "Wang, Kuiying" <kuiying.wang@intel.com>
-To: Andrew Jeffery <andrew@aj.id.au>, Andrew Geissler <geissonator@gmail.com>
-CC: Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew Geissler
- <geissonator@yahoo.com>, "chunhui.jia@linux.intel.com"
- <chunhui.jia@linux.intel.com>, "kunyi731@gmail.com" <kunyi731@gmail.com>,
- "Mihm, James" <james.mihm@intel.com>, "Tanous, Ed" <ed.tanous@intel.com>,
- "Feist, James" <james.feist@intel.com>, "Jia, Chunhui"
- <chunhui.jia@intel.com>, Patrick Venture <venture@google.com>, "OpenBMC
- Maillist" <openbmc@lists.ozlabs.org>, "Li, Yong B" <yong.b.li@intel.com>,
- "Yang, Cheng C" <cheng.c.yang@intel.com>, "Xu, Qiang" <qiang.xu@intel.com>,
- "Nguyen, Hai V" <hai.v.nguyen@intel.com>, Joel Stanley <joel@jms.id.au>
-Subject: RE: About new gpio API in linux/gpio.h adopted by kernel 4.8
-Thread-Topic: About new gpio API in linux/gpio.h adopted by kernel 4.8
-Thread-Index: AdRFsoAZzxmWWfOISWukV16CyY/Hkf//1EyAgAAL+oD//iBs0A==
-Date: Fri, 7 Sep 2018 10:10:57 +0000
-Message-ID: <959CAFA1E282D14FB901BE9A7BF4E77249E0CF9D@shsmsx102.ccr.corp.intel.com>
-References: <959CAFA1E282D14FB901BE9A7BF4E77249E0C0B0@shsmsx102.ccr.corp.intel.com>
- <CALLMt=p=tmhvNfcfc50tXEGu7nuHS1huTgm3v3y-r-DuAu=zEw@mail.gmail.com>
- <1536240593.3745516.1498902568.44FB0FD8@webmail.messagingengine.com>
-In-Reply-To: <1536240593.3745516.1498902568.44FB0FD8@webmail.messagingengine.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 426D3n1JMlzF3Sf
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 20:20:52 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w87AKmi8038397
+ for <openbmc@lists.ozlabs.org>; Fri, 7 Sep 2018 06:20:50 -0400
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2mbmyx64t0-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Sep 2018 06:20:50 -0400
+Received: from localhost
+ by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Fri, 7 Sep 2018 11:15:59 +0100
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 7 Sep 2018 11:15:56 +0100
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w87AFtc561800686
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Fri, 7 Sep 2018 10:15:55 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 29D8BAE053
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 13:15:16 +0100 (BST)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B7AB5AE055
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 13:15:15 +0100 (BST)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.77.83.250])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Sep 2018 13:15:15 +0100 (BST)
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: D-Bus interface to update multiple properties in one shot
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 7 Sep 2018 15:45:54 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 18090710-0016-0000-0000-00000201B820
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18090710-0017-0000-0000-00003258680A
+Message-Id: <c917aa9a-98ff-d9b7-be60-6000b439742e@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-09-07_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=819 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1809070107
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -67,164 +78,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Sep 2018 10:11:08 -0000
+X-List-Received-Date: Fri, 07 Sep 2018 10:20:53 -0000
 
-WWVzLCB5b3UgYXJlIHJpZ2h0LiBUaGVyZSBpcyBubyBjb25maWd1cmF0aW9uIGZvciBncGlvLWxp
-bmUtbmFtZXMgcHJvcGVydHkgZm9yIGFzcGVlZCBnNS4NCkkgcGxhbiB0byB1cHN0cmVhbSBhIHBh
-dGNoIGZvciBhc3BlZWQgZzUgYXMgZm9sbG93aW5nOg0KDQpjb21taXQgOWRmZDcyZmY1ZjYyOGQ3
-YWFhMTA3Mjg3NTZjZTQyYmQ1Zjc2OGQ0ZiAoSEVBRCAtPiBkZXYtNC4xOCkNCkF1dGhvcjogS3Vp
-eWluZyBXYW5nIDxrdWl5aW5nLndhbmdAaW50ZWwuY29tPg0KRGF0ZTogICBGcmkgU2VwIDcgMTg6
-MDE6NDEgMjAxOCArMDgwMA0KDQogICAgRGVmaW5lIHRoZSBncGlvLWxpbmUtbmFtZXMgcHJvcGVy
-dHkgZm9yIGFzcGVlZC1nNQ0KDQogICAgQmFzZWQgb24gYXNwZWVkIEFTVC0yNTAwIERhdGFzaGVl
-dCBzcGVjLCB0aGVyZSBhcmUgMjMyIGdwaW9zLg0KICAgIFNvIGRlZmluZXMgdGhlIGdwaW8gbGlu
-ZSBuYW1lIGZyb20gIkEwIiB0byAiQUM3Ii4NCg0KICAgIFNpZ25lZC1vZmYtYnk6IEt1aXlpbmcg
-V2FuZyA8a3VpeWluZy53YW5nQGludGVsLmNvbT4NCg0KZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jv
-b3QvZHRzL2FzcGVlZC1nNS5kdHNpIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc1LmR0c2kN
-CmluZGV4IGQ5MmYwNDc5MDdkZS4uNmQ2NjRmNGYxNjIxIDEwMDY0NA0KLS0tIGEvYXJjaC9hcm0v
-Ym9vdC9kdHMvYXNwZWVkLWc1LmR0c2kNCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1n
-NS5kdHNpDQpAQCAtMjY1LDYgKzI2NSwzNiBAQA0KICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBncGlvLXJhbmdlcyA9IDwmcGluY3RybCAwIDAgMjIwPjsNCiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgY2xvY2tzID0gPCZzeXNjb24gQVNQRUVEX0NMS19BUEI+Ow0KICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBpbnRlcnJ1cHQtY29udHJvbGxlcjsNCisgICAgICAg
-ICAgICAgICAgICAgZ3Bpby1saW5lLW5hbWVzID0gIkEwIiwiQTEiLCJBMiIsIkEzIiwiQTQiLCJB
-NSIsIkE2IiwiQTciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkIwIiwi
-QjEiLCJCMiIsIkIzIiwiQjQiLCJCNSIsIkI2IiwiQjciLA0KKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIkMwIiwiQzEiLCJDMiIsIkMzIiwiQzQiLCJDNSIsIkM2IiwiQzciLA0K
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkQwIiwiRDEiLCJEMiIsIkQzIiwi
-RDQiLCJENSIsIkQ2IiwiRDciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IkUwIiwiRTEiLCJFMiIsIkUzIiwiRTQiLCJFNSIsIkU2IiwiRTciLA0KKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIkYwIiwiRjEiLCJGMiIsIkYzIiwiRjQiLCJGNSIsIkY2Iiwi
-RjciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkcwIiwiRzEiLCJHMiIs
-IkczIiwiRzQiLCJHNSIsIkc2IiwiRzciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIkgwIiwiSDEiLCJIMiIsIkgzIiwiSDQiLCJINSIsIkg2IiwiSDciLA0KKyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIkkwIiwiSTEiLCJJMiIsIkkzIiwiSTQiLCJJNSIs
-Ikk2IiwiSTciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkowIiwiSjEi
-LCJKMiIsIkozIiwiSjQiLCJKNSIsIko2IiwiSjciLA0KKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIkswIiwiRTEiLCJFMiIsIkUzIiwiRTQiLCJFNSIsIkU2IiwiRTciLA0KKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkwwIiwiTDEiLCJMMiIsIkwzIiwiTDQi
-LCJMNSIsIkw2IiwiTDciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk0w
-IiwiTTEiLCJNMiIsIk0zIiwiTTQiLCJNNSIsIk02IiwiTTciLA0KKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIk4wIiwiTjEiLCJOMiIsIk4zIiwiTjQiLCJONSIsIk42IiwiTjci
-LA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk8wIiwiTzEiLCJPMiIsIk8z
-IiwiTzQiLCJPNSIsIk82IiwiTzciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIlAwIiwiUDEiLCJQMiIsIlAzIiwiUDQiLCJQNSIsIlA2IiwiUDciLA0KKyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIlEwIiwiUTEiLCJRMiIsIlEzIiwiUTQiLCJRNSIsIlE2
-IiwiUTciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlIwIiwiUjEiLCJS
-MiIsIlIzIiwiUjQiLCJSNSIsIlI2IiwiUjciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIlMwIiwiUzEiLCJTMiIsIlMzIiwiUzQiLCJTNSIsIlM2IiwiUzciLA0KKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlQwIiwiVDEiLCJUMiIsIlQzIiwiVDQiLCJU
-NSIsIlQ2IiwiVDciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlUwIiwi
-VTEiLCJVMiIsIlUzIiwiVTQiLCJVNSIsIlU2IiwiVTciLA0KKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIlYwIiwiVjEiLCJWMiIsIlYzIiwiVjQiLCJWNSIsIlY2IiwiVjciLA0K
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlcwIiwiVzEiLCJXMiIsIlczIiwi
-VzQiLCJXNSIsIlc2IiwiVzciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IlgwIiwiWDEiLCJYMiIsIlgzIiwiWDQiLCJYNSIsIlg2IiwiWDciLA0KKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIlkwIiwiWTEiLCJZMiIsIlkzIiwiWTQiLCJZNSIsIlk2Iiwi
-WTciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlowIiwiWjEiLCJaMiIs
-IlozIiwiWjQiLCJaNSIsIlo2IiwiWjciLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIkFBMCIsIkFBMSIsIkFBMiIsIkFBMyIsIkFBNCIsIkFBNSIsIkFBNiIsIkFBNyIsDQor
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiQUIwIiwiQUIxIiwiQUIyIiwiQUIz
-IiwiQUI0IiwiQUI1IiwiQUI2IiwiQUI3IiwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICJBQzAiLCJBQzEiLCJBQzIiLCJBQzMiLCJBQzQiLCJBQzUiLCJBQzYiLCJBQzciDQor
-ICAgICAgICAgICAgICAgICAgIDsNCiAgICAgICAgICAgICAgICAgICAgICAgIH07DQoNCkRvIHlv
-dSBhbGwgYWdyZWUgb24gdGhpcz8NCklmIG5vIHdoYXQncyB5b3VyIHN1Z2dlc3Rpb24/DQoNClRo
-YW5rcywNCkt1aXlpbmcuDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEFu
-ZHJldyBKZWZmZXJ5IFttYWlsdG86YW5kcmV3QGFqLmlkLmF1XSANClNlbnQ6IFRodXJzZGF5LCBT
-ZXB0ZW1iZXIgMDYsIDIwMTggOTozMCBQTQ0KVG86IEFuZHJldyBHZWlzc2xlciA8Z2Vpc3NvbmF0
-b3JAZ21haWwuY29tPjsgV2FuZywgS3VpeWluZyA8a3VpeWluZy53YW5nQGludGVsLmNvbT4NCkNj
-OiBCcmFkIEJpc2hvcCA8YnJhZGxleWJAZnV6emllc3F1aXJyZWwuY29tPjsgQW5kcmV3IEdlaXNz
-bGVyIDxnZWlzc29uYXRvckB5YWhvby5jb20+OyBjaHVuaHVpLmppYUBsaW51eC5pbnRlbC5jb207
-IGt1bnlpNzMxQGdtYWlsLmNvbTsgTWlobSwgSmFtZXMgPGphbWVzLm1paG1AaW50ZWwuY29tPjsg
-VGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVsLmNvbT47IEZlaXN0LCBKYW1lcyA8amFtZXMuZmVp
-c3RAaW50ZWwuY29tPjsgSmlhLCBDaHVuaHVpIDxjaHVuaHVpLmppYUBpbnRlbC5jb20+OyBQYXRy
-aWNrIFZlbnR1cmUgPHZlbnR1cmVAZ29vZ2xlLmNvbT47IE9wZW5CTUMgTWFpbGxpc3QgPG9wZW5i
-bWNAbGlzdHMub3psYWJzLm9yZz47IExpLCBZb25nIEIgPHlvbmcuYi5saUBpbnRlbC5jb20+OyBZ
-YW5nLCBDaGVuZyBDIDxjaGVuZy5jLnlhbmdAaW50ZWwuY29tPjsgWHUsIFFpYW5nIDxxaWFuZy54
-dUBpbnRlbC5jb20+OyBOZ3V5ZW4sIEhhaSBWIDxoYWkudi5uZ3V5ZW5AaW50ZWwuY29tPjsgSm9l
-bCBTdGFubGV5IDxqb2VsQGptcy5pZC5hdT4NClN1YmplY3Q6IFJlOiBBYm91dCBuZXcgZ3BpbyBB
-UEkgaW4gbGludXgvZ3Bpby5oIGFkb3B0ZWQgYnkga2VybmVsIDQuOA0KDQpPbiBUaHUsIDYgU2Vw
-IDIwMTgsIGF0IDIyOjE3LCBBbmRyZXcgR2Vpc3NsZXIgd3JvdGU6DQo+IEhleSBLdWl5aW5nLCB0
-aGlzIHNlZW1zIGxpa2UgbW9yZSBvZiBhIDQuMTgga2VybmVsIHF1ZXN0aW9uIGZvciANCj4gSm9l
-bC9BbmRyZXdKLiBQdXQgdGhlbSBvbiBjYy4NCj4gT24gVGh1LCBTZXAgNiwgMjAxOCBhdCAyOjMw
-IEFNIFdhbmcsIEt1aXlpbmcgPGt1aXlpbmcud2FuZ0BpbnRlbC5jb20+IHdyb3RlOg0KPiA+DQo+
-ID4gSGkgQnJhZC9BbmRyZXcsDQo+ID4gSSBmb3VuZCB0aGUgbmV3IGdwaW8gQVBJIGFkb3B0ZWQg
-Ynkga2VybmVsIDQuOCwgaXMgbm90IGZ1bGx5IHJlYWR5LCBhbGwgdGhlIGxpbmVzIGFyZSAidW5u
-YW1lZCIuDQoNCkkgZXhwZWN0IHRoaXMgaXMgYmVjYXVzZSBuby1vbmUgaGFzIGdpdmVuIHRoZW0g
-YW4gbmFtZSBpbiB5b3VyIGRldmljZXRyZWUuIEZvciBleGFtcGxlLCBoZXJlJ3Mgc29tZSBvdXRw
-dXQgZnJvbSBhIHN5c3RlbSBJIGhhdmUgaGFuZHk6DQoNCnJvb3RAd2l0aGVyc3Bvb246L3RtcCMg
-Z3Bpb2luZm8gL2Rldi9ncGlvY2hpcDMNCmdwaW9jaGlwMyAtIDE2IGxpbmVzOg0KICAgICAgICBs
-aW5lICAgMDogIlBTX1NNQlVTX1JFU0VUX04iIHVudXNlZCBpbnB1dCBhY3RpdmUtaGlnaCANCiAg
-ICAgICAgbGluZSAgIDE6ICJBUFNTX1JFU0VUX04iIHVudXNlZCBpbnB1dCBhY3RpdmUtaGlnaCAN
-CiAgICAgICAgbGluZSAgIDI6ICJHUFUwX1RIX09WRVJUX05fQlVGRiIgdW51c2VkIGlucHV0IGFj
-dGl2ZS1oaWdoIA0KICAgICAgICBsaW5lICAgMzogIkdQVTFfVEhfT1ZFUlRfTl9CVUZGIiB1bnVz
-ZWQgaW5wdXQgYWN0aXZlLWhpZ2ggDQogICAgICAgIGxpbmUgICA0OiAiR1BVMl9USF9PVkVSVF9O
-X0JVRkYiIHVudXNlZCBpbnB1dCBhY3RpdmUtaGlnaCANCiAgICAgICAgbGluZSAgIDU6ICJHUFUz
-X1RIX09WRVJUX05fQlVGRiIgdW51c2VkIGlucHV0IGFjdGl2ZS1oaWdoIA0KICAgICAgICBsaW5l
-ICAgNjogIkdQVTRfVEhfT1ZFUlRfTl9CVUZGIiB1bnVzZWQgaW5wdXQgYWN0aXZlLWhpZ2ggDQog
-ICAgICAgIGxpbmUgICA3OiAiR1BVNV9USF9PVkVSVF9OX0JVRkYiIHVudXNlZCBpbnB1dCBhY3Rp
-dmUtaGlnaCANCiAgICAgICAgbGluZSAgIDg6ICJHUFUwX1BXUl9HT09EX0JVRkYiIHVudXNlZCBp
-bnB1dCBhY3RpdmUtaGlnaCANCiAgICAgICAgbGluZSAgIDk6ICJHUFUxX1BXUl9HT09EX0JVRkYi
-IHVudXNlZCBpbnB1dCBhY3RpdmUtaGlnaCANCiAgICAgICAgbGluZSAgMTA6ICJHUFUyX1BXUl9H
-T09EX0JVRkYiIHVudXNlZCBpbnB1dCBhY3RpdmUtaGlnaCANCiAgICAgICAgbGluZSAgMTE6ICJH
-UFUzX1BXUl9HT09EX0JVRkYiIHVudXNlZCBpbnB1dCBhY3RpdmUtaGlnaCANCiAgICAgICAgbGlu
-ZSAgMTI6ICJHUFU0X1BXUl9HT09EX0JVRkYiIHVudXNlZCBpbnB1dCBhY3RpdmUtaGlnaCANCiAg
-ICAgICAgbGluZSAgMTM6ICJHUFU1X1BXUl9HT09EX0JVRkYiIHVudXNlZCBpbnB1dCBhY3RpdmUt
-aGlnaCANCiAgICAgICAgbGluZSAgMTQ6ICIxMlZfQlJFQUtFUl9GTFRfTiIgdW51c2VkIGlucHV0
-IGFjdGl2ZS1oaWdoIA0KICAgICAgICBsaW5lICAxNTogIlRIUk9UVExFX1VOTEFUQ0hFRF9OIiB1
-bnVzZWQgaW5wdXQgYWN0aXZlLWhpZ2gNCg0KV2hpY2ggY29ycmVzcG9uZHMgdG86DQoNCmh0dHBz
-Oi8vZ2l0aHViLmNvbS9vcGVuYm1jL2xpbnV4L2Jsb2IvZGV2LTQuMTgvYXJjaC9hcm0vYm9vdC9k
-dHMvYXNwZWVkLWJtYy1vcHAtd2l0aGVyc3Bvb24uZHRzI0w1MDENCg0KPiA+IElmIHRoYXQgd2Ug
-Y2Fubm90IHN3aXRjaCB0byBpdCBub3cuDQo+ID4gT3IgdGhlcmUgaXMgc3BlY2lhbCBrZXJuZWwg
-YmFzZWQgY29uZmlndXJhdGlvbiBJIGhhdmUgdG8gZG8/DQo+ID4NCj4gPiByb290QHdvbGZwYXNz
-Oi90bXAjIC4vZ3Bpb2RldGVjdA0KPiA+IGdwaW9jaGlwMCBbU0dQSU9BXSAoOCBsaW5lcykNCj4g
-PiBncGlvY2hpcDEgW1NHUElPQl0gKDggbGluZXMpDQo+ID4gZ3Bpb2NoaXAxMCBbMWU3ODAwMDAu
-Z3Bpb10gKDIzMiBsaW5lcykNCj4gPiBncGlvY2hpcDIgW1NHUElPQ10gKDggbGluZXMpDQo+ID4g
-Z3Bpb2NoaXAzIFtTR1BJT0RdICg4IGxpbmVzKQ0KPiA+IGdwaW9jaGlwNCBbU0dQSU9FXSAoOCBs
-aW5lcykNCj4gPiBncGlvY2hpcDUgW1NHUElPRl0gKDggbGluZXMpDQo+ID4gZ3Bpb2NoaXA2IFtT
-R1BJT0ddICg4IGxpbmVzKQ0KPiA+IGdwaW9jaGlwNyBbU0dQSU9IXSAoOCBsaW5lcykNCj4gPiBn
-cGlvY2hpcDggW1NHUElPSV0gKDggbGluZXMpDQo+ID4gZ3Bpb2NoaXA5IFtTR1BJT0pdICg4IGxp
-bmVzKQ0KPiA+IHJvb3RAd29sZnBhc3M6L3RtcCMgLi9ncGlvaW5mbyAvZGV2L2dwaW9jaGlwMQ0K
-PiA+IGdwaW9jaGlwMSAtIDggbGluZXM6DQo+ID4gICAgICAgICBsaW5lICAgMDogICAgICB1bm5h
-bWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGlnaA0KPiA+ICAgICAgICAgbGluZSAg
-IDE6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgIG91dHB1dCAgYWN0aXZlLWhpZ2gNCj4gPiAg
-ICAgICAgIGxpbmUgICAyOiAgICAgIHVubmFtZWQgICAgICAgdW51c2VkICBvdXRwdXQgIGFjdGl2
-ZS1oaWdoDQo+ID4gICAgICAgICBsaW5lICAgMzogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAg
-b3V0cHV0ICBhY3RpdmUtaGlnaA0KPiA+ICAgICAgICAgbGluZSAgIDQ6ICAgICAgdW5uYW1lZCAg
-ICAgICB1bnVzZWQgIG91dHB1dCAgYWN0aXZlLWhpZ2gNCj4gPiAgICAgICAgIGxpbmUgICA1OiAg
-ICAgIHVubmFtZWQgICAgICAgdW51c2VkICBvdXRwdXQgIGFjdGl2ZS1oaWdoDQo+ID4gICAgICAg
-ICBsaW5lICAgNjogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgb3V0cHV0ICBhY3RpdmUtaGln
-aA0KPiA+ICAgICAgICAgbGluZSAgIDc6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgIG91dHB1
-dCAgYWN0aXZlLWhpZ2gNCj4gPiByb290QHdvbGZwYXNzOi90bXAjIC4vZ3Bpb2luZm8gL2Rldi9n
-cGlvY2hpcDEwDQo+ID4gZ3Bpb2NoaXAxMCAtIDIzMiBsaW5lczoNCj4gPiAgICAgICAgIGxpbmUg
-ICAwOiAgICAgIHVubmFtZWQgICAgICAgdW51c2VkICAgaW5wdXQgIGFjdGl2ZS1oaWdoDQo+ID4g
-ICAgICAgICBsaW5lICAgMTogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgIGlucHV0ICBhY3Rp
-dmUtaGlnaA0KPiA+ICAgICAgICAgbGluZSAgIDI6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQg
-ICBpbnB1dCAgYWN0aXZlLWhpZ2gNCj4gPiAgICAgICAgIGxpbmUgICAzOiAgICAgIHVubmFtZWQg
-ICAgICAgdW51c2VkICAgaW5wdXQgIGFjdGl2ZS1oaWdoDQo+ID4gICAgICAgICBsaW5lICAgNDog
-ICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgIGlucHV0ICBhY3RpdmUtaGlnaA0KPiA+ICAgICAg
-ICAgbGluZSAgIDU6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhp
-Z2gNCj4gPiAgICAgICAgIGxpbmUgICA2OiAgICAgIHVubmFtZWQgICAgICAgdW51c2VkICAgaW5w
-dXQgIGFjdGl2ZS1oaWdoDQo+ID4gICAgICAgICBsaW5lICAgNzogICAgICB1bm5hbWVkICAgICAg
-IHVudXNlZCAgIGlucHV0ICBhY3RpdmUtaGlnaA0KPiA+ICAgICAgICAgbGluZSAgIDg6ICAgICAg
-dW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCj4gPiAgICAgICAgIGxp
-bmUgICA5OiAgICAgIHVubmFtZWQgICAgICAgdW51c2VkICAgaW5wdXQgIGFjdGl2ZS1oaWdoDQo+
-ID4gICAgICAgICBsaW5lICAxMDogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgIGlucHV0ICBh
-Y3RpdmUtaGlnaA0KPiA+ICAgICAgICAgbGluZSAgMTE6ICAgICAgdW5uYW1lZCAgICAgICB1bnVz
-ZWQgICBpbnB1dCAgYWN0aXZlLWhpZ2gNCj4gPiAgICAgICAgIGxpbmUgIDEyOiAgICAgIHVubmFt
-ZWQgICAgICAgdW51c2VkICAgaW5wdXQgIGFjdGl2ZS1oaWdoDQo+ID4gICAgICAgICBsaW5lICAx
-MzogICAgICB1bm5hbWVkICAgICAgIHVudXNlZCAgIGlucHV0ICBhY3RpdmUtaGlnaA0KPiA+ICAg
-ICAgICAgbGluZSAgMTQ6ICAgICAgdW5uYW1lZCAgICAgICB1bnVzZWQgICBpbnB1dCAgYWN0aXZl
-LWhpZ2gNCj4gPiAgICAgICAgIGxpbmUgIDE1OiAgICAgIHVubmFtZWQgICAgICAgdW51c2VkICAg
-aW5wdXQgIGFjdGl2ZS1oaWdoDQo+ID4gICAgICAgICBsaW5lICAxNjogICAgICB1bm5hbWVkICAg
-ICAgIHVudXNlZCAgIGlucHV0ICBhY3RpdmUtaGlnaA0KPiA+IHJvb3RAd29sZnBhc3M6L3RtcCMg
-Li9ncGlvZ2V0IC9kZXYvZ3Bpb2NoaXAxMCAyMTkNCj4gPiAuL2dwaW9nZXQ6IGVycm9yIHJlYWRp
-bmcgR1BJTyB2YWx1ZXM6IERldmljZSBvciByZXNvdXJjZSBidXN5DQo+ID4NCg0KVGhpcyBhbGwg
-d29ya3MgZmluZSBmb3IgbWUuIEJ1c3kgaXMgYmVjYXVzZSB0aGUgR1BJTyBoYXMgYmVlbiBleHBv
-cnRlZCB0aHJvdWdoIHNvbWUgb3RoZXIgbWVhbnMsIGZvciBleGFtcGxlIHRoZSBzeXNmcyBpbnRl
-cmZhY2U6DQoNCnJvb3RAd2l0aGVyc3Bvb246L3RtcCMgbHMgL3N5cy9jbGFzcy9ncGlvDQpleHBv
-cnQgICAgICAgZ3BpbzMwNSAgICAgIGdwaW8zNDcgICAgICBncGlvNDE3ICAgICAgZ3Bpb2NoaXAy
-MzggIGdwaW9jaGlwMjgwDQpncGlvMjgxICAgICAgZ3BpbzMwNiAgICAgIGdwaW8zNTMgICAgICBn
-cGlvY2hpcDIyMiAgZ3Bpb2NoaXAyNTQgIHVuZXhwb3J0DQpyb290QHdpdGhlcnNwb29uOi90bXAj
-IGdwaW9nZXQgL2Rldi9ncGlvY2hpcDAgJCgoMzA1IC0gMjgwKSkNCmdwaW9nZXQ6IGVycm9yIHJl
-YWRpbmcgR1BJTyB2YWx1ZXM6IERldmljZSBvciByZXNvdXJjZSBidXN5DQoNCkhvcGUgdGhhdCBo
-ZWxwcy4NCg0KQW5kcmV3DQo=
+Hi,
+
+I've come across openbmc apps that implement D-Bus interfaces comprised 
+of more than one D-Bus property (phosphor-networkd is a good example), 
+and they need to react only after all the properties or a specific set 
+of properties have been set, and not after every individual property is 
+set. This can be due to functional or performance reasons. For instance 
+in the case of phosphor-networkd, it has to restart a networkd systemd 
+unit when a property changes. Multiple restarts can actually cause 
+systemd to prevent the unit from further restarts. Multiple restarts is 
+also not desirable in terms of the app's performance. What 
+phosphor-networkd does today is to start a 5 (or 10) second timer when a 
+property is set, and restart the networkd unit after the timeout, so as 
+to accumulate other properties being set in this time. I believe other 
+daemons are doing this as well.
+
+One solution is to design these APIs as D-Bus methods as opposed to a 
+set of D-Bus properties. We've avoided this in general because you'd 
+then need to define separate getters and setters, and like mentioned 
+earlier, a caller may want to set only a subset of all the properties in 
+the interface.
+
+A proposal we discussed in a meet recently is to implement a new 
+xyz.openbmc_project.Object.Properties D-Bus interface with a method 
+called 'Update', which accepts a dictionary of property-value pairs. A 
+D-Bus object may implement this interface to be able to set multiple 
+properties in one go. The type of the value would need to be a variant 
+of all native D-Bus data types. Supporting container data types is 
+probably going to be hard, so this may have to be restricted to 
+non-container data types. The key would be a string - the property name. 
+Thoughts on this proposal?
+
+Thanks,
+Deepak
