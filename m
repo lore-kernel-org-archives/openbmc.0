@@ -1,51 +1,54 @@
-Return-Path: <james.mihm@intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=james.mihm@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::42f; helo=mail-pf1-x42f.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="ISoaMadC"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 426hcG1s3gzF3Sj
- for <openbmc@lists.ozlabs.org>; Sat,  8 Sep 2018 14:47:05 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2018 21:47:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,344,1531810800"; d="scan'208";a="78894517"
-Received: from orsmsx108.amr.corp.intel.com ([10.22.240.6])
- by FMSMGA003.fm.intel.com with ESMTP; 07 Sep 2018 21:47:00 -0700
-Received: from orsmsx101.amr.corp.intel.com ([169.254.8.46]) by
- ORSMSX108.amr.corp.intel.com ([169.254.2.233]) with mapi id 14.03.0319.002;
- Fri, 7 Sep 2018 21:46:59 -0700
-From: "Mihm, James" <james.mihm@intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: Intel CCLA Schedule A Update 09/06/18
-Thread-Topic: Intel CCLA Schedule A Update 09/06/18
-Thread-Index: AdRGLOtJagrlrxxxQhC2JMwqBphoxgAn5rwAABeYsjA=
-Date: Sat, 8 Sep 2018 04:46:58 +0000
-Message-ID: <C599FC839619124CAC44E062ABB7DFE2D6FF38C3@ORSMSX101.amr.corp.intel.com>
-References: <C599FC839619124CAC44E062ABB7DFE2D6FF326C@ORSMSX101.amr.corp.intel.com>
- <A36CE575-4E90-4B44-BA99-D6FE1906AEF0@fuzziesquirrel.com>
-In-Reply-To: <A36CE575-4E90-4B44-BA99-D6FE1906AEF0@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMDEzZWRkODgtZDgxYi00NTZiLWIyMzMtZTgzYmY1YWI4ZWFkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiZWF5eEg1a2NEbTVxOEdNUHNqbG9iV2JMK21FNmJta3FqUXpLOTlXTVdpd3M0VWRpS0dzMWIrbGc5ZUxXN2RkYiJ9
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 426zZD0tB9zF3Ry
+ for <openbmc@lists.ozlabs.org>; Sun,  9 Sep 2018 02:01:22 +1000 (AEST)
+Received: by mail-pf1-x42f.google.com with SMTP id l9-v6so8416231pff.9
+ for <openbmc@lists.ozlabs.org>; Sat, 08 Sep 2018 09:01:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=VTvfUn0+iA6RBk2CFvl4a0krRNdTIhH3g6hXC4GZ/Jw=;
+ b=ISoaMadC1QhV9jWget6EsgXsebRm4Fie16CScfctjnemOSg0BU5h7dlyl7SDB2RU/N
+ W4IBUhrOT70sYurCetfzUgcIhaW1h5xlLTvIJEdPP0uuvSkqAD8x0Pn2ErOEUQqCf7ef
+ Y0i0ROKmysCk2lvwRh+UR1bS/4di1E1y+E6sr0JMj/jpG8nh+Du7iUpZERqY/fHiar3M
+ FHon2rrtSSmDYJ5QgcHcHIUoHFhsoUPPevStLii5etGiHMZfVlaI1zQ1A/OoshT0TXZ6
+ CBHTFihX9HJ+N1y9v6gcHlr8J4bQuJ+rb8UP9iy08Elp/iWzblTL5ECeH+CR55kznFGN
+ FA6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=VTvfUn0+iA6RBk2CFvl4a0krRNdTIhH3g6hXC4GZ/Jw=;
+ b=bhyAAVH1c6pugequQNM4LtJ7ya+nA3kGXpxo+UQDTHY0Buxs6CmKiGdQv6r6CBgTPI
+ +NWhLRVavZlPdXlF59j1D0nzZXrRKpGUh+etaKne3o8i2BVRbkNw3qgAFq8jScwhs/xY
+ E3+07w47F4KO1oPzhgyvHUoTN9QeTPrmCo4kY0pswk7n4+vycpe4sZAucAwT1PVMgYr1
+ pPLzfsq+vz1pMQ2deU+65+7KKv+lbVOOVQW/04+goeviHH7/ZQjPr1yOLosTF8mY1xQn
+ hqxo4lUahl9nbxOZiUJ1qpifL5aVSQWCepnOax3xkuffo8nzeteQjGRIcC12th9zaf+0
+ Y8yw==
+X-Gm-Message-State: APzg51DkCYNbu6UVscnydpxlji7HwkQ/jmyiTV+hXX7NOxQMnrwCK8Qo
+ mFhTW/67p8qT1QNbIltLHM86XYmHXwdK56asbKgftg==
+X-Google-Smtp-Source: ANB0Vdbih/1RECpuSZWEYNA/hL2xHNHDd9NXxDtCtrQw1nwV26vd9TJVUHW+dgXqjCqyeit3gTCG9tipWyYic5YxqY0=
+X-Received: by 2002:a63:a5c:: with SMTP id
+ z28-v6mr13586413pgk.209.1536422480074; 
+ Sat, 08 Sep 2018 09:01:20 -0700 (PDT)
 MIME-Version: 1.0
+From: Patrick Venture <venture@google.com>
+Date: Sat, 8 Sep 2018 09:01:08 -0700
+Message-ID: <CAO=notxW6Yq+uct7quRtNjFfp0DeyrsqXuYJh1uuBx-cDEa_MQ@mail.gmail.com>
+Subject: tiny package --
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -57,19 +60,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Sep 2018 04:47:11 -0000
+X-List-Received-Date: Sat, 08 Sep 2018 16:01:25 -0000
 
-QnJhZCwgSSBqdXN0IHVwbG9hZGVkIHRoZSBJbnRlbCBzY2hlZHVsZSBBIHRvIHRoZSBmb2xkZXIu
-DQoNClRoYW5rcywNCkphbWVzIE1paG0gDQpJbnRlbCAtIEludGVsIERDRyBCTUMgQ29yZSBGaXJt
-d2FyZQ0KKDUwMykgMjY0LTUxMjkgDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9t
-OiBCcmFkIEJpc2hvcCBbbWFpbHRvOmJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbV0gDQpTZW50
-OiBGcmlkYXksIFNlcHRlbWJlciAwNywgMjAxOCAzOjAyIEFNDQpUbzogTWlobSwgSmFtZXMgPGph
-bWVzLm1paG1AaW50ZWwuY29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KU3ViamVj
-dDogUmU6IEludGVsIENDTEEgU2NoZWR1bGUgQSBVcGRhdGUgMDkvMDYvMTgNCg0KDQoNCj4gT24g
-U2VwIDYsIDIwMTgsIGF0IDU6NTkgUE0sIE1paG0sIEphbWVzIDxqYW1lcy5taWhtQGludGVsLmNv
-bT4gd3JvdGU6DQo+IA0KPiBTY2hlZHVsZSBBIOKAkyBVcGRhdGVkIFNlcHRlbWJlciA2dGgsIDIw
-MTggYnkgSmFtZXMgTWlobQ0KDQpIaSBKYW1lcw0KDQpZb3Ugc2hvdWxkIGJlIGFibGUgdXBsb2Fk
-IHlvdXIgdXBkYXRlZCBTY2hlZHVsZSBBIGluIHRoZSBJbnRlbCBmb2xkZXIgaGVyZToNCg0KaHR0
-cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMU9vaTBSZFRjYU9XRjFEV0ZKVUFK
-RGRON3RSS2RlN05sDQoNCkhhdmUgYSBsb29rIGF0IHRoZSBJQk0gb3IgR29vZ2xlIGZvbGRlciBm
-b3IgZXhhbXBsZXMgb2YgdXBkYXRlZCBTY2hlZHVsZSBB4oCZcy4NCg0KLWJyYWQNCg==
+Brad;
+
+I was looking at publishing a single-header file from a package
+containing only that header file.  In this case, "oemgoogle.hpp" into
+the same place that phosphor-host-ipmid installs its headers so that
+any google-ipmi-* packages could store their OEM numbers in one file
+(upstream).
+
+Downstream we store that file in our phosphor-host-ipmid mirror.
+
+The advice I seek is -- it doesn't seem worth creating a separate
+repository for one file, but I know it's a frowned upon practice to
+store code in the bitbake repository -- but in this case, I feel like
+it may be appropriate.  Does that make sense?
+
+I'm thinking:
+meta-google/recipes-google/ipmi/google-ipmi-header.bb
+meta-google/recipes-google/ipmi/google-ipmi-header/configure.ac
+meta-google/recipes-google/ipmi/google-ipmi-header/Makefile.am
+meta-google/recipes-google/ipmi/google-ipmi-header/oemgoogle.hpp
+
+Patrick
