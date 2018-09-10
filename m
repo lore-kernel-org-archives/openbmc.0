@@ -1,63 +1,34 @@
-Return-Path: <kuiying.wang@intel.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4280k327pgzF370
- for <openbmc@lists.ozlabs.org>; Mon, 10 Sep 2018 17:56:40 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2018 00:56:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,355,1531810800"; d="scan'208";a="261269018"
-Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
- by fmsmga005.fm.intel.com with ESMTP; 10 Sep 2018 00:56:37 -0700
-Received: from fmsmsx118.amr.corp.intel.com (10.18.116.18) by
- fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Mon, 10 Sep 2018 00:56:37 -0700
-Received: from shsmsx101.ccr.corp.intel.com (10.239.4.153) by
- fmsmsx118.amr.corp.intel.com (10.18.116.18) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Mon, 10 Sep 2018 00:56:36 -0700
-Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.226]) by
- SHSMSX101.ccr.corp.intel.com ([169.254.1.205]) with mapi id 14.03.0319.002;
- Mon, 10 Sep 2018 15:56:34 +0800
-From: "Wang, Kuiying" <kuiying.wang@intel.com>
-To: Andrew Jeffery <andrew@aj.id.au>, Andrew Geissler <geissonator@gmail.com>, 
- Joel Stanley <joel@jms.id.au>
-CC: Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew Geissler
- <geissonator@yahoo.com>, "chunhui.jia@linux.intel.com"
- <chunhui.jia@linux.intel.com>, "kunyi731@gmail.com" <kunyi731@gmail.com>,
- "Mihm, James" <james.mihm@intel.com>, "Tanous, Ed" <ed.tanous@intel.com>,
- "Feist, James" <james.feist@intel.com>, "Jia, Chunhui"
- <chunhui.jia@intel.com>, Patrick Venture <venture@google.com>, "OpenBMC
- Maillist" <openbmc@lists.ozlabs.org>, "Li, Yong B" <yong.b.li@intel.com>,
- "Yang, Cheng C" <cheng.c.yang@intel.com>, "Xu, Qiang" <qiang.xu@intel.com>,
- "Nguyen, Hai V" <hai.v.nguyen@intel.com>
-Subject: RE: [PATCH linux dev-4.18] ASPEED: dts: Define the gpio-line-names
- property for aspeed-g5
-Thread-Topic: [PATCH linux dev-4.18] ASPEED: dts: Define the gpio-line-names
- property for aspeed-g5
-Thread-Index: AdRI1vjLQVksreU2Q5y8MRtOngoCcv//fgqA//91CTA=
-Date: Mon, 10 Sep 2018 07:56:33 +0000
-Message-ID: <959CAFA1E282D14FB901BE9A7BF4E77249E0F323@shsmsx102.ccr.corp.intel.com>
-References: <959CAFA1E282D14FB901BE9A7BF4E77249E0F1FA@shsmsx102.ccr.corp.intel.com>
- <1536565015.72467.1502515344.359BB453@webmail.messagingengine.com>
-In-Reply-To: <1536565015.72467.1502515344.359BB453@webmail.messagingengine.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4287083r6yzF0Q6
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Sep 2018 22:39:19 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from brads-mbp.dyn.fuzziesquirrel.com
+ (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 959EDEA0E0;
+ Mon, 10 Sep 2018 08:39:11 -0400 (EDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Subject: Re: tiny package --
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAO=notxW6Yq+uct7quRtNjFfp0DeyrsqXuYJh1uuBx-cDEa_MQ@mail.gmail.com>
+Date: Mon, 10 Sep 2018 08:39:11 -0400
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <5D7FB144-D237-41CF-B911-CB2A9818A91A@fuzziesquirrel.com>
+References: <CAO=notxW6Yq+uct7quRtNjFfp0DeyrsqXuYJh1uuBx-cDEa_MQ@mail.gmail.com>
+To: Patrick Venture <venture@google.com>
+X-Mailer: Apple Mail (2.3445.9.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -69,97 +40,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Sep 2018 07:56:44 -0000
+X-List-Received-Date: Mon, 10 Sep 2018 12:39:21 -0000
 
-SGkgQW5kcmV3IEosDQpUaGlzIGlzIGp1c3QgY29tbW9uIGRlZmluaXRpb24gZm9yIGFzcGVlZC1n
-NS4NClRoZXJlIHdpbGwgYmUgZGlmZmVyZW50IGNvbmZpZ3VyYXRpb24gZm9yIHNwZWNpZmllZCBw
-bGF0Zm9ybSBqdXN0IGxpa2UgZm9sbG93aW5nOg0KaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9q
-ZWN0Lnh5ei8jL2Mvb3BlbmJtYy9tZXRhLWludGVsLysvMTIxNzgvMS9tZXRhLWludGVsL21ldGEt
-czI2MDB3Zi9yZWNpcGVzLXBob3NwaG9yL3NrZWxldG9uL29ibWMtbGlib2JtYy1pbnRmL2dwaW9f
-ZGVmcy5qc29uIA0KDQoNClRoYW5rcywNCkt1aXlpbmcuDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCkZyb206IEFuZHJldyBKZWZmZXJ5IFttYWlsdG86YW5kcmV3QGFqLmlkLmF1XSAN
-ClNlbnQ6IE1vbmRheSwgU2VwdGVtYmVyIDEwLCAyMDE4IDM6MzcgUE0NClRvOiBXYW5nLCBLdWl5
-aW5nIDxrdWl5aW5nLndhbmdAaW50ZWwuY29tPjsgQW5kcmV3IEdlaXNzbGVyIDxnZWlzc29uYXRv
-ckBnbWFpbC5jb20+OyBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1Pg0KQ2M6IEJyYWQgQmlz
-aG9wIDxicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb20+OyBBbmRyZXcgR2Vpc3NsZXIgPGdlaXNz
-b25hdG9yQHlhaG9vLmNvbT47IGNodW5odWkuamlhQGxpbnV4LmludGVsLmNvbTsga3VueWk3MzFA
-Z21haWwuY29tOyBNaWhtLCBKYW1lcyA8amFtZXMubWlobUBpbnRlbC5jb20+OyBUYW5vdXMsIEVk
-IDxlZC50YW5vdXNAaW50ZWwuY29tPjsgRmVpc3QsIEphbWVzIDxqYW1lcy5mZWlzdEBpbnRlbC5j
-b20+OyBKaWEsIENodW5odWkgPGNodW5odWkuamlhQGludGVsLmNvbT47IFBhdHJpY2sgVmVudHVy
-ZSA8dmVudHVyZUBnb29nbGUuY29tPjsgT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5v
-emxhYnMub3JnPjsgTGksIFlvbmcgQiA8eW9uZy5iLmxpQGludGVsLmNvbT47IFlhbmcsIENoZW5n
-IEMgPGNoZW5nLmMueWFuZ0BpbnRlbC5jb20+OyBYdSwgUWlhbmcgPHFpYW5nLnh1QGludGVsLmNv
-bT47IE5ndXllbiwgSGFpIFYgPGhhaS52Lm5ndXllbkBpbnRlbC5jb20+DQpTdWJqZWN0OiBSZTog
-W1BBVENIIGxpbnV4IGRldi00LjE4XSBBU1BFRUQ6IGR0czogRGVmaW5lIHRoZSBncGlvLWxpbmUt
-bmFtZXMgcHJvcGVydHkgZm9yIGFzcGVlZC1nNQ0KDQpIaSBLdWl5aW5nLA0KDQpPbiBNb24sIDEw
-IFNlcCAyMDE4LCBhdCAxNjo1NywgV2FuZywgS3VpeWluZyB3cm90ZToNCj4gR3Bpby1saW5lLW5h
-bWVzIHByb3BlcnR5IG9mIGFzcGVlZC1nNSBpcyBub3QgZGVmaW5lZCBpbiB0aGUgdXBzdHJlYW0g
-c3VibWlzc2lvbi4NCj4gSXQgaXMgcmVxdWlyZWQgYnkgbmV3IGdwaW8gQVBJICJsaW51eC9ncGlv
-LmgiDQo+IA0KPiBjb21taXQgOWRmZDcyZmY1ZjYyOGQ3YWFhMTA3Mjg3NTZjZTQyYmQ1Zjc2OGQ0
-ZiAoSEVBRCAtPiBkZXYtNC4xOCkNCj4gQXV0aG9yOiBLdWl5aW5nIFdhbmcgPGt1aXlpbmcud2Fu
-Z0BpbnRlbC5jb20+DQo+IERhdGU6ICAgRnJpIFNlcCA3IDE4OjAxOjQxIDIwMTggKzA4MDANCj4g
-DQo+ICAgICBEZWZpbmUgdGhlIGdwaW8tbGluZS1uYW1lcyBwcm9wZXJ0eSBmb3IgYXNwZWVkLWc1
-DQo+IA0KPiAgICAgQmFzZWQgb24gYXNwZWVkIEFTVC0yNTAwIERhdGFzaGVldCBzcGVjLCB0aGVy
-ZSBhcmUgMjMyIGdwaW9zLg0KPiAgICAgU28gZGVmaW5lcyB0aGUgZ3BpbyBsaW5lIG5hbWUgZnJv
-bSAiQTAiIHRvICJBQzciLg0KPiANCj4gICAgIFNpZ25lZC1vZmYtYnk6IEt1aXlpbmcgV2FuZyA8
-a3VpeWluZy53YW5nQGludGVsLmNvbT4NCj4gDQo+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290
-L2R0cy9hc3BlZWQtZzUuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRzLyANCj4gYXNwZWVkLWc1LmR0
-c2kgaW5kZXggZDkyZjA0NzkwN2RlLi42ZDY2NGY0ZjE2MjEgMTAwNjQ0DQo+IC0tLSBhL2FyY2gv
-YXJtL2Jvb3QvZHRzL2FzcGVlZC1nNS5kdHNpDQo+ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2Fz
-cGVlZC1nNS5kdHNpDQo+IEBAIC0yNjUsNiArMjY1LDM2IEBADQo+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgZ3Bpby1yYW5nZXMgPSA8JnBpbmN0cmwgMCAwIDIyMD47DQo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xvY2tzID0gPCZzeXNjb24gQVNQRUVEX0NMS19B
-UEI+Ow0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGludGVycnVwdC1jb250cm9s
-bGVyOw0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncGlvLWxpbmUtbmFtZXMgPQ0K
-PiAiQTAiLCJBMSIsIkEyIiwiQTMiLCJBNCIsIkE1IiwiQTYiLCJBNyIsDQo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiQjAiLCJCMSIsIkIyIiwiQjMiLCJCNCIsIkI1
-IiwiQjYiLCJCNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAi
-QzAiLCJDMSIsIkMyIiwiQzMiLCJDNCIsIkM1IiwiQzYiLCJDNyIsDQo+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIA0KPiAiRDAiLCJEMSIsIkQyIiwiRDMiLCJENCIsIkQ1Iiwi
-RDYiLCJENyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiRTAi
-LCJFMSIsIkUyIiwiRTMiLCJFNCIsIkU1IiwiRTYiLCJFNyIsDQo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIA0KPiAiRjAiLCJGMSIsIkYyIiwiRjMiLCJGNCIsIkY1IiwiRjYi
-LCJGNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiRzAiLCJH
-MSIsIkcyIiwiRzMiLCJHNCIsIkc1IiwiRzYiLCJHNyIsDQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIA0KPiAiSDAiLCJIMSIsIkgyIiwiSDMiLCJINCIsIkg1IiwiSDYiLCJI
-NyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiSTAiLCJJMSIs
-IkkyIiwiSTMiLCJJNCIsIkk1IiwiSTYiLCJJNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIA0KPiAiSjAiLCJKMSIsIkoyIiwiSjMiLCJKNCIsIko1IiwiSjYiLCJKNyIs
-DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiSzAiLCJFMSIsIkUy
-IiwiRTMiLCJFNCIsIkU1IiwiRTYiLCJFNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIA0KPiAiTDAiLCJMMSIsIkwyIiwiTDMiLCJMNCIsIkw1IiwiTDYiLCJMNyIsDQo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiTTAiLCJNMSIsIk0yIiwi
-TTMiLCJNNCIsIk01IiwiTTYiLCJNNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIA0KPiAiTjAiLCJOMSIsIk4yIiwiTjMiLCJONCIsIk41IiwiTjYiLCJONyIsDQo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiTzAiLCJPMSIsIk8yIiwiTzMi
-LCJPNCIsIk81IiwiTzYiLCJPNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIA0KPiAiUDAiLCJQMSIsIlAyIiwiUDMiLCJQNCIsIlA1IiwiUDYiLCJQNyIsDQo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiUTAiLCJRMSIsIlEyIiwiUTMiLCJR
-NCIsIlE1IiwiUTYiLCJRNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IA0KPiAiUjAiLCJSMSIsIlIyIiwiUjMiLCJSNCIsIlI1IiwiUjYiLCJSNyIsDQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiUzAiLCJTMSIsIlMyIiwiUzMiLCJTNCIs
-IlM1IiwiUzYiLCJTNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0K
-PiAiVDAiLCJUMSIsIlQyIiwiVDMiLCJUNCIsIlQ1IiwiVDYiLCJUNyIsDQo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiVTAiLCJVMSIsIlUyIiwiVTMiLCJVNCIsIlU1
-IiwiVTYiLCJVNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAi
-VjAiLCJWMSIsIlYyIiwiVjMiLCJWNCIsIlY1IiwiVjYiLCJWNyIsDQo+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIA0KPiAiVzAiLCJXMSIsIlcyIiwiVzMiLCJXNCIsIlc1Iiwi
-VzYiLCJXNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiWDAi
-LCJYMSIsIlgyIiwiWDMiLCJYNCIsIlg1IiwiWDYiLCJYNyIsDQo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIA0KPiAiWTAiLCJZMSIsIlkyIiwiWTMiLCJZNCIsIlk1IiwiWTYi
-LCJZNyIsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiAiWjAiLCJa
-MSIsIloyIiwiWjMiLCJaNCIsIlo1IiwiWjYiLCJaNyIsDQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIA0KPiAiQUEwIiwiQUExIiwiQUEyIiwiQUEzIiwiQUE0IiwiQUE1Iiwi
-QUE2IiwiQUE3IiwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQo+ICJB
-QjAiLCJBQjEiLCJBQjIiLCJBQjMiLCJBQjQiLCJBQjUiLCJBQjYiLCJBQjciLA0KPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICANCj4gIkFDMCIsIkFDMSIsIkFDMiIsIkFDMyIs
-IkFDNCIsIkFDNSIsIkFDNiIsIkFDNyINCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Ow0KPiAgICAgICAgICAgICAgICAgICAgICAgICB9Ow0KDQpJIGhhdmUgdG8gc2F5IEkgZG9uJ3Qg
-ZmluZCB0aGlzIHRlcnJpYmx5IHVzZWZ1bC4gSXQncyBtdWNoIGJldHRlciBpZiB0aGUgcGxhdGZv
-cm0gRFRTIGFkZHMgYSBuYW1lIHRoYXQgY2FwdHVyZXMgdGhlIHNlbWFudGljIG1lYW5pbmcgb2Yg
-dGhlIGxpbmUgcmF0aGVyIHRoYW4gc2ltcGx5IGluZGljYXRpbmcgaXRzIHBvc2l0aW9uIGluIGEg
-YmFuay4gSXQncyBwcmV0dHkgc3RyYWlnaHQgZm9yd2FyZCB0byBjb252ZXJ0IGJldHdlZW4gdGhl
-IHJhdyBpbmRleCBhbmQgdGhlICJiYW5rIG5hbWUiIChlLmcuIEdQSU9WMykuIElmIGl0IGhlbHBz
-IEpvZWwgd3JvdGUgYSBsaXR0bGUgcHl0aG9uIHNjcmlwdCBmb3IgaXQ6DQoNCmh0dHBzOi8vZ2l0
-aHViLmNvbS9zaGVua2kvYXNwZWVkLWtlcm5lbC10ZXN0cy9ibG9iL21hc3Rlci9udW0tdG8tZ3Bp
-bw0KDQpDaGVlcnMsDQoNCkFuZHJldw0K
+> On Sep 8, 2018, at 12:01 PM, Patrick Venture <venture@google.com> =
+wrote:
+>=20
+> Brad;
+>=20
+> I was looking at publishing a single-header file from a package
+> containing only that header file.  In this case, "oemgoogle.hpp" into
+> the same place that phosphor-host-ipmid installs its headers so that
+> any google-ipmi-* packages could store their OEM numbers in one file
+> (upstream).
+>=20
+> Downstream we store that file in our phosphor-host-ipmid mirror.
+>=20
+> The advice I seek is -- it doesn't seem worth creating a separate
+> repository for one file, but I know it's a frowned upon practice to
+> store code in the bitbake repository -- but in this case, I feel like
+> it may be appropriate.  Does that make sense?
+
+Obviously it will work just fine but I probably wouldn=E2=80=99t allow =
+it in
+the IBM or phosphor layers, out of fear of it being used as a counter
+example or justification for a future change that isn=E2=80=99t quite so =
+harmless.
+But it is truly _your_ layer, so you can do whatever you want.
+
+>=20
+> I'm thinking:
+> meta-google/recipes-google/ipmi/google-ipmi-header.bb
+> meta-google/recipes-google/ipmi/google-ipmi-header/configure.ac
+> meta-google/recipes-google/ipmi/google-ipmi-header/Makefile.am
+> meta-google/recipes-google/ipmi/google-ipmi-header/oemgoogle.hpp
+>=20
+> Patrick
+
+Why is the number hardcoded at all?  Could it be a configure option or
+command line option?
+
+If those don=E2=80=99t work, as a fall-back can we just put the header =
+in the
+upstream phosphor-host-ipmid repository as you=E2=80=99ve done =
+downstream?
+
+My two cents is that one of these three options would be simpler.
+
+-brad=
