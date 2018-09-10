@@ -1,42 +1,57 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <wak@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::12a; helo=mail-lf1-x12a.google.com;
+ envelope-from=wak@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="lYel/KHa"; 
+ dkim-atps=neutral
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 428M6p0QHWzF38b;
- Tue, 11 Sep 2018 07:45:53 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2018 14:45:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,357,1531810800"; d="scan'208";a="256062314"
-Received: from maru.jf.intel.com ([10.54.51.80])
- by orsmga005.jf.intel.com with ESMTP; 10 Sep 2018 14:45:38 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [RFC PATCH i2c-next 2/2] i2c: aspeed: Add bus idle waiting logic for
- multi-master use cases
-Date: Mon, 10 Sep 2018 14:45:19 -0700
-Message-Id: <20180910214519.14126-3-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20180910214519.14126-1-jae.hyun.yoo@linux.intel.com>
-References: <20180910214519.14126-1-jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 428MBq5y5MzF38f
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 07:49:23 +1000 (AEST)
+Received: by mail-lf1-x12a.google.com with SMTP id l26-v6so18699446lfc.8
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Sep 2018 14:49:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5FkkkB64p/lErzwxN4U2u0FDjtcnRtU5aZBBaKtFjrE=;
+ b=lYel/KHaxzzLdeDRFuBXSyYyjySqxAydXlj7/ZzCu7FB4Sv1ytghZwgPI50YicuMwO
+ g44Yc0C3jocPujvDx5FVjhR6ilI/v6r0YFZ+38jUb8n89I1zMzu4F4pH8FB7nBtam7Mh
+ eFKa+ObkggwTYto+PTQ2GIliku+QbZJOFjNd8bZdzAMZZZCuxRasttp+nBGWhzHo/jXn
+ 4pwsnB8q0Zm5xdRW9ecIx5M09TcSEW/n0uyqKrc5YSk6DDW/ogb5dIoFwbQ3V33yXLDq
+ p/KeubRH27B7u5+KAnbL9PMq8bmXcR2yUBSo3bJZk1//MdUp5MhR2v0BgJiQSQ07FQf1
+ Ez6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5FkkkB64p/lErzwxN4U2u0FDjtcnRtU5aZBBaKtFjrE=;
+ b=m9Q+FK2XCVsPlOBeSC/wPFOsw3AiNPq/6wxpBNAWK1JTIFU4oce1vMeGud1wCP6Z9D
+ T3QYR73RsKFepjozpdBxUbO+emWDnNSMy4xqgcBMG4EOcR1vwampOjShueC6y6p3XU5h
+ nBOw/EYaWmb1qgaA00ss1P9zm56R6lb5lW0mjWWeFqbqvwW3WaF0NSEqp8Ecm9l2u8zg
+ D2vUZqlRcNHMlmK4TbxF33JviFV/id6T+fZfhOdPo2Kifi07E9lRrCh7Xor8AwCfWVQB
+ cBHWtybGG4QFNc6ziXe4/umxE5EHQwOjOzktruttax9tQe7ipPDzkmcdGeEKSqF6Kiah
+ 8/zQ==
+X-Gm-Message-State: APzg51AREZiOVEhVPXx0DI89JCMZQhs1r2HZoB3t6wU2BQObB68XTkmW
+ VNsTRljdeszl+lLHvClP7pR0xRF/ECIgu4FmOAJfFw==
+X-Google-Smtp-Source: ANB0VdZ/Z4dpyQD9vXfKGsjV5BnmOyj5roiMZ//UjG0V4kHfxWQ2gznVFKDR4885S8JGlimIU8RaWHYBDgNup/QPEiY=
+X-Received: by 2002:a19:655d:: with SMTP id
+ c29-v6mr13418999lfj.138.1536616159203; 
+ Mon, 10 Sep 2018 14:49:19 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAO=notz1BPmjSTmcLBKOs1Cv9FNqGCi5zYBw24jufDjXdPHR7g@mail.gmail.com>
+In-Reply-To: <CAO=notz1BPmjSTmcLBKOs1Cv9FNqGCi5zYBw24jufDjXdPHR7g@mail.gmail.com>
+From: William Kennington <wak@google.com>
+Date: Mon, 10 Sep 2018 14:49:07 -0700
+Message-ID: <CAPnigKn2OfoNdFiJ30XuKRpyXogcQvxPWF_cSTqqghbPywcCJg@mail.gmail.com>
+Subject: Re: is_method_error versus call() errors
+To: Patrick Venture <venture@google.com>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -48,146 +63,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Sep 2018 21:45:55 -0000
+X-List-Received-Date: Mon, 10 Sep 2018 21:49:25 -0000
 
-In multi-master environment, this driver side master cannot know
-exactly when peer master sends data to this side master so a case
-can be happened that this master tries to send data through the
-master_xfer function but slave data from peer master is still
-being processed by this driver.
+This is something that is a little confusing about the semantics of
+sdbus. When using sd_bus_call(), it will only populate the returned
+message pointer if the dbus rpc succeeds. In the case where something
+fails at the dbus level, the sd_bus_call() method fails and the
+message is never populated. If we don't check for errors on
+sd_bus_call() but use sd_bus_message_is_method_error on the NULL
+message, we get an -EINVAL and treat that as an error. This behavior
+works fine if you only care that you had an error, but don't need to
+interpret the error and perform special case handling depending on the
+type. This is why I added the exceptions to sd_bus_call() so that we
+can parse out specific errors like -EBUSY or -EINTR, but handle the
+rest differently.
 
-To prevent state corruption in the case, this patch adds checking
-if any slave operation is ongoing and it wait up to the timeout
-duration before starting a master_xfer operation.
-
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
----
- drivers/i2c/busses/i2c-aspeed.c | 70 ++++++++++++++++++++++++++-------
- 1 file changed, 55 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index c258c4d9a4c0..73359eda98be 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/clk.h>
- #include <linux/completion.h>
-+#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/i2c.h>
-@@ -99,6 +100,7 @@
- 		 ASPEED_I2CD_INTR_TX_ACK)
- 
- /* 0x14 : I2CD Command/Status Register   */
-+#define ASPEED_I2CD_XFER_MODE_STS_MASK			GENMASK(22, 19)
- #define ASPEED_I2CD_SCL_LINE_STS			BIT(18)
- #define ASPEED_I2CD_SDA_LINE_STS			BIT(17)
- #define ASPEED_I2CD_BUS_BUSY_STS			BIT(16)
-@@ -115,6 +117,10 @@
- /* 0x18 : I2CD Slave Device Address Register   */
- #define ASPEED_I2CD_DEV_ADDR_MASK			GENMASK(6, 0)
- 
-+/* Timeout for bus busy checking */
-+#define ASPEED_I2CD_IDLE_WAIT_TIMEOUT_MS_DEFAULT	100   /* 100 ms */
-+#define ASPEED_I2CD_BUS_BUSY_CHECK_INTERVAL_US		10000 /* 10 ms */
-+
- enum aspeed_i2c_master_state {
- 	ASPEED_I2C_MASTER_INACTIVE,
- 	ASPEED_I2C_MASTER_START,
-@@ -155,6 +161,9 @@ struct aspeed_i2c_bus {
- 	int				cmd_err;
- 	/* Protected only by i2c_lock_bus */
- 	int				master_xfer_result;
-+	/* Multi-master */
-+	bool				multi_master;
-+	u32				idle_wait_timeout_ms;
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- 	struct i2c_client		*slave;
- 	enum aspeed_i2c_slave_state	slave_state;
-@@ -590,27 +599,49 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
- 	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
- }
- 
-+static int aspeed_i2c_check_bus_busy(struct aspeed_i2c_bus *bus)
-+{
-+	u32 status_check_mask = ASPEED_I2CD_BUS_BUSY_STS;
-+	ktime_t timeout;
-+
-+	if (bus->multi_master) {
-+		might_sleep();
-+		timeout = ktime_add_ms(ktime_get(), bus->idle_wait_timeout_ms);
-+		/*
-+		 * ASPEED_I2CD_XFER_MODE_STS_MASK is marked as
-+		 * 'for debugging purpose only' in datasheet but ASPEED
-+		 * confirmed that this reflects real information and good to be
-+		 * used in practical code. It will be used only in multi-master
-+		 * use cases.
-+		 */
-+		status_check_mask |= ASPEED_I2CD_XFER_MODE_STS_MASK;
-+	}
-+
-+	for (;;) {
-+		if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
-+		      status_check_mask))
-+			return 0;
-+		if (!bus->multi_master)
-+			break;
-+		if (ktime_compare(ktime_get(), timeout) > 0)
-+			break;
-+		usleep_range((ASPEED_I2CD_BUS_BUSY_CHECK_INTERVAL_US >> 2) + 1,
-+			     ASPEED_I2CD_BUS_BUSY_CHECK_INTERVAL_US);
-+	}
-+
-+	return aspeed_i2c_recover_bus(bus);
-+}
-+
- static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
- 				  struct i2c_msg *msgs, int num)
- {
- 	struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
- 	unsigned long time_left, flags;
--	int ret = 0;
--
--	spin_lock_irqsave(&bus->lock, flags);
--	bus->cmd_err = 0;
- 
--	/* If bus is busy, attempt recovery. We assume a single master
--	 * environment.
--	 */
--	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
--		spin_unlock_irqrestore(&bus->lock, flags);
--		ret = aspeed_i2c_recover_bus(bus);
--		if (ret)
--			return ret;
--		spin_lock_irqsave(&bus->lock, flags);
--	}
-+	if (aspeed_i2c_check_bus_busy(bus))
-+		return -EAGAIN;
- 
-+	spin_lock_irqsave(&bus->lock, flags);
- 	bus->cmd_err = 0;
- 	bus->msgs = msgs;
- 	bus->msgs_index = 0;
-@@ -798,8 +829,17 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
- 	if (ret < 0)
- 		return ret;
- 
--	if (!of_property_read_bool(pdev->dev.of_node, "multi-master"))
-+	if (of_property_read_bool(pdev->dev.of_node, "multi-master")) {
-+		bus->multi_master = true;
-+		ret = of_property_read_u32(pdev->dev.of_node,
-+					   "idle-wait-timeout-ms",
-+					   &bus->idle_wait_timeout_ms);
-+		if (ret)
-+			bus->idle_wait_timeout_ms =
-+				ASPEED_I2CD_IDLE_WAIT_TIMEOUT_MS_DEFAULT;
-+	} else {
- 		fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
-+	}
- 
- 	/* Enable Master Mode */
- 	writel(readl(bus->base + ASPEED_I2C_FUN_CTRL_REG) | fun_ctrl_reg,
--- 
-2.18.0
+sd_bus_message_is_method_error() is supposed to be used for checking
+if the server we are talking to sent an error response, not if the
+dbus layer had some kind of error. These errors are application
+specific and can be parsed out of a valid message if they exist.
+sd_bus_call() will still return success even if the server method sent
+a METHOD_ERROR type of message. You can't technically rely on
+sd_bus_message_read returning an error when reading from a
+METHOD_ERROR type of message. Practically though if your METHOD_ERROR
+message never have any content the read will fail since the message
+won't contain the expected data types. Unfortunately this means we
+will should keep all of the is_method_error checks and make sure c++
+exception handling is in place for all of the daemons.On Mon, Sep 10,
+2018 at 9:18 AM Patrick Venture <venture@google.com> wrote:
+>
+> Given:
+>
+> _public_ int sd_bus_message_is_method_error(sd_bus_message *m, const
+> char *name) {
+>         assert_return(m, -EINVAL);
+>         if (m->header->type != SD_BUS_MESSAGE_METHOD_ERROR)
+>                 return 0;
+>         if (name && (!m->error.name || !streq(m->error.name, name)))
+>                 return 0;
+>         return 1;
+> }
+>
+> The failures from call() don't always set the reply (maybe don't ever,
+> but I didn't read it closely).  Which means, is_method_error() can
+> happen when the bus call itself was fine, so we need to check both IFF
+> we're going to read the response.
+>
+> I'm working on eliminating the new crashes from phosphor-host-ipmid
+> and other repositories, now that sdbusplus can except, which is not
+> caught even though there's an error case for is_method_error()
+> immediately after the call.
+>
+> In phosphor-pid-control, I dropped the is_method_error() check, but I
+> think it's still valid before trying to read() a message -- so I will
+> likely throw a patch adding that check.
+>
+> Patrick
