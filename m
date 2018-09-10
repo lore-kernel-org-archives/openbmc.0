@@ -1,56 +1,38 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.218.65; helo=mail-oi0-f65.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
- [209.85.218.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (helo) smtp.helo=mga12.intel.com
+ (client-ip=192.55.52.136; helo=mga12.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 428GSv1WmSzF38s
- for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 04:16:14 +1000 (AEST)
-Received: by mail-oi0-f65.google.com with SMTP id v198-v6so24316274oif.9
- for <openbmc@lists.ozlabs.org>; Mon, 10 Sep 2018 11:16:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=DOtMaM82IZTVqmXs3l1GX72EOchfCwYYWv9WfsnCDJY=;
- b=ACg08oBrcJpNo4Yt8BjsFBCx9WgRrfEK+OsOqwEB5ptb2uaI34dYIik79zMVzt75LT
- Q7+LIPPBYv48N3Y8a3OMyD9xIL214jXXyh8e01gemhyGdY/YkpCGBYDoxInaI4U+l+gC
- mwg1cey9ZYdPnAmGQolma8FxbthpYNU41nrwbmlcF+2ePvJGrGn2YLkOYhKlV7+1GplC
- PsmX/jCMQifO/O46wz5GIi5WcPVlFWwg5xvkaEIYm9VhT9wRJdLow5Xkka90xzCicOuF
- dywtNLi9mTaXFSzKcfsRPR5IPV3EYmLKn2e847tAlpxSRLUuFhMYW40WbllzKDDKoIcc
- 4VvQ==
-X-Gm-Message-State: APzg51A+RYTSoglKr0Bcx44O4U2Z7qiyEnKlokliRu7s/Vz5GzeHKcwj
- O6d3qFhxNk1/7+9oUmIYkw==
-X-Google-Smtp-Source: ANB0VdbCDZw7ooN+GHdDG5yYdDuT0ZrHtHvMVPzbGuQz58y8RfMzX7R9GM1cEsCdZrfHM742WcBlcw==
-X-Received: by 2002:aca:cf44:: with SMTP id
- f65-v6mr24430067oig.356.1536603372478; 
- Mon, 10 Sep 2018 11:16:12 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id s145-v6sm33180305oih.16.2018.09.10.11.16.10
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 10 Sep 2018 11:16:10 -0700 (PDT)
-Date: Mon, 10 Sep 2018 13:16:10 -0500
-From: Rob Herring <robh@kernel.org>
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, jdelvare@suse.com,
- linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
- gregkh@linuxfoundation.org, mark.rutland@arm.com,
- linux@roeck-us.net, joel@jms.id.au, benh@kernel.crashing.org
-Subject: Re: [PATCH v5 01/10] dt-bindings: fsi: Add P9 OCC device documentation
-Message-ID: <20180910181610.GA5907@bogus>
-References: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1535664761-86018-2-git-send-email-eajames@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 428Jkk6xcLzF37j
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 05:58:21 +1000 (AEST)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2018 12:58:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,356,1531810800"; d="scan'208";a="71871396"
+Received: from mauery.jf.intel.com ([10.54.51.74])
+ by orsmga007.jf.intel.com with ESMTP; 10 Sep 2018 12:58:05 -0700
+Date: Mon, 10 Sep 2018 12:57:42 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: Lei YU <mine260309@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: C++17 support?
+Message-ID: <20180910195742.GA21308@mauery.jf.intel.com>
+References: <CAARXrtk8AMsdTfAszZQozpsMUU-JckZmx6Pa7cvYnyD5cgLzVw@mail.gmail.com>
+ <5BCE42E5-A136-480D-846D-7E201AC7734D@fuzziesquirrel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-In-Reply-To: <1535664761-86018-2-git-send-email-eajames@linux.vnet.ibm.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <5BCE42E5-A136-480D-846D-7E201AC7734D@fuzziesquirrel.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -63,42 +45,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Sep 2018 18:16:15 -0000
+X-List-Received-Date: Mon, 10 Sep 2018 19:58:23 -0000
 
-On Thu, Aug 30, 2018 at 04:32:32PM -0500, Eddie James wrote:
-> Document the bindings for the FSI-attached POWER9 On-Chip Controller.
-> 
-> Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
-> ---
->  Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
-> new file mode 100644
-> index 0000000..46372f6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
-> @@ -0,0 +1,15 @@
-> +Device-tree bindings for FSI-attached POWER9 On-Chip Controller (OCC)
-> +---------------------------------------------------------------------
-> +
-> +This is the binding for the P9 On-Chip Controller accessed over FSI from a
-> +service processor. See fsi.txt for details on bindings for FSI slave and CFAM
-> +nodes.
-> +
-> +Required properties:
-> + - compatible = "ibm,p9-occ"
-> +
-> +Examples:
-> +
-> +    occ {
+On 10-Sep-2018 09:00 AM, Brad Bishop wrote:
+>
+>
+>> On Sep 10, 2018, at 3:06 AM, Lei YU <mine260309@gmail.com> wrote:
+>>
+>> Now we are using GCC 7.3 and it has full C++17 support, although it is
+>> [experimental][1]
+>>
+>> Is it suitable for a product to use C++17 instead of C++14 in repos?
+>
+>It depends on your tolerance for risk and support structure.  So likely
+>the answer depends on who you ask.
 
-FSI slave devices are supposed to have an address according to the 
-binding doc.
+The rework of the IPMI daemon queue/registration/handler stuff I am=20
+working on is moving onto using c++17 only.
 
-> +        compatible = "ibm,p9-occ";
-> +    };
-> -- 
-> 1.8.3.1
-> 
+Keep in mind that although the compiler has support for the new c++17=20
+language constructs, the header library support still has not moved=20
+everything over from experimental to the std namespace. So even if you=20
+are specifying -std=3Dc++17 on the command line, you may need to include=20
+the experimental header files for now.
+
+>> So I would like to use C++17 in this repo, which then does not require a=
+ny
+>> code change to enable LinkTimeOptimization.
+>
+>I don=E2=80=99t have any problem with this.  In fact I much prefer we are =
+at the
+>bleeding edge.  I know that makes it hard for our users (system integrator=
+s)
+>to be confident but soon-ish we=E2=80=99ll have a stable release for those=
+ with lower
+>risk tolerance.
+
+I like moving to c++17 and would suggest that we urge maintainers to=20
+move sooner rather than later to catch and differences during=20
+development rather than during a release cycle.
+
+--Vernon
