@@ -1,59 +1,79 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::234; helo=mail-it0-x234.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="e+JeYKEe"; 
- dkim-atps=neutral
-Received: from mail-it0-x234.google.com (mail-it0-x234.google.com
- [IPv6:2607:f8b0:4001:c0b::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="IxQpYdFR"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="UHYje/pD"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 428QPy3RS7zF36Y
- for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 10:14:12 +1000 (AEST)
-Received: by mail-it0-x234.google.com with SMTP id j198-v6so7449369ita.0
- for <openbmc@lists.ozlabs.org>; Mon, 10 Sep 2018 17:14:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=50jIdwS2xElopTEA2bHK3g12VlzRLdShuOkvW3c4ZcU=;
- b=e+JeYKEe6761wBbU9ugrcUsmV5VciuXHY70d1bLv0ODqgTrewgmEqkgqciu6qUWeMr
- kahLS9GB7VsGMPn1x0tPsoXb+4QognqqLblMlpO3OFRcqF3u2hHgzahS9v0ZwG7Facsl
- ihrnHfOgg4ykWg9Z7n1/YL20VfBUqp499uMyvubBPXspqQ6cbfn+OJ0PdD025byWGRqr
- 7D2t7QSypHMPxvoA3uGtvF0Z7uHkwd8yugsgfqzoutRAG1GugFGIp3lMLsMuFHjnWJ2x
- DcJp7G2jGCn0K3YCFIB01DSITxWcfLZSI2cH+sMLuLiZ1VNkIdRtw9HM47nMdlcj9Vgi
- 8Idg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=50jIdwS2xElopTEA2bHK3g12VlzRLdShuOkvW3c4ZcU=;
- b=BP0jHCzme+rAOiIC5WQ3F/WahUxciRFL8m6if3byVBDQfQy68PXtHT5x8FnQqLQ27G
- 7nRg60CsnkxzW4Bze3he8PSKM6rzIyvKnWlDEuVVU+kgREySO52q8ks5pELhRDFuJpbS
- 1g0rv7HNd87gp6weBmZit0CL/JrZcCwaulNEvPuP4J3bwISrRELT9oeGFt7AD6JD9Q/p
- 1ms+A7o2v5+I5t9Lbxsu3ojl24d7Qcqle7CrDoPmhpR8Oqd1axSZaZ6nTuYD6NC2MRH+
- /Vs2wzs5WEXXonrd8auOA+qF5E8AsgNhMzd9KC7fNS6MPmKCiOxv85ivgaGi1URVmmEA
- Wasg==
-X-Gm-Message-State: APzg51AeSuffCpVA00UTrakcLbyk7TybBV2PFZNI4EDggerBcH4DfD3v
- gyscDESbcFnh9kmzeBGls/aFVqTjj/8slWfvbvfkMQ==
-X-Google-Smtp-Source: ANB0VdYByVRLDGWy5wdHxCNADcOJjWSlk3z7ckqWkQrL8LMkNuPlAcmXe2nqVcn43ZaCBfF9xMklN5ONNmjQY2VvsOQ=
-X-Received: by 2002:a02:9a10:: with SMTP id
- b16-v6mr21014140jal.4.1536624850468; 
- Mon, 10 Sep 2018 17:14:10 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 428S4313dtzF397
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 11:28:50 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4124A21EA7;
+ Mon, 10 Sep 2018 21:28:48 -0400 (EDT)
+Received: from web3 ([10.202.2.213])
+ by compute4.internal (MEProxy); Mon, 10 Sep 2018 21:28:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=FVPX6QYaznLpazMPBRCXYPEffj94M
+ 9w80X0NdhqhTI4=; b=IxQpYdFR+j+Xc7dBN6kN/qKaW/maHnXbYO7KcO6osWbgk
+ nFqpoRe2xHKdqQxbA/D7jGayfrHGAB3mSGrc9sMxHJb38wLDsECq5OM9+SOzPr+y
+ 6jOxNYES3KcJtONihcKboJjAWwgwuyqin5SVJlN6S4Wsuahk5yHDKTdIHMrLYJ6D
+ EZQCrdgjmABan1kj9OemM8+OumcDe1UFUuI5tmo1Jb0ksBRqnprgz91EqH9+0tLm
+ B8FWSQCMk9LnoVw4LHiHlkdxzXOAX1ixEwOC1jqLydSRj5zA+wnlLbKQ6Drmhk2M
+ k7TTPTmWOgqxnfnr4r1i3GZiPYHu1XcBmZQdOX/Qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=FVPX6Q
+ YaznLpazMPBRCXYPEffj94M9w80X0NdhqhTI4=; b=UHYje/pDza/aS7dZfamIgU
+ ynaJJgasnbsvMfHMHtaHxv/hqc5+xxeWTrZ25NbzITVn18QYOezW6wtblkz5FYwg
+ eD8FN7drOEviu7qIPiNy4Kl+dNKy56AcaDubVVC2fm0286edOd9XfwH0HOtbbl36
+ zsJfyJtpHAdqG+vVhCRy3je9CLtLtXUuryllzMZCQbbY6QZcdSKjyzq4raN0i5Yl
+ xgKzIIn5kVj7VP3F9+giCHHFwzZ3nAEWhC5TAiVuqMUww7na8AsJRBED6UM7LYkL
+ cw0BpA2SnYiQvivYaWEymUqwqV9PNp8SA6kDrCkwXBImdcp+IS8qVM76+gQEeq9A
+ ==
+X-ME-Proxy: <xmx:TxqXW6Yte_ZBRnnIXbZRLXY8R34bgQpx2EN7NRMZsx0QIszBe_B0ag>
+ <xmx:TxqXW_N-JqwFZ6de2tvhq9uyDha7AE4g6tjXddFT6vH3nsSsr7WXzg>
+ <xmx:TxqXW2uJ20LueFZ3tuXdsszMdQCTMQEL9l6ZruvQQkD3Lh-YlApCfw>
+ <xmx:TxqXW91utfV2ee2A5l1ChOL1tribgegHqq2IqRTYluaDiL7JLhxtCw>
+ <xmx:TxqXW8Uc-0wA-Cqy5UquiqAFmmOrLKysx0i1rEC7W4hqkWDVWD99hg>
+ <xmx:UBqXWw7Gx6zmYSXdEtkH7uUKfUKFHdXmk4KYMnMb-uDMaOZCSw2ODg>
+X-ME-Sender: <xms:TxqXW-JvcgjnoEj64W4qpAdpBd_3hEYwNwD8VSkQfynIYifD9I6v3A>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 214E59E53C; Mon, 10 Sep 2018 21:28:47 -0400 (EDT)
+Message-Id: <1536629327.3454887.1503645880.7FE96DC2@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: "Wang, Kuiying" <kuiying.wang@intel.com>,
+ Andrew Geissler <geissonator@gmail.com>, Joel Stanley <joel@jms.id.au>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Andrew Geissler <geissonator@yahoo.com>, chunhui.jia@linux.intel.com,
+ kunyi731@gmail.com, "Mihm, James" <james.mihm@intel.com>, "Tanous,
+ Ed" <ed.tanous@intel.com>, "Feist, James" <james.feist@intel.com>, "Jia,
+ Chunhui" <chunhui.jia@intel.com>, Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Li,
+ Yong B" <yong.b.li@intel.com>, "Yang, Cheng C" <cheng.c.yang@intel.com>,
+ "Xu, Qiang" <qiang.xu@intel.com>, "Nguyen, Hai V" <hai.v.nguyen@intel.com>
 MIME-Version: 1.0
-References: <CAO=notz1BPmjSTmcLBKOs1Cv9FNqGCi5zYBw24jufDjXdPHR7g@mail.gmail.com>
- <CAPnigKn2OfoNdFiJ30XuKRpyXogcQvxPWF_cSTqqghbPywcCJg@mail.gmail.com>
-In-Reply-To: <CAPnigKn2OfoNdFiJ30XuKRpyXogcQvxPWF_cSTqqghbPywcCJg@mail.gmail.com>
-From: Kun Yi <kunyi@google.com>
-Date: Mon, 10 Sep 2018 17:13:43 -0700
-Message-ID: <CAGMNF6Wc6PF7+g-pn5htbnmajBP+Ax4pNSHhFRgLua-zTTYb7w@mail.gmail.com>
-Subject: Re: is_method_error versus call() errors
-To: William Kennington <wak@google.com>
-Cc: Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000005e365005758d5a5a"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-1234af23
+Subject: Re: [PATCH linux dev-4.18] ASPEED: dts: Define the gpio-line-names
+ property for aspeed-g5
+Date: Tue, 11 Sep 2018 10:58:47 +0930
+In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E77249E0F323@shsmsx102.ccr.corp.intel.com>
+References: <959CAFA1E282D14FB901BE9A7BF4E77249E0F1FA@shsmsx102.ccr.corp.intel.com>
+ <1536565015.72467.1502515344.359BB453@webmail.messagingengine.com>
+ <959CAFA1E282D14FB901BE9A7BF4E77249E0F323@shsmsx102.ccr.corp.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -65,175 +85,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2018 00:14:15 -0000
+X-List-Received-Date: Tue, 11 Sep 2018 01:28:55 -0000
 
---0000000000005e365005758d5a5a
-Content-Type: text/plain; charset="UTF-8"
+On Mon, 10 Sep 2018, at 17:26, Wang, Kuiying wrote:
+> Hi Andrew J,
+> This is just common definition for aspeed-g5.
+> There will be different configuration for specified platform just like 
+> following:
+> https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-intel/+/12178/1/meta-intel/meta-s2600wf/recipes-phosphor/skeleton/obmc-libobmc-intf/gpio_defs.json 
 
-I think correspondingly we should start adding unit tests that checks our
-code are exception safe.
+Are you doing a string match on the pin name from the structures returned by ioctls on the gpiochip's chardev? This won't work if someone decides to specify the semantic name of the line in the devicetree like I linked to in my previous reply. Your best bet is to map the pin name from the JSON to the pin index on the gpiochip. Doing it any other way is fragile.
 
-Meanwhile, in some cases we don't really care from which level the error
-originates. Does it make sense to have a macro like:
-
-#define IS_ERROR_OR_EXCEPTION(dbus_call) \
-  try { \
-    return (dbus_call).is_method_error(); \
-  } catch (const sdbusplus::exception::SdBusError& ex) { \
-    return true; \
-  }
-
-On Mon, Sep 10, 2018 at 2:50 PM William Kennington <wak@google.com> wrote:
-
-> This is something that is a little confusing about the semantics of
-> sdbus. When using sd_bus_call(), it will only populate the returned
-> message pointer if the dbus rpc succeeds. In the case where something
-> fails at the dbus level, the sd_bus_call() method fails and the
-> message is never populated. If we don't check for errors on
-> sd_bus_call() but use sd_bus_message_is_method_error on the NULL
-> message, we get an -EINVAL and treat that as an error. This behavior
-> works fine if you only care that you had an error, but don't need to
-> interpret the error and perform special case handling depending on the
-> type. This is why I added the exceptions to sd_bus_call() so that we
-> can parse out specific errors like -EBUSY or -EINTR, but handle the
-> rest differently.
->
-> sd_bus_message_is_method_error() is supposed to be used for checking
-> if the server we are talking to sent an error response, not if the
-> dbus layer had some kind of error. These errors are application
-> specific and can be parsed out of a valid message if they exist.
-> sd_bus_call() will still return success even if the server method sent
-> a METHOD_ERROR type of message. You can't technically rely on
-> sd_bus_message_read returning an error when reading from a
-> METHOD_ERROR type of message. Practically though if your METHOD_ERROR
-> message never have any content the read will fail since the message
-> won't contain the expected data types. Unfortunately this means we
-> will should keep all of the is_method_error checks and make sure c++
-> exception handling is in place for all of the daemons.On Mon, Sep 10,
-> 2018 at 9:18 AM Patrick Venture <venture@google.com> wrote:
-> >
-> > Given:
-> >
-> > _public_ int sd_bus_message_is_method_error(sd_bus_message *m, const
-> > char *name) {
-> >         assert_return(m, -EINVAL);
-> >         if (m->header->type != SD_BUS_MESSAGE_METHOD_ERROR)
-> >                 return 0;
-> >         if (name && (!m->error.name || !streq(m->error.name, name)))
-> >                 return 0;
-> >         return 1;
-> > }
-> >
-> > The failures from call() don't always set the reply (maybe don't ever,
-> > but I didn't read it closely).  Which means, is_method_error() can
-> > happen when the bus call itself was fine, so we need to check both IFF
-> > we're going to read the response.
-> >
-> > I'm working on eliminating the new crashes from phosphor-host-ipmid
-> > and other repositories, now that sdbusplus can except, which is not
-> > caught even though there's an error case for is_method_error()
-> > immediately after the call.
-> >
-> > In phosphor-pid-control, I dropped the is_method_error() check, but I
-> > think it's still valid before trying to read() a message -- so I will
-> > likely throw a patch adding that check.
-> >
-> > Patrick
->
-
-
--- 
-Regards,
-Kun
-
---0000000000005e365005758d5a5a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">I think correspondingly we should start a=
-dding unit tests that checks our code are exception safe.<div><br></div><di=
-v>Meanwhile, in some cases we don&#39;t really care from which level the er=
-ror originates. Does it make=C2=A0sense to have a macro like:</div><div><br=
-></div><div>#define IS_ERROR_OR_EXCEPTION(dbus_call) \</div><div>=C2=A0 try=
- { \</div><div>=C2=A0 =C2=A0 return (dbus_call).is_method_error(); \</div><=
-div>=C2=A0 } catch (const sdbusplus::exception::SdBusError&amp; ex) { \</di=
-v><div>=C2=A0 =C2=A0 return true; \</div><div>=C2=A0 }</div></div></div><br=
-><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, Sep 10, 2018 at 2:50 P=
-M William Kennington &lt;<a href=3D"mailto:wak@google.com">wak@google.com</=
-a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 =
-0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">This is something tha=
-t is a little confusing about the semantics of<br>
-sdbus. When using sd_bus_call(), it will only populate the returned<br>
-message pointer if the dbus rpc succeeds. In the case where something<br>
-fails at the dbus level, the sd_bus_call() method fails and the<br>
-message is never populated. If we don&#39;t check for errors on<br>
-sd_bus_call() but use sd_bus_message_is_method_error on the NULL<br>
-message, we get an -EINVAL and treat that as an error. This behavior<br>
-works fine if you only care that you had an error, but don&#39;t need to<br=
->
-interpret the error and perform special case handling depending on the<br>
-type. This is why I added the exceptions to sd_bus_call() so that we<br>
-can parse out specific errors like -EBUSY or -EINTR, but handle the<br>
-rest differently.<br>
-<br>
-sd_bus_message_is_method_error() is supposed to be used for checking<br>
-if the server we are talking to sent an error response, not if the<br>
-dbus layer had some kind of error. These errors are application<br>
-specific and can be parsed out of a valid message if they exist.<br>
-sd_bus_call() will still return success even if the server method sent<br>
-a METHOD_ERROR type of message. You can&#39;t technically rely on<br>
-sd_bus_message_read returning an error when reading from a<br>
-METHOD_ERROR type of message. Practically though if your METHOD_ERROR<br>
-message never have any content the read will fail since the message<br>
-won&#39;t contain the expected data types. Unfortunately this means we<br>
-will should keep all of the is_method_error checks and make sure c++<br>
-exception handling is in place for all of the daemons.On Mon, Sep 10,<br>
-2018 at 9:18 AM Patrick Venture &lt;<a href=3D"mailto:venture@google.com" t=
-arget=3D"_blank">venture@google.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Given:<br>
-&gt;<br>
-&gt; _public_ int sd_bus_message_is_method_error(sd_bus_message *m, const<b=
-r>
-&gt; char *name) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0assert_return(m, -EINVAL);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (m-&gt;header-&gt;type !=3D SD_BUS=
-_MESSAGE_METHOD_ERROR)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (name &amp;&amp; (!m-&gt;<a href=
-=3D"http://error.name" rel=3D"noreferrer" target=3D"_blank">error.name</a> =
-|| !streq(m-&gt;<a href=3D"http://error.name" rel=3D"noreferrer" target=3D"=
-_blank">error.name</a>, name)))<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br>
-&gt; }<br>
-&gt;<br>
-&gt; The failures from call() don&#39;t always set the reply (maybe don&#39=
-;t ever,<br>
-&gt; but I didn&#39;t read it closely).=C2=A0 Which means, is_method_error(=
-) can<br>
-&gt; happen when the bus call itself was fine, so we need to check both IFF=
-<br>
-&gt; we&#39;re going to read the response.<br>
-&gt;<br>
-&gt; I&#39;m working on eliminating the new crashes from phosphor-host-ipmi=
-d<br>
-&gt; and other repositories, now that sdbusplus can except, which is not<br=
->
-&gt; caught even though there&#39;s an error case for is_method_error()<br>
-&gt; immediately after the call.<br>
-&gt;<br>
-&gt; In phosphor-pid-control, I dropped the is_method_error() check, but I<=
-br>
-&gt; think it&#39;s still valid before trying to read() a message -- so I w=
-ill<br>
-&gt; likely throw a patch adding that check.<br>
-&gt;<br>
-&gt; Patrick<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"l=
-tr">Regards,<div>Kun</div></div></div>
-
---0000000000005e365005758d5a5a--
+Andrew
