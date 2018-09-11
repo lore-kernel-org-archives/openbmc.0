@@ -1,57 +1,65 @@
-Return-Path: <3K0eYWwcKB_wzirxyviksskpi.gsqstirfqgpmwxw.s3pefw.svk@flex--venture.bounces.google.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
- smtp.mailfrom=flex--venture.bounces.google.com
- (client-ip=2607:f8b0:4864:20::94a; helo=mail-ua1-x94a.google.com;
- envelope-from=3k0eywwckb_wzirxyviksskpi.gsqstirfqgpmwxw.s3pefw.svk@flex--venture.bounces.google.com;
- receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="cN1V0eYY"; 
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::743; helo=mail-qk1-x743.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="W9+kr9Pi"; 
  dkim-atps=neutral
-Received: from mail-ua1-x94a.google.com (mail-ua1-x94a.google.com
- [IPv6:2607:f8b0:4864:20::94a])
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4290YJ0qxzzF37V
- for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 08:52:29 +1000 (AEST)
-Received: by mail-ua1-x94a.google.com with SMTP id n10-v6so13221346uao.1
- for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 15:52:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=YJslXAA/H40j+y4TzxG2dqtkoyTP5i1f1/4M+fKfncw=;
- b=cN1V0eYYRLGRojFtOhsu6T2PJJYIPr5S34Qn9PvJZlA4CThYGqpRVc7xNvRiziBDK/
- O8j2OzIpcw+OV9KebBkdehYR+dGtCEe6KSNF0ZinfI81TfwVHuh55+rzVinJpaUsQteJ
- /O3L7jOrN4XGdHmKYh3eCs/thBk650tHMihGvY6gho830UXJSBGCCIdYz3qaW45J29fw
- Y3NTiB7qNIxbLcbjL8Squ8pfgV+GvMejo/46CjQlwzuQlhq7mjdB/vAayP79EsfkRcg5
- RUem9ZBWOUkLTiAp7awLSH5QZGIikecHI7wKdPcobqze4PVKjPlPp0LfOM7fnMR43wzy
- jyMg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4290Zb6rJNzF37V;
+ Wed, 12 Sep 2018 08:53:43 +1000 (AEST)
+Received: by mail-qk1-x743.google.com with SMTP id 130-v6so17893894qkd.10;
+ Tue, 11 Sep 2018 15:53:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yecEx44M8PDKMBTNei5rTsr98sIveDfTubDW32UfeNA=;
+ b=W9+kr9PiBTLMZIsIgqC+gYpeByqEE5FyJlxptKbWASdvfptxJFesDpaVOdPjbHzMkq
+ 3MIra+4URbx9Z/Qd0udQebHm3wCadOJZcsFAf83Q/ZZP91ygXmaxmroeKzUIVeeJM4kl
+ ZnEBVKDxw0WtWqqZMtei3e3G2vrJrZuoNBpvM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=YJslXAA/H40j+y4TzxG2dqtkoyTP5i1f1/4M+fKfncw=;
- b=tRXx2eXC7hOODbLkO97sSbG7ra0dqTEUNjU+NusfOh78d8NFCsvkpZ7RhKX7+e/2Qz
- dqaXztlwReV9Z4QNF3a+wP78w4I4RIu8RSrndxwoZBblyD20feZeWOtUO6HDG7r+kNkN
- 3B2B/B3SOodIJhzNnciO95hsNPgouVgr7aGxYcSWFjb4wxH/T47ehdyo77HYnlsVnsex
- wPQDFTsFWn3CNHVMfoLh+v03F2hyewKQngCGNhy+HkqKMYxNyonbTi1sQHrorAkB8yYq
- +ZJVfHrYnN1gnRZ2iP5Fzvufobz86zpzmtseD/SIYyhhHEDNej6ofoy1g45d3FH3wJL+
- dJ6Q==
-X-Gm-Message-State: APzg51AJEXtom28Ixbuf7dYEqGeWPChCYtqaiKpCNfmdg0Zyxb3xe9jd
- dK/zum/mME9aiDoOCRpeyHnahXX2pa7s
-X-Google-Smtp-Source: ANB0VdbCyZ0R89u4exCWakmhc86IvP81sWfWYPlvMkifKRkXX+ZEAa8mObcV7tT7s4Sf6TH7UlAlXrnLrYW/
-X-Received: by 2002:ab0:4fde:: with SMTP id
- t30-v6mr5378903uah.35.1536706347117; 
- Tue, 11 Sep 2018 15:52:27 -0700 (PDT)
-Date: Tue, 11 Sep 2018 15:52:21 -0700
-Message-Id: <20180911225221.54513-1-venture@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.19.0.rc2.392.g5ba43deb5a-goog
-Subject: [PATCH] ipmi: looped device detection
-From: Patrick Venture <venture@google.com>
-To: venture@google.com, minyard@acm.org, arnd@arndb.de, 
- gregkh@linuxfoundation.org
-Cc: openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yecEx44M8PDKMBTNei5rTsr98sIveDfTubDW32UfeNA=;
+ b=uM1Kp+wHh9q07LR6Pfh8cvMd9kn4gDnDEpkjkfRUWLjRhA+ky1mNhlp/HaF7f78xPk
+ erkVGEjnrRnP/eIQZWD4MQMpkdzzKrVNZY6wM2U08pXbd9GM13i5pND6nLQ5hWc2jSnz
+ 57TEvlfC4Dbp+U8y+Ao7l8VP4cvhTth1K5CJvRvuQ+aYrBS1PpcCxRvDkeXE//r8/4Tm
+ 8HX+FxWLHJ2x+aY/RsBIUut31iQuix9oPdtP0QKjyeo/bwET9tRWaWn6+vrvLa/n8/rw
+ HaE7HQGEbRFISTdXZlF3Kj6XMe3ejN45nB+iItgNLTrhcywybSptV7jczVdyyZfkfFqw
+ 2K7g==
+X-Gm-Message-State: APzg51DxaaY8ug+LDMcou1G5L/No+lLIOPetbgdKwpECYT6RkeR8H/w7
+ yZPq/Jk2U5dQGmE1oFZDdb24e2RFeqFvMjvsWKWIvA==
+X-Google-Smtp-Source: ANB0VdZV//eMibxhpLRInlz48XxZzBxIQTwzsaeCnOrbY24mPEHbyZYY5jzaTe5GoP83MKrKOlR3Q7+YTxZ7/6auB1U=
+X-Received: by 2002:a37:bd02:: with SMTP id
+ n2-v6mr21038412qkf.336.1536706421114; 
+ Tue, 11 Sep 2018 15:53:41 -0700 (PDT)
+MIME-Version: 1.0
+References: <20180823225731.19063-1-jae.hyun.yoo@linux.intel.com>
+ <20180911183734.GA21976@roeck-us.net>
+ <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
+ <20180911204107.GA26017@roeck-us.net>
+ <e5135af4-9105-214f-5de2-65cc03804222@linux.intel.com>
+In-Reply-To: <e5135af4-9105-214f-5de2-65cc03804222@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 12 Sep 2018 08:23:29 +0930
+Message-ID: <CACPK8Xdv3aP_zOHAL0WMgwvkpBHAUesU7OdhW==jgvXjRmt-Zw@mail.gmail.com>
+Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
+ events properly
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, linux-aspeed@lists.ozlabs.org, 
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Brendan Higgins <brendanhiggins@google.com>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-i2c@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
@@ -64,68 +72,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2018 22:52:37 -0000
+X-List-Received-Date: Tue, 11 Sep 2018 22:53:46 -0000
 
-Try to get the device ID repeatedly during initialization before giving up.
-The BMC isn't always responsive, and this allows it to be slightly flaky
-during early boot.
+On Wed, 12 Sep 2018 at 07:48, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>
+> On 9/11/2018 1:41 PM, Guenter Roeck wrote:
+> > On Tue, Sep 11, 2018 at 01:30:41PM -0700, Jae Hyun Yoo wrote:
 
-Tested: Installed on a system with the BMC software disabled
-such that it was non-responsive.  The driver correctly detected this
-and gave up as expected.  Then I re-enabled the BMC software unloaded
-and reloaded the driver and it was detected properly.
+> >> I checked this patch again but it doesn't have any change that could
+> >> affect to the probing flow. I'll debug the issue on qemu 3.0 environment
+> >> and will share if I find something.
+> >>
+> > The problem may be that qemu and the new code disagree how interrupts
+> > should be generated and handled, and the new code does not handle the
+> > interrupts it receives from the simulated hardware. This will result
+> > in i2c device probe failure, which in turn can cause all kinds of
+> > problems.
+> >
+>
+> Yes, that makes sense. Looks like it should be reverted until the issue
+> is fixed. Will submit a patch to revert it.
 
-Signed-off-by: Patrick Venture <venture@google.com>
----
- drivers/char/ipmi/ipmi_si_intf.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+Let's not rush. The qemu model was written in order to allow us to
+test the kernel code, and was validated by the kernel driver we have.
+We've had situations in the past (with the i2c driver in fact) where a
+change in the driver required an update of the model to be more
+accurate.
 
-diff --git a/drivers/char/ipmi/ipmi_si_intf.c b/drivers/char/ipmi/ipmi_si_intf.c
-index 90ec010bffbd..a1ca34af7698 100644
---- a/drivers/char/ipmi/ipmi_si_intf.c
-+++ b/drivers/char/ipmi/ipmi_si_intf.c
-@@ -1918,11 +1918,14 @@ int ipmi_si_add_smi(struct si_sm_io *io)
-  * held, primarily to keep smi_num consistent, we only one to do these
-  * one at a time.
-  */
-+#define GET_DEVICE_ID_ATTEMPTS	5
- static int try_smi_init(struct smi_info *new_smi)
- {
- 	int rv = 0;
- 	int i;
- 	char *init_name = NULL;
-+	bool platform_device_registered = false;
-+	unsigned long sleep_rm;
- 
- 	pr_info(PFX "Trying %s-specified %s state machine at %s address 0x%lx, slave address 0x%x, irq %d\n",
- 		ipmi_addr_src_to_str(new_smi->io.addr_source),
-@@ -2003,7 +2006,26 @@ static int try_smi_init(struct smi_info *new_smi)
- 	 * Attempt a get device id command.  If it fails, we probably
- 	 * don't have a BMC here.
- 	 */
--	rv = try_get_dev_id(new_smi);
-+	for (i = 0; i < GET_DEVICE_ID_ATTEMPTS; i++) {
-+		pr_info(PFX "Attempting to read BMC device ID\n");
-+		rv = try_get_dev_id(new_smi);
-+		/* If it succeeded, stop trying */
-+		if (!rv)
-+			break;
-+
-+		/* Sleep for ~0.25s before trying again instead of hammering
-+		 * the BMC.
-+		 */
-+		sleep_rm = msleep_interruptible(250);
-+		if (sleep_rm != 0) {
-+			pr_info(PFX "Find BMC interrupted\n");
-+			rv = -EINTR;
-+			goto out_err;
-+		}
-+	}
-+
-+	/* If we exited the loop above and rv is non-zero we ran out of tries.
-+	 */
- 	if (rv) {
- 		if (new_smi->io.addr_source)
- 			dev_err(new_smi->io.dev,
--- 
-2.19.0.rc2.392.g5ba43deb5a-goog
+I suggest we wait until Cedric has a chance to look at the issue
+before reverting the patch.
+
+Cheers,
+
+Joel
