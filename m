@@ -1,56 +1,48 @@
-Return-Path: <34CSYWwUKB20VfYjTRZZRWP.NZXZaPYMXNWTded.ZkWLMd.ZcR@flex--kunyi.bounces.google.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
- smtp.mailfrom=flex--kunyi.bounces.google.com
- (client-ip=2607:f8b0:4864:20::449; helo=mail-pf1-x449.google.com;
- envelope-from=34csywwukb20vfyjtrzzrwp.nzxzapymxnwtded.zkwlmd.zcr@flex--kunyi.bounces.google.com;
- receiver=<UNKNOWN>)
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="QPQMkQUt"; 
- dkim-atps=neutral
-Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
- [IPv6:2607:f8b0:4864:20::449])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 428xJW2f2BzF3CR
- for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 06:26:11 +1000 (AEST)
-Received: by mail-pf1-x449.google.com with SMTP id j15-v6so13291262pff.12
- for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 13:26:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=nXTYTlpb4L1pospr+dBwwPY/XcSA2ltILm0sXY3q2VY=;
- b=QPQMkQUtHtBsEwGLfj46wo7pliPr/d0ujzNJqHQrwMnETRdc4Qt+e7tV4bm1ZKNXaP
- E15uMJYIbE4PZYATJkyngdy/Afjq+VpkWKmypElcQHcU9WzWb+sqr2e8FXDhir91yXta
- F9AZKXwIz7vjzPGYHcH8ze6qIMP1Af4zCOY6BOhLOoDesHld+aGPOWRyEVbRlIKBhDIS
- LLcbvko1Nqsjs0WNqaTSIQICALZuZYXG3wrveUn9ThoEZ9u3xJC+hyribtu9RtbRFRYk
- qh6s+OGrCCTujfK8U79dKDgAVayo0cvKt5Jj08qXv1IM4Sn5BJ3eWFsb+TRxIpXeCV4q
- BcIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=nXTYTlpb4L1pospr+dBwwPY/XcSA2ltILm0sXY3q2VY=;
- b=tgAEg5T37vOeNnXvD2dNryQpVMusL19uCSZn35c9Rf9N08un5yy7bOhJ+UTzJhWvG/
- BbxuInSzJyy/ZrPoIOkCvTpDbm/LrIx8mgrve/WbWm5t9gLGQRdLvzLgQUPae0MKiKlg
- sGISkyGvWmo68RE1MuuuIEsUoWHs/3WWvzVDC/d5DA4sVy6sqHFGV/VEpTfTHHFmCUWq
- 1aqkiVNtGGkut1p7O527c39Cm0rGCWnWLgZbGklZMShgsi3V6jHSQsmTZD8/WwGyOzSW
- 6U5Qwk+A4e0wORrwJAnFoRqxSUky+gNjP0h3LYqxwu6W3/8SSfAf2o9kNJiLqFJHp1c7
- n9vg==
-X-Gm-Message-State: APzg51An2yt+2/jKxTviI2eZHL3YxtAr4VYVYSbpL0eXtgHZ3y9SLw6l
- lzwtIpXmpaJrCG9CjmNVnkbevxguGg==
-X-Google-Smtp-Source: ANB0VdbUKPtpBCOUOoI88CyyIofXlHniuumabNyPeO5UJVjAfh9KfV3/Xyu09Pg3iemGufFkfQqsPJeapA==
-X-Received: by 2002:a65:48c7:: with SMTP id o7-v6mr1834238pgs.49.1536697568367; 
- Tue, 11 Sep 2018 13:26:08 -0700 (PDT)
-Date: Tue, 11 Sep 2018 13:25:58 -0700
-Message-Id: <20180911202558.58433-1-kunyi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.19.0.rc2.392.g5ba43deb5a-goog
-Subject: [PATCH] hwmon: (lm75) Add MAX31725/6 support
-From: Kun Yi <kunyi@google.com>
-To: linux-hwmon@vger.kernel.org, linux@roeck-us.net, frodol@dds.nl
-Cc: openbmc@lists.ozlabs.org, rlippert@google.com, benjaminfair@google.com, 
- Kun Yi <kunyi@google.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 428xPd3q4vzF37l;
+ Wed, 12 Sep 2018 06:30:44 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2018 13:30:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,361,1531810800"; d="scan'208";a="82682168"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga003.jf.intel.com with ESMTP; 11 Sep 2018 13:30:42 -0700
+Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
+ events properly
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20180823225731.19063-1-jae.hyun.yoo@linux.intel.com>
+ <20180911183734.GA21976@roeck-us.net>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
+Date: Tue, 11 Sep 2018 13:30:41 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <20180911183734.GA21976@roeck-us.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -62,109 +54,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2018 20:26:20 -0000
+X-List-Received-Date: Tue, 11 Sep 2018 20:30:50 -0000
 
-MAX31725/MAX31726 are local temperature sensors with +/- 0.5 degree
-Celsius accuracy and 16-bit (0.00390625 degrees Celsius) resolution.
-They have a register mapping and encoding compatible with the lm75
-series drivers. Address scan and extended temperature range are
-not supported by this patch.
+On 9/11/2018 11:37 AM, Guenter Roeck wrote:
+> Hi,
+> 
+> On Thu, Aug 23, 2018 at 03:57:31PM -0700, Jae Hyun Yoo wrote:
+>> In most of cases, interrupt bits are set one by one but there are
+>> also a lot of other cases that Aspeed I2C IP sends multiple
+>> interrupt bits with combining master and slave events using a
+>> single interrupt call. It happens much more in multi-master
+>> environment than single-master. For an example, when master is
+>> waiting for a NORMAL_STOP interrupt in its MASTER_STOP state,
+>> SLAVE_MATCH and RX_DONE interrupts could come along with the
+>> NORMAL_STOP in case of an another master immediately sends data
+>> just after acquiring the bus. In this case, the NORMAL_STOP
+>> interrupt should be handled by master_irq and the SLAVE_MATCH and
+>> RX_DONE interrupts should be handled by slave_irq. This commit
+>> modifies irq hadling logic to handle the master/slave combined
+>> events properly.
+>>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
+> 
+> This patch causes a boot stall when booting witherspoon-bmc with
+> qemu v3.0, and all i2c device probes fail with error -110 (timeout).
+> Bisect log is attached for reference.
+> 
+> With the same kernel configuration (aspeed_g5_defconfig),
+> ast2500-evb and romulus-bmc are still able to boot.
+> palmetto-bmc with aspeed_g4_defconfig also appears to work.
+> 
+> Is this a problem with qemu ? Should I drop the qemu test
+> for witherspoon-bmc starting with the next kernel release ?
+> 
+> Thanks,
+> Guenter
+> 
 
-Tested on real hardware and verified temperature readings are correct.
+Hi Guenter,
 
-Signed-off-by: Kun Yi <kunyi@google.com>
----
- Documentation/hwmon/lm75 |  6 +++---
- drivers/hwmon/lm75.c     | 18 ++++++++++++++++--
- 2 files changed, 19 insertions(+), 5 deletions(-)
+Thanks for your report.
 
-diff --git a/Documentation/hwmon/lm75 b/Documentation/hwmon/lm75
-index ac95edfcd907..2f1120f88c16 100644
---- a/Documentation/hwmon/lm75
-+++ b/Documentation/hwmon/lm75
-@@ -17,8 +17,8 @@ Supported chips:
-     Addresses scanned: none
-     Datasheet: Publicly available at the Maxim website
-                http://www.maximintegrated.com/
--  * Maxim MAX6625, MAX6626
--    Prefixes: 'max6625', 'max6626'
-+  * Maxim MAX6625, MAX6626, MAX31725, MAX31726
-+    Prefixes: 'max6625', 'max6626', 'max31725', 'max31726'
-     Addresses scanned: none
-     Datasheet: Publicly available at the Maxim website
-                http://www.maxim-ic.com/
-@@ -86,7 +86,7 @@ The LM75 is essentially an industry standard; there may be other
- LM75 clones not listed here, with or without various enhancements,
- that are supported. The clones are not detected by the driver, unless
- they reproduce the exact register tricks of the original LM75, and must
--therefore be instantiated explicitly. Higher resolution up to 12-bit
-+therefore be instantiated explicitly. Higher resolution up to 16-bit
- is supported by this driver, other specific enhancements are not.
- 
- The LM77 is not supported, contrary to what we pretended for a long time.
-diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-index 49f4b33a5685..e6e5a1080f09 100644
---- a/drivers/hwmon/lm75.c
-+++ b/drivers/hwmon/lm75.c
-@@ -47,6 +47,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
- 	lm75b,
- 	max6625,
- 	max6626,
-+	max31725,
- 	mcp980x,
- 	stds75,
- 	tcn75,
-@@ -64,7 +65,6 @@ enum lm75_type {		/* keep sorted in alphabetical order */
- static const unsigned short normal_i2c[] = { 0x48, 0x49, 0x4a, 0x4b, 0x4c,
- 					0x4d, 0x4e, 0x4f, I2C_CLIENT_END };
- 
--
- /* The LM75 registers */
- #define LM75_REG_TEMP		0x00
- #define LM75_REG_CONF		0x01
-@@ -76,7 +76,7 @@ struct lm75_data {
- 	struct i2c_client	*client;
- 	struct regmap		*regmap;
- 	u8			orig_conf;
--	u8			resolution;	/* In bits, between 9 and 12 */
-+	u8			resolution;	/* In bits, between 9 and 16 */
- 	u8			resolution_limits;
- 	unsigned int		sample_time;	/* In ms */
- };
-@@ -339,6 +339,10 @@ lm75_probe(struct i2c_client *client, const struct i2c_device_id *id)
- 		data->resolution_limits = 9;
- 		data->sample_time = MSEC_PER_SEC / 4;
- 		break;
-+	case max31725:
-+		data->resolution = 16;
-+		data->sample_time = MSEC_PER_SEC / 8;
-+		break;
- 	case tcn75:
- 		data->resolution = 9;
- 		data->sample_time = MSEC_PER_SEC / 8;
-@@ -415,6 +419,8 @@ static const struct i2c_device_id lm75_ids[] = {
- 	{ "lm75b", lm75b, },
- 	{ "max6625", max6625, },
- 	{ "max6626", max6626, },
-+	{ "max31725", max31725, },
-+	{ "max31726", max31725, },
- 	{ "mcp980x", mcp980x, },
- 	{ "stds75", stds75, },
- 	{ "tcn75", tcn75, },
-@@ -471,6 +477,14 @@ static const struct of_device_id lm75_of_match[] = {
- 		.compatible = "maxim,max6626",
- 		.data = (void *)max6626
- 	},
-+	{
-+		.compatible = "maxim,max31725",
-+		.data = (void *)max31725
-+	},
-+	{
-+		.compatible = "maxim,max31726",
-+		.data = (void *)max31725
-+	},
- 	{
- 		.compatible = "maxim,mcp980x",
- 		.data = (void *)mcp980x
--- 
-2.19.0.rc2.392.g5ba43deb5a-goog
+I checked this patch again but it doesn't have any change that could
+affect to the probing flow. I'll debug the issue on qemu 3.0 environment
+and will share if I find something.
+
+Thanks,
+Jae
