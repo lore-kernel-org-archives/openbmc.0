@@ -1,48 +1,59 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::442; helo=mail-pf1-x442.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Q1vG/XZI"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 428xPd3q4vzF37l;
- Wed, 12 Sep 2018 06:30:44 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2018 13:30:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,361,1531810800"; d="scan'208";a="82682168"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga003.jf.intel.com with ESMTP; 11 Sep 2018 13:30:42 -0700
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180823225731.19063-1-jae.hyun.yoo@linux.intel.com>
- <20180911183734.GA21976@roeck-us.net>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
-Date: Tue, 11 Sep 2018 13:30:41 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 428xVY4TBMzF38B
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 06:35:01 +1000 (AEST)
+Received: by mail-pf1-x442.google.com with SMTP id p12-v6so12804788pfh.2
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 13:35:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RBxVS47crPB5gAcPXnCwy5jpPcTUtcMXapxNCtRAfU8=;
+ b=Q1vG/XZIdGy0uoksOGUN8IadNal+l8YbtgDX3U8IHXRMFoXxDPFJES7xFQ5KTk1GMx
+ iyAg1R3mayYqcS5LPg4jjE9qPysaIj8Qa7Omnw2J1Vj8TzSpg0FUPNXAxQqMHBtGP58P
+ l/baokuoqEMYL9dYI8qDxBEHhVXuk2OLPvdLpH0RxLwZKfxGccCeV8IRtkutLFn6vruj
+ aw3ThGQD5LUM+obq6tMD1od+Yan+aWxjQSVEcSRUpHfRZJNqf8Nv0KBi7SGmjoyYlOCR
+ awKNWD8MtWu0xIN3s9mAPRI/VjG8TVGtBiCcJYcU7kf+MqTtZfOGEdxZhWsnqlpGiNaj
+ kQ4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RBxVS47crPB5gAcPXnCwy5jpPcTUtcMXapxNCtRAfU8=;
+ b=Yu6ktoZmvrmNTJbRk4oDPB+sSv/Nw28Sf+opbEzOPfhIAcgq7K5JQzuCuvH/GkHFmw
+ I85ngBWFLe6Smv5mmU1NgJWOXFLkmbjwvzJTgGUF39/qM687+9++qKnbeTl+PjpwRWPk
+ uFK7OKP/bLTZpWbDIJ2FCKPS2rkiyI85W+u+pXIfgIx1SSrj/Yr0vUb7nTQoRvUz6g7G
+ JjeruWY9dZHP9LgY4MhKt+2becO7scq7PYXQLRKg1RNla/Mci1ShtmspJAFTqKa95EQt
+ NMXH8uZOwHHhek9C15a8tvubreMroPg/SKA24XZSPoQyVc4p71hWQI/kdypDy1JhQxTP
+ c4fA==
+X-Gm-Message-State: APzg51AgrDjLS1o8LVP/kV7CaEqCRHrJ5SlBuvoUj7K1zBNv1jVr/ZuR
+ 8Ipzn2KsEAavI9ICoWptiDAd/6tYy+V2oA+RJOfKL122
+X-Google-Smtp-Source: ANB0VdaAK98+gNSuwSoIJsDr2dX0A5OopgyieYvic00l3Z0tZBOEExF5Eg95o0XIz0jFQS41tmgOEDMqR4q4REqtbgg=
+X-Received: by 2002:a63:1a1a:: with SMTP id
+ a26-v6mr30120715pga.449.1536698098727; 
+ Tue, 11 Sep 2018 13:34:58 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180911183734.GA21976@roeck-us.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CAO=notx6QwNkQJ8HgDFJWqDChVw9j4ye=1qSWz3yaFBFYAOEMg@mail.gmail.com>
+ <CALLMt=qCkxga7=8ttD9xC4jtSaE8M9piJPB8UuHnHTSNV0rLLA@mail.gmail.com>
+In-Reply-To: <CALLMt=qCkxga7=8ttD9xC4jtSaE8M9piJPB8UuHnHTSNV0rLLA@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 11 Sep 2018 13:34:47 -0700
+Message-ID: <CAO=notxK4stv=rpXkykWTM9Zcn_U5ukNsMs1Rp5O2V9QOz6NOA@mail.gmail.com>
+Subject: Re: meta-google
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -54,51 +65,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2018 20:30:50 -0000
+X-List-Received-Date: Tue, 11 Sep 2018 20:35:02 -0000
 
-On 9/11/2018 11:37 AM, Guenter Roeck wrote:
-> Hi,
-> 
-> On Thu, Aug 23, 2018 at 03:57:31PM -0700, Jae Hyun Yoo wrote:
->> In most of cases, interrupt bits are set one by one but there are
->> also a lot of other cases that Aspeed I2C IP sends multiple
->> interrupt bits with combining master and slave events using a
->> single interrupt call. It happens much more in multi-master
->> environment than single-master. For an example, when master is
->> waiting for a NORMAL_STOP interrupt in its MASTER_STOP state,
->> SLAVE_MATCH and RX_DONE interrupts could come along with the
->> NORMAL_STOP in case of an another master immediately sends data
->> just after acquiring the bus. In this case, the NORMAL_STOP
->> interrupt should be handled by master_irq and the SLAVE_MATCH and
->> RX_DONE interrupts should be handled by slave_irq. This commit
->> modifies irq hadling logic to handle the master/slave combined
->> events properly.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
-> 
-> This patch causes a boot stall when booting witherspoon-bmc with
-> qemu v3.0, and all i2c device probes fail with error -110 (timeout).
-> Bisect log is attached for reference.
-> 
-> With the same kernel configuration (aspeed_g5_defconfig),
-> ast2500-evb and romulus-bmc are still able to boot.
-> palmetto-bmc with aspeed_g4_defconfig also appears to work.
-> 
-> Is this a problem with qemu ? Should I drop the qemu test
-> for witherspoon-bmc starting with the next kernel release ?
-> 
-> Thanks,
-> Guenter
-> 
+On Tue, Sep 11, 2018 at 11:05 AM Andrew Geissler <geissonator@gmail.com> wrote:
+>
+> On Tue, Sep 11, 2018 at 10:24 AM Patrick Venture <venture@google.com> wrote:
+> >
+> > First commit.
+> >
+> > I am a bit new to subtrees, so I was following the steps to get a
+> > configuration into meta-google, and following the steps didn't work
+> > because there wasn't a master branch yet in meta-google.  I submitted
+> > a "first patch" to meta-google/master via gerrit, but it appears that
+> > gerrit isn't sending that patch (yet)?
+> >
+> > I'm just looking for a quick -- why did gerrit not push the commit?
+> > Perhaps a configuration change required?
+>
+> I didn't see any errors in the gerrit logs but the synch didn't happen
+> for some reason.  I did a manual push and it worked fine.  Not sure if
+> that first gerrit synch needs a manual push to get the master branch
+> setup Brad?  Let me know if your next one doesn't synch to github.
 
-Hi Guenter,
+Thanks! - I have a hunch it's because there wasn't a master branch yet.
 
-Thanks for your report.
-
-I checked this patch again but it doesn't have any change that could
-affect to the probing flow. I'll debug the issue on qemu 3.0 environment
-and will share if I find something.
-
-Thanks,
-Jae
+>
+> Andrew
+>
+> >
+> > Patrick
