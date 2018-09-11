@@ -1,79 +1,59 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <wak@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::22b; helo=mail-lj1-x22b.google.com;
+ envelope-from=wak@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="IxQpYdFR"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="UHYje/pD"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=google.com header.i=@google.com header.b="tCl+YBkP"; 
+ dkim-atps=neutral
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 428S4313dtzF397
- for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 11:28:50 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4124A21EA7;
- Mon, 10 Sep 2018 21:28:48 -0400 (EDT)
-Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Mon, 10 Sep 2018 21:28:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=FVPX6QYaznLpazMPBRCXYPEffj94M
- 9w80X0NdhqhTI4=; b=IxQpYdFR+j+Xc7dBN6kN/qKaW/maHnXbYO7KcO6osWbgk
- nFqpoRe2xHKdqQxbA/D7jGayfrHGAB3mSGrc9sMxHJb38wLDsECq5OM9+SOzPr+y
- 6jOxNYES3KcJtONihcKboJjAWwgwuyqin5SVJlN6S4Wsuahk5yHDKTdIHMrLYJ6D
- EZQCrdgjmABan1kj9OemM8+OumcDe1UFUuI5tmo1Jb0ksBRqnprgz91EqH9+0tLm
- B8FWSQCMk9LnoVw4LHiHlkdxzXOAX1ixEwOC1jqLydSRj5zA+wnlLbKQ6Drmhk2M
- k7TTPTmWOgqxnfnr4r1i3GZiPYHu1XcBmZQdOX/Qw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=FVPX6Q
- YaznLpazMPBRCXYPEffj94M9w80X0NdhqhTI4=; b=UHYje/pDza/aS7dZfamIgU
- ynaJJgasnbsvMfHMHtaHxv/hqc5+xxeWTrZ25NbzITVn18QYOezW6wtblkz5FYwg
- eD8FN7drOEviu7qIPiNy4Kl+dNKy56AcaDubVVC2fm0286edOd9XfwH0HOtbbl36
- zsJfyJtpHAdqG+vVhCRy3je9CLtLtXUuryllzMZCQbbY6QZcdSKjyzq4raN0i5Yl
- xgKzIIn5kVj7VP3F9+giCHHFwzZ3nAEWhC5TAiVuqMUww7na8AsJRBED6UM7LYkL
- cw0BpA2SnYiQvivYaWEymUqwqV9PNp8SA6kDrCkwXBImdcp+IS8qVM76+gQEeq9A
- ==
-X-ME-Proxy: <xmx:TxqXW6Yte_ZBRnnIXbZRLXY8R34bgQpx2EN7NRMZsx0QIszBe_B0ag>
- <xmx:TxqXW_N-JqwFZ6de2tvhq9uyDha7AE4g6tjXddFT6vH3nsSsr7WXzg>
- <xmx:TxqXW2uJ20LueFZ3tuXdsszMdQCTMQEL9l6ZruvQQkD3Lh-YlApCfw>
- <xmx:TxqXW91utfV2ee2A5l1ChOL1tribgegHqq2IqRTYluaDiL7JLhxtCw>
- <xmx:TxqXW8Uc-0wA-Cqy5UquiqAFmmOrLKysx0i1rEC7W4hqkWDVWD99hg>
- <xmx:UBqXWw7Gx6zmYSXdEtkH7uUKfUKFHdXmk4KYMnMb-uDMaOZCSw2ODg>
-X-ME-Sender: <xms:TxqXW-JvcgjnoEj64W4qpAdpBd_3hEYwNwD8VSkQfynIYifD9I6v3A>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 214E59E53C; Mon, 10 Sep 2018 21:28:47 -0400 (EDT)
-Message-Id: <1536629327.3454887.1503645880.7FE96DC2@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: "Wang, Kuiying" <kuiying.wang@intel.com>,
- Andrew Geissler <geissonator@gmail.com>, Joel Stanley <joel@jms.id.au>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
- Andrew Geissler <geissonator@yahoo.com>, chunhui.jia@linux.intel.com,
- kunyi731@gmail.com, "Mihm, James" <james.mihm@intel.com>, "Tanous,
- Ed" <ed.tanous@intel.com>, "Feist, James" <james.feist@intel.com>, "Jia,
- Chunhui" <chunhui.jia@intel.com>, Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Li,
- Yong B" <yong.b.li@intel.com>, "Yang, Cheng C" <cheng.c.yang@intel.com>,
- "Xu, Qiang" <qiang.xu@intel.com>, "Nguyen, Hai V" <hai.v.nguyen@intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 428cPG1NSrzF31l
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 17:44:17 +1000 (AEST)
+Received: by mail-lj1-x22b.google.com with SMTP id m84-v6so20041542lje.10
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 00:44:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rmzE73QHfHa50edod927l9/HynixgsLLTIU9EAC/ucE=;
+ b=tCl+YBkPjwu0KhGsuWatHsPx9v6ktg2cnC0om4GFgeRqBDsRwgaE9v1QWoicQwsYel
+ L2+NTw+XN3KSmyjVzi66dQ/gB3lKFHeUQyXDl4tPIuP8ZQmU8aYi7/9IuvHNTVgbNHG3
+ 14Vc1E84tx0AN+md81nL/OLcs6+mUqb4uYbRlPdmF+fITvf03LSGfzsu2Bk33G5FflYQ
+ 6uZBoje1+t3N3dD+LU0MbCzkwpskUrVga+XXy5O5ASnM0eOpCTVbQc/rrrSArdrKhe/f
+ w2y4wV6u6TGhCEJXaDv9OAN4zsLUyOVrRKzU8YTL9wv1PmdYfbQiQOMLo0auKPgYv9lc
+ xAng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rmzE73QHfHa50edod927l9/HynixgsLLTIU9EAC/ucE=;
+ b=F3V9+2Zp5nvsNB3GiDuf0TA6a5yvagwUhhDevLJMBNydmcLbEnirGdSKslgOwQi9Q9
+ IN/ZvVV0iBbMjxFwKfNRqrS48rLh95ImGHeE6cg7t+nI6l45oYitexssn4q8DUfYgeT+
+ i31lNxDtaHZluCBey8nUIDeD8OdM9sEInnX1sgu/XJc+Ac95hhk6B6GHFcVw3v1iyavJ
+ ItV8NOrl1xm6A/XGbZLlBp3MZlpwQ8n2xziZ9tM/jofS1PXMf/e8PPhgN99cpWvzQJMo
+ MCJY4SbOExX4dAxjuKMHnvCiy0Xez6oe3nFu9J/95ao1eYNJ090P7QkpvNQlAzc0dljC
+ n/UA==
+X-Gm-Message-State: APzg51BVPPOUTznOOgWwWFNrVBu6/L7P4fNtAdRa6V6E2b1K2Jks1P2r
+ HmBiviDi83nwKOKTaAMLND2XJcCYmMLV40GTv39Z0Q==
+X-Google-Smtp-Source: ANB0VdYVS8F32+1l9b4RAFBmnsHumOCIcBbCQi5TQtpwGHc9Jls7yVA3tJ8PNRFFNV5A9VjeGBD1kx+8iSrnRZIF68o=
+X-Received: by 2002:a2e:971a:: with SMTP id
+ r26-v6mr14817314lji.30.1536651853080; 
+ Tue, 11 Sep 2018 00:44:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-1234af23
-Subject: Re: [PATCH linux dev-4.18] ASPEED: dts: Define the gpio-line-names
- property for aspeed-g5
-Date: Tue, 11 Sep 2018 10:58:47 +0930
-In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E77249E0F323@shsmsx102.ccr.corp.intel.com>
-References: <959CAFA1E282D14FB901BE9A7BF4E77249E0F1FA@shsmsx102.ccr.corp.intel.com>
- <1536565015.72467.1502515344.359BB453@webmail.messagingengine.com>
- <959CAFA1E282D14FB901BE9A7BF4E77249E0F323@shsmsx102.ccr.corp.intel.com>
+References: <CAO=notz1BPmjSTmcLBKOs1Cv9FNqGCi5zYBw24jufDjXdPHR7g@mail.gmail.com>
+ <CAPnigKn2OfoNdFiJ30XuKRpyXogcQvxPWF_cSTqqghbPywcCJg@mail.gmail.com>
+ <CAGMNF6Wc6PF7+g-pn5htbnmajBP+Ax4pNSHhFRgLua-zTTYb7w@mail.gmail.com>
+In-Reply-To: <CAGMNF6Wc6PF7+g-pn5htbnmajBP+Ax4pNSHhFRgLua-zTTYb7w@mail.gmail.com>
+From: William Kennington <wak@google.com>
+Date: Tue, 11 Sep 2018 00:44:01 -0700
+Message-ID: <CAPnigK=uWpu_9obev=PrGDOwHgDw9eB6V1J90+TAkd_LCb+JqA@mail.gmail.com>
+Subject: Re: is_method_error versus call() errors
+To: Kun Yi <kunyi@google.com>
+Cc: Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -85,15 +65,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2018 01:28:55 -0000
+X-List-Received-Date: Tue, 11 Sep 2018 07:44:19 -0000
 
-On Mon, 10 Sep 2018, at 17:26, Wang, Kuiying wrote:
-> Hi Andrew J,
-> This is just common definition for aspeed-g5.
-> There will be different configuration for specified platform just like 
-> following:
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-intel/+/12178/1/meta-intel/meta-s2600wf/recipes-phosphor/skeleton/obmc-libobmc-intf/gpio_defs.json 
-
-Are you doing a string match on the pin name from the structures returned by ioctls on the gpiochip's chardev? This won't work if someone decides to specify the semantic name of the line in the devicetree like I linked to in my previous reply. Your best bet is to map the pin name from the JSON to the pin index on the gpiochip. Doing it any other way is fragile.
-
-Andrew
+Personally, I'd be more inclined to create helpers that wrap those
+common paradigms expressively. I wrote a quick patch series that adds
+these helpers. Let me know what you think.
+https://gerrit.openbmc-project.xyz/#/c/openbmc/sdbusplus/+/12670/On
+Mon, Sep 10, 2018 at 5:14 PM Kun Yi <kunyi@google.com> wrote:
+>
+> I think correspondingly we should start adding unit tests that checks our code are exception safe.
+>
+> Meanwhile, in some cases we don't really care from which level the error originates. Does it make sense to have a macro like:
+>
+> #define IS_ERROR_OR_EXCEPTION(dbus_call) \
+>   try { \
+>     return (dbus_call).is_method_error(); \
+>   } catch (const sdbusplus::exception::SdBusError& ex) { \
+>     return true; \
+>   }
+>
+> On Mon, Sep 10, 2018 at 2:50 PM William Kennington <wak@google.com> wrote:
+>>
+>> This is something that is a little confusing about the semantics of
+>> sdbus. When using sd_bus_call(), it will only populate the returned
+>> message pointer if the dbus rpc succeeds. In the case where something
+>> fails at the dbus level, the sd_bus_call() method fails and the
+>> message is never populated. If we don't check for errors on
+>> sd_bus_call() but use sd_bus_message_is_method_error on the NULL
+>> message, we get an -EINVAL and treat that as an error. This behavior
+>> works fine if you only care that you had an error, but don't need to
+>> interpret the error and perform special case handling depending on the
+>> type. This is why I added the exceptions to sd_bus_call() so that we
+>> can parse out specific errors like -EBUSY or -EINTR, but handle the
+>> rest differently.
+>>
+>> sd_bus_message_is_method_error() is supposed to be used for checking
+>> if the server we are talking to sent an error response, not if the
+>> dbus layer had some kind of error. These errors are application
+>> specific and can be parsed out of a valid message if they exist.
+>> sd_bus_call() will still return success even if the server method sent
+>> a METHOD_ERROR type of message. You can't technically rely on
+>> sd_bus_message_read returning an error when reading from a
+>> METHOD_ERROR type of message. Practically though if your METHOD_ERROR
+>> message never have any content the read will fail since the message
+>> won't contain the expected data types. Unfortunately this means we
+>> will should keep all of the is_method_error checks and make sure c++
+>> exception handling is in place for all of the daemons.On Mon, Sep 10,
+>> 2018 at 9:18 AM Patrick Venture <venture@google.com> wrote:
+>> >
+>> > Given:
+>> >
+>> > _public_ int sd_bus_message_is_method_error(sd_bus_message *m, const
+>> > char *name) {
+>> >         assert_return(m, -EINVAL);
+>> >         if (m->header->type != SD_BUS_MESSAGE_METHOD_ERROR)
+>> >                 return 0;
+>> >         if (name && (!m->error.name || !streq(m->error.name, name)))
+>> >                 return 0;
+>> >         return 1;
+>> > }
+>> >
+>> > The failures from call() don't always set the reply (maybe don't ever,
+>> > but I didn't read it closely).  Which means, is_method_error() can
+>> > happen when the bus call itself was fine, so we need to check both IFF
+>> > we're going to read the response.
+>> >
+>> > I'm working on eliminating the new crashes from phosphor-host-ipmid
+>> > and other repositories, now that sdbusplus can except, which is not
+>> > caught even though there's an error case for is_method_error()
+>> > immediately after the call.
+>> >
+>> > In phosphor-pid-control, I dropped the is_method_error() check, but I
+>> > think it's still valid before trying to read() a message -- so I will
+>> > likely throw a patch adding that check.
+>> >
+>> > Patrick
+>
+>
+>
+> --
+> Regards,
+> Kun
