@@ -1,54 +1,54 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::633; helo=mail-pl1-x633.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="XEwJqCHJ"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42921h3VZjzF39V;
- Wed, 12 Sep 2018 09:58:47 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2018 16:58:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,362,1531810800"; d="scan'208";a="82726370"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga003.jf.intel.com with ESMTP; 11 Sep 2018 16:58:44 -0700
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>
-Cc: linux-aspeed@lists.ozlabs.org,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-i2c@vger.kernel.org, jarkko.nikula@linux.intel.com,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- James Feist <james.feist@linux.intel.com>
-References: <20180823225731.19063-1-jae.hyun.yoo@linux.intel.com>
- <20180911183734.GA21976@roeck-us.net>
- <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
- <20180911204107.GA26017@roeck-us.net>
- <e5135af4-9105-214f-5de2-65cc03804222@linux.intel.com>
- <CACPK8Xdv3aP_zOHAL0WMgwvkpBHAUesU7OdhW==jgvXjRmt-Zw@mail.gmail.com>
- <20180911233302.GA18799@roeck-us.net>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <5698ca34-14c9-8d05-c4e6-5acf85ff9d14@linux.intel.com>
-Date: Tue, 11 Sep 2018 16:58:44 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4292yy3tFMzF3CY
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 10:41:29 +1000 (AEST)
+Received: by mail-pl1-x633.google.com with SMTP id f66-v6so82127plb.10
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Sep 2018 17:41:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=cisuYx6G25i233fVyGKrrgBRQ4OdHTqkCFsO3dZRkIY=;
+ b=XEwJqCHJg+rOdsGc+kA/RhlhQ7zTh70rLnfaAkmOO7cDCQsn6iz9zFeB7s/aTPE3Pk
+ uCzcwmD81ORsxl1IkKJaOJs9NOi4g92g6aOSeqzELv7zqxG0+0B8+c+uQDG4LJLwmJIh
+ Ya2BXNuNkOp8M/LhdUeTGn7pMrqLMvsl/97dkbkps8wyQ091Vl0Rr9RnnCx4+/wPLVQ/
+ i4PaGv0OCA/hD2xyJqMW/Qug6tcD5ONT2t0tAieEd9UngxUbtli8hg4N571ku9RJYOVY
+ M5NfkaMx/5Gag7QH4FfvPMCDfmtPIaS7yI6FEDvgjoymow8/e2UG/hl/XQNAShg4ATiH
+ gEMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=cisuYx6G25i233fVyGKrrgBRQ4OdHTqkCFsO3dZRkIY=;
+ b=VbyXjZEgmvbw/ZhC2z8ncVQO+XWzxAJHJVZN99CpF27I8ix5zF4rvdAlLO1k3eq6ym
+ DBHAmceG3DIXVNF6O4QRPu2UqT+tMkhTnypRo7QzdJMdZ2mm73O9H99jKgX7i5GalMPD
+ LRua2PUvR6zW3C7AUSGfVeTJRL6AtG5WhfOktb+wAHtwsEzCsRn3CO2Ap4hdJY67f44x
+ I5xrYjvMJW88uIn2BPSLCOs2pdzEMBM1k8R5tWx0wnkO9I15dsGzucEw9kk6Tc7hXlMR
+ nlbr3u+0/G1ZVyAvoBRavwEs2xneRFkuEaIIRLjXqjlA99/t1JmGIiqHhsX2MQCttdhh
+ vP0g==
+X-Gm-Message-State: APzg51Afhgu27ErShVOc+QJs0I4Kh2esQ53TVS8hvdOhCW1OzLwe85DY
+ rG/aTdF2giqiSJgXmEYRWzHv+oEUfQ6Mj6MZvxARJYWA
+X-Google-Smtp-Source: ANB0VdYl8hHm7Nga9Z4ASeXSf4KH6l7gv9EJwkJ33UYe9jseZ3Npa40DEuEgSl2boU/VzIzjqOqSXaVecxAPrMRRIyY=
+X-Received: by 2002:a17:902:6907:: with SMTP id
+ j7-v6mr29901544plk.323.1536712887205; 
+ Tue, 11 Sep 2018 17:41:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180911233302.GA18799@roeck-us.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+From: Patrick Venture <venture@google.com>
+Date: Tue, 11 Sep 2018 17:41:15 -0700
+Message-ID: <CAO=notyNQDxqa_DZtfLJxO2NE04gqgpzZGi0Q_HHgCKkRDVSgw@mail.gmail.com>
+Subject: New Library SOP
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.27
 Precedence: list
@@ -60,51 +60,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2018 23:58:49 -0000
+X-List-Received-Date: Wed, 12 Sep 2018 00:41:31 -0000
 
-On 9/11/2018 4:33 PM, Guenter Roeck wrote:
-> Looking into the patch, clearing the interrupt status at the end of an
-> interrupt handler is always suspicious and tends to result in race
-> conditions (because additional interrupts may have arrived while handling
-> the existing interrupts, or because interrupt handling itself may trigger
-> another interrupt). With that in mind, the following patch fixes the
-> problem for me.
-> 
-> Guenter
-> 
-> ---
-> 
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-> index c258c4d9a4c0..c488e6950b7c 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -552,6 +552,8 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->   
->   	spin_lock(&bus->lock);
->   	irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
-> +	/* Ack all interrupt bits. */
-> +	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->   	irq_remaining = irq_received;
->   
->   #if IS_ENABLED(CONFIG_I2C_SLAVE)
-> @@ -584,8 +586,6 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->   			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
->   			irq_received, irq_handled);
->   
-> -	/* Ack all interrupt bits. */
-> -	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->   	spin_unlock(&bus->lock);
->   	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
->   }
-> 
+Brad;
 
-My intention of putting the code at the end of interrupt handler was,
-to reduce possibility of combined irq calls which is explained in this
-patch. But YES, I agree with you. It could make a potential race
-condition as you pointed out. I tested your code change and checked that
-it works well. Let me take more sufficient test on real H/W. Will share
-the test result.
+William contributed two libraries by building them as a repo under his
+personal work account first, and then presumably you mirrored from
+them.  Is this the process you prefer?  I'm looking to do some
+cleanup-by-library and wanted to take off in the right direction.
 
-Thanks a lot!
+I plan to grab some code and fixup three of the daemons to then use it.
 
-Jae
+Patrick
