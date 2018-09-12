@@ -1,54 +1,36 @@
-Return-Path: <clg@kaod.org>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.33.250.45; helo=2.mo179.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-Received: from 2.mo179.mail-out.ovh.net (2.mo179.mail-out.ovh.net
- [178.33.250.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 429BPd2rRRzF36Y
- for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 16:16:36 +1000 (AEST)
-Received: from player726.ha.ovh.net (unknown [10.109.159.248])
- by mo179.mail-out.ovh.net (Postfix) with ESMTP id 48DA4F948B
- for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 07:57:37 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10605-110.w90-89.abo.wanadoo.fr
- [90.89.196.110]) (Authenticated sender: postmaster@kaod.org)
- by player726.ha.ovh.net (Postfix) with ESMTPSA id 5AAAA2A0098;
- Wed, 12 Sep 2018 07:57:24 +0200 (CEST)
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>
-Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- linux-aspeed@lists.ozlabs.org, Vernon Mauery
- <vernon.mauery@linux.intel.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, Brendan Higgins <brendanhiggins@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-i2c@vger.kernel.org
-References: <20180823225731.19063-1-jae.hyun.yoo@linux.intel.com>
- <20180911183734.GA21976@roeck-us.net>
- <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
- <20180911204107.GA26017@roeck-us.net>
- <e5135af4-9105-214f-5de2-65cc03804222@linux.intel.com>
- <CACPK8Xdv3aP_zOHAL0WMgwvkpBHAUesU7OdhW==jgvXjRmt-Zw@mail.gmail.com>
- <20180911233302.GA18799@roeck-us.net>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <f184e209-cb4b-55d4-e520-ae2cc9f0d963@kaod.org>
-Date: Wed, 12 Sep 2018 07:57:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <20180911233302.GA18799@roeck-us.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12308337782753168372
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrjeefgdduuddtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 429DdM1Ch8zDqC3
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 17:56:54 +1000 (AEST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w8C7uX1A028872;
+ Wed, 12 Sep 2018 02:56:34 -0500
+Message-ID: <c002018d3765280e135d673f7c731784a90a260d.camel@kernel.crashing.org>
+Subject: Re: [PATCH v5 01/10] dt-bindings: fsi: Add P9 OCC device documentation
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Rob Herring <robh@kernel.org>, Eddie James <eajames@linux.vnet.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, jdelvare@suse.com,
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ gregkh@linuxfoundation.org, mark.rutland@arm.com, linux@roeck-us.net,
+ joel@jms.id.au
+Date: Wed, 12 Sep 2018 09:56:33 +0200
+In-Reply-To: <20180910181610.GA5907@bogus>
+References: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1535664761-86018-2-git-send-email-eajames@linux.vnet.ibm.com>
+ <20180910181610.GA5907@bogus>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5 (3.28.5-1.fc28) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,83 +42,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Sep 2018 06:16:37 -0000
+X-List-Received-Date: Wed, 12 Sep 2018 07:56:55 -0000
 
-On 09/12/2018 01:33 AM, Guenter Roeck wrote:
-> On Wed, Sep 12, 2018 at 08:23:29AM +0930, Joel Stanley wrote:
->> On Wed, 12 Sep 2018 at 07:48, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->>>
->>> On 9/11/2018 1:41 PM, Guenter Roeck wrote:
->>>> On Tue, Sep 11, 2018 at 01:30:41PM -0700, Jae Hyun Yoo wrote:
->>
->>>>> I checked this patch again but it doesn't have any change that could
->>>>> affect to the probing flow. I'll debug the issue on qemu 3.0 environment
->>>>> and will share if I find something.
->>>>>
->>>> The problem may be that qemu and the new code disagree how interrupts
->>>> should be generated and handled, and the new code does not handle the
->>>> interrupts it receives from the simulated hardware. This will result
->>>> in i2c device probe failure, which in turn can cause all kinds of
->>>> problems.
->>>>
->>>
->>> Yes, that makes sense. Looks like it should be reverted until the issue
->>> is fixed. Will submit a patch to revert it.
->>
->> Let's not rush. The qemu model was written in order to allow us to
->> test the kernel code, and was validated by the kernel driver we have.
->> We've had situations in the past (with the i2c driver in fact) where a
->> change in the driver required an update of the model to be more
->> accurate.
->>
->> I suggest we wait until Cedric has a chance to look at the issue
->> before reverting the patch.
->>
+On Mon, 2018-09-10 at 13:16 -0500, Rob Herring wrote:
+> On Thu, Aug 30, 2018 at 04:32:32PM -0500, Eddie James wrote:
+> > Document the bindings for the FSI-attached POWER9 On-Chip Controller.
+> > 
+> > Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+> > ---
+> >  Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt | 15 +++++++++++++++
+> >  1 file changed, 15 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
+> > 
+> > diff --git a/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
+> > new file mode 100644
+> > index 0000000..46372f6
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
+> > @@ -0,0 +1,15 @@
+> > +Device-tree bindings for FSI-attached POWER9 On-Chip Controller (OCC)
+> > +---------------------------------------------------------------------
+> > +
+> > +This is the binding for the P9 On-Chip Controller accessed over FSI from a
+> > +service processor. See fsi.txt for details on bindings for FSI slave and CFAM
+> > +nodes.
+> > +
+> > +Required properties:
+> > + - compatible = "ibm,p9-occ"
+> > +
+> > +Examples:
+> > +
+> > +    occ {
 > 
-> Looking into the patch, clearing the interrupt status at the end of an
-> interrupt handler is always suspicious and tends to result in race
+> FSI slave devices are supposed to have an address according to the 
+> binding doc.
 
-yes. That happened in the past with the I2C aspeed driver. I can not find
-the thread anymore but we had to move up the ack of the interrupts. 
+This isn't the FSI device per-se actually. This is a node below the
+"sbefifo" FSI device. The SBE fifo is the mechanism by which we
+communicate with the OCC. The sbefifo doesn't really define a "bus",
+it's mostly used from userspace directly via /dev/sbefifo* to perform
+various tasks in the chip, but it happens to also provide the in-kernel 
+transport for the OCC commands.
 
-QEMU tends to be much faster to fire interrupts than real HW.
+Cheers,
+Ben.
 
-
-> conditions (because additional interrupts may have arrived while handling
-> the existing interrupts, or because interrupt handling itself may trigger
-> another interrupt). With that in mind, the following patch fixes the
-> problem for me.
-
-Acked-by: Cédric Le Goater <clg@kaod.org>
-
-Thanks,
-
-C.
-
-> Guenter
-> 
-> ---
-> 
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-> index c258c4d9a4c0..c488e6950b7c 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -552,6 +552,8 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->  
->  	spin_lock(&bus->lock);
->  	irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
-> +	/* Ack all interrupt bits. */
-> +	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->  	irq_remaining = irq_received;
->  
->  #if IS_ENABLED(CONFIG_I2C_SLAVE)
-> @@ -584,8 +586,6 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->  			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
->  			irq_received, irq_handled);
->  
-> -	/* Ack all interrupt bits. */
-> -	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->  	spin_unlock(&bus->lock);
->  	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
->  }
-> 
+> > +        compatible = "ibm,p9-occ";
+> > +    };
+> > -- 
+> > 1.8.3.1
+> > 
