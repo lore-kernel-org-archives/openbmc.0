@@ -1,61 +1,65 @@
-Return-Path: <venture@google.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::52f; helo=mail-pg1-x52f.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::233; helo=mail-oi0-x233.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="VfusYFca"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="uNXMjXqr"; 
  dkim-atps=neutral
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
+Received: from mail-oi0-x233.google.com (mail-oi0-x233.google.com
+ [IPv6:2607:f8b0:4003:c06::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 429QyN6x0PzF37B
- for <openbmc@lists.ozlabs.org>; Thu, 13 Sep 2018 01:42:20 +1000 (AEST)
-Received: by mail-pg1-x52f.google.com with SMTP id r1-v6so1251668pgp.11
- for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 08:42:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RCa9dJqpBUPSj5zE6B1n/Lb9qV16ucPXdZOqSG5it2k=;
- b=VfusYFcac5RblrR146+fW4j8Orf1x1A9DdM8mx5YtBNSHlmu2tYFMgUhI61kis7c2w
- I5xQYxO/cerRCuqM0mp4EdmvzhRUZvsTScjxaf7mEtofqUsbk3O0bkTjJxBomOjqDR45
- aLa4wKrl7/PFVtSENkyhIOX4p9XMAKKtlAIEj+hBCRpn89wlhs3qF9cmLapkLrPmWux3
- k5NyP9g4pwzbswkqtr4H3nJrMDyZ1FVjYh/DAoAghZGKeYGJjZt37RSxIbNEBV6lDAi9
- T1vKJnErNv1jzVuAwDbDuiWCs0L9AB8+C4alKF9fqUD5/DAxYcxxO2OFsFmzhiODWXxZ
- Rfhw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 429SY14CFgzF36h
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Sep 2018 02:53:57 +1000 (AEST)
+Received: by mail-oi0-x233.google.com with SMTP id x197-v6so5108761oix.5
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 09:53:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:subject:to:message-id:date:user-agent:mime-version
+ :content-language:content-transfer-encoding;
+ bh=E7+Ee1szKrcOtacdVNXe+3v+VWkGCUg0F7KDyz+X5fw=;
+ b=uNXMjXqrLzZhGavDbT57OjqBgDtDaVGoLBDSkLDgI2KhhQt1K//NGnU7kDy0/i1vjY
+ 4lPuw57/x/TVzMTbaDSqlRfMaRI/LJZATHDmWYiafuAh0Nk7cqaNQFsfoN4F7xmpSP6t
+ Pz7Ru+CqpB0rziyevihb2bwD9XvPZcTaXe7xd2iBvcnGEv7Xez6t0zlHOS5FYGuQZAKQ
+ G9R9EX1xbK85geApFYKxRVKusEgD4J0RNxLAQd7SVZ2P0S2dWTkQ4V/1HNM+sP0UbR4R
+ o1WRjo4OGLfzPBHYLlhuS6+wPXQYmsZJthZ3unDkMADVhr8XdPz8HHy5h5jyDRqMCS+3
+ NMCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RCa9dJqpBUPSj5zE6B1n/Lb9qV16ucPXdZOqSG5it2k=;
- b=Tp52OMQZ0hmGKOWLcMXvM6Wuuh57eLVPtCal+HDpxFbC78E4F+04ihLL5lZPuQJzA7
- vG5yW9c3U2BqVcl1//C8VNLzZUqzGSkpfkWicxscXInDdk1uH7urcA5/PSNutlj1PAeQ
- 3+Jx7GTeYs5gkUf9GM4SXf4N3YIyRXcGDbV0efokP8sWJafS+nvdfVG4/n9R0KalgZc1
- 4gXgAnUmaajl77vaBhbXBPGFQHCwidAJzt3F7pz2kL5LXS8LBCbGX5tT/WHHWDFXl8Fd
- CAt44zQH6pWBvq4zMl61nDCYYlMYx84aNTcrCNUVx1UOrjj2jpNSaMS7Rx0SU+xXPTda
- LDtQ==
-X-Gm-Message-State: APzg51B7KHOsCShXqaDsWwI2XTOwccUOtJqVxONawGcfhYQA+pnMPIg1
- yr3L5hrAeEBJN3eBZGrS4hPvLKreMPt2ICupaHK3xA==
-X-Google-Smtp-Source: ANB0Vda6fh680CGOS2F0xZM/JigV4jeV8Lr6EHOBfDTSVb58QEO4eSn1CE32D9/QWvT0D7m4Ot5QYZt0Ay3M74ZwRfA=
-X-Received: by 2002:a62:9101:: with SMTP id
- l1-v6mr3062086pfe.226.1536766937692; 
- Wed, 12 Sep 2018 08:42:17 -0700 (PDT)
+ h=x-gm-message-state:from:subject:to:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=E7+Ee1szKrcOtacdVNXe+3v+VWkGCUg0F7KDyz+X5fw=;
+ b=bknHWlC5kYsxB876CX75hrqgbfoCV2lnLvUQH71nKMfptnGSS0PQhcWRycxxJ+ZHgl
+ BYvyL41iKpd65N02jfbsfBMfRsLKxIbgO85LF8hmAUV9Up/jtX+GpVqc1LWtpn96yD+6
+ j+q47macSPar/ejBuRfpCUW56spWvbLUV9EBfnNV40NBnDEFw1IHhLYqUYslH5RqjNXm
+ EVfmM7oFIXVtgwyty2VtW+QzEbZOyiDdN48IS9dr+Nq+hsKJEOX5C4wbwXrsVqOHgHiP
+ XWj1WgGwVWR6JrL0WPRrDk9nUKawIsoJT6BMluTuNzzGQPYkaSpJQT5ReFjjjJrfTL4h
+ nVWA==
+X-Gm-Message-State: APzg51AhbMVa5271jjYfXXdBZaw6+pJFzbDEFIY9Fm/vUYV3aS9Hh1Uu
+ JtSWYuokEO5xUmmPF948jVxJfA3T
+X-Google-Smtp-Source: ANB0VdbOpOuXSbSDI0YEWCn1R5OBQ71IbunZflitDgoY1dgrJ3GmTlNalfK6c12Gvhqo/b94DAg7MA==
+X-Received: by 2002:aca:6044:: with SMTP id
+ u65-v6mr2954165oib.323.1536771234110; 
+ Wed, 12 Sep 2018 09:53:54 -0700 (PDT)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id w84-v6sm815104oie.40.2018.09.12.09.53.53
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 12 Sep 2018 09:53:53 -0700 (PDT)
+From: krtaylor <kurt.r.taylor@gmail.com>
+Subject: OpenBMC Fix-it vSprint - September 24-25, 2018
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Message-ID: <3d8f7871-75a6-4677-3cc4-64e4e226291b@gmail.com>
+Date: Wed, 12 Sep 2018 11:53:52 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAO=noty5q98Vzhi-cCdf0DtdMFiCrQv8HUor6G8kjDinovrRUg@mail.gmail.com>
- <EBD6A54B-2862-4DF8-9E03-5343C29349DF@fuzziesquirrel.com>
- <CAO=notzcJFGD6fJn_LpKQgHUkyU_whW-2CiTe26kcq-+G3T7Ww@mail.gmail.com>
- <CAO=notxmEwWc1Ti4LFj963E-Su2Sy8Hp6NFOaYM1w2k0mf+jOA@mail.gmail.com>
- <31306F60-60D3-49E3-AD31-1A3A2F6FD190@fuzziesquirrel.com>
-In-Reply-To: <31306F60-60D3-49E3-AD31-1A3A2F6FD190@fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 12 Sep 2018 08:42:06 -0700
-Message-ID: <CAO=notyha7Tw9jjvfKykPzOcPm=AiL3Y5J8utx-2N9rgj1VK0Q@mail.gmail.com>
-Subject: Re: phosphor-ipmi-blobs
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,18 +71,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Sep 2018 15:42:22 -0000
+X-List-Received-Date: Wed, 12 Sep 2018 16:53:58 -0000
 
-On Wed, Sep 12, 2018 at 7:57 AM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
->
-> > On Sep 12, 2018, at 10:17 AM, Patrick Venture <venture@google.com> wrote:
-> >
-> > Brad, if you create a phosphor-ipmi-blobs repository and set myself
-> > and Kun Yi (kunyi731@gmail.com) as maintainers via the system (I can
-> > create the maintainers file).  I will submit the code in one patch.  I
-> > can put it up for review first to gather feedback -- since we haven't
-> > fully integrated it into things, this is a great time.
->
-> done!
+Hi all,
 
-Thanks.
+I'd like to announce the OpenBMC Fix-it virtual Sprint, September 24-25. 
+This time we're going to use IRC to communicate/organize and span 2 full 
+days to allow for more global participation.
+
+I'll email more specifics as we get them nailed down. But, for now, get 
+those ideas coming for what we can accomplish. Keep the ideas fairly 
+small, something we can finish or almost finish in a 2 day period. Put 
+them here:
+
+https://docs.google.com/spreadsheets/d/1j4cpTGcUPUZzW4WT1vI0iFVVJApSBbVEvrZJInhI30U/edit?usp=sharing
+
+NOTE: the idea is to participate however and whenever you can, you do 
+not need to work solid for 2 days - just jump in where you can and 
+communicate much more than you think you should - if you can help for a 
+full day great, but helping for 2 hours is also good!
+
+Thanks!
+Kurt Taylor (krtaylor)
