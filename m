@@ -1,36 +1,53 @@
-Return-Path: <benh@kernel.crashing.org>
-Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
- smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
- helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::22a; helo=mail-it0-x22a.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="JLCHqzog"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22a.google.com (mail-it0-x22a.google.com
+ [IPv6:2607:f8b0:4001:c0b::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 429DdM1Ch8zDqC3
- for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 17:56:54 +1000 (AEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.14.1) with ESMTP id w8C7uX1A028872;
- Wed, 12 Sep 2018 02:56:34 -0500
-Message-ID: <c002018d3765280e135d673f7c731784a90a260d.camel@kernel.crashing.org>
-Subject: Re: [PATCH v5 01/10] dt-bindings: fsi: Add P9 OCC device documentation
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Rob Herring <robh@kernel.org>, Eddie James <eajames@linux.vnet.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, jdelvare@suse.com,
- linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
- gregkh@linuxfoundation.org, mark.rutland@arm.com, linux@roeck-us.net,
- joel@jms.id.au
-Date: Wed, 12 Sep 2018 09:56:33 +0200
-In-Reply-To: <20180910181610.GA5907@bogus>
-References: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1535664761-86018-2-git-send-email-eajames@linux.vnet.ibm.com>
- <20180910181610.GA5907@bogus>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 429GdT4FFNzF37m
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 19:27:08 +1000 (AEST)
+Received: by mail-it0-x22a.google.com with SMTP id e14-v6so2093896itf.1
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Sep 2018 02:27:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=S5OFl/J8MgYisJjD+7/h9q97OjFnQ/fBa/5/uqZ+eCg=;
+ b=JLCHqzogxQsfGtyzeUK+/iXGFyU7bSY+Fg7ySHdF1Uyt19erdrkFWpUf1FhHkfdsru
+ ABPoYCcIg12GEgYtRUpAQJm5QjzLCh9mTtlZA9rRSwtRjQ27ifrzwfU04WkW4zgfqycJ
+ u0oQxAdh3s0VZbv2UL1sbpEXbPF+uBg+nYdt+cjWNU7bQrJuKCpeHuiYboSx0nxQstFa
+ qPnRe2WPbuuKE8QYUNOxXmsWTIF1VK5iGrIvrTnVKtlEiJN2gu6n9AKZ/w3psUYd6o6J
+ GvQRL7HKYszXCrl6uBWuBDjwuWo1m+csIZ9oh1oYPQ+guHZBv7JzixGhmrdavatUOWik
+ guKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=S5OFl/J8MgYisJjD+7/h9q97OjFnQ/fBa/5/uqZ+eCg=;
+ b=Xxe49xPodjcD9qBDrARBRJ7mpH0ESKif3UhGpyJp6Z34C9o52FXVQAWNCPRUokFlDu
+ k8rjG46ZS0reKiTjd7gv0d9Qm0O1y08x0DXKzqWILnTrlxW3quFRVceT+0IbzuSwEJNd
+ gX9V/O+Tkq+Wam75R1+YvOtIMStc0gNz/zbeT3EDvk9VHGwlTUXNFUd+QPH4eorphyDq
+ aLIYT5ckZuvDC4m5eTjt4k5vKq72aEJiijFag7tfn4gECv8Vo2DI6i/kHUC4kJysGZAT
+ UBjK625YI52XcClYy211hgGzdUyjTLF29CNd8vhFaNobvUwE3uv1fh/bRPV+/EqCDhQX
+ SuXA==
+X-Gm-Message-State: APzg51BDMZrzmAbIdooQNXPBcY1CfQ5iYDn3XYYuQeeMBRp++gA15olo
+ YzU83P1p6kcg2nB+GqVxvL5YSQd8qOuSIbyolAlsdExu
+X-Google-Smtp-Source: ANB0VdbputZmDkqJlhOnl+6Cw2nlchSMIj96Z3frgml/h+nMSBVYdwhtiu3SPOR0FOaVVZptagr3pjEhFazOuJ3jRo0=
+X-Received: by 2002:a24:85c6:: with SMTP id
+ r189-v6mr1113960itd.83.1536744426170; 
+ Wed, 12 Sep 2018 02:27:06 -0700 (PDT)
+MIME-Version: 1.0
+From: Lei YU <mine260309@gmail.com>
+Date: Wed, 12 Sep 2018 17:26:38 +0800
+Message-ID: <CAARXrt=u1NYt4BLy0M5jiBVSWE9LwQ6ytuygXChVNbqApcPf3Q@mail.gmail.com>
+Subject: Problem on static libraries enabled with LinkTimeOptimization
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5 (3.28.5-1.fc28) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,53 +59,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Sep 2018 07:56:55 -0000
+X-List-Received-Date: Wed, 12 Sep 2018 09:27:10 -0000
 
-On Mon, 2018-09-10 at 13:16 -0500, Rob Herring wrote:
-> On Thu, Aug 30, 2018 at 04:32:32PM -0500, Eddie James wrote:
-> > Document the bindings for the FSI-attached POWER9 On-Chip Controller.
-> > 
-> > Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
-> > ---
-> >  Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt | 15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
-> > 
-> > diff --git a/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
-> > new file mode 100644
-> > index 0000000..46372f6
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
-> > @@ -0,0 +1,15 @@
-> > +Device-tree bindings for FSI-attached POWER9 On-Chip Controller (OCC)
-> > +---------------------------------------------------------------------
-> > +
-> > +This is the binding for the P9 On-Chip Controller accessed over FSI from a
-> > +service processor. See fsi.txt for details on bindings for FSI slave and CFAM
-> > +nodes.
-> > +
-> > +Required properties:
-> > + - compatible = "ibm,p9-occ"
-> > +
-> > +Examples:
-> > +
-> > +    occ {
-> 
-> FSI slave devices are supposed to have an address according to the 
-> binding doc.
+This email is to describe a problem about static libraries enabled with
+LinkTimeOptimization (-flto), and asking for suggestions how to fix the
+problem.
 
-This isn't the FSI device per-se actually. This is a node below the
-"sbefifo" FSI device. The SBE fifo is the mechanism by which we
-communicate with the OCC. The sbefifo doesn't really define a "bus",
-it's mostly used from userspace directly via /dev/sbefifo* to perform
-various tasks in the chip, but it happens to also provide the in-kernel 
-transport for the OCC commands.
+## Background
 
-Cheers,
-Ben.
+When a repo enables lto, and if the repo builds a static library, it gets
+build error, e.g. for [phosphor-fan-presence#11][1]
 
-> > +        compatible = "ibm,p9-occ";
-> > +    };
-> > -- 
-> > 1.8.3.1
-> > 
+    arm-openbmc-linux-gnueabi-ar: .libs/libfan_la-utility.o: plugin
+needed to handle lto object
+    arm-openbmc-linux-gnueabi-ar: .libs/libfan_la-timer.o: plugin
+needed to handle lto object
+    arm-openbmc-linux-gnueabi-libtool: link:
+arm-openbmc-linux-gnueabi-ranlib .libs/libfan.a
+    arm-openbmc-linux-gnueabi-ranlib:
+.libs/libfan.a(libfan_la-utility.o): plugin needed to handle lto
+object
+    arm-openbmc-linux-gnueabi-ranlib:
+.libs/libfan.a(libfan_la-timer.o): plugin needed to handle lto object
+
+And eventually it causes undefined references during linking.
+The same for phosphor-time-manager.
+
+
+## Root Cause
+
+ar needs to load liblto_plugin to handle lto objects, and our build
+environment does not tell ar to load the plugin.
+
+According to https://gcc.gnu.org/wiki/LinkTimeOptimizationFAQ:
+> In order to handle archives of these objects you have to use the gcc
+> wrappers: gcc-ar, gcc-nm and gcc-ranlib.
+
+So the simplest way to load the plugin is to use gcc-ar instead of ar.
+
+
+## Question
+
+Most of phosphor repos in OpenBMC uses autotool to configure, and it depends
+on environment variables to configure the repo.
+By default, AR is defined as `${TARGET_PREFIX}ar`, I do not find a way to
+change it.
+
+So my question is, how to handle this case? E.g. how to specify gcc-ar in
+autoconf?
+
+
+## References
+
+* I have an *ugly* workaround to override AR by define it in `EXTRA_OECONF`,
+   see https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/12721/ for
+   details.
+* bmcweb uses CMake and it specifies gcc-ar in [CMakefiles][2].
+
+[1]: https://github.com/openbmc/phosphor-fan-presence/issues/11
+[2]: https://github.com/openbmc/bmcweb/blob/master/CMakeLists.txt#L70
