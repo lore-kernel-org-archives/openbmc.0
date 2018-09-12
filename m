@@ -1,56 +1,34 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 429SZ80XsjzF31h;
- Thu, 13 Sep 2018 02:54:54 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2018 09:54:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,365,1531810800"; d="scan'208";a="79921528"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by FMSMGA003.fm.intel.com with ESMTP; 12 Sep 2018 09:54:51 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-i2c@vger.kernel.org, jarkko.nikula@linux.intel.com,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- James Feist <james.feist@linux.intel.com>
-References: <20180823225731.19063-1-jae.hyun.yoo@linux.intel.com>
- <20180911183734.GA21976@roeck-us.net>
- <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
- <20180911204107.GA26017@roeck-us.net>
- <e5135af4-9105-214f-5de2-65cc03804222@linux.intel.com>
- <CACPK8Xdv3aP_zOHAL0WMgwvkpBHAUesU7OdhW==jgvXjRmt-Zw@mail.gmail.com>
- <20180911233302.GA18799@roeck-us.net>
- <5698ca34-14c9-8d05-c4e6-5acf85ff9d14@linux.intel.com>
- <20180912013449.GA12612@roeck-us.net>
-Message-ID: <7fd98646-fb5a-be4d-ce37-84b74e0fa8b3@linux.intel.com>
-Date: Wed, 12 Sep 2018 09:54:51 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <20180912013449.GA12612@roeck-us.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 429VYb0S7xzF3HN
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Sep 2018 04:24:33 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from brads-mbp.dyn.fuzziesquirrel.com
+ (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 19CAD6DBA3;
+ Wed, 12 Sep 2018 14:24:30 -0400 (EDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Subject: Re: New Library SOP
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAO=notyNQDxqa_DZtfLJxO2NE04gqgpzZGi0Q_HHgCKkRDVSgw@mail.gmail.com>
+Date: Wed, 12 Sep 2018 14:24:29 -0400
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6E182BAD-47B8-4290-8754-2DA4E843145F@fuzziesquirrel.com>
+References: <CAO=notyNQDxqa_DZtfLJxO2NE04gqgpzZGi0Q_HHgCKkRDVSgw@mail.gmail.com>
+To: Patrick Venture <venture@google.com>
+X-Mailer: Apple Mail (2.3445.9.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,84 +40,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Sep 2018 16:54:57 -0000
+X-List-Received-Date: Wed, 12 Sep 2018 18:24:35 -0000
 
-On 9/11/2018 6:34 PM, Guenter Roeck wrote:
-> On Tue, Sep 11, 2018 at 04:58:44PM -0700, Jae Hyun Yoo wrote:
->> On 9/11/2018 4:33 PM, Guenter Roeck wrote:
->>> Looking into the patch, clearing the interrupt status at the end of an
->>> interrupt handler is always suspicious and tends to result in race
->>> conditions (because additional interrupts may have arrived while handling
->>> the existing interrupts, or because interrupt handling itself may trigger
->>> another interrupt). With that in mind, the following patch fixes the
->>> problem for me.
->>>
->>> Guenter
->>>
->>> ---
->>>
->>> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
->>> index c258c4d9a4c0..c488e6950b7c 100644
->>> --- a/drivers/i2c/busses/i2c-aspeed.c
->>> +++ b/drivers/i2c/busses/i2c-aspeed.c
->>> @@ -552,6 +552,8 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->>>   	spin_lock(&bus->lock);
->>>   	irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
->>> +	/* Ack all interrupt bits. */
->>> +	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->>>   	irq_remaining = irq_received;
->>>   #if IS_ENABLED(CONFIG_I2C_SLAVE)
->>> @@ -584,8 +586,6 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->>>   			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
->>>   			irq_received, irq_handled);
->>> -	/* Ack all interrupt bits. */
->>> -	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->>>   	spin_unlock(&bus->lock);
->>>   	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
->>>   }
->>>
->>
->> My intention of putting the code at the end of interrupt handler was,
->> to reduce possibility of combined irq calls which is explained in this
->> patch. But YES, I agree with you. It could make a potential race
-> 
-> Hmm, yes, but that doesn't explain why it would make sense to acknowledge
-> the interrupt late. The interrupt ack only means "I am going to handle these
-> interrupts". If additional interrupts arrive while the interrupt handler
-> is active, those will have to be acknowledged separately.
-> 
-> Sure, there is a risk that an interrupt arrives while the handler is
-> running, and that it is handled but not acknowledged. That can happen
-> with pretty much all interrupt handlers, and there are mitigations to
-> limit the impact (for example, read the interrupt status register in
-> a loop until no more interrupts are pending). But acknowledging
-> an interrupt that was possibly not handled is always bad idea.
 
-Well, that's generally right but not always. Sometimes that depends on
-hardware and Aspeed I2C is the case.
 
-This is a description from Aspeed AST2500 datasheet:
-   I2CD10 Interrupt Status Register
-   bit 2 Receive Done Interrupt status
-         S/W needs to clear this status bit to allow next data receiving.
+> On Sep 11, 2018, at 8:41 PM, Patrick Venture <venture@google.com> =
+wrote:
+>=20
+> Brad;
+>=20
+> William contributed two libraries by building them as a repo under his
+> personal work account first, and then presumably you mirrored from
+> them.  Is this the process you prefer?  I'm looking to do some
+> cleanup-by-library and wanted to take off in the right direction.
 
-It means, driver should hold this bit to prevent transition of hardware
-state machine until the driver handles received data, so the bit should
-be cleared at the end of interrupt handler.
-
-Let me share my test result. Your code change works on 100KHz bus speed
-but doesn't work well on 1MHz bus speed. Investigated that interrupt
-handling is fast enough in 100KHz test but in 1MHz, most of data is
-corrupted because the bit is cleared at the beginning of interrupt
-handler so it allows receiving of the next data but the interrupt
-handler isn't fast enough to read the data buffer on time. I checked
-this problem on BMC-ME channel which ME sends lots of IPMB packets to
-BMC at 1MHz speed. You could simply check the data corruption problem on
-the BMC-ME channel.
-
-My thought is, the current code is right for real Aspeed I2C hardware.
-It seems that QEMU 3.0 model for witherspoon-bmc doesn't simulate the
-actual Aspeed I2C hardware correctly.
-
-Thanks,
-Jae
+I don=E2=80=99t think I have a preferred process.  The one you have =
+described should
+work fine.  Otherwise I can just create a new repo.  I suppose it is a =
+bit
+easier for people to leave feedback that way?=
