@@ -1,60 +1,54 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::534; helo=mail-pg1-x534.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="opDZLtT3"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42B4g7484TzF3Rr;
- Fri, 14 Sep 2018 03:01:22 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2018 10:01:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,369,1531810800"; d="scan'208";a="262345315"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by fmsmga005.fm.intel.com with ESMTP; 13 Sep 2018 10:01:00 -0700
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Guenter Roeck <linux@roeck-us.net>
-Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-i2c@vger.kernel.org, jarkko.nikula@linux.intel.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- James Feist <james.feist@linux.intel.com>
-References: <20180823225731.19063-1-jae.hyun.yoo@linux.intel.com>
- <20180911183734.GA21976@roeck-us.net>
- <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
- <20180911204107.GA26017@roeck-us.net>
- <e5135af4-9105-214f-5de2-65cc03804222@linux.intel.com>
- <CACPK8Xdv3aP_zOHAL0WMgwvkpBHAUesU7OdhW==jgvXjRmt-Zw@mail.gmail.com>
- <20180911233302.GA18799@roeck-us.net>
- <5698ca34-14c9-8d05-c4e6-5acf85ff9d14@linux.intel.com>
- <20180912013449.GA12612@roeck-us.net>
- <7fd98646-fb5a-be4d-ce37-84b74e0fa8b3@linux.intel.com>
- <285ea914-5407-7fde-036d-95978f95a430@kaod.org>
- <7a1706b1-7787-eeff-2295-f6180fe84c6e@linux.intel.com>
- <798fd5fe-475f-f633-c830-62a3e4f1692d@kaod.org>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <4d5fbe0c-0844-767e-22ce-346e60ed45cd@linux.intel.com>
-Date: Thu, 13 Sep 2018 10:01:00 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42B5sK4GgrzF3Sq
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 03:55:17 +1000 (AEST)
+Received: by mail-pg1-x534.google.com with SMTP id r1-v6so3084544pgp.11
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Sep 2018 10:55:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=PXkGUw+dXngFutg5iTgkOVAxkM1fvrJ4wVCRS4y/L50=;
+ b=opDZLtT37Ek9xaVQ0we4F3qs7g/Dr4EMU8iID3emUAqGnYUoQOIzv/mziyb1Wod5fK
+ 7NlEbWuHbMB+G2yNJ9F3ygxmEwdeIj6KwoE0IZSQa6TC1nIYKOjvSO1+EOCQU+2n6dzE
+ H8kV5arCn2yHMrHcZYMT537R3BnSLP2nQYKzmBHGF1egXMg0c73rPQ+yQyHs9jfGp/Ch
+ Brj52IJfH2hj6j6FhUYDZ5tRPo3r1uxWNCSX/Dyk0ITbPneX2OxaQQFxaT5ruZ6NFXa5
+ lHaZ0brUNYfrRsmcwc4xPNkNDnGQ7zXS0VBKvYoc08C1IwdfOxp/LrlESNFfZL/KBlS5
+ KMvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=PXkGUw+dXngFutg5iTgkOVAxkM1fvrJ4wVCRS4y/L50=;
+ b=XgSk80lDBMFHTEODQk9XmHGQbUVrwGWdPwUBVhqbzM8vbhZvmdTV8SBmYt+D1igvAi
+ V7GPlAnHg5tkC4jgunGdCgSoXYCOPYtQw6UA63RmjLwkn2ykaZ/xHPnqMMYulSCr+JM4
+ p0mqR2fBS4cz7Xtv4b31rfPFmEhbmxe/sfwzIFMEBqZNVb1RD1ntGKyKsyK/2M6E1Byf
+ 9iN/CjS/smtR5guj6LTTe/uwStl62YGTQ7c3t3fmOB8uLIB39o9xMOdiwu28O/ufvki6
+ 4fQ3156TZq/WUUPpBsdpxLFzBMnbPaMARHzihW87ZSF3WuA7THJDva3/QqD+ePGPKycm
+ XRWg==
+X-Gm-Message-State: APzg51DDq6xvvdwZ/suwdxbrsj2FPxTje/MYabqS9aqnQrdMotmGeGY8
+ j5p4f7WzIRWwatLOuFsAHhU22ltd2a/g2ul7X4G0nQ==
+X-Google-Smtp-Source: ANB0VdanQrEmcnNFPsieI9GPDa0/KWefc5d6a0YES31RW8o+TmbRpegSwWprz826/Jre0gQkvY2KKorkG05qEpagZJM=
+X-Received: by 2002:a63:1a1a:: with SMTP id
+ a26-v6mr8110106pga.449.1536861312687; 
+ Thu, 13 Sep 2018 10:55:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <798fd5fe-475f-f633-c830-62a3e4f1692d@kaod.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+From: Patrick Venture <venture@google.com>
+Date: Thu, 13 Sep 2018 10:55:01 -0700
+Message-ID: <CAO=noty_TQ2jvQw-Yxb-RYe+0xOXa4F39ozF11r9PN1w2Qt_Dw@mail.gmail.com>
+Subject: New Repository Request
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,126 +60,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Sep 2018 17:01:24 -0000
+X-List-Received-Date: Thu, 13 Sep 2018 17:55:18 -0000
 
-On 9/13/2018 9:51 AM, Cédric Le Goater wrote:
-> Hello !
-> 
-> On 09/13/2018 06:31 PM, Jae Hyun Yoo wrote:
->> Hi Cédric,
->>
->> On 9/12/2018 10:47 PM, Cédric Le Goater wrote:
->>> On 09/12/2018 06:54 PM, Jae Hyun Yoo wrote:
->>>> On 9/11/2018 6:34 PM, Guenter Roeck wrote:
->>>>> On Tue, Sep 11, 2018 at 04:58:44PM -0700, Jae Hyun Yoo wrote:
->>>>>> On 9/11/2018 4:33 PM, Guenter Roeck wrote:
->>>>>>> Looking into the patch, clearing the interrupt status at the end of an
->>>>>>> interrupt handler is always suspicious and tends to result in race
->>>>>>> conditions (because additional interrupts may have arrived while handling
->>>>>>> the existing interrupts, or because interrupt handling itself may trigger
->>>>>>> another interrupt). With that in mind, the following patch fixes the
->>>>>>> problem for me.
->>>>>>>
->>>>>>> Guenter
->>>>>>>
->>>>>>> ---
->>>>>>>
->>>>>>> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
->>>>>>> index c258c4d9a4c0..c488e6950b7c 100644
->>>>>>> --- a/drivers/i2c/busses/i2c-aspeed.c
->>>>>>> +++ b/drivers/i2c/busses/i2c-aspeed.c
->>>>>>> @@ -552,6 +552,8 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->>>>>>>         spin_lock(&bus->lock);
->>>>>>>         irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
->>>>>>> +    /* Ack all interrupt bits. */
->>>>>>> +    writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->>>>>>>         irq_remaining = irq_received;
->>>>>>>     #if IS_ENABLED(CONFIG_I2C_SLAVE)
->>>>>>> @@ -584,8 +586,6 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->>>>>>>                 "irq handled != irq. expected 0x%08x, but was 0x%08x\n",
->>>>>>>                 irq_received, irq_handled);
->>>>>>> -    /* Ack all interrupt bits. */
->>>>>>> -    writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
->>>>>>>         spin_unlock(&bus->lock);
->>>>>>>         return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
->>>>>>>     }
->>>>>>>
->>>>>>
->>>>>> My intention of putting the code at the end of interrupt handler was,
->>>>>> to reduce possibility of combined irq calls which is explained in this
->>>>>> patch. But YES, I agree with you. It could make a potential race
->>>>>
->>>>> Hmm, yes, but that doesn't explain why it would make sense to acknowledge
->>>>> the interrupt late. The interrupt ack only means "I am going to handle these
->>>>> interrupts". If additional interrupts arrive while the interrupt handler
->>>>> is active, those will have to be acknowledged separately.
->>>>>
->>>>> Sure, there is a risk that an interrupt arrives while the handler is
->>>>> running, and that it is handled but not acknowledged. That can happen
->>>>> with pretty much all interrupt handlers, and there are mitigations to
->>>>> limit the impact (for example, read the interrupt status register in
->>>>> a loop until no more interrupts are pending). But acknowledging
->>>>> an interrupt that was possibly not handled is always bad idea.
->>>>
->>>> Well, that's generally right but not always. Sometimes that depends on
->>>> hardware and Aspeed I2C is the case.
->>>>
->>>> This is a description from Aspeed AST2500 datasheet:
->>>>     I2CD10 Interrupt Status Register
->>>>     bit 2 Receive Done Interrupt status
->>>>           S/W needs to clear this status bit to allow next data receiving.
->>>>
->>>> It means, driver should hold this bit to prevent transition of hardware
->>>> state machine until the driver handles received data, so the bit should
->>>> be cleared at the end of interrupt handler.
->>>>
->>>> Let me share my test result. Your code change works on 100KHz bus speed
->>>> but doesn't work well on 1MHz bus speed. Investigated that interrupt
->>>> handling is fast enough in 100KHz test but in 1MHz, most of data is
->>>> corrupted because the bit is cleared at the beginning of interrupt
->>>> handler so it allows receiving of the next data but the interrupt
->>>> handler isn't fast enough to read the data buffer on time. I checked
->>>> this problem on BMC-ME channel which ME sends lots of IPMB packets to
->>>> BMC at 1MHz speed. You could simply check the data corruption problem on
->>>> the BMC-ME channel.
->>>
->>> OK.
->>>   
->>>> My thought is, the current code is right for real Aspeed I2C hardware.
->>>> It seems that QEMU 3.0 model for witherspoon-bmc doesn't simulate the
->>>> actual Aspeed I2C hardware correctly.
->>>
->>> That might be very well possible yes. it also misses support for the slave
->>> mode and the DMA registers.
->>>
->>
->> Yes, it would be good if qemu's Aspeed I2C model supports slave mode.
->> Since the current linux Aspeed I2C driver supports byte transfer mode
->> only, so DMA transfer mode support in qemu could be considered later.
-> 
-> The Aspeed SDK already does, so yes, we will need to consider it.
-> 
+Brad,
 
-Yes, Aspeed SDK does but the driver in upstream doesn't at this time.
-So we will need to consider it because byte mode makes too many
-interrupt calls which is not good for performance.
+I'd like to set up a new repository in openbmc to store a google oem
+ipmi library I'd like to share with everybody.  It allows grabbing
+ethernet device statistics over IPMI.
 
->> Implementing pool mode and DMA mode for linux Aspeed I2C are in my
->> backlog at this moment.
-> 
-> Is there a QEMU model for an I2C/IPMB device ?
-> 
+I have no problem registering it under the OpenBMC OEN (and the google
+one) since OEM registration supports that -- then it could be
+phosphor-ipmi-ethstats.
 
-Not sure because I'm not familiar with QEMU. Need to check.
+I really would like to share the code -- but I would be ok with it
+being in a google-specific repository, such as google-ipmi-ethstats --
+ If so, I'll put the recipe in meta-google.
+
+I know we've talked about this before, and it really feels like six in
+one hand on this --
 
 Thanks,
-Jae
-
-> There is already a large IPMI framework in QEMU, that would be interesting.
-> to extend.
-> 
-> Thanks,
-> 
-> C.
-> 
-> 
+Patrick
