@@ -1,89 +1,62 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::541; helo=mail-pg1-x541.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::431; helo=mail-pf1-x431.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="YFHb/cLm"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="fdEhpnbg"; 
  dkim-atps=neutral
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42B03K739bzF3SF;
- Thu, 13 Sep 2018 23:33:33 +1000 (AEST)
-Received: by mail-pg1-x541.google.com with SMTP id y4-v6so2758043pgp.9;
- Thu, 13 Sep 2018 06:33:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=g4eoSrsy5upUlsJV4SyYexINV3PdT/n9DepTlpNTUjY=;
- b=YFHb/cLmlyG7i6W+8EKzijM5SsKJaGVnnbkJ+y5of+8fid7I832jF8fYqI58s0O7u/
- fmFaPVs6tWYBxOlwt2HLv7HL+ZwUftbt6Lz1SlYUP2yxX4+v8B7ejFXedLMn/Fc/eGPa
- jC8s1Jq2XvKNrkGCWHK19WjPPWjL6zmuQem7du3+I4anjrWLJHhNeUa+64PXyv9d8PZs
- 2tErmpeD/1WnKp+DMDh531gkdxcT0zbveJl6EyCZ5nyHWcpdHzww3Zw6fiDqZxcQapOr
- 34j7ex12L59gPEMMkwySUNGBM4EpTaxVr+VzaVoe9xA3sptsj0IBkq//a05TXauwfot1
- 5m4w==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42B2Wj5sbCzF3SN
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 01:24:49 +1000 (AEST)
+Received: by mail-pf1-x431.google.com with SMTP id j26-v6so2818483pfi.10
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Sep 2018 08:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=xHTW6K1lV8c4Y37Nit42pv8GX/gNAg4jStSCdcHewjo=;
+ b=fdEhpnbgIyD3tBMpTNdvTcV3g6SzGzvLhGmGUhJXXe/Ru3JcUJnkSBQ/07XgcQ6QrA
+ +3j1ePbmECLJcaT3wsZYbHV9+hq0KLQ+bVdC7V8IukZor07u7groSpLaoTq3f1AHDJ3C
+ J5/zzaMma7bR6FsHOlt9Qdm0zX3KRHX1Hnks5lM31EMr7MY7sdGst40DSyCzwe+MNMre
+ 4CypQFZQ2R0NM4O82DVhTwExoA/f+crq49EcaK+lqNA+/sxZX36CqidpQUK9jf4Sra4l
+ Q6ReRdWjl19S2O7pWxCHDYjXZpaCqjU3NshfaJNJ2VHlQKjIK6xltUY6hAyhy4hJMhcO
+ 897Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=g4eoSrsy5upUlsJV4SyYexINV3PdT/n9DepTlpNTUjY=;
- b=feqzM/A+SZmq+l9BLFFWymX3BuTK6hKytGkav56diT9zPGkF+XYlCjXwuKByxd3gVH
- h5r3l/dKuZlNl94bbrWoc+1Ugxp7BsY8iu/eiww010dWXfcJoV67Kg85yOKmRBaorrNk
- REIe8JNQ97zGQNpjLT9uyMtrY3XQpJxE4tyOIcAWoauFkf/Oci0eynzO9IRcK660hgCQ
- ik3BqoVtEb/zDo0sTlCy73QUlnaewo9/0i/Ke+bOO7HqiMMC9Tn4/kSickX2/qUnw2fv
- BzjML0B0tiEFgs3WTIcanUnd4nmwHDOHZYR6nVXX9c6p2witJCaxpca9QAcZWrDcupg2
- v6VA==
-X-Gm-Message-State: APzg51DD29BKvRFw9BzHOTdk0F0y/yIo//HfRVmmJV9G8UN705l+vn8S
- 7LlnqMfTK2Q9xpmZ5xzCLRA=
-X-Google-Smtp-Source: ANB0VdbiWg52ZC2c8Nu5J8P1LmEsxKqwsIRs6CvGv6EbwBaI93rVmiNorfO425/VjXbvaTFJUNjVZg==
-X-Received: by 2002:a62:9bc9:: with SMTP id
- e70-v6mr7395770pfk.95.1536845611555; 
- Thu, 13 Sep 2018 06:33:31 -0700 (PDT)
-Received: from server.roeck-us.net
- (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id k69-v6sm4957590pgd.9.2018.09.13.06.33.29
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 13 Sep 2018 06:33:30 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-i2c@vger.kernel.org, jarkko.nikula@linux.intel.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- James Feist <james.feist@linux.intel.com>
-References: <1f34fe8c-69ef-5f2d-25dc-d5f6037cc558@linux.intel.com>
- <20180911204107.GA26017@roeck-us.net>
- <e5135af4-9105-214f-5de2-65cc03804222@linux.intel.com>
- <CACPK8Xdv3aP_zOHAL0WMgwvkpBHAUesU7OdhW==jgvXjRmt-Zw@mail.gmail.com>
- <20180911233302.GA18799@roeck-us.net>
- <5698ca34-14c9-8d05-c4e6-5acf85ff9d14@linux.intel.com>
- <20180912013449.GA12612@roeck-us.net>
- <7fd98646-fb5a-be4d-ce37-84b74e0fa8b3@linux.intel.com>
- <20180912195844.GA6893@roeck-us.net>
- <da7f4691-7428-3114-32bb-e0171f6c7228@linux.intel.com>
- <20180912203059.GA18201@roeck-us.net>
- <fb185839-3ae0-01dc-09e8-f22db55ecb04@kaod.org>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <3f86e75f-1502-eae8-0633-d087937111c8@roeck-us.net>
-Date: Thu, 13 Sep 2018 06:33:29 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=xHTW6K1lV8c4Y37Nit42pv8GX/gNAg4jStSCdcHewjo=;
+ b=J11GYFhwpxGpt+YZQM21NhLL2XDXM7C8HFH//2J3alYnyQXZ6U56ORFD1RFXpVw1Ms
+ vZCGSaa1NxoiKyRPOhfwMR3fL/1xj4npnt/DgSo4gL93EBovTeO4fTUEy4xTs8w76R9a
+ ISJDz12xm4DV2446oEobOjFFlvU2aiwa23ucRHL74sxv1dlKXsxKEQnlbd/jXZwF96Cc
+ /6oHe/ug8rj++pkwJNJpjckCg6fjCrxvRYR5pPonLwywgk8fYaBE5+iGyAafgnc4MWdM
+ 1hAQl7gyYPzBpeodaV60EhOwfATFTpDehX4qE9+OGCOKZWCAMtkkEb5iTzFOVPSobInp
+ CBuQ==
+X-Gm-Message-State: APzg51A+179ANGv+T1ZgUMB1QsTx1WyXjLvgdygMfBTQzGEpqVOvrJxM
+ zA7GBsxdVgZyB/4xEC9Q3q20U3sJrr89W74b7bDDug==
+X-Google-Smtp-Source: ANB0VdboE7pjzSXZvi3YDA0xm/0DdAUo5WaPKRFLXScKt9vZH5DaUVSzf95h4AObsZXBtc4zkBE51zV9hmjPUfTZDE8=
+X-Received: by 2002:a63:8543:: with SMTP id
+ u64-v6mr7884507pgd.248.1536852286957; 
+ Thu, 13 Sep 2018 08:24:46 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <fb185839-3ae0-01dc-09e8-f22db55ecb04@kaod.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <CAO=notyNQDxqa_DZtfLJxO2NE04gqgpzZGi0Q_HHgCKkRDVSgw@mail.gmail.com>
+ <6E182BAD-47B8-4290-8754-2DA4E843145F@fuzziesquirrel.com>
+ <CAO=notwQBph4z+VW22-V_pLfweMTv5tptQ07RP6ZxjdeBVY=oQ@mail.gmail.com>
+ <1D7055CE-4BE8-4F0C-BBE3-89ADF9693296@fuzziesquirrel.com>
+In-Reply-To: <1D7055CE-4BE8-4F0C-BBE3-89ADF9693296@fuzziesquirrel.com>
+From: Patrick Venture <venture@google.com>
+Date: Thu, 13 Sep 2018 08:24:35 -0700
+Message-ID: <CAO=notxUmT_USU_xKJQ-ByY1btEd0TesVDb2cX0-W6ib=qAwnw@mail.gmail.com>
+Subject: Re: New Library SOP
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,146 +68,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Sep 2018 13:33:36 -0000
+X-List-Received-Date: Thu, 13 Sep 2018 15:24:51 -0000
 
-On 09/12/2018 10:45 PM, Cédric Le Goater wrote
+On Thu, Sep 13, 2018 at 5:09 AM Brad Bishop <bradleyb@fuzziesquirrel.com> w=
+rote:
+>
+>
+>
+> > On Sep 12, 2018, at 3:51 PM, Patrick Venture <venture@google.com> wrote=
+:
+> >
+> > On Wed, Sep 12, 2018 at 11:24 AM Brad Bishop
+> > <bradleyb@fuzziesquirrel.com> wrote:
+> >>
+> >>
+> >>
+> >>> On Sep 11, 2018, at 8:41 PM, Patrick Venture <venture@google.com> wro=
+te:
+> >>>
+> >>> Brad;
+> >>>
+> >>> William contributed two libraries by building them as a repo under hi=
+s
+> >>> personal work account first, and then presumably you mirrored from
+> >>> them.  Is this the process you prefer?  I'm looking to do some
+> >>> cleanup-by-library and wanted to take off in the right direction.
+> >>
+> >> I don=E2=80=99t think I have a preferred process.  The one you have de=
+scribed should
+> >> work fine.  Otherwise I can just create a new repo.  I suppose it is a=
+ bit
+> >> easier for people to leave feedback that way?
+> >
+> > I agree that by forcing it through at least one round of gerrit people
+> > have a chance to weigh in, which is preferable in my opinion.  And
+> > goes along with the notion of upstream-first, which has something I've
+> > been trying to push.
+>
+> Ok.  So what should the name of the new repository be?  And what will the=
+ content be?
 
-[ ... ]
+Thanks.
 
->> ---
->> qemu:
->>
->> diff --git a/hw/i2c/aspeed_i2c.c b/hw/i2c/aspeed_i2c.c
->> index c762c73..0d4aa08 100644
->> --- a/hw/i2c/aspeed_i2c.c
->> +++ b/hw/i2c/aspeed_i2c.c
->> @@ -180,6 +180,33 @@ static uint8_t aspeed_i2c_get_state(AspeedI2CBus *bus)
->>       return (bus->cmd >> I2CD_TX_STATE_SHIFT) & I2CD_TX_STATE_MASK;
->>   }
->>   
->> +static void aspeed_i2c_handle_rx_cmd(AspeedI2CBus *bus)
->> +{
->> +    int ret;
->> +
->> +    if (!(bus->cmd & (I2CD_M_RX_CMD | I2CD_M_S_RX_CMD_LAST))) {
->> +        return;
->> +    }
-> 
-> it deserves a comment to understand which scenario we are trying to handle.
-> 
->> +    if (bus->intr_status & I2CD_INTR_RX_DONE) {
->> +        return;
->> +    }
-> 
-> should be handled in aspeed_i2c_bus_handle_cmd() I think
-> 
+I talked to wak@ and I'm holding off on creating a new library to
+track whether pivoting to a different already-existing one is a better
+plan -- it wasn't clear that they were a good match but they probably
+are. :)
 
-I moved those two checks into the calling code.
+That said, for future reference, as I'm sure other libraries will pop-up ->
 
-
->> +    aspeed_i2c_set_state(bus, I2CD_MRXD);
->> +    ret = i2c_recv(bus->bus);
->> +    if (ret < 0) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: read failed\n", __func__);
->> +        ret = 0xff;
->> +    } else {
->> +        bus->intr_status |= I2CD_INTR_RX_DONE;
->> +    }
->> +    bus->buf = (ret & I2CD_BYTE_BUF_RX_MASK) << I2CD_BYTE_BUF_RX_SHIFT;
->> +    if (bus->cmd & I2CD_M_S_RX_CMD_LAST) {
->> +        i2c_nack(bus->bus);
->> +    }
->> +    bus->cmd &= ~(I2CD_M_RX_CMD | I2CD_M_S_RX_CMD_LAST);
->> +    aspeed_i2c_set_state(bus, I2CD_MACTIVE);
->> +}
->> +
->>   /*
->>    * The state machine needs some refinement. It is only used to track
->>    * invalid STOP commands for the moment.
->> @@ -188,7 +215,7 @@ static void aspeed_i2c_bus_handle_cmd(AspeedI2CBus *bus, uint64_t value)
->>   {
->>       bus->cmd &= ~0xFFFF;
->>       bus->cmd |= value & 0xFFFF;
->> -    bus->intr_status = 0;> +    bus->intr_status &= I2CD_INTR_RX_DONE;
-> 
-> it deserves a comment to understand which scenario we are trying to handle.
->    
-
-Ok. FWIW, I wonder if intr_status should be touched here in the first place,
-but I neither have the hardware nor a datasheet, so I don't know if any bits
-are auto-cleared.
-
->>       if (bus->cmd & I2CD_M_START_CMD) {
->>           uint8_t state = aspeed_i2c_get_state(bus) & I2CD_MACTIVE ?
->> @@ -227,22 +254,7 @@ static void aspeed_i2c_bus_handle_cmd(AspeedI2CBus *bus, uint64_t value)
->>       }
->>   
->>       if (bus->cmd & (I2CD_M_RX_CMD | I2CD_M_S_RX_CMD_LAST)) {
->> -        int ret;
->> -
->> -        aspeed_i2c_set_state(bus, I2CD_MRXD);
->> -        ret = i2c_recv(bus->bus);
->> -        if (ret < 0) {
->> -            qemu_log_mask(LOG_GUEST_ERROR, "%s: read failed\n", __func__);
->> -            ret = 0xff;
->> -        } else {
->> -            bus->intr_status |= I2CD_INTR_RX_DONE;
->> -        }
->> -        bus->buf = (ret & I2CD_BYTE_BUF_RX_MASK) << I2CD_BYTE_BUF_RX_SHIFT;
->> -        if (bus->cmd & I2CD_M_S_RX_CMD_LAST) {
->> -            i2c_nack(bus->bus);
->> -        }
->> -        bus->cmd &= ~(I2CD_M_RX_CMD | I2CD_M_S_RX_CMD_LAST);
->> -        aspeed_i2c_set_state(bus, I2CD_MACTIVE);
->> +        aspeed_i2c_handle_rx_cmd(bus);
->>       }
->>   
->>       if (bus->cmd & I2CD_M_STOP_CMD) {
->> @@ -263,6 +275,7 @@ static void aspeed_i2c_bus_write(void *opaque, hwaddr offset,
->>                                    uint64_t value, unsigned size)
->>   {
->>       AspeedI2CBus *bus = opaque;
->> +    int status;
->>   
->>       switch (offset) {
->>       case I2CD_FUN_CTRL_REG:
->> @@ -283,9 +296,16 @@ static void aspeed_i2c_bus_write(void *opaque, hwaddr offset,
->>           bus->intr_ctrl = value & 0x7FFF;
->>           break;
->>       case I2CD_INTR_STS_REG:
->> +        status = bus->intr_status;
->>           bus->intr_status &= ~(value & 0x7FFF);
->> -        bus->controller->intr_status &= ~(1 << bus->id);
->> -        qemu_irq_lower(bus->controller->irq);
->> +        if (!bus->intr_status) {
->> +            bus->controller->intr_status &= ~(1 << bus->id);
->> +            qemu_irq_lower(bus->controller->irq);
->> +        }
-> 
-> That part below is indeed something to fix. I had a similar patch.
-> 
-
-Should I split it out as separate patch ? Alternatively, if you submitted
-your patch already, I'll be happy to use it as base for mine.
-
-Thanks,
-Guenter
-
-> 
->> +        if ((status & I2CD_INTR_RX_DONE) && !(bus->intr_status & I2CD_INTR_RX_DONE)) {
->> +            aspeed_i2c_handle_rx_cmd(bus);
->> +            aspeed_i2c_bus_raise_interrupt(bus);
->> +        }
-> 
-> ok.
-> 
-> Thanks for looking into this.
-> 
-> C.
-> 
->>           break;
->>       case I2CD_DEV_ADDR_REG:
->>           qemu_log_mask(LOG_UNIMP, "%s: slave mode not implemented\n",
->>
-> 
-> 
+Patrick
