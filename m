@@ -1,54 +1,59 @@
-Return-Path: <venture@google.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::534; helo=mail-pg1-x534.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=46.105.76.26; helo=4.mo1.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="opDZLtT3"; 
- dkim-atps=neutral
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42B5sK4GgrzF3Sq
- for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 03:55:17 +1000 (AEST)
-Received: by mail-pg1-x534.google.com with SMTP id r1-v6so3084544pgp.11
- for <openbmc@lists.ozlabs.org>; Thu, 13 Sep 2018 10:55:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=PXkGUw+dXngFutg5iTgkOVAxkM1fvrJ4wVCRS4y/L50=;
- b=opDZLtT37Ek9xaVQ0we4F3qs7g/Dr4EMU8iID3emUAqGnYUoQOIzv/mziyb1Wod5fK
- 7NlEbWuHbMB+G2yNJ9F3ygxmEwdeIj6KwoE0IZSQa6TC1nIYKOjvSO1+EOCQU+2n6dzE
- H8kV5arCn2yHMrHcZYMT537R3BnSLP2nQYKzmBHGF1egXMg0c73rPQ+yQyHs9jfGp/Ch
- Brj52IJfH2hj6j6FhUYDZ5tRPo3r1uxWNCSX/Dyk0ITbPneX2OxaQQFxaT5ruZ6NFXa5
- lHaZ0brUNYfrRsmcwc4xPNkNDnGQ7zXS0VBKvYoc08C1IwdfOxp/LrlESNFfZL/KBlS5
- KMvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=PXkGUw+dXngFutg5iTgkOVAxkM1fvrJ4wVCRS4y/L50=;
- b=XgSk80lDBMFHTEODQk9XmHGQbUVrwGWdPwUBVhqbzM8vbhZvmdTV8SBmYt+D1igvAi
- V7GPlAnHg5tkC4jgunGdCgSoXYCOPYtQw6UA63RmjLwkn2ykaZ/xHPnqMMYulSCr+JM4
- p0mqR2fBS4cz7Xtv4b31rfPFmEhbmxe/sfwzIFMEBqZNVb1RD1ntGKyKsyK/2M6E1Byf
- 9iN/CjS/smtR5guj6LTTe/uwStl62YGTQ7c3t3fmOB8uLIB39o9xMOdiwu28O/ufvki6
- 4fQ3156TZq/WUUPpBsdpxLFzBMnbPaMARHzihW87ZSF3WuA7THJDva3/QqD+ePGPKycm
- XRWg==
-X-Gm-Message-State: APzg51DDq6xvvdwZ/suwdxbrsj2FPxTje/MYabqS9aqnQrdMotmGeGY8
- j5p4f7WzIRWwatLOuFsAHhU22ltd2a/g2ul7X4G0nQ==
-X-Google-Smtp-Source: ANB0VdanQrEmcnNFPsieI9GPDa0/KWefc5d6a0YES31RW8o+TmbRpegSwWprz826/Jre0gQkvY2KKorkG05qEpagZJM=
-X-Received: by 2002:a63:1a1a:: with SMTP id
- a26-v6mr8110106pga.449.1536861312687; 
- Thu, 13 Sep 2018 10:55:12 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=kaod.org
+Received: from 4.mo1.mail-out.ovh.net (4.mo1.mail-out.ovh.net [46.105.76.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42B6Jx0LwgzF3Ss
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 04:15:44 +1000 (AEST)
+Received: from player714.ha.ovh.net (unknown [10.109.160.253])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 96B4012ADEA
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Sep 2018 18:35:55 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10605-110.w90-89.abo.wanadoo.fr
+ [90.89.196.110]) (Authenticated sender: postmaster@kaod.org)
+ by player714.ha.ovh.net (Postfix) with ESMTPSA id E79843C00AA;
+ Thu, 13 Sep 2018 18:35:38 +0200 (CEST)
+Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
+ events properly
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Joel Stanley
+ <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-i2c@vger.kernel.org, jarkko.nikula@linux.intel.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ James Feist <james.feist@linux.intel.com>
+References: <20180911233302.GA18799@roeck-us.net>
+ <5698ca34-14c9-8d05-c4e6-5acf85ff9d14@linux.intel.com>
+ <20180912013449.GA12612@roeck-us.net>
+ <7fd98646-fb5a-be4d-ce37-84b74e0fa8b3@linux.intel.com>
+ <20180912195844.GA6893@roeck-us.net>
+ <da7f4691-7428-3114-32bb-e0171f6c7228@linux.intel.com>
+ <20180912203059.GA18201@roeck-us.net>
+ <fb185839-3ae0-01dc-09e8-f22db55ecb04@kaod.org>
+ <3f86e75f-1502-eae8-0633-d087937111c8@roeck-us.net>
+ <f47b3050-3abd-caa4-cc71-4b13ef60e2c0@kaod.org>
+ <20180913155703.GA22605@roeck-us.net>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <2c481986-7ee0-4887-5c9b-64e2cd9d8c04@kaod.org>
+Date: Thu, 13 Sep 2018 18:35:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Thu, 13 Sep 2018 10:55:01 -0700
-Message-ID: <CAO=noty_TQ2jvQw-Yxb-RYe+0xOXa4F39ozF11r9PN1w2Qt_Dw@mail.gmail.com>
-Subject: New Repository Request
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20180913155703.GA22605@roeck-us.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 10514497755225951104
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrjeeigddutddtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,24 +65,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Sep 2018 17:55:18 -0000
+X-List-Received-Date: Thu, 13 Sep 2018 18:15:45 -0000
 
-Brad,
+On 09/13/2018 05:57 PM, Guenter Roeck wrote:
+> On Thu, Sep 13, 2018 at 05:48:59PM +0200, Cédric Le Goater wrote:
+>> On 09/13/2018 03:33 PM, Guenter Roeck wrote:
+> [ ... ]
+>>>>>   /*
+>>>>>    * The state machine needs some refinement. It is only used to track
+>>>>>    * invalid STOP commands for the moment.
+>>>>> @@ -188,7 +215,7 @@ static void aspeed_i2c_bus_handle_cmd(AspeedI2CBus *bus, uint64_t value)
+>>>>>   {
+>>>>>       bus->cmd &= ~0xFFFF;
+>>>>>       bus->cmd |= value & 0xFFFF;
+>>>>> -    bus->intr_status = 0;> +    bus->intr_status &= I2CD_INTR_RX_DONE;
+>>>>
+>>>> it deserves a comment to understand which scenario we are trying to handle.
+>>>>    
+>>>
+>>> Ok. FWIW, I wonder if intr_status should be touched here in the first place,
+>>> but I neither have the hardware nor a datasheet, so I don't know if any bits
+>>> are auto-cleared.
+>>
+>> I just pushed a patch on my branch with some more explanation : 
+>>
+>> 	https://github.com/legoater/qemu/commits/aspeed-3.1
+>>
+> That seems to suggest that none of the status bits auto-clears, and that
+> the above code clearing intr_status should be removed entirely.
+> Am I missing something ?
 
-I'd like to set up a new repository in openbmc to store a google oem
-ipmi library I'd like to share with everybody.  It allows grabbing
-ethernet device statistics over IPMI.
+You are right. I just pushed another version of the previous patch with this 
+new hunk :
 
-I have no problem registering it under the OpenBMC OEN (and the google
-one) since OEM registration supports that -- then it could be
-phosphor-ipmi-ethstats.
+@@ -188,7 +200,6 @@ static void aspeed_i2c_bus_handle_cmd(As
+ {
+     bus->cmd &= ~0xFFFF;
+     bus->cmd |= value & 0xFFFF;
+-    bus->intr_status = 0;
+ 
+     if (bus->cmd & I2CD_M_START_CMD) {
+         uint8_t state = aspeed_i2c_get_state(bus) & I2CD_MACTIVE ?
 
-I really would like to share the code -- but I would be ok with it
-being in a google-specific repository, such as google-ipmi-ethstats --
- If so, I'll put the recipe in meta-google.
 
-I know we've talked about this before, and it really feels like six in
-one hand on this --
+The QEMU palmetto and witherspoon machines seem to behave fine. Can you give 
+it a try ?
 
 Thanks,
-Patrick
+
+C.
