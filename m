@@ -1,43 +1,102 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="TSIg5eDy"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Bgyf15MwzF3XX;
- Sat, 15 Sep 2018 02:31:52 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2018 09:31:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,374,1531810800"; d="scan'208";a="80489367"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.151])
- ([10.7.153.151])
- by FMSMGA003.fm.intel.com with ESMTP; 14 Sep 2018 09:28:43 -0700
-Subject: Re: [PATCH] i2c: aspeed: Acknowledge most interrupts early in
- interrupt handler
-To: Guenter Roeck <linux@roeck-us.net>,
- Brendan Higgins <brendanhiggins@google.com>
-Cc: linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, linux-i2c@vger.kernel.org
-References: <1536895810-28903-1-git-send-email-linux@roeck-us.net>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <fbf54ca6-16b3-5e35-eac8-b3dab8118543@linux.intel.com>
-Date: Fri, 14 Sep 2018 09:28:43 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Bh1x69G1zF3XX
+ for <openbmc@lists.ozlabs.org>; Sat, 15 Sep 2018 02:34:45 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 984F1411FC
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 16:34:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:mime-version:user-agent:date:date
+ :message-id:subject:subject:from:from:received:received
+ :received; s=mta-01; t=1536942880; x=1538757281; bh=V94JvPqJabUH
+ 3GDkecdKQO4RysmERcUQBBT77vZKg4M=; b=TSIg5eDyJV8hdQseGsxWSkg7WA32
+ theIQHaO3HimMcGO0jQnYWfkkHh2+YMDrRUQdJx6I1kXi2DMmuh0KwPXIZ1p/pjM
+ qp6Dv2MDM/T9N1PqmHJTMuo4EVtUOfgGKMWsL91RY9hWQxMrLzvKa4B+KApLeAff
+ zA2YoT57MWOhhHk=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id N5ezTVqxfoiN for <openbmc@lists.ozlabs.org>;
+ Fri, 14 Sep 2018 19:34:40 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id BCE41411FB
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 19:34:40 +0300 (MSK)
+Received: from [172.17.14.168] (172.17.14.168) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 14
+ Sep 2018 19:34:40 +0300
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Subject: OEM Boot Option 96
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <7ba76256-74f6-51f1-fd0b-75bfdfeaf7cf@yadro.com>
+Date: Fri, 14 Sep 2018 19:34:39 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-In-Reply-To: <1536895810-28903-1-git-send-email-linux@roeck-us.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="958jUZ4Wo21tJIYSdQYyn9HmNBwObtRj6"
+X-Originating-IP: [172.17.14.168]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,66 +108,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Sep 2018 16:31:55 -0000
+X-List-Received-Date: Fri, 14 Sep 2018 16:34:46 -0000
 
-On 9/13/2018 8:30 PM, Guenter Roeck wrote:
-> Commit 3e9efc3299dd ("i2c: aspeed: Handle master/slave combined irq events
-> properly") moved interrupt acknowledgment to the end of the interrupt
-> handler. In part this was done because the AST2500 datasheet says:
-> 
->   I2CD10 Interrupt Status Register
->     bit 2 Receive Done Interrupt status
->           S/W needs to clear this status bit to allow next data receiving.
-> 
-> Acknowledging Receive Done before receive data was handled resulted in
-> receive errors on high speed I2C busses.
-> 
-> However, interrupt acknowledgment was not only moved to the end of the
-> interrupt handler for Receive Done Interrupt status, but for all interrupt
-> status bits. This could result in race conditions if a second interrupt was
-> received during interrupt handling and not handled but still acknowledged
-> at the end of the interrupt handler.
-> 
-> Acknowledge only "Receive Done Interrupt status" late in the interrupt
-> handler to solve the problem.
-> 
-> Fixes: 3e9efc3299dd ("i2c: aspeed: Handle master/slave combined irq events properly")
-> Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Cc: Joel Stanley <joel@jms.id.au>
-> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-> ---
->   drivers/i2c/busses/i2c-aspeed.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-> index c258c4d9a4c0..3d518e09369f 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -552,6 +552,9 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->   
->   	spin_lock(&bus->lock);
->   	irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
-> +	/* Ack all interrupts except for Rx done */
-> +	writel(irq_received & ~ASPEED_I2CD_INTR_RX_DONE,
-> +	       bus->base + ASPEED_I2C_INTR_STS_REG);
->   	irq_remaining = irq_received;
->   
->   #if IS_ENABLED(CONFIG_I2C_SLAVE)
-> @@ -584,8 +587,10 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->   			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
->   			irq_received, irq_handled);
->   
-> -	/* Ack all interrupt bits. */
-> -	writel(irq_received, bus->base + ASPEED_I2C_INTR_STS_REG);
-> +	/* Ack Rx done */
-> +	if (irq_received & ASPEED_I2CD_INTR_RX_DONE)
-> +		writel(ASPEED_I2CD_INTR_RX_DONE,
-> +		       bus->base + ASPEED_I2C_INTR_STS_REG);
->   	spin_unlock(&bus->lock);
->   	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
->   }
-> 
+--958jUZ4Wo21tJIYSdQYyn9HmNBwObtRj6
+Content-Type: multipart/mixed; boundary="8a4pxFF97PMGGC3GHn2LNwLvvWs7zoTm9";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Message-ID: <7ba76256-74f6-51f1-fd0b-75bfdfeaf7cf@yadro.com>
+Subject: OEM Boot Option 96
 
-Looks good to me. Thanks! :)
+--8a4pxFF97PMGGC3GHn2LNwLvvWs7zoTm9
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-Acked-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+There is a function in OpenPOWER Firmware (petitboot) to override network=
+ settings.
+
+The function is configurable via IPMI OEM boot parameter 96, which is sup=
+ported by both OpenBMC and AMI.
+
+I'd like to add support for that into `ipmitool`, but I'd like your comme=
+nts on how to do it best.
+
+According to IPMI specification, OEM boot parameter handling depends on t=
+he Manufacturer ID returned by Get Device ID command. Since petitboot can=
+ be paired with either AMI or OpenBMC, and both of them may be running on=
+ hardware made by different vendors (potentially reporting different Manu=
+facturer IDs), my current idea to add an option to `ipmitool` to override=
+ the Manufacturer ID. The question is: what ID to use for this boot param=
+eter in `ipmitool`? My best guess so far is IBM as the command format is =
+specific to IBM's petitboot. Any objections?
+
+Alexander.
+
+
+
+--8a4pxFF97PMGGC3GHn2LNwLvvWs7zoTm9--
+
+--958jUZ4Wo21tJIYSdQYyn9HmNBwObtRj6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIbBAEBCAAGBQJbm+MfAAoJEOiTWHtbdBeNGvcP+ImDLgY84MPlh3vrwkrisCAf
+TX2AYaG90DLMk0iIbtm1ErEXMJJLwl2+bD2HWd12hftKH7+RRfCTgE0QXGqtPVDk
+bJ+89LL59NjjbqU2D2durS4HaC6MMbie4vXVItZDLByPw1putHzlI69z4QsXuD56
+487h0h0DEOITJZ8pvAloc7EnQd/WHUMc1aFKp99ddoXYEHIXvsgv+pNFP9f/hD/w
+g76/6f/eBZ6Zozj6DlohBJJPLlkD3ygOWk1tPBznBEpvJX+xGpRV94YVuwPYXJYR
+0FlpsuDX1tWRnVyV1PO+s9ZxZAxt5f/WSkW2FMgOxGa7tzWdkJ+/zjTcECXdC1Ve
+alTujTXPCosYj907NN29s3YusrgtChYqgVxRv9lRvf+iBn/LkKtHdyennukb/d9f
+hS8FpjNccdXMAEoClv5Og6Ttw/xIYvuqzoovthTwPtoYk0ES13A4yBJKxg6VMsWl
+ZxGIDh6aPqGpHYnQNJZM8+K0n22i13dAvkCuWMOEI8eLiUTkdyp+iFrSPcHDW894
+wbtJjG4WSCMtdw3L7PWDpTuKptQH8/hD04zZD+DFnorDxPtty0+vbdka/rR/Y0/e
+Z2GDdeUcIQVsoid8k3CSsE2qwLzZpqN3LtmypG10fgsbHXEzkb8GdzRO3p4lX3Vw
+eKEkJHMkEG9yRpvnBP8=
+=FuMC
+-----END PGP SIGNATURE-----
+
+--958jUZ4Wo21tJIYSdQYyn9HmNBwObtRj6--
