@@ -1,64 +1,45 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <hverkuil@xs4all.nl>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.39.154; helo=5.mo177.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=xs4all.nl
+ (client-ip=194.109.24.30; helo=lb3-smtp-cloud9.xs4all.net;
+ envelope-from=hverkuil@xs4all.nl; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 458 seconds by postgrey-1.36 at bilbo;
- Fri, 14 Sep 2018 15:46:35 AEST
-Received: from 5.mo177.mail-out.ovh.net (5.mo177.mail-out.ovh.net
- [46.105.39.154])
+ dmarc=none (p=none dis=none) header.from=xs4all.nl
+Received: from lb3-smtp-cloud9.xs4all.net (lb3-smtp-cloud9.xs4all.net
+ [194.109.24.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42BPf33P5BzF3Tt
- for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 15:46:34 +1000 (AEST)
-Received: from player761.ha.ovh.net (unknown [10.109.159.132])
- by mo177.mail-out.ovh.net (Postfix) with ESMTP id BA103C6A6D
- for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 07:38:52 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10605-110.w90-89.abo.wanadoo.fr
- [90.89.196.110]) (Authenticated sender: postmaster@kaod.org)
- by player761.ha.ovh.net (Postfix) with ESMTPSA id A842F4800A4;
- Fri, 14 Sep 2018 07:38:37 +0200 (CEST)
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Joel Stanley
- <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-i2c@vger.kernel.org, jarkko.nikula@linux.intel.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- James Feist <james.feist@linux.intel.com>
-References: <20180911233302.GA18799@roeck-us.net>
- <5698ca34-14c9-8d05-c4e6-5acf85ff9d14@linux.intel.com>
- <20180912013449.GA12612@roeck-us.net>
- <7fd98646-fb5a-be4d-ce37-84b74e0fa8b3@linux.intel.com>
- <20180912195844.GA6893@roeck-us.net>
- <da7f4691-7428-3114-32bb-e0171f6c7228@linux.intel.com>
- <20180912203059.GA18201@roeck-us.net>
- <fb185839-3ae0-01dc-09e8-f22db55ecb04@kaod.org>
- <3f86e75f-1502-eae8-0633-d087937111c8@roeck-us.net>
- <f47b3050-3abd-caa4-cc71-4b13ef60e2c0@kaod.org>
- <20180913155703.GA22605@roeck-us.net>
- <2c481986-7ee0-4887-5c9b-64e2cd9d8c04@kaod.org>
- <b4da2b68-e6e3-e068-cd6e-9e638aa67889@roeck-us.net>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <ccbf7059-77fd-44e8-daee-516582814cb3@kaod.org>
-Date: Fri, 14 Sep 2018 07:38:37 +0200
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42BRCb04rlzF3Tl;
+ Fri, 14 Sep 2018 16:57:12 +1000 (AEST)
+Received: from [192.168.2.10] ([212.251.195.8])
+ by smtp-cloud9.xs4all.net with ESMTPA
+ id 0i1KgQvfnrjlY0i1OgrXUn; Fri, 14 Sep 2018 08:56:08 +0200
+Subject: Re: [PATCH 0/4] media: platform: Add Aspeed Video Engine driver
+To: Eddie James <eajames@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org,
+ sboyd@kernel.org, mturquette@baylibre.com, robh+dt@kernel.org,
+ mchehab@kernel.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+References: <1535576973-8067-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <364c2565-fdb0-dd31-5852-6358066810a5@xs4all.nl>
+ <64db5bad-d774-f5a5-3003-b361941355a2@linux.vnet.ibm.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <37fba44b-f7ef-c877-5533-986d21831f9f@xs4all.nl>
+Date: Fri, 14 Sep 2018 08:56:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-In-Reply-To: <b4da2b68-e6e3-e068-cd6e-9e638aa67889@roeck-us.net>
+In-Reply-To: <64db5bad-d774-f5a5-3003-b361941355a2@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 5290603662555188096
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrjeejgdellecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfGiP/tY4xX9paY7yTcEQFf0U2RebjNUfvReW7YDWH99RlPW8edcXXIt/0MHVAUnkcN96y83cGJ7ey/eGRBrK/JpqJ5pQ+O3/i1KNHLHSozKZUJvUFngD
+ YZZR0+xO6CySk3EPnY5xuby+n7+/hCTSJPew37pKlgJ4aOSvExqEH1e2Eez28pRN3+M0EFZSyXicNEXcUZio3r9JpCFHhhX8h2Jzh//eozYpSON6iGCliD1C
+ BSNlSxDTSh9xG3astIUk60hAb2OlY8+DhZZLWoXNu8iClV9O6EJpi/dIzLvbnrG50fBY3iWh982xSq8P2Kcy/Erd0wWBle1cW0YHIwMn7xtSbdJpNvp4rdv7
+ J8vWoVgslaTxebDm+mNI2DRCW/HkYRklhUgY9WG4lvkYOv41e54Vpf+eWqzejolH+z5WRA7wXhfZbgIXvnAt2Rrb9EL9zPghBEWwBxF+lNCJFcaEicauF25g
+ ZhoCxpuDPTVwTxVhSPnu/yvTNVq+sdt62I255aZrX1zgibhDgvkHWndcVvmdNfWNIrLnWAzE8uVC4ifI2aVwkbplwEbAcbR2rYXgcsPX/pzVP2o633EPU3Bd
+ uvt7XsXaWMp5L+m2e6y4e2bt406MTDLFYmqzBgcBx0URaibyHZDHscbTYrWbBg3nobM=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,37 +51,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Sep 2018 05:46:35 -0000
+X-List-Received-Date: Fri, 14 Sep 2018 06:57:16 -0000
 
->>> That seems to suggest that none of the status bits auto-clears, and that
->>> the above code clearing intr_status should be removed entirely.
->>> Am I missing something ?
->>
->> You are right. I just pushed another version of the previous patch with this
->> new hunk :
->>
->> @@ -188,7 +200,6 @@ static void aspeed_i2c_bus_handle_cmd(As
->>   {
->>       bus->cmd &= ~0xFFFF;
->>       bus->cmd |= value & 0xFFFF;
->> -    bus->intr_status = 0;
->>         if (bus->cmd & I2CD_M_START_CMD) {
->>           uint8_t state = aspeed_i2c_get_state(bus) & I2CD_MACTIVE ?
->>
->>
->> The QEMU palmetto and witherspoon machines seem to behave fine. Can you give
->> it a try ?
->>
+On 09/13/2018 09:11 PM, Eddie James wrote:
 > 
-> Works fine for me for all affected qemu platforms.
 > 
-> How do you want to proceed with the qemu patches ? I attached my patches
-> for reference. Maybe you can add them to your tree if they are ok and submit
-> the entire series together to the qemu mailing list ?
+> On 09/03/2018 06:57 AM, Hans Verkuil wrote:
+>> Hi Eddie,
+>>
+>> Thank you for your work on this. Interesting to see support for this SoC :-)
+>>
+>> On 08/29/2018 11:09 PM, Eddie James wrote:
+>>> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+>>> can capture and compress video data from digital or analog sources. With
+>>> the Aspeed chip acting as a service processor, the Video Engine can
+>>> capture the host processor graphics output.
+>>>
+>>> This series adds a V4L2 driver for the VE, providing a read() interface
+>>> only. The driver triggers the hardware to capture the host graphics output
+>>> and compress it to JPEG format.
+>>>
+>>> Testing on an AST2500 determined that the videobuf/streaming/mmap interface
+>>> was significantly slower than the simple read() interface, so I have not
+>>> included the streaming part.
+>> Do you know why? It should be equal or faster, not slower.
+> 
+> Yes, it seems to be an issue with the timing of the video engine 
+> interrupts compared with how a normal v4l2 application queues buffers. 
+> With the simple read() application, the driver can swap between DMA 
+> buffers freely and get a frame ahead. With the streaming buffers, I 
+> found the driver ran through the queue quite quickly, but then, once 
+> userspace queues again, we had to wait for the next frame, as I couldn't 
+> get a frame ahead since no buffers were available during that time 
+> period. This could possibly be solved with more buffers but this gets to 
+> require a lot of memory, since each buffer is allocated for the full 
+> frame size even though we only fill a fraction of it with JPEG data...
 
-yes. They are pushed in my aspeed-3.1 branch. I will send the series 
-on the list.
+For stream I/O you usually need 3 buffers: one is being DMAed, one is
+the next queued up frame for the DMA and the third is being processed
+in userspace. If userspace doesn't process buffers fast enough, then
+the driver will need to capture into the same buffer over and over again
+until userspace finally queues another buffer.
 
-Thanks,
+What I don't understand here is what the frame rate is. Is the capture
+framerate the same as the host processor graphics output? Or is it
+unrelated to that?
 
-C. 
+The problem with read() is that 1) it requires copying the video data, and
+2) you cannot use dmabuf for zero-copying pipelines. Whether or not 2 is
+needed depends on your hardware.
+
+> 
+>>
+>> I reviewed about half of the driver, but then I stopped since there were too
+>> many things missing.
+>>
+>> First of all, you need to test your driver with v4l2-compliance (available here:
+>> https://git.linuxtv.org/v4l-utils.git/). Always compile from the git repo since
+>> the versions from distros tend to be too old.
+>>
+>> Just run 'v4l2-compliance -d /dev/videoX' and fix all issues. Then run
+>> 'v4l2-compliance -s -d /dev/videoX' to test streaming.
+>>
+>> This utility checks if the driver follows the V4L2 API correctly, implements
+>> all ioctls that it should and fills in all the fields that it should.
+>>
+>> Please add the output of 'v4l2-compliance -s' to future versions of this patch
+>> series: I don't accept V4L2 drivers without a clean report of this utility.
+> 
+> Sure thing. Thanks for the guidance.
+> 
+>>
+>> If you have any questions, then mail me or (usually quicker) ask on the #v4l
+>> freenode irc channel (I'm in the CET timezone).
+>>
+>> One thing that needs more explanation: from what I could tell from the driver
+>> the VIDIOC_G_FMT ioctl returns the detected format instead of the current
+>> format. This is wrong. Instead you should implement the VIDIOC_*_DV_TIMINGS
+>> ioctls and the V4L2_EVENT_SOURCE_CHANGE event.
+>>
+>> The normal sequence is that userspace queries the current timings with
+>> VIDIOC_QUERY_DV_TIMINGS, if it finds valid timings, then it sets these
+>> timings with _S_DV_TIMINGS. Now it can call G/S_FMT. If the timings
+>> change, then the driver should detect that and send a V4L2_EVENT_SOURCE_CHANGE
+>> event.
+> 
+> OK I see. I ended up simplifying this part anyway since it's not 
+> possible to change the video size from the driver. I don't think there 
+> is a need for VIDIOC_QUERY_DV_TIMINGS now, but feel free to review.
+
+You are capturing the host graphics output, right? So you need to know
+the resolution, timings, etc. of that output? What if the host changes
+resolution? That's something you need to know, or am I missing something?
+
+This is obviously a somewhat different environment than what I am used to,
+so bear with me if I ask stupid questions...
+
+Regards,
+
+	Hans
+
+> 
+> Thanks again,
+> Eddie
+> 
+>>
+>> When the application receives this event it can take action, such as
+>> increasing the size of the buffer for the jpeg data that it reads into.
+>>
+>> The reason for this sequence of events is that you can't just change the
+>> format/resolution mid-stream without giving userspace the chance to
+>> reconfigure.
+>>
+>> Regards,
+>>
+>> 	Hans
+>>
+>>> It's also possible to use an automatic mode for the VE such that
+>>> re-triggering the HW every frame isn't necessary. However this wasn't
+>>> reliable on the AST2400, and probably used more CPU anyway due to excessive
+>>> interrupts. It was approximately 15% faster.
+>>>
+>>> The series also adds the necessary parent clock definitions to the Aspeed
+>>> clock driver, with both a mux and clock divider.
+>>>
+>>> Eddie James (4):
+>>>    clock: aspeed: Add VIDEO reset index definition
+>>>    clock: aspeed: Setup video engine clocking
+>>>    dt-bindings: media: Add Aspeed Video Engine binding documentation
+>>>    media: platform: Add Aspeed Video Engine driver
+>>>
+>>>   .../devicetree/bindings/media/aspeed-video.txt     |   23 +
+>>>   drivers/clk/clk-aspeed.c                           |   41 +-
+>>>   drivers/media/platform/Kconfig                     |    8 +
+>>>   drivers/media/platform/Makefile                    |    1 +
+>>>   drivers/media/platform/aspeed-video.c              | 1307 ++++++++++++++++++++
+>>>   include/dt-bindings/clock/aspeed-clock.h           |    1 +
+>>>   6 files changed, 1379 insertions(+), 2 deletions(-)
+>>>   create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
+>>>   create mode 100644 drivers/media/platform/aspeed-video.c
+>>>
+> 
