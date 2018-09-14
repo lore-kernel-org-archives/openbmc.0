@@ -1,54 +1,42 @@
-Return-Path: <venture@google.com>
+Return-Path: <hverkuil@xs4all.nl>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=xs4all.nl
+ (client-ip=194.109.24.24; helo=lb1-smtp-cloud7.xs4all.net;
+ envelope-from=hverkuil@xs4all.nl; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="N0HblgID"; 
- dkim-atps=neutral
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=xs4all.nl
+Received: from lb1-smtp-cloud7.xs4all.net (lb1-smtp-cloud7.xs4all.net
+ [194.109.24.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42BhkF2Jb9zF3Xd
- for <openbmc@lists.ozlabs.org>; Sat, 15 Sep 2018 03:06:13 +1000 (AEST)
-Received: by mail-pl1-x62a.google.com with SMTP id f66-v6so4480395plb.10
- for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 10:06:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=ZZ6ZMufJqWvqhZvWqZRAVi4XTuEPrel4WV9fN5UEFUw=;
- b=N0HblgIDlmdXquzx5HNtYZyILBoNh+PVK6T69Dv5Z+NGUfXGs/wfgqCrqE5HFJkjbO
- Gfr8yNpAxBl6XGQVFP20B0lQkEtPotd4ynPSZ6qKhlNar66w9PLiOYlSZZLGh3VbrUq/
- XB0/LoMunqM2Vt1xqcpomEaQtSVnD570cAGRV+73b6gqT7VnFC8SOwEEykSHp7jjZ4XC
- ZBM6DlKba5diWPz5W84LdNj14QgPoObe/plhB8790zenDVD+NVndgh85XDytf0wq7BOz
- 37BlFByRK38BVWPDmcn3WJt/+gNTt+2y/Ri60Fk9q7zIXG99S9WBaxmZhmaix/1JD1Ye
- P4XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=ZZ6ZMufJqWvqhZvWqZRAVi4XTuEPrel4WV9fN5UEFUw=;
- b=hbyUuaF6GoD1Kmg8UqK8bXEKAoBM6eFVTlJlkf4hhPlHD2XUL6uhjX82Gmz+OBh8LJ
- CxGHLofCdaz+kEBlAg60dxZzXapOLqsOLQ8lj43rha6bbk67EXeWY5dUAilU87orRfhy
- 0SzDslHWvFVhKEZ7ouy0hHwm5Q8lW6osA+SN5khFYe5IlgCY3tU1VCQdS0CG9Ftvjpiu
- i4E4j/KkRYuULgrubL3d8TbHihY3BCDWUzlLq03/Y/25KB2lp666rSmbusXEwOkC0eTh
- osUCDL7ak3DN3PZr1Wcm+TA2ENMV6gXUkpuClycTsUcKd6hHeHttU4wrQODUMDJdQBIT
- Tv/w==
-X-Gm-Message-State: APzg51DRu/KkbsoI8gk3gpjbzFaaU0ss6OKjJvAlieSaMYXNvPfi327E
- stTIdj2+mwqGZaia6VnBTMBxqDxs4NX9b4Cp9duhoA==
-X-Google-Smtp-Source: ANB0VdZw6xaJEXQpCRUgY43XOvUmWbrqD8RZBkpfy9pnteLWdfZXMCnAAcZj+MKRhsQdaPgLZebo9AMG543x2OTdQfA=
-X-Received: by 2002:a17:902:5301:: with SMTP id
- b1-v6mr13120331pli.149.1536944770252; 
- Fri, 14 Sep 2018 10:06:10 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Bhxj3DGwzF3Xd;
+ Sat, 15 Sep 2018 03:16:07 +1000 (AEST)
+Received: from [192.168.2.10] ([212.251.195.8])
+ by smtp-cloud7.xs4all.net with ESMTPA
+ id 0rgIgcbxsw2L80rgLgb9M2; Fri, 14 Sep 2018 19:15:04 +0200
+Subject: Re: [PATCH v2 0/2] media: platform: Add Aspeed Video Engine Driver
+To: Eddie James <eajames@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org,
+ robh+dt@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org
+References: <1536866964-71593-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <3fe3a367-5e63-446b-faba-fa6ac7a007cd@xs4all.nl>
+ <1436d8d6-25ab-4bb8-5558-3e02fbe95e58@linux.vnet.ibm.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <eff9f795-d28f-d9cd-ff04-752757856f94@xs4all.nl>
+Date: Fri, 14 Sep 2018 19:14:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Fri, 14 Sep 2018 10:05:58 -0700
-Message-ID: <CAO=notyjYJV6CUSAtRSx9v1t2x7tjZCG=xy9O4CXV2nyCZeHwA@mail.gmail.com>
-Subject: new subtrees
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <1436d8d6-25ab-4bb8-5558-3e02fbe95e58@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfGsQz9k/kkaFnUvGGoSaIy0yl7JB0a38WLpwYm8/Eo/wHnFobGCUFDS1I8kxjbNjBJjAlQhAZoBvbKP07YQV9hHUcGIXus/EA8zYWiPUGvjJUzIjOA3N
+ gN+TcleydGy0NthGCmpSA8xOSpUSMdUWQIdQoDfp75m3BEp+ktxcR1gY70TBgYn/9YV8dRYbDJDn7/mLIRBQDZ615M0bhoGKKL4RtWZ51UKtxaZFTdnL8XYC
+ BUHfz5ciLV/RbN4vc6fGHPcTY9MH/5OXcDyBXIDjdLPTAX3LOfBMhdCpq5fb4xjvU/zQkIXhVg+6/2UYNEzINb4p6rwwn4yEVDDh8OpCXyxWbS4DdBF2TBN8
+ jd3VmsfYfD50dC0qFber+bBZX+do7Fzst8hfRnUHwbSylZNoON0pnhmzq+T1HZwNKQx8/zS+AXHEj/7yp/ebUG8SC9IbZTdSCXaKml0BtwvRoXu9UU23Avak
+ H+Tl0jZWP6N43WMvWaKc84y+nuq+dw8OzPBOoA==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,13 +48,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Sep 2018 17:06:14 -0000
+X-List-Received-Date: Fri, 14 Sep 2018 17:16:10 -0000
 
-Brad;
+On 09/14/2018 05:08 PM, Eddie James wrote:
+> 
+> 
+> On 09/14/2018 01:59 AM, Hans Verkuil wrote:
+>> On 09/13/2018 09:29 PM, Eddie James wrote:
+>>> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+>>> can capture and compress video data from digital or analog sources. With
+>>> the Aspeed chip acting as a service processor, the Video Engine can
+>>> capture the host processor graphics output.
+>>>
+>>> This series adds a V4L2 driver for the VE, providing a read() interface
+>>> only. The driver triggers the hardware to capture the host graphics output
+>>> and compress it to JPEG format.
+>>>
+>>>
+>>> v4l2-compliance output:
+>>>
+>>> v4l2-compliance SHA   : not available
+>> There should be a SHA here. "not available" indicates that you didn't compile
+>> from the git repository directly, and now I do not know how old this compliance
+>> test is. Always compile from the latest git repo, never use a version from e.g.
+>> a distro as they tend to be old and missing tests.
+>>
+>> It would be great if you can do this and reply with the new compliance output.
+> 
+> Hmm, I did compile from the latest git repo (maybe a week old now), but 
+> maybe our cross complication setup is preventing that hash from being 
+> generated. Will try and get it.
 
-Are we adding new subtrees to openbmc?  I ask because there's no
-meta-google folder in openbmc at present, and I'm having a tricky time
-trying to do the subtree cherry-pick strategy.
+You can also just report the git commit hash if you can't get it to work.
+As long as I know from which source version it was built.
 
-Thanks,
-Patrick
+Regards,
+
+	Hans
