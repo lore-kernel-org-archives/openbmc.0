@@ -1,61 +1,68 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::22f; helo=mail-oi0-x22f.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q+Wu42ek"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x22f.google.com (mail-oi0-x22f.google.com
+ [IPv6:2607:f8b0:4003:c06::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42BhS66jmLzF3XH;
- Sat, 15 Sep 2018 02:53:58 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2018 09:53:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.53,374,1531810800"; d="scan'208";a="80495170"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.151])
- ([10.7.153.151])
- by FMSMGA003.fm.intel.com with ESMTP; 14 Sep 2018 09:52:35 -0700
-Subject: Re: [PATCH i2c-next v6] i2c: aspeed: Handle master/slave combined irq
- events properly
-To: Guenter Roeck <linux@roeck-us.net>, =?UTF-8?Q?C=c3=a9dric_Le_Goater?=
- <clg@kaod.org>
-Cc: linux-aspeed@lists.ozlabs.org, James Feist <james.feist@linux.intel.com>, 
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- jarkko.nikula@linux.intel.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-i2c@vger.kernel.org
-References: <20180911233302.GA18799@roeck-us.net>
- <5698ca34-14c9-8d05-c4e6-5acf85ff9d14@linux.intel.com>
- <20180912013449.GA12612@roeck-us.net>
- <7fd98646-fb5a-be4d-ce37-84b74e0fa8b3@linux.intel.com>
- <20180912195844.GA6893@roeck-us.net>
- <da7f4691-7428-3114-32bb-e0171f6c7228@linux.intel.com>
- <20180912203059.GA18201@roeck-us.net>
- <fb185839-3ae0-01dc-09e8-f22db55ecb04@kaod.org>
- <3f86e75f-1502-eae8-0633-d087937111c8@roeck-us.net>
- <f47b3050-3abd-caa4-cc71-4b13ef60e2c0@kaod.org>
- <20180913155703.GA22605@roeck-us.net>
- <2c481986-7ee0-4887-5c9b-64e2cd9d8c04@kaod.org>
- <b4da2b68-e6e3-e068-cd6e-9e638aa67889@roeck-us.net>
- <ccbf7059-77fd-44e8-daee-516582814cb3@kaod.org>
- <94a2aa4e-69ac-7042-92d9-1ada46d5fc33@roeck-us.net>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <3e319dd0-17e6-679d-18fd-43ed59f7075d@linux.intel.com>
-Date: Fri, 14 Sep 2018 09:52:35 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Bhhg2MjHzF3Y4
+ for <openbmc@lists.ozlabs.org>; Sat, 15 Sep 2018 03:04:50 +1000 (AEST)
+Received: by mail-oi0-x22f.google.com with SMTP id m11-v6so13498529oic.2
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Sep 2018 10:04:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:from:to:references:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=sIbwGFyVyvrY/zKReXr41pYtW7BVvMqP3AJbFw3UNMw=;
+ b=Q+Wu42ekr+aRIoV3UkdzttlQaigZYhXmhcU35sr10SRYai86UoJ6DlfV8sd64TQBFB
+ LD/z3lLb6H7C6QqxOHf/hRHy6gZcvooLgxmHE8FUdZJzgyPxRHRqr8Zq5j225WAoJafn
+ YjrNHXUnY+hRtiZTgcU7gDGz8h1ui90ftEr2jmpVcjxfCQb2q0r2MASK7U47bfZTtDw5
+ 20sVkKKMhpwQdJeE2Vqg9iJk+eXlWVca4NLY+MxnigTHqCDSEVlr/XXzo43/iS+wMLWb
+ sA/I8+FzLX43FA3WsuIeV70GYuhaS6bwk+w7pycxGYtLe0dFvtdAKTUVUMFUuCCZJq5z
+ vg+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:from:to:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=sIbwGFyVyvrY/zKReXr41pYtW7BVvMqP3AJbFw3UNMw=;
+ b=h7tDAPMUPtU6gu9jrDxCUTg80AwcpHnAo/UqF2RbkLta+btc2MJKVSO6rqXCgFSGt+
+ AEiHNyO/hysp5En/jAaNg222MFniVRQtKivssuJ6bt/CH9WvMSVU18dTXX3UBs5Bd3Q7
+ vInfQs5gOmmI+Fi4hiE9Rf4BlfGwjRKKGVyVD5mpgjJdyLySPx4IFg3CKIiVbdyCjV0S
+ 0hVWHs8FB1qJaL/n31llF22LdmMRtj8wH3g3BjyBC67Ek5f9sRcn6c4UiiUknV1vN5Mm
+ NB/LTQGvIHM58ZYK6IY8F2rO3V9bH13ilRx29j8Omr+r5rWQYzQI+dv6XKXmpxnGAV1i
+ oc+g==
+X-Gm-Message-State: APzg51C+j0je3+sWImEqLesBTRm3SWFT2e8dUBh6yOufLQEsqkGHyjxU
+ ly+c93al9jlzWAdt5wH3OCExd4Al
+X-Google-Smtp-Source: ANB0VdbdEI9CSiVf5tpqP0RffuonXOkQQ445C349wFwxALv13pN4XkDFjjT2DQL9A2wbAfCghVIL+A==
+X-Received: by 2002:aca:df42:: with SMTP id
+ w63-v6mr10662124oig.295.1536944688119; 
+ Fri, 14 Sep 2018 10:04:48 -0700 (PDT)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id m7-v6sm5861865oia.32.2018.09.14.10.04.47
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 14 Sep 2018 10:04:47 -0700 (PDT)
+Subject: Re: OpenBMC Fix-it vSprint - September 24-25, 2018
+From: krtaylor <kurt.r.taylor@gmail.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <3d8f7871-75a6-4677-3cc4-64e4e226291b@gmail.com>
+Message-ID: <bcb7c54f-aa90-8c2a-ec1d-02ab84720179@gmail.com>
+Date: Fri, 14 Sep 2018 12:04:46 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <94a2aa4e-69ac-7042-92d9-1ada46d5fc33@roeck-us.net>
+In-Reply-To: <3d8f7871-75a6-4677-3cc4-64e4e226291b@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +74,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Sep 2018 16:54:00 -0000
+X-List-Received-Date: Fri, 14 Sep 2018 17:04:52 -0000
 
-On 9/14/2018 6:23 AM, Guenter Roeck wrote:
-> On 09/13/2018 10:38 PM, Cédric Le Goater wrote:
->>>>> That seems to suggest that none of the status bits auto-clears, and 
->>>>> that
->>>>> the above code clearing intr_status should be removed entirely.
->>>>> Am I missing something ?
->>>>
->>>> You are right. I just pushed another version of the previous patch 
->>>> with this
->>>> new hunk :
->>>>
->>>> @@ -188,7 +200,6 @@ static void aspeed_i2c_bus_handle_cmd(As
->>>>    {
->>>>        bus->cmd &= ~0xFFFF;
->>>>        bus->cmd |= value & 0xFFFF;
->>>> -    bus->intr_status = 0;
->>>>          if (bus->cmd & I2CD_M_START_CMD) {
->>>>            uint8_t state = aspeed_i2c_get_state(bus) & I2CD_MACTIVE ?
->>>>
->>>>
->>>> The QEMU palmetto and witherspoon machines seem to behave fine. Can 
->>>> you give
->>>> it a try ?
->>>>
->>>
->>> Works fine for me for all affected qemu platforms.
->>>
->>> How do you want to proceed with the qemu patches ? I attached my patches
->>> for reference. Maybe you can add them to your tree if they are ok and 
->>> submit
->>> the entire series together to the qemu mailing list ?
->>
->> yes. They are pushed in my aspeed-3.1 branch. I will send the series
->> on the list.
->>
+On 9/12/18 11:53 AM, krtaylor wrote:
+> Hi all,
 > 
-> Excellent. Thanks a lot!
+> I'd like to announce the OpenBMC Fix-it virtual Sprint, September 24-25. 
+> This time we're going to use IRC to communicate/organize and span 2 full 
+> days to allow for more global participation.
 > 
-> Guenter
+> I'll email more specifics as we get them nailed down. But, for now, get 
+> those ideas coming for what we can accomplish. Keep the ideas fairly 
+> small, something we can finish or almost finish in a 2 day period. Put 
+> them here:
+> 
+> https://docs.google.com/spreadsheets/d/1j4cpTGcUPUZzW4WT1vI0iFVVJApSBbVEvrZJInhI30U/edit?usp=sharing 
 > 
 
-Awesome! Many thanks to Guenter, Cédric and Joel. I really appreciate
-it.
+So far, we have had a grand total of zero ideas listed in the 
+spreadsheet. Please take a few minutes and add some ideas soon.
 
-Jae
+I should get more of the logistics in place today, stay tuned for an update.
+
+> 
+> NOTE: the idea is to participate however and whenever you can, you do 
+> not need to work solid for 2 days - just jump in where you can and 
+> communicate much more than you think you should - if you can help for a 
+> full day great, but helping for 2 hours is also good!
+> 
+> Thanks!
+> Kurt Taylor (krtaylor)
