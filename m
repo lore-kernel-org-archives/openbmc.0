@@ -1,81 +1,55 @@
-Return-Path: <afaerber@suse.de>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=suse.de
- (client-ip=195.135.220.15; helo=mx1.suse.de; envelope-from=afaerber@suse.de;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.214.67; helo=mail-it0-f67.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=suse.de
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
+ [209.85.214.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42BDt03fX0zF3T9;
- Fri, 14 Sep 2018 09:11:11 +1000 (AEST)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay1.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id AAC20AFFB;
- Thu, 13 Sep 2018 23:11:07 +0000 (UTC)
-Subject: Re: [PATCH] ARM: dts: aspeed: Adding Facebook TioagaPass BMC
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42DFTq5QMHzF0wj;
+ Mon, 17 Sep 2018 15:45:51 +1000 (AEST)
+Received: by mail-it0-f67.google.com with SMTP id x79-v6so10157000ita.1;
+ Sun, 16 Sep 2018 22:45:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:from:to:cc:subject:references
+ :mime-version:content-disposition:in-reply-to:status:date:lines;
+ bh=XUv+NWK6MCu5BeWmvoodeYHpYbU5n+WvQ0JlU8sBeb8=;
+ b=PMpUskD3qwvksr9LJiRGiX+fg3sr/PiOWWAZmvWGqvzJHUItzQmAX8ju4U3l6i0dYK
+ +xYU09tiiYvSFM+mM9B2QsjBQH06HLyCHT1SqX3ASm0vleJyX8brDRlULflboP/TKxNg
+ Xrbe43Y8pqHc1q5l8DWgnaMv9tlNmBWsuZP+dG3q3c4uLcBpZrXDH65hPEd9xL48wlaQ
+ vY3oEX1LZA4lBm3z8D5d1Fs5EvV5f4oAhcTJQi296/U/8yf6GwN0u2tc8JWxcYoeqY1i
+ NSq/eSpli9+ynjxrBFcXoXusEV2ipvhC77XvQ+F3pR+bTYySRArk03Xd7dLNGEgefhc8
+ 25sw==
+X-Gm-Message-State: APzg51BRbX1YEB8RLIcje5YDs0lFlDUd8bfG88VasiId3F6beuA80u2C
+ o9Qw7GlhqHEz3y2skP5j5g==
+X-Google-Smtp-Source: ANB0VdaUgSi0MXWT8byouCsSigIl8rp7ox/aAH7TeE5oItMWJKV2QUQKZSQ9QVhROZsUzb+fgd/AWA==
+X-Received: by 2002:a24:1c0a:: with SMTP id
+ c10-v6mr11250874itc.101.1537163149110; 
+ Sun, 16 Sep 2018 22:45:49 -0700 (PDT)
+Received: from localhost ([209.82.80.116])
+ by smtp.gmail.com with ESMTPSA id l21-v6sm4818172iom.8.2018.09.16.22.45.48
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 16 Sep 2018 22:45:48 -0700 (PDT)
+Message-ID: <5b9f3f8c.1c69fb81.8e0e4.d5a8@mx.google.com>
+From: Rob Herring <robh@kernel.org>
 To: Vijay Khemka <vijaykhemka@fb.com>
-References: <20180913195751.1833227-1-vijaykhemka@fb.com>
-From: =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>
-Openpgp: preference=signencrypt
-Autocrypt: addr=afaerber@suse.de; prefer-encrypt=mutual; keydata=
- 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
-Organization: SUSE Linux GmbH
-Cc: robh+dt@kernel.org, mark.rutland@arm.com, joel@jms.id.au,
- andrew@aj.id.au, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: mark.rutland@arm.com, joel@jms.id.au, andrew@aj.id.au, afaerber@suse.de,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
  openbmc@lists.ozlabs.org
-Message-ID: <f71ea702-d500-aeed-a97c-6beca9818b4f@suse.de>
-Date: Fri, 14 Sep 2018 01:11:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.0
+Subject: Re: [PATCH] ARM: dts: aspeed: Adding Facebook TioagaPass BMC
+References: <20180913195751.1833227-1-vijaykhemka@fb.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <20180913195751.1833227-1-vijaykhemka@fb.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 17 Sep 2018 15:03:34 +1000
+X-Mutt-References: <20180913195751.1833227-1-vijaykhemka@fb.com>
+X-Mutt-Fcc: ~/sent
+Date: Sun, 16 Sep 2018 22:53:30 -0500
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,11 +61,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Sep 2018 23:11:21 -0000
+X-List-Received-Date: Mon, 17 Sep 2018 05:45:52 -0000
 
-Hi Vijay,
-
-Am 13.09.18 um 21:57 schrieb Vijay Khemka:
+On Thu, Sep 13, 2018 at 12:57:51PM -0700, Vijay Khemka wrote:
 > Initial introduction of Facebook TioagaPass family equipped with
 > Aspeed 2500 BMC SoC. Neptune is a x86 server development kit
 > with a ASPEED ast2500 BMC manufactured by Facebook.
@@ -118,16 +90,9 @@ Am 13.09.18 um 21:57 schrieb Vijay Khemka:
 >  excito	Excito
 >  ezchip	EZchip Semiconductor
 > +facebook  Facebook
-
-Indentation looks wrong?
-
 >  fairphone	Fairphone B.V.
 >  faraday	Faraday Technology Corporation
 >  fastrax	Fastrax Oy
-
-This addition should probably be in a patch with "dt-bindings:" subject
-prefix, before adding the concrete .dts file using it.
-
 > diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
 > index b5bd3de87c33..9c82c1681c38 100644
 > --- a/arch/arm/boot/dts/Makefile
@@ -145,14 +110,7 @@ prefix, before adding the concrete .dts file using it.
 > +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
 > @@ -0,0 +1,152 @@
 > +// SPDX-License-Identifier: GPL-2.0
-
-Note that the new SPDX name would be GPL-2.0-only to distinguish.
-No "OR MIT"?
-
 > +// Copyright (c) 2017 Facebook Inc.
-
-No 2018?
-
 > +/dts-v1/;
 > +
 > +#include "aspeed-g5.dtsi"
@@ -161,15 +119,20 @@ No 2018?
 > +/ {
 > +	model = "Facebook TiogaPass BMC";
 > +	compatible = "facebook,tiogapass-bmc", "aspeed,ast2500";
-[snip]
+> +	aliases {
+> +		serial0 = &uart1;
+> +		serial4 = &uart5;
+> +	};
+> +	chosen {
+> +		stdout-path = &uart5;
+> +		bootargs = "console=ttyS4,115200 earlyprintk";
+> +	};
+> +
+> +	memory {
 
-There's some inconsistency between subject, commit message, filename and
-compatibles of how this thing is actually called: Tioga or Tioaga?
+This should have a unit-address (as should whatever is defined in 
+aspeed-g5.dtsi).
 
-Regards,
-Andreas
 
--- 
-SUSE Linux GmbH, Maxfeldstr. 5, 90409 Nürnberg, Germany
-GF: Felix Imendörffer, Jane Smithard, Graham Norton
-HRB 21284 (AG Nürnberg)
+> +		reg = <0x80000000 0x20000000>;
+> +	};
