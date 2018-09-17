@@ -1,68 +1,65 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::330; helo=mail-ot1-x330.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="O2l5wkpL"; 
+ dkim-atps=neutral
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42DT5X0VBczF2vT
- for <openbmc@lists.ozlabs.org>; Tue, 18 Sep 2018 00:29:03 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8HESlKk081064
- for <openbmc@lists.ozlabs.org>; Mon, 17 Sep 2018 10:29:01 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.66])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2mjcft4pp1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 17 Sep 2018 10:29:00 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Mon, 17 Sep 2018 14:29:00 -0000
-Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
- by smtp.notes.na.collabserv.com (10.106.227.127) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 17 Sep 2018 14:28:59 -0000
-Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
- by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2018091714285866-701791 ;
- Mon, 17 Sep 2018 14:28:58 +0000 
-In-Reply-To: 
-Subject: MoM of 6 September instance of Test Work group update
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Mon, 17 Sep 2018 14:28:58 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42DVvL1vPJzF2ZL
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Sep 2018 01:50:21 +1000 (AEST)
+Received: by mail-ot1-x330.google.com with SMTP id 36-v6so11787089oth.11
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Sep 2018 08:50:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:subject:to:message-id:date:user-agent:mime-version
+ :content-language:content-transfer-encoding;
+ bh=N2ICURU6pTUS7HBhkR+hMBoluPJ/JM2ppkCFW1Tl4E0=;
+ b=O2l5wkpLBpXTvYOzFw8jLftpfszYUNhHLldb16dn6AZn4XjNSfiXqvC3rDYMRWmMGN
+ qqovcnjuP45f+JOIbXrQWIkudrt2Ta0Rmix6K8tWOVbIQRPh2u9oWOnR/EuBFeEC5143
+ Gk38d/OAjfnRDHcqZ9SyoPfjW3fcPdtlikTtXGKIg5Ir8wZ33oTrDqJqVJeDNYcD4eVL
+ rhSRUZnoYFW0BaCVYynahhwcHlSmqReJlpDYbqV/OfbIQ4caVLV8kwCWzwFjrTZlU9Su
+ g1r/dtejr6DLbp2lLban8jLtvhlhaZvt0PVJiNygrGNuiB7NjVaKagp3Siq7NxRGZU1j
+ IjFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:subject:to:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=N2ICURU6pTUS7HBhkR+hMBoluPJ/JM2ppkCFW1Tl4E0=;
+ b=QuNV6EXiHtozWJmK36AXfpcrW7FBidIRe3hMf/b2JLVIz93qVC3wnDK3oOiqPu9yTL
+ VIV56r+cYU+QkujmCRvpI+RQ5d+vnuv4LI5z0M855QvRyhDnX9kiSlF+AlE8IvZpvEtw
+ 990NE5bypc1GEYEjEm71q6WCNZyVIC1leabWYdEk/s1TkzBzfnegtrmGW7K+b/k9FjVf
+ Tfe369tRbOeRHSeuDziJq1XOuk3rPIFkMH83z66+/I4Hoj0vuxyKx7rkdi7hgasGcTpA
+ nPAuAhVRMP0GQ1k7u4nnWt9qo2x4vvCcDgXbrl2QGlpAeApi+hZBdNt7I7WOK4Y343Hq
+ pViw==
+X-Gm-Message-State: APzg51ALI7gvkAP5LD0v+vbw+J9f9NMWjHB4qVcn0YaXCyoXMdLiwv86
+ rJlHLFc9YI0guF8TFy+5T1XBEar8
+X-Google-Smtp-Source: ANB0VdYjzMUuJj4Z1GAZn/qi1SAVfpZyiPczrYzrAdagjevk4dGdsQ9HfuK1SMuyEUQmcGMpwmQBfg==
+X-Received: by 2002:a9d:4905:: with SMTP id
+ e5-v6mr13487864otf.368.1537199419737; 
+ Mon, 17 Sep 2018 08:50:19 -0700 (PDT)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id h34-v6sm4648310otb.71.2018.09.17.08.50.18
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 17 Sep 2018 08:50:19 -0700 (PDT)
+From: krtaylor <kurt.r.taylor@gmail.com>
+Subject: Release planning WG - Meeting changes
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Message-ID: <c069a114-ac4c-f13b-b58f-3e1dbff2b857@gmail.com>
+Date: Mon, 17 Sep 2018 10:50:18 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
- SCN1812108_20180501T0841_FP1 July 10, 2018 at 11:23
-X-LLNOutbound: False
-X-Disclaimed: 31067
-X-TNEFEvaluated: 1
-x-cbid: 18091714-6357-0000-0000-0000077CC77C
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.40304; ST=0; TS=0; UL=0; ISC=; MB=0.000423
-X-IBM-SpamModules-Versions: BY=3.00009724; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000266; SDB=6.01089653; UDB=6.00562862; IPR=6.00869673; 
- BA=6.00006100; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00023351; XFM=3.00000015;
- UTC=2018-09-17 14:29:00
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-09-17 10:36:54 - 6.00008976
-x-cbparentid: 18091714-6358-0000-0000-000014A9DC1E
-Message-Id: <OF4A292F02.F0F2255C-ON0025830B.004F5BAA-0025830B.004F8EA4@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-17_07:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,16 +71,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Sep 2018 14:29:04 -0000
+X-List-Received-Date: Mon, 17 Sep 2018 15:50:23 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Dear All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >You can find the MoM of 6th September instance of test wo=
-rk group meeting</div>
-<div dir=3D"ltr" >at our wiki <a href=3D"https://github.com/openbmc/openbmc=
-/wiki/Test-work-group" >https://github.com/openbmc/openbmc/wiki/Test-work-g=
-roup</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div></div><BR>
+Hi everyone,
+
+The Release Planning WG is going to start meeting biweekly starting next 
+Monday at the normal time. No meeting today.
+
+It will be an open meeting going forward, refer to the wiki page for the 
+latest contact info and times.
+
+https://github.com/openbmc/openbmc/wiki/Release-Planning
+
+Thanks!
+Kurt Taylor (krtaylor)
