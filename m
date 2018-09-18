@@ -1,103 +1,74 @@
-Return-Path: <prvs=2799d38cdb=sdasari@fb.com>
+Return-Path: <tcminyard@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=2799d38cdb=sdasari@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::243; helo=mail-oi0-x243.google.com;
+ envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="bfL4pia6"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="NbYfUtAf"; dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XxARl1d3"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
+ [IPv6:2607:f8b0:4003:c06::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42FGDv3Rd1zDqjx
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 07:23:10 +1000 (AEST)
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8ILJKVG031004; Tue, 18 Sep 2018 14:23:08 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : content-type : mime-version; s=facebook;
- bh=XC1ix/gg50VQeO8k0BeR1bfOxyUASJZ65p7NMvKAh7g=;
- b=bfL4pia6T37LKwe2xAZi2v7faClz+zt4aXyr08SGeYrrUKAYXvjXs7FYnsuJF3PLwnKK
- 6xBZvbI9udO1/4Ri1sCki++RD/bvIBW1msK7gxo5nRJorEm2ofhCn0LGuNKBNI6rwxh1
- Uv40MFEqCpQ9PcdTGwEPqy39N9ph0hx6hjw= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mk6898ms3-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 18 Sep 2018 14:23:08 -0700
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.30) with Microsoft SMTP
- Server (TLS) id 14.3.361.1; Tue, 18 Sep 2018 17:23:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XC1ix/gg50VQeO8k0BeR1bfOxyUASJZ65p7NMvKAh7g=;
- b=NbYfUtAfxQ5Ps5TwcHrp6QEO+V9dc+lxs42ljIVkCLr7sqLJzQzxJwXWBOlXuUYZwDziQCt9OiTq+tw3l/Twd8zKRdQk7yR1xqqvTDNh/qVpeqq9X1isSw/I6VRJkbsZZJGe378Olj4QgrN6rFwTm4ZdFPjEVZE0K+gYHR7+nEE=
-Received: from MWHPR15MB1789.namprd15.prod.outlook.com (10.174.255.18) by
- MWHPR15MB1949.namprd15.prod.outlook.com (10.175.8.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1143.17; Tue, 18 Sep 2018 21:23:06 +0000
-Received: from MWHPR15MB1789.namprd15.prod.outlook.com
- ([fe80::853e:9e1f:97d1:71d6]) by MWHPR15MB1789.namprd15.prod.outlook.com
- ([fe80::853e:9e1f:97d1:71d6%7]) with mapi id 15.20.1143.017; Tue, 18 Sep 2018
- 21:23:06 +0000
-From: Sai Dasari <sdasari@fb.com>
-To: Joseph Reynolds <jrey@us.ibm.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC Hackathon @ OpenPower Summit
-Thread-Topic: OpenBMC Hackathon @ OpenPower Summit
-Thread-Index: AQHUT5XK2u8Y4iKGYkuWNWDk2gTO/w==
-Date: Tue, 18 Sep 2018 21:23:06 +0000
-Message-ID: <F14EC3A3-3D10-481C-965F-86006FA6AD6D@fb.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::7:bc75]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1949;
- 20:zVHT/Vyf3E5vkW8B93O2hrwg7maHPjdrMGYUuIz2Cdy378EfcbkTxDnsfgKcOeG6El1tDiGh+DJjceLle0jnlSsC9pJ/jNrtNx9OzEa7aSjlmljr8Fc/gwkVwVRhBacv4h9NQr4M3g23z3UsOkCuzUSh+YODTi32fTK3VBh94M0=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: edc699d3-bac6-41be-84e6-08d61dacecdd
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1949; 
-x-ms-traffictypediagnostic: MWHPR15MB1949:
-x-microsoft-antispam-prvs: <MWHPR15MB1949D38F70ACAEF1C33A8734CE1D0@MWHPR15MB1949.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(28532068793085)(166708455590820)(21748063052155)(163750095850); 
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(3231355)(11241501184)(944501410)(52105095)(3002001)(10201501046)(93006095)(93001095)(149027)(150027)(6041310)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(20161123562045)(20161123558120)(201708071742011)(7699050);
- SRVR:MWHPR15MB1949; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1949; 
-x-forefront-prvs: 0799B1B2D7
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(396003)(366004)(39860400002)(376002)(346002)(136003)(199004)(189003)(2906002)(81156014)(81166006)(86362001)(6436002)(316002)(25786009)(7736002)(54896002)(36756003)(6306002)(33656002)(6512007)(105586002)(476003)(106356001)(478600001)(2616005)(6486002)(229853002)(2501003)(5250100002)(46003)(8936002)(110136005)(486006)(68736007)(186003)(97736004)(256004)(14444005)(83716003)(102836004)(8676002)(5660300001)(6506007)(6246003)(53936002)(6116002)(14454004)(99286004)(2900100001)(82746002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1949;
- H:MWHPR15MB1789.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: c/CzPH5adkV0j17O2JcI5k7OUqz0t8+0kL4jZBfL1T/mV+16jvo85VKTIkKlQyefHAuJaMtHSpNPDiPas9LgV+oR42jEUfuzzjOhRberm17OZGqiCpd81jY0Isp4kaNVGnRKLVclfhs8BA2Sjy6RFaAP5JuxeZmGMWDv1e/Z2p9Kyknerd6E4E6FMdutQ1Ag05H6JR/PrpdyY9krW3AeikTbQNVCpV13gyJw2iYHiAMJBTDJ0Y4jo0xZN3enuczXvj5XPWaL41/HqnIXu7I46xhULYgbMaqWBB1OUWrFbMTVKaf8ucM1HMHQjpW29yqj1hb7m+RHtEBVsJp2HnoYPnN3TRTa9jpRZIIzV/bM9bw=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_F14EC3A33D10481C965F86006FA6AD6Dfbcom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42FGY91K2wzF3J0
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 07:37:16 +1000 (AEST)
+Received: by mail-oi0-x243.google.com with SMTP id p84-v6so3211574oic.4
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Sep 2018 14:37:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=JkIfTB3/x6+stkJA4lJvo+peVyOjg0TtfEwW4/ru8Hk=;
+ b=XxARl1d3uVRsCU8Qy7+35vgLt5b2C8ubcMT8bXTpE7zhDGbR5ZHKdqdGA8LLMV8/+B
+ /PPnL49nH2gK6Y3/LRmo/6rAyGkK6J36HpO9t11UyOr5sqgHvmYRa5BQsqKo1/bSAgva
+ 5kwg8ShyHfLq7Mus5i1QzhjSzD+9LukrMrA3zp2Vzj4BnioxhIO7TepSMvNYGbjDGy/W
+ bIIrSyHVui1EK0h6HOUM8Y2SbITxZLcsvuP3whNJMccldCtL9c+nxxyHMieiRLnxXzhn
+ 1TG8IN+YPPuieEbfmww/MwJ/PQFpYt9W6ojisPmm02poOcFL22iLjrvCXTY3M+QTq9X2
+ t++g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=JkIfTB3/x6+stkJA4lJvo+peVyOjg0TtfEwW4/ru8Hk=;
+ b=PrAKcEP3wwCoupGCUogX63JWW0LLEVL56faxw3tfP4+cpOLc+vT6WsVQQE8EO76WX7
+ JsFbNq6rOsA7ZLDd5ZtyvxP689FDlOvWY62AciDevI+GskP817keaxaoez1lnjVwsCKD
+ hQJJ9ZGrlg5MJGgL87nkY1K4vP0P47wlgsqPl/ErjbXDuEh8EaFmQlV1u5kLTgvoc2z6
+ sLFTrVo6hTOhoTprzeOV03AocaKF2Id1TvgkUOknXNDnfvlwZaBSupEHXX5srwq3FQ+s
+ mvrpeuwqSdErsINB9/3ATc3XyeVznte1Fm9y4mxtsXyQK5jmCxP0EXjzeYBv/dVQcXGo
+ LLew==
+X-Gm-Message-State: APzg51AkNcKnGgDdShha1f9u9H0yXELpQ2l7qjHK8nhjrsSGckRBMjJ6
+ lla1cZ4gP6kIO7pKQrsH33YbBYY=
+X-Google-Smtp-Source: ANB0Vda89vvUinFfnjrL0N8WRhH8iAAFAuCofFmrfQri4BX66ouhEVwd2XoW4+Bp9mAYQwBur9M9Fw==
+X-Received: by 2002:aca:5714:: with SMTP id
+ l20-v6mr2886513oib.100.1537306634094; 
+ Tue, 18 Sep 2018 14:37:14 -0700 (PDT)
+Received: from [192.168.27.3] ([47.184.170.128])
+ by smtp.gmail.com with ESMTPSA id q7-v6sm6051375otg.45.2018.09.18.14.37.12
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 18 Sep 2018 14:37:12 -0700 (PDT)
+Reply-To: minyard@acm.org
+Subject: Re: [PATCH v2] ipmi: looped device detection
+To: Patrick Venture <venture@google.com>, Corey Minyard <minyard@acm.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Greg KH <gregkh@linuxfoundation.org>,
+ openipmi-developer@lists.sourceforge.net,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <20180911225630.124502-1-venture@google.com>
+ <585d1c3a-6121-c20d-f6d6-7567595cd1af@acm.org>
+ <CAO=notzHoqsjuSdEZby0mr3KgtoxtYjdr_X0nM_2zBu0NcOOAA@mail.gmail.com>
+ <CAO=notwkMAe_9=32D+ycPwiZ=c_un7sQ+Le9PW_oDiVeBp25jg@mail.gmail.com>
+From: Corey Minyard <tcminyard@gmail.com>
+Message-ID: <966e9741-6a27-a511-8d39-6576d8cfc8f8@gmail.com>
+Date: Tue, 18 Sep 2018 16:37:11 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: edc699d3-bac6-41be-84e6-08d61dacecdd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2018 21:23:06.3843 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1949
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-18_08:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+In-Reply-To: <CAO=notwkMAe_9=32D+ycPwiZ=c_un7sQ+Le9PW_oDiVeBp25jg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,99 +80,133 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Sep 2018 21:23:12 -0000
+X-List-Received-Date: Tue, 18 Sep 2018 21:37:18 -0000
 
---_000_F14EC3A33D10481C965F86006FA6AD6Dfbcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+On 09/18/2018 01:42 PM, Patrick Venture wrote:
+> On Wed, Sep 12, 2018 at 3:54 PM Patrick Venture <venture@google.com> wrote:
+>> On Wed, Sep 12, 2018 at 3:10 PM Corey Minyard <minyard@acm.org> wrote:
+>>> On 09/11/2018 05:56 PM, Patrick Venture wrote:
+>>>> Try to get the device ID repeatedly during initialization before giving up.
+>>>> The BMC isn't always responsive, and this allows it to be slightly flaky
+>>>> during early boot.
+>>>>
+>>>> Tested: Installed on a system with the BMC software disabled
+>>>> such that it was non-responsive.  The driver correctly detected this
+>>>> and gave up as expected.  Then I re-enabled the BMC software unloaded
+>>>> and reloaded the driver and it was detected properly.
+>>> The patch looks fine, but I wonder if this is something that is really
+>>> valuable.
+>>> I have wondered about this before.
+>>>
+>>> The question is: If the BMC is unavailable, what are the chances of it
+>>> becoming
+>>> available by the time you do 5 attempts?  I would guess that is a pretty
+>>> small
+>>> chance, which is why I haven't done this already.
+> Friendly ping.  I'd like to get a sense of whether you're likely to
+> accept this.  If not, it's fine, will close out patch in current
+> downstream rebase.
 
-Pj4tIENhbiBzb21lIHRoZSBwcmVzZW50YXRpb25zIG9yIHNlc3Npb25zIGJlIHdyaXR0ZW4gdXAg
-YW5kIGFkZGVkIHRvIHRoZSBvcGVuYm1jL2RvY3MgcmVwbz8gIEl0IGlzIHNvbWV0aW1lcyBoYXJk
-IHRvIGZpbmQgcHJlc2VudGF0aW9ucyBhZnRlciB0aGV5IGFyZSBkb25lLiAgSXQgaXMgYWxzbyBt
-dWNoIGVhc2llciB0byBrZWVwIGRldGFpbHMgdXAgdG8gZGF0ZSB3aGVuIHRoZXkgYXJlIGluIGEg
-cGxhaW4gdGV4dCBmb3JtYXQgKGNvbXBhcmVkIHRvIHBvd2VycG9pbnQpLg0KDQpHcmVhdCBpZGVh
-ISBNb3N0IG9mIHRoZSBwcmVzZW50YXRpb25zIHdlIGRvIGFyZSBpbiBwb3dlcnBvaW50IChvciBj
-b252ZXJ0ZWQgdG8gcGRmIGZvciBkaXN0cmlidXRpb24pLiBJcyB0aGVyZSBhIHN0YW5kYXJkIHBy
-YWN0aWNlIG9uIGhvdyB0byBzaGFyZSB0aGVzZSBpbiBvcGVuYm1jL2RvY3MgcmVwbz8gaS5lIG9w
-ZW4gYSBnZXJyaXQgcmVxdWVzdCBmb3IgcmV2aWV3IGFuZCBhZGQ/IFdlIGhhdmUgZmV3IHByZXNl
-bnRhdGlvbnMgZnJvbSBsYXN0IE9DUCBzdW1taXQgKE1hcmNo4oCZMTgpIGFuZCBhbm90aGVyIG9u
-ZSB1cGNvbWluZyBPQ1Agc3VtbWl0IGluIE9jdOKAmTE4Lg0KDQo+Pi0gQXMgYSB0aG91Z2h0IGV4
-cGVyaW1lbnQsIGhvdyBtdWNoIG9mIHlvdXIgcHJlc2VudGF0aW9ucyBjYW4geW91IGdpdmUgYnkg
-c2ltcGx5IHJlZmVycmluZyB0byBleGlzdGluZyBPcGVuQk1DIGRvY3VtZW50YXRpb24sIHN1Y2gg
-YXMgaXMgaW4gdGhlIHJlcG9zIHVuZGVyIGdpdGh1Yi5jb20vb3BlbmJtYz8gIElmIHlvdSBuZWVk
-IHRvIGV4cGxhaW4gbW9yZSwgY2FuIHRoYXQgaW5mb3JtYXRpb24gYmUgYWRkZWQgdG8gdGhlIE9w
-ZW5CTUMgZG9jcz8NClNvbWUgb2YgdGhlIHByZXNlbnRhdGlvbiBtYXRlcmlhbCBpcyBlc3NlbnRp
-YWwgYmFja2dyb3VuZC9jb250ZXh0IG9uIEJNQ+KAmXMgdXNlIGNhc2VzLiBCZXNpZGVzIHRoYXQg
-dGhlIGNvbnRlbnQgc2hvdWxkIHJlZmxlY3QgdGhlIG9wZW5ibWMgY29tbXVuaXR5IHdvcmsgaS5l
-LiBleGlzdGluZyBkZXNpZ24vaW1wbGVtZW50YXRpb24sICBkZXNjcmliaW5nIHdvcmtncm91cCwg
-ZmVhdHVyZXMgcGxhbm5lZCBmb3IgbmV4dCByZWxlYXNlLCBmZWF0dXJlcyBwZW5kaW5nIGV0Yy4N
-Cg0KDQoNCg0KDQo=
+I'm ok with doing this, but I lied about the patch being fine, there are 
+some issue.
+Well, I didn't lie, but I didn't look closely enough.
 
---_000_F14EC3A33D10481C965F86006FA6AD6Dfbcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <B4CDA19273692B409218DE2DE9D6D782@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Can you use dev_xxx() instead of pr_xxx().  I know the driver isn't 
+currently
+consistent, but there are a number of patches I have pending to make it
+better and it's a longer-term goal.
 
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
-bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
-YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
-b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
-IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
-aW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQph
-OnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5
-Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnAubXNv
-bm9ybWFsMCwgbGkubXNvbm9ybWFsMCwgZGl2Lm1zb25vcm1hbDANCgl7bXNvLXN0eWxlLW5hbWU6
-bXNvbm9ybWFsOw0KCW1zby1tYXJnaW4tdG9wLWFsdDphdXRvOw0KCW1hcmdpbi1yaWdodDowaW47
-DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87DQoJbWFyZ2luLWxlZnQ6MGluOw0KCWZvbnQt
-c2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0Kc3Bhbi5F
-bWFpbFN0eWxlMTgNCgl7bXNvLXN0eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1p
-bHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6d2luZG93dGV4dDt9DQouTXNvQ2hwRGVm
-YXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsNCglmb250LXNpemU6MTAuMHB0O30N
-CkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4waW4g
-MS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9u
-MTt9DQotLT48L3N0eWxlPg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0iRU4tVVMiIGxpbms9ImJsdWUi
-IHZsaW5rPSJwdXJwbGUiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90
-O0FyaWFsJnF1b3Q7LHNhbnMtc2VyaWYiPiZndDsmZ3Q7LSBDYW4gc29tZSB0aGUgcHJlc2VudGF0
-aW9ucyBvciBzZXNzaW9ucyBiZSB3cml0dGVuIHVwIGFuZCBhZGRlZCB0byB0aGUgb3BlbmJtYy9k
-b2NzIHJlcG8/Jm5ic3A7IEl0IGlzIHNvbWV0aW1lcyBoYXJkIHRvIGZpbmQgcHJlc2VudGF0aW9u
-cyBhZnRlciB0aGV5IGFyZSBkb25lLiZuYnNwOyBJdCBpcyBhbHNvIG11Y2gNCiBlYXNpZXIgdG8g
-a2VlcCBkZXRhaWxzIHVwIHRvIGRhdGUgd2hlbiB0aGV5IGFyZSBpbiBhIHBsYWluIHRleHQgZm9y
-bWF0IChjb21wYXJlZCB0byBwb3dlcnBvaW50KS48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPkdyZWF0IGlkZWEhIE1vc3Qgb2YgdGhlIHByZXNlbnRhdGlvbnMgd2UgZG8gYXJlIGluIHBv
-d2VycG9pbnQgKG9yIGNvbnZlcnRlZCB0byBwZGYgZm9yIGRpc3RyaWJ1dGlvbikuIElzIHRoZXJl
-IGEgc3RhbmRhcmQgcHJhY3RpY2Ugb24gaG93IHRvIHNoYXJlIHRoZXNlIGluIG9wZW5ibWMvZG9j
-cyByZXBvPyBpLmUgb3BlbiBhIGdlcnJpdCByZXF1ZXN0IGZvciByZXZpZXcgYW5kIGFkZD8gV2Ug
-aGF2ZSBmZXcgcHJlc2VudGF0aW9ucw0KIGZyb20gbGFzdCBPQ1Agc3VtbWl0IChNYXJjaOKAmTE4
-KSBhbmQgYW5vdGhlciBvbmUgdXBjb21pbmcgT0NQIHN1bW1pdCBpbiBPY3TigJkxOC4gPG86cD4N
-CjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0K
-PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0
-O2ZvbnQtZmFtaWx5OiZxdW90O0FyaWFsJnF1b3Q7LHNhbnMtc2VyaWYiPiZndDsmZ3Q7LSBBcyBh
-IHRob3VnaHQgZXhwZXJpbWVudCwgaG93IG11Y2ggb2YgeW91ciBwcmVzZW50YXRpb25zIGNhbiB5
-b3UgZ2l2ZSBieSBzaW1wbHkgcmVmZXJyaW5nIHRvIGV4aXN0aW5nIE9wZW5CTUMgZG9jdW1lbnRh
-dGlvbiwgc3VjaCBhcyBpcyBpbiB0aGUgcmVwb3MgdW5kZXIgZ2l0aHViLmNvbS9vcGVuYm1jPyZu
-YnNwOw0KIElmIHlvdSBuZWVkIHRvIGV4cGxhaW4gbW9yZSwgY2FuIHRoYXQgaW5mb3JtYXRpb24g
-YmUgYWRkZWQgdG8gdGhlIE9wZW5CTUMgZG9jcz88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj5Tb21lIG9mIHRoZSBwcmVzZW50YXRpb24gbWF0ZXJpYWwgaXMgZXNz
-ZW50aWFsIGJhY2tncm91bmQvY29udGV4dCBvbiBCTUPigJlzIHVzZSBjYXNlcy4gQmVzaWRlcyB0
-aGF0IHRoZSBjb250ZW50IHNob3VsZCByZWZsZWN0IHRoZSBvcGVuYm1jIGNvbW11bml0eSB3b3Jr
-IGkuZS4gZXhpc3RpbmcgZGVzaWduL2ltcGxlbWVudGF0aW9uLCAmbmJzcDtkZXNjcmliaW5nIHdv
-cmtncm91cCwgZmVhdHVyZXMgcGxhbm5lZCBmb3IgbmV4dA0KIHJlbGVhc2UsIGZlYXR1cmVzIHBl
-bmRpbmcgZXRjLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJp
-YWwmcXVvdDssc2Fucy1zZXJpZiI+Jm5ic3A7PGJyPg0KJm5ic3A7PG86cD48L286cD48L3NwYW4+
-PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
-bnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+
-Jm5ic3A7PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+Can you make GET_DEVICE_ID_ATTEMPTS more specific, add IPMI_SI_ to
+the beginning or something.
 
---_000_F14EC3A33D10481C965F86006FA6AD6Dfbcom_--
+I am not sure that I'm ok with waiting up to 1.25 seconds in the init 
+function.
+As I mentioned before, a large number of systems have broken ACPI/SMBIOS
+information, and for those it will add 1.25 seconds to the boot time of 
+every
+one of those systems.  That won't make me a popular guy :-).
+
+This is a harder problem to figure out what to do.  To solve it properly 
+would
+mean having a timer or thread drive this, and unload the module later if
+the process fails.
+
+-corey
+
+> Thanks
+>
+>> This patch was actually critical for us to provide a reliable IPMI
+>> interface.  The version of OpenBMC or the state of the BMC at the
+>> point the kernel was loading was flaky, so following the example in
+>> the BIOS source, we just re-try a few times.  We also can hold boot X
+>> seconds until it's responding, but, this avoided some issues inherent
+>> with that.
+>>
+>>> You could have something that re-tested periodically, but there are so many
+>>> systems with IPMI specified in ACPI or SMBIOS that is wrong, and it would
+>>> try forever.  Also not really a good thing.
+>> If we did a periodic check, it could check X times, but I felt going
+>> for a simple solution was ideal -- and this idea was proved out on a
+>> few platforms.  We have other drivers that are loaded by the kernel
+>> (not at run-time) and they depend on IPMI, and without this patch they
+>> would then have a non-trivial probability of failure.
+>>
+>>> So I've left it to reload the driver or use the hotmod interface.
+>>>
+>>> -corey
+>>>
+>>>> Signed-off-by: Patrick Venture <venture@google.com>
+>>>> ---
+>>>> v2:
+>>>>    - removed extra variable that was set but not used.
+>>>> ---
+>>>>    drivers/char/ipmi/ipmi_si_intf.c | 23 ++++++++++++++++++++++-
+>>>>    1 file changed, 22 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/char/ipmi/ipmi_si_intf.c b/drivers/char/ipmi/ipmi_si_intf.c
+>>>> index 90ec010bffbd..5fed96897fe8 100644
+>>>> --- a/drivers/char/ipmi/ipmi_si_intf.c
+>>>> +++ b/drivers/char/ipmi/ipmi_si_intf.c
+>>>> @@ -1918,11 +1918,13 @@ int ipmi_si_add_smi(struct si_sm_io *io)
+>>>>     * held, primarily to keep smi_num consistent, we only one to do these
+>>>>     * one at a time.
+>>>>     */
+>>>> +#define GET_DEVICE_ID_ATTEMPTS       5
+>>>>    static int try_smi_init(struct smi_info *new_smi)
+>>>>    {
+>>>>        int rv = 0;
+>>>>        int i;
+>>>>        char *init_name = NULL;
+>>>> +     unsigned long sleep_rm;
+>>>>
+>>>>        pr_info(PFX "Trying %s-specified %s state machine at %s address 0x%lx, slave address 0x%x, irq %d\n",
+>>>>                ipmi_addr_src_to_str(new_smi->io.addr_source),
+>>>> @@ -2003,7 +2005,26 @@ static int try_smi_init(struct smi_info *new_smi)
+>>>>         * Attempt a get device id command.  If it fails, we probably
+>>>>         * don't have a BMC here.
+>>>>         */
+>>>> -     rv = try_get_dev_id(new_smi);
+>>>> +     for (i = 0; i < GET_DEVICE_ID_ATTEMPTS; i++) {
+>>>> +             pr_info(PFX "Attempting to read BMC device ID\n");
+>>>> +             rv = try_get_dev_id(new_smi);
+>>>> +             /* If it succeeded, stop trying */
+>>>> +             if (!rv)
+>>>> +                     break;
+>>>> +
+>>>> +             /* Sleep for ~0.25s before trying again instead of hammering
+>>>> +              * the BMC.
+>>>> +              */
+>>>> +             sleep_rm = msleep_interruptible(250);
+>>>> +             if (sleep_rm != 0) {
+>>>> +                     pr_info(PFX "Find BMC interrupted\n");
+>>>> +                     rv = -EINTR;
+>>>> +                     goto out_err;
+>>>> +             }
+>>>> +     }
+>>>> +
+>>>> +     /* If we exited the loop above and rv is non-zero we ran out of tries.
+>>>> +      */
+>>>>        if (rv) {
+>>>>                if (new_smi->io.addr_source)
+>>>>                        dev_err(new_smi->io.dev,
+>>>
