@@ -1,62 +1,48 @@
-Return-Path: <venture@google.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="lDRBLNPY"; 
- dkim-atps=neutral
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42F6nZ48dszF3FG
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 01:47:30 +1000 (AEST)
-Received: by mail-pl1-x62a.google.com with SMTP id s17-v6so1198034plp.7
- for <openbmc@lists.ozlabs.org>; Tue, 18 Sep 2018 08:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=8wPTP129kciUfvC7aQumR52hkMgGXp0wNeSoaMbn/fU=;
- b=lDRBLNPYVy8n5vpn2RFo1yX8/dfwncAHtCHqWOfwbiK5EZGh4lIj2eNc6gpF/jxquN
- vFof4pw+dg+PY7jnyqJE0nOaO9sRhns25B+dwP7JXtxunrS54mAfs+KwlZn9V0eWMXho
- rlIpISv75hKjxMYnroRaOQ2+NZ2FqYuD2oN2uLc4arovxQLlZFzwx1u8su1vSa79rUjc
- A+eM4UlSS5e5fyxB1ratuk3dNlmcwwrRbgh8+jq+ZTWIeAYmG6dUsbrLwepGnzabcrCk
- qA4rBf1ZUaJ4oHwLgkb+EOwzhlxFnd9gUoqnlCn2trxCSN2N6mobf4sxAGE+h1w1ipGC
- dS5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=8wPTP129kciUfvC7aQumR52hkMgGXp0wNeSoaMbn/fU=;
- b=UCf4O9+YuodllpdTEaKYw8TT7BX7f6PVe+sR0sxvWEwJhOmfQ+yNSs8gaG0Cjk7742
- WVepiJouuLD2WNFSFhmT9Vhgvos7cMdPcyYJlDjz3xzz9jmTGdwcUCZha1MQXuCJgZkc
- 086lysuYKP6KgjQ6mjDO+cYJViTAokMxDum9ITSOKN7D7/lm+MLF/E/5fVISjrEq7FJB
- RMSCzGaI6BKdhPFMhc5f2+S5/eyI6e0DlIFkFK3gEcS6lK/BA+tsEvaohAOmYvd7LBGk
- tdhc21IPmHBMTQXNSSEj/BBy/5z+ex/ptuWhZQqctahxqOmUW7HpaCieqRWQBRzew083
- V5GA==
-X-Gm-Message-State: APzg51AfxeiDYjUMSwzssssBtos+++tPu32U25oLOu4U8E3lqovglRmX
- 2xB+RDn03sch6c1vbm7pC2Ymg7cyi0kwynx8W9rHuA==
-X-Google-Smtp-Source: ANB0Vda/kOiNK9ePTqUD4ShelkoeqdzPRfrJPVZLOMOTU+BrISIS116MbCxGrODKI0hbVORlPfLyWxt9xKzKXD8os50=
-X-Received: by 2002:a17:902:46a4:: with SMTP id
- p33-v6mr30342082pld.205.1537285647874; 
- Tue, 18 Sep 2018 08:47:27 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42F9nv19GGzF3Jh;
+ Wed, 19 Sep 2018 04:02:57 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2018 11:02:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.53,390,1531810800"; d="scan'208";a="233975480"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.151])
+ ([10.7.153.151])
+ by orsmga004.jf.intel.com with ESMTP; 18 Sep 2018 11:02:55 -0700
+Subject: Re: [RFC PATCH i2c-next 1/2] dt-bindings: i2c: aspeed: Add
+ 'idle-wait-timeout-ms' setting
+To: Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20180910214519.14126-1-jae.hyun.yoo@linux.intel.com>
+ <20180910214519.14126-2-jae.hyun.yoo@linux.intel.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <a81a6092-a9d0-78d5-3596-cddc5d6a0713@linux.intel.com>
+Date: Tue, 18 Sep 2018 11:02:54 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAO=noty_TQ2jvQw-Yxb-RYe+0xOXa4F39ozF11r9PN1w2Qt_Dw@mail.gmail.com>
- <C385EBD1-871A-4E5B-8FDE-80146795CC6D@fuzziesquirrel.com>
-In-Reply-To: <C385EBD1-871A-4E5B-8FDE-80146795CC6D@fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 18 Sep 2018 08:47:16 -0700
-Message-ID: <CAO=notx9KnTNNC1UnL=DQkfpgqaUmKsbMeAG1H8CkodXGDVQ4Q@mail.gmail.com>
-Subject: Re: New Repository Request
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, 
- Emily Shaffer <emilyshaffer@google.com>, tomjoseph@in.ibm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20180910214519.14126-2-jae.hyun.yoo@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,73 +54,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Sep 2018 15:47:32 -0000
+X-List-Received-Date: Tue, 18 Sep 2018 18:03:00 -0000
 
-On Fri, Sep 14, 2018 at 6:00 AM Brad Bishop <bradleyb@fuzziesquirrel.com> w=
-rote:
->
->
-> > On Sep 13, 2018, at 1:55 PM, Patrick Venture <venture@google.com> wrote=
-:
-> >
-> > Brad,
-> >
-> > I'd like to set up a new repository in openbmc to store a google oem
-> > ipmi library I'd like to share with everybody.  It allows grabbing
-> > ethernet device statistics over IPMI.
-> >
-> > I have no problem registering it under the OpenBMC OEN (and the google
-> > one) since OEM registration supports that -- then it could be
-> > phosphor-ipmi-ethstats.
-> >
-> > I really would like to share the code -- but I would be ok with it
-> > being in a google-specific repository, such as google-ipmi-ethstats --
-> > If so, I'll put the recipe in meta-google.
-> >
-> > I know we've talked about this before, and it really feels like six in
-> > one hand on this =E2=80=94
->
-> As far as where the code is hosted I=E2=80=99m good one way or the other.
-> Will wait a couple days for objections and create openbmc/phosphor-ipmi-e=
-thstats.
+On 9/10/2018 2:45 PM, Jae Hyun Yoo wrote:
+> +- idle-wait-timeout-ms	: bus idle waiting timeout in milliseconds when
+> +			  multi-master is set, defaults to 100 ms when not
+> +			  specified.
 
-Please go ahead and create openbmc/phosphor-ipmi-ethstats unless you'd
-rather create openbmc/google-ipmi-ethstats.  I'm ok with doing the
-extra bit of wiring it up to OpenBMC, which would really be the
-difference.  But given your concern below -- I'm willing to own it
-under google until the implications are worked out.
+Will change it to 'aspeed,idle-wait-timeout-ms' as it's a non standard
+property.
 
->
-> It might be good to have a conversation around how we handle the OpenBMC =
-OEN
-> though.  Putting things there would seem to have lasting impact for every=
-one
-> using OpenBMC and we don=E2=80=99t have any process in place for that.
-
-That's correct.  So, right now, the extra handlers aren't enabled to
-be included in the image by default.  Someone would need to select
-them, which I like.  As that's an opt-in behavior.  And if there's
-interplay between the things, they can explicitly indicate that in
-bitbake and in a README.
-
-Consider, that each company may want to share their handlers - which I
-think is great.  It enables vendors, if nothing else, and encourages
-them to switch to OpenBMC to sell hardware to IBM, Google, etc.  I
-also prefer the opt-in model for features, which this fits (repeated
-point).
-
-If we share them openly and register the numbers in
-phosphor-host-ipmid, we can better enable a vendor or someone to say,
-I want to support _all_ the environments, and just flip all the
-switches.  To this end, I'm considering re-submitting the oemgoog
-header to phosphor-host-ipmid, but by flagging its inclusion via a
-build-time flag.  So, one could say, build a clean phosphor-host-ipmid
-by building the default, but if they --enable-google or --enable-intel
-maybe they get the extra headers included under something like
-host-ipmid/oem/oemgoogle.hpp (need to send patch to maintainers for
-review sometime today).
-
->
-> >
-> > Thanks,
-> > Patrick
+Jae
