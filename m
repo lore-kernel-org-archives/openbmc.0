@@ -1,56 +1,67 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22d; helo=mail-it0-x22d.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="N9A9iqXr"; 
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="jUHEgf4k"; 
  dkim-atps=neutral
-Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
- [IPv6:2607:f8b0:4001:c0b::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42FQNH0jTKzF3JJ
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 13:30:06 +1000 (AEST)
-Received: by mail-it0-x22d.google.com with SMTP id j81-v6so6400455ite.0
- for <openbmc@lists.ozlabs.org>; Tue, 18 Sep 2018 20:30:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=zs44957XOBVfuJ9XYYOC6V9bj57FRA0a/x9gKLE6a+E=;
- b=N9A9iqXrAtyzwM6axtJNEN3a1oBUh1fYVjNc1ncgxMelOh1SxzLqtijTT6SvvlauHw
- GjUlwAQi7w3In7Oieec5/WipcgtB+ZDUjsX+okoByWcDSSwPIIduDMtwgZQ9MjD+Ixn2
- clD5KhXwPUC/W5Pw9078x6p7HV5g/SG5Bzurm2bUm6BxkDWi4kTIB5T77U9s8VeR5SvB
- YSqLup3M/z4DGqPDMDOqjYHykmz+anvjFvnV4KQmUVcTzQrVw2jFS2TLo19l7zfWOVSV
- 2048lua5V0vqDQW/7BVhOyLwsWbDN0OCz8SDzX9bP9gloJZd1/UkQrg+5PX9dIMmVx4r
- LYqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=zs44957XOBVfuJ9XYYOC6V9bj57FRA0a/x9gKLE6a+E=;
- b=bwYAm6eYPhNatK/TUKuhvy8Hr3iN47zJpNzH7gsp2ZLWjjCZt+zV8nFN0o1vpYfMYt
- OnpfcuzRQpomnMYvxFTVJ1eO5kw20Uo1XFM2uWRcMe8+fqRzshyKmxnfqMUv3JuLgdZ7
- feurIzli3MDjFz5kKp2U3NxUSEPRJCJruofEO5WEsflrqcty5zZRDUExeK0iwhVvpP/Z
- 8OMSVCw+/tsB4hWiUaBP3g2ozm8Al+64ub6s6BOdjXeXRUHrD4uTTvYFnCGwmgfTxj4w
- Y3VJmoBsLMJaag8yMj6WT0LN77yX7Bnf/0fhBGMAstxAKs/JgJIGcnIxPlyCRwMRzaHJ
- IbWA==
-X-Gm-Message-State: APzg51CahgxWJW432q8uMaiTU0sLa7Cm2d0SWgXjg+eb00lDcd/esmLX
- 89RwMmVGY9UVn6ICo+WLDBxi79P1woBZkvLiXKkphR+qVsQ=
-X-Google-Smtp-Source: ANB0VdZCeYZF4MzLEutu2yjC2jpaLb9dzjN43sFglWpMy2A5WU4uRqvFfVGJibiXeXZTkwy7rlSpsdMqlClDd7WxtWc=
-X-Received: by 2002:a24:85c6:: with SMTP id
- r189-v6mr20970970itd.83.1537327803797; 
- Tue, 18 Sep 2018 20:30:03 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Fbn221WKzDqq8
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 20:33:42 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id F3260404CD;
+ Wed, 19 Sep 2018 10:33:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ mime-version:content-transfer-encoding:content-type:content-type
+ :content-language:accept-language:in-reply-to:references
+ :message-id:date:date:subject:subject:from:from:received
+ :received:received:received; s=mta-01; t=1537353217; x=
+ 1539167618; bh=mu5NheCMBnrXLmyP/dpY7Dahtk0Slw0cIfpaMTUgc0I=; b=j
+ UHEgf4kNYQTKx/v6bAACZZWXWz5L/KUP9MXVHrc+kIKwKIBmyfPFddT0YulqwB4y
+ j56dTAzyt7O9lAmNYwhn9FzdPxZuU7/yM3rW8nhW2PIJt/a26uXfzhLQQCv8hXTI
+ cGYgiOlsg99u70Ftdopw8ii2RcCZf1+fyZSt2pxkRs=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id IcRUAiO9E_0L; Wed, 19 Sep 2018 13:33:37 +0300 (MSK)
+Received: from T-EXCH-01.corp.yadro.com (t-exch-01.corp.yadro.com
+ [172.17.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id A11DD404CF;
+ Wed, 19 Sep 2018 13:33:37 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (172.17.10.102) by
+ T-EXCH-01.corp.yadro.com (172.17.10.101) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.669.32; Wed, 19 Sep 2018 13:33:37 +0300
+Received: from T-EXCH-02.corp.yadro.com ([fe80::c0ed:76be:aa75:7895]) by
+ T-EXCH-02.corp.yadro.com ([fe80::c0ed:76be:aa75:7895%14]) with mapi id
+ 15.01.0669.032; Wed, 19 Sep 2018 13:33:37 +0300
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Lei YU <mine260309@gmail.com>, Sivas Srr <sivas.srr@in.ibm.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Version and Functional FRU fields for motherboard and membuf
+Thread-Topic: Version and Functional FRU fields for motherboard and membuf
+Thread-Index: AQHT1+fLzKHm4NzT2kySmots3h2gWaS/vmwAgADa7ICAN74x0Q==
+Date: Wed, 19 Sep 2018 10:33:37 +0000
+Message-ID: <0c38bf32fc3c43f79a4356170fe23df0@yadro.com>
+References: <11b98338b00640daa3cbeba50c6ef324@yadro.com>
+ <33ffdf42-0d9d-0331-0e14-2898cd1a1e73@yadro.com>,
+ <CAARXrtmmeixPcYx4U11Zy19fm0GnOLbvUD2MTpZOEp-ytQ9T2g@mail.gmail.com>
+In-Reply-To: <CAARXrtmmeixPcYx4U11Zy19fm0GnOLbvUD2MTpZOEp-ytQ9T2g@mail.gmail.com>
+Accept-Language: ru-RU, en-US
+Content-Language: ru-RU
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.100.1.250]
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <CAARXrt=u1NYt4BLy0M5jiBVSWE9LwQ6ytuygXChVNbqApcPf3Q@mail.gmail.com>
-In-Reply-To: <CAARXrt=u1NYt4BLy0M5jiBVSWE9LwQ6ytuygXChVNbqApcPf3Q@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 19 Sep 2018 11:29:49 +0800
-Message-ID: <CAARXrtm=pLikfGz=t007hk0cSVRv5gKFV0wygrsA-nXH3g5yaQ@mail.gmail.com>
-Subject: Re: Problem on static libraries enabled with LinkTimeOptimization
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,79 +73,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Sep 2018 03:30:08 -0000
+X-List-Received-Date: Wed, 19 Sep 2018 10:33:42 -0000
 
-An update on this about a "better" workaround.
+>> It's actually "Verify FRU Properties" and it's a part of openbmc-test-au=
+tomation test suite, see here:
+>>
+>> https://github.com/openbmc/openbmc-test-automation/blob/ac687c43ddc7f639=
+a4607ad89dd5ae462dcf65c9/tests/test_inventory.robot#L184
+>>
+>> As I see, Palmetto's yaml config does not have Version or Functional pro=
+perty for motherboard and membuf, so I do not think they will have such pro=
+perties.
+>>
+>> So, does the test case pass for Palmetto?
 
-To use gcc-ar gcc-ranlib with autoconf, we could "define" the tools in
-configure.ac before `AM_PROG_AR` to override the default ones.
+> @Sivas Srr Could you check this?
 
-    AC_SUBST([AR], [${ac_tool_prefix}gcc-ar])
-    AC_SUBST([RANLIB], [${ac_tool_prefix}gcc-ranlib])
+Sivas, Lei? Any chance to get an answer to this? The test still fails for u=
+s and we can't decide whether we should disable the test or add thos proper=
+ties to motherboard and membuf objects.
 
-See an example at
-https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-fan-presence/+/12962/
+By the way, what is at all the meaning and purpose of the 'Functional' prop=
+erty? Is it an indicator of a component functioning properly, or is it a 'h=
+andle' to turn a component off before hot removal/replacement?
+There is no description anywhere that we could find.
 
-This change is smaller and does not involves bitbake recipes anymore.
-
-Any feedback/comment is welcome :D
-
-On Wed, Sep 12, 2018 at 5:26 PM Lei YU <mine260309@gmail.com> wrote:
->
-> This email is to describe a problem about static libraries enabled with
-> LinkTimeOptimization (-flto), and asking for suggestions how to fix the
-> problem.
->
-> ## Background
->
-> When a repo enables lto, and if the repo builds a static library, it gets
-> build error, e.g. for [phosphor-fan-presence#11][1]
->
->     arm-openbmc-linux-gnueabi-ar: .libs/libfan_la-utility.o: plugin
-> needed to handle lto object
->     arm-openbmc-linux-gnueabi-ar: .libs/libfan_la-timer.o: plugin
-> needed to handle lto object
->     arm-openbmc-linux-gnueabi-libtool: link:
-> arm-openbmc-linux-gnueabi-ranlib .libs/libfan.a
->     arm-openbmc-linux-gnueabi-ranlib:
-> .libs/libfan.a(libfan_la-utility.o): plugin needed to handle lto
-> object
->     arm-openbmc-linux-gnueabi-ranlib:
-> .libs/libfan.a(libfan_la-timer.o): plugin needed to handle lto object
->
-> And eventually it causes undefined references during linking.
-> The same for phosphor-time-manager.
->
->
-> ## Root Cause
->
-> ar needs to load liblto_plugin to handle lto objects, and our build
-> environment does not tell ar to load the plugin.
->
-> According to https://gcc.gnu.org/wiki/LinkTimeOptimizationFAQ:
-> > In order to handle archives of these objects you have to use the gcc
-> > wrappers: gcc-ar, gcc-nm and gcc-ranlib.
->
-> So the simplest way to load the plugin is to use gcc-ar instead of ar.
->
->
-> ## Question
->
-> Most of phosphor repos in OpenBMC uses autotool to configure, and it depends
-> on environment variables to configure the repo.
-> By default, AR is defined as `${TARGET_PREFIX}ar`, I do not find a way to
-> change it.
->
-> So my question is, how to handle this case? E.g. how to specify gcc-ar in
-> autoconf?
->
->
-> ## References
->
-> * I have an *ugly* workaround to override AR by define it in `EXTRA_OECONF`,
->    see https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/12721/ for
->    details.
-> * bmcweb uses CMake and it specifies gcc-ar in [CMakefiles][2].
->
-> [1]: https://github.com/openbmc/phosphor-fan-presence/issues/11
-> [2]: https://github.com/openbmc/bmcweb/blob/master/CMakeLists.txt#L70
+Thank you.
+Alexander.=
