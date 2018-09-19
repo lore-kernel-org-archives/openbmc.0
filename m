@@ -1,60 +1,81 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32a; helo=mail-ot1-x32a.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="M3DHUWuU"; 
- dkim-atps=neutral
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Fl5b5f2LzDqXw
- for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 02:03:27 +1000 (AEST)
-Received: by mail-ot1-x32a.google.com with SMTP id e18-v6so6285755oti.8
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 09:03:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=NwLzSdbB817Hp7ElTlLoufiYYz32L1FxyC4HxRsXro0=;
- b=M3DHUWuUrh8oOKeUoF2HVdSqeHNHNq+exQjqbIoTDJ8MzIqMBiTtQ8/qRS/Smy1eKp
- URm9eqyyeK3F9rfFl1I61im09UXm5P2Kpdi1Era/BIAnkBVOhCb4aRmLv00DIxJCznAQ
- yOH0FgaEoOJqoadP6x0E+XjNrWZVtPb0K4RkR1JJtWxVtZVqWUCZmw4dR2PKVlT4tH0y
- xlhOZ+mQdh0+pTJjZG3ahaZEQMmhzmbWngkU24MYJb0RZg8UVg+fICSPNN8KZQU3lLCB
- 5JN0tIRlYRBRobcZOT7BpH4lsAV/EkHKArVof5C5PiLfHHFH80OeB9+OtIKoHbNjv5k/
- oRkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=NwLzSdbB817Hp7ElTlLoufiYYz32L1FxyC4HxRsXro0=;
- b=ES/D0VhjvWM/DM7ks7Yjo3ewvbqYKMpaoc0rJg8uM+INk98YIteUWrO6sg6gzS2rUv
- +J7CCh1qhfy9+TGUEqeYR5b2dZZZuAqCjY66QJDJyS7cHhB36DEBVUz7lgF4ZmwXw68R
- Ssq48hAFE4uOI0/iX/LFW5T20a+nrOY6FeWFOnXEey2Y6IJH3OKk+232HMMk2ak90hyH
- yxn+vPL2CH3o4iycVyJWaZnwyu/0DKcx2+vYsRVid4YkGpsPcA8CNrbohE7xydvS0UBJ
- cTgOcJS+DU1mKwtkYcGKrFSCHHgR1cis9ZGtaRbcbim9LHloNaPNFu9we+GNUFdQOGbo
- 8/zA==
-X-Gm-Message-State: APzg51DtFvbBEXqaTyDlr5EEYqekGnKdFLY0KU3W9bSrkCj2E36luzhN
- /bZfrSDqNYkXEVxl3naT/pHWfsPTOUYA21AawiWdOGyB
-X-Google-Smtp-Source: ANB0VdYLWqaF4ed0574Y89YQqwL6AMmhc9nALgqzlEvZeUJirSm7zkFSv9EUzpM9ok+6qFVehkdJaUQhrorSDItHfo0=
-X-Received: by 2002:a9d:3f9a:: with SMTP id
- r26-v6mr18553592otc.113.1537373004924; 
- Wed, 19 Sep 2018 09:03:24 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Fl5f1ccmzDrbn
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 02:03:33 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w8JG2Edk100974
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 12:03:31 -0400
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2mksd70sm9-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 12:03:30 -0400
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Wed, 19 Sep 2018 10:03:23 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 19 Sep 2018 10:03:19 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w8JG3Jb750790428
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 19 Sep 2018 09:03:19 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id F3B616E04C;
+ Wed, 19 Sep 2018 10:03:18 -0600 (MDT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BAA046E054;
+ Wed, 19 Sep 2018 10:03:18 -0600 (MDT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed, 19 Sep 2018 10:03:18 -0600 (MDT)
 MIME-Version: 1.0
-References: <CAO=notxg=KimTVEuJXgR-iN9T5FiKcMA2TJD-E6pM_KVO9338g@mail.gmail.com>
- <5C90478E-E89A-428D-873F-3E4CCD5595D4@fuzziesquirrel.com>
- <CAO=notz2-wfv_kep5FhGP9T7rdQehvSqBSECvPywNis=uRXTKw@mail.gmail.com>
-In-Reply-To: <CAO=notz2-wfv_kep5FhGP9T7rdQehvSqBSECvPywNis=uRXTKw@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 19 Sep 2018 11:03:13 -0500
-Message-ID: <CALLMt=rthqi3e3vHNbNFkjyhBEp8P6P8KoYC0e4XrdKMhip1Hg@mail.gmail.com>
-Subject: Re: Link-up between Gerrit & Github
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 19 Sep 2018 11:03:55 -0500
+From: Adriana Kobylak <anoo@linux.ibm.com>
 To: Patrick Venture <venture@google.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Brad Bishop
+ <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>, openbmc
+ <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: Repository Growth
+In-Reply-To: <CAO=notzdS19X69xpgSUkT5uZhKm0Wv623aThWtsnhRX2NpWJ9A@mail.gmail.com>
+References: <CAO=notzdS19X69xpgSUkT5uZhKm0Wv623aThWtsnhRX2NpWJ9A@mail.gmail.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18091916-8235-0000-0000-00000E022F49
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009734; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01090644; UDB=6.00563457; IPR=6.00870665; 
+ MB=3.00023392; MTD=3.00000008; XFM=3.00000015; UTC=2018-09-19 16:03:21
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18091916-8236-0000-0000-000042B22AB7
+Message-Id: <7a1a72293444f69374e10367aeaa1d74@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-09-19_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=761 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1809190156
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +87,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Sep 2018 16:03:33 -0000
+X-List-Received-Date: Wed, 19 Sep 2018 16:03:35 -0000
 
-On Wed, Sep 19, 2018 at 10:01 AM Patrick Venture <venture@google.com> wrote:
->
-> On Mon, Sep 17, 2018 at 12:28 PM Brad Bishop
-> <bradleyb@fuzziesquirrel.com> wrote:
-> >
-> >
-> >
-> > > On Sep 17, 2018, at 3:17 PM, Patrick Venture <venture@google.com> wrote:
-> > >
-> > > The first meta-google patchset was pushed by Brad into github.
-> > > Interestingly, the second patchset which was merged into gerrit 3 days
-> > > ago still hasn't been automatically pushed into github.  It makes me
-> > > think there's some box we need to check or a setting to push.
-> > >
-> > > Brad, can you dig into this please?  I don't have any permissions to
-> > > poke at it on Gerrit.
-> >
-> > Will do.  Agreed there is a problem here - I noticed meta-x86 was out
-> > of sync too.  In the meantime I've manually fixed these.
->
-> I know it hasn't been long, but I was curious if there any thoughts,
-> since it appears to be all new repositories, and not just the meta
-> ones.
+On 2018-09-19 10:47, Patrick Venture wrote:
+> With the growth of number of repositories, it might be overwhelming to
+> someone who wants to set things up.
+> 
+> I'd like to write up a directory that groups the repositories by
+> purpose.  I wasn't sure if this made sense, so I wanted early feedback
+> before I started.  The maintenance of it would be horrible for one
+> person, but if someone wants their repository to have details and so
+> on they can add it.
+> 
+> I think it's important or useful to know what's out there and how
+> things work together or don't, and what options there are for
+> developers.
+> 
 
-Yeah, there's a bug in either gerrit or the github plugin to gerrit
-(or a mismatch in the levels).  If we restart gerrit it picks up all
-the missing synch's and then works fine with that repo after. I'm
-hoping to just defer this until the next gerrit maintenance window in
-a month or so.  Wouldn't be an issue if we weren't adding so many
-freaking repos to openbmc :)  jk
++1 . Do you have a template in mind on how this could look like?
 
-But yeah, until then, Brad please just ping me and I'll manually
-restart gerrit when you add new repos, it just takes a few seconds to
-get back up and running.  If it gets annoying enough I'll dig in a bit
-sooner.
-
-Andrew
+> Thoughts?
+> 
+> Patrick
