@@ -1,83 +1,60 @@
-Return-Path: <afaerber@suse.de>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=suse.de
- (client-ip=195.135.220.15; helo=mx1.suse.de; envelope-from=afaerber@suse.de;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::633; helo=mail-pl1-x633.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=suse.de
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="lYJqj75T"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Fln52PVNzF3FJ
- for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 02:34:16 +1000 (AEST)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay1.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id F0AA4AB7D;
- Wed, 19 Sep 2018 16:34:12 +0000 (UTC)
-Subject: Re: [PATCH 1/2] ARM: dt-bindings: aspeed: Facebook TiogaPass BMC
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Thierry Reding <treding@nvidia.com>, David Lechner <david@lechnology.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Johan Hovold <johan@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-References: <20180919162918.3994257-1-vijaykhemka@fb.com>
-From: =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>
-Openpgp: preference=signencrypt
-Autocrypt: addr=afaerber@suse.de; prefer-encrypt=mutual; keydata=
- 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
-Organization: SUSE Linux GmbH
-Message-ID: <09e425e4-9199-dccd-a8ab-4fbd9f384677@suse.de>
-Date: Wed, 19 Sep 2018 18:34:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Fx7V3bcfzDqMh
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 09:35:49 +1000 (AEST)
+Received: by mail-pl1-x633.google.com with SMTP id g23-v6so3369700plq.9
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 16:35:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=K8qSaJG7QitV6Bmg3h/MV+is9F+PS2L5trrK1WRp6m0=;
+ b=lYJqj75To3aAH+9HtZQk2Qww6Cue02DOGl//JchXjR4j0xzuYt1crEc60m3FZ6fESn
+ oVHdhmRKOBseUF9hLbQ5fdj6DF3iQ5Sojdox+Mn7exH4ysaX8tkO/H0QoM42bMCLaLFw
+ xSP6cU0Z5sI1r+2bczwGujon5SFXBuZBV9WUFlkyF2VZulrPiwlbQCN+Nr+09qRi5R/R
+ 8F1D3FtRBk4xh3ij/qlSwFl1s+GkEaWedfDdEI7WvoRhnUHEqc1IUrN0wWxtCgPRmuGX
+ ipzOzpdd3ESTjl7j88neqUHcd+08FIcJ1QILc/rh2amsdKrlOK9UO6eH+7qaYokTyyQg
+ owyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=K8qSaJG7QitV6Bmg3h/MV+is9F+PS2L5trrK1WRp6m0=;
+ b=LL74XBd0MF0Yi2shH9C20e6iXpBrzklJvwWKt6QrAL7ZNEl8pingCr8oshQrkF3EzT
+ Py17cs6YaYk2sjoy5PqhLJm5IskGj22n5Sj14UfKs2j/9od52SMBRv4RPdi2GFiMWVYB
+ cBciIMhhHImvIcGmAVWJ2wy73oXN4UXzWf/Tr42L8cAit/8CD4qXUCVZdptHHpjjpwdF
+ 1nMNnWLMAO57zuQeq6ngcasr383vDW+e6OVGaPM0KlqpE8i+vF/oG1JW9i9WkFsxarLd
+ OcBaCrFF8r0uqm+rxQzs5g5BvfyZSBwWlEIFAmOlN3kWrCzlj+mh9PqdK9TdFmgrqEIW
+ nIXQ==
+X-Gm-Message-State: APzg51C7YYGfT7U4Ntl5wFz9pmfcYjeZY3wgoBjSqT3LhrGdv0mh8el9
+ Hi1FcEaogQ1vguYJsp0vAR605Cgu6Tehfls0/9JV0Q==
+X-Google-Smtp-Source: ANB0VdbaJBYYOZrV4J5ZPj1hALpGxUx4lx6E4IYUtitoro/VaJfHCJBdHby2wFH4mmirATX+11K86FfnVEorM6Xhn8g=
+X-Received: by 2002:a17:902:a60a:: with SMTP id
+ u10-v6mr101074plq.149.1537400147457; 
+ Wed, 19 Sep 2018 16:35:47 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180919162918.3994257-1-vijaykhemka@fb.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 20 Sep 2018 09:24:40 +1000
+References: <dVwK1y00D1vEVCc01VwKs6@charter.net>
+ <CALLMt=pqSRi90cju_Gr1gBe+n9giWeM6LHYQ=MTnKDGEaaVifA@mail.gmail.com>
+ <8af8dac8-3dc1-1e21-9ff9-0aae0337f769@linux.intel.com>
+ <CADfYTpFB+f4kp_sxqtKs+EX_C3AG4mW6nvmTM2uck8CT=qeuiQ@mail.gmail.com>
+In-Reply-To: <CADfYTpFB+f4kp_sxqtKs+EX_C3AG4mW6nvmTM2uck8CT=qeuiQ@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 19 Sep 2018 16:35:35 -0700
+Message-ID: <CAO=notzEzvOz_RzqtAC7wyUVzjBOL6wEgMXgw=uE2D3XsRHWBg@mail.gmail.com>
+Subject: Re: Repository Growth
+To: Nancy Yuen <yuenn@google.com>
+Cc: jason.m.bills@linux.intel.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,45 +66,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Sep 2018 16:34:18 -0000
+X-List-Received-Date: Wed, 19 Sep 2018 23:35:51 -0000
 
-Hi,
+On Wed, Sep 19, 2018 at 3:03 PM Nancy Yuen <yuenn@google.com> wrote:
+>
+> +1, I like the idea of having some form of automation to help with the maintenance of this information.
+>
+> ----------
+> Nancy
+>
+> On Wed, Sep 19, 2018 at 11:45 AM, Bills, Jason M <jason.m.bills@linux.intel.com> wrote:
+>>
+>>
+>>>>>> The maintenance of it would be horrible for one
+>>>>>> person, but if someone wants their repository to have details and so
+>>>>>> on they can add it.
+>>>>>>
+>>
+>> Is it possible to scrape some of this info from github, gerrit, etc.? Perhaps portions of this could be automated to help with maintenance and to keep the information up-to-date.
 
-Subject should be "dt-bindings: Add vendor prefix for Facebook" or so.
-Please compare other commits for that file.
+I think this could be scraped if the READMEs were formatted in a
+machine-readable way consistently.
 
-Am 19.09.18 um 18:29 schrieb Vijay Khemka:
-> Initial introduction of Facebook TiogaPass family equipped with
-> Aspeed 2500 BMC SoC. TiogaPass is a x86 server development kit
-> with a ASPEED ast2500 BMC manufactured by Facebook.
-> 
-> This adds an entry of Facebook in Documentation for vendor prefix
-
-Lacking Signed-off-by.
-
-> ---
->  Documentation/devicetree/bindings/vendor-prefixes.txt | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
-> index 2c3fc512e746..0520303ee5b8 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
-> @@ -127,6 +127,7 @@ everspin	Everspin Technologies, Inc.
->  exar	Exar Corporation
->  excito	Excito
->  ezchip	EZchip Semiconductor
-> +facebook	Facebook
->  fairphone	Fairphone B.V.
->  faraday	Faraday Technology Corporation
->  fastrax	Fastrax Oy
-
-Otherwise looking better.
-
-Thanks,
-Andreas
-
--- 
-SUSE Linux GmbH, Maxfeldstr. 5, 90409 Nürnberg, Germany
-GF: Felix Imendörffer, Jane Smithard, Graham Norton
-HRB 21284 (AG Nürnberg)
+>
+>
