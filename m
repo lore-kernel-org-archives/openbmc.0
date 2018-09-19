@@ -1,61 +1,57 @@
-Return-Path: <yuenn@google.com>
+Return-Path: <prvs=280098d311=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com;
- envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=280098d311=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="E8cufHq1"; 
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="ZMY+/Nhj"; 
  dkim-atps=neutral
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Fv530bKfzDrBy
- for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 08:03:34 +1000 (AEST)
-Received: by mail-wm1-x32a.google.com with SMTP id o18-v6so8667556wmc.0
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 15:03:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=TVd5MWmVkOdWbe6GXwuflY2wSWDY9IDbPdIhUzJN0Jw=;
- b=E8cufHq1o1Mn9gZHKO83hZ8saM/XWHFwkQBb1Z9r54HsROgj11fOgPyadeIPwVplkN
- xXH4EvehCrs3xCbZJKw2F49e8n+A8AGY7u5tIFwq3HHd2jBZqxK+ZEvDkMaNqBDVUrDl
- HiO+rcYdMGoKiH8g5dUtBnuRTqyWeGjRH60c/MImJvDlxGhQXhXTbYQQbz+/Zn6Ly12I
- Nae6LgcZdm5ZTTYcbmZDZoBRyis03I7eQ/hLxFrq3jRcIdAzwJa57gY6jma0igr+Rdkg
- fxBzrLOCT+qv6kUaR2Q3/68kRzDZVWZX/HvWTM5NZfb+8a17LWOHalnTkJDGIYH4r+6P
- JwvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=TVd5MWmVkOdWbe6GXwuflY2wSWDY9IDbPdIhUzJN0Jw=;
- b=mspBHc6I6Ia7DjwhwMAshYxUXcAgd+hb4lqXajAdaT8Xg7rhhf1IfQ9Xwraa29/8wn
- OvLENFb6jsg8YLDbfUlxYT23lX0cWnngNFLdwRzpcUXBUfCAJgsVthyeV+Dbaf0e0GhH
- B9tJdbPHNUraUn43Bz+ad7v/0ToTa318BvDodIFQ4spNDfV2EpzXfUpocoldnvDH62u9
- lNArC2dB8tzXXL7MDraCmdwU8EDi6ieinQ/Po7KJoMdraCmyLB4VdCRTXQjctmg49iaE
- 03E7eXLDegSdKP4KLxKmwMjzfSikJbWv6o9pDl3m+o6b2udHghytVHdfJLmMY0Ecj97X
- yrwQ==
-X-Gm-Message-State: APzg51AhRX4lq/i790rx2BywgymoyzAz1r1VlJ+ucwS8+mklwV87+F2e
- 3GNhQzpIeYlo+C2cStJ73KHkwaHBgA45Jq5M16z84Q==
-X-Google-Smtp-Source: ANB0VdZyJpeehUc20EMgGGmKnAFEo7Tdxis/t5D4ZNYTyD0/cx0S/+cIqGcWXWSwxezf9qQsdCz+d2sHIPTAU/XPLxE=
-X-Received: by 2002:a1c:dc41:: with SMTP id
- t62-v6mr21640317wmg.137.1537394611611; 
- Wed, 19 Sep 2018 15:03:31 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42FvJx4bpTzDrWR
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 08:13:49 +1000 (AEST)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+ by m0001303.ppops.net (8.16.0.22/8.16.0.22) with SMTP id w8JM8Chr000743
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 15:13:47 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=wTgZ9auVCQe3Ddwy+sDwXPpbQxHOertCx4S6lW2HJO4=;
+ b=ZMY+/NhjUJqInzc3hhX1TSYNowlSC8GMTuYUfeA+NXLe5cVhBRn4xBORJ5/Gh6wKXdb7
+ lyEmBKsDodD+8bEmEUmaeORItu9Uh0mdO4PFugab+3WFrtL7TVM89ydeIzD3Tx2P+ME3
+ /vhpvwPzD+31SoebGWHC/ljwdoHdpbZZcqc= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by m0001303.ppops.net with ESMTP id 2mkvck0kd0-3
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 15:13:47 -0700
+Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
+ (192.168.16.18) with Microsoft SMTP Server (TLS) id 14.3.361.1; Wed, 19 Sep
+ 2018 15:13:45 -0700
+Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)	id
+ B94A55E465FE; Wed, 19 Sep 2018 15:13:35 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, Thomas Gleixner
+ <tglx@linutronix.de>, <linux-kernel@vger.kernel.org>
+CC: Tao Ren <taoren@fb.com>, <openbmc@lists.ozlabs.org>, <cov@fb.com>,
+ <tfang@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH] clocksource/drivers/fttmr010: fix set_next_event handler
+Date: Wed, 19 Sep 2018 15:13:31 -0700
+Message-ID: <20180919221331.2511558-1-taoren@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-Received: by 2002:a1c:20c7:0:0:0:0:0 with HTTP; Wed, 19 Sep 2018 15:02:50
- -0700 (PDT)
-In-Reply-To: <8af8dac8-3dc1-1e21-9ff9-0aae0337f769@linux.intel.com>
-References: <dVwK1y00D1vEVCc01VwKs6@charter.net>
- <CALLMt=pqSRi90cju_Gr1gBe+n9giWeM6LHYQ=MTnKDGEaaVifA@mail.gmail.com>
- <8af8dac8-3dc1-1e21-9ff9-0aae0337f769@linux.intel.com>
-From: Nancy Yuen <yuenn@google.com>
-Date: Wed, 19 Sep 2018 15:02:50 -0700
-Message-ID: <CADfYTpFB+f4kp_sxqtKs+EX_C3AG4mW6nvmTM2uck8CT=qeuiQ@mail.gmail.com>
-Subject: Re: Repository Growth
-To: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000b502da0576409343"
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-09-19_11:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,59 +63,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Sep 2018 22:03:36 -0000
+X-List-Received-Date: Wed, 19 Sep 2018 22:13:54 -0000
 
---000000000000b502da0576409343
-Content-Type: text/plain; charset="UTF-8"
+Currently, the aspeed MATCH1 register is updated to <current_count -
+cycles> in set_next_event handler, with the assumption that COUNT
+register value is preserved when the timer is disabled and it continues
+decrementing after the timer is enabled. But the assumption is wrong:
+RELOAD register is loaded into COUNT register when the aspeed timer is
+enabled, which means the next event may be delayed because timer
+interrupt won't be generated until <0xFFFFFFFF - current_count +
+cycles>.
 
-+1, I like the idea of having some form of automation to help with the
-maintenance of this information.
+The problem can be fixed by updating RELOAD register to <cycles>, and
+COUNT register will be re-loaded when the timer is enabled and interrupt
+is generated when COUNT register overflows.
 
-----------
-Nancy
+The test result on Facebook Backpack-CMM BMC hardware (AST2500) shows
+the issue is fixed: without the patch, usleep(100) suspends the process
+for several milliseconds (and sometimes even over 40 milliseconds);
+after applying the fix, usleep(100) takes averagely 240 microseconds to
+return under the same workload level.
 
-On Wed, Sep 19, 2018 at 11:45 AM, Bills, Jason M <
-jason.m.bills@linux.intel.com> wrote:
+Signed-off-by: Tao Ren <taoren@fb.com>
+---
+ drivers/clocksource/timer-fttmr010.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
->
-> The maintenance of it would be horrible for one
->>>>> person, but if someone wants their repository to have details and so
->>>>> on they can add it.
->>>>>
->>>>>
-> Is it possible to scrape some of this info from github, gerrit, etc.?
-> Perhaps portions of this could be automated to help with maintenance and to
-> keep the information up-to-date.
->
-
---000000000000b502da0576409343
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">+1, I like the idea of having some form of automation to h=
-elp with the maintenance of this information.</div><div class=3D"gmail_extr=
-a"><br clear=3D"all"><div><div class=3D"gmail_signature" data-smartmail=3D"=
-gmail_signature">----------<br>Nancy</div></div>
-<br><div class=3D"gmail_quote">On Wed, Sep 19, 2018 at 11:45 AM, Bills, Jas=
-on M <span dir=3D"ltr">&lt;<a href=3D"mailto:jason.m.bills@linux.intel.com"=
- target=3D"_blank">jason.m.bills@linux.intel.com</a>&gt;</span> wrote:<br><=
-blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex"><span class=3D""><br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex"><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><blockquote c=
-lass=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;=
-padding-left:1ex"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">
-The maintenance of it would be horrible for one<br>
-person, but if someone wants their repository to have details and so<br>
-on they can add it.<br>
-<br>
-</blockquote></blockquote></blockquote></blockquote>
-<br></span>
-Is it possible to scrape some of this info from github, gerrit, etc.? Perha=
-ps portions of this could be automated to help with maintenance and to keep=
- the information up-to-date.<br>
-</blockquote></div><br></div>
-
---000000000000b502da0576409343--
+diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
+index c020038ebfab..cf93f6419b51 100644
+--- a/drivers/clocksource/timer-fttmr010.c
++++ b/drivers/clocksource/timer-fttmr010.c
+@@ -130,13 +130,17 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
+ 	cr &= ~fttmr010->t1_enable_val;
+ 	writel(cr, fttmr010->base + TIMER_CR);
+ 
+-	/* Setup the match register forward/backward in time */
+-	cr = readl(fttmr010->base + TIMER1_COUNT);
+-	if (fttmr010->count_down)
+-		cr -= cycles;
+-	else
+-		cr += cycles;
+-	writel(cr, fttmr010->base + TIMER1_MATCH1);
++	if (fttmr010->count_down) {
++		/*
++		 * ASPEED Timer Controller will load TIMER1_LOAD register
++		 * into TIMER1_COUNT register when the timer is re-enabled.
++		 */
++		writel(cycles, fttmr010->base + TIMER1_LOAD);
++	} else {
++		/* Setup the match register forward in time */
++		cr = readl(fttmr010->base + TIMER1_COUNT);
++		writel(cr + cycles, fttmr010->base + TIMER1_MATCH1);
++	}
+ 
+ 	/* Start */
+ 	cr = readl(fttmr010->base + TIMER_CR);
+-- 
+2.17.1
