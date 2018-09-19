@@ -1,56 +1,61 @@
-Return-Path: <prvs=2800ee65b3=vijaykhemka@fb.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=2800ee65b3=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="iYC/pEeO"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="uS9kVFrO"; 
  dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42FllP3qCZzDrRP
- for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 02:32:49 +1000 (AEST)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8JGWLUu026416
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 09:32:47 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=JriOzuGSBXjp2zfTuinXCfo08czmhOPGUL1rWQK3bQE=;
- b=iYC/pEeOsTEsA7G/4/185LmtwJScJHXkZLv99A7mi3c32OfP+Xdq6ozfkRdEJo3vxVIJ
- 8uryzop7uShe25+1M3gIv8JrM2ljssxulUy7Q3L78aA1/r45/HuVrq7cjNHUuMbG/kke
- AZb2Wd3mWhK3UjDw4yCtDWK/e6jqGWyQixM= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mkt0w80gk-11
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 09:32:47 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
- (192.168.16.24) with Microsoft SMTP Server (TLS) id 14.3.361.1; Wed, 19 Sep
- 2018 09:32:23 -0700
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)	id
- 00D5E17560E9; Wed, 19 Sep 2018 09:32:20 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
-From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
-To: <openbmc@lists.ozlabs.org>
-CC: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH v3] ARM: dts: aspeed: Adding Facebook TiogaPass BMC
-Date: Wed, 19 Sep 2018 09:32:07 -0700
-Message-ID: <20180919163207.3998562-1-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Flrf01TMzDqCH
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 02:37:21 +1000 (AEST)
+Received: by mail-pl1-x62e.google.com with SMTP id s17-v6so2926545plp.7
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 09:37:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uPiTfoCIdWAQUKyxWOIzsM3lYzkN+/JpkRNhZKLMvb0=;
+ b=uS9kVFrOb1DDlu2o5SEGoPMHS3wwLKJhFTjraOSeshqUXf8soJ09nDqCnUH3uCgDW6
+ mKFMRx0DUHJUqfMyC50S7FrHklVdooESJILZlc4LLdc8U+nK4N+yooXOrc73YVjkOhNW
+ qO9lC9zPY1GS7u2I+KhV0wmuFlM6DV+tMaTfnbmbXuS5pnEK2bl/A4MTWcKwiNECqdBT
+ QhW1ucZeXEJSogYgLP9VjDOo9xFcmbKaoJ5gFNOdxNPwXDIdL9l4ucGcqnb3EUF3gHwS
+ dXyl4J26LMv37KqPLrxFCDTmUxAZw3BQle9hDpStpfB/NGLz9xfHVKJM3n7VOsCBGpn/
+ 0Ssw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uPiTfoCIdWAQUKyxWOIzsM3lYzkN+/JpkRNhZKLMvb0=;
+ b=Umrn5eThxSDIP6jUhhuqEONfmYFku/eWE06pfSKddeRcqCagnyvHijRdvQUuYhJAQ+
+ NhxFralD5eDXQ0oscjVbjQYYN6f3RVkBNki5VATeYKShw8CaBfewJjU8BtDH51G70Iwd
+ /n3NGG2M7Pu62c/spd88aZdPApKYgXV+bdIC4qDzf0pMA3fq5Hb/Gt9eO6gkFIOrVuTC
+ QuuOcNEUrsZRjRWh0fMsAeHpg/S6cuBm54eIVUAVJj1SqJEIyJToFvNxhJXDI6kLmTyE
+ RbwWF7R58qN/SILs2eIfq5VtLgW3nyV6KyzvOAJ36zGsuRigY4Ycgbj85IzhTJkjSz6S
+ Vh5Q==
+X-Gm-Message-State: APzg51DOKQgAQdHjE5BLOAisRh/cdOgrit/wk78/VNDLLgsMVLUYsOHe
+ FK825l5yF9+b+V3FSGiAJ1x2zlRtQpndUiWIP8VrMQ==
+X-Google-Smtp-Source: ANB0VdZP0Iy7QqR9MBoCmH4rRv0N4MGKW0mWwsmrqC3/Xcq36rr4OG7wD2UJKK9+nTUadMoG7IF94aos9eO4L3MpVYM=
+X-Received: by 2002:a17:902:b70f:: with SMTP id
+ d15-v6mr36106710pls.53.1537375039347; 
+ Wed, 19 Sep 2018 09:37:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-19_10:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+References: <CAO=notxg=KimTVEuJXgR-iN9T5FiKcMA2TJD-E6pM_KVO9338g@mail.gmail.com>
+ <5C90478E-E89A-428D-873F-3E4CCD5595D4@fuzziesquirrel.com>
+ <CAO=notz2-wfv_kep5FhGP9T7rdQehvSqBSECvPywNis=uRXTKw@mail.gmail.com>
+ <CALLMt=rthqi3e3vHNbNFkjyhBEp8P6P8KoYC0e4XrdKMhip1Hg@mail.gmail.com>
+In-Reply-To: <CALLMt=rthqi3e3vHNbNFkjyhBEp8P6P8KoYC0e4XrdKMhip1Hg@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 19 Sep 2018 09:37:07 -0700
+Message-ID: <CAO=notxPfx-RufZXncqAX5LsdJCaQLirgxy-M+3hFPKYvrpTDw@mail.gmail.com>
+Subject: Re: Link-up between Gerrit & Github
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,186 +67,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Sep 2018 16:32:53 -0000
+X-List-Received-Date: Wed, 19 Sep 2018 16:37:23 -0000
 
-Initial introduction of Facebook TiogaPass family equipped with
-Aspeed 2500 BMC SoC. TiogaPass is a x86 server development kit
-with a ASPEED ast2500 BMC manufactured by Facebook.
-Specifically, This adds the tiogapass platform device tree file
-including the flash layout used by the tiogapass BMC machines.
+On Wed, Sep 19, 2018 at 9:03 AM Andrew Geissler <geissonator@gmail.com> wrote:
+>
+> On Wed, Sep 19, 2018 at 10:01 AM Patrick Venture <venture@google.com> wrote:
+> >
+> > On Mon, Sep 17, 2018 at 12:28 PM Brad Bishop
+> > <bradleyb@fuzziesquirrel.com> wrote:
+> > >
+> > >
+> > >
+> > > > On Sep 17, 2018, at 3:17 PM, Patrick Venture <venture@google.com> wrote:
+> > > >
+> > > > The first meta-google patchset was pushed by Brad into github.
+> > > > Interestingly, the second patchset which was merged into gerrit 3 days
+> > > > ago still hasn't been automatically pushed into github.  It makes me
+> > > > think there's some box we need to check or a setting to push.
+> > > >
+> > > > Brad, can you dig into this please?  I don't have any permissions to
+> > > > poke at it on Gerrit.
+> > >
+> > > Will do.  Agreed there is a problem here - I noticed meta-x86 was out
+> > > of sync too.  In the meantime I've manually fixed these.
+> >
+> > I know it hasn't been long, but I was curious if there any thoughts,
+> > since it appears to be all new repositories, and not just the meta
+> > ones.
+>
+> Yeah, there's a bug in either gerrit or the github plugin to gerrit
+> (or a mismatch in the levels).  If we restart gerrit it picks up all
+> the missing synch's and then works fine with that repo after. I'm
+> hoping to just defer this until the next gerrit maintenance window in
+> a month or so.  Wouldn't be an issue if we weren't adding so many
+> freaking repos to openbmc :)  jk
+>
+> But yeah, until then, Brad please just ping me and I'll manually
+> restart gerrit when you add new repos, it just takes a few seconds to
+> get back up and running.  If it gets annoying enough I'll dig in a bit
+> sooner.
 
-This also adds an entry of tiogapass device tree file in Makefile
+I'd appreciate it if you can restart it shortly to pick up a slew of
+new repos, although the meta-x86 wasn't new IIRC, but maybe it's new
+in that gerrit hasn't been restarted since it was added.
 
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
----
- arch/arm/boot/dts/Makefile                    |   1 +
- .../dts/aspeed-bmc-facebook-tiogapass.dts     | 146 ++++++++++++++++++
- 2 files changed, 147 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index b5bd3de87c33..1a2db605185a 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1199,6 +1199,7 @@ dtb-$(CONFIG_ARCH_ZX) += zx296702-ad1.dtb
- dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-ast2500-evb.dtb \
- 	aspeed-bmc-arm-centriq2400-rep.dtb \
-+	aspeed-bmc-facebook-tiogapass.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
- 	aspeed-bmc-opp-lanyang.dtb \
- 	aspeed-bmc-opp-palmetto.dtb \
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-new file mode 100644
-index 000000000000..050e72df8683
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-@@ -0,0 +1,146 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+// Copyright (c) 2018 Facebook Inc.
-+// Author: Vijay Khemka <vijaykhemka@fb.com>
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+
-+/ {
-+	model = "Facebook TiogaPass BMC";
-+	compatible = "facebook,tiogapass-bmc", "aspeed,ast2500";
-+	aliases {
-+		serial0 = &uart1;
-+		serial4 = &uart5;
-+	};
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	memory@80000000 {
-+		reg = <0x80000000 0x20000000>;
-+	};
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
-+	};
-+};
-+
-+&uart1 {
-+	// Host Console
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd1_default
-+		     &pinctrl_rxd1_default>;
-+};
-+
-+&uart5 {
-+	// BMC Console
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+	use-ncsi;
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	//Airmax Conn B, CPU0 PIROM, CPU1 PIROM
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+	//X24 Riser
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+	// Mezz Management SMBus
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+	// SMBus to Board ID EEPROM
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+	// BMC Debug Header
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+  //CPU Voltage regulators
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+	tpm@20 {
-+		compatible = "infineon,slb9645tt";
-+		reg = <0x20>;
-+	};
-+	tmp421@4e {
-+		compatible = "ti,tmp421";
-+		reg = <0x4e>;
-+	};
-+	tmp421@4f {
-+		compatible = "ti,tmp421";
-+		reg = <0x4f>;
-+	};
-+	eeprom@54 {
-+		compatible = "atmel,24c64";
-+		reg = <0x54>;
-+		pagesize = <32>;
-+	};
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+  //HSC, AirMax Conn A
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+  //Mezz Sensor SMBus
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+  //USB Debug Connector
-+};
-+
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-+	fan@0 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+};
--- 
-2.17.1
+>
+> Andrew
