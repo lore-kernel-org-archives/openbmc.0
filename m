@@ -1,60 +1,59 @@
 Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com;
+ (client-ip=2607:f8b0:4864:20::42f; helo=mail-pf1-x42f.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="uS9kVFrO"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="jPFzUdVw"; 
  dkim-atps=neutral
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Flrf01TMzDqCH
- for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 02:37:21 +1000 (AEST)
-Received: by mail-pl1-x62e.google.com with SMTP id s17-v6so2926545plp.7
- for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 09:37:21 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42FlyZ3vCmzDrdd
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 02:42:29 +1000 (AEST)
+Received: by mail-pf1-x42f.google.com with SMTP id s13-v6so2971395pfi.7
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Sep 2018 09:42:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uPiTfoCIdWAQUKyxWOIzsM3lYzkN+/JpkRNhZKLMvb0=;
- b=uS9kVFrOb1DDlu2o5SEGoPMHS3wwLKJhFTjraOSeshqUXf8soJ09nDqCnUH3uCgDW6
- mKFMRx0DUHJUqfMyC50S7FrHklVdooESJILZlc4LLdc8U+nK4N+yooXOrc73YVjkOhNW
- qO9lC9zPY1GS7u2I+KhV0wmuFlM6DV+tMaTfnbmbXuS5pnEK2bl/A4MTWcKwiNECqdBT
- QhW1ucZeXEJSogYgLP9VjDOo9xFcmbKaoJ5gFNOdxNPwXDIdL9l4ucGcqnb3EUF3gHwS
- dXyl4J26LMv37KqPLrxFCDTmUxAZw3BQle9hDpStpfB/NGLz9xfHVKJM3n7VOsCBGpn/
- 0Ssw==
+ :cc; bh=cYOk27PWZuTkKe2/xqSNXN17hj+iS7aGYzNnaphlkHM=;
+ b=jPFzUdVwG+B1Ye/8KrDUk/nOj0cFVcZWVOJIRac36f43waE88gaLdIeZHsLITOXZGC
+ DXY5xi2SDkmI4K537CJiTJpSJkCNEqY88LYy4+7XpAXrb7WYHGU115GwnnEY0JBXqQk7
+ bBMoY1dR3mT41HGvvEGegbjxDITqYNYWoLgdXrm0mgMG3gCOvI2Er9cKLEivpwLs8MyY
+ rhi4hssX1cJV2BMWEmZxE9+1PV+VtRM5X8ShCEBvuqy3zIK8eXpFRX9nf7kaFzIU8KN6
+ vsXcHH+sOv5Y0ccfu9swJp2KlcacFoy/E2omS1CGgPPiqLZ7oiAnDecYY86G9jJGYxxW
+ yG/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=uPiTfoCIdWAQUKyxWOIzsM3lYzkN+/JpkRNhZKLMvb0=;
- b=Umrn5eThxSDIP6jUhhuqEONfmYFku/eWE06pfSKddeRcqCagnyvHijRdvQUuYhJAQ+
- NhxFralD5eDXQ0oscjVbjQYYN6f3RVkBNki5VATeYKShw8CaBfewJjU8BtDH51G70Iwd
- /n3NGG2M7Pu62c/spd88aZdPApKYgXV+bdIC4qDzf0pMA3fq5Hb/Gt9eO6gkFIOrVuTC
- QuuOcNEUrsZRjRWh0fMsAeHpg/S6cuBm54eIVUAVJj1SqJEIyJToFvNxhJXDI6kLmTyE
- RbwWF7R58qN/SILs2eIfq5VtLgW3nyV6KyzvOAJ36zGsuRigY4Ycgbj85IzhTJkjSz6S
- Vh5Q==
-X-Gm-Message-State: APzg51DOKQgAQdHjE5BLOAisRh/cdOgrit/wk78/VNDLLgsMVLUYsOHe
- FK825l5yF9+b+V3FSGiAJ1x2zlRtQpndUiWIP8VrMQ==
-X-Google-Smtp-Source: ANB0VdZP0Iy7QqR9MBoCmH4rRv0N4MGKW0mWwsmrqC3/Xcq36rr4OG7wD2UJKK9+nTUadMoG7IF94aos9eO4L3MpVYM=
-X-Received: by 2002:a17:902:b70f:: with SMTP id
- d15-v6mr36106710pls.53.1537375039347; 
- Wed, 19 Sep 2018 09:37:19 -0700 (PDT)
+ bh=cYOk27PWZuTkKe2/xqSNXN17hj+iS7aGYzNnaphlkHM=;
+ b=Z4mugheAtEdCZuXv9W1utw0XRSrx1N4Ajib7q2sdeA7oBX8DlgfxofD2KED1voCc/1
+ XtAs4pX8i8aaMyGxh+0Vxqde+H0KHdo4Jg76csPhA8FZLw9mT9X2SUzencg+LTXGXZoI
+ MY9cqwLaZHeAJST1Al1wIVNQfBMx/nJKusVwvKfUuVN4+iJH6hXNXIQ6LYbN2mucsy43
+ 6cAiemnWCZb6uglmWl+yDIXWkrEdkYc9xK+2Lf8qcCXrjpZREYfBqHHevCi3wnTctll8
+ 7ewe7N2NitnnYVkospJkQM/bacWguoqfYdtEpPG8HJN63grNCs91FOGJikiWMejFuBvf
+ JpZQ==
+X-Gm-Message-State: APzg51C735/nO9EJrcNtcNv/rEOSGTvRKyqobQaC7xO1b7eK1ggdt+b2
+ DFGzzVyRhxAjcEjwEhkFWR/gsXJIHbWvztDqQmPU5w==
+X-Google-Smtp-Source: ANB0VdbVUkRfL7a5Njlgn16pNuAWmq0UOGtE8jDgLxdAch8b2gdS/NEEksgsUB9STlgkis0Ja7uSoyr54Gdq8FOKPro=
+X-Received: by 2002:a62:9101:: with SMTP id
+ l1-v6mr36889584pfe.226.1537375347562; 
+ Wed, 19 Sep 2018 09:42:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAO=notxg=KimTVEuJXgR-iN9T5FiKcMA2TJD-E6pM_KVO9338g@mail.gmail.com>
- <5C90478E-E89A-428D-873F-3E4CCD5595D4@fuzziesquirrel.com>
- <CAO=notz2-wfv_kep5FhGP9T7rdQehvSqBSECvPywNis=uRXTKw@mail.gmail.com>
- <CALLMt=rthqi3e3vHNbNFkjyhBEp8P6P8KoYC0e4XrdKMhip1Hg@mail.gmail.com>
-In-Reply-To: <CALLMt=rthqi3e3vHNbNFkjyhBEp8P6P8KoYC0e4XrdKMhip1Hg@mail.gmail.com>
+References: <CAO=notzdS19X69xpgSUkT5uZhKm0Wv623aThWtsnhRX2NpWJ9A@mail.gmail.com>
+ <7a1a72293444f69374e10367aeaa1d74@linux.vnet.ibm.com>
+In-Reply-To: <7a1a72293444f69374e10367aeaa1d74@linux.vnet.ibm.com>
 From: Patrick Venture <venture@google.com>
-Date: Wed, 19 Sep 2018 09:37:07 -0700
-Message-ID: <CAO=notxPfx-RufZXncqAX5LsdJCaQLirgxy-M+3hFPKYvrpTDw@mail.gmail.com>
-Subject: Re: Link-up between Gerrit & Github
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 19 Sep 2018 09:42:16 -0700
+Message-ID: <CAO=notwvBca4ANU6b-kQggP53cM2CdsCVV5QqsBYUCJ_jB+Xkg@mail.gmail.com>
+Subject: Re: Repository Growth
+To: anoo@linux.ibm.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>,
+ openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -67,49 +66,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Sep 2018 16:37:23 -0000
+X-List-Received-Date: Wed, 19 Sep 2018 16:42:31 -0000
 
-On Wed, Sep 19, 2018 at 9:03 AM Andrew Geissler <geissonator@gmail.com> wrote:
+On Wed, Sep 19, 2018 at 9:03 AM Adriana Kobylak <anoo@linux.ibm.com> wrote:
 >
-> On Wed, Sep 19, 2018 at 10:01 AM Patrick Venture <venture@google.com> wrote:
+> On 2018-09-19 10:47, Patrick Venture wrote:
+> > With the growth of number of repositories, it might be overwhelming to
+> > someone who wants to set things up.
 > >
-> > On Mon, Sep 17, 2018 at 12:28 PM Brad Bishop
-> > <bradleyb@fuzziesquirrel.com> wrote:
-> > >
-> > >
-> > >
-> > > > On Sep 17, 2018, at 3:17 PM, Patrick Venture <venture@google.com> wrote:
-> > > >
-> > > > The first meta-google patchset was pushed by Brad into github.
-> > > > Interestingly, the second patchset which was merged into gerrit 3 days
-> > > > ago still hasn't been automatically pushed into github.  It makes me
-> > > > think there's some box we need to check or a setting to push.
-> > > >
-> > > > Brad, can you dig into this please?  I don't have any permissions to
-> > > > poke at it on Gerrit.
-> > >
-> > > Will do.  Agreed there is a problem here - I noticed meta-x86 was out
-> > > of sync too.  In the meantime I've manually fixed these.
+> > I'd like to write up a directory that groups the repositories by
+> > purpose.  I wasn't sure if this made sense, so I wanted early feedback
+> > before I started.  The maintenance of it would be horrible for one
+> > person, but if someone wants their repository to have details and so
+> > on they can add it.
 > >
-> > I know it hasn't been long, but I was curious if there any thoughts,
-> > since it appears to be all new repositories, and not just the meta
-> > ones.
+> > I think it's important or useful to know what's out there and how
+> > things work together or don't, and what options there are for
+> > developers.
+> >
 >
-> Yeah, there's a bug in either gerrit or the github plugin to gerrit
-> (or a mismatch in the levels).  If we restart gerrit it picks up all
-> the missing synch's and then works fine with that repo after. I'm
-> hoping to just defer this until the next gerrit maintenance window in
-> a month or so.  Wouldn't be an issue if we weren't adding so many
-> freaking repos to openbmc :)  jk
->
-> But yeah, until then, Brad please just ping me and I'll manually
-> restart gerrit when you add new repos, it just takes a few seconds to
-> get back up and running.  If it gets annoying enough I'll dig in a bit
-> sooner.
+> +1 . Do you have a template in mind on how this could look like?
 
-I'd appreciate it if you can restart it shortly to pick up a slew of
-new repos, although the meta-x86 wasn't new IIRC, but maybe it's new
-in that gerrit hasn't been restarted since it was added.
+I've been toying around with some ideas on how to organize the
+information.  Grouping the subtrees together is a no-brainer, but many
+daemons don't really fit into a category.  Maybe that's fine, maybe
+then it'd be uncategorized.
+
+I was imagining:
+
+{repository name}
+{short description}
+works with: {list of related pieces}
+
+for instance:
+"""
+### phosphor-hwmon
+phosphor-hwmon periodically reads and reports hwmon sensor values to dbus.
+works with: phosphor-host-ipmid
+"""
+
+You don't need to run phosphor-host-ipmid to use phosphor-hwmon, and
+phosphor-pid-control and other daemons can also listen to sensor
+values or read them over dbus, so I don't know how complete such a
+list would need to be.  So maybe the list should be less explicit.  I
+realize that the recipes themselves reveal the true dependencies,
+either virtual or specific and I don't want to repost information.  I
+just want to present a better interface to the set of repositories and
+how they work together (or don't) than github has.
 
 >
-> Andrew
+> > Thoughts?
+> >
+> > Patrick
+>
