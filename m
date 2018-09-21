@@ -1,62 +1,60 @@
 Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d41; helo=mail-io1-xd41.google.com;
+ (client-ip=2607:f8b0:4864:20::d32; helo=mail-io1-xd32.google.com;
  envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Er9aRegw"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ocCFvcvK"; 
  dkim-atps=neutral
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Gk675RMpzF3Q3
- for <openbmc@lists.ozlabs.org>; Fri, 21 Sep 2018 16:22:23 +1000 (AEST)
-Received: by mail-io1-xd41.google.com with SMTP id q4-v6so11110563iob.8
- for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 23:22:23 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Gkf45mpRzF3Pt
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Sep 2018 16:46:36 +1000 (AEST)
+Received: by mail-io1-xd32.google.com with SMTP id v14-v6so11172504iob.4
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Sep 2018 23:46:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vqD6tvziAHO4l+uho2tSoyVA5WboBKE5p4GmgLjNAdM=;
- b=Er9aRegwUvS+mkXe4g/rO/RkBw+6vt4JxpVui4fb42e6aDwn191HqTW4zOX77zH7cH
- sL0UF/0/b/dhPQwgwcEwRAJ/0wd8bz+4EekiP60y21mhZyhXR7heAzOMUeKStzMuXo0j
- 5dXBGGZ3DdxbDEXESlFtb7bXzgHAZpGK+G9avGlcptA+fzs8g8ngNKzU2VMdcgHbyxYH
- cRSevpZC8P+eWd9PaGTXzEHjHLMT7CcUpkxs62qiWwpoIBtHzQiwQfzt75rtOhajX95i
- K6kfxr3fhKVsqURdgDH3VTp1AKtfBPMmXONO5w95QOAxib0IKiEdMZeto6SJshAwTbu8
- /jqA==
+ :cc; bh=28hgexyv2VwkmRvuwQA8MEpfm2ObLUNHkJD0E5NOKUE=;
+ b=ocCFvcvKrL8ypTIpja09Zwgwlil5RTawVvhfzeosJEtHKrGVIUDooadeAKyQevjUAL
+ ZCXOEkhd3DBDiVbnDsNqiaodcGqHmHNxl9UYjR21CzNtyBmvPxubzFRAGjNkyw5JUsdd
+ UsdNehrPeQmL017HkD+b+agy9V11Y+xeMPC/DylKamzdP/5hVGyN9QEXKJxGlEuTK+tX
+ /GafUtcgRN5bXU0RAJUxhmwZ5AV9/uwvo7QThtOipZT+6O1hUbcI0UjIlrlZrXZfyOMa
+ CBQU25tBEbBTRvAA89x0VBJfmuQBrItrp1r3aytpHaSUXGVEnk3VPtJeQUVYtC6fOe0n
+ Ba1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=vqD6tvziAHO4l+uho2tSoyVA5WboBKE5p4GmgLjNAdM=;
- b=DNled6CNdb+5Nkx+zsAEPLmGqeoJ/cDFrbXDF9tBVTeGzB1JIQ9CdMAcWnrxplwF6c
- whwIfhFWCce2FoqKNgbQZHPqp5e1WHUWF0xazljHkIcD44fVJIRr3o/0O9QefhchkZHQ
- FvgJraMQ9SV8mCc79KkBg6FNHDA93j5RJtZEHaAdGTwvz27C3/s5Rxtl2Jm7KGO5KMx+
- qLrc8yvTv66q9DcFjzA6at+ojPnnQNQGOSpLl/nx4US//v5HKnXpdS/c2Myp0zJuqUhI
- AOFPspSF4oKfvtSEVNBjpTUzeSZHoMQKCe6t7zKwGgK7hif9NXy+VkiHA+8sTCDp8Ly3
- O13Q==
-X-Gm-Message-State: APzg51CftzHmgzqMQ7Y5VRmlQLuZztBrKRKQATDaNkVws8Inau0jKRGg
- BRUUwLOSE+qzGxrRsAfMI57SWYY1HrXPoVD1DMc=
-X-Google-Smtp-Source: ANB0VdaM5g1afACD9//W+jpFczZdXXmgjjmsM0njIiYIecRU0C3R5IMx3H4SEVo2daNmgmv1I1x/rbQ8XwTBv0m4qrA=
+ bh=28hgexyv2VwkmRvuwQA8MEpfm2ObLUNHkJD0E5NOKUE=;
+ b=KgFvxzY4SLyeJmiJqu6mS+HzAPpYLDkXhJ/1MW4gYuRKhltoZXY8F/grTZH3SHio/3
+ BX531IsXv3VuE17iLw4sBgSHqEG9xb19Wv3gf99TFLf+ymXdZFn9s1id2OamGmI+sBtT
+ HRhd3pvFJhcy94aye2tcLmvsN5GexDfDsxNvfbLL7+ntjxmgcraBRsTQYj+e5908tf+E
+ RxdNvZIdxPA4KSRqr2mwCaEta1B2N3b0+ZARLnILkiaK1Qz3qLFSIlRjjPJcFcQ9TFrt
+ rn2GU75aNU3xtrfhooJ6UpySyEN/YQ2GThh4HtLMD3Xwm3I6JGKQ9CMww4QlcGZx/c6V
+ fjRA==
+X-Gm-Message-State: APzg51CmyBHhl6A/Q0h3xSXcxeMcLmTIQd2VwruKhEf8mULo3mLousX0
+ sN7LJW1kObuIi6CIHNlPwC17k2hTGphgeXh06hRf6YGCeeGqzg==
+X-Google-Smtp-Source: ANB0VdZSlptj22iRKTM+t7ZeRXZKHwlFIi7l2vhmqUu91sag2OV4YhpeA2wP5koaWMCgAWtd7HWQMnE0LLTW5yMbdQA=
 X-Received: by 2002:a6b:bf86:: with SMTP id
- p128-v6mr34925935iof.156.1537510940189; 
- Thu, 20 Sep 2018 23:22:20 -0700 (PDT)
+ p128-v6mr34964563iof.156.1537512393586; 
+ Thu, 20 Sep 2018 23:46:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180919221331.2511558-1-taoren@fb.com>
- <CACRpkdZGjvLZY7snev5W2rRGgO7bQsSqn5u2v5Nw0tH9sa4yBw@mail.gmail.com>
- <84F9ED20-0964-462E-B389-39B107A232D3@fb.com>
- <CACPK8XeEZeMskkxNChhNSO+brpoPJ5FqweWNXe22BpyytwCwFw@mail.gmail.com>
-In-Reply-To: <CACPK8XeEZeMskkxNChhNSO+brpoPJ5FqweWNXe22BpyytwCwFw@mail.gmail.com>
+References: <11b98338b00640daa3cbeba50c6ef324@yadro.com>
+ <33ffdf42-0d9d-0331-0e14-2898cd1a1e73@yadro.com>
+ <CAARXrtmmeixPcYx4U11Zy19fm0GnOLbvUD2MTpZOEp-ytQ9T2g@mail.gmail.com>
+ <0c38bf32fc3c43f79a4356170fe23df0@yadro.com>
+In-Reply-To: <0c38bf32fc3c43f79a4356170fe23df0@yadro.com>
 From: Lei YU <mine260309@gmail.com>
-Date: Fri, 21 Sep 2018 14:22:01 +0800
-Message-ID: <CAARXrtmpUn3DKguiQSubZvCM3sJ--QxtzoYVoEvC-81udH7BLA@mail.gmail.com>
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix set_next_event handler
-To: Joel Stanley <joel@jms.id.au>
-Cc: taoren@fb.com, cov@fb.com, Andrew Jeffery <andrew@aj.id.au>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, daniel.lezcano@linaro.org, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, linus.walleij@linaro.org
+Date: Fri, 21 Sep 2018 14:46:14 +0800
+Message-ID: <CAARXrtmDv74030kX_tZ+n7qAHKCX6BRXhj_i9Rni3wdj_D3h-w@mail.gmail.com>
+Subject: Re: Version and Functional FRU fields for motherboard and membuf
+To: Alexander Amelkin <a.amelkin@yadro.com>
+Cc: Sivas Srr <sivas.srr@in.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -69,17 +67,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Sep 2018 06:22:24 -0000
+X-List-Received-Date: Fri, 21 Sep 2018 06:46:37 -0000
 
-> >
-> > Make sense. I actually booted up kernel on qemu-palmetto (ast2400) but I'm doubting if test is valid because it depends on how qemu emulates the hardware. It would be great if someone can help to verify the patch on physical ast2400.
+On Wed, Sep 19, 2018 at 6:33 PM Alexander Amelkin <a.amelkin@yadro.com> wrote:
 >
-> I gave this a spin on the ast2400. It looked okay, but I was wondering
-> if you could share you test case so I can run the same test?
+>
+> Sivas, Lei? Any chance to get an answer to this? The test still fails for us and we can't decide whether we should disable the test or add thos properties to motherboard and membuf objects.
+>
+> By the way, what is at all the meaning and purpose of the 'Functional' property? Is it an indicator of a component functioning properly, or is it a 'handle' to turn a component off before hot removal/replacement?
+> There is no description anywhere that we could find.
 
-Tested on Palmetto (OpenPOWER P8 with AST2400), and it does show the fix is
-working on AST2400 as well.
-Without the patch, usleep(100) takes tens of milliseconds randomly;
-With the patch, usleep(100) takes about 600~700 microseconds stably.
+The `Functional` property means if a FRU is functional or not, e.g. if a DIMM
+is plugged but has problem, it will be garded. At that time, the DIMM is
+`Present`, but not `Functional`.
 
-Tested-by: Lei YU <mine260309@gmail.com>
+For this case, I think the test code shall be updated to skip the checks for
+Functional, Version on specific FRU items.
+
+Ping @Sivas again for comment.
