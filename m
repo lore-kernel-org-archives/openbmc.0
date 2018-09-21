@@ -1,116 +1,86 @@
-Return-Path: <prvs=28020b7cd8=taoren@fb.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=28020b7cd8=taoren@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="k7ckV/VM"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="Th5+D1nF"; dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42H1rR0wDpzF3Pw
- for <openbmc@lists.ozlabs.org>; Sat, 22 Sep 2018 04:11:31 +1000 (AEST)
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8LI8iqC024381; Fri, 21 Sep 2018 11:11:22 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=5nbTtdcnVY5kGretonaj3CYR+eYge/HJvWL9jv5r/IY=;
- b=k7ckV/VMyVSey/5iP70XjSpHVZJFMb8xbXYcKrhHc7H0UiyHtEoSX2KXexaIIMjSi//1
- 84fw2pEtGNGjGft1AKUbZ9no4zOSvEGZNXtGuvcv3bJxno6zrNEMjRfjZwqp99TjeWAq
- eLKQ+vcen/Vwgo/yv07deHbHTOBgYVAdRMA= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mn5e5g215-2
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 21 Sep 2018 11:11:22 -0700
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.19) with Microsoft SMTP Server (TLS)
- id 14.3.361.1; Fri, 21 Sep 2018 11:11:21 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5nbTtdcnVY5kGretonaj3CYR+eYge/HJvWL9jv5r/IY=;
- b=Th5+D1nFzGTDOs7N0XO9lLo5Cl2hB+TAAwZC9MizKTB7qOn21liST7bhHU9iFUA3xjDVR1+99Yt7Al/jFiwThtVMo3GfOFo5FiLTAvzO89yVCdNbUjJxNKEtCNIGIsSlFMbUJgFByu+dj4jmjO139a6qYi7AvPKsI2aMKvcNLYw=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1725.namprd15.prod.outlook.com (10.174.254.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1143.17; Fri, 21 Sep 2018 18:11:19 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::65d8:2dfe:e7cf:8a9c]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::65d8:2dfe:e7cf:8a9c%12]) with mapi id 15.20.1143.017; Fri, 21 Sep
- 2018 18:11:19 +0000
-From: Tao Ren <taoren@fb.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: Linus Walleij <linus.walleij@linaro.org>, Andrew Jeffery <andrew@aj.id.au>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, "Thomas
- Gleixner" <tglx@linutronix.de>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Covington <cov@fb.com>, Tian Fang <tfang@fb.com>
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix set_next_event handler
-Thread-Topic: [PATCH] clocksource/drivers/fttmr010: fix set_next_event handler
-Thread-Index: AQHUUGYZopGOJgtP6kqMuhqvXVxY+KT5UT6A///lFQCAAOBzAIAAfbSA
-Date: Fri, 21 Sep 2018 18:11:17 +0000
-Message-ID: <E3FA56EF-0B3C-4DBE-9A63-428EB342887D@fb.com>
-References: <20180919221331.2511558-1-taoren@fb.com>
- <CACRpkdZGjvLZY7snev5W2rRGgO7bQsSqn5u2v5Nw0tH9sa4yBw@mail.gmail.com>
- <84F9ED20-0964-462E-B389-39B107A232D3@fb.com>
- <CACPK8XeEZeMskkxNChhNSO+brpoPJ5FqweWNXe22BpyytwCwFw@mail.gmail.com>
-In-Reply-To: <CACPK8XeEZeMskkxNChhNSO+brpoPJ5FqweWNXe22BpyytwCwFw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.e.1.180613
-x-originating-ip: [2620:10d:c090:200::6:ffc5]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1725;
- 20:MXvXwWDxuolPdKzNO0QTp1ez3mZuYR8kLeaUwET8XNW8AxrF3toZ2nvSltBs7ogKubIldkG9DgIlSc7RRR3cpLWGvDgQmM5AznudMCcM80fv3e/2Bw24M/n11A5ye5bjYqKVMuIeNSJ53eGOTBL7+1n19V6pPv60chSr4OjqE1Q=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
-x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
- SFS:(10019020)(39860400002)(396003)(346002)(136003)(366004)(376002)(189003)(199004)(68736007)(81156014)(256004)(33656002)(305945005)(106356001)(46003)(99286004)(86362001)(105586002)(25786009)(6436002)(8936002)(81166006)(6486002)(36756003)(102836004)(6506007)(186003)(478600001)(53546011)(14454004)(8676002)(229853002)(4326008)(5660300001)(11346002)(7736002)(54906003)(316002)(446003)(5250100002)(93886005)(58126008)(82746002)(2900100001)(6512007)(6246003)(486006)(6916009)(97736004)(53936002)(6116002)(2616005)(2906002)(76176011)(476003)(71200400001)(71190400001)(83716004);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1725;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-x-ms-office365-filtering-correlation-id: df27b0a8-bcfb-4200-3506-08d61feda147
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1725; 
-x-ms-traffictypediagnostic: MWHPR15MB1725:
-x-microsoft-antispam-prvs: <MWHPR15MB172568AEFAD83763516DD804B2120@MWHPR15MB1725.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:;
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(93006095)(93001095)(3002001)(3231355)(11241501184)(944501410)(52105095)(10201501046)(149027)(150027)(6041310)(20161123558120)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(20161123564045)(201708071742011)(7699051);
- SRVR:MWHPR15MB1725; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1725; 
-x-forefront-prvs: 0802ADD973
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: WS056j/edO5kylcT5FRsrY/Bzja3FDs0lJASfCL+s49pQGp4r9bBS7eAPqAKjsKS0rsKTOMY//8mm2UrMdfLwVBnxaUoTx/92AOG4LIWG3VFyeS9z9JFA0YRPA+kiscw0WzHo8gDNuXTPN+vb5eNW/QB/7a8289Ra1LCsp6EC1PmQnPhFzkJSczqgUe937xIHXRp9cymXiJmF2OStyL54qurZdjIreMmc4hThxhROoPBoeWQjSZUoFZ6gloSmFy5VV9vBd7bIaZyxau5+/JMiwcKcbuX5JSh1jb1+RIRiKEkqTxMKbAVrA6oAlhoJ4heBhCr9ORxABlXLLogLHbmc9cshqqCZFGEYZ2ReVq1Ez4=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E0BD3D83D72A704DBCE7F02D33BCBA01@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42H3pJ014PzF3Qf
+ for <openbmc@lists.ozlabs.org>; Sat, 22 Sep 2018 05:39:51 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w8LJZ8iC137574
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Sep 2018 15:39:48 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2mn6a69pte-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Sep 2018 15:39:48 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 21 Sep 2018 15:39:47 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 21 Sep 2018 15:39:44 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w8LJdh7X852276
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 21 Sep 2018 19:39:43 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0FB23112065;
+ Fri, 21 Sep 2018 15:39:11 -0400 (EDT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 29EC3112061;
+ Fri, 21 Sep 2018 15:39:10 -0400 (EDT)
+Received: from [9.41.179.222] (unknown [9.41.179.222])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Fri, 21 Sep 2018 15:39:10 -0400 (EDT)
+Subject: Re: [PATCH v2 2/2] media: platform: Add Aspeed Video Engine driver
+To: Hans Verkuil <hverkuil@xs4all.nl>, linux-kernel@vger.kernel.org
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
+ openbmc@lists.ozlabs.org, robh+dt@kernel.org, mchehab@kernel.org,
+ linux-media@vger.kernel.org
+References: <1536866964-71593-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1536866964-71593-3-git-send-email-eajames@linux.vnet.ibm.com>
+ <d1d58122-976b-b1dd-e4b4-bcc475219925@xs4all.nl>
+ <cf333297-cc02-51c7-14a0-4d35bc1f8f07@linux.vnet.ibm.com>
+ <66a5fbcf-2b41-ffd5-ad32-f26af47f3cea@xs4all.nl>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Fri, 21 Sep 2018 14:39:42 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: df27b0a8-bcfb-4200-3506-08d61feda147
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2018 18:11:17.5328 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1725
-X-OriginatorOrg: fb.com
+In-Reply-To: <66a5fbcf-2b41-ffd5-ad32-f26af47f3cea@xs4all.nl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18092119-0052-0000-0000-00000335128F
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009747; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000266; SDB=6.01091666; UDB=6.00564073; IPR=6.00871691; 
+ MB=3.00023439; MTD=3.00000008; XFM=3.00000015; UTC=2018-09-21 19:39:47
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18092119-0053-0000-0000-00005E2766DF
+Message-Id: <f1847a48-ca7c-e9e9-c85c-860166cebcbc@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-21_07:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+ definitions=2018-09-21_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1809210189
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,14 +92,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Sep 2018 18:11:36 -0000
+X-List-Received-Date: Fri, 21 Sep 2018 19:39:52 -0000
 
-T24gOS8yMC8xOCwgODozMyBQTSwgIkpvZWwgU3RhbmxleSIgPGpvZWxAam1zLmlkLmF1PiB3cm90
-ZToNCg0KPiBJIGdhdmUgdGhpcyBhIHNwaW4gb24gdGhlIGFzdDI0MDAuIEl0IGxvb2tlZCBva2F5
-LCBidXQgSSB3YXMgd29uZGVyaW5nDQo+IGlmIHlvdSBjb3VsZCBzaGFyZSB5b3UgdGVzdCBjYXNl
-IHNvIEkgY2FuIHJ1biB0aGUgc2FtZSB0ZXN0Pw0KDQpUaGFuayB5b3UgSm9lbCBmb3IgdGhlIHRl
-c3RpbmcuDQpTdXJlIEkgY2FuIHNoYXJlIHRoZSB0ZXN0IChhIHNtYWxsIGMgcHJvZ3JhbSB3aGlj
-aCBtZWFzdXJlcyBkZWxheSBpbnRyb2R1Y2VkIGJ5IG5hbm9zbGVlcCgpKSwgYnV0IHdoYXQgd291
-bGQgYmUgdGhlIHByZWZlcnJlZCB3YXkgdG8gc2hhcmUgaXQ/IExpa2UgYSBmb3JtYXQtcGF0Y2g/
-IE9yIG1heWJlIEkgc2hvdWxkIHJlZmluZSB0aGUgdGVzdCBhbmQgc2VuZCB0byBvcGVuYm1jIGZv
-ciByZXZpZXc/DQoNCg0KVGhhbmtzLA0KVGFvIFJlbg0KDQo=
+
+
+On 09/14/2018 12:31 PM, Hans Verkuil wrote:
+> On 09/14/2018 05:22 PM, Eddie James wrote:
+>>>> +static int aspeed_video_allocate_cma(struct aspeed_video *video)
+>>>>
+<snip>
+>>>> +	if (rc) {
+>>>> +		v4l2_device_unregister(v4l2_dev);
+>>>> +		dev_err(video->dev, "Failed to register video device\n");
+>>>> +		return rc;
+>>>> +	}
+>>>> +
+>>>> +	video->v4l2_fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+>>>> +	video->v4l2_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_JPEG;
+>>>> +	video->v4l2_fmt.fmt.pix.field = V4L2_FIELD_NONE;
+>>>> +	video->v4l2_fmt.fmt.pix.colorspace = V4L2_COLORSPACE_JPEG;
+>>> COLORSPACE_JPEG is deprecated. Use V4L2_COLORSPACE_SRGB for pix.colorspace
+>>> and set pix.quantization to V4L2_QUANTIZATION_FULL_RANGE.
+
+FYI I'm getting a v4l2-compliance failure using your suggestion:
+
+Format ioctls:
+         test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+         test VIDIOC_G/S_PARM: OK
+         test VIDIOC_G_FBUF: OK (Not Supported)
+         fail: 
+../../../v4l-utils-1.12.3/utils/v4l2-compliance/v4l2-test-formats.cpp(331): 
+pixelformat == V4L2_PIX_FMT_JPEG && colorspace != V4L2_COLORSPACE_JPEG
+         fail: 
+../../../v4l-utils-1.12.3/utils/v4l2-compliance/v4l2-test-formats.cpp(436): 
+testColorspace(pix.pixelformat, pix.colorspace, pix.ycbcr_enc, 
+pix.quantization)
+         test VIDIOC_G_FMT: FAIL
+
+This is with v4l-utils commit d977e20a45a03543c4bdfeb3aef5211446de7398.
+
+>>>
+>>>> +
+>>>> +	/* Don't fail the probe if controls init fails */
+>>>> +	v4l2_ctrl_handler_init(&video->v4l2_ctrl, 2);
+>>>> +
+<snip>
+>>>> ve,
+>>>> +};
+>>>> +
+>>>> +module_platform_driver(aspeed_video_driver);
+>>>> +
+>>>> +MODULE_DESCRIPTION("ASPEED Video Engine Driver");
+>>>> +MODULE_AUTHOR("Eddie James");
+>>>> +MODULE_LICENSE("GPL v2");
+>>>>
+>>> I don't like the read() API here. It is not a real read() either since it assumes
+>>> userspace reads full frames at a time. But if you read e.g. one byte at a time,
+>>> then each byte is just the first byte of a different frame.
+>> Yea...
+>>
+>>> I think we need to figure out how to make the stream I/O version just as fast
+>>> if not faster as the read() API.
+
+I do have the streaming API working with good performance now. Will get 
+another patch set up soon.
+
+Thanks,
+Eddie
+
+>> OK, I'll see what I can do.
+>>
+>> Thanks for the review!
+>> Eddie
+>>
+>>> Regards,
+>>>
+>>> 	Hans
+>>>
+> Regards,
+>
+> 	Hans
+>
