@@ -1,76 +1,88 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <pietro.maltoni@studio.unibo.it>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=studio.unibo.it
+ (client-ip=40.107.8.127; helo=eur04-vi1-obe.outbound.protection.outlook.com;
+ envelope-from=pietro.maltoni@studio.unibo.it; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=studio.unibo.it
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=liveunibo.onmicrosoft.com
+ header.i=@liveunibo.onmicrosoft.com header.b="ICKa1+70"; 
+ dkim-atps=neutral
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80127.outbound.protection.outlook.com [40.107.8.127])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42KWL32pgPzF3F5
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 05:27:20 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8PJIrg7042800
- for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 15:27:17 -0400
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2mqt66jjj8-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 15:27:17 -0400
-Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
- Tue, 25 Sep 2018 13:27:16 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 25 Sep 2018 13:27:12 -0600
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w8PJRC2T50200830
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 25 Sep 2018 12:27:12 -0700
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id F167A6A054;
- Tue, 25 Sep 2018 13:27:11 -0600 (MDT)
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 339806A04D;
- Tue, 25 Sep 2018 13:27:11 -0600 (MDT)
-Received: from talon7.ibm.com (unknown [9.41.179.222])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Tue, 25 Sep 2018 13:27:11 -0600 (MDT)
-From: Eddie James <eajames@linux.ibm.com>
-To: linux-kernel@vger.kernel.org
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org,
- linux-media@vger.kernel.org, mchehab@kernel.org, joel@jms.id.au,
- hverkuil@xs4all.nl, Eddie James <eajames@linux.ibm.com>
-Subject: [PATCH v3 0/2] media: platform: Add Aspeed Video Engine Driver
-Date: Tue, 25 Sep 2018 14:27:07 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 18092519-0004-0000-0000-00001491A4C2
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009770; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000267; SDB=6.01093565; UDB=6.00565220; IPR=6.00873603; 
- MB=3.00023499; MTD=3.00000008; XFM=3.00000015; UTC=2018-09-25 19:27:16
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18092519-0005-0000-0000-000088EFED2F
-Message-Id: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-25_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1809250190
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Jl6D49fszDqws
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Sep 2018 23:14:20 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=liveunibo.onmicrosoft.com; s=selector1-studio-unibo-it;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pPpzQJ6sYYx78XdFtqc6bEQdCkoTxVMbCZSaxuxlQs8=;
+ b=ICKa1+70p/CzrQMBVOXAxkDd47SILJa/29OglezPfEX2xuorE3qMV4jBX+L6+xDfyLYuj9MIuZJXGST/1QI4FQElJVNh4qyKAJ0HeEug0yGLE3EhoblCY5IlMqTceGqtyD2S+/AwxJYPTjwEZEhpOfdZj02RPkjxz+Qbiv0cxiQ=
+Received: from AM6PR01MB4038.eurprd01.prod.exchangelabs.com (20.176.242.147)
+ by AM6PR01MB4439.eurprd01.prod.exchangelabs.com (20.177.190.224) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.1164.25; Mon, 24 Sep
+ 2018 13:14:15 +0000
+Received: from AM6PR01MB4038.eurprd01.prod.exchangelabs.com
+ ([fe80::5506:f5e1:b3ff:fe21]) by AM6PR01MB4038.eurprd01.prod.exchangelabs.com
+ ([fe80::5506:f5e1:b3ff:fe21%4]) with mapi id 15.20.1143.017; Mon, 24 Sep 2018
+ 13:13:29 +0000
+From: Pietro Maltoni <pietro.maltoni@studio.unibo.it>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+CC: Andrea Bartolini <a.bartolini@unibo.it>
+Subject: Question on Flashing fw, bmc image and MQTT tool in openpower
+ palmetto system
+Thread-Topic: Question on Flashing fw, bmc image and MQTT tool in openpower
+ palmetto system
+Thread-Index: AQHUVAhi3fzkyrUrG0m3I5IevCf3Bg==
+Date: Mon, 24 Sep 2018 13:13:29 +0000
+Message-ID: <AM6PR01MB4038467F3EE3379826DE33E9CF170@AM6PR01MB4038.eurprd01.prod.exchangelabs.com>
+Accept-Language: it-IT, en-US
+Content-Language: it-IT
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=pietro.maltoni@studio.unibo.it; 
+x-originating-ip: [137.204.150.29]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; AM6PR01MB4439;
+ 6:Nct4aVDOeYwh/aL+JHFLAjmK6esW/OaYxdUHXPEIZQ7RzB8ppBTW2Kzdkqj0iVMWspD5h9+W7GE1DjrBhK2cnqqTtvTwXQgVUpEnA1SlfcYHZ+Y3WSGfBwSuqyinLMmtabZ16ONohCieyOqykY4TzJAV2mv4G6RK8bJ/waeTWuX3U7sMBBfmeOBlkg8ND8RH6uztQHINptLuBq0a0f2tN0BlUwOeFfWm1RpnU3wQBQDk6FaGfijtz4a4YGFDWrn+VUXPyq0h2LANLzOLlaURdlydfH6Q9SoJLKfn7fCgpzClxLhSgQG+fPxjiLIJkw+o1ciU/3vQ55Wcma2+VBQxMgcbdyxfKe1268EX/ryHcUBDUIjAiB1KyvWbfkKRs6F4CE4g7qvqJKDyZ489OcwSODsx+fLWzVoEvihCDDz6oPjUZaevGL5xQXsQlluZHwa1b7iRCBMmk62dBntgR62Icg==;
+ 5:5sE9/coFKA+cVgjwlDksdUuVttmRgxANx6Zh0Rh2upuTlCT3TwZHH0ghLhlRrGsr/hZOpYOiniOGNz6B6o1+kNvRBo06ZUa3KuxTT5fyIcY7d7CPHuMBMKy2zYT/gVHJ87w1QJGYUEb2Y2uiAARvO7Wwni9Qlrfklgo9tYOPVWg=;
+ 7:p9xEmhmFLu58WjPwPqOeN3KRLY8jZMIHf6FNNLXMDvloC5OlLQZTYG5PkQHOLQT03qzxIn44Lz5yu3eEwkgSQP7kCJo+j6bG9v6alYd4l4pSX+O10ewQmLnLiak79dMOUrrQBODmCQJPyj/VPIOaxFUPOSJoT8mqIx6AZl/S1HI2JO4FPStPlyQpzRK5U3By5pBa1iPdwaEoMseArQ9ZiIUrGPFwyMGjYFBSGbrqa2IBHqtrZ7qa3Wwupvid0IXg
+x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
+x-ms-office365-filtering-correlation-id: 5aa07e8b-b7bd-4a4e-3d57-08d6221f8548
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:AM6PR01MB4439; 
+x-ms-traffictypediagnostic: AM6PR01MB4439:
+x-microsoft-antispam-prvs: <AM6PR01MB4439682193DEFB2BD2490D77CF170@AM6PR01MB4439.eurprd01.prod.exchangelabs.com>
+x-exchange-antispam-report-test: UriScan:(72170088055959);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(6040522)(2401047)(5005006)(8121501046)(3002001)(10201501046)(3231355)(944501410)(52105095)(93006095)(93001095)(149066)(150027)(6041310)(20161123562045)(20161123564045)(201703131423095)(201702281529075)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(20161123558120)(201708071742011)(7699051);
+ SRVR:AM6PR01MB4439; BCL:0; PCL:0; RULEID:; SRVR:AM6PR01MB4439; 
+x-forefront-prvs: 0805EC9467
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(396003)(346002)(39860400002)(366004)(136003)(199004)(189003)(8676002)(26005)(2900100001)(6116002)(3846002)(478600001)(486006)(476003)(44832011)(81166006)(102836004)(1730700003)(86362001)(81156014)(6506007)(2906002)(14444005)(99286004)(7696005)(786003)(316002)(33656002)(5640700003)(107886003)(68736007)(256004)(6606003)(8936002)(14454004)(25786009)(4326008)(6916009)(71200400001)(74482002)(71190400001)(5660300001)(105586002)(97736004)(5250100002)(2351001)(2501003)(19627405001)(74316002)(6436002)(7736002)(106356001)(9686003)(54896002)(55016002)(53936002)(66066001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR01MB4439;
+ H:AM6PR01MB4038.eurprd01.prod.exchangelabs.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:0; MX:1; 
+received-spf: None (protection.outlook.com: studio.unibo.it does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: yKjrkAtLWnmdRXqXfc+1bcZzaAPCciXWJ1dbgys3AjPro4HxK7beMqSdOAAD75MlrGBFdbomEb3i/XBkEzcTeJw1HNX4wq2A7vxGfM0I943d978xDIVe60pJeVUL1YfL3ie3zRFLaDVjigTCp+3FQFu1jRFfw1AMULfsHwBq8OCdkyUxMWusoq4i95TTuaySSnfngsmRIlxWND5jccw6QlOf40EWvpNTVaNDJ11H+Gk4ZoN2KkUnDTnZBt3aNf0U9wrzxRkU7a1Lt4/Pn3UFs7u7AsPOglU5hOWMHejjuWWS5qTuxrMtk1Ie53F4pCIoyXALTVKfwfxQauxveg5/g7KyloLlz8/cNkQU/N+cFSA=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_AM6PR01MB4038467F3EE3379826DE33E9CF170AM6PR01MB4038eurp_"
+MIME-Version: 1.0
+X-OriginatorOrg: studio.unibo.it
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5aa07e8b-b7bd-4a4e-3d57-08d6221f8548
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2018 13:13:29.3697 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: e99647dc-1b08-454a-bf8c-699181b389ab
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR01MB4439
 X-Mailman-Approved-At: Wed, 26 Sep 2018 09:51:13 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -83,147 +95,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Sep 2018 19:27:24 -0000
+X-List-Received-Date: Mon, 24 Sep 2018 13:14:30 -0000
 
-The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
-can capture and compress video data from digital or analog sources. With
-the Aspeed chip acting as a service processor, the Video Engine can
-capture the host processor graphics output.
+--_000_AM6PR01MB4038467F3EE3379826DE33E9CF170AM6PR01MB4038eurp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-This series adds a V4L2 driver for the VE, providing the usual V4L2 streaming
-interface by way of videobuf2. Each frame, the driver triggers the hardware to
-capture the host graphics output and compress it to JPEG format.
+Trying to set up a more efficient sensor monitoring for openpower sysem and=
+ after a look in the openbmc code and occ we found a probem.
 
-I was unable to cross compile v4l2-compliance for ARM with our OpenBMC
-toolchain. Although bootstrap, configure, and make were successful, no binaries
-were generated... I was able to build v4l-utils 1.12.3 from the OpenEmbedded
-project, with the output below:
-
-v4l2-compliance SHA   : not available
-
-Driver Info:
-	Driver name   : aspeed-video
-	Card type     : Aspeed Video Engine
-	Bus info      : platform:aspeed-video
-	Driver version: 4.18.8
-	Capabilities  : 0x85200001
-		Video Capture
-		Read/Write
-		Streaming
-		Extended Pix Format
-		Device Capabilities
-	Device Caps   : 0x05200001
-		Video Capture
-		Read/Write
-		Streaming
-		Extended Pix Format
-
-Compliance test for device /dev/video0 (not using libv4l2):
-
-Required ioctls:
-	test VIDIOC_QUERYCAP: OK
-
-Allow for multiple opens:
-	test second video open: OK
-	test VIDIOC_QUERYCAP: OK
-	test VIDIOC_G/S_PRIORITY: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 1 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK
-	test VIDIOC_DV_TIMINGS_CAP: OK
-	test VIDIOC_G/S_EDID: OK
-
-Test input 0:
-
-	Control ioctls:
-		test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-		test VIDIOC_QUERYCTRL: OK
-		test VIDIOC_G/S_CTRL: OK
-		test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-		warn: ../../../v4l-utils-1.12.3/utils/v4l2-compliance/v4l2-test-controls.cpp(811): V4L2_CID_DV_RX_POWER_PRESENT not found for input 0
-		test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-		test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-		Standard Controls: 3 Private Controls: 0
-
-	Format ioctls:
-		test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-		test VIDIOC_G/S_PARM: OK
-		test VIDIOC_G_FBUF: OK (Not Supported)
-		test VIDIOC_G_FMT: OK
-		test VIDIOC_TRY_FMT: OK
-		test VIDIOC_S_FMT: OK
-		test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-		test Cropping: OK (Not Supported)
-		test Composing: OK (Not Supported)
-		test Scaling: OK (Not Supported)
-
-	Codec ioctls:
-		test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-		test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-		test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-	Buffer ioctls:
-		test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-		test VIDIOC_EXPBUF: OK (Not Supported)
-
-Test input 0:
-
-Streaming ioctls:
-	test read/write: OK
-	test MMAP: OK                                     
-	test USERPTR: OK (Not Supported)
-	test DMABUF: OK (Not Supported)
+The problem that we were seeing was due to the fact that in the palmetto co=
+nfiguration for openbmc, the openpower oem recipes are not activated.
 
 
-Total: 47, Succeeded: 47, Failed: 0, Warnings: 1
+Furthermore on inserting MQTT support in the openbmc image, we saw that mos=
+quitto is already included in openembedded but it does not build properly b=
+ecause it seems to have dependencies with openssl that it can't fix.
 
-Changes since v2:
- - Switch to streaming interface. This involved a lot of changes.
- - Rework memory allocation due to using videobuf2 buffers, but also only
-   allocate the necessary size of source buffer rather than the max size
 
-Changes since v1:
- - Removed le32_to_cpu calls for JPEG header data
- - Reworked v4l2 ioctls to be compliant.
- - Added JPEG controls
- - Updated devicetree docs according to Rob's suggestions.
- - Added myself to MAINTAINERS
+We are now working to activate them. Do you know by any chance if there is =
+already a description on how to do it properly?
 
-Eddie James (2):
-  dt-bindings: media: Add Aspeed Video Engine binding documentation
-  media: platform: Add Aspeed Video Engine driver
+--_000_AM6PR01MB4038467F3EE3379826DE33E9CF170AM6PR01MB4038eurp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
- .../devicetree/bindings/media/aspeed-video.txt     |   26 +
- MAINTAINERS                                        |    8 +
- drivers/media/platform/Kconfig                     |    8 +
- drivers/media/platform/Makefile                    |    1 +
- drivers/media/platform/aspeed-video.c              | 1645 ++++++++++++++++++++
- 5 files changed, 1688 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
- create mode 100644 drivers/media/platform/aspeed-video.c
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
+:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;Apple=
+ Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe UI=
+ Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color: rgb(33, 33=
+, 33); font-family: Calibri, sans-serif; font-size: 14.6667px;"><span>Tryin=
+g to set up a more efficient sensor monitoring for openpower sysem and afte=
+r a look in the openbmc code and occ
+ we found a probem.</span></span></p>
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color: rgb(33, 33=
+, 33); font-family: Calibri, sans-serif; font-size: 14.6667px;"><span></spa=
+n>The problem that we were seeing was due to the fact that in the palmetto =
+configuration for openbmc, the openpower
+ oem recipes are not activated.</span><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color: rgb(33, 33=
+, 33); font-family: Calibri, sans-serif; font-size: 14.6667px;"><br>
+</span></p>
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color: rgb(33, 33=
+, 33); font-family: Calibri, sans-serif; font-size: 14.6667px;"><span>Furth=
+ermore o</span>n inserting MQTT support in the openbmc image, we saw that m=
+osquitto is already included in openembedded
+</span><span style=3D"color: rgb(33, 33, 33); font-family: Calibri, sans-se=
+rif; font-size: 14.6667px;">but it does not build properly because it seems=
+ to have dependencies with openssl that it can't fix.</span><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color: rgb(33, 33=
+, 33); font-family: Calibri, sans-serif; font-size: 14.6667px;"><span style=
+=3D"color: rgb(33, 33, 33); font-family: Calibri, sans-serif; font-size: 14=
+.6667px;"><span style=3D"color: rgb(33, 33, 33); font-family: Calibri, sans=
+-serif; font-size: 14.6667px;"><span><br>
+</span></span></span></span></p>
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color: rgb(33, 33=
+, 33); font-family: Calibri, sans-serif; font-size: 14.6667px;"><span style=
+=3D"color: rgb(33, 33, 33); font-family: Calibri, sans-serif; font-size: 14=
+.6667px;"><span style=3D"color: rgb(33, 33, 33); font-family: Calibri, sans=
+-serif; font-size: 14.6667px;"><span><span style=3D"color: rgb(33, 33, 33);=
+ font-family: Calibri, sans-serif; font-size: 14.6667px;">We
+ are now working to activate them. Do you know by any chance if there is al=
+ready a description on how to do it properly?</span><br>
+</span></span></span></span></p>
+</div>
+</body>
+</html>
 
--- 
-1.8.3.1
+--_000_AM6PR01MB4038467F3EE3379826DE33E9CF170AM6PR01MB4038eurp_--
