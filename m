@@ -1,57 +1,36 @@
-Return-Path: <venture@google.com>
+Return-Path: <wsa@the-dreams.de>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::533; helo=mail-pg1-x533.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=the-dreams.de
+ (client-ip=88.99.104.3; helo=pokefinder.org; envelope-from=wsa@the-dreams.de;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="tbGr/Cmp"; 
- dkim-atps=neutral
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
- [IPv6:2607:f8b0:4864:20::533])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42JmqY4V4bzF3Jp
- for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 00:31:53 +1000 (AEST)
-Received: by mail-pg1-x533.google.com with SMTP id b129-v6so9217326pga.13
- for <openbmc@lists.ozlabs.org>; Mon, 24 Sep 2018 07:31:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=B6ZPh7pWaeTuXiSuu4+m0dud7U8WgwYOZEVBDVElMuU=;
- b=tbGr/CmpxbDmEmAqlID52uOm9wPyUyCR7bULWx2GLcF8S7L+NWWFvGpwzv448qqU1C
- H2PzNovwgn1V5Pco74J0S+BJQMIpWTXfqsT/XOcZbRe/IgzJTMts2p2wcyucERVhXAve
- aV5aUr7/EIUyMS1o0WBcKJR6YSGxTzLdDZCCGU57rf0k+W7VruAJLr7nhekKa3Eg0MEc
- Ck71L68DezYkT/FHQE9DtlNqg2Zy8B2Obxr4YeQuLXNQnrEbcGrNY9TKdv8Y1XmsIzeZ
- RGYGAsBP45V97zYRpNt4VvEv0BJG3Hv1wnBjn+ZH9xseB5nuttXGbEdrtkAgOptuoqbt
- bsIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=B6ZPh7pWaeTuXiSuu4+m0dud7U8WgwYOZEVBDVElMuU=;
- b=mjwl3ykbEeMcicICxln8hMN3nnQTkMuPQFQnP37hy6Hf6+Xcmupre0CWDbBO9pkBVj
- IZjWkYpcRDeA3IHf7H6letOvB+qSmWA22TMb2yu0nR0vurW2hpuk2X79/SbrLG5OsUu3
- t6UhorZnTy7ctmAS+huxuU7DI/+WoS2RxlnF78tURoSjKFyI/sPzffzKwhyR5bhCzVHU
- M8Pk+HU6F3BJtnTRO6VOHbRRmAcwTNQSfxAlLs8y0efYGohdQS3FXz7dEIQrfRklGBmA
- JmaONFOLGRvMMreKQC/JzlovwXaljiwoq2vbYQS29oLuJNZDRlzLvxCj9iZpu8mVtqFW
- 9wWQ==
-X-Gm-Message-State: ABuFfoj3T8Tt//HnsvBPnlMsXxPuZyL7uwmbKcRaQ+XFQYKeWKDMnDUj
- S3M4oAjg2Edgv/IBsHPAKFuAsTSSHB7TienZudS59g==
-X-Google-Smtp-Source: ACcGV63TzKymVOCxI9LFYpCkOERAqcV0uipGkAfei5Xkr2/Wq4fOf0dbH7QX/emlIbczcgx4i48n+PBr2W/SxZVHDo0=
-X-Received: by 2002:a63:1a1a:: with SMTP id
- a26-v6mr9737201pga.449.1537799510122; 
- Mon, 24 Sep 2018 07:31:50 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=the-dreams.de
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+ by lists.ozlabs.org (Postfix) with ESMTP id 42JyRr74wKzF3JX;
+ Tue, 25 Sep 2018 07:45:27 +1000 (AEST)
+Received: from localhost (i577B9B6D.versanet.de [87.123.155.109])
+ by pokefinder.org (Postfix) with ESMTPSA id 3897C2C0599;
+ Mon, 24 Sep 2018 23:45:24 +0200 (CEST)
+Date: Mon, 24 Sep 2018 23:45:23 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH] i2c: aspeed: Acknowledge most interrupts early in
+ interrupt handler
+Message-ID: <20180924214523.GA18592@kunai>
+References: <1536895810-28903-1-git-send-email-linux@roeck-us.net>
 MIME-Version: 1.0
-References: <CAE33tLEEMP2VtXa1MuwkngMN_hXup93q49knLzu2=NmvAo-5yA@mail.gmail.com>
-In-Reply-To: <CAE33tLEEMP2VtXa1MuwkngMN_hXup93q49knLzu2=NmvAo-5yA@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 24 Sep 2018 07:31:38 -0700
-Message-ID: <CAO=notyNHuDRpZbtxnv-YB0Byg=FrGjFgNKpkhAOiiU12sfe9g@mail.gmail.com>
-Subject: Re: IPMI Commands Implementation in OpenBMC
-To: akashgj91@gmail.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ZPt4rx8FFjLCG7dd"
+Content-Disposition: inline
+In-Reply-To: <1536895810-28903-1-git-send-email-linux@roeck-us.net>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,19 +42,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Sep 2018 14:31:54 -0000
+X-List-Received-Date: Mon, 24 Sep 2018 21:45:30 -0000
 
-On Mon, Sep 24, 2018 at 1:59 AM AKASH G J <akashgj91@gmail.com> wrote:
->
-> Hi Team,
->
-> We are developing a custom board with BMC ast-2500 and firmware (OpenBMC) for that. Please someone share where exactly IPMI commands are implemented in OpenBMC code. Thanks in advance.
 
-The primary IPMI handler implementation is here:
-https://github.com/openbmc/phosphor-host-ipmid
+--ZPt4rx8FFjLCG7dd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
->
-> Thanks and Regards,
->
-> Akash G J
+On Thu, Sep 13, 2018 at 08:30:10PM -0700, Guenter Roeck wrote:
+> Commit 3e9efc3299dd ("i2c: aspeed: Handle master/slave combined irq events
+> properly") moved interrupt acknowledgment to the end of the interrupt
+> handler. In part this was done because the AST2500 datasheet says:
+>=20
+>  I2CD10 Interrupt Status Register
+>    bit 2 Receive Done Interrupt status
+>          S/W needs to clear this status bit to allow next data receiving.
+>=20
+> Acknowledging Receive Done before receive data was handled resulted in
+> receive errors on high speed I2C busses.
+>=20
+> However, interrupt acknowledgment was not only moved to the end of the
+> interrupt handler for Receive Done Interrupt status, but for all interrupt
+> status bits. This could result in race conditions if a second interrupt w=
+as
+> received during interrupt handling and not handled but still acknowledged
+> at the end of the interrupt handler.
+>=20
+> Acknowledge only "Receive Done Interrupt status" late in the interrupt
+> handler to solve the problem.
+>=20
+> Fixes: 3e9efc3299dd ("i2c: aspeed: Handle master/slave combined irq event=
+s properly")
+> Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Cc: Joel Stanley <joel@jms.id.au>
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+
+Applied to for-next, thanks!
+
+
+--ZPt4rx8FFjLCG7dd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlupWu8ACgkQFA3kzBSg
+KbZRaRAApSJxYi1ZDY/OJdAFFgXK2twFN3Ct3WPrD9FOf86oHX3eyX+YAtiWN2G2
+qAVNs6JNX3rVlUKiN5UJVxR7b9LxsXeB0djnPp0wrfoscHsVC7nNsf0/4jW8T6rD
+56M/lNPk7f0oWFn3gB8rWnfxJ5LQ7j9bS/VPIGrEEhZNzpS/ewyCWuQXvZX5NGLv
+suwyL431enqXKyVYZAwm+Wg6G8xlO2wzLTsPSttpWNDBxriyWSf/L9BkrbHQbezT
+idtCXG7PR2JDerWDVvTHrUXqJdLowHBe18umR3kNUnHoe5T7/OCg/AIRtUgEn9C9
+H9L40P3IQJVcSDfBOGixkt29RPuFdwHchaCapJkdanIwmE/+JdYZR0CekKBIJheO
+jikCLMnH2ryaOH38PCjiEK6CIdZ886ZSA8rDXTWrEX3AfUbKI6CpwdPByqpbwwTY
+kAI3z5ufTBI+PGwpGgrIs5AKGN/kkQtAUFsw5r0OcNM1E6CpO234dGizpgoYpDQi
+lloJ8ZAC2qir3+uj3p6PlK7r5n8UQt4rA6vI1OsfFSHDKTQilOdCm4zoYY5RnSOO
+A2VAkE3nmIiWJ/rBmGZsx4BWDlpsdWSklSzkyOKwA6hVBypP0fLiF2mPzPKOAioK
+AUXMsCPXeA6/9ahVOcMNcFmsCYMZpKsp07mvAmyMRHNukrxqBD4=
+=TQ2O
+-----END PGP SIGNATURE-----
+
+--ZPt4rx8FFjLCG7dd--
