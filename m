@@ -1,43 +1,63 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::844; helo=mail-qt1-x844.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="A08oMoaw"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42K0Cq3gsRzF3JJ;
- Tue, 25 Sep 2018 09:05:11 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2018 16:05:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,299,1534834800"; d="scan'208";a="93371994"
-Received: from maru.jf.intel.com ([10.54.51.77])
- by orsmga001.jf.intel.com with ESMTP; 24 Sep 2018 16:04:53 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH i2c-next v2 1/2] dt-bindings: i2c: aspeed: Add
- 'idle-wait-timeout-ms' property
-Date: Mon, 24 Sep 2018 16:04:41 -0700
-Message-Id: <20180924230442.7732-2-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20180924230442.7732-1-jae.hyun.yoo@linux.intel.com>
-References: <20180924230442.7732-1-jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42K0YQ6h86zF3FW
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 09:20:26 +1000 (AEST)
+Received: by mail-qt1-x844.google.com with SMTP id z13-v6so11441553qts.5
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Sep 2018 16:20:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vFV4dnlatzbguNcNR/N13waU+Yimxo+sUEj115HJZJA=;
+ b=A08oMoawSGdS/ISuOn8gkzopwRW4qrK+cXoWiBa5VTKbq3zBNAVqR9bAJfhunAwehA
+ UlKkHN0/nLwS15g6Lo0uGVL9NRp8p1vkuWX0ZQ8HWONifYRB1tVgbPUvQuY87DMGm7eh
+ 7oiqbLKvOEPW3Wfl/w1mIEsrilboPQQGigGl4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vFV4dnlatzbguNcNR/N13waU+Yimxo+sUEj115HJZJA=;
+ b=YTD1GhBhYpK+9Acy5QBYypc8Q1ey/imCgL4vasDa9uqWsmB4D2k1oVKexLks+Y6YgO
+ i5nS+FYJI4N/wliRhQNfILaZFyZkj7vWNiPivQeIH1ytobMqR5BRDdNXnl8cvFbyU3l3
+ 9GOR6i7LIqXusiX3ajQUpSIZ3Cymz65MGY87IMRMpEB2rhMkJuwCsdVwt4q/DMTyK910
+ eBIQReJFHk6e63Fl7ZazLKsuS5hLbVteoEv4Uuu+KPgnKrfbEvRAIC6CixJaxo8A2kSZ
+ X8jgfGOY/k0uFRA716uZmGzqfOP1REpLtf3+Oorn4uapV0kqaEM6Wpa0fW8XMA2sZ8UR
+ KKYg==
+X-Gm-Message-State: ABuFfog/Pv2BQWsjfTa+Llt4ldIgBJXrASY5N9SHLRay8AFzNwiujjoz
+ yJKrvXm52RCRTsntD7OzY4/hKIJgNWPGOIXgyjo=
+X-Google-Smtp-Source: ACcGV6293BhLYBqd+Jcq7bV3cjqa+bqry9aCHoUa3t5UlTxwehMeUNeOLBpJYGy84K8VLnA4GrvEYkhbtkxKdi2k/0I=
+X-Received: by 2002:aed:3667:: with SMTP id
+ e94-v6mr869282qtb.285.1537831224427; 
+ Mon, 24 Sep 2018 16:20:24 -0700 (PDT)
+MIME-Version: 1.0
+References: <20180919221331.2511558-1-taoren@fb.com>
+ <CACRpkdZGjvLZY7snev5W2rRGgO7bQsSqn5u2v5Nw0tH9sa4yBw@mail.gmail.com>
+ <84F9ED20-0964-462E-B389-39B107A232D3@fb.com>
+ <CACPK8XeEZeMskkxNChhNSO+brpoPJ5FqweWNXe22BpyytwCwFw@mail.gmail.com>
+ <E3FA56EF-0B3C-4DBE-9A63-428EB342887D@fb.com>
+In-Reply-To: <E3FA56EF-0B3C-4DBE-9A63-428EB342887D@fb.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 25 Sep 2018 08:50:11 +0930
+Message-ID: <CACPK8Xd03w51FM8iJsFNhWkpRFMhy97XZpxOhbRwbD3ytQcRbg@mail.gmail.com>
+Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix set_next_event handler
+To: Tao Ren <taoren@fb.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, cov@fb.com, 
+ Tian Fang <tfang@fb.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,36 +69,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Sep 2018 23:05:12 -0000
+X-List-Received-Date: Mon, 24 Sep 2018 23:20:28 -0000
 
-This commit adds 'idle-wait-timeout-ms' property which can be used
-for bus idle waiting logic in multi-master environment.
+On Sat, 22 Sep 2018 at 03:41, Tao Ren <taoren@fb.com> wrote:
+>
+> On 9/20/18, 8:33 PM, "Joel Stanley" <joel@jms.id.au> wrote:
+>
+> > I gave this a spin on the ast2400. It looked okay, but I was wondering
+> > if you could share you test case so I can run the same test?
+>
+> Thank you Joel for the testing.
+> Sure I can share the test (a small c program which measures delay introduced by nanosleep()), but what would be the preferred way to share it? Like a format-patch? Or maybe I should refine the test and send to openbmc for review?
 
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
----
- Documentation/devicetree/bindings/i2c/i2c-aspeed.txt | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Whatever method is easiest for you. A patch file or a tarball is fine.
+I will then add it to the set of tests I run when testing aspeed
+kernels.
 
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-index 8fbd8633a387..42ecaaf67172 100644
---- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-+++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-@@ -13,9 +13,13 @@ Required Properties:
- - interrupts		: interrupt number
- 
- Optional Properties:
--- bus-frequency	: frequency of the bus clock in Hz defaults to 100 kHz when not
--		  specified
--- multi-master	: states that there is another master active on this bus.
-+- bus-frequency		: frequency of the bus clock in Hz defaults to 100 kHz
-+			  when not specified
-+- multi-master		: states that there is another master active on this
-+			  bus.
-+- idle-wait-timeout-ms	: bus idle waiting timeout in milliseconds when
-+			  multi-master is set, defaults to 100 ms when not
-+			  specified.
- 
- Example:
- 
--- 
-2.18.0
+Cheers,
+
+Joel
