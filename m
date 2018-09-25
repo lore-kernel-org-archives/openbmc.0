@@ -1,54 +1,104 @@
 Return-Path: <prvs=2806881923=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
  envelope-from=prvs=2806881923=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="i62cF+ay"; 
- dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ unprotected) header.d=fb.com header.i=@fb.com header.b="bGZ/bttS"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="OGcNyU07"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42K1dW6SMTzF3Hw
- for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 10:08:59 +1000 (AEST)
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42K1ms1npgzDrVM;
+ Tue, 25 Sep 2018 10:15:23 +1000 (AEST)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8P08EA1011255
- for <openbmc@lists.ozlabs.org>; Mon, 24 Sep 2018 17:08:57 -0700
+ w8P0AHJc023679; Mon, 24 Sep 2018 17:15:22 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=00Qac88hoLJVtprDV5eE5p7mEDuOcvqN6q5s4wJSFXk=;
- b=i62cF+ayWKcdFSBGjJBrYvKh8hoSzEuEDPCqawVFlnOqrpBkZQ0b9hPefBhqanR+wyPE
- a8n+OpHoemdjc0RL9jKEVzESVfG/895gNbv/+XwNJ5Hb4t1l/zTcmn5bGPYA/mqlxVZZ
- N8JF9th1ynNVU4vjHEIi0T3iof8lIyo78S4= 
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type : content-id :
+ content-transfer-encoding : mime-version; s=facebook;
+ bh=w7JFQKhA1QKnfS74TwDPgWVL2+k1gJaxMAJlSOANWGg=;
+ b=bGZ/bttScgcwOVNSz2HLAW3k7ClkUfr1lS2xm0lFzaS8M9b4WfbVKQ99WP7/j4pJMzk7
+ jUT5KyC307db7Ut+Vh31W/QNi1YJFPNVayWnmNYmPA8l5szBziwReiwEJs0I382ZGI6q
+ 1VMI+3lPZWRRpByx1W/t22iK5zU7/N9FfLA= 
 Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mq8690ddt-2
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 24 Sep 2018 17:08:57 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
- (192.168.16.19) with Microsoft SMTP Server (TLS) id 14.3.361.1; Mon, 24 Sep
- 2018 17:08:55 -0700
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)	id
- 83E271A13CA1; Mon, 24 Sep 2018 17:08:51 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
+ by mx0a-00082601.pphosted.com with ESMTP id 2mq954g8ae-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 24 Sep 2018 17:15:21 -0700
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.14) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Mon, 24 Sep 2018 17:15:20 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w7JFQKhA1QKnfS74TwDPgWVL2+k1gJaxMAJlSOANWGg=;
+ b=OGcNyU07+v4hRomgK7LyMnlVDln3NpKeVKqUX760YdGkVZjeOTClTTLEd6ePiWKM7A9DtCxChMclgM3vHheUZyN15hXw/sKXajz0y6huO2d/nIDmAGH7S8uSbfadHtxf9iIthsts0mKilaZjqlAvdvKKuT5BBCMIOlQuA5Lpgwc=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1190.namprd15.prod.outlook.com (10.172.177.12) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1143.18; Tue, 25 Sep 2018 00:15:19 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::3cb5:8b7b:eafb:d86c]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::3cb5:8b7b:eafb:d86c%5]) with mapi id 15.20.1143.019; Tue, 25 Sep 2018
+ 00:15:18 +0000
 From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
 To: "linux-aspeed @ lists . ozlabs . org" <linux-aspeed@lists.ozlabs.org>,
  "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>, Sai Dasari
  <sdasari@fb.com>, Amithash Prasad <amithash@fb.com>
-CC: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
-Date: Mon, 24 Sep 2018 17:08:40 -0700
-Message-ID: <20180925000840.4111212-1-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+Subject: Re: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
+Thread-Topic: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
+Thread-Index: AQHUVGQCuhyiMmBSKk6Et/PYgx/FjqT/q4uA
+Date: Tue, 25 Sep 2018 00:15:18 +0000
+Message-ID: <12A48CDA-EADA-40A1-9528-A8AF83DEF22C@fb.com>
+References: <20180925000840.4111212-1-vijaykhemka@fb.com>
+In-Reply-To: <20180925000840.4111212-1-vijaykhemka@fb.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::5:6573]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1190;
+ 20:XTNCbx60nqKaJMZB/HVNOA6j2G4r6DdrUdUM37ASslj6oZbRNUWCS3upacag31Z5kQLYqb9YQId8+1AbmLSe66Fl4b037mL3n5xF6mYVS9xbSTxv7C1dmg2RLH8NoA8AENj1EHBK6G6NQJJ9TK5wJKnVLna6mony5AkYCMlX8T8=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
+x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
+ SFS:(10019020)(136003)(376002)(366004)(39860400002)(346002)(396003)(199004)(189003)(186003)(316002)(2900100001)(81156014)(6506007)(256004)(102836004)(14444005)(6636002)(478600001)(5660300001)(110136005)(81166006)(14454004)(33656002)(82746002)(105586002)(217873002)(106356001)(476003)(25786009)(2616005)(11346002)(99286004)(446003)(76176011)(97736004)(46003)(6512007)(53936002)(450100002)(486006)(71190400001)(6116002)(7736002)(305945005)(71200400001)(83716004)(2906002)(8676002)(6246003)(68736007)(6486002)(6436002)(5250100002)(8936002)(36756003)(86362001)(229853002)(554374003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1190;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+x-ms-office365-filtering-correlation-id: 1ed24a8d-62e4-4dd1-8f5d-08d6227bf9a1
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1190; 
+x-ms-traffictypediagnostic: CY4PR15MB1190:
+x-microsoft-antispam-prvs: <CY4PR15MB1190E88962F029AB85D82FB4DD160@CY4PR15MB1190.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(81227570615382)(67672495146484);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(10201501046)(93006095)(93001095)(3002001)(3231355)(11241501184)(944501410)(52105095)(149066)(150027)(6041310)(20161123562045)(20161123560045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(201708071742011)(7699051);
+ SRVR:CY4PR15MB1190; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1190; 
+x-forefront-prvs: 08062C429B
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: qxkhtSgyL6goOXbLKi862xTg7qWBN8iXttNfH+Dy5Bgjoukgl+0Jk6CR0DNLrXy68AvJuQ8KBjl5SAAG86wY4dlYaYEWpscG64OI3op552sgdjJZctVLIwKRQwUBqnaz9WInVYbjC7RoNkNi3iVmPUzYh3R6/SZX6TDXzly6da00uxvg/TZ0Xmi64TJdVS3TXevD+DTRZ25NdKWNqz+3Px79oRJzN6nzvpc96FXkGXlJ24ftqTSjEyY/zWRpOWKPi+Tt+DCXg53ytilSraELcy6gOhQO/MEJAgAggUudlIfy3yiRvUR1NIfLxctXg+CAJHPYOSN5uas91YOxPrUVw8vLrzZOlicURYs6uPwNHfs=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <32A52835EE169F458C704107D26A9B1B@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ed24a8d-62e4-4dd1-8f5d-08d6227bf9a1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2018 00:15:18.2779 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1190
+X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-09-24_15:, , signatures=0
 X-Proofpoint-Spam-Reason: safe
@@ -64,288 +114,202 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Sep 2018 00:09:04 -0000
+X-List-Received-Date: Tue, 25 Sep 2018 00:15:26 -0000
 
-This patch adds OEM command to get mac address from NCSI device and and
-configure the same to the network card.
-
-ncsi_cmd_arg - Modified this structure to include bigger payload data.
-ncsi_cmd_handler_oem: This function handles oem command request
-ncsi_rsp_handler_oem: This function handles response for OEM command.
-get_mac_address_oem_mlx: This function will send OEM command to get
-mac address for Mellanox card
-set_mac_affinity_mlx: This will send OEM command to set Mac affinity
-for Mellanox card
-
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
----
- net/ncsi/Kconfig       |  3 ++
- net/ncsi/internal.h    | 11 +++++--
- net/ncsi/ncsi-cmd.c    | 24 +++++++++++++--
- net/ncsi/ncsi-manage.c | 68 ++++++++++++++++++++++++++++++++++++++++++
- net/ncsi/ncsi-pkt.h    | 16 ++++++++++
- net/ncsi/ncsi-rsp.c    | 33 +++++++++++++++++++-
- 6 files changed, 149 insertions(+), 6 deletions(-)
-
-diff --git a/net/ncsi/Kconfig b/net/ncsi/Kconfig
-index 08a8a6031fd7..b8bf89fea7c8 100644
---- a/net/ncsi/Kconfig
-+++ b/net/ncsi/Kconfig
-@@ -10,3 +10,6 @@ config NET_NCSI
- 	  support. Enable this only if your system connects to a network
- 	  device via NCSI and the ethernet driver you're using supports
- 	  the protocol explicitly.
-+config NCSI_OEM_CMD_GET_MAC
-+	bool "Get NCSI OEM MAC Address"
-+	depends on NET_NCSI
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 8055e3965cef..da17958e6a4b 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -68,6 +68,10 @@ enum {
- 	NCSI_MODE_MAX
- };
- 
-+#define NCSI_OEM_MFR_MLX_ID             0x8119
-+#define NCSI_OEM_MLX_CMD_GET_MAC        0x1b00
-+#define NCSI_OEM_MLX_CMD_SET_AFFINITY   0x010700
-+
- struct ncsi_channel_version {
- 	u32 version;		/* Supported BCD encoded NCSI version */
- 	u32 alpha2;		/* Supported BCD encoded NCSI version */
-@@ -236,6 +240,7 @@ enum {
- 	ncsi_dev_state_probe_dp,
- 	ncsi_dev_state_config_sp	= 0x0301,
- 	ncsi_dev_state_config_cis,
-+	ncsi_dev_state_config_oem_gma,
- 	ncsi_dev_state_config_clear_vids,
- 	ncsi_dev_state_config_svf,
- 	ncsi_dev_state_config_ev,
-@@ -301,9 +306,9 @@ struct ncsi_cmd_arg {
- 	unsigned short       payload;     /* Command packet payload length */
- 	unsigned int         req_flags;   /* NCSI request properties       */
- 	union {
--		unsigned char  bytes[16]; /* Command packet specific data  */
--		unsigned short words[8];
--		unsigned int   dwords[4];
-+		unsigned char  bytes[64]; /* Command packet specific data  */
-+		unsigned short words[32];
-+		unsigned int   dwords[16];
- 	};
- };
- 
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-index 7567ca63aae2..3205e22c1734 100644
---- a/net/ncsi/ncsi-cmd.c
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -211,6 +211,25 @@ static int ncsi_cmd_handler_snfc(struct sk_buff *skb,
- 	return 0;
- }
- 
-+static int ncsi_cmd_handler_oem(struct sk_buff *skb,
-+				struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_oem_pkt *cmd;
-+	unsigned int len;
-+
-+	len = sizeof(struct ncsi_cmd_pkt_hdr) + 4;
-+	if (nca->payload < 26)
-+		len += 26;
-+	else
-+		len += nca->payload;
-+
-+	cmd = skb_put_zero(skb, len);
-+	memcpy(cmd->data, nca->bytes, nca->payload);
-+	ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+
-+	return 0;
-+}
-+
- static struct ncsi_cmd_handler {
- 	unsigned char type;
- 	int           payload;
-@@ -244,7 +263,7 @@ static struct ncsi_cmd_handler {
- 	{ NCSI_PKT_CMD_GNS,    0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_GNPTS,  0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_GPS,    0, ncsi_cmd_handler_default },
--	{ NCSI_PKT_CMD_OEM,    0, NULL                     },
-+	{ NCSI_PKT_CMD_OEM,   -1, ncsi_cmd_handler_oem     },
- 	{ NCSI_PKT_CMD_PLDM,   0, NULL                     },
- 	{ NCSI_PKT_CMD_GPUUID, 0, ncsi_cmd_handler_default }
- };
-@@ -317,7 +336,8 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
- 	}
- 
- 	/* Get packet payload length and allocate the request */
--	nca->payload = nch->payload;
-+	if (nch->payload >= 0)
-+		nca->payload = nch->payload;
- 	nr = ncsi_alloc_command(nca);
- 	if (!nr)
- 		return -ENOMEM;
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 091284760d21..3b2b86560cc8 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -635,6 +635,58 @@ static int set_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
- 	return 0;
- }
- 
-+#if IS_ENABLED(CONFIG_NCSI_OEM_CMD_GET_MAC)
-+/* NCSI Facebook OEM APIs */
-+static void get_mac_address_oem_mlx(struct ncsi_dev_priv *ndp)
-+{
-+	struct ncsi_cmd_arg nca;
-+	int ret = 0;
-+
-+	memset(&nca, 0, sizeof(struct ncsi_cmd_arg));
-+	nca.ndp = ndp;
-+	nca.channel = ndp->active_channel->id;
-+	nca.package = ndp->active_package->id;
-+	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
-+	nca.type = NCSI_PKT_CMD_OEM;
-+	nca.payload = 8;
-+
-+	nca.dwords[0] = ntohl(NCSI_OEM_MFR_MLX_ID);
-+	nca.dwords[1] = ntohl(NCSI_OEM_MLX_CMD_GET_MAC);
-+
-+	ret = ncsi_xmit_cmd(&nca);
-+	if (ret)
-+		netdev_err(ndp->ndev.dev,
-+			   "NCSI: Failed to transmit cmd 0x%x during probe\n",
-+			   nca.type);
-+}
-+
-+static void set_mac_affinity_mlx(struct ncsi_dev_priv *ndp)
-+{
-+	struct ncsi_cmd_arg nca;
-+	int ret = 0;
-+
-+	memset(&nca, 0, sizeof(struct ncsi_cmd_arg));
-+	nca.ndp = ndp;
-+	nca.channel = ndp->active_channel->id;
-+	nca.package = ndp->active_package->id;
-+	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
-+	nca.type = NCSI_PKT_CMD_OEM;
-+	nca.payload = 60;
-+
-+	nca.dwords[0] = ntohl(NCSI_OEM_MFR_MLX_ID);
-+	nca.dwords[1] = ntohl(NCSI_OEM_MLX_CMD_SET_AFFINITY);
-+
-+	memcpy(&(nca.bytes[8]), ndp->ndev.dev->dev_addr, ETH_ALEN);
-+	nca.bytes[14] = 0x09;
-+
-+	ret = ncsi_xmit_cmd(&nca);
-+	if (ret)
-+		netdev_err(ndp->ndev.dev,
-+			   "NCSI: Failed to transmit cmd 0x%x during probe\n",
-+				   nca.type);
-+}
-+#endif /* CONFIG_NCSI_OEM_CMD_GET_MAC */
-+
- static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
- {
- 	struct ncsi_dev *nd = &ndp->ndev;
-@@ -685,6 +737,22 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
- 			goto error;
- 		}
- 
-+#if IS_ENABLED(CONFIG_NCSI_OEM_CMD_GET_MAC)
-+		/* Check Manufacture id if it is Mellanox then
-+		 * get and set mac address. To Do: Add code for
-+		 * other types of card if required
-+		 */
-+		if (nc->version.mf_id == NCSI_OEM_MFR_MLX_ID)
-+			nd->state = ncsi_dev_state_config_oem_gma;
-+		else
-+			nd->state = ncsi_dev_state_config_clear_vids;
-+		break;
-+	case ncsi_dev_state_config_oem_gma:
-+		ndp->pending_req_num = 2;
-+		get_mac_address_oem_mlx(ndp);
-+		msleep(500);
-+		set_mac_affinity_mlx(ndp);
-+#endif /* CONFIG_NCSI_OEM_CMD_GET_MAC */
- 		nd->state = ncsi_dev_state_config_clear_vids;
- 		break;
- 	case ncsi_dev_state_config_clear_vids:
-diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-index 91b4b66438df..0653a893eb12 100644
---- a/net/ncsi/ncsi-pkt.h
-+++ b/net/ncsi/ncsi-pkt.h
-@@ -151,6 +151,22 @@ struct ncsi_cmd_snfc_pkt {
- 	unsigned char           pad[22];
- };
- 
-+/* Oem Request Command */
-+struct ncsi_cmd_oem_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;         /* Command header    */
-+	unsigned char           data[64];    /* OEM Payload Data  */
-+	__be32                  checksum;    /* Checksum          */
-+};
-+
-+/* Oem Response Packet */
-+struct ncsi_rsp_oem_pkt {
-+	struct ncsi_rsp_pkt_hdr rsp;         /* Command header    */
-+	__be32                  mfr_id;      /* Manufacture ID    */
-+	__be32                  oem_cmd;     /* oem command       */
-+	unsigned char           data[32];    /* Payload data      */
-+	__be32                  checksum;    /* Checksum          */
-+};
-+
- /* Get Link Status */
- struct ncsi_rsp_gls_pkt {
- 	struct ncsi_rsp_pkt_hdr rsp;        /* Response header   */
-diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index 930c1d3796f0..3b94c96b9c7f 100644
---- a/net/ncsi/ncsi-rsp.c
-+++ b/net/ncsi/ncsi-rsp.c
-@@ -596,6 +596,37 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
- 	return 0;
- }
- 
-+static int ncsi_rsp_handler_oem(struct ncsi_request *nr)
-+{
-+	struct ncsi_rsp_oem_pkt *rsp;
-+	struct ncsi_dev_priv *ndp = nr->ndp;
-+	struct net_device *ndev = ndp->ndev.dev;
-+	int ret = 0;
-+	unsigned int oem_cmd, mfr_id;
-+	const struct net_device_ops *ops = ndev->netdev_ops;
-+	struct sockaddr saddr;
-+
-+	/* Get the response header */
-+	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
-+
-+	oem_cmd = ntohl(rsp->oem_cmd);
-+	mfr_id = ntohl(rsp->mfr_id);
-+
-+	/* Check for Mellanox manufacturer id */
-+	if (mfr_id != NCSI_OEM_MFR_MLX_ID)
-+		return 0;
-+
-+	if (oem_cmd == NCSI_OEM_MLX_CMD_GET_MAC) {
-+		saddr.sa_family = ndev->type;
-+		ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
-+		memcpy(saddr.sa_data, &(rsp->data[4]), ETH_ALEN);
-+		ret = ops->ndo_set_mac_address(ndev, &saddr);
-+		if (ret < 0)
-+			netdev_warn(ndev, "NCSI: 'Writing mac address to device failed\n");
-+	}
-+	return ret;
-+}
-+
- static int ncsi_rsp_handler_gvi(struct ncsi_request *nr)
- {
- 	struct ncsi_rsp_gvi_pkt *rsp;
-@@ -932,7 +963,7 @@ static struct ncsi_rsp_handler {
- 	{ NCSI_PKT_RSP_GNS,   172, ncsi_rsp_handler_gns     },
- 	{ NCSI_PKT_RSP_GNPTS, 172, ncsi_rsp_handler_gnpts   },
- 	{ NCSI_PKT_RSP_GPS,     8, ncsi_rsp_handler_gps     },
--	{ NCSI_PKT_RSP_OEM,     0, NULL                     },
-+	{ NCSI_PKT_RSP_OEM,    -1, ncsi_rsp_handler_oem     },
- 	{ NCSI_PKT_RSP_PLDM,    0, NULL                     },
- 	{ NCSI_PKT_RSP_GPUUID, 20, ncsi_rsp_handler_gpuuid  }
- };
--- 
-2.17.1
+SGksDQpJIGFtIHNlbmRpbmcgdGhpcyBwYXRjaCB0byBtYWlsaW5nIGxpc3Qgb25seSBub3QgbWFp
+bnRhaW5lciBhcyBJIG5lZWQgZmVlZGJhY2sgb24gdGhpcyBwYXRjaCBiZWZvcmUgSSBhc2sgZm9y
+IHVwc3RyZWFtIGluIGtlcm5lbC4gQmVsb3cgaXMgdGhlIGJhY2tncm91bmQgb2YgcHJvYmxlbS4N
+Cg0KV2UgYXJlIHVzaW5nIDIgZGlmZmVyZW50IGNhcmRzIE1lbGxhbm94IGFuZCBCcm9hZGNvbSBm
+b3Igb3VyIFRpb2dhcGFzcyBCTUMuIFdlIGhhdmUgYSByZXF1aXJlbWVudCBvZiBnZXR0aW5nIG1h
+YyBhZGRyZXNzIGZyb20gY2FyZCBpdHNlbGYgYnkgc2VuZGluZyBPRU0gY29tbWFuZCBhbmQgdGhl
+biBzZXQgaXQgdG8gZGV2aWNlLiBXZSBnZXQgdGhlc2UgbWFjIGFkZHJlc3MgYXMgYSBwYXJ0IG9m
+IE5DU0kgY29uZmlndXJhdGlvbiBhbmQgc2V0IG9uY2UgcmVjZWl2ZWQgcmVzcG9uc2UuIEkgaGF2
+ZSB0cmllZCB0byBtYWtlIGNvZGUgYXMgZ2VuZXJpYyBhcyBwb3NzaWJsZS4gSSBuZWVkIHlvdXIg
+ZmVlZGJhY2sgb24gdGhpcyBwYXRjaC4NCg0KUmVnYXJkcw0KLVZpamF5DQoNCu+7v09uIDkvMjQv
+MTgsIDU6MDkgUE0sICJWaWpheSBLaGVta2EiIDx2aWpheWtoZW1rYUBmYi5jb20+IHdyb3RlOg0K
+DQogICAgVGhpcyBwYXRjaCBhZGRzIE9FTSBjb21tYW5kIHRvIGdldCBtYWMgYWRkcmVzcyBmcm9t
+IE5DU0kgZGV2aWNlIGFuZCBhbmQNCiAgICBjb25maWd1cmUgdGhlIHNhbWUgdG8gdGhlIG5ldHdv
+cmsgY2FyZC4NCiAgICANCiAgICBuY3NpX2NtZF9hcmcgLSBNb2RpZmllZCB0aGlzIHN0cnVjdHVy
+ZSB0byBpbmNsdWRlIGJpZ2dlciBwYXlsb2FkIGRhdGEuDQogICAgbmNzaV9jbWRfaGFuZGxlcl9v
+ZW06IFRoaXMgZnVuY3Rpb24gaGFuZGxlcyBvZW0gY29tbWFuZCByZXF1ZXN0DQogICAgbmNzaV9y
+c3BfaGFuZGxlcl9vZW06IFRoaXMgZnVuY3Rpb24gaGFuZGxlcyByZXNwb25zZSBmb3IgT0VNIGNv
+bW1hbmQuDQogICAgZ2V0X21hY19hZGRyZXNzX29lbV9tbHg6IFRoaXMgZnVuY3Rpb24gd2lsbCBz
+ZW5kIE9FTSBjb21tYW5kIHRvIGdldA0KICAgIG1hYyBhZGRyZXNzIGZvciBNZWxsYW5veCBjYXJk
+DQogICAgc2V0X21hY19hZmZpbml0eV9tbHg6IFRoaXMgd2lsbCBzZW5kIE9FTSBjb21tYW5kIHRv
+IHNldCBNYWMgYWZmaW5pdHkNCiAgICBmb3IgTWVsbGFub3ggY2FyZA0KICAgIA0KICAgIFNpZ25l
+ZC1vZmYtYnk6IFZpamF5IEtoZW1rYSA8dmlqYXlraGVta2FAZmIuY29tPg0KICAgIC0tLQ0KICAg
+ICBuZXQvbmNzaS9LY29uZmlnICAgICAgIHwgIDMgKysNCiAgICAgbmV0L25jc2kvaW50ZXJuYWwu
+aCAgICB8IDExICsrKysrLS0NCiAgICAgbmV0L25jc2kvbmNzaS1jbWQuYyAgICB8IDI0ICsrKysr
+KysrKysrKystLQ0KICAgICBuZXQvbmNzaS9uY3NpLW1hbmFnZS5jIHwgNjggKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQogICAgIG5ldC9uY3NpL25jc2ktcGt0Lmgg
+ICAgfCAxNiArKysrKysrKysrDQogICAgIG5ldC9uY3NpL25jc2ktcnNwLmMgICAgfCAzMyArKysr
+KysrKysrKysrKysrKysrLQ0KICAgICA2IGZpbGVzIGNoYW5nZWQsIDE0OSBpbnNlcnRpb25zKCsp
+LCA2IGRlbGV0aW9ucygtKQ0KICAgIA0KICAgIGRpZmYgLS1naXQgYS9uZXQvbmNzaS9LY29uZmln
+IGIvbmV0L25jc2kvS2NvbmZpZw0KICAgIGluZGV4IDA4YThhNjAzMWZkNy4uYjhiZjg5ZmVhN2M4
+IDEwMDY0NA0KICAgIC0tLSBhL25ldC9uY3NpL0tjb25maWcNCiAgICArKysgYi9uZXQvbmNzaS9L
+Y29uZmlnDQogICAgQEAgLTEwLDMgKzEwLDYgQEAgY29uZmlnIE5FVF9OQ1NJDQogICAgIAkgIHN1
+cHBvcnQuIEVuYWJsZSB0aGlzIG9ubHkgaWYgeW91ciBzeXN0ZW0gY29ubmVjdHMgdG8gYSBuZXR3
+b3JrDQogICAgIAkgIGRldmljZSB2aWEgTkNTSSBhbmQgdGhlIGV0aGVybmV0IGRyaXZlciB5b3Un
+cmUgdXNpbmcgc3VwcG9ydHMNCiAgICAgCSAgdGhlIHByb3RvY29sIGV4cGxpY2l0bHkuDQogICAg
+K2NvbmZpZyBOQ1NJX09FTV9DTURfR0VUX01BQw0KICAgICsJYm9vbCAiR2V0IE5DU0kgT0VNIE1B
+QyBBZGRyZXNzIg0KICAgICsJZGVwZW5kcyBvbiBORVRfTkNTSQ0KICAgIGRpZmYgLS1naXQgYS9u
+ZXQvbmNzaS9pbnRlcm5hbC5oIGIvbmV0L25jc2kvaW50ZXJuYWwuaA0KICAgIGluZGV4IDgwNTVl
+Mzk2NWNlZi4uZGExNzk1OGU2YTRiIDEwMDY0NA0KICAgIC0tLSBhL25ldC9uY3NpL2ludGVybmFs
+LmgNCiAgICArKysgYi9uZXQvbmNzaS9pbnRlcm5hbC5oDQogICAgQEAgLTY4LDYgKzY4LDEwIEBA
+IGVudW0gew0KICAgICAJTkNTSV9NT0RFX01BWA0KICAgICB9Ow0KICAgICANCiAgICArI2RlZmlu
+ZSBOQ1NJX09FTV9NRlJfTUxYX0lEICAgICAgICAgICAgIDB4ODExOQ0KICAgICsjZGVmaW5lIE5D
+U0lfT0VNX01MWF9DTURfR0VUX01BQyAgICAgICAgMHgxYjAwDQogICAgKyNkZWZpbmUgTkNTSV9P
+RU1fTUxYX0NNRF9TRVRfQUZGSU5JVFkgICAweDAxMDcwMA0KICAgICsNCiAgICAgc3RydWN0IG5j
+c2lfY2hhbm5lbF92ZXJzaW9uIHsNCiAgICAgCXUzMiB2ZXJzaW9uOwkJLyogU3VwcG9ydGVkIEJD
+RCBlbmNvZGVkIE5DU0kgdmVyc2lvbiAqLw0KICAgICAJdTMyIGFscGhhMjsJCS8qIFN1cHBvcnRl
+ZCBCQ0QgZW5jb2RlZCBOQ1NJIHZlcnNpb24gKi8NCiAgICBAQCAtMjM2LDYgKzI0MCw3IEBAIGVu
+dW0gew0KICAgICAJbmNzaV9kZXZfc3RhdGVfcHJvYmVfZHAsDQogICAgIAluY3NpX2Rldl9zdGF0
+ZV9jb25maWdfc3AJPSAweDAzMDEsDQogICAgIAluY3NpX2Rldl9zdGF0ZV9jb25maWdfY2lzLA0K
+ICAgICsJbmNzaV9kZXZfc3RhdGVfY29uZmlnX29lbV9nbWEsDQogICAgIAluY3NpX2Rldl9zdGF0
+ZV9jb25maWdfY2xlYXJfdmlkcywNCiAgICAgCW5jc2lfZGV2X3N0YXRlX2NvbmZpZ19zdmYsDQog
+ICAgIAluY3NpX2Rldl9zdGF0ZV9jb25maWdfZXYsDQogICAgQEAgLTMwMSw5ICszMDYsOSBAQCBz
+dHJ1Y3QgbmNzaV9jbWRfYXJnIHsNCiAgICAgCXVuc2lnbmVkIHNob3J0ICAgICAgIHBheWxvYWQ7
+ICAgICAvKiBDb21tYW5kIHBhY2tldCBwYXlsb2FkIGxlbmd0aCAqLw0KICAgICAJdW5zaWduZWQg
+aW50ICAgICAgICAgcmVxX2ZsYWdzOyAgIC8qIE5DU0kgcmVxdWVzdCBwcm9wZXJ0aWVzICAgICAg
+ICovDQogICAgIAl1bmlvbiB7DQogICAgLQkJdW5zaWduZWQgY2hhciAgYnl0ZXNbMTZdOyAvKiBD
+b21tYW5kIHBhY2tldCBzcGVjaWZpYyBkYXRhICAqLw0KICAgIC0JCXVuc2lnbmVkIHNob3J0IHdv
+cmRzWzhdOw0KICAgIC0JCXVuc2lnbmVkIGludCAgIGR3b3Jkc1s0XTsNCiAgICArCQl1bnNpZ25l
+ZCBjaGFyICBieXRlc1s2NF07IC8qIENvbW1hbmQgcGFja2V0IHNwZWNpZmljIGRhdGEgICovDQog
+ICAgKwkJdW5zaWduZWQgc2hvcnQgd29yZHNbMzJdOw0KICAgICsJCXVuc2lnbmVkIGludCAgIGR3
+b3Jkc1sxNl07DQogICAgIAl9Ow0KICAgICB9Ow0KICAgICANCiAgICBkaWZmIC0tZ2l0IGEvbmV0
+L25jc2kvbmNzaS1jbWQuYyBiL25ldC9uY3NpL25jc2ktY21kLmMNCiAgICBpbmRleCA3NTY3Y2E2
+M2FhZTIuLjMyMDVlMjJjMTczNCAxMDA2NDQNCiAgICAtLS0gYS9uZXQvbmNzaS9uY3NpLWNtZC5j
+DQogICAgKysrIGIvbmV0L25jc2kvbmNzaS1jbWQuYw0KICAgIEBAIC0yMTEsNiArMjExLDI1IEBA
+IHN0YXRpYyBpbnQgbmNzaV9jbWRfaGFuZGxlcl9zbmZjKHN0cnVjdCBza19idWZmICpza2IsDQog
+ICAgIAlyZXR1cm4gMDsNCiAgICAgfQ0KICAgICANCiAgICArc3RhdGljIGludCBuY3NpX2NtZF9o
+YW5kbGVyX29lbShzdHJ1Y3Qgc2tfYnVmZiAqc2tiLA0KICAgICsJCQkJc3RydWN0IG5jc2lfY21k
+X2FyZyAqbmNhKQ0KICAgICt7DQogICAgKwlzdHJ1Y3QgbmNzaV9jbWRfb2VtX3BrdCAqY21kOw0K
+ICAgICsJdW5zaWduZWQgaW50IGxlbjsNCiAgICArDQogICAgKwlsZW4gPSBzaXplb2Yoc3RydWN0
+IG5jc2lfY21kX3BrdF9oZHIpICsgNDsNCiAgICArCWlmIChuY2EtPnBheWxvYWQgPCAyNikNCiAg
+ICArCQlsZW4gKz0gMjY7DQogICAgKwllbHNlDQogICAgKwkJbGVuICs9IG5jYS0+cGF5bG9hZDsN
+CiAgICArDQogICAgKwljbWQgPSBza2JfcHV0X3plcm8oc2tiLCBsZW4pOw0KICAgICsJbWVtY3B5
+KGNtZC0+ZGF0YSwgbmNhLT5ieXRlcywgbmNhLT5wYXlsb2FkKTsNCiAgICArCW5jc2lfY21kX2J1
+aWxkX2hlYWRlcigmY21kLT5jbWQuY29tbW9uLCBuY2EpOw0KICAgICsNCiAgICArCXJldHVybiAw
+Ow0KICAgICt9DQogICAgKw0KICAgICBzdGF0aWMgc3RydWN0IG5jc2lfY21kX2hhbmRsZXIgew0K
+ICAgICAJdW5zaWduZWQgY2hhciB0eXBlOw0KICAgICAJaW50ICAgICAgICAgICBwYXlsb2FkOw0K
+ICAgIEBAIC0yNDQsNyArMjYzLDcgQEAgc3RhdGljIHN0cnVjdCBuY3NpX2NtZF9oYW5kbGVyIHsN
+CiAgICAgCXsgTkNTSV9QS1RfQ01EX0dOUywgICAgMCwgbmNzaV9jbWRfaGFuZGxlcl9kZWZhdWx0
+IH0sDQogICAgIAl7IE5DU0lfUEtUX0NNRF9HTlBUUywgIDAsIG5jc2lfY21kX2hhbmRsZXJfZGVm
+YXVsdCB9LA0KICAgICAJeyBOQ1NJX1BLVF9DTURfR1BTLCAgICAwLCBuY3NpX2NtZF9oYW5kbGVy
+X2RlZmF1bHQgfSwNCiAgICAtCXsgTkNTSV9QS1RfQ01EX09FTSwgICAgMCwgTlVMTCAgICAgICAg
+ICAgICAgICAgICAgIH0sDQogICAgKwl7IE5DU0lfUEtUX0NNRF9PRU0sICAgLTEsIG5jc2lfY21k
+X2hhbmRsZXJfb2VtICAgICB9LA0KICAgICAJeyBOQ1NJX1BLVF9DTURfUExETSwgICAwLCBOVUxM
+ICAgICAgICAgICAgICAgICAgICAgfSwNCiAgICAgCXsgTkNTSV9QS1RfQ01EX0dQVVVJRCwgMCwg
+bmNzaV9jbWRfaGFuZGxlcl9kZWZhdWx0IH0NCiAgICAgfTsNCiAgICBAQCAtMzE3LDcgKzMzNiw4
+IEBAIGludCBuY3NpX3htaXRfY21kKHN0cnVjdCBuY3NpX2NtZF9hcmcgKm5jYSkNCiAgICAgCX0N
+CiAgICAgDQogICAgIAkvKiBHZXQgcGFja2V0IHBheWxvYWQgbGVuZ3RoIGFuZCBhbGxvY2F0ZSB0
+aGUgcmVxdWVzdCAqLw0KICAgIC0JbmNhLT5wYXlsb2FkID0gbmNoLT5wYXlsb2FkOw0KICAgICsJ
+aWYgKG5jaC0+cGF5bG9hZCA+PSAwKQ0KICAgICsJCW5jYS0+cGF5bG9hZCA9IG5jaC0+cGF5bG9h
+ZDsNCiAgICAgCW5yID0gbmNzaV9hbGxvY19jb21tYW5kKG5jYSk7DQogICAgIAlpZiAoIW5yKQ0K
+ICAgICAJCXJldHVybiAtRU5PTUVNOw0KICAgIGRpZmYgLS1naXQgYS9uZXQvbmNzaS9uY3NpLW1h
+bmFnZS5jIGIvbmV0L25jc2kvbmNzaS1tYW5hZ2UuYw0KICAgIGluZGV4IDA5MTI4NDc2MGQyMS4u
+M2IyYjg2NTYwY2M4IDEwMDY0NA0KICAgIC0tLSBhL25ldC9uY3NpL25jc2ktbWFuYWdlLmMNCiAg
+ICArKysgYi9uZXQvbmNzaS9uY3NpLW1hbmFnZS5jDQogICAgQEAgLTYzNSw2ICs2MzUsNTggQEAg
+c3RhdGljIGludCBzZXRfb25lX3ZpZChzdHJ1Y3QgbmNzaV9kZXZfcHJpdiAqbmRwLCBzdHJ1Y3Qg
+bmNzaV9jaGFubmVsICpuYywNCiAgICAgCXJldHVybiAwOw0KICAgICB9DQogICAgIA0KICAgICsj
+aWYgSVNfRU5BQkxFRChDT05GSUdfTkNTSV9PRU1fQ01EX0dFVF9NQUMpDQogICAgKy8qIE5DU0kg
+RmFjZWJvb2sgT0VNIEFQSXMgKi8NCiAgICArc3RhdGljIHZvaWQgZ2V0X21hY19hZGRyZXNzX29l
+bV9tbHgoc3RydWN0IG5jc2lfZGV2X3ByaXYgKm5kcCkNCiAgICArew0KICAgICsJc3RydWN0IG5j
+c2lfY21kX2FyZyBuY2E7DQogICAgKwlpbnQgcmV0ID0gMDsNCiAgICArDQogICAgKwltZW1zZXQo
+Jm5jYSwgMCwgc2l6ZW9mKHN0cnVjdCBuY3NpX2NtZF9hcmcpKTsNCiAgICArCW5jYS5uZHAgPSBu
+ZHA7DQogICAgKwluY2EuY2hhbm5lbCA9IG5kcC0+YWN0aXZlX2NoYW5uZWwtPmlkOw0KICAgICsJ
+bmNhLnBhY2thZ2UgPSBuZHAtPmFjdGl2ZV9wYWNrYWdlLT5pZDsNCiAgICArCW5jYS5yZXFfZmxh
+Z3MgPSBOQ1NJX1JFUV9GTEFHX0VWRU5UX0RSSVZFTjsNCiAgICArCW5jYS50eXBlID0gTkNTSV9Q
+S1RfQ01EX09FTTsNCiAgICArCW5jYS5wYXlsb2FkID0gODsNCiAgICArDQogICAgKwluY2EuZHdv
+cmRzWzBdID0gbnRvaGwoTkNTSV9PRU1fTUZSX01MWF9JRCk7DQogICAgKwluY2EuZHdvcmRzWzFd
+ID0gbnRvaGwoTkNTSV9PRU1fTUxYX0NNRF9HRVRfTUFDKTsNCiAgICArDQogICAgKwlyZXQgPSBu
+Y3NpX3htaXRfY21kKCZuY2EpOw0KICAgICsJaWYgKHJldCkNCiAgICArCQluZXRkZXZfZXJyKG5k
+cC0+bmRldi5kZXYsDQogICAgKwkJCSAgICJOQ1NJOiBGYWlsZWQgdG8gdHJhbnNtaXQgY21kIDB4
+JXggZHVyaW5nIHByb2JlXG4iLA0KICAgICsJCQkgICBuY2EudHlwZSk7DQogICAgK30NCiAgICAr
+DQogICAgK3N0YXRpYyB2b2lkIHNldF9tYWNfYWZmaW5pdHlfbWx4KHN0cnVjdCBuY3NpX2Rldl9w
+cml2ICpuZHApDQogICAgK3sNCiAgICArCXN0cnVjdCBuY3NpX2NtZF9hcmcgbmNhOw0KICAgICsJ
+aW50IHJldCA9IDA7DQogICAgKw0KICAgICsJbWVtc2V0KCZuY2EsIDAsIHNpemVvZihzdHJ1Y3Qg
+bmNzaV9jbWRfYXJnKSk7DQogICAgKwluY2EubmRwID0gbmRwOw0KICAgICsJbmNhLmNoYW5uZWwg
+PSBuZHAtPmFjdGl2ZV9jaGFubmVsLT5pZDsNCiAgICArCW5jYS5wYWNrYWdlID0gbmRwLT5hY3Rp
+dmVfcGFja2FnZS0+aWQ7DQogICAgKwluY2EucmVxX2ZsYWdzID0gTkNTSV9SRVFfRkxBR19FVkVO
+VF9EUklWRU47DQogICAgKwluY2EudHlwZSA9IE5DU0lfUEtUX0NNRF9PRU07DQogICAgKwluY2Eu
+cGF5bG9hZCA9IDYwOw0KICAgICsNCiAgICArCW5jYS5kd29yZHNbMF0gPSBudG9obChOQ1NJX09F
+TV9NRlJfTUxYX0lEKTsNCiAgICArCW5jYS5kd29yZHNbMV0gPSBudG9obChOQ1NJX09FTV9NTFhf
+Q01EX1NFVF9BRkZJTklUWSk7DQogICAgKw0KICAgICsJbWVtY3B5KCYobmNhLmJ5dGVzWzhdKSwg
+bmRwLT5uZGV2LmRldi0+ZGV2X2FkZHIsIEVUSF9BTEVOKTsNCiAgICArCW5jYS5ieXRlc1sxNF0g
+PSAweDA5Ow0KICAgICsNCiAgICArCXJldCA9IG5jc2lfeG1pdF9jbWQoJm5jYSk7DQogICAgKwlp
+ZiAocmV0KQ0KICAgICsJCW5ldGRldl9lcnIobmRwLT5uZGV2LmRldiwNCiAgICArCQkJICAgIk5D
+U0k6IEZhaWxlZCB0byB0cmFuc21pdCBjbWQgMHgleCBkdXJpbmcgcHJvYmVcbiIsDQogICAgKwkJ
+CQkgICBuY2EudHlwZSk7DQogICAgK30NCiAgICArI2VuZGlmIC8qIENPTkZJR19OQ1NJX09FTV9D
+TURfR0VUX01BQyAqLw0KICAgICsNCiAgICAgc3RhdGljIHZvaWQgbmNzaV9jb25maWd1cmVfY2hh
+bm5lbChzdHJ1Y3QgbmNzaV9kZXZfcHJpdiAqbmRwKQ0KICAgICB7DQogICAgIAlzdHJ1Y3QgbmNz
+aV9kZXYgKm5kID0gJm5kcC0+bmRldjsNCiAgICBAQCAtNjg1LDYgKzczNywyMiBAQCBzdGF0aWMg
+dm9pZCBuY3NpX2NvbmZpZ3VyZV9jaGFubmVsKHN0cnVjdCBuY3NpX2Rldl9wcml2ICpuZHApDQog
+ICAgIAkJCWdvdG8gZXJyb3I7DQogICAgIAkJfQ0KICAgICANCiAgICArI2lmIElTX0VOQUJMRUQo
+Q09ORklHX05DU0lfT0VNX0NNRF9HRVRfTUFDKQ0KICAgICsJCS8qIENoZWNrIE1hbnVmYWN0dXJl
+IGlkIGlmIGl0IGlzIE1lbGxhbm94IHRoZW4NCiAgICArCQkgKiBnZXQgYW5kIHNldCBtYWMgYWRk
+cmVzcy4gVG8gRG86IEFkZCBjb2RlIGZvcg0KICAgICsJCSAqIG90aGVyIHR5cGVzIG9mIGNhcmQg
+aWYgcmVxdWlyZWQNCiAgICArCQkgKi8NCiAgICArCQlpZiAobmMtPnZlcnNpb24ubWZfaWQgPT0g
+TkNTSV9PRU1fTUZSX01MWF9JRCkNCiAgICArCQkJbmQtPnN0YXRlID0gbmNzaV9kZXZfc3RhdGVf
+Y29uZmlnX29lbV9nbWE7DQogICAgKwkJZWxzZQ0KICAgICsJCQluZC0+c3RhdGUgPSBuY3NpX2Rl
+dl9zdGF0ZV9jb25maWdfY2xlYXJfdmlkczsNCiAgICArCQlicmVhazsNCiAgICArCWNhc2UgbmNz
+aV9kZXZfc3RhdGVfY29uZmlnX29lbV9nbWE6DQogICAgKwkJbmRwLT5wZW5kaW5nX3JlcV9udW0g
+PSAyOw0KICAgICsJCWdldF9tYWNfYWRkcmVzc19vZW1fbWx4KG5kcCk7DQogICAgKwkJbXNsZWVw
+KDUwMCk7DQogICAgKwkJc2V0X21hY19hZmZpbml0eV9tbHgobmRwKTsNCiAgICArI2VuZGlmIC8q
+IENPTkZJR19OQ1NJX09FTV9DTURfR0VUX01BQyAqLw0KICAgICAJCW5kLT5zdGF0ZSA9IG5jc2lf
+ZGV2X3N0YXRlX2NvbmZpZ19jbGVhcl92aWRzOw0KICAgICAJCWJyZWFrOw0KICAgICAJY2FzZSBu
+Y3NpX2Rldl9zdGF0ZV9jb25maWdfY2xlYXJfdmlkczoNCiAgICBkaWZmIC0tZ2l0IGEvbmV0L25j
+c2kvbmNzaS1wa3QuaCBiL25ldC9uY3NpL25jc2ktcGt0LmgNCiAgICBpbmRleCA5MWI0YjY2NDM4
+ZGYuLjA2NTNhODkzZWIxMiAxMDA2NDQNCiAgICAtLS0gYS9uZXQvbmNzaS9uY3NpLXBrdC5oDQog
+ICAgKysrIGIvbmV0L25jc2kvbmNzaS1wa3QuaA0KICAgIEBAIC0xNTEsNiArMTUxLDIyIEBAIHN0
+cnVjdCBuY3NpX2NtZF9zbmZjX3BrdCB7DQogICAgIAl1bnNpZ25lZCBjaGFyICAgICAgICAgICBw
+YWRbMjJdOw0KICAgICB9Ow0KICAgICANCiAgICArLyogT2VtIFJlcXVlc3QgQ29tbWFuZCAqLw0K
+ICAgICtzdHJ1Y3QgbmNzaV9jbWRfb2VtX3BrdCB7DQogICAgKwlzdHJ1Y3QgbmNzaV9jbWRfcGt0
+X2hkciBjbWQ7ICAgICAgICAgLyogQ29tbWFuZCBoZWFkZXIgICAgKi8NCiAgICArCXVuc2lnbmVk
+IGNoYXIgICAgICAgICAgIGRhdGFbNjRdOyAgICAvKiBPRU0gUGF5bG9hZCBEYXRhICAqLw0KICAg
+ICsJX19iZTMyICAgICAgICAgICAgICAgICAgY2hlY2tzdW07ICAgIC8qIENoZWNrc3VtICAgICAg
+ICAgICovDQogICAgK307DQogICAgKw0KICAgICsvKiBPZW0gUmVzcG9uc2UgUGFja2V0ICovDQog
+ICAgK3N0cnVjdCBuY3NpX3JzcF9vZW1fcGt0IHsNCiAgICArCXN0cnVjdCBuY3NpX3JzcF9wa3Rf
+aGRyIHJzcDsgICAgICAgICAvKiBDb21tYW5kIGhlYWRlciAgICAqLw0KICAgICsJX19iZTMyICAg
+ICAgICAgICAgICAgICAgbWZyX2lkOyAgICAgIC8qIE1hbnVmYWN0dXJlIElEICAgICovDQogICAg
+KwlfX2JlMzIgICAgICAgICAgICAgICAgICBvZW1fY21kOyAgICAgLyogb2VtIGNvbW1hbmQgICAg
+ICAgKi8NCiAgICArCXVuc2lnbmVkIGNoYXIgICAgICAgICAgIGRhdGFbMzJdOyAgICAvKiBQYXls
+b2FkIGRhdGEgICAgICAqLw0KICAgICsJX19iZTMyICAgICAgICAgICAgICAgICAgY2hlY2tzdW07
+ICAgIC8qIENoZWNrc3VtICAgICAgICAgICovDQogICAgK307DQogICAgKw0KICAgICAvKiBHZXQg
+TGluayBTdGF0dXMgKi8NCiAgICAgc3RydWN0IG5jc2lfcnNwX2dsc19wa3Qgew0KICAgICAJc3Ry
+dWN0IG5jc2lfcnNwX3BrdF9oZHIgcnNwOyAgICAgICAgLyogUmVzcG9uc2UgaGVhZGVyICAgKi8N
+CiAgICBkaWZmIC0tZ2l0IGEvbmV0L25jc2kvbmNzaS1yc3AuYyBiL25ldC9uY3NpL25jc2ktcnNw
+LmMNCiAgICBpbmRleCA5MzBjMWQzNzk2ZjAuLjNiOTRjOTZiOWM3ZiAxMDA2NDQNCiAgICAtLS0g
+YS9uZXQvbmNzaS9uY3NpLXJzcC5jDQogICAgKysrIGIvbmV0L25jc2kvbmNzaS1yc3AuYw0KICAg
+IEBAIC01OTYsNiArNTk2LDM3IEBAIHN0YXRpYyBpbnQgbmNzaV9yc3BfaGFuZGxlcl9zbmZjKHN0
+cnVjdCBuY3NpX3JlcXVlc3QgKm5yKQ0KICAgICAJcmV0dXJuIDA7DQogICAgIH0NCiAgICAgDQog
+ICAgK3N0YXRpYyBpbnQgbmNzaV9yc3BfaGFuZGxlcl9vZW0oc3RydWN0IG5jc2lfcmVxdWVzdCAq
+bnIpDQogICAgK3sNCiAgICArCXN0cnVjdCBuY3NpX3JzcF9vZW1fcGt0ICpyc3A7DQogICAgKwlz
+dHJ1Y3QgbmNzaV9kZXZfcHJpdiAqbmRwID0gbnItPm5kcDsNCiAgICArCXN0cnVjdCBuZXRfZGV2
+aWNlICpuZGV2ID0gbmRwLT5uZGV2LmRldjsNCiAgICArCWludCByZXQgPSAwOw0KICAgICsJdW5z
+aWduZWQgaW50IG9lbV9jbWQsIG1mcl9pZDsNCiAgICArCWNvbnN0IHN0cnVjdCBuZXRfZGV2aWNl
+X29wcyAqb3BzID0gbmRldi0+bmV0ZGV2X29wczsNCiAgICArCXN0cnVjdCBzb2NrYWRkciBzYWRk
+cjsNCiAgICArDQogICAgKwkvKiBHZXQgdGhlIHJlc3BvbnNlIGhlYWRlciAqLw0KICAgICsJcnNw
+ID0gKHN0cnVjdCBuY3NpX3JzcF9vZW1fcGt0ICopc2tiX25ldHdvcmtfaGVhZGVyKG5yLT5yc3Ap
+Ow0KICAgICsNCiAgICArCW9lbV9jbWQgPSBudG9obChyc3AtPm9lbV9jbWQpOw0KICAgICsJbWZy
+X2lkID0gbnRvaGwocnNwLT5tZnJfaWQpOw0KICAgICsNCiAgICArCS8qIENoZWNrIGZvciBNZWxs
+YW5veCBtYW51ZmFjdHVyZXIgaWQgKi8NCiAgICArCWlmIChtZnJfaWQgIT0gTkNTSV9PRU1fTUZS
+X01MWF9JRCkNCiAgICArCQlyZXR1cm4gMDsNCiAgICArDQogICAgKwlpZiAob2VtX2NtZCA9PSBO
+Q1NJX09FTV9NTFhfQ01EX0dFVF9NQUMpIHsNCiAgICArCQlzYWRkci5zYV9mYW1pbHkgPSBuZGV2
+LT50eXBlOw0KICAgICsJCW5kZXYtPnByaXZfZmxhZ3MgfD0gSUZGX0xJVkVfQUREUl9DSEFOR0U7
+DQogICAgKwkJbWVtY3B5KHNhZGRyLnNhX2RhdGEsICYocnNwLT5kYXRhWzRdKSwgRVRIX0FMRU4p
+Ow0KICAgICsJCXJldCA9IG9wcy0+bmRvX3NldF9tYWNfYWRkcmVzcyhuZGV2LCAmc2FkZHIpOw0K
+ICAgICsJCWlmIChyZXQgPCAwKQ0KICAgICsJCQluZXRkZXZfd2FybihuZGV2LCAiTkNTSTogJ1dy
+aXRpbmcgbWFjIGFkZHJlc3MgdG8gZGV2aWNlIGZhaWxlZFxuIik7DQogICAgKwl9DQogICAgKwly
+ZXR1cm4gcmV0Ow0KICAgICt9DQogICAgKw0KICAgICBzdGF0aWMgaW50IG5jc2lfcnNwX2hhbmRs
+ZXJfZ3ZpKHN0cnVjdCBuY3NpX3JlcXVlc3QgKm5yKQ0KICAgICB7DQogICAgIAlzdHJ1Y3QgbmNz
+aV9yc3BfZ3ZpX3BrdCAqcnNwOw0KICAgIEBAIC05MzIsNyArOTYzLDcgQEAgc3RhdGljIHN0cnVj
+dCBuY3NpX3JzcF9oYW5kbGVyIHsNCiAgICAgCXsgTkNTSV9QS1RfUlNQX0dOUywgICAxNzIsIG5j
+c2lfcnNwX2hhbmRsZXJfZ25zICAgICB9LA0KICAgICAJeyBOQ1NJX1BLVF9SU1BfR05QVFMsIDE3
+MiwgbmNzaV9yc3BfaGFuZGxlcl9nbnB0cyAgIH0sDQogICAgIAl7IE5DU0lfUEtUX1JTUF9HUFMs
+ICAgICA4LCBuY3NpX3JzcF9oYW5kbGVyX2dwcyAgICAgfSwNCiAgICAtCXsgTkNTSV9QS1RfUlNQ
+X09FTSwgICAgIDAsIE5VTEwgICAgICAgICAgICAgICAgICAgICB9LA0KICAgICsJeyBOQ1NJX1BL
+VF9SU1BfT0VNLCAgICAtMSwgbmNzaV9yc3BfaGFuZGxlcl9vZW0gICAgIH0sDQogICAgIAl7IE5D
+U0lfUEtUX1JTUF9QTERNLCAgICAwLCBOVUxMICAgICAgICAgICAgICAgICAgICAgfSwNCiAgICAg
+CXsgTkNTSV9QS1RfUlNQX0dQVVVJRCwgMjAsIG5jc2lfcnNwX2hhbmRsZXJfZ3B1dWlkICB9DQog
+ICAgIH07DQogICAgLS0gDQogICAgMi4xNy4xDQogICAgDQogICAgDQoNCg==
