@@ -1,50 +1,116 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <prvs=2806a6679a=sdasari@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (helo) smtp.helo=mga12.intel.com
- (client-ip=192.55.52.136; helo=mga12.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=2806a6679a=sdasari@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="JNosOGrK"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="Q+Qs+A5s"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42KRB02wKBzDrhl;
- Wed, 26 Sep 2018 02:20:06 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2018 09:20:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,302,1534834800"; d="scan'208";a="86445651"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.151])
- ([10.7.153.151])
- by orsmga003.jf.intel.com with ESMTP; 25 Sep 2018 09:20:02 -0700
-Subject: Re: [RFC PATCH i2c-next 1/2] dt-bindings: i2c: aspeed: Add
- 'idle-wait-timeout-ms' setting
-To: Wolfram Sang <wsa@the-dreams.de>
-Cc: linux-aspeed@lists.ozlabs.org, James Feist <james.feist@linux.intel.com>, 
- Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- Brendan Higgins <brendanhiggins@google.com>, linux-kernel@vger.kernel.org,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org
-References: <20180910214519.14126-1-jae.hyun.yoo@linux.intel.com>
- <20180910214519.14126-2-jae.hyun.yoo@linux.intel.com>
- <a81a6092-a9d0-78d5-3596-cddc5d6a0713@linux.intel.com>
- <20180924215850.GD18592@kunai>
- <2c8563fd-0641-5237-0026-f559c480ad91@linux.intel.com>
- <20180925082717.GB2270@kunai>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <7b4e5715-3a87-8f77-8d0d-4647f02c87a8@linux.intel.com>
-Date: Tue, 25 Sep 2018 09:20:02 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <20180925082717.GB2270@kunai>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42KSMS6L4vzF0Q7
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 03:13:20 +1000 (AEST)
+Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
+ by mx0b-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w8PH2dSJ024478; Tue, 25 Sep 2018 10:13:05 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=XFi/JUnttEZJ0FpXo7SfFxWSRQftaVSxvBVgPIbt1i0=;
+ b=JNosOGrKYfmpnpHDNjb19kNELvP9EtcTd0dOvZ/qgVqvlIbkZQBB3BjOAZWSrloxUpM/
+ yifauftEFcIcM2L2Hrpd3jr9ApGXxdaI6OcGFH0pA9g2sslykg/1eF5XNa6vtYttJr3I
+ oxoif0gWhyl8wT+uvnS7Zp4y5NCSlJqNO84= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0b-00082601.pphosted.com with ESMTP id 2mqptvgttb-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 25 Sep 2018 10:13:05 -0700
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.29) with Microsoft SMTP
+ Server (TLS) id 14.3.361.1; Tue, 25 Sep 2018 13:13:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XFi/JUnttEZJ0FpXo7SfFxWSRQftaVSxvBVgPIbt1i0=;
+ b=Q+Qs+A5sgCwH9AQ5Hj1iiAmbmvdRKjQP64PrpD32oputJ9hmt+9rw0L0DlguKmDsXAA07xtWgM1xrudZ9lwo2ZogAv3BEpGnTc8Sx10oBrh3ULNfJHLYuZvm7KS1ISQDyX1VvgWvbqgJlyC70q/+2D7ubE3WUStHpzzT7pmheA0=
+Received: from MWHPR15MB1789.namprd15.prod.outlook.com (10.174.255.18) by
+ MWHPR15MB1565.namprd15.prod.outlook.com (10.173.235.138) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1143.17; Tue, 25 Sep 2018 17:13:02 +0000
+Received: from MWHPR15MB1789.namprd15.prod.outlook.com
+ ([fe80::853e:9e1f:97d1:71d6]) by MWHPR15MB1789.namprd15.prod.outlook.com
+ ([fe80::853e:9e1f:97d1:71d6%7]) with mapi id 15.20.1143.019; Tue, 25 Sep 2018
+ 17:13:01 +0000
+From: Sai Dasari <sdasari@fb.com>
+To: Joel Stanley <joel@jms.id.au>, Tao Ren <taoren@fb.com>
+CC: Christopher Covington <cov@fb.com>, Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Daniel Lezcano
+ <daniel.lezcano@linaro.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ "Linus Walleij" <linus.walleij@linaro.org>
+Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix set_next_event handler
+Thread-Topic: [PATCH] clocksource/drivers/fttmr010: fix set_next_event handler
+Thread-Index: AQHUUPk9lMrOh6dmWESJime7JMZLB6T5qoUAgABrGgCAAPVpgIAFDU2AgAC2ZQA=
+Date: Tue, 25 Sep 2018 17:13:01 +0000
+Message-ID: <571BD9E6-5A5B-4B66-AFAB-EC4E97B0A0D7@fb.com>
+References: <20180919221331.2511558-1-taoren@fb.com>
+ <CACRpkdZGjvLZY7snev5W2rRGgO7bQsSqn5u2v5Nw0tH9sa4yBw@mail.gmail.com>
+ <84F9ED20-0964-462E-B389-39B107A232D3@fb.com>
+ <CACPK8XeEZeMskkxNChhNSO+brpoPJ5FqweWNXe22BpyytwCwFw@mail.gmail.com>
+ <E3FA56EF-0B3C-4DBE-9A63-428EB342887D@fb.com>
+ <CACPK8Xd03w51FM8iJsFNhWkpRFMhy97XZpxOhbRwbD3ytQcRbg@mail.gmail.com>
+In-Reply-To: <CACPK8Xd03w51FM8iJsFNhWkpRFMhy97XZpxOhbRwbD3ytQcRbg@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::4:4c5b]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1565;
+ 20:iiSyHbuuYfWY2P7+7PUvF/oU0PCm2L73l3+V6B04UKnh49a+wF6VGUX4o0BIfXcMWvkZaL5i7WJKO9cOWJHjyWK1kFTqaXxmHs/I5iNMM1VEMp2a8W12O5K+87EMeeD7GrFqIUNflQJmNCECuzCgNHAywS77ueBECoKN0IgPOss=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
+x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
+ SFS:(10019020)(979002)(396003)(39860400002)(346002)(366004)(136003)(376002)(199004)(189003)(6512007)(81166006)(256004)(6486002)(102836004)(316002)(2616005)(86362001)(229853002)(2906002)(53936002)(6116002)(186003)(54906003)(106356001)(81156014)(8936002)(76176011)(34290500001)(7736002)(82746002)(110136005)(71190400001)(446003)(5660300001)(2900100001)(6246003)(36756003)(478600001)(33656002)(14454004)(11346002)(476003)(8676002)(97736004)(46003)(4326008)(105586002)(486006)(25786009)(6636002)(5250100002)(68736007)(99286004)(305945005)(71200400001)(6436002)(6506007)(93886005)(558084003)(83716004)(969003)(989001)(999001)(1009001)(1019001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1565;
+ H:MWHPR15MB1789.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+x-ms-office365-filtering-correlation-id: c3f28f99-b71b-4c6f-8bcc-08d6230a2603
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1565; 
+x-ms-traffictypediagnostic: MWHPR15MB1565:
+x-microsoft-antispam-prvs: <MWHPR15MB156592C17E073369F88BB107CE160@MWHPR15MB1565.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(65623756079841);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(3231355)(11241501184)(944501410)(52105095)(10201501046)(93006095)(93001095)(3002001)(149066)(150027)(6041310)(20161123558120)(20161123560045)(20161123564045)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051);
+ SRVR:MWHPR15MB1565; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1565; 
+x-forefront-prvs: 08062C429B
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: pg3ej51hjE0NeF1DrOrHJ7OnGS8h3/BeT3c0PmWPjDaCoZqc0VNvLHX6WRw6R7RCznlU5hH7RvTxq1urgKNmk4wwtXMx7EGIEmhFa1hM1Xo9RD7QuQ1ShhBu5Wm5OsBdQmx3SA2/LVmTQUgB5mEoN5fQHCX3wqlUJ6Pvd8hApK2x2FkS6x9Oh97rMhVaKrNEQSxxMzPjn7Oto7RCOUv4g+CWqYOrP2oWRgk2jM36ouJUuxMOVlxTSEAO1qJXUHMt8Sp5ySZts5seXVQI3HMDANMUcJPJ1zX7KNBOZX9vvAoJRVKc4pr+ysyxQmDTuzqD8wzrFn0ToTjPg0HYf9kGneoayLy2qTzuQqS+HVLvq4U=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FD8FC3E1EA59764BA894BDCD6440B8DA@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3f28f99-b71b-4c6f-8bcc-08d6230a2603
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2018 17:13:01.2174 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1565
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-09-25_10:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,41 +122,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Sep 2018 16:20:09 -0000
+X-List-Received-Date: Tue, 25 Sep 2018 17:13:26 -0000
 
-On 9/25/2018 1:27 AM, Wolfram Sang wrote:
-> On Mon, Sep 24, 2018 at 03:15:46PM -0700, Jae Hyun Yoo wrote:
->> Hi Wolfram,
->>
->> On 9/24/2018 2:58 PM, Wolfram Sang wrote:
->>> On Tue, Sep 18, 2018 at 11:02:54AM -0700, Jae Hyun Yoo wrote:
->>>> On 9/10/2018 2:45 PM, Jae Hyun Yoo wrote:
->>>>> +- idle-wait-timeout-ms	: bus idle waiting timeout in milliseconds when
->>>>> +			  multi-master is set, defaults to 100 ms when not
->>>>> +			  specified.
->>>>
->>>> Will change it to 'aspeed,idle-wait-timeout-ms' as it's a non standard
->>>> property.
->>>
->>> No need. This binding is not a HW description, so not a DT property in
->>> my book. I still don't understand: Your IP core in master mode does not
->>> have a BUSY bit or similar which detects when a START was detected and
->>> clears after a STOP?
->>>
->>
->> Okay, I'll keep this property as it is then.
-> 
-> Sorry for the misunderstanding. I don't think this a property, at all.
-> It doesn't describe the hardware, it is more of a configuration thing,
-> or?
-> 
-
-You are right. It doesn't describe the hardware but it needs to be
-configurable because it very depends on the peer master's behavior.
-If peer master sends a long packet usually, it should have a long
-timeout value since a slave receiving operation takes long time,
-and it should be adjusted with an optimal value with taking some
-experiments to make it not too long. Any suggestion?
-
-Thanks,
-Jae
+DQrvu79PbiA5LzI0LzE4LCA0OjIxIFBNLCAib3BlbmJtYyBvbiBiZWhhbGYgb2YgSm9lbCBTdGFu
+bGV5IiA8b3BlbmJtYy1ib3VuY2VzK3NkYXNhcmk9ZmIuY29tQGxpc3RzLm96bGFicy5vcmcgb24g
+YmVoYWxmIG9mIGpvZWxAam1zLmlkLmF1PiB3cm90ZToNCg0KICAgIEkgd2lsbCB0aGVuIGFkZCBp
+dCB0byB0aGUgc2V0IG9mIHRlc3RzIEkgcnVuIHdoZW4gdGVzdGluZyBhc3BlZWQNCiAgICBrZXJu
+ZWxzLg0KICAgIA0KVGhhbmtzIEpvZWwhIEN1cmlvdXMgdG8ga25vdyB3aGF0IHdvdWxkIGJlIHRo
+ZSBiZXN0IHBsYWNlIHRvIGtlZXAgdGhlc2Uga2luZCBvZiBLZXJuZWwgdGVzdCBjYXNlcyBmb3Ig
+c2FrZSBvZiByZXZpZXcgYW5kL29yIGFkZGluZyBuZXcgdGVzdCBjYXNlcyBhcyBuZWVkZWQuICAg
+ICANCg0K
