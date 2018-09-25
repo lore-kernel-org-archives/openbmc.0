@@ -1,80 +1,50 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (helo) smtp.helo=mga12.intel.com
+ (client-ip=192.55.52.136; helo=mga12.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.from=linux.intel.com
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42KP7g2vy8zDr8p
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 00:47:55 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8PEiKGS142637
- for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 10:47:53 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2mqmtcfmsu-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 10:47:52 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Tue, 25 Sep 2018 08:47:52 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 25 Sep 2018 08:47:49 -0600
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w8PElmK645482206
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 25 Sep 2018 07:47:48 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A4AA8C6055;
- Tue, 25 Sep 2018 08:47:48 -0600 (MDT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 84AC0C6057;
- Tue, 25 Sep 2018 08:47:48 -0600 (MDT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Tue, 25 Sep 2018 08:47:48 -0600 (MDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42KRB02wKBzDrhl;
+ Wed, 26 Sep 2018 02:20:06 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2018 09:20:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,302,1534834800"; d="scan'208";a="86445651"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.151])
+ ([10.7.153.151])
+ by orsmga003.jf.intel.com with ESMTP; 25 Sep 2018 09:20:02 -0700
+Subject: Re: [RFC PATCH i2c-next 1/2] dt-bindings: i2c: aspeed: Add
+ 'idle-wait-timeout-ms' setting
+To: Wolfram Sang <wsa@the-dreams.de>
+Cc: linux-aspeed@lists.ozlabs.org, James Feist <james.feist@linux.intel.com>, 
+ Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
+ Brendan Higgins <brendanhiggins@google.com>, linux-kernel@vger.kernel.org,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org
+References: <20180910214519.14126-1-jae.hyun.yoo@linux.intel.com>
+ <20180910214519.14126-2-jae.hyun.yoo@linux.intel.com>
+ <a81a6092-a9d0-78d5-3596-cddc5d6a0713@linux.intel.com>
+ <20180924215850.GD18592@kunai>
+ <2c8563fd-0641-5237-0026-f559c480ad91@linux.intel.com>
+ <20180925082717.GB2270@kunai>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <7b4e5715-3a87-8f77-8d0d-4647f02c87a8@linux.intel.com>
+Date: Tue, 25 Sep 2018 09:20:02 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+In-Reply-To: <20180925082717.GB2270@kunai>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Date: Tue, 25 Sep 2018 09:48:40 -0500
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Tanous, Ed"
- <ed.tanous@intel.com>
-Subject: Re: c++ phosphor-objmgr
-In-Reply-To: <CAO=notyQzzzq_dyNQZuSJagBn56Z4gjaz6JmOKvAGo_J_f--YA@mail.gmail.com>
-References: <CAO=notyQzzzq_dyNQZuSJagBn56Z4gjaz6JmOKvAGo_J_f--YA@mail.gmail.com>
-X-Sender: mspinler@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 18092514-0016-0000-0000-000009347ACE
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009769; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000267; SDB=6.01093472; UDB=6.00565164; IPR=6.00873510; 
- MB=3.00023498; MTD=3.00000008; XFM=3.00000015; UTC=2018-09-25 14:47:50
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18092514-0017-0000-0000-0000407A6DF0
-Message-Id: <79ca417dc0a70233baf3036f0414e837@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-25_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1809250148
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,32 +56,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Sep 2018 14:47:59 -0000
+X-List-Received-Date: Tue, 25 Sep 2018 16:20:09 -0000
 
-On 2018-09-25 09:30, Patrick Venture wrote:
-> I see a lot of open patches
-> https://gerrit.openbmc-project.xyz/q/project:openbmc%252Fphosphor-objmgr,
-> and I was curious, are they things I should dig into for reviewing,
-> what is the general status of the c++ mapper?
+On 9/25/2018 1:27 AM, Wolfram Sang wrote:
+> On Mon, Sep 24, 2018 at 03:15:46PM -0700, Jae Hyun Yoo wrote:
+>> Hi Wolfram,
+>>
+>> On 9/24/2018 2:58 PM, Wolfram Sang wrote:
+>>> On Tue, Sep 18, 2018 at 11:02:54AM -0700, Jae Hyun Yoo wrote:
+>>>> On 9/10/2018 2:45 PM, Jae Hyun Yoo wrote:
+>>>>> +- idle-wait-timeout-ms	: bus idle waiting timeout in milliseconds when
+>>>>> +			  multi-master is set, defaults to 100 ms when not
+>>>>> +			  specified.
+>>>>
+>>>> Will change it to 'aspeed,idle-wait-timeout-ms' as it's a non standard
+>>>> property.
+>>>
+>>> No need. This binding is not a HW description, so not a DT property in
+>>> my book. I still don't understand: Your IP core in master mode does not
+>>> have a BUSY bit or similar which detects when a START was detected and
+>>> clears after a STOP?
+>>>
+>>
+>> Okay, I'll keep this property as it is then.
 > 
-> Patrick
+> Sorry for the misunderstanding. I don't think this a property, at all.
+> It doesn't describe the hardware, it is more of a configuration thing,
+> or?
+> 
 
+You are right. It doesn't describe the hardware but it needs to be
+configurable because it very depends on the peer master's behavior.
+If peer master sends a long packet usually, it should have a long
+timeout value since a slave receiving operation takes long time,
+and it should be adjusted with an optimal value with taking some
+experiments to make it not too long. Any suggestion?
 
-I'm making a push to get Ed's implementation working and into the tree 
-to completely
-replace the python mapper.  It's working now, with the exception of on 
-our
-system it has some performance problems and fails horribly with timeouts 
-between 10 to
-40% of the time, which I haven't gotten to the bottom of yet, though I 
-plan to soon.
-
-The switchover should be transparent to its users, except for 1 change 
-in behavior:
-It will now throw exceptions on the methods where both a path and an 
-interface are
-passed in, and the path exists but the interface does not, where before 
-it would just
-return an empty results list.  I would consider this to be a bug fix.
-
-By all means, review anything you want.
+Thanks,
+Jae
