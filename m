@@ -1,50 +1,57 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=183.3.255.84; helo=qq.com; envelope-from=1450335857@qq.com;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d32; helo=mail-io1-xd32.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="zWXvElZF"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="SbGFdHCj"; 
  dkim-atps=neutral
-X-Greylist: delayed 436 seconds by postgrey-1.36 at bilbo;
- Wed, 26 Sep 2018 12:25:08 AEST
-Received: from qq.com (smtpbg449.qq.com [183.3.255.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Khc44zxCzF0wf
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 12:25:08 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1537928703; bh=E1GaOR/StmW2urT3FZ+1bo+Bikey+5XdN2UyfkVTbOo=;
- h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=zWXvElZFMWH1hDjJ4GhEMm6TGsmjNtdHizTLbau427tmY/IlG3GLfv7m3V8DiAlkr
- ADMuaj5VBi8EPutVzSTAtQquIePWbYQsRQ4RjWnOSBRkK0zJZ0SDUkJADG5XzrIOlE
- NhU4dXUxp/VSqSQvZkr6k2S98Fa3fWa3JJyx8oGs=
-X-QQ-SSF: 00000000000000F000000000000000H
-X-QQ-Spam: true
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.157.87
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1537928266t271565
-From: "=?gb18030?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?gb18030?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
-Subject: MAC#2 RGMII mode can't ping other IP address on AST2500
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5BAAEC4A_0B9E8CA0_48224E50"
-Content-Transfer-Encoding: 8Bit
-Date: Wed, 26 Sep 2018 10:17:46 +0800
-X-Priority: 3
-Message-ID: <tencent_5BF308BD00D5F7E65B3CB94C@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Wed, 26 Sep 2018 10:17:46 +0800 (CST)
-Feedback-ID: webenglish:qq.com:bgweb:bgweb19
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Kjg56vbqzDr6q
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 13:12:49 +1000 (AEST)
+Received: by mail-io1-xd32.google.com with SMTP id l7-v6so22174914iok.6
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Sep 2018 20:12:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=n5rTcTXZhheCpoys1yKzyZCi3fyXNIS+GjD0vK2bj0E=;
+ b=SbGFdHCjHoa3QJPcopLmvN4VbZazQORgMkqppK2cNCuHr+f4qjODviPtP7CrNVf0Tj
+ vey/nGJjFL+5Xls47vsjThiAEQLALQxrsYEa0Ie4hUINVPMjckPpjmF0hQ+ATzFzF14l
+ Iq5HMz8sTjR6msloQhbAF4n6LIftl8Qv5Jv4yH87U0095WiUXOXsOBl4jryhnrTJRCF5
+ oVgi9A355c0ryEVDLyDHlS9ce6TDCbcw/AFW2hrrUzzSwabTe40rMN5d4YvJ/7eGf42l
+ SRvCqvqTcMsGI5sAuw57CDjKYgg1myMXS7hOt3XZ71fmCSF7o8dRy0ucpO21LPw/aAH4
+ phSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=n5rTcTXZhheCpoys1yKzyZCi3fyXNIS+GjD0vK2bj0E=;
+ b=F1c8fve3MxDwEcHRq/62ukbYXUtczgP5BE+L9XpZM5oVoCWRKQouzgE27xu47Qij5z
+ g6QCyGuiAmirIzi9AhKFWy8i6mQgYeILH3ylX1dlxDrzX9EFUcMa1y+Lp6EMOSh8zc+Y
+ /ODiJZ4qcj2QyDfx3Xa6lqt65cCtufFUvV01doU13AidPJ9EFL9siNb6At1xjjkoYMAL
+ 7wNwVAopkgNEkNzd64vt9nCtsA+O0xLGyWzOaJ0d9Pxe8yCvdrv2KXzG5vGCvWZ4E2OS
+ tBGiJksD6GHXpeFphXwKpa7s4IBpcJOTvdnAU7eWj8UMxHMh3iFVZo3rABjW0wcpttpG
+ NiDg==
+X-Gm-Message-State: ABuFfojBae9dwz5yJB9ovOQ4vBfK+BMp25n+yAz9kccpuQN7leLuoukI
+ t3mM6QNRkKfw+UczOFMGbSgvgp2NrbRZmS91CzY=
+X-Google-Smtp-Source: ACcGV62ycQ3tmsCHtBytrWcBbsrxG8GYMIdVdRhNNuHh3HK4RPpgIUWSa8EdyzQrSyE6AbenrHz+9J91WA/6ftSCHxE=
+X-Received: by 2002:a6b:bf86:: with SMTP id
+ p128-v6mr3380241iof.156.1537931566998; 
+ Tue, 25 Sep 2018 20:12:46 -0700 (PDT)
+MIME-Version: 1.0
+References: <AM6PR01MB40382A2AF6BB37B46FD74C1CCF170@AM6PR01MB4038.eurprd01.prod.exchangelabs.com>
+In-Reply-To: <AM6PR01MB40382A2AF6BB37B46FD74C1CCF170@AM6PR01MB4038.eurprd01.prod.exchangelabs.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Wed, 26 Sep 2018 11:12:33 +0800
+Message-ID: <CAARXrtmyz50-LrWh2UpfiPWuPLB3djkiKZUHFwfDhiN7qkEQ1A@mail.gmail.com>
+Subject: Re: Question on flashing firmware and bmc image
+To: pietro.maltoni@studio.unibo.it
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, a.bartolini@unibo.it
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,149 +63,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Sep 2018 02:25:10 -0000
+X-List-Received-Date: Wed, 26 Sep 2018 03:12:51 -0000
 
-This is a multi-part message in MIME format.
+The questions in the mail does not reflect to the title, hope you could use a
+more specific title.
 
-------=_NextPart_5BAAEC4A_0B9E8CA0_48224E50
-Content-Type: text/plain;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+On Wed, Sep 26, 2018 at 7:53 AM Pietro Maltoni
+<pietro.maltoni@studio.unibo.it> wrote:
 
-SGkgQWxsLA0KICAgTXkgaGFyZHdhcmUgc2V0IEFTVDI1MDAgTUFDIzIgIG9uIFJHTUlJIG1v
-ZGUuIHRoZSBkZXZpY2UgaXMgQnJvYWRjb20gQkNNNTQ2MTIsIFRoZSBQSFkgYW5kIGNvbnRy
-b2wgaXMgZ29vZCAuIEJ1dCBpdCBjYW4gbm90IHBpbmcgb3RoZXIgSVAuIFRoZSAuZHRzIGZp
-bGUgaXM6DQogDQombWFjMSB7DQoNCiAgICAgICAgc3RhdHVzID0gIm9rYXkiOw0KDQogICAg
-ICAgIHBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCI7DQoNCiAgICAgICAgcGluY3RybC0wID0g
-PCZwaW5jdHJsX3JnbWlpMl9kZWZhdWx0PjsNCg0KfTsNCg0KVGhlIGtlcm5lbCBib290IGlu
-Zm86DQoNClsgICAgMy43NDczNTddIGZ0Z21hYzEwMCAxZTY4MDAwMC5ldGhlcm5ldDogRXJy
-b3IgYXBwbHlpbmcgc2V0dGluZywgcmV2ZXJzZSB0aGluZ3MgYmFjaw0KDQpbICAgIDMuNzU1
-MzUxXSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQ6IEdlbmVyYXRlZCByYW5kb20gTUFD
-IGFkZHJlc3MgNmE6YmE6MzE6Y2Q6ZTM6MzINCg0KWyAgICAzLjc3MTg5MV0gbGlicGh5OiBm
-dGdtYWMxMDBfbWRpbzogcHJvYmVkDQoNClsgICAgMy43NzYxNzhdIEdlbmVyaWMgUEhZIDFl
-NjgwMDAwLmV0aGVybmV0LS0xOjAwOiBhdHRhY2hlZCBQSFkgZHJpdmVyIFtHZW5lcmljIFBI
-WV0gKG1paV9idXM6cGh5X2FkZHI9MWU2ODAwMDAuZXRoZXJuZXQtLTE6MDAsIGlycT1QT0xM
-KQ0KDQpbICAgIDMuNzk5NjM2XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQgZXRoMDog
-aXJxIDE5LCBtYXBwZWQgYXQgNWFlODUwMjANCg0KLi4uIC4uLg0KDQpbICBPSyAgXSBGb3Vu
-ZCBkZXZpY2UgL2Rldi9hc3BlZWQtbHBjLWN0cmwuDQoNClsgIE9LICAgICAxNy40OTQ2Nzhd
-IGZ0Z21hYzEwMCAxZTY4MDAwMC5ldGhlcm5ldCBldGgwOiBMaW5rIGlzIFVwIC0gMTAwTWJw
-cy9GdWxsIC0gZmxvdyBjb250cm9sIHJ4L3R4DQoNCm1dIENyZWF0ZWQgc2xpY2VbICAgMTcu
-NTAzODcxXSBJUHY2OiBBRERSQ09ORihORVRERVZfQ0hBTkdFKTogZXRoMDogbGluayBiZWNv
-bWVzIHJlYWR5DQoNCiBzeXN0ZW0teHl6Lm9wZW5ibWNfcHJvamVjdC5sZWQuY29udHJvbGxl
-ci5zbGljZS4NCg0KICAgICAgICAgU3RhcnRpbmcgTmV0d29yayBOYW1lIFJlc29sdXRpb24u
-Li4NCg0KWyAgT0sgIF0gUmVhY2hlZCB0YXJnZXQgU3lzdGVtIFRpbWUgU3luY2hyb25pemVk
-Lg0KDQouLi4uLi4NCg0KVGhlIHZhbHVlcyBvZiByZWdpc3RlciBTQ1UwQyBhbmQgU0NVNzAg
-YXJlIGNvcnJlY3QsIHRoZSB2YWx1ZXMgYXJlOg0KDQojZGV2bWVtIDB4MWU2ZTIwMEMNCg0K
-MHhGRkREN0E4QiwgIHRoZSBiaXQgMjEgaXMgMChNQUMjMiBlbmFibGUgY2xvY2sgcnVubmlu
-ZykgLHRoZSBiaXQgMjAgaXMgMQ0KDQojZGV2IG1lbSAweDFlNmUyMDcwDQoNCjB4RjEwOUYy
-OTYgLCB0aGUgYml0IDcgaXMgMSAoUkdNSUkpLHRoZSBiaXQ2IGlzIDANCg0KDQoNCg0KRXhl
-Y3RpbmcgdGhlIGNvbW1hbmQgImlmY29uZmlnIGV0aDAgdXAiIGxvZyBpczoNCg0Kcm9vdEBy
-b211bHVzOn4jIGlmY29uZmlnIGV0aDAgdXAgIA0KDQpbICAyNzQuOTc4MzU4XSBJUHY2OiBB
-RERSQ09ORihORVRERVZfVVApOiBldGgwOiBsaW5rIGlzIG5vdCByZWFkeQ0KDQpyb290QHJv
-bXVsdXM6fiMgWyAgMjc0Ljk4Njg3OF0gZnRnbWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0IGV0
-aDA6IExpbmsgaXMgVXAgLSAxMDBNYnBzL0Z1bGwgLSBmbG93IGNvbnRyb2wgcngvdHgNCg0K
-WyAgMjc0Ljk5NTk0NF0gSVB2NjogQUREUkNPTkYoTkVUREVWX0NIQU5HRSk6IGV0aDA6IGxp
-bmsgYmVjb21lcyByZWFkeSANCg0KTXkgYm1jIGlwIGlzIDE5Mi4xNjguMTIwLjE0MSwgaXQg
-Y2FuJ3QgcGluZyBvdGhlciBJUHMuDQoNCkkgYWxzbyBzZXQgdGhlIGdhdGV3YXkuIHJvdXRl
-IGFkZCBkZWZhdWx0IGd3IDE5Mi4xNjguMTIwLjI1NC4NCkkgdHJhY2UgdGhlIGVycm9yICAi
-ZnRnbWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0OiBFcnJvciBhcHBseWluZyBzZXR0aW5nLCBy
-ZXZlcnNlIHRoaW5ncyBiYWNrIiBpbiBmaWxlIGRyaXZlcnMvcGluY3RybC9jb3JlLmMgIA0K
-TDEyMDYgDQpsaXN0X2Zvcl9lYWNoX2VudHJ5KHNldHRpbmcsICZzdHRlLT5zZXR0aW5ncyxu
-b2RlKQ0Kc3dpdGNoKHNldHRpbmctPnR5cGWjqXsNCmNhc2UgUElOX01BUF9UWVBFX01VWF9H
-Uk9VUA0KICAgICAgcmV0ID0gcGlubXV4X2VuYWJsZV9zZXR0aW5nKHNldHRpbmcpOyANCn0N
-CnRoZSByZXQgdmFsdWUgaXMgLTEgDQpNeSBrZXJuZWwgdmVyc2lvbiBpcyA0LjE3LjE0LiBU
-aGUgb3RoZXIga2VybmVsIHZlcnNpb25zIHJlcHJvZHVjZSB0aGUgc2FtZSBlcnJvci4NCldo
-YXQgaXMgd3Jvbmcgd2l0aCBpdD8NCg0KDQpYaXV6aGk=
+> After installing it I've recognized that oem openpower commands and sensors are not available.
+>
+> For instance when doing ipmitool sdr elist I do not see openpower sensors(occ ones) as well as netfn in ipmi does not contain commands for the occ.
 
-------=_NextPart_5BAAEC4A_0B9E8CA0_48224E50
-Content-Type: text/html;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+What is the revision of your build?
+The ipmi related configs are not complete for Palmetto, and there is a
+[recent commit][1] to add part of the sensors for ipmi.
+With the commit, ipmi sdr elist works ok.
+If you are looking to adding more sensors, patches are welcome!
 
-SGkgQWxsLDxicj4mbmJzcDsgJm5ic3A7TXkgaGFyZHdhcmUgc2V0IEFTVDI1MDAgTUFDIzIm
-bmJzcDsgb24gUkdNSUkgbW9kZS4gdGhlIGRldmljZSBpcyBCcm9hZGNvbSBCQ001NDYxMiwg
-VGhlIFBIWSBhbmQgY29udHJvbCBpcyBnb29kIC4gQnV0IGl0IGNhbiBub3QgcGluZyBvdGhl
-ciBJUC4mbmJzcDs8ZGl2PlRoZSAuZHRzIGZpbGUgaXM6PC9kaXY+PGRpdj4KPHAgc3R5bGU9
-Im1hcmdpbi1ib3R0b206IDBpbjsgbGluZS1oZWlnaHQ6IDEwMCUiPiZhbXA7bWFjMSB7PC9w
-PjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAxMDAlIj4mbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgc3RhdHVzID0gIm9rYXkiOzwvcD48cCBzdHlsZT0i
-bWFyZ2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAwJSI+Jm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7IHBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCI7PC9wPjxwIHN0eWxlPSJt
-YXJnaW4tYm90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAxMDAlIj4mbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgcGluY3RybC0wID0gJmx0OyZhbXA7cGluY3RybF9yZ21paTJfZGVmYXVs
-dCZndDs7PC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAx
-MDAlIj59OzwvcD48cCBzdHlsZT0ibWFyZ2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDog
-MTAwJSI+VGhlIGtlcm5lbCBib290IGluZm86PC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9t
-OiAwaW47IGxpbmUtaGVpZ2h0OiAxMDAlIj5bJm5ic3A7ICZuYnNwOyAzLjc0NzM1N10gZnRn
-bWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0OiBFcnJvciBhcHBseWluZyBzZXR0aW5nLCByZXZl
-cnNlIHRoaW5ncyBiYWNrPC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47IGxpbmUt
-aGVpZ2h0OiAxMDAlIj5bJm5ic3A7ICZuYnNwOyAzLjc1NTM1MV0gZnRnbWFjMTAwIDFlNjgw
-MDAwLmV0aGVybmV0OiBHZW5lcmF0ZWQgcmFuZG9tIE1BQyBhZGRyZXNzIDZhOmJhOjMxOmNk
-OmUzOjMyPC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAx
-MDAlIj5bJm5ic3A7ICZuYnNwOyAzLjc3MTg5MV0gbGlicGh5OiBmdGdtYWMxMDBfbWRpbzog
-cHJvYmVkPC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAx
-MDAlIj5bJm5ic3A7ICZuYnNwOyAzLjc3NjE3OF0gR2VuZXJpYyBQSFkgMWU2ODAwMDAuZXRo
-ZXJuZXQtLTE6MDA6IGF0dGFjaGVkIFBIWSBkcml2ZXIgW0dlbmVyaWMgUEhZXSAobWlpX2J1
-czpwaHlfYWRkcj0xZTY4MDAwMC5ldGhlcm5ldC0tMTowMCwgaXJxPVBPTEwpPC9wPjxwIHN0
-eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAxMDAlIj5bJm5ic3A7ICZu
-YnNwOyAzLjc5OTYzNl0gZnRnbWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0IGV0aDA6IGlycSAx
-OSwgbWFwcGVkIGF0IDVhZTg1MDIwPC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47
-IGxpbmUtaGVpZ2h0OiAxMDAlIj4uLi4gLi4uPC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9t
-OiAwaW47IGxpbmUtaGVpZ2h0OiAxMDAlIj5bJm5ic3A7IE9LJm5ic3A7IF0gRm91bmQgZGV2
-aWNlIC9kZXYvYXNwZWVkLWxwYy1jdHJsLjwvcD48cCBzdHlsZT0ibWFyZ2luLWJvdHRvbTog
-MGluOyBsaW5lLWhlaWdodDogMTAwJSI+WyZuYnNwOyBPSyZuYnNwOyAmbmJzcDsgJm5ic3A7
-MTcuNDk0Njc4XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQgZXRoMDogTGluayBpcyBV
-cCAtIDEwME1icHMvRnVsbCAtIGZsb3cgY29udHJvbCByeC90eDwvcD48cCBzdHlsZT0ibWFy
-Z2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAwJSI+bV0gQ3JlYXRlZCBzbGljZVsm
-bmJzcDsgJm5ic3A7MTcuNTAzODcxXSBJUHY2OiBBRERSQ09ORihORVRERVZfQ0hBTkdFKTog
-ZXRoMDogbGluayBiZWNvbWVzIHJlYWR5PC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAw
-aW47IGxpbmUtaGVpZ2h0OiAxMDAlIj4mbmJzcDtzeXN0ZW0teHl6Lm9wZW5ibWNfcHJvamVj
-dC5sZWQuY29udHJvbGxlci5zbGljZS48L3A+PHAgc3R5bGU9Im1hcmdpbi1ib3R0b206IDBp
-bjsgbGluZS1oZWlnaHQ6IDEwMCUiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDtTdGFydGluZyBOZXR3b3JrIE5hbWUgUmVzb2x1dGlvbi4uLjwvcD48cCBzdHlsZT0ibWFy
-Z2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAwJSI+WyZuYnNwOyBPSyZuYnNwOyBd
-IFJlYWNoZWQgdGFyZ2V0IFN5c3RlbSBUaW1lIFN5bmNocm9uaXplZC48L3A+PHAgc3R5bGU9
-Im1hcmdpbi1ib3R0b206IDBpbjsgbGluZS1oZWlnaHQ6IDEwMCUiPi4uLi4uLjwvcD48cCBz
-dHlsZT0ibWFyZ2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAwJSI+VGhlIHZhbHVl
-cyBvZiByZWdpc3RlciBTQ1UwQyBhbmQgU0NVNzAgYXJlIGNvcnJlY3QsIHRoZSB2YWx1ZXMg
-YXJlOjwvcD48cCBzdHlsZT0ibWFyZ2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAw
-JSI+I2Rldm1lbSAweDFlNmUyMDBDPC9wPjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47
-IGxpbmUtaGVpZ2h0OiAxMDAlIj4weEZGREQ3QThCLCZuYnNwOyB0aGUgYml0IDIxIGlzIDAo
-TUFDIzIgZW5hYmxlIGNsb2NrIHJ1bm5pbmcpICx0aGUgYml0IDIwIGlzIDE8L3A+PHAgc3R5
-bGU9Im1hcmdpbi1ib3R0b206IDBpbjsgbGluZS1oZWlnaHQ6IDEwMCUiPiNkZXYgbWVtIDB4
-MWU2ZTIwNzA8L3A+PHAgc3R5bGU9Im1hcmdpbi1ib3R0b206IDBpbjsgbGluZS1oZWlnaHQ6
-IDEwMCUiPjB4RjEwOUYyOTYgLCB0aGUgYml0IDcgaXMgMSAoUkdNSUkpLHRoZSBiaXQ2IGlz
-IDA8L3A+PHAgc3R5bGU9Im1hcmdpbi1ib3R0b206IDBpbjsgbGluZS1oZWlnaHQ6IDEwMCUi
-Pjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbi1ib3R0b206IDBpbjsgbGluZS1oZWlnaHQ6IDEw
-MCUiPkV4ZWN0aW5nIHRoZSBjb21tYW5kICJpZmNvbmZpZyBldGgwIHVwIiBsb2cgaXM6PC9w
-PjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAxMDAlIj5yb290
-QHJvbXVsdXM6fiMgaWZjb25maWcgZXRoMCB1cCZuYnNwOyZuYnNwOzwvcD48cCBzdHlsZT0i
-bWFyZ2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAwJSI+WyZuYnNwOyAyNzQuOTc4
-MzU4XSBJUHY2OiBBRERSQ09ORihORVRERVZfVVApOiBldGgwOiBsaW5rIGlzIG5vdCByZWFk
-eTwvcD48cCBzdHlsZT0ibWFyZ2luLWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAwJSI+
-cm9vdEByb211bHVzOn4jIFsmbmJzcDsgMjc0Ljk4Njg3OF0gZnRnbWFjMTAwIDFlNjgwMDAw
-LmV0aGVybmV0IGV0aDA6IExpbmsgaXMgVXAgLSAxMDBNYnBzL0Z1bGwgLSBmbG93IGNvbnRy
-b2wgcngvdHg8L3A+PHAgc3R5bGU9Im1hcmdpbi1ib3R0b206IDBpbjsgbGluZS1oZWlnaHQ6
-IDEwMCUiPlsmbmJzcDsgMjc0Ljk5NTk0NF0gSVB2NjogQUREUkNPTkYoTkVUREVWX0NIQU5H
-RSk6IGV0aDA6IGxpbmsgYmVjb21lcyByZWFkeSZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2lu
-LWJvdHRvbTogMGluOyBsaW5lLWhlaWdodDogMTAwJSI+TXkgYm1jIGlwIGlzIDE5Mi4xNjgu
-MTIwLjE0MSwgaXQgY2FuJ3QgcGluZyBvdGhlciBJUHMuPC9wPjxwIHN0eWxlPSJtYXJnaW4t
-Ym90dG9tOiAwaW47IGxpbmUtaGVpZ2h0OiAxMDAlIj5JIGFsc28gc2V0IHRoZSBnYXRld2F5
-LiByb3V0ZSBhZGQgZGVmYXVsdCBndyAxOTIuMTY4LjEyMC4yNTQuPC9wPkkgdHJhY2UgdGhl
-IGVycm9yJm5ic3A7ICJmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQ6IEVycm9yIGFwcGx5
-aW5nIHNldHRpbmcsIHJldmVyc2UgdGhpbmdzIGJhY2siIGluIGZpbGUgZHJpdmVycy9waW5j
-dHJsL2NvcmUuYyZuYnNwOyZuYnNwOzwvZGl2PjxkaXY+TDEyMDYmbmJzcDs8L2Rpdj48ZGl2
-Pmxpc3RfZm9yX2VhY2hfZW50cnkoc2V0dGluZywgJmFtcDtzdHRlLSZndDtzZXR0aW5ncyxu
-b2RlKTwvZGl2PjxkaXY+c3dpdGNoKHNldHRpbmctJmd0O3R5cGWjqXs8L2Rpdj48ZGl2PmNh
-c2UgUElOX01BUF9UWVBFX01VWF9HUk9VUDwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyAmbmJz
-cDsgcmV0ID0gcGlubXV4X2VuYWJsZV9zZXR0aW5nKHNldHRpbmcpOyZuYnNwOzwvZGl2Pjxk
-aXY+fTwvZGl2PjxkaXY+dGhlIHJldCB2YWx1ZSBpcyAtMSZuYnNwOzwvZGl2PjxkaXY+TXkg
-a2VybmVsIHZlcnNpb24gaXMgNC4xNy4xNC4gVGhlIG90aGVyIGtlcm5lbCB2ZXJzaW9ucyBy
-ZXByb2R1Y2UgdGhlIHNhbWUgZXJyb3IuPC9kaXY+PGRpdj5XaGF0IGlzIHdyb25nIHdpdGgg
-aXQ/PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5YaXV6aGk8L2Rpdj48c3R5bGUgdHlwZT0i
-dGV4dC9jc3MiPgoJPCEtLQoJCUBwYWdlIHsgbWFyZ2luOiAwLjc5aW4gfQoJCXAgeyBtYXJn
-aW4tYm90dG9tOiAwLjFpbjsgZGlyZWN0aW9uOiBsdHI7IGxpbmUtaGVpZ2h0OiAxMjAlOyB0
-ZXh0LWFsaWduOiBqdXN0aWZ5OyB3aWRvd3M6IDA7IG9ycGhhbnM6IDAgfQoJLS0+Cgk8L3N0
-eWxlPg==
+And what do you mean by "netfn in ipmi does not contain commands for the occ"?
 
-------=_NextPart_5BAAEC4A_0B9E8CA0_48224E50--
+>
+> By searching on the code I've recognized that these are in meta-openpower recipes. How can i enable them? Is there a standard procedure for enabling them on openpower hardware or in palmetto?
+
+Please refer to the below link as an example of ipmi config for Palmetto's
+sensors.
+
+
+[1]: https://github.com/openbmc/openbmc/commit/f47fb7cf87e6d69132f4ca101206dbf091097027#diff-d90eaa8cd7210f2f005894b7f7001d9d
