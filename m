@@ -1,112 +1,101 @@
 Return-Path: <prvs=2807791ea6=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
  envelope-from=prvs=2807791ea6=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="Z3VU5DJY"; 
+ unprotected) header.d=fb.com header.i=@fb.com header.b="o2cxlxTW"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="I9wSl4OL"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ header.b="jPkgdHmF"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42L75p6T74zF3M4
- for <openbmc@lists.ozlabs.org>; Thu, 27 Sep 2018 05:18:53 +1000 (AEST)
-Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8QJEFJh006535; Wed, 26 Sep 2018 12:18:47 -0700
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42L7Cy5bZ3zF3Ld
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Sep 2018 05:24:14 +1000 (AEST)
+Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
+ by m0089730.ppops.net (8.16.0.22/8.16.0.22) with SMTP id w8QJDd0b005070;
+ Wed, 26 Sep 2018 12:24:05 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
  h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=tXMvvneEkRVTQix4c+zYflDz2DNqeWXEoqiwLkuuI2Y=;
- b=Z3VU5DJYRMfpVx0llfRDKBWbraJtm1053SEvXUSOLPvIBm9RJYfI4hfTram6As80909m
- e2eDw4tfHT6MmAHo369fH68PeP+77vLPVAcMR+X6REuqUBUpw/rtrotLi6B8vryodSvF
- ELdKSA9v4CKGrmMHxXeG2vWTnNyY3lMD+lU= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mrfjv04wt-1
+ : date : message-id : content-type : content-id :
+ content-transfer-encoding : mime-version; s=facebook;
+ bh=BpfUGmbFSR4JxL5CVzRg5+k1anNQskTY2XillAo1v14=;
+ b=o2cxlxTWCrPGnNuuz6dxy2dI+qPIpf5tEz/vVhYdROBIenS468k3j4o+QzAZFv2P58To
+ B/UpwCeYICCtYIUMAOsgotf4SxQU90++a48v8O/qzWJWRrGT2/dEx7TJgtkx1RCPz+wS
+ 2eocvPU2/yJoXIFl0LNwEI2lcPOsOifDoMU= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by m0089730.ppops.net with ESMTP id 2mretj8f80-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 26 Sep 2018 12:18:46 -0700
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.26) with Microsoft SMTP
- Server (TLS) id 14.3.361.1; Wed, 26 Sep 2018 15:18:45 -0400
+ Wed, 26 Sep 2018 12:24:05 -0700
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.18) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Wed, 26 Sep 2018 12:24:04 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
  s=selector1-fb-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tXMvvneEkRVTQix4c+zYflDz2DNqeWXEoqiwLkuuI2Y=;
- b=I9wSl4OLLC5gp05kHvZk/e8r/sOpOpHuU5rgdL7ZgZrngiFGSb+jZhR8CjD9dcKoMXzt4jiTINRimnRmVIfOz8a3SNEtrr3WlEiRRb1Bf33wvSm3uNA4IPYHrLgOZIWvrZDA0HJVISBn4yBUKvBuIGvoinYt5wfpd9xuBOJiSO8=
+ bh=BpfUGmbFSR4JxL5CVzRg5+k1anNQskTY2XillAo1v14=;
+ b=jPkgdHmFvsUa90L8M6Ke8ha4EItmeXKiK4vamVbP2zsVH1ilgDxaY4qaSSQlkM2LR/f6nLdqab7tVEQ8xlNOAlOzBo0QoqTGpumGIyAioSBKKFEpqoc2PhBnX3zo1umP0sawfRRaDmYdm4m7RICuF4aF0mf+EZo5sQG+MzqeJuk=
 Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
- CY4PR15MB1431.namprd15.prod.outlook.com (10.172.160.151) with Microsoft SMTP
+ CY4PR15MB1909.namprd15.prod.outlook.com (10.174.54.142) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1164.25; Wed, 26 Sep 2018 19:18:44 +0000
+ 15.20.1164.25; Wed, 26 Sep 2018 19:24:03 +0000
 Received: from CY4PR15MB1269.namprd15.prod.outlook.com
  ([fe80::3cb5:8b7b:eafb:d86c]) by CY4PR15MB1269.namprd15.prod.outlook.com
  ([fe80::3cb5:8b7b:eafb:d86c%5]) with mapi id 15.20.1143.019; Wed, 26 Sep 2018
- 19:18:43 +0000
+ 19:24:03 +0000
 From: Vijay Khemka <vijaykhemka@fb.com>
 To: Andrew Geissler <geissonator@gmail.com>, Amithash Prasad <amithash@fb.com>
 CC: Patrick Venture <venture@google.com>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>, Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: Re: Link-up between Gerrit & Github
-Thread-Topic: Link-up between Gerrit & Github
-Thread-Index: AQHUTrtG3mDlJ/8hL0OiySPiQOzzEqT0288AgALZ2ACAABFrgIAACXmAgAAGqgCAAAGVAIAAALKAgAsZSACAAASxgP//kTWA
-Date: Wed, 26 Sep 2018 19:18:43 +0000
-Message-ID: <583B3E48-9D8E-49EA-B7F8-2213F4FBB815@fb.com>
-References: <CAO=notxg=KimTVEuJXgR-iN9T5FiKcMA2TJD-E6pM_KVO9338g@mail.gmail.com>
- <5C90478E-E89A-428D-873F-3E4CCD5595D4@fuzziesquirrel.com>
- <CAO=notz2-wfv_kep5FhGP9T7rdQehvSqBSECvPywNis=uRXTKw@mail.gmail.com>
- <CALLMt=rthqi3e3vHNbNFkjyhBEp8P6P8KoYC0e4XrdKMhip1Hg@mail.gmail.com>
- <CAO=notxPfx-RufZXncqAX5LsdJCaQLirgxy-M+3hFPKYvrpTDw@mail.gmail.com>
- <CALLMt=o2y0TpXZCwjw--MiLJWo_5tg38i2K00Ety1AScO1M9Ew@mail.gmail.com>
- <ED9FEA73-985B-4898-8255-F60580024A82@fuzziesquirrel.com>
- <CAO=notwdKFmckUgOCHdGWUsyAb3iSDd6aLoAg=PLULnFyFyJAA@mail.gmail.com>
- <MWHPR15MB1486F7ACD2A589B82CE0B9E9B2150@MWHPR15MB1486.namprd15.prod.outlook.com>
- <CALLMt=oj0mZwOKpKodC12r_vjCQ9n6Ysu5DH0bVP-NW6VsM+vw@mail.gmail.com>
-In-Reply-To: <CALLMt=oj0mZwOKpKodC12r_vjCQ9n6Ysu5DH0bVP-NW6VsM+vw@mail.gmail.com>
+Subject: Re: [Potential Spoof] Re: Link-up between Gerrit & Github
+Thread-Topic: [Potential Spoof] Re: Link-up between Gerrit & Github
+Thread-Index: AQHUVc57tQfuWqgSWECE6fpq6Opj6w==
+Date: Wed, 26 Sep 2018 19:24:03 +0000
+Message-ID: <1D9A9EDE-5BEC-47AF-BA2B-3BA5DC173EDF@fb.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [2620:10d:c090:200::7:26f]
 x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; CY4PR15MB1431;
- 20:25AmAROYZgc3I8qRY00afuLCEsrs1MqCHu5dElxk8kprhLUIDAZPK5z97o/2/cJ2ACkbJ5ZCbs95fOo7LxkSyqjArVFo657YIKCvskSu9w5lCBXv6U8Lb/m27eBpMT7bA7cmoIvu679WNsNNODwxJh8E9VCP0pEykJ8px8uxn6E=
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1909;
+ 20:oWFxWMNGh2IiqRuNR3jb9Pe3FpJ/O+dfu91uoDpgnnQz08mppziRFMJDvR40l4qHBDqQ3sNCkh9LJBlJjwyfuhzVIYR827nBzvHyhwo64/QC63z6+LFo+e507gzWq5InBUN8eagLR01Opj9QGOU/oPCy0+yATLwNX+Mp8h9iD3U=
 x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
 x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
- SFS:(10019020)(396003)(376002)(366004)(346002)(39860400002)(136003)(57704003)(189003)(199004)(6436002)(8676002)(305945005)(36756003)(476003)(11346002)(6512007)(7736002)(53936002)(8936002)(68736007)(6636002)(2906002)(81166006)(81156014)(5660300001)(6486002)(6116002)(82746002)(256004)(14444005)(39060400002)(486006)(2616005)(229853002)(6246003)(446003)(2900100001)(4326008)(33656002)(46003)(86362001)(93886005)(110136005)(54906003)(99286004)(83716004)(71200400001)(34290500001)(25786009)(106356001)(316002)(71190400001)(76176011)(105586002)(478600001)(14454004)(102836004)(186003)(97736004)(6506007)(5250100002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1431;
+ SFS:(10019020)(366004)(376002)(39860400002)(396003)(346002)(136003)(57704003)(189003)(199004)(486006)(478600001)(105586002)(46003)(106356001)(14454004)(39060400002)(6436002)(82746002)(6246003)(2900100001)(2616005)(6486002)(54906003)(110136005)(36756003)(476003)(97736004)(99286004)(33656002)(6512007)(229853002)(316002)(5250100002)(305945005)(2906002)(5660300001)(6116002)(53936002)(25786009)(256004)(6636002)(6506007)(68736007)(102836004)(14444005)(83716004)(71200400001)(8676002)(81166006)(81156014)(34290500001)(186003)(7736002)(71190400001)(4326008)(86362001)(8936002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1909;
  H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
-x-ms-office365-filtering-correlation-id: 850d9287-3415-4ef8-ab06-08d623e4e006
+x-ms-office365-filtering-correlation-id: 335ea8c8-a155-4981-1d13-08d623e59e5e
 x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
- SRVR:CY4PR15MB1431; 
-x-ms-traffictypediagnostic: CY4PR15MB1431:
-x-microsoft-antispam-prvs: <CY4PR15MB14314CD851DCED8BDF95D5A5DD150@CY4PR15MB1431.namprd15.prod.outlook.com>
+ RULEID:(7020095)(4652040)(8989299)(5600074)(711020)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1909; 
+x-ms-traffictypediagnostic: CY4PR15MB1909:
+x-microsoft-antispam-prvs: <CY4PR15MB19093F4D4EDB6EB749B959A6DD150@CY4PR15MB1909.namprd15.prod.outlook.com>
 x-exchange-antispam-report-test: UriScan:(158342451672863);
 x-ms-exchange-senderadcheck: 1
 x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(3002001)(93006095)(93001095)(3231355)(11241501184)(944501410)(52105095)(10201501046)(149066)(150057)(6041310)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(20161123564045)(20161123558120)(201708071742011)(7699051);
- SRVR:CY4PR15MB1431; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1431; 
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(93006095)(93001095)(3002001)(3231355)(11241501184)(944501410)(52105095)(149066)(150057)(6041310)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(20161123564045)(20161123558120)(20161123562045)(201708071742011)(7699051);
+ SRVR:CY4PR15MB1909; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1909; 
 x-forefront-prvs: 08076ABC99
 received-spf: None (protection.outlook.com: fb.com does not designate
  permitted sender hosts)
-x-microsoft-antispam-message-info: i6R22+uSraNh647kkXpRZrxguxghb+8kO3/aeysCccxR/6UVk4DkPh5BRJXUn3ZPXq8mr8d2weHwq3LK5k+eAKTPmYPv7S7LvB57DIWB51yTIhcrN4iQepc9Rk73TbMf05PY6hx0Y0jBduNcCQu1dEL3+J5khWUNaD30qaMSX92isWUewHUU32nCE1s25UHPESmzxaDdkI8Q+UwIbmo0VOpgPMzdss5/pPR+z45ao8LPuJy5i3xsI0106XgMvRT+ZPc9XZ1MGudqhwPDLc2bpOdWYMZ3q44JAQRA/leNgG5E5MgUiAIP9N0i/g8u0aGRmysrf12wkXXkMCnB39+tXT5JoNFmOjYPQepzM368gpM=
+x-microsoft-antispam-message-info: PbQ1V4x5bLPLQT/gpAyghtbHqEZCOesL6pL0EAfyUsCNG3llM/2zCW8Hy1GrD6RNPVEZcwGFGxtBfoEOvZIGVf47isZ2aylnh8yk1xstM4KawitrbG/89QFg/fs16TQArPB7RdZWU7CuYcHAXe7NDWiBekg83OnnxEpRKH6YNTppZZUD5wf6wgiWgnDxJKGj+dlwQA2bx3ajAfNUO+xIv6Rpw3UmoHqU8ufnV86onOSNRAESpT7AnO6+OCa0/sQqMdi/v9+alaycaUxloQzjIsmPt5TyoPlCrE77MPAw6dvg0EJ/HNe14a5d0t3V7kzOBrh+hXuN6m4csuYEiP6hhcZ4RZWEI6moX1zi7eoJ1sk=
 spamdiagnosticoutput: 1:99
 spamdiagnosticmetadata: NSPM
 Content-Type: text/plain; charset="utf-8"
-Content-ID: <A29390C5BA231641B6FE583F4A2A2911@namprd15.prod.outlook.com>
+Content-ID: <1EE8898658282E47B5E8C705E173B0D8@namprd15.prod.outlook.com>
 Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 850d9287-3415-4ef8-ab06-08d623e4e006
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2018 19:18:43.6411 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 335ea8c8-a155-4981-1d13-08d623e59e5e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2018 19:24:03.0364 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1431
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1909
 X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-09-26_08:, , signatures=0
@@ -123,14 +112,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Sep 2018 19:18:56 -0000
+X-List-Received-Date: Wed, 26 Sep 2018 19:24:15 -0000
 
-DQogICAgPiA+ID4gSSBkaWQgdGhlIHJlc3RhcnQgYW5kIHNhdyBzb21lIG9mIG91ciBuZXcgcmVw
-b3MgZ2V0IHN5bmNoZWQgdXANCiAgICA+DQogICAgPiBBbmRyZXcsIEkgdGhpbmsgaXQncyB0aW1l
-IHRvIHJlc3RhcnQgdGhlIGdlcnJpdCBzZXJ2ZXIgYWdhaW4hIEkgZG9uJ3Qgc2VlIHBhdGNoZXMg
-KzJkIG9uIGdlcnJpdCBmb3IgKHRoZSBuZXdseSBhZGRlZCkgbWV0YS1mYWNlYm9vayBzaG93aW5n
-IHVwIG9uIGdpdGh1YiA6LSgNCiAgICANCiAgICBEb25lIQ0KICAgIA0KICAgID4NCiAgICBJIHNl
-ZSBtZXRhLWZhY2Vib29rIGdvdCBzeW5jZWQgdXAuIEJ1dCBJIGRvbid0IHNlZSBtZXRhLWZhY2Vi
-b29rIHVuZGVyIG9wZW5ibWMvIGxpa2Ugb3RoZXIgcmVwby4gRG8gSSBuZWVkIHRvIGNyZWF0ZSBz
-b21lIHJlcXVlc3QgdG8gZ2V0IGl0IGluY2x1ZGVkIHVuZGVyIG9wZW5ibWMgZGlyZWN0b3J5DQoN
-Cg==
+ICAgIA0KICAgICAgICA+ID4gPiBJIGRpZCB0aGUgcmVzdGFydCBhbmQgc2F3IHNvbWUgb2Ygb3Vy
+IG5ldyByZXBvcyBnZXQgc3luY2hlZCB1cA0KICAgICAgICA+DQogICAgICAgID4gQW5kcmV3LCBJ
+IHRoaW5rIGl0J3MgdGltZSB0byByZXN0YXJ0IHRoZSBnZXJyaXQgc2VydmVyIGFnYWluISBJIGRv
+bid0IHNlZSBwYXRjaGVzICsyZCBvbiBnZXJyaXQgZm9yICh0aGUgbmV3bHkgYWRkZWQpIG1ldGEt
+ZmFjZWJvb2sgc2hvd2luZyB1cCBvbiBnaXRodWIgOi0oDQogICAgICAgIA0KICAgICAgICBEb25l
+IQ0KICAgICAgICANCiAgICAgICAgPg0KICAgID4gICAgSSBzZWUgbWV0YS1mYWNlYm9vayBnb3Qg
+c3luY2VkIHVwLiBCdXQgSSBkb24ndCBzZWUgbWV0YS1mYWNlYm9vayB1bmRlciBvcGVuYm1jLyBs
+aWtlIG90aGVyIHJlcG8uIERvIEkgbmVlZCB0byBjcmVhdGUgc29tZSByZXF1ZXN0IHRvIGdldCBp
+dCBpbmNsdWRlZCB1bmRlciBvcGVuYm1jIGRpcmVjdG9yeQ0KDQpOZXZlciBtaW5kLCBJIHNlZSBC
+cmFkIGhhcyBwdXQgdGhpcyBmb3IgbWVyZ2UgaW50byBvcGVuYm1jLg0KICAgIA0KICAgIA0KDQo=
