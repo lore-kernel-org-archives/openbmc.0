@@ -1,42 +1,50 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=87.98.165.232; helo=10.mo3.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=103.7.29.155; helo=smtpbg64.qq.com; envelope-from=1450335857@qq.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-Received: from 10.mo3.mail-out.ovh.net (10.mo3.mail-out.ovh.net
- [87.98.165.232])
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="Rb6Rd0oQ"; 
+ dkim-atps=neutral
+X-Greylist: delayed 429 seconds by postgrey-1.36 at bilbo;
+ Wed, 26 Sep 2018 17:29:03 AEST
+Received: from smtpbg64.qq.com (unknown [103.7.29.155])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42KpgR3PPyzF0fg
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 16:58:24 +1000 (AEST)
-Received: from player760.ha.ovh.net (unknown [10.109.146.143])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 3AE9E1D8094
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 08:58:19 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10605-110.w90-89.abo.wanadoo.fr
- [90.89.196.110]) (Authenticated sender: postmaster@kaod.org)
- by player760.ha.ovh.net (Postfix) with ESMTPSA id 656702009D;
- Wed, 26 Sep 2018 08:58:14 +0200 (CEST)
-Subject: Re: MAC#2 RGMII mode can't ping other IP address on AST2500
-To: Andrew Jeffery <andrew@aj.id.au>, xiuzhi <1450335857@qq.com>,
- openbmc <openbmc@lists.ozlabs.org>
-References: <tencent_5BF308BD00D5F7E65B3CB94C@qq.com>
- <1537933762.273359.1520855776.6C5F0423@webmail.messagingengine.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <321addb6-c1e6-587c-a967-df93ef2132d3@kaod.org>
-Date: Wed, 26 Sep 2018 08:58:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.0
-MIME-Version: 1.0
-In-Reply-To: <1537933762.273359.1520855776.6C5F0423@webmail.messagingengine.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 3317745552074771202
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedruddtvddgjeejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42KqLl5JmRzF3Fm
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 17:29:03 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1537946938; bh=ZLv8Vf3PVDPGqmpCz9GHrCfjPlDqrXTNUKB1ibPZDyM=;
+ h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=Rb6Rd0oQjDgZ+v97bIzI5b9atojFKsQ2BHWsiOZP2ZVwHsNqIVh7zladenTtp6O8L
+ kqS//IDwO7HC91DzYvcMxs3Ko6klES8qBoFQPH/rm/Rz3e0jUfUdTkudNTehICiac+
+ CgpkzQzaeU1n7KPlJP4c8CjewOeURqQAlf0AIvQQ=
+X-QQ-SSF: 00000000000000F000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.157.87
+X-QQ-STYLE: 
+X-QQ-mid: webenglish1t1537946498t161254
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>,
+ "=?ISO-8859-1?B?QW5kcmV3LkplZmZlcnk=?=" <andrew@aj.id.au>
+Subject: Re: MAC#2 RGMII mode can't ping other IP address on AST2500 
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5BAB3382_09342DC8_279E8C9D"
+Content-Transfer-Encoding: 8Bit
+Date: Wed, 26 Sep 2018 15:21:38 +0800
+X-Priority: 3
+Message-ID: <tencent_3C3DD8157FC77F8A0EDF548A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Wed, 26 Sep 2018 15:21:40 +0800 (CST)
+Feedback-ID: webenglish:qq.com:bgweb:bgweb115
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,115 +56,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Sep 2018 06:58:28 -0000
+X-List-Received-Date: Wed, 26 Sep 2018 07:29:04 -0000
 
-On 9/26/18 5:49 AM, Andrew Jeffery wrote:
-> Hello,
-> 
-> On Wed, 26 Sep 2018, at 11:47, xiuzhi wrote:
->> Hi All,
->>    My hardware set AST2500 MAC#2  on RGMII mode. the device is Broadcom 
->> BCM54612, The PHY and control is good . But it can not ping other IP. 
->> The .dts file is:
->>  
->> &mac1 {
->>
->>         status = "okay";
->>
->>         pinctrl-names = "default";
->>
->>         pinctrl-0 = <&pinctrl_rgmii2_default>;
->>
->> };
->>
->> The kernel boot info:
->>
->> [    3.747357] ftgmac100 1e680000.ethernet: Error applying setting, 
->> reverse things back
-> 
-> The failure to apply the pinctrl configuration isn't going to help. Can you please open an issue on GitHub, provide the full dmesg output and point to the kernel tree and configuration you are building?
+This is a multi-part message in MIME format.
 
-yes. 
+------=_NextPart_5BAB3382_09342DC8_279E8C9D
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-The OpenBMC kernel works fine but the DTS is adding the mdio pins. 
+SGkgQW5kcmV3LA0KDQpPbiBXZWQsIDI2IFNlcCAyMDE4LCBhdCAxMTo0NywgeGl1emhpIHdy
+b3RlOg0KPj4gSGkgQWxsLA0KPj4gICAgTXkgaGFyZHdhcmUgc2V0IEFTVDI1MDAgTUFDIzIg
+IG9uIFJHTUlJIG1vZGUuIHRoZSBkZXZpY2UgaXMgQnJvYWRjb20gDQo+PiBCQ001NDYxMiwg
+VGhlIFBIWSBhbmQgY29udHJvbCBpcyBnb29kIC4gQnV0IGl0IGNhbiBub3QgcGluZyBvdGhl
+ciBJUC4gDQo+PiBUaGUgLmR0cyBmaWxlIGlzOg0KPj4gIA0KPj4gJm1hYzEgew0KPj4gDQo+
+PiAgICAgICAgIHN0YXR1cyA9ICJva2F5IjsNCj4+IA0KPj4gICAgICAgICBwaW5jdHJsLW5h
+bWVzID0gImRlZmF1bHQiOw0KPj4gDQo+PiAgICAgICAgIHBpbmN0cmwtMCA9IDwmcGluY3Ry
+bF9yZ21paTJfZGVmYXVsdD47DQo+PiANCj4+IH07DQo+PiANCj4+IFRoZSBrZXJuZWwgYm9v
+dCBpbmZvOg0KPj4gDQo+PiBbICAgIDMuNzQ3MzU3XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRo
+ZXJuZXQ6IEVycm9yIGFwcGx5aW5nIHNldHRpbmcsIA0KPj4gcmV2ZXJzZSB0aGluZ3MgYmFj
+aw0KDQo+VGhlIGZhaWx1cmUgdG8gYXBwbHkgdGhlIHBpbmN0cmwgY29uZmlndXJhdGlvbiBp
+c24ndCBnb2luZyB0byBoZWxwLiBDYW4geW91ID5wbGVhc2Ugb3BlbiBhbiBpc3N1ZSBvbiBH
+aXRIdWIsIHByb3ZpZGUgdGhlIGZ1bGwgZG1lc2cgb3V0cHV0IGFuZCBwb2ludCA+dG8gdGhl
+IGtlcm5lbCB0cmVlIGFuZCBjb25maWd1cmF0aW9uIHlvdSBhcmUgYnVpbGRpbmc/DQpJICBj
+cmVhdGVkIGEgbmV3IGlzc3VlIE5vIDMzODg6ICBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJt
+Yy9vcGVuYm1jL2lzc3Vlcy8zMzg4DQoNCg0KWGl1emhpDQo+VGhhbmtzLA0KDQo+QW5kcmV3
+DQoNCj4gDQo+PiBbICAgIDMuNzU1MzUxXSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQ6
+IEdlbmVyYXRlZCByYW5kb20gTUFDIGFkZHJlc3MgDQo+PiA2YTpiYTozMTpjZDplMzozMg0K
+Pj4gDQo+PiBbICAgIDMuNzcxODkxXSBsaWJwaHk6IGZ0Z21hYzEwMF9tZGlvOiBwcm9iZWQN
+Cj4+IA0KPj4gWyAgICAzLjc3NjE3OF0gR2VuZXJpYyBQSFkgMWU2ODAwMDAuZXRoZXJuZXQt
+LTE6MDA6IGF0dGFjaGVkIFBIWSBkcml2ZXIgDQo+PiBbR2VuZXJpYyBQSFldIChtaWlfYnVz
+OnBoeV9hZGRyPTFlNjgwMDAwLmV0aGVybmV0LS0xOjAwLCBpcnE9UE9MTCkNCj4+IA0KPj4g
+WyAgICAzLjc5OTYzNl0gZnRnbWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0IGV0aDA6IGlycSAx
+OSwgbWFwcGVkIGF0IDVhZTg1MDIwDQo+PiANCj4+IC4uLiAuLi4NCj4+IA0KPj4gWyAgT0sg
+IF0gRm91bmQgZGV2aWNlIC9kZXYvYXNwZWVkLWxwYy1jdHJsLg0KPj4gDQo+PiBbICBPSyAg
+ICAgMTcuNDk0Njc4XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQgZXRoMDogTGluayBp
+cyBVcCAtIA0KPj4gMTAwTWJwcy9GdWxsIC0gZmxvdyBjb250cm9sIHJ4L3R4DQo+PiANCj4+
+IG1dIENyZWF0ZWQgc2xpY2VbICAgMTcuNTAzODcxXSBJUHY2OiBBRERSQ09ORihORVRERVZf
+Q0hBTkdFKTogZXRoMDogbGluayANCj4+IGJlY29tZXMgcmVhZHkNCj4+IA0KPj4gIHN5c3Rl
+bS14eXoub3BlbmJtY19wcm9qZWN0LmxlZC5jb250cm9sbGVyLnNsaWNlLg0KPj4gDQo+PiAg
+ICAgICAgICBTdGFydGluZyBOZXR3b3JrIE5hbWUgUmVzb2x1dGlvbi4uLg0KPj4gDQo+PiBb
+ICBPSyAgXSBSZWFjaGVkIHRhcmdldCBTeXN0ZW0gVGltZSBTeW5jaHJvbml6ZWQuDQo+PiAN
+Cj4+IC4uLi4uLg0KPj4gDQo+PiBUaGUgdmFsdWVzIG9mIHJlZ2lzdGVyIFNDVTBDIGFuZCBT
+Q1U3MCBhcmUgY29ycmVjdCwgdGhlIHZhbHVlcyBhcmU6DQo+PiANCj4+ICNkZXZtZW0gMHgx
+ZTZlMjAwQw0KPj4gDQo+PiAweEZGREQ3QThCLCAgdGhlIGJpdCAyMSBpcyAwKE1BQyMyIGVu
+YWJsZSBjbG9jayBydW5uaW5nKSAsdGhlIGJpdCAyMCBpcyAxDQo+PiANCj4+ICNkZXYgbWVt
+IDB4MWU2ZTIwNzANCj4+IA0KPj4gMHhGMTA5RjI5NiAsIHRoZSBiaXQgNyBpcyAxIChSR01J
+SSksdGhlIGJpdDYgaXMgMA0KPj4gDQo+PiANCj4+IA0KPj4gDQo+PiBFeGVjdGluZyB0aGUg
+Y29tbWFuZCAiaWZjb25maWcgZXRoMCB1cCIgbG9nIGlzOg0KPj4gDQo+PiByb290QHJvbXVs
+dXM6fiMgaWZjb25maWcgZXRoMCB1cCAgDQo+PiANCj4+IFsgIDI3NC45NzgzNThdIElQdjY6
+IEFERFJDT05GKE5FVERFVl9VUCk6IGV0aDA6IGxpbmsgaXMgbm90IHJlYWR5DQo+PiANCj4+
+IHJvb3RAcm9tdWx1czp+IyBbICAyNzQuOTg2ODc4XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRo
+ZXJuZXQgZXRoMDogTGluayBpcyANCj4+IFVwIC0gMTAwTWJwcy9GdWxsIC0gZmxvdyBjb250
+cm9sIHJ4L3R4DQo+PiANCj4+IFsgIDI3NC45OTU5NDRdIElQdjY6IEFERFJDT05GKE5FVERF
+Vl9DSEFOR0UpOiBldGgwOiBsaW5rIGJlY29tZXMgcmVhZHkgDQo+PiANCj4+IE15IGJtYyBp
+cCBpcyAxOTIuMTY4LjEyMC4xNDEsIGl0IGNhbid0IHBpbmcgb3RoZXIgSVBzLg0KPj4gDQo+
+PiBJIGFsc28gc2V0IHRoZSBnYXRld2F5LiByb3V0ZSBhZGQgZGVmYXVsdCBndyAxOTIuMTY4
+LjEyMC4yNTQuDQo+PiBJIHRyYWNlIHRoZSBlcnJvciAgImZ0Z21hYzEwMCAxZTY4MDAwMC5l
+dGhlcm5ldDogRXJyb3IgYXBwbHlpbmcgc2V0dGluZywgDQo+PiByZXZlcnNlIHRoaW5ncyBi
+YWNrIiBpbiBmaWxlIGRyaXZlcnMvcGluY3RybC9jb3JlLmMgIA0KPj4gTDEyMDYgDQo+PiBs
+aXN0X2Zvcl9lYWNoX2VudHJ5KHNldHRpbmcsICZzdHRlLT5zZXR0aW5ncyxub2RlKQ0KPj4g
+c3dpdGNoKHNldHRpbmctPnR5cGU/ew0KPj4gY2FzZSBQSU5fTUFQX1RZUEVfTVVYX0dST1VQ
+DQo+PiAgICAgICByZXQgPSBwaW5tdXhfZW5hYmxlX3NldHRpbmcoc2V0dGluZyk7IA0KPj4g
+fQ0KPj4gdGhlIHJldCB2YWx1ZSBpcyAtMSANCj4+IE15IGtlcm5lbCB2ZXJzaW9uIGlzIDQu
+MTcuMTQuIFRoZSBvdGhlciBrZXJuZWwgdmVyc2lvbnMgcmVwcm9kdWNlIHRoZSANCj4+IHNh
+bWUgZXJyb3IuDQo+PiBXaGF0IGlzIHdyb25nIHdpdGggaXQ/DQo+PiANCj4+IA0KPj4gWGl1
+emhp
 
-Thanks,
+------=_NextPart_5BAB3382_09342DC8_279E8C9D
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-C.  
+PGRpdj5IaSBBbmRyZXcsPC9kaXY+PGRpdj48YnI+T24gV2VkLCAyNiBTZXAgMjAxOCwgYXQg
+MTE6NDcsIHhpdXpoaSB3cm90ZTo8YnI+Jmd0OyZndDsgSGkgQWxsLDxicj4mZ3Q7Jmd0OyZu
+YnNwOyAmbmJzcDsgTXkgaGFyZHdhcmUgc2V0IEFTVDI1MDAgTUFDIzImbmJzcDsgb24gUkdN
+SUkgbW9kZS4gdGhlIGRldmljZSBpcyBCcm9hZGNvbSA8YnI+Jmd0OyZndDsgQkNNNTQ2MTIs
+IFRoZSBQSFkgYW5kIGNvbnRyb2wgaXMgZ29vZCAuIEJ1dCBpdCBjYW4gbm90IHBpbmcgb3Ro
+ZXIgSVAuIDxicj4mZ3Q7Jmd0OyBUaGUgLmR0cyBmaWxlIGlzOjxicj4mZ3Q7Jmd0OyZuYnNw
+OyA8YnI+Jmd0OyZndDsgJmFtcDttYWMxIHs8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZuYnNwOyBzdGF0dXMgPSAib2th
+eSI7PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyAmbmJzcDsgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0Ijs8YnI+Jmd0OyZn
+dDsgPGJyPiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZu
+YnNwOyBwaW5jdHJsLTAgPSAmbHQ7JmFtcDtwaW5jdHJsX3JnbWlpMl9kZWZhdWx0Jmd0Ozs8
+YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IH07PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyBU
+aGUga2VybmVsIGJvb3QgaW5mbzo8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IFsmbmJzcDsg
+Jm5ic3A7IDMuNzQ3MzU3XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQ6IEVycm9yIGFw
+cGx5aW5nIHNldHRpbmcsIDxicj4mZ3Q7Jmd0OyByZXZlcnNlIHRoaW5ncyBiYWNrPGJyPjxi
+cj4mZ3Q7VGhlIGZhaWx1cmUgdG8gYXBwbHkgdGhlIHBpbmN0cmwgY29uZmlndXJhdGlvbiBp
+c24ndCBnb2luZyB0byBoZWxwLiBDYW4geW91ICZndDtwbGVhc2Ugb3BlbiBhbiBpc3N1ZSBv
+biBHaXRIdWIsIHByb3ZpZGUgdGhlIGZ1bGwgZG1lc2cgb3V0cHV0IGFuZCBwb2ludCAmZ3Q7
+dG8gdGhlIGtlcm5lbCB0cmVlIGFuZCBjb25maWd1cmF0aW9uIHlvdSBhcmUgYnVpbGRpbmc/
+PGJyPkkmbmJzcDsgY3JlYXRlZCBhIG5ldyBpc3N1ZSBObyAzMzg4OiZuYnNwOyBodHRwczov
+L2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy8zMzg4PC9kaXY+PGRpdj48YnI+
+PC9kaXY+PGRpdj5YaXV6aGk8L2Rpdj48ZGl2PiZndDtUaGFua3MsPGJyPjxicj4mZ3Q7QW5k
+cmV3PGJyPjxicj4mZ3Q7IDxicj4mZ3Q7Jmd0OyBbJm5ic3A7ICZuYnNwOyAzLjc1NTM1MV0g
+ZnRnbWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0OiBHZW5lcmF0ZWQgcmFuZG9tIE1BQyBhZGRy
+ZXNzIDxicj4mZ3Q7Jmd0OyA2YTpiYTozMTpjZDplMzozMjxicj4mZ3Q7Jmd0OyA8YnI+Jmd0
+OyZndDsgWyZuYnNwOyAmbmJzcDsgMy43NzE4OTFdIGxpYnBoeTogZnRnbWFjMTAwX21kaW86
+IHByb2JlZDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgWyZuYnNwOyAmbmJzcDsgMy43NzYx
+NzhdIEdlbmVyaWMgUEhZIDFlNjgwMDAwLmV0aGVybmV0LS0xOjAwOiBhdHRhY2hlZCBQSFkg
+ZHJpdmVyIDxicj4mZ3Q7Jmd0OyBbR2VuZXJpYyBQSFldIChtaWlfYnVzOnBoeV9hZGRyPTFl
+NjgwMDAwLmV0aGVybmV0LS0xOjAwLCBpcnE9UE9MTCk8YnI+Jmd0OyZndDsgPGJyPiZndDsm
+Z3Q7IFsmbmJzcDsgJm5ic3A7IDMuNzk5NjM2XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJu
+ZXQgZXRoMDogaXJxIDE5LCBtYXBwZWQgYXQgNWFlODUwMjA8YnI+Jmd0OyZndDsgPGJyPiZn
+dDsmZ3Q7IC4uLiAuLi48YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IFsmbmJzcDsgT0smbmJz
+cDsgXSBGb3VuZCBkZXZpY2UgL2Rldi9hc3BlZWQtbHBjLWN0cmwuPGJyPiZndDsmZ3Q7IDxi
+cj4mZ3Q7Jmd0OyBbJm5ic3A7IE9LJm5ic3A7Jm5ic3A7ICZuYnNwOyAxNy40OTQ2NzhdIGZ0
+Z21hYzEwMCAxZTY4MDAwMC5ldGhlcm5ldCBldGgwOiBMaW5rIGlzIFVwIC0gPGJyPiZndDsm
+Z3Q7IDEwME1icHMvRnVsbCAtIGZsb3cgY29udHJvbCByeC90eDxicj4mZ3Q7Jmd0OyA8YnI+
+Jmd0OyZndDsgbV0gQ3JlYXRlZCBzbGljZVsgJm5ic3A7IDE3LjUwMzg3MV0gSVB2NjogQURE
+UkNPTkYoTkVUREVWX0NIQU5HRSk6IGV0aDA6IGxpbmsgPGJyPiZndDsmZ3Q7IGJlY29tZXMg
+cmVhZHk8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7Jm5ic3A7IHN5c3RlbS14eXoub3BlbmJt
+Y19wcm9qZWN0LmxlZC5jb250cm9sbGVyLnNsaWNlLjxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZn
+dDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgJm5ic3A7IFN0
+YXJ0aW5nIE5ldHdvcmsgTmFtZSBSZXNvbHV0aW9uLi4uPGJyPiZndDsmZ3Q7IDxicj4mZ3Q7
+Jmd0OyBbJm5ic3A7IE9LJm5ic3A7IF0gUmVhY2hlZCB0YXJnZXQgU3lzdGVtIFRpbWUgU3lu
+Y2hyb25pemVkLjxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgLi4uLi4uPGJyPiZndDsmZ3Q7
+IDxicj4mZ3Q7Jmd0OyBUaGUgdmFsdWVzIG9mIHJlZ2lzdGVyIFNDVTBDIGFuZCBTQ1U3MCBh
+cmUgY29ycmVjdCwgdGhlIHZhbHVlcyBhcmU6PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyAj
+ZGV2bWVtIDB4MWU2ZTIwMEM8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IDB4RkZERDdBOEIs
+Jm5ic3A7IHRoZSBiaXQgMjEgaXMgMChNQUMjMiBlbmFibGUgY2xvY2sgcnVubmluZykgLHRo
+ZSBiaXQgMjAgaXMgMTxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgI2RldiBtZW0gMHgxZTZl
+MjA3MDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgMHhGMTA5RjI5NiAsIHRoZSBiaXQgNyBp
+cyAxIChSR01JSSksdGhlIGJpdDYgaXMgMDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgPGJy
+PiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgRXhlY3RpbmcgdGhlIGNvbW1h
+bmQgImlmY29uZmlnIGV0aDAgdXAiIGxvZyBpczo8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7
+IHJvb3RAcm9tdWx1czp+IyBpZmNvbmZpZyBldGgwIHVwJm5ic3A7IDxicj4mZ3Q7Jmd0OyA8
+YnI+Jmd0OyZndDsgWyZuYnNwOyAyNzQuOTc4MzU4XSBJUHY2OiBBRERSQ09ORihORVRERVZf
+VVApOiBldGgwOiBsaW5rIGlzIG5vdCByZWFkeTxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsg
+cm9vdEByb211bHVzOn4jIFsmbmJzcDsgMjc0Ljk4Njg3OF0gZnRnbWFjMTAwIDFlNjgwMDAw
+LmV0aGVybmV0IGV0aDA6IExpbmsgaXMgPGJyPiZndDsmZ3Q7IFVwIC0gMTAwTWJwcy9GdWxs
+IC0gZmxvdyBjb250cm9sIHJ4L3R4PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyBbJm5ic3A7
+IDI3NC45OTU5NDRdIElQdjY6IEFERFJDT05GKE5FVERFVl9DSEFOR0UpOiBldGgwOiBsaW5r
+IGJlY29tZXMgcmVhZHkgPGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyBNeSBibWMgaXAgaXMg
+MTkyLjE2OC4xMjAuMTQxLCBpdCBjYW4ndCBwaW5nIG90aGVyIElQcy48YnI+Jmd0OyZndDsg
+PGJyPiZndDsmZ3Q7IEkgYWxzbyBzZXQgdGhlIGdhdGV3YXkuIHJvdXRlIGFkZCBkZWZhdWx0
+IGd3IDE5Mi4xNjguMTIwLjI1NC48YnI+Jmd0OyZndDsgSSB0cmFjZSB0aGUgZXJyb3ImbmJz
+cDsgImZ0Z21hYzEwMCAxZTY4MDAwMC5ldGhlcm5ldDogRXJyb3IgYXBwbHlpbmcgc2V0dGlu
+ZywgPGJyPiZndDsmZ3Q7IHJldmVyc2UgdGhpbmdzIGJhY2siIGluIGZpbGUgZHJpdmVycy9w
+aW5jdHJsL2NvcmUuYyZuYnNwOyA8YnI+Jmd0OyZndDsgTDEyMDYgPGJyPiZndDsmZ3Q7IGxp
+c3RfZm9yX2VhY2hfZW50cnkoc2V0dGluZywgJmFtcDtzdHRlLSZndDtzZXR0aW5ncyxub2Rl
+KTxicj4mZ3Q7Jmd0OyBzd2l0Y2goc2V0dGluZy0mZ3Q7dHlwZT97PGJyPiZndDsmZ3Q7IGNh
+c2UgUElOX01BUF9UWVBFX01VWF9HUk9VUDxicj4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyAmbmJzcDsgcmV0ID0gcGlubXV4X2VuYWJsZV9zZXR0aW5nKHNldHRpbmcpOyA8
+YnI+Jmd0OyZndDsgfTxicj4mZ3Q7Jmd0OyB0aGUgcmV0IHZhbHVlIGlzIC0xIDxicj4mZ3Q7
+Jmd0OyBNeSBrZXJuZWwgdmVyc2lvbiBpcyA0LjE3LjE0LiBUaGUgb3RoZXIga2VybmVsIHZl
+cnNpb25zIHJlcHJvZHVjZSB0aGUgPGJyPiZndDsmZ3Q7IHNhbWUgZXJyb3IuPGJyPiZndDsm
+Z3Q7IFdoYXQgaXMgd3Jvbmcgd2l0aCBpdD88YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IDxi
+cj4mZ3Q7Jmd0OyBYaXV6aGk8YnI+PGJyPjxicj48L2Rpdj4=
 
-
-> Thanks,
-> 
-> Andrew
-> 
->>
->> [    3.755351] ftgmac100 1e680000.ethernet: Generated random MAC address 
->> 6a:ba:31:cd:e3:32
->>
->> [    3.771891] libphy: ftgmac100_mdio: probed
->>
->> [    3.776178] Generic PHY 1e680000.ethernet--1:00: attached PHY driver 
->> [Generic PHY] (mii_bus:phy_addr=1e680000.ethernet--1:00, irq=POLL)
->>
->> [    3.799636] ftgmac100 1e680000.ethernet eth0: irq 19, mapped at 5ae85020
->>
->> ... ...
->>
->> [  OK  ] Found device /dev/aspeed-lpc-ctrl.
->>
->> [  OK     17.494678] ftgmac100 1e680000.ethernet eth0: Link is Up - 
->> 100Mbps/Full - flow control rx/tx
->>
->> m] Created slice[   17.503871] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link 
->> becomes ready
->>
->>  system-xyz.openbmc_project.led.controller.slice.
->>
->>          Starting Network Name Resolution...
->>
->> [  OK  ] Reached target System Time Synchronized.
->>
->> ......
->>
->> The values of register SCU0C and SCU70 are correct, the values are:
->>
->> #devmem 0x1e6e200C
->>
->> 0xFFDD7A8B,  the bit 21 is 0(MAC#2 enable clock running) ,the bit 20 is 1
->>
->> #dev mem 0x1e6e2070
->>
->> 0xF109F296 , the bit 7 is 1 (RGMII),the bit6 is 0
->>
->>
->>
->>
->> Execting the command "ifconfig eth0 up" log is:
->>
->> root@romulus:~# ifconfig eth0 up  
->>
->> [  274.978358] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
->>
->> root@romulus:~# [  274.986878] ftgmac100 1e680000.ethernet eth0: Link is 
->> Up - 100Mbps/Full - flow control rx/tx
->>
->> [  274.995944] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready 
->>
->> My bmc ip is 192.168.120.141, it can't ping other IPs.
->>
->> I also set the gateway. route add default gw 192.168.120.254.
->> I trace the error  "ftgmac100 1e680000.ethernet: Error applying setting, 
->> reverse things back" in file drivers/pinctrl/core.c  
->> L1206 
->> list_for_each_entry(setting, &stte->settings,node)
->> switch(setting->type）{
->> case PIN_MAP_TYPE_MUX_GROUP
->>       ret = pinmux_enable_setting(setting); 
->> }
->> the ret value is -1 
->> My kernel version is 4.17.14. The other kernel versions reproduce the 
->> same error.
->> What is wrong with it?
->>
->>
->> Xiuzhi
+------=_NextPart_5BAB3382_09342DC8_279E8C9D--
