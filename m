@@ -1,67 +1,75 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="MwtTMcGS"; 
- dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="DgAeuaNJ"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="oNYGgcJY"; dkim-atps=neutral
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
+ header.b="j5HdOvfQ"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42KkTL0zkSzF27h
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 13:49:25 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 47B14375;
- Tue, 25 Sep 2018 23:49:23 -0400 (EDT)
-Received: from web1 ([10.202.2.211])
- by compute4.internal (MEProxy); Tue, 25 Sep 2018 23:49:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=UPdvy2v+pSs8YV8K6jaOWgZV5Tuj3
- tBwb9DDrM2Pucc=; b=MwtTMcGSSOVIl7k3Xh6eMvss603ccag/O/EmsF7M2ODsB
- CgmO0TbpnI8WNjBsRZS5zFEwNssjnCI2aFuG9yWIUpajI7JFxFfnZ/gB7QksUvl8
- A5LBWgy6HXLm7j59F+PYQq6PAZZv/QGWbjldl4tV00VtjP7DjbuDL0qf6zzn1Q3O
- q8Tzq8wJXml44FOyV5/exqLxtkGC8V+TRARe7Gur8nJKXCJtjK1Yt64qOSmhXksh
- rAPICj6foZNZfoo9GNXfakitE6X0hF4ZOhnE1krOe2uFKnep1xhCTVKoZIZTRpVr
- c+R45K2mHx5rCmp7IEE1GjcqgQM2gxeq4Oukx7mwg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42KlSw3NsszF3Fm;
+ Wed, 26 Sep 2018 14:34:08 +1000 (AEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 89DDC215C6;
+ Wed, 26 Sep 2018 00:34:03 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Wed, 26 Sep 2018 00:34:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
+ mendozajonas.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=UPdvy2
- v+pSs8YV8K6jaOWgZV5Tuj3tBwb9DDrM2Pucc=; b=oNYGgcJYXhD9HqHfU/SHvJ
- oolxreSbSdNYFkfgQUubOUEew8/Qpz5L980WqPz30x+pTWMqife2damG181fe0S5
- VKHcSO+N85tkj5Q6R7MaDXIzmoeUfNGt7z4l5+jzzFy5LKApgx0OcyZq/Fj6/Ea+
- yLmzUElsPaQ9mg2kbS4yvj9BqilmtNcFAVtjMaIRKrnWVNzHATEY9WSbkj75GWSZ
- ULlLTyul692s/MC6vpfbb7T7JgV25PVJcq1uL8DWTi9A7xbqkv1f6fXdVlhdr40I
- V4tykYksgm3vjg0teEOKteO2Tf9igJrtf4woJH5bB65iLdioz2OW9sbarcqD3oQg
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=qeTnmU
+ gTgP+lpNfEOICSXPkR1tjfq4hqoTDY9+RwhA0=; b=DgAeuaNJ3OJa/XjXzRj3MF
+ MMsvHxFTXctvZj5U/0nb5sXKMESc+A5vrBrIrzjXMJ5YVhLbE3kSJue79GC4IjOG
+ onuJwxcRrNVbdTpMr8K6KsKqP5Vy37K3Y7E3+nblveBth0ixAJFCsOxl0BaTYVq7
+ r9cvff3CwmsDFxjGSXU0mkKtL7o9W2Xd7t0QLNJZF5kyL82pjy/uA4RFu8WJ1tG/
+ rjCd+zU4toweVs/ZDZ2F+GJkRx3E6bPUBYsbdynXcY0Iyzl1BMN4Tt01tZJEoNBj
+ P/6Qn2yoK6lD0pkRt+dtSOOW5PwaKwwK9y5D0KW4GxlnPXrCYCxfi/FPbHuzfSLA
  ==
-X-ME-Proxy: <xmx:wgGrW20OY-ws_RZzqbmPAqa7lB9JKmnC8uADavOSuaRspq60PBcDaA>
- <xmx:wgGrW0hgNcYU50R7cKLQDABX4sQ9oHQVG1HaoaBX4gXJ7Yr6zxZeVg>
- <xmx:wgGrWybChRNid8wyl2zDDoLaRWu5irJzGdl4mxGjRBRbtG9vJ-YMPw>
- <xmx:wgGrW8S0loaH50aIbW_uDrKJuk7AlUTqSjgEO04MbCgEUZX2NhaVmA>
- <xmx:wgGrW1SiVfRL5YcyKOLWjKEKjRHTjIyrCtCESwNGbosM7HUmbkspew>
- <xmx:wgGrW3Npr0NPKDXwQyo0llVu4pW3mn0ljnYwTeVZeZhPVaQmhmldRA>
-X-ME-Sender: <xms:wgGrW5zUtxX4O-0EH0m_dkuz4RF6Lr1mdnQtJarYVA9MiSV9-Imdfg>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 7FF32940B6; Tue, 25 Sep 2018 23:49:22 -0400 (EDT)
-Message-Id: <1537933762.273359.1520855776.6C5F0423@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-2e36a0dc
-Subject: Re: MAC#2 RGMII mode can't ping other IP address on AST2500
-References: <tencent_5BF308BD00D5F7E65B3CB94C@qq.com>
-In-Reply-To: <tencent_5BF308BD00D5F7E65B3CB94C@qq.com>
-Date: Wed, 26 Sep 2018 13:19:22 +0930
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=qeTnmU
+ gTgP+lpNfEOICSXPkR1tjfq4hqoTDY9+RwhA0=; b=j5HdOvfQdvHVkYlEwpTaxW
+ iuXMHizrFWi3yORDGS0vTt6mhhtlhmv1nSR2jnT7wZ76tG8cD14ClA+KAApTfFz9
+ 4RViH8+cm7wjWk82rDrHCAmU+mc6cIakzlZ4S9TB7KNueLJetHB0xDjHnU8sn8go
+ O1WpjNNyL6l5Kvzs5qFd2Q2j6m8/OC0mGdrONmdZyorZnJOPCfDHqZqXrRWHwCDG
+ Xm9TQRS1sFty40Y9lk+T81KMR7S54PWlGO0ps9eUqSad3R6ayMsCo2duBXA1LKba
+ ycKds9n6Htu7Xp59n43Lh1w8zTrFgA9/i3djCS8GIWCIblBbimUsK8IiJyOtiNjg
+ ==
+X-ME-Proxy: <xmx:OgyrW-WG7zA281VEwy7PpOK6-I76aX_qZ51haIwvaBOByZsxwu1AzQ>
+ <xmx:OgyrWwFN6URtE_TkKiRFq8SmJNdfkaQmoEJVdWpT1OMvf0NUwK9BZQ>
+ <xmx:OgyrW6tGiy9udJJoMPEcR3oXrdCoSG6m-N9iCe6bqij6x4qgGyDQUA>
+ <xmx:OgyrWzZ4JWtNiY4khDuJsfiUU4IHmVaWieDL10RG6-U_BSyQtxtThg>
+ <xmx:OgyrW6Vps_LNt9w24w_jvjUWLAtI1Wt-c9seRm0jGr_mBIchDVPzZg>
+ <xmx:OwyrWxbAJy9XalO-XCnZI50XW8lvm4hX2FO6qRbMjkpH3wYe0B_X1g>
+X-ME-Sender: <xms:OgyrW-qHcRnJH5hLJNyFaSrftLz4MxGWoJS8T9_NdPNOR_yduarH3A>
+Received: from v4 (124-171-72-79.dyn.iinet.net.au [124.171.72.79])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 70238102DD;
+ Wed, 26 Sep 2018 00:33:59 -0400 (EDT)
+Message-ID: <7cd8a49a057f1032e126b1e104fcf61e4956e06d.camel@mendozajonas.com>
+Subject: Re: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Vijay Khemka <vijaykhemka@fb.com>, Joel Stanley <joel@jms.id.au>
+Cc: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Sai Dasari <sdasari@fb.com>,
+ Amithash Prasad <amithash@fb.com>,  "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, Justin.Lee1@Dell.com
+In-Reply-To: <F570466E-4F6C-4AE1-91E0-0B4ECC193BE0@fb.com>
+References: <20180925000840.4111212-1-vijaykhemka@fb.com>
+ <CACPK8XcDExGvCNBcFqOOP+1zQFFs6pMao+7rsZrJFqxPgcY+1Q@mail.gmail.com>
+ <F570466E-4F6C-4AE1-91E0-0B4ECC193BE0@fb.com>
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 26 Sep 2018 14:33:50 +1000
+Mime-Version: 1.0
+X-Mailer: Evolution 3.28.5 
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,112 +81,340 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Sep 2018 03:49:29 -0000
+X-List-Received-Date: Wed, 26 Sep 2018 04:34:10 -0000
 
-Hello,
+On Tue, 2018-09-25 at 18:16 +0000, Vijay Khemka wrote:
+> Hi Joel,
+> Thanks, I am adding netdev mailing list here.
+> Yes, this command is supported for all Mellanox card. It is as per Mellanox specification.
+> 
+> Regards
+> -Vijay
 
-On Wed, 26 Sep 2018, at 11:47, xiuzhi wrote:
-> Hi All,
->    My hardware set AST2500 MAC#2  on RGMII mode. the device is Broadcom=20
-> BCM54612, The PHY and control is good . But it can not ping other IP.=20
-> The .dts file is:
->=20=20
-> &mac1 {
->=20
->         status =3D "okay";
->=20
->         pinctrl-names =3D "default";
->=20
->         pinctrl-0 =3D <&pinctrl_rgmii2_default>;
->=20
-> };
->=20
-> The kernel boot info:
->=20
-> [    3.747357] ftgmac100 1e680000.ethernet: Error applying setting,=20
-> reverse things back
+Hi Vijay,
 
-The failure to apply the pinctrl configuration isn't going to help. Can you=
- please open an issue on GitHub, provide the full dmesg output and point to=
- the kernel tree and configuration you are building?
+Thanks for the patch; before I get too into a review though I'd like to
+loop in Justin (cc'd) who I know is also working on an OEM command patch.
+The changes here are very specific (eg. a command specific config option
+"CONFIG_NCSI_OEM_CMD_GET_MAC"), which is ok on a small scale but if we
+start to add an increasing amount of commands could get out of hand.
+As I understand Justin's version adds a generic handler, using the NCSI
+Netlink interface to pass OEM commands and responses to and from
+userspace, which does the actual packet handling.
+It would be good to compare these two approaches first before committing
+to any one path
 
-Thanks,
+Justin -  could you weigh in here and give a description of your intended
+changes? Are you able to post your changes upstream so we can compare?
 
-Andrew
+Regards,
+Samuel
 
->=20
-> [    3.755351] ftgmac100 1e680000.ethernet: Generated random MAC address=
-=20
-> 6a:ba:31:cd:e3:32
->=20
-> [    3.771891] libphy: ftgmac100_mdio: probed
->=20
-> [    3.776178] Generic PHY 1e680000.ethernet--1:00: attached PHY driver=20
-> [Generic PHY] (mii_bus:phy_addr=3D1e680000.ethernet--1:00, irq=3DPOLL)
->=20
-> [    3.799636] ftgmac100 1e680000.ethernet eth0: irq 19, mapped at 5ae850=
-20
->=20
-> ... ...
->=20
-> [  OK  ] Found device /dev/aspeed-lpc-ctrl.
->=20
-> [  OK     17.494678] ftgmac100 1e680000.ethernet eth0: Link is Up -=20
-> 100Mbps/Full - flow control rx/tx
->=20
-> m] Created slice[   17.503871] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link=
-=20
-> becomes ready
->=20
->  system-xyz.openbmc_project.led.controller.slice.
->=20
->          Starting Network Name Resolution...
->=20
-> [  OK  ] Reached target System Time Synchronized.
->=20
-> ......
->=20
-> The values of register SCU0C and SCU70 are correct, the values are:
->=20
-> #devmem 0x1e6e200C
->=20
-> 0xFFDD7A8B,  the bit 21 is 0(MAC#2 enable clock running) ,the bit 20 is 1
->=20
-> #dev mem 0x1e6e2070
->=20
-> 0xF109F296 , the bit 7 is 1 (RGMII),the bit6 is 0
->=20
->=20
->=20
->=20
-> Execting the command "ifconfig eth0 up" log is:
->=20
-> root@romulus:~# ifconfig eth0 up=20=20
->=20
-> [  274.978358] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
->=20
-> root@romulus:~# [  274.986878] ftgmac100 1e680000.ethernet eth0: Link is=
-=20
-> Up - 100Mbps/Full - flow control rx/tx
->=20
-> [  274.995944] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready=20
->=20
-> My bmc ip is 192.168.120.141, it can't ping other IPs.
->=20
-> I also set the gateway. route add default gw 192.168.120.254.
-> I trace the error  "ftgmac100 1e680000.ethernet: Error applying setting,=
-=20
-> reverse things back" in file drivers/pinctrl/core.c=20=20
-> L1206=20
-> list_for_each_entry(setting, &stte->settings,node)
-> switch(setting->type=EF=BC=89{
-> case PIN_MAP_TYPE_MUX_GROUP
->       ret =3D pinmux_enable_setting(setting);=20
-> }
-> the ret value is -1=20
-> My kernel version is 4.17.14. The other kernel versions reproduce the=20
-> same error.
-> What is wrong with it?
->=20
->=20
-> Xiuzhi
+> 
+> ﻿On 9/24/18, 5:30 PM, "Joel Stanley" <joel@jms.id.au> wrote:
+> 
+>     Hi Vijay,
+>     
+>     On Tue, 25 Sep 2018 at 09:39, Vijay Khemka <vijaykhemka@fb.com> wrote:
+>     >
+>     > This patch adds OEM command to get mac address from NCSI device and and
+>     > configure the same to the network card.
+>     >
+>     > ncsi_cmd_arg - Modified this structure to include bigger payload data.
+>     > ncsi_cmd_handler_oem: This function handes oem command request
+>     > ncsi_rsp_handler_oem: This function handles response for OEM command.
+>     > get_mac_address_oem_mlx: This function will send OEM command to get
+>     > mac address for Mellanox card
+>     > set_mac_affinity_mlx: This will send OEM command to set Mac affinity
+>     > for Mellanox card
+>     
+>     Thanks for the patch. The code looks okay, but I wanted to get some
+>     input from our NCSI maintainer as to how OEM commands would be
+>     structured. Sam, can you please provide some review here?
+>     
+>     Is the command supported on all melanox cards, just some, or does
+>     TiogaPass have a special firmware that enables it?
+>     
+>     We should include the netdev mailing list in this discussion as the
+>     patch needs to be acceptable for upstream.
+>     
+>     Cheers,
+>     
+>     Joel
+>     
+>     >
+>     > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+>     > ---
+>     >  net/ncsi/Kconfig       |  3 ++
+>     >  net/ncsi/internal.h    | 11 +++++--
+>     >  net/ncsi/ncsi-cmd.c    | 24 +++++++++++++--
+>     >  net/ncsi/ncsi-manage.c | 68 ++++++++++++++++++++++++++++++++++++++++++
+>     >  net/ncsi/ncsi-pkt.h    | 16 ++++++++++
+>     >  net/ncsi/ncsi-rsp.c    | 33 +++++++++++++++++++-
+>     >  6 files changed, 149 insertions(+), 6 deletions(-)
+>     >
+>     > diff --git a/net/ncsi/Kconfig b/net/ncsi/Kconfig
+>     > index 08a8a6031fd7..b8bf89fea7c8 100644
+>     > --- a/net/ncsi/Kconfig
+>     > +++ b/net/ncsi/Kconfig
+>     > @@ -10,3 +10,6 @@ config NET_NCSI
+>     >           support. Enable this only if your system connects to a network
+>     >           device via NCSI and the ethernet driver you're using supports
+>     >           the protocol explicitly.
+>     > +config NCSI_OEM_CMD_GET_MAC
+>     > +       bool "Get NCSI OEM MAC Address"
+>     > +       depends on NET_NCSI
+>     > diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+>     > index 8055e3965cef..da17958e6a4b 100644
+>     > --- a/net/ncsi/internal.h
+>     > +++ b/net/ncsi/internal.h
+>     > @@ -68,6 +68,10 @@ enum {
+>     >         NCSI_MODE_MAX
+>     >  };
+>     >
+>     > +#define NCSI_OEM_MFR_MLX_ID             0x8119
+>     > +#define NCSI_OEM_MLX_CMD_GET_MAC        0x1b00
+>     > +#define NCSI_OEM_MLX_CMD_SET_AFFINITY   0x010700
+>     > +
+>     >  struct ncsi_channel_version {
+>     >         u32 version;            /* Supported BCD encoded NCSI version */
+>     >         u32 alpha2;             /* Supported BCD encoded NCSI version */
+>     > @@ -236,6 +240,7 @@ enum {
+>     >         ncsi_dev_state_probe_dp,
+>     >         ncsi_dev_state_config_sp        = 0x0301,
+>     >         ncsi_dev_state_config_cis,
+>     > +       ncsi_dev_state_config_oem_gma,
+>     >         ncsi_dev_state_config_clear_vids,
+>     >         ncsi_dev_state_config_svf,
+>     >         ncsi_dev_state_config_ev,
+>     > @@ -301,9 +306,9 @@ struct ncsi_cmd_arg {
+>     >         unsigned short       payload;     /* Command packet payload length */
+>     >         unsigned int         req_flags;   /* NCSI request properties       */
+>     >         union {
+>     > -               unsigned char  bytes[16]; /* Command packet specific data  */
+>     > -               unsigned short words[8];
+>     > -               unsigned int   dwords[4];
+>     > +               unsigned char  bytes[64]; /* Command packet specific data  */
+>     > +               unsigned short words[32];
+>     > +               unsigned int   dwords[16];
+>     >         };
+>     >  };
+>     >
+>     > diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+>     > index 7567ca63aae2..3205e22c1734 100644
+>     > --- a/net/ncsi/ncsi-cmd.c
+>     > +++ b/net/ncsi/ncsi-cmd.c
+>     > @@ -211,6 +211,25 @@ static int ncsi_cmd_handler_snfc(struct sk_buff *skb,
+>     >         return 0;
+>     >  }
+>     >
+>     > +static int ncsi_cmd_handler_oem(struct sk_buff *skb,
+>     > +                               struct ncsi_cmd_arg *nca)
+>     > +{
+>     > +       struct ncsi_cmd_oem_pkt *cmd;
+>     > +       unsigned int len;
+>     > +
+>     > +       len = sizeof(struct ncsi_cmd_pkt_hdr) + 4;
+>     > +       if (nca->payload < 26)
+>     > +               len += 26;
+>     > +       else
+>     > +               len += nca->payload;
+>     > +
+>     > +       cmd = skb_put_zero(skb, len);
+>     > +       memcpy(cmd->data, nca->bytes, nca->payload);
+>     > +       ncsi_cmd_build_header(&cmd->cmd.common, nca);
+>     > +
+>     > +       return 0;
+>     > +}
+>     > +
+>     >  static struct ncsi_cmd_handler {
+>     >         unsigned char type;
+>     >         int           payload;
+>     > @@ -244,7 +263,7 @@ static struct ncsi_cmd_handler {
+>     >         { NCSI_PKT_CMD_GNS,    0, ncsi_cmd_handler_default },
+>     >         { NCSI_PKT_CMD_GNPTS,  0, ncsi_cmd_handler_default },
+>     >         { NCSI_PKT_CMD_GPS,    0, ncsi_cmd_handler_default },
+>     > -       { NCSI_PKT_CMD_OEM,    0, NULL                     },
+>     > +       { NCSI_PKT_CMD_OEM,   -1, ncsi_cmd_handler_oem     },
+>     >         { NCSI_PKT_CMD_PLDM,   0, NULL                     },
+>     >         { NCSI_PKT_CMD_GPUUID, 0, ncsi_cmd_handler_default }
+>     >  };
+>     > @@ -317,7 +336,8 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
+>     >         }
+>     >
+>     >         /* Get packet payload length and allocate the request */
+>     > -       nca->payload = nch->payload;
+>     > +       if (nch->payload >= 0)
+>     > +               nca->payload = nch->payload;
+>     >         nr = ncsi_alloc_command(nca);
+>     >         if (!nr)
+>     >                 return -ENOMEM;
+>     > diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+>     > index 091284760d21..3b2b86560cc8 100644
+>     > --- a/net/ncsi/ncsi-manage.c
+>     > +++ b/net/ncsi/ncsi-manage.c
+>     > @@ -635,6 +635,58 @@ static int set_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
+>     >         return 0;
+>     >  }
+>     >
+>     > +#if IS_ENABLED(CONFIG_NCSI_OEM_CMD_GET_MAC)
+>     > +/* NCSI Facebook OEM APIs */
+>     > +static void get_mac_address_oem_mlx(struct ncsi_dev_priv *ndp)
+>     > +{
+>     > +       struct ncsi_cmd_arg nca;
+>     > +       int ret = 0;
+>     > +
+>     > +       memset(&nca, 0, sizeof(struct ncsi_cmd_arg));
+>     > +       nca.ndp = ndp;
+>     > +       nca.channel = ndp->active_channel->id;
+>     > +       nca.package = ndp->active_package->id;
+>     > +       nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
+>     > +       nca.type = NCSI_PKT_CMD_OEM;
+>     > +       nca.payload = 8;
+>     > +
+>     > +       nca.dwords[0] = ntohl(NCSI_OEM_MFR_MLX_ID);
+>     > +       nca.dwords[1] = ntohl(NCSI_OEM_MLX_CMD_GET_MAC);
+>     > +
+>     > +       ret = ncsi_xmit_cmd(&nca);
+>     > +       if (ret)
+>     > +               netdev_err(ndp->ndev.dev,
+>     > +                          "NCSI: Failed to transmit cmd 0x%x during probe\n",
+>     > +                          nca.type);
+>     > +}
+>     > +
+>     > +static void set_mac_affinity_mlx(struct ncsi_dev_priv *ndp)
+>     > +{
+>     > +       struct ncsi_cmd_arg nca;
+>     > +       int ret = 0;
+>     > +
+>     > +       memset(&nca, 0, sizeof(struct ncsi_cmd_arg));
+>     > +       nca.ndp = ndp;
+>     > +       nca.channel = ndp->active_channel->id;
+>     > +       nca.package = ndp->active_package->id;
+>     > +       nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
+>     > +       nca.type = NCSI_PKT_CMD_OEM;
+>     > +       nca.payload = 60;
+>     > +
+>     > +       nca.dwords[0] = ntohl(NCSI_OEM_MFR_MLX_ID);
+>     > +       nca.dwords[1] = ntohl(NCSI_OEM_MLX_CMD_SET_AFFINITY);
+>     > +
+>     > +       memcpy(&(nca.bytes[8]), ndp->ndev.dev->dev_addr, ETH_ALEN);
+>     > +       nca.bytes[14] = 0x09;
+>     > +
+>     > +       ret = ncsi_xmit_cmd(&nca);
+>     > +       if (ret)
+>     > +               netdev_err(ndp->ndev.dev,
+>     > +                          "NCSI: Failed to transmit cmd 0x%x during probe\n",
+>     > +                                  nca.type);
+>     > +}
+>     > +#endif /* CONFIG_NCSI_OEM_CMD_GET_MAC */
+>     > +
+>     >  static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+>     >  {
+>     >         struct ncsi_dev *nd = &ndp->ndev;
+>     > @@ -685,6 +737,22 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+>     >                         goto error;
+>     >                 }
+>     >
+>     > +#if IS_ENABLED(CONFIG_NCSI_OEM_CMD_GET_MAC)
+>     > +               /* Check Manufacture id if it is Mellanox then
+>     > +                * get and set mac address. To Do: Add code for
+>     > +                * other types of card if required
+>     > +                */
+>     > +               if (nc->version.mf_id == NCSI_OEM_MFR_MLX_ID)
+>     > +                       nd->state = ncsi_dev_state_config_oem_gma;
+>     > +               else
+>     > +                       nd->state = ncsi_dev_state_config_clear_vids;
+>     > +               break;
+>     > +       case ncsi_dev_state_config_oem_gma:
+>     > +               ndp->pending_req_num = 2;
+>     > +               get_mac_address_oem_mlx(ndp);
+>     > +               msleep(500);
+>     > +               set_mac_affinity_mlx(ndp);
+>     > +#endif /* CONFIG_NCSI_OEM_CMD_GET_MAC */
+>     >                 nd->state = ncsi_dev_state_config_clear_vids;
+>     >                 break;
+>     >         case ncsi_dev_state_config_clear_vids:
+>     > diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
+>     > index 91b4b66438df..0653a893eb12 100644
+>     > --- a/net/ncsi/ncsi-pkt.h
+>     > +++ b/net/ncsi/ncsi-pkt.h
+>     > @@ -151,6 +151,22 @@ struct ncsi_cmd_snfc_pkt {
+>     >         unsigned char           pad[22];
+>     >  };
+>     >
+>     > +/* Oem Request Command */
+>     > +struct ncsi_cmd_oem_pkt {
+>     > +       struct ncsi_cmd_pkt_hdr cmd;         /* Command header    */
+>     > +       unsigned char           data[64];    /* OEM Payload Data  */
+>     > +       __be32                  checksum;    /* Checksum          */
+>     > +};
+>     > +
+>     > +/* Oem Response Packet */
+>     > +struct ncsi_rsp_oem_pkt {
+>     > +       struct ncsi_rsp_pkt_hdr rsp;         /* Command header    */
+>     > +       __be32                  mfr_id;      /* Manufacture ID    */
+>     > +       __be32                  oem_cmd;     /* oem command       */
+>     > +       unsigned char           data[32];    /* Payload data      */
+>     > +       __be32                  checksum;    /* Checksum          */
+>     > +};
+>     > +
+>     >  /* Get Link Status */
+>     >  struct ncsi_rsp_gls_pkt {
+>     >         struct ncsi_rsp_pkt_hdr rsp;        /* Response header   */
+>     > diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+>     > index 930c1d3796f0..3b94c96b9c7f 100644
+>     > --- a/net/ncsi/ncsi-rsp.c
+>     > +++ b/net/ncsi/ncsi-rsp.c
+>     > @@ -596,6 +596,37 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
+>     >         return 0;
+>     >  }
+>     >
+>     > +static int ncsi_rsp_handler_oem(struct ncsi_request *nr)
+>     > +{
+>     > +       struct ncsi_rsp_oem_pkt *rsp;
+>     > +       struct ncsi_dev_priv *ndp = nr->ndp;
+>     > +       struct net_device *ndev = ndp->ndev.dev;
+>     > +       int ret = 0;
+>     > +       unsigned int oem_cmd, mfr_id;
+>     > +       const struct net_device_ops *ops = ndev->netdev_ops;
+>     > +       struct sockaddr saddr;
+>     > +
+>     > +       /* Get the response header */
+>     > +       rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
+>     > +
+>     > +       oem_cmd = ntohl(rsp->oem_cmd);
+>     > +       mfr_id = ntohl(rsp->mfr_id);
+>     > +
+>     > +       /* Check for Mellanox manufacturer id */
+>     > +       if (mfr_id != NCSI_OEM_MFR_MLX_ID)
+>     > +               return 0;
+>     > +
+>     > +       if (oem_cmd == NCSI_OEM_MLX_CMD_GET_MAC) {
+>     > +               saddr.sa_family = ndev->type;
+>     > +               ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
+>     > +               memcpy(saddr.sa_data, &(rsp->data[4]), ETH_ALEN);
+>     > +               ret = ops->ndo_set_mac_address(ndev, &saddr);
+>     > +               if (ret < 0)
+>     > +                       netdev_warn(ndev, "NCSI: 'Writing mac address to device failed\n");
+>     > +       }
+>     > +       return ret;
+>     > +}
+>     > +
+>     >  static int ncsi_rsp_handler_gvi(struct ncsi_request *nr)
+>     >  {
+>     >         struct ncsi_rsp_gvi_pkt *rsp;
+>     > @@ -932,7 +963,7 @@ static struct ncsi_rsp_handler {
+>     >         { NCSI_PKT_RSP_GNS,   172, ncsi_rsp_handler_gns     },
+>     >         { NCSI_PKT_RSP_GNPTS, 172, ncsi_rsp_handler_gnpts   },
+>     >         { NCSI_PKT_RSP_GPS,     8, ncsi_rsp_handler_gps     },
+>     > -       { NCSI_PKT_RSP_OEM,     0, NULL                     },
+>     > +       { NCSI_PKT_RSP_OEM,    -1, ncsi_rsp_handler_oem     },
+>     >         { NCSI_PKT_RSP_PLDM,    0, NULL                     },
+>     >         { NCSI_PKT_RSP_GPUUID, 20, ncsi_rsp_handler_gpuuid  }
+>     >  };
+>     > --
+>     > 2.17.1
+>     >
+>     
+> 
