@@ -1,50 +1,43 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <hverkuil@xs4all.nl>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=103.7.29.155; helo=smtpbg64.qq.com; envelope-from=1450335857@qq.com;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=xs4all.nl
+ (client-ip=194.109.24.21; helo=lb1-smtp-cloud8.xs4all.net;
+ envelope-from=hverkuil@xs4all.nl; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="Rb6Rd0oQ"; 
- dkim-atps=neutral
-X-Greylist: delayed 429 seconds by postgrey-1.36 at bilbo;
- Wed, 26 Sep 2018 17:29:03 AEST
-Received: from smtpbg64.qq.com (unknown [103.7.29.155])
+ dmarc=none (p=none dis=none) header.from=xs4all.nl
+Received: from lb1-smtp-cloud8.xs4all.net (lb1-smtp-cloud8.xs4all.net
+ [194.109.24.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42KqLl5JmRzF3Fm
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 17:29:03 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1537946938; bh=ZLv8Vf3PVDPGqmpCz9GHrCfjPlDqrXTNUKB1ibPZDyM=;
- h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=Rb6Rd0oQjDgZ+v97bIzI5b9atojFKsQ2BHWsiOZP2ZVwHsNqIVh7zladenTtp6O8L
- kqS//IDwO7HC91DzYvcMxs3Ko6klES8qBoFQPH/rm/Rz3e0jUfUdTkudNTehICiac+
- CgpkzQzaeU1n7KPlJP4c8CjewOeURqQAlf0AIvQQ=
-X-QQ-SSF: 00000000000000F000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.157.87
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1537946498t161254
-From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>,
- "=?ISO-8859-1?B?QW5kcmV3LkplZmZlcnk=?=" <andrew@aj.id.au>
-Subject: Re: MAC#2 RGMII mode can't ping other IP address on AST2500 
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5BAB3382_09342DC8_279E8C9D"
-Content-Transfer-Encoding: 8Bit
-Date: Wed, 26 Sep 2018 15:21:38 +0800
-X-Priority: 3
-Message-ID: <tencent_3C3DD8157FC77F8A0EDF548A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Wed, 26 Sep 2018 15:21:40 +0800 (CST)
-Feedback-ID: webenglish:qq.com:bgweb:bgweb115
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42KxSS6BB3zF3Jw;
+ Wed, 26 Sep 2018 22:04:22 +1000 (AEST)
+Received: from [IPv6:2001:983:e9a7:1:d896:2898:282a:e34b]
+ ([IPv6:2001:983:e9a7:1:d896:2898:282a:e34b])
+ by smtp-cloud8.xs4all.net with ESMTPA
+ id 58XEglbtmgyCD58XFgPb0r; Wed, 26 Sep 2018 14:03:19 +0200
+Subject: Re: [PATCH v3 0/2] media: platform: Add Aspeed Video Engine Driver
+To: Eddie James <eajames@linux.ibm.com>, linux-kernel@vger.kernel.org
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org,
+ robh+dt@kernel.org, linux-media@vger.kernel.org, mchehab@kernel.org,
+ joel@jms.id.au
+References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <337a1869-4c16-edb0-976e-755f786afb01@xs4all.nl>
+Date: Wed, 26 Sep 2018 14:03:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfMyNwsMvhboHr6LjXgchqLJEbzEVdy0v4WYaJuJOznXLZEUXxCE5n4j0+qB0L86lAN8XjyIsBAdxXhKAXPx/dwvCSTRl02GRTgUxnrcaEvhXsOB+URsf
+ HW8IjIlp12BoQnVttgOEbvTajwQHQrN6KHyniYCgi7pviF3W7my30deSsMX9MBY/QS3gwd43GPH6lhmh8uMDN/C6AydGsccHIDmtnUPL+vRTogwkwiliug7U
+ bDU58F9aES2Nudt7IrwbdrZuDover64y25msmRjGP3j8z2bBerQkONDwuCph/8vMlfPyQ6iCnbXGD1kFEI7WP1IklHdE1kjtI+aCqLY3VUPCy5neztSXZ2XD
+ X0Yb+xtS1qdWU54g3oSN9A1JcbepuXJX0+FW8PWGBKOzEM54pLhX6PkhgFs+Q02sUnmlYl0JJmH4YJ3ONxSWAzoNzkrYrqnUKZwuiMSuVbgsfzvoRTY9Gh7n
+ 9+sDewUuzvz5GIEI2DA4yBpt1qxRxH01r7ioiK0bXOzumgUAGntAx78MKpqSjn0vCK5IFSNInDSkqczt8jw1Igi5W+Qsj1gCLPVy/jvCBGBkery4qjQBbnXJ
+ 04P5slxGLAiW/CdFdzETGtZy
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,155 +49,160 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Sep 2018 07:29:04 -0000
+X-List-Received-Date: Wed, 26 Sep 2018 12:04:25 -0000
 
-This is a multi-part message in MIME format.
+On 09/25/2018 09:27 PM, Eddie James wrote:
+> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+> can capture and compress video data from digital or analog sources. With
+> the Aspeed chip acting as a service processor, the Video Engine can
+> capture the host processor graphics output.
+> 
+> This series adds a V4L2 driver for the VE, providing the usual V4L2 streaming
+> interface by way of videobuf2. Each frame, the driver triggers the hardware to
+> capture the host graphics output and compress it to JPEG format.
+> 
+> I was unable to cross compile v4l2-compliance for ARM with our OpenBMC
+> toolchain. Although bootstrap, configure, and make were successful, no binaries
+> were generated... I was able to build v4l-utils 1.12.3 from the OpenEmbedded
+> project, with the output below:
 
-------=_NextPart_5BAB3382_09342DC8_279E8C9D
-Content-Type: text/plain;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+You can also try to build it manually:
 
-SGkgQW5kcmV3LA0KDQpPbiBXZWQsIDI2IFNlcCAyMDE4LCBhdCAxMTo0NywgeGl1emhpIHdy
-b3RlOg0KPj4gSGkgQWxsLA0KPj4gICAgTXkgaGFyZHdhcmUgc2V0IEFTVDI1MDAgTUFDIzIg
-IG9uIFJHTUlJIG1vZGUuIHRoZSBkZXZpY2UgaXMgQnJvYWRjb20gDQo+PiBCQ001NDYxMiwg
-VGhlIFBIWSBhbmQgY29udHJvbCBpcyBnb29kIC4gQnV0IGl0IGNhbiBub3QgcGluZyBvdGhl
-ciBJUC4gDQo+PiBUaGUgLmR0cyBmaWxlIGlzOg0KPj4gIA0KPj4gJm1hYzEgew0KPj4gDQo+
-PiAgICAgICAgIHN0YXR1cyA9ICJva2F5IjsNCj4+IA0KPj4gICAgICAgICBwaW5jdHJsLW5h
-bWVzID0gImRlZmF1bHQiOw0KPj4gDQo+PiAgICAgICAgIHBpbmN0cmwtMCA9IDwmcGluY3Ry
-bF9yZ21paTJfZGVmYXVsdD47DQo+PiANCj4+IH07DQo+PiANCj4+IFRoZSBrZXJuZWwgYm9v
-dCBpbmZvOg0KPj4gDQo+PiBbICAgIDMuNzQ3MzU3XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRo
-ZXJuZXQ6IEVycm9yIGFwcGx5aW5nIHNldHRpbmcsIA0KPj4gcmV2ZXJzZSB0aGluZ3MgYmFj
-aw0KDQo+VGhlIGZhaWx1cmUgdG8gYXBwbHkgdGhlIHBpbmN0cmwgY29uZmlndXJhdGlvbiBp
-c24ndCBnb2luZyB0byBoZWxwLiBDYW4geW91ID5wbGVhc2Ugb3BlbiBhbiBpc3N1ZSBvbiBH
-aXRIdWIsIHByb3ZpZGUgdGhlIGZ1bGwgZG1lc2cgb3V0cHV0IGFuZCBwb2ludCA+dG8gdGhl
-IGtlcm5lbCB0cmVlIGFuZCBjb25maWd1cmF0aW9uIHlvdSBhcmUgYnVpbGRpbmc/DQpJICBj
-cmVhdGVkIGEgbmV3IGlzc3VlIE5vIDMzODg6ICBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJt
-Yy9vcGVuYm1jL2lzc3Vlcy8zMzg4DQoNCg0KWGl1emhpDQo+VGhhbmtzLA0KDQo+QW5kcmV3
-DQoNCj4gDQo+PiBbICAgIDMuNzU1MzUxXSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQ6
-IEdlbmVyYXRlZCByYW5kb20gTUFDIGFkZHJlc3MgDQo+PiA2YTpiYTozMTpjZDplMzozMg0K
-Pj4gDQo+PiBbICAgIDMuNzcxODkxXSBsaWJwaHk6IGZ0Z21hYzEwMF9tZGlvOiBwcm9iZWQN
-Cj4+IA0KPj4gWyAgICAzLjc3NjE3OF0gR2VuZXJpYyBQSFkgMWU2ODAwMDAuZXRoZXJuZXQt
-LTE6MDA6IGF0dGFjaGVkIFBIWSBkcml2ZXIgDQo+PiBbR2VuZXJpYyBQSFldIChtaWlfYnVz
-OnBoeV9hZGRyPTFlNjgwMDAwLmV0aGVybmV0LS0xOjAwLCBpcnE9UE9MTCkNCj4+IA0KPj4g
-WyAgICAzLjc5OTYzNl0gZnRnbWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0IGV0aDA6IGlycSAx
-OSwgbWFwcGVkIGF0IDVhZTg1MDIwDQo+PiANCj4+IC4uLiAuLi4NCj4+IA0KPj4gWyAgT0sg
-IF0gRm91bmQgZGV2aWNlIC9kZXYvYXNwZWVkLWxwYy1jdHJsLg0KPj4gDQo+PiBbICBPSyAg
-ICAgMTcuNDk0Njc4XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQgZXRoMDogTGluayBp
-cyBVcCAtIA0KPj4gMTAwTWJwcy9GdWxsIC0gZmxvdyBjb250cm9sIHJ4L3R4DQo+PiANCj4+
-IG1dIENyZWF0ZWQgc2xpY2VbICAgMTcuNTAzODcxXSBJUHY2OiBBRERSQ09ORihORVRERVZf
-Q0hBTkdFKTogZXRoMDogbGluayANCj4+IGJlY29tZXMgcmVhZHkNCj4+IA0KPj4gIHN5c3Rl
-bS14eXoub3BlbmJtY19wcm9qZWN0LmxlZC5jb250cm9sbGVyLnNsaWNlLg0KPj4gDQo+PiAg
-ICAgICAgICBTdGFydGluZyBOZXR3b3JrIE5hbWUgUmVzb2x1dGlvbi4uLg0KPj4gDQo+PiBb
-ICBPSyAgXSBSZWFjaGVkIHRhcmdldCBTeXN0ZW0gVGltZSBTeW5jaHJvbml6ZWQuDQo+PiAN
-Cj4+IC4uLi4uLg0KPj4gDQo+PiBUaGUgdmFsdWVzIG9mIHJlZ2lzdGVyIFNDVTBDIGFuZCBT
-Q1U3MCBhcmUgY29ycmVjdCwgdGhlIHZhbHVlcyBhcmU6DQo+PiANCj4+ICNkZXZtZW0gMHgx
-ZTZlMjAwQw0KPj4gDQo+PiAweEZGREQ3QThCLCAgdGhlIGJpdCAyMSBpcyAwKE1BQyMyIGVu
-YWJsZSBjbG9jayBydW5uaW5nKSAsdGhlIGJpdCAyMCBpcyAxDQo+PiANCj4+ICNkZXYgbWVt
-IDB4MWU2ZTIwNzANCj4+IA0KPj4gMHhGMTA5RjI5NiAsIHRoZSBiaXQgNyBpcyAxIChSR01J
-SSksdGhlIGJpdDYgaXMgMA0KPj4gDQo+PiANCj4+IA0KPj4gDQo+PiBFeGVjdGluZyB0aGUg
-Y29tbWFuZCAiaWZjb25maWcgZXRoMCB1cCIgbG9nIGlzOg0KPj4gDQo+PiByb290QHJvbXVs
-dXM6fiMgaWZjb25maWcgZXRoMCB1cCAgDQo+PiANCj4+IFsgIDI3NC45NzgzNThdIElQdjY6
-IEFERFJDT05GKE5FVERFVl9VUCk6IGV0aDA6IGxpbmsgaXMgbm90IHJlYWR5DQo+PiANCj4+
-IHJvb3RAcm9tdWx1czp+IyBbICAyNzQuOTg2ODc4XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRo
-ZXJuZXQgZXRoMDogTGluayBpcyANCj4+IFVwIC0gMTAwTWJwcy9GdWxsIC0gZmxvdyBjb250
-cm9sIHJ4L3R4DQo+PiANCj4+IFsgIDI3NC45OTU5NDRdIElQdjY6IEFERFJDT05GKE5FVERF
-Vl9DSEFOR0UpOiBldGgwOiBsaW5rIGJlY29tZXMgcmVhZHkgDQo+PiANCj4+IE15IGJtYyBp
-cCBpcyAxOTIuMTY4LjEyMC4xNDEsIGl0IGNhbid0IHBpbmcgb3RoZXIgSVBzLg0KPj4gDQo+
-PiBJIGFsc28gc2V0IHRoZSBnYXRld2F5LiByb3V0ZSBhZGQgZGVmYXVsdCBndyAxOTIuMTY4
-LjEyMC4yNTQuDQo+PiBJIHRyYWNlIHRoZSBlcnJvciAgImZ0Z21hYzEwMCAxZTY4MDAwMC5l
-dGhlcm5ldDogRXJyb3IgYXBwbHlpbmcgc2V0dGluZywgDQo+PiByZXZlcnNlIHRoaW5ncyBi
-YWNrIiBpbiBmaWxlIGRyaXZlcnMvcGluY3RybC9jb3JlLmMgIA0KPj4gTDEyMDYgDQo+PiBs
-aXN0X2Zvcl9lYWNoX2VudHJ5KHNldHRpbmcsICZzdHRlLT5zZXR0aW5ncyxub2RlKQ0KPj4g
-c3dpdGNoKHNldHRpbmctPnR5cGU/ew0KPj4gY2FzZSBQSU5fTUFQX1RZUEVfTVVYX0dST1VQ
-DQo+PiAgICAgICByZXQgPSBwaW5tdXhfZW5hYmxlX3NldHRpbmcoc2V0dGluZyk7IA0KPj4g
-fQ0KPj4gdGhlIHJldCB2YWx1ZSBpcyAtMSANCj4+IE15IGtlcm5lbCB2ZXJzaW9uIGlzIDQu
-MTcuMTQuIFRoZSBvdGhlciBrZXJuZWwgdmVyc2lvbnMgcmVwcm9kdWNlIHRoZSANCj4+IHNh
-bWUgZXJyb3IuDQo+PiBXaGF0IGlzIHdyb25nIHdpdGggaXQ/DQo+PiANCj4+IA0KPj4gWGl1
-emhp
+g++ -o v4l2-compliance -DNO_LIBV4L2 v4l2-compliance.cpp v4l2-test-debug.cpp v4l2-test-input-output.cpp v4l2-test-controls.cpp v4l2-test-io-config.cpp v4l2-test-formats.cpp v4l2-test-buffers.cpp
+v4l2-test-codecs.cpp v4l2-test-colors.cpp v4l2-test-media.cpp v4l2-test-subdevs.cpp media-info.cpp v4l2-info.cpp -I../.. -I../../include -I../common
 
-------=_NextPart_5BAB3382_09342DC8_279E8C9D
-Content-Type: text/html;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+(replace g++ with your cross compiler)
 
-PGRpdj5IaSBBbmRyZXcsPC9kaXY+PGRpdj48YnI+T24gV2VkLCAyNiBTZXAgMjAxOCwgYXQg
-MTE6NDcsIHhpdXpoaSB3cm90ZTo8YnI+Jmd0OyZndDsgSGkgQWxsLDxicj4mZ3Q7Jmd0OyZu
-YnNwOyAmbmJzcDsgTXkgaGFyZHdhcmUgc2V0IEFTVDI1MDAgTUFDIzImbmJzcDsgb24gUkdN
-SUkgbW9kZS4gdGhlIGRldmljZSBpcyBCcm9hZGNvbSA8YnI+Jmd0OyZndDsgQkNNNTQ2MTIs
-IFRoZSBQSFkgYW5kIGNvbnRyb2wgaXMgZ29vZCAuIEJ1dCBpdCBjYW4gbm90IHBpbmcgb3Ro
-ZXIgSVAuIDxicj4mZ3Q7Jmd0OyBUaGUgLmR0cyBmaWxlIGlzOjxicj4mZ3Q7Jmd0OyZuYnNw
-OyA8YnI+Jmd0OyZndDsgJmFtcDttYWMxIHs8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZuYnNwOyBzdGF0dXMgPSAib2th
-eSI7PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyAmbmJzcDsgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0Ijs8YnI+Jmd0OyZn
-dDsgPGJyPiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZu
-YnNwOyBwaW5jdHJsLTAgPSAmbHQ7JmFtcDtwaW5jdHJsX3JnbWlpMl9kZWZhdWx0Jmd0Ozs8
-YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IH07PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyBU
-aGUga2VybmVsIGJvb3QgaW5mbzo8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IFsmbmJzcDsg
-Jm5ic3A7IDMuNzQ3MzU3XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQ6IEVycm9yIGFw
-cGx5aW5nIHNldHRpbmcsIDxicj4mZ3Q7Jmd0OyByZXZlcnNlIHRoaW5ncyBiYWNrPGJyPjxi
-cj4mZ3Q7VGhlIGZhaWx1cmUgdG8gYXBwbHkgdGhlIHBpbmN0cmwgY29uZmlndXJhdGlvbiBp
-c24ndCBnb2luZyB0byBoZWxwLiBDYW4geW91ICZndDtwbGVhc2Ugb3BlbiBhbiBpc3N1ZSBv
-biBHaXRIdWIsIHByb3ZpZGUgdGhlIGZ1bGwgZG1lc2cgb3V0cHV0IGFuZCBwb2ludCAmZ3Q7
-dG8gdGhlIGtlcm5lbCB0cmVlIGFuZCBjb25maWd1cmF0aW9uIHlvdSBhcmUgYnVpbGRpbmc/
-PGJyPkkmbmJzcDsgY3JlYXRlZCBhIG5ldyBpc3N1ZSBObyAzMzg4OiZuYnNwOyBodHRwczov
-L2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy8zMzg4PC9kaXY+PGRpdj48YnI+
-PC9kaXY+PGRpdj5YaXV6aGk8L2Rpdj48ZGl2PiZndDtUaGFua3MsPGJyPjxicj4mZ3Q7QW5k
-cmV3PGJyPjxicj4mZ3Q7IDxicj4mZ3Q7Jmd0OyBbJm5ic3A7ICZuYnNwOyAzLjc1NTM1MV0g
-ZnRnbWFjMTAwIDFlNjgwMDAwLmV0aGVybmV0OiBHZW5lcmF0ZWQgcmFuZG9tIE1BQyBhZGRy
-ZXNzIDxicj4mZ3Q7Jmd0OyA2YTpiYTozMTpjZDplMzozMjxicj4mZ3Q7Jmd0OyA8YnI+Jmd0
-OyZndDsgWyZuYnNwOyAmbmJzcDsgMy43NzE4OTFdIGxpYnBoeTogZnRnbWFjMTAwX21kaW86
-IHByb2JlZDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgWyZuYnNwOyAmbmJzcDsgMy43NzYx
-NzhdIEdlbmVyaWMgUEhZIDFlNjgwMDAwLmV0aGVybmV0LS0xOjAwOiBhdHRhY2hlZCBQSFkg
-ZHJpdmVyIDxicj4mZ3Q7Jmd0OyBbR2VuZXJpYyBQSFldIChtaWlfYnVzOnBoeV9hZGRyPTFl
-NjgwMDAwLmV0aGVybmV0LS0xOjAwLCBpcnE9UE9MTCk8YnI+Jmd0OyZndDsgPGJyPiZndDsm
-Z3Q7IFsmbmJzcDsgJm5ic3A7IDMuNzk5NjM2XSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJu
-ZXQgZXRoMDogaXJxIDE5LCBtYXBwZWQgYXQgNWFlODUwMjA8YnI+Jmd0OyZndDsgPGJyPiZn
-dDsmZ3Q7IC4uLiAuLi48YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IFsmbmJzcDsgT0smbmJz
-cDsgXSBGb3VuZCBkZXZpY2UgL2Rldi9hc3BlZWQtbHBjLWN0cmwuPGJyPiZndDsmZ3Q7IDxi
-cj4mZ3Q7Jmd0OyBbJm5ic3A7IE9LJm5ic3A7Jm5ic3A7ICZuYnNwOyAxNy40OTQ2NzhdIGZ0
-Z21hYzEwMCAxZTY4MDAwMC5ldGhlcm5ldCBldGgwOiBMaW5rIGlzIFVwIC0gPGJyPiZndDsm
-Z3Q7IDEwME1icHMvRnVsbCAtIGZsb3cgY29udHJvbCByeC90eDxicj4mZ3Q7Jmd0OyA8YnI+
-Jmd0OyZndDsgbV0gQ3JlYXRlZCBzbGljZVsgJm5ic3A7IDE3LjUwMzg3MV0gSVB2NjogQURE
-UkNPTkYoTkVUREVWX0NIQU5HRSk6IGV0aDA6IGxpbmsgPGJyPiZndDsmZ3Q7IGJlY29tZXMg
-cmVhZHk8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7Jm5ic3A7IHN5c3RlbS14eXoub3BlbmJt
-Y19wcm9qZWN0LmxlZC5jb250cm9sbGVyLnNsaWNlLjxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZn
-dDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgJm5ic3A7IFN0
-YXJ0aW5nIE5ldHdvcmsgTmFtZSBSZXNvbHV0aW9uLi4uPGJyPiZndDsmZ3Q7IDxicj4mZ3Q7
-Jmd0OyBbJm5ic3A7IE9LJm5ic3A7IF0gUmVhY2hlZCB0YXJnZXQgU3lzdGVtIFRpbWUgU3lu
-Y2hyb25pemVkLjxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgLi4uLi4uPGJyPiZndDsmZ3Q7
-IDxicj4mZ3Q7Jmd0OyBUaGUgdmFsdWVzIG9mIHJlZ2lzdGVyIFNDVTBDIGFuZCBTQ1U3MCBh
-cmUgY29ycmVjdCwgdGhlIHZhbHVlcyBhcmU6PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyAj
-ZGV2bWVtIDB4MWU2ZTIwMEM8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IDB4RkZERDdBOEIs
-Jm5ic3A7IHRoZSBiaXQgMjEgaXMgMChNQUMjMiBlbmFibGUgY2xvY2sgcnVubmluZykgLHRo
-ZSBiaXQgMjAgaXMgMTxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgI2RldiBtZW0gMHgxZTZl
-MjA3MDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgMHhGMTA5RjI5NiAsIHRoZSBiaXQgNyBp
-cyAxIChSR01JSSksdGhlIGJpdDYgaXMgMDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgPGJy
-PiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsgRXhlY3RpbmcgdGhlIGNvbW1h
-bmQgImlmY29uZmlnIGV0aDAgdXAiIGxvZyBpczo8YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7
-IHJvb3RAcm9tdWx1czp+IyBpZmNvbmZpZyBldGgwIHVwJm5ic3A7IDxicj4mZ3Q7Jmd0OyA8
-YnI+Jmd0OyZndDsgWyZuYnNwOyAyNzQuOTc4MzU4XSBJUHY2OiBBRERSQ09ORihORVRERVZf
-VVApOiBldGgwOiBsaW5rIGlzIG5vdCByZWFkeTxicj4mZ3Q7Jmd0OyA8YnI+Jmd0OyZndDsg
-cm9vdEByb211bHVzOn4jIFsmbmJzcDsgMjc0Ljk4Njg3OF0gZnRnbWFjMTAwIDFlNjgwMDAw
-LmV0aGVybmV0IGV0aDA6IExpbmsgaXMgPGJyPiZndDsmZ3Q7IFVwIC0gMTAwTWJwcy9GdWxs
-IC0gZmxvdyBjb250cm9sIHJ4L3R4PGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyBbJm5ic3A7
-IDI3NC45OTU5NDRdIElQdjY6IEFERFJDT05GKE5FVERFVl9DSEFOR0UpOiBldGgwOiBsaW5r
-IGJlY29tZXMgcmVhZHkgPGJyPiZndDsmZ3Q7IDxicj4mZ3Q7Jmd0OyBNeSBibWMgaXAgaXMg
-MTkyLjE2OC4xMjAuMTQxLCBpdCBjYW4ndCBwaW5nIG90aGVyIElQcy48YnI+Jmd0OyZndDsg
-PGJyPiZndDsmZ3Q7IEkgYWxzbyBzZXQgdGhlIGdhdGV3YXkuIHJvdXRlIGFkZCBkZWZhdWx0
-IGd3IDE5Mi4xNjguMTIwLjI1NC48YnI+Jmd0OyZndDsgSSB0cmFjZSB0aGUgZXJyb3ImbmJz
-cDsgImZ0Z21hYzEwMCAxZTY4MDAwMC5ldGhlcm5ldDogRXJyb3IgYXBwbHlpbmcgc2V0dGlu
-ZywgPGJyPiZndDsmZ3Q7IHJldmVyc2UgdGhpbmdzIGJhY2siIGluIGZpbGUgZHJpdmVycy9w
-aW5jdHJsL2NvcmUuYyZuYnNwOyA8YnI+Jmd0OyZndDsgTDEyMDYgPGJyPiZndDsmZ3Q7IGxp
-c3RfZm9yX2VhY2hfZW50cnkoc2V0dGluZywgJmFtcDtzdHRlLSZndDtzZXR0aW5ncyxub2Rl
-KTxicj4mZ3Q7Jmd0OyBzd2l0Y2goc2V0dGluZy0mZ3Q7dHlwZT97PGJyPiZndDsmZ3Q7IGNh
-c2UgUElOX01BUF9UWVBFX01VWF9HUk9VUDxicj4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyAmbmJzcDsgcmV0ID0gcGlubXV4X2VuYWJsZV9zZXR0aW5nKHNldHRpbmcpOyA8
-YnI+Jmd0OyZndDsgfTxicj4mZ3Q7Jmd0OyB0aGUgcmV0IHZhbHVlIGlzIC0xIDxicj4mZ3Q7
-Jmd0OyBNeSBrZXJuZWwgdmVyc2lvbiBpcyA0LjE3LjE0LiBUaGUgb3RoZXIga2VybmVsIHZl
-cnNpb25zIHJlcHJvZHVjZSB0aGUgPGJyPiZndDsmZ3Q7IHNhbWUgZXJyb3IuPGJyPiZndDsm
-Z3Q7IFdoYXQgaXMgd3Jvbmcgd2l0aCBpdD88YnI+Jmd0OyZndDsgPGJyPiZndDsmZ3Q7IDxi
-cj4mZ3Q7Jmd0OyBYaXV6aGk8YnI+PGJyPjxicj48L2Rpdj4=
+Hopefully that will work since 1.12.3 is way too old.
 
-------=_NextPart_5BAB3382_09342DC8_279E8C9D--
+Regards,
+
+	Hans
+
+> 
+> v4l2-compliance SHA   : not available
+> 
+> Driver Info:
+> 	Driver name   : aspeed-video
+> 	Card type     : Aspeed Video Engine
+> 	Bus info      : platform:aspeed-video
+> 	Driver version: 4.18.8
+> 	Capabilities  : 0x85200001
+> 		Video Capture
+> 		Read/Write
+> 		Streaming
+> 		Extended Pix Format
+> 		Device Capabilities
+> 	Device Caps   : 0x05200001
+> 		Video Capture
+> 		Read/Write
+> 		Streaming
+> 		Extended Pix Format
+> 
+> Compliance test for device /dev/video0 (not using libv4l2):
+> 
+> Required ioctls:
+> 	test VIDIOC_QUERYCAP: OK
+> 
+> Allow for multiple opens:
+> 	test second video open: OK
+> 	test VIDIOC_QUERYCAP: OK
+> 	test VIDIOC_G/S_PRIORITY: OK
+> 	test for unlimited opens: OK
+> 
+> Debug ioctls:
+> 	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
+> 
+> Input ioctls:
+> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+> 	test VIDIOC_G/S/ENUMINPUT: OK
+> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+> 	Inputs: 1 Audio Inputs: 0 Tuners: 0
+> 
+> Output ioctls:
+> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
+> 
+> Input/Output configuration ioctls:
+> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK
+> 	test VIDIOC_DV_TIMINGS_CAP: OK
+> 	test VIDIOC_G/S_EDID: OK
+> 
+> Test input 0:
+> 
+> 	Control ioctls:
+> 		test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+> 		test VIDIOC_QUERYCTRL: OK
+> 		test VIDIOC_G/S_CTRL: OK
+> 		test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+> 		warn: ../../../v4l-utils-1.12.3/utils/v4l2-compliance/v4l2-test-controls.cpp(811): V4L2_CID_DV_RX_POWER_PRESENT not found for input 0
+> 		test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+> 		test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+> 		Standard Controls: 3 Private Controls: 0
+> 
+> 	Format ioctls:
+> 		test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+> 		test VIDIOC_G/S_PARM: OK
+> 		test VIDIOC_G_FBUF: OK (Not Supported)
+> 		test VIDIOC_G_FMT: OK
+> 		test VIDIOC_TRY_FMT: OK
+> 		test VIDIOC_S_FMT: OK
+> 		test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+> 		test Cropping: OK (Not Supported)
+> 		test Composing: OK (Not Supported)
+> 		test Scaling: OK (Not Supported)
+> 
+> 	Codec ioctls:
+> 		test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+> 		test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+> 		test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+> 
+> 	Buffer ioctls:
+> 		test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+> 		test VIDIOC_EXPBUF: OK (Not Supported)
+> 
+> Test input 0:
+> 
+> Streaming ioctls:
+> 	test read/write: OK
+> 	test MMAP: OK                                     
+> 	test USERPTR: OK (Not Supported)
+> 	test DMABUF: OK (Not Supported)
+> 
+> 
+> Total: 47, Succeeded: 47, Failed: 0, Warnings: 1
+> 
+> Changes since v2:
+>  - Switch to streaming interface. This involved a lot of changes.
+>  - Rework memory allocation due to using videobuf2 buffers, but also only
+>    allocate the necessary size of source buffer rather than the max size
+> 
+> Changes since v1:
+>  - Removed le32_to_cpu calls for JPEG header data
+>  - Reworked v4l2 ioctls to be compliant.
+>  - Added JPEG controls
+>  - Updated devicetree docs according to Rob's suggestions.
+>  - Added myself to MAINTAINERS
+> 
+> Eddie James (2):
+>   dt-bindings: media: Add Aspeed Video Engine binding documentation
+>   media: platform: Add Aspeed Video Engine driver
+> 
+>  .../devicetree/bindings/media/aspeed-video.txt     |   26 +
+>  MAINTAINERS                                        |    8 +
+>  drivers/media/platform/Kconfig                     |    8 +
+>  drivers/media/platform/Makefile                    |    1 +
+>  drivers/media/platform/aspeed-video.c              | 1645 ++++++++++++++++++++
+>  5 files changed, 1688 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
+>  create mode 100644 drivers/media/platform/aspeed-video.c
+> 
