@@ -1,61 +1,66 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d2a; helo=mail-io1-xd2a.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="XOGjkrMM"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="ObuFSdcB"; 
  dkim-atps=neutral
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42LHZR0r0yzF3LY
- for <openbmc@lists.ozlabs.org>; Thu, 27 Sep 2018 11:40:46 +1000 (AEST)
-Received: by mail-io1-xd2a.google.com with SMTP id y10-v6so722950ioa.10
- for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 18:40:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42LKbz4rWVzF3Ll;
+ Thu, 27 Sep 2018 13:12:14 +1000 (AEST)
+Received: by mail-qk1-x742.google.com with SMTP id a85-v6so736108qkg.3;
+ Wed, 26 Sep 2018 20:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=+/dvo/FB8m1dpj3MPCy43opFPmU4YzdZEJqL7KBEdBM=;
- b=XOGjkrMMUR4fjln8tfFts42ObDlTV/CrVd1NtF/Bgvvm06wwyFHv424+sc+e71gxbI
- YgbKIcnFvth22Uyo/vrxRQOWtTKMDCHCLmaU8PUqkLoLtWV7cIo4ebxjfJRtOu7hS4YA
- sdfN5YXaI47qXTNn6oZIz1CiazCoS0svTX0uBCI79JUDfM5YsM49PW85x64YzdwCGrlJ
- 825UhLslmAkYfyRsGrhSH4FSpFYYgiNrQKKn6BEpkUhVMZHNRhpOcpIbc8NJdt7R5dhy
- 9Kpz/uZfaYYgs0IT4CjcYfo0IAeqLOAFdRLl7DKMXwtWwEItG6qKDp/nZApY+Dg0gkaS
- NmhQ==
+ :cc; bh=DFwqrzzDr3xGOOs7mqhftLHkD8lxO4pi0kmhvhoCsM4=;
+ b=ObuFSdcBvXNwY/MeYSXYaQTb1uiDhiGnxvV90FGneI6FWC2ybHb4C3dKrfAIDxBQrT
+ OzW9xx8KaZVDlZ8kKF1Y1bXt/GNabZ25N9R7suIeo92u/rvFclM4xuvggCNAssaPoBvO
+ l/Q1RIAAAiweKSm+1NQ1xAJgphBY8iwz8BaqI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+/dvo/FB8m1dpj3MPCy43opFPmU4YzdZEJqL7KBEdBM=;
- b=MVo/4sMHz1Pe8xTb7UomzLkDWMLJCXmlkXZ26BHlpLX5K+ckSehjZ6KocDlHYvY1FE
- +4e9G8AYP7sPC+fw5HE4WgzFYKnywrOs14bv7KQ3SViGvLs8JDCAKJEar+qvG1GEMdDy
- QSMfvf33YrpqtmuGnxOXi4DpNMRL2rDZy2+6LQ4qAY05OxpFVnZJTGK+4OtIB4Oj2hqM
- LaQrpt41Pd//ZcnK69ut9LLe0Zb0qzQkaU/4oi1Z1pxiebyG5QVrC/HSJOUgYnGF2h4n
- l3T4/nu+GrcgNnmd99c6otd5ZILOM7tbygPAqVW0672cs1B0WgPR9hV1+QWvj4UHMutv
- rH8g==
-X-Gm-Message-State: ABuFfoi4jvFXdzH4ludzMTsfYUjmzaRjaQmn0pJ1BPXGIsKPbqfCnvB3
- HsgKIHNIA9rJux24V9he5jVQFe8Y5eCJlgMYJkQ=
-X-Google-Smtp-Source: ACcGV613CulC8c7SGOVncGec/gfQncHatRWh69ojo1ulK2YsObDvWkWTYlO73YfpOQ3PInI54UcMTbrWzK/n7vhaGAs=
-X-Received: by 2002:a6b:bf86:: with SMTP id
- p128-v6mr7104033iof.156.1538012442258; 
- Wed, 26 Sep 2018 18:40:42 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=DFwqrzzDr3xGOOs7mqhftLHkD8lxO4pi0kmhvhoCsM4=;
+ b=OKUVuax37lisioTcG2ZodgwR4ObZ74aZKzC/ZubbMJU0Li5hatxLu21Q/baGN9wxqg
+ 9o8CGvUbrvuI/luRDsSofpBmQOuN2pQwTCYFmFJXTGwFmhLWNV+qYVMhwemPwjmQvA4K
+ QeTfPoqg4MvWXqTOLpfKE+qDQHI/mlLRgVws647kxHULtBVYnMeaks194t5oIXn7Pxql
+ BgBwjAwcm57fvIfmU3I05cJl+tiT3V4/tzSkmNn5zDDlM/mAFfWftnMTknMNI68rDfGn
+ ZKeePW34o2FldIH3yVozcDyzaggBY3AUOvixbcQJ6VdBbqlgF8eXHvnFH2w+hmkJtVvL
+ QsYg==
+X-Gm-Message-State: ABuFfogsVWB5yLfdbg2gBrIyvMOi+4pd4Dje39TD+jrE8dtMMcLDDnu2
+ Q28PHiBzDjM0zEWt2iCn/Mw0ISfwBITQVTj7CcA=
+X-Google-Smtp-Source: ACcGV62F6xgJagmjKzKPpVuZgcdocY8LC/5KOOEVeU3N+9/lJsOrB+p28TvR3nXa3C+KLXeMekoWg4TJoAPT326tJD8=
+X-Received: by 2002:a37:ae86:: with SMTP id
+ x128-v6mr6541286qke.25.1538017932456; 
+ Wed, 26 Sep 2018 20:12:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <AM6PR01MB40382A2AF6BB37B46FD74C1CCF170@AM6PR01MB4038.eurprd01.prod.exchangelabs.com>
- <CAARXrtmyz50-LrWh2UpfiPWuPLB3djkiKZUHFwfDhiN7qkEQ1A@mail.gmail.com>
- <AM6PR01MB4038E359689A3867507AAC7BCF150@AM6PR01MB4038.eurprd01.prod.exchangelabs.com>
-In-Reply-To: <AM6PR01MB4038E359689A3867507AAC7BCF150@AM6PR01MB4038.eurprd01.prod.exchangelabs.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Thu, 27 Sep 2018 09:40:27 +0800
-Message-ID: <CAARXrtm6zitU6c=BMxw+hug_98j_QfDW+Muk-e_0o1qvM-Ppww@mail.gmail.com>
-Subject: Re: Question on flashing firmware and bmc image
-To: pietro.maltoni@studio.unibo.it
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, a.bartolini@unibo.it
+References: <20180926215842.23125-1-jae.hyun.yoo@linux.intel.com>
+ <20180926215842.23125-3-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20180926215842.23125-3-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 27 Sep 2018 07:11:59 +0400
+Message-ID: <CACPK8XcKms88EcpT3soE6wLyAmvyiLfVkNeOQT0FgmY4eZoDrw@mail.gmail.com>
+Subject: Re: [PATCH i2c-next v3 2/3] i2c: aspeed: Add 'aspeed,timeout' DT
+ property reading code
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,102 +72,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Sep 2018 01:40:48 -0000
+X-List-Received-Date: Thu, 27 Sep 2018 03:12:16 -0000
 
-So what exactly netfn are you trying to use?
-Please check the code in
-https://github.com/openbmc/openpower-host-ipmi-oem/blob/master/oemhandler.c=
-pp#L225:
-only below netfn are implemented:
-* IPMI_CMD_PESEL
-* IPMI_CMD_PREP_FW_UPDATE
-* IPMI_CMD_RESET_BMC_PASSWORD
+On Thu, 27 Sep 2018 at 01:58, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>
+> This commit adds reading code of the 'aspeed,timeout' DT property
+> to set 'timeout' value in adapter configuration. This value still
+> case be configured through an I2C_TIMEOUT ioctl on cdev too.
+>
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> ---
+>  drivers/i2c/busses/i2c-aspeed.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+> index 8dc9161ced38..0d934ce0c028 100644
+> --- a/drivers/i2c/busses/i2c-aspeed.c
+> +++ b/drivers/i2c/busses/i2c-aspeed.c
+> @@ -115,6 +115,9 @@
+>  /* 0x18 : I2CD Slave Device Address Register   */
+>  #define ASPEED_I2CD_DEV_ADDR_MASK                      GENMASK(6, 0)
+>
+> +/* Timeout */
+> +#define ASPEED_I2C_BUS_TIMEOUT_US_DEFAULT              (5 * 1000 * 1000)
 
-On Thu, Sep 27, 2018 at 12:48 AM Pietro Maltoni
-<pietro.maltoni@studio.unibo.it> wrote:
+The 5 seconds time out is way too long. On a system that doesn't have
+functional i2c, this holds up boot for a long time as most i2c client
+drivers try to initialise their device and fail. I realise you're not
+changing the value, but we should pick a better default. 1 second?
+Half a second?
+
+> +
+>  enum aspeed_i2c_master_state {
+>         ASPEED_I2C_MASTER_INACTIVE,
+>         ASPEED_I2C_MASTER_START,
+> @@ -885,6 +888,7 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>         struct clk *parent_clk;
+>         struct resource *res;
+>         int irq, ret;
+> +       u32 timeout_us;
 >
-> Thank for your reply,
+>         bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
+>         if (!bus)
+> @@ -918,6 +922,11 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>                 bus->bus_frequency = 100000;
+>         }
 >
-> Now i see the openpower sensors and if I issue the ipmitool  sel elist co=
-mmand I see the OCC represented as follow:
+> +       ret = of_property_read_u32(pdev->dev.of_node, "aspeed,timeout",
+> +                                  &timeout_us);
+
+Can we make this binding generic? It's not specific to aspeed's
+hardware. Getting the value could even part of the i2c core.
+
+I read the previous thread with Wolfram. I think this would still fit
+with what Wolfram suggested, but please forgive my jetlagged brain if
+I've missed something.
+
+Cheers,
+
+Joel
+> +       if (ret)
+> +               timeout_us = ASPEED_I2C_BUS_TIMEOUT_US_DEFAULT;
+> +
+>         match = of_match_node(aspeed_i2c_bus_of_table, pdev->dev.of_node);
+>         if (!match)
+>                 bus->get_clk_reg_val = aspeed_i2c_24xx_get_clk_reg_val;
+> @@ -930,7 +939,7 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>         init_completion(&bus->cmd_complete);
+>         bus->adap.owner = THIS_MODULE;
+>         bus->adap.retries = 0;
+> -       bus->adap.timeout = 5 * HZ;
+> +       bus->adap.timeout = usecs_to_jiffies(timeout_us);
+>         bus->adap.algo = &aspeed_i2c_algo;
+>         bus->adap.dev.parent = &pdev->dev;
+>         bus->adap.dev.of_node = pdev->dev.of_node;
+> --
+> 2.19.0
 >
-> =E2=80=9C
-> occ_3_0050       | 08h | ok  |  0.0 | Device Enabled
-> =E2=80=9C
->
-> However when I try to issue ipmitool raw 0x3A command we do not get passt=
-hrough toward OCC, as it seems that the OCC netfn codes is not defined.
->
->
-> =E2=80=9CRAW Commands:  raw <netfn> <cmd> [data]
->
-> Network Function Codes:
->
->   VAL   HEX     STRING
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->   0     0x00    Chassis
->   2     0x02    Bridge
->   4     0x04    SensorEvent
->   6     0x06    Application
->   8     0x08    Firmware
->   10    0x0a    Storage
->   12    0x0c    Transport
-> =E2=80=9C
->
-> This is my version of BMC image
-> commit 282ba3dea1b56d620202e7ffe24cfdb671ceed6d
-> Author: Alexander Filippov <a.filippov@yadro.com>
-> Date:   Mon Sep 10 09:47:35 2018 +0300
->
-> And this is the pnor image version.
-> commit 4fd251a60984d2eb39ed5895a8f84b979f5d0b4a (HEAD -> master, origin/m=
-aster, origin/HEAD)
-> Merge: c50dae9 d8de440
-> Author: Corey Swenson <cswenson@us.ibm.com>
-> Date:   Tue Sep 4 12:18:44 2018 -0500
->
->
->
-> ________________________________
-> Da: Lei YU <mine260309@gmail.com>
-> Inviato: mercoled=C3=AC 26 settembre 2018 05:12
-> A: Pietro Maltoni
-> Cc: OpenBMC Maillist; Andrea Bartolini
-> Oggetto: Re: Question on flashing firmware and bmc image
->
-> The questions in the mail does not reflect to the title, hope you could u=
-se a
-> more specific title.
->
-> On Wed, Sep 26, 2018 at 7:53 AM Pietro Maltoni
-> <pietro.maltoni@studio.unibo.it> wrote:
->
-> > After installing it I've recognized that oem openpower commands and sen=
-sors are not available.
-> >
-> > For instance when doing ipmitool sdr elist I do not see openpower senso=
-rs(occ ones) as well as netfn in ipmi does not contain commands for the occ=
-.
->
-> What is the revision of your build?
-> The ipmi related configs are not complete for Palmetto, and there is a
-> [recent commit][1] to add part of the sensors for ipmi.
-> With the commit, ipmi sdr elist works ok.
-> If you are looking to adding more sensors, patches are welcome!
->
-> And what do you mean by "netfn in ipmi does not contain commands for the =
-occ"?
->
-> >
-> > By searching on the code I've recognized that these are in meta-openpow=
-er recipes. How can i enable them? Is there a standard procedure for enabli=
-ng them on openpower hardware or in palmetto?
->
-> Please refer to the below link as an example of ipmi config for Palmetto'=
-s
-> sensors.
->
->
-> [1]: https://github.com/openbmc/openbmc/commit/f47fb7cf87e6d69132f4ca1012=
-06dbf091097027#diff-d90eaa8cd7210f2f005894b7f7001d9d
