@@ -1,93 +1,58 @@
-Return-Path: <Justin.Lee1@dell.com>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.220; helo=esa2.dell-outbound.iphmx.com;
- envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.167.194; helo=mail-oi1-f194.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=Dell.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="oaF20/+j"; 
- dkim-atps=neutral
-X-Greylist: delayed 618 seconds by postgrey-1.36 at bilbo;
- Fri, 28 Sep 2018 03:56:57 AEST
-Received: from esa2.dell-outbound.iphmx.com (esa2.dell-outbound.iphmx.com
- [68.232.149.220])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
+ [209.85.167.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42LjDn0tv0zF37c;
- Fri, 28 Sep 2018 03:56:55 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1538071017; x=1569607017;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=eofVuyH+wk2wnjP+6fSPG/dEiZPf+y7EZX/YE2omn/M=;
- b=oaF20/+jKjmGXa2EiJnUKXFtDr+GP/BH9Leo63TeqnYzhorp5OCgDB/t
- RqHJyY0IzaE2r/XjFQNnklx2vEaH+LgE7sbihCWsDKj0+vf6wF0/GrDdM
- +ibhOrrAPUiKSOseQh7quFIMrEYsBIsRdvv+v/+sLdolRrpbVFQU33KT5 g=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2F9AADtFK1bhyeV50NbHAEBAQQBAQc?=
- =?us-ascii?q?EAQGBUYNzMoNqiBVfjWCDPZMVgXoLhGwCF4NxITQYAQMBAQIBAQIBAQIQAQE?=
- =?us-ascii?q?BCgsJCCkvgjUigmIBAQEBAgESERFFBQsCAQgaAiYCAgJFEAIEDg0agn+Begi?=
- =?us-ascii?q?ZPYlXAQEBbYEuig6BC4lzgheBEoJkLoVLgjSCVwKBKAGbaAYBApAmH4FHhFa?=
- =?us-ascii?q?JHZRzAgQCBAUCFIFCgg5wUIEegU+CMo4hjgGBHwEB?=
-X-IPAS-Result: =?us-ascii?q?A2F9AADtFK1bhyeV50NbHAEBAQQBAQcEAQGBUYNzMoNqi?=
- =?us-ascii?q?BVfjWCDPZMVgXoLhGwCF4NxITQYAQMBAQIBAQIBAQIQAQEBCgsJCCkvgjUig?=
- =?us-ascii?q?mIBAQEBAgESERFFBQsCAQgaAiYCAgJFEAIEDg0agn+BegiZPYlXAQEBbYEui?=
- =?us-ascii?q?g6BC4lzgheBEoJkLoVLgjSCVwKBKAGbaAYBApAmH4FHhFaJHZRzAgQCBAUCF?=
- =?us-ascii?q?IFCgg5wUIEegU+CMo4hjgGBHwEB?=
-Received: from mx0a-00154901.pphosted.com ([67.231.149.39])
- by esa2.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 27 Sep 2018 12:46:36 -0500
-Received: from pps.filterd (m0133268.ppops.net [127.0.0.1])
- by mx0a-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8RHc6dJ009723; Thu, 27 Sep 2018 13:46:36 -0400
-Received: from esa1.dell-outbound2.iphmx.com (esa1.dell-outbound2.iphmx.com
- [68.232.153.201])
- by mx0a-00154901.pphosted.com with ESMTP id 2mnfyqwth4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 27 Sep 2018 13:46:35 -0400
-From: <Justin.Lee1@Dell.com>
-Received: from ausxipps310.us.dell.com ([143.166.148.211])
- by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
- 27 Sep 2018 23:46:30 +0600
-X-LoopCount0: from 10.166.135.91
-X-IronPort-AV: E=Sophos;i="5.54,311,1534827600"; d="scan'208";a="255866010"
-To: <joel@jms.id.au>
-CC: <amithash@fb.com>, <vijaykhemka@fb.com>, <sam@mendozajonas.com>,
- <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
- <sdasari@fb.com>, <netdev@vger.kernel.org>, <christian@cmd.nu>
-Subject: RE: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
-Thread-Topic: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
-Thread-Index: AQHUVGQiHiJXHZ5Q3Euxbr6KTObLUqUAeN2AgAEqCQCAAKxhAIAA0qKAgAAQ0QD//8rz4IAAz1eAgACbTXA=
-Date: Thu, 27 Sep 2018 17:46:32 +0000
-Message-ID: <9553a4168a7e4134a3d6d7e2572bace0@AUSX13MPS306.AMER.DELL.COM>
-References: <20180925000840.4111212-1-vijaykhemka@fb.com>
- <CACPK8XcDExGvCNBcFqOOP+1zQFFs6pMao+7rsZrJFqxPgcY+1Q@mail.gmail.com>
- <F570466E-4F6C-4AE1-91E0-0B4ECC193BE0@fb.com>
- <7cd8a49a057f1032e126b1e104fcf61e4956e06d.camel@mendozajonas.com>
- <FC2694E0-2F55-4089-8544-668243C6ECA2@fb.com>
- <MWHPR15MB14861AED8F8AF652CE5E62B3B2150@MWHPR15MB1486.namprd15.prod.outlook.com>
- <5e9c8e3f8fd54845b15cd460efe9090d@AUSX13MPS306.AMER.DELL.COM>
- <CACPK8XfuXa19dGRqL+Ycdgh1LKmoQNuqGvtrrOgeNyvTZR01kQ@mail.gmail.com>
-In-Reply-To: <CACPK8XfuXa19dGRqL+Ycdgh1LKmoQNuqGvtrrOgeNyvTZR01kQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Llrs2ZSSzF37q;
+ Fri, 28 Sep 2018 05:54:52 +1000 (AEST)
+Received: by mail-oi1-f194.google.com with SMTP id k64-v6so3246588oia.13;
+ Thu, 27 Sep 2018 12:54:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=LxQxeMg3qQzlvwbSIdSa4I4cNVZis+K1vnNKhoQ57sA=;
+ b=MUxbbS8pGgQ48ph3xLr2SbmWUvakZdH4XsyEHDqum5QEo8VFlDWRe8rYrp45vXDoAZ
+ 13HQDjEt28+fRhpXm2lXBZd9PMQ+IdKdXP8Q/V/Ho1fCRxxNISBQEkd1V1ZTbUDYcEYN
+ n+giSbMpQ9FNBo/ohyHWiacxHEQ1dBO6LJPBDGZvx/Wmhys35uL6And4lZVUbIbiz4WG
+ 2SAam1sZLR7RLolTpX5fUywSIapxMgs/huAuU8sEom8D11wbQGUDSCh7oW72l+zss+RA
+ OszPl51S0H3hcTQ/guPhsQePvsMJu3tzogsHjg5a4jnXrqOwJPpcVyqwB4aDJum0+w2v
+ 1qEA==
+X-Gm-Message-State: ABuFfogYL3SiYqv/wPBnaCv50BnwdDXPUw9ccUysEz5zypyOqf4q1jo+
+ 6sxCp3PzUSxLJssA+KZ68w==
+X-Google-Smtp-Source: ACcGV61MI3p0yxE/f+/x4wTKKwn+nM4MKUeCXPrVmjmzROMlUlm3XY/PtOI0XQf7USSAr2o89AMEEA==
+X-Received: by 2002:aca:3946:: with SMTP id
+ g67-v6mr4174992oia.145.1538078090206; 
+ Thu, 27 Sep 2018 12:54:50 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id v20-v6sm1057734ote.48.2018.09.27.12.54.49
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 27 Sep 2018 12:54:49 -0700 (PDT)
+Date: Thu, 27 Sep 2018 14:54:49 -0500
+From: Rob Herring <robh@kernel.org>
+To: Eddie James <eajames@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, mark.rutland@arm.com,
+ devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ andrew@aj.id.au, openbmc@lists.ozlabs.org, robh+dt@kernel.org,
+ linux-media@vger.kernel.org, mchehab@kernel.org, joel@jms.id.au,
+ hverkuil@xs4all.nl, Eddie James <eajames@linux.ibm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: Add Aspeed Video Engine
+ binding documentation
+Message-ID: <20180927195449.GA25789@bogus>
+References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
+ <1537903629-14003-2-git-send-email-eajames@linux.ibm.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-27_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=644 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1809270164
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1537903629-14003-2-git-send-email-eajames@linux.ibm.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,19 +64,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Sep 2018 17:56:59 -0000
+X-List-Received-Date: Thu, 27 Sep 2018 19:54:53 -0000
 
-DQo+IFRoYW5rcyBmb3IgdGhlIG92ZXJ2aWV3LiBXZSBsb29rIGZvcndhcmQgdG8geW91ciBwYXRj
-aGVzOyBwbGVhc2UNCj4gaW5jbHVkZSB0aGUgc2FtZSBjYyBsaXN0IGFzIHRoaXMgc2VyaWVzLg0K
-DQo+IEkgdGhpbmsgaXQgbWFrZXMgc2Vuc2UgdG8gaGF2ZSBzb21lIE9FTSBOQ1NJIGhhbmRpbmcg
-cHVyZWx5IGluIHRoZQ0KPiBrZW5yZWwuIFRoaXMgd291bGQgYWxsb3cgZWcuIHRoZSBNQUMgYWRk
-cmVzcyBvZiBhbiBpbnRlcmZhY2UgdG8gYmUNCj4gY29ycmVjdCBhdCBib290LCB3aXRob3V0IHJl
-cXVpcmluZyB1c2Vyc3BhY2UgdG8gY29tZSB1cCBmaXJzdC4NCg0KPiBJIGhhdmUgYWxzbyBoZWFy
-ZCBzdG9yaWVzIG9mIHRlbXBlcmF0dXJlIHNlbnNvcnMgb3ZlciBOQ1NJLiBUaG9zZQ0KPiB3b3Vs
-ZCBtYWtlIHNlbnNlIHRvIGJlIGh3bW9uIGRyaXZlcnMsIHdoaWNoIGFnYWluIHdvdWxkIG1lYW4g
-aGFuZGxpbmcNCj4gdGhlbSBpbiB0aGUga2VybmVsLg0KDQo+IEp1c3RpbiwgVmlqYXksIGNhbiB5
-b3UgcGxlYXNlIGxpc3QgdGhlIGtub3duIE5DU0kgT0VNDQo+IGNvbW1hbmRzL2V4dGVuc2lvbnMg
-dGhhdCB3ZSBwbGFuIG9uIGltcGxlbWVudGluZz8NCg0KSW4gb3VyIGltcGxlbWVudGF0aW9uLCBB
-bGwgT0VNIGNvbW1hbmRzIGFyZSB0cmFuc3BhcmVudCB0byBLZXJuZWwuDQpXZSBkb24ndCBwbGFu
-IHRvIGFkZCBhbnkgc3BlY2lmaWMgaGFuZGxlciBpbiB0aGUgS2VybmVsLiANCg0KVGhhbmtzLA0K
-SnVzdGluDQo=
+On Tue, 25 Sep 2018 14:27:08 -0500, Eddie James wrote:
+> Document the bindings.
+> 
+> Signed-off-by: Eddie James <eajames@linux.ibm.com>
+> ---
+>  .../devicetree/bindings/media/aspeed-video.txt     | 26 ++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
+> 
+
+Reviewed-by: Rob Herring <robh@kernel.org>
