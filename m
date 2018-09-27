@@ -1,63 +1,46 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.210.66; helo=mail-ot1-f66.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42LdfS50DkzF36x;
- Fri, 28 Sep 2018 01:15:28 +1000 (AEST)
-Received: by mail-ot1-f66.google.com with SMTP id c13-v6so2872774otf.12;
- Thu, 27 Sep 2018 08:15:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=SGwwZPm5WLPYDXFV5cdVZJ7voZo5e5hoQb+hDntem7Y=;
- b=JaDYITPLx2qKnAQ5Kf+pduFQ+AQ9Whd93SQMBOqTX09HQVoSQFS2dmIEesRyPUK2fe
- anAkxo9RphRXQG8axPopXVxb6rIZDlYelBKoVY2Y6xUXymIt8dBQOtEsaQBmtMZDqNMe
- ea1OhlHxSEsojnrGIl5ktvl4K6BZI3aDspMWYAlpaFOa8MChsuFaroi6v66lv70N7HU3
- TQCoRoQQnezlPLjW+z9BQTJdMPjiZ74VftWlRwwJIB2zVHL5Buy6fiJmLw308ypdCS9W
- 4REjYYKK62Q6ljARdjhuMkFXKUUV73DHOZc5nHsqktruNDcUR4CsBBlTFk1abih0nev0
- dHKA==
-X-Gm-Message-State: ABuFfojkGmGQQadi4PyV2joue/aBZKO84gq8UMClsud3CzQMfXuw6k1Y
- rCU9UZrXtA7zVE2pdVQbDw==
-X-Google-Smtp-Source: ACcGV61ZWH3WKzRbd05MtOdnogHcxKTDl5kseE6Cw9w2QB+ROHhooA+dhK1d7iVPUNi0rgmTp39oCg==
-X-Received: by 2002:a9d:454c:: with SMTP id
- p12-v6mr7139515oti.105.1538061326125; 
- Thu, 27 Sep 2018 08:15:26 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id 19-v6sm740736oty.16.2018.09.27.08.15.25
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 27 Sep 2018 08:15:25 -0700 (PDT)
-Date: Thu, 27 Sep 2018 10:15:24 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42LgFd6nY3zF379;
+ Fri, 28 Sep 2018 02:27:33 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2018 09:27:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,311,1534834800"; d="scan'208";a="95437347"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.151])
+ ([10.7.153.151])
+ by orsmga002.jf.intel.com with ESMTP; 27 Sep 2018 09:27:30 -0700
+Subject: Re: [PATCH v8 01/12] dt-bindings: Add a document of PECI subsystem
+To: Rob Herring <robh@kernel.org>
 Cc: Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>,
- Juergen Gross <jgross@suse.com>,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
- openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH v8 07/12] dt-bindings: mfd: Add a document for PECI
- client MFD
-Message-ID: <20180927151524.GA16798@bogus>
+ Juergen Gross <jgross@suse.com>, Cyrille Pitchen
+ <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org
 References: <20180918215124.14003-1-jae.hyun.yoo@linux.intel.com>
- <20180918215124.14003-8-jae.hyun.yoo@linux.intel.com>
+ <20180918215124.14003-2-jae.hyun.yoo@linux.intel.com>
+ <20180927151055.GA11054@bogus>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <28aa0b24-8531-21e0-343c-78654937d7ff@linux.intel.com>
+Date: Thu, 27 Sep 2018 09:27:30 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180918215124.14003-8-jae.hyun.yoo@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20180927151055.GA11054@bogus>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,24 +52,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Sep 2018 15:15:29 -0000
+X-List-Received-Date: Thu, 27 Sep 2018 16:27:34 -0000
 
-On Tue, 18 Sep 2018 14:51:19 -0700, Jae Hyun Yoo wrote:
-> This commit adds a dt-bindings document for PECI client MFD.
+On 9/27/2018 8:10 AM, Rob Herring wrote:
+> On Tue, 18 Sep 2018 14:51:13 -0700, Jae Hyun Yoo wrote:
+>> This commit adds a document of generic PECI bus, adapter and client
+>> driver.
+>>
+>> Cc: Rob Herring <robh+dt@kernel.org>
+>> Cc: Mark Rutland <mark.rutland@arm.com>
+>> Cc: Andrew Jeffery <andrew@aj.id.au>
+>> Cc: Joel Stanley <joel@jms.id.au>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+>> Reviewed-by: James Feist <james.feist@linux.intel.com>
+>> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
+>> ---
+>>   .../devicetree/bindings/peci/peci.txt         | 43 +++++++++++++++++++
+>>   1 file changed, 43 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/peci/peci.txt
+>>
 > 
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Andrew Jeffery <andrew@aj.id.au>
-> Cc: James Feist <james.feist@linux.intel.com>
-> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
-> Cc: Joel Stanley <joel@jms.id.au>
-> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> ---
->  .../bindings/mfd/intel-peci-client.txt        | 34 +++++++++++++++++++
->  1 file changed, 34 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/mfd/intel-peci-client.txt
+> Reviewed-by: Rob Herring <robh@kernel.org>
 > 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Thanks for the review, Rob!
