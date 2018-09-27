@@ -1,55 +1,59 @@
-Return-Path: <robh@kernel.org>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=robh@kernel.org;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.210.65; helo=mail-ot1-f65.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="lXaqdfZ7"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42LXlg3ry3zF33P
- for <openbmc@lists.ozlabs.org>; Thu, 27 Sep 2018 21:34:39 +1000 (AEST)
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+ [209.85.210.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D0461215EC
- for <openbmc@lists.ozlabs.org>; Thu, 27 Sep 2018 11:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1538048076;
- bh=g6WUTW4M2gkmMrkGPpehGRiikbssFYddbz/aAcbuJc8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=lXaqdfZ7cMhNlql7kLNNhswRYUSZtbg6YLq3XgMSKBb9ekImmSonWqyrH7k/j5hWI
- dhk2kNt7hl5s+XicfnlcdreSpVlRC+8UC1/OPA0BdYUdIBvyWDp6nIlQNZBcw3Xj9W
- VsiFO4EsbsFZdFqe4qvxdcNUISauvJG66FSidc7I=
-Received: by mail-qk1-f169.google.com with SMTP id c13-v6so1320419qkm.4
- for <openbmc@lists.ozlabs.org>; Thu, 27 Sep 2018 04:34:35 -0700 (PDT)
-X-Gm-Message-State: ABuFfogStsM03UoVxs3poeUnxn4825szBjcFf9BL/9OpVqs2PlLe+11F
- DWhiv0+dIyxmoCAB5x5EZblJLWDKzCmVCb7DuQ==
-X-Google-Smtp-Source: ACcGV61w5potfGRZRfw99UamSohzCXfcJb23c3pEHjc2Xy0gjlG4MqNlfJK9Sn8F9Dc2KVsIPKoGsFYSh7si9pI1olY=
-X-Received: by 2002:a37:bec4:: with SMTP id
- o187-v6mr7407638qkf.326.1538048074967; 
- Thu, 27 Sep 2018 04:34:34 -0700 (PDT)
-MIME-Version: 1.0
-References: <20180919164712.4030353-1-vijaykhemka@fb.com>
- <20180926230026.GA26508@bogus>
- <CACPK8XctuiN8yphXFUmwXnpphb5LP2i8Cje_HAdsBwMWSvpsdA@mail.gmail.com>
-In-Reply-To: <CACPK8XctuiN8yphXFUmwXnpphb5LP2i8Cje_HAdsBwMWSvpsdA@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42LdYJ05RfzDq74;
+ Fri, 28 Sep 2018 01:10:59 +1000 (AEST)
+Received: by mail-ot1-f65.google.com with SMTP id e18-v6so2878230oti.8;
+ Thu, 27 Sep 2018 08:10:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=4rmAT+TBK8rmuU32ECuj5amVvTUzzKquEU5ecs/Pib0=;
+ b=Xw3lwZVzIOYyA0J+Q1O+OEsIuO6cnxGXUtjHLti15f68EgNLVsO9T/jVcYMcMY2YvY
+ zc3yxusr565b3t4m0pqr/67kbP56VuB0oKUu4rY8Oi61J/BtaPRkSGztjcH0Bc/Mipbj
+ 7KGPu2ET6h+y7mVX+tnoe0mBY+vcdW7Nlrzk8+hl7WM6crcreLNLXfRkGK5JdMZEB91R
+ D3iCprVKOUtA9HKhisGTsf8l46HuEB0ZeUtcEwhF9zXdLrfsJuVQOw4apV2q8Z48XIlY
+ ZAf2x8Rrek/6CU318McbzyEEruTGrr0P7R1hU5jFDd0fApp/wfsuoJFcaodCCGlPrzee
+ 5+Zw==
+X-Gm-Message-State: ABuFfogPIrIXz5HcEZC/QZI1PLXQhMjA6Hu6TgD9iPQwFqTLFkse4FHe
+ QayX2MPpmBve7/JVnMHw+g==
+X-Google-Smtp-Source: ACcGV61g76UxA65ZDbzxsgKp4CtbiNcESZY+BgcpUeDL4lkLRoNHByZYugZEh+F0OIMO8rcioEsKNg==
+X-Received: by 2002:a9d:2154:: with SMTP id
+ l20-v6mr1603341otd.370.1538061056516; 
+ Thu, 27 Sep 2018 08:10:56 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id z33-v6sm832474otz.71.2018.09.27.08.10.55
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 27 Sep 2018 08:10:55 -0700 (PDT)
+Date: Thu, 27 Sep 2018 10:10:55 -0500
 From: Rob Herring <robh@kernel.org>
-Date: Thu, 27 Sep 2018 06:34:23 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLvJDatz1oJG3CPY1LcFmqbRwdOeZ0-=Mpbbpq0jfmEwg@mail.gmail.com>
-Message-ID: <CAL_JsqLvJDatz1oJG3CPY1LcFmqbRwdOeZ0-=Mpbbpq0jfmEwg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ARM: dt-bindings: Add vendor prefix for Facebook
-To: Joel Stanley <joel@jms.id.au>
-Cc: Vijay Khemka <vijaykhemka@fb.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- devicetree@vger.kernel.org, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Juergen Gross <jgross@suse.com>,
+ Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
+ linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH v8 01/12] dt-bindings: Add a document of PECI subsystem
+Message-ID: <20180927151055.GA11054@bogus>
+References: <20180918215124.14003-1-jae.hyun.yoo@linux.intel.com>
+ <20180918215124.14003-2-jae.hyun.yoo@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180918215124.14003-2-jae.hyun.yoo@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,31 +65,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Sep 2018 11:34:40 -0000
+X-List-Received-Date: Thu, 27 Sep 2018 15:11:01 -0000
 
-On Wed, Sep 26, 2018 at 10:14 PM Joel Stanley <joel@jms.id.au> wrote:
->
-> On Thu, 27 Sep 2018 at 03:01, Rob Herring <robh@kernel.org> wrote:
-> >
-> > On Wed, 19 Sep 2018 09:47:10 -0700, Vijay Khemka wrote:
-> > > Initial introduction of Facebook TiogaPass family equipped with
-> > > Aspeed 2500 BMC SoC. TiogaPass is a x86 server development kit
-> > > with a ASPEED ast2500 BMC manufactured by Facebook.
-> > >
-> > > This adds an entry of Facebook in Documentation for vendor prefix
-> > >
-> > > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
-> > > ---
-> > >  Documentation/devicetree/bindings/vendor-prefixes.txt | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> >
-> > Reviewed-by: Rob Herring <robh@kernel.org>
->
-> Rob, can you take this through the dt tree? I've already merged
-> Vijay's device tree through the arm soc tree, and don't plan on
-> sending another pull req for 4.20 at this stage.
+On Tue, 18 Sep 2018 14:51:13 -0700, Jae Hyun Yoo wrote:
+> This commit adds a document of generic PECI bus, adapter and client
+> driver.
+> 
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Andrew Jeffery <andrew@aj.id.au>
+> Cc: Joel Stanley <joel@jms.id.au>
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+> Reviewed-by: James Feist <james.feist@linux.intel.com>
+> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
+> ---
+>  .../devicetree/bindings/peci/peci.txt         | 43 +++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/peci/peci.txt
+> 
 
-Sure, now applied.
-
-Rob
+Reviewed-by: Rob Herring <robh@kernel.org>
