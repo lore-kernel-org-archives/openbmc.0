@@ -1,53 +1,93 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <Justin.Lee1@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.220; helo=esa2.dell-outbound.iphmx.com;
+ envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=Dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="oaF20/+j"; 
+ dkim-atps=neutral
+X-Greylist: delayed 618 seconds by postgrey-1.36 at bilbo;
+ Fri, 28 Sep 2018 03:56:57 AEST
+Received: from esa2.dell-outbound.iphmx.com (esa2.dell-outbound.iphmx.com
+ [68.232.149.220])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Lhtl4XzjzF37b;
- Fri, 28 Sep 2018 03:41:18 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2018 10:41:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,311,1534834800"; d="scan'208";a="95465871"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.151])
- ([10.7.153.151])
- by orsmga002.jf.intel.com with ESMTP; 27 Sep 2018 10:41:16 -0700
-Subject: Re: [PATCH i2c-next v3 2/3] i2c: aspeed: Add 'aspeed,timeout' DT
- property reading code
-To: Joel Stanley <joel@jms.id.au>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Wolfram Sang <wsa@the-dreams.de>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Andrew Jeffery <andrew@aj.id.au>, linux-i2c@vger.kernel.org,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- devicetree <devicetree@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-aspeed@lists.ozlabs.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180926215842.23125-1-jae.hyun.yoo@linux.intel.com>
- <20180926215842.23125-3-jae.hyun.yoo@linux.intel.com>
- <CACPK8XcKms88EcpT3soE6wLyAmvyiLfVkNeOQT0FgmY4eZoDrw@mail.gmail.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <37ae7a11-44b6-88e5-0f4d-c97c70334ad4@linux.intel.com>
-Date: Thu, 27 Sep 2018 10:41:16 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XcKms88EcpT3soE6wLyAmvyiLfVkNeOQT0FgmY4eZoDrw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42LjDn0tv0zF37c;
+ Fri, 28 Sep 2018 03:56:55 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1538071017; x=1569607017;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=eofVuyH+wk2wnjP+6fSPG/dEiZPf+y7EZX/YE2omn/M=;
+ b=oaF20/+jKjmGXa2EiJnUKXFtDr+GP/BH9Leo63TeqnYzhorp5OCgDB/t
+ RqHJyY0IzaE2r/XjFQNnklx2vEaH+LgE7sbihCWsDKj0+vf6wF0/GrDdM
+ +ibhOrrAPUiKSOseQh7quFIMrEYsBIsRdvv+v/+sLdolRrpbVFQU33KT5 g=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2F9AADtFK1bhyeV50NbHAEBAQQBAQc?=
+ =?us-ascii?q?EAQGBUYNzMoNqiBVfjWCDPZMVgXoLhGwCF4NxITQYAQMBAQIBAQIBAQIQAQE?=
+ =?us-ascii?q?BCgsJCCkvgjUigmIBAQEBAgESERFFBQsCAQgaAiYCAgJFEAIEDg0agn+Begi?=
+ =?us-ascii?q?ZPYlXAQEBbYEuig6BC4lzgheBEoJkLoVLgjSCVwKBKAGbaAYBApAmH4FHhFa?=
+ =?us-ascii?q?JHZRzAgQCBAUCFIFCgg5wUIEegU+CMo4hjgGBHwEB?=
+X-IPAS-Result: =?us-ascii?q?A2F9AADtFK1bhyeV50NbHAEBAQQBAQcEAQGBUYNzMoNqi?=
+ =?us-ascii?q?BVfjWCDPZMVgXoLhGwCF4NxITQYAQMBAQIBAQIBAQIQAQEBCgsJCCkvgjUig?=
+ =?us-ascii?q?mIBAQEBAgESERFFBQsCAQgaAiYCAgJFEAIEDg0agn+BegiZPYlXAQEBbYEui?=
+ =?us-ascii?q?g6BC4lzgheBEoJkLoVLgjSCVwKBKAGbaAYBApAmH4FHhFaJHZRzAgQCBAUCF?=
+ =?us-ascii?q?IFCgg5wUIEegU+CMo4hjgGBHwEB?=
+Received: from mx0a-00154901.pphosted.com ([67.231.149.39])
+ by esa2.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 27 Sep 2018 12:46:36 -0500
+Received: from pps.filterd (m0133268.ppops.net [127.0.0.1])
+ by mx0a-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w8RHc6dJ009723; Thu, 27 Sep 2018 13:46:36 -0400
+Received: from esa1.dell-outbound2.iphmx.com (esa1.dell-outbound2.iphmx.com
+ [68.232.153.201])
+ by mx0a-00154901.pphosted.com with ESMTP id 2mnfyqwth4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 27 Sep 2018 13:46:35 -0400
+From: <Justin.Lee1@Dell.com>
+Received: from ausxipps310.us.dell.com ([143.166.148.211])
+ by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
+ 27 Sep 2018 23:46:30 +0600
+X-LoopCount0: from 10.166.135.91
+X-IronPort-AV: E=Sophos;i="5.54,311,1534827600"; d="scan'208";a="255866010"
+To: <joel@jms.id.au>
+CC: <amithash@fb.com>, <vijaykhemka@fb.com>, <sam@mendozajonas.com>,
+ <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
+ <sdasari@fb.com>, <netdev@vger.kernel.org>, <christian@cmd.nu>
+Subject: RE: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
+Thread-Topic: [PATCH] net/ncsi: Add NCSI OEM command for FB Tiogapass
+Thread-Index: AQHUVGQiHiJXHZ5Q3Euxbr6KTObLUqUAeN2AgAEqCQCAAKxhAIAA0qKAgAAQ0QD//8rz4IAAz1eAgACbTXA=
+Date: Thu, 27 Sep 2018 17:46:32 +0000
+Message-ID: <9553a4168a7e4134a3d6d7e2572bace0@AUSX13MPS306.AMER.DELL.COM>
+References: <20180925000840.4111212-1-vijaykhemka@fb.com>
+ <CACPK8XcDExGvCNBcFqOOP+1zQFFs6pMao+7rsZrJFqxPgcY+1Q@mail.gmail.com>
+ <F570466E-4F6C-4AE1-91E0-0B4ECC193BE0@fb.com>
+ <7cd8a49a057f1032e126b1e104fcf61e4956e06d.camel@mendozajonas.com>
+ <FC2694E0-2F55-4089-8544-668243C6ECA2@fb.com>
+ <MWHPR15MB14861AED8F8AF652CE5E62B3B2150@MWHPR15MB1486.namprd15.prod.outlook.com>
+ <5e9c8e3f8fd54845b15cd460efe9090d@AUSX13MPS306.AMER.DELL.COM>
+ <CACPK8XfuXa19dGRqL+Ycdgh1LKmoQNuqGvtrrOgeNyvTZR01kQ@mail.gmail.com>
+In-Reply-To: <CACPK8XfuXa19dGRqL+Ycdgh1LKmoQNuqGvtrrOgeNyvTZR01kQ@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-09-27_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=644 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1809270164
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,47 +99,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Sep 2018 17:41:20 -0000
+X-List-Received-Date: Thu, 27 Sep 2018 17:56:59 -0000
 
-Hi Joel,
-
-On 9/26/2018 8:11 PM, Joel Stanley wrote:
-> On Thu, 27 Sep 2018 at 01:58, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->>
->> +/* Timeout */
->> +#define ASPEED_I2C_BUS_TIMEOUT_US_DEFAULT              (5 * 1000 * 1000)
-> 
-> The 5 seconds time out is way too long. On a system that doesn't have
-> functional i2c, this holds up boot for a long time as most i2c client
-> drivers try to initialise their device and fail. I realise you're not
-> changing the value, but we should pick a better default. 1 second?
-> Half a second?
-> 
-
-I agree with you. We could probably use 1 second as default which can
-cover the most of general cases. If so, we don't need to make the
-default setting in this driver because i2c-core-base will default
-adap->timeout to 1 second if the value is 0 when a driver registers an
-adapter. Will fix this code.
-
->>
->> +       ret = of_property_read_u32(pdev->dev.of_node, "aspeed,timeout",
->> +                                  &timeout_us);
-> 
-> Can we make this binding generic? It's not specific to aspeed's
-> hardware. Getting the value could even part of the i2c core.
-> 
-> I read the previous thread with Wolfram. I think this would still fit
-> with what Wolfram suggested, but please forgive my jetlagged brain if
-> I've missed something.
-> 
-
-It followed the way of the existing i2c-mpc driver uses 'fsl,timeout'
-for the same purpose. Though, I also want to make it as a generic as you
-suggested like 'timeout' in milliseconds unit, not in microseconds unit.
-If making it a generic property is acceptable, I'll fix it too.
-
-Wolfram, can you please share your thought on it?
-
-Thanks,
-Jae
+DQo+IFRoYW5rcyBmb3IgdGhlIG92ZXJ2aWV3LiBXZSBsb29rIGZvcndhcmQgdG8geW91ciBwYXRj
+aGVzOyBwbGVhc2UNCj4gaW5jbHVkZSB0aGUgc2FtZSBjYyBsaXN0IGFzIHRoaXMgc2VyaWVzLg0K
+DQo+IEkgdGhpbmsgaXQgbWFrZXMgc2Vuc2UgdG8gaGF2ZSBzb21lIE9FTSBOQ1NJIGhhbmRpbmcg
+cHVyZWx5IGluIHRoZQ0KPiBrZW5yZWwuIFRoaXMgd291bGQgYWxsb3cgZWcuIHRoZSBNQUMgYWRk
+cmVzcyBvZiBhbiBpbnRlcmZhY2UgdG8gYmUNCj4gY29ycmVjdCBhdCBib290LCB3aXRob3V0IHJl
+cXVpcmluZyB1c2Vyc3BhY2UgdG8gY29tZSB1cCBmaXJzdC4NCg0KPiBJIGhhdmUgYWxzbyBoZWFy
+ZCBzdG9yaWVzIG9mIHRlbXBlcmF0dXJlIHNlbnNvcnMgb3ZlciBOQ1NJLiBUaG9zZQ0KPiB3b3Vs
+ZCBtYWtlIHNlbnNlIHRvIGJlIGh3bW9uIGRyaXZlcnMsIHdoaWNoIGFnYWluIHdvdWxkIG1lYW4g
+aGFuZGxpbmcNCj4gdGhlbSBpbiB0aGUga2VybmVsLg0KDQo+IEp1c3RpbiwgVmlqYXksIGNhbiB5
+b3UgcGxlYXNlIGxpc3QgdGhlIGtub3duIE5DU0kgT0VNDQo+IGNvbW1hbmRzL2V4dGVuc2lvbnMg
+dGhhdCB3ZSBwbGFuIG9uIGltcGxlbWVudGluZz8NCg0KSW4gb3VyIGltcGxlbWVudGF0aW9uLCBB
+bGwgT0VNIGNvbW1hbmRzIGFyZSB0cmFuc3BhcmVudCB0byBLZXJuZWwuDQpXZSBkb24ndCBwbGFu
+IHRvIGFkZCBhbnkgc3BlY2lmaWMgaGFuZGxlciBpbiB0aGUgS2VybmVsLiANCg0KVGhhbmtzLA0K
+SnVzdGluDQo=
