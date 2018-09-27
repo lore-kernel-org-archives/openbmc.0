@@ -1,65 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
+ (client-ip=2607:f8b0:4864:20::842; helo=mail-qt1-x842.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="ObuFSdcB"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="fP9nYHI4"; 
  dkim-atps=neutral
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42LKbz4rWVzF3Ll;
- Thu, 27 Sep 2018 13:12:14 +1000 (AEST)
-Received: by mail-qk1-x742.google.com with SMTP id a85-v6so736108qkg.3;
- Wed, 26 Sep 2018 20:12:14 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42LKg224c0zF3Ll
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Sep 2018 13:14:54 +1000 (AEST)
+Received: by mail-qt1-x842.google.com with SMTP id l2-v6so1208993qtr.12
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Sep 2018 20:14:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DFwqrzzDr3xGOOs7mqhftLHkD8lxO4pi0kmhvhoCsM4=;
- b=ObuFSdcBvXNwY/MeYSXYaQTb1uiDhiGnxvV90FGneI6FWC2ybHb4C3dKrfAIDxBQrT
- OzW9xx8KaZVDlZ8kKF1Y1bXt/GNabZ25N9R7suIeo92u/rvFclM4xuvggCNAssaPoBvO
- l/Q1RIAAAiweKSm+1NQ1xAJgphBY8iwz8BaqI=
+ :cc; bh=cKgLph78qRZFq6tvtp1QjFO+mqXdlSWTwvpo7hDQH2I=;
+ b=fP9nYHI4Eo/KZnqM4tDDUEwkAGKd0cnxNjhoGFmJN35OX1le7rkvhvMW6CTxGn9M0b
+ 3UkSu+Rw3dJGPt3TmJzL2/wd6NBHZwoyMd2zpkn7omrwqMmjdeY3yoQzdb0uY5vu9DcT
+ KQymykkoqQEDxBOoWwBbBm9ZCdtfjM2XgjUP4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=DFwqrzzDr3xGOOs7mqhftLHkD8lxO4pi0kmhvhoCsM4=;
- b=OKUVuax37lisioTcG2ZodgwR4ObZ74aZKzC/ZubbMJU0Li5hatxLu21Q/baGN9wxqg
- 9o8CGvUbrvuI/luRDsSofpBmQOuN2pQwTCYFmFJXTGwFmhLWNV+qYVMhwemPwjmQvA4K
- QeTfPoqg4MvWXqTOLpfKE+qDQHI/mlLRgVws647kxHULtBVYnMeaks194t5oIXn7Pxql
- BgBwjAwcm57fvIfmU3I05cJl+tiT3V4/tzSkmNn5zDDlM/mAFfWftnMTknMNI68rDfGn
- ZKeePW34o2FldIH3yVozcDyzaggBY3AUOvixbcQJ6VdBbqlgF8eXHvnFH2w+hmkJtVvL
- QsYg==
-X-Gm-Message-State: ABuFfogsVWB5yLfdbg2gBrIyvMOi+4pd4Dje39TD+jrE8dtMMcLDDnu2
- Q28PHiBzDjM0zEWt2iCn/Mw0ISfwBITQVTj7CcA=
-X-Google-Smtp-Source: ACcGV62F6xgJagmjKzKPpVuZgcdocY8LC/5KOOEVeU3N+9/lJsOrB+p28TvR3nXa3C+KLXeMekoWg4TJoAPT326tJD8=
-X-Received: by 2002:a37:ae86:: with SMTP id
- x128-v6mr6541286qke.25.1538017932456; 
- Wed, 26 Sep 2018 20:12:12 -0700 (PDT)
+ bh=cKgLph78qRZFq6tvtp1QjFO+mqXdlSWTwvpo7hDQH2I=;
+ b=cZbVVLDiKKkhQWrWL++3yYIzWuCIoKPkP/BY5yOmz9NYpu8WNvDC/7gVNxwO9rqQEx
+ QSVYW1qun4uSfRzAqXp4EWT920+9roGiWniMhV5v6NpV4xV5OOlJKh1Ukyi0DlW7lGpq
+ HQpzXi/vHHf7Hxylw0jKeJqgluoWZiwuKdlmYkvSE5X+f/O7XUMECGzNFFou7VK2qE7s
+ 2rnsHuNVEW0Kw2atv+CGN0W+G9UKmgmaNcHNL5en70HtbryOttySYnzcsaSkkygIgo5c
+ HaKzBU6uoO3VXAIYKnEgLr7Mo06yVLpwarHhylbCvLTuoyT+qrLZ9RdQBrwnOWAHexZp
+ lwug==
+X-Gm-Message-State: ABuFfoipIlwQQeoB/WxSrnOSb1OUlBgidENKohti7JC3JenDH7KVmPMO
+ QuLrqE9Z1oH96fRa4lzpBwjIRbgs4h5VkomTP8M=
+X-Google-Smtp-Source: ACcGV6007fHWRnnrvcMDW8W1E1F42/pDdrpf7B9B31x8fUy+6zcAxz//5By621sDkL3EDiYPWpL6bVTjFfGlF9pj24A=
+X-Received: by 2002:a0c:eac3:: with SMTP id y3-v6mr6388549qvp.89.1538018091779; 
+ Wed, 26 Sep 2018 20:14:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180926215842.23125-1-jae.hyun.yoo@linux.intel.com>
- <20180926215842.23125-3-jae.hyun.yoo@linux.intel.com>
-In-Reply-To: <20180926215842.23125-3-jae.hyun.yoo@linux.intel.com>
+References: <20180919164712.4030353-1-vijaykhemka@fb.com>
+ <20180926230026.GA26508@bogus>
+In-Reply-To: <20180926230026.GA26508@bogus>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 27 Sep 2018 07:11:59 +0400
-Message-ID: <CACPK8XcKms88EcpT3soE6wLyAmvyiLfVkNeOQT0FgmY4eZoDrw@mail.gmail.com>
-Subject: Re: [PATCH i2c-next v3 2/3] i2c: aspeed: Add 'aspeed,timeout' DT
- property reading code
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Wolfram Sang <wsa@the-dreams.de>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+Date: Thu, 27 Sep 2018 07:14:39 +0400
+Message-ID: <CACPK8XctuiN8yphXFUmwXnpphb5LP2i8Cje_HAdsBwMWSvpsdA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] ARM: dt-bindings: Add vendor prefix for Facebook
+To: Rob Herring <robh@kernel.org>
+Cc: vijaykhemka@fb.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
  devicetree <devicetree@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -72,80 +63,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Sep 2018 03:12:16 -0000
+X-List-Received-Date: Thu, 27 Sep 2018 03:14:54 -0000
 
-On Thu, 27 Sep 2018 at 01:58, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+On Thu, 27 Sep 2018 at 03:01, Rob Herring <robh@kernel.org> wrote:
 >
-> This commit adds reading code of the 'aspeed,timeout' DT property
-> to set 'timeout' value in adapter configuration. This value still
-> case be configured through an I2C_TIMEOUT ioctl on cdev too.
+> On Wed, 19 Sep 2018 09:47:10 -0700, Vijay Khemka wrote:
+> > Initial introduction of Facebook TiogaPass family equipped with
+> > Aspeed 2500 BMC SoC. TiogaPass is a x86 server development kit
+> > with a ASPEED ast2500 BMC manufactured by Facebook.
+> >
+> > This adds an entry of Facebook in Documentation for vendor prefix
+> >
+> > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+> > ---
+> >  Documentation/devicetree/bindings/vendor-prefixes.txt | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
 >
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> ---
->  drivers/i2c/busses/i2c-aspeed.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-> index 8dc9161ced38..0d934ce0c028 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -115,6 +115,9 @@
->  /* 0x18 : I2CD Slave Device Address Register   */
->  #define ASPEED_I2CD_DEV_ADDR_MASK                      GENMASK(6, 0)
->
-> +/* Timeout */
-> +#define ASPEED_I2C_BUS_TIMEOUT_US_DEFAULT              (5 * 1000 * 1000)
+> Reviewed-by: Rob Herring <robh@kernel.org>
 
-The 5 seconds time out is way too long. On a system that doesn't have
-functional i2c, this holds up boot for a long time as most i2c client
-drivers try to initialise their device and fail. I realise you're not
-changing the value, but we should pick a better default. 1 second?
-Half a second?
-
-> +
->  enum aspeed_i2c_master_state {
->         ASPEED_I2C_MASTER_INACTIVE,
->         ASPEED_I2C_MASTER_START,
-> @@ -885,6 +888,7 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
->         struct clk *parent_clk;
->         struct resource *res;
->         int irq, ret;
-> +       u32 timeout_us;
->
->         bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
->         if (!bus)
-> @@ -918,6 +922,11 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
->                 bus->bus_frequency = 100000;
->         }
->
-> +       ret = of_property_read_u32(pdev->dev.of_node, "aspeed,timeout",
-> +                                  &timeout_us);
-
-Can we make this binding generic? It's not specific to aspeed's
-hardware. Getting the value could even part of the i2c core.
-
-I read the previous thread with Wolfram. I think this would still fit
-with what Wolfram suggested, but please forgive my jetlagged brain if
-I've missed something.
+Rob, can you take this through the dt tree? I've already merged
+Vijay's device tree through the arm soc tree, and don't plan on
+sending another pull req for 4.20 at this stage.
 
 Cheers,
 
 Joel
-> +       if (ret)
-> +               timeout_us = ASPEED_I2C_BUS_TIMEOUT_US_DEFAULT;
-> +
->         match = of_match_node(aspeed_i2c_bus_of_table, pdev->dev.of_node);
->         if (!match)
->                 bus->get_clk_reg_val = aspeed_i2c_24xx_get_clk_reg_val;
-> @@ -930,7 +939,7 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
->         init_completion(&bus->cmd_complete);
->         bus->adap.owner = THIS_MODULE;
->         bus->adap.retries = 0;
-> -       bus->adap.timeout = 5 * HZ;
-> +       bus->adap.timeout = usecs_to_jiffies(timeout_us);
->         bus->adap.algo = &aspeed_i2c_algo;
->         bus->adap.dev.parent = &pdev->dev;
->         bus->adap.dev.of_node = pdev->dev.of_node;
-> --
-> 2.19.0
->
