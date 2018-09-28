@@ -1,84 +1,56 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <3pmiuWwUKBxU5F8J319916z.x979Az8w7x63DED.9K6vwD.9C1@flex--kunyi.bounces.google.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=flex--kunyi.bounces.google.com
+ (client-ip=2607:f8b0:4864:20::14a; helo=mail-it1-x14a.google.com;
+ envelope-from=3pmiuwwukbxu5f8j319916z.x979az8w7x63ded.9k6vwd.9c1@flex--kunyi.bounces.google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="hO8CPVWl"; 
+ dkim-atps=neutral
+Received: from mail-it1-x14a.google.com (mail-it1-x14a.google.com
+ [IPv6:2607:f8b0:4864:20::14a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42MGrV03BRzF3Rf
- for <openbmc@lists.ozlabs.org>; Sat, 29 Sep 2018 02:11:21 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8SGBJlg154043
- for <openbmc@lists.ozlabs.org>; Fri, 28 Sep 2018 12:11:19 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2msq49h9xv-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 28 Sep 2018 12:11:16 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 28 Sep 2018 12:09:20 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 28 Sep 2018 12:09:16 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w8SG9F6Z44302494
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 28 Sep 2018 16:09:15 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BACC9B2064;
- Fri, 28 Sep 2018 12:07:32 -0400 (EDT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DCBE7B2068;
- Fri, 28 Sep 2018 12:07:31 -0400 (EDT)
-Received: from [9.41.179.222] (unknown [9.41.179.222])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri, 28 Sep 2018 12:07:31 -0400 (EDT)
-Subject: Re: [PATCH v3 0/2] media: platform: Add Aspeed Video Engine Driver
-To: Hans Verkuil <hverkuil@xs4all.nl>, Eddie James <eajames@linux.ibm.com>,
- linux-kernel@vger.kernel.org
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org, mchehab@kernel.org,
- linux-media@vger.kernel.org
-References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
- <71bf665e-6d9b-a8f9-8e8f-7354dd095cc9@xs4all.nl>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Fri, 28 Sep 2018 11:09:14 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <71bf665e-6d9b-a8f9-8e8f-7354dd095cc9@xs4all.nl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18092816-0040-0000-0000-0000047819B7
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009786; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000267; SDB=6.01094939; UDB=6.00566044; IPR=6.00874975; 
- MB=3.00023544; MTD=3.00000008; XFM=3.00000015; UTC=2018-09-28 16:09:19
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18092816-0041-0000-0000-00000880212E
-Message-Id: <89e848d2-8155-85be-18a8-11da4614c6c2@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-28_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1809280162
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42MJwr6HBTzF3J6
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Sep 2018 03:45:12 +1000 (AEST)
+Received: by mail-it1-x14a.google.com with SMTP id t18-v6so3243879ite.1
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Sep 2018 10:45:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=1ufm09luRqbju2ITDtXWH71bVbANa3y/xUheH7hlRZo=;
+ b=hO8CPVWlxs3WRBpt+84GWEdUTAvvKHztFrPzSO7p4EoaJOUvI+WUNgAEus3Q2gJI8s
+ iTV1LKF1XNxh833/4YqiRxqdyhui4n/FmbG2Bd1ub+bMdG+gUq5wNjl2O2nm1htOB8qp
+ 5i7n1q0kPRNfV4PCGB0zUqUmlAkEhcTi/xn5XVKd6KsekzfptoMqe/h18sQcvFPGH1ZX
+ okrE5KnwkvukOpivIp+NjtVVWkaqNwKh6lR+KKd8N6j1NrE6JdohVntHaeNWz8CeF+rQ
+ 8SwsU5W1mkK9eF7yxffARp/uwzGizGi/Q3gK/y9r7+IXZ3CxL4zfYCkgT/GEjw8J0Hm4
+ WIgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=1ufm09luRqbju2ITDtXWH71bVbANa3y/xUheH7hlRZo=;
+ b=fyGioPy28CIGszqHEHnpASwu4yPp87l09Xapu88hwHnIubIyJwbpBmZnWiqQDkSJ/6
+ MRr+hne+nUmTq43A2ctiby815XIGPbW/5VteZwmO005vlF586xbWYWw+OJwSbxiXYH8I
+ BpddIoNsaflNO4mBwyWmWZYGA22EBa/39nlGXTF6LlLgE3TA/iaJIcI6g49NHWgnX3yo
+ PWmQk5BXiK7DC6YQQH/AAyMn+NuAsqe7Nc9w5+DIlmYxqyiPn4pXMd+FiX/+d0lt1te5
+ +MykSekIjvRX6yYBrGXbVXkxyEm+Vo5uDYk0A1vhRAtFayVCsrNacuS5VPayDBBUuF9j
+ la+Q==
+X-Gm-Message-State: ABuFfojzdov4oMF037zbdbBwjzRFTILY83PyAbpy8kQN5ffsp6O2aZfS
+ XSwG/7qxRoOFAG82LTt8ytKR3xwBDQ==
+X-Google-Smtp-Source: ACcGV62G/XJoB1eY6wrhWfcGzanVe+uG9WHa+cpo4/6ippu3Z87jYx4hlEMTYAM+YN+/4GoKYGWImFTyWw==
+X-Received: by 2002:a24:2414:: with SMTP id f20-v6mr2388096ita.0.1538156710841; 
+ Fri, 28 Sep 2018 10:45:10 -0700 (PDT)
+Date: Fri, 28 Sep 2018 10:45:00 -0700
+Message-Id: <20180928174500.18538-1-kunyi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.19.0.605.g01d371f741-goog
+Subject: [PATCH] hwmon: (adm1275): Add device tree param for shunt resistor
+From: Kun Yi <kunyi@google.com>
+To: linux@roeck-us.net, linux-hwmon@vger.kernel.org
+Cc: rlippert@google.com, benjaminfair@google.com, openbmc@lists.ozlabs.org, 
+ Kun Yi <kunyi@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,174 +62,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Sep 2018 16:11:22 -0000
+X-List-Received-Date: Fri, 28 Sep 2018 17:45:17 -0000
 
+The ADM series of hotswap controllers support extending
+the current measurement range by using a sensing resistor
+value other than the typical 1 mOhm. For example, using a 0.5 mOhm
+sensing resistor doubles the maximal current can be measured.
 
+Current driver assumes a shunt resistor value of 1 mOhm in calculation,
+meaning for other resistor values, hwmon will report scaled
+current/power measurements. This patch adds a device tree parameter so
+that individual boards can configure its shunt resistor value.
 
-On 09/28/2018 06:45 AM, Hans Verkuil wrote:
-> Hi Eddie,
->
-> On 09/25/2018 09:27 PM, Eddie James wrote:
->> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
->> can capture and compress video data from digital or analog sources. With
->> the Aspeed chip acting as a service processor, the Video Engine can
->> capture the host processor graphics output.
->>
->> This series adds a V4L2 driver for the VE, providing the usual V4L2 streaming
->> interface by way of videobuf2. Each frame, the driver triggers the hardware to
->> capture the host graphics output and compress it to JPEG format.
-> This is starting to look really nice. Are the performance issues you had originally
-> with the streaming API now solved?
+Signed-off-by: Kun Yi <kunyi@google.com>
+---
+ .../devicetree/bindings/hwmon/adm1275.txt     | 19 +++++++++++++++++++
+ Documentation/hwmon/adm1275                   |  3 +++
+ drivers/hwmon/pmbus/adm1275.c                 | 15 +++++++++++++--
+ 3 files changed, 35 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/adm1275.txt
 
-Yes, I haven't had the time to properly benchmark it now, but it is at 
-least as responsive as before, and using less memory now, so we're happy 
-with it :)
-
->
-> I reviewed patch 2/2 and I think it is best if you incorporate my comments and post
-> a v4. At that point I will take a closer look at the DV_TIMINGS implementation in the
-> driver, esp. enum_dv_timings and dv_timings_cap.
->
-> In any case, I am much happier about this v3, this was a big step forward.
-
-Thanks! I will address your comments for v4.
-
-Thanks for the detailed review!
-Eddie
-
->
-> Thank you for all your work!
->
-> 	Hans
->
->> I was unable to cross compile v4l2-compliance for ARM with our OpenBMC
->> toolchain. Although bootstrap, configure, and make were successful, no binaries
->> were generated... I was able to build v4l-utils 1.12.3 from the OpenEmbedded
->> project, with the output below:
->>
->> v4l2-compliance SHA   : not available
->>
->> Driver Info:
->> 	Driver name   : aspeed-video
->> 	Card type     : Aspeed Video Engine
->> 	Bus info      : platform:aspeed-video
->> 	Driver version: 4.18.8
->> 	Capabilities  : 0x85200001
->> 		Video Capture
->> 		Read/Write
->> 		Streaming
->> 		Extended Pix Format
->> 		Device Capabilities
->> 	Device Caps   : 0x05200001
->> 		Video Capture
->> 		Read/Write
->> 		Streaming
->> 		Extended Pix Format
->>
->> Compliance test for device /dev/video0 (not using libv4l2):
->>
->> Required ioctls:
->> 	test VIDIOC_QUERYCAP: OK
->>
->> Allow for multiple opens:
->> 	test second video open: OK
->> 	test VIDIOC_QUERYCAP: OK
->> 	test VIDIOC_G/S_PRIORITY: OK
->> 	test for unlimited opens: OK
->>
->> Debug ioctls:
->> 	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
->> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
->>
->> Input ioctls:
->> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
->> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
->> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
->> 	test VIDIOC_G/S/ENUMINPUT: OK
->> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
->> 	Inputs: 1 Audio Inputs: 0 Tuners: 0
->>
->> Output ioctls:
->> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
->> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
->> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
->> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
->> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
->>
->> Input/Output configuration ioctls:
->> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
->> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK
->> 	test VIDIOC_DV_TIMINGS_CAP: OK
->> 	test VIDIOC_G/S_EDID: OK
->>
->> Test input 0:
->>
->> 	Control ioctls:
->> 		test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
->> 		test VIDIOC_QUERYCTRL: OK
->> 		test VIDIOC_G/S_CTRL: OK
->> 		test VIDIOC_G/S/TRY_EXT_CTRLS: OK
->> 		warn: ../../../v4l-utils-1.12.3/utils/v4l2-compliance/v4l2-test-controls.cpp(811): V4L2_CID_DV_RX_POWER_PRESENT not found for input 0
->> 		test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
->> 		test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
->> 		Standard Controls: 3 Private Controls: 0
->>
->> 	Format ioctls:
->> 		test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
->> 		test VIDIOC_G/S_PARM: OK
->> 		test VIDIOC_G_FBUF: OK (Not Supported)
->> 		test VIDIOC_G_FMT: OK
->> 		test VIDIOC_TRY_FMT: OK
->> 		test VIDIOC_S_FMT: OK
->> 		test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
->> 		test Cropping: OK (Not Supported)
->> 		test Composing: OK (Not Supported)
->> 		test Scaling: OK (Not Supported)
->>
->> 	Codec ioctls:
->> 		test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
->> 		test VIDIOC_G_ENC_INDEX: OK (Not Supported)
->> 		test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
->>
->> 	Buffer ioctls:
->> 		test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
->> 		test VIDIOC_EXPBUF: OK (Not Supported)
->>
->> Test input 0:
->>
->> Streaming ioctls:
->> 	test read/write: OK
->> 	test MMAP: OK
->> 	test USERPTR: OK (Not Supported)
->> 	test DMABUF: OK (Not Supported)
->>
->>
->> Total: 47, Succeeded: 47, Failed: 0, Warnings: 1
->>
->> Changes since v2:
->>   - Switch to streaming interface. This involved a lot of changes.
->>   - Rework memory allocation due to using videobuf2 buffers, but also only
->>     allocate the necessary size of source buffer rather than the max size
->>
->> Changes since v1:
->>   - Removed le32_to_cpu calls for JPEG header data
->>   - Reworked v4l2 ioctls to be compliant.
->>   - Added JPEG controls
->>   - Updated devicetree docs according to Rob's suggestions.
->>   - Added myself to MAINTAINERS
->>
->> Eddie James (2):
->>    dt-bindings: media: Add Aspeed Video Engine binding documentation
->>    media: platform: Add Aspeed Video Engine driver
->>
->>   .../devicetree/bindings/media/aspeed-video.txt     |   26 +
->>   MAINTAINERS                                        |    8 +
->>   drivers/media/platform/Kconfig                     |    8 +
->>   drivers/media/platform/Makefile                    |    1 +
->>   drivers/media/platform/aspeed-video.c              | 1645 ++++++++++++++++++++
->>   5 files changed, 1688 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
->>   create mode 100644 drivers/media/platform/aspeed-video.c
->>
+diff --git a/Documentation/devicetree/bindings/hwmon/adm1275.txt b/Documentation/devicetree/bindings/hwmon/adm1275.txt
+new file mode 100644
+index 000000000000..a182fa195ed1
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/adm1275.txt
+@@ -0,0 +1,19 @@
++adm1275 properties
++
++Required properties:
++- compatible: Must be one of the supported compatible strings in
++  Documentation/hwmon/adm1275
++- reg: I2C address
++
++Optional properties:
++
++- shunt-resistor-micro-ohms
++	Shunt resistor value in micro-Ohm
++
++Example:
++
++adm1272@10 {
++	compatible = "adi,adm1272";
++	reg = <0x10>;
++	shunt-resistor-micro-ohms = <500>;
++};
+diff --git a/Documentation/hwmon/adm1275 b/Documentation/hwmon/adm1275
+index 39033538eb03..5e277b0d91ce 100644
+--- a/Documentation/hwmon/adm1275
++++ b/Documentation/hwmon/adm1275
+@@ -58,6 +58,9 @@ The ADM1075, unlike many other PMBus devices, does not support internal voltage
+ or current scaling. Reported voltages, currents, and power are raw measurements,
+ and will typically have to be scaled.
+ 
++The shunt value in micro-ohms can be set via device tree at compile-time. Please
++refer to the Documentation/devicetree/bindings/hwmon/adm1275.txt for bindings
++if the device tree is used.
+ 
+ Platform data support
+ ---------------------
+diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
+index 13600fa79e7f..f569372c9204 100644
+--- a/drivers/hwmon/pmbus/adm1275.c
++++ b/drivers/hwmon/pmbus/adm1275.c
+@@ -373,6 +373,7 @@ static int adm1275_probe(struct i2c_client *client,
+ 	const struct coefficients *coefficients;
+ 	int vindex = -1, voindex = -1, cindex = -1, pindex = -1;
+ 	int tindex = -1;
++	u32 shunt;
+ 
+ 	if (!i2c_check_functionality(client->adapter,
+ 				     I2C_FUNC_SMBUS_READ_BYTE_DATA
+@@ -421,6 +422,13 @@ static int adm1275_probe(struct i2c_client *client,
+ 	if (!data)
+ 		return -ENOMEM;
+ 
++	if (of_property_read_u32(client->dev.of_node,
++				 "shunt-resistor-micro-ohms", &shunt))
++		shunt = 1000; /* 1 mOhm if not set via DT */
++
++	if (shunt == 0)
++		return -EINVAL;
++
+ 	data->id = mid->driver_data;
+ 
+ 	info = &data->info;
+@@ -654,12 +662,15 @@ static int adm1275_probe(struct i2c_client *client,
+ 		info->R[PSC_VOLTAGE_OUT] = coefficients[voindex].R;
+ 	}
+ 	if (cindex >= 0) {
+-		info->m[PSC_CURRENT_OUT] = coefficients[cindex].m;
++		/* Scale current with sense resistor value */
++		info->m[PSC_CURRENT_OUT] =
++			coefficients[cindex].m * shunt / 1000;
+ 		info->b[PSC_CURRENT_OUT] = coefficients[cindex].b;
+ 		info->R[PSC_CURRENT_OUT] = coefficients[cindex].R;
+ 	}
+ 	if (pindex >= 0) {
+-		info->m[PSC_POWER] = coefficients[pindex].m;
++		info->m[PSC_POWER] =
++			coefficients[pindex].m * shunt / 1000;
+ 		info->b[PSC_POWER] = coefficients[pindex].b;
+ 		info->R[PSC_POWER] = coefficients[pindex].R;
+ 	}
+-- 
+2.19.0.605.g01d371f741-goog
