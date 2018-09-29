@@ -1,113 +1,47 @@
-Return-Path: <prvs=38092dea02=vijaykhemka@fb.com>
+Return-Path: <james.mihm@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=38092dea02=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=james.mihm@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="Ka4aeWwW"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="ISLFqJPU"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42MSQ14vWqzF3KL;
- Sat, 29 Sep 2018 09:22:32 +1000 (AEST)
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8SNMSjA027330; Fri, 28 Sep 2018 16:22:29 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=xCH0UODueDNJPUs3tq854C1lyI+g3MsqL974XsCL4+0=;
- b=Ka4aeWwWMj0nXPV5LE2bpE+IOJRJyCKqan65n6nL0bmpD9XDrtPWZfG1TD8EiDeBw3OG
- fY/3iGwq71NQIvJ5pvohiLrj3LWglMbSv91bN4ohmB5nEuBUQScosO46ZIzuL9KSrG3B
- PO5zOv8S8ePairWioaiR37ZxaoH9buqNuK8= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2msw6dr47f-3
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 28 Sep 2018 16:22:29 -0700
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.18) with Microsoft SMTP Server (TLS)
- id 14.3.361.1; Fri, 28 Sep 2018 16:22:25 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xCH0UODueDNJPUs3tq854C1lyI+g3MsqL974XsCL4+0=;
- b=ISLFqJPUD3mH43Xh3WAKUGt0ug7du8I4JNEVttqbOTgmmRlQjLTfGx5S2/caUsqKPcC/w89Q9ddSc+ecnKZa+Xa8IJu0C2n35EprotGXyMQ1vrOFXS6kOCn9EeLdyaJAGDIwRuC5R9uY3W81n2WZm4aoqKwpzJk3n473sJLf0QI=
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
- CY4PR15MB1285.namprd15.prod.outlook.com (10.172.180.143) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1185.22; Fri, 28 Sep 2018 23:22:23 +0000
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::3cb5:8b7b:eafb:d86c]) by CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::3cb5:8b7b:eafb:d86c%5]) with mapi id 15.20.1143.022; Fri, 28 Sep 2018
- 23:22:22 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: "Justin.Lee1@Dell.com" <Justin.Lee1@Dell.com>, "joel@jms.id.au"
- <joel@jms.id.au>, "sam@mendozajonas.com" <sam@mendozajonas.com>
-CC: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Amithash Prasad <amithash@fb.com>, "christian@cmd.nu" <christian@cmd.nu>
-Subject: Re: [PATCH net v2] net/ncsi: Extend NC-SI Netlink interface to allow
- user space to send NC-SI command
-Thread-Topic: [PATCH net v2] net/ncsi: Extend NC-SI Netlink interface to allow
- user space to send NC-SI command
-Thread-Index: AdRXVsR4fRwK5ubSQ2OHaqPrycIEsv//4VUA
-Date: Fri, 28 Sep 2018 23:22:22 +0000
-Message-ID: <0491255B-B4FB-42A1-9633-1AB44FFC5A52@fb.com>
-References: <58fff61ffd8d4038b59f32b696e76bbc@AUSX13MPS306.AMER.DELL.COM>
-In-Reply-To: <58fff61ffd8d4038b59f32b696e76bbc@AUSX13MPS306.AMER.DELL.COM>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42MVD41pkdzF3KL
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Sep 2018 10:44:03 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2018 17:43:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,317,1534834800"; d="scan'208,217";a="77288972"
+Received: from orsmsx105.amr.corp.intel.com ([10.22.225.132])
+ by orsmga008.jf.intel.com with ESMTP; 28 Sep 2018 17:43:32 -0700
+Received: from orsmsx101.amr.corp.intel.com ([169.254.8.122]) by
+ ORSMSX105.amr.corp.intel.com ([169.254.2.136]) with mapi id 14.03.0319.002;
+ Fri, 28 Sep 2018 17:43:31 -0700
+From: "Mihm, James" <james.mihm@intel.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: OpenBMC Hackathon Discussion Topics
+Thread-Topic: OpenBMC Hackathon Discussion Topics
+Thread-Index: AdRXh30k/bQV+4/5SZKiV94ucDDExA==
+Date: Sat, 29 Sep 2018 00:43:31 +0000
+Message-ID: <C599FC839619124CAC44E062ABB7DFE2D700A5D9@ORSMSX101.amr.corp.intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::6:e298]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; CY4PR15MB1285;
- 20:OHT/i9Y0OSiQURcCt6wze2y4gpcZNHYrvQBJ0mc4QYRVUTTX/2exIHum06jjP1Tb1coBd0SIckiqdd6jPS9t5NsvMhP6gNpgBuAfmiEZrVK8v4GWF/ic8DhaM8ketXMG9MgW4htGkKcq01cuSTqjbT6yRVaupxEF0pvyIHWjKN8=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
-x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
- SFS:(10019020)(376002)(346002)(396003)(39860400002)(366004)(136003)(199004)(189003)(5250100002)(6506007)(4326008)(76176011)(2501003)(34290500001)(83716004)(6116002)(14454004)(97736004)(71200400001)(7736002)(71190400001)(11346002)(25786009)(478600001)(305945005)(2900100001)(2906002)(6486002)(476003)(5660300001)(54906003)(446003)(110136005)(186003)(6512007)(33656002)(68736007)(102836004)(6436002)(8676002)(36756003)(8936002)(6246003)(2616005)(99286004)(81156014)(106356001)(53936002)(14444005)(256004)(46003)(81166006)(2201001)(229853002)(105586002)(316002)(82746002)(86362001)(486006)(21314002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1285;
- H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-x-ms-office365-filtering-correlation-id: 9d898d13-0a9b-446c-4101-08d625993e7d
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
- SRVR:CY4PR15MB1285; 
-x-ms-traffictypediagnostic: CY4PR15MB1285:
-x-microsoft-antispam-prvs: <CY4PR15MB12857448D66A38AB7C6601FDDDEC0@CY4PR15MB1285.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(56004941905204);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(10201501046)(3002001)(93006095)(93001095)(3231355)(11241501184)(944501410)(52105095)(149066)(150057)(6041310)(20161123560045)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123558120)(20161123564045)(201708071742011)(7699051);
- SRVR:CY4PR15MB1285; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1285; 
-x-forefront-prvs: 0809C12563
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: PzwoxAfljuO9C0JgbQtDIa+yWQI8r48Lb4Q1Ok3iWcZQL1lO9gAOoGXfjWe8c0JG10h0a/XMnIO68RQyFMmlIl86UOnVoagYLrazepp97Stv8Bc+f8pLs7p68Gw1z5sI32z0YrJ31HKHW1WDZQ9J+DuD+CFGtEu9UG6ZbP6+sDieefNRv9oo7PDAG6tXD9piySQljmQuOTz2L6+OBV6KfYzS8YydpzGXkdyXpS+OLBeHiKYXxkYyXdwL7/EOpT4FYTqyS3bRVU96b4vJW+ucox0TgBJuPWJi8RaAzxru8Ov/YpuTG+zaH/GC8OOouc0pFTQ4hN8MTiWCi7VN4Eg1eJXzws8tmAe4Mfm2Vs5MfKU=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B15036BF5CBE6741A71807DA0C542631@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZGY4NTkwZTMtMGNhNS00N2QxLWI3YTMtMmFhY2UyNDE2NjZkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiWFNRaUI1TVRyeGwzQVlkbzljaGtnZXZSU0tFbmNwT2RsaDFOV1lGbDdONUFPVmNiRHhUNldKc2Riam96MWlJSyJ9
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: request-justification,no-action
+x-originating-ip: [10.22.254.140]
+Content-Type: multipart/alternative;
+ boundary="_000_C599FC839619124CAC44E062ABB7DFE2D700A5D9ORSMSX101amrcor_"
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d898d13-0a9b-446c-4101-08d625993e7d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2018 23:22:22.7043 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1285
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-09-28_11:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,37 +53,539 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Sep 2018 23:22:34 -0000
+X-List-Received-Date: Sat, 29 Sep 2018 00:44:05 -0000
 
-DQoNCu+7vz5PbiA5LzI4LzE4LCAxMToxNiBBTSwgIkp1c3Rpbi5MZWUxQERlbGwuY29tIiA8SnVz
-dGluLkxlZTFARGVsbC5jb20+IHdyb3RlOg0KDQogID4gIFRoZSBuZXcgY29tbWFuZCAoTkNTSV9D
-TURfU0VORF9DTUQpIGlzIGFkZGVkIHRvIGFsbG93IHVzZXIgc3BhY2UgYXBwbGljYXRpb24gDQog
-ID4gIHRvIHNlbmQgTkMtU0kgY29tbWFuZCB0byB0aGUgbmV0d29yayBjYXJkLg0KICA+ICBBbHNv
-LCBhZGQgYSBuZXcgYXR0cmlidXRlIChOQ1NJX0FUVFJfREFUQSkgZm9yIHRyYW5zZmVycmluZyBy
-ZXF1ZXN0IGFuZCByZXNwb25zZS4NCiAgPiANCiAgPiAgVGhlIHdvcmsgZmxvdyBpcyBhcyBiZWxv
-dy4gDQogID4gIA0KICA+ICBSZXF1ZXN0Og0KICA+ICBVc2VyIHNwYWNlIGFwcGxpY2F0aW9uIC0+
-IE5ldGxpbmsgaW50ZXJmYWNlIChtc2cpDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIC0+IG5ldyBOZXRsaW5rIGhhbmRsZXIgLSBuY3NpX3NlbmRfY21k
-X25sKCkNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-LT4gbmNzaV94bWl0X2NtZCgpDQogID4gIFJlc3BvbnNlOg0KICA+ICBSZXNwb25zZSByZWNlaXZl
-ZCAtIG5jc2lfcmN2X3JzcCgpIC0+IGludGVybmFsIHJlc3BvbnNlIGhhbmRsZXIgLSBuY3NpX3Jz
-cF9oYW5kbGVyX3h4eCgpDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLT4gbmNzaV9yc3BfaGFuZGxlcl9u
-ZXRsaW5rKCkNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtPiBuY3NpX3NlbmRfbmV0bGlua19yc3AgKCkN
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAtPiBOZXRsaW5rIGludGVyZmFjZSAobXNnKQ0KICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIC0+IHVzZXIgc3BhY2UgYXBwbGljYXRpb24NCiAgPiAgQ29tbWFuZCB0aW1lb3V0
-IC0gbmNzaV9yZXF1ZXN0X3RpbWVvdXQoKSAtPiBuY3NpX3NlbmRfbmV0bGlua190aW1lb3V0ICgp
-DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtPiBOZXRsaW5rIGludGVy
-ZmFjZSAobXNnIHdpdGggemVybyBkYXRhIGxlbmd0aCkNCiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIC0+IHVzZXIgc3BhY2UgYXBwbGljYXRpb24NCiAgPiAgRXJyb3I6DQog
-ID4gIEVycm9yIGRldGVjdGVkIC0+IG5jc2lfc2VuZF9uZXRsaW5rX2VyciAoKSAtPiBOZXRsaW5r
-IGludGVyZmFjZSAoZXJyIG1zZykNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAt
-PiB1c2VyIHNwYWNlIGFwcGxpY2F0aW9uDQogICAgDQogICAgDQogICAgSSB3aWxsIHJlcXVlc3Qg
-dG8ga2VlcCAyIHBhdGNoLCBvbmUgZm9yIE9FTSBoYW5kbGVyIGFuZCBvdGhlciBvbmUgZm9yIG5l
-dGxpbmsgdXNlciBzcGFjZSBoYW5kbGluZy4NCg0K
+--_000_C599FC839619124CAC44E062ABB7DFE2D700A5D9ORSMSX101amrcor_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Here's the latest proposed agenda for the Hackathon hosted by Intel.
+
+Event Date: October 9th - 11th, 2018
+
+Location: Intel Corporation
+Jones Farm Campus -- Building 5 (JF5)
+2111 NE 25th Ave.
+Hillsboro, Oregon 97124
+
+Entrance to JF5: NE Jones Farm Parkway and NE 15th Ave., Hillsboro, OR 9712=
+4
+https://goo.gl/maps/RL9mMQw8n1R2
+
+Registration Link:
+https://docs.google.com/forms/d/e/1FAIpQLSdhtVwaX3a4LjkwrQkb3dJLAxEReCDLar8=
+LqJAxnryMsmkRTQ/viewform?c=3D0&amp;w=3D1&amp;usp=3Dmail_form_link<https://n=
+a01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fdocs.google.com%2=
+Fforms%2Fd%2Fe%2F1FAIpQLSdhtVwaX3a4LjkwrQkb3dJLAxEReCDLar8LqJAxnryMsmkRTQ%2=
+Fviewform%3Fc%3D0%26amp%3Bw%3D1%26amp%3Busp%3Dmail_form_link&data=3D02%7C01=
+%7Calirhas%40microsoft.com%7C6d3372552f4f471bf25e08d61813c680%7C72f988bf86f=
+141af91ab2d7cd011db47%7C1%7C0%7C636722870552006513&sdata=3DRydT3SNwWalOEKUg=
+Onjs93zMMYx%2BG3pOoICHpFH2shY%3D&reserved=3D0>
+
+
+8:15 AM Breakfast
+9:00 AM Start time
+12:00 PM        Lunch
+5:00 PM End time
+
+No-Host Dinner/Networking: I'm working on a list of restaurants in the area=
+. This will be an organic activity and self-organizing.
+
+Disclaimer: agenda below is subject to change
+
+
+Day 1   Tech Talks      Tuesday, October 9th, 2018
+        Discussion Leader       Topic
+9:00 AM James Mihm      Kick-Off and Introductions
+        Norman Bright   Keynote
+        Kurt Taylor (remote)    Best practices for the OpenBMC community
+        Brad Bishop     How to be an effective community member
+        Stephano Cetola Intro to Yocto
+        Timothy T Orling        Yocto Tips and Tricks
+        Ratan Kumar Gupta / Richard Thomaiyar   User Management - progress =
+report, new use cases
+        Joel (remote)   Linux Drivers - development best practices, the goo=
+d/bad/ugly
+        James Feist     Runtime platform configuration
+        Ed Tanous / Pawel Rapkiewicz    Redfish - schema support, OCP compl=
+iance, testing, plugfest updates, RSD support, OEM extensions
+        Nuvoton Demo of OpenBMC on Poleg (npcm7xx) chip
+
+Hacking Sessions
+        On Boarding / Training
+        Writing and Debugging Code
+
+
+Day 2   Tech Talks      Wednesday, October 10th, 2018
+        Discussion Leader       Topic
+9:00 AM Gunnar Mills / Ed Tanous        WebUI Design - Customization
+        Vernon Mauery   New IPMI Architecture
+        Emily Shaffer   Testing basics
+        Andrew Jeffrey  Removing roadblocks to testing in OpenBMC
+        Deepak Kodihalli        Logging and Alerts
+        Kuiying Wang / Yong Li  Chassis Control
+        Supreeth Venkatesh      Supreeth: OpenBMC enablement on Arm Referen=
+ce Platforms Roadmap/Plan with emphasis on PLDM/MCTP.
+            open        Responsiveness and performance limitations of the c=
+urrent architecture and implementation
+            open        How to improve overall performance of BMC and reduc=
+e boot time
+        James Mihm      Security - threat model, incident response, ARM Tru=
+stZone, linux configuration model, key storage, crypto guidelines
+        James Mihm      Hardware guidance with respect to security
+            open        Secure Boot Options - Cerberus, Titan, PFR, Poor-Ma=
+ns-Security-Implementation
+            open        IPMI - compliance vs. non-compliance, security impa=
+cts, BIOS OEM commands
+            open        BMC Device Enablement - future requirements (e.g., =
+i3c support, crypto, fuses)
+        Ed Tanous       KVM & Virtual Media
+
+Hacking Sessions
+        continuation from day 1
+        Security Scanning
+        Penetration Testing
+
+
+Day 3   Tech Talks      Thursday, October 11th, 2018
+        Presenter       Topic
+9:00 AM Sharad Khetan   Perspectives on OpenBMC
+        Nilan Naidoo    MCTP Support
+        Suryakanth Sekar        OOB BIOS Configuration and updates
+           open Engagements with OCP
+           open Feature Development
+           open Release Planning
+        James Mihm      Wrap-up
+
+Hacking Sessions
+        continuation from day 2
+        Free-form demonstration of work accomplished during hackathon
+
+
+James Mihm
+Intel - Intel DCG BMC Core Firmware
+(503) 264-5129
+
+
+
+
+
+--_000_C599FC839619124CAC44E062ABB7DFE2D700A5D9ORSMSX101amrcor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from rtf -->
+<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
+ #800000 2px solid; } --></style>
+</head>
+<body>
+<font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">
+<div>Here&#8217;s the latest proposed agenda for the Hackathon hosted by In=
+tel.</div>
+<div>&nbsp;</div>
+<div><font size=3D"2"><span style=3D"font-size:10pt;">Event Date: October 9=
+th - 11th, 2018<br>
+
+<br>
+
+Location: Intel Corporation<br>
+
+Jones Farm Campus -- Building 5 (JF5)<br>
+
+2111 NE 25th Ave.<br>
+
+Hillsboro, Oregon 97124<br>
+
+<br>
+
+Entrance to JF5: NE Jones Farm Parkway and NE 15th Ave., Hillsboro, OR 9712=
+4<br>
+
+<a href=3D"https://goo.gl/maps/RL9mMQw8n1R2"><u>https://goo.gl/maps/RL9mMQw=
+8n1R2</u></a></span></font></div>
+<div>&nbsp;</div>
+<div>Registration Link:</div>
+<div><a href=3D"https://na01.safelinks.protection.outlook.com/?url=3Dhttps%=
+3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLSdhtVwaX3a4LjkwrQkb3dJLAxE=
+ReCDLar8LqJAxnryMsmkRTQ%2Fviewform%3Fc%3D0%26amp%3Bw%3D1%26amp%3Busp%3Dmail=
+_form_link&amp;data=3D02%7C01%7Calirhas%40microsoft.com%7C6d3372552f4f471bf=
+25e08d61813c680%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C63672287055200=
+6513&amp;sdata=3DRydT3SNwWalOEKUgOnjs93zMMYx%2BG3pOoICHpFH2shY%3D&amp;reser=
+ved=3D0"><u>https://docs.google.com/forms/d/e/1FAIpQLSdhtVwaX3a4LjkwrQkb3dJ=
+LAxEReCDLar8LqJAxnryMsmkRTQ/viewform?c=3D0&amp;amp;w=3D1&amp;amp;usp=3Dmail=
+_form_link</u></a></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>8:15 AM Breakfast</div>
+<div>9:00 AM Start time</div>
+<div>12:00 PM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lunch</div>
+<div>5:00 PM End time</div>
+<div>&nbsp;</div>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"1107" style=3D"width:664.25pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td>No-Host Dinner/Networking: I&#8217;m working on a list of restaurants i=
+n the area. This will be an organic activity and self-organizing.
+<div>&nbsp;</div>
+<div>Disclaimer: agenda below is subject to change</div>
+<div>&nbsp;</div>
+</td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"82" style=3D"width:49.5pt;">
+<col width=3D"210" style=3D"width:126pt;">
+<col width=3D"814" style=3D"width:488.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td><b>Day 1</b></td>
+<td><b>Tech Talks</b></td>
+<td><b>Tuesday, October 9th, 2018</b></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><b>Discussion Leader</b></td>
+<td><b>Topic</b></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td style=3D"text-align:right;">9:00 AM</td>
+<td>James Mihm</td>
+<td>Kick-Off and Introductions</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Norman Bright</td>
+<td>Keynote</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Kurt Taylor (remote)</td>
+<td>Best practices for the OpenBMC community</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Brad Bishop</td>
+<td>How to be an effective community member</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Stephano Cetola</td>
+<td>Intro to Yocto</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Timothy T Orling</td>
+<td>Yocto Tips and Tricks</td>
+</tr>
+<tr height=3D"48" style=3D"height:28.8pt;">
+<td></td>
+<td>Ratan Kumar Gupta / Richard Thomaiyar</td>
+<td>User Management - progress report, new use cases</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Joel (remote)</td>
+<td>Linux Drivers - development best practices, the good/bad/ugly</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>James Feist</td>
+<td>Runtime platform configuration</td>
+</tr>
+<tr height=3D"48" style=3D"height:28.8pt;">
+<td></td>
+<td>Ed Tanous / Pawel Rapkiewicz</td>
+<td>Redfish - schema support, OCP compliance, testing, plugfest updates, RS=
+D support, OEM extensions</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Nuvoton</td>
+<td>Demo of OpenBMC on Poleg (npcm7xx) chip</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"292" style=3D"width:175.5pt;">
+<col width=3D"814" style=3D"width:488.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td>Hacking Sessions</td>
+<td></td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"82" style=3D"width:49.5pt;">
+<col width=3D"210" style=3D"width:126pt;">
+<col width=3D"814" style=3D"width:488.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>On Boarding / Training</td>
+<td></td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"82" style=3D"width:49.5pt;">
+<col width=3D"1024" style=3D"width:614.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Writing and Debugging Code</td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"82" style=3D"width:49.5pt;">
+<col width=3D"210" style=3D"width:126pt;">
+<col width=3D"814" style=3D"width:488.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td><b>Day 2</b></td>
+<td><b>Tech Talks</b></td>
+<td><b>Wednesday, October 10th, 2018</b></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><b>Discussion Leader</b></td>
+<td><b>Topic</b></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td style=3D"text-align:right;">9:00 AM</td>
+<td>Gunnar Mills / Ed Tanous</td>
+<td>WebUI Design - Customization</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Vernon Mauery</td>
+<td>New IPMI Architecture</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Emily Shaffer</td>
+<td>Testing basics</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Andrew Jeffrey</td>
+<td>Removing roadblocks to testing in OpenBMC</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Deepak Kodihalli</td>
+<td>Logging and Alerts</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Kuiying Wang / Yong Li</td>
+<td>Chassis Control</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Supreeth Venkatesh</td>
+<td>Supreeth: OpenBMC enablement on Arm Reference Platforms Roadmap/Plan wi=
+th emphasis on PLDM/MCTP.</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">    open</span></font></td>
+<td>Responsiveness and performance limitations of the current architecture =
+and implementation</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">    open</span></font></td>
+<td>How to improve overall performance of BMC and reduce boot time</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>James Mihm</td>
+<td>Security - threat model, incident response, ARM TrustZone, linux config=
+uration model, key storage, crypto guidelines</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>James Mihm</td>
+<td>Hardware guidance with respect to security</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">    open</span></font></td>
+<td>Secure Boot Options - Cerberus, Titan, PFR, Poor-Mans-Security-Implemen=
+tation</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">    open</span></font></td>
+<td>IPMI - compliance vs. non-compliance, security impacts, BIOS OEM comman=
+ds</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">    open</span></font></td>
+<td>BMC Device Enablement - future requirements (e.g., i3c support, crypto,=
+ fuses)</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Ed Tanous</td>
+<td>KVM &amp; Virtual Media</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"82" style=3D"width:49.5pt;">
+<col width=3D"210" style=3D"width:126pt;">
+<col width=3D"814" style=3D"width:488.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td colspan=3D"2">Hacking Sessions</td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td colspan=3D"2">continuation from day 1</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Security Scanning</td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Penetration Testing</td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td><b>Day 3</b></td>
+<td><b>Tech Talks</b></td>
+<td><b>Thursday, October 11th, 2018</b></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Presenter</td>
+<td>Topic</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td style=3D"text-align:right;">9:00 AM</td>
+<td>Sharad Khetan</td>
+<td>Perspectives on OpenBMC</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Nilan Naidoo</td>
+<td>MCTP Support</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Suryakanth Sekar</td>
+<td>OOB BIOS Configuration and updates</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">   open</span></font></td>
+<td>Engagements with OCP</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">   open</span></font></td>
+<td>Feature Development</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:10pt=
+;">   open</span></font></td>
+<td>Release Planning</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>James Mihm</td>
+<td>Wrap-up</td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"82" style=3D"width:49.5pt;">
+<col width=3D"210" style=3D"width:126pt;">
+<col width=3D"814" style=3D"width:488.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td colspan=3D"2">Hacking Sessions</td>
+<td></td>
+</tr>
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td colspan=3D"2">continuation from day 2</td>
+</tr>
+</table>
+<table width=3D"1107" style=3D"width:664.25pt;margin-left:5.4pt;">
+<col width=3D"82" style=3D"width:49.5pt;">
+<col width=3D"1024" style=3D"width:614.75pt;">
+<tr height=3D"24" style=3D"height:14.4pt;">
+<td></td>
+<td>Free-form demonstration of work accomplished during hackathon</td>
+</tr>
+</table>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><font face=3D"Comic Sans MS" size=3D"2" color=3D"navy"><span style=3D"=
+font-size:10pt;">James Mihm<font face=3D"Arial" size=3D"2" color=3D"black">=
+<span style=3D"font-size:11pt;">
+<br>
+
+</span></font><font size=3D"2"><span style=3D"font-size:11pt;">Intel - </sp=
+an></font>Intel <font size=3D"2"><span style=3D"font-size:11pt;">DCG BMC Co=
+re Firmware<br>
+
+</span></font>(503) 264-5129<font face=3D"Calibri" size=3D"2" color=3D"blac=
+k"><span style=3D"font-size:11pt;"> </span></font></span></font></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+</span></font>
+</body>
+</html>
+
+--_000_C599FC839619124CAC44E062ABB7DFE2D700A5D9ORSMSX101amrcor_--
