@@ -1,57 +1,107 @@
 Return-Path: <prvs=3810edb1c7=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
  envelope-from=prvs=3810edb1c7=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="TUbXZTb/"; 
- dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ unprotected) header.d=fb.com header.i=@fb.com header.b="NqyDBxaV"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="L5MGHC34"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42MVk863kJzDqYL
- for <openbmc@lists.ozlabs.org>; Sat, 29 Sep 2018 11:06:37 +1000 (AEST)
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42MW2n5WTVzF3Kq;
+ Sat, 29 Sep 2018 11:21:03 +1000 (AEST)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w8T0xSvk026530
- for <openbmc@lists.ozlabs.org>; Fri, 28 Sep 2018 18:06:35 -0700
+ w8T1FAAD015041; Fri, 28 Sep 2018 18:21:00 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=DBc00QDiR6x7g6DKzp/YALRdSp9WileVvYOaWv20F3g=;
- b=TUbXZTb/KAU7JyRTOmnA2+dEqzyIvMx0UHxQB6rgRZUBy+s2FOSB9hl+Dsedh9h7lrp8
- 0LxP9LFyhiiZ4RQ0lK9Th9Jh2BQBilwh3aosUjjHmpMvBp9oUNBy7ygcX7FiiSWe4OgL
- a/O3LflTWcqiX3uhRusjN5t011imxABP0mA= 
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type : content-id :
+ content-transfer-encoding : mime-version; s=facebook;
+ bh=ebjeJ9iRLwcHRiYODB0skIIyyUWSXjkCEKoUDTwvKMA=;
+ b=NqyDBxaV0iqPGk14E9EZAaaawIgk1nXEG50DFMNnLMAdTCb2p1psHRNAuIBNmZFtqnUZ
+ WDrE53ccJpOcGwAjRfG/yKlze7rUEZmAlrl/eClfsU1Adcm8hYu2XO/4RxbhiW4AMba7
+ M0enkNINJyIffo/gQl6cQ4Zf+XRIOReDX2E= 
 Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2msxj283xf-5
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 28 Sep 2018 18:06:34 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
- (192.168.16.14) with Microsoft SMTP Server (TLS) id 14.3.361.1; Fri, 28 Sep
- 2018 18:06:33 -0700
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)	id
- C73BD20E47ED; Fri, 28 Sep 2018 18:06:25 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
+ by mx0a-00082601.pphosted.com with ESMTP id 2msvw1re8k-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Fri, 28 Sep 2018 18:21:00 -0700
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.13) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Fri, 28 Sep 2018 18:20:59 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ebjeJ9iRLwcHRiYODB0skIIyyUWSXjkCEKoUDTwvKMA=;
+ b=L5MGHC34HlMqGVkjHkTaoKDYOw7UVoBMFslz8Fm/ayFkdIdx62ZZQL3V3Vhv3QuWRVKJ8zmvGftyTReWfXJ09iJuO9SpgH5P+DNW/RV6WvwxeMKEt5xfPfFAqpCF6UfviXJwKUFj83lcP154XHRmJpY1eStedYeCfAAc5uIImmY=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1800.namprd15.prod.outlook.com (10.174.54.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1143.18; Sat, 29 Sep 2018 01:20:57 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::3cb5:8b7b:eafb:d86c]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::3cb5:8b7b:eafb:d86c%5]) with mapi id 15.20.1143.022; Sat, 29 Sep 2018
+ 01:20:56 +0000
 From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
 To: "Justin . Lee1 @ Dell . com" <Justin.Lee1@Dell.com>, "joel @ jms . id .
  au" <joel@jms.id.au>, "linux-aspeed @ lists . ozlabs . org"
  <linux-aspeed@lists.ozlabs.org>, "openbmc @ lists . ozlabs . org"
  <openbmc@lists.ozlabs.org>, Sai Dasari <sdasari@fb.com>, "netdev @ vger .
  kernel . org" <netdev@vger.kernel.org>, "christian @ cmd . nu"
  <christian@cmd.nu>, Samuel Mendoza-Jonas <sam@mendozajonas.com>
-CC: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH v2] net/ncsi: Add NCSI OEM command support
-Date: Fri, 28 Sep 2018 18:06:02 -0700
-Message-ID: <20180929010602.1025909-1-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+Subject: Re: [PATCH v2] net/ncsi: Add NCSI OEM command support
+Thread-Topic: [PATCH v2] net/ncsi: Add NCSI OEM command support
+Thread-Index: AQHUV5C7fVatiN9l9keL8qJvh+/Fp6UGANyA
+Date: Sat, 29 Sep 2018 01:20:56 +0000
+Message-ID: <EC7D2F65-225D-4668-8417-B3CACE63E4DB@fb.com>
+References: <20180929010602.1025909-1-vijaykhemka@fb.com>
+In-Reply-To: <20180929010602.1025909-1-vijaykhemka@fb.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::6:e298]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1800;
+ 20:WgDPDjHtepSAKUjYyXePBaSusa0gQ0YigOZbksMPpZF2hzwNf/sIqNws+h7gmddL8teoEZTkBMxogAed4c3da3uiMDRkPFLSN7Ny7T8MnroCb293DgvP8CKl2e6KlfJPuUkN/8NtLt8xS2+UsWWJvdn8oeSBBcrEtd4GuniAZvQ=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
+x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
+ SFS:(10019020)(366004)(376002)(396003)(136003)(39860400002)(346002)(189003)(199004)(53936002)(305945005)(7736002)(34290500001)(82746002)(68736007)(6512007)(316002)(99286004)(256004)(14444005)(83716004)(71190400001)(71200400001)(81166006)(81156014)(217873002)(5660300001)(76176011)(36756003)(97736004)(102836004)(86362001)(110136005)(53546011)(6506007)(6116002)(478600001)(33656002)(229853002)(46003)(6486002)(2900100001)(2906002)(14454004)(186003)(486006)(25786009)(5250100002)(8936002)(476003)(6246003)(8676002)(11346002)(106356001)(105586002)(2616005)(6436002)(446003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1800;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+x-ms-office365-filtering-correlation-id: f2505935-7f3d-4138-201e-08d625a9ce7e
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534165)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1800; 
+x-ms-traffictypediagnostic: CY4PR15MB1800:
+x-microsoft-antispam-prvs: <CY4PR15MB18006CC1D8631B108CCAE3A7DDED0@CY4PR15MB1800.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(67672495146484);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(93006095)(93001095)(3231355)(11241501184)(944501410)(52105095)(10201501046)(3002001)(149066)(150057)(6041310)(20161123560045)(20161123562045)(20161123558120)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051);
+ SRVR:CY4PR15MB1800; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1800; 
+x-forefront-prvs: 0810818DA0
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: eUvwjW2yO3liTwXtQ2uxNleZIb8UO4VTH4tksDygeigU0xkPi2ZQ1BQiryhQPH97LDXNAp+J9tcEmC6peFnWWhRiYVk7eIlxqAk2x45ffYELe4pxQ0J59MdRaQzUHvVxj3322CEot6q+mvoFu4SS5RxFJ4y8AD39Wpc1kCS8VhiR3xadCwR2V4lYLSrhGv1lIXOmExz9+yBxastJP1nO9XhqfueSqooTx8qDeLxt/1AU0dd7+PB2tOtfOk6RxP7Y87FmmqjIZ/5DNYQ1ZlP9Po24pbujf3Za5JG5ICl5bIGR0LWgb7sHZ4zFKAVnqINb6wLWM8vNG/2x6vgayHSmPL5Prysue0KIQvwWNDZoE5E=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <AB868C83199F774A8688D410EFF62061@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2505935-7f3d-4138-201e-08d625a9ce7e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2018 01:20:56.1915 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1800
+X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-09-28_12:, , signatures=0
 X-Proofpoint-Spam-Reason: safe
@@ -67,183 +117,130 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 29 Sep 2018 01:06:41 -0000
+X-List-Received-Date: Sat, 29 Sep 2018 01:21:06 -0000
 
-This patch adds OEM commands and response handling. It also defines OEM
-command and response structure as per NCSI specification along with its
-handlers.
-
-ncsi_cmd_handler_oem: This is a generic command request handler for OEM
-commands
-ncsi_rsp_handler_oem: This is a generic response handler for OEM commands
-
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
----
- net/ncsi/internal.h |  4 ++++
- net/ncsi/ncsi-cmd.c | 31 ++++++++++++++++++++++++++++---
- net/ncsi/ncsi-pkt.h | 16 ++++++++++++++++
- net/ncsi/ncsi-rsp.c | 44 +++++++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 91 insertions(+), 4 deletions(-)
-
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 8055e3965cef..c16cb7223064 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -68,6 +68,10 @@ enum {
- 	NCSI_MODE_MAX
- };
- 
-+/* OEM Vendor Manufacture ID */
-+#define NCSI_OEM_MFR_MLX_ID             0x8119
-+#define NCSI_OEM_MFR_BCM_ID             0x113d
-+
- struct ncsi_channel_version {
- 	u32 version;		/* Supported BCD encoded NCSI version */
- 	u32 alpha2;		/* Supported BCD encoded NCSI version */
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-index 7567ca63aae2..2f98533eba46 100644
---- a/net/ncsi/ncsi-cmd.c
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -211,6 +211,26 @@ static int ncsi_cmd_handler_snfc(struct sk_buff *skb,
- 	return 0;
- }
- 
-+static int ncsi_cmd_handler_oem(struct sk_buff *skb,
-+				struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_oem_pkt *cmd;
-+	unsigned int len;
-+
-+	len = sizeof(struct ncsi_cmd_pkt_hdr) + 4;
-+	if (nca->payload < 26)
-+		len += 26;
-+	else
-+		len += nca->payload;
-+
-+	cmd = skb_put_zero(skb, len);
-+	cmd->mfr_id = nca->dwords[0];
-+	memcpy(cmd->data, &nca->dwords[1], nca->payload - 4);
-+	ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+
-+	return 0;
-+}
-+
- static struct ncsi_cmd_handler {
- 	unsigned char type;
- 	int           payload;
-@@ -244,7 +264,7 @@ static struct ncsi_cmd_handler {
- 	{ NCSI_PKT_CMD_GNS,    0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_GNPTS,  0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_GPS,    0, ncsi_cmd_handler_default },
--	{ NCSI_PKT_CMD_OEM,    0, NULL                     },
-+	{ NCSI_PKT_CMD_OEM,   -1, ncsi_cmd_handler_oem     },
- 	{ NCSI_PKT_CMD_PLDM,   0, NULL                     },
- 	{ NCSI_PKT_CMD_GPUUID, 0, ncsi_cmd_handler_default }
- };
-@@ -316,8 +336,13 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
- 		return -ENOENT;
- 	}
- 
--	/* Get packet payload length and allocate the request */
--	nca->payload = nch->payload;
-+	/* Get packet payload length and allocate the request
-+	 * It is expected that if length set as negative in
-+	 * handler structure means caller is initializing it
-+	 * and setting length in nca before calling xmit function
-+	 */
-+	if (nch->payload >= 0)
-+		nca->payload = nch->payload;
- 	nr = ncsi_alloc_command(nca);
- 	if (!nr)
- 		return -ENOMEM;
-diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-index 91b4b66438df..1f338386810d 100644
---- a/net/ncsi/ncsi-pkt.h
-+++ b/net/ncsi/ncsi-pkt.h
-@@ -151,6 +151,22 @@ struct ncsi_cmd_snfc_pkt {
- 	unsigned char           pad[22];
- };
- 
-+/* OEM Request Command as per NCSI Specification */
-+struct ncsi_cmd_oem_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;         /* Command header    */
-+	__be32                  mfr_id;      /* Manufacture ID    */
-+	unsigned char           data[64];    /* OEM Payload Data  */
-+	__be32                  checksum;    /* Checksum          */
-+};
-+
-+/* OEM Response Packet as per NCSI Specification */
-+struct ncsi_rsp_oem_pkt {
-+	struct ncsi_rsp_pkt_hdr rsp;         /* Command header    */
-+	__be32                  mfr_id;      /* Manufacture ID    */
-+	unsigned char           data[64];    /* Payload data      */
-+	__be32                  checksum;    /* Checksum          */
-+};
-+
- /* Get Link Status */
- struct ncsi_rsp_gls_pkt {
- 	struct ncsi_rsp_pkt_hdr rsp;        /* Response header   */
-diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index 930c1d3796f0..22664ebdc93a 100644
---- a/net/ncsi/ncsi-rsp.c
-+++ b/net/ncsi/ncsi-rsp.c
-@@ -596,6 +596,48 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
- 	return 0;
- }
- 
-+static struct ncsi_rsp_oem_handler {
-+	unsigned int	mfr_id;
-+	int		(*handler)(struct ncsi_request *nr);
-+} ncsi_rsp_oem_handlers[] = {
-+	{ NCSI_OEM_MFR_MLX_ID, NULL },
-+	{ NCSI_OEM_MFR_BCM_ID, NULL }
-+};
-+
-+
-+/* Response handler for OEM command */
-+static int ncsi_rsp_handler_oem(struct ncsi_request *nr)
-+{
-+	struct ncsi_rsp_oem_pkt *rsp;
-+	struct ncsi_rsp_oem_handler *nrh = NULL;
-+	unsigned int mfr_id, i;
-+
-+	/* Get the response header */
-+	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
-+	mfr_id = ntohl(rsp->mfr_id);
-+
-+	/* Check for manufacturer id and Find the handler */
-+	for (i = 0; i < ARRAY_SIZE(ncsi_rsp_oem_handlers); i++) {
-+		if (ncsi_rsp_oem_handlers[i].mfr_id == mfr_id) {
-+			if (ncsi_rsp_oem_handlers[i].handler)
-+				nrh = &ncsi_rsp_oem_handlers[i];
-+			else
-+				nrh = NULL;
-+
-+			break;
-+		}
-+	}
-+
-+	if (!nrh) {
-+		netdev_err(nr->ndp->ndev.dev, "Received unrecognized OEM packet with MFR-ID (0x%x)\n",
-+			   mfr_id);
-+		return -ENOENT;
-+	}
-+
-+	/* Process the packet */
-+	return nrh->handler(nr);
-+}
-+
- static int ncsi_rsp_handler_gvi(struct ncsi_request *nr)
- {
- 	struct ncsi_rsp_gvi_pkt *rsp;
-@@ -932,7 +974,7 @@ static struct ncsi_rsp_handler {
- 	{ NCSI_PKT_RSP_GNS,   172, ncsi_rsp_handler_gns     },
- 	{ NCSI_PKT_RSP_GNPTS, 172, ncsi_rsp_handler_gnpts   },
- 	{ NCSI_PKT_RSP_GPS,     8, ncsi_rsp_handler_gps     },
--	{ NCSI_PKT_RSP_OEM,     0, NULL                     },
-+	{ NCSI_PKT_RSP_OEM,    -1, ncsi_rsp_handler_oem     },
- 	{ NCSI_PKT_RSP_PLDM,    0, NULL                     },
- 	{ NCSI_PKT_RSP_GPUUID, 20, ncsi_rsp_handler_gpuuid  }
- };
--- 
-2.17.1
+DQoNCu+7vz4gT24gOS8yOC8xOCwgNjowNyBQTSwgIlZpamF5IEtoZW1rYSIgPHZpamF5a2hlbWth
+QGZiLmNvbT4gd3JvdGU6DQoNCiA+ICAgVGhpcyBwYXRjaCBhZGRzIE9FTSBjb21tYW5kcyBhbmQg
+cmVzcG9uc2UgaGFuZGxpbmcuIEl0IGFsc28gZGVmaW5lcyBPRU0NCiA+ICAgY29tbWFuZCBhbmQg
+cmVzcG9uc2Ugc3RydWN0dXJlIGFzIHBlciBOQ1NJIHNwZWNpZmljYXRpb24gYWxvbmcgd2l0aCBp
+dHMNCiA+ICAgaGFuZGxlcnMuDQogPiAgIA0KID4gICBuY3NpX2NtZF9oYW5kbGVyX29lbTogVGhp
+cyBpcyBhIGdlbmVyaWMgY29tbWFuZCByZXF1ZXN0IGhhbmRsZXIgZm9yIE9FTQ0KID4gICBjb21t
+YW5kcw0KID4gICBuY3NpX3JzcF9oYW5kbGVyX29lbTogVGhpcyBpcyBhIGdlbmVyaWMgcmVzcG9u
+c2UgaGFuZGxlciBmb3IgT0VNIGNvbW1hbmRzDQogICANCiAgVGhpcyBpcyBhIGdlbmVyaWMgcGF0
+Y2ggZm9yIE9FTSBjb21tYW5kIGhhbmRsaW5nLCBUaGVyZSB3aWxsIGJlIGFub3RoZXIgcGF0Y2gg
+DQogIGZvbGxvd2luZyB0aGlzIHRvIGhhbmRsZSBzcGVjaWZpYyBPRU0gY29tbWFuZHMgZm9yIGVh
+Y2ggdmVuZG9yLiBDdXJyZW50bHkgSSBoYXZlDQogIGRlZmluZWQgMiB2ZW5kb3IvbWFudWZhY3R1
+cmVyIGlkIGJlbG93IGluIGludGVybmFsLmgsIG1vcmUgY2FuIGJlIGFkZGVkIGhlcmUgZm9yDQog
+IG90aGVyIHZlbmRvcnMuIEkgaGF2ZSBub3QgZGVmaW5lZCBuY3NpX3JzcF9vZW1faGFuZGxlciBp
+biB0aGlzIHBhdGNoIGFzIHRoZXkgYXJlIA0KICBOVUxMLCBidXQgdGhlcmUgd2lsbCBiZSBhIGRl
+ZmluZWQgaGFuZGxlcnMgZm9yIGVhY2ggdmVuZG9yIGluIG5leHQgcGF0Y2guIA0KIA0KICAgIFNp
+Z25lZC1vZmYtYnk6IFZpamF5IEtoZW1rYSA8dmlqYXlraGVta2FAZmIuY29tPg0KICAgIC0tLQ0K
+ICAgICBuZXQvbmNzaS9pbnRlcm5hbC5oIHwgIDQgKysrKw0KICAgICBuZXQvbmNzaS9uY3NpLWNt
+ZC5jIHwgMzEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLQ0KICAgICBuZXQvbmNzaS9u
+Y3NpLXBrdC5oIHwgMTYgKysrKysrKysrKysrKysrKw0KICAgICBuZXQvbmNzaS9uY3NpLXJzcC5j
+IHwgNDQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0NCiAgICAg
+NCBmaWxlcyBjaGFuZ2VkLCA5MSBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KICAgIA0K
+ICAgIGRpZmYgLS1naXQgYS9uZXQvbmNzaS9pbnRlcm5hbC5oIGIvbmV0L25jc2kvaW50ZXJuYWwu
+aA0KICAgIGluZGV4IDgwNTVlMzk2NWNlZi4uYzE2Y2I3MjIzMDY0IDEwMDY0NA0KICAgIC0tLSBh
+L25ldC9uY3NpL2ludGVybmFsLmgNCiAgICArKysgYi9uZXQvbmNzaS9pbnRlcm5hbC5oDQogICAg
+QEAgLTY4LDYgKzY4LDEwIEBAIGVudW0gew0KICAgICAJTkNTSV9NT0RFX01BWA0KICAgICB9Ow0K
+ICAgICANCiAgICArLyogT0VNIFZlbmRvciBNYW51ZmFjdHVyZSBJRCAqLw0KICAgICsjZGVmaW5l
+IE5DU0lfT0VNX01GUl9NTFhfSUQgICAgICAgICAgICAgMHg4MTE5DQogICAgKyNkZWZpbmUgTkNT
+SV9PRU1fTUZSX0JDTV9JRCAgICAgICAgICAgICAweDExM2QNCiAgICArDQogICAgIHN0cnVjdCBu
+Y3NpX2NoYW5uZWxfdmVyc2lvbiB7DQogICAgIAl1MzIgdmVyc2lvbjsJCS8qIFN1cHBvcnRlZCBC
+Q0QgZW5jb2RlZCBOQ1NJIHZlcnNpb24gKi8NCiAgICAgCXUzMiBhbHBoYTI7CQkvKiBTdXBwb3J0
+ZWQgQkNEIGVuY29kZWQgTkNTSSB2ZXJzaW9uICovDQogICAgZGlmZiAtLWdpdCBhL25ldC9uY3Np
+L25jc2ktY21kLmMgYi9uZXQvbmNzaS9uY3NpLWNtZC5jDQogICAgaW5kZXggNzU2N2NhNjNhYWUy
+Li4yZjk4NTMzZWJhNDYgMTAwNjQ0DQogICAgLS0tIGEvbmV0L25jc2kvbmNzaS1jbWQuYw0KICAg
+ICsrKyBiL25ldC9uY3NpL25jc2ktY21kLmMNCiAgICBAQCAtMjExLDYgKzIxMSwyNiBAQCBzdGF0
+aWMgaW50IG5jc2lfY21kX2hhbmRsZXJfc25mYyhzdHJ1Y3Qgc2tfYnVmZiAqc2tiLA0KICAgICAJ
+cmV0dXJuIDA7DQogICAgIH0NCiAgICAgDQogICAgK3N0YXRpYyBpbnQgbmNzaV9jbWRfaGFuZGxl
+cl9vZW0oc3RydWN0IHNrX2J1ZmYgKnNrYiwNCiAgICArCQkJCXN0cnVjdCBuY3NpX2NtZF9hcmcg
+Km5jYSkNCiAgICArew0KICAgICsJc3RydWN0IG5jc2lfY21kX29lbV9wa3QgKmNtZDsNCiAgICAr
+CXVuc2lnbmVkIGludCBsZW47DQogICAgKw0KICAgICsJbGVuID0gc2l6ZW9mKHN0cnVjdCBuY3Np
+X2NtZF9wa3RfaGRyKSArIDQ7DQogICAgKwlpZiAobmNhLT5wYXlsb2FkIDwgMjYpDQogICAgKwkJ
+bGVuICs9IDI2Ow0KICAgICsJZWxzZQ0KICAgICsJCWxlbiArPSBuY2EtPnBheWxvYWQ7DQogICAg
+Kw0KICAgICsJY21kID0gc2tiX3B1dF96ZXJvKHNrYiwgbGVuKTsNCiAgICArCWNtZC0+bWZyX2lk
+ID0gbmNhLT5kd29yZHNbMF07DQogICAgKwltZW1jcHkoY21kLT5kYXRhLCAmbmNhLT5kd29yZHNb
+MV0sIG5jYS0+cGF5bG9hZCAtIDQpOw0KICAgICsJbmNzaV9jbWRfYnVpbGRfaGVhZGVyKCZjbWQt
+PmNtZC5jb21tb24sIG5jYSk7DQogICAgKw0KICAgICsJcmV0dXJuIDA7DQogICAgK30NCiAgICAr
+DQogICAgIHN0YXRpYyBzdHJ1Y3QgbmNzaV9jbWRfaGFuZGxlciB7DQogICAgIAl1bnNpZ25lZCBj
+aGFyIHR5cGU7DQogICAgIAlpbnQgICAgICAgICAgIHBheWxvYWQ7DQogICAgQEAgLTI0NCw3ICsy
+NjQsNyBAQCBzdGF0aWMgc3RydWN0IG5jc2lfY21kX2hhbmRsZXIgew0KICAgICAJeyBOQ1NJX1BL
+VF9DTURfR05TLCAgICAwLCBuY3NpX2NtZF9oYW5kbGVyX2RlZmF1bHQgfSwNCiAgICAgCXsgTkNT
+SV9QS1RfQ01EX0dOUFRTLCAgMCwgbmNzaV9jbWRfaGFuZGxlcl9kZWZhdWx0IH0sDQogICAgIAl7
+IE5DU0lfUEtUX0NNRF9HUFMsICAgIDAsIG5jc2lfY21kX2hhbmRsZXJfZGVmYXVsdCB9LA0KICAg
+IC0JeyBOQ1NJX1BLVF9DTURfT0VNLCAgICAwLCBOVUxMICAgICAgICAgICAgICAgICAgICAgfSwN
+CiAgICArCXsgTkNTSV9QS1RfQ01EX09FTSwgICAtMSwgbmNzaV9jbWRfaGFuZGxlcl9vZW0gICAg
+IH0sDQogICAgIAl7IE5DU0lfUEtUX0NNRF9QTERNLCAgIDAsIE5VTEwgICAgICAgICAgICAgICAg
+ICAgICB9LA0KICAgICAJeyBOQ1NJX1BLVF9DTURfR1BVVUlELCAwLCBuY3NpX2NtZF9oYW5kbGVy
+X2RlZmF1bHQgfQ0KICAgICB9Ow0KICAgIEBAIC0zMTYsOCArMzM2LDEzIEBAIGludCBuY3NpX3ht
+aXRfY21kKHN0cnVjdCBuY3NpX2NtZF9hcmcgKm5jYSkNCiAgICAgCQlyZXR1cm4gLUVOT0VOVDsN
+CiAgICAgCX0NCiAgICAgDQogICAgLQkvKiBHZXQgcGFja2V0IHBheWxvYWQgbGVuZ3RoIGFuZCBh
+bGxvY2F0ZSB0aGUgcmVxdWVzdCAqLw0KICAgIC0JbmNhLT5wYXlsb2FkID0gbmNoLT5wYXlsb2Fk
+Ow0KICAgICsJLyogR2V0IHBhY2tldCBwYXlsb2FkIGxlbmd0aCBhbmQgYWxsb2NhdGUgdGhlIHJl
+cXVlc3QNCiAgICArCSAqIEl0IGlzIGV4cGVjdGVkIHRoYXQgaWYgbGVuZ3RoIHNldCBhcyBuZWdh
+dGl2ZSBpbg0KICAgICsJICogaGFuZGxlciBzdHJ1Y3R1cmUgbWVhbnMgY2FsbGVyIGlzIGluaXRp
+YWxpemluZyBpdA0KICAgICsJICogYW5kIHNldHRpbmcgbGVuZ3RoIGluIG5jYSBiZWZvcmUgY2Fs
+bGluZyB4bWl0IGZ1bmN0aW9uDQogICAgKwkgKi8NCiAgICArCWlmIChuY2gtPnBheWxvYWQgPj0g
+MCkNCiAgICArCQluY2EtPnBheWxvYWQgPSBuY2gtPnBheWxvYWQ7DQogICAgIAluciA9IG5jc2lf
+YWxsb2NfY29tbWFuZChuY2EpOw0KICAgICAJaWYgKCFucikNCiAgICAgCQlyZXR1cm4gLUVOT01F
+TTsNCiAgICBkaWZmIC0tZ2l0IGEvbmV0L25jc2kvbmNzaS1wa3QuaCBiL25ldC9uY3NpL25jc2kt
+cGt0LmgNCiAgICBpbmRleCA5MWI0YjY2NDM4ZGYuLjFmMzM4Mzg2ODEwZCAxMDA2NDQNCiAgICAt
+LS0gYS9uZXQvbmNzaS9uY3NpLXBrdC5oDQogICAgKysrIGIvbmV0L25jc2kvbmNzaS1wa3QuaA0K
+ICAgIEBAIC0xNTEsNiArMTUxLDIyIEBAIHN0cnVjdCBuY3NpX2NtZF9zbmZjX3BrdCB7DQogICAg
+IAl1bnNpZ25lZCBjaGFyICAgICAgICAgICBwYWRbMjJdOw0KICAgICB9Ow0KICAgICANCiAgICAr
+LyogT0VNIFJlcXVlc3QgQ29tbWFuZCBhcyBwZXIgTkNTSSBTcGVjaWZpY2F0aW9uICovDQogICAg
+K3N0cnVjdCBuY3NpX2NtZF9vZW1fcGt0IHsNCiAgICArCXN0cnVjdCBuY3NpX2NtZF9wa3RfaGRy
+IGNtZDsgICAgICAgICAvKiBDb21tYW5kIGhlYWRlciAgICAqLw0KICAgICsJX19iZTMyICAgICAg
+ICAgICAgICAgICAgbWZyX2lkOyAgICAgIC8qIE1hbnVmYWN0dXJlIElEICAgICovDQogICAgKwl1
+bnNpZ25lZCBjaGFyICAgICAgICAgICBkYXRhWzY0XTsgICAgLyogT0VNIFBheWxvYWQgRGF0YSAg
+Ki8NCiAgICArCV9fYmUzMiAgICAgICAgICAgICAgICAgIGNoZWNrc3VtOyAgICAvKiBDaGVja3N1
+bSAgICAgICAgICAqLw0KICAgICt9Ow0KICAgICsNCiAgICArLyogT0VNIFJlc3BvbnNlIFBhY2tl
+dCBhcyBwZXIgTkNTSSBTcGVjaWZpY2F0aW9uICovDQogICAgK3N0cnVjdCBuY3NpX3JzcF9vZW1f
+cGt0IHsNCiAgICArCXN0cnVjdCBuY3NpX3JzcF9wa3RfaGRyIHJzcDsgICAgICAgICAvKiBDb21t
+YW5kIGhlYWRlciAgICAqLw0KICAgICsJX19iZTMyICAgICAgICAgICAgICAgICAgbWZyX2lkOyAg
+ICAgIC8qIE1hbnVmYWN0dXJlIElEICAgICovDQogICAgKwl1bnNpZ25lZCBjaGFyICAgICAgICAg
+ICBkYXRhWzY0XTsgICAgLyogUGF5bG9hZCBkYXRhICAgICAgKi8NCiAgICArCV9fYmUzMiAgICAg
+ICAgICAgICAgICAgIGNoZWNrc3VtOyAgICAvKiBDaGVja3N1bSAgICAgICAgICAqLw0KICAgICt9
+Ow0KICAgICsNCiAgICAgLyogR2V0IExpbmsgU3RhdHVzICovDQogICAgIHN0cnVjdCBuY3NpX3Jz
+cF9nbHNfcGt0IHsNCiAgICAgCXN0cnVjdCBuY3NpX3JzcF9wa3RfaGRyIHJzcDsgICAgICAgIC8q
+IFJlc3BvbnNlIGhlYWRlciAgICovDQogICAgZGlmZiAtLWdpdCBhL25ldC9uY3NpL25jc2ktcnNw
+LmMgYi9uZXQvbmNzaS9uY3NpLXJzcC5jDQogICAgaW5kZXggOTMwYzFkMzc5NmYwLi4yMjY2NGVi
+ZGM5M2EgMTAwNjQ0DQogICAgLS0tIGEvbmV0L25jc2kvbmNzaS1yc3AuYw0KICAgICsrKyBiL25l
+dC9uY3NpL25jc2ktcnNwLmMNCiAgICBAQCAtNTk2LDYgKzU5Niw0OCBAQCBzdGF0aWMgaW50IG5j
+c2lfcnNwX2hhbmRsZXJfc25mYyhzdHJ1Y3QgbmNzaV9yZXF1ZXN0ICpucikNCiAgICAgCXJldHVy
+biAwOw0KICAgICB9DQogICAgIA0KICAgICtzdGF0aWMgc3RydWN0IG5jc2lfcnNwX29lbV9oYW5k
+bGVyIHsNCiAgICArCXVuc2lnbmVkIGludAltZnJfaWQ7DQogICAgKwlpbnQJCSgqaGFuZGxlciko
+c3RydWN0IG5jc2lfcmVxdWVzdCAqbnIpOw0KICAgICt9IG5jc2lfcnNwX29lbV9oYW5kbGVyc1td
+ID0gew0KICAgICsJeyBOQ1NJX09FTV9NRlJfTUxYX0lELCBOVUxMIH0sDQogICAgKwl7IE5DU0lf
+T0VNX01GUl9CQ01fSUQsIE5VTEwgfQ0KICAgICt9Ow0KICAgICsNCiAgICArDQogICAgKy8qIFJl
+c3BvbnNlIGhhbmRsZXIgZm9yIE9FTSBjb21tYW5kICovDQogICAgK3N0YXRpYyBpbnQgbmNzaV9y
+c3BfaGFuZGxlcl9vZW0oc3RydWN0IG5jc2lfcmVxdWVzdCAqbnIpDQogICAgK3sNCiAgICArCXN0
+cnVjdCBuY3NpX3JzcF9vZW1fcGt0ICpyc3A7DQogICAgKwlzdHJ1Y3QgbmNzaV9yc3Bfb2VtX2hh
+bmRsZXIgKm5yaCA9IE5VTEw7DQogICAgKwl1bnNpZ25lZCBpbnQgbWZyX2lkLCBpOw0KICAgICsN
+CiAgICArCS8qIEdldCB0aGUgcmVzcG9uc2UgaGVhZGVyICovDQogICAgKwlyc3AgPSAoc3RydWN0
+IG5jc2lfcnNwX29lbV9wa3QgKilza2JfbmV0d29ya19oZWFkZXIobnItPnJzcCk7DQogICAgKwlt
+ZnJfaWQgPSBudG9obChyc3AtPm1mcl9pZCk7DQogICAgKw0KICAgICsJLyogQ2hlY2sgZm9yIG1h
+bnVmYWN0dXJlciBpZCBhbmQgRmluZCB0aGUgaGFuZGxlciAqLw0KICAgICsJZm9yIChpID0gMDsg
+aSA8IEFSUkFZX1NJWkUobmNzaV9yc3Bfb2VtX2hhbmRsZXJzKTsgaSsrKSB7DQogICAgKwkJaWYg
+KG5jc2lfcnNwX29lbV9oYW5kbGVyc1tpXS5tZnJfaWQgPT0gbWZyX2lkKSB7DQogICAgKwkJCWlm
+IChuY3NpX3JzcF9vZW1faGFuZGxlcnNbaV0uaGFuZGxlcikNCiAgICArCQkJCW5yaCA9ICZuY3Np
+X3JzcF9vZW1faGFuZGxlcnNbaV07DQogICAgKwkJCWVsc2UNCiAgICArCQkJCW5yaCA9IE5VTEw7
+DQogICAgKw0KICAgICsJCQlicmVhazsNCiAgICArCQl9DQogICAgKwl9DQogICAgKw0KICAgICsJ
+aWYgKCFucmgpIHsNCiAgICArCQluZXRkZXZfZXJyKG5yLT5uZHAtPm5kZXYuZGV2LCAiUmVjZWl2
+ZWQgdW5yZWNvZ25pemVkIE9FTSBwYWNrZXQgd2l0aCBNRlItSUQgKDB4JXgpXG4iLA0KICAgICsJ
+CQkgICBtZnJfaWQpOw0KICAgICsJCXJldHVybiAtRU5PRU5UOw0KICAgICsJfQ0KICAgICsNCiAg
+ICArCS8qIFByb2Nlc3MgdGhlIHBhY2tldCAqLw0KICAgICsJcmV0dXJuIG5yaC0+aGFuZGxlcihu
+cik7DQogICAgK30NCiAgICArDQogICAgIHN0YXRpYyBpbnQgbmNzaV9yc3BfaGFuZGxlcl9ndmko
+c3RydWN0IG5jc2lfcmVxdWVzdCAqbnIpDQogICAgIHsNCiAgICAgCXN0cnVjdCBuY3NpX3JzcF9n
+dmlfcGt0ICpyc3A7DQogICAgQEAgLTkzMiw3ICs5NzQsNyBAQCBzdGF0aWMgc3RydWN0IG5jc2lf
+cnNwX2hhbmRsZXIgew0KICAgICAJeyBOQ1NJX1BLVF9SU1BfR05TLCAgIDE3MiwgbmNzaV9yc3Bf
+aGFuZGxlcl9nbnMgICAgIH0sDQogICAgIAl7IE5DU0lfUEtUX1JTUF9HTlBUUywgMTcyLCBuY3Np
+X3JzcF9oYW5kbGVyX2ducHRzICAgfSwNCiAgICAgCXsgTkNTSV9QS1RfUlNQX0dQUywgICAgIDgs
+IG5jc2lfcnNwX2hhbmRsZXJfZ3BzICAgICB9LA0KICAgIC0JeyBOQ1NJX1BLVF9SU1BfT0VNLCAg
+ICAgMCwgTlVMTCAgICAgICAgICAgICAgICAgICAgIH0sDQogICAgKwl7IE5DU0lfUEtUX1JTUF9P
+RU0sICAgIC0xLCBuY3NpX3JzcF9oYW5kbGVyX29lbSAgICAgfSwNCiAgICAgCXsgTkNTSV9QS1Rf
+UlNQX1BMRE0sICAgIDAsIE5VTEwgICAgICAgICAgICAgICAgICAgICB9LA0KICAgICAJeyBOQ1NJ
+X1BLVF9SU1BfR1BVVUlELCAyMCwgbmNzaV9yc3BfaGFuZGxlcl9ncHV1aWQgIH0NCiAgICAgfTsN
+CiAgICAtLSANCiAgICAyLjE3LjENCiAgICANCiAgICANCg0K
