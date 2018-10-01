@@ -1,88 +1,44 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.from=linux.intel.com
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42P5b74z0MzF39y
- for <openbmc@lists.ozlabs.org>; Tue,  2 Oct 2018 01:21:07 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w91FFTkA132480
- for <openbmc@lists.ozlabs.org>; Mon, 1 Oct 2018 11:21:05 -0400
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2munx40nq0-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 01 Oct 2018 11:21:04 -0400
-Received: from localhost
- by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 1 Oct 2018 11:21:02 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 1 Oct 2018 11:20:59 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w91FKwZp28246204
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 1 Oct 2018 15:20:58 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 20E16B2065;
- Mon,  1 Oct 2018 11:19:12 -0400 (EDT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2C05BB205F;
- Mon,  1 Oct 2018 11:19:11 -0400 (EDT)
-Received: from [9.41.179.222] (unknown [9.41.179.222])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon,  1 Oct 2018 11:19:11 -0400 (EDT)
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: Add Aspeed Video Engine
- binding documentation
-To: Joel Stanley <joel@jms.id.au>, eajames@linux.ibm.com
-Cc: Mark Rutland <mark.rutland@arm.com>,
- devicetree <devicetree@vger.kernel.org>, linux-aspeed@lists.ozlabs.org,
- Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- hverkuil@xs4all.nl, Rob Herring <robh+dt@kernel.org>,
- mchehab@kernel.org, linux-media@vger.kernel.org
-References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
- <1537903629-14003-2-git-send-email-eajames@linux.ibm.com>
- <CACPK8Xd0MhrFQqiM=u-Rv5u7RJRo5R-pAejH4dmeTrYSWE0AZA@mail.gmail.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Mon, 1 Oct 2018 10:20:57 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42PDPM6VBxzF3BM;
+ Tue,  2 Oct 2018 06:28:05 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2018 13:28:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,328,1534834800"; d="scan'208";a="79022362"
+Received: from maru.jf.intel.com ([10.54.51.77])
+ by orsmga006.jf.intel.com with ESMTP; 01 Oct 2018 13:27:49 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+To: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH i2c-next v4 0/3] i2c: aspeed: Add bus idle waiting logic for
+ multi-master use cases
+Date: Mon,  1 Oct 2018 13:27:45 -0700
+Message-Id: <20181001202748.8030-1-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.19.0
 MIME-Version: 1.0
-In-Reply-To: <CACPK8Xd0MhrFQqiM=u-Rv5u7RJRo5R-pAejH4dmeTrYSWE0AZA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18100115-0064-0000-0000-0000035832C4
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009803; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000267; SDB=6.01096356; UDB=6.00566899; IPR=6.00876399; 
- MB=3.00023576; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-01 15:21:02
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18100115-0065-0000-0000-00003AD572A4
-Message-Id: <3e53dda4-81c4-1009-add2-45a3a7998e4e@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-01_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1810010148
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,74 +50,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Oct 2018 15:21:08 -0000
+X-List-Received-Date: Mon, 01 Oct 2018 20:28:09 -0000
 
+In multi-master environment, this driver's master cannot know
+exactly when peer master sends data to this driver's slave so a
+case can be happened that this master tries to send data through
+the master_xfer function but slave data from peer master is still
+being processed by this driver.
 
+To prevent state corruption in the case, this patch adds checking
+code if any slave operation is ongoing and it waits up to the
+timeout duration before starting a master_xfer operation.
 
-On 10/01/2018 08:08 AM, Joel Stanley wrote:
-> On Tue, 25 Sep 2018 at 21:27, Eddie James <eajames@linux.ibm.com> wrote:
->> Document the bindings.
->>
->> Signed-off-by: Eddie James <eajames@linux.ibm.com>
->> ---
->>   .../devicetree/bindings/media/aspeed-video.txt     | 26 ++++++++++++++++++++++
->>   1 file changed, 26 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
->>
->> diff --git a/Documentation/devicetree/bindings/media/aspeed-video.txt b/Documentation/devicetree/bindings/media/aspeed-video.txt
->> new file mode 100644
->> index 0000000..f1af528
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/media/aspeed-video.txt
->> @@ -0,0 +1,26 @@
->> +* Device tree bindings for Aspeed Video Engine
->> +
->> +The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs can
->> +capture and compress video data from digital or analog sources.
->> +
->> +Required properties:
->> + - compatible:         "aspeed,ast2400-video-engine" or
->> +                       "aspeed,ast2500-video-engine"
->> + - reg:                        contains the offset and length of the VE memory region
->> + - clocks:             clock specifiers for the syscon clocks associated with
->> +                       the VE (ordering must match the clock-names property)
->> + - clock-names:                "vclk" and "eclk"
->> + - resets:             reset specifier for the syscon reset associaated with
-> associated
-
-Good catch, thanks.
-
->
->> +                       the VE
->> + - interrupts:         the interrupt associated with the VE on this platform
->> +
->> +Example:
->> +
->> +video-engine@1e700000 {
->> +    compatible = "aspeed,ast2500-video-engine";
->> +    reg = <0x1e700000 0x20000>;
->> +    clocks = <&syscon ASPEED_CLK_GATE_VCLK>, <&syscon ASPEED_CLK_GATE_ECLK>;
->> +    clock-names = "vclk", "eclk";
-> Did you end up sending the clock patches out?
-
-Yes,
-
-https://lore.kernel.org/patchwork/patch/978979/
-https://lore.kernel.org/patchwork/patch/978976/
-
-Do I need to send them as a separate series?
+Please review this patch set.
 
 Thanks,
-Eddie
 
->
-> Cheers,
->
-> Joel
->
->> +    resets = <&syscon ASPEED_RESET_VIDEO>;
->> +    interrupts = <7>;
->> +};
->> --
->> 1.8.3.1
->>
+-Jae
+
+Changes since v3:
+- Changed the property name to 'timeout' and made it use the
+  default setting in i2c-core when not specified.
+
+Changes since v2:
+- Changed the property name to 'aspeed,timeout' and made it to
+  update the adapter's timeout configuration.
+
+Changes since v1:
+- Changed define names of timeout related.
+
+Jae Hyun Yoo (3):
+  dt-bindings: i2c: aspeed: Add 'timeout' property as an optional
+    property
+  i2c: aspeed: Add 'timeout' DT property reading code
+  i2c: aspeed: Add bus idle waiting logic for multi-master use cases
+
+ .../devicetree/bindings/i2c/i2c-aspeed.txt    |  3 +
+ drivers/i2c/busses/i2c-aspeed.c               | 70 ++++++++++++++-----
+ 2 files changed, 57 insertions(+), 16 deletions(-)
+
+-- 
+2.19.0
