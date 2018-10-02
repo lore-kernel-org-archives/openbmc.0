@@ -1,75 +1,61 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <prvs=3813733137=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="qI5gvuy3"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="lWbdphKN"; dkim-atps=neutral
-X-Greylist: delayed 361 seconds by postgrey-1.36 at bilbo;
- Tue, 02 Oct 2018 11:26:46 AEST
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=3813733137=taoren@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="JyEmGbad"; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42PM1y0HcwzF3D6;
- Tue,  2 Oct 2018 11:26:45 +1000 (AEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 82D0A21F27;
- Mon,  1 Oct 2018 21:20:38 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 01 Oct 2018 21:20:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=content-transfer-encoding:content-type:date
- :from:in-reply-to:message-id:mime-version:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=nqkUuU9fAGyYo4f5j
- gcP/E8QUOgdkNTja1m4XK+Uv2Y=; b=qI5gvuy3Rol6MjB09D8y0fCDIddLdUwpi
- r65SatZGv8ArIp6MqnJMx8MKxot6E1AUVd4eGHmYUKqCJHhNHtDpMXKDRqob3IiO
- OOjbsB+zvwpnDD8doOkunU39jyvggMKrK8IN0mIPELS6edjtO9x0KOkBV9WEj71c
- UARZOUjXWB84MARc7AJkny6AA7JEWJsmwj5Zh2aca5NJUJ/ZCfjQNViEqg9dc/aU
- LDyf2ODpiVNhQBzXDINF5XPE7D9wISilOkGIV0PFKtn0INGhNsvDoZh9UPXXZ11+
- tGfsCSH6xTeh6p80y61AXq3CU5wPcQLAlyEuyngv0R4cwCdGWnQ5w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=nqkUuU
- 9fAGyYo4f5jgcP/E8QUOgdkNTja1m4XK+Uv2Y=; b=lWbdphKN4QOTYE0UeLYsrc
- 1wYKiliAWFqReOSWGguU28uJzU2m8DLyfeRKWSyj6/2t2e5+OH90v+Kzze+2bofa
- VoL/Ojckq3RD+WVLvhXdJxefPIe4mIaTuYuOuy8IkT81BqG091vrKs38oi34jjnX
- GspiQA3QAUQ3Jf1t+4osWMhujHbsSDSaWwd4XKp25K8Prtey9/zm/wY0EWPxb+fU
- B81N+8pWVZssvB3EiNklci2dmZ43emWc/7duTsSPRSNt5MbB5C6hA91r1BrDRL60
- W3gscHuc3kJowLFAvA57Xb855FCr32MShB1Uc8uSmUx1ujn9Vi+OFLoS47Mwu/YQ
- ==
-X-ME-Sender: <xms:5ceyWwIkwZPiX5T8v0H2sQxSZI4Bi9JfwqQum7QZxDbyHi1vRChIXw>
-X-ME-Proxy: <xmx:5ceyW9wQOtqDB3_uFCqgOb9c5nHFl9BqIWbtz-zMtlPhMh5lCdkWuQ>
- <xmx:5ceyW9JUkYlq45oNLLKJd-lOwjNHE1vtVWV4h0iLXkJJrpgCY1fNEA>
- <xmx:5ceyW0rQhcmIpcz1Wx0sBhPjbwnwXVmJ_q1meLzE6T1EEH3zoRU9MQ>
- <xmx:5ceyW7viBB8rR0If1wtK-AjI-z5UwsLxCCXNFGUqh0eis76AlCV5hQ>
- <xmx:5ceyW8JgtP3ulcqXEvlQdSeRv32Embvo3g5xjpF0XuJZ61UHC9jK-g>
- <xmx:5seyW-R0Hx9bAMQtEWh8pVGzgvpoWnrd5vgyh_aA2zBgu44qrdybLA>
-Received: from v4 (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 49A36102D7;
- Mon,  1 Oct 2018 21:20:34 -0400 (EDT)
-Message-ID: <1004987ef0ab138e772ed5740a0d839bffe39910.camel@mendozajonas.com>
-Subject: Re: [PATCH v2] net/ncsi: Add NCSI OEM command support
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Vijay Khemka <vijaykhemka@fb.com>, "Justin . Lee1 @ Dell . com"
- <Justin.Lee1@Dell.com>, "joel @ jms . id . au" <joel@jms.id.au>, 
- "linux-aspeed @ lists . ozlabs . org" <linux-aspeed@lists.ozlabs.org>,
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>, Sai Dasari
- <sdasari@fb.com>, "netdev @ vger . kernel . org" <netdev@vger.kernel.org>,
- "christian @ cmd . nu" <christian@cmd.nu>
-Date: Tue, 02 Oct 2018 11:20:23 +1000
-In-Reply-To: <20180929010602.1025909-1-vijaykhemka@fb.com>
-References: <20180929010602.1025909-1-vijaykhemka@fb.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42PQlv31hqzF3D0
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Oct 2018 14:14:47 +1000 (AEST)
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w924DmO5020889
+ for <openbmc@lists.ozlabs.org>; Mon, 1 Oct 2018 21:14:45 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=KhGFRYG2jaLmoijPykpnc7CLDvnfAyslQghCVfVZ/js=;
+ b=JyEmGbadWkZQlcvIC+xwefP5OXoF8kBtSRswLvV5945H3mNqGz6v5Ye4Wfh8N9h+K1A8
+ UYxkShodNxMEpLeM+tK5yRb5K0xFuugjkh/DrrJ1G1DPTUFavPVxYkq94POk0TW6keUw
+ foY8R2/5F4yceU+bcU6q8tDBohElcMePAH0= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2muwd0gk3q-8
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 01 Oct 2018 21:14:45 -0700
+Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
+ (192.168.16.24) with Microsoft SMTP Server (TLS) id 14.3.361.1; Mon, 1 Oct
+ 2018 21:14:44 -0700
+Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)	id
+ 29B73648C915; Mon,  1 Oct 2018 21:14:40 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, Thomas Gleixner
+ <tglx@linutronix.de>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+ <andrew@aj.id.au>, Linus Walleij <linus.walleij@linaro.org>, Lei YU
+ <mine260309@gmail.com>, <openbmc@lists.ozlabs.org>,
+ <linux-kernel@vger.kernel.org>, <linux-aspeed@lists.ozlabs.org>
+CC: Tao Ren <taoren@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt register
+ access
+Date: Mon, 1 Oct 2018 21:14:37 -0700
+Message-ID: <20181002041437.2493192-1-taoren@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-02_01:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,188 +67,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Oct 2018 01:26:49 -0000
+X-List-Received-Date: Tue, 02 Oct 2018 04:14:52 -0000
 
-On Fri, 2018-09-28 at 18:06 -0700, Vijay Khemka wrote:
-> This patch adds OEM commands and response handling. It also defines OEM
-> command and response structure as per NCSI specification along with its
-> handlers.
-> 
-> ncsi_cmd_handler_oem: This is a generic command request handler for OEM
-> commands
-> ncsi_rsp_handler_oem: This is a generic response handler for OEM commands
-> 
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+TIMER_INTR_MASK register (Base Address of Timer + 0x38) is not designed
+for masking interrupts on ast2500 chips, and it's not even listed in
+ast2400 datasheet, so it's not safe to access TIMER_INTR_MASK on aspeed
+chips.
+Similarly, TIMER_INTR_STATE register (Base Address of Timer + 0x34) is
+not interrupt status register on ast2400 and ast2500 chips. Although
+there is no side effect to reset the register in fttmr010_common_init(),
+it's just misleading to do so.
 
-Hi Vijay - looks good to me, and should be a good common base for your
-and Justin's changes.
+Signed-off-by: Tao Ren <taoren@fb.com>
+---
+ drivers/clocksource/timer-fttmr010.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-Reviewed-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-
-> ---
->  net/ncsi/internal.h |  4 ++++
->  net/ncsi/ncsi-cmd.c | 31 ++++++++++++++++++++++++++++---
->  net/ncsi/ncsi-pkt.h | 16 ++++++++++++++++
->  net/ncsi/ncsi-rsp.c | 44 +++++++++++++++++++++++++++++++++++++++++++-
->  4 files changed, 91 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-> index 8055e3965cef..c16cb7223064 100644
-> --- a/net/ncsi/internal.h
-> +++ b/net/ncsi/internal.h
-> @@ -68,6 +68,10 @@ enum {
->  	NCSI_MODE_MAX
->  };
->  
-> +/* OEM Vendor Manufacture ID */
-> +#define NCSI_OEM_MFR_MLX_ID             0x8119
-> +#define NCSI_OEM_MFR_BCM_ID             0x113d
-> +
->  struct ncsi_channel_version {
->  	u32 version;		/* Supported BCD encoded NCSI version */
->  	u32 alpha2;		/* Supported BCD encoded NCSI version */
-> diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-> index 7567ca63aae2..2f98533eba46 100644
-> --- a/net/ncsi/ncsi-cmd.c
-> +++ b/net/ncsi/ncsi-cmd.c
-> @@ -211,6 +211,26 @@ static int ncsi_cmd_handler_snfc(struct sk_buff *skb,
->  	return 0;
->  }
->  
-> +static int ncsi_cmd_handler_oem(struct sk_buff *skb,
-> +				struct ncsi_cmd_arg *nca)
-> +{
-> +	struct ncsi_cmd_oem_pkt *cmd;
-> +	unsigned int len;
-> +
-> +	len = sizeof(struct ncsi_cmd_pkt_hdr) + 4;
-> +	if (nca->payload < 26)
-> +		len += 26;
-> +	else
-> +		len += nca->payload;
-> +
-> +	cmd = skb_put_zero(skb, len);
-> +	cmd->mfr_id = nca->dwords[0];
-> +	memcpy(cmd->data, &nca->dwords[1], nca->payload - 4);
-> +	ncsi_cmd_build_header(&cmd->cmd.common, nca);
-> +
-> +	return 0;
-> +}
-> +
->  static struct ncsi_cmd_handler {
->  	unsigned char type;
->  	int           payload;
-> @@ -244,7 +264,7 @@ static struct ncsi_cmd_handler {
->  	{ NCSI_PKT_CMD_GNS,    0, ncsi_cmd_handler_default },
->  	{ NCSI_PKT_CMD_GNPTS,  0, ncsi_cmd_handler_default },
->  	{ NCSI_PKT_CMD_GPS,    0, ncsi_cmd_handler_default },
-> -	{ NCSI_PKT_CMD_OEM,    0, NULL                     },
-> +	{ NCSI_PKT_CMD_OEM,   -1, ncsi_cmd_handler_oem     },
->  	{ NCSI_PKT_CMD_PLDM,   0, NULL                     },
->  	{ NCSI_PKT_CMD_GPUUID, 0, ncsi_cmd_handler_default }
->  };
-> @@ -316,8 +336,13 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
->  		return -ENOENT;
->  	}
->  
-> -	/* Get packet payload length and allocate the request */
-> -	nca->payload = nch->payload;
-> +	/* Get packet payload length and allocate the request
-> +	 * It is expected that if length set as negative in
-> +	 * handler structure means caller is initializing it
-> +	 * and setting length in nca before calling xmit function
-> +	 */
-> +	if (nch->payload >= 0)
-> +		nca->payload = nch->payload;
->  	nr = ncsi_alloc_command(nca);
->  	if (!nr)
->  		return -ENOMEM;
-> diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-> index 91b4b66438df..1f338386810d 100644
-> --- a/net/ncsi/ncsi-pkt.h
-> +++ b/net/ncsi/ncsi-pkt.h
-> @@ -151,6 +151,22 @@ struct ncsi_cmd_snfc_pkt {
->  	unsigned char           pad[22];
->  };
->  
-> +/* OEM Request Command as per NCSI Specification */
-> +struct ncsi_cmd_oem_pkt {
-> +	struct ncsi_cmd_pkt_hdr cmd;         /* Command header    */
-> +	__be32                  mfr_id;      /* Manufacture ID    */
-> +	unsigned char           data[64];    /* OEM Payload Data  */
-> +	__be32                  checksum;    /* Checksum          */
-> +};
-> +
-> +/* OEM Response Packet as per NCSI Specification */
-> +struct ncsi_rsp_oem_pkt {
-> +	struct ncsi_rsp_pkt_hdr rsp;         /* Command header    */
-> +	__be32                  mfr_id;      /* Manufacture ID    */
-> +	unsigned char           data[64];    /* Payload data      */
-> +	__be32                  checksum;    /* Checksum          */
-> +};
-> +
->  /* Get Link Status */
->  struct ncsi_rsp_gls_pkt {
->  	struct ncsi_rsp_pkt_hdr rsp;        /* Response header   */
-> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-> index 930c1d3796f0..22664ebdc93a 100644
-> --- a/net/ncsi/ncsi-rsp.c
-> +++ b/net/ncsi/ncsi-rsp.c
-> @@ -596,6 +596,48 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
->  	return 0;
->  }
->  
-> +static struct ncsi_rsp_oem_handler {
-> +	unsigned int	mfr_id;
-> +	int		(*handler)(struct ncsi_request *nr);
-> +} ncsi_rsp_oem_handlers[] = {
-> +	{ NCSI_OEM_MFR_MLX_ID, NULL },
-> +	{ NCSI_OEM_MFR_BCM_ID, NULL }
-> +};
-> +
-> +
-> +/* Response handler for OEM command */
-> +static int ncsi_rsp_handler_oem(struct ncsi_request *nr)
-> +{
-> +	struct ncsi_rsp_oem_pkt *rsp;
-> +	struct ncsi_rsp_oem_handler *nrh = NULL;
-> +	unsigned int mfr_id, i;
-> +
-> +	/* Get the response header */
-> +	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
-> +	mfr_id = ntohl(rsp->mfr_id);
-> +
-> +	/* Check for manufacturer id and Find the handler */
-> +	for (i = 0; i < ARRAY_SIZE(ncsi_rsp_oem_handlers); i++) {
-> +		if (ncsi_rsp_oem_handlers[i].mfr_id == mfr_id) {
-> +			if (ncsi_rsp_oem_handlers[i].handler)
-> +				nrh = &ncsi_rsp_oem_handlers[i];
-> +			else
-> +				nrh = NULL;
-> +
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!nrh) {
-> +		netdev_err(nr->ndp->ndev.dev, "Received unrecognized OEM packet with MFR-ID (0x%x)\n",
-> +			   mfr_id);
-> +		return -ENOENT;
-> +	}
-> +
-> +	/* Process the packet */
-> +	return nrh->handler(nr);
-> +}
-> +
->  static int ncsi_rsp_handler_gvi(struct ncsi_request *nr)
->  {
->  	struct ncsi_rsp_gvi_pkt *rsp;
-> @@ -932,7 +974,7 @@ static struct ncsi_rsp_handler {
->  	{ NCSI_PKT_RSP_GNS,   172, ncsi_rsp_handler_gns     },
->  	{ NCSI_PKT_RSP_GNPTS, 172, ncsi_rsp_handler_gnpts   },
->  	{ NCSI_PKT_RSP_GPS,     8, ncsi_rsp_handler_gps     },
-> -	{ NCSI_PKT_RSP_OEM,     0, NULL                     },
-> +	{ NCSI_PKT_RSP_OEM,    -1, ncsi_rsp_handler_oem     },
->  	{ NCSI_PKT_RSP_PLDM,    0, NULL                     },
->  	{ NCSI_PKT_RSP_GPUUID, 20, ncsi_rsp_handler_gpuuid  }
->  };
+diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
+index c020038ebfab..daf063c9842e 100644
+--- a/drivers/clocksource/timer-fttmr010.c
++++ b/drivers/clocksource/timer-fttmr010.c
+@@ -171,16 +171,17 @@ static int fttmr010_timer_set_oneshot(struct clock_event_device *evt)
+ 
+ 	/* Setup counter start from 0 or ~0 */
+ 	writel(0, fttmr010->base + TIMER1_COUNT);
+-	if (fttmr010->count_down)
++	if (fttmr010->count_down) {
+ 		writel(~0, fttmr010->base + TIMER1_LOAD);
+-	else
++	} else {
+ 		writel(0, fttmr010->base + TIMER1_LOAD);
+ 
+-	/* Enable interrupt */
+-	cr = readl(fttmr010->base + TIMER_INTR_MASK);
+-	cr &= ~(TIMER_1_INT_OVERFLOW | TIMER_1_INT_MATCH2);
+-	cr |= TIMER_1_INT_MATCH1;
+-	writel(cr, fttmr010->base + TIMER_INTR_MASK);
++		/* Enable interrupt */
++		cr = readl(fttmr010->base + TIMER_INTR_MASK);
++		cr &= ~(TIMER_1_INT_OVERFLOW | TIMER_1_INT_MATCH2);
++		cr |= TIMER_1_INT_MATCH1;
++		writel(cr, fttmr010->base + TIMER_INTR_MASK);
++	}
+ 
+ 	return 0;
+ }
+@@ -287,13 +288,13 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
+ 		fttmr010->count_down = true;
+ 	} else {
+ 		fttmr010->t1_enable_val = TIMER_1_CR_ENABLE | TIMER_1_CR_INT;
+-	}
+ 
+-	/*
+-	 * Reset the interrupt mask and status
+-	 */
+-	writel(TIMER_INT_ALL_MASK, fttmr010->base + TIMER_INTR_MASK);
+-	writel(0, fttmr010->base + TIMER_INTR_STATE);
++		/*
++		 * Reset the interrupt mask and status
++		 */
++		writel(TIMER_INT_ALL_MASK, fttmr010->base + TIMER_INTR_MASK);
++		writel(0, fttmr010->base + TIMER_INTR_STATE);
++	}
+ 
+ 	/*
+ 	 * Enable timer 1 count up, timer 2 count up, except on Aspeed,
+-- 
+2.17.1
