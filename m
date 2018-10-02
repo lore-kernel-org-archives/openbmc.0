@@ -1,59 +1,52 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4864:20::142; helo=mail-it1-x142.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="fDKktDwe"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="azaJEP4j"; 
  dkim-atps=neutral
-Received: from mail-it1-x142.google.com (mail-it1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42PWCB5SwwzF3D5
- for <openbmc@lists.ozlabs.org>; Tue,  2 Oct 2018 17:35:17 +1000 (AEST)
-Received: by mail-it1-x142.google.com with SMTP id h6-v6so8410795ith.0
- for <openbmc@lists.ozlabs.org>; Tue, 02 Oct 2018 00:35:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oR3LpccgihYUDIYwOsXzXwrUkU+td+zzHOTgPNH/0BE=;
- b=fDKktDwer5dJQAdwkvWBCus9SStuDyV0El5E+3XUNbmcIV7dUwrMlv8t6QgxlFv8c9
- fvIyRgRdH1qB00nnH9VJqNJ9VXj+gsJ+irUJBLkY+k5nDjk9XXlN0OZL40aDf/tu70c+
- gfOWW36QNY1BxWlY4Y1pXH3jEVmugQhG4DK5g=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Pjjr1C3kzF3Fs
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Oct 2018 01:29:03 +1000 (AEST)
+Received: by mail-pl1-x631.google.com with SMTP id az3-v6so1934414plb.4
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Oct 2018 08:29:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=craot1lKrUOY1Z7Ye7GTz4PXTYiGiVhTjP+G9fM03N4=;
+ b=azaJEP4jlAhp9D2uGaBsSJae2ZFN3C33qiQ5ghw3BH6gyGn8Ub2JqH/zERPvhCVZG2
+ peA961F560HVs20YNkbFi3PVugACd0bDk2jdpdIKdx63xopudI6I8hg9QYNlNDGwgwGa
+ Q5gxhzTGx8fxTjlPKG9UqYjBsm2LlWL1jU2oUnI3hS9BN1ELE3xazNOVdiuOZEpClVqj
+ wdaoUD1B4hFelXlAXZQ62HaA8IsyBVccnmvYDhTidOGbkSZ+9F3Rfsf53xU8Et+lT+cJ
+ TL3e34YHT82abtHA6RO91AE0PXsERGtrduRxB783EVo7skj9kop7bMDPNFqbqHmu2dql
+ OnZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oR3LpccgihYUDIYwOsXzXwrUkU+td+zzHOTgPNH/0BE=;
- b=P0y81J01xVwwQNnurREyo5HSL4LGTBnFSGxiM78gbEru78XHjPlxni88ShLpd7yuBD
- d6WIHZPLADthsAsx5N9sbzRUW7zcOZN51VNt2XzzZz3IRyvvr0z4qiGdFKrf49LVSMcg
- 6ETDpT0NqstukthfC5td1yV8//7YU6zJ+QfIPPu9rHQImnA5DcuIdxE0BEOFF7P4OORq
- /dLUymTSRgzb2wDdMbzfvFkh921Mne+Y4TLC0PrZUHa13zmfVdVqNs/VgO3hXN27Z8Yg
- SwaJq8qQm0LOj/D5hwgpoe/l4zYSaB+y2rI7v05A92TxoGtPe1pGMhoC24TS38z2YBNB
- R+yw==
-X-Gm-Message-State: ABuFfogKNxLnnKAnnE44uChDSE+9fa/aPH395SJ94RKhC5BnmOxkH/bz
- M8hXnL/1ymdILvPtfslJd0MM0xIaUKs2XSDoZIW9ug==
-X-Google-Smtp-Source: ACcGV60ilUbzcyEVW7yhcvCQgazrVy9gji+UqoC8SPi/nDVWaYkmO5+chALWYEcwUzX3rjIF+xXPLEg8YSTnG2FqZEU=
-X-Received: by 2002:a24:97c8:: with SMTP id
- k191-v6mr1083186ite.130.1538465715171; 
- Tue, 02 Oct 2018 00:35:15 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=craot1lKrUOY1Z7Ye7GTz4PXTYiGiVhTjP+G9fM03N4=;
+ b=UuhVMHAuSHxQUBkzt0GyB1umRIiLmWsaBuT2IF2vfMtJniiaBE8wQqXbA2hGQJ5dnk
+ RqlxECGKJx0GgXX++XRdi/zOEFP1DE5z0bCoXGYfBBqzxjQGpPVW6l8mqn60RwBHA2Q0
+ yl8oRdQrLrk71fadp5/7X/lVa9BjeGClvb2u4J4MGiGFPV5huNf4NYoQ3JR4F9bSjL4R
+ RoyKyOxFAjjiWWJ93NcYcrbnM37yVhWYXMrqughXu65C+kDil38ni6sSE3JmFvK28Gjm
+ 0kl+0FDacc9+TEHJBJra9J1mhRn5cpeaT+CshN/zdrRL1RI8FWgNT8GuIK8CtL9rZD3+
+ FjBQ==
+X-Gm-Message-State: ABuFfohrYy/btKn8np1B7SViP1wjoZ0dvU5VKMhZE8i3yhtFfmhb1yC7
+ Z6ZV+4/HoJCH5QSKjT9DwpRTUFhQzRT7H49TXCQcVbnWJcQ=
+X-Google-Smtp-Source: ACcGV6041UR4oyOkZjRuNHr89TIA1uIsrbRiBqehkdlyHRGgAquIJpywZy4x4glmQiBDezPnk+KxgE7gS0VGxpTgxqQ=
+X-Received: by 2002:a17:902:b712:: with SMTP id
+ d18-v6mr17713687pls.53.1538494140436; 
+ Tue, 02 Oct 2018 08:29:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20181002041437.2493192-1-taoren@fb.com>
-In-Reply-To: <20181002041437.2493192-1-taoren@fb.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 2 Oct 2018 09:35:02 +0200
-Message-ID: <CACRpkdY4VaH2Yoob2gWwAk11P1NTDdza262zKGs=gju0NH9skQ@mail.gmail.com>
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt
- register access
-To: taoren@fb.com
-Cc: Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- mine260309@gmail.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-aspeed@lists.ozlabs.org
+From: Patrick Venture <venture@google.com>
+Date: Tue, 2 Oct 2018 08:28:49 -0700
+Message-ID: <CAO=notyKtrecZeAypPcjY7qi6rBqj_cPwPosFRds=wYpeHW8wA@mail.gmail.com>
+Subject: Recipe Renames, etc
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -66,27 +59,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Oct 2018 07:35:19 -0000
+X-List-Received-Date: Tue, 02 Oct 2018 15:29:05 -0000
 
-Hi Tao, thanks for your patch!
+I've sent a bunch of recipe renames, but I'm still updating each with
+an individual tested footer.  I will try marking them all as WIP now
 
-On Tue, Oct 2, 2018 at 6:14 AM Tao Ren <taoren@fb.com> wrote:
-
-> -       if (fttmr010->count_down)
-> +       if (fttmr010->count_down) {
->                 writel(~0, fttmr010->base + TIMER1_LOAD);
-
-This struct member "count_down" is a bit badly named now don't
-you think?
-
-The patch is fine semantically, but please rename this member
-"is_aspeed" or something like that and update the code everywhere,
-then insert a comments like
-
-/* The Aspeed variant counts downward */
-/* The Aspeed variant does not have a match interrupt */
-
-in the code snippets so we see what is going on.
-
-Yours,
-Linus Walleij
+Patrick
