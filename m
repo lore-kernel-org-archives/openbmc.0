@@ -1,71 +1,89 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <Justin.Lee1@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.218; helo=esa8.dell-outbound.iphmx.com;
+ envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ dmarc=pass (p=none dis=none) header.from=Dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="LS5aHaVV"; 
+ dkim-atps=neutral
+Received: from esa8.dell-outbound.iphmx.com (esa8.dell-outbound.iphmx.com
+ [68.232.149.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Plv118b5zF36w
- for <openbmc@lists.ozlabs.org>; Wed,  3 Oct 2018 03:07:08 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w92H4GLa143405
- for <openbmc@lists.ozlabs.org>; Tue, 2 Oct 2018 13:07:05 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.90])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2mva0u080b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 02 Oct 2018 13:07:04 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Tue, 2 Oct 2018 17:07:04 -0000
-Received: from us1a3-smtp06.a3.dal06.isc4sb.com (10.146.103.243)
- by smtp.notes.na.collabserv.com (10.106.227.141) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 2 Oct 2018 17:06:43 -0000
-Received: from us1a3-mail64.a3.dal09.isc4sb.com ([10.142.3.172])
- by us1a3-smtp06.a3.dal06.isc4sb.com
- with ESMTP id 2018100217064220-774566 ;
- Tue, 2 Oct 2018 17:06:42 +0000 
-In-Reply-To: 
-Subject: Reminder for next instance of test work group meeting (4th Oct 2018)
- and MoM of last instance
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 2 Oct 2018 17:06:42 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42PmYX0vWJzF39y;
+ Wed,  3 Oct 2018 03:37:02 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1538501824; x=1570037824;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=R+qLfZ4+YkgLE17DUGwVl7/NEo/BZuXa08ov/UoQ7b8=;
+ b=LS5aHaVVvQQ/3bcqfMVqGf8FuSdG65ZyttW3pFoWYg/esV7OCiUN+d7Y
+ cOKLfVukvoTq2PNbwyy/RevlYDBdUw39Yra3KUBJoKqkEs7H8NkNi5bAG
+ u9T+XbPpGwuVFMp4Zd+1fA+QFsYOqHXAORhPlGE5HW3qIb5+dR7ZriB2Q c=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2ETAABNq7NbhyWd50NaGgEBAQEBAgE?=
+ =?us-ascii?q?BAQEHAgEBAQGBUYJ0fygKg2qIFV+LPDuBUoM9hAaPGYF6CyMLhD4CF4N4ITQ?=
+ =?us-ascii?q?YAQMBAQIBAQIBAQIQAQEBFQkIKSMMgjUiEUtrAQEBAQEBIwINYwEBAQECARI?=
+ =?us-ascii?q?RBA1FBQsCAQgYAgIfBwICAkUQAQEEAQkEBQgagn8BgXkID5x8iVcBAQFtezO?=
+ =?us-ascii?q?EKwGFa4ELiVImgheBEYJlLod/glcCgSgBkTmKWgYBAoZIgw2GWx+CFI1GjBC?=
+ =?us-ascii?q?JCQIEAgQFAhSBQjeBV3CBboFOCYIqGohJhT5vjTWBHwEB?=
+X-IPAS-Result: =?us-ascii?q?A2ETAABNq7NbhyWd50NaGgEBAQEBAgEBAQEHAgEBAQGBU?=
+ =?us-ascii?q?YJ0fygKg2qIFV+LPDuBUoM9hAaPGYF6CyMLhD4CF4N4ITQYAQMBAQIBAQIBA?=
+ =?us-ascii?q?QIQAQEBFQkIKSMMgjUiEUtrAQEBAQEBIwINYwEBAQECARIRBA1FBQsCAQgYA?=
+ =?us-ascii?q?gIfBwICAkUQAQEEAQkEBQgagn8BgXkID5x8iVcBAQFtezOEKwGFa4ELiVImg?=
+ =?us-ascii?q?heBEYJlLod/glcCgSgBkTmKWgYBAoZIgw2GWx+CFI1GjBCJCQIEAgQFAhSBQ?=
+ =?us-ascii?q?jeBV3CBboFOCYIqGohJhT5vjTWBHwEB?=
+Received: from mx0b-00154901.pphosted.com ([67.231.157.37])
+ by esa8.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 02 Oct 2018 12:37:00 -0500
+Received: from pps.filterd (m0144103.ppops.net [127.0.0.1])
+ by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w92HXPIt027966; Tue, 2 Oct 2018 13:36:59 -0400
+Received: from esa2.dell-outbound2.iphmx.com (esa2.dell-outbound2.iphmx.com
+ [68.232.153.202])
+ by mx0b-00154901.pphosted.com with ESMTP id 2mv8gxtaxg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 02 Oct 2018 13:36:59 -0400
+From: <Justin.Lee1@Dell.com>
+Received: from ausxipps310.us.dell.com ([143.166.148.211])
+ by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
+ 02 Oct 2018 23:36:52 +0600
+X-LoopCount0: from 10.166.135.91
+X-IronPort-AV: E=Sophos;i="5.54,332,1534827600"; d="scan'208";a="258452465"
+To: <sam@mendozajonas.com>, <joel@jms.id.au>
+CC: <linux-aspeed@lists.ozlabs.org>, <netdev@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>, <amithash@fb.com>, <christian@cmd.nu>,
+ <vijaykhemka@fb.com>
+Subject: RE: [PATCH net v2] net/ncsi: Extend NC-SI Netlink interface to allow
+ user space to send NC-SI command
+Thread-Topic: [PATCH net v2] net/ncsi: Extend NC-SI Netlink interface to allow
+ user space to send NC-SI command
+Thread-Index: AdRXVsR4fRwK5ubSQ2OHaqPrycIEsgC4YNWAAA9pMoA=
+Date: Tue, 2 Oct 2018 17:36:55 +0000
+Message-ID: <89f75d6666e7489ab011cb71090646e5@AUSX13MPS306.AMER.DELL.COM>
+References: <58fff61ffd8d4038b59f32b696e76bbc@AUSX13MPS306.AMER.DELL.COM>
+ <18e571bb7c5879a12754b1df20f51fd87ea48712.camel@mendozajonas.com>
+In-Reply-To: <18e571bb7c5879a12754b1df20f51fd87ea48712.camel@mendozajonas.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.18.86]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16007-1287 | IBM Domino Build
- SCN1812108_20180501T0841_FP1 July 10, 2018 at 11:23
-X-KeepSent: 980E45B4:03E8123F-0025831A:005DAFFB;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 56659
-X-TNEFEvaluated: 1
-x-cbid: 18100217-9717-0000-0000-00000974378B
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.428813; ST=0; TS=0; UL=0; ISC=; MB=0.121243
-X-IBM-SpamModules-Versions: BY=3.00009809; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000267; SDB=6.01096872; UDB=6.00567208; IPR=6.00876914; 
- BA=6.00006112; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00023591; XFM=3.00000015;
- UTC=2018-10-02 17:07:03
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-10-02 12:57:03 - 6.00009043
-x-cbparentid: 18100217-9718-0000-0000-00000AE2597F
-Message-Id: <OF980E45B4.03E8123F-ON0025831A.005DAFFB-0025831A.005DFF90@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-10-02_07:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810020168
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,39 +95,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Oct 2018 17:07:09 -0000
+X-List-Received-Date: Tue, 02 Oct 2018 17:37:06 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Dear All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >The next instance of the openbmc test work group meeting =
-is on 4th Oct 2018</div>
-<div dir=3D"ltr" >which is on Thursday.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >MoM of last instance of the meeting is at our wiki</div>
-<div dir=3D"ltr" ><a href=3D"https://github.com/openbmc/openbmc/wiki/Test-w=
-ork-group" >https://github.com/openbmc/openbmc/wiki/Test-work-group</a></di=
-v>
-<div dir=3D"ltr" >Thank you for those attending and strengthening the commu=
-nity</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Also request you to please sign up for universal openbmc =
-test service for upcoming release @</div>
-<div dir=3D"ltr" ><a href=3D"https://docs.google.com/spreadsheets/d/14UFFok=
-v6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/edit?usp=3Dsharing" rel=3D"nofo=
-llow" style=3D"box-sizing: border-box; background-color: rgb(255, 255, 255)=
-; color: rgb(3, 102, 214); text-decoration: underline; outline-width: 0px; =
-font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Helvetica, Ari=
-al, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, =
-&quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-vari=
-ant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-=
-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tran=
-sform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-tex=
-t-stroke-width: 0px;" >https://docs.google.com/spreadsheets/d/14UFFokv6kifk=
-=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/edit?usp=3Dsharing</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Thank you all in advance</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div></div><BR>
+SGkgU2FtLA0KDQpTdXJlLCBJIHdpbGwgZ2VuZXJhdGUgdjMgYWZ0ZXIgVmlqYXkncyBwYXRjaCBp
+cyBhcHByb3ZlZC4NCg0KVGhhbmtzLA0KSnVzdGluDQoNCg0KPiBPbiBGcmksIDIwMTgtMDktMjgg
+YXQgMTg6MTUgKzAwMDAsIEp1c3Rpbi5MZWUxQERlbGwuY29tIHdyb3RlOg0KPiA+IFRoZSBuZXcg
+Y29tbWFuZCAoTkNTSV9DTURfU0VORF9DTUQpIGlzIGFkZGVkIHRvIGFsbG93IHVzZXIgc3BhY2Ug
+YXBwbGljYXRpb24gDQo+ID4gdG8gc2VuZCBOQy1TSSBjb21tYW5kIHRvIHRoZSBuZXR3b3JrIGNh
+cmQuDQo+ID4gQWxzbywgYWRkIGEgbmV3IGF0dHJpYnV0ZSAoTkNTSV9BVFRSX0RBVEEpIGZvciB0
+cmFuc2ZlcnJpbmcgcmVxdWVzdCBhbmQgcmVzcG9uc2UuDQo+ID4gDQo+ID4gVGhlIHdvcmsgZmxv
+dyBpcyBhcyBiZWxvdy4gDQo+ID4gDQo+ID4gUmVxdWVzdDoNCj4gPiBVc2VyIHNwYWNlIGFwcGxp
+Y2F0aW9uIC0+IE5ldGxpbmsgaW50ZXJmYWNlIChtc2cpDQo+ID4gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0+IG5ldyBOZXRsaW5rIGhhbmRsZXIgLSBuY3Np
+X3NlbmRfY21kX25sKCkNCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgLT4gbmNzaV94bWl0X2NtZCgpDQo+ID4gUmVzcG9uc2U6DQo+ID4gUmVzcG9uc2Ug
+cmVjZWl2ZWQgLSBuY3NpX3Jjdl9yc3AoKSAtPiBpbnRlcm5hbCByZXNwb25zZSBoYW5kbGVyIC0g
+bmNzaV9yc3BfaGFuZGxlcl94eHgoKQ0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0+IG5jc2lfcnNwX2hh
+bmRsZXJfbmV0bGluaygpDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLT4gbmNzaV9zZW5kX25ldGxpbmtf
+cnNwICgpDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgLT4gTmV0bGluayBpbnRlcmZhY2UgKG1zZykNCj4g
+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAtPiB1c2VyIHNwYWNlIGFwcGxpY2F0aW9uDQo+ID4gQ29tbWFuZCB0
+aW1lb3V0IC0gbmNzaV9yZXF1ZXN0X3RpbWVvdXQoKSAtPiBuY3NpX3NlbmRfbmV0bGlua190aW1l
+b3V0ICgpDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtPiBOZXRsaW5r
+IGludGVyZmFjZSAobXNnIHdpdGggemVybyBkYXRhIGxlbmd0aCkNCj4gPiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIC0+IHVzZXIgc3BhY2UgYXBwbGljYXRpb24NCj4gPiBFcnJv
+cjoNCj4gPiBFcnJvciBkZXRlY3RlZCAtPiBuY3NpX3NlbmRfbmV0bGlua19lcnIgKCkgLT4gTmV0
+bGluayBpbnRlcmZhY2UgKGVyciBtc2cpDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgLT4gdXNlciBzcGFjZSBhcHBsaWNhdGlvbg0KPiA+IA0KPiA+IA0KPiA+IFNpZ25lZC1vZmYt
+Ynk6IEp1c3RpbiBMZWUgPGp1c3Rpbi5sZWUxQGRlbGwuY29tPg0KPiANCj4gSGkgSnVzdGluLA0K
+PiANCj4gVGhpcyBpcyBsb29raW5nIHByZXR0eSBnb29kLCBjb21iaW5lZCB3aXRoIFZpamF5J3Mg
+YmFzZSBwYXRjaCB0aGUgdHdvDQo+IGFwcHJvYWNoZXMgc2hvdWxkIGZpdCB0b2dldGhlciBuaWNl
+bHkgKA0KPiBodHRwOi8vcGF0Y2h3b3JrLm96bGFicy5vcmcvcGF0Y2gvOTc2NTEwLykuDQo+IA0K
+PiBBIGdvb2QgbWVyZ2Ugb3JkZXIgd291bGQgcHJvYmFibHkgYmUgdGhlIGFib3ZlIHBhdGNoIGZp
+cnN0LCB0aGVuIHRoaXMNCj4gcGF0Y2ggYW5kIFZpamF5J3MgZnVydGhlciBPRU0gcGF0Y2hlcyBi
+YXNlZCBvbiB0b3Agb2YgdGhhdCB0byByZWR1Y2UNCj4gY29uZmxpY3RzLg0KPiANCj4gQ2hlZXJz
+LA0KPiBTYW0NCg==
