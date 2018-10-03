@@ -1,51 +1,60 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="A+P1ts74"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42PvG05M7vzF38n
- for <openbmc@lists.ozlabs.org>; Wed,  3 Oct 2018 08:39:03 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2018 15:39:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,333,1534834800"; d="scan'208";a="95918753"
-Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
- by orsmga001.jf.intel.com with ESMTP; 02 Oct 2018 15:38:43 -0700
-Received: from orsmsx155.amr.corp.intel.com (10.22.240.21) by
- ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Tue, 2 Oct 2018 15:38:43 -0700
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.194]) by
- ORSMSX155.amr.corp.intel.com ([169.254.7.228]) with mapi id 14.03.0319.002;
- Tue, 2 Oct 2018 15:38:43 -0700
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Patrick Venture <venture@google.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: RE: OEM i2c over IPMI
-Thread-Topic: OEM i2c over IPMI
-Thread-Index: AQHUWoqk1a5lshazQ0uUAGGdTf00CKUMbKhA
-Date: Tue, 2 Oct 2018 22:38:42 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E8216993458541EA@ORSMSX114.amr.corp.intel.com>
-References: <CAO=notz0ibE=yZOtg4DE-onDDOWKHvPx_pRTp6OAH7JqRfH3dw@mail.gmail.com>
-In-Reply-To: <CAO=notz0ibE=yZOtg4DE-onDDOWKHvPx_pRTp6OAH7JqRfH3dw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Q1l21R7VzDqNF
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Oct 2018 13:31:09 +1000 (AEST)
+Received: by mail-pl1-x631.google.com with SMTP id f18-v6so2722132plr.1
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Oct 2018 20:31:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Fq7AvpWchMUFlO2vWisjHMHhvDLMzJu3L3HTcuULXA8=;
+ b=A+P1ts74gBJksk3dcCxVMVWCttzWiJ+YrP+p055ETkvOWllOIzglDEjW7rKJHE/3GC
+ IWIvUvmAQ3p52I3uYms1oIRQ58ANi5AZqrGqaocYINleSLCoRRUWiA/SZMQ6q8D2iZ+n
+ ybLgYpYaHnmyvMqKreX6gU0iZoFL+x8G7QLS5LvA1jEgDkFw5+XSnbQ/0YOCrI9qeXpF
+ Ybh7g5wRYBj5S5EwRPKiXKUglbTWTHZQMT4kbRujJfmCr3grpmWoOVWSmITUG0yMxvO5
+ 0TRw7ZcNc+qCK5SXP65rQebhuGzvNXaCufJXVESf9TpF9la4RLqeAB2k9/iJivnwixth
+ 6Ohg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Fq7AvpWchMUFlO2vWisjHMHhvDLMzJu3L3HTcuULXA8=;
+ b=qeUYTtEBNpbU/Y5T/gS2zLbcm6DYUiTD6Xg3lB8xAr/5FD3BTOEf9zAs6oh20DGfP/
+ GkG+y6kvWCUBgKg4JJDipY54BlsgTOjul8OWZ5soPAOxvQM5KCoJ17BX+rDTYpFpWLcV
+ xI3O3dH0rjqed8rNEVgs26GAlcHgvMiA6u+84bbKVmSDFmYhILRnCgiRtWy8qnTbowIG
+ D86Wk/rKW7wxbkdxWOsgdZl60CZwWcSrVfUBrjUKiUL5Bvm1syM2KqyxgCDO5VJOG4HQ
+ 2xH1pGRnC+3BlTSc0pTKllul3Qg2XvHLQSH1jSlw4DYjDGpzlcPY+hlmNA5teNtf7ANk
+ N2Pg==
+X-Gm-Message-State: ABuFfohhH0FhVH07SjhcBm0iTAgKfFSXnECCAyBH+PHJ+6ZtadjOnEp7
+ qXGEb2ISZiDnG1PUWznsBCOvDS7jIwE1Eg66H2mA4w==
+X-Google-Smtp-Source: ACcGV62n/WQ5mv8XdebbhX76o39dlNIR1RsvMyYWYXpZMBu1OpuG4XsWwXLwHNcRVW10oCPNMfeeKaMulGspUigWSHE=
+X-Received: by 2002:a17:902:9a98:: with SMTP id
+ w24-v6mr19855765plp.109.1538537467809; 
+ Tue, 02 Oct 2018 20:31:07 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAO=notz0ibE=yZOtg4DE-onDDOWKHvPx_pRTp6OAH7JqRfH3dw@mail.gmail.com>
+ <7E9441B1E5EFFD4681F54958E8216993458541EA@ORSMSX114.amr.corp.intel.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E8216993458541EA@ORSMSX114.amr.corp.intel.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 2 Oct 2018 20:30:56 -0700
+Message-ID: <CAO=notzzNBENF=Jk=dCA0xrX+oqGt886k6ir7d_EZhTBb6MwPg@mail.gmail.com>
+Subject: Re: OEM i2c over IPMI
+To: "Tanous, Ed" <ed.tanous@intel.com>, Peter Hanson <peterh@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,29 +66,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Oct 2018 22:39:05 -0000
+X-List-Received-Date: Wed, 03 Oct 2018 03:31:11 -0000
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBvcGVuYm1jIFttYWlsdG86b3Bl
-bmJtYy0NCj4gYm91bmNlcytlZC50YW5vdXM9aW50ZWwuY29tQGxpc3RzLm96bGFicy5vcmddIE9u
-IEJlaGFsZiBPZiBQYXRyaWNrDQo+IFZlbnR1cmUNCj4gU2VudDogVHVlc2RheSwgT2N0b2JlciAy
-LCAyMDE4IDE6MDAgUE0NCj4gVG86IE9wZW5CTUMgTWFpbGxpc3QgPG9wZW5ibWNAbGlzdHMub3ps
-YWJzLm9yZz4NCj4gU3ViamVjdDogT0VNIGkyYyBvdmVyIElQTUkNCj4gDQo+IFdlIGhhdmUgYSBs
-aW51eCBrZXJuZWwgZHJpdmVyIGZvciBpMmMtdmlhLWlwbWkgdGhhdCB0aWVzIGludG8NCj4gaHR0
-cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9qZWN0Lnh5ei8xMjYwNCAtIEknbSBwdXR0aW5nIHRoaXMg
-dXBzdHJlYW0gYnV0DQo+IHNpbmNlIGl0J3MgYW4gSVBNSSBPRU0gaGFuZGxlciwgaXQgY2FuIG5p
-Y2VseSBnbyBpbnRvIGl0cyBvd24gcmVwb3NpdG9yeSAtIEkgd2FzDQo+IGN1cmlvdXMgaWYgdGhl
-cmUgd2FzIGFueSBPcGVuQk1DIGludGVyZXN0PyAgSWYgc28sIHdlIGNhbiBhaW0gZm9yIHRoZQ0K
-PiBwaG9zcGhvciBuYW1lc3BhY2UsIG90aGVyd2lzZSBJJ2xsIGp1c3QgYXNrIHRoYXQgaXQgYmUg
-cHVzaGVkIGludG8gYSBnb29nbGUNCj4gcmVwby4NCj4gDQoNCldoYXQgZG9lcyB0aGlzIGNvbW1h
-bmQgZG8gdGhhdCB0aGUgZXhpc3RpbmcgbWFzdGVyIHdyaXRlLXJlYWQgY29tbWFuZCAoc2VjdGlv
-biAyMi4xMSBvZiB0aGUgSVBNSSBzcGVjKSBkb2Vzbid0Pw0KDQpJIGtub3cgb24gcGFzdCBzeXN0
-ZW1zIHdlJ3ZlIG9mZmVyZWQgdGhlIE9FTSBJMkMgY29tbWFuZCB0byBnZXQgYXJvdW5kIHRoZSA4
-IGNoYW5uZWwgbGltaXQgZm9yIHRoZSBzdG9jayBjb21tYW5kLiAgSSBjYW4ndCB0ZWxsIGlmIHRo
-YXQncyB0aGUgY2FzZSB3aXRoIHRoaXMgb25lLCBidXQgd2Ugc2hvdWxkIHByb2JhYmx5IGhhdmUg
-YSBzdGF0ZW1lbnQgb24gZXhhY3RseSB3aGF0IHdlJ3JlIHRyeWluZyB0byBzb2x2ZSBjb21wYXJl
-ZCB0byB0aGUgSVBNSSBtYXN0ZXIgd3JpdGUgcmVhZC4NCg0KSXQgc2hvdWxkIGFsc28gYmUgbm90
-ZWQgdGhhdCBtYXN0ZXIgd3JpdGUtcmVhZCBvcGVucyB1cCBzb21lIHByZXR0eSBzY2FyeSBzZWN1
-cml0eSBzY2VuYXJpb3MsIGVzcGVjaWFsbHkgd2hlbiBkb25lIG92ZXIgSVBNSS4gIFdlIHNob3Vs
-ZCBwcm9iYWJseSBtYWtlIHN1cmUgaXQncyBpc29sYXRlZCB0byBpdHMgb3duIGxpYnJhcnkgc28g
-dGhlIGhpZ2ggc2VjdXJpdHkgc3lzdGVtcyBjYW4gb3B0IG91dCBvZiBpdCBpZiBuZWVkIGJlLg0K
-DQotRWQNCg==
++peterh@
+
+I believe it was a more flexible approach.
+
+Patrick
+On Tue, Oct 2, 2018 at 3:39 PM Tanous, Ed <ed.tanous@intel.com> wrote:
+>
+> > -----Original Message-----
+> > From: openbmc [mailto:openbmc-
+> > bounces+ed.tanous=3Dintel.com@lists.ozlabs.org] On Behalf Of Patrick
+> > Venture
+> > Sent: Tuesday, October 2, 2018 1:00 PM
+> > To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> > Subject: OEM i2c over IPMI
+> >
+> > We have a linux kernel driver for i2c-via-ipmi that ties into
+> > https://gerrit.openbmc-project.xyz/12604 - I'm putting this upstream bu=
+t
+> > since it's an IPMI OEM handler, it can nicely go into its own repositor=
+y - I was
+> > curious if there was any OpenBMC interest?  If so, we can aim for the
+> > phosphor namespace, otherwise I'll just ask that it be pushed into a go=
+ogle
+> > repo.
+> >
+>
+> What does this command do that the existing master write-read command (se=
+ction 22.11 of the IPMI spec) doesn't?
+>
+> I know on past systems we've offered the OEM I2C command to get around th=
+e 8 channel limit for the stock command.  I can't tell if that's the case w=
+ith this one, but we should probably have a statement on exactly what we're=
+ trying to solve compared to the IPMI master write read.
+>
+> It should also be noted that master write-read opens up some pretty scary=
+ security scenarios, especially when done over IPMI.  We should probably ma=
+ke sure it's isolated to its own library so the high security systems can o=
+pt out of it if need be.
+>
+> -Ed
