@@ -1,118 +1,65 @@
-Return-Path: <prvs=3814b6f4cb=taoren@fb.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=3814b6f4cb=taoren@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::844; helo=mail-qt1-x844.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="ebtvWzQB"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="NDR2AfuJ"; dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="FcSVKPjv"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Q7PS0RlSzF3JH;
- Wed,  3 Oct 2018 17:46:15 +1000 (AEST)
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w937dCqP028371; Wed, 3 Oct 2018 00:46:03 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=GOwIHlNZF8/nk7wSWp2GRrjg4ylzlYs5vbypb13dNUo=;
- b=ebtvWzQB4PsVQ1VfMZazO79lnZHJxBQOjGQcg7ejhyRBXWB4IaKuG7/e/Bh72jtNM4tI
- nvXOvabqEKjOKAz7+sYJeKFtmCXqRAR7ogGnkghYCaw4vEuRw56MfeSL0frHXXZXsnpY
- Z1efz6Tj8kv69YHnPTORqIP/vqtjy9txWsk= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mvpxhrbrp-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 03 Oct 2018 00:46:03 -0700
-Received: from NAM05-DM3-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.32) with Microsoft SMTP
- Server (TLS) id 14.3.361.1; Wed, 3 Oct 2018 03:46:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GOwIHlNZF8/nk7wSWp2GRrjg4ylzlYs5vbypb13dNUo=;
- b=NDR2AfuJkCK+s6LmzHwR9dyMER2Ba9tXVy7FVhyZr7sCAiF5bh5QbG0IZiTn7QxMy5FEJAHKwNnEotRghQ/cu8TECQlixDH4aZW4qSBnsgqzWqI0ereN07HAt/PonLFlHSSmA2c4vxY5CmxmoZVj50rLYUnp4HlQjL0+czJyong=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1455.namprd15.prod.outlook.com (10.173.234.145) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1185.23; Wed, 3 Oct 2018 07:46:00 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::ccb:6fd9:cf17:bfcd]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::ccb:6fd9:cf17:bfcd%9]) with mapi id 15.20.1207.021; Wed, 3 Oct 2018
- 07:46:00 +0000
-From: Tao Ren <taoren@fb.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-CC: Daniel Lezcano <daniel.lezcano@linaro.org>, Thomas Gleixner
- <tglx@linutronix.de>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
- <andrew@aj.id.au>, Yu Lei <mine260309@gmail.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-aspeed@lists.ozlabs.org"
- <linux-aspeed@lists.ozlabs.org>
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt
- register access
-Thread-Topic: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt
- register access
-Thread-Index: AQHUWgaCT67ZXjOUCkyaVb8BmGGbFqULkM4AgADz4QCAAJPLgP//mGCA
-Date: Wed, 3 Oct 2018 07:46:00 +0000
-Message-ID: <966C48A9-98F7-4B2B-BCD0-FAF3066C5794@fb.com>
-References: <20181002041437.2493192-1-taoren@fb.com>
- <CACRpkdY4VaH2Yoob2gWwAk11P1NTDdza262zKGs=gju0NH9skQ@mail.gmail.com>
- <3a294c92-bcc6-b42e-b3af-72bc5f607fd9@fb.com>
- <CACRpkdZXum+bQg1FO+EHhKWpxtPYXfeRhoAKkFXeMQh1Jng3Ww@mail.gmail.com>
-In-Reply-To: <CACRpkdZXum+bQg1FO+EHhKWpxtPYXfeRhoAKkFXeMQh1Jng3Ww@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.10.0.180812
-x-originating-ip: [2620:10d:c090:180::1:4324]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1455;
- 20:An3T3DKx3Eh2Ac9GCEItQujfiskmxik7t9W+nwPDzKrM/RTTN9OkrAlmgF0Yd5USzqFcXJjhoAbrq9frX6TsLWdoFL0NvBhdf/YAfEPBcnmG2PJEcAwqq4EXQc4sshkcqzblvYCU3/7QZPRv/Ri1pzgyApUobaP4UX9Fi91qzck=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: b9afa8da-c0bb-47b2-1317-08d629044328
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1455; 
-x-ms-traffictypediagnostic: MWHPR15MB1455:
-x-microsoft-antispam-prvs: <MWHPR15MB1455028F45B1BC6412917EC8B2E90@MWHPR15MB1455.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:;
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(3231355)(11241501184)(944501410)(52105095)(10201501046)(3002001)(93006095)(93001095)(149066)(150057)(6041310)(20161123562045)(20161123558120)(20161123564045)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051)(76991048);
- SRVR:MWHPR15MB1455; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1455; 
-x-forefront-prvs: 0814A2C7A3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(396003)(376002)(136003)(346002)(39860400002)(366004)(199004)(189003)(76176011)(6246003)(46003)(6512007)(97736004)(8676002)(25786009)(6486002)(476003)(6436002)(11346002)(99286004)(2616005)(81156014)(5660300001)(81166006)(486006)(53936002)(6116002)(54906003)(446003)(39060400002)(53546011)(106356001)(2900100001)(6506007)(105586002)(102836004)(83716004)(6916009)(71190400001)(58126008)(71200400001)(4326008)(478600001)(33656002)(5250100002)(256004)(68736007)(8936002)(7736002)(36756003)(93886005)(2906002)(316002)(86362001)(82746002)(14454004)(186003)(305945005)(229853002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1455;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: GGh36BUOPYTB23As7GCrC7D13e34ocB6NJRzqlk/DV8hOJKqtxnJNnTlGnx5YvBqceQzL3coN3uu9w0pJ56n7T5fkW7IUAOvnMkatUFyLCFzkCDcIMsbiaS8TzhrxhW0KmrfXAGlq35uidxCuher0OS4A7Kx3/8nLfNJqrlJrkBkSLb9hRvZP62EZQpIiq1kFtlK5jJQsEDgWXzlFv0FCoSh2YBo9galjoEfk2tJl9p9VQlqCRQV6bRrr9qwPEXWlTIMLdGhcKcqc+T5GeHMDi4LczpDqRf4qDhTMx0k+RvsAU2W1pxVhAdNMiH2mpesnfwMvs/EzzFFJYNTG5ioNl7TW+sdHfihCwYSHnV0EM8=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4EE2D6E8C3193E48A8F08DCE9EB449AD@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Q7Td2mpDzF399;
+ Wed,  3 Oct 2018 17:49:56 +1000 (AEST)
+Received: by mail-qt1-x844.google.com with SMTP id q40-v6so4935666qte.0;
+ Wed, 03 Oct 2018 00:49:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=v0DuBfrTnfQCiyuMwCJZZ3CnYAFbgXosdK8G7lLtCDQ=;
+ b=FcSVKPjvo+41ArJUhTph0/YbGs+njhFP2RsRWfIwvl/eNBaLL7hUaN/5Y/kHh/xCqP
+ Oa/ryGGFx325Tt4f5b4mUiyChyfD7VOUaRGHN+naxPtOZLxeNYhsmGSvIJodHcfkQgbr
+ bGFTTcJr8EN5tXsLHduz0314UQoDAhCsL9KcQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=v0DuBfrTnfQCiyuMwCJZZ3CnYAFbgXosdK8G7lLtCDQ=;
+ b=kuwBQ3hBe3p2U1j/9FwuYryAnYmA1O9aZvdnpF/Ui+EYfPAAxO33wCEbkVR00RcUOy
+ UhxsbUD0JA7Miv+MSk2qeeFAE3eM3ib0qt2PU3zOLNhS2+lb0vl+eI8OGMRP6KobeeIT
+ UGh2jPHDT5e+wZdkTtVbV3nIo5Pd5S+Jcu/79dn6vBDgmJNz23XXPA1qC1NkcsR8mXre
+ xG+iZ1O9OHvEehUIPsqdxFYch4HZXLZ9MIkB9a5efHj7NCNOh4S7wUCHG2XJioEF9H6k
+ HqqMfZDFAgasMkcL1ZHAOnWrSBkxPvIYasnUmKzHA1SRAh/+XYrG+axl67tpH84qMH1j
+ jH5g==
+X-Gm-Message-State: ABuFfoh8NMY1lGbgldG5vLp4pLMz67ZJRiXT0f2fnMv7DjsPO+L4rwhb
+ GmCryUCU+C1b7C2UpXNohtT/UjDhndrv4D4LCHc=
+X-Google-Smtp-Source: ACcGV62smntijufm1xMOhQTmPSjD6t65hLUHwJRBSbty48oML6aocL876NiDvTV26XReumK2b8Lg/MneH5b1mKBD6Fc=
+X-Received: by 2002:ac8:4145:: with SMTP id e5-v6mr211383qtm.330.1538552994425; 
+ Wed, 03 Oct 2018 00:49:54 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9afa8da-c0bb-47b2-1317-08d629044328
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Oct 2018 07:46:00.1249 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1455
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-03_03:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+References: <20181001202748.8030-1-jae.hyun.yoo@linux.intel.com>
+ <20181001202748.8030-3-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20181001202748.8030-3-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 3 Oct 2018 09:49:41 +0200
+Message-ID: <CACPK8XeuFm_GYFhe-KimOHV7y7PBdFjhMGG+QAmfNrfOcb488A@mail.gmail.com>
+Subject: Re: [PATCH i2c-next v4 2/3] i2c: aspeed: Add 'timeout' DT property
+ reading code
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,14 +71,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2018 07:46:21 -0000
+X-List-Received-Date: Wed, 03 Oct 2018 07:49:58 -0000
 
-T24gMTAvMi8xOCwgMTE6NTcgUE0sICJMaW51cyBXYWxsZWlqIiA8bGludXMud2FsbGVpakBsaW5h
-cm8ub3JnPiB3cm90ZToNCg0KPiBNeSB0aG91Z2h0IGlzIGdvIGZvciAoMikgYW5kIGRvIGFsbCBj
-aGFuZ2VzIGluIG9uZSBwYXRjaCA6KQ0KDQpObyBwcm9ibGVtLCBMaW51cy4NCk9uZSBtb3JlIHF1
-ZXN0aW9uOiBsb29rcyBsaWtlIG15IGZpcnN0IHBhdGNoIDQ0NTFkM2Y1OWYyYSAoZml4IHNldF9u
-ZXh0X2V2ZW50IGhhbmRsZXIpIGlzIG5vdCBtZXJnZWQgYmFjayB0byAidGltZXJzL2NvcmUiLiBT
-aG91bGQgSSBnZW5lcmF0ZSB0aGlzIHBhdGNoIG9uIHRvcCBvZiB0aGUgZmlyc3QgcGF0Y2ggb3Ig
-b24gdG9wIG9mIHRoZSBjdXJyZW50ICJ0aW1lcnMvY29yZSI/IFdoaWNoIG9uZSB3b3VsZCBiZSBl
-YXNpZXIgZm9yIHlvdSAob3IgRGFuaWVsL1Rob21hcyk/IFNvcnJ5IEknbSBwcmV0dHkgbmV3IHRv
-IHRoZSBjb21tdW5pdHkuLg0KDQpUaGFua3MsDQpUYW8gUmVuDQoNCg0K
+Hello Jae,
+
+On Mon, 1 Oct 2018 at 22:28, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>
+> This commit adds reading code of the 'timeout' DT property to set
+> bus timeout value in adapter configuration. This value still
+> can be configured through an I2C_TIMEOUT ioctl on cdev too.
+>
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> ---
+>  drivers/i2c/busses/i2c-aspeed.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+> index 8dc9161ced38..6d31f54a6653 100644
+> --- a/drivers/i2c/busses/i2c-aspeed.c
+> +++ b/drivers/i2c/busses/i2c-aspeed.c
+> @@ -885,6 +885,7 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>         struct clk *parent_clk;
+>         struct resource *res;
+>         int irq, ret;
+> +       u32 timeout_ms;
+>
+>         bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
+>         if (!bus)
+> @@ -918,6 +919,11 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>                 bus->bus_frequency = 100000;
+>         }
+>
+> +       ret = of_property_read_u32(pdev->dev.of_node, "timeout",
+> +                                  &timeout_ms);
+> +       if (ret)
+> +               timeout_ms = 0; /* then adap.timeout will be set by i2c-core */
+
+Is it possible to implement the parsing of this property in the i2c
+core instead?
