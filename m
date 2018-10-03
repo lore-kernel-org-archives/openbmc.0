@@ -1,53 +1,53 @@
-Return-Path: <susantjasinski@gmail.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com;
- envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::e35; helo=mail-vs1-xe35.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="e+x92rej"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VnZewOPB"; 
  dkim-atps=neutral
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
+Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com
+ [IPv6:2607:f8b0:4864:20::e35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42QP3x73pVzF36g
- for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 04:02:05 +1000 (AEST)
-Received: by mail-pl1-x62a.google.com with SMTP id s4-v6so3850628plp.0
- for <openbmc@lists.ozlabs.org>; Wed, 03 Oct 2018 11:02:05 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QS3x0TY7zF38q
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 06:17:16 +1000 (AEST)
+Received: by mail-vs1-xe35.google.com with SMTP id c10so4036853vsk.2
+ for <openbmc@lists.ozlabs.org>; Wed, 03 Oct 2018 13:17:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:from:date:message-id:subject:to;
- bh=XR7ckrhJ+UAks3xPe6GBQVLR6PF4I1RSTwn/UGiCK5M=;
- b=e+x92rejcLsLDwjt+qS+qK/rJMApx67M2JXqz5JEmAfehoBGppX28X3URIEeHQEb6N
- 1we50fJLFQNAkNw73UtIKgJB5ooCrDNkBXZ0f3eloEkbtZ5c+1tjf1VrzLvfoKuc5R4D
- hIjVFrrrYNO7akSpircl0k/69+RF7eeY8KXLX9RvCDcpzAdvNorDFugeXCwsTBbv9Mw7
- URHlrmFOJdM/GEZ7N2JBX1Nl6MrKmC7psQTnkrIXDeWJiYoeM07ej4iEACfO2YaKTzkD
- jyxYlZId476wwimQxiqOda5pRiZ1fskw4LIuVUWiPZSbKuNlKXBiKSOEDPzwu2vSB6wL
- xz7g==
+ bh=u5qZojbxrmHjmEXHxuKGevx5pOjwH4JcqZb3tepL9bs=;
+ b=VnZewOPBqVC7JSoA+eVKjn6aPkFrt6ChvIMMnkr+M0xhmgKzm+avKRxydB1hi6CcpW
+ VSrjyxCpvm3t6yZu7s4wIeOudBUaSlke7PGa2ISkVHKWlRD9kunOvfMj6yx9oTVwK3zg
+ qsMZ/RallBLEphWtA2Kyg8iD8yxzvYoOe5v5bM+KdK7UEhm+3sCpW/di/t8twQVRxpbl
+ feGNuE/xKUPdndwW8dfumt6y29OX0P5PvQhh8Wb9Y3ShUixOiZVCXMDVksmNR2to1vOE
+ FU9r6EpzpDCEgmSJKlvNMagyQmVXBxfHxJUpwYtG9J9SkaOxkjWcO35X1sQfreJpYF4M
+ t1dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=XR7ckrhJ+UAks3xPe6GBQVLR6PF4I1RSTwn/UGiCK5M=;
- b=UCylA5YPbv+e7dlpkQHRMTmgpnUHH9s/oZi2QkdUduinoiK27NHm7OUhHvOOjr4jPj
- szvL8ikWRPnButaJyXqrrs62tYaf+pfpfwQQYqaD346n9tCdUDStFoFxrI/eAYEl2eoR
- D1epmy1mJqPX1Ar0dTfYgLwONVNwLGEdyWnFo6g+SXwNt8CyMBxkcuKARioYklw4lbcf
- tsQ4efpRyuUpjKKvkt4uPKDImWHUQ8u3jlPEPRK/K7FGatJBjOB9SNOfPEzv//DLZjBn
- mkPk5v1E+p9/CwK0vJmEeAfY3Nw2WmsKKnC8Q8NzfkkWqoN/lFDu5Y/dZMEtkLNYFYLQ
- VSPg==
-X-Gm-Message-State: ABuFfogSZibVt6uNJt7Oo3/eLYjmeVvlYdBHputXGEpEqNVWY3Gni7jl
- JChNruJbIgjA7D6q+e/DU5Co2izkYk4D2tsU9fHJaxuq
-X-Google-Smtp-Source: ACcGV63bHPJR0KWbZExUesy33lLlB2sqP4jO7YLOHCYDLUqOI+DOwzaEJn6yhxvuxExnX1TSOSjjk2UDM49TaU1hFvA=
-X-Received: by 2002:a17:902:ab8a:: with SMTP id
- f10-v6mr2803376plr.203.1538589723219; 
- Wed, 03 Oct 2018 11:02:03 -0700 (PDT)
+ bh=u5qZojbxrmHjmEXHxuKGevx5pOjwH4JcqZb3tepL9bs=;
+ b=QhDftjFhPtaP6InD4lhJHGBAfkiQ9evRAI6B0294tQADNvj9djWXvwm+fz4K1+sEh6
+ S9Zon8St7C6hDQopoMDmajCmPVNpMo1C3l/32Qfl/OdiWpxxNo+vJg2oGJ1BCiNYnMp2
+ lgFVMF3b4SOvRr/RvuWWy5FC2c9bqUAbbcpJ1ojPDNbSeNL7stj4Jo9v2EukRYKshOTR
+ zda2oGwINskGCXB5RsXbzrnl1ZKd6sYLyDnjYM0N8vdhyqjMV8PXZ8L3bAzLVNk+hmD4
+ ijo1IsexcPgphE/Ej5r4r1FE83m2eJebN/5Ro/XkXn8zCGENCX6FhQViCVei6ldXPdjL
+ Oq4A==
+X-Gm-Message-State: ABuFfohsKP7/5/t+RgmNU+HC8GxpHhoWgXs2FkoJehbcQVknsNfacvxi
+ /ArCr5rh5a/wE8QHyaFcvJpkfX8x6A66dUgf95CvbKK6
+X-Google-Smtp-Source: ACcGV62l5g9U8RvK5A5/pSIOnPbzpn5iPnvsy4eSqtcLXzMz1fcjtcoGOHI5tRf+KOsnknysBwAwnOgcnnFVJiDnaow=
+X-Received: by 2002:a67:e28f:: with SMTP id g15mr1241553vsf.115.1538597833822; 
+ Wed, 03 Oct 2018 13:17:13 -0700 (PDT)
 MIME-Version: 1.0
-From: susan jasinski <susantjasinski@gmail.com>
-Date: Wed, 3 Oct 2018 13:01:52 -0500
-Message-ID: <CANT4Nr+UGpw7j7BpBOmxLxMzgW10Uk=1t6sg1frnwuS2Kq9j2A@mail.gmail.com>
-Subject: NEW GUI Design work group starts Wed, Oct 17
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000e85b26057756d550"
+From: Kurt Taylor <kurt.r.taylor@gmail.com>
+Date: Wed, 3 Oct 2018 15:17:02 -0500
+Message-ID: <CAG5OiwjdnjXFOEGhGMcPi3j9HfOnr6oTFuvvUhmJ+8YnXPFPXQ@mail.gmail.com>
+Subject: OpenBMC Community Best Practices Series - video and slides now
+ available
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,83 +59,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2018 18:02:07 -0000
+X-List-Received-Date: Wed, 03 Oct 2018 20:17:18 -0000
 
---000000000000e85b26057756d550
-Content-Type: text/plain; charset="UTF-8"
+Hi all,
 
-Hello everyone.
+I've summarized the presentation I did earlier this year for the TSC
+and recorded a series of videos running through the slides - basically
+on how to be a good community member.
 
-My name is Susan Jasinski, and I am the UX Design Lead for the IBM OpenBMC
-GUI. Alissa Lee and I will be hosting a new bi-monthly OpenBMC work group
-for reviewing new GUI designs. It will be held on the first and third
-Wednesdays of the month.
+They are linked in the Presentations page in the wiki:
+https://github.com/openbmc/openbmc/wiki/Presentations
 
-Generally, my team will request feedback on GUI designs BEFORE they are
-coded. This could include wireframes, high-fidelity mockups, interactive
-prototypes, and panel flows. If others have pre-code designs they would
-like to share with the community, feel free to add yourself to the agenda.
-
-However, during this first meeting I'd like to discuss how to openly and
-consistently share mockups, provide feedback and track revisions.
-
-Access to the web conference link and the agenda can be found in the
-openbmc-openbmc wiki (just above the Weekly Community Telecon wiki link) .
-https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group
-
-Links to mockups will be sent via email and IRC prior to the meeting.
-Please join the conversation even if you did not have time to review
-designs before-hand.
-
-I am looking forward to seeing you all next week.
-
--- Susan Jasinski (IBM Lead Designer and User Experience designer)
-
---000000000000e85b26057756d550
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><font size=3D"4">Hello everyone.=C2=A0</f=
-ont></div><div dir=3D"ltr"><font size=3D"4"><br></font></div><div dir=3D"lt=
-r"><font size=3D"4">My name is Susan Jasinski, and I am the UX Design Lead =
-for the IBM OpenBMC GUI. Alissa Lee and I will be hosting a=C2=A0</font><fo=
-nt size=3D"4">new=C2=A0</font><span style=3D"font-size:large">bi-monthly=C2=
-=A0</span><font size=3D"4">OpenBMC work group for reviewing new GUI designs=
-. It will be held on the first and third Wednesdays of the month.</font></d=
-iv><div dir=3D"ltr"><div><div><font size=3D"4"><br></font></div><div><font =
-size=3D"4">Generally, my team will request feedback on GUI designs BEFORE t=
-hey are coded. This could include=C2=A0<span style=3D"color:rgb(36,41,46);f=
-ont-family:-apple-system,system-ui,&quot;Segoe UI&quot;,Helvetica,Arial,san=
-s-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Sego=
-e UI Symbol&quot;">wireframes, high-fidelity mockups, interactive prototype=
-s, and panel flows. If others have pre-code designs they would like to shar=
-e with the community, feel free to add yourself to the agenda.</span></font=
-></div><div><font size=3D"4"><span style=3D"color:rgb(36,41,46);font-family=
-:-apple-system,system-ui,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&q=
-uot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbo=
-l&quot;"><br></span></font></div><div><span style=3D"font-size:large">Howev=
-er, during this first meeting I&#39;d like to discuss how to openly and con=
-sistently share mockups, provide feedback and track revisions.</span></div>=
-</div><div><div><font size=3D"4"><br></font></div><div><font size=3D"4">Acc=
-ess to the web conference link and the agenda can be found in the openbmc-o=
-penbmc wiki (just above the Weekly Community Telecon wiki link) .</font></d=
-iv><div><font size=3D"4"><a href=3D"https://github.com/openbmc/openbmc/wiki=
-/GUI-Design-work-group">https://github.com/openbmc/openbmc/wiki/GUI-Design-=
-work-group</a><br></font></div></div><div><font size=3D"4"><br></font></div=
-><div><span style=3D"color:rgb(36,41,46);font-family:-apple-system,system-u=
-i,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&q=
-uot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;;font-size:large=
-">Links to mockups will be sent via email and IRC prior to the meeting. Ple=
-ase join the conversation even if you did not have time to review designs b=
-efore-hand.=C2=A0</span><br></div><div><span style=3D"color:rgb(36,41,46);f=
-ont-family:-apple-system,system-ui,&quot;Segoe UI&quot;,Helvetica,Arial,san=
-s-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Sego=
-e UI Symbol&quot;;font-size:large"><br></span></div><div><span style=3D"col=
-or:rgb(36,41,46);font-family:-apple-system,system-ui,&quot;Segoe UI&quot;,H=
-elvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoj=
-i&quot;,&quot;Segoe UI Symbol&quot;;font-size:large">I am looking forward t=
-o seeing you all next week.</span></div><div><font size=3D"4"><br></font></=
-div><div><font size=3D"4">-- Susan Jasinski (IBM Lead Designer and User Exp=
-erience designer)</font></div><div><br></div></div></div>
-
---000000000000e85b26057756d550--
+Enjoy!
+Kurt Taylor (krtaylor)
