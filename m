@@ -1,60 +1,62 @@
-Return-Path: <venture@google.com>
+Return-Path: <linus.walleij@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2607:f8b0:4864:20::d42; helo=mail-io1-xd42.google.com;
+ envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="A+P1ts74"; 
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="MZNPrxCx"; 
  dkim-atps=neutral
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Q1l21R7VzDqNF
- for <openbmc@lists.ozlabs.org>; Wed,  3 Oct 2018 13:31:09 +1000 (AEST)
-Received: by mail-pl1-x631.google.com with SMTP id f18-v6so2722132plr.1
- for <openbmc@lists.ozlabs.org>; Tue, 02 Oct 2018 20:31:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Q6Jh3vs5zF35x
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Oct 2018 16:57:07 +1000 (AEST)
+Received: by mail-io1-xd42.google.com with SMTP id p4-v6so4176443iom.3
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Oct 2018 23:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Fq7AvpWchMUFlO2vWisjHMHhvDLMzJu3L3HTcuULXA8=;
- b=A+P1ts74gBJksk3dcCxVMVWCttzWiJ+YrP+p055ETkvOWllOIzglDEjW7rKJHE/3GC
- IWIvUvmAQ3p52I3uYms1oIRQ58ANi5AZqrGqaocYINleSLCoRRUWiA/SZMQ6q8D2iZ+n
- ybLgYpYaHnmyvMqKreX6gU0iZoFL+x8G7QLS5LvA1jEgDkFw5+XSnbQ/0YOCrI9qeXpF
- Ybh7g5wRYBj5S5EwRPKiXKUglbTWTHZQMT4kbRujJfmCr3grpmWoOVWSmITUG0yMxvO5
- 0TRw7ZcNc+qCK5SXP65rQebhuGzvNXaCufJXVESf9TpF9la4RLqeAB2k9/iJivnwixth
- 6Ohg==
+ :cc; bh=kjd071kaXG+9T4Ak4vdc9WPfUZj0908319uN3P+WKCI=;
+ b=MZNPrxCxTbz0+/6S8rRypmX9DYTn7PeqfgVCJzQjNh6Tb5bqlh1okrVWU2H94Fagax
+ qu77DBkuetBH1H1V0+oEDoRmTSllVjEETJfomY+r7EL05CgMyU5c/arD8I4taevr5h6S
+ pSKuBs3GsLWp0KqLzlWu8QhKvpGNEUVELDSm8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Fq7AvpWchMUFlO2vWisjHMHhvDLMzJu3L3HTcuULXA8=;
- b=qeUYTtEBNpbU/Y5T/gS2zLbcm6DYUiTD6Xg3lB8xAr/5FD3BTOEf9zAs6oh20DGfP/
- GkG+y6kvWCUBgKg4JJDipY54BlsgTOjul8OWZ5soPAOxvQM5KCoJ17BX+rDTYpFpWLcV
- xI3O3dH0rjqed8rNEVgs26GAlcHgvMiA6u+84bbKVmSDFmYhILRnCgiRtWy8qnTbowIG
- D86Wk/rKW7wxbkdxWOsgdZl60CZwWcSrVfUBrjUKiUL5Bvm1syM2KqyxgCDO5VJOG4HQ
- 2xH1pGRnC+3BlTSc0pTKllul3Qg2XvHLQSH1jSlw4DYjDGpzlcPY+hlmNA5teNtf7ANk
- N2Pg==
-X-Gm-Message-State: ABuFfohhH0FhVH07SjhcBm0iTAgKfFSXnECCAyBH+PHJ+6ZtadjOnEp7
- qXGEb2ISZiDnG1PUWznsBCOvDS7jIwE1Eg66H2mA4w==
-X-Google-Smtp-Source: ACcGV62n/WQ5mv8XdebbhX76o39dlNIR1RsvMyYWYXpZMBu1OpuG4XsWwXLwHNcRVW10oCPNMfeeKaMulGspUigWSHE=
-X-Received: by 2002:a17:902:9a98:: with SMTP id
- w24-v6mr19855765plp.109.1538537467809; 
- Tue, 02 Oct 2018 20:31:07 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=kjd071kaXG+9T4Ak4vdc9WPfUZj0908319uN3P+WKCI=;
+ b=IFedBcPCPo7gw2TB8Y3pLHMOAlkBjpvNHTmGjnH6xohDqt6Rc1ym/m43xTXWYz9aS+
+ byoeUMZCxP4r7RG2OPcYRtkB+ae97eDt3Dhsk+JQz3RsD0FrWyJmF1ENiC/9MqSdz2xr
+ ijuPCyGysnQfi/7kcyp/eLmFmiLeKJT0nAgGWr+Nw/HSe5UjlzPlGBr+hHhiSonMArUx
+ MBVyS8SX4CYCoiCsrAMm3yCTkwa3V9wX/DDPCy2jOX9rlj+1brIH5n3g3FihDQU5N1/d
+ HxAOLxw/UWeCRKSXR5bERUQD8sD5HvxrPpti7sqyhvPiWOaiDMC4HGyQo/O7lelX8ck6
+ QjPg==
+X-Gm-Message-State: ABuFfogqai+2YEhMWV96GD/cp/ZM92qb8OrkwCnezeZMa3RM0hMmzLxd
+ 1HRFwfGybx/4UokcwC+EhtDeq4Jy+9g0v5QJWzA+Mg==
+X-Google-Smtp-Source: ACcGV61NmmaMMm7GYkKMMyTKA8ito3N4uB+CzhSTzJdjw8n4EP5l+Lg76A6R9yq4zkLupStvKxmenrXNtpK6V0rp/ug=
+X-Received: by 2002:a6b:4006:: with SMTP id k6-v6mr37094ioa.277.1538549825328; 
+ Tue, 02 Oct 2018 23:57:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAO=notz0ibE=yZOtg4DE-onDDOWKHvPx_pRTp6OAH7JqRfH3dw@mail.gmail.com>
- <7E9441B1E5EFFD4681F54958E8216993458541EA@ORSMSX114.amr.corp.intel.com>
-In-Reply-To: <7E9441B1E5EFFD4681F54958E8216993458541EA@ORSMSX114.amr.corp.intel.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 2 Oct 2018 20:30:56 -0700
-Message-ID: <CAO=notzzNBENF=Jk=dCA0xrX+oqGt886k6ir7d_EZhTBb6MwPg@mail.gmail.com>
-Subject: Re: OEM i2c over IPMI
-To: "Tanous, Ed" <ed.tanous@intel.com>, Peter Hanson <peterh@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <20181002041437.2493192-1-taoren@fb.com>
+ <CACRpkdY4VaH2Yoob2gWwAk11P1NTDdza262zKGs=gju0NH9skQ@mail.gmail.com>
+ <3a294c92-bcc6-b42e-b3af-72bc5f607fd9@fb.com>
+In-Reply-To: <3a294c92-bcc6-b42e-b3af-72bc5f607fd9@fb.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 3 Oct 2018 08:56:53 +0200
+Message-ID: <CACRpkdZXum+bQg1FO+EHhKWpxtPYXfeRhoAKkFXeMQh1Jng3Ww@mail.gmail.com>
+Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt
+ register access
+To: taoren@fb.com
+Cc: Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>, 
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Yu Lei <mine260309@gmail.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,45 +68,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2018 03:31:11 -0000
+X-List-Received-Date: Wed, 03 Oct 2018 06:57:09 -0000
 
-+peterh@
+On Wed, Oct 3, 2018 at 12:08 AM Tao Ren <taoren@fb.com> wrote:
 
-I believe it was a more flexible approach.
+>     1) adding "is_aspeed" flag. "count_down" is kept because potentially faraday-fttmr could also be configured as count_down timer (although I don't see any reason to do so).
+>     2) renaming "count_down" to "is_aspeed". By doing this, we set restriction that faraday-fttmr will always be upward.
+> What's your thought? Do you want me to include all the changes in this diff?
 
-Patrick
-On Tue, Oct 2, 2018 at 3:39 PM Tanous, Ed <ed.tanous@intel.com> wrote:
->
-> > -----Original Message-----
-> > From: openbmc [mailto:openbmc-
-> > bounces+ed.tanous=3Dintel.com@lists.ozlabs.org] On Behalf Of Patrick
-> > Venture
-> > Sent: Tuesday, October 2, 2018 1:00 PM
-> > To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-> > Subject: OEM i2c over IPMI
-> >
-> > We have a linux kernel driver for i2c-via-ipmi that ties into
-> > https://gerrit.openbmc-project.xyz/12604 - I'm putting this upstream bu=
-t
-> > since it's an IPMI OEM handler, it can nicely go into its own repositor=
-y - I was
-> > curious if there was any OpenBMC interest?  If so, we can aim for the
-> > phosphor namespace, otherwise I'll just ask that it be pushed into a go=
-ogle
-> > repo.
-> >
->
-> What does this command do that the existing master write-read command (se=
-ction 22.11 of the IPMI spec) doesn't?
->
-> I know on past systems we've offered the OEM I2C command to get around th=
-e 8 channel limit for the stock command.  I can't tell if that's the case w=
-ith this one, but we should probably have a statement on exactly what we're=
- trying to solve compared to the IPMI master write read.
->
-> It should also be noted that master write-read opens up some pretty scary=
- security scenarios, especially when done over IPMI.  We should probably ma=
-ke sure it's isolated to its own library so the high security systems can o=
-pt out of it if need be.
->
-> -Ed
+My thought is go for (2) and do all changes in one patch :)
+
+Yours,
+Linus Walleij
