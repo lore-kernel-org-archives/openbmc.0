@@ -1,61 +1,44 @@
-Return-Path: <prvs=3814b6f4cb=taoren@fb.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=3814b6f4cb=taoren@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="dsoo9Em/"; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42QVCf0vCQzF37w
- for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 07:54:05 +1000 (AEST)
-Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
- by mx0b-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w93LqwjH030903
- for <openbmc@lists.ozlabs.org>; Wed, 3 Oct 2018 14:54:02 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=8v/OaRfCIq6hjMBXjXMlTdF1MTIrj2kto/3IUQCAfzA=;
- b=dsoo9Em/nH1Dgb2k68Pjmh+QIksYy292uE2kDM4qskCgMDR02HKnewGgBGgjV3bfbbhI
- +kjbhf4UxENwZ11oHqeyWjO5xtE+YzGrB3RzDd+y4sXunqNCbaW68Ym4GsgVyTZcma7L
- laft0HZ+1nlauX3hY3Av0qEvxdTyfQ75UO4= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0b-00082601.pphosted.com with ESMTP id 2mw0mwhafa-10
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 03 Oct 2018 14:54:02 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
- (192.168.16.20) with Microsoft SMTP Server (TLS) id 14.3.361.1; Wed, 3 Oct
- 2018 14:53:57 -0700
-Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)	id
- 150B2655CD42; Wed,  3 Oct 2018 14:53:53 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
-From: Tao Ren <taoren@fb.com>
-Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
-To: Daniel Lezcano <daniel.lezcano@linaro.org>, Thomas Gleixner
- <tglx@linutronix.de>, Linus Walleij <linus.walleij@linaro.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, Yu Lei
- <mine260309@gmail.com>, <linux-kernel@vger.kernel.org>,
- <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>
-CC: Tao Ren <taoren@fb.com>
-Smtp-Origin-Cluster: prn1c35
-Subject: [PATCH v2] clocksource/drivers/fttmr010: fix invalid interrupt
- register access
-Date: Wed, 3 Oct 2018 14:53:50 -0700
-Message-ID: <20181003215350.3550926-1-taoren@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QW2S5g2qzDrDy;
+ Thu,  4 Oct 2018 08:31:12 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Oct 2018 15:31:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,337,1534834800"; d="scan'208";a="97208499"
+Received: from maru.jf.intel.com ([10.54.51.77])
+ by orsmga002.jf.intel.com with ESMTP; 03 Oct 2018 15:31:09 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+To: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH i2c-next v5 0/5] i2c: aspeed: Add bus idle waiting logic for
+ multi-master use cases
+Date: Wed,  3 Oct 2018 15:31:02 -0700
+Message-Id: <20181003223107.16133-1-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.19.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-03_10:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,206 +50,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2018 21:54:06 -0000
+X-List-Received-Date: Wed, 03 Oct 2018 22:31:13 -0000
 
-TIMER_INTR_MASK register (Base Address of Timer + 0x38) is not designed
-for masking interrupts on ast2500 chips, and it's not even listed in
-ast2400 datasheet, so it's not safe to access TIMER_INTR_MASK on aspeed
-chips.
+In multi-master environment, this driver's master cannot know
+exactly when peer master sends data to this driver's slave so a
+case can be happened that this master tries to send data through
+the master_xfer function but slave data from peer master is still
+being processed by this driver. To prevent state corruption in the
+case, this patch adds checking code if any slave operation is
+ongoing and it waits up to the bus timeout duration before starting
+a master_xfer operation.
 
-Similarly, TIMER_INTR_STATE register (Base Address of Timer + 0x34) is
-not interrupt status register on ast2400 and ast2500 chips. Although
-there is no side effect to reset the register in fttmr010_common_init(),
-it's just misleading to do so.
+To support this change, it introduces changes on i2c-core-base to
+make that able to read the bus timeout and master transfer retries
+count values from device tree properties.
 
-Besides, "count_down" is renamed to "is_aspeed" in "fttmr010" structure,
-and more comments are added so the code is more readble.
+Please review this patch set.
 
-Signed-off-by: Tao Ren <taoren@fb.com>
----
-Changes in v2:
-  - "count_down" is renamed to "is_aspeed" in "fttmr010" structure.
-  - more comments are added to make the code more readable.
+Thanks,
 
-Tested the patch on:
-  - Facebook Backpack CMM AST2500 BMC.
-  - Facebook Wedge100 AST2400 BMC.
+-Jae
 
- drivers/clocksource/timer-fttmr010.c | 73 ++++++++++++++++------------
- 1 file changed, 42 insertions(+), 31 deletions(-)
+Changes since v3:
+- Changed the property name to 'timeout' and made it use the
+  default setting in i2c-core when not specified.
 
-diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
-index cf93f6419b51..fadff7915dd9 100644
---- a/drivers/clocksource/timer-fttmr010.c
-+++ b/drivers/clocksource/timer-fttmr010.c
-@@ -21,7 +21,7 @@
- #include <linux/delay.h>
- 
- /*
-- * Register definitions for the timers
-+ * Register definitions common for all the timer variants.
-  */
- #define TIMER1_COUNT		(0x00)
- #define TIMER1_LOAD		(0x04)
-@@ -36,9 +36,10 @@
- #define TIMER3_MATCH1		(0x28)
- #define TIMER3_MATCH2		(0x2c)
- #define TIMER_CR		(0x30)
--#define TIMER_INTR_STATE	(0x34)
--#define TIMER_INTR_MASK		(0x38)
- 
-+/*
-+ * Control register (TMC30) bit fields for fttmr010/gemini/moxart timers.
-+ */
- #define TIMER_1_CR_ENABLE	BIT(0)
- #define TIMER_1_CR_CLOCK	BIT(1)
- #define TIMER_1_CR_INT		BIT(2)
-@@ -53,8 +54,9 @@
- #define TIMER_3_CR_UPDOWN	BIT(11)
- 
- /*
-- * The Aspeed AST2400 moves bits around in the control register
-- * and lacks bits for setting the timer to count upwards.
-+ * Control register (TMC30) bit fields for aspeed ast2400/ast2500 timers.
-+ * The aspeed timers move bits around in the control register and lacks
-+ * bits for setting the timer to count upwards.
-  */
- #define TIMER_1_CR_ASPEED_ENABLE	BIT(0)
- #define TIMER_1_CR_ASPEED_CLOCK		BIT(1)
-@@ -66,6 +68,18 @@
- #define TIMER_3_CR_ASPEED_CLOCK		BIT(9)
- #define TIMER_3_CR_ASPEED_INT		BIT(10)
- 
-+/*
-+ * Interrupt status/mask register definitions for fttmr010/gemini/moxart
-+ * timers.
-+ * The registers don't exist and they are not needed on aspeed timers
-+ * because:
-+ *   - aspeed timer overflow interrupt is controlled by bits in Control
-+ *     Register (TMC30).
-+ *   - aspeed timers always generate interrupt when either one of the
-+ *     Match registers equals to Status register.
-+ */
-+#define TIMER_INTR_STATE	(0x34)
-+#define TIMER_INTR_MASK		(0x38)
- #define TIMER_1_INT_MATCH1	BIT(0)
- #define TIMER_1_INT_MATCH2	BIT(1)
- #define TIMER_1_INT_OVERFLOW	BIT(2)
-@@ -80,7 +94,7 @@
- struct fttmr010 {
- 	void __iomem *base;
- 	unsigned int tick_rate;
--	bool count_down;
-+	bool is_aspeed;
- 	u32 t1_enable_val;
- 	struct clock_event_device clkevt;
- #ifdef CONFIG_ARM
-@@ -130,7 +144,7 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
- 	cr &= ~fttmr010->t1_enable_val;
- 	writel(cr, fttmr010->base + TIMER_CR);
- 
--	if (fttmr010->count_down) {
-+	if (fttmr010->is_aspeed) {
- 		/*
- 		 * ASPEED Timer Controller will load TIMER1_LOAD register
- 		 * into TIMER1_COUNT register when the timer is re-enabled.
-@@ -175,16 +189,17 @@ static int fttmr010_timer_set_oneshot(struct clock_event_device *evt)
- 
- 	/* Setup counter start from 0 or ~0 */
- 	writel(0, fttmr010->base + TIMER1_COUNT);
--	if (fttmr010->count_down)
-+	if (fttmr010->is_aspeed) {
- 		writel(~0, fttmr010->base + TIMER1_LOAD);
--	else
-+	} else {
- 		writel(0, fttmr010->base + TIMER1_LOAD);
- 
--	/* Enable interrupt */
--	cr = readl(fttmr010->base + TIMER_INTR_MASK);
--	cr &= ~(TIMER_1_INT_OVERFLOW | TIMER_1_INT_MATCH2);
--	cr |= TIMER_1_INT_MATCH1;
--	writel(cr, fttmr010->base + TIMER_INTR_MASK);
-+		/* Enable interrupt */
-+		cr = readl(fttmr010->base + TIMER_INTR_MASK);
-+		cr &= ~(TIMER_1_INT_OVERFLOW | TIMER_1_INT_MATCH2);
-+		cr |= TIMER_1_INT_MATCH1;
-+		writel(cr, fttmr010->base + TIMER_INTR_MASK);
-+	}
- 
- 	return 0;
- }
-@@ -201,9 +216,8 @@ static int fttmr010_timer_set_periodic(struct clock_event_device *evt)
- 	writel(cr, fttmr010->base + TIMER_CR);
- 
- 	/* Setup timer to fire at 1/HZ intervals. */
--	if (fttmr010->count_down) {
-+	if (fttmr010->is_aspeed) {
- 		writel(period, fttmr010->base + TIMER1_LOAD);
--		writel(0, fttmr010->base + TIMER1_MATCH1);
- 	} else {
- 		cr = 0xffffffff - (period - 1);
- 		writel(cr, fttmr010->base + TIMER1_COUNT);
-@@ -281,23 +295,21 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
- 	}
- 
- 	/*
--	 * The Aspeed AST2400 moves bits around in the control register,
--	 * otherwise it works the same.
-+	 * The Aspeed timers move bits around in the control register.
- 	 */
- 	if (is_aspeed) {
- 		fttmr010->t1_enable_val = TIMER_1_CR_ASPEED_ENABLE |
- 			TIMER_1_CR_ASPEED_INT;
--		/* Downward not available */
--		fttmr010->count_down = true;
-+		fttmr010->is_aspeed = true;
- 	} else {
- 		fttmr010->t1_enable_val = TIMER_1_CR_ENABLE | TIMER_1_CR_INT;
--	}
- 
--	/*
--	 * Reset the interrupt mask and status
--	 */
--	writel(TIMER_INT_ALL_MASK, fttmr010->base + TIMER_INTR_MASK);
--	writel(0, fttmr010->base + TIMER_INTR_STATE);
-+		/*
-+		 * Reset the interrupt mask and status
-+		 */
-+		writel(TIMER_INT_ALL_MASK, fttmr010->base + TIMER_INTR_MASK);
-+		writel(0, fttmr010->base + TIMER_INTR_STATE);
-+	}
- 
- 	/*
- 	 * Enable timer 1 count up, timer 2 count up, except on Aspeed,
-@@ -306,9 +318,8 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
- 	if (is_aspeed)
- 		val = TIMER_2_CR_ASPEED_ENABLE;
- 	else {
--		val = TIMER_2_CR_ENABLE;
--		if (!fttmr010->count_down)
--			val |= TIMER_1_CR_UPDOWN | TIMER_2_CR_UPDOWN;
-+		val = TIMER_2_CR_ENABLE | TIMER_1_CR_UPDOWN |
-+			TIMER_2_CR_UPDOWN;
- 	}
- 	writel(val, fttmr010->base + TIMER_CR);
- 
-@@ -321,7 +332,7 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
- 	writel(0, fttmr010->base + TIMER2_MATCH1);
- 	writel(0, fttmr010->base + TIMER2_MATCH2);
- 
--	if (fttmr010->count_down) {
-+	if (fttmr010->is_aspeed) {
- 		writel(~0, fttmr010->base + TIMER2_LOAD);
- 		clocksource_mmio_init(fttmr010->base + TIMER2_COUNT,
- 				      "FTTMR010-TIMER2",
-@@ -371,7 +382,7 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
- 
- #ifdef CONFIG_ARM
- 	/* Also use this timer for delays */
--	if (fttmr010->count_down)
-+	if (fttmr010->is_aspeed)
- 		fttmr010->delay_timer.read_current_timer =
- 			fttmr010_read_current_timer_down;
- 	else
+Changes since v2:
+- Changed the property name to 'aspeed,timeout' and made it to
+  update the adapter's timeout configuration.
+
+Changes since v1:
+- Changed define names of timeout related.
+
+Jae Hyun Yoo (5):
+  dt-bindings: i2c: Add 'timeout-ms' and '#retries' properties as common
+    optional
+  i2c: Add support for 'timeout-ms' and '#retries' OF properties
+  dt-bindings: i2c: aspeed: Add 'timeout-ms' property as an optional
+    property
+  i2c: aspeed: Remove hard-coded bus timeout value setting
+  i2c: aspeed: Add bus idle waiting logic for multi-master use cases
+
+ .../devicetree/bindings/i2c/i2c-aspeed.txt    |  3 ++
+ Documentation/devicetree/bindings/i2c/i2c.txt |  6 +++
+ drivers/i2c/busses/i2c-aspeed.c               | 54 +++++++++++++------
+ drivers/i2c/i2c-core-base.c                   | 18 ++++++-
+ 4 files changed, 63 insertions(+), 18 deletions(-)
+
 -- 
-2.17.1
+2.19.0
