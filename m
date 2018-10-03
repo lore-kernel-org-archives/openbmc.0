@@ -1,85 +1,120 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <prvs=3814b6f4cb=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=3814b6f4cb=taoren@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="JiuHIKmf"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="hf+TzPQR"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42QSdx6ZTkzF38J
- for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 06:43:17 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w93KdGEF031256
- for <openbmc@lists.ozlabs.org>; Wed, 3 Oct 2018 16:43:15 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2mw37s4ra6-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 03 Oct 2018 16:43:15 -0400
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 3 Oct 2018 14:43:14 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 3 Oct 2018 14:43:11 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w93KhAAC25165996
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 3 Oct 2018 13:43:10 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 370BF6E056;
- Wed,  3 Oct 2018 14:43:10 -0600 (MDT)
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 601BC6E050;
- Wed,  3 Oct 2018 14:43:09 -0600 (MDT)
-Received: from [9.41.179.222] (unknown [9.41.179.222])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed,  3 Oct 2018 14:43:09 -0600 (MDT)
-Subject: Re: [PATCH v3 2/2] media: platform: Add Aspeed Video Engine driver
-To: Hans Verkuil <hverkuil@xs4all.nl>, Eddie James <eajames@linux.ibm.com>,
- linux-kernel@vger.kernel.org
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org, mchehab@kernel.org,
- linux-media@vger.kernel.org
-References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
- <1537903629-14003-3-git-send-email-eajames@linux.ibm.com>
- <a78d4c7a-ac58-c23d-a683-23dce54be993@xs4all.nl>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Wed, 3 Oct 2018 15:43:08 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <a78d4c7a-ac58-c23d-a683-23dce54be993@xs4all.nl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QT876SsczF360;
+ Thu,  4 Oct 2018 07:05:58 +1000 (AEST)
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w93Kxf8P006390; Wed, 3 Oct 2018 14:05:46 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=TAmCjwOi/EAEwGceb0pQ/6w5ErFkxLFguzQlZTV0L0A=;
+ b=JiuHIKmfE0oiunkN2RKPA2LfBD9iJPgyYoE/FJQoJsuOBdfdHhIahGQsRmz80lUDb0ZC
+ DNGwcRl1A88N2OdlwjyUM2TKon5IuBPhHSNWM5L2UDGwFl2ujKEezxN1PqfJuOSGj8Fa
+ iGpo9ctoJ2N08BthdEg7yJVSsTPdoc3dppM= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2mw4wcr3md-3
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 03 Oct 2018 14:05:46 -0700
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.32) with Microsoft SMTP
+ Server (TLS) id 14.3.361.1; Wed, 3 Oct 2018 17:05:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TAmCjwOi/EAEwGceb0pQ/6w5ErFkxLFguzQlZTV0L0A=;
+ b=hf+TzPQRUQ8857FaRxtw55tk4p1SdouBHwxWJTh2Hdlu5sDybmUiPplGdH22N9Hh/D6xiXWlYD9NYz5MfcFj+d7klroc8TJq5JKq79IjyM+pFl15zix1hG0tdl2irNGUwH/nYnSkXV0Y8RiPv98cPfUUFBXLHSZmGmiXKnpq9Wk=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1792.namprd15.prod.outlook.com (10.174.255.21) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1185.25; Wed, 3 Oct 2018 21:05:09 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::ccb:6fd9:cf17:bfcd]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::ccb:6fd9:cf17:bfcd%9]) with mapi id 15.20.1207.021; Wed, 3 Oct 2018
+ 21:05:09 +0000
+From: Tao Ren <taoren@fb.com>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, Linus Walleij
+ <linus.walleij@linaro.org>
+CC: Thomas Gleixner <tglx@linutronix.de>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, Yu Lei <mine260309@gmail.com>, "OpenBMC
+ Maillist" <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>
+Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt
+ register access
+Thread-Topic: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt
+ register access
+Thread-Index: AQHUWgaCT67ZXjOUCkyaVb8BmGGbFqULkM4AgADz4QCAAJPLgP//mGCAgADELoCAABsYgA==
+Date: Wed, 3 Oct 2018 21:05:08 +0000
+Message-ID: <0FD6C848-4F06-43EF-9FAD-EA2AEE05C606@fb.com>
+References: <20181002041437.2493192-1-taoren@fb.com>
+ <CACRpkdY4VaH2Yoob2gWwAk11P1NTDdza262zKGs=gju0NH9skQ@mail.gmail.com>
+ <3a294c92-bcc6-b42e-b3af-72bc5f607fd9@fb.com>
+ <CACRpkdZXum+bQg1FO+EHhKWpxtPYXfeRhoAKkFXeMQh1Jng3Ww@mail.gmail.com>
+ <966C48A9-98F7-4B2B-BCD0-FAF3066C5794@fb.com>
+ <6e7703e4-461b-77bf-5c9d-cc9e91c5ef3d@linaro.org>
+In-Reply-To: <6e7703e4-461b-77bf-5c9d-cc9e91c5ef3d@linaro.org>
+Accept-Language: en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18100320-8235-0000-0000-00000E0C2523
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009816; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000267; SDB=6.01097423; UDB=6.00567539; IPR=6.00877466; 
- MB=3.00023602; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-03 20:43:14
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18100320-8236-0000-0000-000042DD39A1
-Message-Id: <ca4757b9-0825-bbbf-b388-0295fd13bad7@linux.vnet.ibm.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/10.10.0.180812
+x-originating-ip: [2620:10d:c090:180::1:d978]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1792;
+ 20:TUpvVIdQBvD5JbT3gAt1n9f3RO/HrSBOB+X/nWb4RpnqBH+M1oYsxkr6gR+4r7ESylPO4XV7VskuZT99OAR0hfMwrDLSIAB24qsNK5u0IO/HJ4szUzmT5wAPY729QabKMwXY4vKTfchwFLPsl9xGKAAvCe9fPhvoWwYlUGFSkQs=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: f67bc6b8-4ce4-43ce-200a-08d62973e6d8
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1792; 
+x-ms-traffictypediagnostic: MWHPR15MB1792:
+x-microsoft-antispam-prvs: <MWHPR15MB179262A85A5047849580D92AB2E90@MWHPR15MB1792.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:;
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(10201501046)(3002001)(3231355)(11241501184)(944501410)(52105095)(149066)(150057)(6041310)(20161123564045)(20161123560045)(20161123558120)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051)(76991048);
+ SRVR:MWHPR15MB1792; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1792; 
+x-forefront-prvs: 0814A2C7A3
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(39860400002)(396003)(366004)(136003)(376002)(346002)(199004)(189003)(99286004)(186003)(5250100002)(256004)(6246003)(97736004)(25786009)(4326008)(2906002)(39060400002)(83716004)(71200400001)(71190400001)(486006)(76176011)(2616005)(11346002)(86362001)(102836004)(53546011)(6506007)(46003)(2900100001)(82746002)(476003)(446003)(81166006)(8936002)(33656002)(81156014)(478600001)(110136005)(106356001)(8676002)(5660300001)(105586002)(54906003)(58126008)(14454004)(6486002)(6436002)(316002)(6512007)(53936002)(36756003)(229853002)(6116002)(93886005)(305945005)(68736007)(7736002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1792;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: 8K/kO240n7aG/d7825DpqpKRDXOwwv2kqw17r7CZvZvHIlIfA2S5Y5sqETevoc6AaiEHBnY5l4YvhvJPWsh9Ca7fdOl+bZNus5AvJSbFcZQPNntNMHeXHFJYemI5PF533a/wTJhEvjLf29rc60+81S5WzPRJZ8ckoqRyVnHkOfTG3VCs8e9Z0V5RxrwXSdJuNEFfJgUmCE1EJukWpIFpQ6GAPkg7txvEcRWWE+DTwzO/HI/RsUnlZejIinXot52JaF+FXztZTIvFpOb5AMDKQWCW+oSPkDKhttnEkmR025zjUO5Lh/UPqhAWo+bnhFJ8hHPlqot6pUm5ejlO4V669wQpachWdi3nV6A74LolgXY=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <5301DB68BE3B3C4FB5DB90476CDDC300@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: f67bc6b8-4ce4-43ce-200a-08d62973e6d8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Oct 2018 21:05:08.9311 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1792
+X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-10-03_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1810030191
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,49 +126,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2018 20:43:18 -0000
+X-List-Received-Date: Wed, 03 Oct 2018 21:06:00 -0000
 
-
-
-On 09/28/2018 06:30 AM, Hans Verkuil wrote:
-> On 09/25/2018 09:27 PM, Eddie James wrote:
->> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
->> can capture and compress video data from digital or analog sources. With
->> the Aspeed chip acting a service processor, the Video Engine can capture
->> the host processor graphics output.
->>
->> Add a V4L2 driver to capture video data and compress it to JPEG images.
->> Make the video frames available through the V4L2 streaming interface.
->>
->> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-
->> +	}
->> +
->> +	video->height = (bottom - top) + 1;
->> +	video->width = (right - left) + 1;
->> +	size = video->height * video->width;
-> It looks like you can actually determine the blanking width/height and
-> possibly even more detailed information that would be very useful to
-> show with the DV_TIMINGS ioctls.
-
-Hmm. This information is related to the video signal captured from the 
-host. That information has nothing to do with the buffer that is 
-compressed and grabbed by the driver and ultimately provided to 
-userspace. Isn't the timing information meaningless for JPEG frames?
-
-Forgot to include this question in my previous reply, sorry for the 
-additional mail.
-
-Thanks,
-Eddie
-
->
->> +
->> +	/* Don't use direct mode below 1024 x 768 (irqs don't fire) */
->> +	if (size < DIRECT_FETCH_THRESHOLD) {
->> +		aspeed_video_write(video, VE_TGS_0,
->> +				   FIELD_PREP(VE_TGS_FIRST, left - 1) |
->> +				   FIELD_PREP(VE_TGS_LAST, right));
->> +		aspeed_video_write(video, VE_TGS_1,
->> +				   FIELD_PREP(VE_TGS_FIRST, top) |
->>
+T24gMTAvMy8xOCwgNToyOCBBTSwgIkRhbmllbCBMZXpjYW5vIiA8ZGFuaWVsLmxlemNhbm9AbGlu
+YXJvLm9yZz4gd3JvdGU6DQoNCj4gdGhlIGJyYW5jaCB0aXA6dGltZXJzL3VyZ2VudCB3aWxsIGJl
+IG1lcmdlZCBpbiB0aXA6L3RpbWVycy9jb3JlLCBzbyB0aGUgZml4ZXMgd2lsbCBiZSBwcm9wYWdh
+dGVkIHRvIHRoZSBtYXN0ZXIgYnJhbmNoLg0KPiBCYXNlIHlvdXIgY2hhbmdlIGluIHRvcCBvZiB0
+aXA6dGltZXJzL3VyZ2VudCwgdGhlIG1lcmdlIHdpbGwgaGFwcGVuIHNvb24gYW5kIGJvdGggZml4
+ZXMgd2lsbCBlbmQgdXAgaW4gdGlwOnRpbWVycy9jb3JlLg0KDQpHb3QgaXQuIFRoYW5rIHlvdSBE
+YW5pZWwuDQoNCg0KLSBUYW8NCg0K
