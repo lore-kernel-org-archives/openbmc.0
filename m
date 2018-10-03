@@ -1,74 +1,53 @@
-Return-Path: <daniel.lezcano@linaro.org>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:4864:20::341; helo=mail-wm1-x341.google.com;
- envelope-from=daniel.lezcano@linaro.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ab9fIbS7"; 
- dkim-atps=neutral
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42QFfn3hwxzF37y
- for <openbmc@lists.ozlabs.org>; Wed,  3 Oct 2018 22:28:15 +1000 (AEST)
-Received: by mail-wm1-x341.google.com with SMTP id a8-v6so1451995wmf.1
- for <openbmc@lists.ozlabs.org>; Wed, 03 Oct 2018 05:28:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=r+xJeJiTViUaKyUEJIiLdGISDhU3g624RQT6SjXnmOk=;
- b=Ab9fIbS7Wm0JYNbTzTR+ku9qugi/ZM6tgCkQ5IMniRvPO1XXo+1DnQYK1nXviBtjlN
- 8RTBQARY3u6cboxf25VPhHYCtcMtqjTrPtg/gsUognYqX8lHNWt8uOyqkfigvzMHt+Nr
- JcCe0kpBTPu3FLTBGDltIRlnD+gMd6AD58VmE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=r+xJeJiTViUaKyUEJIiLdGISDhU3g624RQT6SjXnmOk=;
- b=o9ehPGrdzMNoW47Vrj/UT38Cwxe+cThDAOC2h5AJMspwJNhxytaGwy1Y5ofz/Ki0mw
- Qt+crgkor5q1Eag8FQKNtmPHgZcxsHoCWaIwhcCCRBNJYlTiH4pxOsLFJYi0sXWpaHvP
- wgr7S66jXJYbbDLSAl1JyLrNtMdNG5zKMibbiwGsGCARQie9O1zBy4OFHgwU2esVY+33
- ypGk/yn2CtRpWk65TsFiMK0e9113s9K+R1zvrkWEWj++5HRc//mQb71rIyfwcjZZcJDM
- xwhOiUxmz1rEfBv+gejH/zR0thJE1VIJcXaAczPTOpYIPZpzFjIOx4OTRzQNTB2igVdw
- mlsw==
-X-Gm-Message-State: ABuFfohjL3Tdpq57k75Mb57LxBggAO4VMPVkcebnoxXJekFrLdhD0vym
- jRiIr0i10GpoSLqYiYsEdyurPQ==
-X-Google-Smtp-Source: ACcGV61CIbOoIy0zVCHEcAiH2MROk3PNgsI4FK1d/UviLcZscycS/6MYduI5aD5En6A3jIQm2jcVTQ==
-X-Received: by 2002:a1c:4d0b:: with SMTP id
- o11-v6mr1346968wmh.94.1538569692156; 
- Wed, 03 Oct 2018 05:28:12 -0700 (PDT)
-Received: from [192.168.0.41] (84.152.136.77.rev.sfr.net. [77.136.152.84])
- by smtp.googlemail.com with ESMTPSA id
- w192-v6sm1943417wmf.33.2018.10.03.05.28.10
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Oct 2018 05:28:11 -0700 (PDT)
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: fix invalid interrupt
- register access
-To: Tao Ren <taoren@fb.com>, Linus Walleij <linus.walleij@linaro.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Yu Lei <mine260309@gmail.com>,
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QMx36KJXzDqCq;
+ Thu,  4 Oct 2018 03:11:03 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Oct 2018 10:11:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,336,1534834800"; d="scan'208";a="238212232"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga004.jf.intel.com with ESMTP; 03 Oct 2018 10:10:24 -0700
+Subject: Re: [PATCH i2c-next v4 2/3] i2c: aspeed: Add 'timeout' DT property
+ reading code
+To: Joel Stanley <joel@jms.id.au>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-i2c@vger.kernel.org,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
-References: <20181002041437.2493192-1-taoren@fb.com>
- <CACRpkdY4VaH2Yoob2gWwAk11P1NTDdza262zKGs=gju0NH9skQ@mail.gmail.com>
- <3a294c92-bcc6-b42e-b3af-72bc5f607fd9@fb.com>
- <CACRpkdZXum+bQg1FO+EHhKWpxtPYXfeRhoAKkFXeMQh1Jng3Ww@mail.gmail.com>
- <966C48A9-98F7-4B2B-BCD0-FAF3066C5794@fb.com>
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-Message-ID: <6e7703e4-461b-77bf-5c9d-cc9e91c5ef3d@linaro.org>
-Date: Wed, 3 Oct 2018 14:28:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ devicetree <devicetree@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ linux-aspeed@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20181001202748.8030-1-jae.hyun.yoo@linux.intel.com>
+ <20181001202748.8030-3-jae.hyun.yoo@linux.intel.com>
+ <CACPK8XeuFm_GYFhe-KimOHV7y7PBdFjhMGG+QAmfNrfOcb488A@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <9951c217-70c1-81cf-a43d-baf6bb02beb9@linux.intel.com>
+Date: Wed, 3 Oct 2018 10:10:23 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <966C48A9-98F7-4B2B-BCD0-FAF3066C5794@fb.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <CACPK8XeuFm_GYFhe-KimOHV7y7PBdFjhMGG+QAmfNrfOcb488A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,35 +59,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2018 12:28:18 -0000
+X-List-Received-Date: Wed, 03 Oct 2018 17:11:04 -0000
 
-On 03/10/2018 09:46, Tao Ren wrote:
-> On 10/2/18, 11:57 PM, "Linus Walleij" <linus.walleij@linaro.org>
-> wrote:
+Hi Joel,
+
+On 10/3/2018 12:49 AM, Joel Stanley wrote:
+> Hello Jae,
 > 
->> My thought is go for (2) and do all changes in one patch :)
+> On Mon, 1 Oct 2018 at 22:28, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>> @@ -918,6 +919,11 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>>                  bus->bus_frequency = 100000;
+>>          }
+>>
+>> +       ret = of_property_read_u32(pdev->dev.of_node, "timeout",
+>> +                                  &timeout_ms);
+>> +       if (ret)
+>> +               timeout_ms = 0; /* then adap.timeout will be set by i2c-core */
 > 
-> No problem, Linus. One more question: looks like my first patch
-> 4451d3f59f2a (fix set_next_event handler) is not merged back to
-> "timers/core". Should I generate this patch on top of the first patch
-> or on top of the current "timers/core"? Which one would be easier for
-> you (or Daniel/Thomas)? Sorry I'm pretty new to the community..
+> Is it possible to implement the parsing of this property in the i2c
+> core instead?
+> 
 
+Yes, that's possible but I'm not sure that could be acceptable or not.
+Let me try.
 
-Hi Tao,
-
-the branch tip:timers/urgent will be merged in tip:/timers/core, so the
-fixes will be propagated to the master branch.
-
-Base your change in top of tip:timers/urgent, the merge will happen soon
-and both fixes will end up in tip:timers/core.
-
-  -- Daniel
-
-
--- 
- <http://www.linaro.org/> Linaro.org │ Open source software for ARM SoCs
-
-Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
-<http://twitter.com/#!/linaroorg> Twitter |
-<http://www.linaro.org/linaro-blog/> Blog
+Thanks,
+Jae
