@@ -1,42 +1,66 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=47.43.20.26; helo=impout002.msg.chrl.nc.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::835; helo=mail-qt1-x835.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-X-Greylist: delayed 340 seconds by postgrey-1.36 at bilbo;
- Thu, 04 Oct 2018 12:24:54 AEST
-Received: from impout002.msg.chrl.nc.charter.net
- (impout002aa.msg.chrl.nc.charter.net [47.43.20.26])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="G4Tjuopy"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42QcD64nxxzF36s
- for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 12:24:53 +1000 (AEST)
-Received: from [192.168.2.7] ([97.86.254.207]) by cmsmtp with ESMTPA
- id 7tCOgRNJkv4rp7tCsgTX0w; Thu, 04 Oct 2018 02:17:38 +0000
-Authentication-Results: charter.net; none
-X-Authority-Analysis: v=2.3 cv=KKLu82No c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=IkcTkHD0fZMA:10 a=x7bEGLp0ZPQA:10 a=pGLkceISAAAA:8 a=voM4FWlXAAAA:8
- a=NEAV23lmAAAA:8 a=8pif782wAAAA:8 a=enL2CNXqAAAA:8 a=mNJNSIhLVml0yPhIm9wA:9
- a=6EB7x6VdRA40xxlY:21 a=Ji1K9wa-eZTekEZR:21 a=QEXdDO2ut3YA:10
- a=IC2XNlieTeVoXbcui8wp:22
-Subject: Re: NEW GUI Design work group starts Wed, Oct 17
-To: openbmc@lists.ozlabs.org
-References: <mailman.2947.1538599401.866.openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Message-ID: <5792cd88-a8b4-6b5b-b852-5ffd0e573150@charter.net>
-Date: Wed, 3 Oct 2018 21:17:01 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QmNH336CzDr6B;
+ Thu,  4 Oct 2018 18:32:30 +1000 (AEST)
+Received: by mail-qt1-x835.google.com with SMTP id e22-v6so1903807qto.6;
+ Thu, 04 Oct 2018 01:32:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Etw5AdVS0moKLKdBsJGLIrgK6JI8wkHFQHItlrPBIjQ=;
+ b=G4TjuopyKXCp03SqG6zC4UMMyX16aobxSM3bi5YyHYuVNigaIkCCO5IDby4SnFsSW3
+ zkePxKM8XQquC0KSKkVg/zh13fyYJfP+QvUEPvVsRjtZ9S04ybcfEXdlRvkpFFEbPTt8
+ EgZp5Fq9Ked0bXRi+6oCrCgYo7klL3AsKdddU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Etw5AdVS0moKLKdBsJGLIrgK6JI8wkHFQHItlrPBIjQ=;
+ b=hRpVt4dVivPFxzffYxcRSLsYlnWo0Ms+gSN13gx75u2tAmEQiYDzT2gisrGDW9iKAJ
+ Pc4lbefHn2Y8XI9cESxuPLR2vrwNBPFvp50Al0YqhRmHbUy8vOTEXMsgOErP+OeHTSOg
+ 1b/tRVpWVgQooSV/rC4HG0tjnFDrZnSyEs7T6ZoSkBcpAlncTcaEjtDdoCnvDDx457/G
+ 0NzqtfZ0uuJ1kYLyag/bkOoS3juUKzoZ796784WkX1vs8afvaqz8QffmZ0kXXIV/2v5O
+ WvUe6VA7Bj7cFZ5k+8TK1kSDe2xFwH0nq+C+wxOh3nMz5hQJgeAG8UGGZkzYmKIgIEzN
+ oMZA==
+X-Gm-Message-State: ABuFfoi6wr+Ea1OBMJwqt4FPXznBJijFA4yhbVV19sAL0tz3xOmZoLfZ
+ nbJ29oacacpR22bY0i+Gctlcgd8Jn/xnfvllf5s=
+X-Google-Smtp-Source: ACcGV62Tlywvq78my1oaDC8caZsVv0HGfxDv4AtuP35v19CHOL4acuIesZyuTFSVArhLO2THBo+xgmcqFQDyOksyd8o=
+X-Received: by 2002:a0c:d032:: with SMTP id
+ u47-v6mr4464538qvg.245.1538641948330; 
+ Thu, 04 Oct 2018 01:32:28 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <mailman.2947.1538599401.866.openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-CMAE-Envelope: MS4wfDuiFZhXn6qE2vBqVyNiM0SFJ/o+0CQR8yCGB/WUizy+3HfzrxhEPdE+v19xoSFMr08BTP6BEeB+6nHRyzfkbnFLOTzODdoax1p8dN1ibWcOhuf+yXcO
- t/ihzoUCLbaoX7UAKEXwKMMjX5UlruvXxkT/aeOxBppGV36JAPT2OCCP7Q3rXdT1eDI+iH642QZigA==
+References: <20181003223107.16133-1-jae.hyun.yoo@linux.intel.com>
+ <20181003223107.16133-5-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20181003223107.16133-5-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 4 Oct 2018 10:32:17 +0200
+Message-ID: <CACPK8XdTMfdw1Tu97oD7R7MXQKGHnA5A+SVfAA3RDkiTd_bawA@mail.gmail.com>
+Subject: Re: [PATCH i2c-next v5 4/5] i2c: aspeed: Remove hard-coded bus
+ timeout value setting
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,89 +72,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Oct 2018 02:24:55 -0000
+X-List-Received-Date: Thu, 04 Oct 2018 08:32:33 -0000
 
-
-> Message: 1
-> Date: Wed, 3 Oct 2018 13:01:52 -0500
-> From: susan jasinski <susantjasinski@gmail.com>
-> To: openbmc@lists.ozlabs.org
-> Subject: NEW GUI Design work group starts Wed, Oct 17
-> Message-ID:
-> 	<CANT4Nr+UGpw7j7BpBOmxLxMzgW10Uk=1t6sg1frnwuS2Kq9j2A@mail.gmail.com>
-> Content-Type: text/plain; charset="utf-8"
+On Thu, 4 Oct 2018 at 00:31, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
 >
-> Hello everyone.
+> This commit removes hard-coded bus timeout value setting so that
+> it can be set by i2c-core-base.
 >
-> My name is Susan Jasinski, and I am the UX Design Lead for the IBM OpenBMC
-> GUI. Alissa Lee and I will be hosting a new bi-monthly OpenBMC work group
-> for reviewing new GUI designs. It will be held on the first and third
-> Wednesdays of the month.
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 
-Welcome!  And thank you for taking on this work.
-
-> Generally, my team will request feedback on GUI designs BEFORE they are
-> coded. This could include wireframes, high-fidelity mockups, interactive
-> prototypes, and panel flows. If others have pre-code designs they would
-> like to share with the community, feel free to add yourself to the agenda.
->
-> However, during this first meeting I'd like to discuss how to openly and
-> consistently share mockups, provide feedback and track revisions.
->
-> Access to the web conference link and the agenda can be found in the
-> openbmc-openbmc wiki (just above the Weekly Community Telecon wiki link) .
-> https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group
->
-> Links to mockups will be sent via email and IRC prior to the meeting.
-> Please join the conversation even if you did not have time to review
-> designs before-hand.
-
-I followed the wiki to the invisionapp site, and found a sequence of 
-images which show firmware update, login, etc.  Creating a free acount 
-so could add comments was quick and painless.  I can see this working as 
-a way to communicate complex visual design.
-
-However, I'm confused about your intention for this batch of images.  Is 
-this intended as a sample of the invisionapp review process?  If so, I 
-left a comment on page 1 of 66.  Or do these images represent your first 
-designs?  If so, it would help me if you give the purpose for the design 
-and then walk through some scenarios.
-
-Example purpose: The "webui/firmware update" (images 1-19) is for system 
-administrators who have a firmware image either {on their workstation, 
-reachable from the BMC's TFTP server, or already on the BMC} and need a 
-GUI to upload and re-configure their server's installed firmware (as in 
-https://en.wikipedia.org/wiki/Software_configuration_management from the 
-system administrators point of view).
-
-Example scenario "webui/firmware update/error uploading image":
-  * Link to starting image: 
-https://ibm.invisionapp.com/share/YSNTBXAJGUC#/screens/318858591
-  * Covers images 1-4
-  - When signed into the webui at the "firmware" tab,
-  - with the "Upload image file from workstation" button selected,
-  - enter "file.png" in the "Choose file" text entry field (where the 
-file exists and is not a valid firmware image)
-  - and click the "Upload firmware" button.
-  - The "Upload in progress" bar will appear while the file is being 
-uploaded, then disappears and
-  - the "Error uploading image" dialog box appears.
-  - Clicking its "Close" button makes the box go away and does not 
-change the "Choose file" field.
-
-Please note that my example scenario makes a number of assumptions which 
-should be explicit in the design.  Examples: Does the "Choose file" 
-button bring up a file selector box?  Is the filename next to it 
-editable?  On image 4, does the filename really change to "image_file.png"?
-(Also, I don't know if the link to will work for everyone.)  :-)
-
-I hope you understand that I am not trying to pick on you, but to 
-elevate the level of documentation for the overall OpenBMC project. I 
-believe writing scenarios like this will help draw more participation to 
-your review which will foster better shared understanding and create 
-better results.  Not just for webui, but for all of OpenBMC's functional 
-areas. </soapbox>
-
-> I am looking forward to seeing you all next week.
->
-> -- Susan Jasinski (IBM Lead Designer and User Experience designer)
+Reviewed-by: Joel Stanley <joel@jms.id.au>
