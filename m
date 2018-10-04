@@ -1,111 +1,83 @@
-Return-Path: <prvs=3815446641=taoren@fb.com>
+Return-Path: <Justin.Lee1@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=3815446641=taoren@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.90; helo=esa1.dell-outbound.iphmx.com;
+ envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
+ dmarc=pass (p=none dis=none) header.from=Dell.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="rlaoJfd4"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="PRQjR1Qt"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ unprotected) header.d=dell.com header.i=@dell.com header.b="jfsFdORn"; 
+ dkim-atps=neutral
+Received: from esa1.dell-outbound.iphmx.com (esa1.dell-outbound.iphmx.com
+ [68.232.153.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42R0xZ6hXPzF3M0;
- Fri,  5 Oct 2018 03:58:37 +1000 (AEST)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w94Hqw27021129; Thu, 4 Oct 2018 10:58:17 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=ULa91rETvRqixK0Yuu7GaLJXMgNM1xru1SSAfj5/o/c=;
- b=rlaoJfd4aOwwRiFZK+LIetJXunga8JilgcZG9Pl9sn7nXubPHdc4GRT4RfrARJoSk9Z3
- Cilt/1mgFrwiASeXZ0Ype7gT2KhEZRQFUHY2GyyEqftVrX17Yl/KEaKrsT72kgU4830O
- roRpZzxnL+LL8kTbzbOftmGuJGgU9HmCvwA= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mwn06rjdc-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 04 Oct 2018 10:58:17 -0700
-Received: from NAM05-BY2-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.33) with Microsoft SMTP
- Server (TLS) id 14.3.361.1; Thu, 4 Oct 2018 13:58:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULa91rETvRqixK0Yuu7GaLJXMgNM1xru1SSAfj5/o/c=;
- b=PRQjR1Qt4m1BqdgFWk92f+lMlnFdkIljiXo1OFQu8GpH96K7t/642m0M/R4IxBsW2jBCinTjeO7T8zCbHwoIu2jK85Uj6anIfamFYYHS1zSY0p9Sk+QR0hupaQqafm40AXundbDxSws4E72Enj7FqiD7kjfVwbZzs7ncbvm0wus=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1437.namprd15.prod.outlook.com (10.173.234.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1207.21; Thu, 4 Oct 2018 17:58:14 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::ccb:6fd9:cf17:bfcd]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::ccb:6fd9:cf17:bfcd%9]) with mapi id 15.20.1207.021; Thu, 4 Oct 2018
- 17:58:14 +0000
-From: Tao Ren <taoren@fb.com>
-To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
-CC: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
- <linux-aspeed@lists.ozlabs.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH 2/2] ARM: dts: aspeed: Add Facebook Backpack-CMM BMC
-Thread-Topic: [PATCH 2/2] ARM: dts: aspeed: Add Facebook Backpack-CMM BMC
-Thread-Index: AQHUV23ARKzfdnhYEkyqlKvnMVPZU6UO826A
-Date: Thu, 4 Oct 2018 17:58:14 +0000
-Message-ID: <D4DB54D3-D7BF-48B3-A10B-76EA5A403237@fb.com>
-References: <20180928205543.369310-1-taoren@fb.com>
-In-Reply-To: <20180928205543.369310-1-taoren@fb.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42R1d75zwtzF3M0;
+ Fri,  5 Oct 2018 04:29:30 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1538677751; x=1570213751;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=mdG6r2l3Bx5ufu2AOpMW89vbWdQC+UVhvY9YfYUsdRs=;
+ b=jfsFdORn8QpuB352SKRPgb8SZdHgPlPoPKjxM3H1EOfMOz30sXkUWDuJ
+ DTNGXGEGWr+/tsbSEGcF3kxqQFKMk+AjREBtsosYuyqNe5rz5WNKMOoQ9
+ 77VrTAdXHcfsHm1OtGpzmp/uKDiaIIht9RM+D/yXdUJh997IZkkCDCf4s g=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EaAACxWrZbhyWd50NbHAEBAQQBAQc?=
+ =?us-ascii?q?EAQGBUQcBAQsBg2ooCot/X4tBgg2WXYF6CwEBhGwChCYhNA0NAQMBAQIBAQI?=
+ =?us-ascii?q?BAQIQAQEBFQkIKS+CNiKCYgEBAQECARIVE0QLAgEINhBXAgQBEggagn+Begi?=
+ =?us-ascii?q?aJolXAQEBgWgzhAEBhg+LLIIXgRKDEopWAoEoAYdAG5RTBgECkDgfj2uVOAI?=
+ =?us-ascii?q?EAgQFAhSBQjeBV3CBboFOgjONawE1b4wqgR8BAQ?=
+X-IPAS-Result: =?us-ascii?q?A2EaAACxWrZbhyWd50NbHAEBAQQBAQcEAQGBUQcBAQsBg?=
+ =?us-ascii?q?2ooCot/X4tBgg2WXYF6CwEBhGwChCYhNA0NAQMBAQIBAQIBAQIQAQEBFQkIK?=
+ =?us-ascii?q?S+CNiKCYgEBAQECARIVE0QLAgEINhBXAgQBEggagn+BegiaJolXAQEBgWgzh?=
+ =?us-ascii?q?AEBhg+LLIIXgRKDEopWAoEoAYdAG5RTBgECkDgfj2uVOAIEAgQFAhSBQjeBV?=
+ =?us-ascii?q?3CBboFOgjONawE1b4wqgR8BAQ?=
+Received: from mx0b-00154901.pphosted.com ([67.231.157.37])
+ by esa1.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 04 Oct 2018 13:29:07 -0500
+Received: from pps.filterd (m0144102.ppops.net [127.0.0.1])
+ by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w94IJAsk065802; Thu, 4 Oct 2018 14:29:26 -0400
+Received: from esa2.dell-outbound2.iphmx.com (esa2.dell-outbound2.iphmx.com
+ [68.232.153.202])
+ by mx0b-00154901.pphosted.com with ESMTP id 2mwducujac-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 04 Oct 2018 14:29:26 -0400
+From: <Justin.Lee1@Dell.com>
+Received: from ausxippc101.us.dell.com ([143.166.85.207])
+ by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
+ 05 Oct 2018 00:28:01 +0600
+X-LoopCount0: from 10.166.135.96
+X-IronPort-AV: E=Sophos;i="5.54,341,1534827600"; d="scan'208";a="1143738056"
+To: <vijaykhemka@fb.com>, <sam@mendozajonas.com>, <joel@jms.id.au>,
+ <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
+ <sdasari@fb.com>, <netdev@vger.kernel.org>, <christian@cmd.nu>
+Subject: RE: [PATCH v3] net/ncsi: Add NCSI OEM command support
+Thread-Topic: [PATCH v3] net/ncsi: Add NCSI OEM command support
+Thread-Index: AQHUW3Fti4rlqbLakEe5E+JErwZI1KUPZq4w
+Date: Thu, 4 Oct 2018 18:29:22 +0000
+Message-ID: <4cd3286620a34e2583bb4804e1465ef3@AUSX13MPS306.AMER.DELL.COM>
+References: <20181003233222.3909359-1-vijaykhemka@fb.com>
+In-Reply-To: <20181003233222.3909359-1-vijaykhemka@fb.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.10.0.180812
-x-originating-ip: [2620:10d:c090:200::4:f580]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1437;
- 20:yPV+7auRaO4eJXnqgveYswdh4Uq7hhHmjMASeM9GnoEh+usiE8ZIFa5EzaPE81Bxw3aeMQHTTmiUBJ8yvlyC0U1r7ml6U52a3qqf9k6w45ebZBDW+HkSj5fPJ5coQZsE41I1aR/FqtAzYB76jye57dcTIR0QPr+oJRAOvRlhCY4=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 803cf578-8318-49aa-c7bb-08d62a22f4e3
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1437; 
-x-ms-traffictypediagnostic: MWHPR15MB1437:
-x-microsoft-antispam-prvs: <MWHPR15MB14374F1E7B127D9BA0EEA146B2EA0@MWHPR15MB1437.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(81227570615382)(67672495146484);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(3231355)(11241501184)(944501410)(52105095)(3002001)(93006095)(93001095)(10201501046)(149066)(150057)(6041310)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123558120)(20161123560045)(20161123564045)(201708071742011)(7699051);
- SRVR:MWHPR15MB1437; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1437; 
-x-forefront-prvs: 0815F8251E
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(376002)(396003)(366004)(39860400002)(136003)(346002)(47680400002)(189003)(199004)(476003)(446003)(486006)(2616005)(11346002)(478600001)(102836004)(14454004)(5660300001)(6506007)(36756003)(5250100002)(186003)(2900100001)(68736007)(2906002)(4326008)(25786009)(6246003)(46003)(97736004)(83716004)(71200400001)(8676002)(76176011)(33656002)(7736002)(71190400001)(6436002)(81166006)(99286004)(105586002)(106356001)(8936002)(81156014)(305945005)(53936002)(6116002)(14444005)(256004)(82746002)(110136005)(54906003)(58126008)(229853002)(6486002)(6512007)(316002)(86362001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1437;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: hRpxQMxPeazQ76O4ygh53f3NFUPUFqFLMChXU+HBFHjDv9CEbw/uifbmOxjTG5TcUOZ05GFfcaAV9zGplQq7Ijd4oGh3pQMgN5+pqYJbrdvaYWzaju3j4PsB3jY6qR55NET1l/cTWZj49nuDlIQR4IKHWZsScHGtMSQjMYLzUrlAO7LAMPqZMHWLxg9h0SeJ4qCNQUh1M8C/PM0z9BcnB2MSjKYiLfXad6+Rvp1GZchgV/XT5+U6Edd5rBItYNWW1c9fgkC5tZGZoEVA5gxOBxdPHyv2B+Nic35oNLcmK+3sI5uUfUJpM98+3KjUZBSluaESlsvphVKQD/39Q69oRAScRkg/q60WppjIOwMwRqo=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A5A839188793E447923015E555DF1BB3@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.18.86]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 803cf578-8318-49aa-c7bb-08d62a22f4e3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Oct 2018 17:58:14.3295 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1437
-X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-10-04_07:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810040166
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,14 +89,193 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Oct 2018 17:58:44 -0000
+X-List-Received-Date: Thu, 04 Oct 2018 18:29:33 -0000
 
-SGkgSm9lbCAvIEFuZHJldywNCg0K77u/T24gOS8yOC8xOCwgMTo1NiBQTSwgIlRhbyBSZW4iIDx0
-YW9yZW5AZmIuY29tPiB3cm90ZToNCg0KPiBBZGQgaW5pdGlhbCB2ZXJzaW9uIG9mIGRldmljZSB0
-cmVlIGZpbGUgZm9yIEZhY2Vib29rIEJhY2twYWNrIENNTQ0KPiAoQ2hhc2lzIE1hbmFnZW1lbnQg
-TW9kdWxlKSBhc3QyNTAwIEJNQy4NCj4gTm90ZTogSTJDIGRldmljZXMgb24gQmFja3BhY2sgTGlu
-ZSBDYXJkcyBhbmQgRmFicmljIENhcmRzIGFyZSBub3QNCj4gbGlzdGVkIGluIHRoZSBkZXZpY2Ug
-dHJlZSBmaWxlIGJlY2F1c2UgTGluZS9GYWJyaWMgQ2FyZHMgbWF5IGJlDQo+IHVucGx1Z2dlZC4N
-Cj4NCj4gU2lnbmVkLW9mZi1ieTogVGFvIFJlbiA8dGFvcmVuQGZiLmNvbT4NCg0KQSBraW5kZXIg
-cmVtaW5kZXIganVzdCBpbiBjYXNlIHlvdSBtaXNzZWQgdGhlIGVtYWlsLiBBbnkgY29tbWVudHMv
-c3VnZ2VzdGlvbnMgb24gdGhlIHBhdGNoZXM/DQoNCg0KVGhhbmtzLA0KVGFvIFJlbg0KDQo=
+> This patch adds OEM commands and response handling. It also defines OEM
+> command and response structure as per NCSI specification along with its
+> handlers.
+>=20
+> ncsi_cmd_handler_oem: This is a generic command request handler for OEM
+> commands
+> ncsi_rsp_handler_oem: This is a generic response handler for OEM commands
+>=20
+> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+> ---
+>  net/ncsi/internal.h |  5 +++++
+>  net/ncsi/ncsi-cmd.c | 30 +++++++++++++++++++++++++++---
+>  net/ncsi/ncsi-pkt.h | 14 ++++++++++++++
+>  net/ncsi/ncsi-rsp.c | 43 ++++++++++++++++++++++++++++++++++++++++++-
+>  4 files changed, 88 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+> index 8055e3965cef..3d0a33b874f5 100644
+> --- a/net/ncsi/internal.h
+> +++ b/net/ncsi/internal.h
+> @@ -68,6 +68,10 @@ enum {
+>  	NCSI_MODE_MAX
+>  };
+> =20
+> +/* OEM Vendor Manufacture ID */
+> +#define NCSI_OEM_MFR_MLX_ID             0x8119
+> +#define NCSI_OEM_MFR_BCM_ID             0x113d
+> +
+>  struct ncsi_channel_version {
+>  	u32 version;		/* Supported BCD encoded NCSI version */
+>  	u32 alpha2;		/* Supported BCD encoded NCSI version */
+> @@ -305,6 +309,7 @@ struct ncsi_cmd_arg {
+>  		unsigned short words[8];
+>  		unsigned int   dwords[4];
+>  	};
+> +	unsigned char        *data;       /* NCSI OEM data                 */
+>  };
+> =20
+>  extern struct list_head ncsi_dev_list;
+> diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+> index 7567ca63aae2..82b7d9201db8 100644
+> --- a/net/ncsi/ncsi-cmd.c
+> +++ b/net/ncsi/ncsi-cmd.c
+> @@ -211,6 +211,25 @@ static int ncsi_cmd_handler_snfc(struct sk_buff *skb=
+,
+>  	return 0;
+>  }
+> =20
+> +static int ncsi_cmd_handler_oem(struct sk_buff *skb,
+> +				struct ncsi_cmd_arg *nca)
+> +{
+> +	struct ncsi_cmd_oem_pkt *cmd;
+> +	unsigned int len;
+> +
+> +	len =3D sizeof(struct ncsi_cmd_pkt_hdr) + 4;
+> +	if (nca->payload < 26)
+> +		len +=3D 26;
+> +	else
+> +		len +=3D nca->payload;
+> +
+> +	cmd =3D skb_put_zero(skb, len);
+> +	memcpy(&cmd->mfr_id, nca->data, nca->payload);
+> +	ncsi_cmd_build_header(&cmd->cmd.common, nca);
+> +
+> +	return 0;
+> +}
+> +
+>  static struct ncsi_cmd_handler {
+>  	unsigned char type;
+>  	int           payload;
+> @@ -244,7 +263,7 @@ static struct ncsi_cmd_handler {
+>  	{ NCSI_PKT_CMD_GNS,    0, ncsi_cmd_handler_default },
+>  	{ NCSI_PKT_CMD_GNPTS,  0, ncsi_cmd_handler_default },
+>  	{ NCSI_PKT_CMD_GPS,    0, ncsi_cmd_handler_default },
+> -	{ NCSI_PKT_CMD_OEM,    0, NULL                     },
+> +	{ NCSI_PKT_CMD_OEM,   -1, ncsi_cmd_handler_oem     },
+>  	{ NCSI_PKT_CMD_PLDM,   0, NULL                     },
+>  	{ NCSI_PKT_CMD_GPUUID, 0, ncsi_cmd_handler_default }
+>  };
+> @@ -316,8 +335,13 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
+>  		return -ENOENT;
+>  	}
+> =20
+> -	/* Get packet payload length and allocate the request */
+> -	nca->payload =3D nch->payload;
+> +	/* Get packet payload length and allocate the request
+> +	 * It is expected that if length set as negative in
+> +	 * handler structure means caller is initializing it
+> +	 * and setting length in nca before calling xmit function
+> +	 */
+> +	if (nch->payload >=3D 0)
+> +		nca->payload =3D nch->payload;
+>  	nr =3D ncsi_alloc_command(nca);
+>  	if (!nr)
+>  		return -ENOMEM;
+> diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
+> index 91b4b66438df..0f2087c8d42a 100644
+> --- a/net/ncsi/ncsi-pkt.h
+> +++ b/net/ncsi/ncsi-pkt.h
+> @@ -151,6 +151,20 @@ struct ncsi_cmd_snfc_pkt {
+>  	unsigned char           pad[22];
+>  };
+> =20
+> +/* OEM Request Command as per NCSI Specification */
+> +struct ncsi_cmd_oem_pkt {
+> +	struct ncsi_cmd_pkt_hdr cmd;         /* Command header    */
+> +	__be32                  mfr_id;      /* Manufacture ID    */
+> +	unsigned char           data[];      /* OEM Payload Data  */
+> +};
+> +
+> +/* OEM Response Packet as per NCSI Specification */
+> +struct ncsi_rsp_oem_pkt {
+> +	struct ncsi_rsp_pkt_hdr rsp;         /* Command header    */
+> +	__be32                  mfr_id;      /* Manufacture ID    */
+> +	unsigned char           data[];      /* Payload data      */
+> +};
+> +
+>  /* Get Link Status */
+>  struct ncsi_rsp_gls_pkt {
+>  	struct ncsi_rsp_pkt_hdr rsp;        /* Response header   */
+> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+> index 930c1d3796f0..d66b34749027 100644
+> --- a/net/ncsi/ncsi-rsp.c
+> +++ b/net/ncsi/ncsi-rsp.c
+> @@ -596,6 +596,47 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request=
+ *nr)
+>  	return 0;
+>  }
+> =20
+> +static struct ncsi_rsp_oem_handler {
+> +	unsigned int	mfr_id;
+> +	int		(*handler)(struct ncsi_request *nr);
+> +} ncsi_rsp_oem_handlers[] =3D {
+> +	{ NCSI_OEM_MFR_MLX_ID, NULL },
+> +	{ NCSI_OEM_MFR_BCM_ID, NULL }
+> +};
+> +
+> +/* Response handler for OEM command */
+> +static int ncsi_rsp_handler_oem(struct ncsi_request *nr)
+> +{
+> +	struct ncsi_rsp_oem_pkt *rsp;
+> +	struct ncsi_rsp_oem_handler *nrh =3D NULL;
+> +	unsigned int mfr_id, i;
+> +
+> +	/* Get the response header */
+> +	rsp =3D (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
+> +	mfr_id =3D ntohl(rsp->mfr_id);
+> +
+> +	/* Check for manufacturer id and Find the handler */
+> +	for (i =3D 0; i < ARRAY_SIZE(ncsi_rsp_oem_handlers); i++) {
+> +		if (ncsi_rsp_oem_handlers[i].mfr_id =3D=3D mfr_id) {
+> +			if (ncsi_rsp_oem_handlers[i].handler)
+> +				nrh =3D &ncsi_rsp_oem_handlers[i];
+> +			else
+> +				nrh =3D NULL;
+> +
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!nrh) {
+> +		netdev_err(nr->ndp->ndev.dev, "Received unrecognized OEM packet with M=
+FR-ID (0x%x)\n",
+> +			   mfr_id);
+> +		return -ENOENT;
+> +	}
+> +
+> +	/* Process the packet */
+> +	return nrh->handler(nr);
+> +}
+> +
+>  static int ncsi_rsp_handler_gvi(struct ncsi_request *nr)
+>  {
+>  	struct ncsi_rsp_gvi_pkt *rsp;
+> @@ -932,7 +973,7 @@ static struct ncsi_rsp_handler {
+>  	{ NCSI_PKT_RSP_GNS,   172, ncsi_rsp_handler_gns     },
+>  	{ NCSI_PKT_RSP_GNPTS, 172, ncsi_rsp_handler_gnpts   },
+>  	{ NCSI_PKT_RSP_GPS,     8, ncsi_rsp_handler_gps     },
+> -	{ NCSI_PKT_RSP_OEM,     0, NULL                     },
+> +	{ NCSI_PKT_RSP_OEM,    -1, ncsi_rsp_handler_oem     },
+>  	{ NCSI_PKT_RSP_PLDM,    0, NULL                     },
+>  	{ NCSI_PKT_RSP_GPUUID, 20, ncsi_rsp_handler_gpuuid  }
+>  };
+> --=20
+> 2.17.1
+
+
+Reviewed-by: Justin Lee <justin.lee1@dell.com>
