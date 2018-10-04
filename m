@@ -1,61 +1,42 @@
-Return-Path: <prvs=3814a3d8b8=vijaykhemka@fb.com>
+Return-Path: <joseph-reynolds@charter.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=3814a3d8b8=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=charter.net
+ (client-ip=47.43.20.26; helo=impout002.msg.chrl.nc.charter.net;
+ envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="E6em899Q"; 
- dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=charter.net
+X-Greylist: delayed 340 seconds by postgrey-1.36 at bilbo;
+ Thu, 04 Oct 2018 12:24:54 AEST
+Received: from impout002.msg.chrl.nc.charter.net
+ (impout002aa.msg.chrl.nc.charter.net [47.43.20.26])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42QXPv0zf8zF37p
- for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 09:33:02 +1000 (AEST)
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w93NWonG004759
- for <openbmc@lists.ozlabs.org>; Wed, 3 Oct 2018 16:33:00 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=552Kd35DGb4h1ChYNpdFAW+KifptOnS77mJRiY0EDN0=;
- b=E6em899QoYAPb9WNMyrO0BjQJ8O7lmzP1+/XWL+pKQ+OL/0SWuFO/jI/28zlA5JgHgTM
- hsGrPXaOXAO8vfVK+6FOR/4IzhBoBP7KZQiJZhPUGH35PNM5ivAlkxEs3tbNLJPaXcAQ
- gGrhn7QW1twQUqTDjTvIMZNJzjo0RJJ8Ta8= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2mw7gr804w-20
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 03 Oct 2018 16:33:00 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
- (192.168.16.21) with Microsoft SMTP Server (TLS) id 14.3.319.2; Wed, 3 Oct
- 2018 16:32:46 -0700
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)	id
- 1DD6123037E8; Wed,  3 Oct 2018 16:32:44 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
-From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
-To: "Justin . Lee1 @ Dell . com" <Justin.Lee1@Dell.com>, "sam @ mendozajonas
- . com" <sam@mendozajonas.com>, "joel @ jms . id . au" <joel@jms.id.au>,
- "linux-aspeed @ lists . ozlabs . org" <linux-aspeed@lists.ozlabs.org>,
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>, Sai Dasari
- <sdasari@fb.com>, "netdev @ vger . kernel . org" <netdev@vger.kernel.org>,
- "christian @ cmd . nu" <christian@cmd.nu>
-CC: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH v3] net/ncsi: Add NCSI OEM command support
-Date: Wed, 3 Oct 2018 16:32:22 -0700
-Message-ID: <20181003233222.3909359-1-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QcD64nxxzF36s
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 12:24:53 +1000 (AEST)
+Received: from [192.168.2.7] ([97.86.254.207]) by cmsmtp with ESMTPA
+ id 7tCOgRNJkv4rp7tCsgTX0w; Thu, 04 Oct 2018 02:17:38 +0000
+Authentication-Results: charter.net; none
+X-Authority-Analysis: v=2.3 cv=KKLu82No c=1 sm=1 tr=0
+ a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
+ a=IkcTkHD0fZMA:10 a=x7bEGLp0ZPQA:10 a=pGLkceISAAAA:8 a=voM4FWlXAAAA:8
+ a=NEAV23lmAAAA:8 a=8pif782wAAAA:8 a=enL2CNXqAAAA:8 a=mNJNSIhLVml0yPhIm9wA:9
+ a=6EB7x6VdRA40xxlY:21 a=Ji1K9wa-eZTekEZR:21 a=QEXdDO2ut3YA:10
+ a=IC2XNlieTeVoXbcui8wp:22
+Subject: Re: NEW GUI Design work group starts Wed, Oct 17
+To: openbmc@lists.ozlabs.org
+References: <mailman.2947.1538599401.866.openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <joseph-reynolds@charter.net>
+Message-ID: <5792cd88-a8b4-6b5b-b852-5ffd0e573150@charter.net>
+Date: Wed, 3 Oct 2018 21:17:01 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-03_11:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+In-Reply-To: <mailman.2947.1538599401.866.openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-CMAE-Envelope: MS4wfDuiFZhXn6qE2vBqVyNiM0SFJ/o+0CQR8yCGB/WUizy+3HfzrxhEPdE+v19xoSFMr08BTP6BEeB+6nHRyzfkbnFLOTzODdoax1p8dN1ibWcOhuf+yXcO
+ t/ihzoUCLbaoX7UAKEXwKMMjX5UlruvXxkT/aeOxBppGV36JAPT2OCCP7Q3rXdT1eDI+iH642QZigA==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,187 +48,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2018 23:33:07 -0000
+X-List-Received-Date: Thu, 04 Oct 2018 02:24:55 -0000
 
-This patch adds OEM commands and response handling. It also defines OEM
-command and response structure as per NCSI specification along with its
-handlers.
 
-ncsi_cmd_handler_oem: This is a generic command request handler for OEM
-commands
-ncsi_rsp_handler_oem: This is a generic response handler for OEM commands
+> Message: 1
+> Date: Wed, 3 Oct 2018 13:01:52 -0500
+> From: susan jasinski <susantjasinski@gmail.com>
+> To: openbmc@lists.ozlabs.org
+> Subject: NEW GUI Design work group starts Wed, Oct 17
+> Message-ID:
+> 	<CANT4Nr+UGpw7j7BpBOmxLxMzgW10Uk=1t6sg1frnwuS2Kq9j2A@mail.gmail.com>
+> Content-Type: text/plain; charset="utf-8"
+>
+> Hello everyone.
+>
+> My name is Susan Jasinski, and I am the UX Design Lead for the IBM OpenBMC
+> GUI. Alissa Lee and I will be hosting a new bi-monthly OpenBMC work group
+> for reviewing new GUI designs. It will be held on the first and third
+> Wednesdays of the month.
 
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
----
- net/ncsi/internal.h |  5 +++++
- net/ncsi/ncsi-cmd.c | 30 +++++++++++++++++++++++++++---
- net/ncsi/ncsi-pkt.h | 14 ++++++++++++++
- net/ncsi/ncsi-rsp.c | 43 ++++++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 88 insertions(+), 4 deletions(-)
+Welcome!  And thank you for taking on this work.
 
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 8055e3965cef..3d0a33b874f5 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -68,6 +68,10 @@ enum {
- 	NCSI_MODE_MAX
- };
- 
-+/* OEM Vendor Manufacture ID */
-+#define NCSI_OEM_MFR_MLX_ID             0x8119
-+#define NCSI_OEM_MFR_BCM_ID             0x113d
-+
- struct ncsi_channel_version {
- 	u32 version;		/* Supported BCD encoded NCSI version */
- 	u32 alpha2;		/* Supported BCD encoded NCSI version */
-@@ -305,6 +309,7 @@ struct ncsi_cmd_arg {
- 		unsigned short words[8];
- 		unsigned int   dwords[4];
- 	};
-+	unsigned char        *data;       /* NCSI OEM data                 */
- };
- 
- extern struct list_head ncsi_dev_list;
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-index 7567ca63aae2..82b7d9201db8 100644
---- a/net/ncsi/ncsi-cmd.c
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -211,6 +211,25 @@ static int ncsi_cmd_handler_snfc(struct sk_buff *skb,
- 	return 0;
- }
- 
-+static int ncsi_cmd_handler_oem(struct sk_buff *skb,
-+				struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_oem_pkt *cmd;
-+	unsigned int len;
-+
-+	len = sizeof(struct ncsi_cmd_pkt_hdr) + 4;
-+	if (nca->payload < 26)
-+		len += 26;
-+	else
-+		len += nca->payload;
-+
-+	cmd = skb_put_zero(skb, len);
-+	memcpy(&cmd->mfr_id, nca->data, nca->payload);
-+	ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+
-+	return 0;
-+}
-+
- static struct ncsi_cmd_handler {
- 	unsigned char type;
- 	int           payload;
-@@ -244,7 +263,7 @@ static struct ncsi_cmd_handler {
- 	{ NCSI_PKT_CMD_GNS,    0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_GNPTS,  0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_GPS,    0, ncsi_cmd_handler_default },
--	{ NCSI_PKT_CMD_OEM,    0, NULL                     },
-+	{ NCSI_PKT_CMD_OEM,   -1, ncsi_cmd_handler_oem     },
- 	{ NCSI_PKT_CMD_PLDM,   0, NULL                     },
- 	{ NCSI_PKT_CMD_GPUUID, 0, ncsi_cmd_handler_default }
- };
-@@ -316,8 +335,13 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
- 		return -ENOENT;
- 	}
- 
--	/* Get packet payload length and allocate the request */
--	nca->payload = nch->payload;
-+	/* Get packet payload length and allocate the request
-+	 * It is expected that if length set as negative in
-+	 * handler structure means caller is initializing it
-+	 * and setting length in nca before calling xmit function
-+	 */
-+	if (nch->payload >= 0)
-+		nca->payload = nch->payload;
- 	nr = ncsi_alloc_command(nca);
- 	if (!nr)
- 		return -ENOMEM;
-diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-index 91b4b66438df..0f2087c8d42a 100644
---- a/net/ncsi/ncsi-pkt.h
-+++ b/net/ncsi/ncsi-pkt.h
-@@ -151,6 +151,20 @@ struct ncsi_cmd_snfc_pkt {
- 	unsigned char           pad[22];
- };
- 
-+/* OEM Request Command as per NCSI Specification */
-+struct ncsi_cmd_oem_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;         /* Command header    */
-+	__be32                  mfr_id;      /* Manufacture ID    */
-+	unsigned char           data[];      /* OEM Payload Data  */
-+};
-+
-+/* OEM Response Packet as per NCSI Specification */
-+struct ncsi_rsp_oem_pkt {
-+	struct ncsi_rsp_pkt_hdr rsp;         /* Command header    */
-+	__be32                  mfr_id;      /* Manufacture ID    */
-+	unsigned char           data[];      /* Payload data      */
-+};
-+
- /* Get Link Status */
- struct ncsi_rsp_gls_pkt {
- 	struct ncsi_rsp_pkt_hdr rsp;        /* Response header   */
-diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index 930c1d3796f0..d66b34749027 100644
---- a/net/ncsi/ncsi-rsp.c
-+++ b/net/ncsi/ncsi-rsp.c
-@@ -596,6 +596,47 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
- 	return 0;
- }
- 
-+static struct ncsi_rsp_oem_handler {
-+	unsigned int	mfr_id;
-+	int		(*handler)(struct ncsi_request *nr);
-+} ncsi_rsp_oem_handlers[] = {
-+	{ NCSI_OEM_MFR_MLX_ID, NULL },
-+	{ NCSI_OEM_MFR_BCM_ID, NULL }
-+};
-+
-+/* Response handler for OEM command */
-+static int ncsi_rsp_handler_oem(struct ncsi_request *nr)
-+{
-+	struct ncsi_rsp_oem_pkt *rsp;
-+	struct ncsi_rsp_oem_handler *nrh = NULL;
-+	unsigned int mfr_id, i;
-+
-+	/* Get the response header */
-+	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
-+	mfr_id = ntohl(rsp->mfr_id);
-+
-+	/* Check for manufacturer id and Find the handler */
-+	for (i = 0; i < ARRAY_SIZE(ncsi_rsp_oem_handlers); i++) {
-+		if (ncsi_rsp_oem_handlers[i].mfr_id == mfr_id) {
-+			if (ncsi_rsp_oem_handlers[i].handler)
-+				nrh = &ncsi_rsp_oem_handlers[i];
-+			else
-+				nrh = NULL;
-+
-+			break;
-+		}
-+	}
-+
-+	if (!nrh) {
-+		netdev_err(nr->ndp->ndev.dev, "Received unrecognized OEM packet with MFR-ID (0x%x)\n",
-+			   mfr_id);
-+		return -ENOENT;
-+	}
-+
-+	/* Process the packet */
-+	return nrh->handler(nr);
-+}
-+
- static int ncsi_rsp_handler_gvi(struct ncsi_request *nr)
- {
- 	struct ncsi_rsp_gvi_pkt *rsp;
-@@ -932,7 +973,7 @@ static struct ncsi_rsp_handler {
- 	{ NCSI_PKT_RSP_GNS,   172, ncsi_rsp_handler_gns     },
- 	{ NCSI_PKT_RSP_GNPTS, 172, ncsi_rsp_handler_gnpts   },
- 	{ NCSI_PKT_RSP_GPS,     8, ncsi_rsp_handler_gps     },
--	{ NCSI_PKT_RSP_OEM,     0, NULL                     },
-+	{ NCSI_PKT_RSP_OEM,    -1, ncsi_rsp_handler_oem     },
- 	{ NCSI_PKT_RSP_PLDM,    0, NULL                     },
- 	{ NCSI_PKT_RSP_GPUUID, 20, ncsi_rsp_handler_gpuuid  }
- };
--- 
-2.17.1
+> Generally, my team will request feedback on GUI designs BEFORE they are
+> coded. This could include wireframes, high-fidelity mockups, interactive
+> prototypes, and panel flows. If others have pre-code designs they would
+> like to share with the community, feel free to add yourself to the agenda.
+>
+> However, during this first meeting I'd like to discuss how to openly and
+> consistently share mockups, provide feedback and track revisions.
+>
+> Access to the web conference link and the agenda can be found in the
+> openbmc-openbmc wiki (just above the Weekly Community Telecon wiki link) .
+> https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group
+>
+> Links to mockups will be sent via email and IRC prior to the meeting.
+> Please join the conversation even if you did not have time to review
+> designs before-hand.
+
+I followed the wiki to the invisionapp site, and found a sequence of 
+images which show firmware update, login, etc.  Creating a free acount 
+so could add comments was quick and painless.  I can see this working as 
+a way to communicate complex visual design.
+
+However, I'm confused about your intention for this batch of images.  Is 
+this intended as a sample of the invisionapp review process?  If so, I 
+left a comment on page 1 of 66.  Or do these images represent your first 
+designs?  If so, it would help me if you give the purpose for the design 
+and then walk through some scenarios.
+
+Example purpose: The "webui/firmware update" (images 1-19) is for system 
+administrators who have a firmware image either {on their workstation, 
+reachable from the BMC's TFTP server, or already on the BMC} and need a 
+GUI to upload and re-configure their server's installed firmware (as in 
+https://en.wikipedia.org/wiki/Software_configuration_management from the 
+system administrators point of view).
+
+Example scenario "webui/firmware update/error uploading image":
+  * Link to starting image: 
+https://ibm.invisionapp.com/share/YSNTBXAJGUC#/screens/318858591
+  * Covers images 1-4
+  - When signed into the webui at the "firmware" tab,
+  - with the "Upload image file from workstation" button selected,
+  - enter "file.png" in the "Choose file" text entry field (where the 
+file exists and is not a valid firmware image)
+  - and click the "Upload firmware" button.
+  - The "Upload in progress" bar will appear while the file is being 
+uploaded, then disappears and
+  - the "Error uploading image" dialog box appears.
+  - Clicking its "Close" button makes the box go away and does not 
+change the "Choose file" field.
+
+Please note that my example scenario makes a number of assumptions which 
+should be explicit in the design.  Examples: Does the "Choose file" 
+button bring up a file selector box?  Is the filename next to it 
+editable?  On image 4, does the filename really change to "image_file.png"?
+(Also, I don't know if the link to will work for everyone.)  :-)
+
+I hope you understand that I am not trying to pick on you, but to 
+elevate the level of documentation for the overall OpenBMC project. I 
+believe writing scenarios like this will help draw more participation to 
+your review which will foster better shared understanding and create 
+better results.  Not just for webui, but for all of OpenBMC's functional 
+areas. </soapbox>
+
+> I am looking forward to seeing you all next week.
+>
+> -- Susan Jasinski (IBM Lead Designer and User Experience designer)
