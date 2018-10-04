@@ -8,17 +8,17 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42R4c61SZHzF3M4;
- Fri,  5 Oct 2018 06:43:50 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42R4c61BQlzF3M1;
+ Fri,  5 Oct 2018 06:43:49 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
  04 Oct 2018 13:43:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,341,1534834800"; d="scan'208";a="92295014"
+X-IronPort-AV: E=Sophos;i="5.54,341,1534834800"; d="scan'208";a="92295023"
 Received: from maru.jf.intel.com ([10.54.51.77])
- by fmsmga002.fm.intel.com with ESMTP; 04 Oct 2018 13:43:29 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 04 Oct 2018 13:43:31 -0700
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Brendan Higgins <brendanhiggins@google.com>,
  Wolfram Sang <wsa@the-dreams.de>,
@@ -32,10 +32,10 @@ Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
  James Feist <james.feist@linux.intel.com>,
  Vernon Mauery <vernon.mauery@linux.intel.com>,
  Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH i2c-next v6 3/5] dt-bindings: i2c: aspeed: Add 'timeout-ms'
- property as an optional property
-Date: Thu,  4 Oct 2018 13:43:20 -0700
-Message-Id: <20181004204322.20665-4-jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH i2c-next v6 5/5] i2c: aspeed: Add bus idle waiting logic for
+ multi-master use cases
+Date: Thu,  4 Oct 2018 13:43:22 -0700
+Message-Id: <20181004204322.20665-6-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.19.0
 In-Reply-To: <20181004204322.20665-1-jae.hyun.yoo@linux.intel.com>
 References: <20181004204322.20665-1-jae.hyun.yoo@linux.intel.com>
@@ -54,30 +54,119 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 04 Oct 2018 20:43:51 -0000
 
-This commit adds 'timeout-ms' property as an optional property
-which can be used for setting the bus timeout value of an adapter.
-With this patch, the bus timeout value can be set through this
-property at the probing time of this module. Still the bus timeout
-value can be set by an I2C_TIMEOUT ioctl on cdev at runtime too.
+In multi-master environment, this driver's master cannot know
+exactly when peer master sends data to this driver's slave so a
+case can be happened that this master tries to send data through
+the master_xfer function but slave data from peer master is still
+being processed by this driver.
+
+To prevent any state corruption in the case, this patch adds
+checking code if any slave operation is ongoing and it waits up to
+the bus timeout duration before starting a master_xfer operation.
 
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 ---
- Documentation/devicetree/bindings/i2c/i2c-aspeed.txt | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/i2c/busses/i2c-aspeed.c | 53 +++++++++++++++++++++++----------
+ 1 file changed, 38 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-index 8fbd8633a387..af9be200383c 100644
---- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-+++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-@@ -17,6 +17,9 @@ Optional Properties:
- 		  specified
- - multi-master	: states that there is another master active on this bus.
+diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+index 833b6b6a4c7e..8d60d7e5b323 100644
+--- a/drivers/i2c/busses/i2c-aspeed.c
++++ b/drivers/i2c/busses/i2c-aspeed.c
+@@ -12,6 +12,7 @@
  
-+- timeout-ms	: bus timeout in milliseconds defaults to 1 second when not
-+		  specified.
+ #include <linux/clk.h>
+ #include <linux/completion.h>
++#include <linux/delay.h>
+ #include <linux/err.h>
+ #include <linux/errno.h>
+ #include <linux/i2c.h>
+@@ -115,6 +116,9 @@
+ /* 0x18 : I2CD Slave Device Address Register   */
+ #define ASPEED_I2CD_DEV_ADDR_MASK			GENMASK(6, 0)
+ 
++/* Busy checking */
++#define ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US		(10 * 1000)
 +
- Example:
+ enum aspeed_i2c_master_state {
+ 	ASPEED_I2C_MASTER_INACTIVE,
+ 	ASPEED_I2C_MASTER_START,
+@@ -156,6 +160,8 @@ struct aspeed_i2c_bus {
+ 	int				cmd_err;
+ 	/* Protected only by i2c_lock_bus */
+ 	int				master_xfer_result;
++	/* Multi-master */
++	bool				multi_master;
+ #if IS_ENABLED(CONFIG_I2C_SLAVE)
+ 	struct i2c_client		*slave;
+ 	enum aspeed_i2c_slave_state	slave_state;
+@@ -596,27 +602,42 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
+ 	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
+ }
  
- i2c {
++static int aspeed_i2c_check_bus_busy(struct aspeed_i2c_bus *bus)
++{
++	ktime_t timeout;
++
++	if (bus->multi_master) {
++		might_sleep();
++		timeout = ktime_add_ms(ktime_get(),
++				       jiffies_to_msecs(bus->adap.timeout));
++	}
++
++	for (;;) {
++		if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
++		      ASPEED_I2CD_BUS_BUSY_STS) &&
++		    bus->slave_state == ASPEED_I2C_SLAVE_STOP)
++			return 0;
++		if (!bus->multi_master)
++			break;
++		if (ktime_compare(ktime_get(), timeout) > 0)
++			break;
++		usleep_range((ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US >> 2) + 1,
++			     ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US);
++	}
++
++	return aspeed_i2c_recover_bus(bus);
++}
++
+ static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+ 				  struct i2c_msg *msgs, int num)
+ {
+ 	struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
+ 	unsigned long time_left, flags;
+-	int ret = 0;
+ 
+-	spin_lock_irqsave(&bus->lock, flags);
+-	bus->cmd_err = 0;
+-
+-	/* If bus is busy, attempt recovery. We assume a single master
+-	 * environment.
+-	 */
+-	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
+-		spin_unlock_irqrestore(&bus->lock, flags);
+-		ret = aspeed_i2c_recover_bus(bus);
+-		if (ret)
+-			return ret;
+-		spin_lock_irqsave(&bus->lock, flags);
+-	}
++	if (aspeed_i2c_check_bus_busy(bus))
++		return -EAGAIN;
+ 
++	spin_lock_irqsave(&bus->lock, flags);
+ 	bus->cmd_err = 0;
+ 	bus->msgs = msgs;
+ 	bus->msgs_index = 0;
+@@ -827,7 +848,9 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (!of_property_read_bool(pdev->dev.of_node, "multi-master"))
++	if (of_property_read_bool(pdev->dev.of_node, "multi-master"))
++		bus->multi_master = true;
++	else
+ 		fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
+ 
+ 	/* Enable Master Mode */
 -- 
 2.19.0
