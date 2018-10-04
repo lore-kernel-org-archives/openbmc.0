@@ -1,46 +1,52 @@
-Return-Path: <hverkuil@xs4all.nl>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=xs4all.nl
- (client-ip=194.109.24.29; helo=lb3-smtp-cloud8.xs4all.net;
- envelope-from=hverkuil@xs4all.nl; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=xs4all.nl
-Received: from lb3-smtp-cloud8.xs4all.net (lb3-smtp-cloud8.xs4all.net
- [194.109.24.29])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Qtck6JlnzDr8q;
- Thu,  4 Oct 2018 23:13:41 +1000 (AEST)
-Received: from [IPv6:2001:420:44c1:2579:51eb:3c7a:5e3a:802b]
- ([IPv6:2001:420:44c1:2579:51eb:3c7a:5e3a:802b])
- by smtp-cloud8.xs4all.net with ESMTPA
- id 83QggDyed0ZZE83QkgkkAE; Thu, 04 Oct 2018 15:12:39 +0200
-Subject: Re: [PATCH v3 2/2] media: platform: Add Aspeed Video Engine driver
-To: Eddie James <eajames@linux.vnet.ibm.com>,
- Eddie James <eajames@linux.ibm.com>, linux-kernel@vger.kernel.org
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org,
- robh+dt@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org
-References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
- <1537903629-14003-3-git-send-email-eajames@linux.ibm.com>
- <a78d4c7a-ac58-c23d-a683-23dce54be993@xs4all.nl>
- <ca4757b9-0825-bbbf-b388-0295fd13bad7@linux.vnet.ibm.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <373d2ca3-a6cd-8d87-2bbc-613d65305170@xs4all.nl>
-Date: Thu, 4 Oct 2018 15:12:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QycW4tLGzF3L5;
+ Fri,  5 Oct 2018 02:13:46 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2018 09:13:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,340,1534834800"; d="scan'208";a="238500877"
+Received: from unknown (HELO [10.7.153.143]) ([10.7.153.143])
+ by orsmga004.jf.intel.com with ESMTP; 04 Oct 2018 09:11:45 -0700
+Subject: Re: [PATCH i2c-next v5 4/5] i2c: aspeed: Remove hard-coded bus
+ timeout value setting
+To: Joel Stanley <joel@jms.id.au>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-i2c@vger.kernel.org,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ devicetree <devicetree@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ linux-aspeed@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ jarkko.nikula@linux.intel.com, James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20181003223107.16133-1-jae.hyun.yoo@linux.intel.com>
+ <20181003223107.16133-5-jae.hyun.yoo@linux.intel.com>
+ <CACPK8XdTMfdw1Tu97oD7R7MXQKGHnA5A+SVfAA3RDkiTd_bawA@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <185b73f1-ad5f-eedb-7c56-2a2e266f5960@linux.intel.com>
+Date: Thu, 4 Oct 2018 09:11:47 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <ca4757b9-0825-bbbf-b388-0295fd13bad7@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <CACPK8XdTMfdw1Tu97oD7R7MXQKGHnA5A+SVfAA3RDkiTd_bawA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfMLEEuRT81+I8ZGDgqnFFsBMKxVPcWnaV8tzS/VTp+swIwemdCPiC0WjNrBog9kg3eEdDBrLUxv1pt3MoyJIrhBRyjSiMBseVccTCcNu31S9xzDGFBXL
- FQYitKeS7zKBoCV22R8SUJZjPs5gFYDbgXD8z6J1eM/2HfpmxrXQonJIC0BT9FxP5QahGllnJ+NAt9qxovqgQ+A1N7g5wtCP+RQaDsikrTO7Ak+6sDNQkYmo
- 2zW3170WrrUOCF5iBaFYLErBMpdZ6xDvvZ5ndLWtR4VXkERrZTynXJFe5L1Gr9XFD3b/jB03GRxZqv8xQy0GRo3Rh7iC6EP5+yuiA6P7Izfm3eTQPAtXDe7K
- q845ri2gzpk2bJTM26a3cUjKXfVNeoSMMUeeSBZ13BE89a8SwSS2h1o2O2PhCcLgA7/kUHhGyjziSCtvwy2UlclCljYzIwUv4BrxIvhPm8H2nugCZfNk4v/n
- YQytivzqJJZxByauSrlIfPcSpNM+pZLZIunWoKchXWgw5eKQt86rO6/DFZQt7dCvEjsKJZSvegmeCPWSXXolHxAkDx/8hg5fH1H/qg5vj9VkMZW5u3+nPCRK
- q2BRFY9johOoIiPBKhheTMCT5oEk7Xz25smGsb2BHauy0rOnb2hlJIB42VcghzZXd70=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,58 +58,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Oct 2018 13:13:44 -0000
+X-List-Received-Date: Thu, 04 Oct 2018 16:13:48 -0000
 
-On 10/03/18 22:43, Eddie James wrote:
+On 10/4/2018 1:32 AM, Joel Stanley wrote:
+> On Thu, 4 Oct 2018 at 00:31, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>>
+>> This commit removes hard-coded bus timeout value setting so that
+>> it can be set by i2c-core-base.
+>>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 > 
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
 > 
-> On 09/28/2018 06:30 AM, Hans Verkuil wrote:
->> On 09/25/2018 09:27 PM, Eddie James wrote:
->>> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
->>> can capture and compress video data from digital or analog sources. With
->>> the Aspeed chip acting a service processor, the Video Engine can capture
->>> the host processor graphics output.
->>>
->>> Add a V4L2 driver to capture video data and compress it to JPEG images.
->>> Make the video frames available through the V4L2 streaming interface.
->>>
->>> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> 
->>> +	}
->>> +
->>> +	video->height = (bottom - top) + 1;
->>> +	video->width = (right - left) + 1;
->>> +	size = video->height * video->width;
->> It looks like you can actually determine the blanking width/height and
->> possibly even more detailed information that would be very useful to
->> show with the DV_TIMINGS ioctls.
-> 
-> Hmm. This information is related to the video signal captured from the 
-> host. That information has nothing to do with the buffer that is 
-> compressed and grabbed by the driver and ultimately provided to 
-> userspace. Isn't the timing information meaningless for JPEG frames?
 
-It helps in debugging. Basically you are implementing a receiver for a
-video signal. So if for some reason you cannot support the video timings
-that the host sends, then it is very useful to have QUERY_DV_TIMINGS report
-as much information about the signal as possible.
-
-BTW, out of curiosity, how are the host video signals connected to the
-aspeed? Is it still a VGA video signal?
-
-Looking at product briefs it appears that it is VGA. So I guess the aspeed
-'sniffs' the VGA signals from the host and can capture the video that way.
-Is that correct?
-
-If so, then this driver is a VGA receiver and should act like that.
-The host can configure its VGA transmitter to invalid timings, or weird
-values, and you need to be able to handle that in your driver.
-
-> Forgot to include this question in my previous reply, sorry for the 
-> additional mail.
-
-No problem! Happy to help.
-
-Regards,
-
-	Hans
+Thanks for the review, Joel!
