@@ -1,87 +1,46 @@
-Return-Path: <jean-marie.verdun@splitted-desktop.com>
+Return-Path: <hverkuil@xs4all.nl>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=splitted-desktop.com
- (client-ip=212.129.40.140; helo=three.splitted-desktop.com;
- envelope-from=jean-marie.verdun@splitted-desktop.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=splitted-desktop.com
-X-Greylist: delayed 2123 seconds by postgrey-1.36 at bilbo;
- Thu, 04 Oct 2018 19:40:39 AEST
-Received: from three.splitted-desktop.com (three.splitted-desktop.com
- [212.129.40.140])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=xs4all.nl
+ (client-ip=194.109.24.29; helo=lb3-smtp-cloud8.xs4all.net;
+ envelope-from=hverkuil@xs4all.nl; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=xs4all.nl
+Received: from lb3-smtp-cloud8.xs4all.net (lb3-smtp-cloud8.xs4all.net
+ [194.109.24.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Qntv2LwFzDqkL
- for <openbmc@lists.ozlabs.org>; Thu,  4 Oct 2018 19:40:38 +1000 (AEST)
-Received: from 176-184-187-169.abo.bbox.fr ([176.184.187.169]
- helo=[192.168.0.105]) by three.splitted-desktop.com with esmtpsa
- (TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128) (Exim 4.80)
- (envelope-from <jean-marie.verdun@splitted-desktop.com>)
- id 1g7zYB-0003um-0n
- for openbmc@lists.ozlabs.org; Thu, 04 Oct 2018 11:04:03 +0200
-Reply-To: jean-marie.verdun@splitted-desktop.com
-Subject: OpenBMC on OCP Leopard server
-To: openbmc@lists.ozlabs.org
-References: <E434E069-640B-40A5-A08D-6FF893B41182@fb.com>
- <CALLMt=p+dH3e-C2M8L9Zv43vTDw9rcd9MpfcqFXge2aTkzk6Hw@mail.gmail.com>
- <16FCAE4F-97EB-4D32-BB14-5C24578773A6@fb.com>
- <CALLMt=rEH2wBzB5RrHJTG93AgHJB-DaG7pJVs9_UNrktpoau1g@mail.gmail.com>
- <937C5B58-38CB-44C0-8F49-63019A5049B3@fb.com>
-From: Jean-Marie Verdun <jean-marie.verdun@splitted-desktop.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=jean-marie.verdun@splitted-desktop.com; prefer-encrypt=mutual; 
- keydata=
- xsFNBFrQD6kBEAC6v4SLubJRJdNcLw/da0BWagON/tJYYZNy4NXgSqoKUzBq1afMspGJzydt
- fN001yDVeyggLLtpIihrqZLBtgf9l38zPokIGC9PJRwXrEptJuus8WO54R85RbFRqZLSt9/2
- 2wzMCvcskTHkvk2xKiF3mkT/oseeF7nzCH69ahXLQ0Z2juTNfBqfmebRHq5m9E6hYlfyDogJ
- o11FSG2OkYMWBbR3UMlAbTNw1av343LTci7H5YwFN5Kw2XcxLVCxdarP/RvE8ptAUpjw3hBM
- LMIDyrbtMmxMebHsK//DuxHdt2w+m2m+znKYZKZQQOrqNWEteGxsAHVmDX8mWtmA+9hMc5v8
- 0KGPB+eQ8Q3M+e/VqWk8w73lJNi5XuuwQqhUy7OouICu/B3I3ByKw59GsegGrVhgMS7PXjKd
- 35Msoj9cgzMOXzp7ajyrKIi+zJAkj7aVWtmqWopVr2zSDuY+LvM1vnMd1YSoe0cUYuKvQmP6
- 64BTVMR9kZXFvXTh5+qv4Luq/IITSxQ1LT3kst7vp3VdRaoDZyESSM21fvB2GPvWa1dQayYP
- vbiyLgFM53idxqt8v4Q8Y9NooVBdxoQ2p8iOXvoObu9CyTY0I9AisOXQFV3xPZAtLkM1sJv1
- NmeDmmCUl4aQtbsaixyemfmSawQPbCZ2tyaF/wWtAeoONk5qzwARAQABzSR2ZXJkdW4gPHZl
- cmR1bkBzcGxpdHRlZC1kZXNrdG9wLmNvbT7CwZQEEwEIAD4WIQRDCiCKfhyPMbHh0PWD2o5f
- wsAEowUCWtAPqQIbAwUJB4YfgAULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRCD2o5fwsAE
- o+KpEACHYdBehlk+78L9FfN4B7oHRE0me8pyp48/8uPbdnx8KCRx3CZJxB8UEsM8ts+kYL6S
- 68vsEoRawfPBWACRPbvpKXZwkGUQYRMRDgkod3hHyZTfv+AVKAurbtgLSUGCtW4ITo3DSyny
- g4Vcq1aS0hvM6nR+0RHAXJ8bHb2CZJgqZk0CRzbmFRyhGQmGRWV2qro/F17rxsAMqMYJ4hdD
- 0Rqu2f8VSZDovwonvgeLHiXgcMguN+od4ERquzaAFAg8F2aXnw6SerK5HgShroujP2Ku5w3Y
- md7SwDe0lrcuBZOAVrrAMtZ/D+i9DVZRSu9MjEA60uB8d3qlI50uAofeZkmsGDKI2U1aFCGx
- cPNuPS7T7HT+RsAktL/JEvVGFpHa1/miSqdkGIbvHSO3sHw4mGPi/0BayrhtQCJ7dZcDnL7J
- DXRZIzsBrJThZqLfTjf43iiSF5Qg2JEJyTLjVcTkB1zl8YlZ+8pccdiacOQ8l+DX15BnWya8
- ITGt9FSBXM1t4IGeDkZ/UQFetYAEYQ2dysug3Is8xunVg+jrnXNqOi5wf6k/6hNPhsvzzyZ+
- jNNIEwmyT/swGJiavmRmTtPIWq86SdSB/vg93PwlXMta+0JTRitUNxknnWCRwMc3IezrXd71
- lop4TrUh5GP77BZdZRo/VXUXiXQKgZ0aRei2mnm3kc7BTQRa0A+pARAA3iztMaMsTtE8zgOl
- xDOSkvwArSVtgRqFzNxEZ/eRbJzBvpwl5DPiOO2v4d19ZVKtQGqC8bJOm8KfJzcTbn+AIM2q
- VEjr8N/mkh+jM+23H7UpwwHhsWdcizzkbKCd6yY7bPQ78wRxbctZZ5hx1qSlvDevWRIuspQg
- zWcJ1lAITKVFGSJNbwZIwBM9AIAEtahVDSzpMBa3VjYc/ae57CwR46vXuOEXZQgQRzXqm9jU
- h2UDZXFwqpFDQip6nCp8bg9r5jLafA8FY6EphzgF576G7p5Q2VNigFb3fMuQT1zLJd/f0qjZ
- 3js3eKoc6lANghDH/NVWC6Gv7Uk5MnAE3gEBgacowyHQDFSgdWwrAhV+MeAfzDK/EPjZ0ecd
- DaCtEdMGWH91gY2sInae0D+6zPwLBY4v/18Zxg6IQ2cnO70bwgkkElQpZNo6nwyEy+hYRDbh
- i6bjyJDLkuOZeTQ75e1TQPg4XMNGRgw/j3FP/+3wpF9sFKwK57dFj/b+ug7tS1ClP1ZvfDeU
- iCmzJ29MyvQO8Q7MTLYjyksdRUb75BKojkqb5g/tvV7wq7ug1T6pK/fxKZFEA/drE4kSoV+n
- t8ZVN+ttqbUwj2PJNqYYjopa+Y+T7DWyKeJJjIuvPY99yFLBT/8MuJQvyBWz5u0GGNyDoBHS
- MHxHYS+TUSffpLxOAKsAEQEAAcLBfAQYAQgAJhYhBEMKIIp+HI8xseHQ9YPajl/CwASjBQJa
- 0A+pAhsMBQkHhh+AAAoJEIPajl/CwASjCbEP/jYsOGhnvPyCRxFcqujblpsC5Fdq3cTro4Wx
- Mu/tM7ZbLIv6LNo2bU6oRoaGspu+k+wXUNDVeeyBaSJlA2WS/VEbtPNQLTzs4UPWeq//4XY3
- YvxCxLcaVQSNhdoAmzKrYBQeNXxz0nPoCYNlTyC5fZJbHTqdevnnf4eYBz7uTxjs7+IPAeH5
- QzE2NX2sbEleVPial1jYwIiScBpN8fG2qBhiaNtXxYp308xYo/ugFU/XJuF9Qm365HHjfzKo
- CHBzO1i6uK2g5oqEfSOjy70B0ed0u/+kr3iqsu9rsoP3OY901A7rNjsh1UFVHhaYJSPEeIaW
- 3HGwQhasWIkr3zbSQJc6pNgakPB/LsG3zhOMyPCxown+N+dVQVp21rZH6NqjcXw5FPIRVM2y
- OrkEQLN0V3WmujFCYalCLaBqcSHEFrY2iUqCuPkSY5A8+GwBQvdJe0qC47duI7x3eodMR2RO
- uUPepUqQXUaTXWqw6aHRzSrwX9elBQ0LkLxv2Y8kyjbOS+Dxv3rD51EcXsbCdIVJsaPoCyF0
- cx+mwCUyPWNeh07MbdOBbdrm5PwVNem1VQ2YetR0oJ/RLsyhIsEh0s8sQQHEC51Mpk8N47P5
- ZCNiTrRRMLZA3X9tT2gSZ0sOe0/st91n9RokH23HfJ0yhtMJy5x79slbxAab4dyexisRKlZJ
-Message-ID: <4b147bc4-9df1-cd30-ca06-4af0c93d125e@splitted-desktop.com>
-Date: Thu, 4 Oct 2018 11:03:57 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42QtNh3VKFzF3L3;
+ Thu,  4 Oct 2018 23:03:12 +1000 (AEST)
+Received: from [IPv6:2001:420:44c1:2579:51eb:3c7a:5e3a:802b]
+ ([IPv6:2001:420:44c1:2579:51eb:3c7a:5e3a:802b])
+ by smtp-cloud8.xs4all.net with ESMTPA
+ id 83GUgDtLi0ZZE83GYgkhIF; Thu, 04 Oct 2018 15:02:09 +0200
+Subject: Re: [PATCH v3 2/2] media: platform: Add Aspeed Video Engine driver
+To: Eddie James <eajames@linux.vnet.ibm.com>,
+ Eddie James <eajames@linux.ibm.com>, linux-kernel@vger.kernel.org
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org,
+ robh+dt@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org
+References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
+ <1537903629-14003-3-git-send-email-eajames@linux.ibm.com>
+ <a78d4c7a-ac58-c23d-a683-23dce54be993@xs4all.nl>
+ <8ca47483-5347-c40d-0d01-4f13e88f8cde@linux.vnet.ibm.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <d7c82025-5c9a-6a64-75e0-f0d84d149dde@xs4all.nl>
+Date: Thu, 4 Oct 2018 15:02:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-In-Reply-To: <937C5B58-38CB-44C0-8F49-63019A5049B3@fb.com>
+In-Reply-To: <8ca47483-5347-c40d-0d01-4f13e88f8cde@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: fr
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfNof8y89VQ636bB96ItiCiLaL+Nl1OyLkYfONLp9YR3DAGnYwZedb6pkzczeKB8Sg2o5NKI24tNNcfgW5DnC+Ms7uvYj5W9CZOjPRDIDfjNlz+1FSF4d
+ F8G3fy5607kUjkT9g40ouC3xX+1uQPk5oyhw8eURaDpZoU3kEdbyIbGdCksb5CsaAe7iLg99KhbxxtI6aWCZEGI1qPtu6ApSdvmKu46+w0TS+XHXi5YkRlXB
+ gfBd0QMl68cJwCYGMbvP7nmmeB4VCAFD3pwDRTfzBlqo0ZNiVSqnrU5VQrMHLjffh9+BcfNfIDllq/a4cQFrzWe+G9aTUKcnfclIAVM1v3Yo/ONxHYFqPciS
+ pE1d4ikWziA5nvd4dhnFMi2l5Na1BZUJhxP4UvnvOrcd0Di7dBEGy/WhS4uCy2m0MtsWfx1RaZZb1ME6rY1rI1Im9lI52Zk4G5E35PM2/cisG9VkEm6OTIAN
+ qKlesHp/PYzr8KwEWulIz9AHT9HcfBs/Yis48bFBSIX3l6yETZe+25U5z4C1zkG1qXrh0rUs0TdwwVI0LF0xQloqnLnUAQ50xoRhveAP4Kt6lykYmBxbFOlZ
+ ezh3r31baZIy60Mi9UaVg+6ysx67cfyQFRjvglfx37lpcjLAaD34itSG0foSPJ1qn4s=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,23 +52,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Oct 2018 09:40:39 -0000
+X-List-Received-Date: Thu, 04 Oct 2018 13:03:17 -0000
 
-Hi,
+On 10/03/18 22:26, Eddie James wrote:
+> 
+> 
+> On 09/28/2018 06:30 AM, Hans Verkuil wrote:
+>> On 09/25/2018 09:27 PM, Eddie James wrote:
+>>> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+>>> can capture and compress video data from digital or analog sources. With
+>>> the Aspeed chip acting a service processor, the Video Engine can capture
+>>> the host processor graphics output.
+>>>
+>>> Add a V4L2 driver to capture video data and compress it to JPEG images.
+>>> Make the video frames available through the V4L2 streaming interface.
+>>>
+>>> +		memcpy(&table[base], aspeed_video_jpeg_dct[i],
+>>> +		       sizeof(aspeed_video_jpeg_dct[i]));
+>>> +
+>>> +		base += ASPEED_VIDEO_JPEG_DCT_SIZE;
+>>> +		memcpy(&table[base], aspeed_video_jpeg_quant,
+>>> +		       sizeof(aspeed_video_jpeg_quant));
+>>> +
+>>> +		if (yuv420)
+>>> +			table[base + 2] = 0x00220103;
+>>> +	}
+>>> +}
+>>> +
+>>> +static void aspeed_video_update(struct aspeed_video *video, u32 reg,
+>>> +				unsigned long mask, u32 bits)
+>> You probably want to use u32 for the mask.
+> 
+> Using a u32 there results in:
+> 
+> warning: large integer implicitly truncated to unsigned type [-Woverflow]
+> 
+> everywhere I call aspeed_video_update. Not sure what the deal is. Any 
+> suggestions?
 
-OCP Leopard servers comes with an ASPeed Chip 1250, and doesn't seems to
-be supported with OpenBMC (I might be totally wrong but I didn't found
-any recipes within the source tree for that platform). So is there any
-specific reasons over perhaps community interest of why this machine is
-not supported ?
+The BIT and GENMASK macros produce unsigned long values.
 
-A guy involved in the linuxboot development team has created a funny for
-of the project based on u-root called u-bmc which works as a PoC on
-Leopard. The BMC starts in a couple of seconds (I think 8s in that case)
-and is operationnal.
+I think it is easier if instead of passing a mask (i.e. the bits you want
+to keep) you pass the bits you want to clear and replace with new ones.
 
-Is there a porting guide somewhere ? I liked to get this machine
-supported on OpenBMC for various reason, and that might be my first try
-with it.
+So 'u32 clear' instead of 'unsigned long mask'.
 
-vejmarie
+The problem occurs because e.g. ~BIT(10) expands to an unsigned long with
+all bits except for bit 10 set to 1. And passing that to an u32 will obviously
+fail.
+
+But just passing BIT(10) is fine since that fits in an u32.
+
+Regards,
+
+	Hans
+
+> 
+> Thanks,
+> Eddie
+> 
+>>
+>>> +{
+>>> +	u32 t = readl(video->base + reg);
+>>> +	u32 before = t;
+>>> +
+>>> +	t &= mask;
+>>> +	t |= bits;
+>>> +	writel(t, video->base + reg);
+>>> +	dev_dbg(video->dev, "update %03x[%08x -> %08x]\n", reg, before,
+>>>
+>>> +
+>>> +module_platform_driver(aspeed_video_driver);
+>>> +
+>>> +MODULE_DESCRIPTION("ASPEED Video Engine Driver");
+>>> +MODULE_AUTHOR("Eddie James");
+>>> +MODULE_LICENSE("GPL v2");
+>>>
+>> Regards,
+>>
+>> 	Hans
+>>
+> 
