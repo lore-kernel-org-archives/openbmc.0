@@ -1,61 +1,76 @@
-Return-Path: <prvs=3816fb6502=vijaykhemka@fb.com>
+Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=3816fb6502=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="YJUI4yGZ"; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42RfL00Hx7zF3cK
- for <openbmc@lists.ozlabs.org>; Sat,  6 Oct 2018 05:03:35 +1000 (AEST)
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
- by m0089730.ppops.net (8.16.0.22/8.16.0.22) with SMTP id w95IsX0Q010384
- for <openbmc@lists.ozlabs.org>; Fri, 5 Oct 2018 12:03:34 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=hkBNM/ZLALjahi1XOFBhclHCAj/UbflIVsYQ5yPacnQ=;
- b=YJUI4yGZH96WqPe75S+jdpJVXgCPfhpsHoN6lfQ4860AottreXxqau/Je8K31S5VY4o1
- 0GAQqA9t54cKNe/JfCy4ttpgJEQPCpm3n1kraV02seGQ8HKSP6KQKOk32kXtP0LkV6Je
- ULGSVrch8nXlqOYm4JRtUD2DQXgix9Ta49E= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by m0089730.ppops.net with ESMTP id 2mxaxsgjnm-8
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 05 Oct 2018 12:03:33 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by mail.thefacebook.com
- (192.168.16.24) with Microsoft SMTP Server (TLS) id 14.3.361.1; Fri, 5 Oct
- 2018 12:03:05 -0700
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)	id
- 2A80623AE78C; Fri,  5 Oct 2018 12:02:54 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
-From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
-To: Samuel Mendoza-Jonas <sam@mendozajonas.com>, "David S. Miller"
- <davem@davemloft.net>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
- <openbmc@lists.ozlabs.org>, "Justin . Lee1 @ Dell . com"
- <Justin.Lee1@Dell.com>, "joel @ jms . id . au" <joel@jms.id.au>,
- "linux-aspeed @ lists . ozlabs . org" <linux-aspeed@lists.ozlabs.org>, Sai
- Dasari <sdasari@fb.com>, "christian @ cmd . nu" <christian@cmd.nu>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH net-next 2/2] net/ncsi: Add NCSI Mellanox OEM command
-Date: Fri, 5 Oct 2018 12:02:46 -0700
-Message-ID: <20181005190247.988206-1-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
-MIME-Version: 1.0
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42RgXk16ZGzF3cm
+ for <openbmc@lists.ozlabs.org>; Sat,  6 Oct 2018 05:57:57 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w95Jo2dZ103486
+ for <openbmc@lists.ozlabs.org>; Fri, 5 Oct 2018 15:57:54 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2mxedmgb66-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 05 Oct 2018 15:57:54 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
+ Fri, 5 Oct 2018 15:57:54 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 5 Oct 2018 15:57:50 -0400
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w95Jvn7Q26214516
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 5 Oct 2018 19:57:49 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BD60B12405A;
+ Fri,  5 Oct 2018 16:57:41 -0400 (EDT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DD27B124055;
+ Fri,  5 Oct 2018 16:57:40 -0400 (EDT)
+Received: from talon7.ibm.com (unknown [9.41.179.222])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
+ Fri,  5 Oct 2018 16:57:40 -0400 (EDT)
+From: Eddie James <eajames@linux.ibm.com>
+To: linux-kernel@vger.kernel.org
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
+ openbmc@lists.ozlabs.org, hverkuil@xs4all.nl, robh+dt@kernel.org,
+ mchehab@kernel.org, linux-media@vger.kernel.org, joel@jms.id.au,
+ Eddie James <eajames@linux.ibm.com>
+Subject: [PATCH v4 0/2] media: platform: Add Aspeed Video Engine Driver
+Date: Fri,  5 Oct 2018 14:57:44 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 18100519-0040-0000-0000-0000047BE0CD
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009825; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000267; SDB=6.01098369; UDB=6.00568106; IPR=6.00878409; 
+ MB=3.00023633; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-05 19:57:52
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18100519-0041-0000-0000-00000883EDD4
+Message-Id: <1538769466-14860-1-git-send-email-eajames@linux.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-10-05_09:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810050190
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,164 +82,156 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Oct 2018 19:03:36 -0000
+X-List-Received-Date: Fri, 05 Oct 2018 19:57:58 -0000
+X-List-Received-Date: Fri, 05 Oct 2018 19:57:58 -0000
 
-This patch adds OEM Mellanox commands and response handling. It also
-defines OEM Get MAC Address handler to get and configure the device.
+The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+can capture and compress video data from digital or analog sources. With
+the Aspeed chip acting as a service processor, the Video Engine can
+capture the host processor graphics output.
 
-ncsi_oem_gma_handler_mlx: This handler send NCSI mellanox command for
-getting mac address.
-ncsi_rsp_handler_oem_mlx: This handles response received for all
-mellanox OEM commands.
-ncsi_rsp_handler_oem_mlx_gma: This handles get mac address response and
-set it to device.
+This series adds a V4L2 driver for the VE, providing the usual V4L2 streaming
+interface by way of videobuf2. Each frame, the driver triggers the hardware to
+capture the host graphics output and compress it to JPEG format.
 
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
----
- net/ncsi/internal.h    |  5 +++++
- net/ncsi/ncsi-manage.c | 24 +++++++++++++++++++++++-
- net/ncsi/ncsi-pkt.h    |  9 +++++++++
- net/ncsi/ncsi-rsp.c    | 41 ++++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 77 insertions(+), 2 deletions(-)
+v4l-utils HEAD 3598047c70e395d8ee0da5519996bc0126f18262
 
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 45883b32790e..d4558628a991 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -73,10 +73,15 @@ enum {
- #define NCSI_OEM_MFR_BCM_ID             0x113d
- /* Broadcom specific OEM Command */
- #define NCSI_OEM_BCM_CMD_GMA            0x01   /* CMD ID for Get MAC */
-+/* Mellanox specific OEM Command */
-+#define NCSI_OEM_MLX_CMD_GMA            0x00   /* CMD ID for Get MAC */
-+#define NCSI_OEM_MLX_CMD_GMA_PARAM      0x1b   /* Parameter for GMA  */
- /* OEM Command payload lengths*/
- #define NCSI_OEM_BCM_CMD_GMA_LEN        12
-+#define NCSI_OEM_MLX_CMD_GMA_LEN        8
- /* Mac address offset in OEM response */
- #define BCM_MAC_ADDR_OFFSET             28
-+#define MLX_MAC_ADDR_OFFSET             8
- 
- 
- struct ncsi_channel_version {
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index e5bfd9245b5d..38aef27d2e67 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -658,12 +658,34 @@ static void ncsi_oem_gma_handler_bcm(struct ncsi_cmd_arg *nca)
- 			   nca->type);
- }
- 
-+static void ncsi_oem_gma_handler_mlx(struct ncsi_cmd_arg *nca)
-+{
-+	int ret = 0;
-+	unsigned char data[NCSI_OEM_MLX_CMD_GMA_LEN];
-+
-+	nca->payload = NCSI_OEM_MLX_CMD_GMA_LEN;
-+
-+	memset(data, 0, NCSI_OEM_MLX_CMD_GMA_LEN);
-+	*(unsigned int *)data = ntohl(NCSI_OEM_MFR_MLX_ID);
-+	data[5] = NCSI_OEM_MLX_CMD_GMA;
-+	data[6] = NCSI_OEM_MLX_CMD_GMA_PARAM;
-+
-+	nca->data = data;
-+
-+	ret = ncsi_xmit_cmd(nca);
-+	if (ret)
-+		netdev_err(nca->ndp->ndev.dev,
-+			   "NCSI: Failed to transmit cmd 0x%x during configure\n",
-+			   nca->type);
-+}
-+
- /* OEM Command handlers initialization */
- static struct ncsi_oem_gma_handler {
- 	unsigned int	mfr_id;
- 	void		(*handler)(struct ncsi_cmd_arg *nca);
- } ncsi_oem_gma_handlers[] = {
--	{ NCSI_OEM_MFR_BCM_ID, ncsi_oem_gma_handler_bcm }
-+	{ NCSI_OEM_MFR_BCM_ID, ncsi_oem_gma_handler_bcm },
-+	{ NCSI_OEM_MFR_MLX_ID, ncsi_oem_gma_handler_mlx }
- };
- 
- #endif /* CONFIG_NCSI_OEM_CMD_GET_MAC */
-diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-index 4d3f06be38bd..2a6d83a596c9 100644
---- a/net/ncsi/ncsi-pkt.h
-+++ b/net/ncsi/ncsi-pkt.h
-@@ -165,6 +165,15 @@ struct ncsi_rsp_oem_pkt {
- 	unsigned char           data[];      /* Payload data      */
- };
- 
-+/* Mellanox Response Data */
-+struct ncsi_rsp_oem_mlx_pkt {
-+	unsigned char           cmd_rev;     /* Command Revision  */
-+	unsigned char           cmd;         /* Command ID        */
-+	unsigned char           param;       /* Parameter         */
-+	unsigned char           optional;    /* Optional data     */
-+	unsigned char           data[];      /* Data              */
-+};
-+
- /* Broadcom Response Data */
- struct ncsi_rsp_oem_bcm_pkt {
- 	unsigned char           ver;         /* Payload Version   */
-diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index bc20f7036579..a6f5a59eb6ef 100644
---- a/net/ncsi/ncsi-rsp.c
-+++ b/net/ncsi/ncsi-rsp.c
-@@ -596,6 +596,45 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
- 	return 0;
- }
- 
-+/* Response handler for Mellanox command Get Mac Address */
-+static int ncsi_rsp_handler_oem_mlx_gma(struct ncsi_request *nr)
-+{
-+	struct ncsi_rsp_oem_pkt *rsp;
-+	struct ncsi_dev_priv *ndp = nr->ndp;
-+	struct net_device *ndev = ndp->ndev.dev;
-+	int ret = 0;
-+	const struct net_device_ops *ops = ndev->netdev_ops;
-+	struct sockaddr saddr;
-+
-+	/* Get the response header */
-+	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
-+
-+	saddr.sa_family = ndev->type;
-+	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
-+	memcpy(saddr.sa_data, &rsp->data[MLX_MAC_ADDR_OFFSET], ETH_ALEN);
-+	ret = ops->ndo_set_mac_address(ndev, &saddr);
-+	if (ret < 0)
-+		netdev_warn(ndev, "NCSI: 'Writing mac address to device failed\n");
-+
-+	return ret;
-+}
-+
-+/* Response handler for Mellanox card */
-+static int ncsi_rsp_handler_oem_mlx(struct ncsi_request *nr)
-+{
-+	struct ncsi_rsp_oem_pkt *rsp;
-+	struct ncsi_rsp_oem_mlx_pkt *mlx;
-+
-+	/* Get the response header */
-+	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
-+	mlx = (struct ncsi_rsp_oem_mlx_pkt *)(rsp->data);
-+
-+	if (mlx->cmd == NCSI_OEM_MLX_CMD_GMA &&
-+	    mlx->param == NCSI_OEM_MLX_CMD_GMA_PARAM)
-+		return ncsi_rsp_handler_oem_mlx_gma(nr);
-+	return 0;
-+}
-+
- /* Response handler for Broadcom command Get Mac Address */
- static int ncsi_rsp_handler_oem_bcm_gma(struct ncsi_request *nr)
- {
-@@ -640,7 +679,7 @@ static struct ncsi_rsp_oem_handler {
- 	unsigned int	mfr_id;
- 	int		(*handler)(struct ncsi_request *nr);
- } ncsi_rsp_oem_handlers[] = {
--	{ NCSI_OEM_MFR_MLX_ID, NULL },
-+	{ NCSI_OEM_MFR_MLX_ID, ncsi_rsp_handler_oem_mlx },
- 	{ NCSI_OEM_MFR_BCM_ID, ncsi_rsp_handler_oem_bcm }
- };
- 
+v4l2-compliance SHA: not available, 32 bits
+
+Compliance test for device /dev/video0:
+
+Driver Info:
+	Driver name      : aspeed-video
+	Card type        : Aspeed Video Engine
+	Bus info         : platform:aspeed-video
+	Driver version   : 4.18.8
+	Capabilities     : 0x85200001
+		Video Capture
+		Read/Write
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x05200001
+		Video Capture
+		Read/Write
+		Streaming
+		Extended Pix Format
+
+Required ioctls:
+	test VIDIOC_QUERYCAP: OK
+
+Allow for multiple opens:
+	test second /dev/video0 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK
+	test VIDIOC_DV_TIMINGS_CAP: OK
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+		warn: v4l2-test-controls.cpp(845): V4L2_CID_DV_RX_POWER_PRESENT not found for input 0
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 3 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+
+Test input 0:
+
+Streaming ioctls:
+	test read/write: OK
+	test blocking wait: OK
+	test MMAP: OK                                     
+	test USERPTR: OK (Not Supported)
+	test DMABUF: Cannot test, specify --expbuf-device
+
+Total: 47, Succeeded: 47, Failed: 0, Warnings: 1
+
+Changes since v3:
+ - Switch update reg function to use u32 clear rather than unsigned long mask
+ - Add timing information from host VGA signal
+ - Fix binding documentation mispelling
+ - Fix upper case hex values
+ - Add wait_prepare and wait_finish
+ - Set buffer state to queued (rather than error) if streaming fails to start
+ - Switch engine busy print statement to error
+ - Removed a couple unecessary type assignments in v4l2 ioctls
+ - Added query_dv_timings, fixed get_dv_timings
+ - Corrected source change event to fire if and only if size actually changes
+ - Locked open and release
+
+Changes since v2:
+ - Switch to streaming interface. This involved a lot of changes.
+ - Rework memory allocation due to using videobuf2 buffers, but also only
+   allocate the necessary size of source buffer rather than the max size
+
+Changes since v1:
+ - Removed le32_to_cpu calls for JPEG header data
+ - Reworked v4l2 ioctls to be compliant.
+ - Added JPEG controls
+ - Updated devicetree docs according to Rob's suggestions.
+ - Added myself to MAINTAINERS
+
+Eddie James (2):
+  dt-bindings: media: Add Aspeed Video Engine binding documentation
+  media: platform: Add Aspeed Video Engine driver
+
+ .../devicetree/bindings/media/aspeed-video.txt     |   26 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/platform/Kconfig                     |    8 +
+ drivers/media/platform/Makefile                    |    1 +
+ drivers/media/platform/aspeed-video.c              | 1674 ++++++++++++++++++++
+ 5 files changed, 1717 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/aspeed-video.txt
+ create mode 100644 drivers/media/platform/aspeed-video.c
+
 -- 
-2.17.1
+1.8.3.1
