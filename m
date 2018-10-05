@@ -1,87 +1,64 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.167.196; helo=mail-oi1-f196.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
+ [209.85.167.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Rgfx6GwVzDr0X
- for <openbmc@lists.ozlabs.org>; Sat,  6 Oct 2018 06:03:21 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w95K1lih133541
- for <openbmc@lists.ozlabs.org>; Fri, 5 Oct 2018 16:03:19 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2mxdx1t2v7-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 05 Oct 2018 16:03:18 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 5 Oct 2018 16:03:16 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 5 Oct 2018 16:03:14 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w95K3D2w2032104
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 5 Oct 2018 20:03:13 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0FD542805E;
- Fri,  5 Oct 2018 16:00:48 -0400 (EDT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3445C28058;
- Fri,  5 Oct 2018 16:00:47 -0400 (EDT)
-Received: from [9.41.179.222] (unknown [9.41.179.222])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri,  5 Oct 2018 16:00:47 -0400 (EDT)
-Subject: Re: [PATCH v3 2/2] media: platform: Add Aspeed Video Engine driver
-To: Hans Verkuil <hverkuil@xs4all.nl>, Eddie James <eajames@linux.ibm.com>,
- linux-kernel@vger.kernel.org
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org, mchehab@kernel.org,
- linux-media@vger.kernel.org
-References: <1537903629-14003-1-git-send-email-eajames@linux.ibm.com>
- <1537903629-14003-3-git-send-email-eajames@linux.ibm.com>
- <a78d4c7a-ac58-c23d-a683-23dce54be993@xs4all.nl>
- <ca4757b9-0825-bbbf-b388-0295fd13bad7@linux.vnet.ibm.com>
- <373d2ca3-a6cd-8d87-2bbc-613d65305170@xs4all.nl>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Fri, 5 Oct 2018 15:03:11 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42RhSl10qszF3cC;
+ Sat,  6 Oct 2018 06:39:34 +1000 (AEST)
+Received: by mail-oi1-f196.google.com with SMTP id 22-v6so10460316oiz.2;
+ Fri, 05 Oct 2018 13:39:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=CkGf5wPbkzH+vS8XlJqtwYTTlXEgJeIqSANdnaucbS8=;
+ b=cWl6/erzAuzqGwzH+7QpgsPY85YlfgCU0uyAmnIlGPYK4FzXnfQIB/lLknHpZyH3Ou
+ X5k8odoVv+8/Kp1ktHTIm+pq+QK2/UbXT7aOGTD+g2LmQwVp8buGzP5oe+hoWfqE4MbD
+ U9GNbMprSmnXTLUfWgUuUVKuIB8ZzY9tmydxYvCW2Bn6147WG8W84wNySkUZWzDiVyQC
+ yHNoWhRgddWEjWjlhl4nKiK0Arp/Dp8iG614mDMLvzW04Qdi7Nddub/XjuzSNd3vp/D1
+ z1raokvBP+/LSXnRKY9CQOIaCTgYzDN19n6NL2ZQR5GbMWilMp8qOJH7CfIS63VPb4wd
+ SROg==
+X-Gm-Message-State: ABuFfojHPdrgFFAFevZpRUxDMEubY75I59wpdPGoy9+JLL57TJXL7N6c
+ fnb6mgKCmlYY/QGnQiUTxA==
+X-Google-Smtp-Source: ACcGV61wp/mP4pV+/lqEXLgdRNt88FJ+ZfOJRZ11Iy5h9LIMFlGS+hTAPd2GRLaVzK8xJx0B77njsg==
+X-Received: by 2002:aca:e6c4:: with SMTP id
+ d187-v6mr299340oih.237.1538771972110; 
+ Fri, 05 Oct 2018 13:39:32 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id 14sm691458otk.49.2018.10.05.13.39.31
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 05 Oct 2018 13:39:31 -0700 (PDT)
+Date: Fri, 5 Oct 2018 15:39:30 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Mark Rutland <mark.rutland@arm.com>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-i2c@vger.kernel.org,
+ openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Subject: Re: [PATCH i2c-next v6 1/5] dt-bindings: i2c: Add 'timeout-ms' and
+ '#retries' properties as common optional
+Message-ID: <20181005203930.GA12987@bogus>
+References: <20181004204322.20665-1-jae.hyun.yoo@linux.intel.com>
+ <20181004204322.20665-2-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <373d2ca3-a6cd-8d87-2bbc-613d65305170@xs4all.nl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18100520-0040-0000-0000-0000047BE17A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009825; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000267; SDB=6.01098370; UDB=6.00568107; IPR=6.00878411; 
- MB=3.00023633; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-05 20:03:16
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18100520-0041-0000-0000-00000883EE81
-Message-Id: <8476027d-80d5-2787-944b-eb3f5af717c3@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-05_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1810050191
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181004204322.20665-2-jae.hyun.yoo@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,67 +70,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Oct 2018 20:03:22 -0000
+X-List-Received-Date: Fri, 05 Oct 2018 20:39:35 -0000
 
+On Thu, Oct 04, 2018 at 01:43:18PM -0700, Jae Hyun Yoo wrote:
+> This commit adds 'timeout-ms' and '#retries' properties as common
+> optional properties that can be used for setting 'timeout' and
+> 'retries' values of 'struct i2c_adapter'. With this patch, the bus
+> timeout value and the master transfer retries count can be set
+> through these properties at the registration time of an adapter.
+> Still the values can be set by I2C_TIMEOUT and I2C_RETRIES ioctls
+> on cdev at runtime too.
+> 
+> These properties may not be supported by all drivers. However, if
+> a driver wants to support one of them, it should adapt the
+> bindings in this document.
+> 
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> ---
+>  Documentation/devicetree/bindings/i2c/i2c.txt | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/i2c/i2c.txt b/Documentation/devicetree/bindings/i2c/i2c.txt
+> index 11263982470e..6d7a6e919cf8 100644
+> --- a/Documentation/devicetree/bindings/i2c/i2c.txt
+> +++ b/Documentation/devicetree/bindings/i2c/i2c.txt
+> @@ -80,6 +80,12 @@ wants to support one of the below features, it should adapt the bindings below.
+>  	Names of map programmable addresses.
+>  	It can contain any map needing another address than default one.
+>  
+> +- timeout-ms
 
+bus-timeout-ms in case we have some other timeout needed.
 
-On 10/04/2018 08:12 AM, Hans Verkuil wrote:
-> On 10/03/18 22:43, Eddie James wrote:
->>
->> On 09/28/2018 06:30 AM, Hans Verkuil wrote:
->>> On 09/25/2018 09:27 PM, Eddie James wrote:
->>>> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
->>>> can capture and compress video data from digital or analog sources. With
->>>> the Aspeed chip acting a service processor, the Video Engine can capture
->>>> the host processor graphics output.
->>>>
->>>> Add a V4L2 driver to capture video data and compress it to JPEG images.
->>>> Make the video frames available through the V4L2 streaming interface.
->>>>
->>>> Signed-off-by: Eddie James <eajames@linux.ibm.com>
->>>> +	}
->>>> +
->>>> +	video->height = (bottom - top) + 1;
->>>> +	video->width = (right - left) + 1;
->>>> +	size = video->height * video->width;
->>> It looks like you can actually determine the blanking width/height and
->>> possibly even more detailed information that would be very useful to
->>> show with the DV_TIMINGS ioctls.
->> Hmm. This information is related to the video signal captured from the
->> host. That information has nothing to do with the buffer that is
->> compressed and grabbed by the driver and ultimately provided to
->> userspace. Isn't the timing information meaningless for JPEG frames?
-> It helps in debugging. Basically you are implementing a receiver for a
-> video signal. So if for some reason you cannot support the video timings
-> that the host sends, then it is very useful to have QUERY_DV_TIMINGS report
-> as much information about the signal as possible.
->
-> BTW, out of curiosity, how are the host video signals connected to the
-> aspeed? Is it still a VGA video signal?
->
-> Looking at product briefs it appears that it is VGA. So I guess the aspeed
-> 'sniffs' the VGA signals from the host and can capture the video that way.
-> Is that correct?
-
-I believe it is a VGA signal from the host, but the Aspeed Video Engine 
-somewhat abstracts that away; not all the signal information that the 
-engine is receiving is available to the BMC interface. I did add the 
-timing information I could access to the latest patch set. As you say, 
-it could be useful for debugging if weird things are happening.
-
-Thanks!
-Eddie
-
->
-> If so, then this driver is a VGA receiver and should act like that.
-> The host can configure its VGA transmitter to invalid timings, or weird
-> values, and you need to be able to handle that in your driver.
->
->> Forgot to include this question in my previous reply, sorry for the
->> additional mail.
-> No problem! Happy to help.
->
-> Regards,
->
-> 	Hans
->
+> +	Bus timeout in milliseconds.
+> +
+> +- #retries
+> +	Number of retries for master transfer.
+> +
+>  Binding may contain optional "interrupts" property, describing interrupts
+>  used by the device. I2C core will assign "irq" interrupt (or the very first
+>  interrupt if not using interrupt names) as primary interrupt for the slave.
+> -- 
+> 2.19.0
+> 
