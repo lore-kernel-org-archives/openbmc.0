@@ -1,50 +1,57 @@
-Return-Path: <james.mihm@intel.com>
+Return-Path: <36dC7WwUKB14GQJUECKKCHA.8KIKLAJ7I8HEOPO.KVH67O.KNC@flex--kunyi.bounces.google.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=flex--kunyi.bounces.google.com
+ (client-ip=2607:f8b0:4864:20::d49; helo=mail-io1-xd49.google.com;
+ envelope-from=36dc7wwukb14gqjueckkcha.8kiklaj7i8heopo.kvh67o.knc@flex--kunyi.bounces.google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=james.mihm@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="I91n2RiS"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd49.google.com (mail-io1-xd49.google.com
+ [IPv6:2607:f8b0:4864:20::d49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42TVvd3Y34zF36T
- for <openbmc@lists.ozlabs.org>; Tue,  9 Oct 2018 06:35:38 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2018 12:35:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,357,1534834800"; d="scan'208,217";a="97198962"
-Received: from orsmsx102.amr.corp.intel.com ([10.22.225.129])
- by fmsmga001.fm.intel.com with ESMTP; 08 Oct 2018 12:33:56 -0700
-Received: from orsmsx156.amr.corp.intel.com (10.22.240.22) by
- ORSMSX102.amr.corp.intel.com (10.22.225.129) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Mon, 8 Oct 2018 12:33:55 -0700
-Received: from orsmsx101.amr.corp.intel.com ([169.254.8.122]) by
- ORSMSX156.amr.corp.intel.com ([169.254.8.164]) with mapi id 14.03.0319.002;
- Mon, 8 Oct 2018 12:33:55 -0700
-From: "Mihm, James" <james.mihm@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: OpenBMC Hackathon Remote Access
-Thread-Topic: OpenBMC Hackathon Remote Access
-Thread-Index: AdRfOF72SbH8WjiFSd6s3IEHla0qbQ==
-Date: Mon, 8 Oct 2018 19:33:54 +0000
-Message-ID: <C599FC839619124CAC44E062ABB7DFE2D700D9D3@ORSMSX101.amr.corp.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOThkZTliOGYtMGFjOC00MzA3LTgzZmMtMjdmMDY5MGQwM2E1IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiMVVtSUU3dVlwVjNpZ2VicmZTSmNaK0ZPcllHQWVQS2tlcFVyUjQxQlhCMkY2bnNnXC9kdkVcL3llVmxDTFFkSzd4In0=
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: multipart/alternative;
- boundary="_000_C599FC839619124CAC44E062ABB7DFE2D700D9D3ORSMSX101amrcor_"
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42TYtC1fsMzF31W
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Oct 2018 08:49:32 +1100 (AEDT)
+Received: by mail-io1-xd49.google.com with SMTP id p22-v6so20521284ioh.7
+ for <openbmc@lists.ozlabs.org>; Mon, 08 Oct 2018 14:49:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=DGjpJh6NY26XNmkgK/G3W85M0KbT1oJdmcCbZa5PHLo=;
+ b=I91n2RiS7+dQbL9RuN/a27WtrIatJqaKpPZWaTIr7cDU5UuMgDjlYLAz9+6mXHUYEb
+ iZb8g0TUSpoeiIJeQxIciHe7gKG20xGwagmmZGmHzDA2/nSZOfqIURpIUoi+z917Z6Y+
+ 66syTLyuhLdtPozVZITHzqiqHL4tz7sKma9zpUIjeCi3NvQr8O8vazjH35Smv7MdxHfQ
+ 9ePiUDycYrpcaX+BHygWCOTjlzQaOIewWrz2BiQZWctxAuBZ8dcgxQwFD+Y+BsthORUo
+ tXVWiBSMkhALn+Fm4P/h7X9V06Z9E22L4//mpLZf4BejqmbrT7TcYD57r8PbpxXDuW0t
+ HlVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=DGjpJh6NY26XNmkgK/G3W85M0KbT1oJdmcCbZa5PHLo=;
+ b=ogNF4t3WpBVgLgBb56ljm+hnCcZsQsPGRCFDEcPG45LyRhVRUMMm9O0So6bXNX+LIr
+ oG0mNMDEafPkK9VU1gVB36NLIHj+65l/awmirD/fazjdgqFLLFL3fxHPHxTkrkaLRCp3
+ jryjp/Q7vIKfmKUROBNs4Nz45p94v+qrQriP6jaZ0OZhYOup6ogngu9xs78BMG3TYq5B
+ JKGfmOV+ZwsnReBp8KROKmR+XnVr607K9hdceCBH0zsH4yXOEhWZuEKfgO2nVmE3bCe9
+ 3/z1ryY/zTr589NG7CxcUMhnmGW67M+PA+iHbxBSijp75+d8PwrH+hwt3C97+Aa/+4Ec
+ etyA==
+X-Gm-Message-State: ABuFfojRukoia+S0YTxBJEu6rD3A4OP8KIkoQ5X8zwGG6cTDdSXDeXZ+
+ xRnnzVLm70AnlKJKDCETkU0GQb09sA==
+X-Google-Smtp-Source: ACcGV63gMLjQFuWcULek/00WKjkMhnV+NrVG+Si0OpxQh8TbT+p0PNOxMtTWhnzaKBAVyCDoreLXH/apyg==
+X-Received: by 2002:a24:e48b:: with SMTP id
+ o133-v6mr8514229ith.0.1539035369836; 
+ Mon, 08 Oct 2018 14:49:29 -0700 (PDT)
+Date: Mon,  8 Oct 2018 14:49:25 -0700
+Message-Id: <20181008214925.86281-1-kunyi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.19.0.605.g01d371f741-goog
+Subject: [PATCH] hwmon: (npcm-750-pwm-fan): Change initial pwm target to 255
+From: Kun Yi <kunyi@google.com>
+To: avifishman70@gmail.com, tmaimon77@gmail.com, jdelvare@suse.com, 
+ linux@roeck-us.net, openbmc@lists.ozlabs.org, linux-hwmon@vger.kernel.org
+Cc: rlippert@google.com, benjaminfair@google.com, Kun Yi <kunyi@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,119 +63,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Oct 2018 19:35:42 -0000
+X-List-Received-Date: Mon, 08 Oct 2018 21:49:40 -0000
 
---_000_C599FC839619124CAC44E062ABB7DFE2D700D9D3ORSMSX101amrcor_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Change initial PWM target to 255 to prevent overheating, for example
+when BMC hangs in userspace or when userspace fan control application is
+not implemented yet.
 
-Day 1  Tuesday, Oct 9th, 2018
-https://meet.intel.com/james.mihm/V544MVHT?sl=3D1
-Conference ID: 184797518
+Signed-off-by: Kun Yi <kunyi@google.com>
+---
+ drivers/hwmon/npcm750-pwm-fan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Day 2  Wednesday, Oct 10th, 2018
-https://meet.intel.com/james.mihm/8YF04YQ8?sl=3D1
-Conference ID: 179590952
-
-Day 3  Thursday, Oct 11th, 2018
-https://meet.intel.com/james.mihm/0DB715P8?sl=3D1
-Conference ID: 733483285
-
-Join by phone
-+1(916)356-2663 (or your local bridge access #) Choose bridge 5.<tel:+1(916=
-)356-2663%20(or%20your%20local%20bridge%20access%20#)%20Choose%20bridge%205=
-.> (Global)  English (United States)
-Find a local number<https://dial.intel.com>
-
-
-James Mihm
-Intel - Intel DCG BMC Core Firmware
-(503) 264-5129
-
-
-
-
---_000_C599FC839619124CAC44E062ABB7DFE2D700D9D3ORSMSX101amrcor_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from rtf -->
-<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
- #800000 2px solid; } --></style>
-</head>
-<body>
-<font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">
-<div>Day 1&nbsp; Tuesday, Oct 9<font size=3D"1"><span style=3D"font-size:7.=
-3pt;"><sup>th</sup></span></font>, 2018</div>
-<div style=3D"margin-top:3pt;margin-bottom:12pt;"><a href=3D"https://meet.i=
-ntel.com/james.mihm/V544MVHT?sl=3D1"><font size=3D"2" color=3D"#0563C1"><sp=
-an style=3D"font-size:10pt;"><u>https://meet.intel.com/james.mihm/V544MVHT?=
-sl=3D1</u></span></font></a><br>
-
-<font size=3D"2"><span style=3D"font-size:10pt;">Conference ID: 184797518</=
-span></font></div>
-<div><font color=3D"#404040">&nbsp;</font></div>
-<div>Day 2&nbsp; Wednesday, Oct 10<font size=3D"1"><span style=3D"font-size=
-:7.3pt;"><sup>th</sup></span></font>, 2018</div>
-<div style=3D"margin-top:3pt;margin-bottom:12pt;"><a href=3D"https://meet.i=
-ntel.com/james.mihm/8YF04YQ8?sl=3D1"><font size=3D"2" color=3D"#0563C1"><sp=
-an style=3D"font-size:10pt;"><u>https://meet.intel.com/james.mihm/8YF04YQ8?=
-sl=3D1</u></span></font></a><font size=3D"2"><span style=3D"font-size:10pt;=
-"><u>
-<br>
-
-</u></span></font><font size=3D"2"><span style=3D"font-size:10pt;">Conferen=
-ce ID: 179590952</span></font></div>
-<div><font color=3D"#404040">&nbsp;</font></div>
-<div>Day 3&nbsp; Thursday, Oct 11<font size=3D"1"><span style=3D"font-size:=
-7.3pt;"><sup>th</sup></span></font>, 2018</div>
-<div style=3D"margin-top:3pt;margin-bottom:12pt;"><a href=3D"https://meet.i=
-ntel.com/james.mihm/0DB715P8?sl=3D1"><font size=3D"2" color=3D"#0563C1"><sp=
-an style=3D"font-size:10pt;"><u>https://meet.intel.com/james.mihm/0DB715P8?=
-sl=3D1</u></span></font></a><font size=3D"2"><span style=3D"font-size:10pt;=
-"><u>
-<br>
-
-</u></span></font><font size=3D"2"><span style=3D"font-size:10pt;">Conferen=
-ce ID: </span></font><font size=3D"2"><span style=3D"font-size:10pt;">73348=
-3285</span></font></div>
-<div><font color=3D"#404040">&nbsp;</font></div>
-<div><font size=3D"3"><span style=3D"font-size:13pt;">Join by phone</span><=
-/font></div>
-<div style=3D"margin-bottom:2pt;"><a href=3D"tel:&#43;1(916)356-2663 (or yo=
-ur local bridge access #) Choose bridge 5."><font size=3D"2" color=3D"#0066=
-CC"><span style=3D"font-size:10pt;"><u>&#43;1(916)356-2663 (or your local b=
-ridge access #) Choose bridge 5.</u></span></font></a><font size=3D"2"><spa=
-n style=3D"font-size:10pt;">
-(Global) </span></font><font size=3D"2"><span style=3D"font-size:10pt;"> </=
-span></font><font size=3D"2"><span style=3D"font-size:10pt;">English (Unite=
-d States) </span></font></div>
-<div style=3D"margin-bottom:2pt;"><a href=3D"https://dial.intel.com"><font =
-size=3D"2" color=3D"#0066CC"><span style=3D"font-size:10pt;"><u>Find a loca=
-l number</u></span></font></a> </div>
-<div style=3D"margin-bottom:2pt;">&nbsp;</div>
-<div>&nbsp;</div>
-<div><font face=3D"Comic Sans MS" size=3D"2" color=3D"navy"><span style=3D"=
-font-size:10pt;">James Mihm<font face=3D"Arial" size=3D"2" color=3D"black">=
-<span style=3D"font-size:11pt;">
-<br>
-
-</span></font><font size=3D"2"><span style=3D"font-size:11pt;">Intel - </sp=
-an></font>Intel <font size=3D"2"><span style=3D"font-size:11pt;">DCG BMC Co=
-re Firmware<br>
-
-</span></font>(503) 264-5129<font face=3D"Calibri" size=3D"2" color=3D"blac=
-k"><span style=3D"font-size:11pt;"> </span></font></span></font></div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-</span></font>
-</body>
-</html>
-
---_000_C599FC839619124CAC44E062ABB7DFE2D700D9D3ORSMSX101amrcor_--
+diff --git a/drivers/hwmon/npcm750-pwm-fan.c b/drivers/hwmon/npcm750-pwm-fan.c
+index 96634fd54e0b..c0fab54c0094 100644
+--- a/drivers/hwmon/npcm750-pwm-fan.c
++++ b/drivers/hwmon/npcm750-pwm-fan.c
+@@ -52,7 +52,7 @@
+ 
+ /* Define the Counter Register, value = 100 for match 100% */
+ #define NPCM7XX_PWM_COUNTER_DEFAULT_NUM		255
+-#define NPCM7XX_PWM_CMR_DEFAULT_NUM		127
++#define NPCM7XX_PWM_CMR_DEFAULT_NUM		255
+ #define NPCM7XX_PWM_CMR_MAX			255
+ 
+ /* default all PWM channels PRESCALE2 = 1 */
+-- 
+2.19.0.605.g01d371f741-goog
