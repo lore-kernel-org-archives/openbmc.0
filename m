@@ -1,53 +1,66 @@
-Return-Path: <wak@google.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::12e; helo=mail-lf1-x12e.google.com;
- envelope-from=wak@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="qYVCTgvq"; 
- dkim-atps=neutral
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="wqq5cJDQ"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="mqP8ote2"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42TcM21B8tzF3BS
- for <openbmc@lists.ozlabs.org>; Tue,  9 Oct 2018 10:41:16 +1100 (AEDT)
-Received: by mail-lf1-x12e.google.com with SMTP id y10-v6so15148018lfj.1
- for <openbmc@lists.ozlabs.org>; Mon, 08 Oct 2018 16:41:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=DvA1dIgO/iLI7HzEuWbot8G7+MsbAiz1Cj7F10zf5DU=;
- b=qYVCTgvqfT7HEMwsbEHXea9RaY6ZXasnH9SZNwkHhMkhlxQOnBX1LFANcD/owUJFRG
- o/v1sE6faLQM8M8A2k2vxGaQ0Sc3P+EU/qxeUAAZoHvPKkMVTqA6Y5mfkfzFqKnsu9mV
- 2l3oW0PRdnyW9L06wMDtum0lMsBneQWds0ftjsgrwg1pXDgVOxJIzll3iRZv9216s8Zn
- xkErDxA6CGEnpQ0ptmXkVS+QqnyxBpcCjP0SFJ6uEErZ2symJg0aBO0YGe1muSd7BBh+
- zbsgpf/pP5YtSG/GvZCNqkocN8bVpxrklJ7ZCnWkvj0VWCvtEN3ZGkF6a9JXjwcUaZOf
- jxRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=DvA1dIgO/iLI7HzEuWbot8G7+MsbAiz1Cj7F10zf5DU=;
- b=YQ8y/xm3NZh1rknO5nH+/xAcGqwp8ODGjrM4c2txqdmY5E9BpblIMrXypJf4ymLNg2
- cg8Busoa3jaWWIwMmoeGxgb+/sLnAySJbGaYoSluwgbE74+9X6V2dvOJyH1LeOkm1QsV
- YItOc8rjti6B1OJB7GOTVkSNbTEffAKcYJGaP+x9Ecvfg1IO11etJoWn9EamB3TvMZcq
- 3pcidmTuqMXCwvemeTORXU0sFH8effjRT6nbH/cFGy/4usNjUg2MowpKj/dYMLlb40/t
- REfPJpQXgjEs7zcyeEp7vgUNvShQLOxHOGhjcgDmu+NF0T0st6r9QfbUDQObNk0GtP/m
- BW2Q==
-X-Gm-Message-State: ABuFfoibiOyMdMATl7s9HeNxFFUHLydFIR0hmmkkQA48k1Ue9cfKhIC4
- zjgkNmaNAi+Uh2Xh7m5jQMACEkTg28eSXhNI3cMofXkCUzw=
-X-Google-Smtp-Source: ACcGV63VZfN8NYS4ld6iZQN8kbdSndiXn67K60SFGRD8p35ctCK6sMlurbPZiaxEyUHMh7upxf9MSFF9iOlKoAW0WZg=
-X-Received: by 2002:a19:5a8f:: with SMTP id
- y15-v6mr13340802lfk.15.1539042072130; 
- Mon, 08 Oct 2018 16:41:12 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Tk4Q3LNzzF3FZ
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Oct 2018 14:59:01 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id E9B1821C76;
+ Mon,  8 Oct 2018 23:58:55 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Mon, 08 Oct 2018 23:58:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding; s=fm1; bh=ftQltx70yJ/DT
+ jOY7RVtZyySOLca6zFJcOXdF1KijlI=; b=wqq5cJDQG0BoAkVBzs+nlkUoRhWVL
+ GD5qfC89AGHe2o1FGjd0V01spqx9gyzbX9Esr2wSISpLVgM6HKdFmoiAi/nMjpf+
+ aRGxlAxMVzm9oYl1eTSJHogjviKohwzLTl7tzRGq54yLewgrL9iUtv6f+IpR48wR
+ j7hfmdxQLSUL/o39xZOm1tMF7LBULJ3U9a/g7AefVHCvccsoSi9uKlqAtZDMw8Sk
+ RrOHV0KfrmCOxPeePihLMNl2I98qr5vqTJAUoxVNuUCuUvaDidegm/136xSOW/nv
+ fX95Vok0QkoCKlYYgGqhRVUgebEOQ/ZBUu0nq2Hkd+ZX7b/HhVCLcJzfg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=ftQltx70yJ/DTjOY7
+ RVtZyySOLca6zFJcOXdF1KijlI=; b=mqP8ote22iN4Ff2bAAMzS4fl8sZD79iu/
+ dfoAvq0H/dveTCObH+gdBKZxbVdHTuw6dmeOSE6mrMR4Os7cxqQagLSObc3SjVRM
+ sNRFECwJ57dbisr2Mv+XvW9riUHi6vJ0Yc/+UbGaAjG/X+eor/ETj0H3PB0oae1C
+ 5fd3L+DD3aTNifxYdhGe3o2snRDtm2BZ8StFEfyUvbojHUbKmsY64pflt1gncecj
+ e2L+bwN/zwrwISD6vWxKEv3d4YCQD4Ewqw6xUlkVCHp8yaKfaS1fc10/xxbjyGy2
+ gMl9pCgqMyUbLEXRLT1t7Kf4fnb0gK52EBAQRC5wf1DRTO/5MVncA==
+X-ME-Sender: <xms:fie8W9dsBLEk02LxuvAZRKTG8RH60XJWmKDrP8zW8AaNGOecplk76Q>
+X-ME-Proxy: <xmx:fie8W8fJdfpQI7-1-fTQ_wpMdIA467koXsXAO5gWuS8oPqULdvKv6Q>
+ <xmx:fie8W8L8vTTk9ngmmHYXOgrjjtTJRZReW5hlkLHlbTxUVBeDAulDUg>
+ <xmx:fie8W1FomU6kZL83tcu5vQdsrrfq3CZtyDfKbDE6cezH9MlDv-5zNg>
+ <xmx:fie8W-obTlFcMAsOYYLFT79_NIptBoc-4xvCFE9qTzozlxXiTdGo6A>
+ <xmx:fie8W2TRok7ouK6Pa0herLN0xI0fdO5rJ70k0re4xQ-7InwATy0UzA>
+ <xmx:fye8WxN8wFHR9aCDRZnTLDuzC9MN601EjrJhv1z4fKlvBpMGvQrj-g>
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2322AE435E;
+ Mon,  8 Oct 2018 23:58:51 -0400 (EDT)
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: netdev@vger.kernel.org
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Justin.Lee1@Dell.com
+Subject: [RFC PATCH 1/2] net/ncsi: Don't enable all channels when HWA available
+Date: Tue,  9 Oct 2018 14:58:14 +1100
+Message-Id: <20181009035815.5246-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.19.0
 MIME-Version: 1.0
-From: William Kennington <wak@google.com>
-Date: Mon, 8 Oct 2018 16:41:00 -0700
-Message-ID: <CAPnigK=mBYZE8Jj2f8K0vBQ51V-AjBxxG224_YPTptDc7HPZEw@mail.gmail.com>
-Subject: sdbusplus: Migration from mapbox::variant to std::variant
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +72,130 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Oct 2018 23:41:19 -0000
+X-List-Received-Date: Tue, 09 Oct 2018 03:59:06 -0000
+X-List-Received-Date: Tue, 09 Oct 2018 03:59:06 -0000
 
-Now that openbmc c++ projects are moving to c++17, we can finally
-consider using std::variant in place of mapbox::variant. My goal with
-this transition is to eliminate breakage by performing the migration
-in a number of steps, working with all of the projects using
-sdbusplus. I'll post updates to the mailing list as we progress
-through the stages of this change, so out of tree users are aware of
-the changes.
+NCSI hardware arbitration allows multiple packages to be enabled at once
+and share the same wiring. If the NCSI driver recognises that HWA is
+available it unconditionally enables all packages and channels; but that
+is a configuration decision rather than something required by HWA.
+Additionally the current implementation will not failover on link events
+which can cause connectivity to be lost unless the interface is manually
+bounced.
 
-The outline is as follows:
-  - Convert all users who hardcoded references to mapbox::variant over
-to the sdbusplus::message::variant and sdbusplus::message::variant_ns.
-  - Modify the mapbox::variant inside of sdbusplus to provide
-interfaces which match
-  - Move all users of non-standard mapbox variant interfaces to the
-superset provided by our mapbox::variant and std::variant
-  - Redirect the sdbusplus::message:variant_ns namespace alias to std.
-This will roll all packages over to std::variant.
-  - Fix all references in our packages to use std instead of
-sdbusplus::message::variant_ns and sdbusplus::message::variant
-  - Remove sdbusplus::message::variant_ns and sdbusplus::message_variant
+Retain basic HWA support but remove the separate configuration path to
+enable all channels, leaving this to be handled by a later
+implementation.
 
-We are currently in the first step of removing all hardcoded uses of
-the mapbox::variant.
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+ net/ncsi/ncsi-aen.c    |  3 +--
+ net/ncsi/ncsi-manage.c | 51 +++++++-----------------------------------
+ 2 files changed, 9 insertions(+), 45 deletions(-)
 
-Best,
-William
+diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
+index 25e483e8278b..65f47a648be3 100644
+--- a/net/ncsi/ncsi-aen.c
++++ b/net/ncsi/ncsi-aen.c
+@@ -86,8 +86,7 @@ static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *ndp,
+ 	    !(state == NCSI_CHANNEL_ACTIVE && !(data & 0x1)))
+ 		return 0;
+ 
+-	if (!(ndp->flags & NCSI_DEV_HWA) &&
+-	    state == NCSI_CHANNEL_ACTIVE)
++	if (state == NCSI_CHANNEL_ACTIVE)
+ 		ndp->flags |= NCSI_DEV_RESHUFFLE;
+ 
+ 	ncsi_stop_channel_monitor(nc);
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 091284760d21..665bee25ec44 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -112,10 +112,8 @@ static void ncsi_channel_monitor(struct timer_list *t)
+ 	default:
+ 		netdev_err(ndp->ndev.dev, "NCSI Channel %d timed out!\n",
+ 			   nc->id);
+-		if (!(ndp->flags & NCSI_DEV_HWA)) {
+-			ncsi_report_link(ndp, true);
+-			ndp->flags |= NCSI_DEV_RESHUFFLE;
+-		}
++		ncsi_report_link(ndp, true);
++		ndp->flags |= NCSI_DEV_RESHUFFLE;
+ 
+ 		ncsi_stop_channel_monitor(nc);
+ 
+@@ -952,35 +950,6 @@ static bool ncsi_check_hwa(struct ncsi_dev_priv *ndp)
+ 	return false;
+ }
+ 
+-static int ncsi_enable_hwa(struct ncsi_dev_priv *ndp)
+-{
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	unsigned long flags;
+-
+-	/* Move all available channels to processing queue */
+-	spin_lock_irqsave(&ndp->lock, flags);
+-	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+-		NCSI_FOR_EACH_CHANNEL(np, nc) {
+-			WARN_ON_ONCE(nc->state != NCSI_CHANNEL_INACTIVE ||
+-				     !list_empty(&nc->link));
+-			ncsi_stop_channel_monitor(nc);
+-			list_add_tail_rcu(&nc->link, &ndp->channel_queue);
+-		}
+-	}
+-	spin_unlock_irqrestore(&ndp->lock, flags);
+-
+-	/* We can have no channels in extremely case */
+-	if (list_empty(&ndp->channel_queue)) {
+-		netdev_err(ndp->ndev.dev,
+-			   "NCSI: No available channels for HWA\n");
+-		ncsi_report_link(ndp, false);
+-		return -ENOENT;
+-	}
+-
+-	return ncsi_process_next_channel(ndp);
+-}
+-
+ static void ncsi_probe_channel(struct ncsi_dev_priv *ndp)
+ {
+ 	struct ncsi_dev *nd = &ndp->ndev;
+@@ -1047,6 +1016,10 @@ static void ncsi_probe_channel(struct ncsi_dev_priv *ndp)
+ 			ndp->active_package = list_next_entry(
+ 				ndp->active_package, node);
+ 
++		/* Check for HWA support */
++		if (ncsi_check_hwa(ndp))
++			netdev_info(ndp->ndev.dev, "NCSI: HWA available\n");
++
+ 		/* All available packages and channels are enumerated. The
+ 		 * enumeration happens for once when the NCSI interface is
+ 		 * started. So we need continue to start the interface after
+@@ -1058,10 +1031,7 @@ static void ncsi_probe_channel(struct ncsi_dev_priv *ndp)
+ 		 */
+ 		if (!ndp->active_package) {
+ 			ndp->flags |= NCSI_DEV_PROBED;
+-			if (ncsi_check_hwa(ndp))
+-				ncsi_enable_hwa(ndp);
+-			else
+-				ncsi_choose_active_channel(ndp);
++			ncsi_choose_active_channel(ndp);
+ 			return;
+ 		}
+ 
+@@ -1506,12 +1476,7 @@ int ncsi_start_dev(struct ncsi_dev *nd)
+ 		return 0;
+ 	}
+ 
+-	if (ndp->flags & NCSI_DEV_HWA) {
+-		netdev_info(ndp->ndev.dev, "NCSI: Enabling HWA mode\n");
+-		ret = ncsi_enable_hwa(ndp);
+-	} else {
+-		ret = ncsi_choose_active_channel(ndp);
+-	}
++	ret = ncsi_choose_active_channel(ndp);
+ 
+ 	return ret;
+ }
+-- 
+2.19.0
