@@ -1,69 +1,65 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::543; helo=mail-pg1-x543.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::429; helo=mail-pf1-x429.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOjfBykH"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="t7JjuFXC"; 
  dkim-atps=neutral
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42VFZh5G3XzF31W
- for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 11:38:36 +1100 (AEDT)
-Received: by mail-pg1-x543.google.com with SMTP id i4-v6so1630985pgq.9
- for <openbmc@lists.ozlabs.org>; Tue, 09 Oct 2018 17:38:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=1REk2Thtc35WCm2s8+CzJaxzmqAZYxprZzgzkYzfyHQ=;
- b=MOjfBykHj0F7FNxZwAaqH2CazfY+tW0/gy8v9CvrzfOR/n2yfe+oHVJwP07buo1SRm
- QbU1Ap3843tcXvZ1YRLRAr5LkJCxvhP+41cYmvLIRsg8mpWR4OwvvolliMExNSWXzGJM
- Xr6QQS3tR/v/vQKg55XoBv9byw0LlE1mlHkd5Ni5s4l57zJJDhgWFOY+wLQR94nadUH2
- hi+huxXfVLaeY1uud/Zaj1iz4d3fuLPdXD2UyW2Rz+MDZvaMhZ76F3+k9wym8YkRpRQO
- AfDKfR7ToytNBMOmk/D50HleRRCrSDdrvQ/yOEZKny6aaKAYeobRuJCLhbnw0k+T02TF
- p56w==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VHSs2xPBzF12d
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 13:03:40 +1100 (AEDT)
+Received: by mail-pf1-x429.google.com with SMTP id r64-v6so1779247pfb.13
+ for <openbmc@lists.ozlabs.org>; Tue, 09 Oct 2018 19:03:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=JSZpsKs5C8qNyoG/3MvkvOCC6gLILUdD3Q33EbL5nis=;
+ b=t7JjuFXC5sg7vLlm9DqiVzHd75A/E2vUixZC6IpF8znzS2B2BJcFWiEKOPpLhGpmP0
+ UwCeULUdZCqqa3j/QBJw2GUEPFFyUvULdKImv49EU5w/usWBRfEGmR2ZHhtBTihnX74r
+ gbKqDK3Q6lAnj1gs0m1CpuT47OnVsJsryH/R4erS0s0uYhUbRrRZw3n83sTAc+sfXbEL
+ uX2Dt0o9SW4vJ7s9UDsYNyWiEblvTYpQgWz7LbqCsDT8FxmJ5RO3wW2aDaGKO/1pTWY6
+ pnj16GT5bktrj2gyqwAF3QCAi4p0QP0KXo0VIu7z+sT4ey5vcAcNEP58iQJxle726BdN
+ lBUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=1REk2Thtc35WCm2s8+CzJaxzmqAZYxprZzgzkYzfyHQ=;
- b=hJJqAXIMvgXBtcof/khhtHXKt0qgwiQTNVHVyJukG/D1SEmWMR3UhwNi2HmSsowLlF
- n13wKmVmey0NOpjp1gi81JvNzVsfm+WL6nMy16oKw8Q0WDarjgWFRhe/R1y4Oc1KZDya
- UNqwHgcIRSOJ8YdDK9gr4x+cYQf7qjQqonvm7aGlTw6ab7SYnH+6owTJfZXdQqBvclBX
- 0bFox9cgpnk96rYq3wHVzB6sXSd5M4Zw1cXHyInBRBOq1B973eMH4UgTOmuyby8HX6po
- vq1qQfJ9ozHlM5ZznAsxhc3LZpL1G28/DFJaosPLHoPPU+5nM2U5kDu2riimsFblPN6O
- fi9g==
-X-Gm-Message-State: ABuFfogOBt4C8MlUCFCmTZVh4Y7sI+sui+Pl+rPdE8klR0CXG4QDwn6h
- CX1ryboiuLjUHQVSBBkFhdc=
-X-Google-Smtp-Source: ACcGV62qiqsxEz8jpu2GAp2M8ochfWFA4LK83NyfwqKLvQYtgbt7isRdPuK3U160cpYC9IssXDuL/A==
-X-Received: by 2002:a62:1d16:: with SMTP id
- d22-v6mr32840131pfd.159.1539131914374; 
- Tue, 09 Oct 2018 17:38:34 -0700 (PDT)
-Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
- [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id 189-v6sm33944376pfe.121.2018.10.09.17.38.33
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 09 Oct 2018 17:38:33 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 9 Oct 2018 17:38:32 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Kun Yi <kunyi@google.com>
-Cc: avifishman70@gmail.com, tmaimon77@gmail.com, jdelvare@suse.com,
- openbmc@lists.ozlabs.org, linux-hwmon@vger.kernel.org,
- rlippert@google.com, benjaminfair@google.com
-Subject: Re: [PATCH] hwmon: (npcm-750-pwm-fan): Change initial pwm target to
- 255
-Message-ID: <20181010003832.GA21971@roeck-us.net>
-References: <20181008214925.86281-1-kunyi@google.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=JSZpsKs5C8qNyoG/3MvkvOCC6gLILUdD3Q33EbL5nis=;
+ b=lHqGs5PCdON4JVYIhP6xgnwahbRD5cKbxeVkEmqacHNx+803cwSVtuZJKCdmj+iqVm
+ JaPSEXnTeqJyX6o9pwjaPWuxOGQeape/mn+oIKD/FO2VAbi0iH1hnlyNF/7gxVRi2uCT
+ Y412HBKhOeXWsVMtdIgwpkdtE60X21/e33HOFg3P5Vp1k6KGfJDerdpHHikPkY4T+yEM
+ GEoAfClfURYrKeLfEp5LnP5YhhI50S6ctm7W3zICHxPgkn3LeWS5hIrWBrBqXqi5sD+U
+ OEVX1V/rQyCBlDrrtkmuBTjxvrrWzwwc+7ivnx/qANrArpsT/oZL5kHKUnNyB4IcRLaB
+ YpNQ==
+X-Gm-Message-State: ABuFfoghxMdxrpzKMRlQengCq4PS+KVEmUBen4JyL4zUaysI4R0SljlY
+ tosIzEqdN5hET42liPqw7twb4FR0Kes/mjrqkld+xg==
+X-Google-Smtp-Source: ACcGV61aYsX8Gp1Jdkjkeq8Zd3LG2Onz9jHBFUPtUOCcHIslMw1krmlimKnzgpFT1BjZMyg5O5r+gVlpF3S0sE+IXYI=
+X-Received: by 2002:a62:c502:: with SMTP id
+ j2-v6mr33544657pfg.194.1539137018492; 
+ Tue, 09 Oct 2018 19:03:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181008214925.86281-1-kunyi@google.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+References: <CAO=notxnKj28mUG_GtN-7aBcQvdiO4RaTynGEe8Zc3awb31C5Q@mail.gmail.com>
+ <OFB2E13EB3.61719782-ON00258320.00188DA9-00258320.0018D968@notes.na.collabserv.com>
+ <CAO=notw=12OD1PRaOh1G7iWxgd-D_oU6FXy_Tyj5Gjnv2TFdww@mail.gmail.com>
+ <OF52FCD065.2F4D9B00-ON00258320.00521B13-00258320.00525C58@notes.na.collabserv.com>
+ <CAO=notyEVo_o+BazyRAvqBD6uW6QTj4azLBcOfutzuZ7=L8mPg@mail.gmail.com>
+ <CAO=notxBdVwRNTc2-tHQW_H+KTHBJTn64os9OnFRCeD2EQtJag@mail.gmail.com>
+ <OF8FA802D2.4C9B6633-ON00258321.00148559-00258321.0014855D@notes.na.collabserv.com>
+ <CAO=notydThsUDN+8Vw1KLGh1YmLnS-S9fzvMGr=sk3WwHsSV1Q@mail.gmail.com>
+ <OFA53F09B0.66FB304B-ON00258321.0063F01E-00258321.00640BBE@notes.na.collabserv.com>
+In-Reply-To: <OFA53F09B0.66FB304B-ON00258321.0063F01E-00258321.00640BBE@notes.na.collabserv.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 9 Oct 2018 19:03:23 -0700
+Message-ID: <CAO=notyRDG3LTsCUZtK-oBfV8VkXgFH4GySRTyih2xye6hb_WA@mail.gmail.com>
+Subject: Re: In-band IPMI Update over IPMI Blobs
+To: Sivas Srr <sivas.srr@in.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,34 +71,142 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Oct 2018 00:38:37 -0000
+X-List-Received-Date: Wed, 10 Oct 2018 02:03:42 -0000
 
-On Mon, Oct 08, 2018 at 02:49:25PM -0700, Kun Yi wrote:
-> Change initial PWM target to 255 to prevent overheating, for example
-> when BMC hangs in userspace or when userspace fan control application is
-> not implemented yet.
-> 
-> Signed-off-by: Kun Yi <kunyi@google.com>
+On Tue, Oct 9, 2018 at 11:12 AM Sivas Srr <sivas.srr@in.ibm.com> wrote:
+>
+> May be baselined document link can be populated in wiki for a given function, with both design doc / test plan doc.
+>
+> Or as mentioned by you (Patrick) in same document, we can have test details as well. All at one place.
 
-Makes sense to me, and in line with other drivers. Applied to hwmon-next.
+I should have it under review tomorrow.  I'm also going to try and
+finish out phosphor-ipmi-flash which is an upstreaming effort of how
+we currently handle in-band updates.  The version that uses blob, that
+design actually just routes the commands phosphor-ipmi-flash expects
+in its design through the blob protocol.
 
-Thanks,
-Guenter
-
-> ---
->  drivers/hwmon/npcm750-pwm-fan.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/npcm750-pwm-fan.c b/drivers/hwmon/npcm750-pwm-fan.c
-> index 96634fd54e0b..c0fab54c0094 100644
-> --- a/drivers/hwmon/npcm750-pwm-fan.c
-> +++ b/drivers/hwmon/npcm750-pwm-fan.c
-> @@ -52,7 +52,7 @@
->  
->  /* Define the Counter Register, value = 100 for match 100% */
->  #define NPCM7XX_PWM_COUNTER_DEFAULT_NUM		255
-> -#define NPCM7XX_PWM_CMR_DEFAULT_NUM		127
-> +#define NPCM7XX_PWM_CMR_DEFAULT_NUM		255
->  #define NPCM7XX_PWM_CMR_MAX			255
->  
->  /* default all PWM channels PRESCALE2 = 1 */
+>
+>
+> ----- Original message -----
+> From: Patrick Venture <venture@google.com>
+> To: Sivas Srr <sivas.srr@in.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> Cc:
+> Subject: Re: In-band IPMI Update over IPMI Blobs
+> Date: Tue, Oct 9, 2018 10:09 PM
+>
+> On Mon, Oct 8, 2018 at 8:44 PM Sivas Srr <sivas.srr@in.ibm.com> wrote:
+> >
+> > Our parent wiki, Patrick.
+> > https://github.com/openbmc/openbmc/wiki
+>
+> I don't see a mechanism for comment or review with wiki pages, so I
+> think it makes more sense to publish the design to openbmc/docs with
+> the testing details etc, as a review and gather comments.
+>
+> >
+> >
+> > ----- Original message -----
+> > From: Patrick Venture <venture@google.com>
+> > To: Sivas Srr <sivas.srr@in.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> > Cc:
+> > Subject: Re: In-band IPMI Update over IPMI Blobs
+> > Date: Tue, Oct 9, 2018 4:54 AM
+> >
+> > On Mon, Oct 8, 2018 at 4:23 PM Patrick Venture <venture@google.com> wrote:
+> > >
+> > > On Mon, Oct 8, 2018 at 7:59 AM Sivas Srr <sivas.srr@in.ibm.com> wrote:
+> > > >
+> > > > Yes Patrick, Would like to have Wiki for each function.
+> > > >
+> > > > And would like to see following in that:
+> > > >
+> > > >
+> > > > Use case scenarios
+> > > > Requirements
+> > > > Design
+> > > > Test Cases - Unit / Functional
+> > >
+> > > So which wiki should I use?
+> > >
+> > > >
+> > > >
+> > > >
+> > > >
+> > > >
+> > > > ----- Original message -----
+> > > > From: Patrick Venture <venture@google.com>
+> > > > To: Sivas Srr <sivas.srr@in.ibm.com>
+> > > > Cc:
+> > > > Subject: Re: In-band IPMI Update over IPMI Blobs
+> > > > Date: Mon, Oct 8, 2018 7:55 PM
+> > > >
+> > > > On Sun, Oct 7, 2018 at 9:31 PM Sivas Srr <sivas.srr@in.ibm.com> wrote:
+> > > > >
+> > > > > Nice Patrick, As discussed in test work group meeting,
+> > > > > Shall we have this feature with identified
+> > > > > Use case Scenarios -> Requirement -> Design -> Test cases
+> > > > >
+> > > > > Because code update is the feature which all end users will do at least once.
+> > > > > We can have a wiki as IPMI Inband code update and then populate design over there.
+> > > > > Once design is baselined, we can move it under presentations / document of github.
+> > > > >
+> > > > > Please let know your thoughts.
+> > > >
+> > > > I don't understand your email.  Are you saying there should be a wiki
+> > > > where the design lives while it's under review?  Or are the test cases
+> > > > going under the wiki?  And isn't it all under github?
+> > > >
+> > > > >
+> > > > >
+> > > > >
+> > > > > ----- Original message -----
+> > > > > From: Patrick Venture <venture@google.com>
+> > > > > Sent by: "openbmc" <openbmc-bounces+sivas.srr=in.ibm.com@lists.ozlabs.org>
+> > > > > To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> > > > > Cc:
+> > > > > Subject: In-band IPMI Update over IPMI Blobs
+> > > > > Date: Fri, Oct 5, 2018 8:16 PM
+> > > > >
+> > > > > For those who have been watching, we have been upstreaming how we
+> > > > > currently handle in-band updates over IPMI/LPC/PCI to
+> > > > > phosphor-ipmi-flash.  However, recently we also upstreamed a generic
+> > > > > blob interface, phosphor-ipmi-blobs.  Until
+> > > > > https://gerrit.openbmc-project.xyz/13620 it wasn't a suitable
+> > > > > mechanism for the firmware update due to an inability to do a clean
+> > > > > method mapping between the protocols.
+> > > > >
+> > > > > I've written up a proposal (downstream for now) to port the
+> > > > > phosphor-ipmi-flash implementation into a blob handler that just goes
+> > > > > through phosphor-ipmi-blobs.  The thinking is to have more things
+> > > > > leverage the generic blob handler instead of having a fully separate
+> > > > > OEM IPMI command set for everything (although phosphor-ipmi-flash goes
+> > > > > over the Firmware Netfn).
+> > > > >
+> > > > > It's now a pretty trivial transformation, and once the design has some
+> > > > > age downstream (1-2 days :D), then I'm going to send it here for
+> > > > > review.
+> > > > >
+> > > > > Unless there are obvious objections.
+> > > > >
+> > > > > And as food for thought, other Blob protocol use-cases in the works:
+> > > > > - mechanism for downloading core dumps and crash logs over IPMI (no
+> > > > > network access)
+> > > > > - mechanism for sending commands down for special hardware
+> > > > > - mechanism for reading back configuration files for whitelisted debug
+> > > > > - mechanism for randomly creating large files such that the flash
+> > > > > fills up and the system never boots again.
+> > > > >
+> > > > > Patrick
+> > > > >
+> > > > >
+> > > > >
+> > > >
+> > > >
+> > > >
+> > +OpenBMC Maillist
+> >
+> >
+> >
+>
+>
+>
