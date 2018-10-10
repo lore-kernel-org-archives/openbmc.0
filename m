@@ -1,56 +1,56 @@
 Return-Path: <brendanhiggins@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::242; helo=mail-oi1-x242.google.com;
+ (client-ip=2607:f8b0:4864:20::243; helo=mail-oi1-x243.google.com;
  envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="QQJT4una"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="UNW0McLY"; 
  dkim-atps=neutral
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
+Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com
+ [IPv6:2607:f8b0:4864:20::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42VDkV6KtxzF2ZM
- for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 11:00:17 +1100 (AEDT)
-Received: by mail-oi1-x242.google.com with SMTP id j68-v6so2688267oib.7
- for <openbmc@lists.ozlabs.org>; Tue, 09 Oct 2018 17:00:17 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VDlL6bXQzF33P
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 11:01:02 +1100 (AEDT)
+Received: by mail-oi1-x243.google.com with SMTP id y81-v6so2691880oia.6
+ for <openbmc@lists.ozlabs.org>; Tue, 09 Oct 2018 17:01:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=t8QAeh9Tz7X3Mwvi8glm9eUiZ24FrTdrg5t4W7wx+fw=;
- b=QQJT4unaeZYRy2N6c8aiXWtrryXmnLl97l1a2f4HdE4icht+7i95pzKskfEwwUAYJu
- AaJvykhR66lNfYlFMtqi1um8V1ihZb3hbvPbH4glr2fV98gSox6YyXMfomJutJ5z7lNL
- JKfC3U2XmAO3mT/fPP5dGa1uTGByeqEWDLYEAMuQgBN5gWRe1J0LRIn3ELVbxXcB4htv
- j33DObeiMpk1ZfSldmvMH5fHSjWq625Omhsidd8CC+wE4TXcXxk9oVLMeDhdfLAm9ig3
- 8v9zv7AITsj784eyqa6f9baaNErrW6RGfBeIYRg2GrGSrmwR7y6TsMIzs7L/eBxJkmNm
- Hxag==
+ :cc; bh=Dr3MCIZcCjv3CY16P9EiWNozavFHMEL8iQUPcmK8Ygo=;
+ b=UNW0McLYKKbf2Z2SlT1QjXSH6hfaCy8CSVad8lO0uV9fJNNZ5mPBjeggwPDEto8DDa
+ L0NSI8rZWndQts9IGV0I2EW8bRcDPHV0gf4x+6lDpHVKBO7dSVOSHBZ4B+hsyIXmkmlO
+ O7kqS9twCMDFMCHkVwD+z6ZTGloqhfiQJSXXoa+LKg2JQVSAuUcsM0miPk1gyTQSdIwx
+ 6aLuho8Zz0CAjeKfIvWH8oekzlu7qfHN0HTzoIxAgDwRzE1IlvdnVhb5znmBFcjn7iho
+ EIPXOiltBGF/jaLGAf4bRfsf4rNZhUAAIPf6mrhjApgW3Dj8deeakMj6TnxlrVK3eIbi
+ kVCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=t8QAeh9Tz7X3Mwvi8glm9eUiZ24FrTdrg5t4W7wx+fw=;
- b=e/XVJEAkR+cVY7LPPnNxdKCJ3B4734r75qN6Tn25rsvYklpotbSxAyBIwzo9M0tEhP
- bfy5jevB/6BT/ixxb0/Bda+EEO+wR4972zDUnyP45g91uUXYHa5YIII+GSYMwxfBU0vn
- 9ZlirYJ3uSCygTzvpzPnEckzZcmLoVPPS40i6jX3oxeyNcbOyfi+RTT45LvV9J1g6Ubr
- NrBUOUyy6+hx8BrE2Hk5mkPZqfyzbk0q6dW4cRbDPfwOOzbpma5/HnzEs3QOMI2oVLbv
- GBFa/kFBFGicGPzh/jNEiyOJY2RqIbneC6XLzkVBgaGmqUzrLnl4eDbqcJR1k/ru5JxT
- WH0w==
-X-Gm-Message-State: ABuFfojL6XY83yr6aLmit6j7gFgI0eFfBniiAbhxWJ6ht6iYvDfPaHsr
- PBxpM4O3X0tk1Hg+QeZcU1clG1AB95lor+qIg9Sqig==
-X-Google-Smtp-Source: ACcGV60bhqcIhUrmrmCYiVSWn8TMRR/7G0eXm1/RDapvbFAHKIKor6c0KCEz/LeUI8vsIJ+E6momboG/0iZoqL4cMB0=
-X-Received: by 2002:aca:ebcd:: with SMTP id
- j196-v6mr330640oih.206.1539129614533; 
- Tue, 09 Oct 2018 17:00:14 -0700 (PDT)
+ bh=Dr3MCIZcCjv3CY16P9EiWNozavFHMEL8iQUPcmK8Ygo=;
+ b=jIY671apI5fl7ujEslz2b7sqm2P475pOwNhdhyow4RlCLlZDTRrRiHbrwgQYpkIpCl
+ j56NhKqsmeQhI/rO2Csk6jsuFdiouG3j7a0Pct76RSjYkO1sqkFXOmeFElF7/ufModas
+ Lx43tyOFoh8pyJj/s5Zf2cO0its+M8Qdny2ka5s7OREHKj2wTHNaIzjRUiBOOt28OH56
+ DyUTMlMYSyI/qcVH16gUOy+2NS2jocDjxVmMUmoGPe6bv0n99PuWUilCEZ8C6CsCu0UG
+ 6CCQQCqKMnQ99jTSLyqS6bNoISOYVOPzWXYjLOhI0MlsiOhkeEi/p1/CM+ZvGqltdEtS
+ sqsw==
+X-Gm-Message-State: ABuFfoj8DmUePS60oEUFHbzNcMjTM7yU41uwUjHyA3L4u+K2PL/Az4vS
+ iLslli07bRujlxkKwvvxKA4P6Cz+85vP/GIzUN68Pw==
+X-Google-Smtp-Source: ACcGV63RsgmxvySqgp3p8wuDA84Ea0y67W6dIzEQCFN3wqSny5tgfjLo4YtVt/2fKTXaUKh6+sRg1kcBfG/Mj0OKnho=
+X-Received: by 2002:aca:a9c2:: with SMTP id
+ s185-v6mr339287oie.137.1539129660067; 
+ Tue, 09 Oct 2018 17:01:00 -0700 (PDT)
 MIME-Version: 1.0
 References: <20181005214507.26315-1-jae.hyun.yoo@linux.intel.com>
- <20181005214507.26315-4-jae.hyun.yoo@linux.intel.com>
-In-Reply-To: <20181005214507.26315-4-jae.hyun.yoo@linux.intel.com>
+ <20181005214507.26315-5-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20181005214507.26315-5-jae.hyun.yoo@linux.intel.com>
 From: Brendan Higgins <brendanhiggins@google.com>
-Date: Tue, 9 Oct 2018 17:00:03 -0700
-Message-ID: <CAFd5g44WcAE5oJCmRQKsRmbrfYPx55kdaT6xW1hzCoYAR5YQNg@mail.gmail.com>
-Subject: Re: [PATCH i2c-next v7 3/5] dt-bindings: i2c: aspeed: Add
- 'bus-timeout-ms' property as an optional property
+Date: Tue, 9 Oct 2018 17:00:48 -0700
+Message-ID: <CAFd5g44vi55oMkif1K+hx=O_J0_jqeQunRNiDARF0=qJ=54jiw@mail.gmail.com>
+Subject: Re: [PATCH i2c-next v7 4/5] i2c: aspeed: Remove hard-coded bus
+ timeout value setting
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Cc: Wolfram Sang <wsa@the-dreams.de>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
@@ -75,19 +75,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Oct 2018 00:00:19 -0000
+X-List-Received-Date: Wed, 10 Oct 2018 00:01:03 -0000
 
 On Fri, Oct 5, 2018 at 2:45 PM Jae Hyun Yoo
 <jae.hyun.yoo@linux.intel.com> wrote:
 >
-> This commit adds 'bus-timeout-ms' property as an optional property
-> which can be used for setting the bus timeout value of an adapter.
-> With this patch, the bus timeout value can be set through this
-> property at the probing time of this module. Still the bus timeout
-> value can be set by an I2C_TIMEOUT ioctl on cdev at runtime too.
+> This commit removes hard-coded bus timeout value setting so that
+> it can be set by i2c-core-base.
 >
 > Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
-
-Thanks for putting all the work in to do it this way!
