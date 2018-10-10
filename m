@@ -1,69 +1,62 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::332; helo=mail-ot1-x332.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::543; helo=mail-pg1-x543.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="TaY3cD+S"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="JFHqka0+"; 
  dkim-atps=neutral
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Vcg510KczF1Pw
- for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 01:58:41 +1100 (AEDT)
-Received: by mail-ot1-x332.google.com with SMTP id l58so5646703otd.6
- for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 07:58:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=pNLVOg2Y8a/DoCFpOWKMtXObg/whYqP1cqe9/rQdwxg=;
- b=TaY3cD+SoJoRPOQ4PrgUkXa6RG30tP5L66dPvntMMM+G7mDoBQCChc2T9QAyBfKzQc
- +aKmYpBWD9auZHU8SSypdGk1+x/bh98kGLiMKX5rRdhHdtjbsI1iqGngqqpFKaJvTnyr
- SBlsI+K0jeRbepedI593NLAwAPlzfA8pAsDa9c3QO8/rNjkRdxxQgTgKuMpWYHF/v7Qx
- 7XKmJ1WBcAoBl8YpvdxiUPd3qNfqaSKquRrrZN4XncjgiOb83AvWkEWkAjnQqlHUDYN+
- VtKu000AhumW3zfzX34b8D/mFhT68TwXfdhKpSZN7FGII6O8p9HYcAXjZjAZDFm94v7i
- FPCg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VdPQ5tpQzF1Hp
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 02:31:54 +1100 (AEDT)
+Received: by mail-pg1-x543.google.com with SMTP id r9-v6so2692582pgv.6
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 08:31:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=DigXPZ0NeFGSNL96mYa+zZ0hmWMjXiv1pQOWcyQzG2I=;
+ b=JFHqka0+t0R7sd3izfPgPJ8L7O8MbY/8Ds/TVxwa5XCIfWejqgUhdQBQK8Ah17CpT5
+ UhPHPpkG2hEnzzB4ujf4ULz8pxnoyJdpeA4gXKoRVYCXPfxhzCugEC+asleaWlFu+K01
+ RDqYBrJiHktd0xG/xfXa85Fzu3QbsQtHVIWv6dGpODEKcaFPw8hvmuuPhZcPXQIZw28K
+ xVqzI+KLv3mEBFNGONOQi6W9Klwzzp/0iEcQWWF6ZJxIw6AdV+CBwdN8R+nbtaJTTXU0
+ 9ti8P/AgkoGofSZWtBBG7Ru7ugFb4sJmw9K66+hES7birXuYqt33yfgj7COtjl3UbMZv
+ 1zHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=pNLVOg2Y8a/DoCFpOWKMtXObg/whYqP1cqe9/rQdwxg=;
- b=kV64MRyh1jwjzf8nOqsahJGYzdm8Tp9EnRc9K/0R0ujTAu537U2hjG1pt9suoMpeO7
- vNyPEgv9h+EyaFPV3GFE922anUh9C1bVEijOCCphU5nYn09eLCYA7Gfip3Ao15sgNoAB
- PQgU2jhbJMC3pG+qALJCxClh5zju4EsAVkNM2q5Nhngn+ZIUX40UcIdT+aXoaWDS1h7p
- HrHVdXIvnxZQOh/6axs8khhxwJ8j+gtTQi/mqwt0uoTA8SGvVsVlpLVVO0EcRQaL8DwO
- k38vprvqfJIYAm/2hw8Xfgk74qU5JPypsxFeGq/juB3qGMKk8hauW+w00XOfwXYkpS5Z
- zqfQ==
-X-Gm-Message-State: ABuFfoiEAumwV100MYHVv5KxSfhYktVFsCP/tDRd0lRQj61vxv/6qBLv
- O3dHUOHjYKa1F1WJrWVWgS6c6l7r
-X-Google-Smtp-Source: ACcGV63hR5+wcjVRKUItAKmURomD3NsrtSiE5lbA9KhJruVxFYaWqHnEjvpDYZrmh3NSTssAzZAOWA==
-X-Received: by 2002:a9d:4d0a:: with SMTP id n10mr18918037otf.95.1539183518596; 
- Wed, 10 Oct 2018 07:58:38 -0700 (PDT)
-Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
- [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id s83-v6sm2227041oia.9.2018.10.10.07.58.37
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 10 Oct 2018 07:58:38 -0700 (PDT)
-Subject: Re: Community Code of Conduct
-To: openbmc@lists.ozlabs.org
-References: <CAJoAoZn3CSHRrtTi3r-B3aWn6t1CH3W3SLk_b_BJ3wiPsWrQvg@mail.gmail.com>
- <CA+YB3rb76TCnpLh3nXqcVtzGu0BUVWboWY87cNqgewm3ib=nFg@mail.gmail.com>
- <CAJoAoZ=fspkuFtZgyErrF6JjD2oR=uau3=gVb4ipugNQ2Qv2Kg@mail.gmail.com>
-From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <481b4ab3-8ecb-769c-5d23-25242ad394e5@gmail.com>
-Date: Wed, 10 Oct 2018 09:58:37 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DigXPZ0NeFGSNL96mYa+zZ0hmWMjXiv1pQOWcyQzG2I=;
+ b=Ywc9KDWC6eaMUa26Ys1Byx9kChbCYsZ/zvDrKnPDdmMSZcMfe1JUZexXobKiTLACyv
+ p/eEkmZmr2KW34wcpPZIZmqIfCmM20yV+RILYjDY2eKr2EUwz80upZa79t36zUTSIJO6
+ D4dg55BBDQTnPd0eIzOo9dO1kZVwpdDZRBCqRLBKF/pFj6pH1EH16ORcnAivvIV3V+Hq
+ 8FpK32NWC9hdBd10xZTV6g6HI98AH82gWvuWqzQJS6IgZtI/O5Za0Izun7+uEYdquER1
+ CLapU92o41PJOCx1RmYImzdNcOT7XamSHqjg81vKQxJfGuo7nMHjesI+ugLvV6z5grUB
+ 33jA==
+X-Gm-Message-State: ABuFfoiMuiZi4PYYTrVxhbRglYBa6Pe3QHrYacpfMg9jmXo536rcj4sY
+ SkgJ5df7uVlkVEpIsFzi8FWiumgAbRlFaIo4HiwSIg==
+X-Google-Smtp-Source: ACcGV60qeRhSoaTYiK4ETeGpT51aVUvILo65/HkcUPQW2HhoH/XsOfWkvtrfXwL81PdedEkWtEWhNYrdLw5Tla3JXIY=
+X-Received: by 2002:a62:18a:: with SMTP id
+ 132-v6mr35362221pfb.207.1539185512015; 
+ Wed, 10 Oct 2018 08:31:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAJoAoZ=fspkuFtZgyErrF6JjD2oR=uau3=gVb4ipugNQ2Qv2Kg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CAO=notxDmpv_j=XT_c5WLUa=aHb6vfVLms=-_J4v_VM2ue0k7A@mail.gmail.com>
+ <3147DF98-3720-4846-9728-881BF6F91218@intel.com>
+ <CAGMNF6V6eo3G8WSHdpcy5g9e56tYW_C7g_tBA0bRyfByJrTHiQ@mail.gmail.com>
+ <CACPK8XdS78mTtqqNUW_YbbwKYWbcpiaBnfU7AOe3QSMGr-ZkNQ@mail.gmail.com>
+In-Reply-To: <CACPK8XdS78mTtqqNUW_YbbwKYWbcpiaBnfU7AOe3QSMGr-ZkNQ@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 10 Oct 2018 08:31:40 -0700
+Message-ID: <CAO=notwqFd5fHraUvTMSjK=6Cws13qgCRyf6=05_XTrsbdwSRA@mail.gmail.com>
+Subject: Re: Loss of several MB of run-time memory
+To: Joel Stanley <joel@jms.id.au>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, "Tanous,
+ Ed" <ed.tanous@intel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Kun Yi <kunyi@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,54 +68,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Oct 2018 14:58:42 -0000
+X-List-Received-Date: Wed, 10 Oct 2018 15:31:55 -0000
 
-On 10/9/18 1:53 PM, Emily Shaffer wrote:
-> Reading through this, I've got a couple concerns:
-> 
-> - There's a clause for enforcement. How do we want to assign ownership 
-> when enforcement is needed? We probably want to lay it out, I'm not sure 
-> that it should come through the TSC. Maybe Kurt would be a good start as 
-> the community manager? No offense to Kurt but I'd also like an 
-> escalation path or alternative path - with these kinds of things it's 
-> important to be able to bypass an individual if necessary.
+On Tue, Oct 9, 2018 at 3:25 PM Joel Stanley <joel@jms.id.au> wrote:
+>
+> On Wed, 10 Oct 2018 at 03:38, Kun Yi <kunyi@google.com> wrote:
+> >
+> > A somewhat tedious way to test would be to build and boot with 'bitbake core-image-minimal' to ensure no phosphor-daemons are loaded, and then compare the kernel memory footprint.
+> >
+> > On Tue, Oct 9, 2018 at 10:01 AM Tanous, Ed <ed.tanous@intel.com> wrote:
+> >>
+> >> Was this only the kernel version jump, or did you jump in openbmc/phosphor levels as well?  There have been quite a few daemons added in the last 6 months or so that could explain your memory footprint increase.
+>
+> HI team. Just a reminder about email etiquette on the mailing lists
+> that Brad posted a while back:
+>
+>  https://fedoraproject.org/wiki/Mailing_list_guidelines#Proper_posting_style
+>
+> In particular the top posting bit, which makes it hard to reply to this thread.
+>
+> Back to the issue at hand:
+>
+> >> > On Oct 9, 2018, at 9:54 AM, Patrick Venture <venture@google.com> wrote:
+> >> >
+> >> > Just jumped from 4.7 kernel to 4.18 running the latest openbmc image
+> >> > on the quanta-q71l board.  And I see now I have ~20MiB of RAM free for
+> >> > stuff once things are settled, whereas before I could have up to
+> >> > 35MiB.
+>
+> Are you able to boot the new kernel with the old userspace? This will
+> allow you to compare like for like (even if the system is not fully
+> functional in that state). Alternatively, boot it with a small
+> non-openbmc initrd to allow comparisons as Kun suggested.
 
-Re: Community Manager, I am already partially doing that in an 
-unofficial sense, but for an escalation path, I would highly recommend 
-first reaching out to the TSC. Any inappropriate activity or harassment 
-must be taken care of immediately and the community leadership would be 
-tasked to take care of that.
+I'm going to try building an older kernel with the newer userspace
+first (it's a slightly easier experiment).  I'll post back on this
+thread once I have a little more information.
 
-> 
-> - The clause on scope seems to me like it may leave a gap surrounding 
-> harassment of community members outside of the official OpenBMC setting 
-> - ie, Foo posts to their Twitter account, "I'm having a lot of trouble 
-> with Bar's code reviews. What an idiot! Tell them so - their email is 
-> bar@baz.org <mailto:bar@baz.org>!" I'm not sure I'm seeing how the 
-> contributor covenant protects against this kind of behavior. Maybe I'm 
-> just misreading and this counts as "prviate communication"?
-
-This would absolutely require that the person be put on notice. Maybe it 
-will help, but I have also never seen this behavior work for anyone 
-trying to harass anyone. It has always backfired on the person doing the 
-harassing in every case I can think of (I have been involved in a couple).
-
-> 
-> On Tue, Oct 9, 2018 at 11:31 AM Jeff Osier-Mixon <jefro.net@gmail.com 
-> <mailto:jefro.net@gmail.com>> wrote:
-> 
->     Hi folks
-> 
->     We strongly recommend the contributor covenant coc. Being adopted by
->     many projects.
-> 
->     https://www.contributor-covenant.org/version/1/4/code-of-conduct
-> 
->     Glad to discuss more
-
-As I said in my previous email, we already have a CoC under the LF 
-policies, but I am not opposed to adopting a new one. That said, do we 
-need to improve the existing one? Is there something missing? Has anyone 
-compared the two? Did I just sign up to do that?  :)
-
-Kurt Taylor (krtaylor)
+>
+> The kernel has grown a bunch of new drivers. Most of them should not
+> probe, and therefore won't allocate memory at run time, but there may
+> be some new ones.
+>
+> I've not spent much time looking at runtime memory usage, so if these
+> suggestions don't provide answers we might need to investigate a bit
+> deeper.
+>
+> >> > This matters for a few reasons:
+> >> > 1) my memory chip is too small to be practical and I need all the
+> >> > bytes I can get.
+> >> > 2) I need at least 32MiB to load a new firmware image.
+> >> >
+> >> > I dropped all the python except the mapper, and I dropped the newer
+> >> > daemons from my build to clear out that difference.  It was originally
+> >> > about 16MiB difference, so I was thinking that something is now being
+> >> > mapped by default that wasn't before, such as part of a flash image.
+>
+> I initially thought you were confusing RAM with flash size, but on a
+> second read I now understand.
+>
+> There has been recent work to create phosphor-tiny, is that relevant here Brad?
+>
+> Cheers,
+>
+> Joel
