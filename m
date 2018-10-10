@@ -1,113 +1,87 @@
-Return-Path: <prvs=3821f0b842=vijaykhemka@fb.com>
+Return-Path: <Justin.Lee1@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=3821f0b842=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.96; helo=esa7.dell-outbound.iphmx.com;
+ envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
+ dmarc=pass (p=none dis=none) header.from=Dell.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="KvY2MDLQ"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="immvYFsc"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ unprotected) header.d=dell.com header.i=@dell.com header.b="zdrxZsa1"; 
+ dkim-atps=neutral
+Received: from esa7.dell-outbound.iphmx.com (esa7.dell-outbound.iphmx.com
+ [68.232.153.96])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42VnNm3wRhzF13x;
- Thu, 11 Oct 2018 08:31:50 +1100 (AEDT)
-Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
- by mx0b-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w9ALQn6H018394; Wed, 10 Oct 2018 14:31:46 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=0GduiFnHQ22rqCBNvIl0NsPt1H865dmx0xMqepotiQo=;
- b=KvY2MDLQmMLLxyotyhHUtVqK7zure0FtuCgaUw6/ylUnLRN9810Dzn2wIY/NXsbkJ9L6
- Yff7j8n4TFIcvtjkd3IAiJVunGxGtus+lHm0CvwnCztkBebgwRetC/bBnylLo79QrJA0
- mI4oA28qK+vZh53WUEYi41EC4zBaL4MUz9Y= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0b-00082601.pphosted.com with ESMTP id 2n1nvkgy1c-4
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 10 Oct 2018 14:31:45 -0700
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.11) with Microsoft SMTP Server (TLS)
- id 14.3.361.1; Wed, 10 Oct 2018 14:30:50 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0GduiFnHQ22rqCBNvIl0NsPt1H865dmx0xMqepotiQo=;
- b=immvYFscNp9Z+6eqtZDPizJcx/nOQ54SWQoFQ7BADDKDq7Y0iVb4Pt8SWcP62/jrLvmb71zFaVV4szdV7hUGoQY1h70ynZUbHl835elkwkq3Iflmt+qklyGAXL9FVWUOFc2ZMbSUSUN1rp/j0cvAlwQL20u+UngDqFQWEnd5LuA=
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
- CY4PR15MB1367.namprd15.prod.outlook.com (10.172.159.23) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1228.24; Wed, 10 Oct 2018 21:30:48 +0000
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::2d43:ae9a:18c0:ac8b]) by CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::2d43:ae9a:18c0:ac8b%3]) with mapi id 15.20.1207.024; Wed, 10 Oct 2018
- 21:30:48 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: "Justin.Lee1@Dell.com" <Justin.Lee1@Dell.com>, "sam@mendozajonas.com"
- <sam@mendozajonas.com>, "joel@jms.id.au" <joel@jms.id.au>
-CC: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Amithash Prasad <amithash@fb.com>, "christian@cmd.nu" <christian@cmd.nu>
-Subject: Re: [PATCH net-next v5] net/ncsi: Extend NC-SI Netlink interface to
- allow user space to send NC-SI command
-Thread-Topic: [PATCH net-next v5] net/ncsi: Extend NC-SI Netlink interface to
- allow user space to send NC-SI command
-Thread-Index: AdRgwpcklsOmnJfcTI6m5yXrIVY+2///xnyA
-Date: Wed, 10 Oct 2018 21:30:48 +0000
-Message-ID: <7F21C163-21CD-4088-B32B-DACA9D46568D@fb.com>
-References: <245b32d9a3dd463f9334b9704b639ec4@AUSX13MPS302.AMER.DELL.COM>
-In-Reply-To: <245b32d9a3dd463f9334b9704b639ec4@AUSX13MPS302.AMER.DELL.COM>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VpqF1SKvzF14X
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 09:36:23 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1539210965; x=1570746965;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=f7bpd4qQf46TH0iG07xKmx1W/h0b93/3bC/FyJxQKiM=;
+ b=zdrxZsa1l1/1SGfvP3hr1CHD4x3VmMdX9oC3b+goA+gNdYBqx4Z0ZaX3
+ Gczz8uoEmT8r3shnFNTwE9Ao/zxXpm8xnoglOvnpZNigQL6ymYX8PtqtH
+ paegERMNtmD4lBVH/DgHHjwX+biZDCmvPrV2PTms9LqsWqgp+s/MoE5Y8 s=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2ERAADcfb5bhyWd50NjHAEBAQQBAQc?=
+ =?us-ascii?q?EAQGBUQcBAQsBg2goCowBX41jepYFFIFmCwEBhGwChFEhNA0NAQMBAQIBAQI?=
+ =?us-ascii?q?BAQIQAQEBFQkIKS+CNiKCYgEBAQECARIIDRM/BQsCAQg2EFcCBAENBQgagn8?=
+ =?us-ascii?q?BgXkIm2mJVwEBAYFoM4lgizuCF4ERAYJdNYRnhW8CgSgBnF0GAQKJZAEFhl8?=
+ =?us-ascii?q?fkAuVZQIEAgQFAhSBQjeBV3BQgR6BToImDgkRjgdvjEaBHwEB?=
+X-IPAS-Result: =?us-ascii?q?A2ERAADcfb5bhyWd50NjHAEBAQQBAQcEAQGBUQcBAQsBg?=
+ =?us-ascii?q?2goCowBX41jepYFFIFmCwEBhGwChFEhNA0NAQMBAQIBAQIBAQIQAQEBFQkIK?=
+ =?us-ascii?q?S+CNiKCYgEBAQECARIIDRM/BQsCAQg2EFcCBAENBQgagn8BgXkIm2mJVwEBA?=
+ =?us-ascii?q?YFoM4lgizuCF4ERAYJdNYRnhW8CgSgBnF0GAQKJZAEFhl8fkAuVZQIEAgQFA?=
+ =?us-ascii?q?hSBQjeBV3BQgR6BToImDgkRjgdvjEaBHwEB?=
+Received: from mx0b-00154901.pphosted.com ([67.231.157.37])
+ by esa7.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 10 Oct 2018 17:36:01 -0500
+Received: from pps.filterd (m0144104.ppops.net [127.0.0.1])
+ by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9AMWuKr062936
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 18:36:20 -0400
+Received: from esa5.dell-outbound2.iphmx.com (esa5.dell-outbound2.iphmx.com
+ [68.232.153.203])
+ by mx0b-00154901.pphosted.com with ESMTP id 2n1mprswnm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 18:36:20 -0400
+From: <Justin.Lee1@Dell.com>
+Received: from ausc60pc101.us.dell.com ([143.166.85.206])
+ by esa5.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
+ 11 Oct 2018 04:36:17 +0600
+X-LoopCount0: from 10.166.135.91
+X-IronPort-AV: E=Sophos;i="5.54,366,1534827600"; d="scan'208";a="1310437063"
+To: <sam@mendozajonas.com>, <netdev@vger.kernel.org>
+CC: <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>
+Subject: RE: [RFC PATCH 2/2] net/ncsi: Configure multi-package, multi-channel
+ modes with failover
+Thread-Topic: [RFC PATCH 2/2] net/ncsi: Configure multi-package, multi-channel
+ modes with failover
+Thread-Index: AQHUX4RyYJjtPwgbwE6mb3hPBRiDwKUXHQkQ
+Date: Wed, 10 Oct 2018 22:36:15 +0000
+Message-ID: <d97bb52a060a40cf8e03a49eb82a285f@AUSX13MPS302.AMER.DELL.COM>
+References: <20181009035815.5246-1-sam@mendozajonas.com>
+ <20181009035815.5246-2-sam@mendozajonas.com>
+In-Reply-To: <20181009035815.5246-2-sam@mendozajonas.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::7:dc84]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; CY4PR15MB1367;
- 20:m448n5AdETEyXQVljWh7gP6DRFYz4FQ3BXKxHMWemhce6O+PXKBjW7zrJHeeptY6EDOysVBE/rxdvP10j4wSyef5o8Om3xJ4+KCWUDSMbsX39tMfXeWECOqPZP0qwI1A/dWEgmocDeOB0SWzuZQMBu3dS/YpccrlecnbFpOrDU0=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
-x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
- SFS:(10019020)(396003)(136003)(39860400002)(376002)(346002)(366004)(189003)(199004)(486006)(14444005)(33656002)(53936002)(86362001)(82746002)(2616005)(76176011)(2201001)(6506007)(2501003)(446003)(11346002)(71200400001)(6486002)(102836004)(316002)(83716004)(71190400001)(5250100002)(5660300001)(99286004)(8936002)(8676002)(2900100001)(256004)(14454004)(105586002)(6512007)(476003)(97736004)(305945005)(36756003)(478600001)(81166006)(81156014)(46003)(6436002)(6116002)(186003)(2906002)(7736002)(68736007)(54906003)(106356001)(110136005)(4326008)(229853002)(25786009)(6246003)(21314002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1367;
- H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-x-ms-office365-filtering-correlation-id: 7cc700ed-6af7-4b11-cc9c-08d62ef7a522
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
- SRVR:CY4PR15MB1367; 
-x-ms-traffictypediagnostic: CY4PR15MB1367:
-x-microsoft-antispam-prvs: <CY4PR15MB1367086BA50EB6F964BF9E81DDE00@CY4PR15MB1367.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(56004941905204)(67672495146484);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(10201501046)(3231355)(11241501184)(944501410)(52105095)(3002001)(149066)(150057)(6041310)(20161123562045)(20161123564045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(201708071742011)(7699051);
- SRVR:CY4PR15MB1367; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1367; 
-x-forefront-prvs: 08213D42D3
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: Yk4ThXhaUKRevSvdrC0QsglsJ9EqC+HTyMjThqbLwh+0AqRblk6disNJBeUojpSNf+qVRBTh+qumE8z/6KgXWFBcsu9hU8GnQ8Puy+JMkTsmRRjbEdt69V2vwVt++M42Gh5cRRp+LEYHim6pCWVIp58Nv3jfA7giLUsMA6L99fSfcdacJvwzEf2+obF4cualGDEpy+f1DYyMsWavTmyD7JR4+5uHU21CVawU7jQNKeKzMXHw3PrasgqEJps+K47/D8Rt9U8xvVAOK/qhs+dzmvFMZAM1PfNKxuvrEiU09VumCIbXmLg7Inhy1b+2Q2SSDZFbHo1sPzdp/t1ynT/pMDvqvLjLN9aZ5l5ujNBOqgA=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <710C0FBFEFA8BD42B434266A4A1E9642@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.18.86]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cc700ed-6af7-4b11-cc9c-08d62ef7a522
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2018 21:30:48.1074 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1367
-X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-10_12:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+ definitions=2018-10-10_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810100209
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,27 +93,741 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Oct 2018 21:31:53 -0000
+X-List-Received-Date: Wed, 10 Oct 2018 22:36:26 -0000
 
-DQoNCu+7v09uIDEwLzEwLzE4LCAxMToxMiBBTSwgIkp1c3Rpbi5MZWUxQERlbGwuY29tIiA8SnVz
-dGluLkxlZTFARGVsbC5jb20+IHdyb3RlOg0KDQogICAgVGhlIG5ldyBjb21tYW5kIChOQ1NJX0NN
-RF9TRU5EX0NNRCkgaXMgYWRkZWQgdG8gYWxsb3cgdXNlciBzcGFjZSBhcHBsaWNhdGlvbg0KICAg
-IHRvIHNlbmQgTkMtU0kgY29tbWFuZCB0byB0aGUgbmV0d29yayBjYXJkLg0KICAgIEFsc28sIGFk
-ZCBhIG5ldyBhdHRyaWJ1dGUgKE5DU0lfQVRUUl9EQVRBKSBmb3IgdHJhbnNmZXJyaW5nIHJlcXVl
-c3QgYW5kIHJlc3BvbnNlLg0KICAgIA0KICAgIFRoZSB3b3JrIGZsb3cgaXMgYXMgYmVsb3cuIA0K
-ICAgIA0KICAgIFJlcXVlc3Q6DQogICAgVXNlciBzcGFjZSBhcHBsaWNhdGlvbg0KICAgIAktPiBO
-ZXRsaW5rIGludGVyZmFjZSAobXNnKQ0KICAgIAktPiBuZXcgTmV0bGluayBoYW5kbGVyIC0gbmNz
-aV9zZW5kX2NtZF9ubCgpDQogICAgCS0+IG5jc2lfeG1pdF9jbWQoKQ0KICAgIA0KICAgIFJlc3Bv
-bnNlOg0KICAgIFJlc3BvbnNlIHJlY2VpdmVkIC0gbmNzaV9yY3ZfcnNwKCkNCiAgICAJLT4gaW50
-ZXJuYWwgcmVzcG9uc2UgaGFuZGxlciAtIG5jc2lfcnNwX2hhbmRsZXJfeHh4KCkNCiAgICAJLT4g
-bmNzaV9yc3BfaGFuZGxlcl9uZXRsaW5rKCkNCiAgICAJLT4gbmNzaV9zZW5kX25ldGxpbmtfcnNw
-ICgpDQogICAgCS0+IE5ldGxpbmsgaW50ZXJmYWNlIChtc2cpDQogICAgCS0+IHVzZXIgc3BhY2Ug
-YXBwbGljYXRpb24NCiAgICANCiAgICBDb21tYW5kIHRpbWVvdXQgLSBuY3NpX3JlcXVlc3RfdGlt
-ZW91dCgpDQogICAgCS0+IG5jc2lfc2VuZF9uZXRsaW5rX3RpbWVvdXQgKCkNCiAgICAJLT4gTmV0
-bGluayBpbnRlcmZhY2UgKG1zZyB3aXRoIHplcm8gZGF0YSBsZW5ndGgpDQogICAgCS0+IHVzZXIg
-c3BhY2UgYXBwbGljYXRpb24NCiAgICANCiAgICBFcnJvcjoNCiAgICBFcnJvciBkZXRlY3RlZA0K
-ICAgIAktPiBuY3NpX3NlbmRfbmV0bGlua19lcnIgKCkNCiAgICAJLT4gTmV0bGluayBpbnRlcmZh
-Y2UgKGVyciBtc2cpDQogICAgCS0+IHVzZXIgc3BhY2UgYXBwbGljYXRpb24NCiAgICANCiAgICAN
-CiAgICBTaWduZWQtb2ZmLWJ5OiBKdXN0aW4gTGVlIDxqdXN0aW4ubGVlMUBkZWxsLmNvbT4gDQoN
-CiAgUmV2aWV3ZWQtYnkgOiBWaWpheSBLaGVta2EgPHZpamF5a2hlbWthQGZiLmNvbT4NCiAgDQoN
-Cg==
+Hi Samuel,
+
+I am still testing your change and have some comments below.
+
+Thanks,
+Justin
+
+
+> This patch extends the ncsi-netlink interface with two new commands and
+> three new attributes to configure multiple packages and/or channels at
+> once, and configure specific failover modes.
+>=20
+> NCSI_CMD_SET_PACKAGE mask and NCSI_CMD_SET_CHANNEL_MASK set a whitelist
+> of packages or channels allowed to be configured with the
+> NCSI_ATTR_PACKAGE_MASK and NCSI_ATTR_CHANNEL_MASK attributes
+> respectively. If one of these whitelists is set only packages or
+> channels matching the whitelist are considered for the channel queue in
+> ncsi_choose_active_channel().
+>=20
+> These commands may also use the NCSI_ATTR_MULTI_FLAG to signal that
+> multiple packages or channels may be configured simultaneously. NCSI
+> hardware arbitration (HWA) must be available in order to enable
+> multi-package mode. Multi-channel mode is always available.
+>=20
+> If the NCSI_ATTR_CHANNEL_ID attribute is present in the
+> NCSI_CMD_SET_CHANNEL_MASK command the it sets the preferred channel as
+> with the NCSI_CMD_SET_INTERFACE command. The combination of preferred
+> channel and channel whitelist defines a primary channel and the allowed
+> failover channels.
+> If the NCSI_ATTR_MULTI_FLAG attribute is also present then the preferred
+> channel is configured for Tx/Rx and the other channels are enabled only
+> for Rx.
+>=20
+> Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> ---
+>  include/uapi/linux/ncsi.h |  16 +++
+>  net/ncsi/internal.h       |  11 +-
+>  net/ncsi/ncsi-aen.c       |   2 +-
+>  net/ncsi/ncsi-manage.c    | 138 ++++++++++++++++--------
+>  net/ncsi/ncsi-netlink.c   | 217 +++++++++++++++++++++++++++++++++-----
+>  net/ncsi/ncsi-rsp.c       |   2 +-
+>  6 files changed, 312 insertions(+), 74 deletions(-)
+>=20
+> diff --git a/include/uapi/linux/ncsi.h b/include/uapi/linux/ncsi.h
+> index 4c292ecbb748..035fba1693f9 100644
+> --- a/include/uapi/linux/ncsi.h
+> +++ b/include/uapi/linux/ncsi.h
+> @@ -23,6 +23,13 @@
+>   *	optionally the preferred NCSI_ATTR_CHANNEL_ID.
+>   * @NCSI_CMD_CLEAR_INTERFACE: clear any preferred package/channel combin=
+ation.
+>   *	Requires NCSI_ATTR_IFINDEX.
+> + * @NCSI_CMD_SET_PACKAGE_MASK: set a whitelist of allowed packages.
+> + * @NCSI_CMD_SET_PACKAGE_MASK: set a whitelist of allowed channels.
+> + *	Requires NCSI_ATTR_IFINDEX and NCSI_ATTR_PACKAGE_MASK.
+> + * @NCSI_CMD_SET_PACKAGE_MASK: set a whitelist of allowed channels.
+> + *	Requires NCSI_ATTR_IFINDEX, NCSI_ATTR_PACKAGE_ID, and
+> + *	NCSI_ATTR_CHANNEL_MASK. If NCSI_ATTR_CHANNEL_ID is present it sets
+> + *	the primary channel.
+>   * @NCSI_CMD_MAX: highest command number
+>   */
+
+There are some typo in the description.
+* @NCSI_CMD_SET_PACKAGE_MASK: set a whitelist of allowed packages.
+ *	Requires NCSI_ATTR_IFINDEX and NCSI_ATTR_PACKAGE_MASK.
+ * @NCSI_CMD_SET_CHANNEL_MASK: set a whitelist of allowed channels.
+ *	Requires NCSI_ATTR_IFINDEX, NCSI_ATTR_PACKAGE_ID, and
+ *	NCSI_ATTR_CHANNEL_MASK. If NCSI_ATTR_CHANNEL_ID is present it sets
+ *	the primary channel.
+
+>  enum ncsi_nl_commands {
+> @@ -30,6 +37,8 @@ enum ncsi_nl_commands {
+>  	NCSI_CMD_PKG_INFO,
+>  	NCSI_CMD_SET_INTERFACE,
+>  	NCSI_CMD_CLEAR_INTERFACE,
+> +	NCSI_CMD_SET_PACKAGE_MASK,
+> +	NCSI_CMD_SET_CHANNEL_MASK,
+> =20
+>  	__NCSI_CMD_AFTER_LAST,
+>  	NCSI_CMD_MAX =3D __NCSI_CMD_AFTER_LAST - 1
+> @@ -43,6 +52,10 @@ enum ncsi_nl_commands {
+>   * @NCSI_ATTR_PACKAGE_LIST: nested array of NCSI_PKG_ATTR attributes
+>   * @NCSI_ATTR_PACKAGE_ID: package ID
+>   * @NCSI_ATTR_CHANNEL_ID: channel ID
+> + * @NCSI_ATTR_MULTI_FLAG: flag to signal that multi-mode should be enabl=
+ed with
+> + *	NCSI_CMD_SET_PACKAGE_MASK or NCSI_CMD_SET_CHANNEL_MASK.
+> + * @NCSI_ATTR_PACKAGE_MASK: 32-bit mask of allowed packages.
+> + * @NCSI_ATTR_CHANNEL_MASK: 32-bit mask of allowed channels.
+>   * @NCSI_ATTR_MAX: highest attribute number
+>   */
+>  enum ncsi_nl_attrs {
+> @@ -51,6 +64,9 @@ enum ncsi_nl_attrs {
+>  	NCSI_ATTR_PACKAGE_LIST,
+>  	NCSI_ATTR_PACKAGE_ID,
+>  	NCSI_ATTR_CHANNEL_ID,
+> +	NCSI_ATTR_MULTI_FLAG,
+> +	NCSI_ATTR_PACKAGE_MASK,
+> +	NCSI_ATTR_CHANNEL_MASK,
+
+Is there a case that we might set these two masks at the same time?
+If not, maybe we can just have one generic MASK attribute.
+
+> =20
+>  	__NCSI_ATTR_AFTER_LAST,
+>  	NCSI_ATTR_MAX =3D __NCSI_ATTR_AFTER_LAST - 1
+> diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+> index 3d0a33b874f5..8437474d0a78 100644
+> --- a/net/ncsi/internal.h
+> +++ b/net/ncsi/internal.h
+> @@ -213,6 +213,10 @@ struct ncsi_package {
+>  	unsigned int         channel_num; /* Number of channels     */
+>  	struct list_head     channels;    /* List of chanels        */
+>  	struct list_head     node;        /* Form list of packages  */
+> +
+> +	bool                 multi_channel; /* Enable multiple channels  */
+> +	u32                  channel_whitelist; /* Channels to configure */
+> +	struct ncsi_channel  *preferred_channel; /* Primary channel      */
+>  };
+> =20
+>  struct ncsi_request {
+> @@ -280,8 +284,6 @@ struct ncsi_dev_priv {
+>  	unsigned int        package_num;     /* Number of packages         */
+>  	struct list_head    packages;        /* List of packages           */
+>  	struct ncsi_channel *hot_channel;    /* Channel was ever active    */
+> -	struct ncsi_package *force_package;  /* Force a specific package   */
+> -	struct ncsi_channel *force_channel;  /* Force a specific channel   */
+>  	struct ncsi_request requests[256];   /* Request table              */
+>  	unsigned int        request_id;      /* Last used request ID       */
+>  #define NCSI_REQ_START_IDX	1
+> @@ -294,6 +296,9 @@ struct ncsi_dev_priv {
+>  	struct list_head    node;            /* Form NCSI device list      */
+>  #define NCSI_MAX_VLAN_VIDS	15
+>  	struct list_head    vlan_vids;       /* List of active VLAN IDs */
+> +
+> +	bool                multi_package;   /* Enable multiple packages   */
+> +	u32                 package_whitelist; /* Packages to configure    */
+>  };
+> =20
+>  struct ncsi_cmd_arg {
+> @@ -345,6 +350,8 @@ struct ncsi_request *ncsi_alloc_request(struct ncsi_d=
+ev_priv *ndp,
+>  void ncsi_free_request(struct ncsi_request *nr);
+>  struct ncsi_dev *ncsi_find_dev(struct net_device *dev);
+>  int ncsi_process_next_channel(struct ncsi_dev_priv *ndp);
+> +bool ncsi_channel_is_last(struct ncsi_dev_priv *ndp,
+> +			  struct ncsi_channel *channel);
+> =20
+>  /* Packet handlers */
+>  u32 ncsi_calculate_checksum(unsigned char *data, int len);
+> diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
+> index 65f47a648be3..eac56aee30c4 100644
+> --- a/net/ncsi/ncsi-aen.c
+> +++ b/net/ncsi/ncsi-aen.c
+> @@ -86,7 +86,7 @@ static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *n=
+dp,
+>  	    !(state =3D=3D NCSI_CHANNEL_ACTIVE && !(data & 0x1)))
+>  		return 0;
+> =20
+> -	if (state =3D=3D NCSI_CHANNEL_ACTIVE)
+> +	if (state =3D=3D NCSI_CHANNEL_ACTIVE && ncsi_channel_is_last(ndp, nc))
+>  		ndp->flags |=3D NCSI_DEV_RESHUFFLE;
+> =20
+>  	ncsi_stop_channel_monitor(nc);
+> diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+> index 665bee25ec44..6a55df700bcb 100644
+> --- a/net/ncsi/ncsi-manage.c
+> +++ b/net/ncsi/ncsi-manage.c
+> @@ -27,6 +27,24 @@
+>  LIST_HEAD(ncsi_dev_list);
+>  DEFINE_SPINLOCK(ncsi_dev_lock);
+> =20
+> +/* Returns true if the given channel is the last channel available */
+> +bool ncsi_channel_is_last(struct ncsi_dev_priv *ndp,
+> +			  struct ncsi_channel *channel)
+> +{
+> +	struct ncsi_package *np;
+> +	struct ncsi_channel *nc;
+> +
+> +	NCSI_FOR_EACH_PACKAGE(ndp, np)
+> +		NCSI_FOR_EACH_CHANNEL(np, nc) {
+> +			if (nc =3D=3D channel)
+> +				continue;
+> +			if (nc->state =3D=3D NCSI_CHANNEL_ACTIVE)
+> +				return false;
+> +		}
+> +
+> +	return true;
+> +}
+> +
+>  static void ncsi_report_link(struct ncsi_dev_priv *ndp, bool force_down)
+>  {
+>  	struct ncsi_dev *nd =3D &ndp->ndev;
+> @@ -266,6 +284,7 @@ struct ncsi_package *ncsi_add_package(struct ncsi_dev=
+_priv *ndp,
+>  	np->ndp =3D ndp;
+>  	spin_lock_init(&np->lock);
+>  	INIT_LIST_HEAD(&np->channels);
+> +	np->channel_whitelist =3D UINT_MAX;
+> =20
+>  	spin_lock_irqsave(&ndp->lock, flags);
+>  	tmp =3D ncsi_find_package(ndp, id);
+> @@ -633,6 +652,34 @@ static int set_one_vid(struct ncsi_dev_priv *ndp, st=
+ruct ncsi_channel *nc,
+>  	return 0;
+>  }
+> =20
+> +/* Determine if a given channel should be the Tx channel */
+> +bool ncsi_channel_is_tx(struct ncsi_dev_priv *ndp, struct ncsi_channel *=
+nc)
+> +{
+> +	struct ncsi_package *np =3D nc->package;
+> +	struct ncsi_channel *channel;
+> +	struct ncsi_channel_mode *ncm;
+> +
+> +	NCSI_FOR_EACH_CHANNEL(np, channel) {
+> +		ncm =3D &channel->modes[NCSI_MODE_TX_ENABLE];
+> +		/* Another channel is already Tx */
+> +		if (ncm->enable)
+> +			return false;
+> +	}
+> +
+> +	if (!np->preferred_channel)
+> +		return true;
+> +
+> +	if (np->preferred_channel =3D=3D nc)
+> +		return true;
+> +
+> +	/* The preferred channel is not in the queue and not active */
+> +	if (list_empty(&np->preferred_channel->link) &&
+> +	    np->preferred_channel->state !=3D NCSI_CHANNEL_ACTIVE)
+> +		return true;
+> +
+> +	return false;
+> +}
+> +
+>  static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+>  {
+>  	struct ncsi_dev *nd =3D &ndp->ndev;
+> @@ -745,18 +792,22 @@ static void ncsi_configure_channel(struct ncsi_dev_=
+priv *ndp)
+>  		} else if (nd->state =3D=3D ncsi_dev_state_config_ebf) {
+>  			nca.type =3D NCSI_PKT_CMD_EBF;
+>  			nca.dwords[0] =3D nc->caps[NCSI_CAP_BC].cap;
+> -			nd->state =3D ncsi_dev_state_config_ecnt;
+> +			if (ncsi_channel_is_tx(ndp, nc))
+> +				nd->state =3D ncsi_dev_state_config_ecnt;
+> +			else
+> +				nd->state =3D ncsi_dev_state_config_ec;
+>  #if IS_ENABLED(CONFIG_IPV6)
+>  			if (ndp->inet6_addr_num > 0 &&
+>  			    (nc->caps[NCSI_CAP_GENERIC].cap &
+>  			     NCSI_CAP_GENERIC_MC))
+>  				nd->state =3D ncsi_dev_state_config_egmf;
+> -			else
+> -				nd->state =3D ncsi_dev_state_config_ecnt;
+>  		} else if (nd->state =3D=3D ncsi_dev_state_config_egmf) {
+>  			nca.type =3D NCSI_PKT_CMD_EGMF;
+>  			nca.dwords[0] =3D nc->caps[NCSI_CAP_MC].cap;
+> -			nd->state =3D ncsi_dev_state_config_ecnt;
+> +			if (ncsi_channel_is_tx(ndp, nc))
+> +				nd->state =3D ncsi_dev_state_config_ecnt;
+> +			else
+> +				nd->state =3D ncsi_dev_state_config_ec;
+>  #endif /* CONFIG_IPV6 */
+>  		} else if (nd->state =3D=3D ncsi_dev_state_config_ecnt) {
+>  			nca.type =3D NCSI_PKT_CMD_ECNT;
+> @@ -840,43 +891,35 @@ static void ncsi_configure_channel(struct ncsi_dev_=
+priv *ndp)
+> =20
+>  static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
+>  {
+> -	struct ncsi_package *np, *force_package;
+> -	struct ncsi_channel *nc, *found, *hot_nc, *force_channel;
+> +	struct ncsi_package *np;
+> +	struct ncsi_channel *nc, *found, *hot_nc;
+>  	struct ncsi_channel_mode *ncm;
+> -	unsigned long flags;
+> +	unsigned long flags, cflags;
+> +	bool with_link;
+> =20
+>  	spin_lock_irqsave(&ndp->lock, flags);
+>  	hot_nc =3D ndp->hot_channel;
+> -	force_channel =3D ndp->force_channel;
+> -	force_package =3D ndp->force_package;
+>  	spin_unlock_irqrestore(&ndp->lock, flags);
+> =20
+> -	/* Force a specific channel whether or not it has link if we have been
+> -	 * configured to do so
+> -	 */
+> -	if (force_package && force_channel) {
+> -		found =3D force_channel;
+> -		ncm =3D &found->modes[NCSI_MODE_LINK];
+> -		if (!(ncm->data[2] & 0x1))
+> -			netdev_info(ndp->ndev.dev,
+> -				    "NCSI: Channel %u forced, but it is link down\n",
+> -				    found->id);
+> -		goto out;
+> -	}
+> -
+> -	/* The search is done once an inactive channel with up
+> -	 * link is found.
+> +	/* By default the search is done once an inactive channel with up
+> +	 * link is found, unless a preferred channel is set.
+> +	 * If multi_package or multi_channel are configured all channels in the
+> +	 * whitelist with link are added to the channel queue.
+>  	 */
+>  	found =3D NULL;
+> +	with_link =3D false;
+>  	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+> -		if (ndp->force_package && np !=3D ndp->force_package)
+> +		if (!(ndp->package_whitelist & (0x1 << np->id)))
+>  			continue;
+>  		NCSI_FOR_EACH_CHANNEL(np, nc) {
+> -			spin_lock_irqsave(&nc->lock, flags);
+> +			if (!(np->channel_whitelist & (0x1 << nc->id)))
+> +				continue;
+> +
+> +			spin_lock_irqsave(&nc->lock, cflags);
+> =20
+>  			if (!list_empty(&nc->link) ||
+>  			    nc->state !=3D NCSI_CHANNEL_INACTIVE) {
+> -				spin_unlock_irqrestore(&nc->lock, flags);
+> +				spin_unlock_irqrestore(&nc->lock, cflags);
+>  				continue;
+>  			}
+> =20
+> @@ -888,32 +931,42 @@ static int ncsi_choose_active_channel(struct ncsi_d=
+ev_priv *ndp)
+> =20
+>  			ncm =3D &nc->modes[NCSI_MODE_LINK];
+>  			if (ncm->data[2] & 0x1) {
+
+This data will not be updated if the channel monitor for it is not running.
+If I move the cable from the current configured channel to the other channe=
+l,
+NC-SI module will not detect the link status as the other channel is not co=
+nfigured
+and AEN will not happen.
+Is it per design that NC-SI module will always use the first interface with=
+ the link?
+
+> -				spin_unlock_irqrestore(&nc->lock, flags);
+>  				found =3D nc;
+> -				goto out;
+> +				with_link =3D true;
+> +
+> +				spin_lock_irqsave(&ndp->lock, flags);
+> +				list_add_tail_rcu(&found->link,
+> +						  &ndp->channel_queue);
+> +				spin_unlock_irqrestore(&ndp->lock, flags);
+> +
+> +				netdev_dbg(ndp->ndev.dev,
+> +					   "NCSI: Channel %u added to queue (link %s)\n",
+> +					   found->id,
+> +					   ncm->data[2] & 0x1 ? "up" : "down");
+>  			}
+> +			spin_unlock_irqrestore(&nc->lock, cflags);
+> =20
+> -			spin_unlock_irqrestore(&nc->lock, flags);
+> +			if (with_link && !np->multi_channel)
+> +				break;
+>  		}
+> +		if (with_link && !ndp->multi_package)
+> +			break;
+>  	}
+> =20
+> -	if (!found) {
+> +	if (!with_link && found) {
+> +		netdev_info(ndp->ndev.dev,
+> +			    "NCSI: No channel with link found, configuring channel %u\n",
+> +			    found->id);
+> +		spin_lock_irqsave(&ndp->lock, flags);
+> +		list_add_tail_rcu(&found->link, &ndp->channel_queue);
+> +		spin_unlock_irqrestore(&ndp->lock, flags);
+> +	} else if (!found) {
+>  		netdev_warn(ndp->ndev.dev,
+> -			    "NCSI: No channel found with link\n");
+> +			    "NCSI: No channel found to configure!\n");
+>  		ncsi_report_link(ndp, true);
+>  		return -ENODEV;
+>  	}
+> =20
+> -	ncm =3D &found->modes[NCSI_MODE_LINK];
+> -	netdev_dbg(ndp->ndev.dev,
+> -		   "NCSI: Channel %u added to queue (link %s)\n",
+> -		   found->id, ncm->data[2] & 0x1 ? "up" : "down");
+> -
+> -out:
+> -	spin_lock_irqsave(&ndp->lock, flags);
+> -	list_add_tail_rcu(&found->link, &ndp->channel_queue);
+> -	spin_unlock_irqrestore(&ndp->lock, flags);
+> -
+>  	return ncsi_process_next_channel(ndp);
+>  }
+> =20
+> @@ -1428,6 +1481,7 @@ struct ncsi_dev *ncsi_register_dev(struct net_devic=
+e *dev,
+>  	INIT_LIST_HEAD(&ndp->channel_queue);
+>  	INIT_LIST_HEAD(&ndp->vlan_vids);
+>  	INIT_WORK(&ndp->work, ncsi_dev_work);
+> +	ndp->package_whitelist =3D UINT_MAX;
+> =20
+>  	/* Initialize private NCSI device */
+>  	spin_lock_init(&ndp->lock);
+> diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
+> index 32cb7751d216..33a091e6f466 100644
+> --- a/net/ncsi/ncsi-netlink.c
+> +++ b/net/ncsi/ncsi-netlink.c
+
+Is the following missed in the patch?
+static const struct nla_policy ncsi_genl_policy[NCSI_ATTR_MAX + 1] =3D {
+...
+	[NCSI_ATTR_MULTI_FLAG] =3D	{ .type =3D NLA_FLAG },
+	[NCSI_ATTR_PACKAGE_MASK] =3D	{ .type =3D NLA_U32 },
+	[NCSI_ATTR_CHANNEL_MASK] =3D	{ .type =3D NLA_U32 },
+
+> @@ -67,7 +67,7 @@ static int ncsi_write_channel_info(struct sk_buff *skb,
+>  	nla_put_u32(skb, NCSI_CHANNEL_ATTR_LINK_STATE, m->data[2]);
+>  	if (nc->state =3D=3D NCSI_CHANNEL_ACTIVE)
+>  		nla_put_flag(skb, NCSI_CHANNEL_ATTR_ACTIVE);
+> -	if (ndp->force_channel =3D=3D nc)
+> +	if (nc =3D=3D nc->package->preferred_channel)
+>  		nla_put_flag(skb, NCSI_CHANNEL_ATTR_FORCED);
+> =20
+>  	nla_put_u32(skb, NCSI_CHANNEL_ATTR_VERSION_MAJOR, nc->version.version);
+> @@ -112,7 +112,7 @@ static int ncsi_write_package_info(struct sk_buff *sk=
+b,
+>  		if (!pnest)
+>  			return -ENOMEM;
+>  		nla_put_u32(skb, NCSI_PKG_ATTR_ID, np->id);
+> -		if (ndp->force_package =3D=3D np)
+> +		if ((0x1 << np->id) =3D=3D ndp->package_whitelist)
+>  			nla_put_flag(skb, NCSI_PKG_ATTR_FORCED);
+>  		cnest =3D nla_nest_start(skb, NCSI_PKG_ATTR_CHANNEL_LIST);
+>  		if (!cnest) {
+> @@ -288,45 +288,54 @@ static int ncsi_set_interface_nl(struct sk_buff *ms=
+g, struct genl_info *info)
+>  	package_id =3D nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
+>  	package =3D NULL;
+> =20
+> -	spin_lock_irqsave(&ndp->lock, flags);
+> -
+>  	NCSI_FOR_EACH_PACKAGE(ndp, np)
+>  		if (np->id =3D=3D package_id)
+>  			package =3D np;
+>  	if (!package) {
+>  		/* The user has set a package that does not exist */
+> -		spin_unlock_irqrestore(&ndp->lock, flags);
+>  		return -ERANGE;
+>  	}
+> =20
+>  	channel =3D NULL;
+> -	if (!info->attrs[NCSI_ATTR_CHANNEL_ID]) {
+> -		/* Allow any channel */
+> -		channel_id =3D NCSI_RESERVED_CHANNEL;
+> -	} else {
+> +	if (info->attrs[NCSI_ATTR_CHANNEL_ID]) {
+>  		channel_id =3D nla_get_u32(info->attrs[NCSI_ATTR_CHANNEL_ID]);
+>  		NCSI_FOR_EACH_CHANNEL(package, nc)
+> -			if (nc->id =3D=3D channel_id)
+> +			if (nc->id =3D=3D channel_id) {
+>  				channel =3D nc;
+> +				break;
+> +			}
+> +		if (!channel) {
+> +			netdev_info(ndp->ndev.dev,
+> +				    "NCSI: Channel %u does not exist!\n",
+> +				    channel_id);
+> +			return -ERANGE;
+> +		}
+>  	}
+> =20
+> -	if (channel_id !=3D NCSI_RESERVED_CHANNEL && !channel) {
+> -		/* The user has set a channel that does not exist on this
+> -		 * package
+> -		 */
+> -		spin_unlock_irqrestore(&ndp->lock, flags);
+> -		netdev_info(ndp->ndev.dev, "NCSI: Channel %u does not exist!\n",
+> -			    channel_id);
+> -		return -ERANGE;
+> -	}
+> -
+> -	ndp->force_package =3D package;
+> -	ndp->force_channel =3D channel;
+> +	spin_lock_irqsave(&ndp->lock, flags);
+> +	ndp->package_whitelist =3D 0x1 << package->id;
+> +	ndp->multi_package =3D false;
+>  	spin_unlock_irqrestore(&ndp->lock, flags);
+> =20
+> -	netdev_info(ndp->ndev.dev, "Set package 0x%x, channel 0x%x%s as preferr=
+ed\n",
+> -		    package_id, channel_id,
+> -		    channel_id =3D=3D NCSI_RESERVED_CHANNEL ? " (any)" : "");
+> +	spin_lock_irqsave(&package->lock, flags);
+> +	package->multi_channel =3D false;
+> +	if (channel) {
+> +		package->channel_whitelist =3D 0x1 << channel->id;
+> +		package->preferred_channel =3D channel;
+> +	} else {
+> +		/* Allow any channel */
+> +		package->channel_whitelist =3D UINT_MAX;
+> +		package->preferred_channel =3D NULL;
+> +	}
+> +	spin_unlock_irqrestore(&package->lock, flags);
+> +
+> +	if (channel)
+> +		netdev_info(ndp->ndev.dev,
+> +			    "Set package 0x%x, channel 0x%x as preferred\n",
+> +			    package_id, channel_id);
+> +	else
+> +		netdev_info(ndp->ndev.dev, "Set package 0x%x as preferred\n",
+> +			    package_id);
+> =20
+>  	/* Bounce the NCSI channel to set changes */
+>  	ncsi_stop_dev(&ndp->ndev);
+> @@ -338,6 +347,7 @@ static int ncsi_set_interface_nl(struct sk_buff *msg,=
+ struct genl_info *info)
+>  static int ncsi_clear_interface_nl(struct sk_buff *msg, struct genl_info=
+ *info)
+>  {
+>  	struct ncsi_dev_priv *ndp;
+> +	struct ncsi_package *np;
+>  	unsigned long flags;
+> =20
+>  	if (!info || !info->attrs)
+> @@ -351,11 +361,19 @@ static int ncsi_clear_interface_nl(struct sk_buff *=
+msg, struct genl_info *info)
+>  	if (!ndp)
+>  		return -ENODEV;
+> =20
+> -	/* Clear any override */
+> +	/* Reset any whitelists and disable multi mode */
+>  	spin_lock_irqsave(&ndp->lock, flags);
+> -	ndp->force_package =3D NULL;
+> -	ndp->force_channel =3D NULL;
+> +	ndp->package_whitelist =3D UINT_MAX;
+> +	ndp->multi_package =3D false;
+>  	spin_unlock_irqrestore(&ndp->lock, flags);
+> +
+> +	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+> +		spin_lock_irqsave(&np->lock, flags);
+> +		np->multi_channel =3D false;
+> +		np->channel_whitelist =3D UINT_MAX;
+> +		np->preferred_channel =3D NULL;
+> +		spin_unlock_irqrestore(&np->lock, flags);
+> +	}
+>  	netdev_info(ndp->ndev.dev, "NCSI: Cleared preferred package/channel\n")=
+;
+> =20
+>  	/* Bounce the NCSI channel to set changes */
+> @@ -365,6 +383,137 @@ static int ncsi_clear_interface_nl(struct sk_buff *=
+msg, struct genl_info *info)
+>  	return 0;
+>  }
+> =20
+> +static int ncsi_set_package_mask_nl(struct sk_buff *msg,
+> +				    struct genl_info *info)
+> +{
+> +	struct ncsi_dev_priv *ndp;
+> +	unsigned long flags;
+> +	int rc;
+> +
+> +	if (!info || !info->attrs)
+> +		return -EINVAL;
+> +
+> +	if (!info->attrs[NCSI_ATTR_IFINDEX])
+> +		return -EINVAL;
+> +
+> +	if (!info->attrs[NCSI_ATTR_PACKAGE_MASK])
+> +		return -EINVAL;
+> +
+> +	ndp =3D ndp_from_ifindex(get_net(sock_net(msg->sk)),
+> +			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
+> +	if (!ndp)
+> +		return -ENODEV;
+> +
+> +	spin_lock_irqsave(&ndp->lock, flags);
+> +	ndp->package_whitelist =3D
+> +		nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_MASK]);
+> +
+> +	if (nla_get_flag(info->attrs[NCSI_ATTR_MULTI_FLAG])) {
+> +		if (ndp->flags & NCSI_DEV_HWA) {
+> +			ndp->multi_package =3D true;
+> +			rc =3D 0;
+> +		} else {
+> +			netdev_err(ndp->ndev.dev,
+> +				   "NCSI: Can't use multiple packages without HWA\n");
+> +			rc =3D -EPERM;
+> +		}
+> +	} else {
+> +		rc =3D 0;
+> +	}
+> +
+> +	spin_unlock_irqrestore(&ndp->lock, flags);
+> +
+> +	if (!rc) {
+> +		/* Bounce the NCSI channel to set changes */
+> +		ncsi_stop_dev(&ndp->ndev);
+> +		ncsi_start_dev(&ndp->ndev);
+
+Is it possible to delay the restart? If we have two packages, we might send
+set_package_mask command once and set_channel_mask command twice.
+We will see the unnecessary reconfigurations in a very short period time.
+
+> +	}
+> +
+> +	return rc;
+> +}
+> +
+> +static int ncsi_set_channel_mask_nl(struct sk_buff *msg,
+> +				    struct genl_info *info)
+> +{
+> +	struct ncsi_package *np, *package;
+> +	struct ncsi_channel *nc, *channel;
+> +	struct ncsi_dev_priv *ndp;
+> +	unsigned long flags;
+> +	u32 package_id, channel_id;
+> +
+> +	if (!info || !info->attrs)
+> +		return -EINVAL;
+> +
+> +	if (!info->attrs[NCSI_ATTR_IFINDEX])
+> +		return -EINVAL;
+> +
+> +	if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
+> +		return -EINVAL;
+> +
+> +	if (!info->attrs[NCSI_ATTR_CHANNEL_MASK])
+> +		return -EINVAL;
+> +
+> +	ndp =3D ndp_from_ifindex(get_net(sock_net(msg->sk)),
+> +			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
+> +	if (!ndp)
+> +		return -ENODEV;
+> +
+> +	package_id =3D nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
+> +	package =3D NULL;
+> +	NCSI_FOR_EACH_PACKAGE(ndp, np)
+> +		if (np->id =3D=3D package_id) {
+> +			package =3D np;
+> +			break;
+> +		}
+> +	if (!package)
+> +		return -ERANGE;
+> +
+> +	spin_lock_irqsave(&package->lock, flags);
+> +
+> +	channel =3D NULL;
+> +	if (info->attrs[NCSI_ATTR_CHANNEL_ID]) {
+> +		channel_id =3D nla_get_u32(info->attrs[NCSI_ATTR_CHANNEL_ID]);
+> +		NCSI_FOR_EACH_CHANNEL(np, nc)
+> +			if (nc->id =3D=3D channel_id) {
+> +				channel =3D nc;
+> +				break;
+> +			}
+> +		if (!channel) {
+> +			spin_unlock_irqrestore(&package->lock, flags);
+> +			return -ERANGE;
+> +		}
+> +		netdev_dbg(ndp->ndev.dev,
+> +			   "NCSI: Channel %u set as preferred channel\n",
+> +			   channel->id);
+> +	}
+> +
+> +	package->channel_whitelist =3D
+> +		nla_get_u32(info->attrs[NCSI_ATTR_CHANNEL_MASK]);
+> +	if (package->channel_whitelist =3D=3D 0)
+> +		netdev_dbg(ndp->ndev.dev,
+> +			   "NCSI: Package %u set to all channels disabled\n",
+> +			   package->id);
+> +
+> +	package->preferred_channel =3D channel;
+> +
+> +	if (nla_get_flag(info->attrs[NCSI_ATTR_MULTI_FLAG])) {
+> +		package->multi_channel =3D true;
+> +		netdev_info(ndp->ndev.dev,
+> +			    "NCSI: Multi-channel enabled on package %u\n",
+> +			    package_id);
+> +	} else {
+> +		package->multi_channel =3D false;
+> +	}
+> +
+> +	spin_unlock_irqrestore(&package->lock, flags);
+> +
+> +	/* Bounce the NCSI channel to set changes */
+> +	ncsi_stop_dev(&ndp->ndev);
+> +	ncsi_start_dev(&ndp->ndev);
+
+Same question as set_package_mask function.
+Is it possible to delay the restart? If we have two packages, we might send
+set_package_mask command once and set_channel_mask command twice.
+We will see the unnecessary reconfigurations in a very short period time.
+
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct genl_ops ncsi_ops[] =3D {
+>  	{
+>  		.cmd =3D NCSI_CMD_PKG_INFO,
+> @@ -385,6 +534,18 @@ static const struct genl_ops ncsi_ops[] =3D {
+>  		.doit =3D ncsi_clear_interface_nl,
+>  		.flags =3D GENL_ADMIN_PERM,
+>  	},
+> +	{
+> +		.cmd =3D NCSI_CMD_SET_PACKAGE_MASK,
+> +		.policy =3D ncsi_genl_policy,
+> +		.doit =3D ncsi_set_package_mask_nl,
+> +		.flags =3D GENL_ADMIN_PERM,
+> +	},
+> +	{
+> +		.cmd =3D NCSI_CMD_SET_CHANNEL_MASK,
+> +		.policy =3D ncsi_genl_policy,
+> +		.doit =3D ncsi_set_channel_mask_nl,
+> +		.flags =3D GENL_ADMIN_PERM,
+> +	},
+>  };
+> =20
+>  static struct genl_family ncsi_genl_family __ro_after_init =3D {
+> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+> index d66b34749027..02ce7626b579 100644
+> --- a/net/ncsi/ncsi-rsp.c
+> +++ b/net/ncsi/ncsi-rsp.c
+> @@ -241,7 +241,7 @@ static int ncsi_rsp_handler_dcnt(struct ncsi_request =
+*nr)
+>  	if (!ncm->enable)
+>  		return 0;
+> =20
+> -	ncm->enable =3D 1;
+> +	ncm->enable =3D 0;
+>  	return 0;
+>  }
+> =20
+> --=20
+> 2.19.0
