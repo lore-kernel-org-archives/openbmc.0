@@ -1,84 +1,76 @@
-Return-Path: <Feng_Xie2@jabil.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=jabil.com
- (client-ip=104.47.32.110; helo=nam01-sn1-obe.outbound.protection.outlook.com;
- envelope-from=feng_xie2@jabil.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jabil.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=jabil.onmicrosoft.com header.i=@jabil.onmicrosoft.com
- header.b="aBteRLkk"; dkim-atps=neutral
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam01on0110.outbound.protection.outlook.com [104.47.32.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Vl7Z739yzF0yy
- for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 06:50:16 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.onmicrosoft.com; 
- s=selector1-jabil-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ar696rwJ8GAYlLTHE4B1El7dH4fb0oKy/Ho1HvA6P7k=;
- b=aBteRLkk5GfGqhkBHjHQ6ayGen0Kf2SEZHCrHSL9Ea9OpUIAx8iaF8wPQkKdA4DiE73hFdHX6Emqbgpci9ZYGbrLPtqpoy/6glyMBTpDkjXBWFZimzfXBoFaBx4MnWzMNiiKhzQGpvPpYZeJqDl0Hanx/GHhfNYqSbQ+QX/wXA8=
-Received: from BN7PR02MB5300.namprd02.prod.outlook.com (20.176.176.214) by
- BN7PR02MB5234.namprd02.prod.outlook.com (20.176.176.156) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1207.21; Wed, 10 Oct 2018 19:50:11 +0000
-Received: from BN7PR02MB5300.namprd02.prod.outlook.com
- ([fe80::4184:bbd8:7834:d92f]) by BN7PR02MB5300.namprd02.prod.outlook.com
- ([fe80::4184:bbd8:7834:d92f%3]) with mapi id 15.20.1228.020; Wed, 10 Oct 2018
- 19:50:11 +0000
-From: Feng Xie <Feng_Xie2@jabil.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-CC: Feng Xie <Feng_Xie2@jabil.com>
-Subject: Off-the-shelf platforms for OpenBMC
-Thread-Topic: Off-the-shelf platforms for OpenBMC
-Thread-Index: AdRg0ObE3zsdoTvLQp6nMG7+o8hlVg==
-Date: Wed, 10 Oct 2018 19:50:11 +0000
-Message-ID: <BN7PR02MB5300DFB69593AA2DFACE8CBFCAE00@BN7PR02MB5300.namprd02.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-dg-ref: PG1ldGE+PGF0IG5tPSJib2R5LnR4dCIgcD0iYzpcdXNlcnNcZnhpZVxhcHBkYXRhXHJvYW1pbmdcMDlkODQ5YjYtMzJkMy00YTQwLTg1ZWUtNmI4NGJhMjllMzViXG1zZ3NcbXNnLWJlNDE1MTg1LWNjYzUtMTFlOC04NWNkLTE4NWUwZmU1ZTcyY1xhbWUtdGVzdFxiZTQxNTE4Ny1jY2M1LTExZTgtODVjZC0xODVlMGZlNWU3MmNib2R5LnR4dCIgc3o9IjI1OCIgdD0iMTMxODM2NzQ2MzE3OTU1ODk3IiBoPSJSVnlXR0NON0hOc3NNMnJyZmU0RkVoRWRYV1U9IiBpZD0iIiBibD0iMCIgYm89IjEiLz48L21ldGE+
-x-dg-rorf: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Feng_Xie2@jabil.com; 
-x-originating-ip: [184.185.47.46]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; BN7PR02MB5234;
- 20:NuTyyATKEvUhBct9sLq89qIEqYusRg44ufibNSy/89e0sYaaGs5wh01EyUU0JQ+e/yxW/P7dASlRfKx7ZZqVkNPBCNmrS/gduq6OHtkTYKzYhhM2y8Oy/JSX3qSPT7FnyedOYDw3FMkS0vKib7TCrItSsBw/TclOcay6ipsBeEs=
-x-ms-office365-filtering-correlation-id: 956be801-86d9-4e3d-f0dc-08d62ee99730
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(4618075)(2017052603328)(7153060)(7193020);
- SRVR:BN7PR02MB5234; 
-x-ms-traffictypediagnostic: BN7PR02MB5234:
-x-microsoft-antispam-prvs: <BN7PR02MB52341390341535AF656F3C53CAE00@BN7PR02MB5234.namprd02.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:;
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(3002001)(3231355)(944501410)(52105095)(93006095)(93001095)(10201501046)(6055026)(149066)(150057)(6041310)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(20161123562045)(20161123558120)(20161123564045)(201708071742011)(7699051)(76991055);
- SRVR:BN7PR02MB5234; BCL:0; PCL:0; RULEID:; SRVR:BN7PR02MB5234; 
-x-forefront-prvs: 08213D42D3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(39860400002)(346002)(366004)(376002)(396003)(136003)(189003)(199004)(51874003)(33656002)(25786009)(66066001)(81166006)(6116002)(3846002)(74316002)(81156014)(106356001)(476003)(107886003)(7736002)(105586002)(305945005)(8936002)(53936002)(26005)(6916009)(9686003)(55016002)(186003)(102836004)(8676002)(316002)(5250100002)(256004)(72206003)(558084003)(2906002)(86362001)(71190400001)(478600001)(71200400001)(2900100001)(7696005)(68736007)(5660300001)(6506007)(97736004)(14454004)(6436002)(4326008)(99286004)(486006);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BN7PR02MB5234;
- H:BN7PR02MB5300.namprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: jabil.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: NNR4i1og3xBCCmYIKvjup2P9L1V8fFOO/rK6af+xttTQ/NMoalcPQcEDK3oDNVb044bc6xIoKC01h2+cKQdaJv9crcFlGtxdd7R2A3kIqBE7/lAr0VUEE8FD6mMbmZpQY7x53BAwAvZvzD60VZz90op+9gKmrz4bM3+K/zM3/X7XtcEHUqMaKREj7F9gHckGYmhoOiAywRhUqzVp0hbCU0XVZKT3jYpqbYr5SJFxxIxbSwbLs42Vy7VkFp5x6iCFPvsNEKV4zdBrooAZakxRH9L1EBd5F78r1pR16zQOr3GCElTjs+DvyQPUnDffwRCxGhsHkAKWCSluVhsHOhIlFVwoewpULfDEErW2nGXsRgw=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VlZ05HydzF100
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 07:09:43 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9AK3sQD062039
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 16:09:40 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2n1que90w3-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 16:09:40 -0400
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Wed, 10 Oct 2018 16:09:39 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 10 Oct 2018 16:09:36 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w9AK9ZEt19398724
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 20:09:35 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2D65A112062
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 16:08:57 -0400 (EDT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E4B7F112063
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 16:08:56 -0400 (EDT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 16:08:56 -0400 (EDT)
 MIME-Version: 1.0
-X-OriginatorOrg: jabil.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 956be801-86d9-4e3d-f0dc-08d62ee99730
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2018 19:50:11.8018 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR02MB5234
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 10 Oct 2018 15:11:05 -0500
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: OpenPower power control design proposal
+X-Sender: mspinler@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18101020-2213-0000-0000-0000030146A2
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009855; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01100764; UDB=6.00569549; IPR=6.00880813; 
+ MB=3.00023700; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-10 20:09:37
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18101020-2214-0000-0000-00005BD98F74
+Message-Id: <7844dda6b098c36e62f0414b6586ac24@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-10_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=370 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810100187
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,12 +82,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Oct 2018 19:50:20 -0000
+X-List-Received-Date: Wed, 10 Oct 2018 20:09:45 -0000
 
-Hi,
+Hello,
 
-      I am new to OpenBMC. I want to try OpenBMC on some off-the-shelf hard=
-ware platforms. Can anybody recommend some products (with development toolk=
-its)? Thanks in advance!
+I submitted a design proposal for the refactoring of skeleton/op-pwrctl
+into the newly created but empty openpower-power-control repository.
+This will do things like power on and off the system and monitor PGOOD.
 
-Feng =20
+The design is at
+https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/13943/
+
+If interested, please review.
