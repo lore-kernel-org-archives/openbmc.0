@@ -1,69 +1,69 @@
-Return-Path: <brendanhiggins@google.com>
+Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::344; helo=mail-ot1-x344.google.com;
- envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::543; helo=mail-pg1-x543.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="GFXBBhz7"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOjfBykH"; 
  dkim-atps=neutral
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42VDvf3JyxzF2ZM
- for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 11:08:14 +1100 (AEDT)
-Received: by mail-ot1-x344.google.com with SMTP id c23so1791718otl.9
- for <openbmc@lists.ozlabs.org>; Tue, 09 Oct 2018 17:08:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FlaQvgYXAYWplrE6GduA7gBJdNzDzsKWyFiNuiUmspo=;
- b=GFXBBhz7tT3XU7qvIy95wer/iz8fBpS4RCEvFn4GR3kxlbWj9cWjCw0csbuwGx9udh
- 7lo8KeFlQXbOwxhQVc1EJqWKx9cxJFjipFbs6B4JAzv+BNermRpqU6pPNy4NkveHmPeb
- NL+PFoOEsTodehG/URFFAj2tkGXFrXYDuwa8TjkOAtydd4TXeCXyKzPMIWT8e4+/DBMU
- 1SXFtm43j5DnYspsl+vePEqoZjC+TivuNbF4LuG7JQCSyd7DGYcUwBHvjSXbpWtTx1hh
- osYtZmpaeul3dmIU6KJDueGuRnbIRwShuSQl6HY+hKVXpT7Auh8g7+JY98Y9C+uJa/MV
- KmkQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VFZh5G3XzF31W
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 11:38:36 +1100 (AEDT)
+Received: by mail-pg1-x543.google.com with SMTP id i4-v6so1630985pgq.9
+ for <openbmc@lists.ozlabs.org>; Tue, 09 Oct 2018 17:38:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=1REk2Thtc35WCm2s8+CzJaxzmqAZYxprZzgzkYzfyHQ=;
+ b=MOjfBykHj0F7FNxZwAaqH2CazfY+tW0/gy8v9CvrzfOR/n2yfe+oHVJwP07buo1SRm
+ QbU1Ap3843tcXvZ1YRLRAr5LkJCxvhP+41cYmvLIRsg8mpWR4OwvvolliMExNSWXzGJM
+ Xr6QQS3tR/v/vQKg55XoBv9byw0LlE1mlHkd5Ni5s4l57zJJDhgWFOY+wLQR94nadUH2
+ hi+huxXfVLaeY1uud/Zaj1iz4d3fuLPdXD2UyW2Rz+MDZvaMhZ76F3+k9wym8YkRpRQO
+ AfDKfR7ToytNBMOmk/D50HleRRCrSDdrvQ/yOEZKny6aaKAYeobRuJCLhbnw0k+T02TF
+ p56w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FlaQvgYXAYWplrE6GduA7gBJdNzDzsKWyFiNuiUmspo=;
- b=OaMRj5GjZcUtOe8Oip7gip61l5NwPg5hoJL8EKtzMcAmp8x9x9mXvzwtmCjSNIxfev
- Xabf8uFd7LGYazlVB6aDEu8K/6giUBSmv5vkuvEEV3LUIT0HzuufuMzzmYadl6ABj55o
- IAat3kz/d5ZawnY+RvAs0wngb6qb9FLa3gANsOW1n9Uckb/92iHBpMxRpdLA6GDGdr9Q
- /ULfJ7a23DXE3hNomgyapvGizOxptFi6+XY5VVFME2ShcaOkajG1/mpqSRXZ0zojuhEN
- j/FqObpM8xII5+SXOzOXyi7ZZNALIz4dltaVrQqYrmZF479tnwyB8KDs4WlekUhxOSRG
- mfBA==
-X-Gm-Message-State: ABuFfogZYSEFh+QdD0ww2dckOJmHvzwG/3uDz/+HT61f2POM58G40kGv
- HEfBaO1a2RwWzQdv0ssWQA0U/gFzoCTlwR9lrPrRNQ==
-X-Google-Smtp-Source: ACcGV60FHXVbmSY5eVdVWkU/c1RwqnqI6JsQ90+S/7jBXxVwqAicXw6HupiEOBLP3G0YkqOSas1NQguzTBLjV7I6q2M=
-X-Received: by 2002:a9d:20e1:: with SMTP id
- x88-v6mr18437110ota.338.1539130091719; 
- Tue, 09 Oct 2018 17:08:11 -0700 (PDT)
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=1REk2Thtc35WCm2s8+CzJaxzmqAZYxprZzgzkYzfyHQ=;
+ b=hJJqAXIMvgXBtcof/khhtHXKt0qgwiQTNVHVyJukG/D1SEmWMR3UhwNi2HmSsowLlF
+ n13wKmVmey0NOpjp1gi81JvNzVsfm+WL6nMy16oKw8Q0WDarjgWFRhe/R1y4Oc1KZDya
+ UNqwHgcIRSOJ8YdDK9gr4x+cYQf7qjQqonvm7aGlTw6ab7SYnH+6owTJfZXdQqBvclBX
+ 0bFox9cgpnk96rYq3wHVzB6sXSd5M4Zw1cXHyInBRBOq1B973eMH4UgTOmuyby8HX6po
+ vq1qQfJ9ozHlM5ZznAsxhc3LZpL1G28/DFJaosPLHoPPU+5nM2U5kDu2riimsFblPN6O
+ fi9g==
+X-Gm-Message-State: ABuFfogOBt4C8MlUCFCmTZVh4Y7sI+sui+Pl+rPdE8klR0CXG4QDwn6h
+ CX1ryboiuLjUHQVSBBkFhdc=
+X-Google-Smtp-Source: ACcGV62qiqsxEz8jpu2GAp2M8ochfWFA4LK83NyfwqKLvQYtgbt7isRdPuK3U160cpYC9IssXDuL/A==
+X-Received: by 2002:a62:1d16:: with SMTP id
+ d22-v6mr32840131pfd.159.1539131914374; 
+ Tue, 09 Oct 2018 17:38:34 -0700 (PDT)
+Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
+ [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id 189-v6sm33944376pfe.121.2018.10.09.17.38.33
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 09 Oct 2018 17:38:33 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 9 Oct 2018 17:38:32 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Kun Yi <kunyi@google.com>
+Cc: avifishman70@gmail.com, tmaimon77@gmail.com, jdelvare@suse.com,
+ openbmc@lists.ozlabs.org, linux-hwmon@vger.kernel.org,
+ rlippert@google.com, benjaminfair@google.com
+Subject: Re: [PATCH] hwmon: (npcm-750-pwm-fan): Change initial pwm target to
+ 255
+Message-ID: <20181010003832.GA21971@roeck-us.net>
+References: <20181008214925.86281-1-kunyi@google.com>
 MIME-Version: 1.0
-References: <20181005214507.26315-1-jae.hyun.yoo@linux.intel.com>
- <20181005214507.26315-6-jae.hyun.yoo@linux.intel.com>
-In-Reply-To: <20181005214507.26315-6-jae.hyun.yoo@linux.intel.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Tue, 9 Oct 2018 17:08:00 -0700
-Message-ID: <CAFd5g45JkK4BnGR7yOA3eCazTZ86FyUaNdi81Ew6VBbKxS3EZA@mail.gmail.com>
-Subject: Re: [PATCH i2c-next v7 5/5] i2c: aspeed: Add bus idle waiting logic
- for multi-master use cases
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Wolfram Sang <wsa@the-dreams.de>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Joel Stanley <joel@jms.id.au>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, 
- Andrew Jeffery <andrew@aj.id.au>, linux-i2c@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- devicetree <devicetree@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- jarkko.nikula@linux.intel.com, 
- james.feist@linux.intel.com, vernon.mauery@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181008214925.86281-1-kunyi@google.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,21 +75,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Oct 2018 00:08:15 -0000
+X-List-Received-Date: Wed, 10 Oct 2018 00:38:37 -0000
 
-On Fri, Oct 5, 2018 at 2:45 PM Jae Hyun Yoo
-<jae.hyun.yoo@linux.intel.com> wrote:
->
-> In multi-master environment, this driver's master cannot know
-> exactly when peer master sends data to this driver's slave so a
-> case can be happened that this master tries to send data through
-> the master_xfer function but slave data from peer master is still
-> being processed by this driver.
->
-> To prevent any state corruption in the case, this patch adds
-> checking code if any slave operation is ongoing and it waits up to
-> the bus timeout duration before starting a master_xfer operation.
->
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+On Mon, Oct 08, 2018 at 02:49:25PM -0700, Kun Yi wrote:
+> Change initial PWM target to 255 to prevent overheating, for example
+> when BMC hangs in userspace or when userspace fan control application is
+> not implemented yet.
+> 
+> Signed-off-by: Kun Yi <kunyi@google.com>
 
-Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
+Makes sense to me, and in line with other drivers. Applied to hwmon-next.
+
+Thanks,
+Guenter
+
+> ---
+>  drivers/hwmon/npcm750-pwm-fan.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/npcm750-pwm-fan.c b/drivers/hwmon/npcm750-pwm-fan.c
+> index 96634fd54e0b..c0fab54c0094 100644
+> --- a/drivers/hwmon/npcm750-pwm-fan.c
+> +++ b/drivers/hwmon/npcm750-pwm-fan.c
+> @@ -52,7 +52,7 @@
+>  
+>  /* Define the Counter Register, value = 100 for match 100% */
+>  #define NPCM7XX_PWM_COUNTER_DEFAULT_NUM		255
+> -#define NPCM7XX_PWM_CMR_DEFAULT_NUM		127
+> +#define NPCM7XX_PWM_CMR_DEFAULT_NUM		255
+>  #define NPCM7XX_PWM_CMR_MAX			255
+>  
+>  /* default all PWM channels PRESCALE2 = 1 */
