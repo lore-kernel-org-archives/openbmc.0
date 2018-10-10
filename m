@@ -1,63 +1,113 @@
-Return-Path: <venture@google.com>
+Return-Path: <prvs=3821f0b842=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::52b; helo=mail-pg1-x52b.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ envelope-from=prvs=3821f0b842=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="FBPk8kYk"; 
- dkim-atps=neutral
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="c2+VkG9X"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="kF6Qw0bs"; dkim-atps=neutral
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42VfQQ0by6zDqfV
- for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 03:17:49 +1100 (AEDT)
-Received: by mail-pg1-x52b.google.com with SMTP id 80-v6so2737843pgh.10
- for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 09:17:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=w3qZ2suIN+OaGJd1vxRUPO9+DHqf9PYG1vyiMU6M0Ko=;
- b=FBPk8kYkZIswNzpwJIlhm2zQ7CYSMm8lRTUL2VTo8uk4e5nZAM5CDIqcOezbbD/V2t
- RRXfxaUSHzrYwNAJybE3revP6+ty0iWJnY5TQg5WCNkIb4UTxkzb4AZiuJXmSLc0QExC
- fHsDsdYtqD3wZkcpkZ7A2V6+kEmOabtHjT0aHaUaDGCCTqwVUS9mAAjpSisKTFw1QPuh
- 1zbkV76qgKgK/W6PlUqCzOFQ1jHBxGJBoDRcJEAeDVIt225ErUIYDOdnqZ7ZVxEM/hjo
- PWeNSOW9sYJOIu62YwRNyIRI+qIQyoGDV/liLROuPDfx5OpwWqZ50UTKv3uH/tWcoCCP
- llyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=w3qZ2suIN+OaGJd1vxRUPO9+DHqf9PYG1vyiMU6M0Ko=;
- b=SZIz1F/et1xAbhWiRTntCLo1x7kBjj6All6gRmSO5fXg3b9DCG+z4wC0DjiQOy1I/u
- 4uGAs6PUBQRQ1i/3lRJO9VbIgEmeIgSC3NySuo4O8jXLQG46VX9uE01P4AbKbcyxLANK
- GE5UDzV3vk8ycL4svi4j6D317JT6duJiZZdATyD1ZbFP6RtKSvgCxlPmMARQKAn1QOPr
- pcf9k4/XVoqupmmhtJYvrVDFMHq1c6DnbGDgfDjbZIVA1rrCtkISwpolpV0f6sR2B8o3
- LDY7mUqzNP1D8GVug+FEAK+q6swS7WYqbSkRe9NO7FXfyGzd1P+fsTJFBHlygewL+FHs
- oCQQ==
-X-Gm-Message-State: ABuFfoinibRYCXhxI7FXLvcrg6v6OkLi2bYZvJnYRd3XihmFTOlRGIcb
- gg5u0ULvgKhcB4lISds3w2wGOuZB2dE6jE1A0SlMRjU32JHydA==
-X-Google-Smtp-Source: ACcGV60ug7LbNvBsotilloXU8dnMxk1q0tSTIWRz2Sn4FrsHcOKGGjZhOAK/ieS/RHAxuGWuFA7qRTadmsAxPknBnjM=
-X-Received: by 2002:a62:42d4:: with SMTP id
- h81-v6mr36326865pfd.0.1539188266246; 
- Wed, 10 Oct 2018 09:17:46 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VgnX6HcfzF0yj;
+ Thu, 11 Oct 2018 04:19:20 +1100 (AEDT)
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9AHIlKn022074; Wed, 10 Oct 2018 10:19:16 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=EvguJXkJDITjTJreRh+ldhwdtdzs8obdd6T+I+f6dyA=;
+ b=c2+VkG9Xx33Oo0dGhkDnZiYikKvBgXoBsIRZ2iQpI90tiZ3qfafi6WYiOE1F9QxS+mGJ
+ FDE1wQoNQWJ1oUszsxECLHxI1/QIOgngmxU+xEYiItKIB4fIUcZAATyc4TEcUX9d2Ob0
+ zmVo0vVTWUL5exp5kwNJLPUXi5t9HWe7Xpg= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2n1mvnr80q-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 10 Oct 2018 10:19:16 -0700
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.15) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Wed, 10 Oct 2018 10:19:14 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EvguJXkJDITjTJreRh+ldhwdtdzs8obdd6T+I+f6dyA=;
+ b=kF6Qw0bs6I9MyYf8kMp8sMfWpqtugf6/FxX7LdgOMFw5oL4E1jlOitiYj1m6IZfixVv2iLFqW3LEb4D7URvLr/e+3NbqjCBd0mLrx+DXdE4bTkr5SmzEzhTQodZ/MbzDJjM4jMAgflZy8gPzKrzJTCmwNYXBLBEBmNAdrFnQbTs=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1782.namprd15.prod.outlook.com (10.174.53.148) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1228.21; Wed, 10 Oct 2018 17:19:12 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::2d43:ae9a:18c0:ac8b]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::2d43:ae9a:18c0:ac8b%3]) with mapi id 15.20.1207.024; Wed, 10 Oct 2018
+ 17:19:11 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: "Justin.Lee1@Dell.com" <Justin.Lee1@Dell.com>, "sam@mendozajonas.com"
+ <sam@mendozajonas.com>, "joel@jms.id.au" <joel@jms.id.au>
+CC: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Amithash Prasad <amithash@fb.com>, "christian@cmd.nu" <christian@cmd.nu>
+Subject: Re: [PATCH net-next v4] net/ncsi: Extend NC-SI Netlink interface to
+ allow user space to send NC-SI command
+Thread-Topic: [PATCH net-next v4] net/ncsi: Extend NC-SI Netlink interface to
+ allow user space to send NC-SI command
+Thread-Index: AdRgsaxDT4ooeDmaQ06f0/VkURIXOv//ogUA
+Date: Wed, 10 Oct 2018 17:19:11 +0000
+Message-ID: <57729D0A-A210-41F4-BAF8-3BDB2FCBF1B5@fb.com>
+References: <7c7f95baba3a467e89aabf726a5230f7@AUSX13MPS302.AMER.DELL.COM>
+In-Reply-To: <7c7f95baba3a467e89aabf726a5230f7@AUSX13MPS302.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::7:dc84]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1782;
+ 20:GO1gy0aPIoGyp2dYOR+tPenuw+1wXeX0HzKFc0pbrdnSbGLU+lfdL3jwJKnMUluUUH8o++d0LhM/0WU8jXd1CQ1zgQs3SWmghpUwhGi9L/LL7x5WvWib7vxNd2GF04DqumMuYK7JaXNn5VSSg1NsSeD0/WBb/jdGPVKG9fznFwk=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
+x-forefront-antispam-report: SFV:SKI; SCL:-1; SFV:NSPM;
+ SFS:(10019020)(346002)(376002)(396003)(39860400002)(366004)(136003)(199004)(189003)(86362001)(2906002)(966005)(71200400001)(83716004)(102836004)(14444005)(14454004)(256004)(478600001)(2900100001)(2201001)(575784001)(97736004)(476003)(82746002)(2501003)(486006)(71190400001)(106356001)(316002)(8676002)(6506007)(305945005)(6436002)(36756003)(6116002)(2616005)(446003)(8936002)(5250100002)(46003)(11346002)(4326008)(68736007)(6246003)(53936002)(81156014)(6486002)(81166006)(5660300001)(33656002)(76176011)(229853002)(54906003)(99286004)(25786009)(6306002)(105586002)(186003)(7736002)(6512007)(110136005)(21314002)(6606295002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1782;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+x-ms-office365-filtering-correlation-id: 6c60b69e-ee40-4343-72c8-08d62ed47f04
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1782; 
+x-ms-traffictypediagnostic: CY4PR15MB1782:
+x-microsoft-antispam-prvs: <CY4PR15MB17826586F1DA289674A95936DDE00@CY4PR15MB1782.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(56004941905204)(10436049006162)(17755550239193); 
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(3231355)(11241501184)(944501410)(4982022)(52105095)(3002001)(93006095)(93001095)(10201501046)(149066)(150057)(6041310)(20161123560045)(20161123564045)(20161123562045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051);
+ SRVR:CY4PR15MB1782; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1782; 
+x-forefront-prvs: 08213D42D3
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: iJaN1L2RTBAHEWDZf9n7yZEUrD7YNX2IcLnwICvVsPp1sdF/KyXMvfOlh8VIabTKLjAe9qYcOMQzhqXkaBu6lQxM+RbsbVWgb40eZ9l/UXCeRNFBEjbxYAduD3Y6VCBcoblvgRmDBNGLqAwD3SAjxPTfsmo53m+GIw3x3L7tGNDhuu+5Dh7x41pWUkH1l83XqB38GFeuXMX/t8dpulWgX3sOSEh47cYnVbJt6qu2rybBHjS7nDgFNAoMvXKAN8sDeL7gmKzky2rOPWvosdDBuPHI6ugU28qu9WqcyrjClleEMHt8XD41fYeva2wOCo4z/PKz+IsZYLoXAyBeebZTCl0NgeTeh3n6a6vSAVogeNQ=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E5ABBFE5532FBF4D9058CCE229911AD0@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <CAO=notxDmpv_j=XT_c5WLUa=aHb6vfVLms=-_J4v_VM2ue0k7A@mail.gmail.com>
- <3147DF98-3720-4846-9728-881BF6F91218@intel.com>
- <CAGMNF6V6eo3G8WSHdpcy5g9e56tYW_C7g_tBA0bRyfByJrTHiQ@mail.gmail.com>
- <CACPK8XdS78mTtqqNUW_YbbwKYWbcpiaBnfU7AOe3QSMGr-ZkNQ@mail.gmail.com>
- <CAO=notwqFd5fHraUvTMSjK=6Cws13qgCRyf6=05_XTrsbdwSRA@mail.gmail.com>
-In-Reply-To: <CAO=notwqFd5fHraUvTMSjK=6Cws13qgCRyf6=05_XTrsbdwSRA@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 10 Oct 2018 09:17:34 -0700
-Message-ID: <CAO=notySRV2yzMfQ72MqUUgzAYkk9zMruBFFzbi1jPsXLzbDCg@mail.gmail.com>
-Subject: Re: Loss of several MB of run-time memory
-To: Joel Stanley <joel@jms.id.au>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, "Tanous,
- Ed" <ed.tanous@intel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Kun Yi <kunyi@google.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c60b69e-ee40-4343-72c8-08d62ed47f04
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2018 17:19:11.6714 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1782
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-10_11:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,174 +119,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Oct 2018 16:17:51 -0000
+X-List-Received-Date: Wed, 10 Oct 2018 17:19:29 -0000
 
-On Wed, Oct 10, 2018 at 8:31 AM Patrick Venture <venture@google.com> wrote:
->
-> On Tue, Oct 9, 2018 at 3:25 PM Joel Stanley <joel@jms.id.au> wrote:
-> >
-> > On Wed, 10 Oct 2018 at 03:38, Kun Yi <kunyi@google.com> wrote:
-> > >
-> > > A somewhat tedious way to test would be to build and boot with 'bitbake core-image-minimal' to ensure no phosphor-daemons are loaded, and then compare the kernel memory footprint.
-> > >
-> > > On Tue, Oct 9, 2018 at 10:01 AM Tanous, Ed <ed.tanous@intel.com> wrote:
-> > >>
-> > >> Was this only the kernel version jump, or did you jump in openbmc/phosphor levels as well?  There have been quite a few daemons added in the last 6 months or so that could explain your memory footprint increase.
-> >
-> > HI team. Just a reminder about email etiquette on the mailing lists
-> > that Brad posted a while back:
-> >
-> >  https://fedoraproject.org/wiki/Mailing_list_guidelines#Proper_posting_style
-> >
-> > In particular the top posting bit, which makes it hard to reply to this thread.
-> >
-> > Back to the issue at hand:
-> >
-> > >> > On Oct 9, 2018, at 9:54 AM, Patrick Venture <venture@google.com> wrote:
-> > >> >
-> > >> > Just jumped from 4.7 kernel to 4.18 running the latest openbmc image
-> > >> > on the quanta-q71l board.  And I see now I have ~20MiB of RAM free for
-> > >> > stuff once things are settled, whereas before I could have up to
-> > >> > 35MiB.
-> >
-> > Are you able to boot the new kernel with the old userspace? This will
-> > allow you to compare like for like (even if the system is not fully
-> > functional in that state). Alternatively, boot it with a small
-> > non-openbmc initrd to allow comparisons as Kun suggested.
->
-> I'm going to try building an older kernel with the newer userspace
-> first (it's a slightly easier experiment).  I'll post back on this
-> thread once I have a little more information.
-
-Running 4.17 kernel with new userspace:
-
-MemTotal   113944
-MemFree   19316
-MemAvailable   61700
-Buffers    11072
-Cached   48872
-Active   39012
-Inactive  29200
-Active(anon) 17432
-Inactive(anon)  9332
-Active(file)   21580
-Inactive(file) 19868
-Unevitable    9088
-AnonPages  17372
-Mapped       22704
-Shmem     9408
-Slab             11704
-SReclaimable 6204
-SUnreclaim  5500
-KernelStack  648
-PageTables  1472
-CommitLimit  56972
-Commited_AS  125448
-VmallocTota   1957888
-
-Running 4.7.10 kernel with new userspace:
-
-MemTotal: 116224 kB
-MemFree: 27396 kB  <--- older kernel same userspace, ~8MiB difference right off.
-MemAvailable: 74212 kB
-Buffers: 10380 kB
-Cached: 46456 kB
-Active: 40516 kB
-Inactive: 33380 kB
-Active(anon): 17124 kB
-Inactive(anon): 9356 kB
-Active(file): 23392 kB
-Inactive(file): 24024 kB
-Unevictable: 0 kB
-AnonPages: 17076 kB
-Mapped: 20696 kB
-Shmem: 9420 kB
-Slab: 9660 kB
-SReclaimable: 4776 kB
-SUnreclaim: 4884 kB
-KernelStack: 744 kB
-PageTables: 1364 kB
-CommitLimit: 58112 kB
-Committed_AS: 116540 kB
-VmallocTotal: 909312 kB
-
-Running 4.7.10 kernel with old (openbmc 1.99) userspace:
-
-MemTotal:         116224 kB
-MemFree:           39636 kB  <--- everything before ~12MiB difference.
-MemAvailable:      80224 kB
-Buffers:            9500 kB
-Cached:            38940 kB
-SwapCached:            0 kB
-Active:            36472 kB
-Inactive:          26156 kB
-Active(anon):      14452 kB
-Inactive(anon):     6456 kB
-Active(file):      22020 kB
-Inactive(file):    19700 kB
-Unevictable:           0 kB
-Mlocked:               0 kB
-SwapTotal:             0 kB
-SwapFree:              0 kB
-Dirty:                 0 kB
-Writeback:             0 kB
-AnonPages:         14200 kB
-Mapped:            19584 kB
-Shmem:              6720 kB
-Slab:               8928 kB
-SReclaimable:       4256 kB
-SUnreclaim:         4672 kB
-KernelStack:         744 kB
-PageTables:         1320 kB
-NFS_Unstable:          0 kB
-Bounce:                0 kB
-WritebackTmp:          0 kB
-CommitLimit:       58112 kB
-Committed_AS:     139392 kB
-VmallocTotal:     909312 kB
-VmallocUsed:           0 kB
-VmallocChunk:          0 kB
-
-Losing those 8MiB with just a kernel difference, makes me think it is
-always loading more or there's some default 8MiB window being eaten
-now that wasn't before.  I deliberately have the VGA window, but
-that's in both kernel's device-trees, so that isn't it -- but it makes
-me think it's something along those lines.
-
-As far as the rest of the loss in userspace :( :( I'll take a look at
-what is built and compare sizes -- my process lists are basically
-identical between old and new userspace, so something in them must
-have changed?
-
->
-> >
-> > The kernel has grown a bunch of new drivers. Most of them should not
-> > probe, and therefore won't allocate memory at run time, but there may
-> > be some new ones.
-> >
-> > I've not spent much time looking at runtime memory usage, so if these
-> > suggestions don't provide answers we might need to investigate a bit
-> > deeper.
-> >
-> > >> > This matters for a few reasons:
-> > >> > 1) my memory chip is too small to be practical and I need all the
-> > >> > bytes I can get.
-> > >> > 2) I need at least 32MiB to load a new firmware image.
-> > >> >
-> > >> > I dropped all the python except the mapper, and I dropped the newer
-> > >> > daemons from my build to clear out that difference.  It was originally
-> > >> > about 16MiB difference, so I was thinking that something is now being
-> > >> > mapped by default that wasn't before, such as part of a flash image.
-> >
-> > I initially thought you were confusing RAM with flash size, but on a
-> > second read I now understand.
-> >
-> > There has been recent work to create phosphor-tiny, is that relevant here Brad?
-
-So, the image fits on my flash chip, but it may have extra daemons
-that are being mapped in from flash for the fs?
-
-> >
-> > Cheers,
-> >
-> > Joel
+SGkgSnVzdGluLA0KUGxlYXNlIHNlZSBtaW5vciBjb21tZW50cyBiZWxvdy4NCg0KUmVnYXJkcw0K
+LVZpamF5DQoNCu+7v09uIDEwLzEwLzE4LCA5OjAxIEFNLCAiSnVzdGluLkxlZTFARGVsbC5jb20i
+IDxKdXN0aW4uTGVlMUBEZWxsLmNvbT4gd3JvdGU6DQoNCiAgICBUaGUgbmV3IGNvbW1hbmQgKE5D
+U0lfQ01EX1NFTkRfQ01EKSBpcyBhZGRlZCB0byBhbGxvdyB1c2VyIHNwYWNlIGFwcGxpY2F0aW9u
+DQogICAgdG8gc2VuZCBOQy1TSSBjb21tYW5kIHRvIHRoZSBuZXR3b3JrIGNhcmQuDQogICAgQWxz
+bywgYWRkIGEgbmV3IGF0dHJpYnV0ZSAoTkNTSV9BVFRSX0RBVEEpIGZvciB0cmFuc2ZlcnJpbmcg
+cmVxdWVzdCBhbmQgcmVzcG9uc2UuDQogICAgDQogICAgVGhlIHdvcmsgZmxvdyBpcyBhcyBiZWxv
+dy4gDQogICAgDQogICAgUmVxdWVzdDoNCiAgICBVc2VyIHNwYWNlIGFwcGxpY2F0aW9uDQogICAg
+CS0+IE5ldGxpbmsgaW50ZXJmYWNlIChtc2cpDQogICAgCS0+IG5ldyBOZXRsaW5rIGhhbmRsZXIg
+LSBuY3NpX3NlbmRfY21kX25sKCkNCiAgICAJLT4gbmNzaV94bWl0X2NtZCgpDQogICAgDQogICAg
+UmVzcG9uc2U6DQogICAgUmVzcG9uc2UgcmVjZWl2ZWQgLSBuY3NpX3Jjdl9yc3AoKQ0KICAgIAkt
+PiBpbnRlcm5hbCByZXNwb25zZSBoYW5kbGVyIC0gbmNzaV9yc3BfaGFuZGxlcl94eHgoKQ0KICAg
+IAktPiBuY3NpX3JzcF9oYW5kbGVyX25ldGxpbmsoKQ0KICAgIAktPiBuY3NpX3NlbmRfbmV0bGlu
+a19yc3AgKCkNCiAgICAJLT4gTmV0bGluayBpbnRlcmZhY2UgKG1zZykNCiAgICAJLT4gdXNlciBz
+cGFjZSBhcHBsaWNhdGlvbg0KICAgIA0KICAgIENvbW1hbmQgdGltZW91dCAtIG5jc2lfcmVxdWVz
+dF90aW1lb3V0KCkNCiAgICAJLT4gbmNzaV9zZW5kX25ldGxpbmtfdGltZW91dCAoKQ0KICAgIAkt
+PiBOZXRsaW5rIGludGVyZmFjZSAobXNnIHdpdGggemVybyBkYXRhIGxlbmd0aCkNCiAgICAJLT4g
+dXNlciBzcGFjZSBhcHBsaWNhdGlvbg0KICAgIA0KICAgIEVycm9yOg0KICAgIEVycm9yIGRldGVj
+dGVkDQogICAgCS0+IG5jc2lfc2VuZF9uZXRsaW5rX2VyciAoKQ0KICAgIAktPiBOZXRsaW5rIGlu
+dGVyZmFjZSAoZXJyIG1zZykNCiAgICAJLT4gdXNlciBzcGFjZSBhcHBsaWNhdGlvbg0KICAgIA0K
+ICAgIA0KICAgIFNpZ25lZC1vZmYtYnk6IEp1c3RpbiBMZWUgPGp1c3Rpbi5sZWUxQGRlbGwuY29t
+PiANCiAgICANCiAgICANCiAgICAtLS0NCiAgICBWNDogVXBkYXRlIGNvbW1lbnRzIGFuZCByZW1v
+dmUgc29tZSBkZWJ1ZyBtZXNzYWdlLg0KICAgIFYzOiBCYXNlZCBvbiBodHRwczovL3VybGRlZmVu
+c2UucHJvb2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0cC0zQV9fcGF0Y2h3b3JrLm96bGFicy5vcmdf
+cGF0Y2hfOTc5Njg4XyZkPUR3SUdhUSZjPTVWRDBSVHRObFRoM3ljZDQxYjNNVXcmcj12OU1VMEtp
+OXBXblRYQ1d3akhQVmdwbkNSODB2WGtrY3JJYXFVN1VTbDVnJm09MzhLU3JGX1RodW9SbW91THgt
+eEtLa2twazlFZmhORkVFcVhiZHVRcVFwRSZzPUdSWFIxc0lFek5vN3hES3lVV1M5dDFJdGE2dnhF
+WF9sbHpNeDJhenVlVmMmZT0gdG8gcmVtb3ZlIHRoZSBkdXBsaWNhdGVkIGNvZGUuDQogICAgVjI6
+IFJlbW92ZSBub24tcmVsYXRlZCBkZWJ1ZyBtZXNzYWdlIGFuZCBjbGVhbiB1cCB0aGUgY29kZS4N
+CiAgICANCiAgICANCiAgICAtLS0gYS9uZXQvbmNzaS9pbnRlcm5hbC5oDQogICAgKysrIGIvbmV0
+L25jc2kvaW50ZXJuYWwuaA0KICAgIEBAIC0xNzUsNiArMTc1LDggQEAgc3RydWN0IG5jc2lfcGFj
+a2FnZTsNCiAgICAgI2RlZmluZSBOQ1NJX1JFU0VSVkVEX0NIQU5ORUwJMHgxZg0KICAgICAjZGVm
+aW5lIE5DU0lfQ0hBTk5FTF9JTkRFWChjKQkoKGMpICYgKCgxIDw8IE5DU0lfUEFDS0FHRV9TSElG
+VCkgLSAxKSkNCiAgICAgI2RlZmluZSBOQ1NJX1RPX0NIQU5ORUwocCwgYykJKCgocCkgPDwgTkNT
+SV9QQUNLQUdFX1NISUZUKSB8IChjKSkNCiAgICArI2RlZmluZSBOQ1NJX01BWF9QQUNLQUdFCTgN
+CiAgICArI2RlZmluZSBOQ1NJX01BWF9DSEFOTkVMCTMyDQogICAgIA0KICAgICBzdHJ1Y3QgbmNz
+aV9jaGFubmVsIHsNCiAgICAgCXVuc2lnbmVkIGNoYXIgICAgICAgICAgICAgICBpZDsNCiAgICBA
+QCAtMjE5LDEyICsyMjEsMTcgQEAgc3RydWN0IG5jc2lfcmVxdWVzdCB7DQogICAgIAl1bnNpZ25l
+ZCBjaGFyICAgICAgICBpZDsgICAgICAvKiBSZXF1ZXN0IElEIC0gMCB0byAyNTUgICAgICAgICAg
+ICovDQogICAgIAlib29sICAgICAgICAgICAgICAgICB1c2VkOyAgICAvKiBSZXF1ZXN0IHRoYXQg
+aGFzIGJlZW4gYXNzaWduZWQgICovDQogICAgIAl1bnNpZ25lZCBpbnQgICAgICAgICBmbGFnczsg
+ICAvKiBOQ1NJIHJlcXVlc3QgcHJvcGVydHkgICAgICAgICAgICovDQogICAgLSNkZWZpbmUgTkNT
+SV9SRVFfRkxBR19FVkVOVF9EUklWRU4JMQ0KICAgICsjZGVmaW5lIE5DU0lfUkVRX0ZMQUdfRVZF
+TlRfRFJJVkVOCQkxDQogIA0KICBXaHkgZXh0cmEgc3BhY2UgYWRkZWQgYWJvdmU/DQoNCiAgICAr
+I2RlZmluZSBOQ1NJX1JFUV9GTEFHX05FVExJTktfRFJJVkVOCTINCiAgICAgCXN0cnVjdCBuY3Np
+X2Rldl9wcml2ICpuZHA7ICAgIC8qIEFzc29jaWF0ZWQgTkNTSSBkZXZpY2UgICAgICAgICAgKi8N
+CiAgICAgCXN0cnVjdCBza19idWZmICAgICAgICpjbWQ7ICAgIC8qIEFzc29jaWF0ZWQgTkNTSSBj
+b21tYW5kIHBhY2tldCAgKi8NCiAgICAgCXN0cnVjdCBza19idWZmICAgICAgICpyc3A7ICAgIC8q
+IEFzc29jaWF0ZWQgTkNTSSByZXNwb25zZSBwYWNrZXQgKi8NCiAgICAgCXN0cnVjdCB0aW1lcl9s
+aXN0ICAgIHRpbWVyOyAgIC8qIFRpbWVyIG9uIHdhaXRpbmcgZm9yIHJlc3BvbnNlICAgKi8NCiAg
+ICAgCWJvb2wgICAgICAgICAgICAgICAgIGVuYWJsZWQ7IC8qIFRpbWUgaGFzIGJlZW4gZW5hYmxl
+ZCBvciBub3QgICAgKi8NCiAgICArDQogICAgKwl1MzIgICAgICAgICAgICAgICAgICBzbmRfc2Vx
+OyAgICAgLyogbmV0bGluayBzZW5kaW5nIHNlcXVlbmNlIG51bWJlciAqLw0KICAgICsJdTMyICAg
+ICAgICAgICAgICAgICAgc25kX3BvcnRpZDsgIC8qIG5ldGxpbmsgcG9ydGlkIG9mIHNlbmRlciAg
+ICAgICAgKi8NCiAgICArCXN0cnVjdCBubG1zZ2hkciAgICAgIG5saGRyOyAgICAgICAvKiBuZXRs
+aW5rIG1lc3NhZ2UgaGVhZGVyICAgICAgICAgICovDQogICAgIH07DQogICAgIA0KICBFeHRyYSBs
+aW5lIGluc2lkZSBzdHJ1Y3R1cmUgbWF5IG5vdCBiZSByZXF1aXJlZC4NCg0KICAgICBlbnVtIHsN
+CiAgICBAQCAtMzEwLDYgKzMxNyw3IEBAIHN0cnVjdCBuY3NpX2NtZF9hcmcgew0KICAgICAJCXVu
+c2lnbmVkIGludCAgIGR3b3Jkc1s0XTsNCiAgICAgCX07DQogICAgIAl1bnNpZ25lZCBjaGFyICAg
+ICAgICAqZGF0YTsgICAgICAgLyogTkNTSSBPRU0gZGF0YSAgICAgICAgICAgICAgICAgKi8NCiAg
+ICArCXN0cnVjdCBnZW5sX2luZm8gICAgICppbmZvOyAgICAgICAvKiBOZXRsaW5rIGluZm9ybWF0
+aW9uICAgICAgICAgICAqLw0KICAgICB9Ow0KICAgICANCiAgICBkaWZmIC0tZ2l0IGEvbmV0L25j
+c2kvbmNzaS1uZXRsaW5rLmMgYi9uZXQvbmNzaS9uY3NpLW5ldGxpbmsuYw0KICAgIGluZGV4IDQ1
+ZjMzZDYuLjYyZTE5MWYgMTAwNjQ0DQogICAgLS0tIGEvbmV0L25jc2kvbmNzaS1uZXRsaW5rLmMN
+CiAgICArKysgYi9uZXQvbmNzaS9uY3NpLW5ldGxpbmsuYw0KICAgIEBAIC0yMCw2ICsyMCw3IEBA
+DQogICAgICNpbmNsdWRlIDx1YXBpL2xpbnV4L25jc2kuaD4NCiAgICAgDQogICAgICNpbmNsdWRl
+ICJpbnRlcm5hbC5oIg0KICAgICsjaW5jbHVkZSAibmNzaS1wa3QuaCINCiAgICAgI2luY2x1ZGUg
+Im5jc2ktbmV0bGluay5oIg0KICAgICANCiAgICAgc3RhdGljIHN0cnVjdCBnZW5sX2ZhbWlseSBu
+Y3NpX2dlbmxfZmFtaWx5Ow0KICAgIEBAIC0yOSw2ICszMCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgbmxhX3BvbGljeSBuY3NpX2dlbmxfcG9saWN5W05DU0lfQVRUUl9NQVggKyAxXSA9IHsNCiAg
+ICAgCVtOQ1NJX0FUVFJfUEFDS0FHRV9MSVNUXSA9CXsgLnR5cGUgPSBOTEFfTkVTVEVEIH0sDQog
+ICAgIAlbTkNTSV9BVFRSX1BBQ0tBR0VfSURdID0JeyAudHlwZSA9IE5MQV9VMzIgfSwNCiAgICAg
+CVtOQ1NJX0FUVFJfQ0hBTk5FTF9JRF0gPQl7IC50eXBlID0gTkxBX1UzMiB9LA0KICAgICsJW05D
+U0lfQVRUUl9EQVRBXSA9CQl7IC50eXBlID0gTkxBX0JJTkFSWSwgLmxlbiA9IDIwNDggfSwNCiAg
+ICAgfTsNCiAgICAgDQogICAgIHN0YXRpYyBzdHJ1Y3QgbmNzaV9kZXZfcHJpdiAqbmRwX2Zyb21f
+aWZpbmRleChzdHJ1Y3QgbmV0ICpuZXQsIHUzMiBpZmluZGV4KQ0KICAgIEBAIC0zNjYsNiArMzY4
+LDE5OCBAQCBzdGF0aWMgaW50IG5jc2lfY2xlYXJfaW50ZXJmYWNlX25sKHN0cnVjdCBza19idWZm
+ICptc2csIHN0cnVjdCBnZW5sX2luZm8gKmluZm8pDQogICAgIAlyZXR1cm4gMDsNCiAgICAgfQ0K
+ICAgICANCiAgICArc3RhdGljIGludCBuY3NpX3NlbmRfY21kX25sKHN0cnVjdCBza19idWZmICpt
+c2csIHN0cnVjdCBnZW5sX2luZm8gKmluZm8pDQogICAgK3sNCiAgICArCXN0cnVjdCBuY3NpX2Rl
+dl9wcml2ICpuZHA7DQogICAgKw0KICAgICsJc3RydWN0IG5jc2lfY21kX2FyZyBuY2E7DQogICAg
+KwlzdHJ1Y3QgbmNzaV9wa3RfaGRyICpoZHI7DQogICAgKw0KICAgICsJdTMyIHBhY2thZ2VfaWQs
+IGNoYW5uZWxfaWQ7DQogICAgKwl1bnNpZ25lZCBjaGFyICpkYXRhOw0KICAgICsJaW50IGxlbiwg
+cmV0Ow0KICAgICsNCiAgICArCWlmICghaW5mbyB8fCAhaW5mby0+YXR0cnMpIHsNCiAgICArCQly
+ZXQgPSAtRUlOVkFMOw0KICAgICsJCWdvdG8gb3V0Ow0KICAgICsJfQ0KICAgICsNCiAgICArCWlm
+ICghaW5mby0+YXR0cnNbTkNTSV9BVFRSX0lGSU5ERVhdKSB7DQogICAgKwkJcmV0ID0gLUVJTlZB
+TDsNCiAgICArCQlnb3RvIG91dDsNCiAgICArCX0NCiAgICArDQogICAgKwlpZiAoIWluZm8tPmF0
+dHJzW05DU0lfQVRUUl9QQUNLQUdFX0lEXSkgew0KICAgICsJCXJldCA9IC1FSU5WQUw7DQogICAg
+KwkJZ290byBvdXQ7DQogICAgKwl9DQogICAgKw0KICAgICsJaWYgKCFpbmZvLT5hdHRyc1tOQ1NJ
+X0FUVFJfQ0hBTk5FTF9JRF0pIHsNCiAgICArCQlyZXQgPSAtRUlOVkFMOw0KICAgICsJCWdvdG8g
+b3V0Ow0KICAgICsJfQ0KICAgICsNCiAgICArCW5kcCA9IG5kcF9mcm9tX2lmaW5kZXgoZ2V0X25l
+dChzb2NrX25ldChtc2ctPnNrKSksDQogICAgKwkJCSAgICAgICBubGFfZ2V0X3UzMihpbmZvLT5h
+dHRyc1tOQ1NJX0FUVFJfSUZJTkRFWF0pKTsNCiAgICArCWlmICghbmRwKSB7DQogICAgKwkJcmV0
+ID0gLUVOT0RFVjsNCiAgICArCQlnb3RvIG91dDsNCiAgICArCX0NCiAgICArDQogICAgKwlwYWNr
+YWdlX2lkID0gbmxhX2dldF91MzIoaW5mby0+YXR0cnNbTkNTSV9BVFRSX1BBQ0tBR0VfSURdKTsN
+CiAgICArCWNoYW5uZWxfaWQgPSBubGFfZ2V0X3UzMihpbmZvLT5hdHRyc1tOQ1NJX0FUVFJfQ0hB
+Tk5FTF9JRF0pOw0KICAgICsNCiAgICArCWlmIChwYWNrYWdlX2lkID49IE5DU0lfTUFYX1BBQ0tB
+R0UgfHwgY2hhbm5lbF9pZCA+PSBOQ1NJX01BWF9DSEFOTkVMKSB7DQogICAgKwkJcmV0ID0gLUVS
+QU5HRTsNCiAgICArCQlnb3RvIG91dF9uZXRsaW5rOw0KICAgICsJfQ0KICAgICsNCiAgICArCWxl
+biA9IG5sYV9sZW4oaW5mby0+YXR0cnNbTkNTSV9BVFRSX0RBVEFdKTsNCiAgICArCWlmIChsZW4g
+PCBzaXplb2Yoc3RydWN0IG5jc2lfcGt0X2hkcikpIHsNCiAgICArCQluZXRkZXZfaW5mbyhuZHAt
+Pm5kZXYuZGV2LCAiTkNTSTogbm8gY29tbWFuZCB0byBzZW5kICV1XG4iLA0KICAgICsJCQkgICAg
+cGFja2FnZV9pZCk7DQogICAgKwkJcmV0ID0gLUVJTlZBTDsNCiAgICArCQlnb3RvIG91dF9uZXRs
+aW5rOw0KICAgICsJfSBlbHNlIHsNCiAgICArCQlkYXRhID0gKHVuc2lnbmVkIGNoYXIgKilubGFf
+ZGF0YShpbmZvLT5hdHRyc1tOQ1NJX0FUVFJfREFUQV0pOw0KICAgICsJfQ0KICAgICsNCiAgICAr
+CWhkciA9IChzdHJ1Y3QgbmNzaV9wa3RfaGRyICopZGF0YTsNCiAgICArDQogICAgKwluY2EubmRw
+ID0gbmRwOw0KICAgICsJbmNhLnBhY2thZ2UgPSAodW5zaWduZWQgY2hhcilwYWNrYWdlX2lkOw0K
+ICAgICsJbmNhLmNoYW5uZWwgPSAodW5zaWduZWQgY2hhciljaGFubmVsX2lkOw0KICAgICsJbmNh
+LnR5cGUgPSBoZHItPnR5cGU7DQogICAgKwluY2EucmVxX2ZsYWdzID0gTkNTSV9SRVFfRkxBR19O
+RVRMSU5LX0RSSVZFTjsNCiAgICArCW5jYS5pbmZvID0gaW5mbzsNCiAgICArCW5jYS5wYXlsb2Fk
+ID0gbnRvaHMoaGRyLT5sZW5ndGgpOw0KICAgICsJbmNhLmRhdGEgPSBkYXRhICsgc2l6ZW9mKCpo
+ZHIpOw0KICAgICsNCiAgICArCXJldCA9IG5jc2lfeG1pdF9jbWQoJm5jYSk7DQogICAgK291dF9u
+ZXRsaW5rOg0KICAgICsJaWYgKHJldCAhPSAwKSB7DQogICAgKwkJbmV0ZGV2X2VycihuZHAtPm5k
+ZXYuZGV2LA0KICAgICsJCQkgICAiTkNTSTogRXJyb3IgJWQgc2VuZGluZyBPRU0gY29tbWFuZFxu
+IiwNCiAgICArCQkJICAgcmV0KTsNCiAgICArCQluY3NpX3NlbmRfbmV0bGlua19lcnIobmRwLT5u
+ZGV2LmRldiwNCiAgICArCQkJCSAgICAgIGluZm8tPnNuZF9zZXEsDQogICAgKwkJCQkgICAgICBp
+bmZvLT5zbmRfcG9ydGlkLA0KICAgICsJCQkJICAgICAgaW5mby0+bmxoZHIsDQogICAgKwkJCQkg
+ICAgICByZXQpOw0KICAgICsJfQ0KDQogIE9FTSBzaG91bGQgYmUgcmVtb3ZlZCBmcm9tIGFib3Zl
+IG1lc3NhZ2UuDQoNCiAgICArb3V0Og0KICAgICsJcmV0dXJuIHJldDsNCiAgICArfQ0KICAgICsN
+CiAgICAgDQogICAgDQogICAgDQoNCg==
