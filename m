@@ -1,60 +1,72 @@
-Return-Path: <venture@google.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::632; helo=mail-pl1-x632.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="bs8o/adU"; 
- dkim-atps=neutral
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="mw8rMbPI"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="lwZooHHW"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42VwVH36qLzF0RF
- for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 13:52:06 +1100 (AEDT)
-Received: by mail-pl1-x632.google.com with SMTP id f8-v6so3456272plb.2
- for <openbmc@lists.ozlabs.org>; Wed, 10 Oct 2018 19:52:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mVflXX7KmeUfWyUdJ/jYr/NyxgWwc7yYD1aviXd3ihQ=;
- b=bs8o/adUUxsCPeWX0tfVteUPC+qCsQCTM66QZZoRiSToSnTBeglm2bC6JhBFi5JT85
- I+btQcdlIraH7Y/RgnCZIBEgTmL6LlZQAs7YgKNfWKarEAqNVTN4TEqa3zQQ7WK1ViqQ
- O4g2JJRaFGA2YVtbrngB65zzeCLWGOySjSOYfi6KWzkrmaCMWklaalcotnvI0OmJx1BQ
- 8H8kvW/u4DL8TfH3TZ/pR1JhzlIYOaonNGgWqJiU3eLSjV23Fmw6xnzHJbwkGnhc9InF
- Upk4gI9qe2GKv686/56jjVeMRFDF62JnTJSoo44WEQ5pHpaZAGBilA1EkwgMOQCHyPdx
- ePbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mVflXX7KmeUfWyUdJ/jYr/NyxgWwc7yYD1aviXd3ihQ=;
- b=I8AwH1UIm4RDb6EzMOmS480qgJd4zHllC2+q5cl55d7EYY7SiLCr+QQYkqKnMn5VoY
- g7M8xiyzHN5rUeBSg3hjAm0v9EJmSyiUYTfpyzk6xzk7oDzUscgr0jQ5S6MIK+U/sPBD
- OEQmEl1bs9QRSZdV9nxx+iObR9wgDRV1Gry/DVghqaRbRhkeegsYzxGVW8w1dwPTIJQI
- B5MmdmdaV9IU6yKYQyk4u+JHJBLAb7f9diXSfBKsVQg+nPazFcs2amn/acr0oAVIEVnb
- sqBsSP/oP1sJRa4DKSF548t1xzjJixFbteU8PF4QgDgSpaVa2yo+ydUASNYfUJexTyEu
- 151w==
-X-Gm-Message-State: ABuFfohksCEJ6nmgkx+EcLnQKlzHv6VNQ6jcgCkLujyTWV2avxwM1QT0
- iqVPhZZRKF6IR7FH/aZgCECOs9LuJryzy+lATpZpuwyg
-X-Google-Smtp-Source: ACcGV60XeGnhzE2BD7HTuNgVX5sZWG/EgFGU0nwNfhs+uaSrpEnud8YxY7GMe4KJv6w5Sv0rs91wtKAClO0AJ+0PkF8=
-X-Received: by 2002:a17:902:b706:: with SMTP id
- d6-v6mr2048338pls.53.1539226324196; 
- Wed, 10 Oct 2018 19:52:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAJoAoZn3CSHRrtTi3r-B3aWn6t1CH3W3SLk_b_BJ3wiPsWrQvg@mail.gmail.com>
- <CA+YB3rb76TCnpLh3nXqcVtzGu0BUVWboWY87cNqgewm3ib=nFg@mail.gmail.com>
- <CAJoAoZ=fspkuFtZgyErrF6JjD2oR=uau3=gVb4ipugNQ2Qv2Kg@mail.gmail.com>
- <481b4ab3-8ecb-769c-5d23-25242ad394e5@gmail.com>
-In-Reply-To: <481b4ab3-8ecb-769c-5d23-25242ad394e5@gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 10 Oct 2018 19:51:52 -0700
-Message-ID: <CAO=notz--AX88W=OrY0MyQxk-=XZOyiRz+n0k34YPHgGxDk1iA@mail.gmail.com>
-Subject: Re: Community Code of Conduct
-To: krtaylor <kurt.r.taylor@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42VxvK2z5nzF35P;
+ Thu, 11 Oct 2018 14:55:24 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9E1A621E32;
+ Wed, 10 Oct 2018 23:55:18 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 10 Oct 2018 23:55:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=message-id:subject:from:to:cc:date
+ :in-reply-to:references:content-type:mime-version
+ :content-transfer-encoding; s=fm1; bh=PXWVq5wCxBq2IJFYd3NH78OoPK
+ i2CmsM7NJolVnKtKc=; b=mw8rMbPInpEwr2WSeCjBI7fUVYBZykATPmvlcQTnnT
+ LSECibxdYvfI3aIeohRFNH1URTrbJG14BQp7PDz3b8H53NUSq9nhvlD0MG8eowFr
+ Wx9W7zCcSgCGdClXzhaA0TGihedF3lR/6MgW/oK95JHITQRBimg9XkApkWYPfhQg
+ rZlCiJ/ymO81WecrwYPGNwZs3eIzqdfPLneM7DL4Tt/IoqCdt0+IyxEUpyRaU7xO
+ 3BDkO7WUT7SWyl1u+/8ppJTXVjmgjfNPbbrdYcDznHf8uaQx7ZvuUbhM6uYbC9aD
+ UDbhVdO9gtFc5SaVvbtXnAY0xE8JwMAgDxyy+gg/mHUQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=PXWVq5wCxBq2IJFYd3NH78OoPKi2CmsM7NJolVnKt
+ Kc=; b=lwZooHHWTxSw2zq8lbkIq7w7RC9yFRMEW4Ltt9p+vZWu4H+9W8ZvHwOvx
+ fSRETK3S2S4po+jjWSE7mmJ35sPhbpR0+oa/XWVs20IyozAaH5i141EUV5+BftGU
+ thGheqtBBbYy0Q/KbGEXaGQ+i9jaTg1eRWMM1gVBZbGAvdp+izqrVPisnZHM0fGT
+ +2jnkMAdcPJzGuz57MS2/uXjifPyYD3aDzILOuiNoVslFgEO1/dpwepbXffflyab
+ gaeb3Qjnel4gN0NVAVLpM7ucvTtHeycTfqeWPb4PMhaDxNmlYLEF3uDsGtwvnwXa
+ KkM8jchmLAq3s53jhvKatE2zS6xIQ==
+X-ME-Sender: <xms:psm-WyviJv_JuhiLr_Q_WapWgtYCNXii49tREKb2erFJVVuJOpFMZA>
+X-ME-Proxy: <xmx:psm-W6ZHuWi3aX2C6C6OgjRii6szIQlygdVOPSy_90qiiLte54kOCw>
+ <xmx:psm-W9vTJ0mD1z4iKaZRgMdXQoX9LD4gnzFSqJeSZGXQVbYy9Ld-rw>
+ <xmx:psm-W8nZuiNWDES_DwIZzT_-uvYIIRxiEcRPVaU8vpMPAcbynBQqoA>
+ <xmx:psm-W3QCt_Pbjx9Ol5NDXMeLx1hVmOZ_EJR-uPnX2lCro3Wff6lgeg>
+ <xmx:psm-W-PYqNx89GbYpBiMeNDscMgZBXAQpZMqFfEZLB3GaksJWxgRzQ>
+ <xmx:psm-Wxp66su9TExCFAaAeBNKWWxxY7faRfOvpKPEEg2doV2gNDUw5g>
+Received: from v4 (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 44C11E44DC;
+ Wed, 10 Oct 2018 23:55:15 -0400 (EDT)
+Message-ID: <e26c7aa664a2dad4f5bcf4efaa1b3eb655548b01.camel@mendozajonas.com>
+Subject: Re: [PATCH net-next v5] net/ncsi: Extend NC-SI Netlink interface to
+ allow user space to send NC-SI command
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Justin.Lee1@Dell.com, joel@jms.id.au
+Cc: linux-aspeed@lists.ozlabs.org, netdev@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, amithash@fb.com, christian@cmd.nu,
+ vijaykhemka@fb.com
+Date: Thu, 11 Oct 2018 14:55:08 +1100
+In-Reply-To: <245b32d9a3dd463f9334b9704b639ec4@AUSX13MPS302.AMER.DELL.COM>
+References: <245b32d9a3dd463f9334b9704b639ec4@AUSX13MPS302.AMER.DELL.COM>
 Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,58 +78,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Oct 2018 02:52:08 -0000
+X-List-Received-Date: Thu, 11 Oct 2018 03:55:30 -0000
 
-On Wed, Oct 10, 2018 at 7:58 AM krtaylor <kurt.r.taylor@gmail.com> wrote:
->
-> On 10/9/18 1:53 PM, Emily Shaffer wrote:
-> > Reading through this, I've got a couple concerns:
-> >
-> > - There's a clause for enforcement. How do we want to assign ownership
-> > when enforcement is needed? We probably want to lay it out, I'm not sure
-> > that it should come through the TSC. Maybe Kurt would be a good start as
-> > the community manager? No offense to Kurt but I'd also like an
-> > escalation path or alternative path - with these kinds of things it's
-> > important to be able to bypass an individual if necessary.
->
-> Re: Community Manager, I am already partially doing that in an
-> unofficial sense, but for an escalation path, I would highly recommend
-> first reaching out to the TSC. Any inappropriate activity or harassment
-> must be taken care of immediately and the community leadership would be
-> tasked to take care of that.
->
-> >
-> > - The clause on scope seems to me like it may leave a gap surrounding
-> > harassment of community members outside of the official OpenBMC setting
-> > - ie, Foo posts to their Twitter account, "I'm having a lot of trouble
-> > with Bar's code reviews. What an idiot! Tell them so - their email is
-> > bar@baz.org <mailto:bar@baz.org>!" I'm not sure I'm seeing how the
-> > contributor covenant protects against this kind of behavior. Maybe I'm
-> > just misreading and this counts as "prviate communication"?
->
-> This would absolutely require that the person be put on notice. Maybe it
-> will help, but I have also never seen this behavior work for anyone
-> trying to harass anyone. It has always backfired on the person doing the
-> harassing in every case I can think of (I have been involved in a couple).
->
-> >
-> > On Tue, Oct 9, 2018 at 11:31 AM Jeff Osier-Mixon <jefro.net@gmail.com
-> > <mailto:jefro.net@gmail.com>> wrote:
-> >
-> >     Hi folks
-> >
-> >     We strongly recommend the contributor covenant coc. Being adopted by
-> >     many projects.
-> >
-> >     https://www.contributor-covenant.org/version/1/4/code-of-conduct
-> >
-> >     Glad to discuss more
->
-> As I said in my previous email, we already have a CoC under the LF
-> policies, but I am not opposed to adopting a new one. That said, do we
-> need to improve the existing one? Is there something missing? Has anyone
-> compared the two? Did I just sign up to do that?  :)
->
-> Kurt Taylor (krtaylor)
+On Wed, 2018-10-10 at 18:11 +0000, Justin.Lee1@Dell.com wrote:
+<snip>
+> +
+> +	len = nla_len(info->attrs[NCSI_ATTR_DATA]);
+> +	if (len < sizeof(struct ncsi_pkt_hdr)) {
+> +		netdev_info(ndp->ndev.dev, "NCSI: no command to send %u\n",
+> +			    package_id);
+> +		ret = -EINVAL;
+> +		goto out_netlink;
+> +	} else {
+> +		data = (unsigned char *)nla_data(info->attrs[NCSI_ATTR_DATA]);
+> +	}
 
-I just read over the LF CoC and I think it's pretty solid.
+I only just noticed this, the call to nla_len() can cause a null-dereference if
+the NCSI_ATTR_DATA attribute isn't present; we need to make sure it exists
+before accessing it in info->attrs.
+
+eg:
+
+root@ozrom2-bmc:~# ./ncsi-netlink -l 2 -p 0 -c 0 --cmd
+[   81.399837] Unable to handle kernel NULL pointer dereference at virtual address 00000000
+[   81.409092] pgd = ddaa9fa6
+[   81.413084] [00000000] *pgd=9702c831, *pte=00000000, *ppte=00000000
+[   81.420729] Internal error: Oops: 17 [#1] ARM
+[   81.426447] CPU: 0 PID: 1028 Comm: ncsi-netlink Not tainted 4.18.8-sammj-00144-gbc129f31bfa5 #12
+...
+[   81.874434] Kernel panic - not syncing: Fatal exception
+
+Cheers,
+Sam
