@@ -1,40 +1,83 @@
-Return-Path: <davem@davemloft.net>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=davemloft.net
- (client-ip=2620:137:e000::1:9; helo=shards.monkeyblade.net;
- envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=davemloft.net
-Received: from shards.monkeyblade.net (shards.monkeyblade.net
- [IPv6:2620:137:e000::1:9])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42WHJK1Q17zDrGC;
- Fri, 12 Oct 2018 03:59:43 +1100 (AEDT)
-Received: from localhost (unknown [IPv6:2601:601:9f00:1c06::4572])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id EB8AF12DE5810;
- Thu, 11 Oct 2018 09:59:38 -0700 (PDT)
-Date: Thu, 11 Oct 2018 09:59:36 -0700 (PDT)
-Message-Id: <20181011.095936.1852167988265546410.davem@davemloft.net>
-To: Justin.Lee1@Dell.com
-Cc: sam@mendozajonas.com, joel@jms.id.au, linux-aspeed@lists.ozlabs.org,
- netdev@vger.kernel.org, openbmc@lists.ozlabs.org, amithash@fb.com,
- christian@cmd.nu, vijaykhemka@fb.com
-Subject: Re: [PATCH net-next v6] net/ncsi: Extend NC-SI Netlink interface
- to allow user space to send NC-SI command
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <70bcb509b3f94eb4af186e604363770d@AUSX13MPS302.AMER.DELL.COM>
-References: <70bcb509b3f94eb4af186e604363770d@AUSX13MPS302.AMER.DELL.COM>
-X-Mailer: Mew version 6.7 on Emacs 26 / Mule 6.0 (HANACHIRUSATO)
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Thu, 11 Oct 2018 09:59:39 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42WJ2c6xT7zF3JJ
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Oct 2018 04:32:55 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9BHO3Rd062795
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 13:32:53 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2n28hvr878-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Oct 2018 13:32:53 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Thu, 11 Oct 2018 11:32:52 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 11 Oct 2018 11:32:49 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w9BHWmGH60948568
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 11 Oct 2018 10:32:48 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 934D66E056;
+ Thu, 11 Oct 2018 11:32:48 -0600 (MDT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1A47A6E052;
+ Thu, 11 Oct 2018 11:32:48 -0600 (MDT)
+Received: from [9.41.179.222] (unknown [9.41.179.222])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 11 Oct 2018 11:32:47 -0600 (MDT)
+Subject: Re: KVM Support?
+To: xiuzhi <1450335857@qq.com>, "Alexander A. Filippov" <a.filippov@yadro.com>,
+ openbmc <openbmc@lists.ozlabs.org>
+References: <tencent_5D1EDC1D8DB78D128D29AA554AADF300AE08@qq.com>
+ <004c4dee-ada1-61f8-6c6c-653be2b3e57f@linux.vnet.ibm.com>
+ <tencent_54C0BC7D36D43C257F35D6C9@qq.com>
+ <17c12028-a8c5-7b39-aa17-afa80b0ec0da@linux.vnet.ibm.com>
+ <tencent_2A5AC133597B0E1E6990C17F@qq.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Thu, 11 Oct 2018 12:32:47 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <tencent_2A5AC133597B0E1E6990C17F@qq.com>
+Content-Type: text/plain; charset=gb18030; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18101117-0020-0000-0000-00000E770E88
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009861; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01101192; UDB=6.00569805; IPR=6.00881237; 
+ MB=3.00023715; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-11 17:32:51
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18101117-0021-0000-0000-00006356BD22
+Message-Id: <29b32905-1640-7502-2874-9d8d67326f65@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-11_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810110165
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,53 +89,560 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Oct 2018 16:59:45 -0000
+X-List-Received-Date: Thu, 11 Oct 2018 17:32:57 -0000
 
-From: <Justin.Lee1@Dell.com>
-Date: Thu, 11 Oct 2018 06:21:10 +0000
 
-> @@ -366,6 +368,203 @@ static int ncsi_clear_interface_nl(struct sk_buff *msg, struct genl_info *info)
->  	return 0;
->  }
->  
-> +static int ncsi_send_cmd_nl(struct sk_buff *msg, struct genl_info *info)
-> +{
-> +	struct ncsi_dev_priv *ndp;
-> +
-> +	struct ncsi_cmd_arg nca;
-> +	struct ncsi_pkt_hdr *hdr;
-> +
-> +	u32 package_id, channel_id;
-> +	unsigned char *data;
-> +	int len, ret;
 
-Please order all local variable declarations from longest to shortest
-line.  Please do not insert empty lines in the middle of a set of
-variable declarations.
+On 10/11/2018 05:51 AM, xiuzhi wrote:
+> Hi Eddie,
+>  An error occured when I tested the ikvm on AST2500 now.
+> root@romulus:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> [  192.679314] cma: cma_alloc: alloc failed, req-size: 2304 pages, 
+> ret: -12
+> [  192.686061] aspeed-video 1e700000.video: Failed to allocate source 
+> buffer 1, size[900000]
+> [  192.696715] aspeed-video 1e700000.video: Failed to start video engine
+> The .dts file:
+>                vga_memory: framebuffer@9f000000 {
+>                         no-map;
+>                         reg = <0x9f000000 0x01000000>; /* 16M */
+>                 };
+>                 gfx_memory: framebuffer {
+>                         size = <0x01000000>;
 
-> +int ncsi_send_netlink_err(struct net_device *dev,
-> +			  u32 snd_seq,
-> +			  u32 snd_portid,
-> +			  struct nlmsghdr *nlhdr,
-> +			  int err)
-> +{
-> +	struct sk_buff *skb;
-> +	struct nlmsghdr *nlh;
-> +	struct nlmsgerr *nle;
-> +	struct net *net;
+Hi,
 
-Please order local variables from longest to shortest line.
+You may have to increase the size of the reserved memory. I believe I 
+bumped ours up to 0x04000000.
 
-> @@ -941,6 +956,26 @@ static int ncsi_rsp_handler_gpuuid(struct ncsi_request *nr)
->  	return 0;
->  }
->  
-> +static int ncsi_rsp_handler_netlink(struct ncsi_request *nr)
-> +{
-> +	struct ncsi_rsp_pkt *rsp;
-> +	struct ncsi_dev_priv *ndp = nr->ndp;
-> +	struct ncsi_package *np;
-> +	struct ncsi_channel *nc;
-> +	int ret;
+If you use the latest version of the driver it will initially allocate 
+the largest buffer for size detection, but then will free unnecessary 
+memory once the size is detected. That may help you.
 
-Likewise.
+Thanks,
+Eddie
+
+>                         alignment = <0x01000000>;
+>                         compatible = "shared-dma-pool";
+>                         reusable;
+>                 };
+>
+> &gfx {
+>      status = "okay";
+>      memory-region = <&gfx_memory>;
+> };
+>
+> &video {
+>         status = "okay";
+>         memory-region = <&gfx_memory>;
+> };
+>
+> &vhub {
+>         status = "okay";
+> };
+>
+> How to debug it?
+> Best,
+> Xiuzhi
+>
+> ------------------ Original ------------------
+> *From: * "Eddie James";<eajames@linux.vnet.ibm.com>;
+> *Send time:* Friday, Aug 24, 2018 10:46 PM
+> *To:* "xiuzhi"<1450335857@qq.com>; "Alexander A. 
+> Filippov"<a.filippov@yadro.com>; "openbmc"<openbmc@lists.ozlabs.org>;
+> *Subject: * Re: KVM Support?
+>
+>
+>
+> On 08/23/2018 08:06 PM, xiuzhi wrote:
+> > Hi Eddie,
+> > Is there a schedule for integrating one vnc viewer to phosphor webui ?
+>
+> Hi Xiuzhi,
+>
+> Well, the VNC server (and Video Engine driver) integration is targeted
+> for the OpenBMC release in February 2019. Hopefully in master before
+> then. There is currently no plan or work being done to integrate a
+> viewer into the BMC webui. But patches are certainly welcome in this
+> area! It could be as simple as dropping in a noVNC html file... not sure.
+>
+> And thanks for the help on AST2400!
+>
+> Eddie
+>
+> > Best,
+> > Xiuzhi
+> >
+> >
+> >
+> > On 08/14/2018 01:39 AM, xiuzhi wrote:
+> > > Hi Eddie,
+> > >    The video-dev2 can work on AST2400, the tightvnc connect to BMC
+> > > vncserver stably when the host cpu run centos GUI.
+> > > Two issues was found in testing process .
+> > > 1, The obmc-ikvm will stop connection when host server window flush
+> > > from one to next  on BIOS or kernel booting process.
+> > > The error log on AST2400 is :
+> > > 18/07/2018 13:37:32 Listening for VNC connections on TCP port 5900
+> > > 18/07/2018 13:37:32 Listening for VNC connections on TCP6 port 5900
+> > > [11704.151172] aspeed-video 1e700000.video: resolution changed;
+> > resetting
+> > > [11704.888188] aspeed-video 1e700000.video: resolution changed;
+> > resetting
+> > > [11705.613868] aspeed-video 1e700000.video: invalid resolution 
+> detected
+> > > [11705.620421] aspeed-video 1e700000.video: resolution changed;
+> > > couldn't get new resolution
+> >
+> > OK, I noticed a similar issue on AST2500 when immediately detecting
+> > resolution after mode change. I added a delay, but it probably needs to
+> > be longer on AST2400... Also, most client's don't handle server-side
+> > resize, so usually the window will close and you'll have to re-open
+> > anyway I think, if the size is changing.
+> >
+> > Thanks,
+> > Eddie
+> >
+> > >
+> > >
+> > > 2, The VNC Viewer can not connect to bmc server.
+> > > The error on VNC Viewer client is :
+> > > "   Attempting to reconnect to VNC Server ...
+> > >    RFB protocol error:unknown rect encoding 7
+> > > "
+> > >
+> > > The error log  on BMC is :
+> > > 18/07/2018 14:03:18 Got connection from client 192.168.120.58
+> > > 18/07/2018 14:03:18   other clients:
+> > > 18/07/2018 14:03:18 Normal socket connection
+> > > 18/07/2018 14:03:18 Client Protocol Version 3.8
+> > > 18/07/2018 14:03:18 Protocol version sent 3.8, using 3.8
+> > > 18/07/2018 14:03:18 rfbProcessClientSecurityType: executing handler
+> > > for type 1
+> > > 18/07/2018 14:03:18 rfbProcessClientSecurityType: returning
+> > > securityResult for client rfb version >= 3.8
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000018)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000016)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000015)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x0000000F)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0xFFFFFEC6)
+> > > 18/07/2018 14:03:18 Enabling full-color cursor updates for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 Enabling NewFBSize protocol extension for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 Using ZRLE encoding for client 192.168.120.58
+> > > 18/07/2018 14:03:18 Pixel format for client 192.168.120.58:
+> > > 18/07/2018 14:03:18   8 bpp, depth 6
+> > > 18/07/2018 14:03:18   true colour: max r 3 g 3 b 3, shift r 4 g 2 b 0
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000018)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000016)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000015)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x0000000F)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0xFFFFFEC6)
+> > > 18/07/2018 14:03:18 Enabling full-color cursor updates for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 Enabling NewFBSize protocol extension for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 Switching from ZRLE to raw Encoding for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000018)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000016)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x00000015)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0x0000000F)
+> > > 18/07/2018 14:03:18 rfbProcessClientNormalMessage: ignoring
+> > > unsupported encoding type Enc(0xFFFFFEC6)
+> > > 18/07/2018 14:03:18 Enabling full-color cursor updates for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 Enabling NewFBSize protocol extension for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 Switching from raw to ZRLE Encoding for client
+> > > 192.168.120.58
+> > > 18/07/2018 14:03:18 Pixel format for client 192.168.120.58:
+> > > 18/07/2018 14:03:18   32 bpp, depth 24, little endian
+> > > 18/07/2018 14:03:18   true colour: max r 255 g 255 b 255, shift r 16 g
+> > > 8 b 0
+> > > 18/07/2018 14:03:19 rfbProcessClientNormalMessage: read: Connection
+> > > reset by peer
+> > > 18/07/2018 14:03:19 Client 192.168.120.58 gone
+> > > 18/07/2018 14:03:19 Statistics             events Transmit/ RawEquiv (
+> > > saved)
+> > > 18/07/2018 14:03:19  FramebufferUpdate   :      3 |  0/     0 (  0.0%)
+> > > 18/07/2018 14:03:19  tight               :      1 |  33807/  3145740 (
+> > > 98.9%)
+> > > 18/07/2018 14:03:19  raw                 :      1 |  16396/    16396
+> > > (  0.0%)
+> > > 18/07/2018 14:03:19  ZRLE                :      2 | 62/ 3932160 
+> (100.0%)
+> > > 18/07/2018 14:03:19  RichCursor          :      3 |  429/     429 (
+> > > 0.0%)
+> > > 18/07/2018 14:03:19  TOTALS              :     10 |  50694/  7094725 (
+> > > 99.3%)
+> > > 18/07/2018 14:03:19 Statistics             events Received/ RawEquiv (
+> > > saved)
+> > > 18/07/2018 14:03:19  FramebufferUpdate   :      4 | 40/    40 (  0.0%)
+> > > 18/07/2018 14:03:19  SetPixelFormat      :      2 | 40/    40 (  0.0%)
+> > > 18/07/2018 14:03:19  SetEncodings        :      3 |  168/     168 (
+> > > 0.0%)
+> > > 18/07/2018 14:03:19  TOTALS              :      9 |  248/     248 (
+> > > 0.0%)
+> > >
+> > > Best,
+> > > Xiuzhi
+> > > Hi Eddie,
+> > >    Very good work!
+> > >   The video-dev2 works on AST2400 now, I will do more test.
+> > > Thanks,
+> > > Xiuzhi
+> > > On 08/10/2018 10:00 AM, Eddie James wrote:
+> > > >
+> > > >
+> > > > On 08/10/2018 06:14 AM, xiuzhi wrote:
+> > > >> Hi Eddie,
+> > > >>    I tested the new update source of video-dev on AST2400 and
+> > > >> AST2500. It works on AST2500.
+> > > >>  On AST2400，the vncviewer can connect vncserver sucessful, but its
+> > > >> window was blank,  not shown any information of the host screen .
+> > > >> Would you like to give me some advice or instruments on how to 
+>  debug
+> > > >> this issue?
+> > >
+> > > Hey, I also just pushed a new branch to my github with some
+> > > simplifications to the driver... It no longer uses the auto mode 
+> and may
+> > > work better on AST2400... I don't have any AST2400 to test on, but let
+> > > me know if you have any luck:
+> > >
+> > > https://github.com/eddiejames/linux/commits/video-dev2
+> > >
+> > > Thanks,
+> > > Eddie
+> > >
+> > > >
+> > > > Hi,
+> > > >
+> > > > You could try enabling the debug tracing, if dynamic debug is 
+> enabled
+> > > > on your kernel. (CONFIG_DYNAMIC_DEBUG)
+> > > >
+> > > > echo file aspeed-video.c +p > 
+> /sys/kernel/debug/dynamic_debug/control
+> > > >
+> > > > That should print every register access, as well as some other info.
+> > > >
+> > > > Thanks,
+> > > > Eddie
+> > > >
+> > > >> Hi,
+> > > >>
+> > > >> There are some differences with the video engine between the
+> > > AST2400 and
+> > > >> AST2500 that I haven't addressed yet, so probably the driver is not
+> > > >> working correctly on the AST2400 yet. Some registers have
+> > different bit
+> > > >> mapping, and things like that. Sorry about that... thanks for
+> > trying it
+> > > >> out! I'll look at the changes needed for AST2400 next.
+> > > >>
+> > > >> Thanks,
+> > > >>
+> > > >> Eddie
+> > > >>
+> > > >>
+> > > >> On 08/01/2018 03:47 AM, xiuzhi wrote:
+> > > >> > Hi Eddie,
+> > > >> >   Now It works, but the vncviewer can not connect the BMC server
+> > > >> > successful.
+> > > >> > When I use vncviewer connect to the BMC the error read:
+> > > >> > "RFB protocol error: bad desktop size 0x1"
+> > > >> > "RFB protocol error: unknow rect encoding 7"
+> > > >> > The information on BMC are :
+> > > >> > root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> > > >> > frame buffer size: 3145728
+> > > >> > 19/07/2018 08:20:57 Listening for VNC connections on TCP port 
+> 5900
+> > > >> > 19/07/2018 08:20:57 Listening for VNC connections on TCP6 
+> port 5900
+> > > >> >
+> > > >> > 19/07/2018 08:52:08 Got connection from client 192.168.120.58
+> > > >> > 19/07/2018 08:52:08   other clients:
+> > > >> > 19/07/2018 08:52:08 Normal socket connection
+> > > >> > 19/07/2018 08:52:08 Client Protocol Version 3.8
+> > > >> > 19/07/2018 08:52:08 Protocol version sent 3.8, using 3.8
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientSecurityType: executing 
+> handler
+> > > >> > for type 1
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientSecurityType: returning
+> > > >> > securityResult for client rfb version >= 3.8
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000018)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000016)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000015)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x0000000F)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0xFFFFFEC6)
+> > > >> > 19/07/2018 08:52:08 Enabling full-color cursor updates for client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for
+> > client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Using ZRLE encoding for client 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
+> > > >> > 19/07/2018 08:52:08   8 bpp, depth 6
+> > > >> > 19/07/2018 08:52:08   true colour: max r 3 g 3 b 3, shift r 4 g
+> > 2 b 0
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000018)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000016)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000015)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x0000000F)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0xFFFFFEC6)
+> > > >> > 19/07/2018 08:52:08 Enabling full-color cursor updates for client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for
+> > client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Switching from ZRLE to raw Encoding for 
+> client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000018)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000016)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x00000015)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0x0000000F)
+> > > >> > 19/07/2018 08:52:08 rfbProcessClientNormalMessage: ignoring
+> > > >> > unsupported encoding type Enc(0xFFFFFEC6)
+> > > >> > 19/07/2018 08:52:08 Enabling full-color cursor updates for client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Enabling NewFBSize protocol extension for
+> > client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Switching from raw to ZRLE Encoding for 
+> client
+> > > >> > 192.168.120.58
+> > > >> > 19/07/2018 08:52:08 Pixel format for client 192.168.120.58:
+> > > >> > 19/07/2018 08:52:08   32 bpp, depth 24, little endian
+> > > >> > 19/07/2018 08:52:08   true colour: max r 255 g 255 b 255, shift r
+> > > 16 g
+> > > >> > 8 b 0
+> > > >> > [ 6928.751385] aspeed-video 1e700000.video: disabling comp
+> > ready irq,
+> > > >> > seq_ctrl[000500a8]
+> > > >> > 19/07/2018 08:52:09 rfbProcessClientNormalMessage: read: 
+> Connection
+> > > >> > reset by peer
+> > > >> > 19/07/2018 08:52:09 Client 192.168.120.58 gone
+> > > >> > 19/07/2018 08:52:09 Statistics events Transmit/
+> > > >> > RawEquiv ( saved)
+> > > >> > 19/07/2018 08:52:09  FramebufferUpdate :   3 | 0/        0 (
+> > > >> 0.0%)
+> > > >> > 19/07/2018 08:52:09  tight :   1 | 30991/ 3145740
+> > > >> > ( 99.0%)
+> > > >> > 19/07/2018 08:52:09  raw :   1 | 16396/ 16396
+> > > >> > (  0.0%)
+> > > >> > 19/07/2018 08:52:09  ZRLE :   2 | 62/ 3932160
+> > > >> > (100.0%)
+> > > >> > 19/07/2018 08:52:09  RichCursor :   3 | 429/      429
+> > > >> (  0.0%)
+> > > >> > 19/07/2018 08:52:09  TOTALS :   10 | 47878/ 7094725
+> > > >> > ( 99.3%)
+> > > >> > 19/07/2018 08:52:09 Statistics events Received/
+> > > >> > RawEquiv ( saved)
+> > > >> > 19/07/2018 08:52:09  FramebufferUpdate :   4 | 40/       40 (
+> > > >> 0.0%)
+> > > >> > 19/07/2018 08:52:09  SetPixelFormat :   2 | 40/       40 (
+> > > >> 0.0%)
+> > > >> > 19/07/2018 08:52:09  SetEncodings :   3 | 168/      168
+> > > >> (  0.0%)
+> > > >> > 19/07/2018 08:52:09  TOTALS :   9 | 248/      248
+> > > >> (  0.0%)
+> > > >> >
+> > > >> > What wrong with it?
+> > > >> > BTW, vncview download from
+> > > >> > https://www.realvnc.com/en/connect/download/viewer/linux/
+> > > >> > I also got the same error using Tightvnc viewer
+> > > >> > Thanks,
+> > > >> > xiuzhi
+> > > >> > Hi Eddie,
+> > > >> >    My bmc is AST2400, I modified the aspeed-g4.dtsi(adding gfx:
+> > > >> > display@1e6e6000  and  video: video@1e700000)
+> > > >> >  and the aspeed-bmc-opp-xxx.dts (adding &video &vhub) .
+> > > >> > An error occured when I executed the following instructions:
+> > > >> >
+> > > >> > root@zhaoxinc:~# create_usbhid.sh
+> > > >> > root@zhaoxinc:~# obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> > > >> > [  125.586061] aspeed-video 1e700000.video: timed out on 1st mode
+> > > >> detect
+> > > >> > [  125.602732] aspeed-video 1e700000.video: Failed to start video
+> > > >> engine
+> > > >> > failed to open /dev/video0: 62 Timer expired
+> > > >> > Need I modify drivers/media/platform/aspeed-video.c or any other
+> > > >> files?
+> > > >> >
+> > > >> >  Thanks ,
+> > > >> > Xiuzhi
+> > > >> > On 07/31/2018 01:52 AM, xiuzhi wrote:
+> > > >> > > Hi Alexander ,Eddie,
+> > > >> > >   I merged the source from
+> > > >> > >
+> > https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11500/,and
+> > > >> > > kernel branch video-dev.
+> > > >> > > How to test the video kvm feature by phosphor-webui or command
+> > > line?
+> > > >> >
+> > > >> > Hi,
+> > > >> >
+> > > >> > You need to make sure the video device is enabled in your
+> > device-tree
+> > > >> > for the machine you use... My kernel patch enabled it for our
+> > AST2500
+> > > >> > witherspoon system. If you're using AST2500 as well, then you 
+> just
+> > > >> need
+> > > >> > something like:
+> > > >> >
+> > > >> > &video {
+> > > >> >      status = "okay";
+> > > >> >      memory-region = <&gfx_memory>;
+> > > >> > };
+> > > >> >
+> > > >> > And the virtual USB hub:
+> > > >> > &vhub {
+> > > >> >      status = "okay";
+> > > >> > };
+> > > >> >
+> > > >> > If you're not using AST2500, you'll need more changes to
+> > device-tree.
+> > > >> >
+> > > >> > Then on the BMC command line:
+> > > >> > create_usbhid.sh
+> > > >> > obmc-ikvm -v /dev/video0 -i /dev/hidg0
+> > > >> > And connect with any VNC client to port 0 of your BMC IP.
+> > > >> >
+> > > >> > Thanks,
+> > > >> > Eddie
+> > > >> >
+> > > >> > > Best,
+> > > >> > > xiuzhi
+> > > >> > >
+> > > >> > >
+> > > >> > > ------------------ 原始邮件 ------------------
+> > > >> > > *发件人:* "Alexander A. Filippov"<a.filippov@yadro.com>;
+> > > >> > > *发送时间:* 2018年7月25日(星期三) 下午4:56
+> > > >> > > *收件人:*
+> > > >> > "openbmc"<openbmc@lists.ozlabs.org>;"xiuzhi"<1450335857@qq.com>;
+> > > >> > > *主题:* Re: KVM Support?
+> > > >> > >
+> > > >> > > Hello everybody,
+> > > >> > >
+> > > >> > > Could you check the size of
+> > > >> > >
+> > > >> >
+> > > >>
+> > >
+> > 
+> `build/tmp/deploy/image/<platformname>/fitImage-openbmc-phosphor-initramfs-*.bin`?
+> > > >> > > If it exceeds 4456448 (0x440000) bytes, this is the problem
+> > > >> described
+> > > >> > > at https://github.com/openbmc/openbmc/issues/3314
+> > > >> > >
+> > > >> > >
+> > > >> > > In this case you should modify flash partitions layout or
+> > trying to
+> > > >> > > decrease kernel size.
+> > > >> > >
+> > > >> > > --
+> > > >> > > Alexander
+> > > >> > >
+> > > >> > > On Wed, Jul 25, 2018 at 03:48:04PM +0800, xiuzhi wrote:
+> > > >> > > > Hi Eddie,
+> > > >> > > >
+> > > >> > > >
+> > > >> > > >   I read your KVM Support email on mailinglist.
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > I am going to port the BMC kvm to ast2400 . The u-boot 
+> can not
+> > > >> load
+> > > >> > > kernel ,the error message read:
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > ""U-Boot 2016.07 (Jul 23 2018 - 11:11:50 +0000)
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > DRAM:  240 MiB
+> > > >> > > > WARNING: Caches not enabled
+> > > >> > > > Flash: 32 MiB
+> > > >> > > > *** Warning - bad CRC, using default environment
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > In:    serial
+> > > >> > > > Out:   serial
+> > > >> > > > Err:   serial
+> > > >> > > > Net:   aspeednic#0
+> > > >> > > > Error: aspeednic#0 address not set.
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > Hit any key to stop autoboot: 0
+> > > >> > > > ## Loading kernel from FIT Image at 20080000 ...
+> > > >> > > > Bad FIT kernel image format!
+> > > >> > > > ERROR: can't get kernel image!
+> > > >> > > > ast#
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > I added  config options to defconfig of ast2400 as follows:
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > CONFIG_MEDIA_SUPPORT=y
+> > > >> > > > CONFIG_MEDIA_CAMERA_SUPPORT=y
+> > > >> > > > CONFIG_MEDIA_SUPPORT=y
+> > > >> > > > CONFIG_MEDIA_CAMERA_SUPPORT=y
+> > > >> > > > # CONFIG_MEDIA_ANALOG_TV_SUPPORT is not set
+> > > >> > > > # CONFIG_MEDIA_DIGITAL_TV_SUPPORT is not set
+> > > >> > > > # CONFIG_MEDIA_RADIO_SUPPORT is not set
+> > > >> > > > # CONFIG_MEDIA_SDR_SUPPORT is not set
+> > > >> > > > # CONFIG_MEDIA_CEC_SUPPORT is not set
+> > > >> > > > # CONFIG_MEDIA_CONTROLLER is not set
+> > > >> > > > CONFIG_RATIONAL=y
+> > > >> > > > CONFIG_VIDEO_DEV=y
+> > > >> > > > CONFIG_VIDEO_V4L2=y
+> > > >> > > > CONFIG_V4L_PLATFORM_DRIVERS=y
+> > > >> > > > CONFIG_VIDEO_ASPEED=y
+> > > >> > > > CONFIG_MEDIA_SUBDRV_AUTOSELECT=y
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > Need I modify the aspeed-bmc-opp-palmetto.dts and
+> > aspeed-g4.dtsi?
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > Can you give me the file list need to modify?
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > Thanks,
+> > > >> > > >
+> > > >> > > >
+> > > >> > > > xiuzhi
+> > > >
