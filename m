@@ -1,42 +1,73 @@
-Return-Path: <hverkuil@xs4all.nl>
+Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=xs4all.nl
- (client-ip=194.109.24.31; helo=lb3-smtp-cloud7.xs4all.net;
- envelope-from=hverkuil@xs4all.nl; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::644; helo=mail-pl1-x644.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=xs4all.nl
-Received: from lb3-smtp-cloud7.xs4all.net (lb3-smtp-cloud7.xs4all.net
- [194.109.24.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="sXD8V55m"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Wn730m4gzF3Sf;
- Fri, 12 Oct 2018 23:23:24 +1100 (AEDT)
-Received: from [192.168.2.10] ([212.251.195.8])
- by smtp-cloud7.xs4all.net with ESMTPA
- id AwSLgnjqBw2L8AwSOg6WOH; Fri, 12 Oct 2018 14:22:20 +0200
-Subject: Re: [PATCH v4 2/2] media: platform: Add Aspeed Video Engine driver
-To: Eddie James <eajames@linux.ibm.com>, linux-kernel@vger.kernel.org
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org,
- robh+dt@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
- joel@jms.id.au
-References: <1538769466-14860-1-git-send-email-eajames@linux.ibm.com>
- <1538769466-14860-3-git-send-email-eajames@linux.ibm.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <bf07eb1f-bc17-ac59-d341-f19e2ab0c2e2@xs4all.nl>
-Date: Fri, 12 Oct 2018 14:22:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42WnbV1X6pzF3Ss
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Oct 2018 23:44:37 +1100 (AEDT)
+Received: by mail-pl1-x644.google.com with SMTP id 1-v6so5900308plv.7
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Oct 2018 05:44:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=e9wL70jQ9n9DEljZDo6ba099okOE6toh5sDh6KNJziU=;
+ b=sXD8V55moTRwiI1GKTvVqf07c7UcJOhWGU139rQqnRZOjYw1szdBwk2Hyc3+WsMMaP
+ AgfURm21gJeJvBE1d3bCBRfQaR4nprSIALoxYKd6bBnKQNoHUsEgducuoHtgpTu0vb6G
+ /y51DnBqzxZNLUZUsEjmVdoaJXBoMMnXt301+NUELwduxhk1TRCxsTG12RahhuF4+2bm
+ tiqF3m538NU7N1VJNATm2GEOc4eG97otp0lUuPore7hykrhA3WbsWdLnEV4m63xIqanV
+ dvsphpizqXzDf9Z7KhVSy/rHfGjHdPLrZ5LJHKvRM4uYX6zHFWymjKCGbdn+fRth3us2
+ s90A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=e9wL70jQ9n9DEljZDo6ba099okOE6toh5sDh6KNJziU=;
+ b=n0uOWN+XrnqZLS0tj0KJBhZ0lWi3j6Mo4r9j0LCKBKy5uiREDlx4sNw4HCcwYokWB8
+ ftHwe024TlFM0b7VG+gkrPrzsNfcEMgRxrlncDZO3QWEUiftRIAzfW+spwdOSELnKRog
+ M//vmQ+LcZOL/YQOWnG0+mnwD5h4JtahiKNjNErPyg2gI+NEi0wJGuWkdDvXJ86yWyy4
+ Saig8/Wfw37vdcBHofTdJbGfT/7RsiopDjsyrrgCx4IyB67RcakrpJpjqMi0ff/5GL7w
+ 5/SBJMATtX1QBorEaeoueIS3B2oOhVefh88ixZDvMWQJeqlMKVoc4wfw1s5fyfuHwU4a
+ nczg==
+X-Gm-Message-State: ABuFfogzMjKvVuXV0ALWk8GQj++9QexYA035RCyJppsYXGbeWjiFHc7A
+ e3W9RMeU+doJTFWrP8ENX3M=
+X-Google-Smtp-Source: ACcGV61WVGs5GkuOrmcWLWjxSYQ3d+dhI+b8qIcIt4V/UcmE0MCrWmsLt4PKyO1UoobH51a/DWZ0nw==
+X-Received: by 2002:a17:902:5c4:: with SMTP id
+ f62-v6mr5903063plf.18.1539348276066; 
+ Fri, 12 Oct 2018 05:44:36 -0700 (PDT)
+Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
+ [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id k63-v6sm2228528pga.36.2018.10.12.05.44.34
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 12 Oct 2018 05:44:35 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 12 Oct 2018 05:44:34 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Rob Herring <robh@kernel.org>, Eddie James <eajames@linux.vnet.ibm.com>,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, jdelvare@suse.com,
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ gregkh@linuxfoundation.org, mark.rutland@arm.com, joel@jms.id.au
+Subject: Re: [PATCH v5 01/10] dt-bindings: fsi: Add P9 OCC device documentation
+Message-ID: <20181012124434.GA11386@roeck-us.net>
+References: <1535664761-86018-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1535664761-86018-2-git-send-email-eajames@linux.vnet.ibm.com>
+ <20180910181610.GA5907@bogus>
+ <c002018d3765280e135d673f7c731784a90a260d.camel@kernel.crashing.org>
 MIME-Version: 1.0
-In-Reply-To: <1538769466-14860-3-git-send-email-eajames@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfGnYh6Xotq0yUCk0p94EbtokPXicT8aAHRVFWoZk2QCLTEoGnpuDE1dlj1E9+o0W48FTaFFQ+rIm+KASb4u6ChcY6eZXlcBnzWrRmtqlFaV9I/1/mLGN
- HfYUmAwlvn4CfMyeT3BnF4zGqOipv5lVqfqP1yjeJ00nLoGiat1E4FQb9H7suAocX0LIeI/r2adVS9+BqT0RAHRmgIbhZlxC0FwiVQB7+3kNY6Bz9gEU9owO
- IDIaCoeqrp8hsTZFjHNgV5l33VR4eC3V7qxYhMQCKWmdnrYp7UZz0/fmFAxU2FPtWSPW3mFHcq/7ybs3N3Ry66Q9qmCAu9jmvQFZrYKoqB9dP3S1d7byiy9N
- k+47dz5Ucni7rt7c3m9TgRYdOTDVIRekheQzHBaRlO2/LwIV4xjS4M9xwgW0Z0cFhuouCySXNDn2ZPNDLVKt/L8dX5kUSQtxaXO1ltivAMszfpa5ij1VB7ip
- fwoxEITT1TygLOwUMPVIRhRpXiPshWf31lm1XK+MqF8244VdjqSM7gfYlyY=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c002018d3765280e135d673f7c731784a90a260d.camel@kernel.crashing.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,757 +79,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Oct 2018 12:23:28 -0000
+X-List-Received-Date: Fri, 12 Oct 2018 12:44:39 -0000
 
-On 10/05/2018 09:57 PM, Eddie James wrote:
-> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
-> can capture and compress video data from digital or analog sources. With
-> the Aspeed chip acting a service processor, the Video Engine can capture
-> the host processor graphics output.
+On Wed, Sep 12, 2018 at 09:56:33AM +0200, Benjamin Herrenschmidt wrote:
+> On Mon, 2018-09-10 at 13:16 -0500, Rob Herring wrote:
+> > On Thu, Aug 30, 2018 at 04:32:32PM -0500, Eddie James wrote:
+> > > Document the bindings for the FSI-attached POWER9 On-Chip Controller.
+> > > 
+> > > Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt | 15 +++++++++++++++
+> > >  1 file changed, 15 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
+> > > new file mode 100644
+> > > index 0000000..46372f6
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/fsi/ibm,p9-occ.txt
+> > > @@ -0,0 +1,15 @@
+> > > +Device-tree bindings for FSI-attached POWER9 On-Chip Controller (OCC)
+> > > +---------------------------------------------------------------------
+> > > +
+> > > +This is the binding for the P9 On-Chip Controller accessed over FSI from a
+> > > +service processor. See fsi.txt for details on bindings for FSI slave and CFAM
+> > > +nodes.
+> > > +
+> > > +Required properties:
+> > > + - compatible = "ibm,p9-occ"
+> > > +
+> > > +Examples:
+> > > +
+> > > +    occ {
+> > 
+> > FSI slave devices are supposed to have an address according to the 
+> > binding doc.
 > 
-> Add a V4L2 driver to capture video data and compress it to JPEG images.
-> Make the video frames available through the V4L2 streaming interface.
-> 
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> ---
->  MAINTAINERS                           |    8 +
->  drivers/media/platform/Kconfig        |    8 +
->  drivers/media/platform/Makefile       |    1 +
->  drivers/media/platform/aspeed-video.c | 1674 +++++++++++++++++++++++++++++++++
->  4 files changed, 1691 insertions(+)
->  create mode 100644 drivers/media/platform/aspeed-video.c
-> 
-
-<snip>
-
-> +static int aspeed_video_enum_input(struct file *file, void *fh,
-> +				   struct v4l2_input *inp)
-> +{
-> +	if (inp->index)
-> +		return -EINVAL;
-> +
-> +	strscpy(inp->name, "Host VGA capture", sizeof(inp->name));
-> +	inp->type = V4L2_INPUT_TYPE_CAMERA;
-> +	inp->capabilities = V4L2_IN_CAP_DV_TIMINGS;
-> +	inp->status = V4L2_IN_ST_NO_SIGNAL | V4L2_IN_ST_NO_SYNC;
-
-This can't be right. If there is a valid signal, then status should be 0.
-And ideally you can tell the difference between no signal and no sync
-as well.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_get_input(struct file *file, void *fh, unsigned int *i)
-> +{
-> +	*i = 0;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_set_input(struct file *file, void *fh, unsigned int i)
-> +{
-> +	if (i)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_get_parm(struct file *file, void *fh,
-> +				 struct v4l2_streamparm *a)
-> +{
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	a->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
-> +	a->parm.capture.readbuffers = 3;
-> +	a->parm.capture.timeperframe.numerator = 1;
-> +	if (!video->frame_rate)
-> +		a->parm.capture.timeperframe.denominator = MAX_FRAME_RATE + 1;
-> +	else
-> +		a->parm.capture.timeperframe.denominator = video->frame_rate;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_set_parm(struct file *file, void *fh,
-> +				 struct v4l2_streamparm *a)
-> +{
-> +	unsigned int frame_rate = 0;
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	a->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
-> +	a->parm.capture.readbuffers = 3;
-> +
-> +	if (a->parm.capture.timeperframe.numerator)
-> +		frame_rate = a->parm.capture.timeperframe.denominator /
-> +			a->parm.capture.timeperframe.numerator;
-> +
-> +	if (!frame_rate || frame_rate > MAX_FRAME_RATE) {
-> +		frame_rate = 0;
-> +
-> +		/*
-> +		 * Set to max + 1 to differentiate between max and 0, which
-> +		 * means "don't care".
-
-But what does "don't care" mean in practice? It's still not clear to me how this
-is supposed to work.
-
-> +		 */
-> +		a->parm.capture.timeperframe.denominator = MAX_FRAME_RATE + 1;
-
-And regardless of anything else this timeperframe is out of the range that
-aspeed_video_enum_frameintervals() returns.
-
-> +		a->parm.capture.timeperframe.numerator = 1;
-> +	}
-> +
-> +	if (video->frame_rate != frame_rate) {
-> +		video->frame_rate = frame_rate;
-> +		aspeed_video_update(video, VE_CTRL, VE_CTRL_FRC,
-> +				    FIELD_PREP(VE_CTRL_FRC, frame_rate));
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_enum_framesizes(struct file *file, void *fh,
-> +					struct v4l2_frmsizeenum *fsize)
-> +{
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	if (fsize->index)
-> +		return -EINVAL;
-> +
-> +	if (fsize->pixel_format != V4L2_PIX_FMT_JPEG)
-> +		return -EINVAL;
-> +
-> +	fsize->discrete.width = video->pix_fmt.width;
-> +	fsize->discrete.height = video->pix_fmt.height;
-> +	fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_enum_frameintervals(struct file *file, void *fh,
-> +					    struct v4l2_frmivalenum *fival)
-> +{
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	if (fival->index)
-> +		return -EINVAL;
-> +
-> +	if (fival->width != video->width || fival->height != video->height)
-> +		return -EINVAL;
-> +
-> +	if (fival->pixel_format != V4L2_PIX_FMT_JPEG)
-> +		return -EINVAL;
-> +
-> +	fival->type = V4L2_FRMIVAL_TYPE_CONTINUOUS;
-> +
-> +	fival->stepwise.min.denominator = MAX_FRAME_RATE;
-> +	fival->stepwise.min.numerator = 1;
-> +	fival->stepwise.max.denominator = 1;
-> +	fival->stepwise.max.numerator = 1;
-> +	fival->stepwise.step = fival->stepwise.max;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_set_dv_timings(struct file *file, void *fh,
-> +				       struct v4l2_dv_timings *timings)
-> +{
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-
-If vb2_is_busy() returns true, then return -EBUSY here. It is not allowed to
-set the timings while vb2 is busy.
-
-> +	if (video->width != timings->bt.width ||
-> +	    video->height != timings->bt.height)
-> +		return -EINVAL;
-> +
-> +	video->pix_fmt.width = timings->bt.width;
-> +	video->pix_fmt.height = timings->bt.height;
-> +	video->pix_fmt.sizeimage = video->max_compressed_size;
-> +	video->timings.width = timings->bt.width;
-> +	video->timings.height = timings->bt.height;
-> +
-> +	timings->type = V4L2_DV_BT_656_1120;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_get_dv_timings(struct file *file, void *fh,
-> +				       struct v4l2_dv_timings *timings)
-> +{
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	timings->type = V4L2_DV_BT_656_1120;
-> +	timings->bt = video->timings;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_query_dv_timings(struct file *file, void *fh,
-> +					 struct v4l2_dv_timings *timings)
-> +{
-> +	int rc;
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	if (file->f_flags & O_NONBLOCK) {
-> +		if (test_bit(VIDEO_RES_CHANGE, &video->flags))
-> +			return -EAGAIN;
-> +	} else {
-> +		rc = wait_event_interruptible(video->wait,
-> +					      !test_bit(VIDEO_RES_CHANGE,
-> +							&video->flags));
-> +		if (rc)
-> +			return -EINTR;
-> +	}
-> +
-> +	timings->type = V4L2_DV_BT_656_1120;
-> +	timings->bt = video->timings;
-> +	timings->bt.width = video->width;
-> +	timings->bt.height = video->height;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_enum_dv_timings(struct file *file, void *fh,
-> +					struct v4l2_enum_dv_timings *timings)
-> +{
-> +	if (timings->index)
-> +		return -EINVAL;
-> +
-> +	return aspeed_video_get_dv_timings(file, fh, &timings->timings);
-> +}
-> +
-> +static int aspeed_video_dv_timings_cap(struct file *file, void *fh,
-> +				       struct v4l2_dv_timings_cap *cap)
-> +{
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	cap->type = V4L2_DV_BT_656_1120;
-> +	cap->bt.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE;
-> +	cap->bt.min_width = video->width;
-> +	cap->bt.max_width = video->width;
-> +	cap->bt.min_height = video->height;
-> +	cap->bt.max_height = video->height;
-
-This should return the capabilities of the aspeed. In this case I'd
-guess that the max width/height is 1920x1080 (or perhaps 1200).
-
-The minimum is probably the VGA resolution.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_sub_event(struct v4l2_fh *fh,
-> +				  const struct v4l2_event_subscription *sub)
-> +{
-> +	switch (sub->type) {
-> +	case V4L2_EVENT_SOURCE_CHANGE:
-> +		return v4l2_src_change_event_subscribe(fh, sub);
-> +	}
-> +
-> +	return v4l2_ctrl_subscribe_event(fh, sub);
-> +}
-> +
-> +static const struct v4l2_ioctl_ops aspeed_video_ioctl_ops = {
-> +	.vidioc_querycap = aspeed_video_querycap,
-> +
-> +	.vidioc_enum_fmt_vid_cap = aspeed_video_enum_format,
-> +	.vidioc_g_fmt_vid_cap = aspeed_video_get_format,
-> +	.vidioc_s_fmt_vid_cap = aspeed_video_get_format,
-> +	.vidioc_try_fmt_vid_cap = aspeed_video_get_format,
-> +
-> +	.vidioc_reqbufs = vb2_ioctl_reqbufs,
-> +	.vidioc_querybuf = vb2_ioctl_querybuf,
-> +	.vidioc_qbuf = vb2_ioctl_qbuf,
-> +	.vidioc_dqbuf = vb2_ioctl_dqbuf,
-> +	.vidioc_create_bufs = vb2_ioctl_create_bufs,
-> +	.vidioc_prepare_buf = vb2_ioctl_prepare_buf,
-> +	.vidioc_streamon = vb2_ioctl_streamon,
-> +	.vidioc_streamoff = vb2_ioctl_streamoff,
-> +
-> +	.vidioc_enum_input = aspeed_video_enum_input,
-> +	.vidioc_g_input = aspeed_video_get_input,
-> +	.vidioc_s_input = aspeed_video_set_input,
-> +
-> +	.vidioc_g_parm = aspeed_video_get_parm,
-> +	.vidioc_s_parm = aspeed_video_set_parm,
-> +	.vidioc_enum_framesizes = aspeed_video_enum_framesizes,
-> +	.vidioc_enum_frameintervals = aspeed_video_enum_frameintervals,
-> +
-> +	.vidioc_s_dv_timings = aspeed_video_set_dv_timings,
-> +	.vidioc_g_dv_timings = aspeed_video_get_dv_timings,
-> +	.vidioc_query_dv_timings = aspeed_video_query_dv_timings,
-> +	.vidioc_enum_dv_timings = aspeed_video_enum_dv_timings,
-> +	.vidioc_dv_timings_cap = aspeed_video_dv_timings_cap,
-> +
-> +	.vidioc_subscribe_event = aspeed_video_sub_event,
-> +	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
-> +};
-> +
-> +static void aspeed_video_update_jpeg_quality(struct aspeed_video *video)
-> +{
-> +	u32 comp_ctrl = FIELD_PREP(VE_COMP_CTRL_DCT_LUM, video->jpeg_quality) |
-> +		FIELD_PREP(VE_COMP_CTRL_DCT_CHR, video->jpeg_quality | 0x10);
-> +
-> +	aspeed_video_update(video, VE_COMP_CTRL,
-> +			    VE_COMP_CTRL_DCT_LUM | VE_COMP_CTRL_DCT_CHR,
-> +			    comp_ctrl);
-> +}
-> +
-> +static void aspeed_video_update_subsampling(struct aspeed_video *video)
-> +{
-> +	if (video->jpeg.virt)
-> +		aspeed_video_init_jpeg_table(video->jpeg.virt, video->yuv420);
-> +
-> +	if (video->yuv420)
-> +		aspeed_video_update(video, VE_SEQ_CTRL, 0, VE_SEQ_CTRL_YUV420);
-> +	else
-> +		aspeed_video_update(video, VE_SEQ_CTRL, VE_SEQ_CTRL_YUV420, 0);
-> +}
-> +
-> +static int aspeed_video_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct aspeed_video *video = container_of(ctrl->handler,
-> +						  struct aspeed_video,
-> +						  ctrl_handler);
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_JPEG_COMPRESSION_QUALITY:
-> +		video->jpeg_quality = ctrl->val;
-> +		aspeed_video_update_jpeg_quality(video);
-> +		break;
-> +	case V4L2_CID_JPEG_CHROMA_SUBSAMPLING:
-> +		if (ctrl->val == V4L2_JPEG_CHROMA_SUBSAMPLING_420) {
-> +			video->yuv420 = true;
-> +			aspeed_video_update_subsampling(video);
-> +		} else {
-> +			video->yuv420 = false;
-> +			aspeed_video_update_subsampling(video);
-> +		}
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct v4l2_ctrl_ops aspeed_video_ctrl_ops = {
-> +	.s_ctrl = aspeed_video_set_ctrl,
-> +};
-> +
-> +static void aspeed_video_resolution_work(struct work_struct *work)
-> +{
-> +	int rc;
-> +	struct delayed_work *dwork = to_delayed_work(work);
-> +	struct aspeed_video *video = container_of(dwork, struct aspeed_video,
-> +						  res_work);
-> +
-> +	/* No clients remaining after delay */
-> +	if (atomic_read(&video->clients) == 0)
-> +		goto done;
-> +
-> +	aspeed_video_on(video);
-> +
-> +	aspeed_video_init_regs(video);
-> +
-> +	rc = aspeed_video_get_resolution(video);
-> +	if (rc)
-> +		dev_err(video->dev,
-> +			"resolution changed; couldn't get new resolution\n");
-> +	else if (test_bit(VIDEO_STREAMING, &video->flags))
-> +		aspeed_video_start_frame(video);
-> +
-> +	if (video->width != video->pix_fmt.width ||
-> +	    video->height != video->pix_fmt.height) {
-> +		static const struct v4l2_event ev = {
-> +			.type = V4L2_EVENT_SOURCE_CHANGE,
-> +			.u.src_change.changes = V4L2_EVENT_SRC_CH_RESOLUTION,
-> +		};
-> +
-> +		v4l2_event_queue(&video->vdev, &ev);
-> +	}
-> +
-> +done:
-> +	clear_bit(VIDEO_RES_CHANGE, &video->flags);
-> +	wake_up_interruptible_all(&video->wait);
-> +}
-> +
-> +static int aspeed_video_open(struct file *file)
-> +{
-> +	int rc;
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	mutex_lock(&video->video_lock);
-> +
-> +	if (atomic_inc_return(&video->clients) == 1) {
-> +		rc = aspeed_video_start(video);
-> +		if (rc) {
-> +			dev_err(video->dev, "Failed to start video engine\n");
-> +			atomic_dec(&video->clients);
-> +			mutex_unlock(&video->video_lock);
-> +			return rc;
-> +		}
-> +	}
-> +
-> +	mutex_unlock(&video->video_lock);
-> +
-> +	return v4l2_fh_open(file);
-> +}
-> +
-> +static int aspeed_video_release(struct file *file)
-> +{
-> +	int rc;
-> +	struct aspeed_video *video = video_drvdata(file);
-> +
-> +	rc = vb2_fop_release(file);
-> +
-> +	mutex_lock(&video->video_lock);
-> +
-> +	if (atomic_dec_return(&video->clients) == 0)
-> +		aspeed_video_stop(video);
-> +
-> +	mutex_unlock(&video->video_lock);
-> +
-> +	return rc;
-> +}
-> +
-> +static const struct v4l2_file_operations aspeed_video_v4l2_fops = {
-> +	.owner = THIS_MODULE,
-> +	.read = vb2_fop_read,
-> +	.poll = vb2_fop_poll,
-> +	.unlocked_ioctl = video_ioctl2,
-> +	.mmap = vb2_fop_mmap,
-> +	.open = aspeed_video_open,
-> +	.release = aspeed_video_release,
-> +};
-> +
-> +static int aspeed_video_queue_setup(struct vb2_queue *q,
-> +				    unsigned int *num_buffers,
-> +				    unsigned int *num_planes,
-> +				    unsigned int sizes[],
-> +				    struct device *alloc_devs[])
-> +{
-> +	struct aspeed_video *video = vb2_get_drv_priv(q);
-> +
-> +	if (*num_planes) {
-> +		if (sizes[0] < video->max_compressed_size)
-> +			return -EINVAL;
-> +
-> +		return 0;
-> +	}
-> +
-> +	*num_planes = 1;
-> +	sizes[0] = video->max_compressed_size;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_buf_prepare(struct vb2_buffer *vb)
-> +{
-> +	struct aspeed_video *video = vb2_get_drv_priv(vb->vb2_queue);
-> +
-> +	if (vb2_plane_size(vb, 0) < video->max_compressed_size)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_start_streaming(struct vb2_queue *q,
-> +					unsigned int count)
-> +{
-> +	int rc;
-> +	struct aspeed_video *video = vb2_get_drv_priv(q);
-> +
-> +	rc = aspeed_video_start_frame(video);
-> +	if (rc) {
-> +		aspeed_video_bufs_done(video, VB2_BUF_STATE_QUEUED);
-> +		return rc;
-> +	}
-> +
-> +	video->sequence = 0;
-> +	set_bit(VIDEO_STREAMING, &video->flags);
-> +	return 0;
-> +}
-> +
-> +static void aspeed_video_stop_streaming(struct vb2_queue *q)
-> +{
-> +	int rc;
-> +	struct aspeed_video *video = vb2_get_drv_priv(q);
-> +
-> +	clear_bit(VIDEO_STREAMING, &video->flags);
-> +
-> +	rc = wait_event_timeout(video->wait,
-> +				!test_bit(VIDEO_FRAME_INPRG, &video->flags),
-> +				STOP_TIMEOUT);
-> +	if (!rc) {
-> +		dev_err(video->dev, "Timed out when stopping streaming\n");
-> +		aspeed_video_stop(video);
-> +	}
-> +
-> +	aspeed_video_bufs_done(video, VB2_BUF_STATE_ERROR);
-> +}
-> +
-> +static void aspeed_video_buf_queue(struct vb2_buffer *vb)
-> +{
-> +	struct aspeed_video *video = vb2_get_drv_priv(vb->vb2_queue);
-> +	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-> +	struct aspeed_video_buffer *avb = to_aspeed_video_buffer(vbuf);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&video->lock, flags);
-> +	list_add_tail(&avb->link, &video->buffers);
-> +	spin_unlock_irqrestore(&video->lock, flags);
-> +}
-> +
-> +static const struct vb2_ops aspeed_video_vb2_ops = {
-> +	.queue_setup = aspeed_video_queue_setup,
-> +	.wait_prepare = vb2_ops_wait_prepare,
-> +	.wait_finish = vb2_ops_wait_finish,
-> +	.buf_prepare = aspeed_video_buf_prepare,
-> +	.start_streaming = aspeed_video_start_streaming,
-> +	.stop_streaming = aspeed_video_stop_streaming,
-> +	.buf_queue =  aspeed_video_buf_queue,
-> +};
-> +
-> +static int aspeed_video_setup_video(struct aspeed_video *video)
-> +{
-> +	const u64 mask = ~(BIT(V4L2_JPEG_CHROMA_SUBSAMPLING_444) |
-> +			   BIT(V4L2_JPEG_CHROMA_SUBSAMPLING_420));
-> +	struct v4l2_device *v4l2_dev = &video->v4l2_dev;
-> +	struct vb2_queue *vbq = &video->queue;
-> +	struct video_device *vdev = &video->vdev;
-> +	int rc;
-> +
-> +	video->pix_fmt.pixelformat = V4L2_PIX_FMT_JPEG;
-> +	video->pix_fmt.field = V4L2_FIELD_NONE;
-> +	video->pix_fmt.colorspace = V4L2_COLORSPACE_SRGB;
-> +	video->pix_fmt.quantization = V4L2_QUANTIZATION_FULL_RANGE;
-> +
-> +	rc = v4l2_device_register(video->dev, v4l2_dev);
-> +	if (rc) {
-> +		dev_err(video->dev, "Failed to register v4l2 device\n");
-> +		return rc;
-> +	}
-> +
-> +	v4l2_ctrl_handler_init(&video->ctrl_handler, 2);
-> +	v4l2_ctrl_new_std(&video->ctrl_handler, &aspeed_video_ctrl_ops,
-> +			  V4L2_CID_JPEG_COMPRESSION_QUALITY, 0,
-> +			  ASPEED_VIDEO_JPEG_NUM_QUALITIES - 1, 1, 0);
-> +	v4l2_ctrl_new_std_menu(&video->ctrl_handler, &aspeed_video_ctrl_ops,
-> +			       V4L2_CID_JPEG_CHROMA_SUBSAMPLING,
-> +			       V4L2_JPEG_CHROMA_SUBSAMPLING_420, mask,
-> +			       V4L2_JPEG_CHROMA_SUBSAMPLING_444);
-> +
-> +	if (video->ctrl_handler.error) {
-> +		v4l2_ctrl_handler_free(&video->ctrl_handler);
-> +		v4l2_device_unregister(v4l2_dev);
-> +
-> +		dev_err(video->dev, "Failed to init controls: %d\n",
-> +			video->ctrl_handler.error);
-> +		return rc;
-> +	}
-> +
-> +	v4l2_dev->ctrl_handler = &video->ctrl_handler;
-> +
-> +	vbq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-> +	vbq->io_modes = VB2_MMAP | VB2_READ | VB2_DMABUF;
-> +	vbq->dev = v4l2_dev->dev;
-> +	vbq->lock = &video->video_lock;
-> +	vbq->ops = &aspeed_video_vb2_ops;
-> +	vbq->mem_ops = &vb2_dma_contig_memops;
-> +	vbq->drv_priv = video;
-> +	vbq->buf_struct_size = sizeof(struct aspeed_video_buffer);
-> +	vbq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
-> +	vbq->min_buffers_needed = 3;
-> +
-> +	rc = vb2_queue_init(vbq);
-> +	if (rc) {
-> +		v4l2_ctrl_handler_free(&video->ctrl_handler);
-> +		v4l2_device_unregister(v4l2_dev);
-> +
-> +		dev_err(video->dev, "Failed to init vb2 queue\n");
-> +		return rc;
-> +	}
-> +
-> +	vdev->queue = vbq;
-> +	vdev->fops = &aspeed_video_v4l2_fops;
-> +	vdev->device_caps = V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_READWRITE |
-
-READWRITE doesn't work for JPEG since there is no clear end of a frame. Just drop
-this and the read op in aspeed_video_v4l2_fops.
-
-> +		V4L2_CAP_STREAMING;
-> +	vdev->v4l2_dev = v4l2_dev;
-> +	strscpy(vdev->name, DEVICE_NAME, sizeof(vdev->name));
-> +	vdev->vfl_type = VFL_TYPE_GRABBER;
-> +	vdev->vfl_dir = VFL_DIR_RX;
-> +	vdev->release = video_device_release_empty;
-> +	vdev->ioctl_ops = &aspeed_video_ioctl_ops;
-> +	vdev->lock = &video->video_lock;
-> +
-> +	video_set_drvdata(vdev, video);
-> +	rc = video_register_device(vdev, VFL_TYPE_GRABBER, 0);
-> +	if (rc) {
-> +		vb2_queue_release(vbq);
-> +		v4l2_ctrl_handler_free(&video->ctrl_handler);
-> +		v4l2_device_unregister(v4l2_dev);
-> +
-> +		dev_err(video->dev, "Failed to register video device\n");
-> +		return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_init(struct aspeed_video *video)
-> +{
-> +	int irq;
-> +	int rc;
-> +	struct device *dev = video->dev;
-> +
-> +	irq = irq_of_parse_and_map(dev->of_node, 0);
-> +	if (!irq) {
-> +		dev_err(dev, "Unable to find IRQ\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	rc = devm_request_irq(dev, irq, aspeed_video_irq, IRQF_SHARED,
-> +			      DEVICE_NAME, video);
-> +	if (rc < 0) {
-> +		dev_err(dev, "Unable to request IRQ %d\n", irq);
-> +		return rc;
-> +	}
-> +
-> +	video->eclk = devm_clk_get(dev, "eclk");
-> +	if (IS_ERR(video->eclk)) {
-> +		dev_err(dev, "Unable to get ECLK\n");
-> +		return PTR_ERR(video->eclk);
-> +	}
-> +
-> +	video->vclk = devm_clk_get(dev, "vclk");
-> +	if (IS_ERR(video->vclk)) {
-> +		dev_err(dev, "Unable to get VCLK\n");
-> +		return PTR_ERR(video->vclk);
-> +	}
-> +
-> +	video->rst = devm_reset_control_get_exclusive(dev, NULL);
-> +	if (IS_ERR(video->rst)) {
-> +		dev_err(dev, "Unable to get VE reset\n");
-> +		return PTR_ERR(video->rst);
-> +	}
-> +
-> +	rc = of_reserved_mem_device_init(dev);
-> +	if (rc) {
-> +		dev_err(dev, "Unable to reserve memory\n");
-> +		return rc;
-> +	}
-> +
-> +	rc = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-> +	if (rc) {
-> +		dev_err(dev, "Failed to set DMA mask\n");
-> +		of_reserved_mem_device_release(dev);
-> +		return rc;
-> +	}
-> +
-> +	if (!aspeed_video_alloc_buf(video, &video->jpeg,
-> +				    VE_JPEG_HEADER_SIZE)) {
-> +		dev_err(dev, "Failed to allocate DMA for JPEG header\n");
-> +		of_reserved_mem_device_release(dev);
-> +		return rc;
-> +	}
-> +
-> +	aspeed_video_init_jpeg_table(video->jpeg.virt, video->yuv420);
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_probe(struct platform_device *pdev)
-> +{
-> +	int rc;
-> +	struct resource *res;
-> +	struct aspeed_video *video = kzalloc(sizeof(*video), GFP_KERNEL);
-> +
-> +	if (!video)
-> +		return -ENOMEM;
-> +
-> +	video->frame_rate = 30;
-> +	video->dev = &pdev->dev;
-> +	mutex_init(&video->video_lock);
-> +	init_waitqueue_head(&video->wait);
-> +	INIT_DELAYED_WORK(&video->res_work, aspeed_video_resolution_work);
-> +	INIT_LIST_HEAD(&video->buffers);
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +
-> +	video->base = devm_ioremap_resource(video->dev, res);
-> +
-> +	if (IS_ERR(video->base))
-> +		return PTR_ERR(video->base);
-> +
-> +	rc = aspeed_video_init(video);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = aspeed_video_setup_video(video);
-> +	if (rc)
-> +		return rc;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_video_remove(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct v4l2_device *v4l2_dev = dev_get_drvdata(dev);
-> +	struct aspeed_video *video = to_aspeed_video(v4l2_dev);
-> +
-> +	video_unregister_device(&video->vdev);
-> +
-> +	vb2_queue_release(&video->queue);
-> +
-> +	v4l2_ctrl_handler_free(&video->ctrl_handler);
-> +
-> +	v4l2_device_unregister(v4l2_dev);
-> +
-> +	dma_free_coherent(video->dev, VE_JPEG_HEADER_SIZE, video->jpeg.virt,
-> +			  video->jpeg.dma);
-> +
-> +	of_reserved_mem_device_release(dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id aspeed_video_of_match[] = {
-> +	{ .compatible = "aspeed,ast2400-video-engine" },
-> +	{ .compatible = "aspeed,ast2500-video-engine" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, aspeed_video_of_match);
-> +
-> +static struct platform_driver aspeed_video_driver = {
-> +	.driver = {
-> +		.name = DEVICE_NAME,
-> +		.of_match_table = aspeed_video_of_match,
-> +	},
-> +	.probe = aspeed_video_probe,
-> +	.remove = aspeed_video_remove,
-> +};
-> +
-> +module_platform_driver(aspeed_video_driver);
-> +
-> +MODULE_DESCRIPTION("ASPEED Video Engine Driver");
-> +MODULE_AUTHOR("Eddie James");
-> +MODULE_LICENSE("GPL v2");
+> This isn't the FSI device per-se actually. This is a node below the
+> "sbefifo" FSI device. The SBE fifo is the mechanism by which we
+> communicate with the OCC. The sbefifo doesn't really define a "bus",
+> it's mostly used from userspace directly via /dev/sbefifo* to perform
+> various tasks in the chip, but it happens to also provide the in-kernel 
+> transport for the OCC commands.
 > 
 
-Regards,
+What is the conclusion here ? Is it ok as-is, or does it have to be changed ?
 
-	Hans
+Thanks,
+Guenter
+
+> Cheers,
+> Ben.
+> 
+> > > +        compatible = "ibm,p9-occ";
+> > > +    };
+> > > -- 
+> > > 1.8.3.1
+> > > 
+> 
