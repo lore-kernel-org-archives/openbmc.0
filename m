@@ -1,72 +1,74 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::442; helo=mail-pf1-x442.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="HAEbpOPM"; 
- dkim-atps=neutral
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42WnfF2RVyzF3Ss
- for <openbmc@lists.ozlabs.org>; Fri, 12 Oct 2018 23:47:01 +1100 (AEDT)
-Received: by mail-pf1-x442.google.com with SMTP id r9-v6so6144968pff.11
- for <openbmc@lists.ozlabs.org>; Fri, 12 Oct 2018 05:47:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Hb/s97UjDaC4OsZ9bV876QEA14xkwyhjLLXZcihS/wE=;
- b=HAEbpOPMHakODEHGl5O9YfhC7rufD3+dW+DYb0EC6Isn6XVpXWPCrYZlutm2OnqCIz
- Z94TTL40KaZpq+nbZ7ZLB8NoO+YW3tBMqybF90QsBeqwAkJ0/vwn0PcwiGdUqMQUQLgn
- IiGyEpHIXq+lR0Ys016D6370U+e00y2iRxEOvZ5AJI3T0HZYE2Vs3r9NtXybKGWG3k5P
- yQ+4D/YBaFz+/AANxij3DBnoTkJiDbYxHcZybmqvrZBC0J43TTC9SFuZuf/m49O/IlMR
- 3QnKShdLSP6don1sRTfCxnCqFvMj9cfgn0uv7EgRVgQSVMxz6vpjNCet4uFjvB8YmzXx
- evlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=Hb/s97UjDaC4OsZ9bV876QEA14xkwyhjLLXZcihS/wE=;
- b=BpsioWxeh8vB+xaviCYoKBGJPTZ0snmqJNKcgYFJ3ln0Tx8fV0amfHfMvTVDD4S75o
- o9smGeFXiW+LLrD0PkYE6Mf8Cp/4OTrrCeU4wV9PeCOBdflbzQCKmNyMDiGaPLY8RGar
- LjLZub9FojonYZTRmI4wSSzPiQohSb1JDBVayt1mrd4Ix+6fozXZ88UyuHMzU/Eet2g7
- D1GH52q3O0/lo4Q42J+Sx/oqrZDLTTyDAHMnc/1xtUtLzKC4BcxOhFGLkZUaRmklFXZZ
- +GlnSdu2MeQqLY8vCTfvn6xVV6BWv1RmvQ6dCmXgWtRKRHxwUEnf1B8lyxpbUZ38ra6x
- m3EQ==
-X-Gm-Message-State: ABuFfoi0aOWRX+MvYk/P3LTJLU+vhvQnK538A/AB6MiGskRBQT0F+K1U
- uKgTTriDZHm2DVnHXwUwQRo=
-X-Google-Smtp-Source: ACcGV62E4q5+qY+XyeZSQeQAVQspifWCvN/E0fxLTxdzLex0Ynokuy1fH0pDZbcm65nO8mpmmNKsdw==
-X-Received: by 2002:a63:700e:: with SMTP id
- l14-v6mr5273282pgc.359.1539348419454; 
- Fri, 12 Oct 2018 05:46:59 -0700 (PDT)
-Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
- [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id f3-v6sm1445431pgd.41.2018.10.12.05.46.58
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 12 Oct 2018 05:46:58 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 12 Oct 2018 05:46:58 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: kbuild-all@01.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- jdelvare@suse.com, linux-doc@vger.kernel.org,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org,
- gregkh@linuxfoundation.org, mark.rutland@arm.com, joel@jms.id.au,
- benh@kernel.crashing.org
-Subject: Re: [PATCH v5 05/10] hwmon: Add On-Chip Controller (OCC) hwmon driver
-Message-ID: <20181012124658.GB11386@roeck-us.net>
-References: <1535664761-86018-6-git-send-email-eajames@linux.vnet.ibm.com>
- <201809011808.kL7L1gpv%fengguang.wu@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <201809011808.kL7L1gpv%fengguang.wu@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42WsFZ5YD4zF3TC
+ for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 02:29:22 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9CFPopW047646
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Oct 2018 11:29:19 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2n2w2t3cyr-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Oct 2018 11:29:19 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Fri, 12 Oct 2018 11:29:18 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 12 Oct 2018 11:29:16 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w9CFTGPq34209840
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 12 Oct 2018 15:29:16 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EA09D112062;
+ Fri, 12 Oct 2018 11:28:36 -0400 (EDT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8BDEF112061;
+ Fri, 12 Oct 2018 11:28:36 -0400 (EDT)
+Received: from gfw173.aus.stglabs.ibm.com (unknown [9.3.62.185])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Fri, 12 Oct 2018 11:28:36 -0400 (EDT)
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org, joel@jms.id.au
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ Matt Spinler <spinler@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.18] ARM: dts: aspeed: wspoon: Enable iio-hwmon
+ battery
+Date: Fri, 12 Oct 2018 10:29:15 -0500
+X-Mailer: git-send-email 2.7.2
+X-TM-AS-GCONF: 00
+x-cbid: 18101215-0040-0000-0000-0000047FB5C0
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009866; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01101631; UDB=6.00570069; IPR=6.00881676; 
+ MB=3.00023729; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-12 15:29:17
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18101215-0041-0000-0000-00000887C80F
+Message-Id: <1539358155-9027-1-git-send-email-mspinler@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-12_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810120151
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,43 +80,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Oct 2018 12:47:02 -0000
+X-List-Received-Date: Fri, 12 Oct 2018 15:29:23 -0000
 
-On Sat, Sep 01, 2018 at 08:06:16PM +0800, kbuild test robot wrote:
-> Hi Eddie,
-> 
-> I love your patch! Yet something to improve:
-> 
-> [auto build test ERROR on hwmon/hwmon-next]
-> [also build test ERROR on v4.19-rc1 next-20180831]
-> [if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
-> 
-> url:    https://github.com/0day-ci/linux/commits/Eddie-James/hwmon-and-fsi-Add-On-Chip-Controller-Driver/20180831-165247
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-next
-> config: arm64-allmodconfig (attached as .config)
-> compiler: aarch64-linux-gnu-gcc (Debian 7.2.0-11) 7.2.0
-> reproduce:
->         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->         chmod +x ~/bin/make.cross
->         # save the attached .config to linux build tree
->         GCC_VERSION=7.2.0 make.cross ARCH=arm64 
-> 
-> All errors (new ones prefixed by >>):
-> 
->    drivers/hwmon/occ/p8_i2c.o: In function `init_module':
-> >> p8_i2c.c:(.init.text+0x0): multiple definition of `init_module'
->    drivers/hwmon/occ/p9_sbe.o:p9_sbe.c:(.init.text+0x0): first defined here
->    drivers/hwmon/occ/p8_i2c.o: In function `cleanup_module':
-> >> p8_i2c.c:(.exit.text+0x0): multiple definition of `cleanup_module'
->    drivers/hwmon/occ/p9_sbe.o:p9_sbe.c:(.exit.text+0x0): first defined here
-> 
+The BMC can read the RTC battery voltage via ADC
+channel 12.
 
-This will need to be fixed before I can pick up the series.
-Each module must have only one set of module initialization
-functions.
+Signed-off-by: Matt Spinler <spinler@linux.vnet.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Guenter
-
-> ---
-> 0-DAY kernel test infrastructure                Open Source Technology Center
-> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index f4739ec..b933ced 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -63,6 +63,11 @@
+ 		};
+ 	};
+ 
++	iio-hwmon-battery {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 12>;
++	};
++
+ 	gpio-keys-polled {
+ 		compatible = "gpio-keys-polled";
+ 		#address-cells = <1>;
+@@ -651,4 +656,8 @@
+ 	status = "okay";
+ };
+ 
++&adc {
++	status = "okay";
++};
++
+ #include "ibm-power9-dual.dtsi"
+-- 
+1.8.3.1
