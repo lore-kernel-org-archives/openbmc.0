@@ -1,76 +1,57 @@
-Return-Path: <gmills@linux.vnet.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=gmills@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::52a; helo=mail-pg1-x52a.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="N4hrUqxw"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Xcl32fGgzF38m
- for <openbmc@lists.ozlabs.org>; Sun, 14 Oct 2018 08:08:59 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w9DL8fs3073248
- for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 17:08:57 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2n3d7m16v0-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 17:08:57 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gmills@linux.vnet.ibm.com>;
- Sat, 13 Oct 2018 17:08:56 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Sat, 13 Oct 2018 17:08:54 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- w9DL8rix26411164
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 21:08:53 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 74A0A28059
- for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 17:06:18 -0400 (EDT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 57E5228058
- for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 17:06:18 -0400 (EDT)
-Received: from [9.10.222.86] (unknown [9.10.222.86])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 17:06:18 -0400 (EDT)
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Gunnar Mills <gmills@linux.vnet.ibm.com>
-Subject: Should we tag master?
-Date: Sat, 13 Oct 2018 14:08:58 -0700
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42XcrG1sCDzF39j
+ for <openbmc@lists.ozlabs.org>; Sun, 14 Oct 2018 08:13:33 +1100 (AEDT)
+Received: by mail-pg1-x52a.google.com with SMTP id v133-v6so7388850pgb.2
+ for <openbmc@lists.ozlabs.org>; Sat, 13 Oct 2018 14:13:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SOJQG/7tfrk+F/RmjizyIOHHnmJm3HRQ0srQOhb+gLI=;
+ b=N4hrUqxweDpPP3naccPueAstnZCcV42GYs/t20ndiJzedyS42nmaSQXQ52MNTlompj
+ +jNKTMLEUczMmDm1FykO+msy5JMKzNPdXqpCobdIiw84FIz2QBI25jPgzloTLtXeVUvX
+ FZ4kkoklzG+5EUuTlKRI7ZkxFYoh6Cs5K6RCdhBAT8ZhEuS2QOsQcWOfyknogUU1Z1j1
+ bC3S/q+0Kppt57gaHUWDCIWsZTiAJEOjAXr/7GBKDrWyi1EBaYrcK6EeDD2E5NltM/cT
+ iKPHhAthW7v/KbnfA7vMXpW9s9dUVWQPazwRWrRm4uOwSNx+ZdT4xOZBlMwd8aWwyuQl
+ CZuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SOJQG/7tfrk+F/RmjizyIOHHnmJm3HRQ0srQOhb+gLI=;
+ b=DyEW9wqmOn8CspSnyuxZhA+3IWtavHuXEHa1Cp25hTLh37x5OruwXCOvwAoPlo+JbE
+ 6KCy+67n9c0IDjlHCaoVYFXfaaTr6roYudNBgFxj1sA4wtB9/8kYwo8/ijDkgqXjv44n
+ gyf0nXn5TFEUMpZAVeGDN4Twzgtmb/mJSNHjdT+6eMGok5p/UFx1UjdAaZcLAc/mjayL
+ 8MuunIB8HlgiUw+VXNpzb0a/wWFIkVO8/XG5s/cxHE5o1bjAOO3KIv9N84ulmtFYlvim
+ w4G1vNilbvLYHfRVHi0Gk/BlbX1xargtlXBVdn0M934QNG+47lI3rL8FlKiT5YX6ENkY
+ sBQw==
+X-Gm-Message-State: ABuFfojRmXuYcYFasTMSvjDLXJTzG5SMHCL5ZG62bRVl0oghY9oTp4O0
+ WumRer0YVonnI9mZ7tlE5X9d3GpU0YYluB64Z5GFuVaV
+X-Google-Smtp-Source: ACcGV61eOanYCW7Hu90m8ewhZWLzhqPncAmmAUn58yXLPPr4BLPjdrToOeLMDMM4d1PQc3bpJh161f97ZozQU+Lmdrs=
+X-Received: by 2002:a63:9507:: with SMTP id
+ p7-v6mr10525982pgd.449.1539465211758; 
+ Sat, 13 Oct 2018 14:13:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18101321-0040-0000-0000-0000048026BD
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00009874; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000268; SDB=6.01102224; UDB=6.00570424; IPR=6.00882270; 
- MB=3.00023745; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-13 21:08:55
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18101321-0041-0000-0000-0000088839F4
-Message-Id: <b955c4bf-7605-945d-c7dd-ac3669809cee@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-13_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=693 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1810130198
+References: <b955c4bf-7605-945d-c7dd-ac3669809cee@linux.vnet.ibm.com>
+In-Reply-To: <b955c4bf-7605-945d-c7dd-ac3669809cee@linux.vnet.ibm.com>
+From: Patrick Venture <venture@google.com>
+Date: Sat, 13 Oct 2018 14:13:20 -0700
+Message-ID: <CAO=notwRaJcdiD8KnbB_pe3k=v6BFZXGnrEcxBH-29LZ=pGL6A@mail.gmail.com>
+Subject: Re: Should we tag master?
+To: gmills@linux.vnet.ibm.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,16 +63,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 13 Oct 2018 21:09:03 -0000
+X-List-Received-Date: Sat, 13 Oct 2018 21:13:35 -0000
 
-I think we should tag in the next week or two with a v2.4. I know it is 
-pretty arbitrary when we tag, but I have heard several companies use it.
-The last time we tagged was July 12th and there have been over 600 
-commits since then. The last few tags have been every ~3 months, so we 
-are due by that schedule. The Release Planning Group is planning a 2.6 
-release in January but until then I vote we continue to tag every 3 
-months. There was some discussion on the mailing in August about this: 
-https://lists.ozlabs.org/pipermail/openbmc/2018-August/012922.html
+On Sat, Oct 13, 2018 at 2:09 PM Gunnar Mills <gmills@linux.vnet.ibm.com> wrote:
+>
+> I think we should tag in the next week or two with a v2.4. I know it is
+> pretty arbitrary when we tag, but I have heard several companies use it.
+> The last time we tagged was July 12th and there have been over 600
+> commits since then. The last few tags have been every ~3 months, so we
+> are due by that schedule. The Release Planning Group is planning a 2.6
+> release in January but until then I vote we continue to tag every 3
+> months. There was some discussion on the mailing in August about this:
+> https://lists.ozlabs.org/pipermail/openbmc/2018-August/012922.html
 
-Thanks,
-Gunnar
+My only thought is, it might benefit to wait until the great renaming
+is done or closer to done so that when downstream distros (like ours)
+rebase, they will be rebasing onto a more stable version.  I expect
+Brad and I will be done in a couple weeks, so I'm not anticipating
+needing a long delay on this.
+
+>
+> Thanks,
+> Gunnar
+>
