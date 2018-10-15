@@ -1,71 +1,119 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <prvs=3826bf20df=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="oca8wH07"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ZXwvSzhc"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=3826bf20df=taoren@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="ly/uyJET"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="FJrQp5gt"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42YPcj27c2zDsGJ;
- Mon, 15 Oct 2018 14:51:16 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 4B4B821F37;
- Sun, 14 Oct 2018 23:51:14 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Sun, 14 Oct 2018 23:51:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=g5z8t9HAs2ttRojnp65adMD8iv
- VtWcHMldGBdkA39lY=; b=oca8wH076Oynds/WoIajhltDxZSE2uyfdpsmLv2e5M
- JEj39MCE3Mm7dqho9bz83if7RJl/+dM6jL6r9N10QvgX4AeRzlkWttaUBbwQGa9j
- zysh1GhzH8+4CPSz1YUYNbNyKPMyinCwm1jsr5s6JaCE60K5y4M8DfHn3RhDZsD/
- 3r9kodXGtT0d/6nmc7TQFe+zFWas/wo5EexIZywkM9dCSon45paqMqeuT51V97Hp
- bC5W59HcSXyj6Cfel7nQxkhPeu60HF/mKQVHTnYlKpSY2/XSUVPg72z8wDC1vWi1
- 3MWi6yEeU0ShOaUkXRyWaMF/i8m3eHiV1G61Www01ypA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=g5z8t9HAs2ttRojnp65adMD8ivVtWcHMldGBdkA39
- lY=; b=ZXwvSzhcUdYvzaC+QP+XNOiGWqrdV/6p4qPDJAfV2UTYJthfha7eePonk
- j1fEo+mSygNAmja1qr7+syCiS6+z5xXcIOlc2Hisd324VDzTADLHZIYFLjS7SjBr
- Ar1fOb5Xmuhc6/cVjydWYHbkEqVQS1ZYDT753l05WPg86pRgXEmgy+PcRX291HiJ
- 2oHzNuJlbngGDUal6q1zULy6pg19kKrmlzVIBMTly1wZV/KZaWC0p0Vy9zpDTMW+
- LxjJyJ/9swxLQ34g5vNV0+cw/+hywqgLbXHT5T9o2tUTS4hp8DIeHKwgwZ+xv5Aq
- aYnnl4R/5O3O3N/boSmAI03rwVQ6w==
-X-ME-Sender: <xms:sQ7EW8fYHJjQTVFy7l5YlUQd2i4dSBVtKxg40zQrqSNKPNGnLCL-hQ>
-X-ME-Proxy: <xmx:sQ7EWybo6WeWM6e6_14htZW2sxGpSzV97y62Iiw8GTmO2Uf6CyFIsQ>
- <xmx:sQ7EW8y8Hqr_K-bW3qDpK2Bgql265zbKOqIQFYQ04BxLNqC4Aw9bCw>
- <xmx:sQ7EW3TStSfRI257p20mwsq4CNHQpAgRTF2BpUkKymoDLqaKjdzl3A>
- <xmx:sQ7EW6oQ2_vOs13JQx604lVOTumDL2-Dml4EjPCXM7dOV6rxo2d9WQ>
- <xmx:sQ7EWxZrdLQ5y2tlw5dNxZ7gQFOg3WLwAEpj6r246ZGKdnOoAX8fOw>
- <xmx:sg7EW4CA86YcBrtwHj2zWNlKBYVCcfnXB5R8F_jvhheMCiLdmFl-Ew>
-Received: from v4 (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 36F0F102E9;
- Sun, 14 Oct 2018 23:51:10 -0400 (EDT)
-Message-ID: <9c82f52a7ce3fb9052600709a10783b23ef88457.camel@mendozajonas.com>
-Subject: Re: [PATCH net-next v4] net/ncsi: Add NCSI Broadcom OEM command
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Vijay Khemka <vijaykhemka@fb.com>, "David S. Miller"
- <davem@davemloft.net>,  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org
-Date: Mon, 15 Oct 2018 14:51:01 +1100
-In-Reply-To: <69cae9d44cbebb2cd4f468dc710d6a97210af835.camel@mendozajonas.com>
-References: <20181012182008.1665690-1-vijaykhemka@fb.com>
- <69cae9d44cbebb2cd4f468dc710d6a97210af835.camel@mendozajonas.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42YPm65CXbzF26K
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Oct 2018 14:57:41 +1100 (AEDT)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9F3uZlC012560; Sun, 14 Oct 2018 20:57:36 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=VQ3FaAZ2DluPXTJTNauFX3z8k5sL7YjckU5aajY6pVI=;
+ b=ly/uyJETyBzPVTaz74fhmYudxynf6lk0ax66ES6Xv0PRzYPIc4vcndSVdt9WiYgMrQEj
+ QcBE8IMxmvvUX+pN5PSFT2mnh/0fCOq8p2F5LqGnm6SEe2PkJurptuPnB+d702cdWj3J
+ 3L1/9W1yeq322lDLoiQOO29is2WOmqrdi/w= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2n4e77hdfj-7
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Sun, 14 Oct 2018 20:57:35 -0700
+Received: from frc-hub01.TheFacebook.com (2620:10d:c021:18::171) by
+ frc-hub01.TheFacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Sun, 14 Oct 2018 20:57:06 -0700
+Received: from FRC-CHUB05.TheFacebook.com (2620:10d:c021:18::24) by
+ frc-hub01.TheFacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
+ (version=TLS1_0, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3
+ via Frontend Transport; Sun, 14 Oct 2018 20:57:06 -0700
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.25) with Microsoft SMTP
+ Server (TLS) id 14.3.361.1; Sun, 14 Oct 2018 23:57:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VQ3FaAZ2DluPXTJTNauFX3z8k5sL7YjckU5aajY6pVI=;
+ b=FJrQp5gtbwHm5scfbeXVdkYrORtouuoev9n5RaGRfYtBIHofs0VmADRsRJIkmcwuflaT7KCs1YD3Av00ZSvQoKGdhHMtqaARtv9FinX3LwnxBY5ogQKrnNOh06n6sy+yLLsXf4m6HtA2hhFAOUMx+HMSLQD3mQu7/T+/LobWHwI=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1712.namprd15.prod.outlook.com (10.174.254.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1228.23; Mon, 15 Oct 2018 03:57:05 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::ccb:6fd9:cf17:bfcd]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::ccb:6fd9:cf17:bfcd%11]) with mapi id 15.20.1228.020; Mon, 15 Oct 2018
+ 03:57:04 +0000
+From: Tao Ren <taoren@fb.com>
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+CC: Daniel Lezcano <daniel.lezcano@linaro.org>
+Subject: Re: [PATCH linux dev-4.18] clocksource/drivers/fttmr010: Fix
+ set_next_event handler
+Thread-Topic: [PATCH linux dev-4.18] clocksource/drivers/fttmr010: Fix
+ set_next_event handler
+Thread-Index: AQHUZDnGiRO3ttuo1kKebS2Qs0xkQ6UfOHUA
+Date: Mon, 15 Oct 2018 03:57:04 +0000
+Message-ID: <CCE39525-03B1-40DF-9083-6E5501DC2DF0@fb.com>
+References: <20181015034710.3090400-1-taoren@fb.com>
+In-Reply-To: <20181015034710.3090400-1-taoren@fb.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/10.10.0.180812
+x-originating-ip: [2620:10d:c090:180::1:d081]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1712;
+ 20:CbWh1FbE0whK8wknFu3/cLeJdXtMANswF/G7+SkZo6VJDVSyvFTsQjYLCNdmhiDl0lvuOIliQNPbpoFQ4h0Ab9SSrNGFi8lXx5pJg3snpRzu1BbWQyfr1gStCNdmczXPS2PniizYW6UGYVoAnaFEAn18uAxrf2eeC5IcbccNwvg=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 8ed40eeb-08f6-4283-f5de-08d632524533
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1712; 
+x-ms-traffictypediagnostic: MWHPR15MB1712:
+x-microsoft-antispam-prvs: <MWHPR15MB171255987FE59A38141050D2B2FD0@MWHPR15MB1712.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(81227570615382)(67672495146484)(85827821059158); 
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(10201501046)(3002001)(3231355)(11241501184)(944501410)(52105095)(149066)(150057)(6041310)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123558120)(20161123564045)(20161123562045)(201708071742011)(7699051);
+ SRVR:MWHPR15MB1712; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1712; 
+x-forefront-prvs: 0826B2F01B
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(396003)(136003)(376002)(346002)(39860400002)(366004)(199004)(189003)(446003)(46003)(229853002)(36756003)(97736004)(53936002)(14454004)(6512007)(102836004)(81156014)(6486002)(8676002)(33656002)(478600001)(106356001)(2616005)(11346002)(486006)(6246003)(186003)(81166006)(476003)(105586002)(7736002)(316002)(305945005)(2906002)(8936002)(82746002)(6436002)(83716004)(68736007)(71190400001)(71200400001)(25786009)(5250100002)(2501003)(58126008)(53546011)(6116002)(110136005)(2900100001)(76176011)(14444005)(5660300001)(4326008)(99286004)(256004)(86362001)(6506007);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1712;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: ZkjEojJMN6OLeplTxJpDzXGNlWLE9SJgEAzWPf5SeH1ettdqNqj5ZeykA0xNroJWCRoV+Atg7L5QgIo0Y/OlTYQWJqeBVHSHDjiF3U1k6jUobNpOmcWDvQ/bAPO4MhxFjmonzlJOLx2QP6IcEfDqoivLLAvKPixYY5QcK1c1p5oaeg27d7Nt8YDeuf0Vjto7xFC4gnFxfPj8uoEm89lyeoEq0HDbUHXFjQNPOrl1v7ptIlAcW6vlpDqNaXb38YY16yCluzBgsDbLrtDXyMAgTiwr9CCpi9Fg4HDP18z6pyGPrZ45Uxyq6CKrxT0WZGHnEAoo96Ox7X7tXTCLcxgnWTXerIF7q8TJIOEaVzZSdz0=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <ABE36146B5B2A04EAA239754A08F6EE4@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ed40eeb-08f6-4283-f5de-08d632524533
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2018 03:57:04.7062 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1712
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-15_03:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,90 +125,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Oct 2018 03:51:20 -0000
+X-List-Received-Date: Mon, 15 Oct 2018 03:57:43 -0000
 
-On Mon, 2018-10-15 at 13:08 +1100, Samuel Mendoza-Jonas wrote:
-> On Fri, 2018-10-12 at 11:20 -0700, Vijay Khemka wrote:
-> > This patch adds OEM Broadcom commands and response handling. It also
-> > defines OEM Get MAC Address handler to get and configure the device.
-> > 
-> > ncsi_oem_gma_handler_bcm: This handler send NCSI broadcom command for
-> > getting mac address.
-> > ncsi_rsp_handler_oem_bcm: This handles response received for all
-> > broadcom OEM commands.
-> > ncsi_rsp_handler_oem_bcm_gma: This handles get mac address response and
-> > set it to device.
-> > 
-> > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
-> > ---
-> >  v4: updated as per comment from Sam, I was just wondering if I can remove
-> >  NCSI_OEM_CMD_GET_MAC config option and let this code be valid always and
-> >  it will configure mac address if there is get mac address handler for given 
-> >  manufacture id.
-> 
-> Hi Vijay,
-> 
-> We can look at handling this a different way, but I don't think we want
-> to unconditionally set the system's MAC address based on the OEM GMA
-> command. If the user wants to set a custom MAC address, or in the case of
-> OpenBMC for example who have their MAC address saved in flash, this will
-> override that value with whatever the Network Controller has saved. In
-> particular as it is set up it will override any MAC address every time a
-> channel is configured, such as during a failover event.
-> 
-> We *could* always send the GMA command if it is available and move the
-> decision whether to use the resulting address or not into the response
-> handler. That would simplify the ncsi_configure_channel() logic a bit.
-> Another idea may be to have a Netlink command to tell NCSI to ignore the
-> GMA result; then we could drop the config option and the system can
-> safely change the address if desired.
-> 
-> Any thoughts? I'll also ping some of the OpenBMC people and see what
-> their expectations are.
-
-After a bit of a think and an ask around, to quote a colleague:
-> I think we'd want it handled (overall) like any other net device; the MAC
-> address in the device's ROM provides a default, and is overridden by anything
-> specified by userspace 
-
-Which describes what I was thinking pretty well.
-So if we can have it such that the NCSI driver only sets the MAC address
-_once_, and then after then does not update it again, we should be able to call
-the OEM GMA command without hiding it behind a config option. So the first time
-a channel was configured we store and set the MAC address given, but then on
-later configure events we don't continue to update it. What do you think?
-
-Cheers,
-Sam
-
-> 
-> > +#if IS_ENABLED(CONFIG_NCSI_OEM_CMD_GET_MAC)
-> > +
-> > +/* NCSI OEM Command APIs */
-> > +static void ncsi_oem_gma_handler_bcm(struct ncsi_cmd_arg *nca)
-> > +{
-> > +	unsigned char data[NCSI_OEM_BCM_CMD_GMA_LEN];
-> > +	int ret = 0;
-> > +
-> > +	nca->payload = NCSI_OEM_BCM_CMD_GMA_LEN;
-> > +
-> > +	memset(data, 0, NCSI_OEM_BCM_CMD_GMA_LEN);
-> > +	*(unsigned int *)data = ntohl(NCSI_OEM_MFR_BCM_ID);
-> > +	data[5] = NCSI_OEM_BCM_CMD_GMA;
-> > +
-> > +	nca->data = data;
-> > +
-> > +	ret = ncsi_xmit_cmd(nca);
-> > +	if (ret)
-> > +		netdev_err(nca->ndp->ndev.dev,
-> > +			   "NCSI: Failed to transmit cmd 0x%x during configure\n",
-> > +			   nca->type);
-> > +}
-> 
-> As a side note while unlikely we probably want to propagate the return
-> value of ncsi_xmit_cmd() from here; otherwise we'll miss a failure and
-> the configure process will stall.
-> 
-> Regards,
-> Sam
-> 
+T24gMTAvMTQvMTgsIDg6NDcgUE0sICJUYW8gUmVuIiA8dGFvcmVuQGZiLmNvbT4gd3JvdGU6DQoN
+Cj4gQ3VycmVudGx5LCB0aGUgYXNwZWVkIE1BVENIMSByZWdpc3RlciBpcyB1cGRhdGVkIHRvIDxj
+dXJyZW50X2NvdW50IC0NCj4gY3ljbGVzPiBpbiBzZXRfbmV4dF9ldmVudCBoYW5kbGVyLCB3aXRo
+IHRoZSBhc3N1bXB0aW9uIHRoYXQgQ09VTlQNCj4gcmVnaXN0ZXIgdmFsdWUgaXMgcHJlc2VydmVk
+IHdoZW4gdGhlIHRpbWVyIGlzIGRpc2FibGVkIGFuZCBpdCBjb250aW51ZXMNCj4gZGVjcmVtZW50
+aW5nIGFmdGVyIHRoZSB0aW1lciBpcyBlbmFibGVkLiBCdXQgdGhlIGFzc3VtcHRpb24gaXMgd3Jv
+bmc6DQo+IFJFTE9BRCByZWdpc3RlciBpcyBsb2FkZWQgaW50byBDT1VOVCByZWdpc3RlciB3aGVu
+IHRoZSBhc3BlZWQgdGltZXIgaXMNCj4gZW5hYmxlZCwgd2hpY2ggbWVhbnMgdGhlIG5leHQgZXZl
+bnQgbWF5IGJlIGRlbGF5ZWQgYmVjYXVzZSB0aW1lcg0KPiBpbnRlcnJ1cHQgd29uJ3QgYmUgZ2Vu
+ZXJhdGVkIHVudGlsIDwweEZGRkZGRkZGIC0gY3VycmVudF9jb3VudCArDQo+IGN5Y2xlcz4uDQo+
+IA0KPiBUaGUgcHJvYmxlbSBjYW4gYmUgZml4ZWQgYnkgdXBkYXRpbmcgUkVMT0FEIHJlZ2lzdGVy
+IHRvIDxjeWNsZXM+LCBhbmQNCj4gQ09VTlQgcmVnaXN0ZXIgd2lsbCBiZSByZS1sb2FkZWQgd2hl
+biB0aGUgdGltZXIgaXMgZW5hYmxlZCBhbmQgaW50ZXJydXB0DQo+IGlzIGdlbmVyYXRlZCB3aGVu
+IENPVU5UIHJlZ2lzdGVyIG92ZXJmbG93cy4NCj4NCj4gVGhlIHRlc3QgcmVzdWx0IG9uIEZhY2Vi
+b29rIEJhY2twYWNrLUNNTSBCTUMgaGFyZHdhcmUgKEFTVDI1MDApIHNob3dzDQo+IHRoZSBpc3N1
+ZSBpcyBmaXhlZDogd2l0aG91dCB0aGUgcGF0Y2gsIHVzbGVlcCgxMDApIHN1c3BlbmRzIHRoZSBw
+cm9jZXNzDQo+IGZvciBzZXZlcmFsIG1pbGxpc2Vjb25kcyAoYW5kIHNvbWV0aW1lcyBldmVuIG92
+ZXIgNDAgbWlsbGlzZWNvbmRzKTsNCj4gYWZ0ZXIgYXBwbHlpbmcgdGhlIGZpeCwgdXNsZWVwKDEw
+MCkgdGFrZXMgYXZlcmFnZWx5IDI0MCBtaWNyb3NlY29uZHMgdG8NCj4gcmV0dXJuIHVuZGVyIHRo
+ZSBzYW1lIHdvcmtsb2FkIGxldmVsLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogVGFvIFJlbiA8dGFv
+cmVuQGZiLmNvbT4NCj4gUmV2aWV3ZWQtYnk6IExpbnVzIFdhbGxlaWogPGxpbnVzLndhbGxlaWpA
+bGluYXJvLm9yZz4NCj4gVGVzdGVkLWJ5OiBMZWkgWVUgPG1pbmUyNjAzMDlAZ21haWwuY29tPg0K
+PiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgTGV6Y2FubyA8ZGFuaWVsLmxlemNhbm9AbGluYXJvLm9y
+Zz4NCiANCkhpIEpvZWwgLyBBbmRyZXcsDQoNClRoZSBwYXRjaCBpcyBpbmNsdWRlZCBpbiB2NC4x
+OS1yYzYgKGNvbW1pdCA0NDUxZDNmNTlmMmEpLCBzbyB5b3UgY291bGQgZWl0aGVyIGFwcGx5IHRo
+ZSBwYXRjaCB0byBkZXYtNC4xOCBub3csIG9yIGl0IGNhbiBhbHNvIGJlIGluY2x1ZGVkIHdoZW4g
+a2VybmVsIGlzIHVwZ3JhZGVkIHRvIDQuMTkuDQoNCg0KVGhhbmtzLA0KDQpUYW8gUmVuDQoNCg==
