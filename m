@@ -1,76 +1,59 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <prvs=3826bf20df=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="U2Y/w/mg"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="PYoyE8Re"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ envelope-from=prvs=3826bf20df=taoren@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="Zpgyrd5k"; 
+ dkim-atps=neutral
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42YN7x1V7VzF35P
- for <openbmc@lists.ozlabs.org>; Mon, 15 Oct 2018 13:44:45 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 68A2F21B2D;
- Sun, 14 Oct 2018 22:44:42 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Sun, 14 Oct 2018 22:44:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=3EmHbdL+JmgkbkCKCbopsyOyS8
- KZzv7tydkv2GAXMY0=; b=U2Y/w/mgWudduz8PdVxGlBJ3Q/CqUPOWapwbh1865I
- AmIpB9TaQfvZLgeBDwzG+z5vldznB+X7LOb5ZQMKGUYoHsOZ/i9XY579OhHjD5fE
- y3OgoPG20/2PWZA2LZtcQ5jjoqSekmF7FEyx/H/yrtfYDRg5XTNeip5fZo4fBBst
- HkRw20Hhy4EMibx3P0LESLW48+aSZEEIsi5WrbmCyVCbDf8sMHpHU3Y4XGDoY6EM
- NBMe4LrR0Xsf7DNcRBQv2nmmKHKh1LpJk2cEJTqdYWATloO2O8ozCXxC2y2mQtb1
- yyLjs3jyU5vcFlM0Eg/DcJoJxKSx3QQUrZ8KT+uzJ5VA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=3EmHbdL+JmgkbkCKCbopsyOyS8KZzv7tydkv2GAXM
- Y0=; b=PYoyE8RewoGY8PU/PBnsvhPVYQDu8cSqzQ0ZiPPIluvlbkx5zpZCreZQ/
- /ZQaCBmeaLeJ9zSA2IDcxuxHpJcu0fBNKaV7vuVNQk9vIi6HN16fUDPX8cXy7B5E
- 4v3iMijC3LbwkeA1yW697oWPfIjvY+ChazKJrvHpYFlE1zBx2W5ghLnTy6jeBRvo
- exqIvNFFs4lsSYkZI8mMCs6YwhmZtIft714pFg7lJ2d17oEbcJH3QcvAPClRREzP
- cS0M31ZT50VjDiPTG0QgbzGm4CyQkqW89pBXfU/7paJxhsBWI6aQstyAVAkYc0tP
- OzPqz297VSi5ZRT4cyU+QM0v9eMhw==
-X-ME-Sender: <xms:Gf_DW2RpVCQX2rpRKiEjhoCDeN61bi19_zkxyc777DojNdbHWPMcCg>
-X-ME-Proxy: <xmx:Gf_DW6NlQpWRMxywh82P1NL38q5X8FsfKaGBGnmJR7wSZTzHgiBgVQ>
- <xmx:Gf_DW6VP9KIu-OGYN7407buriNVPA6SBW6P_pWsgR2f3nijDJIWDLQ>
- <xmx:Gf_DW6jmZv96fNQligFmHXAN-jdQRA0yZdA0sYAtgm-No9c_vZzUKw>
- <xmx:Gf_DWy_c4Yij-tyiKPM0-4VqtZ1fwiTLqSZoNIjDLfZCfAIOlHBwvQ>
- <xmx:Gf_DW5QD9wZ9ncy-Vz0BWUk1cNQ3Avj3sGTxQEYxC-yT81bGWA3yMQ>
- <xmx:Gv_DW5eza3KpZNCHKBsrTEzjfHQk28ueYFv1Ob1QOH-v5lenlFjRzQ>
-Received: from v4 (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id CFF93E40E6;
- Sun, 14 Oct 2018 22:44:39 -0400 (EDT)
-Message-ID: <336fc885b7b3246d7434998514a38fc0b754c865.camel@mendozajonas.com>
-Subject: Re: [RFC PATCH 2/2] net/ncsi: Configure multi-package,
- multi-channel modes with failover
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Justin.Lee1@Dell.com, netdev@vger.kernel.org
-Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Date: Mon, 15 Oct 2018 13:44:36 +1100
-In-Reply-To: <d648d156e08c4b2a8135f54abe0e9474@AUSX13MPS302.AMER.DELL.COM>
-References: <20181009035815.5246-1-sam@mendozajonas.com>
- <20181009035815.5246-2-sam@mendozajonas.com>
- <d97bb52a060a40cf8e03a49eb82a285f@AUSX13MPS302.AMER.DELL.COM>
- <8548f1872badb35588d5506da21f0d89bea71127.camel@mendozajonas.com>
- <e20a7a3da4ca4aec913800355cd6cdaf@AUSX13MPS302.AMER.DELL.COM>
- <cdf6fa4a6d7a506f84c9d9925d8f621b398a2fff.camel@mendozajonas.com>
- <d648d156e08c4b2a8135f54abe0e9474@AUSX13MPS302.AMER.DELL.COM>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42YPXV3swXzDrBy
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Oct 2018 14:47:33 +1100 (AEDT)
+Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9F3jIde009390
+ for <openbmc@lists.ozlabs.org>; Sun, 14 Oct 2018 20:47:31 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=4n9tiRJB1a2YXtSjQgdmZlHHsDjBK44D818HD3IulKA=;
+ b=Zpgyrd5k7ExQuD1MSIhGiXNFKeIen4ecp9CHetx9YR3oGRP2l1ai9OYngZYehP3l82x+
+ a+jseBfflyK124O6eeZTOlROVVFxDyJzFy6lQ5nmyOcYwq08/DwLykmnLJfLUVQ3vNGz
+ o+jSmujM6XAMo1PSvyMIImLKMPNQE1xhJA4= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2n4hpjan62-8
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Sun, 14 Oct 2018 20:47:31 -0700
+Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
+ mail.thefacebook.com (2620:10d:c081:35::129) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
+ Sun, 14 Oct 2018 20:47:17 -0700
+Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)
+ id C6BE96A173DD; Sun, 14 Oct 2018 20:47:11 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ <openbmc@lists.ozlabs.org>
+CC: Tao Ren <taoren@fb.com>, Daniel Lezcano <daniel.lezcano@linaro.org>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH linux dev-4.18] clocksource/drivers/fttmr010: Fix
+ set_next_event handler
+Date: Sun, 14 Oct 2018 20:47:10 -0700
+Message-ID: <20181015034710.3090400-1-taoren@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-15_03:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +65,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Oct 2018 02:44:45 -0000
+X-List-Received-Date: Mon, 15 Oct 2018 03:47:39 -0000
 
-On Fri, 2018-10-12 at 19:16 +0000, Justin.Lee1@Dell.com wrote:
-> > > > > > +
-> > > > > > +	NCSI_FOR_EACH_CHANNEL(np, channel) {
-> > > > > > +		ncm = &channel->modes[NCSI_MODE_TX_ENABLE];
-> > > > > > +		/* Another channel is already Tx */
-> > > > > > +		if (ncm->enable)
-> > > > > > +			return false;
-> > > > > > +	}
-> 
-> As we don't suspend the old channel when we call the ncsi_stop_dev() function,
-> this will always be false and we will not set it to the right channel.
-> If mutli_channel is enabled, suppose that we only need to send TX enable/disable
-> when  the link is changed.
+Currently, the aspeed MATCH1 register is updated to <current_count -
+cycles> in set_next_event handler, with the assumption that COUNT
+register value is preserved when the timer is disabled and it continues
+decrementing after the timer is enabled. But the assumption is wrong:
+RELOAD register is loaded into COUNT register when the aspeed timer is
+enabled, which means the next event may be delayed because timer
+interrupt won't be generated until <0xFFFFFFFF - current_count +
+cycles>.
 
-Ah, good point. I was working on improving the ncsi_stop_dev/ncsi_start_dev
-interactions in a separate patch but we're going to need to fix it for
-multi_channel to work properly. I'll look into that and include it in this
-series.
+The problem can be fixed by updating RELOAD register to <cycles>, and
+COUNT register will be re-loaded when the timer is enabled and interrupt
+is generated when COUNT register overflows.
 
-<snip>
+The test result on Facebook Backpack-CMM BMC hardware (AST2500) shows
+the issue is fixed: without the patch, usleep(100) suspends the process
+for several milliseconds (and sometimes even over 40 milliseconds);
+after applying the fix, usleep(100) takes averagely 240 microseconds to
+return under the same workload level.
 
-> > > > > > -	if (!found) {
-> > > > > > +	if (!with_link && found) {
-> > > > > > +		netdev_info(ndp->ndev.dev,
-> > > > > > +			    "NCSI: No channel with link found, configuring channel %u\n",
-> > > > > > +			    found->id);
-> > > > > > +		spin_lock_irqsave(&ndp->lock, flags);
-> > > > > > +		list_add_tail_rcu(&found->link, &ndp->channel_queue);
-> > > > > > +		spin_unlock_irqrestore(&ndp->lock, flags);
-> 
-> If multi-channel is enabled and without the link, the last found channel would be added again.
+Signed-off-by: Tao Ren <taoren@fb.com>
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Tested-by: Lei YU <mine260309@gmail.com>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+---
+ drivers/clocksource/timer-fttmr010.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-Yep, I've fixed this up by checking whether anything has been added to the
-channel queue instead.
-
-Thanks,
-Sam
+diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
+index c020038ebfab..cf93f6419b51 100644
+--- a/drivers/clocksource/timer-fttmr010.c
++++ b/drivers/clocksource/timer-fttmr010.c
+@@ -130,13 +130,17 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
+ 	cr &= ~fttmr010->t1_enable_val;
+ 	writel(cr, fttmr010->base + TIMER_CR);
+ 
+-	/* Setup the match register forward/backward in time */
+-	cr = readl(fttmr010->base + TIMER1_COUNT);
+-	if (fttmr010->count_down)
+-		cr -= cycles;
+-	else
+-		cr += cycles;
+-	writel(cr, fttmr010->base + TIMER1_MATCH1);
++	if (fttmr010->count_down) {
++		/*
++		 * ASPEED Timer Controller will load TIMER1_LOAD register
++		 * into TIMER1_COUNT register when the timer is re-enabled.
++		 */
++		writel(cycles, fttmr010->base + TIMER1_LOAD);
++	} else {
++		/* Setup the match register forward in time */
++		cr = readl(fttmr010->base + TIMER1_COUNT);
++		writel(cr + cycles, fttmr010->base + TIMER1_MATCH1);
++	}
+ 
+ 	/* Start */
+ 	cr = readl(fttmr010->base + TIMER_CR);
+-- 
+2.17.1
