@@ -1,40 +1,73 @@
-Return-Path: <davem@davemloft.net>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=davemloft.net
- (client-ip=2620:137:e000::1:9; helo=shards.monkeyblade.net;
- envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=davemloft.net
-Received: from shards.monkeyblade.net (shards.monkeyblade.net
- [IPv6:2620:137:e000::1:9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="t8Mnrfdv"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Q3nO8t97"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Z3730MBBzF3WP;
- Tue, 16 Oct 2018 16:01:17 +1100 (AEDT)
-Received: from localhost (c-67-183-62-245.hsd1.wa.comcast.net [67.183.62.245])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 7E55B14547F42;
- Mon, 15 Oct 2018 22:01:12 -0700 (PDT)
-Date: Mon, 15 Oct 2018 22:01:12 -0700 (PDT)
-Message-Id: <20181015.220112.1806105081003593573.davem@davemloft.net>
-To: Justin.Lee1@Dell.com
-Cc: sam@mendozajonas.com, joel@jms.id.au, linux-aspeed@lists.ozlabs.org,
- netdev@vger.kernel.org, openbmc@lists.ozlabs.org, amithash@fb.com,
- christian@cmd.nu, vijaykhemka@fb.com
-Subject: Re: [PATCH net-next v7] net/ncsi: Extend NC-SI Netlink interface
- to allow user space to send NC-SI command
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <cd371b0265b74889a10241a6af7e4843@AUSX13MPS302.AMER.DELL.COM>
-References: <cd371b0265b74889a10241a6af7e4843@AUSX13MPS302.AMER.DELL.COM>
-X-Mailer: Mew version 6.7 on Emacs 26 / Mule 6.0 (HANACHIRUSATO)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42Z46v68JJzF3Sd;
+ Tue, 16 Oct 2018 16:46:14 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 72E7722239;
+ Tue, 16 Oct 2018 01:46:08 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 16 Oct 2018 01:46:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=message-id:subject:from:to:cc:date
+ :in-reply-to:references:content-type:mime-version
+ :content-transfer-encoding; s=fm1; bh=p7lDReh9Po24QTriDU3HF5iWU7
+ vr2lFBTf6PhLTOehI=; b=t8Mnrfdv6GyjJq5y9er7qDWvx60NaXyDKn//yW+JHH
+ EzVGrnkkO3/skLfQLMCrYc1q0e7oSs8/FL9pyTiau6hZ9DU8lIdPnYWm8NMz0k4m
+ jKNoDA5JPyBwgqcsZ6UCPO2X3ph4MZwaCEm1lzOGAr+fEydl1STD9SCL2BwOWMSZ
+ QeX6+yp76SfkbSq+6rWES6Q50wKAeG9AokdPl7e+pObASmzv9RLjfODb41OAAyPL
+ soT+1vUALaBMXNdCrTdUu+U7pzllrGXjMWakuoCZpQ5/W1aeX1poa9JhlW+a6d3E
+ d/ReGJ2UcBmUGMvYigUA9xpMw9q4PKBIBD6Qv91elOww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=p7lDReh9Po24QTriDU3HF5iWU7vr2lFBTf6PhLTOe
+ hI=; b=Q3nO8t97MgEAXb2Y4OlNP6b1eVsvMRXzFl77nNz04Rog0bePRiA+SZlFj
+ +cSczfmfYztiJxQp9YjtbAknm0v+wPjEqbkW+32zalY8LOStU53ZsZck59G+tj1n
+ VAVO+6lcBula7rSzrID8sylE2DoE5BVHivXbhZhyEM1H/sfD24q9Yh7vRCH+U4hN
+ 5deRHOAT7Rszyd5BhnmLhraSjzQsjmuZW46ojTg9XdHqw02s0L1Qynfpwa1GrNBO
+ jA5RnCJX8VFrtkrnru5LgInaktbUdJH0CtQYFWqLS/DjbnpbNjdkwmnytEJuO1fh
+ 2K4A5TLhGd3tFVheD+7s8+bREu+KA==
+X-ME-Sender: <xms:H3vFW0hNMzh7D_CZO3FkSPSlD8N4jxjQChLjKqtM2NIx5b-zkmZL7w>
+X-ME-Proxy: <xmx:H3vFW62P8k8DRzLbgjA6aJ5V21fchm4oN0if4SGiH-B8DBKR6SNNZQ>
+ <xmx:H3vFW9SQIaXJfs8YIgUO5XP82Aqgv9WAVajVgaMFhk3ljDc2YQ7g8g>
+ <xmx:H3vFW0trs_qqeNemQYgNQP6pbQx_xweNwva1RMoa34UpVF6iBVhrLw>
+ <xmx:H3vFW6aOtM3WQJ_h81OC7Q44y4rFl8r383KCo7Z3D1jYnNrbCxZavg>
+ <xmx:H3vFWxvMqeAN_953Rm99i02AIOvb21G1a_LgYWrOSUcMPcIrIE1l7w>
+ <xmx:IHvFWwMfBF6LbVnoZr3h-VVDirjjO1lNz2EjjScpxbE3_UAgaByxdA>
+Received: from v4 (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 71B16E4439;
+ Tue, 16 Oct 2018 01:46:05 -0400 (EDT)
+Message-ID: <337567b2936725686459bdba7ef76dc46dea748a.camel@mendozajonas.com>
+Subject: Re: [Potential Spoof] Re: [PATCH net-next v4] net/ncsi: Add NCSI
+ Broadcom OEM command
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Vijay Khemka <vijaykhemka@fb.com>, "David S. Miller"
+ <davem@davemloft.net>,  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
+Date: Tue, 16 Oct 2018 16:46:01 +1100
+In-Reply-To: <E82A7C2E-6DBF-437D-B571-5376F0122176@fb.com>
+References: <E82A7C2E-6DBF-437D-B571-5376F0122176@fb.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.1 
 Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Mon, 15 Oct 2018 22:01:13 -0700 (PDT)
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,43 +79,94 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Oct 2018 05:01:19 -0000
+X-List-Received-Date: Tue, 16 Oct 2018 05:46:20 -0000
 
-From: <Justin.Lee1@Dell.com>
-Date: Thu, 11 Oct 2018 18:07:37 +0000
+On Mon, 2018-10-15 at 17:38 +0000, Vijay Khemka wrote:
+> 
+> ﻿On 10/15/18, 10:27 AM, "Linux-aspeed on behalf of Vijay Khemka" <linux-aspeed-bounces+vijaykhemka=fb.com@lists.ozlabs.org on behalf of vijaykhemka@fb.com> wrote:
+> 
+>     
+>     
+>     On 10/14/18, 8:51 PM, "Samuel Mendoza-Jonas" <sam@mendozajonas.com> wrote:
+>     
+>         On Mon, 2018-10-15 at 13:08 +1100, Samuel Mendoza-Jonas wrote:
+>         > On Fri, 2018-10-12 at 11:20 -0700, Vijay Khemka wrote:
+>         > > This patch adds OEM Broadcom commands and response handling. It also
+>         > > defines OEM Get MAC Address handler to get and configure the device.
+>         > > 
+>         > > ncsi_oem_gma_handler_bcm: This handler send NCSI broadcom command for
+>         > > getting mac address.
+>         > > ncsi_rsp_handler_oem_bcm: This handles response received for all
+>         > > broadcom OEM commands.
+>         > > ncsi_rsp_handler_oem_bcm_gma: This handles get mac address response and
+>         > > set it to device.
+>         > > 
+>         > > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+>         > > ---
+>         > >  v4: updated as per comment from Sam, I was just wondering if I can remove
+>         > >  NCSI_OEM_CMD_GET_MAC config option and let this code be valid always and
+>         > >  it will configure mac address if there is get mac address handler for given 
+>         > >  manufacture id.
+>         > 
+>         > Hi Vijay,
+>         > 
+>         > We can look at handling this a different way, but I don't think we want
+>         > to unconditionally set the system's MAC address based on the OEM GMA
+>         > command. If the user wants to set a custom MAC address, or in the case of
+>         > OpenBMC for example who have their MAC address saved in flash, this will
+>         > override that value with whatever the Network Controller has saved. In
+>         > particular as it is set up it will override any MAC address every time a
+>         > channel is configured, such as during a failover event.
+>         > 
+>         > We *could* always send the GMA command if it is available and move the
+>         > decision whether to use the resulting address or not into the response
+>         > handler. That would simplify the ncsi_configure_channel() logic a bit.
+>         > Another idea may be to have a Netlink command to tell NCSI to ignore the
+>         > GMA result; then we could drop the config option and the system can
+>         > safely change the address if desired.
+>         > 
+>         > Any thoughts? I'll also ping some of the OpenBMC people and see what
+>         > their expectations are.
+>         
+>         After a bit of a think and an ask around, to quote a colleague:
+>         > I think we'd want it handled (overall) like any other net device; the MAC
+>         > address in the device's ROM provides a default, and is overridden by anything
+>         > specified by userspace 
+>         
+>         Which describes what I was thinking pretty well.
+>         So if we can have it such that the NCSI driver only sets the MAC address
+>         _once_, and then after then does not update it again, we should be able to call
+>         the OEM GMA command without hiding it behind a config option. So the first time
+>         a channel was configured we store and set the MAC address given, but then on
+>         later configure events we don't continue to update it. What do you think?
+>         
+>         Cheers,
+>         Sam
+>     
+>       I agree with you setting it only once. I gave a thought about config option and realize that 
+>       we should allow user to configure it. If user wants to set mac address through device tree 
+>       and not through ROM then we must not override mac set by device tree. So my proposal is 
+>       setting of mac address in response should be hidden under config option. Getting mac address 
+>       can still go without config option. Your thought?
+>         
+>   or simply guard following block under config and no other function declaration guard required. 
+>   And set static variable flag in function " ncsi_oem_handler" for calling this only once.
+> 
+>   #if IS_ENABLED(CONFIG_NCSI_OEM_CMD_GET_MAC)
+>     nca.type = NCSI_PKT_CMD_OEM;
+>     nca.package = np->id;
+>     nca.channel = nc->id;
+>     ndp->pending_req_num = 1;
+>     ret = ncsi_oem_handler(&nca, nc->version.mf_id);
+> #endif /* CONFIG_NCSI_OEM_CMD_GET_MAC */
+> 
 
-> The new command (NCSI_CMD_SEND_CMD) is added to allow user space application
-> to send NC-SI command to the network card.
-> Also, add a new attribute (NCSI_ATTR_DATA) for transferring request and response.
-> 
-> The work flow is as below. 
-> 
-> Request:
-> User space application
-> 	-> Netlink interface (msg)
-> 	-> new Netlink handler - ncsi_send_cmd_nl()
-> 	-> ncsi_xmit_cmd()
-> 
-> Response:
-> Response received - ncsi_rcv_rsp()
-> 	-> internal response handler - ncsi_rsp_handler_xxx()
-> 	-> ncsi_rsp_handler_netlink()
-> 	-> ncsi_send_netlink_rsp ()
-> 	-> Netlink interface (msg)
-> 	-> user space application
-> 
-> Command timeout - ncsi_request_timeout()
-> 	-> ncsi_send_netlink_timeout ()
-> 	-> Netlink interface (msg with zero data length)
-> 	-> user space application
-> 
-> Error:
-> Error detected
-> 	-> ncsi_send_netlink_err ()
-> 	-> Netlink interface (err msg)
-> 	-> user space application
-> 
-> 
-> Signed-off-by: Justin Lee <justin.lee1@dell.com> 
+Hi Vijay,
 
-Applied.
+Either way is likely fine; although you might need to take care you don't
+get an unused function warning depending on how you guard
+ncsi_oem_handler(). Also a flag in the ncsi_dev_priv struct could be
+easier to keep track of than having a static variable in the handler
+function.
+
+Sam
