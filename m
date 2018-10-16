@@ -1,33 +1,66 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::642; helo=mail-pl1-x642.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Z1GSCEhY"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42YzC862DhzF3Vj
- for <openbmc@lists.ozlabs.org>; Tue, 16 Oct 2018 13:04:36 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id EB40B6DC97;
- Mon, 15 Oct 2018 22:04:33 -0400 (EDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Subject: Re: Opt-Out vs Opt-In
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CAO=notxKDiY8d5WriLfB6-jNvHxJpJwSivYki0tjhmKwq_PDeg@mail.gmail.com>
-Date: Mon, 15 Oct 2018 22:04:33 -0400
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42YzS254fPzF3W1
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Oct 2018 13:15:46 +1100 (AEDT)
+Received: by mail-pl1-x642.google.com with SMTP id y11-v6so10189304plt.3
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Oct 2018 19:15:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=KjkT6KZker4TndYW26tw9RUXWwH7KN1mSZbXZ0y5wVM=;
+ b=Z1GSCEhYpFekYvot56J6FCXbBAOmV1htHpCrItPsuIC+qK8Gw96sYKCn7qPlr0jWrD
+ 9xxsAyy99vuulzZgsICjWqR2BCGPSGJnDFe2PcVmRfK0HAJ7SHZ780BPwidLh/QSQxc2
+ H+8LQYdKKeugZoyikgais01AA4V6Yj/afZtiO74s3x65XiB0umScrN3xGIUxaiX6C6q6
+ /76TV7HpNzX1UbwXFXxBP9Ca9kNlAElPst8eccOPuxeRANuU501HPOuKO7S5pYccB36T
+ eWqtb9wRvLDG64j9pDFe9iIyqSjNShpDfICWnasWeWzH1wVv3hNgxVvqJ7Zog0SGnaHv
+ p4AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=KjkT6KZker4TndYW26tw9RUXWwH7KN1mSZbXZ0y5wVM=;
+ b=uBtNfROmrLFc99yyOnMXI645r0dXPYvbDjJ/JS2jNrjA0iQdCjTOw6E5xqNfIgm7eQ
+ fmBrsXEpvQPWsXh9cfh2hqAZo7qiLrgS3KKtF7UajaEM8L+U+cag5NtWKAu+TqwbGmn2
+ i/gT97VGY+w6WDFd6qNYg2wbqsG5TKHs1e64tU34A1PKOT0h6WjwbWw6Wyirxk6CBZ0s
+ eQU/hp5saaVCUu+yi7u8w9e6+HQPxDM8OA1kJ14XmV050NRnbGkjcU5hmYKZC+IjkuLb
+ 9zFmKaWfCwD+2yrBIn47x85+CIuGcEdCpp/kzoGZT544qpJq96jLDLHTQEFtdpyfb30q
+ qgBg==
+X-Gm-Message-State: ABuFfojRdzwi9C8tNIjGle5gTmCsmtPuExRry6h1wvvw0Nvx7UUqcB5a
+ JWVKm+X2q6rjDinKto0LYWYpQS+8t89gum0Pq7MNIw==
+X-Google-Smtp-Source: ACcGV62DK7IuwfRWnWrQjd7NNyEVDvddtPwm6/Wt5PhT8on0CwYT5FqEQ1/ZWG/bTm1t82zwnKwXmG5D8CtXnf65evo=
+X-Received: by 2002:a17:902:a509:: with SMTP id
+ s9-v6mr3535024plq.323.1539656144464; 
+ Mon, 15 Oct 2018 19:15:44 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAO=notz_KizBdONsKjtQ6U05r4hWQOuxa_cx9Cshps7V8=PRbw@mail.gmail.com>
+ <3fc8bbb4-2db9-6df0-4fc3-1addf4b94ac3@linux.intel.com>
+ <CAO=notwOiB-v5LxZ=OagkGTzhM8dnt5kogO=eaTGEKGp7si14Q@mail.gmail.com>
+ <e6652bad-d524-3912-6be2-9dc2bc9d4669@linux.vnet.ibm.com>
+ <CAO=notyHG4EvvjouSJjo+n9oRDjp81W5vQFcvG4ZXiue_jmqzw@mail.gmail.com>
+ <57667218-5BC4-4206-B548-C636426A4571@fuzziesquirrel.com>
+In-Reply-To: <57667218-5BC4-4206-B548-C636426A4571@fuzziesquirrel.com>
+From: Patrick Venture <venture@google.com>
+Date: Mon, 15 Oct 2018 19:15:33 -0700
+Message-ID: <CAO=notzKG=sqpY06Akv2uznzcXtizvC2X7Y_=A4pwOqC_d8Azg@mail.gmail.com>
+Subject: Re: Notion of Flakiness in Sensor Readings
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ James Feist <james.feist@linux.intel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <CDC64306-BE5C-40A8-AF9C-7FC921B68FB8@fuzziesquirrel.com>
-References: <CAO=notxKDiY8d5WriLfB6-jNvHxJpJwSivYki0tjhmKwq_PDeg@mail.gmail.com>
-To: Patrick Venture <venture@google.com>
-X-Mailer: Apple Mail (2.3445.9.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,39 +72,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Oct 2018 02:04:37 -0000
+X-List-Received-Date: Tue, 16 Oct 2018 02:15:47 -0000
 
+On Mon, Oct 15, 2018 at 6:14 PM Brad Bishop <bradleyb@fuzziesquirrel.com> w=
+rote:
+>
+>
+>
+> > On Oct 12, 2018, at 5:32 PM, Patrick Venture <venture@google.com> wrote=
+:
+> >
+> > On Fri, Oct 12, 2018 at 2:28 PM Matt Spinler
+> > <mspinler@linux.vnet.ibm.com> wrote:
+> >>
+> >>
+> >>
+> >> On 10/12/2018 4:23 PM, Patrick Venture wrote:
+> >>> On Fri, Oct 12, 2018 at 2:09 PM James Feist <james.feist@linux.intel.=
+com> wrote:
+> >>>> On 10/12/2018 01:53 PM, Patrick Venture wrote:
+> >>>>> Currently, there are a few approaches in phosphor-hwmon on how to
+> >>>>> handle sensors being present sometimes, or flaky on reads.  We've
+> >>>>> talked in the past about how to handle a read failure that should b=
+e
+> >>>>> ignored.  A real failure that is flaky or temporary.
+> >>>>>
+> >>>>> I was thinking of just adding a property to the Sensor.Value interf=
+ace
+> >>>>> to report information.  Basically, someone reading the value needs =
+to
+> >>>>> know if it's valid.  The idea of a range check for validity doesn't
+> >>>>> work as cleanly for this specific purpose, in my opinion.  The min/=
+max
+> >>>>> can be used cleanly to determine the linearization though!
+> >>>>>
+> >>>>> I was thinking perhaps a boolean, that you can check to see if the
+> >>>>> value should be used or trusted.  Then, I thought, perhaps, a enum
+> >>>>> with a series of states, starting with the states of "Valid',
+> >>>>> "Invalid."  Not being able to think of a third state, I fell back o=
+nto
+> >>>>> a boolean.
+> >>
+> >> If the hwmon driver for your device provides a _fault attribute, and
+> >> that gets set, the code is already
+> >> set up to create an OperationalStatus interface on that sensor instanc=
+e
+> >> and set the Functional
+> >> property to false.
+> >
+> > I'd like to drop this such that the failure behavior can be returning
+> > a NaN double.
+>
+> One benefit I see here is that everything is in the same DBus interface
+> (the same property even), but with OperationalStatus you have two and
+> thus more DBus calls, if you are polling?  Is that it or are there others=
+?
+>
+> > https://github.com/openbmc/phosphor-hwmon/blob/master/hwmonio.cpp#L127
+> >
+> > For the drivers that don't have the fault attribute,
+>
+> It seems like OperationalStatus could be extended to emulate easily here.
+>
+> > and in the case where phosphor-host-ipmid doesn't check for that kind o=
+f
+> > failure.
+>
+> So is there no value in consistency of interface?  A lot of things
+> can be =E2=80=98not working=E2=80=99 on a BMC besides sensors - do you wa=
+nt to model that
+> in the DBus API differently for each domain (which seems like the directi=
+on
+> you are headed)?
+>
+> Further this model falls apart if you ever want something besides _workin=
+g_
+> and _not_working_ for possible states.  I realize YAGNI, but 1 - I have s=
+een that
+> in the past, 2 - it seems trivial to implement, and 3 - the down-side of
+> OperationalStatus is not apparent to me.
 
+I have no issue with OperationalStatus for this -- I believe Matt's
+comment was that it's available gratis if the driver supports it.
+Since this driver may not (doesn't, but i haven't checked recently), I
+haven't dug back into that use case.
 
-> On Oct 10, 2018, at 3:33 PM, Patrick Venture <venture@google.com> =
-wrote:
->=20
-> I have rsyslog running on my image.  I have no remote logging servers
-> for this... I have no desire for this daemon to run or take up space.
-> In general, I turn off about a dozen IMAGE_FEATURES for my builds.
-> Stuff that I don't have set up, or just don't need.  Every time I
-> rebase I have to build and look for new things to remove.
->=20
-> Recently in the security group we've been discussing the opt-out vs
-> opt-in model for packages and configurations.
+The idea of a sensor falling off and being added to the dbus every
+other time the sensor needs to be read falls over for at least one key
+reason: 1) You can't read the sensor on demand anymore.
 
-Isn=E2=80=99t opt-in just core-image-minimal?  If that is what you want, =
-then
-just use that as the basis for an image recipe in your layer.
+I brought all this up because I want to get away from -errno patches,
+and I want the error path to follow the natural state of things.
+Reading a dbus double and seeing NaN() may be enough of an error, and
+you can check OperationalStatus or other interfaces for more
+information if desired.
 
-My take is that the image recipe provided in the phosphor layer is
-the reference/full-function image recipe and as such should use as much
-software provided by the project as possible (for ci/testing/validation
-purposes).
-
-New/additional image recipes in phosphor could make sense if they were
-re-usable=E2=80=A6 something like phosphor-no-nic-image.  But the =
-full-function
-one can=E2=80=99t go away in favor of something with less functionality =
-out of
-the box.
-
->=20
-> I want to take the community's temperature on this.
->=20
-> Patrick
+>
+> >
+> >>
+> >>>> For Valid / Invalid we've produced nan on D-Bus to know that the sen=
+sor
+> >>>> is in an invalid state (like power off for tach values). Although I'=
+m
+> >>>> not sure how this would be produced using the int64 interface, for t=
+he
+> >>>> double std::nan will go over d-bus correctly.
+> >>> So if i just wait until we're using double, the issue basically
+> >>> resolves itself? :D :D
+> >>>
+> >>>>> Thoughts?
+> >>>>>
+> >>>>> Patrick
