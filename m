@@ -1,73 +1,70 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="t8Mnrfdv"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Q3nO8t97"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42Z46v68JJzF3Sd;
- Tue, 16 Oct 2018 16:46:14 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 72E7722239;
- Tue, 16 Oct 2018 01:46:08 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 16 Oct 2018 01:46:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=p7lDReh9Po24QTriDU3HF5iWU7
- vr2lFBTf6PhLTOehI=; b=t8Mnrfdv6GyjJq5y9er7qDWvx60NaXyDKn//yW+JHH
- EzVGrnkkO3/skLfQLMCrYc1q0e7oSs8/FL9pyTiau6hZ9DU8lIdPnYWm8NMz0k4m
- jKNoDA5JPyBwgqcsZ6UCPO2X3ph4MZwaCEm1lzOGAr+fEydl1STD9SCL2BwOWMSZ
- QeX6+yp76SfkbSq+6rWES6Q50wKAeG9AokdPl7e+pObASmzv9RLjfODb41OAAyPL
- soT+1vUALaBMXNdCrTdUu+U7pzllrGXjMWakuoCZpQ5/W1aeX1poa9JhlW+a6d3E
- d/ReGJ2UcBmUGMvYigUA9xpMw9q4PKBIBD6Qv91elOww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=p7lDReh9Po24QTriDU3HF5iWU7vr2lFBTf6PhLTOe
- hI=; b=Q3nO8t97MgEAXb2Y4OlNP6b1eVsvMRXzFl77nNz04Rog0bePRiA+SZlFj
- +cSczfmfYztiJxQp9YjtbAknm0v+wPjEqbkW+32zalY8LOStU53ZsZck59G+tj1n
- VAVO+6lcBula7rSzrID8sylE2DoE5BVHivXbhZhyEM1H/sfD24q9Yh7vRCH+U4hN
- 5deRHOAT7Rszyd5BhnmLhraSjzQsjmuZW46ojTg9XdHqw02s0L1Qynfpwa1GrNBO
- jA5RnCJX8VFrtkrnru5LgInaktbUdJH0CtQYFWqLS/DjbnpbNjdkwmnytEJuO1fh
- 2K4A5TLhGd3tFVheD+7s8+bREu+KA==
-X-ME-Sender: <xms:H3vFW0hNMzh7D_CZO3FkSPSlD8N4jxjQChLjKqtM2NIx5b-zkmZL7w>
-X-ME-Proxy: <xmx:H3vFW62P8k8DRzLbgjA6aJ5V21fchm4oN0if4SGiH-B8DBKR6SNNZQ>
- <xmx:H3vFW9SQIaXJfs8YIgUO5XP82Aqgv9WAVajVgaMFhk3ljDc2YQ7g8g>
- <xmx:H3vFW0trs_qqeNemQYgNQP6pbQx_xweNwva1RMoa34UpVF6iBVhrLw>
- <xmx:H3vFW6aOtM3WQJ_h81OC7Q44y4rFl8r383KCo7Z3D1jYnNrbCxZavg>
- <xmx:H3vFWxvMqeAN_953Rm99i02AIOvb21G1a_LgYWrOSUcMPcIrIE1l7w>
- <xmx:IHvFWwMfBF6LbVnoZr3h-VVDirjjO1lNz2EjjScpxbE3_UAgaByxdA>
-Received: from v4 (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 71B16E4439;
- Tue, 16 Oct 2018 01:46:05 -0400 (EDT)
-Message-ID: <337567b2936725686459bdba7ef76dc46dea748a.camel@mendozajonas.com>
-Subject: Re: [Potential Spoof] Re: [PATCH net-next v4] net/ncsi: Add NCSI
- Broadcom OEM command
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Vijay Khemka <vijaykhemka@fb.com>, "David S. Miller"
- <davem@davemloft.net>,  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
-Date: Tue, 16 Oct 2018 16:46:01 +1100
-In-Reply-To: <E82A7C2E-6DBF-437D-B571-5376F0122176@fb.com>
-References: <E82A7C2E-6DBF-437D-B571-5376F0122176@fb.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42ZJwj1Y5JzF3Vw
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Oct 2018 02:23:16 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9GFM9ft084400
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Oct 2018 11:23:13 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.113])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2n5hgv3q6s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Oct 2018 11:23:13 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Tue, 16 Oct 2018 15:23:12 -0000
+Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
+ by smtp.notes.na.collabserv.com (10.122.47.56) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 16 Oct 2018 15:23:10 -0000
+Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
+ by us1b3-smtp01.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2018101615230990-675300 ;
+ Tue, 16 Oct 2018 15:23:09 +0000 
+In-Reply-To: 
+Subject: Test signup &  test cases review
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Tue, 16 Oct 2018 15:23:09 +0000
+Sensitivity: 
+References: 
+MIME-Version: 1.0
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 16616-1491 | IBM Domino Build
+ SCN1812108_20180501T0841_FP7 September 27, 2018 at 13:56
+X-KeepSent: E211CEB7:ECC7DD39-00258328:0054413B;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 12619
+X-TNEFEvaluated: 1
+x-cbid: 18101615-1529-0000-0000-000004506EC9
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.428813; ST=0; TS=0; UL=0; ISC=; MB=0.272677
+X-IBM-SpamModules-Versions: BY=3.00009886; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01103542; UDB=6.00571218; IPR=6.00883594; 
+ BA=6.00006123; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00023780; XFM=3.00000015;
+ UTC=2018-10-16 15:23:11
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-10-16 09:19:22 - 6.00009099
+x-cbparentid: 18101615-1530-0000-0000-000048A87B23
+Message-Id: <OFE211CEB7.ECC7DD39-ON00258328.0054413B-00258328.00548488@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-16_10:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,94 +76,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Oct 2018 05:46:20 -0000
+X-List-Received-Date: Tue, 16 Oct 2018 15:23:18 -0000
 
-On Mon, 2018-10-15 at 17:38 +0000, Vijay Khemka wrote:
-> 
-> ﻿On 10/15/18, 10:27 AM, "Linux-aspeed on behalf of Vijay Khemka" <linux-aspeed-bounces+vijaykhemka=fb.com@lists.ozlabs.org on behalf of vijaykhemka@fb.com> wrote:
-> 
->     
->     
->     On 10/14/18, 8:51 PM, "Samuel Mendoza-Jonas" <sam@mendozajonas.com> wrote:
->     
->         On Mon, 2018-10-15 at 13:08 +1100, Samuel Mendoza-Jonas wrote:
->         > On Fri, 2018-10-12 at 11:20 -0700, Vijay Khemka wrote:
->         > > This patch adds OEM Broadcom commands and response handling. It also
->         > > defines OEM Get MAC Address handler to get and configure the device.
->         > > 
->         > > ncsi_oem_gma_handler_bcm: This handler send NCSI broadcom command for
->         > > getting mac address.
->         > > ncsi_rsp_handler_oem_bcm: This handles response received for all
->         > > broadcom OEM commands.
->         > > ncsi_rsp_handler_oem_bcm_gma: This handles get mac address response and
->         > > set it to device.
->         > > 
->         > > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
->         > > ---
->         > >  v4: updated as per comment from Sam, I was just wondering if I can remove
->         > >  NCSI_OEM_CMD_GET_MAC config option and let this code be valid always and
->         > >  it will configure mac address if there is get mac address handler for given 
->         > >  manufacture id.
->         > 
->         > Hi Vijay,
->         > 
->         > We can look at handling this a different way, but I don't think we want
->         > to unconditionally set the system's MAC address based on the OEM GMA
->         > command. If the user wants to set a custom MAC address, or in the case of
->         > OpenBMC for example who have their MAC address saved in flash, this will
->         > override that value with whatever the Network Controller has saved. In
->         > particular as it is set up it will override any MAC address every time a
->         > channel is configured, such as during a failover event.
->         > 
->         > We *could* always send the GMA command if it is available and move the
->         > decision whether to use the resulting address or not into the response
->         > handler. That would simplify the ncsi_configure_channel() logic a bit.
->         > Another idea may be to have a Netlink command to tell NCSI to ignore the
->         > GMA result; then we could drop the config option and the system can
->         > safely change the address if desired.
->         > 
->         > Any thoughts? I'll also ping some of the OpenBMC people and see what
->         > their expectations are.
->         
->         After a bit of a think and an ask around, to quote a colleague:
->         > I think we'd want it handled (overall) like any other net device; the MAC
->         > address in the device's ROM provides a default, and is overridden by anything
->         > specified by userspace 
->         
->         Which describes what I was thinking pretty well.
->         So if we can have it such that the NCSI driver only sets the MAC address
->         _once_, and then after then does not update it again, we should be able to call
->         the OEM GMA command without hiding it behind a config option. So the first time
->         a channel was configured we store and set the MAC address given, but then on
->         later configure events we don't continue to update it. What do you think?
->         
->         Cheers,
->         Sam
->     
->       I agree with you setting it only once. I gave a thought about config option and realize that 
->       we should allow user to configure it. If user wants to set mac address through device tree 
->       and not through ROM then we must not override mac set by device tree. So my proposal is 
->       setting of mac address in response should be hidden under config option. Getting mac address 
->       can still go without config option. Your thought?
->         
->   or simply guard following block under config and no other function declaration guard required. 
->   And set static variable flag in function " ncsi_oem_handler" for calling this only once.
-> 
->   #if IS_ENABLED(CONFIG_NCSI_OEM_CMD_GET_MAC)
->     nca.type = NCSI_PKT_CMD_OEM;
->     nca.package = np->id;
->     nca.channel = nc->id;
->     ndp->pending_req_num = 1;
->     ret = ncsi_oem_handler(&nca, nc->version.mf_id);
-> #endif /* CONFIG_NCSI_OEM_CMD_GET_MAC */
-> 
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Dear All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" ><div>As I am on leave, So cancelling our Thursday (18 Oct=
+) instance of our meeting.</div>
+<div>&nbsp;</div>
+<div>Kindly sign-up for test your loved openbmc functionality.</div>
+<div><a href=3D"https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ=
+-oYPCI/view?usp=3Dsharing" >https://drive.google.com/file/d/1-BuVY802-WRqBl=
+rRmIPOKowEqQ-oYPCI/view?usp=3Dsharing</a></div>
+<div>&nbsp;</div>
+<div>Test cases to be reviewed by development owner and provide feedback by=
+ 15 Dec 2018.<br style=3D"box-sizing: border-box; color: rgb(36, 41, 46); f=
+ont-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Helvetica, Aria=
+l, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &=
+quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-varia=
+nt-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-s=
+pacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-trans=
+form: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text=
+-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-s=
+tyle: initial; text-decoration-color: initial;" ><a href=3D"https://docs.go=
+ogle.com/spreadsheets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit=
+?usp=3Dsharing" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQNd11=
+lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>Test results to be published by 31 Jan 2019.</div>
+<div>&nbsp;</div>
+<div>All dates are proposed date only, we can discuss with Kurt Taylor and =
+also get suggestion / opinion from our openbmc community friends as well.</=
+div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>&nbsp;
 
-Hi Vijay,
-
-Either way is likely fine; although you might need to take care you don't
-get an unused function warning depending on how you guard
-ncsi_oem_handler(). Also a flag in the ncsi_dev_priv struct could be
-easier to keep track of than having a static variable in the handler
-function.
-
-Sam
+<div>With regards,</div>
+<div>Sivas</div></div></div><BR>
