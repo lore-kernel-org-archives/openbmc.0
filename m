@@ -1,58 +1,59 @@
-Return-Path: <3AarHWwUKB1gAKDO86EE6B4.2ECEF4D1C2B8IJI.EPB01I.EH6@flex--kunyi.bounces.google.com>
+Return-Path: <3KrfHWwUKB5sFPITDBJJBG9.7JHJK9I6H7GDNON.JUG56N.JMB@flex--kunyi.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
  smtp.mailfrom=flex--kunyi.bounces.google.com
- (client-ip=2607:f8b0:4864:20::e4a; helo=mail-vs1-xe4a.google.com;
- envelope-from=3aarhwwukb1gakdo86ee6b4.2ecef4d1c2b8iji.epb01i.eh6@flex--kunyi.bounces.google.com;
+ (client-ip=2607:f8b0:4864:20::14a; helo=mail-it1-x14a.google.com;
+ envelope-from=3krfhwwukb5sfpitdbjjbg9.7jhjk9i6h7gdnon.jug56n.jmb@flex--kunyi.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="PUZo9laP"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="bfWeciy/"; 
  dkim-atps=neutral
-Received: from mail-vs1-xe4a.google.com (mail-vs1-xe4a.google.com
- [IPv6:2607:f8b0:4864:20::e4a])
+Received: from mail-it1-x14a.google.com (mail-it1-x14a.google.com
+ [IPv6:2607:f8b0:4864:20::14a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42b52L50XrzF3Xp
- for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 08:30:44 +1100 (AEDT)
-Received: by mail-vs1-xe4a.google.com with SMTP id f137so6786079vsd.20
- for <openbmc@lists.ozlabs.org>; Wed, 17 Oct 2018 14:30:44 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42b6H36H6xzF3Rs
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 09:26:52 +1100 (AEDT)
+Received: by mail-it1-x14a.google.com with SMTP id f79-v6so3677393ita.3
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Oct 2018 15:26:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=O15kTxbgzt/RIOqNWgHWoDpGet/SMUenjSK030XOI+8=;
- b=PUZo9laPeV4bhwyEP3usfNc6fTdv9KZD+MzcnTK8peypN9NDF7s4u6t5NgYxWmH+Be
- D5P1VWwwJLS7jWlWHl1oEYc5Pd5bXcko6OwIAZiDQUlO/iaZYvFWjEV72dDH1+a/3zs4
- bFASN+k1OejoFycg1srGKdkPxSb3Ox9JsiCTvCo1+MLMiIZsc1LtJkYpHLFhKSgLoz6m
- 8tmfqih1jjiRtSNsxQNCNdwI0PW+3FXKfbEZfxdvAiDJH10CA6oEcmfDXT7EZNWLLnbg
- UwObES4meMFFvqIHxsm3wlYv2gl7A4QOykJK9QjFz1NMi+dQtmKibqH8PVj6Q+Y8EB8V
- mrSw==
+ h=date:message-id:mime-version:subject:from:cc;
+ bh=p8DLWVPHFdDh+XLJZJQGOyjP3fo46ff91OpQ4glEXl4=;
+ b=bfWeciy/6udWJikIHpD/LgP+JWGKXe0ZOriVFNXcXy4bAFPQ3KXUm3Uv+fp6p+LDiq
+ ZTqPEvrS/7/S+YJn/oKBkQhKENmairZrPOsrCvTv1yxY24upudsrd/eBy9yMpGdifLm9
+ d87MC0BlpB27xSQTMBqK452DLHIFglVSSyWap0TvThozxiBhnVPeeRNlPdfLMtQET0Xh
+ sGkC0jiPFqqd6nVHfdKQev2bjuC46Oi7BS4SpntJxmEM9Bn6UkxvxXg/oRY2ijBLLKO9
+ 8g7rLl9+zh6SOqG1Gj44E9X3PqZZSecBL8gyRg7OP+akcCVSlXFjhjmP+HrkazA4WJbs
+ ydPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=O15kTxbgzt/RIOqNWgHWoDpGet/SMUenjSK030XOI+8=;
- b=tf8Ccn81bG3DzWdhqNqWVHxguG+/q1CKvSmYJtwQhOBL/dyid1+NXAo9RkFH90HM3W
- BLAUvvR1R6G+KBlnsMInFOqTCw3X2gaBswSRrWWzimB58dyZojUG+X94W1rmkhwbVYMd
- gL415+TNVyh25QtIOQ//UMTBYsI+SNWFLB+XFnQrS5VFdMsYmKMMP4BPySu8T7Mm+viw
- 89psNVnU6rOZN58iBjG21yvBxZQg93V7z7YHwzZvm/LOt/bJK7Okc0YqAIQLzDhcejtj
- 6wrNA/Mh8+OXvVGIcVZhdsWlTSU+Un7EkqYWL2abe/nUgCYV1BpDIo3mnN0XzQS0kLUZ
- aKFg==
-X-Gm-Message-State: ABuFfoh14a+e/3rwwYA34d/Xe5FBeTO2zJ0KOtF6xzwdW/GnuDsEnGTY
- +Jd4ZPd7O9dNzBb9E6h2bvJ/lvN+kQ==
-X-Google-Smtp-Source: ACcGV60fTq1qfGOUVvxGoJyLfi//QTmG+LF4Ie18gfsLcxWQbzBJtQcnsjcVlAvMhY8VdF5OcpM7xwVeXQ==
-X-Received: by 2002:a1f:85cd:: with SMTP id h196mr3075269vkd.2.1539811841656; 
- Wed, 17 Oct 2018 14:30:41 -0700 (PDT)
-Date: Wed, 17 Oct 2018 14:30:12 -0700
-In-Reply-To: <20181017213012.233957-1-kunyi@google.com>
-Message-Id: <20181017213012.233957-3-kunyi@google.com>
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:cc;
+ bh=p8DLWVPHFdDh+XLJZJQGOyjP3fo46ff91OpQ4glEXl4=;
+ b=l6yPCM5DS4KNRyLR2PJ6udJho9SXxqEIhSitR3dg3PiVdfqxuECTdR+iAYK+SaoxVt
+ lVjBjHbJhdBVRUzGpFk06eWLohZVq9lbF3icQA60QdTncEgK41GTA1MPSFG978sfdvHk
+ /dJJzL0ZDHrlJKPsQAxJDbIvVQCtDCzBXZXGmG30SiWFse+P1az03W64hJcerMVJiIvX
+ QqcN8okY9Q6wCJu4G1oUWh/q1Tw2FVMtO8zUYn2Dkxc2oh9et3/U9jiDMERF1uZRbh1r
+ ivan+2jWsKO6viFJxOb0pxtM7+cR1k59V76LxB2n/bxuGSUM95mlZx1IH3nFds6m7eQi
+ TnLQ==
+X-Gm-Message-State: ABuFfoj8WToSEijRlO/PyjGwES6+Kjmd4mb9tJljZfXneUKFjxJ3Pqxe
+ RkRr88TG4FsM13a39yQJ2LLjvlbfESDqqNR3gWra1JR3GZ2ZTVWpTQbU+jIxFls957Y9ojHbjV1
+ pM61Tg7bOYhDYBVQsK+IFeN3is2yobRrpU8y+SXMuKO/XqkJftNfHhfveLK1Ung==
+X-Google-Smtp-Source: ACcGV60Vh6hxtijV8dVp1Z0QoZIdErAIy7LyqiVmuvuBbcDXP95iUA3UyyD7dye7dxVIAExsCdztnwfH1w==
+X-Received: by 2002:a05:660c:310:: with SMTP id
+ u16mr3422596itj.1.1539815210606; 
+ Wed, 17 Oct 2018 15:26:50 -0700 (PDT)
+Date: Wed, 17 Oct 2018 15:26:39 -0700
+Message-Id: <20181017222639.254434-1-kunyi@google.com>
 Mime-Version: 1.0
-References: <20181017213012.233957-1-kunyi@google.com>
 X-Mailer: git-send-email 2.19.1.331.ge82ca0e54c-goog
-Subject: [PATCH 2/2] pinctrl: pinctrl-npcm7xx: Set BGPIOF_VOLATILE_REG
+Subject: [PATCH v3 1/2] hwmon: (adm1275): Allow setting shunt reg value
 From: Kun Yi <kunyi@google.com>
-To: linus.walleij@linaro.org, linux-gpio@vger.kernel.org, tmaimon77@gmail.com
-Cc: linux-kernel@vger.kernel.org, avifishman70@gmail.com, 
- openbmc@lists.ozlabs.org, Kun Yi <kunyi@google.com>
+Cc: openbmc@lists.ozlabs.org, kunyi@google.com, 
+ Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -65,30 +66,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Oct 2018 21:30:51 -0000
+X-List-Received-Date: Wed, 17 Oct 2018 22:26:57 -0000
 
-Indicate that the pins are both controlled by the pinctrl driver and the
-generic GPIO driver, thus GPIO driver should read the register value
-before updating, instead of using the stored shadow register values.
+The ADM series of hotswap controllers support extending
+the current measurement range by using a sensing resistor
+value other than the typical 1 mOhm. For example, using a 0.5 mOhm
+sensing resistor doubles the maximal current can be measured.
+
+Current driver assumes a shunt resistor value of 1 mOhm in calculation,
+meaning for other resistor values, hwmon will report scaled
+current/power measurements. This patch parses device tree parameter
+"shunt-resistor-micro-ohms", if there is one.
 
 Signed-off-by: Kun Yi <kunyi@google.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v3:
+- splitted hwmon and device tree binding patches
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index 7ad50d9268aa..ac7b69d53aff 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -1904,7 +1904,8 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- 					 NULL,
- 					 pctrl->gpio_bank[id].base +
- 					 NPCM7XX_GP_N_IEM,
--					 BGPIOF_READ_OUTPUT_REG_SET);
-+					 BGPIOF_READ_OUTPUT_REG_SET |
-+					 BGPIOF_VOLATILE_REG);
- 			if (ret) {
- 				dev_err(pctrl->dev, "bgpio_init() failed\n");
- 				return ret;
+ Documentation/hwmon/adm1275   |  3 +++
+ drivers/hwmon/pmbus/adm1275.c | 15 +++++++++++++--
+ 2 files changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/hwmon/adm1275 b/Documentation/hwmon/adm1275
+index 39033538eb03..5e277b0d91ce 100644
+--- a/Documentation/hwmon/adm1275
++++ b/Documentation/hwmon/adm1275
+@@ -58,6 +58,9 @@ The ADM1075, unlike many other PMBus devices, does not support internal voltage
+ or current scaling. Reported voltages, currents, and power are raw measurements,
+ and will typically have to be scaled.
+ 
++The shunt value in micro-ohms can be set via device tree at compile-time. Please
++refer to the Documentation/devicetree/bindings/hwmon/adm1275.txt for bindings
++if the device tree is used.
+ 
+ Platform data support
+ ---------------------
+diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
+index 13600fa79e7f..f569372c9204 100644
+--- a/drivers/hwmon/pmbus/adm1275.c
++++ b/drivers/hwmon/pmbus/adm1275.c
+@@ -373,6 +373,7 @@ static int adm1275_probe(struct i2c_client *client,
+ 	const struct coefficients *coefficients;
+ 	int vindex = -1, voindex = -1, cindex = -1, pindex = -1;
+ 	int tindex = -1;
++	u32 shunt;
+ 
+ 	if (!i2c_check_functionality(client->adapter,
+ 				     I2C_FUNC_SMBUS_READ_BYTE_DATA
+@@ -421,6 +422,13 @@ static int adm1275_probe(struct i2c_client *client,
+ 	if (!data)
+ 		return -ENOMEM;
+ 
++	if (of_property_read_u32(client->dev.of_node,
++				 "shunt-resistor-micro-ohms", &shunt))
++		shunt = 1000; /* 1 mOhm if not set via DT */
++
++	if (shunt == 0)
++		return -EINVAL;
++
+ 	data->id = mid->driver_data;
+ 
+ 	info = &data->info;
+@@ -654,12 +662,15 @@ static int adm1275_probe(struct i2c_client *client,
+ 		info->R[PSC_VOLTAGE_OUT] = coefficients[voindex].R;
+ 	}
+ 	if (cindex >= 0) {
+-		info->m[PSC_CURRENT_OUT] = coefficients[cindex].m;
++		/* Scale current with sense resistor value */
++		info->m[PSC_CURRENT_OUT] =
++			coefficients[cindex].m * shunt / 1000;
+ 		info->b[PSC_CURRENT_OUT] = coefficients[cindex].b;
+ 		info->R[PSC_CURRENT_OUT] = coefficients[cindex].R;
+ 	}
+ 	if (pindex >= 0) {
+-		info->m[PSC_POWER] = coefficients[pindex].m;
++		info->m[PSC_POWER] =
++			coefficients[pindex].m * shunt / 1000;
+ 		info->b[PSC_POWER] = coefficients[pindex].b;
+ 		info->R[PSC_POWER] = coefficients[pindex].R;
+ 	}
 -- 
 2.19.1.331.ge82ca0e54c-goog
