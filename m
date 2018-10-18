@@ -7,59 +7,59 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="dJo5xTQx"; dkim=pass (2048-bit key;
+ header.b="IvYoNwZW"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="mTMCDS23"; dkim-atps=neutral
+ header.b="jcuVRYXB"; dkim-atps=neutral
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42bFgV74CkzF3Rs
- for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 15:00:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42bFgL42NRzF3S8
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 14:59:58 +1100 (AEDT)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id BF59A22233;
- Thu, 18 Oct 2018 00:00:04 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 28BCC22233;
+ Wed, 17 Oct 2018 23:59:56 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 18 Oct 2018 00:00:04 -0400
+ by compute2.internal (MEProxy); Wed, 17 Oct 2018 23:59:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  mendozajonas.com; h=from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- s=fm1; bh=y9KHK0HGrrupkrJM1GnVbUClpB+HH16FyBbsBf9MdAQ=; b=dJo5x
- TQx+WsdRe+Q1GZEAs1tlVJWOkKLVsd3eq22Xpw+5wBs99MBXSR/9wco/LqX7yMgY
- Xn28mO9sF7lV7h+7OsippYZCMJknTDAA1x8KK91KkwRfuWPDUKchqSSZHUX+edUx
- afGU171Nportcwibw1DmPiwhd0upDVJsEj8OFCvQuCPBBg1WenPQixLyBos46R0/
- 8lokAaCSoI0wCKQCh2DRbZnTFg2itQelhQCHBgWkvY8tUwFQ5pBq+fd5gelnMups
- cseOoh43IgagkzzpWmhjw5y8yEBJ+VZ4TF9IChc8+K7pvsUp2EIJsWJvNgKY3UU6
- uZMviRjzdEv4K4rjg==
+ s=fm1; bh=v1zOfBWuyaaEEAyQkf+kgk6paN8C62AOjPzWBpPo5qA=; b=IvYoN
+ wZWLk8KXvp7vlqealKH9gOVji43LOGORsx3owq8K7GiaqNKsk4ilvBaXrjvioW1q
+ IIure27BiF3glxZqGIxbL/dWULoRiJLDLJ4uEmVcvOAa0KsJuO4ODcta9+yggxQb
+ vq7Bgl8BcbDo4Ap/pRqbPU8JB66xkoIu+VkU8GK9wiAUFfGTXTzR7V24M6fZoiw0
+ q4xp8eav+VTmZPjpcQEk36t1RHakFMLY+5PYH5e+3Lcdph4iINZ9RtS4UXbVKDWy
+ 0d+3SF7EaGyHg9gOPrntxUlLH5qAx4xuSbEkEAIaI7J0BWLpl5//JC9Nl5XyZiTr
+ 9qEsoNy9KwjaQyX0g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=y9KHK0HGrrupkrJM1GnVbUClpB+HH16FyBbsBf9MdAQ=; b=mTMCDS23
- 7a1BTEfU7od+7Bbr7THa2QtXPUvyjqv8H9240LKRCRwc0+eDCrqkQlgbfvIq2rC4
- tWZ4jyvZUtgpPRIhZ7QivgLlQSZKQKpSwdqBxfisWqGQgykluAGDmPF69eGm9+vP
- VtGDN0IKaMwXs7DeXTnCDjP8sLKls/ybkG9vdy5+kEYkJRfAuLi0LQAJFmtf65OK
- 47cN9wgeYDpb8cvhFG2zX2M8WzyareFRXZ1Ls5Sgc6pHXf481whSYLjMC8cZ5HkB
- 6oh2OTJlg26IMBONKLbKYoIPQgqORcr180ofNAOBTiXUPbMeFQQMGu7/JatRKT9J
- 8+k3zQEt+MI2Ig==
-X-ME-Sender: <xms:RAXIW_VeM2aF81YPMO-7jAwChdE9BDPhBFAN7ealRxh1ufjhKfZbCg>
-X-ME-Proxy: <xmx:RAXIW3ctvVLzLE9yReQ8EXlCBE4ky3gY7L3FoEQRSFiw2xcUVDNJCw>
- <xmx:RAXIW0MGSLDMqsAE869BkZcKcUI0tYI93t4yfLwBM9hgiLz6RkQgtQ>
- <xmx:RAXIW1jq-BGdyyho_-tcIPDwHMTWznsxSeWtTkpvIT9LheWbyLes4Q>
- <xmx:RAXIW33lxnu5U2RsZGhddTXsHnX22DKaQ7U8lLAlSfJK8IHwZhKr3Q>
- <xmx:RAXIW_g5Wwhugzaj4O7wCGQUsEyzMMLZevWLN9SdukXSDLE7mXXoxQ>
- <xmx:RAXIW4KMRtnV9YiO_3pnbmTQODuQRj70Wv8Z4CirRnqqp8sVnSV4bA>
+ fm1; bh=v1zOfBWuyaaEEAyQkf+kgk6paN8C62AOjPzWBpPo5qA=; b=jcuVRYXB
+ vC5DOO3fzGIYezktPdK9Yn7M4MrcxxKlUqD/5wSJ/rATEPI/AhEX4dGBnMqxScIZ
+ T4CZSEsLrh4ds0jY/CzTUfJ2hVI7dq6qedQ+rFIATN9o408zAmXwi0joyfnBSVHW
+ 9uQSOepaVgSIQhyNzbcS0I+talbBLWZKOY0ENAPfXI5monjx9bBBwqR61sEiiPKu
+ /4sds2MzLqmhu2LKnkDm4WjRIXUdcPirqFt+yRff5DaqrwD57EpS2qPhystPPlRU
+ 4ltL32B1S80Wm9ndbUNL+rbyqpjHHqIteGh4p/Nmmoc5odiO5glEe+a3iX7WglRv
+ UPyUlneqg4242A==
+X-ME-Sender: <xms:OwXIW8szc3a4ewDyZllgJ0AmYWqx0Eb6Ao7Gotfu_UX4dsTQ6BmzYg>
+X-ME-Proxy: <xmx:OwXIW3oPHiGR3flPtQuC5hyx17_uZLFtMETwtuD2PgTFq4HEHdly4w>
+ <xmx:OwXIWzDKRo5P3jTWaHNPBnHwc3vageyoX00CYr1cO8MdLaGO0l8KCA>
+ <xmx:OwXIW9f1wc2szMsrvHH5daj-594fxsGyXELliV1Y9l4tPXZxVFgPuQ>
+ <xmx:OwXIWzKNn_a2oXc-RP0YpgM9JumbJ95jI-LbBtime9Ymq3UfDRMf6A>
+ <xmx:OwXIW9sTiPZYLhS7PwMFVItVIgDpsUak3H8A5i6Dhfv2j8DlzvEucg>
+ <xmx:PAXIW_RvnpQTk3WUpNKJ43WT1LOG7B40f9n6C4i3ZZ2qW6NaKzD0TA>
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8ADD4102D7;
- Thu, 18 Oct 2018 00:00:01 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A61E6102D7;
+ Wed, 17 Oct 2018 23:59:53 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 To: netdev@vger.kernel.org
 Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
  "David S . Miller" <davem@davemloft.net>, Justin.Lee1@Dell.com,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: [PATCH net-next 5/6] net/ncsi: Reset channel state in ncsi_start_dev()
-Date: Thu, 18 Oct 2018 14:59:16 +1100
-Message-Id: <20181018035917.19413-6-sam@mendozajonas.com>
+Subject: [PATCH net-next 2/6] net/ncsi: Probe single packages to avoid conflict
+Date: Thu, 18 Oct 2018 14:59:13 +1100
+Message-Id: <20181018035917.19413-3-sam@mendozajonas.com>
 X-Mailer: git-send-email 2.19.1
 In-Reply-To: <20181018035917.19413-1-sam@mendozajonas.com>
 References: <20181018035917.19413-1-sam@mendozajonas.com>
@@ -76,176 +76,172 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Oct 2018 04:00:08 -0000
+X-List-Received-Date: Thu, 18 Oct 2018 04:00:01 -0000
+X-List-Received-Date: Thu, 18 Oct 2018 04:00:01 -0000
+X-List-Received-Date: Thu, 18 Oct 2018 04:00:01 -0000
+X-List-Received-Date: Thu, 18 Oct 2018 04:00:01 -0000
 
-When the NCSI driver is stopped with ncsi_stop_dev() the channel
-monitors are stopped and the state set to "inactive". However the
-channels are still configured and active from the perspective of the
-network controller. We should suspend each active channel but in the
-context of ncsi_stop_dev() the transmit queue has been or is about to be
-stopped so we won't have time to do so.
+Currently the NCSI driver sends a select-package command to all possible
+packages simultaneously to discover what packages are available. However
+at this stage in the probe process the driver does not know if
+hardware arbitration is available: if it isn't then this process could
+cause collisions on the RMII bus when packages try to respond.
 
-Instead when ncsi_start_dev() is called if the NCSI topology has already
-been probed then call ncsi_reset_dev() to suspend any channels that were
-previously active. This resets the network controller to a known state,
-provides an up to date view of channel link state, and makes sure that
-mode flags such as NCSI_MODE_TX_ENABLE are properly reset.
-
-In addition to ncsi_start_dev() use ncsi_reset_dev() in ncsi-netlink.c
-to update the channel configuration more cleanly.
+Update the probe loop to probe each package one by one, and once
+complete check if HWA is universally supported.
 
 Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 ---
- net/ncsi/internal.h     |  2 ++
- net/ncsi/ncsi-manage.c  | 59 +++++++++++++++++++++++++++++++++++++----
- net/ncsi/ncsi-netlink.c | 10 +++----
- 3 files changed, 60 insertions(+), 11 deletions(-)
+ net/ncsi/internal.h    |  1 +
+ net/ncsi/ncsi-manage.c | 88 ++++++++++++++----------------------------
+ 2 files changed, 31 insertions(+), 58 deletions(-)
 
 diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 592e3cd40728..ed68ca677e41 100644
+index 13c9b5eeb3b7..592e3cd40728 100644
 --- a/net/ncsi/internal.h
 +++ b/net/ncsi/internal.h
-@@ -279,6 +279,7 @@ struct ncsi_dev_priv {
- #define NCSI_DEV_PROBED		1            /* Finalized NCSI topology    */
- #define NCSI_DEV_HWA		2            /* Enabled HW arbitration     */
- #define NCSI_DEV_RESHUFFLE	4
-+#define NCSI_DEV_RESET		8            /* Reset state of NC          */
- 	spinlock_t          lock;            /* Protect the NCSI device    */
+@@ -283,6 +283,7 @@ struct ncsi_dev_priv {
  #if IS_ENABLED(CONFIG_IPV6)
  	unsigned int        inet6_addr_num;  /* Number of IPv6 addresses   */
-@@ -333,6 +334,7 @@ extern spinlock_t ncsi_dev_lock;
- 	list_for_each_entry_rcu(nc, &np->channels, node)
- 
- /* Resources */
-+int ncsi_reset_dev(struct ncsi_dev *nd);
- void ncsi_start_channel_monitor(struct ncsi_channel *nc);
- void ncsi_stop_channel_monitor(struct ncsi_channel *nc);
- struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
+ #endif
++	unsigned int        package_probe_id;/* Current ID during probe    */
+ 	unsigned int        package_num;     /* Number of packages         */
+ 	struct list_head    packages;        /* List of packages           */
+ 	struct ncsi_channel *hot_channel;    /* Channel was ever active    */
 diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 632caeea672f..af23e2cc6c1d 100644
+index 65ee46c4d8f4..fbbfed559f9c 100644
 --- a/net/ncsi/ncsi-manage.c
 +++ b/net/ncsi/ncsi-manage.c
-@@ -550,8 +550,10 @@ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
- 		spin_lock_irqsave(&nc->lock, flags);
- 		nc->state = NCSI_CHANNEL_INACTIVE;
- 		spin_unlock_irqrestore(&nc->lock, flags);
--		ncsi_process_next_channel(ndp);
+@@ -997,70 +997,28 @@ static void ncsi_probe_channel(struct ncsi_dev_priv *ndp)
+ 		nd->state = ncsi_dev_state_probe_package;
+ 		break;
+ 	case ncsi_dev_state_probe_package:
+-		ndp->pending_req_num = 16;
++		ndp->pending_req_num = 1;
+ 
+-		/* Select all possible packages */
+ 		nca.type = NCSI_PKT_CMD_SP;
+ 		nca.bytes[0] = 1;
++		nca.package = ndp->package_probe_id;
+ 		nca.channel = NCSI_RESERVED_CHANNEL;
+-		for (index = 0; index < 8; index++) {
+-			nca.package = index;
+-			ret = ncsi_xmit_cmd(&nca);
+-			if (ret)
+-				goto error;
+-		}
 -
-+		if (ndp->flags & NCSI_DEV_RESET)
-+			ncsi_reset_dev(nd);
-+		else
-+			ncsi_process_next_channel(ndp);
+-		/* Disable all possible packages */
+-		nca.type = NCSI_PKT_CMD_DP;
+-		for (index = 0; index < 8; index++) {
+-			nca.package = index;
+-			ret = ncsi_xmit_cmd(&nca);
+-			if (ret)
+-				goto error;
+-		}
+-
++		ret = ncsi_xmit_cmd(&nca);
++		if (ret)
++			goto error;
+ 		nd->state = ncsi_dev_state_probe_channel;
+ 		break;
+ 	case ncsi_dev_state_probe_channel:
+-		if (!ndp->active_package)
+-			ndp->active_package = list_first_or_null_rcu(
+-				&ndp->packages, struct ncsi_package, node);
+-		else if (list_is_last(&ndp->active_package->node,
+-				      &ndp->packages))
+-			ndp->active_package = NULL;
+-		else
+-			ndp->active_package = list_next_entry(
+-				ndp->active_package, node);
+-
+-		/* All available packages and channels are enumerated. The
+-		 * enumeration happens for once when the NCSI interface is
+-		 * started. So we need continue to start the interface after
+-		 * the enumeration.
+-		 *
+-		 * We have to choose an active channel before configuring it.
+-		 * Note that we possibly don't have active channel in extreme
+-		 * situation.
+-		 */
++		ndp->active_package = ncsi_find_package(ndp,
++							ndp->package_probe_id);
+ 		if (!ndp->active_package) {
+-			ndp->flags |= NCSI_DEV_PROBED;
+-			if (ncsi_check_hwa(ndp))
+-				ncsi_enable_hwa(ndp);
+-			else
+-				ncsi_choose_active_channel(ndp);
+-			return;
++			/* No response */
++			nd->state = ncsi_dev_state_probe_dp;
++			schedule_work(&ndp->work);
++			break;
+ 		}
+-
+-		/* Select the active package */
+-		ndp->pending_req_num = 1;
+-		nca.type = NCSI_PKT_CMD_SP;
+-		nca.bytes[0] = 1;
+-		nca.package = ndp->active_package->id;
+-		nca.channel = NCSI_RESERVED_CHANNEL;
+-		ret = ncsi_xmit_cmd(&nca);
+-		if (ret)
+-			goto error;
+-
+ 		nd->state = ncsi_dev_state_probe_cis;
++		schedule_work(&ndp->work);
+ 		break;
+ 	case ncsi_dev_state_probe_cis:
+ 		ndp->pending_req_num = NCSI_RESERVED_CHANNEL;
+@@ -1109,22 +1067,35 @@ static void ncsi_probe_channel(struct ncsi_dev_priv *ndp)
+ 	case ncsi_dev_state_probe_dp:
+ 		ndp->pending_req_num = 1;
+ 
+-		/* Deselect the active package */
++		/* Deselect the current package */
+ 		nca.type = NCSI_PKT_CMD_DP;
+-		nca.package = ndp->active_package->id;
++		nca.package = ndp->package_probe_id;
+ 		nca.channel = NCSI_RESERVED_CHANNEL;
+ 		ret = ncsi_xmit_cmd(&nca);
+ 		if (ret)
+ 			goto error;
+ 
+-		/* Scan channels in next package */
+-		nd->state = ncsi_dev_state_probe_channel;
++		/* Probe next package */
++		ndp->package_probe_id++;
++		if (ndp->package_probe_id >= 8) {
++			/* Probe finished */
++			ndp->flags |= NCSI_DEV_PROBED;
++			break;
++		}
++		nd->state = ncsi_dev_state_probe_package;
++		ndp->active_package = NULL;
  		break;
  	default:
- 		netdev_warn(nd->dev, "Wrong NCSI state 0x%x in suspend\n",
-@@ -1472,7 +1474,7 @@ int ncsi_start_dev(struct ncsi_dev *nd)
- 		return 0;
+ 		netdev_warn(nd->dev, "Wrong NCSI state 0x%0x in enumeration\n",
+ 			    nd->state);
  	}
  
--	return ncsi_choose_active_channel(nd);
-+	return ncsi_reset_dev(nd);
- }
- EXPORT_SYMBOL_GPL(ncsi_start_dev);
- 
-@@ -1485,7 +1487,10 @@ void ncsi_stop_dev(struct ncsi_dev *nd)
- 	int old_state;
- 	unsigned long flags;
- 
--	/* Stop the channel monitor and reset channel's state */
-+	/* Stop the channel monitor on any active channels. Don't reset the
-+	 * channel state so we know which were active when ncsi_start_dev()
-+	 * is next called.
-+	 */
- 	NCSI_FOR_EACH_PACKAGE(ndp, np) {
- 		NCSI_FOR_EACH_CHANNEL(np, nc) {
- 			ncsi_stop_channel_monitor(nc);
-@@ -1493,7 +1498,6 @@ void ncsi_stop_dev(struct ncsi_dev *nd)
- 			spin_lock_irqsave(&nc->lock, flags);
- 			chained = !list_empty(&nc->link);
- 			old_state = nc->state;
--			nc->state = NCSI_CHANNEL_INACTIVE;
- 			spin_unlock_irqrestore(&nc->lock, flags);
- 
- 			WARN_ON_ONCE(chained ||
-@@ -1506,6 +1510,51 @@ void ncsi_stop_dev(struct ncsi_dev *nd)
- }
- EXPORT_SYMBOL_GPL(ncsi_stop_dev);
- 
-+int ncsi_reset_dev(struct ncsi_dev *nd)
-+{
-+	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
-+	struct ncsi_channel *nc, *active;
-+	struct ncsi_package *np;
-+	unsigned long flags;
-+	bool enabled;
-+	int state;
-+
-+	active = NULL;
-+	NCSI_FOR_EACH_PACKAGE(ndp, np) {
-+		NCSI_FOR_EACH_CHANNEL(np, nc) {
-+			spin_lock_irqsave(&nc->lock, flags);
-+			enabled = nc->monitor.enabled;
-+			state = nc->state;
-+			spin_unlock_irqrestore(&nc->lock, flags);
-+
-+			if (enabled)
-+				ncsi_stop_channel_monitor(nc);
-+			if (state == NCSI_CHANNEL_ACTIVE) {
-+				active = nc;
-+				break;
-+			}
-+		}
++	if (ndp->flags & NCSI_DEV_PROBED) {
++		/* Check if all packages have HWA support */
++		ncsi_check_hwa(ndp);
++		ncsi_choose_active_channel(ndp);
 +	}
 +
-+	if (!active) {
-+		/* Done */
-+		spin_lock_irqsave(&ndp->lock, flags);
-+		ndp->flags &= ~NCSI_DEV_RESET;
-+		spin_unlock_irqrestore(&ndp->lock, flags);
-+		return ncsi_choose_active_channel(ndp);
-+	}
-+
-+	spin_lock_irqsave(&ndp->lock, flags);
-+	ndp->flags |= NCSI_DEV_RESET;
-+	ndp->active_channel = active;
-+	ndp->active_package = active->package;
-+	spin_unlock_irqrestore(&ndp->lock, flags);
-+
-+	nd->state = ncsi_dev_state_suspend;
-+	schedule_work(&ndp->work);
-+	return 0;
-+}
-+
- void ncsi_unregister_dev(struct ncsi_dev *nd)
- {
- 	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
-diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
-index 33314381b4f5..06bb8bc2c798 100644
---- a/net/ncsi/ncsi-netlink.c
-+++ b/net/ncsi/ncsi-netlink.c
-@@ -330,9 +330,8 @@ static int ncsi_set_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 		    package_id, channel_id,
- 		    channel_id == NCSI_RESERVED_CHANNEL ? " (any)" : "");
+ 	return;
+ error:
+ 	netdev_err(ndp->ndev.dev,
+@@ -1485,6 +1456,7 @@ int ncsi_start_dev(struct ncsi_dev *nd)
+ 		return -ENOTTY;
  
--	/* Bounce the NCSI channel to set changes */
--	ncsi_stop_dev(&ndp->ndev);
--	ncsi_start_dev(&ndp->ndev);
-+	/* Update channel configuration */
-+	ncsi_reset_dev(&ndp->ndev);
- 
- 	return 0;
- }
-@@ -360,9 +359,8 @@ static int ncsi_clear_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 	spin_unlock_irqrestore(&ndp->lock, flags);
- 	netdev_info(ndp->ndev.dev, "NCSI: Cleared preferred package/channel\n");
- 
--	/* Bounce the NCSI channel to set changes */
--	ncsi_stop_dev(&ndp->ndev);
--	ncsi_start_dev(&ndp->ndev);
-+	/* Update channel configuration */
-+	ncsi_reset_dev(&ndp->ndev);
- 
- 	return 0;
- }
+ 	if (!(ndp->flags & NCSI_DEV_PROBED)) {
++		ndp->package_probe_id = 0;
+ 		nd->state = ncsi_dev_state_probe;
+ 		schedule_work(&ndp->work);
+ 		return 0;
 -- 
 2.19.1
