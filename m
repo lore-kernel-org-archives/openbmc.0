@@ -7,60 +7,60 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="hEtjevJC"; dkim=pass (2048-bit key;
+ header.b="rp3XtIA5"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="tgocxn7K"; dkim-atps=neutral
+ header.b="DRn3Zyia"; dkim-atps=neutral
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42bFgK6pzFzF3Rv
- for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 14:59:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42bFgP2l26zF3S2
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 15:00:01 +1100 (AEDT)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 91C762222E;
- Wed, 17 Oct 2018 23:59:53 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id BFED722251;
+ Wed, 17 Oct 2018 23:59:58 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 17 Oct 2018 23:59:53 -0400
+ by compute2.internal (MEProxy); Wed, 17 Oct 2018 23:59:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  mendozajonas.com; h=from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- s=fm1; bh=tphzm0J0NJUxcrq/neXvMAODX7YDfQM2nrQVe5xSB9g=; b=hEtje
- vJCylNP+/tx+4zac/tPVVwdSjPZcIOSd006rdcopX7d3qOAkoPfdN9KK7UOwXlce
- 1mO3Nf+tRe4jYmZCyVMeG52WX9aJVhTlueR1ZYtdFMJXZkS17nxnBKsxdQMfnuJ0
- BLAtw06sCmeWs5BIX9wVX7ZNBy0gehGZJLKCTpHAWa6TnYpgQB1aoZj34BpF1uHk
- 9Q//dJ3BXvUDA2J7WfdVJr6byj7RVVmFOTcQuawApzwE8oVIy6gc7C5KUEUxVFH+
- 0yKzZWI3iCcHM0s/LjqVYsd/8tb4otSa22JWehh758mkSIt+5436Op+j3d/tDTie
- mIYeQnD8Hba/+HOiA==
+ s=fm1; bh=Q/u9mkjEty/6SJu1ipwDBRVWcYPnroUpjbfnbMRZK5E=; b=rp3Xt
+ IA5NEyFrEChpsPOeg936/euZKIUZHSqgoDhTxy59Z91KVhJ9hVGmFzoX2Xwuu1qB
+ 1y5lF00kS2HK9qeKXpONmz30I7oB1cUoBBMGzGjnbMSIVHnELqDfOkb747yCIXEJ
+ 92X10n18fWN8Vbkc1K3IbNxVuDJOA9foIgE06JvtX6W5KRRQB9VKreI4xxOFHZ3u
+ MckaC7WuxSudSGDsOGfCATVikX8iqRu2u+vhFi1F2oi0tbNFTc5e7lCI7nCHDUZ0
+ jO7qxlZzbsYR9vb/Dx5Eb8V9J2yBZAn9PrkPhiMXWUeVJBgeDMFsN2vCcnjbR+nG
+ O1Idr8C9CiHUEcsng==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=tphzm0J0NJUxcrq/neXvMAODX7YDfQM2nrQVe5xSB9g=; b=tgocxn7K
- k+koGdZENqcLUdWGvE0y6qMiCBigtPtKqc01mx9ReahcwuiXGzEHItWSnCVy3/pr
- Yq8MHf8s9Z1Wu5UlBndzpnZpj5yKffiEO4D+oDwCCkpdBl1XdzhCAi0EXCscNiXv
- 5PG2DUYnAuO1uUoFY04eoEzjwWKe9L+XW2/F5nuhbQjY3k0mOxtmpFastvFa18oD
- 3kvRHtADBbX0vPSqWDF2wzgzFjl0tDscVa3fziAPF9FNRjm9PdRdSEbW60+bka6v
- u+WBCVuTVvje0I+sAO4ek1SRlVPmVGycsi/g3CqN793eEUIVyLxEMziTg+oIXHqo
- wnLQfr6/j/wDug==
-X-ME-Sender: <xms:OQXIW_ebz8ZUU5_ddvhyJ3_2wptJ04SHLflG00laPlEAJ1SFvCKcCw>
-X-ME-Proxy: <xmx:OQXIW0y6mqgtMvhZyCukj5FZ8QnOFtCYw8Ch_Gc4Z0iAxHEvnZMFJA>
- <xmx:OQXIW4eQmqdxX-F7ED1ebfG0q2SFrNPCYCRVsXRRA6p-T4xZNo8eoQ>
- <xmx:OQXIW4Ic97DLLnyAo-6Wu4ksj0ALa5KvVP-np2zKW6VqPQmPb0J84A>
- <xmx:OQXIWxFtckoh8RLjm04vEB98d38dkDajSVHE6GHNoEnEFxVmliUMxg>
- <xmx:OQXIW6qh-WfBj1yXvvMSM_h71KhowyBolcx_CI68fLrvHcnhOeKk2Q>
- <xmx:OQXIW0aAFj4u1mrcOCVPiFvbwM7LT3pmg49NZnKhQkTOUvwo0peHGQ>
+ fm1; bh=Q/u9mkjEty/6SJu1ipwDBRVWcYPnroUpjbfnbMRZK5E=; b=DRn3Zyia
+ tflWiM0BB1+tK3Hy2uYbGf6fkZE107jd1ZL8nphOppfHN4rEalDTFVXqDedvjCPu
+ qzgfBgVBefrY1FuTnvyBAhZykTJINB6KOP5CTe7jGiNQKlqei6TnK2wDYnYIMCCG
+ tS1n5d+gfQUmkaTkzV/znTQuwQaTnX/47tWe30wAy9iH6eCO6KU9ZKZ6wgU5hWI5
+ OQJ2K086hxKCSrBDXrxGBoa8onDKvEAZh6IIm3j6etblp7TLe26tFSP6XBWFfsyw
+ 19p+4XYutYGp7a1O1iVVJ0Vzwu9sdBoUaJuRnhOwMx1k03fixtd1kAR21V5wWKhL
+ kiKaEr8AqjHpuA==
+X-ME-Sender: <xms:PgXIW3PfCWKOhCIX1Un6YBpmZk4I3OlHSlSwVSeMkuyyZMrOhsPAwA>
+X-ME-Proxy: <xmx:PgXIW1EyoqywbAv-kP99YYyftTL5wDSjG0PJfX9QKkvTawmnKDzS1w>
+ <xmx:PgXIW3ubsG68F4gfxStsUyjcIhEDhq7bHQDRJ1aRNTAyZFm7q2Ol4w>
+ <xmx:PgXIWwrGuI7n-ZImOqHvyvXArnOR8tm5fVazt2uu9dP96XLzseqkkg>
+ <xmx:PgXIW2UQTI2iMkjFucbGxKzDLWwND14Di5HjxvKe7U1N955hciPQSg>
+ <xmx:PgXIWw0_spXTwpUiqPvnAwG0JNP3IWL1Hn2sA-QHKfLWEIwPyPwkWA>
+ <xmx:PgXIW-GIEik693WFOgQA9_ukwNLvceI2FACoKe6D6WB75vMBIGW2nQ>
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0D001102D7;
- Wed, 17 Oct 2018 23:59:50 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4A578102D7;
+ Wed, 17 Oct 2018 23:59:56 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 To: netdev@vger.kernel.org
 Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
  "David S . Miller" <davem@davemloft.net>, Justin.Lee1@Dell.com,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: [PATCH net-next 1/6] net/ncsi: Don't enable all channels when HWA
- available
-Date: Thu, 18 Oct 2018 14:59:12 +1100
-Message-Id: <20181018035917.19413-2-sam@mendozajonas.com>
+Subject: [PATCH net-next 3/6] net/ncsi: Don't deselect package in suspend if
+ active
+Date: Thu, 18 Oct 2018 14:59:14 +1100
+Message-Id: <20181018035917.19413-4-sam@mendozajonas.com>
 X-Mailer: git-send-email 2.19.1
 In-Reply-To: <20181018035917.19413-1-sam@mendozajonas.com>
 References: <20181018035917.19413-1-sam@mendozajonas.com>
@@ -77,116 +77,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Oct 2018 04:00:01 -0000
+X-List-Received-Date: Thu, 18 Oct 2018 04:00:02 -0000
 
-NCSI hardware arbitration allows multiple packages to be enabled at once
-and share the same wiring. If the NCSI driver recognises that HWA is
-available it unconditionally enables all packages and channels; but that
-is a configuration decision rather than something required by HWA.
-Additionally the current implementation will not failover on link events
-which can cause connectivity to be lost unless the interface is manually
-bounced.
-
-Retain basic HWA support but remove the separate configuration path to
-enable all channels, leaving this to be handled by a later
-implementation.
+When a package is deselected all channels of that package cease
+communication. If there are other channels active on the package of the
+suspended channel this will disable them as well, so only send a
+deselect-package command if no other channels are active.
 
 Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 ---
- net/ncsi/ncsi-aen.c    |  3 +--
- net/ncsi/ncsi-manage.c | 45 +++---------------------------------------
- 2 files changed, 4 insertions(+), 44 deletions(-)
+ net/ncsi/ncsi-manage.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
-index 25e483e8278b..65f47a648be3 100644
---- a/net/ncsi/ncsi-aen.c
-+++ b/net/ncsi/ncsi-aen.c
-@@ -86,8 +86,7 @@ static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *ndp,
- 	    !(state == NCSI_CHANNEL_ACTIVE && !(data & 0x1)))
- 		return 0;
- 
--	if (!(ndp->flags & NCSI_DEV_HWA) &&
--	    state == NCSI_CHANNEL_ACTIVE)
-+	if (state == NCSI_CHANNEL_ACTIVE)
- 		ndp->flags |= NCSI_DEV_RESHUFFLE;
- 
- 	ncsi_stop_channel_monitor(nc);
 diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 6aa0614d2d28..65ee46c4d8f4 100644
+index fbbfed559f9c..602af74bee81 100644
 --- a/net/ncsi/ncsi-manage.c
 +++ b/net/ncsi/ncsi-manage.c
-@@ -113,10 +113,8 @@ static void ncsi_channel_monitor(struct timer_list *t)
- 	default:
- 		netdev_err(ndp->ndev.dev, "NCSI Channel %d timed out!\n",
- 			   nc->id);
--		if (!(ndp->flags & NCSI_DEV_HWA)) {
--			ncsi_report_link(ndp, true);
--			ndp->flags |= NCSI_DEV_RESHUFFLE;
--		}
-+		ncsi_report_link(ndp, true);
-+		ndp->flags |= NCSI_DEV_RESHUFFLE;
- 
- 		ncsi_stop_channel_monitor(nc);
- 
-@@ -968,35 +966,6 @@ static bool ncsi_check_hwa(struct ncsi_dev_priv *ndp)
- 	return false;
- }
- 
--static int ncsi_enable_hwa(struct ncsi_dev_priv *ndp)
--{
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	unsigned long flags;
--
--	/* Move all available channels to processing queue */
--	spin_lock_irqsave(&ndp->lock, flags);
--	NCSI_FOR_EACH_PACKAGE(ndp, np) {
--		NCSI_FOR_EACH_CHANNEL(np, nc) {
--			WARN_ON_ONCE(nc->state != NCSI_CHANNEL_INACTIVE ||
--				     !list_empty(&nc->link));
--			ncsi_stop_channel_monitor(nc);
--			list_add_tail_rcu(&nc->link, &ndp->channel_queue);
--		}
--	}
--	spin_unlock_irqrestore(&ndp->lock, flags);
--
--	/* We can have no channels in extremely case */
--	if (list_empty(&ndp->channel_queue)) {
--		netdev_err(ndp->ndev.dev,
--			   "NCSI: No available channels for HWA\n");
--		ncsi_report_link(ndp, false);
--		return -ENOENT;
--	}
--
--	return ncsi_process_next_channel(ndp);
--}
--
- static void ncsi_probe_channel(struct ncsi_dev_priv *ndp)
+@@ -440,12 +440,14 @@ static void ncsi_request_timeout(struct timer_list *t)
+ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
  {
  	struct ncsi_dev *nd = &ndp->ndev;
-@@ -1510,7 +1479,6 @@ EXPORT_SYMBOL_GPL(ncsi_register_dev);
- int ncsi_start_dev(struct ncsi_dev *nd)
- {
- 	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
--	int ret;
+-	struct ncsi_package *np = ndp->active_package;
+-	struct ncsi_channel *nc = ndp->active_channel;
++	struct ncsi_package *np;
++	struct ncsi_channel *nc, *tmp;
+ 	struct ncsi_cmd_arg nca;
+ 	unsigned long flags;
+ 	int ret;
  
- 	if (nd->state != ncsi_dev_state_registered &&
- 	    nd->state != ncsi_dev_state_functional)
-@@ -1522,14 +1490,7 @@ int ncsi_start_dev(struct ncsi_dev *nd)
- 		return 0;
- 	}
++	np = ndp->active_package;
++	nc = ndp->active_channel;
+ 	nca.ndp = ndp;
+ 	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
+ 	switch (nd->state) {
+@@ -521,6 +523,15 @@ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
+ 		if (ret)
+ 			goto error;
  
--	if (ndp->flags & NCSI_DEV_HWA) {
--		netdev_info(ndp->ndev.dev, "NCSI: Enabling HWA mode\n");
--		ret = ncsi_enable_hwa(ndp);
--	} else {
--		ret = ncsi_choose_active_channel(ndp);
--	}
--
--	return ret;
-+	return ncsi_choose_active_channel(nd);
- }
- EXPORT_SYMBOL_GPL(ncsi_start_dev);
- 
++		NCSI_FOR_EACH_CHANNEL(np, tmp) {
++			/* If there is another channel active on this package
++			 * do not deselect the package.
++			 */
++			if (tmp != nc && tmp->state == NCSI_CHANNEL_ACTIVE) {
++				nd->state = ncsi_dev_state_suspend_done;
++				break;
++			}
++		}
+ 		break;
+ 	case ncsi_dev_state_suspend_deselect:
+ 		ndp->pending_req_num = 1;
 -- 
 2.19.1
