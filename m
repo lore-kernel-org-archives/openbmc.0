@@ -1,54 +1,53 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.210.67; helo=mail-ot1-f67.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::42b; helo=mail-pf1-x42b.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="oeC/lLd8"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42bfjG3QDzzF3DV
- for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 06:48:02 +1100 (AEDT)
-Received: by mail-ot1-f67.google.com with SMTP id c23so29192357otl.9
- for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 12:48:02 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42bgf80ypwzF3Hw
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 07:30:23 +1100 (AEDT)
+Received: by mail-pf1-x42b.google.com with SMTP id 78-v6so13027404pfq.0
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 13:30:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=qxAyNzACGED4rHspkafnXhLWbN3/8/zZFPrrXFW69H4=;
+ b=oeC/lLd8UmK/LzA5j8tlCrAqY/wwtk6kdMh0hYSYTyW/PA9WVcRD2FNBkuWAVqdpq1
+ KebA3/W4KCcMo6yut9t1909jNIu3+UN+esS+A1CmPXPimMyULdKcyxuNSqdEJQbQhpWc
+ Jnp+e21nlsktdsxghzqB4lSvDXLyGktex/P16AmUk+wGT+8CJjtEp6wsO5If01kyIjVq
+ GkzPojIJHKmMVrK2+SKHFNJLjHMXCuDgxbDEAdzfjdBjJDeeIjRE512CjmbUik70mTGo
+ mKudIUuM0GaISHWFXdjYtv60qgocKXIy9qpqqtLAiE+djPdxJcO3sF8faMb4BK7Sv8Cq
+ S41g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=TW0ld+49mrI3fSEdHT5ADhTTD7haW5UOlwuNbsIgO1Y=;
- b=qGJUlNl9ccIdXNVCC/Of9MlJ9oLUj0X4DJzu1Cjtmyvn3ZGdZ6AZ2Ja+5itJbdSAnH
- 1CRk6/BRriOVgKWU4SXA2T1VbFiezEZYH+zj35fgICSVkug7ls1ZliNNW/CAhOsLYgKd
- iVBAxHdF7oWUIl7bY7eKxARTkHQu/No2j/vB+vL/klVoBj+1qZM775PglDz7gQYELjeR
- VjMfi/Fg7krM2GvxZ4kcYs4I+1sv1MXjsOc2hnF6dYU4sy1zTqt5vI64XMOOesUpV6db
- x801Q3tQxk0y0YkeieWM5LeOQJaOookOJWGFPm6dYxapc7yAE2NE1cNze15Wvi2f/fbZ
- 6gAw==
-X-Gm-Message-State: ABuFfoh9nYTghNN89WQr4Lu80MZ4LeyW8tnSV7Wk0qDtBWgzz1+qTMOg
- We3HtT0pAlK93T4l0LkJFg==
-X-Google-Smtp-Source: ACcGV61pTBVOZCJfwQpxzzSAEJbBUlOOWtYbR2d8PgtYXGZeLRF6ZuXgsc00Q8Dtt6qwFAFcwp7b7w==
-X-Received: by 2002:a9d:19ec:: with SMTP id k99mr21003179otk.340.1539892080017; 
- Thu, 18 Oct 2018 12:48:00 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id 111sm7483377otf.51.2018.10.18.12.47.59
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 18 Oct 2018 12:47:59 -0700 (PDT)
-Date: Thu, 18 Oct 2018 14:47:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Kun Yi <kunyi@google.com>
-Cc: openbmc@lists.ozlabs.org, kunyi@google.com,
- Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Mark Rutland <mark.rutland@arm.com>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] dt-bindings: hwmon: Add adm127x documentation
-Message-ID: <20181018194758.GA21705@bogus>
-References: <20181017222710.254994-1-kunyi@google.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=qxAyNzACGED4rHspkafnXhLWbN3/8/zZFPrrXFW69H4=;
+ b=uEs4tRT1Tx2VT+Vj2rmGdgT8embw8WtnzRWCZ1eWuMcaPXQegjyN230ctTPFZ4P6Mj
+ YNzfjf75HlmCqfxKGU1CRD/AuG3TS0jMRd4YWQdexcR7gQujKJ1Ixfqg+tFs0nacRb9O
+ Loc+j/MwiN2ZwDYx5NXJ5mUPvJ/O56ImkarffPPp8f12egp34+rADRnPUh31AbPDLd3/
+ TKeOdJdhNe8XnpU8ioNdRJW6E8+fK3P8PxSs2kt2ioGVcOcfrUHoycGNoGCRlZsIl9b+
+ V7ykgydqMwxgHgndAAWtvWChdHR64EQ6KliP+votyHatwpUqMSa0vvyipFBUIyWrSlgK
+ xDqg==
+X-Gm-Message-State: ABuFfogOyJdPM7ZzEdNATdXW4aV498CCrlKuc+wlN8TIvCpGdIOsKy4i
+ tpsaenFRS8MrhoAH7i5AVziu16pUkTW6itWvS8pIXzqtWI4=
+X-Google-Smtp-Source: ACcGV62EUBxxxRP8M97OYBtBYwRmcfFYniUFjA9bbAX2dCn8ypOS9cJWHuQjtg/mU4eIzS0FzV0d201T0+Kby1h97uU=
+X-Received: by 2002:a63:e601:: with SMTP id
+ g1-v6mr30245519pgh.290.1539894619973; 
+ Thu, 18 Oct 2018 13:30:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181017222710.254994-1-kunyi@google.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+From: Patrick Venture <venture@google.com>
+Date: Thu, 18 Oct 2018 13:30:08 -0700
+Message-ID: <CAO=notzFEfBpKCdQ30WO6v9AZ1xh+OLg0jpsEiuGF17x2gFKzg@mail.gmail.com>
+Subject: New Checker in the CI
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,18 +59,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Oct 2018 19:48:03 -0000
+X-List-Received-Date: Thu, 18 Oct 2018 20:30:25 -0000
 
-On Wed, 17 Oct 2018 15:27:09 -0700, Kun Yi wrote:
-> adm127x are hot-swap controllers that allow a circuit board to be removed from
-> or inserted into a live backplane. This patch adds the device tree
-> bindings documentation.
-> 
-> Signed-off-by: Kun Yi <kunyi@google.com>
-> ---
->  .../devicetree/bindings/hwmon/adm1275.txt     | 25 +++++++++++++++++++
->  1 file changed, 25 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/adm1275.txt
-> 
+Now a tool called cppcheck is run against your code during presubmit.
+Its results are not factored into your patchset receiving a +/-1.
+However, I encourage you to take a look at the presubmit log.  It'll
+have some results that are neat, like, "you can reduce the scope of
+this variable" or you can improve performance my making this a
+reference, etc...
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+If you're curious the kind of things it's found so far:
+https://gerrit.openbmc-project.xyz/q/topic:%22caught_ci_cppcheck%22
+
+Now, here are some notes:
+1) it isn't always correct (it isn't perfect, but it's very very
+actively under development so feel free to send them bugs and
+notes)!!! and help the OSS community.
+
+2) the generated interfaces right now don't use references for object
+parameters, interestingly (maybe something we'll need to examine? :D).
+
+3) If you have any questions about your results, feel free to shoot me
+an email with a snippet as the logs don't live forever and I'll take a
+look.  I have no stake or influence in cppcheck, but I can be the
+point person on this.
+
+Regards,
+Patrick
