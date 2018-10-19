@@ -1,87 +1,111 @@
-Return-Path: <Justin.Lee1@dell.com>
+Return-Path: <prvs=3830ec1441=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.149.229; helo=esa6.dell-outbound.iphmx.com;
- envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=3830ec1441=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=Dell.com
+ dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="VoJy4f5X"; 
- dkim-atps=neutral
-Received: from esa6.dell-outbound.iphmx.com (esa6.dell-outbound.iphmx.com
- [68.232.149.229])
+ unprotected) header.d=fb.com header.i=@fb.com header.b="ZLzK0+K4"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="aUITljow"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42cK6k6RKyzF3c0
- for <openbmc@lists.ozlabs.org>; Sat, 20 Oct 2018 08:38:53 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1539985135; x=1571521135;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=e3G2PKsG2imjg7T1pMydF10IrOP0C1sL0Wb8z37I8Nw=;
- b=VoJy4f5XmL2qyqTd5iPBkiEMDKFHd0U0F7JY6bwMyZxcGXhM9xHdjXZ+
- 4yJwSKIMht3467MwfSGPPUdVX2hUjJfR/EpOobtLL8CE7JN87cohCxaHb
- MMI9VxOYmg9JVEdoQHnR//4Q3DLSETmRD2Nirp5m0yGfuZKtJdsStZhw+ M=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EYAADOTcpbhiWd50NkHAEBAQQBAQc?=
- =?us-ascii?q?EAQGBUQcBAQsBgVWCFCgKjANfizqCDYF3lRiBegsBAYRsAoUJITQNDQEDAQE?=
- =?us-ascii?q?CAQECAQECEAEBAQoJCwgpL4I2IoJjAQEBAwESFRMtEgULAgEIFAEhEFcCBAE?=
- =?us-ascii?q?NBQgagn+BegidB4lXAQEBgWgziheLT4IXgRGDEopYAoEqAY0cj3oGAQKQZB+?=
- =?us-ascii?q?BT4RziWeWKwIEAgQFAhSBQ4IOcIFugU6CJg4JjhpviwaBHwEB?=
-X-IPAS-Result: =?us-ascii?q?A2EYAADOTcpbhiWd50NkHAEBAQQBAQcEAQGBUQcBAQsBg?=
- =?us-ascii?q?VWCFCgKjANfizqCDYF3lRiBegsBAYRsAoUJITQNDQEDAQECAQECAQECEAEBA?=
- =?us-ascii?q?QoJCwgpL4I2IoJjAQEBAwESFRMtEgULAgEIFAEhEFcCBAENBQgagn+BegidB?=
- =?us-ascii?q?4lXAQEBgWgziheLT4IXgRGDEopYAoEqAY0cj3oGAQKQZB+BT4RziWeWKwIEA?=
- =?us-ascii?q?gQFAhSBQ4IOcIFugU6CJg4JjhpviwaBHwEB?=
-Received: from mx0b-00154901.pphosted.com ([67.231.157.37])
- by esa6.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 19 Oct 2018 16:38:50 -0500
-Received: from pps.filterd (m0144103.ppops.net [127.0.0.1])
- by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w9JLcosM095387
- for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 17:38:50 -0400
-Received: from esa1.dell-outbound2.iphmx.com (esa1.dell-outbound2.iphmx.com
- [68.232.153.201])
- by mx0b-00154901.pphosted.com with ESMTP id 2n7js9schs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 17:38:50 -0400
-From: <Justin.Lee1@Dell.com>
-Received: from ausxippc101.us.dell.com ([143.166.85.207])
- by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
- 20 Oct 2018 03:38:41 +0600
-X-LoopCount0: from 10.166.135.98
-X-IronPort-AV: E=Sophos;i="5.54,401,1534827600"; d="scan'208";a="1150324336"
-To: <davem@davemloft.net>, <sam@mendozajonas.com>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH net-next 0/6] net/ncsi: Allow enabling multiple packages &
- channels
-Thread-Topic: [PATCH net-next 0/6] net/ncsi: Allow enabling multiple packages
- & channels
-Thread-Index: AQHUZpcNEQCD9YIJq0mCdRbo1sv1t6Ul8lWAgAEg4PA=
-Date: Fri, 19 Oct 2018 21:38:47 +0000
-Message-ID: <79ee8c9befaa40e781bfeba4ba25d396@AUSX13MPS302.AMER.DELL.COM>
-References: <20181018035917.19413-1-sam@mendozajonas.com>
- <20181018.155647.1045018243241594303.davem@davemloft.net>
-In-Reply-To: <20181018.155647.1045018243241594303.davem@davemloft.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42cMqZ2v17zF3Cd
+ for <openbmc@lists.ozlabs.org>; Sat, 20 Oct 2018 10:40:56 +1100 (AEDT)
+Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
+ by mx0b-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9JMpogO000563
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 15:54:38 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : content-type : mime-version; s=facebook;
+ bh=+dCN4e7AgVpHFV28fWK31eXVlvlrYtAXORfiyrDev7U=;
+ b=ZLzK0+K4dcLhmkF2UKaPD3COvLtbglOc4gC3KGq0MzAdffA62uVRlHQNQnrOEG4plwMB
+ +g2yUVed7GxQ/OM9azpES2uh3XsqqzhxmwMzq599NMMsswl423BhqGJLYyGm14Q8IDX6
+ 0DaL/DBgLHeUTsv8n4b6N9UJTG+pHz/swWM= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0b-00082601.pphosted.com with ESMTP id 2n7rac80xy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 15:54:38 -0700
+Received: from prn-hub01.TheFacebook.com (2620:10d:c081:35::125) by
+ prn-hub01.TheFacebook.com (2620:10d:c081:35::125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Fri, 19 Oct 2018 15:54:37 -0700
+Received: from PRN-CHUB12.TheFacebook.com (2620:10d:c081:35::21) by
+ prn-hub01.TheFacebook.com (2620:10d:c081:35::125) with Microsoft SMTP Server
+ (version=TLS1_0, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3
+ via Frontend Transport; Fri, 19 Oct 2018 15:54:37 -0700
+Received: from NAM03-CO1-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.22) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Fri, 19 Oct 2018 15:54:36 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+dCN4e7AgVpHFV28fWK31eXVlvlrYtAXORfiyrDev7U=;
+ b=aUITljowkDvf8oWU/wbva67O+ynMj1wOimxuJZRxp3iwFVKfU/io59pnt+NYER4DncMxbEIdr/ysTnBnAkij49hCAJ1FpsJmB+9LnSw3V3u1Lq03F4YabJNs2xWtqRcb2AyDaskP02BSCI62ENhjyZEfuBjBWvL67SXXAkAuWgk=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1126.namprd15.prod.outlook.com (10.172.175.12) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1228.24; Fri, 19 Oct 2018 22:54:36 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::2d43:ae9a:18c0:ac8b]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::2d43:ae9a:18c0:ac8b%3]) with mapi id 15.20.1228.027; Fri, 19 Oct 2018
+ 22:54:35 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: fru inventory update 
+Thread-Topic: fru inventory update 
+Thread-Index: AQHUZ/618OBz++G71EyYClPhU8TqkQ==
+Date: Fri, 19 Oct 2018 22:54:35 +0000
+Message-ID: <2F1B55CF-6A56-4154-A5C1-67F76EBB6184@fb.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-originating-ip: [2620:10d:c090:200::6:7692]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1126;
+ 20:q9dOZ5sLuR/XZdHbPwMiR0hKgWsOyD+EQpoJeKF/VdagnjSKGighbEez5wv7f0wVMRohEQCyq5ZACqJaN66WKGE7ET9F1VWWWnmIfIwtqyOnwueBD0p+zbokLJZXjjcV0/PFOznwU3wUlxCk58mZI3NxtrEuqPY31/I2gUIr9/U=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 88a0f590-f714-43a6-2a03-08d63615d78e
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1126; 
+x-ms-traffictypediagnostic: CY4PR15MB1126:
+x-microsoft-antispam-prvs: <CY4PR15MB1126E822EE352B2CF546295DDDF90@CY4PR15MB1126.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(21748063052155)(28532068793085)(190501279198761)(227612066756510); 
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(3231355)(11241501184)(944501410)(52105095)(3002001)(93006095)(93001095)(10201501046)(148016)(149066)(150057)(6041310)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123558120)(20161123562045)(20161123560045)(20161123564045)(201708071742011)(7699051)(76991095);
+ SRVR:CY4PR15MB1126; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1126; 
+x-forefront-prvs: 0830866D19
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(396003)(366004)(136003)(39860400002)(346002)(189003)(199004)(40224003)(106356001)(33656002)(82746002)(36756003)(7736002)(2900100001)(97736004)(186003)(3480700004)(83716004)(6916009)(71190400001)(68736007)(15650500001)(71200400001)(6116002)(9326002)(102836004)(2351001)(46003)(6506007)(4743002)(256004)(1730700003)(99286004)(10710500007)(25786009)(2906002)(81166006)(6512007)(478600001)(6436002)(14454004)(53936002)(54896002)(8936002)(6486002)(6306002)(5640700003)(8676002)(7110500001)(105586002)(2501003)(5250100002)(2616005)(316002)(81156014)(476003)(86362001)(486006)(7116003)(2420400007)(5660300001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1126;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: qI0VGCqeNOIA2Yqjc4b2x0+xfJXXiX+Ky+2SggAj5BbBx4xl7wQoWdnd8g+HKl4rD+TvC7oAqzre7iMCMHYi68BNf8BkJzxQp2oWnfy5ZYkj0/p1/QET5L37CqcezVYxBigcsecrSlQob42HIEvvhyKwX/Q2feZKgWN1R+6QZSeQbydnFTSpPCltcck9iS3kuHm3vrNSGNtWblqVXdRQ4AIarfgMMViXn1F5Gl8btSdjcfFANvM05SN8lD5jxeNGMBlL8MjVydIEauK7rhekkxKrtWZlrew77Klvu9DuG32acIAsISHt7EIk92cI4VxkHZ+dwmx9AIpCAZDUCVhX3Bh78uU1EGqNBHV2c9NchlE=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_2F1B55CF6A564154A5C167F76EBB6184fbcom_"
 MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88a0f590-f714-43a6-2a03-08d63615d78e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2018 22:54:35.7554 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1126
+X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2018-10-19_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=833 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1810190193
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,66 +117,207 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Oct 2018 21:38:56 -0000
+X-List-Received-Date: Fri, 19 Oct 2018 23:41:00 -0000
 
-Hi Sam,
+--_000_2F1B55CF6A564154A5C167F76EBB6184fbcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-When I run the testing (enable multi-package (package 0 and 1) and=20
-multi-channel (channel 0 and 1 on both packages)), I see there are two chan=
-nels
-with TX enable.
+SGksDQoNCkkgYW0gdHJ5aW5nIHRvIHJlYWQgZnJ1IGRhdGEgb2YgbXkgYm9hcmQgYW5kIGNyZWF0
+ZWQgYSBjb25maWcueWFtbC4gSSBub3RpY2VkIGZldyB0aGluZ3MgdGhhdCB0aGVyZSBpcyBvbmx5
+IDUgZmllbGQgdXBkYXRlZCBpbiBzeXN0ZW0veHl6Lm9wZW5ibWNfcHJvamVjdC5JbnZlbnRvcnku
+RGVjb3JhdG9yLkFzc2V0IGV2ZW4gdGhvdWdoIEkgaGF2ZSBtb3JlIGZpZWxkIHJlcXVlc3RlZCBp
+biBjb25maWcgZmlsZS4gQW5kIGFsc28gaG93IGRvIEkgZ2V0IG1lYW5pbmdmdWwga2V5IHN0cmlu
+ZyBpbnN0ZWFkIG9mIHZhbHVlMCwgdmFsdWUxLiBQbGVhc2Ugc2VlIGJlbG93IGNvbmZpZy55YW1s
+IGFuZCBpbnZlbnRvcnkgZmlsZS4NCg0KDQoNCkNvbmZpZy55YW1sDQoNCj09PT09PT09PT09PQ0K
+DQogIC9zeXN0ZW06DQoNCiAgICBlbnRpdHlJRDogMw0KDQogICAgZW50aXR5SW5zdGFuY2U6IDEN
+Cg0KICAgIGludGVyZmFjZXM6DQoNCiAgICAgIHh5ei5vcGVuYm1jX3Byb2plY3QuSW52ZW50b3J5
+LkRlY29yYXRvci5Bc3NldDoNCg0KICAgICAgICBTZXJpYWxOdW1iZXI6DQoNCiAgICAgICAgICBJ
+UE1JRnJ1UHJvcGVydHk6IFNlcmlhbCBOdW1iZXINCg0KICAgICAgICAgIElQTUlGcnVTZWN0aW9u
+OiBQcm9kdWN0DQoNCiAgICAgICAgTWFudWZhY3R1cmVyOg0KDQogICAgICAgICAgSVBNSUZydVBy
+b3BlcnR5OiBNYW51ZmFjdHVyZXINCg0KICAgICAgICAgIElQTUlGcnVTZWN0aW9uOiBQcm9kdWN0
+DQoNCiAgICAgICAgTW9kZWw6DQoNCiAgICAgICAgICBJUE1JRnJ1UHJvcGVydHk6IE1vZGVsIE51
+bWJlcg0KDQogICAgICAgICAgSVBNSUZydVNlY3Rpb246IFByb2R1Y3QNCg0KICAgICAgICBQcmV0
+dHlOYW1lOg0KDQogICAgICAgICAgSVBNSUZydVByb3BlcnR5OiBOYW1lDQoNCiAgICAgICAgICBJ
+UE1JRnJ1U2VjdGlvbjogUHJvZHVjdA0KDQogICAgICAgIFZlcnNpb246DQoNCiAgICAgICAgICBJ
+UE1JRnJ1UHJvcGVydHk6IFZlcnNpb24NCg0KICAgICAgICAgIElQTUlGcnVTZWN0aW9uOiBQcm9k
+dWN0DQoNCiAgICAgICAgQXNzZXRUYWc6DQoNCiAgICAgICAgICBJUE1JRnJ1UHJvcGVydHk6IEFz
+c2V0IFRhZw0KDQogICAgICAgICAgSVBNSUZydVNlY3Rpb246IFByb2R1Y3QNCg0KICAgICAgICBD
+dXN0b21GaWVsZDE6DQoNCiAgICAgICAgICBJUE1JRnJ1UHJvcGVydHk6IEN1c3RvbSBGaWVsZCAx
+DQoNCiAgICAgICAgICBJUE1JRnJ1U2VjdGlvbjogUHJvZHVjdA0KDQogICAgICAgIEN1c3RvbUZp
+ZWxkMjoNCg0KICAgICAgICAgIElQTUlGcnVQcm9wZXJ0eTogQ3VzdG9tIEZpZWxkIDINCg0KICAg
+ICAgICAgIElQTUlGcnVTZWN0aW9uOiBQcm9kdWN0DQoNCg0KDQoNCg0Kc3lzdGVtL3h5ei5vcGVu
+Ym1jX3Byb2plY3QuSW52ZW50b3J5LkRlY29yYXRvci5Bc3NldA0KDQo9PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQoNCnsNCg0KICAgICJ2YWx1ZTAi
+OiB7DQoNCiAgICAgICAgImNlcmVhbF9jbGFzc192ZXJzaW9uIjogMSwNCg0KICAgICAgICAidmFs
+dWUwIjogIiIsDQoNCiAgICAgICAgInZhbHVlMSI6ICJXVEYxNzM3MEQyTUExIiwNCg0KICAgICAg
+ICAidmFsdWUyIjogIldpd3lubiIsDQoNCiAgICAgICAgInZhbHVlMyI6ICIiLA0KDQogICAgICAg
+ICJ2YWx1ZTQiOiAiQjgxLjAwWDAxLjAxMDQiDQoNCiAgICB9DQoNCn0NCg0KDQoNCg0KDQpQbGVh
+c2UgYWR2aXNlIGhlcmUgYXMgd2hhdCBhbSBJIG1pc3NpbmcuDQoNCg0KDQpSZWdhcmRzDQoNCi1W
+aWpheQ0K
 
-When I unplug/plug network cable, it seems the behavior is to keep one TX p=
-er
-package, is it the behavior you expect? All channels are behind the same et=
-h2,
-I would expect there is only one active TX.
+--_000_2F1B55CF6A564154A5C167F76EBB6184fbcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <51272C13121102468AD2208A5C2B2316@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
-I create the below file to expose driver's status. RX and TX are printing=20
-from the follow variables.
-nc->modes[NCSI_MODE_ENABLE].enable,
-nc->modes[NCSI_MODE_TX_ENABLE].enable,
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6RGVuZ1hpYW47DQoJcGFub3NlLTE6
+MiAxIDYgMCAzIDEgMSAxIDEgMTt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJcQERlbmdY
+aWFuIjsNCglwYW5vc2UtMToyIDEgNiAwIDMgMSAxIDEgMSAxO30NCkBmb250LWZhY2UNCgl7Zm9u
+dC1mYW1pbHk6TWVubG87DQoJcGFub3NlLTE6MiAxMSA2IDkgMyA4IDQgMiAyIDQ7fQ0KLyogU3R5
+bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3Jt
+YWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjEy
+LjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQphOmxpbmssIHNwYW4u
+TXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjojMDU2M0MxOw0K
+CXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFuLk1zb0h5cGVybGlu
+a0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjojOTU0RjcyOw0KCXRl
+eHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTcNCgl7bXNvLXN0eWxl
+LXR5cGU6cGVyc29uYWwtY29tcG9zZTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJp
+ZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCnAucDEsIGxpLnAxLCBkaXYucDENCgl7bXNvLXN0eWxl
+LW5hbWU6cDE7DQoJbWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJYmFja2dy
+b3VuZDp3aGl0ZTsNCglmb250LXNpemU6OC41cHQ7DQoJZm9udC1mYW1pbHk6TWVubG87DQoJY29s
+b3I6YmxhY2s7fQ0Kc3Bhbi5zMQ0KCXttc28tc3R5bGUtbmFtZTpzMTt9DQpzcGFuLmFwcGxlLWNv
+bnZlcnRlZC1zcGFjZQ0KCXttc28tc3R5bGUtbmFtZTphcHBsZS1jb252ZXJ0ZWQtc3BhY2U7fQ0K
+Lk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7fQ0KQHBhZ2UgV29y
+ZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBp
+biAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwv
+c3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIgdmxpbms9
+IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJwMSI+PHNw
+YW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPkhpLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxw
+IGNsYXNzPSJwMSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPkkgYW0gdHJ5aW5nIHRv
+IHJlYWQgZnJ1IGRhdGEgb2YgbXkgYm9hcmQgYW5kIGNyZWF0ZWQgYSBjb25maWcueWFtbC4gSSBu
+b3RpY2VkIGZldyB0aGluZ3MgdGhhdCB0aGVyZSBpcyBvbmx5IDUgZmllbGQgdXBkYXRlZCBpbiBz
+eXN0ZW0veHl6Lm9wZW5ibWNfcHJvamVjdC5JbnZlbnRvcnkuRGVjb3JhdG9yLkFzc2V0IGV2ZW4g
+dGhvdWdoIEkgaGF2ZSBtb3JlIGZpZWxkIHJlcXVlc3RlZA0KIGluIGNvbmZpZyBmaWxlLiBBbmQg
+YWxzbyBob3cgZG8gSSBnZXQgbWVhbmluZ2Z1bCBrZXkgc3RyaW5nIGluc3RlYWQgb2YgdmFsdWUw
+LCB2YWx1ZTEuIFBsZWFzZSBzZWUgYmVsb3cgY29uZmlnLnlhbWwgYW5kIGludmVudG9yeSBmaWxl
+LjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gc3R5bGU9ImZvbnQt
+c2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJwMSI+
+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPkNvbmZpZy55YW1sPG86cD48L286cD48L3Nw
+YW4+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PT09
+PT09PT09PT09PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFz
+cz0iYXBwbGUtY29udmVydGVkLXNwYWNlIj4mbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+
+L3N5c3RlbTo8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNz
+PSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNz
+PSJzMSI+ZW50aXR5SUQ6IDM8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxz
+cGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgPC9zcGFuPjxz
+cGFuIGNsYXNzPSJzMSI+ZW50aXR5SW5zdGFuY2U6IDE8L3NwYW4+PG86cD48L286cD48L3A+DQo8
+cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAm
+bmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+aW50ZXJmYWNlczo8L3NwYW4+PG86cD48L286
+cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2Ui
+PiZuYnNwOyAmbmJzcDsgJm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0iczEiPnh5ei5vcGVuYm1j
+X3Byb2plY3QuSW52ZW50b3J5LkRlY29yYXRvci5Bc3NldDo8L3NwYW4+PG86cD48L286cD48L3A+
+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+PHNwYW4gY2xhc3M9InMxIj5TZXJpYWxOdW1i
+ZXI6PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0iYXBw
+bGUtY29udmVydGVkLXNwYWNlIj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDwv
+c3Bhbj48c3BhbiBjbGFzcz0iczEiPklQTUlGcnVQcm9wZXJ0eTogU2VyaWFsIE51bWJlcjwvc3Bh
+bj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9ImFwcGxlLWNvbnZl
+cnRlZC1zcGFjZSI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+PHNw
+YW4gY2xhc3M9InMxIj5JUE1JRnJ1U2VjdGlvbjogUHJvZHVjdDwvc3Bhbj48bzpwPjwvbzpwPjwv
+cD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9ImFwcGxlLWNvbnZlcnRlZC1zcGFjZSI+Jm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0iczEiPk1hbnVmYWN0
+dXJlcjo8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJh
+cHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+PC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+SVBNSUZydVByb3BlcnR5OiBNYW51ZmFjdHVyZXI8L3Nw
+YW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252
+ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxz
+cGFuIGNsYXNzPSJzMSI+SVBNSUZydVNlY3Rpb246IFByb2R1Y3Q8L3NwYW4+PG86cD48L286cD48
+L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+PHNwYW4gY2xhc3M9InMxIj5Nb2RlbDo8
+L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1j
+b252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFu
+PjxzcGFuIGNsYXNzPSJzMSI+SVBNSUZydVByb3BlcnR5OiBNb2RlbCBOdW1iZXI8L3NwYW4+PG86
+cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQt
+c3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNs
+YXNzPSJzMSI+SVBNSUZydVNlY3Rpb246IFByb2R1Y3Q8L3NwYW4+PG86cD48L286cD48L3A+DQo8
+cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+PHNwYW4gY2xhc3M9InMxIj5QcmV0dHlOYW1lOjwv
+c3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9ImFwcGxlLWNv
+bnZlcnRlZC1zcGFjZSI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+
+PHNwYW4gY2xhc3M9InMxIj5JUE1JRnJ1UHJvcGVydHk6IE5hbWU8L3NwYW4+PG86cD48L286cD48
+L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+
+SVBNSUZydVNlY3Rpb246IFByb2R1Y3Q8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
+cDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyA8L3NwYW4+PHNwYW4gY2xhc3M9InMxIj5WZXJzaW9uOjwvc3Bhbj48bzpwPjwv
+bzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9ImFwcGxlLWNvbnZlcnRlZC1zcGFj
+ZSI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+PHNwYW4gY2xhc3M9
+InMxIj5JUE1JRnJ1UHJvcGVydHk6IFZlcnNpb248L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBj
+bGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+SVBNSUZydVNl
+Y3Rpb246IFByb2R1Y3Q8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFu
+IGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyA8L3NwYW4+PHNwYW4gY2xhc3M9InMxIj5Bc3NldFRhZzo8L3NwYW4+PG86cD48L286cD48L3A+
+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+SVBN
+SUZydVByb3BlcnR5OiBBc3NldCBUYWc8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
+cDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+SVBNSUZydVNlY3Rpb246
+IFByb2R1Y3Q8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNz
+PSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3Nw
+YW4+PHNwYW4gY2xhc3M9InMxIj5DdXN0b21GaWVsZDE6PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0K
+PHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0iYXBwbGUtY29udmVydGVkLXNwYWNlIj4mbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0iczEiPklQTUlG
+cnVQcm9wZXJ0eTogQ3VzdG9tIEZpZWxkIDE8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFz
+cz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+SVBNSUZydVNlY3Rp
+b246IFByb2R1Y3Q8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNs
+YXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8
+L3NwYW4+PHNwYW4gY2xhc3M9InMxIj5DdXN0b21GaWVsZDI6PC9zcGFuPjxvOnA+PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0iYXBwbGUtY29udmVydGVkLXNwYWNlIj4mbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0iczEiPklQ
+TUlGcnVQcm9wZXJ0eTogQ3VzdG9tIEZpZWxkIDI8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBj
+bGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+SVBNSUZydVNl
+Y3Rpb246IFByb2R1Y3Q8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8
+cCBjbGFzcz0icDEiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwv
+bzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
+MHB0Ij5zeXN0ZW0veHl6Lm9wZW5ibWNfcHJvamVjdC5JbnZlbnRvcnkuRGVjb3JhdG9yLkFzc2V0
+PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBzdHlsZT0iZm9udC1z
+aXplOjExLjBwdCI+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9
+InMxIj57PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0i
+YXBwbGUtY29udmVydGVkLXNwYWNlIj4mbmJzcDsgJm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0i
+czEiPiZxdW90O3ZhbHVlMCZxdW90Ozogezwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNz
+PSJwMSI+PHNwYW4gY2xhc3M9ImFwcGxlLWNvbnZlcnRlZC1zcGFjZSI+Jm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0iczEiPiZxdW90O2NlcmVhbF9jbGFzc192
+ZXJzaW9uJnF1b3Q7OiAxLDwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNw
+YW4gY2xhc3M9ImFwcGxlLWNvbnZlcnRlZC1zcGFjZSI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0iczEiPiZxdW90O3ZhbHVlMCZxdW90OzogJnF1b3Q7JnF1
+b3Q7LDwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9ImFw
+cGxlLWNvbnZlcnRlZC1zcGFjZSI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDwvc3Bhbj48
+c3BhbiBjbGFzcz0iczEiPiZxdW90O3ZhbHVlMSZxdW90OzogJnF1b3Q7V1RGMTczNzBEMk1BMSZx
+dW90Oyw8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJh
+cHBsZS1jb252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+
+PHNwYW4gY2xhc3M9InMxIj4mcXVvdDt2YWx1ZTImcXVvdDs6ICZxdW90O1dpd3lubiZxdW90Oyw8
+L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1j
+b252ZXJ0ZWQtc3BhY2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+PHNwYW4g
+Y2xhc3M9InMxIj4mcXVvdDt2YWx1ZTMmcXVvdDs6ICZxdW90OyZxdW90Oyw8L3NwYW4+PG86cD48
+L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJhcHBsZS1jb252ZXJ0ZWQtc3Bh
+Y2UiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA8L3NwYW4+PHNwYW4gY2xhc3M9InMxIj4m
+cXVvdDt2YWx1ZTQmcXVvdDs6ICZxdW90O0I4MS4wMFgwMS4wMTA0JnF1b3Q7PC9zcGFuPjxvOnA+
+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0iYXBwbGUtY29udmVydGVkLXNw
+YWNlIj4mbmJzcDsgJm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFzcz0iczEiPn08L3NwYW4+PG86cD48
+L286cD48L3A+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJzMSI+fTwvc3Bhbj48bzpwPjwv
+bzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPjxv
+OnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJw
+MSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPlBsZWFzZSBhZHZpc2UgaGVyZSBhcyB3
+aGF0IGFtIEkgbWlzc2luZy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0icDEiPjxz
+cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0icDEiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5SZWdhcmRzPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
+OjExLjBwdCI+LVZpamF5PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2JvZHk+DQo8
+L2h0bWw+DQo=
 
-cat /sys/kernel/debug/ncsi_protocol/ncsi_device_status;
-IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PS RU CR NQ
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-  2   eth2   ncsi0  000 000 1  1  1  1  1  1  1  1  1  0=20
-  2   eth2   ncsi1  000 001 1  0  1  1  1  1  1  1  1  0=20
-  2   eth2   ncsi2  001 000 1  1  1  1  1  1  1  1  1  0=20
-  2   eth2   ncsi3  001 001 1  0  1  1  1  1  1  1  1  0=20
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-M:  Multi-mode      P:  Package ID
-W:  Whitelist       C:  Channel ID
-PS: Poll Status
-RU: Running
-CR: Carrier OK
-NQ: Queue Stopped
-
-Thanks,
-Justin
-
-
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Date: Thu, 18 Oct 2018 14:59:11 +1100
-
-> This series extends the NCSI driver to configure multiple packages
-> and/or channels simultaneously. Since the RFC series this includes a few
-> extra changes to fix areas in the driver that either made this harder or
-> were roadblocks due to deviations from the NCSI specification.
->=20
-> Patches 1 & 2 fix two issues where the driver made assumptions about the
-> capabilities of the NCSI topology.
-> Patches 3 & 4 change some internal semantics slightly to make multi-mode
-> easier.
-> Patch 5 introduces a cleaner way of reconfiguring the NCSI configuration
-> and keeping track of channel states.
-> Patch 6 implements the main multi-package/multi-channel configuration,
-> configured via the Netlink interface.
->=20
-> Readers who have an interesting NCSI setup - especially multi-package
-> with HWA - please test! I think I've covered all permutations but I
-> don't have infinite hardware to test on.
+--_000_2F1B55CF6A564154A5C167F76EBB6184fbcom_--
