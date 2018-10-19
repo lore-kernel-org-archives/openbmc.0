@@ -1,72 +1,59 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::334; helo=mail-ot1-x334.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="JCa2LC7B"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="XP6d0pBV"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XOx8UtvM"; 
+ dkim-atps=neutral
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42bl514Bd2zF3L0
- for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 10:05:25 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 58B58226DF;
- Thu, 18 Oct 2018 19:05:19 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Thu, 18 Oct 2018 19:05:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=qReEp1SB7cdYYzkyrhBEtjS5cQ
- F4GJTebujWTxuRncA=; b=JCa2LC7BX3wwMhgy3ermK4atJ8UBvW00AVWfTv5Uz7
- E6FyWdsusA2/7U4QMmKh0nkCROMYCH69zkbprrc0rNFF8Ae8fnlB2Lk+WZCFU/Wc
- 5uCO8cD8oUMVb0pYeZEuOqHO3ubQy4KW8DeFFbDV0kQbCXA0vQPtiA7Fkh/GRJ7X
- dADIiZoyzi3eoghzuVx9G5qLKCOuzYuX6WXYot3G+hx15zCHkiIVXfLcnGj8e9lc
- enhI8Uq87/e9XlxnLDyiNvtCxXWwE/GgVm4VcfNgiYe0meIMak+jiNE0Ufo26130
- 3KtLntKVjSA0MMidMBc70IiXMxzFiEUFoab7IM4AmqdA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=qReEp1SB7cdYYzkyrhBEtjS5cQF4GJTebujWTxuRn
- cA=; b=XP6d0pBVsU4AVtBnlDeymuNjTXbykOEcgZ5Py2pGeSXMQwiovxfWB3rLg
- hn6evMyiqcCBQK+9ZviKKB0yhk78CK1u59m6DAAyLOEgIrhIO+XtCQC6nucg8ltJ
- k+NfG/nqcHY4Ez6Pby7JAQSN3p/Bz6M2nISSPpFjeFmm7M7pkqlxPOnmjAH0s9bt
- z6icUg0t0wbFYFXn1XKp2D57u+6d8oTJdVjndIymC72obyiglUZW/sNgd3aeeNJT
- 9IpygvCrq7DN5iT2IR7sm0WOCVf1q/PB+iW70MvXNRm7rAO4AUembE8Lkh/zIf95
- ZWjztn4U+E2xYxBDhhTrlPiONIDEw==
-X-ME-Sender: <xms:rhHJW3tJEQF5ywNKF1yrN44Ch2XeZ6LbzIWIhuaFIsTEQcGEdopIsg>
-X-ME-Proxy: <xmx:rhHJW45tDjwuG0DqaCii-vJARso8RPbcDLGB__JTeqKdgaR9Z_x9IA>
- <xmx:rhHJW_At2cW7npGkHmsB6Kpk_alsbZ_oleLis-cOyHBfIu3LnbSPvw>
- <xmx:rhHJW6YG0FK4rgBpxxREr5LzRwh_y_ezTtpbQttna5YiLhqT-vRm0Q>
- <xmx:rhHJWzJB4HDJcNXQ2rEPQ1HARKq_TS_N8n8N40UZisJPV4lfM6wDgA>
- <xmx:rhHJWzD9KdxdT-q3RybEcUG5RCFMz631eW5DUyTRWYTN_O-4SWQqww>
- <xmx:rxHJWwSceZ0OlL-WImt6Jlw7NJCnX5aJh9g2StnciXjzGhN4uutY7g>
-Received: from v4 (pa49-180-141-13.pa.nsw.optusnet.com.au [49.180.141.13])
- by mail.messagingengine.com (Postfix) with ESMTPA id 14EE8E462B;
- Thu, 18 Oct 2018 19:05:14 -0400 (EDT)
-Message-ID: <7f3744217190fe94bb1df879fa107593e911d7b5.camel@mendozajonas.com>
-Subject: Re: [PATCH net-next 0/6] net/ncsi: Allow enabling multiple packages
- & channels
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: David Miller <davem@davemloft.net>
-Cc: netdev@vger.kernel.org, Justin.Lee1@Dell.com,
- linux-kernel@vger.kernel.org,  openbmc@lists.ozlabs.org
-Date: Fri, 19 Oct 2018 10:05:09 +1100
-In-Reply-To: <20181018.155647.1045018243241594303.davem@davemloft.net>
-References: <20181018035917.19413-1-sam@mendozajonas.com>
- <20181018.155647.1045018243241594303.davem@davemloft.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42bqyX3zhkzDqNG
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 13:45:08 +1100 (AEDT)
+Received: by mail-ot1-x334.google.com with SMTP id u22so31800573ota.12
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 19:45:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=QPB+MNgssOqpjXqSbINg6lEJsV0ATVP34unXIerKDvM=;
+ b=XOx8UtvMA1R671dg163myR0/neG2ZFJatb3paZTk9n54FrE4Y2uwff5hT+qO9/xW3K
+ olFX8vEn+PHsl4qqB/A87Ht6Hc+X8/NrJ+vS30Os3guSuaT5Fy259XKR0V5eEE1dmbQI
+ u5BFT+AmmcNdPTNwmV+DTXJpp8HbeV/1zMCL+Kab9q4rnz5PNWVA9wTHShvVYDvJ0/ao
+ dqo/IFsVd85AOrL0cdl+Kf8XuLnCiIialO2cN4FyHfrXbSX6NGijAqOm2bXdtxhj6lz6
+ KxOxY5zznxmE7LdoTXJTtbMX8rM06B+T9O3e73wW2H1OY/Rh5ga37iJTMf8ixPW9y3Yj
+ UduA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=QPB+MNgssOqpjXqSbINg6lEJsV0ATVP34unXIerKDvM=;
+ b=OetsNDw02I5KEULPuoVonPp/17ZczlJ3GURcsIcsJMVZzj864L4S9vyRPBAqkHhkZb
+ td1tHsw9a6kElnoXLRRXF9wKI2Pr2mo1W647JuJarunkIj/fgR4WyQmcasnfRgPzuLZG
+ OAowhi0rXrc69gJ7uZO2JogTXqwUCM5KdlRgRpkmt+I/VSLHEc3kyctfXUGvo5gjzz3e
+ wYpfmdkNgbj/xSigPiEUdWN3UCZPpd5cHPCye32+9fbZIToqR39jhYX/Ow1aY01IovJQ
+ D/ZPEanz/yaAqlhF8kRnkYK4tUfjDgjhQELKWeajIGKYuV7mYaB5PZiZL34ygyDFqLL6
+ RkUw==
+X-Gm-Message-State: ABuFfohuFzHEpg1XPWXhDors28oWi9JPviAQQil65VY0P4GGA0usEADl
+ CLdgv7m6v1kUbbPFArv/u+SrTIhcbQGdt5G8As8=
+X-Google-Smtp-Source: ACcGV60rNHu4AXt9hHpGFy1yATEa7SzbKFFJiVxb8C40Yc4cHAGd4unPh+bWkyr0Fka0zvdeso2NuoXaizelH5V3J2c=
+X-Received: by 2002:a9d:11ab:: with SMTP id v40mr20585891otf.194.1539917105879; 
+ Thu, 18 Oct 2018 19:45:05 -0700 (PDT)
+MIME-Version: 1.0
+References: <0b3c953807d24f4ca154c766fe22eaea@yadro.com>
+In-Reply-To: <0b3c953807d24f4ca154c766fe22eaea@yadro.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 19 Oct 2018 10:44:48 +0800
+Message-ID: <CAARXrtmwhmQAOC88vSYgwQQRoXVzaN6iVnZA1X4_BdgrqcyeEA@mail.gmail.com>
+Subject: Re: Total server power consumpion
+To: a.soldatov@yadro.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
 Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,66 +65,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Oct 2018 23:05:29 -0000
+X-List-Received-Date: Fri, 19 Oct 2018 02:45:09 -0000
 
-On Thu, 2018-10-18 at 15:56 -0700, David Miller wrote:
-> From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-> Date: Thu, 18 Oct 2018 14:59:11 +1100
-> 
-> > This series extends the NCSI driver to configure multiple packages
-> > and/or channels simultaneously. Since the RFC series this includes a few
-> > extra changes to fix areas in the driver that either made this harder or
-> > were roadblocks due to deviations from the NCSI specification.
-> > 
-> > Patches 1 & 2 fix two issues where the driver made assumptions about the
-> > capabilities of the NCSI topology.
-> > Patches 3 & 4 change some internal semantics slightly to make multi-mode
-> > easier.
-> > Patch 5 introduces a cleaner way of reconfiguring the NCSI configuration
-> > and keeping track of channel states.
-> > Patch 6 implements the main multi-package/multi-channel configuration,
-> > configured via the Netlink interface.
-> > 
-> > Readers who have an interesting NCSI setup - especially multi-package
-> > with HWA - please test! I think I've covered all permutations but I
-> > don't have infinite hardware to test on.
-> 
-> This doesn't apply cleanly to net-next.  Does it depend upon changes
-> applied elsewhere?  You must always make that explicit.
+On Thu, Oct 18, 2018 at 4:58 PM Alexander Soldatov <a.soldatov@yadro.com> w=
+rote:
+>   We have faced with the problem of showing total server power consumptio=
+n in the webui. Total power consumption is calculated as sum of the PSUs in=
+put powers. Input power values are read from PSU using PMBus protocol and a=
+re published in the Linux sysfs.  We are using our proprietary PSU driver. =
+So I have an idea. Driver should create virtual hwmon device with total pow=
+er parameters. We could use standart phopshor-hwmon to publish total power =
+in DBus.
+>   But the phosphor-hwmon requires the physical device path (calloutPath).=
+ This parameter is transmitted using %p option of the udev. There is no pat=
+h for the virtual device. The phosphor-hwmon does not get calloutPath and e=
+xits with error.
 
-Ah, my mistake; I hadn't updated my net-next branch recently enough and
-missed Vijay's OEM command patch. Will rebase.
+phosphor-hwmon has two arguments, -o (dev-path) or -p (path). You could use=
+ -p
+to specify the hwmon path directly.
 
-> 
-> Also, please explain this locking in ncsi_reset_dev():
-> 
-> +       NCSI_FOR_EACH_PACKAGE(ndp, np) {
-> +               NCSI_FOR_EACH_CHANNEL(np, nc) {
-> +                       spin_lock_irqsave(&nc->lock, flags);
-> +                       enabled = nc->monitor.enabled;
-> +                       state = nc->state;
-> +                       spin_unlock_irqrestore(&nc->lock, flags);
-> +
-> +                       if (enabled)
-> +                               ncsi_stop_channel_monitor(nc);
-> +                       if (state == NCSI_CHANNEL_ACTIVE) {
-> +                               active = nc;
-> +                               break;
-> +                       }
-> 
-> Is that really protecting anything?
-> 
-> Right after you drop np->lock those two values can change, the state
-> of the 'nc' can change such that it isn't NCSI_CHANNEL_ACTIVE anymore
-> etc.
-> 
-> At best this locking makes sure thatn enabled and state are consistent
-> with respect to eachother, only.  It doesn't guarantee anything about
-> the stability of the state of the object at all, and it can change
-> right from under you.
+>   There are some questions:
+>   1. How is this problem solved in other projects (the Witherspoon etc.)?
+Witherspoon's total power is reported by occ, which is handled by occ-hwmon
+driver.
 
-And you've caught this correctly, I'll fix this up in the rebase to
-protect actually checking the channel/monitor state.
+>   2. The Witherspoon server has 2,2 kW PSUs. The maximum value of power i=
+n linux sysfs on the 32 bit system is 2147483647 =C2=B5W. How the correct p=
+ower view is solved?
+The code use unit64_t for Value property, so it is ok.
 
-Thanks,
-Sam
+>   3. How does the phosphor-hwmon use calloutPath besides logs info output=
+?
+>   4. Does it make sense to give the phosphor-hwmon an ability to work wit=
+h virtual devices?
+It could work with -p argument.
