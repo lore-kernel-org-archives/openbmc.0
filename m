@@ -1,56 +1,85 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::334; helo=mail-ot1-x334.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VhpCXUwD"; 
- dkim-atps=neutral
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42br370gW5zF3JZ
- for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 13:49:06 +1100 (AEDT)
-Received: by mail-ot1-x334.google.com with SMTP id u22so31806911ota.12
- for <openbmc@lists.ozlabs.org>; Thu, 18 Oct 2018 19:49:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Tx1nFZ8quVxv0fkkSkgalAr/b2HJkWWf2B//GO6qrWQ=;
- b=VhpCXUwDuk6psWi0yeI3YV1kGK6Z+zdnVZVrqnXOz5lXzMAhG7App/ei0XC3AjuaZo
- +kKFafZhLbaBnChMxEF1GOVlSODftGPrxMW44eiSE2BrZL/3TLYAcd1/1Gpa2mcEi4d0
- 0yTeCS0PyW1YJcPFnK+nChqPECb6Q895ztV2EGcCGYEuckjq330DoP9jjdGuQuBsf9lO
- jk7Zup3s9wnj7wowZ68wpMc2b4DE0T3QVIz8HUdXj+o+AHMqYJJXqJZWZ3sZj6UgsZuG
- 1UKVMHd4NrFwrOXuiPTEZSLVRcda72ERPv+fotDXP0xeYMNmk+ihtwQg/TGIBrcU4deZ
- Q2Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Tx1nFZ8quVxv0fkkSkgalAr/b2HJkWWf2B//GO6qrWQ=;
- b=bAAcJt8ZMNZMnmMNNL6moofB3NvFE6Lo52Q1h9jaipPX3TbtOo4gMvIOlpmXuMdne9
- Syl6j/70Dh5vYKZxFgrdRJG6/gnNcCQnaMWu8Umb2e0Iz374GmiHR/mF20vdkFbKfyJs
- a0frr5hHSjCYRKmI9RyxcWcxklqCWkr9qF0L4J+pvF/kXgUFAifjK9+SwnDd8QuPq0sk
- iMNKO14065gIMdryJgp2Ac/5xX24DdJa9DnSSihI2ADGq8I+pMfaWgXST+qqBmROxV/M
- gjselLnKmKl2N3JQlDk63LW7m91tMGqlEdUYHzG217SB7VvlawzCJO0n+PHjdTOInZDB
- 8UTg==
-X-Gm-Message-State: ABuFfojoPl8sYV+jn9khlEpTUIB5sEHFvqCISvBKCXUFCRYxAHfTmsei
- CUKzL9fjB+g1hcSg6aPtoNUP3RO3SlmmNgI60Cc=
-X-Google-Smtp-Source: ACcGV6094n9UJwjOsAwAXQ/WVFpczcgJB0QSrDF23eeiLq6cDi1YWqe/FV7aUz6q21AbxR2X6TTlC2mYyF59cJv5x1g=
-X-Received: by 2002:a9d:1ea5:: with SMTP id n34mr20362466otn.160.1539917345224; 
- Thu, 18 Oct 2018 19:49:05 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42cBJh6gL8zF3Zw
+ for <openbmc@lists.ozlabs.org>; Sat, 20 Oct 2018 03:32:04 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9JGTWVs095791
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 12:32:02 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2n7g0xrghn-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Oct 2018 12:32:01 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 19 Oct 2018 10:32:01 -0600
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 19 Oct 2018 10:31:56 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w9JGVtWL27721772
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 19 Oct 2018 09:31:55 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1AF65136059;
+ Fri, 19 Oct 2018 16:31:55 +0000 (GMT)
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1EE59136055;
+ Fri, 19 Oct 2018 16:31:54 +0000 (GMT)
+Received: from [9.41.179.222] (unknown [9.41.179.222])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Fri, 19 Oct 2018 16:31:53 +0000 (GMT)
+Subject: Re: [PATCH v4 2/2] media: platform: Add Aspeed Video Engine driver
+To: Hans Verkuil <hverkuil@xs4all.nl>, Eddie James <eajames@linux.ibm.com>,
+ linux-kernel@vger.kernel.org
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
+ openbmc@lists.ozlabs.org, robh+dt@kernel.org, mchehab@kernel.org,
+ linux-media@vger.kernel.org
+References: <1538769466-14860-1-git-send-email-eajames@linux.ibm.com>
+ <1538769466-14860-3-git-send-email-eajames@linux.ibm.com>
+ <4a02833e-67a6-ec4f-d2f6-e0368412eca8@xs4all.nl>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Fri, 19 Oct 2018 11:31:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAO=notzFEfBpKCdQ30WO6v9AZ1xh+OLg0jpsEiuGF17x2gFKzg@mail.gmail.com>
-In-Reply-To: <CAO=notzFEfBpKCdQ30WO6v9AZ1xh+OLg0jpsEiuGF17x2gFKzg@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 19 Oct 2018 10:48:47 +0800
-Message-ID: <CAARXrtmt6PZkbkXEPNCPMikn9XBhZdOpgTeoupT1QCD9RfKOyA@mail.gmail.com>
-Subject: Re: New Checker in the CI
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <4a02833e-67a6-ec4f-d2f6-e0368412eca8@xs4all.nl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18101916-0020-0000-0000-00000E7C8228
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009901; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01105004; UDB=6.00572094; IPR=6.00885054; 
+ MB=3.00023825; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-19 16:31:59
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18101916-0021-0000-0000-0000636EB12D
+Message-Id: <8f204b56-71a9-7df8-ffb2-46b8a2935065@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-19_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=2 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810190146
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,16 +91,350 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Oct 2018 02:49:07 -0000
+X-List-Received-Date: Fri, 19 Oct 2018 16:32:05 -0000
 
-On Fri, Oct 19, 2018 at 4:30 AM Patrick Venture <venture@google.com> wrote:
+
+
+On 10/17/2018 05:41 AM, Hans Verkuil wrote:
+> On 10/05/2018 09:57 PM, Eddie James wrote:
+>> The Video Engine (VE) embedded in the Aspeed AST2400 and AST2500 SOCs
+>> can capture and compress video data from digital or analog sources. With
+>> the Aspeed chip acting a service processor, the Video Engine can capture
+>> the host processor graphics output.
+>>
+>> Add a V4L2 driver to capture video data and compress it to JPEG images.
+>> Make the video frames available through the V4L2 streaming interface.
+>>
+>> Signed-off-by: Eddie James <eajames@linux.ibm.com>
+>> ---
+>>   MAINTAINERS                           |    8 +
+>>   drivers/media/platform/Kconfig        |    8 +
+>>   drivers/media/platform/Makefile       |    1 +
+>>   drivers/media/platform/aspeed-video.c | 1674 +++++++++++++++++++++++++++++++++
+>>   4 files changed, 1691 insertions(+)
+>>   create mode 100644 drivers/media/platform/aspeed-video.c
+>>
+> <snip>
 >
-> Now a tool called cppcheck is run against your code during presubmit.
-> Its results are not factored into your patchset receiving a +/-1.
-> However, I encourage you to take a look at the presubmit log.  It'll
-> have some results that are neat, like, "you can reduce the scope of
-> this variable" or you can improve performance my making this a
-> reference, etc...
+>> +static void aspeed_video_check_polarity(struct aspeed_video *video)
+>> +{
+>> +	int i;
+>> +	int hsync_counter = 0;
+>> +	int vsync_counter = 0;
+>> +	u32 sts;
+>> +
+>> +	for (i = 0; i < NUM_POLARITY_CHECKS; ++i) {
+>> +		sts = aspeed_video_read(video, VE_MODE_DETECT_STATUS);
+>> +		if (sts & VE_MODE_DETECT_STATUS_VSYNC)
+>> +			vsync_counter--;
+>> +		else
+>> +			vsync_counter++;
+>> +
+>> +		if (sts & VE_MODE_DETECT_STATUS_HSYNC)
+>> +			hsync_counter--;
+>> +		else
+>> +			hsync_counter++;
+>> +	}
+>> +
+>> +	if (hsync_counter < 0 || vsync_counter < 0) {
+>> +		u32 ctrl;
+>> +
+>> +		if (hsync_counter < 0)
+>> +			ctrl = VE_CTRL_HSYNC_POL;
+>> +		else
+>> +			video->timings.polarities |= V4L2_DV_HSYNC_POS_POL;
+>> +
+>> +		if (vsync_counter < 0)
+>> +			ctrl = VE_CTRL_VSYNC_POL;
+>> +		else
+>> +			video->timings.polarities |= V4L2_DV_VSYNC_POS_POL;
+>> +
+>> +		aspeed_video_update(video, VE_CTRL, 0, ctrl);
+>> +	}
+>> +}
+>> +
+>> +static bool aspeed_video_alloc_buf(struct aspeed_video *video,
+>> +				   struct aspeed_video_addr *addr,
+>> +				   unsigned int size)
+>> +{
+>> +	addr->virt = dma_alloc_coherent(video->dev, size, &addr->dma,
+>> +					GFP_KERNEL);
+>> +	if (!addr->virt)
+>> +		return false;
+>> +
+>> +	addr->size = size;
+>> +	return true;
+>> +}
+>> +
+>> +static void aspeed_video_free_buf(struct aspeed_video *video,
+>> +				  struct aspeed_video_addr *addr)
+>> +{
+>> +	dma_free_coherent(video->dev, addr->size, addr->virt, addr->dma);
+>> +	addr->size = 0;
+>> +	addr->dma = 0ULL;
+>> +	addr->virt = NULL;
+>> +}
+>> +
+>> +/*
+>> + * Get the minimum HW-supported compression buffer size for the frame size.
+>> + * Assume worst-case JPEG compression size is 1/8 raw size. This should be
+>> + * plenty even for maximum quality; any worse and the engine will simply return
+>> + * incomplete JPEGs.
+>> + */
+>> +static void aspeed_video_calc_compressed_size(struct aspeed_video *video)
+>> +{
+>> +	int i, j;
+>> +	u32 compression_buffer_size_reg = 0;
+>> +	unsigned int size;
+>> +	const unsigned int num_compression_packets = 4;
+>> +	const unsigned int compression_packet_size = 1024;
+>> +	const unsigned int max_compressed_size =
+>> +		video->width * video->height / 2;	/* 4 Bpp / 8 */
+>> +
+>> +	video->max_compressed_size = UINT_MAX;
+>> +
+>> +	for (i = 0; i < 6; ++i) {
+>> +		for (j = 0; j < 8; ++j) {
+>> +			size = (num_compression_packets << i) *
+>> +				(compression_packet_size << j);
+>> +			if (size < max_compressed_size)
+>> +				continue;
+>> +
+>> +			if (size < video->max_compressed_size) {
+>> +				compression_buffer_size_reg = (i << 3) | j;
+>> +				video->max_compressed_size = size;
+>> +			}
+>> +		}
+>> +	}
+>> +
+>> +	aspeed_video_write(video, VE_STREAM_BUF_SIZE,
+>> +			   compression_buffer_size_reg);
+>> +
+>> +	dev_dbg(video->dev, "max compressed size: %x\n",
+>> +		video->max_compressed_size);
+>> +}
+>> +
+>> +#define res_check(v) test_and_clear_bit(VIDEO_MODE_DETECT_DONE, &(v)->flags)
+>> +
+>> +static int aspeed_video_get_resolution(struct aspeed_video *video)
+>> +{
+>> +	bool invalid_resolution = true;
+>> +	int rc;
+>> +	int tries = 0;
+>> +	unsigned int bottom;
+>> +	unsigned int left;
+>> +	unsigned int right;
+>> +	unsigned int size;
+>> +	unsigned int top;
+>> +	u32 mds;
+>> +	u32 src_lr_edge;
+>> +	u32 src_tb_edge;
+>> +	u32 sync;
+>> +	struct aspeed_video_addr src;
+>> +
+>> +	if (video->srcs[1].size)
+>> +		aspeed_video_free_buf(video, &video->srcs[1]);
+>> +
+>> +	if (video->srcs[0].size >= VE_MAX_SRC_BUFFER_SIZE) {
+>> +		src = video->srcs[0];
+>> +	} else {
+>> +		if (video->srcs[0].size)
+>> +			aspeed_video_free_buf(video, &video->srcs[0]);
+>> +
+>> +		if (!aspeed_video_alloc_buf(video, &src,
+>> +					    VE_MAX_SRC_BUFFER_SIZE))
+>> +			goto err_mem;
+>> +	}
+>> +
+>> +	aspeed_video_write(video, VE_SRC0_ADDR, src.dma);
+>> +
+>> +	video->width = 0;
+>> +	video->height = 0;
+>> +
+>> +	do {
+>> +		if (tries) {
+>> +			set_current_state(TASK_INTERRUPTIBLE);
+>> +			if (schedule_timeout(INVALID_RESOLUTION_DELAY))
+>> +				return -EINTR;
+>> +		}
+>> +
+>> +		aspeed_video_start_mode_detect(video);
+>> +
+>> +		rc = wait_event_interruptible_timeout(video->wait,
+>> +						      res_check(video),
+>> +						      MODE_DETECT_TIMEOUT);
+>> +		if (!rc) {
+>> +			dev_err(video->dev, "timed out on 1st mode detect\n");
+>> +			aspeed_video_disable_mode_detect(video);
+>> +			return -ETIMEDOUT;
+>> +		}
+>> +
+>> +		/* Disable mode detect in order to re-trigger */
+>> +		aspeed_video_update(video, VE_SEQ_CTRL,
+>> +				    VE_SEQ_CTRL_TRIG_MODE_DET, 0);
+>> +
+>> +		aspeed_video_check_polarity(video);
+>> +
+>> +		aspeed_video_start_mode_detect(video);
+>> +
+>> +		rc = wait_event_interruptible_timeout(video->wait,
+>> +						      res_check(video),
+>> +						      MODE_DETECT_TIMEOUT);
+>> +		if (!rc) {
+>> +			dev_err(video->dev, "timed out on 2nd mode detect\n");
+>> +			aspeed_video_disable_mode_detect(video);
+>> +			return -ETIMEDOUT;
+>> +		}
+>> +
+>> +		src_lr_edge = aspeed_video_read(video, VE_SRC_LR_EDGE_DET);
+>> +		src_tb_edge = aspeed_video_read(video, VE_SRC_TB_EDGE_DET);
+>> +		mds = aspeed_video_read(video, VE_MODE_DETECT_STATUS);
+>> +		sync = aspeed_video_read(video, VE_SYNC_STATUS);
+>> +
+>> +		bottom = (src_tb_edge & VE_SRC_TB_EDGE_DET_BOT) >>
+>> +			VE_SRC_TB_EDGE_DET_BOT_SHF;
+>> +		top = src_tb_edge & VE_SRC_TB_EDGE_DET_TOP;
+>> +		video->timings.vfrontporch = top;
+>> +		video->timings.vbackporch = ((mds & VE_MODE_DETECT_V_LINES) >>
+>> +			VE_MODE_DETECT_V_LINES_SHF) - bottom;
+>> +		video->timings.vsync = (sync & VE_SYNC_STATUS_VSYNC) >>
+>> +			VE_SYNC_STATUS_VSYNC_SHF;
+>> +		if (top > bottom)
+>> +			continue;
+>> +
+>> +		right = (src_lr_edge & VE_SRC_LR_EDGE_DET_RT) >>
+>> +			VE_SRC_LR_EDGE_DET_RT_SHF;
+>> +		left = src_lr_edge & VE_SRC_LR_EDGE_DET_LEFT;
+>> +		video->timings.hfrontporch = left;
+>> +		video->timings.hbackporch = (mds & VE_MODE_DETECT_H_PIXELS) -
+>> +			right;
+>> +		video->timings.hsync = sync & VE_SYNC_STATUS_HSYNC;
+> It's a bit odd that timings.width/height isn't set here.
+>
+>> +		if (left > right)
+>> +			continue;
+>> +
+>> +		invalid_resolution = false;
+>> +	} while (invalid_resolution && (tries++ < INVALID_RESOLUTION_RETRIES));
+>> +
+>> +	if (invalid_resolution) {
+>> +		dev_err(video->dev, "invalid resolution detected\n");
+>> +		return -ERANGE;
+>> +	}
+> So far, so good. You now have detected the new resolution, but...
+>
+>> +
+>> +	video->height = (bottom - top) + 1;
+>> +	video->width = (right - left) + 1;
+>> +	size = video->height * video->width;
+> here and below you appear to actually switch the capture timings to the new
+> resolution as well.
 
-Good static code analysis tool is always great!
-Reply this mail only to show my +1 :)
+Hmm. I'm not sure I understand, the video->height and width represent 
+the actual detected resolution. When a resolution change occurs, the 
+entire engine is switched off and all buffers are set to error state 
+(see the irq handler). Then (after a delay to wait for VGA stability) 
+the engine is switched back on and the new resolution detected.
+
+Regardless of how I keep track of the resolution, the video engine will 
+return frames of the new size. The driver cannot control the actual 
+resolution.
+
+If userspace is determined to ignore the source change event, probably 
+there will be bad memory access regardless of how everything is set up I 
+would think.
+
+>
+> That should only happen when s_dv_timings is called.
+>
+> It is always very dangerous to automatically switch resolution since a new
+> resolution might mean larger buffers, and userspace has to prepare for that.
+>
+> The normal sequence is:
+>
+> 1) the driver detects a change in resolution (or the video signal disappears
+> completely). It will send V4L2_EVENT_SOURCE_CHANGE to let userspace know.
+>
+> 2) Userspace stops streaming, frees all buffers, calls QUERY_DV_TIMINGS and,
+>     if valid, follows with S_DV_TIMINGS.
+>
+> 3) Userspace calls REQBUFS to allocate the new buffers sized for the new timings
+>     and starts streaming again.
+>
+> That way everything remains under control of the application.
+
+Yep, that's exactly how it works now, its just that the driver stops 
+streaming internally before detecting new resolution.
+
+Thanks,
+Eddie
+
+>
+>> +
+>> +	/* Don't use direct mode below 1024 x 768 (irqs don't fire) */
+>> +	if (size < DIRECT_FETCH_THRESHOLD) {
+>> +		aspeed_video_write(video, VE_TGS_0,
+>> +				   FIELD_PREP(VE_TGS_FIRST, left - 1) |
+>> +				   FIELD_PREP(VE_TGS_LAST, right));
+>> +		aspeed_video_write(video, VE_TGS_1,
+>> +				   FIELD_PREP(VE_TGS_FIRST, top) |
+>> +				   FIELD_PREP(VE_TGS_LAST, bottom + 1));
+>> +		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_INT_DE);
+>> +	} else {
+>> +		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_DIRECT_FETCH);
+>> +	}
+>> +
+>> +	aspeed_video_write(video, VE_CAP_WINDOW,
+>> +			   video->width << 16 | video->height);
+>> +	aspeed_video_write(video, VE_COMP_WINDOW,
+>> +			   video->width << 16 | video->height);
+>> +	aspeed_video_write(video, VE_SRC_SCANLINE_OFFSET, video->width * 4);
+>> +
+>> +	aspeed_video_update(video, VE_INTERRUPT_CTRL, 0,
+>> +			    VE_INTERRUPT_MODE_DETECT_WD);
+>> +	aspeed_video_update(video, VE_SEQ_CTRL, 0,
+>> +			    VE_SEQ_CTRL_AUTO_COMP | VE_SEQ_CTRL_EN_WATCHDOG);
+>> +
+>> +	dev_dbg(video->dev, "got resolution[%dx%d]\n", video->width,
+>> +		video->height);
+>> +
+>> +	size *= 4;
+>> +	if (size == src.size / 2) {
+>> +		aspeed_video_write(video, VE_SRC1_ADDR, src.dma + size);
+>> +		video->srcs[0] = src;
+>> +	} else if (size == src.size) {
+>> +		video->srcs[0] = src;
+>> +
+>> +		if (!aspeed_video_alloc_buf(video, &video->srcs[1], size))
+>> +			goto err_mem;
+>> +
+>> +		aspeed_video_write(video, VE_SRC1_ADDR, video->srcs[1].dma);
+>> +	} else {
+>> +		aspeed_video_free_buf(video, &src);
+>> +
+>> +		if (!aspeed_video_alloc_buf(video, &video->srcs[0], size))
+>> +			goto err_mem;
+>> +
+>> +		if (!aspeed_video_alloc_buf(video, &video->srcs[1], size))
+>> +			goto err_mem;
+>> +
+>> +		aspeed_video_write(video, VE_SRC0_ADDR, video->srcs[0].dma);
+>> +		aspeed_video_write(video, VE_SRC1_ADDR, video->srcs[1].dma);
+>> +	}
+>> +
+>> +	aspeed_video_calc_compressed_size(video);
+>> +
+>> +	return 0;
+>> +
+>> +err_mem:
+>> +	dev_err(video->dev, "failed to allocate source buffers\n");
+>> +
+>> +	if (video->srcs[0].size)
+>> +		aspeed_video_free_buf(video, &video->srcs[0]);
+>> +
+>> +	return -ENOMEM;
+>> +}
+> Regards,
+>
+> 	Hans
+>
