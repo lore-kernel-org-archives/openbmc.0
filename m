@@ -1,39 +1,70 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=68.114.190.27; helo=mtaout002-public.msg.strl.va.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-Received: from mtaout002-public.msg.strl.va.charter.net
- (mtaout002-public.msg.strl.va.charter.net [68.114.190.27])
- by lists.ozlabs.org (Postfix) with ESMTP id 42fJ8t28KCzDrq6
- for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 14:02:36 +1100 (AEDT)
-Received: from impout006 ([68.114.189.21]) by mtaout002.msg.strl.va.charter.net
- (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
- id <20181023030232.TGMY7360.mtaout002.msg.strl.va.charter.net@impout006>
- for <openbmc@lists.ozlabs.org>; Mon, 22 Oct 2018 22:02:32 -0500
-Received: from [192.168.2.6] ([97.86.254.207]) by impout006 with charter.net
- id qr2X1y0014VFKzV01r2YF1; Mon, 22 Oct 2018 22:02:32 -0500
-X-Authority-Analysis: v=2.2 cv=HdZkdmM8 c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=IkcTkHD0fZMA:10 a=NEAV23lmAAAA:8 a=64PtjVyTAAAA:8 a=ingqq-7WHNl5QUGhAZEA:9
- a=QEXdDO2ut3YA:10 a=RJyAB-wVv_-pkjQ8D6MA:22
-X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
-Subject: OpenBMC Security Advisory - An ipmid buffer overflow can lead to
- privilege escalation and denial of service
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42fMGJ0Q4zzDrpw
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 16:22:31 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9N5JEhE082858
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 01:22:29 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.108])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2n9ujw3qfu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 01:22:29 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Tue, 23 Oct 2018 05:22:28 -0000
+Received: from us1b3-smtp02.a3dr.sjc01.isc4sb.com (10.122.7.175)
+ by smtp.notes.na.collabserv.com (10.122.47.46) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 23 Oct 2018 05:22:26 -0000
+Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
+ by us1b3-smtp02.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2018102305222601-87179 ;
+ Tue, 23 Oct 2018 05:22:26 +0000 
+In-Reply-To: 
+Subject: REST  / curl command to know which user currently logged in
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
 To: openbmc@lists.ozlabs.org
-References: <mailman.20189.1540247080.866.openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Message-ID: <2230834f-fd7d-61b6-5c58-05cd15fab1e2@charter.net>
-Date: Mon, 22 Oct 2018 22:02:28 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+Date: Tue, 23 Oct 2018 05:22:25 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-In-Reply-To: <mailman.20189.1540247080.866.openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 16616-1491 | IBM Domino Build
+ SCN1812108_20180501T0841_FP7 September 27, 2018 at 13:56
+X-KeepSent: 515C5E8D:9972A4A3-0025832F:001D45F2;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 42727
+X-TNEFEvaluated: 1
+x-cbid: 18102305-7845-0000-0000-00000565832B
+X-IBM-SpamModules-Scores: BY=0.000169; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.413459; ST=0; TS=0; UL=0; ISC=; MB=0.000018
+X-IBM-SpamModules-Versions: BY=3.00009920; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01106663; UDB=6.00573109; IPR=6.00886747; 
+ BA=6.00006127; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00023865; XFM=3.00000015;
+ UTC=2018-10-23 05:22:27
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-10-23 00:20:40 - 6.00009127
+x-cbparentid: 18102305-7846-0000-0000-00004821AA2A
+Message-Id: <OF515C5E8D.9972A4A3-ON0025832F.001D45F2-0025832F.001D84D6@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-23_02:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,26 +76,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Oct 2018 03:02:39 -0000
+X-List-Received-Date: Tue, 23 Oct 2018 05:22:32 -0000
 
-I posted the following in https://github.com/openbmc/openbmc/issues/3415:
-
->   Buffer overflows were discovered in OpenBMC's IPMI Host implementation which can lead to memory corruption which can then lead to privilege escalation (running arbitrary commands as the root user), and to denial of service (by crashing the ipmid daemon).
->
-> The CVSS score for these vulnerabilities is "8.2 High", with temporal score "6.9 Medium", with the following notes:
-> https://www.first.org/cvss/calculator/3.0#CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H/E:U/RC:U
->
->      AV: the attack is launched from the host connection
->      AC: no special circumstances are needed
->      PR: the attacker must already own the host
->      UI: n/a
->      S: changed, because ipmid can run commands as root
->      C/I/A: the BMC is totally compromised
->      E: unproven
->      RC: unknown, because there is no known exploit
->
-> The fixes are in the https://github.com/openbmc/phosphor-host-ipmid source code repository as three git commits ending with git commit ID edb8bb069b5a5406dd06a6ef38251372ea988f5c.
->
-> For more information, see OpenBMC contact information at https://github.com/openbmc/openbmc.
->
-> Credit for finding these problems: Jenna Kallaher, Google Security Team
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Hi All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Is there a way to find out using REST / curl command to k=
+now which user currently logged in.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >If multiple login happens (say 2 user logged in root and =
+another LDAP user),</div>
+<div dir=3D"ltr" >I am seeing the last login is the one taking the control.=
+</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >And also one logout it logs out both the users.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >It will be helpful if we have command to find out which u=
+ser currently logged in via curl / REST.</div>
+<div dir=3D"ltr" >If anyone knows / other method to find out, pls let know.=
+</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Thank you in advance folks.</div></div><BR>
