@@ -1,70 +1,67 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="lzp14NQ/"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="R+MSuVgn"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42fMGJ0Q4zzDrpw
- for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 16:22:31 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- w9N5JEhE082858
- for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 01:22:29 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.108])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2n9ujw3qfu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 01:22:29 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Tue, 23 Oct 2018 05:22:28 -0000
-Received: from us1b3-smtp02.a3dr.sjc01.isc4sb.com (10.122.7.175)
- by smtp.notes.na.collabserv.com (10.122.47.46) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 23 Oct 2018 05:22:26 -0000
-Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
- by us1b3-smtp02.a3dr.sjc01.isc4sb.com
- with ESMTP id 2018102305222601-87179 ;
- Tue, 23 Oct 2018 05:22:26 +0000 
-In-Reply-To: 
-Subject: REST  / curl command to know which user currently logged in
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 23 Oct 2018 05:22:25 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42fnDb2X67zF37S
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Oct 2018 08:52:30 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6B81921D19;
+ Tue, 23 Oct 2018 17:52:25 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Tue, 23 Oct 2018 17:52:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding; s=fm1; bh=P5EpFRJSM5stO
+ UdO6srmDnCXnVhw6GpIO0051el5Efc=; b=lzp14NQ/OwwCOvgr9G8pJVYGUdwTY
+ XL2j0pzaaEnVCp7OPZoeBP2KaBeT8EA7NTvuZGhnsNesRHTESm6Nsmz7Gh7W6TQB
+ HpveoUqmnwtqltZm8MK9l+dS5fQMxth3HeFusiL3EA661RVAPQXEDcuDNEkXQBHB
+ CgLdf1pRkM6NPG0d1b4rH2TbdtF18OFCEkzOPm0oJX5wMDmtgMPVlzFxjllWOTEY
+ VGqTE3K0t05hyQp7/jNuuUMiOPCxPby7VhrsbNofv3gAoi89zNESNCIFtwd5K+fc
+ b4fxDADUa7oMWSNCM3NdDT8WNKN6A3k9DabOXtJMwRhhDCPVGVrEs45Kg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=P5EpFRJSM5stOUdO6
+ srmDnCXnVhw6GpIO0051el5Efc=; b=R+MSuVgnKT3j1BYA51a6AQdlENtj3GszT
+ zl+1dDHKWXr/PRbHjxYSO3wF2/LmPQU4/JU70of0K86UTq69NH1RTWTuI1OFqLqv
+ BelyNY7MW6A8214W1vtTjheUNQohrJEuipoI+2nXXQEaPAPx/nAxBkoG0pRLe1vd
+ hHEIxAXFYZhh9ajxDYVpWwoX93l0Rks2Q50zfcy710NcDNN/N/2uzrPmZPs/KMxN
+ 0cCJa5Ci4Fo45LxUKNOEbsu7G/iSpD91vvwXiJxRfVHM2+nK54IOIaUqlCrz3AgV
+ n68EY7dVtH6qZBWh5KqWgAh+7lakXVrlKDQQw2iGwaFvcmmSIeH+w==
+X-ME-Sender: <xms:GJjPW5b1Qw7rsrpNrUACaavuS18GUhcktFKIFkAsSFBUTKotuzoIwg>
+X-ME-Proxy: <xmx:GJjPW9EPbt3mGmYiYTm1LOVNKbrk-psmW8VlvZpb0HHGk3fPhxuEjQ>
+ <xmx:GJjPWzkDmJhI66YlVwyr_ySfXW8YpNELMBqKXNltU407LhdCy6hzuA>
+ <xmx:GJjPW0dQyj8r_I235BBRoYf6INUFSAYd02ETENX64OOs4eXRgSDVoA>
+ <xmx:GJjPWxCK8E_zjRwqlV7TOwgcsL3pblyQ7J39sR6iRHCFaa1XwbBl8Q>
+ <xmx:GJjPWzz1XB4xcV37WZvCA8QJT63J_9mgiP2xjEHV0Bn0fdeyPYx5vw>
+ <xmx:GZjPW300wFeM3H6cdyx8cTT7bHTNIKv7u9d4Nnv_S-MU3okQrADuvg>
+Received: from v4.ibm.com (unknown [158.140.225.28])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 60710102ED;
+ Tue, 23 Oct 2018 17:52:21 -0400 (EDT)
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: netdev@vger.kernel.org
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ "David S . Miller" <davem@davemloft.net>, Justin.Lee1@Dell.com,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: [PATCH net-next v2 0/6] net/ncsi: Allow enabling multiple packages &
+ channels
+Date: Wed, 24 Oct 2018 10:51:55 +1300
+Message-Id: <20181023215201.27315-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.19.1
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16616-1491 | IBM Domino Build
- SCN1812108_20180501T0841_FP7 September 27, 2018 at 13:56
-X-KeepSent: 515C5E8D:9972A4A3-0025832F:001D45F2;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 42727
-X-TNEFEvaluated: 1
-x-cbid: 18102305-7845-0000-0000-00000565832B
-X-IBM-SpamModules-Scores: BY=0.000169; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.413459; ST=0; TS=0; UL=0; ISC=; MB=0.000018
-X-IBM-SpamModules-Versions: BY=3.00009920; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000268; SDB=6.01106663; UDB=6.00573109; IPR=6.00886747; 
- BA=6.00006127; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00023865; XFM=3.00000015;
- UTC=2018-10-23 05:22:27
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-10-23 00:20:40 - 6.00009127
-x-cbparentid: 18102305-7846-0000-0000-00004821AA2A
-Message-Id: <OF515C5E8D.9972A4A3-ON0025832F.001D45F2-0025832F.001D84D6@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-10-23_02:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,24 +73,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Oct 2018 05:22:32 -0000
+X-List-Received-Date: Tue, 23 Oct 2018 21:52:35 -0000
+X-List-Received-Date: Tue, 23 Oct 2018 21:52:35 -0000
+X-List-Received-Date: Tue, 23 Oct 2018 21:52:35 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Hi All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Is there a way to find out using REST / curl command to k=
-now which user currently logged in.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >If multiple login happens (say 2 user logged in root and =
-another LDAP user),</div>
-<div dir=3D"ltr" >I am seeing the last login is the one taking the control.=
-</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >And also one logout it logs out both the users.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >It will be helpful if we have command to find out which u=
-ser currently logged in via curl / REST.</div>
-<div dir=3D"ltr" >If anyone knows / other method to find out, pls let know.=
-</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Thank you in advance folks.</div></div><BR>
+This series extends the NCSI driver to configure multiple packages
+and/or channels simultaneously. Since the RFC series this includes a few
+extra changes to fix areas in the driver that either made this harder or
+were roadblocks due to deviations from the NCSI specification.
+
+Patches 1 & 2 fix two issues where the driver made assumptions about the
+capabilities of the NCSI topology.
+Patches 3 & 4 change some internal semantics slightly to make multi-mode
+easier.
+Patch 5 introduces a cleaner way of reconfiguring the NCSI configuration
+and keeping track of channel states.
+Patch 6 implements the main multi-package/multi-channel configuration,
+configured via the Netlink interface.
+
+Readers who have an interesting NCSI setup - especially multi-package
+with HWA - please test! I think I've covered all permutations but I
+don't have infinite hardware to test on.
+
+Changes in v2:
+- Updated use of the channel lock in ncsi_reset_dev(), making the
+channel invisible and leaving the monitor check to
+ncsi_stop_channel_monitor().
+- Fixed ncsi_channel_is_tx() to consider the state of channels in other
+packages.
+
+
+Samuel Mendoza-Jonas (6):
+  net/ncsi: Don't enable all channels when HWA available
+  net/ncsi: Probe single packages to avoid conflict
+  net/ncsi: Don't deselect package in suspend if active
+  net/ncsi: Don't mark configured channels inactive
+  net/ncsi: Reset channel state in ncsi_start_dev()
+  net/ncsi: Configure multi-package, multi-channel modes with failover
+
+ include/uapi/linux/ncsi.h |  15 ++
+ net/ncsi/internal.h       |  19 +-
+ net/ncsi/ncsi-aen.c       |  63 ++++--
+ net/ncsi/ncsi-manage.c    | 453 +++++++++++++++++++++++++-------------
+ net/ncsi/ncsi-netlink.c   | 229 ++++++++++++++++---
+ net/ncsi/ncsi-rsp.c       |   2 +-
+ 6 files changed, 578 insertions(+), 203 deletions(-)
+
+-- 
+2.19.1
