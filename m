@@ -1,73 +1,39 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <joseph-reynolds@charter.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="l6pK1ZCL"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="yBbHd3K6"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42f9zy73svzDrcP
- for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 09:24:30 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id BA28021E59;
- Mon, 22 Oct 2018 18:24:27 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 22 Oct 2018 18:24:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=/STV6m5lml6u66OR2D+3PM54GN
- hw26kp2x3ETmhX0Zk=; b=l6pK1ZCLM8iTgVW0I3ZvmPxoit8m2Czag7/DuzJFjn
- wOqSsUcPSNLzHyhtEaWEpMxMKrMg6+S+UK98Ej3mXJ6fP1wUHrB5W0I2/RE7aA0j
- Sick7+7aIRwD3O11mRqM6ArZSn3Pp3ExTUgW3MMcsb+SRnIuzQyn+R30BGyP8KzT
- FeVn3JIysIpKfp7R3/BKMJXr+Jd524rrGIBnfmQbfakI+IGuxjDD0ncZLYjsIjGk
- PF9Nv+ADchUU5fgSKG/oqG6+/GuNXAR4n4TuaykmrxDgH0cOoR97NirbrP4iArVU
- oZHWNHWF7LVFwoJGHsyvpI+/YZPbJtIKttbROnHxB84g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=/STV6m5lml6u66OR2D+3PM54GNhw26kp2x3ETmhX0
- Zk=; b=yBbHd3K67R9DKUrJUjIDmM6PW/hoqLZUrZjoSAgcdIDQTa1uwRcjCubls
- XahpcG25mojx4jfsfkPRBDP03AjaiEPqrQmAg5ZSmBdxj1w/tgiJ6ZF5YST3koi0
- UZGfIHIhc0QQYcWNOEaiWGGy5+nNTEPjGDWj5bFq205RnaEyHrRzc3BKJKLN9Kus
- k2saajFpEs6vLmhXQvtK8p7hz1p+afIN3yuXJ8b1M0rwaWatKgShceyBvgNSDjHn
- pPcV4JZcAzt1igFDONyE1nMcKfMZ+CfNbgLAcAHnbQxS2eCyTYO2fJn02r97Ehdr
- MQs6amzhCb3/+3yz5CSvTCZXT/Hww==
-X-ME-Sender: <xms:G07OWw3LZ3u31O_lEcGgrHWO003szExC75I9PIpBGujNUI8EVz9qqw>
-X-ME-Proxy: <xmx:G07OWy4j_zX95XyPgwUBm2QU3hd5Sdd35LKpAG6L36UUiCEKg3UJ8g>
- <xmx:G07OWyw10qQcriQSUZzks82dba9m31I2JaLLGDFqOYZexB3Yav_C6A>
- <xmx:G07OW5y-6NgwzdmK-gbM0up-KUY8psro845S-FaPqXunSr5t61IOYA>
- <xmx:G07OW6x6yvtsOMSuJsw5erqcYr99lzU00TyodSxO7hTSWrBaIOvcQQ>
- <xmx:G07OWzaAEpPzuGqT27FYZPvBH1OEPXRdjlDOj8u1Dc4eDbXAvR7Acw>
- <xmx:G07OW6zkasV6wa-CV_b3mAJr649GPw9QhmEVJV7ULKzyxz4kligxtw>
-Received: from v4 (unknown [121.99.135.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7F3B8102EE;
- Mon, 22 Oct 2018 18:24:25 -0400 (EDT)
-Message-ID: <06fb083313b8547f0c0951a5d5baa1cc3f6c8d6d.camel@mendozajonas.com>
-Subject: Re: [PATCH net-next 0/6] net/ncsi: Allow enabling multiple packages
- & channels
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Justin.Lee1@Dell.com, davem@davemloft.net
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org
-Date: Tue, 23 Oct 2018 09:24:22 +1100
-In-Reply-To: <79ee8c9befaa40e781bfeba4ba25d396@AUSX13MPS302.AMER.DELL.COM>
-References: <20181018035917.19413-1-sam@mendozajonas.com>
- <20181018.155647.1045018243241594303.davem@davemloft.net>
- <79ee8c9befaa40e781bfeba4ba25d396@AUSX13MPS302.AMER.DELL.COM>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.1 
-Mime-Version: 1.0
+ spf=pass (mailfrom) smtp.mailfrom=charter.net
+ (client-ip=68.114.190.27; helo=mtaout002-public.msg.strl.va.charter.net;
+ envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=charter.net
+Received: from mtaout002-public.msg.strl.va.charter.net
+ (mtaout002-public.msg.strl.va.charter.net [68.114.190.27])
+ by lists.ozlabs.org (Postfix) with ESMTP id 42fJ8t28KCzDrq6
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Oct 2018 14:02:36 +1100 (AEDT)
+Received: from impout006 ([68.114.189.21]) by mtaout002.msg.strl.va.charter.net
+ (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
+ id <20181023030232.TGMY7360.mtaout002.msg.strl.va.charter.net@impout006>
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Oct 2018 22:02:32 -0500
+Received: from [192.168.2.6] ([97.86.254.207]) by impout006 with charter.net
+ id qr2X1y0014VFKzV01r2YF1; Mon, 22 Oct 2018 22:02:32 -0500
+X-Authority-Analysis: v=2.2 cv=HdZkdmM8 c=1 sm=1 tr=0
+ a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
+ a=IkcTkHD0fZMA:10 a=NEAV23lmAAAA:8 a=64PtjVyTAAAA:8 a=ingqq-7WHNl5QUGhAZEA:9
+ a=QEXdDO2ut3YA:10 a=RJyAB-wVv_-pkjQ8D6MA:22
+X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
+Subject: OpenBMC Security Advisory - An ipmid buffer overflow can lead to
+ privilege escalation and denial of service
+To: openbmc@lists.ozlabs.org
+References: <mailman.20189.1540247080.866.openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <joseph-reynolds@charter.net>
+Message-ID: <2230834f-fd7d-61b6-5c58-05cd15fab1e2@charter.net>
+Date: Mon, 22 Oct 2018 22:02:28 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <mailman.20189.1540247080.866.openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,72 +45,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Oct 2018 22:24:34 -0000
+X-List-Received-Date: Tue, 23 Oct 2018 03:02:39 -0000
 
-On Fri, 2018-10-19 at 21:38 +0000, Justin.Lee1@Dell.com wrote:
-> Hi Sam,
-> 
-> When I run the testing (enable multi-package (package 0 and 1) and 
-> multi-channel (channel 0 and 1 on both packages)), I see there are two channels
-> with TX enable.
-> 
-> When I unplug/plug network cable, it seems the behavior is to keep one TX per
-> package, is it the behavior you expect? All channels are behind the same eth2,
-> I would expect there is only one active TX.
-> 
-> I create the below file to expose driver's status. RX and TX are printing 
-> from the follow variables.
-> nc->modes[NCSI_MODE_ENABLE].enable,
-> nc->modes[NCSI_MODE_TX_ENABLE].enable,
-> 
-> cat /sys/kernel/debug/ncsi_protocol/ncsi_device_status;
-> IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PS RU CR NQ
-> =========================================================
->   2   eth2   ncsi0  000 000 1  1  1  1  1  1  1  1  1  0 
->   2   eth2   ncsi1  000 001 1  0  1  1  1  1  1  1  1  0 
->   2   eth2   ncsi2  001 000 1  1  1  1  1  1  1  1  1  0 
->   2   eth2   ncsi3  001 001 1  0  1  1  1  1  1  1  1  0 
-> =========================================================
-> M:  Multi-mode      P:  Package ID
-> W:  Whitelist       C:  Channel ID
-> PS: Poll Status
-> RU: Running
-> CR: Carrier OK
-> NQ: Queue Stopped
+I posted the following in https://github.com/openbmc/openbmc/issues/3415:
 
-Hi Justin,
-
-Thanks for testing; this is probably an oversight in
-ncsi_channel_is_tx(), where channels from a package other than the
-current one could be ignored when checking for the current channel's link
-status. I'll update this to be more robust.
-
-Sam
-
-> 
-> Thanks,
-> Justin
-> 
-> 
-> From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-> Date: Thu, 18 Oct 2018 14:59:11 +1100
-> 
-> > This series extends the NCSI driver to configure multiple packages
-> > and/or channels simultaneously. Since the RFC series this includes a few
-> > extra changes to fix areas in the driver that either made this harder or
-> > were roadblocks due to deviations from the NCSI specification.
-> > 
-> > Patches 1 & 2 fix two issues where the driver made assumptions about the
-> > capabilities of the NCSI topology.
-> > Patches 3 & 4 change some internal semantics slightly to make multi-mode
-> > easier.
-> > Patch 5 introduces a cleaner way of reconfiguring the NCSI configuration
-> > and keeping track of channel states.
-> > Patch 6 implements the main multi-package/multi-channel configuration,
-> > configured via the Netlink interface.
-> > 
-> > Readers who have an interesting NCSI setup - especially multi-package
-> > with HWA - please test! I think I've covered all permutations but I
-> > don't have infinite hardware to test on.
-> 
-> 
+>   Buffer overflows were discovered in OpenBMC's IPMI Host implementation which can lead to memory corruption which can then lead to privilege escalation (running arbitrary commands as the root user), and to denial of service (by crashing the ipmid daemon).
+>
+> The CVSS score for these vulnerabilities is "8.2 High", with temporal score "6.9 Medium", with the following notes:
+> https://www.first.org/cvss/calculator/3.0#CVSS:3.0/AV:L/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H/E:U/RC:U
+>
+>      AV: the attack is launched from the host connection
+>      AC: no special circumstances are needed
+>      PR: the attacker must already own the host
+>      UI: n/a
+>      S: changed, because ipmid can run commands as root
+>      C/I/A: the BMC is totally compromised
+>      E: unproven
+>      RC: unknown, because there is no known exploit
+>
+> The fixes are in the https://github.com/openbmc/phosphor-host-ipmid source code repository as three git commits ending with git commit ID edb8bb069b5a5406dd06a6ef38251372ea988f5c.
+>
+> For more information, see OpenBMC contact information at https://github.com/openbmc/openbmc.
+>
+> Credit for finding these problems: Jenna Kallaher, Google Security Team
