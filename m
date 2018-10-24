@@ -1,57 +1,52 @@
-Return-Path: <venture@google.com>
+Return-Path: <artemsen@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::131; helo=mail-it1-x131.google.com;
+ envelope-from=artemsen@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="RgbpV57z"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tl2hxIsS"; 
  dkim-atps=neutral
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [IPv6:2607:f8b0:4864:20::42a])
+Received: from mail-it1-x131.google.com (mail-it1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42gDbw2PMLzDrHb
- for <openbmc@lists.ozlabs.org>; Thu, 25 Oct 2018 02:25:47 +1100 (AEDT)
-Received: by mail-pf1-x42a.google.com with SMTP id f78-v6so2600172pfe.1
- for <openbmc@lists.ozlabs.org>; Wed, 24 Oct 2018 08:25:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QDr8eM2wBgy7OqTfUFox9FAIy+inGOtaSoractuTpCE=;
- b=RgbpV57zkIPBcwVwK6SwriK346t9hxR7Cl4xnls2xxkPDw2W24gHm/+4SCQKwIJNJv
- /6BmgSuC+smWEE/DXTc+H4yOjWaKIMhwDErh4zbaiCBA/iDV4CJFjC940NaPMPoQYUY9
- LFi+CrrKsqFUkMP4FXvjtZaBG//h/USW5esm+kDr+WGfXXoNQQiyw6cVWjPQR6xGdBGU
- ZjQhFFWrynicqgRbDO/mrM+5pWFD4eF8HkPfE40K6iU2IuNpLPo2HXJPta46U2Fo59Lk
- M36H80ywtz9dM4raDM9237DKl0wLl1a6mKf1d+GEjG/3CTQVXYRst2o+H/FJblphtcSf
- cYDg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42gFGJ5fPLzDr5V
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Oct 2018 02:55:36 +1100 (AEDT)
+Received: by mail-it1-x131.google.com with SMTP id e74-v6so7228280ita.2
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Oct 2018 08:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=oAHtz0LNAsSdoCRIT8kgW+wmQ6FUktDGuoxt6tw/J8s=;
+ b=Tl2hxIsSzjQt3nZwYRKWT3hI633eK0kb7vgc2cFoVVYSZ784Fj/k/CwwXsRZE+NBA1
+ OiTenz7LT6KG1C6/JfAgVQwABJ8zSB6OOiyeFWPYBS+II9n0bwbnIj4kMa4HgKW+wWvu
+ T9P61Q6mfiFoMKyvkvRKqZy4PIu5Aq+bwyl+jkGw3KuDaBiziKeP3X3HTK0xLdW6lsbO
+ UWcBw+Kg/kqfgSvw+ZZmJSnNzGbr+FICcrr4mNN6+aNUmXDTnga9Yc18IUfWa2FcPqNU
+ tEKXl7qAXxOKBo3u8E9UbuvgObFaEWPVChYkWHj37C8gZs93rkMdHcEBDFPHIgOxSEtE
+ Y8Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QDr8eM2wBgy7OqTfUFox9FAIy+inGOtaSoractuTpCE=;
- b=LE2FHivzjRl8DcD5Kr4RhMbvdet1O2VoHMD35pmVDlkjo0OuEnfpF3MVtqPEqY3pSK
- /hCTZbbLvRKQtmM2RrRaK13jRLUywVC2nLEimo3yWl0CTzdVtD+KQMKvIeBXPX/R8L2r
- sRGCW/GoKSxzOtedLwmOtUsLf4co4CCr1dFEhfK3BKYBIHYJFh0m+VsR2d61gsuOL0kA
- SDMN8VT6iZuGiu5GDqf/t3PwNNRswjlx3MNJco0sGaBpewH61Rsb1JGqxBeX4Wd5jfk+
- mcc/i4+oyjIMTr4KP5HmU2gKAGoR2ja8vsGFWeI+ql5In9ynL/WolRp1s2sbad68fU9x
- oNxw==
-X-Gm-Message-State: AGRZ1gJ9WdHSffCECX6f8QQwsDLWeuVCZDQ1oZ28PN9E5JtvKl1UUixD
- IdWR/ODiQfE0MtvinX6jopMXyJZy5vZjJuQFcJzdug==
-X-Google-Smtp-Source: AJdET5cnLTqPedGCNKS015GRJbpZz/ZA59ExUU+9JFl0OAsfF/kkc5bizqDlD2VIFwoIpXmD18eSHVmubrsrA+uL7xY=
-X-Received: by 2002:a63:fc49:: with SMTP id r9mr2013076pgk.209.1540394745609; 
- Wed, 24 Oct 2018 08:25:45 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=oAHtz0LNAsSdoCRIT8kgW+wmQ6FUktDGuoxt6tw/J8s=;
+ b=anM0soeYzCVQd2Fl/lK8fBYYBdocv1eDLUuzqnv/HiGsMz2nhMXH6DZkK91yqjUpbW
+ wkFi6If2a34eUJ7zIbkIhj2Q9dY690vW340imkYvpr+paeb2rcV1QSBwMZL2QqPgLIdw
+ BRABgttCUwrP3iQoDaOrNB3EYXMkL8QarPdkWI5nOAIfgNpjmYiv6bH6qhBJEje+perl
+ zu0WFRRGSk4KFfctV6H/spJ29Ho41xnXkycFtMMbH0gfp0WQUfRDAFRiVTu4/MVgImXL
+ XJOiiItw1V4lcCuDDOHrFiheZIIPYTL8R102X0erq5nJllJSK5vbPN9ODHus3E7eb+IS
+ K0xA==
+X-Gm-Message-State: AGRZ1gJPbWdd8hTsyi08AkBfg0ekoxxUaUZtd/cpQAE9oUjzahAAo0C2
+ bb/06QEPQVllBD9Kje5DfFZ4f9AqLPwLWiq371mmo7T6JDE=
+X-Google-Smtp-Source: AJdET5cBPy36bEjavEbWhKlRjLyVwtyzqYFI2gar4jBR/ch8rxpYWH6lpq1rV9WahuESk91NHlE5RhFx1n4FPV5bpxQ=
+X-Received: by 2002:a24:3383:: with SMTP id
+ k125-v6mr2001382itk.14.1540396532595; 
+ Wed, 24 Oct 2018 08:55:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAO=notx4Csmkf8f-PkrTST4kKu_petj4+CF4f_oC4venws2FXA@mail.gmail.com>
- <A943BC2A-1FB4-49E0-ACA1-174AE684BC10@fuzziesquirrel.com>
-In-Reply-To: <A943BC2A-1FB4-49E0-ACA1-174AE684BC10@fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 24 Oct 2018 08:25:34 -0700
-Message-ID: <CAO=notxevcP7_JWrKNr_wkN1Kz-8uGbx6Hua5CiwQyPD6H4K=w@mail.gmail.com>
-Subject: Re: New Repo Request: google-ipmi-i2c
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Peter Hanson <peterh@google.com>
+From: Artem Senichev <artemsen@gmail.com>
+Date: Wed, 24 Oct 2018 18:55:21 +0300
+Message-ID: <CAHsrh9+PQ9GKX7DMMC8oAdvNEamsw5dbfRmiTSi3kWuA6j0R_g@mail.gmail.com>
+Subject: Host console logs service
+To: openbmc@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -64,23 +59,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Oct 2018 15:25:49 -0000
+X-List-Received-Date: Wed, 24 Oct 2018 15:55:38 -0000
 
-On Wed, Oct 24, 2018 at 5:57 AM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
->
->
-> > On Oct 7, 2018, at 6:25 PM, Patrick Venture <venture@google.com> wrote:
-> >
-> > After reviewing the use cases, this extension to IPMI may belong as
-> > part of the google suite of openbmc customizations we want to publish.
-> >
-> > I request a new repository: google-ipmi-i2c
-> > Maintainer permissions list group thing: the same as meta-google**
->
-> Sorry Patrick I had forgotten about this.  Created.
+Hi All,
 
-No problem.  I'll work with Peter next time I see him to stage his
-patch on there so it preserves the original author.
+As you know, OpenBMC contains obmc-console project that intended to
+work with host's console. It's very useful that omc-console-server
+stores last logs inside its ring buffer, but it would be better to
+make the log collector more smarter.
 
->
-> -brad
+On our VESNIN server, we have an own extension of obmc-console - it is
+a standalone service that reads log messages from obmc-console-server,
+marks each message with a timestamp and save it to an internal memory
+buffer. We have a custom policy that determines how large a buffer can
+be (limit by time or message numbers), in which cases the buffer
+should be flushed to a file, and how many previous log files can be
+saved on a flash drive (some kind of rotation).
+By default the buffer has limit of 3000 messages and it flushed to a
+file on every significant host state change (host on/off, OS boot
+complete). This gives us the opportunity to store not only the latest
+messages, but also the logs of the last boot process separately
+(hostboot, skiboot, etc).
+
+So, if you find this service useful for the OpenBMC project, we can
+upload the source code to the community.
+
+Sources:
+https://github.com/YADRO-KNS/phosphor-hostlogger
+
+Small demo:
+# ls -lA /var/lib/obmc/hostlogs
+-rw-r--r--    1 root     root          6336 Oct 24 09:26
+host_20181024_092655.log.gz
+-rw-r--r--    1 root     root          9589 Oct 24 11:43
+host_20181024_114342.log.gz
+-rw-r--r--    1 root     root          6547 Oct 24 12:01
+host_20181024_120119.log.gz
+# zcat /var/lib/obmc/hostlogs/host_20181024_120119.log.gz
+[ 11:55:02 ]: >>> Log collection started at 24.10.2018 11:55:02
+[ 11:55:02 ]: --== Welcome to Hostboot v2.1-199-g38a9f30-dirty/hbicore.bin/ ==--
+[ 11:55:06 ]:   5.66868|ISTEP  6. 3 - host_init_fsi
+[ 11:55:06 ]:   6.27102|ISTEP  6. 4 - host_set_ipl_parms
+[ 11:55:06 ]:   6.27234|ISTEP  6. 5 - host_discover_targets
+...
+
+Best regards,
+Artem Senichev
+Software Engineer, YADRO.
