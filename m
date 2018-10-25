@@ -1,52 +1,74 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::229; helo=mail-oi1-x229.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ME6p12Gf"; 
- dkim-atps=neutral
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42gyPp5WgczF3CD
- for <openbmc@lists.ozlabs.org>; Fri, 26 Oct 2018 06:49:34 +1100 (AEDT)
-Received: by mail-oi1-x229.google.com with SMTP id e14-v6so4800376oie.12
- for <openbmc@lists.ozlabs.org>; Thu, 25 Oct 2018 12:49:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=zNqyUmjr+2qyouVK03WY8bmK1RRF6c2hXqAOYw0GJZI=;
- b=ME6p12Gf8aJOKjrC4XRkM/0FaI3I6X3NdB7jfyxI0g1Ehm7u5boh7jxQX/lySKRC4l
- 4PlSLmoXeBCqYIIkw8ozrTJsjIi6fOREaawhbCwWLhW5ENa5MD5IntKsHcgQuixTg8qV
- Nkkplz1DTmmjosF+ICNMTN8qHZ6xWv2VWVrAg07H3/1znCeJLH5tG02zNao3QcWExWXy
- EtYT+kp6cWikIjQy+35EAGxnUpWUdK9oJca9choxbLc6w8ZBcpyP/+xJjh7bRs3yH2BJ
- gcYy1wkgP65pG52EZAOCnDh5jU6v+X1gv0Y5tGaeCOgQJrs8YCFYnO914P/VN05ri5mF
- A5Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=zNqyUmjr+2qyouVK03WY8bmK1RRF6c2hXqAOYw0GJZI=;
- b=MJ7soPKcF+r1eoXon70gkUNrGPh33GTaI62PMzwyTIZQDmhtAq/anE8tVDJrZKYC9P
- Cj+0oTREej2h0SyhPw1aCstm4hsLFkFnJ+SGYuWR26jGqySDl3xu0znOij1KVYrI8MLe
- CxpH8fcIDcXws5RFw2tbCZgUyDhimIe+RUI+qCbvdG4VZyfpiaQosatS5ybDtMm82Vth
- inqrEoI7SKBun9CM01moaxOYalDXWevRKJe8w9bJZ3DBV1heRHN+J67xHpZ0mJYP0mPt
- wpg3nQIDcUTxng+LNbVb0xEhgKbfEMhlFa176PVOlDQObyxT8NwzUGjtZBBzwc16A2ak
- hoxA==
-X-Gm-Message-State: AGRZ1gKZp7GOQoAIlFtuodhaeDJlQH4zs1LLyF7pmdMEmc3Sub4frhWV
- JKkGS+p8ScFnuzZyqQu0BkUv27+H+AuaBcT7EC8oIg==
-X-Google-Smtp-Source: AJdET5f04Tya3yRtJlmnUmpjLzIBSdM22GfkgOAnon5dIs4VxNTiVb74lV7h7gOmjMDEahvmw1g+6NPLOxlPQGdoNro=
-X-Received: by 2002:aca:3c4:: with SMTP id 187-v6mr401994oid.47.1540496971781; 
- Thu, 25 Oct 2018 12:49:31 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42gsgW14ySzF37g;
+ Fri, 26 Oct 2018 03:16:05 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2018 09:16:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,424,1534834800"; d="scan'208";a="244339326"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga004.jf.intel.com with ESMTP; 25 Oct 2018 09:16:01 -0700
+Subject: Re: [PATCH v8 08/12] mfd: intel-peci-client: Add PECI client MFD
+ driver
+To: Lee Jones <lee.jones@linaro.org>
+Cc: Rob Herring <robh+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ "Darrick J . Wong" <darrick.wong@oracle.com>,
+ Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+ Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
+ "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
+ Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
+ Stephen Boyd <sboyd@codeaurora.org>,
+ David Kershner <david.kershner@unisys.com>,
+ Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
+ Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
+ Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20180918215124.14003-1-jae.hyun.yoo@linux.intel.com>
+ <20180918215124.14003-9-jae.hyun.yoo@linux.intel.com>
+ <20181024105903.GB4939@dell>
+ <db7570cb-8f63-b551-d119-c54270ce6139@linux.intel.com>
+ <20181025053030.GD4939@dell>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <509c4c0e-eabb-2276-3ffd-3fc675801142@linux.intel.com>
+Date: Thu, 25 Oct 2018 09:16:01 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 25 Oct 2018 14:49:20 -0500
-Message-ID: <CALLMt=pqTesc1qD3wCsv6GTZVRgh2CM1_zF+PM3VVGiDyKf6Qg@mail.gmail.com>
-Subject: jenkins.openbmc.org ?
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20181025053030.GD4939@dell>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 26 Oct 2018 08:59:56 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +80,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Oct 2018 19:49:36 -0000
+X-List-Received-Date: Thu, 25 Oct 2018 16:16:08 -0000
 
-I'd had on my list for a while to move us over to a jenkins instance
-running on the same server as our gerrit server. The reasoning was:
+On 10/24/2018 10:30 PM, Lee Jones wrote:
+> On Wed, 24 Oct 2018, Jae Hyun Yoo wrote:
+>> On 10/24/2018 3:59 AM, Lee Jones wrote:
+>>> On Tue, 18 Sep 2018, Jae Hyun Yoo wrote:
+>>>
+>>>> This commit adds PECI client MFD driver.
+>>>>
+>>
+>> <snip>
+> 
+> [...]
+> 
+>>>> +bool peci_temp_need_update(struct temp_data *temp)
+>>>> +{
+>>>> +	if (temp->valid &&
+>>>> +	    time_before(jiffies, temp->last_updated + UPDATE_INTERVAL))
+>>>> +		return false;
+>>>> +
+>>>> +	return true;
+>>>> +}
+>>>> +EXPORT_SYMBOL_GPL(peci_temp_need_update);
+>>>> +
+>>>> +void peci_temp_mark_updated(struct temp_data *temp)
+>>>> +{
+>>>> +	temp->valid = 1;
+>>>> +	temp->last_updated = jiffies;
+>>>> +}
+>>>> +EXPORT_SYMBOL_GPL(peci_temp_mark_updated);
+>>>
+>>> These are probably better suited as inline functions to be placed in
+>>> a header file.  No need to export them, since they only use their own
+>>> data.
+> 
+> Also move them into the HWMON header file.
+> 
+> They have no business in MFD.
+> 
 
-1. OpenBMC has grown to the point where it deserves it's own jenkins
-instance, and tying it to openpower.xyz doesn't really fit anymore.
-2. The gerrit server (and the new jenkins server) are running within
-Softlayer which has 24x7 support (openpower.xyz is running on donated
-hardware from Rackspace, which is awesome, but support is mainly 2nd
-hand via emails to contacts we have at Rackspace)
-3. There have been a few instances where the openpower builds have
-affected openbmc (and vice versa).
+Agreed. I'll move them into the HWMON header.
 
-I went ahead and created a new jenkins instance at the above domain,
-but haven't done anything with it. I've been kind of wishy-washy on
-whether the extra work is really worth it. It's been quite nice having
-Joel maintain our openpower.xyz server with all the security updates
-and such :)
+> [...]
+> 
+>>>> +int peci_client_rd_pkg_cfg_cmd(struct peci_mfd *priv, u8 mbx_idx,
+>>>
+>>> This is gobbledegook.  What's rd?  Read?
+>>>
+>>
+>> Yes, the 'rd' means 'read'. I intended to keep command names as listed
+>> in the PECI specification such as RdPkgConfig, WrPkgConfig and so on.
+>> Should I change it to 'peci_client_read_package_config_command' ?
+> 
+> I looks/reads a lot nicer, don't you think?
+> 
 
-Thoughts from the community?
+Okay. I'll change it too.
 
-ps: gerrit.openbmc.org will also redirect to our gerrit in case anyone
-was interested.
+Thanks again for your review, Lee!
 
-Andrew
+Jae
+
+> [...]
+> 
