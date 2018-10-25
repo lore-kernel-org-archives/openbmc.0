@@ -1,74 +1,61 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <prvs=38361dbcff=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=38361dbcff=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="IbB0GlEN"; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42gsgW14ySzF37g;
- Fri, 26 Oct 2018 03:16:05 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2018 09:16:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,424,1534834800"; d="scan'208";a="244339326"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga004.jf.intel.com with ESMTP; 25 Oct 2018 09:16:01 -0700
-Subject: Re: [PATCH v8 08/12] mfd: intel-peci-client: Add PECI client MFD
- driver
-To: Lee Jones <lee.jones@linaro.org>
-Cc: Rob Herring <robh+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- "Darrick J . Wong" <darrick.wong@oracle.com>,
- Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
- "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
- Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
- Stephen Boyd <sboyd@codeaurora.org>,
- David Kershner <david.kershner@unisys.com>,
- Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
- Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
- James Feist <james.feist@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20180918215124.14003-1-jae.hyun.yoo@linux.intel.com>
- <20180918215124.14003-9-jae.hyun.yoo@linux.intel.com>
- <20181024105903.GB4939@dell>
- <db7570cb-8f63-b551-d119-c54270ce6139@linux.intel.com>
- <20181025053030.GD4939@dell>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <509c4c0e-eabb-2276-3ffd-3fc675801142@linux.intel.com>
-Date: Thu, 25 Oct 2018 09:16:01 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42h1Pd5tv7zF37J
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Oct 2018 09:04:33 +1100 (AEDT)
+Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9PM17qF031753
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Oct 2018 15:04:31 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=C0bVDWa5ikxrQ1eeZ7hJ9sEsRIWOebCqNDKh+PWFPeI=;
+ b=IbB0GlEN/Jh0dgvZ5Hkzlibl+pGohKmKiK3x6+vr+ogKe7MOT40ShkijbzULr6p+dIxo
+ viVd0Srk5E/g3pWx3HfWKZ7l/B0nC/+U4RNBISQkuvWuEd3OB0M0Hm6zok+ji1eF6hQp
+ 1hXe7/h+11dx5ULJ4BeBUwKJ/DHXpGVnuPY= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2nbk6xgj6b-6
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Oct 2018 15:04:31 -0700
+Received: from mx-out.facebook.com (2620:10d:c0a1:3::13) by
+ mail.thefacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
+ Thu, 25 Oct 2018 15:04:29 -0700
+Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
+ id F04E72DD1549; Thu, 25 Oct 2018 15:04:23 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Vijay Khemka <vijaykhemka@fb.com>
+Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
+To: Samuel Mendoza-Jonas <sam@mendozajonas.com>, "David S. Miller"
+ <davem@davemloft.net>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
+ <openbmc@lists.ozlabs.org>, <Justin.Lee1@Dell.com>, <joel@jms.id.au>,
+ <linux-aspeed@lists.ozlabs.org>
+Smtp-Origin-Cluster: prn2c23
+Subject: [PATCH net-next] net/ncsi: Add NCSI Mellanox OEM command
+Date: Thu, 25 Oct 2018 15:04:13 -0700
+Message-ID: <20181025220413.2936698-1-vijaykhemka@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-In-Reply-To: <20181025053030.GD4939@dell>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 26 Oct 2018 08:59:56 +1100
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-25_12:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,67 +67,165 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Oct 2018 16:16:08 -0000
+X-List-Received-Date: Thu, 25 Oct 2018 22:04:39 -0000
 
-On 10/24/2018 10:30 PM, Lee Jones wrote:
-> On Wed, 24 Oct 2018, Jae Hyun Yoo wrote:
->> On 10/24/2018 3:59 AM, Lee Jones wrote:
->>> On Tue, 18 Sep 2018, Jae Hyun Yoo wrote:
->>>
->>>> This commit adds PECI client MFD driver.
->>>>
->>
->> <snip>
-> 
-> [...]
-> 
->>>> +bool peci_temp_need_update(struct temp_data *temp)
->>>> +{
->>>> +	if (temp->valid &&
->>>> +	    time_before(jiffies, temp->last_updated + UPDATE_INTERVAL))
->>>> +		return false;
->>>> +
->>>> +	return true;
->>>> +}
->>>> +EXPORT_SYMBOL_GPL(peci_temp_need_update);
->>>> +
->>>> +void peci_temp_mark_updated(struct temp_data *temp)
->>>> +{
->>>> +	temp->valid = 1;
->>>> +	temp->last_updated = jiffies;
->>>> +}
->>>> +EXPORT_SYMBOL_GPL(peci_temp_mark_updated);
->>>
->>> These are probably better suited as inline functions to be placed in
->>> a header file.  No need to export them, since they only use their own
->>> data.
-> 
-> Also move them into the HWMON header file.
-> 
-> They have no business in MFD.
-> 
+This patch adds OEM Mellanox commands and response handling. It also
+defines OEM Get MAC Address handler to get and configure the device.
 
-Agreed. I'll move them into the HWMON header.
+ncsi_oem_gma_handler_mlx: This handler send NCSI mellanox command for
+getting mac address.
+ncsi_rsp_handler_oem_mlx: This handles response received for all
+mellanox OEM commands.
+ncsi_rsp_handler_oem_mlx_gma: This handles get mac address response and
+set it to device.
 
-> [...]
-> 
->>>> +int peci_client_rd_pkg_cfg_cmd(struct peci_mfd *priv, u8 mbx_idx,
->>>
->>> This is gobbledegook.  What's rd?  Read?
->>>
->>
->> Yes, the 'rd' means 'read'. I intended to keep command names as listed
->> in the PECI specification such as RdPkgConfig, WrPkgConfig and so on.
->> Should I change it to 'peci_client_read_package_config_command' ?
-> 
-> I looks/reads a lot nicer, don't you think?
-> 
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ net/ncsi/internal.h    |  5 +++++
+ net/ncsi/ncsi-manage.c | 25 ++++++++++++++++++++++++-
+ net/ncsi/ncsi-pkt.h    |  9 +++++++++
+ net/ncsi/ncsi-rsp.c    | 41 ++++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 78 insertions(+), 2 deletions(-)
 
-Okay. I'll change it too.
-
-Thanks again for your review, Lee!
-
-Jae
-
-> [...]
-> 
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index 1dae77c54009..7f3eb1360b9b 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -73,10 +73,15 @@ enum {
+ #define NCSI_OEM_MFR_BCM_ID             0x113d
+ /* Broadcom specific OEM Command */
+ #define NCSI_OEM_BCM_CMD_GMA            0x01   /* CMD ID for Get MAC */
++/* Mellanox specific OEM Command */
++#define NCSI_OEM_MLX_CMD_GMA            0x00   /* CMD ID for Get MAC */
++#define NCSI_OEM_MLX_CMD_GMA_PARAM      0x1b   /* Parameter for GMA  */
+ /* OEM Command payload lengths*/
+ #define NCSI_OEM_BCM_CMD_GMA_LEN        12
++#define NCSI_OEM_MLX_CMD_GMA_LEN        8
+ /* Mac address offset in OEM response */
+ #define BCM_MAC_ADDR_OFFSET             28
++#define MLX_MAC_ADDR_OFFSET             8
+ 
+ 
+ struct ncsi_channel_version {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index bfc43b28c7a6..eacb653ff987 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -675,12 +675,35 @@ static int ncsi_oem_gma_handler_bcm(struct ncsi_cmd_arg *nca)
+ 	return ret;
+ }
+ 
++static int ncsi_oem_gma_handler_mlx(struct ncsi_cmd_arg *nca)
++{
++	unsigned char data[NCSI_OEM_MLX_CMD_GMA_LEN];
++	int ret = 0;
++
++	nca->payload = NCSI_OEM_MLX_CMD_GMA_LEN;
++
++	memset(data, 0, NCSI_OEM_MLX_CMD_GMA_LEN);
++	*(unsigned int *)data = ntohl(NCSI_OEM_MFR_MLX_ID);
++	data[5] = NCSI_OEM_MLX_CMD_GMA;
++	data[6] = NCSI_OEM_MLX_CMD_GMA_PARAM;
++
++	nca->data = data;
++
++	ret = ncsi_xmit_cmd(nca);
++	if (ret)
++		netdev_err(nca->ndp->ndev.dev,
++			   "NCSI: Failed to transmit cmd 0x%x during configure\n",
++			   nca->type);
++	return ret;
++}
++
+ /* OEM Command handlers initialization */
+ static struct ncsi_oem_gma_handler {
+ 	unsigned int	mfr_id;
+ 	int		(*handler)(struct ncsi_cmd_arg *nca);
+ } ncsi_oem_gma_handlers[] = {
+-	{ NCSI_OEM_MFR_BCM_ID, ncsi_oem_gma_handler_bcm }
++	{ NCSI_OEM_MFR_BCM_ID, ncsi_oem_gma_handler_bcm },
++	{ NCSI_OEM_MFR_MLX_ID, ncsi_oem_gma_handler_mlx }
+ };
+ 
+ static int ncsi_gma_handler(struct ncsi_cmd_arg *nca, unsigned int mf_id)
+diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
+index 4d3f06be38bd..2a6d83a596c9 100644
+--- a/net/ncsi/ncsi-pkt.h
++++ b/net/ncsi/ncsi-pkt.h
+@@ -165,6 +165,15 @@ struct ncsi_rsp_oem_pkt {
+ 	unsigned char           data[];      /* Payload data      */
+ };
+ 
++/* Mellanox Response Data */
++struct ncsi_rsp_oem_mlx_pkt {
++	unsigned char           cmd_rev;     /* Command Revision  */
++	unsigned char           cmd;         /* Command ID        */
++	unsigned char           param;       /* Parameter         */
++	unsigned char           optional;    /* Optional data     */
++	unsigned char           data[];      /* Data              */
++};
++
+ /* Broadcom Response Data */
+ struct ncsi_rsp_oem_bcm_pkt {
+ 	unsigned char           ver;         /* Payload Version   */
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index 77e07ba3f493..ba9a4ba97c64 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+@@ -611,6 +611,45 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
+ 	return 0;
+ }
+ 
++/* Response handler for Mellanox command Get Mac Address */
++static int ncsi_rsp_handler_oem_mlx_gma(struct ncsi_request *nr)
++{
++	struct ncsi_dev_priv *ndp = nr->ndp;
++	struct net_device *ndev = ndp->ndev.dev;
++	const struct net_device_ops *ops = ndev->netdev_ops;
++	struct ncsi_rsp_oem_pkt *rsp;
++	struct sockaddr saddr;
++	int ret = 0;
++
++	/* Get the response header */
++	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
++
++	saddr.sa_family = ndev->type;
++	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
++	memcpy(saddr.sa_data, &rsp->data[MLX_MAC_ADDR_OFFSET], ETH_ALEN);
++	ret = ops->ndo_set_mac_address(ndev, &saddr);
++	if (ret < 0)
++		netdev_warn(ndev, "NCSI: 'Writing mac address to device failed\n");
++
++	return ret;
++}
++
++/* Response handler for Mellanox card */
++static int ncsi_rsp_handler_oem_mlx(struct ncsi_request *nr)
++{
++	struct ncsi_rsp_oem_mlx_pkt *mlx;
++	struct ncsi_rsp_oem_pkt *rsp;
++
++	/* Get the response header */
++	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
++	mlx = (struct ncsi_rsp_oem_mlx_pkt *)(rsp->data);
++
++	if (mlx->cmd == NCSI_OEM_MLX_CMD_GMA &&
++	    mlx->param == NCSI_OEM_MLX_CMD_GMA_PARAM)
++		return ncsi_rsp_handler_oem_mlx_gma(nr);
++	return 0;
++}
++
+ /* Response handler for Broadcom command Get Mac Address */
+ static int ncsi_rsp_handler_oem_bcm_gma(struct ncsi_request *nr)
+ {
+@@ -655,7 +694,7 @@ static struct ncsi_rsp_oem_handler {
+ 	unsigned int	mfr_id;
+ 	int		(*handler)(struct ncsi_request *nr);
+ } ncsi_rsp_oem_handlers[] = {
+-	{ NCSI_OEM_MFR_MLX_ID, NULL },
++	{ NCSI_OEM_MFR_MLX_ID, ncsi_rsp_handler_oem_mlx },
+ 	{ NCSI_OEM_MFR_BCM_ID, ncsi_rsp_handler_oem_bcm }
+ };
+ 
+-- 
+2.17.1
