@@ -1,52 +1,52 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::836; helo=mail-qt1-x836.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::229; helo=mail-oi1-x229.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ucGLyo/Y"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ME6p12Gf"; 
  dkim-atps=neutral
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42gth26q8kzF38h
- for <openbmc@lists.ozlabs.org>; Fri, 26 Oct 2018 04:01:38 +1100 (AEDT)
-Received: by mail-qt1-x836.google.com with SMTP id p24-v6so4789717qtq.0
- for <openbmc@lists.ozlabs.org>; Thu, 25 Oct 2018 10:01:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42gyPp5WgczF3CD
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Oct 2018 06:49:34 +1100 (AEDT)
+Received: by mail-oi1-x229.google.com with SMTP id e14-v6so4800376oie.12
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Oct 2018 12:49:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:from:date:message-id:subject:to;
- bh=FvxhuzlJML095TcwoTi2OdVyb+fMeImcTqY1SgZGt8w=;
- b=ucGLyo/YstEi01J8rMfZuIoHrghQ4Jwr38HCo+kwESRyDqbuDu+B8yiKGw3KQM0/fn
- qdVhrw8pHDQB9c08WI1m3iqSky+v61MRWrxWZwRHJCxCK6b7Zx+yXVdJsvE2ZjQhpxab
- 38ZYPmaXFe46zSDoxQP0R4TJewJpr10LUY+whsP+J3M+ZFpGrtr3k/3jlQVKYQT3JUAK
- Ge8XrE1SACQy9kqPLh0V0z2HYIMM02GqnA0+uFMRkQWSLqE5HwsDlE96mCyZqpasStLq
- PuE2V5i6/w7iHjxS6tIOW827ZIP55iVe7LsQa81wo6z45j6N9QnhUZrwJeJHK9lnIAKY
- Y4RA==
+ bh=zNqyUmjr+2qyouVK03WY8bmK1RRF6c2hXqAOYw0GJZI=;
+ b=ME6p12Gf8aJOKjrC4XRkM/0FaI3I6X3NdB7jfyxI0g1Ehm7u5boh7jxQX/lySKRC4l
+ 4PlSLmoXeBCqYIIkw8ozrTJsjIi6fOREaawhbCwWLhW5ENa5MD5IntKsHcgQuixTg8qV
+ Nkkplz1DTmmjosF+ICNMTN8qHZ6xWv2VWVrAg07H3/1znCeJLH5tG02zNao3QcWExWXy
+ EtYT+kp6cWikIjQy+35EAGxnUpWUdK9oJca9choxbLc6w8ZBcpyP/+xJjh7bRs3yH2BJ
+ gcYy1wkgP65pG52EZAOCnDh5jU6v+X1gv0Y5tGaeCOgQJrs8YCFYnO914P/VN05ri5mF
+ A5Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=FvxhuzlJML095TcwoTi2OdVyb+fMeImcTqY1SgZGt8w=;
- b=f3FCW80dwUz28qmoaxTX60CavKwyj+hyomEiZblxAyIHOhh6eRJerV+T4ZNMMdzx8M
- /1NYXGOfuPyNDfLi39irnUKDlyzYyorOfPwfAmOZvOIXi4r24J9J1daNI66+H515r84A
- pKsEeRd5eQcTPLl8Nh4zVQGWcAx3zwdFd77z1neb7injW+bNpjKgASKhBGevrUywISM3
- axAL5tFOhS741wWdvyDsOeZePNn/BuBF5IOuIL3MohpqbBuFAnzt+EdTfRhghZPHXz+E
- TIkXfQdqWVRY+xCmj4SgHXDxRff0O1gIy+CE8Vcfa/xe5xOBpbh6l9X9oNdcnBW51tV5
- ljZQ==
-X-Gm-Message-State: AGRZ1gKbkPtcxHEqBS7X/DphbsNi3TcoCiEJiLtzs6c07JN90lrrUlX8
- KoTumU0Itf3Jpd2A6bjwr2z16ziDgxXfWzdi5ap18/Ocp4o=
-X-Google-Smtp-Source: AJdET5fb05TuvEmncseame388Prasb6WTfkKagD6GjGZxenMF6/F371c1hvDCVRIT+oq8FrAkikjFMJGc68+S5re17o=
-X-Received: by 2002:ac8:34af:: with SMTP id w44-v6mr29251qtb.125.1540486895229; 
- Thu, 25 Oct 2018 10:01:35 -0700 (PDT)
+ bh=zNqyUmjr+2qyouVK03WY8bmK1RRF6c2hXqAOYw0GJZI=;
+ b=MJ7soPKcF+r1eoXon70gkUNrGPh33GTaI62PMzwyTIZQDmhtAq/anE8tVDJrZKYC9P
+ Cj+0oTREej2h0SyhPw1aCstm4hsLFkFnJ+SGYuWR26jGqySDl3xu0znOij1KVYrI8MLe
+ CxpH8fcIDcXws5RFw2tbCZgUyDhimIe+RUI+qCbvdG4VZyfpiaQosatS5ybDtMm82Vth
+ inqrEoI7SKBun9CM01moaxOYalDXWevRKJe8w9bJZ3DBV1heRHN+J67xHpZ0mJYP0mPt
+ wpg3nQIDcUTxng+LNbVb0xEhgKbfEMhlFa176PVOlDQObyxT8NwzUGjtZBBzwc16A2ak
+ hoxA==
+X-Gm-Message-State: AGRZ1gKZp7GOQoAIlFtuodhaeDJlQH4zs1LLyF7pmdMEmc3Sub4frhWV
+ JKkGS+p8ScFnuzZyqQu0BkUv27+H+AuaBcT7EC8oIg==
+X-Google-Smtp-Source: AJdET5f04Tya3yRtJlmnUmpjLzIBSdM22GfkgOAnon5dIs4VxNTiVb74lV7h7gOmjMDEahvmw1g+6NPLOxlPQGdoNro=
+X-Received: by 2002:aca:3c4:: with SMTP id 187-v6mr401994oid.47.1540496971781; 
+ Thu, 25 Oct 2018 12:49:31 -0700 (PDT)
 MIME-Version: 1.0
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Thu, 25 Oct 2018 10:01:22 -0700
-Message-ID: <CAJoAoZkE0g5T1j8LciO2hBMXfen98BpcTHB-rkXgCTwMsVaJug@mail.gmail.com>
-Subject: Weigh in - Prefixes for Globals and Class Members
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 25 Oct 2018 14:49:20 -0500
+Message-ID: <CALLMt=pqTesc1qD3wCsv6GTZVRgh2CM1_zF+PM3VVGiDyKf6Qg@mail.gmail.com>
+Subject: jenkins.openbmc.org ?
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000002c5a2a0579108e3d"
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,84 +58,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Oct 2018 17:01:40 -0000
+X-List-Received-Date: Thu, 25 Oct 2018 19:49:36 -0000
 
---0000000000002c5a2a0579108e3d
-Content-Type: text/plain; charset="UTF-8"
+I'd had on my list for a while to move us over to a jenkins instance
+running on the same server as our gerrit server. The reasoning was:
 
-There was some discussion in IRC, but I wanted to make sure people who read
-the maillist also got a chance to weigh in.
+1. OpenBMC has grown to the point where it deserves it's own jenkins
+instance, and tying it to openpower.xyz doesn't really fit anymore.
+2. The gerrit server (and the new jenkins server) are running within
+Softlayer which has 24x7 support (openpower.xyz is running on donated
+hardware from Rackspace, which is awesome, but support is mainly 2nd
+hand via emails to contacts we have at Rackspace)
+3. There have been a few instances where the openpower builds have
+affected openbmc (and vice versa).
 
-https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/14712
+I went ahead and created a new jenkins instance at the above domain,
+but haven't done anything with it. I've been kind of wishy-washy on
+whether the extra work is really worth it. It's been quite nice having
+Joel maintain our openpower.xyz server with all the security updates
+and such :)
 
-This is a proposal to adjust the language of our C++ Style Guide to allow
-repo maintainers to require or encourage prefixes based on variable scope:
+Thoughts from the community?
 
-```
-constexpr int gValue;
+ps: gerrit.openbmc.org will also redirect to our gerrit in case anyone
+was interested.
 
-class Foo {
-  private:
-    bool mFlag;
-  public:
-    void Bar() {
-      int thing;
-      if (mFlag && gValue < 0) {
-        thing++;
-      }
-    }
-}
-```
-
-The great thing about this is that you have a much stronger guarantee that
-you won't end up with shadowed variables - it becomes almost impossible to
-name your local in a way that collides with a larger-scoped variable you
-forgot about.
-
-That said, there's some question about how and whether to standardize
-across all of OpenBMC. Renaming variables in all our repos would be a big
-effort, and some maintainers might prefer different prefixes than others -
-for example, canonical indicators for member variable include mFooBar,
-m_fooBar, _fooBar, fooBar_,....
-
-If you've got some strong opinions on the subject, come weigh in and help
-us figure out the right language.
-
-Personally, I just want the language to allow me to start enforcing
-prefixes in repos I comaintain, without being overly prescriptive; if
-you've got a different opinion or a better idea of phrasing, I wanna hear
-it.
-
-Emily
-
---0000000000002c5a2a0579108e3d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">There was some discussion in IRC, but I wanted to make sur=
-e people who read the maillist also got a chance to weigh in.<div><br></div=
-><div><a href=3D"https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/14712"=
->https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/14712</a><br></div><di=
-v><br></div><div>This is a proposal to adjust the language of our C++ Style=
- Guide to allow repo maintainers to require or encourage prefixes based on =
-variable scope:<br><br>```<br>constexpr int gValue;<br><br>class Foo {<br>=
-=C2=A0 private:<br>=C2=A0 =C2=A0 bool mFlag;<br>=C2=A0 public:<br>=C2=A0 =
-=C2=A0 void Bar() {<br>=C2=A0 =C2=A0 =C2=A0 int thing;<br>=C2=A0 =C2=A0 =C2=
-=A0 if (mFlag &amp;&amp; gValue &lt; 0) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 th=
-ing++;<br>=C2=A0 =C2=A0 =C2=A0 }</div><div>=C2=A0 =C2=A0 }</div><div>}<br>`=
-``</div><div><br></div><div>The great thing about this is that you have a m=
-uch stronger guarantee that you won&#39;t end up with shadowed variables - =
-it becomes almost impossible to name your local in a way that collides with=
- a larger-scoped variable you forgot about.</div><div><br></div><div>That s=
-aid, there&#39;s some question about how and whether to standardize across =
-all of OpenBMC. Renaming variables in all our repos would be a big effort, =
-and some maintainers might prefer different prefixes than others - for exam=
-ple, canonical indicators for member variable include mFooBar, m_fooBar, _f=
-ooBar, fooBar_,....</div><div><br></div><div>If you&#39;ve got some strong =
-opinions on the subject, come weigh in and help us figure out the right lan=
-guage.</div><div><br></div><div>Personally, I just want the language to all=
-ow me to start enforcing prefixes in repos I comaintain, without being over=
-ly prescriptive; if you&#39;ve got a different opinion or a better idea of =
-phrasing, I wanna hear it.</div><div><br></div><div>Emily</div></div>
-
---0000000000002c5a2a0579108e3d--
+Andrew
