@@ -1,62 +1,79 @@
-Return-Path: <artemsen@gmail.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d2c; helo=mail-io1-xd2c.google.com;
- envelope-from=artemsen@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="h8Art7Ir"; 
- dkim-atps=neutral
-Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
- [IPv6:2607:f8b0:4864:20::d2c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42hWw33rJCzF3H7
- for <openbmc@lists.ozlabs.org>; Sat, 27 Oct 2018 04:59:14 +1100 (AEDT)
-Received: by mail-io1-xd2c.google.com with SMTP id d80-v6so1257301iof.1
- for <openbmc@lists.ozlabs.org>; Fri, 26 Oct 2018 10:59:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=vGlAkEH2/PPSKi05hBKHIz6ip5pJ7iqA8snNo+QhlWI=;
- b=h8Art7Irv2kDHLhZQ9wD9zcU2cMW73T4f0Jrel7QFZpymFcT6W8eb6F7S3EtkAU+rR
- DHj1Q6jrymX3y3iB4Yn1s0t7eZrcxi05iYh9uS9iUBO2gq4BPHua9N2xVgPfg/baxVJC
- qTsPEvTDTkUC1mpIsGBTBJDJsebKm7DhR73uuRiDoHAdxi3mSRW+wwUdNY1av2K98fHq
- 9L1gyTNkoPPRYh5b5bPwFszFF3sAT2QS9sFfh3jSZuq2ILOQI58FHtOdpvI5d4Va0jbi
- yxjVXeUumlbi7af5Ug0uc/K3mzxQPDcbc+qLsDgkPvb58vniJp4WZan2mH33nyUA6h2w
- SmZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=vGlAkEH2/PPSKi05hBKHIz6ip5pJ7iqA8snNo+QhlWI=;
- b=MRasKlY1Z2csSQdTuvz/SY6imR/8kdaHpG6vMJFdDbsK1LsUkN7FqVKneCDrAdJMUw
- zUPfxZauBbtyuw9Qik5V9DBtN8eJxM4aU/yD4/2mmWVlVFIOyX5mNa4PDkFt222RzP4o
- yM/L9tf8VzhaDtalxWGiXdKX7v2cXxFlDHOdbmjd6JfFOusSC//OP8D/e63VE/XNgZkl
- XEbYFxQA8lfdU/SZbB1iTbUlh5GktAKoRRrSM0Iatze5meoGKlQOeq0/4Ef/VP+KJH9m
- RFGG3qlEBbOeBrhV/GnkD5mBi2K6h9IuDw+i3HTEymN202anOkjA2OAB47G56sCR780R
- dqsQ==
-X-Gm-Message-State: AGRZ1gJwdgsAkkDwApU8AUQDi/m6FyEtvQcxL6mO16Yp910Nmle1u/AW
- DJ5aWBrfmokTqgHMKJDYbqLMs6+qUGMkTmQauO8=
-X-Google-Smtp-Source: AJdET5fHZgdODE+53lYBYzEZXTCpXZpl7C6ER8pYPgGKDmZgHL3Qjd4ACnMLtdQR8TORaIXrGPD4PKCOzbEb7FkNCx0=
-X-Received: by 2002:a5e:df4c:: with SMTP id
- g12-v6mr2787731ioq.21.1540576752147; 
- Fri, 26 Oct 2018 10:59:12 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42hZxL2K4nzF3Ht
+ for <openbmc@lists.ozlabs.org>; Sat, 27 Oct 2018 07:15:33 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9QK8x9T167698
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Oct 2018 16:15:31 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2nc8n9jnm8-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Oct 2018 16:15:30 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Fri, 26 Oct 2018 14:15:29 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 26 Oct 2018 14:15:26 -0600
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w9QKFPkV16646206
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 26 Oct 2018 20:15:25 GMT
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5E50AC6057;
+ Fri, 26 Oct 2018 20:15:25 +0000 (GMT)
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 32211C605A;
+ Fri, 26 Oct 2018 20:15:25 +0000 (GMT)
+Received: from [9.10.99.83] (unknown [9.10.99.83])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTPS;
+ Fri, 26 Oct 2018 20:15:25 +0000 (GMT)
+Subject: Re: help: OpenBMC host power on from power button press
+To: "A, Maheswari" <maheswari.a@atos.net>
+References: <DB7PR02MB43932ACAD795B6BB37676D1192F00@DB7PR02MB4393.eurprd02.prod.outlook.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Date: Fri, 26 Oct 2018 15:15:26 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAHsrh9+PQ9GKX7DMMC8oAdvNEamsw5dbfRmiTSi3kWuA6j0R_g@mail.gmail.com>
- <601A1A07-A444-4602-AC42-7E686B1CE03A@fb.com>
- <CAHsrh9KDjs8jg-x4NYooVH1cvmzv=em1C7=6OUBaUx1cOCVG5g@mail.gmail.com>
- <7D625D67-C92C-40A0-B216-6A33EF805BD7@fb.com>
-In-Reply-To: <7D625D67-C92C-40A0-B216-6A33EF805BD7@fb.com>
-From: Artem Senichev <artemsen@gmail.com>
-Date: Fri, 26 Oct 2018 20:59:02 +0300
-Message-ID: <CAHsrh9JB13DDETbDhbvkVbLb5PoRB9EFJCVj-c9TKU_5oyZP1A@mail.gmail.com>
-Subject: Re: Host console logs service
-To: sdasari@fb.com
-Cc: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <DB7PR02MB43932ACAD795B6BB37676D1192F00@DB7PR02MB4393.eurprd02.prod.outlook.com>
+Content-Type: multipart/alternative;
+ boundary="------------0BA18F67B02B53959EB07199"
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18102620-0016-0000-0000-000009498F88
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009940; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01108389; UDB=6.00574146; IPR=6.00888476; 
+ MB=3.00023922; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-26 20:15:27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18102620-0017-0000-0000-000040D98062
+Message-Id: <8d187aba-eba1-f68b-17c5-62686e0227a8@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-26_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=960 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810260170
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,33 +85,191 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Oct 2018 17:59:16 -0000
+X-List-Received-Date: Fri, 26 Oct 2018 20:15:34 -0000
 
-How can I create a gerrit request if there is no git repository for
-this project inside OpenBMC?
+This is a multi-part message in MIME format.
+--------------0BA18F67B02B53959EB07199
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Best regards,
-Artem Senichev
 
-On Fri, Oct 26, 2018 at 7:18 PM Sai Dasari <sdasari@fb.com> wrote:
+On 10/25/2018 11:52 PM, A, Maheswari wrote:
 >
+> Hi,
 >
+> I am new to openBMC project.
 >
-> =EF=BB=BFOn 10/26/18, 7:21 AM, "Artem Senichev" <artemsen@gmail.com> wrot=
-e:
+> We are in the process of porting power button gpio interrupt handling 
+> in openBMC.
 >
->     I have described the architecture and service capabilities:
->     https://github.com/YADRO-KNS/phosphor-hostlogger/blob/master/README.m=
-d
+> After some a lot of analysis, I found that obmc-button-power related 
+> service are necessary to power on the host using power button press 
+> event.
 >
->     Please, look through and let me know what you think.
-> The writeup/description looks good to me. It would be great to submit thi=
-s as gerrit request for wider community review and helps in commenting inli=
-ne for the document and have design conversation. An example for ongoing re=
-view @ https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/14712/
->     Best regards,
->     Artem Senichev
->     Software Engineer, YADRO.
+> I have added POWER_BUTTON and machine specific GPIO number and 
+> polarity in gpio_defs.json.
 >
+> While starting the “org.openbmc.button.Power” service, I am getting 
+> the below error.
 >
+> *org.openbmc.buttons.Power@1.service 
+> <mailto:org.openbmc.buttons.Power@1.service> - Phosphor Power Button1*
 >
+> *   Loaded: [[0;1;31merror[[0m (Reason: File exists)*
+>
+> *   Active: inactive (dead)*
+>
+> **
+>
+> *Oct 22 14:14:13 hwmi systemd[1]: 
+> [[0;1;31m[[0;1;39m[[0;1;31morg.openbmc.buttons.Power@1.service: Two 
+> services allocated for the same bus name org.open*
+>
+> *bmc.butto.Power, refusing operation.[[0m*
+>
+> Please help to figure out and proceed.
+>
+
+Hi Maheswari,
+
+I'm guessing you already have an org.openbmc.buttons.Power@0.service 
+running.
+
+You can check with:
+
+# systemctl status org.openbmc.buttons.Power@0.service
+
+or just check for the button_power.exe process already running.
+
+
+> Thanks
+>
+> Maheswari A
+>
+
+
+--------------0BA18F67B02B53959EB07199
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <div class="moz-cite-prefix">On 10/25/2018 11:52 PM, A, Maheswari
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:DB7PR02MB43932ACAD795B6BB37676D1192F00@DB7PR02MB4393.eurprd02.prod.outlook.com">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal">Hi, <o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">I am new to openBMC project. <o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">We are in the process of porting power
+          button gpio interrupt handling in openBMC.
+          <o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">After some a lot of analysis, I found that
+          obmc-button-power related service are necessary to power on
+          the host using power button press event.
+          <o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">I have added POWER_BUTTON and machine
+          specific GPIO number and polarity in gpio_defs.json.
+          <o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">While starting the
+          “org.openbmc.button.Power” service, I am getting the below
+          error.
+          <o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">   <b><a
+              href="mailto:org.openbmc.buttons.Power@1.service"
+              moz-do-not-send="true">org.openbmc.buttons.Power@1.service</a>
+            - Phosphor Power Button1<o:p></o:p></b></p>
+        <p class="MsoNormal"><b>   Loaded: [[0;1;31merror[[0m (Reason:
+            File exists)<o:p></o:p></b></p>
+        <p class="MsoNormal"><b>   Active: inactive (dead)<o:p></o:p></b></p>
+        <p class="MsoNormal"><b><o:p> </o:p></b></p>
+        <p class="MsoNormal"><b>Oct 22 14:14:13 hwmi systemd[1]:
+            [[0;1;31m[[0;1;39m[[<a class="moz-txt-link-abbreviated" href="mailto:0;1;31morg.openbmc.buttons.Power@1.service">0;1;31morg.openbmc.buttons.Power@1.service</a>:
+            Two services allocated for the same bus name org.open<o:p></o:p></b></p>
+        <p class="MsoNormal"><b>bmc.butto.Power, refusing operation.[[0m<o:p></o:p></b></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">Please help to figure out and proceed. <o:p></o:p></p>
+      </div>
+    </blockquote>
+    <br>
+    <p>Hi Maheswari,</p>
+    <p>I'm guessing you already have an
+      <a class="moz-txt-link-abbreviated" href="mailto:org.openbmc.buttons.Power@0.service">org.openbmc.buttons.Power@0.service</a> running.</p>
+    <p>You can check with:</p>
+    <p># systemctl status <a class="moz-txt-link-abbreviated" href="mailto:org.openbmc.buttons.Power@0.service">org.openbmc.buttons.Power@0.service</a> <br>
+    </p>
+    or just check for the button_power.exe process already running.<br>
+    <br>
+    <br>
+    <blockquote type="cite"
+cite="mid:DB7PR02MB43932ACAD795B6BB37676D1192F00@DB7PR02MB4393.eurprd02.prod.outlook.com">
+      <div class="WordSection1">
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">Thanks <o:p></o:p></p>
+        <p class="MsoNormal">Maheswari A <o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------0BA18F67B02B53959EB07199--
