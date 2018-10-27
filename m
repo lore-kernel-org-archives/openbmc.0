@@ -1,68 +1,68 @@
 Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::541; helo=mail-pg1-x541.google.com;
+ (client-ip=2607:f8b0:4864:20::641; helo=mail-pl1-x641.google.com;
  envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AFgTj4Om"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NLC0XcV8"; 
  dkim-atps=neutral
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42j78y0wRPzF0h9
- for <openbmc@lists.ozlabs.org>; Sun, 28 Oct 2018 04:27:29 +1100 (AEDT)
-Received: by mail-pg1-x541.google.com with SMTP id z2-v6so1974982pgp.0
- for <openbmc@lists.ozlabs.org>; Sat, 27 Oct 2018 10:27:29 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42j7BD6Ft3zDrPm
+ for <openbmc@lists.ozlabs.org>; Sun, 28 Oct 2018 04:28:36 +1100 (AEDT)
+Received: by mail-pl1-x641.google.com with SMTP id bb7-v6so1885989plb.13
+ for <openbmc@lists.ozlabs.org>; Sat, 27 Oct 2018 10:28:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=P1O500X1TTR8Xl8kYycFNw5YkkZvbdiQTaHr8j1ZkFs=;
- b=AFgTj4Omrg+5Lu711Vfkwo8hKv5d5MLb274dQ2VEzEhYPkj3OIkT1OzaEXGyRm/mOi
- e0KsX292gas1tjVA02jPSF7IACvgyKic790iyTzrxp8a5IWSradU0KlPc4xae8HY4FLX
- kSiMSqvlJY0nzlpcGj1rvA2UI72Y3lS891Dd/5W+pov7KzqEYfKWqIZx7CSdHVNfzD41
- 8kfjG5ON5Bqrvmv4WJcub40KUM8ig4D7BsHK/HRvbKkD8nnocWaXYAvJeTb4gSLPG+hN
- ZBtNUFIuGO/EHCJGDx8Gmo6XpIgouHKdamEWmuqACKzmG8YABh6XKAuM+b3Qcul6bDKN
- bP5A==
+ bh=WzeWoNq9R2q/Cd1gpDcQa9tXtdMfumudqSqZRf4jZGA=;
+ b=NLC0XcV8en7WWHJhfvu+Rt+/UcU7zbEPHbrPAnOawhZ/eHYchTH+qDYfCjmrb8o7TI
+ 3cA9iGMpdpKKci0EhzFKW0XggigGEkKCg7W+AEeWOCeFTpwHkQkMvcPYMaJVxuaJvj4N
+ 0+Sc3cPEZfhJzhFqSl1YV33ATvf//WLBKgrxdulE4Q4Ql9yZBupJAPkQ8Lx+gXS/JB57
+ XZld8NtPtCbpFm9G/jLECl/HEgV4ug7W+3bGaJP9AzfEdUOj+u54/0v63d4m2ssm3Xq4
+ rPaE/TOQmMuBUscbDsJUsBfi6XyZqZWjIm9qRj/r8MQCjjDLvNFdg/DVG2zWfANao53C
+ TDdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
  :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=P1O500X1TTR8Xl8kYycFNw5YkkZvbdiQTaHr8j1ZkFs=;
- b=uiNw5vDBclOPuQU6158pWZcpCfydZ6tB0z1KszZak8oP/warvxmCRsmgcAC4EW/3wj
- +UPnlz0aJPH7M8BwF5lNbQUO3k5JaqjOnObT5lfKCCeVv6SWnm2Euni9Pq6Vf5OAUSws
- p7NkF7Vi4CUQdUAQ6rtNAExUn/6pqQMwNutbar0ZMutK2SOZRMD0kk1DELQUm1GUi7o7
- nN1Z3xQgX+m+SgxUYg2Hd8djJN9hBpQXO6gHggkbgg1ny85/MmwvMeKRJ2A9z2PeBbtH
- rwQofGZzjEBotd5ZdYtebhespbEgSiq2+LDtzC0WbOnRLONz/Z6UP5V36YkQh74hRBm3
- Mb7Q==
-X-Gm-Message-State: AGRZ1gJtBkdKgY3Y7BXjiiieMVnsNY8KsT+Ai15iQmM45gJ57ph0M3FI
- KCLe6H+JhiIuYqRetwtmBmU=
-X-Google-Smtp-Source: AJdET5cRAX10dZ7BbvEEp1m/czoIcqqe9ZP8LQ9Q8fTQU/u06jt1jjLNY/xYOHTxp9Rak09FCWK/vg==
-X-Received: by 2002:a63:4243:: with SMTP id
- p64-v6mr7860180pga.127.1540661247370; 
- Sat, 27 Oct 2018 10:27:27 -0700 (PDT)
+ bh=WzeWoNq9R2q/Cd1gpDcQa9tXtdMfumudqSqZRf4jZGA=;
+ b=KnmhC6xNWKKWwt6o6VJbd+x/GMnfgFUEuFcU1ZSCaFYYGor2G1fnynkIqtUzudmWNm
+ IgIqTGgX8OaplcGlEddPec/kffmkVrJ5xGm5AJrwneDWYJK+BQNG1fsxIIWr/GH13RmD
+ EyXBRV5cxRS7/llN7sWDYXNMpoxXnLspoaIrU3kBIaTBbTn9PpTjWJlmZRrlElPR4vO9
+ hlZ4ohNzXjU5Frm+Dqmz3wTh48Zn5u2sONuuazsHtYoVqciTxUsaBBJg2yZ2xqCG+v1d
+ pzM+5lTro0ivZvs7ZUk+x+pFyIUAQmlFH+YmgnMIHftHxortc3ALqtZDxpvTVgbaQPYp
+ T4GQ==
+X-Gm-Message-State: AGRZ1gLk0floaEoecR7zXSBFbKPDwS95Fl4FcSMUhayeMphkU6Jz0/jk
+ GKuvTQTVCFvGk2BwUUOB/A8=
+X-Google-Smtp-Source: AJdET5fPV0z7QqYVbr09YWEU+Ev7l34as4u4dwgp5LefVS3NuzMw702A5dogZhCWy1RlCH+OPItucw==
+X-Received: by 2002:a17:902:788d:: with SMTP id
+ q13-v6mr7585667pll.329.1540661314900; 
+ Sat, 27 Oct 2018 10:28:34 -0700 (PDT)
 Received: from localhost (99-61-165-247.lightspeed.sntcca.sbcglobal.net.
  [99.61.165.247])
- by smtp.gmail.com with ESMTPSA id s13-v6sm41097228pgs.76.2018.10.27.10.27.25
+ by smtp.gmail.com with ESMTPSA id t4-v6sm15229706pfb.44.2018.10.27.10.28.33
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 27 Oct 2018 10:27:26 -0700 (PDT)
+ Sat, 27 Oct 2018 10:28:34 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sat, 27 Oct 2018 10:27:25 -0700
+Date: Sat, 27 Oct 2018 10:28:33 -0700
 From: Guenter Roeck <linux@roeck-us.net>
 To: Kun Yi <kunyi@google.com>
 Cc: no To-header on input <;, openbmc@lists.ozlabs.org,
- Jean Delvare <jdelvare@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] dt-bindings: hwmon: Add adm127x documentation
-Message-ID: <20181027172725.GA24915@roeck-us.net>
-References: <20181017222710.254994-1-kunyi@google.com>
+ Jean Delvare <jdelvare@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] hwmon: (adm1275): Allow setting shunt reg value
+Message-ID: <20181027172833.GA25052@roeck-us.net>
+References: <20181017222639.254434-1-kunyi@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20181017222710.254994-1-kunyi@google.com>
+In-Reply-To: <20181017222639.254434-1-kunyi@google.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -75,15 +75,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 27 Oct 2018 17:27:31 -0000
+X-List-Received-Date: Sat, 27 Oct 2018 17:28:37 -0000
 
-On Wed, Oct 17, 2018 at 03:27:09PM -0700, Kun Yi wrote:
-> adm127x are hot-swap controllers that allow a circuit board to be removed from
-> or inserted into a live backplane. This patch adds the device tree
-> bindings documentation.
+On Wed, Oct 17, 2018 at 03:26:39PM -0700, Kun Yi wrote:
+> The ADM series of hotswap controllers support extending
+> the current measurement range by using a sensing resistor
+> value other than the typical 1 mOhm. For example, using a 0.5 mOhm
+> sensing resistor doubles the maximal current can be measured.
+> 
+> Current driver assumes a shunt resistor value of 1 mOhm in calculation,
+> meaning for other resistor values, hwmon will report scaled
+> current/power measurements. This patch parses device tree parameter
+> "shunt-resistor-micro-ohms", if there is one.
 > 
 > Signed-off-by: Kun Yi <kunyi@google.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
 
 Applied to hwmon-next.
 
@@ -91,38 +96,68 @@ Thanks,
 Guenter
 
 > ---
->  .../devicetree/bindings/hwmon/adm1275.txt     | 25 +++++++++++++++++++
->  1 file changed, 25 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/adm1275.txt
+> Changes in v3:
+> - splitted hwmon and device tree binding patches
 > 
-> diff --git a/Documentation/devicetree/bindings/hwmon/adm1275.txt b/Documentation/devicetree/bindings/hwmon/adm1275.txt
-> new file mode 100644
-> index 000000000000..1ecd03f3da4d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/adm1275.txt
-> @@ -0,0 +1,25 @@
-> +adm1275 properties
+>  Documentation/hwmon/adm1275   |  3 +++
+>  drivers/hwmon/pmbus/adm1275.c | 15 +++++++++++++--
+>  2 files changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/hwmon/adm1275 b/Documentation/hwmon/adm1275
+> index 39033538eb03..5e277b0d91ce 100644
+> --- a/Documentation/hwmon/adm1275
+> +++ b/Documentation/hwmon/adm1275
+> @@ -58,6 +58,9 @@ The ADM1075, unlike many other PMBus devices, does not support internal voltage
+>  or current scaling. Reported voltages, currents, and power are raw measurements,
+>  and will typically have to be scaled.
+>  
+> +The shunt value in micro-ohms can be set via device tree at compile-time. Please
+> +refer to the Documentation/devicetree/bindings/hwmon/adm1275.txt for bindings
+> +if the device tree is used.
+>  
+>  Platform data support
+>  ---------------------
+> diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
+> index 13600fa79e7f..f569372c9204 100644
+> --- a/drivers/hwmon/pmbus/adm1275.c
+> +++ b/drivers/hwmon/pmbus/adm1275.c
+> @@ -373,6 +373,7 @@ static int adm1275_probe(struct i2c_client *client,
+>  	const struct coefficients *coefficients;
+>  	int vindex = -1, voindex = -1, cindex = -1, pindex = -1;
+>  	int tindex = -1;
+> +	u32 shunt;
+>  
+>  	if (!i2c_check_functionality(client->adapter,
+>  				     I2C_FUNC_SMBUS_READ_BYTE_DATA
+> @@ -421,6 +422,13 @@ static int adm1275_probe(struct i2c_client *client,
+>  	if (!data)
+>  		return -ENOMEM;
+>  
+> +	if (of_property_read_u32(client->dev.of_node,
+> +				 "shunt-resistor-micro-ohms", &shunt))
+> +		shunt = 1000; /* 1 mOhm if not set via DT */
 > +
-> +Required properties:
-> +- compatible: Must be one of the supported compatible strings:
-> +	- "adi,adm1075" for adm1075
-> +	- "adi,adm1272" for adm1272
-> +	- "adi,adm1275" for adm1275
-> +	- "adi,adm1276" for adm1276
-> +	- "adi,adm1278" for adm1278
-> +	- "adi,adm1293" for adm1293
-> +	- "adi,adm1294" for adm1294
-> +- reg: I2C address
+> +	if (shunt == 0)
+> +		return -EINVAL;
 > +
-> +Optional properties:
-> +
-> +- shunt-resistor-micro-ohms
-> +	Shunt resistor value in micro-Ohm
-> +
-> +Example:
-> +
-> +adm1272@10 {
-> +	compatible = "adi,adm1272";
-> +	reg = <0x10>;
-> +	shunt-resistor-micro-ohms = <500>;
-> +};
+>  	data->id = mid->driver_data;
+>  
+>  	info = &data->info;
+> @@ -654,12 +662,15 @@ static int adm1275_probe(struct i2c_client *client,
+>  		info->R[PSC_VOLTAGE_OUT] = coefficients[voindex].R;
+>  	}
+>  	if (cindex >= 0) {
+> -		info->m[PSC_CURRENT_OUT] = coefficients[cindex].m;
+> +		/* Scale current with sense resistor value */
+> +		info->m[PSC_CURRENT_OUT] =
+> +			coefficients[cindex].m * shunt / 1000;
+>  		info->b[PSC_CURRENT_OUT] = coefficients[cindex].b;
+>  		info->R[PSC_CURRENT_OUT] = coefficients[cindex].R;
+>  	}
+>  	if (pindex >= 0) {
+> -		info->m[PSC_POWER] = coefficients[pindex].m;
+> +		info->m[PSC_POWER] =
+> +			coefficients[pindex].m * shunt / 1000;
+>  		info->b[PSC_POWER] = coefficients[pindex].b;
+>  		info->R[PSC_POWER] = coefficients[pindex].R;
+>  	}
