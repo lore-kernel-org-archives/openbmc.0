@@ -1,60 +1,82 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <gmills@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::d42; helo=mail-io1-xd42.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="W4c37Lrj"; 
- dkim-atps=neutral
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=gmills@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42kQxD6c00zDrP3
- for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 07:21:51 +1100 (AEDT)
-Received: by mail-io1-xd42.google.com with SMTP id q4-v6so5832867iob.8
- for <openbmc@lists.ozlabs.org>; Mon, 29 Oct 2018 13:21:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+VGpz0pPFr/WjkfyRARlME8X0Ya2Wf3uXpp6ohQfnPM=;
- b=W4c37LrjNvPQCgQYilDFzG0O8oLm+JNHQCGNUf8pQKD6BP+6x7Qi7GyK454ucjv/Nk
- qywsNQFrgkrWMESCt6lboRCNRNKkmS1Z8cJrZTbFJd+OHwGWPj3SJiLJUcZS0sqrtegH
- yAgQMXwkbhnPlwSP/gJIb8p6ShXmNux73yYHBSc/bstl3lSU6SNeqHmxv1b1xUMFC0HR
- igHFSyQOZ4VfFfjwnCI57ctWiNvRFqHVSElsBzwvZUtdCThRlRq8mozuPBucNFZ89RYp
- hcExpb3r2wwEnvpj0EPpyuFlyD7Z4GrDDYP22dnP6keOSECo56cpt4oMxP2RppBzDzbf
- ttfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+VGpz0pPFr/WjkfyRARlME8X0Ya2Wf3uXpp6ohQfnPM=;
- b=Mgch7hntTJ8h/FE6p8y/eMDtQZPaQjeY7IukSc9N25HsuuE7/kPFhgEpfNjmqRdFkF
- bhdSqfwnw1W3kr4K74EKmt+fE+sSQQfr9bOVq3Tngb37jiLEoxrft7pLeyGK8myycjHV
- nI68m90PV4vIqE44+f70Gh1+sTZBBVqDwTF3SWT2qbGOa1m5QJTbhCkOmts8bFgHP/p8
- /pdbFhaNsF7r3KUVYECniboecL6MFV63aKRAwUdj5+ha8aVwNoAMiZz5WKVBY+ngZyqN
- 9QiBiqZkP3xI6fnpDrdDEAaDDNH0DahGpSc0Xie1HiI6XJXRfPkQQxOiMdjuKMITYEee
- mZAA==
-X-Gm-Message-State: AGRZ1gKgd967be3k2nkCiRE8mkGSIeIZ3lZcu+CX1AxxG+LzjnPV3uo+
- /A6Ov64CGFrUBMPtLrIfqpbh40GcYHek+yT9eqQPZA==
-X-Google-Smtp-Source: AJdET5fUXEC2NmSa+EcduL0FzfgvXi28Ovm2vpn0cRzfozolMgWdXTpv3GiqN89phwMbZ6lt08qQKPACTtn5Rb9kVjU=
-X-Received: by 2002:a6b:9046:: with SMTP id
- s67-v6mr8927335iod.295.1540844509710; 
- Mon, 29 Oct 2018 13:21:49 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42kR8y3PFGzDrNX
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 07:32:01 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ w9TKO7qU009779
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Oct 2018 16:31:59 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2ne8e0t6sx-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Oct 2018 16:31:58 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gmills@linux.vnet.ibm.com>;
+ Mon, 29 Oct 2018 16:31:58 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 29 Oct 2018 16:31:56 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w9TKVtqS20250670
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 29 Oct 2018 20:31:55 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2FC1F112062;
+ Mon, 29 Oct 2018 20:31:55 +0000 (GMT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 092C011206B;
+ Mon, 29 Oct 2018 20:31:55 +0000 (GMT)
+Received: from [9.10.223.0] (unknown [9.10.223.0])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Mon, 29 Oct 2018 20:31:54 +0000 (GMT)
+Subject: Re: Should we tag master?
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <b955c4bf-7605-945d-c7dd-ac3669809cee@linux.vnet.ibm.com>
+ <CAO=notwRaJcdiD8KnbB_pe3k=v6BFZXGnrEcxBH-29LZ=pGL6A@mail.gmail.com>
+ <674AECB5-F797-477D-B4CA-A7A257310CE8@fuzziesquirrel.com>
+From: Gunnar Mills <gmills@linux.vnet.ibm.com>
+Date: Mon, 29 Oct 2018 15:31:52 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <20181017222639.254434-1-kunyi@google.com>
- <20181027172833.GA25052@roeck-us.net>
-In-Reply-To: <20181027172833.GA25052@roeck-us.net>
-From: Kun Yi <kunyi@google.com>
-Date: Mon, 29 Oct 2018 13:21:23 -0700
-Message-ID: <CAGMNF6Xg28hm05wPXtq9bqssoNmgrzFGQiG4P+vLyXKvzvdJCQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] hwmon: (adm1275): Allow setting shunt reg value
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, jdelvare@suse.com,
- corbet@lwn.net, linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <674AECB5-F797-477D-B4CA-A7A257310CE8@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18102920-0052-0000-0000-0000034BD425
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00009949; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01109809; UDB=6.00575001; IPR=6.00889901; 
+ MB=3.00023955; MTD=3.00000008; XFM=3.00000015; UTC=2018-10-29 20:31:57
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18102920-0053-0000-0000-00005E952FF4
+Message-Id: <44520f40-3328-ec18-5838-be3bac2fec25@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-10-29_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=834 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1810290184
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,97 +88,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Oct 2018 20:21:54 -0000
+X-List-Received-Date: Mon, 29 Oct 2018 20:32:03 -0000
 
-On Sat, Oct 27, 2018 at 10:28 AM Guenter Roeck <linux@roeck-us.net> wrote:
->
-> On Wed, Oct 17, 2018 at 03:26:39PM -0700, Kun Yi wrote:
-> > The ADM series of hotswap controllers support extending
-> > the current measurement range by using a sensing resistor
-> > value other than the typical 1 mOhm. For example, using a 0.5 mOhm
-> > sensing resistor doubles the maximal current can be measured.
-> >
-> > Current driver assumes a shunt resistor value of 1 mOhm in calculation,
-> > meaning for other resistor values, hwmon will report scaled
-> > current/power measurements. This patch parses device tree parameter
-> > "shunt-resistor-micro-ohms", if there is one.
-> >
-> > Signed-off-by: Kun Yi <kunyi@google.com>
->
-> Applied to hwmon-next.
->
-> Thanks,
-> Guenter
->
-> > ---
-> > Changes in v3:
-> > - splitted hwmon and device tree binding patches
-> >
-> >  Documentation/hwmon/adm1275   |  3 +++
-> >  drivers/hwmon/pmbus/adm1275.c | 15 +++++++++++++--
-> >  2 files changed, 16 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/Documentation/hwmon/adm1275 b/Documentation/hwmon/adm1275
-> > index 39033538eb03..5e277b0d91ce 100644
-> > --- a/Documentation/hwmon/adm1275
-> > +++ b/Documentation/hwmon/adm1275
-> > @@ -58,6 +58,9 @@ The ADM1075, unlike many other PMBus devices, does not support internal voltage
-> >  or current scaling. Reported voltages, currents, and power are raw measurements,
-> >  and will typically have to be scaled.
-> >
-> > +The shunt value in micro-ohms can be set via device tree at compile-time. Please
-> > +refer to the Documentation/devicetree/bindings/hwmon/adm1275.txt for bindings
-> > +if the device tree is used.
-> >
-> >  Platform data support
-> >  ---------------------
-> > diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
-> > index 13600fa79e7f..f569372c9204 100644
-> > --- a/drivers/hwmon/pmbus/adm1275.c
-> > +++ b/drivers/hwmon/pmbus/adm1275.c
-> > @@ -373,6 +373,7 @@ static int adm1275_probe(struct i2c_client *client,
-> >       const struct coefficients *coefficients;
-> >       int vindex = -1, voindex = -1, cindex = -1, pindex = -1;
-> >       int tindex = -1;
-> > +     u32 shunt;
-> >
-> >       if (!i2c_check_functionality(client->adapter,
-> >                                    I2C_FUNC_SMBUS_READ_BYTE_DATA
-> > @@ -421,6 +422,13 @@ static int adm1275_probe(struct i2c_client *client,
-> >       if (!data)
-> >               return -ENOMEM;
-> >
-> > +     if (of_property_read_u32(client->dev.of_node,
-> > +                              "shunt-resistor-micro-ohms", &shunt))
-> > +             shunt = 1000; /* 1 mOhm if not set via DT */
-> > +
-> > +     if (shunt == 0)
-> > +             return -EINVAL;
-> > +
-> >       data->id = mid->driver_data;
-> >
-> >       info = &data->info;
-> > @@ -654,12 +662,15 @@ static int adm1275_probe(struct i2c_client *client,
-> >               info->R[PSC_VOLTAGE_OUT] = coefficients[voindex].R;
-> >       }
-> >       if (cindex >= 0) {
-> > -             info->m[PSC_CURRENT_OUT] = coefficients[cindex].m;
-> > +             /* Scale current with sense resistor value */
-> > +             info->m[PSC_CURRENT_OUT] =
-> > +                     coefficients[cindex].m * shunt / 1000;
-> >               info->b[PSC_CURRENT_OUT] = coefficients[cindex].b;
-> >               info->R[PSC_CURRENT_OUT] = coefficients[cindex].R;
-> >       }
-> >       if (pindex >= 0) {
-> > -             info->m[PSC_POWER] = coefficients[pindex].m;
-> > +             info->m[PSC_POWER] =
-> > +                     coefficients[pindex].m * shunt / 1000;
-> >               info->b[PSC_POWER] = coefficients[pindex].b;
-> >               info->R[PSC_POWER] = coefficients[pindex].R;
-> >       }
 
-Thanks!
+On 10/29/2018 2:27 PM, Brad Bishop wrote:
+> This was discussed on the community call today.  I’ll start limiting
+> meta-phosphor content to fixes only on 11/11 and then I’ll do a v2.4 tag
+> on 11/16.
+>
 
--- 
-Regards,
-Kun
+Sounds great. Thanks Brad!
