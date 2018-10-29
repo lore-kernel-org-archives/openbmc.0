@@ -1,46 +1,53 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <truongmd@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::231; helo=mail-oi1-x231.google.com;
+ envelope-from=truongmd@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EW3vVRY7"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42kS6H4BMpzDrhn;
- Tue, 30 Oct 2018 08:14:47 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2018 14:14:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,441,1534834800"; d="scan'208";a="275456018"
-Received: from maru.jf.intel.com ([10.54.51.77])
- by fmsmga005.fm.intel.com with ESMTP; 29 Oct 2018 14:14:47 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Wolfram Sang <wsa@the-dreams.de>,
- Brendan Higgins <brendanhiggins@google.com>,
- Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH i2c-next v8 5/5] i2c: aspeed: Add bus idle waiting logic for
- multi-master use cases
-Date: Mon, 29 Oct 2018 14:14:14 -0700
-Message-Id: <20181029211414.20771-6-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20181029211414.20771-1-jae.hyun.yoo@linux.intel.com>
-References: <20181029211414.20771-1-jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42kSxH4BBkzDrNV
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 08:52:00 +1100 (AEDT)
+Received: by mail-oi1-x231.google.com with SMTP id p144-v6so4672052oic.12
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Oct 2018 14:51:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=MOaWDGRrFryBZF+Usa8duu9xqoiOAUvJi1JhbuiWlOs=;
+ b=EW3vVRY7Dnm5ZaLdF4UuhR+7EemTwbLENlbc1Z2JblsiUU1jTAqRx0wrWlLMvAtEzZ
+ E4vNAuZ5Lg9TA5zFXpwI5+CB9sacB/z3UPtq4+vQo0FYTzXTdU0guhxE1j1gsQC1l9AD
+ TB/HLdJ/q9cugNhTOako8wLXMAS2gthZy+61XuQKbVPCCVpug9McjmCEoJ2pmgWaye5F
+ zbzC2Q9CRDuCuHrXTX73XN4hq/I9QsGdtpD14BC8+5AIkpeyWpX2wISOLCl6DFXJIJz/
+ AsUfZWPDcwVgbuFMaVoS1cYD1Yh7pdDqtnD7lQ5imtMbnhY6Tqk/nepjhQFiUSIe5jdo
+ 2+Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=MOaWDGRrFryBZF+Usa8duu9xqoiOAUvJi1JhbuiWlOs=;
+ b=XY5iCF44cBHUO3marsSU3SGhO56NU2nOV3Cubvm+m/db2mXnQwqkaGCSv3ghAePMWj
+ yzOcBF7LL8b+sZhS+fRoslGOFdhpom8wRcVLT94hfEUqPyPXTVgU7JYp71RS9td1gEWs
+ /3LBcaS1wODY6UhLG9TW32OBTjCmi+HWrX08PitkOgqPAZAMK9nZCuWwCEl0L2Np1Cnf
+ 4h0Ip35eQ6VpwvgTIMlNoaqZRkhzujM/4yKyAQpr9sj1+ls27Uoi2gV8VjOHZ4JBAGFK
+ RCEXQwLclkyN0jL14VoJa3dAKREG/rpF5AzrMe9eB0hM5LwfUuOSdaGWJ0ofdNaVVKg5
+ IezQ==
+X-Gm-Message-State: AGRZ1gIjzrp5JEtzOIriP4nstrEBpwwikFU1wzGIZgTOUi3z4rFI3do1
+ /rpSak4lJLnKYXy4k0FqHRE26ZzJfaEgViaDbBKyUurt
+X-Google-Smtp-Source: AJdET5dV61COa8uU3OY/nB0AmieD4FWwE2GtdL9jdDgc+/4guJW2hrijcx4fHUEK5ymmBQ1SMGmEjhicfD3oT/S2J1I=
+X-Received: by 2002:aca:785:: with SMTP id
+ 127-v6mr9949217oih.127.1540849917343; 
+ Mon, 29 Oct 2018 14:51:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: "M. D. Truong" <truongmd@gmail.com>
+Date: Mon, 29 Oct 2018 14:51:46 -0700
+Message-ID: <CAEx7e2SGZWe5ba9=0rSFc1-ArS9uPDhn8oLFSZMT4ygX968t9w@mail.gmail.com>
+Subject: OpenBMC Raspberry Pi
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,121 +59,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Oct 2018 21:14:48 -0000
+X-List-Received-Date: Mon, 29 Oct 2018 21:52:04 -0000
 
-In multi-master environment, this driver's master cannot know
-exactly when a peer master sends data to this driver's slave so a
-case can be happened that this master tries to send data through
-the master_xfer function but slave data from peer master is still
-being processed by this driver.
+Hi all,
 
-To prevent any state corruption in the case, this patch adds
-checking code if any slave operation is ongoing and it waits up to
-the bus timeout duration before starting a master_xfer operation.
+OpenBMC on Raspberry Pi seems to have a bit of interest as a
+stand-alone reference platform. The source has teased the possibility
+of running OpenBMC on an RPI, so I bit and took a few cycles to make
+it work. On a GitHub fork of OpenBMC code, sitting on the
+"raspberrypi-cm3" branch are some patches that will build a working
+distribution.
 
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
----
- drivers/i2c/busses/i2c-aspeed.c | 52 +++++++++++++++++++++++----------
- 1 file changed, 37 insertions(+), 15 deletions(-)
+https://github.com/truongmd/openbmc/tree/raspberrypi-cm3
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index 833b6b6a4c7e..4e92a405210b 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/clk.h>
- #include <linux/completion.h>
-+#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/i2c.h>
-@@ -115,6 +116,9 @@
- /* 0x18 : I2CD Slave Device Address Register   */
- #define ASPEED_I2CD_DEV_ADDR_MASK			GENMASK(6, 0)
- 
-+/* Busy checking */
-+#define ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US		(10 * 1000)
-+
- enum aspeed_i2c_master_state {
- 	ASPEED_I2C_MASTER_INACTIVE,
- 	ASPEED_I2C_MASTER_START,
-@@ -156,6 +160,8 @@ struct aspeed_i2c_bus {
- 	int				cmd_err;
- 	/* Protected only by i2c_lock_bus */
- 	int				master_xfer_result;
-+	/* Multi-master */
-+	bool				multi_master;
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- 	struct i2c_client		*slave;
- 	enum aspeed_i2c_slave_state	slave_state;
-@@ -596,27 +602,41 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
- 	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
- }
- 
-+static int aspeed_i2c_check_bus_busy(struct aspeed_i2c_bus *bus)
-+{
-+	unsigned long check_started;
-+
-+	if (bus->multi_master) {
-+		might_sleep();
-+		check_started = jiffies;
-+	}
-+
-+	for (;;) {
-+		if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
-+		      ASPEED_I2CD_BUS_BUSY_STS) &&
-+		    bus->slave_state == ASPEED_I2C_SLAVE_STOP)
-+			return 0;
-+		if (!bus->multi_master)
-+			break;
-+		if (time_after(jiffies, check_started + bus->adap.timeout))
-+			break;
-+		usleep_range((ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US >> 2) + 1,
-+			     ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US);
-+	}
-+
-+	return aspeed_i2c_recover_bus(bus);
-+}
-+
- static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
- 				  struct i2c_msg *msgs, int num)
- {
- 	struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
- 	unsigned long time_left, flags;
--	int ret = 0;
- 
--	spin_lock_irqsave(&bus->lock, flags);
--	bus->cmd_err = 0;
--
--	/* If bus is busy, attempt recovery. We assume a single master
--	 * environment.
--	 */
--	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
--		spin_unlock_irqrestore(&bus->lock, flags);
--		ret = aspeed_i2c_recover_bus(bus);
--		if (ret)
--			return ret;
--		spin_lock_irqsave(&bus->lock, flags);
--	}
-+	if (aspeed_i2c_check_bus_busy(bus))
-+		return -EAGAIN;
- 
-+	spin_lock_irqsave(&bus->lock, flags);
- 	bus->cmd_err = 0;
- 	bus->msgs = msgs;
- 	bus->msgs_index = 0;
-@@ -827,7 +847,9 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
- 	if (ret < 0)
- 		return ret;
- 
--	if (!of_property_read_bool(pdev->dev.of_node, "multi-master"))
-+	if (of_property_read_bool(pdev->dev.of_node, "multi-master"))
-+		bus->multi_master = true;
-+	else
- 		fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
- 
- 	/* Enable Master Mode */
--- 
-2.19.1
+The README.md file has most of useful notes on building the code and
+bringing it up on a device. I'm looking for feedback on changes before
+pushing the code upstream. Features is a completely separate area for
+discussion.
+
+This was a great learning experience and I hope it's useful for others.
+
+
+Cheers,
+My
