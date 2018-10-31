@@ -1,61 +1,53 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::d44; helo=mail-io1-xd44.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4864:20::52f; helo=mail-ed1-x52f.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="rFBFeYB5"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uta80Rbr"; 
  dkim-atps=neutral
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42lGY70yPMzF2Dw
- for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 16:07:22 +1100 (AEDT)
-Received: by mail-io1-xd44.google.com with SMTP id n11-v6so8808330iob.6
- for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 22:07:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=al38zN158vEK+UMiRUUX5xYRuCANomIVDi6OaGoVjWs=;
- b=rFBFeYB5eM8UvoifhgSNVuM9d5ryIuG+fbx6dMamTEdJvxX8kxj0umyin+jpkx8n+f
- /bg+HJTexliEOkw3+jTrgXhkSQJRSOC2oA5+HbFzqlSqR7y4MIgKTKGnaVNoxEDC12mE
- btAzJXeBzSKJ7Hi51kaNnb09gKk4UOlSAHoR54oR32amb2pJdcGJaDWKuYyPOtaN0f52
- ESAlpqzNCweLiBveWlOD6h4TO3XFiNtYRdTIjV+0tTRwswoVKT7tVIT8uxK8UYRpcW+5
- c73JNIIOYM4S09uwLFi30q/wqyqGWQ+NmRMhFmENLRp58vXQQDvdDTzD6xDo34I3C9pb
- vt5A==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42lGhB5GFzzF2Dy
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 16:13:30 +1100 (AEDT)
+Received: by mail-ed1-x52f.google.com with SMTP id y20-v6so12502197eds.10
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 22:13:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=d65rmH2IaFct2Aj9Ui4GvZpFXtnyiIcFAG02uQHwaAE=;
+ b=Uta80RbrQnkLM4su3+9v0TJVJOaQergBU11/aCWji73BS4irySYW6oSHI+N3UpZAtV
+ H331VnS+ZLM2qDOcDCLws/txgfl/7ZW6FUO3hjx8PAJ1HYhoWxLEYgqwwvGJ1nSsp2/W
+ rZCGmk/e/Q7xtBeyWhpt0CSjf3Z1Cta9WI8OLD6aNAGB1BJ18nOwE77hTywua9YRWHOH
+ DL9j1Z8KF6YVAaqpgfWiJYB9TpWaYTrMeqt+/ScIkg5+4QIZjx2hTjgkO4aJzfziGZim
+ DZniRcfgujVoTZXH7Wcdsf2OaAbrmj3UW2xmTkr0qsLR4kmJhMpX2xMXGEJBX5gHQ0sr
+ mhkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=al38zN158vEK+UMiRUUX5xYRuCANomIVDi6OaGoVjWs=;
- b=LIoFQeVGn32YC0jg2ioLTQdJpKT2z0nOBfdr4Fcww/xmYIM/NZDz/Drt9JxC4cjLy6
- TQlD1zM8VSgvu5BuQj/XPXV1nxFzpRnLxPJL+UYvLrFmkiE3rtM13lDBYzDkOR/nr0LW
- Rq6osEwPthM3aC+iZx29QfaWDCi5f9BH7KTTXZGJ1gHHP7wc+N2L0YXW1EtT7ytFfCbj
- al1//RNpP6Ny4letNjCuyPTcLw3Asx0HglbkcCChfMQAQIgoilyvGtZK4j204XA+5qRq
- rfsSnbc2341ULLVo1CJ8wubXcKF7JuhDgxhTTTvts51FGW9zsy9ZGH6JWtX7Qtc8ZvYp
- XPxQ==
-X-Gm-Message-State: AGRZ1gJ6KeKlXg0ss9yLSNntIY/AT39Tjw9Z0ndutSrLB/ReHhL7qxso
- hRtioClEHq3h+R/Dagn8lO4moIkMSrFLBf0J3ONsVA==
-X-Google-Smtp-Source: AJdET5cId2PXgceyy3RB8DAHdrnuNjGCBGVK1Es5DnrIXMbnbUT1oWVAPN8jRx030HvuLmYNiU7EAJe9SixyS/qAxvc=
-X-Received: by 2002:a6b:b450:: with SMTP id
- d77-v6mr1051979iof.15.1540962440110; 
- Tue, 30 Oct 2018 22:07:20 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=d65rmH2IaFct2Aj9Ui4GvZpFXtnyiIcFAG02uQHwaAE=;
+ b=JTvRRDN77736BUzgXr181W+TBfu5ZhfRZlvwvWKQrE+5ld6X1fYoshTUMzP81liABm
+ exePHgFgQkNlsXtE6IUsEQRPgeqRDKkTHIZmPtkzO2yAVYRe8lce5nVkPW0LO6y3VD+R
+ p2EpgAT162QOkwpa08vQPFoQKUhPTMEXfC+82sMqsEdzuTRQT29qCtL1boFlAYlQsSbP
+ yVJcqHz5x+pKUWyn8C5tpjRmsHuvynSNa02kQ6cOV9PjnaIPS3wIh0SS/AI9+UOjaGrW
+ ltpAUSaWn5c7IgndiriKYjoybBEuE3i2W8WcxbmULJbgMmWNo4MYwtQ5qv7MVU2sYgt/
+ tENA==
+X-Gm-Message-State: AGRZ1gKAbW49Q6cOiHQiMXf/gPEwq+LlgYEsO0VmK3nuoqp2/TSZXPMt
+ uvYNekW0ZpKwbEGf7uT/Qt5e5kWROL+m1A2wYKqQbvc/
+X-Google-Smtp-Source: AJdET5dmAM5DvtEVIN9Zr/NetudL1NV2iDSBytdAtwvvBNGSwW8BeisUM3rwC39725pPBoE4qBEGpEXZc2TC/gi8+H0=
+X-Received: by 2002:a50:ad4a:: with SMTP id
+ z10-v6mr853391edc.252.1540962806649; 
+ Tue, 30 Oct 2018 22:13:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20181017213012.233957-1-kunyi@google.com>
- <20181017213012.233957-3-kunyi@google.com>
- <CACRpkdbS_aOpFORVnK3QJUsF1p-mVxtMas-q6fOp7emTx281Lg@mail.gmail.com>
-In-Reply-To: <CACRpkdbS_aOpFORVnK3QJUsF1p-mVxtMas-q6fOp7emTx281Lg@mail.gmail.com>
-From: Kun Yi <kunyi@google.com>
-Date: Tue, 30 Oct 2018 22:06:52 -0700
-Message-ID: <CAGMNF6VMLqRwVb=+-qU=nC9hW-idV-fLrnHFL9_xv7Ajha17og@mail.gmail.com>
-Subject: Re: [PATCH 2/2] pinctrl: pinctrl-npcm7xx: Set BGPIOF_VOLATILE_REG
-To: linus.walleij@linaro.org
-Cc: linux-gpio@vger.kernel.org, tmaimon77@gmail.com, 
- linux-kernel@vger.kernel.org, avifishman70@gmail.com, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, broonie@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+From: AKASH G J <akashgj91@gmail.com>
+Date: Wed, 31 Oct 2018 10:43:09 +0530
+Message-ID: <CAE33tLEc5RU1yMv=zQt9hOqpZyBSZzyK0o1fcBpbAyUsBiekLw@mail.gmail.com>
+Subject: Temperature Sensor Reading not showing up.
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000b3d66005797f5cd6"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,33 +59,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Oct 2018 05:07:24 -0000
+X-List-Received-Date: Wed, 31 Oct 2018 05:13:31 -0000
 
-On Tue, Oct 30, 2018 at 5:08 AM Linus Walleij <linus.walleij@linaro.org> wrote:
->
-> On Wed, Oct 17, 2018 at 11:30 PM Kun Yi <kunyi@google.com> wrote:
->
-> > Indicate that the pins are both controlled by the pinctrl driver and the
-> > generic GPIO driver, thus GPIO driver should read the register value
-> > before updating, instead of using the stored shadow register values.
-> >
-> > Signed-off-by: Kun Yi <kunyi@google.com>
->
-> This is quite a rough measure, if we instead use regmap-mmio
-> we can exercise fine control over what register are volatile and
-> not instead of saying that all of them or some of them are.
+--000000000000b3d66005797f5cd6
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks for your review Linus! I don't have time to rewrite using
-regmap-mmio at the moment though. I have discussed with the driver
-author and we will first patch the pinctrl driver by making the
-pinctrl functions use the gpio-mmio accessors instead of directly reg
-read/writes. When I have time I will look into your suggestion to
-improve the driver.
+Hi All,
 
->
-> Yours,
-> Linus Walleij
+I built OpenBMC Linux using Zaius configuration and booted on BMC Aspeed
+AST-2500. The board we are using have one temperature sensor (Texas
+Instruments TMP75) on I2C-12 interface.
 
--- 
-Regards,
-Kun
+I added the file
+*meta-zaius/recipes-phosphor/sensors/phosphor-hwmon%/obmc/hwmon/ahb/apb/i2c@1e6e2000/i2c-bus@90/tmp75@48.conf*
+in machine configuration directory with the following contents.
+
+
+
+*LABEL_temp1 = ambientWARNLO_temp1=-40WARNHI_temp1=125*
+
+I added the following patch to the kernel file
+linux/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts.
+
+
+
+
+
+
+
+
+
+
+* &i2c12 {-    status = "disabled";+    status = "okay";++    tmp75@48
+{+        compatible = "ti,tmp75";+        reg = <0x48>;+    };+ };*
+
+After booting Linux, the changes are reflected in
+*/sys/firmware/devicetree/base/ahb/apb/i2c@1e78a000/i2c-bus@440/tmp75@48*.
+Also,
+*tmp78.conf* is showing in
+*/etc/default/obmc/hwmon/ahb/apb/i2c@1e78a000/i2c-bus@90*.
+
+when I am running the ipmitool command: *ipmitool -I dbus sdr elist* full
+it is not showing the temperature sensor and its reading.
+
+Please someone help to resolve the problem.
+
+
+Thanks and Regards,
+
+Akash
+
+--000000000000b3d66005797f5cd6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi All,</div><div><br></div><div dir=3D"ltr">I built =
+OpenBMC Linux using Zaius configuration and booted on BMC Aspeed AST-2500. =
+The board we are using have one temperature sensor (Texas Instruments TMP75=
+) on I2C-12 interface.<br><br>I added the file <i>meta-zaius/recipes-phosph=
+or/sensors/phosphor-hwmon%/obmc/hwmon/ahb/apb/i2c@1e6e2000/i2c-bus@90/tmp75=
+@48.conf</i> in machine configuration directory with the following contents=
+.<br><i><br>LABEL_temp1 =3D ambient<br>WARNLO_temp1=3D-40<br>WARNHI_temp1=
+=3D125</i><br><br>I added the following patch to the kernel file linux/arch=
+/arm/boot/dts/aspeed-bmc-opp-zaius.dts.<br><br><i>=C2=A0&amp;i2c12 {<br>-=
+=C2=A0=C2=A0=C2=A0 status =3D &quot;disabled&quot;;<br>+=C2=A0=C2=A0=C2=A0 =
+status =3D &quot;okay&quot;;<br>+<br>+=C2=A0=C2=A0=C2=A0 tmp75@48 {<br>+=C2=
+=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 compatible =3D &quot;ti,tmp75&quot;;<br>=
++=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 reg =3D &lt;0x48&gt;;<br>+=C2=A0=C2=
+=A0=C2=A0 };<br>+<br>=C2=A0};</i><br><br>After booting Linux, the changes a=
+re reflected in <i>/sys/firmware/devicetree/base/ahb/apb/i2c@1e78a000/i2c-b=
+us@440/tmp75@48</i>. Also,<br><i>tmp78.conf</i> is showing in <i>/etc/defau=
+lt/obmc/hwmon/ahb/apb/i2c@1e78a000/i2c-bus@90</i>.<br><br>when I am running=
+ the ipmitool command: <i>ipmitool -I dbus sdr elist</i> full it is not sho=
+wing the temperature sensor and its reading.<br><br>Please someone help to =
+resolve the problem.<br><br><br>Thanks and Regards,<br><br>Akash<br><br></d=
+iv></div>
+
+--000000000000b3d66005797f5cd6--
