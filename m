@@ -1,51 +1,57 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <truongmd@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::22d; helo=mail-oi1-x22d.google.com;
+ envelope-from=truongmd@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="f7zdfG26"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42l6VN07BHzF1Ps;
- Wed, 31 Oct 2018 10:04:27 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2018 16:04:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,446,1534834800"; d="scan'208";a="87651086"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga008.jf.intel.com with ESMTP; 30 Oct 2018 16:04:24 -0700
-Subject: Re: [PATCH i2c-next v9 5/5] i2c: aspeed: Add bus idle waiting logic
- for multi-master use cases
-To: kbuild test robot <lkp@intel.com>
-Cc: kbuild-all@01.org, Wolfram Sang <wsa@the-dreams.de>,
- Brendan Higgins <brendanhiggins@google.com>, Rob Herring
- <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20181030210917.32711-6-jae.hyun.yoo@linux.intel.com>
- <201810310601.Odxb7qSY%fengguang.wu@intel.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <f5d3d3a3-daa3-fef7-853a-2b543fce0379@linux.intel.com>
-Date: Tue, 30 Oct 2018 16:04:24 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42l8kG4lpKzF1Q4
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 11:44:54 +1100 (AEDT)
+Received: by mail-oi1-x22d.google.com with SMTP id p144-v6so8280986oic.12
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 17:44:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=0f0P6CT5CPHynoJyHVB+4xwJL0f0dun1TEgYDrv7QrQ=;
+ b=f7zdfG262AoKRgxOhDkRCVgiEyJ2UpTqHkHC5TlVkjnbAwASbWA38ikk3TK7KnmVqy
+ V4URkjD2Uq/HRSKuNRjigV2wO3auG0q0F3XuiYJrQMmNWsLTlC6ZjeRdHHEyFoLr7Wob
+ eopZhcR6EyR0yk+RwrRaTGzakBHkVJYvYClJ90APtO9OPC8nm1HYb+7DFNDX6RJvePav
+ /9jDFNgE8vpnnxPcYsT0i4L64hr9C/QUrYViI2nMQmRCr2WbFKbcVDSEp7Osf49t3jX4
+ V1aStxiyXuiuCIEu58peC6voS2QUyuoCEpjLP17EFx6cEuqgyneoVkDASTtYwGR2tgZu
+ UkrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=0f0P6CT5CPHynoJyHVB+4xwJL0f0dun1TEgYDrv7QrQ=;
+ b=QOrWgsKXzVDfvrlAnDxTcNtG8UsGlCuDVq/uweSBl37rPJ+9TzX+WPHhhyCtU9uOPl
+ EbVhmLpx/CPVRuh6QtV4Y/L15g1l1Fj/9vckuz1vPp0GtCwpLFw3a+TmjZpknz+uUIKi
+ bWvtkeKViJxxxmAedUIKEA3oIcVNijIL/H0rfv03/pdb1U86duqqJjqP2SI73tH1FvM1
+ SC1kEdumJVtax77eDv7aEAJB1pADwwdBztfA48SjOj102i9sLq3zWHf3brWu2W2cmO8j
+ /I08bggPUj9uCoOJdDGaPUwxEUzJPjLr0ssZKRBnSfmWaKUnQAOJy2uPn7pDwv32W6rP
+ vwaQ==
+X-Gm-Message-State: AGRZ1gKjwQs7I3cr6VyM65WK3TI+pAhca+eezo1FHqeDSWnRLtshKElL
+ VtrTKA4zHkK2CNV9V0oAsvPcsBGghJ1yZJC5wZE=
+X-Google-Smtp-Source: AJdET5eezq3hLveFL6T4u9m9u4VZuPipQaa4uNRXmAW6S3oWW6wCb3gviRz0OTvG/Km3SyUr+UYXsemdbPu5bXZz/rM=
+X-Received: by 2002:aca:895:: with SMTP id 143-v6mr551507oii.309.1540946692319; 
+ Tue, 30 Oct 2018 17:44:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <201810310601.Odxb7qSY%fengguang.wu@intel.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CAEx7e2SGZWe5ba9=0rSFc1-ArS9uPDhn8oLFSZMT4ygX968t9w@mail.gmail.com>
+ <CAARXrtkbSKRQ0wB+HkpLA_4EDx9rizeOuL7unTOSpkgytChFuQ@mail.gmail.com>
+In-Reply-To: <CAARXrtkbSKRQ0wB+HkpLA_4EDx9rizeOuL7unTOSpkgytChFuQ@mail.gmail.com>
+From: "M. D. Truong" <truongmd@gmail.com>
+Date: Tue, 30 Oct 2018 17:44:40 -0700
+Message-ID: <CAEx7e2QofcFmzd614-kpi+kmVjNZmmAhNTxy7HtkvTvCNuUz4g@mail.gmail.com>
+Subject: Re: OpenBMC Raspberry Pi
+To: mine260309@gmail.com
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,99 +63,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Oct 2018 23:04:29 -0000
+X-List-Received-Date: Wed, 31 Oct 2018 00:44:55 -0000
 
-On 10/30/2018 3:22 PM, kbuild test robot wrote:
-> Hi Jae,
-> 
-> Thank you for the patch! Perhaps something to improve:
-> 
-> [auto build test WARNING on wsa/i2c/for-next]
-> [also build test WARNING on v4.19 next-20181030]
-> [if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
-> 
-> url:    https://github.com/0day-ci/linux/commits/Jae-Hyun-Yoo/dt-bindings-i2c-Add-bus-timeout-ms-and-retries-properties-as-common-optional/20181031-051152
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/for-next
-> config: xtensa-allyesconfig (attached as .config)
-> compiler: xtensa-linux-gcc (GCC) 8.1.0
-> reproduce:
->          wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->          chmod +x ~/bin/make.cross
->          # save the attached .config to linux build tree
->          GCC_VERSION=8.1.0 make.cross ARCH=xtensa
-> 
-> Note: it may well be a FALSE warning. FWIW you are at least aware of it now.
-> http://gcc.gnu.org/wiki/Better_Uninitialized_Warnings
-> 
-> All warnings (new ones prefixed by >>):
-> 
->     In file included from include/linux/ktime.h:25,
->                      from include/linux/rcutiny.h:28,
->                      from include/linux/rcupdate.h:209,
->                      from include/linux/srcu.h:33,
->                      from include/linux/notifier.h:16,
->                      from include/linux/clk.h:17,
->                      from drivers/i2c/busses/i2c-aspeed.c:13:
->     drivers/i2c/busses/i2c-aspeed.c: In function 'aspeed_i2c_master_xfer':
->>> include/linux/jiffies.h:108:15: warning: 'timeout' may be used uninitialized in this function [-Wmaybe-uninitialized]
->        ((long)((b) - (a)) < 0))
->                    ^
->     drivers/i2c/busses/i2c-aspeed.c:607:16: note: 'timeout' was declared here
->       unsigned long timeout;
->                     ^~~~~~~
-> --
->     In file included from include/linux/ktime.h:25,
->                      from include/linux/rcutiny.h:28,
->                      from include/linux/rcupdate.h:209,
->                      from include/linux/srcu.h:33,
->                      from include/linux/notifier.h:16,
->                      from include/linux/clk.h:17,
->                      from drivers/i2c//busses/i2c-aspeed.c:13:
->     drivers/i2c//busses/i2c-aspeed.c: In function 'aspeed_i2c_master_xfer':
->>> include/linux/jiffies.h:108:15: warning: 'timeout' may be used uninitialized in this function [-Wmaybe-uninitialized]
->        ((long)((b) - (a)) < 0))
->                    ^
->     drivers/i2c//busses/i2c-aspeed.c:607:16: note: 'timeout' was declared here
->       unsigned long timeout;
->                     ^~~~~~~
-> 
-> vim +/timeout +108 include/linux/jiffies.h
-> 
-> ^1da177e Linus Torvalds   2005-04-16   91
-> ^1da177e Linus Torvalds   2005-04-16   92  /*
-> ^1da177e Linus Torvalds   2005-04-16   93   *	These inlines deal with timer wrapping correctly. You are
-> ^1da177e Linus Torvalds   2005-04-16   94   *	strongly encouraged to use them
-> ^1da177e Linus Torvalds   2005-04-16   95   *	1. Because people otherwise forget
-> ^1da177e Linus Torvalds   2005-04-16   96   *	2. Because if the timer wrap changes in future you won't have to
-> ^1da177e Linus Torvalds   2005-04-16   97   *	   alter your driver code.
-> ^1da177e Linus Torvalds   2005-04-16   98   *
-> ^1da177e Linus Torvalds   2005-04-16   99   * time_after(a,b) returns true if the time a is after time b.
-> ^1da177e Linus Torvalds   2005-04-16  100   *
-> ^1da177e Linus Torvalds   2005-04-16  101   * Do this with "<0" and ">=0" to only test the sign of the result. A
-> ^1da177e Linus Torvalds   2005-04-16  102   * good compiler would generate better code (and a really good compiler
-> ^1da177e Linus Torvalds   2005-04-16  103   * wouldn't care). Gcc is currently neither.
-> ^1da177e Linus Torvalds   2005-04-16  104   */
-> ^1da177e Linus Torvalds   2005-04-16  105  #define time_after(a,b)		\
-> ^1da177e Linus Torvalds   2005-04-16  106  	(typecheck(unsigned long, a) && \
-> ^1da177e Linus Torvalds   2005-04-16  107  	 typecheck(unsigned long, b) && \
-> 5a581b36 Paul E. McKenney 2013-07-27 @108  	 ((long)((b) - (a)) < 0))
-> ^1da177e Linus Torvalds   2005-04-16  109  #define time_before(a,b)	time_after(b,a)
-> ^1da177e Linus Torvalds   2005-04-16  110
-> 
-> :::::: The code at line 108 was first introduced by commit
-> :::::: 5a581b367b5df0531265311fc681c2abd377e5e6 jiffies: Avoid undefined behavior from signed overflow
-> 
-> :::::: TO: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
-> :::::: CC: Paul E. McKenney <paulmck@linux.vnet.ibm.com>
-> 
-> ---
-> 0-DAY kernel test infrastructure                Open Source Technology Center
-> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
-> 
+On Mon, Oct 29, 2018 at 9:47 PM Lei YU <mine260309@gmail.com> wrote:
+>
+> This is really great!
+> Looking from the changes, it seems to support not only RPi3, but all RPi models?
 
-This is a false warning.
-
-The 'timeout' local variable will be initialized properly if it's gonna
-be used when the multi-master property is set.
-
--Jae
+That's right, in theory all the RPi models are supported. The CM3 was
+my focus but happened to have a Zero W and 3B on my desk for sanity
+checking shared parts of the build. There's a bit more work before
+everything is 100%-- the 3B needs a bit of massaging before it will
+boot with u-boot and not directly to zImage for example.
