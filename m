@@ -1,39 +1,61 @@
-Return-Path: <joseph-reynolds@charter.net>
+Return-Path: <kunyi@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=charter.net
- (client-ip=68.114.190.28; helo=mtaout003-public.msg.strl.va.charter.net;
- envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::d44; helo=mail-io1-xd44.google.com;
+ envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=charter.net
-Received: from mtaout003-public.msg.strl.va.charter.net
- (mtaout003-public.msg.strl.va.charter.net [68.114.190.28])
- by lists.ozlabs.org (Postfix) with ESMTP id 42lCRq6x7rzDrVx
- for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 13:47:34 +1100 (AEDT)
-Received: from impout004 ([68.114.189.19]) by mtaout003.msg.strl.va.charter.net
- (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
- id <20181031024731.OHDX7355.mtaout003.msg.strl.va.charter.net@impout004>
- for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 21:47:31 -0500
-Received: from [192.168.2.5] ([97.86.254.207]) by impout004 with charter.net
- id u2n71y0084VFKzV012nWf9; Tue, 30 Oct 2018 21:47:30 -0500
-X-Authority-Analysis: v=2.2 cv=dc7w5Tfe c=1 sm=1 tr=0
- a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
- a=IkcTkHD0fZMA:10 a=voM4FWlXAAAA:8 a=NEAV23lmAAAA:8 a=QVJsM09z3-lUDtrXneUA:9
- a=QEXdDO2ut3YA:10 a=1urcsAcQ4Z0A:10 a=VlZU0XKO32wA:10
- a=IC2XNlieTeVoXbcui8wp:22
-X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
-Subject: Security workgroup meeting Wednesday Oct 31
-To: openbmc@lists.ozlabs.org
-References: <mailman.13.1540947603.14110.openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <joseph-reynolds@charter.net>
-Message-ID: <28f56d1d-6daf-7a31-a3d0-795194556cad@charter.net>
-Date: Tue, 30 Oct 2018 21:46:48 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="rFBFeYB5"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42lGY70yPMzF2Dw
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 16:07:22 +1100 (AEDT)
+Received: by mail-io1-xd44.google.com with SMTP id n11-v6so8808330iob.6
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 22:07:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=al38zN158vEK+UMiRUUX5xYRuCANomIVDi6OaGoVjWs=;
+ b=rFBFeYB5eM8UvoifhgSNVuM9d5ryIuG+fbx6dMamTEdJvxX8kxj0umyin+jpkx8n+f
+ /bg+HJTexliEOkw3+jTrgXhkSQJRSOC2oA5+HbFzqlSqR7y4MIgKTKGnaVNoxEDC12mE
+ btAzJXeBzSKJ7Hi51kaNnb09gKk4UOlSAHoR54oR32amb2pJdcGJaDWKuYyPOtaN0f52
+ ESAlpqzNCweLiBveWlOD6h4TO3XFiNtYRdTIjV+0tTRwswoVKT7tVIT8uxK8UYRpcW+5
+ c73JNIIOYM4S09uwLFi30q/wqyqGWQ+NmRMhFmENLRp58vXQQDvdDTzD6xDo34I3C9pb
+ vt5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=al38zN158vEK+UMiRUUX5xYRuCANomIVDi6OaGoVjWs=;
+ b=LIoFQeVGn32YC0jg2ioLTQdJpKT2z0nOBfdr4Fcww/xmYIM/NZDz/Drt9JxC4cjLy6
+ TQlD1zM8VSgvu5BuQj/XPXV1nxFzpRnLxPJL+UYvLrFmkiE3rtM13lDBYzDkOR/nr0LW
+ Rq6osEwPthM3aC+iZx29QfaWDCi5f9BH7KTTXZGJ1gHHP7wc+N2L0YXW1EtT7ytFfCbj
+ al1//RNpP6Ny4letNjCuyPTcLw3Asx0HglbkcCChfMQAQIgoilyvGtZK4j204XA+5qRq
+ rfsSnbc2341ULLVo1CJ8wubXcKF7JuhDgxhTTTvts51FGW9zsy9ZGH6JWtX7Qtc8ZvYp
+ XPxQ==
+X-Gm-Message-State: AGRZ1gJ6KeKlXg0ss9yLSNntIY/AT39Tjw9Z0ndutSrLB/ReHhL7qxso
+ hRtioClEHq3h+R/Dagn8lO4moIkMSrFLBf0J3ONsVA==
+X-Google-Smtp-Source: AJdET5cId2PXgceyy3RB8DAHdrnuNjGCBGVK1Es5DnrIXMbnbUT1oWVAPN8jRx030HvuLmYNiU7EAJe9SixyS/qAxvc=
+X-Received: by 2002:a6b:b450:: with SMTP id
+ d77-v6mr1051979iof.15.1540962440110; 
+ Tue, 30 Oct 2018 22:07:20 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <mailman.13.1540947603.14110.openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <20181017213012.233957-1-kunyi@google.com>
+ <20181017213012.233957-3-kunyi@google.com>
+ <CACRpkdbS_aOpFORVnK3QJUsF1p-mVxtMas-q6fOp7emTx281Lg@mail.gmail.com>
+In-Reply-To: <CACRpkdbS_aOpFORVnK3QJUsF1p-mVxtMas-q6fOp7emTx281Lg@mail.gmail.com>
+From: Kun Yi <kunyi@google.com>
+Date: Tue, 30 Oct 2018 22:06:52 -0700
+Message-ID: <CAGMNF6VMLqRwVb=+-qU=nC9hW-idV-fLrnHFL9_xv7Ajha17og@mail.gmail.com>
+Subject: Re: [PATCH 2/2] pinctrl: pinctrl-npcm7xx: Set BGPIOF_VOLATILE_REG
+To: linus.walleij@linaro.org
+Cc: linux-gpio@vger.kernel.org, tmaimon77@gmail.com, 
+ linux-kernel@vger.kernel.org, avifishman70@gmail.com, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, broonie@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,20 +67,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Oct 2018 02:47:37 -0000
+X-List-Received-Date: Wed, 31 Oct 2018 05:07:24 -0000
 
+On Tue, Oct 30, 2018 at 5:08 AM Linus Walleij <linus.walleij@linaro.org> wrote:
+>
+> On Wed, Oct 17, 2018 at 11:30 PM Kun Yi <kunyi@google.com> wrote:
+>
+> > Indicate that the pins are both controlled by the pinctrl driver and the
+> > generic GPIO driver, thus GPIO driver should read the register value
+> > before updating, instead of using the stored shadow register values.
+> >
+> > Signed-off-by: Kun Yi <kunyi@google.com>
+>
+> This is quite a rough measure, if we instead use regmap-mmio
+> we can exercise fine control over what register are volatile and
+> not instead of saying that all of them or some of them are.
 
-> Send openbmc mailing list submissions to
-> 	openbmc@lists.ozlabs.org
+Thanks for your review Linus! I don't have time to rewrite using
+regmap-mmio at the moment though. I have discussed with the driver
+author and we will first patch the pinctrl driver by making the
+pinctrl functions use the gpio-mmio accessors instead of directly reg
+read/writes. When I have time I will look into your suggestion to
+improve the driver.
 
-The OpenBMC Security Working Group meets this Wednesday Oct 31 at 10am 
-PDT (noon CDT).  Topics are:
-  - Will OpenBMC become the next CVE Numbering Authority?
-  - Learn how the Security Working Group is helping OpenBMC development.
-  - Hear about progress on project-wide action items
-  - And more, much more!
+>
+> Yours,
+> Linus Walleij
 
-See the wiki for access information: 
-https://github.com/openbmc/openbmc/wiki/Security-working-group
-
-- Joseph
+-- 
+Regards,
+Kun
