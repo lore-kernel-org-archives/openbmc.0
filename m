@@ -1,53 +1,67 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::52f; helo=mail-ed1-x52f.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::32f; helo=mail-ot1-x32f.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uta80Rbr"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rMlcks05"; 
  dkim-atps=neutral
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42lGhB5GFzzF2Dy
- for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 16:13:30 +1100 (AEDT)
-Received: by mail-ed1-x52f.google.com with SMTP id y20-v6so12502197eds.10
- for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 22:13:30 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42lgNl2j6kzF3Kt
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Nov 2018 07:46:30 +1100 (AEDT)
+Received: by mail-ot1-x32f.google.com with SMTP id q1so6427866otk.0
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 13:46:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=d65rmH2IaFct2Aj9Ui4GvZpFXtnyiIcFAG02uQHwaAE=;
- b=Uta80RbrQnkLM4su3+9v0TJVJOaQergBU11/aCWji73BS4irySYW6oSHI+N3UpZAtV
- H331VnS+ZLM2qDOcDCLws/txgfl/7ZW6FUO3hjx8PAJ1HYhoWxLEYgqwwvGJ1nSsp2/W
- rZCGmk/e/Q7xtBeyWhpt0CSjf3Z1Cta9WI8OLD6aNAGB1BJ18nOwE77hTywua9YRWHOH
- DL9j1Z8KF6YVAaqpgfWiJYB9TpWaYTrMeqt+/ScIkg5+4QIZjx2hTjgkO4aJzfziGZim
- DZniRcfgujVoTZXH7Wcdsf2OaAbrmj3UW2xmTkr0qsLR4kmJhMpX2xMXGEJBX5gHQ0sr
- mhkQ==
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=pDjE+ocTr/0xZdYXW4J01DyKsaGEGNi4tIFTXsp3Dms=;
+ b=rMlcks05PkFVBmusxkFUJMGvRuJ298A0HQFENKki1AIgoTQWW9G66xnyuLRZLchBT/
+ F9GiMxRxs8GHy2foT4dq6ylWpmPcsKuDeVXS1yQmU2FYnDuZkvztBLahD6iKlBJIDB1Q
+ s/hM/aMFKIyueX5u8mYpbWJ0/4fgUgWoB367yOOPIUMlWy5Kzb88nIX20UcMDcBdfilE
+ fEpr9IE0LhgV+EU8oIlqHOMdxIKpW/oxjNjo6IYXG/hZ0kMUzHtcKypTEgjbzRJOFqCp
+ Pp+58M8FSzc3G2DYM8HYcE7DuahNh67LQFprcUAhSPDFZChWUkjRFALlqkQJr22HSIIh
+ 1pHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=d65rmH2IaFct2Aj9Ui4GvZpFXtnyiIcFAG02uQHwaAE=;
- b=JTvRRDN77736BUzgXr181W+TBfu5ZhfRZlvwvWKQrE+5ld6X1fYoshTUMzP81liABm
- exePHgFgQkNlsXtE6IUsEQRPgeqRDKkTHIZmPtkzO2yAVYRe8lce5nVkPW0LO6y3VD+R
- p2EpgAT162QOkwpa08vQPFoQKUhPTMEXfC+82sMqsEdzuTRQT29qCtL1boFlAYlQsSbP
- yVJcqHz5x+pKUWyn8C5tpjRmsHuvynSNa02kQ6cOV9PjnaIPS3wIh0SS/AI9+UOjaGrW
- ltpAUSaWn5c7IgndiriKYjoybBEuE3i2W8WcxbmULJbgMmWNo4MYwtQ5qv7MVU2sYgt/
- tENA==
-X-Gm-Message-State: AGRZ1gKAbW49Q6cOiHQiMXf/gPEwq+LlgYEsO0VmK3nuoqp2/TSZXPMt
- uvYNekW0ZpKwbEGf7uT/Qt5e5kWROL+m1A2wYKqQbvc/
-X-Google-Smtp-Source: AJdET5dmAM5DvtEVIN9Zr/NetudL1NV2iDSBytdAtwvvBNGSwW8BeisUM3rwC39725pPBoE4qBEGpEXZc2TC/gi8+H0=
-X-Received: by 2002:a50:ad4a:: with SMTP id
- z10-v6mr853391edc.252.1540962806649; 
- Tue, 30 Oct 2018 22:13:26 -0700 (PDT)
-MIME-Version: 1.0
-From: AKASH G J <akashgj91@gmail.com>
-Date: Wed, 31 Oct 2018 10:43:09 +0530
-Message-ID: <CAE33tLEc5RU1yMv=zQt9hOqpZyBSZzyK0o1fcBpbAyUsBiekLw@mail.gmail.com>
-Subject: Temperature Sensor Reading not showing up.
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=pDjE+ocTr/0xZdYXW4J01DyKsaGEGNi4tIFTXsp3Dms=;
+ b=gFQm1R0DgidfqE3HrktZZrCIT1irlfhkVnD1iZTtI3gi5py6PLxOYB+L70slC9uxxp
+ OUxjIyG2ahJSQAN43oW3s6ccpfHPre6/P0axPWgLz/oYahlRWfcRVFfeUqAOqhshRZe4
+ 6U3FNRCFjUmGoi2dUTZ3ulKc7tL+3Io5GFbTJ8uSbdI0m700S5TOOK5t9yNplrEPThiC
+ yStBU+xkKew0irpGb+xy2wPLVKqcOjVZjfsIGnKlKnjH8YrtP1NOGdIUYaG/FpVZ+2Ew
+ ivn/Ft3oR4De83UgqTUzwVdT6xBjoMSnNUZmOSGBTOczG0koP6H+v9BR8WY+eraKEs7B
+ Agmw==
+X-Gm-Message-State: AGRZ1gJ57tqtxYxuVWuWPDlVHR6pQ7oNoDUMKWllzLN8e06r6/Mx8Hio
+ EwXf09yyJPiJhY6GPMaBlwMUUO4w
+X-Google-Smtp-Source: AJdET5d91X5xYK8L1RY02SQbB5WAcwKvGYysnkwrnAvKnufhe26aXD76rjhP4OeyqRcn1miUIc3dUg==
+X-Received: by 2002:a9d:6181:: with SMTP id g1mr2733486otk.324.1541018788303; 
+ Wed, 31 Oct 2018 13:46:28 -0700 (PDT)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id m65-v6sm9390773oif.45.2018.10.31.13.46.27
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 31 Oct 2018 13:46:27 -0700 (PDT)
+Subject: Re: Infrastructure Workgroup?
 To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000b3d66005797f5cd6"
+References: <CALLMt=qiyO0HHqp3fj=XFqCnMx2XWqR-m8Wn+OgSTGBKS5f=-w@mail.gmail.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <44344d78-e48f-5eb5-b645-645ff01cf2ca@gmail.com>
+Date: Wed, 31 Oct 2018 15:46:26 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <CALLMt=qiyO0HHqp3fj=XFqCnMx2XWqR-m8Wn+OgSTGBKS5f=-w@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +73,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Oct 2018 05:13:31 -0000
+X-List-Received-Date: Wed, 31 Oct 2018 20:46:32 -0000
 
---000000000000b3d66005797f5cd6
-Content-Type: text/plain; charset="UTF-8"
+On 10/30/18 10:49 AM, Andrew Geissler wrote:
+> Based on some recent discussion in this area, I'm contemplating
+> forming an Infrastructure workgroup. The focus would be on improving
+> our CI infrastructure and the scripts and tools around it.
 
-Hi All,
+Actually, when I was suggesting this, I was thinking even broader. There 
+is a need for folks interested in keeping *all* of our services and 
+system resources healthy, not just our test systems.
 
-I built OpenBMC Linux using Zaius configuration and booted on BMC Aspeed
-AST-2500. The board we are using have one temperature sensor (Texas
-Instruments TMP75) on I2C-12 interface.
+I would think that the Test WG would take care of defining and 
+automating test, the infrastructure WG would take care of the resources 
+that Test needed for CI.
 
-I added the file
-*meta-zaius/recipes-phosphor/sensors/phosphor-hwmon%/obmc/hwmon/ahb/apb/i2c@1e6e2000/i2c-bus@90/tmp75@48.conf*
-in machine configuration directory with the following contents.
+That said, it makes sense for the first order of work for the Infra WG 
+would be to bolster the CI Test services and resources. There will be 
+big early overlaps for sure.
 
+I'll be happy to help as I can, at least initially. I have CI/DevOps 
+experts in my network that I can get recommendations from as well.
 
+Kurt Taylor (krtaylor)
 
-*LABEL_temp1 = ambientWARNLO_temp1=-40WARNHI_temp1=125*
-
-I added the following patch to the kernel file
-linux/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts.
-
-
-
-
-
-
-
-
-
-
-* &i2c12 {-    status = "disabled";+    status = "okay";++    tmp75@48
-{+        compatible = "ti,tmp75";+        reg = <0x48>;+    };+ };*
-
-After booting Linux, the changes are reflected in
-*/sys/firmware/devicetree/base/ahb/apb/i2c@1e78a000/i2c-bus@440/tmp75@48*.
-Also,
-*tmp78.conf* is showing in
-*/etc/default/obmc/hwmon/ahb/apb/i2c@1e78a000/i2c-bus@90*.
-
-when I am running the ipmitool command: *ipmitool -I dbus sdr elist* full
-it is not showing the temperature sensor and its reading.
-
-Please someone help to resolve the problem.
-
-
-Thanks and Regards,
-
-Akash
-
---000000000000b3d66005797f5cd6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi All,</div><div><br></div><div dir=3D"ltr">I built =
-OpenBMC Linux using Zaius configuration and booted on BMC Aspeed AST-2500. =
-The board we are using have one temperature sensor (Texas Instruments TMP75=
-) on I2C-12 interface.<br><br>I added the file <i>meta-zaius/recipes-phosph=
-or/sensors/phosphor-hwmon%/obmc/hwmon/ahb/apb/i2c@1e6e2000/i2c-bus@90/tmp75=
-@48.conf</i> in machine configuration directory with the following contents=
-.<br><i><br>LABEL_temp1 =3D ambient<br>WARNLO_temp1=3D-40<br>WARNHI_temp1=
-=3D125</i><br><br>I added the following patch to the kernel file linux/arch=
-/arm/boot/dts/aspeed-bmc-opp-zaius.dts.<br><br><i>=C2=A0&amp;i2c12 {<br>-=
-=C2=A0=C2=A0=C2=A0 status =3D &quot;disabled&quot;;<br>+=C2=A0=C2=A0=C2=A0 =
-status =3D &quot;okay&quot;;<br>+<br>+=C2=A0=C2=A0=C2=A0 tmp75@48 {<br>+=C2=
-=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 compatible =3D &quot;ti,tmp75&quot;;<br>=
-+=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 reg =3D &lt;0x48&gt;;<br>+=C2=A0=C2=
-=A0=C2=A0 };<br>+<br>=C2=A0};</i><br><br>After booting Linux, the changes a=
-re reflected in <i>/sys/firmware/devicetree/base/ahb/apb/i2c@1e78a000/i2c-b=
-us@440/tmp75@48</i>. Also,<br><i>tmp78.conf</i> is showing in <i>/etc/defau=
-lt/obmc/hwmon/ahb/apb/i2c@1e78a000/i2c-bus@90</i>.<br><br>when I am running=
- the ipmitool command: <i>ipmitool -I dbus sdr elist</i> full it is not sho=
-wing the temperature sensor and its reading.<br><br>Please someone help to =
-resolve the problem.<br><br><br>Thanks and Regards,<br><br>Akash<br><br></d=
-iv></div>
-
---000000000000b3d66005797f5cd6--
+> 
+> There's been a lot of great community effort already around our CI
+> build scripts.
+> 
+> Some thoughts on goals:
+> - Documenting the existing flow
+> - Alternatives to existing flow (ability to use freely provides clouds
+> for open source projects, ...)
+> - Managing the Jenkins nodes - Bringing new nodes online quickly
+> (chef, puppet, ansible?)
+> - Managing and optimizing the CI flow (repository CI, meta CI, openbmc CI)
+> -- Which systems do we build?
+> - Process for adding hardware CI (mechanism for individuals to add HW
+> CI to gerrit commits)
+> - Optimizations to existing scripts (docker building, CI, QEMU)
+> - Gerrit, Jenkins, and build node periodic update process
+> - Overall maintenance and responsibilities for infrastructure
+> 
+> Thoughts or interest?
+> 
+> Andrew
+> 
