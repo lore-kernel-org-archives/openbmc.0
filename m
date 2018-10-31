@@ -1,57 +1,39 @@
-Return-Path: <truongmd@gmail.com>
+Return-Path: <joseph-reynolds@charter.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::22d; helo=mail-oi1-x22d.google.com;
- envelope-from=truongmd@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=charter.net
+ (client-ip=68.114.190.28; helo=mtaout003-public.msg.strl.va.charter.net;
+ envelope-from=joseph-reynolds@charter.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="f7zdfG26"; 
- dkim-atps=neutral
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42l8kG4lpKzF1Q4
- for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 11:44:54 +1100 (AEDT)
-Received: by mail-oi1-x22d.google.com with SMTP id p144-v6so8280986oic.12
- for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 17:44:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0f0P6CT5CPHynoJyHVB+4xwJL0f0dun1TEgYDrv7QrQ=;
- b=f7zdfG262AoKRgxOhDkRCVgiEyJ2UpTqHkHC5TlVkjnbAwASbWA38ikk3TK7KnmVqy
- V4URkjD2Uq/HRSKuNRjigV2wO3auG0q0F3XuiYJrQMmNWsLTlC6ZjeRdHHEyFoLr7Wob
- eopZhcR6EyR0yk+RwrRaTGzakBHkVJYvYClJ90APtO9OPC8nm1HYb+7DFNDX6RJvePav
- /9jDFNgE8vpnnxPcYsT0i4L64hr9C/QUrYViI2nMQmRCr2WbFKbcVDSEp7Osf49t3jX4
- V1aStxiyXuiuCIEu58peC6voS2QUyuoCEpjLP17EFx6cEuqgyneoVkDASTtYwGR2tgZu
- UkrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0f0P6CT5CPHynoJyHVB+4xwJL0f0dun1TEgYDrv7QrQ=;
- b=QOrWgsKXzVDfvrlAnDxTcNtG8UsGlCuDVq/uweSBl37rPJ+9TzX+WPHhhyCtU9uOPl
- EbVhmLpx/CPVRuh6QtV4Y/L15g1l1Fj/9vckuz1vPp0GtCwpLFw3a+TmjZpknz+uUIKi
- bWvtkeKViJxxxmAedUIKEA3oIcVNijIL/H0rfv03/pdb1U86duqqJjqP2SI73tH1FvM1
- SC1kEdumJVtax77eDv7aEAJB1pADwwdBztfA48SjOj102i9sLq3zWHf3brWu2W2cmO8j
- /I08bggPUj9uCoOJdDGaPUwxEUzJPjLr0ssZKRBnSfmWaKUnQAOJy2uPn7pDwv32W6rP
- vwaQ==
-X-Gm-Message-State: AGRZ1gKjwQs7I3cr6VyM65WK3TI+pAhca+eezo1FHqeDSWnRLtshKElL
- VtrTKA4zHkK2CNV9V0oAsvPcsBGghJ1yZJC5wZE=
-X-Google-Smtp-Source: AJdET5eezq3hLveFL6T4u9m9u4VZuPipQaa4uNRXmAW6S3oWW6wCb3gviRz0OTvG/Km3SyUr+UYXsemdbPu5bXZz/rM=
-X-Received: by 2002:aca:895:: with SMTP id 143-v6mr551507oii.309.1540946692319; 
- Tue, 30 Oct 2018 17:44:52 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=charter.net
+Received: from mtaout003-public.msg.strl.va.charter.net
+ (mtaout003-public.msg.strl.va.charter.net [68.114.190.28])
+ by lists.ozlabs.org (Postfix) with ESMTP id 42lCRq6x7rzDrVx
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 13:47:34 +1100 (AEDT)
+Received: from impout004 ([68.114.189.19]) by mtaout003.msg.strl.va.charter.net
+ (InterMail vM.9.00.023.01 201-2473-194) with ESMTP
+ id <20181031024731.OHDX7355.mtaout003.msg.strl.va.charter.net@impout004>
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Oct 2018 21:47:31 -0500
+Received: from [192.168.2.5] ([97.86.254.207]) by impout004 with charter.net
+ id u2n71y0084VFKzV012nWf9; Tue, 30 Oct 2018 21:47:30 -0500
+X-Authority-Analysis: v=2.2 cv=dc7w5Tfe c=1 sm=1 tr=0
+ a=TxbYGM+zWkYih0pDanbSSw==:117 a=TxbYGM+zWkYih0pDanbSSw==:17
+ a=IkcTkHD0fZMA:10 a=voM4FWlXAAAA:8 a=NEAV23lmAAAA:8 a=QVJsM09z3-lUDtrXneUA:9
+ a=QEXdDO2ut3YA:10 a=1urcsAcQ4Z0A:10 a=VlZU0XKO32wA:10
+ a=IC2XNlieTeVoXbcui8wp:22
+X-Auth-id: am9zZXBoLXJleW5vbGRzQGNoYXJ0ZXIubmV0
+Subject: Security workgroup meeting Wednesday Oct 31
+To: openbmc@lists.ozlabs.org
+References: <mailman.13.1540947603.14110.openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <joseph-reynolds@charter.net>
+Message-ID: <28f56d1d-6daf-7a31-a3d0-795194556cad@charter.net>
+Date: Tue, 30 Oct 2018 21:46:48 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <CAEx7e2SGZWe5ba9=0rSFc1-ArS9uPDhn8oLFSZMT4ygX968t9w@mail.gmail.com>
- <CAARXrtkbSKRQ0wB+HkpLA_4EDx9rizeOuL7unTOSpkgytChFuQ@mail.gmail.com>
-In-Reply-To: <CAARXrtkbSKRQ0wB+HkpLA_4EDx9rizeOuL7unTOSpkgytChFuQ@mail.gmail.com>
-From: "M. D. Truong" <truongmd@gmail.com>
-Date: Tue, 30 Oct 2018 17:44:40 -0700
-Message-ID: <CAEx7e2QofcFmzd614-kpi+kmVjNZmmAhNTxy7HtkvTvCNuUz4g@mail.gmail.com>
-Subject: Re: OpenBMC Raspberry Pi
-To: mine260309@gmail.com
-Cc: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <mailman.13.1540947603.14110.openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,15 +45,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Oct 2018 00:44:55 -0000
+X-List-Received-Date: Wed, 31 Oct 2018 02:47:37 -0000
 
-On Mon, Oct 29, 2018 at 9:47 PM Lei YU <mine260309@gmail.com> wrote:
->
-> This is really great!
-> Looking from the changes, it seems to support not only RPi3, but all RPi models?
 
-That's right, in theory all the RPi models are supported. The CM3 was
-my focus but happened to have a Zero W and 3B on my desk for sanity
-checking shared parts of the build. There's a bit more work before
-everything is 100%-- the 3B needs a bit of massaging before it will
-boot with u-boot and not directly to zImage for example.
+> Send openbmc mailing list submissions to
+> 	openbmc@lists.ozlabs.org
+
+The OpenBMC Security Working Group meets this Wednesday Oct 31 at 10am 
+PDT (noon CDT).  Topics are:
+  - Will OpenBMC become the next CVE Numbering Authority?
+  - Learn how the Security Working Group is helping OpenBMC development.
+  - Hear about progress on project-wide action items
+  - And more, much more!
+
+See the wiki for access information: 
+https://github.com/openbmc/openbmc/wiki/Security-working-group
+
+- Joseph
