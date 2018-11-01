@@ -1,67 +1,45 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <yong.b.li@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32f; helo=mail-ot1-x32f.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rMlcks05"; 
- dkim-atps=neutral
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42lgNl2j6kzF3Kt
- for <openbmc@lists.ozlabs.org>; Thu,  1 Nov 2018 07:46:30 +1100 (AEDT)
-Received: by mail-ot1-x32f.google.com with SMTP id q1so6427866otk.0
- for <openbmc@lists.ozlabs.org>; Wed, 31 Oct 2018 13:46:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=pDjE+ocTr/0xZdYXW4J01DyKsaGEGNi4tIFTXsp3Dms=;
- b=rMlcks05PkFVBmusxkFUJMGvRuJ298A0HQFENKki1AIgoTQWW9G66xnyuLRZLchBT/
- F9GiMxRxs8GHy2foT4dq6ylWpmPcsKuDeVXS1yQmU2FYnDuZkvztBLahD6iKlBJIDB1Q
- s/hM/aMFKIyueX5u8mYpbWJ0/4fgUgWoB367yOOPIUMlWy5Kzb88nIX20UcMDcBdfilE
- fEpr9IE0LhgV+EU8oIlqHOMdxIKpW/oxjNjo6IYXG/hZ0kMUzHtcKypTEgjbzRJOFqCp
- Pp+58M8FSzc3G2DYM8HYcE7DuahNh67LQFprcUAhSPDFZChWUkjRFALlqkQJr22HSIIh
- 1pHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=pDjE+ocTr/0xZdYXW4J01DyKsaGEGNi4tIFTXsp3Dms=;
- b=gFQm1R0DgidfqE3HrktZZrCIT1irlfhkVnD1iZTtI3gi5py6PLxOYB+L70slC9uxxp
- OUxjIyG2ahJSQAN43oW3s6ccpfHPre6/P0axPWgLz/oYahlRWfcRVFfeUqAOqhshRZe4
- 6U3FNRCFjUmGoi2dUTZ3ulKc7tL+3Io5GFbTJ8uSbdI0m700S5TOOK5t9yNplrEPThiC
- yStBU+xkKew0irpGb+xy2wPLVKqcOjVZjfsIGnKlKnjH8YrtP1NOGdIUYaG/FpVZ+2Ew
- ivn/Ft3oR4De83UgqTUzwVdT6xBjoMSnNUZmOSGBTOczG0koP6H+v9BR8WY+eraKEs7B
- Agmw==
-X-Gm-Message-State: AGRZ1gJ57tqtxYxuVWuWPDlVHR6pQ7oNoDUMKWllzLN8e06r6/Mx8Hio
- EwXf09yyJPiJhY6GPMaBlwMUUO4w
-X-Google-Smtp-Source: AJdET5d91X5xYK8L1RY02SQbB5WAcwKvGYysnkwrnAvKnufhe26aXD76rjhP4OeyqRcn1miUIc3dUg==
-X-Received: by 2002:a9d:6181:: with SMTP id g1mr2733486otk.324.1541018788303; 
- Wed, 31 Oct 2018 13:46:28 -0700 (PDT)
-Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
- [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id m65-v6sm9390773oif.45.2018.10.31.13.46.27
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 31 Oct 2018 13:46:27 -0700 (PDT)
-Subject: Re: Infrastructure Workgroup?
-To: openbmc@lists.ozlabs.org
-References: <CALLMt=qiyO0HHqp3fj=XFqCnMx2XWqR-m8Wn+OgSTGBKS5f=-w@mail.gmail.com>
-From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <44344d78-e48f-5eb5-b645-645ff01cf2ca@gmail.com>
-Date: Wed, 31 Oct 2018 15:46:26 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42lr1L4w7mzF3L1
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Nov 2018 14:15:14 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2018 20:15:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,450,1534834800"; 
+ d="scan'208,217";a="102443374"
+Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
+ ([10.239.196.90])
+ by fmsmga004.fm.intel.com with ESMTP; 31 Oct 2018 20:15:09 -0700
+From: "Yong Li" <yong.b.li@linux.intel.com>
+To: <bradleyb@fuzziesquirrel.com>,
+	<openbmc@lists.ozlabs.org>
+Cc: "Feist, James" <james.feist@intel.com>, "Li, Yong B" <yong.b.li@intel.com>,
+ <spinler@us.ibm.com>
+Subject: Request to create a new repo intel-dbus-interfaces
+Date: Thu, 1 Nov 2018 11:15:08 +0800
+Message-ID: <000001d47191$19096630$4b1c3290$@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CALLMt=qiyO0HHqp3fj=XFqCnMx2XWqR-m8Wn+OgSTGBKS5f=-w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_000_0001_01D471D4.272EC910"
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdRxkMaH8xNLuKjRT9uUgAcxj2Kd/A==
+Content-Language: en-us
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZjQ5M2EwYzEtY2I1ZC00YjhkLTkwNWEtOWY2ZTk4M2YwMjk4IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiQW5LU3pTWXByTHFsRWRqZU1yMXM0M2pzQUg4N0hnWVdTWEZYaDExNkdZdGVYUUFnRmlmWHFEZEkwNjBpbXZ4ViJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: request-justification,no-action
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,49 +51,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Oct 2018 20:46:32 -0000
+X-List-Received-Date: Thu, 01 Nov 2018 03:15:19 -0000
 
-On 10/30/18 10:49 AM, Andrew Geissler wrote:
-> Based on some recent discussion in this area, I'm contemplating
-> forming an Infrastructure workgroup. The focus would be on improving
-> our CI infrastructure and the scripts and tools around it.
+This is a multipart message in MIME format.
 
-Actually, when I was suggesting this, I was thinking even broader. There 
-is a need for folks interested in keeping *all* of our services and 
-system resources healthy, not just our test systems.
+------=_NextPart_000_0001_01D471D4.272EC910
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-I would think that the Test WG would take care of defining and 
-automating test, the infrastructure WG would take care of the resources 
-that Test needed for CI.
+Hi Brad,
 
-That said, it makes sense for the first order of work for the Infra WG 
-would be to bolster the CI Test services and resources. There will be 
-big early overlaps for sure.
+ 
 
-I'll be happy to help as I can, at least initially. I have CI/DevOps 
-experts in my network that I can get recommendations from as well.
+Based on the discussions in
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/14
+719/
 
-Kurt Taylor (krtaylor)
+ 
 
-> 
-> There's been a lot of great community effort already around our CI
-> build scripts.
-> 
-> Some thoughts on goals:
-> - Documenting the existing flow
-> - Alternatives to existing flow (ability to use freely provides clouds
-> for open source projects, ...)
-> - Managing the Jenkins nodes - Bringing new nodes online quickly
-> (chef, puppet, ansible?)
-> - Managing and optimizing the CI flow (repository CI, meta CI, openbmc CI)
-> -- Which systems do we build?
-> - Process for adding hardware CI (mechanism for individuals to add HW
-> CI to gerrit commits)
-> - Optimizations to existing scripts (docker building, CI, QEMU)
-> - Gerrit, Jenkins, and build node periodic update process
-> - Overall maintenance and responsibilities for infrastructure
-> 
-> Thoughts or interest?
-> 
-> Andrew
-> 
+We would like to create a new repo named "intel-dbus-interfaces",  similar
+to "ibm-dbus-interfaces", it is used to support some 
+
+Intel OEM IPMI commands, and other intel specific interfaces.
+
+ 
+
+Thanks,
+
+Yong
+
+
+------=_NextPart_000_0001_01D471D4.272EC910
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US =
+link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
+class=3DMsoNormal>Hi Brad,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Based on the =
+discussions in <a =
+href=3D"https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-inte=
+rfaces/+/14719/">https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-=
+dbus-interfaces/+/14719/</a><o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>We would =
+like to create a new repo named &#8220;intel-dbus-interfaces&#8221;, =
+&nbsp;similar to &#8220;ibm-dbus-interfaces&#8221;, it is used to =
+support some <o:p></o:p></p><p class=3DMsoNormal>Intel OEM IPMI =
+commands, and other intel specific interfaces.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Thanks,<o:p></o:p></p><p =
+class=3DMsoNormal>Yong<o:p></o:p></p></div></body></html>
+------=_NextPart_000_0001_01D471D4.272EC910--
