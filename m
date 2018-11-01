@@ -1,48 +1,71 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=mendozajonas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="TL0f3D7k"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Il9twd9b"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42mCrz5rwdzF3Nl;
- Fri,  2 Nov 2018 05:09:23 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2018 11:09:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.54,453,1534834800"; d="scan'208";a="104643229"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga001.jf.intel.com with ESMTP; 01 Nov 2018 11:09:20 -0700
-Subject: Re: [PATCH i2c-next v9 5/5] i2c: aspeed: Add bus idle waiting logic
- for multi-master use cases
-To: kbuild test robot <lkp@intel.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, Wolfram Sang <wsa@the-dreams.de>,
- Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- Brendan Higgins <brendanhiggins@google.com>, linux-kernel@vger.kernel.org,
- James Feist <james.feist@linux.intel.com>, linux-i2c@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, kbuild-all@01.org
-References: <20181030210917.32711-6-jae.hyun.yoo@linux.intel.com>
- <201811020154.eziM0emr%fengguang.wu@intel.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <a126e4ca-69a7-ee23-4e87-e8bc4a3657ac@linux.intel.com>
-Date: Thu, 1 Nov 2018 11:09:20 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <201811020154.eziM0emr%fengguang.wu@intel.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42mL8T30GtzF3PJ
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Nov 2018 09:53:12 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 499EA21D33;
+ Thu,  1 Nov 2018 18:53:10 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 01 Nov 2018 18:53:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=message-id:subject:from:to:cc:date
+ :in-reply-to:references:content-type:mime-version
+ :content-transfer-encoding; s=fm1; bh=4OzHYlasIVCTcfzJtCDXWBa4+Z
+ cmcKmPXzbvFBogPHA=; b=TL0f3D7kOUiroKUufInLv/Ae596fCIvdpkHqmpZWff
+ JXzygV3EygQtnhjxb1v4ILL+mGaNYQuSCL6ZGUVKM3SS4d0DloOV+NrQ6c17IkJE
+ OjTLfavf0o93zKO1/5cgaYebwLgpqjH1STdQ/NvvbvwfzOxgeojrCFaLiDitfHfZ
+ ZdrY+F++2CMveXAm0OChMyc4Uab4uLOWQrffTQv56KqjQUQ1yI7Ldd71RtpWqgQl
+ gzcDoY1NqaqcFwzEELFkcBF/EolNyp8GJFbrL+tnUEusIqSA7hTjm0KB063ehw6N
+ NXgKxVNWB1DFoJ/HBPN335AvQLReXt+toXUO/02uMt6Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=4OzHYlasIVCTcfzJtCDXWBa4+ZcmcKmPXzbvFBogP
+ HA=; b=Il9twd9bOusKOz6+WZg2rnGUWUT1A4h7Ydjeb75va+sY1Ed1wY/N9QNiq
+ 6ywFjpIP96wwvi5ShXw0nkAXhfzxJHbRruqKoeKOjd024YLe/Q+JUTfUaHQrlK8E
+ sgA06nCdaBosIroh9+PYZv+xQsYcSYwZIHeV472w1x75FDBCFCFHSsfS6OvCfMfN
+ Hr4y8Oqc4Bd6g0QVyrEDpaLSDhYwOQ/wFcB4aEQedl8RotWMZYdhnXsISzTwMm3G
+ tqx/cmNTgrZ4AuHQ0ySoh1PLHmieStWSni87n1GRS0jeVqJ+REgOnP4xFIVbG6Fz
+ ZpINC2w8GfMszGajyI9VWfTCKN2cg==
+X-ME-Sender: <xms:1IPbWwMhjmNSceT_rcgmOJ9vnn44_u3Kzfe3l70luGP4Lco_V5JcgQ>
+X-ME-Proxy: <xmx:1IPbW9TrdnAsZ0zbXP7U9BkBQezM-m0gi3JyBLfkyuL-2Bhc9CAxwQ>
+ <xmx:1IPbWx_VDYpH8_ePFh-tTqe295Ugc8_zFoIqkY6fVIZ7ZADJwIYsKA>
+ <xmx:1YPbWx_zB6Qxh4Y7aCRxaYmJSA_DsiBE2UFxs6ZqzyM5JUEykVlbbA>
+ <xmx:1YPbW1Qc_MuZDDkZ_joUpiZaiELnzgxyaxZ7XQYR_-oPdOJezZOgVA>
+ <xmx:1YPbWzEp765CDJUZ3iy_qVbaHY_NRz7EM3DkaSnkPBj0XhtXhnZ5pw>
+ <xmx:1oPbW-TqaFMZDgdn902IMb9K2fGt1RgX5IW26a98H_sWzCk2YWJJ6w>
+Received: from v4 (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B0196E427A;
+ Thu,  1 Nov 2018 18:53:06 -0400 (EDT)
+Message-ID: <c4f0fdcc971ca258539899a8b15755b96b2353f5.camel@mendozajonas.com>
+Subject: Re: [PATCH net-next 5/6] net/ncsi: Reset channel state in
+ ncsi_start_dev()
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Justin.Lee1@Dell.com, netdev@vger.kernel.org
+Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Date: Fri, 02 Nov 2018 09:53:03 +1100
+In-Reply-To: <96158616f0774e3d9fae0e99bb16e605@AUSX13MPS306.AMER.DELL.COM>
+References: <20181018035917.19413-1-sam@mendozajonas.com>
+ <20181018035917.19413-6-sam@mendozajonas.com>
+ <96158616f0774e3d9fae0e99bb16e605@AUSX13MPS306.AMER.DELL.COM>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.2 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -55,85 +78,192 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Nov 2018 18:09:24 -0000
+X-List-Received-Date: Thu, 01 Nov 2018 22:53:17 -0000
 
-On 11/1/2018 10:44 AM, kbuild test robot wrote:
-> Hi Jae,
+On Tue, 2018-10-30 at 21:26 +0000, Justin.Lee1@Dell.com wrote:
+> > +int ncsi_reset_dev(struct ncsi_dev *nd)
+> > +{
+> > +	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
+> > +	struct ncsi_channel *nc, *active;
+> > +	struct ncsi_package *np;
+> > +	unsigned long flags;
+> > +	bool enabled;
+> > +	int state;
+> > +
+> > +	active = NULL;
+> > +	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+> > +		NCSI_FOR_EACH_CHANNEL(np, nc) {
+> > +			spin_lock_irqsave(&nc->lock, flags);
+> > +			enabled = nc->monitor.enabled;
+> > +			state = nc->state;
+> > +			spin_unlock_irqrestore(&nc->lock, flags);
+> > +
+> > +			if (enabled)
+> > +				ncsi_stop_channel_monitor(nc);
+> > +			if (state == NCSI_CHANNEL_ACTIVE) {
+> > +				active = nc;
+> > +				break;
 > 
-> Thank you for the patch! Perhaps something to improve:
-> 
-> [auto build test WARNING on wsa/i2c/for-next]
-> [also build test WARNING on v4.19 next-20181101]
-> [if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
-> 
-> url:    https://github.com/0day-ci/linux/commits/Jae-Hyun-Yoo/dt-bindings-i2c-Add-bus-timeout-ms-and-retries-properties-as-common-optional/20181031-051152
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/for-next
-> config: i386-allyesconfig (attached as .config)
-> compiler: gcc-7 (Debian 7.3.0-1) 7.3.0
-> reproduce:
->          # save the attached .config to linux build tree
->          make ARCH=i386
-> 
-> Note: it may well be a FALSE warning. FWIW you are at least aware of it now.
-> http://gcc.gnu.org/wiki/Better_Uninitialized_Warnings
-> 
-> All warnings (new ones prefixed by >>):
-> 
->     drivers/i2c/busses/i2c-aspeed.c: In function 'aspeed_i2c_master_xfer':
->>> drivers/i2c/busses/i2c-aspeed.c:624:210: warning: 'timeout' may be used uninitialized in this function [-Wmaybe-uninitialized]
->        if (time_after(jiffies, timeout))
->                                                                                                                                                                                                                       ^
->     drivers/i2c/busses/i2c-aspeed.c:607:16: note: 'timeout' was declared here
->       unsigned long timeout;
->                     ^~~~~~~
-> 
-> vim +/timeout +624 drivers/i2c/busses/i2c-aspeed.c
-> 
->     604	
->     605	static int aspeed_i2c_check_bus_busy(struct aspeed_i2c_bus *bus)
->     606	{
->     607		unsigned long timeout;
->     608	
->     609		if (bus->multi_master) {
->     610			might_sleep();
->     611			/* Initialize it only when multi_master is set */
->     612			timeout = jiffies + bus->adap.timeout;
+> Is the original intention to process the channel one by one?
+> If it is the case, there are two loops and we might need to use
+> "goto found" instead.
 
-The 'timeout' variable will be initialized only when bus->multi_master
-is true to save some OPs in case this variable isn't used. The saved OPs
-are not expensive but it makes a meaning because this function is called
-very frequently on every master transfer.
+Yes we'll need to break out of the package loop here as well.
 
->     613		}
->     614	
->     615		for (;;) {
->     616			if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
->     617			      ASPEED_I2CD_BUS_BUSY_STS))
->     618	#if IS_ENABLED(CONFIG_I2C_SLAVE)
->     619				if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
->     620	#endif
->     621					return 0;
->     622			if (!bus->multi_master)
->     623				break;
-
-If bus->multi_master is false then it doesn't fall through so the
-'timeout' variable in below will not be used when itself is
-uninitialized. Also, bus->multi_master is fixed at probing time and it
-doesn't change at runtime so the warning case never happens.
-
--Jae
-
->   > 624			if (time_after(jiffies, timeout))
->     625				break;
->     626			usleep_range((ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US >> 2) + 1,
->     627				     ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US);
->     628		}
->     629	
->     630		return aspeed_i2c_recover_bus(bus);
->     631	}
->     632	
 > 
-> ---
-> 0-DAY kernel test infrastructure                Open Source Technology Center
-> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+> > +			}
+> > +		}
+> > +	}
+> > +
+> 
+> found: ?
+> 
+> > +	if (!active) {
+> > +		/* Done */
+> > +		spin_lock_irqsave(&ndp->lock, flags);
+> > +		ndp->flags &= ~NCSI_DEV_RESET;
+> > +		spin_unlock_irqrestore(&ndp->lock, flags);
+> > +		return ncsi_choose_active_channel(ndp);
+> > +	}
+> > +
+> > +	spin_lock_irqsave(&ndp->lock, flags);
+> > +	ndp->flags |= NCSI_DEV_RESET;
+> > +	ndp->active_channel = active;
+> > +	ndp->active_package = active->package;
+> > +	spin_unlock_irqrestore(&ndp->lock, flags);
+> > +
+> > +	nd->state = ncsi_dev_state_suspend;
+> > +	schedule_work(&ndp->work);
+> > +	return 0;
+> > +}
+> 
+> Also similar issue in ncsi_choose_active_channel() function below.
+> 
+> > @@ -916,32 +1045,49 @@ static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
+> >  
+> >  			ncm = &nc->modes[NCSI_MODE_LINK];
+> >  			if (ncm->data[2] & 0x1) {
+> > -				spin_unlock_irqrestore(&nc->lock, flags);
+> >  				found = nc;
+> > -				goto out;
+> > +				with_link = true;
+> >  			}
+> >  
+> > -			spin_unlock_irqrestore(&nc->lock, flags);
+> > +			/* If multi_channel is enabled configure all valid
+> > +			 * channels whether or not they currently have link
+> > +			 * so they will have AENs enabled.
+> > +			 */
+> > +			if (with_link || np->multi_channel) {
+> 
+> I notice that there is a case that we will misconfigure the interface.
+> For example below, multi-channel is not enable for package 1.
+> But we enable the channel for ncsi2 below (package 1 channel 0) as that interface is the first
+> channel for that package with link.
+
+I don't think I see the issue here; multi-channel is not set on package
+1, but both channels are in the channel whitelist. Channel 0 is
+configured since it's the first found on package 1, and channel 1 is not
+since channel 0 is already found. Are you expecting something different?
+ 
+> 
+> cat /sys/kernel/debug/ncsi_protocol/ncsi_device_
+> IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PC CS PS LS RU CR NQ HA
+> =====================================================================
+>   2   eth2   ncsi0  000 000 1  1  1  1  1  1  0  2  1  1  1  1  0  1
+>   2   eth2   ncsi1  000 001 1  0  1  1  1  1  0  2  1  1  1  1  0  1
+>   2   eth2   ncsi2  001 000 1  0  1  0  1  1  0  2  1  1  1  1  0  1
+>   2   eth2   ncsi3  001 001 0  0  1  0  1  1  0  1  0  1  1  1  0  1
+> =====================================================================
+> MP: Multi-mode Package     WP: Whitelist Package
+> MC: Multi-mode Channel     WC: Whitelist Channel
+> PC: Primary Channel        CS: Channel State IA/A/IV 1/2/3
+> PS: Poll Status            LS: Link Status
+> RU: Running                CR: Carrier OK
+> NQ: Queue Stopped          HA: Hardware Arbitration
+> 
+> I temporally change to the following to avoid that.
+> 			if ((with_link &&
+> 			     !np->multi_channel &&
+> 			     list_empty(&ndp->channel_queue)) || np->multi_channel) {
+> 
+> > +				spin_lock_irqsave(&ndp->lock, flags);
+> > +				list_add_tail_rcu(&nc->link,
+> > +						  &ndp->channel_queue);
+> > +				spin_unlock_irqrestore(&ndp->lock, flags);
+> > +
+> > +				netdev_dbg(ndp->ndev.dev,
+> > +					   "NCSI: Channel %u added to queue (link %s)\n",
+> > +					   nc->id,
+> > +					   ncm->data[2] & 0x1 ? "up" : "down");
+> > +			}
+> > +
+> > +			spin_unlock_irqrestore(&nc->lock, cflags);
+> > +
+> > +			if (with_link && !np->multi_channel)
+> > +				break;
+> 
+> Similar issue here. As we are using break, so each package will configure one active TX.
+> 
+
+I believe this is handled properly in ncsi_channel_is_tx() in the most
+recent revision.
+
+> >  		}
+> > +		if (with_link && !ndp->multi_package)
+> > +			break;
+> >  	}
+> >  
+> > -	if (!found) {
+> > +	if (list_empty(&ndp->channel_queue) && found) {
+> > +		netdev_info(ndp->ndev.dev,
+> > +			    "NCSI: No channel with link found, configuring channel %u\n",
+> > +			    found->id);
+> > +		spin_lock_irqsave(&ndp->lock, flags);
+> > +		list_add_tail_rcu(&found->link, &ndp->channel_queue);
+> > +		spin_unlock_irqrestore(&ndp->lock, flags);
+> > +	} else if (!found) {
+> >  		netdev_warn(ndp->ndev.dev,
+> > -			    "NCSI: No channel found with link\n");
+> > +			    "NCSI: No channel found to configure!\n");
+> >  		ncsi_report_link(ndp, true);
+> >  		return -ENODEV;
+> >  	}
+> 
+> Also, for deselect package handler function, do we want to set to inactive here?
+> If we just change the state, the cached data still keeps the old value. If the new 
+> ncsi_reset_dev() function is handling one by one, can we skip this part?
+
+Technically yes we could skip the state change here since
+ncsi_reset_dev() will have already done it. However if we send a DP
+command via some other means then it is probably best to ensure we treat
+all channels on that package as inactive.
+
+> 
+> static int ncsi_rsp_handler_dp(struct ncsi_request *nr)
+> {
+> 	struct ncsi_rsp_pkt *rsp;
+> 	struct ncsi_dev_priv *ndp = nr->ndp;
+> 	struct ncsi_package *np;
+> 	struct ncsi_channel *nc;
+> 	unsigned long flags;
+> 
+> 	/* Find the package */
+> 	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->rsp);
+> 	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
+> 				      &np, NULL);
+> 	if (!np)
+> 		return -ENODEV;
+> 
+> 	/* Change state of all channels attached to the package */
+> 	NCSI_FOR_EACH_CHANNEL(np, nc) {
+> 		spin_lock_irqsave(&nc->lock, flags);
+> 		nc->state = NCSI_CHANNEL_INACTIVE;
+> 
+> 		spin_unlock_irqrestore(&nc->lock, flags);
+> 	}
+> 
+> 	return 0;
+> }
+> 
 > 
