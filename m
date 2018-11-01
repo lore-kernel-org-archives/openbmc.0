@@ -1,54 +1,49 @@
-Return-Path: <venture@google.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::535; helo=mail-pg1-x535.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="vpbWVkNs"; 
- dkim-atps=neutral
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42mCjM3b28zF3Lg
- for <openbmc@lists.ozlabs.org>; Fri,  2 Nov 2018 05:02:46 +1100 (AEDT)
-Received: by mail-pg1-x535.google.com with SMTP id w3-v6so9364717pgs.11
- for <openbmc@lists.ozlabs.org>; Thu, 01 Nov 2018 11:02:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=DxMa8GREr6B1mUmazwtO5/2rrCIuhbRaG2fibBy3htU=;
- b=vpbWVkNsl3mI5BUZGaw4l+ccoAioynKNicpf5XWQGHVhTB4EbzkgFD0VoFoQDWy9oh
- YOSfjZEXvKbaG9PZPQKClTkv4SkNirBBKpcitJWEb+1y6E0xnvFRq6E7HKcx7ODQOaAJ
- vmfmsWyaPW1hNXBAKx79j0lNgvIXh4TI5dqgGujVL7cJBLlQz/riz44nUTf+pxIw6PGK
- AvGuidFpIR9oYjhw0zbleHlJqJ4oBTo3BP6CBl6Eq4KE7vqTPsQlLenBqLJ8fyCi+6AC
- 4CgjqAydeUOkrk+DAD9e164Tcjb3PK1FxggpAWtGgJ2KFD+nSHMRxYviEM7wu++4nJjP
- CCKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=DxMa8GREr6B1mUmazwtO5/2rrCIuhbRaG2fibBy3htU=;
- b=Fyq+4jiVrmjReT95Q/k7d8M6pjkM6mit3gGDBAA2KnpScAQihY0h5+d2+egrzjz/MI
- XLAd+a4t72bqFj/060tU+BhJM/BBR/ThDY5FV9KtE74Kh3h2lFH85UWM3rpClSHcL/ME
- 9vBPvRUO4GLSrw7tGnUVbib06qGgclgp2rCZr661YZC1jg1hPZofT7/KsDpINtYd7CIA
- 5Bhnc6Pzm1w3asYGkiO/c9iyfzI58N4mvVZsiY5pv+VjUx4UxOz+pTMVlu28qmUDBG5G
- YugkH4KtxcNg0wtwOavguRKuhGFJlo4yCLMeaDqd6IB8Oy6mHxR9KWpVQHa7+KtFZndd
- 3nHw==
-X-Gm-Message-State: AGRZ1gIzNUBYoxwfEdEml0ZTTUJ+LIf9vwQnSTFlAsqGtPjn7v2ic8G0
- 6KkEpmf9Ste2Pq7CF+oTTR1x2ewT7a+6P5ul/P2eMAG5GzD3QQ==
-X-Google-Smtp-Source: AJdET5da0DBlPFkz8PXHgNFENG9lpQ+YVOTo6DRqj83NVrNYb2esOk1kK/ytO1/RRrqyTIPk8S6xU6jNBmFLO2AkgcQ=
-X-Received: by 2002:a63:4d:: with SMTP id 74mr5427546pga.248.1541095363560;
- Thu, 01 Nov 2018 11:02:43 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42mCrz5rwdzF3Nl;
+ Fri,  2 Nov 2018 05:09:23 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2018 11:09:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,453,1534834800"; d="scan'208";a="104643229"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga001.jf.intel.com with ESMTP; 01 Nov 2018 11:09:20 -0700
+Subject: Re: [PATCH i2c-next v9 5/5] i2c: aspeed: Add bus idle waiting logic
+ for multi-master use cases
+To: kbuild test robot <lkp@intel.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, Wolfram Sang <wsa@the-dreams.de>,
+ Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
+ Brendan Higgins <brendanhiggins@google.com>, linux-kernel@vger.kernel.org,
+ James Feist <james.feist@linux.intel.com>, linux-i2c@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, kbuild-all@01.org
+References: <20181030210917.32711-6-jae.hyun.yoo@linux.intel.com>
+ <201811020154.eziM0emr%fengguang.wu@intel.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <a126e4ca-69a7-ee23-4e87-e8bc4a3657ac@linux.intel.com>
+Date: Thu, 1 Nov 2018 11:09:20 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Thu, 1 Nov 2018 11:02:32 -0700
-Message-ID: <CAO=notyBKmEUkVtfMQB_05uJP+xgy428Kri=JTVTp84iVcXcVQ@mail.gmail.com>
-Subject: using CPP with configure
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Ratan Gupta <ratagupt@linux.vnet.ibm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, tomjoseph@in.ibm.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <201811020154.eziM0emr%fengguang.wu@intel.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,19 +55,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Nov 2018 18:02:48 -0000
+X-List-Received-Date: Thu, 01 Nov 2018 18:09:24 -0000
 
-You might have seen a patchset from me setting the language to C++ in
-your configure script.
+On 11/1/2018 10:44 AM, kbuild test robot wrote:
+> Hi Jae,
+> 
+> Thank you for the patch! Perhaps something to improve:
+> 
+> [auto build test WARNING on wsa/i2c/for-next]
+> [also build test WARNING on v4.19 next-20181101]
+> [if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
+> 
+> url:    https://github.com/0day-ci/linux/commits/Jae-Hyun-Yoo/dt-bindings-i2c-Add-bus-timeout-ms-and-retries-properties-as-common-optional/20181031-051152
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/for-next
+> config: i386-allyesconfig (attached as .config)
+> compiler: gcc-7 (Debian 7.3.0-1) 7.3.0
+> reproduce:
+>          # save the attached .config to linux build tree
+>          make ARCH=i386
+> 
+> Note: it may well be a FALSE warning. FWIW you are at least aware of it now.
+> http://gcc.gnu.org/wiki/Better_Uninitialized_Warnings
+> 
+> All warnings (new ones prefixed by >>):
+> 
+>     drivers/i2c/busses/i2c-aspeed.c: In function 'aspeed_i2c_master_xfer':
+>>> drivers/i2c/busses/i2c-aspeed.c:624:210: warning: 'timeout' may be used uninitialized in this function [-Wmaybe-uninitialized]
+>        if (time_after(jiffies, timeout))
+>                                                                                                                                                                                                                       ^
+>     drivers/i2c/busses/i2c-aspeed.c:607:16: note: 'timeout' was declared here
+>       unsigned long timeout;
+>                     ^~~~~~~
+> 
+> vim +/timeout +624 drivers/i2c/busses/i2c-aspeed.c
+> 
+>     604	
+>     605	static int aspeed_i2c_check_bus_busy(struct aspeed_i2c_bus *bus)
+>     606	{
+>     607		unsigned long timeout;
+>     608	
+>     609		if (bus->multi_master) {
+>     610			might_sleep();
+>     611			/* Initialize it only when multi_master is set */
+>     612			timeout = jiffies + bus->adap.timeout;
 
-Apparently the default language in the autotools is C. Why does this
-matter?  It tries to compile headers and other pieces in C to
-determine if they're available.
+The 'timeout' variable will be initialized only when bus->multi_master
+is true to save some OPs in case this variable isn't used. The saved OPs
+are not expensive but it makes a meaning because this function is called
+very frequently on every master transfer.
 
-How this is fixed, by setting the language to cpp before the header checks.
+>     613		}
+>     614	
+>     615		for (;;) {
+>     616			if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+>     617			      ASPEED_I2CD_BUS_BUSY_STS))
+>     618	#if IS_ENABLED(CONFIG_I2C_SLAVE)
+>     619				if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
+>     620	#endif
+>     621					return 0;
+>     622			if (!bus->multi_master)
+>     623				break;
 
-https://gerrit.openbmc-project.xyz/q/topic:%22build_cpp%22+(status:open%20OR%20status:merged)
+If bus->multi_master is false then it doesn't fall through so the
+'timeout' variable in below will not be used when itself is
+uninitialized. Also, bus->multi_master is fixed at probing time and it
+doesn't change at runtime so the warning case never happens.
 
-For new repos, please set the language accordingly.
+-Jae
 
-Patrick
+>   > 624			if (time_after(jiffies, timeout))
+>     625				break;
+>     626			usleep_range((ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US >> 2) + 1,
+>     627				     ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US);
+>     628		}
+>     629	
+>     630		return aspeed_i2c_recover_bus(bus);
+>     631	}
+>     632	
+> 
+> ---
+> 0-DAY kernel test infrastructure                Open Source Technology Center
+> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+> 
