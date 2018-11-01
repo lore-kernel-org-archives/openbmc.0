@@ -1,74 +1,93 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <Justin.Lee1@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="m451Bn5Y"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="pKdkrq+j"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.149.214; helo=esa4.dell-outbound.iphmx.com;
+ envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=Dell.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="aDzMVEOi"; 
+ dkim-atps=neutral
+Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
+ [68.232.149.214])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42lshR015pzF3J9
- for <openbmc@lists.ozlabs.org>; Thu,  1 Nov 2018 15:30:46 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id EBCBE22444;
- Thu,  1 Nov 2018 00:30:43 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Thu, 01 Nov 2018 00:30:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=8sxYpk5eLwsk5iXa/2gYvUiyTu
- YyFl1QOAdiRRPoMJc=; b=m451Bn5YTTvmSnlCWpMyFraJozAgdCkued6N9/2YJa
- oZCt9+cYQp79M77ijQ+fkBvOy3r/UEy+iwiYSJmautxw7j6xGoVRaaAqkRp6ybrc
- RjzECqakSyrCax7hYggY//srVVVWP2q3VcO2AuvgrMOFncaITWb7R/8K+H+dQoIY
- azaYeiOkMCcdsSDa0kDnQwXVSeBXHrapMt9vPR5NIw7Zl/9e1n0f6kzuU2irC2Ee
- TbhY3z7j2aS1lbdBk4BV8AqTfRuFz+vaRiS4CXgvPy69e/r8Bf//x8RYShpxeq3k
- 6s+E+/HwSw38wLMEHFINnE+mxC6GIOhh0fqHjdqy69KQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=8sxYpk5eLwsk5iXa/2gYvUiyTuYyFl1QOAdiRRPoM
- Jc=; b=pKdkrq+jDBf7Gj+yYMFJafIyelNLFbkMJLKq03qv5PmpFz2KrJ1sd8cYJ
- iDhYqTPTSgaAJ93q2+PLejW10dV5cdeT4UGhOvowXaG5DnBO4rhgdKITdFpc7YI3
- M+Hvo/gXysqAmdS/ukuTT8rqbND/HRISq2ZIKasX4MTYeUdy5lhnicHxyhF7EQYy
- efjbcNb9KXqxCZoI23Pp1WoTqdx7sMFqvmgCzBn/1u9zecUOb97fgVRokY/+ZkEP
- TBLZc+jINTlXHXO4pzVVtR3FSweq5uio9Ttg/zdKZG6FiKmFtCIP5u/aVbSnXnpT
- UTCmh7no749zZ/nuU3Vpyi2cfNPFg==
-X-ME-Sender: <xms:c4HaWxpgY39fnb-e18IE3x6VtCNlT71ibA3lnxlub5c4TZBDY93kig>
-X-ME-Proxy: <xmx:c4HaWwIkPOLGxvk2Yl8HAz46XUYeea_eINns8xlRmx118-9_oCvLog>
- <xmx:c4HaW-amRazImVBKdv5LFffpJZuQh1IO18wC4W1WBnGbMEDRrsV6zA>
- <xmx:c4HaW6D38DTcmoD5Cn-_7d_Hfw0oxzMQHhERHd4rnhhj73JsK7jDLQ>
- <xmx:c4HaWwYCeAda06wc0js12ReVNNCWucjDiFtppZaRktfGYkJv_RCApQ>
- <xmx:c4HaW6lbPeF__wWgpynwWl1T6fb-nIE28oa8K4rJ181bw-BtBFvEbg>
- <xmx:c4HaW1PXcR-HXCypKnVFqm21LUhTGDOK1HjXo0alDn6Ui9IZlal57w>
-Received: from v4 (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1D4A6E425A;
- Thu,  1 Nov 2018 00:30:40 -0400 (EDT)
-Message-ID: <8004d6c236582253a82004ce72425b45f09d7d56.camel@mendozajonas.com>
-Subject: Re: [PATCH net-next v2 5/6] net/ncsi: Reset channel state in
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42m8pC2MCRzF3GW
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Nov 2018 02:51:46 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1541087507; x=1572623507;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=kVmrE+VioMKW8XVo/pAHR9w8QFqiwwbDWLc3uytddkA=;
+ b=aDzMVEOi746NrAWCXtIyZYNykLFXjBP/mca+dPhABXoVJiyydJWabK05
+ 5CwBonz98QQoEV6BHSnXEhpNpzp1Z8TlS4Rp+dGnxE+iGaedXWU45fQh2
+ LySwzN/MAhcOWZVvfpEM+HIsPKL0UQnoOTvi+7v0N/XjyUN0XtoD8P+K4 Y=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FbAAAtINtbhyWd50NkHAEBAQQBAQc?=
+ =?us-ascii?q?EAQGBUgYBAQsBg1cSMoNsiHeNRIF4gUiTaxSBZgsBAYRsAheDRzUMDQEDAQE?=
+ =?us-ascii?q?CAQECAQECEAEBAQoLCQgpL4I2IoJjAQEBAQIBEhEEDTMSBQsCAQgaAiYCAgJ?=
+ =?us-ascii?q?FEAIEAQ0NGoJ/gXoInRwCgRCJWAEBAW17M4oegQuMeIEQAYMShGcugm2CVwK?=
+ =?us-ascii?q?BKgGNR5AwBgECkQIgkFMslmQCBAIEBQIUgUUDgglwgW6BT4IlDgmOGosXgR8?=
+ =?us-ascii?q?BAQ?=
+X-IPAS-Result: =?us-ascii?q?A2FbAAAtINtbhyWd50NkHAEBAQQBAQcEAQGBUgYBAQsBg?=
+ =?us-ascii?q?1cSMoNsiHeNRIF4gUiTaxSBZgsBAYRsAheDRzUMDQEDAQECAQECAQECEAEBA?=
+ =?us-ascii?q?QoLCQgpL4I2IoJjAQEBAQIBEhEEDTMSBQsCAQgaAiYCAgJFEAIEAQ0NGoJ/g?=
+ =?us-ascii?q?XoInRwCgRCJWAEBAW17M4oegQuMeIEQAYMShGcugm2CVwKBKgGNR5AwBgECk?=
+ =?us-ascii?q?QIgkFMslmQCBAIEBQIUgUUDgglwgW6BT4IlDgmOGosXgR8BAQ?=
+Received: from mx0b-00154901.pphosted.com (HELO mx0a-00154901.pphosted.com)
+ ([67.231.157.37])
+ by esa4.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 01 Nov 2018 10:51:42 -0500
+Received: from pps.filterd (m0089484.ppops.net [127.0.0.1])
+ by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wA1FhYG5048343
+ for <openbmc@lists.ozlabs.org>; Thu, 1 Nov 2018 11:51:41 -0400
+Received: from esa2.dell-outbound2.iphmx.com (esa2.dell-outbound2.iphmx.com
+ [68.232.153.202])
+ by mx0b-00154901.pphosted.com with ESMTP id 2ng2ja8rgh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Thu, 01 Nov 2018 11:51:41 -0400
+From: <Justin.Lee1@Dell.com>
+Received: from ausxippc101.us.dell.com ([143.166.85.207])
+ by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
+ 01 Nov 2018 21:51:38 +0600
+X-LoopCount0: from 10.166.135.91
+X-IronPort-AV: E=Sophos;i="5.54,452,1534827600"; d="scan'208";a="1156321302"
+To: <sam@mendozajonas.com>, <netdev@vger.kernel.org>
+CC: <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH net-next v2 5/6] net/ncsi: Reset channel state in
  ncsi_start_dev()
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Justin.Lee1@Dell.com, netdev@vger.kernel.org
-Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Date: Thu, 01 Nov 2018 15:30:38 +1100
-In-Reply-To: <2be6038ad8cb43559495e6f84e97b8a6@AUSX13MPS306.AMER.DELL.COM>
+Thread-Topic: [PATCH net-next v2 5/6] net/ncsi: Reset channel state in
+ ncsi_start_dev()
+Thread-Index: AQHUaxq5zixhV1A3m0GL9JnkLZs93aUxueYwgAWRLwCAANjoYIACkOYAgABnWEA=
+Date: Thu, 1 Nov 2018 15:51:33 +0000
+Message-ID: <871d00996c574b62a30a3ad4f2218e4a@AUSX13MPS306.AMER.DELL.COM>
 References: <20181023215201.27315-1-sam@mendozajonas.com>
  <20181023215201.27315-6-sam@mendozajonas.com>
  <d6172566ffe94dec83c1026108e24c98@AUSX13MPS306.AMER.DELL.COM>
  <b0fd357b1fc4b9aed6300019557dc8a391ecf52d.camel@mendozajonas.com>
  <2be6038ad8cb43559495e6f84e97b8a6@AUSX13MPS306.AMER.DELL.COM>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ <8004d6c236582253a82004ce72425b45f09d7d56.camel@mendozajonas.com>
+In-Reply-To: <8004d6c236582253a82004ce72425b45f09d7d56.camel@mendozajonas.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.18.86]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-01_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1811010134
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,142 +99,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Nov 2018 04:30:47 -0000
+X-List-Received-Date: Thu, 01 Nov 2018 15:51:49 -0000
 
-On Tue, 2018-10-30 at 18:23 +0000, Justin.Lee1@Dell.com wrote:
-> > On Fri, 2018-10-26 at 17:25 +0000, Justin.Lee1@Dell.com wrote:
-> > > Hi Samuel,
-> > > 
-> > > I noticed a few issues and commented below.
-> > > 
-> > > Thanks,
-> > > Justin
-> > > 
-> > > 
-> > > >  /* Resources */
-> > > > +int ncsi_reset_dev(struct ncsi_dev *nd);
-> > > >  void ncsi_start_channel_monitor(struct ncsi_channel *nc);
-> > > >  void ncsi_stop_channel_monitor(struct ncsi_channel *nc);
-> > > >  struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
-> > > > diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> > > > index 014321ad31d3..9bad03e3fa5e 100644
-> > > > --- a/net/ncsi/ncsi-manage.c
-> > > > +++ b/net/ncsi/ncsi-manage.c
-> > > > @@ -550,8 +550,10 @@ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
-> > > >  		spin_lock_irqsave(&nc->lock, flags);
-> > > >  		nc->state = NCSI_CHANNEL_INACTIVE;
-> > > >  		spin_unlock_irqrestore(&nc->lock, flags);
-> > > > -		ncsi_process_next_channel(ndp);
-> > > > -
-> > > > +		if (ndp->flags & NCSI_DEV_RESET)
-> > > > +			ncsi_reset_dev(nd);
-> > > > +		else
-> > > > +			ncsi_process_next_channel(ndp);
-> > > >  		break;
-> > > >  	default:
-> > > >  		netdev_warn(nd->dev, "Wrong NCSI state 0x%x in suspend\n",
-> > > > @@ -1554,7 +1556,7 @@ int ncsi_start_dev(struct ncsi_dev *nd)
-> > > >  		return 0;
-> > > >  	}
-> > > >  
-> > > > -	return ncsi_choose_active_channel(nd);
-> > > > +	return ncsi_reset_dev(nd);
-> > > 
-> > > If there is no available channel due to the whitelist, ncsi_start_dev() function will return failed
-> > > Status and the network interface may fail to bring up too. It is possible for user to disable all 
-> > > channels and leave the interface up for checking the LOM status.
-> > > 
-> > 
-> > I'm not sure that that is a bug, or at least not in the scope of this
-> > series. If the whitelist is set such that no channels are valid then
-> > there's nothing for NCSI to do. If we want to do something like always
-> > monitor all channels then that would be best to do in another patch.
-> > 
-> > > >  }
-> > > >  EXPORT_SYMBOL_GPL(ncsi_start_dev);
-> > > 
-> > > Also, if I send set_package_mask and set_channel_mask commands back to back in a program,
-> > > the state machine doesn't work well. If I use command line and wait for it to complete for 
-> > > each step, then it is fine.
-> > 
-> > Yeah that's not great; probably hitting some corner cases in the NCSI
-> > locking. I'll look into the multi-channel related stuff but I have a
-> > feeling that if you tried this with the existing set/clear commands you
-> > would probably hit something similar, especially on your dual core
-> > platform. If so this is probably something to fix separately.
-> > 
-> 
-> It is possible that it is causing by the following code in ncsi_reset_dev() function.
-> The state might be overwritten and the previous operation is interrupted.
-> 
-> 	spin_lock_irqsave(&ndp->lock, flags);
-> 	ndp->flags |= NCSI_DEV_RESET;
-> 	ndp->active_channel = active;
-> 	ndp->active_package = active->package;
-> 	spin_unlock_irqrestore(&ndp->lock, flags);
-> 
-> 	nd->state = ncsi_dev_state_suspend;
-
-Yep, we should probably add a check before calling ncsi_reset_dev() in
-the netlink code if we're already in reset, and check in ncsi_reset_dev()
-if we mid-configuration.
-
-For your trace below can you share exactly which commands you were
-sending? Those messages aren't upstream so it's not 100% clear what's
-being sent.
-
-Thanks!
-Sam
-
-> 
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: Multi-package enabled on ifindex 2, mask 0x00000001
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_stop_channel_monitor() - pkg 0 ch 0
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_dev_work()
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 0 state 0400
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: pkg 0 ch 0 set as preferred channel
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: Multi-channel enabled on ifindex 2, mask 0x00000003
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_stop_channel_monitor() - pkg 0 ch 1
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_dev_work()
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 1 state 0400
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: Package 1 set to all channels disabled
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: Multi-channel enabled on ifindex 2, mask 0x00000000
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel()
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - pkg 0
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - pass pkg whitelist
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - ch 0
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - pass ch whitelist
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - skip
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - ch 1
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - pass ch whitelist
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - skip
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - next pkg
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_choose_active_channel() - pkg 1
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: No channel found to configure!
-> > > npcm7xx-emc f0825000.eth eth2: NCSI interface down
-> > > npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_dev_work()
-> > > npcm7xx-emc f0825000.eth eth2: Wrong NCSI state 0x100 in workqueue
-> > > 
-> > > All masks are set correctly, but you can see the PS column is not right and channel doesn't
-> > > configure correctly.
-> > > 
-> > > /sys/kernel/debug/ncsi_protocol# cat ncsi_device_status
-> > > IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PC PS LS RU CR NQ HA
-> > > ===================================================================
-> > >   2   eth2   ncsi0  000 000 1  1  1  1  1  1  1  0  1  1  1  0  1
-> > >   2   eth2   ncsi1  000 001 1  0  1  1  1  1  0  0  1  1  1  0  1
-> > >   2   eth2   ncsi2  001 000 0  0  1  1  0  0  0  0  1  1  1  0  1
-> > >   2   eth2   ncsi3  001 001 0  0  1  1  0  0  0  0  1  1  1  0  1
-> > > ===================================================================
-> > > MP: Multi-mode Package     WP: Whitelist Package
-> > > MC: Multi-mode Channel     WC: Whitelist Channel
-> > > PC: Primary Channel
-> > > PS: Poll Status
-> > > LS: Link Status
-> > > RU: Running
-> > > CR: Carrier OK
-> > > NQ: Queue Stopped
-> > > HA: Hardware Arbitration
-> > > 
-> > > PS column is getting from (int)nc->monitor.enabled.
-> 
-> 
+DQo+IEZvciB5b3VyIHRyYWNlIGJlbG93IGNhbiB5b3Ugc2hhcmUgZXhhY3RseSB3aGljaCBjb21t
+YW5kcyB5b3Ugd2VyZQ0KPiBzZW5kaW5nPyBUaG9zZSBtZXNzYWdlcyBhcmVuJ3QgdXBzdHJlYW0g
+c28gaXQncyBub3QgMTAwJSBjbGVhciB3aGF0J3MNCj4gYmVpbmcgc2VudC4NCj4gDQo+IFRoYW5r
+cyENCj4gU2FtDQo+IA0KDQpJdCBpcyBzZW5kaW5nIHZpYSBuZXRsaW5rIGRpcmVjdGx5LiBJIGhh
+dmUgdHdvIHBhY2thZ2VzICgwIGFuZCAxKSBhbmQgZWFjaCBwYWNrYWdlIGhhcw0KdHdvIGNoYW5u
+ZWxzICgwIGFuZCAxKSBvbiBteSBzeXN0ZW0uIElmIEkgY29udmVydCBpdCB0byBjb21tYW5kIGxp
+bmUsIGl0IHdvdWxkIGJlDQphcyBiZWxvdy4NCg0KL2hvbWUvcm9vdCMgbmNzaV9uZXRsaW5rIC1s
+IDIgLW0gLWEgMHgwMQ0KU2V0IGNtZCAtIGlmaW5kZXggMiwgbXVsdGkgMSwgbWFzayAweDAwMDAw
+MDAxDQoNCi9ob21lL3Jvb3QjIG5jc2lfbmV0bGluayAtbCAyIC1tIC1iIDB4MDMgLXAgMA0KU2V0
+IGNtZCAtIGlmaW5kZXggMiwgcGFja2FnZSAwLCBjaGFubmVsIC0xLCBtdWx0aSAxLCBtYXNrIDB4
+MDAwMDAwMDMNCg0KL2hvbWUvcm9vdCMgbmNzaV9uZXRsaW5rIC1sIDIgLW0gLWIgMHgwMCAtcCAx
+DQpTZXQgY21kIC0gaWZpbmRleCAyLCBwYWNrYWdlIDEsIGNoYW5uZWwgLTEsIG11bHRpIDEsIG1h
+c2sgMHgwMDAwMDAwMA0KDQovaG9tZS9yb290IyBuY3NpX25ldGxpbmsNClVzYWdlOiBuY3NpX25l
+dGxpbmsgQ09NTUFORCBbT1BUSU9OXS4uLg0KU2VuZCBtZXNzYWdlcyB0byB0aGUgTkNTSSBkcml2
+ZXIgdmlhIE5ldGxpbmsgKDAuNCkNCg0KTWFuZGF0b3J5IGFyZ3VtZW50cyB0byBsb25nIG9wdGlv
+bnMgYXJlIG1hbmRhdG9yeSBmb3Igc2hvcnQgb3B0aW9ucyB0b28uDQpDT01NQU5EOg0KICAtaSwg
+LS1pbmZvICAgICAgICAgICAgICAgICBEaXNwbGF5IGluZm8gZm9yIHBhY2thZ2VzIGFuZCBjaGFu
+bmVscw0KICAtcywgLS1zZXQgICAgICAgICAgICAgICAgICBGb3JjZSB0aGUgdXNhZ2Ugb2YgYSBj
+ZXJ0YWluIHBhY2thZ2UvY2hhbm5lbCBjb21iaW5hdGlvbg0KICAteCwgLS1jbGVhciAgICAgICAg
+ICAgICAgICBDbGVhciB0aGUgYWJvdmUgc2V0dGluZw0KICAtYSwgLS1wYWNrYWdlLW1hc2sgTUFT
+SyAgICBTZXQgcGFja2FnZSBzZWxlY3Rpb24gbWFzaw0KICAtYiwgLS1jaGFubmVsLW1hc2sgTUFT
+SyAgICBTZXQgY2hhbm5lbCBzZWxlY3Rpb24gbWFzaw0KICAtbywgLS1jbWQgREFUQTAgW0RBVEEx
+XS4uLiBTZW5kIE5DLVNJIGNvbW1hbmQNCiAgLWQsIC0tZGlzY292ZXJ5ICAgICAgICAgICAgUmVx
+dWVzdCB0byBkaXNjb3ZlciBwYWNrYWdlcyBhbmQgY2hhbm5lbHMNCiAgLWssIC0tbG9va3VwICAg
+ICAgICAgICAgICAgTG9vayB1cCBjaGFubmVsIGlkIG9yIG5hbWUNCiAgLXUsIC0tc3RhdHVzICAg
+ICAgICAgICAgICAgRGlzcGxheSBzdGF0dXMNCiAgLWgsIC0taGVscCAgICAgICAgICAgICAgICAg
+UHJpbnQgdGhpcyBoZWxwIHRleHQNCg0KT1BUSU9OOg0KICAtbCwgLS1pZmluZGV4IElOREVYICAg
+ICAgICBTcGVjaWZ5IHRoZSBpbnRlcmZhY2UgaW5kZXgNCiAgLXAsIC0tcGFja2FnZSBQQUNLQUdF
+ICAgICAgUGFja2FnZSBudW1iZXINCiAgLWMsIC0tY2hhbm5lbCBDSEFOTkVMICAgICAgQ2hhbm5l
+bCBudW1iZXIgKGFrYS4gcG9ydCBudW1iZXIpDQogIC1uLCAtLWNoYW5uZWwgTkFNRSAgICAgICAg
+IENoYW5uZWwgbmFtZSAoYWthLiBuY3NpWCkNCiAgLW0sIC0tbXVsdGktbW9kZSAgICAgICAgICAg
+U2V0IG11bHRpLW1vZGUNCg0KRXhhbXBsZTogbmNzaV9uZXRsaW5rIC1sIDIgLS1pbmZvDQoNCg0K
+PiA+IA0KPiA+ID4gPiBucGNtN3h4LWVtYyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogTXVsdGkt
+cGFja2FnZSBlbmFibGVkIG9uIGlmaW5kZXggMiwgbWFzayAweDAwMDAwMDAxDQo+ID4gPiA+IG5w
+Y203eHgtZW1jIGYwODI1MDAwLmV0aCBldGgyOiBOQ1NJOiBuY3NpX3N0b3BfY2hhbm5lbF9tb25p
+dG9yKCkgLSBwa2cgMCBjaCAwDQo+ID4gPiA+IG5wY203eHgtZW1jIGYwODI1MDAwLmV0aCBldGgy
+OiBOQ1NJOiBuY3NpX2Rldl93b3JrKCkNCj4gPiA+ID4gbnBjbTd4eC1lbWMgZjA4MjUwMDAuZXRo
+IGV0aDI6IE5DU0k6IG5jc2lfc3VzcGVuZF9jaGFubmVsKCkgLSBwa2cgMCBjaCAwIHN0YXRlIDA0
+MDANCj4gPiA+ID4gbnBjbTd4eC1lbWMgZjA4MjUwMDAuZXRoIGV0aDI6IE5DU0k6IHBrZyAwIGNo
+IDAgc2V0IGFzIHByZWZlcnJlZCBjaGFubmVsDQo+ID4gPiA+IG5wY203eHgtZW1jIGYwODI1MDAw
+LmV0aCBldGgyOiBOQ1NJOiBNdWx0aS1jaGFubmVsIGVuYWJsZWQgb24gaWZpbmRleCAyLCBtYXNr
+IDB4MDAwMDAwMDMNCj4gPiA+ID4gbnBjbTd4eC1lbWMgZjA4MjUwMDAuZXRoIGV0aDI6IE5DU0k6
+IG5jc2lfc3RvcF9jaGFubmVsX21vbml0b3IoKSAtIHBrZyAwIGNoIDENCj4gPiA+ID4gbnBjbTd4
+eC1lbWMgZjA4MjUwMDAuZXRoIGV0aDI6IE5DU0k6IG5jc2lfZGV2X3dvcmsoKQ0KPiA+ID4gPiBu
+cGNtN3h4LWVtYyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9zdXNwZW5kX2NoYW5uZWwo
+KSAtIHBrZyAwIGNoIDEgc3RhdGUgMDQwMA0KPiA+ID4gPiBucGNtN3h4LWVtYyBmMDgyNTAwMC5l
+dGggZXRoMjogTkNTSTogUGFja2FnZSAxIHNldCB0byBhbGwgY2hhbm5lbHMgZGlzYWJsZWQNCj4g
+PiA+ID4gbnBjbTd4eC1lbWMgZjA4MjUwMDAuZXRoIGV0aDI6IE5DU0k6IE11bHRpLWNoYW5uZWwg
+ZW5hYmxlZCBvbiBpZmluZGV4IDIsIG1hc2sgMHgwMDAwMDAwMA0KPiA+ID4gPiBucGNtN3h4LWVt
+YyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9jaG9vc2VfYWN0aXZlX2NoYW5uZWwoKQ0K
+PiA+ID4gPiBucGNtN3h4LWVtYyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9jaG9vc2Vf
+YWN0aXZlX2NoYW5uZWwoKSAtIHBrZyAwDQo+ID4gPiA+IG5wY203eHgtZW1jIGYwODI1MDAwLmV0
+aCBldGgyOiBOQ1NJOiBuY3NpX2Nob29zZV9hY3RpdmVfY2hhbm5lbCgpIC0gcGFzcyBwa2cgd2hp
+dGVsaXN0DQo+ID4gPiA+IG5wY203eHgtZW1jIGYwODI1MDAwLmV0aCBldGgyOiBOQ1NJOiBuY3Np
+X2Nob29zZV9hY3RpdmVfY2hhbm5lbCgpIC0gY2ggMA0KPiA+ID4gPiBucGNtN3h4LWVtYyBmMDgy
+NTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9jaG9vc2VfYWN0aXZlX2NoYW5uZWwoKSAtIHBhc3Mg
+Y2ggd2hpdGVsaXN0DQo+ID4gPiA+IG5wY203eHgtZW1jIGYwODI1MDAwLmV0aCBldGgyOiBOQ1NJ
+OiBuY3NpX2Nob29zZV9hY3RpdmVfY2hhbm5lbCgpIC0gc2tpcA0KPiA+ID4gPiBucGNtN3h4LWVt
+YyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9jaG9vc2VfYWN0aXZlX2NoYW5uZWwoKSAt
+IGNoIDENCj4gPiA+ID4gbnBjbTd4eC1lbWMgZjA4MjUwMDAuZXRoIGV0aDI6IE5DU0k6IG5jc2lf
+Y2hvb3NlX2FjdGl2ZV9jaGFubmVsKCkgLSBwYXNzIGNoIHdoaXRlbGlzdA0KPiA+ID4gPiBucGNt
+N3h4LWVtYyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9jaG9vc2VfYWN0aXZlX2NoYW5u
+ZWwoKSAtIHNraXANCj4gPiA+ID4gbnBjbTd4eC1lbWMgZjA4MjUwMDAuZXRoIGV0aDI6IE5DU0k6
+IG5jc2lfY2hvb3NlX2FjdGl2ZV9jaGFubmVsKCkgLSBuZXh0IHBrZw0KPiA+ID4gPiBucGNtN3h4
+LWVtYyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9jaG9vc2VfYWN0aXZlX2NoYW5uZWwo
+KSAtIHBrZyAxDQo+ID4gPiA+IG5wY203eHgtZW1jIGYwODI1MDAwLmV0aCBldGgyOiBOQ1NJOiBO
+byBjaGFubmVsIGZvdW5kIHRvIGNvbmZpZ3VyZSENCj4gPiA+ID4gbnBjbTd4eC1lbWMgZjA4MjUw
+MDAuZXRoIGV0aDI6IE5DU0kgaW50ZXJmYWNlIGRvd24NCj4gPiA+ID4gbnBjbTd4eC1lbWMgZjA4
+MjUwMDAuZXRoIGV0aDI6IE5DU0k6IG5jc2lfZGV2X3dvcmsoKQ0KPiA+ID4gPiBucGNtN3h4LWVt
+YyBmMDgyNTAwMC5ldGggZXRoMjogV3JvbmcgTkNTSSBzdGF0ZSAweDEwMCBpbiB3b3JrcXVldWUN
+Cj4gPiA+ID4gDQo+ID4gPiA+IEFsbCBtYXNrcyBhcmUgc2V0IGNvcnJlY3RseSwgYnV0IHlvdSBj
+YW4gc2VlIHRoZSBQUyBjb2x1bW4gaXMgbm90IHJpZ2h0IGFuZCBjaGFubmVsIGRvZXNuJ3QNCj4g
+PiA+ID4gY29uZmlndXJlIGNvcnJlY3RseS4NCj4gPiA+ID4gDQo+ID4gPiA+IC9zeXMva2VybmVs
+L2RlYnVnL25jc2lfcHJvdG9jb2wjIGNhdCBuY3NpX2RldmljZV9zdGF0dXMNCj4gPiA+ID4gSUZJ
+RFggSUZOQU1FIE5BTUUgICBQSUQgQ0lEIFJYIFRYIE1QIE1DIFdQIFdDIFBDIFBTIExTIFJVIENS
+IE5RIEhBDQo+ID4gPiA+ID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT0NCj4gPiA+ID4gICAyICAgZXRoMiAgIG5jc2kwICAw
+MDAgMDAwIDEgIDEgIDEgIDEgIDEgIDEgIDEgIDAgIDEgIDEgIDEgIDAgIDENCj4gPiA+ID4gICAy
+ICAgZXRoMiAgIG5jc2kxICAwMDAgMDAxIDEgIDAgIDEgIDEgIDEgIDEgIDAgIDAgIDEgIDEgIDEg
+IDAgIDENCj4gPiA+ID4gICAyICAgZXRoMiAgIG5jc2kyICAwMDEgMDAwIDAgIDAgIDEgIDEgIDAg
+IDAgIDAgIDAgIDEgIDEgIDEgIDAgIDENCj4gPiA+ID4gICAyICAgZXRoMiAgIG5jc2kzICAwMDEg
+MDAxIDAgIDAgIDEgIDEgIDAgIDAgIDAgIDAgIDEgIDEgIDEgIDAgIDENCj4gPiA+ID4gPT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PQ0KPiA+ID4gPiBNUDogTXVsdGktbW9kZSBQYWNrYWdlICAgICBXUDogV2hpdGVsaXN0IFBh
+Y2thZ2UNCj4gPiA+ID4gTUM6IE11bHRpLW1vZGUgQ2hhbm5lbCAgICAgV0M6IFdoaXRlbGlzdCBD
+aGFubmVsDQo+ID4gPiA+IFBDOiBQcmltYXJ5IENoYW5uZWwNCj4gPiA+ID4gUFM6IFBvbGwgU3Rh
+dHVzDQo+ID4gPiA+IExTOiBMaW5rIFN0YXR1cw0KPiA+ID4gPiBSVTogUnVubmluZw0KPiA+ID4g
+PiBDUjogQ2FycmllciBPSw0KPiA+ID4gPiBOUTogUXVldWUgU3RvcHBlZA0KPiA+ID4gPiBIQTog
+SGFyZHdhcmUgQXJiaXRyYXRpb24NCj4gPiA+ID4gDQo+ID4gPiA+IFBTIGNvbHVtbiBpcyBnZXR0
+aW5nIGZyb20gKGludCluYy0+bW9uaXRvci5lbmFibGVkLg0KPiANCj4gDQoNCg0K
