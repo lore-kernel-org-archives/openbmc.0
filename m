@@ -1,57 +1,53 @@
 Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::52b; helo=mail-pg1-x52b.google.com;
+ (client-ip=2607:f8b0:4864:20::432; helo=mail-pf1-x432.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="bvPIzixt"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="b1rVuaNc"; 
  dkim-atps=neutral
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42mnWQ1CCVzF37D
- for <openbmc@lists.ozlabs.org>; Sat,  3 Nov 2018 03:26:09 +1100 (AEDT)
-Received: by mail-pg1-x52b.google.com with SMTP id o14-v6so1195132pgv.7
- for <openbmc@lists.ozlabs.org>; Fri, 02 Nov 2018 09:26:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42mngN2Sx1zF37D
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Nov 2018 03:33:03 +1100 (AEDT)
+Received: by mail-pf1-x432.google.com with SMTP id f26-v6so1254723pfn.9
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Nov 2018 09:33:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=l8en79qvJ0ML2MZ6ztZ3DTWEW/aSzlvoaWti9xkf1/U=;
- b=bvPIzixtlUNyBoHAR017Lf+9JCc5iMZ0BppntBBR10aCOSz4PZTxzBvh1ttwD44qpR
- Dz+uJ/OGdjYJHt6SFOwppWlEzTWKiuNko+l5oqPsCqEjNAS2SUpn95OU8/jrLOHSvZRv
- g0eQ2KT9jnB/LjyD04ed7LS86DkWnQzfo8YGlCAHMeMtEZr4unKHqxOz8jV6nEI42BYo
- yQUoZ1d3j+RooTc4ChgsflLN6RsSbmgM5N1Of6HEsspOv1Xw1Z7i9J1WiHmOuRkLi/94
- wswDz6SN0B+cnzTrY+Ebt6+FV0sUGVx/cmMJQd5cUzWQkwECU3bP6x0hDUTvem4k52Hb
- xW3A==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Y4Y6BLtvPRWUzPpvkOOfolPZ/VbO07+IRhWyPZQYSIs=;
+ b=b1rVuaNc5iXiYS+rN5YIWnhPGbPtuPM7Rx7b922oMK1x0gVH8I4VnBKU31O8Bqnhi7
+ MHevlhiMjC16JxB9hxRo31Yk4GLjaaKFkz4JhVM1ZNxLfLXUnEBO3k1TMuk/1i+tdc6q
+ 0zzUC62HpfQDy4r9dM+ab3rNg0sVQWHKHTNXqQJ3b7J7C76oNz47XRLysF1NtY/0hsQl
+ MgSeQpGg3EO0OM2O94TrfTDexm7VehnhKhWiULXd2LPYqybA+9fwdx9xfM/4CgXgzbx0
+ mOaRgw62GNvbyMGJ9m6undNqhoNKC0y2jQV6/KGnOwtZ4EQPoE0Yg9hGB2u9ZlQvjRr9
+ psgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=l8en79qvJ0ML2MZ6ztZ3DTWEW/aSzlvoaWti9xkf1/U=;
- b=DGPwvwSB78I5Bg+t+db4F8F4SFHH1cnFTUIi1YlWmSRjTjzOa7sCVm7KJVv+UDMHih
- v1LP+BW10iqb7itfHa44frkucgTU6nq1iK5YzBp19M4nrzjXYiSZTJu5G1TcP2Brjp/4
- gNq4zozrDDUBFS1Y2hhexl+yEwA1BCSekOdND7hwqYE+6AS9QHw4ssqmAcZRKuqV2KJ2
- Dwrqg/FNRU+gF0gtLSPLiJ1lCe5yoptwvuKAEBBQkWJ7HhK0Hw2UWIzruECuQYnp7j6K
- +101HURUZsJ8bN8a9nM/o6tVcwA8/lSVKOFlIrWnUzB0fSd0LlvkcUx+valTBsBp5lEq
- OCpQ==
-X-Gm-Message-State: AGRZ1gLYCtRKG4vx6ug2myb5qOxDnXm0mhDv0LEpWuzzyqqElKGfo7cJ
- /xN+iIs3hO5QaIPxh2BTSCZY2FWEYmRw+N/d9AM8Ig==
-X-Google-Smtp-Source: AJdET5eHG4MJfq3m3ESY3bvNRTthMeI002J+k49g4/ef79W4TbzetwwLHo4tdgqG6S9YAIhsnzLcpjqRZ5weEtjTndc=
-X-Received: by 2002:a62:9f90:: with SMTP id
- v16-v6mr12459841pfk.207.1541175967033; 
- Fri, 02 Nov 2018 09:26:07 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Y4Y6BLtvPRWUzPpvkOOfolPZ/VbO07+IRhWyPZQYSIs=;
+ b=mzh5INpU/kKQoJBfHMMEoPziLUVyPrTc6xSSPxPJGF2+smOrLdLytCTbU8xRstqe3a
+ Jib9ditj0TI+BnF1gDQHGgx4jaZlTRnwA4mL4XkWAFEXOyb22YCxrVc0KKFknCbZIM0V
+ yjZYnKcm/8dv1Ftj1P7MPqy+GH/lFrTTwM83RB6FZ6g5qFvvi0FsCr681y9eEnUgsIZU
+ Ya0uH1Q7CJT+3qfB3CA6JY4m74jkBTxrX49CIolXoIY4WCpMo7Z80/AIssc/8xDVVPTr
+ 2lhrgyQkvI0KCtEX/Ec7EaaDWD+72RaY7K8v7DyUGTCrD49YXyPIj8x9/XnsQpaMA/cF
+ uh/Q==
+X-Gm-Message-State: AGRZ1gIauEZhGKHNtFduch7mcycPSle55wOx8p2AohoNsJ/oyYUTfV7L
+ pqKHX9Q+xjlRZiIgFIPA+0fhf3gAfMgFNIZGgtMjq09BRc806w==
+X-Google-Smtp-Source: AJdET5dljMtUlgqYbpkrp3jcQq4Qn2pSqNtS9TPkSXCRayHT+RuDKOJCN+MP7VQgmwyTZiJyP6zwhghff5O2+KizhRQ=
+X-Received: by 2002:a63:4044:: with SMTP id n65mr5288207pga.90.1541176381658; 
+ Fri, 02 Nov 2018 09:33:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAO=notx84Tdf4VPZ1pBHpDtvjmUgtDDVqYJRKpkJLyCpNQD35A@mail.gmail.com>
- <F617D21F-D401-48DC-864C-811280521390@fuzziesquirrel.com>
-In-Reply-To: <F617D21F-D401-48DC-864C-811280521390@fuzziesquirrel.com>
 From: Patrick Venture <venture@google.com>
-Date: Fri, 2 Nov 2018 09:25:55 -0700
-Message-ID: <CAO=notzO2+KpRpTk9stxs=7r+ZXYMugEnCodSKZCkBqS6hBO5w@mail.gmail.com>
-Subject: Re: The Great Recipe Rename of 2018
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 2 Nov 2018 09:32:50 -0700
+Message-ID: <CAO=notzskWiKUC149VvN=E6AiALP+G_2mFwRad56jhOykFcLsg@mail.gmail.com>
+Subject: Copy-by-value in sdbus++ generated objects
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ William Kennington <wak@google.com>, 
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -64,41 +60,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Nov 2018 16:26:11 -0000
+X-List-Received-Date: Fri, 02 Nov 2018 16:33:05 -0000
 
-On Fri, Nov 2, 2018 at 2:26 AM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
->
-> Hi Patrick
->
-> > On Oct 26, 2018, at 1:13 PM, Patrick Venture <venture@google.com> wrote:
-> >
-> > The great recipe rename of 2018 is nearly at an end.  If you're a
-> > downstream maintainer like myself, when you rebase onto this you'll
-> > have quite a few local items to fix.  For any recipe that is bbappend
-> > on a git recipe, you can use the version wildcard approach to solve
-> > the mismatch "recipe_%.bbappend"
-> >
-> > At this point, I haven't touched a few recipes:
-> > meta-openpower/recipes-bsp/pdbg/pdbg_1.0.bb <-- versioned, so ok.
-> > meta-phosphor/recipes-devtools/iotools/iotools_1.6.bb <-- versioned, so ok.
-> >
-> > And I haven't yet addressed a recipe inclusing the skiboot.inc for its
-> > source***I may still do this.
-> >
-> > Patrick
->
-> Just wanted to say thanks for helping to get these fixed up properly!
+Most repos inherit from an auto-generated object.  Those objects pass
+all parameters by value.  This is fine for many cases where they would
+need to create a copy of it, but in the case where:
 
-No problem.
+for instance:
+https://github.com/openbmc/sdbusplus/blob/master/tools/sdbusplus/templates/property.mako.prototype.hpp.in#L69
 
-Currently only two patches remain.  One should be fine to merge, the
-other.  IF anyone has any ideas -- if I change the PV to some things,
-and not others, the PERLVERSION for that recipe gets set to None and
-the build fails. I played around with it and it's weird.  The fact
-that PV is a human way to shorten PERLVERSION is, I think, a red
-herring, ...
+The values match it's wasteful to copy.  It's also possible the cpp I
+learned way back is different in how this behavior works, but I wanted
+to check.  Because of the prevalence of this code, if there are lots
+of updates that don't actually change the value, it could optimize
+quite a bit at run-time.
 
-https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/14986
+It would require a lot of simultaneous fixes (or two different objects
+generated, and transitioning everything).
 
->
-> -brad
+Thoughts?
+
+Patrick
