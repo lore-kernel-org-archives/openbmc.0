@@ -1,72 +1,53 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="TL0f3D7k"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Il9twd9b"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::72d; helo=mail-qk1-x72d.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="QqP+m+4x"; 
+ dkim-atps=neutral
+Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
+ [IPv6:2607:f8b0:4864:20::72d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42mL8T30GtzF3PJ
- for <openbmc@lists.ozlabs.org>; Fri,  2 Nov 2018 09:53:12 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 499EA21D33;
- Thu,  1 Nov 2018 18:53:10 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Thu, 01 Nov 2018 18:53:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=4OzHYlasIVCTcfzJtCDXWBa4+Z
- cmcKmPXzbvFBogPHA=; b=TL0f3D7kOUiroKUufInLv/Ae596fCIvdpkHqmpZWff
- JXzygV3EygQtnhjxb1v4ILL+mGaNYQuSCL6ZGUVKM3SS4d0DloOV+NrQ6c17IkJE
- OjTLfavf0o93zKO1/5cgaYebwLgpqjH1STdQ/NvvbvwfzOxgeojrCFaLiDitfHfZ
- ZdrY+F++2CMveXAm0OChMyc4Uab4uLOWQrffTQv56KqjQUQ1yI7Ldd71RtpWqgQl
- gzcDoY1NqaqcFwzEELFkcBF/EolNyp8GJFbrL+tnUEusIqSA7hTjm0KB063ehw6N
- NXgKxVNWB1DFoJ/HBPN335AvQLReXt+toXUO/02uMt6Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=4OzHYlasIVCTcfzJtCDXWBa4+ZcmcKmPXzbvFBogP
- HA=; b=Il9twd9bOusKOz6+WZg2rnGUWUT1A4h7Ydjeb75va+sY1Ed1wY/N9QNiq
- 6ywFjpIP96wwvi5ShXw0nkAXhfzxJHbRruqKoeKOjd024YLe/Q+JUTfUaHQrlK8E
- sgA06nCdaBosIroh9+PYZv+xQsYcSYwZIHeV472w1x75FDBCFCFHSsfS6OvCfMfN
- Hr4y8Oqc4Bd6g0QVyrEDpaLSDhYwOQ/wFcB4aEQedl8RotWMZYdhnXsISzTwMm3G
- tqx/cmNTgrZ4AuHQ0ySoh1PLHmieStWSni87n1GRS0jeVqJ+REgOnP4xFIVbG6Fz
- ZpINC2w8GfMszGajyI9VWfTCKN2cg==
-X-ME-Sender: <xms:1IPbWwMhjmNSceT_rcgmOJ9vnn44_u3Kzfe3l70luGP4Lco_V5JcgQ>
-X-ME-Proxy: <xmx:1IPbW9TrdnAsZ0zbXP7U9BkBQezM-m0gi3JyBLfkyuL-2Bhc9CAxwQ>
- <xmx:1IPbWx_VDYpH8_ePFh-tTqe295Ugc8_zFoIqkY6fVIZ7ZADJwIYsKA>
- <xmx:1YPbWx_zB6Qxh4Y7aCRxaYmJSA_DsiBE2UFxs6ZqzyM5JUEykVlbbA>
- <xmx:1YPbW1Qc_MuZDDkZ_joUpiZaiELnzgxyaxZ7XQYR_-oPdOJezZOgVA>
- <xmx:1YPbWzEp765CDJUZ3iy_qVbaHY_NRz7EM3DkaSnkPBj0XhtXhnZ5pw>
- <xmx:1oPbW-TqaFMZDgdn902IMb9K2fGt1RgX5IW26a98H_sWzCk2YWJJ6w>
-Received: from v4 (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id B0196E427A;
- Thu,  1 Nov 2018 18:53:06 -0400 (EDT)
-Message-ID: <c4f0fdcc971ca258539899a8b15755b96b2353f5.camel@mendozajonas.com>
-Subject: Re: [PATCH net-next 5/6] net/ncsi: Reset channel state in
- ncsi_start_dev()
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Justin.Lee1@Dell.com, netdev@vger.kernel.org
-Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Date: Fri, 02 Nov 2018 09:53:03 +1100
-In-Reply-To: <96158616f0774e3d9fae0e99bb16e605@AUSX13MPS306.AMER.DELL.COM>
-References: <20181018035917.19413-1-sam@mendozajonas.com>
- <20181018035917.19413-6-sam@mendozajonas.com>
- <96158616f0774e3d9fae0e99bb16e605@AUSX13MPS306.AMER.DELL.COM>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42mQnz06qXzF32n
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Nov 2018 13:22:30 +1100 (AEDT)
+Received: by mail-qk1-x72d.google.com with SMTP id v68-v6so877866qka.2
+ for <openbmc@lists.ozlabs.org>; Thu, 01 Nov 2018 19:22:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CQ7VofKdzvVkh+Xv3Iv59iSQyY6GEDu4uHKAq8xzblg=;
+ b=QqP+m+4xJd9Zbc4HRnPDjXBWyeAevmKSWZl5Cg6WzwPw8SUgQV+ixBGRy9fBmEhCV8
+ uJlJtYT+i9JzS68FL5YfHFp5aLCt0XGAERxamsCNHB32w+FhYp3E7SosbXDChRzQpqe8
+ KVRc3v0LePUK/bNK68ejuvv7wOcmZ1+lNgYzE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CQ7VofKdzvVkh+Xv3Iv59iSQyY6GEDu4uHKAq8xzblg=;
+ b=g195MyN7af/8alN9UI6tlPxonMs2G7MpcwrVPYphd583W+tkrL2HADvaSCDu0YWzzl
+ clvKZ0pLkNXbZr6DUPz8T39HHyh9L3XuvpXscYP4fwv6tVK5D9pNI447setssKsgorqk
+ I2PERbdCBjlQ8KbUsA4CtgI3svMo2eRo8z9PsYcfPyG0uC3sxCeiRgcHYWROpkcKtrrs
+ 94wzOeoDQTrMI+5yf1ziovbR0Cds0ds30OaG6puXhf2Pg9FaTSHA4De/Lp/dQ4Odcfti
+ LBDIYn5KJT7bM/8HOhvjn2OK56IrUSq5LaNEgvikoJOUv1htHja7JLVAutYBrqCgxQQ+
+ eY3Q==
+X-Gm-Message-State: AGRZ1gL6y4TN71zvcwdT6KZh7ElVBJz/H8a3cm0RHD2wMkBJ0eRM3rbX
+ 8lYDvUIs99qc0Umvmc/Y1OQixb0xUka11Lfk6es=
+X-Google-Smtp-Source: AJdET5ewOWRAbsPDT9Ztnlc7WbeudSyVHt8gtKS1inCqzN0lnmSNaKRzoP+37fLejsH+RjJ85yVBjzKksijdKpxzRyw=
+X-Received: by 2002:ae9:eb96:: with SMTP id b144mr8843607qkg.127.1541125348496; 
+ Thu, 01 Nov 2018 19:22:28 -0700 (PDT)
+MIME-Version: 1.0
+References: <CALLMt=qiyO0HHqp3fj=XFqCnMx2XWqR-m8Wn+OgSTGBKS5f=-w@mail.gmail.com>
+In-Reply-To: <CALLMt=qiyO0HHqp3fj=XFqCnMx2XWqR-m8Wn+OgSTGBKS5f=-w@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 2 Nov 2018 12:52:16 +1030
+Message-ID: <CACPK8XeQQgWVjACHhhKJmP9j06WQ98jsuP99qVHM934Dt8PmnQ@mail.gmail.com>
+Subject: Re: Infrastructure Workgroup?
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,192 +59,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Nov 2018 22:53:17 -0000
+X-List-Received-Date: Fri, 02 Nov 2018 02:22:32 -0000
 
-On Tue, 2018-10-30 at 21:26 +0000, Justin.Lee1@Dell.com wrote:
-> > +int ncsi_reset_dev(struct ncsi_dev *nd)
-> > +{
-> > +	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
-> > +	struct ncsi_channel *nc, *active;
-> > +	struct ncsi_package *np;
-> > +	unsigned long flags;
-> > +	bool enabled;
-> > +	int state;
-> > +
-> > +	active = NULL;
-> > +	NCSI_FOR_EACH_PACKAGE(ndp, np) {
-> > +		NCSI_FOR_EACH_CHANNEL(np, nc) {
-> > +			spin_lock_irqsave(&nc->lock, flags);
-> > +			enabled = nc->monitor.enabled;
-> > +			state = nc->state;
-> > +			spin_unlock_irqrestore(&nc->lock, flags);
-> > +
-> > +			if (enabled)
-> > +				ncsi_stop_channel_monitor(nc);
-> > +			if (state == NCSI_CHANNEL_ACTIVE) {
-> > +				active = nc;
-> > +				break;
-> 
-> Is the original intention to process the channel one by one?
-> If it is the case, there are two loops and we might need to use
-> "goto found" instead.
+On Wed, 31 Oct 2018 at 02:24, Andrew Geissler <geissonator@gmail.com> wrote:
+>
+> Based on some recent discussion in this area, I'm contemplating
+> forming an Infrastructure workgroup. The focus would be on improving
+> our CI infrastructure and the scripts and tools around it.
+>
+> There's been a lot of great community effort already around our CI
+> build scripts.
+>
+> Some thoughts on goals:
+> - Documenting the existing flow
+> - Alternatives to existing flow (ability to use freely provides clouds
+> for open source projects, ...)
+> - Managing the Jenkins nodes - Bringing new nodes online quickly
+> (chef, puppet, ansible?)
+> - Managing and optimizing the CI flow (repository CI, meta CI, openbmc CI)
+> -- Which systems do we build?
+> - Process for adding hardware CI (mechanism for individuals to add HW
+> CI to gerrit commits)
+> - Optimizations to existing scripts (docker building, CI, QEMU)
+> - Gerrit, Jenkins, and build node periodic update process
+> - Overall maintenance and responsibilities for infrastructure
+>
+> Thoughts or interest?
 
-Yes we'll need to break out of the package loop here as well.
+I'm interested.
 
-> 
-> > +			}
-> > +		}
-> > +	}
-> > +
-> 
-> found: ?
-> 
-> > +	if (!active) {
-> > +		/* Done */
-> > +		spin_lock_irqsave(&ndp->lock, flags);
-> > +		ndp->flags &= ~NCSI_DEV_RESET;
-> > +		spin_unlock_irqrestore(&ndp->lock, flags);
-> > +		return ncsi_choose_active_channel(ndp);
-> > +	}
-> > +
-> > +	spin_lock_irqsave(&ndp->lock, flags);
-> > +	ndp->flags |= NCSI_DEV_RESET;
-> > +	ndp->active_channel = active;
-> > +	ndp->active_package = active->package;
-> > +	spin_unlock_irqrestore(&ndp->lock, flags);
-> > +
-> > +	nd->state = ncsi_dev_state_suspend;
-> > +	schedule_work(&ndp->work);
-> > +	return 0;
-> > +}
-> 
-> Also similar issue in ncsi_choose_active_channel() function below.
-> 
-> > @@ -916,32 +1045,49 @@ static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
-> >  
-> >  			ncm = &nc->modes[NCSI_MODE_LINK];
-> >  			if (ncm->data[2] & 0x1) {
-> > -				spin_unlock_irqrestore(&nc->lock, flags);
-> >  				found = nc;
-> > -				goto out;
-> > +				with_link = true;
-> >  			}
-> >  
-> > -			spin_unlock_irqrestore(&nc->lock, flags);
-> > +			/* If multi_channel is enabled configure all valid
-> > +			 * channels whether or not they currently have link
-> > +			 * so they will have AENs enabled.
-> > +			 */
-> > +			if (with_link || np->multi_channel) {
-> 
-> I notice that there is a case that we will misconfigure the interface.
-> For example below, multi-channel is not enable for package 1.
-> But we enable the channel for ncsi2 below (package 1 channel 0) as that interface is the first
-> channel for that package with link.
+I wrote the scripts that were used as the basis for our CI. I recently
+revisited them to fix an issue, and there is a lot of bitrot there. I
+would be interested in seeing that resolved.
 
-I don't think I see the issue here; multi-channel is not set on package
-1, but both channels are in the channel whitelist. Channel 0 is
-configured since it's the first found on package 1, and channel 1 is not
-since channel 0 is already found. Are you expecting something different?
- 
-> 
-> cat /sys/kernel/debug/ncsi_protocol/ncsi_device_
-> IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PC CS PS LS RU CR NQ HA
-> =====================================================================
->   2   eth2   ncsi0  000 000 1  1  1  1  1  1  0  2  1  1  1  1  0  1
->   2   eth2   ncsi1  000 001 1  0  1  1  1  1  0  2  1  1  1  1  0  1
->   2   eth2   ncsi2  001 000 1  0  1  0  1  1  0  2  1  1  1  1  0  1
->   2   eth2   ncsi3  001 001 0  0  1  0  1  1  0  1  0  1  1  1  0  1
-> =====================================================================
-> MP: Multi-mode Package     WP: Whitelist Package
-> MC: Multi-mode Channel     WC: Whitelist Channel
-> PC: Primary Channel        CS: Channel State IA/A/IV 1/2/3
-> PS: Poll Status            LS: Link Status
-> RU: Running                CR: Carrier OK
-> NQ: Queue Stopped          HA: Hardware Arbitration
-> 
-> I temporally change to the following to avoid that.
-> 			if ((with_link &&
-> 			     !np->multi_channel &&
-> 			     list_empty(&ndp->channel_queue)) || np->multi_channel) {
-> 
-> > +				spin_lock_irqsave(&ndp->lock, flags);
-> > +				list_add_tail_rcu(&nc->link,
-> > +						  &ndp->channel_queue);
-> > +				spin_unlock_irqrestore(&ndp->lock, flags);
-> > +
-> > +				netdev_dbg(ndp->ndev.dev,
-> > +					   "NCSI: Channel %u added to queue (link %s)\n",
-> > +					   nc->id,
-> > +					   ncm->data[2] & 0x1 ? "up" : "down");
-> > +			}
-> > +
-> > +			spin_unlock_irqrestore(&nc->lock, cflags);
-> > +
-> > +			if (with_link && !np->multi_channel)
-> > +				break;
-> 
-> Similar issue here. As we are using break, so each package will configure one active TX.
-> 
+I would also like to help enable the compute power we do have to be
+used effectively. Currently we have a lot of CPU cores sitting idle
+while there are jobs in the queue.
 
-I believe this is handled properly in ncsi_channel_is_tx() in the most
-recent revision.
+Cheers,
 
-> >  		}
-> > +		if (with_link && !ndp->multi_package)
-> > +			break;
-> >  	}
-> >  
-> > -	if (!found) {
-> > +	if (list_empty(&ndp->channel_queue) && found) {
-> > +		netdev_info(ndp->ndev.dev,
-> > +			    "NCSI: No channel with link found, configuring channel %u\n",
-> > +			    found->id);
-> > +		spin_lock_irqsave(&ndp->lock, flags);
-> > +		list_add_tail_rcu(&found->link, &ndp->channel_queue);
-> > +		spin_unlock_irqrestore(&ndp->lock, flags);
-> > +	} else if (!found) {
-> >  		netdev_warn(ndp->ndev.dev,
-> > -			    "NCSI: No channel found with link\n");
-> > +			    "NCSI: No channel found to configure!\n");
-> >  		ncsi_report_link(ndp, true);
-> >  		return -ENODEV;
-> >  	}
-> 
-> Also, for deselect package handler function, do we want to set to inactive here?
-> If we just change the state, the cached data still keeps the old value. If the new 
-> ncsi_reset_dev() function is handling one by one, can we skip this part?
-
-Technically yes we could skip the state change here since
-ncsi_reset_dev() will have already done it. However if we send a DP
-command via some other means then it is probably best to ensure we treat
-all channels on that package as inactive.
-
-> 
-> static int ncsi_rsp_handler_dp(struct ncsi_request *nr)
-> {
-> 	struct ncsi_rsp_pkt *rsp;
-> 	struct ncsi_dev_priv *ndp = nr->ndp;
-> 	struct ncsi_package *np;
-> 	struct ncsi_channel *nc;
-> 	unsigned long flags;
-> 
-> 	/* Find the package */
-> 	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->rsp);
-> 	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
-> 				      &np, NULL);
-> 	if (!np)
-> 		return -ENODEV;
-> 
-> 	/* Change state of all channels attached to the package */
-> 	NCSI_FOR_EACH_CHANNEL(np, nc) {
-> 		spin_lock_irqsave(&nc->lock, flags);
-> 		nc->state = NCSI_CHANNEL_INACTIVE;
-> 
-> 		spin_unlock_irqrestore(&nc->lock, flags);
-> 	}
-> 
-> 	return 0;
-> }
-> 
-> 
+Joel
