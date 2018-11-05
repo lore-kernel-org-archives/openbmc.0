@@ -1,55 +1,53 @@
-Return-Path: <venture@google.com>
+Return-Path: <susantjasinski@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::62f; helo=mail-pl1-x62f.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::62c; helo=mail-pl1-x62c.google.com;
+ envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Hmgq+EBh"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XqZT9NEt"; 
  dkim-atps=neutral
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42pdbh2H3vzDqfW
- for <openbmc@lists.ozlabs.org>; Tue,  6 Nov 2018 03:36:16 +1100 (AEDT)
-Received: by mail-pl1-x62f.google.com with SMTP id o19-v6so4696632pll.12
- for <openbmc@lists.ozlabs.org>; Mon, 05 Nov 2018 08:36:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42pdcF2h29zDrDD
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Nov 2018 03:36:42 +1100 (AEDT)
+Received: by mail-pl1-x62c.google.com with SMTP id q19-v6so1717212pll.7
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Nov 2018 08:36:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:from:date:message-id:subject:to;
- bh=lUWV+MLIXBFeYpJk7ILrGBT6vfZ7Icxd/kQ9qa2eo7g=;
- b=Hmgq+EBhsVIH8CJSD3izJalmTsLAaTV9Lm0+rWwE5OEK7TG98MhkZXZ30nLt/FYnnR
- BSS7pWk0bpkrDn2lCDEbXJQ9FfoKTkTaAfFqFznj5LqozUCb7vpUD/vxEBDQ6MPl17Tn
- 4YZgD4ttaw66BqN+a3q5lBIR7zqft476Ek75BrlpcdIukBVG5FxXJUL7ckhMtLi9Fpu4
- zaVYtOxVaSfmHPZ6UJlRBXZPkp2BEkqR5gNOT+Kd0zDQs0BAKQCHpVGVmN7iDw8E17a4
- kCYUxWyXWQ9XemPN2D9Rl5cvwPtkqdWO5jSUjYixMipoqZMHsnXxiP1/yzJUkEmIseP7
- Arsg==
+ bh=BBqz/4dmrqqhkp3Xsw0BXUFYr3mUmTrjcJkDVvM+v2Y=;
+ b=XqZT9NEtjva0YltavSF+7x3fn2jmILbFT31qT+meQcykuVpEhlscXfRojrNjH9FGzb
+ q2C9t7GRsmHgEx95x68WlazPugBC8aaW04vPGSxnqNc7rdnLGFmSIzRw5nb7TWzF2W+r
+ 5NubM3RnJ2Qo6f0PHXSU1lPKWuMrsanddGc9lI6kPDux54W9ignpv6D8BDJW9gwc1k8r
+ PEoHPwz+wuhwE9venSvHfXYiP4FwHBunUhq7O6ZwroTc/Qq79sqWmPwTSwBJzQHiEdOn
+ 5wAzvtHFCoyuNtQoyMVmMLSSMcxlDUTlurXPFnshXOMswxTbOMX3Zft6Y4/LtDq41xtv
+ 7GKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=lUWV+MLIXBFeYpJk7ILrGBT6vfZ7Icxd/kQ9qa2eo7g=;
- b=Ts9Yv3VtCjsDcYhWkOS777tOiMWBNSUELIN4apt899wi5p2GbQrROhhXcTcSJgGG1H
- yYEh9e/08ZRUxW2UGtwyi622/dDgkO97YIPQw5Mb9v2soIhFiA1m6ecT4s6DOhje+FCO
- 9ZudMshSGJ61i0vAtaIcTQgQdplqyOlFb8NPdOy2Qkb9TOi9qn8M+7kDXZqAkOCKA/Oe
- gLqZxRPDqxmESA0YY6AQ22/qX6Uvlk0R7JPO++YNZE9MZNWJWODAluPOJj42EiOp6Dq5
- MqGWGA11ZsFHYNvgDcgUbvR+0m0d/XyUd5dXYf7F/40Ync1rAhpMIDiqPQMWGR7HTOVR
- 8bQg==
-X-Gm-Message-State: AGRZ1gKQpHUE/q529aHywrST1qo5K39RpOrYnxM/iky9TDtefdCE0xDZ
- 3cRAZMvfEbvSQK3Fexj3lwtiLyBBoWcB+aunepjMF1twbok=
-X-Google-Smtp-Source: AJdET5fry4okzZX2+CohCftJSGhxhUmM30xA0qrWdCMJXwWaWNHzEVH9zyjcs6g3ZjVh27iSf4mMokoRWyvqJ4xWiS0=
-X-Received: by 2002:a17:902:b612:: with SMTP id
- b18-v6mr23170542pls.205.1541435772006; 
- Mon, 05 Nov 2018 08:36:12 -0800 (PST)
+ bh=BBqz/4dmrqqhkp3Xsw0BXUFYr3mUmTrjcJkDVvM+v2Y=;
+ b=Kr2Qz3yxWHOKtN94hqDDGhlgUwJ7AYt7yQOjWFGX1mVcik2j02q+SkB3IHnXmU0/3H
+ uxeoSdxFX6Z0bWTjIMRja13KnUBnv8WYMfGCwi5CGyuLay2YzKABy5eyrexZfFgXMGxU
+ qPM9/IQ6CARm+2zFEa14KqTaxk8xRee58hgdbEYugFW9QKjzbywuHVdBl7+LwnX97U0n
+ u68a2qiJxaVA6MUnQeXCzN1iNGjIJYJFRKPLqvWvaj44yWpwv+j8itx/eD83mmXXuu45
+ nP5yQBw0sEyc3mtGcqKa/J/RUMG5YVy5qwCSp2NBC6cPqfd8v/6QmOFOgy9FJE5ngHvm
+ 1gAw==
+X-Gm-Message-State: AGRZ1gI8Eb147fteRlUcri1+o3ARMVdGBzq5tjWMTxTO+Qeoj4QCaGmV
+ ZjUoG+qcky4y1B6+XgPAckWbTzGuBV58B/zHVIXKHvV2
+X-Google-Smtp-Source: AJdET5dfdjmSMAbdtfZYSZMMhDu8FsPxzY3UnksOAIvflWm9qAjt3WWLLEeCrAP3WqE8A2r8lx4+WlOUpktoWgrO+RQ=
+X-Received: by 2002:a17:902:20c5:: with SMTP id
+ v5-v6mr22955161plg.156.1541435800216; 
+ Mon, 05 Nov 2018 08:36:40 -0800 (PST)
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Mon, 5 Nov 2018 08:36:00 -0800
-Message-ID: <CAO=notzHPoyzg1+_rMO5Ddu29YcFDCFXtNo-Fch2tPTfcn67eg@mail.gmail.com>
-Subject: palmetto 2400 vs q71l 2400
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- "Tanous, Ed" <ed.tanous@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+From: susan jasinski <susantjasinski@gmail.com>
+Date: Mon, 5 Nov 2018 10:36:29 -0600
+Message-ID: <CANT4NrJf9e7KoTAHEWgN=AN8DStDNAQaB9pDyaWgGx3hSoga5g@mail.gmail.com>
+Subject: Nov 7, 2018 = OpenBMC GUI Design work group
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="00000000000050ede50579ed7d5f"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,21 +59,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Nov 2018 16:36:17 -0000
+X-List-Received-Date: Mon, 05 Nov 2018 16:36:46 -0000
 
-Ed,
+--00000000000050ede50579ed7d5f
+Content-Type: text/plain; charset="UTF-8"
 
-For whatever reason, the q71l only has 128 MiB of RAM.  I checked the
-dts for the palmetto ast2400 and it has 512.  So, I don't think
-they're comparable 2400 systems.
+The main topic for this workgroup is "Process for Communicating GUI Mockup
+and Design Feedback".
 
-As far as an upstream recipe to reduce the image for the quanta board.
-I do periodic build testing of it, but nothing more in terms of
-run-time testing.  I have a downstream Google recipe that strips out
-nearly all image_features and extra applications to a minimal run-time
-image.  However, now that's even too big.  I haven't had cycles to
-trace out the run-time memory differences between the older 1.99.10
-image and the 2.4 image.  The biggest differences appear in the kernel
-though and not userspace.
+The IBM design team will present a proposal for using GitHub issues to
+document draft designs and feedback/comments, but still linking to InVision
+to see visual mockups. If others have ideas, please put a line item in the
+agenda.
 
-Patrick
+https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group
+
+-- Susan
+
+--00000000000050ede50579ed7d5f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><font size=3D"4">The main topic for this =
+workgroup is &quot;Process for Communicating GUI Mockup and Design Feedback=
+&quot;.=C2=A0</font><div><font size=3D"4"><br></font></div><div><font size=
+=3D"4">The IBM <font face=3D"arial, helvetica, sans-serif">design team will=
+ present a proposal for using GitHub issues to document draft designs and f=
+eedback/comments, but still linking to InVision to see visual mockups.=C2=
+=A0If others have ideas, please put a line item in the agenda.</font></font=
+></div>
+
+
+
+
+
+<div><span style=3D"font-size:large"><br></span></div><div><span style=3D"f=
+ont-size:large"><a href=3D"https://github.com/openbmc/openbmc/wiki/GUI-Desi=
+gn-work-group">https://github.com/openbmc/openbmc/wiki/GUI-Design-work-grou=
+p</a></span></div><div><font size=3D"4"><br></font></div><div><font size=3D=
+"4">-- Susan</font></div></div></div>
+
+--00000000000050ede50579ed7d5f--
