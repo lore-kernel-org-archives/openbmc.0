@@ -1,61 +1,60 @@
-Return-Path: <venture@google.com>
+Return-Path: <prvs=4847b8207f=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ envelope-from=prvs=4847b8207f=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="kXq9ijGH"; 
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="WcE1Aep7"; 
  dkim-atps=neutral
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42pmRY2SZwzF2Hd
- for <openbmc@lists.ozlabs.org>; Tue,  6 Nov 2018 08:44:41 +1100 (AEDT)
-Received: by mail-pl1-x636.google.com with SMTP id o19-v6so5077415pll.12
- for <openbmc@lists.ozlabs.org>; Mon, 05 Nov 2018 13:44:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vy9ozksDGLIK5r08hFKgACUYqhumgH2fpJSy+ZY35XM=;
- b=kXq9ijGHqFwKiFUhrhqqP9Bb39ltaimdRhNpaWlSAgFQXPbFAA86/lvHHHZoHDqVdU
- RKmyxgIUO8boaeGyS82CstvKytROe6KLx4Qg8CI0mBX/ircfbP4vZ0xAPBmMdKev7CI2
- IS5jdXNrzBHZVENj79GUZTDoXS7U99IxOZEWQqGpeupkG1nIWikw3yUF8cGMI77aZTYJ
- Jl3zFnoDEggIHDDZwvH+M18PwcZ+YVg7diptXxavmVjPWubOyFxFsoFNKw9i6wkz8inZ
- fgA55vKpN+mpt1sQrh4ylJ9sF0POboon8IxmLve8sWqtSnyTB1DTfpYCAQoleTj0wdHw
- 0sfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vy9ozksDGLIK5r08hFKgACUYqhumgH2fpJSy+ZY35XM=;
- b=o1iqWJHa8H5tuhGgZa7JLPDfVcjsQK1o5HGVrLFqCp6kJRvN/Tc3/MIBRrL+qifd0f
- cT5HoeNALcpMBmnC22JyFykK0pkZ0R10jNIiXBaxurbSk0ZVTuF0zV8XWgn+eyrUtyiP
- 4vuh8xnEjrKhqgoG5BU2dFCbRY8Y3Z4fXoFIKkhMSctiuNchL3dCg0wc5F+X2hghvM+G
- mFNbxceGAqEpTfuGowvwjhGIPo2eTRZCAAtE51dgxNrsVoTVBomafmlkvRkMa2Z69cNc
- iPKUh1KZ34FyqW6q/XF+b50Joztt1FlEY7ADNtJhMbn+UERd0L1sVUNf0HlSBsBvMPLF
- PuXA==
-X-Gm-Message-State: AGRZ1gJyiEYj3qE/Zh6qcZLMhL+ERIxIMiEBJgi0D8QCMo+Pu3TRXWBs
- qg/0pWi3XM2NKk39dq0TovexwldvnfKuwTiSKGEopQ==
-X-Google-Smtp-Source: AJdET5eO2oRJ18iOO2ZXqaVreyF1+qhJPMAsAAGZLj9RKPm98SoQPcckqfELusJ835b4xK8/DCRJA8bvLjbHtyut1LM=
-X-Received: by 2002:a17:902:3381:: with SMTP id
- b1-v6mr23571889plc.323.1541454279016; 
- Mon, 05 Nov 2018 13:44:39 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42pnZb1S9YzF27h
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Nov 2018 09:35:48 +1100 (AEDT)
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wA5MZhm0013109
+ for <openbmc@lists.ozlabs.org>; Mon, 5 Nov 2018 14:35:46 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=z+B/rlr/YWeW91bdB9QkfqTblPJ9XzU3SNWQbNx0uR8=;
+ b=WcE1Aep7p95TTO8mIX1eS1soPT2iLLBWqHZPdo7H9Gqw7G2ceVSY3rfDOXqbVWBdYJvK
+ m5TFS+9AnORdba8YzH3+rNcSajGYalSsvsqo+jwZylKmryW4ZU5ld49Lv1ttzVOOkwMS
+ Ya9VAtiXRZwT3If27v3GiY9D3SuT6JFsQEU= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2njxsq802e-3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Nov 2018 14:35:46 -0800
+Received: from mx-out.facebook.com (2620:10d:c0a1:3::13) by
+ mail.thefacebook.com (2620:10d:c021:18::174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
+ Mon, 5 Nov 2018 14:35:45 -0800
+Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)
+ id E4C867A7E5F7; Mon,  5 Nov 2018 14:35:42 -0800 (PST)
+Smtp-Origin-Hostprefix: devvm
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
+To: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+CC: Tao Ren <taoren@fb.com>, <openbmc@lists.ozlabs.org>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH net] net: phy: Allow BCM54616S PHY to setup internal TX/RX
+ clock delay
+Date: Mon, 5 Nov 2018 14:35:40 -0800
+Message-ID: <20181105223540.1897084-1-taoren@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-References: <CAO=notzskWiKUC149VvN=E6AiALP+G_2mFwRad56jhOykFcLsg@mail.gmail.com>
- <CAARXrtmqHVZspJuOp7cFcyHU+Xnk9Tb0q-KPL5mCEyea48cYKQ@mail.gmail.com>
- <CAO=notw6-JfnR5HK5Uz26HbEJkE+H1LGCqJG+wPQKwtvgCjt8g@mail.gmail.com>
-In-Reply-To: <CAO=notw6-JfnR5HK5Uz26HbEJkE+H1LGCqJG+wPQKwtvgCjt8g@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 5 Nov 2018 13:44:17 -0800
-Message-ID: <CAO=noty_ug4e4gS94OEn6NC1qV8MdrLnV0w5i44fgLGM3mPrzw@mail.gmail.com>
-Subject: Re: Copy-by-value in sdbus++ generated objects
-To: Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- William Kennington <wak@google.com>, 
- Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-05_12:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,59 +66,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Nov 2018 21:44:42 -0000
+X-List-Received-Date: Mon, 05 Nov 2018 22:35:51 -0000
 
-On Mon, Nov 5, 2018 at 7:47 AM Patrick Venture <venture@google.com> wrote:
->
-> On Sun, Nov 4, 2018 at 6:36 PM Lei YU <mine260309@gmail.com> wrote:
-> >
-> > On Sat, Nov 3, 2018 at 12:33 AM Patrick Venture <venture@google.com> wrote:
-> > >
-> > > Most repos inherit from an auto-generated object.  Those objects pass
-> > > all parameters by value.  This is fine for many cases where they would
-> > > need to create a copy of it, but in the case where:
-> > >
-> > > for instance:
-> > > https://github.com/openbmc/sdbusplus/blob/master/tools/sdbusplus/templates/property.mako.prototype.hpp.in#L69
-> > >
-> > > The values match it's wasteful to copy.  It's also possible the cpp I
-> > > learned way back is different in how this behavior works, but I wanted
-> > > to check.  Because of the prevalence of this code, if there are lots
-> > > of updates that don't actually change the value, it could optimize
-> > > quite a bit at run-time.
-> >
-> > Agreed, this piece of code does not change the value at all, so it is better
-> > to use const reference.
-> >
-> > >
-> > > It would require a lot of simultaneous fixes (or two different objects
-> > > generated, and transitioning everything).
-> > >
-> > > Thoughts?
-> >
-> > Maybe we could try to change this to const reference, do a build and see if it
-> > cause any build error.
-> > I guess this is OK.
->
-> So, I can guess without building that this change will generate a lot
-> of errors as all the overriding objects will be set to "override" but
-> not be overriding anything.  So, compilations will fail pretty much
-> across the board.  To be fair, it's actually maybe 20 repos that would
-> need fixing, so not that big of an order, but yeah, I don't think this
-> change can go in without a bunch of other simultaneous changes (unless
-> we add something like a suffix, '_next" or "_new_" or "_2" and then
-> slowly move things to calling that and then when everything is calling
-> that, make the original the same, and then move everyone onto the
-> original one.
+This patch allows users to enable/disable internal TX and/or RX clock
+delay for BCM54616S PHYs so as to satisfy RGMII timing specifications.
 
-I was able to make the change and the build revealed the objects (as
-you would expect) that need updating and it occurred to me that
-although locked srcrev bumps would solve the incompatibility issue, it
-would make more sense to do the suffixed version of the method and
-then transition all the repos and then transition them again so that
-at each point all the CIs would work and all the versions would work.
-After fixing up a few repos already, I can tell it's not that much
-work and in the equal value case, at least, it'll improve the
-performance of code that is pervasive throughout openbmc.
+On a particular platform, whether TX and/or RX clock delay is required
+depends on how PHY connected to the MAC IP. This requirement can be
+specified through "phy-mode" property in the platform device tree.
 
-Patrick
+The patch is inspired by commit 733336262b28 ("net: phy: Allow BCM5481x
+PHYs to setup internal TX/RX clock delay").
+
+Signed-off-by: Tao Ren <taoren@fb.com>
+---
+ drivers/net/phy/broadcom.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/phy/broadcom.c b/drivers/net/phy/broadcom.c
+index e86ea105c802..704537010453 100644
+--- a/drivers/net/phy/broadcom.c
++++ b/drivers/net/phy/broadcom.c
+@@ -92,7 +92,7 @@ static int bcm54612e_config_init(struct phy_device *phydev)
+ 	return 0;
+ }
+ 
+-static int bcm5481x_config(struct phy_device *phydev)
++static int bcm54xx_config_clock_delay(struct phy_device *phydev)
+ {
+ 	int rc, val;
+ 
+@@ -429,7 +429,7 @@ static int bcm5481_config_aneg(struct phy_device *phydev)
+ 	ret = genphy_config_aneg(phydev);
+ 
+ 	/* Then we can set up the delay. */
+-	bcm5481x_config(phydev);
++	bcm54xx_config_clock_delay(phydev);
+ 
+ 	if (of_property_read_bool(np, "enet-phy-lane-swap")) {
+ 		/* Lane Swap - Undocumented register...magic! */
+@@ -442,6 +442,19 @@ static int bcm5481_config_aneg(struct phy_device *phydev)
+ 	return ret;
+ }
+ 
++static int bcm54616s_config_aneg(struct phy_device *phydev)
++{
++	int ret;
++
++	/* Aneg firsly. */
++	ret = genphy_config_aneg(phydev);
++
++	/* Then we can set up the delay. */
++	bcm54xx_config_clock_delay(phydev);
++
++	return ret;
++}
++
+ static int brcm_phy_setbits(struct phy_device *phydev, int reg, int set)
+ {
+ 	int val;
+@@ -636,6 +649,7 @@ static struct phy_driver broadcom_drivers[] = {
+ 	.features	= PHY_GBIT_FEATURES,
+ 	.flags		= PHY_HAS_INTERRUPT,
+ 	.config_init	= bcm54xx_config_init,
++	.config_aneg	= bcm54616s_config_aneg,
+ 	.ack_interrupt	= bcm_phy_ack_intr,
+ 	.config_intr	= bcm_phy_config_intr,
+ }, {
+-- 
+2.17.1
