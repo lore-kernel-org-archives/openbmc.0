@@ -1,103 +1,93 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <Justin.Lee1@dell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.94; helo=esa3.dell-outbound.iphmx.com;
+ envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
+ dmarc=pass (p=none dis=none) header.from=Dell.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="gEL8ZD5r"; 
+ unprotected) header.d=dell.com header.i=@dell.com header.b="PExxKcvH"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from esa3.dell-outbound.iphmx.com (esa3.dell-outbound.iphmx.com
+ [68.232.153.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42q9hD5F2NzF2Hd
- for <openbmc@lists.ozlabs.org>; Wed,  7 Nov 2018 00:42:04 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id E74D741860;
- Tue,  6 Nov 2018 13:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:mime-version:user-agent:date:date
- :message-id:subject:subject:from:from:received:received
- :received; s=mta-01; t=1541511718; x=1543326119; bh=9iPGbbmi3pI2
- nl8PXeygAPuK3s7WIQF0rrDjz/vEv/4=; b=gEL8ZD5r/nQJHtGSIR+Tywm5uX4I
- 7zg+GJ/reL5j5MQAzJevsiRzm2cHwhFdHsgiL7F0k70zEdoMwUMeZ3rUCKIYNFsG
- gGkuoEMI2S7kdizV495MfF7DRSA4/R1meWAIht8GyCMw4xcA+x5VmuHUA8F7/3Cn
- 65ji46PJHoVg79Q=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id A4_V7zQXlgZb; Tue,  6 Nov 2018 16:41:58 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 89B9E41258;
- Tue,  6 Nov 2018 16:41:58 +0300 (MSK)
-Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 6 Nov
- 2018 16:41:58 +0300
-To: <openbmc@lists.ozlabs.org>
-CC: Alexander Soldatov <a.soldatov@yadro.com>, Vishwanatha Subbanna
- <vishwa@linux.vnet.ibm.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: LED colors in d-bus
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- xsFNBFj0jdkBEADhQF4vZuu9vFfzxchRQtU/ys62Z13HTaYK/VCQKzPnm2mf593Il61FP9WV
- 0Srt4t4yumiXK7NhHeqktN/YZjYDYVr9l+vZpNydOHpDjk7xjPgb0KkoFCo7bcQ2/e4AtLTQ
- XGoWIKv983vWlphPCG1Jof5jH3RA7mccCNXtGlzVYF0RYR0/qKGgsoBymkldNKPwgPf/3SXb
- QY5V3sJ5SHwDjmhg3MYnblV29OULdi72DKI9MkhTTHQFlA++CfYstx/cZ1BZwWmoMgi0umpj
- Pf+5mAkmTtlPW7U54EUgFpvTMfxRRS7yH+iTlvngduYW6jryt0zm6r7M2LGR+uWGSTmWBB7Y
- t06D0Xrm0Zwl4alQ5WDrlUTkzZcXDb0QqY7UkQSkghLmUjItEj4Z+ay7ynIsfjQe0OYdTofh
- dY0IUxMxNm9jeckOkRpSdgsQrTcKIOAt/8jI62jlzN1EXA6blhASv5xtt7I1WXCpDU+mpfKf
- ccUVJfmd0Q2nlG64L4Bv8o+iBI0Xu5+EX2NzDKQF5vSQIK8mwniAPT16hi80mZG9EQf0fJ1C
- p7xJGvwA6IiwXWsAqhNRhYbmNDfiR2MMxw5DFdQSeqoK3ONeeIwrJAPNdme+Z1DoT2+ZuZP0
- nfUa8e2QaMHkXwCz9e0cI2NUmAwFJ9Qg4L0eyhdZP4rQ1KCg/QARAQABzSxBbGV4YW5kZXIg
- QW1lbGtpbiA8YWxleGFuZGVyQGFtZWxraW4ubXNrLnJ1PsLBgAQTAQgAKgIbAwULCQgHAgYV
- CAkKCwIEFgIDAQIeAQIXgAIZAQUCWmWolAUJcjFDNwAKCRDok1h7W3QXjXyOEACUv6oDO7Vn
- KnDTUypYhyTVi8C+fjlHTH+AIDP4qk6nXjMIJeh0P7rQCHAOIOCW9osy/urYQ5at90eUolDV
- udMe5+sSvKRHYksu74O+4XedE2TDFJnntnz0JIeyuaH4FVRDX5i2hlK6wx2D06wTJj4JONlW
- c1aLULPKfrCbMbpNlD9s/+48RkCj77kl30nJ+56ThEMkSgomMIL9XMesNnQAa83Y55mJhx1f
- n3Gz7kH6nxLPPgLWgKXebAgM6ltJAjaCIWxZYlJK5dQmQC5N7PR0kXdnHttSx89ldgPacpX7
- V39dBMoURY/+YtMU7VKUNVW/IXkwXT7m42QoxO3H+HNHRVfDtELy2l6fBCf0ShXs4b3AF654
- aRJrwQX1Za3mg6OXTmAVDEerqOBht5XZl2Y/FyxV1Tka2SarkYrNVjD3YXODnmF3GfAuP8Jk
- F8uYvQyXpLMpThnUPjs+Vl1NC1exh2mrM+7kxGXPKhrFWxX7tduAJpULpdCk4mefO9/U7I8/
- Edf5giE1o9yhECZ71lzmA7p7bLDv54Qfu4WAVndUgHLHCH7uUsKf3cds/gLtpuTrHB83nvvh
- LKZ6+kYnn5pK89hkia0EbpOrTrqBqphMyxFb7WFapXip7kRaqUdMOqdRO+JHG3rFAhz7sl/0
- DPWSea7WGLe0TNySCQ4GdytKLs7BTQRY9I3ZARAAygmVNgjvxkqud75kP5fwhmwMVu13sLh8
- QnZxjMsA9Zelt1Hu+BVmjET7YL4xBhdJDZ4y3UI/MV8ZzOfJHUWSNr6POwKIrsQfGzdlgB0e
- w2k6Rm651Jp+aAsygB4GR7BopptJd9d/q5oCnZxpPgDpZOBCpl4DQ3fJIGSc8iQVmA84lHLS
- +mqIJ94PZ7uza4F0ly6Au+Hbkhowh/1q+BUd6Rn553WAmPAG7g0lAG/Obq1m77ovlR86yY5i
- C503QKlPJELSNYtzczuLQZetjDtaFkugke4QMlhzHyc7DjSsjyccdhepPtXWEm84jPCx1/KU
- 3m9jAWtPdARQ73su/fiitmXAifQXJBB2R9fmKuM2F3ClHcJxv/l0W1ruekD9vojOO75yvBEG
- 7fGlLc9hUgIIGgBJvI+Yb1/KhqWC9r53TS6kcuCi+z9kf+4MTBge2sU97DtivZGzul6yhrcr
- 3Ic5paWoaka2ClGqKBQo3A9o4F60q3rRq5FAcMdKQq7qJutCzcjkcCpVVik1im0u0+UGrK0s
- YQuAgTu45mJPOfINqz1xz+qwxSjYI/wjxJaYTZLO68CIdBiDj+zxIeo9o/mUJvS+DhnPzKhW
- KXToZl2D7VdjOlu8zZ0tIFYrULJYhuw2f/KwD1lwoehlKikEE0H0xkPygufjtiYo6jTb+BKa
- sG8AEQEAAcLBZQQYAQgADwIbDAUCWmWo6AUJcjFDNwAKCRDok1h7W3QXjc9vEADXse2POSaT
- M0uqR3KGTeF8XVKdyRqK9afWbMaxFzOWGp9pNtcmIvfmyE0M6LPLgUb33jek/Ngup/RN7CjZ
- NCjOc2HTID99uBkYyLEcOYb+bycAReswjrv3a49ZBmmGKJZ+aAm0t6Zo6ekTdUtvlIrVYvRs
- UWWj4HdCaD+BMvSqcDZgyQESLI9nfEGuWtVqdi2QlZZeQT7W+RH4lihHKTdzOsVC93o4h6og
- ZvgOJ/0g1SP3la88RWONejHxVbGzBOyNjkH71CFujnAfuVuuhkJaN8PY/CS56sKMREKJOy0L
- vouE7eSU4bp13GK1xsnbWcDQpyzTsCsP9taqQmeld8Hw1yuPamc6fdpKNyPHyN20vzh20f0C
- QUMAjh3Vym12aKhyRan08VNEaLOKiyya6+i9c3Z3LiWUEqTSzELCkesb68UQVtE6/CXPM2P/
- vs3EQuLFXBC/rD9lurT0kG99xElAbKjHLer5NSw2WA2vQXaFadGNDyHI32Yt2cAqWzZtVqmN
- ESE0npJ5eeAcVWPHjhCwL8phZCDtfxJMy2cqYS8QLIBGfQTIHMQAgqBbpq9FLXCn008tvaTr
- KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <db6eb8d5-5677-1356-1744-12cabf3911ed@yadro.com>
-Date: Tue, 6 Nov 2018 16:41:57 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42qGh56k5lzF3C9
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Nov 2018 04:27:15 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1541525236; x=1573061236;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=WKUYUstqEQjBki0tDoR+WbQ5hS4xjmXdXVOxTFdTTEI=;
+ b=PExxKcvHhhq3b4ui7BOcRnwEgfwIdEyolA56r21A+hqCHcCgyc9D1reB
+ ZRR5B8ss36EWbSjub7EmeSxjBCyfDg+ge6xO0pK0prS4Z56nGMiAm8GO6
+ evwrODR3Q1TS2e0e7XgeJI5hwakX8CtQp5pDWRnN1KLXXMVrt991IYeIR k=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FfAAB7zeFbhyeV50NkHAEBAQQBAQc?=
+ =?us-ascii?q?EAQGBUgYBAQsBg2snCoNsiHeLOYINg0GTbxSBZgsBAYRsAheDQiI1DA0BAwE?=
+ =?us-ascii?q?BAgEBAgEBAhABAQEKCwkIKS+CNiKCYwEBAQECARIRBA1FBQsCAQgYAgImAgI?=
+ =?us-ascii?q?CRRACBAENBQgagn+BegidAQKBEIlYAQEBbXszii+BC4ptgheBEYMShEsBEgE?=
+ =?us-ascii?q?ILoJtglcCgSoBjU2Pa1QGAQKNL4NbIIF4jmwslngCBAIEBQIUgUQBgRtxcIF?=
+ =?us-ascii?q?ugU6CJw4JjhxAATGLNYEfgR8BAQ?=
+X-IPAS-Result: =?us-ascii?q?A2FfAAB7zeFbhyeV50NkHAEBAQQBAQcEAQGBUgYBAQsBg?=
+ =?us-ascii?q?2snCoNsiHeLOYINg0GTbxSBZgsBAYRsAheDQiI1DA0BAwEBAgEBAgEBAhABA?=
+ =?us-ascii?q?QEKCwkIKS+CNiKCYwEBAQECARIRBA1FBQsCAQgYAgImAgICRRACBAENBQgag?=
+ =?us-ascii?q?n+BegidAQKBEIlYAQEBbXszii+BC4ptgheBEYMShEsBEgEILoJtglcCgSoBj?=
+ =?us-ascii?q?U2Pa1QGAQKNL4NbIIF4jmwslngCBAIEBQIUgUQBgRtxcIFugU6CJw4JjhxAA?=
+ =?us-ascii?q?TGLNYEfgR8BAQ?=
+Received: from mx0a-00154901.pphosted.com ([67.231.149.39])
+ by esa3.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 06 Nov 2018 11:27:12 -0600
+Received: from pps.filterd (m0090351.ppops.net [127.0.0.1])
+ by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wA6HJ6hI100150
+ for <openbmc@lists.ozlabs.org>; Tue, 6 Nov 2018 12:27:12 -0500
+Received: from esa3.dell-outbound2.iphmx.com (esa3.dell-outbound2.iphmx.com
+ [68.232.154.63])
+ by mx0b-00154901.pphosted.com with ESMTP id 2nk64kkan2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Tue, 06 Nov 2018 12:27:12 -0500
+From: <Justin.Lee1@Dell.com>
+Received: from ausc60pc101.us.dell.com ([143.166.85.206])
+ by esa3.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
+ 06 Nov 2018 23:27:02 +0600
+X-LoopCount0: from 10.166.135.96
+X-IronPort-AV: E=Sophos;i="5.54,472,1534827600"; d="scan'208";a="1322549601"
+To: <sam@mendozajonas.com>, <netdev@vger.kernel.org>
+CC: <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH net-next 5/6] net/ncsi: Reset channel state in
+ ncsi_start_dev()
+Thread-Topic: [PATCH net-next 5/6] net/ncsi: Reset channel state in
+ ncsi_start_dev()
+Thread-Index: AQHUZpcV/jLZttPJVESchUXzrlpHT6U4CxHwgAPm3ICABZsmMIAA2biAgAC18SA=
+Date: Tue, 6 Nov 2018 17:27:09 +0000
+Message-ID: <209ba91aac614acb9dc74df18ff3ed45@AUSX13MPS306.AMER.DELL.COM>
+References: <20181018035917.19413-1-sam@mendozajonas.com>
+ <20181018035917.19413-6-sam@mendozajonas.com>
+ <96158616f0774e3d9fae0e99bb16e605@AUSX13MPS306.AMER.DELL.COM>
+ <c4f0fdcc971ca258539899a8b15755b96b2353f5.camel@mendozajonas.com>
+ <ea740068c02a47e2a5411f84c61e69b3@AUSX13MPS302.AMER.DELL.COM>
+ <de9816e6c9cb31fdae1bb3d4a38da65b8f3a7694.camel@mendozajonas.com>
+In-Reply-To: <de9816e6c9cb31fdae1bb3d4a38da65b8f3a7694.camel@mendozajonas.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="BP0VYrqgWnpz3IiTTvyX3V4sgJ6IkWeVB"
-X-Originating-IP: [172.17.14.197]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-06_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1811060152
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,128 +99,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Nov 2018 13:42:05 -0000
+X-List-Received-Date: Tue, 06 Nov 2018 17:27:19 -0000
 
---BP0VYrqgWnpz3IiTTvyX3V4sgJ6IkWeVB
-Content-Type: multipart/mixed; boundary="gVYzW2B5bTCjSigae0jlpwPk2Xdu0cB61";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: openbmc@lists.ozlabs.org
-Cc: Alexander Soldatov <a.soldatov@yadro.com>,
- Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
-Message-ID: <db6eb8d5-5677-1356-1744-12cabf3911ed@yadro.com>
-Subject: LED colors in d-bus
-
---gVYzW2B5bTCjSigae0jlpwPk2Xdu0cB61
-Content-Type: multipart/alternative;
- boundary="------------C4457018BC90DF5557DD5903"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------C4457018BC90DF5557DD5903
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Hi all!
-
-Since commit a1e70a7af by Vishwanatha Subbanna to phosphor-dbus-interface=
-s (see https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-inter=
-faces/+/1136/ ), there is a property 'Color' for leds.
-
-However, it looks like nothing is setting that property for any of the su=
-pported platforms. So any led always has it in d-bus set to Unknown.
-
-It is unclear to us what was the intention for adding that property. It h=
-as not been explained in the commit log for the commit. It is also unclea=
-r what could be the correct way to set that property. phosphor-led-manage=
-r operates on groups. A single led can be a part of multiple groups, so '=
-led.yaml' in phosphor-led-manager looks like a wrong place to attach a co=
-lor property to leds. Each leds used in led.yaml is called by the name ta=
-ken from Linux devicetree. However, the bindings for leds in Linux device=
-tree do not imply color information as well.
-
-Are there any hints on how to set that property the right way? Can you im=
-agine any real use cases for the color property? Maybe we should just dit=
-ch it completely? It's been 2 years since it has been introduced and nobo=
-dy seems to have cared...
-
-Thanks.
-
-Alexander.
-
-
---------------C4457018BC90DF5557DD5903
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-
-    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3Dutf=
--8">
-  </head>
-  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <p>Hi all!<br>
-    </p>
-    <p>Since commit a1e70a7af by <span><span role=3D"listitem"
-          data-id=3D"1000014" title=3D"vishwa@linux.vnet.ibm.com Votable:=
-
-          Code-Review, Verified, Ok-To-Test"
-class=3D"com-google-gerrit-client-change-ChangeScreen_BinderImpl_GenCss_s=
-tyle-label_user">Vishwanatha
-          Subbanna</span></span> to phosphor-dbus-interfaces (see
-<a class=3D"moz-txt-link-freetext" href=3D"https://gerrit.openbmc-project=
-=2Exyz/#/c/openbmc/phosphor-dbus-interfaces/+/1136/">https://gerrit.openb=
-mc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/1136/</a>
-      ), there is a property 'Color' for leds.</p>
-    <p>However, it looks like nothing is setting that property for any
-      of the supported platforms. So any led always has it in d-bus set
-      to Unknown.</p>
-    <p>It is unclear to us what was the intention for adding that
-      property. It has not been explained in the commit log for the
-      commit. It is also unclear what could be the correct way to set
-      that property. phosphor-led-manager operates on groups. A single
-      led can be a part of multiple groups, so 'led.yaml' in
-      phosphor-led-manager looks like a wrong place to attach a color
-      property to leds. Each leds used in led.yaml is called by the name
-      taken from Linux devicetree. However, the bindings for leds in
-      Linux devicetree do not imply color information as well.</p>
-    <p>Are there any hints on how to set that property the right way?
-      Can you imagine any real use cases for the color property? Maybe
-      we should just ditch it completely? It's been 2 years since it has
-      been introduced and nobody seems to have cared...<br>
-    </p>
-    <p>Thanks.</p>
-    <p>Alexander.<br>
-    </p>
-  </body>
-</html>
-
---------------C4457018BC90DF5557DD5903--
-
---gVYzW2B5bTCjSigae0jlpwPk2Xdu0cB61--
-
---BP0VYrqgWnpz3IiTTvyX3V4sgJ6IkWeVB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJb4ZolAAoJEOiTWHtbdBeNFo4P/1J+G8qYjyYsir2DujWriFUn
-CKtb8dCGnH+KRJ6AMFF+oOGnbIiIBGhRFCzcpColq3TeMKJYgJgvEQ25fobR+L0Q
-LNByFCu0BLPixD3IECg2NzJGv2z5f8idaDjNrpLljtZX2SKq4jD1zhjRdwFOzekz
-QHhwa8yTJVoDVIJvNGbuHIhllNMqMOY6KIp4I22rKgDLeoS29KQPTPDETzkrljUc
-ziHzklk4FdL5kufsnbi5ogjVbOCcG0VENRLV/SxGypWHw0Y5xAvFhW7qqSvCIriq
-IN7hAkklBMw+t3TXx8K2CO+Q08m5daWyZOpAJVbxVEH0a46wcdd4oQHvByrLhe8Q
-46x/Y5mqkhy8Z3034UBrXb6c4I06UOIOF5Sa4FWfEJTlPeQEHh8pu10mcJrh6Jsb
-y6aky0pjfInnW8U4GPfB0121QiS4K9t29PGQDD0SllGlEmxlrAHHW9+tY44unwt3
-QOVAMwlk8wrHRqBzT1WA69G/iSOTMorFy8/pyFpoSm/mKAfAztlUYcSNLJz1EhuM
-7aXLzKbq0dJoiyTqrLAgd/v8Tvom/fkkaIpiVPPPLtbHD8uVpdUN2bVLLBrd7SAZ
-nTaQSaoIiq9YoZRf3SwnUJj0BboMaxR0MZGqfjwBz5wIrnm+OKFuljLS4QwfAomC
-r6oKyYWLaM6e2bfg2YfB
-=t6j6
------END PGP SIGNATURE-----
-
---BP0VYrqgWnpz3IiTTvyX3V4sgJ6IkWeVB--
+DQo+IE9uIE1vbiwgMjAxOC0xMS0wNSBhdCAxODowMSArMDAwMCwgSnVzdGluLkxlZTFARGVsbC5j
+b20gd3JvdGU6DQo+ID4gPiBPbiBUdWUsIDIwMTgtMTAtMzAgYXQgMjE6MjYgKzAwMDAsIEp1c3Rp
+bi5MZWUxQERlbGwuY29tIHdyb3RlOg0KPiA+ID4gPiA+ICtpbnQgbmNzaV9yZXNldF9kZXYoc3Ry
+dWN0IG5jc2lfZGV2ICpuZCkNCj4gPiA+ID4gPiArew0KPiA+ID4gPiA+ICsJc3RydWN0IG5jc2lf
+ZGV2X3ByaXYgKm5kcCA9IFRPX05DU0lfREVWX1BSSVYobmQpOw0KPiA+ID4gPiA+ICsJc3RydWN0
+IG5jc2lfY2hhbm5lbCAqbmMsICphY3RpdmU7DQo+ID4gPiA+ID4gKwlzdHJ1Y3QgbmNzaV9wYWNr
+YWdlICpucDsNCj4gPiA+ID4gPiArCXVuc2lnbmVkIGxvbmcgZmxhZ3M7DQo+ID4gPiA+ID4gKwli
+b29sIGVuYWJsZWQ7DQo+ID4gPiA+ID4gKwlpbnQgc3RhdGU7DQo+ID4gPiA+ID4gKw0KPiA+ID4g
+PiA+ICsJYWN0aXZlID0gTlVMTDsNCj4gPiA+ID4gPiArCU5DU0lfRk9SX0VBQ0hfUEFDS0FHRShu
+ZHAsIG5wKSB7DQo+ID4gPiA+ID4gKwkJTkNTSV9GT1JfRUFDSF9DSEFOTkVMKG5wLCBuYykgew0K
+PiA+ID4gPiA+ICsJCQlzcGluX2xvY2tfaXJxc2F2ZSgmbmMtPmxvY2ssIGZsYWdzKTsNCj4gPiA+
+ID4gPiArCQkJZW5hYmxlZCA9IG5jLT5tb25pdG9yLmVuYWJsZWQ7DQo+ID4gPiA+ID4gKwkJCXN0
+YXRlID0gbmMtPnN0YXRlOw0KPiA+ID4gPiA+ICsJCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZu
+Yy0+bG9jaywgZmxhZ3MpOw0KPiA+ID4gPiA+ICsNCj4gPiA+ID4gPiArCQkJaWYgKGVuYWJsZWQp
+DQo+ID4gPiA+ID4gKwkJCQluY3NpX3N0b3BfY2hhbm5lbF9tb25pdG9yKG5jKTsNCj4gPiA+ID4g
+PiArCQkJaWYgKHN0YXRlID09IE5DU0lfQ0hBTk5FTF9BQ1RJVkUpIHsNCj4gPiA+ID4gPiArCQkJ
+CWFjdGl2ZSA9IG5jOw0KPiA+ID4gPiA+ICsJCQkJYnJlYWs7DQo+ID4gPiA+IA0KPiA+ID4gPiBJ
+cyB0aGUgb3JpZ2luYWwgaW50ZW50aW9uIHRvIHByb2Nlc3MgdGhlIGNoYW5uZWwgb25lIGJ5IG9u
+ZT8NCj4gPiA+ID4gSWYgaXQgaXMgdGhlIGNhc2UsIHRoZXJlIGFyZSB0d28gbG9vcHMgYW5kIHdl
+IG1pZ2h0IG5lZWQgdG8gdXNlDQo+ID4gPiA+ICJnb3RvIGZvdW5kIiBpbnN0ZWFkLg0KPiA+ID4g
+DQo+ID4gPiBZZXMgd2UnbGwgbmVlZCB0byBicmVhayBvdXQgb2YgdGhlIHBhY2thZ2UgbG9vcCBo
+ZXJlIGFzIHdlbGwuDQo+ID4gPiANCj4gPiA+ID4gPiArCQkJfQ0KPiA+ID4gPiA+ICsJCX0NCj4g
+PiA+ID4gPiArCX0NCj4gPiA+ID4gPiArDQo+ID4gPiA+IA0KPiA+ID4gPiBmb3VuZDogPw0KPiA+
+ID4gPiANCj4gPiA+ID4gPiArCWlmICghYWN0aXZlKSB7DQo+ID4gPiA+ID4gKwkJLyogRG9uZSAq
+Lw0KPiA+ID4gPiA+ICsJCXNwaW5fbG9ja19pcnFzYXZlKCZuZHAtPmxvY2ssIGZsYWdzKTsNCj4g
+PiA+ID4gPiArCQluZHAtPmZsYWdzICY9IH5OQ1NJX0RFVl9SRVNFVDsNCj4gPiA+ID4gPiArCQlz
+cGluX3VubG9ja19pcnFyZXN0b3JlKCZuZHAtPmxvY2ssIGZsYWdzKTsNCj4gPiA+ID4gPiArCQly
+ZXR1cm4gbmNzaV9jaG9vc2VfYWN0aXZlX2NoYW5uZWwobmRwKTsNCj4gPiA+ID4gPiArCX0NCj4g
+PiA+ID4gPiArDQo+ID4gPiA+ID4gKwlzcGluX2xvY2tfaXJxc2F2ZSgmbmRwLT5sb2NrLCBmbGFn
+cyk7DQo+ID4gPiA+ID4gKwluZHAtPmZsYWdzIHw9IE5DU0lfREVWX1JFU0VUOw0KPiA+ID4gPiA+
+ICsJbmRwLT5hY3RpdmVfY2hhbm5lbCA9IGFjdGl2ZTsNCj4gPiA+ID4gPiArCW5kcC0+YWN0aXZl
+X3BhY2thZ2UgPSBhY3RpdmUtPnBhY2thZ2U7DQo+ID4gPiA+ID4gKwlzcGluX3VubG9ja19pcnFy
+ZXN0b3JlKCZuZHAtPmxvY2ssIGZsYWdzKTsNCj4gPiA+ID4gPiArDQo+ID4gPiA+ID4gKwluZC0+
+c3RhdGUgPSBuY3NpX2Rldl9zdGF0ZV9zdXNwZW5kOw0KPiA+ID4gPiA+ICsJc2NoZWR1bGVfd29y
+aygmbmRwLT53b3JrKTsNCj4gPiA+ID4gPiArCXJldHVybiAwOw0KPiA+ID4gPiA+ICt9DQo+ID4g
+PiA+IA0KPiA+ID4gPiBBbHNvIHNpbWlsYXIgaXNzdWUgaW4gbmNzaV9jaG9vc2VfYWN0aXZlX2No
+YW5uZWwoKSBmdW5jdGlvbiBiZWxvdy4NCj4gPiA+ID4gDQo+ID4gPiA+ID4gQEAgLTkxNiwzMiAr
+MTA0NSw0OSBAQCBzdGF0aWMgaW50IG5jc2lfY2hvb3NlX2FjdGl2ZV9jaGFubmVsKHN0cnVjdCBu
+Y3NpX2Rldl9wcml2ICpuZHApDQo+ID4gPiA+ID4gIA0KPiA+ID4gPiA+ICAJCQluY20gPSAmbmMt
+Pm1vZGVzW05DU0lfTU9ERV9MSU5LXTsNCj4gPiA+ID4gPiAgCQkJaWYgKG5jbS0+ZGF0YVsyXSAm
+IDB4MSkgew0KPiA+ID4gPiA+IC0JCQkJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmbmMtPmxvY2ss
+IGZsYWdzKTsNCj4gPiA+ID4gPiAgCQkJCWZvdW5kID0gbmM7DQo+ID4gPiA+ID4gLQkJCQlnb3Rv
+IG91dDsNCj4gPiA+ID4gPiArCQkJCXdpdGhfbGluayA9IHRydWU7DQo+ID4gPiA+ID4gIAkJCX0N
+Cj4gPiA+ID4gPiAgDQo+ID4gPiA+ID4gLQkJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJm5jLT5s
+b2NrLCBmbGFncyk7DQo+ID4gPiA+ID4gKwkJCS8qIElmIG11bHRpX2NoYW5uZWwgaXMgZW5hYmxl
+ZCBjb25maWd1cmUgYWxsIHZhbGlkDQo+ID4gPiA+ID4gKwkJCSAqIGNoYW5uZWxzIHdoZXRoZXIg
+b3Igbm90IHRoZXkgY3VycmVudGx5IGhhdmUgbGluaw0KPiA+ID4gPiA+ICsJCQkgKiBzbyB0aGV5
+IHdpbGwgaGF2ZSBBRU5zIGVuYWJsZWQuDQo+ID4gPiA+ID4gKwkJCSAqLw0KPiA+ID4gPiA+ICsJ
+CQlpZiAod2l0aF9saW5rIHx8IG5wLT5tdWx0aV9jaGFubmVsKSB7DQo+ID4gPiA+IA0KPiA+ID4g
+PiBJIG5vdGljZSB0aGF0IHRoZXJlIGlzIGEgY2FzZSB0aGF0IHdlIHdpbGwgbWlzY29uZmlndXJl
+IHRoZSBpbnRlcmZhY2UuDQo+ID4gPiA+IEZvciBleGFtcGxlIGJlbG93LCBtdWx0aS1jaGFubmVs
+IGlzIG5vdCBlbmFibGUgZm9yIHBhY2thZ2UgMS4NCj4gPiA+ID4gQnV0IHdlIGVuYWJsZSB0aGUg
+Y2hhbm5lbCBmb3IgbmNzaTIgYmVsb3cgKHBhY2thZ2UgMSBjaGFubmVsIDApIGFzIHRoYXQgaW50
+ZXJmYWNlIGlzIHRoZSBmaXJzdA0KPiA+ID4gPiBjaGFubmVsIGZvciB0aGF0IHBhY2thZ2Ugd2l0
+aCBsaW5rLg0KPiA+ID4gDQo+ID4gPiBJIGRvbid0IHRoaW5rIEkgc2VlIHRoZSBpc3N1ZSBoZXJl
+OyBtdWx0aS1jaGFubmVsIGlzIG5vdCBzZXQgb24gcGFja2FnZQ0KPiA+ID4gMSwgYnV0IGJvdGgg
+Y2hhbm5lbHMgYXJlIGluIHRoZSBjaGFubmVsIHdoaXRlbGlzdC4gQ2hhbm5lbCAwIGlzDQo+ID4g
+PiBjb25maWd1cmVkIHNpbmNlIGl0J3MgdGhlIGZpcnN0IGZvdW5kIG9uIHBhY2thZ2UgMSwgYW5k
+IGNoYW5uZWwgMSBpcyBub3QNCj4gPiA+IHNpbmNlIGNoYW5uZWwgMCBpcyBhbHJlYWR5IGZvdW5k
+LiBBcmUgeW91IGV4cGVjdGluZyBzb21ldGhpbmcgZGlmZmVyZW50Pw0KPiA+ID4gIA0KPiA+IA0K
+PiA+IFRoZSBzZXR0aW5nIGlzIHRoYXQgbXVsdGktcGFja2FnZSBpcyBlbmFibGUgZm9yIGJvdGgg
+cGFja2FnZSAwIGFuZCAxLg0KPiA+IE11bHRpLWNoYW5uZWwgaXMgb25seSBlbmFibGVkIGZvciBw
+YWNrYWdlIDAuDQo+ID4gDQo+ID4gPiA+IGNhdCAvc3lzL2tlcm5lbC9kZWJ1Zy9uY3NpX3Byb3Rv
+Y29sL25jc2lfZGV2aWNlXw0KPiA+ID4gPiBJRklEWCBJRk5BTUUgTkFNRSAgIFBJRCBDSUQgUlgg
+VFggTVAgTUMgV1AgV0MgUEMgQ1MgUFMgTFMgUlUgQ1IgTlEgSEENCj4gPiA+ID4gPT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09DQo+ID4gPiA+ICAgMiAgIGV0aDIgICBuY3NpMCAgMDAwIDAwMCAxICAxICAxICAxICAxICAx
+ICAwICAyICAxICAxICAxICAxICAwICAxDQo+ID4gPiA+ICAgMiAgIGV0aDIgICBuY3NpMSAgMDAw
+IDAwMSAxICAwICAxICAxICAxICAxICAwICAyICAxICAxICAxICAxICAwICAxDQo+ID4gPiA+ICAg
+MiAgIGV0aDIgICBuY3NpMiAgMDAxIDAwMCAxICAwICAxICAwICAxICAxICAwICAyICAxICAxICAx
+ICAxICAwICAxDQo+ID4gDQo+ID4gSSB3YXMgcmVwbHlpbmcgdG8gdGhlIHdyb25nIG9sZCBlbWFp
+bCBhbmQgaXQgbWlnaHQgY2F1c2UgYSBiaXQgY29uZnVzaW9uLg0KPiA+IFRoZSBmaXJzdCAxIG1l
+YW5pbmcgY2hhbm5lbCBpcyBlbmFibGVkIGZvciBwYWNrYWdlIDEgY2hhbm5lbCAwIChuY3NpMiku
+IA0KPiA+IEZvciBldGgyLCB3ZSBhbHJlYWR5IGhhcyBuY3NpMCBhcyB0aGUgYWN0aXZlIGNoYW5u
+ZWwgd2l0aCBUWCBlbmFibGUuDQo+ID4gSSB3b3VsZCB0aGluayB0aGF0IHBhY2thZ2UgZG9lc24n
+dCBoYXZlIHRoZSBtdWx0aS1jaGFubmVsIGVuYWJsZWQgYW5kDQo+ID4gd2Ugc2hvdWxkIG5vdCBl
+bmFibGUgdGhlIGNoYW5uZWwgZm9yIG5jc2kyLiBUaGUgcHJvYmxlbSBpcyB0aGF0IHBhY2thZ2Ug
+MSBkb2Vzbid0DQo+ID4gZW5hYmxlIHRoZSBtdWx0aS1jaGFubmVsIGFuZCBpdCBiZWxpZXZlcyBp
+dCBuZWVkcyB0byBlbmFibGUgb25lIGNoYW5uZWwgZm9yIGl0cyBwYWNrYWdlIA0KPiA+IGJ1dCBp
+dCBkb2Vzbid0IGF3YXJlIHRoYXQgdGhlIG90aGVyIHBhY2thZ2UgYWxyZWFkeSBoYXMgb25lIGFj
+dGl2ZSBjaGFubmVsLg0KPiANCj4gQWgsIG1heWJlIHRoZSBjb25mdXNpb24gaGVyZSBpcyB0aGF0
+IG11bHRpX2NoYW5uZWwgaXMgYSBwZXItcGFja2FnZQ0KPiBzZXR0aW5nOyBpdCBkZXRlcm1pbmVz
+IHdoYXQgYSBwYWNrYWdlIGRvZXMgd2l0aCBpdHMgb3duIGNoYW5uZWxzLg0KPiANCj4gU28geW91
+IGhhdmUgcGFja2FnZSAwIHdpdGggbXVsdGktY2hhbm5lbCBlbmFibGVkIHNvIGl0IGVuYWJsZXMg
+Y2hhbm5lbHMgMA0KPiAmIDEuDQo+IFRoZW4geW91IGhhdmUgcGFja2FnZSAxIHdpdGhvdXQgbXVs
+dGktY2hhbm5lbCBzbyBpdCBlbmFibGVzIG9ubHkgY2hhbm5lbA0KPiAwLg0KPiBUaGVyZSBpcyBz
+dGlsbCBvbmx5IG9uZSBUeCBjaGFubmVsIChwYWNrYWdlIDAsIGNoYW5uZWwgMCkuDQo+IA0KPiBE
+b2VzIHRoYXQgc291bmQgcmlnaHQsIG9yIGhhdmUgSSBtaXNzZWQgc29tZXRoaW5nPw0KDQpZZXMs
+IHlvdSBhcmUgcmlnaHQuIFRoZXJlIGlzIG9ubHkgb25lIFRYIGVuYWJsZWQuIA0KSWYgd2UgY2Fu
+IGhvbGQgb2ZmIGEgZmV3IHNlY29uZHMgYmVmb3JlIGFwcGx5aW5nLCB0aGVuIHdlIHdpbGwgbm90
+IHNlZSANCnRoZXNlIGNvbmZpZ3VyYXRpb24gY2hhbmdlcyBpbiBiZXR3ZWVuIHRoZSBiYWNrIHRv
+IGJhY2sgbmV0bGluayBjb21tYW5kcy4NCg0KVGhhbmtzLCANCkp1c3Rpbg0K
