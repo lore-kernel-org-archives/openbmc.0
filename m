@@ -1,46 +1,46 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::12b; helo=mail-it1-x12b.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4864:20::52e; helo=mail-ed1-x52e.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="CtQZIM7A"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="jwAr+fTt"; 
  dkim-atps=neutral
-Received: from mail-it1-x12b.google.com (mail-it1-x12b.google.com
- [IPv6:2607:f8b0:4864:20::12b])
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42q07P5LTJzF35Q
- for <openbmc@lists.ozlabs.org>; Tue,  6 Nov 2018 17:31:29 +1100 (AEDT)
-Received: by mail-it1-x12b.google.com with SMTP id t190-v6so10663471itb.2
- for <openbmc@lists.ozlabs.org>; Mon, 05 Nov 2018 22:31:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42q0KX2NJ0zF14S
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Nov 2018 17:40:16 +1100 (AEDT)
+Received: by mail-ed1-x52e.google.com with SMTP id h21-v6so9095041edq.9
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Nov 2018 22:40:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=H0KZYgWID86CZve20TSY9DI0D18t3zkX5TJzdaw/zu4=;
- b=CtQZIM7AdGSRRYO0bbou+ybqxAt7lkfbBvu02BEhMlZ0+sHYg0oB4V6rwZjsoPYBBj
- AeCAWRwF+/Cj/6/e4oC/Ld/hrP2csXaBcPE5QjeYx6GVjMuP5LZPxoe2tiOnworM+e8f
- CcLLpmnD+miBEzqm9wNjtEOGdvaOTYYw3ODGEI9itFJBlS4PBWh2C6uhsPd90DaLRjGX
- Ag+eyi24XpvjvWhSoPBdH1aH5tJ/F+7VOYXHDVvuygUTqeoTgdzEZEMxavjghdG+HpYx
- VrDhlYeskS+815vpKNSQw3Kc4U7df1u8H/iO2QRjhOLojQq1QjwI6AuvnbbjyAOp5lGm
- kmPg==
+ :cc; bh=m+jkfM4GAOa4H7CZju3N2SsmJ1WUmsJiR2YekWJ6/0A=;
+ b=jwAr+fTt4RngNxcfeBv1JbsPwOqaAo9xAN5j84e3SXZu9toUJvoNw5jdbcWsvzWMT2
+ QnGe6XDJd002owWs5xRm3fm+X1DfAUScthzhcfNHlv6aRpuxBr+suozaaqjITLGNHys+
+ mVCt/OsRtuyd9k/c5Q6uxGmCRmsdWb7bCIpkq815whVZK8hHjWoslEQTDQx1TbFdcSj0
+ KO+a0OQlz+h1hce+k9kcqLiECfYm5f9oosx6DIujI3BAepK2JRLpxKCHGqxAhNSig2yF
+ nujE/AuRxODPdvxsP7OLVieBzq/f2GXTLVNu+Rud/Zo5ugXQY4/vbEjK7b6dr3bB+VIh
+ v+2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=H0KZYgWID86CZve20TSY9DI0D18t3zkX5TJzdaw/zu4=;
- b=NC+7uNDEDaF8EO3kxO1BAo9JX8A7eWV8eKE8f51DlEtpC2FcLiMrCFSzqOWoPBd0Bf
- M+ahMmotRsY9u+oyivBaOOyqOWuxsxX7r/TSVmKsKe/UvXB+dhHjT7qn0YNqlAyGnD7i
- HG9l41+exbTF8wQ2A8MpanBnB8fD74ZpuRVLRbvmOWUElb9X9RYhs6UrAZIlOJVgzqWl
- 4VSo/6Bjl+4yXy2RYSe0ehGb1ZaYFwGzxF5Yu63/kw41BgrxqQtiE00IepmCgzDSCmlb
- DMdCu8hK9yBY2XyBdGjSSnP8gAKtbn3JB5AMBJQ4KFBqN975x15lLZtpTHVbAz77SNXg
- BgZQ==
-X-Gm-Message-State: AGRZ1gKoZ3tEMXPtHov6QpLSliH5nGpR5HlVSQYg2LvzmYGg4hiAlydP
- CQM51pCFqEuVctL1bMh8uyThM5M97jze6qbULTeMiA==
-X-Google-Smtp-Source: AJdET5cqLHVicpD5PPO9WVHrNKsn09uUSLafwGceMuErnpe2KBSNn/VNtNE8Cd0FEfWIGhpNt99Zuda6r6UcIOYFgZM=
-X-Received: by 2002:a02:9f85:: with SMTP id a5-v6mr23237873jam.2.1541485886894; 
- Mon, 05 Nov 2018 22:31:26 -0800 (PST)
+ bh=m+jkfM4GAOa4H7CZju3N2SsmJ1WUmsJiR2YekWJ6/0A=;
+ b=Gl4mYj7bzbZQj6i5uiliAgpmqO2+yhYzcT55oOkGJIK56PhgyDzZ1k4IeeuN6C3jNX
+ sm3lUpPxs30pCU1KUw2fZz/FH3DBKVGHsFTukDw8bXs+a4PVqAynjsTfoPvNwGyv7B43
+ BNL05/5CThc5GaDPT/6K93XR3NDYzYuImAzll+8YwpILL2cR7+qr92UAErnuUZWGhkze
+ hWtgoe+MqqCsz9cDhJLOztdIXokiZ3kth1Iy5AU61ILU4wEhPayyPo+LLwaJRCs5q7/J
+ hOH6KfnEI/2nVSi3bKcKZOiSgfpygIG08KnUua5SBCC8B5nMiAygd2fXy2964GDRI7tf
+ yTCQ==
+X-Gm-Message-State: AGRZ1gIvXCnKNvlqkN5qFSydmQZ/z5GkOeQQtSxwzPnEp4xKkiBigMcW
+ 7Hcpq9QIjdZ+lVPGPcxPlBcstxMaRFWUnK7s1i4=
+X-Google-Smtp-Source: AJdET5frvaGlFfuGSk5iiUs0ITD+y2YQsg1AZKR1y61KEPp3cP22xNCxtxN16WdA9T/0Lby1VVmWa9GfVAR3McNrvi4=
+X-Received: by 2002:a50:8306:: with SMTP id 6-v6mr1329486edh.43.1541486413313; 
+ Mon, 05 Nov 2018 22:40:13 -0800 (PST)
 MIME-Version: 1.0
 References: <CAE33tLEc5RU1yMv=zQt9hOqpZyBSZzyK0o1fcBpbAyUsBiekLw@mail.gmail.com>
  <CAO=notwyytBnoZtBwsdazN5qWz3jC6gJkFd61M+=6mLWmL5GYw@mail.gmail.com>
@@ -51,15 +51,14 @@ References: <CAE33tLEc5RU1yMv=zQt9hOqpZyBSZzyK0o1fcBpbAyUsBiekLw@mail.gmail.com>
  <CAE33tLHDoGXi_Uf3tzDM1S-FZstjngPLDcbUG6SHGm-teXv62A@mail.gmail.com>
  <CAN9Jwz32MtVCdXtfF-iJhEc6bHgbtddz6ETGQ1Sik-s2+_B3AA@mail.gmail.com>
 In-Reply-To: <CAN9Jwz32MtVCdXtfF-iJhEc6bHgbtddz6ETGQ1Sik-s2+_B3AA@mail.gmail.com>
-From: Kun Yi <kunyi@google.com>
-Date: Mon, 5 Nov 2018 22:30:59 -0800
-Message-ID: <CAGMNF6WJiNJC0GMSb9PuC+HPvx+PjwwL2wqmcoLVMcUob0TtYQ@mail.gmail.com>
+From: AKASH G J <akashgj91@gmail.com>
+Date: Tue, 6 Nov 2018 12:09:55 +0530
+Message-ID: <CAE33tLHVzGW9-L9v5n-gAkNjz5niHnbxs_ac02pN80eL3B8GEQ@mail.gmail.com>
 Subject: Re: Temperature Sensor Reading not showing up.
-To: leetroy@gmail.com
-Cc: akashgj91@gmail.com, Emily Shaffer <emilyshaffer@google.com>, 
- Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000b75d350579f92670"
+To: Troy Lee <leetroy@gmail.com>
+Cc: Emily Shaffer <emilyshaffer@google.com>,
+ Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000177b3c0579f94645"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,13 +70,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Nov 2018 06:31:31 -0000
+X-List-Received-Date: Tue, 06 Nov 2018 06:40:17 -0000
 
---000000000000b75d350579f92670
+--000000000000177b3c0579f94645
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 5, 2018 at 10:17 PM Troy Lee <leetroy@gmail.com> wrote:
+#* busctl --no-page list | grep -E "Hwmon1|PID" *outputs
+
+
+*NAME                            PID                       PROCESS
+    USER    *
+
+Also command *# busctl --no-page list | grep "Hwmon|PID" *shows same output=
+.
+
+On Tue, Nov 6, 2018 at 11:46 AM Troy Lee <leetroy@gmail.com> wrote:
 
 > The *service* here doesn't relate to systemd service.
 >
@@ -231,23 +239,6 @@ c@1e6e2000
 > Also,
 > >> >>>> > tmp78.conf is showing in
 > /etc/default/obmc/hwmon/ahb/apb/i2c@1e78a000/i2c-bus@90.
->
-
-Besides what others suggested looks like you have a mismatch between your
-device path and the path for the environment file. They need to have the
-same path.
-
-Steps to try:
-1. Fix the path of your environment file to be
-meta-zaius/recipes-phosphor/sensors/phosphor-hwmon%/obmc/hwon/ahb/apb/i2c@1=
-e78a000
-/i2c-bus@440/tmp75@48.conf
-2. Make sure the hwmon sysfs interface shows up and temp1_input reads a
-valid value
-3. Play with busctl as others suggested and make sure the sensor value is
-reported over DBus
-
-
 > >> >>>> >
 > >> >>>> > when I am running the ipmitool command: ipmitool -I dbus sdr
 > elist full it is not showing the temperature sensor and its reading.
@@ -269,20 +260,24 @@ ecipes-phosphor/ipmi/phosphor-ipmi-sensor-inventory%25/config.yaml
 > >> >>>> >
 >
 
-
---=20
-Regards,
-Kun
-
---000000000000b75d350579f92670
+--000000000000177b3c0579f94645
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, No=
-v 5, 2018 at 10:17 PM Troy Lee &lt;<a href=3D"mailto:leetroy@gmail.com">lee=
-troy@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">The *=
-service* here doesn&#39;t relate to systemd service.<br>
+<div dir=3D"ltr"><div dir=3D"ltr"><div>#<i> busctl --no-page list | grep -E=
+ &quot;Hwmon1|PID&quot; </i>outputs <br></div><div><i><br></i></div><div><i=
+>NAME=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 PID =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 PROCESS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 USER=C2=A0=C2=A0=C2=A0 <br></i></div><div><br></div><div>=
+Also command <i><i># busctl --no-page list | grep &quot;Hwmon|PID&quot; </i=
+></i>shows same output.<i><i><br></i></i></div></div></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr">On Tue, Nov 6, 2018 at 11:46 AM Troy Lee =
+&lt;<a href=3D"mailto:leetroy@gmail.com">leetroy@gmail.com</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
+-left:1px #ccc solid;padding-left:1ex">The *service* here doesn&#39;t relat=
+e to systemd service.<br>
 <br>
 It is the name on D-Bus.<br>
 <a href=3D"https://github.com/openbmc/phosphor-hwmon#d-bus-bus-names" rel=
@@ -449,17 +444,7 @@ br>
 ed in /sys/firmware/devicetree/base/ahb/apb/i2c@1e78a000/i2c-bus@440/tmp75@=
 48. Also,<br>
 &gt;&gt; &gt;&gt;&gt;&gt; &gt; tmp78.conf is showing in /etc/default/obmc/h=
-wmon/ahb/apb/i2c@1e78a000/i2c-bus@90.<br></blockquote><div><br></div><div>B=
-esides what others suggested looks like you have a mismatch between your de=
-vice path and the path for the environment file. They need to have the same=
- path.<br></div><div><br></div><div>Steps to try:</div><div>1. Fix the path=
- of your environment file to be meta-zaius/recipes-phosphor/sensors/phospho=
-r-hwmon%/obmc/hwon/ahb/apb/i2c@1e78a000/i2c-bus@440/tmp75@48.conf=C2=A0</di=
-v><div>2. Make sure the hwmon sysfs interface shows up and temp1_input read=
-s a valid value</div><div>3. Play with busctl as others suggested and make =
-sure the sensor value is reported over DBus</div><div>=C2=A0</div><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc so=
-lid;padding-left:1ex">
+wmon/ahb/apb/i2c@1e78a000/i2c-bus@90.<br>
 &gt;&gt; &gt;&gt;&gt;&gt; &gt;<br>
 &gt;&gt; &gt;&gt;&gt;&gt; &gt; when I am running the ipmitool command: ipmi=
 tool -I dbus sdr elist full it is not showing the temperature sensor and it=
@@ -485,8 +470,6 @@ hor/ipmi/phosphor-ipmi-sensor-inventory%25/config.yaml</a><br>
 &gt;&gt; &gt;&gt;&gt;&gt; &gt;<br>
 &gt;&gt; &gt;&gt;&gt;&gt; &gt; Akash<br>
 &gt;&gt; &gt;&gt;&gt;&gt; &gt;<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"l=
-tr">Regards,<div>Kun</div></div></div></div>
+</blockquote></div>
 
---000000000000b75d350579f92670--
+--000000000000177b3c0579f94645--
