@@ -1,53 +1,76 @@
-Return-Path: <beccabroek@gmail.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::b2c; helo=mail-yb1-xb2c.google.com;
- envelope-from=beccabroek@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="dIgTKB7M"; 
- dkim-atps=neutral
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42qtqt6qskzF3JW
- for <openbmc@lists.ozlabs.org>; Thu,  8 Nov 2018 04:36:07 +1100 (AEDT)
-Received: by mail-yb1-xb2c.google.com with SMTP id p144-v6so7153770yba.11
- for <openbmc@lists.ozlabs.org>; Wed, 07 Nov 2018 09:36:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=6ROUWSb0xcYHmwHcu1GKzMmPxqJ95AF83axn1y4yLDY=;
- b=dIgTKB7MP/Q6uBHHGCs/zfpUbzYip/BHFjuUajoOwpiL/2GiGecVvjVeGg6P6D42/N
- vDkuL426R6g54J9PUlVAFsDOQsOB+nHXaU5Y2z8x4TP3XKbGcqt7gF0DdEddaB0a+piY
- l1f8nm/zWuPu9JEFmesu6QYkIrre3l3MGX1THdQScj9KW2pPnFjFxBjJh7w35MjUAPqK
- sQZjH63exhLmKQco3RGTFrn7OQWMnL84sgBQ2tWt6HFkDPpyrVSnTX1St41Aiz/EdW2h
- 4CsxpM339jM2z9RibQ15yv5+4eYs+KD0SbC6uhJ39Qz9TlG8oKjo6RqdMO/GIStJceYn
- IlYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=6ROUWSb0xcYHmwHcu1GKzMmPxqJ95AF83axn1y4yLDY=;
- b=owDTE9cbNu/XrYq56HwUyq+VE7ae2dNixF1WYjBpT4CvSDwZRqqGaYOG109fffGeeN
- gAq2KNt63GpqaRXlmjm7v5m2O7OZG9HkHEKhTF+6mKhfdR/7qf6X/0YRZGnHKN3Vyd2l
- Phfc82zcV2l3/OXxxe73fQE+G2vShBvOA1aW5teIkuPuBhVF3O0TgcsjJS0XPfIAh/NN
- uzya9A1rq62EPk42Ccu88P42Bt1SvbYkFUog3IJ/zaA04262bmXiJg1rFkL0DFcXu7QM
- Y3kAW6fp++0XYCfgVeGQB+ZJdz+C334BnVU9PUl3dmtGblXrnfcr4B/JxkxnAQ/dcVIP
- 1uMg==
-X-Gm-Message-State: AGRZ1gKmz+C6l0ORrbMwFytxYJmLepuwjsisdE+YQaOI1DgF9b4N366A
- Yc0yNRuh1SLSeXdT7kkfW3ukVxKiwb0PYK66cvvKi1G5
-X-Google-Smtp-Source: AJdET5cJ0NfvIhhwnZxDb5BGDfcXrHeeHXYp3r/jvoW0OZzZh1ER907XRi1ozI5oRetxuaAR4xjCu8pf5Am8GOLCfnM=
-X-Received: by 2002:a25:348b:: with SMTP id
- b133-v6mr1204151yba.269.1541612165180; 
- Wed, 07 Nov 2018 09:36:05 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42qwwm2CLnzF3LG
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Nov 2018 06:10:31 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wA7J9Q8K094484
+ for <openbmc@lists.ozlabs.org>; Wed, 7 Nov 2018 14:10:29 -0500
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2nm5dksdpr-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Nov 2018 14:10:28 -0500
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Wed, 7 Nov 2018 19:10:28 -0000
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 7 Nov 2018 19:10:27 -0000
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ wA7JAQYu38142102
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 7 Nov 2018 19:10:26 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 91929124053
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Nov 2018 19:10:26 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 45FBE124052
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Nov 2018 19:10:26 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Nov 2018 19:10:26 +0000 (GMT)
 MIME-Version: 1.0
-From: Rebecca Broekhuis <beccabroek@gmail.com>
-Date: Wed, 7 Nov 2018 11:35:54 -0600
-Message-ID: <CABzWfrnktcYsrMoNAmBrVHMCXGacFBMWRE=Ubz+NUU5bhMkrXw@mail.gmail.com>
-Subject: Exposing LDAP groups via REST
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 07 Nov 2018 13:13:05 -0600
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Subject: button handler w/o python
+X-Sender: mspinler@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18110719-0064-0000-0000-0000037036CE
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010003; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000268; SDB=6.01114092; UDB=6.00577118; IPR=6.00894192; 
+ MB=3.00024063; MTD=3.00000008; XFM=3.00000015; UTC=2018-11-07 19:10:28
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18110719-0065-0000-0000-00003B427371
+Message-Id: <6ae8410c8a7db06ee19ff421ee3412b2@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-07_15:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=389 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1807170000 definitions=main-1811070170
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,35 +82,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Nov 2018 17:36:11 -0000
+X-List-Received-Date: Wed, 07 Nov 2018 19:10:32 -0000
 
-Hi community,
-I want to discuss a feature the front end team is hoping to find a way
-to implement for LDAP configuration in the GUI. It raises some
-security questions and I'm hoping for input. When adding a privilege
-mapping (associating a LDAP role group with a privilege on the BMC)
-via the GUI, the user needs to enter the group name as it is
-configured on the LDAP server and the privilege that should be given
-to this group. The GUI is able to provide a drop down of the available
-privileges for the user to select, but the role group name must be
-typed in. The challenge with this is that there is no confirmation
-that the LDAP group name the user entered is valid besides trying to
-perform actions as an LDAP user in the group after it is configured.
+Hi,
 
-Working with the design team here at IBM, it was brought up that it
-would be ideal (from a usability perspective) for the user to have a
-drop down of the available LDAP groups. This would require using the
-stored LDAP configuration in the back end to query for a list of
-groups to display to the user.
+In our quest to be able to remove python, I put up a review for a button
+handler in C++ in phosphor-state-manager called phosphor-button-handler:
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-state-manager/+/15437/
 
-As this would be the first instance in which we're doing something
-like this with LDAP (using the given configuration to query the LDAP
-server and display something to the user), it raises a couple of
-questions:
+It uses the signals sent by the phosphor-button code to support the 
+power, ID,
+and reset buttons, though it doesn't require them all to be present.
 
-1. Should there be an endpoint that allows retrieving information from
-the LDAP server like this?
-2. If so, who should be able to access?
-Any input would be appreciated!
+I realize systems may want to do their own unique things on button 
+presses, but
+I think this gives a good reference implementation.
 
---Becca Shaw
+Matt
