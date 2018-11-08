@@ -1,87 +1,61 @@
-Return-Path: <Justin.Lee1@dell.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.94; helo=esa3.dell-outbound.iphmx.com;
- envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c34; helo=mail-yw1-xc34.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=Dell.com
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="wKjl2OHF"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="Yi3uYMeH"; 
  dkim-atps=neutral
-Received: from esa3.dell-outbound.iphmx.com (esa3.dell-outbound.iphmx.com
- [68.232.153.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-xc34.google.com (mail-yw1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42rdjX3MdpzF3W3
- for <openbmc@lists.ozlabs.org>; Fri,  9 Nov 2018 09:48:15 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1541717265; x=1573253265;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=AOJmLMFBXuxlygFAH8ErW7rAwtqR7VQCkCJ0VwvnvcQ=;
- b=wKjl2OHFPfUn7BjUFMqh0deCVSHkDRM1W4Q0mgHLW0d8hpw/J/OzSRml
- 99pIguvVrUl3Dz3P1tPyEwVj9ZSSdtc7BQvJhdkXsTAs1l/+sAc06lus0
- 91JZtd4VTjJga9wKS+/sLp6H4KnF6lVcSgabf/wNZOqabwqMgAJUxO0MO 8=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FNAADmvORbhiWd50NkHAEBAQQBAQc?=
- =?us-ascii?q?EAQGBVAQBAQsBgVWCFjGMZYsdmzkLAQGEbAKDGSI3Cg0BAwEBAgEBAgEBAhA?=
- =?us-ascii?q?BAQEKCQsIKS+CNiKCZAIBAxIVEy0SEAIBCDYQVwIEAQ0NGoJ/AYIBnGoCgRC?=
- =?us-ascii?q?JWAEBAYFpM4osi3mCF4EQAYMSilkCgSoBjVeQRgYBAooXBYMWg1wggVcihF+?=
- =?us-ascii?q?KFJdJAgQCBAUCFIFZgXhwgW6BT4ImDgkSjgpAAYs5KYEFgR8BAQ?=
-X-IPAS-Result: =?us-ascii?q?A2FNAADmvORbhiWd50NkHAEBAQQBAQcEAQGBVAQBAQsBg?=
- =?us-ascii?q?VWCFjGMZYsdmzkLAQGEbAKDGSI3Cg0BAwEBAgEBAgEBAhABAQEKCQsIKS+CN?=
- =?us-ascii?q?iKCZAIBAxIVEy0SEAIBCDYQVwIEAQ0NGoJ/AYIBnGoCgRCJWAEBAYFpM4osi?=
- =?us-ascii?q?3mCF4EQAYMSilkCgSoBjVeQRgYBAooXBYMWg1wggVcihF+KFJdJAgQCBAUCF?=
- =?us-ascii?q?IFZgXhwgW6BT4ImDgkSjgpAAYs5KYEFgR8BAQ?=
-Received: from mx0b-00154901.pphosted.com ([67.231.157.37])
- by esa3.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 08 Nov 2018 16:47:42 -0600
-Received: from pps.filterd (m0144103.ppops.net [127.0.0.1])
- by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wA8MmCEP174437
- for <openbmc@lists.ozlabs.org>; Thu, 8 Nov 2018 17:48:12 -0500
-Received: from esa1.dell-outbound2.iphmx.com (esa1.dell-outbound2.iphmx.com
- [68.232.153.201])
- by mx0b-00154901.pphosted.com with ESMTP id 2nmq3m2fnf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Thu, 08 Nov 2018 17:48:12 -0500
-From: <Justin.Lee1@Dell.com>
-Received: from ausxippc110.us.dell.com ([143.166.85.200])
- by esa1.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
- 09 Nov 2018 04:48:08 +0600
-X-LoopCount0: from 10.166.135.98
-X-IronPort-AV: E=Sophos;i="5.54,481,1534827600"; d="scan'208";a="727009260"
-To: <sam@mendozajonas.com>, <netdev@vger.kernel.org>
-CC: <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH net-next v3 6/6] net/ncsi: Configure multi-package,
- multi-channel modes with failover
-Thread-Topic: [PATCH net-next v3 6/6] net/ncsi: Configure multi-package,
- multi-channel modes with failover
-Thread-Index: AQHUdw3T7sTeKH7RI0a85rjfghKYaaVGRmNg
-Date: Thu, 8 Nov 2018 22:48:09 +0000
-Message-ID: <f9d0309dafe248a6aac8198f96f9bc4b@AUSX13MPS306.AMER.DELL.COM>
-References: <20181108024909.9897-1-sam@mendozajonas.com>
- <20181108024909.9897-7-sam@mendozajonas.com>
-In-Reply-To: <20181108024909.9897-7-sam@mendozajonas.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.18.86]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42rgBQ3JTszF3Tp
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Nov 2018 10:54:54 +1100 (AEDT)
+Received: by mail-yw1-xc34.google.com with SMTP id v5-v6so54756ywa.13
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Nov 2018 15:54:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=qf0ebuVZsGi8zVKDfammBpl/zi4KDk2rskV4ObwbnWU=;
+ b=Yi3uYMeHyr/HCigIjHAVCazM8QP9EwcEngpBULTl4bMojUY6ci4knYEID2+hvImGIL
+ YOi/AbTES3GmlXR9u+fPlCr4Bcw6U/VfD3sG7XLsi9Nmai9ynSU/xsaitrPgjRbGnM2H
+ SFj/M7WECaPkfNtgbtX4DPEDxwwSHLftx/d8g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=qf0ebuVZsGi8zVKDfammBpl/zi4KDk2rskV4ObwbnWU=;
+ b=Xi+mPPcX3Nm2MPLhUfR+OTHwmJNTrs+ODM2W48eQWNU4FxFdfhqO+qtei37vaEBTP1
+ /gc90fV0+e81JqrZoNCoprR0X5y8RZrxpl+nFmAhWg7U/HEFnzM23Fz4uVAnLcXm0HrY
+ OmRQMB6x4Y3ol9J3bbk1IqHQ/Iodixkt6N99Dt2XSwxG1eUOpAJoQLd5+xG+D61SpH67
+ LEM7EeK/MWRrohPnoYSKNbM3U9wzJUAY1XrOT8Im0nuxJOHY5Ox8ualp+pWRE3/CHhYf
+ sD+JDaZPA2Wfa+EF4zEYCaoxZ9te5Zda6rERbyIqY7maIRdbLejXSzGYo5inU+G/jTmf
+ 3neg==
+X-Gm-Message-State: AGRZ1gKmmH2wR2l2z/k9P590benbQ9pGpHw82xClX0nvc75kDptUtWjx
+ rIkW+P60xXx9V9V/4rBzfttROQUZVaKB9zqxNxk=
+X-Google-Smtp-Source: AJdET5d/Mv9Z1vSCUM4p4vwXl9VlzBn9nnk1zh/mhdIRUj5AHHAvTsT1awKAgefNVgdAFU0aGKTIc04Ecc/8wda1xMY=
+X-Received: by 2002:a37:781:: with SMTP id 123mr6411301qkh.231.1541721291957; 
+ Thu, 08 Nov 2018 15:54:51 -0800 (PST)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-11-08_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1811080192
+References: <3ff8d429943e44139b73cb16199a560e@yadro.com>
+ <3D1C8267-BC6F-44F1-B12F-020E147B225B@fb.com>
+ <a6ba63dc-eecc-9a24-e479-8036d53804bd@fb.com>
+ <CACPK8Xf6hD9ne530ZLWgE-Tuc9MCXiHrFpx-zJ_SdsDV81Lohw@mail.gmail.com>
+ <c59de915-9608-4c44-adc3-82d83d6e279a@fb.com>
+ <20181108123011.GA8718@bbwork.lan>
+In-Reply-To: <20181108123011.GA8718@bbwork.lan>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 9 Nov 2018 10:24:40 +1030
+Message-ID: <CACPK8Xcbv9UZSr=6N+UUyWnVggve7GrzO9FGdQ8jA9ZUVbQ8Jw@mail.gmail.com>
+Subject: Re: pull request to the u-boot-aspeed
+To: a.filippov@yadro.com
+Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,184 +67,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Nov 2018 22:48:18 -0000
+X-List-Received-Date: Thu, 08 Nov 2018 23:54:55 -0000
 
-Hi Samuel,
+On Thu, 8 Nov 2018 at 23:00, Alexander A. Filippov <a.filippov@yadro.com> w=
+rote:
+>
+> Thanks to all for replies.
+>
+> On Thu, Nov 08, 2018 at 11:06:22AM +1030, Joel Stanley wrote:
+> >
+> > I'd encourage you to submit the i2c driver for review to upstream
+> > u-boot. Cedric and I have spent some time recently in improving
+> > upstream u-boot support for the aspeed SoCs.
+> >
+>
+> The upstream already has the implementation of the aspeed i2c driver.
+> So, I had to look there before taking up our implementation...
+>
+>
+> On Thu, Nov 08, 2018 at 08:12:03AM +0100, C=C3=A9dric Le Goater wrote:
+> >
+> > i2c is already available from mainline U-Boot. But mainline does
+> > not have ast2400 support (dram training is missing) only ast2500
+> > was implemented.
+> >
+>
+> Is it the reason why the OpenBMC still use v2016.07?
 
-For multi-package and multi-channel case, channel seems to be select correc=
-tly. Expect that,
-I still see the timing issue for back-to-back netlink command. Due to that,=
- channel might be
-set to invisible state. Please refer to ncsi0 and ncsi2 below. The channel =
-state is set to 3.
+We haven't found time to work on upstreaming u-boot.
 
-cat /sys/kernel/debug/ncsi_protocol/ncsi_device_status
-IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PC CS PS LS RU CR NQ HA
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-  2   eth2   ncsi0  000 000 1  1  1  1  1  0  0  3  0  1  1  1  0  1
-  2   eth2   ncsi1  000 001 0  0  1  1  1  0  0  1  0  1  1  1  0  1
-  2   eth2   ncsi2  001 000 1  0  1  1  1  1  0  3  0  1  1  1  0  1
-  2   eth2   ncsi3  001 001 1  0  1  1  1  1  0  2  1  1  1  1  0  1
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-MP: Multi-mode Package  WP: Whitelist Package
-MC: Multi-mode Channel  WC: Whitelist Channel
-PC: Primary Channel     CS: Channel State IA/A/IV 1/2/3
-PS: Poll Status         LS: Link Status
-RU: Running             CR: Carrier OK
-NQ: Queue Stopped       HA: Hardware Arbitration
-
-The timing issue is not only happening in application. If I use using the f=
-ollowing way
-to send the request, I can see the issue as well.=20
-
-ncsi_netlink -l 2 -a 0x01 -m; ncsi_netlink -l 2 -p 0 -b 0x03 -m; ncsi_netli=
-nk -l 2 -p 1 -b 0x00 -m;
-ncsi_netlink -l 2 -a 0x03 -m; ncsi_netlink -l 2 -p 0 -b 0x00 -m; ncsi_netli=
-nk -l 2 -p 1 -b 0x03 -m;
-
-
-Also, there is one issue below for non-multi-package/non-multi-channel case=
-.
-
-Thanks,
-Justin
-
-
-> @@ -1008,32 +1164,49 @@ static int ncsi_choose_active_channel(struct ncsi=
-_dev_priv *ndp)
-> =20
->  			ncm =3D &nc->modes[NCSI_MODE_LINK];
->  			if (ncm->data[2] & 0x1) {
-> -				spin_unlock_irqrestore(&nc->lock, flags);
->  				found =3D nc;
-> -				goto out;
-> +				with_link =3D true;
->  			}
-> =20
-> -			spin_unlock_irqrestore(&nc->lock, flags);
-> +			/* If multi_channel is enabled configure all valid
-> +			 * channels whether or not they currently have link
-> +			 * so they will have AENs enabled.
-> +			 */
-> +			if (with_link || np->multi_channel) {
-> +				spin_lock_irqsave(&ndp->lock, flags);
-> +				list_add_tail_rcu(&nc->link,
-> +						  &ndp->channel_queue);
-> +				spin_unlock_irqrestore(&ndp->lock, flags);
-> +
-> +				netdev_dbg(ndp->ndev.dev,
-> +					   "NCSI: Channel %u added to queue (link %s)\n",
-> +					   nc->id,
-> +					   ncm->data[2] & 0x1 ? "up" : "down");
-> +			}
-> +
-> +			spin_unlock_irqrestore(&nc->lock, cflags);
-> +
-> +			if (with_link && !np->multi_channel)
-> +				break;
-
-The line needs to change to "goto found". If not, all channels with link wi=
-ll be added
-even if the multi-channel is not enabled for that package. The ncsi1 below =
-is enabled.
-There is no netlink command sent to enable multi-package or multi-channel.
-
-IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PC CS PS LS RU CR NQ HA
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-  2   eth2   ncsi0  000 000 1  1  0  0  1  1  0  2  1  1  1  1  0  1
-  2   eth2   ncsi1  000 001 1  0  0  0  1  1  0  2  1  1  1  1  0  1
-  2   eth2   ncsi2  001 000 0  0  0  0  1  1  0  1  0  1  1  1  0  1
-  2   eth2   ncsi3  001 001 0  0  0  0  1  1  0  1  0  1  1  1  0  1
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-MP: Multi-mode Package  WP: Whitelist Package
-MC: Multi-mode Channel  WC: Whitelist Channel
-PC: Primary Channel     CS: Channel State IA/A/IV 1/2/3
-PS: Poll Status         LS: Link Status
-RU: Running             CR: Carrier OK
-NQ: Queue Stopped       HA: Hardware Arbitration
-
->  		}
-> +		if (with_link && !ndp->multi_package)
-> +			break;
->  	}
-
-found:
-
-After applying this change, I notice that if there is no link available to =
-BMC when BMC
-starts, NC-SI can't properly configure channel once I plug in the Ethernet =
-cable.=20
-
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_aen_handler_lsc() - pkg 0 ch 0 st=
-ate up
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_aen_handler_lsc() - had_link 0, h=
-as_link 1, chained 0
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_stop_channel_monitor() - pkg 0 ch=
- 0
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_process_next_channel()
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_process_next_channel() - pkg 0 ch=
- 0 INVISIBLE
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_process_next_channel() - suspendi=
-ng pkg 0 ch 0
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 0 st=
-ate 0400 select
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_dev_work()
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 0 st=
-ate 0403 dc
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_dev_work()
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 0 st=
-ate 0404 deselect
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_dev_work()
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 0 st=
-ate 0405 done
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_rsp_handler_dp() - pkg 0 ch 0 INA=
-CTIVE
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_rsp_handler_dp() - pkg 0 ch 1 INA=
-CTIVE
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_dev_work()
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 0 st=
-ate 0406 deselect
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_suspend_channel() - pkg 0 ch 0 IN=
-ACTIVE
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_process_next_channel()
-npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_process_next_channel() - No more =
-channels to process
-npcm7xx-emc f0825000.eth eth2: NCSI interface down
-
-> =20
-> -	if (!found) {
-> +	if (list_empty(&ndp->channel_queue) && found) {
-> +		netdev_info(ndp->ndev.dev,
-> +			    "NCSI: No channel with link found, configuring channel %u\n",
-> +			    found->id);
-> +		spin_lock_irqsave(&ndp->lock, flags);
-> +		list_add_tail_rcu(&found->link, &ndp->channel_queue);
-> +		spin_unlock_irqrestore(&ndp->lock, flags);
-> +	} else if (!found) {
->  		netdev_warn(ndp->ndev.dev,
-> -			    "NCSI: No channel found with link\n");
-> +			    "NCSI: No channel found to configure!\n");
->  		ncsi_report_link(ndp, true);
->  		return -ENODEV;
->  	}
-> =20
-> -	ncm =3D &found->modes[NCSI_MODE_LINK];
-> -	netdev_dbg(ndp->ndev.dev,
-> -		   "NCSI: Channel %u added to queue (link %s)\n",
-> -		   found->id, ncm->data[2] & 0x1 ? "up" : "down");
-> -
-> -out:
-> -	spin_lock_irqsave(&ndp->lock, flags);
-> -	list_add_tail_rcu(&found->link, &ndp->channel_queue);
-> -	spin_unlock_irqrestore(&ndp->lock, flags);
-> -
->  	return ncsi_process_next_channel(ndp);
->  }
+If you were to add support for the ast2400 we could move all platforms
+to the upstream tree instead. This would be preferable to maintaining
+our own fork.
