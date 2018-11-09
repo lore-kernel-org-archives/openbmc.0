@@ -1,57 +1,96 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <maheswari.a@atos.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32f; helo=mail-ot1-x32f.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=atos.net
+ (client-ip=193.56.114.164; helo=smtppost.atos.net;
+ envelope-from=maheswari.a@atos.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="oy5rWNg9"; 
- dkim-atps=neutral
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=atos.net
+Received: from smtppost.atos.net (smtppost.atos.net [193.56.114.164])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42rvDH6l2GzF3ZL
- for <openbmc@lists.ozlabs.org>; Fri,  9 Nov 2018 19:57:19 +1100 (AEDT)
-Received: by mail-ot1-x32f.google.com with SMTP id n46so967183otb.9
- for <openbmc@lists.ozlabs.org>; Fri, 09 Nov 2018 00:57:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xAadkfFYrUQ4VS6ymU5GWbVDvy6eIR5/kcdfVA4xpNw=;
- b=oy5rWNg9uE93V4RNUyaUSxOJ82t1NHHZRegROnlPuX3tKptmuXWZJrN/59J1NfGRxJ
- gy38Hf2ANDLEqbtflE3IvrtoF8nwkruuW1IBORjU0W8Bx+YKtwQB9eLDnDid/bNDu66F
- x25+XN2lKxvcf55/3k988yCNZEzVTeA8WMYFPgUFKfBwmikB5pCGgkW210K59S09/etT
- lYo6wZHk9+U4AJQd8xgm8o+R9nCFm0UfnkwzjEV2LmblHFnwBq0b7fQ4bDeC/lgUHnNK
- BQ4lIaPE5b+EZhXpcFYTLE1HDDFEZ2K8CfAv5ZLyxbAJmylX6OLTNweNvpiJJhop1hgv
- 8NuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xAadkfFYrUQ4VS6ymU5GWbVDvy6eIR5/kcdfVA4xpNw=;
- b=t3mwW8kDinOyl2wra9Nc67toVoJ/1t0lFFIei87HZty+seINDjqmZm81VxzknvE7Ia
- JPB4XyIpLt1/YEUsheBASMqm9SQpa7xox4N19fG8gcgXQ4HRF+pvWIGPlvcB92zxIgRL
- VDcJTbD5Ui77IYzhNCMRFlASAbx5E7o93T7LH3SAU0uttVpOdWchNGgqe4Zjqh9HI2c5
- du2nS4kypHdfNW7lbvf+lwRrlbGY6bNYXUByV9VYR8+rNfTuYse6F0053HRr9mU/dGep
- v7H+/2JK+EbZGMwB8L7XHm1gMBzCOXDkRaBhWPCWjGcNw2+8KkXA6gSD+1QAdNmvwYGt
- oENA==
-X-Gm-Message-State: AGRZ1gJnkiZEGc3OMz+YcwjRJCIKXCxsiI8pGrC85HbK6V0+w1W/kzjl
- 77FNnpD4qqsXB1kSx+n3kS9XDyCGwokEF36T1Tg=
-X-Google-Smtp-Source: AJdET5cIY5kCuwYUQK5IFxqzhb08LQsss1AN4O8jLQLP3Rorv8m0lO9x1PIYGFKz2fgMzzlt3km7o+Ry0VEd4oGjiPE=
-X-Received: by 2002:a9d:2624:: with SMTP id a33mr1181402otb.186.1541753837743; 
- Fri, 09 Nov 2018 00:57:17 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42rxh73YmKzF3ZV
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Nov 2018 21:48:05 +1100 (AEDT)
+Received: from mail1-ext.my-it-solutions.net (mail1-ext.my-it-solutions.net)
+ by smarthost3.atos.net with smtp
+ (TLS: TLSv1/SSLv3,256bits,ECDHE-RSA-AES256-GCM-SHA384)
+ id 5ad0_0ae9_bee37e23_5f88_455c_92f5_6aa0c2ea308d;
+ Fri, 09 Nov 2018 11:48:01 +0100
+Received: from mail3-int.my-it-solutions.net ([10.92.32.10])
+ by mail1-ext.my-it-solutions.net (8.15.2/8.15.2) with ESMTPS id wA9Am1rj003009
+ (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Fri, 9 Nov 2018 11:48:01 +0100
+Received: from DEFTHW99ETYMSX.ww931.my-it-solutions.net
+ (defthw99etymsx.ww931.my-it-solutions.net [10.86.142.53])
+ by mail3-int.my-it-solutions.net (8.15.2/8.15.2) with ESMTPS id wA9Am0DA021258
+ (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Fri, 9 Nov 2018 11:48:01 +0100
+Received: from DEFTHW99ETRMSX.ww931.my-it-solutions.net (10.86.142.99) by
+ DEFTHW99ETYMSX.ww931.my-it-solutions.net (10.86.142.53) with Microsoft SMTP
+ Server (TLS) id 14.3.408.0; Fri, 9 Nov 2018 11:48:00 +0100
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com (10.86.142.137)
+ by hybridsmtp.it-solutions.atos.net (10.86.142.99) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Fri, 9 Nov 2018 11:47:59 +0100
+Received: from DB7PR02MB4393.eurprd02.prod.outlook.com (20.177.195.218) by
+ DB7PR02MB3833.eurprd02.prod.outlook.com (52.134.97.150) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1294.27; Fri, 9 Nov 2018 10:47:58 +0000
+Received: from DB7PR02MB4393.eurprd02.prod.outlook.com
+ ([fe80::85c4:acab:8a58:5703]) by DB7PR02MB4393.eurprd02.prod.outlook.com
+ ([fe80::85c4:acab:8a58:5703%4]) with mapi id 15.20.1294.034; Fri, 9 Nov 2018
+ 10:47:58 +0000
+From: "A, Maheswari" <maheswari.a@atos.net>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: help: OpenBMC phosphor-hwmon-readd support for non-hwmon drivers in
+ linux.
+Thread-Topic: help: OpenBMC phosphor-hwmon-readd support for non-hwmon drivers
+ in linux.
+Thread-Index: AdR4GX0gbtwxnhA1SdGC/F2NXc9b8w==
+Date: Fri, 9 Nov 2018 10:47:58 +0000
+Message-ID: <DB7PR02MB4393A3457D05909DB01F6D2292C60@DB7PR02MB4393.eurprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=maheswari.a@atos.net; 
+x-originating-ip: [125.17.240.230]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; DB7PR02MB3833;
+ 6:jMHWGWy0dw1EkjykHISh4TPUs0Bz+NP7sVChoOofoaA0WCzTZ9dW4/Dp3lYoYL7qKRYSVGh4+sUKMCkhSRTClWEAch4qiofUwkD6e726vp8Nb1MS9qnG/g2oP+fGUTThtQIWC8nsSzCxZWGWKmS+dVgVhC6Cx8w51hIXXtuzXGq0dLsK9RfCGqwBnRxvRxQ8eMdeqDi0dQcWuaQgBcs0nKGa8qXiPCZ8yLk2mmy+VLHUPdnQRgWYsO2esZFc9ohuF+3qKYOzqsS5Mti0AOjK+BJacHF6/5gsjykdvJBp3SUWfT7Bc5zNZq/Lg/WBgEQGsX3golvKeXOd9234zrofWdgwTVqvnA3De4qRZVZJ577SrKc4DDruGhQACQHHqpkQ0KLE8omChjbcwGInAXBzIe+9FbUrDtRB4GUh7a0bU7li9VIZByhAHqoppYnik1dR1iwZWwyeacjohT8Ivbcxow==;
+ 5:39uSkos0Hm3JDylDRrIUVZYS+BUBxtfWQwO+u0cusbS5ryXtqlMeZho8rjvkjFl7/GSKrXeo0cPeRebs4nZ1Lu7GfN/hXvJzSQ3sd8sVBivTVQv49GNGxnp45qW68zl6pOetNTUAXd9NiewQTbs9M+T63smqO2MPLsA0sMQmDCo=;
+ 7:UOfE1KaEVwXtiMoK7zlmtNGurYH8IgijffNhniCLCXpmh8u1xT6S4eDIjRkbLRPpKHXcnASOzO0nU26kIPJY9nCn/Njqt9Z36oWQW6f0UoClxLlMzzDKBjF7K0S7Y3E9nPus6GAsWxDUYg3hzSnZpg==
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: fa759154-47c6-417f-b656-08d64630d055
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:DB7PR02MB3833; 
+x-ms-traffictypediagnostic: DB7PR02MB3833:
+x-microsoft-antispam-prvs: <DB7PR02MB3833FD35A9C23201C285EF6592C60@DB7PR02MB3833.eurprd02.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(21748063052155)(28532068793085)(190501279198761)(227612066756510); 
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(93006095)(93001095)(3231382)(944501410)(52105095)(10201501046)(3002001)(148016)(149066)(150057)(6041310)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(20161123558120)(20161123560045)(201708071742011)(7699051)(76991095);
+ SRVR:DB7PR02MB3833; BCL:0; PCL:0; RULEID:; SRVR:DB7PR02MB3833; 
+x-forefront-prvs: 08512C5403
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(39860400002)(346002)(366004)(136003)(396003)(189003)(199004)(6306002)(54896002)(2900100001)(33656002)(7736002)(9686003)(9326002)(66066001)(6436002)(71190400001)(74316002)(105586002)(71200400001)(14454004)(8676002)(476003)(55016002)(6116002)(486006)(3846002)(790700001)(86362001)(53936002)(81156014)(5660300001)(81166006)(106356001)(97736004)(8936002)(102836004)(478600001)(6916009)(316002)(6506007)(256004)(186003)(99286004)(2906002)(7696005)(26005)(68736007)(25786009);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:DB7PR02MB3833;
+ H:DB7PR02MB4393.eurprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: atos.net does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: exi6T17Adhp6zLCYQq8r7wwIq3yCZ3kHxhUqfbE/vsImCVyA1O98u9vIIlxEUDuWqU6JwmLE9hDcI++GBv/sCtR5IwG8yln5G3t22cljyMb9A9PZHR6/ZXiM9+b2uxgY4JpNEP2Js4NZJCzk37oCt5wnNcUwTu5ybOldFJo2DbzA05Z8k6QG9jaf6SHlktTi+un+z4awanVV7X5SGf/ERgkyVdA3bcnnIeiM1YBNChxwle1DnnM4KhXNmEB98hLYm6rdsYdW9nNo2dIeUC9QGWE7AIs/wdysTErkMcZJ395XmL4eqHnX/yIN4HCzXeF6aN0Nr6goCpxF0w4/Nz5lhSNXfCRioLw7JGK/IsJlp1M=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_DB7PR02MB4393A3457D05909DB01F6D2292C60DB7PR02MB4393eurp_"
 MIME-Version: 1.0
-References: <CAE33tLEFXcushQzAthRY6LNMLfFh9YSVySPFudn+KmSHTqXUYw@mail.gmail.com>
- <CAARXrtkZ8AsP7JBJ_caRfuo9bZNXT5cEbYJy8Xz_8bneP3HUzw@mail.gmail.com>
-In-Reply-To: <CAARXrtkZ8AsP7JBJ_caRfuo9bZNXT5cEbYJy8Xz_8bneP3HUzw@mail.gmail.com>
-From: AKASH G J <akashgj91@gmail.com>
-Date: Fri, 9 Nov 2018 14:26:58 +0530
-Message-ID: <CAE33tLGjGmj5c_isgPmh6Xx_6S8E0X5B2b7pkJQ1tz2Ps-P+8w@mail.gmail.com>
-Subject: Re: Flashing Image using 'pflash' Tool
-To: Yu Lei <mine260309@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000d472a9057a3789e1"
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa759154-47c6-417f-b656-08d64630d055
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2018 10:47:58.6416 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 33440fc6-b7c7-412c-bb73-0e70b0198d5a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR02MB3833
+X-OriginatorOrg: atos.net
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,95 +102,168 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Nov 2018 08:57:20 -0000
+X-List-Received-Date: Fri, 09 Nov 2018 10:48:09 -0000
 
---000000000000d472a9057a3789e1
-Content-Type: text/plain; charset="UTF-8"
+--_000_DB7PR02MB4393A3457D05909DB01F6D2292C60DB7PR02MB4393eurp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I tried the command *pflash -b -e -a 0x20100000 -f -p fitImage.bin*
+Hi,
 
-It is showing the following error.
+As of my understanding, we need to add chip specific driver support in linu=
+x hwmon feature to list the sensors in OpenBMC webUI.
+
+1082 root      6388 S    phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-=
+bus@140/pxm1310@XX
+1083 root      6388 S    phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-=
+bus@140/ir38163@XX
+1084 root      6388 S    phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-=
+bus@1c0/mpcie_bmc_temp@XX
+1085 root      6388 S    phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-=
+bus@140/pxe1610@XX
+
+I have added some PMBUS driver to get temp ,input values of VRs and I used =
+exiting lm75 hwmon driver to get temperature sensors.
+Added OpenBMC configuration files also.  So, I am able to list some sensors=
+  and its exact values in openbmc WebUI.
+
+Now,
+
+I need to add some more temp sensors which is connected to PCA95X chip chan=
+nel 0,channel 1.
+PCA95X driver is already supported in linux/driver/i2c/muxes/.   But NOT li=
+sted under hwmon features.  So This chip attributes will NOT be registered =
+as  hwmon sysfs attribute.
+
+If I want to add this temperature sensor in OpenBMC webUI
+Should I add this PCA95X driver code under hwmon?.  ( with hwmon_register a=
+nd hwmon_unregister).
+Please give your concern , is there any other way to add sensor attribute p=
+ath to  phosphor-hwmon-readd daemon in OBMC.
+
+Thanks
+Maheswari A
 
 
 
 
 
-*WARNING: Erase at 0x20100000 for 0x00271e20 isn't erase block
-aligned           About to erase 0x20100000..0x20371e20
-!
-Erasing...
-[                                                  ] 0%mtd_erase: IOCTL to
-kerntFailed to blocklevel_smart_erase(): 3 *
 
-On Fri, Nov 9, 2018 at 9:22 AM Lei YU <mine260309@gmail.com> wrote:
+--_000_DB7PR02MB4393A3457D05909DB01F6D2292C60DB7PR02MB4393eurp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> On Thu, Nov 8, 2018 at 6:05 PM AKASH G J <akashgj91@gmail.com> wrote:
-> >
-> > I tried to flash kernel image fitImage.bin to the flash memory address
-> 0x20100000 using the following command.
-> >
-> > root@zaius:/var# pflash -a 0x20100000 -f -p fitImage.bin
-> >
-> > It exited with following error.
-> >
-> > About to program "fitImage.bin" at 0x20100000..0x20371e20 !
-> > Programming & Verifying...
-> > [                                                  ] 0%Flash write error
-> 3 for chunk at 0x20100000
-> >
-> > Please someone help to resolve the problem.
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> 1. pflash defaults to operate on the PNOR chip. If you want to flash the
-> BMC
->    chip, you need "-b" argument.
-> 2.To program a flash area, you need to erase before writing, so you need
-> "-e"
->    argument.
->
-> Putting together, you command should look like:
-> pflash -b -e -a 0x20100000 -f -p fitImage.bin
->
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-IN" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi, <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">As of my understanding, we need to add chip specific=
+ driver support in linux hwmon feature to list the sensors in OpenBMC webUI=
+.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">1082 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6388 S&nbsp;=
+&nbsp;&nbsp; phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-bus@140/pxm1=
+310@XX<o:p></o:p></p>
+<p class=3D"MsoNormal">1083 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6388 S&nbsp;=
+&nbsp;&nbsp; phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-bus@140/ir38=
+163@XX<o:p></o:p></p>
+<p class=3D"MsoNormal">1084 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6388 S&nbsp;=
+&nbsp;&nbsp; phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-bus@1c0/mpci=
+e_bmc_temp@XX<o:p></o:p></p>
+<p class=3D"MsoNormal">1085 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6388 S&nbsp;=
+&nbsp;&nbsp; phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-bus@140/pxe1=
+610@XX<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I have added some PMBUS driver to get temp ,input va=
+lues of VRs and I used exiting lm75 hwmon driver to get temperature sensors=
+.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">Added OpenBMC configuration files also. &nbsp;So, I =
+am able to list some sensors&nbsp; and its exact values in openbmc WebUI.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Now, <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I need to add some more temp sensors which is connec=
+ted to PCA95X chip channel 0,channel 1.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">PCA95X driver is already supported in linux/driver/i=
+2c/muxes/.&nbsp;&nbsp;
+<b><span style=3D"color:black">But NOT listed under hwmon features</span></=
+b>. &nbsp;So This chip attributes will NOT be registered as &nbsp;hwmon sys=
+fs attribute.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">If I want to add this temperature sensor in OpenBMC =
+webUI<o:p></o:p></p>
+<p class=3D"MsoNormal">Should I add this PCA95X driver code under hwmon?. &=
+nbsp;( with hwmon_register and hwmon_unregister).
+<o:p></o:p></p>
+<p class=3D"MsoNormal">Please give your concern , is there any other way to=
+ add sensor attribute path to &nbsp;phosphor-hwmon-readd daemon in OBMC.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks <o:p></o:p></p>
+<p class=3D"MsoNormal">Maheswari A<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
 
---000000000000d472a9057a3789e1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-PGRpdiBkaXI9Imx0ciI+PGRpdiBkaXI9Imx0ciI+PGRpdj5JIHRyaWVkIHRoZSBjb21tYW5kIDxp
-PnBmbGFzaCAtYiAtZSAtYSAweDIwMTAwMDAwIC1mIC1wIGZpdEltYWdlLmJpbjwvaT48L2Rpdj48
-ZGl2Pjxicj48L2Rpdj5JdCBpcyBzaG93aW5nIHRoZSBmb2xsb3dpbmcgZXJyb3IuPGRpdj48YnI+
-PC9kaXY+PGRpdj48aT5XQVJOSU5HOiBFcmFzZSBhdCAweDIwMTAwMDAwIGZvciAweDAwMjcxZTIw
-IGlzbiYjMzk7dCBlcmFzZSBibG9jayBhbGlnbmVkwqDCoMKgwqDCoMKgwqDCoMKgwqAgPGJyPkFi
-b3V0IHRvIGVyYXNlIDB4MjAxMDAwMDAuLjB4MjAzNzFlMjAgIcKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIDxicj5FcmFzaW5nLi4uwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxicj5bwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXSAwJW10ZF9lcmFzZTogSU9DVEwgdG8g
-a2VybnQ8YnI+RmFpbGVkIHRvIGJsb2NrbGV2ZWxfc21hcnRfZXJhc2UoKTogMyA8L2k+PGJyPjwv
-ZGl2PjwvZGl2PjwvZGl2Pjxicj48ZGl2IGNsYXNzPSJnbWFpbF9xdW90ZSI+PGRpdiBkaXI9Imx0
-ciI+T24gRnJpLCBOb3YgOSwgMjAxOCBhdCA5OjIyIEFNIExlaSBZVSAmbHQ7PGEgaHJlZj0ibWFp
-bHRvOm1pbmUyNjAzMDlAZ21haWwuY29tIj5taW5lMjYwMzA5QGdtYWlsLmNvbTwvYT4mZ3Q7IHdy
-b3RlOjxicj48L2Rpdj48YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJn
-aW46MCAwIDAgLjhleDtib3JkZXItbGVmdDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6MWV4
-Ij5PbiBUaHUsIE5vdiA4LCAyMDE4IGF0IDY6MDUgUE0gQUtBU0ggRyBKICZsdDs8YSBocmVmPSJt
-YWlsdG86YWthc2hnajkxQGdtYWlsLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPmFrYXNoZ2o5MUBnbWFp
-bC5jb208L2E+Jmd0OyB3cm90ZTo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBJIHRyaWVkIHRvIGZsYXNo
-IGtlcm5lbCBpbWFnZSBmaXRJbWFnZS5iaW4gdG8gdGhlIGZsYXNoIG1lbW9yeSBhZGRyZXNzIDB4
-MjAxMDAwMDAgdXNpbmcgdGhlIGZvbGxvd2luZyBjb21tYW5kLjxicj4NCiZndDs8YnI+DQomZ3Q7
-IHJvb3RAemFpdXM6L3ZhciMgcGZsYXNoIC1hIDB4MjAxMDAwMDAgLWYgLXAgZml0SW1hZ2UuYmlu
-PGJyPg0KJmd0Ozxicj4NCiZndDsgSXQgZXhpdGVkIHdpdGggZm9sbG93aW5nIGVycm9yLjxicj4N
-CiZndDs8YnI+DQomZ3Q7IEFib3V0IHRvIHByb2dyYW0gJnF1b3Q7Zml0SW1hZ2UuYmluJnF1b3Q7
-IGF0IDB4MjAxMDAwMDAuLjB4MjAzNzFlMjAgITxicj4NCiZndDsgUHJvZ3JhbW1pbmcgJmFtcDsg
-VmVyaWZ5aW5nLi4uPGJyPg0KJmd0OyBbwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgXSAwJUZsYXNoIHdyaXRl
-IGVycm9yIDMgZm9yIGNodW5rIGF0IDB4MjAxMDAwMDA8YnI+DQomZ3Q7PGJyPg0KJmd0OyBQbGVh
-c2Ugc29tZW9uZSBoZWxwIHRvIHJlc29sdmUgdGhlIHByb2JsZW0uPGJyPg0KPGJyPg0KMS4gcGZs
-YXNoIGRlZmF1bHRzIHRvIG9wZXJhdGUgb24gdGhlIFBOT1IgY2hpcC4gSWYgeW91IHdhbnQgdG8g
-Zmxhc2ggdGhlIEJNQzxicj4NCsKgIMKgY2hpcCwgeW91IG5lZWQgJnF1b3Q7LWImcXVvdDsgYXJn
-dW1lbnQuPGJyPg0KMi5UbyBwcm9ncmFtIGEgZmxhc2ggYXJlYSwgeW91IG5lZWQgdG8gZXJhc2Ug
-YmVmb3JlIHdyaXRpbmcsIHNvIHlvdSBuZWVkICZxdW90Oy1lJnF1b3Q7PGJyPg0KwqAgwqBhcmd1
-bWVudC48YnI+DQo8YnI+DQpQdXR0aW5nIHRvZ2V0aGVyLCB5b3UgY29tbWFuZCBzaG91bGQgbG9v
-ayBsaWtlOjxicj4NCnBmbGFzaCAtYiAtZSAtYSAweDIwMTAwMDAwIC1mIC1wIGZpdEltYWdlLmJp
-bjxicj4NCjwvYmxvY2txdW90ZT48L2Rpdj4NCg==
---000000000000d472a9057a3789e1--
+--_000_DB7PR02MB4393A3457D05909DB01F6D2292C60DB7PR02MB4393eurp_--
