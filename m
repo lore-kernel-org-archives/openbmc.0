@@ -1,61 +1,59 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <prvs=4851223f2f=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::c34; helo=mail-yw1-xc34.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ envelope-from=prvs=4851223f2f=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="Yi3uYMeH"; 
+ unprotected) header.d=fb.com header.i=@fb.com header.b="lBVBgiYR"; 
  dkim-atps=neutral
-Received: from mail-yw1-xc34.google.com (mail-yw1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42rgBQ3JTszF3Tp
- for <openbmc@lists.ozlabs.org>; Fri,  9 Nov 2018 10:54:54 +1100 (AEDT)
-Received: by mail-yw1-xc34.google.com with SMTP id v5-v6so54756ywa.13
- for <openbmc@lists.ozlabs.org>; Thu, 08 Nov 2018 15:54:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=qf0ebuVZsGi8zVKDfammBpl/zi4KDk2rskV4ObwbnWU=;
- b=Yi3uYMeHyr/HCigIjHAVCazM8QP9EwcEngpBULTl4bMojUY6ci4knYEID2+hvImGIL
- YOi/AbTES3GmlXR9u+fPlCr4Bcw6U/VfD3sG7XLsi9Nmai9ynSU/xsaitrPgjRbGnM2H
- SFj/M7WECaPkfNtgbtX4DPEDxwwSHLftx/d8g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=qf0ebuVZsGi8zVKDfammBpl/zi4KDk2rskV4ObwbnWU=;
- b=Xi+mPPcX3Nm2MPLhUfR+OTHwmJNTrs+ODM2W48eQWNU4FxFdfhqO+qtei37vaEBTP1
- /gc90fV0+e81JqrZoNCoprR0X5y8RZrxpl+nFmAhWg7U/HEFnzM23Fz4uVAnLcXm0HrY
- OmRQMB6x4Y3ol9J3bbk1IqHQ/Iodixkt6N99Dt2XSwxG1eUOpAJoQLd5+xG+D61SpH67
- LEM7EeK/MWRrohPnoYSKNbM3U9wzJUAY1XrOT8Im0nuxJOHY5Ox8ualp+pWRE3/CHhYf
- sD+JDaZPA2Wfa+EF4zEYCaoxZ9te5Zda6rERbyIqY7maIRdbLejXSzGYo5inU+G/jTmf
- 3neg==
-X-Gm-Message-State: AGRZ1gKmmH2wR2l2z/k9P590benbQ9pGpHw82xClX0nvc75kDptUtWjx
- rIkW+P60xXx9V9V/4rBzfttROQUZVaKB9zqxNxk=
-X-Google-Smtp-Source: AJdET5d/Mv9Z1vSCUM4p4vwXl9VlzBn9nnk1zh/mhdIRUj5AHHAvTsT1awKAgefNVgdAFU0aGKTIc04Ecc/8wda1xMY=
-X-Received: by 2002:a37:781:: with SMTP id 123mr6411301qkh.231.1541721291957; 
- Thu, 08 Nov 2018 15:54:51 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42rhQw5wckzF3W3
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Nov 2018 11:50:44 +1100 (AEDT)
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wA90mXdg020466
+ for <openbmc@lists.ozlabs.org>; Thu, 8 Nov 2018 16:50:41 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=ljTeKdEeCx3bbJTRDWGLsNnzI10JrvLf5mAQgwqaUuo=;
+ b=lBVBgiYRHnjr/gYT/dmpgCDvNYlCjs+DTOU3yigEkH74D1ol9PR7ltGPBRcNUKc8Gfc1
+ CmTmA1Qf4EO4fjQph6XKwmJjRI5/YkNh2LSLH24/ONbtfutL3CR3RepiNAqc5bu4n8tA
+ YUhfsTEgxUQjQPoHythphWxkMER8aFp6T/E= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2nmxea09a9-4
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Nov 2018 16:50:41 -0800
+Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
+ mail.thefacebook.com (2620:10d:c081:35::126) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
+ Thu, 8 Nov 2018 16:50:39 -0800
+Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)
+ id 200F67D68273; Thu,  8 Nov 2018 16:50:37 -0800 (PST)
+Smtp-Origin-Hostprefix: devvm
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>
+CC: Tao Ren <taoren@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH v3 1/2] ARM: dts: Add Facebook BMC flash layout
+Date: Thu, 8 Nov 2018 16:50:34 -0800
+Message-ID: <20181109005034.210138-1-taoren@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-References: <3ff8d429943e44139b73cb16199a560e@yadro.com>
- <3D1C8267-BC6F-44F1-B12F-020E147B225B@fb.com>
- <a6ba63dc-eecc-9a24-e479-8036d53804bd@fb.com>
- <CACPK8Xf6hD9ne530ZLWgE-Tuc9MCXiHrFpx-zJ_SdsDV81Lohw@mail.gmail.com>
- <c59de915-9608-4c44-adc3-82d83d6e279a@fb.com>
- <20181108123011.GA8718@bbwork.lan>
-In-Reply-To: <20181108123011.GA8718@bbwork.lan>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 9 Nov 2018 10:24:40 +1030
-Message-ID: <CACPK8Xcbv9UZSr=6N+UUyWnVggve7GrzO9FGdQ8jA9ZUVbQ8Jw@mail.gmail.com>
-Subject: Re: pull request to the u-boot-aspeed
-To: a.filippov@yadro.com
-Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-08_13:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,35 +65,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Nov 2018 23:54:55 -0000
+X-List-Received-Date: Fri, 09 Nov 2018 00:50:49 -0000
 
-On Thu, 8 Nov 2018 at 23:00, Alexander A. Filippov <a.filippov@yadro.com> w=
-rote:
->
-> Thanks to all for replies.
->
-> On Thu, Nov 08, 2018 at 11:06:22AM +1030, Joel Stanley wrote:
-> >
-> > I'd encourage you to submit the i2c driver for review to upstream
-> > u-boot. Cedric and I have spent some time recently in improving
-> > upstream u-boot support for the aspeed SoCs.
-> >
->
-> The upstream already has the implementation of the aspeed i2c driver.
-> So, I had to look there before taking up our implementation...
->
->
-> On Thu, Nov 08, 2018 at 08:12:03AM +0100, C=C3=A9dric Le Goater wrote:
-> >
-> > i2c is already available from mainline U-Boot. But mainline does
-> > not have ast2400 support (dram training is missing) only ast2500
-> > was implemented.
-> >
->
-> Is it the reason why the OpenBMC still use v2016.07?
+This is the layout used by Facebook BMC systems. It describes the fixed
+flash layout of a 32MB mtd device.
 
-We haven't found time to work on upstreaming u-boot.
+Signed-off-by: Tao Ren <taoren@fb.com>
+---
+ Changes in v3:
+   - adding comments explaining why "data0" and "flash0" partitions are
+     needed.
+ Changes in v2:
+   - adding facebook copyright.
 
-If you were to add support for the ast2400 we could move all platforms
-to the upstream tree instead. This would be preferable to maintaining
-our own fork.
+ .../boot/dts/facebook-bmc-flash-layout.dtsi   | 42 +++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+ create mode 100644 arch/arm/boot/dts/facebook-bmc-flash-layout.dtsi
+
+diff --git a/arch/arm/boot/dts/facebook-bmc-flash-layout.dtsi b/arch/arm/boot/dts/facebook-bmc-flash-layout.dtsi
+new file mode 100644
+index 000000000000..87bb8b576250
+--- /dev/null
++++ b/arch/arm/boot/dts/facebook-bmc-flash-layout.dtsi
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: GPL-2.0+
++// Copyright (c) 2018 Facebook Inc.
++
++partitions {
++	compatible = "fixed-partitions";
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	u-boot@0 {
++		reg = <0x0 0x60000>;
++		label = "u-boot";
++	};
++
++	u-boot-env@60000 {
++		reg = <0x60000 0x20000>;
++		label = "env";
++	};
++
++	fit@80000 {
++		reg = <0x80000 0x1b80000>;
++		label = "fit";
++	};
++
++	/*
++	 * "data0" partition is used by several Facebook BMC platforms
++	 * as persistent data store.
++	 */
++	data0@1c00000 {
++		reg = <0x1c00000 0x400000>;
++		label = "data0";
++	};
++
++	/*
++	 * Although the master partition can be created by enabling
++	 * MTD_PARTITIONED_MASTER option, below "flash0" partition is
++	 * explicitly created to avoid breaking legacy applications.
++	 */
++	flash0@0 {
++		reg = <0x0 0x2000000>;
++		label = "flash0";
++	};
++};
+-- 
+2.17.1
