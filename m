@@ -1,35 +1,74 @@
-Return-Path: <Tali.Perry@nuvoton.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tali.perry@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="frP8DxlE"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="HPJK6J6o"; dkim-atps=neutral
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42tGJB2YJ9zF3T7
- for <openbmc@lists.ozlabs.org>; Mon, 12 Nov 2018 01:20:25 +1100 (AEDT)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id wABDHQsM031815;
- Sun, 11 Nov 2018 15:17:26 +0200
-Received: by taln60.nuvoton.co.il (Postfix, from userid 20088)
- id B341C630C7; Sun, 11 Nov 2018 15:47:24 +0200 (IST)
-From: tali.perry1@gmail.com
-To: brendanhiggins@google.com, robh+dt@kernel.org, mark.rutland@arm.com,
- linux@armlinux.org.uk, avifishman70@gmail.com, tmaimon77@gmail.com,
- raltherr@google.com, mturquette@baylibre.com, sboyd@codeaurora.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-clk@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>,
- Wei Yongjun <weiyongjun1@huawei.com>
-Subject: [PATCH v1 1/1] clk: npcm7xx: get fixed clocks from DT
-Date: Sun, 11 Nov 2018 15:47:12 +0200
-Message-Id: <20181111134712.318321-2-tali.perry1@gmail.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20181111134712.318321-1-tali.perry1@gmail.com>
-References: <20181111134712.318321-1-tali.perry1@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42tX213QJxzF3Pm
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Nov 2018 11:39:04 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 518BBA11;
+ Sun, 11 Nov 2018 19:38:58 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Sun, 11 Nov 2018 19:38:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=message-id:subject:from:to:cc:date
+ :in-reply-to:references:content-type:mime-version
+ :content-transfer-encoding; s=fm1; bh=loRrjAZIEO9LPbzMDCQ/pdxJrY
+ U6ADNA11xkOPbn6cE=; b=frP8DxlE+OV3IGFj+dV4FQjjyhY8T0o6MbOOycAyTd
+ jEx+04ewQwpc6a8cyMJ7VW2NFykUmEAHymhXWhPViW8B1thXq0Lk86+KCWd/OThC
+ Pkxm5nvZdR2yvQDo4b9U6wmHjsIPhWseCHY9BpVX5nmnLgXw1IsFFrmPD+IzqeUC
+ YkHwpdlOBPBi+xXfl4KrIi6p2N/w3cOIqBXSyGFWCd7Dn6fzfs4qop6UjPll3J7+
+ 1Rxc5GAMOptRPFASVfgrOdVIql6Xwt9DQT68jYuFjcFPJlYgv8xGVgPK+CDin/I1
+ 1gw2n/PZVDe+8KN8quY1pNGAFphFGuJms5NfL/8uQRZw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=loRrjAZIEO9LPbzMDCQ/pdxJrYU6ADNA11xkOPbn6
+ cE=; b=HPJK6J6o1BoImhIPr7mohUIckkEoj6VOXgLaksSZFJdxvNo9shABNTxAf
+ 81RsDdj6QR4NiuNUr7DIwLwXhv6qKVTMb7WTfh9RBnoOYAIp1uLbZYPbEvfkR5Fl
+ wnFdUeBptgN2z0Wk3tFUpJFfvM/HrMItrQhrF9vXlyZIZbtn0FCxbjqGR98oDSeh
+ yne7MqH92aTKzsgIA+UsQIz2d6q2R4MyPZBlVdg3W11s79k95g1vpSQQTDDd0aCi
+ kJ6FiBTMFXYpr4THpN3x/qPbbOQAnHA2X+hXmKZvz46XHjg5T9RXU5V1zNbtPvnz
+ cbBsiVVzIdFbdB5ZRahFKf7m+ekLQ==
+X-ME-Sender: <xms:ocvoW8JGnAEKtAS0v6cZMIVWOLDqZYcDGrEA_Fcv17DGqtRw5fj8Ng>
+X-ME-Proxy: <xmx:ocvoW2eGJdpEZ719ua9NB8G2ByA5hqgvSV6Fpre3N0WhgAkDduJozg>
+ <xmx:ocvoW9yf8rzN_Nw9M5fB1mYheJ2klIM8wrb5eMB4VFn5LlKECDvV6Q>
+ <xmx:ocvoW98mbSQznWEm2cJMPvxgB0ORLheZu-NK4g5XKgUlCkksxHBR5g>
+ <xmx:ocvoW1i7rhJHV5Ef0TwCfEoJlFlVvffftUWwZ2g36K7D1YGgy1TNaw>
+ <xmx:ocvoW0E0JEgIJ3EN3El6vdXqCoKX9lqBwQWDUAzY9fIvBt4-teXneQ>
+ <xmx:ocvoW3PAMY6eUbWPDKQx2FUyRzLR-S14Xbma3WT5qkhZHAo7lMF2Yg>
+Received: from v4 (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6A183E4750;
+ Sun, 11 Nov 2018 19:38:55 -0500 (EST)
+Message-ID: <cfeab378a2b226c1c0ba62912d18c5a254de8daa.camel@mendozajonas.com>
+Subject: Re: [PATCH net-next v3 6/6] net/ncsi: Configure multi-package,
+ multi-channel modes with failover
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Justin.Lee1@Dell.com, netdev@vger.kernel.org
+Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Date: Mon, 12 Nov 2018 11:38:52 +1100
+In-Reply-To: <b2c6aea94f1648648dd349d23ce61bf6@AUSX13MPS302.AMER.DELL.COM>
+References: <20181108024909.9897-1-sam@mendozajonas.com>
+ <20181108024909.9897-7-sam@mendozajonas.com>
+ <f9d0309dafe248a6aac8198f96f9bc4b@AUSX13MPS306.AMER.DELL.COM>
+ <ce6a678b1a0673050bc8070cb99dd68d1929c227.camel@mendozajonas.com>
+ <b2c6aea94f1648648dd349d23ce61bf6@AUSX13MPS302.AMER.DELL.COM>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,218 +80,189 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 11 Nov 2018 14:20:27 -0000
+X-List-Received-Date: Mon, 12 Nov 2018 00:39:09 -0000
 
-From: Tali Perry <tali.perry1@gmail.com>
+On Fri, 2018-11-09 at 21:58 +0000, Justin.Lee1@Dell.com wrote:
+> Hi Samuel,
+> 
+> After running more testing, I notice that the extra patch causing failover function
+> to fail. Also, occasionally, I will see two channels having TX enabled if I
+> send netlink command back-to-back.
+> 
+> cat /sys/kernel/debug/ncsi_protocol/ncsi_device_
+> IFIDX IFNAME NAME   PID CID RX TX MP MC WP WC PC CS PS LS RU CR NQ HA
+> =====================================================================
+>   2   eth2   ncsi0  000 000 1  1  1  1  1  1  1  2  1  1  1  1  0  1
+>   2   eth2   ncsi1  000 001 1  1  1  1  1  1  0  2  1  1  1  1  0  1
+>   2   eth2   ncsi2  001 000 0  0  1  1  0  0  0  1  0  1  1  1  0  1
+>   2   eth2   ncsi3  001 001 0  0  1  1  0  0  0  1  0  1  1  1  0  1
+> =====================================================================
+> MP: Multi-mode Package  WP: Whitelist Package
+> MC: Multi-mode Channel  WC: Whitelist Channel
+> PC: Primary Channel     CS: Channel State IA/A/IV 1/2/3
+> PS: Poll Status         LS: Link Status
+> RU: Running             CR: Carrier OK
+> NQ: Queue Stopped       HA: Hardware Arbitration
+> 
+> Thanks,
+> Justin
+> 
+> 
+> > From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+> > From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> > Date: Fri, 9 Nov 2018 13:11:03 +1100
+> > Subject: [PATCH] net/ncsi: Reset state fixes, single-channel LSC
+> > 
+> > ---
+> >  net/ncsi/ncsi-aen.c    |  8 +++++---
+> >  net/ncsi/ncsi-manage.c | 19 +++++++++++++++----
+> >  2 files changed, 20 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
+> > index 39c2e9eea2ba..034cb1dc5566 100644
+> > --- a/net/ncsi/ncsi-aen.c
+> > +++ b/net/ncsi/ncsi-aen.c
+> > @@ -93,14 +93,16 @@ static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *ndp,
+> >  	if ((had_link == has_link) || chained)
+> >  		return 0;
+> >  
+> > -	if (!ndp->multi_package && !nc->package->multi_channel) {
+> > -		if (had_link)
+> > -			ndp->flags |= NCSI_DEV_RESHUFFLE;
+> > +	if (!ndp->multi_package && !nc->package->multi_channel && had_link) {
+> > +		ndp->flags |= NCSI_DEV_RESHUFFLE;
+> >  		ncsi_stop_channel_monitor(nc);
+> >  		spin_lock_irqsave(&ndp->lock, flags);
+> >  		list_add_tail_rcu(&nc->link, &ndp->channel_queue);
+> >  		spin_unlock_irqrestore(&ndp->lock, flags);
+> >  		return ncsi_process_next_channel(ndp);
+> > +	} else {
+> > +		/* Configured channel came up */
+> > +		return 0;
+> 
+> It is always going to else statement if multi_package and/or mutlit_channel is enabled.
+>  
+> npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_aen_handler_lsc() - pkg 0 ch 0 state down
+> npcm7xx-emc f0825000.eth eth2: NCSI: ncsi_aen_handler_lsc() - had_link 1, has_link 0, chained 0
+> 
+> These codes have no chance to run.
+> 	if (had_link) {
+> 		ncm = &nc->modes[NCSI_MODE_TX_ENABLE];
+> 		if (ncsi_channel_is_last(ndp, nc)) {
+> 			/* No channels left, reconfigure */
+> 			return ncsi_reset_dev(&ndp->ndev);
+> 		} else if (ncm->enable) {
+> 			/* Need to failover Tx channel */
+> 			ncsi_update_tx_channel(ndp, nc->package, nc, NULL);
+> 		}
+> 
+> >  	}
+> > 
 
-Nuvoton NPCM7XX Clock Controller
-fix base address and of_clk_get_by_name error handling.
-    Also update error messages to be more informative.
-    
-    In case clk_base allocation is erronoeous the return value is null.
-    Also fix handling of of_clk_get_by_name returns an error. 
-    Print a better error message pointing to the dt-binding documention.
+Oops, wrote that patch a little fast it seems. This may also affect the
+double-Tx above since ncsi_update_tx_channel() won't be reached.
+I've attached a fixed up version below.
 
-This patch is re-submitted since it was already pushed to main 
-(just the diff, without the full driver which is already in 
-master branch.)
+For the failover issue you're seeing in your previous email the issue is
+likely in the ncsi_dev_state_suspend_gls state. This should send a GLS
+command to all available channels, but it only does it for the current
+package. Since not all packages are necessarily enabled in single-channel 
+mode I'll need to have a think about the neatest way to handle that, but
+it's a separate issue from this patch.
+
+Cheers,
+Sam
 
 
-Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+Date: Fri, 9 Nov 2018 13:11:03 +1100
+Subject: [PATCH] net/ncsi: Reset state fixes, single-channel LSC
 
 ---
- drivers/clk/clk-npcm7xx.c | 99 +++++++++++++++++++++++++++++++++++------------
- 1 file changed, 75 insertions(+), 24 deletions(-)
+ net/ncsi/ncsi-aen.c    | 16 ++++++++++------
+ net/ncsi/ncsi-manage.c | 19 +++++++++++++++----
+ 2 files changed, 25 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
-index 740af90a9508..91a937720f4e 100644
---- a/drivers/clk/clk-npcm7xx.c
-+++ b/drivers/clk/clk-npcm7xx.c
-@@ -7,17 +7,26 @@
-  * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
-  */
- 
--#include <linux/module.h>
--#include <linux/clk-provider.h>
--#include <linux/io.h>
--#include <linux/kernel.h>
--#include <linux/of.h>
--#include <linux/of_address.h>
--#include <linux/slab.h>
--#include <linux/err.h>
--#include <linux/bitfield.h>
--
--#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-+
-+
-+
-+ #include <linux/module.h>
-+ #include <linux/clk.h>
-+ #include <linux/clk-provider.h>
-+ #include <linux/device.h>
-+ #include <linux/io.h>
-+ #include <linux/kernel.h>
-+ #include <linux/of.h>
-+ #include <linux/of_device.h>
-+ #include <linux/of_platform.h>
-+ #include <linux/of_address.h>
-+ #include <linux/platform_device.h>
-+ #include <linux/slab.h>
-+ #include <linux/err.h>
-+ #include <linux/rational.h>
-+ #include <linux/bitfield.h>
-+ #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-+
- 
- struct npcm7xx_clk_pll {
- 	struct clk_hw	hw;
-@@ -27,6 +36,9 @@ struct npcm7xx_clk_pll {
- 
- #define to_npcm7xx_clk_pll(_hw) container_of(_hw, struct npcm7xx_clk_pll, hw)
- 
-+static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,
-+	const char *name, const char *parent_name, unsigned long flags);
-+
- #define PLLCON_LOKI	BIT(31)
- #define PLLCON_LOKS	BIT(30)
- #define PLLCON_FBDV	GENMASK(27, 16)
-@@ -44,7 +56,8 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
- 	u64 ret;
- 
- 	if (parent_rate == 0) {
--		pr_err("%s: parent rate is zero", __func__);
-+		pr_err("%s: parent rate is zero. reg=%x\n", __func__,
-+			(u32)(pll->pllcon));
+diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
+index 39c2e9eea2ba..76559d0eeea8 100644
+--- a/net/ncsi/ncsi-aen.c
++++ b/net/ncsi/ncsi-aen.c
+@@ -94,13 +94,17 @@ static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *ndp,
  		return 0;
+ 
+ 	if (!ndp->multi_package && !nc->package->multi_channel) {
+-		if (had_link)
++		if (had_link) {
+ 			ndp->flags |= NCSI_DEV_RESHUFFLE;
+-		ncsi_stop_channel_monitor(nc);
+-		spin_lock_irqsave(&ndp->lock, flags);
+-		list_add_tail_rcu(&nc->link, &ndp->channel_queue);
+-		spin_unlock_irqrestore(&ndp->lock, flags);
+-		return ncsi_process_next_channel(ndp);
++			ncsi_stop_channel_monitor(nc);
++			spin_lock_irqsave(&ndp->lock, flags);
++			list_add_tail_rcu(&nc->link, &ndp->channel_queue);
++			spin_unlock_irqrestore(&ndp->lock, flags);
++			return ncsi_process_next_channel(ndp);
++		} else {
++			/* Configured channel came up */
++			return 0;
++		}
  	}
  
-@@ -61,13 +74,12 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
- 	return ret;
- }
- 
--static const struct clk_ops npcm7xx_clk_pll_ops = {
-+const struct clk_ops npcm7xx_clk_pll_ops = {
- 	.recalc_rate = npcm7xx_clk_pll_recalc_rate,
- };
- 
--static struct clk_hw *
--npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
--			 const char *parent_name, unsigned long flags)
-+static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,
-+		const char *name, const char *parent_name, unsigned long flags)
- {
- 	struct npcm7xx_clk_pll *pll;
- 	struct clk_init_data init;
-@@ -78,7 +90,8 @@ npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
- 	if (!pll)
- 		return ERR_PTR(-ENOMEM);
- 
--	pr_debug("%s reg, name=%s, p=%s\n", __func__, name, parent_name);
-+	pr_debug("%s reg, reg=0x%x, name=%s, p=%s\n",
-+		__func__, (unsigned int)pllcon, name, parent_name);
- 
- 	init.name = name;
- 	init.ops = &npcm7xx_clk_pll_ops;
-@@ -544,9 +557,11 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
- 	void __iomem *clk_base;
- 	struct resource res;
- 	struct clk_hw *hw;
-+	struct clk *clk;
- 	int ret;
- 	int i;
- 
-+	clk_base = NULL;
- 	ret = of_address_to_resource(clk_np, 0, &res);
- 	if (ret) {
- 		pr_err("%s: failed to get resource, ret %d\n", clk_np->name,
-@@ -560,14 +575,44 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
- 
- 	npcm7xx_clk_data = kzalloc(sizeof(*npcm7xx_clk_data->hws) *
- 		NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL);
--	if (!npcm7xx_clk_data)
+ 	if (had_link) {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index fa3c2144f5ba..92e59f07f9a7 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -1063,17 +1063,17 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 	case ncsi_dev_state_config_done:
+ 		netdev_dbg(ndp->ndev.dev, "NCSI: channel %u config done\n",
+ 			   nc->id);
++		spin_lock_irqsave(&nc->lock, flags);
++		nc->state = NCSI_CHANNEL_ACTIVE;
 +
-+	npcm7xx_clk_data->num = 0;
-+
-+	if (!npcm7xx_clk_data->hws) {
-+		pr_err("Can't alloc npcm7xx_clk_data\n");
- 		goto npcm7xx_init_np_err;
-+	}
+ 		if (ndp->flags & NCSI_DEV_RESET) {
+ 			/* A reset event happened during config, start it now */
+-			spin_lock_irqsave(&nc->lock, flags);
+ 			nc->reconfigure_needed = false;
+ 			spin_unlock_irqrestore(&nc->lock, flags);
+-			nd->state = ncsi_dev_state_functional;
+ 			ncsi_reset_dev(nd);
+ 			break;
+ 		}
  
- 	npcm7xx_clk_data->num = NPCM7XX_NUM_CLOCKS;
+-		spin_lock_irqsave(&nc->lock, flags);
+ 		if (nc->reconfigure_needed) {
+ 			/* This channel's configuration has been updated
+ 			 * part-way during the config state - start the
+@@ -1092,7 +1092,6 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 			break;
+ 		}
  
- 	for (i = 0; i < NPCM7XX_NUM_CLOCKS; i++)
- 		npcm7xx_clk_data->hws[i] = ERR_PTR(-EPROBE_DEFER);
- 
-+	/* Read fixed clocks. These 3 clocks must be defined in DT */
-+	clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
-+	if (IS_ERR(clk)) {
-+		pr_err("failed to find external REFCLK on device tree, err=%ld\n",
-+			PTR_ERR(clk));
-+		clk_put(clk);
-+		goto npcm7xx_init_fail_no_clk_on_dt;
-+	}
-+
-+	clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
-+	if (IS_ERR(clk)) {
-+		pr_err("failed to find external SYSBYPCK on device tree, err=%ld\n",
-+			PTR_ERR(clk));
-+		clk_put(clk);
-+		goto npcm7xx_init_fail_no_clk_on_dt;
-+	}
-+
-+	clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
-+	if (IS_ERR(clk)) {
-+		pr_err("failed to find external MCBYPCK on device tree, err=%ld\n",
-+			PTR_ERR(clk));
-+		clk_put(clk);
-+		goto npcm7xx_init_fail_no_clk_on_dt;
-+	}
-+
- 	/* Register plls */
- 	for (i = 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
- 		const struct npcm7xx_clk_pll_data *pll_data = &npcm7xx_plls[i];
-@@ -584,16 +629,16 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
+-		nc->state = NCSI_CHANNEL_ACTIVE;
+ 		if (nc->modes[NCSI_MODE_LINK].data[2] & 0x1) {
+ 			hot_nc = nc;
+ 		} else {
+@@ -1803,6 +1802,18 @@ int ncsi_reset_dev(struct ncsi_dev *nd)
+ 			spin_unlock_irqrestore(&ndp->lock, flags);
+ 			return 0;
+ 		}
++	} else {
++		switch (nd->state) {
++		case ncsi_dev_state_suspend_done:
++		case ncsi_dev_state_config_done:
++		case ncsi_dev_state_functional:
++			/* Ok */
++			break;
++		default:
++			/* Current reset operation happening */
++			spin_unlock_irqrestore(&ndp->lock, flags);
++			return 0;
++		}
  	}
  
- 	/* Register fixed dividers */
--	hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
-+	clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
- 			NPCM7XX_CLK_S_PLL1, 0, 1, 2);
--	if (IS_ERR(hw)) {
-+	if (IS_ERR(clk)) {
- 		pr_err("npcm7xx_clk: Can't register fixed div\n");
- 		goto npcm7xx_init_fail;
- 	}
- 
--	hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
-+	clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
- 			NPCM7XX_CLK_S_PLL2, 0, 1, 2);
--	if (IS_ERR(hw)) {
-+	if (IS_ERR(clk)) {
- 		pr_err("npcm7xx_clk: Can't register div2\n");
- 		goto npcm7xx_init_fail;
- 	}
-@@ -646,11 +691,17 @@ static void __init npcm7xx_clk_init(struct device_node *clk_np)
- 
- 	return;
- 
-+npcm7xx_init_fail_no_clk_on_dt:
-+	pr_err("see Documentation/devicetree/bindings/clock/");
-+	pr_err("nuvoton,npcm750-clk.txt  for details\n");
- npcm7xx_init_fail:
--	kfree(npcm7xx_clk_data->hws);
-+	if (npcm7xx_clk_data->num)
-+		kfree(npcm7xx_clk_data->hws);
- npcm7xx_init_np_err:
--	iounmap(clk_base);
-+	if (clk_base != NULL)
-+		iounmap(clk_base);
- npcm7xx_init_error:
- 	of_node_put(clk_np);
-+	pr_err("clk setup fail\n");
- }
- CLK_OF_DECLARE(npcm7xx_clk_init, "nuvoton,npcm750-clk", npcm7xx_clk_init);
+ 	if (!list_empty(&ndp->channel_queue)) {
 -- 
-2.14.1
+2.19.1
