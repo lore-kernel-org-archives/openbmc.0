@@ -1,32 +1,30 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42txQY4cDXzF3Tl
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 03:43:17 +1100 (AEDT)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id wACGCioU030400;
- Mon, 12 Nov 2018 18:12:44 +0200
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 8F09362EDE; Mon, 12 Nov 2018 18:42:42 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: broonie@kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
- yuenn@google.com, venture@google.com, brendanhiggins@google.com,
- avifishman70@gmail.com, joel@jms.id.au
-Cc: linux-spi@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 0/2] spi: npcm: add NPCM Peripheral SPI driver 
-Date: Mon, 12 Nov 2018 18:42:30 +0200
-Message-Id: <20181112164232.435629-1-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.14.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42tyMJ6j3pzF3C5
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 04:25:32 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Message-ID: <8377f4c2b565e8a4cabbaa028bbf02941b8418ea.camel@fuzziesquirrel.com>
+Subject: Re: Should we tag master?
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: openbmc@lists.ozlabs.org
+Date: Mon, 12 Nov 2018 12:25:28 -0500
+In-Reply-To: <674AECB5-F797-477D-B4CA-A7A257310CE8@fuzziesquirrel.com>
+References: <b955c4bf-7605-945d-c7dd-ac3669809cee@linux.vnet.ibm.com>
+ <CAO=notwRaJcdiD8KnbB_pe3k=v6BFZXGnrEcxBH-29LZ=pGL6A@mail.gmail.com>
+ <674AECB5-F797-477D-B4CA-A7A257310CE8@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,28 +36,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Nov 2018 16:43:18 -0000
+X-List-Received-Date: Mon, 12 Nov 2018 17:25:33 -0000
 
-This patch set adds Peripheral SPI (PSPI) support for the
-Nuvoton NPCM Baseboard Management Controller (BMC).
+> This was discussed on the community call today.  I=E2=80=99ll start lim=
+iting
+> meta-phosphor content to fixes only on 11/11 and then I=E2=80=99ll do a=
+ v2.4
+> tag on 11/16.
 
-The NPCM PSPI operates in master mode.
+Just a reminder that I will only be merging bug fixes in meta-phosphor
+this week to prepare for the tag on Friday.
 
-The NPCM750/730/715/710 supports up to two PSPI devices.
+Please test your platforms to make sure they work when we tag.
 
-The NPCM PSPI driver tested on NPCM750 evaluation board.
-
-Tomer Maimon (2):
-  dt-binding: spi: add NPCM PSPI controller documentation
-  spi: npcm: add NPCM PSPI controller driver
-
- .../devicetree/bindings/spi/nuvoton,npcm-pspi.txt  |  35 ++
- drivers/spi/Kconfig                                |   7 +
- drivers/spi/Makefile                               |   1 +
- drivers/spi/spi-npcm-pspi.c                        | 480 +++++++++++++++++++++
- 4 files changed, 523 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
- create mode 100644 drivers/spi/spi-npcm-pspi.c
-
--- 
-2.14.1
+thx - brad
