@@ -1,52 +1,52 @@
-Return-Path: <3mozpWwcKBz8cmvfdnehpphmf.dpnpqfocndmjtut.p0mbct.psh@flex--bluecmd.bounces.google.com>
+Return-Path: <3vozpWwcKB2MCMVFDNEHPPHMF.DPNPQFOCNDMJTUT.PaMBCT.PSH@flex--bluecmd.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
  smtp.mailfrom=flex--bluecmd.bounces.google.com
- (client-ip=2607:f8b0:4864:20::e49; helo=mail-vs1-xe49.google.com;
- envelope-from=3mozpwwckbz8cmvfdnehpphmf.dpnpqfocndmjtut.p0mbct.psh@flex--bluecmd.bounces.google.com;
+ (client-ip=2607:f8b0:4864:20::d49; helo=mail-io1-xd49.google.com;
+ envelope-from=3vozpwwckb2mcmvfdnehpphmf.dpnpqfocndmjtut.pambct.psh@flex--bluecmd.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="fLiZ1RH5"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="RUxMET5F"; 
  dkim-atps=neutral
-Received: from mail-vs1-xe49.google.com (mail-vs1-xe49.google.com
- [IPv6:2607:f8b0:4864:20::e49])
+Received: from mail-io1-xd49.google.com (mail-io1-xd49.google.com
+ [IPv6:2607:f8b0:4864:20::d49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42ttJ14lp5zF3NF
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 01:22:21 +1100 (AEDT)
-Received: by mail-vs1-xe49.google.com with SMTP id t25so4608932vsk.0
- for <openbmc@lists.ozlabs.org>; Mon, 12 Nov 2018 06:22:21 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42ttJl1J61zF3Qh
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 01:22:56 +1100 (AEDT)
+Received: by mail-io1-xd49.google.com with SMTP id q1-v6so5137122iop.23
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Nov 2018 06:22:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:message-id:mime-version:subject:from:to:cc;
- bh=9kTpxVMli6hf6qEle55EwUhl92aMVXBaPNgvJQFh3sk=;
- b=fLiZ1RH5XHJgsdwP2TvrvomnRYDfDPU6ssuPPIweNMJJqJWfZYLx5apniJ1FQpM5L/
- e/hRRnXGuzPOpjKjSNG3Y0SNFYQqPIg59GxPMy0pybmAM6FVBrefUb5i/rn3eWp3T1mF
- 9dOXvbTvt47K0/NZ+ob1tVDHpTcn48ln/YCxvPATUQFFkXgcx8iqoFOWfKGYf5QV7dkr
- RntG7Y7bERaSKmKjom7LU34CoVJwKKhMPS0GwlEeHcZ4kg700IV9YYofakzvhiWefXBk
- eVgMd0Ekh6TqfI27U0RcK3t//RozdI4VKa0ogz+bJdFUc76tNT1/kKclKUHSjMcditT4
- QpvA==
+ bh=+pT/cOzESxK96Dg2CeCwzeNkzFLvWktjRC8KJ7wdilk=;
+ b=RUxMET5Folr+4rzmKq4xHunlYyiiHHXzT4LQurlmyA6le8jjz5XamtMtg8LcKKf8p7
+ QMdM2gp4BPN6Lg9s86NXh8e90rOhKraUM8MOHjlIDKr1zrQ8LOinCBb9zlaZks6FkteM
+ posH+Yhnv4chtJK8/WEc45Nx5nmP+/gwg1lbD9V2jKNo47i1dr3nrHBJG8xgtmLG7FiB
+ Mf47xh+w3tZqjXc/yGfjMpq6uvSgAJWnMZoiY4Xq1A53AFruK6uBe0ksphw1aG1/33AP
+ doGZ9Kb4/FdwY+0wPKD7uvRl1L1cJXC5YJYyC0OYsYIiZjd1cQiAZs5R5ihFWh4u5fkQ
+ xPgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=9kTpxVMli6hf6qEle55EwUhl92aMVXBaPNgvJQFh3sk=;
- b=rqpsK46tQMEFhb1O0uW1Y0GQTZqZ9e7UNkC/uTLuQsi9z4IrCQ0ACkNtC4vPLXMFH8
- b/L0fuXRIGxg8hKgWk+eviO7Mo3WjuJmnlFEJM9w1C+fd6EU6f9g7iKqGmnGdUt+MTtF
- s3qzgYNdPQ4e4VgSMj2jbQdDPLOBnjjx2xiDRldQjm4TBznfIcSKtGzyj4KjGDS5+iYc
- majXgvubX8fvKVYlikVHAI2ZLj3fYwVjuo39ImBS/lCBiC5Wb8tp1XEvujqSb756yqBj
- ifn85xzkZ9lIML7G+Mo0Y/GnBF+D6FDN8gml34doejkJ3dv2E9hORIvdeayHKWnYI6WI
- gZRQ==
-X-Gm-Message-State: AGRZ1gLIY2sO7LAbglM5a9G4VN7kerWTWH9oKYwBPgcQqS4FHk9cfk4v
- DImxqDh0rtk6W2Iq5DwylMJxDsB428eX5l0OmpnLBToBgiRr3g1LL0J6ZHTgiX56wXMlUwk/Skf
- 99SXxp8S4yPkLh5fakRZE4D9156E08bQZenvyOpJjTC/ORPe58b0hU8z07In1Zyh5BJU=
-X-Google-Smtp-Source: AJdET5dBX8NQV73H8wL/HcvmMe9LkTWMiCeC07+2MWxIWXbWvnvTm1HAF3G0YQtuuhg7m8KW+EAwXn45Klo3
-X-Received: by 2002:ab0:9d6:: with SMTP id e22mr906936uah.11.1542032538986;
- Mon, 12 Nov 2018 06:22:18 -0800 (PST)
-Date: Mon, 12 Nov 2018 15:21:38 +0100
-Message-Id: <20181112142137.160970-1-bluecmd@google.com>
+ bh=+pT/cOzESxK96Dg2CeCwzeNkzFLvWktjRC8KJ7wdilk=;
+ b=P/lXGwbdKNrLuFhqXYKr/4fa8MV1CwI7HF376lRcD4X3y3pwaXO3c7RSsHGaiHlY4/
+ oWklXH+cauBy2APDWe1DkK3TY/LffrhPZhSe4PxfCcIH8pKkxZ9Zv8Ug1pSNOAejFuxc
+ b3uBEqAFB2lCM6C0MY0kxKM6PHqFP76SRDP4tWcekYi+8/VLYUVtAul2wgML3jjLc02t
+ 7b00ZFFtiJBsh2RLSNJIPsNmF+YEGVbDdREQQ3Vg5oxsP6johW4P3mfZK15T2dL2TpLR
+ o2SCp6iN3PaLMxVUABBQZIi5IwE0NPeHJePOQ4uiM3bX5VrDXFYsrvubRxn5uUIT+1Nt
+ XUMA==
+X-Gm-Message-State: AGRZ1gJTEZPZd//d86PobL8CGdjwciH1Fzb1Jfu+1vKp18q3N+N9u/2V
+ YqIkNGZe2c2aMR0joTsOTbLsnKlWFPMOytBaHNhxBSuRgoxnr7qk30aVYfeq2Gk8lqb14uPvV6R
+ iQONcMGAlObmxtw03HkwMkX5nxZxDLXjCdPp32/lzRBZIjA1s66ouvBcj3qC4BglSA88=
+X-Google-Smtp-Source: AJdET5c+18jRyrnRf4AGA5MW0xoi1E4P1+7Wk8HXwPR1DSwbUwkf3Kh72AXkz1wUxQknwxD+jQf1QdjOCOCn
+X-Received: by 2002:a24:992:: with SMTP id 140-v6mr11001623itm.3.1542032574858; 
+ Mon, 12 Nov 2018 06:22:54 -0800 (PST)
+Date: Mon, 12 Nov 2018 15:22:32 +0100
+Message-Id: <20181112142231.162425-1-bluecmd@google.com>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.19.1.930.g4563a0d9d0-goog
-Subject: [PATCH] qemu: aspeed_timer: Use signed muldiv for timer resets
+Subject: [PATCH] qemu: aspeed_smc: Calculate checksum on normal DMA
 From: Christian Svensson <bluecmd@google.com>
 To: openbmc@lists.ozlabs.org
 Cc: blue@cmd.nu, joel@jms.id.au, andrew@aj.id.au, clg@kaod.org, 
@@ -63,36 +63,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Nov 2018 14:22:27 -0000
+X-List-Received-Date: Mon, 12 Nov 2018 14:23:03 -0000
 
-If the host decrements the counter register that results in a negative
-delta. This is then passed to muldiv64 which only handles unsigned
-numbers resulting in bogus results.
+This patch adds the missing checksum calculation on normal DMA transfer.
+According to the datasheet this is how the SMC should behave.
 
-This fix ensures the data being operated on is signed before it is
-ultimately casted to the final unsigned value.
-
-Test case: kexec a kernel using aspeed_timer and it will freeze on the
-second bootup when the kernel initializes the timer. With this patch
-that no longer happens and the timer appears to run OK.
+Verified on AST1250 that the hardware matches the behaviour.
 
 Signed-off-by: Christian Svensson <bluecmd@google.com>
 ---
- hw/timer/aspeed_timer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ hw/ssi/aspeed_smc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
-index 9acd1de485..1a54d85e9d 100644
---- a/hw/timer/aspeed_timer.c
-+++ b/hw/timer/aspeed_timer.c
-@@ -253,7 +253,7 @@ static void aspeed_timer_set_value(AspeedTimerCtrlState *s, int timer, int reg,
-             int64_t delta = (int64_t) value - (int64_t) calculate_ticks(t, now);
-             uint32_t rate = calculate_rate(t);
+diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+index 55ceffe100..0dc22e44cf 100644
+--- a/hw/ssi/aspeed_smc.c
++++ b/hw/ssi/aspeed_smc.c
+@@ -871,6 +871,7 @@ static void aspeed_smc_dma_rw(AspeedSMCState *s)
+         s->regs[R_DMA_FLASH_ADDR] += 4;
+         s->regs[R_DMA_DRAM_ADDR] += 4;
+         s->regs[R_DMA_LEN] -= 4;
++        s->regs[R_DMA_CHECKSUM] += data;
+     }
+ }
  
--            t->start += muldiv64(delta, NANOSECONDS_PER_SECOND, rate);
-+            t->start = (int64_t)t->start + ((__int128_t)delta * NANOSECONDS_PER_SECOND / rate);
-             aspeed_timer_mod(t);
-         }
-         break;
 -- 
 2.19.1.930.g4563a0d9d0-goog
