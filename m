@@ -1,59 +1,44 @@
-Return-Path: <blue@cmd.nu>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=cmd.nu
- (client-ip=2a00:1450:4864:20::543; helo=mail-ed1-x543.google.com;
- envelope-from=blue@cmd.nu; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=46.105.52.148; helo=10.mo5.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=cmd.nu
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=cmd.nu header.i=@cmd.nu header.b="C1uWiQC4"; 
- dkim-atps=neutral
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=kaod.org
+Received: from 10.mo5.mail-out.ovh.net (10.mo5.mail-out.ovh.net
+ [46.105.52.148])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42vM3f2cDTzF3HX
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 19:58:21 +1100 (AEDT)
-Received: by mail-ed1-x543.google.com with SMTP id h15so4930704edb.4
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 00:58:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cmd.nu; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=loU/WUKdkzSGH+aK20B8fUvEEO6Dz4MaFv1f9LYSXVM=;
- b=C1uWiQC4yz2UHG/+QDE4S61BNcCYsMw/iaSAozQxlIHTlm5GXk6UTKCgd4Sc6DWzDX
- s3ZgLpxFIj1FQbUwh2hX67odLJUKZBSDvHc3MVVHnJ5FUqeV7DHliN6WU3nTNDNGkKI4
- W6oSRTQwB/ZKm0B+ESag0qslN5YPdrlUTxYOg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=loU/WUKdkzSGH+aK20B8fUvEEO6Dz4MaFv1f9LYSXVM=;
- b=iphosukTMoFIF9pfv9546fuxM9mlEl+em7M6S9GtTlbOR764r0m3pJxHqXWUTAKyqi
- wXotxAuR2+dPIx0lJFzbUZsIUdvqg/8cVVXjXOg7JKsjLiiN1waVGFjluHUKODkYdxTR
- +uBOlTndQHxCNGtoDs30hJLN+rT0QVuJxDz5gRIDRIXL5UlPMnOTs4pqgD3FXoCFZkEp
- KdSOOPGYCKuJHTUJHsV8dWdzBoPtcznFu9pGeC3/HDTE23zkLXR2EOurHnVKfIN7H4JJ
- zzs4jjUlR07NVcWXduz/RcWQs0f+zGjQ8sd4GDj6pCsQ/MwfEXOPIqL7pzpZ9EeAMZSa
- R+9A==
-X-Gm-Message-State: AGRZ1gIGiMntkxU69DoIN2sqohDgq7gDA4RHjjVTjcUKP+AuvgoV1eVf
- eHgwurPtWKO4qmofMicM1W1py783kHqCJvHnxF3p/g==
-X-Google-Smtp-Source: AJdET5exfpJicplYtNM49zxXWC3Fni16YR7+R4r4+BH+7Gx0k9D3PiCWlmc13Lhh5pFz1binBBUhOKKVE1CmNi+/foI=
-X-Received: by 2002:a50:b7b7:: with SMTP id
- h52-v6mr15451035ede.17.1542099498722; 
- Tue, 13 Nov 2018 00:58:18 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42vSw90ptszF3GN
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 00:22:15 +1100 (AEDT)
+Received: from player756.ha.ovh.net (unknown [10.109.143.189])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id 344252041F0
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 14:03:10 +0100 (CET)
+Received: from kaod.org (deibp9eh1--blueice1n0.emea.ibm.com [195.212.29.162])
+ (Authenticated sender: postmaster@kaod.org)
+ by player756.ha.ovh.net (Postfix) with ESMTPSA id E0BA51200A0;
+ Tue, 13 Nov 2018 14:03:07 +0100 (CET)
+Subject: Re: [PATCH linux dev-4.18] /dev/mem: add a devmem kernel parameter to
+ activate the device
+To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <20181012080723.15825-1-clg@kaod.org>
+ <CACPK8XfTK7SVkq25YXjRKK94YZp8HRJreHKh20Zq6VW=qYF1fA@mail.gmail.com>
+ <1541639492.1485316.1569473080.44A0676A@webmail.messagingengine.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <3583a7d8-72ed-a724-418f-016cc5fb9bcd@kaod.org>
+Date: Tue, 13 Nov 2018 14:03:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
-References: <20181112142137.160970-1-bluecmd@google.com>
- <21acbd66-c75c-d5e3-fcfb-fa75421a7879@kaod.org>
- <CADiuDAQ1mjh56ibSd+tNq2NFiJFtLcAfyoC8fdd=y+4Mu+jD6w@mail.gmail.com>
- <1542068863.1552891.1574692280.790D270F@webmail.messagingengine.com>
-In-Reply-To: <1542068863.1552891.1574692280.790D270F@webmail.messagingengine.com>
-From: Christian Svensson <blue@cmd.nu>
-Date: Tue, 13 Nov 2018 09:58:08 +0100
-Message-ID: <CADiuDARPsPGkHP1HRm1RVP=G2scSLozSON3o5h_PuA3ngT5eXg@mail.gmail.com>
-Subject: Re: [PATCH] qemu: aspeed_timer: Use signed muldiv for timer resets
-To: andrew@aj.id.au
-Cc: clg@kaod.org, Christian Svensson <bluecmd@google.com>, 
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>,
- Joel Stanley <joel@jms.id.au>
-Content-Type: multipart/alternative; boundary="000000000000d47d0e057a88044a"
+In-Reply-To: <1541639492.1485316.1569473080.44A0676A@webmail.messagingengine.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 14667661039936899842
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtkedrledugdeglecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +50,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2018 08:58:23 -0000
+X-List-Received-Date: Tue, 13 Nov 2018 13:22:17 -0000
 
---000000000000d47d0e057a88044a
-Content-Type: text/plain; charset="UTF-8"
+On 11/8/18 2:11 AM, Andrew Jeffery wrote:
+> On Mon, 22 Oct 2018, at 08:54, Joel Stanley wrote:
+>> On Fri, 12 Oct 2018 at 18:37, Cédric Le Goater <clg@kaod.org> wrote:
+>>>
+>>> For security reasons, some configuration needs to run without /dev/mem
+>>> but on some occasions, to debug HW for instance, it's still useful to
+>>> be able to reboot the system with access to physical memory.
+>>>
+>>> Add a kernel parameter which activates the /dev/mem device only when
+>>> 'mem.devmem' is enabled.
+>>>
+>>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>>
+>> Thanks Cédric. I've put this in the 4.18 tree.
+>>
+>> Can you submit this upstream too please?
+> 
+> Have this been done? Just following up out of interest.
 
-On Tue, Nov 13, 2018 at 1:27 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-> By inspection the concept of the patch seems okay to me. However, the
-issue
-> that host-utils.h takes care of in addition to providing helpers is
-support for
-> those helpers on systems that don't support 128-bit integers. The patch
-should
-> be sent to the upstream lists, and I don't think we should be breaking
-> qemu-arm-* generally for systems that we might not care about.
+no. 
 
-Ah, yes - I missed that there were two - one for systems with int128 and
-one for them
-without. Hm, that does complicate things.
+> I do wonder about it though. /dev/mem is accessible if you're root, but given
+>  pretty much everything runs as root on the BMC we turn it off. But if it's just
+> a kernel commandline parameter away, it's also just a
+> `fw_setenv ... && reboot` away, at which point all the security is gone? If
+> you're somehow not root on the BMC then you wouldn't have access even if
+> it were present, and you can't change the u-boot environment either.
 
-Given that we only have one operand that is ever negative, how do you feel
-about a patch
-that goes along the lines of:
+You seem to be suggesting that we should reactivate /dev/mem ? 
 
-if (delta >= 0) {
-  t->start += muldiv64(delta, NANOSECONDS_PER_SECOND, rate);
-} else {
-   t->start = (int64_t)t->start - muldiv64(-delta, NANOSECONDS_PER_SECOND,
-rate);
-}
-
-That should avoid any issues I think, save us/me from implementing a signed
-muldiv,
-but cost a bit on the readable code side.
-
---000000000000d47d0e057a88044a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><br>On Tue, Nov 13, 2018 at 1:27 AM Andrew Jeffery &lt=
-;<a href=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br>&gt; =
-By inspection the concept of the patch seems okay to me. However, the issue=
-<br>&gt; that host-utils.h takes care of in addition to providing helpers i=
-s support for<br>&gt; those helpers on systems that don&#39;t support 128-b=
-it integers. The patch should<br>&gt; be sent to the upstream lists, and I =
-don&#39;t think we should be breaking<br>&gt; qemu-arm-* generally for syst=
-ems that we might not care about.<div><br></div><div>Ah, yes - I missed tha=
-t there were two - one for systems with int128 and one for them</div><div>w=
-ithout. Hm, that does complicate things.</div><div><br></div><div>Given tha=
-t we only have one operand that is ever negative, how do you feel about a p=
-atch</div><div>that goes along the lines of:</div><div><br></div><div>if (d=
-elta &gt;=3D 0) {</div><div>=C2=A0 t-&gt;start +=3D muldiv64(delta, NANOSEC=
-ONDS_PER_SECOND, rate);=C2=A0=C2=A0<br></div><div>} else {</div><div>=C2=A0=
-=C2=A0
-
-t-&gt;start =3D (int64_t)t-&gt;start=C2=A0-=C2=A0muldiv64(-delta, NANOSECON=
-DS_PER_SECOND, rate);</div><div>}</div><div><br></div><div>That should avoi=
-d any issues I think, save us/me from implementing a signed muldiv,</div><d=
-iv>but cost a bit on the readable code side.</div><div><br></div></div>
-
---000000000000d47d0e057a88044a--
+C. 
