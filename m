@@ -1,69 +1,40 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=46.105.42.102; helo=4.mo69.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="huF35578"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="plwwsyB0"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=kaod.org
+Received: from 4.mo69.mail-out.ovh.net (4.mo69.mail-out.ovh.net
+ [46.105.42.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42vHBc5FhfzDrWQ
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 17:04:08 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 52019226AC;
- Tue, 13 Nov 2018 01:04:05 -0500 (EST)
-Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Tue, 13 Nov 2018 01:04:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:subject:in-reply-to:references:date; s=fm1; bh=kZA
- B5AhzZmiM5rG6zDHNfvAO3aJJbT2N3147Bf4JCCA=; b=huF355786ZvpYwBwRGv
- ksHfLk7Oo+QkpjdxTz8w6jvdAvxEWEFZ/y94eCsxFsRCwoUkOSYirejnl+WYLagt
- V9xTSFt9kK8W6KS8Kln9cdjYZyrDNeiHqEnPTmLkl+E37OIFhqLAe77Xf2lp4DOO
- LzVC6ksDRnX8rRXU6rFiwUq7SR2NsqVz/emDLIcFkkMj4Ugj7APrxNBYu45sNkBZ
- SLLLrVV4FB2tpKARZ0N7J52ezNy9LFJzBbnEQxnIYULt2iv9lMo4C/WcXKGwXWXz
- qtqcw0idfIz4DV60sSo4qsZDx3Dg/r40tPz2x1pMEhr7NucCmT/Ov4Z/paXGsn2t
- Cvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=kZAB5AhzZmiM5rG6zDHNfvAO3aJJbT2N3147Bf4JC
- CA=; b=plwwsyB0glxgjmafGDFLwhFlDlOzYSQviLzOTnz8UJAsDDyHjzOnJ5WkT
- TobRJPO52U3Kchpg6u4ir+ctqLCidJWaOUF3QM6wz4PBVuN+VCWD2Z/Ku5IFHpI3
- eCh9cHjCsyYgJhy/gOTwVr6n5whkhpJz92oL4idf0p4AYjtvXr6/A/qp3BldrNFL
- 7FiGkhpz4oOJ2Bo9tbBsKU8kh85L80Lr4kqTAoWwIZFGGuACKiqtSw6wAArv1tnk
- kA5W1jQI3c/tvaBp34QBXYp8pyG8DL417KsOHjR9gFouqbgbESeih3w59fCit6M6
- Z47onqFzc9WLjw4XPFAaUTCUc82yA==
-X-ME-Sender: <xms:VGnqW4YDOUNA5_q75RTzOUQRfqLGYE_cGB3cUylvBQPy04I4O0kCxg>
-X-ME-Proxy: <xmx:VGnqW4Uf-gk2iFyWFg1xPDDx_Np808VSJb31KPTIPy1ZVSdVmG8-Bw>
- <xmx:VGnqW4nnJD3ywRWOBbVhzKSccFI_Xd50AFl2ZWO6ath_6fUyCSZ5mw>
- <xmx:VGnqW-n7yvNshCrxDlIPofcHwIhr31jsX88Vnfcae6vEwr43N4enjQ>
- <xmx:VGnqW4Z4QKd-OQXusBH5EkiRCjRrDFeDncCkY64Elih_EqpG0S5ExA>
- <xmx:VGnqWwSKYflPljujyqP4NUINmR2cURWS2MI8GdBa050n-IZwUqR2lw>
- <xmx:VWnqW8qbgO48l1PTCJ2U0xW1Fn4o5GWD4_SUPMu9tzBJQAuOd0pcSA>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 1311E9E56F; Tue, 13 Nov 2018 01:04:04 -0500 (EST)
-Message-Id: <1542089044.2435385.1574922064.733C19A4@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: =?utf-8?Q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42vKxB6cHczF3JV
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 19:07:41 +1100 (AEDT)
+Received: from player726.ha.ovh.net (unknown [10.109.143.249])
+ by mo69.mail-out.ovh.net (Postfix) with ESMTP id BE69F31CDA
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 08:28:00 +0100 (CET)
+Received: from kaod.org (lfbn-1-10605-110.w90-89.abo.wanadoo.fr
+ [90.89.196.110]) (Authenticated sender: postmaster@kaod.org)
+ by player726.ha.ovh.net (Postfix) with ESMTPSA id C5BB72A00BD;
+ Tue, 13 Nov 2018 08:27:58 +0100 (CET)
+Subject: Re: [PATCH qemu aspeed-3.1 0/2] aspeed: Guest to exit on shutdown
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+References: <20181113030421.6264-1-joel@jms.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <67d2c53b-f6c2-6454-a788-d690295e32b0@kaod.org>
+Date: Tue, 13 Nov 2018 08:27:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
+In-Reply-To: <20181113030421.6264-1-joel@jms.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-2d882eb6
-Subject: Re: Disabling ppc64le hosts for Qemu tests
-In-Reply-To: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
-References: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
-Date: Tue, 13 Nov 2018 16:34:04 +1030
+X-Ovh-Tracer-Id: 9007199257853004546
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtkedrledtgddutdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,29 +46,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2018 06:04:13 -0000
+X-List-Received-Date: Tue, 13 Nov 2018 08:07:43 -0000
 
-On Tue, 13 Nov 2018, at 15:38, Joel Stanley wrote:
-> Hello Andrew,
-> 
-> I've been trying to get to the bottom of the slow-booting qemu issue
-> for a few weeks now. We commited a fix that resolve the issue on x86
-> hosts, but when running the same Qemu build on ppc64le it still has
-> the "go slow" behaviour.
-> 
->  https://github.com/openbmc/qemu/issues/14
-> 
-> I propose we run the Romulus Qemu boot test on x86-only build slaves
-> while we work this out. That will allow us to unblock the kernel
-> security bumps, which have been pending for a few weeks.
+On 11/13/18 4:04 AM, Joel Stanley wrote:
+> With this change to qemu and CONFIG_POWER_RESET_SYSCON_POWEROFF=y
+> enabled in the kernel, the guest will cause qemu to exit when performing
+> a shutdown. This is useful for detecting the end of a successful CI job.
 
-I'm on-board with this interim solution. Need to spend some time with
-qemu to figure out what the actual bug is.
+Excellent !
+
+> This is only relevant when passing the device tree to Qemu with the -dtb
+> option.
+
+Can't we find a way to inform Linux that it's running on a "virtual" 
+QEMU Aspeed machine ? 
+
+> It only supports the ast2500 so far.
+
+I pushed the patches in aspeed-3.1
+
+Thanks,
+
+C. 
 
 > 
-> I'll continue working on fixing Qemu in the future, but I don't have
-> time for the next two weeks due to some higher priority work.
+> Joel Stanley (2):
+>   aspeed: Add syscon-poweroff to system
+>   aspeed/scu: Implement power off command
 > 
-> Cheers,
+>  hw/arm/aspeed.c      | 35 +++++++++++++++++++++++++++++++++++
+>  hw/misc/aspeed_scu.c |  5 +++++
+>  2 files changed, 40 insertions(+)
 > 
-> Joel
