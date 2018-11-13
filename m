@@ -1,57 +1,53 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <susantjasinski@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::333; helo=mail-ot1-x333.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com;
+ envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="FC9tUTY/"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="a9pjm46z"; 
  dkim-atps=neutral
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42vff11kBhzF3Kp
- for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 07:40:40 +1100 (AEDT)
-Received: by mail-ot1-x333.google.com with SMTP id a11so8998036otr.10
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 12:40:40 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42vh9S6MvtzF3LS
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 08:49:32 +1100 (AEDT)
+Received: by mail-pl1-x62e.google.com with SMTP id b5so260317plr.4
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 13:49:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xm3+hNp7JsIVtk01eNI9GeXaGk/rLwy99hIfpwHuT4A=;
- b=FC9tUTY/jGga+QmeyBGigCSx4Dae1f6KAGSZYHeta5hftkIjoV4F3lSMxddZ+LTH1q
- /Ik7749f+2NZlRC/LdbodGzQ+2njpHvN4ZGSvavgMpYpMa4N80d1V7BlnH8W9FjIK2Wl
- 3/qPEvDGQKBpyNbIpafYk8BHIoMVOHUYM9Qk3s69lXkzJx2wlvZbZY1dKdmGH5+x4eJQ
- A9zu5EKAgKSFROali/98zZ0knyFIKtZRDD0JADJBYeQZEU/u7MM5oFHbuKSpFmUlSiS9
- ccM7emEJtt3RYwv2OwUwGdHy+MNVGO8mUMvxlSHid8nKT2/LhQt10PN7wgaP/LrmmMUr
- dIMA==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=40ZVqcnLKFi1AxJgp6QWwYMCS2PvgLkZ8LjMOQz5yIY=;
+ b=a9pjm46ztnRoL5m3Ct+SOX/iho5LKnBjO0R7lrsypWBk3HxO1+Czpq9pCkC0XgkcGU
+ NOSxnHffIj1EHt+r5idxbB2I3L5XtKVWTLbNdyl8Dwis4mu6m0S3UvQ0ZMubQuirdthr
+ csiWvXqqFc1FNubI2nNLWtyrBgUWkktBCWPYmLigqKesNw1V3qBGCNjyd5UiT8aAWVNy
+ xxdP24fQoGIi2qqHvTb3ZvXDkd/iSC+gia1hxBQxasdX6IZ3s56LS5oYGGX+vmULASTz
+ q6HqSVMEIcolaicgB6S8kQDsUsmqP/NrA8ImEmscAFzBCp0nsXdCOsP+l35t2mPZHziq
+ tJVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xm3+hNp7JsIVtk01eNI9GeXaGk/rLwy99hIfpwHuT4A=;
- b=ksti92qAzHyT5YnHowqR6P6iREsm0O7hmf4kf1eW7gOjvuEomJc4EaOiNYllEiZlvp
- rUigWhhm/8rViPmYr2sEpwkeINIrhcrl/dxQFESPqwlXv4tWeXuV9oLm/S2LH9CQcO2H
- qBsjaqAVh+lY/TpFCBFRxkr4uvJc1ylAIKDHvifAns6Gnms4CMriQ6A8mtlCE58hrvux
- kRDvsVgINf8cBujGFJ6fd4U3NsP2D5bwPXZEU2I/X0Yw/iMP2o2WxeZ99s9mU1lvMc88
- mCDmApQN3ol5Y+j4bad+m8r4L/YqduktPhna5sxwov9UdAZfVf42vm2FxHC5+uFqQU0D
- EvqA==
-X-Gm-Message-State: AGRZ1gKmpCztcNojfsx2POe/mE+S8C+lzZQjTkXHkk5tzS6uqEhFGWbQ
- wpIvpfs5GlmL1TiO46QIhSiAewlm/QqdBgELolM=
-X-Google-Smtp-Source: AJdET5exN9bNXc5vKRv4OaDJWstkUuNNwIyVsfroKBNYEW9+uEN71FnW8A0wRPeGkySek1dpwsWvrwRT5gOMLnvyW2A=
-X-Received: by 2002:a9d:74c3:: with SMTP id a3mr4308993otl.107.1542141638465; 
- Tue, 13 Nov 2018 12:40:38 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=40ZVqcnLKFi1AxJgp6QWwYMCS2PvgLkZ8LjMOQz5yIY=;
+ b=HJAjGUnUlmVM2kjHZYA7Sy8BdP/Ug1/Pdrs9auTICsee9h50UgWvdUCSeVnvEscshD
+ HDnAO3UBIxkTDbhhR2vn8OEmzLSbGp+vXZOgine0tg5EK5Q/HaIBejVx8MG2u0+WeBwL
+ LN20IiiEliDW0TBsjHuacvCbr5l5UG801hl0hm+Bk2xNrv7/OIF3elZySOjJI1KRhTIc
+ Jq2UYjkRoU9RJBVlsMnSMFQ8U+AjOM0Pb0ZUCMPtytqbMDL88HpF3bfHdM+h8KrgwG0B
+ jVtdpu+Pj+/B/Z9he6uiPBB0Jy3npOPejnw7By8BJgMIidZUMpeg1v0AIcYcrn2v97k+
+ VVIw==
+X-Gm-Message-State: AGRZ1gKUTB/XK9K0ocVYf34sC7NTE/uE8hal6v4/QqBGGGpfIA1Bzmk6
+ k/VuwjCmrjqwjQHDQw4gQp2dxlcAU0gD9gNy/x1p7++n
+X-Google-Smtp-Source: AJdET5dgJscj9yAUNn5UxJ9lK+eohwDNQaQlIkfwb+xPkrin4ne1TVsjWQJDFcJ5iAaVYVnDlzNuQ/KD4wYsmzHw7vQ=
+X-Received: by 2002:a17:902:8f8f:: with SMTP id
+ z15-v6mr6845059plo.257.1542145770145; 
+ Tue, 13 Nov 2018 13:49:30 -0800 (PST)
 MIME-Version: 1.0
-References: <0000000000002cf60d057a7c257b@google.com>
- <CACPK8Xc7M0QLB4rp3xf6mWzq-cVKrEFCWm7vhNoORwv3Fzd2Hw@mail.gmail.com>
-In-Reply-To: <CACPK8Xc7M0QLB4rp3xf6mWzq-cVKrEFCWm7vhNoORwv3Fzd2Hw@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Tue, 13 Nov 2018 14:40:22 -0600
-Message-ID: <CALLMt=r8i-bugAiHYwdbB+MadLV01FKnr8o3N4g75Y66LMhoLA@mail.gmail.com>
-Subject: Re: OpenBMC Infrastructure Workgroup Meeting Time
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+From: susan jasinski <susantjasinski@gmail.com>
+Date: Tue, 13 Nov 2018 15:49:19 -0600
+Message-ID: <CANT4Nr+vaqa+A+_eY3nbO6rMMXuRMw4STv17AXjTWSmHv=3OKw@mail.gmail.com>
+Subject: OpenBMC GUI Style Guide proposal
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000d24d3b057a92ca5c"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +59,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2018 20:40:42 -0000
+X-List-Received-Date: Tue, 13 Nov 2018 21:49:33 -0000
 
-On Mon, Nov 12, 2018 at 10:41 PM Joel Stanley <joel@jms.id.au> wrote:
->
-> On Tue, 13 Nov 2018 at 05:18, <geissonator@gmail.com> wrote:
-> >
-> > Having trouble viewing or submitting this form?
-> > Fill out in Google Forms
-> > I've invited you to fill out a form:
-> > OpenBMC Infrastructure Workgroup Meeting Time
-> > Per mailing list email https://lists.ozlabs.org/pipermail/openbmc/2018-October/013867.html, I'd like to find an optimal time for people to attend the new OpenBMC Infrastructure workgroup.
-> >
-> > My thinking is it'll be every other week for 60 minutes.
-> >
-> > When would you like to meet for this meeting?
-> >
-> > The opposite week of the test workgroup, Thursday, 10-11am Central
-> > The opposite week of the release workgroup, Monday, 3-4pm Central
->
-> Do you mean Australian Central Standard Time?
+--000000000000d24d3b057a92ca5c
+Content-Type: text/plain; charset="UTF-8"
 
-Hah, it's like you're on the other side of the world or something :)
+One of the topics from the GUI Design workgroup is how the GUI style guide
+is shared with the whole community. The attendees agreed that we should get
+feedback from the broader community on the proposal to make the guide more
+"open".
 
-I was wondering if maybe the afternoon slot would be ok for a
-few of you guys based on location? Either way, the responses
-were about 50% either, 30% afternoon, and a few misc, one noting
-that the release workgroup may want to go back to every week
-at some point. There was also a request for a "Europe Friendly"
-time, but that may be tough.
 
-I think based on the feedback, I'm going to try for a every other week
-on Wednesday, 3-4pm Central. Unless someone responds saying that's
-just not going to work for them. The goal is to have as many companies
-represented as possible so if you're the only one from your company
-planning to attend and this new time doesn't work, please let me know.
+To start with, the purpose of the guide is not to replace the bootstrap
+library. Instead, this guide will help front-end designers and developers
+provide consistent patterns, behaviors, and interactions such as colors,
+form and validation behaviors, accessibility interactions, terminology,
+animations, etc.
 
-Thanks for all the quick responses!
 
->
-> Cheers,
->
-> Joel
+Today, the first version of the style guide is shared as a series of
+flattened images (png). And the source files are not easily accessible to
+the community https://ibm.invisionapp.com/share/EBNYECMH3Y2.
+
+
+I am proposing to build a website served through Github Pages. This would
+allow users to easily find and navigate to the information they need. It
+also allows users to interact with the content.  An example of this can be
+found here: https://bradfrost.github.io/style-guide-guide/.
+
+
+With this solution, the code will be stored in a style guide repo allowing
+for the community to provide feedback using Github issues, as well as the
+ability to make changes using the standard development process.
+
+
+A Github issue has been created to track feedback on this topic. Please
+post your feedback here:
+https://github.com/openbmc/phosphor-webui/issues/41
+
+
+Thank you in advance for your feedback -- Susan Jasinski
+
+--000000000000d24d3b057a92ca5c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">
+
+
+
+
+
+<p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-=
+variant-east-asian:normal;font-stretch:normal;font-size:12px;line-height:no=
+rmal;font-family:&quot;Helvetica Neue&quot;">One of the topics from the GUI=
+ Design workgroup is how the GUI style guide is shared with the whole commu=
+nity. The attendees agreed that we should get feedback from the broader com=
+munity on the proposal to make the guide more &quot;open&quot;.</p><p class=
+=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-variant-=
+east-asian:normal;font-stretch:normal;font-size:12px;line-height:normal;fon=
+t-family:&quot;Helvetica Neue&quot;"><br></p><p class=3D"gmail-p1" style=3D=
+"margin:0px;font-variant-numeric:normal;font-variant-east-asian:normal;font=
+-stretch:normal;font-size:12px;line-height:normal;font-family:&quot;Helveti=
+ca Neue&quot;">To start with, the purpose of the guide is not to replace th=
+e bootstrap library. Instead, this guide will help front-end designers and =
+developers provide consistent patterns, behaviors, and interactions such as=
+ colors, form and validation behaviors, accessibility interactions, termino=
+logy, animations, etc.=C2=A0</p><p class=3D"gmail-p1" style=3D"margin:0px;f=
+ont-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:norm=
+al;font-size:12px;line-height:normal;font-family:&quot;Helvetica Neue&quot;=
+"><br></p><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:no=
+rmal;font-variant-east-asian:normal;font-stretch:normal;font-size:12px;line=
+-height:normal;font-family:&quot;Helvetica Neue&quot;">Today, the first ver=
+sion of the style guide is shared as a series of flattened images (png). An=
+d the source files are not easily accessible to the community <a href=3D"ht=
+tps://ibm.invisionapp.com/share/EBNYECMH3Y2">https://ibm.invisionapp.com/sh=
+are/EBNYECMH3Y2</a>.=C2=A0=C2=A0</p><p class=3D"gmail-p1" style=3D"margin:0=
+px;font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:=
+normal;font-size:12px;line-height:normal;font-family:&quot;Helvetica Neue&q=
+uot;"><br></p><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeri=
+c:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:12px;=
+line-height:normal;font-family:&quot;Helvetica Neue&quot;">I am proposing t=
+o build a website served through Github Pages. This would allow users to ea=
+sily find and navigate to the information they need. It also allows users t=
+o interact with the content.=C2=A0 An example of this can be found here:=C2=
+=A0<a href=3D"https://bradfrost.github.io/style-guide-guide/">https://bradf=
+rost.github.io/style-guide-guide/</a>.=C2=A0</p>
+
+
+
+
+
+<p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-=
+variant-east-asian:normal;font-stretch:normal;font-size:12px;line-height:no=
+rmal;font-family:&quot;Helvetica Neue&quot;"><br></p><p class=3D"gmail-p1" =
+style=3D"margin:0px;font-variant-numeric:normal;font-variant-east-asian:nor=
+mal;font-stretch:normal;font-size:12px;line-height:normal;font-family:&quot=
+;Helvetica Neue&quot;">With this solution, the code will be stored in a sty=
+le guide repo allowing for the community to provide feedback using Github i=
+ssues, as well as the ability to make changes using the standard developmen=
+t process.=C2=A0</p>
+
+
+
+
+
+<p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-=
+variant-east-asian:normal;font-stretch:normal;font-size:12px;line-height:no=
+rmal;font-family:&quot;Helvetica Neue&quot;"><br></p><p class=3D"gmail-p1" =
+style=3D"margin:0px;font-variant-numeric:normal;font-variant-east-asian:nor=
+mal;font-stretch:normal;font-size:12px;line-height:normal;font-family:&quot=
+;Helvetica Neue&quot;">A Github issue has been created to track feedback on=
+ this topic. Please post your feedback here:=C2=A0 <a href=3D"https://githu=
+b.com/openbmc/phosphor-webui/issues/41">https://github.com/openbmc/phosphor=
+-webui/issues/41</a></p><p class=3D"gmail-p1" style=3D"margin:0px;font-vari=
+ant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-=
+size:12px;line-height:normal;font-family:&quot;Helvetica Neue&quot;"><br></=
+p><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;fon=
+t-variant-east-asian:normal;font-stretch:normal;font-size:12px;line-height:=
+normal;font-family:&quot;Helvetica Neue&quot;">Thank you in advance for you=
+r feedback -- Susan Jasinski</p>
+
+
+
+
+
+
+
+
+
+
+
+<p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-=
+variant-east-asian:normal;font-stretch:normal;line-height:normal"><br></p><=
+/div></div>
+
+--000000000000d24d3b057a92ca5c--
