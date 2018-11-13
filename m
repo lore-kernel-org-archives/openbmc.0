@@ -1,93 +1,58 @@
-Return-Path: <Justin.Lee1@dell.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=dell.com
- (client-ip=68.232.153.95; helo=esa5.dell-outbound.iphmx.com;
- envelope-from=justin.lee1@dell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::242; helo=mail-oi1-x242.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=Dell.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=dell.com header.i=@dell.com header.b="RhzRq6Zg"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="siXTSpgS"; 
  dkim-atps=neutral
-Received: from esa5.dell-outbound.iphmx.com (esa5.dell-outbound.iphmx.com
- [68.232.153.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
+ [IPv6:2607:f8b0:4864:20::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42vb5T5wznzF3PT
- for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 05:00:44 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
- t=1542132035; x=1573668035;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=wgN4KLhejUJx3mxtjIkAqn3VWHzcqz72S33kd8n8uts=;
- b=RhzRq6ZgvAAaz9AoCVLlEDeV5/CqFHNUUt7xSv8v678opNse1eJbeJ/q
- MH59gai/8MGviUOSFEwgbrvA951KjyzXysFJi+DYJnqy1oldbDbMHhFBh
- 4GlcgjeNw446FD9zRHbOviSXjMORyLPQXS1CMPEkQLdouf/PXPIvAWOmg I=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2EDAADpD+tbhiWd50NjGgEBAQEBAgE?=
- =?us-ascii?q?BAQEHAgEBAQGBUQUBAQEBCwGBWoIRJwqDbogYX40rg0KTcxSBZgsBAYRsAhe?=
- =?us-ascii?q?DJiI0DQ0BAwEBAgEBAgEBAhABAQEKCQsIKS+CNiKCYwEBAQECARIRBA0zEgU?=
- =?us-ascii?q?LAgEIEQMBAgECAiYCAgJFCAgCBAENBQgagjRLAYF5CJxtAoEQiVgBAQFufDO?=
- =?us-ascii?q?KIoELineCFoERgxKESwESAQgugm2CVwKBKgGHZYV1kFEGAQKKIwWDFoNcIIF?=
- =?us-ascii?q?YIo55lRUtghQCBAIEBQIUgUOBHXFwgW6BToInDgkSjgpAATGLY4EfgR8BAQ?=
-X-IPAS-Result: =?us-ascii?q?A2EDAADpD+tbhiWd50NjGgEBAQEBAgEBAQEHAgEBAQGBU?=
- =?us-ascii?q?QUBAQEBCwGBWoIRJwqDbogYX40rg0KTcxSBZgsBAYRsAheDJiI0DQ0BAwEBA?=
- =?us-ascii?q?gEBAgEBAhABAQEKCQsIKS+CNiKCYwEBAQECARIRBA0zEgULAgEIEQMBAgECA?=
- =?us-ascii?q?iYCAgJFCAgCBAENBQgagjRLAYF5CJxtAoEQiVgBAQFufDOKIoELineCFoERg?=
- =?us-ascii?q?xKESwESAQgugm2CVwKBKgGHZYV1kFEGAQKKIwWDFoNcIIFYIo55lRUtghQCB?=
- =?us-ascii?q?AIEBQIUgUOBHXFwgW6BToInDgkSjgpAATGLY4EfgR8BAQ?=
-Received: from mx0b-00154901.pphosted.com ([67.231.157.37])
- by esa5.dell-outbound.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 13 Nov 2018 12:00:31 -0600
-Received: from pps.filterd (m0144104.ppops.net [127.0.0.1])
- by mx0b-00154901.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wADHvVWX132430
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 13:00:41 -0500
-Received: from esa6.dell-outbound2.iphmx.com (esa6.dell-outbound2.iphmx.com
- [68.232.154.99])
- by mx0b-00154901.pphosted.com with ESMTP id 2nqu4y33q3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 13:00:40 -0500
-From: <Justin.Lee1@Dell.com>
-Received: from ausxipps310.us.dell.com ([143.166.148.211])
- by esa6.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-SHA256;
- 14 Nov 2018 00:00:39 +0600
-X-LoopCount0: from 10.166.135.92
-X-IronPort-AV: E=Sophos;i="5.56,229,1539666000"; d="scan'208";a="282276837"
-To: <sam@mendozajonas.com>, <netdev@vger.kernel.org>
-CC: <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH net-next v3 6/6] net/ncsi: Configure multi-package,
- multi-channel modes with failover
-Thread-Topic: [PATCH net-next v3 6/6] net/ncsi: Configure multi-package,
- multi-channel modes with failover
-Thread-Index: AQHUdw3T7sTeKH7RI0a85rjfghKYaaVGRmNggADUx4CAANRBEIADxzkAgAJN9GA=
-Date: Tue, 13 Nov 2018 18:00:37 +0000
-Message-ID: <d8be8bbf23e245b795f0cfd80baf3c15@AUSX13MPS302.AMER.DELL.COM>
-References: <20181108024909.9897-1-sam@mendozajonas.com>
- <20181108024909.9897-7-sam@mendozajonas.com>
- <f9d0309dafe248a6aac8198f96f9bc4b@AUSX13MPS306.AMER.DELL.COM>
- <ce6a678b1a0673050bc8070cb99dd68d1929c227.camel@mendozajonas.com>
- <b2c6aea94f1648648dd349d23ce61bf6@AUSX13MPS302.AMER.DELL.COM>
- <cfeab378a2b226c1c0ba62912d18c5a254de8daa.camel@mendozajonas.com>
-In-Reply-To: <cfeab378a2b226c1c0ba62912d18c5a254de8daa.camel@mendozajonas.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.143.242.75]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42vfPv10M3zF3Jx
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 07:30:10 +1100 (AEDT)
+Received: by mail-oi1-x242.google.com with SMTP id a202-v6so3443417oib.1
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 12:30:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=62Kb1NKVM7/A1S0DnqESmLir8HVfpkhhb5cY2z2wzX0=;
+ b=siXTSpgSLPfATuKDorlxrNVgLM5Nn3ItNs1ULnL5UPMmgWLPiIWDLRM9QvY98EXqRk
+ YGaiVXd2IWKPDA1I0YoWAOOaL++LnIcT7XILr/T/5nSlOYB8Ko/sXKQLQkLZdj8rYJae
+ OeE/gasCut5JaOCKv2fIxoYEQQDhhWFhGa2YWKDlVTDCiNslVW6pRExSE3/pt9YlIyvd
+ eoYD8tybzPI8Firs9jZKUjdF0lagoGHU/lD9jmVUFLIRYaEe50ZkObH3KVrB3sA+yveN
+ hEDmc8te6ZVhH6b+FM/EnKq+x6Tb5UPQ5LHFt3o0QEDmKzimIKGYraOzyks9yiyv0rtg
+ 9lNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=62Kb1NKVM7/A1S0DnqESmLir8HVfpkhhb5cY2z2wzX0=;
+ b=ANMJyGN00SR16KELlDmdtl0OGyivzy1TtxVTgUoGyJpkeecyIID4tme07mVNqKpBlT
+ VgtBE5ruBM0OtgZN+z89hesEmRHCP0nB0CtxOy3HdsHo3jXKDTRNbutA4/XHP1dRLO3s
+ WEezoygcjQxU4ks4dkCb/24l0ezjLU8hEczOq+nMU2exDY86qPXiIYbyYnnCVwMCiR5i
+ PXboiy0+dTUTSDyyHp7qzWad7wN+ZIDDH2PLBSWHnTR2K5Dh6CGKMxBusH0YE2ISLYsi
+ 6vgaGOS5G1PhDOaA4X08935OXsqGtnF5BOXZeKkauwXEYTr2l5wYQPYgjSDJX5KBMmYO
+ G5Hw==
+X-Gm-Message-State: AGRZ1gJqssfjrjutc1bFX1uis9pPV3iNfGszbCILwXF7BYxvRW+ZXdZn
+ 5pAAPji4IuqRVqIxF15Cj7OgA/A9QxSmKk2TWH8=
+X-Google-Smtp-Source: AJdET5eMVarc5byrKLU8na6eG3ZkA0uZVTArtKaWk3mKwm9AR/BsmIBoWUDc9z5MJSiCusi+23ATmrEiCIdXwlVK4NE=
+X-Received: by 2002:aca:2ed3:: with SMTP id
+ u202-v6mr4051921oiu.93.1542141008048; 
+ Tue, 13 Nov 2018 12:30:08 -0800 (PST)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-11-13_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1807170000 definitions=main-1811130163
+References: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
+In-Reply-To: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 13 Nov 2018 14:29:51 -0600
+Message-ID: <CALLMt=pwnn=4_qbZM_Ph=GNUZw2tnmC5p2kcJ9EvAuwD47W2xA@mail.gmail.com>
+Subject: Re: Disabling ppc64le hosts for Qemu tests
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, clg@kaod.org, 
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,132 +64,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2018 18:00:47 -0000
+X-List-Received-Date: Tue, 13 Nov 2018 20:30:12 -0000
 
-SGkgU2FtdWVsLA0KDQpJIGhhdmUgdGVzdGVkIHlvdXIgbmV3IHBhdGNoLiBUaGUgZmFpbG92ZXIg
-ZnVuY3Rpb24gd29ya3MgYXMgZXhwZWN0ZWQuDQoNClRoYW5rcywNCkp1c3Rpbg0KDQoNCj4gT24g
-RnJpLCAyMDE4LTExLTA5IGF0IDIxOjU4ICswMDAwLCBKdXN0aW4uTGVlMUBEZWxsLmNvbSB3cm90
-ZToNCj4gPiBIaSBTYW11ZWwsDQo+ID4gDQo+ID4gQWZ0ZXIgcnVubmluZyBtb3JlIHRlc3Rpbmcs
-IEkgbm90aWNlIHRoYXQgdGhlIGV4dHJhIHBhdGNoIGNhdXNpbmcgZmFpbG92ZXIgZnVuY3Rpb24N
-Cj4gPiB0byBmYWlsLiBBbHNvLCBvY2Nhc2lvbmFsbHksIEkgd2lsbCBzZWUgdHdvIGNoYW5uZWxz
-IGhhdmluZyBUWCBlbmFibGVkIGlmIEkNCj4gPiBzZW5kIG5ldGxpbmsgY29tbWFuZCBiYWNrLXRv
-LWJhY2suDQo+ID4gDQo+ID4gY2F0IC9zeXMva2VybmVsL2RlYnVnL25jc2lfcHJvdG9jb2wvbmNz
-aV9kZXZpY2VfDQo+ID4gSUZJRFggSUZOQU1FIE5BTUUgICBQSUQgQ0lEIFJYIFRYIE1QIE1DIFdQ
-IFdDIFBDIENTIFBTIExTIFJVIENSIE5RIEhBDQo+ID4gPT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQo+ID4gICAyICAg
-ZXRoMiAgIG5jc2kwICAwMDAgMDAwIDEgIDEgIDEgIDEgIDEgIDEgIDEgIDIgIDEgIDEgIDEgIDEg
-IDAgIDENCj4gPiAgIDIgICBldGgyICAgbmNzaTEgIDAwMCAwMDEgMSAgMSAgMSAgMSAgMSAgMSAg
-MCAgMiAgMSAgMSAgMSAgMSAgMCAgMQ0KPiA+ICAgMiAgIGV0aDIgICBuY3NpMiAgMDAxIDAwMCAw
-ICAwICAxICAxICAwICAwICAwICAxICAwICAxICAxICAxICAwICAxDQo+ID4gICAyICAgZXRoMiAg
-IG5jc2kzICAwMDEgMDAxIDAgIDAgIDEgIDEgIDAgIDAgIDAgIDEgIDAgIDEgIDEgIDEgIDAgIDEN
-Cj4gPiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT0NCj4gPiBNUDogTXVsdGktbW9kZSBQYWNrYWdlICBXUDogV2hpdGVs
-aXN0IFBhY2thZ2UNCj4gPiBNQzogTXVsdGktbW9kZSBDaGFubmVsICBXQzogV2hpdGVsaXN0IENo
-YW5uZWwNCj4gPiBQQzogUHJpbWFyeSBDaGFubmVsICAgICBDUzogQ2hhbm5lbCBTdGF0ZSBJQS9B
-L0lWIDEvMi8zDQo+ID4gUFM6IFBvbGwgU3RhdHVzICAgICAgICAgTFM6IExpbmsgU3RhdHVzDQo+
-ID4gUlU6IFJ1bm5pbmcgICAgICAgICAgICAgQ1I6IENhcnJpZXIgT0sNCj4gPiBOUTogUXVldWUg
-U3RvcHBlZCAgICAgICBIQTogSGFyZHdhcmUgQXJiaXRyYXRpb24NCj4gPiANCj4gPiBUaGFua3Ms
-DQo+ID4gSnVzdGluDQo+ID4gDQo+ID4gDQo+ID4gPiBGcm9tIDAwMDAwMDAwMDAwMDAwMDAwMDAw
-MDAwMDAwMDAwMDAwMDAwMDAwMDAgTW9uIFNlcCAxNyAwMDowMDowMCAyMDAxDQo+ID4gPiBGcm9t
-OiBTYW11ZWwgTWVuZG96YS1Kb25hcyA8c2FtQG1lbmRvemFqb25hcy5jb20+DQo+ID4gPiBEYXRl
-OiBGcmksIDkgTm92IDIwMTggMTM6MTE6MDMgKzExMDANCj4gPiA+IFN1YmplY3Q6IFtQQVRDSF0g
-bmV0L25jc2k6IFJlc2V0IHN0YXRlIGZpeGVzLCBzaW5nbGUtY2hhbm5lbCBMU0MNCj4gPiA+IA0K
-PiA+ID4gLS0tDQo+ID4gPiAgbmV0L25jc2kvbmNzaS1hZW4uYyAgICB8ICA4ICsrKysrLS0tDQo+
-ID4gPiAgbmV0L25jc2kvbmNzaS1tYW5hZ2UuYyB8IDE5ICsrKysrKysrKysrKysrKy0tLS0NCj4g
-PiA+ICAyIGZpbGVzIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pDQo+
-ID4gPiANCj4gPiA+IGRpZmYgLS1naXQgYS9uZXQvbmNzaS9uY3NpLWFlbi5jIGIvbmV0L25jc2kv
-bmNzaS1hZW4uYw0KPiA+ID4gaW5kZXggMzljMmU5ZWVhMmJhLi4wMzRjYjFkYzU1NjYgMTAwNjQ0
-DQo+ID4gPiAtLS0gYS9uZXQvbmNzaS9uY3NpLWFlbi5jDQo+ID4gPiArKysgYi9uZXQvbmNzaS9u
-Y3NpLWFlbi5jDQo+ID4gPiBAQCAtOTMsMTQgKzkzLDE2IEBAIHN0YXRpYyBpbnQgbmNzaV9hZW5f
-aGFuZGxlcl9sc2Moc3RydWN0IG5jc2lfZGV2X3ByaXYgKm5kcCwNCj4gPiA+ICAJaWYgKChoYWRf
-bGluayA9PSBoYXNfbGluaykgfHwgY2hhaW5lZCkNCj4gPiA+ICAJCXJldHVybiAwOw0KPiA+ID4g
-IA0KPiA+ID4gLQlpZiAoIW5kcC0+bXVsdGlfcGFja2FnZSAmJiAhbmMtPnBhY2thZ2UtPm11bHRp
-X2NoYW5uZWwpIHsNCj4gPiA+IC0JCWlmIChoYWRfbGluaykNCj4gPiA+IC0JCQluZHAtPmZsYWdz
-IHw9IE5DU0lfREVWX1JFU0hVRkZMRTsNCj4gPiA+ICsJaWYgKCFuZHAtPm11bHRpX3BhY2thZ2Ug
-JiYgIW5jLT5wYWNrYWdlLT5tdWx0aV9jaGFubmVsICYmIGhhZF9saW5rKSB7DQo+ID4gPiArCQlu
-ZHAtPmZsYWdzIHw9IE5DU0lfREVWX1JFU0hVRkZMRTsNCj4gPiA+ICAJCW5jc2lfc3RvcF9jaGFu
-bmVsX21vbml0b3IobmMpOw0KPiA+ID4gIAkJc3Bpbl9sb2NrX2lycXNhdmUoJm5kcC0+bG9jaywg
-ZmxhZ3MpOw0KPiA+ID4gIAkJbGlzdF9hZGRfdGFpbF9yY3UoJm5jLT5saW5rLCAmbmRwLT5jaGFu
-bmVsX3F1ZXVlKTsNCj4gPiA+ICAJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJm5kcC0+bG9jaywg
-ZmxhZ3MpOw0KPiA+ID4gIAkJcmV0dXJuIG5jc2lfcHJvY2Vzc19uZXh0X2NoYW5uZWwobmRwKTsN
-Cj4gPiA+ICsJfSBlbHNlIHsNCj4gPiA+ICsJCS8qIENvbmZpZ3VyZWQgY2hhbm5lbCBjYW1lIHVw
-ICovDQo+ID4gPiArCQlyZXR1cm4gMDsNCj4gPiANCj4gPiBJdCBpcyBhbHdheXMgZ29pbmcgdG8g
-ZWxzZSBzdGF0ZW1lbnQgaWYgbXVsdGlfcGFja2FnZSBhbmQvb3IgbXV0bGl0X2NoYW5uZWwgaXMg
-ZW5hYmxlZC4NCj4gPiAgDQo+ID4gbnBjbTd4eC1lbWMgZjA4MjUwMDAuZXRoIGV0aDI6IE5DU0k6
-IG5jc2lfYWVuX2hhbmRsZXJfbHNjKCkgLSBwa2cgMCBjaCAwIHN0YXRlIGRvd24NCj4gPiBucGNt
-N3h4LWVtYyBmMDgyNTAwMC5ldGggZXRoMjogTkNTSTogbmNzaV9hZW5faGFuZGxlcl9sc2MoKSAt
-IGhhZF9saW5rIDEsIGhhc19saW5rIDAsIGNoYWluZWQgMA0KPiA+IA0KPiA+IFRoZXNlIGNvZGVz
-IGhhdmUgbm8gY2hhbmNlIHRvIHJ1bi4NCj4gPiAJaWYgKGhhZF9saW5rKSB7DQo+ID4gCQluY20g
-PSAmbmMtPm1vZGVzW05DU0lfTU9ERV9UWF9FTkFCTEVdOw0KPiA+IAkJaWYgKG5jc2lfY2hhbm5l
-bF9pc19sYXN0KG5kcCwgbmMpKSB7DQo+ID4gCQkJLyogTm8gY2hhbm5lbHMgbGVmdCwgcmVjb25m
-aWd1cmUgKi8NCj4gPiAJCQlyZXR1cm4gbmNzaV9yZXNldF9kZXYoJm5kcC0+bmRldik7DQo+ID4g
-CQl9IGVsc2UgaWYgKG5jbS0+ZW5hYmxlKSB7DQo+ID4gCQkJLyogTmVlZCB0byBmYWlsb3ZlciBU
-eCBjaGFubmVsICovDQo+ID4gCQkJbmNzaV91cGRhdGVfdHhfY2hhbm5lbChuZHAsIG5jLT5wYWNr
-YWdlLCBuYywgTlVMTCk7DQo+ID4gCQl9DQo+ID4gDQo+ID4gPiAgCX0NCj4gPiA+IA0KPiANCj4g
-T29wcywgd3JvdGUgdGhhdCBwYXRjaCBhIGxpdHRsZSBmYXN0IGl0IHNlZW1zLiBUaGlzIG1heSBh
-bHNvIGFmZmVjdCB0aGUNCj4gZG91YmxlLVR4IGFib3ZlIHNpbmNlIG5jc2lfdXBkYXRlX3R4X2No
-YW5uZWwoKSB3b24ndCBiZSByZWFjaGVkLg0KPiBJJ3ZlIGF0dGFjaGVkIGEgZml4ZWQgdXAgdmVy
-c2lvbiBiZWxvdy4NCj4gDQo+IEZvciB0aGUgZmFpbG92ZXIgaXNzdWUgeW91J3JlIHNlZWluZyBp
-biB5b3VyIHByZXZpb3VzIGVtYWlsIHRoZSBpc3N1ZSBpcw0KPiBsaWtlbHkgaW4gdGhlIG5jc2lf
-ZGV2X3N0YXRlX3N1c3BlbmRfZ2xzIHN0YXRlLiBUaGlzIHNob3VsZCBzZW5kIGEgR0xTDQo+IGNv
-bW1hbmQgdG8gYWxsIGF2YWlsYWJsZSBjaGFubmVscywgYnV0IGl0IG9ubHkgZG9lcyBpdCBmb3Ig
-dGhlIGN1cnJlbnQNCj4gcGFja2FnZS4gU2luY2Ugbm90IGFsbCBwYWNrYWdlcyBhcmUgbmVjZXNz
-YXJpbHkgZW5hYmxlZCBpbiBzaW5nbGUtY2hhbm5lbCANCj4gbW9kZSBJJ2xsIG5lZWQgdG8gaGF2
-ZSBhIHRoaW5rIGFib3V0IHRoZSBuZWF0ZXN0IHdheSB0byBoYW5kbGUgdGhhdCwgYnV0DQo+IGl0
-J3MgYSBzZXBhcmF0ZSBpc3N1ZSBmcm9tIHRoaXMgcGF0Y2guDQo+IA0KPiBDaGVlcnMsDQo+IFNh
-bQ0KPiANCj4gDQo+IEZyb20gMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
-MCBNb24gU2VwIDE3IDAwOjAwOjAwIDIwMDENCj4gRnJvbTogU2FtdWVsIE1lbmRvemEtSm9uYXMg
-PHNhbUBtZW5kb3pham9uYXMuY29tPg0KPiBEYXRlOiBGcmksIDkgTm92IDIwMTggMTM6MTE6MDMg
-KzExMDANCj4gU3ViamVjdDogW1BBVENIXSBuZXQvbmNzaTogUmVzZXQgc3RhdGUgZml4ZXMsIHNp
-bmdsZS1jaGFubmVsIExTQw0KPiANCj4gLS0tDQo+ICBuZXQvbmNzaS9uY3NpLWFlbi5jICAgIHwg
-MTYgKysrKysrKysrKy0tLS0tLQ0KPiAgbmV0L25jc2kvbmNzaS1tYW5hZ2UuYyB8IDE5ICsrKysr
-KysrKysrKysrKy0tLS0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgMjUgaW5zZXJ0aW9ucygrKSwgMTAg
-ZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbmV0L25jc2kvbmNzaS1hZW4uYyBiL25l
-dC9uY3NpL25jc2ktYWVuLmMNCj4gaW5kZXggMzljMmU5ZWVhMmJhLi43NjU1OWQwZWVlYTggMTAw
-NjQ0DQo+IC0tLSBhL25ldC9uY3NpL25jc2ktYWVuLmMNCj4gKysrIGIvbmV0L25jc2kvbmNzaS1h
-ZW4uYw0KPiBAQCAtOTQsMTMgKzk0LDE3IEBAIHN0YXRpYyBpbnQgbmNzaV9hZW5faGFuZGxlcl9s
-c2Moc3RydWN0IG5jc2lfZGV2X3ByaXYgKm5kcCwNCj4gIAkJcmV0dXJuIDA7DQo+ICANCj4gIAlp
-ZiAoIW5kcC0+bXVsdGlfcGFja2FnZSAmJiAhbmMtPnBhY2thZ2UtPm11bHRpX2NoYW5uZWwpIHsN
-Cj4gLQkJaWYgKGhhZF9saW5rKQ0KPiArCQlpZiAoaGFkX2xpbmspIHsNCj4gIAkJCW5kcC0+Zmxh
-Z3MgfD0gTkNTSV9ERVZfUkVTSFVGRkxFOw0KPiAtCQluY3NpX3N0b3BfY2hhbm5lbF9tb25pdG9y
-KG5jKTsNCj4gLQkJc3Bpbl9sb2NrX2lycXNhdmUoJm5kcC0+bG9jaywgZmxhZ3MpOw0KPiAtCQls
-aXN0X2FkZF90YWlsX3JjdSgmbmMtPmxpbmssICZuZHAtPmNoYW5uZWxfcXVldWUpOw0KPiAtCQlz
-cGluX3VubG9ja19pcnFyZXN0b3JlKCZuZHAtPmxvY2ssIGZsYWdzKTsNCj4gLQkJcmV0dXJuIG5j
-c2lfcHJvY2Vzc19uZXh0X2NoYW5uZWwobmRwKTsNCj4gKwkJCW5jc2lfc3RvcF9jaGFubmVsX21v
-bml0b3IobmMpOw0KPiArCQkJc3Bpbl9sb2NrX2lycXNhdmUoJm5kcC0+bG9jaywgZmxhZ3MpOw0K
-PiArCQkJbGlzdF9hZGRfdGFpbF9yY3UoJm5jLT5saW5rLCAmbmRwLT5jaGFubmVsX3F1ZXVlKTsN
-Cj4gKwkJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJm5kcC0+bG9jaywgZmxhZ3MpOw0KPiArCQkJ
-cmV0dXJuIG5jc2lfcHJvY2Vzc19uZXh0X2NoYW5uZWwobmRwKTsNCj4gKwkJfSBlbHNlIHsNCj4g
-KwkJCS8qIENvbmZpZ3VyZWQgY2hhbm5lbCBjYW1lIHVwICovDQo+ICsJCQlyZXR1cm4gMDsNCj4g
-KwkJfQ0KPiAgCX0NCj4gIA0KPiAgCWlmIChoYWRfbGluaykgew0KPiBkaWZmIC0tZ2l0IGEvbmV0
-L25jc2kvbmNzaS1tYW5hZ2UuYyBiL25ldC9uY3NpL25jc2ktbWFuYWdlLmMNCj4gaW5kZXggZmEz
-YzIxNDRmNWJhLi45MmU1OWYwN2Y5YTcgMTAwNjQ0DQo+IC0tLSBhL25ldC9uY3NpL25jc2ktbWFu
-YWdlLmMNCj4gKysrIGIvbmV0L25jc2kvbmNzaS1tYW5hZ2UuYw0KPiBAQCAtMTA2MywxNyArMTA2
-MywxNyBAQCBzdGF0aWMgdm9pZCBuY3NpX2NvbmZpZ3VyZV9jaGFubmVsKHN0cnVjdCBuY3NpX2Rl
-dl9wcml2ICpuZHApDQo+ICAJY2FzZSBuY3NpX2Rldl9zdGF0ZV9jb25maWdfZG9uZToNCj4gIAkJ
-bmV0ZGV2X2RiZyhuZHAtPm5kZXYuZGV2LCAiTkNTSTogY2hhbm5lbCAldSBjb25maWcgZG9uZVxu
-IiwNCj4gIAkJCSAgIG5jLT5pZCk7DQo+ICsJCXNwaW5fbG9ja19pcnFzYXZlKCZuYy0+bG9jaywg
-ZmxhZ3MpOw0KPiArCQluYy0+c3RhdGUgPSBOQ1NJX0NIQU5ORUxfQUNUSVZFOw0KPiArDQo+ICAJ
-CWlmIChuZHAtPmZsYWdzICYgTkNTSV9ERVZfUkVTRVQpIHsNCj4gIAkJCS8qIEEgcmVzZXQgZXZl
-bnQgaGFwcGVuZWQgZHVyaW5nIGNvbmZpZywgc3RhcnQgaXQgbm93ICovDQo+IC0JCQlzcGluX2xv
-Y2tfaXJxc2F2ZSgmbmMtPmxvY2ssIGZsYWdzKTsNCj4gIAkJCW5jLT5yZWNvbmZpZ3VyZV9uZWVk
-ZWQgPSBmYWxzZTsNCj4gIAkJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJm5jLT5sb2NrLCBmbGFn
-cyk7DQo+IC0JCQluZC0+c3RhdGUgPSBuY3NpX2Rldl9zdGF0ZV9mdW5jdGlvbmFsOw0KPiAgCQkJ
-bmNzaV9yZXNldF9kZXYobmQpOw0KPiAgCQkJYnJlYWs7DQo+ICAJCX0NCj4gIA0KPiAtCQlzcGlu
-X2xvY2tfaXJxc2F2ZSgmbmMtPmxvY2ssIGZsYWdzKTsNCj4gIAkJaWYgKG5jLT5yZWNvbmZpZ3Vy
-ZV9uZWVkZWQpIHsNCj4gIAkJCS8qIFRoaXMgY2hhbm5lbCdzIGNvbmZpZ3VyYXRpb24gaGFzIGJl
-ZW4gdXBkYXRlZA0KPiAgCQkJICogcGFydC13YXkgZHVyaW5nIHRoZSBjb25maWcgc3RhdGUgLSBz
-dGFydCB0aGUNCj4gQEAgLTEwOTIsNyArMTA5Miw2IEBAIHN0YXRpYyB2b2lkIG5jc2lfY29uZmln
-dXJlX2NoYW5uZWwoc3RydWN0IG5jc2lfZGV2X3ByaXYgKm5kcCkNCj4gIAkJCWJyZWFrOw0KPiAg
-CQl9DQo+ICANCj4gLQkJbmMtPnN0YXRlID0gTkNTSV9DSEFOTkVMX0FDVElWRTsNCj4gIAkJaWYg
-KG5jLT5tb2Rlc1tOQ1NJX01PREVfTElOS10uZGF0YVsyXSAmIDB4MSkgew0KPiAgCQkJaG90X25j
-ID0gbmM7DQo+ICAJCX0gZWxzZSB7DQo+IEBAIC0xODAzLDYgKzE4MDIsMTggQEAgaW50IG5jc2lf
-cmVzZXRfZGV2KHN0cnVjdCBuY3NpX2RldiAqbmQpDQo+ICAJCQlzcGluX3VubG9ja19pcnFyZXN0
-b3JlKCZuZHAtPmxvY2ssIGZsYWdzKTsNCj4gIAkJCXJldHVybiAwOw0KPiAgCQl9DQo+ICsJfSBl
-bHNlIHsNCj4gKwkJc3dpdGNoIChuZC0+c3RhdGUpIHsNCj4gKwkJY2FzZSBuY3NpX2Rldl9zdGF0
-ZV9zdXNwZW5kX2RvbmU6DQo+ICsJCWNhc2UgbmNzaV9kZXZfc3RhdGVfY29uZmlnX2RvbmU6DQo+
-ICsJCWNhc2UgbmNzaV9kZXZfc3RhdGVfZnVuY3Rpb25hbDoNCj4gKwkJCS8qIE9rICovDQo+ICsJ
-CQlicmVhazsNCj4gKwkJZGVmYXVsdDoNCj4gKwkJCS8qIEN1cnJlbnQgcmVzZXQgb3BlcmF0aW9u
-IGhhcHBlbmluZyAqLw0KPiArCQkJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmbmRwLT5sb2NrLCBm
-bGFncyk7DQo+ICsJCQlyZXR1cm4gMDsNCj4gKwkJfQ0KPiAgCX0NCj4gIA0KPiAgCWlmICghbGlz
-dF9lbXB0eSgmbmRwLT5jaGFubmVsX3F1ZXVlKSkgew0KPiAtLSANCj4gMi4xOS4xDQoNCg==
+On Mon, Nov 12, 2018 at 11:08 PM Joel Stanley <joel@jms.id.au> wrote:
+>
+> Hello Andrew,
+>
+> I've been trying to get to the bottom of the slow-booting qemu issue
+> for a few weeks now. We commited a fix that resolve the issue on x86
+> hosts, but when running the same Qemu build on ppc64le it still has
+> the "go slow" behaviour.
+>
+>  https://github.com/openbmc/qemu/issues/14
+>
+> I propose we run the Romulus Qemu boot test on x86-only build slaves
+> while we work this out. That will allow us to unblock the kernel
+> security bumps, which have been pending for a few weeks.
+
+Unfortunately there's no way that I can find in the jenkins multi-configuration
+matrix plugin to specify which part of an axis goes to which slave node.
+
+The flow right now is that whichever node gets assigned to build the
+image, is then used to run the QEMU job (so no transfers of
+images have to occur). The assignment of which node builds
+which config is random so builder4 (our ppc64le) node gets Romulus
+about 25% of the time.
+
+Removing builder4 from the build queue would work, but would
+also remove 25% of our build capacity.
+
+>
+> I'll continue working on fixing Qemu in the future, but I don't have
+> time for the next two weeks due to some higher priority work.
+
+This feels like one of those things that's always tough to come back
+to once you let a workaround in. Is there a specific kernel commit
+you've bisected down to that we could just pull from the openbmc/linux
+tree? Is there a workaround we could put in our openbmc/qemu for
+now? I'd prefer both of these over just disabling ppc64le.
+
+>
+> Cheers,
+>
+> Joel
