@@ -1,57 +1,56 @@
 Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::242; helo=mail-oi1-x242.google.com;
+ (client-ip=2607:f8b0:4864:20::333; helo=mail-ot1-x333.google.com;
  envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="siXTSpgS"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FC9tUTY/"; 
  dkim-atps=neutral
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42vfPv10M3zF3Jx
- for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 07:30:10 +1100 (AEDT)
-Received: by mail-oi1-x242.google.com with SMTP id a202-v6so3443417oib.1
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 12:30:10 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42vff11kBhzF3Kp
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 07:40:40 +1100 (AEDT)
+Received: by mail-ot1-x333.google.com with SMTP id a11so8998036otr.10
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 12:40:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=62Kb1NKVM7/A1S0DnqESmLir8HVfpkhhb5cY2z2wzX0=;
- b=siXTSpgSLPfATuKDorlxrNVgLM5Nn3ItNs1ULnL5UPMmgWLPiIWDLRM9QvY98EXqRk
- YGaiVXd2IWKPDA1I0YoWAOOaL++LnIcT7XILr/T/5nSlOYB8Ko/sXKQLQkLZdj8rYJae
- OeE/gasCut5JaOCKv2fIxoYEQQDhhWFhGa2YWKDlVTDCiNslVW6pRExSE3/pt9YlIyvd
- eoYD8tybzPI8Firs9jZKUjdF0lagoGHU/lD9jmVUFLIRYaEe50ZkObH3KVrB3sA+yveN
- hEDmc8te6ZVhH6b+FM/EnKq+x6Tb5UPQ5LHFt3o0QEDmKzimIKGYraOzyks9yiyv0rtg
- 9lNg==
+ :cc; bh=xm3+hNp7JsIVtk01eNI9GeXaGk/rLwy99hIfpwHuT4A=;
+ b=FC9tUTY/jGga+QmeyBGigCSx4Dae1f6KAGSZYHeta5hftkIjoV4F3lSMxddZ+LTH1q
+ /Ik7749f+2NZlRC/LdbodGzQ+2njpHvN4ZGSvavgMpYpMa4N80d1V7BlnH8W9FjIK2Wl
+ 3/qPEvDGQKBpyNbIpafYk8BHIoMVOHUYM9Qk3s69lXkzJx2wlvZbZY1dKdmGH5+x4eJQ
+ A9zu5EKAgKSFROali/98zZ0knyFIKtZRDD0JADJBYeQZEU/u7MM5oFHbuKSpFmUlSiS9
+ ccM7emEJtt3RYwv2OwUwGdHy+MNVGO8mUMvxlSHid8nKT2/LhQt10PN7wgaP/LrmmMUr
+ dIMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=62Kb1NKVM7/A1S0DnqESmLir8HVfpkhhb5cY2z2wzX0=;
- b=ANMJyGN00SR16KELlDmdtl0OGyivzy1TtxVTgUoGyJpkeecyIID4tme07mVNqKpBlT
- VgtBE5ruBM0OtgZN+z89hesEmRHCP0nB0CtxOy3HdsHo3jXKDTRNbutA4/XHP1dRLO3s
- WEezoygcjQxU4ks4dkCb/24l0ezjLU8hEczOq+nMU2exDY86qPXiIYbyYnnCVwMCiR5i
- PXboiy0+dTUTSDyyHp7qzWad7wN+ZIDDH2PLBSWHnTR2K5Dh6CGKMxBusH0YE2ISLYsi
- 6vgaGOS5G1PhDOaA4X08935OXsqGtnF5BOXZeKkauwXEYTr2l5wYQPYgjSDJX5KBMmYO
- G5Hw==
-X-Gm-Message-State: AGRZ1gJqssfjrjutc1bFX1uis9pPV3iNfGszbCILwXF7BYxvRW+ZXdZn
- 5pAAPji4IuqRVqIxF15Cj7OgA/A9QxSmKk2TWH8=
-X-Google-Smtp-Source: AJdET5eMVarc5byrKLU8na6eG3ZkA0uZVTArtKaWk3mKwm9AR/BsmIBoWUDc9z5MJSiCusi+23ATmrEiCIdXwlVK4NE=
-X-Received: by 2002:aca:2ed3:: with SMTP id
- u202-v6mr4051921oiu.93.1542141008048; 
- Tue, 13 Nov 2018 12:30:08 -0800 (PST)
+ bh=xm3+hNp7JsIVtk01eNI9GeXaGk/rLwy99hIfpwHuT4A=;
+ b=ksti92qAzHyT5YnHowqR6P6iREsm0O7hmf4kf1eW7gOjvuEomJc4EaOiNYllEiZlvp
+ rUigWhhm/8rViPmYr2sEpwkeINIrhcrl/dxQFESPqwlXv4tWeXuV9oLm/S2LH9CQcO2H
+ qBsjaqAVh+lY/TpFCBFRxkr4uvJc1ylAIKDHvifAns6Gnms4CMriQ6A8mtlCE58hrvux
+ kRDvsVgINf8cBujGFJ6fd4U3NsP2D5bwPXZEU2I/X0Yw/iMP2o2WxeZ99s9mU1lvMc88
+ mCDmApQN3ol5Y+j4bad+m8r4L/YqduktPhna5sxwov9UdAZfVf42vm2FxHC5+uFqQU0D
+ EvqA==
+X-Gm-Message-State: AGRZ1gKmpCztcNojfsx2POe/mE+S8C+lzZQjTkXHkk5tzS6uqEhFGWbQ
+ wpIvpfs5GlmL1TiO46QIhSiAewlm/QqdBgELolM=
+X-Google-Smtp-Source: AJdET5exN9bNXc5vKRv4OaDJWstkUuNNwIyVsfroKBNYEW9+uEN71FnW8A0wRPeGkySek1dpwsWvrwRT5gOMLnvyW2A=
+X-Received: by 2002:a9d:74c3:: with SMTP id a3mr4308993otl.107.1542141638465; 
+ Tue, 13 Nov 2018 12:40:38 -0800 (PST)
 MIME-Version: 1.0
-References: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
-In-Reply-To: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
+References: <0000000000002cf60d057a7c257b@google.com>
+ <CACPK8Xc7M0QLB4rp3xf6mWzq-cVKrEFCWm7vhNoORwv3Fzd2Hw@mail.gmail.com>
+In-Reply-To: <CACPK8Xc7M0QLB4rp3xf6mWzq-cVKrEFCWm7vhNoORwv3Fzd2Hw@mail.gmail.com>
 From: Andrew Geissler <geissonator@gmail.com>
-Date: Tue, 13 Nov 2018 14:29:51 -0600
-Message-ID: <CALLMt=pwnn=4_qbZM_Ph=GNUZw2tnmC5p2kcJ9EvAuwD47W2xA@mail.gmail.com>
-Subject: Re: Disabling ppc64le hosts for Qemu tests
+Date: Tue, 13 Nov 2018 14:40:22 -0600
+Message-ID: <CALLMt=r8i-bugAiHYwdbB+MadLV01FKnr8o3N4g75Y66LMhoLA@mail.gmail.com>
+Subject: Re: OpenBMC Infrastructure Workgroup Meeting Time
 To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, clg@kaod.org, 
- Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -64,44 +63,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2018 20:30:12 -0000
+X-List-Received-Date: Tue, 13 Nov 2018 20:40:42 -0000
 
-On Mon, Nov 12, 2018 at 11:08 PM Joel Stanley <joel@jms.id.au> wrote:
+On Mon, Nov 12, 2018 at 10:41 PM Joel Stanley <joel@jms.id.au> wrote:
 >
-> Hello Andrew,
+> On Tue, 13 Nov 2018 at 05:18, <geissonator@gmail.com> wrote:
+> >
+> > Having trouble viewing or submitting this form?
+> > Fill out in Google Forms
+> > I've invited you to fill out a form:
+> > OpenBMC Infrastructure Workgroup Meeting Time
+> > Per mailing list email https://lists.ozlabs.org/pipermail/openbmc/2018-October/013867.html, I'd like to find an optimal time for people to attend the new OpenBMC Infrastructure workgroup.
+> >
+> > My thinking is it'll be every other week for 60 minutes.
+> >
+> > When would you like to meet for this meeting?
+> >
+> > The opposite week of the test workgroup, Thursday, 10-11am Central
+> > The opposite week of the release workgroup, Monday, 3-4pm Central
 >
-> I've been trying to get to the bottom of the slow-booting qemu issue
-> for a few weeks now. We commited a fix that resolve the issue on x86
-> hosts, but when running the same Qemu build on ppc64le it still has
-> the "go slow" behaviour.
->
->  https://github.com/openbmc/qemu/issues/14
->
-> I propose we run the Romulus Qemu boot test on x86-only build slaves
-> while we work this out. That will allow us to unblock the kernel
-> security bumps, which have been pending for a few weeks.
+> Do you mean Australian Central Standard Time?
 
-Unfortunately there's no way that I can find in the jenkins multi-configuration
-matrix plugin to specify which part of an axis goes to which slave node.
+Hah, it's like you're on the other side of the world or something :)
 
-The flow right now is that whichever node gets assigned to build the
-image, is then used to run the QEMU job (so no transfers of
-images have to occur). The assignment of which node builds
-which config is random so builder4 (our ppc64le) node gets Romulus
-about 25% of the time.
+I was wondering if maybe the afternoon slot would be ok for a
+few of you guys based on location? Either way, the responses
+were about 50% either, 30% afternoon, and a few misc, one noting
+that the release workgroup may want to go back to every week
+at some point. There was also a request for a "Europe Friendly"
+time, but that may be tough.
 
-Removing builder4 from the build queue would work, but would
-also remove 25% of our build capacity.
+I think based on the feedback, I'm going to try for a every other week
+on Wednesday, 3-4pm Central. Unless someone responds saying that's
+just not going to work for them. The goal is to have as many companies
+represented as possible so if you're the only one from your company
+planning to attend and this new time doesn't work, please let me know.
 
->
-> I'll continue working on fixing Qemu in the future, but I don't have
-> time for the next two weeks due to some higher priority work.
-
-This feels like one of those things that's always tough to come back
-to once you let a workaround in. Is there a specific kernel commit
-you've bisected down to that we could just pull from the openbmc/linux
-tree? Is there a workaround we could put in our openbmc/qemu for
-now? I'd prefer both of these over just disabling ppc64le.
+Thanks for all the quick responses!
 
 >
 > Cheers,
