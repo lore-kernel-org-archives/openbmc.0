@@ -1,52 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::72e; helo=mail-qk1-x72e.google.com;
+ (client-ip=2607:f8b0:4864:20::743; helo=mail-qk1-x743.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="FIu9vURp"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="Bdd6y279"; 
  dkim-atps=neutral
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [IPv6:2607:f8b0:4864:20::72e])
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42vFLx3J0RzF3LR
- for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 15:41:13 +1100 (AEDT)
-Received: by mail-qk1-x72e.google.com with SMTP id y16so17371028qki.7
- for <openbmc@lists.ozlabs.org>; Mon, 12 Nov 2018 20:41:13 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42vFy71Rm2zF3HS
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Nov 2018 16:08:14 +1100 (AEDT)
+Received: by mail-qk1-x743.google.com with SMTP id w204so17436616qka.2
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Nov 2018 21:08:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ASoZDrjGY1Clfa8vNBdNcRA8n6vYXDHqHWbh391MF20=;
- b=FIu9vURpF8op+1u67mCIwr9EVExIsqalGOWVmCJiWL7O7FthLgkAC9QjmnyBfKz6Jj
- o2EplqDxYnWYcXeT2aPZG2YB1/BJxG4F8eJvfGVmqSvr7SZbs+MVrl0e2ZOTaiE6yklM
- wMATdosh5DTCN3X89Lw0EgvEZ5LDrKui/+3z0=
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=uvjwPUvkisYWKODAAyuz7NrEGTOVTUIH3U0ny+A/f2U=;
+ b=Bdd6y279MTaipmo6Og7RIJEKyA/vCkdjO/DFrPwQE8IwxuWC9sqhjJiDSw25zxJaD8
+ 1DLWgM4kifVgUjSSDdrbHic+MAFl/BbCQnR1iunYdxX4S6SFyiU73afB4w10ca+q5+y0
+ gtZyO2I6RZ766ASS4rZ0pXCwlBE4oqEjs5Q68=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ASoZDrjGY1Clfa8vNBdNcRA8n6vYXDHqHWbh391MF20=;
- b=m7VBvzO2voxQIr/uaeTNd1ugGUeDGFnBvCQAFMtfEykBzOQOQxsGgl3EfdlHIAKUiX
- ma3tEPNFEIy7L2KA2P24FmV+uFGjmQy2a3bU0yZxw/dp8Cqwlq999jjWFKvYvBR1ws4X
- eIL54+NX4abKRp1HP2touANf38Goz6aREbBOl9weQug8ylF5byMcg1xwJGRI1Nf86p4U
- 2EsB9C8XI5Wp2b4jLiEN8L8e9Hsni6Km/OIGcC7t3H1WCMGYQ5pL3xZ+19c5czq3KN7K
- b2R2QPuAYvKEaEW1mhIGQTIqdgR87i8NtvvzOYZHFBnIyLCg0u79u4tKRn+MJna6cgGe
- 2rXg==
-X-Gm-Message-State: AGRZ1gI9fjIR8IjpPJX2Cex+5x12y9VLVLJQZzQJTkepXHja6qcofgNk
- HOY65NOA49aIRYOuVnScKbi2nYeL/G5WLuDauHk=
-X-Google-Smtp-Source: AJdET5cqBz+HoFAbdzcBlPYKOPXLeV8fuVLoD8HaYMmxHHJ5/dQJ3L6/FsRqPF2cUErTr5107zwI5J/JuDyw2a4+m18=
-X-Received: by 2002:ae9:eb96:: with SMTP id b144mr3467823qkg.127.1542084071082; 
- Mon, 12 Nov 2018 20:41:11 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=uvjwPUvkisYWKODAAyuz7NrEGTOVTUIH3U0ny+A/f2U=;
+ b=No/m83FrjsKDPeKvzLgIyu6gQ+sb0VeTHKf8qiASc1/MPhr0RiZy+3pRXPmDW+YY3J
+ AWn2Ltw7HY98WUC9ZbZsWsuBEFTzOAtk0u6QqswRlompmzT68QxZqOyxraf7x41QTpRE
+ MIXr8e4TpZMDjLmwZtlIVpmUyTIucX2Re6IDRxAeag9NR7DucfaeB6RJi+t9oQn4bL8N
+ 4DHoMXFlEQTbjry1ab73+xFPX/Iv7+4R9orSEaGLvTtsnn74GAmXq9+epyeLUkNlr3FB
+ p+HWmcAF7xslhNcMKnggnT4ZLktAj4OKmU9PhOrctbHszEa8164I6+iUbRzPLJ807d9I
+ dLaQ==
+X-Gm-Message-State: AGRZ1gLCS96CAL1824tgwL2JNdpqGFrQsM0oMOVjHwItLU81ihJrA+N7
+ B+W80AzyN/YKrZbMN7UEXrJP1oJMpXXKFa090uw=
+X-Google-Smtp-Source: AJdET5eyWnFoYekmZNuhV+C8/6YKa4IWujWRJa9PNMkFDK0yBrQam5HVyG26hzBy2Q+Lsymsl0SkJAzXQo3Z0jlQgZA=
+X-Received: by 2002:ae9:eb96:: with SMTP id b144mr3522325qkg.127.1542085691809; 
+ Mon, 12 Nov 2018 21:08:11 -0800 (PST)
 MIME-Version: 1.0
-References: <0000000000002cf60d057a7c257b@google.com>
-In-Reply-To: <0000000000002cf60d057a7c257b@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 13 Nov 2018 15:10:59 +1030
-Message-ID: <CACPK8Xc7M0QLB4rp3xf6mWzq-cVKrEFCWm7vhNoORwv3Fzd2Hw@mail.gmail.com>
-Subject: Re: OpenBMC Infrastructure Workgroup Meeting Time
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 13 Nov 2018 15:38:00 +1030
+Message-ID: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
+Subject: Disabling ppc64le hosts for Qemu tests
+To: Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Andrew Jeffery <andrew@aj.id.au>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -59,24 +58,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2018 04:41:14 -0000
+X-List-Received-Date: Tue, 13 Nov 2018 05:08:15 -0000
 
-On Tue, 13 Nov 2018 at 05:18, <geissonator@gmail.com> wrote:
->
-> Having trouble viewing or submitting this form?
-> Fill out in Google Forms
-> I've invited you to fill out a form:
-> OpenBMC Infrastructure Workgroup Meeting Time
-> Per mailing list email https://lists.ozlabs.org/pipermail/openbmc/2018-October/013867.html, I'd like to find an optimal time for people to attend the new OpenBMC Infrastructure workgroup.
->
-> My thinking is it'll be every other week for 60 minutes.
->
-> When would you like to meet for this meeting?
->
-> The opposite week of the test workgroup, Thursday, 10-11am Central
-> The opposite week of the release workgroup, Monday, 3-4pm Central
+Hello Andrew,
 
-Do you mean Australian Central Standard Time?
+I've been trying to get to the bottom of the slow-booting qemu issue
+for a few weeks now. We commited a fix that resolve the issue on x86
+hosts, but when running the same Qemu build on ppc64le it still has
+the "go slow" behaviour.
+
+ https://github.com/openbmc/qemu/issues/14
+
+I propose we run the Romulus Qemu boot test on x86-only build slaves
+while we work this out. That will allow us to unblock the kernel
+security bumps, which have been pending for a few weeks.
+
+I'll continue working on fixing Qemu in the future, but I don't have
+time for the next two weeks due to some higher priority work.
 
 Cheers,
 
