@@ -1,49 +1,58 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=sirena.org.uk
- (client-ip=2a01:7e01::f03c:91ff:fed4:a3b6; helo=heliosphere.sirena.org.uk;
- envelope-from=broonie@sirena.org.uk; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::741; helo=mail-qk1-x741.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="HDJLzDm1"; dkim-atps=neutral
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="J939Ycge"; 
+ dkim-atps=neutral
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wJdq6b5BzF3Sn
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 09:12:47 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=fRiM6IOnBIQBZ23X06B7cGcwM+azYTA0HNgCC5CCPF8=; b=HDJLzDm12tvJ
- 5qZfdVzzJUsUdguqxyGZUu/XyNo+InkXRIYx0SM/8KT4reky+J8l0jpmECMqoi6qxHiF4shbolW4c
- v+JjQxjLxenz7fkUKZBKbq0Q+TqsbhamoV8mosLSseWLJK1pEcZLkkeY4W0eaOqgt5i949N0sdazx
- Wxgow=;
-Received: from [64.114.255.97] (helo=finisterre.ee.mobilebroadband)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1gN3Oq-0004ZH-1r; Wed, 14 Nov 2018 22:12:40 +0000
-Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 2F1A9440078; Wed, 14 Nov 2018 22:12:34 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Colin Ian King <colin.king@canonical.com>
-Cc: Mark Brown <broonie@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Brendan Higgins <brendanhiggins@google.com>,
- Mark Brown <broonie@kernel.org>, openbmc@lists.ozlabs.org,
- linux-spi@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
-Subject: Applied "spi: npcm: fix u32 csgpio being checked for less than zero"
- to the spi tree
-In-Reply-To: <20181114214246.15591-1-colin.king@canonical.com>
-Message-Id: <20181114221234.2F1A9440078@finisterre.ee.mobilebroadband>
-Date: Wed, 14 Nov 2018 22:12:34 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wLSt3lprzF3Tj
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 10:35:10 +1100 (AEDT)
+Received: by mail-qk1-x741.google.com with SMTP id 189so29036461qkj.8
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 15:35:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=hcpRpNU1JNizUd+FvOKSmTJmrsti/7dsF6Dl1KOlCms=;
+ b=J939Ycgemd7j9VHSSKBiWT8obHBZwym+QFjAnJ2yZy8Lcj6ys/t5rSqEl5QuODbVWl
+ mX0T+8CH+4R7iOmbachgvC5BZQZ24M/wwWR1zLjbyWN4jkGnQnunJxai44dKldH4N2+Y
+ dN/w2LCVMpMvvFCH97UPvpnC+Qv6n+5bSf/ZU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hcpRpNU1JNizUd+FvOKSmTJmrsti/7dsF6Dl1KOlCms=;
+ b=VbVyTWFGavzNZpBhSl4c9XxBy8/nlH9DzPXAcsEDQXqti1Wl7YbRYWo8mKuXT1m/18
+ o3JCtceL0gDRf89WalojUeSyMHJnbsW9fMWkdbXyFon8OneOohE3njTsnhqMc5zlZGmI
+ k+c/PTRk7p3F8tLxKKP/5H2M4fKlayk3y3fTW1qK/bHpRQ53dcAmjKHlN4cuL/LzHOlx
+ iHAMSzKO6QnrRxz18vY+n7zUobUsSY+G44ahp+eBozt3TGB+AhE0YetbnwvWTP9S9UjT
+ JsP8JrpGDQ8AlrhijyOSR9+lPapCgjiAadt7O5GYWWzs0lS/zwFPQ7GAKINNZUtsJjyy
+ wTRw==
+X-Gm-Message-State: AGRZ1gLBU0rs9TNSoVkYCQ7CFvFJKA5urtCZ3f/8No7SMhHBE4Hq+4SL
+ NxRCTWm+6bP7fn1z2fBiBMAUxW106yBLryEHb+w=
+X-Google-Smtp-Source: AJdET5fRoDjttdUe9NrQiCFJFXm4jXP2UsMtVm/XRk/PGA/G4ABiH1O8Gk1LqXbtsaGc/1yw3RgggNoKv8IuFO6CXoI=
+X-Received: by 2002:a0c:e751:: with SMTP id g17mr4024647qvn.160.1542238507994; 
+ Wed, 14 Nov 2018 15:35:07 -0800 (PST)
+MIME-Version: 1.0
+References: <CACPK8XfRxu-4DubF4SAsAzX0y4dkpF23MYq9ynS+VT8ufPMMoA@mail.gmail.com>
+ <CALLMt=pwnn=4_qbZM_Ph=GNUZw2tnmC5p2kcJ9EvAuwD47W2xA@mail.gmail.com>
+ <CACPK8Xcaa+tEafXqtCR_xJ9GCT3JfPNG62G624ftFkyQ9eaM5A@mail.gmail.com>
+ <CALLMt=oPg=N9FUMFB42ztmVigpVmfOuc9A+F_v7VcdJW=LVGSQ@mail.gmail.com>
+In-Reply-To: <CALLMt=oPg=N9FUMFB42ztmVigpVmfOuc9A+F_v7VcdJW=LVGSQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 15 Nov 2018 10:04:55 +1030
+Message-ID: <CACPK8Xce5G-NOnKozG=ru-f1WmNc7LFVcuJv6+Kh-_A9sgCYQw@mail.gmail.com>
+Subject: Re: Disabling ppc64le hosts for Qemu tests
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,81 +64,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Nov 2018 22:12:49 -0000
+X-List-Received-Date: Wed, 14 Nov 2018 23:35:12 -0000
 
-The patch
+On Thu, 15 Nov 2018 at 08:15, Andrew Geissler <geissonator@gmail.com> wrote:
+>
+> On Tue, Nov 13, 2018 at 5:44 PM Joel Stanley <joel@jms.id.au> wrote:
+> >
+> > On Wed, 14 Nov 2018 at 07:00, Andrew Geissler <geissonator@gmail.com> wrote:
+> > >
+> > > On Mon, Nov 12, 2018 at 11:08 PM Joel Stanley <joel@jms.id.au> wrote:
+> > > >
+> > > > Hello Andrew,
+> > > >
+> > > > I've been trying to get to the bottom of the slow-booting qemu issue
+> > > > for a few weeks now. We commited a fix that resolve the issue on x86
+> > > > hosts, but when running the same Qemu build on ppc64le it still has
+> > > > the "go slow" behaviour.
+> > > >
+> > > >  https://github.com/openbmc/qemu/issues/14
+> > > >
+> > > > I propose we run the Romulus Qemu boot test on x86-only build slaves
+> > > > while we work this out. That will allow us to unblock the kernel
+> > > > security bumps, which have been pending for a few weeks.
+> > >
+> > > Unfortunately there's no way that I can find in the jenkins multi-configuration
+> > > matrix plugin to specify which part of an axis goes to which slave node.
+> > >
+> > > The flow right now is that whichever node gets assigned to build the
+> > > image, is then used to run the QEMU job (so no transfers of
+> > > images have to occur).
+> >
+> > This sounds like the easiest thing to fix. We would still maintain all
+> > four CI boxes, but ensure the Qemu job is run on an x86 box.
+> >
+> > We could even run the Qemu job on openpower.xyz (aka 'slave') itself,
+> > as the images are already being copied here.
+>
+> I think to do this, we'd need something like
+> https://stackoverflow.com/questions/7133027/retrieve-build-number-or-artifacts-of-downstream-build-in-jenkins
+> The images are not copied to openpower.xyz until the very end
+> of the job currently, to get them to the QEMU job, we'd need
+> to copy them in between jobs.
 
-   spi: npcm: fix u32 csgpio being checked for less than zero
+Yeah, this is how I have the BSP jobs configured (which haven't run in
+a while; they need some love):
 
-has been applied to the spi tree at
+ https://openpower.xyz/view/Aspeed%20BSP/
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git 
+> Honestly, if it's just a couple of weeks, I think our best solution is
+> to just remove the ppc64le system from the bitbake builder queue.
+> With the US holiday, it should be a quieter few weeks then what we've
+> had recently.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+Okay. Lets go ahead with that change.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Cheers,
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 757ec116c9bce4278fa4423039736c832cc63b6f Mon Sep 17 00:00:00 2001
-From: Colin Ian King <colin.king@canonical.com>
-Date: Wed, 14 Nov 2018 21:42:46 +0000
-Subject: [PATCH] spi: npcm: fix u32 csgpio being checked for less than zero
-
-The u32 variable csgpio is being checked for an error return
-from the call to of_get_named_gpio, however, since this is unsigned
-this comparison will always be false. Fix this by making csgpio an
-int and fix up the %u format specifiers to %d accordingly.
-
-Detected by CoverityScan, CID#1475476 ("Unsigned compared against 0")
-
-Fixes: 2a22f1b30cee ("spi: npcm: add NPCM PSPI controller driver")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- drivers/spi/spi-npcm-pspi.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
-index 51777515c83f..6dae91091143 100644
---- a/drivers/spi/spi-npcm-pspi.c
-+++ b/drivers/spi/spi-npcm-pspi.c
-@@ -329,7 +329,7 @@ static int npcm_pspi_probe(struct platform_device *pdev)
- 	unsigned long clk_hz;
- 	struct device_node *np = pdev->dev.of_node;
- 	int num_cs, i;
--	u32 csgpio;
-+	int csgpio;
- 	int irq;
- 	int ret;
- 
-@@ -417,12 +417,12 @@ static int npcm_pspi_probe(struct platform_device *pdev)
- 			dev_err(&pdev->dev, "failed to get csgpio#%u\n", i);
- 			goto out_disable_clk;
- 		}
--		dev_dbg(&pdev->dev, "csgpio#%u = %u\n", i, csgpio);
-+		dev_dbg(&pdev->dev, "csgpio#%u = %d\n", i, csgpio);
- 		ret = devm_gpio_request_one(&pdev->dev, csgpio,
- 					    GPIOF_OUT_INIT_HIGH, DRIVER_NAME);
- 		if (ret < 0) {
- 			dev_err(&pdev->dev,
--				"failed to configure csgpio#%u %u\n"
-+				"failed to configure csgpio#%u %d\n"
- 				, i, csgpio);
- 			goto out_disable_clk;
- 		}
--- 
-2.19.1
+Joel>
+> I have for other optimizations reasons always wanted a way to
+> dedicate a QEMU queue, but I don't really have time to deal
+> with getting that going right now.
+>
+> >
+> > > The assignment of which node builds
+> > > which config is random so builder4 (our ppc64le) node gets Romulus
+> > > about 25% of the time.
+> > >
+> > > Removing builder4 from the build queue would work, but would
+> > > also remove 25% of our build capacity.
+> >
+> > Is there a reason why we don't use the "openbmc-ci" build slave more?
+> >
+> >  https://openpower.xyz/computer/openbmc-ci1/builds
+>
+> openbmc-ci1 is our ppc64le that runs the gerrit server. I send the
+> per-repository CI
+> jobs there (i.e. the make/make check google test jobs). I don't send the
+> big bitbake jobs (i.e. builder) because of the cpu impacts it would have
+> on gerrit.
+>
+> > > > I'll continue working on fixing Qemu in the future, but I don't have
+> > > > time for the next two weeks due to some higher priority work.
+> > >
+> > > This feels like one of those things that's always tough to come back
+> > > to once you let a workaround in.
+> >
+> > I don't understand? There's no workaround going into Qemu, this is
+> > simply for the Jenkins issue. Once Qemu is fixed we can re-enable the
+> > Jenkins slave.
+> >
+> > > Is there a specific kernel commit
+> > > you've bisected down to that we could just pull from the openbmc/linux
+> > > tree? Is there a workaround we could put in our openbmc/qemu for
+> > > now? I'd prefer both of these over just disabling ppc64le.
+> >
+> > The fix corrects a nasty bug in the Linux timer driver. Reverting this
+> > fix would result in inaccurate running of timers in Linux, which is
+> > what the system currently does. I would consider it a high priority
+> > fix to have in the product.
+>
+> Yeah, just feels like we're stuck between a rock and hard place.
+> I def understand the desire to keep the kernel up to date for the
+> community.
+>
+> With the tag happening Friday, I assume we don't want to get this
+> in until next week anyway? Or was this something you felt we
+> really needed before the tag?
+>
+> >
+> > The Qemu workaround is already in place, and works for x86. It doesn't
+> > work for ppc64le.
