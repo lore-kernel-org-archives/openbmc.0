@@ -1,45 +1,54 @@
-Return-Path: <james.feist@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="JRtaWreb"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wBXg2jmczF3Zv
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 04:37:51 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2018 09:37:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,233,1539673200"; d="scan'208";a="106244778"
-Received: from skyhawk.jf.intel.com (HELO [10.54.51.81]) ([10.54.51.81])
- by fmsmga004.fm.intel.com with ESMTP; 14 Nov 2018 09:37:49 -0800
-Subject: Re: Adding sensors for facebook
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Vijay Khemka <vijaykhemka@fb.com>, "Li, Yong B" <yong.b.li@linux.intel.com>,
- Joel Stanley <joel@jms.id.au>
-Cc: Amithash Prasad <amithash@fb.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <D7F4B5CE-3638-4877-B3BD-B2BB726E493E@fb.com>
- <a010895e-042f-30cc-6030-42ccc021d7c5@linux.intel.com>
- <E70E182F-441C-4CFA-BB14-9A3FB55DE6C5@fb.com>
- <6bc2b289-ed9a-854c-ae92-ffcd74ea5cf3@linux.intel.com>
- <0cfecae9-5ae7-2bf5-16de-20bcbd9ad50e@linux.intel.com>
-From: James Feist <james.feist@linux.intel.com>
-Message-ID: <3e929e2f-5e08-3f13-2ee9-8af10f88c1f3@linux.intel.com>
-Date: Wed, 14 Nov 2018 09:37:48 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wD7d3S9nzF3SY
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 05:49:48 +1100 (AEDT)
+Received: by mail-pg1-x52e.google.com with SMTP id w3-v6so7745485pgs.11
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 10:49:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=UYfCxnQNvlgrRrFjVjzZDDfXyZmDUFIMwPnlen/cUrI=;
+ b=JRtaWrebndou86t7D0+xOFYSwg3hmQkCoDmbpqWhAia7zzRuLUXfUiMYzVdvoLSvwz
+ MeXSAPN+ZvdyaUYdTUd3UMX7eCavU+96IaGt7gq4DGkW8IXZcZ6w/k6FkoadvGqBkdJd
+ omSkCsicoAgtSA7nEy6zOI+CUJ5ROSbUhnMkqd8fORwIif4R44+9kZlmBs6avSan1+c4
+ Gc18hI9noPICDSCKvyoHLfyrtUJlzIk2wAmWJYDGXVqPNxQHx9tKaSAmDeZ1Hn2BV0Dn
+ AvwEuHD0/vmZWuROdtif2pm8MdHSFJl2TlCNMysbzdd3TToICEfrkhrEXhKXUBnL3dJN
+ QXWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=UYfCxnQNvlgrRrFjVjzZDDfXyZmDUFIMwPnlen/cUrI=;
+ b=rnzfwuTXXJzyvuQeznP3bIjJLRj8O/dISLbm9RqSB4CbeCwHeQ0Sa1CT1FHVa32ITu
+ xwSc+AmSh3ouUTkT77ICbOtVFsJKELRL796+ZzdvXsdiTbGl0pskKlDNnPl7MPupIz0P
+ 6t2qrCIeqNRlDm9Iw6/p9gDdlfwgARuLKUm2d8r0xppLNsySPZpk7/IBAtkSaPBZOOjv
+ WdbOYnR4Es2dQ/P+gMZYWLEG6Z9Q6uUahRf852PtzpLL6/an5M6TWuN9gYD5x2NxkLYg
+ NyMvwHTAu6WO2d3g7F1e+i0r7r+a60StQztBAfpPbvx8dWibJ6RVgskwKrCtv5RSh+C4
+ 9EAQ==
+X-Gm-Message-State: AGRZ1gK7o8Omy+Notykw2omcHZHFlLCauBk/YfvR39rAQJY/GtWBrZvA
+ BgC2DW4c5QT7pO5sNDSlO6S33Mm4iw7JMUyWEzEuoQ==
+X-Google-Smtp-Source: AJdET5eibMoyKchvQZ1/QnhzVV0WJ7q9CAO5pg5MfoyKRlsWySSt6XRHP/9FVWx1UrT3ybtHzNACfRsghlkHLNJ1zjQ=
+X-Received: by 2002:a63:4044:: with SMTP id n65mr2767647pga.90.1542221386069; 
+ Wed, 14 Nov 2018 10:49:46 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <0cfecae9-5ae7-2bf5-16de-20bcbd9ad50e@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+From: Patrick Venture <venture@google.com>
+Date: Wed, 14 Nov 2018 10:49:34 -0800
+Message-ID: <CAO=notys2w6Jgv2E7mpM3O7swoZatHODDwu8yL865K-sq6GBeA@mail.gmail.com>
+Subject: hosting of doxygen from projects
+To: Andrew Geissler <geissonator@gmail.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,57 +60,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Nov 2018 17:37:56 -0000
+X-List-Received-Date: Wed, 14 Nov 2018 18:49:50 -0000
 
-On 11/14/2018 09:23 AM, Jae Hyun Yoo wrote:
-> On 11/14/2018 9:00 AM, James Feist wrote:
->> On 11/13/2018 04:08 PM, Vijay Khemka wrote:
->>> Hi James,
->>> Thanks for this detailed information. I have quick questions though 
->>> about dbus-sensors, is this intel's features only not a common one. 
->>> So I need to copy whole recipes to our repo. Also I see following 
->>> compile issue.
->> We can submit a patch to move in into common, although I think you 
->> should still be able to access it, we pull in code from meta-phosphor, 
->> meta-openembedded, etc. meta-intel is just another meta layer. Let me 
->> know if you can't and we can start the process.
->>
->>>
->>> /home/vijaykhemka/proj/openbmc/lf/new-gh/openbmc/build/workspace/sources/dbus-sensors/sensors/src/CPUSensorMain.cpp:18:10: 
->>> fatal error: linux/peci-ioctl.h: No such file or directory
->>>
->>> And I can't find peci-ioctl.h in my kernel tree as well.
->>
->> Jae,
->>
->> Can you point them to the latest peci kernel patch?
->>
-> 
-> Hi Vijay,
-> 
-> I'm still trying to upstream the PECI implementation into linux kernel
-> tree. Meanwhile, you could back port this patch series for test.
-> 
-> https://lkml.org/lkml/2018/10/15/670
+We use doxygen documentation for all our code, but do nothing with the
+possibly generated output from this.  I suggest we start hosting that
+information somewhere, built via a script, possibly under the github
+io.
 
-Joel,
+Each codebase could host it, however, I think there's value in having
+it all in the same place.
 
-Is it possible to add this into the openbmc/linux tree?
-
-Thanks,
-
-James
-
-> 
-> Thanks,
-> 
-> Jae
-> 
->> It hasn't fully been through the kernel review process but it is 
->> probably good enough to be merged into openbmc/linux. Until this 
->> happens you probably need to apply it as a patch downstream.
->>
->> Thanks,
->>
->> James
->>
+Patrick
