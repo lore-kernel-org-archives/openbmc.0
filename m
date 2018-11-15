@@ -1,76 +1,92 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
+Return-Path: <Supreeth.Venkatesh@arm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=arm.com
+ (client-ip=40.107.13.40; helo=eur01-he1-obe.outbound.protection.outlook.com;
+ envelope-from=supreeth.venkatesh@arm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=arm.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=armh.onmicrosoft.com header.i=@armh.onmicrosoft.com
+ header.b="dekHN2um"; dkim-atps=neutral
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr130040.outbound.protection.outlook.com [40.107.13.40])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wlQN6R0LzF3fP
- for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 02:19:21 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wAFFImIi028641
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 10:19:19 -0500
-Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2nsb5v0hs0-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 10:19:18 -0500
-Received: from localhost
- by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Thu, 15 Nov 2018 15:19:16 -0000
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
- by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 15 Nov 2018 15:19:14 -0000
-Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
- [9.149.105.61])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- wAFFJE2n62718040
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 15 Nov 2018 15:19:14 GMT
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DD5B011C04C;
- Thu, 15 Nov 2018 15:19:13 +0000 (GMT)
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3C92411C054;
- Thu, 15 Nov 2018 15:19:13 +0000 (GMT)
-Received: from [9.199.35.99] (unknown [9.199.35.99])
- by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Thu, 15 Nov 2018 15:19:13 +0000 (GMT)
-Subject: Re: Pamela.py can't run on BMC python env
-To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>
-References: <mailman.9.1542243603.11481.openbmc@lists.ozlabs.org>
- <tencent_3A3ECA558D9BA0F1B9F1A0715AF542A96D05@qq.com>
-Cc: ratagupt <ratagupt@linux.vnet.ibm.com>
-From: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Date: Thu, 15 Nov 2018 20:49:10 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <tencent_3A3ECA558D9BA0F1B9F1A0715AF542A96D05@qq.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wm2h6mjrzF3fy
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 02:47:24 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector1-arm-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j1xzw4L4VhAkCI102HqG3QZtR2K2mNLL5P3Er946xpg=;
+ b=dekHN2umqbmNw2IE0KLzILDM3px00JEOpKBF2t4eXNRpcfqWESSzUBJroN6x7spV+yDMQztSagS2RtautAfaSqKu1eIyME5SCnbWfcfyJVn6r4qwJo6qU+3r8RlpG7qC3rBlcWpP2LBIxV39Qrx86BbJL0sQrP0BioNHjE/3cRM=
+Received: from AM4PR08MB2788.eurprd08.prod.outlook.com (10.171.191.18) by
+ AM4PR08MB0739.eurprd08.prod.outlook.com (10.164.82.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1294.27; Thu, 15 Nov 2018 15:47:18 +0000
+Received: from AM4PR08MB2788.eurprd08.prod.outlook.com
+ ([fe80::5cb7:eb15:2e30:f981]) by AM4PR08MB2788.eurprd08.prod.outlook.com
+ ([fe80::5cb7:eb15:2e30:f981%4]) with mapi id 15.20.1294.045; Thu, 15 Nov 2018
+ 15:47:18 +0000
+From: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>
+To: Emily Shaffer <emilyshaffer@google.com>
+CC: Jeremy Kerr <jk@ozlabs.org>, David Thompson <dthompson@mellanox.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Dong Wei
+ <Dong.Wei@arm.com>
+Subject: RE: MCTP protocol support in OpenBMC?
+Thread-Topic: MCTP protocol support in OpenBMC?
+Thread-Index: AQHUfCJoZ2bFOUp/A0K9OmK5coEMtqVPcbPggAAvG4CAAVykYA==
+Date: Thu, 15 Nov 2018 15:47:18 +0000
+Message-ID: <AM4PR08MB27887FB26B2085E206B9F04580DC0@AM4PR08MB2788.eurprd08.prod.outlook.com>
+References: <HE1PR0501MB2666721F6FF033CA4B94D754DD340@HE1PR0501MB2666.eurprd05.prod.outlook.com>
+ <799b6a6f-992c-200e-c42c-35d469f696b9@ozlabs.org>
+ <AM4PR08MB2788ACA6457591EF7862078880C30@AM4PR08MB2788.eurprd08.prod.outlook.com>
+ <CAJoAoZn1uAas9jfefVnV-vSKVQ9eNUwa9+_8zv_xEPhk3_Y_ig@mail.gmail.com>
+In-Reply-To: <CAJoAoZn1uAas9jfefVnV-vSKVQ9eNUwa9+_8zv_xEPhk3_Y_ig@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 18111515-0016-0000-0000-000002277C6E
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18111515-0017-0000-0000-0000327FA099
-Message-Id: <c92792d1-a03e-d0d9-62d6-98663904b7d0@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-11-15_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=947 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1811150135
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Supreeth.Venkatesh@arm.com; 
+x-originating-ip: [99.185.131.209]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; AM4PR08MB0739;
+ 6:ydiWTXCcWgY+LPFMkyIgzXuRJAX0D/38sQMJ7ezZXRnzFceD14wNg/+B16CqEQ05AYYlx2NSfZ1SFkfdlPXkfieteogqOSB6JTPMsllOVeoIlWCpQ2m8+fMzF9yV9O3kcxyCNUQLgNbW7NZ4gs9JlhufK794tLfzJgyhauGq7T/oi2Ve5Bp8Q2vN+Yhj/tGt0/Ud8d3kKMECMM8EbnO8x6fVkoUOZmL1ywP8VvFY7Zx3Ahc8aFmSwRH8F9e2c/A4iHZ4L7xUGkVB5zEpKCaPO5458/nNQRV5peig6cs8EgsJLJEiLxKQ/zA6YnrBcdA/uCuu934rtLSO1IhOQracbp27QvEeDgLqjhXqYv8CqzkuG5LPQtLpanGqNiAw1rd400ZAPCMH62+x6P4VwgTihhwNAZSGl6R7wTfqyo5kdtxnZ44fkSEUOhYdTmBqfhWEsMJ7j+cieZAkVZsgGi9Peg==;
+ 5:ce6bfeQZk4z07BCIrReR5drQ7tlfp17pkcQGHRSq/zsW865y53X7yR+vE2aPstFfedzsidY3Jj3RhVlFBPYZNOwU5Z7hbeS88BvwHTXJpKtEmmcJE7t0RSrso8+DQdG2BzxhWqwsGJOuoufM85+W18GZoJWpPkM7+XK5SOlmg9c=;
+ 7:k0jbntyhe9vpMGNE+iXCvl1bylzXA+Ya0VOuif1+VL7peJLL8F6OyNTHWKZU5wY9dnf8h3h4iZY6C9+2bSo5cw1nkj93NG5DieMt2+mxHZbKXKVoZpJ3VQW8PCiMzJpkcApEXKWuPfw7B9Rsc3LpJw==
+x-ms-exchange-antispam-srfa-diagnostics: SOS;SOR;
+x-ms-office365-filtering-correlation-id: 5e68c186-5c28-430b-45d4-08d64b119fdd
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390098)(7020095)(4652040)(8989299)(5600074)(711020)(4618075)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:AM4PR08MB0739; 
+x-ms-traffictypediagnostic: AM4PR08MB0739:
+x-microsoft-antispam-prvs: <AM4PR08MB0739E8F9BC4BD07A465FB78E80DC0@AM4PR08MB0739.eurprd08.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(211936372134217)(153496737603132)(180628864354917)(65623756079841)(21748063052155)(28532068793085)(190501279198761)(227612066756510);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(3002001)(10201501046)(3231415)(944501410)(52105112)(6055026)(148016)(149066)(150057)(6041310)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(20161123558120)(20161123560045)(20161123562045)(201708071742011)(7699051)(76991095);
+ SRVR:AM4PR08MB0739; BCL:0; PCL:0; RULEID:; SRVR:AM4PR08MB0739; 
+x-forefront-prvs: 08572BD77F
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(366004)(39860400002)(136003)(346002)(396003)(376002)(40434004)(13464003)(189003)(199004)(478600001)(8936002)(2900100001)(86362001)(6436002)(54906003)(81166006)(8676002)(53546011)(81156014)(6246003)(6506007)(66066001)(316002)(229853002)(71200400001)(71190400001)(6916009)(68736007)(4326008)(2906002)(72206003)(105586002)(106356001)(5660300001)(11346002)(25786009)(446003)(236005)(9686003)(26005)(74316002)(476003)(97736004)(53936002)(6116002)(790700001)(5024004)(99286004)(256004)(486006)(7696005)(55016002)(102836004)(76176011)(54896002)(6306002)(186003)(7736002)(14454004)(93886005)(33656002)(3846002)(14444005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM4PR08MB0739;
+ H:AM4PR08MB2788.eurprd08.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: arm.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: 7uMEdDPeK/LVTe0fc7xGexQaj/3RX34UZeazMsPP7ywzh/ROhU4to++SBE4n6ztxhKU8xyYbtry18yObmzev6ihYUvoc99KE6QVjbL3qOyZr1DftGl6oQVUq0nbFYxXujr636hiIH43+VlAAo7TCubT0vQ1Pq/b/DQVy9vJzNHXmNzi6w42rCHB6HxsMVPARfXiY+TCyu6ZWBdKSJuef24Ciq2Hh4dLRhV9uqz+ee+YLI6Kw/X3I/iaV7vfVgkNLXi4VRlROZ67lUzQMfLoyH3y2FirsreSLbtOkA8/53lTY+KS3rK24wGQhBpPh/W/zaGBGwMqMI2R3s30WeZKLP9buMTy8vPPunaegrxkg4o4=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_AM4PR08MB27887FB26B2085E206B9F04580DC0AM4PR08MB2788eurp_"
+MIME-Version: 1.0
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e68c186-5c28-430b-45d4-08d64b119fdd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2018 15:47:18.6708 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR08MB0739
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,40 +98,165 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Nov 2018 15:19:25 -0000
+X-List-Received-Date: Thu, 15 Nov 2018 15:47:26 -0000
 
-Hello Xiuzhi,
+--_000_AM4PR08MB27887FB26B2085E206B9F04580DC0AM4PR08MB2788eurp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-pamela.py depends on the libpam library and find_library is failing. A 
-workaround is up for review.
+VGhhbmtzIEVtaWx5LiBCYXNlZCBvbiBmZWVkYmFjayBmcm9tIG90aGVycywgd2UgY2FuIGRlY2lk
+ZSB3aGV0aGVyIHdlIHNob3VsZCBmb3JtIGEgV0cgb3Igc2hvdWxkIHVzZSBhbHRlcm5hdGUgbWVj
+aGFuaXNtLg0KDQpTdXByZWV0aA0KDQpGcm9tOiBFbWlseSBTaGFmZmVyIDxlbWlseXNoYWZmZXJA
+Z29vZ2xlLmNvbT4NClNlbnQ6IFdlZG5lc2RheSwgTm92ZW1iZXIgMTQsIDIwMTggMTowMiBQTQ0K
+VG86IFN1cHJlZXRoIFZlbmthdGVzaCA8U3VwcmVldGguVmVua2F0ZXNoQGFybS5jb20+DQpDYzog
+SmVyZW15IEtlcnIgPGprQG96bGFicy5vcmc+OyBEYXZpZCBUaG9tcHNvbiA8ZHRob21wc29uQG1l
+bGxhbm94LmNvbT47IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzsgRG9uZyBXZWkgPERvbmcuV2Vp
+QGFybS5jb20+DQpTdWJqZWN0OiBSZTogTUNUUCBwcm90b2NvbCBzdXBwb3J0IGluIE9wZW5CTUM/
+DQoNCkdvb2dsZSBpcyBpbnRlcmVzdGVkIGluIGludmVzdGlnYXRpbmcgTUNUUCBhcyB3ZWxsLiBJ
+J2QgbG92ZSB0byBqb2luIHRoZSB3Zy4NCg0KRW1pbHkNCg0KT24gV2VkLCBOb3YgMTQsIDIwMTgg
+YXQgODoxNCBBTSBTdXByZWV0aCBWZW5rYXRlc2ggPFN1cHJlZXRoLlZlbmthdGVzaEBhcm0uY29t
+PG1haWx0bzpTdXByZWV0aC5WZW5rYXRlc2hAYXJtLmNvbT4+IHdyb3RlOg0KRGF2aWQvSmVyZW15
+LA0KDQpXZSAoQCBhcm0pIGFyZSBhbHNvIGludGVyZXN0ZWQgaW4gY29udHJpYnV0aW5nIE1DVFAg
+dG8gT3BlbkJNQy4NCldlIGFyZSBpbiB0aGUgcHJvY2VzcyBvZiBnZXR0aW5nIENMQSBzaWduZWQu
+DQpXZSBoYXZlIHRoZSBzYW1lIGNvbmNlcm4gcmVnYXJkaW5nIGR1cGxpY2F0aW5nIHdvcmsuDQpX
+ZSB3b3VsZCBsaWtlIHRvIGNvbGxhYm9yYXRlIHdpdGggT3BlbkJNQyBmb2xrcyAgd2hvIGFyZSBp
+bnRlcmVzdGVkIGluIHRoaXMgdG9waWMuIChtYXliZSBmb3JtIGEgV29ya2dyb3VwIHRvIGRpc2N1
+c3MgdGhpcykuDQoNClRoYW5rcywNClN1cHJlZXRoDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQpGcm9tOiBvcGVuYm1jIDxvcGVuYm1jLWJvdW5jZXMrc3VwcmVldGgudmVua2F0ZXNoPWFy
+bS5jb21AbGlzdHMub3psYWJzLm9yZzxtYWlsdG86YXJtLmNvbUBsaXN0cy5vemxhYnMub3JnPj4g
+T24gQmVoYWxmIE9mIEplcmVteSBLZXJyDQpTZW50OiBXZWRuZXNkYXksIE5vdmVtYmVyIDE0LCAy
+MDE4IDg6MDAgQU0NClRvOiBEYXZpZCBUaG9tcHNvbiA8ZHRob21wc29uQG1lbGxhbm94LmNvbTxt
+YWlsdG86ZHRob21wc29uQG1lbGxhbm94LmNvbT4+OyBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc8
+bWFpbHRvOm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NClN1YmplY3Q6IFJlOiBNQ1RQIHByb3Rv
+Y29sIHN1cHBvcnQgaW4gT3BlbkJNQz8NCg0KSGkgRGF2aWQgYW5kIFJpY2ssDQoNCj4gRG9lcyBP
+cGVuQk1DIGN1cnJlbnRseSBoYXZlIGFueSBzdXBwb3J0IGZvciBNQ1RQIHByb3RvY29sIGxheWVy
+LCBvciBpcw0KPiB0aGVyZSBhIHBsYW4gdG8gZGVsaXZlciBzb21ldGhpbmcgbGlrZSB0aGlzIGlu
+IHRoZSBmdXR1cmU/ICBJJ2QgYmUNCj4gdmVyeSBpbnRlcmVzdGVkIHRvIGhlYXIgYWJvdXQgYW55
+IGZ1dHVyZSBwbGFucyByZWxhdGVkIHRvIE1DVFAgc3RhY2suDQoNClVzIHRvbyEgSSdtIGludGVy
+ZXN0ZWQgaW4gbG9va2luZyBhdCBNQ1RQLCBhbmQgYW0gaW4gdGhlIG1pZGRsZSBvZiBkb2luZyBh
+IGxpdHRsZSBwcm90b3R5cGluZyB3aXRoIG91ciBob3N0IGZpcm13YXJlIHN0YWNrLg0KDQpJJ2Qg
+YWxzbyBsaWtlIHRvIGF2b2lkIGR1cGxpY2F0aW5nIHdvcmsgdGhvdWdoLCBoYXZlIHlvdSAob3Ig
+b3RoZXJzKSBtYWRlIHByb2dyZXNzIG9uIHRoaXMgc2luY2UgdGhpcyBpbml0aWFsIGVtYWlsPyBJ
+IGtub3cgdGhlcmUgd2FzIGEgcHJlc2VudGF0aW9uIG9uIE1DVFAgYXQgdGhlIHJlY2VudCBoYWNr
+YXRob24sIGJ1dCBJJ20gbm90IHN1cmUgaWYgYW55IHNvbGlkIHBsYW5zIGNhbWUgZnJvbSB0aGF0
+Lg0KDQpJZiBub3QsIEknZCBiZSBoYXBweSB0byBza2V0Y2ggb3V0IGFuIGFyY2hpdGVjdHVyZSBm
+b3IgdGhpcy4uLg0KDQpDaGVlcnMsDQoNCg0KSmVyZW15DQpJTVBPUlRBTlQgTk9USUNFOiBUaGUg
+Y29udGVudHMgb2YgdGhpcyBlbWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIGFyZSBjb25maWRlbnRp
+YWwgYW5kIG1heSBhbHNvIGJlIHByaXZpbGVnZWQuIElmIHlvdSBhcmUgbm90IHRoZSBpbnRlbmRl
+ZCByZWNpcGllbnQsIHBsZWFzZSBub3RpZnkgdGhlIHNlbmRlciBpbW1lZGlhdGVseSBhbmQgZG8g
+bm90IGRpc2Nsb3NlIHRoZSBjb250ZW50cyB0byBhbnkgb3RoZXIgcGVyc29uLCB1c2UgaXQgZm9y
+IGFueSBwdXJwb3NlLCBvciBzdG9yZSBvciBjb3B5IHRoZSBpbmZvcm1hdGlvbiBpbiBhbnkgbWVk
+aXVtLiBUaGFuayB5b3UuDQpJTVBPUlRBTlQgTk9USUNFOiBUaGUgY29udGVudHMgb2YgdGhpcyBl
+bWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIGFyZSBjb25maWRlbnRpYWwgYW5kIG1heSBhbHNvIGJl
+IHByaXZpbGVnZWQuIElmIHlvdSBhcmUgbm90IHRoZSBpbnRlbmRlZCByZWNpcGllbnQsIHBsZWFz
+ZSBub3RpZnkgdGhlIHNlbmRlciBpbW1lZGlhdGVseSBhbmQgZG8gbm90IGRpc2Nsb3NlIHRoZSBj
+b250ZW50cyB0byBhbnkgb3RoZXIgcGVyc29uLCB1c2UgaXQgZm9yIGFueSBwdXJwb3NlLCBvciBz
+dG9yZSBvciBjb3B5IHRoZSBpbmZvcm1hdGlvbiBpbiBhbnkgbWVkaXVtLiBUaGFuayB5b3UuDQo=
 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-phosphor/+/13092/
+--_000_AM4PR08MB27887FB26B2085E206B9F04580DC0AM4PR08MB2788eurp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Regards,
-Tom
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkRlbmdYaWFuOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAx
+IDE7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUg
+NSAyIDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6IlxARGVuZ1hpYW4i
+Ow0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMg
+Ki8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBp
+bjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjExLjBwdDsNCglmb250LWZh
+bWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJ
+e21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1
+bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFuLk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1z
+dHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpwdXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVy
+bGluZTt9DQpwLm1zb25vcm1hbDAsIGxpLm1zb25vcm1hbDAsIGRpdi5tc29ub3JtYWwwDQoJe21z
+by1zdHlsZS1uYW1lOm1zb25vcm1hbDsNCgltc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzsNCgltYXJn
+aW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0
+OjBpbjsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNl
+cmlmO30NCnNwYW4uRW1haWxTdHlsZTE4DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5
+Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCi5Nc29DaHBEZWZhdWx0DQoJ
+e21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5z
+LXNlcmlmO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJn
+aW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldv
+cmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hh
+cGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlm
+XS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQi
+Pg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94
+bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIg
+dmxpbms9InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+VGhhbmtzIEVtaWx5LiBCYXNlZCBvbiBmZWVkYmFjayBmcm9tIG90aGVycywgd2Ug
+Y2FuIGRlY2lkZSB3aGV0aGVyIHdlIHNob3VsZCBmb3JtIGEgV0cgb3Igc2hvdWxkIHVzZSBhbHRl
+cm5hdGUgbWVjaGFuaXNtLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86
+cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5TdXByZWV0aDxvOnA+PC9v
+OnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48Yj5Gcm9tOjwvYj4gRW1pbHkgU2hhZmZlciAmbHQ7ZW1pbHlzaGFm
+ZmVyQGdvb2dsZS5jb20mZ3Q7IDxicj4NCjxiPlNlbnQ6PC9iPiBXZWRuZXNkYXksIE5vdmVtYmVy
+IDE0LCAyMDE4IDE6MDIgUE08YnI+DQo8Yj5Ubzo8L2I+IFN1cHJlZXRoIFZlbmthdGVzaCAmbHQ7
+U3VwcmVldGguVmVua2F0ZXNoQGFybS5jb20mZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBKZXJlbXkgS2Vy
+ciAmbHQ7amtAb3psYWJzLm9yZyZndDs7IERhdmlkIFRob21wc29uICZsdDtkdGhvbXBzb25AbWVs
+bGFub3guY29tJmd0Ozsgb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnOyBEb25nIFdlaSAmbHQ7RG9u
+Zy5XZWlAYXJtLmNvbSZndDs8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IE1DVFAgcHJvdG9jb2wg
+c3VwcG9ydCBpbiBPcGVuQk1DPzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+R29vZ2xl
+IGlzIGludGVyZXN0ZWQgaW4gaW52ZXN0aWdhdGluZyBNQ1RQIGFzIHdlbGwuIEknZCBsb3ZlIHRv
+IGpvaW4gdGhlIHdnLjxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+RW1pbHk8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+T24gV2VkLCBOb3YgMTQsIDIwMTggYXQgODoxNCBBTSBTdXByZWV0aCBWZW5rYXRlc2gg
+Jmx0OzxhIGhyZWY9Im1haWx0bzpTdXByZWV0aC5WZW5rYXRlc2hAYXJtLmNvbSI+U3VwcmVldGgu
+VmVua2F0ZXNoQGFybS5jb208L2E+Jmd0OyB3cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0K
+PGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0Mg
+MS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4t
+cmlnaHQ6MGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkRhdmlkL0plcmVteSw8YnI+DQo8YnI+
+DQpXZSAoQCBhcm0pIGFyZSBhbHNvIGludGVyZXN0ZWQgaW4gY29udHJpYnV0aW5nIE1DVFAgdG8g
+T3BlbkJNQy48YnI+DQpXZSBhcmUgaW4gdGhlIHByb2Nlc3Mgb2YgZ2V0dGluZyBDTEEgc2lnbmVk
+Ljxicj4NCldlIGhhdmUgdGhlIHNhbWUgY29uY2VybiByZWdhcmRpbmcgZHVwbGljYXRpbmcgd29y
+ay48YnI+DQpXZSB3b3VsZCBsaWtlIHRvIGNvbGxhYm9yYXRlIHdpdGggT3BlbkJNQyBmb2xrcyZu
+YnNwOyB3aG8gYXJlIGludGVyZXN0ZWQgaW4gdGhpcyB0b3BpYy4gKG1heWJlIGZvcm0gYSBXb3Jr
+Z3JvdXAgdG8gZGlzY3VzcyB0aGlzKS48YnI+DQo8YnI+DQpUaGFua3MsPGJyPg0KU3VwcmVldGg8
+YnI+DQo8YnI+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLTxicj4NCkZyb206IG9wZW5ibWMg
+Jmx0O29wZW5ibWMtYm91bmNlcyYjNDM7c3VwcmVldGgudmVua2F0ZXNoPTxhIGhyZWY9Im1haWx0
+bzphcm0uY29tQGxpc3RzLm96bGFicy5vcmciIHRhcmdldD0iX2JsYW5rIj5hcm0uY29tQGxpc3Rz
+Lm96bGFicy5vcmc8L2E+Jmd0OyBPbiBCZWhhbGYgT2YgSmVyZW15IEtlcnI8YnI+DQpTZW50OiBX
+ZWRuZXNkYXksIE5vdmVtYmVyIDE0LCAyMDE4IDg6MDAgQU08YnI+DQpUbzogRGF2aWQgVGhvbXBz
+b24gJmx0OzxhIGhyZWY9Im1haWx0bzpkdGhvbXBzb25AbWVsbGFub3guY29tIiB0YXJnZXQ9Il9i
+bGFuayI+ZHRob21wc29uQG1lbGxhbm94LmNvbTwvYT4mZ3Q7Ow0KPGEgaHJlZj0ibWFpbHRvOm9w
+ZW5ibWNAbGlzdHMub3psYWJzLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPm9wZW5ibWNAbGlzdHMub3ps
+YWJzLm9yZzwvYT48YnI+DQpTdWJqZWN0OiBSZTogTUNUUCBwcm90b2NvbCBzdXBwb3J0IGluIE9w
+ZW5CTUM/PGJyPg0KPGJyPg0KSGkgRGF2aWQgYW5kIFJpY2ssPGJyPg0KPGJyPg0KJmd0OyBEb2Vz
+IE9wZW5CTUMgY3VycmVudGx5IGhhdmUgYW55IHN1cHBvcnQgZm9yIE1DVFAgcHJvdG9jb2wgbGF5
+ZXIsIG9yIGlzPGJyPg0KJmd0OyB0aGVyZSBhIHBsYW4gdG8gZGVsaXZlciBzb21ldGhpbmcgbGlr
+ZSB0aGlzIGluIHRoZSBmdXR1cmU/Jm5ic3A7IEknZCBiZTxicj4NCiZndDsgdmVyeSBpbnRlcmVz
+dGVkIHRvIGhlYXIgYWJvdXQgYW55IGZ1dHVyZSBwbGFucyByZWxhdGVkIHRvIE1DVFAgc3RhY2su
+PGJyPg0KPGJyPg0KVXMgdG9vISBJJ20gaW50ZXJlc3RlZCBpbiBsb29raW5nIGF0IE1DVFAsIGFu
+ZCBhbSBpbiB0aGUgbWlkZGxlIG9mIGRvaW5nIGEgbGl0dGxlIHByb3RvdHlwaW5nIHdpdGggb3Vy
+IGhvc3QgZmlybXdhcmUgc3RhY2suPGJyPg0KPGJyPg0KSSdkIGFsc28gbGlrZSB0byBhdm9pZCBk
+dXBsaWNhdGluZyB3b3JrIHRob3VnaCwgaGF2ZSB5b3UgKG9yIG90aGVycykgbWFkZSBwcm9ncmVz
+cyBvbiB0aGlzIHNpbmNlIHRoaXMgaW5pdGlhbCBlbWFpbD8gSSBrbm93IHRoZXJlIHdhcyBhIHBy
+ZXNlbnRhdGlvbiBvbiBNQ1RQIGF0IHRoZSByZWNlbnQgaGFja2F0aG9uLCBidXQgSSdtIG5vdCBz
+dXJlIGlmIGFueSBzb2xpZCBwbGFucyBjYW1lIGZyb20gdGhhdC48YnI+DQo8YnI+DQpJZiBub3Qs
+IEknZCBiZSBoYXBweSB0byBza2V0Y2ggb3V0IGFuIGFyY2hpdGVjdHVyZSBmb3IgdGhpcy4uLjxi
+cj4NCjxicj4NCkNoZWVycyw8YnI+DQo8YnI+DQo8YnI+DQpKZXJlbXk8YnI+DQpJTVBPUlRBTlQg
+Tk9USUNFOiBUaGUgY29udGVudHMgb2YgdGhpcyBlbWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIGFy
+ZSBjb25maWRlbnRpYWwgYW5kIG1heSBhbHNvIGJlIHByaXZpbGVnZWQuIElmIHlvdSBhcmUgbm90
+IHRoZSBpbnRlbmRlZCByZWNpcGllbnQsIHBsZWFzZSBub3RpZnkgdGhlIHNlbmRlciBpbW1lZGlh
+dGVseSBhbmQgZG8gbm90IGRpc2Nsb3NlIHRoZSBjb250ZW50cyB0byBhbnkgb3RoZXIgcGVyc29u
+LCB1c2UgaXQgZm9yIGFueSBwdXJwb3NlLA0KIG9yIHN0b3JlIG9yIGNvcHkgdGhlIGluZm9ybWF0
+aW9uIGluIGFueSBtZWRpdW0uIFRoYW5rIHlvdS48bzpwPjwvbzpwPjwvcD4NCjwvYmxvY2txdW90
+ZT4NCjwvZGl2Pg0KPC9kaXY+DQpJTVBPUlRBTlQgTk9USUNFOiBUaGUgY29udGVudHMgb2YgdGhp
+cyBlbWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIGFyZSBjb25maWRlbnRpYWwgYW5kIG1heSBhbHNv
+IGJlIHByaXZpbGVnZWQuIElmIHlvdSBhcmUgbm90IHRoZSBpbnRlbmRlZCByZWNpcGllbnQsIHBs
+ZWFzZSBub3RpZnkgdGhlIHNlbmRlciBpbW1lZGlhdGVseSBhbmQgZG8gbm90IGRpc2Nsb3NlIHRo
+ZSBjb250ZW50cyB0byBhbnkgb3RoZXIgcGVyc29uLCB1c2UgaXQgZm9yIGFueSBwdXJwb3NlLA0K
+IG9yIHN0b3JlIG9yIGNvcHkgdGhlIGluZm9ybWF0aW9uIGluIGFueSBtZWRpdW0uIFRoYW5rIHlv
+dS4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-
-On Thursday 15 November 2018 11:56 AM, xiuzhi wrote:
-> Hi All,
->    I want to use PAM python module pamela.py  in the 
-> /usr/lib/python2.7/site-packages .
->  The error is as follows :
-> 1)root@haiguang1:/usr/lib/python2.7/site-packages# python -m pamela -a 
-> `whoami`
-> Could not import runpy module
->
-> 2)root@haiguang1:/usr/lib/python2.7/site-packages# python ./pamela.py
-> Traceback (most recent call last):
->   File "./pamela.py", line 143, in <module>
->     PAM_START = LIBPAM.pam_start
->   File "/usr/lib/python2.7/ctypes/__init__.py", line 379, in __getattr__
->     func = self.__getitem__(name)
->   File "/usr/lib/python2.7/ctypes/__init__.py", line 384, in __getitem__
->     func = self._FuncPtr((name_or_ordinal, self))
-> AttributeError: python: undefined symbol: pam_start
->
-> I run the pamela.py on ubuntu16.04 ,it work very well.
-> Who can give me some suggestions?
->
-> Best,
-> Xiuzhi
+--_000_AM4PR08MB27887FB26B2085E206B9F04580DC0AM4PR08MB2788eurp_--
