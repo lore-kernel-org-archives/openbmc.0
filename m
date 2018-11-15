@@ -1,53 +1,41 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=sirena.org.uk
- (client-ip=2a01:7e01::f03c:91ff:fed4:a3b6; helo=heliosphere.sirena.org.uk;
- envelope-from=broonie@sirena.org.uk; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="E6BtMhxE"; dkim-atps=neutral
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wrmQ21x1zDqNm
- for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 06:20:22 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OcdHXqefnf004JCesPhno9AD6Dq62bs0q+vd95OMmXM=; b=E6BtMhxEW6O5pZBB+ioiTonx3
- sMExRjRTr+zNZE3ScLzM/txtclPcZ16idJ0hkH60mvYCS6L402GIO57dGF+cosd17M2TeVZh/F1ZH
- htDmyFWQXRUbD8ohbw7TCM4Fy82oChggK5UcI84j/DXtdpvGD8HSGMiYpTZjtxJI4AVPg=;
-Received: from [64.114.255.97] (helo=finisterre.ee.mobilebroadband)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1gNNBW-0006Cz-Lr; Thu, 15 Nov 2018 19:20:15 +0000
-Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 82174440078; Thu, 15 Nov 2018 19:20:08 +0000 (GMT)
-Date: Thu, 15 Nov 2018 11:20:08 -0800
-From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-Cc: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH -next] spi: npcm: fix platform_no_drv_owner.cocci warnings
-Message-ID: <20181115192008.GM2089@sirena.org.uk>
-References: <1542247189-193094-1-git-send-email-yuehaibing@huawei.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42ws0W0vmFzF25Y
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 06:30:50 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2018 11:30:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,237,1539673200"; d="scan'208";a="89636727"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga007.jf.intel.com with ESMTP; 15 Nov 2018 11:30:47 -0800
+Subject: Re: [HELP] ipmi-kcs didn't work
+To: qianlihu <wangzhiqiang8906@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
+ <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
+ <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
+Date: Thu, 15 Nov 2018 11:30:47 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="V2Kn1ZfDiPlyQ6Qk"
-Content-Disposition: inline
-In-Reply-To: <1542247189-193094-1-git-send-email-yuehaibing@huawei.com>
-X-Cookie: No Canadian coins.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,32 +47,131 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Nov 2018 19:20:23 -0000
+X-List-Received-Date: Thu, 15 Nov 2018 19:30:53 -0000
 
+On 11/14/2018 5:49 PM, qianlihu wrote:
+> Hi,Jae
+> 
+>>
+>> Hi,
+>>
+>> On 11/14/2018 2:38 AM, qianlihu wrote:
+>>> Hi,
+>>>
+>>> I add ipmi kcs node,but it didn't work
+>>>
+>>> here is the patch for dts.
+>>>
+>>>           lpc_bmc: lpc-bmc@0 {
+>>> -               compatible = "aspeed,ast2500-lpc-bmc";
+>>> +               compatible = "aspeed,ast2500-lpc-bmc", "simple-mfd", "syscon";
+>>> +
+>>>                   reg = <0x0 0x80>;
+>>> +               reg-io-width = <4>;
+>>> +
+>>> +               #address-cells = <1>;
+>>> +               #size-cells = <1>;
+>>> +               ranges = <0x0 0x0 0x80>;
+>>> +
+>>> +               kcs3: kcs3@0 {
+>>> +                       compatible = "aspeed,ast2500-kcs-bmc";
+>>> +                       reg = <0x0 0x80>;
+>>> +                       interrupts = <8>;
+>>> +                       kcs_chan = <3>;
+>>> +                       kcs_addr = <0xca2>;
+>>
+>> Probably, you should add a clock setting for KCS H/W block into here.
+>>
+>>          clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
+>>
+> I tried ,but it didn't work．
+> 
+>> Cheers,
+>>
+>> Jae
+>>
+>>> +                       status = "disabled";
+>>> +
+>>> +               };
+>>>           };
+>>>
+>>> +&kcs3 {
+>>>                            +       status = "okay";
+>>>           +};
+>>>
+>>>
+>>> The device node /dev/ipmi-kcs3 is created.
+>>>
+>>>
+>>> root@sanjose:/tmp# ./kcsbridged --vv --d /dev/ipmi-kcs3
+>>> Debug logging
+>>> Starting
+>>> Registering dbus methods/signals
+>>> Requesting dbus name: org.openbmc.HostIpmi
+>>> Getting dbus file descriptors
+>>> Opening /dev/ipmi-kcs3
+>>> Creating timer fd
+>>> Entering polling loop
+>>> Processed 1 dbus events
+>>> Processed 1 dbus events
+>>> Processed 1 dbus events
+>>> Processed 1 dbus events
+>>> Processed 1 dbus events
+>>> Processed 1 dbus events
+>>> Processed 1 dbus events
+>>>
+>>> but there is nothing output.
+>>>
+> 
+> this is the dmesg info
+> 
+> root@sanjose:~# dmesg |grep kcs
+> [    2.052340] aspeed-kcs-bmc: channel=3 addr=0xca2 idr=0x2c odr=0x38 str=0x44
+> 
+> I also checked the hardtrap:
+> 0x1e6e2070[bit25]  enabled the lpc mode
+> 
+> I'm sure the IO port is 0xca2.
+> 
+> 
+> should I config the pin for LPC,I checked the ibt node,it didn't.
+> 
+> 
+> thank you
+> 
+> --qianlihu
+> 
 
---V2Kn1ZfDiPlyQ6Qk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Try below fix on clk-aspeed.c
 
-On Thu, Nov 15, 2018 at 01:59:49AM +0000, YueHaibing wrote:
-> Remove .owner field if calls are used which set it automatically
-> Generated by: scripts/coccinelle/api/platform_no_drv_owner.cocci
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index 596136793fc4..b55d35e3eb5e 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -95,7 +95,7 @@ static const struct aspeed_gate_data aspeed_gates[] = {
+         [ASPEED_CLK_GATE_DCLK] =        {  5, -1, "dclk-gate", 
+NULL,   CLK_IS_CRITICAL }, /* DAC */
+         [ASPEED_CLK_GATE_REFCLK] =      {  6, -1, "refclk-gate", 
+"clkin", CLK_IS_CRITICAL },
+         [ASPEED_CLK_GATE_USBPORT2CLK] = {  7,  3, "usb-port2-gate", 
+NULL,   0 }, /* USB2.0 Host port 2 */
+-       [ASPEED_CLK_GATE_LCLK] =        {  8,  5, "lclk-gate", 
+NULL,   0 }, /* LPC */
++       [ASPEED_CLK_GATE_LCLK] =        {  8,  5, "lclk-gate", 
+NULL,   CLK_IS_CRITICAL }, /* LPC */
+         [ASPEED_CLK_GATE_USBUHCICLK] =  {  9, 15, "usb-uhci-gate", 
+NULL,   0 }, /* USB1.1 (requires port 2 enabled) */
+         [ASPEED_CLK_GATE_D1CLK] =       { 10, 13, "d1clk-gate", 
+NULL,   0 }, /* GFX CRT */
+         [ASPEED_CLK_GATE_YCLK] =        { 13,  4, "yclk-gate", 
+NULL,   0 }, /* HAC */
 
-Thanks, I got another copy of this fix which I applied already though.
+In my experiments on my system, LCLK was not enabled due to the null
+parent dependency so I added CLK_IS_CRITICAL flag to enable the clk.
 
---V2Kn1ZfDiPlyQ6Qk
-Content-Type: application/pgp-signature; name="signature.asc"
+LPC interface is default pin pad setting of AST2500 so you might not
+need a pinctrl setting on it if you didn't change it's pin pads to GPIO
+or eSPI.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlvtxucACgkQJNaLcl1U
-h9BKSQf/S+l4iWW6S/q22I8vQt1UX4kAw8g6bEz/i3PN82tSrcA9h4HJGAIn9fLT
-+4xcHRRNMTUA8S7CHbYm2W7rdlrXLvsLW2taN8GpJ6EYLfblcsIOuirAOrZUF9Km
-Xy2klrmhA3D/3kBtO5LQBHI9ildELMM1EScH/ZzpqBxSDftK0oA2x4f83a/X/c7n
-zKGbg51VIUXyu5DTDDYEIXOXB/L0N1Ej/WSrK2WLD9c3WlwqTfai+R90B+erZ3YC
-2Qn+Brg0RhWsKki9sLKhklw1fJ1TVIf+7+ElUZlSLqRp7TQNuI20FgAdlheuMcFl
-mbx02DEqKDeNR56x+1WXb7jY2i0y/Q==
-=CaC6
------END PGP SIGNATURE-----
-
---V2Kn1ZfDiPlyQ6Qk--
+Cheers,
+Jae
