@@ -1,49 +1,59 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wPKy2FmHzF3Xk
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 12:44:22 +1100 (AEDT)
+Return-Path: <wangzhiqiang8906@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d41; helo=mail-io1-xd41.google.com;
+ envelope-from=wangzhiqiang8906@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="xrE4K8DT"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="oMBRjynE"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 42wPKx2C0nz9s47;
- Thu, 15 Nov 2018 12:44:21 +1100 (AEDT)
-Authentication-Results: ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1542246261; bh=DQjnSNCwDS8TyDIdVygMZ7Q/Vxv9aNg8zaPgm05f6tA=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=xrE4K8DTNE8544ewNmTOkdJ4Og989uyaRHHWeY3d+2v5JMjV7okkIPb0oZqM4KNpL
- 1rKVaK7KIb/6kAjsz832I+MtWWPqrGaAf59MxKaFiHM3GalzLN9nwuO/m3iaU2uS72
- uWHiUwSKinPOORgeufIFXyqGRVE+VlBUSMvAoy2BvxvnWPmJP1538+OvIeqpHdc/rY
- iDxRQMT/KYJ8Bj8UVhZMt8UbeFykiEAEUK5icTu0Uq5EQ/VK1Ye/sgwJtF/3gA5oNh
- u6j4GELzTtJUSYCyYY7/KOL8zBwtE4c3u8RS5BvprtmQNnw+1T158a4jNvWmgciGNN
- JEdE4yWXGNVKA==
-Subject: Re: MCTP protocol support in OpenBMC?
-To: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
- David Thompson <dthompson@mellanox.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Emily Shaffer <emilyshaffer@google.com>
-Cc: Dong Wei <Dong.Wei@arm.com>
-References: <HE1PR0501MB2666721F6FF033CA4B94D754DD340@HE1PR0501MB2666.eurprd05.prod.outlook.com>
- <799b6a6f-992c-200e-c42c-35d469f696b9@ozlabs.org>
- <AM4PR08MB2788ACA6457591EF7862078880C30@AM4PR08MB2788.eurprd08.prod.outlook.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <7abd75b4-aea0-e08c-126a-582afe4d26c7@ozlabs.org>
-Date: Thu, 15 Nov 2018 09:44:20 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wPRh1dGgzF3Xk
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 12:49:19 +1100 (AEDT)
+Received: by mail-io1-xd41.google.com with SMTP id t81-v6so13272911iod.10
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 17:49:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=O1aY7LPmM1dh1NpMT5NMlfW52E2jeR8VNQbfC0ZGtYo=;
+ b=oMBRjynElxWnwUdiIu7Jof0tEna8QTbFJwAEvEEs3MFnABxEGZJpU8YtfAYUss/7XM
+ 7fH/B2wrzbkBV6i6OmONl2S7VxzcEuzrp9IqT1GEOT1w+Q0ZeZdXw8pQucPQTo86HpCP
+ kduQUqtQ2JK/saExCcd9xMjM//jGLm//8Ar5BnGR1+fakf6+PWXtuFnRxy+cZw5pL7mY
+ SNqsNbM6mfYjIG2XpbmCMLFQ59oGX21lzMKM1LSVopQVzRuuqErHYsDy4D8/NcE7i5fw
+ YmhE390YL8TNx5Ck6RNorY3ubj307a5HJW2tI1IBtqR0q6yavU38o8Rd6tYhQal8PpcX
+ EiYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=O1aY7LPmM1dh1NpMT5NMlfW52E2jeR8VNQbfC0ZGtYo=;
+ b=JfXmSUvHYOi7ivNh0ggpS3JJR51AQ6E0BF/B4+tl8Ne19KnSqpwC21so2+vc7Aneu9
+ +Ees4hN4qu7DzylxHyoIkBzfQdItqaluNvoGlENuoXGLPqDNHs0YNPQ9ztQ5svs6mcle
+ dkRiLdZVYIyp4OuM3z9O9QcoMycTKrcSygTl8/RqiH+zulIkA5ENs+NXBM2nhnyc6L/r
+ kb2DGoOu50fmY4RWnIgeShBoWCoMome3ubb8h890Wfg1G4Mf4rcdMX1UgXzp4JNPk5Ia
+ kBRwzMJI0oBOja46pwUpWWCYjP6jUk9Yq8PeV2uULAS3DXT2q7w4dI5p9csBMynhaFIy
+ CzoQ==
+X-Gm-Message-State: AA+aEWbDVyxhyE6TPXfX0m6q+0oksIevYqyaZw1uZ78Xo+IHlCcNXxm9
+ UT2Bw82IWyGSAj4wtK9U6kP1FJj0Qf6w3Vmedwo=
+X-Google-Smtp-Source: AJdET5e2HQgjchPXBfppJYE1H9W2z6KYmd5sjcvyKCkaskRxXuzPEAiI7RQ+8Ui6dsnhiy8r9T2wdcE/6tQorX7Vaqc=
+X-Received: by 2002:a5e:c303:: with SMTP id a3-v6mr3777453iok.24.1542246557668; 
+ Wed, 14 Nov 2018 17:49:17 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <AM4PR08MB2788ACA6457591EF7862078880C30@AM4PR08MB2788.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
+ <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
+In-Reply-To: <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
+From: qianlihu <wangzhiqiang8906@gmail.com>
+Date: Thu, 15 Nov 2018 09:49:06 +0800
+Message-ID: <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
+Subject: Re: [HELP] ipmi-kcs didn't work
+To: jae.hyun.yoo@linux.intel.com
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,35 +65,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Nov 2018 01:44:22 -0000
+X-List-Received-Date: Thu, 15 Nov 2018 01:49:21 -0000
 
-Hi all,
+Hi,Jae
 
-> We (@ arm) are also interested in contributing MCTP to OpenBMC.
+>
+> Hi,
+>
+> On 11/14/2018 2:38 AM, qianlihu wrote:
+> > Hi,
+> >
+> > I add ipmi kcs node,but it didn't work
+> >
+> > here is the patch for dts.
+> >
+> >          lpc_bmc: lpc-bmc@0 {
+> > -               compatible =3D "aspeed,ast2500-lpc-bmc";
+> > +               compatible =3D "aspeed,ast2500-lpc-bmc", "simple-mfd", =
+"syscon";
+> > +
+> >                  reg =3D <0x0 0x80>;
+> > +               reg-io-width =3D <4>;
+> > +
+> > +               #address-cells =3D <1>;
+> > +               #size-cells =3D <1>;
+> > +               ranges =3D <0x0 0x0 0x80>;
+> > +
+> > +               kcs3: kcs3@0 {
+> > +                       compatible =3D "aspeed,ast2500-kcs-bmc";
+> > +                       reg =3D <0x0 0x80>;
+> > +                       interrupts =3D <8>;
+> > +                       kcs_chan =3D <3>;
+> > +                       kcs_addr =3D <0xca2>;
+>
+> Probably, you should add a clock setting for KCS H/W block into here.
+>
+>         clocks =3D <&syscon ASPEED_CLK_GATE_LCLK>;
+>
+I tried ,but it didn't work=EF=BC=8E
 
-OK, super!
+> Cheers,
+>
+> Jae
+>
+> > +                       status =3D "disabled";
+> > +
+> > +               };
+> >          };
+> >
+> > +&kcs3 {
+> >                           +       status =3D "okay";
+> >          +};
+> >
+> >
+> > The device node /dev/ipmi-kcs3 is created.
+> >
+> >
+> > root@sanjose:/tmp# ./kcsbridged --vv --d /dev/ipmi-kcs3
+> > Debug logging
+> > Starting
+> > Registering dbus methods/signals
+> > Requesting dbus name: org.openbmc.HostIpmi
+> > Getting dbus file descriptors
+> > Opening /dev/ipmi-kcs3
+> > Creating timer fd
+> > Entering polling loop
+> > Processed 1 dbus events
+> > Processed 1 dbus events
+> > Processed 1 dbus events
+> > Processed 1 dbus events
+> > Processed 1 dbus events
+> > Processed 1 dbus events
+> > Processed 1 dbus events
+> >
+> > but there is nothing output.
+> >
 
-> We would like to collaborate with OpenBMC folks  who are interested in this topic. (maybe form a Workgroup to discuss this).
+this is the dmesg info
 
-Personally, I'd prefer *not* to form a workgroup at the moment; we can 
-discuss things here on the list, rather than separating those 
-conversations from the rest of the OpenBMC community. I also don't think 
-we need any of the formality of a workgroup at this stage.
+root@sanjose:~# dmesg |grep kcs
+[    2.052340] aspeed-kcs-bmc: channel=3D3 addr=3D0xca2 idr=3D0x2c odr=3D0x=
+38 str=3D0x44
 
-Essentially, forming a WG just means we'd have meetings and a separate 
-mailing list. The former means that some attendees of the WG have to 
-have late nights to attend, and the latter separates the MCTP 
-discussions from the rest of OpenBMC.
+I also checked the hardtrap:
+0x1e6e2070[bit25]  enabled the lpc mode
 
-However, we can certainly revisit this if conditions warrant it.
-
-Let me know if you have any strong opinions one way or the other.
-
-With that in mind, and since a few folks have expressed interest, I'll 
-share some of my initial sketches to this list soon. I'll be sure to 
-include MCTP in the subject to make things findable.
-
-Cheers,
+I'm sure the IO port is 0xca2.
 
 
-Jeremy
+should I config the pin for LPC,I checked the ibt node,it didn't.
+
+
+thank you
+
+--qianlihu
