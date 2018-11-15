@@ -1,60 +1,60 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:4864:20::241; helo=mail-lj1-x241.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::336; helo=mail-ot1-x336.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="e8h9k6X+"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="CGI3lHBb"; 
  dkim-atps=neutral
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wch31SqWzF3VT
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 21:15:46 +1100 (AEDT)
-Received: by mail-lj1-x241.google.com with SMTP id x85-v6so16812171ljb.2
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 02:15:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wj6964fmzF3dD
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 00:35:13 +1100 (AEDT)
+Received: by mail-ot1-x336.google.com with SMTP id t5so18069318otk.1
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 05:35:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hbKXfHU7twiZ4fvzU2sgu0UvCEZC+VrhtPjd3SJH4BM=;
- b=e8h9k6X+AV1a81FCj8m5Q5fBa28trhund/CK/pACQmv9QdMfMzURIUWOshurUyvAe4
- 4Mgos1c3U1y+yJitZMbRp+CLorHZoPo3nh3e6Cm3hLMPxWXzs+PlXAMtr9chaRkDi96I
- /tCx2VIqCzP9/pkR47gi0WG6gl+2IcmSnfoEE=
+ :cc; bh=K1sF0HypY6OviqwgjfTplpCbySYmKzDkoB9+/fL85so=;
+ b=CGI3lHBb9gmofAaTE449m3qeb1H8j7kJF/TzotSvroR/lC++IHR/FNEIJmFndLdgvh
+ dJC6RXuFrMiYzFmLy0Rz9XZQNJHfU6hFKuERX4dUJgnOqhcpvcPn1CkbMOHhmSzHnKGl
+ G3jqvyll8bXsc/U9Qr9vUMpoA0I4Ulri5o+sQ8odcpBQno35mgYV9OCtNARnzhE2maFT
+ 8I5X84Z4i+DZU8Jxrri2J/c82mkd7SdXT8GJaiDCvPhnl2LY0RGcwd1SRJ4u4Pf4vsI/
+ xzr/0bwEul/ghPGQicfypR/61DYwAJ6DH+oWRYq5y+o0gJ+obIvi2pBGRmEpgYOrt96K
+ Pdow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=hbKXfHU7twiZ4fvzU2sgu0UvCEZC+VrhtPjd3SJH4BM=;
- b=g20V+kKxomxvAsDu3v6klPDe2rXzRWV/EKIdkScmDK+88OGOE49SveOlbsmRPOqjrr
- lwTCTmFe1pCyjgvwAQZYWIfTF2wac7/8Ax5vav4H+eqJOfkpDkcfazjXPgVhVcnRq7uB
- vVXHvXHYgZJGvxtCCVWQiOolF5Ouv2hR16ml2OxuXILHMjLtVKjL99PXzji6xh8C3c+P
- sl2RYTiOI6V2loKOZY8Mm8rqnFGl3RNZBZjh1n0nLJk2zjIaXwrgbsA7BDoBlwehAOwD
- f3UdwSJJepHgS4gwha3raeqNVBCFS8IilCTcYkOAgOxqmEND/Bo2rfLMlZCPGcIkcBhU
- 6npQ==
-X-Gm-Message-State: AGRZ1gJJAQaWvsjmZkcV8wQkoWhjRIg7J07fJyae0GI5wi40yqRQH4JT
- oHZaAZq6fcFoUXPZxDKpi9NONn+zxK3ugo07mJimgw==
-X-Google-Smtp-Source: AJdET5d2WK8dglHrqPo9Decf7dCtdQw5KLrUCLKXl280n3Y4FhNhrrmkV5oDNzFXmcqSiBTWFXj1+juf/bl71GE47zw=
-X-Received: by 2002:a2e:710a:: with SMTP id m10-v6mr662734ljc.66.1542276943449; 
- Thu, 15 Nov 2018 02:15:43 -0800 (PST)
+ bh=K1sF0HypY6OviqwgjfTplpCbySYmKzDkoB9+/fL85so=;
+ b=RReAMmcMN7WBKziUeSQJEJwT5eDrojONOK1P5+moiSetDsw8TS22FigBD+fJA7HYPM
+ 5eaoBYVfXuwdO2hOI6opMlcxFQRKSO96Nu4FQzCuyQXHX5LkdyLcybRQXxI70KkYbQq8
+ +/v6sXh7wwbpZZTX3zsO7Ccpr892t/e+cFz/T0R/HCUY6c3MLtWAHjCruW7M/KXQsLdd
+ JSRzLDprXLR0SGntwCgBpegfEsTK+bRXh6JLknXOqaDDJtWtTUEkTnjKViGrO4e+yk/7
+ 67syZarkEt/TzNfZRPWWiTFR2sfmfsYW506kkkeztbxHxl9XpRyboY9ZvkRzwaM8ICZY
+ Dd/w==
+X-Gm-Message-State: AGRZ1gI2rGwoRjOWIDrg4olTnoa9yovGyW9hLrZVA0iqY2u4X27R9nxz
+ 9Xlwl4XCqsca2izHccR91I1MVM3QBuWSP4g4vxo=
+X-Google-Smtp-Source: AJdET5e2qO7+dqBHAHZhi4aeXSgVZfz4VzDKsHUG1u5VBZ0BcQqjOLJdXUZcoiWyoKj+kdZRR964Qln91RfGSvVW2Xg=
+X-Received: by 2002:a9d:74c3:: with SMTP id a3mr3863501otl.107.1542288911548; 
+ Thu, 15 Nov 2018 05:35:11 -0800 (PST)
 MIME-Version: 1.0
-References: <20181107134434.354795-1-tmaimon77@gmail.com>
- <20181107134434.354795-2-tmaimon77@gmail.com>
-In-Reply-To: <20181107134434.354795-2-tmaimon77@gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 15 Nov 2018 11:15:31 +0100
-Message-ID: <CACRpkdYo_4Be=N-ewRBMCP=KAs4DeXW4r-qQerx2UAvsyS=-fQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] pinctrl: nuvoton: modify NPCM7xx pin configuration
- function
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>,
- benjaminfair@google.com, 
- Brendan Higgins <brendanhiggins@google.com>, avifishman70@gmail.com, 
- Joel Stanley <joel@jms.id.au>, Kun Yi <kunyi@google.com>, 
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <HE1PR0501MB2666721F6FF033CA4B94D754DD340@HE1PR0501MB2666.eurprd05.prod.outlook.com>
+ <799b6a6f-992c-200e-c42c-35d469f696b9@ozlabs.org>
+ <AM4PR08MB2788ACA6457591EF7862078880C30@AM4PR08MB2788.eurprd08.prod.outlook.com>
+ <7abd75b4-aea0-e08c-126a-582afe4d26c7@ozlabs.org>
+In-Reply-To: <7abd75b4-aea0-e08c-126a-582afe4d26c7@ozlabs.org>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 15 Nov 2018 07:34:55 -0600
+Message-ID: <CALLMt=qZfH8h8wTjk_p=JwYuGKDG4YyhdjMP=_K09hPUAPNJWw@mail.gmail.com>
+Subject: Re: MCTP protocol support in OpenBMC?
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: Supreeth.Venkatesh@arm.com, dthompson@mellanox.com, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, emilyshaffer@google.com,
+ Dong.Wei@arm.com
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -67,17 +67,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Nov 2018 10:15:48 -0000
+X-List-Received-Date: Thu, 15 Nov 2018 13:35:14 -0000
 
-On Wed, Nov 7, 2018 at 2:44 PM Tomer Maimon <tmaimon77@gmail.com> wrote:
+On Wed, Nov 14, 2018 at 7:44 PM Jeremy Kerr <jk@ozlabs.org> wrote:
 
-> Modify GPIO direction setting in pin configuration function by using
-> generic GPIO functions to set the GPIO direction instead of direct
-> access to the GPIO direction register.
 >
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> With that in mind, and since a few folks have expressed interest, I'll
+> share some of my initial sketches to this list soon. I'll be sure to
+> include MCTP in the subject to make things findable.
 
-Patch applied with Kun Yi's tested-by tag!
+Please also remember that with new functions, we'd like to have
+https://github.com/openbmc/docs/blob/master/designs/design-template.md
+filled out at some point fairly early in the process. The gerrit review of that
+is where some discussion can also occur. The mailing list for early design
+points is great too.
 
-Yours,
-Linus Walleij
+Thanks Jeremy!
+
+>
+> Cheers,
+>
+>
+> Jeremy
