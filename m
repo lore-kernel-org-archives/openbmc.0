@@ -1,60 +1,49 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="VtQzPnNa"; 
- dkim-atps=neutral
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wLyX5BcHzF3Wb
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 10:57:24 +1100 (AEDT)
-Received: by mail-qk1-x742.google.com with SMTP id 189so29106569qkj.8
- for <openbmc@lists.ozlabs.org>; Wed, 14 Nov 2018 15:57:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ep8kbWnpFB2BJ88fe8Hdd3AISud04dN8gg1qQ4yQgWo=;
- b=VtQzPnNa+fVr++FJJO/t0u6qwgjx3xAwB7bkzXOSp9Jc4NdYUbS5mlxDJ9mv45qUDF
- 0k7g+CJEnG0YS4waoOC0BvwqzBYH5yFUqMcTZDUaa7wXxfvOEJDxghA2Z/Lgm+fZgqNT
- NJU5v4sO48+rkKwDkkB4TFdkr5JYI/iuovQ8w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ep8kbWnpFB2BJ88fe8Hdd3AISud04dN8gg1qQ4yQgWo=;
- b=X+VOUeqWCYt4qLLV6n29K8CQdyPj2Y3Sqsh76WEzje9MrCES5GJyQr96/UH4WA7JUC
- I4zX4FgEftPiIAakxJSOrjXaGzr5D3OjL/RjAEkPEzXFJzC9U8YMJ2YZ3YyBtMB3amx8
- a8UX0eogk3eSiD/9nN/+ql76uTe5ey2HwzVZ/M81mk7N4CLeprc/rHcqABFoFxrmDAoj
- IhMpbdVBfKGEo7WQIwTcmchhrzWqjxetakq+wIdECNcrcluPknAOn6X2rAotzW7mMnM2
- IBpxeYj2rNZH/RNn5jMPScSRw/g0H0e0bm56NM4x2BkILlcWEPZsN7hFWZS5RPhhpbPH
- zikA==
-X-Gm-Message-State: AGRZ1gI5i0c/Ew1GM7U8PHPpLtY1DmPmXTyhFV1DZ3k3V4byaSXBWq+i
- J7f7aW0w/fQ7PbJVp+TvbEL7/H4oesm198qEtyk=
-X-Google-Smtp-Source: AJdET5eTmns6D4CS3kYyfl075MxjsvueXkk4BIYqZKvAt0VWVsXXLP5HrbF6Jw7TlUdSdUIkdQaKUfU/7UcVlzOaTA4=
-X-Received: by 2002:aed:2764:: with SMTP id n91mr3942758qtd.37.1542239841855; 
- Wed, 14 Nov 2018 15:57:21 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wPKy2FmHzF3Xk
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 12:44:22 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="xrE4K8DT"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 42wPKx2C0nz9s47;
+ Thu, 15 Nov 2018 12:44:21 +1100 (AEDT)
+Authentication-Results: ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1542246261; bh=DQjnSNCwDS8TyDIdVygMZ7Q/Vxv9aNg8zaPgm05f6tA=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=xrE4K8DTNE8544ewNmTOkdJ4Og989uyaRHHWeY3d+2v5JMjV7okkIPb0oZqM4KNpL
+ 1rKVaK7KIb/6kAjsz832I+MtWWPqrGaAf59MxKaFiHM3GalzLN9nwuO/m3iaU2uS72
+ uWHiUwSKinPOORgeufIFXyqGRVE+VlBUSMvAoy2BvxvnWPmJP1538+OvIeqpHdc/rY
+ iDxRQMT/KYJ8Bj8UVhZMt8UbeFykiEAEUK5icTu0Uq5EQ/VK1Ye/sgwJtF/3gA5oNh
+ u6j4GELzTtJUSYCyYY7/KOL8zBwtE4c3u8RS5BvprtmQNnw+1T158a4jNvWmgciGNN
+ JEdE4yWXGNVKA==
+Subject: Re: MCTP protocol support in OpenBMC?
+To: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
+ David Thompson <dthompson@mellanox.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Emily Shaffer <emilyshaffer@google.com>
+Cc: Dong Wei <Dong.Wei@arm.com>
+References: <HE1PR0501MB2666721F6FF033CA4B94D754DD340@HE1PR0501MB2666.eurprd05.prod.outlook.com>
+ <799b6a6f-992c-200e-c42c-35d469f696b9@ozlabs.org>
+ <AM4PR08MB2788ACA6457591EF7862078880C30@AM4PR08MB2788.eurprd08.prod.outlook.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <7abd75b4-aea0-e08c-126a-582afe4d26c7@ozlabs.org>
+Date: Thu, 15 Nov 2018 09:44:20 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <D7F4B5CE-3638-4877-B3BD-B2BB726E493E@fb.com>
- <a010895e-042f-30cc-6030-42ccc021d7c5@linux.intel.com>
- <E70E182F-441C-4CFA-BB14-9A3FB55DE6C5@fb.com>
- <6bc2b289-ed9a-854c-ae92-ffcd74ea5cf3@linux.intel.com>
- <0cfecae9-5ae7-2bf5-16de-20bcbd9ad50e@linux.intel.com>
- <3e929e2f-5e08-3f13-2ee9-8af10f88c1f3@linux.intel.com>
-In-Reply-To: <3e929e2f-5e08-3f13-2ee9-8af10f88c1f3@linux.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 15 Nov 2018 10:27:09 +1030
-Message-ID: <CACPK8XeEh+atQgu8pbMLR6Uf5cizMGPwA6D6MCHXXPrDxgpVCQ@mail.gmail.com>
-Subject: Re: Adding sensors for facebook
-To: James Feist <james.feist@linux.intel.com>
-Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, vijaykhemka@fb.com, 
- Yong Li <yong.b.li@linux.intel.com>, Amithash Prasad <amithash@fb.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <AM4PR08MB2788ACA6457591EF7862078880C30@AM4PR08MB2788.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,31 +55,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Nov 2018 23:57:25 -0000
+X-List-Received-Date: Thu, 15 Nov 2018 01:44:22 -0000
 
-On Thu, 15 Nov 2018 at 04:07, James Feist <james.feist@linux.intel.com> wrote:
->
-> On 11/14/2018 09:23 AM, Jae Hyun Yoo wrote:
-> > I'm still trying to upstream the PECI implementation into linux kernel
-> > tree. Meanwhile, you could back port this patch series for test.
-> >
-> > https://lkml.org/lkml/2018/10/15/670
->
-> Joel,
->
-> Is it possible to add this into the openbmc/linux tree?
+Hi all,
 
-Yes. Please follow the process documented here:
+> We (@ arm) are also interested in contributing MCTP to OpenBMC.
 
- https://github.com/openbmc/linux/wiki/SubmittingPatches
+OK, super!
 
-Basically: rebase on dev-4.18, test, and submit to
-openbmc@lists.ozlabs.org with [PATCH linux dev-4.18] in the subject of
-the patch series.
+> We would like to collaborate with OpenBMC folks  who are interested in this topic. (maybe form a Workgroup to discuss this).
 
-Also submit a patch to add it to to the in-kernel defconfig, so we get
-build coverage.
+Personally, I'd prefer *not* to form a workgroup at the moment; we can 
+discuss things here on the list, rather than separating those 
+conversations from the rest of the OpenBMC community. I also don't think 
+we need any of the formality of a workgroup at this stage.
+
+Essentially, forming a WG just means we'd have meetings and a separate 
+mailing list. The former means that some attendees of the WG have to 
+have late nights to attend, and the latter separates the MCTP 
+discussions from the rest of OpenBMC.
+
+However, we can certainly revisit this if conditions warrant it.
+
+Let me know if you have any strong opinions one way or the other.
+
+With that in mind, and since a few folks have expressed interest, I'll 
+share some of my initial sketches to this list soon. I'll be sure to 
+include MCTP in the subject to make things findable.
 
 Cheers,
 
-Joel
+
+Jeremy
