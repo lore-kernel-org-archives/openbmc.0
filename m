@@ -1,57 +1,76 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <tomjose@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::241; helo=mail-oi1-x241.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ILzLqjJH"; 
- dkim-atps=neutral
-Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com
- [IPv6:2607:f8b0:4864:20::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wjyp3F7fzF3bs
- for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 01:13:54 +1100 (AEDT)
-Received: by mail-oi1-x241.google.com with SMTP id a202-v6so8703160oib.1
- for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 06:13:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=w8mII/NKavrFtejuODjyPx1ghebQt+L4YmvqRN9vmFc=;
- b=ILzLqjJHLwzeDIPYmZdBN6lgv3RJ1lV9a2ridAdWCVZp5BIUKJA15iehQj6FSF2P1k
- Fz3zGNvH18nGwoO0QgUZV7REN5qfirzQn4JOWTxPowMsxmoQhYLPzqIf8tP4M7ZH85N3
- qUicyvTicDr/PhoFKSLdtGUuW7orsqGnzpyX3EWDkPJAqPlIea3rNB+DijwflfM4nmCK
- /64hyqRlVLa6Ny/MZyBdNV0+tXgdstpYikFL9JwMQxmE0TW2NJSe6U89HgtLOpxc/luV
- DeMqD89DOAJ74NMjppes73ld+slEYQX/YIGisarSmXC3BqlwOlR7iqgYK6rn+2X5iwZ1
- xJ6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=w8mII/NKavrFtejuODjyPx1ghebQt+L4YmvqRN9vmFc=;
- b=U+dZzvyoA1wJ57WEuCv9MsewEmwlfbVL+eJTwc/8qgs6NlQChYkrOZrE5WfXnGiol2
- qf6kH7s4Mba25i0ahLupQ+nMSBUHWVOPb4pLKyMZG/A12FLes/6qGjollL13gX/j+Y6c
- XAgxuIcrjAx7gNmRUR7cXP+eUOW166zgBj5/EXFKvKwr3mWFSoXrvwGR3yBn2jkiK8zp
- A//Folm2ZNTftbpwooW+zc+uaDzT7hIhy1y6rtRH0LbWFQWcURV2OYF/2wmDPpCHXUTT
- ir7IjHO0k9c9uZ2VwA8x1dz8Ae9cTLCr/G7h3AWuaDp1IlEODyQT9oRyPOlbGAT+zP3u
- xJJQ==
-X-Gm-Message-State: AGRZ1gLhF0s7TCOoIMdWkAhLubbH9u0nivA9Vp3ToBwGRxfbBKhFUAYd
- IOzDZCRxpzv3Rxg5aP/flgx/jpBa2eIBZJqC7QRBcu5p+Js=
-X-Google-Smtp-Source: AJdET5eV/EdPZjCxGASZP41UeHqRIGkP/TP7qOKvPvCLmeoha62BXIdoDo+doKPINl8muyk6Z1EFf7xOtPKHkB6FLFw=
-X-Received: by 2002:aca:bed6:: with SMTP id
- o205-v6mr3513122oif.294.1542291232101; 
- Thu, 15 Nov 2018 06:13:52 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wlQN6R0LzF3fP
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 02:19:21 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wAFFImIi028641
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 10:19:19 -0500
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2nsb5v0hs0-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 10:19:18 -0500
+Received: from localhost
+ by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Thu, 15 Nov 2018 15:19:16 -0000
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 15 Nov 2018 15:19:14 -0000
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+ [9.149.105.61])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ wAFFJE2n62718040
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 15 Nov 2018 15:19:14 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DD5B011C04C;
+ Thu, 15 Nov 2018 15:19:13 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3C92411C054;
+ Thu, 15 Nov 2018 15:19:13 +0000 (GMT)
+Received: from [9.199.35.99] (unknown [9.199.35.99])
+ by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu, 15 Nov 2018 15:19:13 +0000 (GMT)
+Subject: Re: Pamela.py can't run on BMC python env
+To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>
+References: <mailman.9.1542243603.11481.openbmc@lists.ozlabs.org>
+ <tencent_3A3ECA558D9BA0F1B9F1A0715AF542A96D05@qq.com>
+Cc: ratagupt <ratagupt@linux.vnet.ibm.com>
+From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+Date: Thu, 15 Nov 2018 20:49:10 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <000201d47cb4$495ee3e0$dc1caba0$@linux.intel.com>
-In-Reply-To: <000201d47cb4$495ee3e0$dc1caba0$@linux.intel.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 15 Nov 2018 08:13:35 -0600
-Message-ID: <CALLMt=ofV09ZW8bUvvySfefXzyqhVzeB+UyC7nqkBKEUCjQMSg@mail.gmail.com>
-Subject: Re: qemu does not work for the latest image?
-To: Yong Li <yong.b.li@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, yong.b.li@intel.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <tencent_3A3ECA558D9BA0F1B9F1A0715AF542A96D05@qq.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18111515-0016-0000-0000-000002277C6E
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18111515-0017-0000-0000-0000327FA099
+Message-Id: <c92792d1-a03e-d0d9-62d6-98663904b7d0@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-15_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=947 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1811150135
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,75 +82,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Nov 2018 14:13:55 -0000
+X-List-Received-Date: Thu, 15 Nov 2018 15:19:25 -0000
 
-On Thu, Nov 15, 2018 at 1:25 AM Yong Li <yong.b.li@linux.intel.com> wrote:
->
+Hello Xiuzhi,
+
+pamela.py depends on the libpam library and find_library is failing. A 
+workaround is up for review.
+
+https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-phosphor/+/13092/
+
+Regards,
+Tom
+
+
+On Thursday 15 November 2018 11:56 AM, xiuzhi wrote:
 > Hi All,
+>    I want to use PAM python module pamela.py  in the 
+> /usr/lib/python2.7/site-packages .
+>  The error is as follows :
+> 1)root@haiguang1:/usr/lib/python2.7/site-packages# python -m pamela -a 
+> `whoami`
+> Could not import runpy module
 >
+> 2)root@haiguang1:/usr/lib/python2.7/site-packages# python ./pamela.py
+> Traceback (most recent call last):
+>   File "./pamela.py", line 143, in <module>
+>     PAM_START = LIBPAM.pam_start
+>   File "/usr/lib/python2.7/ctypes/__init__.py", line 379, in __getattr__
+>     func = self.__getitem__(name)
+>   File "/usr/lib/python2.7/ctypes/__init__.py", line 384, in __getitem__
+>     func = self._FuncPtr((name_or_ordinal, self))
+> AttributeError: python: undefined symbol: pam_start
 >
+> I run the pamela.py on ubuntu16.04 ,it work very well.
+> Who can give me some suggestions?
 >
-> Previously I can use qemu to test these built images, but it does not work now and get the below error messages:
-> Just want to know if there is any command/options changes? Or it does not support now?
-
-Hey Yong, I pulled down the latest qemu binary and witherspoon image
-and it booted up fine for me.
-
-Here were my commands:
-wget https://openpower.xyz/job/openbmc-qemu-build-merge-x86/lastSuccessfulBuild/artifact/qemu/arm-softmmu/qemu-system-arm
-wget https://openpower.xyz/job/openbmc-build/distro=ubuntu,label=builder,target=witherspoon/lastSuccessfulBuild/artifact/deploy/images/witherspoon/obmc-phosphor-image-witherspoon.ubi.mtd
-./qemu-system-arm -m 256 -M witherspoon-bmc -nographic -drive
-file=./obmc-phosphor-image-witherspoon.ubi.mtd,format=raw,if=mtd -net
-nic -net user,hostfwd=:127.0.0.1:2622-:22,hostfwd=:127.0.0.1:2643-:443,hostfwd=:127.0.0.1:8580-:80,hostname=qemu
-
-> qemu-system-arm -m 256 -M witherspoon-bmc -nographic -drive file=tmp/deploy/images/witherspoon/obmc-phosphor-image-poon.ubi.mtd,format=raw,if=mtd
->
-> qemu-system-arm: Aspeed iBT has no chardev backend
->
-> U-Boot 2016.07 (Nov 15 2018 - 06:18:37 +0000)
->
->
->
->        Watchdog enabled
->
-> DRAM:  240 MiB
->
-> Flash: 32 MiB
->
-> *** Warning - bad CRC, using default environment
->
->
->
-> In:    serial
->
-> Out:   serial
->
-> Err:   serial
->
-> Net:   aspeednic#0
->
-> Error: aspeednic#0 address not set.
->
->
->
-> Hit any key to stop autoboot:  0
->
-> ubi0: attaching mtd1
->
-> ubi0: scanning is finished
->
-> UBI init error 12
->
-> Error, no UBI device/partition selected!
->
-> Wrong Image Format for bootm command
->
-> ERROR: can't get kernel image!
->
->
->
->
->
-> Thanks,
->
-> Yong
+> Best,
+> Xiuzhi
