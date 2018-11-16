@@ -1,116 +1,68 @@
-Return-Path: <prvs=48577add60=taoren@fb.com>
+Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=48577add60=taoren@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::641; helo=mail-pl1-x641.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="odGb2sO3"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="GvqVB6+N"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="p1PS3W1P"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42wydP3BGpzF3Zt
- for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 10:44:37 +1100 (AEDT)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wAFNi6jt027702; Thu, 15 Nov 2018 15:44:32 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : content-type : content-transfer-encoding :
- mime-version; s=facebook; bh=kklnJMJPBwp87IaYZNNvkCVqjsugyC8CbvIOJNN0tzU=;
- b=odGb2sO3ZBwjRsqXdSQh6cYrYFgx0h0LPhReaA0+6WVJABkeXsWgYCzcD4L6nerUoXs4
- iwJlItMsBCDodJ+ybJKBXYd0Q0GzsZ/8GAHP+fABC45N+2a5zadL/lKeWUCULwHtdqbK
- HXJDsMCXOfBiFNfIlem/rYXvIbhnEiw7Y3E= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2nsft38q73-14
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Thu, 15 Nov 2018 15:44:32 -0800
-Received: from frc-hub04.TheFacebook.com (2620:10d:c021:18::174) by
- frc-hub03.TheFacebook.com (2620:10d:c021:18::173) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 15 Nov 2018 15:44:28 -0800
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.74) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
- via Frontend Transport; Thu, 15 Nov 2018 15:44:28 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kklnJMJPBwp87IaYZNNvkCVqjsugyC8CbvIOJNN0tzU=;
- b=GvqVB6+NDboVvdIVnihy0w8WFvQzaIpDiT4fATmvsvjVD/5vialL+TDv6SjoAIHdD2f5ESr/jTIuO+FfaJBTIZgbFX5fxT7WhBCmemmEEGLb29HK0Y5a784Vay2wDZw5hvK6q8kMgkqjbADjDO072NhoOHxeoCzAgqO0xKUXLQM=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1902.namprd15.prod.outlook.com (10.174.100.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1294.26; Thu, 15 Nov 2018 23:44:26 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::709f:e3cd:1db:74d6]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::709f:e3cd:1db:74d6%2]) with mapi id 15.20.1294.045; Thu, 15 Nov 2018
- 23:44:26 +0000
-From: Tao Ren <taoren@fb.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, "linux-watchdog@vger.kernel.org"
- <linux-watchdog@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-CC: Tao Ren <taoren@fb.com>
-Subject: [PATCH] watchdog: core: suppress "watchdog did not stop" message
-Thread-Topic: [PATCH] watchdog: core: suppress "watchdog did not stop" message
-Thread-Index: AQHUfT0kb1jOq4Gqx0OLsq0sLX4HDA==
-Date: Thu, 15 Nov 2018 23:44:26 +0000
-Message-ID: <20181115234413.27009-1-taoren@fb.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: CO1PR15CA0052.namprd15.prod.outlook.com
- (2603:10b6:101:1f::20) To MWHPR15MB1216.namprd15.prod.outlook.com
- (2603:10b6:320:23::18)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [2620:10d:c090:200::7:cb25]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1902;
- 20:0VcxGYlIgtEjoAQUr0GWmdAOf4NLLKNLNcw+jnIKxqA+U5FTvUDzZZ2eMURnfVfwZ7t36WF7qoDEkDxEk2mh56hrIo8VDFMiMhcoc4Nss53R27V/ZfG/uSsCrV6JjN8xJ1rnO0TEiAJ++tR9Xx/8baFntAoFvylp1NU6iCBNTzU=
-x-ms-office365-filtering-correlation-id: 6d3fb20f-e292-4f36-9832-08d64b54471b
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390098)(7020095)(4652040)(8989299)(5600074)(711020)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1902; 
-x-ms-traffictypediagnostic: MWHPR15MB1902:
-x-microsoft-antispam-prvs: <MWHPR15MB19024DF2C81F79FE13963AB9B2DC0@MWHPR15MB1902.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(67672495146484);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(3231415)(11241501184)(944501410)(52105112)(93006095)(93001095)(3002001)(148016)(149066)(150057)(6041310)(20161123562045)(20161123558120)(20161123560045)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051)(76991095);
- SRVR:MWHPR15MB1902; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1902; 
-x-forefront-prvs: 08572BD77F
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(346002)(366004)(136003)(376002)(39860400002)(396003)(189003)(199004)(478600001)(6436002)(386003)(52116002)(1076002)(6506007)(15650500001)(6486002)(68736007)(102836004)(186003)(2906002)(6116002)(2501003)(53936002)(14444005)(46003)(486006)(256004)(97736004)(4326008)(86362001)(110136005)(105586002)(81166006)(81156014)(36756003)(316002)(5660300001)(71200400001)(2900100001)(476003)(71190400001)(14454004)(305945005)(2616005)(106356001)(6512007)(1857600001)(7736002)(8936002)(8676002)(25786009)(99286004)(2201001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1902;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: xY1LGeEju25RzBKpHZB9ko+XY+yHkyktbrha8B+pvkwqL3c51bDysOJ2/YDo5yLOpD0/eDt6B6tRSC6+gh+tpyQJDGFdoa+jZRUhOKNOyTLIlH60yFxOCUUdrJkTxbaIl/uDsH15dozaeeDJgIgHr327CGLxcUOY024TtPcK5R8QtBsO6xIzokRtJ+MLeSzh77Dr1H1aJR8sw08O2uvhn+PgF+JOYvLqs6DVlOeH8Pa1y+VaGXc+ndPFZ0Rho1s0uRaaiZEpoBUQ3BKsRZbdH/sWArtaLXmiVFyU1rmS28s5prDpjVLb8oeO+Y1v2tS/5C7PVc3uQlPuJTfDWVGNEYjl2arHjX/p2UXrqWsPaMA=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42wzPp6KwGzF3fy
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Nov 2018 11:19:42 +1100 (AEDT)
+Received: by mail-pl1-x641.google.com with SMTP id g59-v6so10243831plb.10
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Nov 2018 16:19:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=D4ec80u+BNIi7PJtY//hky+X61mrrrkMKiO81xuskZo=;
+ b=p1PS3W1P5LBam6Lt0h6QSyB0CGxMUucNElUWKzEgcxjdZ3EBgrI4ar2m5zKgGfmknj
+ Zv45+ehoCwKEVrF+slJG82KotMH93N8/EblUNY55msqro+igQgu60k+DHX+/iYHwLLqp
+ udXZR0vknSUlwrdWTKCXe9WBIbBz3Yxq5uPgmHUj/c76dTk/uVyvXhqzgw9Nr/bQcAZp
+ bxID15rKgEb1d5uT4C0VlBrtT1F68PgUbdGF9u2k+ePMF3x7Ak8ENGDTPXQ1SRqzFNi4
+ klucCB1fXfx+zZDJ0TPEENtTP1/XqeN9oxLq4TlzeOKPRf4UmiNFzmry8wbSv4mZNRq/
+ uiXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=D4ec80u+BNIi7PJtY//hky+X61mrrrkMKiO81xuskZo=;
+ b=QM4f0JXvwsXzbb4qKacjZ5bmt8g/KbdzIadwnUa4J4KbHMczdHuyxMaX0DN8H0lnOK
+ 5y00DasGQZn8Cy7fnE7wQLMniJK+kFXSTRlBPkAXJcMx7tKYJLhRqZnEi8zSqG/To8mv
+ 68Pjzg4nM/v6aemwd0yRZJ35NCtyazCbR/cWzLaGrQG8l3viV1jkTVViNLe7xBZkfqbg
+ vYf7/TvRfPY2uQ3r7QqaDujg3LVlY9Dkr0pMYcUB3gQAbcWgWXOrkjrJr3tii0e99gwE
+ VnjcugM3NdCuMmoIwG1IR1rOFzA2OzhYX9jopXXW9IXc91NTHJxndGsf0IeJ9ShVopkL
+ 6i7w==
+X-Gm-Message-State: AGRZ1gKHmDg09N1E9Oa0YHvTuFtsOQvGi7oBxkBvqqiKnp80/gmrlBKk
+ HNrUr/lwNOx8fm10KCdoJPo=
+X-Google-Smtp-Source: AJdET5e9WTZAYFyAVmC4n2gSNsDxfy5ZqWR+RmZFcZ0ET8v3Pzl/rQI1dBWIPHbIe0pOEJazRLdILQ==
+X-Received: by 2002:a17:902:650a:: with SMTP id
+ b10-v6mr8429095plk.36.1542327580424; 
+ Thu, 15 Nov 2018 16:19:40 -0800 (PST)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id k24sm16636321pfj.13.2018.11.15.16.19.38
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 15 Nov 2018 16:19:39 -0800 (PST)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 15 Nov 2018 16:19:38 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tao Ren <taoren@fb.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+ "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH] watchdog: core: suppress "watchdog did not stop" message
+Message-ID: <20181116001938.GA16009@roeck-us.net>
+References: <20181115234413.27009-1-taoren@fb.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d3fb20f-e292-4f36-9832-08d64b54471b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2018 23:44:26.6830 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1902
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-11-15_17:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181115234413.27009-1-taoren@fb.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,36 +74,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Nov 2018 23:44:42 -0000
+X-List-Received-Date: Fri, 16 Nov 2018 00:19:43 -0000
 
-Currently "watchdog did not stop!" message is printed when the watchdog
-timer is not stopped at close. For example, people may see the message
-when rebooting the system, or the message will be logged to console
-periodically if watchdog is kicked by a scirpt which runs "echo k >
-/dev/watchdog" command.
+On Thu, Nov 15, 2018 at 11:44:26PM +0000, Tao Ren wrote:
+> Currently "watchdog did not stop!" message is printed when the watchdog
+> timer is not stopped at close. For example, people may see the message
+> when rebooting the system, or the message will be logged to console
+> periodically if watchdog is kicked by a scirpt which runs "echo k >
+> /dev/watchdog" command.
+> 
+> Given a critical message usually indicates a serious hardware/software
+> failure, this message could easily lead to confusion, so it's better to
+> just delete the message.
+> 
+> Signed-off-by: Tao Ren <taoren@fb.com>
 
-Given a critical message usually indicates a serious hardware/software
-failure, this message could easily lead to confusion, so it's better to
-just delete the message.
+NACK. This message is displayed if/when the watchdog application
+exits without stopping the watchdog and/or without closing properly.
+This _is_ critical since it will reboot the system after the next
+timeout period.
 
-Signed-off-by: Tao Ren <taoren@fb.com>
----
- drivers/watchdog/watchdog_dev.c | 1 -
- 1 file changed, 1 deletion(-)
+If userspace triggers this message on purpose (eg by the mentioned
+script, which does not exit properly), userspace is at fault,
+not the kernel.
 
-diff --git a/drivers/watchdog/watchdog_dev.c b/drivers/watchdog/watchdog_de=
-v.c
-index f6c24b22b37c..65e9ebbd8759 100644
---- a/drivers/watchdog/watchdog_dev.c
-+++ b/drivers/watchdog/watchdog_dev.c
-@@ -879,7 +879,6 @@ static int watchdog_release(struct inode *inode, struct=
- file *file)
-=20
- 	/* If the watchdog was not stopped, send a keepalive ping */
- 	if (err < 0) {
--		pr_crit("watchdog%d: watchdog did not stop!\n", wdd->id);
- 		watchdog_ping(wdd);
- 	}
-=20
---=20
-2.17.1
+Guenter
+
+> ---
+>  drivers/watchdog/watchdog_dev.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/watchdog/watchdog_dev.c b/drivers/watchdog/watchdog_dev.c
+> index f6c24b22b37c..65e9ebbd8759 100644
+> --- a/drivers/watchdog/watchdog_dev.c
+> +++ b/drivers/watchdog/watchdog_dev.c
+> @@ -879,7 +879,6 @@ static int watchdog_release(struct inode *inode, struct file *file)
+>  
+>  	/* If the watchdog was not stopped, send a keepalive ping */
+>  	if (err < 0) {
+> -		pr_crit("watchdog%d: watchdog did not stop!\n", wdd->id);
+>  		watchdog_ping(wdd);
+>  	}
+>  
+> -- 
+> 2.17.1
+> 
