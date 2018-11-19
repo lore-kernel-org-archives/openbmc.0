@@ -1,105 +1,119 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <prvs=4861b53b39=sdasari@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=4861b53b39=sdasari@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
+ dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="ZbfKtb7V"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=fb.com header.i=@fb.com header.b="NdGXbOzS"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="dglyxJW0"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42z7bN4y56zF3Kq
- for <openbmc@lists.ozlabs.org>; Mon, 19 Nov 2018 23:35:26 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 262A2418EB;
- Mon, 19 Nov 2018 12:35:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:in-reply-to:mime-version:user-agent
- :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1542630920; x=
- 1544445321; bh=oj3HHK9Jadsaz9AbhKJCTFoxDs0KYYIw0/GbVO2zVXA=; b=Z
- bfKtb7VYNf5nxGj6fQpnYrDV9W3mYr+M9YTCn7YRUAFT9CUk+lhfxu5GfDE8Ffp+
- 3ZeyrMa9Nn1vBt3DEszZBsEYvRrbJHUgP4X8u3qSVipMBNfLtcV+ErfJQRTCEBh/
- J96ceNNDbJsWrti+MiwaHK+z7Ez+O55L8gyd4OIYUs=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id HsfeC6xABmsw; Mon, 19 Nov 2018 15:35:20 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id C645C4190F;
- Mon, 19 Nov 2018 15:35:19 +0300 (MSK)
-Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 19
- Nov 2018 15:35:19 +0300
-Subject: Re: IPMI Adopter's agreement
-To: James Mihm <james.mihm@gmail.com>
-CC: <openbmc@lists.ozlabs.org>
-References: <19fe4e16-c014-3af8-ac1f-a73b446b379e@yadro.com>
- <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- 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
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
-Date: Mon, 19 Nov 2018 15:35:18 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42zG9v5JXwzF3JB
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 04:32:14 +1100 (AEDT)
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wAJHSI4s016364; Mon, 19 Nov 2018 09:32:06 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=3gDSTuOQrlnhy91W76uZpwAyra9TTl31spGaNaei968=;
+ b=NdGXbOzSsfC5edb0H85o12lK1pat0Wip/1hOgk1bRb4wabc15f5EGE0Gdddqllf67gtc
+ ReftlxaPLjwVUXxgQVWYdGAioisrs5J7lbERLFOvIJ1pxIc07pbFPLP7iXQYCvyZLeT+
+ /ly7id4txOWYBFGKkNWRY3OB1ZBqD8EnUp8= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2nuxfg8v3y-10
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Mon, 19 Nov 2018 09:32:06 -0800
+Received: from frc-hub01.TheFacebook.com (2620:10d:c021:18::171) by
+ frc-hub03.TheFacebook.com (2620:10d:c021:18::173) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Mon, 19 Nov 2018 09:31:52 -0800
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.71) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Mon, 19 Nov 2018 09:31:52 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3gDSTuOQrlnhy91W76uZpwAyra9TTl31spGaNaei968=;
+ b=dglyxJW0q+ezHt7yu4hadSyqnDIA45aHZJKWfiPP5Rgt3K29Yan9hAcNYSSJzJpoRg3KEow6Rm5/lA6iyOpEUXfmflsNl4ARJk3OVGXpXLhE4MZYx9YllZs7cKVUB+z+kpxQgVw7C0j3/Cs5rXQWNijvppR4akUTUGGrkeMc4EQ=
+Received: from MWHPR15MB1789.namprd15.prod.outlook.com (10.174.255.18) by
+ MWHPR15MB1472.namprd15.prod.outlook.com (10.173.234.150) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1294.30; Mon, 19 Nov 2018 17:31:50 +0000
+Received: from MWHPR15MB1789.namprd15.prod.outlook.com
+ ([fe80::f8fb:c0d5:46cd:cf56]) by MWHPR15MB1789.namprd15.prod.outlook.com
+ ([fe80::f8fb:c0d5:46cd:cf56%2]) with mapi id 15.20.1339.027; Mon, 19 Nov 2018
+ 17:31:50 +0000
+From: Sai Dasari <sdasari@fb.com>
+To: Stewart Smith <stewart@linux.ibm.com>, Oskar Senft <osk@google.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, "bradleyb@fuzziesquirrel.com"
+ <bradleyb@fuzziesquirrel.com>, "gmills@linux.vnet.ibm.com"
+ <gmills@linux.vnet.ibm.com>
+Subject: Re: Submit board schematics to OpenBMC docs repo
+Thread-Topic: Submit board schematics to OpenBMC docs repo
+Thread-Index: AQHUfecCGIV3zRWTVEqxxjMxYuBjI6VSXEyAgACIjgD//5BTAIAEJhIAgAA+V4A=
+Date: Mon, 19 Nov 2018 17:31:50 +0000
+Message-ID: <8E7CB163-522C-4E9F-96AF-98C440A04530@fb.com>
+References: <CABoTLcSpcTKHJu5xwWx4TQr1_5FjLvb9QsOAYQhCfMaQwQ5qug@mail.gmail.com>
+ <BA3510D9-333A-40DB-9D03-43A5A2B2D963@fb.com>
+ <CABoTLcTpMY4StimKijR4LmuSuc0dnnfxeTN=hv13WYghsOFcSw@mail.gmail.com>
+ <2A161BFC-87CF-4FE9-9DC5-FF1712EE955C@fb.com>
+ <87ftvxpqh1.fsf@linux.vnet.ibm.com>
+In-Reply-To: <87ftvxpqh1.fsf@linux.vnet.ibm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::4:e4e1]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1472;
+ 20:0wvUh3IWlq62Gu013DSRNiZqMEITYYnyKT0Vvj8C/XyG+qsPUWRtdAtZ/2U7m5Q9HOHuhlL/i4EAksyQEbIqOopiIblIkVNquALTGRKhJJR/ZiMdP1X8gQvcHr6XrA86wnhY+xoFuVRAYCKdf5G0xpaSi30d5SeUg1P3YgWPEI4=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 2870448f-57c7-49c5-b501-08d64e44e3d5
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390098)(7020095)(4652040)(8989299)(5600074)(711020)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1472; 
+x-ms-traffictypediagnostic: MWHPR15MB1472:
+x-microsoft-antispam-prvs: <MWHPR15MB1472C4051FFE1B6AEC45B4C2CED80@MWHPR15MB1472.namprd15.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(166708455590820)(104084551191319)(67672495146484); 
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(10201501046)(3002001)(3231415)(11241501184)(944501410)(52105112)(148016)(149066)(150057)(6041310)(20161123564045)(20161123562045)(20161123560045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051)(76991095);
+ SRVR:MWHPR15MB1472; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1472; 
+x-forefront-prvs: 08617F610C
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(346002)(396003)(136003)(39860400002)(376002)(366004)(189003)(199004)(4326008)(5660300001)(256004)(25786009)(105586002)(82746002)(93886005)(6116002)(106356001)(33656002)(6306002)(54906003)(6512007)(97736004)(316002)(102836004)(110136005)(6246003)(6436002)(45080400002)(76176011)(6506007)(2906002)(53936002)(81166006)(81156014)(2900100001)(186003)(6486002)(8676002)(478600001)(86362001)(8936002)(7736002)(229853002)(36756003)(305945005)(99286004)(486006)(68736007)(2616005)(11346002)(476003)(83716004)(966005)(14454004)(46003)(71190400001)(71200400001)(446003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1472;
+ H:MWHPR15MB1789.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: AJnZUyYS8JATWzJujqZeJwHXLPYX2r6EbnDBzlJzMriZXF4VoJmUeG0ANoEQh0rSww8tU3RNoZrpPNNthzP8Xc0EjEq/ynbsG89408d43QvbqwSiG9ZIKVBwhCQYr8ovaFf3QLnTNpkWItF4Cq3ICo6MIA0lhBl8DhgGM05uDyu1m7/MxXxUybsbbl7cCzp+Dc9AiPUAy2XoLL9MXtbzvhbXJjNhviA07+eOomp8paTjggd/nk2mSlD06LPBplq/tBIoghTP2zQC6fAQ0rc7CdmRmvpYErEUP+txJlA5K2xCNCgSbp7Rl2FJiHt0MB7pFVf+/ihYJ/WVF2qXHCucZOAJfUjv2Wg6D+VZfXmK7BM=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <047E6A2871481F4BA6CB7F236F2B854E@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR"
-X-Originating-IP: [172.17.14.197]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2870448f-57c7-49c5-b501-08d64e44e3d5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2018 17:31:50.5048 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1472
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-19_06:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,72 +125,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Nov 2018 12:35:31 -0000
+X-List-Received-Date: Mon, 19 Nov 2018 17:32:21 -0000
 
---yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR
-Content-Type: multipart/mixed; boundary="T6MaoWTrTCq3QEBjGIBN2h061G3IvvpRj";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: James Mihm <james.mihm@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-Message-ID: <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
-Subject: Re: IPMI Adopter's agreement
-References: <19fe4e16-c014-3af8-ac1f-a73b446b379e@yadro.com>
- <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
-In-Reply-To: <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
-
---T6MaoWTrTCq3QEBjGIBN2h061G3IvvpRj
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-
-Any further info on this?
-
-26.06.2018 21:49, James Mihm wrote:
-> I'm looking into how we need to proceed regarding this question
-> internally here at Intel.
->
-> James.
-> On Wed, Jun 20, 2018 at 9:33 AM Alexander Amelkin <a.amelkin@yadro.com>=
- wrote:
->> Just wondering, does OpenBMC / TLF have this fine document signed?
->>
->> https://www.intel.com/content/www/us/en/servers/ipmi/ipmi-home.html/#a=
-dopters
->>
->> Or does each vendor need to sign this separately?
->>
->>
->> Sincerely,
->> Alexander.
->>
->>
-
-
-
---T6MaoWTrTCq3QEBjGIBN2h061G3IvvpRj--
-
---yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJb8q4GAAoJEOiTWHtbdBeN9ToP/1+09Pxa0ihQSwZ11zJ9XESi
-Nk8lD71v/2WLNiVRXwn9o1zKCkJP41wbq9XEG+3+3wiWj7hKnCXFt5kNw7ZIoQul
-ZOrI/KXyd0ChlJNpccfCSkAISzkSe6QrZPqfJcR2EO8OlY79MwrtD9MaFSH62TBg
-wr9s/ygFRcoBFzo/W8j1kcSidh/inKACf4T9giPt06TrFsH7uvUDwhbPM2EOYFrL
-Tn0trIEecDa5uEKDbfK+uMn0gy72vGodj70LyvdYRMBgxqr+1NRXeNLQqbjyN8YG
-8AbsoOvvQxW2fStCrD5HYuc9ETEt8qipo4IEuUh3066sE1b+oS1dTqKlIIHgYzeZ
-uB9AKiKdqQPQCRgw7MuiqePgjnkAZXR6OKaMsYXr3MrjsuWgWMRP1WRXqhyrUfRC
-TV2dt26cn1Z5UW0CrL0wI93DLM0Ee+F2KLsrcAeknz20oidRa2++Qng9BwgRBtwE
-xkrRFEb8YsMy76rFhBF2HsipLuWhBaeuXhzoz4DH1u8sHUWhp3WPmpBqrAsAYSJq
-AF4vNEIe2Jm+TnNzvSTcFQ7X49K34tiiIKNkamquOGvjWYOGRqh65dAx3fLuX73d
-yUwM/GvRBu+nbpCVc51ud64qA0X23s4U73bJ/APyLnp5oDUHIaRwp2gZiFY2VhCW
-9oGcADwyaUlmlISiffDt
-=t7h6
------END PGP SIGNATURE-----
-
---yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR--
+DQoNCu+7v09uIDExLzE4LzE4LCA5OjQ5IFBNLCAiU3Rld2FydCBTbWl0aCIgPHN0ZXdhcnRAbGlu
+dXguaWJtLmNvbT4gd3JvdGU6DQoNCiAgICBTYWkgRGFzYXJpIDxzZGFzYXJpQGZiLmNvbT4gd3Jp
+dGVzOg0KICAgID4gSSBndWVzcyB0aGlzIGlzIGEgcXVlc3Rpb24gb2YgIyBvZiBzbWFsbCByZXBv
+cyB2cyBhIHNpbmdsZSBsYXJnZSByZXBvIHdpdGggYSBsb3Qgb2YgInN0dWZmIiBpbiBpdC4gSSBn
+ZW5lcmFsbHkgcHJlZmVyIGZld2VyICh5ZXQgbGFyZ2VyKSByZXBvcyB2cy4gdGhlIG92ZXJoZWFk
+IG9mIG1hbmFnaW5nIG11bHRpcGxlIHNtYWxsIHJlcG9zLg0KICAgID4gTWF5IGJlIGFuIGV4YW1w
+bGUgd291bGQgY2xhcmlmeSBmb3IgbXkgc3VnZ2VzdGlvbiBvZiBlbWJlZGRpbmcgZGV0YWlscyB3
+aXRoIHRoZSBtYWNoaW5lLiBJIHdhcyByZWZlcnJpbmcgdG8gaGF2aW5nIOKAmHdpdGhlcnNwb29v
+buKAmSBzY2hlbWF0aWNzIGFsb25nIHdpdGggdGhlIG1hY2hpbmUgbGF5ZXIgQCBodHRwczovL2dp
+dGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL3RyZWUvbWFzdGVyL21ldGEtaWJtL21ldGEtd2l0aGVy
+c3Bvb24uIFRoaXMgd2lsbCBwcm92aWRlIGNvbnRleHQgZm9yIGhvdyB0aGlzIG1hY2hpbmUgd2l0
+aGVyc3Bvb24gaXMgZGVzaWduZWQgd2l0aCBhbGwgdGhlIGRldGFpbHMuKGh5cG90aGV0aWNhbCBh
+c3N1bWluZyAgd2l0aGVyc3Bvb24gc2NoZW1hdGljcyBjYW4gYmUgc2hhcmVkIGluIG9wZW4pDQog
+ICAgDQogICAgWW91ciBtYWlsIGNsaWVudCBhcHBlYXJzIGJyb2tlbiBhbmQgaXMgZmFpbGluZyB0
+byBxdW90ZSByZXBsaWVzIGNvcnJlY3RseS4NClRoYW5rcyBTdGV3YXJkIGZvciBsZXR0aW5nIG1l
+IGtub3cuIExldCBtZSBjaGVjayB3aGF0IE91dGxvb2sgc2V0dGluZ3MgbWlnaHQgYmUgY2F1c2lu
+ZyB0aGlzLiBUaGFua3MhDQogICAgDQogICAgLS0gDQogICAgU3Rld2FydCBTbWl0aA0KICAgIE9Q
+QUwgQXJjaGl0ZWN0LCBJQk0uDQogICAgDQogICAgDQoNCg==
