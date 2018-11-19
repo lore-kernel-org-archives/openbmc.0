@@ -1,83 +1,105 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="ZbfKtb7V"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42yyZL1n7GzF3PQ
- for <openbmc@lists.ozlabs.org>; Mon, 19 Nov 2018 16:48:58 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wAJ5muhi078849
- for <openbmc@lists.ozlabs.org>; Mon, 19 Nov 2018 00:48:56 -0500
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2numr9nj1p-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 19 Nov 2018 00:48:50 -0500
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Mon, 19 Nov 2018 05:48:49 -0000
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 19 Nov 2018 05:48:45 -0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- wAJ5migI29360270
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 19 Nov 2018 05:48:44 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9B7622805C;
- Mon, 19 Nov 2018 05:48:44 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 585792805A;
- Mon, 19 Nov 2018 05:48:44 +0000 (GMT)
-Received: from birb.localdomain (unknown [9.185.142.44])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon, 19 Nov 2018 05:48:44 +0000 (GMT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 063BB4EC69F; Mon, 19 Nov 2018 16:48:43 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Sai Dasari <sdasari@fb.com>, Oskar Senft <osk@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "bradleyb\@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
- "gmills\@linux.vnet.ibm.com" <gmills@linux.vnet.ibm.com>
-Subject: Re: Submit board schematics to OpenBMC docs repo
-In-Reply-To: <2A161BFC-87CF-4FE9-9DC5-FF1712EE955C@fb.com>
-References: <CABoTLcSpcTKHJu5xwWx4TQr1_5FjLvb9QsOAYQhCfMaQwQ5qug@mail.gmail.com>
- <BA3510D9-333A-40DB-9D03-43A5A2B2D963@fb.com>
- <CABoTLcTpMY4StimKijR4LmuSuc0dnnfxeTN=hv13WYghsOFcSw@mail.gmail.com>
- <2A161BFC-87CF-4FE9-9DC5-FF1712EE955C@fb.com>
-Date: Mon, 19 Nov 2018 16:48:42 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42z7bN4y56zF3Kq
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Nov 2018 23:35:26 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 262A2418EB;
+ Mon, 19 Nov 2018 12:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1542630920; x=
+ 1544445321; bh=oj3HHK9Jadsaz9AbhKJCTFoxDs0KYYIw0/GbVO2zVXA=; b=Z
+ bfKtb7VYNf5nxGj6fQpnYrDV9W3mYr+M9YTCn7YRUAFT9CUk+lhfxu5GfDE8Ffp+
+ 3ZeyrMa9Nn1vBt3DEszZBsEYvRrbJHUgP4X8u3qSVipMBNfLtcV+ErfJQRTCEBh/
+ J96ceNNDbJsWrti+MiwaHK+z7Ez+O55L8gyd4OIYUs=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id HsfeC6xABmsw; Mon, 19 Nov 2018 15:35:20 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id C645C4190F;
+ Mon, 19 Nov 2018 15:35:19 +0300 (MSK)
+Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 19
+ Nov 2018 15:35:19 +0300
+Subject: Re: IPMI Adopter's agreement
+To: James Mihm <james.mihm@gmail.com>
+CC: <openbmc@lists.ozlabs.org>
+References: <19fe4e16-c014-3af8-ac1f-a73b446b379e@yadro.com>
+ <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
+Date: Mon, 19 Nov 2018 15:35:18 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-x-cbid: 18111905-0060-0000-0000-000002D50631
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010077; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000270; SDB=6.01119557; UDB=6.00580869; IPR=6.00899679; 
- MB=3.00024223; MTD=3.00000008; XFM=3.00000015; UTC=2018-11-19 05:48:47
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18111905-0061-0000-0000-0000473E2937
-Message-Id: <87ftvxpqh1.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-11-19_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1811190055
+In-Reply-To: <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR"
+X-Originating-IP: [172.17.14.197]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,21 +111,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Nov 2018 05:48:58 -0000
+X-List-Received-Date: Mon, 19 Nov 2018 12:35:31 -0000
 
-Sai Dasari <sdasari@fb.com> writes:
-> I guess this is a question of # of small repos vs a single large repo wit=
-h a lot of "stuff" in it. I generally prefer fewer (yet larger) repos vs. t=
-he overhead of managing multiple small repos.
-> May be an example would clarify for my suggestion of embedding details wi=
-th the machine. I was referring to having =E2=80=98witherspooon=E2=80=99 sc=
-hematics along with the machine layer @ https://github.com/openbmc/openbmc/=
-tree/master/meta-ibm/meta-witherspoon. This will provide context for how th=
-is machine witherspoon is designed with all the details.(hypothetical assum=
-ing  witherspoon schematics can be shared in open)
+--yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR
+Content-Type: multipart/mixed; boundary="T6MaoWTrTCq3QEBjGIBN2h061G3IvvpRj";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: James Mihm <james.mihm@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Message-ID: <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
+Subject: Re: IPMI Adopter's agreement
+References: <19fe4e16-c014-3af8-ac1f-a73b446b379e@yadro.com>
+ <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
+In-Reply-To: <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
 
-Your mail client appears broken and is failing to quote replies correctly.
+--T6MaoWTrTCq3QEBjGIBN2h061G3IvvpRj
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
---=20
-Stewart Smith
-OPAL Architect, IBM.
+Any further info on this?
+
+26.06.2018 21:49, James Mihm wrote:
+> I'm looking into how we need to proceed regarding this question
+> internally here at Intel.
+>
+> James.
+> On Wed, Jun 20, 2018 at 9:33 AM Alexander Amelkin <a.amelkin@yadro.com>=
+ wrote:
+>> Just wondering, does OpenBMC / TLF have this fine document signed?
+>>
+>> https://www.intel.com/content/www/us/en/servers/ipmi/ipmi-home.html/#a=
+dopters
+>>
+>> Or does each vendor need to sign this separately?
+>>
+>>
+>> Sincerely,
+>> Alexander.
+>>
+>>
+
+
+
+--T6MaoWTrTCq3QEBjGIBN2h061G3IvvpRj--
+
+--yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJb8q4GAAoJEOiTWHtbdBeN9ToP/1+09Pxa0ihQSwZ11zJ9XESi
+Nk8lD71v/2WLNiVRXwn9o1zKCkJP41wbq9XEG+3+3wiWj7hKnCXFt5kNw7ZIoQul
+ZOrI/KXyd0ChlJNpccfCSkAISzkSe6QrZPqfJcR2EO8OlY79MwrtD9MaFSH62TBg
+wr9s/ygFRcoBFzo/W8j1kcSidh/inKACf4T9giPt06TrFsH7uvUDwhbPM2EOYFrL
+Tn0trIEecDa5uEKDbfK+uMn0gy72vGodj70LyvdYRMBgxqr+1NRXeNLQqbjyN8YG
+8AbsoOvvQxW2fStCrD5HYuc9ETEt8qipo4IEuUh3066sE1b+oS1dTqKlIIHgYzeZ
+uB9AKiKdqQPQCRgw7MuiqePgjnkAZXR6OKaMsYXr3MrjsuWgWMRP1WRXqhyrUfRC
+TV2dt26cn1Z5UW0CrL0wI93DLM0Ee+F2KLsrcAeknz20oidRa2++Qng9BwgRBtwE
+xkrRFEb8YsMy76rFhBF2HsipLuWhBaeuXhzoz4DH1u8sHUWhp3WPmpBqrAsAYSJq
+AF4vNEIe2Jm+TnNzvSTcFQ7X49K34tiiIKNkamquOGvjWYOGRqh65dAx3fLuX73d
+yUwM/GvRBu+nbpCVc51ud64qA0X23s4U73bJ/APyLnp5oDUHIaRwp2gZiFY2VhCW
+9oGcADwyaUlmlISiffDt
+=t7h6
+-----END PGP SIGNATURE-----
+
+--yfoUHZW9lhU3AsLmrQQyl9tJM23HcEJXR--
