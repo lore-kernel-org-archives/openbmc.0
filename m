@@ -1,52 +1,67 @@
-Return-Path: <shivahshankar.snr@gmail.com>
+Return-Path: <tmaimon77@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::234; helo=mail-lj1-x234.google.com;
- envelope-from=shivahshankar.snr@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::d42; helo=mail-io1-xd42.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="osHKNiKz"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="o5USwe+X"; 
  dkim-atps=neutral
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42zj1N70jJzF3S4
- for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 21:41:28 +1100 (AEDT)
-Received: by mail-lj1-x234.google.com with SMTP id u6-v6so1209677ljd.1
- for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 02:41:28 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42zj5q2w0CzF3T5
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 21:45:16 +1100 (AEDT)
+Received: by mail-io1-xd42.google.com with SMTP id m1-v6so993626ioc.13
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 02:45:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=lfglwUzvESOhx21v066vyJb3Mf6yMIJptB6qRDF+cBI=;
- b=osHKNiKzK9KNvYQzEWAV3MlWKrj3V1I/VvEBHdHNljobYYK5N619wUxynnnU9l2D7y
- rzHPGzQNp3T3vQ7tu810CZi2+h40D/B64yxore7bCgqvUJpDJj0ttOS9BOMKkMhFkHAf
- MRIuE2dbisK6KKNCQNswEn4L0aKLYQyd1zs1CXuoxi7S7qanZxPPbcu1eXPDf1X/TRrR
- YPPn5tqMlw/JAqEppB3D9knDn0RZzYm8nbC9aE9HAE/Ypjivuoep9kEW6vq12LhW13Zx
- 5q2V8Hwycl0F9dxSHAyCHtZuq5YKOnu9KSHfVs5SNo4jTSkelpKXIfUlbRcdI/e4z3EM
- 8qwA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VV2MPsT+c/uoI6wvvdyBbH4q43lhOVa1KbcBrw7Ens0=;
+ b=o5USwe+X9P/L0/HRECJeorsjmaXFL5X02EG5Mbq14DCo2dU+KJu8+kSNYj6At8lmFI
+ w38rVPFi04pVQFr4vJkHlHVxwEJhe6FlScZ4G3DHWCR1b9JadVsyFdZlUr1I8W+ugktl
+ 9x3cLgypRUJrWgPwA4vHI/fWtkN+b/22Ii1i5tAvPKKnoTShkllBeZ/Iw0EyZ9SjIQSy
+ VllyFP1U+TEZpMFv+zFWIdlc4lRCxqkRgZO4yzP8RIUssTeFFrkF86xs7B37DC4LOb8z
+ sope5IUhaT+MTrQ0FUT0wVi91XasvcwWNs+sSfGuDWv5I4orIAWMGeRywxJ7FkI3y+SF
+ 5HUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=lfglwUzvESOhx21v066vyJb3Mf6yMIJptB6qRDF+cBI=;
- b=qJawU4bRRSxTEYV8fDR+6JpTjJDDgRgvBAixdQ0L1WYHjaL3yA+HW4gLWtAw27wDHY
- 1JNXtpXEuYXv6BF2/0JR7Mz24eMQg81lLpLcsqdKo1FX8ef3DkWhcYtodJ8TUuterAYN
- sqxufQmNwZ1DVzx8unkz/PmzExBoAzLGQV5bICV6BNN+5TiQq9j6dF6JyYg9yuhSmUgN
- RPHxAsB3XomdLQRHglY7OPOSqodwU7MjLLYdd/thGonF9jh1acU02eBHvu7v6pRu1hUR
- zx6ew/FY9H49nMz0RqRui3cH+PxnE+JZ1FgaQd7Ijv0ALWy0CWFC3xAIzxurmpr0Z65x
- +M4A==
-X-Gm-Message-State: AA+aEWYNq7EGqJL6giiGnrAK4JFrUq+AWzjNn4eQ9L7CskCfddMHHFll
- xA8y2Jb1VS0SY9pUcztgwMN0eQ8gZf26RREQ6ROJKw==
-X-Google-Smtp-Source: AFSGD/WpUi8z6VoS/Eezmb547Fznv4AVWfMRo2LoUZ/5zHLaGoLG10i8kNUFBq7TaFgdztbYmUwfTd5paaX6wWS/ftU=
-X-Received: by 2002:a2e:8945:: with SMTP id b5-v6mr897711ljk.55.1542710484966; 
- Tue, 20 Nov 2018 02:41:24 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VV2MPsT+c/uoI6wvvdyBbH4q43lhOVa1KbcBrw7Ens0=;
+ b=ABgY8j9QGSBAU4CWIZdjUMChix3SjqmvlqPjtdge9cu7TF2NM6vAK/3oR3SjLuQ43Q
+ fzsdf31VqAbFSbHKjGSYqz826WCjsKvaASI6u7mNH7BAYKn/ReMap1d7eXZh2ybLjzu9
+ 1PwuNtrnkMc+KLiY3ohPddfdQBuOXv89p8ZVZHl1vZZ1WoePVBtT32YmHDYd9jY2Cm7s
+ aut23STPxHuR/CWCqxO5KLtQzoGS1ORlIyJelIyOu4CYPip9qvPE36+0w4QPDXNZZ2wS
+ 35JsBC/cyLor0IJ9skvLqSjKUcU7UKhg5D4KeqK0oVuckgV5uxLnXPLbY9U3IdPIBZbz
+ qwLA==
+X-Gm-Message-State: AA+aEWZ7I2Jhv5k1NGWH7pyB7F3jX6ZVIL5Z+cGHYl8NTJvxyWATz4gw
+ Y7ZrdtST8AKUWWyeeYLLvU7OqI7I9ZhmXjr76FM=
+X-Google-Smtp-Source: AFSGD/Vw9Pk5+JDre2F5hDwR8K4NHIhoHz0LLcsPdnO7xH+dizhOdMuWsfQMHqE+Sj7RtNjXti2tgciEMhJboWt8dZQ=
+X-Received: by 2002:a6b:be87:: with SMTP id
+ o129-v6mr1006341iof.275.1542710713843; 
+ Tue, 20 Nov 2018 02:45:13 -0800 (PST)
 MIME-Version: 1.0
-From: Shiva Shankar <shivahshankar.snr@gmail.com>
-Date: Tue, 20 Nov 2018 16:11:15 +0530
-Message-ID: <CAKLXnT4TDTLN-1B8rOdCfeRy916N21VHhKffQVrJWJS5nRWZAA@mail.gmail.com>
-Subject: Linux kernel version under openbmc/linux
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000072a248057b1646b8"
+References: <20181118123504.83082-1-tmaimon77@gmail.com>
+ <20181118123504.83082-2-tmaimon77@gmail.com>
+ <CAOesGMjUJ1+qmbPWcVFm1F_F0fcdg-54YY6o4iK=PYWoAuEczA@mail.gmail.com>
+In-Reply-To: <CAOesGMjUJ1+qmbPWcVFm1F_F0fcdg-54YY6o4iK=PYWoAuEczA@mail.gmail.com>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Tue, 20 Nov 2018 12:51:19 +0200
+Message-ID: <CAP6Zq1j46ch8UUxJkO7SnrHWyP3Y7g58Fodejr98WN-TW8jhEw@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] spi: npcm: fix uninitialized 'val' warning in
+ receive function
+To: olof@lixom.net
+Cc: broonie@kernel.org, Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Nancy Yuen <yuenn@google.com>, 
+ Patrick Venture <venture@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>, 
+ Avi Fishman <avifishman70@gmail.com>, Joel Stanley <joel@jms.id.au>,
+ linux-spi@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>
+Content-Type: multipart/alternative; boundary="000000000000170726057b16540a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,25 +73,169 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Nov 2018 10:41:30 -0000
+X-List-Received-Date: Tue, 20 Nov 2018 10:45:19 -0000
 
---00000000000072a248057b1646b8
+--000000000000170726057b16540a
 Content-Type: text/plain; charset="UTF-8"
 
-HI
-I notice that the latest dev version on openbmc/linux is dev-4.18, wanted
-to know if there is a plan to move the 4.19 anytime soon.
+Hi Olof,
 
-regards,
-shivas
+On Sun, 18 Nov 2018 at 23:38, Olof Johansson <olof@lixom.net> wrote:
 
---00000000000072a248057b1646b8
+> On Sun, Nov 18, 2018 at 4:36 AM Tomer Maimon <tmaimon77@gmail.com> wrote:
+> >
+> > Fix uninitialized 'val' warning receive function, send function
+> > has been modify to be aligned with the receive function.
+> >
+> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> > ---
+> >  drivers/spi/spi-npcm-pspi.c | 12 ++++++------
+> >  1 file changed, 6 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
+> > index 6dae91091143..f75df49ab84e 100644
+> > --- a/drivers/spi/spi-npcm-pspi.c
+> > +++ b/drivers/spi/spi-npcm-pspi.c
+> > @@ -199,11 +199,11 @@ static void npcm_pspi_send(struct npcm_pspi *priv)
+> >         wsize = min(bytes_per_word(priv->bits_per_word), priv->tx_bytes);
+> >         priv->tx_bytes -= wsize;
+> >
+> > -       if (priv->tx_buf) {
+> > -               if (wsize == 1)
+> > -                       iowrite8(*priv->tx_buf, NPCM_PSPI_DATA +
+> priv->base);
+> > +       if (priv->tx_buf && wsize) {
+>
+> In general, doing an early:
+>         if (!condition)
+>                 return;
+>
+> is a pattern we prefer in the kernel. Setting up the assumptions at
+> the beginning of the function makes it easier to follow the code flow,
+> and saves a level of indentation.
+>
+> It's a matter of taste though, and this function has only one level.
+> So, either way is OK. Just mentioning it.
+>
+> >                 if (wsize == 2)
+> >                         iowrite16(*priv->tx_buf, NPCM_PSPI_DATA +
+> priv->base);
+> > +               else
+> > +                       iowrite8(*priv->tx_buf, NPCM_PSPI_DATA +
+> priv->base);
+>
+> I think this is broken? If wsize is something else than 1 or 2, you'll
+> do a one-byte write but advance the buffer pointer with a different
+> amount.
+>
+> It'll be fairly tricky to debug if this ever happens (it shouldn't,
+> but still). This is why I added a WARN_ON_ONCE() in my patch instead.
+>
+
+We just tried to reduce the number of lines to minimum, so we have debug it
+quite a lot (with all the numbers that can
+get from priv->tx_bytes) and the only numbers that minimum function return
+are 0, 1 or 2.
+
+But in the end of the day,  we don't have an issue with your solution as
+long it will be done also in the transfer function.
+
+So if you can send a new patch with transfer function modification as well
+it will be great (Please let me know if you like me to send the patch).
+
+Thanks again
+
+Tomer
+
+
+
+-Olof
+>
+
+--000000000000170726057b16540a
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">HI=C2=A0<div>I notice that the latest dev version on openb=
-mc/linux is dev-4.18, wanted to know if there is a plan to move the 4.19 an=
-ytime soon.</div><div><br></div><div>regards,<br></div><div>shivas</div></d=
-iv>
+<div dir=3D"ltr">Hi Olof,<br><br><div class=3D"gmail_quote"><div dir=3D"ltr=
+">On Sun, 18 Nov 2018 at 23:38, Olof Johansson &lt;<a href=3D"mailto:olof@l=
+ixom.net" target=3D"_blank">olof@lixom.net</a>&gt; wrote:<br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
+olid;padding-left:1ex">On Sun, Nov 18, 2018 at 4:36 AM Tomer Maimon &lt;<a =
+href=3D"mailto:tmaimon77@gmail.com" target=3D"_blank">tmaimon77@gmail.com</=
+a>&gt; wrote:<br>
+&gt;<br>
+&gt; Fix uninitialized &#39;val&#39; warning receive function, send functio=
+n<br>
+&gt; has been modify to be aligned with the receive function.<br>
+&gt;<br>
+&gt; Signed-off-by: Tomer Maimon &lt;<a href=3D"mailto:tmaimon77@gmail.com"=
+ target=3D"_blank">tmaimon77@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/spi/spi-npcm-pspi.c | 12 ++++++------<br>
+&gt;=C2=A0 1 file changed, 6 insertions(+), 6 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c=
+<br>
+&gt; index 6dae91091143..f75df49ab84e 100644<br>
+&gt; --- a/drivers/spi/spi-npcm-pspi.c<br>
+&gt; +++ b/drivers/spi/spi-npcm-pspi.c<br>
+&gt; @@ -199,11 +199,11 @@ static void npcm_pspi_send(struct npcm_pspi *pri=
+v)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0wsize =3D min(bytes_per_word(priv-&gt=
+;bits_per_word), priv-&gt;tx_bytes);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0priv-&gt;tx_bytes -=3D wsize;<br>
+&gt;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (priv-&gt;tx_buf) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (wsize =3D=
+=3D 1)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0iowrite8(*priv-&gt;tx_buf, NPCM_PSPI_DATA + priv-&gt;base);<b=
+r>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (priv-&gt;tx_buf &amp;&amp; wsize) {<br=
+>
+<br>
+In general, doing an early:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!condition)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
+<br>
+is a pattern we prefer in the kernel. Setting up the assumptions at<br>
+the beginning of the function makes it easier to follow the code flow,<br>
+and saves a level of indentation.<br>
+<br>
+It&#39;s a matter of taste though, and this function has only one level.<br=
+>
+So, either way is OK. Just mentioning it.<br>
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (wsize=
+ =3D=3D 2)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0iowrite16(*priv-&gt;tx_buf, NPCM_PSPI_DATA + priv-&gt;b=
+ase);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0iowrite8(*priv-&gt;tx_buf, NPCM_PSPI_DATA + priv-&gt;base);<b=
+r>
+<br>
+I think this is broken? If wsize is something else than 1 or 2, you&#39;ll<=
+br>
+do a one-byte write but advance the buffer pointer with a different<br>
+amount.<br>
+<br>
+It&#39;ll be fairly tricky to debug if this ever happens (it shouldn&#39;t,=
+<br>
+but still). This is why I added a WARN_ON_ONCE() in my patch instead.<br></=
+blockquote><div><br></div><div>We just tried to reduce the number of lines =
+to minimum, so we have debug it quite a lot (with all the numbers that can=
+=C2=A0</div><div>get from priv-&gt;tx_bytes) and the only numbers that mini=
+mum function return are 0, 1 or 2.</div><div><br></div><div>But in the end =
+of the day,=C2=A0 we don&#39;t have an issue with your solution as long it =
+will be done also in the transfer function.<br></div><div><br></div><div>So=
+ if you can send a new patch with transfer function modification as well it=
+ will be great (Please let me know if you like me to send the patch).</div>=
+<div><br></div><div>Thanks again</div><div><br></div><div>Tomer</div><div><=
+br></div><div><br></div><div><br></div><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+-Olof<br>
+</blockquote></div></div>
 
---00000000000072a248057b1646b8--
+--000000000000170726057b16540a--
