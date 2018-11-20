@@ -1,58 +1,61 @@
-Return-Path: <james.mihm@gmail.com>
+Return-Path: <prvs=48626f2802=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::c30; helo=mail-yw1-xc30.google.com;
- envelope-from=james.mihm@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=48626f2802=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z35ximAI"; 
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="FlPI08XB"; 
  dkim-atps=neutral
-Received: from mail-yw1-xc30.google.com (mail-yw1-xc30.google.com
- [IPv6:2607:f8b0:4864:20::c30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42ztMg74z6zF3ZN
- for <openbmc@lists.ozlabs.org>; Wed, 21 Nov 2018 04:42:52 +1100 (AEDT)
-Received: by mail-yw1-xc30.google.com with SMTP id l200so1093682ywe.10
- for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 09:42:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2qYgXhlrwbhgrER4mAXTAErVDahTUmxDlCEUpWNdiXk=;
- b=Z35ximAIXRk/bUrmxiOh7qWpLZ5txSrFiQZOn1m9zfJbqguyONE+uCAueLz38/ZYGL
- 6rH4dPtXsKeT15XLfxIdTGY19aQYyX4bFSYmubO+4LGMcGHplYDs/xWwbvXkS4hEJB+C
- fkEWODhIrcFFA2JkWUvWi2ZbLeT6cm75/T/3zJcgx4pZICXzAHeS99QNIoYtVZN0RMNL
- V7eqSxKO9dbNAGxhiwr/VJqKucUJdYTHg1Y2jygHjg7leUJXsO27P90KHCBU+YLCJcbs
- 5Kz8HFan9zoWXkrSV14fybdvf1cb9jJmd8/A1dkLTz+duEQEnNrpgicFpVY8woAsIQnc
- 5csw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2qYgXhlrwbhgrER4mAXTAErVDahTUmxDlCEUpWNdiXk=;
- b=YCjWx0S/KV6vFfYufXMpfDoq81wWKGPvkE+2b9DPTL5EisjMtr+UQmZf8R/yMWvzbK
- WzryBpIPmVi7Bzb+vWGD7m9z1z0XmtMz/aKr3ilyL68zewc3rycq642Qt1zkqg+2MRyc
- t/h2TZenYNwAgkh3GAm7HXRUTD5IozlJULPWU7Hhb0f5/FqTqLeTckB1QBzUKc5PRq09
- YT2KZupRPheIOCd6dPpPzU6blx3OxoP6NdYc7kKMv+qqaqIFVODKCqLWMxd9tM+7FaTK
- 2Jn3xSTtnXEiB+Uj+XFmEAbp1fBYSsXLE4UyoH48TXJN2FT6YgGJA3vtI3ztUVVSxuMx
- w1VQ==
-X-Gm-Message-State: AGRZ1gL3/KtD8adA8fE2/n+U3NQQj6GIm1mk5NHT48xVOt2XBmMl+T0b
- bj8m2Nt9jn4pw2+q94P9/BQ1bngqaQORR6cvjwnYUIdB
-X-Google-Smtp-Source: AJdET5dp+O+UyTda/0jfb8JDBhSF6WkV1hdg8PfwgCwElM/pQc594C9zNbszzu3XhcFVENJvq4TqMT4SknnPyPPtrBo=
-X-Received: by 2002:a81:ac1d:: with SMTP id k29mr2976286ywh.457.1542735769304; 
- Tue, 20 Nov 2018 09:42:49 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42zyCP6P7xzF3K4
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Nov 2018 07:35:54 +1100 (AEDT)
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wAKKZk1A016794
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 12:35:53 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=C0bVDWa5ikxrQ1eeZ7hJ9sEsRIWOebCqNDKh+PWFPeI=;
+ b=FlPI08XBy2kHY3ZpZ/LYftB4WrlHjCl7msYwMEoFA9LdvUtBC9iqqDLMS/l1j7rg1XR1
+ fyJmJaG15Xtt0VbCPVEejNYc26aHrz3rhqYiXtYByM3aeEHdXTdZZGGi82aN378q70fv
+ VUWA1aLkZBoAtxAlQCSpwc4x6Y4gcpBKIpM= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2nvpd80ua1-8
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 12:35:52 -0800
+Received: from mx-out.facebook.com (2620:10d:c0a1:3::13) by
+ mail.thefacebook.com (2620:10d:c021:18::173) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
+ Tue, 20 Nov 2018 12:35:50 -0800
+Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
+ id B16F23FC46CB; Tue, 20 Nov 2018 12:35:46 -0800 (PST)
+Smtp-Origin-Hostprefix: devvm
+From: Vijay Khemka <vijaykhemka@fb.com>
+Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
+To: Samuel Mendoza-Jonas <sam@mendozajonas.com>, "David S. Miller"
+ <davem@davemloft.net>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
+ <openbmc@lists.ozlabs.org>, <Justin.Lee1@Dell.com>, <joel@jms.id.au>,
+ <linux-aspeed@lists.ozlabs.org>
+Smtp-Origin-Cluster: prn2c23
+Subject: [PATCH net-next] net/ncsi: Add NCSI Mellanox OEM command
+Date: Tue, 20 Nov 2018 12:35:16 -0800
+Message-ID: <20181120203516.3460764-1-vijaykhemka@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-References: <19fe4e16-c014-3af8-ac1f-a73b446b379e@yadro.com>
- <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
- <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
-In-Reply-To: <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
-From: James Mihm <james.mihm@gmail.com>
-Date: Tue, 20 Nov 2018 09:42:12 -0800
-Message-ID: <CADy_Pt0eQR5ZdRkjwc=5t4yB-YGbzfT9c=BFUrpgYnQ317rKZA@mail.gmail.com>
-Subject: Re: IPMI Adopter's agreement
-To: a.amelkin@yadro.com
-Cc: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-20_09:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +67,165 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Nov 2018 17:42:56 -0000
+X-List-Received-Date: Tue, 20 Nov 2018 20:36:02 -0000
 
-I've refreshed my question internally, and expect to get a response next week.
-The person is out of the office until next week.
+This patch adds OEM Mellanox commands and response handling. It also
+defines OEM Get MAC Address handler to get and configure the device.
 
-James.On Mon, Nov 19, 2018 at 4:35 AM Alexander Amelkin
-<a.amelkin@yadro.com> wrote:
->
-> Any further info on this?
->
-> 26.06.2018 21:49, James Mihm wrote:
-> > I'm looking into how we need to proceed regarding this question
-> > internally here at Intel.
-> >
-> > James.
-> > On Wed, Jun 20, 2018 at 9:33 AM Alexander Amelkin <a.amelkin@yadro.com> wrote:
-> >> Just wondering, does OpenBMC / TLF have this fine document signed?
-> >>
-> >> https://www.intel.com/content/www/us/en/servers/ipmi/ipmi-home.html/#adopters
-> >>
-> >> Or does each vendor need to sign this separately?
-> >>
-> >>
-> >> Sincerely,
-> >> Alexander.
-> >>
-> >>
->
->
+ncsi_oem_gma_handler_mlx: This handler send NCSI mellanox command for
+getting mac address.
+ncsi_rsp_handler_oem_mlx: This handles response received for all
+mellanox OEM commands.
+ncsi_rsp_handler_oem_mlx_gma: This handles get mac address response and
+set it to device.
+
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ net/ncsi/internal.h    |  5 +++++
+ net/ncsi/ncsi-manage.c | 25 ++++++++++++++++++++++++-
+ net/ncsi/ncsi-pkt.h    |  9 +++++++++
+ net/ncsi/ncsi-rsp.c    | 41 ++++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 78 insertions(+), 2 deletions(-)
+
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index 1dae77c54009..7f3eb1360b9b 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -73,10 +73,15 @@ enum {
+ #define NCSI_OEM_MFR_BCM_ID             0x113d
+ /* Broadcom specific OEM Command */
+ #define NCSI_OEM_BCM_CMD_GMA            0x01   /* CMD ID for Get MAC */
++/* Mellanox specific OEM Command */
++#define NCSI_OEM_MLX_CMD_GMA            0x00   /* CMD ID for Get MAC */
++#define NCSI_OEM_MLX_CMD_GMA_PARAM      0x1b   /* Parameter for GMA  */
+ /* OEM Command payload lengths*/
+ #define NCSI_OEM_BCM_CMD_GMA_LEN        12
++#define NCSI_OEM_MLX_CMD_GMA_LEN        8
+ /* Mac address offset in OEM response */
+ #define BCM_MAC_ADDR_OFFSET             28
++#define MLX_MAC_ADDR_OFFSET             8
+ 
+ 
+ struct ncsi_channel_version {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index bfc43b28c7a6..eacb653ff987 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -675,12 +675,35 @@ static int ncsi_oem_gma_handler_bcm(struct ncsi_cmd_arg *nca)
+ 	return ret;
+ }
+ 
++static int ncsi_oem_gma_handler_mlx(struct ncsi_cmd_arg *nca)
++{
++	unsigned char data[NCSI_OEM_MLX_CMD_GMA_LEN];
++	int ret = 0;
++
++	nca->payload = NCSI_OEM_MLX_CMD_GMA_LEN;
++
++	memset(data, 0, NCSI_OEM_MLX_CMD_GMA_LEN);
++	*(unsigned int *)data = ntohl(NCSI_OEM_MFR_MLX_ID);
++	data[5] = NCSI_OEM_MLX_CMD_GMA;
++	data[6] = NCSI_OEM_MLX_CMD_GMA_PARAM;
++
++	nca->data = data;
++
++	ret = ncsi_xmit_cmd(nca);
++	if (ret)
++		netdev_err(nca->ndp->ndev.dev,
++			   "NCSI: Failed to transmit cmd 0x%x during configure\n",
++			   nca->type);
++	return ret;
++}
++
+ /* OEM Command handlers initialization */
+ static struct ncsi_oem_gma_handler {
+ 	unsigned int	mfr_id;
+ 	int		(*handler)(struct ncsi_cmd_arg *nca);
+ } ncsi_oem_gma_handlers[] = {
+-	{ NCSI_OEM_MFR_BCM_ID, ncsi_oem_gma_handler_bcm }
++	{ NCSI_OEM_MFR_BCM_ID, ncsi_oem_gma_handler_bcm },
++	{ NCSI_OEM_MFR_MLX_ID, ncsi_oem_gma_handler_mlx }
+ };
+ 
+ static int ncsi_gma_handler(struct ncsi_cmd_arg *nca, unsigned int mf_id)
+diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
+index 4d3f06be38bd..2a6d83a596c9 100644
+--- a/net/ncsi/ncsi-pkt.h
++++ b/net/ncsi/ncsi-pkt.h
+@@ -165,6 +165,15 @@ struct ncsi_rsp_oem_pkt {
+ 	unsigned char           data[];      /* Payload data      */
+ };
+ 
++/* Mellanox Response Data */
++struct ncsi_rsp_oem_mlx_pkt {
++	unsigned char           cmd_rev;     /* Command Revision  */
++	unsigned char           cmd;         /* Command ID        */
++	unsigned char           param;       /* Parameter         */
++	unsigned char           optional;    /* Optional data     */
++	unsigned char           data[];      /* Data              */
++};
++
+ /* Broadcom Response Data */
+ struct ncsi_rsp_oem_bcm_pkt {
+ 	unsigned char           ver;         /* Payload Version   */
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index 77e07ba3f493..ba9a4ba97c64 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+@@ -611,6 +611,45 @@ static int ncsi_rsp_handler_snfc(struct ncsi_request *nr)
+ 	return 0;
+ }
+ 
++/* Response handler for Mellanox command Get Mac Address */
++static int ncsi_rsp_handler_oem_mlx_gma(struct ncsi_request *nr)
++{
++	struct ncsi_dev_priv *ndp = nr->ndp;
++	struct net_device *ndev = ndp->ndev.dev;
++	const struct net_device_ops *ops = ndev->netdev_ops;
++	struct ncsi_rsp_oem_pkt *rsp;
++	struct sockaddr saddr;
++	int ret = 0;
++
++	/* Get the response header */
++	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
++
++	saddr.sa_family = ndev->type;
++	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
++	memcpy(saddr.sa_data, &rsp->data[MLX_MAC_ADDR_OFFSET], ETH_ALEN);
++	ret = ops->ndo_set_mac_address(ndev, &saddr);
++	if (ret < 0)
++		netdev_warn(ndev, "NCSI: 'Writing mac address to device failed\n");
++
++	return ret;
++}
++
++/* Response handler for Mellanox card */
++static int ncsi_rsp_handler_oem_mlx(struct ncsi_request *nr)
++{
++	struct ncsi_rsp_oem_mlx_pkt *mlx;
++	struct ncsi_rsp_oem_pkt *rsp;
++
++	/* Get the response header */
++	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
++	mlx = (struct ncsi_rsp_oem_mlx_pkt *)(rsp->data);
++
++	if (mlx->cmd == NCSI_OEM_MLX_CMD_GMA &&
++	    mlx->param == NCSI_OEM_MLX_CMD_GMA_PARAM)
++		return ncsi_rsp_handler_oem_mlx_gma(nr);
++	return 0;
++}
++
+ /* Response handler for Broadcom command Get Mac Address */
+ static int ncsi_rsp_handler_oem_bcm_gma(struct ncsi_request *nr)
+ {
+@@ -655,7 +694,7 @@ static struct ncsi_rsp_oem_handler {
+ 	unsigned int	mfr_id;
+ 	int		(*handler)(struct ncsi_request *nr);
+ } ncsi_rsp_oem_handlers[] = {
+-	{ NCSI_OEM_MFR_MLX_ID, NULL },
++	{ NCSI_OEM_MFR_MLX_ID, ncsi_rsp_handler_oem_mlx },
+ 	{ NCSI_OEM_MFR_BCM_ID, ncsi_rsp_handler_oem_bcm }
+ };
+ 
+-- 
+2.17.1
