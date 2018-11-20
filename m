@@ -1,60 +1,58 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <james.mihm@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=sirena.org.uk
- (client-ip=2a01:7e01::f03c:91ff:fed4:a3b6; helo=heliosphere.sirena.org.uk;
- envelope-from=broonie@sirena.org.uk; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c30; helo=mail-yw1-xc30.google.com;
+ envelope-from=james.mihm@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="pobvoXCk"; dkim-atps=neutral
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z35ximAI"; 
+ dkim-atps=neutral
+Received: from mail-yw1-xc30.google.com (mail-yw1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 42zm7x38TmzF3Wx
- for <openbmc@lists.ozlabs.org>; Wed, 21 Nov 2018 00:02:20 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=By1XcD31rX/VPT7M9w25J7fJhEmJOCMqmsU+wmh5StE=; b=pobvoXCkoQsaKWHNQcYq8EB07
- COJk50c0E9pM55Uolsd977jAvP2dH1Z3Vt29UzZWHSMzb/md6otT9awKTPcmMoAlESaF/MOtXwx9E
- 9jQqQ+qK4qs0weqxHqEsEjTi8dms8X2AsP/Kr2EW6DN1FY3pK+KCf4teds4Z5hQ5a3rXg=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=debutante.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1gP5fP-0001ch-HG; Tue, 20 Nov 2018 13:02:11 +0000
-Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id EC2EF1124DC1; Tue, 20 Nov 2018 13:02:10 +0000 (GMT)
-Date: Tue, 20 Nov 2018 13:02:10 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: olof@lixom.net, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Nancy Yuen <yuenn@google.com>,
- Patrick Venture <venture@google.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- Avi Fishman <avifishman70@gmail.com>, Joel Stanley <joel@jms.id.au>,
- linux-spi@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v1 1/1] spi: npcm: fix uninitialized 'val' warning in
- receive function
-Message-ID: <20181120130210.GA3894@sirena.org.uk>
-References: <20181118123504.83082-1-tmaimon77@gmail.com>
- <20181118123504.83082-2-tmaimon77@gmail.com>
- <CAOesGMjUJ1+qmbPWcVFm1F_F0fcdg-54YY6o4iK=PYWoAuEczA@mail.gmail.com>
- <CAP6Zq1j46ch8UUxJkO7SnrHWyP3Y7g58Fodejr98WN-TW8jhEw@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 42ztMg74z6zF3ZN
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Nov 2018 04:42:52 +1100 (AEDT)
+Received: by mail-yw1-xc30.google.com with SMTP id l200so1093682ywe.10
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Nov 2018 09:42:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2qYgXhlrwbhgrER4mAXTAErVDahTUmxDlCEUpWNdiXk=;
+ b=Z35ximAIXRk/bUrmxiOh7qWpLZ5txSrFiQZOn1m9zfJbqguyONE+uCAueLz38/ZYGL
+ 6rH4dPtXsKeT15XLfxIdTGY19aQYyX4bFSYmubO+4LGMcGHplYDs/xWwbvXkS4hEJB+C
+ fkEWODhIrcFFA2JkWUvWi2ZbLeT6cm75/T/3zJcgx4pZICXzAHeS99QNIoYtVZN0RMNL
+ V7eqSxKO9dbNAGxhiwr/VJqKucUJdYTHg1Y2jygHjg7leUJXsO27P90KHCBU+YLCJcbs
+ 5Kz8HFan9zoWXkrSV14fybdvf1cb9jJmd8/A1dkLTz+duEQEnNrpgicFpVY8woAsIQnc
+ 5csw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2qYgXhlrwbhgrER4mAXTAErVDahTUmxDlCEUpWNdiXk=;
+ b=YCjWx0S/KV6vFfYufXMpfDoq81wWKGPvkE+2b9DPTL5EisjMtr+UQmZf8R/yMWvzbK
+ WzryBpIPmVi7Bzb+vWGD7m9z1z0XmtMz/aKr3ilyL68zewc3rycq642Qt1zkqg+2MRyc
+ t/h2TZenYNwAgkh3GAm7HXRUTD5IozlJULPWU7Hhb0f5/FqTqLeTckB1QBzUKc5PRq09
+ YT2KZupRPheIOCd6dPpPzU6blx3OxoP6NdYc7kKMv+qqaqIFVODKCqLWMxd9tM+7FaTK
+ 2Jn3xSTtnXEiB+Uj+XFmEAbp1fBYSsXLE4UyoH48TXJN2FT6YgGJA3vtI3ztUVVSxuMx
+ w1VQ==
+X-Gm-Message-State: AGRZ1gL3/KtD8adA8fE2/n+U3NQQj6GIm1mk5NHT48xVOt2XBmMl+T0b
+ bj8m2Nt9jn4pw2+q94P9/BQ1bngqaQORR6cvjwnYUIdB
+X-Google-Smtp-Source: AJdET5dp+O+UyTda/0jfb8JDBhSF6WkV1hdg8PfwgCwElM/pQc594C9zNbszzu3XhcFVENJvq4TqMT4SknnPyPPtrBo=
+X-Received: by 2002:a81:ac1d:: with SMTP id k29mr2976286ywh.457.1542735769304; 
+ Tue, 20 Nov 2018 09:42:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="T4sUOijqQbZv57TR"
-Content-Disposition: inline
-In-Reply-To: <CAP6Zq1j46ch8UUxJkO7SnrHWyP3Y7g58Fodejr98WN-TW8jhEw@mail.gmail.com>
-X-Cookie: fortune: No such file or directory
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <19fe4e16-c014-3af8-ac1f-a73b446b379e@yadro.com>
+ <CADy_Pt1P0Yv_GmHyHPsv6Wx-ML4JoYQ-HhOhc0+Dx-wTiKx3WA@mail.gmail.com>
+ <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
+In-Reply-To: <06f38ed2-8963-0834-c786-aeba40fa140d@yadro.com>
+From: James Mihm <james.mihm@gmail.com>
+Date: Tue, 20 Nov 2018 09:42:12 -0800
+Message-ID: <CADy_Pt0eQR5ZdRkjwc=5t4yB-YGbzfT9c=BFUrpgYnQ317rKZA@mail.gmail.com>
+Subject: Re: IPMI Adopter's agreement
+To: a.amelkin@yadro.com
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +64,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Nov 2018 13:02:22 -0000
+X-List-Received-Date: Tue, 20 Nov 2018 17:42:56 -0000
 
+I've refreshed my question internally, and expect to get a response next week.
+The person is out of the office until next week.
 
---T4sUOijqQbZv57TR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Nov 20, 2018 at 12:51:19PM +0200, Tomer Maimon wrote:
-
-> We just tried to reduce the number of lines to minimum, so we have debug it
-> quite a lot (with all the numbers that can
-> get from priv->tx_bytes) and the only numbers that minimum function return
-> are 0, 1 or 2.
-
-> But in the end of the day,  we don't have an issue with your solution as
-> long it will be done also in the transfer function.
-
-In general it's better to have the code be obviously correct than to try
-to push down the line count - it saves people the effort of figuring out
-if things are safe every time they look at it.
-
---T4sUOijqQbZv57TR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlv0BdAACgkQJNaLcl1U
-h9ASIQf/cI3kpprBTkLEFxruAQbRVP4iqcAlySu6P7KxALXVKRtjn5bSW6zo68KR
-pdQQSaIy69W6iehi7+9YacuKmtJcDiqfRItJLuj5FK4PM0Wfv5SjLEs5oS5SahGi
-+CZsjlLWD7IKm/eiBfgpujOh1SuuAhJd0VuuEFkWE9ICbZWqaXYNTa4+5UVjwKPJ
-FQqUz1BO7UYUZ9rsECcO0IpJBThxcdSrSl3UV5CAivmve0HEo3FTD6Os9wO8wAx1
-e5+3m35TBPjUatI3kdyB9PrQNSroqgGe5Ou3atz7GXwXPR5eA0Zt391/0I53kPsx
-vc11Ia8qPkKFJBlJQKYJRNzdRMdBXw==
-=b+mA
------END PGP SIGNATURE-----
-
---T4sUOijqQbZv57TR--
+James.On Mon, Nov 19, 2018 at 4:35 AM Alexander Amelkin
+<a.amelkin@yadro.com> wrote:
+>
+> Any further info on this?
+>
+> 26.06.2018 21:49, James Mihm wrote:
+> > I'm looking into how we need to proceed regarding this question
+> > internally here at Intel.
+> >
+> > James.
+> > On Wed, Jun 20, 2018 at 9:33 AM Alexander Amelkin <a.amelkin@yadro.com> wrote:
+> >> Just wondering, does OpenBMC / TLF have this fine document signed?
+> >>
+> >> https://www.intel.com/content/www/us/en/servers/ipmi/ipmi-home.html/#adopters
+> >>
+> >> Or does each vendor need to sign this separately?
+> >>
+> >>
+> >> Sincerely,
+> >> Alexander.
+> >>
+> >>
+>
+>
