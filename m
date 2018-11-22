@@ -1,39 +1,49 @@
-Return-Path: <davem@davemloft.net>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=davemloft.net
- (client-ip=2620:137:e000::1:9; helo=shards.monkeyblade.net;
- envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=59.36.132.123; helo=qq.com; envelope-from=1450335857@qq.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=davemloft.net
-Received: from shards.monkeyblade.net (shards.monkeyblade.net
- [IPv6:2620:137:e000::1:9])
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="fW4hZDyS"; 
+ dkim-atps=neutral
+Received: from qq.com (smtpbg456.qq.com [59.36.132.123])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 430gvd4Wp7zF3Lj;
- Thu, 22 Nov 2018 11:54:51 +1100 (AEDT)
-Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::bf5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 1096514E06F63;
- Wed, 21 Nov 2018 16:54:47 -0800 (PST)
-Date: Wed, 21 Nov 2018 16:52:44 -0800 (PST)
-Message-Id: <20181121.165244.777667590099933299.davem@davemloft.net>
-To: vijaykhemka@fb.com
-Cc: sam@mendozajonas.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- Justin.Lee1@Dell.com, joel@jms.id.au, linux-aspeed@lists.ozlabs.org
-Subject: Re: [PATCH net-next] net/ncsi: Add NCSI Mellanox OEM command
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20181120203516.3460764-1-vijaykhemka@fb.com>
-References: <20181120203516.3460764-1-vijaykhemka@fb.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 430kDt2rl6zDqGx
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Nov 2018 13:39:57 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1542854377; bh=SI5SgM08H5Z8e+2I71n697O8qXIYCift8Is/UoXzSRs=;
+ h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=fW4hZDySkOBg6oQW32l5rAXtdI7AWto8XlFBEHoOIUC8Fnu7h7VFL8Pqfr1zBD2Yi
+ pUNHdijPvfcJ30XLwkurabpa2wiSE1sW7xHLjMdbw+KGVNXqgGZv2TyhKUwOBFQO1g
+ ZAzMXJ1to5/CUUF+v+NkP+SLQHuU77B+APi/miCo=
+X-QQ-SSF: 00000000000000F000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.157.87
+X-QQ-STYLE: 
+X-QQ-mid: webenglish1t1542854376t51866
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
+Subject: ipmitool raw set LAN configuration parameters command has no response
+ code
 Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Wed, 21 Nov 2018 16:54:47 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5BF616E8_0AD357D8_32CC3250"
+Content-Transfer-Encoding: 8Bit
+Date: Thu, 22 Nov 2018 10:39:36 +0800
+X-Priority: 3
+Message-ID: <tencent_0C0FAF833C7405DC563227D6@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Thu, 22 Nov 2018 10:39:36 +0800 (CST)
+Feedback-ID: webenglish:qq.com:bgforeign:bgforeign2
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,37 +55,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Nov 2018 00:54:54 -0000
+X-List-Received-Date: Thu, 22 Nov 2018 02:40:00 -0000
 
-From: Vijay Khemka <vijaykhemka@fb.com>
-Date: Tue, 20 Nov 2018 12:35:16 -0800
+This is a multi-part message in MIME format.
 
-> +static int ncsi_oem_gma_handler_mlx(struct ncsi_cmd_arg *nca)
-> +{
-> +	unsigned char data[NCSI_OEM_MLX_CMD_GMA_LEN];
-> +	int ret = 0;
-> +
-> +	nca->payload = NCSI_OEM_MLX_CMD_GMA_LEN;
-> +
-> +	memset(data, 0, NCSI_OEM_MLX_CMD_GMA_LEN);
-> +	*(unsigned int *)data = ntohl(NCSI_OEM_MFR_MLX_ID);
+------=_NextPart_5BF616E8_0AD357D8_32CC3250
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-'data' is not necessarily aligned on an unsigned int boundary.
+SGkgYWxsLA0KICAgSSB1c2UgaXBtaS1rY3MgdG8gY29tbXVuaWNhdGUgIHRvIGhvc3QgLg0K
+MSwgR2V0IElQOiANCltyb290QGxvY2FsaG9zdCBQYWNrYWdlc10jIGlwbWl0b29sIC12IHJh
+dyAweGMgMHgyIDB4MSAweDMgMCAwDQpSdW5uaW5nIEdldCBQSUNNRyBQcm9wZXJ0aWVzIG15
+X2FkZHIgMHgyMCwgdHJhbnNpdCAwLCB0YXJnZXQgMA0KSW52YWxpZCBHZXQgUElDTUcgUHJv
+cGVydGllcyByZXNwb25zZSBsZW5ndGggMQ0KUnVubmluZyBHZXQgVlNPIENhcGFiaWxpdGll
+cyBteV9hZGRyIDB4MjAsIHRyYW5zaXQgMCwgdGFyZ2V0IDANCkludmFsaWQgcmVzcG9uc2Ug
+bGVuZ3RoIDENCkRpc2NvdmVyZWQgSVBNQiBhZGRyZXNzIDB4MA0KUkFXIFJFUSAoY2hhbm5l
+bD0weDAgbmV0Zm49MHhjIGx1bj0weDAgY21kPTB4MiBkYXRhX2xlbj00KQ0KUkFXIFJFUVVF
+U1QgKDQgYnl0ZXMpDQogMDEgMDMgMDAgMDANClJBVyBSU1AgKDUgYnl0ZXMpDQogMTEgYzAg
+YTggYzggODQNCg0KDQoNCjIsIFNldCBJUDogDQpbcm9vdEBsb2NhbGhvc3QgUGFja2FnZXNd
+IyBpcG1pdG9vbCAtdiByYXcgMHhjIDB4MSAweDEgMHgzIDE5MiAxNjggMCAxMDAgDQpSdW5u
+aW5nIEdldCBQSUNNRyBQcm9wZXJ0aWVzIG15X2FkZHIgMHgyMCwgdHJhbnNpdCAwLCB0YXJn
+ZXQgMA0KSW52YWxpZCBHZXQgUElDTUcgUHJvcGVydGllcyByZXNwb25zZSBsZW5ndGggMQ0K
+UnVubmluZyBHZXQgVlNPIENhcGFiaWxpdGllcyBteV9hZGRyIDB4MjAsIHRyYW5zaXQgMCwg
+dGFyZ2V0IDANCkludmFsaWQgcmVzcG9uc2UgbGVuZ3RoIDENCkRpc2NvdmVyZWQgSVBNQiBh
+ZGRyZXNzIDB4MA0KUkFXIFJFUSAoY2hhbm5lbD0weDAgbmV0Zm49MHhjIGx1bj0weDAgY21k
+PTB4MSBkYXRhX2xlbj02KQ0KUkFXIFJFUVVFU1QgKDYgYnl0ZXMpDQogMDEgMDMgYzAgYTgg
+MDAgNjQNClJBVyBSU1AgKDAgYnl0ZXMpDQoNCg0KDQpCTUMgc2lkZSAgOiBrY3NicmlkZ2Vk
+IC0tdiAtLWQ9Ii9kZXYvaXBtaS1rY3MzIjoNCk9wZW5pbmcgL2Rldi9pcG1pLWtjczMgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+DQpDcmVhdGluZyB0aW1lciBmZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KRW50ZXJpbmcgcG9sbGluZyBsb29wICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICANClByb2Nlc3NlZCAxIGRidXMgZXZlbnRzICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQpQcm9jZXNzZWQgMSBkYnVzIGV2ZW50
+cyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIA0KUHJvY2Vzc2VkIDEgZGJ1cyBldmVudHMgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICANClByb2Nlc3NlZCAxIGRidXMgZXZl
+bnRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgDQpQcm9jZXNzZWQgMSBkYnVzIGV2ZW50cyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KUHJvY2Vzc2VkIDEgZGJ1cyBl
+dmVudHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICANClByb2Nlc3NlZCAxIGRidXMgZXZlbnRzICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQpSZWN2IHJlcSBtc2cgLT4g
+c2VxPTB4MDEgbmV0Zm49MHgwNiBsdW49MHgwMCBjbWQ9MHgwMSAgICAgICAgICAgICAgICAg
+ICAgICAgDQpTZW5kIHJzcCBtc2cgPC0gc2VxPTB4MDEgbmV0Zm49MHgwNyBsdW49MHgwMCBj
+bWQ9MHgwMSBjYz0weDAwICAgICAgICBQcm9jZXNzZWQgMSBkYnVzIGV2ZW50cyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KUmVj
+diByZXEgbXNnIC0+IHNlcT0weDAyIG5ldGZuPTB4MmMgbHVuPTB4MDAgY21kPTB4MDAgICAg
+ICAgICAgICAgICAgICAgICAgICBTZW5kIHJzcCBtc2cgPC0gc2VxPTB4MDIgbmV0Zm49MHgy
+ZCBsdW49MHgwMCBjbWQ9MHgwMCBjYz0weDAwICAgICAgICBQcm9jZXNzZWQgMSBkYnVzIGV2
+ZW50cyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIA0KUmVjdiByZXEgbXNnIC0+IHNlcT0weDAzIG5ldGZuPTB4MmMgbHVuPTB4MDAg
+Y21kPTB4MDAgICAgICAgICAgICAgICAgICAgICAgICBTZW5kIHJzcCBtc2cgPC0gc2VxPTB4
+MDMgbmV0Zm49MHgyZCBsdW49MHgwMCBjbWQ9MHgwMCBjYz0weDAwICAgICAgICBQcm9jZXNz
+ZWQgMSBkYnVzIGV2ZW50cyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIA0KUmVjdiByZXEgbXNnIC0+IHNlcT0weDA0IG5ldGZuPTB4
+MGMgbHVuPTB4MDAgY21kPTB4MDEgICAgICAgICAgICAgICAgICAgICAgICBTZW5kIHJzcCBt
+c2cgPC0gc2VxPTB4MDQgbmV0Zm49MHgwZCBsdW49MHgwMCBjbWQ9MHgwMSBjYz0weDAwICAg
+ICAgICBQcm9jZXNzZWQgMSBkYnVzIGV2ZW50cw0KDQoNCg0KV2UgY2FuIHNlZSB0aGUgcmVz
+cG9uc2U6IG5vbmUgLGFuZCBzZXQgQk1DIElQIGZhaWxlZC4NCkJ1dCBJIGNhbiBzZXQgQk1D
+IElQIHN1Y2Nlc3NmdWwgYnkgY29tbWFuZDoNCmlwbWl0b29sIGxhbiBzZXQgMSBpcGFkZHIg
+MTkyLjE2OC4gMC4xMDANCndoeT8NCg0KDQoNCkJlc3QsDQp4aXV6aGk=
 
-But second of all you want to use a fixed size type like "u32" or
-similar here, not "unsigned int".
+------=_NextPart_5BF616E8_0AD357D8_32CC3250
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-Altogether, something like:
+PGRpdj5IaSBhbGwsPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7SSB1c2UgaXBtaS1rY3MgdG8g
+Y29tbXVuaWNhdGUmbmJzcDsgdG8gaG9zdCAuPC9kaXY+PGRpdj4xLCZuYnNwO0dldCBJUDom
+bmJzcDs8L2Rpdj48ZGl2PjxkaXY+W3Jvb3RAbG9jYWxob3N0IFBhY2thZ2VzXSMgaXBtaXRv
+b2wgLXYgcmF3IDB4YyAweDIgMHgxIDB4MyAwIDA8L2Rpdj48ZGl2PlJ1bm5pbmcgR2V0IFBJ
+Q01HIFByb3BlcnRpZXMgbXlfYWRkciAweDIwLCB0cmFuc2l0IDAsIHRhcmdldCAwPC9kaXY+
+PGRpdj5JbnZhbGlkIEdldCBQSUNNRyBQcm9wZXJ0aWVzIHJlc3BvbnNlIGxlbmd0aCAxPC9k
+aXY+PGRpdj5SdW5uaW5nIEdldCBWU08gQ2FwYWJpbGl0aWVzIG15X2FkZHIgMHgyMCwgdHJh
+bnNpdCAwLCB0YXJnZXQgMDwvZGl2PjxkaXY+SW52YWxpZCByZXNwb25zZSBsZW5ndGggMTwv
+ZGl2PjxkaXY+RGlzY292ZXJlZCBJUE1CIGFkZHJlc3MgMHgwPC9kaXY+PGRpdj5SQVcgUkVR
+IChjaGFubmVsPTB4MCBuZXRmbj0weGMgbHVuPTB4MCBjbWQ9MHgyIGRhdGFfbGVuPTQpPC9k
+aXY+PGRpdj5SQVcgUkVRVUVTVCAoNCBieXRlcyk8L2Rpdj48ZGl2PiZuYnNwOzAxIDAzIDAw
+IDAwPC9kaXY+PGRpdj5SQVcgUlNQICg1IGJ5dGVzKTwvZGl2PjxkaXY+Jm5ic3A7MTEgYzAg
+YTggYzggODQ8L2Rpdj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjIsIFNldCBJUDombmJz
+cDs8L2Rpdj48ZGl2PjxkaXY+W3Jvb3RAbG9jYWxob3N0IFBhY2thZ2VzXSMgaXBtaXRvb2wg
+LXYgcmF3IDB4YyAweDEgMHgxIDB4MyAxOTIgMTY4IDAgMTAwJm5ic3A7PC9kaXY+PGRpdj5S
+dW5uaW5nIEdldCBQSUNNRyBQcm9wZXJ0aWVzIG15X2FkZHIgMHgyMCwgdHJhbnNpdCAwLCB0
+YXJnZXQgMDwvZGl2PjxkaXY+SW52YWxpZCBHZXQgUElDTUcgUHJvcGVydGllcyByZXNwb25z
+ZSBsZW5ndGggMTwvZGl2PjxkaXY+UnVubmluZyBHZXQgVlNPIENhcGFiaWxpdGllcyBteV9h
+ZGRyIDB4MjAsIHRyYW5zaXQgMCwgdGFyZ2V0IDA8L2Rpdj48ZGl2PkludmFsaWQgcmVzcG9u
+c2UgbGVuZ3RoIDE8L2Rpdj48ZGl2PkRpc2NvdmVyZWQgSVBNQiBhZGRyZXNzIDB4MDwvZGl2
+PjxkaXY+UkFXIFJFUSAoY2hhbm5lbD0weDAgbmV0Zm49MHhjIGx1bj0weDAgY21kPTB4MSBk
+YXRhX2xlbj02KTwvZGl2PjxkaXY+UkFXIFJFUVVFU1QgKDYgYnl0ZXMpPC9kaXY+PGRpdj4m
+bmJzcDswMSAwMyBjMCBhOCAwMCA2NDwvZGl2PjxkaXY+UkFXIFJTUCAoMCBieXRlcyk8L2Rp
+dj48ZGl2Pjxicj48L2Rpdj48L2Rpdj48ZGl2PkJNQyBzaWRlJm5ic3A7IDoga2NzYnJpZGdl
+ZCAtLXYgLS1kPSIvZGV2L2lwbWkta2NzMyI6PC9kaXY+PGRpdj48ZGl2Pk9wZW5pbmcgL2Rl
+di9pcG1pLWtjczMmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Jm5i
+c3A7PC9kaXY+PGRpdj5DcmVhdGluZyB0aW1lciBmZCZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8L2Rpdj48ZGl2PkVudGVy
+aW5nIHBvbGxpbmcgbG9vcCZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7PC9kaXY+PGRpdj5Qcm9jZXNzZWQgMSBkYnVzIGV2ZW50cyZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8L2Rpdj48ZGl2PlByb2Nlc3NlZCAxIGRi
+dXMgZXZlbnRzJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOzwvZGl2
+PjxkaXY+UHJvY2Vzc2VkIDEgZGJ1cyBldmVudHMmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7PC9kaXY+PGRpdj5Qcm9jZXNzZWQgMSBkYnVzIGV2ZW50cyZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8L2Rpdj48ZGl2PlByb2Nlc3Nl
+ZCAxIGRidXMgZXZlbnRzJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OzwvZGl2PjxkaXY+UHJvY2Vzc2VkIDEgZGJ1cyBldmVudHMmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7PC9kaXY+PGRpdj5Qcm9jZXNzZWQgMSBkYnVzIGV2ZW50
+cyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8L2Rpdj48ZGl2PlJl
+Y3YgcmVxIG1zZyAtJmd0OyBzZXE9MHgwMSBuZXRmbj0weDA2IGx1bj0weDAwIGNtZD0weDAx
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8L2Rpdj48ZGl2PlNlbmQgcnNwIG1zZyAm
+bHQ7LSBzZXE9MHgwMSBuZXRmbj0weDA3IGx1bj0weDAwIGNtZD0weDAxIGNjPTB4MDAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgUHJvY2Vzc2VkIDEgZGJ1cyBldmVudHMmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7PC9kaXY+PGRpdj5SZWN2IHJlcSBt
+c2cgLSZndDsgc2VxPTB4MDIgbmV0Zm49MHgyYyBsdW49MHgwMCBjbWQ9MHgwMCZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7IFNlbmQgcnNwIG1zZyAmbHQ7LSBzZXE9MHgwMiBuZXRm
+bj0weDJkIGx1bj0weDAwIGNtZD0weDAwIGNjPTB4MDAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgUHJvY2Vzc2VkIDEgZGJ1cyBldmVudHMmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7PC9kaXY+PGRpdj5SZWN2IHJlcSBtc2cgLSZndDsgc2VxPTB4MDMg
+bmV0Zm49MHgyYyBsdW49MHgwMCBjbWQ9MHgwMCZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7IFNlbmQgcnNwIG1zZyAmbHQ7LSBzZXE9MHgwMyBuZXRmbj0weDJkIGx1bj0weDAwIGNt
+ZD0weDAwIGNjPTB4MDAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgUHJvY2Vzc2VkIDEg
+ZGJ1cyBldmVudHMmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7PC9k
+aXY+PGRpdj5SZWN2IHJlcSBtc2cgLSZndDsgc2VxPTB4MDQgbmV0Zm49MHgwYyBsdW49MHgw
+MCBjbWQ9MHgwMSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IFNlbmQgcnNwIG1zZyAm
+bHQ7LSBzZXE9MHgwNCBuZXRmbj0weDBkIGx1bj0weDAwIGNtZD0weDAxIGNjPTB4MDAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgUHJvY2Vzc2VkIDEgZGJ1cyBldmVudHM8L2Rpdj48
+L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjxkaXY+V2UgY2FuIHNlZSB0aGUgcmVzcG9uc2U6
+IG5vbmUgLGFuZCBzZXQgQk1DIElQIGZhaWxlZC48L2Rpdj48ZGl2PkJ1dCBJIGNhbiBzZXQg
+Qk1DIElQIHN1Y2Nlc3NmdWwgYnkgY29tbWFuZDo8L2Rpdj48ZGl2PmlwbWl0b29sIGxhbiBz
+ZXQgMSBpcGFkZHIgMTkyLjE2OC4gMC4xMDA8L2Rpdj48ZGl2PndoeT88L2Rpdj48L2Rpdj48
+ZGl2Pjxicj48L2Rpdj48ZGl2PkJlc3QsPC9kaXY+PGRpdj54aXV6aGk8L2Rpdj4=
 
-	union {
-		u8 data_u8[NCSI_OEM_MLX_CMD_GMA_LEN];
-		u32 data_u32[[NCSI_OEM_MLX_CMD_GMA_LEN / sizeof(u32)];
-	} u;
-
-	memset(&u, 0, sizeof(u));
-	u.data_u32[0] = ntohl(NCSI_OEM_MFR_MLX_ID);
-	u.data_u8[5] = NCSI_OEM_MLX_CMD_GMA;
-	u.data_u8[6] = NCSI_OEM_MLX_CMD_GMA_PARAM;
-
-If the rest of the ncsi driver has crud like this, it all needs
-to be fixed up similarly.
+------=_NextPart_5BF616E8_0AD357D8_32CC3250--
