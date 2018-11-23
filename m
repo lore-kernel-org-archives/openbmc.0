@@ -1,49 +1,56 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=sirena.org.uk
- (client-ip=2a01:7e01::f03c:91ff:fed4:a3b6; helo=heliosphere.sirena.org.uk;
- envelope-from=broonie@sirena.org.uk; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::542; helo=mail-pg1-x542.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="YLxH9KyW"; dkim-atps=neutral
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="uZfIr46D"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 431dc90bWZzDqWd
- for <openbmc@lists.ozlabs.org>; Sat, 24 Nov 2018 01:14:48 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=xxg1+/NPfr1Hpktfm40YHdgWHtUgWsjBM9wzBRwmRhk=; b=YLxH9KyWISMR
- t7FeaCrujKCLTp7VBufCah/kzStA4lvXrKmAnNESSBfCf5NECAs+RcMLaSNh+p56M6MWm4s6N4+tY
- USBSRlSp2tYJyaGlecXwZRBEou8yC0OQfovj79e67q4L9sldpatJZPha+pKXJrEwmODQnp2aHIxIe
- yh/Ds=;
-Received: from [176.12.107.140] (helo=finisterre.ee.mobilebroadband)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1gQCEC-00019v-0i; Fri, 23 Nov 2018 14:14:40 +0000
-Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 8D3DD440078; Fri, 23 Nov 2018 14:14:38 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Mark Brown <broonie@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Brendan Higgins <brendanhiggins@google.com>,
- Mark Brown <broonie@kernel.org>, openbmc@lists.ozlabs.org,
- linux-spi@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-spi@vger.kernel.org
-Subject: Applied "spi: npcm: Fix an error code in the probe function" to the
- spi tree
-In-Reply-To: <20181123072024.5vtjzta4rcmqtyph@kili.mountain>
-Message-Id: <20181123141438.8D3DD440078@finisterre.ee.mobilebroadband>
-Date: Fri, 23 Nov 2018 14:14:38 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 431gbP2p23zDqWr
+ for <openbmc@lists.ozlabs.org>; Sat, 24 Nov 2018 02:44:16 +1100 (AEDT)
+Received: by mail-pg1-x542.google.com with SMTP id 80so3233278pge.4
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Nov 2018 07:44:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=j8Wq74AEGiK9cqVEd8apCtCuJHJbYaBvIgDyRldh4Fs=;
+ b=uZfIr46DDsoJ6Hvl8JrOi1ZbT0r/RF3LRqTG+PxbvbuzF+aZCAIf9C/rnQ5pskPXD9
+ AysxQTnDbhnMEKKGKvV0fJ8OhAw+KhlIHpsCyF7skBO8ajetMBpyu6LZLuwE5u1taE26
+ FbfQ2HdDYOOIQRe1B3wD5HeRIWa02Dipov3RmbGXRiE55RhxCkwGwtNIymjsF6xvD5JW
+ CuQSCgczA8cPadC6JuFAVCxNtNVxAL3iD3KF6lSekHla42eJwFo/mRdpTtUZAIz3Zb69
+ GPI/9oYOTFosX0vlLQKNpTMMhM8q2kPz1o2YyfIlvua27rh/Vr8LWQyIHXAceyR7Tpry
+ V/AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=j8Wq74AEGiK9cqVEd8apCtCuJHJbYaBvIgDyRldh4Fs=;
+ b=mmeXVvAsc6Rduemco/8WwfFuFasZ6TOT4KTL9syMhqilJeR9FyQPr/KnwnMo5ZCOaF
+ OSxKRoO3ar3JfKR+fbpJIAbd2wauUAIyhixvoHDHz3+Urj0gRtS4cY/GzPtQ1lj6ejkS
+ PQde8fzq03I/EDUugiIN/Oyf05hMTdkRUiXgX3GzLfZYmtSSJQ0ny+InTPQHx01R/K0w
+ IJOj/RgREtFHCv8D7AVNOGPxSjIyliyU3ua+TRMdGK5C0XtMiNmJ9K1Vxu+9o2aO3Vji
+ KmIoVbzMlOYhykAJlC8pueIuRXgVCAQiQfmrun/T6rf6npfVQXsyD7mvIatSIc+VCFcv
+ 5BmA==
+X-Gm-Message-State: AGRZ1gILwaKGHXEtZy/en6gXyK6BxqS8LTopDDJpkVKejTWrgFjTw0Y8
+ vTY16AcB3Y0jM3Ztb/Yh8hoct48W6qsOhVLu73peFw==
+X-Google-Smtp-Source: AJdET5e94PAR9+4jUddiGD6YSHJHeWRVk3CQjWzxf9x6m97JR1tz8lWENA5ize+hNJJtBvHV/VXfRrGmRMQ4HrZFAas=
+X-Received: by 2002:a62:5d0c:: with SMTP id r12mr16996894pfb.0.1542987854647; 
+ Fri, 23 Nov 2018 07:44:14 -0800 (PST)
+MIME-Version: 1.0
+References: <CAHkHK0-jQe7SnUcmNeNT2i9DyOgbUALKN=RFePWkUXbHSvF9jA@mail.gmail.com>
+In-Reply-To: <CAHkHK0-jQe7SnUcmNeNT2i9DyOgbUALKN=RFePWkUXbHSvF9jA@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 23 Nov 2018 07:44:03 -0800
+Message-ID: <CAO=notxGsEwVS-_6ej8rFHNiv4-zOuErp6wzECfFGJYZfcxAHQ@mail.gmail.com>
+Subject: Re: phosphor-hwmon failed to start with aspeed fantach sensor
+To: wangzhiqiang8906@gmail.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,62 +62,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Nov 2018 14:14:49 -0000
+X-List-Received-Date: Fri, 23 Nov 2018 15:44:18 -0000
 
-The patch
+On Thu, Nov 22, 2018 at 11:11 PM qianlihu <wangzhiqiang8906@gmail.com> wrote:
+>
+> Hi all,
+>
+> On my board,when host powed off, the fan would stop.
+>
+> then,phosphor-hwmon failed to start
+>
+> debug:
+>
+> cat /sys/class/hwmon/hwmon0/fan1_input
+>         read error Connection timedout.
+>
+> edit the config file,
+>         LABEL_fan1 = fan1
+>         REMOVERCS = 110 // 110 means ETIMEDOUT
+>
+> when host powerd on
+>         1. echo add > /sys/class/hwmon/hwmon0/uevent
+>         2. phosphor-hwmon started
+>         3. host power off
+>         4. phosphor-hwmon did not exit.
+>         5. cpu usage of hwmon-read would be 4%
+>
+> when host powerd off
+>         1. echo add > /sys/class/hwmon/hwmon0/uevent
+>         2. failed to start phosphor-hwmon.
+>
+> I found when phosphor-hwmon init
+>
+>    Sensor::addValue would read fan1_input(there is no fan1_fault in sysfs),
+>    and it caused read timedout unexpection.
+>
+>    so init failed.
+>
+> On my board,I  want to boot the bmc with phosphor-hwmon when host powered off.
+>
+> what should I do ?
 
-   spi: npcm: Fix an error code in the probe function
+You have a couple options, one will basically remove the sensor from
+dbus on read failure, the other just leaves it but sets the value to
+-errno (in this case ETIMEDOUT).
 
-has been applied to the spi tree at
+There are two configuration option switches for these, you can add it
+to your bbappend:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git 
+EXTRA_OECONF_append = " --enable-remove-from-dbus-on-fail"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+EXTRA_OECONF_append = " --enable-negative-errno-on-fail"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 428f977a6a6b43154928571b01fa8415c11a9244 Mon Sep 17 00:00:00 2001
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Date: Fri, 23 Nov 2018 10:20:24 +0300
-Subject: [PATCH] spi: npcm: Fix an error code in the probe function
-
-There is an IS_ERR() vs PTR_ERR() typo here.  The current code returns 1
-but we want to return the negative error code.
-
-Fixes: 2a22f1b30cee ("spi: npcm: add NPCM PSPI controller driver")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- drivers/spi/spi-npcm-pspi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
-index 342178e282bc..fed05b02007c 100644
---- a/drivers/spi/spi-npcm-pspi.c
-+++ b/drivers/spi/spi-npcm-pspi.c
-@@ -381,7 +381,7 @@ static int npcm_pspi_probe(struct platform_device *pdev)
- 		syscon_regmap_lookup_by_compatible("nuvoton,npcm750-rst");
- 	if (IS_ERR(priv->rst_regmap)) {
- 		dev_err(&pdev->dev, "failed to find nuvoton,npcm750-rst\n");
--		return IS_ERR(priv->rst_regmap);
-+		return PTR_ERR(priv->rst_regmap);
- 	}
- 
- 	/* reset SPI-HW block */
--- 
-2.19.1
+>
+>
+> Thanks
+>
+>
+>
+> --qianlihu
