@@ -1,52 +1,65 @@
-Return-Path: <wangzhiqiang8906@gmail.com>
+Return-Path: <dan.carpenter@oracle.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d36; helo=mail-io1-xd36.google.com;
- envelope-from=wangzhiqiang8906@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=oracle.com
+ (client-ip=156.151.31.85; helo=userp2120.oracle.com;
+ envelope-from=dan.carpenter@oracle.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=none dis=none) header.from=oracle.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="p7I009Hc"; 
+ unprotected) header.d=oracle.com header.i=@oracle.com header.b="NbVsT5xY"; 
  dkim-atps=neutral
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 431SCn0T5bzDqS8
- for <openbmc@lists.ozlabs.org>; Fri, 23 Nov 2018 18:11:32 +1100 (AEDT)
-Received: by mail-io1-xd36.google.com with SMTP id v10so2471400ios.13
- for <openbmc@lists.ozlabs.org>; Thu, 22 Nov 2018 23:11:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=6g3b2FmCgxS8JVNz/QahW/2olf4eHzUBadXvdgorGJk=;
- b=p7I009HcxkXIUGd5FmHtW+OCzzxNCiRjnEvc1IKhDo7f3ZNpVgXLC5r7I1aXOX8KED
- 6ytzE52qMcRb20pWOhODsFy8rRiifoSwwKZAXbgYlbJHihQWg0ietWt8yaCrbYTSshdo
- W7JWFIgK5nH7VQ61x65Xx+53VrPXutjChQUXlIOKq2oi2D9ICoAjBH5Z4Z+wehhhA2r4
- Nzqpzvbke+/T5StYY+jBAC9cuTgFsnUMeM1QjCyczdV1/qQYMH8grkeY9O10LrSNu881
- XVasNqmQLE7N1aMMGgNlg4UbR33AW9ydIKeSVGPq5OKDozV1qKKHvpjv1w/VOOfjKxeE
- 1Hpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=6g3b2FmCgxS8JVNz/QahW/2olf4eHzUBadXvdgorGJk=;
- b=VYXy36T+S4ajqEa1OEoSsYbJX/o0uW9m1IDFFfCxMz38Mn4ze/GZKjvwwWAND4eivz
- MH1PDW8ZGTh8toeHkxlXASjOaKZXmOK4OD6G15/jfsG/Bo0wWul2jYmcfUlM8ZtllOLq
- s81pz0CUPvtX5JipOHI84+ZCH9xQQ6NdfC7gmhEtElav9HdG/Mp3J8HMYNBCwaw54HjJ
- x8i5jaI8Sm870XHe2NYFRwwwPvAv4PJ5IjN5eFMHvZx+zxpOLRCOOhfnyO1wIMMQpcT7
- j4oK6wKtrdIxGoe0oohuFTnrwMlNjdx3Ap6ftw3iboq2r4pCwlBrbX3IJaOcOuwjwUJ1
- bpvg==
-X-Gm-Message-State: AA+aEWa0xokMi0jwcbokaFanidDQsWR6yDSoTA31JvcBM/2nOozDxqlM
- +aH1DRAhc5Mb5Pk5AHwA4WeR1BtQ5saZ3uApekPmn8poyds=
-X-Google-Smtp-Source: AFSGD/VKatyxdArlLN67eMOO/HGulfBjx8IT246AgyEP6B19ag6nnva6e27KMxoQaB6MKJca+JnjBdGvibEBgobaWn0=
-X-Received: by 2002:a6b:ba0a:: with SMTP id k10mr10904198iof.40.1542957090094; 
- Thu, 22 Nov 2018 23:11:30 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 431SQR1nCFzDqC9
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Nov 2018 18:20:40 +1100 (AEDT)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.22/8.16.0.22) with SMTP id wAN7IumO193364;
+ Fri, 23 Nov 2018 07:20:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2018-07-02;
+ bh=Xht/WA5LvsBqwb6utVvq4dyoAmrrFhMqjBLoTss8nrc=;
+ b=NbVsT5xYD6I58AhAgbQ2Y5uQZxtwA3kPvVPOFlP67Upb/kMbLet20BFRYuYq5uDVjl7K
+ mePZk33bUyka+v0N+0GBS/iPtygoFG9BYRO1zhScA/y7SBKHxLE2FozW2t5iWtPgQSoG
+ U9QXNJRux9YLCHxo/Zkyok8KRsx0IvzRJQQSmxNYUpmWDrfLq5fFDfgwEhjuvuuZv0tV
+ hE4omAId+a3aG9iFfw3+Bj/P0AbtwfLhFXymyhk2GeGEhYyk5VbyEPupYo4LQHEZtkGi
+ d0bT+9Wa5gpvmi4DxIe5wz9+6NrtCHEZ5yX0xSaIT5FhgcwokYIVpFu8WUe6C9cKpk7k 8w== 
+Received: from userv0022.oracle.com (userv0022.oracle.com [156.151.31.74])
+ by userp2120.oracle.com with ESMTP id 2ntbmr1bmp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 23 Nov 2018 07:20:33 +0000
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userv0022.oracle.com (8.14.4/8.14.4) with ESMTP id wAN7KWiS025311
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 23 Nov 2018 07:20:32 GMT
+Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id wAN7KWS0025962;
+ Fri, 23 Nov 2018 07:20:32 GMT
+Received: from kili.mountain (/197.157.0.30)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 22 Nov 2018 23:20:31 -0800
+Date: Fri, 23 Nov 2018 10:20:24 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Mark Brown <broonie@kernel.org>, openbmc@lists.ozlabs.org,
+ linux-spi@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] spi: npcm: Fix an error code in the probe function
+Message-ID: <20181123072024.5vtjzta4rcmqtyph@kili.mountain>
 MIME-Version: 1.0
-From: qianlihu <wangzhiqiang8906@gmail.com>
-Date: Fri, 23 Nov 2018 15:11:18 +0800
-Message-ID: <CAHkHK0-jQe7SnUcmNeNT2i9DyOgbUALKN=RFePWkUXbHSvF9jA@mail.gmail.com>
-Subject: phosphor-hwmon failed to start with aspeed fantach sensor
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9085
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=875
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1810050000 definitions=main-1811230058
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,48 +71,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Nov 2018 07:11:34 -0000
+X-List-Received-Date: Fri, 23 Nov 2018 07:20:48 -0000
 
-Hi all,
+There is an IS_ERR() vs PTR_ERR() typo here.  The current code returns 1
+but we want to return the negative error code.
 
-On my board,when host powed off, the fan would stop.
+Fixes: 2a22f1b30cee ("spi: npcm: add NPCM PSPI controller driver")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/spi/spi-npcm-pspi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-then,phosphor-hwmon failed to start
-
-debug:
-
-cat /sys/class/hwmon/hwmon0/fan1_input
-        read error Connection timedout.
-
-edit the config file,
-        LABEL_fan1 = fan1
-        REMOVERCS = 110 // 110 means ETIMEDOUT
-
-when host powerd on
-        1. echo add > /sys/class/hwmon/hwmon0/uevent
-        2. phosphor-hwmon started
-        3. host power off
-        4. phosphor-hwmon did not exit.
-        5. cpu usage of hwmon-read would be 4%
-
-when host powerd off
-        1. echo add > /sys/class/hwmon/hwmon0/uevent
-        2. failed to start phosphor-hwmon.
-
-I found when phosphor-hwmon init
-
-   Sensor::addValue would read fan1_input(there is no fan1_fault in sysfs),
-   and it caused read timedout unexpection.
-
-   so init failed.
-
-On my board,I  want to boot the bmc with phosphor-hwmon when host powered off.
-
-what should I do ?
-
-
-Thanks
-
-
-
---qianlihu
+diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
+index 342178e282bc..fed05b02007c 100644
+--- a/drivers/spi/spi-npcm-pspi.c
++++ b/drivers/spi/spi-npcm-pspi.c
+@@ -381,7 +381,7 @@ static int npcm_pspi_probe(struct platform_device *pdev)
+ 		syscon_regmap_lookup_by_compatible("nuvoton,npcm750-rst");
+ 	if (IS_ERR(priv->rst_regmap)) {
+ 		dev_err(&pdev->dev, "failed to find nuvoton,npcm750-rst\n");
+-		return IS_ERR(priv->rst_regmap);
++		return PTR_ERR(priv->rst_regmap);
+ 	}
+ 
+ 	/* reset SPI-HW block */
+-- 
+2.11.0
