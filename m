@@ -1,42 +1,52 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 431Pbj2CsrzDqSr
- for <openbmc@lists.ozlabs.org>; Fri, 23 Nov 2018 16:13:37 +1100 (AEDT)
+Return-Path: <wangzhiqiang8906@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d36; helo=mail-io1-xd36.google.com;
+ envelope-from=wangzhiqiang8906@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="tCS4mK0O"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="p7I009Hc"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
+ [IPv6:2607:f8b0:4864:20::d36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 431Pbh5j0mz9ryk;
- Fri, 23 Nov 2018 16:13:36 +1100 (AEDT)
-Authentication-Results: ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1542950017; bh=Fp7F9Q+Rz6JzG+i+S3HlILarxy/1aCSHlNPoX2PgCco=;
- h=Subject:From:To:Date:In-Reply-To:References:From;
- b=tCS4mK0OSNFZ52R7oFwJgPa8N6zRlcRhHC9R7Zay7+wszDx3dDNDCYtBBcewFBMiH
- FbiG1isJu0uhH5qNdgDrACNa6xXDKKNN45H0IfT3tZ+MizcxCRGJGHA2HJkJNLU03O
- PJ7CGdOCjWeZZMDdNRiIWrOpzIK/dk39y8SfvOV/2+DI7WlYe7rsvu02uDgrgLu/Sr
- VZdMDkhFy6d0eFBHimWG/VqnVW0AAgjDOETNb7Q2Y/Dtqa8M7piRTz9IRdx3xYSJkG
- u+omwRJUuMUCENMr+K/LJh6NVVyqWK3/9waPCCHZEMMi/AZb9v0mUzOZMAmMXOVPRb
- 3hefZymyxzdfQ==
-Message-ID: <54d6a0985b858c42671abf294cd64dec1970df5b.camel@ozlabs.org>
-Subject: Re: SOL,obmc-console-client can't connect to the host OS
-From: Jeremy Kerr <jk@ozlabs.org>
-To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>
-Date: Fri, 23 Nov 2018 13:13:36 +0800
-In-Reply-To: <tencent_3E424D8E19D15B754896EDBB@qq.com>
-References: <mailman.13.1542934803.27188.openbmc@lists.ozlabs.org>
- <tencent_3E424D8E19D15B754896EDBB@qq.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 431SCn0T5bzDqS8
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Nov 2018 18:11:32 +1100 (AEDT)
+Received: by mail-io1-xd36.google.com with SMTP id v10so2471400ios.13
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Nov 2018 23:11:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=6g3b2FmCgxS8JVNz/QahW/2olf4eHzUBadXvdgorGJk=;
+ b=p7I009HcxkXIUGd5FmHtW+OCzzxNCiRjnEvc1IKhDo7f3ZNpVgXLC5r7I1aXOX8KED
+ 6ytzE52qMcRb20pWOhODsFy8rRiifoSwwKZAXbgYlbJHihQWg0ietWt8yaCrbYTSshdo
+ W7JWFIgK5nH7VQ61x65Xx+53VrPXutjChQUXlIOKq2oi2D9ICoAjBH5Z4Z+wehhhA2r4
+ Nzqpzvbke+/T5StYY+jBAC9cuTgFsnUMeM1QjCyczdV1/qQYMH8grkeY9O10LrSNu881
+ XVasNqmQLE7N1aMMGgNlg4UbR33AW9ydIKeSVGPq5OKDozV1qKKHvpjv1w/VOOfjKxeE
+ 1Hpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=6g3b2FmCgxS8JVNz/QahW/2olf4eHzUBadXvdgorGJk=;
+ b=VYXy36T+S4ajqEa1OEoSsYbJX/o0uW9m1IDFFfCxMz38Mn4ze/GZKjvwwWAND4eivz
+ MH1PDW8ZGTh8toeHkxlXASjOaKZXmOK4OD6G15/jfsG/Bo0wWul2jYmcfUlM8ZtllOLq
+ s81pz0CUPvtX5JipOHI84+ZCH9xQQ6NdfC7gmhEtElav9HdG/Mp3J8HMYNBCwaw54HjJ
+ x8i5jaI8Sm870XHe2NYFRwwwPvAv4PJ5IjN5eFMHvZx+zxpOLRCOOhfnyO1wIMMQpcT7
+ j4oK6wKtrdIxGoe0oohuFTnrwMlNjdx3Ap6ftw3iboq2r4pCwlBrbX3IJaOcOuwjwUJ1
+ bpvg==
+X-Gm-Message-State: AA+aEWa0xokMi0jwcbokaFanidDQsWR6yDSoTA31JvcBM/2nOozDxqlM
+ +aH1DRAhc5Mb5Pk5AHwA4WeR1BtQ5saZ3uApekPmn8poyds=
+X-Google-Smtp-Source: AFSGD/VKatyxdArlLN67eMOO/HGulfBjx8IT246AgyEP6B19ag6nnva6e27KMxoQaB6MKJca+JnjBdGvibEBgobaWn0=
+X-Received: by 2002:a6b:ba0a:: with SMTP id k10mr10904198iof.40.1542957090094; 
+ Thu, 22 Nov 2018 23:11:30 -0800 (PST)
+MIME-Version: 1.0
+From: qianlihu <wangzhiqiang8906@gmail.com>
+Date: Fri, 23 Nov 2018 15:11:18 +0800
+Message-ID: <CAHkHK0-jQe7SnUcmNeNT2i9DyOgbUALKN=RFePWkUXbHSvF9jA@mail.gmail.com>
+Subject: phosphor-hwmon failed to start with aspeed fantach sensor
+To: openbmc@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.2-1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,68 +58,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Nov 2018 05:13:38 -0000
+X-List-Received-Date: Fri, 23 Nov 2018 07:11:34 -0000
 
-Hi Xiuzhi,
+Hi all,
 
-> I am debugging the SOL, the obmc-console-client didn't work.
-> My BMC and host OS runtime environments are:  
-> 1, BMC: 
-> 1) obmc-console-server is good
-> # systemctl status obmc-console\@ttyVUART0
-> [[0;1;32m●[[0m obmc-console@ttyVUART0.service - Phosphor Console Muxer
-> listening on device /dev/ttyVUART0
->    Loaded: loaded (/lib/systemd/system/obmc-console@.service;
-> indirect; vendor preset: enabled)
->    Active: [[0;1;32mactive (running)[[0m since Fri 1998-01-02 19:42:56
-> UTC; 38min ago
->  Main PID: 1616 (obmc-console-se)
->    CGroup: /system.slice/system-obmc\
-> x2dconsole.slice/obmc-console@ttyVUART0.service
->            └─1616 obmc-console-server --config /etc/obmc-console.conf
-> ttyVUART0
-> 
-> Jan 02 19:42:56 haiguang1 systemd[1]: Started Phosphor Console Muxer
-> listening on device /dev/ttyVUART0.
-> 2) /etc/ obmc-console.conf
-> lpc-address = 0x3f8
-> sirq = 4
-> local-tty = ttyS0
-> local-tty-baud = 115200
-> 
-> 2, Host OS: redhat 7
+On my board,when host powed off, the fan would stop.
 
-What hardware platform is this?
+then,phosphor-hwmon failed to start
 
-> It seemed to lock and output nothing when I run "obmc-console-client"
-> on BMC. And there is nothing in the log /var/log/obmc-console.log
+debug:
 
-This doesn't necessarily indicate a problem with the BMC though - are
-you sure that the host is connecting something (like a getty) to its
-serial device? Is there something on the host side of the serial
-connection? (what are you expecting to see there?)
+cat /sys/class/hwmon/hwmon0/fan1_input
+        read error Connection timedout.
 
-If the host is definitely using up that serial console, this could
-either be an issue with the obmc-console infrastructure, or the UART
-devices.
+edit the config file,
+        LABEL_fan1 = fan1
+        REMOVERCS = 110 // 110 means ETIMEDOUT
 
-You can split up the debugging to eliminate parts of the stack there.
-Try:
+when host powerd on
+        1. echo add > /sys/class/hwmon/hwmon0/uevent
+        2. phosphor-hwmon started
+        3. host power off
+        4. phosphor-hwmon did not exit.
+        5. cpu usage of hwmon-read would be 4%
 
-  - Stop obmc-console-server
+when host powerd off
+        1. echo add > /sys/class/hwmon/hwmon0/uevent
+        2. failed to start phosphor-hwmon.
 
-  - from the BMC, read directly from the VUART (say,
-    `cat /dev/ttyVUART0`)
+I found when phosphor-hwmon init
 
-  - from the host, write to the UART (`echo hello > /dev/ttyS0`, 
-    changing to whatever tty is connected to the BMC, if it isn't
-    ttyS0.).
+   Sensor::addValue would read fan1_input(there is no fan1_fault in sysfs),
+   and it caused read timedout unexpection.
 
-If that works, then you know that the UART channel is OK, and it's
-either obmc-console, or that nothing on the host is using that serial
-port.
+   so init failed.
 
-Regards,
+On my board,I  want to boot the bmc with phosphor-hwmon when host powered off.
+
+what should I do ?
 
 
-Jeremy
+Thanks
+
+
+
+--qianlihu
