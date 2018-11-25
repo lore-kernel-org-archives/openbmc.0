@@ -1,39 +1,41 @@
-Return-Path: <davem@davemloft.net>
+Return-Path: <wangzqbj@inspur.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=davemloft.net
- (client-ip=2620:137:e000::1:9; helo=shards.monkeyblade.net;
- envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=inspur.com
+ (client-ip=210.51.26.145; helo=unicom145.biz-email.net;
+ envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=davemloft.net
-Received: from shards.monkeyblade.net (shards.monkeyblade.net
- [IPv6:2620:137:e000::1:9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=inspur.com
+Received: from unicom145.biz-email.net (unicom145.biz-email.net
+ [210.51.26.145])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434MF0295lzDqdl;
- Wed, 28 Nov 2018 11:37:39 +1100 (AEDT)
-Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::bf5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id BA8D413D059F3;
- Tue, 27 Nov 2018 16:37:35 -0800 (PST)
-Date: Tue, 27 Nov 2018 16:37:35 -0800 (PST)
-Message-Id: <20181127.163735.780394807984803791.davem@davemloft.net>
-To: vijaykhemka@fb.com
-Cc: sam@mendozajonas.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- Justin.Lee1@Dell.com, joel@jms.id.au, linux-aspeed@lists.ozlabs.org
-Subject: Re: [PATCH net-next v2] net/ncsi: Add NCSI Mellanox OEM command
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20181126214905.3703229-1-vijaykhemka@fb.com>
-References: <20181126214905.3703229-1-vijaykhemka@fb.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Tue, 27 Nov 2018 16:37:36 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 434MWg4NdwzDqmj
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 11:50:21 +1100 (AEDT)
+Received: from ([218.57.135.44])
+ by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id SLA92110
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 08:50:10 +0800
+Received: from mail-it1-f182.google.com (172.30.26.1) by
+ jtjncas03.home.langchao.com (172.30.26.22) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Wed, 28 Nov 2018 08:50:11 +0800
+Received: by mail-it1-f182.google.com with SMTP id x19so1709558itl.1
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 16:50:09 -0800 (PST)
+X-Gm-Message-State: AA+aEWbC10UtBmheRG55vs89udg9zTIwqW4wbYFGpNhYH0w476cFbLUc
+ 1vJ9J0dIflljJclOFi3VoSRMuudQyJAyCPNSPHw=
+X-Google-Smtp-Source: AFSGD/UCtyN1MOBLozIsYRc6lxwmOijezeDJ/HKolgVRy60J3cRLdFD901YwBa/dU0yMBf45omVBNNEq08e8o3Ja0w0=
+X-Received: by 2002:a24:41aa:: with SMTP id b42mr1130330itd.148.1543366207340; 
+ Tue, 27 Nov 2018 16:50:07 -0800 (PST)
+MIME-Version: 1.0
+References: <CAHkHK0_HJjKrUCsTm69iW2Hyw4QRTYYhVWxDTve5rRaLt7JK5w@mail.gmail.com>
+In-Reply-To: <CAHkHK0_HJjKrUCsTm69iW2Hyw4QRTYYhVWxDTve5rRaLt7JK5w@mail.gmail.com>
+From: John Wang <wangzqbj@inspur.com>
+Date: Sun, 25 Nov 2018 08:47:59 +0800
+X-Gmail-Original-Message-ID: <CAHkHK0_P2gUHY_aarC2qzcKAxJkw5p4PyC1xO5WxryJs4jMWtQ@mail.gmail.com>
+Message-ID: <CAHkHK0_P2gUHY_aarC2qzcKAxJkw5p4PyC1xO5WxryJs4jMWtQ@mail.gmail.com>
+Subject: Re: meta-inspur repo
+To: <bradleyb@fuzziesquirrel.com>
+CC: <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Originating-IP: [172.30.26.1]
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,21 +47,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Nov 2018 00:37:40 -0000
+X-List-Received-Date: Wed, 28 Nov 2018 00:50:25 -0000
 
-From: Vijay Khemka <vijaykhemka@fb.com>
-Date: Mon, 26 Nov 2018 13:49:04 -0800
+Hi Brad
 
-> This patch adds OEM Mellanox commands and response handling. It also
-> defines OEM Get MAC Address handler to get and configure the device.
-> 
-> ncsi_oem_gma_handler_mlx: This handler send NCSI mellanox command for
-> getting mac address.
-> ncsi_rsp_handler_oem_mlx: This handles response received for all
-> mellanox OEM commands.
-> ncsi_rsp_handler_oem_mlx_gma: This handles get mac address response and
-> set it to device.
-> 
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+I just realized that I was using my personal email
 
-Applied.
+My office company email is wangzqbj@inspur.com
+
+I am sorry for the confusion caused.
+
+Sincerely
+
+--John Wang
+
+On Sat, Nov 24, 2018 at 9:16 AM qianlihu <wangzhiqiang8906@gmail.com> wrote:
+>
+> Hi Brad
+>
+> Can you create a meta-inspur repository for a couple of our machines?
+>
+>
+> thanks
+>
+> --John
