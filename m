@@ -1,35 +1,118 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <prvs=4868dc4252=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=4868dc4252=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="k3UbkV6p"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="SQlwRk41"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 433cgh1X4zzDqZw
- for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 06:39:42 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id B0FDA6DEB9;
- Mon, 26 Nov 2018 14:39:37 -0500 (EST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 12.1 \(3445.101.1\))
-Subject: Re: OpenBMC Corporate CLA from Quanta Computer Inc.
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <e37175ad42454c8c8dbe069f63f10f28@quantatw.com>
-Date: Mon, 26 Nov 2018 14:39:37 -0500
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- =?utf-8?B?IlBldGVyIExlZSAo5p2O5rC45a+MKSI=?= <Peter.Lee@quantatw.com>,
- =?utf-8?B?IlJpY2hhcmQgVHVuZyAo6JGj5b2l5bGPKSI=?= <Richard.Tung@quantatw.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <2E7FE930-2478-4801-BE43-59EF52B9D4A8@fuzziesquirrel.com>
-References: <e37175ad42454c8c8dbe069f63f10f28@quantatw.com>
-To: =?utf-8?B?IkJ1ZGR5IEh1YW5nICjpu4PlpKnptLspIg==?= <Buddy.Huang@quantatw.com>
-X-Mailer: Apple Mail (2.3445.101.1)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 433fzR6NrbzDqVx;
+ Tue, 27 Nov 2018 08:23:26 +1100 (AEDT)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wAQLIKJ4005066; Mon, 26 Nov 2018 13:23:22 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=zDk1WyIF3PcQBmZqndPCprcP1TjB8AiWDMU4J/WHJI0=;
+ b=k3UbkV6pSd5Iqeu7A09tfP05+LsP1JltEZKY3rDRZNqaSOcHWjPUCtgnXnVUfjo6y+fH
+ OIBqMrBjGQIQX9KVtg5yjR526mV3o4Zqs0guksprGbIjZgjIQgDvXNQTcSCqvfrC7O/f
+ O6HD2TCOPJ6cCcn6go+n7dmZFpO9JK/nYgM= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2p0rjp8141-3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Mon, 26 Nov 2018 13:23:22 -0800
+Received: from frc-hub06.TheFacebook.com (2620:10d:c021:18::176) by
+ frc-hub04.TheFacebook.com (2620:10d:c021:18::174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Mon, 26 Nov 2018 13:23:13 -0800
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.76) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Mon, 26 Nov 2018 13:23:13 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zDk1WyIF3PcQBmZqndPCprcP1TjB8AiWDMU4J/WHJI0=;
+ b=SQlwRk41heidtk6y9MWNYOlBwRTzbaEGh7m3Q3duOhUySGPOV3fxsvf+sIjl6xf7bTCWurukmVc5tF5tlI6MSQY0WxX7hciCKjLy6WZ18IbDVWCXEEMtXDYkh7hbub3ng7/mCTqv4efwGA3h4AuP3vOLN+b4Z/sDNISqc2aCePQ=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1637.namprd15.prod.outlook.com (10.175.119.149) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1361.15; Mon, 26 Nov 2018 21:23:11 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::19df:d934:b961:5442]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::19df:d934:b961:5442%5]) with mapi id 15.20.1361.019; Mon, 26 Nov 2018
+ 21:23:11 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: David Miller <davem@davemloft.net>
+CC: "sam@mendozajonas.com" <sam@mendozajonas.com>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>, "Justin.Lee1@Dell.com" <Justin.Lee1@Dell.com>,
+ "joel@jms.id.au" <joel@jms.id.au>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>
+Subject: Re: [PATCH net-next] net/ncsi: Add NCSI Mellanox OEM command
+Thread-Topic: [PATCH net-next] net/ncsi: Add NCSI Mellanox OEM command
+Thread-Index: AQHUgRCoGYkM0A+mg0yjPgjXvLLIkqVa+TkAgAca/wA=
+Date: Mon, 26 Nov 2018 21:23:10 +0000
+Message-ID: <D0F6A4CE-9BBB-45E2-8915-D02438FBFAB8@fb.com>
+References: <20181120203516.3460764-1-vijaykhemka@fb.com>
+ <20181121.165244.777667590099933299.davem@davemloft.net>
+In-Reply-To: <20181121.165244.777667590099933299.davem@davemloft.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::7:41c]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1637;
+ 20:ZSe/lvUzaBpjxfJrzW/q6wv01EgOyGF3HdjKnGOfSDKDjovmDTO0yiL/DvGSyS8iJ7ip9GX1xbBCs9GKj4LgtD81uSOzWPJ8MAAw6/7+WYebFNqzgfFlFrarGbDNBVsQdOQJ7mXtxetw5tQCI4dyyD2gz5X5mIKWQTxdtCQj9+k=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 4affa4b2-77a8-43e3-601d-08d653e55e17
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390098)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1637; 
+x-ms-traffictypediagnostic: CY4PR15MB1637:
+x-microsoft-antispam-prvs: <CY4PR15MB1637C0F8C79AD7870002BF27DDD70@CY4PR15MB1637.namprd15.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(93006095)(93001095)(3231443)(11241501185)(944501410)(52105112)(10201501046)(3002001)(148016)(149066)(150057)(6041310)(20161123564045)(20161123560045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(201708071742011)(7699051)(76991095);
+ SRVR:CY4PR15MB1637; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1637; 
+x-forefront-prvs: 086831DFB4
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(396003)(39860400002)(346002)(366004)(376002)(199004)(189003)(36756003)(6436002)(54906003)(6486002)(316002)(97736004)(6506007)(6116002)(2906002)(11346002)(6246003)(53936002)(6512007)(102836004)(25786009)(14454004)(2616005)(5660300001)(486006)(4326008)(33656002)(83716004)(71200400001)(71190400001)(76176011)(305945005)(7736002)(106356001)(8936002)(186003)(68736007)(105586002)(256004)(86362001)(82746002)(6916009)(81166006)(81156014)(478600001)(99286004)(8676002)(476003)(446003)(46003)(229853002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1637;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:3; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: Arjy3oPWARfcW5JNXB6Rb37GWjT9zqwggQOlOAKiTAAJj4NMOpj2Moy8aNHTxTuNfmJkhTMbY6Vy7irKokc0jN583/qhzdWAbXcqsKNXQjXqZ++tlFz2y49bTMLj3YdYT7cbAv9W++zXz/GFKEuLqTfoSBdtasafwJLLbrlt/Tu3wqGjSRFrlfqXUR3RJv7elnHDxH1OpYvDaQeuRq10sHd9i5J86rdP568h8Q7ss9lA1eP/gPD8fYH1/F70tL1AmekX61zHAlQjHgxpMZnXUXvfl731g6TLWvibeEkEeT5rN3DxF8ZOaLu/8xzwBn1XlJlslYKHLOTMyrldKTiA592I1+5H/aW3UMV7fFKAOtI=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <BE53CB4067D0B24387EE590E79B9170D@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4affa4b2-77a8-43e3-601d-08d653e55e17
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Nov 2018 21:23:10.8608 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1637
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-26_16:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,34 +124,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Nov 2018 19:39:45 -0000
+X-List-Received-Date: Mon, 26 Nov 2018 21:23:33 -0000
 
-Hi Buddy
-
-> On Nov 26, 2018, at 3:06 AM, Buddy Huang (=E9=BB=83=E5=A4=A9=E9=B4=BB) =
-<Buddy.Huang@quantatw.com> wrote:
->=20
-> Hi Brad,
-> =20
-> The file attached is the signed Corporate CLA from Quanta Computer =
-Inc.
-> The list below shows the names of our members in the CCLA.
-> Richard Tung, Richard.Tung@quantatw.com
-> Litzung Chen, Litzung.Chen@quantatw.com
-> Alan Kuo, Alan_Kuo@quantatw.com
-> Alice Hsu, Alice_Hsu@quantatw.com
-> Buddy Huang, Buddy.Huang@quantatw.com
-> Duke Du, Duke.Du@quantatw.com
-> Fran Hsu, Fran.Hsu@quantatw.com
-> George Hung, George.Hung@quantatw.com
-> P.K. Lee, P.K.Lee@quantatw.com
-> Samuel Jiang, Samuel.Jiang@quantatw.com
-> Spencer Ku, Spencer.Ku@quantatw.com
-> Tony Lee, Tony.Lee@quantatw.com
-> Will Liang, Will.Liang@quantatw.com
-> =20
-> Please help review it and let me know if there is any missing.
-
-Thanks for signing!  Your CCLA has been accepted.
-
-=E2=80=94brad=
+VGhhbmtzIERhdmlkLA0KSSB3aWxsIGZpeCB0aGlzIGFuZCB1cGxvYWQgbmV4dCB2ZXJzaW9uLg0K
+DQpSZWdhcmRzDQotVmlqYXkNCg0K77u/T24gMTEvMjEvMTgsIDQ6NTUgUE0sICJEYXZpZCBNaWxs
+ZXIiIDxkYXZlbUBkYXZlbWxvZnQubmV0PiB3cm90ZToNCg0KICAgIEZyb206IFZpamF5IEtoZW1r
+YSA8dmlqYXlraGVta2FAZmIuY29tPg0KICAgIERhdGU6IFR1ZSwgMjAgTm92IDIwMTggMTI6MzU6
+MTYgLTA4MDANCiAgICANCiAgICA+ICtzdGF0aWMgaW50IG5jc2lfb2VtX2dtYV9oYW5kbGVyX21s
+eChzdHJ1Y3QgbmNzaV9jbWRfYXJnICpuY2EpDQogICAgPiArew0KICAgID4gKwl1bnNpZ25lZCBj
+aGFyIGRhdGFbTkNTSV9PRU1fTUxYX0NNRF9HTUFfTEVOXTsNCiAgICA+ICsJaW50IHJldCA9IDA7
+DQogICAgPiArDQogICAgPiArCW5jYS0+cGF5bG9hZCA9IE5DU0lfT0VNX01MWF9DTURfR01BX0xF
+TjsNCiAgICA+ICsNCiAgICA+ICsJbWVtc2V0KGRhdGEsIDAsIE5DU0lfT0VNX01MWF9DTURfR01B
+X0xFTik7DQogICAgPiArCSoodW5zaWduZWQgaW50ICopZGF0YSA9IG50b2hsKE5DU0lfT0VNX01G
+Ul9NTFhfSUQpOw0KICAgIA0KICAgICdkYXRhJyBpcyBub3QgbmVjZXNzYXJpbHkgYWxpZ25lZCBv
+biBhbiB1bnNpZ25lZCBpbnQgYm91bmRhcnkuDQogICAgDQogICAgQnV0IHNlY29uZCBvZiBhbGwg
+eW91IHdhbnQgdG8gdXNlIGEgZml4ZWQgc2l6ZSB0eXBlIGxpa2UgInUzMiIgb3INCiAgICBzaW1p
+bGFyIGhlcmUsIG5vdCAidW5zaWduZWQgaW50Ii4NCiAgICANCiAgICBBbHRvZ2V0aGVyLCBzb21l
+dGhpbmcgbGlrZToNCiAgICANCiAgICAJdW5pb24gew0KICAgIAkJdTggZGF0YV91OFtOQ1NJX09F
+TV9NTFhfQ01EX0dNQV9MRU5dOw0KICAgIAkJdTMyIGRhdGFfdTMyW1tOQ1NJX09FTV9NTFhfQ01E
+X0dNQV9MRU4gLyBzaXplb2YodTMyKV07DQogICAgCX0gdTsNCiAgICANCiAgICAJbWVtc2V0KCZ1
+LCAwLCBzaXplb2YodSkpOw0KICAgIAl1LmRhdGFfdTMyWzBdID0gbnRvaGwoTkNTSV9PRU1fTUZS
+X01MWF9JRCk7DQogICAgCXUuZGF0YV91OFs1XSA9IE5DU0lfT0VNX01MWF9DTURfR01BOw0KICAg
+IAl1LmRhdGFfdThbNl0gPSBOQ1NJX09FTV9NTFhfQ01EX0dNQV9QQVJBTTsNCiAgICANCiAgICBJ
+ZiB0aGUgcmVzdCBvZiB0aGUgbmNzaSBkcml2ZXIgaGFzIGNydWQgbGlrZSB0aGlzLCBpdCBhbGwg
+bmVlZHMNCiAgICB0byBiZSBmaXhlZCB1cCBzaW1pbGFybHkuDQogICAgDQoNCg==
