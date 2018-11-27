@@ -1,53 +1,66 @@
-Return-Path: <kitsok@yandex-team.ru>
+Return-Path: <a.filippov@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yandex-team.ru
- (client-ip=37.9.109.47; helo=forwardcorp1o.cmail.yandex.net;
- envelope-from=kitsok@yandex-team.ru; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
- header.from=yandex-team.ru
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.filippov@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
- header.b="zZewSbPe"; dkim-atps=neutral
-X-Greylist: delayed 549 seconds by postgrey-1.36 at bilbo;
- Tue, 27 Nov 2018 23:00:11 AEDT
-Received: from forwardcorp1o.cmail.yandex.net (forwardcorp1o.cmail.yandex.net
- [37.9.109.47])
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="v4DCfMfk"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4342Qz4HThzDqm9
- for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 23:00:11 +1100 (AEDT)
-Received: from mxbackcorp1o.mail.yandex.net (mxbackcorp1o.mail.yandex.net
- [IPv6:2a02:6b8:0:1a2d::301])
- by forwardcorp1o.cmail.yandex.net (Yandex) with ESMTP id 274E220F08
- for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 14:50:44 +0300 (MSK)
-Received: from localhost (localhost [::1])
- by mxbackcorp1o.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
- Ungnj1A83w-oi08dn2G; Tue, 27 Nov 2018 14:50:44 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1543319444; bh=e+Ci+ljIO/0edGfrou6F1hK/z0JOJO866E1ZOFURTaA=;
- h=From:To:Subject:Date:Message-Id;
- b=zZewSbPepY+8I3ao8hRuXvWQGhXkGApEZX5WqV7KS3zY11BRapwqXsxTlAPe57YuQ
- bMrI+A+B8a4yH94oF4H/+WDlk9pNpXbuhs9fmsuULFhfIwfGZnivgN5zYrVU7h5M73
- rmBk56njSadwspvUTXenKxX/Ek8SshYKfvYCCOeU=
-Authentication-Results: mxbackcorp1o.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000049860
-Received: from mxbackcorp1g.mail.yandex.net ([::1])
- by mxbackcorp1g.mail.yandex.net with LMTP id aAKgKA74
- for <kitsok@yandex-team.ru>; Tue, 27 Nov 2018 14:50:25 +0300
-Received: by iva8-f16495710718.qloud-c.yandex.net with HTTP;
- Tue, 27 Nov 2018 14:50:25 +0300
-From: Konstantin Klubnichkin <kitsok@yandex-team.ru>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH dev-4.18] ARM: dts: aspeed: Fix gpio interrupt controller
- description
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4343sL3mPJzDqVY
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 00:04:38 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id CE4314196B;
+ Tue, 27 Nov 2018 13:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ mime-version:content-transfer-encoding:content-type:content-type
+ :content-language:accept-language:in-reply-to:references
+ :message-id:date:date:subject:subject:from:from:received
+ :received:received:received; s=mta-01; t=1543323872; x=
+ 1545138273; bh=oHyVONJnmnlNT68K3CeCZkJTtUkC+DdSqPAE6wg53sU=; b=v
+ 4DCfMfkpRvzQmIAeSTZky67TRz9zj7bCBlPFPS9ehUVgrUGtmiovghfar9BZNptz
+ WXxqmkcJ+Ovg3uJGTeOre2Agbsrw7BzcBSWjVkB3EKenMJYXWCC1+QkVgaFR0vVZ
+ YtQEPhOWcC1/RLCkJOZfaYEM6CfRltocIbHcq396Vs=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id he4xLbrkVBWo; Tue, 27 Nov 2018 16:04:32 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id DC5FF41943;
+ Tue, 27 Nov 2018 16:04:32 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (172.17.10.102) by
+ T-EXCH-02.corp.yadro.com (172.17.10.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.669.32; Tue, 27 Nov 2018 16:04:32 +0300
+Received: from T-EXCH-02.corp.yadro.com ([fe80::45c7:9467:6da:3de3]) by
+ T-EXCH-02.corp.yadro.com ([fe80::45c7:9467:6da:3de3%14]) with mapi id
+ 15.01.0669.032; Tue, 27 Nov 2018 16:04:32 +0300
+From: "Alexander A. Filippov" <a.filippov@yadro.com>
+To: Nagaraju Goruganti <ngorugan@in.ibm.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: Re: Proposal to Sync BMC's MAC Address to U-Boot environment
+Thread-Topic: Proposal to Sync BMC's MAC Address to U-Boot environment
+Thread-Index: AQHUhkAvYKp9BgkxI0a2RqZwLjNq66Vjk77s
+Date: Tue, 27 Nov 2018 13:04:32 +0000
+Message-ID: <a31fa95d9b47461a98e5477a94098c5b@yadro.com>
+References: <OF9015C576.BDD4A20B-ON00258352.003BDFFF-65258352.003C4190@notes.na.collabserv.com>
+In-Reply-To: <OF9015C576.BDD4A20B-ON00258352.003BDFFF-65258352.003C4190@notes.na.collabserv.com>
+Accept-Language: ru-RU, en-US
+Content-Language: ru-RU
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [172.17.15.155]
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Tue, 27 Nov 2018 14:50:30 +0300
-Message-Id: <378621543319425@iva8-f16495710718.qloud-c.yandex.net>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,51 +72,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Nov 2018 12:00:15 -0000
+X-List-Received-Date: Tue, 27 Nov 2018 13:04:39 -0000
 
-Missing #interrupt-cells in gpio controller DTS  description causes OF subsystem to ignore it 
-as an interrupt controller, so one can't use gpio external interrupts. This patch fixes it.
+Hi there,
 
-Signed-off-by: Konstantin Klubnichkin <kitsok@yandex-team.ru>
----
- arch/arm/boot/dts/aspeed-g4.dtsi | 1 +
- arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
- 2 files changed, 2 insertions(+)
+On our VESNIN servers it work by the same scenario.
+This way gives an excess restart of the systemd-network.service and it look=
+s uncomfortable.
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 2846173..55732bd 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -195,6 +195,7 @@
-                                gpio-controller;
-                                compatible = "aspeed,ast2400-gpio";
-                                reg = <0x1e780000 0x1000>;
-+                               #interrupt-cells = <2>;
-                                interrupts = <20>;
-                                gpio-ranges = <&pinctrl 0 0 220>;
-                                clocks = <&syscon ASPEED_CLK_APB>;
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index e4c5de3..d9eafec 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -261,6 +261,7 @@
-                                gpio-controller;
-                                compatible = "aspeed,ast2500-gpio";
-                                reg = <0x1e780000 0x1000>;
-+                               #interrupt-cells = <2>;
-                                interrupts = <20>;
-                                gpio-ranges = <&pinctrl 0 0 220>;
-                                clocks = <&syscon ASPEED_CLK_APB>;
+For this reason, I wrote an implementation of the aspeed-i2c and VPD-parser=
+ for the u-boot-aspeed.=20
+It has one bug - i2c does not work at the cold start (after the power cord =
+plugged). I will fix it later.
+
+The general idea, why it is not sent to the community yet - the mainline of=
+ the u-boot already has the implementation of the aspeed-i2c but has no sup=
+port (or maybe not full) of ast-2400 (which we are using). It also in our p=
+lans but with lower priority.
+
+If you interested in any of these solutions, I can publish them.
+
 --
-1.9.1
+Regards,
+Alexander Filippov
+Software Engineer, YADRO.=20
+
+________________________________________
+=EF=D4: openbmc <openbmc-bounces+a.filippov=3Dyadro.com@lists.ozlabs.org> =
+=CF=D4 =C9=CD=C5=CE=C9 Nagaraju Goruganti <ngorugan@in.ibm.com>
+=EF=D4=D0=D2=C1=D7=CC=C5=CE=CF: 27 =CE=CF=D1=C2=D2=D1 2018 =C7. 13:58:01
+=EB=CF=CD=D5: openbmc@lists.ozlabs.org
+=F4=C5=CD=C1: Proposal to Sync BMC's MAC Address to U-Boot environment
+
+HI All,
+
+As we want to get rid of python, making this proposal to sync BMC's MAC Add=
+ress to U-Boot environment(assuming this is a common requirement across Ope=
+nBMC based systems).
+
+Proposal:
+
+Platform specific code :
+
+a) Get MAC Address from platform specific NV storage (BMC VPD on OpenPOWER =
+systems) into an inventory object. It is being done by openpower-vpd-parser=
+ on the openpower systems .
+
+Common code:
+
+b) A script (invoked by systemd on the way to BMC ready state) fetches BMC =
+MAC Address from (platform specific) inventory object. If this MAC Address =
+and the one in u-boot environment are different (or if the u-boot one is em=
+pty), then the script writes the inventory MAC Address to u-boot using fw_s=
+etenv.
+
+c) The script can reside in a phosphor layer.
+
+Existing Python script:
+
+The existing python script(openbmc/skeleton/pyinventorymgr/sync_inventory_i=
+tems.py) does the same thing.
 
 
+We need a opinion from the community members on this proposal.
 
+Best Regards,
 
--- 
-Best regards,
-Konstantin Klubnichkin,
-lead firmware engineer,
-server hardware R&D group,
-Yandex Moscow office.
-tel: +7-903-510-33-33
+Nagaraju G
