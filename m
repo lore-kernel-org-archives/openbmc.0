@@ -1,53 +1,119 @@
-Return-Path: <wangzhiqiang8906@gmail.com>
+Return-Path: <prvs=4869c43169=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::12d; helo=mail-it1-x12d.google.com;
- envelope-from=wangzhiqiang8906@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=4869c43169=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nUXS3oe/"; 
- dkim-atps=neutral
-Received: from mail-it1-x12d.google.com (mail-it1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="HgX/0/sZ"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="DRNY/8QQ"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 433m8Q5y4PzDqZS
- for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 12:16:38 +1100 (AEDT)
-Received: by mail-it1-x12d.google.com with SMTP id m123-v6so7431334ita.4
- for <openbmc@lists.ozlabs.org>; Mon, 26 Nov 2018 17:16:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=BVsA0UAI0EqA4weRvoUDaCpit8VfzKdZ2kosTak2/KI=;
- b=nUXS3oe/dIHlLw+qC+OfQK0+VU8UaHtViyVChs9VhbjWsLW2qfHdGpV1TmYTI1GUzH
- KAHDlx6D9rcvFl89MCabVt5+pq/84lDy19uRZiKzebRA8PMv9frNVWD+A5eS0LdBVUa9
- TjZoExzB2ywT/TYjOEHb8ZD2QtzFy4yK24XO1OVaITVwWrEWlqL4pgL9V+eXxUlg0eyD
- qm3ZOElhJLMj+k061JAdjiXAaeRII14TiUWbtY0Ifu6m/B/+lfbzOhbBRdh/oRLOY6gT
- 0QhkhqQZz1LllQdHrfHkdJG2PNFUsuKKFOho+FU0h0fFYl6TFtRjAeTnGLezQeASPklw
- DHCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=BVsA0UAI0EqA4weRvoUDaCpit8VfzKdZ2kosTak2/KI=;
- b=qyAGjMk0rTbJ8yINt4rwYNvWs0gokWTq4A/TkRP57AtpuME8MoQ+1W4OXSOR1UEZSr
- Vb84hHnisU64axiyLWDxYEfCPjq8nMFhl6YUMop28htW99RwqDqT9zI/JpD6HHh/Cw6+
- jZkfzVhMLz8VAAT+EvXmMywz05MTVkBZp9qeI3I8KC8kEuTJcraoNo6NjJn5JhIAe/rn
- /4i0MkJR6WFQLthSIPbpZKGTQOSn42KA5aNJgFXBHeKVKrXDus4ZBrmF2rCsT+xbSiQs
- ucKyHQF/aOYQXL3irhothcr/vUdx1np3fhRzw4WNZR8tieUYN0NVPXMjUwbADGSkX12X
- appw==
-X-Gm-Message-State: AA+aEWY9rrH/G/MWS5BTi7822f7MCasd6YcUiqpnhaifDEsga8Qz6Yx+
- DO/5WlLWZIalcskrtO0HkkE7Up+TZCVwAJ7eA8U=
-X-Google-Smtp-Source: AJdET5cLBcUFcY0jd1f8LlHjqmPmWRcQvNPkm9A4DUciHYnQUf8VE8c4yxfWEZ6Ud2wDyBSzmM1F8cebY3gWDM6uIVY=
-X-Received: by 2002:a24:41aa:: with SMTP id b42mr24513737itd.148.1543281396791; 
- Mon, 26 Nov 2018 17:16:36 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 433tjC04LVzDqZD
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 17:11:54 +1100 (AEDT)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+ by m0001303.ppops.net (8.16.0.22/8.16.0.22) with SMTP id wAR66dqY030186;
+ Mon, 26 Nov 2018 22:11:49 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=dBfbOiocsZk6hHBIjtwsQdniVOfCgvELIGzdZXVpg+I=;
+ b=HgX/0/sZUh8R9gAWyQbV5MYVwxGQSvC7lpRecuGjzRUjO/bEdg0JZ2xliJlyu54HLnaf
+ JF+IKRw531tKeCd5Snt4rLkUVQTRfVy9NT15zgb7UP6Qm5++eXY8qQwzXSDKs7Ezyds7
+ fisX5t+FBo+wsGzxXheBHi73ulhijO16Imo= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by m0001303.ppops.net with ESMTP id 2p0uab8r8y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Mon, 26 Nov 2018 22:11:49 -0800
+Received: from prn-hub02.TheFacebook.com (2620:10d:c081:35::126) by
+ prn-hub02.TheFacebook.com (2620:10d:c081:35::126) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Mon, 26 Nov 2018 22:11:47 -0800
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.26) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Mon, 26 Nov 2018 22:11:47 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dBfbOiocsZk6hHBIjtwsQdniVOfCgvELIGzdZXVpg+I=;
+ b=DRNY/8QQzS4TD5azy3CKlhhzOdP68MUVw7wXcvWBLQuxGfJr8Rl5lN447eq8BJeccW+PecdLEcr/90lzO1cNTgxhj+pR+39jSIwdAkldllDIL/Cw+zYiQOP5N/6mvqKceR6cPFv/oqH+XsJw/OweKPh4xBbR0OB/CHMTmf0HMgw=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1696.namprd15.prod.outlook.com (10.175.142.17) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1361.19; Tue, 27 Nov 2018 06:11:46 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::709f:e3cd:1db:74d6]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::709f:e3cd:1db:74d6%2]) with mapi id 15.20.1361.019; Tue, 27 Nov 2018
+ 06:11:46 +0000
+From: Tao Ren <taoren@fb.com>
+To: "Jerry.Hoemann@hpe.com" <jerry.hoemann@hpe.com>
+CC: Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck
+ <wim@linux-watchdog.org>, "linux-watchdog@vger.kernel.org"
+ <linux-watchdog@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH] watchdog: core: suppress "watchdog did not stop" message
+Thread-Topic: [PATCH] watchdog: core: suppress "watchdog did not stop" message
+Thread-Index: AQHUfT0kb1jOq4Gqx0OLsq0sLX4HDKVRiaQAgAAE+QCAEVixgP//yECA
+Date: Tue, 27 Nov 2018 06:11:46 +0000
+Message-ID: <12D0F3A5-602E-4C4B-908D-55C3C50823BB@fb.com>
+References: <20181115234413.27009-1-taoren@fb.com>
+ <20181116001938.GA16009@roeck-us.net>
+ <9a43bb84-f476-d6c8-886a-2120312ee8e7@fb.com>
+ <20181127013117.GB11080@anatevka>
+In-Reply-To: <20181127013117.GB11080@anatevka>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/10.10.0.180812
+x-originating-ip: [2620:10d:c090:180::1:9054]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1696;
+ 20:q0sL04AtcmbQB0kmvx9NhbEKu2BWgj/FKdC6eYNTFAy/2Z9xqZZyhPVl40+58Ns0L6x9+FtCHzl4QEoNINqexg3DjGYINyUMxc3pTk+L1b7zk3dw/wzosWnVgm9PF87yJ95OcfvRHOIteAyHaORldoYO1voNA37lru5RPiz1+SU=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 3b615750-f7e2-4b6f-caa3-08d6542f35eb
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390098)(7020095)(4652040)(8989299)(5600074)(711020)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1696; 
+x-ms-traffictypediagnostic: MWHPR15MB1696:
+x-microsoft-antispam-prvs: <MWHPR15MB1696DD08C2F0B1B5DB6F7CEFB2D00@MWHPR15MB1696.namprd15.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(3231443)(11241501185)(944501410)(52105112)(10201501046)(93006095)(93001095)(3002001)(148016)(149066)(150057)(6041310)(20161123560045)(20161123558120)(20161123564045)(201703131423095)(201703031522075)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(201708071742011)(7699051)(76991095);
+ SRVR:MWHPR15MB1696; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1696; 
+x-forefront-prvs: 086943A159
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(396003)(136003)(346002)(39860400002)(366004)(199004)(189003)(6512007)(6486002)(46003)(53546011)(229853002)(71190400001)(71200400001)(76176011)(186003)(6246003)(6506007)(83716004)(6916009)(102836004)(4326008)(99286004)(53936002)(6436002)(105586002)(2351001)(106356001)(256004)(2616005)(446003)(11346002)(486006)(82746002)(476003)(68736007)(93886005)(15650500001)(7736002)(14454004)(58126008)(296002)(54906003)(478600001)(2906002)(316002)(25786009)(86362001)(33656002)(8676002)(6116002)(81166006)(8936002)(81156014)(97736004)(2501003)(36756003)(5660300001)(305945005);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1696;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: 2d/hmFZgeDoFae6RAlzLoU02NkTYRgjgYwUGqM1GO8Pl+yhnjGZldtvVfpBxjYOazrctsU0GVMZbaXr8+Z5d0SAfp4sBl6cqjcc0HrltKrcTpL2VA44nSO9hNk+hbsrk8TXXkstdur1vj2ItddwfhCUh8xPoqT3HW8MC/aCp1Br+5NMApUJYe2WqUx++FmKOD61TGO0xo3GcbE1r11fXvzXBCyojNKAI9vVdw0GMpywoqUX7Lm+lN7hPVzc7zg8P2rpb//pJfcZvlKYfmpsMfh/Dh5eC2DraB4mXltoHSSU5z1Q5z382wRAubixEaJbPSVBdZNNQtQbsIMk+L5l/IK6qq4FC3wZY/7zYlPSu1bI=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <99C19D0526E0BD44B3DB6E607CF70289@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-From: qianlihu <wangzhiqiang8906@gmail.com>
-Date: Sat, 24 Nov 2018 09:16:10 +0800
-Message-ID: <CAHkHK0_HJjKrUCsTm69iW2Hyw4QRTYYhVWxDTve5rRaLt7JK5w@mail.gmail.com>
-Subject: meta-inspur repo
-To: bradleyb@fuzziesquirrel.com
-Cc: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b615750-f7e2-4b6f-caa3-08d6542f35eb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2018 06:11:46.2783 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1696
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-27_05:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,13 +125,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Nov 2018 01:16:39 -0000
+X-List-Received-Date: Tue, 27 Nov 2018 06:12:00 -0000
 
-Hi Brad
-
-Can you create a meta-inspur repository for a couple of our machines?
-
-
-thanks
-
---John
+T24gMTEvMjYvMTgsIDU6MzEgUE0sICJKZXJyeSBIb2VtYW5uIiA8amVycnkuaG9lbWFubkBocGUu
+Y29tPiB3cm90ZToNCj4gVGFvLA0KPiANCj4gSWYgeW91J3JlIG9uIGEgc3lzdGVtIHJ1bm5pbmcg
+c3lzdGVtZCwgdGhlIGRlZmF1bHQgYmVoYXZpb3IgaXMgdG8NCj4gZW5hYmxlIHRoZSB3YXRjaGRv
+ZyBkdXJpbmcgc2h1dGRvd24uICBUaGlzIGd1YXJkcyBhZ2FpbnN0IHNodXRkb3duIGhhbmdpbmcu
+DQo+IFNvIHRoaXMgbWVzc2FnZSB3aWxsIGJlIHJvdXRpbmVseSBwcmludGVkIG91dCBkdXJpbmcg
+b3JkZXJseSBzaHV0ZG93bi4NCg0KVGhhbmsgeW91IEplcnJ5IGZvciB0aGUgY29tbWVudHMuDQoN
+CkkgYWN0dWFsbHkgdXNlIGEgc2VwYXJhdGUgZGFlbW9uIHByb2Nlc3MgdG8ga2ljayB0aGUgd2F0
+Y2hkb2cgb24gbXkgQk1DIHN5c3RlbS4gVGhlIGRhZW1vbiBtb25pdG9ycyB0ZW1wZXJhdHVyZSBz
+ZW5zb3JzIGFuZCBvdGhlciBzeXN0ZW0gc3RhdGVzIGFuZCBraWNrcyB3YXRjaGRvZyBwZXJpb2Rp
+Y2FsbHk6IGlmIHRoZSBkYWVtb24gZ2V0cyBzdHVjayBvciBleGl0cywgdGhlbiB0aGUgbWFjaGlu
+ZSBuZWVkcyB0byByZWJvb3QgZXZlbiBpZiBrZXJuZWwvc3lzdGVtZCBpcyBmaW5lLiBQZXJoYXBz
+IEkgbmVlZCB0byBsb29rIGZvciBhIGJldHRlci9vZmZpY2lhbCB3YXkgdG8gbWFuYWdlIHRoZSB3
+YXRjaGRvZyBkZXZpY2UuLg0KDQpCVFcsIEkgd2lsbCBiZSB0cmF2ZWxsaW5nIGFicm9hZCBpbiB0
+aGUgbmV3IGZldyBkYXlzIGFuZCBtYXkgbm90IGJlIGFibGUgdG8gcmVwbHkgZW1haWxzIHRpbWVs
+eS4gVGhhbmsgeW91IGFnYWluIGZvciBqdW1waW5nIGluLg0KDQpCZXN0IHJlZ2FyZHMsDQpUYW8g
+UmVuDQogICAgDQoNCg==
