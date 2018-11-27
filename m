@@ -1,115 +1,61 @@
-Return-Path: <prvs=4869891035=sdasari@fb.com>
+Return-Path: <osk@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=4869891035=sdasari@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::32f; helo=mail-wm1-x32f.google.com;
+ envelope-from=osk@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="NJgLmjMt"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="gBOIjUry"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="kI2QpmnY"; 
+ dkim-atps=neutral
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434F236my8zDqqK
- for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 06:57:43 +1100 (AEDT)
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
- by m0089730.ppops.net (8.16.0.22/8.16.0.22) with SMTP id wARJtX5S013583;
- Tue, 27 Nov 2018 11:57:35 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=facebook;
- bh=V5kOABVzw7IgFrCnp8aFjdqAaI9BAMaF8Isp/mKp0ZM=;
- b=NJgLmjMtBD55Q17fTIF8WlFdB1ndP1gbUEPClOcUS5j/bVykhbvglSR1vsgeqykWpiWq
- 8qJeZrBCbftOiYIZnH8Cvw0AbCRZDVw9d0c+0w26lAX4UYiL6HJ6mxS9fNn+6vkWvtY8
- kfPSJ1diE5oZJ9szuP8VtaCKhuKhMa7fH2Y= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by m0089730.ppops.net with ESMTP id 2p19a90pm1-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Tue, 27 Nov 2018 11:57:35 -0800
-Received: from prn-hub04.TheFacebook.com (2620:10d:c081:35::128) by
- prn-hub03.TheFacebook.com (2620:10d:c081:35::127) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Tue, 27 Nov 2018 11:57:33 -0800
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.28) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
- via Frontend Transport; Tue, 27 Nov 2018 11:57:33 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V5kOABVzw7IgFrCnp8aFjdqAaI9BAMaF8Isp/mKp0ZM=;
- b=gBOIjUrygtOttGj3t0nSX31XuTK0yftyj6kf6dzx9UYhNRfUS+n90r+feDGriXMkDjHs4083iYfRLVO2sa3f+VO8aLbm5EmB7sG7SFsTHxjmMulbe0di+19j2sAAmaSYNLp2o3S7RCzneZZpJywLrxKYDKaRXdN5zYUA/QF6r/E=
-Received: from MWHPR15MB1789.namprd15.prod.outlook.com (10.174.255.18) by
- MWHPR15MB1583.namprd15.prod.outlook.com (10.173.235.144) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1361.16; Tue, 27 Nov 2018 19:57:31 +0000
-Received: from MWHPR15MB1789.namprd15.prod.outlook.com
- ([fe80::ecc2:43ce:1a6f:1ff6]) by MWHPR15MB1789.namprd15.prod.outlook.com
- ([fe80::ecc2:43ce:1a6f:1ff6%7]) with mapi id 15.20.1361.019; Tue, 27 Nov 2018
- 19:57:31 +0000
-From: Sai Dasari <sdasari@fb.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, Ed Tanous <ed.tanous@intel.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Oskar Senft <osk@google.com>
-Subject: Re: Submit board schematics to OpenBMC docs repo
-Thread-Topic: Submit board schematics to OpenBMC docs repo
-Thread-Index: AQHUfecCGIV3zRWTVEqxxjMxYuBjI6VS+uUAgA99BgCAAR0GAA==
-Date: Tue, 27 Nov 2018 19:57:31 +0000
-Message-ID: <610D7954-EAF3-4CB7-9B4B-7A067DA8E8B5@fb.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 434GCx21GgzDqjL
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 07:51:24 +1100 (AEDT)
+Received: by mail-wm1-x32f.google.com with SMTP id g67so397667wmd.2
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 12:51:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3FSwEmBau6Kpg/AG0wK2b04GqzS1uvBfrz5mcP2e3bI=;
+ b=kI2QpmnYhkc4kWYT1LM4mi6p0pgyGzjgARp8fXKjifvtyqNxeqeGxUE77tv5VhaDOl
+ NWlH8vUGHEkskCavAAveAg5YX5f7/QcLteB6Z9IVf7YC6serZGe/IUqTo3N2Osg6UfzN
+ Z55NBe1Ruw7Lnrt0rZRWFEVAs9fiF9J5X4d1Z4+sro5pKQs6Sp+1NcFrZzIzfbVUoo6q
+ f7ljM3T7luMKNEVFu5/N/mH6HyQGKAQCEmSmo533NpSOQV9CaCEUJ1Kprw3NQ15PzI+C
+ +Q2rvse7UKGp54JAEPO7yW8jvjJqqVdXNiuT+sN3UesJRNgLKmLhmhMXZUcRWsbLayve
+ RxUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3FSwEmBau6Kpg/AG0wK2b04GqzS1uvBfrz5mcP2e3bI=;
+ b=l3AACSmnONJ2OVFedDtcTkPch0stl9cdPz58Oznbi3mNX2qNLK6zXKPf86nZL7+xyr
+ X4k+/0acd33nrjLANS+JulsEGsPHteb838R8FGEGm+bqvF7VHBbCZcAcdOCWE95oI0Yw
+ CsgShB060OTPrdY6dzIgxxz5VXbcPNtc0K2wmPsEijFi+ogOptCfC/cNWPReAtS3LHnL
+ Ue2uWBz/sfYhxt2xghlDL91nqGglf/T+9ahlP/1TftQet5x4/6M9YHtgl0MeHu3TOt3C
+ teC5bYTF+Tg/28Ya45rr9QHtFZBdADK1qlm5SIQ2YxVqmhMzvUIbm+4wI6U1f+jsKXp0
+ U2Yw==
+X-Gm-Message-State: AA+aEWbSFcMsS1AF4jlb6X3qb+VNFyseAMW26q7QQGS1+XGDnYBZcsxB
+ YZ6St0NYBNctV1Ba2srD8Lx7hwqRCn5ilJH+eajvVg==
+X-Google-Smtp-Source: AFSGD/WLRc7NUCVv1tBq93SqlVEB31ZcyVzuG13hjbj99PB45Nm0zMRnr8gtbVJCv0PIjMCN8Zaw1+OpjWIZm3cionI=
+X-Received: by 2002:a1c:6382:: with SMTP id
+ x124-v6mr367968wmb.145.1543351881103; 
+ Tue, 27 Nov 2018 12:51:21 -0800 (PST)
+MIME-Version: 1.0
 References: <CABoTLcSpcTKHJu5xwWx4TQr1_5FjLvb9QsOAYQhCfMaQwQ5qug@mail.gmail.com>
  <1bf30dfc-cc55-649d-3b0a-1cf29355daf9@intel.com>
  <d372150746d3f52901cbff4a4d422357d6f00676.camel@fuzziesquirrel.com>
-In-Reply-To: <d372150746d3f52901cbff4a4d422357d6f00676.camel@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-Mentions: osk@google.com
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::7:d548]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1583;
- 20:pFTn98JMrVvxKRev9tsmslHzMMObNsryZFV0aDxQE89h0y4BK1t1WKdAl7VICUtvMx2BuKynujkivzTAfSm+y4H7c2RC0+nOGdlkaTJwghavi7+9i1v1L0aAhAQgZyWf/JKzNptAug+pwsY67uh+Fok/sEbttZX1RcBnnbhtryQ=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 320266bc-9e18-4291-f18d-08d654a29152
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390098)(7020095)(4652040)(8989299)(5600074)(711020)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1583; 
-x-ms-traffictypediagnostic: MWHPR15MB1583:
-x-microsoft-antispam-prvs: <MWHPR15MB15837133E7832DE6E92A72FBCED00@MWHPR15MB1583.namprd15.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(8211001083)(6040522)(2401047)(5005006)(8121501046)(93006095)(93001095)(3002001)(10201501046)(3231443)(11241501185)(944501410)(52105112)(148016)(149066)(150057)(6041310)(20161123562045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123560045)(20161123564045)(201708071742011)(7699051)(76991095);
- SRVR:MWHPR15MB1583; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1583; 
-x-forefront-prvs: 086943A159
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(979002)(39860400002)(136003)(346002)(376002)(396003)(366004)(199004)(189003)(478600001)(97736004)(33656002)(71190400001)(99286004)(6116002)(83716004)(4001150100001)(71200400001)(53546011)(2501003)(229853002)(6436002)(316002)(82746002)(6512007)(53936002)(25786009)(6486002)(110136005)(76176011)(106356001)(6506007)(105586002)(6246003)(68736007)(8676002)(36756003)(446003)(11346002)(102836004)(256004)(2616005)(476003)(305945005)(186003)(14454004)(46003)(5660300001)(2906002)(7736002)(86362001)(486006)(8936002)(81156014)(81166006)(969003)(989001)(999001)(1009001)(1019001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1583;
- H:MWHPR15MB1789.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-microsoft-antispam-message-info: 0MxFWJRtSr6Y/kl2u7y0Mo4Cy2zZYQ+bwl62mOUUP7BQJrNVi7JEM0sf1NlUB4fbh7s7YVGHCdLgXcmdVMxmeSXwVZlNeUWF8SDjoKw+sad2DJ5DgX1sGeKtiPJTH0AW6X//+RjNDGS3tf9N91GJ4yiEMitIz7FM+TX9PqX5TQWAqLv/tSm/vEila08AR3IuI9TXYgGJ9ukCpUfSBwTmtv1/xHGJFptaSUM118Ove/Zq/e61uDNPm/UxLwWQdnt1bqw+S5OXOLG1H+Tpu8OKb3zmgz0Bl14Ekg0Mb00/CwVBkFk9rhUyaNrYgSj2eqPnm61ZboQCNFuqpg0a5pS+ASq8VI+OoeremvZ2eRNMxLA=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <16512D594427474989E233A435CC96F7@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 320266bc-9e18-4291-f18d-08d654a29152
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2018 19:57:31.7508 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1583
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-11-27_16:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+ <610D7954-EAF3-4CB7-9B4B-7A067DA8E8B5@fb.com>
+In-Reply-To: <610D7954-EAF3-4CB7-9B4B-7A067DA8E8B5@fb.com>
+From: Oskar Senft <osk@google.com>
+Date: Tue, 27 Nov 2018 15:51:09 -0500
+Message-ID: <CABoTLcTqqsVdeMBb7n0DWcj3LbqN3Tx14Mr4FtrVuWBo8tw3Vw@mail.gmail.com>
+Subject: Re: Submit board schematics to OpenBMC docs repo
+To: sdasari@fb.com
+Cc: bradleyb@fuzziesquirrel.com, ed.tanous@intel.com, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000a3a49a057bab9c33"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,43 +67,158 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Nov 2018 19:57:49 -0000
+X-List-Received-Date: Tue, 27 Nov 2018 20:51:26 -0000
 
-DQoNCu+7v09uIDExLzI2LzE4LCAxMDo1OCBBTSwgIm9wZW5ibWMgb24gYmVoYWxmIG9mIEJyYWQg
-QmlzaG9wIiA8b3BlbmJtYy1ib3VuY2VzK3NkYXNhcmk9ZmIuY29tQGxpc3RzLm96bGFicy5vcmcg
-b24gYmVoYWxmIG9mIGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbT4gd3JvdGU6DQoNCiAgICBP
-biBGcmksIDIwMTgtMTEtMTYgYXQgMTQ6MjYgLTA4MDAsIEVkIFRhbm91cyB3cm90ZToNCiAgICA+
-IE9uIDExLzE2LzE4IDExOjU4IEFNLCBPc2thciBTZW5mdCB3cm90ZToNCiAgICA+ID4gSXMgdGhl
-cmUgYSBnb29kIHBsYWNlIGluIE9wZW5CTUMgdG8gcG9zdCB0aGF0PyBNYXliZSB0aGUgZG9jcyBy
-ZXBvPw0KICAgID4gPiBJdCdzIDQgUERGIGZpbGVzIHdpdGggPCAxMCBNaUIgaW4gdG90YWwuIEhh
-dmluZyB0aGlzIGluZm9ybWF0aW9uDQogICAgPiA+IHB1YmxpY2x5IHBvc3RlZCBieSB0aGVtIHdv
-dWxkIG1ha2UgZGV2ZWxvcG1lbnQgbXVjaCBlYXNpZXIuDQogICAgPiANCiAgICA+IE9uZSB0aGlu
-ZyBJIHdvbmRlciBpcyB3aGV0aGVyIG9yIG5vdCB3ZSAodGhlIE9wZW5CTUMgcHJvamVjdCkgd2Fu
-dHMNCiAgICA+IHRvDQogICAgPiBiZSBpbiB0aGUgYnVzaW5lc3Mgb2YgaG9zdGluZyBoYXJkd2Fy
-ZSBzY2hlbWF0aWNzLiAgSXQgZmVlbHMgYSBsaXR0bGUNCiAgICA+IGJpdCBvdXQgb2Ygb3VyIHdo
-ZWVsaG91c2UuICBJdCBzZWVtcyBsaWtlIGEgbXVjaCBiZXR0ZXIgdGhpbmcgZm9yIGFuDQogICAg
-PiBvcmdhbml6YXRpb24gbGlrZSBPQ1AgdG8gbWFuYWdlLCB3aG8gZGVhbHMgaW4gYSBsb3Qgb2Yg
-b3BlbiBwaHlzaWNhbA0KICAgID4gaGFyZHdhcmUsIGFuZCB1bmRlcnN0YW5kcyB0aGUgbGljZW5z
-ZXMgYW5kIHN1YnRsZXRpZXMgYXJvdW5kIGhvc3RpbmcNCiAgICA+IHRoYXQga2luZCBvZiBkb2N1
-bWVudGF0aW9uLg0KICAgID4gDQogICAgPiBGb3IgZXhhbXBsZSwgaXMgdGhlIGNvbXBhbnkgcGxh
-bm5pbmcgb24gcmVsZWFzaW5nIHRoZSBzY2hlbWF0aWNzIHdpdGgNCiAgICA+IGENCiAgICA+IGNy
-ZWF0aXZlIGNvbW1vbnMsIEFwYWNoZSwgb3IgTUlUIGxpY2Vuc2U/ICBJIGhhdmUgbm8gaWRlYSB0
-aGUNCiAgICA+IHN1YnRsZXRpZXMNCiAgICA+IG9mIHRoYXQgd2hlbiBpdCBjb21lcyB0byBoYXJk
-d2FyZSBzY2hlbWF0aWNzLCBidXQgbWF5YmUgc29tZW9uZSBlbHNlDQogICAgPiBkb2VzPyAgRG9l
-cyBwb3N0aW5nIHRoZSBzY2hlbWF0aWNzIHdpdGggdGhhdCBsaWNlbnNlIG9wZW4gdGhlDQogICAg
-PiBwb3NzaWJpbGl0eSBvZiBzb21lb25lIGNvcHlpbmcgdGhlIGhhcmR3YXJlPw0KICAgID4gDQog
-ICAgPiBNYXliZSBpdCBtYWtlcyBtb3JlIHNlbnNlIHRvIHBvc3QgaXQgc29tZXdoZXJlIG91dHNp
-ZGUgdGhlIE9wZW5CTUMNCiAgICA+IHByb2plY3QgKHRoZSBjb21wYW5pZXMgd2Vic2l0ZSBwZXJo
-YXBzKSB0aGVuIHBvc3QgYSBsaW5rIHRvIGl0IHRvIHRoZQ0KICAgID4gbWFpbGluZyBsaXN0Pw0K
-ICAgID4gDQogICAgPiBJJ20gbW9zdGx5IGp1c3QgdGhpbmtpbmcgb3V0IGxvdWQgYXQgdGhpcyBw
-b2ludC4NCiAgICA+IA0KICAgID4gDQogICAgPiANCiAgICA+IEFzIGZhciBhcyB3aGVyZSB3ZSBw
-dXQgaXQgaWYgd2UgZG8gZGVjaWRlIHRvIGhvc3QgaXQsIEkgZG9uJ3QgdGhpbmsgYQ0KICAgID4g
-Z2l0IHJlcG8gaXMgdGhlIHJpZ2h0IGNob2ljZS4gIFNjaGVtYXRpY3MgYXJlbid0IGxpa2VseSB0
-byBiZSBzb3VyY2UNCiAgICA+IGNvbnRyb2xsZWQgKGdpdmVuIHRoYXQgdGhleSdyZSBnb2luZyB0
-byBiZSBib2FyZCBmaWxlcyBhbmQgUERGcywgbm90DQogICAgPiBlZGl0YWJsZSBzY2hlbWF0aWNz
-KSBzbyBzb21lIGtpbmQgb2YgZmlsZSBkcm9wIHNlZW1zIGxpa2UgYSBiZXR0ZXINCiAgICA+IGNo
-b2ljZSB0aGFuIHRoZSBkb2NzIHJlcG9zaXRvcnkuDQogICAgPiANCiAgICANCiAgICBmd2l3IEkg
-IGFncmVlIHdpdGggRWQgb24gYWxsIHBvaW50cyBoZXJlLi4uDQoNCiBAT3NrYXIgU2VuZnQgQmFz
-ZWQgb24gdGhpcyByZWNvbW1lbmRhdGlvbiwgSSB0aGluayBpdCB3b3VsZCBiZSBnb29kIHRvIGhv
-c3Qgc2NoZW1hdGljcyBvdXRzaWRlIHRoZSBnaXRodWIgYW5kIHByb3ZpZGUgYSBzb2Z0bGluayBh
-cyBhIHJlZmVyZW5jZS4gDQogICAgDQoNCg==
+--000000000000a3a49a057bab9c33
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks everyone, that makes sense!
+
+Oskar.
+
+On Tue, Nov 27, 2018 at 2:57 PM Sai Dasari <sdasari@fb.com> wrote:
+
+>
+>
+> =EF=BB=BFOn 11/26/18, 10:58 AM, "openbmc on behalf of Brad Bishop"
+> <openbmc-bounces+sdasari=3Dfb.com@lists.ozlabs.org on behalf of
+> bradleyb@fuzziesquirrel.com> wrote:
+>
+>     On Fri, 2018-11-16 at 14:26 -0800, Ed Tanous wrote:
+>     > On 11/16/18 11:58 AM, Oskar Senft wrote:
+>     > > Is there a good place in OpenBMC to post that? Maybe the docs rep=
+o?
+>     > > It's 4 PDF files with < 10 MiB in total. Having this information
+>     > > publicly posted by them would make development much easier.
+>     >
+>     > One thing I wonder is whether or not we (the OpenBMC project) wants
+>     > to
+>     > be in the business of hosting hardware schematics.  It feels a litt=
+le
+>     > bit out of our wheelhouse.  It seems like a much better thing for a=
+n
+>     > organization like OCP to manage, who deals in a lot of open physica=
+l
+>     > hardware, and understands the licenses and subtleties around hostin=
+g
+>     > that kind of documentation.
+>     >
+>     > For example, is the company planning on releasing the schematics wi=
+th
+>     > a
+>     > creative commons, Apache, or MIT license?  I have no idea the
+>     > subtleties
+>     > of that when it comes to hardware schematics, but maybe someone els=
+e
+>     > does?  Does posting the schematics with that license open the
+>     > possibility of someone copying the hardware?
+>     >
+>     > Maybe it makes more sense to post it somewhere outside the OpenBMC
+>     > project (the companies website perhaps) then post a link to it to t=
+he
+>     > mailing list?
+>     >
+>     > I'm mostly just thinking out loud at this point.
+>     >
+>     >
+>     >
+>     > As far as where we put it if we do decide to host it, I don't think=
+ a
+>     > git repo is the right choice.  Schematics aren't likely to be sourc=
+e
+>     > controlled (given that they're going to be board files and PDFs, no=
+t
+>     > editable schematics) so some kind of file drop seems like a better
+>     > choice than the docs repository.
+>     >
+>
+>     fwiw I  agree with Ed on all points here...
+>
+>  @Oskar Senft Based on this recommendation, I think it would be good to
+> host schematics outside the github and provide a softlink as a reference.
+>
+>
+>
+
+--000000000000a3a49a057bab9c33
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks everyone, that makes sense!<div><br></div><div>Oska=
+r.</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Tue, Nov 2=
+7, 2018 at 2:57 PM Sai Dasari &lt;<a href=3D"mailto:sdasari@fb.com">sdasari=
+@fb.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
+<br>
+=EF=BB=BFOn 11/26/18, 10:58 AM, &quot;openbmc on behalf of Brad Bishop&quot=
+; &lt;openbmc-bounces+sdasari=3D<a href=3D"mailto:fb.com@lists.ozlabs.org" =
+target=3D"_blank">fb.com@lists.ozlabs.org</a> on behalf of <a href=3D"mailt=
+o:bradleyb@fuzziesquirrel.com" target=3D"_blank">bradleyb@fuzziesquirrel.co=
+m</a>&gt; wrote:<br>
+<br>
+=C2=A0 =C2=A0 On Fri, 2018-11-16 at 14:26 -0800, Ed Tanous wrote:<br>
+=C2=A0 =C2=A0 &gt; On 11/16/18 11:58 AM, Oskar Senft wrote:<br>
+=C2=A0 =C2=A0 &gt; &gt; Is there a good place in OpenBMC to post that? Mayb=
+e the docs repo?<br>
+=C2=A0 =C2=A0 &gt; &gt; It&#39;s 4 PDF files with &lt; 10 MiB in total. Hav=
+ing this information<br>
+=C2=A0 =C2=A0 &gt; &gt; publicly posted by them would make development much=
+ easier.<br>
+=C2=A0 =C2=A0 &gt; <br>
+=C2=A0 =C2=A0 &gt; One thing I wonder is whether or not we (the OpenBMC pro=
+ject) wants<br>
+=C2=A0 =C2=A0 &gt; to<br>
+=C2=A0 =C2=A0 &gt; be in the business of hosting hardware schematics.=C2=A0=
+ It feels a little<br>
+=C2=A0 =C2=A0 &gt; bit out of our wheelhouse.=C2=A0 It seems like a much be=
+tter thing for an<br>
+=C2=A0 =C2=A0 &gt; organization like OCP to manage, who deals in a lot of o=
+pen physical<br>
+=C2=A0 =C2=A0 &gt; hardware, and understands the licenses and subtleties ar=
+ound hosting<br>
+=C2=A0 =C2=A0 &gt; that kind of documentation.<br>
+=C2=A0 =C2=A0 &gt; <br>
+=C2=A0 =C2=A0 &gt; For example, is the company planning on releasing the sc=
+hematics with<br>
+=C2=A0 =C2=A0 &gt; a<br>
+=C2=A0 =C2=A0 &gt; creative commons, Apache, or MIT license?=C2=A0 I have n=
+o idea the<br>
+=C2=A0 =C2=A0 &gt; subtleties<br>
+=C2=A0 =C2=A0 &gt; of that when it comes to hardware schematics, but maybe =
+someone else<br>
+=C2=A0 =C2=A0 &gt; does?=C2=A0 Does posting the schematics with that licens=
+e open the<br>
+=C2=A0 =C2=A0 &gt; possibility of someone copying the hardware?<br>
+=C2=A0 =C2=A0 &gt; <br>
+=C2=A0 =C2=A0 &gt; Maybe it makes more sense to post it somewhere outside t=
+he OpenBMC<br>
+=C2=A0 =C2=A0 &gt; project (the companies website perhaps) then post a link=
+ to it to the<br>
+=C2=A0 =C2=A0 &gt; mailing list?<br>
+=C2=A0 =C2=A0 &gt; <br>
+=C2=A0 =C2=A0 &gt; I&#39;m mostly just thinking out loud at this point.<br>
+=C2=A0 =C2=A0 &gt; <br>
+=C2=A0 =C2=A0 &gt; <br>
+=C2=A0 =C2=A0 &gt; <br>
+=C2=A0 =C2=A0 &gt; As far as where we put it if we do decide to host it, I =
+don&#39;t think a<br>
+=C2=A0 =C2=A0 &gt; git repo is the right choice.=C2=A0 Schematics aren&#39;=
+t likely to be source<br>
+=C2=A0 =C2=A0 &gt; controlled (given that they&#39;re going to be board fil=
+es and PDFs, not<br>
+=C2=A0 =C2=A0 &gt; editable schematics) so some kind of file drop seems lik=
+e a better<br>
+=C2=A0 =C2=A0 &gt; choice than the docs repository.<br>
+=C2=A0 =C2=A0 &gt; <br>
+<br>
+=C2=A0 =C2=A0 fwiw I=C2=A0 agree with Ed on all points here...<br>
+<br>
+=C2=A0@Oskar Senft Based on this recommendation, I think it would be good t=
+o host schematics outside the github and provide a softlink as a reference.=
+ <br>
+<br>
+<br>
+</blockquote></div>
+
+--000000000000a3a49a057bab9c33--
