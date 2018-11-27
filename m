@@ -1,60 +1,50 @@
-Return-Path: <a.filippov@yadro.com>
+Return-Path: <jerry.hoemann@hpe.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.filippov@yadro.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=hpe.com
+ (client-ip=15.241.32.99; helo=g9t1613g.houston.hpe.com;
+ envelope-from=jerry.hoemann@hpe.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="iKkeTmpf"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ dmarc=none (p=none dis=none) header.from=hpe.com
+X-Greylist: delayed 532 seconds by postgrey-1.36 at bilbo;
+ Tue, 27 Nov 2018 12:40:23 AEDT
+Received: from g9t1613g.houston.hpe.com (g9t1613g.houston.hpe.com
+ [15.241.32.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434Zqq1bBlzDqWS
- for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 20:20:06 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 20D4741983;
- Wed, 28 Nov 2018 09:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- user-agent:in-reply-to:content-disposition:content-type
- :content-type:mime-version:references:message-id:subject:subject
- :from:from:date:date:received:received:received; s=mta-01; t=
- 1543396801; x=1545211202; bh=w+CdnK9Gz8ptkpMMtPYVzH/ypNCZf8K2E6Y
- ONuY5sro=; b=iKkeTmpf3IEDbYJaopouMNsdZyT6cXi3INtAeeSiaYRBCqJpSCR
- iYeU3/e2nNORmJa8l/j1q+wkQS71ElWfXftJQlFdDeDokw36yoUB8iboB0sIYOur
- yv4pXrD9Q4Rhb91H/8fMQKo4ZGSOanKxBlm9qljd+hYD/mvEGmtUgo9U=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Sr8KNsZ6OAI2; Wed, 28 Nov 2018 12:20:01 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ by lists.ozlabs.org (Postfix) with ESMTPS id 433mgq29SHzDqRM
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 12:40:21 +1100 (AEDT)
+Received: from g9t5008.houston.hpe.com (g9t5008.houston.hpe.com [15.241.48.72])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id A33EA412D4;
- Wed, 28 Nov 2018 12:20:00 +0300 (MSK)
-Received: from localhost (172.17.15.155) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 28
- Nov 2018 12:19:59 +0300
-Date: Wed, 28 Nov 2018 12:19:59 +0300
-From: "Alexander A. Filippov" <a.filippov@yadro.com>
-To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-CC: <openbmc@lists.ozlabs.org>, <a.filippov@yadro.com>
-Subject: Re: Proposal to Sync BMC's MAC Address to U-Boot environment
-Message-ID: <20181128091959.GA12725@bbwork.lan>
-References: <OF9015C576.BDD4A20B-ON00258352.003BDFFF-65258352.003C4190@notes.na.collabserv.com>
- <a31fa95d9b47461a98e5477a94098c5b@yadro.com>
- <efff61d5-645d-7d81-4b75-f26bb465e96a@linux.vnet.ibm.com>
+ by g9t1613g.houston.hpe.com (Postfix) with ESMTPS id 90E5260AA7
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Nov 2018 01:31:28 +0000 (UTC)
+Received: from g4t3433.houston.hpecorp.net (g4t3433.houston.hpecorp.net
+ [16.208.49.245])
+ by g9t5008.houston.hpe.com (Postfix) with ESMTP id 2CEAF59;
+ Tue, 27 Nov 2018 01:31:19 +0000 (UTC)
+Received: from anatevka (anatevka.americas.hpqcorp.net [10.34.81.61])
+ by g4t3433.houston.hpecorp.net (Postfix) with ESMTP id EA62C49;
+ Tue, 27 Nov 2018 01:31:17 +0000 (UTC)
+Date: Mon, 26 Nov 2018 18:31:17 -0700
+From: Jerry Hoemann <jerry.hoemann@hpe.com>
+To: Tao Ren <taoren@fb.com>
+Cc: Guenter Roeck <linux@roeck-us.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH] watchdog: core: suppress "watchdog did not stop" message
+Message-ID: <20181127013117.GB11080@anatevka>
+Reply-To: Jerry.Hoemann@hpe.com
+References: <20181115234413.27009-1-taoren@fb.com>
+ <20181116001938.GA16009@roeck-us.net>
+ <9a43bb84-f476-d6c8-886a-2120312ee8e7@fb.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <efff61d5-645d-7d81-4b75-f26bb465e96a@linux.vnet.ibm.com>
+In-Reply-To: <9a43bb84-f476-d6c8-886a-2120312ee8e7@fb.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Originating-IP: [172.17.15.155]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+X-Mailman-Approved-At: Wed, 28 Nov 2018 22:35:21 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,29 +56,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Nov 2018 09:20:08 -0000
+X-List-Received-Date: Tue, 27 Nov 2018 01:40:23 -0000
 
-On Wed, Nov 28, 2018 at 11:05:32AM +0530, Ratan Gupta wrote:
-> Hi Alexander,
+On Fri, Nov 16, 2018 at 12:37:28AM +0000, Tao Ren wrote:
+> On 11/15/18 4:19 PM, Guenter Roeck wrote:
+> > NACK. This message is displayed if/when the watchdog application
+> > exits without stopping the watchdog and/or without closing properly.
+> > This _is_ critical since it will reboot the system after the next
+> > timeout period.
+> > 
+> > If userspace triggers this message on purpose (eg by the mentioned
+> > script, which does not exit properly), userspace is at fault,
+> > not the kernel.
+> > 
+> > Guenter
 > 
-> We only restart the systemd-networkd during change of macAddress, if the
-> interface is DHCP Enabled.BMC should get new IP from the DHCP server if the
-> mac address has got changed. Do you still see a issue?
-
-Yes, and because by default is used DHCP and MAC address is randomly generated, 
-it happens always at first boot or after resetting to the manufactured settings.
-
+> Thank you for the quick response, Guenter. I see the log each time when I reboot my system, and when I searched the message in google, I also found posts asking why the message is printed at reboot, and that's why I feel it's confusing.
 > 
-> It would be nice if you can publish your idea also.
-> 
+> Anyways, please ignore the patch since it's necessary.
 
-https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/16245
+Tao,
 
-> --
-> Regards
-> Ratan Gupta
-> 
+If you're on a system running systemd, the default behavior is to
+enable the watchdog during shutdown.  This guards against shutdown hanging.
+So this message will be routinely printed out during orderly shutdown.
 
---
-Cheers, 
-Alexander
+
+See file: /etc/systemd/system.conf
+----------------------------------
+...
+# Entries in this file show the compile time defaults.
+...
+
+#ShutdownWatchdogSec=10min
+
+
+
+
+-- 
+
+-----------------------------------------------------------------------------
+Jerry Hoemann                  Software Engineer   Hewlett Packard Enterprise
+-----------------------------------------------------------------------------
