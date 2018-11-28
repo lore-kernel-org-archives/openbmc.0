@@ -1,53 +1,75 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=158.85.210.119; helo=smtp.notes.na.collabserv.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-X-Greylist: delayed 726 seconds by postgrey-1.36 at bilbo;
- Wed, 28 Nov 2018 14:55:22 AEDT
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.119])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434Rd62mWGzDqjd
- for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 14:55:21 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 434Ts12SRxzDqjJ
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 16:35:45 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wAS5YHvU027695
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 00:35:42 -0500
+Received: from e06smtp07.uk.ibm.com (e06smtp07.uk.ibm.com [195.75.94.103])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2p1g5b1e13-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 00:35:42 -0500
 Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Wed, 28 Nov 2018 03:43:10 -0000
-Received: from us1b3-smtp03.a3dr.sjc01.isc4sb.com (10.122.7.173)
- by smtp.notes.na.collabserv.com (10.122.182.123) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 28 Nov 2018 03:43:07 -0000
-X-IBM-Helo: us1b3-smtp03.a3dr.sjc01.isc4sb.com
-X-IBM-MailFrom: sivas.srr@in.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
- by us1b3-smtp03.a3dr.sjc01.isc4sb.com
- with ESMTP id 2018112803430670-11166 ;
- Wed, 28 Nov 2018 03:43:06 +0000 
-In-Reply-To: 
-Subject: Reminder for OpenBMC Test Work group meeting - aligned with DST as
- per the request
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Wed, 28 Nov 2018 03:43:07 +0000
-Message-ID: <OFCE0A73D3.8AB7878F-ON00258353.0013E58C-00258353.00146D4D@notes.na.collabserv.com>
-Sensitivity: 
-References: 
+ by e06smtp07.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Wed, 28 Nov 2018 05:35:40 -0000
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp07.uk.ibm.com (192.168.101.137) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 28 Nov 2018 05:35:37 -0000
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com
+ (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ wAS5Za0c6750576
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 28 Nov 2018 05:35:36 GMT
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CA703A405C;
+ Wed, 28 Nov 2018 05:35:36 +0000 (GMT)
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 94026A4060;
+ Wed, 28 Nov 2018 05:35:35 +0000 (GMT)
+Received: from [9.85.156.74] (unknown [9.85.156.74])
+ by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Wed, 28 Nov 2018 05:35:35 +0000 (GMT)
+Subject: Re: Proposal to Sync BMC's MAC Address to U-Boot environment
+To: openbmc@lists.ozlabs.org, a.filippov@yadro.com
+References: <OF9015C576.BDD4A20B-ON00258352.003BDFFF-65258352.003C4190@notes.na.collabserv.com>
+ <a31fa95d9b47461a98e5477a94098c5b@yadro.com>
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Date: Wed, 28 Nov 2018 11:05:32 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16616-1491 | IBM Domino Build
- SCN1812108_20180501T0841_FP15 October 23, 2018 at 16:48
-X-KeepSent: CE0A73D3:8AB7878F-00258353:0013E58C;
- type=4; name=$KeepSent
-X-LLNOutbound: 126
-X-Disclaimed: 27495
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
+In-Reply-To: <a31fa95d9b47461a98e5477a94098c5b@yadro.com>
+Content-Type: text/plain; charset=koi8-r; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18112805-0028-0000-0000-000003228FF6
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18112805-0029-0000-0000-000023DE9AC6
+Message-Id: <efff61d5-645d-7d81-4b75-f26bb465e96a@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-28_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1811280051
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,196 +81,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Nov 2018 03:55:23 -0000
+X-List-Received-Date: Wed, 28 Nov 2018 05:35:49 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Dear Team,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Reminder for OpenBMC Test work group meeting. <a href=3D"=
-https://github.com/openbmc/openbmc/wiki/Test-work-group" >https://github.co=
-m/openbmc/openbmc/wiki/Test-work-group</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Time is aligned with DST changes as per the global reques=
-t.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Had a discussion with Kurt Taylor and there is small chan=
-ge in the probable test date. We can discuss during the</div>
-<div dir=3D"ltr" >meeting.&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Feel free to sign on for test: OpenBMC Feature Test Sign-=
-on <a href=3D"https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-o=
-YPCI/view?usp=3Dsharing" rel=3D"nofollow" >https://drive.google.com/file/d/=
-1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><pre><code><strong>Highest priority design  / test work f=
-rom OpenBMC Team:  (February Release)</strong>
--        Inband codeupdate feature  - Design link shared with Joseph and he=
- also reviewed
--        LDAP User management   - LDAP test Plan to be shared with Joseph f=
-or review (AI - Done)
--        Virtual Media
--        User Management / Group Management
--        KVM ( Part of Feb release )
--        Security changes
--         RedFish</code></pre></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
-<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
-Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
- 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
-" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
-t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
-ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
-- 080-64800002)</h2></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
-Sivas Srr/India/IBM</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
-o: </span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
-span></div></div></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
-" >Comments from Sivas Srr:</span></div></div>
-<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
-rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
-ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
-pan>Thu, Nov 29, 2018 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
-ine-block" >(applies to 2 instances)</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
-</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
-8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
-scode: 928 662 307</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
-n></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
-/span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
-ting name: </span> <span>OpenBMC Test Group meeting </span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
-ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
-: </span> <span>928 662 307</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
-</span> <span>sivas</span></div></div>
-<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
-17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
-top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
-10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
-pan></div>
-<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
-pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
-bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
-m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
-Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
-chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
-ia/IBM, venture@google.com, yuenn@google.com</span></div></div>
-<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
-ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
-: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
-ont-weight: bold" >Optional: </span></div>
-<div>&nbsp;</div></div>
-<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
-lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
-ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
-eight: bold" >FYI: </span></div>
-<div>&nbsp;</div></div></div>
-<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
-ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
-n: left; color: #666;" >Description:</span></div>
-<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
-elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" >Note: Rescheduling this meeti=
-ng to accommodate new members.</font></font></font></font></font></span></d=
-iv>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:</font></font></fon=
-t></font></font></span></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >- Recap of last instance and solut=
-ion</font></font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >- New Agenda / Issues to be discus=
-sed - planned earlier</font></font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >-&nbsp; Around the room</font></fo=
-nt></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
-bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
-penbmc/openbmc/wiki/Test-work-group</a></font></font></font></font></font><=
-/span></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >Agenda: 23 Aug 2018</font></font><=
-/font></font></font></span></div>
-<div>&nbsp;</div>
-<ul>        <li><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Defa=
-ult Sans Serif,Verdana,Arial,Helvetica,sans-serif" >New member introduction=
- if any</font></font></font></font></font></span></li>        <li><span><fo=
-nt size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif=
-" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans=
--serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,He=
-lvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" >Auto test plan generation using robot framework =
-( <a href=3D"https://github.com/openbmc/openbmc-test-automation/blob/master=
-/tools/generate=5Ftest=5Fdocument" target=3D"=5Fblank" >https://github.com/=
-openbmc/openbmc-test-automation/blob/master/tools/generate=5Ftest=5Fdocumen=
-t )</a></font></font></font></font></font></span></li>        <li><span><fo=
-nt size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif=
-" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans=
--serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,He=
-lvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" >Do we need to create explicit test plan document=
-?</font></font></font></font></font></span></li>        <li><span><font siz=
-e=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><fo=
-nt size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif=
-" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans=
--serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,He=
-lvetica,sans-serif" >Dynamic CI discussion</font></font></font></font></fon=
-t></span></li></ul>
-<div>&nbsp;</div></div></div></div></div></div></div></div></blockquote></d=
-iv><BR>
+Hi Alexander,
+
+We only restart the systemd-networkd during change of macAddress, if the 
+interface is DHCP Enabled.BMC should get new IP from the DHCP server if 
+the mac address has got changed. Do you still see a issue?
+
+It would be nice if you can publish your idea also.
+
+--
+Regards
+Ratan Gupta
+
+
+On 27/11/18 6:34 PM, Alexander A. Filippov wrote:
+> Hi there,
+>
+> On our VESNIN servers it work by the same scenario.
+> This way gives an excess restart of the systemd-network.service and it looks uncomfortable.
+>
+> For this reason, I wrote an implementation of the aspeed-i2c and VPD-parser for the u-boot-aspeed.
+> It has one bug - i2c does not work at the cold start (after the power cord plugged). I will fix it later.
+>
+> The general idea, why it is not sent to the community yet - the mainline of the u-boot already has the implementation of the aspeed-i2c but has no support (or maybe not full) of ast-2400 (which we are using). It also in our plans but with lower priority.
+>
+> If you interested in any of these solutions, I can publish them.
+>
+> --
+> Regards,
+> Alexander Filippov
+> Software Engineer, YADRO.
+>
+> ________________________________________
+> От: openbmc <openbmc-bounces+a.filippov=yadro.com@lists.ozlabs.org> от имени Nagaraju Goruganti <ngorugan@in.ibm.com>
+> Отправлено: 27 ноября 2018 г. 13:58:01
+> Кому: openbmc@lists.ozlabs.org
+> Тема: Proposal to Sync BMC's MAC Address to U-Boot environment
+>
+> HI All,
+>
+> As we want to get rid of python, making this proposal to sync BMC's MAC Address to U-Boot environment(assuming this is a common requirement across OpenBMC based systems).
+>
+> Proposal:
+>
+> Platform specific code :
+>
+> a) Get MAC Address from platform specific NV storage (BMC VPD on OpenPOWER systems) into an inventory object. It is being done by openpower-vpd-parser on the openpower systems .
+>
+> Common code:
+>
+> b) A script (invoked by systemd on the way to BMC ready state) fetches BMC MAC Address from (platform specific) inventory object. If this MAC Address and the one in u-boot environment are different (or if the u-boot one is empty), then the script writes the inventory MAC Address to u-boot using fw_setenv.
+>
+> c) The script can reside in a phosphor layer.
+>
+> Existing Python script:
+>
+> The existing python script(openbmc/skeleton/pyinventorymgr/sync_inventory_items.py) does the same thing.
+>
+>
+> We need a opinion from the community members on this proposal.
+>
+> Best Regards,
+>
+> Nagaraju G
+>
