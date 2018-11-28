@@ -1,52 +1,38 @@
-Return-Path: <susantjasinski@gmail.com>
+Return-Path: <jason.m.bills@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::42c; helo=mail-pf1-x42c.google.com;
- envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="GYyc1KD9"; 
- dkim-atps=neutral
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434x7X6gBVzDr1m
- for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 10:04:56 +1100 (AEDT)
-Received: by mail-pf1-x42c.google.com with SMTP id c123so5438pfb.0
- for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 15:04:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=YNZq8/DO/KjJGrIjvkGAaB69u/EUQV5buTsLnxCEPag=;
- b=GYyc1KD9Lwd3Zd5S7POtkKTdZ11tab5BTc9c6kOpu5L82RoQbhanJWi06QosJRgK6B
- 1M6IYJxHahhSQZZB6HM/ZfFiHyIKqOAPD06bRux2TpfFCcaWHJQbIncPUIp2XIlIpmyX
- T/+semVjpg02Oi/Cji3sSlGTgc3kNOJGoWx1glRq6dnRSBAD5DIVd0WrosdXcGTLgIJL
- PgItBFnNf38h/apFO3nK87tMVV+APtf1yckpaQlwAuZlDkaNoNi1X14FQRxQQdsgPslq
- nS3Wm1gWBlod4rtkNtKLNSnrHzZHjzEU2I3PgAPai9E4w75e/92myOdLwxZ3hGxhw01P
- WJIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=YNZq8/DO/KjJGrIjvkGAaB69u/EUQV5buTsLnxCEPag=;
- b=OJ+oB5umj+HDnmIfrVkhShM9On54Kp7BIrGrxqXhdd9XovvOHNqe3HGAWYBmSJkIIW
- JtTMj8BO7T1XTZrMQXrBu4OkDNJu5ADlZgFyn1gqOUABZf6Xi29U1lurSTZcMnljNivG
- PiLvD5wxHEjxi8x0Nyz2bE2pIKtP52oDv8WyDb6Tz8SHz3z1iJXJgfghpqwYwUV5Nx1a
- 2z+DtskZpfERrziW+V6A3gofX2E3EpqCujG3dk1d7Bc1gcmGg8uHEsHh2VyyduboI7UV
- JIfPcmGMlv1ihn/DAg0TBIaoBnHZ7DRbnZ9UKaUF6JgrgbqEdRl1Hz8CGvIvJVJsWNMC
- J0zQ==
-X-Gm-Message-State: AA+aEWbqSb+Sd0U8G2XWOQYqJv0cm9p/7XsDiy7cKotkPO8YoMiQowqs
- ztupFpbEJzHQ0DzqeQ0q7r3S0HYfgFD+FjOklhRsgtXi
-X-Google-Smtp-Source: AFSGD/VMdLQabz7Hbx97+pMKflYSC65ta3wprK5f3TlHkDUzr3zWq3qVvJlH7C8Li3Dm2PBNK+q77ud+UZu/6oQCNm4=
-X-Received: by 2002:a63:588:: with SMTP id 130mr34321353pgf.273.1543446294549; 
- Wed, 28 Nov 2018 15:04:54 -0800 (PST)
-MIME-Version: 1.0
-From: susan jasinski <susantjasinski@gmail.com>
-Date: Wed, 28 Nov 2018 17:04:43 -0600
-Message-ID: <CANT4NrLihi+AWcXcD4JXxBOu2j26m2PRVvrq1rhuFO54TPOs3g@mail.gmail.com>
-Subject: OpenBMC GUI panels ready for review
+ by lists.ozlabs.org (Postfix) with ESMTPS id 434xVb5vXRzDr1g
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 10:21:23 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2018 15:21:21 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,292,1539673200"; d="scan'208";a="96749173"
+Received: from jmbills-mobl4.amr.corp.intel.com (HELO [10.241.242.31])
+ ([10.241.242.31])
+ by fmsmga008.fm.intel.com with ESMTP; 28 Nov 2018 15:21:21 -0800
+Subject: Re: IPMI SEL refactoring comments
 To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000001dd920057bc19879"
+References: <551365ea-c6e2-b3d6-c9a5-2b9cdced6120@linux.vnet.ibm.com>
+From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
+Message-ID: <87ce0ee0-8ac8-829f-29a4-1a9803985ef0@linux.intel.com>
+Date: Wed, 28 Nov 2018 15:21:20 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <551365ea-c6e2-b3d6-c9a5-2b9cdced6120@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,106 +44,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Nov 2018 23:04:57 -0000
-
---0000000000001dd920057bc19879
-Content-Type: text/plain; charset="UTF-8"
-
-OpenBMC GUI panels are ready for your review. Links to the mockups and
-component descriptions/behaviors are in the respective issues.
+X-List-Received-Date: Wed, 28 Nov 2018 23:21:28 -0000
 
 
-LDAP Role Groups https://github.com/openbmc/phosphor-webui/issues/38
-LDAP Server Configuration
-https://github.com/openbmc/phosphor-webui/issues/39
-SNMP Server Management https://github.com/openbmc/phosphor-webui/issues/37
-Date and Time Settings https://github.com/openbmc/phosphor-webui/issues/46
 
+On 11/26/2018 5:26 AM, Tom Joseph wrote:
+> Hello Jason,
+> 
+> I reviewed the patches for the IPMI SEL refactoring and wanted to 
+> summarize the concerns with the proposed design. There are some current 
+> features that are broken.
+> 
+> 1) The sensor numbers are arbitrary in the proposed implementation and 
+> does not account for the presence/error corresponding to inventory 
+> objects. On IBM systems the host firmware does not rely on the SDR 
+> repository in BMC to figure out the sensor numbers, rather the sensor 
+> numbers are programmed into the  host firmware at the build time. So the 
+> sensor numbers cannot be arbitrary.
+> 
+I think this is the main issue: mapping sensor paths to sensor numbers 
+in a flexible way.  Once we can find a way to allow custom sensor number 
+mapping, it should allow all types of sensors to be mapped as needed.
 
-Please post all comments and feedback directly in the issue. I am
-particularly interested in:
+One idea we've had would be to somehow add the sensor number into the 
+sensor D-Bus object which would mitigate arbitrary numbering as needed.
 
-   - Is the workflow intuitive? If not, what was confusing and why?
-   - Are the fields or components the correct ones? If not, why?
-   - Are there missing fields or components for the feature? If yes, what
-   is missing and why is it important?
+>  > I know you are working on a proposal to have a customizable map of 
+> sensor number to path. The support is only for threshold based sensors( 
+> targeting only /xyz/openbmc_project/sensors namespace) , it needs to 
+> extend support for discrete sensors. The sensor types are limited to few 
+> types(temperature, voltage,current, fan_tach, power), need to support 
+> other sensor types in the specification. It might not be possible to 
+> deduce the sensor type from the D-Bus object path for all sensors.
+> 
+> 2)  OpenPower systems like Witherspoon and Zaius relies on eSEL(extended 
+> SEL format) to report debug data from the host firmware. The eSEL data 
+> is added to the D-Bus native error log via the Add SEL entry command. 
+> This is not handled with the refactoring.
+> 
+>  > This is an openpower requirement and needs to be handled in an 
+> openpower IPMI OEM library/application and not in the phosphor 
+> implementation. A D-Bus error log containing eSEL can be created on 
+> completion of transfer of eSEL and not depend on Add SEL entry. The 
+> callouts associated with the eSEL can be added to the D-Bus error log by 
+> keeping a watch on the IPMI SEL entries. This might need changes to 
+> phosphor-logging API to support adding callout after creation of error 
+> log. This is a proposal and looks viable.
+> 
+> 3) The current implementation the Get SEL entry is translating the D-Bus 
+> error log to IPMI SEL format. If there is a FRU callout associated with 
+> the D-Bus error log(D-Bus object paths in the inventory namespace) it is 
+> mapped to the sensor number associated with FRU and reported through SEL.
+> 
+>  > The implementation of the Get SEL entry needs to adapt to include all 
+> the objects paths(the patchsets target only /xyz/openbmc_project/sensors 
+> namespace) and map the D-Bus object path to the sensor numbers(based on 
+> the proposed customizable map).
+> 
+This should also be solved by fixing the sensor number mapping.
 
-We will discuss this first set of panels during our next GUI Design
-workshop on Wednesday, December 5.
+> 4) In the current implementation all the D-Bus error logs have 1x1 
+> mapping in the IPMI SEL. In the proposed solution the users will have to 
+> rely on both D-Bus error logs and IPMI SEL to get the complete picture. 
+> The customers cannot rely only on IPMI SEL as an event repository.
+> 
+>  > In the current proposal D-Bus error logs reported by BMC will not be 
+> shown by SEL commands. I am okie with Jason's proposal to set up a D-Bus 
+> match (either by ipmid or phosphor-sel-logger) that will watch for new 
+> logging D-Bus objects to be created and add a SEL record for them on 
+> creation.
+> 
+Another thought would be to abandon D-Bus-based logging and see if the 
+same information could be placed in the journal.
 
-I look forward to your feedback!
+> https://gerrit.openbmc-project.xyz/#/q/status:open++topic:%22IPMI+SEL%22
+> 
+> Regards,
+> Tom
+> 
 
--- Susan Jasinski (UX Design Lead)
+More work is needed to come up with a flexible generic sensor numbering 
+scheme that will work with the various sensor implementations.  I have 
+been assigned to a different task and will not be working on this for a 
+while.  So, as discussed in the call this week, as a stop-gap, I plan to 
+move the journal-based SEL implementation into intel-ipmi-oem for now. 
+We can revisit this as we make progress on the sensor numbering issue. 
+This will also allow everyone to see the full working implementation 
+which may help resolve some questions.
 
---0000000000001dd920057bc19879
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><span style=3D"color:rgb(69,69,69);font-family:&quot;Open =
-Sans&quot;,Arial,Helvetica,sans-serif;white-space:pre-wrap;background-color=
-:rgb(247,247,247)">OpenBMC GUI panels are ready for your review.=C2=A0</spa=
-n><span style=3D"font-family:&quot;Helvetica Neue&quot;">Links to the mocku=
-ps and component descriptions/behaviors are in the respective issues.=C2=A0=
-</span><div><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:=
-normal;font-variant-east-asian:normal;font-stretch:normal;line-height:norma=
-l;font-family:&quot;Helvetica Neue&quot;"><br></p></div><div><span style=3D=
-"color:rgb(69,69,69);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans=
--serif;white-space:pre-wrap;background-color:rgb(247,247,247)">LDAP Role Gr=
-oups </span><a href=3D"https://github.com/openbmc/phosphor-webui/issues/38"=
- class=3D"gmail-linkified" target=3D"_blank" rel=3D"noopener" style=3D"colo=
-r:rgb(118,207,166);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-s=
-erif;white-space:pre-wrap;background-color:rgb(247,247,247)">https://github=
-.com/openbmc/phosphor-webui/issues/38</a></div><div><span style=3D"color:rg=
-b(69,69,69);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-serif;wh=
-ite-space:pre-wrap;background-color:rgb(247,247,247)">LDAP Server Configura=
-tion </span><a href=3D"https://github.com/openbmc/phosphor-webui/issues/39"=
- class=3D"gmail-linkified" target=3D"_blank" rel=3D"noopener" style=3D"colo=
-r:rgb(118,207,166);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-s=
-erif;white-space:pre-wrap;background-color:rgb(247,247,247)">https://github=
-.com/openbmc/phosphor-webui/issues/39</a><br></div><div><span style=3D"colo=
-r:rgb(69,69,69);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-seri=
-f;font-size:14px;white-space:pre-wrap;background-color:rgb(247,247,247)">SN=
-MP Server Management </span><a href=3D"https://github.com/openbmc/phosphor-=
-webui/issues/37" class=3D"gmail-linkified" target=3D"_blank" rel=3D"noopene=
-r" style=3D"color:rgb(118,207,166);font-family:&quot;Open Sans&quot;,Arial,=
-Helvetica,sans-serif;font-size:14px;white-space:pre-wrap;background-color:r=
-gb(247,247,247)">https://github.com/openbmc/phosphor-webui/issues/37</a><br=
-></div><div><span style=3D"color:rgb(69,69,69);font-family:&quot;Open Sans&=
-quot;,Arial,Helvetica,sans-serif;font-size:14px;white-space:pre-wrap;backgr=
-ound-color:rgb(247,247,247)">Date and Time Settings </span><a href=3D"https=
-://github.com/openbmc/phosphor-webui/issues/46" class=3D"gmail-linkified" t=
-arget=3D"_blank" rel=3D"noopener" style=3D"color:rgb(118,207,166);font-fami=
-ly:&quot;Open Sans&quot;,Arial,Helvetica,sans-serif;font-size:14px;white-sp=
-ace:pre-wrap;background-color:rgb(247,247,247)">https://github.com/openbmc/=
-phosphor-webui/issues/46</a><br></div><div><div><p class=3D"gmail-p1" style=
-=3D"margin:0px;font-variant-numeric:normal;font-variant-east-asian:normal;f=
-ont-stretch:normal;line-height:normal;font-family:&quot;Helvetica Neue&quot=
-;"><br></p><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:n=
-ormal;font-variant-east-asian:normal;font-stretch:normal;line-height:normal=
-;font-family:&quot;Helvetica Neue&quot;">Please post all comments and feedb=
-ack directly in the issue. I am particularly interested in:</p></div></div>=
-<div><ul class=3D"gmail-ul1">
-<li class=3D"gmail-li1" style=3D"margin:0px;font-variant-numeric:normal;fon=
-t-variant-east-asian:normal;font-stretch:normal;line-height:normal;font-fam=
-ily:&quot;Helvetica Neue&quot;"><span class=3D"gmail-s1" style=3D"font-vari=
-ant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;line-=
-height:normal;font-family:Menlo"></span>Is the workflow intuitive? If not, =
-what was confusing and why?</li><li class=3D"gmail-li1" style=3D"margin:0px=
-;font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:no=
-rmal;line-height:normal;font-family:&quot;Helvetica Neue&quot;">Are the fie=
-lds or components the correct ones? If not, why?</li>
-<li class=3D"gmail-li1" style=3D"margin:0px;font-variant-numeric:normal;fon=
-t-variant-east-asian:normal;font-stretch:normal;line-height:normal;font-fam=
-ily:&quot;Helvetica Neue&quot;"><span class=3D"gmail-s1" style=3D"font-vari=
-ant-numeric:normal;font-variant-east-asian:normal;line-height:normal;font-f=
-amily:Menlo;font-stretch:normal;font-stretch:normal"></span>Are there missi=
-ng fields or components for the feature? If yes, what is missing and why is=
- it important?</li>
-</ul><div><font face=3D"Helvetica Neue">We will discuss this first set of p=
-anels during our next GUI Design workshop on Wednesday, December 5.=C2=A0</=
-font></div><div><font face=3D"Helvetica Neue"><br></font></div><div><font f=
-ace=3D"Helvetica Neue">I look forward to your feedback!</font></div></div><=
-div><font face=3D"Helvetica Neue"><br></font></div><div><font face=3D"Helve=
-tica Neue">-- Susan Jasinski (UX Design Lead)</font></div></div>
-
---0000000000001dd920057bc19879--
+Thanks,
+-Jason
