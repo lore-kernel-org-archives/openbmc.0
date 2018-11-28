@@ -1,34 +1,51 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ header.from=linux.intel.com
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434qB34sbNzDr0C
- for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 05:36:42 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 1ADE36DC89;
- Wed, 28 Nov 2018 13:36:38 -0500 (EST)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 12.1 \(3445.101.1\))
-Subject: Re: Add TARGET_MACHINE to /etc/os-release
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <966f717c-59a9-7f88-7b37-91edb9d72276@charter.net>
-Date: Wed, 28 Nov 2018 13:36:37 -0500
-Cc: openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <FA5A8B03-6706-4072-A1A9-EE8B1BC1575F@fuzziesquirrel.com>
-References: <mailman.11506.1542344002.668.openbmc@lists.ozlabs.org>
- <966f717c-59a9-7f88-7b37-91edb9d72276@charter.net>
-To: Joseph Reynolds <joseph-reynolds@charter.net>
-X-Mailer: Apple Mail (2.3445.101.1)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 434wMP3DLhzDr0k;
+ Thu, 29 Nov 2018 09:30:08 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2018 14:30:06 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,292,1539673200"; d="scan'208";a="93726054"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.32.196])
+ ([10.122.32.196])
+ by orsmga007.jf.intel.com with ESMTP; 28 Nov 2018 14:30:04 -0800
+Subject: Re: [PATCH i2c-next v9 5/5] i2c: aspeed: Add bus idle waiting logic
+ for multi-master use cases
+To: Wolfram Sang <wsa@the-dreams.de>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20181030210917.32711-1-jae.hyun.yoo@linux.intel.com>
+ <20181030210917.32711-6-jae.hyun.yoo@linux.intel.com>
+ <20181128215434.GA1666@kunai>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <2772b86e-6ffb-e289-40f2-f96d11b82349@linux.intel.com>
+Date: Wed, 28 Nov 2018 16:30:03 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <20181128215434.GA1666@kunai>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,63 +57,151 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Nov 2018 18:36:44 -0000
+X-List-Received-Date: Wed, 28 Nov 2018 22:30:10 -0000
 
-Hi Joseph
+On 11/28/2018 3:54 PM, Wolfram Sang wrote:
+> On Tue, Oct 30, 2018 at 02:09:16PM -0700, Jae Hyun Yoo wrote:
+>> In multi-master environment, this driver's master cannot know
+>> exactly when a peer master sends data to this driver's slave so a
+>> case can be happened that this master tries to send data through
+>> the master_xfer function but slave data from peer master is still
+>> being processed by this driver.
+> 
+> So, that I get this correct: your IP core cannot detect a bus busy state
+> when its own slave address is acessed? Well, I know HW can have bugs,
+> but I still wonder because a bus is busy as soon as another START has
+> been detected, independent of which device is going to be accessed.
+> 
+> Even if so, why can't you use a mutex to prevent any master_xfer while
+> slave_xfer is ongoing?
+> 
+> Shouldn't that be enough according to the above description? Why do you
+> need the delay? I might be missing something...
+> 
 
-> On Nov 16, 2018, at 12:30 PM, Joseph Reynolds =
-<joseph-reynolds@charter.net> wrote:
->=20
->=20
-> Proposal to add TARGET_MACHINE to /etc/os-release.
->=20
-> In an OpenBMC image, the /etc/os-release file includes distro =
-("openbmc-phosphor") and version (as a git tag or commit).  It should =
-also include the target machine (the kind of device the OpenBMC image is =
-intended to control).  This is needed to be able to track the image back =
-to its source code: the distro and version indicate the exact source =
-code that was used, and the target says which Bitbake layer =
-configuration within that source was used.
->=20
-> Specifically, the proposal is to enhance the generated /etc/os-release =
-file with a new OS identification parameter like:
->   OPENBMC_PHOSPHOR_TARGET_MACHINE=3D"$MACHINE"
-> where MACHINE=3D"romulus", for example.
->=20
-> All OpenBMC images should define this os-release parameter.
->=20
-> Proposed documentation for the new parameter: Indicates the kind of =
-device the OpenBMC image is targeted to control.
->=20
-> ... tl;dr details follow ... snip ...
->=20
-> The MACHINE is set in =
-openbmc/meta-COMPANY/meta-MACHINE/conf/local.conf.sample.  (This is =
-where TEMPLATECONF points to.)
->=20
-> Note MACHINE is not guaranteed to be unique across all future OpenBMC =
-layer configurations.  (That is, meta-A/meta-B/conf and =
-meta-X/meta-Y/conf may inadvertently define the same machine name.) To =
-guarantee uniqueness, an alternate design would be to use the =
-TEMPLATECONF parameter as the machine name. (e.g., =
-"meta-ibm/meta-romulus/conf").  In practice I expect the machine name =
-will be sufficiently unique: as unique as different company's brand and =
-model names.
->=20
-> The manual page for "os-release" recommends prefixing the parameter =
-name with the distro name.  Ideas for alternate parameter names are =
-welcome ("OBMC_TARGET_HARDWARE" anyone?).  See =
-https://www.freedesktop.org/software/systemd/man/os-release.html.
->=20
-> The os-release file is generated by the os-release.bb and =
-os-release.bbappend recipes.
+This IP has a bus busy state bit which can cover master and slave
+operations but in case of slave operation, the bit is cleared little
+bit earlier than its actual completion so it's the reason why I made
+this patch. I agree with you that it still has a weak point since
+the bus can be changed to busy state immediately just after finishing
+the busy waiting delay.
 
-Just FYI - MACHINE winds up in uname -a:
+As you suggested, I'll try to implement it using a mutex instead of
+using delay. Thanks a lot for your comment.
 
-root@palmetto:/var/lib/systemd# uname -a
-Linux palmetto 4.18.12-b29e57c654b8d7cfa15d632fbc0ebfe0897b8203 #1 Thu =
-Nov 15 21:52:09 UTC 2018 armv5tejl GNU/Linux
+Jae
 
-Perhaps this meets your need without additional code?
-
--brad=
+>> To prevent any state corruption in the case, this patch adds
+>> checking code if any slave operation is ongoing and it waits up to
+>> the bus timeout duration before starting a master_xfer operation.
+>>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
+>> ---
+>>   drivers/i2c/busses/i2c-aspeed.c | 55 ++++++++++++++++++++++++---------
+>>   1 file changed, 40 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+>> index 833b6b6a4c7e..30c3ab3a4844 100644
+>> --- a/drivers/i2c/busses/i2c-aspeed.c
+>> +++ b/drivers/i2c/busses/i2c-aspeed.c
+>> @@ -12,6 +12,7 @@
+>>   
+>>   #include <linux/clk.h>
+>>   #include <linux/completion.h>
+>> +#include <linux/delay.h>
+>>   #include <linux/err.h>
+>>   #include <linux/errno.h>
+>>   #include <linux/i2c.h>
+>> @@ -115,6 +116,9 @@
+>>   /* 0x18 : I2CD Slave Device Address Register   */
+>>   #define ASPEED_I2CD_DEV_ADDR_MASK			GENMASK(6, 0)
+>>   
+>> +/* Busy checking */
+>> +#define ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US		(10 * 1000)
+>> +
+>>   enum aspeed_i2c_master_state {
+>>   	ASPEED_I2C_MASTER_INACTIVE,
+>>   	ASPEED_I2C_MASTER_START,
+>> @@ -156,6 +160,8 @@ struct aspeed_i2c_bus {
+>>   	int				cmd_err;
+>>   	/* Protected only by i2c_lock_bus */
+>>   	int				master_xfer_result;
+>> +	/* Multi-master */
+>> +	bool				multi_master;
+>>   #if IS_ENABLED(CONFIG_I2C_SLAVE)
+>>   	struct i2c_client		*slave;
+>>   	enum aspeed_i2c_slave_state	slave_state;
+>> @@ -596,27 +602,44 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
+>>   	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
+>>   }
+>>   
+>> +static int aspeed_i2c_check_bus_busy(struct aspeed_i2c_bus *bus)
+>> +{
+>> +	unsigned long timeout;
+>> +
+>> +	if (bus->multi_master) {
+>> +		might_sleep();
+>> +		/* Initialize it only when multi_master is set */
+>> +		timeout = jiffies + bus->adap.timeout;
+>> +	}
+>> +
+>> +	for (;;) {
+>> +		if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+>> +		      ASPEED_I2CD_BUS_BUSY_STS))
+>> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+>> +			if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
+>> +#endif
+>> +				return 0;
+>> +		if (!bus->multi_master)
+>> +			break;
+>> +		if (time_after(jiffies, timeout))
+>> +			break;
+>> +		usleep_range((ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US >> 2) + 1,
+>> +			     ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US);
+>> +	}
+>> +
+>> +	return aspeed_i2c_recover_bus(bus);
+>> +}
+>> +
+>>   static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+>>   				  struct i2c_msg *msgs, int num)
+>>   {
+>>   	struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
+>>   	unsigned long time_left, flags;
+>> -	int ret = 0;
+>>   
+>> -	spin_lock_irqsave(&bus->lock, flags);
+>> -	bus->cmd_err = 0;
+>> -
+>> -	/* If bus is busy, attempt recovery. We assume a single master
+>> -	 * environment.
+>> -	 */
+>> -	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
+>> -		spin_unlock_irqrestore(&bus->lock, flags);
+>> -		ret = aspeed_i2c_recover_bus(bus);
+>> -		if (ret)
+>> -			return ret;
+>> -		spin_lock_irqsave(&bus->lock, flags);
+>> -	}
+>> +	if (aspeed_i2c_check_bus_busy(bus))
+>> +		return -EAGAIN;
+>>   
+>> +	spin_lock_irqsave(&bus->lock, flags);
+>>   	bus->cmd_err = 0;
+>>   	bus->msgs = msgs;
+>>   	bus->msgs_index = 0;
+>> @@ -827,7 +850,9 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+>>   	if (ret < 0)
+>>   		return ret;
+>>   
+>> -	if (!of_property_read_bool(pdev->dev.of_node, "multi-master"))
+>> +	if (of_property_read_bool(pdev->dev.of_node, "multi-master"))
+>> +		bus->multi_master = true;
+>> +	else
+>>   		fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
+>>   
+>>   	/* Enable Master Mode */
+>> -- 
+>> 2.19.1
+>>
