@@ -1,51 +1,52 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <susantjasinski@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::42c; helo=mail-pf1-x42c.google.com;
+ envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="GYyc1KD9"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434wVP2VPxzDqvZ;
- Thu, 29 Nov 2018 09:36:12 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2018 14:36:10 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,292,1539673200"; d="scan'208";a="93727556"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.32.196])
- ([10.122.32.196])
- by orsmga007.jf.intel.com with ESMTP; 28 Nov 2018 14:36:09 -0800
-Subject: Re: [PATCH i2c-next v9 1/5] dt-bindings: i2c: Add 'bus-timeout-ms'
- and '#retries' properties as common optional
-To: Wolfram Sang <wsa@the-dreams.de>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20181030210917.32711-1-jae.hyun.yoo@linux.intel.com>
- <20181030210917.32711-2-jae.hyun.yoo@linux.intel.com>
- <20181128215458.GB1666@kunai>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <5dde6770-ce7a-720a-f1db-56d9ef044a99@linux.intel.com>
-Date: Wed, 28 Nov 2018 16:36:09 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 434x7X6gBVzDr1m
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 10:04:56 +1100 (AEDT)
+Received: by mail-pf1-x42c.google.com with SMTP id c123so5438pfb.0
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 15:04:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=YNZq8/DO/KjJGrIjvkGAaB69u/EUQV5buTsLnxCEPag=;
+ b=GYyc1KD9Lwd3Zd5S7POtkKTdZ11tab5BTc9c6kOpu5L82RoQbhanJWi06QosJRgK6B
+ 1M6IYJxHahhSQZZB6HM/ZfFiHyIKqOAPD06bRux2TpfFCcaWHJQbIncPUIp2XIlIpmyX
+ T/+semVjpg02Oi/Cji3sSlGTgc3kNOJGoWx1glRq6dnRSBAD5DIVd0WrosdXcGTLgIJL
+ PgItBFnNf38h/apFO3nK87tMVV+APtf1yckpaQlwAuZlDkaNoNi1X14FQRxQQdsgPslq
+ nS3Wm1gWBlod4rtkNtKLNSnrHzZHjzEU2I3PgAPai9E4w75e/92myOdLwxZ3hGxhw01P
+ WJIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=YNZq8/DO/KjJGrIjvkGAaB69u/EUQV5buTsLnxCEPag=;
+ b=OJ+oB5umj+HDnmIfrVkhShM9On54Kp7BIrGrxqXhdd9XovvOHNqe3HGAWYBmSJkIIW
+ JtTMj8BO7T1XTZrMQXrBu4OkDNJu5ADlZgFyn1gqOUABZf6Xi29U1lurSTZcMnljNivG
+ PiLvD5wxHEjxi8x0Nyz2bE2pIKtP52oDv8WyDb6Tz8SHz3z1iJXJgfghpqwYwUV5Nx1a
+ 2z+DtskZpfERrziW+V6A3gofX2E3EpqCujG3dk1d7Bc1gcmGg8uHEsHh2VyyduboI7UV
+ JIfPcmGMlv1ihn/DAg0TBIaoBnHZ7DRbnZ9UKaUF6JgrgbqEdRl1Hz8CGvIvJVJsWNMC
+ J0zQ==
+X-Gm-Message-State: AA+aEWbqSb+Sd0U8G2XWOQYqJv0cm9p/7XsDiy7cKotkPO8YoMiQowqs
+ ztupFpbEJzHQ0DzqeQ0q7r3S0HYfgFD+FjOklhRsgtXi
+X-Google-Smtp-Source: AFSGD/VMdLQabz7Hbx97+pMKflYSC65ta3wprK5f3TlHkDUzr3zWq3qVvJlH7C8Li3Dm2PBNK+q77ud+UZu/6oQCNm4=
+X-Received: by 2002:a63:588:: with SMTP id 130mr34321353pgf.273.1543446294549; 
+ Wed, 28 Nov 2018 15:04:54 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20181128215458.GB1666@kunai>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+From: susan jasinski <susantjasinski@gmail.com>
+Date: Wed, 28 Nov 2018 17:04:43 -0600
+Message-ID: <CANT4NrLihi+AWcXcD4JXxBOu2j26m2PRVvrq1rhuFO54TPOs3g@mail.gmail.com>
+Subject: OpenBMC GUI panels ready for review
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000001dd920057bc19879"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,37 +58,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Nov 2018 22:36:14 -0000
+X-List-Received-Date: Wed, 28 Nov 2018 23:04:57 -0000
 
-On 11/28/2018 3:54 PM, Wolfram Sang wrote:
-> On Tue, Oct 30, 2018 at 02:09:12PM -0700, Jae Hyun Yoo wrote:
->> This commit adds 'bus-timeout-ms' and '#retries' properties as
->> common optional properties that can be used for setting 'timeout'
->> and 'retries' values of 'struct i2c_adapter'. With this patch, the
->> bus timeout value and the master transfer retries count can be set
->> through these properties at the registration time of an adapter.
->> Still the values can be set by I2C_TIMEOUT and I2C_RETRIES ioctls
->> on cdev at runtime too.
->>
->> These properties may not be supported by all drivers. However, if
->> a driver wants to support one of them, it should adapt the
->> bindings in this document.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Reviewed-by: Rob Herring <robh@kernel.org>
-> 
-> Definately NACK on the #retries part. This is purely a configuration
-> thing. Besides that it is kind of ancient cruft, too. I don't recommend
-> it, at all.
-> 
-> On the timeout thing, I am still not fully convinced that this is a HW
-> description. I said that before. But maybe I need to understand your
-> problem case better.
-> 
+--0000000000001dd920057bc19879
+Content-Type: text/plain; charset="UTF-8"
 
-Okay, I got it. I'll leave those as configuration things. Will remove
-this part in the next version.
+OpenBMC GUI panels are ready for your review. Links to the mockups and
+component descriptions/behaviors are in the respective issues.
 
-Thanks for your comment.
 
-Jae
+LDAP Role Groups https://github.com/openbmc/phosphor-webui/issues/38
+LDAP Server Configuration
+https://github.com/openbmc/phosphor-webui/issues/39
+SNMP Server Management https://github.com/openbmc/phosphor-webui/issues/37
+Date and Time Settings https://github.com/openbmc/phosphor-webui/issues/46
+
+
+Please post all comments and feedback directly in the issue. I am
+particularly interested in:
+
+   - Is the workflow intuitive? If not, what was confusing and why?
+   - Are the fields or components the correct ones? If not, why?
+   - Are there missing fields or components for the feature? If yes, what
+   is missing and why is it important?
+
+We will discuss this first set of panels during our next GUI Design
+workshop on Wednesday, December 5.
+
+I look forward to your feedback!
+
+-- Susan Jasinski (UX Design Lead)
+
+--0000000000001dd920057bc19879
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><span style=3D"color:rgb(69,69,69);font-family:&quot;Open =
+Sans&quot;,Arial,Helvetica,sans-serif;white-space:pre-wrap;background-color=
+:rgb(247,247,247)">OpenBMC GUI panels are ready for your review.=C2=A0</spa=
+n><span style=3D"font-family:&quot;Helvetica Neue&quot;">Links to the mocku=
+ps and component descriptions/behaviors are in the respective issues.=C2=A0=
+</span><div><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:=
+normal;font-variant-east-asian:normal;font-stretch:normal;line-height:norma=
+l;font-family:&quot;Helvetica Neue&quot;"><br></p></div><div><span style=3D=
+"color:rgb(69,69,69);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans=
+-serif;white-space:pre-wrap;background-color:rgb(247,247,247)">LDAP Role Gr=
+oups </span><a href=3D"https://github.com/openbmc/phosphor-webui/issues/38"=
+ class=3D"gmail-linkified" target=3D"_blank" rel=3D"noopener" style=3D"colo=
+r:rgb(118,207,166);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-s=
+erif;white-space:pre-wrap;background-color:rgb(247,247,247)">https://github=
+.com/openbmc/phosphor-webui/issues/38</a></div><div><span style=3D"color:rg=
+b(69,69,69);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-serif;wh=
+ite-space:pre-wrap;background-color:rgb(247,247,247)">LDAP Server Configura=
+tion </span><a href=3D"https://github.com/openbmc/phosphor-webui/issues/39"=
+ class=3D"gmail-linkified" target=3D"_blank" rel=3D"noopener" style=3D"colo=
+r:rgb(118,207,166);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-s=
+erif;white-space:pre-wrap;background-color:rgb(247,247,247)">https://github=
+.com/openbmc/phosphor-webui/issues/39</a><br></div><div><span style=3D"colo=
+r:rgb(69,69,69);font-family:&quot;Open Sans&quot;,Arial,Helvetica,sans-seri=
+f;font-size:14px;white-space:pre-wrap;background-color:rgb(247,247,247)">SN=
+MP Server Management </span><a href=3D"https://github.com/openbmc/phosphor-=
+webui/issues/37" class=3D"gmail-linkified" target=3D"_blank" rel=3D"noopene=
+r" style=3D"color:rgb(118,207,166);font-family:&quot;Open Sans&quot;,Arial,=
+Helvetica,sans-serif;font-size:14px;white-space:pre-wrap;background-color:r=
+gb(247,247,247)">https://github.com/openbmc/phosphor-webui/issues/37</a><br=
+></div><div><span style=3D"color:rgb(69,69,69);font-family:&quot;Open Sans&=
+quot;,Arial,Helvetica,sans-serif;font-size:14px;white-space:pre-wrap;backgr=
+ound-color:rgb(247,247,247)">Date and Time Settings </span><a href=3D"https=
+://github.com/openbmc/phosphor-webui/issues/46" class=3D"gmail-linkified" t=
+arget=3D"_blank" rel=3D"noopener" style=3D"color:rgb(118,207,166);font-fami=
+ly:&quot;Open Sans&quot;,Arial,Helvetica,sans-serif;font-size:14px;white-sp=
+ace:pre-wrap;background-color:rgb(247,247,247)">https://github.com/openbmc/=
+phosphor-webui/issues/46</a><br></div><div><div><p class=3D"gmail-p1" style=
+=3D"margin:0px;font-variant-numeric:normal;font-variant-east-asian:normal;f=
+ont-stretch:normal;line-height:normal;font-family:&quot;Helvetica Neue&quot=
+;"><br></p><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:n=
+ormal;font-variant-east-asian:normal;font-stretch:normal;line-height:normal=
+;font-family:&quot;Helvetica Neue&quot;">Please post all comments and feedb=
+ack directly in the issue. I am particularly interested in:</p></div></div>=
+<div><ul class=3D"gmail-ul1">
+<li class=3D"gmail-li1" style=3D"margin:0px;font-variant-numeric:normal;fon=
+t-variant-east-asian:normal;font-stretch:normal;line-height:normal;font-fam=
+ily:&quot;Helvetica Neue&quot;"><span class=3D"gmail-s1" style=3D"font-vari=
+ant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;line-=
+height:normal;font-family:Menlo"></span>Is the workflow intuitive? If not, =
+what was confusing and why?</li><li class=3D"gmail-li1" style=3D"margin:0px=
+;font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:no=
+rmal;line-height:normal;font-family:&quot;Helvetica Neue&quot;">Are the fie=
+lds or components the correct ones? If not, why?</li>
+<li class=3D"gmail-li1" style=3D"margin:0px;font-variant-numeric:normal;fon=
+t-variant-east-asian:normal;font-stretch:normal;line-height:normal;font-fam=
+ily:&quot;Helvetica Neue&quot;"><span class=3D"gmail-s1" style=3D"font-vari=
+ant-numeric:normal;font-variant-east-asian:normal;line-height:normal;font-f=
+amily:Menlo;font-stretch:normal;font-stretch:normal"></span>Are there missi=
+ng fields or components for the feature? If yes, what is missing and why is=
+ it important?</li>
+</ul><div><font face=3D"Helvetica Neue">We will discuss this first set of p=
+anels during our next GUI Design workshop on Wednesday, December 5.=C2=A0</=
+font></div><div><font face=3D"Helvetica Neue"><br></font></div><div><font f=
+ace=3D"Helvetica Neue">I look forward to your feedback!</font></div></div><=
+div><font face=3D"Helvetica Neue"><br></font></div><div><font face=3D"Helve=
+tica Neue">-- Susan Jasinski (UX Design Lead)</font></div></div>
+
+--0000000000001dd920057bc19879--
