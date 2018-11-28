@@ -1,27 +1,27 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434wMP3DLhzDr0k;
- Thu, 29 Nov 2018 09:30:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 434wVP2VPxzDqvZ;
+ Thu, 29 Nov 2018 09:36:12 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2018 14:30:06 -0800
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2018 14:36:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,292,1539673200"; d="scan'208";a="93726054"
+X-IronPort-AV: E=Sophos;i="5.56,292,1539673200"; d="scan'208";a="93727556"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.32.196])
  ([10.122.32.196])
- by orsmga007.jf.intel.com with ESMTP; 28 Nov 2018 14:30:04 -0800
-Subject: Re: [PATCH i2c-next v9 5/5] i2c: aspeed: Add bus idle waiting logic
- for multi-master use cases
+ by orsmga007.jf.intel.com with ESMTP; 28 Nov 2018 14:36:09 -0800
+Subject: Re: [PATCH i2c-next v9 1/5] dt-bindings: i2c: Add 'bus-timeout-ms'
+ and '#retries' properties as common optional
 To: Wolfram Sang <wsa@the-dreams.de>
 Cc: Brendan Higgins <brendanhiggins@google.com>,
  Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
@@ -34,15 +34,15 @@ Cc: Brendan Higgins <brendanhiggins@google.com>,
  James Feist <james.feist@linux.intel.com>,
  Vernon Mauery <vernon.mauery@linux.intel.com>
 References: <20181030210917.32711-1-jae.hyun.yoo@linux.intel.com>
- <20181030210917.32711-6-jae.hyun.yoo@linux.intel.com>
- <20181128215434.GA1666@kunai>
+ <20181030210917.32711-2-jae.hyun.yoo@linux.intel.com>
+ <20181128215458.GB1666@kunai>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <2772b86e-6ffb-e289-40f2-f96d11b82349@linux.intel.com>
-Date: Wed, 28 Nov 2018 16:30:03 -0600
+Message-ID: <5dde6770-ce7a-720a-f1db-56d9ef044a99@linux.intel.com>
+Date: Wed, 28 Nov 2018 16:36:09 -0600
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <20181128215434.GA1666@kunai>
+In-Reply-To: <20181128215458.GB1666@kunai>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -57,151 +57,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Nov 2018 22:30:10 -0000
+X-List-Received-Date: Wed, 28 Nov 2018 22:36:14 -0000
 
 On 11/28/2018 3:54 PM, Wolfram Sang wrote:
-> On Tue, Oct 30, 2018 at 02:09:16PM -0700, Jae Hyun Yoo wrote:
->> In multi-master environment, this driver's master cannot know
->> exactly when a peer master sends data to this driver's slave so a
->> case can be happened that this master tries to send data through
->> the master_xfer function but slave data from peer master is still
->> being processed by this driver.
-> 
-> So, that I get this correct: your IP core cannot detect a bus busy state
-> when its own slave address is acessed? Well, I know HW can have bugs,
-> but I still wonder because a bus is busy as soon as another START has
-> been detected, independent of which device is going to be accessed.
-> 
-> Even if so, why can't you use a mutex to prevent any master_xfer while
-> slave_xfer is ongoing?
-> 
-> Shouldn't that be enough according to the above description? Why do you
-> need the delay? I might be missing something...
-> 
-
-This IP has a bus busy state bit which can cover master and slave
-operations but in case of slave operation, the bit is cleared little
-bit earlier than its actual completion so it's the reason why I made
-this patch. I agree with you that it still has a weak point since
-the bus can be changed to busy state immediately just after finishing
-the busy waiting delay.
-
-As you suggested, I'll try to implement it using a mutex instead of
-using delay. Thanks a lot for your comment.
-
-Jae
-
->> To prevent any state corruption in the case, this patch adds
->> checking code if any slave operation is ongoing and it waits up to
->> the bus timeout duration before starting a master_xfer operation.
+> On Tue, Oct 30, 2018 at 02:09:12PM -0700, Jae Hyun Yoo wrote:
+>> This commit adds 'bus-timeout-ms' and '#retries' properties as
+>> common optional properties that can be used for setting 'timeout'
+>> and 'retries' values of 'struct i2c_adapter'. With this patch, the
+>> bus timeout value and the master transfer retries count can be set
+>> through these properties at the registration time of an adapter.
+>> Still the values can be set by I2C_TIMEOUT and I2C_RETRIES ioctls
+>> on cdev at runtime too.
+>>
+>> These properties may not be supported by all drivers. However, if
+>> a driver wants to support one of them, it should adapt the
+>> bindings in this document.
 >>
 >> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
->> ---
->>   drivers/i2c/busses/i2c-aspeed.c | 55 ++++++++++++++++++++++++---------
->>   1 file changed, 40 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
->> index 833b6b6a4c7e..30c3ab3a4844 100644
->> --- a/drivers/i2c/busses/i2c-aspeed.c
->> +++ b/drivers/i2c/busses/i2c-aspeed.c
->> @@ -12,6 +12,7 @@
->>   
->>   #include <linux/clk.h>
->>   #include <linux/completion.h>
->> +#include <linux/delay.h>
->>   #include <linux/err.h>
->>   #include <linux/errno.h>
->>   #include <linux/i2c.h>
->> @@ -115,6 +116,9 @@
->>   /* 0x18 : I2CD Slave Device Address Register   */
->>   #define ASPEED_I2CD_DEV_ADDR_MASK			GENMASK(6, 0)
->>   
->> +/* Busy checking */
->> +#define ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US		(10 * 1000)
->> +
->>   enum aspeed_i2c_master_state {
->>   	ASPEED_I2C_MASTER_INACTIVE,
->>   	ASPEED_I2C_MASTER_START,
->> @@ -156,6 +160,8 @@ struct aspeed_i2c_bus {
->>   	int				cmd_err;
->>   	/* Protected only by i2c_lock_bus */
->>   	int				master_xfer_result;
->> +	/* Multi-master */
->> +	bool				multi_master;
->>   #if IS_ENABLED(CONFIG_I2C_SLAVE)
->>   	struct i2c_client		*slave;
->>   	enum aspeed_i2c_slave_state	slave_state;
->> @@ -596,27 +602,44 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
->>   	return irq_remaining ? IRQ_NONE : IRQ_HANDLED;
->>   }
->>   
->> +static int aspeed_i2c_check_bus_busy(struct aspeed_i2c_bus *bus)
->> +{
->> +	unsigned long timeout;
->> +
->> +	if (bus->multi_master) {
->> +		might_sleep();
->> +		/* Initialize it only when multi_master is set */
->> +		timeout = jiffies + bus->adap.timeout;
->> +	}
->> +
->> +	for (;;) {
->> +		if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
->> +		      ASPEED_I2CD_BUS_BUSY_STS))
->> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
->> +			if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
->> +#endif
->> +				return 0;
->> +		if (!bus->multi_master)
->> +			break;
->> +		if (time_after(jiffies, timeout))
->> +			break;
->> +		usleep_range((ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US >> 2) + 1,
->> +			     ASPEED_I2C_BUS_BUSY_CHECK_INTERVAL_US);
->> +	}
->> +
->> +	return aspeed_i2c_recover_bus(bus);
->> +}
->> +
->>   static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
->>   				  struct i2c_msg *msgs, int num)
->>   {
->>   	struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
->>   	unsigned long time_left, flags;
->> -	int ret = 0;
->>   
->> -	spin_lock_irqsave(&bus->lock, flags);
->> -	bus->cmd_err = 0;
->> -
->> -	/* If bus is busy, attempt recovery. We assume a single master
->> -	 * environment.
->> -	 */
->> -	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
->> -		spin_unlock_irqrestore(&bus->lock, flags);
->> -		ret = aspeed_i2c_recover_bus(bus);
->> -		if (ret)
->> -			return ret;
->> -		spin_lock_irqsave(&bus->lock, flags);
->> -	}
->> +	if (aspeed_i2c_check_bus_busy(bus))
->> +		return -EAGAIN;
->>   
->> +	spin_lock_irqsave(&bus->lock, flags);
->>   	bus->cmd_err = 0;
->>   	bus->msgs = msgs;
->>   	bus->msgs_index = 0;
->> @@ -827,7 +850,9 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
->>   	if (ret < 0)
->>   		return ret;
->>   
->> -	if (!of_property_read_bool(pdev->dev.of_node, "multi-master"))
->> +	if (of_property_read_bool(pdev->dev.of_node, "multi-master"))
->> +		bus->multi_master = true;
->> +	else
->>   		fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
->>   
->>   	/* Enable Master Mode */
->> -- 
->> 2.19.1
->>
+>> Reviewed-by: Rob Herring <robh@kernel.org>
+> 
+> Definately NACK on the #retries part. This is purely a configuration
+> thing. Besides that it is kind of ancient cruft, too. I don't recommend
+> it, at all.
+> 
+> On the timeout thing, I am still not fully convinced that this is a HW
+> description. I said that before. But maybe I need to understand your
+> problem case better.
+> 
+
+Okay, I got it. I'll leave those as configuration things. Will remove
+this part in the next version.
+
+Thanks for your comment.
+
+Jae
