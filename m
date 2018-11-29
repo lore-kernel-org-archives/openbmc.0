@@ -1,49 +1,48 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <luke_chen@aspeedtech.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::731; helo=mail-qk1-x731.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="nmvfkw1b"; 
- dkim-atps=neutral
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
+ (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
+ envelope-from=luke_chen@aspeedtech.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=aspeedtech.com
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 434zSy2G8szDqsr
- for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 11:50:10 +1100 (AEDT)
-Received: by mail-qk1-x731.google.com with SMTP id y78so100039qka.12
- for <openbmc@lists.ozlabs.org>; Wed, 28 Nov 2018 16:50:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:from:date:message-id:subject:to;
- bh=vFgyBemAshFxD4MNjy0sZ8LP1pv0nTXd+DDwIh379KM=;
- b=nmvfkw1b7LLDi65wxY05wk71wzd2BmwK2qpjJI5kmCx427Y2bJr2QecqTIdUkpvEPV
- IETOk7xbuYsEMADTpUGd13iO/mRnyALPh1XbMwSbvdHv4he0UmpFg792AxfYeuZgqbNj
- kcTNDoc3igeIoEEWTh8wPae4Y7uVZ8GEm7nlI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=vFgyBemAshFxD4MNjy0sZ8LP1pv0nTXd+DDwIh379KM=;
- b=oMwUIM9FEQRBnDA1fSXk6ejnSWlvaH6Wt7+7fc3UmI+xT9HINuNxAv6N6tcaa/Cri3
- IytvZguwNWmr+xlyxD8G8KW4EV3AHTBeYVYwjVSYDiciMZhvE1E2td5W23sUHHooY9FP
- HM6X08gPJXv1W/ApwKFU5giqKwUHs1h5J2AxV0A9vREJ/rSJR14n8J3QfhVNL8VXsVC+
- CZDEF5xswy1WHm31T8KLxttZNLI6NklhhJ1fZFBpNTLCOUhV05pgZm4z/czY/kS8jN/7
- DlTvJKMbGXWfrWcEKvVdDcSh7mx11xl1Eo2oZ4D93SrOcK7ZdjX5rm2TrEPTfdEm4AZm
- UgAg==
-X-Gm-Message-State: AA+aEWb5W/fsVIPRPqnuon7o/fQwTu2gaXDlu3EgkBD2/zGzegMItolY
- 5ceCDkW//E6rImUTqWYROB8O6vxvv0TNWTF1Dze6V2QC
-X-Google-Smtp-Source: AFSGD/VwHfPtvMROwxNCoyp1jpitWEz5mVYaeBgL56lC90SPqGPyhDsUdb4LcLNJSwIYHMAqg+DxyIpzHrjXevXvolg=
-X-Received: by 2002:a37:2b5b:: with SMTP id r88mr37180307qkh.336.1543452607477; 
- Wed, 28 Nov 2018 16:50:07 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43500r1dwfzDqxl
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 12:14:19 +1100 (AEDT)
+Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id wAT18TGu040802;
+ Thu, 29 Nov 2018 09:08:29 +0800 (GMT-8)
+ (envelope-from luke_chen@aspeedtech.com)
+Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Thu, 29 Nov
+ 2018 09:14:00 +0800
+Received: from TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb]) by
+ TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb%12]) with mapi id
+ 15.00.0620.020; Thu, 29 Nov 2018 09:15:08 +0800
+From: Luke Chen <luke_chen@aspeedtech.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+CC: "manager@lfprojects.org" <manager@lfprojects.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Signed CLA from ASPEED
+Thread-Topic: Signed CLA from ASPEED
+Thread-Index: AdSF/BDVNQADm2VBRuejwbddN04pKwA3582AAClGYBA=
+Date: Thu, 29 Nov 2018 01:15:07 +0000
+Message-ID: <87cac5b813ef4d30845899edd97f387f@TWMBX01.aspeed.com>
+References: <623110cb8acb4bbc99c43c47b37f5457@TWMBX01.aspeed.com>
+ <9C742B6B-8604-4EC1-9AE8-98844ACB557D@fuzziesquirrel.com>
+In-Reply-To: <9C742B6B-8604-4EC1-9AE8-98844ACB557D@fuzziesquirrel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.253]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 29 Nov 2018 11:19:55 +1030
-Message-ID: <CACPK8Xfo5zzyLUa-8fU6j7d5GpVnFea1k3PC93vxiOvYAGV7ZQ@mail.gmail.com>
-Subject: Linux dev-4.19
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com wAT18TGu040802
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,26 +54,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Nov 2018 00:50:11 -0000
+X-List-Received-Date: Thu, 29 Nov 2018 01:14:21 -0000
 
-I've had some off list questions about moving the openbmc tree to
-4.19. Apologies for the delay responding, I was busy with another
-project in recent weeks.
+Hi Brad
 
-I will put together a 4.19 based tree next week. Once it's booting on
-the hardware I have access to (ast2400 and ast2500 openpower
-machines), I will push it to github and notify the list. Further
-testing would be welcome.
+Thank you so much!
 
-If there are patches you would like to add to 4.19 please send them to
-the list with the 'dev-4.19' subject. This is probably best done once
-I've published the tree, so you can ensure they apply and are tested.
+Best wishes
 
-Note that 4.18 is now end of life, and today's update (4.18.20) will
-be the last for security and stability updates:
+Luke Chen
+(O) : +886-3-5789568
+(M) : +886-935-592-892
 
-https://lore.kernel.org/lkml/20181121103111.GA9112@kroah.com/
 
-Cheers,
+-----Original Message-----
+From: openbmc <openbmc-bounces+luke_chen=3Daspeedtech.com@lists.ozlabs.org>=
+ On Behalf Of Brad Bishop
+Sent: Wednesday, November 28, 2018 9:32 PM
+To: Luke Chen <luke_chen@aspeedtech.com>
+Cc: manager@lfprojects.org; openbmc@lists.ozlabs.org
+Subject: Re: Signed CLA from ASPEED
 
-Joel
+
+
+> On Nov 26, 2018, at 9:54 PM, Luke Chen <luke_chen@aspeedtech.com> wrote:
+>=20
+> Hi Sir
+> Here is the signed CLA from ASPEED.
+> Please help to approve it, thanks.
+
+Thanks Luke!  CCLA accepted.
+
+-brad
