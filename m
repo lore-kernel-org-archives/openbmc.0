@@ -1,60 +1,74 @@
-Return-Path: <a.filippov@yadro.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.filippov@yadro.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="TlwlFIQR"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43593x3XJHzDqvK
- for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 19:02:37 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 6CD7341999
- for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 08:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- user-agent:in-reply-to:content-disposition:content-type
- :content-type:mime-version:references:message-id:subject:subject
- :from:from:date:date:received:received:received; s=mta-01; t=
- 1543478553; x=1545292954; bh=b/PHE1Eeal0loSSB2s3lzM4HmE5Ov3udW91
- JH9pEwZc=; b=TlwlFIQRegT3JEG7Kc6uojBKKU3EJb55e1N1lqPv+enuHucxMxa
- ogpYhTsf8cv3ZuS8T3HTBbjTwkX11VRFWhXPC5Dd2yLxySClX/TyG5CuXYxhr6eA
- LmGQk47N1Nrb76L+Be8MNDpYxXsiZZsnVh46MixMyhhHPEDN3PP4ALnI=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id r9zNtrE8adhS for <openbmc@lists.ozlabs.org>;
- Thu, 29 Nov 2018 11:02:33 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 8DE0141953
- for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 11:02:33 +0300 (MSK)
-Received: from localhost (172.17.15.155) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 29
- Nov 2018 11:02:33 +0300
-Date: Thu, 29 Nov 2018 11:02:32 +0300
-From: "Alexander A. Filippov" <a.filippov@yadro.com>
-To: <openbmc@lists.ozlabs.org>
-Subject: Re: Add TARGET_MACHINE to /etc/os-release
-Message-ID: <20181129080232.GA26099@bbwork.lan>
-References: <mailman.11506.1542344002.668.openbmc@lists.ozlabs.org>
- <966f717c-59a9-7f88-7b37-91edb9d72276@charter.net>
- <FA5A8B03-6706-4072-A1A9-EE8B1BC1575F@fuzziesquirrel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4359Vt1WlFzDr3X
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 19:22:26 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wAT8EZTt115390
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 03:22:24 -0500
+Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2p2b2bkt0v-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 03:22:24 -0500
+Received: from localhost
+ by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Thu, 29 Nov 2018 08:22:22 -0000
+Received: from b06cxnps3074.portsmouth.uk.ibm.com (9.149.109.194)
+ by e06smtp01.uk.ibm.com (192.168.101.131) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 29 Nov 2018 08:22:21 -0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ wAT8MKYM59572378
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 08:22:20 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 69291AE056
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 08:22:20 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 169BEAE055
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 08:22:20 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.202.172])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 08:22:19 +0000 (GMT)
+Subject: Re: Understand OpenBMC Event logging mechanism for beginner
+To: openbmc@lists.ozlabs.org
+References: <AM6PR02MB4392A3F66A51CFB0AAFEE86C92D10@AM6PR02MB4392.eurprd02.prod.outlook.com>
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Thu, 29 Nov 2018 13:52:19 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
+ Gecko/20100101 Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <FA5A8B03-6706-4072-A1A9-EE8B1BC1575F@fuzziesquirrel.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Originating-IP: [172.17.15.155]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+In-Reply-To: <AM6PR02MB4392A3F66A51CFB0AAFEE86C92D10@AM6PR02MB4392.eurprd02.prod.outlook.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+x-cbid: 18112908-4275-0000-0000-000002E86C22
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18112908-4276-0000-0000-000037F5AF7D
+Message-Id: <cd424085-d81d-bde4-bc94-39d7fa9bcfa3@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-29_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=904 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1811290072
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,26 +80,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Nov 2018 08:02:38 -0000
+X-List-Received-Date: Thu, 29 Nov 2018 08:22:30 -0000
 
-Hi all,
-
-On Wed, Nov 28, 2018 at 01:36:37PM -0500, Brad Bishop wrote:
+On 28/11/18 5:18 PM, A, Maheswari wrote:
+> Hi,
 > 
-> Just FYI - MACHINE winds up in uname -a:
+> I found some OpenBMC document to understand LED Control architecture.
 > 
-> root@palmetto:/var/lib/systemd# uname -a
-> Linux palmetto 4.18.12-b29e57c654b8d7cfa15d632fbc0ebfe0897b8203 #1 Thu Nov 15 21:52:09 UTC 2018 armv5tejl GNU/Linux
+> Document is very useful for beginner.
 > 
-> Perhaps this meets your need without additional code?
+> But There is no document to understand workflow of OpenBMC event 
+> management for beginner.
+
+
+Agree. I volunteer to write a document related to phosphor-logging.
+
+> We need to understand BMC SEL logging mechanism in OpenBMC.
+
+
+You should look at 
+https://gerrit.openbmc-project.xyz/#/q/topic:%22IPMI+SEL%22. The high 
+level idea is to log SEL related messages and metadata to the journal, 
+and then have a deamon look at the journal to make a SEL repository.
+
+>  1. BMC Need to log chassis intrusion SEL.
+>  2. We need to log Event while Emergency Power OFF case . 
 > 
-> -brad
+> I hope below packages are concerns to record events.
+> 
+> Phosphor-logging   ( getting fan ReadFailure log in REST command 
+> xyz.openproject.logging ).
 
-Brad, it is the hostname. For example in my case it looks like this:
+phosphor-logging looks at journal metadata (placed in the journal via 
+the log<>() or elog<>() APIs) and makes D-Bus objects to represent 
+errors/events.
 
-root@malevich:~# uname -a
-Linux malevich.dev.yadro.com 4.18.20-d608acfd4ac3fe17f3081bee8fcd4dcd896c2ffa #1 Thu Nov 29 07:19:11 UTC 2018 armv5tejl GNU/Linux
+> Phosphor-event
+> 
+> Phosphor-dbus-monitor
+> 
+> obmc-event-mgmt is removed from stack.
+> 
+> Please clarify which recipes are needed to log events in BMC.
+> 
+> Please explain some basic understanding to log test event.
+> 
+> How do verify logged events .
 
---
-Cheers,
-Alexander
+
+If you're just interested in IPMI SELs, you should look at those reviews 
+I posted above. Were you looking at something else though as the 
+external interface - such as Redfish?
+
+> Thanks
+> 
+> Maheswari A
+> 
+
+Regards,
+Deepak
