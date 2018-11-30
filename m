@@ -1,69 +1,64 @@
-Return-Path: <chyishian.jiang@gmail.com>
+Return-Path: <ngorugan@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com;
- envelope-from=chyishian.jiang@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ngorugan@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="omw+cXNa"; 
- dkim-atps=neutral
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 435fJt074qzDrQY
- for <openbmc@lists.ozlabs.org>; Fri, 30 Nov 2018 14:00:29 +1100 (AEDT)
-Received: by mail-pl1-x62a.google.com with SMTP id x21-v6so2040494pln.9
- for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 19:00:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:message-id:in-reply-to:references:subject
- :mime-version; bh=ntfpedzcpm5uNTnYqMB5axKqkpxBeYTx9xoGX3VpZUI=;
- b=omw+cXNa+IUSWAJYXyWJRQ4m/YMyYQuXmpiZpWH7rL5NBWmJAcK3Smr2SmB47OrQ54
- oFjd5LbUF7npG9zpoOHVELcfTNa7Njoy3a6f6Ok/DKJyIt6w/ELbXbkq1/GXjPJ4PrFI
- KueIqtbHNJ4x0I+lLBBH0pcg1nFQnBeaIDlFqV5DRUv74k6qqO19rmu2dYPy5aQ5c1lF
- 8vSEnfTsfiVVZoIrlOVCHb0z0iuwRSS8TB54xW/TIyAfsBgxsyImp+v2QM+Am6T7YU8e
- EwjctgO2OGJjFyGecTZg1tE6L4H3nMnzPyXOx3wEb64LM2939xzbiMJ9hMukDUWRlzDE
- 36aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:message-id:in-reply-to
- :references:subject:mime-version;
- bh=ntfpedzcpm5uNTnYqMB5axKqkpxBeYTx9xoGX3VpZUI=;
- b=SQzXPHZjg9+xy5A8caFj2heLQxYGPzsEQrLMSOk2hqVZE0OBpQbOthwV+loh2PrAmV
- MenMAF6bYsB5tkE5zSPPBuLXC1sNmJPUlPI8WtLGmDGh2nkMgI2XFwcu3mJ+NRutf57a
- tBn9TvuuO1P10hIW6Q2GfeusWxy2DXcCP3SuoeAlI6RwNut7rKFVyaBhqC8Ys1xbCHi/
- FzmflJ2K4trXj1mP2yQ4ha/b3uJvUyRoJBm7x+2tUYNipRGBpSPcvxR+7gyV0UQTMazz
- GRUQ6boH1olFXR7xUcyLoJM85wnJLsUuYca07EacrNieZEmpPqFmYUP97pVYjsByyW3D
- jkmQ==
-X-Gm-Message-State: AA+aEWZ26buPBvKBitoTWwPGj6hCprVZPP1fZRKjKDuyoVaPG4CVH7qd
- nADuFYb13/Cj+uy3LqHAWwk=
-X-Google-Smtp-Source: AFSGD/ValOkQJUOhabQGjLRAu/aP7IZ5Z6JHaZMgcSdGVcrLGG3c8SlCBwL9Sy4gyznNBKZjdqaVHA==
-X-Received: by 2002:a17:902:8c91:: with SMTP id
- t17mr3830410plo.119.1543546827347; 
- Thu, 29 Nov 2018 19:00:27 -0800 (PST)
-Received: from [10.10.14.19] (220-135-135-179.HINET-IP.hinet.net.
- [220.135.135.179])
- by smtp.gmail.com with ESMTPSA id o13sm5369524pfk.57.2018.11.29.19.00.25
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 29 Nov 2018 19:00:26 -0800 (PST)
-Date: Fri, 30 Nov 2018 11:00:19 +0800
-From: Samuel Jiang <chyishian.jiang@gmail.com>
-To: Vijay Khemka <vijaykhemka@fb.com>, qianlihu
- <wangzhiqiang8906@gmail.com>, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: "=?utf-8?Q?openbmc=40lists.ozlabs.org?=" <openbmc@lists.ozlabs.org>
-Message-ID: <4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark>
-In-Reply-To: <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
-References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
- <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
- <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
- <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
- <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
- <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
-Subject: Re: [HELP] ipmi-kcs didn't work
-X-Readdle-Message-ID: 4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark
+ by lists.ozlabs.org (Postfix) with ESMTPS id 435kjw0NN7zDrR2
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Nov 2018 17:18:59 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wAU6DkuO131899
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Nov 2018 01:18:58 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.74])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2p2ydqs1wu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Nov 2018 01:18:58 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <ngorugan@in.ibm.com>;
+ Fri, 30 Nov 2018 06:18:57 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.92) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 30 Nov 2018 06:18:54 -0000
+Received: from us1a3-mail129.a3.dal06.isc4sb.com ([10.146.45.217])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2018113006185450-217540 ;
+ Fri, 30 Nov 2018 06:18:54 +0000 
+To: openbmc@lists.ozlabs.org
+Subject: Utility to Sync BMC's UUID to U-Boot environment
+From: "Nagaraju Goruganti" <ngorugan@in.ibm.com>
+Date: Fri, 30 Nov 2018 11:48:53 +0530
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="5c00a7c8_6a2342ec_da85"
+X-KeepSent: 43E90413:B5F754D3-00258355:00221DAA;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP10 SHF252 August 10, 2018
+X-LLNOutbound: False
+X-Disclaimed: 35903
+X-TNEFEvaluated: 1
+x-cbid: 18113006-7581-0000-0000-00000A104953
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.025129
+X-IBM-SpamModules-Versions: BY=3.00010146; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000270; SDB=6.01124803; UDB=6.00584022; IPR=6.00904930; 
+ BA=6.00006167; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00024393; XFM=3.00000015;
+ UTC=2018-11-30 06:18:56
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-11-30 02:30:22 - 6.00009283
+x-cbparentid: 18113006-7582-0000-0000-00006DA6AB15
+Message-Id: <OF43E90413.B5F754D3-ON00258355.00221DAA-65258355.0022B453@notes.na.collabserv.com>
+Content-Type: multipart/alternative;
+ boundary="=_alternative 0022B2DB65258355_="
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-11-30_03:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,203 +70,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Nov 2018 03:00:31 -0000
+X-List-Received-Date: Fri, 30 Nov 2018 06:19:00 -0000
 
---5c00a7c8_6a2342ec_da85
-Content-Type: text/plain; charset="utf-8"
+
+--=_alternative 0022B2DB65258355_=
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Type: text/plain; charset="US-ASCII"
 
-Hi Jae,
+Hi All,
 
-We also encountered the same situation a month ago.
-We try to enable the LPC clock on devicetree to resolve this problem not =
-direct modify clock driver.
+We are planning to port UUID synching related code from current python=20
+script: openbmc/skeleton/pyinventorymgr/sync=5Finventory=5Fitems.py to new =
 
-lpc=5Fctrl: lpc-ctrl=400 =7B
-=E2=80=83=C2=A0compatible =3D =22aspeed,ast2500-lpc-ctrl=E2=80=9D;
-=E2=80=83 reg =3D <0x0 0x80>;
-=E2=80=83=C2=A0clocks =3D <&syscon ASPEED=5FCLK=5FGATE=5FLCLK>;
-=C2=A0 =C2=A0 status =3D =E2=80=9Cokay=E2=80=9D;
-=7D;
+bash script.
 
-However, I=E2=80=99m not sure which is better for LPC=5FCLCK setting.
-Whether we should modify driver if original data is enabled or should ena=
-ble on the device tree, correct=3F
+The current py(invoked by systemd on the way to BMC ready state) is doing=20
+below given actions to sync BMC's UUID to U-Boot environment.
+1. Getting the UUID from inventory.
+2. Getting the UUID from U-boot environment
+3. If the both are differing, write the UUID form inventory to U-Boot=20
+environment.
+4. It also it has TODO task to reboot the BMC to make sure UUID from=20
+U-Boot env to  sync with /etc/machine-id.
+
+But this script is in broken state now: It is not updating UUID in U-boot=20
+env by reading it from inventory.
+
+We have few things to understand here:
+1. Is there a need to write UUID to U-Boot environment?
+2. Can machine-id be the source for UUID? or UUID is the source for=20
+machine-id?
+3. If UUID (from inventory) is the source for machine-id, from where=20
+should the inventory get UUID? (on openpower systems the UUID is fetched=20
+from BMC  VPD, if present)
+4. If machine-id is the source to UUID, how machine-id is getting its=20
+value?
+
+We need an inputs from community members who are having better understand=20
+on these things.
+
+Best Regards,
+Nagaraju G
 
 
-Thanks,
-
-Samuel Jiang
-On Nov 30, 2018, 2:58 AM +0800, Jae Hyun Yoo <jae.hyun.yoo=40linux.intel.=
-com>, wrote:
-> On 11/29/2018 12:42 PM, Vijay Khemka wrote:
-> > Try below fix on clk-aspeed.c
-> >
-> > diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-> > index 596136793fc4..b55d35e3eb5e 100644
-> > --- a/drivers/clk/clk-aspeed.c
-> > +++ b/drivers/clk/clk-aspeed.c
-> > =40=40 -95,7 +95,7 =40=40 static const struct aspeed=5Fgate=5Fdata as=
-peed=5Fgates=5B=5D =3D =7B
-> > =5BASPEED=5FCLK=5FGATE=5FDCLK=5D =3D =7B 5, -1, =22dclk-gate=22,
-> > NULL, CLK=5FIS=5FCRITICAL =7D, /* DAC */
-> > =5BASPEED=5FCLK=5FGATE=5FRE=46CLK=5D =3D =7B 6, -1, =22refclk-gate=22=
-,
-> > =22clkin=22, CLK=5FIS=5FCRITICAL =7D,
-> > =5BASPEED=5FCLK=5FGATE=5FUSBPORT2CLK=5D =3D =7B 7, 3, =22usb-port2-ga=
-te=22,
-> > NULL, 0 =7D, /* USB2.0 Host port 2 */
-> > - =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,
-> > NULL, 0 =7D, /* LPC */
-> > + =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,
-> > NULL, CLK=5FIS=5FCRITICAL =7D, /* LPC */
-> > =5BASPEED=5FCLK=5FGATE=5FUSBUHCICLK=5D =3D =7B 9, 15, =22usb-uhci-gat=
-e=22,
-> > NULL, 0 =7D, /* USB1.1 (requires port 2 enabled) */
-> > =5BASPEED=5FCLK=5FGATE=5FD1CLK=5D =3D =7B 10, 13, =22d1clk-gate=22,
-> > NULL, 0 =7D, /* G=46X CRT */
-> > =5BASPEED=5FCLK=5FGATE=5FYCLK=5D =3D =7B 13, 4, =22yclk-gate=22,
-> > NULL, 0 =7D, /* HAC */
-> >
-> > In my experiments on my system, LCLK was not enabled due to the null
-> > parent dependency so I added CLK=5FIS=5FCRITICAL flag to enable the c=
-lk.
-> >
-> > LPC interface is default pin pad setting of AST2500 so you might not
-> > need a pinctrl setting on it if you didn't change it's pin pads to GP=
-IO
-> > or eSPI.
-> >
-> > Cheers,
-> > Jae
-> >
-> > Jae,
-> > Are you planning to upstream this patch as it is needed for kcsbridge=
- to work. Also aspeed-g5 dtsi file.
->
-> Okay, I'll submit this patch and dtsi patch to community.
->
-> Thanks,
-> Jae
->
-> >
-> > Regards
-> > -Vijay
-> >
-> >
-
---5c00a7c8_6a2342ec_da85
-Content-Type: text/html; charset="utf-8"
+--=_alternative 0022B2DB65258355_=
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Type: text/html; charset="US-ASCII"
 
-<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
-<head>
-<title></title>
-</head>
-<body>
-<div name=3D=22messageBodySection=22 style=3D=22font-size: 14px; font-fam=
-ily: -apple-system, BlinkMacSystem=46ont, sans-serif;=22>Hi Jae,
-<div><br /></div>
-<div>
-<div>We also encountered the same situation a month ago.<br />
-We try to enable the LPC clock on devicetree to resolve this problem not =
-direct modify clock driver.<br /></div>
-<div><br /></div>
-<div>lpc=5Fctrl: lpc-ctrl=400 =7B&=23160;</div>
-<div>=E2=80=83&=23160;compatible =3D =22aspeed,ast2500-lpc-ctrl=E2=80=9D;=
-&=23160;</div>
-<div>=E2=80=83 reg =3D &lt;0x0 0x80&gt;;&=23160;</div>
-<div>=E2=80=83&=23160;clocks =3D &lt;&amp;syscon ASPEED=5FCLK=5FGATE=5FLC=
-LK&gt;;&=23160;</div>
-<div>&=23160; &=23160; status =3D =E2=80=9Cokay=E2=80=9D;&=23160;</div>
-<div>=7D;</div>
-</div>
-<div><br /></div>
-<div>However, I=E2=80=99m not sure which is better for LPC=5FCLCK setting=
-.<br /></div>
-<div>Whether we should modify driver if original data is enabled or shoul=
-d enable on the device tree, correct=3F<br /></div>
-<div><br /></div>
-</div>
-<div name=3D=22messageSignatureSection=22 style=3D=22font-size: 14px; fon=
-t-family: -apple-system, BlinkMacSystem=46ont, sans-serif;=22><br />
-Thanks,
-<div><br /></div>
-<div>Samuel Jiang</div>
-</div>
-<div name=3D=22messageReplySection=22 style=3D=22font-size: 14px; font-fa=
-mily: -apple-system, BlinkMacSystem=46ont, sans-serif;=22>On Nov 30, 2018=
-, 2:58 AM +0800, Jae Hyun Yoo &lt;jae.hyun.yoo=40linux.intel.com&gt;, wro=
-te:<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =231abc9c;=22>On 11/29/2018 12:42 PM, Vijay =
-Khemka wrote:<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =23e67e22;=22>Try below fix on clk-aspeed.c<=
-br />
-<br />
-diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c<br />
-index 596136793fc4..b55d35e3eb5e 100644<br />
---- a/drivers/clk/clk-aspeed.c<br />
-+++ b/drivers/clk/clk-aspeed.c<br />
-=40=40 -95,7 +95,7 =40=40 static const struct aspeed=5Fgate=5Fdata aspeed=
-=5Fgates=5B=5D =3D =7B<br />
-=5BASPEED=5FCLK=5FGATE=5FDCLK=5D =3D =7B 5, -1, =22dclk-gate=22,<br />
-NULL, CLK=5FIS=5FCRITICAL =7D, /* DAC */<br />
-=5BASPEED=5FCLK=5FGATE=5FRE=46CLK=5D =3D =7B 6, -1, =22refclk-gate=22,<br=
- />
-=22clkin=22, CLK=5FIS=5FCRITICAL =7D,<br />
-=5BASPEED=5FCLK=5FGATE=5FUSBPORT2CLK=5D =3D =7B 7, 3, =22usb-port2-gate=22=
-,<br />
-NULL, 0 =7D, /* USB2.0 Host port 2 */<br />
-- =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,<br />
-NULL, 0 =7D, /* LPC */<br />
-+ =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,<br />
-NULL, CLK=5FIS=5FCRITICAL =7D, /* LPC */<br />
-=5BASPEED=5FCLK=5FGATE=5FUSBUHCICLK=5D =3D =7B 9, 15, =22usb-uhci-gate=22=
-,<br />
-NULL, 0 =7D, /* USB1.1 (requires port 2 enabled) */<br />
-=5BASPEED=5FCLK=5FGATE=5FD1CLK=5D =3D =7B 10, 13, =22d1clk-gate=22,<br />=
-
-NULL, 0 =7D, /* G=46X CRT */<br />
-=5BASPEED=5FCLK=5FGATE=5FYCLK=5D =3D =7B 13, 4, =22yclk-gate=22,<br />
-NULL, 0 =7D, /* HAC */<br />
-<br />
-In my experiments on my system, LCLK was not enabled due to the null<br /=
->
-parent dependency so I added CLK=5FIS=5FCRITICAL flag to enable the clk.<=
-br />
-<br />
-LPC interface is default pin pad setting of AST2500 so you might not<br /=
->
-need a pinctrl setting on it if you didn't change it's pin pads to GPIO<b=
-r />
-or eSPI.<br />
-<br />
-Cheers,<br />
-Jae<br />
-<br />
-Jae,<br />
-Are you planning to upstream this patch as it is needed for kcsbridge to =
-work. Also aspeed-g5 dtsi file.<br /></blockquote>
-<br />
-Okay, I'll submit this patch and dtsi patch to community.<br />
-<br />
-Thanks,<br />
-Jae<br />
-<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =23e67e22;=22><br />
-Regards<br />
--Vijay<br />
-<br />
-<br /></blockquote>
-</blockquote>
-<div></div>
-</div>
-</body>
-</html>
-
---5c00a7c8_6a2342ec_da85--
+<span style=3D" font-size:11pt;font-family:sans-serif">Hi All,</span><br><b=
+r><span style=3D" font-size:11pt;font-family:sans-serif">We are planning
+to port UUID synching related code from current python script: <b>openbmc/s=
+keleton/pyinventorymgr/sync=5Finventory=5Fitems.py</b>to new bash script.</=
+span><br><br><span style=3D" font-size:11pt;font-family:sans-serif">The cur=
+rent py(invoked
+by systemd on the way to BMC ready state) is doing below given actions
+to sync BMC's UUID to U-Boot environment.</span><br><span style=3D" font-si=
+ze:11pt;font-family:sans-serif">1. Getting the
+UUID from inventory.</span><br><span style=3D" font-size:11pt;font-family:s=
+ans-serif">2. Getting the
+UUID from U-boot environment</span><br><span style=3D" font-size:11pt;font-=
+family:sans-serif">3. If the both
+are differing, write the UUID form inventory to U-Boot environment.</span><=
+br><span style=3D" font-size:11pt;font-family:sans-serif">4. It also it
+has TODO task to reboot the BMC to make sure UUID from U-Boot env to &nbsp;=
+sync
+with /etc/machine-id.</span><br><br><span style=3D" font-size:11pt;font-fam=
+ily:sans-serif">But this script
+is in broken state now: It is not updating UUID in U-boot env by reading
+it from inventory.</span><br><br><span style=3D" font-size:11pt;font-family=
+:sans-serif">We have few things
+to understand here:</span><br><span style=3D" font-size:11pt;font-family:sa=
+ns-serif">1. Is there a
+need to write UUID to U-Boot environment?</span><br><span style=3D" font-si=
+ze:11pt;font-family:sans-serif">2. Can machine-id
+be the source for UUID? or UUID is the source for machine-id?</span><br><sp=
+an style=3D" font-size:11pt;font-family:sans-serif">3. If UUID (from
+inventory) is the source for machine-id, from where should the inventory
+get UUID? (on openpower systems the UUID is fetched from BMC &nbsp;VPD,
+if present)</span><br><span style=3D" font-size:11pt;font-family:sans-serif=
+">4. If machine-id
+is the source to UUID, how machine-id is getting its value?</span><br><br><=
+span style=3D" font-size:11pt;font-family:sans-serif">We need an inputs
+from community members who are having better understand on these things.</s=
+pan><br><br><span style=3D" font-size:11pt;font-family:sans-serif">Best Reg=
+ards,</span><br><span style=3D" font-size:11pt;font-family:sans-serif">Naga=
+raju G</span><BR>
+--=_alternative 0022B2DB65258355_=--
