@@ -1,49 +1,69 @@
-Return-Path: <sboyd@kernel.org>
+Return-Path: <chyishian.jiang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com;
+ envelope-from=chyishian.jiang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="dV6LAhZD"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="omw+cXNa"; 
  dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 435ZrG52ZbzDrQq
- for <openbmc@lists.ozlabs.org>; Fri, 30 Nov 2018 11:23:58 +1100 (AEDT)
-Received: from localhost (unknown [104.132.0.74])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 42F6820834;
- Fri, 30 Nov 2018 00:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1543537436;
- bh=yqFUDKxdhkCSdoOfGf067LjqLpeskD0HSr6L5zeDJfM=;
- h=To:From:In-Reply-To:Cc:References:Subject:Date:From;
- b=dV6LAhZDIyJyrOkjlnQiGvXRjslhitcnHMh2uwwiHVuG8gU8OYmlrfTAMjf9XwQJL
- tTW5d14SoMOgxMCs3LAGra8dm29zs4yl9f7IrsB/PwW7nqC631E8fYNgmlzkrN/0QD
- p45JtECm476vcRdf++duOP8d2ipnizwykBQiniSI=
-Content-Type: text/plain; charset="utf-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 435fJt074qzDrQY
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Nov 2018 14:00:29 +1100 (AEDT)
+Received: by mail-pl1-x62a.google.com with SMTP id x21-v6so2040494pln.9
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Nov 2018 19:00:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:message-id:in-reply-to:references:subject
+ :mime-version; bh=ntfpedzcpm5uNTnYqMB5axKqkpxBeYTx9xoGX3VpZUI=;
+ b=omw+cXNa+IUSWAJYXyWJRQ4m/YMyYQuXmpiZpWH7rL5NBWmJAcK3Smr2SmB47OrQ54
+ oFjd5LbUF7npG9zpoOHVELcfTNa7Njoy3a6f6Ok/DKJyIt6w/ELbXbkq1/GXjPJ4PrFI
+ KueIqtbHNJ4x0I+lLBBH0pcg1nFQnBeaIDlFqV5DRUv74k6qqO19rmu2dYPy5aQ5c1lF
+ 8vSEnfTsfiVVZoIrlOVCHb0z0iuwRSS8TB54xW/TIyAfsBgxsyImp+v2QM+Am6T7YU8e
+ EwjctgO2OGJjFyGecTZg1tE6L4H3nMnzPyXOx3wEb64LM2939xzbiMJ9hMukDUWRlzDE
+ 36aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:message-id:in-reply-to
+ :references:subject:mime-version;
+ bh=ntfpedzcpm5uNTnYqMB5axKqkpxBeYTx9xoGX3VpZUI=;
+ b=SQzXPHZjg9+xy5A8caFj2heLQxYGPzsEQrLMSOk2hqVZE0OBpQbOthwV+loh2PrAmV
+ MenMAF6bYsB5tkE5zSPPBuLXC1sNmJPUlPI8WtLGmDGh2nkMgI2XFwcu3mJ+NRutf57a
+ tBn9TvuuO1P10hIW6Q2GfeusWxy2DXcCP3SuoeAlI6RwNut7rKFVyaBhqC8Ys1xbCHi/
+ FzmflJ2K4trXj1mP2yQ4ha/b3uJvUyRoJBm7x+2tUYNipRGBpSPcvxR+7gyV0UQTMazz
+ GRUQ6boH1olFXR7xUcyLoJM85wnJLsUuYca07EacrNieZEmpPqFmYUP97pVYjsByyW3D
+ jkmQ==
+X-Gm-Message-State: AA+aEWZ26buPBvKBitoTWwPGj6hCprVZPP1fZRKjKDuyoVaPG4CVH7qd
+ nADuFYb13/Cj+uy3LqHAWwk=
+X-Google-Smtp-Source: AFSGD/ValOkQJUOhabQGjLRAu/aP7IZ5Z6JHaZMgcSdGVcrLGG3c8SlCBwL9Sy4gyznNBKZjdqaVHA==
+X-Received: by 2002:a17:902:8c91:: with SMTP id
+ t17mr3830410plo.119.1543546827347; 
+ Thu, 29 Nov 2018 19:00:27 -0800 (PST)
+Received: from [10.10.14.19] (220-135-135-179.HINET-IP.hinet.net.
+ [220.135.135.179])
+ by smtp.gmail.com with ESMTPSA id o13sm5369524pfk.57.2018.11.29.19.00.25
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 29 Nov 2018 19:00:26 -0800 (PST)
+Date: Fri, 30 Nov 2018 11:00:19 +0800
+From: Samuel Jiang <chyishian.jiang@gmail.com>
+To: Vijay Khemka <vijaykhemka@fb.com>, qianlihu
+ <wangzhiqiang8906@gmail.com>, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: "=?utf-8?Q?openbmc=40lists.ozlabs.org?=" <openbmc@lists.ozlabs.org>
+Message-ID: <4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark>
+In-Reply-To: <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
+References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
+ <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
+ <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
+ <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
+ <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
+ <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
+Subject: Re: [HELP] ipmi-kcs didn't work
+X-Readdle-Message-ID: 4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-To: avifishman70@gmail.com, brendanhiggins@google.com, linux@armlinux.org.uk, 
- mark.rutland@arm.com, mturquette@baylibre.com, raltherr@google.com,
- robh+dt@kernel.org, sboyd@codeaurora.org, tali.perry1@gmail.com,
- tmaimon77@gmail.com
-From: Stephen Boyd <sboyd@kernel.org>
-In-Reply-To: <20181111134712.318321-2-tali.perry1@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-clk@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>,
- Wei Yongjun <weiyongjun1@huawei.com>
-References: <20181111134712.318321-1-tali.perry1@gmail.com>
- <20181111134712.318321-2-tali.perry1@gmail.com>
-Message-ID: <154353743563.88331.13076671872913666949@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.7
-Subject: Re: [PATCH v1 1/1] clk: npcm7xx: get fixed clocks from DT
-Date: Thu, 29 Nov 2018 16:23:55 -0800
+Content-Type: multipart/alternative; boundary="5c00a7c8_6a2342ec_da85"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,283 +75,203 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Nov 2018 00:23:59 -0000
+X-List-Received-Date: Fri, 30 Nov 2018 03:00:31 -0000
 
-Quoting tali.perry1@gmail.com (2018-11-11 05:47:12)
-> From: Tali Perry <tali.perry1@gmail.com>
-> =
+--5c00a7c8_6a2342ec_da85
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-> Nuvoton NPCM7XX Clock Controller
-> fix base address and of_clk_get_by_name error handling.
->     Also update error messages to be more informative.
->     =
+Hi Jae,
 
->     In case clk_base allocation is erronoeous the return value is null.
->     Also fix handling of of_clk_get_by_name returns an error. =
+We also encountered the same situation a month ago.
+We try to enable the LPC clock on devicetree to resolve this problem not =
+direct modify clock driver.
 
->     Print a better error message pointing to the dt-binding documention.
-> =
+lpc=5Fctrl: lpc-ctrl=400 =7B
+=E2=80=83=C2=A0compatible =3D =22aspeed,ast2500-lpc-ctrl=E2=80=9D;
+=E2=80=83 reg =3D <0x0 0x80>;
+=E2=80=83=C2=A0clocks =3D <&syscon ASPEED=5FCLK=5FGATE=5FLCLK>;
+=C2=A0 =C2=A0 status =3D =E2=80=9Cokay=E2=80=9D;
+=7D;
 
-> This patch is re-submitted since it was already pushed to main =
-
-> (just the diff, without the full driver which is already in =
-
-> master branch.)
-> =
-
-> =
-
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
-> =
+However, I=E2=80=99m not sure which is better for LPC=5FCLCK setting.
+Whether we should modify driver if original data is enabled or should ena=
+ble on the device tree, correct=3F
 
 
-I don't know what's going on with this patch. Is it something new? Can
-you break it up into logical changes and submit them with proper commit
-text? The signoff chain is also odd. Can you follow
-Documentation/process/submitting-patches.rst?
+Thanks,
 
-> ---
->  drivers/clk/clk-npcm7xx.c | 99 +++++++++++++++++++++++++++++++++++------=
-------
->  1 file changed, 75 insertions(+), 24 deletions(-)
-> =
+Samuel Jiang
+On Nov 30, 2018, 2:58 AM +0800, Jae Hyun Yoo <jae.hyun.yoo=40linux.intel.=
+com>, wrote:
+> On 11/29/2018 12:42 PM, Vijay Khemka wrote:
+> > Try below fix on clk-aspeed.c
+> >
+> > diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+> > index 596136793fc4..b55d35e3eb5e 100644
+> > --- a/drivers/clk/clk-aspeed.c
+> > +++ b/drivers/clk/clk-aspeed.c
+> > =40=40 -95,7 +95,7 =40=40 static const struct aspeed=5Fgate=5Fdata as=
+peed=5Fgates=5B=5D =3D =7B
+> > =5BASPEED=5FCLK=5FGATE=5FDCLK=5D =3D =7B 5, -1, =22dclk-gate=22,
+> > NULL, CLK=5FIS=5FCRITICAL =7D, /* DAC */
+> > =5BASPEED=5FCLK=5FGATE=5FRE=46CLK=5D =3D =7B 6, -1, =22refclk-gate=22=
+,
+> > =22clkin=22, CLK=5FIS=5FCRITICAL =7D,
+> > =5BASPEED=5FCLK=5FGATE=5FUSBPORT2CLK=5D =3D =7B 7, 3, =22usb-port2-ga=
+te=22,
+> > NULL, 0 =7D, /* USB2.0 Host port 2 */
+> > - =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,
+> > NULL, 0 =7D, /* LPC */
+> > + =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,
+> > NULL, CLK=5FIS=5FCRITICAL =7D, /* LPC */
+> > =5BASPEED=5FCLK=5FGATE=5FUSBUHCICLK=5D =3D =7B 9, 15, =22usb-uhci-gat=
+e=22,
+> > NULL, 0 =7D, /* USB1.1 (requires port 2 enabled) */
+> > =5BASPEED=5FCLK=5FGATE=5FD1CLK=5D =3D =7B 10, 13, =22d1clk-gate=22,
+> > NULL, 0 =7D, /* G=46X CRT */
+> > =5BASPEED=5FCLK=5FGATE=5FYCLK=5D =3D =7B 13, 4, =22yclk-gate=22,
+> > NULL, 0 =7D, /* HAC */
+> >
+> > In my experiments on my system, LCLK was not enabled due to the null
+> > parent dependency so I added CLK=5FIS=5FCRITICAL flag to enable the c=
+lk.
+> >
+> > LPC interface is default pin pad setting of AST2500 so you might not
+> > need a pinctrl setting on it if you didn't change it's pin pads to GP=
+IO
+> > or eSPI.
+> >
+> > Cheers,
+> > Jae
+> >
+> > Jae,
+> > Are you planning to upstream this patch as it is needed for kcsbridge=
+ to work. Also aspeed-g5 dtsi file.
+>
+> Okay, I'll submit this patch and dtsi patch to community.
+>
+> Thanks,
+> Jae
+>
+> >
+> > Regards
+> > -Vijay
+> >
+> >
 
-> diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
-> index 740af90a9508..91a937720f4e 100644
-> --- a/drivers/clk/clk-npcm7xx.c
-> +++ b/drivers/clk/clk-npcm7xx.c
-> @@ -7,17 +7,26 @@
->   * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
->   */
->  =
+--5c00a7c8_6a2342ec_da85
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-> -#include <linux/module.h>
-> -#include <linux/clk-provider.h>
-> -#include <linux/io.h>
-> -#include <linux/kernel.h>
-> -#include <linux/of.h>
-> -#include <linux/of_address.h>
-> -#include <linux/slab.h>
-> -#include <linux/err.h>
-> -#include <linux/bitfield.h>
-> -
-> -#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-> +
-> +
-> +
-> + #include <linux/module.h>
-> + #include <linux/clk.h>
-> + #include <linux/clk-provider.h>
-> + #include <linux/device.h>
-> + #include <linux/io.h>
-> + #include <linux/kernel.h>
-> + #include <linux/of.h>
-> + #include <linux/of_device.h>
-> + #include <linux/of_platform.h>
-> + #include <linux/of_address.h>
-> + #include <linux/platform_device.h>
-> + #include <linux/slab.h>
-> + #include <linux/err.h>
-> + #include <linux/rational.h>
-> + #include <linux/bitfield.h>
-> + #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
+<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
+<head>
+<title></title>
+</head>
+<body>
+<div name=3D=22messageBodySection=22 style=3D=22font-size: 14px; font-fam=
+ily: -apple-system, BlinkMacSystem=46ont, sans-serif;=22>Hi Jae,
+<div><br /></div>
+<div>
+<div>We also encountered the same situation a month ago.<br />
+We try to enable the LPC clock on devicetree to resolve this problem not =
+direct modify clock driver.<br /></div>
+<div><br /></div>
+<div>lpc=5Fctrl: lpc-ctrl=400 =7B&=23160;</div>
+<div>=E2=80=83&=23160;compatible =3D =22aspeed,ast2500-lpc-ctrl=E2=80=9D;=
+&=23160;</div>
+<div>=E2=80=83 reg =3D &lt;0x0 0x80&gt;;&=23160;</div>
+<div>=E2=80=83&=23160;clocks =3D &lt;&amp;syscon ASPEED=5FCLK=5FGATE=5FLC=
+LK&gt;;&=23160;</div>
+<div>&=23160; &=23160; status =3D =E2=80=9Cokay=E2=80=9D;&=23160;</div>
+<div>=7D;</div>
+</div>
+<div><br /></div>
+<div>However, I=E2=80=99m not sure which is better for LPC=5FCLCK setting=
+.<br /></div>
+<div>Whether we should modify driver if original data is enabled or shoul=
+d enable on the device tree, correct=3F<br /></div>
+<div><br /></div>
+</div>
+<div name=3D=22messageSignatureSection=22 style=3D=22font-size: 14px; fon=
+t-family: -apple-system, BlinkMacSystem=46ont, sans-serif;=22><br />
+Thanks,
+<div><br /></div>
+<div>Samuel Jiang</div>
+</div>
+<div name=3D=22messageReplySection=22 style=3D=22font-size: 14px; font-fa=
+mily: -apple-system, BlinkMacSystem=46ont, sans-serif;=22>On Nov 30, 2018=
+, 2:58 AM +0800, Jae Hyun Yoo &lt;jae.hyun.yoo=40linux.intel.com&gt;, wro=
+te:<br />
+<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
+0px; border-left: thin solid =231abc9c;=22>On 11/29/2018 12:42 PM, Vijay =
+Khemka wrote:<br />
+<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
+0px; border-left: thin solid =23e67e22;=22>Try below fix on clk-aspeed.c<=
+br />
+<br />
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c<br />
+index 596136793fc4..b55d35e3eb5e 100644<br />
+--- a/drivers/clk/clk-aspeed.c<br />
++++ b/drivers/clk/clk-aspeed.c<br />
+=40=40 -95,7 +95,7 =40=40 static const struct aspeed=5Fgate=5Fdata aspeed=
+=5Fgates=5B=5D =3D =7B<br />
+=5BASPEED=5FCLK=5FGATE=5FDCLK=5D =3D =7B 5, -1, =22dclk-gate=22,<br />
+NULL, CLK=5FIS=5FCRITICAL =7D, /* DAC */<br />
+=5BASPEED=5FCLK=5FGATE=5FRE=46CLK=5D =3D =7B 6, -1, =22refclk-gate=22,<br=
+ />
+=22clkin=22, CLK=5FIS=5FCRITICAL =7D,<br />
+=5BASPEED=5FCLK=5FGATE=5FUSBPORT2CLK=5D =3D =7B 7, 3, =22usb-port2-gate=22=
+,<br />
+NULL, 0 =7D, /* USB2.0 Host port 2 */<br />
+- =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,<br />
+NULL, 0 =7D, /* LPC */<br />
++ =5BASPEED=5FCLK=5FGATE=5FLCLK=5D =3D =7B 8, 5, =22lclk-gate=22,<br />
+NULL, CLK=5FIS=5FCRITICAL =7D, /* LPC */<br />
+=5BASPEED=5FCLK=5FGATE=5FUSBUHCICLK=5D =3D =7B 9, 15, =22usb-uhci-gate=22=
+,<br />
+NULL, 0 =7D, /* USB1.1 (requires port 2 enabled) */<br />
+=5BASPEED=5FCLK=5FGATE=5FD1CLK=5D =3D =7B 10, 13, =22d1clk-gate=22,<br />=
 
-Is any of this hunk necessary or relevant to the subject of this patch?
+NULL, 0 =7D, /* G=46X CRT */<br />
+=5BASPEED=5FCLK=5FGATE=5FYCLK=5D =3D =7B 13, 4, =22yclk-gate=22,<br />
+NULL, 0 =7D, /* HAC */<br />
+<br />
+In my experiments on my system, LCLK was not enabled due to the null<br /=
+>
+parent dependency so I added CLK=5FIS=5FCRITICAL flag to enable the clk.<=
+br />
+<br />
+LPC interface is default pin pad setting of AST2500 so you might not<br /=
+>
+need a pinctrl setting on it if you didn't change it's pin pads to GPIO<b=
+r />
+or eSPI.<br />
+<br />
+Cheers,<br />
+Jae<br />
+<br />
+Jae,<br />
+Are you planning to upstream this patch as it is needed for kcsbridge to =
+work. Also aspeed-g5 dtsi file.<br /></blockquote>
+<br />
+Okay, I'll submit this patch and dtsi patch to community.<br />
+<br />
+Thanks,<br />
+Jae<br />
+<br />
+<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
+0px; border-left: thin solid =23e67e22;=22><br />
+Regards<br />
+-Vijay<br />
+<br />
+<br /></blockquote>
+</blockquote>
+<div></div>
+</div>
+</body>
+</html>
 
-> +
->  =
-
->  struct npcm7xx_clk_pll {
-> @@ -44,7 +56,8 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct=
- clk_hw *hw,
->         u64 ret;
->  =
-
->         if (parent_rate =3D=3D 0) {
-> -               pr_err("%s: parent rate is zero", __func__);
-> +               pr_err("%s: parent rate is zero. reg=3D%x\n", __func__,
-> +                       (u32)(pll->pllcon));
-
-Maybe you should print clk name instead of register?
-
->                 return 0;
->         }
->  =
-
-> @@ -61,13 +74,12 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(stru=
-ct clk_hw *hw,
->         return ret;
->  }
->  =
-
-> -static const struct clk_ops npcm7xx_clk_pll_ops =3D {
-> +const struct clk_ops npcm7xx_clk_pll_ops =3D {
-
-Why?
-
->         .recalc_rate =3D npcm7xx_clk_pll_recalc_rate,
->  };
->  =
-
-> -static struct clk_hw *
-> -npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
-> -                        const char *parent_name, unsigned long flags)
-> +static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,
-> +               const char *name, const char *parent_name, unsigned long =
-flags)
->  {
->         struct npcm7xx_clk_pll *pll;
->         struct clk_init_data init;
-> @@ -78,7 +90,8 @@ npcm7xx_clk_register_pll(void __iomem *pllcon, const ch=
-ar *name,
->         if (!pll)
->                 return ERR_PTR(-ENOMEM);
->  =
-
-> -       pr_debug("%s reg, name=3D%s, p=3D%s\n", __func__, name, parent_na=
-me);
-> +       pr_debug("%s reg, reg=3D0x%x, name=3D%s, p=3D%s\n",
-> +               __func__, (unsigned int)pllcon, name, parent_name);
-
-What's going on here? Why cast?
-
->  =
-
->         init.name =3D name;
->         init.ops =3D &npcm7xx_clk_pll_ops;
-> @@ -544,9 +557,11 @@ static void __init npcm7xx_clk_init(struct device_no=
-de *clk_np)
->         void __iomem *clk_base;
->         struct resource res;
->         struct clk_hw *hw;
-> +       struct clk *clk;
->         int ret;
->         int i;
->  =
-
-> +       clk_base =3D NULL;
-
-Why?
-
->         ret =3D of_address_to_resource(clk_np, 0, &res);
->         if (ret) {
->                 pr_err("%s: failed to get resource, ret %d\n", clk_np->na=
-me,
-> @@ -560,14 +575,44 @@ static void __init npcm7xx_clk_init(struct device_n=
-ode *clk_np)
->  =
-
->         npcm7xx_clk_data =3D kzalloc(sizeof(*npcm7xx_clk_data->hws) *
->                 NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL=
-);
-> -       if (!npcm7xx_clk_data)
-> +
-> +       npcm7xx_clk_data->num =3D 0;
-
-kzalloc already does that initialization to 0 for you.
-
-> +
-> +       if (!npcm7xx_clk_data->hws) {
-> +               pr_err("Can't alloc npcm7xx_clk_data\n");
-
-We don't need allocation error messages.
-
->                 goto npcm7xx_init_np_err;
-> +       }
->  =
-
->         npcm7xx_clk_data->num =3D NPCM7XX_NUM_CLOCKS;
->  =
-
->         for (i =3D 0; i < NPCM7XX_NUM_CLOCKS; i++)
->                 npcm7xx_clk_data->hws[i] =3D ERR_PTR(-EPROBE_DEFER);
->  =
-
-> +       /* Read fixed clocks. These 3 clocks must be defined in DT */
-> +       clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
-> +       if (IS_ERR(clk)) {
-> +               pr_err("failed to find external REFCLK on device tree, er=
-r=3D%ld\n",
-> +                       PTR_ERR(clk));
-> +               clk_put(clk);
-> +               goto npcm7xx_init_fail_no_clk_on_dt;
-> +       }
-> +
-> +       clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
-> +       if (IS_ERR(clk)) {
-> +               pr_err("failed to find external SYSBYPCK on device tree, =
-err=3D%ld\n",
-> +                       PTR_ERR(clk));
-> +               clk_put(clk);
-> +               goto npcm7xx_init_fail_no_clk_on_dt;
-> +       }
-> +
-> +       clk =3D of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
-> +       if (IS_ERR(clk)) {
-> +               pr_err("failed to find external MCBYPCK on device tree, e=
-rr=3D%ld\n",
-> +                       PTR_ERR(clk));
-> +               clk_put(clk);
-> +               goto npcm7xx_init_fail_no_clk_on_dt;
-> +       }
-
-I assume the DTS is not shipped?
-
-> +
->         /* Register plls */
->         for (i =3D 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
->                 const struct npcm7xx_clk_pll_data *pll_data =3D &npcm7xx_=
-plls[i];
-> @@ -584,16 +629,16 @@ static void __init npcm7xx_clk_init(struct device_n=
-ode *clk_np)
->         }
->  =
-
->         /* Register fixed dividers */
-> -       hw =3D clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
-> +       clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
-
-This is going backwards. Please use clk_hw APIs.
-
->                         NPCM7XX_CLK_S_PLL1, 0, 1, 2);
-> -       if (IS_ERR(hw)) {
-> +       if (IS_ERR(clk)) {
->                 pr_err("npcm7xx_clk: Can't register fixed div\n");
->                 goto npcm7xx_init_fail;
->         }
->  =
-
-> -       hw =3D clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
-> +       clk =3D clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
->                         NPCM7XX_CLK_S_PLL2, 0, 1, 2);
-> -       if (IS_ERR(hw)) {
-> +       if (IS_ERR(clk)) {
->                 pr_err("npcm7xx_clk: Can't register div2\n");
->                 goto npcm7xx_init_fail;
->         }
-> @@ -646,11 +691,17 @@ static void __init npcm7xx_clk_init(struct device_n=
-ode *clk_np)
->  =
-
->         return;
->  =
-
-> +npcm7xx_init_fail_no_clk_on_dt:
-> +       pr_err("see Documentation/devicetree/bindings/clock/");
-> +       pr_err("nuvoton,npcm750-clk.txt  for details\n");
->  npcm7xx_init_fail:
-> -       kfree(npcm7xx_clk_data->hws);
-> +       if (npcm7xx_clk_data->num)
-> +               kfree(npcm7xx_clk_data->hws);
->  npcm7xx_init_np_err:
-> -       iounmap(clk_base);
-> +       if (clk_base !=3D NULL)
-> +               iounmap(clk_base);
->  npcm7xx_init_error:
->         of_node_put(clk_np);
-> +       pr_err("clk setup fail\n");
-
-Is this hunk of changes related to the subject of this patch? I don't
-think it is, so it just leads to more confusion.
+--5c00a7c8_6a2342ec_da85--
