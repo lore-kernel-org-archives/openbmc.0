@@ -1,30 +1,58 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <chyishian.jiang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::42c; helo=mail-pf1-x42c.google.com;
+ envelope-from=chyishian.jiang@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rRKEJ0qi"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43692F6h4pzDrSq
- for <openbmc@lists.ozlabs.org>; Sat,  1 Dec 2018 10:04:36 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2018 15:04:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,300,1539673200"; d="scan'208";a="94805110"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.128.138])
- ([10.122.128.138])
- by orsmga007.jf.intel.com with ESMTP; 30 Nov 2018 15:04:34 -0800
-Subject: Re: [HELP] ipmi-kcs didn't work
-To: Vijay Khemka <vijaykhemka@fb.com>,
- Samuel Jiang <chyishian.jiang@gmail.com>,
- qianlihu <wangzhiqiang8906@gmail.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 436Y6J1QT0zDrBg
+ for <openbmc@lists.ozlabs.org>; Sun,  2 Dec 2018 01:09:27 +1100 (AEDT)
+Received: by mail-pf1-x42c.google.com with SMTP id c72so4210235pfc.6
+ for <openbmc@lists.ozlabs.org>; Sat, 01 Dec 2018 06:09:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:message-id:in-reply-to:references:subject
+ :mime-version; bh=j64JRoKuYOnd6YpprB+5a9kQr75jPcHD+sV/sRC2pT0=;
+ b=rRKEJ0qi5WepBjMQn8V8wtWj7ut649SNGENVXsDG2S6DcmIP1zo1sHbhlSGvVyeaHn
+ laoJMq8Xj+bSU5ufRC99W98vb36bsSYAy7U0ijv/wkIZSTMeC8oXhVONKgXgPqrlsMdW
+ hJV3/O8nmAtz95GyU+ytFAbTOa/GAWMnYl1F9DZvafKfrRDF43y6DKbHSm+jiNY4AltZ
+ FEcICOiDRRphmuVA8zAog871+Qu7BCsMSHq1kAwjOfpK2o+b6wakPFCz2yFAZgjliypA
+ tv/3qTiQR43CjvFX3y++FKuAFb85M7eytznCNMv76/fxtZfa0o5cc6Np7RaSk/k9ogNU
+ L+BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:message-id:in-reply-to
+ :references:subject:mime-version;
+ bh=j64JRoKuYOnd6YpprB+5a9kQr75jPcHD+sV/sRC2pT0=;
+ b=sHQuWDsFr0w+adTz9yJOo6ZKLQCG4uIK0BhNDN05JKmGe1mzUw1InVaRK6rMZhL8tW
+ 3GYcIH8PWb4Gk5NLlD3T9j68kx9/J3TPCBhv/nnFVSiaqufrUe5MCugUixvIHxss+lQ8
+ tNnwGCiSzaGhgfPtEf9nZZF+vxagJ/yP6S2UMoIm5XkJatkww1NZSw02jcjsun5ISgpF
+ 3h1a0g9FPMKsgu60Z6/qFMj/+bGAmfqGYc1vtceusx6Kb2cCeu04jwyzjZ/Yc6lwnkbn
+ vuUcNIBfQ/oCLe/deawS774HAFyChe+KDFbPktwkxLtgAOYdup3FB0/b3xnHBdypDMpA
+ Ehsg==
+X-Gm-Message-State: AA+aEWYKKYGDjIdtrLDcIWbWiphAES/Pn1u1OQNMNAiVv/LR/WyPYMxn
+ WTO+UjIx0Duxp6EfDhVtumY=
+X-Google-Smtp-Source: AFSGD/WV2FuuZvanTU8PnP/h6ehpXMprZoXcWu4Azvfp5wPApYFoMMOgfHktUVIfSISkld7vYa6fBg==
+X-Received: by 2002:a63:9a09:: with SMTP id o9mr7681182pge.94.1543673365416;
+ Sat, 01 Dec 2018 06:09:25 -0800 (PST)
+Received: from [192.168.2.104] (114-45-49-17.dynamic-ip.hinet.net.
+ [114.45.49.17])
+ by smtp.gmail.com with ESMTPSA id d18sm11062729pfj.47.2018.12.01.06.09.18
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 01 Dec 2018 06:09:24 -0800 (PST)
+Date: Sat, 1 Dec 2018 22:09:08 +0800
+From: Samuel Jiang <chyishian.jiang@gmail.com>
+To: Vijay Khemka <vijaykhemka@fb.com>, qianlihu
+ <wangzhiqiang8906@gmail.com>, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: "=?utf-8?Q?openbmc=40lists.ozlabs.org?=" <openbmc@lists.ozlabs.org>
+Message-ID: <6bfff7cb-b814-462c-9f5c-31ea0c632dbf@Spark>
+In-Reply-To: <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
 References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
  <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
  <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
@@ -36,16 +64,11 @@ References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
  <87C3DCC8-F773-46A0-B8EC-5E3DC5E3983F@fb.com>
  <660c304f-60eb-f54a-f3b7-4d6d4481a96a@linux.intel.com>
  <A9318AC7-EE0E-4B84-84D1-A16695EE3FC0@fb.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
-Date: Fri, 30 Nov 2018 17:04:33 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
+Subject: Re: [HELP] ipmi-kcs didn't work
+X-Readdle-Message-ID: 6bfff7cb-b814-462c-9f5c-31ea0c632dbf@Spark
 MIME-Version: 1.0
-In-Reply-To: <A9318AC7-EE0E-4B84-84D1-A16695EE3FC0@fb.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative; boundary="5c029609_4bee5a5b_da85"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,81 +80,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Nov 2018 23:04:38 -0000
+X-List-Received-Date: Sat, 01 Dec 2018 14:09:30 -0000
 
-On 11/30/2018 4:39 PM, Vijay Khemka wrote:
-> 
-> 
-> ﻿On 11/30/18, 11:29 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> wrote:
-> 
->      On 11/30/2018 12:57 PM, Vijay Khemka wrote:
->      >
->      > On 11/30/18, 7:31 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> wrote:
->      >
->      >      On 11/29/2018 9:00 PM, Samuel Jiang wrote:
->      >      > Hi Jae,
->      >      >
->      >      > We also encountered the same situation a month ago.
->      >      > We try to enable the LPC clock on devicetree to resolve this problem not
->      >      > direct modify clock driver.
->      >      >
->      >      > lpc_ctrl: lpc-ctrl@0 {
->      >      >   compatible = "aspeed,ast2500-lpc-ctrl”;
->      >      >   reg = <0x0 0x80>;
->      >      >   clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
->      >      >      status = “okay”;
->      >      > };
->      >      >
->      >      > However, I’m not sure which is better for LPC_CLCK setting.
->      >      > Whether we should modify driver if original data is enabled or should
->      >      > enable on the device tree, correct?
->      >      >
->      >      >
->      >
->      >      Hi Samuel,
->      >
->      >      Yes, you are right. I realized that kcs_bmc_aspeed.c doesn't have any
->      >      clock control code so adding a clocks setting into kcs dtsi code doesn't
->      >      make any help. Also, it was the reason why the change is needed on
->      >      clk-aspeed.c. Enabling lpc_ctrl node you suggested seems a right way.
->      >
->      >      Hi Vijay,
->      >      Can you please try the way Samuel suggested after removing changes I
->      >      gave you. Samuel's solution looks good to me.
->      >
->      >      Thanks,
->      >      Jae
->      >
->      > Jae,
->      > I can try. We can certainly enable lpc_ctrl node but in my understanding that
->      > we still need this below patch to redefine ASPEED_CLK_GATE_LCLK value to
->      > add CRITICAL. I might be missing something here.
->      >      - [ASPEED_CLK_GATE_LCLK] = { 8, 5, "lclk-gate", NULL, 0 }, /* LPC */
->      >     + [ASPEED_CLK_GATE_LCLK] = { 8, 5, "lclk-gate", NULL, CLK_IS_CRITICAL }, /* LPC */
->      >
->      
->      Vijay,
->      
->      I checked that lpc_ctrl module has clocks dt property handling code in
->      the module so I think the LCLK would be enabled without the clk-aspeed.c
->      fix. I can't test it now because I'm in a business trip so please test
->      it. I'll also check it when I back to office a week after.
->      
->      Thanks,
->      Jae
->      
-> Jae,
-> I removed above aspeed clock driver patch, and enabled lpc-ctrl node in dts also removed clock definition from kcs. And I don't see host is getting powered on. It works only with clock driver change.
-> 
-> And I still didn't understand how enabling lpc-ctrl node will initialize ASPEED_CLK_GATE_LCLK to CRITICAL.
-> 
-> -Vijay
-> 
+--5c029609_4bee5a5b_da85
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Vijay,
 
-Thanks Vijay for sharing the test result. I'll also check it on my
-hardware when I get back to office. Will share my test result too.
+--5c029609_4bee5a5b_da85
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-Thanks again,
-Jae
+<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
+<head>
+<title></title>
+</head>
+<body>
+</body>
+</html>
+
+--5c029609_4bee5a5b_da85--
