@@ -1,71 +1,54 @@
-Return-Path: <ngorugan@in.ibm.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ngorugan@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 437ps36vZjzDqSG
- for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 02:32:23 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wB3FTdsU000565
- for <openbmc@lists.ozlabs.org>; Mon, 3 Dec 2018 10:32:20 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.114])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2p56u7s9v1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 03 Dec 2018 10:32:20 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <ngorugan@in.ibm.com>;
- Mon, 3 Dec 2018 15:32:19 -0000
-Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
- by smtp.notes.na.collabserv.com (10.122.47.58) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 3 Dec 2018 15:32:17 -0000
-Received: from us1b3-mail128.a3dr.sjc03.isc4sb.com ([10.160.11.13])
- by us1b3-smtp01.a3dr.sjc01.isc4sb.com
- with ESMTP id 2018120315321690-733557 ;
- Mon, 3 Dec 2018 15:32:16 +0000 
-Subject: Re: Utility to Sync BMC's UUID to U-Boot environment
-In-Reply-To: <OF43E90413.B5F754D3-ON00258355.00221DAA-65258355.0022B453@notes.na.collabserv.com>
-From: "Nagaraju Goruganti" <ngorugan@in.ibm.com>
-To: "Milton Miller II" <miltonm@us.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Date: Mon, 3 Dec 2018 15:32:16 +0000
-Sensitivity: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 437qN620Q4zDqMG
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 02:54:17 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2018 07:54:15 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,311,1539673200"; d="scan'208";a="115542174"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.128.138])
+ ([10.122.128.138])
+ by orsmga001.jf.intel.com with ESMTP; 03 Dec 2018 07:54:14 -0800
+Subject: Re: [HELP] ipmi-kcs didn't work
+To: Samuel Jiang <chyishian.jiang@gmail.com>,
+ Vijay Khemka <vijaykhemka@fb.com>, qianlihu <wangzhiqiang8906@gmail.com>,
+ Gary Hsu <gary_hsu@aspeedtech.com>,
+ "Ryan Chen <Ryan Chen" <ryan_chen@aspeedtech.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
+ <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
+ <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
+ <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
+ <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
+ <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
+ <4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark>
+ <db5cfcea-972d-2f50-05f4-266ab2c8f310@linux.intel.com>
+ <87C3DCC8-F773-46A0-B8EC-5E3DC5E3983F@fb.com>
+ <660c304f-60eb-f54a-f3b7-4d6d4481a96a@linux.intel.com>
+ <A9318AC7-EE0E-4B84-84D1-A16695EE3FC0@fb.com>
+ <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
+ <253b7d32-1230-4111-a6dc-a84afddcc679@Spark>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <25e866d4-749c-902b-86b2-3d38975dcc65@linux.intel.com>
+Date: Mon, 3 Dec 2018 09:54:13 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-References: <OF43E90413.B5F754D3-ON00258355.00221DAA-65258355.0022B453@notes.na.collabserv.com>
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 16616-1491 | IBM Domino Build
- SCN1812108_20180501T0841_FP17 November 02, 2018 at 16:08
-X-KeepSent: 7F27D6C3:EF055CB1-00258358:0054EC38;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 13715
-X-TNEFEvaluated: 1
-x-cbid: 18120315-9695-0000-0000-000004E86DD8
-X-IBM-SpamModules-Scores: BY=0.259316; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.022116
-X-IBM-SpamModules-Versions: BY=3.00010165; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000270; SDB=6.01126420; UDB=6.00584997; IPR=6.00906555; 
- BA=6.00006169; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00024426; XFM=3.00000015;
- UTC=2018-12-03 15:32:18
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-12-03 09:44:28 - 6.00009296
-x-cbparentid: 18120315-9696-0000-0000-00001D977F0C
-Message-Id: <OF7F27D6C3.EF055CB1-ON00258358.0054EC38-00258358.00555A2B@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-12-03_09:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <253b7d32-1230-4111-a6dc-a84afddcc679@Spark>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,52 +60,119 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Dec 2018 15:32:24 -0000
+X-List-Received-Date: Mon, 03 Dec 2018 15:55:51 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" ><div>Hi Milton,</=
-div>
-<div><br>Do you have any idea why we need to write UUID to U-boot environme=
-nt ?</div></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Best Regards,<br>Nagaraju G</div>
-<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
--left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
-margin-right:0px" >----- Original message -----<br>From: "Nagaraju Gorugant=
-i" &lt;ngorugan@in.ibm.com&gt;<br>Sent by: "openbmc" &lt;openbmc-bounces+ng=
-orugan=3Din.ibm.com@lists.ozlabs.org&gt;<br>To: openbmc@lists.ozlabs.org<br=
->Cc:<br>Subject: Utility to Sync BMC's UUID to U-Boot environment<br>Date: =
-Fri, Nov 30, 2018 11:49 AM<br>&nbsp;<br><span style=3D" font-size:11pt;font=
--family:sans-serif" >Hi All,</span><br><br><span style=3D" font-size:11pt;f=
-ont-family:sans-serif" >We are planning to port UUID synching related code =
-from current python script: <b>openbmc/skeleton/pyinventorymgr/sync=5Finven=
-tory=5Fitems.py</b>to new bash script.</span><br><br><span style=3D" font-s=
-ize:11pt;font-family:sans-serif" >The current py(invoked by systemd on the =
-way to BMC ready state) is doing below given actions to sync BMC's UUID to =
-U-Boot environment.</span><br><span style=3D" font-size:11pt;font-family:sa=
-ns-serif" >1. Getting the UUID from inventory.</span><br><span style=3D" fo=
-nt-size:11pt;font-family:sans-serif" >2. Getting the UUID from U-boot envir=
-onment</span><br><span style=3D" font-size:11pt;font-family:sans-serif" >3.=
- If the both are differing, write the UUID form inventory to U-Boot environ=
-ment.</span><br><span style=3D" font-size:11pt;font-family:sans-serif" >4. =
-It also it has TODO task to reboot the BMC to make sure UUID from U-Boot en=
-v to &nbsp;sync with /etc/machine-id.</span><br><br><span style=3D" font-si=
-ze:11pt;font-family:sans-serif" >But this script is in broken state now: It=
- is not updating UUID in U-boot env by reading it from inventory.</span><br=
-><br><span style=3D" font-size:11pt;font-family:sans-serif" >We have few th=
-ings to understand here:</span><br><span style=3D" font-size:11pt;font-fami=
-ly:sans-serif" >1. Is there a need to write UUID to U-Boot environment?</sp=
-an><br><span style=3D" font-size:11pt;font-family:sans-serif" >2. Can machi=
-ne-id be the source for UUID? or UUID is the source for machine-id?</span><=
-br><span style=3D" font-size:11pt;font-family:sans-serif" >3. If UUID (from=
- inventory) is the source for machine-id, from where should the inventory g=
-et UUID? (on openpower systems the UUID is fetched from BMC &nbsp;VPD, if p=
-resent)</span><br><span style=3D" font-size:11pt;font-family:sans-serif" >4=
-. If machine-id is the source to UUID, how machine-id is getting its value?=
-</span><br><br><span style=3D" font-size:11pt;font-family:sans-serif" >We n=
-eed an inputs from community members who are having better understand on th=
-ese things.</span><br><br><span style=3D" font-size:11pt;font-family:sans-s=
-erif" >Best Regards,</span><br><span style=3D" font-size:11pt;font-family:s=
-ans-serif" >Nagaraju G</span></blockquote>
-<div dir=3D"ltr" >&nbsp;</div></div><BR>
+On 12/1/2018 8:29 AM, Samuel Jiang wrote:
+> Apologize for sending out no content mail first.
+> 
+> Jae,
+> The aspeed_gates in clk-aspeed.c perhaps as todo suggest asking Aspeed 
+> the actual parent data for check initializing?
+> 
+
+Yes, that makes sense.
+
+Hi Gary and Ryan,
+
+Can you please tell us what is the actual parent clock source of LPC IP?
+I mean the operational clock of LPC IP hardware block, not the interface
+clock.
+
+Thanks,
+Jae
+
+> Vijay,
+> I traced lpc-ctrl module, it seems direct update the same 
+> ASPEED_CLK_GATE_LCLK register map bit to enable. If parent data is 
+> disabled, it could enable in dts.
+> The device tree detail, I reference it from aspeed-g5.dtsi. Hope it 
+> could help you for work.
+> 
+> Thanks,
+> 
+> Samuel Jiang
+> On Dec 1, 2018, 7:04 AM +0800, Jae Hyun Yoo , wrote:
+>> On 11/30/2018 4:39 PM, Vijay Khemka wrote:
+>>>
+>>>
+>>> ﻿On 11/30/18, 11:29 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> 
+>>> wrote:
+>>>
+>>> On 11/30/2018 12:57 PM, Vijay Khemka wrote:
+>>>>
+>>>> On 11/30/18, 7:31 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> 
+>>>> wrote:
+>>>>
+>>>> On 11/29/2018 9:00 PM, Samuel Jiang wrote:
+>>>>> Hi Jae,
+>>>>>
+>>>>> We also encountered the same situation a month ago.
+>>>>> We try to enable the LPC clock on devicetree to resolve this 
+>>>>> problem not
+>>>>> direct modify clock driver.
+>>>>>
+>>>>> lpc_ctrl: lpc-ctrl@0 {
+>>>>>   compatible = "aspeed,ast2500-lpc-ctrl”;
+>>>>>   reg = <0x0 0x80>;
+>>>>>   clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
+>>>>> status = “okay”;
+>>>>> };
+>>>>>
+>>>>> However, I’m not sure which is better for LPC_CLCK setting.
+>>>>> Whether we should modify driver if original data is enabled or should
+>>>>> enable on the device tree, correct?
+>>>>>
+>>>>>
+>>>>
+>>>> Hi Samuel,
+>>>>
+>>>> Yes, you are right. I realized that kcs_bmc_aspeed.c doesn't have any
+>>>> clock control code so adding a clocks setting into kcs dtsi code doesn't
+>>>> make any help. Also, it was the reason why the change is needed on
+>>>> clk-aspeed.c. Enabling lpc_ctrl node you suggested seems a right way.
+>>>>
+>>>> Hi Vijay,
+>>>> Can you please try the way Samuel suggested after removing changes I
+>>>> gave you. Samuel's solution looks good to me.
+>>>>
+>>>> Thanks,
+>>>> Jae
+>>>>
+>>>> Jae,
+>>>> I can try. We can certainly enable lpc_ctrl node but in my 
+>>>> understanding that
+>>>> we still need this below patch to redefine ASPEED_CLK_GATE_LCLK value to
+>>>> add CRITICAL. I might be missing something here.
+>>>> - [ASPEED_CLK_GATE_LCLK] = { 8, 5, "lclk-gate", NULL, 0 }, /* LPC */
+>>>> + [ASPEED_CLK_GATE_LCLK] = { 8, 5, "lclk-gate", NULL, 
+>>>> CLK_IS_CRITICAL }, /* LPC */
+>>>>
+>>>
+>>> Vijay,
+>>>
+>>> I checked that lpc_ctrl module has clocks dt property handling code in
+>>> the module so I think the LCLK would be enabled without the clk-aspeed.c
+>>> fix. I can't test it now because I'm in a business trip so please test
+>>> it. I'll also check it when I back to office a week after.
+>>>
+>>> Thanks,
+>>> Jae
+>>>
+>>> Jae,
+>>> I removed above aspeed clock driver patch, and enabled lpc-ctrl node 
+>>> in dts also removed clock definition from kcs. And I don't see host 
+>>> is getting powered on. It works only with clock driver change.
+>>>
+>>> And I still didn't understand how enabling lpc-ctrl node will 
+>>> initialize ASPEED_CLK_GATE_LCLK to CRITICAL.
+>>>
+>>> -Vijay
+>>>
+>>
+>> Vijay,
+>>
+>> Thanks Vijay for sharing the test result. I'll also check it on my
+>> hardware when I get back to office. Will share my test result too.
+>>
+>> Thanks again,
+>> Jae
