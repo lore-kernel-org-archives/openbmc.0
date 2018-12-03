@@ -1,54 +1,116 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <prvs=5875f896d9=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=5875f896d9=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="rR4JQ5qG"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="i6m5w2oC"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 437qN620Q4zDqMG
- for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 02:54:17 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2018 07:54:15 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,311,1539673200"; d="scan'208";a="115542174"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.128.138])
- ([10.122.128.138])
- by orsmga001.jf.intel.com with ESMTP; 03 Dec 2018 07:54:14 -0800
-Subject: Re: [HELP] ipmi-kcs didn't work
-To: Samuel Jiang <chyishian.jiang@gmail.com>,
- Vijay Khemka <vijaykhemka@fb.com>, qianlihu <wangzhiqiang8906@gmail.com>,
- Gary Hsu <gary_hsu@aspeedtech.com>,
- "Ryan Chen <Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
- <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
- <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
- <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
- <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
- <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
- <4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark>
- <db5cfcea-972d-2f50-05f4-266ab2c8f310@linux.intel.com>
- <87C3DCC8-F773-46A0-B8EC-5E3DC5E3983F@fb.com>
- <660c304f-60eb-f54a-f3b7-4d6d4481a96a@linux.intel.com>
- <A9318AC7-EE0E-4B84-84D1-A16695EE3FC0@fb.com>
- <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
- <253b7d32-1230-4111-a6dc-a84afddcc679@Spark>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <25e866d4-749c-902b-86b2-3d38975dcc65@linux.intel.com>
-Date: Mon, 3 Dec 2018 09:54:13 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <253b7d32-1230-4111-a6dc-a84afddcc679@Spark>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 437vkL2xhmzDqWY
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 06:11:50 +1100 (AEDT)
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ wB3JAkH8030462; Mon, 3 Dec 2018 11:11:48 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type : content-id :
+ content-transfer-encoding : mime-version; s=facebook;
+ bh=X5hM8BfELKoS7SxAnL20JmcW8/jrFhk6XLO1ZVGWxOk=;
+ b=rR4JQ5qGxXkFx93Hp/SdYo9xmJGfGh16xYEbLj2IuY07vEfdGn41E6WCEHX2daAIr0Di
+ Xy4YRcYx2Q5g5nqdq4KkSVpk61eP8PGo6MDdWgqKNIESyyW6yFHlC/5PMMIqobx+ow6y
+ q/0jQ+loUvxdLBF/mIY9pzRDoCeIHW6W3vo= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2p58290mum-13
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Mon, 03 Dec 2018 11:11:47 -0800
+Received: from frc-mbx02.TheFacebook.com (2620:10d:c0a1:f82::26) by
+ frc-hub04.TheFacebook.com (2620:10d:c021:18::174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Mon, 3 Dec 2018 11:11:31 -0800
+Received: from frc-hub04.TheFacebook.com (2620:10d:c021:18::174) by
+ frc-mbx02.TheFacebook.com (2620:10d:c0a1:f82::26) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Mon, 3 Dec 2018 11:11:30 -0800
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.74) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Mon, 3 Dec 2018 11:11:30 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X5hM8BfELKoS7SxAnL20JmcW8/jrFhk6XLO1ZVGWxOk=;
+ b=i6m5w2oC3Iy316PwnNlm60NdY1WSee69ZM7SYQG5auFjhZtujXuI7W1JDAX0F8HsFOWrqcsPL1Y0y6yY4/esyZGS7SN5UhattTmoKBMjSl4vo82I3UkN+8QFtTKhiylVVYABfz3WNTvDgzBXkRqFO5h78+slew9gyJg8u10HGyA=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1910.namprd15.prod.outlook.com (10.174.54.143) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1382.21; Mon, 3 Dec 2018 19:11:29 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::19df:d934:b961:5442]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::19df:d934:b961:5442%5]) with mapi id 15.20.1382.020; Mon, 3 Dec 2018
+ 19:11:29 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Linux dev-4.19
+Thread-Topic: Linux dev-4.19
+Thread-Index: AQHUh32ov/79WiWenkqw7eZRBbyFpKVskECAgABSpAA=
+Date: Mon, 3 Dec 2018 19:11:29 +0000
+Message-ID: <1E4319BB-39C3-455F-B659-B37F0153F0D9@fb.com>
+References: <CACPK8Xfo5zzyLUa-8fU6j7d5GpVnFea1k3PC93vxiOvYAGV7ZQ@mail.gmail.com>
+ <CACPK8Xfxq=df=nW+U57v4vHaJ8B96bi8ABddH_vZNHBBQcLXTA@mail.gmail.com>
+In-Reply-To: <CACPK8Xfxq=df=nW+U57v4vHaJ8B96bi8ABddH_vZNHBBQcLXTA@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::7:d946]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1910;
+ 20:03QT/DdFMkD34phrS54NtLD/FIAZLbbC8kCWuHluLBxvlucqeZcTx40ss6J32FLpKLdNAsd/4N5IBPSYzz5ekXu4ISzwe/YsZvRKLUvAHRTtcpG8K4qEpPp0JezWuf0MH4AMBFxdwFCrwpQYoLeHjc48uC/4WuhxOTc1sHFE1KA=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 73195a7b-527a-495f-6cb9-08d659532149
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390098)(7020095)(4652040)(8989299)(5600074)(711020)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1910; 
+x-ms-traffictypediagnostic: CY4PR15MB1910:
+x-microsoft-antispam-prvs: <CY4PR15MB1910975A6803606D3BDADD56DDAE0@CY4PR15MB1910.namprd15.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(3002001)(3231455)(999002)(11241501185)(944501493)(52105112)(93006095)(93001095)(148016)(149066)(150057)(6041310)(20161123558120)(20161123564045)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(201708071742011)(7699051)(76991095);
+ SRVR:CY4PR15MB1910; BCL:0; PCL:0; RULEID:; SRVR:CY4PR15MB1910; 
+x-forefront-prvs: 08756AC3C8
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(39860400002)(346002)(136003)(396003)(376002)(199004)(189003)(25786009)(966005)(6116002)(36756003)(575784001)(86362001)(14454004)(478600001)(446003)(11346002)(102836004)(2616005)(316002)(476003)(46003)(8676002)(486006)(6436002)(97736004)(2906002)(81156014)(81166006)(186003)(6512007)(6306002)(7736002)(6246003)(305945005)(6506007)(53936002)(8936002)(76176011)(6486002)(99286004)(229853002)(5660300001)(33656002)(71200400001)(71190400001)(83716004)(82746002)(110136005)(256004)(14444005)(105586002)(68736007)(106356001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1910;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: 8RSsZ833Oquc3f2dnGKjsKmlWlCv8u7NnwCYVO2gUwxxjWoS/38BsYSJYUknxxogvVPHiujQoRa7v5stDs4j9kc1UZSEKWgg9KLqDzRxn/Z8hhw93h4uJToXYoIyiH/U0A//2hojuO0o1vfqMYWyu/O2CK2aNFxRycIuBoa+B8ptyP6x6p8U/VkgZnuw0bd3rPITxB7IG9z3XrAXq9+P7e0ndu0mel37eHy7vetK8NOY4ai4CyufHyfFkHF4hOYARt5QTYy0+S3EtXmTQgIxsj04BEkvQSm/cIPT0UYCHHCZPbUWuFhXhZI4ffNBexfSYMRJOUpzuZBKH2jGXtiJpp6QvZDeKbBd98FLF990r9I=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C47FE76B7CFF40469F21E29F3CCA783E@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73195a7b-527a-495f-6cb9-08d659532149
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2018 19:11:29.4601 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1910
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-12-03_10:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,119 +122,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Dec 2018 15:55:51 -0000
+X-List-Received-Date: Mon, 03 Dec 2018 19:11:55 -0000
 
-On 12/1/2018 8:29 AM, Samuel Jiang wrote:
-> Apologize for sending out no content mail first.
-> 
-> Jae,
-> The aspeed_gates in clk-aspeed.c perhaps as todo suggest asking Aspeed 
-> the actual parent data for check initializing?
-> 
-
-Yes, that makes sense.
-
-Hi Gary and Ryan,
-
-Can you please tell us what is the actual parent clock source of LPC IP?
-I mean the operational clock of LPC IP hardware block, not the interface
-clock.
-
-Thanks,
-Jae
-
-> Vijay,
-> I traced lpc-ctrl module, it seems direct update the same 
-> ASPEED_CLK_GATE_LCLK register map bit to enable. If parent data is 
-> disabled, it could enable in dts.
-> The device tree detail, I reference it from aspeed-g5.dtsi. Hope it 
-> could help you for work.
-> 
-> Thanks,
-> 
-> Samuel Jiang
-> On Dec 1, 2018, 7:04 AM +0800, Jae Hyun Yoo , wrote:
->> On 11/30/2018 4:39 PM, Vijay Khemka wrote:
->>>
->>>
->>> ﻿On 11/30/18, 11:29 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> 
->>> wrote:
->>>
->>> On 11/30/2018 12:57 PM, Vijay Khemka wrote:
->>>>
->>>> On 11/30/18, 7:31 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> 
->>>> wrote:
->>>>
->>>> On 11/29/2018 9:00 PM, Samuel Jiang wrote:
->>>>> Hi Jae,
->>>>>
->>>>> We also encountered the same situation a month ago.
->>>>> We try to enable the LPC clock on devicetree to resolve this 
->>>>> problem not
->>>>> direct modify clock driver.
->>>>>
->>>>> lpc_ctrl: lpc-ctrl@0 {
->>>>>   compatible = "aspeed,ast2500-lpc-ctrl”;
->>>>>   reg = <0x0 0x80>;
->>>>>   clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
->>>>> status = “okay”;
->>>>> };
->>>>>
->>>>> However, I’m not sure which is better for LPC_CLCK setting.
->>>>> Whether we should modify driver if original data is enabled or should
->>>>> enable on the device tree, correct?
->>>>>
->>>>>
->>>>
->>>> Hi Samuel,
->>>>
->>>> Yes, you are right. I realized that kcs_bmc_aspeed.c doesn't have any
->>>> clock control code so adding a clocks setting into kcs dtsi code doesn't
->>>> make any help. Also, it was the reason why the change is needed on
->>>> clk-aspeed.c. Enabling lpc_ctrl node you suggested seems a right way.
->>>>
->>>> Hi Vijay,
->>>> Can you please try the way Samuel suggested after removing changes I
->>>> gave you. Samuel's solution looks good to me.
->>>>
->>>> Thanks,
->>>> Jae
->>>>
->>>> Jae,
->>>> I can try. We can certainly enable lpc_ctrl node but in my 
->>>> understanding that
->>>> we still need this below patch to redefine ASPEED_CLK_GATE_LCLK value to
->>>> add CRITICAL. I might be missing something here.
->>>> - [ASPEED_CLK_GATE_LCLK] = { 8, 5, "lclk-gate", NULL, 0 }, /* LPC */
->>>> + [ASPEED_CLK_GATE_LCLK] = { 8, 5, "lclk-gate", NULL, 
->>>> CLK_IS_CRITICAL }, /* LPC */
->>>>
->>>
->>> Vijay,
->>>
->>> I checked that lpc_ctrl module has clocks dt property handling code in
->>> the module so I think the LCLK would be enabled without the clk-aspeed.c
->>> fix. I can't test it now because I'm in a business trip so please test
->>> it. I'll also check it when I back to office a week after.
->>>
->>> Thanks,
->>> Jae
->>>
->>> Jae,
->>> I removed above aspeed clock driver patch, and enabled lpc-ctrl node 
->>> in dts also removed clock definition from kcs. And I don't see host 
->>> is getting powered on. It works only with clock driver change.
->>>
->>> And I still didn't understand how enabling lpc-ctrl node will 
->>> initialize ASPEED_CLK_GATE_LCLK to CRITICAL.
->>>
->>> -Vijay
->>>
->>
->> Vijay,
->>
->> Thanks Vijay for sharing the test result. I'll also check it on my
->> hardware when I get back to office. Will share my test result too.
->>
->> Thanks again,
->> Jae
+SGkgSm9lbCwNCkkgaGF2ZSBjb3VwbGUgb2YgTkNTSSBwYXRjaCB3aGljaCB3ZXJlIHVwIHN0cmVh
+bWVkIGxhc3Qgd2VlayBpbiBsaW51eC1uZXh0IGtlcm5lbC4gV2lsbCB0aG9zZSBiZSBwYXJ0IG9m
+IHRoaXMgNC4xOSBrZXJuZWwgaW4gb3BlbmJtYyBvciB3aGF0IGlzIHByb2NlZHVyZSB0byBwdWxs
+IHRob3NlIHBhdGNoZXMgaW4gb3BlbmJtYyBidWlsZC4gQXMgdGhlc2UgYXJlIHJlcXVpcmVkIGZv
+ciBNZXRhLWZhY2Vib29rIGJ1aWxkIHdpdGggbmV0d29ya2luZyB3b3JraW5nLg0KDQpSZWdhcmRz
+DQotVmlqYXkNCg0K77u/T24gMTIvMi8xOCwgMTA6MTcgUE0sICJvcGVuYm1jIG9uIGJlaGFsZiBv
+ZiBKb2VsIFN0YW5sZXkiIDxvcGVuYm1jLWJvdW5jZXMrdmlqYXlraGVta2E9ZmIuY29tQGxpc3Rz
+Lm96bGFicy5vcmcgb24gYmVoYWxmIG9mIGpvZWxAam1zLmlkLmF1PiB3cm90ZToNCg0KICAgIE9u
+IFRodSwgMjkgTm92IDIwMTggYXQgMTE6MTksIEpvZWwgU3RhbmxleSA8am9lbEBqbXMuaWQuYXU+
+IHdyb3RlOg0KICAgID4NCiAgICA+IEkndmUgaGFkIHNvbWUgb2ZmIGxpc3QgcXVlc3Rpb25zIGFi
+b3V0IG1vdmluZyB0aGUgb3BlbmJtYyB0cmVlIHRvDQogICAgPiA0LjE5LiBBcG9sb2dpZXMgZm9y
+IHRoZSBkZWxheSByZXNwb25kaW5nLCBJIHdhcyBidXN5IHdpdGggYW5vdGhlcg0KICAgID4gcHJv
+amVjdCBpbiByZWNlbnQgd2Vla3MuDQogICAgPg0KICAgID4gSSB3aWxsIHB1dCB0b2dldGhlciBh
+IDQuMTkgYmFzZWQgdHJlZSBuZXh0IHdlZWsuIE9uY2UgaXQncyBib290aW5nIG9uDQogICAgPiB0
+aGUgaGFyZHdhcmUgSSBoYXZlIGFjY2VzcyB0byAoYXN0MjQwMCBhbmQgYXN0MjUwMCBvcGVucG93
+ZXINCiAgICA+IG1hY2hpbmVzKSwgSSB3aWxsIHB1c2ggaXQgdG8gZ2l0aHViIGFuZCBub3RpZnkg
+dGhlIGxpc3QuIEZ1cnRoZXINCiAgICA+IHRlc3Rpbmcgd291bGQgYmUgd2VsY29tZS4NCiAgICAN
+CiAgICBUaGlzIGhhcyBiZWVuIGRvbmUuIFRoZXJlIGlzIG5vdyBhIGRldi00LjE5IGJyYW5jaDoN
+CiAgICANCiAgICAgaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvbGludXgvY29tbWl0cy9kZXYt
+NC4xOQ0KICAgIA0KICAgIFRoZSB0cmVlIHRoaXMgdGltZSBhcm91bmQgd2FzIGEgc2ltcGxlIHJl
+YmFzZSBvZiB0aGUgNC4xOCB0cmVlIG9uIHRvcA0KICAgIG9mIDQuMTkuIEkgZGlkbid0IGRyb3Ag
+YW55IHBhdGNoZXMgKGFzaWRlIGZyb20gdGhvc2UgdGhhdCB3ZW50DQogICAgdXBzdHJlYW0pLg0K
+ICAgIA0KICAgIEkndmUgcHVibGlzaGVkIGEgZ2Vycml0IGNvbW1pdCB0aGF0IGJ1bXBzIG9wZW5i
+bWMgdG8gdXNlIHRoaXMgdmVyc2lvbi4NCiAgICBUaGlzIGhhcyBoYWQgc29tZSB0ZXN0aW5nIGJ5
+IG91ciBDSSBvbiBXaXRoZXJzcG9vbiBhbmQgUm9tdWx1cywgYW5kIEkNCiAgICBkaWQgc29tZSBt
+YW51YWwgdGVzdGluZyBvbiBSb211bHVzIGFuZCBQYWxtZXR0byAoaGFyZHdhcmUgYW5kIFFlbXUp
+LiBJDQogICAgaW50ZW5kIHRvIG1lcmdlIGl0IHRvbW9ycm93Og0KICAgIA0KICAgICBodHRwczov
+L3VybGRlZmVuc2UucHJvb2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0cHMtM0FfX2dlcnJpdC5vcGVu
+Ym1jLTJEcHJvamVjdC54eXpfY19vcGVuYm1jX21ldGEtMkRhc3BlZWRfLTJCXzE2MzYzJmQ9RHdJ
+QmFRJmM9NVZEMFJUdE5sVGgzeWNkNDFiM01VdyZyPXY5TVUwS2k5cFduVFhDV3dqSFBWZ3BuQ1I4
+MHZYa2tjcklhcVU3VVNsNWcmbT1RaVNlZlB0UjYxcUxKbHg2NGRDaVFCVlh6REVKZkxyZHdWT056
+MnItelE0JnM9bWFkbDRMSlRaVXhqcTRJWTFvZlVuMXVXa3RWYlRqVjhHSjBDQ0dNRmo2TSZlPQ0K
+ICAgIA0KICAgID4gSWYgdGhlcmUgYXJlIHBhdGNoZXMgeW91IHdvdWxkIGxpa2UgdG8gYWRkIHRv
+IDQuMTkgcGxlYXNlIHNlbmQgdGhlbSB0bw0KICAgID4gdGhlIGxpc3Qgd2l0aCB0aGUgJ2Rldi00
+LjE5JyBzdWJqZWN0LiBUaGlzIGlzIHByb2JhYmx5IGJlc3QgZG9uZSBvbmNlDQogICAgPiBJJ3Zl
+IHB1Ymxpc2hlZCB0aGUgdHJlZSwgc28geW91IGNhbiBlbnN1cmUgdGhleSBhcHBseSBhbmQgYXJl
+IHRlc3RlZC4NCiAgICANCiAgICBQbGVhc2UgdGVzdCBvbiB5b3VyIHBsYXRmb3Jtcywgc3VibWl0
+IHRoZSBwYXRjaCBzZXRzIHlvdSB3b3VsZCBsaWtlIHRvDQogICAgc2VlIGluY2x1ZGVkLg0KICAg
+IA0KICAgIENoZWVycywNCiAgICANCiAgICBKb2VsDQogICAgDQoNCg==
