@@ -1,44 +1,68 @@
-Return-Path: <boris.brezillon@bootlin.com>
+Return-Path: <tmaimon77@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=bootlin.com
- (client-ip=62.4.15.54; helo=mail.bootlin.com;
- envelope-from=boris.brezillon@bootlin.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d42; helo=mail-io1-xd42.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=bootlin.com
-Received: from mail.bootlin.com (mail.bootlin.com [62.4.15.54])
- by lists.ozlabs.org (Postfix) with ESMTP id 437nV34ktszDqKw
- for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 01:30:50 +1100 (AEDT)
-Received: by mail.bootlin.com (Postfix, from userid 110)
- id 3171B2071D; Mon,  3 Dec 2018 15:30:47 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on mail.bootlin.com
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT,
- URIBL_BLOCKED shortcircuit=ham autolearn=disabled version=3.4.2
-Received: from bbrezillon (aaubervilliers-681-1-63-158.w90-88.abo.wanadoo.fr
- [90.88.18.158])
- by mail.bootlin.com (Postfix) with ESMTPSA id B7DCF20618;
- Mon,  3 Dec 2018 15:30:46 +0100 (CET)
-Date: Mon, 3 Dec 2018 15:30:46 +0100
-From: Boris Brezillon <boris.brezillon@bootlin.com>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, computersforpeace@gmail.com,
- marek.vasut@gmail.com, richard@nod.at, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Nancy Yuen <yuenn@google.com>, Patrick
- Venture <venture@google.com>, Brendan Higgins <brendanhiggins@google.com>,
- Avi Fishman <avifishman70@gmail.com>, Joel Stanley <joel@jms.id.au>,
- linux-mtd@lists.infradead.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, devicetree
- <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v1 0/2] SPI-NOR add NPCM FIU controller driver
-Message-ID: <20181203153046.0554854f@bbrezillon>
-In-Reply-To: <CAP6Zq1ib3p=UVC8ct_gvB801_XjTwknXMKPfFCq7=d1Jxv0Dfg@mail.gmail.com>
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ukIFU334"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 437pd20r24zDqRc
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 02:21:57 +1100 (AEDT)
+Received: by mail-io1-xd42.google.com with SMTP id n9so10760275ioh.7
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Dec 2018 07:21:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=iw3/gApjQJptR/2n+zFGnku42x1p4PayL86S/S/OetY=;
+ b=ukIFU334pxDuXWKQl4xR54QsIjxn3vQpR4UBP0y5OdZTn78TFB6o92sihd+1JeD+t/
+ OeX9Fq0sfccYF/tD56FMGj8E9E41Se7i6EkqKHpyNYY7wnVPnKKbZOIp8/luaU3wk+qZ
+ LnkT7KxktuxC1Kb+LeKUtXShtzPzsKdlPzvII/y3Qf/UDRxgAXREmwO0VusZH5rXPOlE
+ XkhV4+1l9tsJw+n0vFEtECv0oCAjd63b79Upwf59FDkb2Wr+1OuVhXGtIGWqFsk7HQQk
+ Zor5O1cwRvk/8/djL0wna6UTWaitv879qk2CbU0N1nvdUDd6iCDmpQOrghK4poEBLID+
+ AQVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=iw3/gApjQJptR/2n+zFGnku42x1p4PayL86S/S/OetY=;
+ b=Q9Gj+BfTtw7xW6dy5UchBvthHgwf77ZebibeFA70zdjVph/zIBqJS+Rz/dxuPopQdM
+ cwuQuPuG7Si7hcKCf7pFV5neCjJ9SwiOqEfiuWXpjgvx4UaHXwK8b+IC30vRbTyS8uJv
+ zmvN5eXmGs7vrv/6tv89iTLlh1jf/KNeL/6Uuq0lY5hRzyRzuqBCPTOfbxSvm+DdjVpS
+ OeGVgPUKGCJJROXJGPFLdnflpGYqhWghvuMdDB21OoxbQLdAdkEgRNoSptJ9OAJ+Q0NS
+ fzgtwVDEwWPRZYOikux6Y4Yixn9SH6HOeOoN0iO2vLeDkctONDd+aqSMX5k8C2F1rBiz
+ Cuyw==
+X-Gm-Message-State: AA+aEWZnJF9pxt62CRFXMooKo1XqE+92fyrni8y21RpsYTDYyeObC7fm
+ Xlt1YZ5qaHQIWYaCjWoT7lQdpWA2fyrTmrGW0Zk=
+X-Google-Smtp-Source: AFSGD/VdlU9Q8bH277yu9oMrs7/+DP8yDXRCxA+SOWAdLVXhkMySYqiU28l2CTJqOCyWRERnk3vPyH4YFADTOUXHNCs=
+X-Received: by 2002:a5d:8609:: with SMTP id f9mr12862921iol.275.1543850515850; 
+ Mon, 03 Dec 2018 07:21:55 -0800 (PST)
+MIME-Version: 1.0
 References: <20181203091456.454030-1-tmaimon77@gmail.com>
  <20181203102240.79a86a26@bbrezillon>
  <CAP6Zq1ib3p=UVC8ct_gvB801_XjTwknXMKPfFCq7=d1Jxv0Dfg@mail.gmail.com>
-X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ <20181203153046.0554854f@bbrezillon>
+In-Reply-To: <20181203153046.0554854f@bbrezillon>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Mon, 3 Dec 2018 17:28:23 +0200
+Message-ID: <CAP6Zq1h8wbi90NyL20UtKH-vMhJO_f5-oPrWb290302YSMK7SQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2] SPI-NOR add NPCM FIU controller driver
+To: boris.brezillon@bootlin.com
+Cc: David Woodhouse <dwmw2@infradead.org>, computersforpeace@gmail.com,
+ marek.vasut@gmail.com, richard@nod.at, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>, 
+ Brendan Higgins <brendanhiggins@google.com>,
+ Avi Fishman <avifishman70@gmail.com>, 
+ Joel Stanley <joel@jms.id.au>, linux-mtd@lists.infradead.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>
+Content-Type: multipart/alternative; boundary="000000000000956a47057c1fb59a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,57 +74,170 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Dec 2018 14:30:52 -0000
+X-List-Received-Date: Mon, 03 Dec 2018 15:21:58 -0000
 
-Hi Tomer;
+--000000000000956a47057c1fb59a
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 3 Dec 2018 16:09:19 +0200
-Tomer Maimon <tmaimon77@gmail.com> wrote:
+Hi Boris,
 
+Thanks for your prompt reply,
 
-> A few comments/input:
-> 
-> 
->    1. We have been working on this driver for quite a long time to port it
->    to the latest Linux conventions, polish the code, run tests and reach high
->    quality.
->    Our partners and customers are waiting to get this driver upstream so
->    they can freely use it.
-
-Your patch prefix says "v1", so I'm assuming this is the first public
-version. I'm sure you spent a lot of time developing this driver
-internally, but no matter how long it took, it's a first version for
-us, and since we are moving away from the spi_nor controller interface,
-I'm not willing to accept new drivers using this interface.
-
-If you want more background about the spi_nor controller interface
-deprecation, you can read [1].
-
->    Since this driver is already in final stages and is in very good shape
->    we will appreciate if you can review this specific driver/interface and
->    help us to upstream it.
-
-Actually, I'd like to do it the other way around: let you rework the
-driver to implement the spi-mem interface and review this version.
-Otherwise I'll be reviewing things I don't intend to merge anyway.
-
->    2.  As for the new interface, we are open for any discussion and for
->    porting the driver as required.
->    We are unsure what is this specific interface and weather it really fits
->    a driver for a Flash Interface Controller module (rather than a SPI flash
->    device).
-
-Didn't go through the code in details, but at first glance, it looks
-like it would fit pretty well.
-
->    Is it possible to get a sample driver from another Flash Interface
->    Controller module that was ported to this new interface ?
-
-We recently converted the atmel QSPI driver [2].
+We will start to work on it soon.
 
 Regards,
 
-Boris
+Tomer
 
-[1]https://bootlin.com/blog/spi-mem-bringing-some-consistency-to-the-spi-memory-ecosystem/
-[2]https://patchwork.kernel.org/project/spi-devel-general/list/?series=38347&state=*
+On Mon, 3 Dec 2018 at 16:30, Boris Brezillon <boris.brezillon@bootlin.com>
+wrote:
+
+> Hi Tomer;
+>
+> On Mon, 3 Dec 2018 16:09:19 +0200
+> Tomer Maimon <tmaimon77@gmail.com> wrote:
+>
+>
+> > A few comments/input:
+> >
+> >
+> >    1. We have been working on this driver for quite a long time to port
+> it
+> >    to the latest Linux conventions, polish the code, run tests and reach
+> high
+> >    quality.
+> >    Our partners and customers are waiting to get this driver upstream so
+> >    they can freely use it.
+>
+> Your patch prefix says "v1", so I'm assuming this is the first public
+> version. I'm sure you spent a lot of time developing this driver
+> internally, but no matter how long it took, it's a first version for
+> us, and since we are moving away from the spi_nor controller interface,
+> I'm not willing to accept new drivers using this interface.
+>
+> If you want more background about the spi_nor controller interface
+> deprecation, you can read [1].
+>
+> >    Since this driver is already in final stages and is in very good shape
+> >    we will appreciate if you can review this specific driver/interface
+> and
+> >    help us to upstream it.
+>
+> Actually, I'd like to do it the other way around: let you rework the
+> driver to implement the spi-mem interface and review this version.
+> Otherwise I'll be reviewing things I don't intend to merge anyway.
+>
+> >    2.  As for the new interface, we are open for any discussion and for
+> >    porting the driver as required.
+> >    We are unsure what is this specific interface and weather it really
+> fits
+> >    a driver for a Flash Interface Controller module (rather than a SPI
+> flash
+> >    device).
+>
+> Didn't go through the code in details, but at first glance, it looks
+> like it would fit pretty well.
+>
+> >    Is it possible to get a sample driver from another Flash Interface
+> >    Controller module that was ported to this new interface ?
+>
+> We recently converted the atmel QSPI driver [2].
+>
+> Regards,
+>
+> Boris
+>
+> [1]
+> https://bootlin.com/blog/spi-mem-bringing-some-consistency-to-the-spi-memory-ecosystem/
+> [2]
+> https://patchwork.kernel.org/project/spi-devel-general/list/?series=38347&state=*
+>
+
+--000000000000956a47057c1fb59a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Boris,<div><br></div><div>Thanks for your prompt=C2=A0r=
+eply,</div><div><br></div><div>We will start to work on it soon.</div><div>=
+<br></div><div>Regards,</div><div><br></div><div>Tomer</div></div><br><div =
+class=3D"gmail_quote"><div dir=3D"ltr">On Mon, 3 Dec 2018 at 16:30, Boris B=
+rezillon &lt;<a href=3D"mailto:boris.brezillon@bootlin.com">boris.brezillon=
+@bootlin.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Tome=
+r;<br>
+<br>
+On Mon, 3 Dec 2018 16:09:19 +0200<br>
+Tomer Maimon &lt;<a href=3D"mailto:tmaimon77@gmail.com" target=3D"_blank">t=
+maimon77@gmail.com</a>&gt; wrote:<br>
+<br>
+<br>
+&gt; A few comments/input:<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 1. We have been working on this driver for quite a long t=
+ime to port it<br>
+&gt;=C2=A0 =C2=A0 to the latest Linux conventions, polish the code, run tes=
+ts and reach high<br>
+&gt;=C2=A0 =C2=A0 quality.<br>
+&gt;=C2=A0 =C2=A0 Our partners and customers are waiting to get this driver=
+ upstream so<br>
+&gt;=C2=A0 =C2=A0 they can freely use it.<br>
+<br>
+Your patch prefix says &quot;v1&quot;, so I&#39;m assuming this is the firs=
+t public<br>
+version. I&#39;m sure you spent a lot of time developing this driver<br>
+internally, but no matter how long it took, it&#39;s a first version for<br=
+>
+us, and since we are moving away from the spi_nor controller interface,<br>
+I&#39;m not willing to accept new drivers using this interface.<br>
+<br>
+If you want more background about the spi_nor controller interface<br>
+deprecation, you can read [1].<br>
+<br>
+&gt;=C2=A0 =C2=A0 Since this driver is already in final stages and is in ve=
+ry good shape<br>
+&gt;=C2=A0 =C2=A0 we will appreciate if you can review this specific driver=
+/interface and<br>
+&gt;=C2=A0 =C2=A0 help us to upstream it.<br>
+<br>
+Actually, I&#39;d like to do it the other way around: let you rework the<br=
+>
+driver to implement the spi-mem interface and review this version.<br>
+Otherwise I&#39;ll be reviewing things I don&#39;t intend to merge anyway.<=
+br>
+<br>
+&gt;=C2=A0 =C2=A0 2.=C2=A0 As for the new interface, we are open for any di=
+scussion and for<br>
+&gt;=C2=A0 =C2=A0 porting the driver as required.<br>
+&gt;=C2=A0 =C2=A0 We are unsure what is this specific interface and weather=
+ it really fits<br>
+&gt;=C2=A0 =C2=A0 a driver for a Flash Interface Controller module (rather =
+than a SPI flash<br>
+&gt;=C2=A0 =C2=A0 device).<br>
+<br>
+Didn&#39;t go through the code in details, but at first glance, it looks<br=
+>
+like it would fit pretty well.<br>
+<br>
+&gt;=C2=A0 =C2=A0 Is it possible to get a sample driver from another Flash =
+Interface<br>
+&gt;=C2=A0 =C2=A0 Controller module that was ported to this new interface ?=
+<br>
+<br>
+We recently converted the atmel QSPI driver [2].<br>
+<br>
+Regards,<br>
+<br>
+Boris<br>
+<br>
+[1]<a href=3D"https://bootlin.com/blog/spi-mem-bringing-some-consistency-to=
+-the-spi-memory-ecosystem/" rel=3D"noreferrer" target=3D"_blank">https://bo=
+otlin.com/blog/spi-mem-bringing-some-consistency-to-the-spi-memory-ecosyste=
+m/</a><br>
+[2]<a href=3D"https://patchwork.kernel.org/project/spi-devel-general/list/?=
+series=3D38347&amp;state=3D*" rel=3D"noreferrer" target=3D"_blank">https://=
+patchwork.kernel.org/project/spi-devel-general/list/?series=3D38347&amp;sta=
+te=3D*</a><br>
+</blockquote></div>
+
+--000000000000956a47057c1fb59a--
