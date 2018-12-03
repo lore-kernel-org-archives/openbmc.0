@@ -1,68 +1,71 @@
-Return-Path: <tmaimon77@gmail.com>
+Return-Path: <ngorugan@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d42; helo=mail-io1-xd42.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ngorugan@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ukIFU334"; 
- dkim-atps=neutral
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 437pd20r24zDqRc
- for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 02:21:57 +1100 (AEDT)
-Received: by mail-io1-xd42.google.com with SMTP id n9so10760275ioh.7
- for <openbmc@lists.ozlabs.org>; Mon, 03 Dec 2018 07:21:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iw3/gApjQJptR/2n+zFGnku42x1p4PayL86S/S/OetY=;
- b=ukIFU334pxDuXWKQl4xR54QsIjxn3vQpR4UBP0y5OdZTn78TFB6o92sihd+1JeD+t/
- OeX9Fq0sfccYF/tD56FMGj8E9E41Se7i6EkqKHpyNYY7wnVPnKKbZOIp8/luaU3wk+qZ
- LnkT7KxktuxC1Kb+LeKUtXShtzPzsKdlPzvII/y3Qf/UDRxgAXREmwO0VusZH5rXPOlE
- XkhV4+1l9tsJw+n0vFEtECv0oCAjd63b79Upwf59FDkb2Wr+1OuVhXGtIGWqFsk7HQQk
- Zor5O1cwRvk/8/djL0wna6UTWaitv879qk2CbU0N1nvdUDd6iCDmpQOrghK4poEBLID+
- AQVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=iw3/gApjQJptR/2n+zFGnku42x1p4PayL86S/S/OetY=;
- b=Q9Gj+BfTtw7xW6dy5UchBvthHgwf77ZebibeFA70zdjVph/zIBqJS+Rz/dxuPopQdM
- cwuQuPuG7Si7hcKCf7pFV5neCjJ9SwiOqEfiuWXpjgvx4UaHXwK8b+IC30vRbTyS8uJv
- zmvN5eXmGs7vrv/6tv89iTLlh1jf/KNeL/6Uuq0lY5hRzyRzuqBCPTOfbxSvm+DdjVpS
- OeGVgPUKGCJJROXJGPFLdnflpGYqhWghvuMdDB21OoxbQLdAdkEgRNoSptJ9OAJ+Q0NS
- fzgtwVDEwWPRZYOikux6Y4Yixn9SH6HOeOoN0iO2vLeDkctONDd+aqSMX5k8C2F1rBiz
- Cuyw==
-X-Gm-Message-State: AA+aEWZnJF9pxt62CRFXMooKo1XqE+92fyrni8y21RpsYTDYyeObC7fm
- Xlt1YZ5qaHQIWYaCjWoT7lQdpWA2fyrTmrGW0Zk=
-X-Google-Smtp-Source: AFSGD/VdlU9Q8bH277yu9oMrs7/+DP8yDXRCxA+SOWAdLVXhkMySYqiU28l2CTJqOCyWRERnk3vPyH4YFADTOUXHNCs=
-X-Received: by 2002:a5d:8609:: with SMTP id f9mr12862921iol.275.1543850515850; 
- Mon, 03 Dec 2018 07:21:55 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 437ps36vZjzDqSG
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 02:32:23 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wB3FTdsU000565
+ for <openbmc@lists.ozlabs.org>; Mon, 3 Dec 2018 10:32:20 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.114])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2p56u7s9v1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Dec 2018 10:32:20 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <ngorugan@in.ibm.com>;
+ Mon, 3 Dec 2018 15:32:19 -0000
+Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
+ by smtp.notes.na.collabserv.com (10.122.47.58) with
+ smtp.notes.na.collabserv.com ESMTP; Mon, 3 Dec 2018 15:32:17 -0000
+Received: from us1b3-mail128.a3dr.sjc03.isc4sb.com ([10.160.11.13])
+ by us1b3-smtp01.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2018120315321690-733557 ;
+ Mon, 3 Dec 2018 15:32:16 +0000 
+Subject: Re: Utility to Sync BMC's UUID to U-Boot environment
+In-Reply-To: <OF43E90413.B5F754D3-ON00258355.00221DAA-65258355.0022B453@notes.na.collabserv.com>
+From: "Nagaraju Goruganti" <ngorugan@in.ibm.com>
+To: "Milton Miller II" <miltonm@us.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Date: Mon, 3 Dec 2018 15:32:16 +0000
+Sensitivity: 
 MIME-Version: 1.0
-References: <20181203091456.454030-1-tmaimon77@gmail.com>
- <20181203102240.79a86a26@bbrezillon>
- <CAP6Zq1ib3p=UVC8ct_gvB801_XjTwknXMKPfFCq7=d1Jxv0Dfg@mail.gmail.com>
- <20181203153046.0554854f@bbrezillon>
-In-Reply-To: <20181203153046.0554854f@bbrezillon>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Mon, 3 Dec 2018 17:28:23 +0200
-Message-ID: <CAP6Zq1h8wbi90NyL20UtKH-vMhJO_f5-oPrWb290302YSMK7SQ@mail.gmail.com>
-Subject: Re: [PATCH v1 0/2] SPI-NOR add NPCM FIU controller driver
-To: boris.brezillon@bootlin.com
-Cc: David Woodhouse <dwmw2@infradead.org>, computersforpeace@gmail.com,
- marek.vasut@gmail.com, richard@nod.at, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, 
- Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>,
- Avi Fishman <avifishman70@gmail.com>, 
- Joel Stanley <joel@jms.id.au>, linux-mtd@lists.infradead.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree <devicetree@vger.kernel.org>
-Content-Type: multipart/alternative; boundary="000000000000956a47057c1fb59a"
+References: <OF43E90413.B5F754D3-ON00258355.00221DAA-65258355.0022B453@notes.na.collabserv.com>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 16616-1491 | IBM Domino Build
+ SCN1812108_20180501T0841_FP17 November 02, 2018 at 16:08
+X-KeepSent: 7F27D6C3:EF055CB1-00258358:0054EC38;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 13715
+X-TNEFEvaluated: 1
+x-cbid: 18120315-9695-0000-0000-000004E86DD8
+X-IBM-SpamModules-Scores: BY=0.259316; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.022116
+X-IBM-SpamModules-Versions: BY=3.00010165; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000270; SDB=6.01126420; UDB=6.00584997; IPR=6.00906555; 
+ BA=6.00006169; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00024426; XFM=3.00000015;
+ UTC=2018-12-03 15:32:18
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2018-12-03 09:44:28 - 6.00009296
+x-cbparentid: 18120315-9696-0000-0000-00001D977F0C
+Message-Id: <OF7F27D6C3.EF055CB1-ON00258358.0054EC38-00258358.00555A2B@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-12-03_09:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,170 +77,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Dec 2018 15:21:58 -0000
+X-List-Received-Date: Mon, 03 Dec 2018 15:32:24 -0000
 
---000000000000956a47057c1fb59a
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Boris,
-
-Thanks for your prompt reply,
-
-We will start to work on it soon.
-
-Regards,
-
-Tomer
-
-On Mon, 3 Dec 2018 at 16:30, Boris Brezillon <boris.brezillon@bootlin.com>
-wrote:
-
-> Hi Tomer;
->
-> On Mon, 3 Dec 2018 16:09:19 +0200
-> Tomer Maimon <tmaimon77@gmail.com> wrote:
->
->
-> > A few comments/input:
-> >
-> >
-> >    1. We have been working on this driver for quite a long time to port
-> it
-> >    to the latest Linux conventions, polish the code, run tests and reach
-> high
-> >    quality.
-> >    Our partners and customers are waiting to get this driver upstream so
-> >    they can freely use it.
->
-> Your patch prefix says "v1", so I'm assuming this is the first public
-> version. I'm sure you spent a lot of time developing this driver
-> internally, but no matter how long it took, it's a first version for
-> us, and since we are moving away from the spi_nor controller interface,
-> I'm not willing to accept new drivers using this interface.
->
-> If you want more background about the spi_nor controller interface
-> deprecation, you can read [1].
->
-> >    Since this driver is already in final stages and is in very good shape
-> >    we will appreciate if you can review this specific driver/interface
-> and
-> >    help us to upstream it.
->
-> Actually, I'd like to do it the other way around: let you rework the
-> driver to implement the spi-mem interface and review this version.
-> Otherwise I'll be reviewing things I don't intend to merge anyway.
->
-> >    2.  As for the new interface, we are open for any discussion and for
-> >    porting the driver as required.
-> >    We are unsure what is this specific interface and weather it really
-> fits
-> >    a driver for a Flash Interface Controller module (rather than a SPI
-> flash
-> >    device).
->
-> Didn't go through the code in details, but at first glance, it looks
-> like it would fit pretty well.
->
-> >    Is it possible to get a sample driver from another Flash Interface
-> >    Controller module that was ported to this new interface ?
->
-> We recently converted the atmel QSPI driver [2].
->
-> Regards,
->
-> Boris
->
-> [1]
-> https://bootlin.com/blog/spi-mem-bringing-some-consistency-to-the-spi-memory-ecosystem/
-> [2]
-> https://patchwork.kernel.org/project/spi-devel-general/list/?series=38347&state=*
->
-
---000000000000956a47057c1fb59a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Boris,<div><br></div><div>Thanks for your prompt=C2=A0r=
-eply,</div><div><br></div><div>We will start to work on it soon.</div><div>=
-<br></div><div>Regards,</div><div><br></div><div>Tomer</div></div><br><div =
-class=3D"gmail_quote"><div dir=3D"ltr">On Mon, 3 Dec 2018 at 16:30, Boris B=
-rezillon &lt;<a href=3D"mailto:boris.brezillon@bootlin.com">boris.brezillon=
-@bootlin.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Tome=
-r;<br>
-<br>
-On Mon, 3 Dec 2018 16:09:19 +0200<br>
-Tomer Maimon &lt;<a href=3D"mailto:tmaimon77@gmail.com" target=3D"_blank">t=
-maimon77@gmail.com</a>&gt; wrote:<br>
-<br>
-<br>
-&gt; A few comments/input:<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 1. We have been working on this driver for quite a long t=
-ime to port it<br>
-&gt;=C2=A0 =C2=A0 to the latest Linux conventions, polish the code, run tes=
-ts and reach high<br>
-&gt;=C2=A0 =C2=A0 quality.<br>
-&gt;=C2=A0 =C2=A0 Our partners and customers are waiting to get this driver=
- upstream so<br>
-&gt;=C2=A0 =C2=A0 they can freely use it.<br>
-<br>
-Your patch prefix says &quot;v1&quot;, so I&#39;m assuming this is the firs=
-t public<br>
-version. I&#39;m sure you spent a lot of time developing this driver<br>
-internally, but no matter how long it took, it&#39;s a first version for<br=
->
-us, and since we are moving away from the spi_nor controller interface,<br>
-I&#39;m not willing to accept new drivers using this interface.<br>
-<br>
-If you want more background about the spi_nor controller interface<br>
-deprecation, you can read [1].<br>
-<br>
-&gt;=C2=A0 =C2=A0 Since this driver is already in final stages and is in ve=
-ry good shape<br>
-&gt;=C2=A0 =C2=A0 we will appreciate if you can review this specific driver=
-/interface and<br>
-&gt;=C2=A0 =C2=A0 help us to upstream it.<br>
-<br>
-Actually, I&#39;d like to do it the other way around: let you rework the<br=
->
-driver to implement the spi-mem interface and review this version.<br>
-Otherwise I&#39;ll be reviewing things I don&#39;t intend to merge anyway.<=
-br>
-<br>
-&gt;=C2=A0 =C2=A0 2.=C2=A0 As for the new interface, we are open for any di=
-scussion and for<br>
-&gt;=C2=A0 =C2=A0 porting the driver as required.<br>
-&gt;=C2=A0 =C2=A0 We are unsure what is this specific interface and weather=
- it really fits<br>
-&gt;=C2=A0 =C2=A0 a driver for a Flash Interface Controller module (rather =
-than a SPI flash<br>
-&gt;=C2=A0 =C2=A0 device).<br>
-<br>
-Didn&#39;t go through the code in details, but at first glance, it looks<br=
->
-like it would fit pretty well.<br>
-<br>
-&gt;=C2=A0 =C2=A0 Is it possible to get a sample driver from another Flash =
-Interface<br>
-&gt;=C2=A0 =C2=A0 Controller module that was ported to this new interface ?=
-<br>
-<br>
-We recently converted the atmel QSPI driver [2].<br>
-<br>
-Regards,<br>
-<br>
-Boris<br>
-<br>
-[1]<a href=3D"https://bootlin.com/blog/spi-mem-bringing-some-consistency-to=
--the-spi-memory-ecosystem/" rel=3D"noreferrer" target=3D"_blank">https://bo=
-otlin.com/blog/spi-mem-bringing-some-consistency-to-the-spi-memory-ecosyste=
-m/</a><br>
-[2]<a href=3D"https://patchwork.kernel.org/project/spi-devel-general/list/?=
-series=3D38347&amp;state=3D*" rel=3D"noreferrer" target=3D"_blank">https://=
-patchwork.kernel.org/project/spi-devel-general/list/?series=3D38347&amp;sta=
-te=3D*</a><br>
-</blockquote></div>
-
---000000000000956a47057c1fb59a--
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" ><div>Hi Milton,</=
+div>
+<div><br>Do you have any idea why we need to write UUID to U-boot environme=
+nt ?</div></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Best Regards,<br>Nagaraju G</div>
+<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
+-left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
+margin-right:0px" >----- Original message -----<br>From: "Nagaraju Gorugant=
+i" &lt;ngorugan@in.ibm.com&gt;<br>Sent by: "openbmc" &lt;openbmc-bounces+ng=
+orugan=3Din.ibm.com@lists.ozlabs.org&gt;<br>To: openbmc@lists.ozlabs.org<br=
+>Cc:<br>Subject: Utility to Sync BMC's UUID to U-Boot environment<br>Date: =
+Fri, Nov 30, 2018 11:49 AM<br>&nbsp;<br><span style=3D" font-size:11pt;font=
+-family:sans-serif" >Hi All,</span><br><br><span style=3D" font-size:11pt;f=
+ont-family:sans-serif" >We are planning to port UUID synching related code =
+from current python script: <b>openbmc/skeleton/pyinventorymgr/sync=5Finven=
+tory=5Fitems.py</b>to new bash script.</span><br><br><span style=3D" font-s=
+ize:11pt;font-family:sans-serif" >The current py(invoked by systemd on the =
+way to BMC ready state) is doing below given actions to sync BMC's UUID to =
+U-Boot environment.</span><br><span style=3D" font-size:11pt;font-family:sa=
+ns-serif" >1. Getting the UUID from inventory.</span><br><span style=3D" fo=
+nt-size:11pt;font-family:sans-serif" >2. Getting the UUID from U-boot envir=
+onment</span><br><span style=3D" font-size:11pt;font-family:sans-serif" >3.=
+ If the both are differing, write the UUID form inventory to U-Boot environ=
+ment.</span><br><span style=3D" font-size:11pt;font-family:sans-serif" >4. =
+It also it has TODO task to reboot the BMC to make sure UUID from U-Boot en=
+v to &nbsp;sync with /etc/machine-id.</span><br><br><span style=3D" font-si=
+ze:11pt;font-family:sans-serif" >But this script is in broken state now: It=
+ is not updating UUID in U-boot env by reading it from inventory.</span><br=
+><br><span style=3D" font-size:11pt;font-family:sans-serif" >We have few th=
+ings to understand here:</span><br><span style=3D" font-size:11pt;font-fami=
+ly:sans-serif" >1. Is there a need to write UUID to U-Boot environment?</sp=
+an><br><span style=3D" font-size:11pt;font-family:sans-serif" >2. Can machi=
+ne-id be the source for UUID? or UUID is the source for machine-id?</span><=
+br><span style=3D" font-size:11pt;font-family:sans-serif" >3. If UUID (from=
+ inventory) is the source for machine-id, from where should the inventory g=
+et UUID? (on openpower systems the UUID is fetched from BMC &nbsp;VPD, if p=
+resent)</span><br><span style=3D" font-size:11pt;font-family:sans-serif" >4=
+. If machine-id is the source to UUID, how machine-id is getting its value?=
+</span><br><br><span style=3D" font-size:11pt;font-family:sans-serif" >We n=
+eed an inputs from community members who are having better understand on th=
+ese things.</span><br><br><span style=3D" font-size:11pt;font-family:sans-s=
+erif" >Best Regards,</span><br><span style=3D" font-size:11pt;font-family:s=
+ans-serif" >Nagaraju G</span></blockquote>
+<div dir=3D"ltr" >&nbsp;</div></div><BR>
