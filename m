@@ -1,67 +1,55 @@
-Return-Path: <tali.perry1@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::142; helo=mail-lf1-x142.google.com;
- envelope-from=tali.perry1@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::642; helo=mail-pl1-x642.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fCf8+tk0"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Kcbvj54f"; 
  dkim-atps=neutral
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 438R7V57VtzDqTs
- for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 02:46:59 +1100 (AEDT)
-Received: by mail-lf1-x142.google.com with SMTP id p86so12302580lfg.5
- for <openbmc@lists.ozlabs.org>; Tue, 04 Dec 2018 07:46:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cYZ/pnI0GP6HzpMOsS3k9cR/rexk+p8nKkDad/G9FZY=;
- b=fCf8+tk0jauGgafKtkxhN9ldMG6MVvz1vLspbTvbpXU7rlps+nNh1XfrEWbBvxMOKa
- FghvZrthDmEfAOBIsZv5SLPhNqAOQz3n9EzKiACAD57R2jpxZnGzbKoN5T/JyImoQUHJ
- JZfBP4ecot6JdBvJgon5YfCZdzzUqbVWsi6YToGhmbz+wJ1R6/L7qFkHDvKiwsLmxmmb
- L2V2SAFCnDZArL/y3iwDN3I4O98bGXHpc84Zu8DkFp1dN5msWjf+T2oj0Dhvpd0b8DJf
- vxXBxVyw6w8rad5lvBlmusBSPRP4agz7BNOZ69ZsyuR8crqDouFiRYhWkcFF89LzTBut
- bU5A==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 438TFR4Lt3zDqX0
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 04:22:18 +1100 (AEDT)
+Received: by mail-pl1-x642.google.com with SMTP id g9so8633889plo.3
+ for <openbmc@lists.ozlabs.org>; Tue, 04 Dec 2018 09:22:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=CirGYL4IWhYgI0CcFPz6Oq/eptI2SiTTuVG6jFRbWMU=;
+ b=Kcbvj54ffMknHq96cvNKGjLVOGdULBxXNvRv1ovyJZEjNkwhvexXDZZ1dCjYMMqGuI
+ AEN/4+PkADT3TJAvKNKjff3rmoZEVBMGWGZrcS94x3U1AAT6MtGFifuEw3RAfZpGW33e
+ /Fg8bCHLbfz6VIPojGwFOhBldnN6EO+3OHvQ1Ug8VDsHtidjaI3u8gsdlmWWfuwb+NRZ
+ oYg+24L1VAraXx1w8K49GvQ98PLYk2plUeW75ZsVWjTjZ9V0FOE5ER0SS3mcrHgNBgAJ
+ 0YO4Y69WdjfWMqnV80tka2Zbfn/CHzKOjHhyYrg8Po6PZi41/xOECMJtD6T+0sVb3gt0
+ Uf7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cYZ/pnI0GP6HzpMOsS3k9cR/rexk+p8nKkDad/G9FZY=;
- b=MlCbmzcCAS9BN3vpN1LO/KF3sDxnSqIIyFC90QFbIi7yHxxshPI57baL3xRHv3UuP7
- Q6SzzNzHEJ5xOS4Z6G/jsoUznMChRL79MfeHhj51yIcC89x6ggHNlOD8/CSWQWhisu+e
- uQ3202Gmym3K9mRhlXkE6dE0e8P3KBllVycVWtLFgyNCuLbAbDZkvCm4PUfklP9Z8gDl
- YJLckK0ISSOqMUR5ktq9g1Oxh0AJMCghxQF2wAnmnD18a345mipzE0g6F3BJmoA5g9vK
- hPe4X+gAuUEnfTJfhsmAH/5vONNeAMpi6Rexd8vCbqLqKBAxVCbj0hBTbs4gMyyHSTMw
- I0Ug==
-X-Gm-Message-State: AA+aEWbCPxK7HGs7ufCap166/hirUAXRnaX4WS2KGQYi9Zl+WoQQoVgI
- AqlYwAc5l2kbVrzbOtICmU77yC8w5aGM0BLTFNw=
-X-Google-Smtp-Source: AFSGD/Upbi+VpU4kbA6iktrYIu3HuHf8G/ZMAnVUp3n1MF7vdUb9SQ5TSAHXD912ysl2eljV3tSDCjoNPCW52dPjIns=
-X-Received: by 2002:a19:9a8c:: with SMTP id
- c134mr11532174lfe.152.1543938415088; 
- Tue, 04 Dec 2018 07:46:55 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=CirGYL4IWhYgI0CcFPz6Oq/eptI2SiTTuVG6jFRbWMU=;
+ b=DRMAQQkxKdNEPEJYfWy2wScqFiBWYLm0Ubzw9FIHqws51bQUVBq0YafHVP7y0kqrGY
+ O1G7ny+0j+5i2v2Hvm2iBEIu/n3G1hTga4GDb7V0t2wuYJUQ0M+jG/kGyo+1e2ZtG2y4
+ h7MuUS+AF+b43oD67p06Ki35JuBVsbzg4EWW7V3ozgB9sUDPXqdyG3WzCs/vcoBgYL7Y
+ ti540a23EGA9hagPB9SLkkMP3bW7dVinJHAb4spelppDHqF5ZuD7mJDFS8joZ68goJ5L
+ 2bYG1/cezjvJAZVH/MNH0m72BP6qvzGJtBN+P0sDFGqz+2o8FqVCyCdqGvFvbfxJ2tan
+ itFw==
+X-Gm-Message-State: AA+aEWYz1doH7pALyay9nnmA/3PmBXFJapn1rwtM8AM696zh9CzfrsqQ
+ DdwSZ+drzpSN90MFULkKJLP19rdgiO3IdKC2w09N61HuZxTHyw==
+X-Google-Smtp-Source: AFSGD/UOjvSjdX7qAk18LbJObAneJaQ2D2o7xGmEmJWZNg6498jEbjWRd3tA5E38ZLGdOCGTjBIze3ESkYWP7sQfv7Y=
+X-Received: by 2002:a17:902:968d:: with SMTP id
+ n13mr21266753plp.109.1543944135380; 
+ Tue, 04 Dec 2018 09:22:15 -0800 (PST)
 MIME-Version: 1.0
-References: <20181111134712.318321-1-tali.perry1@gmail.com>
- <20181111134712.318321-2-tali.perry1@gmail.com>
- <154353743563.88331.13076671872913666949@swboyd.mtv.corp.google.com>
-In-Reply-To: <154353743563.88331.13076671872913666949@swboyd.mtv.corp.google.com>
-From: Tali Perry <tali.perry1@gmail.com>
-Date: Tue, 4 Dec 2018 17:49:27 +0200
-Message-ID: <CAHb3i=ud692wC0DnOu+1Vfk8SToB_FdWx_fsJ5CKVvGOHkFzwA@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] clk: npcm7xx: get fixed clocks from DT
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: avifishman70@gmail.com, Brendan Higgins <brendanhiggins@google.com>, 
- linux@armlinux.org.uk, Mark Rutland <mark.rutland@arm.com>, 
- Michael Turquette <mturquette@baylibre.com>, raltherr@google.com, 
- Rob Herring <robh+dt@kernel.org>, sboyd@codeaurora.org, 
- Tomer Maimon <tmaimon77@gmail.com>, devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-clk@vger.kernel.org, 
- Wei Yongjun <weiyongjun1@huawei.com>
-Content-Type: multipart/alternative; boundary="000000000000c9591b057c342c5a"
+From: Patrick Venture <venture@google.com>
+Date: Tue, 4 Dec 2018 09:22:02 -0800
+Message-ID: <CAO=notzzBw=0pPwu4fDCWba7kyWLD3SqLqzYiK8dcB_B4E6SXw@mail.gmail.com>
+Subject: CI Builds that include phosphor-host-ipmid now flaky
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>, 
+ tomjoseph@in.ibm.com, Emily Shaffer <emilyshaffer@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,709 +61,1285 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Dec 2018 15:47:04 -0000
+X-List-Received-Date: Tue, 04 Dec 2018 17:22:21 -0000
 
---000000000000c9591b057c342c5a
-Content-Type: text/plain; charset="UTF-8"
+Running the openbmc upstream CI locally now is flaky.  The
+phosphor-host-ipmid repository sometimes builds and sometimes doesn't.
+Building from HEAD, with no changes to the CI source, it will work one
+build, and fail another.  I'm trying to build it to run tests while
+developing phosphor-ipmi-flash and it's pretty unhappy.
 
-Hi Stephan,
+Does anyone have any thoughts on the luserlayer change?  Below is the log:
 
-Thanks for all the comments!
++ UNIT_TEST=/usr/local/google/git/workspaces/ci_test_area/unit-test.py,-w,/usr/local/google/git/workspaces/ci_test_area,-p,phosphor-ipmi-flash,-v
++ echo 'Executing docker image'
+Executing docker image
++ docker run --cap-add=sys_admin --rm=true --network host
+--privileged=true -w /usr/local/google/git/workspaces/ci_test_area -v
+/usr/local/google/git/workspaces/ci_test_area:/usr/local/google/git/workspaces/ci_test_area
+-e MAKEFLAGS= -t openbmc/ubuntu-unit-test
+/usr/local/google/git/workspaces/ci_test_area/dbus-unit-test.py -u
+/usr/local/google/git/workspaces/ci_test_area/unit-test.py,-w,/usr/local/google/git/workspaces/ci_test_area,-p,phosphor-ipmi-flash,-v
+-f /usr/share/dbus-1/system.conf
+/usr/local/google/git/workspaces/ci_test_area > ./format-code.sh
+/usr/local/google/git/workspaces/ci_test_area/phosphor-ipmi-flash
+Formatting code under
+/usr/local/google/git/workspaces/ci_test_area/phosphor-ipmi-flash/
+/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid >
+git clone https://gerrit.openbmc-project.xyz/openbmc/phosphor-host-ipmid
+./
+phosphor-ipmi-flash
+    phosphor-ipmi-blobs
+        phosphor-host-ipmid
+/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid >
+./bootstrap.sh
+libtoolize: putting auxiliary files in '.'.
+libtoolize: copying file './ltmain.sh'
+libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,
+libtoolize: and rerunning libtoolize and aclocal.
+libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
+configure.ac:12: installing './ar-lib'
+configure.ac:11: installing './compile'
+configure.ac:50: installing './config.guess'
+configure.ac:50: installing './config.sub'
+configure.ac:5: installing './install-sh'
+configure.ac:5: installing './missing'
+Makefile.am: installing './depcomp'
+parallel-tests: installing './test-driver'
+Run "./configure ${CONFIGURE_FLAGS} && make"
+/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid >
+./configure --disable-silent-rules --enable-tests
+--enable-code-coverage --enable-valgrind
+configure: WARNING: unrecognized options: --enable-tests, --enable-valgrind
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... no
+checking for mawk... mawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports nested variables... (cached) yes
+checking for g++... g++
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+checking for style of include used by make... GNU
+checking dependency style of g++... gcc3
+checking for gcc... gcc
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking for ar... ar
+checking the archiver (ar) interface... ar
+checking whether make sets $(MAKE)... (cached) yes
+checking for dirname... dirname
+checking for mapper_get_service in -lmapper... yes
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for SYSTEMD... yes
+checking for CRYPTO... yes
+checking for PHOSPHOR_LOGGING... yes
+checking for PHOSPHOR_DBUS_INTERFACES... yes
+checking for SDBUSPLUS... yes
+./configure: line 5338: SDEVENTPLUS_CFLAGS: command not found
+./configure: line 5339: C: command not found
+./configure: line 5340: SDEVENTPLUS_LIBS: command not found
+./configure: line 5341: linker: command not found
+checking for SDEVENTPLUS... yes
+checking for sdbus++... /usr/local/bin/sdbus++
+checking whether g++ supports C++17 features by default... no
+checking whether g++ supports C++17 features with -std=c++17... yes
+configure: WARNING: C++17 is not yet standardized, so the checks may
+change in incompatible ways anytime
+checking whether C++ compiler accepts -Wall... yes
+checking whether C++ compiler accepts -Werror... yes
+checking whether C++ compiler accepts -Wall... (cached) yes
+checking whether C++ compiler accepts -Werror... (cached) yes
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking how to print strings... printf
+checking for a sed that does not truncate output... /bin/sed
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for fgrep... /bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to
+x86_64-pc-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain
+format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for mt... no
+checking if : is a manifest tool... no
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... no
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports
+shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking for shl_load... no
+checking for shl_load in -ldld... no
+checking for dlopen... no
+checking for dlopen in -ldl... yes
+checking whether a program can dlopen itself... yes
+checking whether a statically linked program can dlopen itself... yes
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking how to run the C++ preprocessor... g++ -std=c++17 -E
+checking for ld used by g++ -std=c++17... /usr/bin/ld -m elf_x86_64
+checking if the linker (/usr/bin/ld -m elf_x86_64) is GNU ld... yes
+checking whether the g++ -std=c++17 linker (/usr/bin/ld -m elf_x86_64)
+supports shared libraries... yes
+checking for g++ -std=c++17 option to produce PIC... -fPIC -DPIC
+checking if g++ -std=c++17 PIC flag -fPIC -DPIC works... yes
+checking if g++ -std=c++17 static flag -static works... no
+checking if g++ -std=c++17 supports -c -o file.o... yes
+checking if g++ -std=c++17 supports -c -o file.o... (cached) yes
+checking whether the g++ -std=c++17 linker (/usr/bin/ld -m elf_x86_64)
+supports shared libraries... yes
+checking dynamic linker characteristics... (cached) GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking for library containing dlopen... -ldl
+checking for dlerror... yes
+checking for shl_load... (cached) no
+checking for shl_load in -ldld... (cached) no
+checking for dld_link in -ldld... no
+checking for GTEST... yes
+checking for GTEST_MAIN... yes
+checking whether to build with code coverage support... yes
+checking for gcov... gcov
+checking for lcov... lcov
+checking for genhtml... genhtml
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating test/Makefile
+config.status: creating softoff/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+configure: WARNING: unrecognized options: --enable-tests, --enable-valgrind
+/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid >
+make -j 12 -l 12 -O
+/bin/bash generate_whitelist.sh host-ipmid-whitelist.conf > ipmiwhitelist.cpp
+./scripts/channel_gen.py -i channel-example.yaml -o . generate-cpp
+./scripts/fru_gen.py -i fru-read-example.yaml -o . generate-cpp
+./scripts/inventory-sensor.py -i inventory-sensor-example.yaml -o . generate-cpp
+./scripts/sensor_gen.py -i sensor-example.yaml -o . generate-cpp
+make  all-recursive
+Making all in .
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-net.lo -MD -MP -MF .deps/libipmi20_la-net.Tpo -c -o
+libipmi20_la-net.lo `test -f 'net.cpp' || echo './'`net.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-net.lo -MD -MP -MF
+.deps/libipmi20_la-net.Tpo -c net.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-net.o
+mv -f .deps/libipmi20_la-net.Tpo .deps/libipmi20_la-net.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-transporthandler.lo -MD -MP -MF
+.deps/libipmi20_la-transporthandler.Tpo -c -o
+libipmi20_la-transporthandler.lo `test -f 'transporthandler.cpp' ||
+echo './'`transporthandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-transporthandler.lo -MD -MP -MF
+.deps/libipmi20_la-transporthandler.Tpo -c transporthandler.cpp  -fPIC
+-DPIC -o .libs/libipmi20_la-transporthandler.o
+mv -f .deps/libipmi20_la-transporthandler.Tpo
+.deps/libipmi20_la-transporthandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-globalhandler.lo -MD -MP -MF
+.deps/libipmi20_la-globalhandler.Tpo -c -o
+libipmi20_la-globalhandler.lo `test -f 'globalhandler.cpp' || echo
+'./'`globalhandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-globalhandler.lo -MD -MP -MF
+.deps/libipmi20_la-globalhandler.Tpo -c globalhandler.cpp  -fPIC -DPIC
+-o .libs/libipmi20_la-globalhandler.o
+mv -f .deps/libipmi20_la-globalhandler.Tpo .deps/libipmi20_la-globalhandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-groupext.lo -MD -MP -MF .deps/libipmi20_la-groupext.Tpo
+-c -o libipmi20_la-groupext.lo `test -f 'groupext.cpp' || echo
+'./'`groupext.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-groupext.lo -MD -MP -MF
+.deps/libipmi20_la-groupext.Tpo -c groupext.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-groupext.o
+mv -f .deps/libipmi20_la-groupext.Tpo .deps/libipmi20_la-groupext.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-utils.lo -MD -MP -MF .deps/libipmi20_la-utils.Tpo -c -o
+libipmi20_la-utils.lo `test -f 'utils.cpp' || echo './'`utils.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-utils.lo -MD -MP -MF
+.deps/libipmi20_la-utils.Tpo -c utils.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-utils.o
+mv -f .deps/libipmi20_la-utils.Tpo .deps/libipmi20_la-utils.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-selutility.lo -MD -MP -MF
+.deps/libipmi20_la-selutility.Tpo -c -o libipmi20_la-selutility.lo
+`test -f 'selutility.cpp' || echo './'`selutility.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-selutility.lo -MD -MP -MF
+.deps/libipmi20_la-selutility.Tpo -c selutility.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-selutility.o
+mv -f .deps/libipmi20_la-selutility.Tpo .deps/libipmi20_la-selutility.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-ipmi_fru_info_area.lo -MD -MP -MF
+.deps/libipmi20_la-ipmi_fru_info_area.Tpo -c -o
+libipmi20_la-ipmi_fru_info_area.lo `test -f 'ipmi_fru_info_area.cpp'
+|| echo './'`ipmi_fru_info_area.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-ipmi_fru_info_area.lo -MD -MP -MF
+.deps/libipmi20_la-ipmi_fru_info_area.Tpo -c ipmi_fru_info_area.cpp
+-fPIC -DPIC -o .libs/libipmi20_la-ipmi_fru_info_area.o
+mv -f .deps/libipmi20_la-ipmi_fru_info_area.Tpo
+.deps/libipmi20_la-ipmi_fru_info_area.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-read_fru_data.lo -MD -MP -MF
+.deps/libipmi20_la-read_fru_data.Tpo -c -o
+libipmi20_la-read_fru_data.lo `test -f 'read_fru_data.cpp' || echo
+'./'`read_fru_data.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-read_fru_data.lo -MD -MP -MF
+.deps/libipmi20_la-read_fru_data.Tpo -c read_fru_data.cpp  -fPIC -DPIC
+-o .libs/libipmi20_la-read_fru_data.o
+mv -f .deps/libipmi20_la-read_fru_data.Tpo .deps/libipmi20_la-read_fru_data.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-sensordatahandler.lo -MD -MP -MF
+.deps/libipmi20_la-sensordatahandler.Tpo -c -o
+libipmi20_la-sensordatahandler.lo `test -f 'sensordatahandler.cpp' ||
+echo './'`sensordatahandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-sensordatahandler.lo -MD -MP -MF
+.deps/libipmi20_la-sensordatahandler.Tpo -c sensordatahandler.cpp
+-fPIC -DPIC -o .libs/libipmi20_la-sensordatahandler.o
+mv -f .deps/libipmi20_la-sensordatahandler.Tpo
+.deps/libipmi20_la-sensordatahandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-sensor-gen.lo -MD -MP -MF
+.deps/libipmi20_la-sensor-gen.Tpo -c -o libipmi20_la-sensor-gen.lo
+`test -f 'sensor-gen.cpp' || echo './'`sensor-gen.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-sensor-gen.lo -MD -MP -MF
+.deps/libipmi20_la-sensor-gen.Tpo -c sensor-gen.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-sensor-gen.o
+mv -f .deps/libipmi20_la-sensor-gen.Tpo .deps/libipmi20_la-sensor-gen.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-inventory-sensor-gen.lo -MD -MP -MF
+.deps/libipmi20_la-inventory-sensor-gen.Tpo -c -o
+libipmi20_la-inventory-sensor-gen.lo `test -f
+'inventory-sensor-gen.cpp' || echo './'`inventory-sensor-gen.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-inventory-sensor-gen.lo -MD -MP -MF
+.deps/libipmi20_la-inventory-sensor-gen.Tpo -c
+inventory-sensor-gen.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-inventory-sensor-gen.o
+mv -f .deps/libipmi20_la-inventory-sensor-gen.Tpo
+.deps/libipmi20_la-inventory-sensor-gen.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-fru-read-gen.lo -MD -MP -MF
+.deps/libipmi20_la-fru-read-gen.Tpo -c -o libipmi20_la-fru-read-gen.lo
+`test -f 'fru-read-gen.cpp' || echo './'`fru-read-gen.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-fru-read-gen.lo -MD -MP -MF
+.deps/libipmi20_la-fru-read-gen.Tpo -c fru-read-gen.cpp  -fPIC -DPIC
+-o .libs/libipmi20_la-fru-read-gen.o
+mv -f .deps/libipmi20_la-fru-read-gen.Tpo .deps/libipmi20_la-fru-read-gen.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-channel-gen.lo -MD -MP -MF
+.deps/libipmi20_la-channel-gen.Tpo -c -o libipmi20_la-channel-gen.lo
+`test -f 'channel-gen.cpp' || echo './'`channel-gen.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-channel-gen.lo -MD -MP -MF
+.deps/libipmi20_la-channel-gen.Tpo -c channel-gen.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-channel-gen.o
+mv -f .deps/libipmi20_la-channel-gen.Tpo .deps/libipmi20_la-channel-gen.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -I/usr/local/include -I/usr/local/include -g
+-O2 -Wall -Werror -MT user_channel/libuserlayer_la-user_layer.lo -MD
+-MP -MF user_channel/.deps/libuserlayer_la-user_layer.Tpo -c -o
+user_channel/libuserlayer_la-user_layer.lo `test -f
+'user_channel/user_layer.cpp' || echo './'`user_channel/user_layer.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-I/usr/local/include -I/usr/local/include -g -O2 -Wall -Werror -MT
+user_channel/libuserlayer_la-user_layer.lo -MD -MP -MF
+user_channel/.deps/libuserlayer_la-user_layer.Tpo -c
+user_channel/user_layer.cpp  -fPIC -DPIC -o
+user_channel/.libs/libuserlayer_la-user_layer.o
+mv -f user_channel/.deps/libuserlayer_la-user_layer.Tpo
+user_channel/.deps/libuserlayer_la-user_layer.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -I/usr/local/include -I/usr/local/include -g
+-O2 -Wall -Werror -MT user_channel/libuserlayer_la-user_mgmt.lo -MD
+-MP -MF user_channel/.deps/libuserlayer_la-user_mgmt.Tpo -c -o
+user_channel/libuserlayer_la-user_mgmt.lo `test -f
+'user_channel/user_mgmt.cpp' || echo './'`user_channel/user_mgmt.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-I/usr/local/include -I/usr/local/include -g -O2 -Wall -Werror -MT
+user_channel/libuserlayer_la-user_mgmt.lo -MD -MP -MF
+user_channel/.deps/libuserlayer_la-user_mgmt.Tpo -c
+user_channel/user_mgmt.cpp  -fPIC -DPIC -o
+user_channel/.libs/libuserlayer_la-user_mgmt.o
+mv -f user_channel/.deps/libuserlayer_la-user_mgmt.Tpo
+user_channel/.deps/libuserlayer_la-user_mgmt.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -I/usr/local/include -I/usr/local/include -g
+-O2 -Wall -Werror -MT user_channel/libuserlayer_la-passwd_mgr.lo -MD
+-MP -MF user_channel/.deps/libuserlayer_la-passwd_mgr.Tpo -c -o
+user_channel/libuserlayer_la-passwd_mgr.lo `test -f
+'user_channel/passwd_mgr.cpp' || echo './'`user_channel/passwd_mgr.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-I/usr/local/include -I/usr/local/include -g -O2 -Wall -Werror -MT
+user_channel/libuserlayer_la-passwd_mgr.lo -MD -MP -MF
+user_channel/.deps/libuserlayer_la-passwd_mgr.Tpo -c
+user_channel/passwd_mgr.cpp  -fPIC -DPIC -o
+user_channel/.libs/libuserlayer_la-passwd_mgr.o
+mv -f user_channel/.deps/libuserlayer_la-passwd_mgr.Tpo
+user_channel/.deps/libuserlayer_la-passwd_mgr.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -I/usr/local/include -I/usr/local/include -g
+-O2 -Wall -Werror -MT user_channel/libuserlayer_la-channel_mgmt.lo -MD
+-MP -MF user_channel/.deps/libuserlayer_la-channel_mgmt.Tpo -c -o
+user_channel/libuserlayer_la-channel_mgmt.lo `test -f
+'user_channel/channel_mgmt.cpp' || echo
+'./'`user_channel/channel_mgmt.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-I/usr/local/include -I/usr/local/include -g -O2 -Wall -Werror -MT
+user_channel/libuserlayer_la-channel_mgmt.lo -MD -MP -MF
+user_channel/.deps/libuserlayer_la-channel_mgmt.Tpo -c
+user_channel/channel_mgmt.cpp  -fPIC -DPIC -o
+user_channel/.libs/libuserlayer_la-channel_mgmt.o
+mv -f user_channel/.deps/libuserlayer_la-channel_mgmt.Tpo
+user_channel/.deps/libuserlayer_la-channel_mgmt.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -I/usr/local/include -I/usr/local/include -g
+-O2 -Wall -Werror -MT user_channel/libuserlayer_la-channel_layer.lo
+-MD -MP -MF user_channel/.deps/libuserlayer_la-channel_layer.Tpo -c -o
+user_channel/libuserlayer_la-channel_layer.lo `test -f
+'user_channel/channel_layer.cpp' || echo
+'./'`user_channel/channel_layer.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-I/usr/local/include -I/usr/local/include -g -O2 -Wall -Werror -MT
+user_channel/libuserlayer_la-channel_layer.lo -MD -MP -MF
+user_channel/.deps/libuserlayer_la-channel_layer.Tpo -c
+user_channel/channel_layer.cpp  -fPIC -DPIC -o
+user_channel/.libs/libuserlayer_la-channel_layer.o
+mv -f user_channel/.deps/libuserlayer_la-channel_layer.Tpo
+user_channel/.deps/libuserlayer_la-channel_layer.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.     -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB  -I/usr/local/include
+-I/usr/local/include -I/usr/local/include -flto -g -O2 -Wall -Werror
+-MT libsysintfcmds_la-systemintfcmds.lo -MD -MP -MF
+.deps/libsysintfcmds_la-systemintfcmds.Tpo -c -o
+libsysintfcmds_la-systemintfcmds.lo `test -f 'systemintfcmds.cpp' ||
+echo './'`systemintfcmds.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libsysintfcmds_la-systemintfcmds.lo -MD -MP -MF
+.deps/libsysintfcmds_la-systemintfcmds.Tpo -c systemintfcmds.cpp
+-fPIC -DPIC -o .libs/libsysintfcmds_la-systemintfcmds.o
+mv -f .deps/libsysintfcmds_la-systemintfcmds.Tpo
+.deps/libsysintfcmds_la-systemintfcmds.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.     -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB  -I/usr/local/include
+-I/usr/local/include -I/usr/local/include -flto -g -O2 -Wall -Werror
+-MT libsysintfcmds_la-host-interface.lo -MD -MP -MF
+.deps/libsysintfcmds_la-host-interface.Tpo -c -o
+libsysintfcmds_la-host-interface.lo `test -f 'host-interface.cpp' ||
+echo './'`host-interface.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libsysintfcmds_la-host-interface.lo -MD -MP -MF
+.deps/libsysintfcmds_la-host-interface.Tpo -c host-interface.cpp
+-fPIC -DPIC -o .libs/libsysintfcmds_la-host-interface.o
+mv -f .deps/libsysintfcmds_la-host-interface.Tpo
+.deps/libsysintfcmds_la-host-interface.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+g++ -std=c++17 -DHAVE_CONFIG_H -I.    -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT ipmid-ipmid.o -MD
+-MP -MF .deps/ipmid-ipmid.Tpo -c -o ipmid-ipmid.o `test -f 'ipmid.cpp'
+|| echo './'`ipmid.cpp
+mv -f .deps/ipmid-ipmid.Tpo .deps/ipmid-ipmid.Po
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+g++ -std=c++17 -DHAVE_CONFIG_H -I.    -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT ipmid-settings.o
+-MD -MP -MF .deps/ipmid-settings.Tpo -c -o ipmid-settings.o `test -f
+'settings.cpp' || echo './'`settings.cpp
+mv -f .deps/ipmid-settings.Tpo .deps/ipmid-settings.Po
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+g++ -std=c++17 -DHAVE_CONFIG_H -I.    -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+ipmid-host-cmd-manager.o -MD -MP -MF .deps/ipmid-host-cmd-manager.Tpo
+-c -o ipmid-host-cmd-manager.o `test -f 'host-cmd-manager.cpp' || echo
+'./'`host-cmd-manager.cpp
+mv -f .deps/ipmid-host-cmd-manager.Tpo .deps/ipmid-host-cmd-manager.Po
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+g++ -std=c++17 -DHAVE_CONFIG_H -I.    -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT ipmid-utils.o -MD
+-MP -MF .deps/ipmid-utils.Tpo -c -o ipmid-utils.o `test -f 'utils.cpp'
+|| echo './'`utils.cpp
+mv -f .deps/ipmid-utils.Tpo .deps/ipmid-utils.Po
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+g++ -std=c++17 -DHAVE_CONFIG_H -I.    -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT ipmid-oemrouter.o
+-MD -MP -MF .deps/ipmid-oemrouter.Tpo -c -o ipmid-oemrouter.o `test -f
+'oemrouter.cpp' || echo './'`oemrouter.cpp
+mv -f .deps/ipmid-oemrouter.Tpo .deps/ipmid-oemrouter.Po
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+g++ -std=c++17 -DHAVE_CONFIG_H -I.    -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+ipmid-ipmiwhitelist.o -MD -MP -MF .deps/ipmid-ipmiwhitelist.Tpo -c -o
+ipmid-ipmiwhitelist.o `test -f 'ipmiwhitelist.cpp' || echo
+'./'`ipmiwhitelist.cpp
+mv -f .deps/ipmid-ipmiwhitelist.Tpo .deps/ipmid-ipmiwhitelist.Po
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+user_channel/libipmi20_la-usercommands.lo -MD -MP -MF
+user_channel/.deps/libipmi20_la-usercommands.Tpo -c -o
+user_channel/libipmi20_la-usercommands.lo `test -f
+'user_channel/usercommands.cpp' || echo
+'./'`user_channel/usercommands.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT user_channel/libipmi20_la-usercommands.lo -MD
+-MP -MF user_channel/.deps/libipmi20_la-usercommands.Tpo -c
+user_channel/usercommands.cpp  -fPIC -DPIC -o
+user_channel/.libs/libipmi20_la-usercommands.o
+mv -f user_channel/.deps/libipmi20_la-usercommands.Tpo
+user_channel/.deps/libipmi20_la-usercommands.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+user_channel/libipmi20_la-channelcommands.lo -MD -MP -MF
+user_channel/.deps/libipmi20_la-channelcommands.Tpo -c -o
+user_channel/libipmi20_la-channelcommands.lo `test -f
+'user_channel/channelcommands.cpp' || echo
+'./'`user_channel/channelcommands.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT user_channel/libipmi20_la-channelcommands.lo -MD
+-MP -MF user_channel/.deps/libipmi20_la-channelcommands.Tpo -c
+user_channel/channelcommands.cpp  -fPIC -DPIC -o
+user_channel/.libs/libipmi20_la-channelcommands.o
+mv -f user_channel/.deps/libipmi20_la-channelcommands.Tpo
+user_channel/.deps/libipmi20_la-channelcommands.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=link g++ -std=c++17
+-I/usr/local/include -I/usr/local/include -g -O2 -Wall -Werror
+-lsystemd  -L/usr/local/lib -lphosphor_logging -lsdbusplus -lsystemd
+-L/usr/local/lib -lphosphor_dbus -lstdc++fs   -lpam_misc -lssl
+-version-info 0:0:0 -shared  -o libuserlayer.la -rpath /usr/local/lib
+user_channel/libuserlayer_la-user_layer.lo
+user_channel/libuserlayer_la-user_mgmt.lo
+user_channel/libuserlayer_la-passwd_mgr.lo
+user_channel/libuserlayer_la-channel_mgmt.lo
+user_channel/libuserlayer_la-channel_layer.lo  -lmapper
+libtool: link: g++ -std=c++17  -fPIC -DPIC -shared -nostdlib
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
+/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o
+user_channel/.libs/libuserlayer_la-user_layer.o
+user_channel/.libs/libuserlayer_la-user_mgmt.o
+user_channel/.libs/libuserlayer_la-passwd_mgr.o
+user_channel/.libs/libuserlayer_la-channel_mgmt.o
+user_channel/.libs/libuserlayer_la-channel_layer.o   -L/usr/local/lib
+/usr/local/lib/libphosphor_logging.so /usr/local/lib/libsdbusplus.so
+-lsystemd /usr/local/lib/libphosphor_dbus.so -lstdc++fs -lpam_misc
+-lssl /usr/local/lib/libmapper.so -L/usr/lib/gcc/x86_64-linux-gnu/7
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib
+-L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu
+-L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. -lstdc++
+-lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o  -g
+-O2   -Wl,-soname -Wl,libuserlayer.so.0 -o .libs/libuserlayer.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libuserlayer.so.0" && ln -s
+"libuserlayer.so.0.0.0" "libuserlayer.so.0")
+libtool: link: (cd ".libs" && rm -f "libuserlayer.so" && ln -s
+"libuserlayer.so.0.0.0" "libuserlayer.so")
+libtool: link: ( cd ".libs" && rm -f "libuserlayer.la" && ln -s
+"../libuserlayer.la" "libuserlayer.la" )
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=link g++ -std=c++17
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB  -I/usr/local/include -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -lsystemd
+-L/usr/local/lib -lphosphor_dbus -L/usr/local/lib -lphosphor_logging
+-lsdbusplus -lsystemd -L/usr/local/lib -lsdbusplus -lsystemd
+-version-info 0:0:0 -shared  -o libsysintfcmds.la -rpath
+/usr/local/lib/ipmid-providers libsysintfcmds_la-systemintfcmds.lo
+libsysintfcmds_la-host-interface.lo  -lmapper
+libtool: link: g++ -std=c++17  -fPIC -DPIC -shared -nostdlib
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
+/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o
+.libs/libsysintfcmds_la-systemintfcmds.o
+.libs/libsysintfcmds_la-host-interface.o   -L/usr/local/lib
+/usr/local/lib/libphosphor_dbus.so
+/usr/local/lib/libphosphor_logging.so /usr/local/lib/libsdbusplus.so
+-lsystemd /usr/local/lib/libmapper.so
+-L/usr/lib/gcc/x86_64-linux-gnu/7
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib
+-L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu
+-L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. -lstdc++
+-lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+-flto -g -O2   -Wl,-soname -Wl,libsysintfcmds.so.0 -o
+.libs/libsysintfcmds.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libsysintfcmds.so.0" && ln -s
+"libsysintfcmds.so.0.0.0" "libsysintfcmds.so.0")
+libtool: link: (cd ".libs" && rm -f "libsysintfcmds.so" && ln -s
+"libsysintfcmds.so.0.0.0" "libsysintfcmds.so")
+libtool: link: ( cd ".libs" && rm -f "libsysintfcmds.la" && ln -s
+"../libsysintfcmds.la" "libsysintfcmds.la" )
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=link g++ -std=c++17
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -lsystemd  -ldl -L/usr/local/lib -lphosphor_logging
+-lsdbusplus -lsystemd -L/usr/local/lib -lphosphor_dbus -lcrypto
+-lstdc++fs -pthread -export-dynamic  -o ipmid ipmid-ipmid.o
+ipmid-settings.o ipmid-host-cmd-manager.o ipmid-utils.o
+ipmid-oemrouter.o ipmid-ipmiwhitelist.o  -lmapper
+libtool: link: g++ -std=c++17 -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -pthread -o ipmid
+ipmid-ipmid.o ipmid-settings.o ipmid-host-cmd-manager.o ipmid-utils.o
+ipmid-oemrouter.o ipmid-ipmiwhitelist.o -Wl,--export-dynamic  -ldl
+-L/usr/local/lib /usr/local/lib/libphosphor_logging.so
+/usr/local/lib/libsdbusplus.so -lsystemd
+/usr/local/lib/libphosphor_dbus.so -lcrypto -lstdc++fs
+/usr/local/lib/libmapper.so -pthread
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-storageaddsel.lo -MD -MP -MF
+.deps/libipmi20_la-storageaddsel.Tpo -c -o
+libipmi20_la-storageaddsel.lo `test -f 'storageaddsel.cpp' || echo
+'./'`storageaddsel.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-storageaddsel.lo -MD -MP -MF
+.deps/libipmi20_la-storageaddsel.Tpo -c storageaddsel.cpp  -fPIC -DPIC
+-o .libs/libipmi20_la-storageaddsel.o
+mv -f .deps/libipmi20_la-storageaddsel.Tpo .deps/libipmi20_la-storageaddsel.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-ipmisensor.lo -MD -MP -MF
+.deps/libipmi20_la-ipmisensor.Tpo -c -o libipmi20_la-ipmisensor.lo
+`test -f 'ipmisensor.cpp' || echo './'`ipmisensor.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-ipmisensor.lo -MD -MP -MF
+.deps/libipmi20_la-ipmisensor.Tpo -c ipmisensor.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-ipmisensor.o
+mv -f .deps/libipmi20_la-ipmisensor.Tpo .deps/libipmi20_la-ipmisensor.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-dcmihandler.lo -MD -MP -MF
+.deps/libipmi20_la-dcmihandler.Tpo -c -o libipmi20_la-dcmihandler.lo
+`test -f 'dcmihandler.cpp' || echo './'`dcmihandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-dcmihandler.lo -MD -MP -MF
+.deps/libipmi20_la-dcmihandler.Tpo -c dcmihandler.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-dcmihandler.o
+mv -f .deps/libipmi20_la-dcmihandler.Tpo .deps/libipmi20_la-dcmihandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-chassishandler.lo -MD -MP -MF
+.deps/libipmi20_la-chassishandler.Tpo -c -o
+libipmi20_la-chassishandler.lo `test -f 'chassishandler.cpp' || echo
+'./'`chassishandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-chassishandler.lo -MD -MP -MF
+.deps/libipmi20_la-chassishandler.Tpo -c chassishandler.cpp  -fPIC
+-DPIC -o .libs/libipmi20_la-chassishandler.o
+mv -f .deps/libipmi20_la-chassishandler.Tpo
+.deps/libipmi20_la-chassishandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-storagehandler.lo -MD -MP -MF
+.deps/libipmi20_la-storagehandler.Tpo -c -o
+libipmi20_la-storagehandler.lo `test -f 'storagehandler.cpp' || echo
+'./'`storagehandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-storagehandler.lo -MD -MP -MF
+.deps/libipmi20_la-storagehandler.Tpo -c storagehandler.cpp  -fPIC
+-DPIC -o .libs/libipmi20_la-storagehandler.o
+mv -f .deps/libipmi20_la-storagehandler.Tpo
+.deps/libipmi20_la-storagehandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-sensorhandler.lo -MD -MP -MF
+.deps/libipmi20_la-sensorhandler.Tpo -c -o
+libipmi20_la-sensorhandler.lo `test -f 'sensorhandler.cpp' || echo
+'./'`sensorhandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-sensorhandler.lo -MD -MP -MF
+.deps/libipmi20_la-sensorhandler.Tpo -c sensorhandler.cpp  -fPIC -DPIC
+-o .libs/libipmi20_la-sensorhandler.o
+mv -f .deps/libipmi20_la-sensorhandler.Tpo .deps/libipmi20_la-sensorhandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-sys_info_param.lo -MD -MP -MF
+.deps/libipmi20_la-sys_info_param.Tpo -c -o
+libipmi20_la-sys_info_param.lo `test -f 'sys_info_param.cpp' || echo
+'./'`sys_info_param.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-sys_info_param.lo -MD -MP -MF
+.deps/libipmi20_la-sys_info_param.Tpo -c sys_info_param.cpp  -fPIC
+-DPIC -o .libs/libipmi20_la-sys_info_param.o
+mv -f .deps/libipmi20_la-sys_info_param.Tpo
+.deps/libipmi20_la-sys_info_param.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+libipmi20_la-apphandler.lo -MD -MP -MF
+.deps/libipmi20_la-apphandler.Tpo -c -o libipmi20_la-apphandler.lo
+`test -f 'apphandler.cpp' || echo './'`apphandler.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT libipmi20_la-apphandler.lo -MD -MP -MF
+.deps/libipmi20_la-apphandler.Tpo -c apphandler.cpp  -fPIC -DPIC -o
+.libs/libipmi20_la-apphandler.o
+mv -f .deps/libipmi20_la-apphandler.Tpo .deps/libipmi20_la-apphandler.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+app/libipmi20_la-channel.lo -MD -MP -MF
+app/.deps/libipmi20_la-channel.Tpo -c -o app/libipmi20_la-channel.lo
+`test -f 'app/channel.cpp' || echo './'`app/channel.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT app/libipmi20_la-channel.lo -MD -MP -MF
+app/.deps/libipmi20_la-channel.Tpo -c app/channel.cpp  -fPIC -DPIC -o
+app/.libs/libipmi20_la-channel.o
+mv -f app/.deps/libipmi20_la-channel.Tpo app/.deps/libipmi20_la-channel.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+app/libipmi20_la-watchdog_service.lo -MD -MP -MF
+app/.deps/libipmi20_la-watchdog_service.Tpo -c -o
+app/libipmi20_la-watchdog_service.lo `test -f
+'app/watchdog_service.cpp' || echo './'`app/watchdog_service.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT app/libipmi20_la-watchdog_service.lo -MD -MP -MF
+app/.deps/libipmi20_la-watchdog_service.Tpo -c
+app/watchdog_service.cpp  -fPIC -DPIC -o
+app/.libs/libipmi20_la-watchdog_service.o
+mv -f app/.deps/libipmi20_la-watchdog_service.Tpo
+app/.deps/libipmi20_la-watchdog_service.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=compile g++ -std=c++17
+-DHAVE_CONFIG_H -I.      -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -MT
+app/libipmi20_la-watchdog.lo -MD -MP -MF
+app/.deps/libipmi20_la-watchdog.Tpo -c -o app/libipmi20_la-watchdog.lo
+`test -f 'app/watchdog.cpp' || echo './'`app/watchdog.cpp
+libtool: compile:  g++ -std=c++17 -DHAVE_CONFIG_H -I.
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -MT app/libipmi20_la-watchdog.lo -MD -MP -MF
+app/.deps/libipmi20_la-watchdog.Tpo -c app/watchdog.cpp  -fPIC -DPIC
+-o app/.libs/libipmi20_la-watchdog.o
+mv -f app/.deps/libipmi20_la-watchdog.Tpo app/.deps/libipmi20_la-watchdog.Plo
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+/bin/bash ./libtool  --tag=CXX   --mode=link g++ -std=c++17
+-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED
+-DBOOST_ALL_NO_LIB -I/usr/local/include -I/usr/local/include -flto -g
+-O2 -Wall -Werror -lsystemd  -L/usr/local/lib -lphosphor_logging
+-lsdbusplus -lsystemd -L/usr/local/lib -lphosphor_dbus -lstdc++fs
+-luserlayer -version-info 0:0:0 -shared  -o libipmi20.la -rpath
+/usr/local/lib/ipmid-providers libipmi20_la-net.lo
+app/libipmi20_la-channel.lo app/libipmi20_la-watchdog.lo
+app/libipmi20_la-watchdog_service.lo libipmi20_la-apphandler.lo
+libipmi20_la-sys_info_param.lo libipmi20_la-sensorhandler.lo
+libipmi20_la-storagehandler.lo libipmi20_la-chassishandler.lo
+libipmi20_la-dcmihandler.lo libipmi20_la-ipmisensor.lo
+libipmi20_la-storageaddsel.lo libipmi20_la-transporthandler.lo
+libipmi20_la-globalhandler.lo libipmi20_la-groupext.lo
+libipmi20_la-utils.lo libipmi20_la-selutility.lo
+libipmi20_la-ipmi_fru_info_area.lo libipmi20_la-read_fru_data.lo
+libipmi20_la-sensordatahandler.lo
+user_channel/libipmi20_la-usercommands.lo
+user_channel/libipmi20_la-channelcommands.lo
+libipmi20_la-sensor-gen.lo libipmi20_la-inventory-sensor-gen.lo
+libipmi20_la-fru-read-gen.lo libipmi20_la-channel-gen.lo  -lmapper
+libtool: link: g++ -std=c++17  -fPIC -DPIC -shared -nostdlib
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
+/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o  .libs/libipmi20_la-net.o
+app/.libs/libipmi20_la-channel.o app/.libs/libipmi20_la-watchdog.o
+app/.libs/libipmi20_la-watchdog_service.o
+.libs/libipmi20_la-apphandler.o .libs/libipmi20_la-sys_info_param.o
+.libs/libipmi20_la-sensorhandler.o .libs/libipmi20_la-storagehandler.o
+.libs/libipmi20_la-chassishandler.o .libs/libipmi20_la-dcmihandler.o
+.libs/libipmi20_la-ipmisensor.o .libs/libipmi20_la-storageaddsel.o
+.libs/libipmi20_la-transporthandler.o
+.libs/libipmi20_la-globalhandler.o .libs/libipmi20_la-groupext.o
+.libs/libipmi20_la-utils.o .libs/libipmi20_la-selutility.o
+.libs/libipmi20_la-ipmi_fru_info_area.o
+.libs/libipmi20_la-read_fru_data.o
+.libs/libipmi20_la-sensordatahandler.o
+user_channel/.libs/libipmi20_la-usercommands.o
+user_channel/.libs/libipmi20_la-channelcommands.o
+.libs/libipmi20_la-sensor-gen.o
+.libs/libipmi20_la-inventory-sensor-gen.o
+.libs/libipmi20_la-fru-read-gen.o .libs/libipmi20_la-channel-gen.o
+-Wl,-rpath -Wl,/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/.libs
+-L/usr/local/lib /usr/local/lib/libphosphor_logging.so
+/usr/local/lib/libsdbusplus.so -lsystemd
+/usr/local/lib/libphosphor_dbus.so -lstdc++fs
+/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/.libs/libuserlayer.so
+/usr/local/lib/libmapper.so -L/usr/lib/gcc/x86_64-linux-gnu/7
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib
+-L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu
+-L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. -lstdc++
+-lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+-flto -g -O2   -Wl,-soname -Wl,libipmi20.so.0 -o
+.libs/libipmi20.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libipmi20.so.0" && ln -s
+"libipmi20.so.0.0.0" "libipmi20.so.0")
+libtool: link: (cd ".libs" && rm -f "libipmi20.so" && ln -s
+"libipmi20.so.0.0.0" "libipmi20.so")
+libtool: link: ( cd ".libs" && rm -f "libipmi20.la" && ln -s
+"../libipmi20.la" "libipmi20.la" )
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+Making all in test
+make[2]: Nothing to be done for 'all'.
+Making all in softoff
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+/usr/local/bin/sdbus++ -r .. interface server-cpp
+xyz.openbmc_project.Ipmi.Internal.SoftPowerOff >
+xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/server.cpp
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+make[2]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+/usr/local/bin/sdbus++ -r .. interface server-header
+xyz.openbmc_project.Ipmi.Internal.SoftPowerOff >
+xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/server.hpp
+make[2]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+make  all-am
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+g++ -std=c++17 -DHAVE_CONFIG_H -I. -I..  -I..   -I/usr/local/include
+-I/usr/local/include -I/usr/local/include -I/usr/local/include -g -O2
+-Wall -Werror -MT phosphor_softpoweroff-softoff.o -MD -MP -MF
+.deps/phosphor_softpoweroff-softoff.Tpo -c -o
+phosphor_softpoweroff-softoff.o `test -f 'softoff.cpp' || echo
+'./'`softoff.cpp
+mv -f .deps/phosphor_softpoweroff-softoff.Tpo
+.deps/phosphor_softpoweroff-softoff.Po
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+g++ -std=c++17 -DHAVE_CONFIG_H -I. -I..  -I..   -I/usr/local/include
+-I/usr/local/include -I/usr/local/include -I/usr/local/include -g -O2
+-Wall -Werror -MT ../phosphor_softpoweroff-utils.o -MD -MP -MF
+../.deps/phosphor_softpoweroff-utils.Tpo -c -o
+../phosphor_softpoweroff-utils.o `test -f '../utils.cpp' || echo
+'./'`../utils.cpp
+mv -f ../.deps/phosphor_softpoweroff-utils.Tpo
+../.deps/phosphor_softpoweroff-utils.Po
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+g++ -std=c++17 -DHAVE_CONFIG_H -I. -I..  -I..   -I/usr/local/include
+-I/usr/local/include -I/usr/local/include -I/usr/local/include -g -O2
+-Wall -Werror -MT phosphor_softpoweroff-mainapp.o -MD -MP -MF
+.deps/phosphor_softpoweroff-mainapp.Tpo -c -o
+phosphor_softpoweroff-mainapp.o `test -f 'mainapp.cpp' || echo
+'./'`mainapp.cpp
+mv -f .deps/phosphor_softpoweroff-mainapp.Tpo
+.deps/phosphor_softpoweroff-mainapp.Po
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+g++ -std=c++17 -DHAVE_CONFIG_H -I. -I..  -I..   -I/usr/local/include
+-I/usr/local/include -I/usr/local/include -I/usr/local/include -g -O2
+-Wall -Werror -MT
+xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/phosphor_softpoweroff-server.o
+-MD -MP -MF xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/.deps/phosphor_softpoweroff-server.Tpo
+-c -o xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/phosphor_softpoweroff-server.o
+`test -f 'xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/server.cpp'
+|| echo './'`xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/server.cpp
+mv -f xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/.deps/phosphor_softpoweroff-server.Tpo
+xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/.deps/phosphor_softpoweroff-server.Po
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+/bin/bash ../libtool  --tag=CXX   --mode=link g++ -std=c++17
+-I/usr/local/include -I/usr/local/include -I/usr/local/include
+-I/usr/local/include -g -O2 -Wall -Werror -lsystemd -L/usr/local/lib
+-lsdbusplus -lsystemd -L/usr/local/lib -lsdeventplus -lsystemd
+-L/usr/local/lib -lphosphor_logging -lsdbusplus -lsystemd
+-L/usr/local/lib -lphosphor_dbus  -o phosphor-softpoweroff
+phosphor_softpoweroff-softoff.o phosphor_softpoweroff-mainapp.o
+xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/phosphor_softpoweroff-server.o
+../phosphor_softpoweroff-utils.o  -lmapper
+libtool: link: g++ -std=c++17 -I/usr/local/include
+-I/usr/local/include -I/usr/local/include -I/usr/local/include -g -O2
+-Wall -Werror -o phosphor-softpoweroff phosphor_softpoweroff-softoff.o
+phosphor_softpoweroff-mainapp.o
+xyz/openbmc_project/Ipmi/Internal/SoftPowerOff/phosphor_softpoweroff-server.o
+../phosphor_softpoweroff-utils.o  -L/usr/local/lib
+/usr/local/lib/libsdeventplus.so /usr/local/lib/libphosphor_logging.so
+/usr/local/lib/libsdbusplus.so -lsystemd
+/usr/local/lib/libphosphor_dbus.so /usr/local/lib/libmapper.so
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/softoff'
+/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid >
+make -j 12 -l 12 -O install
+make  install-recursive
+Making install in .
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+ /bin/mkdir -p '/usr/local/include'
+ /bin/mkdir -p '/usr/local/include/user_channel'
+ /usr/bin/install -c -m 644  user_channel/user_layer.hpp
+user_channel/channel_layer.hpp '/usr/local/include/user_channel'
+ /bin/mkdir -p '/usr/local/include/host-ipmid'
+ /usr/bin/install -c -m 644  host-ipmid/iana.hpp
+host-ipmid/ipmid-api.h host-ipmid/ipmid-host-cmd.hpp
+host-ipmid/ipmid-host-cmd-utils.hpp host-ipmid/oemopenbmc.hpp
+host-ipmid/oemrouter.hpp '/usr/local/include/host-ipmid'
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+ /bin/mkdir -p '/usr/local/lib/ipmid-providers'
+ /bin/bash ./libtool   --mode=install /usr/bin/install -c
+libsysintfcmds.la '/usr/local/lib/ipmid-providers'
+libtool: install: /usr/bin/install -c .libs/libsysintfcmds.so.0.0.0
+/usr/local/lib/ipmid-providers/libsysintfcmds.so.0.0.0
+libtool: install: (cd /usr/local/lib/ipmid-providers && { ln -s -f
+libsysintfcmds.so.0.0.0 libsysintfcmds.so.0 || { rm -f
+libsysintfcmds.so.0 && ln -s libsysintfcmds.so.0.0.0
+libsysintfcmds.so.0; }; })
+libtool: install: (cd /usr/local/lib/ipmid-providers && { ln -s -f
+libsysintfcmds.so.0.0.0 libsysintfcmds.so || { rm -f libsysintfcmds.so
+&& ln -s libsysintfcmds.so.0.0.0 libsysintfcmds.so; }; })
+libtool: install: /usr/bin/install -c .libs/libsysintfcmds.lai
+/usr/local/lib/ipmid-providers/libsysintfcmds.la
+libtool: finish:
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin"
+ldconfig -n /usr/local/lib/ipmid-providers
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/lib/ipmid-providers
 
-This patch include one change so it's one commit.
-This clock module includes 4 PLLs and then a tree of muxes and dividers.
-All muxes and dividers are preset before Linux boots. The presetting can
-change according to the board.
-Linux drivers need to know what the frequencies are, but they can not
-change it,
-so this whole driver is intended as read only mechanism for clocks.
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
 
-On the first version which was up-streamed the PLLs input clk value was
-defined inside the driver.
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+make[3]: Entering directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+ /bin/mkdir -p '/usr/local/lib/ipmid-providers'
+ /bin/bash ./libtool   --mode=install /usr/bin/install -c
+libipmi20.la '/usr/local/lib/ipmid-providers'
+libtool: warning: relinking 'libipmi20.la'
+libtool: install: (cd
+/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid;
+/bin/bash "/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid/libtool"
+ --tag CXX --mode=relink g++ -std=c++17 -DBOOST_ERROR_CODE_HEADER_ONLY
+-DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ALL_NO_LIB -I/usr/local/include
+-I/usr/local/include -flto -g -O2 -Wall -Werror -lsystemd
+-L/usr/local/lib -lphosphor_logging -lsdbusplus -lsystemd
+-L/usr/local/lib -lphosphor_dbus -lstdc++fs -luserlayer -version-info
+0:0:0 -shared -o libipmi20.la -rpath /usr/local/lib/ipmid-providers
+libipmi20_la-net.lo app/libipmi20_la-channel.lo
+app/libipmi20_la-watchdog.lo app/libipmi20_la-watchdog_service.lo
+libipmi20_la-apphandler.lo libipmi20_la-sys_info_param.lo
+libipmi20_la-sensorhandler.lo libipmi20_la-storagehandler.lo
+libipmi20_la-chassishandler.lo libipmi20_la-dcmihandler.lo
+libipmi20_la-ipmisensor.lo libipmi20_la-storageaddsel.lo
+libipmi20_la-transporthandler.lo libipmi20_la-globalhandler.lo
+libipmi20_la-groupext.lo libipmi20_la-utils.lo
+libipmi20_la-selutility.lo libipmi20_la-ipmi_fru_info_area.lo
+libipmi20_la-read_fru_data.lo libipmi20_la-sensordatahandler.lo
+user_channel/libipmi20_la-usercommands.lo
+user_channel/libipmi20_la-channelcommands.lo
+libipmi20_la-sensor-gen.lo libipmi20_la-inventory-sensor-gen.lo
+libipmi20_la-fru-read-gen.lo libipmi20_la-channel-gen.lo -lmapper )
+libtool: relink: g++ -std=c++17  -fPIC -DPIC -shared -nostdlib
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
+/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o  .libs/libipmi20_la-net.o
+app/.libs/libipmi20_la-channel.o app/.libs/libipmi20_la-watchdog.o
+app/.libs/libipmi20_la-watchdog_service.o
+.libs/libipmi20_la-apphandler.o .libs/libipmi20_la-sys_info_param.o
+.libs/libipmi20_la-sensorhandler.o .libs/libipmi20_la-storagehandler.o
+.libs/libipmi20_la-chassishandler.o .libs/libipmi20_la-dcmihandler.o
+.libs/libipmi20_la-ipmisensor.o .libs/libipmi20_la-storageaddsel.o
+.libs/libipmi20_la-transporthandler.o
+.libs/libipmi20_la-globalhandler.o .libs/libipmi20_la-groupext.o
+.libs/libipmi20_la-utils.o .libs/libipmi20_la-selutility.o
+.libs/libipmi20_la-ipmi_fru_info_area.o
+.libs/libipmi20_la-read_fru_data.o
+.libs/libipmi20_la-sensordatahandler.o
+user_channel/.libs/libipmi20_la-usercommands.o
+user_channel/.libs/libipmi20_la-channelcommands.o
+.libs/libipmi20_la-sensor-gen.o
+.libs/libipmi20_la-inventory-sensor-gen.o
+.libs/libipmi20_la-fru-read-gen.o .libs/libipmi20_la-channel-gen.o
+-L/usr/local/lib -lphosphor_logging -lsdbusplus -lsystemd
+-lphosphor_dbus -lstdc++fs -luserlayer -lmapper
+-L/usr/lib/gcc/x86_64-linux-gnu/7
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu
+-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib
+-L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu
+-L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. -lstdc++
+-lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+-flto -g -O2   -Wl,-soname -Wl,libipmi20.so.0 -o
+.libs/libipmi20.so.0.0.0
+/usr/bin/ld: cannot find -luserlayer
+collect2: error: ld returned 1 exit status
+libtool:   error: error: relink 'libipmi20.la' with the above command
+before installing it
+Makefile:882: recipe for target 'install-libipmi20LTLIBRARIES' failed
+make[3]: *** [install-libipmi20LTLIBRARIES] Error 1
+make[3]: Leaving directory
+'/usr/local/google/git/workspaces/ci_test_area/phosphor-host-ipmid'
+Makefile:1987: recipe for target 'install-am' failed
+make[2]: *** [install-am] Error 2
+Makefile:1527: recipe for target 'install-recursive' failed
+make[1]: *** [install-recursive] Error 1
+Makefile:1981: recipe for target 'install' failed
+make: *** [install] Error 2
 
-After the review I was asked that the fixed clock will be on the DT. This
-is this fix.
-
-
-This patch was submitted, but not pushed to Linux:
-https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1610776.html
-
-Meanwhile first version was pushed to the Kernel, So recreate a patch that
-is relative between the two patches.
-
-
-More comments inline..
-
-
-
-On Fri, Nov 30, 2018 at 2:23 AM Stephen Boyd <sboyd@kernel.org> wrote:
-
-> Quoting tali.perry1@gmail.com (2018-11-11 05:47:12)
-> > From: Tali Perry <tali.perry1@gmail.com>
-> >
-> > Nuvoton NPCM7XX Clock Controller
-> > fix base address and of_clk_get_by_name error handling.
-> >     Also update error messages to be more informative.
-> >
-> >     In case clk_base allocation is erronoeous the return value is null.
-> >     Also fix handling of of_clk_get_by_name returns an error.
-> >     Print a better error message pointing to the dt-binding documention.
-> >
-> > This patch is re-submitted since it was already pushed to main
-> > (just the diff, without the full driver which is already in
-> > master branch.)
-> >
-> >
-> > Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> > Reviewed-by: Rob Herring <robh@kernel.org>
-> > Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
-> >
->
-> I don't know what's going on with this patch. Is it something new? Can
-> you break it up into logical changes and submit them with proper commit
-> text? The signoff chain is also odd. Can you follow
-> Documentation/process/submitting-patches.rst?
->
-> > ---
-> >  drivers/clk/clk-npcm7xx.c | 99
-> +++++++++++++++++++++++++++++++++++------------
-> >  1 file changed, 75 insertions(+), 24 deletions(-)
-> >
-> > diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
-> > index 740af90a9508..91a937720f4e 100644
-> > --- a/drivers/clk/clk-npcm7xx.c
-> > +++ b/drivers/clk/clk-npcm7xx.c
-> > @@ -7,17 +7,26 @@
-> >   * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
-> >   */
-> >
-> > -#include <linux/module.h>
-> > -#include <linux/clk-provider.h>
-> > -#include <linux/io.h>
-> > -#include <linux/kernel.h>
-> > -#include <linux/of.h>
-> > -#include <linux/of_address.h>
-> > -#include <linux/slab.h>
-> > -#include <linux/err.h>
-> > -#include <linux/bitfield.h>
-> > -
-> > -#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-> > +
-> > +
-> > +
-> > + #include <linux/module.h>
-> > + #include <linux/clk.h>
-> > + #include <linux/clk-provider.h>
-> > + #include <linux/device.h>
-> > + #include <linux/io.h>
-> > + #include <linux/kernel.h>
-> > + #include <linux/of.h>
-> > + #include <linux/of_device.h>
-> > + #include <linux/of_platform.h>
-> > + #include <linux/of_address.h>
-> > + #include <linux/platform_device.h>
-> > + #include <linux/slab.h>
-> > + #include <linux/err.h>
-> > + #include <linux/rational.h>
-> > + #include <linux/bitfield.h>
-> > + #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
->
-> Is any of this hunk necessary or relevant to the subject of this patch?
->
-> > +
-> >
-> >  struct npcm7xx_clk_pll {
-> > @@ -44,7 +56,8 @@ static unsigned long
-> npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
-> >         u64 ret;
-> >
-> >         if (parent_rate == 0) {
-> > -               pr_err("%s: parent rate is zero", __func__);
-> > +               pr_err("%s: parent rate is zero. reg=%x\n", __func__,
-> > +                       (u32)(pll->pllcon));
->
-> Maybe you should print clk name instead of register?
->
-
-Tali: There are only 4 pllcon registers. I don't mind if it's the address
-and not the name.
-
->
-> >                 return 0;
-> >         }
-> >
-> > @@ -61,13 +74,12 @@ static unsigned long
-> npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
-> >         return ret;
-> >  }
-> >
-> > -static const struct clk_ops npcm7xx_clk_pll_ops = {
-> > +const struct clk_ops npcm7xx_clk_pll_ops = {
->
-> Why?
->
-
-Tali: I will return the static.
-
->
-> >         .recalc_rate = npcm7xx_clk_pll_recalc_rate,
-> >  };
-> >
-> > -static struct clk_hw *
-> > -npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
-> > -                        const char *parent_name, unsigned long flags)
-> > +static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,
-> > +               const char *name, const char *parent_name, unsigned long
-> flags)
-> >  {
-> >         struct npcm7xx_clk_pll *pll;
-> >         struct clk_init_data init;
-> > @@ -78,7 +90,8 @@ npcm7xx_clk_register_pll(void __iomem *pllcon, const
-> char *name,
-> >         if (!pll)
-> >                 return ERR_PTR(-ENOMEM);
-> >
-> > -       pr_debug("%s reg, name=%s, p=%s\n", __func__, name, parent_name);
-> > +       pr_debug("%s reg, reg=0x%x, name=%s, p=%s\n",
-> > +               __func__, (unsigned int)pllcon, name, parent_name);
->
-> What's going on here? Why cast?
->
-Tali: I will remove this print all together.
-
->
-> >
-> >         init.name = name;
-> >         init.ops = &npcm7xx_clk_pll_ops;
-> > @@ -544,9 +557,11 @@ static void __init npcm7xx_clk_init(struct
-> device_node *clk_np)
-> >         void __iomem *clk_base;
-> >         struct resource res;
-> >         struct clk_hw *hw;
-> > +       struct clk *clk;
-> >         int ret;
-> >         int i;
-> >
-> > +       clk_base = NULL;
->
-> Why?
->
-
-Tali: to init it. If DT is badly defined the value will remain NULL.
-
-
->
-> >         ret = of_address_to_resource(clk_np, 0, &res);
-> >         if (ret) {
-> >                 pr_err("%s: failed to get resource, ret %d\n",
-> clk_np->name,
-> > @@ -560,14 +575,44 @@ static void __init npcm7xx_clk_init(struct
-> device_node *clk_np)
-> >
-> >         npcm7xx_clk_data = kzalloc(sizeof(*npcm7xx_clk_data->hws) *
-> >                 NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data),
-> GFP_KERNEL);
-> > -       if (!npcm7xx_clk_data)
-> > +
-> > +       npcm7xx_clk_data->num = 0;
->
-> kzalloc already does that initialization to 0 for you.
->
-> > +
-> > +       if (!npcm7xx_clk_data->hws) {
-> > +               pr_err("Can't alloc npcm7xx_clk_data\n");
->
-> We don't need allocation error messages.
->
-> >                 goto npcm7xx_init_np_err;
-> > +       }
-> >
-> >         npcm7xx_clk_data->num = NPCM7XX_NUM_CLOCKS;
-> >
-> >         for (i = 0; i < NPCM7XX_NUM_CLOCKS; i++)
-> >                 npcm7xx_clk_data->hws[i] = ERR_PTR(-EPROBE_DEFER);
-> >
-> > +       /* Read fixed clocks. These 3 clocks must be defined in DT */
-> > +       clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
-> > +       if (IS_ERR(clk)) {
-> > +               pr_err("failed to find external REFCLK on device tree,
-> err=%ld\n",
-> > +                       PTR_ERR(clk));
-> > +               clk_put(clk);
-> > +               goto npcm7xx_init_fail_no_clk_on_dt;
-> > +       }
-> > +
-> > +       clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
-> > +       if (IS_ERR(clk)) {
-> > +               pr_err("failed to find external SYSBYPCK on device tree,
-> err=%ld\n",
-> > +                       PTR_ERR(clk));
-> > +               clk_put(clk);
-> > +               goto npcm7xx_init_fail_no_clk_on_dt;
-> > +       }
-> > +
-> > +       clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
-> > +       if (IS_ERR(clk)) {
-> > +               pr_err("failed to find external MCBYPCK on device tree,
-> err=%ld\n",
-> > +                       PTR_ERR(clk));
-> > +               clk_put(clk);
-> > +               goto npcm7xx_init_fail_no_clk_on_dt;
-> > +       }
->
-> I assume the DTS is not shipped?
->
-
-Tali: DTS for npcm is shipped in a separate patchset.
-
->
-> > +
-> >         /* Register plls */
-> >         for (i = 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
-> >                 const struct npcm7xx_clk_pll_data *pll_data =
-> &npcm7xx_plls[i];
-> > @@ -584,16 +629,16 @@ static void __init npcm7xx_clk_init(struct
-> device_node *clk_np)
-> >         }
-> >
-> >         /* Register fixed dividers */
-> > -       hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
-> > +       clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
->
-> This is going backwards. Please use clk_hw APIs.
->
-Tali: Will fix.
-
->
-> >                         NPCM7XX_CLK_S_PLL1, 0, 1, 2);
-> > -       if (IS_ERR(hw)) {
-> > +       if (IS_ERR(clk)) {
-> >                 pr_err("npcm7xx_clk: Can't register fixed div\n");
-> >                 goto npcm7xx_init_fail;
-> >         }
-> >
-> > -       hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
-> > +       clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
-> >                         NPCM7XX_CLK_S_PLL2, 0, 1, 2);
-> > -       if (IS_ERR(hw)) {
-> > +       if (IS_ERR(clk)) {
-> >                 pr_err("npcm7xx_clk: Can't register div2\n");
-> >                 goto npcm7xx_init_fail;
-> >         }
-> > @@ -646,11 +691,17 @@ static void __init npcm7xx_clk_init(struct
-> device_node *clk_np)
-> >
-> >         return;
-> >
-> > +npcm7xx_init_fail_no_clk_on_dt:
-> > +       pr_err("see Documentation/devicetree/bindings/clock/");
-> > +       pr_err("nuvoton,npcm750-clk.txt  for details\n");
-> >  npcm7xx_init_fail:
-> > -       kfree(npcm7xx_clk_data->hws);
-> > +       if (npcm7xx_clk_data->num)
-> > +               kfree(npcm7xx_clk_data->hws);
-> >  npcm7xx_init_np_err:
-> > -       iounmap(clk_base);
-> > +       if (clk_base != NULL)
-> > +               iounmap(clk_base);
-> >  npcm7xx_init_error:
-> >         of_node_put(clk_np);
-> > +       pr_err("clk setup fail\n");
->
-> Is this hunk of changes related to the subject of this patch? I don't
-> think it is, so it just leads to more confusion.
->
-
-Tali: I added a goto option for the case that the DTS doesn't have the
-reference clocks this module needs.
-
---000000000000c9591b057c342c5a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
-ult" style=3D"font-family:monospace,monospace">Hi Stephan,</div><div class=
-=3D"gmail_default" style=3D"font-family:monospace,monospace"><br></div><div=
- class=3D"gmail_default" style=3D"font-family:monospace,monospace">Thanks f=
-or all the comments!</div><div class=3D"gmail_default" style=3D"font-family=
-:monospace,monospace"><br></div><div class=3D"gmail_default" style=3D"font-=
-family:monospace,monospace">This patch include one change so it&#39;s one c=
-ommit.=C2=A0</div><div class=3D"gmail_default" style=3D"font-family:monospa=
-ce,monospace">This clock module includes 4 PLLs and then a tree of muxes an=
-d dividers.=C2=A0</div><div class=3D"gmail_default" style=3D"font-family:mo=
-nospace,monospace">All muxes and dividers are preset before Linux boots. Th=
-e presetting can change according to the board.=C2=A0</div><div class=3D"gm=
-ail_default" style=3D"font-family:monospace,monospace">Linux drivers need t=
-o know what the frequencies are, but they can not change it,=C2=A0</div><di=
-v class=3D"gmail_default" style=3D"font-family:monospace,monospace">so this=
- whole driver is intended as read only mechanism for clocks.=C2=A0</div><di=
-v class=3D"gmail_default" style=3D"font-family:monospace,monospace"><br></d=
-iv><div class=3D"gmail_default" style=3D"font-family:monospace,monospace">O=
-n the first version which was up-streamed the PLLs input clk value was defi=
-ned inside the driver.</div><div class=3D"gmail_default" style=3D"font-fami=
-ly:monospace,monospace"><br></div><div class=3D"gmail_default" style=3D"fon=
-t-family:monospace,monospace">After the review I was asked that the fixed c=
-lock will be on the DT. This is this fix.</div><div class=3D"gmail_default"=
- style=3D"font-family:monospace,monospace"><br></div><div class=3D"gmail_de=
-fault"><br></div><div class=3D"gmail_default" style=3D"font-family:monospac=
-e,monospace">This patch was submitted, but not pushed to Linux:=C2=A0</div>=
-<div class=3D"gmail_default" style=3D"font-family:monospace,monospace"><div=
- class=3D"gmail_default" style=3D"font-family:Arial,Helvetica,sans-serif"><=
-font face=3D"monospace, monospace"><a href=3D"https://www.mail-archive.com/=
-linux-kernel@vger.kernel.org/msg1610776.html">https://www.mail-archive.com/=
-linux-kernel@vger.kernel.org/msg1610776.html</a></font><br></div><div class=
-=3D"gmail_default" style=3D"font-family:Arial,Helvetica,sans-serif"><font f=
-ace=3D"monospace, monospace"><br></font></div><div class=3D"gmail_default" =
-style=3D"font-family:Arial,Helvetica,sans-serif"><font face=3D"monospace, m=
-onospace">Meanwhile first version was pushed to the Kernel, So recreate a p=
-atch that is relative between the two patches.</font></div><div class=3D"gm=
-ail_default" style=3D"font-family:Arial,Helvetica,sans-serif"><br></div><di=
-v class=3D"gmail_default" style=3D"font-family:Arial,Helvetica,sans-serif">=
-<br></div><div class=3D"gmail_default" style=3D"font-family:Arial,Helvetica=
-,sans-serif">More comments inline..</div></div><div class=3D"gmail_default"=
- style=3D"font-family:monospace,monospace"><br></div><div class=3D"gmail_de=
-fault" style=3D"font-family:monospace,monospace"><br></div></div></div><br>=
-<div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, Nov 30, 2018 at 2:23 AM=
- Stephen Boyd &lt;<a href=3D"mailto:sboyd@kernel.org" target=3D"_blank">sbo=
-yd@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" sty=
-le=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Quotin=
-g <a href=3D"mailto:tali.perry1@gmail.com" target=3D"_blank">tali.perry1@gm=
-ail.com</a> (2018-11-11 05:47:12)<br>
-&gt; From: Tali Perry &lt;<a href=3D"mailto:tali.perry1@gmail.com" target=
-=3D"_blank">tali.perry1@gmail.com</a>&gt;<br>
-&gt; <br>
-&gt; Nuvoton NPCM7XX Clock Controller<br>
-&gt; fix base address and of_clk_get_by_name error handling.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Also update error messages to be more informative.<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0In case clk_base allocation is erronoeous the retur=
-n value is null.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Also fix handling of of_clk_get_by_name returns an =
-error. <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Print a better error message pointing to the dt-bin=
-ding documention.<br>
-&gt; <br>
-&gt; This patch is re-submitted since it was already pushed to main <br>
-&gt; (just the diff, without the full driver which is already in <br>
-&gt; master branch.)<br>
-&gt; <br>
-&gt; <br>
-&gt; Signed-off-by: Tali Perry &lt;<a href=3D"mailto:tali.perry1@gmail.com"=
- target=3D"_blank">tali.perry1@gmail.com</a>&gt;<br>
-&gt; Reviewed-by: Rob Herring &lt;<a href=3D"mailto:robh@kernel.org" target=
-=3D"_blank">robh@kernel.org</a>&gt;<br>
-&gt; Signed-off-by: Wei Yongjun &lt;<a href=3D"mailto:weiyongjun1@huawei.co=
-m" target=3D"_blank">weiyongjun1@huawei.com</a>&gt;<br>
-&gt; <br>
-<br>
-I don&#39;t know what&#39;s going on with this patch. Is it something new? =
-Can<br>
-you break it up into logical changes and submit them with proper commit<br>
-text? The signoff chain is also odd. Can you follow<br>
-Documentation/process/submitting-patches.rst?<br>
-<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/clk/clk-npcm7xx.c | 99 +++++++++++++++++++++++++++++++++=
-++------------<br>
-&gt;=C2=A0 1 file changed, 75 insertions(+), 24 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c<br>
-&gt; index 740af90a9508..91a937720f4e 100644<br>
-&gt; --- a/drivers/clk/clk-npcm7xx.c<br>
-&gt; +++ b/drivers/clk/clk-npcm7xx.c<br>
-&gt; @@ -7,17 +7,26 @@<br>
-&gt;=C2=A0 =C2=A0* Copyright (C) 2018 Nuvoton Technologies <a href=3D"mailt=
-o:tali.perry@nuvoton.com" target=3D"_blank">tali.perry@nuvoton.com</a><br>
-&gt;=C2=A0 =C2=A0*/<br>
-&gt;=C2=A0 <br>
-&gt; -#include &lt;linux/module.h&gt;<br>
-&gt; -#include &lt;linux/clk-provider.h&gt;<br>
-&gt; -#include &lt;linux/io.h&gt;<br>
-&gt; -#include &lt;linux/kernel.h&gt;<br>
-&gt; -#include &lt;linux/of.h&gt;<br>
-&gt; -#include &lt;linux/of_address.h&gt;<br>
-&gt; -#include &lt;linux/slab.h&gt;<br>
-&gt; -#include &lt;linux/err.h&gt;<br>
-&gt; -#include &lt;linux/bitfield.h&gt;<br>
-&gt; -<br>
-&gt; -#include &lt;dt-bindings/clock/nuvoton,npcm7xx-clock.h&gt;<br>
-&gt; +<br>
-&gt; +<br>
-&gt; +<br>
-&gt; + #include &lt;linux/module.h&gt;<br>
-&gt; + #include &lt;linux/clk.h&gt;<br>
-&gt; + #include &lt;linux/clk-provider.h&gt;<br>
-&gt; + #include &lt;linux/device.h&gt;<br>
-&gt; + #include &lt;linux/io.h&gt;<br>
-&gt; + #include &lt;linux/kernel.h&gt;<br>
-&gt; + #include &lt;linux/of.h&gt;<br>
-&gt; + #include &lt;linux/of_device.h&gt;<br>
-&gt; + #include &lt;linux/of_platform.h&gt;<br>
-&gt; + #include &lt;linux/of_address.h&gt;<br>
-&gt; + #include &lt;linux/platform_device.h&gt;<br>
-&gt; + #include &lt;linux/slab.h&gt;<br>
-&gt; + #include &lt;linux/err.h&gt;<br>
-&gt; + #include &lt;linux/rational.h&gt;<br>
-&gt; + #include &lt;linux/bitfield.h&gt;<br>
-&gt; + #include &lt;dt-bindings/clock/nuvoton,npcm7xx-clock.h&gt;<br>
-<br>
-Is any of this hunk necessary or relevant to the subject of this patch?<br>
-<br>
-&gt; +<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 struct npcm7xx_clk_pll {<br>
-&gt; @@ -44,7 +56,8 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(str=
-uct clk_hw *hw,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 ret;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (parent_rate =3D=3D 0) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;%=
-s: parent rate is zero&quot;, __func__);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;%=
-s: parent rate is zero. reg=3D%x\n&quot;, __func__,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0(u32)(pll-&gt;pllcon));<br>
-<br>
-Maybe you should print clk name instead of register?<br></blockquote><div><=
-br></div><div class=3D"gmail_default" style=3D"font-family:monospace,monosp=
-ace">Tali: There are only 4 pllcon registers. I don&#39;t mind if it&#39;s =
-the address and not the name.</div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; @@ -61,13 +74,12 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(s=
-truct clk_hw *hw,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt; -static const struct clk_ops npcm7xx_clk_pll_ops =3D {<br>
-&gt; +const struct clk_ops npcm7xx_clk_pll_ops =3D {<br>
-<br>
-Why?<br></blockquote><div><br></div><div class=3D"gmail_default" style=3D"f=
-ont-family:monospace,monospace">Tali: I will return the static.</div><div c=
-lass=3D"gmail_default" style=3D"font-family:monospace,monospace"></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #c=
-cc solid;padding-left:1ex">
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.recalc_rate =3D npcm7xx_clk_pll_reca=
-lc_rate,<br>
-&gt;=C2=A0 };<br>
-&gt;=C2=A0 <br>
-&gt; -static struct clk_hw *<br>
-&gt; -npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 const char *parent_name, unsigned long flags)<br>
-&gt; +static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const char *na=
-me, const char *parent_name, unsigned long flags)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct npcm7xx_clk_pll *pll;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_init_data init;<br>
-&gt; @@ -78,7 +90,8 @@ npcm7xx_clk_register_pll(void __iomem *pllcon, const=
- char *name,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!pll)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ER=
-R_PTR(-ENOMEM);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_debug(&quot;%s reg, name=3D%s, p=3D%s\n=
-&quot;, __func__, name, parent_name);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_debug(&quot;%s reg, reg=3D0x%x, name=3D=
-%s, p=3D%s\n&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__func__, (uns=
-igned int)pllcon, name, parent_name);<br>
-<br>
-What&#39;s going on here? Why cast?<br></blockquote><div><span class=3D"gma=
-il_default" style=3D"font-family:monospace,monospace">Tali: I will remove t=
-his print all together.</span>=C2=A0</div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"http://init.name" rel=3D"n=
-oreferrer" target=3D"_blank">init.name</a> =3D name;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0init.ops =3D &amp;npcm7xx_clk_pll_ops=
-;<br>
-&gt; @@ -544,9 +557,11 @@ static void __init npcm7xx_clk_init(struct device=
-_node *clk_np)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void __iomem *clk_base;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct resource res;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_hw *hw;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk *clk;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk_base =3D NULL;<br>
-<br>
-Why?<br></blockquote><div>=C2=A0</div><div><span class=3D"gmail_default" st=
-yle=3D"font-family:monospace,monospace">Tali: to init it. If DT is badly de=
-fined the value will remain NULL.</span></div><div><span class=3D"gmail_def=
-ault" style=3D"font-family:monospace,monospace"></span>=C2=A0</div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
-olid;padding-left:1ex">
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D of_address_to_resource(clk_np=
-, 0, &amp;res);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&q=
-uot;%s: failed to get resource, ret %d\n&quot;, clk_np-&gt;name,<br>
-&gt; @@ -560,14 +575,44 @@ static void __init npcm7xx_clk_init(struct devic=
-e_node *clk_np)<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_clk_data =3D kzalloc(sizeof(*=
-npcm7xx_clk_data-&gt;hws) *<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0NPCM7XX_N=
-UM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!npcm7xx_clk_data)<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_clk_data-&gt;num =3D 0;<br>
-<br>
-kzalloc already does that initialization to 0 for you.<br>
-<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!npcm7xx_clk_data-&gt;hws) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;C=
-an&#39;t alloc npcm7xx_clk_data\n&quot;);<br>
-<br>
-We don&#39;t need allocation error messages.<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm=
-7xx_init_np_err;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_clk_data-&gt;num =3D NPCM7XX_=
-NUM_CLOCKS;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; NPCM7XX_NUM_CLOC=
-KS; i++)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_c=
-lk_data-&gt;hws[i] =3D ERR_PTR(-EPROBE_DEFER);<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Read fixed clocks. These 3 clocks must =
-be defined in DT */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D of_clk_get_by_name(clk_np, NPCM7XX=
-_CLK_S_REFCLK);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;f=
-ailed to find external REFCLK on device tree, err=3D%ld\n&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0PTR_ERR(clk));<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk_put(clk);<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm7xx_i=
-nit_fail_no_clk_on_dt;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D of_clk_get_by_name(clk_np, NPCM7XX=
-_CLK_S_SYSBYPCK);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;f=
-ailed to find external SYSBYPCK on device tree, err=3D%ld\n&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0PTR_ERR(clk));<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk_put(clk);<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm7xx_i=
-nit_fail_no_clk_on_dt;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D of_clk_get_by_name(clk_np, NPCM7XX=
-_CLK_S_MCBYPCK);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;f=
-ailed to find external MCBYPCK on device tree, err=3D%ld\n&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0PTR_ERR(clk));<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk_put(clk);<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm7xx_i=
-nit_fail_no_clk_on_dt;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-I assume the DTS is not shipped?<br></blockquote><div><br></div><div class=
-=3D"gmail_default" style=3D"font-family:monospace,monospace">Tali: DTS for =
-npcm is shipped in a separate patchset.</div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
->
-<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Register plls */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; ARRAY_SIZE(npcm7=
-xx_plls); i++) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const str=
-uct npcm7xx_clk_pll_data *pll_data =3D &amp;npcm7xx_plls[i];<br>
-&gt; @@ -584,16 +629,16 @@ static void __init npcm7xx_clk_init(struct devic=
-e_node *clk_np)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Register fixed dividers */<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0hw =3D clk_hw_register_fixed_factor(NULL, =
-NPCM7XX_CLK_S_PLL1_DIV2,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D clk_register_fixed_factor(NULL, NP=
-CM7XX_CLK_S_PLL1_DIV2,<br>
-<br>
-This is going backwards. Please use clk_hw APIs.<br></blockquote><div><span=
- class=3D"gmail_default" style=3D"font-family:monospace,monospace">Tali: Wi=
-ll fix.</span>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0NPCM7XX_CLK_S_PLL1, 0, 1, 2);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(hw)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&q=
-uot;npcm7xx_clk: Can&#39;t register fixed div\n&quot;);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm=
-7xx_init_fail;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0hw =3D clk_hw_register_fixed_factor(NULL, =
-NPCM7XX_CLK_S_PLL2_DIV2,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D clk_register_fixed_factor(NULL, NP=
-CM7XX_CLK_S_PLL2_DIV2,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0NPCM7XX_CLK_S_PLL2, 0, 1, 2);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(hw)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&q=
-uot;npcm7xx_clk: Can&#39;t register div2\n&quot;);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm=
-7xx_init_fail;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; @@ -646,11 +691,17 @@ static void __init npcm7xx_clk_init(struct devic=
-e_node *clk_np)<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-&gt;=C2=A0 <br>
-&gt; +npcm7xx_init_fail_no_clk_on_dt:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;see Documentation/devicetree/=
-bindings/clock/&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;nuvoton,npcm750-clk.txt=C2=A0=
- for details\n&quot;);<br>
-&gt;=C2=A0 npcm7xx_init_fail:<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(npcm7xx_clk_data-&gt;hws);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (npcm7xx_clk_data-&gt;num)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(npcm7xx_=
-clk_data-&gt;hws);<br>
-&gt;=C2=A0 npcm7xx_init_np_err:<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0iounmap(clk_base);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (clk_base !=3D NULL)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0iounmap(clk_ba=
-se);<br>
-&gt;=C2=A0 npcm7xx_init_error:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0of_node_put(clk_np);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;clk setup fail\n&quot;);<br>
-<br>
-Is this hunk of changes related to the subject of this patch? I don&#39;t<b=
-r>
-think it is, so it just leads to more confusion.<br></blockquote><div><br><=
-/div><div class=3D"gmail_default" style=3D"font-family:monospace,monospace"=
->Tali: I added a goto option for the case that the DTS doesn&#39;t have the=
- reference clocks this module needs.</div><div class=3D"gmail_default" styl=
-e=3D"font-family:monospace,monospace"><br></div><div class=3D"gmail_default=
-" style=3D"font-family:monospace,monospace"></div></div></div>
-
---000000000000c9591b057c342c5a--
+Patrick
