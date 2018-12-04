@@ -1,61 +1,68 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <sam@mendozajonas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::744; helo=mail-qk1-x744.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="VY6719Au"; 
- dkim-atps=neutral
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
+ (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
+ envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=mendozajonas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="ZluWXgiQ"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="oyYdZq8H"; dkim-atps=neutral
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4386Y33shwzDqgM
- for <openbmc@lists.ozlabs.org>; Tue,  4 Dec 2018 14:19:35 +1100 (AEDT)
-Received: by mail-qk1-x744.google.com with SMTP id o89so8795994qko.0
- for <openbmc@lists.ozlabs.org>; Mon, 03 Dec 2018 19:19:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=FS7lb3w/ewyxRNSTNIMyn5epHI+c1ctI3G9GH/nO3Pg=;
- b=VY6719Au93tJ4rbbT0aKVV/VTcZeaPGPVK2RcOu6I+EN1aSXoFKkOHcl2Jv+ThaYng
- POlyjvz/bjMj1P7e+KkJgjLSjA2bnAkUTTfWBtRJlB0aLyb5o2G59ZW0Xay6aDFVHCyE
- MJbWBiVz0FILNQNZM2qE2arr/LhvznD/+rlss=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=FS7lb3w/ewyxRNSTNIMyn5epHI+c1ctI3G9GH/nO3Pg=;
- b=VV50hFG6QtJEsyuDDkgJC+dYej4DJF9COW6smhH/H7yf5MTjkU4gWa3gKC9cvGQXt6
- w5Eku9uw4j3njacFongwW88X5C3c2fNOHC83OK1iapGmqybHlkQreFGpt1wVwgJ9AgSN
- Gwa+4EZLbtOiDCOnLqwyGPqgDxdJSyubk3HH5vcPxViKBuxMIWKu5HCKDxKxmypoN2+t
- RTlqzJfkW8mUp4hhIZ131+CxCG8WIOilMKQlqIbRaMbLLnFJnGcEdel3LxN08L6i3pTs
- rV19LFu/IFFr0MTvDr+9PTRqrJIkRZowEh8ryZwIppBve6CxK0qqUhbSWGsjT3+KLUfA
- JIxQ==
-X-Gm-Message-State: AA+aEWZdLUIDYMipt/RKxBtq4otEnsuUS2VBZp1OaOWe49gTXNR6z6/S
- HiBXJSpnj6OArbvgLpCm/FDTHiwCeDa1OrC7QMU=
-X-Google-Smtp-Source: AFSGD/Uqk1ws3ne0RFihK9VDULSVHKxcNg3nLc+vj/sWWB61CIoWZVWVfkBPwLA87DIXjc9vEUCapNmEt96+R/INL9M=
-X-Received: by 2002:a37:781:: with SMTP id 123mr17195912qkh.231.1543893573242; 
- Mon, 03 Dec 2018 19:19:33 -0800 (PST)
-MIME-Version: 1.0
-References: <CACPK8Xfo5zzyLUa-8fU6j7d5GpVnFea1k3PC93vxiOvYAGV7ZQ@mail.gmail.com>
- <CACPK8Xfxq=df=nW+U57v4vHaJ8B96bi8ABddH_vZNHBBQcLXTA@mail.gmail.com>
- <1E4319BB-39C3-455F-B659-B37F0153F0D9@fb.com>
- <MWHPR15MB1486493B01A346850E6B73A7B2AE0@MWHPR15MB1486.namprd15.prod.outlook.com>
- <CACPK8XesPmDBEP_eftmh0Fm_4H7StxWfzzYvStD3HaMiFzX2Tw@mail.gmail.com>
- <VI1PR0502MB38692985438ED8BA1E4FACFFDDAF0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
-In-Reply-To: <VI1PR0502MB38692985438ED8BA1E4FACFFDDAF0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 4 Dec 2018 13:49:20 +1030
-Message-ID: <CACPK8Xd2FDD=FX7SK5cxWrkgGT190rJAHOJefs4Gws6qzJkfYA@mail.gmail.com>
-Subject: Re: Linux dev-4.19
-To: David Thompson <dthompson@mellanox.com>
-Cc: Amithash Prasad <amithash@fb.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, vijaykhemka@fb.com
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4388lr0r57zDqT9;
+ Tue,  4 Dec 2018 15:59:03 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 094861331;
+ Mon,  3 Dec 2018 23:59:00 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Mon, 03 Dec 2018 23:59:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=message-id:subject:from:to:cc:date
+ :content-type:mime-version:content-transfer-encoding; s=fm1; bh=
+ lhFWqM2up4ssaW1z64Fz2p/47nzitu8Szm8wj2lq59Q=; b=ZluWXgiQ4h/EUjHk
+ ZywpcdYUno7Dgd8gxRHj1K1E3Syzu0jkIheobEOeFGjCxt/e0EbBXdw1tYsVEBYz
+ 4y1NR2FRmIA8HPlFmZuc40OShjMmaLSojf884iyrgjVX99OfkXikP16BQj0zrjTX
+ SEHcIQktShvepOdmB091uYAxAi55fU0fw2SxSF5+dOSNX2C8Cz0dyVw1pT9T/xCk
+ HakHE0ZnHxovaZ7qI/2H+y8ICVg7S8yJKGYJRnFHMthZABC1XeicEXEPfmXS0R0U
+ cGv+V/6STG8LKYOKMvP5WkM3KRvSYEynxAZZ6sH1rgCXdS38Hv/HfH7PBlU0wPiZ
+ D+AmtQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=lhFWqM
+ 2up4ssaW1z64Fz2p/47nzitu8Szm8wj2lq59Q=; b=oyYdZq8HcJg7yPs8wU4ovG
+ aTAuRUBrPzi34n1P9EZIPtHmviplEuIB+ATHP7BjA/vY6YkhbpO7by0BmL9lPqoD
+ uXofkAh2qdzNBuJ2FdyER2ari/FaksRumJG7LVQqJjvKlQmfeNznwXqA9wXEfc1J
+ RwFky2J3ygi1Z885I/o91hdQf4BPbl2CvpbtHLFvyrtIJpg/rIiXTbk5mE3p0NCp
+ q7FRfx8lXJSwkGoS9ZtjyFc8EDf7lfTATomTgJ4/GIWUuDKYnRDP3b+v4plmLSuz
+ 7W62aWD+kdzktPPVm+bzNEcHBBXUHQdkP5PQ3I+qu/Q2qrck8GXxODKfgxGgd4Tg
+ ==
+X-ME-Sender: <xms:lAkGXC2-lNdknjbNbJ7swnhvZ404Hm362rYilhkYuVEYIcjvr6pI9A>
+X-ME-Proxy: <xmx:lAkGXHIevM2_pWscJs82xEwr4o_ji5GoWsMNUmwveximY8irAw7pxg>
+ <xmx:lAkGXDBtNqSyBxE_nopg-acwHLebJzZo66HniLUcwZrqEUu47KcdOQ>
+ <xmx:lAkGXPH8OM1cA1TJfzAje0JMGUAXyG2CvdR92je7oOtxCaz-sh7xYw>
+ <xmx:lAkGXILAAdVkNuYDBiMIGtKUMX6ZT9b8El9QaV6QnQb49xbUnfxJ5Q>
+ <xmx:lAkGXGoBElg4xTHy-VMVKDnySA6ZhX7eQuCVNvvDHCFmm3rQuZT0rw>
+ <xmx:lAkGXOBaWH2IVmUhy6UW0EuMZDaX4P8hW1e4rN7Fsvw7Wbfad4xmMQ>
+Received: from v4 (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 99AA810381;
+ Mon,  3 Dec 2018 23:58:58 -0500 (EST)
+Message-ID: <c063fd2e633fc837d556fcd1afd4c59823b06708.camel@mendozajonas.com>
+Subject: IPMI Boot Initiator Mailbox feature
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Alexander Amelkin <a.amelkin@yadro.com>, 
+ openpower-firmware@lists.ozlabs.org
+Date: Tue, 04 Dec 2018 15:58:54 +1100
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.30.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,78 +74,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Dec 2018 03:19:36 -0000
+X-List-Received-Date: Tue, 04 Dec 2018 04:59:08 -0000
 
-Hello Dave,
+Hi All,
 
-On Tue, 4 Dec 2018 at 13:43, David Thompson <dthompson@mellanox.com> wrote:
->
-> Since 4.19 kernel is deemed "longterm" with a projected EOL of Dec 2020, =
-is the plan to keep OpenBMC on this kernel version for a while?
+The IPMI Set/Get System Boot Options commands are currently used to
+implement boot device overrides via parameter 5 (boot flags) in
+Petitboot, and OpenBMC already supports these.
+However as Alexander points out (here: 
+https://github.com/open-power/petitboot/issues/45), the spec also
+describes the use of parameter 7, the "boot initiator mailbox", the
+format of which is largely up to the user.
 
-I have no plans to stay on a given release once the next is out at
-this stage. My goal is to get all of the code upstream, so that I
-don't need to maintain any out of tree patches, and then system
-integrator can pick whichever kernel they want for their system.
+Extending Petitboot support for this is relatively straightforward and I
+have a set of patches which allow a user to set the contents of the
+mailbox in the format of the Petitboot "bootdevs" configuration parameter
+which allows us to set arbitrary boot orders remotely, much more fine
+grained than the existing boot device overrides:
+http://patchwork.ozlabs.org/project/petitboot/list/?series=79302
 
-It would be straight forward to maintain a stable tree once the "dev"
-tree has moved on past 4.19. I have some ideas on how this could work
-if you are interested.
+I've tested this locally on machines with BMCs that support parameter 7
+(eg. with AMI BMCs) but this would be a great feature to include in
+OpenBMC. Is there interest in adding this feature? How flexible is the
+current IPMI implementation in order to add this?
 
-> I've yet to upstream any of my changes, my bad, and as a
-> result I've gone through four kernel upgrades this year
-> {4.13, 4.17, 4.18, and now 4.19}.
-
-I encourage you to get your patches on the list! Do you have a run
-down of what you keep out of tree?
+My patchset includes a small script which can get and set the mailbox for
+a given BMC which makes the format a bit easier to understand:
+http://patchwork.ozlabs.org/patch/1006633/
 
 Cheers,
-
-Joel
-
-> I'm curious about the OpenBMC kernel upgrade strategy,
-> esp. after 4.19.
->
-> Regards,
-> - Dave
->
-> -----Original Message-----
-> From: openbmc <openbmc-bounces+dthompson=3Dmellanox.com@lists.ozlabs.org>=
- On Behalf Of Joel Stanley
-> Sent: Monday, December 3, 2018 5:05 PM
-> To: Amithash Prasad <amithash@fb.com>
-> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; vijaykhemka@fb.com
-> Subject: Re: Linux dev-4.19
->
-> On Tue, 4 Dec 2018 at 07:25, Amithash Prasad <amithash@fb.com> wrote:
-> >
-> > >> I have couple of NCSI patch which were up streamed last week in linu=
-x-next kernel. Will those be part of this 4.19 kernel in openbmc or what is=
- procedure to pull those patches in openbmc build. As these are required fo=
-r Meta-facebook build with networking working.
-> > Joel,
-> >
-> > Thanks for cherry-picking a few of the NCSI changes into dev-4.19! Alon=
-g with these, can we get a couple more cherry-picked into dev-4.19?
-> >
-> > One patch from linux-next:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/co
-> > mmit/net/ncsi?h=3Dnext-20181203&id=3D16e8c4ca21a238cdf0355475bf15bd72e9=
-2fe
-> > b8f
-> >
-> > One merged patch to bring in the Tiogapass device tree:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commi
-> > t/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts?id=3D3368e06e2a91=
-a
-> > 65cff59e520acc51b9adf4900bf
->
-> Nice work. This is a great way to request the patches get merged. I'm hap=
-py because they're already on their way upstream, and the URLs with SHAs ma=
-ke it easy for me to cherry pick.
->
-> Merged!
->
-> Cheers,
->
-> Joel
+Sam
