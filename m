@@ -1,32 +1,35 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 438NfF6TpZzDqZR
- for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 00:55:01 +1100 (AEDT)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id wB4DOkv0010943;
- Tue, 4 Dec 2018 15:24:46 +0200
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 376B262DA6; Tue,  4 Dec 2018 15:54:44 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: broonie@kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
- yuenn@google.com, venture@google.com, brendanhiggins@google.com,
- avifishman70@gmail.com, joel@jms.id.au
-Cc: linux-spi@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1] dt-binding: spi: Update NPCM PSPI controller documentation
-Date: Tue,  4 Dec 2018 15:54:42 +0200
-Message-Id: <20181204135442.125269-1-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.14.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 438PQp1lH6zDqVV
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 01:30:09 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [IPv6:::1] (kronos.fuzziesquirrel.com [192.168.252.1])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 03B066DC7E;
+ Tue,  4 Dec 2018 09:30:05 -0500 (EST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 12.1 \(3445.101.1\))
+Subject: Re: Signed CCLA from Arm
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <AM4PR08MB2788038F968AA04283A1776980AE0@AM4PR08MB2788.eurprd08.prod.outlook.com>
+Date: Tue, 4 Dec 2018 09:30:05 -0500
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "manager@lfprojects.org" <manager@lfprojects.org>,
+ Dong Wei <Dong.Wei@arm.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6E7A9AA2-00FD-42FE-A5CD-83E1810FED28@fuzziesquirrel.com>
+References: <AM4PR08MB2788038F968AA04283A1776980AE0@AM4PR08MB2788.eurprd08.prod.outlook.com>
+To: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>
+X-Mailer: Apple Mail (2.3445.101.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,36 +41,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Dec 2018 13:55:03 -0000
+X-List-Received-Date: Tue, 04 Dec 2018 14:30:10 -0000
 
-Update the PSPI NPCM binding document of the spi aliases use
-to define the spi ID number.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
-index 99606b22e5c2..1fd9a4406a1d 100644
---- a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
-+++ b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
-@@ -19,8 +19,16 @@ Optional properties:
- - clock-frequency : Input clock frequency to the PSPI block in Hz.
- 		    Default is 25000000 Hz.
- 
-+Aliases:
-+- All the SPI controller nodes should be represented in the aliases node using
-+  the following format 'spi{n}' withe the correct numbered in "aliases" node.
-+
- Example:
- 
-+aliases {
-+	spi0 = &spi0;
-+};
-+
- spi0: spi@f0200000 {
- 	compatible = "nuvoton,npcm750-pspi";
- 	reg = <0xf0200000 0x1000>;
--- 
-2.14.1
+> On Dec 3, 2018, at 12:45 PM, Supreeth Venkatesh =
+<Supreeth.Venkatesh@arm.com> wrote:
+>=20
+> Please find the Signed CCLA from Arm attached,
+> Please help approve it.
+
+Thanks for signing Supreeth!  Your CCLA has been accepted.
+
+-brad=
