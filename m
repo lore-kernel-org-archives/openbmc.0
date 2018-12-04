@@ -1,57 +1,67 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <tali.perry1@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4864:20::142; helo=mail-lf1-x142.google.com;
+ envelope-from=tali.perry1@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fCf8+tk0"; 
+ dkim-atps=neutral
+Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
+ [IPv6:2a00:1450:4864:20::142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 438R4R5T8GzDqTX
- for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 02:44:22 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2018 07:44:19 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,314,1539673200"; d="scan'208";a="98564874"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.128.138])
- ([10.122.128.138])
- by orsmga008.jf.intel.com with ESMTP; 04 Dec 2018 07:44:18 -0800
-Subject: Re: [HELP] ipmi-kcs didn't work
-To: Ryan Chen <ryan_chen@aspeedtech.com>, Vijay Khemka <vijaykhemka@fb.com>,
- Samuel Jiang <chyishian.jiang@gmail.com>,
- qianlihu <wangzhiqiang8906@gmail.com>, Gary Hsu <gary_hsu@aspeedtech.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Jenmin Yuan <jenmin_yuan@aspeedtech.com>
-References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
- <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
- <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
- <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
- <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
- <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
- <4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark>
- <db5cfcea-972d-2f50-05f4-266ab2c8f310@linux.intel.com>
- <87C3DCC8-F773-46A0-B8EC-5E3DC5E3983F@fb.com>
- <660c304f-60eb-f54a-f3b7-4d6d4481a96a@linux.intel.com>
- <A9318AC7-EE0E-4B84-84D1-A16695EE3FC0@fb.com>
- <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
- <253b7d32-1230-4111-a6dc-a84afddcc679@Spark>
- <25e866d4-749c-902b-86b2-3d38975dcc65@linux.intel.com>
- <033266A0-B6C1-4BE7-BA3B-A6E319BDD8D5@fb.com>
- <d002c20bfe964463b1d7c305b12fdd70@TWMBX01.aspeed.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <904db864-71c4-d4e6-e7fd-14df7820fb7b@linux.intel.com>
-Date: Tue, 4 Dec 2018 09:44:16 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 438R7V57VtzDqTs
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 02:46:59 +1100 (AEDT)
+Received: by mail-lf1-x142.google.com with SMTP id p86so12302580lfg.5
+ for <openbmc@lists.ozlabs.org>; Tue, 04 Dec 2018 07:46:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=cYZ/pnI0GP6HzpMOsS3k9cR/rexk+p8nKkDad/G9FZY=;
+ b=fCf8+tk0jauGgafKtkxhN9ldMG6MVvz1vLspbTvbpXU7rlps+nNh1XfrEWbBvxMOKa
+ FghvZrthDmEfAOBIsZv5SLPhNqAOQz3n9EzKiACAD57R2jpxZnGzbKoN5T/JyImoQUHJ
+ JZfBP4ecot6JdBvJgon5YfCZdzzUqbVWsi6YToGhmbz+wJ1R6/L7qFkHDvKiwsLmxmmb
+ L2V2SAFCnDZArL/y3iwDN3I4O98bGXHpc84Zu8DkFp1dN5msWjf+T2oj0Dhvpd0b8DJf
+ vxXBxVyw6w8rad5lvBlmusBSPRP4agz7BNOZ69ZsyuR8crqDouFiRYhWkcFF89LzTBut
+ bU5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=cYZ/pnI0GP6HzpMOsS3k9cR/rexk+p8nKkDad/G9FZY=;
+ b=MlCbmzcCAS9BN3vpN1LO/KF3sDxnSqIIyFC90QFbIi7yHxxshPI57baL3xRHv3UuP7
+ Q6SzzNzHEJ5xOS4Z6G/jsoUznMChRL79MfeHhj51yIcC89x6ggHNlOD8/CSWQWhisu+e
+ uQ3202Gmym3K9mRhlXkE6dE0e8P3KBllVycVWtLFgyNCuLbAbDZkvCm4PUfklP9Z8gDl
+ YJLckK0ISSOqMUR5ktq9g1Oxh0AJMCghxQF2wAnmnD18a345mipzE0g6F3BJmoA5g9vK
+ hPe4X+gAuUEnfTJfhsmAH/5vONNeAMpi6Rexd8vCbqLqKBAxVCbj0hBTbs4gMyyHSTMw
+ I0Ug==
+X-Gm-Message-State: AA+aEWbCPxK7HGs7ufCap166/hirUAXRnaX4WS2KGQYi9Zl+WoQQoVgI
+ AqlYwAc5l2kbVrzbOtICmU77yC8w5aGM0BLTFNw=
+X-Google-Smtp-Source: AFSGD/Upbi+VpU4kbA6iktrYIu3HuHf8G/ZMAnVUp3n1MF7vdUb9SQ5TSAHXD912ysl2eljV3tSDCjoNPCW52dPjIns=
+X-Received: by 2002:a19:9a8c:: with SMTP id
+ c134mr11532174lfe.152.1543938415088; 
+ Tue, 04 Dec 2018 07:46:55 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <d002c20bfe964463b1d7c305b12fdd70@TWMBX01.aspeed.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <20181111134712.318321-1-tali.perry1@gmail.com>
+ <20181111134712.318321-2-tali.perry1@gmail.com>
+ <154353743563.88331.13076671872913666949@swboyd.mtv.corp.google.com>
+In-Reply-To: <154353743563.88331.13076671872913666949@swboyd.mtv.corp.google.com>
+From: Tali Perry <tali.perry1@gmail.com>
+Date: Tue, 4 Dec 2018 17:49:27 +0200
+Message-ID: <CAHb3i=ud692wC0DnOu+1Vfk8SToB_FdWx_fsJ5CKVvGOHkFzwA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] clk: npcm7xx: get fixed clocks from DT
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: avifishman70@gmail.com, Brendan Higgins <brendanhiggins@google.com>, 
+ linux@armlinux.org.uk, Mark Rutland <mark.rutland@arm.com>, 
+ Michael Turquette <mturquette@baylibre.com>, raltherr@google.com, 
+ Rob Herring <robh+dt@kernel.org>, sboyd@codeaurora.org, 
+ Tomer Maimon <tmaimon77@gmail.com>, devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-clk@vger.kernel.org, 
+ Wei Yongjun <weiyongjun1@huawei.com>
+Content-Type: multipart/alternative; boundary="000000000000c9591b057c342c5a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,74 +73,709 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Dec 2018 15:44:24 -0000
+X-List-Received-Date: Tue, 04 Dec 2018 15:47:04 -0000
 
-On 12/4/2018 12:18 AM, Ryan Chen wrote:
-> Hello Jae,
-> 	ASPEED LPC IP HW block have serval clk input.
-> 	Most important is LCLK is come from LPC Host.
-> 	The others is not controllable by register.
-> Ryan
-> 
+--000000000000c9591b057c342c5a
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Ryan,
+Hi Stephan,
 
-Thanks for the information. So clock source of LCLK is from external
-usually from PCH, means that it doesn't have any parent dependency
-within BMC. In this case, we need to mark CLK_IS_CRITICAL flag to enable
-it. Also, we should mark the flag for ESPICLK too because eSPI is
-sharing the same interface with LPC.
+Thanks for all the comments!
 
-I'll make and upstream a patch.
+This patch include one change so it's one commit.
+This clock module includes 4 PLLs and then a tree of muxes and dividers.
+All muxes and dividers are preset before Linux boots. The presetting can
+change according to the board.
+Linux drivers need to know what the frequencies are, but they can not
+change it,
+so this whole driver is intended as read only mechanism for clocks.
 
-Thanks,
-Jae
+On the first version which was up-streamed the PLLs input clk value was
+defined inside the driver.
 
-> -----Original Message-----
-> From: Vijay Khemka [mailto:vijaykhemka@fb.com]
-> Sent: Tuesday, December 4, 2018 3:38 AM
-> To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>; Samuel Jiang <chyishian.jiang@gmail.com>; qianlihu <wangzhiqiang8906@gmail.com>; Gary Hsu <gary_hsu@aspeedtech.com>; Ryan Chen <ryan_chen@aspeedtech.com>
-> Cc: openbmc@lists.ozlabs.org
-> Subject: Re: [HELP] ipmi-kcs didn't work
-> 
-> 
-> 
-> ﻿On 12/3/18, 7:54 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> wrote:
-> 
->      On 12/1/2018 8:29 AM, Samuel Jiang wrote:
->      > Apologize for sending out no content mail first.
->      >
->      > Jae,
->      > The aspeed_gates in clk-aspeed.c perhaps as todo suggest asking Aspeed
->      > the actual parent data for check initializing?
->      >
->      
->      Yes, that makes sense.
->      
->      Hi Gary and Ryan,
->      
->      Can you please tell us what is the actual parent clock source of LPC IP?
->      I mean the operational clock of LPC IP hardware block, not the interface
->      clock.
->      
->      Thanks,
->      Jae
->      
->      > Vijay,
->      > I traced lpc-ctrl module, it seems direct update the same
->      > ASPEED_CLK_GATE_LCLK register map bit to enable. If parent data is
->      > disabled, it could enable in dts.
->      > The device tree detail, I reference it from aspeed-g5.dtsi. Hope it
->      > could help you for work.
->      >
->      > Thanks,
->      >
->      > Samuel Jiang
-> 
-> Samual/Jay,
-> In my case if I don't initialize LPC clock in driver, Bios on host side wait and doesn't boot.
-> I don't understand here what is holding Bios here but by initializing this LPC clock let bios boot.
-> 
-> Regards
-> -Vijay
-> 
+After the review I was asked that the fixed clock will be on the DT. This
+is this fix.
+
+
+This patch was submitted, but not pushed to Linux:
+https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1610776.html
+
+Meanwhile first version was pushed to the Kernel, So recreate a patch that
+is relative between the two patches.
+
+
+More comments inline..
+
+
+
+On Fri, Nov 30, 2018 at 2:23 AM Stephen Boyd <sboyd@kernel.org> wrote:
+
+> Quoting tali.perry1@gmail.com (2018-11-11 05:47:12)
+> > From: Tali Perry <tali.perry1@gmail.com>
+> >
+> > Nuvoton NPCM7XX Clock Controller
+> > fix base address and of_clk_get_by_name error handling.
+> >     Also update error messages to be more informative.
+> >
+> >     In case clk_base allocation is erronoeous the return value is null.
+> >     Also fix handling of of_clk_get_by_name returns an error.
+> >     Print a better error message pointing to the dt-binding documention.
+> >
+> > This patch is re-submitted since it was already pushed to main
+> > (just the diff, without the full driver which is already in
+> > master branch.)
+> >
+> >
+> > Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> > Reviewed-by: Rob Herring <robh@kernel.org>
+> > Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+> >
+>
+> I don't know what's going on with this patch. Is it something new? Can
+> you break it up into logical changes and submit them with proper commit
+> text? The signoff chain is also odd. Can you follow
+> Documentation/process/submitting-patches.rst?
+>
+> > ---
+> >  drivers/clk/clk-npcm7xx.c | 99
+> +++++++++++++++++++++++++++++++++++------------
+> >  1 file changed, 75 insertions(+), 24 deletions(-)
+> >
+> > diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
+> > index 740af90a9508..91a937720f4e 100644
+> > --- a/drivers/clk/clk-npcm7xx.c
+> > +++ b/drivers/clk/clk-npcm7xx.c
+> > @@ -7,17 +7,26 @@
+> >   * Copyright (C) 2018 Nuvoton Technologies tali.perry@nuvoton.com
+> >   */
+> >
+> > -#include <linux/module.h>
+> > -#include <linux/clk-provider.h>
+> > -#include <linux/io.h>
+> > -#include <linux/kernel.h>
+> > -#include <linux/of.h>
+> > -#include <linux/of_address.h>
+> > -#include <linux/slab.h>
+> > -#include <linux/err.h>
+> > -#include <linux/bitfield.h>
+> > -
+> > -#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
+> > +
+> > +
+> > +
+> > + #include <linux/module.h>
+> > + #include <linux/clk.h>
+> > + #include <linux/clk-provider.h>
+> > + #include <linux/device.h>
+> > + #include <linux/io.h>
+> > + #include <linux/kernel.h>
+> > + #include <linux/of.h>
+> > + #include <linux/of_device.h>
+> > + #include <linux/of_platform.h>
+> > + #include <linux/of_address.h>
+> > + #include <linux/platform_device.h>
+> > + #include <linux/slab.h>
+> > + #include <linux/err.h>
+> > + #include <linux/rational.h>
+> > + #include <linux/bitfield.h>
+> > + #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
+>
+> Is any of this hunk necessary or relevant to the subject of this patch?
+>
+> > +
+> >
+> >  struct npcm7xx_clk_pll {
+> > @@ -44,7 +56,8 @@ static unsigned long
+> npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
+> >         u64 ret;
+> >
+> >         if (parent_rate == 0) {
+> > -               pr_err("%s: parent rate is zero", __func__);
+> > +               pr_err("%s: parent rate is zero. reg=%x\n", __func__,
+> > +                       (u32)(pll->pllcon));
+>
+> Maybe you should print clk name instead of register?
+>
+
+Tali: There are only 4 pllcon registers. I don't mind if it's the address
+and not the name.
+
+>
+> >                 return 0;
+> >         }
+> >
+> > @@ -61,13 +74,12 @@ static unsigned long
+> npcm7xx_clk_pll_recalc_rate(struct clk_hw *hw,
+> >         return ret;
+> >  }
+> >
+> > -static const struct clk_ops npcm7xx_clk_pll_ops = {
+> > +const struct clk_ops npcm7xx_clk_pll_ops = {
+>
+> Why?
+>
+
+Tali: I will return the static.
+
+>
+> >         .recalc_rate = npcm7xx_clk_pll_recalc_rate,
+> >  };
+> >
+> > -static struct clk_hw *
+> > -npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,
+> > -                        const char *parent_name, unsigned long flags)
+> > +static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,
+> > +               const char *name, const char *parent_name, unsigned long
+> flags)
+> >  {
+> >         struct npcm7xx_clk_pll *pll;
+> >         struct clk_init_data init;
+> > @@ -78,7 +90,8 @@ npcm7xx_clk_register_pll(void __iomem *pllcon, const
+> char *name,
+> >         if (!pll)
+> >                 return ERR_PTR(-ENOMEM);
+> >
+> > -       pr_debug("%s reg, name=%s, p=%s\n", __func__, name, parent_name);
+> > +       pr_debug("%s reg, reg=0x%x, name=%s, p=%s\n",
+> > +               __func__, (unsigned int)pllcon, name, parent_name);
+>
+> What's going on here? Why cast?
+>
+Tali: I will remove this print all together.
+
+>
+> >
+> >         init.name = name;
+> >         init.ops = &npcm7xx_clk_pll_ops;
+> > @@ -544,9 +557,11 @@ static void __init npcm7xx_clk_init(struct
+> device_node *clk_np)
+> >         void __iomem *clk_base;
+> >         struct resource res;
+> >         struct clk_hw *hw;
+> > +       struct clk *clk;
+> >         int ret;
+> >         int i;
+> >
+> > +       clk_base = NULL;
+>
+> Why?
+>
+
+Tali: to init it. If DT is badly defined the value will remain NULL.
+
+
+>
+> >         ret = of_address_to_resource(clk_np, 0, &res);
+> >         if (ret) {
+> >                 pr_err("%s: failed to get resource, ret %d\n",
+> clk_np->name,
+> > @@ -560,14 +575,44 @@ static void __init npcm7xx_clk_init(struct
+> device_node *clk_np)
+> >
+> >         npcm7xx_clk_data = kzalloc(sizeof(*npcm7xx_clk_data->hws) *
+> >                 NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data),
+> GFP_KERNEL);
+> > -       if (!npcm7xx_clk_data)
+> > +
+> > +       npcm7xx_clk_data->num = 0;
+>
+> kzalloc already does that initialization to 0 for you.
+>
+> > +
+> > +       if (!npcm7xx_clk_data->hws) {
+> > +               pr_err("Can't alloc npcm7xx_clk_data\n");
+>
+> We don't need allocation error messages.
+>
+> >                 goto npcm7xx_init_np_err;
+> > +       }
+> >
+> >         npcm7xx_clk_data->num = NPCM7XX_NUM_CLOCKS;
+> >
+> >         for (i = 0; i < NPCM7XX_NUM_CLOCKS; i++)
+> >                 npcm7xx_clk_data->hws[i] = ERR_PTR(-EPROBE_DEFER);
+> >
+> > +       /* Read fixed clocks. These 3 clocks must be defined in DT */
+> > +       clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_REFCLK);
+> > +       if (IS_ERR(clk)) {
+> > +               pr_err("failed to find external REFCLK on device tree,
+> err=%ld\n",
+> > +                       PTR_ERR(clk));
+> > +               clk_put(clk);
+> > +               goto npcm7xx_init_fail_no_clk_on_dt;
+> > +       }
+> > +
+> > +       clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_SYSBYPCK);
+> > +       if (IS_ERR(clk)) {
+> > +               pr_err("failed to find external SYSBYPCK on device tree,
+> err=%ld\n",
+> > +                       PTR_ERR(clk));
+> > +               clk_put(clk);
+> > +               goto npcm7xx_init_fail_no_clk_on_dt;
+> > +       }
+> > +
+> > +       clk = of_clk_get_by_name(clk_np, NPCM7XX_CLK_S_MCBYPCK);
+> > +       if (IS_ERR(clk)) {
+> > +               pr_err("failed to find external MCBYPCK on device tree,
+> err=%ld\n",
+> > +                       PTR_ERR(clk));
+> > +               clk_put(clk);
+> > +               goto npcm7xx_init_fail_no_clk_on_dt;
+> > +       }
+>
+> I assume the DTS is not shipped?
+>
+
+Tali: DTS for npcm is shipped in a separate patchset.
+
+>
+> > +
+> >         /* Register plls */
+> >         for (i = 0; i < ARRAY_SIZE(npcm7xx_plls); i++) {
+> >                 const struct npcm7xx_clk_pll_data *pll_data =
+> &npcm7xx_plls[i];
+> > @@ -584,16 +629,16 @@ static void __init npcm7xx_clk_init(struct
+> device_node *clk_np)
+> >         }
+> >
+> >         /* Register fixed dividers */
+> > -       hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
+> > +       clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL1_DIV2,
+>
+> This is going backwards. Please use clk_hw APIs.
+>
+Tali: Will fix.
+
+>
+> >                         NPCM7XX_CLK_S_PLL1, 0, 1, 2);
+> > -       if (IS_ERR(hw)) {
+> > +       if (IS_ERR(clk)) {
+> >                 pr_err("npcm7xx_clk: Can't register fixed div\n");
+> >                 goto npcm7xx_init_fail;
+> >         }
+> >
+> > -       hw = clk_hw_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
+> > +       clk = clk_register_fixed_factor(NULL, NPCM7XX_CLK_S_PLL2_DIV2,
+> >                         NPCM7XX_CLK_S_PLL2, 0, 1, 2);
+> > -       if (IS_ERR(hw)) {
+> > +       if (IS_ERR(clk)) {
+> >                 pr_err("npcm7xx_clk: Can't register div2\n");
+> >                 goto npcm7xx_init_fail;
+> >         }
+> > @@ -646,11 +691,17 @@ static void __init npcm7xx_clk_init(struct
+> device_node *clk_np)
+> >
+> >         return;
+> >
+> > +npcm7xx_init_fail_no_clk_on_dt:
+> > +       pr_err("see Documentation/devicetree/bindings/clock/");
+> > +       pr_err("nuvoton,npcm750-clk.txt  for details\n");
+> >  npcm7xx_init_fail:
+> > -       kfree(npcm7xx_clk_data->hws);
+> > +       if (npcm7xx_clk_data->num)
+> > +               kfree(npcm7xx_clk_data->hws);
+> >  npcm7xx_init_np_err:
+> > -       iounmap(clk_base);
+> > +       if (clk_base != NULL)
+> > +               iounmap(clk_base);
+> >  npcm7xx_init_error:
+> >         of_node_put(clk_np);
+> > +       pr_err("clk setup fail\n");
+>
+> Is this hunk of changes related to the subject of this patch? I don't
+> think it is, so it just leads to more confusion.
+>
+
+Tali: I added a goto option for the case that the DTS doesn't have the
+reference clocks this module needs.
+
+--000000000000c9591b057c342c5a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
+ult" style=3D"font-family:monospace,monospace">Hi Stephan,</div><div class=
+=3D"gmail_default" style=3D"font-family:monospace,monospace"><br></div><div=
+ class=3D"gmail_default" style=3D"font-family:monospace,monospace">Thanks f=
+or all the comments!</div><div class=3D"gmail_default" style=3D"font-family=
+:monospace,monospace"><br></div><div class=3D"gmail_default" style=3D"font-=
+family:monospace,monospace">This patch include one change so it&#39;s one c=
+ommit.=C2=A0</div><div class=3D"gmail_default" style=3D"font-family:monospa=
+ce,monospace">This clock module includes 4 PLLs and then a tree of muxes an=
+d dividers.=C2=A0</div><div class=3D"gmail_default" style=3D"font-family:mo=
+nospace,monospace">All muxes and dividers are preset before Linux boots. Th=
+e presetting can change according to the board.=C2=A0</div><div class=3D"gm=
+ail_default" style=3D"font-family:monospace,monospace">Linux drivers need t=
+o know what the frequencies are, but they can not change it,=C2=A0</div><di=
+v class=3D"gmail_default" style=3D"font-family:monospace,monospace">so this=
+ whole driver is intended as read only mechanism for clocks.=C2=A0</div><di=
+v class=3D"gmail_default" style=3D"font-family:monospace,monospace"><br></d=
+iv><div class=3D"gmail_default" style=3D"font-family:monospace,monospace">O=
+n the first version which was up-streamed the PLLs input clk value was defi=
+ned inside the driver.</div><div class=3D"gmail_default" style=3D"font-fami=
+ly:monospace,monospace"><br></div><div class=3D"gmail_default" style=3D"fon=
+t-family:monospace,monospace">After the review I was asked that the fixed c=
+lock will be on the DT. This is this fix.</div><div class=3D"gmail_default"=
+ style=3D"font-family:monospace,monospace"><br></div><div class=3D"gmail_de=
+fault"><br></div><div class=3D"gmail_default" style=3D"font-family:monospac=
+e,monospace">This patch was submitted, but not pushed to Linux:=C2=A0</div>=
+<div class=3D"gmail_default" style=3D"font-family:monospace,monospace"><div=
+ class=3D"gmail_default" style=3D"font-family:Arial,Helvetica,sans-serif"><=
+font face=3D"monospace, monospace"><a href=3D"https://www.mail-archive.com/=
+linux-kernel@vger.kernel.org/msg1610776.html">https://www.mail-archive.com/=
+linux-kernel@vger.kernel.org/msg1610776.html</a></font><br></div><div class=
+=3D"gmail_default" style=3D"font-family:Arial,Helvetica,sans-serif"><font f=
+ace=3D"monospace, monospace"><br></font></div><div class=3D"gmail_default" =
+style=3D"font-family:Arial,Helvetica,sans-serif"><font face=3D"monospace, m=
+onospace">Meanwhile first version was pushed to the Kernel, So recreate a p=
+atch that is relative between the two patches.</font></div><div class=3D"gm=
+ail_default" style=3D"font-family:Arial,Helvetica,sans-serif"><br></div><di=
+v class=3D"gmail_default" style=3D"font-family:Arial,Helvetica,sans-serif">=
+<br></div><div class=3D"gmail_default" style=3D"font-family:Arial,Helvetica=
+,sans-serif">More comments inline..</div></div><div class=3D"gmail_default"=
+ style=3D"font-family:monospace,monospace"><br></div><div class=3D"gmail_de=
+fault" style=3D"font-family:monospace,monospace"><br></div></div></div><br>=
+<div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, Nov 30, 2018 at 2:23 AM=
+ Stephen Boyd &lt;<a href=3D"mailto:sboyd@kernel.org" target=3D"_blank">sbo=
+yd@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Quotin=
+g <a href=3D"mailto:tali.perry1@gmail.com" target=3D"_blank">tali.perry1@gm=
+ail.com</a> (2018-11-11 05:47:12)<br>
+&gt; From: Tali Perry &lt;<a href=3D"mailto:tali.perry1@gmail.com" target=
+=3D"_blank">tali.perry1@gmail.com</a>&gt;<br>
+&gt; <br>
+&gt; Nuvoton NPCM7XX Clock Controller<br>
+&gt; fix base address and of_clk_get_by_name error handling.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Also update error messages to be more informative.<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0In case clk_base allocation is erronoeous the retur=
+n value is null.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Also fix handling of of_clk_get_by_name returns an =
+error. <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Print a better error message pointing to the dt-bin=
+ding documention.<br>
+&gt; <br>
+&gt; This patch is re-submitted since it was already pushed to main <br>
+&gt; (just the diff, without the full driver which is already in <br>
+&gt; master branch.)<br>
+&gt; <br>
+&gt; <br>
+&gt; Signed-off-by: Tali Perry &lt;<a href=3D"mailto:tali.perry1@gmail.com"=
+ target=3D"_blank">tali.perry1@gmail.com</a>&gt;<br>
+&gt; Reviewed-by: Rob Herring &lt;<a href=3D"mailto:robh@kernel.org" target=
+=3D"_blank">robh@kernel.org</a>&gt;<br>
+&gt; Signed-off-by: Wei Yongjun &lt;<a href=3D"mailto:weiyongjun1@huawei.co=
+m" target=3D"_blank">weiyongjun1@huawei.com</a>&gt;<br>
+&gt; <br>
+<br>
+I don&#39;t know what&#39;s going on with this patch. Is it something new? =
+Can<br>
+you break it up into logical changes and submit them with proper commit<br>
+text? The signoff chain is also odd. Can you follow<br>
+Documentation/process/submitting-patches.rst?<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/clk/clk-npcm7xx.c | 99 +++++++++++++++++++++++++++++++++=
+++------------<br>
+&gt;=C2=A0 1 file changed, 75 insertions(+), 24 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c<br>
+&gt; index 740af90a9508..91a937720f4e 100644<br>
+&gt; --- a/drivers/clk/clk-npcm7xx.c<br>
+&gt; +++ b/drivers/clk/clk-npcm7xx.c<br>
+&gt; @@ -7,17 +7,26 @@<br>
+&gt;=C2=A0 =C2=A0* Copyright (C) 2018 Nuvoton Technologies <a href=3D"mailt=
+o:tali.perry@nuvoton.com" target=3D"_blank">tali.perry@nuvoton.com</a><br>
+&gt;=C2=A0 =C2=A0*/<br>
+&gt;=C2=A0 <br>
+&gt; -#include &lt;linux/module.h&gt;<br>
+&gt; -#include &lt;linux/clk-provider.h&gt;<br>
+&gt; -#include &lt;linux/io.h&gt;<br>
+&gt; -#include &lt;linux/kernel.h&gt;<br>
+&gt; -#include &lt;linux/of.h&gt;<br>
+&gt; -#include &lt;linux/of_address.h&gt;<br>
+&gt; -#include &lt;linux/slab.h&gt;<br>
+&gt; -#include &lt;linux/err.h&gt;<br>
+&gt; -#include &lt;linux/bitfield.h&gt;<br>
+&gt; -<br>
+&gt; -#include &lt;dt-bindings/clock/nuvoton,npcm7xx-clock.h&gt;<br>
+&gt; +<br>
+&gt; +<br>
+&gt; +<br>
+&gt; + #include &lt;linux/module.h&gt;<br>
+&gt; + #include &lt;linux/clk.h&gt;<br>
+&gt; + #include &lt;linux/clk-provider.h&gt;<br>
+&gt; + #include &lt;linux/device.h&gt;<br>
+&gt; + #include &lt;linux/io.h&gt;<br>
+&gt; + #include &lt;linux/kernel.h&gt;<br>
+&gt; + #include &lt;linux/of.h&gt;<br>
+&gt; + #include &lt;linux/of_device.h&gt;<br>
+&gt; + #include &lt;linux/of_platform.h&gt;<br>
+&gt; + #include &lt;linux/of_address.h&gt;<br>
+&gt; + #include &lt;linux/platform_device.h&gt;<br>
+&gt; + #include &lt;linux/slab.h&gt;<br>
+&gt; + #include &lt;linux/err.h&gt;<br>
+&gt; + #include &lt;linux/rational.h&gt;<br>
+&gt; + #include &lt;linux/bitfield.h&gt;<br>
+&gt; + #include &lt;dt-bindings/clock/nuvoton,npcm7xx-clock.h&gt;<br>
+<br>
+Is any of this hunk necessary or relevant to the subject of this patch?<br>
+<br>
+&gt; +<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 struct npcm7xx_clk_pll {<br>
+&gt; @@ -44,7 +56,8 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(str=
+uct clk_hw *hw,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 ret;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (parent_rate =3D=3D 0) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;%=
+s: parent rate is zero&quot;, __func__);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;%=
+s: parent rate is zero. reg=3D%x\n&quot;, __func__,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0(u32)(pll-&gt;pllcon));<br>
+<br>
+Maybe you should print clk name instead of register?<br></blockquote><div><=
+br></div><div class=3D"gmail_default" style=3D"font-family:monospace,monosp=
+ace">Tali: There are only 4 pllcon registers. I don&#39;t mind if it&#39;s =
+the address and not the name.</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt; @@ -61,13 +74,12 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(s=
+truct clk_hw *hw,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; -static const struct clk_ops npcm7xx_clk_pll_ops =3D {<br>
+&gt; +const struct clk_ops npcm7xx_clk_pll_ops =3D {<br>
+<br>
+Why?<br></blockquote><div><br></div><div class=3D"gmail_default" style=3D"f=
+ont-family:monospace,monospace">Tali: I will return the static.</div><div c=
+lass=3D"gmail_default" style=3D"font-family:monospace,monospace"></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #c=
+cc solid;padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.recalc_rate =3D npcm7xx_clk_pll_reca=
+lc_rate,<br>
+&gt;=C2=A0 };<br>
+&gt;=C2=A0 <br>
+&gt; -static struct clk_hw *<br>
+&gt; -npcm7xx_clk_register_pll(void __iomem *pllcon, const char *name,<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 const char *parent_name, unsigned long flags)<br>
+&gt; +static struct clk_hw *npcm7xx_clk_register_pll(void __iomem *pllcon,<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const char *na=
+me, const char *parent_name, unsigned long flags)<br>
+&gt;=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct npcm7xx_clk_pll *pll;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_init_data init;<br>
+&gt; @@ -78,7 +90,8 @@ npcm7xx_clk_register_pll(void __iomem *pllcon, const=
+ char *name,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!pll)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ER=
+R_PTR(-ENOMEM);<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_debug(&quot;%s reg, name=3D%s, p=3D%s\n=
+&quot;, __func__, name, parent_name);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_debug(&quot;%s reg, reg=3D0x%x, name=3D=
+%s, p=3D%s\n&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__func__, (uns=
+igned int)pllcon, name, parent_name);<br>
+<br>
+What&#39;s going on here? Why cast?<br></blockquote><div><span class=3D"gma=
+il_default" style=3D"font-family:monospace,monospace">Tali: I will remove t=
+his print all together.</span>=C2=A0</div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"http://init.name" rel=3D"n=
+oreferrer" target=3D"_blank">init.name</a> =3D name;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0init.ops =3D &amp;npcm7xx_clk_pll_ops=
+;<br>
+&gt; @@ -544,9 +557,11 @@ static void __init npcm7xx_clk_init(struct device=
+_node *clk_np)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void __iomem *clk_base;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct resource res;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_hw *hw;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk *clk;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
+&gt;=C2=A0 <br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk_base =3D NULL;<br>
+<br>
+Why?<br></blockquote><div>=C2=A0</div><div><span class=3D"gmail_default" st=
+yle=3D"font-family:monospace,monospace">Tali: to init it. If DT is badly de=
+fined the value will remain NULL.</span></div><div><span class=3D"gmail_def=
+ault" style=3D"font-family:monospace,monospace"></span>=C2=A0</div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
+olid;padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D of_address_to_resource(clk_np=
+, 0, &amp;res);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&q=
+uot;%s: failed to get resource, ret %d\n&quot;, clk_np-&gt;name,<br>
+&gt; @@ -560,14 +575,44 @@ static void __init npcm7xx_clk_init(struct devic=
+e_node *clk_np)<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_clk_data =3D kzalloc(sizeof(*=
+npcm7xx_clk_data-&gt;hws) *<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0NPCM7XX_N=
+UM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!npcm7xx_clk_data)<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_clk_data-&gt;num =3D 0;<br>
+<br>
+kzalloc already does that initialization to 0 for you.<br>
+<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!npcm7xx_clk_data-&gt;hws) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;C=
+an&#39;t alloc npcm7xx_clk_data\n&quot;);<br>
+<br>
+We don&#39;t need allocation error messages.<br>
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm=
+7xx_init_np_err;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_clk_data-&gt;num =3D NPCM7XX_=
+NUM_CLOCKS;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; NPCM7XX_NUM_CLOC=
+KS; i++)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0npcm7xx_c=
+lk_data-&gt;hws[i] =3D ERR_PTR(-EPROBE_DEFER);<br>
+&gt;=C2=A0 <br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Read fixed clocks. These 3 clocks must =
+be defined in DT */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D of_clk_get_by_name(clk_np, NPCM7XX=
+_CLK_S_REFCLK);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;f=
+ailed to find external REFCLK on device tree, err=3D%ld\n&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0PTR_ERR(clk));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk_put(clk);<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm7xx_i=
+nit_fail_no_clk_on_dt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D of_clk_get_by_name(clk_np, NPCM7XX=
+_CLK_S_SYSBYPCK);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;f=
+ailed to find external SYSBYPCK on device tree, err=3D%ld\n&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0PTR_ERR(clk));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk_put(clk);<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm7xx_i=
+nit_fail_no_clk_on_dt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D of_clk_get_by_name(clk_np, NPCM7XX=
+_CLK_S_MCBYPCK);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;f=
+ailed to find external MCBYPCK on device tree, err=3D%ld\n&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0PTR_ERR(clk));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk_put(clk);<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm7xx_i=
+nit_fail_no_clk_on_dt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+I assume the DTS is not shipped?<br></blockquote><div><br></div><div class=
+=3D"gmail_default" style=3D"font-family:monospace,monospace">Tali: DTS for =
+npcm is shipped in a separate patchset.</div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
+>
+<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Register plls */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; ARRAY_SIZE(npcm7=
+xx_plls); i++) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const str=
+uct npcm7xx_clk_pll_data *pll_data =3D &amp;npcm7xx_plls[i];<br>
+&gt; @@ -584,16 +629,16 @@ static void __init npcm7xx_clk_init(struct devic=
+e_node *clk_np)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Register fixed dividers */<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0hw =3D clk_hw_register_fixed_factor(NULL, =
+NPCM7XX_CLK_S_PLL1_DIV2,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D clk_register_fixed_factor(NULL, NP=
+CM7XX_CLK_S_PLL1_DIV2,<br>
+<br>
+This is going backwards. Please use clk_hw APIs.<br></blockquote><div><span=
+ class=3D"gmail_default" style=3D"font-family:monospace,monospace">Tali: Wi=
+ll fix.</span>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0NPCM7XX_CLK_S_PLL1, 0, 1, 2);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(hw)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&q=
+uot;npcm7xx_clk: Can&#39;t register fixed div\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm=
+7xx_init_fail;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0hw =3D clk_hw_register_fixed_factor(NULL, =
+NPCM7XX_CLK_S_PLL2_DIV2,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clk =3D clk_register_fixed_factor(NULL, NP=
+CM7XX_CLK_S_PLL2_DIV2,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0NPCM7XX_CLK_S_PLL2, 0, 1, 2);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(hw)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&q=
+uot;npcm7xx_clk: Can&#39;t register div2\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto npcm=
+7xx_init_fail;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; @@ -646,11 +691,17 @@ static void __init npcm7xx_clk_init(struct devic=
+e_node *clk_np)<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
+&gt;=C2=A0 <br>
+&gt; +npcm7xx_init_fail_no_clk_on_dt:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;see Documentation/devicetree/=
+bindings/clock/&quot;);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;nuvoton,npcm750-clk.txt=C2=A0=
+ for details\n&quot;);<br>
+&gt;=C2=A0 npcm7xx_init_fail:<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(npcm7xx_clk_data-&gt;hws);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (npcm7xx_clk_data-&gt;num)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(npcm7xx_=
+clk_data-&gt;hws);<br>
+&gt;=C2=A0 npcm7xx_init_np_err:<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0iounmap(clk_base);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (clk_base !=3D NULL)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0iounmap(clk_ba=
+se);<br>
+&gt;=C2=A0 npcm7xx_init_error:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0of_node_put(clk_np);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;clk setup fail\n&quot;);<br>
+<br>
+Is this hunk of changes related to the subject of this patch? I don&#39;t<b=
+r>
+think it is, so it just leads to more confusion.<br></blockquote><div><br><=
+/div><div class=3D"gmail_default" style=3D"font-family:monospace,monospace"=
+>Tali: I added a goto option for the case that the DTS doesn&#39;t have the=
+ reference clocks this module needs.</div><div class=3D"gmail_default" styl=
+e=3D"font-family:monospace,monospace"><br></div><div class=3D"gmail_default=
+" style=3D"font-family:monospace,monospace"></div></div></div>
+
+--000000000000c9591b057c342c5a--
