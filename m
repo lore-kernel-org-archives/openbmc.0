@@ -1,64 +1,69 @@
-Return-Path: <yao.yuan@hxt-semitech.com>
+Return-Path: <ryan_chen@aspeedtech.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=hxt-semitech.com
- (client-ip=223.203.96.7; helo=barracuda.hxt-semitech.com;
- envelope-from=yao.yuan@hxt-semitech.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
+ (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
+ envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=hxt-semitech.com
-X-Greylist: delayed 1178 seconds by postgrey-1.36 at bilbo;
- Fri, 07 Dec 2018 19:57:23 AEDT
-Received: from barracuda.hxt-semitech.com (mx01.hxt-semitech.com
- [223.203.96.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ header.from=aspeedtech.com
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43B5vR4p1hzDrfb
- for <openbmc@lists.ozlabs.org>; Fri,  7 Dec 2018 19:57:21 +1100 (AEDT)
-X-ASG-Debug-ID: 1544171829-093b7e7162028c0001-mgJK9t
-Received: from HXTBJIDCEMVIW01.hxtcorp.net ([10.128.0.14]) by
- barracuda.hxt-semitech.com with ESMTP id rQnctaMY6pX83pLp (version=TLSv1.2
- cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NO) for
- <openbmc@lists.ozlabs.org>; Fri, 07 Dec 2018 16:37:09 +0800 (CST)
-X-Barracuda-Envelope-From: yao.yuan@hxt-semitech.com
-Received: from HXTBJIDCEMVIW02.hxtcorp.net (10.128.0.15) by
- HXTBJIDCEMVIW01.hxtcorp.net (10.128.0.14) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Fri, 7 Dec 2018 16:36:18 +0800
-Received: from HXTBJIDCEMVIW02.hxtcorp.net ([fe80::3e:f4ff:7927:a6f6]) by
- HXTBJIDCEMVIW02.hxtcorp.net ([fe80::3e:f4ff:7927:a6f6%12]) with mapi id
- 15.00.1395.000; Fri, 7 Dec 2018 16:36:18 +0800
-From: "Yuan, Yao" <yao.yuan@hxt-semitech.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: How to enable bmcweb  in openbmc
-Thread-Topic: How to enable bmcweb  in openbmc
-X-ASG-Orig-Subj: How to enable bmcweb  in openbmc
-Thread-Index: AdSOBxJn4cTEuSqPQuu5xtQOj1a51g==
-Date: Fri, 7 Dec 2018 08:36:17 +0000
-Message-ID: <b5a3f14c40c04288ab7347f707904f3c@HXTBJIDCEMVIW02.hxtcorp.net>
-Accept-Language: en-US
-Content-Language: en-US
+ by lists.ozlabs.org (Postfix) with ESMTPS id 438sg943yPzDqpG
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 19:42:28 +1100 (AEDT)
+Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id wB58aAgZ069278;
+ Wed, 5 Dec 2018 16:36:10 +0800 (GMT-8)
+ (envelope-from ryan_chen@aspeedtech.com)
+Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Wed, 5 Dec
+ 2018 16:42:05 +0800
+Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX01.aspeed.com
+ (192.168.0.23) with Microsoft SMTP Server (TLS) id 15.0.620.29; Wed, 5 Dec
+ 2018 16:43:12 +0800
+Received: from TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb]) by
+ TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb%12]) with mapi id
+ 15.00.0620.020; Wed, 5 Dec 2018 16:43:12 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Samuel Jiang <chyishian.jiang@gmail.com>, Vijay Khemka
+ <vijaykhemka@fb.com>, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, qianlihu
+ <wangzhiqiang8906@gmail.com>, Gary Hsu <gary_hsu@aspeedtech.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Jenmin Yuan
+ <jenmin_yuan@aspeedtech.com>
+Subject: RE: [HELP] ipmi-kcs didn't work
+Thread-Topic: [HELP] ipmi-kcs didn't work
+Thread-Index: AQHUiyCeCzMesNBW9E6tBAQ+ThpndaVs4vUAgAE4KVCAARSvAIAApn1g
+Date: Wed, 5 Dec 2018 08:43:11 +0000
+Message-ID: <82b0b7960fa847a9b4eb77898782e613@TWMBX01.aspeed.com>
+References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
+ <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
+ <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
+ <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
+ <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
+ <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
+ <4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark>
+ <db5cfcea-972d-2f50-05f4-266ab2c8f310@linux.intel.com>
+ <87C3DCC8-F773-46A0-B8EC-5E3DC5E3983F@fb.com>
+ <660c304f-60eb-f54a-f3b7-4d6d4481a96a@linux.intel.com>
+ <A9318AC7-EE0E-4B84-84D1-A16695EE3FC0@fb.com>
+ <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
+ <253b7d32-1230-4111-a6dc-a84afddcc679@Spark>
+ <25e866d4-749c-902b-86b2-3d38975dcc65@linux.intel.com>
+ <033266A0-B6C1-4BE7-BA3B-A6E319BDD8D5@fb.com>
+ <d002c20bfe964463b1d7c305b12fdd70@TWMBX01.aspeed.com>
+ <48f0e3b4-eca5-4ca6-a9ce-40b2a393ede9@Spark>
+In-Reply-To: <48f0e3b4-eca5-4ca6-a9ce-40b2a393ede9@Spark>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.64.1.64]
+x-originating-ip: [192.168.0.81]
 Content-Type: multipart/alternative;
- boundary="_000_b5a3f14c40c04288ab7347f707904f3cHXTBJIDCEMVIW02hxtcorpn_"
+ boundary="_000_82b0b7960fa847a9b4eb77898782e613TWMBX01aspeedcom_"
 MIME-Version: 1.0
-X-Barracuda-Connect: UNKNOWN[10.128.0.14]
-X-Barracuda-Start-Time: 1544171829
-X-Barracuda-Encrypted: ECDHE-RSA-AES256-SHA384
-X-Barracuda-URL: https://192.168.50.101:443/cgi-mod/mark.cgi
-X-Virus-Scanned: by bsmtpd at hxt-semitech.com
-X-Barracuda-BRTS-Status: 1
-X-Barracuda-Bayes: INNOCENT GLOBAL 0.0000 1.0000 -2.0210
-X-Barracuda-Spam-Score: -1.82
-X-Barracuda-Spam-Status: No,
- SCORE=-1.82 using global scores of TAG_LEVEL=1000.0
- QUARANTINE_LEVEL=1000.0 KILL_LEVEL=9.0 tests=BSF_SC0_SA038b, HTML_MESSAGE
-X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.63238
- Rule breakdown below
- pts rule name              description
- ---- ---------------------- --------------------------------------------------
- 0.00 HTML_MESSAGE           BODY: HTML included in message
- 0.20 BSF_SC0_SA038b         Custom Rule SA038b
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com wB58aAgZ069278
+X-Mailman-Approved-At: Fri, 07 Dec 2018 21:50:54 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,304 +75,205 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Dec 2018 08:57:24 -0000
+X-List-Received-Date: Wed, 05 Dec 2018 08:42:30 -0000
 
---_000_b5a3f14c40c04288ab7347f707904f3cHXTBJIDCEMVIW02hxtcorpn_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--_000_82b0b7960fa847a9b4eb77898782e613TWMBX01aspeedcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi all,
+SGVsbG8sDQogICAgICAgIFRoZSBkZWZhdWx0IGlzIHJ1bm5pbmcsIG5vdCB0byBzdG9wLg0KDQpS
+eWFuDQoNCkhpIFJ5YW4sDQoNCkkgd2FudCB0byBjb25maXJtIHRoZSByZWdpc3RlciBkZWZhdWx0
+IHNldCBvZiBMQ0xLIGlzIHJ1bm5pbmcgb3Igc3RvcCBmb3IgQXNwcGVkIFNvQz8NCg0KSGkgSmFl
+LA0KSSB3YW50IHRvIGNvbmZpcm0gdGhhdCBkb2VzIHRoZSBhc3BlZWRfZ2F0ZXMgaXMgc2V0IGZv
+ciBtYXRjaGluZyB3aXRoIHRoZSBTb0MgZGVmYXVsdCBjbG9jayBzZXR0aW5nPw0KDQoNCkkgbmVl
+ZCB0byB0aGVzZSB0aGluZ3MgaW5mb3JtYXRpb24gZm9yIGpvaW5pbmcgdGhlIGRpc2N1c3Npb24g
+dG8gYXNzaXN0IHBhdGNoIHRvIHNlbmQgdXBzdHJlYW0uDQoNClRoYW5rcywNCg0KU2FtdWVsIEpp
+YW5nDQoNCk9uIERlYyA0LCAyMDE4LCAyOjE3IFBNICswODAwLCBSeWFuIENoZW4gLCB3cm90ZToN
+Cg0KSGVsbG8gSmFlLA0KQVNQRUVEIExQQyBJUCBIVyBibG9jayBoYXZlIHNlcnZhbCBjbGsgaW5w
+dXQuDQpNb3N0IGltcG9ydGFudCBpcyBMQ0xLIGlzIGNvbWUgZnJvbSBMUEMgSG9zdC4NClRoZSBv
+dGhlcnMgaXMgbm90IGNvbnRyb2xsYWJsZSBieSByZWdpc3Rlci4NClJ5YW4NCg0KLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IFZpamF5IEtoZW1rYSBbbWFpbHRvOnZpamF5a2hlbWth
+QGZiLmNvbV0NClNlbnQ6IFR1ZXNkYXksIERlY2VtYmVyIDQsIDIwMTggMzozOCBBTQ0KVG86IEph
+ZSBIeXVuIFlvbyA8amFlLmh5dW4ueW9vQGxpbnV4LmludGVsLmNvbTxtYWlsdG86amFlLmh5dW4u
+eW9vQGxpbnV4LmludGVsLmNvbT4+OyBTYW11ZWwgSmlhbmcgPGNoeWlzaGlhbi5qaWFuZ0BnbWFp
+bC5jb208bWFpbHRvOmNoeWlzaGlhbi5qaWFuZ0BnbWFpbC5jb20+PjsgcWlhbmxpaHUgPHdhbmd6
+aGlxaWFuZzg5MDZAZ21haWwuY29tPG1haWx0bzp3YW5nemhpcWlhbmc4OTA2QGdtYWlsLmNvbT4+
+OyBHYXJ5IEhzdSA8Z2FyeV9oc3VAYXNwZWVkdGVjaC5jb208bWFpbHRvOmdhcnlfaHN1QGFzcGVl
+ZHRlY2guY29tPj47IFJ5YW4gQ2hlbiA8cnlhbl9jaGVuQGFzcGVlZHRlY2guY29tPG1haWx0bzpy
+eWFuX2NoZW5AYXNwZWVkdGVjaC5jb20+Pg0KQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzxt
+YWlsdG86b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IFtIRUxQXSBpcG1p
+LWtjcyBkaWRuJ3Qgd29yaw0KDQoNCg0K77u/T24gMTIvMy8xOCwgNzo1NCBBTSwgIkphZSBIeXVu
+IFlvbyIgPGphZS5oeXVuLnlvb0BsaW51eC5pbnRlbC5jb208bWFpbHRvOmphZS5oeXVuLnlvb0Bs
+aW51eC5pbnRlbC5jb20+PiB3cm90ZToNCg0KT24gMTIvMS8yMDE4IDg6MjkgQU0sIFNhbXVlbCBK
+aWFuZyB3cm90ZToNCg0KQXBvbG9naXplIGZvciBzZW5kaW5nIG91dCBubyBjb250ZW50IG1haWwg
+Zmlyc3QuDQoNCkphZSwNClRoZSBhc3BlZWRfZ2F0ZXMgaW4gY2xrLWFzcGVlZC5jIHBlcmhhcHMg
+YXMgdG9kbyBzdWdnZXN0IGFza2luZyBBc3BlZWQNCnRoZSBhY3R1YWwgcGFyZW50IGRhdGEgZm9y
+IGNoZWNrIGluaXRpYWxpemluZz8NCg0KWWVzLCB0aGF0IG1ha2VzIHNlbnNlLg0KDQpIaSBHYXJ5
+IGFuZCBSeWFuLA0KDQpDYW4geW91IHBsZWFzZSB0ZWxsIHVzIHdoYXQgaXMgdGhlIGFjdHVhbCBw
+YXJlbnQgY2xvY2sgc291cmNlIG9mIExQQyBJUD8NCkkgbWVhbiB0aGUgb3BlcmF0aW9uYWwgY2xv
+Y2sgb2YgTFBDIElQIGhhcmR3YXJlIGJsb2NrLCBub3QgdGhlIGludGVyZmFjZQ0KY2xvY2suDQoN
+ClRoYW5rcywNCkphZQ0KDQoNClZpamF5LA0KSSB0cmFjZWQgbHBjLWN0cmwgbW9kdWxlLCBpdCBz
+ZWVtcyBkaXJlY3QgdXBkYXRlIHRoZSBzYW1lDQpBU1BFRURfQ0xLX0dBVEVfTENMSyByZWdpc3Rl
+ciBtYXAgYml0IHRvIGVuYWJsZS4gSWYgcGFyZW50IGRhdGEgaXMNCmRpc2FibGVkLCBpdCBjb3Vs
+ZCBlbmFibGUgaW4gZHRzLg0KVGhlIGRldmljZSB0cmVlIGRldGFpbCwgSSByZWZlcmVuY2UgaXQg
+ZnJvbSBhc3BlZWQtZzUuZHRzaS4gSG9wZSBpdA0KY291bGQgaGVscCB5b3UgZm9yIHdvcmsuDQoN
+ClRoYW5rcywNCg0KU2FtdWVsIEppYW5nDQoNClNhbXVhbC9KYXksDQpJbiBteSBjYXNlIGlmIEkg
+ZG9uJ3QgaW5pdGlhbGl6ZSBMUEMgY2xvY2sgaW4gZHJpdmVyLCBCaW9zIG9uIGhvc3Qgc2lkZSB3
+YWl0IGFuZCBkb2Vzbid0IGJvb3QuDQpJIGRvbid0IHVuZGVyc3RhbmQgaGVyZSB3aGF0IGlzIGhv
+bGRpbmcgQmlvcyBoZXJlIGJ1dCBieSBpbml0aWFsaXppbmcgdGhpcyBMUEMgY2xvY2sgbGV0IGJp
+b3MgYm9vdC4NCg0KUmVnYXJkcw0KLVZpamF5DQo=
 
-I'm new here and want to enable openbmc on my server.
+--_000_82b0b7960fa847a9b4eb77898782e613TWMBX01aspeedcom_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-It seems the bmcweb server didn't running on my openbmc or even not yet bui=
-ld the module in openbmc.
-So I think the bmcweb is not default build and running in openbmc.
-Do I need add some configure options or some others to support bmcweb in op=
-enbmc?
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+5paw57Sw5piO6auUOw0KCXBhbm9zZS0xOjIgMiA1IDAgMCAwIDAgMCAwIDA7fQ0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
+IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OlRhaG9tYTsN
+CglwYW5vc2UtMToyIDExIDYgNCAzIDUgNCA0IDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFt
+aWx5OiJcQOaWsOe0sOaYjumrlCI7DQoJcGFub3NlLTE6MiAxIDYgMSAwIDEgMSAxIDEgMTt9DQov
+KiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1z
+b05vcm1hbA0KCXttYXJnaW46MGNtOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNp
+emU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiLmlrDntLDmmI7pq5QiLHNlcmlmO30NCmE6bGluaywg
+c3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYz
+QzE7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlw
+ZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7
+DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwLm1zb25vcm1hbDAsIGxpLm1zb25vcm1h
+bDAsIGRpdi5tc29ub3JtYWwwDQoJe21zby1zdHlsZS1uYW1lOm1zb25vcm1hbDsNCgltc28tbWFy
+Z2luLXRvcC1hbHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6MGNtOw0KCW1zby1tYXJnaW4tYm90dG9t
+LWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0OjBjbTsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQt
+ZmFtaWx5OiLmlrDntLDmmI7pq5QiLHNlcmlmO30NCnNwYW4uRW1haWxTdHlsZTE4DQoJe21zby1z
+dHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNl
+cmlmOw0KCWNvbG9yOiMxRjQ5N0Q7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6
+ZXhwb3J0LW9ubHk7DQoJZm9udC1zaXplOjEwLjBwdDt9DQpAcGFnZSBXb3JkU2VjdGlvbjENCgl7
+c2l6ZTo2MTIuMHB0IDc5Mi4wcHQ7DQoJbWFyZ2luOjcyLjBwdCA5MC4wcHQgNzIuMHB0IDkwLjBw
+dDt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+
+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBz
+cGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4
+bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIg
+ZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4N
+Cjxib2R5IGxhbmc9IlpILVRXIiBsaW5rPSIjMDU2M0MxIiB2bGluaz0iIzk1NEY3MiI+DQo8ZGl2
+IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0i
+RU4tVVMiIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7
+Y29sb3I6IzFGNDk3RCI+SGVsbG8sPC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9u
+dC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj48bzpwPjwvbzpwPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZv
+bnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj4m
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgVGhlIGRlZmF1bHQgaXMg
+cnVubmluZywgbm90IHRvIHN0b3AuDQo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0Nh
+bGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9
+ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdE
+Ij5SeWFuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
+bGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMt
+c2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBu
+YW1lPSJtZXNzYWdlQm9keVNlY3Rpb24iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFu
+Zz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0FyaWFs
+JnF1b3Q7LHNhbnMtc2VyaWYiPkhpIFJ5YW4sPGJyPg0KPGJyPg0KSSB3YW50IHRvIGNvbmZpcm0m
+bmJzcDt0aGUgcmVnaXN0ZXIgZGVmYXVsdCBzZXQgb2YgTENMSyBpcyBydW5uaW5nIG9yIHN0b3Ag
+Zm9yIEFzcHBlZCBTb0M/PGJyPg0KPGJyPg0KSGkgSmFlLDxicj4NCkkgd2FudCB0byBjb25maXJt
+IHRoYXQgZG9lcyB0aGUgYXNwZWVkX2dhdGVzIGlzIHNldCBmb3IgbWF0Y2hpbmcgd2l0aCB0aGUg
+U29DIGRlZmF1bHQgY2xvY2sgc2V0dGluZz8NCjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJm
+b250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0FyaWFsJnF1b3Q7LHNhbnMtc2VyaWYi
+PiZuYnNwOzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250
+LWZhbWlseTomcXVvdDtBcmlhbCZxdW90OyxzYW5zLXNlcmlmIj48bzpwPiZuYnNwOzwvbzpwPjwv
+c3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5n
+PSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwm
+cXVvdDssc2Fucy1zZXJpZiI+SSBuZWVkIHRvIHRoZXNlIHRoaW5ncyBpbmZvcm1hdGlvbiBmb3Ig
+am9pbmluZyB0aGUgZGlzY3Vzc2lvbiB0byBhc3Npc3QgcGF0Y2ggdG8gc2VuZCB1cHN0cmVhbS48
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IG5hbWU9
+Im1lc3NhZ2VTaWduYXR1cmVTZWN0aW9uIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxh
+bmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPlRoYW5rcywgPG86cD48L286cD48L3NwYW4+
+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHls
+ZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtBcmlhbCZxdW90OyxzYW5zLXNl
+cmlmIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7
+Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+U2FtdWVsIEppYW5nPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZx
+dW90O0FyaWFsJnF1b3Q7LHNhbnMtc2VyaWYiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4N
+CjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxkaXYgbmFtZT0ibWVzc2FnZVJlcGx5U2VjdGlvbiI+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6
+ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+T24gRGVj
+IDQsIDIwMTgsIDI6MTcgUE0gJiM0MzswODAwLCBSeWFuIENoZW4gLCB3cm90ZTo8YnI+DQo8YnI+
+DQo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7
+Ym9yZGVyLWxlZnQ6c29saWQgIzFBQkM5QyAxLjBwdDtwYWRkaW5nOjBjbSAwY20gMGNtIDguMHB0
+O21hcmdpbi1sZWZ0OjMuNzVwdDttYXJnaW4tdG9wOjMuNzVwdDttYXJnaW4tcmlnaHQ6My43NXB0
+O21hcmdpbi1ib3R0b206My43NXB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9
+IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtBcmlhbCZx
+dW90OyxzYW5zLXNlcmlmIj5IZWxsbyBKYWUsPGJyPg0KQVNQRUVEIExQQyBJUCBIVyBibG9jayBo
+YXZlIHNlcnZhbCBjbGsgaW5wdXQuPGJyPg0KTW9zdCBpbXBvcnRhbnQgaXMgTENMSyBpcyBjb21l
+IGZyb20gTFBDIEhvc3QuPGJyPg0KVGhlIG90aGVycyBpcyBub3QgY29udHJvbGxhYmxlIGJ5IHJl
+Z2lzdGVyLjxicj4NClJ5YW48YnI+DQo8YnI+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLTxi
+cj4NCkZyb206IFZpamF5IEtoZW1rYSBbPGEgaHJlZj0ibWFpbHRvOnZpamF5a2hlbWthQGZiLmNv
+bSI+bWFpbHRvOnZpamF5a2hlbWthQGZiLmNvbTwvYT5dPGJyPg0KU2VudDogVHVlc2RheSwgRGVj
+ZW1iZXIgNCwgMjAxOCAzOjM4IEFNPGJyPg0KVG86IEphZSBIeXVuIFlvbyAmbHQ7PGEgaHJlZj0i
+bWFpbHRvOmphZS5oeXVuLnlvb0BsaW51eC5pbnRlbC5jb20iPmphZS5oeXVuLnlvb0BsaW51eC5p
+bnRlbC5jb208L2E+Jmd0OzsgU2FtdWVsIEppYW5nICZsdDs8YSBocmVmPSJtYWlsdG86Y2h5aXNo
+aWFuLmppYW5nQGdtYWlsLmNvbSI+Y2h5aXNoaWFuLmppYW5nQGdtYWlsLmNvbTwvYT4mZ3Q7OyBx
+aWFubGlodSAmbHQ7PGEgaHJlZj0ibWFpbHRvOndhbmd6aGlxaWFuZzg5MDZAZ21haWwuY29tIj53
+YW5nemhpcWlhbmc4OTA2QGdtYWlsLmNvbTwvYT4mZ3Q7Ow0KIEdhcnkgSHN1ICZsdDs8YSBocmVm
+PSJtYWlsdG86Z2FyeV9oc3VAYXNwZWVkdGVjaC5jb20iPmdhcnlfaHN1QGFzcGVlZHRlY2guY29t
+PC9hPiZndDs7IFJ5YW4gQ2hlbiAmbHQ7PGEgaHJlZj0ibWFpbHRvOnJ5YW5fY2hlbkBhc3BlZWR0
+ZWNoLmNvbSI+cnlhbl9jaGVuQGFzcGVlZHRlY2guY29tPC9hPiZndDs8YnI+DQpDYzogPGEgaHJl
+Zj0ibWFpbHRvOm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZyI+b3BlbmJtY0BsaXN0cy5vemxhYnMu
+b3JnPC9hPjxicj4NClN1YmplY3Q6IFJlOiBbSEVMUF0gaXBtaS1rY3MgZGlkbid0IHdvcms8YnI+
+DQo8YnI+DQo8YnI+DQo8YnI+DQo8L3NwYW4+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250
+LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O1RhaG9tYSZxdW90OyxzYW5zLXNlcmlmIj7v
+u788L3NwYW4+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQt
+ZmFtaWx5OiZxdW90O0FyaWFsJnF1b3Q7LHNhbnMtc2VyaWYiPk9uIDEyLzMvMTgsIDc6NTQgQU0s
+ICZxdW90O0phZSBIeXVuIFlvbyZxdW90OyAmbHQ7PGEgaHJlZj0ibWFpbHRvOmphZS5oeXVuLnlv
+b0BsaW51eC5pbnRlbC5jb20iPmphZS5oeXVuLnlvb0BsaW51eC5pbnRlbC5jb208L2E+Jmd0Ow0K
+IHdyb3RlOjxicj4NCjxicj4NCk9uIDEyLzEvMjAxOCA4OjI5IEFNLCBTYW11ZWwgSmlhbmcgd3Jv
+dGU6PGJyPg0KPGJyPg0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9
+ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNFNjdFMjIgMS4wcHQ7cGFkZGluZzowY20g
+MGNtIDBjbSA4LjBwdDttYXJnaW4tbGVmdDozLjc1cHQ7bWFyZ2luLXRvcDozLjc1cHQ7bWFyZ2lu
+LXJpZ2h0OjMuNzVwdDttYXJnaW4tYm90dG9tOjMuNzVwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+IiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0i
+Zm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtBcmlhbCZxdW90OyxzYW5zLXNlcmlm
+Ij5BcG9sb2dpemUgZm9yIHNlbmRpbmcgb3V0IG5vIGNvbnRlbnQgbWFpbCBmaXJzdC48YnI+DQo8
+YnI+DQpKYWUsPGJyPg0KVGhlIGFzcGVlZF9nYXRlcyBpbiBjbGstYXNwZWVkLmMgcGVyaGFwcyBh
+cyB0b2RvIHN1Z2dlc3QgYXNraW5nIEFzcGVlZDxicj4NCnRoZSBhY3R1YWwgcGFyZW50IGRhdGEg
+Zm9yIGNoZWNrIGluaXRpYWxpemluZz88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Jsb2NrcXVv
+dGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQt
+c2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+PGJy
+Pg0KWWVzLCB0aGF0IG1ha2VzIHNlbnNlLjxicj4NCjxicj4NCkhpIEdhcnkgYW5kIFJ5YW4sPGJy
+Pg0KPGJyPg0KQ2FuIHlvdSBwbGVhc2UgdGVsbCB1cyB3aGF0IGlzIHRoZSBhY3R1YWwgcGFyZW50
+IGNsb2NrIHNvdXJjZSBvZiBMUEMgSVA/PGJyPg0KSSBtZWFuIHRoZSBvcGVyYXRpb25hbCBjbG9j
+ayBvZiBMUEMgSVAgaGFyZHdhcmUgYmxvY2ssIG5vdCB0aGUgaW50ZXJmYWNlPGJyPg0KY2xvY2su
+PGJyPg0KPGJyPg0KVGhhbmtzLDxicj4NCkphZTxicj4NCjxicj4NCjxicj4NCjxvOnA+PC9vOnA+
+PC9zcGFuPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpz
+b2xpZCAjRTY3RTIyIDEuMHB0O3BhZGRpbmc6MGNtIDBjbSAwY20gOC4wcHQ7bWFyZ2luLWxlZnQ6
+My43NXB0O21hcmdpbi10b3A6My43NXB0O21hcmdpbi1yaWdodDozLjc1cHQ7bWFyZ2luLWJvdHRv
+bTozLjc1cHQiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxl
+PSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0FyaWFsJnF1b3Q7LHNhbnMtc2Vy
+aWYiPlZpamF5LDxicj4NCkkgdHJhY2VkIGxwYy1jdHJsIG1vZHVsZSwgaXQgc2VlbXMgZGlyZWN0
+IHVwZGF0ZSB0aGUgc2FtZTxicj4NCkFTUEVFRF9DTEtfR0FURV9MQ0xLIHJlZ2lzdGVyIG1hcCBi
+aXQgdG8gZW5hYmxlLiBJZiBwYXJlbnQgZGF0YSBpczxicj4NCmRpc2FibGVkLCBpdCBjb3VsZCBl
+bmFibGUgaW4gZHRzLjxicj4NClRoZSBkZXZpY2UgdHJlZSBkZXRhaWwsIEkgcmVmZXJlbmNlIGl0
+IGZyb20gYXNwZWVkLWc1LmR0c2kuIEhvcGUgaXQ8YnI+DQpjb3VsZCBoZWxwIHlvdSBmb3Igd29y
+ay48YnI+DQo8YnI+DQpUaGFua3MsPGJyPg0KPGJyPg0KU2FtdWVsIEppYW5nPG86cD48L286cD48
+L3NwYW4+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1h
+cmdpbi1ib3R0b206MTIuMHB0Ij48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZTox
+MC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+PGJyPg0KU2Ft
+dWFsL0pheSw8YnI+DQpJbiBteSBjYXNlIGlmIEkgZG9uJ3QgaW5pdGlhbGl6ZSBMUEMgY2xvY2sg
+aW4gZHJpdmVyLCBCaW9zIG9uIGhvc3Qgc2lkZSB3YWl0IGFuZCBkb2Vzbid0IGJvb3QuPGJyPg0K
+SSBkb24ndCB1bmRlcnN0YW5kIGhlcmUgd2hhdCBpcyBob2xkaW5nIEJpb3MgaGVyZSBidXQgYnkg
+aW5pdGlhbGl6aW5nIHRoaXMgTFBDIGNsb2NrIGxldCBiaW9zIGJvb3QuPGJyPg0KPGJyPg0KUmVn
+YXJkczxicj4NCi1WaWpheTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvYmxvY2txdW90ZT4NCjwv
+ZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-Now I'm success to build the openbmc and run it on a server with aspeed2500=
- bmc.
-
-I can login openbmc and also ssh on it.
-But I can't access the webui by browser.
-
-
-This site can't be reached
-
-10.64.5.0 refused to connect.
-
-Try:
-
-  *   Checking the connection
-  *   Checking the proxy and the firewall<chrome-error://chromewebdata/#but=
-tons>
-ERR_CONNECTION_REFUSED
-
-
-Thanks.
-
-Best Regards,
-Yao.
-
-
---_000_b5a3f14c40c04288ab7347f707904f3cHXTBJIDCEMVIW02hxtcorpn_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:\5B8B\4F53;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:\7B49\7EBF;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@\7B49\7EBF";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@\5B8B\4F53";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:\7B49\7EBF;}
-h1
-	{mso-style-priority:9;
-	mso-style-link:"Heading 1 Char";
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:24.0pt;
-	font-family:\5B8B\4F53;
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:\5B8B\4F53;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:\7B49\7EBF;
-	color:windowtext;}
-span.Heading1Char
-	{mso-style-name:"Heading 1 Char";
-	mso-style-priority:9;
-	mso-style-link:"Heading 1";
-	font-family:\5B8B\4F53;
-	font-weight:bold;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:\7B49\7EBF;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:450443829;
-	mso-list-template-ids:-1601158206;}
-@list l0:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:36.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:72.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:108.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:144.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:180.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:216.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:252.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:288.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:324.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
-fy-trim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">Hi all,<o:p></o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">I&#8217;m new here and want to enable op=
-enbmc on my server.<o:p></o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">It seems the bmcweb server didn&#8217;t =
-running on my openbmc or even not yet build the module in openbmc.<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">So I think the bmcweb is not default bui=
-ld and running in openbmc.<o:p></o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">Do I need add some configure options or =
-some others to support bmcweb in openbmc?<o:p></o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">Now I&#8217;m success to build the openb=
-mc and run it on a server with aspeed2500 bmc.<o:p></o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">I can login openbmc and also ssh on it.<=
-o:p></o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">But I can&#8217;t access the webui by br=
-owser.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<h1 style=3D"mso-margin-top-alt:0cm;margin-right:0cm;margin-bottom:12.0pt;m=
-argin-left:0cm;mso-line-height-alt:15.0pt;background:white">
-<span lang=3D"EN-US" style=3D"font-size:19.0pt;font-family:&quot;Segoe UI&q=
-uot;,sans-serif;color:#333333;font-weight:normal">This site can&#8217;t be =
-reached<o:p></o:p></span></h1>
-<p style=3D"background:white;font-variant-ligatures: normal;font-variant-ca=
-ps: normal;orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width:=
- 0px;text-decoration-style: initial;text-decoration-color: initial;word-spa=
-cing:0px">
-<strong><span lang=3D"EN-US" style=3D"font-size:11.5pt;font-family:&quot;Se=
-goe UI&quot;,sans-serif;color:#646464">10.64.5.0</span></strong><span lang=
-=3D"EN-US" style=3D"font-size:11.5pt;font-family:&quot;Segoe UI&quot;,sans-=
-serif;color:#646464">&nbsp;refused to connect.<o:p></o:p></span></p>
-<p style=3D"background:white;margin-block-end: 0px"><span lang=3D"EN-US" st=
-yle=3D"font-size:11.5pt;font-family:&quot;Segoe UI&quot;,sans-serif;color:#=
-646464">Try:<o:p></o:p></span></p>
-<ul type=3D"disc">
-<li class=3D"MsoNormal" style=3D"color:#646464;mso-margin-top-alt:auto;mso-=
-margin-bottom-alt:auto;text-align:left;mso-list:l0 level1 lfo1;background:w=
-hite">
-<span lang=3D"EN-US" style=3D"font-size:11.5pt;font-family:&quot;Segoe UI&q=
-uot;,sans-serif">Checking the connection<o:p></o:p></span></li><li class=3D=
-"MsoNormal" style=3D"color:#646464;mso-margin-top-alt:auto;mso-margin-botto=
-m-alt:auto;text-align:left;mso-list:l0 level1 lfo1;background:white">
-<span lang=3D"EN-US" style=3D"font-size:11.5pt;font-family:&quot;Segoe UI&q=
-uot;,sans-serif"><a href=3D"chrome-error://chromewebdata/#buttons"><span st=
-yle=3D"color:#1155CC">Checking the proxy and the firewall</span></a><o:p></=
-o:p></span></li></ul>
-<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
-e=3D"font-size:9.0pt;font-family:&quot;Segoe UI&quot;,sans-serif;color:#646=
-464;text-transform:uppercase">ERR_CONNECTION_REFUSED<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">Thanks.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">Best Regards,<o:p></o:p></span></p>
-<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
-=3D"EN-US" style=3D"color:#1F497D">Yao.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-</div>
-</body>
-</html>
-
---_000_b5a3f14c40c04288ab7347f707904f3cHXTBJIDCEMVIW02hxtcorpn_--
+--_000_82b0b7960fa847a9b4eb77898782e613TWMBX01aspeedcom_--
