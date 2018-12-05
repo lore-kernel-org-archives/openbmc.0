@@ -8,25 +8,26 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4391wq5jX8zDqsG
- for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 01:54:51 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4392455WnMzDqsr
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 02:01:09 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2018 06:54:49 -0800
+ 05 Dec 2018 07:01:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,317,1539673200"; d="scan'208";a="125309211"
+X-IronPort-AV: E=Sophos;i="5.56,317,1539673200"; d="scan'208";a="125311302"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.128.138])
  ([10.122.128.138])
- by fmsmga004.fm.intel.com with ESMTP; 05 Dec 2018 06:54:48 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 05 Dec 2018 07:01:07 -0800
 Subject: Re: [HELP] ipmi-kcs didn't work
-To: Ryan Chen <ryan_chen@aspeedtech.com>, Vijay Khemka <vijaykhemka@fb.com>,
- Samuel Jiang <chyishian.jiang@gmail.com>,
- qianlihu <wangzhiqiang8906@gmail.com>, Gary Hsu <gary_hsu@aspeedtech.com>
+To: Samuel Jiang <chyishian.jiang@gmail.com>,
+ Vijay Khemka <vijaykhemka@fb.com>, qianlihu <wangzhiqiang8906@gmail.com>,
+ Gary Hsu <gary_hsu@aspeedtech.com>, Ryan Chen <ryan_chen@aspeedtech.com>
 Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
  Jenmin Yuan <jenmin_yuan@aspeedtech.com>
 References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
+ <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
  <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
  <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
  <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
@@ -41,16 +42,14 @@ References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
  <25e866d4-749c-902b-86b2-3d38975dcc65@linux.intel.com>
  <033266A0-B6C1-4BE7-BA3B-A6E319BDD8D5@fb.com>
  <d002c20bfe964463b1d7c305b12fdd70@TWMBX01.aspeed.com>
- <904db864-71c4-d4e6-e7fd-14df7820fb7b@linux.intel.com>
- <D6923B46-D807-48AC-B007-2AFD3E72F8A9@fb.com>
- <790f8bc733404e189b52edc2c27b9fa5@TWMBX01.aspeed.com>
+ <48f0e3b4-eca5-4ca6-a9ce-40b2a393ede9@Spark>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <ce9bf9cd-4f69-5a1f-c98c-c3722a8d76dd@linux.intel.com>
-Date: Wed, 5 Dec 2018 08:54:49 -0600
+Message-ID: <11fda24c-a82d-2fb5-d0dd-e3f3001b4096@linux.intel.com>
+Date: Wed, 5 Dec 2018 09:01:06 -0600
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <790f8bc733404e189b52edc2c27b9fa5@TWMBX01.aspeed.com>
+In-Reply-To: <48f0e3b4-eca5-4ca6-a9ce-40b2a393ede9@Spark>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -65,47 +64,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Dec 2018 14:54:53 -0000
+X-List-Received-Date: Wed, 05 Dec 2018 15:01:10 -0000
 
-On 12/4/2018 7:04 PM, Ryan Chen wrote:
-> Hello Jae,
-> 		Yes, ESPICLK should be the same flag.
-> 		Thanks.
-> Ryan
+On 12/5/2018 12:45 AM, Samuel Jiang wrote:
+> Hi Ryan,
+> 
+> I want to confirm the register default set of LCLK is running or stop 
+> for Aspped SoC?
+> 
+> Hi Jae,
+> I want to confirm that does the aspeed_gates is set for matching with 
+> the SoC default clock setting?
 > 
 
-Thanks Ryan for the confirmation. We checked that LCLK gate can be
-opened by enabling lpc-ctrl node which has clock enabling code in
-itself. ESPICLK gate could be opened using the same way, I believe.
+Why should the aspeed_gates match with SoC default? All clocks will be
+set newly according to the dts setting at kernel booting time or at
+module probing time.
 
-Thanks,
 Jae
 
-> ﻿On 12/4/18, 7:44 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> wrote:
+> I need to these things information for joining the discussion to assist 
+> patch to send upstream.
 > 
->      On 12/4/2018 12:18 AM, Ryan Chen wrote:
->      > Hello Jae,
->      > 	ASPEED LPC IP HW block have serval clk input.
->      > 	Most important is LCLK is come from LPC Host.
->      > 	The others is not controllable by register.
->      > Ryan
->      >
->      
->      Hi Ryan,
->      
->      Thanks for the information. So clock source of LCLK is from external
->      usually from PCH, means that it doesn't have any parent dependency
->      within BMC. In this case, we need to mark CLK_IS_CRITICAL flag to enable
->      it. Also, we should mark the flag for ESPICLK too because eSPI is
->      sharing the same interface with LPC.
->      
->      I'll make and upstream a patch.
->      
->      Thanks,
->      Jae
-> Jae,
-> But I am able to enable clock through lpc-ctrl in dts. Which does same thing enabling clock for lpc. I don't think we need this patch.
+> Thanks,
 > 
-> Regards
-> -Vijay
+> Samuel Jiang
 > 
+> On Dec 4, 2018, 2:17 PM +0800, Ryan Chen , wrote:
+>> Hello Jae,
+>> ASPEED LPC IP HW block have serval clk input.
+>> Most important is LCLK is come from LPC Host.
+>> The others is not controllable by register.
+>> Ryan
+>>
+>> -----Original Message-----
+>> From: Vijay Khemka [mailto:vijaykhemka@fb.com]
+>> Sent: Tuesday, December 4, 2018 3:38 AM
+>> To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>; Samuel Jiang 
+>> <chyishian.jiang@gmail.com>; qianlihu <wangzhiqiang8906@gmail.com>; 
+>> Gary Hsu <gary_hsu@aspeedtech.com>; Ryan Chen <ryan_chen@aspeedtech.com>
+>> Cc: openbmc@lists.ozlabs.org
+>> Subject: Re: [HELP] ipmi-kcs didn't work
+>>
+>>
+>>
+>> ﻿On 12/3/18, 7:54 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> wrote:
+>>
+>> On 12/1/2018 8:29 AM, Samuel Jiang wrote:
+>>> Apologize for sending out no content mail first.
+>>>
+>>> Jae,
+>>> The aspeed_gates in clk-aspeed.c perhaps as todo suggest asking Aspeed
+>>> the actual parent data for check initializing?
+>>>
+>>
+>> Yes, that makes sense.
+>>
+>> Hi Gary and Ryan,
+>>
+>> Can you please tell us what is the actual parent clock source of LPC IP?
+>> I mean the operational clock of LPC IP hardware block, not the interface
+>> clock.
+>>
+>> Thanks,
+>> Jae
+>>
+>>> Vijay,
+>>> I traced lpc-ctrl module, it seems direct update the same
+>>> ASPEED_CLK_GATE_LCLK register map bit to enable. If parent data is
+>>> disabled, it could enable in dts.
+>>> The device tree detail, I reference it from aspeed-g5.dtsi. Hope it
+>>> could help you for work.
+>>>
+>>> Thanks,
+>>>
+>>> Samuel Jiang
+>>
+>> Samual/Jay,
+>> In my case if I don't initialize LPC clock in driver, Bios on host 
+>> side wait and doesn't boot.
+>> I don't understand here what is holding Bios here but by initializing 
+>> this LPC clock let bios boot.
+>>
+>> Regards
+>> -Vijay
+>>
