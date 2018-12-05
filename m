@@ -1,33 +1,32 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4391sC0xFSzDqfq
- for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 01:51:42 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4391wq5jX8zDqsG
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 01:54:51 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2018 06:51:39 -0800
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2018 06:54:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,317,1539673200"; d="scan'208";a="125308342"
+X-IronPort-AV: E=Sophos;i="5.56,317,1539673200"; d="scan'208";a="125309211"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.128.138])
  ([10.122.128.138])
- by fmsmga004.fm.intel.com with ESMTP; 05 Dec 2018 06:51:39 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 05 Dec 2018 06:54:48 -0800
 Subject: Re: [HELP] ipmi-kcs didn't work
-To: Vijay Khemka <vijaykhemka@fb.com>, Ryan Chen <ryan_chen@aspeedtech.com>,
+To: Ryan Chen <ryan_chen@aspeedtech.com>, Vijay Khemka <vijaykhemka@fb.com>,
  Samuel Jiang <chyishian.jiang@gmail.com>,
  qianlihu <wangzhiqiang8906@gmail.com>, Gary Hsu <gary_hsu@aspeedtech.com>
 Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
  Jenmin Yuan <jenmin_yuan@aspeedtech.com>
 References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
- <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
  <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
  <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
  <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
@@ -44,13 +43,14 @@ References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
  <d002c20bfe964463b1d7c305b12fdd70@TWMBX01.aspeed.com>
  <904db864-71c4-d4e6-e7fd-14df7820fb7b@linux.intel.com>
  <D6923B46-D807-48AC-B007-2AFD3E72F8A9@fb.com>
+ <790f8bc733404e189b52edc2c27b9fa5@TWMBX01.aspeed.com>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <7ebd688a-fff5-4e88-822f-f1a686921933@linux.intel.com>
-Date: Wed, 5 Dec 2018 08:51:40 -0600
+Message-ID: <ce9bf9cd-4f69-5a1f-c98c-c3722a8d76dd@linux.intel.com>
+Date: Wed, 5 Dec 2018 08:54:49 -0600
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
  Thunderbird/52.9.1
 MIME-Version: 1.0
-In-Reply-To: <D6923B46-D807-48AC-B007-2AFD3E72F8A9@fb.com>
+In-Reply-To: <790f8bc733404e189b52edc2c27b9fa5@TWMBX01.aspeed.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -65,11 +65,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Dec 2018 14:51:43 -0000
+X-List-Received-Date: Wed, 05 Dec 2018 14:54:53 -0000
 
-On 12/4/2018 5:59 PM, Vijay Khemka wrote:
+On 12/4/2018 7:04 PM, Ryan Chen wrote:
+> Hello Jae,
+> 		Yes, ESPICLK should be the same flag.
+> 		Thanks.
+> Ryan
 > 
-> 
+
+Thanks Ryan for the confirmation. We checked that LCLK gate can be
+opened by enabling lpc-ctrl node which has clock enabling code in
+itself. ESPICLK gate could be opened using the same way, I believe.
+
+Thanks,
+Jae
+
 > ﻿On 12/4/18, 7:44 AM, "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com> wrote:
 > 
 >      On 12/4/2018 12:18 AM, Ryan Chen wrote:
@@ -95,13 +106,6 @@ On 12/4/2018 5:59 PM, Vijay Khemka wrote:
 > Jae,
 > But I am able to enable clock through lpc-ctrl in dts. Which does same thing enabling clock for lpc. I don't think we need this patch.
 > 
-
-Okay, you confirmed it. I believe that we don't need to use the critical
-flag setting on LCLK then. Will drop the upstreaming patch.
-
-Thanks,
-Jae
-
 > Regards
 > -Vijay
 > 
