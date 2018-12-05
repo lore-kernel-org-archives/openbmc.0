@@ -1,46 +1,77 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43928m1F8bzDqtZ;
- Thu,  6 Dec 2018 02:04:35 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2018 07:04:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,317,1539673200"; d="scan'208";a="125312616"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.122.128.138])
- ([10.122.128.138])
- by fmsmga004.fm.intel.com with ESMTP; 05 Dec 2018 07:04:33 -0800
-Subject: Re: [PATCH v2] clk: aspeed: Mark lclk (LPC) and espiclk (eSPI) as
- critical
-To: Stephen Boyd <sboyd@kernel.org>, Joel Stanley <joel@jms.id.au>
-Cc: linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Michael Turquette <mturquette@baylibre.com>, chyishian.jiang@gmail.com,
- "# 3.4.x" <stable@vger.kernel.org>, linux-clk@vger.kernel.org,
- vijaykhemka@fb.com, Linux ARM <linux-arm-kernel@lists.infradead.org>
-References: <20181204185054.24053-1-jae.hyun.yoo@linux.intel.com>
- <CACPK8XcwMMoxG6vhDhUU8RYGABx7rtBoxJvp2yDhHeD-PemdqA@mail.gmail.com>
- <154395687459.88331.13570416457347078441@swboyd.mtv.corp.google.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <697a184b-ef99-a46e-bf98-4d339b3aafd8@linux.intel.com>
-Date: Wed, 5 Dec 2018 09:04:30 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4394CC073zzDqtj
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 03:37:26 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wB5GY3Ns023795
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Dec 2018 11:37:24 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2p6j698hxu-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Dec 2018 11:37:23 -0500
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Wed, 5 Dec 2018 16:37:23 -0000
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 5 Dec 2018 16:37:21 -0000
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ wB5GbK1M24182796
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 5 Dec 2018 16:37:20 GMT
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7095B78060;
+ Wed,  5 Dec 2018 16:37:20 +0000 (GMT)
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3978E7805E;
+ Wed,  5 Dec 2018 16:37:20 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed,  5 Dec 2018 16:37:20 +0000 (GMT)
 MIME-Version: 1.0
-In-Reply-To: <154395687459.88331.13570416457347078441@swboyd.mtv.corp.google.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+Date: Wed, 05 Dec 2018 10:41:11 -0600
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: uri.trichter@nuvoton.com, avi.fishman@nuvoton.com
+Cc: openbmc@lists.ozlabs.org
+Subject: Nuvoton's kernel patches going upstream?
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18120516-0012-0000-0000-000016E4F9B3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010176; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000270; SDB=6.01127402; UDB=6.00585586; IPR=6.00907536; 
+ MB=3.00024461; MTD=3.00000008; XFM=3.00000015; UTC=2018-12-05 16:37:22
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18120516-0013-0000-0000-0000555946ED
+Message-Id: <fb059c92b5cc5037fc4983c800704099@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-12-05_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=783 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1812050147
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,49 +83,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Dec 2018 15:05:13 -0000
+X-List-Received-Date: Wed, 05 Dec 2018 16:37:27 -0000
 
-On 12/4/2018 2:54 PM, Stephen Boyd wrote:
-> Quoting Joel Stanley (2018-12-04 12:51:43)
->> Hi Jae,
->>
->> On Wed, 5 Dec 2018 at 05:20, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->>>
->>> These interfaces are used by host to talk to BMC, and the clock
->>> source is from the host, usually from PCH. So this commit marks
->>> the lclk as critical to make it able to be enabled. Also, it marks
->>> espiclk too because eSPI is sharing the same interface with LPC.
->>
->> While this is true on the platform you have in mind, on other
->> platforms this is not the case. They do not use eSPI, and LCLK is
->> enabled by the driver that is used to configure LPC
->> (drivers/misc/aspeed-lpc-ctrl.c):
->>
->>   lpc_ctrl: lpc-ctrl@0 {
->>       compatible = "aspeed,ast2400-lpc-ctrl";
->>       reg = <0x0 0x80>;
->>       clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
->>   }
->>
->> I wonder if we need a device tree binding to describe which clocks are critical.
-> 
-> A binding to describe critical clks has been rejected in the past. I
-> don't think we need to have it here either? More information on why
-> things are being marked critical will be helpful to see if we need to
-> re-open that discussion again.
-> 
->>
->> Stephen, please don't merge this patch yet.
->>
-> 
-> Sure.
-> 
+Hi Uri, Avi,
 
-Hi Stephen and Joel,
-
-Thanks for blocking this patch. We checked that LCLK gate can be opened
-by enabling lpc-ctrl node without using this change. Please drop this
-patch.
-
-Thanks,
-Jae
+Wondering if you have plans to submit upstream the kernel patches you 
+have in the Nuvoton fork? I'm particularly interested in the nbd 
+disconnect fix to support Virtual Media :)
+If you have any questions about submitting upstream kernel patches I can 
+help with that. Thanks!
