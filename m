@@ -1,46 +1,81 @@
-Return-Path: <sboyd@kernel.org>
+Return-Path: <jrey@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=sboyd@kernel.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="MVdjBsO1"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4399f61zDqzDqK3
- for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 07:42:38 +1100 (AEDT)
-Received: from localhost (unknown [104.132.0.74])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4F7DB20850;
- Wed,  5 Dec 2018 20:42:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1544042556;
- bh=56xfK0f4Jt74vV+P9zWL3U/Bkp/4KRIX7RZj0NEPRr0=;
- h=To:From:In-Reply-To:Cc:References:Subject:Date:From;
- b=MVdjBsO1hVkzpxirhypwazW4HjjQKAJKXwRrZu/mcqwA22pBB2uIh5p5MJ/QV8Ayc
- fQHZYj8nE8Z2guy8DHNw+MEsrtINut/GAkRbgZgEh0BDb+J9lfXNyJbLDQ6ZLy609P
- cwBkwHuoPrHWgrDIp+UAMsGGT6Nyjx7ceshKPU2Y=
-Content-Type: text/plain; charset="utf-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 439Dvs5mDjzDr3M
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 10:09:45 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wB5N92tl030353
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Dec 2018 18:09:42 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2p6mn00nsa-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Dec 2018 18:09:42 -0500
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.vnet.ibm.com>;
+ Wed, 5 Dec 2018 23:09:41 -0000
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 5 Dec 2018 23:09:39 -0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ wB5N9clQ11010226
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Dec 2018 23:09:38 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1ACC46E053
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 23:09:38 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EA4396E050
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 23:09:37 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Dec 2018 23:09:36 +0000 (GMT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-To: Tali Perry <tali.perry1@gmail.com>, avifishman70@gmail.com,
- brendanhiggins@google.com, mturquette@baylibre.com, tmaimon77@gmail.com,
- venture@google.com, yuenn@google.com
-From: Stephen Boyd <sboyd@kernel.org>
-In-Reply-To: <20181205194702.257430-3-tali.perry1@gmail.com>
-Cc: openbmc@lists.ozlabs.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>
-References: <20181205194702.257430-1-tali.perry1@gmail.com>
- <20181205194702.257430-3-tali.perry1@gmail.com>
-Message-ID: <154404255553.88331.5492676494542176052@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.7
-Subject: Re: [PATCH v1 1/1] clk: npcm: get fixed input clks from DT
-Date: Wed, 05 Dec 2018 12:42:35 -0800
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 05 Dec 2018 17:13:28 -0600
+From: Joseph Reynolds <jrey@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: Re: Add TARGET_MACHINE to /etc/os-release
+In-Reply-To: <0b82208977f8010c41e35cc7e35e267d@linux.vnet.ibm.com>
+References: <mailman.11506.1542344002.668.openbmc@lists.ozlabs.org>
+ <966f717c-59a9-7f88-7b37-91edb9d72276@charter.net>
+ <FA5A8B03-6706-4072-A1A9-EE8B1BC1575F@fuzziesquirrel.com>
+ <0b82208977f8010c41e35cc7e35e267d@linux.vnet.ibm.com>
+X-Sender: jrey@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18120523-0012-0000-0000-000016E52061
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010178; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000270; SDB=6.01127532; UDB=6.00585664; IPR=6.00907667; 
+ MB=3.00024466; MTD=3.00000008; XFM=3.00000015; UTC=2018-12-05 23:09:39
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18120523-0013-0000-0000-0000555A1B31
+Message-Id: <2b69aaa0be31681792a08367a4dbe854@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-12-05_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=950 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1812050203
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,109 +87,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Dec 2018 20:42:39 -0000
+X-List-Received-Date: Wed, 05 Dec 2018 23:09:46 -0000
 
-Quoting Tali Perry (2018-12-05 11:47:02)
-> ---
+On 2018-11-29 17:03, Joseph Reynolds wrote:
+>> Proposal to add TARGET_MACHINE to /etc/os-release.
+> 
 
-No commit text? No Signed-off-by?
+I've pushed this as gerrit review 16489.
 
-Sorry, I don't understand what this patch is for or what's going on.
+https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-phosphor/+/16489/
 
->  drivers/clk/clk-npcm7xx.c | 64 +++++++++++++++++++++++++++++++++++++++--=
-------
->  1 file changed, 53 insertions(+), 11 deletions(-)
-> =
-
-> diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
-> index 27a86b7a34db..25f8ccaa3d2f 100644
-> --- a/drivers/clk/clk-npcm7xx.c
-> +++ b/drivers/clk/clk-npcm7xx.c
-> @@ -8,17 +8,23 @@
->   */
->  =
-
->  #include <linux/module.h>
-> +#include <linux/clk.h>
->  #include <linux/clk-provider.h>
-> +#include <linux/device.h>
->  #include <linux/io.h>
->  #include <linux/kernel.h>
->  #include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_platform.h>
->  #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <linux/err.h>
-> +#include <linux/rational.h>
->  #include <linux/bitfield.h>
-> -
->  #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
->  =
-
-> +
-
-I don't get it. Please don't send random whitespace changes in a patch.
-
->  struct npcm7xx_clk_pll {
->         struct clk_hw   hw;
->         void __iomem    *pllcon;
-> @@ -44,7 +50,8 @@ static unsigned long npcm7xx_clk_pll_recalc_rate(struct=
- clk_hw *hw,
->         u64 ret;
->  =
-
->         if (parent_rate =3D=3D 0) {
-> -               pr_err("%s: parent rate is zero", __func__);
-> +               pr_err("%s: parent rate is zero. reg=3D%s\n", __func__,
-> +                      hw->init->name);
-
-Why do we care?
-
->                 return 0;
->         }
->  =
-
-> @@ -544,12 +552,14 @@ static void __init npcm7xx_clk_init(struct device_n=
-ode *clk_np)
->         void __iomem *clk_base;
->         struct resource res;
->         struct clk_hw *hw;
-> +       struct clk *clk;
->         int ret;
->         int i;
->  =
-
-> +       clk_base =3D NULL;
->         ret =3D of_address_to_resource(clk_np, 0, &res);
->         if (ret) {
-> -               pr_err("%pOFn: failed to get resource, ret %d\n", clk_np,
-> +               pr_err("%s: failed to get resource, ret %d\n", clk_np->na=
-me,
->                         ret);
->                 return;
->         }
-
-Drop this change as it's making things worse.
-
-> @@ -558,9 +568,10 @@ static void __init npcm7xx_clk_init(struct device_no=
-de *clk_np)
->         if (!clk_base)
->                 goto npcm7xx_init_error;
->  =
-
-> -       npcm7xx_clk_data =3D kzalloc(struct_size(npcm7xx_clk_data, hws,
-> -                                  NPCM7XX_NUM_CLOCKS), GFP_KERNEL);
-> -       if (!npcm7xx_clk_data)
-> +       npcm7xx_clk_data =3D kzalloc(sizeof(*npcm7xx_clk_data->hws) *
-> +               NPCM7XX_NUM_CLOCKS + sizeof(npcm7xx_clk_data), GFP_KERNEL=
-);
-> +
-> +       if (!npcm7xx_clk_data->hws)
->                 goto npcm7xx_init_np_err;
->  =
-
->         npcm7xx_clk_data->num =3D NPCM7XX_NUM_CLOCKS;
-
-Drop this hunk.
+> I've updated the details to explain why the uname command is 
+> unsatisfactory.
+> 
+>> 
+>> In an OpenBMC image, the /etc/os-release file includes distro 
+>> ("openbmc-phosphor") and version (as a git tag or commit).  It should 
+>> also include the target machine (the kind of device the OpenBMC image 
+>> is intended to control).  This is needed to be able to track the image 
+>> back to its source code: the distro and version indicate the exact 
+>> source code that was used, and the target says which Bitbake layer 
+>> configuration within that source was used.
+>> 
+>> Specifically, the proposal is to enhance the generated /etc/os-release 
+>> file with a new OS identification parameter like:
+>>   OPENBMC_PHOSPHOR_TARGET_MACHINE="$MACHINE"
+>> where MACHINE="romulus", for example.
+>> 
+>> All OpenBMC images should define this os-release parameter.
+>> 
+>> Proposed documentation for the new parameter: Indicates the kind of 
+>> device the OpenBMC image is targeted to control.
+>> 
+>> ... tl;dr details follow ... snip ...
+>> 
+>> The MACHINE is set in 
+>> openbmc/meta-COMPANY/meta-MACHINE/conf/local.conf.sample.  (This is 
+>> where TEMPLATECONF points to.)
+>> 
+>> Note MACHINE is not guaranteed to be unique across all future OpenBMC 
+>> layer configurations.  (That is, meta-A/meta-B/conf and 
+>> meta-X/meta-Y/conf may inadvertently define the same machine name.) To 
+>> guarantee uniqueness, an alternate design would be to use the 
+>> TEMPLATECONF parameter as the machine name. (e.g., 
+>> "meta-ibm/meta-romulus/conf").  In practice I expect the machine name 
+>> will be sufficiently unique: as unique as different company's brand 
+>> and model names.
+>> 
+>> The manual page for "os-release" recommends prefixing the parameter 
+>> name with the distro name.  Ideas for alternate parameter names are 
+>> welcome ("OBMC_TARGET_HARDWARE" anyone?).  See 
+>> https://www.freedesktop.org/software/systemd/man/os-release.html.
+>> 
+>> The os-release file is generated by the os-release.bb and 
+>> os-release.bbappend recipes.
+> 
+> The "uname" command options -m (machine) and -i (hardware platform)
+> will continue to refer to the BMC and not its host.
