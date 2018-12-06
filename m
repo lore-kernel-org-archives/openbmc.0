@@ -1,83 +1,102 @@
-Return-Path: <chyishian.jiang@gmail.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::129; helo=mail-it1-x129.google.com;
- envelope-from=chyishian.jiang@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="a3x0emG9"; 
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="bZmlJog9"; 
  dkim-atps=neutral
-Received: from mail-it1-x129.google.com (mail-it1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 439TsN1j46zDr7V
- for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 19:53:27 +1100 (AEDT)
-Received: by mail-it1-x129.google.com with SMTP id z7so188168iti.0
- for <openbmc@lists.ozlabs.org>; Thu, 06 Dec 2018 00:53:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:message-id:in-reply-to:references:subject
- :mime-version; bh=K41vlMzCVCN5kK7RbYVXYANm1HYQQB+a/PM1wuKsh7k=;
- b=a3x0emG9KhjCuMhLY9Hnvz4PWvWhP/d9gRPG86+mxz4MjTDEDCKETGXkYzGeBBDw59
- YftYWWcZCDOWKmOLoZLK1zA3OxtMdSu+NsdkkAjA7oOv9QP4/R4QoI2VzsyNYAkYP0Vv
- H9Twqh/KJYk6PAUI7TX0wjUr1F/UnSxC2e2TTH3d4ClPAlK41Ais80hhkQICNE/NnXE5
- 4jL4mPJCPik7jvfHsjo2qaTPKO5KRjFy3075KL5iOTwjJoqJN/JtkqchNEktYotUEaJ5
- oI3aByGGBKdanZJde9x8CRie0izbeQFkVPj9mXgDlHMJTpJGl+4ITz8wMSqmc0I/nQDG
- Xi0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:message-id:in-reply-to
- :references:subject:mime-version;
- bh=K41vlMzCVCN5kK7RbYVXYANm1HYQQB+a/PM1wuKsh7k=;
- b=eHAaWAdwc6sMOKtpt302APMpYJ+GyJXh415PiBmxE9mztrTlkIETj+fNPcAo+/LWwR
- ByX7gHc1m+4STNiImhgrGGmdJSMO7ike3HT6v3yFusR4l1duaI1fpfV4Xkp8LI35mJt5
- zziNnf9QNE7OL18fT4hCstTvWK0BUQ5CXe5CTv9RX6UGyYbgUhjOGC7fbfqMIB0lzQUx
- 8gOKvlGS6+60G9chfXI6ZtZAdVgZ+U/G9U7qsitsoXSwqdeZeTCVJlAxUIqnACZS1LRQ
- kYUcUZXlRq0UpTot4wvdHWTeVOh75KSlV11u6x8hmx70sBFaqjP7i1/m6fSVGWzXuY65
- ppiQ==
-X-Gm-Message-State: AA+aEWbrjqes6SW64D7zW+/k7CsA49ZkxTGNa05KxOrYuSzxB5TefFPY
- 2pEznUkqzkoKHoJapPRjbWU=
-X-Google-Smtp-Source: AFSGD/XRIwLWxf5/N+m1g0pPe2I7D8DhTN52HO45WnHQHQq7E1lHoL3t+ZhlSSLSV2uG4zb3rTmjEg==
-X-Received: by 2002:a24:b003:: with SMTP id d3mr18438777itf.55.1544086405295; 
- Thu, 06 Dec 2018 00:53:25 -0800 (PST)
-Received: from [10.10.14.19] (220-135-135-179.HINET-IP.hinet.net.
- [220.135.135.179])
- by smtp.gmail.com with ESMTPSA id s13sm8455721ioj.0.2018.12.06.00.53.23
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 06 Dec 2018 00:53:24 -0800 (PST)
-Date: Thu, 6 Dec 2018 16:53:15 +0800
-From: Samuel Jiang <chyishian.jiang@gmail.com>
-To: Vijay Khemka <vijaykhemka@fb.com>, qianlihu
- <wangzhiqiang8906@gmail.com>, Gary Hsu <gary_hsu@aspeedtech.com>, Ryan
- Chen <ryan_chen@aspeedtech.com>, Jae Hyun Yoo
- <jae.hyun.yoo@linux.intel.com>
-Cc: "=?utf-8?Q?openbmc=40lists.ozlabs.org?=" <openbmc@lists.ozlabs.org>, 
- Jenmin Yuan <jenmin_yuan@aspeedtech.com>
-Message-ID: <5c845f98-659d-4bb9-80e8-1bc732fe8b65@Spark>
-In-Reply-To: <11fda24c-a82d-2fb5-d0dd-e3f3001b4096@linux.intel.com>
-References: <CAHkHK08zcycaqmg_Pkq=Oe+8xC8TBYsCoBGLA0CCwH0qvwicWg@mail.gmail.com>
- <3022407b-fa4e-9e80-2044-69dbf4f03586@linux.intel.com>
- <CAHkHK09Km5BVLdq7OMSwTLi05-KgDc8K8j9_+e1ewtGanyr4Tg@mail.gmail.com>
- <47558ef0-d8e9-de42-e1dd-be7293048a91@linux.intel.com>
- <A5419381-84F9-490A-8BF0-70C513741ECF@fb.com>
- <e63c758f-2eec-9e28-9381-4e28d2d8bb64@linux.intel.com>
- <4780f022-1c80-4b53-9eb1-0e3fe313c6a2@Spark>
- <db5cfcea-972d-2f50-05f4-266ab2c8f310@linux.intel.com>
- <87C3DCC8-F773-46A0-B8EC-5E3DC5E3983F@fb.com>
- <660c304f-60eb-f54a-f3b7-4d6d4481a96a@linux.intel.com>
- <A9318AC7-EE0E-4B84-84D1-A16695EE3FC0@fb.com>
- <b20d590b-be35-046e-26c2-2c1b2456309a@linux.intel.com>
- <253b7d32-1230-4111-a6dc-a84afddcc679@Spark>
- <25e866d4-749c-902b-86b2-3d38975dcc65@linux.intel.com>
- <033266A0-B6C1-4BE7-BA3B-A6E319BDD8D5@fb.com>
- <d002c20bfe964463b1d7c305b12fdd70@TWMBX01.aspeed.com>
- <48f0e3b4-eca5-4ca6-a9ce-40b2a393ede9@Spark>
- <11fda24c-a82d-2fb5-d0dd-e3f3001b4096@linux.intel.com>
-Subject: Re: [HELP] ipmi-kcs didn't work
-X-Readdle-Message-ID: 5c845f98-659d-4bb9-80e8-1bc732fe8b65@Spark
+ by lists.ozlabs.org (Postfix) with ESMTPS id 439VFn1WPNzDr1D
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 20:11:09 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id DC9C54194F
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 09:11:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:mime-version:user-agent:date:date
+ :message-id:subject:subject:from:from:received:received
+ :received; s=mta-01; t=1544087465; x=1545901866; bh=bq9d835uNds2
+ dFBD8uSixtYdLP6NcnYfXvq7s4pTqsQ=; b=bZmlJog9L4HnlntEiGlARQwTY0E+
+ 8ViwxPCcN6BFloMjV+7wr02RQBweELWOZeKbG4BJf3GSQgYFFvmePUnGPOe7c104
+ VDRoILKvdP+N+ZAnAFWloWfkEmUN2zmhVSbbVpJsmokn3q7PqVFyIW5fx06WBuRD
+ 6ENmwJMUW2yQa/M=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Ly_8rubMG1o3 for <openbmc@lists.ozlabs.org>;
+ Thu,  6 Dec 2018 12:11:05 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 240DF4193E
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Dec 2018 12:11:05 +0300 (MSK)
+Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 6 Dec
+ 2018 12:11:04 +0300
+To: <openbmc@lists.ozlabs.org>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Subject: Split and join. The preferred way.
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <e39c8977-b81b-d9ce-96c4-14dcd17bb508@yadro.com>
+Date: Thu, 6 Dec 2018 12:11:04 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="5c08e381_d34b6a8_225d"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="mmp7KN25EZWS1fyLSkb5AMLHFMm0WCZEa"
+X-Originating-IP: [172.17.14.197]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,273 +108,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Dec 2018 08:53:29 -0000
+X-List-Received-Date: Thu, 06 Dec 2018 09:11:10 -0000
 
---5c08e381_d34b6a8_225d
-Content-Type: text/plain; charset="utf-8"
+--mmp7KN25EZWS1fyLSkb5AMLHFMm0WCZEa
+Content-Type: multipart/mixed; boundary="83kE2V8tDqZ0gjSIcZfRNvqDRWgrjtcCy";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: openbmc@lists.ozlabs.org
+Message-ID: <e39c8977-b81b-d9ce-96c4-14dcd17bb508@yadro.com>
+Subject: Split and join. The preferred way.
+
+--83kE2V8tDqZ0gjSIcZfRNvqDRWgrjtcCy
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Language: en-US
+
+Hi all!
+
+As we all know, it's a common programming task to split/tokenize strings =
+and join tokens back together. Those trivial methods are however not impl=
+emented in STL for C++. There is a Boost way to do it, but as far as I un=
+derstand, Boost is not endorsed in OpenBMC for understandable reasons of =
+space-saving. Is there any openbmc-blessed method to split and join? Any =
+commonly used library with the methods to perform the task? I hate code d=
+uplication and wouldn't like to reinvent the bicycle.
+
+Thank you.
+
+Alexander.
 
 
-> Why should the aspeed=5Fgates match with SoC default=3F All clocks will=
- be
-> set newly according to the dts setting at kernel booting time or at
-> module probing time.
->
-> Jae
 
-Sorry, I misunderstand the aspeed=5Fgates purpose. =C2=A0Ignore my questi=
-on and drop the patch.
+--83kE2V8tDqZ0gjSIcZfRNvqDRWgrjtcCy--
 
-Thanks,
+--mmp7KN25EZWS1fyLSkb5AMLHFMm0WCZEa
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-Samuel Jiang
-On Dec 5, 2018, 11:01 PM +0800, Jae Hyun Yoo <jae.hyun.yoo=40linux.intel.=
-com>, wrote:
-> On 12/5/2018 12:45 AM, Samuel Jiang wrote:
-> > Hi Ryan,
-> >
-> > I want to confirm=C2=A0the register default set of LCLK is running or=
- stop
-> > for Aspped SoC=3F
-> >
-> > Hi Jae,
-> > I want to confirm that does the aspeed=5Fgates is set for matching wi=
-th
-> > the SoC default clock setting=3F
-> >
->
-> Why should the aspeed=5Fgates match with SoC default=3F All clocks will=
- be
-> set newly according to the dts setting at kernel booting time or at
-> module probing time.
->
-> Jae
->
-> > I need to these things information for joining the discussion to assi=
-st
-> > patch to send upstream.
-> >
-> > Thanks,
-> >
-> > Samuel Jiang
-> >
-> > On Dec 4, 2018, 2:17 PM +0800, Ryan Chen , wrote:
-> > > Hello Jae,
-> > > ASPEED LPC IP HW block have serval clk input.
-> > > Most important is LCLK is come from LPC Host.
-> > > The others is not controllable by register.
-> > > Ryan
-> > >
-> > > -----Original Message-----
-> > > =46rom: Vijay Khemka =5Bmailto:vijaykhemka=40fb.com=5D
-> > > Sent: Tuesday, December 4, 2018 3:38 AM
-> > > To: Jae Hyun Yoo <jae.hyun.yoo=40linux.intel.com>; Samuel Jiang
-> > > <chyishian.jiang=40gmail.com>; qianlihu <wangzhiqiang8906=40gmail.c=
-om>;
-> > > Gary Hsu <gary=5Fhsu=40aspeedtech.com>; Ryan Chen <ryan=5Fchen=40as=
-peedtech.com>
-> > > Cc: openbmc=40lists.ozlabs.org
-> > > Subject: Re: =5BHELP=5D ipmi-kcs didn't work
-> > >
-> > >
-> > >
-> > > On 12/3/18, 7:54 AM, =22Jae Hyun Yoo=22 <jae.hyun.yoo=40linux.intel=
-.com> wrote:
-> > >
-> > > On 12/1/2018 8:29 AM, Samuel Jiang wrote:
-> > > > Apologize for sending out no content mail first.
-> > > >
-> > > > Jae,
-> > > > The aspeed=5Fgates in clk-aspeed.c perhaps as todo suggest asking=
- Aspeed
-> > > > the actual parent data for check initializing=3F
-> > > >
-> > >
-> > > Yes, that makes sense.
-> > >
-> > > Hi Gary and Ryan,
-> > >
-> > > Can you please tell us what is the actual parent clock source of LP=
-C IP=3F
-> > > I mean the operational clock of LPC IP hardware block, not the inte=
-rface
-> > > clock.
-> > >
-> > > Thanks,
-> > > Jae
-> > >
-> > > > Vijay,
-> > > > I traced lpc-ctrl module, it seems direct update the same
-> > > > ASPEED=5FCLK=5FGATE=5FLCLK register map bit to enable. If parent =
-data is
-> > > > disabled, it could enable in dts.
-> > > > The device tree detail, I reference it from aspeed-g5.dtsi. Hope =
-it
-> > > > could help you for work.
-> > > >
-> > > > Thanks,
-> > > >
-> > > > Samuel Jiang
-> > >
-> > > Samual/Jay,
-> > > In my case if I don't initialize LPC clock in driver, Bios on host
-> > > side wait and doesn't boot.
-> > > I don't understand here what is holding Bios here but by initializi=
-ng
-> > > this LPC clock let bios boot.
-> > >
-> > > Regards
-> > > -Vijay
-> > >
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
---5c08e381_d34b6a8_225d
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+iQIcBAEBCAAGBQJcCOeoAAoJEOiTWHtbdBeN5/kP/19pR3Q2X/EsQ/9pX1tN7z4Y
+6ggmXVXj62t7p8GkBiloPMfvtQ96ZiTlgJbKy8nSfH8mYZphRtuFhdGfAYcszmaq
+HOciAeIikFqXageRzYhvuCRvL4fbz/YYB9NgV0Oi02Lmg54naGIHa724A/Na+meK
+ERUHn3wL/93sJQJKUFiIuB1to3PsVnQnvBz5kDumqxkXEImSwzyVh5fBRtcHFu6d
+OmF4tD/TY6u595K2bi856pqAeXJeQUfiXyuD1SubFXklRiCmX/sryS4YhQAsFaKH
+n2SKTS1SMTgUOcO8JLgRqHyXVk0h8bChT2NdViECuvb/Z8pIq5fJXCpH5AQCUPIX
+tTkEWblDstZA6FvX2S2Ota1zZzwooACZi0zV89FF65Vsj2gaLpKPuwCTK3TyOORM
+u89KxBcAERfAQtwhog3xvUVFjPOP6WrJCWkEsz6IK1EgOB0RBGDNi4XdbdiIZ1Td
+C56pcsxk51GDy+Zy2JIGU45kHoFKcTPWNtvl/kyeWenulst9mQUc1f2CbZrP26bR
+u2KnD8uxzupgM2KfmROHr/yDVvOWFYQm9IOG6RQanC+uoRYmf0fTHNsQEg46Q9hk
+j95DzJrCD6tArXa3++Z+dScCas4kcB8U4AUgDJx+MSBfZuZ5bv1e6K3CsQJiRVyR
+763+809QAi5rgwVRF3/3
+=qmNt
+-----END PGP SIGNATURE-----
 
-<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
-<head>
-<title></title>
-</head>
-<body>
-<div name=3D=22messageBodySection=22 style=3D=22font-size: 14px; font-fam=
-ily: -apple-system, BlinkMacSystem=46ont, sans-serif;=22>
-<div><br /></div>
-<div>
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =231abc9c;=22>Why should the aspeed=5Fgates =
-match with SoC default=3F All clocks will be<br />
-set newly according to the dts setting at kernel booting time or at<br />=
-
-module probing time.<br />
-<br />
-Jae</blockquote>
-</div>
-<div><br /></div>
-<div>Sorry, I misunderstand the aspeed=5Fgates purpose. &=23160;Ignore my=
- question and drop the patch.<br /></div>
-</div>
-<div name=3D=22messageSignatureSection=22 style=3D=22font-size: 14px; fon=
-t-family: -apple-system, BlinkMacSystem=46ont, sans-serif;=22><br />
-Thanks,
-<div><br /></div>
-<div>Samuel Jiang</div>
-</div>
-<div name=3D=22messageReplySection=22 style=3D=22font-size: 14px; font-fa=
-mily: -apple-system, BlinkMacSystem=46ont, sans-serif;=22>On Dec 5, 2018,=
- 11:01 PM +0800, Jae Hyun Yoo &lt;jae.hyun.yoo=40linux.intel.com&gt;, wro=
-te:<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =231abc9c;=22>On 12/5/2018 12:45 AM, Samuel =
-Jiang wrote:<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =23e67e22;=22>Hi Ryan,<br />
-<br />
-I want to confirm&=23160;the register default set of LCLK is running or s=
-top<br />
-for Aspped SoC=3F<br />
-<br />
-Hi Jae,<br />
-I want to confirm that does the aspeed=5Fgates is set for matching with<b=
-r />
-the SoC default clock setting=3F<br />
-<br /></blockquote>
-<br />
-Why should the aspeed=5Fgates match with SoC default=3F All clocks will b=
-e<br />
-set newly according to the dts setting at kernel booting time or at<br />=
-
-module probing time.<br />
-<br />
-Jae<br />
-<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =23e67e22;=22>I need to these things informa=
-tion for joining the discussion to assist<br />
-patch to send upstream.<br />
-<br />
-Thanks,<br />
-<br />
-Samuel Jiang<br />
-<br />
-On Dec 4, 2018, 2:17 PM +0800, Ryan Chen , wrote:<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =233498db;=22>Hello Jae,<br />
-ASPEED LPC IP HW block have serval clk input.<br />
-Most important is LCLK is come from LPC Host.<br />
-The others is not controllable by register.<br />
-Ryan<br />
-<br />
------Original Message-----<br />
-=46rom: Vijay Khemka =5Bmailto:vijaykhemka=40fb.com=5D<br />
-Sent: Tuesday, December 4, 2018 3:38 AM<br />
-To: Jae Hyun Yoo &lt;jae.hyun.yoo=40linux.intel.com&gt;; Samuel Jiang<br =
-/>
-&lt;chyishian.jiang=40gmail.com&gt;; qianlihu &lt;wangzhiqiang8906=40gmai=
-l.com&gt;;<br />
-Gary Hsu &lt;gary=5Fhsu=40aspeedtech.com&gt;; Ryan Chen &lt;ryan=5Fchen=40=
-aspeedtech.com&gt;<br />
-Cc: openbmc=40lists.ozlabs.org<br />
-Subject: Re: =5BHELP=5D ipmi-kcs didn't work<br />
-<br />
-<br />
-<br />
-=EF=BB=BFOn 12/3/18, 7:54 AM, =22Jae Hyun Yoo=22 &lt;jae.hyun.yoo=40linux=
-.intel.com&gt; wrote:<br />
-<br />
-On 12/1/2018 8:29 AM, Samuel Jiang wrote:<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =23d35400;=22>Apologize for sending out no c=
-ontent mail first.<br />
-<br />
-Jae,<br />
-The aspeed=5Fgates in clk-aspeed.c perhaps as todo suggest asking Aspeed<=
-br />
-the actual parent data for check initializing=3F<br />
-<br /></blockquote>
-<br />
-Yes, that makes sense.<br />
-<br />
-Hi Gary and Ryan,<br />
-<br />
-Can you please tell us what is the actual parent clock source of LPC IP=3F=
-<br />
-I mean the operational clock of LPC IP hardware block, not the interface<=
-br />
-clock.<br />
-<br />
-Thanks,<br />
-Jae<br />
-<br />
-<blockquote type=3D=22cite=22 style=3D=22margin: 5px 5px; padding-left: 1=
-0px; border-left: thin solid =23d35400;=22>Vijay,<br />
-I traced lpc-ctrl module, it seems direct update the same<br />
-ASPEED=5FCLK=5FGATE=5FLCLK register map bit to enable. If parent data is<=
-br />
-disabled, it could enable in dts.<br />
-The device tree detail, I reference it from aspeed-g5.dtsi. Hope it<br />=
-
-could help you for work.<br />
-<br />
-Thanks,<br />
-<br />
-Samuel Jiang<br /></blockquote>
-<br />
-Samual/Jay,<br />
-In my case if I don't initialize LPC clock in driver, Bios on host<br />
-side wait and doesn't boot.<br />
-I don't understand here what is holding Bios here but by initializing<br =
-/>
-this LPC clock let bios boot.<br />
-<br />
-Regards<br />
--Vijay<br />
-<br /></blockquote>
-</blockquote>
-</blockquote>
-</div>
-</body>
-</html>
-
---5c08e381_d34b6a8_225d--
+--mmp7KN25EZWS1fyLSkb5AMLHFMm0WCZEa--
