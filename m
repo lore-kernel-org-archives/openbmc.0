@@ -7,30 +7,30 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="iwN8kmXP"; dkim-atps=neutral
+ header.b="DUyk9zKX"; dkim-atps=neutral
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 439nF033vszDrNH
- for <openbmc@lists.ozlabs.org>; Fri,  7 Dec 2018 07:26:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 439nF45gDyzDrNG
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Dec 2018 07:26:32 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=DLRlTiuMZBjUlVcIoi5M3mznlf7ZF6F+8wxYhmvyBVA=; b=iwN8kmXP9W+a
- 1ESY3eWzU9A3GEZakxutiq1xESVCw0vI1l+jHFpzxEIeieJsRBNlrrVqeMAkP7dZmW/ithpe59Cpj
- XEga1+BgpMlcFoi2Z8WjS7hve1XsqXp+9z0/9OO0p88PTSWOQFqF4TiI/qvNuDci/i89jjoo/bGt8
- AP1Jc=;
+ List-Archive; bh=t8KFbJ2NXZ0FGG+ttZKp3CG22kWVDCaNGg/o746SS1M=; b=DUyk9zKXOOsV
+ i5WT3WblmUtTngOlDvXi8qdqBPwY1Wz6KOTMc/mOg4o7MutOoWMZlG9zpSpZBfvvQEPO/c+WJQgXJ
+ D5IK4JagGH8s9X7uIWsgaC6l6zUebMRbigmKIk+VM71y/kMsf9+2eJOeG4VSA1v6qWSokHL2j/NBW
+ 9wt2Q=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1gV0E3-0001iK-J7; Thu, 06 Dec 2018 20:26:23 +0000
+ id 1gV0E1-0001iH-On; Thu, 06 Dec 2018 20:26:21 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 45BB811252F7; Thu,  6 Dec 2018 20:26:23 +0000 (GMT)
+ id 6D6ED11252F7; Thu,  6 Dec 2018 20:26:21 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Tomer Maimon <tmaimon77@gmail.com>
 Cc: Mark Brown <broonie@kernel.org>, broonie@kernel.org, robh+dt@kernel.org,
@@ -39,11 +39,12 @@ Cc: Mark Brown <broonie@kernel.org>, broonie@kernel.org, robh+dt@kernel.org,
  linux-spi@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-spi@vger.kernel.org
-Subject: Applied "spi: npcm: Modify pspi send function" to the spi tree
-In-Reply-To: <20181204134035.124079-1-tmaimon77@gmail.com>
+Subject: Applied "spi: Update NPCM PSPI controller documentation" to the spi
+ tree
+In-Reply-To: <20181204135442.125269-1-tmaimon77@gmail.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20181206202623.45BB811252F7@debutante.sirena.org.uk>
-Date: Thu,  6 Dec 2018 20:26:23 +0000 (GMT)
+Message-Id: <20181206202621.6D6ED11252F7@debutante.sirena.org.uk>
+Date: Thu,  6 Dec 2018 20:26:21 +0000 (GMT)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,11 +56,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Dec 2018 20:26:28 -0000
+X-List-Received-Date: Thu, 06 Dec 2018 20:26:33 -0000
 
 The patch
 
-   spi: npcm: Modify pspi send function
+   spi: Update NPCM PSPI controller documentation
 
 has been applied to the spi tree at
 
@@ -84,52 +85,40 @@ to this mail.
 Thanks,
 Mark
 
-From 1fa33be36cfc8908be951ed56113906f422add50 Mon Sep 17 00:00:00 2001
+From 6ab4a3502923c20c5a6921868e787e5fd033409b Mon Sep 17 00:00:00 2001
 From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Tue, 4 Dec 2018 15:40:35 +0200
-Subject: [PATCH] spi: npcm: Modify pspi send function
+Date: Tue, 4 Dec 2018 15:54:42 +0200
+Subject: [PATCH] spi: Update NPCM PSPI controller documentation
 
-Align pspi send function code with the recieve function
-code, Also simplify the code a bit with early return.
+Update the PSPI NPCM binding document of the spi aliases use
+to define the spi ID number.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/spi/spi-npcm-pspi.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ .../devicetree/bindings/spi/nuvoton,npcm-pspi.txt         | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
-index dda91c19af93..e1dca79b9090 100644
---- a/drivers/spi/spi-npcm-pspi.c
-+++ b/drivers/spi/spi-npcm-pspi.c
-@@ -199,14 +199,22 @@ static void npcm_pspi_send(struct npcm_pspi *priv)
- 	wsize = min(bytes_per_word(priv->bits_per_word), priv->tx_bytes);
- 	priv->tx_bytes -= wsize;
+diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
+index 99606b22e5c2..1fd9a4406a1d 100644
+--- a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
++++ b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
+@@ -19,8 +19,16 @@ Optional properties:
+ - clock-frequency : Input clock frequency to the PSPI block in Hz.
+ 		    Default is 25000000 Hz.
  
--	if (priv->tx_buf) {
--		if (wsize == 1)
--			iowrite8(*priv->tx_buf, NPCM_PSPI_DATA + priv->base);
--		if (wsize == 2)
--			iowrite16(*priv->tx_buf, NPCM_PSPI_DATA + priv->base);
-+	if (!priv->tx_buf)
-+		return;
- 
--		priv->tx_buf += wsize;
-+	switch (wsize) {
-+	case 1:
-+		iowrite8(*priv->tx_buf, NPCM_PSPI_DATA + priv->base);
-+		break;
-+	case 2:
-+		iowrite16(*priv->tx_buf, NPCM_PSPI_DATA + priv->base);
-+		break;
-+	default:
-+		WARN_ON_ONCE(1);
-+		return;
- 	}
++Aliases:
++- All the SPI controller nodes should be represented in the aliases node using
++  the following format 'spi{n}' withe the correct numbered in "aliases" node.
 +
-+	priv->tx_buf += wsize;
- }
+ Example:
  
- static void npcm_pspi_recv(struct npcm_pspi *priv)
++aliases {
++	spi0 = &spi0;
++};
++
+ spi0: spi@f0200000 {
+ 	compatible = "nuvoton,npcm750-pspi";
+ 	reg = <0xf0200000 0x1000>;
 -- 
 2.19.0.rc2
