@@ -1,54 +1,74 @@
-Return-Path: <nilan.naidoo@intel.com>
+Return-Path: <daniel.lezcano@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=nilan.naidoo@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:4864:20::443; helo=mail-wr1-x443.google.com;
+ envelope-from=daniel.lezcano@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="cpzQws6b"; 
+ dkim-atps=neutral
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43B1XZ2M3SzDrdc
- for <openbmc@lists.ozlabs.org>; Fri,  7 Dec 2018 16:40:43 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2018 21:40:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,324,1539673200"; d="scan'208";a="257531234"
-Received: from orsmsx103.amr.corp.intel.com ([10.22.225.130])
- by orsmga004.jf.intel.com with ESMTP; 06 Dec 2018 21:40:40 -0800
-Received: from orsmsx122.amr.corp.intel.com ([169.254.11.147]) by
- ORSMSX103.amr.corp.intel.com ([169.254.5.249]) with mapi id 14.03.0415.000;
- Thu, 6 Dec 2018 21:40:40 -0800
-From: "Naidoo, Nilan" <nilan.naidoo@intel.com>
-To: Jeremy Kerr <jk@ozlabs.org>, openbmc <openbmc@lists.ozlabs.org>
-CC: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>, David Thompson
- <dthompson@mellanox.com>, Emily Shaffer <emilyshaffer@google.com>, Dong Wei
- <Dong.Wei@arm.com>, Andrew Geissler <geissonator@gmail.com>
-Subject: RE: Initial MCTP design proposal
-Thread-Topic: Initial MCTP design proposal
-Thread-Index: AQHUjdZYZngH62qlC0Oe/pVC3VgkIKVynVUAgACiX4D//3xdIA==
-Date: Fri, 7 Dec 2018 05:40:40 +0000
-Message-ID: <471CB8EC3D4A874BBFE213C33E2BC2170E8C9648@ORSMSX122.amr.corp.intel.com>
-References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
- <471CB8EC3D4A874BBFE213C33E2BC2170E8C95D6@ORSMSX122.amr.corp.intel.com>
- <b6a65831e47d25a624835a895b8af935f321999d.camel@ozlabs.org>
-In-Reply-To: <b6a65831e47d25a624835a895b8af935f321999d.camel@ozlabs.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: request-justification,no-action
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiY2RjNDQyMTgtOWNmYS00YmFjLTg3ZmMtOGYyNTU5Y2RjY2UxIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiVW1yank2V09LRTFiWDlITmMzQkdXR24xUFwvTFpRclwvbzVVNnJnVFJaTUdiaHVhS0YwblwvalBPekZ0Vm9uRnZYSyJ9
-x-ctpclassification: CTP_NT
-x-originating-ip: [10.22.254.138]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43B3PX3QYczDrQD
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Dec 2018 18:04:44 +1100 (AEDT)
+Received: by mail-wr1-x443.google.com with SMTP id b14so2727308wru.12
+ for <openbmc@lists.ozlabs.org>; Thu, 06 Dec 2018 23:04:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=VYaH+iK80F2dK8xvwFZZ+PfPb10+61RH8PGauKSiAVk=;
+ b=cpzQws6b6/Cw1bfa9E8Plxhux9LWhlAagO8y2Wryt1XlpSAz0tQD31RDaSm8dV0f0g
+ C0Io9A8BioRjhLetJkeFosMxQz9h3CYK8kKwAhyfS3pey0b+9EdwQ5nHu0/lCZYYBrH4
+ mXMXt1tNspBMT/B+rjzlIG9Ghm9QsCCjdFax0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=VYaH+iK80F2dK8xvwFZZ+PfPb10+61RH8PGauKSiAVk=;
+ b=obLQGeZu5PFxsFJNxWhqLA9jEGWF47Y7vnruMGwdviw3C95msxQrTaE9hM4u5VuDo2
+ vIrypvVFxhW/hU2CBXx3DGeJzKk9+mkhoBcDnJkoGAnLcQnoumTsCs57970Gwr8wTqe8
+ vgOPebIgbiwgB3EGlB4ul8ioLI9bshvwyBEfBT7bcGQYKhwcM2WQrEUX1S6Jn22Mo+Zk
+ KuHKbx40rJka5zKt2eRLwBQ17tZQMvJoU5JYT90uh0pjzpvSRmh/2tb/FLs+WXvG2dop
+ dVgiEqBN/tQfhIc5iVoMD6mk+nFOm21e70mkiJrGMRp2BBINzxxcVa7phThms5mDLyQm
+ FMEw==
+X-Gm-Message-State: AA+aEWZCT8AAuzAwgL0RmlFu/YsrJAssleLSEQI5YBh9J3/HKo5OZs0R
+ NdEwpZBmMfGw7NLAIrTHPDyoWg==
+X-Google-Smtp-Source: AFSGD/V7qVEW0Rxapwhz2KPm2aJJhQ1P8jBcQ6RZgOZtKoXRNcDbmufBIuyzBSSqYJltqYQj09+RqA==
+X-Received: by 2002:adf:e54a:: with SMTP id z10mr781386wrm.238.1544166281527; 
+ Thu, 06 Dec 2018 23:04:41 -0800 (PST)
+Received: from [192.168.0.40] (80.149.136.77.rev.sfr.net. [77.136.149.80])
+ by smtp.googlemail.com with ESMTPSA id y34sm7103070wrd.68.2018.12.06.23.04.40
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 06 Dec 2018 23:04:40 -0800 (PST)
+Subject: Re: [PATCH v2] clocksource/drivers/fttmr010: fix invalid interrupt
+ register access
+To: Tao Ren <taoren@fb.com>, Thomas Gleixner <tglx@linutronix.de>
+Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Yu Lei <mine260309@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linus Walleij <linus.walleij@linaro.org>
+References: <20181003215350.3550926-1-taoren@fb.com>
+ <CACRpkdbbUO9_VOtnZL+Xf_0nTTgSruaaPOLnvZ4M+NQfPLzvWQ@mail.gmail.com>
+ <BC1ADE3F-F31F-4E1E-A6EE-3BD83C5F2634@fb.com>
+ <279e6a06-3f2f-e736-f28e-4d099729a517@linaro.org>
+ <7284BEA6-FAE9-4293-94E0-FC29304AA36D@fb.com>
+ <48A12A26-5AF0-483C-85D4-428F00038D7A@fb.com>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+Message-ID: <47d85e8e-bf01-11a7-9c02-6d934d911178@linaro.org>
+Date: Fri, 7 Dec 2018 08:04:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
+In-Reply-To: <48A12A26-5AF0-483C-85D4-428F00038D7A@fb.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,31 +80,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Dec 2018 05:40:47 -0000
+X-List-Received-Date: Fri, 07 Dec 2018 07:04:49 -0000
 
-SGkgSmVyZW15LA0KDQpUaGUgQVNQRUVEIGRvZXMgaGF2ZSAgaGFyZHdhcmUgc3VwcG9ydCBmb3Ig
-UENJZSBWRE0gdmlhIHRoZSBNQ1RQIENvbnRyb2xsZXIgYmxvY2suIA0KDQpOaWxhbg0KDQoNCi0t
-LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBKZXJlbXkgS2VyciBbbWFpbHRvOmprQG96
-bGFicy5vcmddIA0KU2VudDogVGh1cnNkYXksIERlY2VtYmVyIDYsIDIwMTggOTowNyBQTQ0KVG86
-IE5haWRvbywgTmlsYW4gPG5pbGFuLm5haWRvb0BpbnRlbC5jb20+OyBvcGVuYm1jIDxvcGVuYm1j
-QGxpc3RzLm96bGFicy5vcmc+DQpDYzogU3VwcmVldGggVmVua2F0ZXNoIDxTdXByZWV0aC5WZW5r
-YXRlc2hAYXJtLmNvbT47IERhdmlkIFRob21wc29uIDxkdGhvbXBzb25AbWVsbGFub3guY29tPjsg
-RW1pbHkgU2hhZmZlciA8ZW1pbHlzaGFmZmVyQGdvb2dsZS5jb20+OyBEb25nIFdlaSA8RG9uZy5X
-ZWlAYXJtLmNvbT47IEFuZHJldyBHZWlzc2xlciA8Z2Vpc3NvbmF0b3JAZ21haWwuY29tPg0KU3Vi
-amVjdDogUmU6IEluaXRpYWwgTUNUUCBkZXNpZ24gcHJvcG9zYWwNCg0KSGkgTmlsYW4sDQoNClRo
-YW5rcyBmb3IgdGFraW5nIGEgbG9vay4NCg0KPiBBcyBmYXIgYXMgdGhlIGZlYXR1cmVzIHRoYXQg
-bmVlZCB0byBiZSBzdXBwb3J0ZWQsIHdlIGFyZSBpbml0aWFsbHkgDQo+IGludGVyZXN0ZWQgaW4g
-UENJZSBWRE0gYW5kIFNNQnVzL0kyQyBoYXJkd2FyZSBiaW5kaW5ncy4NCg0KT0ssIHN1cmUgdGhp
-bmcuIElzIHRoaXMgb24gQVNQRUVEIGhhcmR3YXJlPw0KDQo+ICAgVGhlIEJNQyB3aWxsIGFsc28g
-bmVlZCB0byBiZSB0aGUgQnVzIG93bmVyIGZvciB0aGUgaW50ZXJmYWNlcy4NCj4gIEl0IGlzIG5v
-dCBjbGVhciB0byBiZSB5ZXQgaWYgd2Ugd291bGQgYWxzbyBuZWVkIGJyaWRnaW5nIGZvciBvdXIg
-DQo+IGluaXRpYWwgdXNlIGNhc2VzLg0KDQpZZXMsIEkgdGhpbmsgdGhpcyBtYXRjaGVzIG91ciBk
-ZXNpZ25zIHRvbzsgSSBkb24ndCBzZWUgdXMgbmVlZGluZyBicmlkZ2luZyBhdCBwcmVzZW50Lg0K
-DQo+ICAgVGhlIG1lc3NhZ2UgdHlwZXMgdGhhdCB3ZSBuZWVkIHRvIHN1cHBvcnQgYXJlIE5WTWUt
-U0ksIFBMRE0gYW5kIA0KPiBWZW5kb3IgRGVmaW5lZCAtIFBDSSAoMHg3RSkuIFdlIGN1cnJlbnRs
-eSBkb24ndCBoYXZlIGEgc3Ryb25nIG5lZWQgZm9yIA0KPiBzdXBwb3J0aW5nIHRoZSBob3N0IGlu
-dGVyZmFjZS4NCg0KT2gsIGludGVyZXN0aW5nLCBJIGRpZG4ndCBleHBlY3QgZm9sa3MgdG8gYmUg
-dXNpbmcgTUNUUCBidXQgbm90IGluY2x1ZGluZyB0aGUgaG9zdCBjaGFubmVsLiBUaGVyZSdzIG5v
-IGlzc3VlIHdpdGggdGhhdCwgc28gSSdsbCB1cGRhdGUgdGhlIHdvcmRpbmcgc28gaXQncyBjbGVh
-ciB0aGF0IHRoaXMgY2FuIGJlIGFjY29tbW9kYXRlZC4NCg0KQ2hlZXJzLA0KDQoNCkplcmVteQ0K
-DQo=
+On 07/12/2018 02:13, Tao Ren wrote:
+> On 11/5/18, 11:00 AM, "Tao Ren" <taoren@fb.com> wrote:
+> 
+>> On 11/5/18, 10:51 AM, "Daniel Lezcano" <daniel.lezcano@linaro.org> wrote:
+>>> Oh right, sorry. Should it go to stable also ? Is there a Fixes tag it can apply ?
+>>>
+>> Personally I don't think it needs to go to stable, because I don't see any functional failures caused by this invalid register access.
+> 
+> Hi Daniel,
+> 
+> Not sure if I missed any emails from you, but looks like the patch is not included in your tree? Are we planning to include the patch in 4.21 merge window?
+
+Yes, I have it in the tree. I updated the next branch.
+
+Thanks
+
+  -- Daniel
+
+
+-- 
+ <http://www.linaro.org/> Linaro.org │ Open source software for ARM SoCs
+
+Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
+<http://twitter.com/#!/linaroorg> Twitter |
+<http://www.linaro.org/linaro-blog/> Blog
