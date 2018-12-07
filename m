@@ -1,50 +1,131 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43BQN62LvhzDvHQ
- for <openbmc@lists.ozlabs.org>; Sat,  8 Dec 2018 08:19:50 +1100 (AEDT)
+Return-Path: <prvs=5879b2424d=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="Keqduboa"; 
- dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=5879b2424d=taoren@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="Ja3peewy"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="a+WqVVre"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 43BQN523nwz9s3C;
- Sat,  8 Dec 2018 08:19:48 +1100 (AEDT)
-Authentication-Results: ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1544217589; bh=aMYj4ugeF60xybIYAQPITdQ+XVJAI0OJRxH3MHxGI5w=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=KeqduboaMyREUh0dDJfnkE9AajsBSL+p8tEcX0nW8h8rQ+rRl7Hant4AZvCChhY+N
- EwRJxVvDTIUude+MC+K7pLQD3Vmy2kE+vqHMXHs3bbwhw2gKGZoRQbj4FD4SAer+8X
- lesFpze1nESXKbp9DDe3MyEXCLOSiqwo6RKdIKJ3DJuGCznG8kOtNun4HnaWZO+BSh
- Kmjw3+ho6sxUBkhUmFPvXcbGVg0qZj+qgH6sIyWD8h6kDZMnDrtAUGwzBW6BEMu0Bs
- 4+pVJuQgR4U9p550/9oqwjtXSoW/8qWIGnnREr/W/Q0ZJKD2r1B/wt2wH9DrXeWPCW
- NE5lZFwIjF5Bw==
-Subject: Re: Initial MCTP design proposal
-To: Emily Shaffer <emilyshaffer@google.com>,
- Supreeth Venkatesh <supreeth.venkatesh@arm.com>
-Cc: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>,
- openbmc <openbmc@lists.ozlabs.org>, David Thompson <dthompson@mellanox.com>,
- Dong Wei <Dong.Wei@arm.com>, "Naidoo, Nilan" <nilan.naidoo@intel.com>
-References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
- <94639b69-3f3c-a606-ae68-f7e1461097e9@linux.vnet.ibm.com>
- <f8fe02f703ab7c11bf5871605364821688266667.camel@arm.com>
- <CAJoAoZkPO+dU9VpzCm3C0y1aEFUS_MXBQsTaD_t=gNZN0JHg6A@mail.gmail.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <6aab6690-5318-28f4-ca77-798f58971277@ozlabs.org>
-Date: Sat, 8 Dec 2018 05:19:48 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
-MIME-Version: 1.0
-In-Reply-To: <CAJoAoZkPO+dU9VpzCm3C0y1aEFUS_MXBQsTaD_t=gNZN0JHg6A@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43BQRn3kPxzDvHQ;
+ Sat,  8 Dec 2018 08:22:59 +1100 (AEDT)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ wB7KxpfM008203; Fri, 7 Dec 2018 13:22:45 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=qlgCOQjetaa7TmL1kRJpTqSSwq5WhOzfOpA8tLR0Nck=;
+ b=Ja3peewyiwWDRP0cKTRFGHsvWmosIk6fNK2DA5dhncQN0WNszeL6CeQjLYMYW70s/PGc
+ U5WeSBfMB8SiUmHtsViFPYHYJJgtkV4mPCoCDpel3aysO3litHmkr25zStCm9uP4zqte
+ yM5iVSjgC/+AcX451VMdv2akMdRQdrXQZYo= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2p7xpngd15-13
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Fri, 07 Dec 2018 13:22:45 -0800
+Received: from frc-mbx05.TheFacebook.com (2620:10d:c0a1:f82::29) by
+ frc-hub06.TheFacebook.com (2620:10d:c021:18::176) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Fri, 7 Dec 2018 13:22:18 -0800
+Received: from frc-hub03.TheFacebook.com (2620:10d:c021:18::173) by
+ frc-mbx05.TheFacebook.com (2620:10d:c0a1:f82::29) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Fri, 7 Dec 2018 13:22:17 -0800
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.73) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Fri, 7 Dec 2018 13:22:17 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qlgCOQjetaa7TmL1kRJpTqSSwq5WhOzfOpA8tLR0Nck=;
+ b=a+WqVVreX3+uHbDr2RPHf6GAFrZPoQxPaNoZmuVLwvOgQqdNDwiEdIWyAH2sGytGzPjQ/gEeFRA8ZsW5QKiLdoSe60+ujXHU4focwnhYkmIkfpANxBQb8sMDyyvfzdJxcHB+voJkPA7glzF27m23RSbcqZkOe4rBJ8ehYGrvMm8=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1680.namprd15.prod.outlook.com (10.175.141.150) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1404.22; Fri, 7 Dec 2018 21:22:16 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::e41d:eb0b:4f66:3d71]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::e41d:eb0b:4f66:3d71%10]) with mapi id 15.20.1404.021; Fri, 7 Dec 2018
+ 21:22:16 +0000
+From: Tao Ren <taoren@fb.com>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, Thomas Gleixner
+ <tglx@linutronix.de>
+CC: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, Yu Lei
+ <mine260309@gmail.com>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linus Walleij <linus.walleij@linaro.org>
+Subject: Re: [PATCH v2] clocksource/drivers/fttmr010: fix invalid interrupt
+ register access
+Thread-Topic: [PATCH v2] clocksource/drivers/fttmr010: fix invalid interrupt
+ register access
+Thread-Index: AQHUW2On9LNQ+pmvkkW+1bSF6wxqO6UUS5aAgCzmeQCAAIgDgP//fJCAgDEge4CAAOhYgIAAUy8A
+Date: Fri, 7 Dec 2018 21:22:15 +0000
+Message-ID: <B46CD44C-2A40-4074-BA89-E34ECF95CE36@fb.com>
+References: <20181003215350.3550926-1-taoren@fb.com>
+ <CACRpkdbbUO9_VOtnZL+Xf_0nTTgSruaaPOLnvZ4M+NQfPLzvWQ@mail.gmail.com>
+ <BC1ADE3F-F31F-4E1E-A6EE-3BD83C5F2634@fb.com>
+ <279e6a06-3f2f-e736-f28e-4d099729a517@linaro.org>
+ <7284BEA6-FAE9-4293-94E0-FC29304AA36D@fb.com>
+ <48A12A26-5AF0-483C-85D4-428F00038D7A@fb.com>
+ <47d85e8e-bf01-11a7-9c02-6d934d911178@linaro.org>
+In-Reply-To: <47d85e8e-bf01-11a7-9c02-6d934d911178@linaro.org>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/10.10.0.180812
+x-originating-ip: [2620:10d:c090:200::6:8266]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1680;
+ 20:pIr/Dbjb01JGvkWiSpdaOTloHlGaHazGsSykOxCsMex8IJyNmTuLXDjo/PYHvqOo6JsAg8xIom3EIKZc/x0SLshMMnAXUZDUpGeFtcRXWAPdCUQg6ZU1ArZp62ZJb1zd0H8EO7ZfM3Xg8aUQl6MDNb4io+HnD0pZpIisqL8WYCU=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 7a7e3cf0-f25e-489d-068c-08d65c8a0fd8
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390098)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1680; 
+x-ms-traffictypediagnostic: MWHPR15MB1680:
+x-microsoft-antispam-prvs: <MWHPR15MB16805318493E9F391C84CCB2B2AA0@MWHPR15MB1680.namprd15.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(93006095)(93001095)(3002001)(3231455)(999002)(11241501185)(944501520)(52105112)(148016)(149066)(150057)(6041310)(20161123558120)(20161123564045)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(201708071742011)(7699051)(76991095);
+ SRVR:MWHPR15MB1680; BCL:0; PCL:0; RULEID:; SRVR:MWHPR15MB1680; 
+x-forefront-prvs: 0879599414
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(39860400002)(396003)(376002)(136003)(366004)(346002)(199004)(189003)(446003)(11346002)(2616005)(476003)(14454004)(25786009)(4326008)(486006)(8676002)(58126008)(82746002)(6436002)(316002)(110136005)(53546011)(102836004)(53936002)(6506007)(186003)(39060400002)(6512007)(93886005)(33656002)(46003)(6246003)(99286004)(229853002)(8936002)(478600001)(6486002)(54906003)(36756003)(81166006)(81156014)(76176011)(83716004)(345774005)(71200400001)(71190400001)(68736007)(86362001)(305945005)(97736004)(14444005)(256004)(7736002)(2906002)(6116002)(106356001)(105586002)(5660300001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1680;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-microsoft-antispam-message-info: G18cbaCZYKUZES0tqlcvA0tG6om5A1ZEJBWbUGfKLcDhEmorHkvHHTdTvfuCmKASD0Suv7NxGfRHl2voBDD1R1Uoi1u5sIMNExZ5bHtoH2MOBalOq77x8Ams1ww18vOMvphs4sDcVDuQ13lC1gfykx/Z9oFfo7JV2vIZXHhJf3CPdd2EDUH21ibSP9dg+bnaqXrjvZMrncgbpcS0UPq0QrONQUUuAjxdSHInyM1ZlMf4DV3gfLtmAn1Qy9BUl9kEoRNj2yOXKmFp0gNWzRRbrKI0qDls9WpxQTjmniidjHGB2PxK2z7kUAGfIVd9rGWP9dXaoZ/Zp/pl8OgPtFh2U8/mdTCRcLuvzQ+l1lFkEXE=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <291826BA32E2E04B8B80222DBB858EB4@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a7e3cf0-f25e-489d-068c-08d65c8a0fd8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Dec 2018 21:22:15.8860 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1680
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-12-07_06:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,52 +137,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Dec 2018 21:19:51 -0000
+X-List-Received-Date: Fri, 07 Dec 2018 21:23:02 -0000
 
-Hi Emily,
-
-> I had a couple comments on the initial draft.
-
-Super, thanks for taking a look.
-
->      > > A final important point is that this design is for the host <-->
->      > > BMC
->      > > channel *only*. Even if we do replace IPMI for the host interface,
->      > > we
->      > > will certainly need an IPMI interface available for external system
->      > > management.
-> 
-> 
-> I'm not sure it's correct to demand external IPMI. Most of OpenBMC 
-> community (ourselves excluded :( ) is turning towards Redfish for this 
-> role.  The external-facing IPMI specification is insecure at the 
-> standard level, so I don't think that we should be encouraging or 
-> requiring it anywhere, even in an unrelated doc.
-> tl;dr I think you should be more generic here and not specify IPMI for 
-> external mgmt
-
-OK. I didn't intend to introduce any requirement on IPMI there, even 
-implied, so I'll reword.
-
-However, I think there is still a lot of external dependence on an IPMI 
-interface - it'll be a while before everyone rewrites all of those 
-custom IPMI-based in-house provisioning systems that are out there.
-
-> Love the idea of the implementation being bidirectional and able to be 
-> dropped onto the host side as well, but I must be missing why that 
-> requires we write it in C.  Are we targeting some platform missing a C++ 
-> cross-compiler implementation? If we're implementing something new from 
-> scratch, I'd so much prefer to bump up the maintainability/modernity and 
-> write it in C++ if we can.  Or could be I'm missing some key reason that 
-> it follows we use C :)
-
-We (and others) have host firmware written in C.
-
-We can always link C to C++, but not the other way around, and it'd be 
-fairly straightforward to implement a C++ wrapper for this, which could 
-even live in-tree.
-
-Cheers,
-
-
-Jeremy
+T24gMTIvNi8xOCwgMTE6MDQgUE0sICJEYW5pZWwgTGV6Y2FubyIgPGRhbmllbC5sZXpjYW5vQGxp
+bmFyby5vcmc+IHdyb3RlOg0KPg0KPiBPbiAwNy8xMi8yMDE4IDAyOjEzLCBUYW8gUmVuIHdyb3Rl
+Og0KPj4gTm90IHN1cmUgaWYgSSBtaXNzZWQgYW55IGVtYWlscyBmcm9tIHlvdSwgYnV0IGxvb2tz
+IGxpa2UgdGhlIHBhdGNoIGlzIG5vdCBpbmNsdWRlZCBpbiB5b3VyIHRyZWU/IEFyZSB3ZSBwbGFu
+bmluZyB0byBpbmNsdWRlIHRoZSBwYXRjaCBpbiA0LjIxIG1lcmdlIHdpbmRvdz8NCj4NCj4gWWVz
+LCBJIGhhdmUgaXQgaW4gdGhlIHRyZWUuIEkgdXBkYXRlZCB0aGUgbmV4dCBicmFuY2guDQoNCkdv
+dCBpdC4gVGhhbmsgeW91IGZvciB0aGUgY29uZmlybWF0aW9uLCBEYW5pZWwuDQoNClRoYW5rcywN
+ClRhbyBSZW4NCg0K
